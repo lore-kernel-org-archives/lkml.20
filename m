@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748434;
-	b=GGz9cNDqQABkpDyiiblJLK9ZH9BN6F8KVHn0H2DONcBUrvXbX05EEMzqnl9QT5atGDZw
-	 kpmCYyrRKKz9FZHCqXrMjXPaKx628qJTbPIN5oISGusJp7hs4/pSiP7WA5p0AX0ehzksc
-	 EZ9+k6KN624yH7m08eDm8Oj4GCCqu3mW8bISbLYYax4VIXQHkUep/HluIWQZ5pCXpvZRq
-	 +X+cqcvedi3ihTRJw/7bnsQSP/xKIYDlcOt29CXtWTHBuT0wffTtiIAD1qj9SA0iSmCdN
-	 ZnOyKNrJXEvf2aALTc6De8PC5fo8K3lUD9Ze5A5onx7GEWzJnNQ42o2pZgNglH7Xc7A==
+	t=1792748449;
+	b=WcGTWVcD381G0O2Rlocrwkp3mwiw+MmNXSlXAROX2suQ6hXwKt8vHpAYvbAJPZ/pBIOU
+	 TyXw8rR8VUkuNQQUdezPZBBq3kha/Yr05l3HZLEDlroasHOaEbBYcSNbZgOzu8piFVcpl
+	 1cNCdCbfuSNxlXMIdeGKRSD8WFhT4atpqqbXsZk/CiBIBVkmz+F7qXbVj9Bbd9qxUXYNT
+	 WMDHUVImIPOOu6Fb3vWGUc9LSZi3bBYRtGgt0C/rEbxE8nQ6yX8KdPqqC1MN9dS1QgxKw
+	 TaNH79cQWDAaAUoEAEvZaX8fDmAdnz2BTtrHI+8NwgsfoGBhclvDdPOxc1xCIG2pkHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748434;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=08vKktyOooZlbxT0oTsuP5OqZCX7BjmTHlFScp42WJs=;
-	b=fLF0LvmtNwv1Ch5s3UT25S8B3lZGR7jlOrqu44sXWZsj3VGcmlRt+N3wWNkEtZwt1SQn
-	 Ij9dQcemMiahFmCEauadQpzEgxvnGjY5eGXtUTrhSQbxRjD/vn0PcmKD6LwHbCgHluVff
-	 T+i4CjQblGiRsW6Yd7juOm5XNv1r06DYiqnJECTmW82cJ6C33iNeERNeF9NuXT8AYFlnB
-	 ktUJg43al+YdD8OqJoJhwK00FQzGPxD+pyt9mGfglJkrPQj2NzVgpI1bYvNG3neC3CIjR
-	 jsDcMzl0hCcuO6s937TUeC4cMXnb0qy7gOfqy0s4DpwsumUo1mapNaWWuzrNsdXtgWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748449;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer;
+	bh=uquWcNQkXiniRBpFeipMHVKjDSQOfoDEc/iXj86smJU=;
+	b=BQSjroBkznFXQIOOqO4zHk2M8dTutdCK2y0AZlOsnsrnhhyOfhIOmY6bVE1FWwPp9QIu
+	 RlrnWLH34srs+LkaehXAFKadqObc2YOS35EzKBXCNXnquHjB26e7p31kOnwHGrdPkY6Wf
+	 mnOpk2VDJL3CLr/Skb6Ykhp1heQIxgBuQU4oiiGvfiwV/a905RzeE9bm7Vs6V1QTYjIM8
+	 PT8d+n3XA9b4b41BEbqCNncj0eUcD6ksaLkpAk511vfSqh90jBD7ACQeLD2eVnIPqOhD7
+	 CVO21QQ10ze8OdkOBoEGenItpzErIu+1bvQGxI8l5J/m2I6LXzSVqmzXh/noaoPVvjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JT5Ta8Rq;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tVJ1MFFh;
+	arc=none smtp.remote-ip=95.215.58.53
+Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2B5606A31A;
-	Fri, 23 Oct 2026 09:40:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2B5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3851606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:40:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3851606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JT5Ta8Rq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=08vKktyOooZlbxT0oTsuP5OqZCX7BjmTHlFScp42WJs=; b=J
-	T5Ta8Rqp+QbQKMyJpNDbbBVjhuIEEPldNup3l6V1cd2EB7+WotOWc4G79MfXHJdS
-	6l1HiEnW0j9FO2aJKhh5dr7Uwpljgz13bfvOa7zbsM3PCYVaUV63aR7hY//okMlK
-	XlibSUYLi9OHjuY78O+QWp6494P4MhGk8qxdJdiLc0=
-Date: Fri, 23 Oct 2026 17:40:23 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Jassi Brar" <jassisinghbrar@gmail.com>
-Cc: "Sudeep Holla" <sudeep.holla@kernel.org>, linux-acpi@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tVJ1MFFh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kDwNEdz0JjqvowwQuAeWm+wDsipeAOrPZIoLUGlOzP0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792748447; v=1; x=1793353247;
+ b=tVJ1MFFhWEBmjuD7Rcs8ahC+j2o7q6XvZGxo1Zuh898wIPsf+yh5E3IMSfkgbhBKg6Ta0qmT
+ RPmMWEblXiNHErNCWUlMibaoUR+RUm0hXwJLnlqlh27Wsb472d1bdUb6u/+M5drHZSrGKysbMOF
+ Hv9+3PPWvI0XNpoHYsBrgNbY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 16891d252154ae9d;
+	Fri, 23 Oct 2026 09:40:47 +0000
+X-Mizu-Trace-ID: 16891d252154ae9d
+X-Migadu-Flow: FLOW_OUT
+From: Zqiang <qiang.zhang@linux.dev>
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	urezki@gmail.com,
+	boqun@kernel.org
+Cc: qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re:Re:Re: [PATCH] mailbox: pcc: validate PCCT subspaces before
- parsing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <35886acd.272d.1a1617ceb00.Coremail.19888972804@163.com>
-References: <20261016141530.2795073-1-yaojiale02@163.com>
- <CABb+yY0s=eHDyW-=5++9zetFid_oVGCQkhqSWBQs+ty4Bnb-EA@mail.gmail.com>
- <35886acd.272d.1a1617ceb00.Coremail.19888972804@163.com>
-X-NTES-SC: AL_Qu2SAPuft0wp5SSZY+kcn08ShO49XMOyvfoi2YFTc8wEpyXixB0NU1p7LEDowtydLAKTmQelYAN08clCeqVbYnoL1I8O2r+5Z51XpBNwFA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH] rcutorture: Make tasks-tracing support duplicate call testing
+Date: Fri, 23 Oct 2026 17:40:39 +0800
+Message-Id: <20261023094039.29696-1-qiang.zhang@linux.dev>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,73 +68,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <324e6ae9.8754.1a1682208ff.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:figvCgD3_2WHK9tqI3FfAA--.3092W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Ad9t2rbK4ee2QAA3n
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-QXQgMjAyNi0xMC0yMiAxMDo0MjoxOSwgImppYWxlIHlhbyIgPDE5ODg4OTcyODA0QDE2My5jb20+
-IHdyb3RlOgo+SGkgSmFzc2ksCj5BdCAyMDI2LTEwLTIyIDEwOjI2OjI3LCAiSmFzc2kgQnJhciIg
-PGphc3Npc2luZ2hicmFyQGdtYWlsLmNvbT4gd3JvdGU6Cj4+T24gRnJpLCBPY3QgMTYsIDIwMjYg
-YXQgOToxNeKAr0FNIEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPiB3cm90ZToKPj4+Cj4+
-PiBUaGUgUENDIG1haWxib3ggcHJvYmUgd2Fsa3MgUENDVCBlbnRyaWVzIGJ5IHRoZWlyIGRlY2xh
-cmVkIGxlbmd0aHMKPj4+IHdpdGhvdXQgY2hlY2tpbmcgdGhhdCBlYWNoIGVudHJ5IGlzIGNvbnRh
-aW5lZCBpbiB0aGUgdGFibGUuIEl0IGFsc28KPj4+IHBhc3NlcyBnZW5lcmljIGhlYWRlcnMgdG8g
-dHlwZS1zcGVjaWZpYyBwYXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRoZQo+Pj4gcmVxdWly
-ZWQgcmVjb3JkIHNpemUuIE1hbGZvcm1lZCBmaXJtd2FyZSBjYW4gdGhlcmVmb3JlIG1vdmUgdGhl
-IGN1cnNvcgo+Pj4gb3V0c2lkZSB0aGUgUENDVCBvciBjYXVzZSBvdXQtb2YtYm91bmRzIGZpZWxk
-IHJlYWRzLgo+Pj4KPj4+IFZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGVhY2ggc3Vic3BhY2Ug
-cmFuZ2UsIGFuZCB0aGUgbWluaW11bSBzaXplIGZvcgo+Pj4gc3VwcG9ydGVkIHN1YnNwYWNlIHR5
-cGVzIGR1cmluZyBib3RoIHRoZSBjb3VudGluZyBhbmQgcHJvYmUgcGFzc2VzLgo+Pj4KPj4+IFNp
-Z25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+Pj4gLS0tCj4+PiAg
-ZHJpdmVycy9tYWlsYm94L3BjYy5jIHwgNTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrLQo+Pj4gIDEgZmlsZSBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9wY2MuYyBiL2Ry
-aXZlcnMvbWFpbGJveC9wY2MuYwo+Pj4gaW5kZXggOTg4OGRhYjY0NjM5Li4zN2IyZGRiNDRiZGEg
-MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL21haWxib3gvcGNjLmMKPj4+ICsrKyBiL2RyaXZlcnMv
-bWFpbGJveC9wY2MuYwo+Pj4gQEAgLTU1Myw2ICs1NTMsNDIgQEAgc3RhdGljIGNvbnN0IHN0cnVj
-dCBtYm94X2NoYW5fb3BzIHBjY19jaGFuX29wcyA9IHsKPj4+ICAgICAgICAgLmxhc3RfdHhfZG9u
-ZSA9IHBjY19sYXN0X3R4X2RvbmUsCj4+PiAgfTsKPj4+Cj4+PiArc3RhdGljIGJvb2wgcGNjX3N1
-YnNwYWNlX2lzX3ZhbGlkKHN0cnVjdCBhY3BpX3N1YnRhYmxlX2hlYWRlciAqZW50cnksCj4+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBlbmQpCj4+PiAr
-ewo+Pj4gKyAgICAgICB1bnNpZ25lZCBsb25nIHN0YXJ0ID0gKHVuc2lnbmVkIGxvbmcpZW50cnk7
-Cj4+PiArICAgICAgIHNpemVfdCBsZW5ndGgsIG1pbl9sZW5ndGg7Cj4+PiArCj4+PiArICAgICAg
-IGlmIChzdGFydCA+PSBlbmQgfHwgZW5kIC0gc3RhcnQgPCBzaXplb2YoKmVudHJ5KSkKPj4+ICsg
-ICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7Cj4+Cj4+KGVuZCAtIHN0YXJ0IDwgc2l6ZW9mKCpl
-bnRyeSkpIGlzIGltcGxpZWQgYnkgdGhlIHR3byBsZW5ndGggIGNoZWNrcwo+PmJlbG93LCBzbyBv
-bmx5ICJzdGFydCA+PSBlbmQiIGlzIG5lZWRlZCBoZXJlLgo+Pgo+Pj4gKyAgICAgICBsZW5ndGgg
-PSBlbnRyeS0+bGVuZ3RoOwo+Pj4gKyAgICAgICBpZiAobGVuZ3RoIDwgc2l6ZW9mKCplbnRyeSkg
-fHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+PiArICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNl
-Owo+Pj4gKwo+Pj4gKyAgICAgICBzd2l0Y2ggKGVudHJ5LT50eXBlKSB7Cj4+PiArICAgICAgIGNh
-c2UgQUNQSV9QQ0NUX1RZUEVfR0VORVJJQ19TVUJTUEFDRToKPj4+ICsgICAgICAgICAgICAgICBt
-aW5fbGVuZ3RoID0gc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3Rfc3Vic3BhY2UpOwo+Pj4gKyAgICAg
-ICAgICAgICAgIGJyZWFrOwo+Pj4gKyAgICAgICBjYXNlIEFDUElfUENDVF9UWVBFX0hXX1JFRFVD
-RURfU1VCU1BBQ0U6Cj4+PiArICAgICAgICAgICAgICAgbWluX2xlbmd0aCA9IHNpemVvZihzdHJ1
-Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpOwo+Pj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4g
-KyAgICAgICBjYXNlIEFDUElfUENDVF9UWVBFX0hXX1JFRFVDRURfU1VCU1BBQ0VfVFlQRTI6Cj4+
-PiArICAgICAgICAgICAgICAgbWluX2xlbmd0aCA9IHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3
-X3JlZHVjZWRfdHlwZTIpOwo+Pj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4gKyAgICAgICBj
-YXNlIEFDUElfUENDVF9UWVBFX0VYVF9QQ0NfTUFTVEVSX1NVQlNQQUNFOgo+Pj4gKyAgICAgICAg
-ICAgICAgIG1pbl9sZW5ndGggPSBzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9leHRfcGNjX21hc3Rl
-cik7Cj4+PiArICAgICAgICAgICAgICAgYnJlYWs7Cj4+PiArICAgICAgIGNhc2UgQUNQSV9QQ0NU
-X1RZUEVfRVhUX1BDQ19TTEFWRV9TVUJTUEFDRToKPj4+ICsgICAgICAgICAgICAgICBtaW5fbGVu
-Z3RoID0gc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSk7Cj4+PiArICAgICAg
-ICAgICAgICAgYnJlYWs7Cj4+PiArICAgICAgIGRlZmF1bHQ6Cj4+PiArICAgICAgICAgICAgICAg
-cmV0dXJuIGZhbHNlOwo+Pj4gKyAgICAgICB9Cj4+PiArCj4+PiArICAgICAgIHJldHVybiBsZW5n
-dGggPj0gbWluX2xlbmd0aDsKPj4KPj5Ib3cgYWJvdXQgc29tZXRoaW5nIGxpa2UKPj4KPj5zdGF0
-aWMgY29uc3QgdTE2IHBjY19zdWJzcGFjZV9taW5fbGVuW0FDUElfUENDVF9UWVBFX1JFU0VSVkVE
-XSA9IHsKPj4gICAgW0FDUElfUENDVF9UWVBFX0dFTkVSSUNfU1VCU1BBQ0VdID0KPj4gICAgc2l6
-ZW9mKHN0cnVjdCBhY3BpX3BjY3Rfc3Vic3BhY2UpLAo+PiAgICBbQUNQSV9QQ0NUX1RZUEVfSFdf
-UkVEVUNFRF9TVUJTUEFDRV0gPQo+PiAgICBzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9od19yZWR1
-Y2VkKSwKPj4gICAgW0FDUElfUENDVF9UWVBFX0hXX1JFRFVDRURfU1VCU1BBQ0VfVFlQRTJdID0K
-Pj4gICAgc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfaHdfcmVkdWNlZF90eXBlMiksCj4+ICAgIFtB
-Q1BJX1BDQ1RfVFlQRV9FWFRfUENDX01BU1RFUl9TVUJTUEFDRV0gPQo+PiAgICBzaXplb2Yoc3Ry
-dWN0IGFjcGlfcGNjdF9leHRfcGNjX21hc3RlciksCj4+ICAgIFtBQ1BJX1BDQ1RfVFlQRV9FWFRf
-UENDX1NMQVZFX1NVQlNQQUNFXSA9Cj4+ICAgIHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2V4dF9w
-Y2Nfc2xhdmUpLAo+Pn07Cj4KPlNvdW5kcyBncmVhdCwgSSB3aWxsIHN1Ym1pdCB2Mi4KCnYyIGlz
-IGluLCBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMjMwOTM4MzkuNzE1MDM3LTEt
-eWFvamlhbGUwMkAxNjMuY29tLwoKPgo+VGhhbmtzIGZvciB5b3VyIHJldmlldy4KPgo+Pgo+PnJl
-dHVybiBlbnRyeS0+bGVuZ3RoID49IHBjY19zdWJzcGFjZV9taW5fbGVuW2VudHJ5LT50eXBlXTsK
-Pj4KPj5DaGVlcnMKPj5KYXNzaQo=
+Currently, Tasks-tracing has been reimplemented by SRCU-fast, it supports
+the detection of duplicate calls with CONFIG_DEBUG_OBJECTS_RCU_HEAD=y.
+This commit therefore set tasks_tracing_ops.debug_objects to 1, enabling
+rcutorture's duplicate-call test for the tasks-tracing flavor.
+
+Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+---
+
+Simple output from rcutorture:
+
+[    4.120772][    T1] call_srcu(): Leaked duplicate callback
+[    4.120776][    T1] WARNING: kernel/rcu/srcutree.c:1516 at __call_srcu+0x463/0x580, CPU#7: swapper/0/1
+[    4.122665][    T1] Modules linked in:
+[    4.123026][    T1] CPU: 7 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W           7.3.0-rc1+ #110 PREEMPT(full)  8fac67ca5e4b530c23977b2e660a83979ea107db
+[    4.124328][    T1] Tainted: [W]=WARN
+[    4.124687][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1ubuntu1 04/01/2014
+[    4.125583][    T1] RIP: 0010:__call_srcu+0x463/0x580
+[    4.126056][    T1] Code: 00 00 5b 41 5c 41 5d 41 5e 41 5f 5d e9 16 99 9f 03 80 3c 02 00 0f 85 e8 00 00 00 49 c7 46 08 70 cf 4e b4 48 8d 3d ad da d5 06 <67> 48 0f b9 3a eb a6 48 8d 3d af da d5 06 67 48 0f b9 3a eb 98 0f
+[    4.127823][    T1] RSP: 0000:ffff888100e87a78 EFLAGS: 00010246
+[    4.128389][    T1] RAX: dffffc0000000000 RBX: 1ffff110201d0f54 RCX: 0000000000000001
+[    4.129111][    T1] RDX: 1ffff110201d0f8f RSI: ffffffffb8ae6d60 RDI: ffffffffbb255590
+[    4.129842][    T1] RBP: ffff888100e87b28 R08: ffff888100e87c70 R09: ffffffffb818a820
+[    4.130572][    T1] R10: fffffbfff76449ac R11: ffffffffbb224d67 R12: 0000000000000001
+[    4.131296][    T1] R13: 00000000ffffffea R14: ffff888100e87c70 R15: ffffffffba4c4220
+[    4.132061][    T1] FS:  0000000000000000(0000) GS:ffff888239af2000(0000) knlGS:0000000000000000
+[    4.132903][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.133536][    T1] CR2: 0000000000000000 CR3: 000000008a8ea000 CR4: 00000000000026f0
+[    4.134283][    T1] Call Trace:
+[    4.134607][    T1]  <TASK>
+[    4.134898][    T1]  ? __pfx_rcu_torture_err_cb+0x10/0x10
+[    4.135425][    T1]  ? __pfx___call_srcu+0x10/0x10
+[    4.135870][    T1]  ? __pfx__printk+0x10/0x10
+[    4.136301][    T1]  call_srcu+0x17/0x20
+[    4.136685][    T1]  call_rcu_tasks_trace+0x1a/0x20
+[    4.137143][    T1]  rcu_torture_init+0x3033/0x3800
+[    4.137617][    T1]  ? __kvm_handle_async_pf+0x21/0xb0
+[    4.138094][    T1]  ? __pfx_native_sched_clock+0x1/0x10
+[    4.138608][    T1]  ? __pfx_rcu_torture_init+0x10/0x10
+[    4.139109][    T1]  ? add_device_randomness+0xcb/0x110
+[    4.139637][    T1]  ? __this_cpu_preempt_check+0x17/0x20
+[    4.140160][    T1]  ? lockdep_hardirqs_on+0xde/0x160
+[    4.140653][    T1]  ? _raw_spin_unlock_irqrestore+0x6e/0x80
+[    4.141211][    T1]  ? _raw_spin_unlock_irqrestore+0x53/0x80
+[    4.141772][    T1]  ? __pfx_rcu_torture_leak_cb+0x10/0x10
+[    4.142291][    T1]  ? add_device_randomness+0xcb/0x110
+[    4.142828][    T1]  ? __pfx_add_device_randomness+0x10/0x10
+[    4.143397][    T1]  ? __pfx_srcu_leak_callback+0x10/0x10
+[    4.143937][    T1]  ? __pfx_rcu_torture_init+0x10/0x10
+[    4.144440][    T1]  do_one_initcall+0xd9/0x620
+[    4.144878][    T1]  ? __pfx_do_one_initcall+0x10/0x10
+[    4.145390][    T1]  ? __kasan_kmalloc+0x86/0xa0
+[    4.145963][    T1]  ? __kmalloc_noprof+0x2c9/0x610
+[    4.146576][    T1]  kernel_init_freeable+0xb00/0x11a0
+[    4.147214][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.147804][    T1]  kernel_init+0x28/0x170
+[    4.148308][    T1]  ret_from_fork+0x7be/0xaf0
+[    4.148880][    T1]  ? __pfx_ret_from_fork+0x10/0x10
+[    4.149512][    T1]  ? __kasan_check_read+0x15/0x20
+[    4.150111][    T1]  ? __switch_to+0x1b0/0xeb0
+[    4.150778][    T1]  ? __switch_to_asm+0x39/0x70
+[    4.151324][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.151910][    T1]  ret_from_fork_asm+0x1a/0x30
+ 
+ kernel/rcu/rcutorture.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+index 1bbf8192786a..c0c8fbdb5508 100644
+--- a/kernel/rcu/rcutorture.c
++++ b/kernel/rcu/rcutorture.c
+@@ -1313,6 +1313,7 @@ static struct rcu_torture_ops tasks_tracing_ops = {
+ 	.irq_capable	= 1,
+ 	.slow_gps	= 1,
+ 	.nmi_capable	= 1,
++	.debug_objects	= 1,
+ 	.name		= "tasks-tracing"
+ };
+ 
+-- 
+2.17.1
+
