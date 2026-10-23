@@ -1,115 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792715778;
-	b=urJA+RJTwB32hf8b/sr7VEirqYoaPnxBgtfwo8w0v/pbNUZDyQybddMSyzoxcqMIU06E
-	 99pbTJoZrNjzycu4xKPzj6WG3rWJIghcgjRDalzEqdC4Q28BlbYlIHZfStFuwrFxAuiRd
-	 hWmUIUWiDweWS+RWFrRsaTDETSOZz0KKCh6+1hE+LBzlkZ8O/PMt8QoiaJhpLJtVmLqG/
-	 MRyEzHl7DmB+/yrfmKI4g+U9ckuhp4iXfmt5Mcw0lNKAUH2zdezSOBVM8775DpE9z1GXL
-	 AoClKZDSD5X+D+HjMRucDxe5bxHqNHL4Hl8SHr+iG+BB3ToUFUP7rqJ+rB8LTcIFJGQ==
+	t=1792715831;
+	b=PgjkrVT3Q69Q1+SD6Ny3cbIPa3heCe1n4OYlLfHbRDyu/GsecuwPT2Afn7aGGIQnrwZz
+	 KTO7fLvoJyVIhtoUcDzM47Lu44UKjMVPx9eMRb2dH00M/mmFYDIB62F+M6vLNqFxMeGtO
+	 kfOoEcEVFFThNsXLq95ZmVOBuz9yKQZsaXns5pLBWsSFUEu91/+5Lviiav1PQzk5FA9eh
+	 fKZVLV3wdmGtQ/r6DkmxK/mm8pkWGAelOpWjSXGP6wUeVu2ILIDBdBp2G5m0RmjPGwjrI
+	 y2t6nh8aS9uMYXSiOamfF05ZEW38TGCXE5e9j5WbrwWrndM6eVxc1z4jf0znD2uNYyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792715778;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715831;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Jp5mdh9VzMPCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=;
-	b=eoxXRRQpQhEdJcCWXMcmzjUyVYG0WJ1T0W7oVZMLxEvddzxyjWWtlUkXZA1afHXKrng9
-	 24ELYHPU8NrfYED+98E5YE0rPAiO6/gJtNyjUpy78jrcolhGwXKe/gPgekXTzz42Pi1r6
-	 WwcoYjkoPlqhVrBE811gkuR6P15naqT7CDsezt57xitku5+CmS23sHYkE1lpdWlNRbS8Z
-	 LWb3qm9maRupTj9e81V3fBnc/cEehwPGaJsQVOJXQK0jIu+g2v9CLWG8xrjGgUr1OxQ1c
-	 DOmc76nv47gf9cTrWueOA4XVMr5aNVHJePCsqneKHIuND9J28sMha3KxnSFTFvcR//Q==
+	bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
+	b=Qz0YarpJDGU5nwk8Xxjo/RN+noKUnKKC2xceTvzY8tJQ9K3lyMcQANxcY3aL3ZsA/ptG
+	 o1SOrq/nfe/Zzl/JlEB0PaFHIEuw5lzZAzypY7UMZQFn0nG6OWFf6t8SFrHysYe0pIJNM
+	 xKanBcS4aO1jr6eVtxJ6SgD/G1lOcPr1MfAAKHyEBfiZJXvi+mU6iYgkOh8Y9tIqt88ph
+	 qxKcWcQbb2SumqwzEeFqNNj80QRnVaQorukYV+Sagd7TRtVMEbXaO8khcEmGuOYvTOhY+
+	 SGZrihMqh+cAyGFxOZjDq2V6/YWdqxptvjYOAV0zSWhuvDw+ozqwicowWlxhXsj6H9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=invisiblethingslab.com;
-	spf=pass smtp.mailfrom=invisiblethingslab.com;
-	dkim=temperror header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eWoSYr5q;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qYHYQXQl;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rLxpBxVc;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE6B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:36:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE6B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E507606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E507606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eWoSYr5q;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qYHYQXQl
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 34874EC0114
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:36:16 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 22 Oct 2026 20:36:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1792715776; x=1792802176; bh=Jp5mdh9VzM
-	PCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=; b=eWoSYr5qX29LwIvho3zKn11Cow
-	7letmyTofY71krsR8OT3pJYX5yTUFXLJU/lmRWCPwhDMspUP4ch08Yn0GjxE9ksx
-	PyOngPENR/U2wgcjP/A2ivGJHzCNMDjGBarFDsBqQhoW55bPiJsrVJ64LlNQsdlw
-	wj3wlvXsedmH0tfD/JY6NCzdNV6Js4+X8LCHeomKzG/QNLVv9rO6ElN1AQBknlHr
-	0tFfCgVlDj+ZrdJusdrC+NOlY7tKemREz75bLBQ2z5XJlD3WyWkCsIKiHm4gIsm2
-	gDwNANcFw/ETw8C5kzlogLHirKrdJ8XFJl4VO4kLkXM6hMrIB8dCFlPAJSUQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792715776; x=
-	1792802176; bh=Jp5mdh9VzMPCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=; b=q
-	YHYQXQlPrRpKgiFfzC0abMv0NefVC/BZCthmfhRy5+5PuslTxQmxhQ1VTiBCrsn5
-	V2b6pefq/V31wCM4VgTmuzIM2MK+gEeADo6EWwepAjiT4xEobuFeHtW1dcEkKKbE
-	ZeNGeVvTuw+8dSEHqGwP7ii9xOKDHjZpbZmAqZKUYepNBdMMId7I2T7PJ9BBqqBw
-	Au29N4olgwlm6hfrsf2ITR0cDt6zu2lp964kHvHYssIWNmmoFNSoa0PJpvVb/jhT
-	r77Zpg//lbkWT73sdCYFin+BYfzYQS+arkvYwdoqF52eUmouQwhSqH4ehMzt/Bhv
-	CrsY6sTUN0d7jKY5/idWw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792715776; d=invisiblethingslab.com;
-	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:YMMfEP9+h5tOe0nKdFtvx4hGlFgNE+90w04dKq6Lc/8z+cQ
-	f1NEOxE9+nXKKGPl0PgdVa5q0S3XFLZScqOrngZOV9UUr4xXlBXVY0nTj2PwcbQa
-	9DCBYbl6iLWYx8h8HYcLStC9pGrPUbasi9jAN/TVi/euelekRR6q0JluYh7GTFJh
-	b/hk+vTbbw56NTyFvRF9XGno5+NQhadBW0HrlYc8pRFLOeWfWYUzOp/HD66Ek1+W
-	yHuYJUQVhzmvRcZOPKf2edjr3SNcINsXFj+dSc4sHNkMHicnP5xlnM7+po0FJWS+
-	nuPddMXc89g1b0MkdUaYNA/8ytlmkDNE7L+NrDA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=15;
-	hn=autocrypt,cc,content-language,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:K5XLcmA2adlmkrdMWiRBdzs/Pgs5Rf1o7ihP751Ftog=:qsc4PC1ughL3lDrwaL4s0jtV9KY9pylnf0Fjyzpak8Y=;
-X-ME-Sender: <xms:_6vaamYQKZ_lYiuZBOE87z4IR0Dme_RnqZk-XOuUugKc5V68o3XMZw>
-    <xme:_6vaaoeaqMliQXCIEd4jYzpGC3zYU6ooQvlbvqFlTNNgvxzd4dWItBMsFmW7NBB-U
-    t0UH5vUpbCTjik6isnbazg_z54ewc_u7GhFCx0bt8UOfWWmwSsZrA>
-X-ME-Received: <xmr:_6vaanLTn3FyvZf_c9P9ZPO2tPoYahiecQTCA6nB9TmLM6FNxaDHYsHCvcTjvzy3FkMnt1YsJ1kAAmdKLIH87zWo2aIvgk9naw>
-X-ME-Proxy-Cause: dmFkZTFRu798DO+VUgryXpScRSVTKDOSp2hirnxjU8Hcf1udFt7yEdLhyatJpT2zj58gRg
-    eRZGhA+gTb5eUsPISs8n8+GAqrDjH1k7wDYJEmamRDj3qcrOO5/9gsOgNvMJccvtg6VwBq
-    DEK2IzKzjLssd74CynsD6jcuk8BsksyugUageIswRb3CSLe8N9y4qs+e57iyGBG+QYPOoQ
-    G4uPIYj+V8tYo0L8ithtykbT9XdSnIicxLCanLp3juqgloGyKLAxGJBGGt5fA6j/9zfp/D
-    G6cK2iG7EgLzrAVF6wZhbBj5E84y/tUMTUDD8QbqGkIMioTFWDwUnBAfv0xePsRJKbwSIO
-    khpB6X0G23sV2KQagywUn3N/I5b28nsFnTpvpg1c9Wb0ugmrejCGLjrGqbE3xvYtnLpthx
-    +Tbtw1GxjLfcjo7WJ8Y5JMz7SoYqAWtW5meMT8yfcJ2+hFMzGQX9tQODLCBcCinJGuUtLF
-    uEgm17LkUPYdDpp4ZzIz7Qz5wM2sVeCMfwWnLmP+F+tyiBhI4g9VJ04evWPo2/FId++oJV
-    rGtQDk1Li7S3ONKi/5PfikqDnRaiAGbwL3HYvShIBZRy5qsU6/hPFfFjpMEUSFB0Yh8GiZ
-    5DD6foA4V49PPsfhnPIXva1K3gBpG/godvtmznB9XsMVTwFAZmp0kvBrSGXQ
-X-ME-Proxy: <xmx:_6vaalKRBjdt24sH07qZIJ9hOeRjepB10sZpGPDByqJbzB8MJIFLAA>
-    <xmx:_6vaamUaMpDwpzNwCo-LvwggtsBN25Q_1ogSUviqcNixmaauojffkg>
-    <xmx:_6vaaun43zSqM9GogBSLAukCtf3ojUIHtiYuMJ_MtzMVpjiTFmKx0A>
-    <xmx:_6vaasmhjcSAKVtO6XcA8Iy1AX6ckbFqAorSEx9GiY8298G_vb7A7Q>
-    <xmx:AKzaar5kkL-tAsIRQaMekWdy_cUxUrQ8HlCj3LhUXf5UfWaCm34LGKsk>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Oct 2026 20:36:14 -0400 (EDT)
-Message-ID: <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
-Date: Thu, 22 Oct 2026 21:36:11 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rLxpBxVc
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so287190a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792715830; x=1793320630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
+        b=rLxpBxVcixkK+51+Z4/1+3dhIWLpp9PBBGBj00fP7WbiAAe2ETfX2l0Bz/8aeFeEx/
+         S3Vrq4hMXRhjJVBtuRM8bIoZ/M3JNwa3WO/pNbe11Wr6a12npnwvjoD2nP9vc/Hqdeot
+         TVfiGIizeNDZ4DP2rQco9xxscDrbIr9vvBSmAKod9msHExoguY0a7TlKjgl+GWJqOJOg
+         dCbeyp6p8m9Tm9HWmSEkA9I6C+ilj0rTh2MTe2wLz2o9QFYGFKrniAPxzOizgE55g/mg
+         O3BLAceoecepk4jjEhRqz2t3Bu2PvAHCb9HwCG8ZJV0bkfbefe5shztJi6VygUxgFQuT
+         U1GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792715830; x=1793320630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
+        b=2pEd0ogqzyQOEN3+2dAIMXtvkWnTOv4N+B3mXQ9LI5vIwwMrwjYfx89+9e+ZE13vUx
+         hE/Cz7yJa0dHcSVzWdnHX6fVYjAofsHrF51PiDN2Aj6lgdOszN9BT8mndycVJ134PZUx
+         nDrIamYXO2pp5b1s/eMT+NzECxb4VvzYtIEQVxj888ZI7JiJxgSqhVaqfg4ekhFVoJwN
+         XaomxivyKr5LN41v6J2b8/njxmHwFOKqiQdqYSPRZifpdeMuSzyEsI/h5+SfA5f/pAjF
+         80Q2GVsJWo9Zw8xouGrLwKRD4Xv/XzxBk5G7ku0d3PV5QtVgozeIe1+nBK9I+NHMCVmQ
+         LxtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzX1xjz6CHX1RfMfnABEglVtj/LbQTu/33GlgU6t9pmWvXBGU/q/9BVezfDZFYdC/3EY7Eh329Q8RxPLLg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbDpQHsvY8IAC8bGYuYouvTXkNd1+2yu5fMqOaLr+nsF0Ie8TU
+	2SvPW7zs+iHaxxT+Db1m00HMZrCA2fC7l7Fujklftfv0NOyOD05K2nY7
+X-Gm-Gg: AYBFou1bkVSb5wM6iUVXlSjh5bgBdikIFAwFscG8hzG4ma1JYug3sf5VPmdqgeoUCI3
+	N8UD2xv7KQjj9i3XpufEVLItJQKG9XXLDHOgB5Lnmcqf6V8deQ5wvbBIIQbmKcTeUoV7vWocWX5
+	+JRG7CGxyvb9kIJu4XwyJ4UaKWkW/Zc6VISYC5gqpypDqnIKJJDPamF+R6soHKUVtixaQE+xvnc
+	BTx63TCtsxH7RjF5QBR4+Cznx682andoowpromjmEdFNUKsJNI2BpI0IIj6aOdShHPwqCeoHVkx
+	c8ZwTt39IbCsBEW4ymxcYS++hewbvliKRCota/dvt7KMDlL/tUxbb+Gnb0YA5JYAJpsPeZ4svZv
+	LTp9DemwRVaZQsun60KwpVZYqSLWzF/6nBYI3KMC0LwrUEsR9WRqlv8fr6Mezi4jKRZNsFpB54u
+	SIGWa++UBGyg5d+EqEvEzoXwxMW9k7Ru8ymT0nqVZwTDIue8mHbbJlvTACw3fLg6GSVMiPB8M99
+	Ceog+iorLEYqWqM1OtYGHDuH4a+CAmqLpjIh47U3/A6DPptQ675HchYPobNyPk5hudPvnGp/RhK
+	nc7gjJlOJT4MZ388h+ZYTYtZVfmQ5TMnHAjT/vMTtznU/8PAmxbsFyk9Am9d6Kqah0o=
+X-Received: by 2002:a17:90b:4b84:b0:3ab:884b:65b4 with SMTP id 98e67ed59e1d1-3adce154993mr460193a91.59.1792715829881;
+        Thu, 22 Oct 2026 17:37:09 -0700 (PDT)
+Received: from monk.wireless.sfu.ca (border-p1.nat.sfu.ca. [192.75.244.1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb0a28f3sm964360a91.3.2026.10.22.17.37.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 17:37:09 -0700 (PDT)
+From: ma.mandourr@gmail.com
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ma.mandourr@gmail.com
+Subject: [PATCH v2 0/3] KVM: nVMX: Don't clobber VM-Entry instruction length on soft INTn exits
+Date: Thu, 22 Oct 2026 17:37:00 -0700
+Message-ID: <20261023003703.450577-1-ma.mandourr@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,70 +96,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
- <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
-Content-Language: en-US
-From: Val Packett <val@invisiblethingslab.com>
-Autocrypt: addr=val@invisiblethingslab.com; keydata=
- xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
- jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
- NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
- OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
- Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
- pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
- nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
- dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
- d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
- aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
- /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
- UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Mahmoud Abumandour <ma.mandourr@gmail.com>
 
-On 10/22/26 9:26 AM, Christian König wrote:
-> On 10/21/26 22:16, Val Packett wrote:
->> On 10/21/26 10:43 AM, Christian König wrote:
->>> [..]
->>>> The buffer lifecycle coordination we need this for applies to KVM as well
->>>> and it generally doesn't make sense to have this as a provider-specific
->>>> thing since it's not related to the provider in any way, it's just
->>>> something we want from dmabufs in general.
->>> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>>
->>> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>>
->>> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
->> Well, we already need it with both udmabuf and gntdev-dmabuf..
->>
->> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
-> No, exactly that is what I'm trying to avoid.
->
-> Nobody except the original creater should be able to insert an eventfd here.
+KVM writes the length of a soft INTn that L2 was vectoring at the time of a
+nested VM-Exit into vmcs12's VM-Entrty instruction length instead of the VM-Exit
+instruction length.
 
-If there's no replacement allowed anymore, what could possibly be 
-harmful/undesirable about "someone else" being able to do this?
+Patch 1 did not exist in v1, but Sashiko pointed out that prepare_vmcs12()
+overwrites the VM-exit instruction length that vmcs12_save_pending_event() saves
+for soft events.
 
-With a "first caller only" policy, the original creator already can be 
-100% sure that no one else is able to insert an eventfd:
+The selftest patch was written with the help of an LLM (Claude Opus 5.5).
 
-If the original creator calls this API before sending the fd to anyone 
-else, well, the original creator *is* the first caller, that's it.
+v2:
+ - New Patch 1
+ - Same Patch 2 from v1 (with commit message changes)
+ - Patch 3 now extends nested_exceptions_test instead of adding a new test
+   (suggested by Sashiko).
 
-Otherwise, i.e. if the original creator is not interested in this API.. 
-it's unlikely a different process would use it, but if one does for some 
-reason, I don't see any negative consequences from that?
+v1: https://lore.kernel.org/all/20261021042603.608292-1-ma.mandourr@gmail.com
 
+Mahmoud Abumandour (3):
+  KVM: nVMX: Fill VM-Exit instruction length before saving pending event
+  KVM: nVMX: Don't clobber VM-Entry instruction length when saving soft
+    INTn
+  KVM: selftests: Verify nested VM-Exits while vectoring INT3 and INTn
 
+ arch/x86/kvm/vmx/nested.c                     |  6 ++-
+ .../kvm/x86/nested_exceptions_test.c          | 39 +++++++++++++++++++
+ 2 files changed, 43 insertions(+), 2 deletions(-)
 
-Thanks,
-~val
+-- 
+2.43.0
+
