@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766307;
-	b=IS60J3hxhwfvLLXmDJ06ZLSVxXMwituQqaeNDfuGA8aadKZeWeSpXkJEOO/yUz8Kq+RC
-	 lMmFk6gMWFeIk4jQ2j3oPCoCzTB15YFFUMy4hlRogWM8pBSfWy9fKBIaAj8GO5+xffeTF
-	 MKRpfLX+aInpr+x7Y85IwyHstZXkw/lKqo2a9WgYIemcxJkbJx6cMwPD4ytLMdaZ6Jc0g
-	 0rIKZ8X3r2nL6ro4quTMwovHhm5DVMvFrjS5bvGINbmN6WI1VC1ZpDst7qbsW/6Y3rvfX
-	 meVhOufVg4QnT53PbL1uf7TUCLHzIZQBS6UURwxEvUqEaBhXEOrfHvlma1f4rsT7lYQ==
+	t=1792766312;
+	b=RhtWfU/PgVseAor9ajrrJmBVtJB/ZU0YDjcIosTd3RBb5QRZfQi8vtwl0VJ/Tqgww/Nv
+	 S807mu18EIstUsHh+QdDRhJL9LYYy3yROG1gdHoIzLfRJpXYYg5B72DpRTeVY+43yaVFk
+	 g2mRHoLOsRXkNV4zd5aJo/+neDKRRy6jwUly4htt1AP39i/LhM+Vs9htidWL9OfSyGTAw
+	 mQLvPyE6hpAZIJ+JtXQZ6kDpRyfP6aNsp6VXl5xh06ikSnzWtQrDYzmB66resiDVkyK7Y
+	 AtkFFKMs43Xk2rOIvjRmvUvFjvLwRmFjIGd8ABGDU4SW8ardISJziAaNAh45Yrbeh8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766307;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=qU64bvFlp+ENXuE1rz63JwkjH8Ea2VGbEf6cWbzCF90=;
-	b=zD/WRi7CYBfyzdCcD4r0NIq1b6S2QQBwiQW0JTpFa+s4qgayBD1NgwgUpN+IQZ3ochLd
-	 N8pEt054hahmEpkbqmSsFxeOiWMITAALNRpvyb0OhM1kiQX0Dw2EnlUR1m3UMsS0HVvLY
-	 qhBWt/ct/gYOmLveRMz73kcLwQSBi8s+yGmyUmIncTEg47Dn5i4Oq4WK9QBKKU2VGb3lG
-	 DT+gRkXuswBo2rf4ifs8fUa4f/fySPJESRFcigC7XeJR7RWh5zY7o5XgEo0Tv010ztsf7
-	 VJxG0otwFwEkNsxAukeN1ryxEFQXdGt1ftco/Lcu7SEUW/XQRd3wVVbbru+01UcgyIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792766312;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kQ5Euxh4eWKfjmf+VxO2FAHxL5iuRQRr7X7DBc2dmGo=;
+	b=1KU0v7sE6hmgVW3PkGisBcYHY4UxcRlGUhxkhLGWd7lCkjiarP2pzdZ43AU0S2ach4zj
+	 BTfuOYey/GGLcVkoUcw+fmP34UJszaPVNlmRd989KttroAMnbGANqD9MGpYV4KeTYEtQX
+	 nIOqaLQHF2rDrEJuPQJsgd64SLamnTOqFyRe+pkXXmTnepTE4qDmj76JdzWK7xS6beKVa
+	 DNGG5m3XhcF/w/+XHTSK+T9ddrVOQ2COY33ErJYdga+f+kL7/PHEU5ODX6LmB9CKOWO69
+	 hM4Z8sK1jzoFzeDJ55+kuJU+m1hMCp1MQiBL8nHDJMYU7U2GHZ7sguRZqCRO1bDtRTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZpkLS9Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XEYf8jUv;
+	arc=none smtp.remote-ip=95.215.58.126
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5C3606A31A;
-	Fri, 23 Oct 2026 14:38:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0222606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0222606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZpkLS9Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7A81F01825;
-	Fri, 23 Oct 2026 14:38:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792766306;
-	bh=qU64bvFlp+ENXuE1rz63JwkjH8Ea2VGbEf6cWbzCF90=;
-	h=Date:From:To:Cc:Subject;
-	b=aZpkLS9QVI5IJoQph156wZqPepNqXWy6x1TiNFPkS8xyRf/VGTEdWL4jvCWJ5pWU8
-	 BiV0RIusu1IfY6thjQbq930BGVnFImLrtti0vaN/QQXJWsZINSq1gpt0sq2el6Sz8/
-	 nW0ysqP4J7ZczDJNZkqalcXkX6DYL39lTo2KfEQo3FYFQqd68u/XRXL26K5EukPeLa
-	 iisdvsyc62wUcuomvr2sX44WkxFVivp83fPbdL5rOxRZbqbokYrNUMJ0Cdyj6+riHo
-	 avRgHOPmllf6fgUqHINCuRpdadmLC/KaNrzZs9VkvIXH1YDSG8l6QEzYr2JdVAuoGw
-	 /2UaLQhKltlCQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 948DF1AC5994; Fri, 23 Oct 2026 15:38:24 +0100 (BST)
-Date: Fri, 23 Oct 2026 15:38:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Andrew Halaney <andrew@amutable.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>
-Subject: linux-next: manual merge of the jc_docs tree with the origin tree
-Message-ID: <attxYMtvBc5AMf9U@sirena.co.uk>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XEYf8jUv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j8gJ27Gf/j7LIMrLxBBttSWL/fhFYRGB6DAMZu/2NvQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792766310; v=1; x=1793371110;
+ b=XEYf8jUvihjYIth0B3rEfbTqeACKaf9xgWdXtxOFXULoPMQxl97s5FSvxMEkOUuWxSgLWhgP
+ 4bCLeioIL4HZj7Rdu8bEWlUWfQ7dBQmMyOKnuaon9/CXKB1xSOu45gFdNJ1gCpiqMBds3t3phkM
+ 3qPpdNoMmK1TcoZWnjSTWhnU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0b8dddf8b4a13adc;
+	Fri, 23 Oct 2026 14:38:29 +0000
+X-Mizu-Trace-ID: 0b8dddf8b4a13adc
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bda9e46d-9e70-495c-84e2-e887e707d70f@linux.dev>
+Date: Fri, 23 Oct 2026 22:38:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,64 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GSHtRsGao/p5OMjN"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in
+ ip_rt_send_redirect()
+To: Fernando Fernandez Mancera <fmancera@suse.de>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Joel Granados <joel.granados@kernel.org>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+ <20261023091419.167088-3-jiayuan.chen@linux.dev>
+ <5dda588d-e6fa-420d-a73d-b5278094b59c@suse.de>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <5dda588d-e6fa-420d-a73d-b5278094b59c@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---GSHtRsGao/p5OMjN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/23/26 10:11 PM, Fernando Fernandez Mancera wrote:
+> On 10/23/26 11:13 AM, Jiayuan Chen wrote:
+>> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+>> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+>> the redirects an exponential backoff:
+>>
+>>     if (peer->n_redirects == 0 ||
+>>         time_after(jiffies,
+>>                (peer->rate_last +
+>>             (ip_rt_redirect_load << peer->n_redirects)))) {
+>>
+>> n_redirects only stops growing when it reaches ip_rt_redirect_number, 
+>> and
+>> both redirect_number and redirect_load are plain proc_dointvec sysctls
+>> with no upper bound. Set redirect_number past 32 and n_redirects climbs
+>> past 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit
+>> int by >= 32 bits, which is UB:
+>>
+>>    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+>>    shift exponent 32 is too large for 32-bit type 'int'
+>>    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 
+>> PREEMPT
+>>    Call Trace:
+>>     <IRQ>
+>>     dump_stack_lvl+0xc1/0xf0
+>>     dump_stack+0x10/0x20
+>>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>>     ip_rt_send_redirect.cold+0x2c/0x146
+>>     ip_forward+0x1ddc/0x2430
+>>     ip_rcv+0x2b1/0x320
+>>     __netif_receive_skb_one_core+0x16b/0x1c0
+>>     __netif_receive_skb+0x21/0x150
+>>     process_backlog+0x37e/0x1200
+>>     __napi_poll.constprop.0+0xa5/0x5e0
+>>     net_rx_action+0x4c0/0xf70
+>>
+>> Fixing this from the sysctl side would mean bounding both knobs, e.g.
+>> redirect_load to [0, 65535] and redirect_number to [0, 16], which gets
+>> in the way of users who legitimately do not want to cap ICMP redirects.
+>> Instead compute the backoff in u64 with the shift count capped at 31,
+>> which cannot overflow since ip_rt_redirect_load is an int, and clamp the
+>> result to MAX_JIFFY_OFFSET.
+>>
+>
+> I think we should cap redirect_load with a minimum valid value of 0 on 
+> the sysctl. If the user want to disable ICMP redirects or do not cap 
+> them, they should use 0 or -1 in redirect_number IMHO.
+>
+> What do you think?
+>
+>> The clamp also fixes 32-bit kernels, where the same expression goes
+>> wrong long before the shift count reaches 32. With the default
+>> ip_rt_redirect_load of 20, from n_redirects == 27 on the result is
+>> either truncated or too large for time_after(), which then treats the
+>> deadline as already passed, and from 30 on it is 0, so every forwarded
+>> packet gets a redirect again until ip_rt_redirect_number is reached.
+>> This needs a raised redirect_silence to be reachable, otherwise
+>> n_redirects is reset long before. On 64-bit, ip_rt_redirect_load << 31
+>> stays below MAX_JIFFY_OFFSET, so nothing changes there.
+>>
+>
+> Isn't the same issue in 64-bit kernels too? In essence, it would be 
+> (int << u32) which results in a negative value and that is later 
+> sign-extended to a corrupted 64-bit value. Am I missing something here?
+>
 
-Hi all,
+Thanks for pointing this out, agreed. A negative redirect_load never
+meant anything: with the old int shift it just made the deadline land in
+the past, i.e. no backoff at all, which is exactly what 0 gives. And once
+converted to u64 it would turn into the maximum backoff instead, so it
+should be rejected rather than silently mapped to something.
 
-Today's linux-next merge of the jc_docs tree got a conflict in:
 
-  tools/lib/python/kdoc/xforms_lists.py
-
-between commit:
-
-  fd0349aadbb99 ("pid: add helpers to operate on a struct pid array")
-
-=66rom the origin tree and commit:
-
-  4180abdb5d938 ("docs: xforms_lists: Handle DECLARE_KHOSER_PTR() struct me=
-mbers")
-
-=66rom the jc_docs tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc tools/lib/python/kdoc/xforms_lists.py
-index 320f977c5bac2,161acac90ea3b..0000000000000
---- a/tools/lib/python/kdoc/xforms_lists.py
-+++ b/tools/lib/python/kdoc/xforms_lists.py
-@@@ -45,7 -45,7 +45,8 @@@ class CTransforms
-          (CMatch("DECLARE_HASHTABLE"), r"unsigned long \1[1 << ((\2) - 1)]=
-"),
-          (CMatch("DECLARE_KFIFO"), r"\2 *\1"),
-          (CMatch("DECLARE_KFIFO_PTR"), r"\2 *\1"),
-+         (CMatch("DECLARE_KHOSER_PTR"), r"\2 \1"),
- +        (CMatch("DECLARE_PIDS"), r"struct pid *\1[(\2) + 1]"),
-          (CMatch("(?:__)?DECLARE_FLEX_ARRAY"), r"\1 \2[]"),
-          (CMatch("DEFINE_DMA_UNMAP_ADDR"), r"dma_addr_t \1"),
-          (CMatch("DEFINE_DMA_UNMAP_LEN"), r"__u32 \1"),
-
---GSHtRsGao/p5OMjN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCattxYAAKCRAv73Ows9A4
-iYWrAP9ENFGvZO8IdLltCrwzGlUDn6LBIVBTS6cxXrgrTimbPgD6Av6j4nWRS6Ow
-OZLuNsmq2+3DQiYOdrVfXgtZOiHG0Ag=
-=T2v5
------END PGP SIGNATURE-----
-
---GSHtRsGao/p5OMjN--
