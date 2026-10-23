@@ -1,22 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754111;
-	b=5Ffm/A4VLzDdrdcL97or0pWjuguAJDd7Iw6HaYWoJPzLZ6CYiAlN43NKDDJ9fc+LLVmY
-	 G2Wq44QO5IaKJjqKO2HoTYA7S95v763J+SihnhKYN5LkNbvgQPHBoPOJGbvHNY9vayNgN
-	 WQj4to8PgMh/Di6d3vY3GAKkPOzL07aOcdDWx7LYD0MEPDGgl9ieArdoPPC1u2QrfqPvk
-	 KOjdbsGPPnND25d4Gl4b+JkN3Ti3VSzIplyk7MrtlaCRv7BQddsH+h/A8b7YbQU6CD8oO
-	 nJqxQuOBwgxHq40VTSbQCfguHrhpA3CUrsBlUECalFjRvZ8q6v/4G5Pez6qKTrxhn3w==
+	t=1792754101;
+	b=H4FXoCqKYaErLhklDoD0ug/nhMvH4HqG6J+llHDO8zDddUrPHvlwyw3WxBNzdd/iNwqW
+	 p4P+/HO2lfL73BTfQPoomp0hjwwvHJuGdcumnDRqiKyO/Jd8wQXJGY6sS7T5Jb6Pt1oco
+	 E87g6+oemj+quHLvdIQWirT2kQDA2/35WYuIfgdX8t+oJHzEQBnU4Cznk7r/fCKETiOhg
+	 j1dS9GJ8JLv+w5Qd3phn7bob6h6OyfQ9wm+qD8RHTc7DOiqpxog2zZO0TJFSuswT0JTd7
+	 yJVweBgETdUAvvyr15aDeOWOU/y7s3suFZAoLgOkIUI6zzghTOz3oUMQKoDJtgbwmWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754111;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent:
-	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=Ouveq7mGrLRQ0ofHONc5foFtoIgS8hdqXITyl83nHFY=;
-	b=RUmOwDK6zgnOssGZnV5M7q4b99K6tRpp+jXqDXoBHqtz7DilK5g+c2gPDjsiBvOBE4/B
-	 jtx9yu7Lxz3FH9nSIQDw2bwQK+Wqwgjvrztvh2mXzcccZjZSWvue5P7j9rdTEolGlypXz
-	 R4ZfDSTNL0iVF7Lg7fNjkMsnbvtyldpH3Q1KKDpEmbDC5AkRL9D/1mQjzBO60V49vlxXy
-	 UA+BRmQl13bSbYA7VSoNNcKt85+VBhhE8LubQMisH3agX8CI0i8ltyt/j5iAThVJ5K/95
-	 oxodIOAFsUdYDfiuZErx3MY0Od+4GuLxe/s/gGDnoHKdyu+Kv2Wtj7zu0eTKrdAXMBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792754101;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Bm-Milter-Handled:
+	 X-Bm-Transport-Timestamp;
+	bh=fEbTalWWHpL5wfQv8QafMuDznLm146Cwe02W00WG1lQ=;
+	b=O8mVPMMdmJ02cxjx9NNkMi1VwdIwDJcTt+CfHQkym4a63ssdXZtPMv6aj7DMEa/g8uEn
+	 uTmhEsvhjcflbTxhF5TheVqDt/8PBVQvlwCidte39R3VGE4rraqXtCHS+WN3uBzi3tjqs
+	 /oK2YfsNS2LK6b0V4SCOfu7+Wo4WMnfiIkNSkEx+xsToqMtfwY1pfSHULnTwayGqZiL8f
+	 Xp5KZWeisV99WZ92s2NtRaQKOZ6VE3C7smQbK78x4qY2ELnb6tzlF68/QRdPJ6Fb88OL8
+	 Hxu/bzQFioZ3aA3+cPOk1O0W4+hYfMysmUXBH9Yx0TTQ5wzAUWR/cehw9klGjiEn3/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=proxmox.com;
 	spf=pass smtp.mailfrom=proxmox.com;
@@ -25,26 +26,18 @@ Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.1
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1F8606A31B;
-	Fri, 23 Oct 2026 11:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B1F8606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE078606A31E;
+	Fri, 23 Oct 2026 11:14:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE078606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
 Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 8A38745F36;
-	Fri, 23 Oct 2026 13:15:03 +0200 (CEST)
-Date: Fri, 23 Oct 2026 13:15:01 +0200
-From: Gabriel Goller <g.goller@proxmox.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] ipv6: Add NETCONFA_FORCE_FORWARDING to netconf
- messages
-Message-ID: <attBBLegF7iEikaQ@luna.proxmox.com>
-References: <20261023-ipv6_add_netconfa-v1-1-94d14b07d621@proxmox.com>
- <179275358416.3327.10205293492560698598@kernel.org>
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 0A6C245349;
+	Fri, 23 Oct 2026 13:14:58 +0200 (CEST)
+From: Hannes Laimer <h.laimer@proxmox.com>
+Date: Fri, 23 Oct 2026 13:14:28 +0200
+Subject: [PATCH net 2/2] selftests: forwarding: vxlan_reserved: add gbp
+ changelink test
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,40 +47,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179275358416.3327.10205293492560698598@kernel.org>
-User-Agent: NeoMutt/20260504
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-b4-vxlan-changelink-gbp-v1-2-f0d13951c09b@proxmox.com>
+References: <20261023-b4-vxlan-changelink-gbp-v1-0-f0d13951c09b@proxmox.com>
+In-Reply-To: <20261023-b4-vxlan-changelink-gbp-v1-0-f0d13951c09b@proxmox.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
+ Petr Machata <petrm@nvidia.com>, David Ahern <dsahern@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Hannes Laimer <h.laimer@proxmox.com>
+X-Mailer: b4 0.16-dev-4217c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=h.laimer@proxmox.com;
+ h=from:subject:message-id; bh=+Wja4C4KW6NKwPxy0uuOg9TWw8YkEeIgPXO5U+KJEH8=;
+ b=owGbwMvMwCU2e2Iv83RDTSPG02pJDFm3HTd+r2Z2Xz255qY167fSTa9kD4X/23nb+HSYtOBJp
+ Tumx0/ZdZSyMIhxMciKKbJctt//dVbv1Dij05u5YOawMoEMYeDiFICJVKcw/M8zr5MVeXLmshVD
+ 6BXzPDYd6fymDLvwt1v2Tl9ks2GxSDsjwzc+p/V+rIpep7j/OH4Nu5Ejfs//OkuF9OPyX1/nBcz
+ WZAYA
+X-Developer-Key: i=h.laimer@proxmox.com; a=openpgp;
+ fpr=64D04F905C35D23EBE24D079FA418E647F2175D1
 X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1792754102918
+X-Bm-Transport-Timestamp: 1792754097457
 
-On 23.10.2026 11:06, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+On a device created with gbp, run the reserved bit probes before and
+after an unrelated changelink. Check that what the device accepts has
+not changed.
 
-Hit during development of ifupdown2.
+Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
+---
+ tools/testing/selftests/net/forwarding/vxlan_reserved.sh | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
+diff --git a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
+index 709845123727..0ce264cc57f8 100755
+--- a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
++++ b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
+@@ -40,6 +40,7 @@
+ 	reserved_31_test
+ 	reserved_56_test
+ 	reserved_63_test
++	gbp_changelink_test
+     "}
+ 
+ NUM_NETIFS=4
+@@ -338,6 +339,20 @@ reserved_63_test()
+ 	    reserved_test 63
+ }
+ 
++gbp_changelink_test_do()
++{
++	vxlan_device_add gbp
++	__default_test_do 25 "gbp"
++	ip link set dev vx1 type vxlan ageing 300
++	__default_test_do 25 "gbp after changelink"
++}
++
++gbp_changelink_test()
++{
++	in_defer_scope \
++	    gbp_changelink_test_do
++}
++
+ trap cleanup EXIT
+ 
+ setup_prepare
 
-Can actually be triggered.
-Check with `ip montor netconf` running and execute e.g.
-`sysctl -w net.ipv6.conf.<dev>.force_forwarding=1`. The state of the
-force_forwarding property is not returned
+-- 
+2.47.3
 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
 
