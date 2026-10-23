@@ -1,112 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792768183;
-	b=uXAXB/buYJVmZ3Vm8X1v4HnR7El4jukc+Ikoz8WTCEAOhdTve9Q7sEcWyXVheBf9H9wO
-	 GG5QUKnfcB4s8MGlKaHXSe1wkJMpG+UpCc6L1fNN1nKJo39y6PU1nprI9v6UERbdHYFUY
-	 PqbVz/C94bIHRJk2E65b17NfwuYBn8VG87+hK5eewhO1PCvRhCpeeMPBa1l8dvUhjwcD6
-	 eHNgBT5Nm//Of3wOQI8WJuAKpaQw0/GuX+CI3eEsmMc4sOarud/Mcc+xMrda3sm2o1jof
-	 EZys83nGe+ksylUF345D+PLZCswuy/dTzzAvaf0+kPYM7vA9Y2oGj+L2o/H38Dp231g==
+	t=1792768195;
+	b=Cwga5LnCBSpyCA0Cp+e/2PgoQPzBRYUMwq9tLlerN2nRimamEg/YxEYVzqK7M84Kyplj
+	 muo3YtWz7lHwEmDQqDl7amaQTgjw+eJV6PlHgx2VyJY4DzuQrz4MOzhKZDS2FmzaH8xpP
+	 Gly/N3FVbVIG4DCO3yMcyPzy4AJW+4Aqjz5s/Ing6YG872PFJL+vmpjkLhvmBmvxLhDc+
+	 pR/WkXIRNVkz3zgDF79HWrr98eUwc0AcsmfaMjdKm4xXTzAmg6PngauKbXH5ySWhpjKzt
+	 WMTBzkGXGjoqspBSi1wcTk78ykIs1fKi0PU6/7qun0KvHHIrBrnmakWvcFEPqmLfAdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768183;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=GK+YDzIPYZBQYW/Kyml/YWjbXuZpS9AEGYoSg6CWENU=;
-	b=XOy0fGBxrgVAVx0F25DjeyAc2jNtYzcX4kyJqz2deTLePCWkYRz8ZVuxf4vqr2tV4BIZ
-	 mZfTAATPUfBYmk74GzEGy34ZOYt53OLmASw/vt+MYUsUe/l5RKf6grO2K/VfYBd34DdOv
-	 T5Ht6iB8p4fJHC6dvgVmCj6nAf3+0j7eRvrAgoujRcFkxNO8reHQFQSQHE8Q8Fj+dhMeR
-	 Y9AyP5bFr4rmglKuPFf9wr6Np4EIR6EH9MqSszmaD4uOdloB8iya4Qf2OfG8ox//Qa49l
-	 m4M1658yAoXAFpOnJyeTIPnAi429LeT2ESIxNNZY0LJ8xCTh+0Eg9dpqe7zH14+B/Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768195;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-Mailer:
+	 X-Mutt-Fcc;
+	bh=dRrmIJ8flnOPg8TSfGXbT6RnrbuAF8nRL7q/iyIRIBU=;
+	b=MMlsM/QWt3RlsJq97T1Gov/DgtG6iPb5cXGHsxt09hrpzFtxNFXuuf0ohDAMNViXe88a
+	 k7ccHmUFo4FwKZNTdlRcwq2M2N0Oojze4ja4+CVetQl64Llq0XkOt3CZ+szpHQjuxtWEu
+	 mAKX/Dyz4WNl9qypLNGlZXdhWXgxleVax9HKu1D3ueqoSf3/gRKAKqmKGqWPWgpdY53Wa
+	 61NKDIlbFQRDGjjkfSQFgIeD8hRuQUjme1Jbl+I/61UmippEuoEOs2ZTT0UWwNp4U68qv
+	 Eqr2QxIngAbBy71rQElhAtNuvDtgnKI046iVXqpdzfBCRXHRD6h+Nb710APhsdxhRTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=K0uevluw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bp6FPL4U;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="aAT/u2Wz";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GxFKSBP0;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFE660A2622
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CFE660A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BE7606C958
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70BE7606C958
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=K0uevluw;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bp6FPL4U
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE6rQB1492211
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GK+YDzIPYZBQYW/Kyml/YWjbXuZpS9AEGYoSg6CWENU=; b=K0uevluwF3j1dVC0
-	AXuhj/+Mq0KZumoPpFAa6bCDlfbXM5Si1AB2lxhhRYByyqgllDezXezANhuJ65S1
-	IZPmsfFItm3aW/4io/d2jxVr3ohO3W8ilp0fViKB9/x/NCKr0v+Bf5OFDUiZsOBV
-	MLRxikl7TTDwCcQqaTAtRNIoZdVOvWuSheFVPsVXsfgX/sooWz4jDN085sLb1oPx
-	gOzar7czeFZ5VPwI5S9bmENzKlELCF0Ygbw2dTUVdemeL3pkR13Ee9CAu0KZfWk6
-	kFrymcyb6C6jwa2+NqboovfRd9oliymL3MIpP8EQyfdCPsjaCqI32jJ0smP5tlkm
-	kQC3JQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsmaupuq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:42 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99063f4065eso249850241.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:09:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aAT/u2Wz;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GxFKSBP0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792768193;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRrmIJ8flnOPg8TSfGXbT6RnrbuAF8nRL7q/iyIRIBU=;
+	b=aAT/u2WzIiSvE6JO1HuqaPMR+CYsoBMkVluP239zEuW2znkHqnGhhCnfN/cIORYc2ITW3d
+	F7Bj1GtTfF0n/4mW9RAyTYbvPSI4KkhziLPInM+ZeKN21idUT2nIQ8i1H3A9gwUON3woHa
+	j9JN8dSWViQZuZYU8Qu5SBQBcoHOPZI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-617-W82N8P--P4uD7pxk_Y9rOw-1; Fri, 23 Oct 2026 11:09:52 -0400
+X-MC-Unique: W82N8P--P4uD7pxk_Y9rOw-1
+X-Mimecast-MFC-AGG-ID: W82N8P--P4uD7pxk_Y9rOw_1792768191
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1fa972b4fso5120635e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:09:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792768182; x=1793372982; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GK+YDzIPYZBQYW/Kyml/YWjbXuZpS9AEGYoSg6CWENU=;
-        b=Bp6FPL4UytFNTQyRMohvdZRyYLTVqTZwak3vJRcFzizfYE3pcHvcFwMjMgWzRoXb9P
-         YmyqtsFgbznx75yhe6WRabc1dk8Ape1Cp2J6sHHukQ+/PfuGAtvqbaGyfMpl922edT2G
-         HP882B8Px6OFYej/FExqqdkl1ozlm8+gCIwTCElmNY2z8aus0XC2VQt8JWRdX0jjTCP5
-         aFTXJbCoy07nfTFTv8EDpAUk99dGDFYs7ynlHR0EKpKLutKhmXn23NFkmbuSuCBdGOck
-         5c5vJu+JATB+DNmwYNBNIf+TI8IVbXTZZrZ5gYSrc+swj2pC7/l+68lO8FxE8gfsIOik
-         ZhYA==
+        d=redhat.com; s=google; t=1792768191; x=1793372991; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dRrmIJ8flnOPg8TSfGXbT6RnrbuAF8nRL7q/iyIRIBU=;
+        b=GxFKSBP0uQAqTptChLomOrflkH+I4EQM9lT1axMdLOk1cy5KbS+F7ghBeVHWlJRuS6
+         NWEAKmGSorxZ4/N4HvFg2ansn9PVgFeCdFhPywiMQUEZoW5B64nrq9vELIbVGURiLKxn
+         N/7SZciMW7QU+wnOf8rSBCXyh554hpq1E+M3GUmx/W64O4CPyhKQ1ivNcYYJ+9fYMOyV
+         YchTDo1o+U+zPTm7CHubap65yEGpK51bkxAEMKyCmLVyy2+PAe1Dxaq4ZruO70YHZW/I
+         I/bzW2JtZ5gD0Rk4jHTiImE15klCelO7azO4EZq/e1Ps0vAWgsqgB+ZY4qduOoNQCzJ9
+         IPCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792768182; x=1793372982;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GK+YDzIPYZBQYW/Kyml/YWjbXuZpS9AEGYoSg6CWENU=;
-        b=Te7aD0/ghue5l7dPHjgM6XRW/aRD3npzxtfi4usFCn/P8z/pXcCj7Pkzx/Lu4ntWGI
-         uko08xybxrNTbkJIblydqfmmORnUK3AJuBJG027tRdBOSrrJhGblIQtdjaYx92WBn69m
-         9H3hvESTWwZkWAEFhAViNMEyZb9UrrfnvpnAWjMziSvSBpc5TuGase/uWaVeg4eSYfli
-         pP0+8r5apW64PPQIMHw6lGiYMLbyHlA13lDdB6W8q/VArrMx4Tdm/7sPh1s8NfFb/1dg
-         REsi3YdEmn2K8nGMQMqu++SrRNE+vWUdEuCH0X+bI89Fm33nOJKK43L9h8WUHNDTbEf6
-         oiDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwfFuEADxxu0OMcZEYzmGA687iq7KDi/H4HUUjlt5xhYapFNQlen66tSrrs04xrWzdf2nT9YAfgYbi9LM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgPH9xXmefPsJWVoyjEWewsE046NMmu96fkeMOZv8REGkQZ6mC
-	cupUBdadedsys48ozjjaJp5M31XqJFnfhY09lMCiNmSV+mAsrAs1CK8HxTBKhhabCVo3Fa15Dde
-	3wxF2onyTf7afvp2mv6093h7i1pvIJUKwconO/P7IRCxu5vA3NGxqJdFHMogFLvRkqJg=
-X-Gm-Gg: AYBFou04SKbnsWkk0nUi4Io91W9OymxG/x/VAiqih17LF75SxXHigQC+lE+rh1Fsk36
-	o6L7n81HxKR0E2nQDCyrabDDvKOy4ORofDEz6Ir2WZp/RLpbXrHKre9zAS1BIaOhJK/R16kHCLo
-	3EqKWWm8PLNouIlSfVnxPjBQCx2coQwdpdEkEKbfTBSzh3CnIKxiE0mDhbLlQx0sK8MeKi4eagp
-	YmcOUN3+80dJ5srn0ps8BQozFArFmff8hwyBjsoKCz1XvU5jH70jcoffMOdciD27/PnoUMCHPdv
-	tCJXm3iwVuAyBpGpBeHO4p6jBkCsWg5bFrZ0Aeru/fP1zlg5hOu5GoYX1yzJZZ+vn8fkE7rz7PO
-	9tKLrNeCz52HxoHPO1bX3Z6b1QAU7ERMjcEWaLHmzDbbqmwOy8XxbqOpgfbjInHNT4fHmFWH5P1
-	Bykjq87WDBBmYPF+bRHC3ceGW8zMaVBufp294DYj5B9Hja2nirBQ4=
-X-Received: by 2002:a05:6102:4457:b0:79c:99ea:2c9a with SMTP id ada2fe7eead31-7ccc31d07bemr714546137.11.1792768181392;
-        Fri, 23 Oct 2026 08:09:41 -0700 (PDT)
-X-Received: by 2002:a05:6102:4457:b0:79c:99ea:2c9a with SMTP id ada2fe7eead31-7ccc31d07bemr714495137.11.1792768180779;
-        Fri, 23 Oct 2026 08:09:40 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d0fb:daf1:3106:3697])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d4040d3sm323962f8f.27.2026.10.23.08.09.39
+        d=1e100.net; s=20260707; t=1792768191; x=1793372991;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dRrmIJ8flnOPg8TSfGXbT6RnrbuAF8nRL7q/iyIRIBU=;
+        b=c7eriZ5GeHsKD+GCkjHuCwt11xB4AGZutS9jdBMWZf2o6EZNO4SfJzAgApRqTfdx4O
+         PfZTJOBhd1fJW7yULxtvDf2jK4DNCQkZExw7Q2xho+PizePhtGwEEQnjPJp8GkbdOnsE
+         k7easJaB8qeVVO11INorwpc6SAOh3qlci6mivSY25iIbARRycbhC/2kWHb46QbQJQKjv
+         066txKPdyMr/aQtn+GjwvpKGOpRy+EBy11QeC/iFLGgJJVmsV0xX2lh11r8eYHdpHhQ4
+         NtxK1SAh+ONSTZvFCps/6YYy3BVJoz8PM7MKZVtvwKfFha5EjlRKPHAfnZTSeqSJKoQM
+         NQ8Q==
+X-Gm-Message-State: AFq9FYIi23uj41kji5RpVSkT4nIzEJRVdxyFmf869SrnwR9jHs55/+23
+	5hZGmvXFAoYRPKlma7FncEnMS6eu0Rji1RdmilFfT35aaPPZNIl3pw5/9YkvQow0Pr2VbXgtvin
+	eAt9aqM2Dgz9V8MI8ROgNQdUz5p/DQ47nWAmXngnwJK+JOKrnrrMoG9Doq3VfwaOAHfGbWS/VSi
+	B9GKBZyPBHx4F1XipfxbJ+LPTt+P5RhiqExFSN9meUR1E=
+X-Gm-Gg: AYBFou2aIP5zERwZqlIlfbMpWVQIt1KXYlibHXze673OpnCfOZNuY39Tp02kGU+nHnS
+	Z2nVMe7ZJog2zmESeytf9xBNGcVfkeV1ojvQuN9TAVOZcIKzj8lKZWYqCYFQuQC6KKpIhJgEHDV
+	YN3A87O35r+WyEhPMTGvSVzRx1jCa9jZkIwy7CqbW/rv065OLSfLGx0wrYCuCC1itd0GQzLdJPY
+	buOMXRhjIZ/dnAoUMErWzGmbE5iXa6V5LBXNlqVeI5I07K8+IvWpMSnAuG3YwF3ZZXAgkTHdZsX
+	OEyp22CyTW089umajMgbUgiagt490u59c/b0A56tZP3rys1Z0ejh4P/Qg8DDwRwIulwoFP8=
+X-Received: by 2002:a05:600c:4e43:b0:4a2:c9b:9b98 with SMTP id 5b1f17b1804b1-4a211ed613dmr41748875e9.17.1792768190686;
+        Fri, 23 Oct 2026 08:09:50 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e43:b0:4a2:c9b:9b98 with SMTP id 5b1f17b1804b1-4a211ed613dmr41748145e9.17.1792768190150;
+        Fri, 23 Oct 2026 08:09:50 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d3f9d0dsm445729f8f.22.2026.10.23.08.09.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:09:40 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 17:09:15 +0200
-Subject: [PATCH v11 4/9] media: uapi: Add CAMSS ISP configuration
- definition
+        Fri, 23 Oct 2026 08:09:48 -0700 (PDT)
+Date: Fri, 23 Oct 2026 11:09:45 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>, Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, bridge@lists.linux.dev
+Subject: [PATCH net v6 6/6] net: add ip4_parse()
+Message-ID: <970e2341834eadcf265fa7dd61a05ee305fdc1e4.1792687500.git.mst@redhat.com>
+References: <cover.v6.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,286 +132,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261023-camss-isp-ope-v11-4-0c2937195298@oss.qualcomm.com>
-References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
-In-Reply-To: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=V7LoQuni c=1 sm=1 tr=0 ts=6adb78b6 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=cBt3T3tByBXynNCq78MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfX5eujHf/9pcuU
- Rz3F89oyFm+FPPvusAdwhBkfXtYdtUl3KrsW8Qsn2t3H+03eVwJ/UGRORWKFnDHAvT8gdyom71G
- g0iOtdl7P6zmsqngCKjjQNMPwzyq0nc=
-X-Proofpoint-GUID: l7B-U59Tg-wkNB7AuCMAj08TwnWeC7S3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfX9zzqIZq8VzZq
- PXRkkYdOpeaXI6v3gNFpyAD2AJOZV0pVa5rBIKYT0AnRASk4nya0AX/Znd1c074LMe58B3SmCF5
- PLi//okr+iIc2SLbpojSO4pI7XTiq92J2aZZNLsDuFzPZ0i/EAN6wGkgrh94amJzFm2Oh61WKc1
- p3mYsJ6aCmSwjG5Arcv5g+1j/ksep1sWHIFhMSrOhlMSkNm3VfKxaIawAlSv0T7K5EWxrYNSZJJ
- 7ki+7gRqWrhQnVtDPgtcxR8bZkEw+iOWViXjXiOijUWeb/SQLZWf4d2VHR8xkE42Yv/Gkbcca2t
- TJvlW5Y8E6GPSUTdsiK+9ubPDJjnFcUzvfY8n0Vl+NOHDPCvGCsmqSjWv0YRTVsqxI9i4J1WxR5
- ZW8XPskP5Le7TbqtYmepA/wex1uorDXPMQ5/7SoPsjiPFqIcGqyZGquL/9ziR9OQAFnJH81xVtW
- K7+PqjXXDTWO2A8b0cA==
-X-Proofpoint-ORIG-GUID: l7B-U59Tg-wkNB7AuCMAj08TwnWeC7S3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230059
+In-Reply-To: <cover.v6.git.mst@redhat.com>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-Add the uapi header qcom-camss-config.h defining the ISP parameter
-structures used by the CAMSS Offline Processing Engine (OPE) driver.
-This includes structures for white balance, chroma enhancement and
-color correction configuration.
+Multiple places in the net stack open-code the same minimal IPv4 header
+validation: pull the fixed header, check version 4 and IHL >= 5 (where 5
+is the fixed header size in 32-bit units) - and locate the transport
+header at IHL * 4 past the network header.
 
-The block type enum is shared across CAMSS ISPs so that userspace only
-has to deal with a single set of block identifiers.
+Add a helper for doing that: it returns the validated header and
+the transport header offset, or NULL if truncated or malformed.
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+As noted by Phil Sutter, there are more places that could use this
+helper, e.g. ip_mc_check_iphdr(). They will be converted in a follow-up
+patch.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Phil Sutter <phil@nwl.cc>
 ---
- include/uapi/linux/qcom-camss-config.h | 212 +++++++++++++++++++++++++++++++++
- 1 file changed, 212 insertions(+)
 
-diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..5756d165e7e873a6d268909da077acb6f5f56054
---- /dev/null
-+++ b/include/uapi/linux/qcom-camss-config.h
-@@ -0,0 +1,212 @@
-+/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-+/*
-+ * Qualcomm CAMSS ISP Driver - Userspace API
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-+#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-+
-+#include <linux/types.h>
-+#include <linux/media/v4l2-isp.h>
-+
-+/**
-+ * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-+ *
-+ * Each value identifies one ISP processing block.  The value is placed in
-+ * the @type field of &struct v4l2_isp_block_header.
-+ *
-+ * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
-+ *	&struct camss_params_wb_gain
-+ * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
-+ *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
-+ * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
-+ *	&struct camss_params_color_correct
-+ * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
-+ *	&struct camss_params_gamma
-+ */
-+enum camss_params_block_type {
-+	CAMSS_PARAMS_WB_GAIN = 1,
-+	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-+	CAMSS_PARAMS_COLOR_CORRECT = 3,
-+	CAMSS_PARAMS_GAMMA = 4,
-+};
-+
-+/* Number of entries in each gamma channel LUT. */
-+#define CAMSS_GAMMA_LUT_SIZE	256
-+
-+/**
-+ * struct camss_params_wb_gain - White Balance gains
-+ *
-+ * Implements the CLC_WB pipeline module.  The pipeline applies three
-+ * sequential operations per channel:
-+ *   1. Subtract sub-offset (black-level subtraction)
-+ *   2. Multiply by gain    (colour balance)
-+ *   3. Add add-offset      (output pedestal)
-+ *
-+ * Gains are 15uQ10 (15-bit unsigned, 10 fractional bits). Offsets
-+ * are 16-bit unsigned, normalised to full input scale (65535 = 1.0)
-+ *
-+ * @header:   block header; @header.type = CAMSS_PARAMS_WB_GAIN
-+ * @g_gain:   green channel gain (15uQ10, 1024 = 1.0)
-+ * @b_gain:   blue  channel gain (15uQ10, 1024 = 1.0)
-+ * @r_gain:   red   channel gain (15uQ10, 1024 = 1.0)
-+ * @g_sub:    green sub-offset, subtracted before gain (16u)
-+ * @b_sub:    blue  sub-offset, subtracted before gain (16u)
-+ * @r_sub:    red   sub-offset, subtracted before gain (16u)
-+ * @g_add:    green add-offset, added after gain (16u)
-+ * @b_add:    blue  add-offset, added after gain (16u)
-+ * @r_add:    red   add-offset, added after gain (16u)
-+ * @_pad:     padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_wb_gain {
-+	struct v4l2_isp_block_header header;
-+	__u16 g_gain;
-+	__u16 b_gain;
-+	__u16 r_gain;
-+	__u16 g_sub;
-+	__u16 b_sub;
-+	__u16 r_sub;
-+	__u16 g_add;
-+	__u16 b_add;
-+	__u16 r_add;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
-+
-+/**
-+ * struct camss_params_chroma_enhan - RGB to YUV colour transfer matrix
-+ *
-+ * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-+ * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-+ *
-+ * RGB2Y - Luma (Y) coefficients
-+ * Y = v0 * R + v1 * G + v2 * B
-+ *
-+ * @luma_v0:  R-to-Y coefficient (12sQ8)
-+ * @luma_v1:  G-to-Y coefficient (12sQ8)
-+ * @luma_v2:  B-to-Y coefficient (12sQ8)
-+ * @luma_k:   Y output offset    (9s,  0 = no offset)
-+ *
-+ * RGB2Cb - Chroma (Cb) coefficients
-+ * Cb = a x ((B - G) + b(R - G)) + KCb
-+ * with:
-+ *   a = ap, when (B-G) + b(R-G) > 0; a = am, when (B-G) + b(R-G) ≤ 0;
-+ *   b = bp when (R-G) > 0; b = bm when (R-G) ≤ 0
-+ *
-+ * @coeff_ap: Cb positive coefficient (12sQ8)
-+ * @coeff_am: Cb negative coefficient (12sQ8)
-+ * @coeff_bp: Cb positive coefficient (12sQ8)
-+ * @coeff_bm: Cb negative coefficient (12sQ8)
-+ * @kcb:      Cb output offset        (11s)
-+ *
-+ * RGB2Cr - Chroma (Cr) coefficients:
-+ * Cr = c x ((R - G) + d(B - G)) + KCr
-+ * with:
-+ *   c = cp, when (R-G) + d(B-G) > 0; c = cm, when (R-G) + d(B-G) ≤ 0
-+ *   d = dp when (B-G) > 0; d = dm when (B-G) ≤ 0
-+ *
-+ * @coeff_cp: Cr positive coefficient (12sQ8)
-+ * @coeff_cm: Cr negative coefficient (12sQ8)
-+ * @coeff_dp: Cr positive coefficient (12sQ8)
-+ * @coeff_dm: Cr negative coefficient (12sQ8)
-+ * @kcr:      Cr output offset        (11s)
-+ *
-+ * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-+ * @_pad:   padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_chroma_enhan {
-+	struct v4l2_isp_block_header header;
-+	__s16 luma_v0;
-+	__s16 luma_v1;
-+	__s16 luma_v2;
-+	__s16 luma_k;
-+	__s16 coeff_ap;
-+	__s16 coeff_am;
-+	__s16 coeff_bp;
-+	__s16 coeff_bm;
-+	__s16 coeff_cp;
-+	__s16 coeff_cm;
-+	__s16 coeff_dp;
-+	__s16 coeff_dm;
-+	__s16 kcb;
-+	__s16 kcr;
-+	__u16 _pad[2];
-+} __attribute__((aligned(8)));
-+
-+/**
-+ * struct camss_params_color_correct - colour correction matrix
-+ *
-+ * Implements the CLC_CC pipeline module.  The matrix computes:
-+ *   Out_ch0 (G) = a0*G + b0*B + c0*R + k0
-+ *   Out_ch1 (B) = a1*G + b1*B + c1*R + k1
-+ *   Out_ch2 (R) = a2*G + b2*B + c2*R + k2
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_COLOR_CORRECT
-+ * @a:       G-input coefficients per output channel (12s;
-+ *           a[0]=Out_G, a[1]=Out_B, a[2]=Out_R)
-+ * @b:       B-input coefficients (12s)
-+ * @c:       R-input coefficients (12s)
-+ * @k:       per-output-channel offsets (typically 9s effective)
-+ * @qfactor: Q-format selector (2u):
-+ *           0 = 12sQ7  (range ~-16.0 .. +15.992)
-+ *           1 = 12sQ8  (range  ~-8.0 ..  +7.996)
-+ *           2 = 12sQ9  (range  ~-4.0 ..  +3.998)
-+ *           3 = 12sQ10 (range  ~-2.0 ..  +1.999)
-+ * @_pad:    padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_color_correct {
-+	struct v4l2_isp_block_header header;
-+	__s16 a[3];
-+	__s16 b[3];
-+	__s16 c[3];
-+	__s16 k[3];
-+	__u16 qfactor;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
-+
-+/**
-+ * struct camss_params_gamma - per-channel gamma correction curves
-+ *
-+ * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
-+ * holds one independent lookup table per colour channel. Each table is a
-+ * direct (not segmented) map of input level to output level.
-+ *
-+ * Each table has @CAMSS_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
-+ * output. The number of significant output bits follows the width of the
-+ * engine's internal bus; the upper bits are ignored by the hardware.
-+ *
-+ * The module maps a 12-bit input to an 8-bit output: the top 8 input bits
-+ * index the table and the low 4 bits are used to linearly interpolate
-+ * between adjacent entries. Entry i therefore represents the output for
-+ * input level i/255 of full scale.
-+ * Output range: 0x00 = black, 0xFF = white.
-+ *
-+ * How to fill a curve (same on all three channels for pure luminance
-+ * gamma; different curves per channel additionally shift colour balance):
-+ *
-+ *   Identity (pass-through, gamma 1.0):
-+ *     lut[i] = i;                                // i = 0..255
-+ *
-+ *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
-+ *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_GAMMA
-+ * @glut:    green channel gamma curve
-+ * @blut:    blue  channel gamma curve
-+ * @rlut:    red   channel gamma curve
-+ */
-+struct camss_params_gamma {
-+	struct v4l2_isp_block_header header;
-+	__u16 glut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 blut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 rlut[CAMSS_GAMMA_LUT_SIZE];
-+} __attribute__((aligned(8)));
-+
-+#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
-+	(sizeof(struct camss_params_wb_gain)	+\
-+	 sizeof(struct camss_params_chroma_enhan)	+\
-+	 sizeof(struct camss_params_color_correct)	+\
-+	 sizeof(struct camss_params_gamma))
-+
-+#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
+Notes (changelog):
+    v4->v5:
+        pull the options as well, so that the transport header
+        offset is within the linear data (Willem de Bruijn)
+    v5->v6:
+        the options pull moved to the helper introduction in
+        "net: resolve uncommon partial checksums at ingress"
 
+ include/linux/ip.h                  | 38 +++++++++++++++++++++++++++++
+ include/linux/virtio_net.h          | 34 +-------------------------
+ net/bridge/br_netfilter_hooks.c     | 15 ++++--------
+ net/ipv4/ip_input.c                 | 13 ++++------
+ net/ipv4/netfilter/nf_reject_ipv4.c | 13 ++++------
+ 5 files changed, 54 insertions(+), 59 deletions(-)
+
+diff --git a/include/linux/ip.h b/include/linux/ip.h
+index d11c25f5030a..22604c19c460 100644
+--- a/include/linux/ip.h
++++ b/include/linux/ip.h
+@@ -56,4 +56,42 @@ static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
+ {
+ 	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
+ }
++
++/**
++ * ip4_parse - pull and minimally validate an IPv4 header
++ * @skb: buffer to parse
++ * @nhoff: offset of the IPv4 header within the linear data
++ * @thoff: returns the transport header offset
++ *
++ * The whole header, options included, is guaranteed linear on
++ * return, so the transport header offset is within the linear
++ * data.  Callers that need to read the transport header must
++ * pull further.
++ *
++ * Return: the validated IPv4 header, or NULL if truncated or
++ * malformed.
++ */
++static inline struct iphdr *ip4_parse(struct sk_buff *skb,
++				      unsigned int nhoff,
++				      unsigned int *thoff)
++{
++	struct iphdr *iph;
++
++	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
++		return NULL;
++
++	iph = (struct iphdr *)(skb->data + nhoff);
++	if (iph->version != 4 || iph->ihl < sizeof(struct iphdr) / sizeof(u32))
++		return NULL;
++
++	*thoff = nhoff + iph->ihl * sizeof(u32);
++	/* Pull the options as well: the transport header offset
++	 * returned above must be within the linear data.  iph goes
++	 * stale across the pull.
++	 */
++	if (!pskb_may_pull(skb, *thoff))
++		return NULL;
++
++	return (struct iphdr *)(skb->data + nhoff);
++}
+ #endif	/* _LINUX_IP_H */
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index a3012ebbed71..96293d3ab0da 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -53,38 +53,6 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
+-/* TODO: nothing virtio specific here, move to ip.h */
+-
+-/*
+- * Pull and minimally validate the IPv4 header at @nhoff.
+- * Returns the header and stores the transport header offset in
+- * @thoff, or NULL if truncated or malformed.  The whole header,
+- * options included, is guaranteed linear on return.
+- */
+-static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+-						  unsigned int nhoff,
+-						  unsigned int *thoff)
+-{
+-	struct iphdr *iph;
+-
+-	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
+-		return NULL;
+-
+-	iph = (struct iphdr *)(skb->data + nhoff);
+-	if (iph->version != 4 ||
+-	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
+-		return NULL;
+-
+-	*thoff = nhoff + iph->ihl * sizeof(u32);
+-	/* Pull the options as well: the transport header offset
+-	 * returned above must be within the linear data.  iph goes
+-	 * stale across the pull.
+-	 */
+-	if (!pskb_may_pull(skb, *thoff))
+-		return NULL;
+-
+-	return (struct iphdr *)(skb->data + nhoff);
+-}
+ /* Defined in net/core/dev.c, enabled while any network namespace
+  * has net.core.virtio_net_hdr_validate set to 0.
+  */
+@@ -170,7 +138,7 @@ virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
+ 		    unsigned int *thoff, int *ip_proto)
+ {
+ 	if (proto == htons(ETH_P_IP)) {
+-		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
++		const struct iphdr *iph = ip4_parse(skb, nhoff, thoff);
+ 
+ 		if (!iph || ip_is_fragment(iph))
+ 			return false;
+diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
+index 0a394e5f4391..e89da0e41542 100644
+--- a/net/bridge/br_netfilter_hooks.c
++++ b/net/bridge/br_netfilter_hooks.c
+@@ -206,18 +206,13 @@ static inline void nf_bridge_pull_encap_header_rcsum(struct sk_buff *skb)
+ static int br_validate_ipv4(struct net *net, struct sk_buff *skb)
+ {
+ 	const struct iphdr *iph;
+-	u32 len;
++	u32 len, thoff;
+ 
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		goto inhdr_error;
+ 
+-	iph = ip_hdr(skb);
+-
+-	/* Basic sanity checks */
+-	if (iph->ihl < 5 || iph->version != 4)
+-		goto inhdr_error;
+-
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		goto inhdr_error;
+ 
+ 	iph = ip_hdr(skb);
+@@ -228,7 +223,7 @@ static int br_validate_ipv4(struct net *net, struct sk_buff *skb)
+ 	if (skb->len < len) {
+ 		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
+ 		goto drop;
+-	} else if (len < (iph->ihl*4))
++	} else if (len < thoff)
+ 		goto inhdr_error;
+ 
+ 	if (pskb_trim_rcsum(skb, len)) {
+diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
+index 9860178752b8..5adf01763e85 100644
+--- a/net/ipv4/ip_input.c
++++ b/net/ipv4/ip_input.c
+@@ -500,7 +500,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ {
+ 	const struct iphdr *iph;
+ 	int drop_reason;
+-	u32 len;
++	u32 len, thoff;
+ 
+ 	/* When the interface is in promisc. mode, drop all the crap
+ 	 * that it receives, do not try to analyse it.
+@@ -520,10 +520,6 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 	}
+ 
+ 	drop_reason = SKB_DROP_REASON_NOT_SPECIFIED;
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
+-		goto inhdr_error;
+-
+-	iph = ip_hdr(skb);
+ 
+ 	/*
+ 	 *	RFC1122: 3.2.1.2 MUST silently discard any IP frame that fails the checksum.
+@@ -536,7 +532,8 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 	 *	4.	Doesn't have a bogus length
+ 	 */
+ 
+-	if (iph->ihl < 5 || iph->version != 4)
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		goto inhdr_error;
+ 
+ 	BUILD_BUG_ON(IPSTATS_MIB_ECT1PKTS != IPSTATS_MIB_NOECTPKTS + INET_ECN_ECT_1);
+@@ -546,7 +543,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 		       IPSTATS_MIB_NOECTPKTS + (iph->tos & INET_ECN_MASK),
+ 		       max_t(unsigned short, 1, skb_shinfo(skb)->gso_segs));
+ 
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		goto inhdr_error;
+ 
+ 	iph = ip_hdr(skb);
+@@ -559,7 +556,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 		drop_reason = SKB_DROP_REASON_PKT_TOO_SMALL;
+ 		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
+ 		goto drop;
+-	} else if (len < (iph->ihl*4))
++	} else if (len < thoff)
+ 		goto inhdr_error;
+ 
+ 	/* Our transport medium may have padded the buffer out. Now we know it
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 59ec465a9df9..42d639854ddf 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -25,22 +25,19 @@ nf_reject_ip_tcphdr_get(struct sk_buff *oldskb,
+ static int nf_reject_iphdr_validate(struct sk_buff *skb)
+ {
+ 	struct iphdr *iph;
+-	u32 len;
++	u32 len, thoff;
+ 
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
+-		return 0;
+-
+-	iph = ip_hdr(skb);
+-	if (iph->ihl < 5 || iph->version != 4)
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		return 0;
+ 
+ 	len = ntohs(iph->tot_len);
+ 	if (skb->len < len)
+ 		return 0;
+-	else if (len < (iph->ihl*4))
++	else if (len < thoff)
+ 		return 0;
+ 
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		return 0;
+ 
+ 	return 1;
 -- 
-2.34.1
+MST
 
