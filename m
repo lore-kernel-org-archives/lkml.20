@@ -1,62 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788025;
-	b=HXU9OfLRp8VMndSURJLPj1QG8jNKat1tKhoi3fnIBppOfN5D8+cH/eCSylhkQ5f0M1gF
-	 vlJ06XLD7PdYjE2Yxk1WEdIRwwDyVCiEkYnDJcOnON7GFlCb8mVYoZAfPPcRWbLU3iTN4
-	 pSQxpn4dFUkYO27En5dLztlhpvQsFz0mtlTMWdI+TYP5IMMcainw9ge2hF0MDjjk60MTD
-	 E6egdrK3s6NP1l0ClsmCBDU8JHCrYEZxrK/gA0gpJTdhxaO7+VmQglPLo81N+AIC9pgm+
-	 2XKXB05P1GF/+BMYZ7xyaSdDgR3E9Y5Sf9oR2xZhFo5feyhRKA5uCvuF7EL94nYrxQg==
+	t=1792788007;
+	b=VJVfCiq92ET4CMVkV/vAMyNlwTbWBg2X22TYjRPHloze8HdBhkk6/uCwkeoI7IUZjx5V
+	 G3y2hJkwpeCmOu/hZsI5c0RswLok8GTCOBfyXi+Ou7VOk+gM3hRrVylPK5HcelZk6ix3O
+	 XLt5PYK68rKOir3onQc2mT3v7MgNP1dB4ZR9XABONdWrqlaWFp50jGtB8iCx+ZcSBQ2DQ
+	 Tpqjz/zjMq4QHO4oVQcY8fhU0RDqCrvNEpAWM1i87o+pG/ZzjI6iQXMLk1LSNrV5fsTiK
+	 RoAWRvHNiKw8whnaiv2App5mfDU5N+E1y6G9t0DshDTarDwa3wvtf0SnDOuTJxO/t9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788025;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Sj3N8ofVLmUhviS1Qitt8FcFhDmmyzbZj344e+t8UZQ=;
-	b=PZSmRCNcpzSkwandC225VB+d8y3RKO3/qZzlAB7nOrq5B0MHsH6SEirn6mBVtmUuZYM9
-	 RfF0c2iWGKUOm7E2QHR0Ox0knTRTA7kepccgjOhjVKXnCg6v2fwtNO9hJCbknfyVcmBmD
-	 yJZJx6UALV1vH9iCKVGBtZS5xEzs5pCH99fCCLAN2lI2atlyBFYnvlHbNiV+lsjJp/Cq0
-	 l8CvRY8229D9bpaI7avAy25gtFqdGSHkIs8t96TOWA8UL5VF4C10NFL9QaSY9jxLlksp6
-	 bN6dmciedK+MpnPNyM8R2imy6R33RW3BDZ+Puz8vtmYEWdWQQl2T97ciGVc2oUElz2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788007;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=iuOOiEMLU+sLE33/Aq0p23G5ffPpUrNZ0w4solTSpMg=;
+	b=vVjmkOvruO5Fpcox93W79/QyZoAgPXuBsQhh4TioxiqNn4JtyZsb0gzw8eftA21DIwcn
+	 IpOcclnrw+Z5iw/3OPwWLsaAmZbHDc7K29pXzGdVbcgaDxVkvHXUHBQ7RSr+XP6tWE5PU
+	 KuoC7Q/zziU2lOOFRkhhUmO6+fFjkWwaQ7VCmokcVh6y5ykFSTYTVxcJcPeEV/Nh73mgf
+	 75KadN9FMTLdJf5a8VxzavmX7IWlLFF2WUbVA8ufWoEGon/ZHK5A8iitsn3QK/72NPhTr
+	 8Uk1UfXF3aBZ9ASQ9rfMHWk5oaf5N5vq2TXA9cWzVsxoiP8UJ8tvz/SPVr80mnbaYwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eThajyz6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUFewcHB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB721606A31D;
-	Fri, 23 Oct 2026 20:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893D4606A31A;
+	Fri, 23 Oct 2026 20:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eThajyz6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C901F031E0;
-	Fri, 23 Oct 2026 20:40:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUFewcHB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1032A1F01828;
+	Fri, 23 Oct 2026 20:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792788024;
-	bh=Sj3N8ofVLmUhviS1Qitt8FcFhDmmyzbZj344e+t8UZQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eThajyz67bQE5cq81KRSeUm5cVIvX+5E8TJp6b2mx/A5V6GkLQmtoVqPdD2M8S5LM
-	 thaFsJqpByB33EHTQMNnZFdGVFNOR/gGl0rijVKnw5ATg5BSTwTJNohMI0wbf0lRl2
-	 1nN0mM5vlvnMl+JOISbp7z2cgIwkGIUcBfXwg77ucf/nFnffORKCuawUoe3UiILCTC
-	 ZvwSIcvogReKnXR0/zRoq8IzT4isnXRfBJ2MuWr4jXY8OrwPG99YBi0tw+g0XbTTBQ
-	 7UQsfXxKcSxoHDMQ9vVufxwCzn/XluiF2MzqQrlS3CIhEtRGjBD5WvnNGEGkAspKLl
-	 hSsyjNwikcPeg==
-Date: Fri, 23 Oct 2026 21:40:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Adi =?UTF-8?B?S2FkdcWhacSH?= <kadusicadi1@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Jorijn van der Graaf
- <jorijnvdgraaf@catcrafts.net>, Miao Li <limiao@kylinos.cn>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, "Rafael G. Dias"
- <rafael.guimaraes.dias@usp.br>, Pan Chuang <panchuang@vivo.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: stk3310: replace sprintf() with safer
- sysfs_emit()
-Message-ID: <20261023214019.7861c071@jic23-hlaptop>
-In-Reply-To: <20261023202543.144563-1-kadusicadi1@gmail.com>
-References: <20261023202543.144563-1-kadusicadi1@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792788007;
+	bh=iuOOiEMLU+sLE33/Aq0p23G5ffPpUrNZ0w4solTSpMg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=RUFewcHBfKrqiFKyvJLD6mmPtHdc1yS04w7BFsstiEzMeVTEbOYyXL4uxg2EgvZvE
+	 CQECmsnq7GbtoMAd+qJDjCjfPFO1B1pZxBMH0fXquPUR3WHH6dc2T0P9ozzDUeyOc3
+	 EZRaPY66f5IKt/9YiR5ryOji84IjHDReJVdU54FLg5ys+JJzwdPlwu1TcyudIMailc
+	 h8DB1n09eQedr8SNHrcJMrPqhDvqn/DtglB5HKylE4NKqMFCtTq9gfseKUCQZTulMr
+	 8GrTtlFUU/89U3RJoJa21UvyhEumIJJfFTfHMIqLxDId+s/WUWeazMxn/Lwrw1CqD9
+	 n8uNenQUB0gkg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 07336391B155;
+	Fri, 23 Oct 2026 20:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,41 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: ethernet: ti: am65-cpts: fix support for
+ PTP_EXTTS_REQUEST2 ioctl
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179278800557.1260786.6898503366524339849.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 20:40:05 +0000
+References: <20261020003525.1237742-1-jjc@jclark.com>
+In-Reply-To: <20261020003525.1237742-1-jjc@jclark.com>
+To: James Clark <jjc@jclark.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ jacob.e.keller@intel.com, kory.maincent@bootlin.com, s-vadapalli@ti.com,
+ c-vankar@ti.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Fri, 23 Oct 2026 22:25:40 +0200
-Adi Kadu=C5=A1i=C4=87 <kadusicadi1@gmail.com> wrote:
+Hello:
 
-> This patch replaces sprintf() with sysfs_emit() safer alternative
-> with no functional changes.
->=20
-> Signed-off-by: Adi Kadu=C5=A1i=C4=87 <kadusicadi1@gmail.com>
-Applied.
-> ---
->  drivers/iio/light/stk3310.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-> index 0a16e326e939..e751e7c97bc1 100644
-> --- a/drivers/iio/light/stk3310.c
-> +++ b/drivers/iio/light/stk3310.c
-> @@ -18,7 +18,6 @@
->  #include <linux/pm.h>
->  #include <linux/property.h>
->  #include <linux/regmap.h>
-> -#include <linux/sprintf.h>
->  #include <linux/sysfs.h>
->  #include <linux/types.h>
-> =20
-> @@ -180,7 +179,7 @@ static ssize_t stk3310_read_near_level(struct iio_dev=
- *indio_dev,
->  {
->  	struct stk3310_data *data =3D iio_priv(indio_dev);
-> =20
-> -	return sprintf(buf, "%u\n", data->ps_near_level);
-> +	return sysfs_emit(buf, "%u\n", data->ps_near_level);
->  }
-> =20
->  static const struct iio_chan_spec_ext_info stk3310_ext_info[] =3D {
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 20 Oct 2026 07:35:25 +0700 you wrote:
+> Commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to
+> ptp_clock_info") modified the PTP core to validate the supported flags
+> of external timestamp requests, rather than relying on each driver to
+> check them.
+> 
+> am65_cpts_extts_enable() ignores the flags, and am65-cpts was not given
+> any .supported_extts_flags. Since PTP_EXTTS_REQUEST2 always implies
+> PTP_STRICT_FLAGS, the core now rejects every PTP_EXTTS_REQUEST2 for this
+> driver with -EOPNOTSUPP, where before that commit the same requests
+> succeeded. Only the PTP_EXTTS_REQUEST ioctl still works.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: ethernet: ti: am65-cpts: fix support for PTP_EXTTS_REQUEST2 ioctl
+    https://git.kernel.org/netdev/net/c/e3aaeebbef56
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
