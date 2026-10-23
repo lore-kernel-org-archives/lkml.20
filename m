@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785367;
-	b=AHJhrDkSm5xW+NaJz/ifw8QKZe5cWxW11Q3vzRHvUUgCXE/UPnSW8+jxZmhARebGph1+
-	 wbc31PzcBawYwjQzNgqxF3oD1MDgaNJRj7OiHpkPJ211Ccvprqj8MtUAXi0VgsXhatuVY
-	 pAvC1XuKY9WxwS9VGY1rhYxsCjMx+Q/Qj7Q/VVeewNAmdde1EeY3FV0Cfd/Jmg3IqF3Hu
-	 Q+T+fSab6H4vRKwzQNFJXwgbHeSTNerVJg5Vh0SEFNXVeuJMjm0/fcgecBn+ZxP+uI4YH
-	 XXYsbXHFDHlWpJtAvvdc18d8KkuSbiWp7cMZZ6uFk4byq0PdCBfy5Ecq4T74XCKUXRA==
+	t=1792785365;
+	b=DPs2V6UjhO7W8O/tyR5G01nlg9bLTGHbgI+vg7NV8tNGa9GWTmaePgzUNLMuJK2lNFXU
+	 dNTkOhdALJ5xHPvpocMoYBoBEdwbnKvSrDNzYdM3kKhNy8phIKL5sZCwburjqBGKpiOva
+	 5BTHgYxZHdcPzrKenHwyyowA8dIKs7dSW9uCLxNkhRMdLQgQ7M4dGDLM0ATSSNMqeU6w9
+	 vSzY0qK4kw+KQhN1aaaJsjg7tECDdiNHuxANAHCfWsP1zupbYNknwtk8LJyCaloYj31ql
+	 g7aJfvwA5Esm6CAknKtXHiDff/zcCt+hAsmjtBQov7zAYhGJbTStKA82oypUmmpNXtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785365;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=tUnI1u7sr3vxQ+9AJ2z58btSAD+OaPy1Lc3CTeutLSY=;
-	b=yUUmMpI7dcxkedBresipty8gPzgAYxyOr1DwWenSJz+nHGdiX8O0ubwXa9vgzpmfIMgc
-	 qeJsrEUOtQudr/ssfWLxz+J8nPbdDbQrujom2U07g5zD+b8g9zB2G1ST6kGVKdrdjukn5
-	 ndOy836ixlst2rz1+igBTCFOdZFu1BvIZ5+vCARc962EBM5/vU0nck+9WcEhUbU/DGAKf
-	 oqkvUPOjxkiPfrcZE6jy79xq8+/dM8m3YYwL603il74msen7M4DCYq/eu/+Bf1ryX5WJY
-	 2jylNTdpyQd3/3SuENxpjYFcXqW6XzvynGb2nNWHSFCgYdk5gBsUA7JT+QTMCV6qUjg==
+	bh=xYibKUXUGyrTSXdXuSUxNYcCPjzxvN7w1HBp6cwIiM4=;
+	b=j2+XLla2PxTRh2srd/MEYmJPXpF+540lVy2GvMsK2nvq68BH19HFFlWipQZUtCB1fnwL
+	 N1DIZMQMzEUMBwvs7Y5aTnOpeRskBjZ/HrKI+k4d0ITwvz6BHMOWA88K43Yf8ZmqtPiRu
+	 EbirVPie4GHoT6z0aFX33+bBC+z6e8KAU30Rb5+OY2iXErU8p5dGONMLNrTf0jj1XExjv
+	 5+kDEOaXlyu0b2LRz7jCzQJe7EpZiE3cQG2DkU9OBXHOAzzD0enN526+/jhiJorizuOJ/
+	 +oQgmG8ejeiN9mXTi4kB+CDPh26JzbyzWvpxovLajNHHm1FizWm4KqDtiJ/tLjfwMRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TgfiZytr;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EmztR2+v;
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501B7606B290;
-	Fri, 23 Oct 2026 19:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501B7606B290
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3795260A382C
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:56:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3795260A382C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TgfiZytr
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EmztR2+v
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785365; x=1793044565;
-	bh=tUnI1u7sr3vxQ+9AJ2z58btSAD+OaPy1Lc3CTeutLSY=;
+	s=protonmail3; t=1792785362; x=1793044562;
+	bh=xYibKUXUGyrTSXdXuSUxNYcCPjzxvN7w1HBp6cwIiM4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=TgfiZytrdnjfIW3J3U1uu1mNIUCHZ7j4Wt9p1s5Hr/MoidKJUSGlHX1W+kwlysWgr
-	 bXmDTMScdI5nt0b1Wn2S3Gw1MQ36ri6WMrHn99eVhlVBpa3YbXMHDyVLwnOfwxfM7W
-	 BZqaKycoTpATjQuRToenrGZ2j+c1oH/IMyFQ1l8i8/BcK2K03mfbSFiJThDR5+ikDO
-	 h0fKjJRTgxQooFKQrHWTa9iy1WX4uPqwi9catI3NvSihbLFVl8A7u3tgxg8hqXR9D/
-	 dGJk6eGRIvzkxIBs800b+5FU7biThATULGqplKjpCM+se/ZxZY8BWgAOa5241a+vwy
-	 cVos8XDH+2Rxg==
-Date: Fri, 23 Oct 2026 19:56:02 +0000
+	b=EmztR2+v8FKsp8yZS4Ta4T4oo4KdTrKPukFY5vNPzlqPnc0kN0KHg02CN54I6ChkC
+	 /D9xkrUWT2JDadsUOCsHoqFuztjBVf9enhZXzHgil+MFIQpcBf+jgbAH8PLuPDRpQh
+	 73l3SRsmnOzkOHkFKCsEL/rX0We1xty0YzW4G+f+ncsZh6UVPbby+qEJp7GWgAZane
+	 pAYP2VMgUZX32tQqJHCwXnfDL4u6f5fQIfkfjV+MEvYl/4u4TzfezXDBc+5f8sjsF2
+	 GqMIclAmpxHxwLsECdvLPl9r86bqgWRQWld3invQybdWa9akHDlu+nYztUcSb3xm91
+	 gLXzzbpeFCFzA==
+Date: Fri, 23 Oct 2026 19:55:58 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 09/11] media: intel/ipu6: unmap the dummy L2 page table in ipu6_mmu_destroy()
-Message-ID: <20261023195446.22578-10-valerii.sokolov@pm.me>
+Subject: [PATCH v1 08/11] media: intel/ipu6: return an error from ipu6_dma_map_sgtable() on failure
+Message-ID: <20261023195446.22578-9-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: d30bdb6ad93e605b0f87c8a6993dd37d13e3fb2d
+X-Pm-Message-ID: 6c1b308bf559afe3008309f96493f7f81b8d2a54
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,34 +67,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-ipu6_mmu_destroy() frees mmu_info->dummy_l2_pt with free_page() instead
-of the existing free_dummy_l2_pt() helper, so the streaming DMA mapping
-of the dummy L2 page table (mmu_info->dummy_l2_pteval) is never unmapped
-when the MMU is torn down.
+ipu6_dma_map_sg() returns 0 when ipu6_mmu_map() fails, but
+ipu6_dma_map_sgtable() only treats negative values as errors. On failure
+it therefore sets sgt->nents to 0 and returns success, and callers such
+as ipu6_isys_buf_init() and ipu6_map_fw_region() go on to hand the
+hardware an address that is not mapped in the IPU MMU.
 
-Use free_dummy_l2_pt().
+Return -ENOMEM when ipu6_dma_map_sg() maps no entries.
 
-Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU t=
-able")
+Fixes: daabc5c64703 ("media: ipu6: not override the dma_ops of device in dr=
+iver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6-dma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/in=
-tel/ipu6/ipu6-mmu.c
-index 1a564ceb74..b1c34964ce 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-@@ -668,7 +668,7 @@ static void ipu6_mmu_destroy(struct ipu6_mmu *mmu)
- =09free_dummy_page(mmu_info);
- =09dma_unmap_single(mmu_info->dev, TBL_PHYS_ADDR(mmu_info->l1_pt_dma),
- =09=09=09 PAGE_SIZE, DMA_BIDIRECTIONAL);
--=09free_page((unsigned long)mmu_info->dummy_l2_pt);
-+=09free_dummy_l2_pt(mmu_info);
- =09free_page((unsigned long)mmu_info->l1_pt);
- =09kfree(mmu_info);
- }
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/in=
+tel/ipu6/ipu6-dma.c
+index a923a1e4bd..37b5c25259 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+@@ -459,8 +459,8 @@ int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, s=
+truct sg_table *sgt,
+ =09int nents;
+=20
+ =09nents =3D ipu6_dma_map_sg(sys, sgt->sgl, sgt->nents, dir, attrs);
+-=09if (nents < 0)
+-=09=09return nents;
++=09if (nents <=3D 0)
++=09=09return nents < 0 ? nents : -ENOMEM;
+=20
+ =09sgt->nents =3D nents;
+=20
 --=20
 2.56.0
 
