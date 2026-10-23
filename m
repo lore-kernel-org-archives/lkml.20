@@ -1,47 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738079;
-	b=QYqqbMWVwOT2dKozHgACD+9JAVUGtu2AFsmjaKsmL+rD3zkyc5DBngXpNXdPwGj96xHM
-	 d5/lQqqEGFfuj5Bp8jF3eXG3Oq/0Nc9T0YvYYjXShhnPu0YWlWes+YLIz1/cSn3uzlAYX
-	 PwTD5cd95ZPDnKeY+bu/47B/j5AWBpG9UKp6PzMGt6kdWuk1A8kTzKaScNVgSwDzFMlnb
-	 EyJIBgfbrylNJkpqEBaizfP9TRuKDXAbaHTq9oMHS5pJUe3Q9PJIBcq8sjc0mBouh2pHL
-	 Ti+PYLVIsatKyc6ZYzopbPxntHVSSkyf2xGnX/3iZ3w22BvMsSUBkLINa/8c4o5FPPQ==
+	t=1792738148;
+	b=i3VssqaULlOAm+/wRIDUkt70+8sRYtDZhl1vwfI8ZlShezVEVXuYNyERgCFo0jtKCG7N
+	 JCXOx+0A8qVLeOLNXf39BWbt6Bmmz5Xr1FYMue3FJsUGwwTpTzELsWhyVKf1v+7cQjbVz
+	 ZBjshz0JIU4MYJySEKzlyQcRJK1TAXYaWSEJKVcggULapTuJ6Cu+GGevyjKo/5LgFKLw1
+	 emaaOre6MVq51VfOWXSHHUMYzv8OVQodLIfmaXaVmEtgMS8jlCm5hfH91TSM8G4pGB7LH
+	 eeJOw9PyECyOsuqAH0VqjI54OPQDpoJGQXdRdqBc9TFrm69lcZxoLWOwjZWhL7BCqWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738079;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=brBjDwzWi/lNl7usD3o63k7X0qpFlh94zsNOVSBPia4=;
-	b=UEzSB4Sba0ykAEHO5EnzCyfrpXa3Fx/y6qK6pDHn+6TDzyCy50PdEXdtUp7Mk8D7/1qv
-	 iDFLlbxQ/wywkfHGLjtKJ/mws9rYDcPYJjALzVLlFiqXYkHW4QfK5d4rVWdwGvv6zWuhK
-	 I1L8fjrzAMVGzpQNGNbjVI9jTWwMtLMk3ZvQyrWwp/8AFBQe0Y3dYy+Zrp0bcc4AOILLS
-	 1YCZThT+vayFXr13NwWlgOaIb6Vn+Y6AuLrWM+C5NabZetKCFwXC2Gtc2ikWBiE+NE+8K
-	 IcScYLtmGXdK7etaQrTuwHOcGthCeHDNVDv/ckyaNwITh13fooc7DE1iDRjNzkC7CGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738148;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=erqFqVawVO5JWIlkFRt7XSARlkgrx+IN+sYh7a5xpOU=;
+	b=sCyc2bqX1jhZhPWhWU8mhSQg83MEfHk6vSH9uJqcVVpNQN0kLg/2WMi9JCD3fzFJhfUb
+	 V9aF137IN4A83yAYf9lrWBnW8G6g9e4shp5l2gHHBgndxf3qMsl2F7bXCVzJ2kLfgJTXr
+	 Kx0eckFZ2JH9UKJEvBx1hNVlSmMPbRZNwZHwa1LAX/UJ9E1+F8FhqtlobyDcSqoOuE2hX
+	 gVS3kOexsGWZxtrJrorpI2VuA7rz6wR9s/dYH1kD1zfLjLE+z4LUOtXdZCpBmbK0FZpBC
+	 bxfAa/rsv1o3E4yDtLM+VpfNY2A3dSpDxNZnk5WfpzXMTvZ/ouCSAdxGhop9KRdy9/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W96cMTL1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i7uMGkMX;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1D9606A31B;
-	Fri, 23 Oct 2026 06:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589D606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2589D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W96cMTL1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33C61F01825;
-	Fri, 23 Oct 2026 06:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792738078;
-	bh=brBjDwzWi/lNl7usD3o63k7X0qpFlh94zsNOVSBPia4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=W96cMTL1/iu3Dzj4dhAXJdcNIG17fkWxp8GkSeGtX4d5NoG9YS+cNMrAoCz7ox7lc
-	 TFC0WK4BYccBHTewTBQBqpRJeUBlXXMaBFIsyCRS1feTJqQ9ki7swKa7svUlAQOd0A
-	 VmE8FapU3REQZD5WTY5v6t3Uc7nZSh0V/8dIKB1+8l/Aq2xbx1lQmIn3yIqCMa24AV
-	 eEokEP4EraJRfzWZGKGKF+FyHvWOCk6GCk9PFVWzz1KrD0oCMcjrEWuzJw/eFqlMkW
-	 ksUs8QRVh4NKHqMCh3wivnhzn13MbW4km9jo5cCmL496eqIlWVxngRsURWH4VpHvcz
-	 5naAFWKrRke0Q==
-Message-ID: <d14e954f-d7ed-493e-bbbd-8a4bd780332d@kernel.org>
-Date: Fri, 23 Oct 2026 08:47:51 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i7uMGkMX
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so198868a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792738147; x=1793342947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=erqFqVawVO5JWIlkFRt7XSARlkgrx+IN+sYh7a5xpOU=;
+        b=i7uMGkMXscHjhDENCGznN0F0LdwXhaeeK4wgq1V7J4s27ItdUdgiunUqSxsF8PqGG/
+         RDNvW27StQY6+J/7pi2NNhXsIBii5GWnzc0xn9xTKKIFh8JsYVTB9OmSKlOBQxgM23++
+         1qayxyHKXlS7JCxOnpQwsMiqvhs/BITHAtV2XcR+u52UGYFT99pDYDdbrT2EpjGofscq
+         Hy+ASifE6Vm/184hsyDxfFrP2DfFgsVzwMdjGBP4X+j97Afa8pEqJ53zMJ5TI7nLRVXo
+         OnffgizhsnSq2tku16pbj2V2RImO0esUxWDeT5yDhDMEzAn5j2FgguIN3aVETuFQaB0a
+         d08w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792738147; x=1793342947;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=erqFqVawVO5JWIlkFRt7XSARlkgrx+IN+sYh7a5xpOU=;
+        b=cD8orYBvpiifE7w8SnOeA4rljxKtORGKXQQODnwuwxDPXq1u5pCv8vNmLYTHyxa+GD
+         0PRakUtqM66c312HDcD+t9ZOyVXRx2NvyPVxXFL2a+eN0ldc8Ni55lbGTitXzvtNtogV
+         V3Xi1qjSCE9Tc8Ni9E+NAevcr01xg1xi3+BqKYl6GAoDSuuQEqGCy0JIe5Y4XHyRkPIq
+         8UcHKJQ/b5hIh9VMCRRGWYmp1iQA9N8c7OJu4mNr0KChFA5K13G+E8jRcqnhJHejTmO0
+         /ofwCaEoppiblGeW+YZa3vzNtQP3/1ALDcCH7xTsKdDOD946ENvVskoW427WRNb94Get
+         Mn1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzJH/Rbup0UJ1bHjV4d/6BD7csOEknnHE4S8vyZQP5EnFs4RgM9zv/M8FxLjhvrLZtQN53gM2AbLL251RY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdqoKPQxQjglT/YPR4+wLwdZJJ66cMRSDJnOe7X95gliL368Sp
+	m90fiZltxgAQr+30awRgn/rDJOS4ydbDiFJ+O/u9uJI1ciRuzl7nV0uV
+X-Gm-Gg: AYBFou2Is0KxG4iS61QmEBuSYu6JxVgiCULYSn7hO1O7dlxiGuJ0kAitLhMpVkXhklX
+	mRdCkip8K5iI6Eqr6A7t71zItHDw3g2NjNYk/xrWVtBV3QBsiAP3OAulRiL3RYI6RHpzwcWQ6kv
+	6xT5zHjFErVYn4YdMlsUew9cofSkjk6xX85PM8r4LaV4oEUocpW7EgggBfu9EndrW0fRNtHuRe5
+	LmHV7Q1NBKXbHnPI6tS7iqKx3hO2QiYl8ovxV9Eh8JrRnH3E29VS6x58fvHLOqaNsA16oUcw1/u
+	yPU9ZhPMCpOFwqsl4fypVI81NJKMJaO/Rjq17xdaTtPYPwtqa2uiAuZoXY++wCxGdxkHksEedCJ
+	VCbs8Mc10RPzVNfbhcwVR9h/5XIQWQSbHWuBzJPryqI7oDFETZN7cslQUqSoAkuDY/xrTUT+gwk
+	ZKzkLQUXd8DKos/kGxeV8i5/V7iRgueLIxjkvCy4BspC+B6lMFWc01/c0QIoSCzx5neOeSrijie
+	9/W2m2HDx0ldm5VY3VzJp/sGoQ8JqUT26eiGX7Gw79hR8PgS3GPSFEyOjg80dbFsfVSGa2yVIYn
+	Llu4vU5YhoABRqLxd3mDm5npZ+r20FyAWtzme/Lf2fm2
+X-Received: by 2002:a17:90b:3904:b0:3a8:6045:5a24 with SMTP id 98e67ed59e1d1-3adce45d61bmr1003380a91.38.1792738147399;
+        Thu, 22 Oct 2026 23:49:07 -0700 (PDT)
+Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add29dcad5sm615871a91.4.2026.10.22.23.49.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 Oct 2026 23:49:06 -0700 (PDT)
+From: Guoshuai Yang <yangguoshuai@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Guoshuai Yang <yangguoshuai@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Date: Fri, 23 Oct 2026 14:49:00 +0800
+Message-ID: <20261023064900.64877-1-yangguoshuai@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179268155570.3135.6366960419287611684@kernel.org>
+References: <20261020030450.7170-1-yangguoshuai@gmail.com> <179268155570.3135.6366960419287611684@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,118 +108,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in
- pasemi's pci.c than in pasemi's setup.c.
-To: Christian Zigotzky <chzigotzky@xenosoft.de>,
- Philip Li <philip.li@intel.com>
-Cc: kernel test robot <lkp@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "(open list:LINUX FOR POWERPC \\(32-BIT AND 64-BIT\\))"
- <linuxppc-dev@lists.ozlabs.org>, linux-kernel@vger.kernel.org,
- oe-kbuild-all@lists.linux.dev, "R.T.Dickinson" <rtd2@xtra.co.nz>,
- Darren Stevens <darren@stevens-zone.net>,
- Damien Stewart <hypexed@yahoo.com.au>, Christian Zigotzky <info@xenosoft.de>
-References: <20260701125941.906-2-chzigotzky@xenosoft.de>
- <202608142355.4AeDorvg-lkp@intel.com>
- <5ad17e60-7c02-2cd9-7cad-0c14896b8f3d@xenosoft.de>
- <aoFPwEi0iQRSmmSu@rli9-mobl>
- <9baed4e5-2bc2-c3f9-9a27-24f7ec8dcbd9@xenosoft.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <9baed4e5-2bc2-c3f9-9a27-24f7ec8dcbd9@xenosoft.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/10/2026 18:49, Christian Zigotzky wrote:
-> On 16/08/26 07:50, Philip Li wrote:
->> On Sat, Aug 15, 2026 at 11:56:56AM +0200, Christian Zigotzky wrote:
->>> On 14/08/26 17:42, kernel test robot wrote:
->>>> Hi Christian,
->>>>
->>>> kernel test robot noticed the following build warnings:
->>>>
->>>> [auto build test WARNING on powerpc/next]
->>>> [also build test WARNING on powerpc/fixes linus/master v7.2-rc7
->>> next-20260813]
->>>> [If your patch is applied to the wrong git tree, kindly drop us a note.
->>>> And when submitting patch, we suggest to use '--base' as documented in
->>>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->>>>
->>>> url: https://github.com/intel-lab-lkp/linux/commits/Christian-Zigotzky/Connecting-the-SB600-s-i8259-controller-rather-in-pasemi-s-pci-c-than-in-pasemi-s-setup-c/20260813-054214
->>>>
->>>> All warnings (new ones prefixed by >>):
->>>>
->>>>>> arch/powerpc/platforms/pasemi/setup.c:217:6: warning: no previous
->>> prototype for function 'nemo_init_IRQ' [-Wmissing-prototypes]
->>>
->>> This is the old patch.
->> Sorry about this meaningless report, we will improve the bot to check
->> new patches to avoid such report.
->>
->>> Here is the new patch with pasemi.h: https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20260801043458.12500-1-chzigotzky@xenosoft.de/
->>>
->>> Thanks
->>>
->>>
->>>
->>>
-> Hi All,
-> 
-> is it possible to add this patch to the kernel 7.4 too?
+On Thu, Oct 22, 2026 at 03:05:55PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Medium]
+> Is this reset reached when the outer TCP GRO aggregate carries
+> SKB_GSO_FRAGLIST? It only runs after skb_cow_data() succeeds, and
+> skb_cow_data() can fail on that gso_type before we get here.
+...
+> The skb_copy() WARN_ON_ONCE() itself is older than this patch. This is
+> still the same stale outer TCP GRO metadata problem the patch sets out to
+> fix, and a reset placed after skb_cow_data() can't cover it. Should the
+> outer GSO state be handled before or inside the COW step instead?
 
-This patch received reports which basically rejected the patch for
-inclusion and we wait for proper, fixed version, as explained in
-submitting patches document.
+Good catch. When an ESP record spans an outer TCP GRO aggregate carrying
+SKB_GSO_FRAGLIST, __strp_recv() places that aggregate onto
+skb_shinfo(head)->frag_list with SKB_GSO_FRAGLIST still set in its
+gso_type. In esp_input() and esp6_input(), skb_cow_data() then invokes
+skb_copy() / skb_copy_expand() on that frag_list member and hits
+WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
+-ENOMEM before skip_cow is reached.
 
-Patch also did not follow standard naming rules of commits, so again,
-please read the docs (submitting patches) how to properly describe and
-send your contribution.
+I will send a v3 that unshares/unclones and resets GSO metadata on any
+frag_list member carrying SKB_GSO_FRAGLIST prior to skb_cow_data(), in
+addition to resetting GSO metadata on the head skb and frag_list members
+at skip_cow.
 
-Best regards,
-Krzysztof
+pw-bot: cr
