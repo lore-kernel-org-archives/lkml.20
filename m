@@ -1,104 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792799686;
-	b=UD4O4+JYO4WeCYmvntWAfl8qrypwHGjUtR/ATmbvt7plbT1tJQfYGFq+BaATlnVhxtDF
-	 Beg0tjZ+CSg3WprNEpywBrU2TAIwgZ+Xs2ZWpn01DaCe/IwekZIzCflNEOdwr2bEGogSV
-	 687mrqfid/015nxthWVFkTdfSYm5J6J0cSK3eQmIP+nsAScrYFRIP4slE+ewJAmVpEEb5
-	 kdbh7ItQajXYkwaC+WmnLiwmT1b1A9cpK9/OhPQ0JOj/CUUIkVf0Zn/uvBNq2GLgsJsLr
-	 uS5XSCDHNjouBaFB5onbnT9ALsaQTvM1xZPLhf3hnhvXFTYTfUxeZHLeLQ5xo86FUFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792799686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mTvncITSrmjlfT0ndh2hw1OrlpimSBkCjP2VnMZnln0=;
-	b=wNj8/SwXSYAzJOiBq/cUhnpQYFMy4ppIhQguepT08ZDAiTEYtb/OMFm8bgnL6HddnGeI
-	 vK7v1t3PVfT5t3R/9WqwHxzCYlb810gJjSV1s97PCCxtNWJ3foq+RLH7RE+h/8T7RERgn
-	 HwwkdHlHt3Ne9Mu28oWsjys0aBrq1qalXjqZdBdqDkNgwo4ZOKl1kQnMtsSdaECgduNAw
-	 0jg+HhLnc5Yx/xPm3YUUKkPwgjMG3phlPV2QC5FSbBWAblTlI7nco4pi0uDrvasILY8ov
-	 e0J+rGfma6ahuqhQqTRaHYrMGIbKhaPXXaQ3hcdGqsNzE+N5OLckaDJ/s/zA681hmhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="i/9op5ma";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792799756;
+	b=bhM24g7idm194N4mPVeqvp93Mniab2Tf0PGI+dYZ4e3pEat9M133oosxC9VUXNf/VP46
+	 V3wIC2/tW0x+bSX3omJSY1PFnyTHPV4r5Kb9Tvp3RXx5q3mu8QYJze65BiQo0JGz7Aorn
+	 dbsmON4wEG9DnK+fUdpx4BsC4FdfT1JdvfZhBON1ZWcOec+o4/ubFuztcToTTAAnRxlNf
+	 zzb3/6cPZo65AuNKIpekmC3REyo6xep1ZRRLUKd+JJZYG7kneJq67g+JeYLFxOB5cGf7u
+	 hiaOFdXZKI/MxVfVA3DepopUmEXVphWL8xoMZeTTMJSI+l+yRQYedEJTgssTbWXu/JQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792799756;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=Vc+TfOfOFq/NgwWnnjIo9V95kZ1tWJ8zYfuUWonski8=;
+	b=pmD751RrsN2/ZdAspom+8I1t9smCwZrR6Ma0yHI4RZ76LXk1hwW2+zKB0YLUNXgkiEQy
+	 CN/j3qq//O4YveNyx9bF0J+aesikAh8qBSMtI5Q4raZz1pPsDfe7Q92zMC53Qe75Jysy0
+	 FBR+FTOcFm/Bbp9aUqPnf1zsVs5K+4FH/d9H0ayRSinn3Vh8IAJSM2VnJ3a1spOIJR7uS
+	 QEVcT1G5aUEyN+EI24SYV8mnaKRJP1AdCWZGsD/g635GNYHdaV+cAikiR7jB7xbXRwZS/
+	 dEuIwDJqW8Oj3ukdLrlDuNeAeXIeNYaX9IqZiNjOfXA/rXIpeU5jVgkZUdcdnmeJcEA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vk9Uko8r;
+	arc=fail smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A8D606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A8D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010CA606A328
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 010CA606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i/9op5ma
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-353804b591eso2350349eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:54:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792799685; x=1793404485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mTvncITSrmjlfT0ndh2hw1OrlpimSBkCjP2VnMZnln0=;
-        b=i/9op5maoWDccqAPC7T9ZrktAF8gSQmXqzeS5XAX25JC9j4dl52SlatN7qTOj7sqxg
-         /xtbCpCd7vVrtRx99MV6qwM5DyDfjZ34V7K0r2bBuF9RwnLdkPpTEXcOgVcybbOLKpK4
-         Dh94uTR9e+y7JD8Lq2XLMEde5EHkLUzMarhL4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792799685; x=1793404485;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mTvncITSrmjlfT0ndh2hw1OrlpimSBkCjP2VnMZnln0=;
-        b=MoqWVvPJzV4XoBtJWfd8KieYJcgSHn9RSK6NZ0FgXLV4e9re57elhKEvADmVvjh9GH
-         CeXCVtIzsk/OLvWolh3kWAWcaP1CgYImB/VBLXZwobomwngc59hyJz4jnwMuARtpO1+l
-         Y/jAq8DALmuQX/DGMl+uX8wagoZoTYIX3DrwWnAbCUFhyK7l21nnX8d59ycpjDw0IWDO
-         Ugg/8uEzjxJUQynXmG5RHOXwf8tcXqbBYyReJ1/wv5WRBIJon5ieURlYuUd9aU/rFDHD
-         tQh1Y8jkbVOsJASyHa9VnUJsVPsKcHYv0CQM6fgfXUBxlQH/NjsNB/KwKFcRZy3UAo7r
-         P+sw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNnbRA9benm7rF9uuLtichU2wpbG+crkaAAkTnQZn/0A9zeNFkTHDyXT3JiHyWfcQ3FL2YVwowGFcc7fg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9yCwMpssycN8zeAAMym7co7imoQ/mOa6ug8krLy1LO/J/M5I6
-	uKQu4Wqky/+0hgAWfkuNy45OOT12raM9bDdPwOvG/Qeos90g9T5KHPLu+7Ho92faAg==
-X-Gm-Gg: AYBFou0nuQbgXUuDrP1BZ0P/ZHfdLj7NQe/C9vhMPsmUFWAZZ2bBt4oMBXkHzolNaCR
-	gfih1yy82vdiFFcEACZ4Ji9Rf9eM+fIHIDqD5nnJwIQTMhuxn14QOy8WpEKZXKVFjZCBGDRTs5v
-	j1PRg++xoiKml7nN/ZxmTBFVxqWHpsoPOcIJqsZAfVfIqK1JfLY82+wv1YBPmXzAk4jEb/faoex
-	oBRUkq4lRryC821JDUPVO+JZGkBATh35QKWgALjZ+nL2hqwz+sAIpvACKwj7tanBhXBuuWuHjS3
-	PD2WAuMMmsvpYzksdSQqEFlmqdOrNhwCkLSKOLJVlqaMi+vFEVOLAXXa+Xf/14WSSKAcgwiKfxO
-	6QKAVbkzki+68H1DHvFtzF9L7dchH29vpoBXEPathncr1+yv6owbCBkpNiF2uFVL1sxuW4fRlTa
-	x/ixiXW8jqlEMGMN0AlW7qklsfr+YYx3JK1F1uFCd6ynI/MktDl/Uu133HTKsNX3JdPJIFrrbqH
-	e0Xfb0pq8UGsQSMDUEl+io4/+7ydlgeVxtUDWDQVD164w7Zn8KNxJwd7kbjfPKj9a5BkibIoQTY
-	P4VVkU9Ov2pNj0VARIQHEAXk8YbnuAc2Yw4uuCmn
-X-Received: by 2002:a05:693c:4153:10b0:369:21a:dce0 with SMTP id 5a478bee46e88-369e847a667mr1124175eec.6.1792799684880;
-        Fri, 23 Oct 2026 16:54:44 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:f8c2:b3aa:f878:2faa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm1460608eec.18.2026.10.23.16.54.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:54:43 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Joonwon Kang <joonwonkang@google.com>,
-	Subhash Jadavani <sjadavani@google.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Lucas Wei <lucaswei@google.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v2 3/4] dt-bindings: mailbox: goog-mba: Add goog-mba mailbox bindings
-Date: Fri, 23 Oct 2026 16:52:20 -0700
-Message-ID: <20261023165211.v2.3.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-In-Reply-To: <20261023235408.3063350-1-dianders@chromium.org>
-References: <20261023235408.3063350-1-dianders@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vk9Uko8r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792799755; x=1824335755;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=2iVX3WDZ/lTL1Hq0PEI49i4z5AQqEq32Y7EbYlV16lQ=;
+  b=Vk9Uko8rcssDWw0AyS/dlNHPX/o0cj3VrZyT19icdZllSVE3cKVJYEhZ
+   CfkkP9kMJR9W9ZG9crwhVYIJ0jdn7xo7CyzIKLDedDgrRZSSKmTKNad6L
+   BmX+7awxZ8SH08bFd1yFd3r7tV0nkwDbZZxN/pgjaqIPWjmdLRKQOrrwL
+   imfUpxKVkhpz3h6VzGrj68gCIv7DpdCahU31Ai8OYaKC8R6DuMBdmHaJo
+   3OHMLggIsJwjl9M4XOs6c4fNx0Eu3sAZaNp/eKQH25UXgcfAJiY0EvdJY
+   HHj+UBEqshbr2nCHF72Lekm21rsKGBVsKnpcFu/RN8MQ/Z3tJe1lwW3Pk
+   w==;
+X-CSE-ConnectionGUID: C/mRl7xfTj6a0HB0iIdv4A==
+X-CSE-MsgGUID: eP5ufxMBR0O126a987Ve1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1459528"
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="1459528"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 16:55:55 -0700
+X-CSE-ConnectionGUID: M5FmwZx0TAOgL2uLoo21EQ==
+X-CSE-MsgGUID: iqzgVyLYQpS0OQdQXki/Cw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="3868995"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 16:55:54 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 23 Oct 2026 16:55:53 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 23 Oct 2026 16:55:53 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.69) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 23 Oct 2026 16:55:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pnJbqxqGYSSjjRntCSQeM8+G/i1B1HlyFH1bO2yOMg5Sg4I+TQ6Dlajt4mGldMYE0tpN0zongBNwAvlmFkeoM7Cb7Yf8FLglSuCVOF2VPy3DTrMfqF0YgireYs0AWkLJUGeZVToLMuISDvZV91V5p1yoHcdmX6xAzqkcLqc6QS+7JGLts59UEJBhviVnHRFqgl09G40EgDcyo+gzQ9DiWtPd30GNbuulOcO1HG2DpcCuhEPocxba4Nsu4RaDhw1TSm0WYxOY9JtijDM6ZaiBjkz1yH1rS1rUPycUIBwdKgX69dC2+erE6AykEDaBTkc/D6OjPvOtAm0Cu8K8inr6ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vc+TfOfOFq/NgwWnnjIo9V95kZ1tWJ8zYfuUWonski8=;
+ b=msG9Ionfywx9DpIeDM49PcaiIrkSJpd4rX1O3fxxjMb/rU32z2gtE4M5w3ihj4IwitTXAvhgl6UCZy2xR2xRl3hERrRhMVxoYRrwPa56VGNEOHj06IU/ykoTsNAnR6MWVM/q8bc11/nwCNY+L6qS9bsQsdQdIEwAKI8GndDfDIs+JpNDysUyR6JNGPAMh9LHWyDPpdKfSoUe8xmZuqfeaqrsEElgtD4CltCXYwVLSRnQEkGgt6hrN4saMkJvS88EXTXGspyWJOTFjEzBAtBSnOPQJnCpoAEzdQZ4vYpQsFEoAubwZDV8ILcVRUKSE347vPNCSsDIEw5y9IsWdG54KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by DS7PR11MB6197.namprd11.prod.outlook.com (2603:10b6:8:9b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Fri, 23 Oct
+ 2026 23:54:08 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Fri, 23 Oct 2026
+ 23:54:06 +0000
+Message-ID: <40ed95c5-a103-4139-a802-893c4bc8a497@intel.com>
+Date: Fri, 23 Oct 2026 16:54:04 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 04/12] x86/resctrl: Do not enable ERDT when Sub-NUMA
+ Cluster is enabled
+To: Chen Yu <yu.c.chen@intel.com>, <tony.luck@intel.com>
+CC: <tglx@kernel.org>, <bp@alien8.de>, <mingo@redhat.com>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
+	<babu.moger@amd.com>, <hongyu.ning@intel.com>, <chen.yu@linux.dev>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>, Hongyu Ning
+	<hongyu.ning@linux.intel.com>
+References: <cover.1791933001.git.yu.c.chen@intel.com>
+ <eefa12618e3be5b5e19a88a343d192ab8d9049ae.1791933001.git.yu.c.chen@intel.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <eefa12618e3be5b5e19a88a343d192ab8d9049ae.1791933001.git.yu.c.chen@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P223CA0011.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:303:80::16) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,256 +138,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|DS7PR11MB6197:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37d049eb-a507-438c-728d-08df3160ec58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|6133799003|22082099003|18002099003|10067099003|261021121427099003|3023799007|261022113327099003|261022105027099003|11063799006|4143699003|5023799004|261009223027099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info: bvOi1uNJFFF9Tgen/GAIx00hcI6UGq+w7g0KG99x8IVHOHaoxbBr/DgiugQezvDg/bx5B9Fd2ngHAP99QdjjAqCUv4zrNeWASOb7X20Y/iOAwh0qiHxryURx82PSZ8Az2S5xZQ2N8bpR3jTk4YWg/6HzU2Y75zDZEvLkgom5k1OwxoPMZaMpqrUdO5qA2X6zIB3ZM3yFdxKxE61yUz/vSMgQSFGKFG9gy+eiJhvK1ZxdSk078xvyZSpyZwavkvL0BeoNt9QmHlXHA1WBBGl1if/Nsp1nkxm2UsKDpO/i4UAx++QqmKGn5zo0eAgLl6X9s+uB4lJRP2yX1h11EG5sKhz3AkflpifbycQwxEHjf3OidgoIGpxOwpeAsR9TpQVZUN90tccswhDi1fL2wMl06Lb1sDRzb3eW9Ag4Qei7wM76b15x18MjUGw/lAv28/6y6/tzGqGyPrh2Rb7XGL3Pguzgcqxnx2Oi3seTtX87W57j+wmFEFbYW24d0KHSThno/PmNnPch9ItPPAIv8+ab6/iq4rAUctXGJL9D0BNK2XAQ+SSYyfU1yZ3GpHixtERNoWUev9oSv+W1CiNdL7U/qFXT1D+8mEIhnJ9ggY3l1BXTSY4em8r/3gaRDzrXkR6GciaJ0iGftk3/S4X375Q+fJcnBAmLAXC9nQtWNKI2pLM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(261021121427099003)(3023799007)(261022113327099003)(261022105027099003)(11063799006)(4143699003)(5023799004)(261009223027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFJwaGEvV2RDbUpCTzhFTVNFejZnK3dFa3R4Tk1lZGRaYkZkTy9ZQXhMS3pR?=
+ =?utf-8?B?U2lyTktaNkZCQURsYzFacjJHd2F0cDJ4bTNSdzNiUTdDeG1lY1h6VDFXYk5h?=
+ =?utf-8?B?UVNwc29Rc3I3YnZTa29UYWNLR3FXOHJ3ZTRwMVg4WkVobkVWc25Kei9GWFA3?=
+ =?utf-8?B?VDZHKzRrWVZ4TE1yMjJCQUw4Qmp4cThHKzJrWERpT3VuTk5LZ3loWGtmenR5?=
+ =?utf-8?B?U05mU0cvK29CNmhna2tIMmVsSTRXenZ5L3ovVkd3VXpoZmtYTkk5dU5wdEVS?=
+ =?utf-8?B?dUlGYkMzUDMxWXlYTlFEbGNvRjJUWUNITVNaUlY1YzIrMlIwTm5OWk1zVGYz?=
+ =?utf-8?B?TW4zMzZNRDNVK05ZR2FITlJ0QjFoSGtsMVFpay9STnNNRHhXU044ZkFTeVZi?=
+ =?utf-8?B?dWVBYTBTbVRQZEltNUFhZ0l5djZLSHUzazVDUkdMRVFzbW9kcDFELzFnelpI?=
+ =?utf-8?B?WlN6b0s4Tkc2ZEVobXZndmpOckVJd3BwVHhwcUVabjZoV0hXRG9wdkhOQ1I0?=
+ =?utf-8?B?RmNST01hWGdraUQ1M2NuRjdhZEM2aWZ3YWtrdXBRREdvc2lYZ2VpYi9lQTlR?=
+ =?utf-8?B?Zmd2TThJV2w0ZXNYOWlSVDJKaHk0c1drcFNMbGx2ZWRmRUVWYnZZMklSZFRz?=
+ =?utf-8?B?Z1BvQXYvRklyMzdycUtJcmJuZHVEdytqK0ZrKy9PTnlucWhaNHhFbWd1ZEJv?=
+ =?utf-8?B?cnpQdy8wanpGd2ZDOFIvakltRlQ3dlZ5YVlvdmkxaGdQSzBNUFVBeXljRUYw?=
+ =?utf-8?B?bkdwZjZUdU1KMzBxaHRtUWhPVEFqNERJUzRtTUl6WUxmcGdaalQ2MjJDWk5W?=
+ =?utf-8?B?WEg2VkV5T3gzZy9aa1dVSnZQV3pCVEFRaDdDL2tSMGppdmlkbjhzTUxmUG5B?=
+ =?utf-8?B?Tjk0WHZ1elF5eFNXaWJyeGlSSzdXSG5xWUh5dnh6SUFNWi9SWFlnaUN4bHhi?=
+ =?utf-8?B?YzA1QlgrQlVjZElCMnVGSmFSMytjWnBjdEtHWkVySjhCY3Z5a0hURmpxZUIr?=
+ =?utf-8?B?LytCbjZTeXVHQTRTN1JoejFoS3VxTzRGMVpSU2pyWDR6aUF6SXpKbm40SytV?=
+ =?utf-8?B?d0RsMTdUVVVWaGp1TTVLdlpOejZaYndqL1JDY0xFZm1wRmFZT1BiUUd0ejkw?=
+ =?utf-8?B?WkpGRjBYRklPemhoaVF6M051NUZmWGZFd0tYVE5ZRm5NbkFZLzBhdmlHbHBx?=
+ =?utf-8?B?eXhEUmFuQUtqV3BRenhYN3Z2a1M1cE9qcW9JajZuNk4zRXVnczRTaEhPeEtR?=
+ =?utf-8?B?N28rRlV0cUxvT2k5a3lMY0xpV0Q3c1ZPSDVJbXdlTWNaTXhoWjlBNzVaSFdN?=
+ =?utf-8?B?dmY3WUxGeHhETCsvaStGbGk5YmdlMHEydW9jbkJjaHNCMzZrc0svcFZvQS9G?=
+ =?utf-8?B?TjFwek5JNWFkWEQ1YVd6bjRyd2FGTlhoSDRvdThxNWNpMms2WGRVcFBTWGlj?=
+ =?utf-8?B?NDRERm0vTmNSWDFxNTR4QmtkcEpPTVRlbGw5ZUtWeFpxREtkczIyZFVEeThE?=
+ =?utf-8?B?MnpMbTdZc2FvbW1oYkcrcEVGMkQrR29yekE2WUJPTUh0cHFJbWZqcENrNVd5?=
+ =?utf-8?B?TkNXZUZrZ0t2Yk9qWGdtcVRRcFJTSDVHbVRDd2IxUXVWTTMvMTMrcG1RK1kw?=
+ =?utf-8?B?L3hiaFdUWnhidlcvU1FGMkJFQk1PbzJ1cXBnZnIzT2NhNnlHODI5ZzdSeU4w?=
+ =?utf-8?B?MUhTZFpQclNvSGhYbHMrSHpWNm1iMElwSnd5a3lJc2puOE9NV1BSN3V5U1lz?=
+ =?utf-8?B?eHZVSmI0TWhvSFZUWkowNUt5c0tneGk5M3EwUUhPTUJBa25yNXFZY3R1K24r?=
+ =?utf-8?B?Y3VpN0tBWWlKQU1PR2JCcXozSExpRFVYYzFNNUlMTDVTbVNtdjVkUTBKMUN4?=
+ =?utf-8?B?Ykl1VkphclNsLytncWhXSDBaSURSMlFFcnIxaHVPS09LSlJESlh6RU1rVVo5?=
+ =?utf-8?B?QjkrajV0azAyL3lyZjl0Qmp6UjVDaTV3VXJwSVl5bElpb3lGUVJLa3ZvUzln?=
+ =?utf-8?B?bXduRElObHFNSnBlNmVnOU56VkJVWDJPMHdGTUFpZ0NIbS8xcXJ6ZHhyS3la?=
+ =?utf-8?B?ZEJkNld0QlhxVytUTUM4YUt5Y0tjL2EvWnRnZWJtUkVtZDloWFdQVXUrekk1?=
+ =?utf-8?B?NE5US2RIbXcrTVRyM2ZMVktPZkl3cEtkcVl2dU1Fd05GWWdDcCtKN2lmYlU4?=
+ =?utf-8?B?NnhUNm5GTE9rU2dFQ01WUk81R1lWblNPYldwV253OUhteUNVMm5NVWpGTGZI?=
+ =?utf-8?B?dVpTTkNWRnZEc1g4NDh2UzlzQU05b1JYYjZpd0ZYek01cngxem15T1h2OEVh?=
+ =?utf-8?B?SVZleDdQUVJjMnBIUVF0bVpOS1JNZ1pJblR2S3lCNmZEZC9uWXdQNFZRUTdo?=
+ =?utf-8?Q?7dIrh9PnkggtlGGI=3D?=
+X-Exchange-RoutingPolicyChecked: mdvbJG/2FwTo/ORTiSKi0yiWWIIUweED/WJA9rz7iKWs4Cz6jr/p9RPkd0m6p5XuU0tLbNS3tpVsaaw69kX1zeV3KrvwFFNC+5BHt1j2KGoigDfTLMywJ4DwqOLQ9o/mqDvOs4Xzxo3/h2k10yB9YfuA2UNq5x4jDecGHhZI2CgveBkVu4TPpiEjVy6nqzb1jjuAdEV1YxrOn0jUF2raNQyhVXYJE1jwrGOg1o/IfZfLKqfRGfqvrq2nTU7iPwt1GGVL+vyyEeRg1UojqHE6NYHzCGE6vfJNvMA3dgeXe8BRKBrtA20NeB9Rj7dvzY69N3u5geJyde8O0ENWuq83Gw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37d049eb-a507-438c-728d-08df3160ec58
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 23:54:06.3257
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tv6nN0LEvFIWnYgcgG1aPQtnVzyFiCKWaPsCzuGDBbbn+1ujQX6U9qccD014n3clo5+fLJSlQ1Yl6uZ3YT0MKbKTKXKMV4U4vCGPV3Y1R4E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6197
+X-OriginatorOrg: intel.com
 
-Introduce bindings for the MailBox Array IP block present in Laguna
-SoCs (AKA "lga", AKA "Google Tensor G5").
+Hi Chenyu,
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+On 10/13/26 7:58 PM, Chen Yu wrote:
+> ERDT cannot coexist with SNC(Sub-NUMA-Clustering). The definition of SNC
 
-Changes in v2:
-- Rename binding file to google,lga-mailbox-array.yaml.
-- Drop generic "google,mailbox-array" fallback compatible.
-- Add "google,tx-payload-words" property for queue-mode TX message size.
-- Remove unused labels in DT example.
+"Sub-NUMA-Clustering" -> "Sub-NUMA-Cluster mode"
 
- .../mailbox/google,lga-mailbox-array.yaml     | 226 ++++++++++++++++++
- 1 file changed, 226 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
+> is to 'divide' an L3 into smaller L3 slices by mapping addresses to
+> different L3 slices. The current platform with ERDT enabled has several
+> L3 per socket, and it will not be divided into smaller slices.
+> Furthermore, ERDT has only L3 scope for the CPU agent, and there are no
+> node-scope domains.
+> 
+> snc_nodes_per_l3_cache is calculated in rdt_get_l3_mon_config(), which
+> runs after erdt_init() has parsed the ACPI ERDT table. Introduce
+> resctrl_arch_update_snc() to do that calculation and call it from
+> get_rdt_resources() before erdt_init(). Leave ERDT disabled if SNC is
+> detected and keep using the legacy MSR based CMT interface. Do this check
+> while parsing the ERDT table so that platforms that do not provide an
+> ERDT table at all stay silent.
 
-diff --git a/Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml b/Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
-new file mode 100644
-index 000000000000..f265993fe71d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
-@@ -0,0 +1,226 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2025 Google LLC
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mailbox/google,lga-mailbox-array.yaml#
-+$schema: http://devicetree.org/meta-schemas/base.yaml#
-+
-+title: Google MailBox Array
-+
-+maintainers:
-+  - Douglas Anderson <dianders@chromium.org>
-+
-+description: |
-+  The Google MailBox Array (MBA) is an IP block in Google-designed SoCs
-+  starting in Laguna (AKA "lga", AKA Google Tensor G5). In a typical SoC
-+  that includes this IP block, there are a number of instances of the MBA
-+  controller with each instance having slightly different hardware
-+  parameters and intended for communication with a different remote
-+  processor.
-+
-+  An MBA instance has a "host" that is defined as the processor "providing"
-+  a "service". This is typically not the main Application Processor (AP) but
-+  is instead some specialized co-processor in the SoC like the Central Power
-+  Manager (CPM). A processor (like the AP) talking to the "host" of the MBA
-+  is a "client" of the MBA. A given MBA instance only ever has one host, but
-+  it may have several clients. For instance, the CPM (an MBA "host") may need
-+  to send/receive mailbox messages not just from the AP but from other
-+  processors in the SoC and each of these other processors can be "clients"
-+  of the same MBA.
-+
-+  The "host" of an MBA instance has full access to everything in the MBA
-+  instance. It can access its own private set of "host" MBA registers, the
-+  "global" MBA registers (if they exist), and all of the "client" MBA
-+  registers.
-+
-+  A "client" of an MBA instance has access to the "global" MBA registers (if
-+  they exist) and one or more sets of "client" MBA registers.
-+
-+  These bindings are focused on describing the MBA from the point of view of
-+  a single client.
-+
-+  As per above, a client may have access to several sets of MBA "client"
-+  registers. Each set of "client" registers represents a logical mailbox
-+  "channel". However, because each channel may have different configuration
-+  parameters and a mailbox "channel" in typical usage means one of a number
-+  of identical channels, each channel in a Google MailBox Array is typically
-+  referred to as a full "mailbox" and the whole collection of mailboxes as
-+  the "mailbox array".
-+
-+  Mailboxes in an MBA instance have these features:
-+  * 1 to 256 32-bit words of shared memory.
-+  * The ability for the client to ring the main doorbell of the host and be
-+    notified when the host Acks the doorbell.
-+  * The ability for the host to ring the main doorbell of the client and be
-+    notified when the client Acks the doorbell.
-+
-+  Some mailboxes may also have the ability to have counted doorbells. This
-+  means that the receiver of the doorbell can tell how many times it rung.
-+  This is intended for implementing "queued" mailboxes. See below.
-+
-+  The MBA hardware doesn't have any specific directionality. That is to
-+  say, both the host and the client have full read and write access to
-+  their shared memory. All mailbox instances have doorbells going both from
-+  the client to the host as well as the host to the client.
-+
-+  The mailboxes can only be used for communication if the host and client
-+  both agree on conventions. These conventions are described in the
-+  device tree as they describe how the remote firmware is expecting to
-+  communicate.
-+
-+  Current known in-use conventions:
-+  1. An RX mailbox with payloads that are of a well-defined size.
-+     On mailboxes of this type, the host is the only one to write shared
-+     memory. After placing a fixed-size message in shared memory, it rings
-+     the main doorbell of the client. The client reads the message and Acks
-+     the doorbell.
-+  2. A TX mailbox with payloads that could vary in size.
-+     On mailboxes of this type, the mailbox client is the only one to write
-+     shared memory. The client always writes a payload to the start of shared
-+     memory and rings the main host doorbell. The client then looks for the
-+     host to Ack the doorbell. The clients of the mailbox have ways to know
-+     the size of any given message.
-+  3. A half-duplex TX/RX mailbox. This is a mailbox that can switch between
-+     convention #1 and #2 above. Since both sides write data to the start of
-+     shared memory, the two sides must have some convention to know whose
-+     turn it is to send a message.
-+  4. A "queued" RX mailbox with a payload of a well-defined size.
-+     This type of mailbox is only possible if the MBA instance can count
-+     doorbells. On mailboxes of this type, the host is the only one to write
-+     shared memory. When the client doorbell rings, the client reads a
-+     fixed-size from the next "slot" in shared memory and then updates its
-+     internal state. The shared memory is treated as a circular queue.
-+  5. A "queued" TX mailbox with a payload of a well-defined size.
-+     This type of mailbox is only possible if the MBA instance can count
-+     doorbells. On mailboxes of this type, the mailbox client is the only one
-+     to write shared memory. The shared memory is treated as a circular queue.
-+     The client writes a fixed-sized payload to the next "slot" in the shared
-+     memory, updates its internal state, and rings the host doorbell. The
-+     client can keep writing more messages as long as the circular queue isn't
-+     full. The client gets an interrupt when the host Acks a doorbell and can
-+     tell how many doorbells still haven't been Acked.
-+
-+  Conventions will be supported with a small number of properties specified
-+  for each mailbox.
-+
-+properties:
-+  compatible:
-+    const: google,lga-mailbox-array
-+
-+  reg:
-+    minItems: 1
-+    items:
-+      - description: Host registers (not accessible to client)
-+      - description: Global registers (not present on newer IP blocks)
-+
-+  ranges: true
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+patternProperties:
-+  "^mailbox@[0-9a-f]+$":
-+    type: object
-+    description:
-+      Each sub-node is a single-channel mailbox.
-+
-+    properties:
-+      reg:
-+        maxItems: 1
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      "#mbox-cells":
-+        const: 0
-+
-+      google,rx-payload-words:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        maximum: 256
-+        default: 0
-+        description:
-+          The number of 32-bit words in each mailbox message from the remote
-+          processor. May be 0 for doorbell-only. If not specified this is
-+          assumed to be 0.
-+
-+      google,tx-payload-words:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        maximum: 256
-+        default: 0
-+        description:
-+          For queue-mode only, the number of 32-bit words in each message we
-+          send to the remote processor. If not specified, this is assumed to
-+          be 0. This is only for queue mode where we need to divide up the
-+          message buffer into chunks.
-+
-+      google,mba-queue-mode:
-+        type: boolean
-+        description:
-+          The remote processor is expecting the shared memory to be treated
-+          as a circular queue and that there may be several outstanding
-+          messages at once. Only usable on instances with counted doorbell
-+          interrupts.
-+
-+    dependencies:
-+      google,tx-payload-words: ['google,mba-queue-mode']
-+
-+    required:
-+      - reg
-+      - interrupts
-+      - "#mbox-cells"
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - ranges
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      mailbox-array@5240000 {
-+        compatible = "google,lga-mailbox-array";
-+        reg = <0x0 0x05240000 0x0 0x00010000>,
-+              <0x0 0x05250000 0x0 0x00010000>;
-+        ranges = <0x0 0x0 0x05260000 0x00020000>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+
-+        mailbox@0 {
-+          reg = <0x0000 0x1000>;
-+          interrupts = <GIC_SPI 250 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+          #mbox-cells = <0>;
-+
-+          google,tx-payload-words = <4>;
-+          google,mba-queue-mode;
-+        };
-+
-+        mailbox@1000 {
-+          reg = <0x1000 0x1000>;
-+          interrupts = <GIC_SPI 251 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+          #mbox-cells = <0>;
-+
-+          google,rx-payload-words = <4>;
-+          google,mba-queue-mode;
-+        };
-+      };
-+    };
-+
-+...
--- 
-2.56.0.257.gf7497c7d27-goog
+Please do not just narrate the code in changelog but instead describe
+at high level in regular language what the change does.
 
+> 
+> Suggested-by: Tony Luck <tony.luck@intel.com>
+> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+> Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
+> ---
+
+
+> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> index 7fadfebb5312..0ea888807bd0 100644
+> --- a/arch/x86/kernel/cpu/resctrl/core.c
+> +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> @@ -1018,6 +1018,7 @@ static __init bool get_rdt_resources(void)
+>  {
+>  	bool ret;
+>  
+> +	resctrl_arch_update_snc();
+
+"resctrl_arch_..." is the common prefix for helpers found in include/linux/resctrl.h that all
+architectures are required to implement.
+Is a helper really needed here? It is just one line, could it just be open coded?
+
+>  	erdt_init();
+>  	rdt_alloc_capable = get_rdt_alloc_resources();
+>  	rdt_mon_capable = get_rdt_mon_resources();
+> diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
+> index eb5e262e243a..d94c54617fa1 100644
+> --- a/arch/x86/kernel/cpu/resctrl/erdt.c
+> +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
+> @@ -229,6 +229,18 @@ static __init int enumerate_erdt_table(struct acpi_table_header *table_hdr)
+>  		return -EINVAL;
+>  	}
+>  
+> +	/*
+> +	 * ERDT describes monitoring resources per L3 cache domain, while SNC
+> +	 * splits an L3 cache into NUMA node scoped monitoring domains. The two
+> +	 * cannot be matched up, so leave ERDT disabled and fall back to the
+> +	 * MSR based CMT interface. snc_nodes_per_l3_cache has been computed by
+
+"MSR CMT interface" - this restriction is not specific to CMT, is it? Could "CMT"
+just be dropped?
+
+Last sentence of comment can be dropped. It surely will be a bug if snc_nodes_per_l3_cache
+is not initialized before it is used here and one can just go find where that happens.
+
+> +	 * resctrl_arch_update_snc() before erdt_init() is called.
+> +	 */
+> +	if (snc_nodes_per_l3_cache > 1) {
+
+Looks like this check occurs *after* parsing of ERDT table already started. Could this
+be moved to be the first check to avoid that unnecessary work?
+
+> +		pr_info("Not supported with Sub-NUMA Cluster enabled, using legacy CMT\n");
+
+"using legacy CMT" ERDT is not limited to CMT so this can just be dropped?
+I understand that the pr_info() adds an "ERDT:" prefix but I think it will be useful
+to include in this message that ERDT in its entirety is not supported:
+ "ERDT not supported with Sub-NUMA Cluster enabled".
+
+I think this work could be integrated better by switching the order between
+this patch and "x86/resctrl: Parse ACPI ERDT table and save CACD cpumask per RMD",
+separating the change to where snc_nodes_per_l3_cache is initialized and the new
+dependency by moving just this hunk to "x86/resctrl: Parse ACPI ERDT table and save
+CACD cpumask per RMD" with a note in the changelog that ERDT and SNC are not compatible.
+
+> +		return -EINVAL;
+> +	}
+> +
+>  	for (subtbl = (void *)erdt + sizeof(*erdt);
+>  	     subtbl_valid((void *)erdt + erdt->header.length, subtbl);
+>  	     subtbl = next_subtbl(subtbl)) {
+> diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+> index e2f3b884847c..34d29f719076 100644
+> --- a/arch/x86/kernel/cpu/resctrl/internal.h
+> +++ b/arch/x86/kernel/cpu/resctrl/internal.h
+> @@ -177,6 +177,8 @@ static inline struct rdt_hw_resource *resctrl_to_arch_res(struct rdt_resource *r
+>  
+>  extern struct rdt_hw_resource rdt_resources_all[];
+>  
+> +extern int snc_nodes_per_l3_cache;
+> +
+>  void arch_mon_domain_online(struct rdt_resource *r, struct rdt_l3_mon_domain *d);
+>  
+>  /* CPUID.(EAX=10H, ECX=ResID=1).EAX */
+> @@ -251,6 +253,7 @@ union l3_qos_abmc_cfg {
+>  void rdt_ctrl_update(void *arg);
+>  
+>  int rdt_get_l3_mon_config(struct rdt_resource *r);
+> +__init void resctrl_arch_update_snc(void);
+>  
+>  bool rdt_cpu_has(int flag);
+>  
+> diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
+> index 3838e0a13d36..6e46f10d8640 100644
+> --- a/arch/x86/kernel/cpu/resctrl/monitor.c
+> +++ b/arch/x86/kernel/cpu/resctrl/monitor.c
+> @@ -34,7 +34,7 @@ bool rdt_mon_capable;
+>  
+>  #define CF(cf)	((unsigned long)(1048576 * (cf) + 0.5))
+>  
+> -static int snc_nodes_per_l3_cache = 1;
+> +int snc_nodes_per_l3_cache = 1;
+>  
+>  /*
+>   * The correction factor table is documented in Documentation/filesystems/resctrl.rst.
+> @@ -416,6 +416,11 @@ static __init int snc_get_config(void)
+>  	return ret;
+>  }
+>  
+> +__init void resctrl_arch_update_snc(void)
+> +{
+> +	snc_nodes_per_l3_cache = snc_get_config();
+> +}
+> +
+
+This looks unnecessary. Could all these references to snc_nodes_per_l3_cache be dropped
+from monitor.c?
+Definition of snc_nodes_per_l3_cache could be moved to core.c where it is
+initialized now and its initialization could just be open coded in get_rdt_resources().
+
+>  int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>  {
+>  	unsigned int mbm_offset = boot_cpu_data.x86_cache_mbm_width_offset;
+> @@ -423,8 +428,6 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>  	unsigned int threshold;
+>  	u32 eax, ebx, ecx, edx;
+>  
+> -	snc_nodes_per_l3_cache = snc_get_config();
+> -
+>  	resctrl_rmid_realloc_limit = boot_cpu_data.x86_cache_size * 1024;
+>  	hw_res->mon_scale = boot_cpu_data.x86_cache_occ_scale / snc_nodes_per_l3_cache;
+>  	r->mon.num_rmid = (boot_cpu_data.x86_cache_max_rmid + 1) / snc_nodes_per_l3_cache;
+
+Reinette
