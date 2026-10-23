@@ -1,75 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788431;
-	b=CSMAIb6m5eJrN3g3QNEI/guKFri1J4FidcEDgl2nO+MnjS4iHckxMqDR67n0SDU73zXJ
-	 Io3l2TwmA8sIgoo7ybHsELq+051nsgkUbVHAQltLw35K7Iornnv+b5YpnZrIdjQkOHYG1
-	 LRqTkcx86nT9uFiWRNxTwO/Cxp3nSRaT10t3M0+JXsvp8jC2eWaW7Ruu5Rb+lAkfS2ujK
-	 WUdztzQnDB0bziILxhtDmTAH3EHCrvCGG7oRSQLJ+rV92xSymGa2sMjNRRxULcuF0+1+H
-	 JSeZZSrLF1DMEWnEf1YnnmbojF0N2NzP9ixfhzqLKHToIUJ++tPArPFcWTojsw82Nbw==
+	t=1792788433;
+	b=RMa/YfffJ3LYBHpYuCIGNSTyGQANF4wu0LzFLnWfrU5VXr4FkmgpC9CxQS1VeAVjUsOS
+	 5IoKOQh1h0Cp/x1iN/7z0SAUuhihPKRWSKg2kWTQcpwF+IB7GYmxHEobdJTbQIuo52Sl2
+	 2gEGl9inUYEdc6NQjmxipLBw7hmlFv31ONNDcoW3hx7IMHe7fBFtUDV22P5NcFjNPK0Lx
+	 uOT1WpaOz6CJhYWfOw8cmhlIj9dxNO/j5FfV7kaOk4OIINPPbPZz03kuiUWa3csxrqqvT
+	 Ein1AGUgm2Q6g1idDoWl7gqw2ska63sbmVj8DEwBQoVRbqqmrwjFQVCjC7Cjk+Sbeaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788431;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=qbPbO3PKUXjF84+J52hRtmYnr8K0qVr7xP7r7MG3eYo=;
-	b=rtZIOO5Qr3EAxpq1TxtQYghFTNqvtfaU/8V3lnEnngpY2ZriKoZ3sQpy/beAZpiLwVRm
-	 iYvG/BNqfKVRn2N0qKo1Vm723c6OiEHAduz2slIf2YKWP4qexd0rq7UMvKTbvLOlvSMB1
-	 7PMTZIBWC+xbVqpysG9tW1rnup+fwoloB8qtQ3s/vvsXWFo4FpGSFcNU5Z71mcnChtQW/
-	 4swwNa/e5D/lQI+bkU37i0h9GoBB+DeWDvwCY4ac/26yX819Y+pPWDk/IiqFi13wpOrhc
-	 +Jp3TkxQ09CLm0syROtCzCKeEizLGqCU6AtzQtICMJKfyzZ0JDAuJQ/X4xLx25Md3Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788433;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=0Fytb4JgoO63FwYVtw+c+EDAJNfJ/FtMczRvF5Yc/c0=;
+	b=mLrGm8wOYLigzzW6StZYJOfyNBFYctHWIeRA+knlCovrSTUEiri9ASyliAXey6oej6eL
+	 KkytrGpNoa3pI3wK+VkRnyAWflbGlPVhiqEqp9+zdw6ryKouTkoh+bh2LXWutbv1ZVBEK
+	 8DQEleq117wMBwvrj6a3qZztoZ8k3ZVOKJNxLX8TWL57jNv/Oec3uALN8hJE8tpOV9hsg
+	 87nSm3Cn2rC90s7NfCatF/i/Lw+6eHvWuM8qeNyR0MTPIrjtMIBbZsoCvJbHGgw3TNI7K
+	 bt8xAJ/HcC6YJr8sZvpB+Ny9cA/PjxrQN7y5+Ynj1OMorhzveQG9JK/SPIqozu8V1jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=v5t5MV02;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XJwpof14;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6973606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:47:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6973606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D33606A33F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D33606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=v5t5MV02
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ade203fd09so680493a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:47:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792788430; x=1793393230; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qbPbO3PKUXjF84+J52hRtmYnr8K0qVr7xP7r7MG3eYo=;
-        b=v5t5MV02yiLcFkwPrMm0RSjKxpXbSvNB29FDszP5i7AsxCW1nIjR+DEBZOZB9DDJ8O
-         ksoEYzAtrJzjkz8KeD6+pzxLWx09Hrm7rk4zSpM0Ny2O6S8DeYHAYqmtfRnW3Mp30BO9
-         JqQoJWvNkM6bdqMhX4GvhZkOFkdkI2R7ieGHpwFp0mx/XIuM8ByYCmmVsWYAM4/oijbY
-         HGfcf4Pse25pRuzBt+75Zr9ba39IZEFoDVnDM/1oMKRiMObfoK3mYZMY0qzgRyjZ3CeH
-         eZZs+1ZJ2Nac5rnBF8TuHMOVuS0nWqyIfpBa/sjD4tC6VOv5LBW+CjsO1m0+q3oQlj84
-         ukbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792788430; x=1793393230;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qbPbO3PKUXjF84+J52hRtmYnr8K0qVr7xP7r7MG3eYo=;
-        b=0gW+eZqzmhlDvt6jFtZO9ixYJR3q9YzRk1wk0v3gHrbxUWUq9xnGxoGTv/soQka2wT
-         nFrUmfnp8c1ecOmKU7W1rnVbDxAjXtrzxle/pYo5QPLO6Fj8ZcmWZ9z1Hf++jogK3Esh
-         5gWfRgISgus1MfzruYjsIaL/jNZ83oKwL1zediSp0e/ji54RRJOyQqgk3TeyzIBB21yo
-         vBOV3ivFFk2vRU0e5RgyDLyRoJ1ajqyJfmI6dZT1svULdxmSwvt5/kt91uOUERxDS8e8
-         Efxijkb0eK4kARnI8vxcTF/OeUWzdGEN+ZTRfnyDshw4kxuqkOwWnSAP1dDOh+fzRITW
-         DIPA==
-X-Forwarded-Encrypted: i=1; AKwUvByoZbUinyhu2PnS0xu7K9OigVcG2pPwebnMBvQJozsqvK9ANqO6xwrmA8uo/cz4wUqWlHKkPO5GcM2FVs8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfBgJefRs5kLvOQuqTT8DOCqU93qVIseXFf3iZus9tCmiNloT7
-	spN70Om2cegqR++ahU/sFAJ8bnoDQOP3SSFTE7HmK6i51cmD2OtqYjHQPf1nyYHzd8YjHkOqygX
-	4sFzXSjPnmt/2qS/X9LSEmpmb3A==
-X-Received: from pjbok17.prod.google.com ([2002:a17:90b:1d51:b0:3ab:1a0f:bf1d])
- (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4e8b:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3adeafd219dmr316667a91.41.1792788429997;
- Fri, 23 Oct 2026 13:47:09 -0700 (PDT)
-Date: Fri, 23 Oct 2026 20:47:04 +0000
-In-Reply-To: <20261023204706.3112215-1-hramamurthy@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XJwpof14
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792788432; x=1824324432;
+  h=date:from:to:cc:subject:message-id;
+  bh=hQbhkW0N2Hm2jUca0TrGTlDLQqi1MRXNxeE7O9yIBFA=;
+  b=XJwpof14rFr7pWcFpqMwuCZPIa4DjgI/ayb16XQOpfgLqfHCE36b44/2
+   5Vm5pkeQjIXqcWLxR3jQ9hJEan6C7CeB+lJlgzKEPmMaNRY2k6mApIxr2
+   FRClPrH0MDxvZWnjbzSwnnGWt4oiKPoolz9rmtS21brtWYCPZvFdDyfxR
+   IBMK7+EHigfkiu1jwSms3CRPjNrh/ANmAX+/xD0OVkK6ayEx4DaM0E1LB
+   xJYxkJpMH/1JOS2vNukFKV9Ni5kVQO5MBB5OGLJqkjttmJ1seQ/5DSr8B
+   ZvhNPHihrg/6+S2Et4BbrolddttdAlEZgvsk62PHCovQFgZCwU1eWWHdx
+   g==;
+X-CSE-ConnectionGUID: 129vsiNLT56YkJI+IMOZPg==
+X-CSE-MsgGUID: 8lVrPUuoTSSaGIjeDjGlHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1573466"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1573466"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 13:47:11 -0700
+X-CSE-ConnectionGUID: 0Nbz3UsoSRqsiB/4SgobkQ==
+X-CSE-MsgGUID: eqYZDzmdQI++wmluSm++mQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="5550741"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa013.fm.intel.com with ESMTP; 23 Oct 2026 13:47:10 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKMAJ-000000001wR-1hij;
+	Fri, 23 Oct 2026 20:47:03 +0000
+Date: Fri, 23 Oct 2026 22:46:44 +0200
+From: kernel test robot <lkp@intel.com>
+To: Matt Turner <mattst88@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Magnus Lindholm <linmag7@gmail.com>
+Subject: arch/powerpc/math-emu/fsqrts.c:39:2: warning: variable
+ '_FP_PACK_CANONICAL_T_e' set but not used
+Message-ID: <202610232211.PH7EKsOW-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,219 +80,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261023204706.3112215-1-hramamurthy@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023204706.3112215-3-hramamurthy@google.com>
-Subject: [PATCH net v3 2/4] gve: Fix backward stats when interface goes down
- or configuration is adjusted
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com, 
-	nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com, 
-	pkaligineedi@google.com, yangchun@google.com, patricion@google.com, 
-	awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Debarghya Kundu <debarghyak@google.com>, Pin-yen Lin <treapking@google.com>
-Content-Type: text/plain; charset="UTF-8"
 
-From: Debarghya Kundu <debarghyak@google.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   7a78f7ba9f24962c8033e0152bf34a7903ff61ba
+commit: b74843b38da8f1186fd7d447646c835b47096a15 alpha: determine tininess after rounding in the FP emulation
+date:   3 days ago
+config: powerpc64-randconfig-r2103-20261023 (https://download.01.org/0day-ci/archive/20261023/202610232211.PH7EKsOW-lkp@intel.com/config)
+compiler: clang version 21.1.6 (https://github.com/llvm/llvm-project a832a5222e489298337fbb5876f8dcaf072c5cca)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261023/202610232211.PH7EKsOW-lkp@intel.com/reproduce)
 
-gve_get_base_stats() sets all the stats to 0, so the stats go backwards
-when interface goes down or configuration is adjusted.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b74843b38da8 ("alpha: determine tininess after rounding in the FP emulation")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610232211.PH7EKsOW-lkp@intel.com/
 
-This issue was discovered and actually triggered by the
-drivers/net/stats.py selftest (check_down test case). Bringing down the
-interface caused statistics counters to reset to 0, triggering selftest
-assertion failures because netdevice stats must not go backwards.
+All warnings (new ones prefixed by >>):
 
-Fix this by persisting baseline stats across queue teardown in
-gve_queues_mem_remove() and single-queue stop in gve_rx_queue_stop().
+>> arch/powerpc/math-emu/fsqrts.c:39:2: warning: variable '_FP_PACK_CANONICAL_T_e' set but not used [-Wunused-but-set-variable]
+      39 |         __FP_PACK_DS(frD, R);
+         |         ^
+   arch/powerpc/include/asm/sfp-machine.h:185:5: note: expanded from macro '__FP_PACK_DS'
+     185 |            _FP_PACK_CANONICAL(S, 1, __X);                                       \
+         |            ^
+   include/math-emu/op-common.h:145:6: note: expanded from macro '_FP_PACK_CANONICAL'
+     145 |             FP_DECL_##fs(_FP_PACK_CANONICAL_T);                 \
+         |             ^
+   <scratch space>:29:1: note: expanded from here
+      29 | FP_DECL_S
+         | ^
+   include/math-emu/single.h:62:23: note: expanded from macro 'FP_DECL_S'
+      62 | #define FP_DECL_S(X)            _FP_DECL(1,X)
+         |                                 ^
+   include/math-emu/op-common.h:28:32: note: expanded from macro '_FP_DECL'
+      28 |   _FP_I_TYPE X##_c=0, X##_s=0, X##_e=0; \
+         |                                ^
+   <scratch space>:32:1: note: expanded from here
+      32 | _FP_PACK_CANONICAL_T_e
+         | ^
+>> arch/powerpc/math-emu/fsqrts.c:39:2: warning: variable '_FP_PACK_CANONICAL_T_e' set but not used [-Wunused-but-set-variable]
+   arch/powerpc/include/asm/sfp-machine.h:189:6: note: expanded from macro '__FP_PACK_DS'
+     189 |                    _FP_PACK_CANONICAL(D, 2, X);                                 \
+         |                    ^
+   include/math-emu/op-common.h:145:6: note: expanded from macro '_FP_PACK_CANONICAL'
+     145 |             FP_DECL_##fs(_FP_PACK_CANONICAL_T);                 \
+         |             ^
+   <scratch space>:87:1: note: expanded from here
+      87 | FP_DECL_D
+         | ^
+   include/math-emu/double.h:73:23: note: expanded from macro 'FP_DECL_D'
+      73 | #define FP_DECL_D(X)            _FP_DECL(2,X)
+         |                                 ^
+   include/math-emu/op-common.h:28:32: note: expanded from macro '_FP_DECL'
+      28 |   _FP_I_TYPE X##_c=0, X##_s=0, X##_e=0; \
+         |                                ^
+   <scratch space>:90:1: note: expanded from here
+      90 | _FP_PACK_CANONICAL_T_e
+         | ^
+   2 warnings generated.
+--
+>> arch/powerpc/math-emu/fsqrt.c:38:2: warning: variable '_FP_PACK_CANONICAL_T_e' set but not used [-Wunused-but-set-variable]
+      38 |         __FP_PACK_D(frD, R);
+         |         ^
+   arch/powerpc/include/asm/sfp-machine.h:176:2: note: expanded from macro '__FP_PACK_D'
+     176 |         _FP_PACK_CANONICAL(D, 2, X);                                    \
+         |         ^
+   include/math-emu/op-common.h:145:6: note: expanded from macro '_FP_PACK_CANONICAL'
+     145 |             FP_DECL_##fs(_FP_PACK_CANONICAL_T);                 \
+         |             ^
+   <scratch space>:19:1: note: expanded from here
+      19 | FP_DECL_D
+         | ^
+   include/math-emu/double.h:73:23: note: expanded from macro 'FP_DECL_D'
+      73 | #define FP_DECL_D(X)            _FP_DECL(2,X)
+         |                                 ^
+   include/math-emu/op-common.h:28:32: note: expanded from macro '_FP_DECL'
+      28 |   _FP_I_TYPE X##_c=0, X##_s=0, X##_e=0; \
+         |                                ^
+   <scratch space>:22:1: note: expanded from here
+      22 | _FP_PACK_CANONICAL_T_e
+         | ^
+   1 warning generated.
 
-This change was tested using the DQO RDA queue format.
 
-Cc: stable@vger.kernel.org
-Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-Co-developed-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
----
+vim +/_FP_PACK_CANONICAL_T_e +39 arch/powerpc/math-emu/fsqrts.c
 
-Changes in v3:
-- Drop u64_stats_sync for the base stats and use spinlock to protect
-  them instead
-- Save base stats in gve_queues_mem_remove() instead of gve_close()
-- Save base stats in gve_rx_queue_stop() for single-queue restarts
-- Drop unused rx_dropped and tx_dropped accumulation in gve_add_base_stats()
-- Refined the commit message
+^1da177e4c3f415 arch/ppc/math-emu/fsqrts.c     Linus Torvalds 2005-04-16  38  
+d2b194ed820880e arch/powerpc/math-emu/fsqrts.c Kumar Gala     2008-06-04 @39  	__FP_PACK_DS(frD, R);
 
-Changes in v2:
-- Add a NULL pointer check in gve_get_ring_err_stats() (Sashiko)
-- Use local variable to prevent inflates from u64_stats_fetch_retry()
-  (Sashiko)
-- Add u64_stats_fetch/begin to protect base stats (Sashiko)
+:::::: The code at line 39 was first introduced by commit
+:::::: d2b194ed820880eb19c43b9c10d9f5f30026ee54 powerpc/math-emu: Use kernel generic math-emu code
 
- drivers/net/ethernet/google/gve/gve.h      |  6 ++
- drivers/net/ethernet/google/gve/gve_main.c | 83 +++++++++++++++++++---
- 2 files changed, 81 insertions(+), 8 deletions(-)
+:::::: TO: Kumar Gala <galak@kernel.crashing.org>
+:::::: CC: Kumar Gala <galak@kernel.crashing.org>
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 104468c2c07f..37070bc14c87 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -871,6 +871,10 @@ struct gve_ctrl_ops {
- 	int (*report_link_speed)(struct gve_priv *priv);
- };
- 
-+struct gve_ring_err_stats {
-+	u64 rx_alloc_fails;
-+};
-+
- struct gve_priv {
- 	struct net_device *dev;
- 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
-@@ -962,6 +966,8 @@ struct gve_priv {
- 	unsigned long service_task_flags;
- 	unsigned long state_flags;
- 
-+	struct gve_ring_err_stats base_ring_err_stats;
-+	struct rtnl_link_stats64 base_net_stats;
- 	struct gve_stats_report *stats_report;
- 	u64 stats_report_len;
- 	dma_addr_t stats_report_bus; /* dma address for the stats report */
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 26fdd22644f4..52c152a986eb 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -61,15 +61,25 @@ static netdev_tx_t gve_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		return gve_tx_dqo(skb, dev);
- }
- 
--static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+static void gve_add_base_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
-+{
-+	struct rtnl_link_stats64 *base_stats = &priv->base_net_stats;
-+
-+	s->rx_packets += base_stats->rx_packets;
-+	s->rx_bytes += base_stats->rx_bytes;
-+	s->tx_packets += base_stats->tx_packets;
-+	s->tx_bytes += base_stats->tx_bytes;
-+}
-+
-+static void gve_get_ring_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
- {
--	struct gve_priv *priv = netdev_priv(dev);
- 	unsigned int start;
- 	u64 packets, bytes;
- 	int num_tx_queues;
- 	int ring;
- 
--	spin_lock_bh(&priv->stats_lock);
- 	num_tx_queues = gve_num_tx_queues(priv);
- 	if (priv->rx) {
- 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-@@ -97,6 +107,38 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 			s->tx_bytes += bytes;
- 		}
- 	}
-+}
-+
-+static void gve_get_ring_err_stats(struct gve_priv *priv,
-+				   struct gve_ring_err_stats *err_stats)
-+{
-+	int ring;
-+
-+	if (!priv->rx)
-+		return;
-+
-+	for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-+		struct gve_rx_ring *rx = &priv->rx[ring];
-+		unsigned int start;
-+		u64 rx_alloc_fails;
-+
-+		do {
-+			start = u64_stats_fetch_begin(&rx->statss);
-+			rx_alloc_fails = rx->rx_skb_alloc_fail +
-+					 rx->rx_buf_alloc_fail;
-+		} while (u64_stats_fetch_retry(&rx->statss, start));
-+
-+		err_stats->rx_alloc_fails += rx_alloc_fails;
-+	}
-+}
-+
-+static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+{
-+	struct gve_priv *priv = netdev_priv(dev);
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, s);
-+	gve_add_base_stats(priv, s);
- 	spin_unlock_bh(&priv->stats_lock);
- }
- 
-@@ -646,6 +688,9 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
- 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
- 
- 	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, &priv->base_net_stats);
-+	gve_get_ring_err_stats(priv, &priv->base_ring_err_stats);
-+
- 	priv->tx = NULL;
- 	priv->rx = NULL;
- 	spin_unlock_bh(&priv->stats_lock);
-@@ -2689,8 +2734,20 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
- 	gve_turnup_and_check_status(priv);
- 
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
-+	spin_lock_bh(&priv->stats_lock);
-+	priv->base_net_stats.rx_packets += priv->rx[idx].rpackets;
-+	priv->base_net_stats.rx_bytes += priv->rx[idx].rbytes;
-+	priv->base_ring_err_stats.rx_alloc_fails +=
-+		priv->rx[idx].rx_skb_alloc_fail +
-+		priv->rx[idx].rx_buf_alloc_fail;
- 	*gve_per_q_mem = priv->rx[idx];
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
-+	spin_unlock_bh(&priv->stats_lock);
-+
-+	gve_per_q_mem->rpackets = 0;
-+	gve_per_q_mem->rbytes = 0;
-+	gve_per_q_mem->rx_skb_alloc_fail = 0;
-+	gve_per_q_mem->rx_buf_alloc_fail = 0;
- 	return 0;
- }
- 
-@@ -2844,12 +2901,22 @@ static void gve_get_base_stats(struct net_device *dev,
- 			       struct netdev_queue_stats_rx *rx,
- 			       struct netdev_queue_stats_tx *tx)
- {
--	rx->packets = 0;
--	rx->bytes = 0;
--	rx->alloc_fail = 0;
-+	const struct gve_ring_err_stats *base_err_stats;
-+	const struct rtnl_link_stats64 *base_stats;
-+	struct gve_priv *priv;
-+
-+	priv = netdev_priv(dev);
-+	base_stats = &priv->base_net_stats;
-+	base_err_stats = &priv->base_ring_err_stats;
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	rx->packets = base_stats->rx_packets;
-+	rx->bytes = base_stats->rx_bytes;
-+	rx->alloc_fail = base_err_stats->rx_alloc_fails;
- 
--	tx->packets = 0;
--	tx->bytes = 0;
-+	tx->packets = base_stats->tx_packets;
-+	tx->bytes = base_stats->tx_bytes;
-+	spin_unlock_bh(&priv->stats_lock);
- }
- 
- static const struct netdev_stat_ops gve_stat_ops = {
--- 
-2.56.0.257.gf7497c7d27-goog
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
