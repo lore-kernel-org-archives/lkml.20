@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.10.52.160
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792742726;
-	b=sKZA+84GXJqT+c5QLr7Oqa8f/cGzfCfCE7b0dko6UEJXf8d8XlNokFyC48+XSWHQiNsF
-	 ZBKxEcfx/p9PaUP/0Nl4tg3/xFTDJu5L9vCiiTFwtLoXvLRhAxiSiIXasS9lvb98WsOOk
-	 9WRj99HByR6dOMlVdAcOo8lhX4+Ixop45oMWh/Hy5w7SQrJFK8uE63nc6/OhUBFFhsdmB
-	 lD/sqAoaFpaikxP9hBNGb66yDb+VWjygw48wd3MG4TKM6yIc/nqN2cSTVdRLVKk8YJpDY
-	 9z+R2uYKV26hwfMD61Qcq57e/A2lHlFzxX+xbh3w+6SDyOreGLsIAwOagurO9txxSdA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792742726;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:X-Amp-Result:Received:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=H2oED4GUmwRnFrjJBgiI4cK+SfJ+rcYm+R8lIye80N4=;
-	b=xxTD/4d3xuvLwoU0uZW3FSxctfIHgX1g3gCIttOrWiMNb9DUzazQNfNegBuk+1czsKUL
-	 HVyPJqcpnk9QfmHaxFqr4dDPcp4Ulmg0Q1dvlt1+AOsrguLcDbtlL84ZnZZaZnA61DYMU
-	 LiiduTQ0JH0Hh2R8WZwqbFn4oFYPgFwKBuVUZ9WGi/2WJxIlqsxzUubJvmm43zuptgWUp
-	 3wSHxD4SzqzcV0CCKz7UTeNmaUCQTSePF+W/ZNpJyW3zslzpaQutUt8dXmEvZZH6HFs8N
-	 6mjH0Ci2a2eBYE+PRdyDWwp4voPUznr+NtZSJc8jilV5rW3LEkFDiUxb7uNz54veDLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infineon.com;
-	spf=pass smtp.mailfrom=infineon.com;
-	dkim=pass header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=D6+nIkIs;
-	arc=none smtp.remote-ip=217.10.52.160
-Received: from smtp14.infineon.com (smtp14.infineon.com [217.10.52.160])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792742728;
+	b=XmOT+h37yDazs09v6iIPEhfORqYB31FYLDoGf/cSFSEY2zhb6opbdOP2r4IRvW8dLF5E
+	 0FbhFOdO+zFnhZ3GgfjM0Bsmo1ldEnkhQYM4yoRJXlrT67HV8LnSQT+0vL0lz+CjiCt2y
+	 z9LGRV6og1bStS5wb5sejbhVaoDfwG+2MF0r/fqqvijfD5nNn8Lyn1PPWzM7IAf+Bdyw9
+	 XClyTTkRi5ij2L2ho89KPb/avG0eqiqaPXg5X8hfd9fqWEyCiguUwSPIg/Gq/+cbn+YZ5
+	 oSW0/pYdy0+ak1OEwQ9R9dposQWWpBxDh23saGIeM0ov4Jua0N1xhkJUfN9sLNQUJng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742728;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=We23a8YmV1MydTQVOVcqW5epbVH/tjYZRWEjKwty+fM=;
+	b=MPf3rhoW4IAblylMxvZd2vQO2qsk9LKet3lR7LwQa7VrKhlwOLQxuhnvaj1ydFtDVMFd
+	 W+Io7Vji+QhDzC7F9F6914CKCRvSED2vO68Fb8q+bV1SuxvaqRFhbTr9B4321tNKQN7KF
+	 kReZ55zNl9vohOAW7pvqh8K9fhuHHd9HjEEbOuVo0lKdJjOc7EAzYfdljUZaCmWcxLyoJ
+	 bnvhaKrYti0LQDe/9YtWc3x1/CCUmIkkC3qwSZIDxa0dEZV0wWBcOOiG65NsYXWZ9Ix7h
+	 Dc18Bl91B48z1xlqJl10weF1GopIxTA6vptKeIAD4e5dvE0QmUiaydoPSBCccyOMq+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGB6SWuA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718AC606A329;
+	Fri, 23 Oct 2026 08:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGB6SWuA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792742728;
+	b=gMXJA8mkimIiyQlQeTVw0ROx5LVm+XKrMmmefdGxSn7QkruadJUME6p2s/BzkQy7V/jJ
+	 nYyGkBXl5kEVh//8rTYc6XEuPdU91+u2NSKqZaACQ5U2UYvDftF/xX8Gzd+/+m8dQBkw2
+	 uO96w+Hni/8aZlBd2IFy8dmvpdu83k7RiT54w56mp47HfT8+SqnreGH/9kX0hR72AWvhN
+	 Qb1onsN9YEyLHTJ/GdEwtr6gLtuU/4jGNFlyfHYcTvHa+csh73h5CZbty3Zb2XyNo3I6V
+	 6qcoES95gwSLBNr3t2SX6qIRc8NfA93EWWMon6kWh6dsVXLTzUFqy9RVqGaUE/3u8HA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792742728;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=We23a8YmV1MydTQVOVcqW5epbVH/tjYZRWEjKwty+fM=;
+	b=V/GeItG80FoTyn+xXvb2SZCwxvM02v6jVogLvRCKZmA8pPr6s1ByGMYmwGR7dbQIThd0
+	 9G0k1cvRWxj/tMGYDYpTgs5SVs0UwroAyH3Sjil/wkx1N4Vhdrp1ZAbMt1xC+Cl07zklU
+	 n4N5AsVXLUX1o2E7loxsakm4Q1FVf+C58x7uNja0jgUW5DgKkdMclue0YrgvslES/WMVC
+	 +0TgZabe08hcvkcpxS3M8K3BTQAbr5cTcwIlzrx3fGhHH8pSeadH34/d0iyoXDq9sPJO7
+	 Sy2CCaa7ng96Xzg6JHh2wH1rL7tXBkN0g5QsATytMODDyEfpv2Tmb8pdUc/CFoktsXg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0546E606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0546E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=D6+nIkIs
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
-  t=1792742725; x=1824278725;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=H2oED4GUmwRnFrjJBgiI4cK+SfJ+rcYm+R8lIye80N4=;
-  b=D6+nIkIsyY8Jl2tzRqWrMXF50nyUp9mpsro1KujMuRdwXzGvyGSHIvCg
-   OJfd6UAwP67/wDsFaz9C40x/OpioEjD/Sqh5mrxYdr2ywdPqcCQoE3PSh
-   6h4yqtdSGjVbjSqzEVXr1cZbYd384/xmieq4tTh6rPulia47pxrwIlzw+
-   I=;
-X-CSE-ConnectionGUID: XylgxdTISWeFMTnbSYNLfA==
-X-CSE-MsgGUID: pbSlGX5pRwGPWdUuMN7IwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="152347539"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787004000"; 
-   d="scan'208";a="152347539"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO MUCSE803.infineon.com) ([172.23.29.29])
-  by smtp14.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 10:05:18 +0200
-Received: from MUCSE818.infineon.com (172.23.29.44) by MUCSE803.infineon.com
- (172.23.29.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 10:05:17 +0200
-Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE818.infineon.com
- (172.23.29.44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 10:05:17 +0200
-Received: from MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be]) by
- MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be%12]) with mapi id
- 15.02.2562.053; Fri, 23 Oct 2026 10:05:17 +0200
-From: <Takahiro.Kuwano@infineon.com>
-To: <marex@nabladev.com>, <linux-mtd@lists.infradead.org>
-CC: <chengminglin@mxic.com.tw>, <mwalle@kernel.org>,
-	<miquel.raynal@bootlin.com>, <pratyush@kernel.org>, <richard@nod.at>,
-	<vigneshr@ti.com>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] mtd: spi-nor: Describe locking support for MX25L51245G
-Thread-Topic: [PATCH] mtd: spi-nor: Describe locking support for MX25L51245G
-Thread-Index: AQHdTI+RbslWC8yeRU+6uOH9/L7Fh7boPlmwgB7kuACAA8rMgA==
-Date: Fri, 23 Oct 2026 08:05:16 +0000
-Message-ID: <8daec856e8dd4f11a805d5d9dcf8d51a@infineon.com>
-References: <20260925014517.174496-1-marex@nabladev.com>
- <9bdd8b02469042ffa71851fd2641708e@infineon.com>
- <75174a84-13b6-4a97-b4bf-7513ee43ab69@nabladev.com>
-In-Reply-To: <75174a84-13b6-4a97-b4bf-7513ee43ab69@nabladev.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.kernel.org (Postfix) with ESMTPS id 892AC1F01829;
+	Fri, 23 Oct 2026 08:05:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792742728;
+	bh=We23a8YmV1MydTQVOVcqW5epbVH/tjYZRWEjKwty+fM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=QGB6SWuA+f/m7Aa9vJN4SrijDRuss5lLsUXtl7iR7KlESLa1CDandkgh1/HA6D6MQ
+	 e9NTZJIfBgyuu1ejFLCnKi2LRwTP3l+TIN+u62q1V6d4MgKZreqTADCiQOZxdSL0M7
+	 ORmSaf/4RXSycmd0MfGwDr2NpfQe4ySp5HPqwJekCO1G1H9mUCZ4eeGHSqEkBMjDVH
+	 UudBVuSPpmkmkjQczZCH1yiSFOtmtxWtWGX+i5dRCxV1VxtcnWLnGPdqzuszJsDvpu
+	 MxNBcZcs9os/sVMVOORwmRsu8oJcAmRAMrnrRERfREQ8VYZu7HjEhfZ5vyz6UJswC8
+	 h9HLHJMvvXmSQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 182F04440C;
+	Fri, 23 Oct 2026 08:05:27 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Fri, 23 Oct 2026 10:05:15 +0200
+Subject: [PATCH RESEND v2] i2c: imx: add I2C_M_REV_DIR_ADDR and
+ I2C_M_NOSTART
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,197 +83,356 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-for-upstream-i2c-imx-lx2160-reverse-v2-1-03afae754886@free.fr>
+X-B4-Tracking: v=1; b=H4sIADoV22oC/5XNMQ+CMBCG4b9iOnumd0IBJwddHXQ0DlCv2kTFX
+ JFgCP/dyqKjjt9d8ry9Ciyeg1pMeiXc+uDrWxw0nSh7Lm8nBn+MW5Emo3OdgasFHvfQCJdX8GT
+ BXzu4dIRGQwRYAkNWFklVpAYxz1WU7sLOd2Nlr7br3XqzUod4P/vQ1PIc4y2O3786LQKCo8xYz
+ m1ljF46YZ45GfWWvkSk30R6izhP5hkmNi2LjzgMwwvyGOJULgEAAA==
+To: Oleksij Rempel <o.rempel@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
+Cc: linux-i2c@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Carlos Song <carlos.song@nxp.com>, Haobin Jiang <lemonoutput@foxmail.com>, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792742726; l=11255;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=WiWfwJ6/hA56r4jsG0++u+NW6uZ/JjT3AlfhiASLboY=;
+ b=nG6AqkL29THn9RuOUVPetlCnVX8fKnK6GM6H+zBVQaCymdlXjyJ6u8b7hdh0QQs8YpBIxI7nv
+ 9V3/EuC2gW1CiPwSCWelc6PdFGVV4jCICRCKb5BBDkImDg8tIfn/5iS
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-SGVsbG8gTWFyZWssDQoNCj4gT24gMTAvMS8yNiA5OjE3IEFNLCBUYWthaGlyby5LdXdhbm9AaW5m
-aW5lb24uY29tIHdyb3RlOg0KPiANCj4gSGVsbG8gS3V3YW5vLXNhbiwNCj4gDQo+IEkgYXBvbG9n
-aXplIGZvciBteSBsYXRlIHJlcGx5Lg0KPiANCk5vIHByb2JsZW0gYXQgYWxsLg0KDQo+ID4+IFRo
-ZSBNWDI1TDUxMjQ1RyBwYXJ0IGhhcyB0aGUgc2FtZSA0LUJQIGxvY2tpbmcgbWVjaGFuaXNtIGFz
-IE1YMjVMMTI4MDVELg0KPiA+PiBEZXNjcmliZSB0aGUgbG9ja2luZyBzdXBwb3J0Lg0KPiA+Pg0K
-PiA+PiBTaWduZWQtb2ZmLWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAbmFibGFkZXYuY29tPg0KPiA+
-PiAtLS0NCj4gPj4gQ2M6IENoZW5nIE1pbmcgTGluIDxjaGVuZ21pbmdsaW5AbXhpYy5jb20udHc+
-DQo+ID4+IENjOiBNaWNoYWVsIFdhbGxlIDxtd2FsbGVAa2VybmVsLm9yZz4NCj4gPj4gQ2M6IE1p
-cXVlbCBSYXluYWwgPG1pcXVlbC5yYXluYWxAYm9vdGxpbi5jb20+DQo+ID4+IENjOiBQcmF0eXVz
-aCBZYWRhdiA8cHJhdHl1c2hAa2VybmVsLm9yZz4NCj4gPj4gQ2M6IFJpY2hhcmQgV2VpbmJlcmdl
-ciA8cmljaGFyZEBub2QuYXQ+DQo+ID4+IENjOiBUYWthaGlybyBLdXdhbm8gPHRha2FoaXJvLmt1
-d2Fub0BpbmZpbmVvbi5jb20+DQo+ID4+IENjOiBWaWduZXNoIFJhZ2hhdmVuZHJhIDx2aWduZXNo
-ckB0aS5jb20+DQo+ID4+IENjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+ID4+IENj
-OiBsaW51eC1tdGRAbGlzdHMuaW5mcmFkZWFkLm9yZw0KPiA+PiAtLS0NCj4gPg0KPiA+IENhbiB5
-b3UgdGVzdCBsb2NraW5nIGFzIGRlc2NyaWJlZCBpbiBbMV0gYW5kIHByb3ZpZGUgdGVzdCBsb2c/
-DQo+ID4NCj4gPj4gICBkcml2ZXJzL210ZC9zcGktbm9yL21hY3Jvbml4LmMgfCAxICsNCj4gPj4g
-ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4gPj4NCj4gPj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvbXRkL3NwaS1ub3IvbWFjcm9uaXguYyBiL2RyaXZlcnMvbXRkL3NwaS1ub3IvbWFj
-cm9uaXguYw0KPiA+PiBpbmRleCBiM2ZkYjRiMmZhMWNhLi40ZGUxYjQ5MGIxNmI2IDEwMDY0NA0K
-PiA+PiAtLS0gYS9kcml2ZXJzL210ZC9zcGktbm9yL21hY3Jvbml4LmMNCj4gPj4gKysrIGIvZHJp
-dmVycy9tdGQvc3BpLW5vci9tYWNyb25peC5jDQo+ID4+IEBAIC0xNjUsNiArMTY1LDcgQEAgc3Rh
-dGljIGNvbnN0IHN0cnVjdCBmbGFzaF9pbmZvIG1hY3Jvbml4X25vcl9wYXJ0c1tdID0gew0KPiA+
-PiAgICAgICAgICB9LCB7DQo+ID4+ICAgICAgICAgICAgICAgICAgLyogTVgyNUw1MTI0NUcsIE1Y
-MjVMNTEyNzNHLCBNWDY2TDUxMjM1RiAqLw0KPiA+PiAgICAgICAgICAgICAgICAgIC5pZCA9IFNO
-T1JfSUQoMHhjMiwgMHgyMCwgMHgxYSksDQo+ID4+ICsgICAgICAgICAgICAgICAuZmxhZ3MgPSBT
-UElfTk9SX0hBU19MT0NLIHwgU1BJX05PUl80QklUX0JQLA0KPiA+DQo+ID4gQWNjb3JkaW5nIHRv
-IGRhdGFzaGVldHMgWzJdWzNdWzRdLCB0aG9zZSBjaGlwcyBoYXZlIFRCIGJpdCBpbiBDb25maWd1
-cmF0aW9uDQo+ID4gUmVnaXN0ZXIgYml0LTMgYW5kIHRoZSBiaXQgaXMgT1RQLg0KPiANCj4gWWlr
-ZXMsIHRoYXQgaXMgY29ycmVjdCBhbmQgYWxzbyBzY2FyeS4NCj4gDQo+ID4gVGhlIGV4aXN0aW5n
-IEhBU19UQiBhbmQgSEFTX1RCX1NSX0JJVDYNCj4gPiBmbGFncyBkb24ndCB3b3JrIGFzIHRoZXkg
-ZXhwZWN0IG5vbi1PVFAgYml0IGluIFN0YXR1cyBSZWdpc3Rlci4NCj4gPiBKdXN0IHN1cHBvcnRp
-bmcgdG9wIGFyZWEgcHJvdGVjdGlvbiAoVEI9PTApIHdvdWxkIGJlIGZpbmUgd2l0aCBtZSwgYnV0
-IGluDQo+ID4gdGhhdCBjYXNlLCBmaXh1cCBzaG91bGQgY2hlY2sgVEIgYW5kIGFjdGl2YXRlIGxv
-Y2tpbmcgb25seSB3aGVuIFRCPT0wLg0KPiANCj4gSSBjYW1lIHVwIHdpdGggdGhpcyBhZGRpdGlv
-biwgaXMgdGhpcyB3aGF0IHlvdSBoYXZlIGluIG1pbmQgPw0KPiANClllcywgYnV0Li4uDQoNCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRkL3NwaS1ub3IvbWFjcm9uaXguYyBiL2RyaXZlcnMvbXRk
-L3NwaS1ub3IvbWFjcm9uaXguYw0KPiBpbmRleCBlOTdmNWNiZDlhYWQyLi4xNTM5ZmYzZWQ0MDRl
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL210ZC9zcGktbm9yL21hY3Jvbml4LmMNCj4gKysrIGIv
-ZHJpdmVycy9tdGQvc3BpLW5vci9tYWNyb25peC5jDQo+IEBAIC0xNSw2ICsxNSw5IEBADQo+ICAg
-I2RlZmluZSBNWElDX05PUl9SRUdfRE9QSV9FTiAgMHgyICAgICAgICAgICAgIC8qIEVuYWJsZSBP
-Y3RhbCBEVFIgKi8NCj4gICAjZGVmaW5lIE1YSUNfTk9SX1JFR19TUElfRU4gICAweDAgICAgICAg
-ICAgICAgLyogRW5hYmxlIFNQSSAqLw0KPiANCj4gKyNkZWZpbmUgTVgyNUw1MTI0NUdfT1BfUkRD
-UiAgICAweDE1DQo+ICsjZGVmaW5lIE1YMjVMNTEyNDVHX0NSX1RCICAgICAgQklUKDMpDQo+ICsN
-Cj4gICAvKiBDb252ZXJ0IGR1bW15IGN5Y2xlcyB0byBiaXQgcGF0dGVybiAqLw0KPiAgICNkZWZp
-bmUgTVhJQ19OT1JfUkVHX0RDKHApIFwNCj4gICAgICAgICAoKDIwIC0gKHApKSA+PiAxKQ0KPiBA
-QCAtNDUsNiArNDgsNTIgQEAgbXgyNWwyNTYzNV9wb3N0X2JmcHRfZml4dXBzKHN0cnVjdCBzcGlf
-bm9yICpub3IsDQo+ICAgICAgICAgcmV0dXJuIDA7DQo+ICAgfQ0KPiANCj4gK3N0YXRpYyBpbnQg
-bXgyNWw1MTI0NV9yZWFkX2NyKHN0cnVjdCBzcGlfbm9yICpub3IsIHU4ICpjcikNCj4gK3sNCj4g
-KyAgICAgICBpbnQgcmV0Ow0KPiArDQo+ICsgICAgICAgaWYgKG5vci0+c3BpbWVtKSB7DQo+ICsg
-ICAgICAgICAgICAgICBzdHJ1Y3Qgc3BpX21lbV9vcCBvcCA9IFNQSV9NRU1fT1AoU1BJX01FTV9P
-UF9DTUQoTVgyNUw1MTI0NUdfT1BfUkRDUiwgMCksDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgU1BJX01FTV9PUF9OT19BRERSLCBTUElfTUVNX09Q
-X05PX0RVTU1ZLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFNQSV9NRU1fT1BfREFUQV9JTigxLCBjciwgMCkpOw0KPiArDQo+ICsgICAgICAgICAg
-ICAgICBzcGlfbm9yX3NwaW1lbV9zZXR1cF9vcChub3IsICZvcCwgbm9yLT5yZWdfcHJvdG8pOw0K
-PiArDQo+ICsgICAgICAgICAgICAgICByZXQgPSBzcGlfbWVtX2V4ZWNfb3Aobm9yLT5zcGltZW0s
-ICZvcCk7DQo+ICsgICAgICAgfSBlbHNlIHsNCj4gKyAgICAgICAgICAgICAgIHJldCA9IHNwaV9u
-b3JfY29udHJvbGxlcl9vcHNfcmVhZF9yZWcobm9yLCBNWDI1TDUxMjQ1R19PUF9SRENSLCBjciwg
-MSk7DQo+ICsgICAgICAgfQ0KPiArDQo+ICsgICAgICAgaWYgKHJldCkNCj4gKyAgICAgICAgICAg
-ICAgIGRldl9kYmcobm9yLT5kZXYsICJlcnJvciAlZCByZWFkaW5nIENSXG4iLCByZXQpOw0KPiAr
-DQo+ICsgICAgICAgcmV0dXJuIHJldDsNCj4gK30NCj4gKw0KPiArc3RhdGljIGludA0KPiArbXgy
-NWw1MTI0NV9wb3N0X2JmcHRfZml4dXBzKHN0cnVjdCBzcGlfbm9yICpub3IsDQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3Qgc2ZkcF9wYXJhbWV0ZXJfaGVhZGVyICpi
-ZnB0X2hlYWRlciwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBz
-ZmRwX2JmcHQgKmJmcHQpDQo+ICt7DQo+ICsgICAgICAgaW50IHJldDsNCj4gKw0KPiArICAgICAg
-IHJldCA9IG14MjVsNTEyNDVfcmVhZF9jcihub3IsIG5vci0+Ym91bmNlYnVmKTsNCj4gKyAgICAg
-ICBpZiAocmV0KQ0KPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gKw0KPiArICAgICAg
-IC8qDQo+ICsgICAgICAgICogTVgyNUw1MTI0NUcgc3VwcG9ydHMgbG9ja2luZywgYnV0IHRoZSBD
-UiByZWdpc3RlciBUQiBiaXQgaXMgT1RQLg0KPiArICAgICAgICAqIEVuYWJsZSBsb2NraW5nIG9u
-bHkgaW4gY2FzZSB0aGUgVEIgYml0IGlzIG5vdCBwcm9ncmFtbWVkLCBvciBzZXQNCj4gKyAgICAg
-ICAgKiB0byAwLg0KPiArICAgICAgICAqLw0KPiArICAgICAgIGlmIChub3ItPmJvdW5jZWJ1Zlsw
-XSAmIE1YMjVMNTEyNDVHX0NSX1RCKQ0KPiArICAgICAgICAgICAgICAgZGV2X2RiZyhub3ItPmRl
-diwgIkNSIFRCIGlzIHNldCwgYm90dG9tIHByb3RlY3Rpb24gbm90IHN1cHBvcnRlZFxuIik7DQo+
-ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAgbm9yLT5mbGFncyB8PSBTTk9SX0ZfSEFT
-X0xPQ0sgfCBTTk9SX0ZfSEFTXzRCSVRfQlA7DQo+ICsNCj4gKyAgICAgICByZXR1cm4gMDsNCj4g
-K30NCj4gKw0KPiAgIHN0YXRpYyBpbnQNCj4gICBtYWNyb25peF9xcHA0Yl9wb3N0X3NmZHBfZml4
-dXBzKHN0cnVjdCBzcGlfbm9yICpub3IpDQo+ICAgew0KPiBAQCAtODksNiArMTM5LDcgQEAgc3Rh
-dGljIGNvbnN0IHN0cnVjdCBzcGlfbm9yX2ZpeHVwcyBteDI1bDI1NjM1X2ZpeHVwcyA9IHsNCj4g
-ICB9Ow0KPiANCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IHNwaV9ub3JfZml4dXBzIG1hY3Jvbml4
-X3FwcDRiX2ZpeHVwcyA9IHsNCj4gKyAgICAgICAucG9zdF9iZnB0ID0gbXgyNWw1MTI0NV9wb3N0
-X2JmcHRfZml4dXBzLA0KPiAgICAgICAgIC5wb3N0X3NmZHAgPSBtYWNyb25peF9xcHA0Yl9wb3N0
-X3NmZHBfZml4dXBzLA0KPiAgIH07DQo+IA0KcGxlYXNlIHVzZSBsYXRlX2luaXQgaG9vay4gcG9z
-dF9iZnB0IHNob3VsZCBmaXhlIHBhcmFtcyBkZWNsYXJlZCBpbiBTRkRQL0JGUFQuDQpsb2NraW5n
-IGlzIG5vdCBkZWNsYXJlZCBpbiBTRkRQL0JGUFQuDQoNCj4gV2hpY2ggbGVkIHRvIHRoaXMgbG9j
-a2luZyBsb2c6DQo+IA0KPiAiDQo+ICsgbWt0ZW1wIC1kDQo+ICsgY2QgL3RtcC90bXAuNDVNdHI3
-Y2VFRQ0KPiArIGNhdCAvc3lzL2J1cy9zcGkvZGV2aWNlcy9zcGkyLjAvc3BpLW5vci9qZWRlY19p
-ZA0KPiBjMjIwMWENCj4gKyBjYXQgL3N5cy9idXMvc3BpL2RldmljZXMvc3BpMi4wL3NwaS1ub3Iv
-bWFudWZhY3R1cmVyDQo+IG1hY3Jvbml4DQo+ICsgeHhkIC1wIC9zeXMvYnVzL3NwaS9kZXZpY2Vz
-L3NwaTIuMC9zcGktbm9yL3NmZHANCj4gNTM0NjQ0NTAwNjAxMDJmZjAwMDYwMTEwMzAwMDAwZmZj
-MjAwMDEwNDEwMDEwMGZmODQwMDAxMDJjMDAwDQo+IDAwZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
-ZmZmZmZmZmZmZmU1MjBmYmZmZmZmZmZmMWY0NGViMDg2Yg0KPiAwODNiMDRiYmZlZmZmZmZmZmZm
-ZjAwZmZmZmZmNDRlYjBjMjAwZjUyMTBkODAwZmZkNjQ5YzUwMDgxZGYNCj4gMDRlMzQ0MDM2NzM4
-MzBiMDMwYjBmN2JkZDU1YzRhOWUyOWZmZjA1MGY5ODVmZmZmZmZmZmZmZmZmZmZmDQo+IGZmZmZm
-ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZg0K
-PiBmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
-ZmZmZmYNCj4gZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmN2ZlZmZmZmYyMTVjZGNmZmZmZmZmZmZm
-ZmZmZmZmZmZmZmZmDQo+IGZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
-ZmZmZmZmZmZmZmZmZmZmZmZmZg0KPiBmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
-ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYNCj4gZmZmZjAwMzYwMDI3OWRmOWMwNjQ4NWNiZmZm
-ZmZmZmZmZmZmDQo+ICsgY2F0IC9zeXMva2VybmVsL2RlYnVnL3NwaS1ub3Ivc3BpMi4wL2NhcGFi
-aWxpdGllcw0KPiBTdXBwb3J0ZWQgcmVhZCBtb2RlcyBieSB0aGUgZmxhc2gNCj4gICAxUy0xUy0x
-Uw0KPiAgICBvcGNvZGUgICAgICAgIDB4MTMNCj4gICAgbW9kZSBjeWNsZXMgICAwDQo+ICAgIGR1
-bW15IGN5Y2xlcyAgMA0KPiAgIDFTLTFTLTJTDQo+ICAgIG9wY29kZSAgICAgICAgMHgzYw0KPiAg
-ICBtb2RlIGN5Y2xlcyAgIDANCj4gICAgZHVtbXkgY3ljbGVzICA4DQo+ICAgMVMtMlMtMlMNCj4g
-ICAgb3Bjb2RlICAgICAgICAweGJjDQo+ICAgIG1vZGUgY3ljbGVzICAgMA0KPiAgICBkdW1teSBj
-eWNsZXMgIDQNCj4gICAxUy0xUy00Uw0KPiAgICBvcGNvZGUgICAgICAgIDB4NmMNCj4gICAgbW9k
-ZSBjeWNsZXMgICAwDQo+ICAgIGR1bW15IGN5Y2xlcyAgOA0KPiAgIDFTLTRTLTRTDQo+ICAgIG9w
-Y29kZSAgICAgICAgMHhlYw0KPiAgICBtb2RlIGN5Y2xlcyAgIDINCj4gICAgZHVtbXkgY3ljbGVz
-ICA0DQo+ICAgNFMtNFMtNFMNCj4gICAgb3Bjb2RlICAgICAgICAweGVjDQo+ICAgIG1vZGUgY3lj
-bGVzICAgMg0KPiAgICBkdW1teSBjeWNsZXMgIDQNCj4gDQo+IFN1cHBvcnRlZCBwYWdlIHByb2dy
-YW0gbW9kZXMgYnkgdGhlIGZsYXNoDQo+ICAgMVMtMVMtMVMNCj4gICAgb3Bjb2RlICAgICAgICAw
-eDEyDQo+ICAgMVMtMVMtNFMNCj4gICAgb3Bjb2RlICAgICAgICAweDM0DQo+ICAgMVMtNFMtNFMN
-Cj4gICAgb3Bjb2RlICAgICAgICAweDNlDQo+ICsgY2F0IC9zeXMva2VybmVsL2RlYnVnL3NwaS1u
-b3Ivc3BpMi4wL3BhcmFtcw0KPiBuYW1lICAgICAgICAgICAgKG51bGwpDQo+IGlkICAgICAgICAg
-ICAgICBjMiAyMCAxYSBjMiAyMCAxYQ0KPiBzaXplICAgICAgICAgICAgNjQuMCBNaUINCj4gd3Jp
-dGUgc2l6ZSAgICAgIDENCj4gcGFnZSBzaXplICAgICAgIDI1Ng0KPiBhZGRyZXNzIG5ieXRlcyAg
-NA0KPiBmbGFncyAgICAgICAgICAgNEJfT1BDT0RFUyB8IEhBU180QkFJVCB8IEhBU19MT0NLIHwg
-SEFTXzRCSVRfQlAgfCBTT0ZUX1JFU0VUDQo+IA0KPiBvcGNvZGVzDQo+ICAgcmVhZCAgICAgICAg
-ICAgMHhlYw0KPiAgICBkdW1teSBjeWNsZXMgIDYNCj4gICBlcmFzZSAgICAgICAgICAweDIxDQo+
-ICAgcHJvZ3JhbSAgICAgICAgMHgzZQ0KPiAgIDhEIGV4dGVuc2lvbiAgIG5vbmUNCj4gDQo+IHBy
-b3RvY29scw0KPiAgIHJlYWQgICAgICAgICAgIDFTLTRTLTRTDQo+ICAgd3JpdGUgICAgICAgICAg
-MVMtNFMtNFMNCj4gICByZWdpc3RlciAgICAgICAxUy0xUy0xUw0KPiANCj4gZXJhc2UgY29tbWFu
-ZHMNCj4gICAyMSAoNC4wMCBLaUIpIFsxXQ0KPiAgIDVjICgzMi4wIEtpQikgWzJdDQo+ICAgZGMg
-KDY0LjAgS2lCKSBbM10NCj4gICBjNyAoNjQuMCBNaUIpDQo+IA0KPiBzZWN0b3IgbWFwDQo+ICAg
-cmVnaW9uIChpbiBoZXgpICAgfCBlcmFzZSBtYXNrIHwgb3ZlcmxhaWQNCj4gICAtLS0tLS0tLS0t
-LS0tLS0tLS0rLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0NCj4gICAwMDAwMDAwMC0wM2ZmZmZmZiB8
-ICAgICBbIDEgIF0gfCBubw0KPiArIGRkIGlmPS9kZXYvdXJhbmRvbSBvZj0uL3NwaV90ZXN0IGJz
-PTFNIGNvdW50PTINCj4gMiswIHJlY29yZHMgaW4NCj4gMiswIHJlY29yZHMgb3V0DQo+IDIwOTcx
-NTIgYnl0ZXMgKDIuMSBNQiwgMi4wIE1pQikgY29waWVkLCAwLjA1MTQ0MDYgcywgNDAuOCBNQi9z
-DQo+ICsgbXRkX2RlYnVnIGVyYXNlIC9kZXYvbXRkMCAwIDIwOTcxNTINCj4gRXJhc2VkIDIwOTcx
-NTIgYnl0ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAwMDAgaW4gZmxhc2gNCj4gKyBtdGRfZGVidWcg
-cmVhZCAvZGV2L210ZDAgMCAyMDk3MTUyIHNwaV9yZWFkDQo+IENvcGllZCAyMDk3MTUyIGJ5dGVz
-IGZyb20gYWRkcmVzcyAweDAwMDAwMDAwIGluIGZsYXNoIHRvIHNwaV9yZWFkDQo+ICsgaGV4ZHVt
-cCBzcGlfcmVhZA0KPiAwMDAwMDAwIGZmZmYgZmZmZiBmZmZmIGZmZmYgZmZmZiBmZmZmIGZmZmYg
-ZmZmZg0KPiAqDQo+IDAyMDAwMDANCj4gKyBzaGEyNTZzdW0gc3BpX3JlYWQNCj4gNGJkYTNhMjhm
-NGZmZTYwM2MwZWMxMjU4YzAwMzRkNjVhMWEwZDM1YWI3YmQ1MjNhODM0NjA4YWRhYmYwM2NjNSAg
-c3BpX3JlYWQNCj4gKyBtdGRfZGVidWcgd3JpdGUgL2Rldi9tdGQwIDAgMjA5NzE1MiBzcGlfdGVz
-dA0KPiBDb3BpZWQgMjA5NzE1MiBieXRlcyBmcm9tIHNwaV90ZXN0IHRvIGFkZHJlc3MgMHgwMDAw
-MDAwMCBpbiBmbGFzaA0KPiArIG10ZF9kZWJ1ZyByZWFkIC9kZXYvbXRkMCAwIDIwOTcxNTIgc3Bp
-X3JlYWQNCj4gQ29waWVkIDIwOTcxNTIgYnl0ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAwMDAgaW4g
-Zmxhc2ggdG8gc3BpX3JlYWQNCj4gKyBzaGEyNTZzdW0gc3BpX3JlYWQgc3BpX3Rlc3QNCj4gZmE1
-ZGVhMGM3YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0
-ZWE3YSAgc3BpX3JlYWQNCj4gZmE1ZGVhMGM3YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFlZjQxYmIz
-MzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAgc3BpX3Rlc3QNCj4gKyBtdGRfZGVidWcgZXJhc2Ug
-L2Rldi9tdGQwIDAgMjA5NzE1Mg0KPiBFcmFzZWQgMjA5NzE1MiBieXRlcyBmcm9tIGFkZHJlc3Mg
-MHgwMDAwMDAwMCBpbiBmbGFzaA0KPiArIG10ZF9kZWJ1ZyByZWFkIC9kZXYvbXRkMCAwIDIwOTcx
-NTIgc3BpX3JlYWQNCj4gQ29waWVkIDIwOTcxNTIgYnl0ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAw
-MDAgaW4gZmxhc2ggdG8gc3BpX3JlYWQNCj4gKyBzaGEyNTZzdW0gc3BpX3JlYWQgc3BpX3Rlc3QN
-Cj4gNGJkYTNhMjhmNGZmZTYwM2MwZWMxMjU4YzAwMzRkNjVhMWEwZDM1YWI3YmQ1MjNhODM0NjA4
-YWRhYmYwM2NjNSAgc3BpX3JlYWQNCj4gZmE1ZGVhMGM3YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFl
-ZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAgc3BpX3Rlc3QNCj4gKyBtdGRfZGVidWcg
-aW5mbyAvZGV2L210ZDANCj4gbXRkLnR5cGUgPSBNVERfTk9SRkxBU0gNCj4gbXRkLmZsYWdzID0g
-TVREX0NBUF9OT1JGTEFTSA0KPiBtdGQuc2l6ZSA9IDY3MTA4ODY0ICg2NE0pDQo+IG10ZC5lcmFz
-ZXNpemUgPSA0MDk2ICg0SykNCj4gbXRkLndyaXRlc2l6ZSA9IDENCj4gbXRkLm9vYnNpemUgPSAw
-DQo+IHJlZ2lvbnMgPSAwDQo+IA0KPiArIGZsYXNoX2xvY2sgLXUgL2Rldi9tdGQwDQo+ICsgZmxh
-c2hfbG9jayAtaSAvZGV2L210ZDANCj4gRGV2aWNlOiAvZGV2L210ZDANCj4gU3RhcnQ6IDANCj4g
-TGVuOiAweDQwMDAwMDANCj4gTG9jayBzdGF0dXM6IHVubG9ja2VkDQo+IFJldHVybiBjb2RlOiAw
-DQo+ICsgbXRkX2RlYnVnIGVyYXNlIC9kZXYvbXRkMCAwIDIwOTcxNTINCj4gRXJhc2VkIDIwOTcx
-NTIgYnl0ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAwMDAgaW4gZmxhc2gNCj4gKyBtdGRfZGVidWcg
-d3JpdGUgL2Rldi9tdGQwIDAgMjA5NzE1MiBzcGlfdGVzdA0KPiBDb3BpZWQgMjA5NzE1MiBieXRl
-cyBmcm9tIHNwaV90ZXN0IHRvIGFkZHJlc3MgMHgwMDAwMDAwMCBpbiBmbGFzaA0KPiArIG10ZF9k
-ZWJ1ZyByZWFkIC9kZXYvbXRkMCAwIDIwOTcxNTIgc3BpX3JlYWQNCj4gQ29waWVkIDIwOTcxNTIg
-Ynl0ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAwMDAgaW4gZmxhc2ggdG8gc3BpX3JlYWQNCj4gKyBz
-aGEyNTZzdW0gc3BpX3JlYWQgc3BpX3Rlc3QNCj4gZmE1ZGVhMGM3YTg1ZWQwYmM4NjViZDBiNmVk
-MDllMmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAgc3BpX3JlYWQNCj4gZmE1ZGVh
-MGM3YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3
-YSAgc3BpX3Rlc3QNCj4gKyBncmVwIC1BNCBsb2NrZWQgc2VjdG9ycyAvc3lzL2tlcm5lbC9kZWJ1
-Zy9zcGktbm9yL3NwaTIuMC9wYXJhbXMNCj4gKyBmbGFzaF9sb2NrIC1sIC9kZXYvbXRkMA0KPiAr
-IGZsYXNoX2xvY2sgLWkgL2Rldi9tdGQwDQo+IERldmljZTogL2Rldi9tdGQwDQo+IFN0YXJ0OiAw
-DQo+IExlbjogMHg0MDAwMDAwDQo+IExvY2sgc3RhdHVzOiBsb2NrZWQNCj4gUmV0dXJuIGNvZGU6
-IDENCj4gKyBtdGRfZGVidWcgZXJhc2UgL2Rldi9tdGQwIDAgMjA5NzE1Mg0KPiBFcmFzZWQgMjA5
-NzE1MiBieXRlcyBmcm9tIGFkZHJlc3MgMHgwMDAwMDAwMCBpbiBmbGFzaA0KPiArIG10ZF9kZWJ1
-ZyByZWFkIC9kZXYvbXRkMCAwIDIwOTcxNTIgc3BpX3JlYWQNCj4gQ29waWVkIDIwOTcxNTIgYnl0
-ZXMgZnJvbSBhZGRyZXNzIDB4MDAwMDAwMDAgaW4gZmxhc2ggdG8gc3BpX3JlYWQNCj4gKyBzaGEy
-NTZzdW0gc3BpX3JlYWQgc3BpX3Rlc3QNCj4gZmE1ZGVhMGM3YTg1ZWQwYmM4NjViZDBiNmVkMDll
-MmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAgc3BpX3JlYWQNCj4gZmE1ZGVhMGM3
-YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAg
-c3BpX3Rlc3QNCj4gKyBkZCBpZj0vZGV2L3VyYW5kb20gb2Y9Li9zcGlfdGVzdDIgYnM9MU0gY291
-bnQ9Mg0KPiAyKzAgcmVjb3JkcyBpbg0KPiAyKzAgcmVjb3JkcyBvdXQNCj4gMjA5NzE1MiBieXRl
-cyAoMi4xIE1CLCAyLjAgTWlCKSBjb3BpZWQsIDAuMDUxMTI1IHMsIDQxLjAgTUIvcw0KPiArIG10
-ZF9kZWJ1ZyB3cml0ZSAvZGV2L210ZDAgMCAyMDk3MTUyIHNwaV90ZXN0Mg0KPiBDb3BpZWQgMjA5
-NzE1MiBieXRlcyBmcm9tIHNwaV90ZXN0MiB0byBhZGRyZXNzIDB4MDAwMDAwMDAgaW4gZmxhc2gN
-Cj4gKyBtdGRfZGVidWcgcmVhZCAvZGV2L210ZDAgMCAyMDk3MTUyIHNwaV9yZWFkMg0KPiBDb3Bp
-ZWQgMjA5NzE1MiBieXRlcyBmcm9tIGFkZHJlc3MgMHgwMDAwMDAwMCBpbiBmbGFzaCB0byBzcGlf
-cmVhZDINCj4gKyBzaGEyNTZzdW0gc3BpX3JlYWQgc3BpX3JlYWQyIHNwaV90ZXN0IHNwaV90ZXN0
-Mg0KPiBmYTVkZWEwYzdhODVlZDBiYzg2NWJkMGI2ZWQwOWUyYWVmNDFiYjMzNmQ5ODA1YTkzYmNm
-YmJkMjYwMDRlYTdhICBzcGlfcmVhZA0KPiBmYTVkZWEwYzdhODVlZDBiYzg2NWJkMGI2ZWQwOWUy
-YWVmNDFiYjMzNmQ5ODA1YTkzYmNmYmJkMjYwMDRlYTdhICBzcGlfcmVhZDINCj4gZmE1ZGVhMGM3
-YTg1ZWQwYmM4NjViZDBiNmVkMDllMmFlZjQxYmIzMzZkOTgwNWE5M2JjZmJiZDI2MDA0ZWE3YSAg
-c3BpX3Rlc3QNCj4gZWVkM2I3MzAxNjgwMmE1OTk4MmM3NGE0NWNlOTZkZWFmYjdjZDQ4NmNjNWNk
-ODMxZTAzMDIzOWMwZGRlYjhjYyAgc3BpX3Rlc3QyDQo+ICsgZ3JlcCAtQTQgbG9ja2VkIHNlY3Rv
-cnMgL3N5cy9rZXJuZWwvZGVidWcvc3BpLW5vci9zcGkyLjAvcGFyYW1zDQo+ICsgZmxhc2hfbG9j
-ayAtdSAvZGV2L210ZDANCj4gIg0KDQpUaGFua3MsDQpUYWthaGlybw0KDQo=
+From: Vincent Jardin <vjardin@free.fr>
+
+The Realtek RTL8366SE SMI read frame per:
+
+  S Addr Rd [A] reg[7:0] [A] reg[15:8] [A] [data[7:0]] A [data[15:8]] NA P
+
+Linux support it using I2C_M_REV_DIR_ADDR on a write message
+that inverts the transmitted R/W bit, and I2C_M_NOSTART on the following
+read message that continues the frame without re-addressing.
+
+This NXP i2c-imx is missing such support, so on an LX2160A the Realtek switch
+could not be used.
+
+Acked-by: Carlos Song <carlos.song@nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Follow the logics from i2c-algo-bit and i2c-s3c2410 (addr ^= 1).
+
+Documentation/i2c/i2c-protocol.rst says I2C_M_NOSTART "may also be used
+between direction changes by some rare devices"; the RTL8366SE is one of
+such device !
+
+- The NOSTART read turns the bus around without waiting for a completion,
+  because the controller stretches SCL after the previous byte and the
+  frame is therefore still open. That is what lets i2c_imx_read() enter
+  the state the ISR would otherwise have moved to.
+
+- I2C_FUNC_PROTOCOL_MANGLING also covers I2C_M_IGNORE_NAK,
+  I2C_M_NO_RD_ACK and I2C_M_STOP, which this driver does not implement.
+  They are rejected with -EOPNOTSUPP rather than advertised and silently
+  ignored. I2C_M_NOSTART on the first message is rejected as well.
+---
+RESEND:
+- No change since v2 of 2026-08-12, only added:
+  Acked-by from Carlos Song and Reviewed-by from Frank Li
+- Resent as a new thread
+- Haobin Jiang's "i2c: imx: honour I2C_M_IGNORE_NAK" v3 is built on top of it:
+  https://lore.kernel.org/r/tencent_342A87BFCECA70C9982E68A79AAD878B6909@qq.com
+- Link to v2: https://lore.kernel.org/r/20260812-for-upstream-i2c-imx-lx2160-reverse-v2-1-f1343714c5a9@free.fr
+
+Changes in v2:
+- message validation with i2c_imx_check_msgs() (Carlos Song)
+  No functional change
+- Link to v1: https://lore.kernel.org/r/20260807-for-upstream-i2c-imx-lx2160-reverse-v1-1-f276ce8cb660@free.fr
+---
+ drivers/i2c/busses/i2c-imx.c | 153 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 113 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index 9477d814fde9..7dc9c43673ee 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -1000,16 +1000,10 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
+ 	return 1;
+ }
+ 
+-static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
++static inline void i2c_imx_setup_read(struct imx_i2c_struct *i2c_imx)
+ {
+-	int result;
+ 	unsigned int temp;
+ 
+-	result = i2c_imx_isr_acked(i2c_imx);
+-	if (result)
+-		return result;
+-
+-	/* setup bus to read data */
+ 	temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
+ 	temp &= ~I2CR_MTX;
+ 	if ((i2c_imx->msg->len - 1) || (i2c_imx->msg->flags & I2C_M_RECV_LEN))
+@@ -1017,6 +1011,18 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
+ 
+ 	imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
+ 	imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR); /* dummy read */
++}
++
++static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
++{
++	int result;
++
++	result = i2c_imx_isr_acked(i2c_imx);
++	if (result)
++		return result;
++
++	/* setup bus to read data */
++	i2c_imx_setup_read(i2c_imx);
+ 
+ 	return 0;
+ }
+@@ -1172,6 +1178,16 @@ static irqreturn_t i2c_imx_isr(int irq, void *dev_id)
+ 	return i2c_imx_master_isr(i2c_imx, status);
+ }
+ 
++static u8 i2c_imx_addr_byte(struct i2c_msg *msg)
++{
++	u8 addr = i2c_8bit_addr_from_msg(msg);
++
++	if (msg->flags & I2C_M_REV_DIR_ADDR)
++		addr ^= 1;
++
++	return addr;
++}
++
+ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
+ 					struct i2c_msg *msgs)
+ {
+@@ -1200,7 +1216,7 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
+ 	 * Write slave address.
+ 	 * The first byte must be transmitted by the CPU.
+ 	 */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
++	imx_i2c_write_reg(i2c_imx_addr_byte(msgs), i2c_imx, IMX_I2C_I2DR);
+ 	time_left = wait_for_completion_timeout(
+ 				&i2c_imx->dma->cmd_complete,
+ 				msecs_to_jiffies(DMA_TIMEOUT));
+@@ -1242,14 +1258,20 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+ 	int result;
+ 	unsigned int temp = 0;
+ 
+-	/* write slave address */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
+-	result = i2c_imx_trx_complete(i2c_imx, !use_dma);
+-	if (result)
+-		return result;
+-	result = i2c_imx_acked(i2c_imx);
+-	if (result)
+-		return result;
++	/*
++	 * I2C_M_NOSTART continues a frame that is already open, so there is
++	 * no address phase: go straight to turning the bus around.
++	 */
++	if (!(msgs->flags & I2C_M_NOSTART)) {
++		/* write slave address */
++		imx_i2c_write_reg(i2c_imx_addr_byte(msgs), i2c_imx, IMX_I2C_I2DR);
++		result = i2c_imx_trx_complete(i2c_imx, !use_dma);
++		if (result)
++			return result;
++		result = i2c_imx_acked(i2c_imx);
++		if (result)
++			return result;
++	}
+ 
+ 	dev_dbg(&i2c_imx->adapter.dev, "<%s> setup bus\n", __func__);
+ 
+@@ -1371,16 +1393,18 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ 	int i, result;
+ 
+ 	dev_dbg(&i2c_imx->adapter.dev, "<%s> write slave address: addr=0x%x\n",
+-		__func__, i2c_8bit_addr_from_msg(msgs));
++		__func__, i2c_imx_addr_byte(msgs));
+ 
+-	/* write slave address */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
+-	result = i2c_imx_trx_complete(i2c_imx, true);
+-	if (result)
+-		return result;
+-	result = i2c_imx_acked(i2c_imx);
+-	if (result)
+-		return result;
++	if (!(msgs->flags & I2C_M_NOSTART)) {
++		/* write slave address */
++		imx_i2c_write_reg(i2c_imx_addr_byte(msgs), i2c_imx, IMX_I2C_I2DR);
++		result = i2c_imx_trx_complete(i2c_imx, true);
++		if (result)
++			return result;
++		result = i2c_imx_acked(i2c_imx);
++		if (result)
++			return result;
++	}
+ 	dev_dbg(&i2c_imx->adapter.dev, "<%s> write data\n", __func__);
+ 
+ 	/* write data */
+@@ -1402,7 +1426,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ static int i2c_imx_write(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs)
+ {
+ 	dev_dbg(&i2c_imx->adapter.dev, "<%s> write slave address: addr=0x%x\n",
+-		__func__, i2c_8bit_addr_from_msg(msgs));
++		__func__, i2c_imx_addr_byte(msgs));
+ 
+ 	i2c_imx->state = IMX_I2C_STATE_WRITE;
+ 	i2c_imx->msg = msgs;
+@@ -1411,8 +1435,16 @@ static int i2c_imx_write(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs)
+ 	/*
+ 	 * By writing the device address we start the state machine in the ISR.
+ 	 * The ISR will report when it is done or when it fails.
++	 *
++	 * I2C_M_NOSTART continues a frame that is already open and so has no
++	 * address byte: push the first data byte instead. That raises the same
++	 * interrupt and the ISR carries on from the second byte.
+ 	 */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
++	if (msgs->flags & I2C_M_NOSTART)
++		imx_i2c_write_reg(msgs->buf[i2c_imx->msg_buf_idx++], i2c_imx,
++				  IMX_I2C_I2DR);
++	else
++		imx_i2c_write_reg(i2c_imx_addr_byte(msgs), i2c_imx, IMX_I2C_I2DR);
+ 	wait_event_timeout(i2c_imx->queue,
+ 			   i2c_imx->state == IMX_I2C_STATE_DONE ||
+ 			   i2c_imx->state == IMX_I2C_STATE_FAILED,
+@@ -1529,22 +1561,29 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 
+ 	dev_dbg(&i2c_imx->adapter.dev,
+ 		"<%s> write slave address: addr=0x%x\n",
+-		__func__, i2c_8bit_addr_from_msg(msgs));
++		__func__, i2c_imx_addr_byte(msgs));
+ 
+ 	i2c_imx->is_lastmsg = is_lastmsg;
+ 
+-	if (block_data)
+-		i2c_imx->state = IMX_I2C_STATE_READ_BLOCK_DATA;
+-	else
+-		i2c_imx->state = IMX_I2C_STATE_READ;
+ 	i2c_imx->msg = msgs;
+ 	i2c_imx->msg_buf_idx = 0;
+ 
+-	/*
+-	 * By writing the device address we start the state machine in the ISR.
+-	 * The ISR will report when it is done or when it fails.
+-	 */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
++	if (msgs->flags & I2C_M_NOSTART) {
++		i2c_imx->state = block_data ? IMX_I2C_STATE_READ_BLOCK_DATA_LEN
++					    : IMX_I2C_STATE_READ_CONTINUE;
++		i2c_imx_setup_read(i2c_imx);
++	} else {
++		if (block_data)
++			i2c_imx->state = IMX_I2C_STATE_READ_BLOCK_DATA;
++		else
++			i2c_imx->state = IMX_I2C_STATE_READ;
++
++		/*
++		 * By writing the device address we start the state machine in the ISR.
++		 * The ISR will report when it is done or when it fails.
++		 */
++		imx_i2c_write_reg(i2c_imx_addr_byte(msgs), i2c_imx, IMX_I2C_I2DR);
++	}
+ 	wait_event_timeout(i2c_imx->queue,
+ 			   i2c_imx->state == IMX_I2C_STATE_DONE ||
+ 			   i2c_imx->state == IMX_I2C_STATE_FAILED,
+@@ -1574,6 +1613,33 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 	return ret;
+ }
+ 
++#define I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS \
++	(I2C_M_IGNORE_NAK | I2C_M_NO_RD_ACK | I2C_M_STOP)
++
++static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
++{
++	int i;
++
++	for (i = 0; i < num; i++) {
++		/* Reject rather than silently transfer */
++		if (msgs[i].flags & I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS)
++			return -EOPNOTSUPP;
++
++		if (msgs[i].flags & I2C_M_NOSTART) {
++			/*
++			 * NOSTART continues an already open frame. The first
++			 * message has nothing to continue from,
++			 * a 0 length continuation leaves the controller with
++			 * no byte to clock.
++			 */
++			if (i == 0 || msgs[i].len == 0)
++				return -EOPNOTSUPP;
++		}
++	}
++
++	return 0;
++}
++
+ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 			       struct i2c_msg *msgs, int num, bool atomic)
+ {
+@@ -1583,6 +1649,10 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 	struct imx_i2c_struct *i2c_imx = i2c_get_adapdata(adapter);
+ 	int use_dma = 0;
+ 
++	result = i2c_imx_check_msgs(msgs, num);
++	if (result)
++		return result;
++
+ 	/* Start I2C transfer */
+ 	result = i2c_imx_start(i2c_imx, atomic);
+ 	if (result) {
+@@ -1604,7 +1674,7 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 		if (i == num - 1)
+ 			is_lastmsg = true;
+ 
+-		if (i) {
++		if (i && !(msgs[i].flags & I2C_M_NOSTART)) {
+ 			dev_dbg(&i2c_imx->adapter.dev,
+ 				"<%s> repeated start\n", __func__);
+ 			temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
+@@ -1636,7 +1706,8 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ #endif
+ 
+ 		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
+-			msgs[i].flags & I2C_M_DMA_SAFE;
++			msgs[i].flags & I2C_M_DMA_SAFE &&
++			!(msgs[i].flags & I2C_M_NOSTART);
+ 		if (msgs[i].flags & I2C_M_RD) {
+ 			int block_data = msgs->flags & I2C_M_RECV_LEN;
+ 
+@@ -1730,7 +1801,9 @@ static int i2c_imx_init_recovery_info(struct imx_i2c_struct *i2c_imx,
+ static u32 i2c_imx_func(struct i2c_adapter *adapter)
+ {
+ 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL
+-		| I2C_FUNC_SMBUS_READ_BLOCK_DATA;
++		| I2C_FUNC_SMBUS_READ_BLOCK_DATA
++		| I2C_FUNC_NOSTART
++		| I2C_FUNC_PROTOCOL_MANGLING;
+ }
+ 
+ static const struct i2c_algorithm i2c_imx_algo = {
+
+---
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+change-id: 20260807-for-upstream-i2c-imx-lx2160-reverse-7a94b9561188
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
