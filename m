@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792793408;
-	b=LWtPIFX+F8uw/QmEXZ+Lnvwl4Nsk7DkI7h1FwM8dqTPsQP4ysZto1MrTchl2UdIVUwmV
-	 /Ngwg6m9QtIPzg0tZpkdoodSU6EyUgOll3RBYGKHuimlonfUN0x7iewXNFbtBr2hMppEi
-	 Snjd36uoDdgM5P34ZpclmIKhS5JROyGK7rV0StnWI8ulr7OA2ehiHVpiMQJihwNPVOpi7
-	 3P8WRPj8ClbpKNJa3sk6tpF/HvqNB+BY3B3AMf7Pm8+KcbtyJNrsfxheI2V6KmnOl/xmZ
-	 r0sNt5IT71LsaxdCyVzxPhO8rHyDbpvSkUGcEPygLigdi7BV8P4R5+hBr0EOD+Z4cOg==
+	t=1792793410;
+	b=mEGHzYfchBjWt7KW1yQclxv0mOYC6flxs0mEzQbpqxZReqaItEBJQHEMrXtQuBY6wOsw
+	 1LCIIjhkeymAZYeHHRkNisnDEFDQA+i06MKErNqsrNt9E1AqM3nztbWwjq9dtLEQGgSHA
+	 bhKVn+8z9xZkLXW1kGVKRX2HZnidKz3T7uvhkN5/m+tJFL91NFW3kJ23LLPFG24GP1tTl
+	 Ske+aM5BPtd9eSrQ2PasO/iGkKoSjforCDy8LAC8RnwGymny3DMR7aN/pizqvN/ie+q5b
+	 WJwejLdovNUuYk/aqDxuiWE6Hk5PCeUIt9itTqJmHa8RONgrbM5YmrbZhp/sM1/XjMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792793408;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793410;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=IMKxAJTioTnFgV2kKOcnfYJ3tZQRRjdSbCM++F5BVaE=;
-	b=LhuZb6pi51POkTDhxVbUf4cqco/pNBijVoVDfRD+PBzF9cHaya6Q7vL+cKs8UIgiWN5l
-	 StA7bMjS1blJgzj8GJ4xw7ur+eHQwdsp+Dbcnm9mdMRT9Yet/o+rqV/bYda4CjsV+VkfI
-	 YDtHks5Ys3pRPihY/Djh1e35IngxMgf4YF3yl+6gLQRt5CoHj4TFJzFLrNV1E+1jGTKIQ
-	 IeP4GKaIeghUNSqnlbW35YS7vJ1iB0zrjhScpKfkp8+mGEgvek+nO54gx5JK2Hl6ASvjo
-	 qF22h5SmpOHEl4HSALVo0b4/G5S6scDsBo01LtSyhfq5v/yXggEXvPjrcAjQZ0xMBHQ==
+	bh=qOJ1GXXdOfNWDBK0dfVeev5Ia3MBY8+fjGuVb76LtFU=;
+	b=J3JkVxf8CtNsfgje8+3IZQo4fAEqnskCwFwuJ1Lz74TdYPiznhvbj2tLn4u0JGXjOeY+
+	 9mEwcVP3acJqAwh8e0TUqMY1UkQly1KiYDbfKMalnP+T8JLVK5fL+BF4jXbHSAGPE5SiH
+	 QXjo37CcrDXiJSA4F51YJcOzmp3DbjZkm9Al7J1SrFSKxu1SvL+cStRdnqxlWGbC89z5w
+	 eAcdhxvjgE4u5LPvnnvgxs8uhEwphEgRdRV/TyXUDQdweXwDcS5oiats+vWpBuqPXqfj0
+	 Ad9cPURb1na6GRVmC/uqQuEo5WRl4nv4nHMf1mLV6l2pinVNnIByDtM+1u6GF9ssncA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlVzCnuS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6oehAHE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A19606A31A;
-	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DFF606A322;
+	Fri, 23 Oct 2026 22:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlVzCnuS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E661F01825;
-	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6oehAHE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891D01F01825;
+	Fri, 23 Oct 2026 22:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792793407;
-	bh=IMKxAJTioTnFgV2kKOcnfYJ3tZQRRjdSbCM++F5BVaE=;
+	s=k20260515; t=1792793409;
+	bh=qOJ1GXXdOfNWDBK0dfVeev5Ia3MBY8+fjGuVb76LtFU=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FlVzCnuSbMh0amDfEVVUsCnuMcnW2pIkQdyeD3xYmsVO/j3oLQNDsS7C0ScjMY+7K
-	 uuhKbctsX7VAbbLir9L8PRt1Dfj3Aona0l53vEz5QvJl2oUr5/Sxczz46GKw2GCTbf
-	 yAkP1iehxYCs66jJmkfVxNt/rMxGx4/zHjIEcXmVG14WyR4PrW6syV4hlBnyGrKxs/
-	 SGGm1pAFiH9x6W4hdroIbnw5omfRwoakIdzwNv3E0fct9KCFgw1R/4n3NoNoe7XCEP
-	 Le7MJZIJ74VZUH93B6Vi7rnVSYHAIzS7gfegpwCVHIp2vfvkI6XtTo14fjhIwzY6VN
-	 r0AADJEKpf7Zw==
+	b=K6oehAHEpA4aS2zkKopMpMRBK36dx65xEGi8mlOPxWdpU4OmrySmuCt08EX+dlGZk
+	 he528hyx6zW/3rJHXSkRiVF2A+idC0ZeOAWKwsKDVWXNYrhBy30qcKm7m/tJeDXKdJ
+	 RNkxeEsooOvBTJsQK1jQwowzp66zJgIi7LdZmPlrhyo2L16q7YIkOxjVIQP5K0RZPt
+	 AYMPvXkAr2PKQ+ZIgN992aho7DA2Jsfp2V5mDw3Vl5J89AZ2/r63TrdJqmdfpH3IPn
+	 QlVS+2tPcNmnQ2VDdk/MRuAYCqtStydz0TrIe8YNra1DjmMc1BF+pafBk2yHyzzTt9
+	 +YuViHFY7cJCg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5B7391B158;
-	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 8159F391B158;
+	Fri, 23 Oct 2026 22:10:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +54,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 0/3] Bluetooth: btmtk: fix ISO data reception
+Subject: Re: [PATCH] Bluetooth: hci_sync: Protect resolving-list lookups
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179279340621.1294506.18194273796007140982.git-patchwork-notify@kernel.org>
-Date: Fri, 23 Oct 2026 22:10:06 +0000
-References: <20261022032150.2213479-1-chris.lu@mediatek.com>
-In-Reply-To: <20261022032150.2213479-1-chris.lu@mediatek.com>
-To: Chris Lu <chris.lu@mediatek.com>
-Cc: marcel@holtmann.org, johan.hedberg@gmail.com, luiz.dentz@gmail.com,
- hao.qin@mediatek.com, ot_wenlong.tian@mediatek.com, sean.wang@mediatek.com,
- will-cy.Lee@mediatek.com, ss.wu@mediatek.com,
+ <179279340798.1294506.10569724909880961113.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 22:10:07 +0000
+References: 
+ <pm-bluetooth-objects-candidate-0159-v11-9bd4b4c3c1e56d9ba355@gmail.com>
+In-Reply-To: 
+ <pm-bluetooth-objects-candidate-0159-v11-9bd4b4c3c1e56d9ba355@gmail.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org
+ baijiaju1990@gmail.com, jjzuming@gmail.com
 
 Hello:
 
-This series was applied to bluetooth/bluetooth-next.git (master)
+This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Thu, 22 Oct 2026 11:21:47 +0800 you wrote:
-> Two fixes for btmtk_recv_isopkt(), found while debugging LE Audio on
-> MT7925, plus an update to the ISO data transmission setting. The function
-> is shared by every MediaTek USB controller that supports ISO data, so none
-> of this is specific to that part.
+On Thu, 22 Oct 2026 20:05:56 +0800 you wrote:
+> The host resolving list is updated under hdev->lock, and each
+> bdaddr_list_with_irk entry must remain alive throughout a lookup.
+> hci_le_del_resolve_list_sync() and hci_le_add_resolve_list_sync()
+> traverse that list without taking the lock.
 > 
-> Patch 1 drops the zero padding that the ISO interrupt IN endpoint appends
-> to each transfer instead of parsing it as ISO packets.
+> On an LE privacy-capable controller with a programmed entry, passive
+> scan reconciliation can reach hci_le_del_resolve_list_sync() while a
+> privileged HCI_RAW client sends LE Clear Resolving List. The raw
+> command does not take req_lock, and its successful completion runs
+> on the controller workqueue independently of request work:
 > 
 > [...]
 
 Here is the summary with links:
-  - [v4,1/3] Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
-    https://git.kernel.org/bluetooth/bluetooth-next/c/fa9d4ec85257
-  - [v4,2/3] Bluetooth: btmtk: bound the ISO payload length by the controller's MTU
-    https://git.kernel.org/bluetooth/bluetooth-next/c/61eb283d06c7
-  - [v4,3/3] Bluetooth: btmtk: derive the firmware ISO setting from MTK_ISO_THRESHOLD
-    https://git.kernel.org/bluetooth/bluetooth-next/c/c9d0dedffc1e
+  - Bluetooth: hci_sync: Protect resolving-list lookups
+    https://git.kernel.org/bluetooth/bluetooth-next/c/2a464ab1c5ac
 
 You are awesome, thank you!
 -- 
