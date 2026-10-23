@@ -1,96 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741612;
-	b=UqyFSSxNQHfHsTnWZX4isbvIRkJH8wf3OAskSO53uHbQ39v1wDlGw4g6vhqLgdzJFj8z
-	 ik5SkmohfqbZ8Zu6eda5cS8JtWHssi2EgAyYFVYiCnikRJzEkpXizfivI61upyT5dEqIJ
-	 SVolVK70Qw83xckRmQA3BKzogBRQGpWyjDLN5jxhi59vThnvG0i4kmqI4BI5iiB3Hk1GI
-	 ooRmEfwP6mYqt+DrFjEq+c4twybEgwavnPfTByfCh8bdqDfabIHbamBS8MgMkB7J7UYLE
-	 OKqaqzkeZuKWC4qjovP8uBeL3nHltTWXJzdwQUJs/Cbv5EgjUbrgRRYcWYfbtS9WDBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741612;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i1/WuK8dW5/pyvLMu4dA8Lh0jH9UtF3/CqDkw4QhSPY=;
-	b=sCfV4iejzXyijdcVnUuDrx9Cgc5QWSlOJIj/KOQ7rnh3wYZrEq1geDvgZPW6SMn25LH5
-	 uKXLB5Lyk0nvONxhq2yBZdoKK7adihXnEpvqSpjpTiEYvdGquQ8O20V6sKaWjmnJFoCKV
-	 nEFc7wgzpX+fZ0GeTPQqR301zvQASBRkxjXIYat2uydR54sIYfPem0aCkJWglH2aEW4pm
-	 dqmJjEsrXrqTgCN+de+kWvfZIYeaLQjJxqETjasDOOlquVmPmUBdPtfCArRkc2g++yuTY
-	 +JPkqSQ+XUq5+HK87Zpt1boOk9OOwAhblC/cXnMlf55XqDLzUvtetBN8S/2P63vXBhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="gLUVI/dI";
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792741655;
+	b=pTVTQiigtwvncJ/f8dpS9fokdpGuQ48JHvVKzfCvK3mDTOc8mgXXNuWW90BVV1op0L6R
+	 AU/qknYRAg07Vbk0GtaateA40kjeA9M4gYiABHMlGaeYdgMyYwfQ6c+QaUk7aTjSs8qIp
+	 dzx3pdr4aY7qgRL8/J1VDvFkA/bQavWK6a3/xehp/M9tAlpViSAYzxk6oDdw3BaD3kxBn
+	 0vRHXqUCYA3sMHkHhzRCjqhbiT3FQUoiw+m6YGVlXUEqaQeHQRgFAzLitVYGz5mqDnZrO
+	 aUECMWCSaXCz9ezMv8EdaTC+oDeBqLbq5xkrQyo7ve3NBZMYdZag6yb2iRSLZuSibEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741655;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	b=oosfMljevutVkG90gfPQARwWl3zyEpFxPaDw/hcX+t58LsY+n76MUyajmY+B7gKYnF62
+	 A519LgJ3cEPITicNvaUFOwYIePKPSNH/Jo4N/rciOYKz8xTfeVLOlKJCdxusOzThG0nou
+	 u9mKS0aBbpV8xoPisivcshpUCuo6VRYZPZCG0fgcc0m713WPb0Dy/bx6/jkfMlxP0eHT/
+	 8PDOMBw+VPa44fovU1lzmmUCW7aNbO3cQLPdymFTW5gjMWD0yD9kM1uuVqPQgyi63WrC9
+	 844uSDVD6UGVz9xLxuo5AzdiGLlmJMIb0mja1ip5SvwLF2IX1SRZ7UCw/9xiRVKT4gQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MHb/qz0f";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EDB606A31A;
+	Fri, 23 Oct 2026 07:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHb/qz0f
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792741655;
+	b=POK1lHC9ktNwu9VX9PaWJH1xjXmT9N42u5XhE2DqUSGw5/t4C6bnunnleTCk3/v7qCMu
+	 F0ebKjw7V5bJza1M/CbIB8VQryOKzXpRzNXkjPPguZ8gH88tmy6Vy+RcBnjRBlyo18CB/
+	 1/HrEQj2aFLyF+/ekr47v+r+j+9pxP6fqSUai7kyPo4Dm1dKpdYmEzI1QD0AXapWUMr/b
+	 n389jLVlH5HqjLxtr8uwtrxPYZ1z8+lR2/jIXABWlfoJ093oLbK9sZLQRRqDhDrrTAcAR
+	 HmfxLmZBISfKj7W5KrgG3WR08XymCBRQnO/Vst9jjIme+A6WovV5jnjLho6t8IcXoxw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792741655;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	b=GMQfhp9I4vd5myvuK3oBdZ3b4+e+YNm7J8Vks+bmMS9PH099BLvTP3ZPGn/AasV1gCd2
+	 xaOzwHeAVrFDz1kJdBIoOzqgeKdCOkGRFB7Ao3D3pqRAMcjvIABGS/hMTA+zygmLd10f3
+	 2uOQW66ngmF31K9ZRBH6lRNGM2PfJftLOa1uUxb8j+iBFJ0T68kZLOVUkgjb8QRq5HhKb
+	 2z53IN1mckbicV8qgneuTchjy9AaHVn+tWvvua7jcrlYdp8M7KstrF+kRRpcKDQEvy691
+	 P718UWSF65cD6IaFht/v8x+/03dL48PkLaOybdSmYMCfziNNIn/h/583y1rJyEYdz3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1059606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:46:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1059606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gLUVI/dI
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so1412684eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792741611; x=1793346411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i1/WuK8dW5/pyvLMu4dA8Lh0jH9UtF3/CqDkw4QhSPY=;
-        b=gLUVI/dIEd9vBiMkDhXsj8+YVnMcrVQsxvJ5ik4bFIFFJ4z8mLo/KqLzkbhwS+/osh
-         fI0QmxElIyjO4ODs4QICbt7cP4pQreas0g1/RDyGQ/VebbKcpMmfQZz7J/QaK8JgXcBX
-         Gb+unwyAkDA8yfosvfGIk+ML/qeQACYS50a8EZxWFM8WJJ5M9hVD47CBEmltbbLxw/Dw
-         TEaxWugn4zyoWNvDjfiVS9KplYxVi9AxV00p5SQ1yeBUa50HsUdeW4h8vTjYbkXMkjL1
-         pOJNW935Ai8d7sQkqOfsSqDcgRKX+VIXGFFdcMiF88Cwgx3Cm8beKQ/mKorPCZuyfEd2
-         CC4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792741611; x=1793346411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i1/WuK8dW5/pyvLMu4dA8Lh0jH9UtF3/CqDkw4QhSPY=;
-        b=HNBWUkbYhtxVb812y8M6O92/qev85VD4xzq2f9rSAFMW48qNHNdQSTgV8+uBPXoEe7
-         A5BP7Lj6THDXm/1eLaVK8zMcYLFofOGShhIVZGIPOyKTGRMqJXg36VLuEZrnQ3ivtDSF
-         awOFk9pmtir5bOVCIEUh53AN2o2YKKcCDgSrCIcZvPRlx4RoOpu2J0WKEDGvkPKVxovt
-         gd2wqnA9R890jdj+ElljmZdXJISYte9tTXNxpqRH1xb+XAuoCzRL2N2XtMwptf0Hskaw
-         jPB45Y5+mCtG/RhK8wee9389y2qLkJr7fuGqdy4lheHmisPkH5FkK9b8zohjW4XMtroP
-         A3gw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmskjJDBKfbGja03wl54Ec1nwTAGAORNYULEIpby7uqNfflc+Y67OP7AckjlW+s225n/fK8YLBYJ27fh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMH1UGpBd5ExLKSUnIkmHx8FTFgSbCM1hhEYAh8pyAcphI5JJH
-	z2iuidP0aEg7R67CyE7E0pYv6Rs0S05aPnRUU4UwTB7kUeB/JhZG9zfL
-X-Gm-Gg: AYBFou1P+0rLk9IngLtSH6ED0H/l2bal+289FC/sa0IFP+4EmuQwnYFhVmriixI4rYt
-	KUeSt+LFGof/3R/Gg9vwUGJJcdsaob0nheUAWXAPx0fp6XqRwnDRq6MKj8VpSau3TvXr47hMUbj
-	h9SEQpqXY6qNVeg1puqXc0siIjwqvSCE/dLwjvfh4pDXOVuGQVpfpV9aXQhqGCxkhDkhBuzwhzA
-	GqEgoe4DHF0HAZ7hLtTh/zYOaU2a3P1DS56vW74X8XWKSvmaBKd5Q1J3HsS8qT4oB8iqFaa2/cl
-	nkoPD8bmZ6PUOxMAkpUA7YOpkMyU+DoWKoVVpHAsjaSQwMiPr7wDcAXZFFGZPn/SHbjU/FJ/npY
-	GaBDHwP4SY8LJ6tYGPvhzgaoB6s/Vw6EjbTIKv1ZVEV7qYWNuA+azOocjLo4p6GAn3HD4Z4PCgB
-	loCPPh5GJGOsoqsHRz8CEW5n5axqlpsvTTbMvdMmJ5q/K16jUwqVDBwLbjZboHcUj1NgkFdbjGK
-	37i2S8M2ti/G2mNNBFuOgDT4XZ2PtEVZg5HK0tkY52S4fpXh38OgDLstsyOOes1ZzY=
-X-Received: by 2002:a05:7301:619b:10b0:35d:7565:8577 with SMTP id 5a478bee46e88-369d980cabamr1885558eec.15.1792741610605;
-        Fri, 23 Oct 2026 00:46:50 -0700 (PDT)
-Received: from Hruday.lan ([2409:4091:903b:c404:6995:b26d:3edb:5202])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9a72ff2sm4479935eec.0.2026.10.23.00.46.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:46:50 -0700 (PDT)
-From: Rahul Rao <shreeramrahul94@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>
-Cc: Len Brown <lenb@kernel.org>,
-	Robert Moore <robert.moore@intel.com>,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com,
-	Rahul Rao <shreeramrahul94@gmail.com>
-Subject: [PATCH] ACPI: ACPICA: Fall back to inline recursion if update state allocation fails
-Date: Fri, 23 Oct 2026 13:15:02 +0530
-Message-ID: <20261023074502.103681-1-shreeramrahul94@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id AF79D1F01829;
+	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792741655;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=MHb/qz0fhwHON31otPKHTAfRFUgNCQ2OS0hDPjaISsN+XrDatxPI4Q2MBDlR9V5g2
+	 vw4zSiAkPqm2mukeKNMmq2JdJhwn0LGbMx6wlV3MwGVXorbUs0H+1sAEKO7VqJCIuV
+	 xGd/DX+nMbYUTqD9H2U+fRG3HJKnBtDhOwX1KN7gtnfdZ4npHfzZm0/a6serbBo8mP
+	 5XiL+Tg4Q1berTNx9OAXE1Wv0sAvv+UGn9m/p7TJnkRoysuWDKFT0zVVP/tb4tVdoR
+	 O7SrQBBkuXjT/Zo0rkIwGWDSa5VbBL2oNvhaE49tW31fah4ulzUNmXXve7T6soige+
+	 /dYgek7bahQ2g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 19DAA443FE;
+	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
+From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
+Date: Fri, 23 Oct 2026 09:47:20 +0200
+Subject: [PATCH v4 1/2] loop: drop stale partitions on LOOP_CHANGE_FD
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,154 +82,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-b4-loop-nbd-stale-partitions-v4-1-2baf05e4b2cb@amutable.com>
+References: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
+In-Reply-To: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
+To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ Daan De Meyer <daan.j.demeyer@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
+ Bart Van Assche <bvanassche@acm.org>, 
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
+ Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792741645; l=2855;
+ i=daan@amutable.com; s=20260712; h=from:subject:message-id;
+ bh=puuj6cW8tTVT3rlBQ4+twjIwX6td3ITnz1udGWzqXoE=;
+ b=Tnjirr+n77MEjWAVk8pBYLU9GIMayh2l3zrluh5TKVI0jg86QutdronlkxiSz0EGQUKpm2Lhj
+ NxLBZEsVX1lB1FuuL7jMNu3uk0R5+t1d3dWhyWkPVrpzzYGXkDYWJxV
+X-Developer-Key: i=daan@amutable.com; a=ed25519;
+ pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
+X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
+ auth_id=868
+X-Original-From: Daan De Meyer <daan@amutable.com>
+Reply-To: daan@amutable.com
+Content-Transfer-Encoding: 7bit
 
-When acpi_ut_update_object_reference() traverses nested package elements
-or field elements to increment/decrement reference counts, it allocates a
-temporary union acpi_generic_state via
-acpi_ut_create_update_state_and_push()
-to avoid deep C stack recursion.
+From: Daan De Meyer <daan@amutable.com>
 
-If memory allocation fails (for instance, under slab fault injection),
-the function aborts mid-traversal. This leaves sub-object reference counts
-out of sync with parent containers. Callers cannot readily roll back the
-partial updates, leading to reference count underflows and slab
-use-after-free bugs (such as in acpi_ns_check_package()).
+Commit 267ec4d7223a ("loop: fix partition scan race between udev and
+loop_reread_partitions()") stopped disk_force_media_change() from
+setting GD_NEED_PART_SCAN. That bit did more than request a rescan:
+bdev_disk_changed() drops every partition before it consults
+disk_has_partscan(), so the lazy scan on the next open was also what
+removed partitions from a loop device without LO_FLAGS_PARTSCAN.
 
-Fix this by introducing acpi_ut_push_or_update_object(). When allocating
-a deferred update state fails, fall back to inline recursive traversal up
-to a safe bounded recursion limit (ACPI_UT_MAX_UPDATE_DEPTH = 16). This
-ensures reference counts remain consistent even during severe memory
-pressure.
+Such devices are not unusual. bdev_add_partition() only rejects
+GENHD_FL_NO_PART disks, so BLKPG_ADD_PARTITION works while
+GD_SUPPRESS_PART_SCAN is set, and parted, libfdisk and systemd all fall
+back to BLKPG when BLKRRPART fails with -EINVAL, which is what a loop
+device without LO_FLAGS_PARTSCAN returns.
 
-Reported-by: syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e1268acad3c273b12120
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Rahul Rao <shreeramrahul94@gmail.com>
+loop_change_fd() only rescans when LO_FLAGS_PARTSCAN is set, so those
+partitions now survive the backing file swap and keep describing the old
+file. The new backing file must have the same size, but its partition
+table can be completely different, leaving the partition devices mapping
+the wrong ranges.
+
+Call loop_reread_partitions() unconditionally. Without LO_FLAGS_PARTSCAN,
+blk_add_partitions() returns early, so this drops the stale partitions
+without scanning the new backing file.
+
+Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Signed-off-by: Daan De Meyer <daan@amutable.com>
 ---
- drivers/acpi/acpica/utdelete.c | 78 +++++++++++++++++++++++-----------
- 1 file changed, 54 insertions(+), 24 deletions(-)
+ drivers/block/loop.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/acpi/acpica/utdelete.c b/drivers/acpi/acpica/utdelete.c
-index e8180099d01f..87ae66c7eee8 100644
---- a/drivers/acpi/acpica/utdelete.c
-+++ b/drivers/acpi/acpica/utdelete.c
-@@ -20,6 +20,14 @@ static void acpi_ut_delete_internal_obj(union acpi_operand_object *object);
- static void
- acpi_ut_update_ref_count(union acpi_operand_object *object, u32 action);
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 758c20678bf6..378163fdf957 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -552,7 +552,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	struct file *old_file;
+ 	unsigned int memflags;
+ 	int error;
+-	bool partscan;
+ 	bool is_loop;
  
-+static acpi_status
-+acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
-+				      u16 action, u32 depth);
-+
-+/* Max inline nesting used when a deferred update state cannot be allocated */
-+
-+#define ACPI_UT_MAX_UPDATE_DEPTH	16
-+
- /*******************************************************************************
-  *
-  * FUNCTION:    acpi_ut_delete_internal_obj
-@@ -457,6 +465,28 @@ acpi_ut_update_ref_count(union acpi_operand_object *object, u32 action)
- 	}
- }
+ 	if (!file)
+@@ -606,7 +605,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	loop_assign_backing_file(lo, file);
+ 	loop_update_dio(lo);
+ 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
+-	partscan = lo->lo_flags & LO_FLAGS_PARTSCAN;
+ 	loop_global_unlock(lo, is_loop);
  
-+/*
-+ * Queue an object for a later reference count update. If the update state
-+ * cannot be allocated, update the object right away instead of failing: an
-+ * update abandoned half way leaves the counts of the sub-objects out of
-+ * step with the count of their parent, and callers (most of which cannot
-+ * handle an error) would later drop references that were never added.
-+ */
-+static acpi_status
-+acpi_ut_push_or_update_object(union acpi_operand_object *object, u16 action,
-+			      union acpi_generic_state **state_list, u32 depth)
-+{
-+	acpi_status status;
-+
-+	status = acpi_ut_create_update_state_and_push(object, action,
-+						      state_list);
-+	if (ACPI_SUCCESS(status) || depth >= ACPI_UT_MAX_UPDATE_DEPTH)
-+		return status;
-+
-+	return acpi_ut_update_object_reference_depth(object, action,
-+						      depth + 1);
-+}
-+
- /*******************************************************************************
-  *
-  * FUNCTION:    acpi_ut_update_object_reference
-@@ -480,6 +510,13 @@ acpi_ut_update_ref_count(union acpi_operand_object *object, u32 action)
+ 	/*
+@@ -624,8 +622,12 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	 */
+ 	fput(old_file);
+ 	dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 0);
+-	if (partscan)
+-		loop_reread_partitions(lo);
++	/*
++	 * Rescan or, without LO_FLAGS_PARTSCAN, just drop the partitions of
++	 * the old backing file. They can exist without LO_FLAGS_PARTSCAN as
++	 * they may have been added manually with BLKPG.
++	 */
++	loop_reread_partitions(lo);
  
- acpi_status
- acpi_ut_update_object_reference(union acpi_operand_object *object, u16 action)
-+{
-+	return acpi_ut_update_object_reference_depth(object, action, 0);
-+}
-+
-+static acpi_status
-+acpi_ut_update_object_reference_depth(union acpi_operand_object *object,
-+				      u16 action, u32 depth)
- {
- 	acpi_status status = AE_OK;
- 	union acpi_generic_state *state_list = NULL;
-@@ -560,8 +597,9 @@ acpi_ut_update_object_reference(union acpi_operand_object *object, u16 action)
- 					 * for later processing (this eliminates recursion.)
- 					 */
- 					status =
--					    acpi_ut_create_update_state_and_push
--					    (next_object, action, &state_list);
-+					    acpi_ut_push_or_update_object
-+					    (next_object, action, &state_list,
-+					     depth);
- 					if (ACPI_FAILURE(status)) {
- 						goto error_exit;
- 					}
-@@ -579,31 +617,23 @@ acpi_ut_update_object_reference(union acpi_operand_object *object, u16 action)
- 
- 		case ACPI_TYPE_LOCAL_BANK_FIELD:
- 
--			next_object = object->bank_field.bank_obj;
--			status =
--			    acpi_ut_create_update_state_and_push(object->
--								 bank_field.
--								 region_obj,
--								 action,
--								 &state_list);
--			if (ACPI_FAILURE(status)) {
--				goto error_exit;
--			}
--			break;
-+		next_object = object->bank_field.bank_obj;
-+		status = acpi_ut_push_or_update_object(
-+				object->bank_field.region_obj, action,
-+				&state_list, depth);
-+		if (ACPI_FAILURE(status))
-+			goto error_exit;
-+		break;
- 
- 		case ACPI_TYPE_LOCAL_INDEX_FIELD:
- 
--			next_object = object->index_field.index_obj;
--			status =
--			    acpi_ut_create_update_state_and_push(object->
--								 index_field.
--								 data_obj,
--								 action,
--								 &state_list);
--			if (ACPI_FAILURE(status)) {
--				goto error_exit;
--			}
--			break;
-+		next_object = object->index_field.index_obj;
-+		status = acpi_ut_push_or_update_object(
-+				object->index_field.data_obj, action,
-+				&state_list, depth);
-+		if (ACPI_FAILURE(status))
-+			goto error_exit;
-+		break;
- 
- 		case ACPI_TYPE_LOCAL_REFERENCE:
- 			/*
+ 	error = 0;
+ done:
+
 -- 
-2.43.0
+2.54.0
+
 
