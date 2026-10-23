@@ -1,94 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750712;
-	b=xPoD4tk9YXfxhqyH/+9nvhHVaSGhrdw0AbtfOVU5QbdXHgpFpJsapVekIOJfHm9RmvV4
-	 TRdAeild+cG3jCrtJLMJ+fvDLvvGptwvP9dyOS66VFC4pDGkr/Btp+gGIuQViYqer/sdZ
-	 NPW8+qUZAK87dFqAp7uIzbbg+743eE1CBuqEezNQfvNp0L23mN6MRQ4VV562rL/fgzPlB
-	 fRaALja+bIrXWQiCcoTFE0Bpe2Zcy+//IlkRlLRLRduJSAGX8UAnAA8U5lAp8/T0ApXbM
-	 pJf/fKJs6jUUGGwx+Kthsh2Oz/sP6jGkqQYf/SY8ct/VU7asyA5tkuqIyGg+7JXQcaQ==
+	t=1792750713;
+	b=bA+hg9tujxPLbKLMhunLQIZKhXqaVQ+Hrql9bkQ0mCw8LlB6Ay+adIGnWXgdftUE3oM6
+	 3UE7suAjM66QO4brD+VEePPYkJ0+AQrp10ZUp+fUUIB51dJJnuO1YTq5jps2SwDrVTkji
+	 YXduq8b6FTaaiW0fM0Kt893lBx2TkXlv3fIdWrebVB7FjxGrNaaQdlmU26SP/qgxoOFfd
+	 rCRwNUdJb1tPgk0gTUFU3o/A1wtSQRp7lviN1DuFtima7KRlgkWQxntq+7mY7a5aXR9ob
+	 YZVXTmvyDSo7aZBPT8POmMNUdpU8xGLNycTlDKFTrQEZzll5xI1sT9sJFMANzr6vXTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750712;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t/XVWB9JGMXxVax5GCMXvBykzO5MzXEB215/VJtVKmY=;
-	b=DL/eHPSj86X9OXvkm86rydsmxEsVH9uQao/X/pjBNqdcYr62ueeFYJ2yh1z6ZRhZ8dOT
-	 oX+Ge9D/j+DAX36RJ0hcbTM7Q/i8xemFYnAMneN0qJ7NPALTWMT8Q4ZzcWN5gu1esB7cA
-	 XaEdC2RuYNwfg+WtlYC1DMgYJ091jJhngjaMVOvL1N2TvCpswKwvhy2L9TdWYqEAC4r2A
-	 UP/Gw7pMyifAAEwuX41asr2P3Wx9Cy3IO+9M2BbaIoTUbrG+o1IJB8JWF/I9uEistbrjz
-	 PG2aTqkeIwtz//GfYKSbVrsrvpZrigPsxKaLMwUtQ/R19SKzHsPIAeyc5j2WXWSEb+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750713;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=48rUw1Z2YCN0d1r+igM4P0aPkMs18zYpkWGEVt5x0Lg=;
+	b=fdkT9hLKVbfg6s/Vw7wzDuqESHdjfV7lHrKYOJYcdP/A2DJYwEU7kjrJGaTYXJeZizyb
+	 DwGbtguG8P1pJK33dW+QUODJRmwTevQB/YJHdZpVy5kHmGs0IcbS6Dmn1JOMY52dVU9HI
+	 f5iJ5sVht2y507F2+tXn1ZUpf6Vmn04DoRx2Pxi3j0rhzrWItIbNXCSI67uisCoVplkLw
+	 k5dq/x1D6+EIltToQ10WeqezJ5GsBezURudGAgfy2cCFv6LpowbIdrJTZ32Og3kFWS3JO
+	 yHM4L1NmQt0PqzKLD6OfW5BJpxCoUS+63tIyNWa0avdDzoYr3RGBDiWn66XqxvabwlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gFc6RMTz;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FE6606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6FE6606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Gv0tPwNP;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79CCD606A32E;
+	Fri, 23 Oct 2026 10:18:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79CCD606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gFc6RMTz
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso5197785e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:18:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792750710; x=1793355510; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t/XVWB9JGMXxVax5GCMXvBykzO5MzXEB215/VJtVKmY=;
-        b=gFc6RMTztdm+KVz8vFjbEmexZWKx16rlriokdAhBz8WYRFIzemHAKt37oEKs6oqRqx
-         GOrFG8ywpGvH6CbaQ1Jqx9BMVKn+EW1bt+V85r5VTWqdC4kUhHaCcxoKJYWi/KP81e/4
-         YQ6pogNm4iMAnnUz/fAI8yon/BH9WOkkzN1wqTQ+IMV5ubr6aVh/qJf3Du9Uqc6wbxRq
-         HhD8dGLEd3pOujIGV3aExqmudaPtvgKemEOQCCXayDZq5z1K+ZrQHUsZzNoB/Zt3JkKh
-         2HHGtnWFOi1Py+n1nKdWNmYkyIzeE8m4glOOCFScA1Kw5u5uxWIYEKB3DpSQi18VtOpc
-         P5wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792750710; x=1793355510;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t/XVWB9JGMXxVax5GCMXvBykzO5MzXEB215/VJtVKmY=;
-        b=Lx0UPBY2ZZOTecg2/NjiSPqzm+Nla1xjN9NI+Pgofzqdx0T++v214PJXofbwvTCLzt
-         JuoConlonLz9kSsHfqeYJiAvvjvB00KRS+ZwxLKL1B932f0j9tnXYEZvtb58btUArKrh
-         mQ71T8zb86/IEWp6DGokZNmiW8m5YerjVDa7p2CWHZ8YjFm322Nk3Ka27bZHvXzyIJt8
-         iizipifxEFf0aRqD/md3bDXaJ9EfkOX0oKPEXMsA3EuS0p7uHCWLBVxGwok45Uz7eWKC
-         FZ+p8LbylwfB6xD24fOdRlZJsF406eZ7Hzrgew0LVI0surbQk+Aeq2Sct+ABJOEN+7Vo
-         wFPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6xXSSd1H4UdVJD0CSP2FoBx/zkwwoeKrYBJa6ZU/3TKjqKzkY6slEBUyDEZX15Ho8cerTrivWd3zfTvg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIS12HKOtHEWZuUejnhpryqM/DwkDv7U9phmpWOMf5yuFWvAfWt
-	PI4JKBF2cprOcv0Yj2Yh6yYZXw1OpKy4uQAYv8GppyRJNQFuUU0bqhxG
-X-Gm-Gg: AYBFou14DFqK6PBKJRJ9qnvBn0FdVjPKESdKFaRYYtII40kj/lCxGwS609xh11plQ02
-	Itv5EDN1RQT74cWyeeJ2GWMt7cc3ZTTRgKv4n4NfjBDB7AIZAeM/Co18eqyJtrEre5tGynxVwvj
-	SF6MSyc2GOSNoAQgn2Sdh3l/3pCvXNPqoaQVcEd3ZdKS7UJdCBJ8HLjkdzTyRAIaFtgf2UaUSVV
-	7OntnShgzj5SbumAGOyN++YbOYZBdSchZYz4d274VM21bodngbqcTDwU+TEEpY/s3QJCZN2x6em
-	6Ac5skeMRJnzXy5IgxZjrV8DWwDsYIx0H5YyG1CfdoITn3QItomdpRh5QMHGj0/7vNwbo+imLnp
-	EQxbQO/EsKZS+2+tKjT+27PN+CWHTVxtcVa7pUwQdHENldxe35QgPtGbq2dd0tx8SdOm6/TS4Pl
-	kEQ4IcqDawYFcSGbgfVimzRUHmlU7mtk7tbu8008bosAGJCUn83y+vlm+jfH/5edm7M0GQz6TUl
-	FEG3sRoA+v1Hozpyyqu8YneOQRpML2fR4UOjsTWiIaxD5DjAnsV3VwWlQ==
-X-Received: by 2002:a05:600c:8b32:b0:4a2:397:73e9 with SMTP id 5b1f17b1804b1-4a211ed726emr25539055e9.18.1792750709675;
-        Fri, 23 Oct 2026 03:18:29 -0700 (PDT)
-Received: from localhost ([205.147.201.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a211ba3ab5sm59959545e9.7.2026.10.23.03.18.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 03:18:28 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: kbusch@kernel.org
-Cc: axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+f4353e96f7004ae5a09e@syzkaller.appspotmail.com
-Subject: [PATCH] nvme-pci: disable accessible controller on error paths
-Date: Fri, 23 Oct 2026 12:18:25 +0200
-Message-ID: <20261023101825.139040-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Gv0tPwNP
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49A5A1650;
+	Fri, 23 Oct 2026 03:18:27 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA9CC3F7B4;
+	Fri, 23 Oct 2026 03:18:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792750710; bh=rDCKGdRiz166rbp3L1GqdW0EbXoka1CMQiZb1poZNJc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Gv0tPwNP8G2Bw0xRprgdfHjdFBGNFMpk/hG8nosXDB1w7Glh9RBzUtz+iqZOceuqt
+	 mV0LBePmBjv5oLWjuqGK9bhC+ApU8fxvizU/c3YNVk8ks5ke0P3dwGpCmBZ76NwIbf
+	 fVBicOBhEo6p+0BCv8JfVzLhwHxKLSqtRnu3CS3g=
+Date: Fri, 23 Oct 2026 15:48:27 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
+Subject: Re: [PATCH v3 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+Message-ID: <s5wpe6iiidy6eo5lqs5zqut3d2of3erbxz6xofah4i4n56qxdn@r7vjivchqfil>
+References: <20261023063428.3658761-1-songmuchun@bytedance.com>
+ <20261023063428.3658761-2-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,74 +69,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023063428.3658761-2-songmuchun@bytedance.com>
 
-nvme_dev_disable() skips nvme_disable_ctrl() when the controller reports
-a fatal status or is not ready. PCI MMIO can still be accessible in this
-state, allowing the controller to complete commands while the driver
-cancels outstanding requests. This can race with blk-mq requeueing.
+On Fri, Oct 23, 2026 at 02:34:25PM +0800, Muchun Song wrote:
+> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+> tables.
+> 
+> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+> splitting a PMD. Restoring the vmemmap backing pages does not collapse
+> the PTE table, so a later memory hot-remove eventually frees it through
+> pagetable_free() on x86-64. That releases the page without running the
+> matching destructor and leaves NR_PAGETABLE elevated.
+> 
+> Make pagetable_free() the common free-side primitive for page-table
+> pages. It checks PageTable() and runs the destructor only when the
+> constructor state is still present. Callers that explicitly ran
+> pagetable_dtor() have already cleared PageTable(), so they are not
+> destructed twice; pages that never ran a constructor are freed directly.
+> 
+> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+> Cc: stable@vger.kernel.org # bf9e4e30f353: x86/mm: use pagetable_free()
+> Cc: stable@vger.kernel.org # 39406c05f8f1: x86/mm: Fix freeing of PMD-sized vmemmap pages
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> Acked-by: Dave Hansen <dave.hansen@intel.com>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Separate PCI accessibility from controller health. Delete I/O queues
-only for a healthy controller, but clear CC.EN whenever the PCI function
-and channel remain accessible. Keep graceful shutdown and IRQ polling
-limited to a healthy controller.
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-Reported-by: syzbot+f4353e96f7004ae5a09e@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=f4353e96f7004ae5a09e
-Assisted-by: LLM
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
----
- drivers/nvme/host/pci.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 77317e5d00f..777615b4d25 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -3296,14 +3296,19 @@ static void nvme_dev_unmap(struct nvme_dev *dev)
- 	pci_release_mem_regions(to_pci_dev(dev->dev));
- }
- 
--static bool nvme_pci_ctrl_is_dead(struct nvme_dev *dev)
-+static bool nvme_pci_ctrl_is_accessible(struct nvme_dev *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
-+
-+	return pci_is_enabled(pdev) && pci_device_is_present(pdev) &&
-+		pdev->error_state == pci_channel_io_normal;
-+}
-+
-+static bool nvme_pci_ctrl_is_dead(struct nvme_dev *dev)
-+{
- 	u32 csts;
- 
--	if (!pci_is_enabled(pdev) || !pci_device_is_present(pdev))
--		return true;
--	if (pdev->error_state != pci_channel_io_normal)
-+	if (!nvme_pci_ctrl_is_accessible(dev))
- 		return true;
- 
- 	csts = readl(dev->bar + NVME_REG_CSTS);
-@@ -3331,10 +3336,16 @@ static void nvme_dev_disable(struct nvme_dev *dev, bool shutdown)
- 
- 	nvme_quiesce_io_queues(&dev->ctrl);
- 
--	if (!dead && dev->ctrl.queue_count > 0) {
-+	if (!dead && dev->ctrl.queue_count > 0)
- 		nvme_delete_io_queues(dev);
--		nvme_disable_ctrl(&dev->ctrl, shutdown);
--		nvme_poll_irqdisable(&dev->queues[0]);
-+	if (dev->ctrl.queue_count > 0 && nvme_pci_ctrl_is_accessible(dev)) {
-+		/*
-+		 * Stop an accessible controller even if it reports itself dead.
-+		 * Otherwise it may complete requests after they have been cancelled.
-+		 */
-+		nvme_disable_ctrl(&dev->ctrl, shutdown && !dead);
-+		if (!dead)
-+			nvme_poll_irqdisable(&dev->queues[0]);
- 	}
- 	nvme_suspend_io_queues(dev);
- 	nvme_suspend_queue(dev, 0);
--- 
-2.55.0
-
+> ---
+> v3:
+> - Explain why pagetable_free() does not run the destructor twice
+>   (requested by Kevin Brodsky)
+> - Add x86 stable prerequisites (suggested by
+>   Jose A. Perez de Azpillaga)
+> - Collect Acked-by from Dave Hansen and David Hildenbrand
+> - Collect Reviewed-by from Jose A. Perez de Azpillaga and Kevin
+>   Brodsky
+> 
+> v2:
+> - Move destructor handling from x86 into pagetable_free() (suggested by
+>   David Hildenbrand)
+> - Trim and update the commit message (requested by Dave Hansen)
+> ---
+>  include/linux/mm.h | 37 ++++++++++++++++++++-----------------
+>  1 file changed, 20 insertions(+), 17 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index dd09c438fa23..466875c5908b 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3812,23 +3812,6 @@ static inline void pagetable_free_kernel(struct ptdesc *pt)
+>  	__pagetable_free(pt);
+>  }
+>  #endif
+> -/**
+> - * pagetable_free - Free pagetables
+> - * @pt:	The page table descriptor
+> - *
+> - * pagetable_free frees the memory of all page tables described by a page
+> - * table descriptor and the memory for the descriptor itself.
+> - */
+> -static inline void pagetable_free(struct ptdesc *pt)
+> -{
+> -	if (ptdesc_test_kernel(pt)) {
+> -		ptdesc_clear_kernel(pt);
+> -		pagetable_free_kernel(pt);
+> -	} else {
+> -		__pagetable_free(pt);
+> -	}
+> -}
+> -
+>  #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
+>  #if ALLOC_SPLIT_PTLOCKS
+>  void __init ptlock_cache_init(void);
+> @@ -3921,6 +3904,26 @@ static inline void pagetable_dtor(struct ptdesc *ptdesc)
+>  	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
+>  }
+>  
+> +/**
+> + * pagetable_free - Free pagetables
+> + * @pt:	The page table descriptor
+> + *
+> + * pagetable_free frees the memory of all page tables described by a page
+> + * table descriptor and the memory for the descriptor itself.
+> + */
+> +static inline void pagetable_free(struct ptdesc *pt)
+> +{
+> +	if (PageTable(ptdesc_page(pt)))
+> +		pagetable_dtor(pt);
+> +
+> +	if (ptdesc_test_kernel(pt)) {
+> +		ptdesc_clear_kernel(pt);
+> +		pagetable_free_kernel(pt);
+> +	} else {
+> +		__pagetable_free(pt);
+> +	}
+> +}
+> +
+>  static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
+>  {
+>  	pagetable_dtor(ptdesc);
+> -- 
+> 2.54.0
+> 
