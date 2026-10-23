@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756683;
-	b=W7j/7xJMVEJ3M4GMqzD6lXCFks1G8krGVXj5t6EqdF+ru1iyZvpOodmLE7ou7B490v+3
-	 kFdC262O9p6+3dubmZDZEV30J0kdw7qMpim3qfpY6Q8EurmSbXreE/JFzqMhCDFKks/N0
-	 LlFjh5sWh13/qlTL2jshspUiZoFRcNMMfRNAGhnBY1uX2NRlRb0aEJv2OoR4t/db/OyVl
-	 JaXiVbNseToKCmqPRxQ8eQz5337dcHBAhKy2Puhe98O3lo1oi3ZhQk+spJqq3c7Ymu72m
-	 xUBYOcgbzGMIOUwNeIXp7e30zrByrr9SNBasi6dxJdCKsYmaffb03neyNxCGlsQhj4Q==
+	t=1792756682;
+	b=gL7cG7j8fvhJ4OiAIrMLxL9J4V60zyBZMMGVpeHrizyl965EXEON/ax5vm8Tcp4175Dc
+	 sGvn7vZtqEOnrG3uLU7LJEpYTOmeF6K98/czpAYT86NG/69VSAey0+mYz7fIfZ7ZRCdb6
+	 xiJrPccIKdQYSt6jRD69/wiHXOXNdJC3/9iI8996BJ2Cl6fyxTQTrr+nXKq//hA5F7BOA
+	 Lzm/6KviEcVS0ZgT3kQaPoLU11UPCGReoHNSyOfTk6VaeD0CYqQdeajmELJLRrur+AiNC
+	 HKS5z4+l7vMopNvay6zMsR2eSg/NYe4scDcwsIFsKC+X1f3XB/TnmJK/AKOJMkQ63Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756683;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=o61ieacxr1eETeqNLTGL2iNOcu6hAarQpQ9okUNbDyw=;
-	b=Lcfi5TjTdK19x+0lVUk+ds7jg7KyaQiwJvqmrTZEeBsX5d9f0NPQMwXyk9X0ME3ut+iB
-	 cKiPlpPi6mf2/BGaH7PYvxZGSVemUMY8oBUTyzK6Qno62lcUeAT3a1NEKRPkEbJnNWsR8
-	 L1TR4Xi2IltBI1mDEXlCtfk6rQwgh21Rg2LkRGFU2Zc6iy8dZf+C9artn6QT3pHIyfPQ3
-	 vCQI4taj0IznaSZkJ6aNsUQGIllE/mSOWSqUMIwlIQPxfIIy0JehbG59ZUQOI73zxvIGP
-	 aDkhzUmvDbEk5dwIPXyhDCo5Uc6yOVVOvOKffhz4SdIaMkWiYLYl+cQwqS/ytBFF7fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756682;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ouHno9MQwl9g9I7VXxGGEQRMBGY89m3oWexuYnMaLYg=;
+	b=v2sb/0qnusUCJxygVsSWWJT+3Smzzcs8J6JWvSkjId+K7RQGwaEM4Lh2deLPPgwxNMzo
+	 1J3CXOW5PYdXc0le+a3aCSRYuMXrUiFbewsSGU9CbquJVafp+EMPSCRk9sSxNUHITAG97
+	 xleFcMhWOgvjqoaVzi6LgxuO7tnnoI8++UOMb/GM6idM9HUBbSiBY7kN2pnMrS8XTk68z
+	 33WAc3VxLPORSwM/x8N6wtknghYp8rVPg+5TYPLzzahQDG/Cg3W9BcvRzTrRY2ZlLZcek
+	 V0GBDn1M4N4FFQhcXKCob8bgKida8zrApkJ+NjWZFPeG/wEi8gOwCJVqDp1Ph3Ovw4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D72emF7C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NfrNZSom;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE30606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:58:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957F6606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 957F6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D72emF7C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2423B1F01825;
-	Fri, 23 Oct 2026 11:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792756683;
-	bh=o61ieacxr1eETeqNLTGL2iNOcu6hAarQpQ9okUNbDyw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D72emF7CYHwQS4s5Dmr/yFRa4odRyU+VTIif5ZjIsO5EMnTlIrcNUZ52P+MtVn1ep
-	 071U4TcghaUKiB3qOSKKp4b8eNRA3NgrPDmicuWAG4su0SeRhg/8nk6/5TG4yf8eaI
-	 ZLdoQldozxQI7DeK0FBKSG8bMz7xB/OUmpEaTl65NUbhDXS0+NpjxRAe42U+9ny+hQ
-	 OC9dhqveFoRDCJNS0osJp13gjmkHYDMmxcntUiK6x9WiozcpblgBo59O6yptcZOggc
-	 7OXCyhTYe+Q4rSupdvMdviqcW301EBslaILqQCRFOg2hwX5o2SA9gRbjsB/36fTJPY
-	 NhvSgOZuWbRSw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id D9F501D59F93; Fri, 23 Oct 2026 12:58:00 +0100 (BST)
-Date: Fri, 23 Oct 2026 12:58:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] regulator: axp20x: Add support for the AXP2101
-Message-ID: <attLyC7H__mw545w@sirena.org.uk>
-References: <20261023100401.67592-1-olivier@mgcrea.io>
- <20261023100401.67592-4-olivier@mgcrea.io>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NfrNZSom
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZidFtH1/LnObjsGNvMsrIN8j2jFRHd//7zJzoyuXcVg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792756678; v=1; x=1793361478;
+ b=NfrNZSomapIGotMnzKQ141Ht8EqMJ7W3EZbPfPMNMiYjh/9bM26MPmLPaOm8MmwQClF71wJf
+ MkBDifIoWcI80GYDyDYMxQYFiEBoNboJKcJBvTeZkfeKrkkQEpIKojg1R4Z+hS9N3OdZq3VqK2k
+ ITnxZTYLpTFNFUlilk3r0uhU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8a40efd914636a4c;
+	Fri, 23 Oct 2026 11:57:58 +0000
+X-Mizu-Trace-ID: 8a40efd914636a4c
+X-Migadu-Flow: FLOW_OUT
+From: Jinyu Tang <jinyu.tang@linux.dev>
+To: SeungJu Cheon <suunj1331@gmail.com>
+Cc: anup@brainfault.org,
+	atish.patra@linux.dev,
+	tjytimi@163.com,
+	inochiama@gmail.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] KVM: riscv: Only fast-path dirty-log write faults on host-writable leaves
+Date: Fri, 23 Oct 2026 19:57:47 +0800
+Message-ID: <20261023115747.2545223-1-jinyu.tang@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017030927.345454-1-suunj1331@gmail.com>
+References: <20261017030927.345454-1-suunj1331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,34 +81,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Cseg4qCM0IhmVrdT"
-Content-Disposition: inline
-In-Reply-To: <20261023100401.67592-4-olivier@mgcrea.io>
-X-Cookie: Whoever dies with the most toys wins.
+Content-Transfer-Encoding: 8bit
 
+On Sat, Oct 17, 2026 at 12:09:26PM +0900, SeungJu Cheon wrote:
+> +		/* Let the slow path handle host-side write protection and CoW. */
+> +		if (!(pte_val(old_pte) & KVM_GSTAGE_PTE_HOST_WRITABLE)) {
+> +			ret = false;
+> +			break;
+> +		}
 
---Cseg4qCM0IhmVrdT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for fixing this.
+Tested on QEMU 10.2.1 with a private memfd mapping and dirty logging.
+A guest read followed by a write corrupts the shared backing without
+this fix; and with it, CoW occurs and the backing stays unchanged.
 
-On Fri, Oct 23, 2026 at 12:03:57PM +0200, Olivier Louvignes wrote:
-> DCDC1 (1.5-3.4 V), DCDC2-4 (0.5-1.2 V by 10 mV, then 20 mV steps, DCDC3
-> up to 3.4 V by 100 mV), DCDC5 (1.4-3.7 V and 1.2 V), ALDO1-4 and BLDO1-2
-> (0.5-3.5 V), DLDO1 (0.5-3.4 V), and DLDO2 and CPUSLDO (0.5-1.4 V by 50
-> mV). The DCDC frequency is not known to be configurable.
+Reviewed-by: Jinyu Tang <jinyu.tang@linux.dev>
 
-Acked-by: Mark Brown <broonie@kernel.org>
-
---Cseg4qCM0IhmVrdT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCattLwwAKCRAv73Ows9A4
-iZ8wAQCPILSeTRnnOhgO5NM11vswdLUD1L0NgdnJavCksWHfuwD/byRH4qkcI2yG
-64I/ux1F7G6arhKdhaj/hIAhQdx1ugE=
-=AowT
------END PGP SIGNATURE-----
-
---Cseg4qCM0IhmVrdT--
+Thanks,
+Jinyu
