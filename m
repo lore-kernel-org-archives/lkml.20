@@ -1,116 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760782;
-	b=hYwh066jCumm6DzXNaOKPiHgycAtujQCf2HRYGeIOtQOU1Bnb2cTBNBzw6afbJXmTm9i
-	 76POecIzg672XOfeFdIHdFcVy+Bw+/lt4ZR2yi0adpYgWSGt/aZtoV77w/j1FsRa6MTJI
-	 gQlaqP7T09XkBkVWfGVAG1paMzvMIyb8s7WzBAWhW/Yqyrv1IR1iiPA/ygQJsI2s4vKSu
-	 Cau3r9m+IbvqB+zd4zMgbSWNkEsBPFXrEhw3RqLekgGE3uQaYC+WiYyT0sLw2tW+1vv3h
-	 uAGMPsZuOkC0NuG0wGf6/PplWUHJVYWBFkQ/uuGeeloq2/4zTHTWm4uSXJwJjCED+dg==
+	t=1792760951;
+	b=KZfH0gx3msl/Bn7qRvB8RQW2seTqh9Bp0QLnqi787oj/4YukKaH9vS3g7ut4P7IBNdpQ
+	 EhgudNDSXZEHJA5wzPbZDGXyH9tpxx9SjPV93qk1fDFCs3oIX5iStaRADLv0jZUeLXukR
+	 zxZEb4ftIFOjGeEbDp98O/+Qf8fLqG2Mph8tkKRC1BVIhH+BSAuafvTFHJdGFtw02P970
+	 cXMSjn1CQdvF91A67TIFQUJY6wKOjeVuQyzWuza7LT++gZUWVtue5UI3gpqsW/OETOAZ0
+	 yfKn2qnzarNyQvoTcW/iITKbHKcYbrrIvBqXioTim+AMtNTGCx7ci68FUW3TH+LVV1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760782;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dCW6xboVShvK6BXcKUk3+w8eNs87YVFBvzpbqmml1hc=;
-	b=ygVYHaLyJuyWwyhZeSoHQ1SJO+f0wkNz4eakamN4aDFC0F/i/RAZbAro4jSMpgs1AOy1
-	 sbBeDxUYeS7nON2Z4wVVE18TECkgbS9/H+RYW+PnbLdAG2OYfc7kqyX1jggL8lRaxzAS+
-	 7COG/cePQWVfao7CgD9nwR7KrGpoV639WJ+7QYZOF/RWZ14bTamXa/bm8/sKcpb55lnIc
-	 Rvr7ULV8G0gtyrCZdV6t6xZHFizaIElpTWYLgQQz3/flc4GcDUqMXLoMQQnw62+yPgaN5
-	 lwyEXUPskOecBRx3Kj/jGD2xH9kslw4dOiZTij9c1qbmChLbBTO6qSQatGRaCYaboTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760951;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=nlznPFw9V2Gc6GAfgQKy3QilQuYPxjyao4Hf2pcvcDM=;
+	b=s6KSrQF+WQc8RKQaqEzaenXXv1VNp+aIixnzryolWCvOntYBEc1JptESt3LXaid6bzct
+	 FCy745YM/+cn84xvdvdH5lHdkJIu8ENJOUqjMNIHhFSPbGAurB/kCT/+bld9rjOJWyuuZ
+	 b02aMjHAPyFKn2zhmLADYeAdPon1a7VyMf6Sw5jX4dn80fqdzt4GNNwGkcnZRh4T094Au
+	 vvkWubCv9dftr3BvCmjeNUQILsQXGbeyShElsKRZuxCTHC4PzYaQliX2JGczQxSs8e3x2
+	 QStNpcTxmip+WrFxhzvhSwRFYoE0w3/Ob/YD8p+sOB/CVzy0gtPa3e4wqTq6jtM41ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Dc5DLMyC;
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m7RG/5lG";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BA606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 551BA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24012606A31A;
+	Fri, 23 Oct 2026 13:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Dc5DLMyC
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so5875655ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:06:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792760782; x=1793365582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dCW6xboVShvK6BXcKUk3+w8eNs87YVFBvzpbqmml1hc=;
-        b=Dc5DLMyCvdPYUuAT56E8MpaoE7rp8DKk0xhLStcbZ1leGc56clcDKUqo6+bQ4NDa+U
-         LqZiXbq2+svfUCuJWO+J3lnRF9zia1Yr4wBXQFacE7RRB4Xyno6T5U/63ixf1CwxkrEk
-         1Rqpf6uOrFx8GP2cPF/V9IjJlIBrS9qY1zVk7CxeFe//hollkXUdPCgzbO1vpm1vFFpS
-         lPJTLSF0SYZ0HEL0CCRwkfEiv1glm6TEGc3Uf9G5w14Gd2GXbrM6Gqxn53sL1TxNveBV
-         1dngriJaAjSxQQPUZ/vvdqSB5xo7zxTIeEy5Mdjvy1ZSQKdjR/fX5YdAw3KCSDXhRAx2
-         VMkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792760782; x=1793365582;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dCW6xboVShvK6BXcKUk3+w8eNs87YVFBvzpbqmml1hc=;
-        b=eWk4iw35YnggIXMIDizpeyXx1CMcGPbLWYYOkfjpfuj5W08TXoEMfLz3ewNLlVWbzm
-         W+j201gds8wWUgYxTMfHhg5L3nvtHqM0rKDkl2yjdW2HJaCM4ksgVG/WOK5ugWSn43X/
-         z0MM/lJGJBvI/VIX3k6YDn4Fip8X40RmJg9d6BwmF7ZNfM6rJXzNlmjGzssf3Ivx/4ry
-         4CBhHpMzcvIbEebUHVidOkdp63+MSDADO9rLZCj/W4vHZVVZtsFjBUw7CLlOnujpd7tq
-         oOgDpf+xQKfpp28xH5AT+2tsWlPmiSdEkt8uBUYSFYo3evUzpV09A+eelCImNqlNtuI7
-         dkwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaZAZrA+7LXgGPTbRWV4joYNi0XxpZp2j7a1yk/P30NziA23GWLdJKC0cDEPc/qoq/b87K3Nr5okH5wEM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJER+BzPbEcJL8VGhjPINM3O8HCJFeck3Y3r05+HEnffr6YDadY
-	5DvrSay9Lbiwj1y283+vwSzw9YVcvNHiIh4+sPjIAFcx64/l4xxp75M=
-X-Gm-Gg: AYBFou0CTibJn3goYMyYEb0aDjCwubZRJCrZ0nR1oaKScXttOj0XafddUGog+gG0rP7
-	URZ427d3Iy4Qr8RE1cj1xjJkI72CunOoy/sKyg/IxIc02Qio4W6LPmv14k5HKTc37d4qx+gncqW
-	DuKiny1puvF579IQjlfSpTcwdWFqu4foGjrcjc+rcI0Sj4PhfpPagxvuTAmj1piqEDFz74tnjMi
-	h44uYtAhaGxozWzh3ODexS9+vx2ADZgJsxgsbHUJynjKdzLjB3AsBBdi7Lz0PRcEqHE4Cso7HrY
-	1bVH0J8fPoURb0W92XV5QDjWDS0l4lBx8ZRKLMrlgdNPizP8lk7B+nvNQlZwgWo0NH3lp/U8AEL
-	vPKMfb/6X5ZLiGFPB/R45o2JUSwseBW96WItaYlxGH/6bzCNjntmIPWLzsN5mrR3eU8ya+3rHuY
-	QfBGiMlWSsQXE7CLdLSGE3fIiEhF3RnnKCuZYGrDmw8i5zjgzMtgVpkqlV4zm5Ahdg0dtajmsmQ
-	VaBfCiVCC8DDGRL80Bh5DVwf8LLmyR3zCsZFprvIPsLLEySHG2n0k2KEw17Laolr/HeiRORMApJ
-	GgFg6u4jag==
-X-Received: by 2002:a17:902:e5c8:b0:2ea:192a:13b8 with SMTP id d9443c01a7336-2ea7d09b8ebmr21044275ad.20.1792760781600;
-        Fri, 23 Oct 2026 06:06:21 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([109.105.193.131])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b4fe14fsm9877765ad.70.2026.10.23.06.06.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 06:06:20 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: tomo@flapping.org
-Cc: rust-for-linux@vger.kernel.org,
-	a.hindborg@kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] rust: math: add signed division and remainder helpers
-Date: Fri, 23 Oct 2026 21:06:09 +0800
-Message-Id: <20261023130609.178777-1-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021.183700.735437784476089878.tomo@flapping.org>
-References: <20261017111134.22546-1-chenhan0017.work@gmail.com> <20261017111134.22546-4-chenhan0017.work@gmail.com> <20261021.183700.735437784476089878.tomo@flapping.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7RG/5lG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEFE51F01825;
+	Fri, 23 Oct 2026 13:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792760950;
+	bh=nlznPFw9V2Gc6GAfgQKy3QilQuYPxjyao4Hf2pcvcDM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=m7RG/5lGWSbIc838b0jmvSS290uWfurhu3YNfo5bVNzSTvTPTC7ghSWC8leVP3nQ+
+	 b1I3jDHg/InxLf552w5eGHsTrs/J6pcIRU/3j2o4lXMu8kdY2pE31lXQZ6mDuOD9a9
+	 /bZSvE9+INNA1eyAemAPUHtpahZxa52CO1uiN/pTg/xq6n5EpQE55LyKwMgvscOovl
+	 vpke1gUvPTZai31N3aWvQD3q3fnksvGf8uxqyvKnNdAccPdM5DjsmOgJhH0dNQrOqX
+	 DgjQebBUKnbd01GrrL7MPL69Sel1P4/LLNB/kJOWZzm+JYUNtbLukoPTq27kTGyxJT
+	 /kgHrVGsqnwng==
+From: Thomas Gleixner <tglx@kernel.org>
+To: "H. Peter Anvin" <hpa@zytor.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>, Shrikanth
+ Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Kees Cook
+ <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+ loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, linux-riscv@lists.infradead.org, Sven Schnelle
+ <svens@linux.ibm.com>, linux-s390@vger.kernel.org, x86@kernel.org, Mark
+ Rutland <mark.rutland@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, Andy
+ Lutomirski <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Richard
+ Henderson <richard.henderson@linaro.org>, Russell King
+ <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, Guo
+ Ren <guoren@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>, Helge Deller <deller@gmx.de>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Richard Weinberger
+ <richard@nod.at>, Chris Zankel <chris@zankel.net>,
+ linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
+ linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-um@lists.infradead.org, Arnd Bergmann
+ <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>, Will Deacon
+ <will@kernel.org>, Brian Cain <bcain@kernel.org>, Michal Simek
+ <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>,
+ linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
+ linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-arch@vger.kernel.org, Michal =?utf-8?Q?Such=C3=A1nek?=
+ <msuchanek@suse.de>, Jonathan
+ Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
+Subject: Re: [patch 16/18] x86/entry: Get rid of the sys_ni_syscall()
+ indirection
+In-Reply-To: <1149A39E-BEBA-46EA-94F4-4DFFC4733EF5@zytor.com>
+References: <20260707181957.433213175@kernel.org>
+ <20260707190254.493733289@kernel.org>
+ <20261022142425.3Wx-RrU5@linutronix.de> <87fqxx1r80.ffs@fw13>
+ <87cxt11ktr.ffs@fw13> <1149A39E-BEBA-46EA-94F4-4DFFC4733EF5@zytor.com>
+Date: Fri, 23 Oct 2026 15:09:07 +0200
+Message-ID: <871p9g1s3w.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,43 +88,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Tomonori,
-
-Thanks for the review and the follow-up suggestions.
-
-I've sent v4 here:
-https://lore.kernel.org/rust-for-linux/20261023130413.178487-1-chenhan0017.work@gmail.com/
-
-> //! C header: [`include/linux/math64.h`](srctree/include/linux/math64.h).
-
-Added the module-level link and checked its generated rustdoc target.
-
-> How about matching the C function? Something like:
+On Thu, Oct 22 2026 at 17:22, H. Peter Anvin wrote:
+> On October 22, 2026 2:34:08 PM PDT, Thomas Gleixner <tglx@kernel.org> wrote:
+>>-static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigned long nr)
+>>+static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigned long nr)
+>> {
+>>+	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
+>>+		return false;
+>>+
+>>+	/* Preserve the historic insanity of treating -1 special on x32 */
+>>+	if (nr == ULONG_MAX)
+>>+		return true;
 >
->     pub fn div_s64_rem(dividend: i64, divisor: i32) -> (i64, i32)
+> It was never limited to x32...
 
-V4 uses this interface. The 32-bit path returns both the C helper's
-quotient and remainder. The 64-bit path uses Rust's signed operators,
-with a comment explaining why the remainder fits in i32. The
-documentation specifies the tuple order, truncation towards zero and
-the remainder's sign.
+Tired brain misread the test output:
 
-Delta::rem_nanos() takes the remainder and converts it to i64, preserving
-its public signature and panic conditions. div64_s64() remains available
-for full-width divisors. Both helpers still reject zero and MIN/-1
-regardless of the overflow-check setting.
+[RUN]   Running tests under ptrace: modifying the default return
+[RUN]       Checking system calls with msb = 0 (0x0)
+[OK]                x32 syscalls 0:-64..-2 returned -ENOSYS as expected
+[OK]                x32 syscall 0:-1 returned MODIFIED_BY_PTRACE as expected
+[OK]                x64 syscalls 0:-64..-1 returned -ENOSYS as expected
 
-The updated validation module calls both public helpers directly, checks
-both tuple elements, and retains the Delta regression cases. It includes
-i64::MIN divided by i32::MIN, whose quotient is 4294967296.
+But that's because the "-1" on x32 is actually 0xFFFFFFFF while on x64
+it's 0x7FFFFFFF.
 
-I have carried your Reviewed-by on patch 1. Since patch 3 now changes the
-public interface, I have left its v3 Reviewed-by out of this revision and
-noted why below the commit message. Could you confirm whether it also
-applies to the updated patch?
+The whole mess comes from using -1 as indicator for syscall abort which
+is undistinguishable from a syscall(nr=-1).
 
-Best regards,
-chenhan
+Bah. Let me restore this nonsense.
+
+Thanks,
+
+        tglx
+
+
+
