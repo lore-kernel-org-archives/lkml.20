@@ -1,115 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749883;
-	b=Ix3/ct5GtJw4/z/CqSsMxHJoT+LWBDfsxELcjZsYctyRhtovRlNKSdkfnzzDoWaEa8Qy
-	 BghI8lETncM9oDwo+CTEQJHqbt3roqDzk2Kxuf5/2cAmtoAgsk2Nqn6cMKMKeKTsTggl/
-	 MOyHkct3/L2846FNO2oopS9ylaDHA0SdYC2Y/hLKOEKkYakA3QC3H5dk4OL9UcTjOSFOb
-	 Xb+h4za5ZB5FR0tc3qtle5ww8xmeu+OUxHJ7aTERNjpQQmpUXy/JIDm0qygFxQKttpPuk
-	 RHT6G9sTcpem84W+7zGakjrg54vSPD4Vqy2W8JT5A810co2tm6lVz828RYh8afEHhqw==
+	t=1792749941;
+	b=V1+dY4pXYmz6eC9X1q+vORX73U7htNr8X/+Gux5rCeM/aoLAeiHDSUC4aSczAFlHAS51
+	 bBKY06BDlI6X0CZ+6TqDknlq3oU9k5iNL6RC8SMvv1/Yqhsuxo37jX2uZgqDxDuI3gnhP
+	 WJwCpS/9mJ21wHsXVBwoWPfOHsUqJENpyVfMWeCe8l0sux9YDHuGwedGeNHsvS5tqjBqv
+	 za3uJr32UnXrd27om3AOVuJZ6MZ99LUJ4zrI+9/llRPUT8O1SffivVmdaA/jY7mTPRNIR
+	 axBoh+4RVah3NmTteLIHas8kHEC77I1LVmzixy9Od5YxLIJxa40CnTSFofCUkVqi4qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749883;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
-	b=VG7cQOn6HHuBKMu0O5JPgcbITfZqN+Q+7ZJj8iOafj6n+xSXQpL1H7aiaBUuBf3g1NyD
-	 Y9LMtl63Twqyy50helz7tLRjyg+D9cg8/8oPXCPbgSktC/A6zlJeJe6sjtLkfxa57bNwE
-	 BoYSBciFKdT3yQ4mSjMQFit5mRqQst9l22iPIsjXVpY39zI9jb+u5I3nw54oViReirfWv
-	 oZtPrgnBl0D2VNL/XbeqLAJCGOFIcmIxM+3Ko0iQ0aubE+Q0h0VC/TE98n2EnTD8b12r6
-	 kmNDlGBmjDT862rR3vTIQfHXnJGdMtfo6a2yTTNmv9TucpLiL99UyQSrKA1hzwFbrLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749941;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=tR6WqUzgduImAQJNa+B+OOfRPJTUMCWJUP/DfxjaDDI=;
+	b=gXegxeFkMiq4KqeZ7jKoqyvQOGg6WrkPcCOATNeLqv9ejyte7HqAD4uTbq8NYlvV98Nj
+	 jmnkS6mSNiqlRueB0yjWGrJn5DYecjULVdXU5FhW0+ufNUYIOi6BM1cfQjdUp4n2whSpo
+	 Dxnf+0PCPYks06lj+yR736Wo8eH5pflQ2MqoVHBmU7acjf2J5dQhnFyQA0ATA6eQJrhER
+	 4ZJqCouloXCpR4WYueQaV+/AROAP5wqcYKG1DZdeN5bVffS/UIorhqIxFb7dxoHv8d1bc
+	 PegTmyTD+Xm0Y8nLcD9SslwjrY0v9BCvBYmxvK6wXpl4IvmoMZNFKv620gQkTDzK1IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re++0DCN;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tFcjjcQt;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e1IitvQw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MjvXfsqp;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFCD606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AFCD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5559B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5559B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re++0DCN;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tFcjjcQt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792749881;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
-	b=Re++0DCNJmHVmYvBEj3CxMNSvzLAF7nKq3TyP7IJoS3MiYCrecE79mcHPrwFpLIXbHSKhS
-	Zhqv+SzvBK1YWyaNbDTiCEQz1eKESxcbNOXYsiZgvr+XElBboEI4tzBhLX7t0xnx+Qa3q2
-	dCnI74E8f32YldPEvnfkoARl9/QvqR8=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-gDw9kf2VPtmyIC8H-fSN2A-1; Fri, 23 Oct 2026 06:04:40 -0400
-X-MC-Unique: gDw9kf2VPtmyIC8H-fSN2A-1
-X-Mimecast-MFC-AGG-ID: gDw9kf2VPtmyIC8H-fSN2A_1792749879
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af5a07314so425567f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:04:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e1IitvQw;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MjvXfsqp
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FNlb2572599
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:05:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tR6WqUzgduImAQJNa+B+OOfRPJTUMCWJUP/DfxjaDDI=; b=e1IitvQwugHSTyFE
+	Dm1H4kwMP7I7VgngRGtFJ1/5y1UgtiLBitdqqJjjfUVZAJVxahCNCQ61KI4n8QIq
+	lurMPzcozAx6foaQeREbf2vNqWkJ4LLBfnlgITt3FuWwvrxGcnZ29KuFmgN86r/7
+	IMEPg0OEGgjEafKdhOIfuGhEtvMKKHmC8yWIoFz6bTifa+vvHo+7Y7lXeqaoJQ0Q
+	dLfOxUkKZ+MOR1sU+zn4Rt8uvWAP2s1rG6VBkaaozC1798bvzKniWTXU+UHPhHOR
+	OinWOlNs1w4jYqG55QWo+78SiLbCrmZlfNf9Ntx2Rk+lAyI9Hj2It1ZwBv5RLaix
+	3rdsbQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfnq0kn62-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:05:39 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb1091fffso6616885a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:05:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792749879; x=1793354679; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
-        b=tFcjjcQtF0RbozmfU/UV6psd2SyNYjk6ltoNL7jCePChJ5UM2bI56csrfBJDx3HxnQ
-         NZvAxFcHQLVCmQcSz+C2OSldtIfAt6p+VQ1YaOkQwLIEIIh8XvO/tY57vVDBA3HPYwP4
-         hZfhxPTv0+n9CK2BRWGV/zi4Z/sXeT2kZXM/miCYE0CdGVChYbJZrI5Z9roT93rD6aot
-         1ocTKYEO8zw010kqq3Zbx03r/kmpkhnGqMEVEseyfESSnfHP3qy02u9okt58+FCGx/lC
-         z9UiMHaxlNrG78vRDe4RAMk6xXJ+4f7e8dySQFF2o3HJd+zTXLtMCUPWToL3F53j2u0m
-         wxmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792749879; x=1793354679;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792749938; x=1793354738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
-        b=bHKbuOyCFqm79U8SsmZmKHjjl9VeZa/pblm7YfXi6OpWjyaDLdrQf7NBYe5nUQJqIM
-         GB+gbNx0+qYdTL4uqA83FNVwbw8Ikc6nHRQduSpRFElNBF6SI7lo/nUuOBW8SUUZ55qr
-         bIjj66Da9KT3PWlrIDswHXeW72kDA4GaeMH4cGxDp4qT+Ook+6qmW51PIz7Dp0/J4+dI
-         w6tYHUMCfFP80ZmmrnAeoVqTwM8dSlsKLoAx+uUJzju43hbVfwQbZH/CwgjZI8KVscwC
-         qsRBPcu3aeRrrAQ7yrA5WKgzqSb1Vk6UdiDUTV1JWGzvmtv6O3lFgHt3omAar5SIDDmT
-         acmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtTtA/BoFoiZ0vMAd/4hFNBYzqurgVwl0vCHrjOF7CiOTobajtqgJLW8JaEGrLYQK/1CQDuHpuqfgxnNA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWf9+Nie/vwxX7/ckJhzSQ1jUUyVx8AS94K7dUnPm0bJEQy+P5
-	wSonFn65LyuM7DiJDICg8NEeC59RUDnRg5DJKHefkB9UMF5WFHOyXvjuvKEZi0yX9/b2kSZ2FKj
-	mz8kRYLC5NChOXoXYvnTedKbVIt6GddpxlPDbTHhed4hXeOfS8LUcjTSkvmHoN1BhUg==
-X-Gm-Gg: AYBFou0OqfEwyofp5bD76l/bT0qlf09eTjNJriOYdrut0SRcFASpeStrF7P+r4hLnBQ
-	BEPENsF7Xf//7NJeehu3tqC1WpEugPdvVpMN5wHD4cr2locb5u2si2HU0VJochmIpqp6wCmY/hv
-	Zz6V4q+vLuW3wswuZsPzDcp7WfmGlycFuJ8rX8XVZlFDB4JWKUB1xyRHg4kPVvDVAiWr2RpWWWH
-	NU2u45hjhbc6b7e5DF0oiCuCnYi6M6CvPDj1Vcw7+UxMTD19gdaRJyGah84oj87G++qeKIFrWgR
-	j3KPzT5XIXjb2x4cGzkc4gtbdOphthw8eYrrQ5vyY5EK27lSYDDK2pgwM0ZANtNEqoBcYlU=
-X-Received: by 2002:a05:6000:2610:b0:48d:f14a:917f with SMTP id ffacd0b85a97d-48e38594e07mr2598910f8f.2.1792749878664;
-        Fri, 23 Oct 2026 03:04:38 -0700 (PDT)
-X-Received: by 2002:a05:6000:2610:b0:48d:f14a:917f with SMTP id ffacd0b85a97d-48e38594e07mr2598849f8f.2.1792749877952;
-        Fri, 23 Oct 2026 03:04:37 -0700 (PDT)
-Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edd26dsm4700642f8f.2.2026.10.23.03.04.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 03:04:37 -0700 (PDT)
-Date: Fri, 23 Oct 2026 06:04:33 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Ruben Hakobyan <hruben@meta.com>
-Cc: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page
- reporting
-Message-ID: <20261023042737-mutt-send-email-mst@kernel.org>
-References: <20261023081923.164950-1-hruben@meta.com>
+        bh=tR6WqUzgduImAQJNa+B+OOfRPJTUMCWJUP/DfxjaDDI=;
+        b=MjvXfsqpsbXtqMqrfe37bK+0njcUZrPpuzZNaLhTyXHf3IMT2qQuybQZI+t7M/hkKs
+         J8xNoJ/XcpSPzkddhkRtAMfkDEV11U0od5fUJSDJkrfaZ9VGo7kZbFeiFsytgGTMhgeU
+         yn6Prp5SaQqiJaq7bZ5h6CRZAE6eIoFKW8ehDSM1lKbHzNxxnx303mRA3NLfEIZp2sca
+         BR9L19Ti6CAAz5Hc84FCmrWrzUG3dLHHHtKtSKGMq9cKhHsbELDXFAQjxzDT52GLFdwv
+         JE7wPE5XRgCvfU8lvcY6l6ojDhCIYQs4vo+sFLQgYNZ3KJZmYIWe4wY7CCVFcbAykxEs
+         hybw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792749938; x=1793354738;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tR6WqUzgduImAQJNa+B+OOfRPJTUMCWJUP/DfxjaDDI=;
+        b=hT0TwMzocluYFLw3uRlYh40rZUL71pdyr81cJJFvScKpU9KkPgwxV9a7qF0n7MC+FX
+         2bPITVL610SfbGdI5MmZsg2KbtJVlXh3TrZyqT911XOyijIp1ypx7ahBh9eafA2SaWKp
+         V5XQMZ+KDV7LROwzPt19s6y4wSM2Tr5dfVWJpqS4lnPQlL+QByEv5kiK88B/4b8dN8Vc
+         1zh0z5kAKH2G/yoUiujjubUCWI8xT45+75mNTQ3x6IgSAHYwdhYavwq9ej2oc6LkAnws
+         KvgnW+V5cgnER1yg71Y88BSAwyrxz5eS2GGlaKCUXfpv8vlm3VYOUwej+FiU4berL7qW
+         AqJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFKxP+UuwTsfREAnX7YBrEcd3q807IHhogJUqDdJF/Mt41A6j5e3qTNILhPxwwnnR27OE0AXiIkYfrzzs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyOKzajyT/YanUFMwY4Udp3uS0ALYWvhlPcgt0l44dDt6nXOPV
+	N8uUbQCSsH58y6A1PSlZTDj7KyGM84iaQi6t5fzW6aRHq4OOWvbnTyLjNAQDP+9ggspVn8PhyWr
+	Am7z4HZ6dnvkp5Dw+hD1yt3Sfd8kD3s8RJpIaX8c4mtubbOCyO2+N4KQrzTuCoWr6wOU=
+X-Gm-Gg: AYBFou28UvpTw+MQmUkevqSKU+/g3m5L1/V3x7bvpZc8/gVAiAwSCfsS1QTISACW5LA
+	tKn+4TCZW5ghK0vY58k20o7GF9mBVHs0Lx0aPJZ1z+y+8CTeDlCP2vR/t1DCT8NqMhc/YId+o3L
+	Pa2TP34fAtoKs4TMCdKONxvqCvlw2gvcS21aAyDWdXzHRWumQvmPh+x8A10jCP6y5wkhLo1VaIy
+	43rY2shU8SttPHLAl9skZw7gox5l2iAmE68+988MEwpgRRhJK54RQUQf3eFi3pRo+O0aeZBjCMh
+	k6XVPXAHLby36P51IYwDHvM+4hSp3bvpE/vkrwBHdwZElxwuXkHN3OwK+h5+o/C2/P68AEXapIY
+	ZW7/keRGjP9oDhKNuryvkhw==
+X-Received: by 2002:a05:620a:7313:10b0:939:8148:1e3d with SMTP id af79cd13be357-93f6f7f3e78mr327423085a.2.1792749938528;
+        Fri, 23 Oct 2026 03:05:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:7313:10b0:939:8148:1e3d with SMTP id af79cd13be357-93f6f7f3e78mr327418185a.2.1792749937962;
+        Fri, 23 Oct 2026 03:05:37 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5c4d0d6sm85262566b.29.2026.10.23.03.05.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 03:05:37 -0700 (PDT)
+Message-ID: <43ca74be-942c-4b52-a87d-1bf13d5dea6e@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:05:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,163 +115,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023081923.164950-1-hruben@meta.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Report primary minor index as gpu_mem_total
+ gpu_id
+To: oushixiong1025@163.com, Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Shixiong Ou <oushixiong@kylinos.cn>
+References: <20261023072644.542364-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023072644.542364-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: dIEBqM02p5kd_GXfP3BXruyUUD0PZeOK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfXxOhDZtj4rQV2
+ h/8xlwi3ZO4vI8dkoY3ctQ2c8v8j09p0n5+erFINQwEUxR6U7LXFzMCHKVW9nIvMVQ060K93HZq
+ Y0z/m/F3AMVa63oEnvwT4cqPeKPLXrNUHIcaANnC1z8hYi1mbaVqJcI6rQ5aRlLTpekqkY837Ua
+ SyGeVcWmPV4D44PUdJwd8IwNDsskMScJqCDKtbjx27zK2+sYbeiO5MyYHApsYoVU+YyUvw4qxKW
+ MQhl4gKWTFXaYgXYvhouWXukcITxUF0UHBlEhVpnOZzO8XzSUABHsihD6wq2xp3w2pqSO8pSBE+
+ 5j1dr0+ECHSHM5zTPCHm6kh7xcVQkjI77IXpaZdhhHzUtEj75oGsFqbmDVbKX6bKjoywNZNzPz5
+ aGHt7W4S0jI7Hy3M8DDU04nFlWqdYhLYvc8x2dGWTjHmQODuIK7aH5v0Z8yXUd7SuW3kVf5xNzR
+ h3sbHvL1rYV4G4p0s1g==
+X-Proofpoint-GUID: dIEBqM02p5kd_GXfP3BXruyUUD0PZeOK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX3p4KYQCpGS9V
+ 2tv9xvOOI02PaI7MNE9teRusRZgzYVplFRgM+H6C6YjaHFgGzRmRGOBJb1PEe7rjpsgr88XRqtJ
+ 1bSkgz88Ec95zjMevw2nbv9D4Tqg46k=
+X-Authority-Analysis: v=2.4 cv=UaHE26SN c=1 sm=1 tr=0 ts=6adb3173 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=Byx-y9mGAAAA:8 a=EUspDBNiAAAA:8 a=nDcocf_55Z5I0WzahHEA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230039
 
-Great patch, thanks!
-
-On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
-> The virtio_balloon driver reports a scatter-gather list of free pages
-> to the VMM so it may discard unused pages.
+On 10/23/26 9:26 AM, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
 > 
-> For an arm64 kernel with 64 KiB pages, the default reporting and
-> allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
-> report contains a sufficient number of large entries, we will end up
-> with a descriptor chain that represents over 4 GiB of memory. This
-> violates virtio spec section 2.7.5.2, which requires that the total
-> buffer length of a descriptor chain be at most 4 GiB [1]. A VMM that
-> faithfully follows the spec may stop processing the descriptor chain
-> when it exceeds 4 GiB, and discard less memory than it could. For
-> example, this is the case for the virtio-queue in Rust-VMM [2].
+> Both gpu_mem_total emissions hardcode gpu_id 0, so events from multiple
+> GPUs are indistinguishable. Report dev->primary->index instead, as xe
+> already does in commit ce3d39fae3d3 ("drm/xe/bo: add GPU memory trace
+> points").
 > 
-> Batch the requests into descriptor chains of at most U32_MAX bytes
-> (4 GiB - 1 byte). We use U32_MAX here so we can conveniently represent
-> the batch length in a u32.
-
-It's not just a question of convenient, is it?
-Rust is buggy wrt to spec as it allows only U32_MAX.
-So it is also to make it work.
-So should we maybe fix Rust to be spec compliant and allow 2^32 too?
-
-I think we should definitely recommend U32_MAX in the spec
-because otherwise it can not fit in the used length.
-
-
-> 
-> [1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
-> [2]
-> https://github.com/rust-vmm/rust-vmm/blob/9f7250b1555ebe022ea4133fda676e6311040738/vm-virtio/virtio-queue/src/chain.rs#L183-L190
-> 
-> Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
-> Signed-off-by: Ruben Hakobyan <hruben@meta.com>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 > ---
-> The wording in the spec is a bit ambiguous because it uses "chain
-> length" for both descriptor counts and the total size of the memory
-> ranges referenced by the descriptors. My read is that the byte limit
-> applies to the sum of descriptor lengths, which is also what rust-vmm
-> checks.
 
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-quote what you are referring to please, also in the commit log
-not after ---.
-
-I would also CC virtio-comment@lists.linux.dev - spec should recommend
-U32_MAX.
-
-> 
-> Another option I considered was to limit reporting capacity based
-> on the largest possible block. E.g. for 64 KiB pages, the largest
-> block is 512 MiB, so limit the reporting capacity to 7 to stay
-> below 4GiB. Although simpler, I found that the time to reclaim
-> was quite a bit longer.
-
-
-
-So I was going to apply this actually:
-
-https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
-
-which makes the question completely moot.
-
-Does this have any effect on performance?
-
-Thanks!
-
-
-> 
-> I tested this patch on Cloud Hypervisor (which uses Rust-VMM)
-> and QEMU (which doesn't enforce this limit).
-> 
->  drivers/virtio/virtio_balloon.c | 47 ++++++++++++++++++++++++---------
->  1 file changed, 35 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-> index ab3e3d887e00..68ce627c8e04 100644
-> --- a/drivers/virtio/virtio_balloon.c
-> +++ b/drivers/virtio/virtio_balloon.c
-> @@ -15,6 +15,7 @@
->  #include <linux/slab.h>
->  #include <linux/module.h>
->  #include <linux/balloon.h>
-> +#include <linux/limits.h>
->  #include <linux/oom.h>
->  #include <linux/wait.h>
->  #include <linux/mm.h>
-> @@ -207,21 +208,43 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
->  	struct virtqueue *vq = vb->reporting_vq;
->  	unsigned int unused, err;
->  
-> -	/* We should always be able to add these buffers to an empty queue. */
-> -	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
-> +	while (nents) {
-> +		bool unmark_end;
-> +		struct scatterlist *sg_batch_start = sg;
-> +		u32 batch_len = 0;
-> +		unsigned int batch_nents = 0;
->  
-> -	/*
-> -	 * In the extremely unlikely case that something has occurred and we
-> -	 * are able to trigger an error we will simply display a warning
-> -	 * and exit without actually processing the pages.
-> -	 */
-> -	if (WARN_ON_ONCE(err))
-> -		return err;
-> +		/*
-> +		 * Virtio spec 2.7.5.2
-
-Please add spec version and chapter title, and quote the
-spec text in question verbatim.
-
-> limits the total buffer length of a
-> +		 * descriptor chain to 2^32 bytes (4 GiB), so split larger
-> +		 * reports into batches no bigger than that size.
-> +		 */
-> +		while (batch_nents < nents &&
-> +		       sg->length <= U32_MAX - batch_len) {
-
-here you actually limit to U32_MAX which is 2^32 - 1 as commit log says.
-
-> +			batch_len += sg->length;
-> +			batch_nents += 1;
-> +			sg = sg_next(sg);
-> +		}
-> +		unmark_end = !sg_is_last(&sg_batch_start[batch_nents - 1]);
->  
-> -	virtqueue_kick(vq);
-> +		if (unmark_end)
-> +			sg_mark_end(&sg_batch_start[batch_nents - 1]);
->  
-> -	/* When host has read buffer, this completes via balloon_ack */
-> -	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
-> +		err = virtqueue_add_inbuf(vq, sg_batch_start, batch_nents, vb,
-> +					  GFP_NOWAIT);
-> +
-> +		if (unmark_end)
-> +			sg_unmark_end(&sg_batch_start[batch_nents - 1]);
-> +
-> +		if (WARN_ON_ONCE(err))
-> +			return err;
-> +
-> +		virtqueue_kick(vq);
-> +
-> +		/* When host has read buffer, this completes via balloon_ack */
-> +		wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
-> +		nents -= batch_nents;
-> +	}
->  
->  	return 0;
->  }
-> -- 
-> 2.53.0-Meta
-
+Konrad
