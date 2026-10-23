@@ -1,96 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778869;
-	b=Yplrd62ih/xDS0dJIqpIUPbHQoi7krQao0D5a7urbwc728I309Kg3eJoAg48Xpmq70Oh
-	 b+IFt/kBqwcsh0yq4Wnr6x5HLKwJbzngHViF29Zie5oQv4CyvpiZrQuK3T1HLGmBeaHYP
-	 g+aAw7XOHbRAARmYUCX4iLzEMO/q7BroZRLYn7cD0v/laV/ZsOwN3vLEsQOcEZvYBQ+vt
-	 TspOplksrnisN8NFYz7J+fhmu8uS2ZL/zy8INb7shGyVZQHuXNmn5dXPDfCIbpmzJ/bxE
-	 zZcgJrwjh3JYFAyMmS+nCKIW/mXQNu1adZkx0l2PLt6+MjEq8n7fFHzlZrGhtW56v2g==
+	t=1792778879;
+	b=ZXc2HAJ3Zat1u6mE7ljGDG2v0VRXj1gR2RPdFA6Lyu5jD+BQ2uvREuqNrTkMaUGTsW4X
+	 ZPPg2D6X3DCQz60fh2Tykn+S7FQI+Dkp/VMJFJHeHdVwYtoXZOAOmCoRK2Wp3abJdwBCf
+	 dI+O4NZzuHljuwAeyssl9qSBaLcg64fLyjjV61Kdro+wZWCFhvSi3xDreVy6aBLtXSiaV
+	 XIt9KXMKniVZwfdS5F2qiD3ebjlL8PvDW2mCGfM2QV9wtcsiV5XjyBKPj69A24x5sed5A
+	 W4OY2jcDUxUnK7rs3Cuo54z9i2WwIsSRl7bB8ouygV/AWuDxdajy0yYA1Sv2AboHurA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778869;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=7sC6xYpF4qIvHkwjX8HFmuHgTEf6DcO7YRZah/Pkcg8=;
-	b=MPonOa27/G4Y2Z4VRPLb5c1agnWw2lJGPjK1fh8JH6V9fU6X5ZvTbDl7H2MI+KtixyjL
-	 3O9WkppaBQ0WkMchrogz7q4xZjsV/Et8h2t0IvGLXPs8QBBdKKbniNfmDSMBz8WCLDr7y
-	 uh6JfeRKskV58p22EN4SkAbFtVGaD9pVsdxYpNmgYDmXR/2y1JPuZwVWPnH5kN48nw1mF
-	 nvHwLeXtKS5gyEwujw8TSihYXt3GezWopTEYtLKn2qLmqpDye/r0crZxIPlpng4hmZq8S
-	 MEjTB8leu9pgOLWSXMGhrF0+NWh1bmkAaW5tzgQRHzJXQiKZz75XFqjb4RWfnqH4GZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778879;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TNpTDIHcROMznwYRxDpIWPwGzl98sFXPxpXvozgPziE=;
+	b=P1VadUo75PpsMlzwPDIqFLwF1bI2SBNw5+5XIFUyzAMP06JFy2zyX98JWFPZFQl3jVYm
+	 a37Rx1V2Qck9k9LOaPRdS1/t7U/MxUWFc0kmfPH2DvOdBA+cyCCP56DAxHwG5EAlV3fFw
+	 5blc/TaOeb7lITjBKQw1kNp/OJTMxExjcbFb3uX+6UKf/n6QJo54GotYcqlG+49Uhhqrs
+	 qF9fodCbRXOUyl1CQJ4JLxbpTaJ6sI2NbDiCp+2qnhx+24w4X01Zg0D4U3IPdqQ+BwFhe
+	 DwWdFB09WWVXEncL6G9/n0K1WYN5FHAfkMSdImJ8g6P89gyK49JxdzG9+fbJbAyiSWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=YbOQgjc4;
-	arc=none smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC81606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDC81606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=D18Fpydl;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 172A9606A329;
+	Fri, 23 Oct 2026 18:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172A9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=YbOQgjc4
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6f8a519e215so813392eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:07:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1792778868; x=1793383668; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7sC6xYpF4qIvHkwjX8HFmuHgTEf6DcO7YRZah/Pkcg8=;
-        b=YbOQgjc4x1mayqmHu/1DIhdmnHsTtqKNzcWPHjcm4G9enyTTzfGwLAKthnLMUfZWdd
-         NHOtOKtb5CTDTYjkuQrLy/rAbXq6DBRb6Q8iErR0BU1K4ONaPQCz+FTkDS8tk57FgrAt
-         Jdan14iLXv17z2qHtgZL7ANme4ZIMBCX7GLcEwdBZUqXrs7UvJujl63GrxEr1BLlWlnT
-         TPQKRAiV7UqBd+9aNPecCXrbYyGCz6aTU361yFb9X5UegCfn5xVLAPbKAFNkHYYIrtw/
-         pop0U7wkRKyUr6Yp46khVXq3PxowZwVxxzOaT95z/7NbswY/BM+4te3StMv6v6joncjE
-         OBzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778868; x=1793383668;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7sC6xYpF4qIvHkwjX8HFmuHgTEf6DcO7YRZah/Pkcg8=;
-        b=bVvzP4+lREaUIhIL77IgFxZA5jjmv16TZfTYz7jMBXifA+mgg3gVWSWirkUnKFLlLX
-         HUZBI4cjGUv3VrWyZ1d3jFLOFsr90CbrxPiTe3wMKe/zMqKpO06zQto3pSMSP3Y3mPGe
-         7geGp79e8/bbxp+0ZsaU5uRC9gyS9zqsGtz9EsY0z57szXvMYyLSwIcjPA58bGb4yn//
-         /iDtY8d5NWtYT7JLxayhhEFIpJX9MziMhp/4lIEd0ouZYheuB2np9YU2wa3Kr4V15jzD
-         /+P77riDT00ge5xxP4kL+AY8ztapvsE1FN4fkmnCN5pg33zhGgGLBz0hmTuhqxEbbXSx
-         cXYQ==
-X-Gm-Message-State: AFq9FYKt1Go6t5IGeI4Zf3wftZrRs0A3TI48oDUFsi9RDSrtFrbuYYu/
-	uxRIrEkLHiUaUhpMNvwAhtrcaRe9alJME5OlTq0MCNJMt3cpiuIou3KyT0bpaTX/NeA=
-X-Gm-Gg: AYBFou34OVLfrvALBv9ZG7WjCRUlFepEl96ys/yL5pYiK7qeyT4OfmfwD9DJaaMe2aT
-	rkvUw8axQFj8+KnvK3HKRDOURUKF8wCaL8GelZVTxaqBFAJFjhJE5zHlXiTT0IcKdeJO7pcvU0+
-	lSEoy/FEE8jsjv7SDmeFs6jDdA/9dZml7p3whvsljNyKtWr59/9nwYrI5IsaRtlK7VafYcVZtFi
-	pzohnhO/5eKbkZ0yN+tB/nPGjkgDpQgKPdZVS1iPjeqOmn/oxpsil/jbwvgeSfFLQEGVSaccGa2
-	BlA4YA6ydkIW5xrDWGE4RA8Lldpawt5cCpW6sL1Vpea+Ch1GgEq/ScrA7QQVg0L5fcAXoiy6+Lp
-	2dtQeWIF0jdWmxbNwp1JDXdDZOoDovXSX45zZjCFLXCq3ffBef9WsQ+EC2ALiSvCc5lOQhLQ4xB
-	oU5H59vcNRNgx4EL0YESZTlPpdINwtaw25XhX1mP1VDA6upPDaHs+d94YZtC65KtIMurRR/7Mwj
-	PW7JVBQlnDyPGcqg8jc+4nO8IuNZiLCLXAR2ow=
-X-Received: by 2002:a05:6820:4619:b0:709:a86c:7c68 with SMTP id 006d021491bc7-70b88a82b37mr1271587eaf.31.1792778867656;
-        Fri, 23 Oct 2026 11:07:47 -0700 (PDT)
-Received: from 20HS2G4 ([2a09:bac6:bf21:1923::281:7a])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9ae9604asm542486eaf.9.2026.10.23.11.07.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 11:07:47 -0700 (PDT)
-Date: Fri, 23 Oct 2026 13:07:44 -0500
-From: Chris Arges <carges@cloudflare.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, 
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, virtualization@lists.linux.dev, 
-	Max Krasnyansky <maxk@qualcomm.com>, Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
-Message-ID: <atuiK4g28D7q22QO@20HS2G4>
-References: <cover.1792768096.git.mst@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=D18Fpydl
+Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 36A991C006E;
+	Fri, 23 Oct 2026 20:07:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1792778867;
+	bh=BJcbOGmX+Z8yUrS25pNR/1jqBIqhgRSTCtLJy24//Ms=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D18FpydlX118QA4mJM0TXwv1k8Mj0yQTuwA8SLtqmGrhtmrOK3i7Ru0V2HM8wNUlC
+	 Wvvnyyo9/ej6jIJzO5nfEyNhzPkmHWCSq7zQQXzsOOqe1U4obCH28RwxZ36RTQvFCM
+	 Tst6gBAS6RaZ0OdjeY+6M2tk9VILFlypxiHlKLic=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>
+Cc: Renzo Davoli <renzo@cs.unibo.it>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/1] powerpc/syscall: Return the preset value of skipped syscalls
+Date: Fri, 23 Oct 2026 20:07:32 +0200
+Message-ID: <20261023180735.853655-1-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,220 +71,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1792768096.git.mst@redhat.com>
 
-On 2026-10-23 11:09:13, Michael S. Tsirkin wrote:
-> 
-> Okay this seems to be converging.... But sashiko did find some issues I
-> thought are best fixed. Specifically I thought of a better way to handle
-> short gso in a tunnel - just clear tunnel gso! As a side effect we now
-> fix up the checksum for these dodgy packets like we did before, instead
-> of a drop. Good. And more false positives that prompted me to write a
-> bit more comments. So here goes.
-> 
-> Apologies for reposting so frequently, I know netdev bot will be unhappy
-> with that.  But Paulos's report made a lot of publicity, there is a lot
-> of people looking into this, so I feel there's value in defending
-> against all this class of issues sooner rather than later.
-> 
-> The issues were mostly found by code inspection, but all reproduced by
-> me in a VM.
-> 
-> ------
-> 
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users):
-> 
-> allowing untrusted hardware to specify csum start/offset for
-> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-> outside the actual checksum, and depending on the setup, the networking
-> stack could be looking at the packet both before and after the edit, and
-> seeing different results.
-> 
-> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-> completing checksum") validated all known instances where this
-> causes the most grief, but the real fix is to make sure
-> that either only actual checksum fields are ever edited,
-> or the checksum is completed before the net stack looks at it,
-> so it is always consistent.
-> 
-> 
-> This basically goes back to
-> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
-> except in a narrow list of specified known good cases.
-> 
-> 
-> Summary of the patchset:
-> 
-> These are probabably net material (and seem to be too big for stable,
-> or I would recommend backporting there, too):
-> 
->   net: account for ingress-resolved virtio net hdr state
-> 	- accounting, not the fix itself, dependency of the fix
->   um: vector: trim skbs before verifying the header
-> 	- fixes the um receive path: without it the checksum would be
-> 	  completed over the unreceived tail of the buffer
->   virtio_net: parse tunnel csum_start little-endian
-> 	- bugfix, a dependency of validating the header
->   net: resolve uncommon partial checksums at ingress
-> 	- fix itself
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 	- reducing risk of the fix by adding a sysctl to disable it
-> 
-> These are cleanups, can be deferred to net-next, too:
-> 
->   net: add ip4_parse()
-> 
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> 
-> Changes since v1:
-> 	- reorder patches to fix bisectability, addressing
-> 	  a comment by Bjˆrn Tˆpel.
-> 	- code refactoring, different patch splitup,
-> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
-> 	- fix a bunch of minor issues spotted by LLMs
-> 
-> 
-> Changes since v2:
-> 
-> virtio_net: parse tunnel csum_start little-endian
->   - new patch. correctly parsing the header is a dependency
->     of validating it, otherwise i do not know what to validate
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - make rx_csum_sw counter 64 bit so it won't wrap
->     (spotted by LLM review)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - tunnel fixes to bugs noticed by Willem de Bruijn and
->     Chris Arges
->   - restore the csum_offset checks as suggested by Willem
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - the knob is no longer writable by root inside a user
->     namespace: changing it now requires capable(CAP_NET_ADMIN)
->     suggested by Willem de Bruijn
-> 
-> net: add ip4_parse()
->   - comment converted to kernel-doc format (Willem de Bruijn)
-> 
-> um: vector: trim skbs before verifying the header
->   - new patch, found by code review
-> 
-> 
-> Changes since v3:
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - um: vector: honor virtio net hdr conversion failures
->     folded in (Bjˆrn Tˆpel)
->   - count on tap and virtio_net, too (Willem de Bruijn)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - walk the frame on loopback, too: loopback_xmit() runs
->     eth_type_trans() on it (Willem de Bruijn)
->   - return the mismatch handling directly, GSO is implied in
->     the tunnel path so drop there outright, and fold the helper
->     into its one remaining caller (Willem de Bruijn)
->   - read the IP version through struct iphdr (Willem de Bruijn)
->   - document the ipv6_find_hdr() flags choice
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - renamed to virtio_net_hdr_validate, in case more validation
->     is gated by the same knob later (Willem de Bruijn)
->   - point .data at the value like the neighboring entries,
->     the per-netns registration rebases it, and the handler reads
->     the value directly - no ctl_table copy (Bjˆrn Tˆpel,
->     Willem de Bruijn)
->   - check the opt-out before parsing: with the knob off, packets
->     the parser cannot handle were still dropped (Willem de Bruijn)
->   - include virtio_net.h in net/core/dev.c so the static key
->     definition sees its declaration (build warning reported by
->     Jakub Kicinski)
-> 
-> net: add ip4_parse()
->   - add the missing kernel-doc Return: section
->     (Jakub Kicinski)
-> 
-> 
-> Changes since v4:
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - count on tun only: dropped the tap, macvtap, ipvtap and
->     virtio_net counters (Willem de Bruijn)
->   - the driver side branches are in their final form here now,
->     moved from "net: resolve uncommon partial checksums at
->     ingress" (Willem de Bruijn)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - no longer touches the drivers (Willem de Bruijn)
->   - a packet too small to be GSO: ignore the tunnel GSO request,
->     same as plain GSO ones, and complete wild metadata in place
->     (sashiko)
->   - document the zero copy interaction (sashiko)
->   - honor a preset skb->protocol on ethernet: the stack uses it,
->     except on loopback which re-parses the frame (sashiko)
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - document the netns lifetime requirement (sashiko)
-> 
-> net: add ip4_parse()
->   - pull the whole header, options included, so that the
->     transport header offset is within the linear data
->     (Willem de Bruijn)
-> 
-> 
-> Changes since v5:
-> 
-> net: resolve uncommon partial checksums at ingress
->   - read both skb->protocol and the frame ethertype: do not
->     validate when they disagree, instead of preferring the
->     preset protocol; same check after the IP version inference
->     where there is no L2 header (Willem de Bruijn)
->   - pull the IPv4 options in the helper as introduced, with the
->     transport header offset computed before the pull
->     (Willem de Bruijn)
->   - fold the trivial protocol calculation cleanup, formerly a
->     separate patch, in (Willem de Bruijn)
-> 
-> net: add ip4_parse()
->   - the options pull moved to the helper introduction in
->     "net: resolve uncommon partial checksums at ingress"
-> 
-> Tested: full suite on the final tree, tunnel included.
-> um part compiled only.
->
+When ptrace or seccomp skip a system call, the return value they set in
+regs->gpr[3] gets lost or the tracer is affected, since two recent
+changes:
 
-I tested v6 patches, they address my original set of test cases.
-I did not test UM.
+1. Commit 05c033db7e9a ("entry, treewide: Make
+   syscall_enter_from_user_mode[_work]() indicate syscall execution")
+   made system_call_exception() return syscall_get_error() for a skipped
+   system call.  syscall_get_error() is 0 for any non-error value, so a
+   success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
+   with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
+   replaced with 0.
 
-Tested-by: Chris Arges <carges@cloudflare.com>
+2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
+   seccomp and ptrace") made syscall_set_return_value() set
+   TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
+   the task passed in.  When the caller is a tracer, as in
+   PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
+   ends up on the tracer, and the next system call of the tracer is
+   silently not executed.  Setting it on the right task would not be
+   enough either: at a syscall-exit stop the flag would then skip the
+   next system call of the tracee.
 
+TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
+the generic entry code tells whether ptrace or seccomp skipped the
+system call, and every in-kernel caller of syscall_set_return_value() on
+the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
+tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
+calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
+
+Remove the flag and return regs->gpr[3] for a skipped system call, as
+done before the conversion to GENERIC_ENTRY.  The syscall exit path
+already converts a negative error value to the "sc" ABI, and
+syscall_set_return_value() keeps CR0.SO in sync for positive error
+values.
+
+Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
+Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+Cc: Michal Such√°nek <msuchanek@suse.de>
+Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org # v7.3
+Assisted-by: claude-opus-5-5
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+---
+How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
+guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
+(ppc_skip_repro.c, available on request) which
+
+ - sets the getpid() return value at a syscall-exit stop with
+   PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
+ - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
+   (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
+
+                                             v7.3-rc6      with this patch
+  tracer syscall after SET_SYSCALL_INFO      returns 0     correct
+  skipped syscall, success value, sc/scv     returns 0     correct
+  skipped syscall, error value, sc/scv       correct       correct
+  selftests/ptrace set_syscall_info test    FAIL          pass
+  selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
+
+  failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
+  sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
+  TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
+
+(*) user_notification_wait_killable_after_reply (100000 notifications
+    with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
+    with and without this patch.
+
+Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
+pmac32_defconfig.
+
+Changes in v2:
+- Rebased on current mainline (734bef548a96), which now contains
+  commit 66236558dfac ("powerpc/syscall: Avoid atomic
+  test_and_clear_thread_flag on fast path").  That commit folded the
+  TIF_SYSCALL_RET check into the skip condition, so the v1 hunk in
+  system_call_exception() no longer applied.  The resulting code is the
+  same as with v1.
+- Link to v1:
+  https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it
+
+ arch/powerpc/include/asm/syscall.h     |  6 ------
+ arch/powerpc/include/asm/thread_info.h |  1 -
+ arch/powerpc/kernel/syscall.c          | 13 ++++++++-----
+ 3 files changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+index 32be22b995cc..4b3c52ed6e9d 100644
+--- a/arch/powerpc/include/asm/syscall.h
++++ b/arch/powerpc/include/asm/syscall.h
+@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 			regs->gpr[3] = val;
+ 		}
+ 	}
+-	/*
+-	 * Mark that a return value has been explicitly set by seccomp or
+-	 * ptrace so that system_call_exception() can skip the syscall
+-	 * unconditionally, even when the user requested syscall(-1).
+-	 */
+-	set_thread_flag(TIF_SYSCALL_RET);
+ }
  
-> 
-> Michael S. Tsirkin (5):
->   net: account for ingress-resolved virtio net hdr state
->   um: vector: trim skbs before verifying the header
->   virtio_net: parse tunnel csum_start little-endian
->   net: resolve uncommon partial checksums at ingress
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 
->  Documentation/admin-guide/sysctl/net.rst |  19 ++
->  arch/um/drivers/vector_kern.c            |   6 +-
->  arch/um/drivers/vector_transports.c      |   4 +-
->  drivers/net/tap.c                        |   4 +-
->  drivers/net/tun.c                        |  41 ++-
->  drivers/net/virtio_net.c                 |   2 +-
->  include/linux/virtio_net.h               | 319 ++++++++++++++++++++++-
->  include/net/netns/core.h                 |   1 +
->  net/core/dev.c                           |   7 +
->  net/core/net_namespace.c                 |   1 +
->  net/core/sysctl_net_core.c               |  50 ++++
->  net/packet/af_packet.c                   |   4 +-
->  12 files changed, 441 insertions(+), 17 deletions(-)
-> 
-> -- 
-> MST
-> 
+ static inline void syscall_get_arguments(struct task_struct *task,
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+index 1e069a2e7ce8..0487e94d3416 100644
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
+ #endif
+ #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+ #define TIF_32BIT		20	/* 32 bit binary */
+-#define TIF_SYSCALL_RET		21	/* syscall error value set */
+ 
+ /* as above, but as bit values */
+ #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
+diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+index 8529827d697f..52ceff4ef41b 100644
+--- a/arch/powerpc/kernel/syscall.c
++++ b/arch/powerpc/kernel/syscall.c
+@@ -18,11 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+ 	long ret;
+ 	syscall_fn f;
+ 
+-	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
+-			test_thread_flag(TIF_SYSCALL_RET))) {
+-		clear_thread_flag(TIF_SYSCALL_RET);
+-		return syscall_get_error(current, regs);
+-	}
++	/*
++	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
++	 * the return value they set (or the unmodified first argument, e.g.
++	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
++	 * the error encoding for the "sc" ABI.
++	 */
++	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
++		return regs->gpr[3];
+ 
+ 	if (unlikely(r0 >= NR_syscalls)) {
+ 		if (unlikely(trap_is_unsupported_scv(regs))) {
+-- 
+2.55.0
+
