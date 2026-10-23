@@ -1,58 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783394;
-	b=yEDtvnOVt69G7nZbjBd1WHpn4KtZ+SETLt42mG5PzPtViZ692trt7cL6d1jmJSWhaWk0
-	 uj3Gbn79ZFCakHwA/D3141Q0HThPCmj5k7BtD0u3kZG3e4VnBNUjyEkLzQesFYZxyuNtS
-	 rZOMkLUl05y1W6suu6ve7HHxc8v3WbZ8QM2XAXirnnSEOjdSFEdG8vDgozpMtylETBl7z
-	 o4KAZseE3kzqnMxmALXSotW7ads2Rr+sla3bEMKxqLO9tBEuwt0ng1JIVMOKRjXwi95BN
-	 vkE1VD2c4DKijDvm22KKZYeTueejUPOG9UAxGNC23wd0vo9qVQ1PKDpVYwLqMisDr/g==
+	t=1792783390;
+	b=z2wSu2OvWgKLaYJWF61cxpB3sHQYza5U3EXmKClccg3aYeEixIzF6QUnKifxaPLQvRT7
+	 GHHnH6u2ha5fp/SbPg0jS8YsqMWQPESbpdubJhdl/WFFf/piDVuFT3ZGlfj99rsdJMoJH
+	 SHhjHHiz+NZ3ExQ5eoeMn02LXH4ie8yj2kA1dVMb3THCcZRIq2FDEKkFUYR/17EhulqUC
+	 2axDtbXhKdyJP1zSMHHWmmTvXV7FjbycRxfal0a9pfYrF4Obv+AXd9Dji8qL8riKLklTX
+	 aHMAapEhHrNs7HVneLChHRO6IDBUR+XQOOWicFVAdpEsVsbg1bXkX26KGTAOvLuDpvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783394;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=K4phAtbqJvDEUeL3XNrRdi4DSZI1CWHLSNHnV35OQ1g=;
-	b=UDjnSCgr3PSrL6W0Ddsm0qZaTMPwxpcYV50iFnkBXgJN7+EG2WqBZqkLNiiSUTN3wc1Y
-	 cyezzvt3SKVOIe4q87GW2Br/5yY6+5m99QLH2PwFjxwOHx9RBRUqWbq+g81HXZAUAfNgr
-	 bbDwYzqhtz0GXqxNcLmirDJsxB4Wu4YhbnqesFajf+A1S5Z4fBcR+6a/OVC8FruU6VpdW
-	 Hklk70GCooevhj4w53KI3eGrXP9jreucqKQa7WjswP/T4TuKiUqMieklkEQIpc4ruak1i
-	 UdeSIOpWzDuhc61X4GymVrYMkJx7LQCaJDpkFUaXa6XPMIASgPr1GPGWpbzIQDS0GYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783390;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Dd1SiQToxpbgH+zCRYMh63AZHeiiSvMwcrYKR3uwlwM=;
+	b=WRYkKBU49MsPo9ygm+pBam2oeZOM0nYAIk8dTyPq9QyvKLunguhy9WKJXq82TlS28vDH
+	 H+JrKGtv98Oc8+zSxJLqEBTxnJoVQwWnNDm7FUxSvYXm2Vl+OhEshEzYKqCJWkQ5lXvk5
+	 r6ybslzUaaMDmD6DYVhqpaz8ECvTyE8kUNcAWNUb95+1pZM9GrMQ+6NL0TnEygOFinE1U
+	 A3NiWWmyKuvxo1Yc1LQnryxYLINj8flqS4ejpXYQVxRv1DBNTHf+IoMOifBovdkEnrYGx
+	 jMSsvlx5rc9GUohqvfoHs4HoY9t0xpJnROl22X1XsRVDdFHEb6kXXP5Nap+CV3msYNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdcmMsoc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3MFnpI4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFA0606A31B;
-	Fri, 23 Oct 2026 19:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D5606A31A;
+	Fri, 23 Oct 2026 19:23:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdcmMsoc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6545C1F01825;
-	Fri, 23 Oct 2026 19:23:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3MFnpI4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5DA1F01825;
+	Fri, 23 Oct 2026 19:23:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792783393;
-	bh=K4phAtbqJvDEUeL3XNrRdi4DSZI1CWHLSNHnV35OQ1g=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=TdcmMsoc8lCuiSLRaK36Qy6MhQM4jE0M0hnuxF85iViaj4Cxv3zrC60bk+rfRhdGP
-	 3OPyU36URP3ex6M+Ztcb1CsZvZQtHNASCrp/aKQkcwQmRIDrJD6vcEr8+tL5rSpBzl
-	 nW55VjLwFKkQojrRMKnWfKrYXAsO8JaafWx59vo2scNguVpD00vXggVnRrQ71DBR6c
-	 4UM1H7J/MBsXecA1ha2MRdtm2l7E240AGUqHWeamFGQdLp/SYHMswizjHVNNqeeZwK
-	 xiXIJNrkxSCdOVCfKUyYEAh2olugz8wcqhLMsr8HWymMsRBvCad6TorGrEKoC/6YJy
-	 YvNSwXIkgJctg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1524BCE0540; Fri, 23 Oct 2026 12:23:13 -0700 (PDT)
-Date: Fri, 23 Oct 2026 12:23:13 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
-	urezki@gmail.com, boqun@kernel.org, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rcutorture: Avoid create fwd_prog_tasks for
- tasks-rude and srcu-atomic
-Message-ID: <5cb8b0cb-c7ea-4f2c-a9f9-3ccbab1bddc3@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261023093716.25717-1-qiang.zhang@linux.dev>
+	s=k20260515; t=1792783389;
+	bh=Dd1SiQToxpbgH+zCRYMh63AZHeiiSvMwcrYKR3uwlwM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=o3MFnpI43a/ChdWrEQZMYDEkWLk3bzVOSByK9b0wUXXSZYXK+Qbi5/vkqEw76H3jN
+	 yZIfjdKVBqV/Gb0441p+NZsargr/VZwcUv5hxAu6Xe5oVbDm48qjx6VIB6JcthPR4Q
+	 PjUiUrZJ4OesqnXHOKt4VfKaqbPl9XWebAz0GP2L2Rg8bdijs7oWUcs27W/19N93IA
+	 Tibuc5kG/Me3sR1MS4BA1QKrkx/pTvYpZdKXBadSrARHDtFXQKe52/WPIyUW7FPyNw
+	 GR7/tUs0OYLPodK1aVl0lBrBBeOiQwcugP/nYACuus0nn8MlQlaQfMPpjGv39UqSmm
+	 s+9GZrHBcmU/w==
+Date: Fri, 23 Oct 2026 20:23:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
+ lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
+ cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
+ James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
+ qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
+ ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+ dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
+ peter.fang@intel.com
+Subject: Re: [PATCH RFC 04/20] Documentation: ctlv: Add userspace ABI
+Message-ID: <20261023202307.62694a50@jic23-hlaptop>
+In-Reply-To: <atnJUfh0_Y3BRKx3@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+	<20261015145053.3664509-5-jiri@resnulli.us>
+	<20261021011122.2cd96901@jic23-hlaptop>
+	<atnJUfh0_Y3BRKx3@FV6GYCPJ69>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,77 +71,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023093716.25717-1-qiang.zhang@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 05:37:16PM +0800, Zqiang wrote:
-> When running the tasks-rude and srcu-atomic tests, the fwd_prog_tasks
-> kthread is created because the default value of fwd_progress is 1.
-> however, the two RCU flavors not support ->call():
+> >>``reply_len`` is never
+> >> +overwritten; the length written is the reply root's ``len``. The pointers are
+> >> +fixed-width so a 32-bit and a 64-bit process pass the same structure, and in
+> >> +place of a size field the ioctl number encodes the size and ``reserved``, which
+> >> +must be zero, covers compatible growth.
+> >> +
+> >> +Every action and query carries a physical request root, including an empty
+> >> +request. ``request_len`` is therefore at least one attr header and at most the
+> >> +1 MiB transport limit.  
+> >
+> >Why this particular limit?  Any thought to making that discoverable rather
+> >than fixed? (with a minimum to allow the operation for the length to be discovered).  
 > 
-> 1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU Tasks
->    Rude asynchronous APIs") removed .call and .cb_barrier from tasks-rude,
->    but left the .cbflood_max = 50000.
-> 
-> 2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to NULL
->    for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched.
-> 
-> In both cases, the non-zero ->cbflood_max fools the check above into
-> creating the fwd_prog_tasks kthreads, even though those kthreads cannot
-> possibly carry out any forward-progress test:
-> 
-> 1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_ops->call
->    is NULL:
-> 
-> [   68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-> [  129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-> [  190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-> [  252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-> 
-> 2. The rcu_torture_fwd_prog_nr() is never even invoked, because its caller
->    requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
->    provide ->stall_dur (only rcu_ops does).
-> 
-> Therefore, creating fwd_prog_tasks kthreads is pointless, this commit adds
-> ->call and ->cb_barrier to the forward-progress check, rejecting flavors
-> that lack the cbflood_max set and a positive ->stall_dur.
-> 
-> simple verification output:
-> 
-> [    3.062959][    T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
-> [    2.922323][    T1] tasks-rude-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
-> 
-> Suggested-by: Joel Fernandes <joelagnelf@nvidia.com> 
-> Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> OPS_DUMP exposes max size per op already. This limit serves different
+> purpose. It is a safeguard againt insane family yaml author. If he would
+> try to fit in ridiculously long binary attr, it would provide a clue to
+> use blob attr instead. I think that 1M is too big. I would perhaps go
+> with 64k initially. As it is kernel internal limit, could be changed in
+> any time. Makes sense?
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Yes. Small is better as as starting point I think. 64K should be enough
+for anyone, right?
 
-It would nevertheless be good to run tests demonstrating that
-forward-progress testing happens and does not happen on the same
-rcu_torture_ops structures as before.  Just in case I lost my
-way through that boolean expression.  ;-)
+> 
+> 
+> >
+> >Maybe it is better to just have fixed size.  I wonder if ultimately we
+> >may end up with cases where the tlv is just passed on to firmware / device
+> >(because it is nice and convenient!) and having to split or marshall
+> >multiple messages would be a pain.  
+> 
+> hmm. tlvs passed to device would work, you would just have to take care
+> of the blobs inside.
 
-> ---
->  kernel/rcu/rcutorture.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-> index 968343be4e0d..92ff197f4789 100644
-> --- a/kernel/rcu/rcutorture.c
-> +++ b/kernel/rcu/rcutorture.c
-> @@ -4007,9 +4007,8 @@ static int __init rcu_torture_fwd_prog_init(void)
->  	} else if (fwd_progress < 0) {
->  		fwd_progress = nr_cpu_ids;
->  	}
-> -	if ((!cur_ops->sync && !cur_ops->call) ||
-> -	    (!cur_ops->cbflood_max && (!cur_ops->stall_dur || cur_ops->stall_dur() <= 0)) ||
-> -	    cur_ops == &rcu_busted_ops) {
-> +	if (!cur_ops->sync || ((!cur_ops->call || !cur_ops->cb_barrier || !cur_ops->cbflood_max) &&
-> +	    (!cur_ops->stall_dur || cur_ops->stall_dur() <= 0))) {
->  		VERBOSE_TOROUT_STRING("rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test");
->  		fwd_progress = 0;
->  		return 0;
-> -- 
-> 2.17.1
-> 
+You'll know you succeeded when someone decides the device should
+do the work ;)  Of course that's also the day when design decisions
+are stuck even more in stone than they are for kernel /userspace ABI.
+
+
+Thanks,
+
+Jonathan
