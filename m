@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744776;
-	b=oMsVfZn+uH9kdrVkgAlNsfK5/+Sscn51lfzMr6QQd9FefJOPCrz6uLikHudF9CfrN8+w
-	 FXtYlTD21L7EpOnjoJvQA5uhATEwFRKbB+YxRRX7FBa0jOPm60DEqKXRWefhL6Q6fJ1x8
-	 RoFKpx8rCaIklnQfG90iVxeFV7+tobgUxm3NAjwpX/zh9v2YiH1X8tfkox2kvQg2oZsyk
-	 wHudVfoPq36xxn+7ZGADq2jxPv6cIsXPNmcQs90dTzAKSRqblmL1l3qwqllO031xDyFom
-	 UI6g/6jJzUXTdchHFZ7MgVtNHhA3NsfhHL1O0OyDEldbXyH6fARGusF3msJnJKgQNSg==
+	t=1792744980;
+	b=xY9k+7P2wp1vfKjThPTkC8UIyqqyEBu3ula3BTSGlAPurhK9cuFOjaPuCatJXnfZigYM
+	 FAkmrtMtWFB0FHLlz7SIn0Ga0NZXHGtnvWlJYIx8jdT/aqmmnpsrVG1x/AVhfz6m/bRFQ
+	 qlxWzg10qSTYB9PqAaB/eei3MV/P1pxW4V+crrRKKviP4WLd8t5wCrum8ne6WqYdusSiz
+	 9aAAbX8BgOIIZ9YsvkmixNlBeGmtkgWzRYN2CPakAPSbdYfQ0dX8Gxz9WM/d9PK2T/vrw
+	 J0mGwzGvJgJcvHCNR8xwCF/bN5FJ7x2IlZt/oaOWehLBPMZblzx2ZTHHXzVs05lFneQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744776;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=W3Z5Tvzpi5a5MXCtoI1CIoCbbR9cOaWJLkbc+o3VSIQ=;
-	b=rVmkothvnfC1f1pENsxicCBtUhYb/C3EDqTomggTIucAwWS6wOA0Ue6OLaeOdPONhaSS
-	 AqnaryAOq7B6vlKtMRvQhTaM5dEilN6dkAX5aY2VREkCNb+ZxnzzhFRNj/HY1LUY59vl6
-	 YUhurPR5tBKJKg2EGOAPEw0JYOzQeSwsYPb6wKcR0nZS2afWrB7vWHpXblQDrsZTZEWzy
-	 gPuTFMf9Fhy1VplX5jIZSknioIuk9pgKgLH+RIFycH07pmrimJmFZ5w200vWrfaHS+LHM
-	 GGsMbHdrq8HF7bx5R9f3YgDn2+MvY/2X8zx+PDZP9ptWO1nf1JtHOie2N7Hwr1SnNTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792744980;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9yd0hIlbkwq7u2rCedrmBS8yoEkO/MpIEVYX710z3cw=;
+	b=YG5AHlNjYW1r1HsYoSw7RJYUBH2Rtc71coIOhnkHJaMeM83cOY60aNbhxShSkJ1xWoc3
+	 g5ipKH3Ib3ntv25atqz7PNPkwnX2vKPZhUV/dGJ2rrN0fEEXe5QkEz98RAGRbv1tdQFp9
+	 YrVmdzdcxSLue02ruRRAbdAinFHXEQzHKYcEYUwHgwPcWwrk9yAEKtaF+OZ/AHGQZ+6Sr
+	 UPeSrnneIIqUM/ygzcQuGJ0KkgVDltHOli47P2BwaYElxPXouA6tZcgY3X0rOEC1OwWok
+	 fh2pFShQbwR/1zoWLf/H8TgGRuDKDNj3XFC9HFpewIq4fFeQGrpWuu3Q/4azEUSqoLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uiTnOqel;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFhunwRC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F079606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:39:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F079606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717FF606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:43:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uiTnOqel
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e011d370dso478608f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792744774; x=1793349574; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W3Z5Tvzpi5a5MXCtoI1CIoCbbR9cOaWJLkbc+o3VSIQ=;
-        b=uiTnOqelZyyN/1NxGsPC4/cPRJsNyrqy7xbq6uLpqQjD9pUH9HG5R5zcwiTae9gzDF
-         tURoob7t+4kP0O3Hu5yYrG9hu62Zbhbyxk+IP1RS2L9bmCT81dEvvEOa8BC7XK0RmD5U
-         aRSnvONDBaVOeKUd/j+wP9JvZ41MhnidNKITJkBHhcY58VCKheid3X72aZazOXMMOllP
-         iR7+qBKekdzMoJFxnDwYPusdFX1+COsP11bQnYR4gRyeWPWsoFt7xdqP2nDu66KpAJhw
-         y3y6yNxjcsaNsOkh1q+spNBOVqkikEnyCr28l7u7ITFDd6qDfJYOBnMgwaMLXgORm4GA
-         CAMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792744774; x=1793349574;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W3Z5Tvzpi5a5MXCtoI1CIoCbbR9cOaWJLkbc+o3VSIQ=;
-        b=1lcRM8KEal5ALn5F1OHSu7aQP2cVa/qGCZrzfQKnlyu74XQ3wpYHpmXlH2tTo9Zu55
-         8E0evAX/oku2XHXQFp8tnbYQFmW66oRIqITko7iFIgUBHvTXPICNt1Z9kdTh8Qvodmkh
-         3ZCptW4uqne58xSGVq2WBLeFBFKL4BB4sdRAZIlFUvnWusoVdSkHx255R/dHDb+YfIDO
-         jdPVm4A0LxfTCgbMrezez6cB9NPZjd++Rt/kdYrSHTAZF+EDA/LkCTwcDfq+5aLXYTtG
-         fInu0iEz7M90EA7caxCvYS9i2I+7IrYTmFdt31W+XnoXPblfimGU/DCCrC3I/+DZd+cf
-         Whtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKYqpBrddonJwzT65O1b901Lr/W2XyM8tn5RN4gLA9YmuX5wNHMIiNeeYm2Za3i0AKqJc636bAJNqjgr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImqzi7iY1Yvyyd3Fbj5WmT3BHocb7vjkTkJlmU+3CuWGtGSo1b
-	EwZuND/6c+4LzkI2iiYP6nwBwP08UC72sq3MQiFRi9W0nTi3pAMbELI1V1AoV1B8M8/7sfSxm4u
-	pi7+P
-X-Gm-Gg: AYBFou3hTORood8X2Va9HwcUCY8XpYXnVo1GUq1g+jz/O+Gj9Ek5A2YTeXVWmTkiKVX
-	T2bfFz6UsxAdFMTaMMvvUUIGc9YrVlBTKY8r+kw4f5/SP+HlHe6luZ+3Jpr3n300hoFY9L9UjPo
-	BhyYXvzQGqSPQwP6E3xgaUpLwkhz5lQluXiufMp/029fE0DkA7BL1jR6C5ziDESk14kU+V8Yai1
-	PgOBMhjxgSoPW3HgGr+MitBqHysBDJsqMCumOAgO/ubTkPvwDXvUrtpqjHfvBXX+8GlkRl+Jr0m
-	2sWnYMf71okPP4IiQRQFTU5+Xae2BoErOaVz0Qs1uirDrGYgNVEs1sFkgl0N4fNgT6ag9vz30+U
-	BsQF2tCP574txyQrtgqFwyRQxTr1f5rtbC7T1j2e6XsFurHJ8B2pcPGJ7vBf7stDjEXn9Co0XOJ
-	zY/GtCBbFcK2D0jRux5SO7UbhUCZIJgmUJLpe/jvMohT62MUAgOjG9utJpvBjF/ekR3GmXNIOHw
-	XPThXdzm1qDngdDIs1jJ7JAo+XXMiQakIJGvvP2zsKQsVRQbuLBX6TOZe2OqBLGFc9p
-X-Received: by 2002:a05:6000:2504:b0:489:bc38:9438 with SMTP id ffacd0b85a97d-48e385b1f93mr2404036f8f.29.1792744774282;
-        Fri, 23 Oct 2026 01:39:34 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.107.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e380489a4sm3429223f8f.36.2026.10.23.01.39.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 01:39:32 -0700 (PDT)
-Message-ID: <82ae48a7-cd42-4080-8360-4622f52e2e4e@linaro.org>
-Date: Fri, 23 Oct 2026 09:39:29 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFhunwRC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0112C1F01825
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792744980;
+	bh=9yd0hIlbkwq7u2rCedrmBS8yoEkO/MpIEVYX710z3cw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SFhunwRCPeNjHajAHrGwKTK+vWXqBVeI70uS8WvuKZUGHuEdgoq0VjungF5I056FN
+	 PtFK09qVsFMmzWJ+owHeha67SCHtzw1vqZiU6AVFD8qNtR5oXFKPhOjK7PwDvu1lfF
+	 GWpHYAyxd/Xr6Wk7iSKkYcU7ehKHf8qxKvHMN3jPEG5VtuPdxplDBU80YY/ELeEnhM
+	 9xvnyIzqdiL8r+Dra/DXAK5nIsY6IKw44mNVC5PpisS0Fx2w8Ek/SSA0fdHY57KO78
+	 9mkJQ/jF2Rct/Ug7Hvef82RTKCI6F+hZsdxMvmVDPu/ARZCP7lVVueDLFi4D6Guhdl
+	 Wsjf2HjGn9dXA==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso2983606a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:42:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByRH39UoG95rXInFT5KHy2NlzQFsP3xP0dKj2pseS/H1G0HhKndmmshdt53ux0fnhGn2ObZX42INcfqkMQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJinShXiMyHAOyWAlEbrF6MbkQyA/TpL9VYcHyFW+dlWIfJa/A6
+	imTo6HBpZW207dB6jGxsixKbjV9SaVxI4hUcLu2oqPMtNY5c3wJ0a3ulAFUtDHCt/UluVKlE6Li
+	5OQIY6D6G1eCm6mqD+yF/Txb1lmWqEUc=
+X-Received: by 2002:a05:6402:44c4:b0:6ae:16f5:5be9 with SMTP id
+ 4fb4d7f45d1cf-6b432bdd1demr2020030a12.7.1792744978643; Fri, 23 Oct 2026
+ 01:42:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,42 +59,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Amend Bryan O'Donoghue greybus email
-To: Johan Hovold <johan@kernel.org>
-Cc: bod@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
- greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261023022913.3763777-1-bod@kernel.org>
- <atsOnVI10aWoH2Ap@hovoldconsulting.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <atsOnVI10aWoH2Ap@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261016081006.26069-1-yangtiezhu@loongson.cn> <0b06e77e-540d-19d4-4d9f-de3db1f2c317@loongson.cn>
+In-Reply-To: <0b06e77e-540d-19d4-4d9f-de3db1f2c317@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Fri, 23 Oct 2026 16:42:46 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6oJw8UTcVcE8ac=CknwimtLb8+T=Q3AiW0W5U6CXVbuQ@mail.gmail.com>
+X-Gm-Features: AclHuK_qO55WwAvZjcbyIjA8eowTafVDidcNAulvaY2V0oX8OypdPdrB_m6PfXk
+Message-ID: <CAAhV-H6oJw8UTcVcE8ac=CknwimtLb8+T=Q3AiW0W5U6CXVbuQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] LoongArch: BPF: Refine move_imm() and optimize
+ 32-bit operations
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/10/2026 08:37, Johan Hovold wrote:
-> On Fri, Oct 23, 2026 at 03:29:13AM +0100, Bryan O'Donoghue wrote:
->> From: Bryan O'Donoghue <bod@kernel.org>
->>
->> Remove old email address and convert to current kernel.org address.
->>
->> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
->> ---
-> 
-> You sent this one twice, doesn't look like there were any changes beyond
-> the email headers, but let's go with the last one.
-> 
-> Best to add a [PATCH RESEND] or [PATCH v2] prefix with a short comment
-> or changelog explaining why so it's clear which patch should be picked
-> up.
-> 
-> Anyway:
-> 
-> Acked-by: Johan Hovold <johan@kernel.org>
+On Thu, Oct 22, 2026 at 3:44=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn=
+> wrote:
+>
+> On 2026/10/16 =E4=B8=8B=E5=8D=884:10, Tiezhu Yang wrote:
+> > v3:
+> >    -- Add a prerequisite patch to detect CPUCFG2_DIV32 feature.
+> >    -- Fix a hardware compatibility bug by checking cpu_has_div32
+> >       before emitting native 32-bit div/mod instructions.
+> >
+> > This version is based on v7.3-rc7 and has been tested on Loongson-3A600=
+0
+> > and Loongson-3A5000 physical machines.
+> >
+> > All of the testcases of test_bpf passed on Loongson-3A6000 (with DIV32)
+> > and Loongson-3A5000 (without DIV32), here are the test results:
+> >
+> > $ sudo modprobe test_bpf
+> > $ dmesg -t | grep Summary
+> > test_bpf: Summary: 1061 PASSED, 0 FAILED, [1049/1049 JIT'ed]
+> > test_bpf: test_tail_calls: Summary: 10 PASSED, 0 FAILED, [10/10 JIT'ed]
+> > test_bpf: test_skb_segment: Summary: 2 PASSED, 0 FAILED
+> >
+> > For the BPF selftests test_verifier and test_progs, there are no any
+> > regressions.
+> >
+> > Tiezhu Yang (3):
+> >    LoongArch: Add CPUCFG2 DIV32 feature detection
+> >    LoongArch: BPF: Clean up and decouple is32 parameter from move_imm()
+> >    LoongArch: BPF: Optimize 32-bit operations using native instructions
+>
+> Hi Huacai, Hengqi,
+>
+> A gentle ping on the last 2 patches of this series since patch 1
+> has been applied.
+>
+> There are no any reports from bot+bpf-ci and sashiko-bot,
+> and also "test_bpf" and "./test_progs -t jit_insns" tests passed.
+>
+> Just to clarify the testing status: the 3 failures mentioned in
+> the previous test report are entirely pre-existing on the clean
+> bpf-next tree and completely unrelated to this 32-bit optimization
+> series.
+>
+> The core ALU32/JMP32 paths introduced here have been fully verified
+> and passed without any regressions on both 3A6000 and 3A5000 physical
+> machines.
+>
+> Do you have any further comments or objections to patches 2 and 3?
+> If these look good to you, it would be great to have them merged to
+> avoid rebasing and resending these patches after this merge window.
+I hope Hengqi can take a look before applying.
 
-Obviously messed up --suppress-cc=all - I always test before I send
+Huacai
 
-meh
-
----
-bod
+>
+> Thanks,
+> Tiezhu
+>
