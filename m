@@ -1,92 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777453;
-	b=Ntid31T3FXKH2gV7wItE++SKT7cv4MRuBBJ7zwWi/H48Lz69anMtkjYHexijVApbPABX
-	 kJEqb3dwCVpPPA1oaxR4XGajZPXP98KSXphtnOuyHWnViqSjOF1dqrFJlwVkj7f5I8TJY
-	 Bf5AO6tSkQ/bPZKTzpHmAgcmO0mvONpI1IQny9P8EwMZsbHLoqDxC8uWXI4D2z5bI6hya
-	 kIkCS2gn4vnSU6Revg18tR6M2ooMej8C8PSkKDaRSp8kpvC0AcgUEnYx4Wt3QM1rc7KvC
-	 AlIGSWE58Nxsi96A0fEtDUhtbD0i9UOTH+D1+lUrGPWQy2zOvGMcF0UoHrUXL0PV33w==
+	t=1792777596;
+	b=1uCWgdvaRw9zUV6Cn3FetMKwfEH26H9dsp1AeZ6nNnGEmpFnwXcBynQ9lYBeYpryYUH/
+	 VJvSgutJqzCPwV25UyOuXP4ZblCIoqV45lR0xeoyaS7/jGy7ydAtb/iLR932pc5kW7LYF
+	 gUhTc3s7+C4rWq2vqdLQDSsjT4HXGpBfNBxweIzz75S5toZQ0/5AI13gr2uTQh1LY2qu0
+	 muF19uzDdP963nJhmWD9voC7A0ndrXSflV5PAFoyBmyjPZfzv1I870aEx5BpCmU7/aus7
+	 htD+Vu9bcZkgmK8sOCh4J3RNL+Zznir6gzmvZ03hgbVyJcH7PbkxevAa7WK3cNVyRzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777453;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XCaQUZ+tJnhpKJAC0eQ6UN66qdjvLcxnTkl8iqVn4yI=;
-	b=HbjEOg6yrnSLuXO8qPR0UsGkFmlj1DR9CUtPUOn7KL8iycJ9Y2nVyJUkAL9ZSIkRgZKW
-	 HkPOJoqLQ3IFIQ4Nr0qF2ciLZ8TIuLMhbFYdChiBasrMbmZHi1VG0oOhyGkhviPf2xnX9
-	 GC239RUBR5zh6v/Vzl3I+wl6wFX3pDenicTzIS1capGr3uqHwzKm4LACPCiUbjNaxwJxq
-	 9ipOJN+yY1dS6H0+Mjjt/4bmkF7J91qNAH9waZZp3MM4Sj1uOeWnxHRbEUX0LQTCndvB0
-	 wNEVZYqbrc/aoy7BWco8nWZ7lyXQxzgEiwJnp/ALDMA5mtZxUPsxUH4oyCCKS0UiZRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777596;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+	b=vWp5R0Su2G08jyxPLLXlLE+m1SGLLpBAMR2VxoeZsYcl8F52adpXvodwixXphCa8eAFH
+	 nNXTjSfxv1evVvml+pi1PVd6xBBCSIVzFbA8IpSqPdwoSU3f1hUKxauSHgTfYcWKth4Mo
+	 OPGecji77d4tq1RqQwp5KVuccpguB40L8SlEbuuz/zYq6qRytjhFwCG6S7rgkBxGYDWQ6
+	 XRDJwNmxUeYyY3bBfcKVZLngp9fMzzEpi8Xl/bPqz7+oH8aHjXgYc1umibSVtf+MS+0rh
+	 giuJsW3pRq70GtXUbyeIP6hhYCafYEIrQ/XdwVJbpyvTwQzIcMtNVdX1h/bTS2zK2Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="a/oTQx7F";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q;
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA44D606A328;
-	Fri, 23 Oct 2026 17:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA44D606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C42F606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C42F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=a/oTQx7F
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NGob4n2414191;
-	Fri, 23 Oct 2026 17:44:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=XCaQUZ+tJnhpKJAC0
-	eQ6UN66qdjvLcxnTkl8iqVn4yI=; b=a/oTQx7FsTm5/OducYxLjDcEviX+NkVY1
-	LkQ/XIkPD6B9GSkEm4b62ICgRBDVYO1cz3P25WOJMFVFs1C1YA+t2T5hIkNwFo+A
-	JRMwlgMV36UiH9tjcE5MXuM49Zhybo1DM2V852U/8RxbDlFOORW28t22XpE/0d9R
-	/YH9fT2I/BBua55djPdQPLunm37q1R6GGQnaC9UGbq+fJ2ztrjkcmf6rOckgK8lK
-	dS/ecsmMO6nRa4fpWbvNIubC0gYMfh+w0S9kXGs6uJKnR8zExikXc4ogDoawTu3D
-	RUXJiC3kUWY53bl1k4fLfIJCy+AgUfTAC0gCmlg3isWlc4iQEh+KQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw58nx4g-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 17:44:07 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69NEL7uN2203391;
-	Fri, 23 Oct 2026 17:44:07 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdgn6u5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 17:44:07 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69NHhIj519530300
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 23 Oct 2026 17:43:18 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10C2358054;
-	Fri, 23 Oct 2026 17:44:06 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 22F295805C;
-	Fri, 23 Oct 2026 17:44:04 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.48.60])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 23 Oct 2026 17:44:04 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com
-Subject: [PATCH v10 08/15] s390/vfio-ap: Transition device migration state from STOP to RESUMING
-Date: Fri, 23 Oct 2026 13:43:42 -0400
-Message-ID: <20261023174349.3545941-9-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023174349.3545941-1-akrowiak@linux.ibm.com>
-References: <20261023174349.3545941-1-akrowiak@linux.ibm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6f74f6b46abso564458eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:46:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1792777595; x=1793382395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+        b=YxiS9C1QOQiQj62KnEdVaa4HjaEBExW5bp5Ol+/YPk+f2I+3STcUEaRI1aixJFSIVQ
+         foZtdo93KcXjp+UKIWW7nmoC0ZCH4CyhqCW+I/QewtnJZBg1/bONh7uFQO3PyIDaFftP
+         Cul9W/M1VUsKfdYKyQllyYvirVbrAe3fb5DeI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792777595; x=1793382395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+        b=q0UBRBpg24s53Ge0J6b7RxdnJIfO8EOCo3TBt7uZmQnyPN6N52sJJSUYnvrL6zt+Rg
+         RJrqdaM1F1BpWI5n5Zi3R0Q11YtAW6s20p9djgBPa9a+pDo6Jtqwi/ihnCUHkFqYxwbo
+         8sl8Q7/t8qA0QrDw1EBp+CLC/Y5M7yE3Xwytf1zPrxT1+P8eIAUmpmG2L5VPFhMZH2TI
+         egEiTYqu51ekkkhhHadMfHCJBifstVOlys9M+pMJQndpGSc845e8HoVuDIg3D1VG467b
+         llveHtcIZnoQQo+6MUCFAz8/mWhCp1JBq5n0wjvw7zY4tSxq3tb2uZSUBWvzDDQ4ayWP
+         Mpkw==
+X-Gm-Message-State: AFq9FYLWIEqAS9Te8jjrQXSzGEeCh2HxvIilPfCkHQh40Q5l78rsTZ0e
+	xdaUpdKXDBQUfC5P0iL4KItPAvIJ97aB+BHMaJzXcMxQN/4G5jUW7+LDnxwctOysL1o=
+X-Gm-Gg: AYBFou23SqbTKNA7DAmR1r259G3McRUzVHS1jAlH+kwzbniNlAXNsB7QJT3++675htU
+	PotfJa0fWtl/VtmA7xhYYX9Ium8Z6XGKcm5KYTRIjSGXYM2Td5ziedd+LspDXcIavsEO7kTm3gl
+	UfUR4R41GyEIQA6pWdOEVPllXow7eUh4oJp8NfHEJRAOisDD+Z5MVcR0WFQ87rkQGX0C4DliAdt
+	onT2y843rKwQQa0H60T+tEGz69CYOlfgn5iFGUTK2FEL6Zkua88MghfpDo0fzbhY2Pbnh3bSxW7
+	M82UJdztLuZEcUFTOv6U4S3jJdf0rfdRgG9w6cm44t9qv/JSSAl9+564bR0lvhZxZsgmoRRzrzo
+	Cv3aOYpqW4Nnrzf3k6JZGmQcYdWrnyGiJiq0Cxdshbk2QyHJpv8tORbtQ0D0BmClERygVvjUP2O
+	pclbG19jRsfr2Myr2e9lmncimHXPgC8y5r+DWq+FN/ikL9ZOQux4JCECuFirleCrtQzS/057g5Y
+	zerR+slxKZdpZuklAGw6XjKryToPgOZPsp3QdJoJHMvPmaNgxVz1lCq2wLjbEf5T0jZ0hW0zPJE
+	+Tfc50SJKkmNDEztQ+AMHNlpisiccRO1jc4Quhekn/m8ZexWWrDnclnZvw==
+X-Received: by 2002:a05:6820:2215:b0:70b:980e:454 with SMTP id 006d021491bc7-70b980e054bmr960802eaf.6.1792777595042;
+        Fri, 23 Oct 2026 10:46:35 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.5])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9aec6172sm565349eaf.11.2026.10.23.10.46.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 23 Oct 2026 10:46:34 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Reject incomplete event filter expressions
+Date: Fri, 23 Oct 2026 10:46:20 -0700
+Message-ID: <20261023174620.91969-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,108 +94,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2OSBTYWx0ZWRfX/q/ywoR1Q1nD
- jCE29dYk7vIP97n/khACh0jARil7j06YwbEhb1rKH6XSjRQZB5I5YO0b1HTz8xg5EhhibZb1Jyv
- VYf3Du1no9uMW8sSqtB5fPrm9C4b/aM=
-X-Proofpoint-GUID: bE5rCYETtCxUxeKKX_PGY5QuVnW8JQRJ
-X-Proofpoint-ORIG-GUID: bE5rCYETtCxUxeKKX_PGY5QuVnW8JQRJ
-X-Authority-Analysis: v=2.4 cv=UOBIjyfy c=1 sm=1 tr=0 ts=6adb9ce8 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=dFtAHy0WI_kTpcb5h7MA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2OSBTYWx0ZWRfX3WuA5IqRooKt
- /cXZRV8KIqPQ4Zf+7XT383OC5NoT99dAiH7ieHXprHUh59tPLk83l6E+9MdHsQesYRypNZCM4nc
- CYMZqB5hj11O6wNtwHnoIy/j0+TmbnJCAX58hWnZuyg1f84vVpjhQGjTcqkW1+v37k+hFuh+gFO
- rgM6KaWWcUQpw8dNHUVWAAvvQVuS+AUgjiBckrLV+NFANZFyKYvXR/jEjDR4i73pdRCz2+/sgKN
- iYI3sj1wHPFTK/yiTHdN/d+72YfD6wIcSoZtG5m3S/AABCqDy1wAycocnvxOB7r7y+B5WBKO9MF
- IpWqURMNZR2IKaVcxZNzRgBCSYnd311t3JyjB8cQ6xuE54TC6fZY4Jl8IgYKCL6MFeXGp9lPCXF
- vYjSaKspAFe/AAecQh8TaCKzwZZpvoxRgsg8lBVQDAFo/nMIhO+06+vsSK1YZ/pXeFWA6zPMrbq
- izT9jO8Ff30rfBi2VEQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230069
 
-Transitioning from VFIO_DEVICE_STATE_STOP to VFIO_DEVICE_STATE_RESUMING
-starts a process of restoring the device state of the vfio device on the
-target system. To prepare for restoring the device state, open a file
-stream to receive the guest's AP configuration saved when the device state
-on the source system transitioned from VFIO_DEVICE_STATE_STOP to
-VFIO_DEVICE_STATE_STOP_COPY.
+A non-empty expression normally finishes in predicate_parse()'s inner
+loop, which resolves the pending logical operators before jumping to
+finalization. If the input ends after an operator, possibly followed by
+unary '!' tokens, the outer loop instead falls through with unresolved
+operator state.
 
-Note:
-This commit introduces the file operations structure for migration state
-files with a stub implementation of the write operation. The complete
-implementation is provided in the subsequent commit.
+For example, "common_pid == 1 || common_pid == 2 &&" leaves
+prog[0].target equal to -1. The second pass then reads prog[-1] before
+the forward-jump check can reject it. Depending on adjacent slab
+contents, it can also copy an out-of-bounds word into a branch target
+that passes the forward-only check. A self-targeted perf tracepoint
+counting event can reach this path through PERF_EVENT_IOC_SET_FILTER.
 
-This incremental approach allows for easier review of the migration
-infrastructure setup separate from the actual implementation logic.
+Reject the outer-loop fallthrough when a predicate has already been
+parsed. This ensures that non-empty expressions only reach finalization
+after the inner loop has resolved their operators. Keep the existing
+no-filter error for input that has no predicates. Add a regression test
+for trailing logical operators and unary negations.
 
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
+Fixes: 80765597bc587 ("tracing: Rewrite filter logic to be simpler and faster")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- drivers/s390/crypto/vfio_ap_migration.c | 34 +++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ kernel/trace/trace_events_filter.c            |  6 +++++
+ .../test.d/filter/event-filter-incomplete.tc  | 24 +++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
 
-diff --git a/drivers/s390/crypto/vfio_ap_migration.c b/drivers/s390/crypto/vfio_ap_migration.c
-index f9b00fb89410..9ed657c7302e 100644
---- a/drivers/s390/crypto/vfio_ap_migration.c
-+++ b/drivers/s390/crypto/vfio_ap_migration.c
-@@ -451,6 +451,26 @@ static struct file *vfio_ap_open_file_stream(struct ap_matrix_mdev *matrix_mdev,
- 	return filp;
- }
- 
-+static ssize_t vfio_ap_resuming_write(struct file *filp, const char __user *buf,
-+				      size_t len, loff_t *pos)
-+{
-+	/* TODO */
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct file_operations vfio_ap_resume_fops = {
-+	.owner = THIS_MODULE,
-+	.write = vfio_ap_resuming_write,
-+	.release = vfio_ap_release_mig_file,
-+};
-+
-+static struct file *vfio_ap_resuming_init(struct ap_matrix_mdev *matrix_mdev)
-+{
-+	lockdep_assert_held(&matrix_dev->mdevs_lock);
-+
-+	return vfio_ap_open_file_stream(matrix_mdev, &vfio_ap_resume_fops, O_WRONLY);
-+}
-+
- static struct file *
- vfio_ap_transition_to_state(struct ap_matrix_mdev *matrix_mdev,
- 			    enum vfio_device_mig_state new_state)
-@@ -482,10 +502,20 @@ vfio_ap_transition_to_state(struct ap_matrix_mdev *matrix_mdev,
- 		return filp;
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..405651be9c93 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -596,6 +596,12 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
+ 			top--;					/* #12 */
+ 		}
  	}
- 
-+	/*
-+	 * Begins the process of restoring the vfio device state by creating and
-+	 * returning a streaming data_fd to be used to read in the internal
-+	 * state of the vfio-ap device on the destination host.
-+	 */
- 	if (cur_state == VFIO_DEVICE_STATE_STOP &&
- 	    new_state == VFIO_DEVICE_STATE_RESUMING) {
--		/* TODO */
--		return ERR_PTR(-EOPNOTSUPP);
-+		struct file *filp = vfio_ap_resuming_init(matrix_mdev);
++	/* Only the inner loop can complete a non-empty expression. */
++	if (N) {
++		ret = -EINVAL;
++		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
++		goto out_free;
++	}
+  out:
+ 	if (top != op_stack) {
+ 		/* Too many '(' */
+diff --git a/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+new file mode 100644
+index 000000000000..cc6df762845f
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+@@ -0,0 +1,24 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: event filter - reject incomplete logical expressions
++# requires: events/sched/sched_switch/filter
++# flags: instance
 +
-+		if (IS_ERR(filp))
-+			return ERR_CAST(filp);
++filter=events/sched/sched_switch/filter
 +
-+		mig_data->resuming_mig_file.filp = filp;
-+		return filp;
- 	}
- 
- 	if ((cur_state == VFIO_DEVICE_STATE_RESUMING &&
--- 
-2.53.0
++for base in \
++    'common_pid == 1' \
++    'common_pid == 1 || common_pid == 2' \
++    'common_pid == 1 && common_pid == 2' \
++    '!(common_pid == 1 || common_pid == 2)'
++do
++    printf '%s' "$base" > "$filter"
++    for tail in '&&' '||' '&& !' '|| !' '&& !! ' '|| !! '; do
++        if printf '%s' "$base $tail" > "$filter" 2>/dev/null; then
++            echo "Accepted incomplete filter: $base $tail"
++            exit_fail
++        fi
++    done
++done
++
++echo 0 > "$filter"
 
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
