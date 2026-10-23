@@ -1,112 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792733258;
-	b=hc5b/DJZz/p7qsaK4M1g5Uv68BBCERt9MWsB1IFrqUFvU4f14c6SQJaxLDGljXsiwzLt
-	 CIMtK8gCyuKlnx7ZEkHPuo0mCkDSTESXdWWRzTxktT/aMOKY4SydWQlNSWdT4+IoFYxuD
-	 vtOE4GdoUwhUmqrLiU6vVidtvtkLq94amc6weNwTBSa68h7W6tGlLztCtrvF/wjNRImPE
-	 zybyWDgw6vKLQxfSuETravXeC2EPM8eY7Mr5SjqUHHt9QXRXixgt+grOT5BqVfOWNyRGS
-	 SRHfcbDrD8br3HSdwPA21DvwTHpvsIvR+sN5byD/LtBNyp7JY62Pzo8bEOB8pGm9aQA==
+	t=1792733414;
+	b=CkzAtljY45Dwfj+DOSwv9xxiTYMlOaCUgcO8mBRUz4tucogIS8kG3+3JXDgXS8WQuv+x
+	 g2VgZmivo7M8nVFIABU3hLUrwrVg31wh6H+zNSSOyOvfFf6HJ+1u0351mEMO5In7krm7U
+	 G9wBS6/0GRALbcRqPlWxxE488FFqtMLY3ZX2IglwEnwynd6o6rnnnRMV1Mdv901KISlQv
+	 wTNzL82L+cSk8oI6FPxbpKNBM1+4jcTyTpoLSZecMB3kYqmug+HCM5AcWIREzVuCyLjP7
+	 yZ1+fgy9ch0t/nUfNcqkRyJvHgyk/c2G27WcqrVoT4WhVkdKmhkVThvAVQUdA4EPPRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792733258;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IMwZb/VFaN95E89jP9ukm1SSK05tIJqySoFJB1gotfQ=;
-	b=1oioiy3rzg6VPWPwpC5P5/SDe6SVNxAArZYzhg3FkN6ntXjjUtNmEJB2lq1Hhx/ST2SI
-	 p6+DPlHnuEW5u2dekbuJI/frK6wzPUmE83RZs4n/KiefaHFA8vsA+smarchB03FFGAVXc
-	 yOZMJp1ZPwsMbZxwpnPIp/M+1/WR9cJniOoa29PfH+uuo20nXlfCCrgNI1BrLmkcL3ngF
-	 k2LIfMpWxtFW7D4p0eR8SQEkztQ0KASwctuqmYEJSYGw1+JDZYtsXqz3BMQ3HAmAW/oZ5
-	 wPYrTi23lcV1JT0WBWIaIb5JctL79fpbPYrq9Q1kwQAVRAUV+s7O9CTrcXUFUDR0EAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792733414;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=TQDIQpzHb58nAG54hsnGaeLsZebKKo1ep1+3YouILiY=;
+	b=mBAMspHyFxhN5Y669Dv3SYIPaAXzp4GQTAO0VslHsfYydX6jK4IjzeJ9OuSw2IoKvbz2
+	 c8GQT/PszaP4k/S4IKRyjFDEzeYn8LUrwml2uGic1dPMLqXWA5lgQTcHLV6CPcOD1E7Zw
+	 I1VIy9FlYqTq6E5PCSVFgzYCadP2BJBm1rpizaKHjYssuCKn1o+uUeXSRal4bdzap+MpB
+	 vftToryehxNyD6F52fNy76uYn64r1d5O3YuY26D70CSDOhpAkESuVk0Ca+u0RIQoQAyvl
+	 nTaBdpwS1IdsLuffDo+Dtubmvae7EP2P0JzCBalSgsl7WM0JW+R89ZHREf5cA/1R7mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=P8O01mz6;
-	arc=none smtp.remote-ip=185.125.188.123
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RbFy2B73;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E24606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:27:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8E24606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453C0606A31D;
+	Fri, 23 Oct 2026 05:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453C0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=P8O01mz6
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8788340132
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:27:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792733256;
-	bh=IMwZb/VFaN95E89jP9ukm1SSK05tIJqySoFJB1gotfQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=P8O01mz6SO9B4BmONAdGWQqB1auURsK/bdp1Vo4IPl5at9Gh3c6XNnH7r5EzmmidK
-	 46wMLeVg7bFfofbGPFk34BDtwi79L7D8T+pBviSUplZPwtVH/ALpqGENSeybb/6ucs
-	 7Gn5biUDw0fp0sTtjY8JtUNKNYNytI3cgOWAxJqGpZVHSrFXiN7FQlRDTgXJpxWJxe
-	 2M35YE7ViMaTfs2bPlKKlU5TfgU9P/0iJ1gOQ2qnbjo5qeYjl6rP+1IvbKrCnq4vHu
-	 ime9ci7BzR3yxPF15fQDyah9PAccPnDiAH0ULV6a8Xqr5vfUsBSuq2QZ2BlR8vbnb0
-	 MA4iFucwFpDCQZjkNP3B6hNnz0xi/IReu47jCYPvuvtexbVr1r39ubXnKyZa+kOAwa
-	 00W3WXoCUrjeO4WfgHUg4emQuBOUVSkFrXRur0w5zZzix4QM9GHMDTPTjCb+pn7TVX
-	 dY0koDcG6mDa7j2LBPyvHiEltn4iY29bue6MIRk4DsTXUcu/7Yht92guvmYyTLe3FI
-	 +l2BvVa+Kx195L2VAFuflqMgXVwMwusWdEmuKDGZdgp/wgY6G9lREgzG1kenD9pbLt
-	 mvGDxGcb8oVZ/R5wS8uUi7HkD5rPfoss7oyHWahQ4tjTBUqV1lK4dOd1Ps1xx5d3AL
-	 TKhe4DWS26YmYirKss2RxukQ=
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-339628f2bbaso70937eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:27:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792733255; x=1793338055;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IMwZb/VFaN95E89jP9ukm1SSK05tIJqySoFJB1gotfQ=;
-        b=duel3iVDDYlIjR2regVtiBwChLUTslwiF2KHYC0ufMhStUHjoEXDIxJXpM7/lUdW4m
-         xObtg/2pSHdn/JfHtzCJWl4Q+CeXyGd24HIKfxstlIxMFyMPULCjgld2pBeGIZaVEXvw
-         byqwQHH94gIHjcAI8zhiagyBOoRRGKDVtT0mIL8TAZSsv0t/OD3sX98qEoYILO9BY3YF
-         ICi2TXghoJovBv/jolAIDsbbAV36NIWjdNKaoE2qYHJiSpzU4LlPxxF2fyXQ8rMdWn59
-         MZK0wlCgah7yZOKRWzl+VkY9AWuG/GifECljKkkx/gXC9rRI5hUQCgxzA4rSNeDWidkB
-         ltaQ==
-X-Gm-Message-State: AFq9FYKbM+xN4AvCYrkcyORiranWFFdHLIn0E118AT09zUQfzs6D6OXW
-	wJ86ebDyjjrz0/Gu9Ph1D5/o/YtlbCL+ckjJt69cQKouB4dMpon08QDoAKvgOOeLJyu8AKjPcpE
-	ApxJAhf/MGVtvh0f2B+l4igRE02vMyigtPvx+3xO8f4fAo4VM6w5W6mWntqHXTvvgZDlnyWv5HA
-	kxvXisyQ==
-X-Gm-Gg: AYBFou3x+ewl5tIhuvi8Tx+SBnAAzIDU/PbgBEbXv5V6E4HV9ZpDDl4FM65i+qRnYM9
-	jT0J0fE3sheF6lRpDMzAynRvQqx53E1rEMGd3roRUI9ju1kPm2bNM60PV2l23MLJUcPtfcyV2Ai
-	CnYDtkxmpc32CpluTfrfxNRoEzZBLncQ4P0/fCyFRwscP1Nj7Fv0zfspVoYDQJ5Cr9IQX/eteQz
-	J8890PTiItnGAxZnmeMug9eTSM8OANx2D7+u2A/N/1BcEX5rDUawLKFPX+W1SZJ5sHmwnHiu7+g
-	hB2/GefymuQGxwUzR+kjMcI0pgQhQQfUAAbO3hAD+vvYlssdrjtggMDq5c5INSGBLmIy8CaSXxH
-	G5sGGorHjdgcyFjgdxUqx9U9EtYc4UUD+syTMN9a8bdAcUapssqjzA3m9dY69ZdNCGhj2y2hWP0
-	LnLq7mTD68V6Ni+YB5v1T20e3tIX82uYTPZSLQCYigZRJY1Gvsj7J56SnoXCHJpfHdefHJAjVgz
-	nx1KnKRUVISb+t0B4Y21+iMyeFcXEY7e/HKvjjqdhI=
-X-Received: by 2002:a05:693c:87d1:10b0:367:2bed:e7a5 with SMTP id 5a478bee46e88-369d978c94dmr2892488eec.2.1792733254843;
-        Thu, 22 Oct 2026 22:27:34 -0700 (PDT)
-X-Received: by 2002:a05:693c:87d1:10b0:367:2bed:e7a5 with SMTP id 5a478bee46e88-369d978c94dmr2892448eec.2.1792733254322;
-        Thu, 22 Oct 2026 22:27:34 -0700 (PDT)
-Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-b47a-213f-cf99-45b4.dynamic-ip6.hinet.net. [2001:b011:2008:445c:b47a:213f:cf99:45b4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9e1a085sm3590098eec.29.2026.10.22.22.27.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 22:27:33 -0700 (PDT)
-From: ChunAn Wu <an.wu@canonical.com>
-To: linux-serial@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	markus.probst@posteo.de,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	mpearson-lenovo@squebb.ca,
-	derekjohn.clark@gmail.com
-Subject: [PATCH v3 3/3] platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger: Bind through normal serdev matching
-Date: Fri, 23 Oct 2026 13:27:17 +0800
-Message-Id: <20261023052717.2577234-4-an.wu@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261023052717.2577234-1-an.wu@canonical.com>
-References: <20261023052717.2577234-1-an.wu@canonical.com>
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RbFy2B73
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1792733404;
+	bh=TQDIQpzHb58nAG54hsnGaeLsZebKKo1ep1+3YouILiY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RbFy2B73JbdoEwfaZWhw72GGEJ3S18LQVSnu9FB2tp1F62GzNCSAOofV6+ci8j/Qr
+	 NTYVIp1W/oSlHcqIpvTGpB3P/t0t0A09IlS1viMM4Mm6czL5gHH9bx4m1QqVQ8wC7F
+	 IzPS02S41/QbiwcDyvOPp6AvSa2KUzSIbE9pOo9bG2AsdWi2lakCY1Ys73g5AND+XT
+	 yGPPp0XOqjHlK89VohWNdpL155tzNh4xKK69MIdZo6GxV7XGp2AbbxhnYxsrUGuDXO
+	 3I1q7aT8mkBYV5hED70/dnKARVm3ekeqWzmRG4UJQJITTHNMQApkJ1lowql7kF/44L
+	 i8ZDdGnYoSVnw==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4DFF76C53B;
+	Fri, 23 Oct 2026 13:29:56 +0800 (AWST)
+Message-ID: <b4bb2f36bde9df1e052a70076fb70118cf3c607c.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v4 2/4] soc: aspeed: Move UART routing driver to
+ drivers/uart-routing
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Joel Stanley
+	 <joel@jms.id.au>, Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft
+	 <osk@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Jani Nikula
+ <jani.nikula@intel.com>,  Vitaly Lubart <lubvital@gmail.com>, Hanjun Guo
+ <guohanjun@huawei.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Breno Leitao <leitao@debian.org>,  Philipp Zabel
+ <p.zabel@pengutronix.de>, James Morse <james.morse@arm.com>, Paolo Abeni
+ <pabeni@redhat.com>,  Stephen Hemminger <stephen@networkplumber.org>, Dave
+ Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,  Jonathan
+ Cameron	 <jic23@kernel.org>, Dan Williams <djbw@kernel.org>, Mukesh Rathor	
+ <mrathor@linux.microsoft.com>, Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Alexandra Winter <wintera@linux.ibm.com>, Julian Braha
+ <julianbraha@gmail.com>, Karthikeyan KS	 <karthiproffesional@gmail.com>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, 	openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org
+Date: Fri, 23 Oct 2026 15:59:55 +1030
+In-Reply-To: <20261019100643.49099-3-changhuang.liang@starfivetech.com>
+References: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
+	 <20261019100643.49099-3-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,94 +87,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The software-node-backed serdev client cannot be matched through ACPI or
-device tree and is force-attached to its driver.
+On Mon, 2026-10-19 at 03:06 -0700, Changhuang Liang wrote:
+> The Aspeed UART routing driver is not really a SoC driver: it only
+> exposes a serial crossbar through sysfs, and the same hardware block
+> exists on SoCs from other vendors. Move it to drivers/uart-routing/ and
+> convert it to the common framework living there.
+>=20
+> The register layout description, that is the list of selectors with
+> their register offset, bit position, field mask and routing targets, is
+> kept as it is; only the surrounding sysfs plumbing is dropped in favour
+> of the framework. The per selector option lists become separate arrays
+> because the framework refers to them by pointer instead of embedding
+> them in the selector.
+>=20
+> The Kconfig symbol and the platform driver name are unchanged, so the
+> sysfs paths documented in
+> Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing stay valid
+> and existing configurations keep working.
+>=20
+> Also update MAINTAINERS to add entries for aspeed-uart-routing.c
+> based on the file authors, as the file currently lacks maintainers.
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +
+> =C2=A0drivers/soc/aspeed/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 -
+> =C2=A0drivers/soc/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/soc/aspeed/aspeed-uart-routing.c=C2=A0=C2=A0 | 601 --------=
+-------------
+> =C2=A0drivers/uart-routing/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 16 +
+> =C2=A0drivers/uart-routing/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0drivers/uart-routing/aspeed-uart-routing.c | 415 ++++++++++++++
+> =C2=A07 files changed, 443 insertions(+), 612 deletions(-)
+> =C2=A0delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+> =C2=A0create mode 100644 drivers/uart-routing/aspeed-uart-routing.c
+>=20
 
-Set the modalias of the client before adding it and give the serdev
-driver a matching id_table, so that the serdev core binds the two
-through normal matching. Deferred probing is then handled by the driver
-core, so the -EAGAIN translation is no longer needed.
+I'm certainly in favour of moving code out of drivers/soc/aspeed, and
+having a small subsystem to handle this is fine, but it's not clear
+what happened to the direction of doing this by designing a user ABI
+for pinctrl?
 
-A failing serdev probe no longer propagates out of the platform probe;
-as for any other bus, the client is simply left unbound.
+https://lore.kernel.org/all/CAD++jLm7hQnCHACsZH0LVnXuCJm0dZ6Bq0hAyOTvVomy6W=
+VRug@mail.gmail.com/
 
-Signed-off-by: ChunAn Wu <an.wu@canonical.com>
----
-Changes in v3:
-- Use serdev_device_set_modalias() instead of ::name; add an id_table
-  to the serdev driver
+Existing code would need to be converted, but motivating that with the
+JHB100 support would seem sensible?
 
-Changes in v2:
-- New in v2
-
- .../lenovo/yoga-tab2-pro-1380-fastcharger.c   | 27 +++++++++----------
- 1 file changed, 12 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-index 8551ab4d2c7d..31780c4aebe0 100644
---- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-+++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-@@ -219,11 +219,17 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
- 	return 0;
- }
- 
-+static const struct serdev_device_id yt2_1380_fc_serdev_id_table[] = {
-+	{ KBUILD_MODNAME },
-+	{ }
-+};
-+
- static struct serdev_device_driver yt2_1380_fc_serdev_driver = {
- 	.probe = yt2_1380_fc_serdev_probe,
- 	.driver = {
- 		.name = KBUILD_MODNAME,
- 	},
-+	.id_table = yt2_1380_fc_serdev_id_table,
- };
- 
- static const struct pinctrl_map yt2_1380_fc_pinctrl_map[] = {
-@@ -260,25 +266,14 @@ static int yt2_1380_fc_pdev_probe(struct platform_device *pdev)
- 	/* The fwnode is a managed node, so it will be auto-put on serdev_device_put() */
- 	fwnode_handle_get(dev_fwnode(&serdev->dev));
- 
-+	serdev_device_set_modalias(serdev, KBUILD_MODNAME);
-+
- 	ret = serdev_device_add(serdev);
- 	if (ret) {
- 		serdev_device_put(serdev);
- 		return dev_err_probe(&pdev->dev, ret, "adding serdev\n");
- 	}
- 
--	/*
--	 * serdev device <-> driver matching relies on OF or ACPI matches and
--	 * neither is available here, manually bind the driver.
--	 */
--	ret = device_driver_attach(&yt2_1380_fc_serdev_driver.driver, &serdev->dev);
--	if (ret) {
--		/* device_driver_attach() maps EPROBE_DEFER to EAGAIN, map it back */
--		serdev_device_remove(serdev);
--		return dev_err_probe(&pdev->dev,
--				     (ret == -EAGAIN) ? -EPROBE_DEFER : ret,
--				     "attaching serdev driver\n");
--	}
--
- 	/* So that yt2_1380_fc_pdev_remove() can remove the serdev */
- 	platform_set_drvdata(pdev, serdev);
- 	return 0;
-@@ -305,8 +300,10 @@ static int __init yt2_1380_fc_module_init(void)
- 	int ret;
- 
- 	/*
--	 * serdev driver MUST be registered first because pdev driver calls
--	 * device_driver_attach() on the serdev, serdev-driver pair.
-+	 * Register the serdev driver first, so that the serdev device which
-+	 * the pdev driver's probe() adds is matched as soon as it is added.
-+	 * Registering it afterwards would work as well, since driver_register()
-+	 * also walks the devices which are already on the bus.
- 	 */
- 	ret = serdev_device_driver_register(&yt2_1380_fc_serdev_driver);
- 	if (ret)
--- 
-2.34.1
-
+Andrew
