@@ -1,112 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743243;
-	b=cOijZ8lK54jueINhANcWL6ZB5HIsd7KLJ+PU/xX3zlJwN+0JKMrhDRSE8u/yrynwraSC
-	 8jHU8XFOk5e0xGSfal0nh/sttqwTznB9TsUAb8mB5POaOAnM3Yf2v6PuRJDMbyEhCPRaD
-	 BKqG1pPstdEKLmX0rj4El6+t6qG8x0Nf6T5I5IxwsHZsjonutbPwQwCQBUr0g0/x01idh
-	 81f8JGB7mXJyYDoqHEkAAKotMpRweXVbQcb+MGlY+pRoO8KabWndFsDmGX86Ca9eJgk83
-	 TSTi6GWMx/7M7FBdTezCcLOxBEhb+Yj2hXiuGYapQEQRxmy++DpUE90sEmjoOcFM93w==
+	t=1792743294;
+	b=PWYjeiNc7TwQgB3JknaGlhgcSdLoxafMgn9ZQkTlc2u3/4Sg0SzICgkb9xlaBxj0noBp
+	 dr8sjTwmQOeMY1Op8Kk3PnmMJntNRfg54s7+HWaH8mzz7S4qivnQkcNIPBX1QjiS3Jf8C
+	 J0lMHkHCwtXuyyhzB4FFIz2aV6FVJic0dBRGUFm4P98hfJR/EOqqmcGvuQS6J1tEudhOH
+	 w+LrsmWHmpJkEb1G3PwJY6gp2KF8XVlnXg8h9zB3kUSdNoEV7JvP2dXKu3GqDSlmdew5D
+	 nDlH/Z/aVOpskt/8727lmR7wvzUT8Iu/Cjj71s9yvlrkBRSq/CeKMjb5RK7jfxckxFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743243;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=;
-	b=Bl+IUQ+7x6g9Wym9re1PaNfD3hjHS5Znv+gSbfNs2mF8THhxWH+d2ijuJu25UocOhG8g
-	 qhBj19S2pYpQzdUdnetKVv9YEEpeBVYa90/BtrhzUWNhW+y+EcF+RyE7hgzrTY5XHATNn
-	 LCzeplSMIyjy5IFuP/wdH0VDsCi2GRrzrHQSDesICpt0+jG+D5TvRMaU+SAz4El0BXYdm
-	 JFGuYxRlsHxq1hoXuprtwRF+DczBtnmwNd/hykBIGVkHDVyElyBWDkCuQHQWRDHCr3aqw
-	 yzucrZ4C35Jg8WPw+yDBK988nbOndAcp3OIuFYpDCc/DSHbjVg4hDPEsZ8ELJUoIj5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743294;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=peBrLxQYphAWA0aed033QDkUYmfTpLADSsSaf6bnm8w=;
+	b=XcTcSs00E3EhK54waS3bF87oR5uVvqJjeiXch5ADpTLRNaPY3rHRp7dW9VGFZBKlJZNk
+	 67mAcwFleUEF1sZUUGvA0Asb8H5BanefTCMO7qnyOVMLNfYA9VtN0MP1UIW+Y75RRkIFh
+	 WcyrrivbntaW2GzFjZiWDTxBTdYvWQKXidOedDZunS5bjZhlO5aMZ3p1SKyp8t0fHf3vX
+	 gFtohZhiEjUsj2h7kK2ZPfSeFMqEcEHwRvNtYXra+y5u0MdYp0FDF6+HEPQNlNwcg9FW3
+	 rKdv1V0DAy91nHgZXZgbaGETflIckUgm1MIdx59ZseBGeUY1K0U2YKCZNZixyCNk06Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kJQsA8Fs;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0FuaQ0p;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShGrRr2i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E6960A2600
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:14:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E6960A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87329606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:14:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kJQsA8Fs;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0FuaQ0p
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FDKt1767187
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:14:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=; b=kJQsA8FsdDYDXY6i
-	a7Kj2LAxWDzNHdXqTYI8OUen0oHwtkYY49xBoELPc7nsS3cmskLKwlLSQuMI1Sfz
-	PQ8/BdIr+lSMLozM6PymdpD5dU3HjuHwh4a5XIRnCtneyZgq9dsjQ5LKU9PZL3gG
-	lefv5o5fY+/kjDHBCB2iMrXOQpZpJRVbfwokoURV/idtOFD0KAO6VLk0sZsUCrsU
-	5tneIsou6i0pqjtKPcEW8Ajev5nljBoxbIg9OCcyzjB1wSvh7gkwUVCBr5gQ8H54
-	yDjCWahkVkHcW4MKPCMPHpVtBndx3L+ZDbwKERK5HP+7uOTs/CY8sT858z7Pr4Ip
-	NTGnzg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfpahu3y7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:14:01 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad704d4760so663414a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:14:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792743240; x=1793348040; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=;
-        b=S0FuaQ0pkI6VjzKMlizG3ZnUjauVgPirRVozKYI0Yh9BFgO71UCTRUU3zG13O1d/Xn
-         4P0IGe0lD5Sf4jGJftoAKmu4zT0YMvEneKlojMLzTlF4sWMOSrdxBXUp7Hb5S0IhjEjq
-         BYKn0dYhhf9PI5oC6L7/G+pTuA08lMma2QYXVQCQeYIJpuHMsNzgoi81eVs35MSSq1rf
-         6P7anoX6Azgf1wZazuZn5+gscmu6hm+PZiSEA1lcXyb8pN8+KQgWNGrNDjig6PErBBCt
-         nlHirsSmaoi5fFF6L/gw5jSAmbt6nDT/4WevzbxIeCqdqSrJTaj4FrNn/d2cQ9wvx3fT
-         COqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743240; x=1793348040;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=;
-        b=SKMGqwOhDW6Tz+P6mJffd9laxR+OKE9NJKuyrIFU5Z058nNM0NLt7xpb8deq/GClaY
-         kSXAyEC0Ujin+kMJBpKvP+DJ81OTuclSymuSEaJ1ogzienVkr47507MOV2RS1/2ymd+y
-         dMNTdVc+k/RrOFUH5MJUF+X6c0li3CcjIcrreGDU0/42bid5BtjseSOZItGjMra0qPd+
-         Sy9xoOBpKprupLGs2SWAa5Dk9r8R3PpjkBKfxTok+3Xo3dkkdJg15eQF2eME4SgoDaUZ
-         PWG3698Y+sRggTxDXsXK/u34Kn9Jqjpv0wBEMz1fPFKAwpK1TtLTaI9ANb1TBj957G7v
-         r8Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDXAZ4IJJ6cKxyoaCePFkGaAI6h0RSEr9vdTbfrTirm3ujyHwN0bhXYw5VlZ30n8L7mZxcehjrS0Gn73c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkcAJgOaEJlZuMbCiClgibKUV3S8sPSNlGsF0apATLLV7oJU1i
-	GfOCzqkmOtfMsF4sWa4PqZn6bSxP4a613Jz1DuAkBQL8Nq/XHbBpfZ8CHPdTfY0VFs8xrsDh3I6
-	8L84qSN69BoGHs7QlNzJo2vh3K/HoR+rbECSt/6YBRVjLR0fGSEdo827v+5C3juGYngw=
-X-Gm-Gg: AYBFou2XLLczNfHr39uqgnsUbmg/rrUTTJ5dBz16Un9TY1BvZV+oCnYLXjQ1sZ6MR1t
-	YrUgp1N6X7epDurLQ08FurXGxOe7wz+Ft71IUlwus/YdCbERhFyhS2krA2Ce89xy/ziQCH1AEn9
-	WHE05Ciah7pRkY6WIwzJXnJ3XOk6N/DC11VJoDUhNcHFKtv8e5YUhZpduZTZXPz7AwmMFeR/Zjw
-	AsOuQRIpux2HZyRRhKG5xsniBiN/K8EZDWkZNvKZivvH4E30MM8fWO/TFYWOlD8+wPb5w4eP8W+
-	dIx2Jmjm4S4O4pGZ8k0+mCZGz0DX5B+PW1io9nbt+rhobAoqEnwBoksUGM4LIwIvFguQlcXM7Vc
-	NMR8aIH750TyP5eVvMS3b1Glt5zLLr8JdDg==
-X-Received: by 2002:a17:90a:d40b:b0:3ac:8ee5:e007 with SMTP id 98e67ed59e1d1-3adce616026mr940572a91.20.1792743240447;
-        Fri, 23 Oct 2026 01:14:00 -0700 (PDT)
-X-Received: by 2002:a17:90a:d40b:b0:3ac:8ee5:e007 with SMTP id 98e67ed59e1d1-3adce616026mr940524a91.20.1792743239783;
-        Fri, 23 Oct 2026 01:13:59 -0700 (PDT)
-Received: from [10.204.79.28] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4954979sm7758959a91.17.2026.10.23.01.13.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 01:13:59 -0700 (PDT)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <4c4e48a7-5ece-4fca-9387-a50c29bbcc83@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 13:43:49 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShGrRr2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A641F01825;
+	Fri, 23 Oct 2026 08:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743294;
+	bh=peBrLxQYphAWA0aed033QDkUYmfTpLADSsSaf6bnm8w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ShGrRr2i/YYSDBKxdszIqiZelQsGU96ViTWorMdYU/QKsn2y4mEKhwKDfr2twOUOi
+	 bluvyJYe7vW0W3unEL8OuMYGiHq5wnA8C2JEDAtOqIMJK85HVrPSmILvI6S630h0qV
+	 TwzdHa5YAeaaPPlLoOCozSN57KX7njo3/P7azUXZx7PhcMAz09pCucdBcMHcsJRz+1
+	 gMRC3V0Wa3cnF+g2cJ18lFmiZ7t11lRR7EtWOw/d9gecFPVghY4TWrsHsnJkoLJzzv
+	 52wSis0Xli+77fsW4MzBqrFxTPuGdZPpr15eZk/eHTL4adAmnhYQ1u2/hzL97MjQXu
+	 nuP9WnLNkcBEQ==
+Message-ID: <8f09767b-004c-480f-a578-f2722ea4301d@kernel.org>
+Date: Fri, 23 Oct 2026 10:14:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,105 +52,123 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/13] drm/msm/dcp: Register DCP display pipeline
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
- <b2cf0c52-4c31-4b17-b341-029b82ddbd7f@kernel.org>
+Subject: Re: [PATCH RFC 0/8] replace CONFIG_SLUB_TINY with a slab_tiny boot
+ parameter
 Content-Language: en-US
-In-Reply-To: <b2cf0c52-4c31-4b17-b341-029b82ddbd7f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Harry Yoo <harry@kernel.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
+ <arU956kfc1QpA7N-@thinkstation>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <arU956kfc1QpA7N-@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX+WTp9899RQ64
- 3hdtVp1HXi2cTWZUM5Hpb4C6KohwCOLzIKwuy4ibm1HDldqNTXuJ/BgBUWD88STQq0woRLbMKO5
- QHF6I22CZdd5KfZhJgxGK8aqW6ykIrA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX3s+zYhBY38Yd
- Ovucm5YN+6JD5jzDM5Nzae5ZRFyDvEnQKNqN9xLj0yQUzb1ttGSqbBqs0iS5nOQs5ERuIK8u6Yd
- rYClkLBssO+RdF4cu01y8ggbRVE+rjEXj0h+Bc5qHzz7+DZcLeQuM3ICEZv/EdgqYJqaYbeMltX
- TuU5vdX6mQihS3IxTX+ZuZVvtwHSUmLP5llwtvfhfJW2hiBEdMP0/xnWNYkSIMQGMyVxOt65HLk
- 7H+3q4QZ1MvXQTx/UzYQCdJhX78wMkwwj9e5vKH77G91y99zjEqkcaqip4uTsE+q7ujN2Qb4EcY
- OmeFz07mTUIQqWgv/3R7CpHNQBIDI8LCLY3rv5x6N+cfb6Cku/DduUPCO4wbkv8FqA2WDQg/Xs5
- wkgqPg/gV4mtwAcLmYOw8eCxfQ63RbORzRvocNYPtauqw+Jq255VKeU385yItjQ4Da35Q5tzAbq
- w/OolqH7DGs7qbpMwrg==
-X-Proofpoint-GUID: uy18Fkm1IgZZDIYYelT6yqH_3NywPUJT
-X-Authority-Analysis: v=2.4 cv=YIMKWhGx c=1 sm=1 tr=0 ts=6adb1749 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=_vtLzGX-cFUddgSYHekA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: uy18Fkm1IgZZDIYYelT6yqH_3NywPUJT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230032
 
+On 9/24/26 17:18, Harry Yoo wrote:
+> On Wed, Sep 23, 2026 at 05:45:05PM +0200, Vlastimil Babka (SUSE) wrote:
+>> To sum up, after this series:
+>> 
+>> - CONFIG_SLUB_TINY is a deprecated option that has no interaction with
+>>   other options and only controls the default behavior.
+>> 
+>> - New slab_tiny boot parameter controls the functionality (and can
+>>   override CONFIG_SLUB_TINY in both directions).
+>>
+>> - slab_debug=N can effectively achieve most of slab_tiny and on a
+>>   per-cache basic
+> 
+> Allowing "slab_tiny=0" doesn't make much sense given that
+> CONFIG_SLUB_TINY is deprecated anyway. I was assuming specifying
+> "slab_tiny" would enable it and not specifying it would disable it
+> unless CONFIG_SLUB_TINY is set.
 
-On 21-10-2026 17:35, Krzysztof Kozlowski wrote:
-> On 15/10/2026 09:38, Jayant Shekhar wrote:
->> The DCP firmware exposes display resources through capabilities rather than
->> through host-visible display registers. The MSM DRM backend therefore needs
->> to build its KMS objects from the firmware capabilities and device-tree
->> display graph.
->
-> ...
->
->> +
->> +		remote_np = of_graph_get_remote_port_parent(ep_np);
->> +		of_node_put(ep_np);
->> +		if (!remote_np)
->> +			continue;
->> +
->> +		if (!of_device_is_available(remote_np)) {
->> +			of_node_put(remote_np);
->> +			continue;
->> +		}
->> +
->> +		if (of_node_name_prefix(remote_np, "dsi")) {
-> Where did you document the ABI?
->
+I was anticipating a possible autodetection in the future - i.e. "is this
+system so tiny we should do it?" and a way to override to =0 may be useful.
 
-Will update in the bindings in v2.
+> Also it's bit confusing to have multiple ways to achieve the same thing.
+> Is there a reason why we can't interpret "slab_debug=N" as
+> "slab_tiny_enabled = 1" internally and drop "slab_tiny" boot parameter?
 
+"slab_debug=N" is a weird parameter to control the whole slab_tiny (which
+does more than the slab_debug part). In my view it exists as a side-effect
+to how slab_tiny is implemented. But because slab_tiny is implemented using
+that, I thought it might make sense to expose slab_debug=N separately too.
+It might be even useful in some debug scenario.
 
-Thanks
+Whoever wants to use slab_tiny doesn't even need to know about slab_debug.
 
-Jayant
+>> - the implementation is simpler with many ifdefs removed
+>> 
+>> [1] https://lore.kernel.org/all/CAHk-=wh-k04MsoEC0SGKff2Snm6bBF_e+0pHOKwaWv4umZ_SnQ@mail.gmail.com/
+>> 
+>> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>> ---
+>> Vlastimil Babka (SUSE) (8):
+>>       mm, slab: refactor slab_min/max_order handling
+>>       mm, slab: introduce slab_debug=N
+>>       mm, slab: rework KMALLOC_RECLAIM handling of SLUB_TINY
+>>       mm, slab: make SLUB_TINY handling dynamic for sizing decisions
+>>       mm, slab: convert CONFIG_SLUB_TINY checks to kmem_cache_debug()
+>>       mm, slab: remove remaining compile-time checks for CONFIG_SLUB_TINY
+>>       mm, slab: add slab_tiny boot param
+>>       mm, slab: deprecate CONFIG_SLUB_TINY and reduce its Kconfig effects
+>> 
+>>  Documentation/admin-guide/kernel-parameters.txt |   4 +
+>>  Documentation/admin-guide/mm/slab.rst           |  18 ++-
+>>  include/linux/slab.h                            |  17 +--
+>>  lib/Kconfig.kasan                               |   2 +-
+>>  mm/Kconfig                                      |  16 ++-
+>>  mm/Kconfig.debug                                |   2 +-
+>>  mm/slab.h                                       |  32 +++--
+>>  mm/slab_common.c                                |  12 +-
+>>  mm/slub.c                                       | 149 +++++++++++-------------
+>>  9 files changed, 120 insertions(+), 132 deletions(-)
+>> ---
+>> base-commit: b4218126d498275444f315b0ed4cef6add6beabc
+>> change-id: 20260911-slub_tiny_rework-8f2634dd17a7
+>> 
+> 
 
-
->> +			if (dsi_idx >= ARRAY_SIZE(dpu_kms->dsi_bridge)) {
->> +				dev_err(dev->dev, "too many DSI outputs\n");
->> +				ret = -E2BIG;
->> +				goto out;
->> +			}
-> Best regards,
-> Krzysztof
