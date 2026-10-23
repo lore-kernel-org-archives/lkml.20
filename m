@@ -1,87 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.141
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792764757;
-	b=4VpZSabCXkC0QvuPg4EbiBjxkZQ03v1zgo49RSA7DiOZ3VTfizhOfabr7ufNGTCoP8qx
-	 NWeMJDfUJkbXRws7bVbMMISaizcYdqepGJhYBCNtaxx94+Cb6uPFEGJLGhq8mLgGNZO3D
-	 IdJEwt9sUxVt4b7EUe7HGTF0le8CKyOarzYKg3q/RT+sgsT6LmdxvqBr2B9kAjbInpeo0
-	 U+b84ZDZd+55AcTmpFmwM9zpFN7XGXT5CNFAwVpZJbLEIt30vkQnvJdprDha1Id8/uQ5e
-	 XhluBhuSVlNDfqLhgHv5cwAuSB6KJ+6jSy4KozDnTSIOXSp+vbDk/XsEnFOhKEwJcCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764757;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=acVFK2oflwsWzqQfVGqK94DDM5TLCettE0bzN1FAfM0=;
-	b=pqHfltb25CIkPJPaYO1SZJ3kilmrcP2zpPHUPwuOvB5+rfjxmk57zoDnZUuikWWDHLp1
-	 1S+3OCT+X5YnfsD5XikbmjwSjqC/M3cKla3PrbWD25xlWMpcAoBmvGII1e5QpM25jUXMV
-	 C6KPFkVQB8SYZB4EJFzpZ5/8cae6t7VWHkwvCHxbHFbT8aRJGoInSH9bRy2YSIk367z8E
-	 b04CL4Ech+ehQOr4SCIfE2JJrgtFamsbeG6b1pltYdhcdJ1HxNgwGeHUGIPx7l1bZ322P
-	 Wzr5KHv7jg/n99rmnUbo0Kqis0IClrayKBvEt3TlD3N0xY4AbajB3X4GV36Twx/1WwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.141
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022141.outbound.protection.outlook.com [52.101.101.141])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792764755;
+	b=3jb9/y3n4Pdi2xuNXy53rIhJ4cT74oNdTJl/EEzIQk43R4r8yjGljnMyznIX2h8M4Bb+
+	 KptjoLCr998PwODVtDEfzZugDXuKpzAavef+jwxI0/80yE+8rhy4mGNFC5nhKESoRvCpE
+	 8wWO6m/QOTXeJ9ownIQUQiTBFW+sAnJElmkcxu9B7q2JOdsoSm60V2KDO3Y8OwbJgr9/F
+	 Le9EAtuykC8Sy7fzBNl5pY6PZL56SbUos5/kzWOmAVHkQ/1D2VbBm2JhQhlv3msLxP2pw
+	 HxX7ghNrKAqIJOtuhZGEHmQCPvI4WLoSikByrz783bQEuxA2XhHXDFvBA6PJrkJHMAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764755;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QsqV+tICO2vgtnZscnd+J2tsBjjzD7iDT3y4AnwmmdjcnxlqOBq28Fg+F8C58IlbaCmU
+	 6FJ6T4rAvaYa/CuqFMdaI+5Ebho9b4vBo3cccgXNy8wlGcIKInl5WZmS0sol8HI6BOkVb
+	 qAKd2YaNfW/OTAv5asKloMDV8r8jA2ioNkEAk0aM7Pqt38n7aIQnB4wrbl6BCR3bJuGk8
+	 dzwJjemIIEBVXBN3T5Ay+p/DVnGe0K6Qy0LtoCmIwI6k3zT4zELht2ZfdZWMgG9oxICGC
+	 +i/9VEBD2C4sNQxYrQQaAkB0K3fTrdU1RmQHt2BopKEkfKLHe+bojenCyZy7gabg1eA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D650D606A322;
-	Fri, 23 Oct 2026 14:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D650D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=klBQZ/XQp6VOxRqVFX9sNXyIqNiQ96u44/3qcFgwR46NMlGXHDnn/lsmevtHoiNlr+SyNlled3MtbI3ESbSwa8w0dN8Zi/QBwMIHvbhkhHi0xycAVS+ft40OOTPsxp3Zhbp4d8VZveQzDI3IXiVdTLRAHjXUxyb6wG/EvbD8/Bi5SqhIPdbpncCmTX28UFcylAZWku1zvSy1DoGf9yDvFqR6XKy1ft0q/jBoSOfH+W4KTDkev8C6e1bdqUvFeLw99w5YfIFK/+5M3evFh88wUwN+JAY5Pf4yppCoC7UsOChX8h9VGhdTkPbYhQV8YG+NZlDykN4HsPzciHz+mmsaOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=acVFK2oflwsWzqQfVGqK94DDM5TLCettE0bzN1FAfM0=;
- b=EoYi8Cn3WXqu7U7ng7++roaC4Fzm0PrRgOTMSTpXBY8YZ06Xed2Pou0GbfjTv7QExJsGdPAQRCAg8sNbpdGDT7zPojU4MH+yFkvgu7TlfvemrBlRdyo01ybYFiJZQoJ2KfWgRWNegHj1pvFjHw8TmX9x3mG3ebX6sAWO/NHEtQMTy7BGfbNRunrud6fVEKriHFqH2kgXDvMnaudKpauKA5yTsRzQ/iQcI8Ar8dbUHoeS5Cc7yYw4DurQaVJjrt0CPds2R0XIid1z6fY1pWiULfFb6o+s2HlcLkOzg7PQFYnknGIA1gcffLNIj0D2FsaAYxLYwCUqA6pFNnWm7qlh7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO3P123MB2828.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:b0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 14:12:33 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 14:12:33 +0000
-Date: Fri, 23 Oct 2026 10:12:29 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v9 4/6] perf ftrace: Support display of
- inlined functions in function graph tracer
-Message-ID: <q2s7qutxjcsbagaqetmm3fcyq3w4uby5jl4hpdcrbh64l5jg2z@53fciwptybzd>
-References: <20261021023337.809936-1-atomlin@atomlin.com>
- <20261021023337.809936-5-atomlin@atomlin.com>
- <atqF8rgKGnaH7EhQ@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <atqF8rgKGnaH7EhQ@google.com>
-X-ClientProxiedBy: CH2PR20CA0022.namprd20.prod.outlook.com
- (2603:10b6:610:58::32) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CB7606A31A;
+	Fri, 23 Oct 2026 14:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26CB7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DCB111F458;
+	Fri, 23 Oct 2026 14:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
+	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
+	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792764753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
+	jZpQGJaVi4w6nsAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KE86RIWK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
+	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
+	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792764753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
+	jZpQGJaVi4w6nsAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B7BAA133F3;
+	Fri, 23 Oct 2026 14:12:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xP5FIU9r22q/dwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 14:12:31 +0000
+Message-ID: <5dda588d-e6fa-420d-a73d-b5278094b59c@suse.de>
+Date: Fri, 23 Oct 2026 16:11:25 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,212 +108,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO3P123MB2828:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbc512ce-bdb4-4c03-d75a-08df310fae8c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|261021121427099003|261022115727099003|261022113327099003|261021135927099003|4143699003|5023799004|56012099006|261021123027099003|261009223027099003|3023799007|10067099003|18002099003|22082099003|6133799003|261022105027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	Yrq1C209F140Y6NgxQ0CAEQXJG4UAB/JR45Pe4086cTTzJXjRmm24x7L0urgQclfD/ns54iQjqKl6fnTu2+gav3SS8427HbIg/QdMfreXTfNpfswCt7HeSCd4MSzSH62NjBY3WNB9KMCAXXRcpO6oPFVsupajKH/PQWJTQ+r5vAPabdmPp8YliYBLuUvuMW6C3bOhKcolstjMda9gV5ih7uteD3FX2CWmAxugvaZHl1/Tni/SzuY5iGHUHmyjowLcoBu0FMPiaxdbR0U6PByG9pCrFchKekeGcwS/nSrlC3U7f6LsT0WbHYBwR5/bTxMbP0DkMn+D9WiYTUkVK8mhZrlPakJ+97uibAeSZMYSfsctWkWgkll7LPl95vqBfP5+XBu5Dn7+Sw1VOZjQvXvb+0iCXCKBgNGpQyGE/kCoxbYYp0Wfr2m9jt1R37ChHXuoGSqTwWoiXpM1TJePcY2ixyj0QZkfzbX6CczZwZf9iF+4Md2qnCKLmsT98UoaWeTOQUq8PCiDN+w5yNri/8W5WJ0HU2hWDYhIal6r7JPUjELypLF4wLcgpWLV7hHgEUUj9U/cIq9Uq2J5sMZw4T31NxlDq7L87mshecMYeh0XkIW7e1cP1ltGoicvhv36KKUUk9ASb83JiKb9sbt8lKc8Q0HrCpCtJ1kAm5B1xlJ2l0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(261021121427099003)(261022115727099003)(261022113327099003)(261021135927099003)(4143699003)(5023799004)(56012099006)(261021123027099003)(261009223027099003)(3023799007)(10067099003)(18002099003)(22082099003)(6133799003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eXRobWJFdjMyZ1J4SkZ0aFgrQWwwc2E4elpwcEhlRGl2U2RsYTlnNE1DSTVm?=
- =?utf-8?B?a1puYmwxNlZleGcxUkNTRHRmak5kdS85NG8xQnRldXlPZ0FJbmV5dmJ0N2px?=
- =?utf-8?B?eG9mcnFWWlBCYmVyQzcxbm8rRFpTWXVid0FLWlRCdDFtT3RLWkdOb3d4VHNv?=
- =?utf-8?B?S0Uxblg0RFR6OTNqUnk0b1B4bmJXcGtqM1BFOHdaSW1MTVpSbWxHVGlhOU9Z?=
- =?utf-8?B?aTdSTHV5MllLNDVtRXVBdmtZZ0E3ZlV2Q1ZyMTZuZTdnRkZGT1ZEL0VWc1Q1?=
- =?utf-8?B?Q2tTWnYvRngyS25BR1d3YjNSeDlOZ3pHM1JhSTA1ekNjVTd6ZitUakljMHh2?=
- =?utf-8?B?SVhGVWhYSWtOeUx3TXZxR0hQM2pHN0M2eis3TExpaVJuSjhVTEdrNjI0VzFr?=
- =?utf-8?B?Mmd4eW1Zc0hNOXozVzFmNnBGUitZdVg2NG5oc1JlRDZKd2NmU2YrV1pTMWxN?=
- =?utf-8?B?a0NMR1V2ZzJnNmFZMTViMG1HZzdXeGxocVBPeGp3ZW85eFBPVnBHcENRY2kx?=
- =?utf-8?B?TGRuaXY4OEZpQngwN2tha3RGRzZkenU5bHEwSHZRK0lhN3BYSlBPS2NONFpn?=
- =?utf-8?B?em0ySHpURU1EQ2oxQ3B4MndWc2JmR2Q5bHprdEs1UGQ0SmtVQ21oN3JkczUr?=
- =?utf-8?B?a1RCRjFybUgwQ29rQTV5TTRGZmVaL3V1Y3hDUVEvUVZXcEFLbE5OMkRJUjJw?=
- =?utf-8?B?QWQwRkMxL2grVHEyWDM1ZGlKZlBqKzFSVzBLYTVHVUtSTk9KdVBjK2dlZ3VF?=
- =?utf-8?B?eHYvcnlKZ1RJN29VcnkxMGZaY3l6Ti9EcFFVOElJWlh4ajRiMU9sWElqbWFB?=
- =?utf-8?B?Q013U0ovb1NjMEN1Um4ycnNaSXJCa0NOS0tYSWZCSzQyM3MwNEc4Si9UUzh1?=
- =?utf-8?B?d2t4eXpqYjhXSk5sKzAraXVVTG5JRENoNllsVU9QZDBxd3M1NXNQaitWakx4?=
- =?utf-8?B?K3IrOU9KSk5PcFI5dllKM0k2b1BwNXpWeCs2WG0xakRBVnlQVXNSQmtZQ1VS?=
- =?utf-8?B?bGE4aXhQY042ZTR4TlpjNVEydTQyNFpVbFdLTk82V3VOeGljWGJ1b1I1OENi?=
- =?utf-8?B?eGtaOFdwRUVod2JJem4yTnlNRERJR0FySVIyZHRyM3BYWVZFYmEvNUoraUY2?=
- =?utf-8?B?dUxBRDB1MHR4eWlvN0d2dGFlYkNGbU5mWWpqQU1hcmFoS2ZaS096eEQvRGk5?=
- =?utf-8?B?VXpHc3Qxd2FzeUtrN1NLUnZIc3RDZTB4ajVGRUYvaXk1K2p5TGVsQU02TXla?=
- =?utf-8?B?VFRKQk9jZ2xRMERFcDRneWpleGtUU2ViWGdSb3Q4ekFYb2QreVhyVlpFdkJo?=
- =?utf-8?B?MnZROGlFaGdwci9NaW9KWGcwaS9qeHJRZmltcjBwcTlXV3VGbjdUaU5NUjhI?=
- =?utf-8?B?MXV6Z2pValU0MG5sWlVLcUx5bWhFVkZoa3VBbDY0OWZVVG5wVUFtQUhKbDlr?=
- =?utf-8?B?V0dqWEhRK3dqYkFZUGZDeXJDelV5VkE1c2U5anFvcVRxNW1kSnFSTm9hV0lj?=
- =?utf-8?B?MGEyb0tZUkZNenFUSzJEM1laUkIvUmN0R2dkMmc3djVYL1VORlkxN3MwdytX?=
- =?utf-8?B?eWtyeTR5MGYzOHhsU2FCa1BSaXo5NUtMeFdOMkIvcDVySTNnTEVjNE45Nlo3?=
- =?utf-8?B?ZDIwaXZPRlFaRlJUY2Z5QVBGQitFMDM4OWVobVZqc1FNbU15UURiUXd4Q2pS?=
- =?utf-8?B?ZVROZXB0ZWNYcGRTMEN4NE8zeFBIK1JmRnFLejFFVFBvR0paY3hiTEtVOStD?=
- =?utf-8?B?aEgvZ05xZUNva1FtYXcwM1h6bDBLVGxXV1BTNFo2S3BLNHZFYjIyeko5NU5h?=
- =?utf-8?B?SDNpQjk0aTVFQWlLbDZzMGxUME1mZi8vdVMvdkxZQ2lFTmpINUtHQjN6ODFQ?=
- =?utf-8?B?MHgyMjh2Y1hzT3gvNE9nUWN3ZklNbDJoWjRyM1Jnc215Rm5PNXhpSVB4NlRB?=
- =?utf-8?B?M2JXa2dvRWpnTDFLdzY2UWp1R0tvV3NEZ1pzVGQ2T3lqKzlYYkE4WHRHd2Ey?=
- =?utf-8?B?all5aG52U2daSjE4Zkk2ZVNQYjFiamkwdFAyNGJRakdXZXRua2ZTWDNablV5?=
- =?utf-8?B?SVFWS1grcXlibTNoL3BadkFRMXF3OG1FV3lxM09xVWp5ZlVGV1MydjFDVFNT?=
- =?utf-8?B?UStZN2lJOTlPQWllbWxTcmxSWmxlNlJuSytQQ25IcEdxVU15Z2FaV2VCYjNZ?=
- =?utf-8?B?bkUxb25ZbGd0QlM3RHlvWjFRQm51cDBFV3R6SmE2TkR5aEpOSWJReWJZS2FC?=
- =?utf-8?B?NmNPK0V2L3EyWlB6cUg2TXBTanJ5NGp6eDFyaWlPT1dETWNyQk5TdjhGbnZn?=
- =?utf-8?B?TU1Vcyt6TVNJMGU0d2J3blVFM242MzNpRGxOVjVyL05tL3VIVFhxQT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbc512ce-bdb4-4c03-d75a-08df310fae8c
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 14:12:33.4750
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AhehTOttu85cu4Uak/bN2mVS4LPwkSE8HhtW6LdjYwFZG2EU/YDvGKpcWjn5OxvHPTTKp7pxWrWzlyYoLAw7zQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO3P123MB2828
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in
+ ip_rt_send_redirect()
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Joel Granados <joel.granados@kernel.org>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+ <20261023091419.167088-3-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261023091419.167088-3-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: DCB111F458
 
-On Thu, Oct 22, 2026 at 02:53:54PM -0700, Namhyung Kim wrote:
-> On Tue, Oct 20, 2026 at 10:33:35PM -0400, Aaron Tomlin wrote:
-> > The Linux kernel's function graph tracer operates at the machine
-> > instruction level via compiler instrumentation
-> > (-fpatchable-function-entry), recording entry and return events for
-> > physical function calls. Consequently, functions inlined by the compiler
-> > are invisible in the resulting call graph, as no discrete call or return
-> > instructions are emitted for them. While technically expected, this
-> > omission frequently obscures the logical execution flow when analysing
-> > kernel subsystems heavily reliant upon inlining.
-> > 
-> > Address this by introducing the --inline option to perf ftrace for the
-> > function_graph tracer.
-> > 
-> > When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
-> > funcgraph-retaddr trace option records the caller's return address on
-> > each function entry, manifested in the trace stream as a comment
-> > (e.g. /* <-irq_work_queue_on+0x81/0xa0 */). By interrogating DWARF debug
-> > information from the kernel image (vmlinux) utilising libdw, perf ftrace
-> > resolves this return address to its inlined callchain and synthesises the
-> > intermediate inlined frames directly into the streamed call graph.
-> > 
-> > Key aspects of this implementation:
-> > 
-> >     1.  Inlined frame presentation
-> > 
-> >         Synthesised inlined functions are rendered with an explicit
-> >         /* (inline) */ annotation at both entry and exit:
-> > 
-> >             # tracer: function_graph
-> >             #
-> >             # CPU               FUNCTION CALLS
-> >             # |                 |   |   |   |
-> >              6) activate_task() {
-> >              6)   enqueue_task() {
-> >              6)     enqueue_task_fair() {
-> >              6)       update_curr_eevdf() { /* (inline) */
-> >              6)         update_curr() {
-> >              6)           update_se() {
-> >              6)             cgroup_account_cputime() { /* (inline) */
-> >              6)               cpuacct_charge();
-> >              6)             } /* cgroup_account_cputime (inline) */
-> >              6)           }
-> >              6)           dl_server_update() {
-> >              6)             update_curr_dl_se();
-> >              6)         }
-> >              6)       } /* update_curr_eevdf (inline) */
-> >              6)       enqueue_hierarchy() { /* (inline) */
-> >              6)         update_curr() {
-> >              6)           update_se();
-> >              6)         }
-> >              6)         enqueue_entity() {
-> >              6)           account_entity_enqueue() { /* (inline) */
-> >              6)             account_llc_enqueue();
-> >              6)           } /* account_entity_enqueue (inline) */
-> >              6)         }
-> >              6)       } /* enqueue_hierarchy (inline) */
-> >              6)       place_entity() {
-> >              6)         avg_vruntime();
-> >              6)       }
-> >              6)       __enqueue_entity();
-> >              6)       dl_server_start();
-> >              6)       hrtick_update() { /* (inline) */
-> >              6)         hrtick_active() { /* (inline) */
-> >              6)           hrtimer_active();
-> >              6)         } /* hrtick_active (inline) */
-> >              6)       } /* hrtick_update (inline) */
-> >              6)       hrtick_start_fair();
-> >              6)     psi_enqueue() { /* (inline) */
-> >              6)       psi_task_change() {
-> >              6)         psi_flags_change();
-> >              6)         psi_group_change() {
-> >              6)           record_times();
-> >              6)         }
-> >              6)       }
-> >              6)     } /* psi_enqueue (inline) */
-> >              6)   }
-> >              6) }
-> > 
-> >         This affords immediate visual clarity to the reader upon
-> >         entering an inlined scope, without necessitating a search for
-> >         the closing delimiter.
-> > 
-> >     2.  Call graph reconstruction and per-task stack tracking
-> > 
-> >         Maintains a per-task synthetic call stack tracking real and
-> >         inlined frames across context switches, synthesising entry and
-> >         exit delimiters to accurately reconstruct the execution
-> >         hierarchy. Tasks are tracked in a hash table keyed by PID, with
-> >         per-CPU active bindings updated upon context-switch banners or
-> >         verbose line records. Inlined frames are structured strictly
-> >         root-to-leaf and validated against the active stack to prevent
-> >         un-traced callers from attaching orphan inlines. Bare closing
-> >         braces without trailing function names (the default when
-> >         funcgraph-tail is disabled) are correctly matched against
-> >         preceding frames on the stack. Context column alignment,
-> >         including task comm-pid delimiters in verbose mode, is preserved
-> >         when generating prefixes for synthesised inline frames.
-> >         Furthermore, stack depth saturation guards ensure that inlined
-> >         frame depth tracking remains clamped, indentation cannot drift
-> >         even under deep call trees exceeding FTRACE_MAX_STACK, and
-> >         overflow depth is automatically recovered upon caller detection.
-> > 
-> >     3.  Option handling and diagnostics
-> > 
-> >         Adds -k or --vmlinux to designate an explicit debug image, and
-> >         provides clear diagnostic guidance should --inline be invoked on
-> >         a kernel lacking CONFIG_FUNCTION_GRAPH_RETADDR. Automatically
-> >         enables return address comment filtering unless explicitly
-> >         requested.
-> > 
-> >     4.  Automated verification
-> > 
-> >         Expands the unit test suite in tools/perf/tests/ftrace.c to
-> >         validate DWARF inline symbol resolution, comment filtering
-> >         toggles, bare closing braces handling, task context-switch
-> >         isolation and migration, and stack saturation/overflow recovery.
-> > 
-> > Assisted-by: Antigravity:gemini-3.1-pro
-> > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> > ---
-> >  tools/perf/Documentation/perf-ftrace.txt |   17 +-
-> >  tools/perf/builtin-ftrace.c              |   76 +-
-> >  tools/perf/tests/ftrace.c                |  914 ++++++++++++++++++-
-> >  tools/perf/util/ftrace.c                 | 1059 +++++++++++++++++++++-
-> >  tools/perf/util/ftrace.h                 |   14 +
-> >  5 files changed, 2059 insertions(+), 21 deletions(-)
+On 10/23/26 11:13 AM, Jiayuan Chen wrote:
+> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+> the redirects an exponential backoff:
 > 
-> I think it's too big and you can split into pieces like:
+> 	if (peer->n_redirects == 0 ||
+> 	    time_after(jiffies,
+> 		       (peer->rate_last +
+> 			(ip_rt_redirect_load << peer->n_redirects)))) {
 > 
->  1. add the basic task stack management code
->  2. support context switch
->  3. support inline functions
->  4. add test code
+> n_redirects only stops growing when it reaches ip_rt_redirect_number, and
+> both redirect_number and redirect_load are plain proc_dointvec sysctls
+> with no upper bound. Set redirect_number past 32 and n_redirects climbs
+> past 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit
+> int by >= 32 bits, which is UB:
 > 
-> Thanks,
-> Namhyung
+>    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+>    shift exponent 32 is too large for 32-bit type 'int'
+>    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
+>    Call Trace:
+>     <IRQ>
+>     dump_stack_lvl+0xc1/0xf0
+>     dump_stack+0x10/0x20
+>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>     ip_rt_send_redirect.cold+0x2c/0x146
+>     ip_forward+0x1ddc/0x2430
+>     ip_rcv+0x2b1/0x320
+>     __netif_receive_skb_one_core+0x16b/0x1c0
+>     __netif_receive_skb+0x21/0x150
+>     process_backlog+0x37e/0x1200
+>     __napi_poll.constprop.0+0xa5/0x5e0
+>     net_rx_action+0x4c0/0xf70
+> 
+> Fixing this from the sysctl side would mean bounding both knobs, e.g.
+> redirect_load to [0, 65535] and redirect_number to [0, 16], which gets
+> in the way of users who legitimately do not want to cap ICMP redirects.
+> Instead compute the backoff in u64 with the shift count capped at 31,
+> which cannot overflow since ip_rt_redirect_load is an int, and clamp the
+> result to MAX_JIFFY_OFFSET.
+> 
 
-Hi Namhyung,
+I think we should cap redirect_load with a minimum valid value of 0 on 
+the sysctl. If the user want to disable ICMP redirects or do not cap 
+them, they should use 0 or -1 in redirect_number IMHO.
 
-Acknowledged.
+What do you think?
 
-Kind regards,
--- 
-Aaron Tomlin
+> The clamp also fixes 32-bit kernels, where the same expression goes
+> wrong long before the shift count reaches 32. With the default
+> ip_rt_redirect_load of 20, from n_redirects == 27 on the result is
+> either truncated or too large for time_after(), which then treats the
+> deadline as already passed, and from 30 on it is 0, so every forwarded
+> packet gets a redirect again until ip_rt_redirect_number is reached.
+> This needs a raised redirect_silence to be reachable, otherwise
+> n_redirects is reset long before. On 64-bit, ip_rt_redirect_load << 31
+> stays below MAX_JIFFY_OFFSET, so nothing changes there.
+> 
+
+Isn't the same issue in 64-bit kernels too? In essence, it would be (int 
+<< u32) which results in a negative value and that is later 
+sign-extended to a corrupted 64-bit value. Am I missing something here?
+
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>   net/ipv4/route.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index 595a3b7f1783..76807b757046 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
+> @@ -907,6 +907,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+>   	struct inet_peer *peer;
+>   	int log_martians;
+>   	struct net *net;
+> +	u64 backoff;
+>   	int vif;
+>   
+>   	rcu_read_lock();
+> @@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+>   	/* Check for load limit; set rate_last to the latest sent
+>   	 * redirect.
+>   	 */
+> +	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
+> +	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
+>   	if (peer->n_redirects == 0 ||
+> -	    time_after(jiffies,
+> -		       (peer->rate_last +
+> -			(ip_rt_redirect_load << peer->n_redirects)))) {
+> +	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
+>   		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
+>   
+>   		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
+
