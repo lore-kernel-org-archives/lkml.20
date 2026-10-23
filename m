@@ -1,73 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756773;
-	b=s7c4kdtFll7pfOmogi2q4BkBS1CZCbriwxFas5TVr373vEfUPV2KcY5YM9tIuEtzduoG
-	 4qOSSKjZDxgHHon7kTEgkgElj5el8zJVkRxCjLvJ3J3SvSGim0zuKMeItWCWfpsslaOya
-	 wNoDtxJ3VIowU+2r/GKLHtRFsHOSllbfG2BJvTQk8+lifsPPdlHaZ+Dus4SR0h7e3Jnwp
-	 vJh7Jkv+Wh6iGwos3VmYVpMvlGi9cYx9Tb8DGQ5u1JER5YKoW2kxLm+71sNKTIqTrCWZ4
-	 0LsLI4NllLn5wwT4y57VePYAtInEbqteHN46kfOzjvGRjr2FtSa3+RBHQiyvoRQk8QA==
+	t=1792756927;
+	b=QoRAdLTsISk5bMBgzTaIRJZWDPkrvpmc+hTD3SYiqNOx7DjihWIwUNslsuzy1Xs5483V
+	 zsgo5DSXS7e9JZDnfD8g6Hlq3g4RApC67c1nruluXgC/JFGgqQ8vojAh1OoDg03JqgXbe
+	 kRu+1SLapn3En6T7njtEw2t4rye1nntEDdCt3awCpioWiPba7ge8ChJ6Il8iVzERwHvqb
+	 xdekgjqmI4pk0s7rSUKzpwsQseEgroXTailCGWSyBsxFXRp9wiyzaN610rV+vgcbNS0hj
+	 fv7VfX6Rshhq1p7b0vJHdfKz9SH7dU3hVWldaKxEsQf7NRv3oYFqXe8w90vFChWEFig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756773;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=5K0OBWvP6XN4AJpcqKwEAeoGjToHWAl6P5TGp/mreF4=;
-	b=pLt2KPW6l8AHF++E9e8/gZbMK9KRsns3Uwuu6m1DJDCscVRC8IXhG1YM034ArUNg/7zq
-	 QRSKpTNFrrGSpS3swcSPv52SuAmRmiVtsJJubeRsPoaqPPebPnfXwXD8pz9fCcUL8IviW
-	 2n6RPkJ1n7l59hwheSAI5i7QfFZfwCvX4vTRDZHnEtOqPkLnXfknviCrKQOw72rICpL81
-	 ffUZPapSAJsOxfS/ia5F7+EXaEe6JQmstLa3z+9DnVUAe29IQ6pHM0mtzDTmbHtD4ikwC
-	 sDIO+EdJCjpqrQOFQyiDT9E/x8sy0oL4a61VGbO8sRUoqYk66dNFpH+1u+o3PC2/4WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756927;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=jctLZMa3CFFn1fL9CJJAY0fHDymjjHzSukwmoA365k8=;
+	b=W/euFuh56UBaMJLbsbb5KFIT0uUTpHJduyGG25lyH0PHZYu9lokVKolPjhCRoYvnQ6Fw
+	 dd2gA+MHoOX0Df8h3dB6qYhtxDc6TjuWc2DUjcuxbZv/k0Ox3hqzLkxEUwHOci7pCxBS3
+	 QIEc04JLU4yWAQn5JUyTkE3MYEK0lLvFs8Q22jhcYecO7WBZWI++tTLD/E5yA/shEtRYY
+	 kWJIbIpGElmxXYyc2cMq3ohqcXVe7i8vHIZEdjN+b/tOKJPJN0tZ/ZIo/SC4Mv11HT17R
+	 YuCjk9UvWpJ/0+OgAHCkgTtJ0dPBgSY9whI8s6rHW/OfsiDjfALBmXGSvj/MS4o4a/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZ4Z3epe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3F4606A330;
-	Fri, 23 Oct 2026 11:59:32 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bxRS2WXI;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4455606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4455606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZ4Z3epe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0331F031E1;
-	Fri, 23 Oct 2026 11:59:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792756772;
-	bh=5K0OBWvP6XN4AJpcqKwEAeoGjToHWAl6P5TGp/mreF4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bZ4Z3epeXYXwpZ3tWg9wJXUibCizeqWhBcTTOJbFSLHdglyRZwgQqYZHJblL/YKQ4
-	 +bsZRTZUd9IePtONjuD4nlWZMN+AD8tZSZwhk8EXpwGi0kVkUNDxIil2kubIkYd5o1
-	 5fwniwoaauxkMuCt6zbBWE4hVAxxfq6alQ5kAyUXSByAGGXhpyuPE3j+FTjmbDLcHe
-	 Ve5D7JPGvipVQavc2VvLKXnkZtZaA1pNhn9k9rgXnpbc6FAXEc59VJevmUeVRw1FPG
-	 Ifcx//PW8liiNViGTcjjvtWjMSvGDJkHQKdXqoaGVBZ9HC99nbWERAllbMdLGT4IPE
-	 Y5uHX9GvZdniw==
-From: Christian Brauner <brauner@kernel.org>
-To: Fan Wu <wufan@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Manuel Huber <manuelh@nvidia.com>,
-	David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Andrew Halaney <andrew@amutable.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	linux-security-module@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	bpf@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bxRS2WXI
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF2001691;
+	Fri, 23 Oct 2026 05:02:00 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18F3F3F7B4;
+	Fri, 23 Oct 2026 05:02:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792756924; bh=WhP+2ZARQeBOK940ZZV2hQ7dkuiCr9Al+UuwIs63AhY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bxRS2WXIeECIQ2k5nigxQE0z5PLaNETAUfEr+noV/i/NkRlOpHb0Vp+CcZr7aNDlk
+	 PqIv9v832Zymbd8retio17UCU2P2YlX8mZzjXQeJaNBtTGU9zSmCVpzGDPyKopTwlw
+	 hMK699uINLjrdnaCD2KwH1mEgasSdWo23WeKGCek=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
-Date: Fri, 23 Oct 2026 13:59:14 +0200
-Message-ID: <20261023-kettenglied-vorsorge-beharrlich-d4aeb08f69ca@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
-References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com> <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com> <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <DM4PR12MB61369D00ED2FCFEDAE0E4597DE652@DM4PR12MB6136.namprd12.prod.outlook.com> <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
+Date: Fri, 23 Oct 2026 13:01:57 +0100
+Message-ID: <attMtUqxNsuPooix@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-6-leo.bras@arm.com> <aqneWnlsdpocLIl6@kernel.org> <aqqhDs3NyjtkZzXK@LeoBrasDK> <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK> <as-mH36YSMxAosND@LeoBrasDK> <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,56 +74,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1870; i=brauner@kernel.org; h=from:subject:message-id; bh=odpJiAcrzQlZy6uyTsV28Y4dhy5i8t2c+Ng1Hl1sjjI=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd9pHWqvWTUbFbtl+D08P7wNJZJyuzpGxPsV6TFd9ff +kL502BjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIm8tGP4zXo9ZFdblNzEgAub /lk/FwpeYNyembB/gvktYa6Gsw6TXjP8070qzdVjk6FzVsny3bkzGRwPTUPDfz+f3TM9N/2pvFY bCwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 01:25:36PM -0700, Fan Wu wrote:
-> Also, one thing I missed earlier: before the policy verification call,
-> please also check:
->
-> ipe_keyring->restrict_link->check == restrict_link_reject
->
-> so we make sure the restriction function is the right one.
+On Fri, Oct 23, 2026 at 03:23:04PM +0800, Tian Zheng wrote:
+> 
+> 
+> On 10/14/2026 11:56 PM, Leonardo Bras wrote:
+> > On Thu, Sep 17, 2026 at 02:40:42PM +0100, Leonardo Bras wrote:
+> > > On Wed, Sep 16, 2026 at 04:27:19PM -0700, Oliver Upton wrote:
+> > > > On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
+> > > > > On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
+> > > > > > Hi,
+> > > > > > 
+> > > > > > On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
+> > > > > > > When dirty-logging is disabled, even non-write faults make a page dirty,
+> > > > > > > which avoids a second fault when the page is actually written to.
+> > > > > > > 
+> > > > > > > On dirty-logging enable, this approach causes all (writable) pages on the
+> > > > > > > memslot to be marked clean, even if they were not written to, which can
+> > > > > > > take a lot of time, while holding the MMU lock, doing atomic writes to
+> > > > > > > PTEs.
+> > > > > > 
+> > > > > > Do you have any performance numbers for this? Enabling HAFDBS seems a
+> > > > > > bit involved to avoid some stores on the first pass.
+> > > > > 
+> > > > > Not yet, but if the idea does not look too crazy I can find hardware and
+> > > > > collect some data :)
+> > > > 
+> > > > TBH this looks like a micro-optimization so I'm not expecting the
+> > > > performance gains to justify the behavior change.
+> > > > 
+> > > 
+> > > Okay then, I will get a machine to figure the performance gains :)
+> > 
+> > Got the performance numbers here.
+> > I tested both the case where all PTEs are dirty, and the case that 50% of
+> > the PTEs are dirty.
+> > 
+> > For that test, actually patch #5 could make kvm_pgtable_stage2_wrprotect()
+> > slower, which is counter-intuitive, in all platforms tested:
+> > 
+> > When we walk the S2 pagetable to wrprotect, using the new walker, the
+> > write to the PTE itself is so cheap* that the cost of the branch
+> > misprediction (write PTE or not) for the 50/50 case is significantly higher
+> > than the cost of the 50% extra writes, which makes the 50/50 up to 60%
+> > slower than the 100% dirty case. It is still slower in the '25% dirty' as
+> > well, and starts to get even at '10% dirty'.
+> > 
+> > * (non-atomic, everything is in order, walker is small, cpu will probably
+> > bundle it all in a single cacheline write)
+> > 
+> > Since the idea of patch #5 was to reduce PTE writes in the first wrprotect
+> > walk, it becomes faster only if only a small portion (<10%) of the VM was
+> > write-faulted while the remaining was read-faulted, which seems to be a
+> > really reduced audience.
+> > 
+> > Since this comes with increased complexity, and also carry costs of
+> > having HAFDBS itself enabled outside dirty-tracking, I don't think it's a
+> > good idea to further pursue patch #5. It's only value is that it served as
+> > a base for HDBSS implementation.
+> > 
+> > Thanks for reading!
+> > Leo
+> > 
+> Hi Leo,
+> 
+> Thanks for running this, the numbers are really useful.
+> 
+> It means the hardware dirty mode (HD=1) should only be enabled while
+> dirty logging is active with HDBSS support, and stays off otherwise.
 
-I would advise against this. I'll explain why. Which restriction goes
-onto the keyring is intentionally userspace's policy. The two supported
-ones are:
+Hi Tian,
 
-    keyctl restrict_keyring $id
+Correct, it's actually counter-productive for it to stay on without HDBSS 
+before dirty-logging.
 
-seals the keyring for good. Nothing can ever be added again. And
+> 
+> With HD only enabled during dirty logging, we also keep the DBM-based
+> encoding for the HD=0 case. On systems that support FEAT_HAFDBS, DBM
+> remains the write bit and S2AP[1] the dirty bit even with HD=0. This
+> works because kvm_s2_fault_compute_prot() maps any writable page of a
+> non-tracked memslot writable-dirty (WD), including on read faults:
+> 
+> ```c
+> if (s2vi->map_writable) {
+>         *prot |= KVM_PGTABLE_PROT_W;
+> 
+>         if (s2vi->device ||
+>             !memslot_is_logging(s2fd->memslot) ||
+>             kvm_is_write_fault(s2fd->vcpu))
+>                 *prot |= KVM_PGTABLE_PROT_DIRTY;
+> }
+> ```
+> 
+> So there is no WC entry for hardware to promote, and HD is simply not
+> needed outside dirty logging.
+> 
+> In the next HDBSS version, we'll only turn on HD=1 when dirty logging
+> is active.
+> 
 
-    keyctl restrict_keyring $id asymmetric key_or_keyring:0:chain
+Right! 
+I will also send a new version of the pre-patch (4 patches) for us to 
+discuss. The first 2 patches will change meaning a bit, but should still 
+work as they do today.
 
-only allows certificates that are signed by a key that is already in
-the keyring.
-
-This allows userspace to enroll a vendor CA during boot and let
-per-image certificates that chain to it be added later after the trusted
-phase.
-
-systemd-keyring-setup uses that second form for .dm-verity, .fs-verity
-and .bpf and then drops KEY_USR_SETATTR, so neither the restriction nor
-the permission mask can be changed anymore while root keeps write
-permission to enroll chained certificates.
-
-Both are proper seals. A restriction can only be set once as afterwards
-keyring_restrict() returns -EEXIST. So there is no way to remove it.
-
-So whoever restricts the keyring is the provisioner and whatever they
-pick is the policy. A random root process after the seal can't extend
-the set of trust anchors either way. With the chain restriction it needs
-a signature from a key that is already trusted.
-
-That's why .dm-verity and .bpf only test that restrict_link is set.
-"Restricted" is the state the kernel knows about. The policy belongs to
-userspace.
-
-So it would be really nice if we could've the same behavior for all
-these keyrings. I think that this is a really nice model and allows
-userspace to have a kernel enforced policy.
-
-Christian
+Thanks!
+Leo
