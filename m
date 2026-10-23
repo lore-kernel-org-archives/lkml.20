@@ -1,114 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792784750;
-	b=WIJQ40ea2CcuipLeEOaXV2Uf9pwbRf/KFKnnSWyzE7nDP+62/yYlGCZZBuez3WcNhFmC
-	 KAk09XOOWJ9n0VHvzw/3bgFeVx5Ux0YkfXF2iqVhzQBuNuR6UnQjnki3XpgD2Z2FVGysm
-	 uSm7ALbvuG6pjoERg7oETimPbzY/4YlMBOpVcRjyztaD7QvfN1ZJpbDC4zYbjnwvBMLZs
-	 w2h92086//jKzlW+vrsZsIKJqduOejSNL2yfeRxKou44M2hRkHo2nGvsGQmh66yH+bCmx
-	 wMNgUjK4Vd52RN2ZgkPOmJSO0waXjhigjbHFJNMxHc4b+ULdm7u0ORqqww2hUFRGxew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792784750;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CyzbOWhH6L9bGdi+qbItJiaxl6aO54n+HsMwa+fkgDc=;
-	b=D8/Qaqid5fOXW5xxgbbFlaEAsMTHFapudfCUpS2+1XEjBiPKmX+4axQPi99Y2YoZpMAk
-	 skdWgfDDi2toqkkHL5P6/q9DkR9aGcYpUGjualgnPooLPNadcydyY5KLQIhmjfoUnrFrA
-	 Y1uGf63f4DTC905A+8RR8eGVxmHvNmNM57OCfwhwzdo+OQDQd2cTKJl+g+MQHSXIO6Xxb
-	 UQ4mV4U7Z3Srj4tCKi5QjJGNu8X8Q6B6LYpZHSjCcRBRrCppTGBLAPOiJt56TeuuAZ1lW
-	 JBMFE9JjjYHkSxKmFWePlg4bNwkkgSg1h3/1G1fxGdNe1Jzo1OYap69Zvi40em0xe3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="U/VwTYea";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.14
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011014.outbound.protection.outlook.com [52.101.70.14])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792784786;
+	b=JkN6jpgkOl0QgDGdnp5nz/CquRspA4b/nAl7FNHERMKBelHL5QbSIlReduOwz1lW4iIF
+	 cneiYLUAuBFiJ2/gqbFu+Oja834jtiHd6zwE26aIbU1RRzmGRulvle99BTtZy4qGPdU9I
+	 7hc0HLHUAOr5U9XWAU0dnn3Vjx5hq5UtJMFlQH8zxBkii6pbboRpn6gHoyscqxK4tX8kU
+	 KDyw8e+KlcTvUF5XCwsdW5hf76ErKKvt/j87g9Oy+0OUOuOPaaPxJoaGq2v9hSD5+Mzvg
+	 jlu97FdIdFp7X2EEJwCAwaEDwW0DCc98536nBChBeRC9RJu9+8IxYzi+AH6+FZ2UBVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792784786;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=X4WY9OI7pRLoxyt5aowUMYA8CAEnFmKkD4+RrPyHHWM=;
+	b=Hb6DjtcqOK+ZBwA2AUHAKLcLCjuK4TEyJM4HRfloNWdEesTESS59LM+B60aNLbaQtv/I
+	 p6uYa0L2OmkybeTcG0LWl1BdXg9pIGQnJR6l3LsTp8IQfxCH71P6gKlswhfIovHVB1mEp
+	 qLyF72zAKaDcfMvQLU90verrx7h2B1QwXcFBHkHzi/qK2QNlkg9ycj6zj1l/ZH26skO8i
+	 FENT4CJJ5TcrSOew/ajX7bli9gabjVi/vMdzYhqbVb8s2jpCIcFBADHTGUpbVh/w1RL69
+	 fk+zwNLiq8BUVFCFA4s5i+f5R/h//KcZfy564K3Sp5+XYf1ztdV7O+F5n/rAOMCy4Yw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvvumnG3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D906606A324;
-	Fri, 23 Oct 2026 19:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D906606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A235606A31A;
+	Fri, 23 Oct 2026 19:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=U/VwTYea
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Me3ngSbLbW1h/AnxAQrKwmbim3CQ9mdZt/gG4mmi24TirSrFtt79NRAvwA5yjQcMJNlt5HVjk+84pEbNLdjYAgwYOij5j6sUKr+jNbY7LpZ/NsFrIwY/wYIhbh4DnSib1+C7Ka0AEM1FIVKuUQeKQ7nO92xTn4JEJ9LRdCzKZ9BTsrzMyAarqVq/C6QlQ/hiaLXypzXU1zNL8Rutd8J9QCrwQi+vrHRKaO+pMb8s7K/j2qfFiR3uhoBu5sj5Qz+QPq/YZn1sfeSViyXAEJvYGrAldGT9rgeQqJw1KJqoPY8EKylWcWUAAeKJY48204K5e5U0oftMrYebBEdtm39yoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CyzbOWhH6L9bGdi+qbItJiaxl6aO54n+HsMwa+fkgDc=;
- b=jge1q0eMElwn2VIG1O1Rru7H4gR19qxgarsS7teuP2SFMult1iH39L6Scvg+3+1b8upskSGy+QZwAhiBhC5NSPVPMTEqHnTIpkwlKF8v6H1WofHDloXvyam/FUafBrTSP3vXyYv6tuyU++JqBchH/TpjW6Szr5vk66X7dx/VXEmc8ILQegxQLN6XgCVxek6FNjTanQpCYnHHSH5nVOgRy2wD409Xr2rCD0kZanTYZChCwbCshWXcmXHz+32eHrvw7j7sQgzHdoesSq2BsvpaEauCFiRB53nOKw/rzjG/wImEAe/+UzqtPNnBYyd/Ns72PJdx9qvKmPWSR+J+3Ipv9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CyzbOWhH6L9bGdi+qbItJiaxl6aO54n+HsMwa+fkgDc=;
- b=U/VwTYeaAoaNVCrXn2G+tuJxxg5FXVZso49BpZdW+bHwXLyCXbUY+4pzc94xH+zNRcgjbWp+AJR8has8xrNG6qg4rcdaCQiHEuOqiFwBXoLCg78DjrAGTyuGCzugsrhjd/lk4GLSP6KVV2zscCbPLzF4l9qOYdO2rdrooli2kkNYuvzw9dmH/SPDOEbztSwM2xGh6LUaByiZVNahAeGNtt6CJMna41OYi1Eh18NkH5K3V+hnnJYZ2RNPmsJdOOmkJZcy47lSidwaXR/P3++U+372Apx6NWPgb2xrlyupCg/ZMF3QPvDplwYswSPjHaX8Co2a9ENFaLaDZcO5dyt02g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU4PR04MB10597.eurprd04.prod.outlook.com (2603:10a6:10:581::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 19:45:46 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 19:45:46 +0000
-From: Frank.Li@oss.nxp.com
-Date: Fri, 23 Oct 2026 15:45:14 -0400
-Subject: [PATCH v4 6/7] arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM
- pinctrl
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-dxl_lcdif-v4-6-4ae8395a4b23@nxp.com>
-References: <20261023-dxl_lcdif-v4-0-4ae8395a4b23@nxp.com>
-In-Reply-To: <20261023-dxl_lcdif-v4-0-4ae8395a4b23@nxp.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792784713; l=1575;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=b9hiDDMWEkh2Dso8bmlBoGZhBm/DsZpNoVGQtK+GcTE=;
- b=kSN1kaAdyAbXF35q3lh25tMSKGKeZXu8x0EiF75fx/S7e+YvRpQ83ADFALh1FqVLgPBcb/250
- kKXVn8a6HynAfff/nrOZgvSMPJeJThjCM9rLQjqRjN4xzYjQYMv4lBs
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: DS7PR03CA0084.namprd03.prod.outlook.com
- (2603:10b6:5:3bb::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvvumnG3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7271F01825;
+	Fri, 23 Oct 2026 19:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792784785;
+	bh=X4WY9OI7pRLoxyt5aowUMYA8CAEnFmKkD4+RrPyHHWM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fvvumnG3ZleVbIEXiRoKq9E8XZ+Ju9N+0l9GfK9cflJ1igDFyib5MgjenSPuthEHv
+	 G8M0yNiQE5w4QvYSvtZrcAEfLKEQOKRzaMVH1a/LzrhzfqQxEnsTjUnavcMPIbI1hR
+	 YkoijNECkZVMrj7GKaDmkQMtpmnHa+D+GZy2TDSYp7nl9rrym8Wnnd9d9a1EudjNSW
+	 MHDQ6VBdgHaLvC/PwQ0SIny9JMJrmXq5gZ/soSVsCw72buySXJ0xt+Cfs3/LWVt27j
+	 My7UtniMVmolRg5MxAr3vrGyggYEjl67nVz6vp0g+jgmRtei1oiN97ItbQ4dakJBt4
+	 MBTOzDt9I6CYg==
+From: Sasha Levin <sashal@kernel.org>
+To: Tejun Heo <tj@kernel.org>,
+	Kir Kolyshkin <kolyshkin@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] cgroup: don't kill migrated processes through their exiting threads
+Date: Fri, 23 Oct 2026 15:46:23 -0400
+Message-ID: <20261023194623.3566511-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
+References: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,124 +62,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB10597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03b0acc0-79ab-435f-fd7e-08df313e3b9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|19092799006|366016|261021121427099003|56012099006|921020|261009223027099003|11063799006|18002099003|22082099003|10067099003|261021123027099003|261022105027099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	cCwkZ3HvfOBX+pUnaPJNvfL++A+Gc+g7Wj2ceBImhYlyuJtKOuamu0n+iEueU5CsSAicMD5kV6OZ0bqUKI4Jw8UKiOvvSEpLdp/2+AoKwGijH7iyliiEobDkDS7zor1TuE84f47E4Yd+0T61ySo6EWxfxc5oreqRCcUMj/v0Lg8qDZ8QqSODTrFFXnbEvtW+UFfX/Icd0RIRSsyUfc/sOyxNBUM0nhpxOd8KAukVmHj6oRqc2aZQ8ks++gvgSogSGNMejV7yk52S5ib5nQxmzzgYyaqeDb4Jxurzt/dGG5cSHOz1psV5jU/fOw1a9Zv4708X4LCJKNiPqUIPoCkWgpM5I22MRH5y7YYFy2PY6GnJ1pekw90s/k6NMLzFrDOiwZN4p3iwR+Hn/Hy4IL49nseRSFSeOQ91+zgdP/zZPSNlrEVrjAlSdFbr2YDCDK/xovATW3cgxp4SZs5VCxtvSSVIdVd51WWTyo2VA7lQwRBpmiCq6fgpOaQKE0UJ5Mg/B4yY/uc/gSvgs7pxgxuBIidcThhMasTvCmMqQHck14nMxhQT44i8JhYPKgkW4mecgSafgheDcb8lgCSMJq77cLlZZqfGHzjMnJ+u9ASEWRaqDqUActBDwp3dDywWRGyC9f1nR+X6ZZO7PTRYUjepzjdIbq1/1cmVLMM8WGc9XXnaA9gkZYp5c5dDyDEDcUwxHaZ1SiZ37HQq3y7E/E9Jsg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(19092799006)(366016)(261021121427099003)(56012099006)(921020)(261009223027099003)(11063799006)(18002099003)(22082099003)(10067099003)(261021123027099003)(261022105027099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eU41ZnJ3MFAwcU5HcncvZFdKL09IY09PeVdqTFJLYkxQdmd2Vm5qdTRzdlVY?=
- =?utf-8?B?cjViYThMMUJEcVZBMlRDK0llUXNtcWRGWFZJOGFuZXEvdUZGb2UrRmtSRjB5?=
- =?utf-8?B?by9MTXNUbkVUdkxWMU1DNFhvUzBRQ2Q3M21XVWNXdXFvZzVXeUZGQms1OS9m?=
- =?utf-8?B?KzFDazVUUXB4ZlRnK2lmUTArcGkyem42eklxSUpEN0M4b0RBT2VpWStUSVdM?=
- =?utf-8?B?VGNhenl0WFdMbEdYVU1oTDlkS1hhRUVWSG9qeHVVaW5BVFA4WG1rTnFnTnpG?=
- =?utf-8?B?bVRqWU9VQmVSRzNFMTVSR3pFbkZ0SmJtZ1JaY0p4Y1NHWXErL1dmcWRReXJi?=
- =?utf-8?B?MjMzTDRCQzlyNG1MMWlGQSt6eGthSnlJUEhkS2RObWdYNXFDRExsZGx0ZGdX?=
- =?utf-8?B?cEhmTHNPRXFaTkhMc3R0aytCa04rdnZES1NXeGZmdkhNV3o2QXVtVjc0d3Jv?=
- =?utf-8?B?a1Urbm03MHRuVmVnbFBRaHRlN1BIVGRNS3lhY2szZ3gzNGkwK3UyUFVRcFgw?=
- =?utf-8?B?SlAyVU44d0RRMkxhV1NLM2NaMUV6T1BtcDVGOGpwZ3VrVGtONStqZytTVFZw?=
- =?utf-8?B?YnJKMVRoOVBBbERiZkU0LzIwaSswSEFZeTRRZFJNUWlQMVY1c2RjNGNnbVIv?=
- =?utf-8?B?Vmk3YnJ4NHBMRXZ0cCtjaHZTd2xtdFpETWZaVHd0Kzg4ZlNwRzN1WUdueHdT?=
- =?utf-8?B?VXROdjg4QkIzR01GdU5LSWgyWlh0a1dnSHpSc0M1UnRQZXZhWjhiK2pneTk5?=
- =?utf-8?B?TDZiT0svemhOK2pYb1l6MWI4QWFUbFpQWG10aTRjTy9yNmZaNC9ZL1p0bnlE?=
- =?utf-8?B?UlA2NVpJeGYvcDlYaG1MTHRzSTRQYkZPdUxLQk1OQlAwdFVWckx5U2dYcEo2?=
- =?utf-8?B?OG44WGQ1YjM5SFVKcjREY3hBN1hBL09jT3VyeVphZjZoU2FEcy83Y1AvcVJ5?=
- =?utf-8?B?bVJiajlORnE3TVRLQTFNYWpaWnVmUE1TVTBhVjRsNVR1ZDFUaC9lajlNWnhp?=
- =?utf-8?B?eWZUbVZxZ2hrYkhJallFV3JXbHJTNWEzWm54RHA0YkFkTlFvblY5WnlaMG8x?=
- =?utf-8?B?aTlQcE9QKzh4ZDEzMnF0dFRONTZpb3gxajBMYmZaQ00wRGJ2UkhuTVZIR0RC?=
- =?utf-8?B?NDVKbnB3WGxHckI5d2tBYTNpVlB3ZzJuWDhUN05HTmN6YndsbUgrVDdKWEk0?=
- =?utf-8?B?cWdyTmhOMWFSWExGWDJucGNxVGZNdmlxaU5nWGEvb1RmWkViZFdjdHUyS2dF?=
- =?utf-8?B?Mmp5SHRmREh3ZGhsbjFUaGNhWUNnMXJCOEpwc2pKeFo0NVVWcXBqR1o2VXZD?=
- =?utf-8?B?bnpsT3lLbmhKVnNjcXRDVDZ4ZU5hMmUxQzVuTy9hRlp6RG5TWWM4ZWc2ZVB2?=
- =?utf-8?B?VDhWekRSZXErU1dKKytMcWt0bkgwbDJpQjE3RExYemI0Z045UExOdzRkUlNC?=
- =?utf-8?B?R0YwcEJsK1ZiM3dDL2xJdTRaaVJRdjlrZUlCL3FvUzJEY1hyd0Ura0RWNVBP?=
- =?utf-8?B?b2c3MXVsL21oRThnWGR4clRoWDIvc0hDUmJMRytzQWJTYUVMYjZrS0c0VjVO?=
- =?utf-8?B?WGVRMWxsWi95VDdCRElnMkZMbVFWTmxmSUZoNkYrQmYwdGdLNXdCeGZPVmg2?=
- =?utf-8?B?aVdXTFBCVzM3aGI2UFZLYW9rRDcwb2ZaWkwrT1RycG1DWUJYbWVSeVpRVkg1?=
- =?utf-8?B?eUR0WjZYd21rVDQrZVVTMUgzRGxFTnNQaWw5VEk0OXQyTU1RYjR2TnRoalZh?=
- =?utf-8?B?Z25FODJZYWYwbnIxdzZ5QUVQdVhQL2hVemdrUC9lcmtjcDQrTnRCMEdQT3N3?=
- =?utf-8?B?QUVRaEp5aXlNZnJQQklJR1o5ZUx3bTJ6bmsyckw0RGNiWnVTQlBsMlhZaW1Q?=
- =?utf-8?B?Y0p3MEZTNTg4aUJhWVFUQVorR3N6ejBrZG1ENmxZSi9NYThBTHJNNm11a0hi?=
- =?utf-8?B?Nk1HQy9nNGlBVEtrajd1amxub2grc0V0YlRPY2IxTS9XM3lIOGpGbnRxZWVT?=
- =?utf-8?B?Y005bmxIK1NkTWdWclBHSi9kQ1hHaTFkYjkwYkU5QjZQSElOSVY4QkJXUjc1?=
- =?utf-8?B?cUlvSCtsMGY5eVYxTXdFOEZoM2oya0NlTWhVOW9Fbi9pK2cxbjNmRlNiMXVh?=
- =?utf-8?B?RkU1eTU4djI5M3B1YzJJZExmSGJQWXA5dTB1M0lmM0lrM21qZ3F4eTZpR0dP?=
- =?utf-8?B?UytjMzJwRmFDT1hjOE0xVmFBT2NRbFAxQ2dlK0RvT2VkVFl0ZHY5NW96Mnly?=
- =?utf-8?B?Y25obXJhcFAzVS8yTWlyaDl4NVVDdmtwdUZsa1FqdVp1b3g2UTMwaTlhVlhy?=
- =?utf-8?B?TnlCL3JSeEhhSW8xNi9UM2t6eEpjMSt5Y0JGVko0bVcxc2lnbzNiS3haUy9O?=
- =?utf-8?Q?s1hucwSiq6vtHd2yFYucsLGeK5iJjo5RWeZOI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03b0acc0-79ab-435f-fd7e-08df313e3b9a
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 19:45:46.8759
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 70ugp2MthTwHHvc8kD9Dp+JwR9D3WFsE75cUmuT3qoZHBQdhpymn8IGYr7kdSvNJ7Xnvggi18DC1ar15QU9Dzm3MGo4h7u8o6T76aiCTPF5K+DekvUjPV/RW0fM40QzU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10597
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+Since commit da13e0e72a73 ("cgroup: fix cgroup.kill for exited thread
+group leader"), __cgroup_kill() visits every thread in the cgroup and
+sends SIGKILL with PIDTYPE_TGID, so each visited thread takes down its
+whole thread group.
 
-Move the IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1 pin from the iomuxc hog
-group to the ACM pinctrl state.
+A thread that has started exiting can stay in a cgroup after its process
+has been moved out of it. cgroup_migrate_add_task() skips PF_EXITING
+tasks, and the thread is only unlinked by cgroup_task_dead() after its
+final context switch. mm_release() clears the thread's clear_child_tid
+word and wakes the joiner well before that, so pthread_join() can return
+while the thread is still in the old cgroup.
 
-The pin is used as the ACM MCLK output and should be configured by its
-actual consumer rather than unconditionally claimed by a pinctrl hog.
-Prepare for LCDIF support, which uses the same pin.
+If cgroup.kill is written in that window, __cgroup_kill() finds the
+exiting thread and complete_signal() passes the group-wide SIGKILL on to
+a live thread, killing a process that already left the cgroup. The cgroup
+selftest test_stress.sh runs into this: test_cgcore_proc_migration()
+joins its threads, moves itself back to the root cgroup, and cg_destroy()
+falls back to cgroup.kill on the old cgroup when rmdir() fails with
+EBUSY, so test_core kills itself. KernelCI has been reporting
+"with_stress.sh: line 94: ... Killed" on several arm64 boards since the
+commit reached linux-next.
 
-Acked-by: Liu Ying <victor.liu@nxp.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Keep visiting every thread, but go back to sending SIGKILL to the thread
+that was found. A SIGKILL sent to a live thread still kills its whole
+thread group, so both cases fixed by that commit stay fixed, and
+task_can_queue_signal() drops one sent to a thread that is already
+exiting.
+
+Fixes: da13e0e72a73 ("cgroup: fix cgroup.kill for exited thread group leader")
+Link: https://lore.kernel.org/all/179272264722.329188.4773475583351189022@6e52bff8000c/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-index f21ac208bf00e..159ec4ca1577b 100644
---- a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-@@ -349,6 +349,11 @@ sound-wm8960-3 {
- 	};
- };
- 
-+&acm {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mclk>;
-+};
-+
- &adc0 {
- 	vref-supply = <&reg_vref_1v8>;
- 	status = "okay";
-@@ -947,7 +952,6 @@ pinctrl_hog: hoggrp {
- 		fsl,pins = <
- 			IMX8DXL_COMP_CTL_GPIO_1V8_3V3_GPIORHB_PAD	0x000514a0
- 			IMX8DXL_COMP_CTL_GPIO_1V8_3V3_GPIORHK_PAD	0x000014a0
--			IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1		0x0600004c
- 			IMX8DXL_SNVS_TAMPER_OUT1_LSIO_GPIO2_IO05_IN	0x0600004c
- 		>;
- 	};
-@@ -1067,6 +1071,12 @@ IMX8DXL_SPI1_SDI_ADMA_I2C3_SCL		0x06000021
- 		>;
- 	};
- 
-+	pinctrl_mclk: mclkgrp {
-+		fsl,pins = <
-+			 IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1	0x0600004c
-+		>;
-+	};
-+
- 	pinctrl_lpuart0: lpuart0grp {
- 		fsl,pins = <
- 			IMX8DXL_UART0_RX_ADMA_UART0_RX		0x06000020
+da13e0e72a73 is in cgroup/for-7.4-fixes and not in mainline yet, so this
+can also be folded into it. Skipping PF_EXITING tasks in the loop also
+fixes it, if keeping PIDTYPE_TGID is preferred.
 
+To reproduce without waiting for the race in test_stress.sh, fork a child
+that moves itself into a cgroup, creates and joins a dozen threads, moves
+back to the root cgroup and writes 1 to the old cgroup's cgroup.kill. A
+thread doing mmap()/munmap() in a loop widens the window. In a 2 CPU KVM
+guest running next-20261022, 436 of 20000 children killed themselves this
+way, and none did with this patch. test_kill passes with and without it,
+including the two tests added with da13e0e72a73.
+
+ kernel/cgroup/cgroup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index faccc793325e5..a284225f8dc95 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -4313,7 +4313,7 @@ static void __cgroup_kill(struct cgroup *cgrp)
+ 		if (__fatal_signal_pending(task))
+ 			continue;
+ 
+-		do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, task, PIDTYPE_TGID);
++		send_sig(SIGKILL, task, 0);
+ 	}
+ 	css_task_iter_end(&it);
+ }
 -- 
-2.43.0
+2.53.0
 
