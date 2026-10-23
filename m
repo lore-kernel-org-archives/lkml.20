@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747695;
-	b=mDV3UC+V6UVOcof6wlE9742kYOAehhG3FpepC8cs4y/mL1J/QvOUwSETukzm2cm734K2
-	 nM74JGAzKjV/K23TQ+UR11gTM9hHQNsYDFGrAaWAAWVPmAv8y7alj8KTngbtYIkzcev3s
-	 b1GnfnX/SZR4OSoOHmRXOEFLY/qNXSGha9J2fB6X/lgHyCkGPlRyL7PppYfm5lKM3J70t
-	 l5WOMPbrues/x9k51YzYE4lF7I6k5BmPRIqF6j+f9PnH/pPWdz3fwvpgH+6Mnda60QyW5
-	 /kCmFZFqaIZeRP7QZhZewpzKftGvEZWUGPb6iSL9UB3Hk36tB/2wboaZYiCepR9ou5Q==
+	t=1792747703;
+	b=XDM1jV8qg/IIc/vVBBnI0KQ1HbQd9+5vzXuBgjv6EcVWelqXAHt12LooHy4SMdeN2WZ+
+	 JaymOa1FrLtKuW9cBV+1MU/tfy5+Ceu2jnPM2FivhPNXhC+8ss6L8v8bnhaAiyk5TkWmg
+	 sMAL1ZUkmOolHgiMxlqCLZOTLBrLOSdfa2EW/yB7GsfcPH/sMgRLsbLhRPoD6iXs/VIq5
+	 c4O2UG8rQrqaHkcSmUFps//2s/rQI5rKdAbzEffYPj44DaKBGlD+XHFoWYAOtm2tCCb3U
+	 dn980qsEbbgH4o+BfRSOXXU2Bth/PpmC4wN1m9vPBQOBBGdM3NPwnZe64iX4kAjRU1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747695;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tlePnP3GE78vbgKi5tLSYix5xa2MNZBwLKVMInUWwZ8=;
-	b=anXJknXfdJtwPGtMlyC6niu3SStXxIJT1QnApjkM+PUWoXyfvDvqgvmLwiq09lJ48Ib5
-	 DCEJG6Hh8+of+pM0eV79WK8oonIRegqMYXyGCHWUSlHp5MWOdPCvkgjRFKllwbP+myBsR
-	 Zoe7KzCaMACEgIjDSpEWTUKhv3ZDaK5xQsCaiq72G83EeJJaaujVHGs3zDtZexfhz4Cfh
-	 X5eNoAHOqQd9YtU7MYAZaERrTNTUdxEJ+WIkGQJWalnvI/Lx5i5+uE+yhuYOg371W47TM
-	 sQP+kDfhYGMp8P7zrSznohRsGtMDBI5z/q8l6El11YBpPuX25P3ntnroGOf34jm5bYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747703;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=2A5ogykBu6eGEMANLWbebVzz2b4RhwFgjJ7CzCvTt3A=;
+	b=Qz/z1i4Q3xWvDUcGNk6KkNWGIBONi9eDFtssWAo/Rex/Q8uG/PuZVTw3sIFY64zw7Iyh
+	 jJW7jACP0GKnQSoB+Dh122SOfITMbFVJBF3ySJvX4QJV3eyWZBL9U5dLjjpSzh3Fhr5eG
+	 Y7lf9IXyIbtOEF6/7r73MiHyWGavlQeylyRMEFyEh0w9KU3F+duR56zEUpY2B4s3SjyqJ
+	 6gw29vx5iasBNEX0GIVnD9NQOAufsBoe8tWCAqpsmxvt1Jxfw6ekNWh9wQ6rmJ1yAD84H
+	 lvhs9IfOaUR46tQL4FNA6N1gT7MCJH+YW7L29Lg27BfpvEwB/YXdwvjssirqhsJpslw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAMiazq0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FywRNP61;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7E9606A31A;
-	Fri, 23 Oct 2026 09:28:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49976606A31A;
+	Fri, 23 Oct 2026 09:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49976606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAMiazq0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14DC1F01825;
-	Fri, 23 Oct 2026 09:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792747694;
-	bh=tlePnP3GE78vbgKi5tLSYix5xa2MNZBwLKVMInUWwZ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SAMiazq0h/d4fr7VYelFNOoHhHhBYWz8XP8e8Tkhw420EvwAw9Umtlm16H1x+YAm1
-	 yspCfKmJlVDvuuz+DX8MhDfHgXkciawgUp/iHUmny3Ge3LUZy0rWnXMJwC5RgA5TxB
-	 QheRdXq+kNXoukztdjuAkaUr/0vjNROT5NeJXX1hZ50T1Jh6GuYmkIWXlufDKw1BFA
-	 gto3ZRZcrjAX0O/8e0/1jIxI5jHnhFSvd2hH0Fx7JqNAUeOWUjzz8U5xO2ED16NYRk
-	 YAYnDCRbwQ5FZhjYoV+D188RwVwcg9lao1puIsFDtOCYhw4tRTxaKYaHz4QL73xdHO
-	 Oo/18fZpTQD2A==
-Date: Fri, 23 Oct 2026 11:28:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 1/7] dt-bindings: lcdif: add compatible string for
- i.MX8QXP and i.MX8DXL
-Message-ID: <20261023-uppish-invincible-chinchilla-cf8a47@quoll>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-1-adc944659e14@nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FywRNP61
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2A
+	5ogykBu6eGEMANLWbebVzz2b4RhwFgjJ7CzCvTt3A=; b=FywRNP615wR3reVd7c
+	m0Fn9lUJyXEVWOEyeBn5qIAzdm4vNnne4u51E7QcKOzPXIGFQJ1V+XsHLgXgAJxa
+	W0zgIM1/zctMecnG6l6BDn6IhtNQJzzOtkUZQaIYSgsUJnH0MdrxOOPPFgJbX1ki
+	HbgSHtUo6rSfgiR24+K1ZVpho=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3KHOkKNtqXHGqBQ--.1363S3;
+	Fri, 23 Oct 2026 17:28:07 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v4 1/4] media: wave5: handle remaining decoder runtime resume failures
+Date: Fri, 23 Oct 2026 17:28:00 +0800
+Message-Id: <20261023092804.673980-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023092804.673980-1-yaojiale02@163.com>
+References: <20261023092804.673980-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,24 +68,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-1-adc944659e14@nxp.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgD3KHOkKNtqXHGqBQ--.1363S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4xJr1kCF48XFWkZFW7twb_yoW7JF13pr
+	y0gFnxKrW8JF48JrWUJr4xZa45uw4kXrWxu3s3Gas7ArWrXrsYqr1jyF15tF4vyrZ3Za1D
+	Jr4DX3y7Cr1aqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jznQUUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQfE-mrbKKd2iAAA3w
 
-On Tue, Oct 20, 2026 at 04:12:51PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> i.MX8QXP and i.MX8DXL have lcdif, which back compatible with i.MX6SX. Add
-> front compatible string "fsl,imx8dxl-lcdif" and "fsl,imx8qxp-lcdif", which
-> fallback to "fsl,imx6sx-lcdif".
-> 
-> Required power-domains for both. Required 3 clocks and clock-names.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
+Several decoder callbacks continue into firmware commands after
+pm_runtime_resume_and_get() fails. The runtime resume callback can fail
+while enabling the VPU clocks, so those commands may access registers
+while the device is unavailable. The matching runtime PM puts can also
+be issued without a reference.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Check the remaining resume results. Propagate errors from callbacks that
+can return them, complete buffers or jobs from void callbacks, and avoid
+firmware access and unmatched puts on failure. If runtime resume fails in
+device_run(), stop the instance, fail both queues, and return their queued
+buffers so the mem2mem scheduler cannot repeatedly run the failed job.
 
-Best regards,
-Krzysztof
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Fixes: cbb9c0d50e47 ("media: chips-media: wave5: Fix SError of kernel panic when closed")
+Fixes: a52e6f7923c1 ("media: chips-media: wave5: Resume device before setting EOS flag")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ .../chips-media/wave5/wave5-vpu-dec.c         | 55 +++++++++++++++++--
+ 1 file changed, 50 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+index 86bc36ee17..0088501f93 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+@@ -829,7 +829,10 @@ static int wave5_vpu_dec_stop(struct vpu_instance *inst)
+ 		 * accesses VPU registers via send_firmware_command(), so the
+ 		 * device must be resumed first to avoid an asynchronous SError.
+ 		 */
+-		pm_runtime_resume_and_get(inst->dev->dev);
++		ret = pm_runtime_resume_and_get(inst->dev->dev);
++		if (ret < 0)
++			return ret;
++
+ 		ret = wave5_vpu_dec_set_eos_on_firmware(inst);
+ 		pm_runtime_put_autosuspend(inst->dev->dev);
+ 		if (ret)
+@@ -1392,7 +1395,11 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
+ 	int ret = 0;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
++		return ret;
++	}
+ 
+ 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
+ 
+@@ -1556,9 +1563,28 @@ static void wave5_vpu_dec_stop_streaming(struct vb2_queue *q)
+ 	struct vpu_instance *inst = vb2_get_drv_priv(q);
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+ 	unsigned long timeout;
++	int ret;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
++			struct vpu_src_buffer *vpu_buf;
++
++			inst->retry = false;
++			inst->queuing_num = 0;
++			while ((vpu_buf = inst_src_buf_remove(inst)) != NULL)
++				;
++			inst->eos = false;
++		}
++
++		v4l2_m2m_update_stop_streaming_state(m2m_ctx, q);
++		wave5_return_bufs(q, VB2_BUF_STATE_ERROR);
++		inst->empty_queue = false;
++		inst->sent_eos = false;
++		return;
++	}
++
+ 	inst->empty_queue = true;
+ 
+ 	timeout = jiffies + msecs_to_jiffies(VPU_DEC_STOP_TIMEOUT);
+@@ -1675,7 +1701,21 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 	bool cmd_issued = false;
+ 
+ 	dev_dbg(inst->dev->dev, "%s: Fill the ring buffer with new bitstream data", __func__);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		struct vb2_queue *src_vq = v4l2_m2m_get_src_vq(m2m_ctx);
++		struct vb2_queue *dst_vq = v4l2_m2m_get_dst_vq(m2m_ctx);
++
++		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		set_instance_state(inst, VPU_INST_STATE_STOP);
++		vb2_queue_error(src_vq);
++		vb2_queue_error(dst_vq);
++		wave5_return_bufs(src_vq, VB2_BUF_STATE_ERROR);
++		wave5_return_bufs(dst_vq, VB2_BUF_STATE_ERROR);
++		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
++		return;
++	}
++
+ 	if (!inst->retry) {
+ 		ret = fill_ringbuffer(inst);
+ 		if (ret < 0) {
+@@ -1818,7 +1858,11 @@ static void wave5_vpu_dec_job_abort(void *priv)
+ 	 * device must be resumed first; otherwise the register access faults
+ 	 * with an asynchronous SError.
+ 	 */
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		dev_warn(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		goto finish_job;
++	}
+ 
+ 	ret = wave5_vpu_dec_set_eos_on_firmware(inst);
+ 	if (ret)
+@@ -1827,6 +1871,7 @@ static void wave5_vpu_dec_job_abort(void *priv)
+ 
+ 	pm_runtime_put_autosuspend(inst->dev->dev);
+ 
++finish_job:
+ 	v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
+ }
+ 
+-- 
+2.34.1
 
