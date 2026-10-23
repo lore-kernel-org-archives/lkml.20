@@ -1,87 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761488;
-	b=zwZQ9ztaD44uIJFB+V5EeBIeYASoRlrCq1O/eyNc9+pFSTrNvWJbrhc6347/xZ2YNsmt
-	 0hgj5vUjTWKy5fLB/KY9eEQgQmtqDsM62BigUNQyY4o59JKaEJiqUuIj+OpkcUNlW+491
-	 tO0dU1Gr18FBzMsnpWjE6U3+DaXBYh51QFcs+qwS+Oz6eNx9OdAeBQriFgL0Xrv1E2TAF
-	 ja02X3U5Y+q5y79Vg41ZNxgumsbJlxNDg1zWDn7xwK1kovWkUw81Quy+vW+X9x0n7en24
-	 RXWD3SsHAPITDPBTk+5BzFSY2TVsCAK+ZzgkoLwS3QIInsa+n802TWwDhW/hKqyNRiw==
+	t=1792761590;
+	b=fXcmOJBglbX9P5ZPqND5x6eJ/oX/462YIJZfaBUf9vLe+/h7UPomJ0S9bYCZawpd+tdV
+	 CXE5e6AZZBm54V9DEjbg7jqaVQcRbvMR7I/q7uHI9IZOOVpCUKlspb8wUYoRCsANqUGTX
+	 GmWVfhMEHCzyD2CQRkXJNCvZTZOfkaHTl+sfWLFMwqs0/FqVJ6Vtm2H25vpFEav06ojk2
+	 UyJKhBMxOHxSefCf8GthvkXAB4Z0d3qe3SMEA0yHJkiTy5lMDcp/GLJH0LyQmRDHWeC+3
+	 +RoI2TDbHYeCtKkxZflYRLTW3wdhcHacMfEOQiCRMgKmBiXPVCmwOZ3j6aAn5EH8OSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761488;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761590;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
-	b=jRODHaT/c9XiE6b5bqw4utoSSH4GaEiNJTBw/R7BNRrlNofBfgGQhHvK7mLprDH+hcbO
-	 1Gxy29SS0F9HhhrZWov4lPohhop6zgy7C8T35afd2UDS8i4IL+i3/pJe0yxAtGcKWEwe3
-	 NT0xoBeQcOxKndk6RN6L3rFIfO3o8v6WeMmuHAplEznFjeeuTOIMvGXneSGI8bEKPewbj
-	 WX9zoGS3z2yWKt8yCrGpkSVfdz8he4mpPmcVfL6vtLo5bfHvJGV37giEAV+mkEzj56ot0
-	 ip8UiVdH49gGBHSvOtLQA4wp36fqpwTmq/JiBOJ5U/zDNZBqa2n2OpNgWTReF0kw/Sw==
+	bh=HHzMsJF9k+4VDbAqBeFrm1tYK+OTd3TiwEcV01FAU2Q=;
+	b=1hgHOgO/gJO73a+jPSByrT5GajC/NLVUs5VIoM4WQ158IKhVhytlmzXanp8CQwu33H+E
+	 bPn5OiPEf0CC/8vEWZ69S0rpI36nYsvcCtQSCX03zjyyNphPZ1wSD4khKbmGcyeknVu5K
+	 /rIGNeb5LpnFrGFk5XUuLDPGTchFXGjub3VtY2b9RjjC+KzI81FycUxgPns15sRcE0Nv9
+	 MFyuEeCdU28N1jD+WhmjsGGWTBzj7ak973N2Ptwzz4XFpB7eMvYik148N3SRtEIXJQ0Vn
+	 e6JSAswJHSt8PgrN5KiW7A2jEPFzsAbMFkcV1WDdzOh2Rtw7PtqgauMnnSgdnzhmcLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=n0rWQwXy;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=hzbNQsxN;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB878606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:18:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB878606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56769606A31B;
+	Fri, 23 Oct 2026 13:19:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56769606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=n0rWQwXy
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8490a7d6696so461842a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:18:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792761486; x=1793366286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
-        b=n0rWQwXyIV/EIUQujoilUdowokticzbV4wcb8j3mOhEPTuEJh/IvJPf6BafOM4nnTj
-         /JZ21xQhWrNbnAlw46vrfVXGKf2o8vS1mPE5TkZgHpUp2hpOA/bZqWNXDEyTPMXA6via
-         Dl6hEi/vjLBipabZhZA9DLV+vlgM0eH3pqBMuYd2NXES5sW99mufVMJzXeCXc6cs7EWe
-         RFvi73goDtwvepcVThgzMSJ6mug4TAkEvGXKaUYSEgUTpVV1B/tMkgyQbn5G2B+YtNYo
-         5aVQdsn9dohqG2DidTMvvTQtDmao5DrhgTW5RfZ6tSSO8Z3idC6ixiIhMg9niB80iIQT
-         eb6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792761486; x=1793366286;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
-        b=Mjj9rCmDq/Shf2cNQNEk+3fPHy8YtMP8jAIEAFIksD2VbtCuwdmI5cTRWeklOxj8f8
-         CEPSCwvoUgLCw5kuo0ZQnn5+Pf+2Xn+nJebzYv9kjH8sq4xn9HRvQn1BQwPAsH7EuCaw
-         83H8VXFDFKpmuUmypS1ubS940BxywugBNvwc93fQZHFNEE3VRXpq/J16DQ2y11wu4LFI
-         WMizJg7xZatT7l32wbFopJvdvf7KHHD5EdNysLjARC8Xx+y4dpoVKQeIfRaUAVwRupFo
-         NXy829c6VySt2kuduKZwmyd5P/Jarg7h3kme5Y32IGps09gEvPYjBm0MZmFwtzPkd50V
-         grzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsgIn8zFGHFk/RVrCV3KqOnJfXqAwOz6NwFC9grgERwj0W0yU8MkF9JJ2T2SvXODlWu/vteiT5jii66XQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvBremn9LIWoAymuQ4NK6q+lTrKDrvmvyT6AITa3vggWf00j93
-	cvoadFQzbkTe7ZGH+ndbCbREyWKfoyYhamvpZeP4KGOoPadkRNyNojcwPnlOSmsUit0=
-X-Gm-Gg: AYBFou2FNWHaw7WBnRMPHRZehNYVpGZrv5/O96jt5aUhhw0YFYD5RmZ7SiecEuoXhYI
-	T1C577ig6J6QTrIGHTTZM+y0Kaez8VHIZ+wB4UMwv/uBvMcX1ir0GBQqOov8QDY6VmV4dqMlQSp
-	XzTnlqF1J4WNkp7MJETaxLkbEhf/9sRro455PGqOT1aMjxmLjn647Vr4gBcZerZcdh9A15rge/Y
-	D/h5CT4XzRn5kTAeCivDp2lRN/7LoW+4DGgZFhc80SCH7k6pXmVnkAqQHWbs8kx129Qq7oZx2Eo
-	P9Dt+8Qo2ETdNqQvsJKGnuzEtP7IfuMc52unX5Ntla6BrP8I/L6vZ1hp+xcDdDnDB/9qUYhgYnt
-	bTZwthfssVQud2BdlKmD7oocDGPU9bRUQ7IG9kH8hFfuWxqaTCrKxHlM1H5un2IRntkcHWdu3vZ
-	XculLslC2OC5n4Wlpl22uMcFhwjRSwJr2XkvE00WMyucnP6tNvu/c99j8HkAqP6nwc/PlazTd5B
-	nUN4AA5ztXmmMrrnJAfGkzEwOImce+QN4anxU1gokQzT3/LwWSLXNBR
-X-Received: by 2002:a05:6820:498e:b0:700:da68:7398 with SMTP id 006d021491bc7-70b88a4894dmr1285740eaf.43.1792761486541;
-        Fri, 23 Oct 2026 06:18:06 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9ae63d9asm8548eaf.8.2026.10.23.06.18.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 06:18:06 -0700 (PDT)
-Message-ID: <fc3a1fb9-181d-4994-9bf2-45272dafc86e@riscstar.com>
-Date: Fri, 23 Oct 2026 08:18:04 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=hzbNQsxN
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 22849197A3;
+	Fri, 23 Oct 2026 18:19:47 +0500 (+05)
+Received: from fedora (5cfcac1b.dynamic.mv.ru [92.252.172.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 1716E18C5E;
+	Fri, 23 Oct 2026 18:19:19 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 1716E18C5E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1792761586; bh=HHzMsJF9k+4VDbAqBeFrm1tYK+OTd3TiwEcV01FAU2Q=;
+	h=From:To:Cc:Subject:Date;
+	b=hzbNQsxNPWeKZVw1AVxN7X4/T6UWnbisKdc5tGgmorz8wyqNvIOjw8kTAAvJjCueZ
+	 DTNictk5sERsOzco/0fltSVrwZLOgXjm2rZKV6xLuw0t+0z9wdDwbcK+oA0NTWRWm7
+	 AWyV75kxt6kslS2d04xrLxx3XaW55isZe4RrUPDkXD4QLDCJ9cHLih/cM41hoBBVD2
+	 Ms++EvppuZDhWf8qJjUoGJCvE5Yj/CN8nh1xkg8WKnTTrn+d7mlvCM1BjFxbcVUhML
+	 5w1o36LdNzacxTLTrIsd+x7R6jBZZ/olI1ksqE000k3R6TCJ2DzolbZPn0pO39eo3E
+	 V5qEtsIATESXA==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: tegra-video: Check CSI subdev before error recovery
+Date: Fri, 23 Oct 2026 17:18:50 +0400
+Message-ID: <20261023131859.95819-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,76 +80,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] staging: greybus: loopback: Use fsleep() for delay
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: pavankumaryalagada@gmail.com, greybus-dev@lists.linaro.org,
- outreachy@lists.linux.dev, pure.logic@nexus-software.ie, johan@kernel.org,
- elder@kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261022202455.104142-1-pavankumaryalagada@gmail.com>
- <a411ee0e-22c4-4797-9fdc-3ac11fa20d60@riscstar.com>
- <2026102338-rack-garland-2a29@gregkh>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <2026102338-rack-garland-2a29@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/23/26 8:04 AM, Greg KH wrote:
-> On Fri, Oct 23, 2026 at 07:48:54AM -0500, Alex Elder wrote:
->> On 10/22/26 3:24 PM, pavankumaryalagada@gmail.com wrote:
->>> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->>>
->>> In the loopback function, usleep_range() is used for short delays
->>> and msleep() for longer delays. This requires choosing the delay
->>> function based on the requested time and converting microseconds
->>> to milliseconds when using msleep().
->>>
->>> Replace both functions with fsleep(), which chooses a delay
->>> delay method based on the requested time. For short delays,
->>
->> s/delay delay/delay/
->>
->> I think "checkpatch.pl" would have caught this.
->>
->> Maybe Greg can fix this up.
-> 
-> Nope, not for staging patches, this is for "learning" :)
+tegra_channel_get_remote_csi_subdev() can return NULL when no remote
+pad is found or the remote subdevice is not a Tegra CSI subdevice.
+Passing NULL to tegra_csi_error_recover() would cause an invalid
+memory access through to_csi_chan().
 
-Sounds good.
+Check the lookup result before attempting CSI recovery. This keeps
+the recovery path consistent with the helper's nullable return value
+and allows VI recovery to complete without accessing an absent CSI
+subdevice.
 
-Please provide version 3.  And given that, I'll add one more
-suggestion.
+This defensive check addresses a potential invalid memory access
+identified by source code analysis. No runtime failure has been
+reproduced.
 
-You don't provide the *reason* for making this change in your
-description.  You say that fsleep() does roughly the same thing
-as the existing code.  But... why make the change?
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-The answer is roughly that fsleep() is a common or "standard"
-function, and it's better to use those where available.  I can
-think of at least three reasons:
-- It's better to use a well-known common function where available,
-   because reviewers will already be familiar with what it does
-- A common function might get optimizations and improvements that
-   your code would otherwise not benefit from
-- It might (slightly) reduce code size
+Fixes: 1ebaeb09830f ("media: tegra-video: Add support for external sensor capture")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ drivers/staging/media/tegra-video/tegra210.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I am not suggesting you include all that, but you should
-understand it.  My point is that you should be clear on
-the reason for the suggested change in your patch header.
+diff --git a/drivers/staging/media/tegra-video/tegra210.c b/drivers/staging/media/tegra-video/tegra210.c
+index a6606768fa03..82d054c9c34c 100644
+--- a/drivers/staging/media/tegra-video/tegra210.c
++++ b/drivers/staging/media/tegra-video/tegra210.c
+@@ -346,7 +346,8 @@ static void tegra_channel_capture_error_recover(struct tegra_vi_channel *chan,
+ 
+ 	/* recover CSI block */
+ 	subdev = tegra_channel_get_remote_csi_subdev(chan);
+-	tegra_csi_error_recover(subdev);
++	if (subdev)
++		tegra_csi_error_recover(subdev);
+ }
+ 
+ static struct tegra_channel_buffer *
+-- 
+2.56.0
 
-Even something like:
-   Replace this block of code with a simple call to fsleep(),
-   which does the same thing.
-is enough to explain *why*.
-
-Also, before sending *any* patch for review, please *always*
-re-run checkpatch.pl so it can find trivial problems for you.
-
-					-Alex
-
-> 
-> thanks.
-> 
-> greg k-h
 
