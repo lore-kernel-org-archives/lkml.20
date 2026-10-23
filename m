@@ -1,41 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792728982;
-	b=sF2ykzwnfgkbX0n73OqtB76/+vdQbmnHYfRymuE6qMCA9YXdv5rznrQcxL9bLQt4mxJV
-	 bYcdU6f6YYLsnOnn61+p1D2tN2iS/DLVAdc1c/2Ny3A2CUbg1J3jPFnbe9gtee94L+pRg
-	 K03nALf97aNwmiJH90QHAdY8KadDoTKPMb7oKNUcq++JHLFgZuC8bA2/Dmyf+hEy+FwL6
-	 CrzIlXBf18hzZ1YuWvldMKxojhw/lsH3ekrQvgumYiZcBz/UHbggYMgvdtg5OKeDg51o+
-	 Rfc2N69RvPkQt+CY0KX8SzJ5sWEKVDzrH0F2mtb0nVKmRo6jJD0cThJgDc9EzewFSFw==
+	t=1792729038;
+	b=Zg88A4MibzjqsZFf8Aqbqs+0Ph2ST8QLa9YvP+Kx6BBvgCOwKBgFMuJ5AK3Ia3zoSpRZ
+	 nr5MC3GV9I5U2WmqyPJiKRnsCDrtMCFm0BsMufuy/I4Tc/Ppd4Xrw6pmnYpogo/kxcw+j
+	 Va1oU9+6aXiJl6yeeCgj+szphkzcWVdt+58SrGXycpvtFVObXFLr0OJ+dEmWgCxkJUyPS
+	 Dq9Zd8qj2/gp+ICTOaOsdOPK1FgCymt3FvYa0a+cD58bUf8aVmF76whjdwujCIp2eGNVC
+	 hXGvGr1PSeBZm5EDGV8U/hr9vWGpIvfoPUHP2Y7aQNN2ab/5I1S5z7J1IcLZa2la6ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792728982;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=REW8cSqOrGTueJ45/KR0c6ERYyEVm++bRRjGP5k8CHI=;
-	b=QU96PX8iCaroDKsd5bBSYmvximJENZWYSAVIjGe+0XQi7OirBnv6PCvstnNF83HdW7vU
-	 Z0ELmyHD39qWHXdqvq1XNIVqDnFZDfGfHXJrE8DiZ0Stl1bSk4elHy7Q/0QWMn255563p
-	 40I7lmZW1AG8q6+zCJDLmKG/CKEpFvf8B9b0kSIOkFWmCTvBmRZaz31sFS8gILXh0A7xr
-	 Ms2YsOtea6u4kpHxWbm0M3UqojUiOmDnTWMrU1FAnFFT9OgLx76n/z+9HOl9GEc6bD8e/
-	 8C5/43y/WEJkhLp8XzqFFMF1VP978t4OJ3yr0i/O/0cI5aQ4RuOSipwCT++Bl+0zAzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792729038;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=tZVpAtWdlXnl6TCMo3CWgTWfWWIdH1q4ozjaVaEEH/s=;
+	b=NF2GvuQSSa1DABJ+f3lyAC5Y7HBVm1KnOXUgEMdX6mla8NtXTuKcqPwxdb58MmPWWGdy
+	 mCz2vwGQX677L2RccqaRh43tZPUOVZiIVaARf/CZhLiWJVJHhI1qGCrA/eCxmGP0iTb3k
+	 4Zeqm+OVh5n7yw0v9fQeeNqhF7Ei3TCCVAnlzLUfFItgs25myX02uV2x8unJZ3AgHAxt+
+	 AbMWgjrnhU/I5ykA9Gwz8V3v86z7C8aG8A5kx7ou7ZKdUiwjv4X5nbah9/adQ1K8OhB+H
+	 qdtxVWPuWhomo4uH2DGeZhqHABgkdAQQ+RbCgU1EUZxga9scG2bFzn3WJ0ao1XddVIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3B3A606A319;
-	Fri, 23 Oct 2026 04:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B3A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMAWW6GR39pqwjIdAQ--.51358S2;
-	Fri, 23 Oct 2026 12:16:17 +0800 (CST)
-Received: from [100.81.40.43] (unknown [222.20.126.216])
-	by gateway (Coremail) with SMTP id _____wAXAeeP39pq4HmzAA--.57740S2;
-	Fri, 23 Oct 2026 12:16:16 +0800 (CST)
-Message-ID: <b22a7b9f-c80c-485c-8691-ef25fa7546ca@hust.edu.cn>
-Date: Fri, 23 Oct 2026 12:16:14 +0800
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ap4s7NlN;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003CC606A319;
+	Fri, 23 Oct 2026 04:17:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 003CC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ap4s7NlN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1792729034;
+	bh=tZVpAtWdlXnl6TCMo3CWgTWfWWIdH1q4ozjaVaEEH/s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ap4s7NlNiTcogMEaK1gbk3o45IVbbObCjTB8Zd3YlYLo2GqMiCYw+xvFAzDO7AzDg
+	 w76/DIpHgm91TDrWzcca66EF5BL5uefA0aw4PNS9SoXB9QPgMVkkJVnQN4Fw1dLZUc
+	 8LVB75coOiCtrgpZzg0+EUbRQNDNySyVGxtTekLSq8O8uVzzaeHWght4WyBWqdrxDH
+	 uRlfXMcraH3oAxdD64NhnulQK+hp9bXDRmTl73+mJa8D6b8/CSFGztPWNFHINfd7Rr
+	 aQ3qTWedOpXMdzhyZOeBOH/pvXZgnOVlUq0ecYvx3tkJpR7J9fJoZe/S+Prc/je9LK
+	 qb87PlEq67/Cw==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E1AA46A64B;
+	Fri, 23 Oct 2026 12:17:12 +0800 (AWST)
+Message-ID: <fb048449033e125df93c2925d6dccafbd4114685.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v3 0/3] arm: dts: aspeed: add Intel AVCRP and JNCRP BMC
+ platforms
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	maciej.lawniczak@intel.com
+Date: Fri, 23 Oct 2026 14:47:11 +1030
+In-Reply-To: <cover.1792613583.git.dawid.glazik@linux.intel.com>
+References: <cover.1792613583.git.dawid.glazik@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,73 +71,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] docs/zh_CN: remove Translator field in header
- template
-To: Weijie Yuan <wy@wyuan.org>, Alex Shi <alexs@kernel.org>,
- Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1792569583.git.wy@wyuan.org>
- <89d676d79f25e12c1dcf19529f695117c7983263.1792569583.git.wy@wyuan.org>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <89d676d79f25e12c1dcf19529f695117c7983263.1792569583.git.wy@wyuan.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMAWW6GR39pqwjIdAQ--.51358S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw1Dtw4kur13GrykAFW5Jrb_yoWktrb_Za
-	1kAF4vy3W7Jry8AFs5GF1qyF45ZF40kF1kJ34Dt3yUJ3sFv39rWFyDXrZY9ay3Xrs3ury3
-	CFZxu340gasIgjkaLaAFLSUrUUUUnb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbHkYjsxI4VWxJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
-	8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vE
-	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
-	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
-	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
-	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
-	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E
-	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
+Hi Dawid,
 
-On 10/21/26 4:15 PM, Weijie Yuan wrote:
-> The credits of the contributors are saved in the commit logs, thus we
-> don't need to repeat these names in the main text.
->
-> Remove the Translator template so that we will not sprinkle our names
-> throughout the source for every change we make later.
->
-> Suggested-by: Jonathan Corbet <corbet@lwn.net>
-> Signed-off-by: Weijie Yuan <wy@wyuan.org>
-> Link: https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/
+On Wed, 2026-10-21 at 22:26 +0200, Dawid Glazik wrote:
+> This series adds initial upstream support for the Intel AVCRP and JNCRP
+> BMC platforms based on the ASPEED AST2600.
+>=20
+> The first patch adds the board compatibles to the ASPEED binding. The
+> remaining two patches add the board DTS files and register them in the
+> ASPEED DTB build list.
+>=20
+> Dawid Glazik (3):
+> =C2=A0 dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+> =C2=A0 ARM: dts: aspeed: add Intel AVCRP BMC
+> =C2=A0 ARM: dts: aspeed: add Intel JNCRP BMC
+>=20
+> =C2=A0.../bindings/arm/aspeed/aspeed.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0.../dts/aspeed/aspeed-bmc-intel-avcrp.dts=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 322 ++++++++++++++++++
+> =C2=A0.../dts/aspeed/aspeed-bmc-intel-jncrp.dts=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 276 +++++++++++++++
+> =C2=A04 files changed, 602 insertions(+)
+> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.=
+dts
+> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.=
+dts
+>=20
+>=20
+> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
 
+Can you please discuss why you based this series on v7.1-rc5? v7.3 has
+been released, v7.1-rc5 is a long time ago.
 
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+In the future please base changes for the AST2600 on the latest -rc1,
+or the aspeed/arm/dt branch of bmc/linux.git on git.kernel.org.
 
+Rebasing allows you to remove 2/3rds of this prerequisite list.
 
-> ---
->   Documentation/translations/zh_CN/how-to.rst | 4 ----
->   1 file changed, 4 deletions(-)
->
-> diff --git a/Documentation/translations/zh_CN/how-to.rst b/Documentation/translations/zh_CN/how-to.rst
-> index 9ec2384e1e76..d448ae69e48c 100644
-> --- a/Documentation/translations/zh_CN/how-to.rst
-> +++ b/Documentation/translations/zh_CN/how-to.rst
-> @@ -203,10 +203,6 @@ Git 和邮箱配置
->   
->   	:Original: Documentation/xxx/xxx.rst  #替换为您翻译的英文文档路径
->   
-> -	:翻译:
-> -
-> -	 司延腾 Yanteng Si <si.yanteng@linux.dev> #替换为您自己的联系方式
-> -
->   翻译技巧
->   --------
->   
+> prerequisite-patch-id: 3af4bd880f896c97741b54ee18845b305a4bd061
 
+This was already applied in 7.2
+
+> prerequisite-patch-id: 23091b539ec7723a865d82da7703bf70c6ed0222
+
+Can you please rebase this patch to send it to Lee on its own. The
+AST2600-based platforms currently generate a warning without it. I had
+hoped Lee would apply it in the same cycle.
+
+> prerequisite-patch-id: ac42a7a373fdc407f6377d0b1c74d728af50ba42
+
+This was already applied in 7.2
+
+Andrew
