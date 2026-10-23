@@ -1,148 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.126
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792748589;
-	b=dXXnSLCyHwL9nQgfE0sBEAjIn0esXbD6vLdpq8x66zUxm9FcRA2cdgSs1EZ1zgfPZVkO
-	 L8dE/jUaq8hMXZyhT/sDMdobpJjpmuJCivWgONHsKt38S7DANSaTi4cZShNRyMsUCi5vf
-	 AwYBE43XEy2PtgJYnbkf9fJXyESrZ6qJabE5PvXWZ28y6Mu30NYg6oczddEHtRKsSysfG
-	 7ae3g8aZHpqUdR2xXmRrFlgsNozxKTp8XoDKzu7d55m3l4wQ3+qzkNXuBuTsmSZB7DYq0
-	 xes6b1oiGaI81x0ZhX40hz8mUrx2AuE/vI9J1PASE26Bsz9dvuCewrja86fTYRNPZXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748589;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kSMZ0ATQoMLyX8up0JwHEaAZh1U0fNciko98yR1SdU8=;
-	b=pfBmVN+oXKZBQAGBX6B94P1ecG2ZSAbV+QWqiIXlN7ZjyELZac+rRs8s0tRujir0udRr
-	 MP1hEqANApRvMWRPvFeXrGwvQrVCg+4F/QaftWxGMHpThzwRU6APZ9wiV56HYA9W9YKSj
-	 LqPFloKioB+pZNGwRaduEx5wlf5ePHVXk7botuD0RDPn6XsF+7evOt3EhX4RXuE5xPZ5r
-	 9MEExcv3rFqWdetqkpLXI8tlP89oS78PzqOLjtzBrWwLqHQfv5xnx+uVGYnKPFEwh4epU
-	 Ei/vg3dShgzzgssGBFwch+NpeH+NOHhJb68Uf+I6h1jNS9cwdQ4S6bI/WuzqDelB/FA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.126
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2126.outbound.protection.partner.outlook.cn [139.219.146.126])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792748596;
+	b=r/DlJvY/xN1FLHbCbbn2WCJ8acnM1zTm1HdjuIT9cPGUEBlR9KsKWrChEn3jgGQGMQFU
+	 O7cSz7JJNerq3fKTD8JWBtZlGggqQVoOh4vUsUdIq8jDfWdyieNYWezUUbfSeo9i1whHn
+	 VojjpNtA6rpum1poJGw5YRhzFwQrymioLswqxvsT6no8UaVI91vnARWjZUCR0A9/XUbNl
+	 XrrPJEudNv6jXV7MWuiu6Hqn4IOlTm/kHqwag4JjCz34Esmox/60se1l/F2ZjtbBZzvCs
+	 mq4cl9UIO4ZTIlZUa1Yci7qLV9+vpgrAAWqLKUgtR8nN+7kPBo+5/9KMSFt9u8HE67A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748596;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zvK3Ly8RBAGWd5O0Ri13E/eflgNnR2Spx0fhghD9ZY0=;
+	b=cKS8uvjDORPl8460wGVjfvJou4MpAuvSHOxE5tO3maGf5mZzG/OzYrxTi7yuT+6brdXx
+	 uHJZAZhdl85h65PX719wlOI2G1At98drDEq+twmjEONdwYOul7hz6Rg7HFZ0z2p9s8Uy7
+	 gA6RIKsFPPhSHj4AUnF4UKsPEmIkCfWMUtrvjnI7CUM1Tq6X17enZ8FuLwAgS6HHq24g7
+	 CxlpOVF4LkBnHsHZK+mT13hWI8naxrEtN3JJSg9Ai/Jplcr0UYdb1TzkvYLT29nRIjjex
+	 +8mcdneaDOcZmpq/XyQ/vFjhoWC008tlfkhDvZD0lAubP1wAKBNR2QKTST8zmHgjzvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NMvxtWiT;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4101606A31A;
-	Fri, 23 Oct 2026 09:43:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4101606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RNk3fqhMEPlob7Ulrmti4sym3crq3raNE+Lwx+j9uKRX5BwzP9gyH1CMMXZpLIrakFSK1G51rq2vwNbMgTtnTFJAxMx1GWTTJfqmjlB28VJE9cCmBDhc4nJVv4v/aHHIeBJ7tY3CVLcl1FPuB6BolHppXhlJEDZ1SAirB0+ik/TlR2Fy9L/K3pAcjikgqxgx92UhzkNYliMWQ/Zezx3rXNc8NHH8UKyCRUeldoBu7QjUYYUmLm4UFt4E4yuCs6AdURRfoHlzjUM5pqb5KxMfDft7Rm2eYCkjLmO+Cqf7A2gejy1DKIaK2gLuRN7PNi0PpPE4gwIY9iloL1ecH6IwOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kSMZ0ATQoMLyX8up0JwHEaAZh1U0fNciko98yR1SdU8=;
- b=aO8eQAMpZLBgR7Pt5ywzagFV7JsiYrAmQXigyYxl7rG52mtUJAFM8Qh8j8MHe/PJdyzcBTLZAQzL90hI6rakTvFkGfvBfQA2W4QNLxhLJP+WUfj/6atr4l8X1ubM27G+b/S/1e1G0m6c4Ei/pOVvBDyyoG/fjA8DQI67KsSSJPyXemgzIZIZvHKjqHHEwsZ48Q5kbtFzlwozzMuj2mVkLk7OnHliWvCf88QcV7SJcARiR9S8cO5VMKHRijXzWHgV2W4tzOH0bt0R+Mn8UyQDbqrXWW9ka8ypVZw79tCo47C3xBzT1cxbSkodralqQJwlCj+yccKi1edess9NfVcWoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:13::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 09:42:56 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0546.017; Fri, 23 Oct 2026 09:42:56 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-CC: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>, Mark Brown
-	<broonie@kernel.org>, Richard Weinberger <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, "linux-spi@vger.kernel.org"
-	<linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-mtd@lists.infradead.org"
-	<linux-mtd@lists.infradead.org>
-Subject: Re: [PATCH v1 1/4] spi: dw: Add DDR (Dual Data-Rate) support for
- enhanced SPI mode
-Thread-Topic: [PATCH v1 1/4] spi: dw: Add DDR (Dual Data-Rate) support for
- enhanced SPI mode
-Thread-Index: AQHdYg/J0rdlsgMyL0SIJwAb/cmFb7cJX+ZJgAGBvHA=
-Date: Fri, 23 Oct 2026 09:42:56 +0000
-Message-ID:
- <ZQ4PR01MB1202C6B2531173B2D395C619F2642@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
-	<20261022102614.75696-2-changhuang.liang@starfivetech.com>
- <87bj8mqaof.fsf@bootlin.com>
-In-Reply-To: <87bj8mqaof.fsf@bootlin.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
-x-ms-office365-filtering-correlation-id: 32033548-ba0f-486e-2eb1-08df30ea0448
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|38070700021|4143699003|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- O9/oj8f4dg1ctoFttT3er/rrpU1KvhZlj2D4IdayZhBNIWA2cHjQVbXIGusNvT8gIlCC08crZXSECONnyvslpJGgS2vlxxNzj/MPwvqIUINCGDZ+mv9IE2szdCsxUGSwnt+0YB2ihjA/c0sG8GC8GG/jnoY4iD19u4O4BDiW81tG99H3gEv2dzpeXzHLQtMtkAio1rVFfOAG3T7PGZRT/9UjkcTnSTfVHfptECTy9lP0PdmOtJTp7uizSux5kL5L7bRGgnEn/Gt8ZbHQrEedFBNigyf8p3P5p8qDlYtlGFqjPtBrLYvM7OC/XN6c1DsTHcsiZtjscHlN1pp+PbKoHEedf3dRW5/eUbrI8L0nRkRGCK/5tT7S8xsOavg66wbZPOwEAv34aQxr9NOpFTTGko+YsXBrOeN1dW2R4Uuud1px3mAJIyOaRvFrDuq2Yy9BgnxffbE3BeY5vumGAk6vuK0/1nl4l6tGNZuBm45yUD4gZIOKiBHN3kQcBPTBzVwAZTgXK4ms7NRJbC8ZU3rtK4m1DAA/e/ib74O5DSeuFab+FqS948XdhEpdj2u4sHPq
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(38070700021)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VG50ZHlIUCtGUURIUld5alNITGZoZHIzRG14NXBpQlJueFBENDN3L09aVEFH?=
- =?utf-8?B?R0diU1hXZXVMWi9Gd2ZpUVNpK2pEbVRFQVUvUHJBbFg2NWJwOHNURUtBc25M?=
- =?utf-8?B?ekFGdHZKWDRkU0J1ZE9nY2dGb2dyTlZ6RDhxeGlBVWNlSlloSmtnNUlrUURq?=
- =?utf-8?B?YVJzTGxjRXdGelBSVHJBM1NnSUMyWXBydlFJb1hVdW0vT0F0TFRSWGZ1VE9Y?=
- =?utf-8?B?UWo1TG94OGVaVDZ6NFVYWnlkNjdpdTh0K29mTXl1RElvUWd3eHR0cjZGTTlD?=
- =?utf-8?B?UVk2dk94dWNoYWRvaXdIOWdBekI0a2JnWjYvbkVMUS96VkVwK255cXh1NDRD?=
- =?utf-8?B?cHNsTDE4azY1djlYdXBrelZRaFNHN3l6L3Z3c2JnbzMydWlCc29jWjA4enZl?=
- =?utf-8?B?ckZiL3liSnBENHhkMC9MSDlDSzFSVXd1N3NDZEJNd09wTjNCZkNtQU1lTkhY?=
- =?utf-8?B?OTVQdVdpdzU1Y2w1OUVDQU0ya21SbjdPaXlQanZSUjJ1eWpPRU5DRG9xTERy?=
- =?utf-8?B?V1JkUXdwM2h5bXR3bXRtN0VHb1dsbFNuNUpxTFZHMVZBbys2NVAySzVjakl2?=
- =?utf-8?B?OVRXajhkRnMrczJyRmhmaFE1VkVZRy95aHpXMUl5M2RETkgzTzYyeHlYYzFn?=
- =?utf-8?B?bEdzakM1cUl3aWVycDJpU1pYdFVVUmVGOU9kNlI0QlF0cnhJWE5FOExCNUdC?=
- =?utf-8?B?cWtBRjNDRVBKMis1MmdlU204Uk1lVm1XNkUxVmNKYVhlKzFtcmY5U1M2cXJD?=
- =?utf-8?B?UlVuYWt6TkFHWVMwZUF2OWd5VnI4aGhSWkRUYkhxSHFxRy9uQk5ObS9tbjBy?=
- =?utf-8?B?a3FqemZzamJ6WERLY292bmIzZVF5Ky82TDE4L052R0R3Ung0cjBaM3F5ZTJG?=
- =?utf-8?B?ZnhESnpYM3dQU2tmYnNNQlUxNGlQTHdzWjNhZjRMOEFIQlpLQWIvUC9aeXFy?=
- =?utf-8?B?Y0JBd1E4RGNnOEp3M0l3RXBQeENZTzN4UW0xZDVQQWo0bC9Remg4MHZCSnUr?=
- =?utf-8?B?OVFzSGkwcVBvY2M2bmN4M2lQazBMMjFURmlvRFRoS1paQ0xQQjFsL2RTS0lT?=
- =?utf-8?B?RThKT2lSQnFVcUlyQzIzK0lhcFVxWXZqTmRXOW5GUTljdnREcVovRkE3OExO?=
- =?utf-8?B?eUFCSmxFWHdCN3lkMC8zakhvMSt6UElsaTlyY1gwMEJwbDVCYXRNY2JVQ3Ay?=
- =?utf-8?B?VW1SVUZzbHAyS1JiZFhvRGhlNnRuL1krbkJobmtIbTA1SS9XZWxySUpYa2d5?=
- =?utf-8?B?TCtKWnVKeHUrY2k3K1l6c0d2bmJjcUlyY2RaQ3NrY2FqeFJaS2ljc2FkMjEr?=
- =?utf-8?B?RXJVeGJxakY0TkhYMnpyTTJ1ODJSOFJYdW50Z25MV1V2Nnl5Q1grRHFES3pE?=
- =?utf-8?B?MGg5SEFDeU43Z3JOYkxxcWtaRldyODBNZEJzMk1TYTBOZVJpLzhYU0FWRTcw?=
- =?utf-8?B?TEpQMUVOK3g1cnJNU3h2d0h4Tk0yM3ZCa0tHSi8zVVRLcC85elQvdm9qbEhY?=
- =?utf-8?B?YlpqUjRuMXZjMTNCZ2RUcTJBK043YVNZZWpYQmE4YTBFVlNDRE4zNjFkTWtT?=
- =?utf-8?B?MkltSHN6d1dlZGZjbzI0UE9TZVJ1c2tuSWJ2cTA5UXU5WDFxMGdUbDRkNEhX?=
- =?utf-8?B?cnFkRVpqekdhb25RQjJQZk9FQmoxRWc4aWlId2N4dDg1Uzl1YzlmclhadWdO?=
- =?utf-8?B?ek1iNnl2Z2d0emtJbi9wYy8wYlpHRUpTQkFrb0htVERzazkyZGhxT2UwcEFL?=
- =?utf-8?B?TEo4dklLRmJHa3l6dC9ycXdEZyt5ajIyN2ZKOWpsYWtxK29jV2lUU1BSWlRN?=
- =?utf-8?B?VUZnQzBRNTV1V054QWcraGVsNU1Jd1pVMGFnWWdUejhjd2ZvTFFBOWNsZm1J?=
- =?utf-8?B?SElGL1R1enppNGFvNWNRUitNanh2cHhoL3V4ZXN0T0xaNUVXMDRPZ2hEOVhY?=
- =?utf-8?B?RTkvTVhWb2NETmxnVUM4OEhnZXphUnliR1hMYjJWZWp0bG0wV2xvNko1Qlp0?=
- =?utf-8?B?R0kyTW4vd2pmOEluWnFjWkZpM3BtcTVvcVhwMFVBWHVQU2xPUW5EOWlLUGpi?=
- =?utf-8?B?MUM0elZWbjU4K3FacXh5QnFLSFFoVkZoaFArdEtoTDQ0R3RwemRHS3VHWXdC?=
- =?utf-8?B?Z3JmNXgxbkcwU29nT0xrTlpmUHR5YzlHQW1heDhZdWRBOUYwZllCRmlqLzQy?=
- =?utf-8?B?TDFZMHVUVHFLY0VWbkNhbGhwUnRVQjJiV1BsMCtqTlliaXhCYkhaeFdUZXBU?=
- =?utf-8?B?L2F5TGlwbHQzZm5SSlNMcVR6SHozS0dGWjlFOHFMZHUwYTVodFpmOUs1V3lP?=
- =?utf-8?B?YWs1elpuMnBYSDd4eEhIK015WlBnakNZdWxNRUEzWThGdEVBTkVKN3QxcVI2?=
- =?utf-8?Q?CIIolwfd2nxYpkPs=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79CB60A2601;
+	Fri, 23 Oct 2026 09:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79CB60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NMvxtWiT
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FAD42092782;
+	Fri, 23 Oct 2026 09:42:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zvK3Ly8RBAGWd5O0Ri13E/eflgNnR2Spx0fhghD9ZY0=; b=NMvxtWiTS6WaFKAo
+	LaClPDDG/M+fjJsza6VjtTYg43Lysy6f3ARYnspXrCu5pEhqnXymaDBZ0gpA/qXN
+	UbLLBrLa5tj8GWvd9Q016VfYN8w/nAf+Hce7mZ2C/AXaLkxr1Fr/WQ/dX+6cSq4Y
+	iKz3wp1rVzR0paQ7rEbHhxt5uARCqmus9xPfWtasHQHpivMagt60IAfwKc6KQh4S
+	bWw4CZVNWBZiBhT680ImTnSLJxTkvIzl5wICCopvj4lABREXfIiBBBiRjo4Li++E
+	FT3lFq2sNPeTWiCMX4YFE3QTkP7QR51+bIJ+5Lpvji+nNNJPbEzWtqe8V5d5xKDl
+	UByDDA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hftyga88p-3
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 09:42:47 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N9IF9U4054752;
+	Fri, 23 Oct 2026 09:18:15 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69N9IEN24054700;
+	Fri, 23 Oct 2026 09:18:15 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 14:47:53 +0530
+Subject: [PATCH v4 1/3] dt-bindings: nvmem: layouts: Add PSCRR NVMEM layout
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,58 +72,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32033548-ba0f-486e-2eb1-08df30ea0448
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 09:42:56.1814
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oVBPstQl5S5yzCze5zuRc4WKlDmewfyqb15oM9D1Sal3Xyu0z5mid44fr/isjIHTflOeV7iUNPNaYuTjkTCzwayl0ROrVxd3oxQliGOg7FPwT9oujVB0XnKpk8ydAU/O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-pscrr-provider-v4-1-e70fabb7e927@oss.qualcomm.com>
+References: <20261023-pscrr-provider-v4-0-e70fabb7e927@oss.qualcomm.com>
+In-Reply-To: <20261023-pscrr-provider-v4-0-e70fabb7e927@oss.qualcomm.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Wim Van Sebroeck <wim@linux-watchdog.org>,
+        Guenter Roeck <linux@roeck-us.net>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-watchdog@vger.kernel.org, kernel@pengutronix.de,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>,
+        Guenter Roeck <groeck@chromium.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        Ahmad Fatoum <a.fatoum@pengutronix.de>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=cZpHPXDM c=1 sm=1 tr=0 ts=6adb2c17 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=T2scfIwO0EnMTC8JHKIA:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOCBTYWx0ZWRfX9t8kTn1b7Dxe
+ HoVNJTJmyKhhaV0w+vx0rrGBOmWWcGz9Z+Idsyf19vKVgHqeW2t1tG8Bl/nk0rMZY3O3lB193y2
+ pq05RL7bCTsONlYXiJhsDFogZpQhZVg=
+X-Proofpoint-GUID: R8Bp7kSJzy75MQ0H_QDLtyRVJMnaPjGa
+X-Proofpoint-ORIG-GUID: R8Bp7kSJzy75MQ0H_QDLtyRVJMnaPjGa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOCBTYWx0ZWRfX6kz0nAEM7GJ0
+ LkUBbe6PAFpjY21t49HQTOAAAF/k2Zvuo9nOEQ5TGPECRhzsZPs68XMx2oX6MMX8qoR+M3P96D1
+ D88CBL0Tze82pOn3wSQdKv2Ak3pRfKJNvdq0drsMzX9z0OynC/5fFMbIj+6wnFzNsUSGgzwSQoX
+ JoJR23thggbMBao7xPcjFKbbYI0px/4hpBHkjTeDFD/hOj2LoypEMrtmhoUPxH3FIy6d6Q/5/Ub
+ IuVAEeiCgkA8juClHVxGFlor6ocEWILZ4ClAGLykvi6IcuKHd4Aqh2t39uWm/NRhTelwZL8l6/Y
+ m/+ZTZgUt0HBi6owkK4yGpnY039TAk3tRlugDGm2TH9tJAno4OFV44NWtITzXJ8vCKXRFSXwPl3
+ t/E76EPuhKd5Q9JLoDxJnhfBTHbjE8SM6dE8vqmE5yL3O1dO7K+38xnssWv4gCH3dan1g809q49
+ x4nlvbubpOJf5f5AUSw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230038
 
-SGksIE1pcXVlbA0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCj4gT24gMjIvMTAvMjAyNiBh
-dCAwMzoyNjoxMSAtMDcsIENoYW5naHVhbmcgTGlhbmcNCj4gPGNoYW5naHVhbmcubGlhbmdAc3Rh
-cmZpdmV0ZWNoLmNvbT4gd3JvdGU6DQo+IA0KPiA+IEFkZCBzdXBwb3J0IGZvciBERFIgKER1YWwg
-RGF0YS1SYXRlKSB0cmFuc2ZlcnMgaW4gdGhlIGVuaGFuY2VkIFNQSQ0KPiA+IG1vZGUgb2YgdGhl
-IERXIFNQSSBjb250cm9sbGVyLg0KPiA+DQo+ID4gVGhlIGVuaGFuY2VkIFNQSSBjb250cm9sIHJl
-Z2lzdGVyIChTUElfQ1RSTFIwKSBoYXMgZGVkaWNhdGVkIGZpZWxkcyB0bw0KPiA+IGVuYWJsZSBE
-RFIgbW9kZSBmb3IgdGhlIGluc3RydWN0aW9uIHBoYXNlIChJTlNUX0REUl9FTikgYW5kIGZvciB0
-aGUNCj4gPiBhZGRyZXNzL2R1bW15L2RhdGEgcGhhc2VzIChTUElfRERSX0VOKS4gUG9wdWxhdGUg
-dGhlc2UgZnJvbSB0aGUNCj4gPiBjb3JyZXNwb25kaW5nIGR0ciBmbGFncyBvZiB0aGUgc3BpX21l
-bV9vcC4NCj4gPg0KPiA+IEZvciBERFIgdHJhbnNmZXJzLCB0aGUgZHVtbXkgcGhhc2UgY29uc3Vt
-ZXMgdHdvIGJpdHMgcGVyIGNsb2NrIHBlcg0KPiA+IGxpbmUsIHNvIHRoZSBjb21wdXRlZCB3YWl0
-IGN5Y2xlcyBtdXN0IGJlIGhhbHZlZC4gRmFjdG9yIHRoZSB3YWl0DQo+ID4gY3ljbGUgY2FsY3Vs
-YXRpb24gaW50byBhIGhlbHBlciwgZHdfc3BpX2VuaF93YWl0X2N5Y2xlcygpLCBzbyB0aGF0DQo+
-ID4gYm90aCB0aGUgc3VwcG9ydHMgY2hlY2sgYW5kIHRoZSBleGVjIHBhdGggdXNlIHRoZSBzYW1l
-IHZhbHVlLg0KPiA+DQo+ID4gV2hlbiBTUEkgRERSIGlzIGVuYWJsZWQsIHByb2dyYW0gdGhlIERE
-Ul9EUklWRV9FREdFIHJlZ2lzdGVyLiBUaGUNCj4gPiByZWNvbW1lbmRlZCBUREUgdmFsdWUgaXMg
-Y2xrX2RpdiAvIDQsIGNsYW1wZWQgdG8gY2xrX2RpdiAvIDIgLSAxIGFuZA0KPiA+IHRvIHRoZSBm
-aWVsZCB3aWR0aC4NCj4gPg0KPiA+IEZpbmFsbHksIGFkdmVydGlzZSBEVFIgc3VwcG9ydCB0byB0
-aGUgU1BJIG1lbW9yeSBsYXllciB0aHJvdWdoIGENCj4gPiBkZWRpY2F0ZWQgZHdfc3BpX2VuaF9t
-ZW1fY2Fwcywgc2VsZWN0ZWQgd2hlbiB0aGUgY29udHJvbGxlciBoYXMNCj4gPiBEV19TUElfQ0FQ
-X0VNT0RFLCBzbyB0aGF0IHNwaS1tZW0gbWF5IGlzc3VlIEREUiBvcGVyYXRpb25zLg0KPiA+DQo+
-ID4gU2lnbmVkLW9mZi1ieTogQ2hhbmdodWFuZyBMaWFuZyA8Y2hhbmdodWFuZy5saWFuZ0BzdGFy
-Zml2ZXRlY2guY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL3NwaS9zcGktZHctY29yZS5jIHwg
-NTINCj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tDQo+ID4gIGRyaXZl
-cnMvc3BpL3NwaS1kdy5oICAgICAgfCAgNiArKysrKw0KPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDUx
-IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9zcGkvc3BpLWR3LWNvcmUuYyBiL2RyaXZlcnMvc3BpL3NwaS1kdy1jb3JlLmMNCj4gPiBp
-bmRleCA0NzQzNGZhNzhlNGIuLjZmZjE0MmM4YTZiZCAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
-L3NwaS9zcGktZHctY29yZS5jDQo+ID4gKysrIGIvZHJpdmVycy9zcGkvc3BpLWR3LWNvcmUuYw0K
-PiA+IEBAIC00Niw2ICs0Niw4IEBAIHN0cnVjdCBkd19zcGlfZW5oX2NmZyB7DQo+ID4gIAl1OCBp
-bnN0X2w7DQo+ID4gIAl1OCBhZGRyX2w7DQo+ID4gIAl1OCB0cmFuc190Ow0KPiA+ICsJYm9vbCBp
-bnN0X2RkcjsNCj4gPiArCWJvb2wgc3BpX2RkcjsNCj4gDQo+IElmIEkgdW5kZXJzdGFuZCB0aGlz
-IGNvcnJlY3RseSwgc3BpX2RkciBpcyBxdWl0ZSBhIGJhZCBuYW1lIGJlY2F1c2UgaXQgbWVhbnMN
-Cj4gYWRkcmVzcyBhbmQgZHVtbXkgYW5kIGRhdGEgZGRyIChidXQgbm90IGluc3RyKS4gQ2FuIHlv
-dSB0cnkgdG8gY29tZSB1cCB3aXRoDQo+IGEgYmV0dGVyIG5hbWUgZm9yIHRoaXMgdmFyaWFibGU/
-DQoNCnNwaV9kZHIgaXMgbmFtZWQgZXhhY3RseSB0aGF0IHdheSBvbiB0aGUgcmVnaXN0ZXIgZmll
-bGQuIFBlcmhhcHMgSSB3b24ndCBjaGFuZ2UgDQp0aGlzIHZhcmlhYmxlIG5hbWUsIGFuZCBqdXN0
-IGFkZCBzb21lIGNvbW1lbnRzIHRvIHRoaXMgdmFyaWFibGXigJR3aGF0IGRvIHlvdSB0aGluaz8N
-Cg0KPiBBbHNvLCBpZiBteSBhYm92ZSB1bmRlcnN0YW5kaW5nIGlzIGNvcnJlY3QsIHlvdSBtdXN0
-IHByb3ZpZGUgYQ0KPiBzdXBwb3J0c19vcCgpIGNhbGxiYWNrIHdoaWNoIHdvdWxkIHJlZnVzZSBh
-bnkgeFMteFMteEQgYnV0IGFsbG93IHhELXhELXhEDQo+IGFuZCB4Uy14RC1EIG1vZGVzLg0KDQpP
-SywgSSdsbCBhZGQgc29tZSBmaWx0ZXIgY29uZGl0aW9ucy4NCg0KQmVzdCBSZWdhcmRzLA0KQ2hh
-bmdodWFuZw0KDQo=
+Add a schema for the PSCRR NVMEM layout, which persists the power
+state change reason in a single NVMEM cell so it survives a power
+cycle and can be read back on the next boot.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+---
+ .../bindings/nvmem/layouts/nvmem-layout.yaml       |  1 +
+ .../bindings/nvmem/layouts/pscrr-nvmem.yaml        | 87 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ 3 files changed, 89 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+index 382507060651..24545db61416 100644
+--- a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
++++ b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+@@ -21,6 +21,7 @@ oneOf:
+   - $ref: fixed-layout.yaml
+   - $ref: kontron,sl28-vpd.yaml
+   - $ref: onie,tlv-layout.yaml
++  - $ref: pscrr-nvmem.yaml
+   - $ref: u-boot,env.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml b/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
+new file mode 100644
+index 000000000000..118669d33f5c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/layouts/pscrr-nvmem.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVMEM layout for the Power State Change Reason recorder (PSCRR)
++
++maintainers:
++  - Faruque Ansari <faruque.ansari@oss.qualcomm.com>
++  - Oleksij Rempel <o.rempel@pengutronix.de>
++
++description:
++  An NVMEM layout for a Power State Change Reason (PSCRR) recorder. The
++  reboot or shutdown cause is persisted into a single small NVMEM cell,
++  such as an RTC scratch register, a PMIC SDAM (Scratch Data Access Memory)
++  byte, or an EEPROM byte, so the reason survives a power cycle and can be
++  read back on the next boot.
++
++select: false
++
++properties:
++  compatible:
++    const: pscrr-nvmem
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++patternProperties:
++  "^.*@[0-9a-f]+$":
++    type: object
++    description:
++      The single NVMEM cell used to persist the power state change reason.
++
++    properties:
++      reg:
++        items:
++          - items:
++              - description: Offset, in bytes, of the cell within the
++                  parent NVMEM device.
++              - const: 1
++        description:
++          Offset and size, in bytes, of the cell within the parent NVMEM
++          device. The reason value occupies a single byte, so the size
++          must be 1.
++
++      bits:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        items:
++          - minimum: 0
++            maximum: 7
++            description:
++              Bit offset within the byte addressed by reg.
++          - minimum: 1
++            maximum: 8
++            description:
++              Number of bits used to store the reason. Must be wide enough
++              to hold every value of enum psc_reason (currently 4 bits or
++              more).
++        description:
++          Optional. When absent, the whole byte addressed by reg is used.
++
++    required:
++      - reg
++
++    additionalProperties: false
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    nvmem-layout {
++        compatible = "pscrr-nvmem";
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        reboot-reason-persist@49 {
++            reg = <0x49 0x1>;
++            bits = <0 4>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 19b9f6605d98..51f31e95f4ea 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21693,6 +21693,7 @@ R:	Pengutronix Kernel Team <kernel@pengutronix.de>
+ L:	linux-pm@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-kernel-pscrr
++F:	Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
+ F:	drivers/power/reset/pscrr/
+ F:	include/linux/pscrr.h
+ F:	tools/testing/selftests/pscrr/
+
+-- 
+2.34.1
+
