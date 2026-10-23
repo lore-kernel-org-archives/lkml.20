@@ -1,53 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783827;
-	b=TlpmLPykWcHAbvcJRgbgoz8jL2TD6PswnBIEyqm+v+lP4XA9JtSHugWJFCSopqGagamc
-	 hzaZXKMkDNBDS8yDwg3ajPkLsnGNdlCOjxr4vL9LdV1WVhHg730TyLsn1q/SQXez43Jyf
-	 HX6fWGSdjXjWnPpqBEtHDeYPY91NSoRSGSGgPd6d9T7d1Uh2MuWXHrXAgaCdbLMGjTi/u
-	 rI3SzNHOdU3oEKObaFqrqipIKJpRVb8ArwmesnAWBOSTcudt5dROzZsjv/xu1bhZinLKB
-	 X8nca+gfNTPZOuNCdo+Fc8opLiNh595j35ZQ03VmfaZy+1d59oKrU8siRhFfhG5HmFg==
+	t=1792783863;
+	b=t7VBs056jvSVqNnN2MORDhrqtninFiPA2w43imiZBOi4yhkbJV4gyGLgCnnd0l2umQ7f
+	 nmrQXYlc64xCV8goV+7haQIP+tNy/yRG1FoNF+/LYnOuo/7RnzbbeASmeiXKJAICDAgJA
+	 BoEMy/KgR+cheO33c7kkM6IQVlRDb2RoqszRSTQcsWWQrkFjP5VjabeXb+GlD7W/ARfS/
+	 dwlr30bajs/qEOSiUcjlGvyYoBRI71/xmnY33DXoPVt8Mk9fropexLxM4HK7+7PZ6Sb32
+	 /sToyJICcEW9wLfEPjTSAQUhZRtKCeOEIRrH21nvkgWxaM4RC/3mwR2/WhAmgOXUifQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783827;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783863;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gNcYiHbnUKnGMp+XdKstFrD3BQFTKmnEmBHxnqTFnYU=;
-	b=s5B7p/WpBCJaB7oYpPNQKX8kMzwVDHU3+V99OFDMN54qtG6OztnUX3AvT3vWIMab7KRc
-	 O016Q+RuC0du3u5Wocej94l+QXi9z6U54tc6dwBqwq4G9I7h1QAOgG+OK5WLGsSi1T5CE
-	 QZficLLunOXWYqNBLcokcyz7HCOApLm2ZYslslrNPCTqcUZzOYBxn0RhYWdg6644OjU1z
-	 y6AdUYkVXiz5/h9j2/TvTWYD9S+07WBHmCxe2z3wlPEBYZL7CoQTY846r8O5v7WlJhCaJ
-	 c9i5tZqSA3KaXZCG6/OrymFpOztqmjvaHvdgLGELqSdRI5GMCQ/kd/5TXKMiNy5tH9w==
+	bh=nB2gaoU0hmYvZYSoXJf1tRJ5p2ObyHTPEEeKB+5Oz3s=;
+	b=gDOQRduHp+kTAXnKcX01W0F4PbFtY67gGhaZiKRaljQtN/J1UN9buAleQonzZw7ySX/d
+	 YLS1dKN0DEFwzm8dZinqyaS4jdZ4sN18fY8yc9L7idMK40GsBLyrUPnVgtKEdnrLVGEe8
+	 HYxyxpBACPSKanESLuYqAzptsIJpfO3aR2Gw2YuObzF2im+ESWk00zumMzJ7ALQx/gKjE
+	 wEn/kxNGW0pX21thervpZwKJsuywt3njPw+ffDPole8TW9PyWQ80Av5d26WQ9kosyriTP
+	 VzDj+BSzzbLC3Sk5ndi7aEAuZeWuRd2p3vzSCv3HtO+CPkOeZXzbMsC/BjS1y5w1WZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T64HVIJH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oogApd/W";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CC4606A31E;
-	Fri, 23 Oct 2026 19:30:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CE606A320;
+	Fri, 23 Oct 2026 19:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T64HVIJH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570DD1F01825;
-	Fri, 23 Oct 2026 19:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oogApd/W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43861F01825;
+	Fri, 23 Oct 2026 19:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792783826;
-	bh=gNcYiHbnUKnGMp+XdKstFrD3BQFTKmnEmBHxnqTFnYU=;
+	s=k20260515; t=1792783863;
+	bh=nB2gaoU0hmYvZYSoXJf1tRJ5p2ObyHTPEEeKB+5Oz3s=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T64HVIJH0WbgUIO0rG/DEMr+jHGYumMazUTOaePjh6Qa9uuonMskXJ11BzqhE3jSw
-	 OyYyTYUFpJmd8BNmlOna2Q1peoJrTtmVJjcnpukvCnNBm4uBtU4hu8nOSeMCr9LTYg
-	 DpCOXXuq4V6zno/FHHB90dIwleLbOLZ+z01rPK0gahwSzsZfJHTBaK1QVvLKg6fdlJ
-	 0dLc4oOswj1MWVT2ZHjaWR6jBDJ2iN2AWYgBlbPM9CgXUCD0kc/SQ8f8xFPe4eVWi9
-	 n1Dje0eELtVe/JhMqhgRT7VhOiwQMNRgUWsduuD4gS4CUgZOdKyjvRD4D5ZrpWEF4i
-	 jkr9bfTeRyXWA==
-Date: Fri, 23 Oct 2026 09:30:25 -1000
-Message-ID: <728bf75360d1b37bcfb94d5441049f3b@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, hannes@cmpxchg.org, mkoutny@suse.com, akpm@linux-foundation.org, feng.79.tang@gmail.com, mhocko@suse.com
-Subject: Re: [PATCH] cgroup/cpuset: check effective mems for a movable-only configuration
-In-Reply-To: <20261022043943.3125239-1-gourry@gourry.net>
-References: <20261022043943.3125239-1-gourry@gourry.net>
+	b=oogApd/WS+Wgs4M/5dynlevYmslCFO08SV4zPf/i1+eI0MDn+qgQwsOmC9wIfg73G
+	 YTxEcLF0c4vN/qiXOXLB2WLPIAzUXVg6R/+o2xA6wuN3fbhuZlhO3jU7fXEtxaRzvh
+	 5F34fSK1h0ns/alwgUfCndYKd7fFQMNSJBV9c1e1Iif4y0BRmx5zrWlhzBN9TiN4nx
+	 HlbLXrn0JRsBcbFqs5yLcpTNLgML0cjMfzTyJ+q9UUW0jgGqNPlq0NEamEIvmGlAS/
+	 9hhoGhn1q1eU3Ptz7ka7RdQPboH0btxv/BJ9awuA5Fy0L7cGSXTfZn0Bp3jPgFBL6T
+	 77JVjUcvQEcqA==
+Date: Fri, 23 Oct 2026 12:31:02 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Neal Cardwell <ncardwell@google.com>, Joel Granados
+ <joel.granados@kernel.org>, Matthias Tafelmeier
+ <matthias.tafelmeier@gmx.net>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: reject dev_weight products that overflow int
+Message-ID: <20261023123102.3c30d01e@kernel.org>
+In-Reply-To: <20261023114228.289161-1-jiayuan.chen@linux.dev>
+References: <20261023114228.289161-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,15 +62,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Applied to cgroup/for-7.4-fixes with the following tags added:
+On Fri, 23 Oct 2026 19:42:25 +0800 Jiayuan Chen wrote:
+> proc_do_dev_weight() sets the backlog NAPI weight and the qdisc quota
+> to dev_weight * dev_weight_rx_bias and dev_weight * dev_weight_tx_bias.
+> The three sysctls only have a lower bound of 1, so the products can
+> overflow int and end up <= 0, e.g. dev_weight=65536 and
+> dev_weight_rx_bias=65536 give a backlog weight of 0.
 
-    Reviewed-by: Waiman Long <longman@redhat.com>
-    Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-
-Thanks.
-
---
-tejun
+Not sure anyone uses these, maybe we could cap them?
+1k for dev weight 8 for bias?
