@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748449;
-	b=WcGTWVcD381G0O2Rlocrwkp3mwiw+MmNXSlXAROX2suQ6hXwKt8vHpAYvbAJPZ/pBIOU
-	 TyXw8rR8VUkuNQQUdezPZBBq3kha/Yr05l3HZLEDlroasHOaEbBYcSNbZgOzu8piFVcpl
-	 1cNCdCbfuSNxlXMIdeGKRSD8WFhT4atpqqbXsZk/CiBIBVkmz+F7qXbVj9Bbd9qxUXYNT
-	 WMDHUVImIPOOu6Fb3vWGUc9LSZi3bBYRtGgt0C/rEbxE8nQ6yX8KdPqqC1MN9dS1QgxKw
-	 TaNH79cQWDAaAUoEAEvZaX8fDmAdnz2BTtrHI+8NwgsfoGBhclvDdPOxc1xCIG2pkHw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748449;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer;
-	bh=uquWcNQkXiniRBpFeipMHVKjDSQOfoDEc/iXj86smJU=;
-	b=BQSjroBkznFXQIOOqO4zHk2M8dTutdCK2y0AZlOsnsrnhhyOfhIOmY6bVE1FWwPp9QIu
-	 RlrnWLH34srs+LkaehXAFKadqObc2YOS35EzKBXCNXnquHjB26e7p31kOnwHGrdPkY6Wf
-	 mnOpk2VDJL3CLr/Skb6Ykhp1heQIxgBuQU4oiiGvfiwV/a905RzeE9bm7Vs6V1QTYjIM8
-	 PT8d+n3XA9b4b41BEbqCNncj0eUcD6ksaLkpAk511vfSqh90jBD7ACQeLD2eVnIPqOhD7
-	 CVO21QQ10ze8OdkOBoEGenItpzErIu+1bvQGxI8l5J/m2I6LXzSVqmzXh/noaoPVvjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tVJ1MFFh;
-	arc=none smtp.remote-ip=95.215.58.53
-Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792748484;
+	b=kSQEcGx+p+n4CFMxR+nWRL/HvyNiB3ioJ0dzeUOGHyn0eeJaST/H+MuLq17tJiExL7T5
+	 m5SwuB3B8k12lGNkqPC/7RQd7XNHUXRQeIkT9LUGUiLF10DxVz5oHkEcSBpWbZIXzO/hp
+	 yQvVxhmP+rJmk+sXbKjNzHjyJIT+su2/i0UjT0BN12DHl2aEAsT2KcAiayIEiJAdyRnrj
+	 t9V3bZ1cMVrR9s+deM2OnGKgQzz1WlHIfutLVEebEACQq6OgxlarJTWxFZjLMb1eD2T35
+	 My6TDCap0hOpiI5a6fdgLAWAnYMpPDyTaUzzS4kq+iPA11B15bRYMwkNbgbpNagRayw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748484;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
+	b=OFeSqskl8SpmEbTBFYuVODHcYLCvZ14XmTCREbz40WAqvIAODyyT6EJkYjBI6yebGZFJ
+	 FGx/Xe6pICnqS6RdnqMCGH/ilu2G4tyw03Z2gvBoKj8xNOD/bsvJ1D8j0YOf7BjT7gvt+
+	 I0pUii4D0gpfqb8Q607P8HjRAqmsV+LIIw5Wrxsskhes5E2apUor7fcIwsepj/SFr3moB
+	 aAfCCp2ehWjYy0Fxw5hWY9nrzqHoRmu4+GKRv/bmuK7/Ldzw8CWnDwUbFuxkgjyDFlEMT
+	 DXKpQCZnU/U69gnNurMpRFpl4ADW89ZDQ/ncb9ld0AFnI33Y/jE4/a7g7cVTxmt+JHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=NbnFC6ic;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3851606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3851606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE58606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:41:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE58606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tVJ1MFFh
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kDwNEdz0JjqvowwQuAeWm+wDsipeAOrPZIoLUGlOzP0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792748447; v=1; x=1793353247;
- b=tVJ1MFFhWEBmjuD7Rcs8ahC+j2o7q6XvZGxo1Zuh898wIPsf+yh5E3IMSfkgbhBKg6Ta0qmT
- RPmMWEblXiNHErNCWUlMibaoUR+RUm0hXwJLnlqlh27Wsb472d1bdUb6u/+M5drHZSrGKysbMOF
- Hv9+3PPWvI0XNpoHYsBrgNbY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 16891d252154ae9d;
-	Fri, 23 Oct 2026 09:40:47 +0000
-X-Mizu-Trace-ID: 16891d252154ae9d
-X-Migadu-Flow: FLOW_OUT
-From: Zqiang <qiang.zhang@linux.dev>
-To: paulmck@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	urezki@gmail.com,
-	boqun@kernel.org
-Cc: qiang.zhang@linux.dev,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rcutorture: Make tasks-tracing support duplicate call testing
-Date: Fri, 23 Oct 2026 17:40:39 +0800
-Message-Id: <20261023094039.29696-1-qiang.zhang@linux.dev>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=NbnFC6ic
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso418807a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:41:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792748484; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KHSAKtcAOzZ8sn3FsBicZLI60fQToPPWJKX80btptmK7sKl4sJ4HZIiOfbz1DbmG9V
+         rpCxbX07RRWdJSPmul2DGD+IllbYWnKQUHj7rmW9kucI7YK8uxMi1rc3PwKeKkffdrT1
+         xLjWlI3Cm76jnMCpVykY9ziqnUc2VQXbJtSNQKtrfIk+QRjTtb3NQCLbS2WUyXNJedFH
+         sshyNxxUEjJBkfCQ6OhujX1x8BtJX5t3Bt+tHZ1bfklPkX5+X3WDMAFOV7Fm+MQfrdea
+         3EybYKKDrTOKpLeREmFNhW53colWnLVaaudayChEroVOU/aV5QgMFk7161/00QaBZlKf
+         OhZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
+        fh=YwGouN2oP6axNXpIL5Q47ZiS7hCMooYO2Vo0dhOPU9M=;
+        b=VBHsxSxoEcXn2gYViM8RbMwWt3C1DLmV03etgF5r8CkBDlTdSu1Ejy63h8NewhXWc7
+         OE5h9H0KQS12p2j1Q+uhRIrU/qJlpfnIhelxDs5o1P/oE2EVoXtEJJ+N7aOp2+N7/har
+         WYAQGOyXBEHCUYt4dAlbcY75dYhGczW2GTBDth112qOtC+IWrwtmZev0O+oWPyKuoiUd
+         QVPxaiByA/bRsEChY61R1SMuwV74WkfzBh2FOi9PnCnA+usILyYgjYLLVb7ablmd+BGD
+         2e0sQmo+dv3o5Qg/gqiIBgCfa+sJnNhzT2vmcEJXOlGPvdyD/aWk5x3JGZFtEXcvDebb
+         OacQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1792748484; x=1793353284; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
+        b=NbnFC6ic7YCzTwBcbpR7q/m6kM1BIsWqz6AVmGqI2UzTJ+lilYdayfl9Dyqyd8Jlj0
+         LqKSdThWJ9k/Pfw78uVKyxE95Uu5wC3zbvaeyEzFc7D8m0MkQQZtVA/zy57hGDoqcUsd
+         AuNJkeR+JiGxFYp+RWwkId8zDBR8pg16lKQEls9eA2U+PPWJLA0gTKAsCx/cP/bcYOqO
+         pcltwsbn4oP5ffSMY4fEXa7KBDsVINYTbgAEqEfuUJLUO5gNu7xKSMgVi5RkiawqerjX
+         yNSaca1p+va8vnMpfklHN7Hy3wTFru44ogGI5wpGLFj1j2e/tXOKbflXa1anevxV7Dkj
+         FoXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792748484; x=1793353284;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
+        b=1wMVAKwS7DgowCsOwmZRVltruZhi6gxI0/f7yYbtxj+1IDkkfXxkWLKY3LMYGYGHXh
+         DqwVxZMDqmu5PMzq/VXGmHQNqzZlfNR8H5MDLWvdK4+3IitVPNAtCDcnZpsjB4dgZ0J4
+         M/TFVKb1Plph0gnXNtcgpBjfoiNIv0+j199b7ILqLCwG9/7z7S5eDskCu2tdyDRqOgNo
+         WLLxtspVMM+hGgbE8DUpRWFSY/J1ZjKn36Mg7BmGV1BpkMmya6BCVhw5XJPsNj5afPJX
+         KvjnBSmJuENuRSwY0lU8LqeJtq0irbylN/kDWCSKdYWxTtkpCR/t5UFfIFnWLQ1hgIc/
+         wmCg==
+X-Forwarded-Encrypted: i=1; AKwUvBztrtPzkzRcjLJ7uYdpKOeZmrY0MD4WapB3aTiK+dVWtAlnavhWzZ8VyiAdrlJPmJKb2nsTOc+1jc6AnUs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEm1wkofgDYjFP3/aXHZUWOA6sSQEFG1iNtHV/Qv5Bz0UvN61B
+	y37hBEJXHh0+1GRNH4t7OwI5niOBCQUugCfhIjkwgnPeJcg9c9/UNTMP7LdJDDfEMUgbjdv1YLk
+	QEsLs4qk0uPtTLRWzcdrzdyG8GC/NREX+0lqtDZ0eNQ==
+X-Gm-Gg: AYBFou3u5dKz4dzUaW//CrQ8vXdYQY7EVnd+YW5SEB0YKum0U2oTewKHiXjjLCd2S6S
+	PZtsNcvWFG/S78DcnJs1SlQZ35Y+yOgbdgi8ewopUJaP/9LWTJQG0NFpmSAjJ6zg/GSgRdlFq3s
+	TzIpGJGwCnO0GII8HB4fLuWQSzuz0cYf/LtaBc9bWLb/iv2OxUYhqFsRgDgqgHbXlfDUFHLrBkC
+	/cPpLeSxYxeXDvPlczr/FQ428vGWfrsbYZtf2M/P6Cw/g+mFTgyB2uFVh6TemhfazHQN11mqNrm
+	mJSUaH3MSzbyoOZk1vrPJ1cuLxQH/586imwktjgGivWvL267CgeHynl2/4/lKBveMog5FYJFfNq
+	ay3D6e8LCnVCKjuM20o1vEGozDTm1CVkKA8jOM0p6MZqQVWmWyuCJHETjTtO6fbbYVaNEqWTP5O
+	HHH+daIrXL9auLPz+y
+X-Received: by 2002:a17:90b:3805:b0:3a8:59d3:530f with SMTP id
+ 98e67ed59e1d1-3adce0df541mr1412012a91.57.1792748483778; Fri, 23 Oct 2026
+ 02:41:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,85 +104,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261020065430.1251541-1-julius@bairaktaris.de>
+ <30c21159-3008-463c-9cd2-a07f26668a25@sartura.hr> <9699033c-a9e1-4b11-a55f-b1aa216c700f@oss.qualcomm.com>
+In-Reply-To: <9699033c-a9e1-4b11-a55f-b1aa216c700f@oss.qualcomm.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Fri, 23 Oct 2026 11:41:12 +0200
+X-Gm-Features: AclHuK_z7zkTrXcOEBJ5YdNRtSSjaBF7iP_4-bXy54P0B5j7vSDrFZjtf2Rlh6M
+Message-ID: <CA+HBbNELhPAAZoUuXm3SrvgxiU0eMaiu5LB3wfup04_HuZ+yxg@mail.gmail.com>
+Subject: Re: [PATCH] clk: qcom: gcc-ipq6018: add fallback names for the bias
+ PLL parents
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Julius Bairaktaris <julius@bairaktaris.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Vladyslav Andreichykov <vladdrako007@gmail.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently, Tasks-tracing has been reimplemented by SRCU-fast, it supports
-the detection of duplicate calls with CONFIG_DEBUG_OBJECTS_RCU_HEAD=y.
-This commit therefore set tasks_tracing_ops.debug_objects to 1, enabling
-rcutorture's duplicate-call test for the tasks-tracing flavor.
+On Wed, Oct 21, 2026 at 10:06=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 10/20/26 1:39 PM, Robert Marko wrote:
+> >
+> > On 20/10/2026 08:54, Julius Bairaktaris wrote:
+> >> From: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >>
+> >> bias_pll_cc_clk and bias_pll_nss_noc_clk are outputs of the CMN PLL,
+> >> which takes its AHB and SYS clocks from GCC, so the device tree does n=
+ot
+> >> pass them back to GCC. With only .fw_name these parents never resolve,
+> >> nss_ppe_clk_src stays an orphan, and setting it to 300 MHz fails with
+> >> -EINVAL. The NSS clocks below it, such as gcc_nss_edma_clk, read 0 Hz.
+> >>
+> >> Add .name fallbacks so they resolve to the clocks the CMN PLL register=
+s,
+> >> as gcc-ipq8074 already does.
+> >>
+> >> Tested-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >> Assisted-by: Claude:claude-opus-5-5
+> >> Signed-off-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+> >> ---
+> >
+> > Hi,
+> >
+> > This issue does not exist upstream, as CMN PLL is not yet wired due to =
+missing
+> > networking, even then the solution is not to add global name matching.
+> >
+> > The required clock inputs should just be passed to GCC directly which I=
+ have
+> > just pushed to OpenWrt.
+>
+> Just read your reply after writing mine, I'm looking forward to seeing
+> that patch!
 
-Signed-off-by: Zqiang <qiang.zhang@linux.dev>
----
+Hi Konrad,
+You mean the wiring for CMN PLL or?
 
-Simple output from rcutorture:
+Regards,
+Robert
 
-[    4.120772][    T1] call_srcu(): Leaked duplicate callback
-[    4.120776][    T1] WARNING: kernel/rcu/srcutree.c:1516 at __call_srcu+0x463/0x580, CPU#7: swapper/0/1
-[    4.122665][    T1] Modules linked in:
-[    4.123026][    T1] CPU: 7 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W           7.3.0-rc1+ #110 PREEMPT(full)  8fac67ca5e4b530c23977b2e660a83979ea107db
-[    4.124328][    T1] Tainted: [W]=WARN
-[    4.124687][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1ubuntu1 04/01/2014
-[    4.125583][    T1] RIP: 0010:__call_srcu+0x463/0x580
-[    4.126056][    T1] Code: 00 00 5b 41 5c 41 5d 41 5e 41 5f 5d e9 16 99 9f 03 80 3c 02 00 0f 85 e8 00 00 00 49 c7 46 08 70 cf 4e b4 48 8d 3d ad da d5 06 <67> 48 0f b9 3a eb a6 48 8d 3d af da d5 06 67 48 0f b9 3a eb 98 0f
-[    4.127823][    T1] RSP: 0000:ffff888100e87a78 EFLAGS: 00010246
-[    4.128389][    T1] RAX: dffffc0000000000 RBX: 1ffff110201d0f54 RCX: 0000000000000001
-[    4.129111][    T1] RDX: 1ffff110201d0f8f RSI: ffffffffb8ae6d60 RDI: ffffffffbb255590
-[    4.129842][    T1] RBP: ffff888100e87b28 R08: ffff888100e87c70 R09: ffffffffb818a820
-[    4.130572][    T1] R10: fffffbfff76449ac R11: ffffffffbb224d67 R12: 0000000000000001
-[    4.131296][    T1] R13: 00000000ffffffea R14: ffff888100e87c70 R15: ffffffffba4c4220
-[    4.132061][    T1] FS:  0000000000000000(0000) GS:ffff888239af2000(0000) knlGS:0000000000000000
-[    4.132903][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    4.133536][    T1] CR2: 0000000000000000 CR3: 000000008a8ea000 CR4: 00000000000026f0
-[    4.134283][    T1] Call Trace:
-[    4.134607][    T1]  <TASK>
-[    4.134898][    T1]  ? __pfx_rcu_torture_err_cb+0x10/0x10
-[    4.135425][    T1]  ? __pfx___call_srcu+0x10/0x10
-[    4.135870][    T1]  ? __pfx__printk+0x10/0x10
-[    4.136301][    T1]  call_srcu+0x17/0x20
-[    4.136685][    T1]  call_rcu_tasks_trace+0x1a/0x20
-[    4.137143][    T1]  rcu_torture_init+0x3033/0x3800
-[    4.137617][    T1]  ? __kvm_handle_async_pf+0x21/0xb0
-[    4.138094][    T1]  ? __pfx_native_sched_clock+0x1/0x10
-[    4.138608][    T1]  ? __pfx_rcu_torture_init+0x10/0x10
-[    4.139109][    T1]  ? add_device_randomness+0xcb/0x110
-[    4.139637][    T1]  ? __this_cpu_preempt_check+0x17/0x20
-[    4.140160][    T1]  ? lockdep_hardirqs_on+0xde/0x160
-[    4.140653][    T1]  ? _raw_spin_unlock_irqrestore+0x6e/0x80
-[    4.141211][    T1]  ? _raw_spin_unlock_irqrestore+0x53/0x80
-[    4.141772][    T1]  ? __pfx_rcu_torture_leak_cb+0x10/0x10
-[    4.142291][    T1]  ? add_device_randomness+0xcb/0x110
-[    4.142828][    T1]  ? __pfx_add_device_randomness+0x10/0x10
-[    4.143397][    T1]  ? __pfx_srcu_leak_callback+0x10/0x10
-[    4.143937][    T1]  ? __pfx_rcu_torture_init+0x10/0x10
-[    4.144440][    T1]  do_one_initcall+0xd9/0x620
-[    4.144878][    T1]  ? __pfx_do_one_initcall+0x10/0x10
-[    4.145390][    T1]  ? __kasan_kmalloc+0x86/0xa0
-[    4.145963][    T1]  ? __kmalloc_noprof+0x2c9/0x610
-[    4.146576][    T1]  kernel_init_freeable+0xb00/0x11a0
-[    4.147214][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    4.147804][    T1]  kernel_init+0x28/0x170
-[    4.148308][    T1]  ret_from_fork+0x7be/0xaf0
-[    4.148880][    T1]  ? __pfx_ret_from_fork+0x10/0x10
-[    4.149512][    T1]  ? __kasan_check_read+0x15/0x20
-[    4.150111][    T1]  ? __switch_to+0x1b0/0xeb0
-[    4.150778][    T1]  ? __switch_to_asm+0x39/0x70
-[    4.151324][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    4.151910][    T1]  ret_from_fork_asm+0x1a/0x30
- 
- kernel/rcu/rcutorture.c | 1 +
- 1 file changed, 1 insertion(+)
+>
+> Konrad
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 1bbf8192786a..c0c8fbdb5508 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -1313,6 +1313,7 @@ static struct rcu_torture_ops tasks_tracing_ops = {
- 	.irq_capable	= 1,
- 	.slow_gps	= 1,
- 	.nmi_capable	= 1,
-+	.debug_objects	= 1,
- 	.name		= "tasks-tracing"
- };
- 
--- 
-2.17.1
 
+
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
