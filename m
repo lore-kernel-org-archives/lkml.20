@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792735412;
-	b=YQd5YFZT8rzDrgxdd1QGJXjmW6yU4Ierd9GM3n59Dxfrd2ZQHRADUxYZtZNTo6iU3qLN
-	 BeHk571kFbwEXZiHuDIiQ4GcjHce30bIChJei++XQzKr80GfeNiKtMhcpVKl5Y5j5il1t
-	 iDBvkHyWGdUE4Yipyo+rPWZg86V4dq5peDf/LGK8IxkLPZba6n2PiBmi9us0EoLEDw1At
-	 2Fsu939yGtuNRTNkHFb02Z24ydYZaZ0RI3KM2PzkpTU6Zq1jukq9PmyhcYokOM2rnztGD
-	 wXrg9jUcaBXP3CKnHTBdPrxRPMJlSMMNlZ3GjLCvlrgW/74ycOO/DsA3WmseclMj4vQ==
+	t=1792735687;
+	b=R+C3/hjhdG+cwIIza/kw/H0T9q1xr9h6MO8guJTo0WBytkVwYlSRJNzMa3pFSVf+Eslv
+	 8Hb4ASVAvcRuJjht384MLhNLLkqFulM9Gu4akPF3AxpITpPJllgJDn5Zn07PugFmqFwPC
+	 JepLFrE8flHtyOw3wKYJ/yHWoa/VvbUh93oP5cF0gy0UqU1yizm9A7F2GEvSYfvkEhK43
+	 1oXYdOE0DAyEDPcy8l1yNynwCmsYczEsqTO8NqXn8b/659V7KkSDs9c5NjbQC7jeONYx7
+	 gFWPUs4225YzoK8wKL17XJ5RmypPTNY4bNfqzt2JU0LV21U9wfwtfOiG3yGMIyk+bvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792735412;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PC3ZZDQZUTFeURvR4AH26rMTLMMkDl4TcNOzKpehmZE=;
-	b=p35NzilNTyH/ZY0OP9Qa6WF3Bobfyky31z5PpAdFke2oJb4ipF6MxYBWj2EoQaJKhJzO
-	 ARWFjvvKr2Hzuvicdp3WAnCxWL+ekUC7/31m8KGdbaqeopcYuNNQKEPUzTrEYtvk2QW0+
-	 SwQANTi+A0iw0g/X5RFkVWafmLCF3YXXNJXEi2PTtna1ZDu+P5UWeAUyXA6OHcgA0TN8y
-	 oBnmty9mdo2elhGmarp971QqtGGjqNh4OyeKmdjB2T0jVGHWOu3s/dqBjbFW+iqhW8/T4
-	 o23Uo28O3QvlU5krXKbdxGbIaT7c1LEeHXgTPQnq1qpH215qDAj9SHDkinG1uye2ilA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792735687;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=PtMbD2L/4lUTkQw591ynv8uNvYteldWADj8nmIYhx9w=;
+	b=WqpCeIoIaXTiz0nRu39rGegTHvw/QTruL12TgBvzzJt6fkPnka0YcO5BI83Unqqex2s4
+	 kT7m7dCsVgF4MSVB8qCjEJiMi+RRNKZjBzn2qrK+LNin3QpUYJAwQ2kZXTkurV5UnX3n9
+	 4FvAawNhKvYx6ZyfkQPiUiNI84/gVVTLZcLRXVoOSFDxGbr9ZkhJWaqiWAWAQXVlVZMZv
+	 N19YN1o/adbpFYIhxNbIkJ+9e8aB9EpTr7Yg75EHQyw1L0n+aC3PPnDTsC3wQxo7aog4L
+	 hoc8G8gHDgiH6LJqZuyi9R1gjyW1FZ5IB9jPZjfYwMJvkA/ziTDwgKGjcjuQhl8R0rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xJt2x0IC;
-	arc=none smtp.remote-ip=95.215.58.34
-Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SEaClo2N;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314D7606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:03:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 314D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0381E606A31A;
+	Fri, 23 Oct 2026 06:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0381E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xJt2x0IC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1MKzGrMK1ohuiL+HWRltCYwIWtpp8h4CzZvoqB3nnHo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792735407; v=1; x=1793340207;
- b=xJt2x0IC93mXffHa/AHR309CPeQIvCPslk8M0a05Y5Ej5WBFNkVBiqdWqXTPx5eoqNA5kLQt
- yOpm1mtdlyZlv1dJayHD3F5vHUWEWcdsMULje/UBQQG4CkXZ8DMcbMyVudlhNyQ99USED0jqVxv
- bGdaluI9KlDWYpTqwQn7d0Qk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2690efadeba37ef1;
-	Fri, 23 Oct 2026 06:03:27 +0000
-X-Mizu-Trace-ID: 2690efadeba37ef1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <47c16837-728b-4127-9d41-ff4ec7f02712@linux.dev>
-Date: Fri, 23 Oct 2026 14:03:18 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SEaClo2N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792735687; x=1824271687;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=C81i/82DeDeE1JH62JhWsNHM4gE4jeuRndx5t5ttChs=;
+  b=SEaClo2NQIaW06zL7l6Ya5IrE7Ai8AZpeFMVRq0rjHIT1S6X2OcfpBPd
+   ZtdBbR77y2CKjeIYDoCYfneZfHlNHqFXktnYsIFNiwHBRHZdeBBjEMfCG
+   Z4UctXPEFHu0OOQGlbiniJOvrzP2RLrqn4IKMNh1ynQYdK0zEkdwh7dh4
+   8EZJUQU2Oe1NZTrCKnOlrdQ6OYalJNmrEadieNq0KazHMTto5vFPmyrVY
+   l7PcWlfLA0YG/v6Pt2eBGByEDDYuiymX7ujlJUTlBbpC1xxJUNT9orWDD
+   kizjXrI7MK+UsVKFdrW/4dEQyTFCYu/GNWc/fTo1hX6ZEUB2z8SbX1Lt9
+   Q==;
+X-CSE-ConnectionGUID: 5ki/el3GTWujjChBfZlZPQ==
+X-CSE-MsgGUID: p52PFYlJTeeBE4OLLNMrpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1599103"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1599103"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:08:06 -0700
+X-CSE-ConnectionGUID: jbxrQI+LQeyEO93z/LGx9g==
+X-CSE-MsgGUID: oty+PjFtR7aIMb5gzI1E2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3592890"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:08:00 -0700
+Message-ID: <64e27c4c-23e1-4539-a812-e81d5f322003@linux.intel.com>
+Date: Fri, 23 Oct 2026 14:07:57 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +73,94 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: check effective mems for a movable-only
- configuration
-To: "Gregory Price (Meta)" <gourry@gourry.net>, cgroups@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, longman@redhat.com,
- tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
- akpm@linux-foundation.org, feng.79.tang@gmail.com, mhocko@suse.com
-References: <20261022043943.3125239-1-gourry@gourry.net>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261022043943.3125239-1-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v10 05/28] x86/cea: Use array indexing to simplify
+ exception stack access
+To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-6-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-6-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Refactor struct cea_exception_stacks to leverage array indexing for
+> exception stack access, improving code clarity and eliminating the
+> need for the ESTACKS_MEMBERS() macro.
+> 
+> Convert __this_cpu_ist_{bottom,top}_va() from macros to functions,
+> allowing removal of the now-obsolete CEA_ESTACK_BOT and CEA_ESTACK_TOP
+> macros.
+> 
+> Also drop CEA_ESTACK_SIZE, which just duplicated EXCEPTION_STKSZ.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
 
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-On 10/22/2026 12:39 PM, Gregory Price (Meta) wrote:
-> check_insane_mems_config() warns and enables cpusets_insane_config_key
-> when a cpuset's tasks can allocate only from movable memory.
-> 
-> In cgroup v2 the request may name a memoryless node, which has no zones
-> and cpusets reports it as a movable-only nodemask.
-> 
-> For example, with node 2 a CPU-only node:
-> 
->    # echo +cpuset > /sys/fs/cgroup/cgroup.subtree_control
->    # mkdir /sys/fs/cgroup/test
->    # echo 2 > /sys/fs/cgroup/test/cpuset.mems
->    # cat /sys/fs/cgroup/test/cpuset.mems.effective
->      0-1
->    # dmesg
->      Unsupported (movable nodes only) cpuset configuration detected (nmask=2)!
-> 
-> This is a bit confusing, especially consider mems.effective ends up with
-> a valid nodemask by-design (cpuset.mems is treated as-if it were empty).
-> 
-> Check each new effective mask in update_nodemasks_hier() instead, as the
-> hotplug path already does. The allocator's bail-out tests the task's
-> mems_allowed, which comes from the effective mask.
-> 
-> A request naming a movable-only not present in the parent's nodemask
-> no longer warns (since, again, the cpuset.mems gets overridden and
-> treated as empty). However, it will warn if the parent's mems include
-> the node later.
-> 
-> For Example, with node 3 a movable-only node:
-> 
->    # echo 0 > /sys/fs/cgroup/test/cpuset.mems
->    # echo 3 > /sys/fs/cgroup/test/child/cpuset.mems
->    # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
->      0
->    # dmesg
->      { empty }
->    # echo 0,3 > /sys/fs/cgroup/test/cpuset.mems
->    # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
->      3
->    # dmesg
->      Unsupported (movable nodes only) cpuset configuration detected (nmask=3)!
-> 
-> Fixes: 8ca1b5a49885 ("mm/page_alloc: detect allocation forbidden by cpuset and bail out early")
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->   kernel/cgroup/cpuset.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 8ee239d5c6b48..70fbece1b9399 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2795,6 +2795,8 @@ static void update_nodemasks_hier(struct cpuset *cs, nodemask_t *new_mems)
->   			continue;
->   		rcu_read_unlock();
->   
-> +		check_insane_mems_config(new_mems);
+One nit below.
+
+[...]>  
+> +/*
+> + * The exception stack ordering in [cea_]exception_stacks
+> + */
+> +enum exception_stack_ordering {
+> +	ESTACK_DF,
+> +	ESTACK_NMI,
+> +	ESTACK_DB,
+> +	ESTACK_MCE,
+> +	ESTACK_VC,
+> +	ESTACK_VC2,
+> +	N_EXCEPTION_STACKS
+> +};
 > +
->   		spin_lock_irq(&callback_lock);
->   		cp->effective_mems = *new_mems;
->   		spin_unlock_irq(&callback_lock);
-> @@ -2848,8 +2850,6 @@ static int update_nodemask(struct cpuset *cs, struct cpuset *trialcs,
->   	if (retval < 0)
->   		return retval;
->   
-> -	check_insane_mems_config(&trialcs->mems_allowed);
-> -
->   	spin_lock_irq(&callback_lock);
->   	cs->mems_allowed = trialcs->mems_allowed;
->   	spin_unlock_irq(&callback_lock);
+>  /* Macro to enforce the same ordering and stack sizes */
 
-LGTM.
+Nit:
+Is this still hold ? ...
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
+>  #define ESTACKS_MEMBERS(guardsize, optional_stack_size)		\
+>  	char	ESTACK_DF_stack_guard[guardsize];		\
+> @@ -39,37 +52,22 @@ struct exception_stacks {
+>  
+>  /* The effective cpu entry area mapping with guard pages. */
+>  struct cea_exception_stacks {
+> -	ESTACKS_MEMBERS(PAGE_SIZE, EXCEPTION_STKSZ)
+> +	struct {
+> +		char stack_guard[PAGE_SIZE];
+> +		char stack[EXCEPTION_STKSZ];
+> +	} event_stacks[N_EXCEPTION_STACKS];
+> +	char IST_top_guard[PAGE_SIZE];
 
--- 
-Best regards
-Ridong
+... Before this change, ESTACKS_MEMBERS() is used both in exception_stacks and
+cea_exception_stacks, so ESTACKS_MEMBERS() can enforce the order and stack
+sizes.
 
+After the change, ESTACKS_MEMBERS() only used in one place, so it doesn't have
+the capability to enforce them.
+
+The order consistency depends on the consistency b/t ESTACKS_MEMBERS and
+enum exception_stack_ordering now.
+
+>  };
+
+[...]
