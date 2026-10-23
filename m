@@ -1,98 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741730;
-	b=ykWGlxcF8S6SWfbq9ocOAnF4WFw2sjUSEjaUwlJyXuw3YFaYKCXidfFT8sls2ZTcXn6D
-	 UoAK6pKWHiK2I+JMB+NbzWtdbcGFvmXBM04ohoVlg+IhCtVbAz8n4K8ZD9W3pVagkYOCB
-	 w1euOl1AroYezID70K5qpTQSOP/+csEPd2xpLZL5GmgfZictRBzat7Suq7RDhd4kq0lzD
-	 5D3Ns5hmCTX1IuZqpo4NXag+su6kGfGsXPoefttsm+f++Ne68gMDSbi7Rfo/0fa/1bDcL
-	 Fb/NFm2kZOOQsBkoHhukw2nZkpAAI+TlnNoFEfG/NlVWE8bg9owYWBjCegEJ6XFK3HA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741730;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=00MVwHilTRsBhBbdEgHHR8aMOg2Z+5Tl+P6nDXwfFAM=;
-	b=CmIiTLtkoVrHxNaUvT6j87LaRV+wJ00ZQSC4CfnsIBE9GDF+jfWiTPVmye0p0uVTj2UH
-	 sXhHRHWUGBnbM40DTD7K6CfddkkLAfqzTL7XPpaI/C8ukmE9e9KYhooCT0vNw6NlgfvpO
-	 6Jzas+gEeJDzolxtCvxsPaUNuLYXMi9FZP7Y21AtE3EaP+X4mh19wROe5MpQfvPoizRaO
-	 oPYMqAGBO+O5GulUuZI2vqaSWMJVMh+P0Zg2o7n6qqcYZWNGNi2C6dlhDG1fs3YB63O/r
-	 buoKunE8H4jHX6kSgUQxVZYY4MaJQKAhFI5rSMuQS//6Z2okxBCn3VATNVxgyFScEJQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwAHax5i;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792741736;
+	b=PGn7iSDRFfSFwcN0skB9yRtXEFgLbR1UMjZHX7wdsGt3ZghZPA2a2cH0LbYFZPhag1rh
+	 5zh8lu2SKjnzxYY75w3I0i7mxEyPssvgisokRdoseBk3xJUIWISOjyuoprYufaFkq2ery
+	 XChArzA5veYwsyplPO1VZNr/vvj8Za5e9kYerkn/rPQ3FUMKQ+Mp8ikLrtGaNoNVPOyZE
+	 NQ473VdVOxqUzvjhe3+gA/CNOYhPUmpYqMnITTXru7CA+f/ua2o/PzbUcYm947HlgfH13
+	 ewrA2angVLmwMpoCRmhCfdosZc9hUMiQF7iLDK5VltZrY+Xfh4h3XJQ+xjK1lHHFWAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741736;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Received:From:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 CC:X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8lU6P79LwzuKwAh7P2mb9QxpDyD8Xnt67/9ecZ1x0gs=;
+	b=RbMZcATWHpsEO/Om0ra0iLIbKYXatLd1z6Cl4sCWYxLz6LiiVlI8ezrMas4eJRAyV70A
+	 n3PEi59XHabyaNa3lfs6SikmNNNyywDt4pxkMR9OAsLcEPQ38SNJ/YOLz1ZPiFpor6AFk
+	 o18XOZmvGiyZsC+m+Hk6vRjW8k5DDmeqNN/SH0VcgXgb3LtwqiRcKZLsPKTaNN9KQmQBH
+	 n8To4qn74sw4tPnuci1VZ8umgZfLFLbDMZfuAeHCgbZlnSuRkNyIjHKa/uR3rHJVGWs1c
+	 Hpd4QvRIUQ39uK7oQkHxz9BpJqblnezU4eqlNDw5RjTwGg+tGRAkdJh2HsYxrqd2mew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=e0ASceYZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.33
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013033.outbound.protection.outlook.com [40.107.162.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00F7606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:48:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C00F7606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB64B606A31F;
+	Fri, 23 Oct 2026 07:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB64B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwAHax5i
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-188406bb948so439165c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:48:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792741729; x=1793346529; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=00MVwHilTRsBhBbdEgHHR8aMOg2Z+5Tl+P6nDXwfFAM=;
-        b=fwAHax5iQGGUgoYbSzCa1ibvgzwxg6lBd3IJ52t06wOM24SN1CvJDwFWu+EEyKSu7h
-         WyFRmZr97hdACv5Qknm/oneHxpqy3VnSkERpLLdUd64x827R+6K0oMf3cpyIu8Z8GGWq
-         gD9W8nExco+z8csBk5xvvRytSqcOWRFen6UaN0Yp/+/z+iq4TiyUotR4c1/LgeIFloAz
-         vVzzhE8ovxLWOXfke1lbUrfBt1alt5X/iopSxLHkC0Hy2anPTMoW7VMmMBZY8tyDRAzz
-         7O9kcCXK5RLOaS/zZFM35wk8AOU+/A9KHHie8SlqhGov3/aV+3lMC5wiQXoIghCA55RX
-         etAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792741729; x=1793346529;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=00MVwHilTRsBhBbdEgHHR8aMOg2Z+5Tl+P6nDXwfFAM=;
-        b=MZ/4N+NE1fb0r2MfiBwXI04N2IcI0HsiFxBaOg2u5a3reGUWpxY34YhasxraiV6Pue
-         vqXcQ4FbfLjR5EvzRE9err56F7e7WJqi8Md00Jq/Gajw2DlWXbWwrPEWFs1sU5wmLf+v
-         mZUUz5cbrPM2BAMK6rrMuEus2gUvQgk+pqUwg8596dwtLqonyA02Al6vEBirRHQleIFL
-         lDno8S0iE1ZRY8K8RuTkU1GVJClfTG27r1UA7QiyLNl2CQySz7JWKHaxZSygIweV8XUE
-         YK/8Tuxswgo3NpM0Cg3Uk+6HlWhU/+XoU4CR4fMG8CfxKV6AK0xXgd7BtGfR9b6v/34Q
-         E6Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBztDfvcFhSMyYLulirTL12MJGyPGV/mSJtKWCM+DD2ai/Re4xnCBgzZe8keKVVXjWFcwORJsfI9dNqCN1c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBi8f72cypYNvBzN+8417UZheYUsMQJaHVXOQomqnhndlbcUby
-	sFAqdkEOr6eJhXAIahXJUlwS1DcvRueeEpaNsUQQUAg+eiNvtCA0Rp23rsNS3BqrPGzRbcLOoak
-	=
-X-Gm-Gg: AYBFou0nNT8PoIQvh0WU1i4L09ChN9X3o83Ref9O9OxPm3N8Ct1uZmb1MVXK10mNzdX
-	bwqWwWN251yzFv6QfO9yt+0Xl5qAisr6sHrQ1rdAOtANgZhSV2qLiXrF8XXH72fzJLjA7at87Gi
-	rzT6qc5mkQ5HFCaU8F8VR3OfZgNj+ykRPP+dsfIM5cyFS/2HYwxb6W75Kc36DLdu6DDQefYqB4q
-	OthKRV7lhryC/xZCdGqIZFg90kYv4fdwpnJMrqj0+nB1O8FrFy0caO3cJBnBtnDMK/1k0DNR4lV
-	9v2zGywYrgBJoYtekuPTooY9LTDvFayJuS+WncJQuYkj92u3r9ca/WpEXT7E+lgW94aQq97gfzw
-	OqMStbvvteAkyOXHlizbnbiwg5RYTeUEQvs8gZV+2TObse9OPvpTNGKFBITuLeSw7GIC7hs7fTG
-	0TybyiHcVIDZ6N0ULu98TsY0jtSGPngk1ydoEM/LOCLPE0iDUXbJ4cU3diRetSXzLwbjvW7p8VY
-	0PTbPfbECrdAudUEQZSoIspBruxKYtqnPCIigHDa7AI0wD9g8A5ubXaYoqtUocTNZ63
-X-Received: by 2002:a05:701b:2059:10b0:16e:c820:b20d with SMTP id a92af1059eb24-195c02759b3mr2129883c88.5.1792741728538;
-        Fri, 23 Oct 2026 00:48:48 -0700 (PDT)
-Received: from Mac.lan ([45.112.71.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195ec82eabfsm8402854c88.19.2026.10.23.00.48.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 00:48:47 -0700 (PDT)
-From: Kanishka Chakraborty <kanishka.developer@gmail.com>
-To: kamal.wadhwa@oss.qualcomm.com,
-	maulik.shah@oss.qualcomm.com
-Cc: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/4] regulator: qcom-rpmh: Support RPMH address reads and use it for rpmh-regulators
-Date: Fri, 23 Oct 2026 13:18:38 +0530
-Message-ID: <20261023074838.29254-1-kanishka.developer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260801-b4-read-rpmh-v5-v6-0-9fcb54928523@oss.qualcomm.com>
-References: <20260801-b4-read-rpmh-v5-v6-0-9fcb54928523@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=e0ASceYZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MLlUyuXRfws5e5ahQXUQG4twtX1Q4bTLHV+J5nCTzqs0EQw9jtrdRR7L7OQjrpA71O7B/0qeOWDug2NTt7JudEJQv4mrpbcGan0xBIQj+5vA71nGGiXr6H58pDLFxWRUNXmbJEzhwcVIz0KSR+2DjBWAhJB4kZ1Q+yqb9ezIQg0mLxcH0PcyvuF+PR7a3yKM6oiJ/ZIDUiXD2xoC392m1lMvKekyHgGB/D9jYywv4mNtoglU00klg8+J5Su+vGykLflsxUw/YuOcaQZY8sN1gg6m+ZH3apbt0fl/MQ7CQeJWG79IETZrlXG4Pbje2HSYBhIHDLmU3+EV2WCkSu7adw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8lU6P79LwzuKwAh7P2mb9QxpDyD8Xnt67/9ecZ1x0gs=;
+ b=MCPPtgRvfxiCfGqpRi0lgNGGuN2zSF0VpBb65ZcR2NZrtBBkzGeVVodHtrgGmSrWt9TLqFb2OjSNo8Dg43dnyhkbc5VkIU9jV1CQl2E1SdfhfTXyLRr4H+KOjH6d3RZfqwaXzBHij2m5Gkex3x575w3r6a17tj04MK+SFkauxBSKi0HaNA/HAMA0oS0kWz6N7gnJm/ZwPdSegbeNbtIfqPFOIFVGZw+3/8pyxQ2K/+NhkxBzX110SQo2L3ZS2gVmzKT60uDZ98r0+RANkxoGU/NYLtRZf/KFbeSof05fmtPcNblbbg0CQ8YBPXr8GfJBOQ8mrYvFJSfhwifJJurNiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8lU6P79LwzuKwAh7P2mb9QxpDyD8Xnt67/9ecZ1x0gs=;
+ b=e0ASceYZdXBFY3zzrtI+U7MKAq1bClpbJfRt8bbB5bkQaYNq1a9Y2kcAZay83mFF1HfZMy29bNn6YDQnKWyRe0IqggoHEeBaeqcODFPfK7EczFBWdmxFhfTu4mSqwuJkm5y7DfitCxz+oplxKcn/ZWyIXik+Gpjs/tEUKIgbNLU=
+Received: from DUZPR01CA0035.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:468::13) by MA9PR02MB520490.eurprd02.prod.outlook.com
+ (2603:10a6:250:104::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
+ 2026 07:48:51 +0000
+Received: from DB1PEPF000509F1.eurprd03.prod.outlook.com
+ (2603:10a6:10:468:cafe::91) by DUZPR01CA0035.outlook.office365.com
+ (2603:10a6:10:468::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
+ 23 Oct 2026 07:48:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DB1PEPF000509F1.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 07:48:50 +0000
+Received: from se-mail10w.axis.com (10.20.40.10) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 23 Oct
+ 2026 09:48:48 +0200
+Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Fri, 23 Oct 2026 09:48:48 +0200
+Received: from pc46036-2141.se.axis.com (pc46036-2141.se.axis.com [10.94.180.139])
+	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 1198D3CB0;
+	Fri, 23 Oct 2026 09:48:48 +0200 (CEST)
+Received: by pc46036-2141.se.axis.com (Postfix, from userid 16197)
+	id 0A79B584AC3D; Fri, 23 Oct 2026 09:48:48 +0200 (CEST)
+From: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Subject: [PATCH 0/3] This series adds support for Texas Instruments OPT4041
+ Ambient light sensor
+Date: Fri, 23 Oct 2026 09:48:12 +0200
+Message-ID: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,47 +109,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD0R22oC/yXMQQ5AMBCF4avIrDWZQRFXEQt0ylggLSIRd1csv
+ +R/7wLPTthDFV3g+BAvyxxAcQT92M4DKzHBkGCSE2KhlnXLMCNFZUralJrQWAj16tjK+T3VzW+
+ /dxP32zuH+34AF1/sVWsAAAA=
+X-Change-ID: 20261007-opt4041-18315d8510df
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Stefan
+ Windfeldt-Prytz" <stefan.windfeldt-prytz@axis.com>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jesper X Nilsson <jesper.x.nilsson@axis.com>,
+	<kernel@axis.com>
+X-Mailer: b4 0.16.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|MA9PR02MB520490:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6eae6a3-ce69-48e3-af19-08df30da1417
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|82310400026|36860700016|10067099003|13003099007|261009223027099003|261009221227099003|261021123027099003|261021121427099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XdL8w95kHIg4fSRbXeO7DppjzFbLezexzGr/XP20Fw0tY+9cz6x5N1utQ4QQUaOyI1acUDi20lBe5i3oobdxaoJNbNThy+dL22qD2cO1tQNA20xlZzhcKsRYcyqWn6IKGV3GZdbiWrwVDBIdb84jfDKYQ0Ryqs5Y/Mijo3BYRiOihC3nFSYG82NbaWjFKpeXTqc6Um85KVNXcZkb0BFXRUh8Yd9QaBOxqCpdY8mwEzRa0rK+vmnhcV8Z6WXdYsW/nbeW7D20JD/Au1QbJJQz3virtMIl9IJC6V4Ife+wJUg+hbC8h7okMl0Xt0baIRBjEUYLPM76Ntu8fnchoBAyHBinz61Qw5bTbEa8eBMqWD2cBgNZApfOXC8zk9vTDRLR/iyMdXOgrqw4e+VJasaV+WWOjWRCoe/2cdEF8pYuRfznLgQxXbNyhHISKFTPKGtxO+deP/8nxhP2uX5+0x/2PVA4piEOIONk/xSQ3kfaAw7k75Ai0qbb80mVMHb7MMAZoGnp7kPoGxcX+/whGiIqy2RMxU3BAS2tb5y6UEqH30e/Fsa1cfdRdnEMA78uyVx7d9H9R+vaVVM92CcLFYtvR3atL5cH8MKYx39usT0Xn5lw0VyfvKedA4xeNa3QDyPAJ35i68gsHqotT/ssU+FxSWJuaZafq2VCILl9z+QjJVLe7DKNX6ss+tIWtd2ijLMuiOT6Wzbqlb0B7ewCbbYHyQ==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(82310400026)(36860700016)(10067099003)(13003099007)(261009223027099003)(261009221227099003)(261021123027099003)(261021121427099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uAuNUhLq4zZVRs6WjoT8iQE3fSQ8igsjUXV1vV2wKJXrr8tDI57JL+OcdizkyQKb2ycKFmI/qsn4jtx1QzHjVgpw3LlivJiptjJ5DpGASb0ANL8+hDLJug8zjmFwR0J0EwgjzKSw12XQgG2SgsJsoPitq3HXngQ30pHt7+ZO07Mpbgpi3U5pspk8zTTHdGN6Uu/kqANqeB2wFnxyljZl2WKTt9eoZid5uvW6MLyy7u08lVk7quBbbXmVSU6vMvxU7k7Y9YDIDUEbT4YjsFflpVJqbNmi2rsZ6NoxnecEvBTdytFdZPg9vsYYzv0Gjf4yxfjSBw3xNRxfOUlt4DafPe1UIvUUP8MsKHb6Cz18lqQMI7q84et59frFIOkxZyjXWZnoENBzP8frbGKKLRlSIP0tYN7ATY8xJXw9kvj8USLPnaRRQ6Kj+R6ktlOW7t96
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 07:48:50.7509
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6eae6a3-ce69-48e3-af19-08df30da1417
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F1.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR02MB520490
 
-Hi,
+Extend the opt4001 driver to support OPT4041, since it is so similar to
+OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
+from 380nm to 1000nm. The register map is almost the same for both
+devices. OPT4001 has an internal fifo of size four, OPT4041 has two
+fifos of size two, one for each channel.
 
-with this series in v7.3, SM7150 (Snapdragon 732G, Xiaomi Redmi Note 10
-Pro) no longer boots. SM7150 support is not upstream yet; I am running
-v7.3 with the sm7150-mainline patches on top, but the problem looks
-independent of that and may affect other SoCs with older RSCs.
+Since OPT4041 has two channels it has one bit in register 0Bh to select
+which channel is compared to the threshold register. The driver does not
+support setting the threshold registers, so no new support has been
+added for this.
 
-Symptom: the boot stops around the time the RPMh regulators register.
-The display (left on by the bootloader) goes grey at that point and the
-initramfs never runs, while the kernel apparently keeps running (the
-watchdog keeps being serviced). The v7.1-based sm7150-mainline tree
-boots fine on the same device with the same DT.
+The OPT4041 is pin compatible and has the same package as
+opt4001-sot-5x3. Although the device id is different, I added a new
+compatible string since the driver already had different compatible
+strings to differentiate between the two OPT4001.
 
-What I checked:
+Datasheet: https://www.ti.com/lit/gpn/opt4041
 
-- Reverting 09d99ff7fc3c ("regulator: qcom-rpmh: readback
-  voltage/bypass/mode set during bootup") and its follow-up 216e8873bc80
-  ("regulator: qcom-rpmh: Fix coding style issues") makes v7.3 boot.
+Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+---
+Jesper X Nilsson (3):
+      dt-bindings: iio: light: opt4001: add opt4041
+      iio: light: opt4001: refactor driver to prepare to support more devices
+      iio: light: opt4001: add support for opt4041
 
-- A log-only variant that still issues every rpmh_read() but throws the
-  results away (vreg->mode, bypassed and voltage_selector restored to the
-  pre-readback defaults) hangs exactly the same way. So issuing the reads
-  is enough to break it, independent of what is done with the values.
-  I couldn't capture the per-read log lines: the display dies at that
-  point and the boot never gets far enough for USB or a log.
+ .../devicetree/bindings/iio/light/ti,opt4001.yaml  |   9 +-
+ drivers/iio/light/Kconfig                          |   2 +-
+ drivers/iio/light/opt4001.c                        | 144 ++++++++++++++++-----
+ 3 files changed, 121 insertions(+), 34 deletions(-)
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261007-opt4041-18315d8510df
 
-- The apps RSC here reports RSC_DRV_ID = 0x00010100, i.e. version 1.1.
-  rpmh-rsc only describes the v2.7 and v3.0 register layouts and uses the
-  v2.7 one for everything below 3.0, so on this RSC the read path writes
-  CMD_MSGID without the write bit and later reads RESP_DATA at the v2.7
-  offset. This SoC has two active-only TCSes.
+Best regards,
+--  
+Jesper X Nilsson <jesper.x.nilsson@axis.com>
 
-I don't know whether read requests are supported on RSC v1.x at all, or
-only need a different register layout there. Would it make sense to only
-issue reads on RSCs known to support them, and let rpmh_read() return
--EOPNOTSUPP otherwise, so the regulator driver falls back to the old
-behaviour?
-
-I'm happy to test patches or collect more data on this device.
-
-Thanks,
-Kanishka
