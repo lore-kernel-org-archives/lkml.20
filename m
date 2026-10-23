@@ -1,60 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744099;
-	b=gx0L0RaVmNQkh+9fGQ2T4CO4Iq1K4jwmjV3ZKGa2ZRMrzilqlSfuxj2GmSFiB8EQzi6k
-	 HfzpoaGUzmVvxqEK9FwiiAZdSawVP/t08r7vuozebLlET8hDCa3MBKunVsKKb1cdv/I0B
-	 07/7s2xPOGGrxsDkxIctyogKYmm6O3yLg8QFl5hIRl6HGjrCm1GHVD5BmPJSg+UzUHGkt
-	 Kbtsu0U/rvgLUhFDxQsXxWH+m0ml8uXYTWtYg6zkqg9QdjvkRq30UWwjecsghcrp74j0v
-	 gQO6bDlRaxlKjnAcP0P/ynujtDJ9kZ/NH0uLlXKnr+X7qSOurz3RBBUnIdUYxVgTT5g==
+	t=1792744121;
+	b=NTap+KV2PMgU53WF/eGVKW0Mk/cQxEBjp6wAKropyZbbEJlgmTF3zPQqoA8oYkPY7KZ4
+	 DRM/hidKrHufbuIo3PdTFKxOVVOwjMKuMMtD01aR8jnNM6LfQFu/DkaWRhJlctxl75/Ks
+	 a7suaXX3vwSeWDaISfr+xVpW0Rsfl2O+NJcgg3se2bPu7QPyi//7kXfotFEmWNuhpA8mM
+	 wNz8jQpofasa7W5YZ6WdJnJQFOdx0Yt+crkb4gc7m2Ab4PWOp+d2/Gt4j3O+gnyhjnJ6J
+	 ICIjRVIPP9FBl49e2+4Zu7k3PvatMI++En/gn/JmFGtsXgxt43Ma444Hv6OawbOv8Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744099;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tbu6KQCYR0HIbEcZ3PFIb172SAM08206TRIlFmm9r2c=;
-	b=TDSpfemGqAkehjYAmf9D9/AKsnQv9zCb69B7/hyAYNu5KNx0APizP+njwOCrvmLQk1jN
-	 OnobY0C/gvE57glvPV6aNBhnkygxbCSwGqf7QSFgSCcIran9NEFY31f97AEm+FH1jeS5b
-	 +6soTODZ4rRlwGc5evL+gPMXF+K6RyNCx99KNR4YUhrPI85wyCjGN8cia+/+a9u7f2jeN
-	 XReCjvRDQj9AgECI2NB372zzN806KbSatzi7B5P4taYw28gmdTSffAqEZhbv4JwvaqCzW
-	 kPRbDP8Gr2CQfm0c14BtU1Ai9jaV5cwPOHWhVXg6cxf9eXezw2tx3nIltWley3WnB+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792744121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
+	b=0o2xjHfQwTBz99LlrH6+1A5Yd66r4aF2cHgGvwodO+cRLlestFzPkr9bL0nGXKx6RPFb
+	 cw/FlJeKdiPcKO7sPpqVnt8bJHH1EzFafbhtxWN8XsuQuxdQUS67pEBX+yTS9Zkszlk3i
+	 L73LeqVTRsFLnY+/jG7AkQwT3rJ50yP6a1qSnP5g5XXJiTiQGv5ESclfCtRPwr5UjdWa+
+	 z130oQYcuON78AWB82jlEY21l5g6gaOBsx8v/OAyesA8SKF4SKJU3w1Nnmfqe9gUf5ahX
+	 hZIMHKy3Bg0qLAyTCzBr3HBDV5NqhCtFEVv3ZhrsPJIyhJbaZD6QKmcqiKvutPc3ISg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma26LA6K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mNwxaodE;
+	arc=none smtp.remote-ip=209.85.128.71
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D091606A31A;
-	Fri, 23 Oct 2026 08:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0804F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma26LA6K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA7B1F01828;
-	Fri, 23 Oct 2026 08:28:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792744099;
-	bh=tbu6KQCYR0HIbEcZ3PFIb172SAM08206TRIlFmm9r2c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ma26LA6KRJ2xmPXLEtu4nqIk5Fexa/c+6M2S5CrxTBtPYsMJo6Hjv2LrTNyrvCd2o
-	 FwnZb0wiJtzOgDffW72jwfj6sr0H6KX/wEDXDXvTSEy48/bw8gHXu+zbvjH6BihmUy
-	 RCN/MUxb6SdmRS9Zb11QejLUoesen2m++WPx0cQBWp1hNZsp9gYnw6413FpLox/pDL
-	 3blYZ+P13T7QnFz+LXlG98gVQVg7DEpE3M/h/lFnNCSZRXW8kJ8EvyQL4ew64TtURw
-	 FiRLOxxSRDGuCY/bR0YywD5eb8Q095tKRlunL1YmihY4kEgn5QJzMdMp+LP6zgNEDz
-	 gtgdcJ0gVDcyw==
-Date: Fri, 23 Oct 2026 10:28:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/8] i3c: renesas: Add RZ/G3L support
-Message-ID: <20261023-thundering-axolotl-of-examination-aaa6ba@quoll>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-v1-4-30a47f25e515@renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mNwxaodE
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2063be13dso4903445e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792744119; x=1793348919; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
+        b=mNwxaodE9bZuAnhXe+WT9zRnXBtbmwacb2OJOqAkwdefSt8/FPlGrZ3K5na00KrD4U
+         AbwBMxY6CiHA/ZtTI2lrjxMXGbBSpVT3fu4vMQ/OCT2S638fsdtcowjOvZ+D+X5nZsuX
+         mxed/jjllXqKhGN/ebC0BOIvMANBngXH6W/+hB1ug5s0T/O4y76Gj/2CdgxEtvq8VtIy
+         OzLpQb6yK/XM+uwvYXE0QOLkcqTJTRGGqBpN/yNTvrOZCiBX8qF4JUv+3dE3UD8ugYpe
+         UJ9Vo1m0ifEK0mqvfNFNACEl8BmusbsTuBZyMs0PBS6K2qVlMi15Un9X9A4uvjwd8gOs
+         3lkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792744119; x=1793348919;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
+        b=S2ro/pfWEPy9zbyRVpyUYAd8A8nqiSlYA7aQi3KfPb5jWpNvINurldaMPwWU5Y2jsn
+         kM8p48W/jNSnzRhOVuZi9TQfYAxSXQyGUlBr7cPDFnkR5A+KeIV22dTgwLG9Xg+vh583
+         gO+aLk1O2GC4asRVm1POMcvX+H8I+TpTDA0+GJKEpPHToiV6AhiY7byOYHG6wF1/b+WF
+         Kq0C2pjC7XlQFdkRrAlrxPf7I1ng7F9j164e87bYFUzCIDJPGIzbWvAvs0g5R6csPSw7
+         VFlFGJKrcSUl6JSJSOjXcpXgVVueYE6CSofmmp+TY9YW7BJWr2FOUqiBWbEyiVwiOMvk
+         Zi1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzknHoU8Y2TFrYeE4TjviiQx8sQ0Zo2UMARI05Nta/fDes0dEi7vkX9AA53ABCtgY/llWVV21TIijuVWkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbp8NfU99jZjMtlcN7bxL4TTz2xH2BA6e9mVV3bH+8gstX2ASw
+	CWPyjeS908zgTzymBHKyUalBVXJOxu41dOFFG10w/YrIzSqdkiwh+MWyv1Xc54uo5mBbf9k4sXp
+	NbdfIPViJ4kbK2tCljQ==
+X-Received: from wmc9.prod.google.com ([2002:a05:600c:6009:b0:4a2:d3e:ee4a])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4e8a:b0:4a1:e7ce:10a4 with SMTP id 5b1f17b1804b1-4a211eebdc3mr25679015e9.29.1792744119032;
+ Fri, 23 Oct 2026 01:28:39 -0700 (PDT)
+Date: Fri, 23 Oct 2026 08:28:37 +0000
+In-Reply-To: <DM9O11JY63Q2.1U3PB5GL0JYOQ@garyguo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,47 +78,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-4-30a47f25e515@renesas.com>
+Mime-Version: 1.0
+References: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com> <DM9O11JY63Q2.1U3PB5GL0JYOQ@garyguo.net>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261023082837.1250172-1-aliceryhl@google.com>
+Subject: Re: [PATCH] rust: drm: gem: shmem: do not leak pages when sg_table() fails
+From: Alice Ryhl <aliceryhl@google.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Alice Ryhl <aliceryhl@google.com>, Sami Tolvanen <samitolvanen@google.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 10:14:58AM +0100, Diogo Ivo wrote:
-> Add support for the I3C Bus Interface on the Renesas RZ/G3L (R9A08G046)
-> SoC by adding the renesas,r9a08g046-i3c compatible to the OF match
-> table.
+On Tue, Oct 20, 2026 at 01:31:03PM +0100, Gary Guo wrote:
+> On Mon Oct 19, 2026 at 9:21 PM BST, Sami Tolvanen via B4 Relay wrote:
+> > From: Sami Tolvanen <samitolvanen@google.com>
+> >
+> > `SGTableMap::new()` takes a pages reference and maps the table before
+> > `Devres::new()` allocates. If the allocation fails, dropping the map
+> > frees the table but keeps the reference, and the next `sg_table()`
+> > takes another one. `drm_gem_shmem_release()` puts only one, so the
+> > pages leak.
 > 
-> The controller is very similar to the IP on the RZ/G3S. However, for
-> instance the RZ/G3L variant has no HDR Exit Pattern detection interrupt:
-> RZ/G3S exposes 17 interrupts, while RZ/G3L exposes 16. A RZ/G3L node
-> therefore cannot be described with the RZ/G3S compatible, as its bindings
-> require at least 17 interrupts. The same point applies to RZ/G3E, that
-> requires 3 clocks while the RZ/G3L requires 2.
+> Sorry, could you explain it in more detail?
 > 
-> >From the driver point of view there is no difference between the two
-> SoCs: the driver only consumes the tclk clock, the presetn and tresetn
-> resets and seven named interrupts (resp, rx, tx, st, sp, tend, nack),
-> all of which are among the 16 shared ones. No driver changes are needed
-> besides the new compatible.
-> 
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> ---
->  drivers/i3c/master/renesas-i3c.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-> index 4fddc1b4fdbb..80a6df1151bf 100644
-> --- a/drivers/i3c/master/renesas-i3c.c
-> +++ b/drivers/i3c/master/renesas-i3c.c
-> @@ -1625,6 +1625,7 @@ static const struct dev_pm_ops renesas_i3c_pm_ops = {
->  
->  static const struct of_device_id renesas_i3c_of_ids[] = {
->  	{ .compatible = "renesas,r9a08g045-i3c" },
-> +	{ .compatible = "renesas,r9a08g046-i3c" },
+> Creating a SGTableMap and dropping it doesn't restore the state? If so, it
+> sounds like an API design issue.
 
-So fully compatible? If so, drop this and express compatibility in the
-bindings.
+Yes, there are really two bugs here:
 
-Best regards,
-Krzysztof
+1. `SGTableMap::new()` returns `Result<Self, Error>` instead of using
+   `init_scope()`, so `drm_gem_shmem_get_pages_sgt()` runs eagerly before
+   `Devres::new()` allocates.
+2. `SGTableMap::drop()` (`__drm_gem_shmem_free_sgt_locked()`) unmaps and
+   frees `shmem->sgt` without dropping the `pages_use_count` reference
+   taken by `drm_gem_shmem_get_pages_sgt()`.
 
+I'll go ahead and merge this patch since it fixes the first bug, unless
+I hear any complaints.
+
+Alice
