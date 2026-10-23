@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748354;
-	b=ATkqecm1Xlaa3fLMkatZw2yfQKrd+51VPproBw/TE7WN0xcBHFjydVUve09s1Unx+g5U
-	 C9hK7uJnrKRJUxRBIDBY9H4He4PsLqX+Ial77qWN11i1GQYm0vsuf1ArDv6qEGRqEu6PK
-	 M1FdhPsc96eXNU9W7u00jF+wjI1VmcJ7nOHdTJItlqAMb5y9sIzjvG6oDS7VAzg/RbIDP
-	 DxzOi6e0k/tFUovnTZBK3pnmjCyW2F/hRSrAOoc/ttatKIMLndQHqwFwVu6rMrPOMcel+
-	 gwf8GOjguLgFqvA8JKRctOMi5i1YizUkWDZ3Hr9Zi9xnR3LjXbc+wqji0jpbheLNMVg==
+	t=1792748358;
+	b=DFHEE9gJ7aZSbhu8UABR7ujzdIvUbDBrzlSlxIVk2KfZxExvTSO/aSR3zlFrlfocZkAu
+	 cfbjXMZQUUpRExrBy8zCSRkJlxw1Z/bsHyUaAfVOUG73wIkBGQ1NAtNfWcUB1eUzn7nLB
+	 kV2MlRuYCHU8M0o5G/7lWXGZhZk/6qqB14+BzQ5mLCguHBlj0H6skiFdPOdhRcS3z7Pad
+	 +BjMfVG2wv6zrHCvW9drtnqFLsy6/N+Kpid9MCQcbsxi40Z/P9rSyBivWxcypTfZRg752
+	 zclaEZgAtzWITcHyMsOr6HZXVIjU1xPcNjMjDPE9QTk1WCB8N0rbidLfkseB3LcHPjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748354;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CT/Cws5uIyWHGwD15sUwHFGgBljncjvYFBe3U6nEdjs=;
-	b=VhX/AuHyOQxNwasF1xJztaZETGHZHP7cGRGpnmMGyCTsFM+VCfZ/Qel5Sbq7JL2LReb3
-	 8aTLtDs9jxAWBy1/er2ZDs+EMnRT1ECA7Bc1ZmK1FaYe8FRGNuZZ2gUd/k5zO+liUjWe3
-	 4hAKHSYMBtTdBlZbRpYHD4pDHzR23rugQPxdEnfkKBJ3ozTeyjl2/58L0/cDiqD0wFqM0
-	 J63KAtb28q4WdFh/qYnbArEbWaB0uBS8dBRHvh3eCImvA4HpcM1Q1q/qPHydii642PpbX
-	 /HUHiyYHLFQJprviBnsNsPXOcKDtuSKGli8tHr9Eljjti/0mvr4Na0oGHevvB3ZdB8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748358;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4tf90m9jG5eMljEYtnk9jbkUFR0mOTT0OPUqGGC0+2g=;
+	b=2EA7oR2kx03UeHTa/k7K4Usf2kLSs37cG1b8UVApRI1/cQ+dWFlXgIeqHRaU6GaiwWo2
+	 ZlBBvm1kpa1Z4EflASFpWnOdgkUkFO3b29kpXdjWGwCCVeZVaJrSbYuYktF8k6IuJLaZI
+	 exv4b/M8b/9s1E6luLEbRBTkG0KaV2IRtOQDjbEVoOLFrbaEXEP99EVdsGeSkjIzmnC6U
+	 PjVPjAdDLMreYVoEFMlOB75pqgsRslfD4Kqmpbwqi6tjdcuqQbWzhQp6fQAHzDCHX5WIW
+	 rwZC6mg0XVwFrxzlMGBTLApopyLGh9vlls2MlFCz31NiKVIkEcMNcjtgkBv2RIM43XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dK/vWTv/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E25606A31F;
-	Fri, 23 Oct 2026 09:39:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E25606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CT
-	/Cws5uIyWHGwD15sUwHFGgBljncjvYFBe3U6nEdjs=; b=ojHdOs5i2By8cPuYn8
-	AbSYkMiozYNtoARXNA3S7j7wvszrKDI21V8MgiN/N5Zyrh4yRhC/NTsHi0ZmW6Yk
-	8xv0dKmoe2SHCGdLCCBrdyEaxA6qJFLdF68MQoMHaZsefG94tZ0+YRTSoN0bSR4E
-	/0Zo7VYfE5zAv6F0y47uMXLso=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v3UgK9tqy0UHCA--.32485S2;
-	Fri, 23 Oct 2026 17:38:42 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Ashwin Chaugule <ashwin.chaugule@linaro.org>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] mailbox: pcc: validate PCCT subspaces before parsing
-Date: Fri, 23 Oct 2026 17:38:39 +0800
-Message-Id: <20261023093839.715037-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ED8606A32D;
+	Fri, 23 Oct 2026 09:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dK/vWTv/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB451F01829;
+	Fri, 23 Oct 2026 09:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792748357;
+	bh=4tf90m9jG5eMljEYtnk9jbkUFR0mOTT0OPUqGGC0+2g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dK/vWTv/SAR/e14ze+NhyRR/ReYun9CIL8eD2Oy5sJVpP3Z030bykKASSCELK9srv
+	 tKmwzPRyRt2Rgyxd35gFjoOrOBnhPAKSRJ2VpVqdK4QpwQxT6HBGh1d3cNIgMNuL20
+	 D2OYSK/dxQpfOdTRO+SBrfZ0Ua505eOYrcKit6tCXOzfVSDekiX+A2FGNIsR1m45fa
+	 oLqUoLJ2BAGbxrIikfcMDj4WgGuVCkR3CBJAeY8oJGt6/bJoKWEpdvv7WoQS36/H5n
+	 xCH1NqlwgRler+zymp3YZUVSddbC3dJKQolYWO7Po4EvdRJGbiZuYNIoK6+1rhqXnN
+	 PxiwhiJohdPvQ==
+Message-ID: <sashiko-outbox-182612@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC net 2/6] net: macb: reprogram TBQP after shuffling
+ the TX ring on link-up
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Steffen Dirkwinkel" <lists@steffen.cc>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022-std-macb-v14-send-v1-2-9187bc545bf6@beckhoff.com>
+References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+ <20261022-std-macb-v14-send-v1-2-9187bc545bf6@beckhoff.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 09:39:17 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,133 +60,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v3UgK9tqy0UHCA--.32485S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCr18Cry3Jr4kGFWfGrW3ZFb_yoWrAFyUpF
-	1Yvas8KrW3Aa13WF12vwsYyF43Aw4I9a4UKr4xKa4jqw45GF15JFy0k3429r95AFZ2gF1a
-	v3W5KF1UCFWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQo7_UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQJknmrbKyK7rgAA3Y
 
-The PCC mailbox probe walks PCCT entries by their declared lengths
-without checking that each entry is contained in the table. It also
-passes generic headers to type-specific parsers without establishing the
-required record size. Malformed firmware can therefore move the cursor
-outside the PCCT or cause out-of-bounds field reads.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] net: macb: missing TX_USED bit on desc 0 in gem_shuffle_tx_one_rin=
+g()
+--
 
-Validate the table header, each subspace range, and the minimum size for
-supported subspace types during both the counting and probe passes.
+commit ded0ab42c83afe9d93d9bc6c0ab9623a1dc038f5
+Author: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-Fixes: 86c22f8c9a3b ("Mailbox: Add support for Platform Communication Channel")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
+net: macb: reprogram TBQP after shuffling the TX ring on link-up
 
-Notes:
-    Changes in v2:
-    - Replace the type switch with a minimum-length lookup table.
-    - Remove the redundant remaining-header-size check.
-    - Keep an explicit type bound check before indexing the table.
+This commit reprograms the hardware transmit buffer queue pointer (TBQP) to
+queue->tx_ring_dma in gem_shuffle_tx_one_ring() whenever tx_tail is reset to
+0 during link-up, preventing TBQP from pointing at a stale descriptor.
 
- drivers/mailbox/pcc.c | 49 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 48 insertions(+), 1 deletion(-)
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ether=
+net/cadence/macb_main.c
+> index 4b50378675378..97494933eb1ee 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -823,7 +823,7 @@ static void gem_shuffle_tx_one_ring(struct macb_queue=
+ *queue)
+>  	if (!count) {
+>  		queue->tx_head =3D 0;
+>  		queue->tx_tail =3D 0;
+> -		goto unlock;
+> +		goto reset_hw_ptr;
+>  	}
+> =20
+>  	shift =3D tail % ring_size;
+> @@ -872,6 +872,13 @@ static void gem_shuffle_tx_one_ring(struct macb_queu=
+e *queue)
+>  	/* Make descriptor updates visible to hardware */
+>  	wmb();
+> =20
+> +reset_hw_ptr:
+> +	/* tx_tail was reset to the ring base, so TBQP must be reprogrammed
+> +	 * to match; otherwise it keeps pointing at a stale descriptor. Safe
+> +	 * to write directly here as TX is still disabled (called from
+> +	 * macb_mac_link_up() before TE is set).
+> +	 */
+> +	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
 
-diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
-index 9888dab64639..91cef0ee3391 100644
---- a/drivers/mailbox/pcc.c
-+++ b/drivers/mailbox/pcc.c
-@@ -553,6 +553,38 @@ static const struct mbox_chan_ops pcc_chan_ops = {
- 	.last_tx_done = pcc_last_tx_done,
- };
- 
-+static const u16 pcc_subspace_min_len[ACPI_PCCT_TYPE_RESERVED] = {
-+	[ACPI_PCCT_TYPE_GENERIC_SUBSPACE] =
-+		sizeof(struct acpi_pcct_subspace),
-+	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE] =
-+		sizeof(struct acpi_pcct_hw_reduced),
-+	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE_TYPE2] =
-+		sizeof(struct acpi_pcct_hw_reduced_type2),
-+	[ACPI_PCCT_TYPE_EXT_PCC_MASTER_SUBSPACE] =
-+		sizeof(struct acpi_pcct_ext_pcc_master),
-+	[ACPI_PCCT_TYPE_EXT_PCC_SLAVE_SUBSPACE] =
-+		sizeof(struct acpi_pcct_ext_pcc_slave),
-+};
-+
-+static bool pcc_subspace_is_valid(struct acpi_subtable_header *entry,
-+				  unsigned long end)
-+{
-+	unsigned long start = (unsigned long)entry;
-+	size_t length;
-+
-+	if (start >= end)
-+		return false;
-+
-+	length = entry->length;
-+	if (length < sizeof(*entry) || length > end - start)
-+		return false;
-+
-+	if (entry->type >= ACPI_PCCT_TYPE_RESERVED)
-+		return false;
-+
-+	return length >= pcc_subspace_min_len[entry->type];
-+}
-+
- /**
-  * parse_pcc_subspace - Count PCC subspaces defined
-  * @header: Pointer to the ACPI subtable header under the PCCT.
-@@ -568,6 +600,9 @@ static int parse_pcc_subspace(union acpi_subtable_headers *header,
- {
- 	struct acpi_pcct_subspace *ss = (struct acpi_pcct_subspace *) header;
- 
-+	if (!pcc_subspace_is_valid(&ss->header, end))
-+		return -EINVAL;
-+
- 	if (ss->header.type < ACPI_PCCT_TYPE_RESERVED)
- 		return 0;
- 
-@@ -812,6 +847,7 @@ static int pcc_mbox_probe(struct platform_device *pdev)
- 	struct acpi_table_header *pcct_tbl;
- 	struct acpi_subtable_header *pcct_entry;
- 	struct acpi_table_pcct *acpi_pcct_tbl;
-+	unsigned long table_end;
- 	acpi_status status = AE_OK;
- 	int i, rc, count = pcc_chan_count;
- 
-@@ -821,6 +857,13 @@ static int pcc_mbox_probe(struct platform_device *pdev)
- 	if (ACPI_FAILURE(status) || !pcct_tbl)
- 		return -ENODEV;
- 
-+	acpi_pcct_tbl = (struct acpi_table_pcct *)pcct_tbl;
-+	if (pcct_tbl->length < sizeof(*acpi_pcct_tbl)) {
-+		rc = -EINVAL;
-+		goto err;
-+	}
-+	table_end = (unsigned long)pcct_tbl + pcct_tbl->length;
-+
- 	pcc_mbox_channels = devm_kcalloc(dev, count, sizeof(*pcc_mbox_channels),
- 					 GFP_KERNEL);
- 	if (!pcc_mbox_channels) {
-@@ -844,7 +887,6 @@ static int pcc_mbox_probe(struct platform_device *pdev)
- 	pcct_entry = (struct acpi_subtable_header *) (
- 		(unsigned long) pcct_tbl + sizeof(struct acpi_table_pcct));
- 
--	acpi_pcct_tbl = (struct acpi_table_pcct *) pcct_tbl;
- 	if (acpi_pcct_tbl->flags & ACPI_PCCT_DOORBELL) {
- 		pcc_mbox_ctrl->txdone_irq = true;
- 		pcc_mbox_ctrl->txdone_poll = false;
-@@ -856,6 +898,11 @@ static int pcc_mbox_probe(struct platform_device *pdev)
- 	for (i = 0; i < count; i++) {
- 		struct pcc_chan_info *pchan = chan_info + i;
- 
-+		if (!pcc_subspace_is_valid(pcct_entry, table_end)) {
-+			rc = -EINVAL;
-+			goto err;
-+		}
-+
- 		pcc_mbox_channels[i].con_priv = pchan;
- 		pchan->chan.mchan = &pcc_mbox_channels[i];
- 
--- 
-2.34.1
+[Severity: High]
+When count is 0 and gem_shuffle_tx_one_ring() in
+drivers/net/ethernet/cadence/macb_main.c jumps from the !count branch to
+reset_hw_ptr without rotating the ring, is descriptor 0 guaranteed to have
+MACB_BIT(TX_USED) set before TBQP is reprogrammed to queue->tx_ring_dma?
 
+When a multi-descriptor frame (such as scatter-gather or segmentation
+offload) wraps around the end of tx_ring so that descriptor 0 is a non-first
+descriptor of that frame, macb_tx_map() clears MACB_BIT(TX_USED) on all
+descriptors of the frame and sets MACB_BIT(TX_USED) on the sentinel
+descriptor at tx_head. On frame completion, the hardware only sets
+MACB_BIT(TX_USED) on the first descriptor of the frame, and
+macb_tx_complete() unmaps the buffers without setting MACB_BIT(TX_USED) on
+the remaining descriptors:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_tx_complete() {
+	...
+		/* TX_USED bit is only set by hardware on the very first buffer
+		 * descriptor of the transmitted frame.
+		 */
+		if (!(ctrl & MACB_BIT(TX_USED)))
+			break;
+	...
+}
+
+If the queue subsequently drains (count =3D=3D 0) at a non-zero ring index
+(tail % ring_size !=3D 0) before link-up, the TX_USED sentinel sits at
+desc[tail % ring_size] while desc[0]->ctrl still has TX_USED cleared and
+desc[0]->addr holds an unmapped dma address.
+
+Jumping to reset_hw_ptr points TBQP at desc[0] with TX_USED =3D=3D 0. If
+MACB_BIT(TSTART) is then written to NCR (for example when another queue
+transmits in macb_start_xmit() or when TSTART is kicked on link-up) before a
+new frame is mapped on this queue, can the controller read the stale unmapp=
+ed
+address in desc[0]->addr and advance TBQP past index 0 while tx_head and
+tx_tail remain 0?
+
+In comparison, macb_tx_error_task() marks descriptor 0 as used and issues a
+write barrier before writing TBQP:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_tx_error_task() {
+	...
+	/* Set end of TX queue */
+	desc =3D macb_tx_desc(queue, 0);
+	macb_set_addr(bp, desc, 0);
+	desc->ctrl =3D MACB_BIT(TX_USED);
+
+	/* Make descriptor updates visible to hardware */
+	wmb();
+
+	/* Reinitialize the TX desc queue */
+	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
+	...
+}
+
+Should the !count path also set MACB_BIT(TX_USED) on descriptor 0 and call
+wmb() before reprogramming TBQP?
+
+>  unlock:
+>  	spin_unlock_irqrestore(&queue->tx_ptr_lock, flags);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-std-macb-v=
+14-send-v1-0-9187bc545bf6@beckhoff.com?part=3D2
