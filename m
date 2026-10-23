@@ -1,91 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792755844;
-	b=2gRyYhy8/zQAaTmu9nvwRU8NmYgxrXMwgfolciXa/yJ1CFadLq7XB3RcFFavch3gX8bR
-	 Z6accmcXDXDF/N9fTzzVc3u9c05PEEc5tCWr2VluKarZIc5CE9705RfKbOW418KDL6w6D
-	 VsUVUctOl/1zrC5FIRt8bEUw7FHmESJnZ3c2X6SVwH+NhJ3UJZfpFx9G0eWrnJEvPWH7G
-	 /4eWQgntnRbJ6AQpzDEwILqbGJY1p149RB9l5bLBM8m8qQIaHcw3uqcDcQYKEMQ/zkSIv
-	 qCfnYFczp5cxqJqL46Q8RSplsI0UEtx+XOKGPE+XtJGgUt34jyjEIgRTHBZijQySnmg==
+	t=1792755845;
+	b=NOUPfz603HFgVOyJeYUO3xN1zmkIr+Yn1ztgvUBReOPlR+nC/uMH1DMzRIOd2htvU8G2
+	 yc3466RApm+tEw7EhoPxDJxKtdykmbJ0Bga8Ow+phwNG+r6RkRGj6XdkKwUvIpJKjDpHM
+	 j/Aps8aEyc6gN3g3wNOrHV+rlL4IPdcLF5DQhFF52/6EomcV+d0ZxgmPFRPlppuN6zCq/
+	 vmOZ8F0vIGuDTTjOGmmGwUlE7caeLhgMNZzK8KvZ8HysQO7275XY7F8LS5aRE27YSzVQx
+	 kha4mZX+FmQlhr9U1xMMGM102Xa1QVIfxtw5BIaiD7u4/wIjvOPJkjVmm0o3FTPRSSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792755844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792755845;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:From:To:Cc:Subject:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=KU+/W9TuJAZs/zdQ+dGkcv2MjLFcFwFkevq0ou/8PiI=;
-	b=j7vypbuQOpmGwCOri5joH/4cd6rHFclUMoTG2MZ3OzwyoEIGRXM6pjJGrYmlpPOSoPa+
-	 rYkhwpHiShe/+mlGw0xkPLUiz1/1W/bPVZNkkdlcpFX3zj/x8VZsMJlHfjBkHwJ5I8DMf
-	 3rD6uNUZ5a/rSudleCzKUa2V52nRtJNs+jxyhYgwO3eN80b6IYCTqnfCuUo/M+FG9j6Hu
-	 UF4k1+TSH8borPE3HvmeejjBMZtj+d63ZCIF1E+UYoOsbbU77VTnjMIlu8Gd/Ag+e3WOD
-	 Ucj8yGIPOIoc8Zen9we+kzH2xodrMJyg09egAaC0kgMhPdQki17A3BazV5CrbVgJMQA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
+	 To:Cc:Subject:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=mdMHNip5Ajs/IL99pQ1t5NzpRdzirssqiKk0k7EB9yM=;
+	b=SerNql8dsaVlzr5vqD86xOj8i3PT13rhT4mKP4L3PvfYya083pNC8u35zFAePktw4xia
+	 6aT9TEoh629KjFz6V9HhWqpntGojJYhK9jFrVVEwKin54fvUm+kciKX+UyHDF/TVVSA2H
+	 PJJ7NStUHteZeuq7/lnanfEKxCI7ovylgyRjTMrr7PrG5H6XSBfZO4kMI8Il03EQUzXYW
+	 dfnFT7YLmmF1K4BaCN2Q0nO2NDIVdhu/MPxJYrgmTuehyzxPNIvwJpY0K6X3k0AD31grM
+	 bnV3rxPrIjLd9ZWTTYq4XNQ08IQvG6uBqYG82rqWFyzEFfezW5BEN+1JeFGnfFKuzSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3VqGISM;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="LnvOA7i/";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB7B606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:44:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AB7B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E919606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:44:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E919606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3VqGISM
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso5873745e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:44:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LnvOA7i/
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so627327f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:44:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792755842; x=1793360642; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792755844; x=1793360644; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:subject:cc:to
          :from:date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KU+/W9TuJAZs/zdQ+dGkcv2MjLFcFwFkevq0ou/8PiI=;
-        b=F3VqGISMgHXw+FctwncMmuJTUfbICz2ckCoFLJ/V15ulf2JMWhXnXJluCLiNbapH7G
-         6ROpnKUDAjd5qqKVOyL7/yPd+A06kjgZlb0q0kJTtD/tQPmpJhIaJ1fNNjO2a23ysD5G
-         uoU5sPN7ZNVtHlyPpVtryXJTFbqHrdDGYplcqBkA63u/hR/ugbLgkJQkXC8DJ6jyNMEv
-         NADuGWe87JQ2DfOOckHtz0zwVASDanAJwlkaxYB6+dKpDVMa6Juy23g3Lcujvs3cYlUR
-         ZdFjAWwsXe3I9IKAl5g8ihWq0lgArZL9YFkhxYB42JazKJYl1GWtAh5/KXtd82SKrPYG
-         GOEg==
+        bh=mdMHNip5Ajs/IL99pQ1t5NzpRdzirssqiKk0k7EB9yM=;
+        b=LnvOA7i/brG7N0j2MsURELHtU1uVnWoeTPV5Ny73Kz3sVRSrxv8qd/O4Id0eiwHH/h
+         EfSDLF9BXR9MvpZwU7J1XjLjvAHOsRKlqmZvDnao/mar4lxaQ3OwJMRDhRICMzkfyi2v
+         NszWwy27AKkAKmzCsY0EC2TEIFeBMwrNEUi2q84oDUvl15WWnKX6R8sIopWZVo+XOFDk
+         Vay+Qcyy6uxl8LVNvoFf8VrKROj6rff6HPuWWBAhdoAsK920vl2sLsprby19UKvxq+e2
+         f096NfPFpVWFbJbgK1nejlWQj/aMQkTsVSrahksPXAGceVx3AeLpGFz6GnRCJq4RUPnr
+         hIMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792755842; x=1793360642;
+        d=1e100.net; s=20260707; t=1792755844; x=1793360644;
         h=mime-version:content-transfer-encoding:content-type:subject:cc:to
          :from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KU+/W9TuJAZs/zdQ+dGkcv2MjLFcFwFkevq0ou/8PiI=;
-        b=acGo/Fc9g/M/thL9LBY4TlsQN5rT1pqBtAz3FvkYoT/7aszaH5pNS55Kdx2xMxJijH
-         z3wliGQigs5kb35XA4L01gtx+qQ09jqFVljpB47SD0w5OMDiPmi8QZwpauqu06N3ypcK
-         v63xvpEJ1rb6kH0ASWdYhsmHQXxyodh347HhPBem0Z77mpQ+u+jEsE/ODY95uhsu3S2r
-         MGtoxeG9XWr8UuzIuE3EKYNnkRzuxZuLxmmeZlVtGA6qUvKqTa85F77B/LsqqDOvns2r
-         PWEJSzl29JLjO7fWDVh6rAYh7AU6BujJXNrGixzqcl2mEvjadAR3Jd/1hIN/XMWHSOY5
-         pE8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwJkFm8wZLAugWQgN3REMu3RPDLhHHmPAtCaCj9GoFIOl+vJeVYyIVfcrK/kt9pxdvcoBFgmd67Z+9T2lE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXOIG0BNLD5sMwmq3aqFKc7vldtjDVfmpc5rHMhj4E5ekIrvOh
-	kdEMGs7Nrqs7sea+hflqFJAxoG8X4AilwekSPFC7iN+uuhQhRF8rlPt4JALwASFFY7o=
-X-Gm-Gg: AYBFou0KOK+UHvuYmNe4LAI+WRxyrV0f8hEl6YMESTTjs6exluFebFI0DSR7asewQBw
-	KW9aoMBYqWPvnjMLG8fxvN+7jjNYAhqHmvuYCVssQ+kOPiaVROKy2zdZtUWaojUo4MdOuicKmEG
-	klGaonMMdlLqNOaoz8i/xWGYR6FcoKlNJxqou81A61cyjzZR36Qom2uDTorc5z/Z40+4XBU/qFi
-	paWj1Yp2TmGnedvYYPSX7vIVr7aTbwY7VZOvMfMjfMdSnCUMHCTYWPfRCNbFC1ALx6j4RATboq9
-	KG/VLHi4F5/Qw57qvgTBeNAnfSazRzmZNDiOIud+2sl9s127E+vNoMDhCnL6ruWvit12TzHPnA/
-	7nNBfxBuzuVReByPFUHpM8+Fe+6flgHPQ0cXfXGrpCo8GOFk7/sT2FITOaq1caVaVKcVgeQm/FV
-	b8SuVJymHOHA03ENGq2DHHYS7hDhZ9Lz24FQqjkMWgW+1I52hb5WeVsYIvMMPAcpqUWxXz0dzdJ
-	j/t6t/YcQ89a72TyD7A+vNouHWSNka7fo8cm3lVlXFzKovB3juTW5qqYjUa3M27fP5Gbdf9CQoq
-	trnMA7EKBOvgMSZoo+t1QWsruKCprQ==
-X-Received: by 2002:a05:600c:1909:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4a21398df21mr29796735e9.16.1792755841745;
-        Fri, 23 Oct 2026 04:44:01 -0700 (PDT)
+        bh=mdMHNip5Ajs/IL99pQ1t5NzpRdzirssqiKk0k7EB9yM=;
+        b=rlk9hYJ7pWSRX3SiBr1GSqeQs9N/rTFfcsn1IxCmZOEqGJeIoflju8O/xBPigsahNe
+         aLPSZKN63HlVwQSYkpoP/x4IkTuFEDdj8LjlfrfgSjFHDur4u8hG/FCK8mYJdMuosxrx
+         qcNMO+bRBxFhKSOfpsIvHoeDMoXvQ97Pp/H5p05zpfrNp0ij8fyhI9e/gigQLC+lRIpa
+         1RHMOBeSYdTSYX8peHR17DsOwTTUf/NDwdwRSIYOK5oBPOrhmw6/XSx7pCEsa9iRAxMY
+         l3z0qVYRxam2oggidQKMhYPd6+xEme/3QwbZDmq7eHYqjdRh+hRUX58OAevZzCMnyUUK
+         iWkQ==
+X-Gm-Message-State: AFq9FYLECNBTEj/RovSIrj4Y6KXxOuUsKArr7yabE135y/dPXhUp5hJt
+	JNSgzlRE10F9poLXFNcRcdUs4X283wtQ1hiHe6y54xR0T2GYHcAbYENZ
+X-Gm-Gg: AYBFou029Cwg93iZ/9tMlt0oNXtLq9hpRFZG1IYQJNfjJJ5uvjhgxFtb9P6xe2wBcRs
+	sY4pmhA0wosDJURw7RaF+muk+kHQIm/VbQMiTPHZgJBDjUNMvFRVjOE2uD0XdSt+3Wuv5gDM6T8
+	Am9ntfyaK0jWlTKOH32vHup7xHrsu5Dn6ij8OhyYlRDxlogDTMXC1XWoSpT0W7gYk1iab+gXnfx
+	J+fQUpbjcVYZUwOozu6qW0pHZJxTxSvFHm3jH2YdQeO5yOcZo7Me7W4GOdCYawLM3J1ckDEElG3
+	j4vQPAZqCuPgpwZMpnjfNA3CU/oRNrd+3NJfaf+kBgZ6Of548P0HyD+s3jqOyxTxYq9GLT75U7G
+	ixv+4DoodU1yG+z39WvhCGDRySYw2lGvx1waTlFj4hgk4aLI/MK1rsuM9p9fR8Sc0mXG98F2RNn
+	f5pCJ7lu2Mx/psO8q8nHx5esY4UrbfGBaE85RoAngWVv3IssWJen4xFFmTZp8OzoqNeV4UqT2la
+	+FkODgDMwX7lP8yEP3BCQ8Si52TfDv3DCBBOUzUXjl0WNtKVGiwvkDzQEEisG2MkwcSHeRyTaXP
+	F6zLSCBxVVVQzUpA59mvTtWWPlXcpYucOVMQ7H8JClG5pbzDSgk=
+X-Received: by 2002:a05:6000:230a:b0:48d:dfff:fe6b with SMTP id ffacd0b85a97d-48e385be006mr2824703f8f.34.1792755843684;
+        Fri, 23 Oct 2026 04:44:03 -0700 (PDT)
 Received: from SurHub.localdomain ([102.208.97.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edce44sm4742310f8f.3.2026.10.23.04.43.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edce44sm4742310f8f.3.2026.10.23.04.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 04:44:01 -0700 (PDT)
-Message-ID: <6adb4881.dcf90272.1a940.5568@mx.google.com>
-Date: Fri, 23 Oct 2026 04:44:01 -0700 (PDT)
+        Fri, 23 Oct 2026 04:44:03 -0700 (PDT)
+Message-ID: <6adb4883.dcf90272.1a940.5626@mx.google.com>
+Date: Fri, 23 Oct 2026 04:44:03 -0700 (PDT)
 From: Abdifatah Suruur <suruurism@gmail.com>
-To: linux-fpga@vger.kernel.org
-Cc: Dinh Nguyen <dinguyen@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] fpga: dfl: afu: prevent read-only port mappings from
- becoming writable
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Dimitri Sivanich <sivanich@hpe.com>
+Subject: [PATCH RESEND] char: uv_mmtimer: prevent read-only mmtimer mapping
+ from becoming writable
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -98,38 +95,41 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-afu_mmap() rejects writable mappings of port regions without the WRITE
-flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+uv_mmtimer_mmap() rejects writable mappings of the system-wide mmtimer
+register page, but leaves VM_MAYWRITE set.  Userspace can map the page
 read-only and then upgrade the mapping to writable with mprotect(),
-writing to FPGA port control/status registers the host owns.  A guest
-assigned an AFU can use this to reconfigure or reset the port and
-interfere with other tenants on the same FPGA.
+after which it can write to the shared RTC registers.
 
-Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
-its read-only objects and as fixed in drm/vc4 (CVE-2026-68445) and
-drm/panthor (CVE-2024-53071) and ptp: vmclock (commit
+Clear VM_MAYWRITE on the read-only path, as i915 does for its read-only
+objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
+(CVE-2024-53071) and ptp: vmclock (commit
 a5edadbae57e2298a56cf7a4e774a027905a331f).
 
-Fixes: 1a1527cf5dda ("fpga: dfl: add FPGA Accelerated Function Unit driver ba=
-sic framework")
+Fixes: fbd8ae106850 ("char: add SGI UV mmtimer driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Acked-by: Dimitri Sivanich <sivanich@hpe.com>
 
 ---
-v2: use a 12-character commit id in the Fixes tag, as requested.
+Resend: collected Acked-by added and 12-character Fixes tag; previously sent =
+2026-08-19.
 
---- a/drivers/fpga/dfl-afu-main.c
-+++ b/drivers/fpga/dfl-afu-main.c
-@@ -836,7 +836,11 @@
- 	if ((vma->vm_flags & VM_WRITE) &&
- 	    !(region.flags & DFL_PORT_REGION_WRITE))
+diff --git a/drivers/char/uv_mmtimer.c b/drivers/char/uv_mmtimer.c
+index 956ebe2080a58..c8b6040f7a14c 100644
+--- a/drivers/char/uv_mmtimer.c
++++ b/drivers/char/uv_mmtimer.c
+@@ -154,6 +154,13 @@ static int uv_mmtimer_mmap(struct file *file, struct vm_=
+area_struct *vma)
+ 	if (vma->vm_flags & VM_WRITE)
  		return -EPERM;
-
-+	/* Prevent read-only port mappings from being upgraded with mprotect() */
-+	if (!(region.flags & DFL_PORT_REGION_WRITE))
-+		vm_flags_clear(vma, VM_MAYWRITE);
+=20
++	/*
++	 * The mmtimer page is a system-wide read-only register page.
++	 * Prevent the mapping from being upgraded to writable with
++	 * mprotect().
++	 */
++	vm_flags_clear(vma, VM_MAYWRITE);
 +
- 	/* Support debug access to the mapping */
- 	vma->vm_ops =3D &afu_vma_ops;
-
- 	vma->vm_page_prot =3D pgprot_noncached(vma->vm_page_prot);
+ 	if (PAGE_SIZE > (1 << 16))
+ 		return -ENOSYS;
+=20
