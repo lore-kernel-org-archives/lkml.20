@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725946;
-	b=Qkyd/HTGCEbLHiI/6ZF3oHF6K+yAVDFrNIv5woNpJGxTS73Dfn6A9LvbawfyuQtEJTHM
-	 rF8/EVanbynMKsFtKMIK349Q2H9+/y9vxtUEyl2elpetnU2ZL3B3edhqoSUXpFjCWtz98
-	 IZ+PKI4eQKbvDNAxARXj8Q/CJuhYFm8L0xNtDA3M3xOTC6YQA4wyKoqNldn8wT0cQK4Io
-	 I+kZlTug41CvvlqeGwfYOXYUG0WZOlQkq73LuAru/3zbaFYTY9YM7nxeETZUEi8NxUSX9
-	 XzkmKtHVokISpMyRP5uccIEBfCOmOvQi5oKvoZqggIE6Db0qVZxZKUPjUs5WA+LaJWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725946;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
-	b=HI4Pva7zp2Mo0ws01feeo6R74Xo8n2RvK4Qf7Fz47B6eeRWRncdSM6moTW9pr6Vn4G2S
-	 a6r+84U31dlV4vv6Re8gt1pPxOf/mpx+XwyqlLoMuNsEHZpOFZbwevV1pzS4Y0Vq2/B6T
-	 cHOp0+tV11b7FmG2fuzlF5JMsTZOSIBw6D3jpGNU9wWzr49vEycRZcn1sdkZnIk5KBo4X
-	 s4WOrNP8bMzdLGiF5E2fCOIaIT2Z+U7g9YSbVxxsBPcP+eoJc2KZ6Z1hF+NZSi02AKgL6
-	 Ldu5+NRnPxYJetTwMEE/zPPXYkeMzyag51xMtmYiBMaIkRHQNqJI6T4qUzWo7/zwgdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792725944;
+	b=KhJ+Y+KB3KUmLlhaK1opzDcVr3+lwBkxxHQ97YDEb5ZeJTpd+P8/1olJIxvZ2BGB9u1R
+	 L1Et0RyR1q8whkADhJiBrnzZNxrmRxpgmYV98NXnLLaBQn8XIoPR1h2NeMBEO9TKG5LTD
+	 HOdhztC2hIuh2TeiujDX7+gygo8Uq3bz4WguorwDY07o7hnvwovj7A4AHBc8H6Mwck5hr
+	 vXe7QM/d2l4z80wRCHfBeNpzPpr8N/BAwoy09InljB1M0gCfivDcbkYg+8raYjYxstYcG
+	 ggDBpa5lrQIanyCe1nu1LdOzE46MPhzKK9J1jUX/NxWR1N7X2/bQ/tcVzpHk54hsapQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uaSfqiQ4FrRQdMg9pQ8MmVZnbE5vzFmaYPRmyjeQAhk=;
+	b=LzPMkcPRM6NQtPOgDMjlJFRSVJyCfOchmspVa73gMVFos6OuWgbXuIoRY67qn0uFF1Gh
+	 zuD4UDDgPRgaEcRmeIk+9lUylxVg/NVFtK1PV0USB8yU/f7CHvcx22aG0MXE6ubJZ3Ehd
+	 SPRKsqhd/mgZvZY/gG646ZoMkLmUcYg/6j1TEbZVdP+gQ8bfBPdxe0qMBbdHXpMAcKdZD
+	 PSnNCA0oMJ9755r4g9BD4V+Rv764uxtWudvILwzZ1PpXSc6Lx3bAUtb5HJ7H7Um+fcgqm
+	 EMojvInVQ/V6cE8mfYT59R0u9li3lRCLFmUgGlvaEf7PK3QjSHF38/FTpewWSc0lWNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jlq1Gyl4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.42
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA390606A326;
-	Fri, 23 Oct 2026 03:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA390606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2542606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2542606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jlq1Gyl4
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so294654e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792725942; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kvLFJqAomi/hPwstbCWinF/03I1saTZr0WLyDH6yNc77W9Mw0B7oUpAAqe+ExhfCqa
+         O+7tCNaAzHuqNe7dd/g0nw0vDivrAfev2WcNvvnbTjsmvHlp0DGWD+5/c79mfqgtBj1X
+         3NxfguhaK662nUdae74TJs5tJlOg4CZb+7iZC+5j9DkVFe8d7tni72FvEmzKDtI5/v/r
+         TgsoL41Ahy8sPbmhlr3AqVIaYPQCRglgBHdd5ExT9GwiZ3IP1ZTD5K5UzOLohCvZvNO8
+         sZ+xoHEBx9/WkAHPeujWwADlP0XKiQiYYCl3X4g2YG4MzGKcblvqcFgN3KtFqDQVHPkt
+         i8Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uaSfqiQ4FrRQdMg9pQ8MmVZnbE5vzFmaYPRmyjeQAhk=;
+        fh=evaMa001y0Ak75kxoMP0f+V9VNOHP/xSVmbJZCwl/bI=;
+        b=HJqnQfPwhDkcJvz6nz1wGS/KTizZ+tRzdWyXrQBstBxMS4fOTPcaBu6f6/4uAyLRHF
+         5UXe4phJpT2UJ7b5RfqGbqcvCiUzJ1bbeLSJDJWgwaPUeJnzNreQaSUwvZEIQ87mpYbK
+         hsMPJsUMgh0FrB+UVuqq5DAHpw0aQ162igP7RZ7kWzVl6ncYmO0DKsdtE6qhgxcVTZ9N
+         P6vzcyYLMFmq+mqIDUM6cPH8oFP2CdhKPLBekIQj2hnngZfJCSFZ+Hnw7sod5B6lO/p5
+         GazENcVZc1ySDzHj7ThnkfW0cK8hjNnDpRfnJo92+0jDLa2xarsB93Ym0WoWPwTBj5xM
+         oCJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792725937;
-	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YNHpzND+apnMh9YvHi+xVUFThwqsZUYls8nM3oWScVJiE8dDAEXC68jji5LrBbvtT
-	 AV0FjgIL8rvzeb4lyK/jPVfo8rOYwvo/e2lgsnk0tDgD5ZrvXR8gK3ewOKXlsF02I6
-	 uJVdaoN4AZk+G22449/Cv8aRhlicifE0BrLPIu442t883ZhD3bmvg1uu2TqwanynjI
-	 BG1MidmaXOstNWK+B9JHuFjm+6Sp5LyEKEVoidmh52SWSYmYSllQlL5MId7eM1DTci
-	 p59baXTH+Ti8Z1WOJvF0yaM3OnCNcTOIykN9kJXpndWhfH5rLFpSbkmBULimi86Y1s
-	 NYrtk0IiNNZ3A==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j9pLn4ZXGz4wBB; Fri, 23 Oct 2026 14:25:37 +1100 (AEDT)
-Date: Fri, 23 Oct 2026 14:25:29 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <atrTn_I_8O6q9QUW@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-9-herve.codina@bootlin.com>
+        d=gmail.com; s=20251104; t=1792725942; x=1793330742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uaSfqiQ4FrRQdMg9pQ8MmVZnbE5vzFmaYPRmyjeQAhk=;
+        b=Jlq1Gyl49tvExxyUuCAPtiTpo6qQJsjdunC3JfX0NPPEpNilTTYCvVrkCBnNLsDJ/q
+         DQepKK2cvOMgbHKkpgepIFY0EwmtMdGWhLP4IBN1K/YnwWxTD5x45YO4gfWaka5Yvsr2
+         Ucy6Ey3rjk+6wGEXd/fGL7X0Xuya7ViMRYUNbs1hfx9eapVzmW/on3JhgNFdoVy9Y7j8
+         4H17oK1h6kdeA0l2xiRQmb8nLSDmnZJsV3+Nd09nQ0zY3g3ybbmuxAneKpvspLz97fl1
+         JNsWL/l5HbbWcfZePxqFzoCNBUj1OgzD6KygD/tiWQszQBB8flOl60dKZLzVgsKNRfCS
+         jTUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792725942; x=1793330742;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uaSfqiQ4FrRQdMg9pQ8MmVZnbE5vzFmaYPRmyjeQAhk=;
+        b=wUJZOvjPvneK4N3C/sp+KtrTG3iLyhJiEm3ELheyqYVYXNNYl+kgqW9TLr98AMv2Wo
+         6rp8+tytnP/msKlApCC+EYgHE9/+fFyxtoWPpHaqSorzobJDAcehVDgT7OlrfOwU6wGe
+         v9wnbKwS5p03qSpYK1P1HD4tG+dLKkHiFCYtUXYBQZQPG7BmeYCk12X1geGfd2UKtVHr
+         NyosHo3GqXUWdCj2AEPpMXLm6TW6KydNP7o5lEgGlKUsqYJ4EXpcLI4Do+nd95kXLRbr
+         jaQTD+3cJEfIB7dxlzyNs57R9TCjIoLhysQEUzGPdhYtAUcrh43mQC7hDPD0UMuNQKEa
+         dS/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzv0cIOpUsezm/AIl4NfNXhwYXymBVwl5mM5niAK1oFXt8F2s6oAGjgpjG3GcK2Kg65xU4ZiCqQg9I/B40=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8/gxB4SE6MPPve26xFGEr68n+pkJW1QF3Qqfe3I/daqvvaDbk
+	RYmRzTIkso6YBnYvbIQGykbGl5s25tm179I5GoX40RaB1pIocaxRZbFnXcAuzaJYgSIUwrUDZtG
+	gFDk06WUKZ/+LfhH0YuJkFPWXusTmFlI=
+X-Gm-Gg: AYBFou3yfLbtCRkLcnCIXJ03Qx5iyahLwFDv8CZzFZsHOiUrghHaeqlUwNxB2cfgeR2
+	Xlh6A34cmP8ybpybp78fUoQV7nmWAdHX6JelQ8TIEBT7R0tLRPA2pPon4vvxKTX6XZBdVRh35NI
+	eyO2XHGjqp8pgBc37I11D0/u92t8C17swfpscIaFs7OObdmiBg2M2otEbeCDpUOZkLAnSymon8r
+	R25KNLUBgBIyf4SuChCamcDmNJc5Vff5jGcRsaDChBtjM/jhWmAiUktPj2UYfZXJZM8HlNGATFV
+	f68rWKe4RcHlcxykU8mpYZs4ORHgTjIzvSpaaVUZVHoXM1Jj24wWhIaftcYsW4O4VSOkTLb7Av8
+	sPbkv9bRU16DnqYFnFUZE/fToxbIFlZUUrIzX
+X-Received: by 2002:a05:6512:6686:10b0:5bf:b144:fcbf with SMTP id
+ 2adb3069b0e04-5bfb144fdbbmr118545e87.11.1792725941650; Thu, 22 Oct 2026
+ 20:25:41 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,157 +104,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lz/gZO3uSfdIiUAi"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-9-herve.codina@bootlin.com>
-
---lz/gZO3uSfdIiUAi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261021065750.2069795-1-anilkaushikwireless@gmail.com> <179256621789.3290.7142786984430868325@kernel.org>
+In-Reply-To: <179256621789.3290.7142786984430868325@kernel.org>
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+Date: Fri, 23 Oct 2026 08:55:29 +0530
+X-Gm-Features: AclHuK_d_hZRKbJNpdkbqa9tJF3np4JnVtczVtRePxLBpAVKzzWcz50egBKIldw
+Message-ID: <CAG0Mgm-nXSvuA78MnGaxDPLaRM1p4WGnj61GxSEL8cOmZvGf-w@mail.gmail.com>
+Subject: Re: [PATCH net] gtp: Require 'CAP_NET_ADMIN' when joining the gtp
+ multicast group
+To: netdev-bot+sinfo@kernel.org
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Harald Welte <laforge@gnumonks.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Simon Horman <horms@kernel.org>, Nicolas Dichtel <nicolas.dichtel@6wind.com>, 
+	osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
-> get_node_by_phandle() allows to get a node based on its phandle value.
-> It checks the phandle value against value available in internal node
-> structure.
->=20
-> This internal phandle value is updated during process_check() and so,
-> get_node_by_phandle() cannot give correct results before the
-> process_check() call.
->=20
-> Improve get_node_by_phandle() to look at node phandle properties when
-> the internal phandle value is not valid.
->=20
-> This allows to return a correct matching node even if process_check()
-> was not called yet.
+On Wed, Oct 21, 2026 at 12:33=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+Found by manual code inspection: GETPDP requires CAP_NET_ADMIN, but the
+multicast group that sends the same data did not.
+Thanks,
+Anil
 
-The idea is sound - it's always been kind of clunky that we need the
-process_checks() pass to fill the phandles before we can use them.
-But, there's at least one significant catch:
-
-[Aside: you might notice the way it's done violates the principle I
- stated elsewhere of avoiding structures where you must know where you
- are in the flow to know which parts are populated.  My type
- discipline has improved since I first wrote this code :)]
-
-We need to gracefully handle the case of malformed phandle /
-linux,phandle properties; that's actually the reason for the weird
-placement of this in checks.c.  By treating it as a "check" we handle
-this case by failing the check.  Other checks that rely on phandles
-then have the 'explicit_phandles' check as a prereq so they don't need
-to verify this again.  We can still report errors for other checks
-that don't rely on that (which is the whole point of the checks
-mechanism).
-
-That's not the only way to do it, of course, but we need something to
-check for that error case.  Further notes on the code.
-
-> With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-> needed to update internal phandle references before the call to
-> process_check(). Indeed, this tag allows to identify phandles and
-> internal references need to be updated based on the phandle value before
-> the process_check() call.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  livetree.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->=20
-> diff --git a/livetree.c b/livetree.c
-> index abe73de1..a9f8c5d2 100644
-> --- a/livetree.c
-> +++ b/livetree.c
-> @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, c=
-onst char *label)
->  	return NULL;
->  }
-> =20
-> +static cell_t get_node_phandle_existing(struct node *node)
-> +{
-> +	struct property *prop;
-> +
-> +	if (phandle_is_valid(node->phandle))
-> +		return node->phandle;
-> +
-> +	prop =3D get_property(node, "phandle");
-> +	if (!prop) {
-> +		prop =3D get_property(node, "linux,phandle");
-> +		if (!prop)
-> +			return 0;
-> +	}
-> +
-> +	return propval_cell(prop);
-
-In the case of a malformed property, this could SEGV.
-
-> +}
-> +
->  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
->  {
->  	struct node *child, *node;
-> +	cell_t tree_phandle;
-> =20
->  	if (!phandle_is_valid(phandle)) {
->  		assert(generate_fixups);
->  		return NULL;
->  	}
-> =20
-> -	if (tree->phandle =3D=3D phandle) {
-> +	tree_phandle =3D get_node_phandle_existing(tree);
-
-This means that every time we search for a phandle, for every node
-scanned before the destination with no phandle, we do a full property
-scan to check that no, it still doesn't have a phandle.
-
-I don't care that much about dtc performance, but that's still a bit
-much to swallow.  I think we need to cache negative lookups to avoid
-that.  Happily, since there are two invalid phandle values this
-shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 to mean
-we don't know if there's a phandle, and tree->phandle =3D=3D -1 to mean
-we've scanned the properties and we know there isn't one.
-
-In fact, caching property lookups might be the better way to do this.
-Rather than having an explicit pass where tree->phandle is populated,
-we could have get_node_by_phandle() cache its property scan (success
-or failure) in tree->phandle.
-
-I think that's a more elegant approach than the current one, but we do
-still need to handle the malformed property case.
-
-> +	if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D phandle) {
->  		if (tree->deleted)
->  			return NULL;
->  		return tree;
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---lz/gZO3uSfdIiUAi
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmra058ACgkQzQJF27ox
-2GcVGxAAqVsqw74rGD8w0m9ospZ0NsC5yBuq2l2/26gjHs4tL6qdl7Op1Ibxv6b2
-NA87Sll7xzM2pS5YOgQiU02aVB3otmNsS5bd9M8xhXbLrK8amvSf0evWU/bMgQok
-E8WwqkRtXMWfbl0xNXsqSLahtXdTPhFi4/eBiOywcBqLQ2Nzs9/SFG3L+Uc57TA6
-c2/yzxEMHhpJz8nIh2qyWwSCIDX4cocH0QhIUEMv4IDju7Qwdx/S4y1KbLUUIWmF
-f0AbbVyB6G/lEZp6BMXD/82mZazmwtFIDSH+stPDqbN6i8VS+OsFqYz0tG2+xW/2
-F83MjCB+WIyGFriEnnBEsNNkRWRu3gY84xWTIYGwwMdDYw3NkmkHOnJkODmqYayv
-JwOrfO9YE/s9UFXaESG3ZWvP9gtHSyhL2mSl+EY6KV4UkCkjAoZzk0cJIiqaE2GT
-yvwWXXtDPXbCpvx59Pmce+LPzcM9FY8OpmwO3Gu78zYzS43YxVFXpxqxHXoie0NO
-WBtOA79prvPTJebdCl67YzWGjKrhvucum71Ry+wQnAc27494VYMJtL+eEZvqdY5q
-B6rxkFzKjwsl7xyRY6/DW3vyLvEZdQyvoiJK2IZynnhtOjk9cc47Uiyn7V+envl2
-f6NycJ7ymQ4PNmwSVHbvJOZNdLO6qpejG14waebE261wxSYIdAE=
-=+sPE
------END PGP SIGNATURE-----
-
---lz/gZO3uSfdIiUAi--
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
