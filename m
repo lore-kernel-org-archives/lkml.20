@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741050;
-	b=iYhOTIieDaBKytdTwzJ/t5+4z0af1wasDMMD/idfkt/gXmGqHLA/yldfx/c0sGASBgX3
-	 OWW9EU0jlWAi3uwgqqiJEgyLcpqrUL/36cYMPXKGdKZG1kl0LlxRHwXUrEPH5fZAgWyS3
-	 rhKqdWAZJf7bYkjb86Z7MXZk5LlnwhChc+Lal8dRdh9Y84MvJEws7kXll5iuH+GZHjqlU
-	 6/fg7UYrpQpax12IPewxoPDxUVVBtGNkjtT0JVavhbQS0BlltWz8zbccrpz4RMVvO52s2
-	 1MB1vlI2PO4j8CUJiQ15q8X2xTkK57CwBpj9+1mZzoEFpFw0govJjRAEmYa0sJ6g7Dw==
+	t=1792741067;
+	b=z+HIoQayk5GgSK6TBt7Fxy4kxohLyso0hHYDtLmVVIBKJykpkybVBX4UDXNd12PR5Qol
+	 x+CSrcKg4IvIvYfnkvDi+U1HoMdWBPKcjQtnSwJiJXEm/mxqKrgKkrYno4uoIBG+LbIah
+	 t/jqCtCo7n2/aQClPzX2tWPfLRQIeRA4nM9kVfUjWeo9S86AaMqcMWYrI2K4rRp4ZD8sG
+	 HhEbB7+2juDo5fT4Dr3wKuur6EOAwEw2cO+VemNUcN2ftaYhOyqZUEgLAV54gvDrQYHno
+	 mSLTmUNmNRMIRl2w4JbVkHhPK0brgdjznpTFGGrmbvNNN12PajAlZ3VyCz8cd2iXLyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741050;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pMRrp7BynmhNKeDTyeLcuE4v603I74OKZrUux0ElpoE=;
-	b=qSZ7Biyss0a+d8F7Kd3W+U3WTYxexfznoPj0g9OiF9S6DZMC6bo4NI/nAiEWVMHrCyat
-	 nRJpC+AY3qP2QgUgADuiwL/mNonjqBzzq/oQXmUANWxHX/kccKygOW+HxbfjABhAboizR
-	 gifpq/GZ8Sku/ri1rNMd4QRqZfHnsXge6592auTZP8RPCi0S0i9AQhPVkoPcb66HLvsnj
-	 sCdXmqLHV53ulDe0LctaxVT1bclFlFHw0qpNqy8I5ZwSc/dmE7/JcBnFe+JjMtebDKim2
-	 KoZcsHBlTH7/1dQglBfKigQUV8z97Utfaw87fC6xeaSjXqOhYEgxSPAbmo9ek2TUGIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741067;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xbXgUfMO4n6ZI7asv7ecgxhoVtqoa3gH59XiTCl2s+Y=;
+	b=g9Bo3pVFc+se1pEiGOfK3KTlHYQ9HR3hNP8AktAMMEaKqqTUUpe7li5HJsmw3VD1n52x
+	 ttPeW7NJwkYj4MiMvv3fcz7z8puJyxubseFbLeozBo+ol2vsKzzchQCj7xSb7gH5cH9Y6
+	 2UshMuM4kLXxxQgOkdCGiIU5rp9dV4z2j1+sYA7Z1wdZv9rzMyLnVJVGxSEj3g4GmwlBJ
+	 7cnie5U4HKXhHsGWSP6l9tS+tH20LC4cjYGHJEghHrqEI++bTM/xp/kkGrqvfzG1NFj78
+	 N7hSiMKOiZuf7StJSDleqQl2d+7EKGsMODacqce2z44E1jRFxZd1/INESNmN750eu7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UYcQ6pqa;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PPfpCORT;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBC6606A31A;
-	Fri, 23 Oct 2026 07:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBC6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7AF606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:37:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA7AF606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UYcQ6pqa
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7En0C2174956;
-	Fri, 23 Oct 2026 07:37:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=pMRrp7BynmhNKeDTyeLcuE4v603I74OKZrUux0Elp
-	oE=; b=UYcQ6pqaBzbIKLCdrKz3o1K4Wz5pNftw95xxfQR2rJgmwBa/dT+XmgKYE
-	yZUlPszOMFjnpXg4Mu8gz5cZ5L1LycTi4OmYmvc/3rSOygCDjYzjMRYf1h5kD7Yz
-	WKPKZsbN0oPjRl+bWkesez1/VM/Ps0Y3NIgZCXI13SF2iRZsGvV4ZIJ3d7By+Mo8
-	fG4oE2MDOVZzLgvvcwCfj2NWLUM+a09GX+lwuinl8WSHo3QiuI4faRB9j64Xr+q/
-	Da/rSm7onT2e/5kNUD0qWP0qTOokiU+UPbxv+OAATKsfJP8KNQ9e1C3OHdvYLNKl
-	bGmdTSWRtNB1c8dkedlBuwnajrjXA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5b3aqk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 07:37:07 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7JwWD1802319;
-	Fri, 23 Oct 2026 07:37:06 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hfgck4f68-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 07:37:06 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69N7b23749807838
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 23 Oct 2026 07:37:02 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 677D720043;
-	Fri, 23 Oct 2026 07:37:02 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B105920040;
-	Fri, 23 Oct 2026 07:36:58 +0000 (GMT)
-Received: from Narayanas-MacBook-Pro.ibm.com (unknown [9.39.18.128])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 23 Oct 2026 07:36:58 +0000 (GMT)
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        "Oliver O'Halloran" <oohall@gmail.com>,
-        Timothy Pearson <tpearson@raptorengineering.com>,
-        Alex Williamson <alex@shazbot.org>
-Cc: sourabhjain@linux.ibm.com, Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org, sbhat@linux.ibm.com,
-        harshpb@linux.ibm.com
-Subject: [PATCH v6 0/5] powerpc: Add RTAS based error injection support for pSeries
-Date: Fri, 23 Oct 2026 13:06:37 +0530
-Message-ID: <20261023073642.59657-1-nnmlinux@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PPfpCORT
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-18cdcfc05ffso682614c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:37:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792741066; x=1793345866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xbXgUfMO4n6ZI7asv7ecgxhoVtqoa3gH59XiTCl2s+Y=;
+        b=PPfpCORTQJGDfKOe8LJGU9ZM3fMRYZ5CUqlGPImpPiiV+Jc+25baBnEmpNoU/rA+O+
+         N0F4/vCFFrcO4kbRLGO9KX9b5vqzp4r83LxiV8M3RjtPkOheII1pRa5nGjH0fS0mgsVq
+         Ze7IYxnr+E5Q+63JwOrpHQxd/oMxaNs8IdOsSica3zSyO48Ti0kNLbR8IIy6401iGI0D
+         8aVuxARf74NmmFPuvWIowent4++ra6dN8j3lYJ4pmyykCbUmt4E58LN848ebbyBVm1d0
+         XkdOJURfCitUYsSbPq5XipHfv2czJ1bmjn+r24dI1Bcs/o8yRwg2VAk6biNmi//Vhv8q
+         j+mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792741066; x=1793345866;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xbXgUfMO4n6ZI7asv7ecgxhoVtqoa3gH59XiTCl2s+Y=;
+        b=FHmu4GuaDQBYIPS5+IUCDCeuVrmv3ziySKsbBrxsvHxi6HCgFkXJuom1QxBo3dC4FV
+         GzGUVkZt3tWr4UwGFiC7Y2Y4LQlsxtDaO0KYXmiF53mt4IEFUQQo0ptBb0XvaeiB9KGx
+         JNnMGVH90ZoJtb8DXRU7O+Npgl6G6SxHZfT5/Sg7NwDeAV/sa6z7wfti+Ie5l0PrAAyz
+         djqgyQqQLHxIbjuWYXT2/aiJjM7apquknwtUiV4+WveScVutn7p2HW8QViTOPf2sUpuA
+         skgI/6zWeDgDbLm5AKO9+18P8iE15AO3Gjytzf+w+dJCOL5RanqYsbJR5xJs4SYHkYfL
+         JVNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrJi/pxfGG6g+UFCexK/WYM/htal+GfTrYphXQTKBoOWVjA77oA++YQBYkEanq77CWYdFeUWZD/Ct1AsU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuZJ5fFJevEbPPika7GYsqaII8GpZ4hhssFwcTLPn5krV+iDLP
+	mWt4i/FjdD9o/gHDxm1RLBW6VEKdFRTdHDiXIbl3BgMwZpZuK/qVjutS
+X-Gm-Gg: AYBFou2QB4dfxeZNxkf4TNxvanNgJ68eW6hZ/OChUYoLA+4dY+SlAAfLSckS88Q1EYU
+	/jgIgF6AWaqimjmS3coc/EydagpXPzQ8kjjb8CxKZ2RnKaPcjOkRYmVuyN8Er1zGHZyAO/BWuDj
+	T4e4+kCTZQEQRITM/Jx/cGL58qqhuQdj5WlTrWOUkg6rEgHqf8Y3PUwdlBbaBuaZ6wRCP8NoqR8
+	6rbyyA1cRqlCD3Wb8Y8ROxHZlSZHOwLRaPqX1QylLPz+asaNLuvcSxDJt840cvrlRC5WEIXNiqF
+	21LVf06vZeoZlMoPVsFEbkerB3aLrbxTAPtRNRGy9VdES1ZuAbV86Oel1bWeAOThMlCoDzt+jUn
+	V6U4MNTdHHuoyg3DHFpyi/Xe+ZSqk+vU1BuVFXD2Wr557Pchq8lOV7iiocz1lkv4hcFy3G2AQ2T
+	ObrqpZuR/bPgXkHNh7I5SIUiZsDh7Fhff4Mx/ncI52bBaCewRCDiRefvudrqEg17G3IOk/inzxA
+	C4Vxj7ED5ZSFHsKqiD+xYyrXDiAtuSfrcpCavpVmJdzkrZWLU6Wt/gV02EW/+d3qR05wDGIzvxl
+	28vZKp9OG3jjDeo344nftO+WU831LsVGtvuPmkBXh2FyQwRIG6VGm6ZItZ1I6PRGNVuTJnLzjbZ
+	kmz7OEM+dor6cCsivir1GTpA2yUWvMdb7BmG8Krx1A/878A==
+X-Received: by 2002:a05:7022:4081:b0:148:bc4a:8356 with SMTP id a92af1059eb24-195c5bc77c4mr1616415c88.28.1792741065536;
+        Fri, 23 Oct 2026 00:37:45 -0700 (PDT)
+Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e9e9cbf6sm4413627c88.6.2026.10.23.00.37.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 00:37:45 -0700 (PDT)
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Harald Welte <laforge@gnumonks.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	osmocom-net-gprs@lists.osmocom.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Anil Kaushik <anilkaushikwireless@gmail.com>
+Subject: [PATCH net v2] gtp: Require 'CAP_NET_ADMIN' when joining the gtp multicast group
+Date: Fri, 23 Oct 2026 07:37:38 +0000
+Message-Id: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,299 +106,70 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=X63Hu2Te c=1 sm=1 tr=0 ts=6adb0ea3 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=QevIWRu2Y_99zrmp5K4A:9
-X-Proofpoint-ORIG-GUID: qNxnckW1MzPhobnHKT7kWd4FquBSrINR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfX0whcPInLG0hX
- E9TpauMgG5scpd/BhGCrlQl3vYbwQlN/rPBMciG9e1Bkfhe3Nkp5vvBuYXMhwkqqxxGZt0H1N9Y
- asJVrm/w2PYro3qdhAt95yiEfjegBSXNGc+JxwqYsRBchF1ObT2VrWZ6Ge6LKBk7vs9+0/fBF/U
- V3Bn5mMvFHUIDUqFeZalDr5dmHwAnLTsGUSS/m0w3Rue78HQMb+OPsHlHcEjUBL6bZsmqRNUNhH
- gWDF96aLSl1N93at9+hjBmCnSX18fs0NFfgOp4ObDHR3AK1h/UvIbenzJIZvpgO7jfICm/7ReE5
- GWAsu5lHpwH5Q0mWF2HdI8BQpuSmmZmmvkbix1a/hiiFJOcCH8ro1/9G9ppyWttvMAk71RZhGHN
- Dp1Vc847xBRzhw/cVA6fQG/RLPtZ7yGWCosV0DZh3E7qKgUbc0wzuuuElzU6FYdi06PXsprBRGb
- Zh71sZ6tQW+1d+ZpHIQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfXyt0SbPodjSXu
- XBqIVbFu50sBouuhEhAJHDbdecSbIYvEgg6c5yDWuinrhOQg0/vXTNLMVTpS+AMwZErCjdTpJyn
- IRa1BdDEu5Ucm2aeD+S3nJsI7j1Cnh8=
-X-Proofpoint-GUID: V0lrZZ-zSJsSc-EwBlwL-AIqHpdFzziE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 adultscore=0 malwarescore=0
- clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230028
 
-The pSeries EEH error-injection backend currently implements a limited
-software-generated MMIO failure and does not use the error-injection
-services provided by RTAS.
+The gtp generic netlink family sends notifications on its "gtp"
+multicast group when a PDP context is added or deleted, and for GTP-U
+echo responses. They carry the same attributes as a GETPDP reply: the
+MS and peer addresses, and the TEIDs, or the TID and the flow label.
 
-This series replaces that implementation with the PAPR-defined RTAS
-workflow based on:
+GETPDP requires CAP_NET_ADMIN, but generic netlink lets any user join a
+multicast group by default, so an unprivileged user in the network
+namespace of the gtp device can read all of this. Found by code
+inspection.
 
-- ibm,open-errinjct
-- ibm,errinjct
-- ibm,close-errinjct
+Fix by marking the group with GENL_MCAST_CAP_NET_ADMIN, like the psample
+"packets" group. Only users with CAP_NET_ADMIN in the user namespace
+owning the network namespace can then join it.
 
-The implementation opens an RTAS error-injection session, allocates and
-prepares an RTAS-accessible work area, performs the requested injection,
-releases the work area, and closes the session on both success and failure
-paths.
+This is still weaker than the check on GETPDP, which needs
+CAP_NET_ADMIN in the initial user namespace: in a network namespace
+owned by another user namespace, its root can join the group, but not
+use GETPDP. Genetlink has no multicast group flag for the initial user
+namespace, and ioam6 pairs its ops and its group the same way. This fix
+blocks the unprivileged users.
 
-The existing EEH userspace ABI is preserved. EEH_ERR_TYPE_32 and
-EEH_ERR_TYPE_64 continue to represent generic 32-bit and 64-bit IOA
-bus-error injection requests. The pSeries backend maps these values to
-the corresponding RTAS error types, while the PowerNV backend explicitly
-maps them to the corresponding OPAL types.
+Tested by joining the group as root, as root without CAP_NET_ADMIN, and
+as an unprivileged user:
 
-Additional generic EEH error types (EEH_ERR_TYPE_RECOVERED_SPECIAL_EVENT,
-EEH_ERR_TYPE_CORRUPTED_PAGE, and the cache/TLB corruption types) are
-defined in the UAPI header and mapped explicitly to RTAS firmware
-encodings by the pSeries backend. Platform backends that do not support
-a valid generic type return -EOPNOTSUPP.
+Before:
+  root: joined
+  root without CAP_NET_ADMIN: joined
+  nobody: joined
 
-No existing userspace ABI values are changed.
+After:
+  root: joined
+  root without CAP_NET_ADMIN: EPERM
+  nobody: EPERM
 
-The injection path can be exercised for VFIO-assigned devices through
-VFIO_EEH_PE_INJECT_ERR. The guest or userspace VFIO application continues
-to use the same generic EEH type and function values, independent of
-whether the host platform uses RTAS or OPAL.
-
-For IOA bus-error injection, the VFIO sPAPR path normalizes a Linux BAR
-resource address to the corresponding PCI bus address before dispatching
-the request to the platform EEH backend. Address normalization is
-restricted to memory and IO load/store functions whose addr argument is a
-BAR-backed PCI address. Config-space and DMA functions are passed through
-without translation because their addr arguments represent PCI config
-register offsets and IOVA/TCE addresses respectively. The no-address form
-is represented by both address and mask being zero.
-
-The series also handles the unusual return format of ibm,open-errinjct:
-
-rets[0] = error-injection session token
-rets[1] = RTAS status
-
-rtas_call() returns rets[1] as the status and places the session token in
-outputs[0], preserving the normal kernel rtas_call() convention.
-
-sys_rtas() continues to expose the raw RTAS return cells to userspace.
-For ibm,open-errinjct, it validates that at least two return cells were
-requested before entering RTAS and uses the RTAS status cell for
-last-error handling. Userspace therefore continues to receive the session
-token and status in their PAPR-defined positions.
-
-The pSeries backend uses the existing RTAS work-area allocator for the
-error-injection parameter buffer. The work area is allocated only after
-ibm,open-errinjct succeeds and is released before ibm,close-errinjct.
-RTAS work areas reside below RTAS_INSTANTIATE_MAX, so the physical address
-fits in the 32-bit RTAS argument passed to firmware.
-
-The complete open, inject, and close sequence is serialized with a mutex.
-RTAS busy and extended-delay return values are handled for all three
-calls. Once a session has been opened, ibm,close-errinjct is attempted
-even when parameter preparation or error injection fails.
-
-The patches are organized as follows:
-
-1. Handle the special ibm,open-errinjct return format in rtas_call().
-2. Add pSeries RTAS error-injection validation and buffer helpers.
-3. Implement RTAS-based pSeries EEH error injection.
-4. Normalize VFIO sPAPR IOA error-injection addresses.
-5. Explicitly map generic EEH error types to OPAL types on PowerNV.
-
-Testing was performed on PowerVM with firmware providing the RTAS
-error-injection services and with corresponding QEMU support.
-
-The corresponding QEMU v6 series is posted here:
-https://lore.kernel.org/qemu-devel/20261019162541.68440-1-nnmlinux@linux.ibm.com/
-
-Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+Fixes: 50aba46c234e ("gtp: add notification mechanism")
+Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
 ---
 
-Change Log:
+Notes:
+    v2:
+     - say that the group check is still weaker than the one on GETPDP
+       (Sashiko)
+     - say how it was found
+    
+    v1: https://lore.kernel.org/netdev/20261021065750.2069795-1-anilkaushikwireless@gmail.com/
 
-V5 -> V6:
-https://lore.kernel.org/all/20261019101813.45085-1-nnmlinux@linux.ibm.com/
-* Addressed v5 review comments from Sashiko.
+ drivers/net/gtp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-* Patch 1:
-  - No changes.
-
-* Patch 2:
-  - Fix false BAR matches against unassigned or disabled BARs in
-    validate_addr_mask_in_pe(): use pci_resource_len() instead of
-    resource_size() (which returns 1 for zero-initialized BARs), and
-    explicitly reject BARs with IORESOURCE_UNSET or IORESOURCE_DISABLED.
-  - Move validate_errinjct_args() and prepare_errinjct_buffer() to
-    Patch 3 alongside their callers so each intermediate commit builds
-    cleanly with CONFIG_WERROR=y without unused-function warnings.
-
-* Patch 3:
-  - Include <asm/rtas-work-area.h> for the RTAS work-area API used by
-    the pSeries error-injection implementation.
-  - Introduce validate_errinjct_args() and prepare_errinjct_buffer() here
-    alongside their callers (moved from Patch 2).
-  - Fix eeh_break_device() visibility: keep it under #ifdef CONFIG_DEBUG_FS
-    to prevent unused-function compiler warnings when CONFIG_DEBUG_FS=n.
-  - Add pseries_eeh_func_needs_bar_addr() to identify error functions
-    whose addr argument is a BAR-backed MMIO/IO address. Guard
-    validate_addr_mask_in_pe() in prepare_errinjct_buffer() with this
-    predicate so config offsets and DMA/IOVA addresses bypass BAR
-    membership validation.
-  - Demote the validate_addr_mask_in_pe() diagnostic message from
-    pr_err() to pr_debug() since invalid user-supplied inputs do not
-    represent internal kernel errors.
-  - Update prepare_errinjct_buffer() kernel-doc comments to document
-    function-specific addr semantics (MEM/IO = BAR, CFG = offset, DMA = IOVA).
-
-* Patch 4:
-  - Restrict address normalization to error functions carrying BAR-backed
-    PCI MMIO/IO addresses (memory and IO load/store). Config-space and
-    DMA functions bypass normalization rather than incorrectly returning
-    -EINVAL.
-  - Fix false matches against unassigned/disabled BARs in
-    vfio_spapr_eeh_normalize_addr() using pci_resource_len() and checking
-    IORESOURCE_UNSET / IORESOURCE_DISABLED.
-  - Remove the misleading ", injection may fail" suffix from the
-    pr_debug() message since the caller returns -EINVAL immediately.
-  - Update commit description to accurately reflect function-specific
-    address domains.
-
-* Patch 5:
-  - No changes.
-
-V4 -> V5:
-https://lore.kernel.org/all/20260831065441.48654-1-nnmlinux@linux.ibm.com/
-
-* Addressed v4 review comments from Sourabh Jain.
-* Return -EINVAL when ibm,open-errinjct is used with an invalid
-  return-cell count.
-* Validate the ibm,open-errinjct return-cell count in sys_rtas() before
-  entering RTAS and use the common status helper for last-error handling.
-* Rework the pSeries helper description to describe validation and
-  RTAS parameter-buffer construction first.
-* Rename rtas_type to rtas_err_type to distinguish the mapped RTAS type
-  from the generic EEH type.
-* Keep common error-function validation in validate_errinjct_args() and
-  remove duplicate check from prepare_errinjct_buffer().
-* Protect PE device and BAR traversal with pci_rescan_remove_lock.
-* Rename pseries_errinjct_mutex to errinjct_mutex.
-* Allocate RTAS work area only after ibm,open-errinjct succeeds and
-  release it before ibm,close-errinjct.
-* Ensure ibm,close-errinjct is attempted after a successful open when
-  parameter preparation or error injection subsequently fails.
-* Remove caller-side RTAS work-area address check and truncation, relying
-  on RTAS work-area allocation guarantees for the 32-bit RTAS argument.
-* Remove unnecessary error message for unencodable 32-bit IOA address or
-  mask and retain the buffer-ready debug message.
-* Remove eeh_pe_inject_mmio_error() and its declaration after removing
-  its last caller.
-* Reorder the VFIO address-normalization patch after the pSeries RTAS
-  implementation.
-* Remove the one-use VFIO error-type helper and check IOA error types
-  directly at call site.
-* Treat only addr == 0 && mask == 0 as a no-address IOA injection.
-* Limit address matching to standard PCI BARs and add debug message
-  when supplied address does not match a BAR.
-* Expand PowerNV commit message to explain generic EEH-to-OPAL type
-  mapping and rename opal_type to opal_err_type.
-* Preserve -ERANGE for unsupported PowerNV error types.
-
-V3 -> V4:
-https://lore.kernel.org/all/20260831065441.48654-1-nnmlinux@linux.ibm.com/
-
-* Use the RTAS work area allocator instead of adding a dedicated
-  global error-injection buffer.
-* Keep sys_rtas() raw return-cell semantics unchanged while handling
-  the special ibm,open-errinjct return format in rtas_call().
-* Treat ibm,open-errinjct with fewer than two return cells as invalid
-  rtas_call() usage instead of interpreting rets[0] as status.
-* Use normal Linux errno values in internal validation helpers instead
-  of RTAS status values.
-* Simplify the pSeries RTAS open/inject/close flow.
-* Keep close-session failure as cleanup reporting without overwriting
-  the primary operation status.
-* Add VFIO sPAPR-side address normalization before dispatching IOA
-  error injection to the platform EEH backend.
-* Normalize IOA addresses based on the IOA error type, not only
-  selected function codes.
-* Keep the generic EEH ABI values unchanged and keep pSeries RTAS and
-  PowerNV OPAL mappings explicit.
-
-V2 -> V3:
-
-* Fixed ibm,open-errinjct return handling to correctly process firmware
-  responses.
-* Allocate the error-injection buffer in RTAS-accessible memory instead
-  of general kernel memory.
-* Pass the physical address of the error-injection buffer to firmware
-  (previously incorrect address type).
-* Accept session token zero as a valid token (previously rejected
-  erroneously).
-* Handle RTAS busy and extended-delay return codes for open, inject,
-  and close calls.
-* Simplified the validation helper -- reduced complexity and removed
-  redundant checks.
-* Simplified the buffer-preparation helper for cleaner, more
-  maintainable code.
-* Validate that all required RTAS tokens are present before attempting
-  to open a session.
-* Added explicit generic EEH-to-OPAL error-type mapping for the
-  PowerNV platform.
-
-v1 -> v2:
-https://lore.kernel.org/all/20260527072433.94510-1-nnmlinux@linux.ibm.com/
-
-* Addressed all review comments from Sourabh Jain
-  * Removed unnecessary empty line in rtas_call()
-  * Enhanced comment to explain PAPR specification requirements
-  * Corrected misleading comment about output handling
-  * Improved else block comment for better code clarity
-* Fixed kernel test robot warnings
-  * Fixed kernel-doc warning for __maybe_unused parameter
-  * Confirmed sparse warnings are false positives (correct endianness
-    handling)
-* Added PowerNV platform abstraction layer (new Patch 5)
-  * Maps EEH error types to OPAL-specific types
-  * Simplifies type handling by direct variable update
-* Improved code comments and documentation throughout
-* Added Reported-by tags for kernel test robot findings
-* Split into logical 5-patch series for better review
-
-RFC -> v1:
-https://lore.kernel.org/all/20251205094510.4671-1-nnmlinux@linux.ibm.com/
-
-* Initial 4-patch series
-* Fixed PAPR ibm,open-errinjct output format (token,status order)
-* Added pr_fmt handling for EEH subsystem compatibility
-* Implemented comprehensive validation helpers
-
-RFC:
-https://lore.kernel.org/all/20251107091009.43034-1-nnmlinux@linux.ibm.com/
-
-* Initial RFC implementation
-
-Narayana Murty N (5):
-  powerpc/rtas: Handle ibm,open-errinjct return format
-  powerpc/pseries/eeh: Add RTAS error injection helpers
-  powerpc/pseries/eeh: Implement RTAS-based EEH error injection
-  vfio/spapr_tce: Normalize EEH IOA error injection addresses
-  powerpc/powernv/eeh: Map generic EEH error types to OPAL
-
- arch/powerpc/include/asm/eeh.h               |   2 -
- arch/powerpc/kernel/eeh.c                    |  10 +-
- arch/powerpc/kernel/rtas.c                   |  78 +++-
- arch/powerpc/platforms/powernv/eeh-powernv.c |  22 +-
- arch/powerpc/platforms/pseries/eeh_pseries.c | 375 ++++++++++++++++++-
- drivers/vfio/vfio_iommu_spapr_tce.c          | 140 +++++++
- 6 files changed, 585 insertions(+), 42 deletions(-)
-
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 15b5d845fc3b..8b29c35d7cdb 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -118,7 +118,8 @@ enum gtp_multicast_groups {
+ };
+ 
+ static const struct genl_multicast_group gtp_genl_mcgrps[] = {
+-	[GTP_GENL_MCGRP] = { .name = GTP_GENL_MCGRP_NAME },
++	[GTP_GENL_MCGRP] = { .name = GTP_GENL_MCGRP_NAME,
++			     .flags = GENL_MCAST_CAP_NET_ADMIN, },
+ };
+ 
+ static void pdp_context_delete(struct pdp_ctx *pctx);
 -- 
-2.54.0
+2.25.1
 
