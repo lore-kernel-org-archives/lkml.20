@@ -1,76 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762889;
-	b=hGpnD7GDKQzuRd6IT2OFDNVARut69xKsTckzSob6l1/5DqOdMlbsF0lt05u89BPVSbLR
-	 D5nn7JMAlX7g+835DEyYqjXoj7mJ3uAxVp41sZ+j8LPyQjx3AuiEj4vSTEeolYzyE4s1p
-	 7b96GJzxZk1z+mS9dkmA6BzzFw/qyuvWx9uvC1t2r5LItjOq0UOwk/FeJz9hXLx6EFEqw
-	 qM1Zr3YdHUxz2iy5yIydq7AEGXtEg9pL4mfHcBczAb0dYkQlySdMt38a+rVxzcVRb4Sgt
-	 p09C4eDZfL9csZzZaSAbROu9fb23vNowXu/icvqPfOBmWxh3JeSsID6ljhQjLNR1+dg==
+	t=1792762906;
+	b=ArJdLmYNjmpjyHS0RwyNnG09kcDgcr0WsAdxcLFeiS2SVD+edR9f42Rr0fMYBw/MpvaM
+	 uaaAgq6bIwSgPfuJ6hyUxTXFmPdzqhpxx/VDssaQrqlP5V0/uJBcWYjjQWiE3BRtEAq9k
+	 3+qfN8TAKjb2Nctj251ZQg7UPORbf0n6SwJB4HwJ/pYwhZ7A5EJOKZJe5Sr0zKMnn2Vv6
+	 im9wad044SUA1fElo6f/lmjQs4AvTM0GXqV3LTRgoIZpGLGzo82SXPxS2m69EV3cBk3AU
+	 adI7TrlIjx9wkDqtj30Ff5wkqm974/9cNbM01RIhNRrlaqxM3P08G8PIiHOw1XKFIqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762889;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=x9/7eJRYDwbESNpYB8kbCEAUdqr1A0a9ky3Wg4BvjVs=;
-	b=b23uTn11GQksigv97vh/DX9EkIJiorMIGb/8fCcug11bkOQ5/emWmepBr7d7rZmOI/ME
-	 Uxxb3AFeyxPVBxM50KCQ8iDNvLrUFxl2TEmIx+/DjdqMXIuS0m4DhysvtWmVMte22PEIj
-	 3Mn8LJq2Bx1k8OUdRLgMpPJBMaZKL+s986vnTWfRfj2UHDX1WbyqzbkTuD1kuvbXFNzJ4
-	 JvsoxJrLydnQSfYQGVxz0VeytsedXCKMv/OIlgZCKuqc2e4amKHleeGuJuiklADyaz6i2
-	 /IS32HBTTv5VnqzeMOw1H9AhYZ8Z2sx6Uch1uR30oZN4sUxxzOqt3B29dY4+8ksJQeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792762906;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=4XUkvFrpXCUHEKR7U+wfj4zSmKI6Sae2m5KDt7hxpdE=;
+	b=rX5OGe7r3bduadfFlHo+27q+Q93tjbf6GVYiUXjldc8VJfwt5bVF7nQdq1nEQqQyFDT8
+	 jmpvvRza2bbmXF4TE+GGZmpg5mv3teTcGG02e3CYM8rOSYRWD0KX2t6db0/eBrZpGUTLF
+	 D8j2k2mDdrY+vqDImAOcTU/x/MVNXzW0qTo7aXrXyRQEJKchgTg2uSZaJotlMqc8Ja6Kp
+	 ZSMFKwbuVVmA7/5a80yQ6oCPEEyqpPSqAWWqf0p7uWkGp7qTAMg/SP5AHP0xbdOjKFqJw
+	 v7HwHcPZXwMlO5Ab+UJvr98XTfV5l2iORoSR27VF+z4YsgjWhni7/hz5xgFGDWrLqng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andrei-z.com;
-	spf=pass smtp.mailfrom=andrei-z.com;
-	dkim=pass header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=f1arccVH;
-	arc=none smtp.remote-ip=82.76.27.144
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1KgGP7ob;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=By2nsJqy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1KgGP7ob;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=By2nsJqy;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262EE60A2616;
-	Fri, 23 Oct 2026 13:41:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 262EE60A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AE260A262D;
+	Fri, 23 Oct 2026 13:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AE260A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=f1arccVH
-Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 08F9F9272;
-	Fri, 23 Oct 2026 16:41:27 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=x9/7eJRYDwbESNpYB8kb
-	CEAUdqr1A0a9ky3Wg4BvjVs=; b=f1arccVH4kFUWema5f/VUktFlatnJe/wcPz8
-	QtwOComdyPr2Zd+b5hr50Ec5TI2UZ81phCjO0MZad/WuUR8ELNKLYHZdV0vBXpgf
-	bg3GfAp7zyTrrPRqLcAD6HTQpEaSj6gpSjdigVaKzOlFm4VeIosCENaiEDv0kdaZ
-	k6skN7I0SGX6ziI1Xx9t2b315hf8IJHXujGi3j4MtUIGBhBqIFv4cL/Vb31Qwf6B
-	sFrpMrkiVEYMhls/cCbXCGu6PRwe8GdVksrFInE7ua/iCTrf51hvkR/qfC/ngggy
-	R5gAzvvFlm2xMLUaZM1dFwtueAm0SI3LyP0CRIm0R51D1bcJBw==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1KgGP7ob;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=By2nsJqy;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1KgGP7ob;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=By2nsJqy
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id BD46E9021;
-	Fri, 23 Oct 2026 16:41:26 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 23 Oct 2026 16:41:26 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>, Konrad Dybcio
-	<konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob
- Herring <robh@kernel.org>
-CC: <ath11k@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-wireless@vger.kernel.org>
-Subject: [PATCH v3 4/4] arm64: dts: qcom: ipq5018: add Ubiquiti UniFi U6 Enterprise
-Date: Fri, 23 Oct 2026 16:37:00 +0300
-Message-ID: <d1bd2f947ad986ff3c3fca1ad367aec2f1cec6b1.1792761470.git.me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1792761470.git.me@andrei-z.com>
-References: <cover.1792761470.git.me@andrei-z.com>
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 02178220DA;
+	Fri, 23 Oct 2026 13:41:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792762904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4XUkvFrpXCUHEKR7U+wfj4zSmKI6Sae2m5KDt7hxpdE=;
+	b=1KgGP7obbYNKKmwnALCiBLzEDuw1Z65NTmvnYeJSD1eO9+IbHwuNBTcUry7yhggxoUcaHn
+	Q1R9xjT4HQI84qiO/LNYOjzfneeVwDBkVIPy+5WQiToJGd4nmYNhEWlNSXOYmm8Ds2VYq0
+	/3lrSFfDEG4ycMCCZbZaax8wtDQfwC4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792762904;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4XUkvFrpXCUHEKR7U+wfj4zSmKI6Sae2m5KDt7hxpdE=;
+	b=By2nsJqymvtQe/k1UgCb/q2hDT7bdLQ83neWHbS1Uo0NeJbvZ/BEV4zCNPgkEtSn85k7w6
+	YDu9Xy/fAU5lM9AQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792762904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4XUkvFrpXCUHEKR7U+wfj4zSmKI6Sae2m5KDt7hxpdE=;
+	b=1KgGP7obbYNKKmwnALCiBLzEDuw1Z65NTmvnYeJSD1eO9+IbHwuNBTcUry7yhggxoUcaHn
+	Q1R9xjT4HQI84qiO/LNYOjzfneeVwDBkVIPy+5WQiToJGd4nmYNhEWlNSXOYmm8Ds2VYq0
+	/3lrSFfDEG4ycMCCZbZaax8wtDQfwC4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792762904;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4XUkvFrpXCUHEKR7U+wfj4zSmKI6Sae2m5KDt7hxpdE=;
+	b=By2nsJqymvtQe/k1UgCb/q2hDT7bdLQ83neWHbS1Uo0NeJbvZ/BEV4zCNPgkEtSn85k7w6
+	YDu9Xy/fAU5lM9AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C5A2133F6;
+	Fri, 23 Oct 2026 13:41:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9gJsGxdk22qKVwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 23 Oct 2026 13:41:43 +0000
+Date: Fri, 23 Oct 2026 15:41:43 +0200
+Message-ID: <87a4o4a608.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Florian Fuchs <fuchsfl@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Markus Elfring <elfring@users.sourceforge.net>,
+	Adrian McMenamin <adrianmcmenamin@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: sh: aica: Fix spu_memset() stride
+In-Reply-To: <20261022163241.2504922-1-fuchsfl@gmail.com>
+References: <20261022163241.2504922-1-fuchsfl@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,307 +113,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,kernel.org,users.sourceforge.net,gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 
-The Ubiquiti UniFi U6 Enterprise is a ceiling-mount Wi-Fi 6E access point:
+On Thu, 22 Oct 2026 18:32:41 +0200,
+Florian Fuchs wrote:
+> 
+> spu_memset() writes one 32-bit word per iteration, but advances the
+> destination offset by only one byte. spu_reset() calls it with
+> 0x200000 / 4 words to clear the 2 MiB of sound RAM, so:
+> 
+>  - three out of four writel() calls target an unaligned address. The
+>    SH4 can't do that. Each one traps and is emulated by the unaligned
+>    access fixup. This call to spu_memset() causes 393216 unaligned
+>    accesses, visible in /proc/cpu/alignment.
+>  - the clear covered only about 512 KiB of sound RAM, not 2 MiB.
+> 
+> Advance the offset by the size of the written word, to clear the full
+> sound RAM using aligned writes.
+> 
+> Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
+> Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
 
-- SoC: Qualcomm IPQ5018
-- RAM: 1 GiB
-- Flash: SPI NOR (boot chain) and eMMC
-- 5 GHz: QCN9074 on PCIe0
-- 6 GHz: QCN9074 on PCIe1
-- Ethernet: one 2.5GbE PoE port, a QCA8081 PHY behind GMAC1
-- Accelerometer: ST LIS2DH12
-- Button: reset
-
-Describe what mainline supports today. The Ethernet port and the
-IPQ5018's own 2.4 GHz radio are left out until the GMAC and the WCSS
-remoteproc have bindings; the LED controller and the board MCU on the
-I2C bus have none. The QCN9074s carry the calibration variants their
-board data is looked up by. The SoC dtsi gains the pcie1_port0 label, as
-pcie0 has, for the 6 GHz radio below that root port. The vendor QSEE
-reserves 4 MiB, twice the SoC default.
-
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../dts/qcom/ipq5018-ubnt-u6-enterprise.dts   | 235 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/ipq5018.dtsi         |   2 +-
- 3 files changed, 237 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00..aca7d8e415 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -32,6 +32,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= hawi-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-rdp432-c2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-tplink-archer-ax55-v1.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-ubnt-u6-enterprise.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5210-rdp504.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp441.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp442.dtb
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts b/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
-new file mode 100644
-index 0000000000..131e89fe61
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
-@@ -0,0 +1,235 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
-+#include "ipq5018.dtsi"
-+
-+/ {
-+	model = "Ubiquiti UniFi U6 Enterprise";
-+	compatible = "ubnt,u6-enterprise", "qcom,ipq5018";
-+
-+	aliases {
-+		serial0 = &blsp1_uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	keys {
-+		compatible = "gpio-keys";
-+		pinctrl-0 = <&button_pins>;
-+		pinctrl-names = "default";
-+
-+		button-reset {
-+			label = "Reset";
-+			gpios = <&tlmm 24 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_RESTART>;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c3 {
-+	pinctrl-0 = <&i2c_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	accelerometer@18 {
-+		compatible = "st,lis2dh12-accel";
-+		reg = <0x18>;
-+	};
-+};
-+
-+&blsp1_spi1 {
-+	pinctrl-0 = <&spi_0_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <50000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "0:sbl1";
-+				reg = <0x000000 0x030000>;
-+				read-only;
-+			};
-+
-+			partition@30000 {
-+				label = "0:mibib";
-+				reg = <0x030000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@40000 {
-+				label = "0:bootconfig";
-+				reg = <0x040000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@50000 {
-+				label = "0:qsee";
-+				reg = <0x050000 0x0a0000>;
-+				read-only;
-+			};
-+
-+			partition@f0000 {
-+				label = "0:devcfg";
-+				reg = <0x0f0000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@100000 {
-+				label = "0:cdt";
-+				reg = <0x100000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@110000 {
-+				label = "0:appsblenv";
-+				reg = <0x110000 0x010000>;
-+			};
-+
-+			partition@120000 {
-+				label = "0:appsbl";
-+				reg = <0x120000 0x0a0000>;
-+				read-only;
-+			};
-+
-+			partition@1c0000 {
-+				label = "0:art";
-+				reg = <0x1c0000 0x070000>;
-+				read-only;
-+			};
-+
-+			partition@230000 {
-+				label = "eeprom";
-+				reg = <0x230000 0x010000>;
-+				read-only;
-+			};
-+		};
-+	};
-+};
-+
-+/* The bootloader muxes the console pins; GPIO33/34 are I2C on this board. */
-+&blsp1_uart1 {
-+	status = "okay";
-+};
-+
-+&pcie0 {
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	status = "okay";
-+};
-+
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 15 GPIO_ACTIVE_LOW>;
-+
-+	wifi@0,0 {
-+		compatible = "pci17cb,1104";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		qcom,calibration-variant = "Ubiquiti-U6-Enterprise-5G";
-+	};
-+};
-+
-+&pcie1 {
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	status = "okay";
-+};
-+
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 18 GPIO_ACTIVE_LOW>;
-+
-+	wifi@0,0 {
-+		compatible = "pci17cb,1104";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		qcom,calibration-variant = "Ubiquiti-U6-Enterprise-6G";
-+	};
-+};
-+
-+&sdhc_1 {
-+	pinctrl-0 = <&emmc_pins>;
-+	pinctrl-names = "default";
-+	bus-width = <4>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+
-+	status = "okay";
-+};
-+
-+&sleep_clk {
-+	clock-frequency = <32000>;
-+};
-+
-+&tlmm {
-+	button_pins: button-state {
-+		pins = "gpio24";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-up;
-+	};
-+
-+	emmc_pins: emmc-state {
-+		clk-pins {
-+			pins = "gpio9";
-+			function = "sdc1_clk";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+
-+		cmd-pins {
-+			pins = "gpio8";
-+			function = "sdc1_cmd";
-+			drive-strength = <8>;
-+			bias-pull-up;
-+		};
-+
-+		data-pins {
-+			pins = "gpio4", "gpio5", "gpio6", "gpio7";
-+			function = "sdc1_data";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+	};
-+
-+	i2c_pins: i2c-state {
-+		pins = "gpio33", "gpio34";
-+		function = "blsp2_i2c0";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	spi_0_pins: spi-0-state {
-+		pins = "gpio10", "gpio11", "gpio12", "gpio13";
-+		function = "blsp0_spi";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+};
-+
-+/* The vendor QSEE uses 4 MiB, twice the SoC default. */
-+&tz_region {
-+	reg = <0x0 0x4ac00000 0x0 0x400000>;
-+};
-+
-+&xo_board_clk {
-+	clock-div = <4>;
-+	clock-mult = <1>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-index dde5435f69..ee8c0fc03f 100644
---- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-@@ -837,7 +837,7 @@ pcie1: pcie@80000000 {
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie1_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
--- 
-2.47.3
+Applied now.  Thanks.
 
 
+Takashi
