@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760691;
-	b=NPH48SrKs7MIIbeQqFmD6BRD6x6VuJN7H0iTn2Az5gnc01fE7yeemwNT7Ms3+mF2vUpE
-	 YNh4q6I5yAhBeJBy7SwCHZB92CEg87HeGact3D/PnoSf6RCUgloV8c8TLtVChlYNqrLgI
-	 HPEgo/YLrQMYO0ZSrFo9CwOwuZbGY6dsMSmqlM+hkEhjxu74aXSzRj+w1ed/KjeVJowjj
-	 IOxpVvnHSfV85cC0dc9eXQtS+SE9SeeV5x7OM1Hk6NBWNi9cmYDpNkj0OdvT9OggwmV/8
-	 RtBXvwRoBYU0bBRb2fe8Rifuw1Ga1guYyBuObJA/Ij7cTrBRcPNTHIGBYp9gvuMy/2g==
+	t=1792760702;
+	b=dBf85gAwFU3ZKMXv0UrOPuh4cE9a+dKMRvssQX8CREP/mfi9KKPggMIqmgWvVSC2qiYy
+	 SrzqZmMRDyE83WftJwllc9CbbfBslKXKCxLKNKiDp6P9UJUbIQ70zL+g0/0Ggm126TWkf
+	 odsBH9j7JxQ8DB+7GxE18VODfTVSNltv/8zYtFHN9T/pqhJy0xgm1P/DZ3UzFouQxIKJK
+	 9Xn/bsYPI5NPI6MEaU8vSHpHf6aR0ZaTKNxXTHDr9RMi1TyXjYpD6dkbTOE82z7bayjDq
+	 vd/h7NbODHWY27r0UahuknETS8EyuA22h4HGYU4uzzE7wwnIeWfa/ZAJ9sxFBESVJuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760691;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760702;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-	b=1E0KNJNcb7UQVPNx2E0/RPWAxh5TILZZeLeLIM7BgftnQ0OsIuf4EAsVNeVgUoOKBpdC
-	 OLOHkuNXTFVeg9ByFHHDs19h/fuvHuHfgPGexBhJSMJ1yFcC3weiDjtHC7zbV8+r6F2i5
-	 GtmIpQhEDqw9awfeTLkL1lTQktDVOtCIdtt5nc/k7McuS69tSIDxc3NPNhOUSgqG1hvGO
-	 FfrDIp9NZFNppseyEv8SxJXITHSUsCX8V03UXU/YuzmNW/+uFm9E3IXQjlQSBliaLhDqt
-	 TeVkq9R6hxdlOuwwqNdwp0XMS9KjwiU8ap4yohviNNrfqkRHQ8WHsJqPRNFGtTqkqcw==
+	bh=ROxYqeaskB3zBR7UCdldPcQf+eknyHmuBCA8CKrU5RE=;
+	b=AW314W8cJUoH1YnQKB3SuJDzAktgNEotqDGD5UWeNw/mCfZ4lWVh8vyhcse83Qc1pRHB
+	 M9bVxsBi4To3rwxp25g4wgIYjPBwpVDRU9RekP+j2pz+DmszjYhiongUvTjeg4cjoxKhV
+	 xL06GKs+8nKXzKJrdC+Lqhyb8DU2HdIZiWMa1feN6Z86VMqh3jddImyfixJWh07koANbJ
+	 R+7cm+ekyGV9eyxkhIXo4p6SXJcBxLiZ1+uZ/41JCb97xUWfPc895S+GAkqwn4iUtDY/R
+	 9t7JIsbCTRrtFlrbm5AcfBdUYFY0CpnmD4cmuOzIccQ+lnfHmI5qLpN9f4JcGerrHmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="EXIEDt/g";
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IwjS5uFa;
+	arc=none smtp.remote-ip=74.125.227.130
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22E7606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22E7606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E086606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E086606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EXIEDt/g
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so525056a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:04:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IwjS5uFa
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3ad6011ecebso226369a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792760690; x=1793365490; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792760701; x=1793365501; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-        b=EXIEDt/g77XCyjvCOrXALm3ZjHJcurzVbgOuPo4yHc8b9BSFah8t+KxTVfVdO5QG9V
-         0NqJXHIxid2iTef539sMqBLQYJxS/4iudVK6vuejtUfgqVySseLWHX5eE1iQOu81gAqD
-         MpsqSTgdIxnQyB8lkVxQJuMSL/PFLJIxgVdgMsEEolkqIQ/jOhqd1FXzG2LYLTo8mvyq
-         REBZ6f1G0tkhszg83Eo7BPUKLk+tRFdu2ZfhneMHQ2I2QroxV1mxQ+1EZ4Av0U+wtswl
-         cmsRBa8cCbx+OuY/8T2FQTy034Rotx+u+UwHD5V7ThgYg+58uHbB1iUuOy+AvWeVZWM1
-         oVNw==
+        bh=ROxYqeaskB3zBR7UCdldPcQf+eknyHmuBCA8CKrU5RE=;
+        b=IwjS5uFaBMj7rmvOXnxDvxHE2VPaAahKaNzpfhSIK6dFoo5i3nBhvORr9uIIMc4g2h
+         Xa8LKZ8mdRbmTVcYfkfbYZFPRfpBblKzuGeOKmGAWiLHf+V9T8q3t1Uj3J76yFJ4tkuL
+         cfqHBvMdpU0tSvaCBcBtln13JeiE65rfFehFqykhWs9Weo40IBxjju4jG8Ngtk6IznV6
+         7hwG1XPwL8ffUo2ZR5r/RyEKeTccl4vkKtfF0z5uYhFI/xuaDFHWcrP/5VwhS6tZiKRf
+         RpUzXXMDOdeV6MomlAC0jb2FlSfKz37f7bxa3iFUpKdaUjYvrH1tets10raaChbxuRdd
+         U2yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792760690; x=1793365490;
+        d=1e100.net; s=20260707; t=1792760701; x=1793365501;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-        b=GQDn56np4Os6JJbtExV4n1lnFda/5cw00EL8SqagQQfzzAMn9PJ9mUV7PBhnhP4Ifv
-         9ZYtRnO4ZIsFw8FoJ4N69ovktiK2VFgi+poGy7qzmfr1KffyjZ9ZIeTDm2pvjvLYx54e
-         lQDyYcytUE4jWa9hhQRGpTe/i/if3gdEjHI0kSeEqotsUIV6Bc3cKa7rU138dvxM7aju
-         Fv8YC5bcl340XJsnrc03BGVOibsdVWzehkrDCiAbxkMmFWPS1V8JAKfi6Cp0SPjRkvK/
-         KZwOwh92cnJvXz5VTL67O1PZKOz62bmsiN9p+TCyL53fB3PC9LfwHPeRbLgumSlRSmTO
-         a1TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHJEETaEirtSYK+RJkLM8rpwhFpS/w0iqOxcHReV9a3y+44HHTMvFOyqonSmofz+K1W2L/6XomCZllOYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIq1pmyO34udLNKSSLhTVukJd9mLxgMUu0/zB1TWN2cKgsw68li
-	tCdAS+ci0M8rDBYB1XPxjybzt1b9X9MxA2Dw2XvkX6JJTsKcBbbdMzQ=
-X-Gm-Gg: AYBFou2E9tZRJ9O+5NUsjqa2/oMZ+AJTEFVyDdRS6eJJoauYcEc+IXQ2zz0ixuoZ62m
-	FW/DzYpwf9smBDuKmuRiU4gmwaddahtWOsZRUqlf0MLb3Eu1/RVIjwE1XewyKoiCJWMyCoFhKWL
-	dgie4jut3D8o/XOYItoMzwhHxZkMSzOxeVXxGIiRKcBIWFM38gQzd6QMRpMZ0y9VGlmEDCQTngI
-	DWkucNWurkKD3INiWvEQIkeRL43S7fwTmMDOSDOdI5gsAm0jIyCB3hoHT/wyV5s5YdtuBAaUn6h
-	hGY9MvsTPuzpLTPhqa3eBMA8oO5PVv/x7/kuj9rwY+/lanEtKxKFjuIlqbQLCr/DYhCKv3q4aWO
-	i6BNfAaJoZ2Wud/BxB0aT528WWQb5zRjk2UWZMo+0FyWwj0POP5xHRglef7E3NErMce/qwrqyIQ
-	zdB3xf09BSU2K+hoQT0IZAdDTx22AGB5qxxEFZVSk4OSuzsWbxLciQLlNQLW6VDOx9bAA1ppj4B
-	MwLIdRoWgIjq+KTYeq5NpWOcIjtgHrlq/aI0L2dC+3QPwUcTkwtMWe2mvcA+kwWkWdiQUzIVWIH
-	AY0vwymljg==
-X-Received: by 2002:a17:90a:e7c1:b0:3ac:97bc:4c7b with SMTP id 98e67ed59e1d1-3adce02ec99mr1936652a91.14.1792760689865;
-        Fri, 23 Oct 2026 06:04:49 -0700 (PDT)
+        bh=ROxYqeaskB3zBR7UCdldPcQf+eknyHmuBCA8CKrU5RE=;
+        b=a58EElsWtwF6x+BS2QL51SJ4m8uV5kSI14n/eyZLifQ0fz3ZfyQImltMxbOsp2F7QY
+         2auyfO4T2+Y1HQpdBCTI1R9427UFMB+ciH+fnF1JydbuKJRojTPYwN0kRSgfEqHpkHhz
+         YzH1rtZKD4X2dJJE99stUFPxVSmRN5TOJyjn1ca8vSzLvBwIy54uA+EPxHWw3gs2/7OH
+         LRolmSwC5pQrUr+EwwL2C/RSyXjW0Zyl3JjhGUI/FIC8hVD6/+L2l1dXkoyxrxzZ5/WX
+         p1FmV8CuoiEIvjLl5aBhc9xI4o4T7mmcUpv0BTxAgT3kdegU2dJgWtaVKUuGkOVZswrf
+         cXkw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJYI+lL6xApsEYggFYNLKS3H0wNHnPlrvWZ9+BlfZAnn/lABJeLrzcQdCvtqU159ql6OsmsqkPEloHwjU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS7nXBb7OhaPkGszCkjgpV7YD6jldxUdXfb4vMe1lrQTdUPo5T
+	nHjVYofnFyW8Q194tu9yZ+4HP48F7ngbdURL8UWaMt9LglzvHQ/g400=
+X-Gm-Gg: AYBFou33/8x06QkVywpOtqVTAeLYwLEzrkNXDD0Zt2m8WTPRci4n05nmXXhPaU9rYH0
+	Jp2lt0/LmDP0ufvvI5lGm7cGTtZMYtqQzvcPS92Bl/yg0d8hyCGXIEBh+YCX7v73EBTv7/mzjqH
+	QfFbsjm5k1f/5CVhYqDMMcZzJOEqxXlgm9BHLkMYqfx/OH6quKpmt9r9YrTzJ1brsQWU0J/VOEZ
+	z6WFEc34Q6dFA6jnTvJ+G7GavkSy8QFQ6BgvaejHnBTiWiIAR6PFxoCHpTxMxzGBa9SCFBYj7K5
+	neX4cbMlDJEFOQiUlogvV8OFoH8sq10N5ye07Rpknn2YrxVtrCj+JdCo71nPz+mKAuVlQ1LnhFT
+	CavpVF/PtSGJiio8Cp0SysLkMKlRpeFwZ1X0MpabG5dlDi6eRsOHacV2J6Lx++wXHxY0jVobQVd
+	lqo2jOffnqfZghKhw0IWACl7HL6iAUn4m3YAsDYTDgVzx5Xvr5tdtjll5v1iRcrXpo2a+AxAIHv
+	aGPKV0eDkLf10cKNRlvw/5VVHbDFQRxsZquc7GzVh8zXs4+I0yZxlaRFvC2vrva7iYTQNy62XcE
+	vkvur+F0Ig==
+X-Received: by 2002:a17:90b:554e:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3adce030544mr1920293a91.34.1792760701042;
+        Fri, 23 Oct 2026 06:05:01 -0700 (PDT)
 Received: from WIN-2DEDQG69EF6.localdomain ([109.105.193.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add282a8bcsm1349017a91.2.2026.10.23.06.04.38
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add282a8bcsm1349017a91.2.2026.10.23.06.04.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 06:04:48 -0700 (PDT)
+        Fri, 23 Oct 2026 06:05:00 -0700 (PDT)
 From: chenhan <chenhan0017.work@gmail.com>
 To: rust-for-linux@vger.kernel.org
 Cc: a.hindborg@kernel.org,
@@ -103,11 +103,10 @@ Cc: a.hindborg@kernel.org,
 	miguel.ojeda.sandonis@gmail.com,
 	tomo@flapping.org,
 	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/3] rust: time: make Delta division and remainder fail consistently
-Date: Fri, 23 Oct 2026 21:04:12 +0800
-Message-Id: <20261023130413.178487-3-chenhan0017.work@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 3/3] rust: math: add signed division and remainder helpers
+Date: Fri, 23 Oct 2026 21:04:13 +0800
+Message-Id: <20261023130413.178487-4-chenhan0017.work@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261023130413.178487-1-chenhan0017.work@gmail.com>
 References: <20261023130413.178487-1-chenhan0017.work@gmail.com>
@@ -122,99 +121,205 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Delta's division and rem_nanos() use Rust operators on 64-bit and C
-helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
-a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
-i64::MIN / -1 case also differs, and neither API documents these inputs.
+Delta's division and remainder implementations operate on integers and
+do not depend on time units. Move them into a math module to provide a
+common home for arithmetic helpers, with Delta as the initial user.
 
-Check for zero divisors and i64::MIN with -1 before the architecture-
-specific code, and document the panic conditions on each method. This
-matches Rust's signed division and remainder operators, including when
-overflow checks are disabled. Valid-input results and API signatures
-are unchanged; invalid inputs now panic on 32-bit too.
+Expose div64_s64() for an i64 dividend and divisor, and div_s64_rem()
+for an i64 dividend and an i32 divisor. The latter returns an i64 quotient
+and an i32 remainder, matching the results of the C helper without
+exposing its output pointer. Delta's rem_nanos() uses the remainder and
+converts it to i64. Both helpers retain Rust's signed operator semantics
+and unconditional panic checks, using the existing C helpers on 32-bit.
 
-No in-tree calls to either API were found at the base commit. The checks
-stay in the existing methods so the fix does not depend on introducing
-a math module.
+Keep the Delta API and its panic conditions unchanged. Document the
+quotient and remainder semantics and link to the corresponding C header.
+This is separate from the preceding behavior fix so that introducing
+the math module is not required for a backport.
 
-Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1254
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 ---
-Changes since v3: none.
+Changes since v3:
+- Link the module documentation to include/linux/math64.h.
+- Replace rem_s64() with div_s64_rem(), returning (i64, i32).
+- Document quotient/remainder semantics and explain the i32 cast.
+- Adapt Delta and directly test both public helpers.
 
- rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+FUJITA provided a Reviewed-by for v3. It is not carried here because
+this revision changes the public API to return both results; a fresh
+review of that change is requested.
 
+ rust/kernel/lib.rs  |  1 +
+ rust/kernel/math.rs | 71 +++++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/time.rs | 50 ++++---------------------------
+ 3 files changed, 78 insertions(+), 44 deletions(-)
+ create mode 100644 rust/kernel/math.rs
+
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 4d5c96ddc49c..60c2af705b47 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -98,6 +98,7 @@
+ pub mod kunit;
+ pub mod list;
+ pub mod maple_tree;
++pub mod math;
+ pub mod miscdevice;
+ pub mod mm;
+ pub mod module;
+diff --git a/rust/kernel/math.rs b/rust/kernel/math.rs
+new file mode 100644
+index 000000000000..aeb61d5427a7
+--- /dev/null
++++ b/rust/kernel/math.rs
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Integer arithmetic helpers.
++//!
++//! C header: [`include/linux/math64.h`](srctree/include/linux/math64.h).
++
++/// Divides an [`i64`] dividend by an [`i64`] divisor, rounding towards zero.
++///
++/// # Panics
++///
++/// Panics if `divisor` is zero, or if `dividend` is [`i64::MIN`] and `divisor` is `-1`.
++#[inline]
++pub fn div64_s64(dividend: i64, divisor: i64) -> i64 {
++    if divisor == 0 {
++        panic!("attempt to divide by zero");
++    }
++
++    if dividend == i64::MIN && divisor == -1 {
++        panic!("attempt to divide with overflow");
++    }
++
++    #[cfg(CONFIG_64BIT)]
++    {
++        dividend / divisor
++    }
++
++    #[cfg(not(CONFIG_64BIT))]
++    {
++        // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
++        unsafe { bindings::div64_s64(dividend, divisor) }
++    }
++}
++
++/// Divides an [`i64`] dividend by an [`i32`] divisor, returning `(quotient, remainder)`.
++///
++/// The quotient is rounded towards zero. A non-zero remainder has the sign of `dividend`.
++///
++/// # Panics
++///
++/// Panics if `divisor` is zero, or if `dividend` is [`i64::MIN`] and `divisor` is `-1`.
++#[inline]
++pub fn div_s64_rem(dividend: i64, divisor: i32) -> (i64, i32) {
++    if divisor == 0 {
++        panic!("attempt to divide by zero");
++    }
++
++    if dividend == i64::MIN && divisor == -1 {
++        panic!("attempt to divide with overflow");
++    }
++
++    #[cfg(CONFIG_64BIT)]
++    {
++        let divisor = i64::from(divisor);
++        let quotient = dividend / divisor;
++        let remainder = dividend % divisor;
++
++        // CAST: |remainder| < |divisor| <= 2^31, so the remainder fits in i32.
++        (quotient, remainder as i32)
++    }
++
++    #[cfg(not(CONFIG_64BIT))]
++    {
++        let mut remainder = 0;
++
++        // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
++        // `&mut remainder` provides a valid, aligned, writable pointer for this call.
++        let quotient = unsafe { bindings::div_s64_rem(dividend, divisor, &mut remainder) };
++
++        (quotient, remainder)
++    }
++}
 diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-index 16b44e82d2ac..4415e91a5227 100644
+index 4415e91a5227..f38e2fbd2670 100644
 --- a/rust/kernel/time.rs
 +++ b/rust/kernel/time.rs
-@@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
- impl ops::Div for Delta {
-     type Output = i64;
+@@ -27,6 +27,8 @@
+ use core::marker::PhantomData;
+ use core::ops;
  
-+    /// # Panics
-+    ///
-+    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
-+    /// and `rhs` represents `-1` nanosecond.
++use crate::math;
++
+ pub mod delay;
+ pub mod hrtimer;
+ 
+@@ -418,24 +420,7 @@ impl ops::Div for Delta {
+     /// and `rhs` represents `-1` nanosecond.
      #[inline]
      fn div(self, rhs: Self) -> Self::Output {
-+        if rhs.value == 0 {
-+            panic!("attempt to divide by zero");
-+        }
-+
-+        if self.value == i64::MIN && rhs.value == -1 {
-+            panic!("attempt to divide with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             self.value / rhs.value
-@@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
- 
-         #[cfg(not(CONFIG_64BIT))]
-         {
--            // SAFETY: This function is always safe to call regardless of the input values
-+            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
-             unsafe { bindings::div64_s64(self.value, rhs.value) }
-         }
+-        if rhs.value == 0 {
+-            panic!("attempt to divide by zero");
+-        }
+-
+-        if self.value == i64::MIN && rhs.value == -1 {
+-            panic!("attempt to divide with overflow");
+-        }
+-
+-        #[cfg(CONFIG_64BIT)]
+-        {
+-            self.value / rhs.value
+-        }
+-
+-        #[cfg(not(CONFIG_64BIT))]
+-        {
+-            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
+-            unsafe { bindings::div64_s64(self.value, rhs.value) }
+-        }
++        math::div64_s64(self.value, rhs.value)
      }
-@@ -615,8 +627,21 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
-     }
+ }
  
-     /// Return `self % divisor` where `divisor` is in nanoseconds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
-+    /// nanoseconds and `divisor` is `-1`.
+@@ -634,32 +619,9 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+     /// nanoseconds and `divisor` is `-1`.
      #[inline]
      pub fn rem_nanos(self, divisor: i32) -> Self {
-+        if divisor == 0 {
-+            panic!("attempt to calculate the remainder with a divisor of zero");
-+        }
-+
-+        if self.value == i64::MIN && divisor == -1 {
-+            panic!("attempt to calculate the remainder with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             Self {
-@@ -628,7 +653,8 @@ pub fn rem_nanos(self, divisor: i32) -> Self {
-         {
-             let mut rem = 0;
- 
--            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
-+            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
-+            // `&mut rem` provides a valid, aligned, writable pointer for this call.
-             unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
- 
-             Self {
+-        if divisor == 0 {
+-            panic!("attempt to calculate the remainder with a divisor of zero");
+-        }
+-
+-        if self.value == i64::MIN && divisor == -1 {
+-            panic!("attempt to calculate the remainder with overflow");
+-        }
+-
+-        #[cfg(CONFIG_64BIT)]
+-        {
+-            Self {
+-                value: self.as_nanos() % i64::from(divisor),
+-            }
+-        }
+-
+-        #[cfg(not(CONFIG_64BIT))]
+-        {
+-            let mut rem = 0;
+-
+-            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
+-            // `&mut rem` provides a valid, aligned, writable pointer for this call.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+-
+-            Self {
+-                value: i64::from(rem),
+-            }
++        let (_, remainder) = math::div_s64_rem(self.as_nanos(), divisor);
++        Self {
++            value: i64::from(remainder),
+         }
+     }
+ }
 -- 
 2.34.1
 
