@@ -1,62 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785771;
-	b=I77fmVXQdYfONQbkDhwOXuIL5LRtjWmwpViJJtyAeCTOipq/cmGKbB/RjJ/SqnhvePm6
-	 rHA8aa1dVTT7uF27MSywRcKkspk6PH/uRiGCoGUVIUzJ7WUMIm3pGMh/6Lv5ZKJlHkFz0
-	 eSwHUnBl4jNW/xyHCXE1kDYpSfsaKkz62rQtnwhvvXq8eSVZihFXc65h72vjDs1YFf2A+
-	 RxgvtnxsA+oOiV7WLNr6hoorkXYN6fnMKI7P4yARinMZOiBDNf340yPlDf21NjN7bhgYC
-	 7tzZOkaQ+LYt3bpIJutiraVC3gifluybTIZqTmgyrnHPLk8aiB0uKbrZbDuAuTfnSLA==
+	t=1792785780;
+	b=Pw7bT2Yv2qLMZfhhBcZWaHMU596QJ/ygYblvRy4LCGHUnyS+n8NV4uDcB27wu+SMSB2J
+	 gOz8djsguLBifbifgxSC1R/bEHv6rUpWx0NmrIevxLdkMq6hhuFY9CgZK2tlFERxtwDGa
+	 jarycetJSzUjM09fBkKRkqf800te/Ra54v76OZhxAPsexA9Ij1aRCqt8LaodHJLzHmk5N
+	 Z8eyQ6awRAc1sOptGy5oQs7iXU7jp172Qazq8q78NkI2Bd4hwTclUj0ASLtL+bsjKGlw4
+	 z/3YukKbeIUEBupDJcrC41jr6p8AWoVRsFL7q0xLJjVCoa26jinWgskGMEESiRHkazQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785771;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=d97B7DGSwYnjTm5Kwz4PWWCWdPZ6fPA043aH/oFYy/8=;
-	b=5a90GkUW/BwajaYJhnn3xmSeB9rNaE/YFXGIi9J2TOcwE6BpbxxBcHTcQMJDrrJrkZrI
-	 yiXIr/GBaL9UARrpqZirPu3PtO74yANgq3uVFe04y5af3hu1qXPxfiFqo9HB+D+k2bOZB
-	 KdBU+xVwQs8sWGf1hCNb0exRxIRRb+Tte4M93acq4D6d36bHrSEjiUr7+ioR90b5aNPlg
-	 0jGpH3QVFI87L4BSHXWDPcSDBE9JVtbSIMhE05TCQ+WbzGrnsu62c19l8BwLEyPM0Si3E
-	 Z3KntsgDk0AxLZPuLkao/dZOzbRQyrfg2jA6aEf/yblib0cR0keUX06mkPJWPof8lGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785780;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Unsent:Content-Transfer-Encoding;
+	bh=+P6I8duspVIkphkurSdUiF8nhaxikLYjgPI/qnOpQ90=;
+	b=Fx++r1YM6wVNNDEjec7rZR865qYcdUTr+TBPSUndANQe4K93nTat+Qe0U7g1Ex+0hIvO
+	 WiouXZsp/0bEilLaM59J00aLHdOx4g+SYTc9tg0QGYi/RxaRWoZy5BQ94mXlzPBYVABs3
+	 cwPnxzscM8yGxn/Ub5PAoWJYrhcT6+T/laF09cAc0N7ol+yPf+5ZWX/yfL+R4DKjfaEo0
+	 mBvIFvpI4uIQDKyF0oL4pAQxa/lTjCodswGYhpJmmjSqPt7qryUHXoRXiq3YIC7zZV5Z5
+	 bUQxqtV9Or6xTwSGZkDD2rlJpuvF5xQKZxhejwOeS9E5/H1hywGCbBGC0rx/3MFLboA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=681BB8d+;
-	arc=none smtp.remote-ip=216.40.44.14
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=TmAJ8pR8;
+	arc=none smtp.remote-ip=74.125.230.201
+Received: from mail-qk2-f9.google.com (mail-qk2-f9.google.com [74.125.230.201])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEBC606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EEBC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5E8606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B5E8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=681BB8d+
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6288814020D;
-	Fri, 23 Oct 2026 20:02:41 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id E01D520012;
-	Fri, 23 Oct 2026 20:02:38 +0000 (UTC)
-Date: Fri, 23 Oct 2026 16:02:37 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jerome Marchand <jmarchan@redhat.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
- <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Madhavan
- Srinivasan <maddy@linux.vnet.ibm.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc: Use raw_local_irq_pmu_save/restore() in
- local_t functions
-Message-ID: <20261023160237.2e24b2e6@gandalf.local.home>
-In-Reply-To: <d9660f99-c230-4107-a89c-c62e0b3e7f03@redhat.com>
-References: <20261023155529.3895393-1-jmarchan@redhat.com>
-	<20261023130943.775b2b65@gandalf.local.home>
-	<d9660f99-c230-4107-a89c-c62e0b3e7f03@redhat.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=TmAJ8pR8
+Received: by mail-qk2-f9.google.com with SMTP id af79cd13be357-934956d1044so115899385a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792785778; x=1793390578; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+P6I8duspVIkphkurSdUiF8nhaxikLYjgPI/qnOpQ90=;
+        b=TmAJ8pR8TcAnppZdDpMb6ouB4qgQBqJNWeQiamMrAcvfqW2akgRerpYovKNNnDP4lT
+         On9QZjdzxznvO5K7okBJa3EIy+0dQT2GfXngT4Qnswc+amzxrKq+I5elTm4ClIa9pAZX
+         aI7Fpin4aBft/DyyZ+G/zXDPPyZUYCVt2w/VIxDczlpHDn97M+Nz9Ui9uEYz98ArctQg
+         ggFd0/230bB5kJ9zM76FEx8ql1O0Csv+w0C/dAGK5KfqhVqyMba6AtR/d582JgdmpZOH
+         pKhD9hesP2t0/rL1e+zP2kyOKsz8s7PYeWNu6xB796ehbATkbBMPljRGNhdngYNLHwoY
+         268w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792785778; x=1793390578;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+P6I8duspVIkphkurSdUiF8nhaxikLYjgPI/qnOpQ90=;
+        b=sT8SNYjdQKLJAcBmeyQvaZ+LmaOU4dLUb6myTsYYrGU1cUlTnRK2IWOzt8H4HoHFyT
+         R2bC870mASHt1/gGw1XNegZeamjkQ0mQzoEzKSWIop5EwOkD3+tUdC4P1yeeQiEMT31D
+         1SSe31AdhNmuT1Ri98+8clt/n9rxRoi2Hsp/uT6hHhzyX5u1HwiTlQnMLxwLWtHJ1Ywe
+         v4O95KnHZPtUtQOQsfrcc/gkXW3+h7NniniQKpleR5ZVduTbbtZ4YyyBEdRpQzYFBLNO
+         /E1+dtU/UDmSfsKtICrauoZYmLBibq56KlWcmAWkabRUMp7MzMjGg1W8ejTkzdEkcqz6
+         CoIg==
+X-Forwarded-Encrypted: i=1; AKwUvByPnCBCCa0vqt/We57T0ZAmBB+neYQu7WIZ1CQAy9Y6tti6Nz3C3MJ3e7jXvK8OYw+E6yCvO2g4MhLcddU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJDmBD8WI0UMRv1YORMzHmcbqITC+QjpurGyR/ZKCC1kK+H5+H
+	dTXD5C0lDhgwfhyk/DWJuWrGq6YF+s37J4JLsIlihOU8so8zmIPCpL7daAuAhr0MOEY=
+X-Gm-Gg: AYBFou2E8E4IT3M1GXr2EO1GNWwA5hEx8DjvlCjPLHE9aigEj7lqkSGyH53Jv0DSRCD
+	9hOoctRtxEip/Xk2aNpCjc3D44HjtzkXtlLRAKwTe/sRIn+ohLmxqzXeePxCPZVUABT0ZpJpbKg
+	XDXvxi9H7yYel9oZPdaW5gBogaKFNi6d3CV24N90LUkHHMODGjHbTYEykbbu0qIgxIHkVyGRb42
+	eCzXOWS8Mzq4Z096jr5iCf/0vEbMABcnq9D34kLLkBtx+gx0u5s1TojgUigBuJ3jdZ0Rlcch7nI
+	cgQBuxa62ffd/H462dTkYbqCJcxkc0HplkoUoFgS1g+T6tSM67i1CynpZchP9eRM5nZOCLW4u8y
+	XnHl4kO92JNWkn49ZFL5tzREsoHD3s0YZDkpu6tB/j+V89bsgjmMOCCuBdZ9GN2l/K3aM7pZVK8
+	KHe01iS9uVrR11952TKBUC7XU2W993tEfy7Zgt012WS+nsFUEoRRQLMQ0O3ky/2Tg9JAquaAWsz
+	ZIP6+OiXjrjZpIZg0phDfq6BKFmPWWdJRfE+Ku/DRmi3TwHIAobts2Ka6/TXYWWsCdo/tJmhKKQ
+	jA9EOfBldEdBNFGnVMnGozxC2q4TlQUmxczfJco7Hg==
+X-Received: by 2002:a05:620a:4592:b0:93f:38c7:70f9 with SMTP id af79cd13be357-940ef901c2emr18967485a.14.1792785778344;
+        Fri, 23 Oct 2026 13:02:58 -0700 (PDT)
+Received: from localhost ([2600:4040:2047:3600:ecc7:9b1d:4307:d6a])
+        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-9402ee285c0sm102122885a.1.2026.10.23.13.02.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 13:02:58 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: David Lee <david.lee@trailofbits.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: sched: prevent scheduling deactivated qdiscs
+Date: Fri, 23 Oct 2026 16:02:56 -0400
+Message-ID: <20261023194712.package1-20-v2-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,102 +106,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: E01D520012
-X-Stat-Signature: ki5tx63i5thngxz9az4j194cbjmyrzj5
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19upykk7vjP7AE3xFI+T0cfvyIJLuFTCfo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=d97B7DGSwYnjTm5Kwz4PWWCWdPZ6fPA043aH/oFYy/8=; b=681BB8d+n/B3WE+LWMOAnGrny0y4vK4ZQw62dVF1byKD+K6WTsncjUswCQGIeeCWGxd/2ukTEZ2369G2xYpIpBtQxi5/aXHyjGgkgbZjiklrO5W0yA4YOz18pgXEddGUAoDVywKGc1JuCnNFLy5wAI1cXmMWxdZVBIgYKEwKr3I=
-X-HE-Tag: 1792785758-982417
-X-HE-Meta: U2FsdGVkX18pFf7PQhBjFORmMestaCa8SS3iYWvAt1qqi0EwMsSyPI0Nn+ZWDAGTqtUfjpz9Zwn6GI2ztqCat52ZCtA2+YRZhtoLVV04twEj10c3YqDdMosrcf0Oi0yyPOsClamY9KxDdz/zP/IodW/tdkFRRr9Plw/Bx1g0fiOVBtt60+lFFr6gYp2WVt9LD3PpEO7D77DTfnetGLJ4TSb/MZNKGbOgeXazrx53iwSrxvmtDtHZ4VCbjJlSO6CjFugg6HFUljVNE/Xv+F7lJJPDcG/n8vfQ9E6HkuFweMwz9toaFX8tu9Gip7m+DmwPnztJ/0s/Ere/+W56Sd+cZZJUTGE3+upO
+Content-Type: text/plain; charset=UTF-8
+X-Unsent: 1
+Content-Transfer-Encoding: 8bit
 
-On Fri, 23 Oct 2026 21:11:52 +0200
-Jerome Marchand <jmarchan@redhat.com> wrote:
+From: Kyle Zeng <kylebot@openai.com>
 
-> I might have jumped to conclusion when I found the recursion and the
-> peculiarity of the powerpc local_t functions. I now think that the issue
-> lie in loop in powerpc arch_local_irq_restore() (goto again label). That
-> somehow it keeps replaying the soft interrupt when event tracing is on
-> and CONFIG_TRACE_IRQFLAGS is enabled.
-> 
-> Here the output of the watchdog where we can see that most time is spent
-> in softirq:
-> 
-> [257154.724054] watchdog: BUG: soft lockup - CPU#2 stuck for 26s! [cat:107460]
-> [257154.724084] CPU#2 Utilization every 4000ms during lockup:
-> [257154.724099] 	#1:   0% system,	100% softirq,	  1% hardirq,	  0% idle
-> [257154.724120] 	#2:   0% system,	100% softirq,	  1% hardirq,	  0% idle
-> [257154.724141] 	#3:   0% system,	100% softirq,	  1% hardirq,	  0% idle
-> [257154.724161] 	#4:   0% system,	100% softirq,	  2% hardirq,	  0% idle
-> [257154.724182] 	#5:   0% system,	100% softirq,	  1% hardirq,	  0% idle
+TAPRIO can schedule a deactivated qdisc after some_qdisc_is_busy() has
+reported it idle.
 
-Yeah, the 100% softirq could be suspect.
+Commit 47e8dbb6e763 ("net/sched: do not reset queues in graft operations")
+made graft deactivation skip queue reset, leaving TAPRIO's timer armed.
 
--- Steve
+A late callback schedules NET_TX softirq work, whose dequeue path can
+race the unlocked child-queue reset in taprio_reset(). The same skb can
+be queued for deferred freeing by RTNL and dequeued for transmission.
+In the reproducer, the TAP reader frees it before __rtnl_unlock() reads
+its next pointer. KASAN reports a slab-use-after-free in
+__rtnl_unlock+0xa3/0xd0, with a read of size 8 from the freed skb.
+
+Reject deactivated qdiscs in __netif_schedule(). Callers' RCU protection
+lets the existing grace period join earlier scheduling calls before the
+busy check. Restart nonempty transmit queues on reactivation so suppressed
+scheduling does not strand packets.
+
+Fixes: 47e8dbb6e763 ("net/sched: do not reset queues in graft operations")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/netdev/20260805102514.740834-1-david.lee@trailofbits.com/
+Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+---
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
+Trail of Bits has a reproducer that triggers a KASAN use-after-free
+and can share it if needed.
 
 
-> [257154.724203] Modules linked in: bonding tls rfkill binfmt_misc pseries_rng ibmveth vmx_crypto vsock_loopback zram vmw_vsock_virtio_transport_common vsock lz4hc_compress ibmvscsi scsi_transport_srp fuse i2c_dev aes_gcm_p10_crypto crypto_simd cryptd
-> [257154.724399] irq event stamp: 0
-> [257154.724410] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-> [257154.724471] hardirqs last disabled at (0): [<c0000000002b04b8>] copy_process+0x1418/0x34e0
-> [257154.724516] softirqs last  enabled at (0): [<c0000000002b04b8>] copy_process+0x1418/0x34e0
-> [257154.724558] softirqs last disabled at (0): [<0000000000000000>] 0x0
-> [257154.724621] CPU: 2 UID: 0 PID: 107460 Comm: cat Tainted: P        W           7.2.0-rc4 #1 PREEMPT(lazy)
-> [257154.724654] Tainted: [P]=PROPRIETARY_MODULE, [W]=WARN
-> [257154.724665] Hardware name: IBM,8247-22L POWER8 (architected) 0x4b0201 0xf000004 of:IBM,FW860.81 (SV860_215) hv:phyp pSeries
-> [257154.724688] NIP:  c00000000004f50c LR: c00000000004fc84 CTR: 0000000000000000
-> [257154.724708] REGS: c0000003affdfa68 TRAP: 0900   Tainted: P        W            (7.2.0-rc4)
-> [257154.724727] MSR:  8000000000009033 <SF,EE,ME,IR,DR,RI,LE>  CR: 24082800  XER: 00000000
-> [257154.724819] CFAR: 0000000000000000 IRQMASK: 0
-> [257154.724819] GPR00: 0000000000000004 c0000003affdfa30 c000000003c8be00 c0000003affdfa38
-> [257154.724819] GPR04: 0000000000000000 0000000000000000 c0000003affdfc08 0000000000000000
-> [257154.724819] GPR08: 0050244d39e48235 0000000000000049 fffffffffffffffc 0000000000000002
-> [257154.724819] GPR12: c000000000669520 c00000002ec9df00 c0000000060bbd40 c00000000453e200
-> [257154.724819] GPR16: c000000006d66b80 c000000004366af0 c00000000280b940 0000000000000007
-> [257154.724819] GPR20: c000000006d61100 0000000000000007 c000000024832600 0000000000000103
-> [257154.724819] GPR24: 0000000000160003 c00000000c573400 0000000000b5240f c00000000e555fe8
-> [257154.724819] GPR28: c00000000e53e108 0000000000000000 fcffffffffffffff c00000002ec9df00
-> [257154.725212] NIP [c00000000004f50c] __replay_soft_interrupts+0x6c/0x5f0
-> [257154.725255] LR [c00000000004fc84] arch_local_irq_restore.part.0+0x1f4/0x290
-> [257154.725299] Call Trace:
-> [257154.725309] [c0000003affdfa30] [c00000000004f6dc] __replay_soft_interrupts+0x23c/0x5f0 (unreliable)
-> [257154.725369] [c0000003affdfc30] [c00000000004fc84] arch_local_irq_restore.part.0+0x1f4/0x290
-> [257154.725423] [c0000003affdfc70] [c0000000006946dc] rb_commit+0x50c/0x620
-> [257154.725468] [c0000003affdfcf0] [c0000000006992cc] ring_buffer_unlock_commit+0x6c/0x3c0
-> [257154.725514] [c0000003affdfd40] [c0000000006ae9c8] trace_buffer_unlock_commit_regs+0x118/0x2a0
-> [257154.725569] [c0000003affdfda0] [c0000000006aec74] trace_event_buffer_commit+0x124/0x3e0
-> [257154.725623] [c0000003affdfe10] [c0000000002cae68] trace_event_raw_event_softirq+0xb8/0x170
-> [257154.725675] [c0000003affdfe90] [c0000000002cc964] handle_softirqs+0x864/0xc00
-> [257154.725725] [c0000003affdffe0] [c00000000001cd1c] do_softirq_own_stack+0x5c/0x90
-> [257154.725777] [c000000040b279e0] [c00000000001cce4] do_softirq_own_stack+0x24/0x90
-> [257154.725827] [c000000040b27a10] [c0000000002c9ff8] __irq_exit_rcu+0x458/0x560
-> [257154.725876] [c000000040b27a60] [c0000000002cd72c] irq_exit+0x2c/0x90
-> [257154.725924] [c000000040b27a90] [c00000000004fc88] arch_local_irq_restore.part.0+0x1f8/0x290
-> [257154.725978] [c000000040b27ad0] [c0000000006942b0] rb_commit+0xe0/0x620
-> [257154.726021] [c000000040b27b50] [c0000000006992cc] ring_buffer_unlock_commit+0x6c/0x3c0
-> [257154.726067] [c000000040b27ba0] [c0000000006ae9c8] trace_buffer_unlock_commit_regs+0x118/0x2a0
-> [257154.726122] [c000000040b27c00] [c0000000006aec74] trace_event_buffer_commit+0x124/0x3e0
-> [257154.726175] [c000000040b27c70] [c000000000527c4c] trace_event_raw_event_sys_exit+0xcc/0x180
-> [257154.726222] [c000000040b27cf0] [c00000000052837c] trace_syscall_exit+0xec/0x1e0
-> [257154.726266] [c000000040b27d70] [c0000000000440e8] syscall_exit_prepare+0xce8/0xde0
-> [257154.726315] [c000000040b27e30] [c00000000000d6ac] system_call_common+0x16c/0x2c4
-> [257154.726368] ---- interrupt: c00 at 0x7fff9f08f8b0
-> [257154.726421] NIP:  00007fff9f08f8b0 LR: 00007fff9f070a20 CTR: 0000000000000000
-> [257154.726440] REGS: c000000040b27e60 TRAP: 0c00   Tainted: P        W            (7.2.0-rc4)
-> [257154.726458] MSR:  800000000280f033 <SF,VEC,VSX,EE,PR,FP,ME,IR,DR,RI,LE>  CR: 24000802  XER: 00000000
-> [257154.726582] IRQMASK: 0
-> [257154.726582] GPR00: 000000000000007d 00007fffca534fd0 00007fff9f0b7f00 0000000000000000
-> [257154.726582] GPR04: 0000000000010000 0000000000000001 0000000000000000 00007fff9f0b0b40
-> [257154.726582] GPR08: 000000000005edb0 0000000000000000 0000000000000000 0000000000000000
-> [257154.726582] GPR12: 0000000000000000 00007fff9f0ba580 00000001359c09b8 0000000000000000
-> [257154.726582] GPR16: 00007fff9f0b3580 0000000080001000 00007fff9f0984c8 00007fffca535420
-> [257154.726582] GPR20: 00007fff9f0b0b40 0000000000000000 00502449f00961a6 00007fff9f0b0cc8
-> [257154.726582] GPR24: 0000000000000000 00007fff9f0b0cd0 00007fff9f0afbe8 fffffffffffffff8
-> [257154.726582] GPR28: 0000000000000000 000000000002fd2d 00007fff9f0b12f0 00007fffca535000
-> [257154.726956] NIP [00007fff9f08f8b0] 0x7fff9f08f8b0
-> [257154.727011] LR [00007fff9f070a20] 0x7fff9f070a20
-> [257154.727063] ---- interrupt: c00
-> [257154.727075] Code: 39200000 48178df1 60000000 7dbf6b78 386d0933 48b427e9 60000000 893f0933 38610038 61290040 993f0933 481176d1 <60000000> e9210140 7dbe6b78 386d0933
+Changes in v2:
+- Move the deactivation guard from TAPRIO into __netif_schedule().
+- Correct Fixes to 47e8dbb6e763 and narrow the stable range to 7.1+.
+- Retest with KASAN and check packet flow and temporary reactivation.
 
+v1: https://lore.kernel.org/netdev/20260805102514.740834-1-david.lee@trailofbits.com/
+
+ net/core/dev.c          | 3 +++
+ net/sched/sch_generic.c | 4 ++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 1a09e7869..bcd2d5197 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -3478,6 +3478,9 @@ static void __netif_reschedule(struct Qdisc *q)
+ 
+ void __netif_schedule(struct Qdisc *q)
+ {
++	if (unlikely(test_bit(__QDISC_STATE_DEACTIVATED, &q->state)))
++		return;
++
+ 	/* If q->defer_list is not empty, at least one thread is
+ 	 * in __dev_xmit_skb() before llist_del_all(&q->defer_list).
+ 	 * This thread will attempt to run the queue.
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index 6f6a6f0d5..bff425a14 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -1280,6 +1280,10 @@ static void transition_one_qdisc(struct net_device *dev,
+ 	if (need_watchdog_p) {
+ 		WRITE_ONCE(dev_queue->trans_start, jiffies);
+ 		*need_watchdog_p = 1;
++
++		/* Resume backlog left by a suppressed schedule while deactivated. */
++		if (!qdisc_is_empty(new_qdisc))
++			netif_schedule_queue(dev_queue);
+ 	}
+ }
+ 
