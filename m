@@ -1,92 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792715831;
-	b=PgjkrVT3Q69Q1+SD6Ny3cbIPa3heCe1n4OYlLfHbRDyu/GsecuwPT2Afn7aGGIQnrwZz
-	 KTO7fLvoJyVIhtoUcDzM47Lu44UKjMVPx9eMRb2dH00M/mmFYDIB62F+M6vLNqFxMeGtO
-	 kfOoEcEVFFThNsXLq95ZmVOBuz9yKQZsaXns5pLBWsSFUEu91/+5Lviiav1PQzk5FA9eh
-	 fKZVLV3wdmGtQ/r6DkmxK/mm8pkWGAelOpWjSXGP6wUeVu2ILIDBdBp2G5m0RmjPGwjrI
-	 y2t6nh8aS9uMYXSiOamfF05ZEW38TGCXE5e9j5WbrwWrndM6eVxc1z4jf0znD2uNYyw==
+	t=1792715840;
+	b=PYnhTSy4T5CNLXFN8XEF+5AQBof6kFUh8rIpSYL80o7b0WMB5XLCWDUqVMv0BrMEhUG/
+	 3/8+B/wpvNlOx40r+4jHzTkd5/cMeIey0GyQ180WPxDJuXCAPZPFM7j0WEmFX4RgX9U09
+	 n7zLsJjcnFp/HydjKpy8tM5ofmJm9JysUn3vBGLTK5CHmyklkbUgY0pbB6sEktmGT/K+4
+	 RmuE24fWHh7Z9evRpguczmdQssZI30lXO9b81m2dhCR64Hu5ntQ5M1oWJi6DwIznN+YfH
+	 89c4kMDZ9AjyGRZAN698F6Sw1cEUSDKhq3KkhLTgiGQKFpxrbYz1Uoxu8zLpAHfyc1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792715831;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
-	b=Qz0YarpJDGU5nwk8Xxjo/RN+noKUnKKC2xceTvzY8tJQ9K3lyMcQANxcY3aL3ZsA/ptG
-	 o1SOrq/nfe/Zzl/JlEB0PaFHIEuw5lzZAzypY7UMZQFn0nG6OWFf6t8SFrHysYe0pIJNM
-	 xKanBcS4aO1jr6eVtxJ6SgD/G1lOcPr1MfAAKHyEBfiZJXvi+mU6iYgkOh8Y9tIqt88ph
-	 qxKcWcQbb2SumqwzEeFqNNj80QRnVaQorukYV+Sagd7TRtVMEbXaO8khcEmGuOYvTOhY+
-	 SGZrihMqh+cAyGFxOZjDq2V6/YWdqxptvjYOAV0zSWhuvDw+ozqwicowWlxhXsj6H9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715840;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=axXiTUjtvwMFRrIO/ly38Bs5w5xgTTTJQ7iKGaFvt4c=;
+	b=BTo/151nW/swcSj9UV/nR49Oe1pVgl+zRS9r0uHoJI2ZJCUDw4B32+rqi72iBU3PQJ89
+	 xICfAVZslAdv5EBmYj0zDQlx2PSpg4LnilS8YFxFDNUEfbAfyZAY1JmvC7ETJ+v35/QAP
+	 RMxt1zpo+T17VFfG5kGQ0kuKrzD7097YbL6h7LrquWmjyccsjQ/ofDxsbIG/2/dz5WBan
+	 34UX5Sou1qpyoQz0WpfQBobSWakiaHgLQ9qyvupTEyikmtqFwsSNwVqD7c/fA7yp4tw6X
+	 AYeTksSKW2VEBm4vqmA0SNiMx6eVSL2zXWngIRDTZ7ASAc1/to3UWSWbgAAGkvPQXXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rLxpBxVc;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NJAieMiG;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E507606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E507606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2314F606A31D;
+	Fri, 23 Oct 2026 00:37:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2314F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rLxpBxVc
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so287190a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:37:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792715830; x=1793320630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
-        b=rLxpBxVcixkK+51+Z4/1+3dhIWLpp9PBBGBj00fP7WbiAAe2ETfX2l0Bz/8aeFeEx/
-         S3Vrq4hMXRhjJVBtuRM8bIoZ/M3JNwa3WO/pNbe11Wr6a12npnwvjoD2nP9vc/Hqdeot
-         TVfiGIizeNDZ4DP2rQco9xxscDrbIr9vvBSmAKod9msHExoguY0a7TlKjgl+GWJqOJOg
-         dCbeyp6p8m9Tm9HWmSEkA9I6C+ilj0rTh2MTe2wLz2o9QFYGFKrniAPxzOizgE55g/mg
-         O3BLAceoecepk4jjEhRqz2t3Bu2PvAHCb9HwCG8ZJV0bkfbefe5shztJi6VygUxgFQuT
-         U1GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792715830; x=1793320630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VVFibIdLtPqndtnVc2dqUS7yKr9vOJdSVF4rU6lBVbo=;
-        b=2pEd0ogqzyQOEN3+2dAIMXtvkWnTOv4N+B3mXQ9LI5vIwwMrwjYfx89+9e+ZE13vUx
-         hE/Cz7yJa0dHcSVzWdnHX6fVYjAofsHrF51PiDN2Aj6lgdOszN9BT8mndycVJ134PZUx
-         nDrIamYXO2pp5b1s/eMT+NzECxb4VvzYtIEQVxj888ZI7JiJxgSqhVaqfg4ekhFVoJwN
-         XaomxivyKr5LN41v6J2b8/njxmHwFOKqiQdqYSPRZifpdeMuSzyEsI/h5+SfA5f/pAjF
-         80Q2GVsJWo9Zw8xouGrLwKRD4Xv/XzxBk5G7ku0d3PV5QtVgozeIe1+nBK9I+NHMCVmQ
-         LxtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzX1xjz6CHX1RfMfnABEglVtj/LbQTu/33GlgU6t9pmWvXBGU/q/9BVezfDZFYdC/3EY7Eh329Q8RxPLLg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbDpQHsvY8IAC8bGYuYouvTXkNd1+2yu5fMqOaLr+nsF0Ie8TU
-	2SvPW7zs+iHaxxT+Db1m00HMZrCA2fC7l7Fujklftfv0NOyOD05K2nY7
-X-Gm-Gg: AYBFou1bkVSb5wM6iUVXlSjh5bgBdikIFAwFscG8hzG4ma1JYug3sf5VPmdqgeoUCI3
-	N8UD2xv7KQjj9i3XpufEVLItJQKG9XXLDHOgB5Lnmcqf6V8deQ5wvbBIIQbmKcTeUoV7vWocWX5
-	+JRG7CGxyvb9kIJu4XwyJ4UaKWkW/Zc6VISYC5gqpypDqnIKJJDPamF+R6soHKUVtixaQE+xvnc
-	BTx63TCtsxH7RjF5QBR4+Cznx682andoowpromjmEdFNUKsJNI2BpI0IIj6aOdShHPwqCeoHVkx
-	c8ZwTt39IbCsBEW4ymxcYS++hewbvliKRCota/dvt7KMDlL/tUxbb+Gnb0YA5JYAJpsPeZ4svZv
-	LTp9DemwRVaZQsun60KwpVZYqSLWzF/6nBYI3KMC0LwrUEsR9WRqlv8fr6Mezi4jKRZNsFpB54u
-	SIGWa++UBGyg5d+EqEvEzoXwxMW9k7Ru8ymT0nqVZwTDIue8mHbbJlvTACw3fLg6GSVMiPB8M99
-	Ceog+iorLEYqWqM1OtYGHDuH4a+CAmqLpjIh47U3/A6DPptQ675HchYPobNyPk5hudPvnGp/RhK
-	nc7gjJlOJT4MZ388h+ZYTYtZVfmQ5TMnHAjT/vMTtznU/8PAmxbsFyk9Am9d6Kqah0o=
-X-Received: by 2002:a17:90b:4b84:b0:3ab:884b:65b4 with SMTP id 98e67ed59e1d1-3adce154993mr460193a91.59.1792715829881;
-        Thu, 22 Oct 2026 17:37:09 -0700 (PDT)
-Received: from monk.wireless.sfu.ca (border-p1.nat.sfu.ca. [192.75.244.1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb0a28f3sm964360a91.3.2026.10.22.17.37.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 17:37:09 -0700 (PDT)
-From: ma.mandourr@gmail.com
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ma.mandourr@gmail.com
-Subject: [PATCH v2 0/3] KVM: nVMX: Don't clobber VM-Entry instruction length on soft INTn exits
-Date: Thu, 22 Oct 2026 17:37:00 -0700
-Message-ID: <20261023003703.450577-1-ma.mandourr@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NJAieMiG
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 67EA54034C;
+	Fri, 23 Oct 2026 00:37:17 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id EC75C2002C;
+	Fri, 23 Oct 2026 00:37:14 +0000 (UTC)
+Date: Thu, 22 Oct 2026 20:37:13 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, "Matthew
+ Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr
+ Mladek <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <20261022203713.1adce485@fedora>
+In-Reply-To: <atp4vVMyX65qYcAt@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+	<20261005155708.1471260-6-kees@kernel.org>
+	<20261016145928.16eddc9a@gandalf.local.home>
+	<202610221058.C5626C5172@keescook>
+	<atpmAQ932J3_8IvJ@debian>
+	<20261022155726.7f20c4cb@gandalf.local.home>
+	<atptYsHyS6YGtzPV@debian>
+	<20261022162000.18aa4162@gandalf.local.home>
+	<atpyCU3fDyU95hbY@debian>
+	<20261022165336.3100a5be@gandalf.local.home>
+	<atp4vVMyX65qYcAt@debian>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,38 +73,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 4hdp6ykrbqhmh6fh37tmjh3b6cr3fcuy
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: EC75C2002C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19jZHCAHt0bGbMwk6BQ39qd8dVWDXz4emw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=axXiTUjtvwMFRrIO/ly38Bs5w5xgTTTJQ7iKGaFvt4c=; b=NJAieMiGRemya9h0G6J0k9xdE0tqsZ88GSAS1JsV9P0ETKlN1JapzL2+psbnwxZSzRxVIpqQkoaIosfhnS9twO/gq8RmwDtgWlHqJkUap3Xryvk1KCpHFh9YVegQ3xsJOxqVz4GNUqk0gIM/SXvBcdeAcP5TnKWKDSPYQDTdNQA=
+X-HE-Tag: 1792715834-340845
+X-HE-Meta: U2FsdGVkX1+QXw1era8vos6X1aEaQNEyg3QofqQx7S0O/Qs7e60GjAIKiF2yl5nJMSiECwu+0BuzPpD5+S5sTXMDy9hDaJNSBSHTSe6bRF0ocypxUPGr0Q3h/KiQBt2DIHxsOCl7qsMPm0rco/dppq80GA72PP9IQY8oegAlZXwzDqf58AL+5trxpMgCx07QFD/5z658BG6+KfBBCJB0u4MmoIKRjJ/D8ijstepXDb5tUGm8t+Wl7/tiqmJGN3kccW185TP6/HWz3I7i6fcZD0Hrq1m8zRGmQ3vQMweWdG3rF+d5e3JqrfLJW6XIV16QtWJW5o/zsM5EUzyne/RlDqnmW4nfnM+q
 
-From: Mahmoud Abumandour <ma.mandourr@gmail.com>
+On Thu, 22 Oct 2026 23:02:36 +0200
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-KVM writes the length of a soft INTn that L2 was vectoring at the time of a
-nested VM-Exit into vmcs12's VM-Entrty instruction length instead of the VM-Exit
-instruction length.
+> > 
+> > I rather not increase its size. It is embedded in the trace_seq.  
+> 
+> The size shouldn't change:
+> 
+> 	alx@debian:~/tmp$ cat seq_buf_size_comparison.c 
+> 	#include <stddef.h>
+> 	#include <stdio.h>
+> 
+> 	struct seq_buf {
+> 		char    *buffer;
+> 		size_t  size;
+> 		size_t  len;
+> 	};
+> 
+> 	struct alx_seq_buf {
+> 		char  *buffer;
+> 		char  *p;
+> 		char  *end;
+> 	};
 
-Patch 1 did not exist in v1, but Sashiko pointed out that prepare_vmcs12()
-overwrites the VM-exit instruction length that vmcs12_save_pending_event() saves
-for soft events.
+OK, I was thinking you were adding another pointer.
 
-The selftest patch was written with the help of an LLM (Claude Opus 5.5).
+> 
+> 	int
+> 	main(void)
+> 	{
+> 		printf("%zu\n", sizeof(struct seq_buf));
+> 		printf("%zu\n", sizeof(struct alx_seq_buf));
+> 	}
+> 	alx@debian:~/tmp$ gcc -Wall -Wextra seq_buf_size_comparison.c 
+> 	alx@debian:~/tmp$ ./a.out 
+> 	24
+> 	24
+> 
+> size_t and pointers should always have the same size, so this doesn't
+> change the size.
+> 
+> Am I missing something?
+> 
+> 
+> Cheers,
+> Alex
+> 
+> > Yes the seq_buf code can be complex, but it's in one location where it can
+> > be highly tested and verified. The point of seq_buf is to do the complexity
+> > so that other places in the kernel doesn't need to.
 
-v2:
- - New Patch 1
- - Same Patch 2 from v1 (with commit message changes)
- - Patch 3 now extends nested_exceptions_test instead of adding a new test
-   (suggested by Sashiko).
+We could look into updating it to pointers later, but right now I
+rather keep what we have. Let's focus first on the new stuff. It's not
+that hard to validate.
 
-v1: https://lore.kernel.org/all/20261021042603.608292-1-ma.mandourr@gmail.com
-
-Mahmoud Abumandour (3):
-  KVM: nVMX: Fill VM-Exit instruction length before saving pending event
-  KVM: nVMX: Don't clobber VM-Entry instruction length when saving soft
-    INTn
-  KVM: selftests: Verify nested VM-Exits while vectoring INT3 and INTn
-
- arch/x86/kvm/vmx/nested.c                     |  6 ++-
- .../kvm/x86/nested_exceptions_test.c          | 39 +++++++++++++++++++
- 2 files changed, 43 insertions(+), 2 deletions(-)
-
--- 
-2.43.0
-
+-- Steve
