@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725451;
-	b=LmulbmimKSHiYjexTguoINoMMdKlS2kiRLD/KjU0Dobt6PjHvycBcaGzUs16C5hSTBJ/
-	 39jGfUwofCnb9F8YIyzii+wUbaEuFtreyuO/h1JZCAylOpIy45ykWBaGp8rDkBZCapXKL
-	 E/2pOmx2C+3n5DvA4cjipAlXqAqqjfkBwaz81zTr8Ch8iVGTI8nHB5vExcs0hpVbp8FEv
-	 IcTIqvY7QGnxJepvO3zxqPhm5u8adExvKXB90/jVwK4G2cZxZ9600roN9s6YnPtnMFbQv
-	 zWovGEKm1wMTeIj3xc5b2U8txRiVucd4RTjNc9RxCaXnf4r7t+XoMX2GNNmyln3PEQQ==
+	t=1792725444;
+	b=UEKzwaKw6qL+qYB7yCEOh2KgDHt+2LD/tcUaEFk42S9JHjY0ELAx5bM74GOlIMeDaXWv
+	 eRhYnhFzYK8U4LNyPfX5BAprzI9Uk96zjGbpv+/N/lLuQEZ/64S6oHFJA3pVbHIzZCSLw
+	 fuAZtE7/4aOLczPHYYkd8R/xdVN3mn6CVOrNDP4K/Dyie4gjMAVylipxDVL9CH78GQ9bh
+	 Mk7rEhoyGY2r64jqA+iXeNkibxCf0BRk4Lq+kTl7jn9pWGWZ3kdrlYwSAXd4dlr/ahf2a
+	 +JWkauYtVNuCI3PUQ4kxWTuySsuDXOcK0nEtQeqofya8liG5DuxVptCiMO495m3yZpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725451;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725444;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
 	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=2vph+OuFIOn3SzY2fv1CwAlrQbisuy00yQG7/Va3ANI=;
-	b=Q5tTX3KRiRef4LJeI6pK/7npplhhs4l080R0bb/TnELM/ZLLvrX3pH8XmZis8LNf0lQ3
-	 YHVNRN59oFd+nz0wR/9GawtvNuuByTFUUfAlmwUS5ZDQwWsN20R/VJZj6+Q50FL8RRdxd
-	 Q15whKW0+ZsoLiwbzA9ZKCUdncbvadAs/Vqs5dl6DuTgMDkFQBr/NUwDT5tt0YTBFa+3z
-	 KE9t3Lu6TwymtXDnX0jvOoo6L3m9AVGo7puShog2HB7Ifz7chpETxTtIw0iYXJWoONZNV
-	 pM0kBzuERWIl1fwLDmDT7slZ0hhfeUi3L0YxF4X+eoeUnrgIWV+ujdFE/qpN6SouAIg==
+	bh=vWQktdY0FJQ5gIjz1Q30N3BQ8TqP5aQ0k0nFlP9ztcs=;
+	b=dhN8o3Qgj9LwdPNd9BMQMZqAF/n9p7pwoYdAnbhvVoBn1NZaLjTv3QLH8RbvCOuKoW7T
+	 Ul950mrIUjpXIgRj76afzhS6p9Wix+XkVTtD3TLsMnllkggAkOrZFMefj4DDQwwNEvHel
+	 EJPA2+2Vvh2WhHiZny6NVyEfbeDJFX34mxR+Vy1DF27Jclux22/W1zJUIv4ZsAnHjtvDn
+	 oS/6TIrOzHO+VjG8MMvhXLmCqnVrzwaRtwZuDeoryNIGxIrzG1ToVNBX9uHKP/0o4tnsR
+	 IsPaBWMR6O0kHcgDUTBTvJUPG7KDlJyt/ZSw7hVFPClD/uj4JZgf25OzspqM8iXZ85g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux.spacemit.com;
 	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=n00XBkRb;
-	arc=none smtp.remote-ip=54.204.34.129
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=rYRVP4qu;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E5B606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:17:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25E5B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46053606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46053606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=n00XBkRb
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=rYRVP4qu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1792725430;
-	bh=2vph+OuFIOn3SzY2fv1CwAlrQbisuy00yQG7/Va3ANI=;
+	s=mxsw2412; t=1792725420;
+	bh=vWQktdY0FJQ5gIjz1Q30N3BQ8TqP5aQ0k0nFlP9ztcs=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=n00XBkRbUlvDaygpQNGhwAE1CopwAMyIuvGxVZuWCsb1/YrCP7uQQ2DvjgelAKo76
-	 Idx7Dr/c81/wQzqgRvPFCxRF78jUQOZI5llP9Fv1q2G6hoQa2OQw9Ln94OImC/vqmR
-	 LRUdHJb7sFJ2VREmb7fEPLB9+pWLihIXEMaf/aGs=
-X-QQ-mid: esmtpsz11t1792725378t92e44d2c
-X-QQ-Originating-IP: CtAhbqwKALyAvtWqn+oIZw26M4DKpk4Gn127AatmzdM=
+	b=rYRVP4quJE3P2uRGkPwHjz/RTW3+/xo5s2WSVZIMq6v+NrUJXBqgs4CqA1GDKa7H3
+	 a+D9xAVtTCZ1uz/b3PKlp/TtQzk3v7FKoTkuM/EqsUv0sGXzrtH7eyOPxbT7tYB7SO
+	 xcxh55ZxKrNOEfzLzuiljQgt4Bt6cZMUZI55G2+4=
+X-QQ-mid: esmtpsz11t1792725367t0c5d5bcc
+X-QQ-Originating-IP: m8cE/nnKQ7AQSkw7rS498QjHIKtl7CwzZZu0z0jXsao=
 Received: from snode5.. ( [120.237.158.181])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 23 Oct 2026 11:16:15 +0800 (CST)
+	id ; Fri, 23 Oct 2026 11:16:04 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10579745703144097967
+X-BIZMAIL-ID: 501167956966261696
 EX-QQ-RecipientCnt: 26
 From: Zane Leung <liangzhen@linux.spacemit.com>
 To: gregkh@linuxfoundation.org,
@@ -77,9 +77,9 @@ Cc: mike.leach@arm.com,
 	coresight@lists.linaro.org,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 18/24] gtrace: Add sink-specific buffer alloc/free callbacks
-Date: Fri, 23 Oct 2026 11:14:59 +0800
-Message-Id: <20261023031505.2020925-19-liangzhen@linux.spacemit.com>
+Subject: [PATCH 15/24] gtrace: Only copy AUX data from the path sink
+Date: Fri, 23 Oct 2026 11:14:56 +0800
+Message-Id: <20261023031505.2020925-16-liangzhen@linux.spacemit.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
 References: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
@@ -95,146 +95,212 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: McfvTdNTSvcBEXcbJiTXGB8OpqQ5svu/GVOZ1mw7j9heLVOc9CyMaMqA
-	PhMYPhRtu03MuOrQyUieL3m7hMiYWOyFwplIA/HpXOP4gjntCWUvgJuvdY2iZtFsDpzVNvQ
-	SeGiMZ/jJMUQgL7j7r8P3b2Tk7nC9ci7pF5pSds19115EPcVfwNguHdHQnQGyKigWGi2eAr
-	/hw1oQGGxz5f8GSujc5llkJSAaouf1hRLw4dpzLOpPiV10CCgc93lzlM6pUlF604bkxlBkh
-	PwhSLMZ8xa1yOBIe+CxefUhLakiYoSYLWG65ZyJKHyITf+VRFjrysqcxG5C8ZNVjxWfGDZu
-	s4HsD8rfrcHiueI3SAaX0wKYvaj39f38JS3N5Csy3et1Mx4MwHhnunYpLx8pSu8EZDd65dn
-	fSssF8pI4jtKoI+PxizFT4QsHYCvVsC8xOs+IhKbwFcfWxp764QWNp3tCjL7wXK+xZVbjMK
-	ezzdoAkB+cbJ1ApSvFQeMlGsgDFfe6wnESvT/XK05CQtkOQv3//b/8kD07jlxFCld7hu6t9
-	qJtsQsNSYE8v9M5ooZtZqmx5RM9nglLVhA7SCnB498kxmCCINs9QiQ2JQ1Lv1ar8Ycd8ckg
-	YKdSTfA4iKyR7qiuAwZQPdJ+7G+olx2FpwV5EGiK/CvaOiUUOIi3PN3NqAm8F00G8ddQT9C
-	jLUl9qbr/5NgixNN1dMTSZg9Xv2+LO5n6k1tzmVnz5Ir7Q2Ll+bgnyYd3+KVKr7Xjwy4WF7
-	45UT/AgkRg3LYHhcjCQwZKl8mc1MyF4HspE6Qt+PfdN6h5Oyuhbu6JWWkgtuijsXBmaGglS
-	Lt3MGMMMucim7t7HBhUzxwOORb36MWV3X83ZKgAE3otQ0VHtVLowMBdAysrpPDxv1HEirTK
-	uVaxMG2lrsoQBOFqmePReI8rWWo2pz1+C7f1XOfT5o35rPjhcGeppNHbDAMrlxp+zZWIYlR
-	jCNsp/5Bly9CCbIUmXIgaUN+YG/kai6YsIwGwqrrQtKPj2MhmSKThRMmuZfdiJsRDA0TqoY
-	jo0YusNr2PwC7ICet3w5O6XEmhQBiMwzbAD7KzDYfvU9LtMy3CJScW1rKFThJad7tCWES6f
-	dXmP7w4Oe4oUhEiSZ8Eyb4=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: NhTe9p7tQP4g8fVX+IpkSR9Me9jTHLd1Sr6v7UKtUTpjDYo3E/qZodCL
+	wh85PKn2gjlIUZcHq5JzlRa4qwDZylFaq3iJBSZ70EBeKuWWW9Pji7B3uHzPaSkJMmIqrG7
+	91L0SptekZGoTOpMJOYgwninIbRJm2MgKAwEExWsxN5uGt5S0Hux4vv9iUpuKQAmCDCRNXs
+	NGakCcJuEBmwLlsZmKJHjQ7lgFuEj29L+k1fWy7Yh9w4YVPEuC9OTyi9rYx1LXC6ypyIz70
+	JGz/ws2Ii7Pk46+g7J5JpFiIWQYkjQfJln1Y7XP/mbk0V0qhfDIEvUdlWywBRrjUE5lNv0c
+	V4XAV65zOJu+Tq2sfFzTGtuCQS2G/CeKPvIxldn/3eSry+fdpjorBqSzfkhAEG5MKovLeX1
+	MRfAm7EXwYZlKnVr1NQPVXE67r7qB6SKpz2Lez8+3uq3lJr4lik0K3P9b6vwLJn4ZAwcLpr
+	2gLp6H2WeMtN3meWYCG6fAfobBs43Q6V+dMvEFPxFC0hUYVWpByeS1rrte4HmdPOq2GrGFz
+	p8Tt2c/oxu7yDpb94VRJBg/iNE16e6Rm+aZ4nIRKWcMLlDR6O5QUPC920mXEzJ/I/EpK8x+
+	hno8VD2KNeBX05Hscl1vyEcUZnyIXQMIPI+G+8qz9MMO+UcuXQUd725D41XOGyYOtQcaTy2
+	5OT2z0B/VxXmU+Pawgar//5ww0+/r9iY9KDV8gedydRe6RK46VV1zBi0Y4qIXiqCEmKCAHW
+	VUdfSaqli4Y9FFzSEf38yGklMSe6eggbOHGOmU0axu1ojaoNe8QmuYax3ny1mmetK4gIoBL
+	/hHY+0Jo9CLs1GaLQvIJbfa5hfPvMsdtVoEnK5O/Wocx16DusN9pvFTzQAZw+YjNw7MhCcl
+	3RR3PjiPbXSN8k8G8UfEcMFryCgBKed9yDoqGjbzez0PS3PrFFw14vvZTrf+h8cuBlAZCOj
+	Kw4PMv+/mXofuXkonOywodUyM13LAg6YYmyAgJne+++DDWudfIaQX5Fm1Zubs/muuziEuly
+	BJbG5aly+fj5HK7Zrsbg4kdhf/c/cKWBDIkZPZK7loOpnfhw39bSDaIFLEDW8o39YyBw0Jr
+	6mI422i37TuZ3nor3cRNSxoZf4rVu20bg==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
-Extend gtrace_driver with alloc_buf() and free_buf() so a sink can
-allocate its own buffer (e.g. an ETR SG table) during perf setup and
-release it when the event data is freed. Store the resulting buffer in
-gtrace_perf_auxbuf along with the event pid and snapshot mode.
+gtrace_path_copyto_auxbuf() walked the path and copied from the first
+component implementing copyto_auxbuf(). For a linksink like ETF used as
+a link, this picked the wrong component. Call the sink's callback
+directly via gtrace_path_sink() and pass the perf handle so the sink
+can set AUX flags itself.
 
 Signed-off-by: Zane Leung <liangzhen@linux.spacemit.com>
 ---
- drivers/hwtracing/gtrace/gtrace-perf.c | 34 ++++++++++++++++++++++++++
- include/linux/gtrace.h                 | 12 +++++++++
- 2 files changed, 46 insertions(+)
+ drivers/hwtracing/gtrace/gtrace-core.c     | 39 ++++++++++------------
+ drivers/hwtracing/gtrace/gtrace-perf.c     | 13 ++------
+ drivers/hwtracing/gtrace/rvtrace-ramsink.c | 10 ++++--
+ include/linux/gtrace.h                     | 10 +++---
+ 4 files changed, 34 insertions(+), 38 deletions(-)
 
+diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
+index 231d06218d8e..a42b1844da29 100644
+--- a/drivers/hwtracing/gtrace/gtrace-core.c
++++ b/drivers/hwtracing/gtrace/gtrace-core.c
+@@ -806,14 +806,14 @@ int gtrace_path_stop(struct gtrace_path *path)
+ EXPORT_SYMBOL_GPL(gtrace_path_stop);
+ 
+ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
++			      struct perf_output_handle *handle,
+ 			      struct gtrace_perf_auxbuf *buf,
+-			      size_t *bytes_copied, u64 *format)
++			      size_t *bytes_copied)
+ {
+-	struct gtrace_comp_priv *sink = to_gtrace_comp_priv(gtrace_path_sink(path));
+-	const struct gtrace_driver *gtdrv;
+-	struct gtrace_component *comp;
+-	struct gtrace_path_node *node;
+-	int ret = -EOPNOTSUPP;
++	struct gtrace_component *sink = gtrace_path_sink(path);
++	struct gtrace_comp_priv *spriv = to_gtrace_comp_priv(sink);
++	const struct gtrace_driver *sinkdrv = to_gtrace_driver(sink->dev.driver);
++	int ret = 0;
+ 	unsigned long flags;
+ 
+ 	/*
+@@ -823,25 +823,20 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+ 	 * sink's lock also stops another path from starting the sink before copy
+ 	 * completes.
+ 	 */
+-	raw_spin_lock_irqsave(&sink->lock, flags);
+-	if (sink->start_count) {
+-		*bytes_copied = 0;
+-		ret = 0;
+-		goto out;
+-	}
+-
+-	list_for_each_entry(node, &path->comp_list, head) {
+-		comp = node->comp;
+-		gtdrv = to_gtrace_driver(comp->dev.driver);
+-		if (!gtdrv || !gtdrv->copyto_auxbuf)
+-			continue;
++	raw_spin_lock_irqsave(&spriv->lock, flags);
++	if (!spriv->start_count) {
++		if (!sinkdrv) {
++			ret = -ENODEV;
++			goto out;
++		}
+ 
+-		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
+-		ret = 0;
+-		break;
++		if (sinkdrv->copyto_auxbuf) {
++			*bytes_copied = sinkdrv->copyto_auxbuf(sink, handle, buf);
++			ret = 0;
++		}
+ 	}
+ out:
+-	raw_spin_unlock_irqrestore(&sink->lock, flags);
++	raw_spin_unlock_irqrestore(&spriv->lock, flags);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
 diff --git a/drivers/hwtracing/gtrace/gtrace-perf.c b/drivers/hwtracing/gtrace/gtrace-perf.c
-index 9b874daa807f..e05a833aa6a4 100644
+index 604b673a29d5..3c8b620df5a8 100644
 --- a/drivers/hwtracing/gtrace/gtrace-perf.c
 +++ b/drivers/hwtracing/gtrace/gtrace-perf.c
-@@ -86,6 +86,27 @@ static struct gtrace_path **gtrace_event_cpu_path_ptr(struct gtrace_event_data *
- 	return per_cpu_ptr(data->path, cpu);
+@@ -243,7 +243,6 @@ static void gtrace_event_stop(struct perf_event *event, int mode)
+ {
+ 	struct gtrace_ctxt *ctxt = this_cpu_ptr(&gtrace_ctxt);
+ 	struct perf_output_handle *handle = &ctxt->handle;
+-	u64 format = PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN;
+ 	struct gtrace_event_data *event_data;
+ 	int ret, cpu = smp_processor_id();
+ 	struct gtrace_path *path;
+@@ -280,17 +279,11 @@ static void gtrace_event_stop(struct perf_event *event, int mode)
+ 	if (handle->event && (mode & PERF_EF_UPDATE)) {
+ 		if (WARN_ON_ONCE(handle->event != event))
+ 			return;
+-		ret = gtrace_path_copyto_auxbuf(path, &event_data->buf, &size, &format);
++		ret = gtrace_path_copyto_auxbuf(path, handle, &event_data->buf, &size);
+ 		WARN_ON_ONCE(ret);
+-		if (READ_ONCE(handle->event)) {
+-			/* Tag the AUX data with the source's trace format. */
+-			perf_aux_output_flag(handle, format);
+-			if (size > handle->size) {
+-				size = handle->size;
+-				perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+-			}
++		if (READ_ONCE(handle->event))
+ 			perf_aux_output_end(handle, size);
+-		} else
++		else
+ 			WARN_ON(size);
+ 	}
+ 
+diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+index 9588c32c5b13..e0826d3f0d60 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-ramsink.c
++++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+@@ -11,6 +11,7 @@
+ #include <linux/minmax.h>
+ #include <linux/types.h>
+ #include <linux/sizes.h>
++#include <linux/perf_event.h>
+ #include <uapi/linux/perf_event.h>
+ #include "rvtrace.h"
+ 
+@@ -147,8 +148,8 @@ static void tbuf_to_pbuf_copy(struct trace_buf *src, struct trace_buf *dst, size
  }
  
-+static void free_sink_buffer(struct gtrace_event_data *event_data)
-+{
-+	int cpu;
-+	cpumask_t *mask = &event_data->mask;
-+	struct gtrace_path *path;
-+	struct gtrace_component *sink;
-+	struct gtrace_driver *sinkdrv;
-+
-+	if (!event_data->buf.buf)
-+		return;
-+
-+	if (WARN_ON(cpumask_empty(mask)))
-+		return;
-+
-+	cpu = cpumask_first(mask);
-+	path = *gtrace_event_cpu_path_ptr(event_data, cpu);
-+	sink = gtrace_path_sink(path);
-+	sinkdrv = to_gtrace_driver(sink->dev.driver);
-+	sinkdrv->free_buf(event_data->buf.buf);
-+}
-+
- static void free_event_data(struct work_struct *work)
+ static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+-					    struct gtrace_perf_auxbuf *buf,
+-					    u64 *format)
++					    struct perf_output_handle *handle,
++					    struct gtrace_perf_auxbuf *buf)
  {
- 	struct gtrace_event_data *event_data;
-@@ -95,6 +116,7 @@ static void free_event_data(struct work_struct *work)
+ 	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
+ 	struct trace_buf src, dst;
+@@ -181,6 +182,11 @@ static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+ 		priv->prev_wp = wp;
+ 	}
  
- 	event_data = container_of(work, struct gtrace_event_data, work);
- 	mask = &event_data->mask;
-+	free_sink_buffer(event_data);
- 	for_each_cpu(cpu, mask) {
- 		path = *gtrace_event_cpu_path_ptr(event_data, cpu);
- 		gtrace_destroy_path(path);
-@@ -110,6 +132,7 @@ static void *gtrace_setup_aux(struct perf_event *event, void **pages,
- {
- 	struct gtrace_event_data *event_data = NULL;
- 	struct gtrace_component *sink = NULL;
-+	struct gtrace_driver *sinkdrv = NULL;
- 	struct page **pagelist;
- 	int cpu = event->cpu, i;
- 	cpumask_t *mask;
-@@ -175,6 +198,17 @@ static void *gtrace_setup_aux(struct perf_event *event, void **pages,
- 	event_data->buf.nr_pages = nr_pages;
- 	event_data->buf.length = nr_pages * PAGE_SIZE;
- 	event_data->buf.pos = 0;
-+	event_data->buf.snapshot = overwrite;
-+	event_data->buf.pages = pages;
-+
-+	sinkdrv = to_gtrace_driver(sink->dev.driver);
-+	if (sinkdrv && sinkdrv->alloc_buf) {
-+		event_data->buf.buf = sinkdrv->alloc_buf(sink, event, pages,
-+							 nr_pages, overwrite);
-+		if (!event_data->buf.buf)
-+			goto err;
++	if (bytes > handle->size) {
++		bytes = handle->size;
++		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
 +	}
 +
- 	return event_data;
- err:
- 	gtrace_free_aux(event_data);
+ 	tbuf_to_pbuf_copy(&src, &dst, bytes);
+ 	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
+ 	return bytes;
 diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
-index 39ae13701615..a3d125882ec9 100644
+index e9210b0a73b5..39ae13701615 100644
 --- a/include/linux/gtrace.h
 +++ b/include/linux/gtrace.h
-@@ -355,12 +355,18 @@ int gtrace_path_stop(struct gtrace_path *path);
-  * @nr_pages: Number of pages of the AUX buffer.
-  * @base:     Start address of AUX buffer.
-  * @pos:      Position in the AUX buffer to commit traced data.
-+ * @snapshot: Is this run in snapshot mode.
-+ * @pages:    a handle to the ring buffer.
-+ * @buf:      Optional sink-specific buffer.
-  */
- struct gtrace_perf_auxbuf {
- 	size_t length;
- 	int nr_pages;
- 	void *base;
- 	long pos;
-+	bool snapshot;
-+	void **pages;
-+	void *buf;
+@@ -13,6 +13,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/types.h>
++#include <linux/perf_event.h>
+ 
+ #define GTRACE_PMU_ATTR_CFG_CONTEXT_SHIFT	1
+ #define GTRACE_PMU_ATTR_CFG_SYNCMODE_MASK	GENMASK(3, 2)
+@@ -363,15 +364,16 @@ struct gtrace_perf_auxbuf {
  };
  
  int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
-@@ -371,6 +377,8 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
++			      struct perf_output_handle *handle,
+ 			      struct gtrace_perf_auxbuf *buf,
+-			      size_t *bytes_copied, u64 *format);
++			      size_t *bytes_copied);
+ 
  /**
   * struct gtrace_driver - Representation of a trace driver.
   * @id_table:      Table to match components handled by the driver.
-+ * @alloc_buf:     Callback to alloc sink-specific buffer.
-+ * @free_buf:      Callback to free sink-specific buffer.
   * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The driver
   *                 reports the PMU specific trace format of the copied data
-  *                 via @handle (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
-@@ -386,6 +394,10 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
-  */
+- *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
++ *                 via @handle (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
+  * @start:         Callback to start tracing.
+  * @stop:          Callback to stop tracing.
+  * @start_port:    Callback to start a specific component port.
+@@ -385,8 +387,8 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
  struct gtrace_driver {
  	const struct gtrace_component_id *id_table;
-+	void			*(*alloc_buf)(struct gtrace_component *comp,
-+					     struct perf_event *event, void **pages,
-+					     int nr_pages, bool overwrite);
-+	void			(*free_buf)(void *buf);
  	size_t			(*copyto_auxbuf)(struct gtrace_component *comp,
- 						 struct perf_output_handle *handle,
- 						 struct gtrace_perf_auxbuf *buf);
+-						 struct gtrace_perf_auxbuf *buf,
+-						 u64 *format);
++						 struct perf_output_handle *handle,
++						 struct gtrace_perf_auxbuf *buf);
+ 	int			(*start)(struct gtrace_component *comp);
+ 	int			(*stop)(struct gtrace_component *comp);
+ 	int			(*start_port)(struct gtrace_component *comp,
 -- 
 2.34.1
 
