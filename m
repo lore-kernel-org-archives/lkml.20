@@ -1,110 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792765242;
-	b=QMt/bUwPwBDSwFW07jHGUaleYNyY5LzNVVRBXIc8kr8qQ+vh6+DMMfozPywnTawY6PFj
-	 L60bC7NTQxgFikAlUkSxaoCIYA4nBm/BTwnWT6wAyvwHJLIQBr8+Hxa5FiL/2s/QrIuCO
-	 Y1QdMbXjB2Urc+KN3XZqn1E9lixyi2MjySdFhscFghBZQG0EqypayP0yDym2r6Yj68Olj
-	 n6evobd66UI0HhQ7mBQKjZ/TCfauUGgZKxEwvV3KtH5p4Ff1r14ePI+MOInbCAAvdpXuG
-	 Ppbz/keg97XRJgf7Iuaba3DYWS1v6VrZFfRqrA8bLYd5HbufsW5iSPbNq7AUIZxKCHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792765242;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/6hrkJLl8+7F6s+nQ7oM4f8Xx3u++n7ObY70TM6xwZM=;
-	b=GJ9AJJfnY4dC8mrLRtr32SZCvW5JRrv42gvezTBfAgAr3OqFUUnNE1bsdilzYFrkcW0g
-	 VHX8AwyTuUwNuXa7D+fGLsGAQTlSPUiVgj+G/o7BdDWfijUQ2fBi8BpsTVFMlLTwCSFrx
-	 hf021vpK7J8p1wcFA926Y1ZtO7qz7QOGJ2fKGJDO+HWuugV17EC+/pkQq1tmWktndgVKI
-	 0bC4rpky0B88oYk5bTcXVssFf07kQFu+c5KbI9C7sAZPyCn/8dQwQYPgy/Ho6SMiIGVzW
-	 60aPGfTZ/s7a4eSCPITem/XgKrINfcb+mRaKpMdvK77wAfZlwPe67q2mCkjJKn16bjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Z24Tmepm;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792765295;
+	b=lO/DmGb7g4bmLYcstO5AIOGEZn4+Qi8FU/mfvGif1E1k01pa9MwPiuQM/GsyBlbFtmCh
+	 aIq/PDNa3fv+nBwEJZmXo0gGASJtJfwtmhEOS7bMV3lvpsFN6YsAcdYby6qF2lK5O58Yn
+	 x+Et3Nte5MLryZ+gMKUFBzKETBHvEuWrUgAKrZaPH4qmW9H8qXjonGrOMKsdqSk6V6Vi5
+	 hO9KyCTbku24txpnkMnS3f7BJ5XzixIsw7c+lGSy3iFqvW2Lq4kPRoiFkj0Yhe0mIpEMv
+	 umwienkXTFHpTh1YCin1e7SG+4m32MoKvVWwRxrnWLyAK5C223UcjSJXSPdooMmfZ4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792765295;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1CVhvj5IbUTw0SYzSbv9o3ZvdCPb8bD9rIcriVhuels=;
+	b=IUW9lJqoC5vsPYbQ1kOppKr6JOuJTTh7yx1/nlSKBAozGCPwepn/txsokjesFs5DHXkx
+	 NwURXRxsUkSdt4oiredP8ON3Qos6iaDlVYSVcsoD0rOXtPYh4Sk8BIqvg1K2daSyaziIb
+	 iz+z7uynpF1H5OID4aMlbc9CZQYNm63Qs+QOOJZphB/bxlSwu0lxXupljVNiM4JnoBi+E
+	 BgJ75ijDBNKPIH9Sxdix9HHGrJbDa0bNgWXWcLbRhAPK78nGxSVq9AkvUVEzHF34n5Bxp
+	 iSExgtYY5rbBSvr1aQl4WZkoXgBcqbF8vJC6jAwTN9eOMbJOBN9dEMvjFavbTs6fppw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=C734oRTY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.59
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013059.outbound.protection.outlook.com [40.107.162.59])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B98E606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B98E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A912606A31D;
+	Fri, 23 Oct 2026 14:21:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A912606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Z24Tmepm
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5365d725440so7334581cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792765241; x=1793370041; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/6hrkJLl8+7F6s+nQ7oM4f8Xx3u++n7ObY70TM6xwZM=;
-        b=Z24TmepmqvR1bRh/4zM+g2igTOR83MH9soRnIdGRSlAfFQDPUGRtFOY9hIiE///81M
-         gn1/oeDUKKO5QvidSRSIWE23M60jPneoos4wvqV9I4e+WIBRQ7nZbEx3u9pGTbZ+93mo
-         v29+lwhRyxercl5mWfe6Lw6ns5PNvqZ2WVy/STNJGyhe9GkO6+u43vn+OgWZlPzn7brm
-         KupP7TBsEpn/837/k/d6XjDcCZUehB/rdoMXI/Bx+gclxYRi9m7A+0ETt91nuQqxDW8H
-         JSf2ssQUryFdfHbm8dPWKZA9612PpU/6R+wt+M6hxFMCrJYA4E1yt1pYxw8IKTQEWl4v
-         iU+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792765241; x=1793370041;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/6hrkJLl8+7F6s+nQ7oM4f8Xx3u++n7ObY70TM6xwZM=;
-        b=mY1SlzvgkIApxD75MLQbk8QanYUm1PJa1BGRb1pGjz/P+iYm2OXsjHinNK5mV1O55t
-         gKIXnvsfFjpPI0+1PhENsc4OeCiQYZQY2H8q71smUBOXRpwPXHS/r0F1kEmxFvpJsv0y
-         byoN4lz8FWkxT5BwIPo15nuorev6j1H9BwnOfKB8sC8kBaDuQyenLwa0Ot3dbFjr/YZI
-         dyfhsO6cLlFHPEvbsC3C4GUQgMJ67og9oYs4uk+OhpKQHuri2ZoF8VpbXrUluukOqd1/
-         viWtI2/oP2c9FfQZEe9kM1LSCwhPNGvcxskoZbFDuSKYFq9hviBcZqRi4QfWlLcMv5K/
-         6d7A==
-X-Forwarded-Encrypted: i=1; AKwUvByvYOC5sEIJrF14uxba9OwvTWA8g9pt4ahaXctyjKSLHc4D7BIbf+Kia0cxxaQHZjLlc2uqHCrq7JP59PU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJztvQM+/SB8QWmwfsZXSqpJu8/Hrn+ZoYIFpFTUB0LfaPiUFk5
-	WZeA1YiPWwoewERhs7Yc1KcOLhv90iQ6TwOA6WiG6un4RkQrYCfuVOZ7v1qZPI2C2fI=
-X-Gm-Gg: AYBFou2tcdOjgw6bAlek6RQkUJ/RGwqwScGM7bb+qtE2hMgfn7ORshuUjxm69AYcxVV
-	6T92cjP4YX5C9O0wKHZwcYSKRXpdzUn8Tx2QbK+Odax8O5B+ZaKwMY8rPkmepaB8kNBzwvt62lB
-	lWRzrd2xRBQJLIP+t1hoAKjmMiG4L8y8dZHbK85HHZghG2Z6BLubQoECXaiZMiC04pfuqR9uLr+
-	r7J1kYbpwApCHhA79XqdbJobIvj5KJEC5nHK9bb9Bm/Nkg9VF/n2iNEIh48JuI/a+ngN5fP/I1O
-	srSsaes6l0ghzP5/Bf7fgSkt1SwfQw5Eq6zh5y2ULnYGR+LprdEtITltiRAI5sQ8H3+xg9xBrAr
-	J4JPnBkf5ZZ7ZcaCPn95KuVelAQ2HR5u3O31w2a+VyFBfAsj03sXTgE82KGJoJIgy0BJzrokOA2
-	vpTE+CGK6li9STvZ9o1bgx2MYKYxrN+hbBaBLuCWYVkKzxF7VMxovbagmU1W6M1US7x2MX/52fq
-	ylPB7Kkjd8jxIJ42B3CVpMj4rvM00iQ5j4ABppacCgXwiiIZglSf4KTfyf56GFwlYJErgQm7F3+
-	EgIyR2/Qomp0QJue0BWUQ7+EMLTVkavuOWLLbQ==
-X-Received: by 2002:a05:622a:1246:b0:533:32f3:1db9 with SMTP id d75a77b69052e-536c2696164mr33421181cf.11.1792765240843;
-        Fri, 23 Oct 2026 07:20:40 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536c1872a8fsm17665301cf.23.2026.10.23.07.20.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 07:20:39 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xKG8M-0000000Gj4Z-31qZ;
-	Fri, 23 Oct 2026 11:20:38 -0300
-Date: Fri, 23 Oct 2026 11:20:38 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <20261023142038.GE3977851@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <yq5a7bjajaco.fsf@kernel.org>
- <atooh7uO2RauUTfY@FV6GYCPJ69>
- <yq5av76sj10a.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=C734oRTY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mk7kqN1oyN7FbL/HOqBjAtMBCg7hLqTwzQD0WQVIGbN4SCNHoglcIAdut34xb84bQ6FgkAGCIESS3LvZYGjFeLBD9JgRfsH7y1dGJAqJfJ/k10xHCRxfL5a76PbwEXtwYDAVXkuYjFUilrzGDx2vucFzinZX1TfNLAOi//IQi/Uq8LlD0oi3sxlvjAl51Ffk24QflfefdJZmE9q5XxQiNRI0xMfjzXOxZkBbNZ1SuSVXt/L1pYjKRnTYbpzXYLNPzCSrU4VLx7eznJsgeYfJXZbi0+Z4Ujf/ukRkqnihFqXfZ6bwKFej1w4XXefLdiaJIAbwacC9RrBFiiH1WsQcxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1CVhvj5IbUTw0SYzSbv9o3ZvdCPb8bD9rIcriVhuels=;
+ b=tFKxL/nykdbl9QNGg/tcsJmz8xI24i0vJE8MjQbADf8CDgfEqPbhOYsZedSt3P9DSTCjtQtSMvFEPDG9OWNDzjmuFMs0rVOiBwq/hpLe7QDtG2YH5tH6poVkvxkqlrKN9v2CuHLt5iAtfv7aPeg/fMk7t+phYroHAxaabrE3FvDueitl6ETY5JI4dPNZcZ6Q3drIyBMcNhdh49pcok4obJ2U/b7OQQqkmbHw04gg8GWWL2dsf7kFIofLyNPWrAKpyxPEPXRCaNUXK1gReSgHvkQwazF3BpmXb+NwedMXpJEyrmMePcttQEwVkgbdMCHsrAnMnyZkmDopabElNSwFPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1CVhvj5IbUTw0SYzSbv9o3ZvdCPb8bD9rIcriVhuels=;
+ b=C734oRTYQDA2ItgkGWXWBHFegYHt0cLwTnDo2lmlgvkjzlC7VcgHQGrktO+Z1tOlPPlox8hAzzwcBii08KR5caVa5M9FPwg0dfkPt66FsumSPTcZgvWQWHw1BhVA63NzBCuS+ElYmtm+AisvjFfxMnec9J2h69KWNXrAgInhxlGfFrPxgSdL7tRAyjgzkxmn3zOs/EQ0/zVN8wh3Ajg+kwh6m4z0oWh4dj3jxCwleEFptRWegwoBe3GjgYQN8lu9myuewZHnzcRIZaZa+HLWjZE8TDkY4zbyVFmW5XcNE/++7uICQoJV62QuEhhf3unbMH56hC5GqoNx5LDFnW09rg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
+ by DU4PR04MB10861.eurprd04.prod.outlook.com (2603:10a6:10:592::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 14:21:31 +0000
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 14:21:31 +0000
+Message-ID: <78c875a1-f90e-4ab3-bb31-f059845ba5fa@oss.nxp.com>
+Date: Fri, 23 Oct 2026 17:25:15 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-aquila: mark +V1.2_DP as
+ boot-on
+To: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261023102408.119509-1-francesco@dolcini.it>
+Content-Language: en-US
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20261023102408.119509-1-francesco@dolcini.it>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0309.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::6) To GVXPR04MB12316.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c6::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,108 +106,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5av76sj10a.fsf@kernel.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|DU4PR04MB10861:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7bc1af1-a2ae-4148-1cb2-08df3110ef0c
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|7416014|23010399003|366016|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	gclQO5zyiLeC/Q3NJx4C6DBVMqKbnUnckoGk2xDUfKdMAJRdsCuTlTb3CJeqO+kL/DETfIII42P5svs0eZqolr6XLIRA8BClUJHE70LRQcWBQVTuDryRrIdbKrC8sZhpJxkPjjTiJAXv+ylWFQOHC+Ayqp5U1FDGG5tmJ18Ri4Fq+HIsi+vDoF8Cz8CL2fvnaHxJC8Z2cELqiZQr4/FZsCGlvDWESikOaONHmwPdRWooO+c4/5mR3XxHI8hDJIN9CG0P2FC9ocy0TKPtJXPqj/ka1pu2KoXSxaN6kbNeRg9cgho/SITRY2KKpWWP7qGbzAAF+zhzmuniZJlLZ3nwbBWhhTbbSZbFNaUU/6bw2vqbcm5+AEoEF7DCYcC8ygA0L/wzTstGgdtnCRp6AIAUEVQ+sn6GfohUdwYfGjyHADhdHSUDP0fuHd+K6Q3bYbdQg2yMl5juZgFkorTt94hbB4jyiYFnLyd2gr+UmDXOHqJULhvkI0nLFYkTYoqXEUCFN2jpP9e/UqNisiTDvCGnRdF0Ve31uv+XJjN3Fh5d3M1/U1rOgKBT6OyFReaGneyU4xXZgWqRQ0t6F6WmxvLHRWfPpdItb/ElX9ovM1d3Ig99x1CCqpZbV2xZrxIVQRlz3VpBILuywyScKixyt8rOLvtbEtWxkEWb7ysj7LXzr48=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?REtkelhIR09QWU1RWUE4OEk1SFdCcXljWmJDZEZpbDNkQUpqUlorVzRNYXNC?=
+ =?utf-8?B?S0l3eUJtQVc0Vi82cVpCY0x1OURDZktBZDN5ZXV2ckxKZ2NwaFFsbFlvZ3Vp?=
+ =?utf-8?B?YXR1RUo1cDFQUzFyMmoySVBSK2piR3MzbVVpaDhGV1IxNmpPV1lGUTV3TFFK?=
+ =?utf-8?B?TExaTTgxQTA2S3A0VlZPeDY2a0k2cklZWlNmUUlEQ1FlbFZVb29IUkhQN2lG?=
+ =?utf-8?B?VG53ZERSUi9PeldSYU5YZTFKcTBSTldCd0ZuOCtFdVpLQ01hNE5zQXFuL2dJ?=
+ =?utf-8?B?R2JSZjhkTFBLb05oTUlrWFpWWXV3S2VjVVQxTkk5M3JqMWl2elNRSzZuYUF1?=
+ =?utf-8?B?cTlrRldNaG9zV0gvcytJVDdINmIrc1NKSUJsZ0NLNGZQNmVrTW1NZ1dhbkN2?=
+ =?utf-8?B?STZOVnlHKzNtRUl5NEMzNVpIRmJwS0VhRElwMmd2L2hXMGhVazNzbEtYUEE1?=
+ =?utf-8?B?WnE5MXNZL2hJMTJPMXBVak9HcWFCd3ZDZFpmcjFEM3lNbnh1WjFBSi92VjBk?=
+ =?utf-8?B?UlJ0T3BNT0h4Y25qUlZWbVczTlEzZmlDSTh6d2swRWxNcWhXVE5Mbi8yczI2?=
+ =?utf-8?B?RE84UU4yTDR1aVk2Qmhkc0lpVnNpZE1xbXdBMmowcDYwSHc0WWdtbHEzR1lJ?=
+ =?utf-8?B?aG1MUDRvSHlEV0NJKzI2ZjlORlptcFV6Q1VNNnlGQ0cyTGFuOXc5aFIxcTBt?=
+ =?utf-8?B?anUzN2RjeXRzMXhkRXRUUkE0RnpFZjlsZG5CV2pqVkxuUW5NRVdKMDdWNVlu?=
+ =?utf-8?B?QUVjS3Z2OEtnRllXVmV4aWhrb2FnK0drem5QMVJlbVJUeG9NdWFPSGZ6RWZ4?=
+ =?utf-8?B?RGpScGlsMjFCaUFhVXVqcUU0cTg2aFBHN2p0OFcyelJObzhRRnpWQVZKTXlo?=
+ =?utf-8?B?S0Jpd3JSak5zWlJPb00yWXVyckltNU1pNUtXU0t3Q1dVbHVQTkhPcHI5QnQv?=
+ =?utf-8?B?aUZtNE16VXAxTDBtT1ZqTGQ3Q0ViMzZnSWw2elh0L3RaTXdBYWFTcjFrbEFV?=
+ =?utf-8?B?d3IzYyswWmVkQ0ErcXRXTGx4WnNvVEJtNFhia3FTZG9XUWtIcEJtMWpYY0hr?=
+ =?utf-8?B?c3RuTGdYd0lnNmQwU083cXRYUFFSZmRONkpBeEQvM3NTL1BLd0FpUTM4d0t4?=
+ =?utf-8?B?bm5vZDJpTUpmd3hHaUZxWFBiTEViZHNPL3BXUmtpZ1JmTHh5NUJoa3VzcXRh?=
+ =?utf-8?B?cGZiZjFWUkRIZlIwbXZCeW00YTltSERqbzNCZWVFTDN3ZU9WOUFIMEJ3ZEQ4?=
+ =?utf-8?B?a3o4U2k2UDVaR1gwUzNVYWpjNWpUMmJRVGU2UVRwZUFTNVUxbUNINDJseEIw?=
+ =?utf-8?B?bHRsWnBGZE9lMklSQjdNR25LRmQ3SWlHV2pJL0krK2ZDK2lvTHpPSVhLWm1I?=
+ =?utf-8?B?aEp1VmJpTWJJR3l1OGhsQW42bk9QRXh2U1M4S0RRVG9nVHRCZjgwZVYvK1Bn?=
+ =?utf-8?B?UHRaWW1TWSt1bGZkYkpqbkRLa0dvU1ByNVlZVnpFVVhvVWJacW82K28xMkEv?=
+ =?utf-8?B?MGZwZGhHMHF0TDd1SnlEL1B5NHhKUTVNSmtIWFRrcGI5S2I0cm10RHArWFNu?=
+ =?utf-8?B?a2lTOG1ncXZSalN1eFNxVnZkVDQ0a2RJSWZFVEJiZkVBYXBMb2JhWUhDVVlm?=
+ =?utf-8?B?ZnhKaXpOZU5ieXJ0WWhGcldER0FIQXYxcHU3aXBXNHBraTBNRU1yVnJhSkxK?=
+ =?utf-8?B?UjU3QjlCQklqVWpGNFhQOTlNOFk3T3dhdW1IQ0pKTmVGaDlsZjY0Vi85UFE1?=
+ =?utf-8?B?TFFBdTJvSThzMHovY2E0S1VBT1p2QU1aa29na2JRYXZUYlZBRWVPQm0wRGta?=
+ =?utf-8?B?TXE0QlAvK09sQkppWWdYWFlVZ004OVZ1NE1OeFhRbkc1QzVIenVlS1pZUDdR?=
+ =?utf-8?B?cHhlWnkrOFZEQy9odU9UOWtGaEhhZDUxQ1cxU0FvVUhTL3YzSXZNSno1UUNi?=
+ =?utf-8?B?T3cvcUZmMlJJdFJVYXdQQ08rT2NoK0Q0Y3lQYlVZNTJydnpRODlmTktienY0?=
+ =?utf-8?B?RU4rWlBWblVFNnUvTW1hc25uOWY1a0gyaFhqYlRQOFc3bzNzbG03OFdBOER0?=
+ =?utf-8?B?eTBWWENVZUNOOUo0K0JVRnFGSk8xdElLbDhjL1ZJKzNkWmRhcDZ5US9XZExS?=
+ =?utf-8?B?NWVBQmxzdjAxa0RvODcrMG9ueGhVd21YQ2V6V214MXBkcmZYWDYzUERseXMx?=
+ =?utf-8?B?RjQ4eVlGOUVoM1Y3Vis5QmxOSVppSGNhQ1RjWlBoRU51ZlFOL01tK2Z6dTRD?=
+ =?utf-8?B?YWJsNFMyRTRKTDZkOFhMdDBydEJzSDQrWGpoOTk3ak50UlFiZkFaaUJDdU16?=
+ =?utf-8?B?ckRXZjA1dFBGV0lFcGRMeWNKaENTclp0YmRrT3IyUDFrekZFS1pjZz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7bc1af1-a2ae-4148-1cb2-08df3110ef0c
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 14:21:31.1582
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IoRV+D6Evv/Ardt9AD9l79zuksC1SwSWrBYWFssO5QtHuFTs4//rMDrVMd3WHWsy/m35k6eA3f7JhB1JKFoQTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10861
 
-On Fri, Oct 23, 2026 at 01:34:53PM +0530, Aneesh Kumar K.V wrote:
 
-> CCA currently takes the device identity index during pdev_create. I am
-> investigating how to retrieve the certificate chains for all slots. For
-> now, I have implemented the sequence below.
-
-Yeah, I think the consensus at LPC was this may be a gap in CCA.
-
-For now I can imainge CCA just doesn't let you query the certificates,
-and we'd need an ECN to correct it someday once all the kernel parts
-are settled.
-
-I broadly hope we can use the software SPDM implementation to really
-flesh out the uapi and make sure that everyone is happy with it. Then
-we get what subset we get from the first generation of products.
-
-Something like if userspace can't get the slot information early it
-just hardwires slot 0 and goes forward.
-
-> echo tsm0 > /sys/bus/pci/devices/$DEVICE/tsm/connect
+On 10/23/26 13:24, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 device-get                                                               
-> # device-get, 1 fragment, generation 0                                                                                      
->   device.generation 0            
->   device.caps                                                                                                               
->     cap.evidence                                                                                                            
->       cap.min-challenge-length 0                                                                                            
->       cap.max-challenge-length 0                                                                                            
->       cap.max-total-output-length 369098752                                                                                 
->       cap.evidence-flags evidence-accept
->       cap.object                                                                                                            
->         cap.blob-class cert-chain                                                                                           
->         cap.blob-instance 0                                                                                                 
->         cap.format spdm-cert-chain
->         cap.representation raw                                                                                              
->         cap.representation tcb-digest                                                                                       
->         cap.hash-algo 4                                                                                                     
->         cap.hash-algo 5          
->         cap.hash-algo 6                                                                                                     
->         cap.max-length 16777216                                                                                             
->   device.info                                                                                                               
->     pci.name 0000:02:00.0                       
+> Mark the +V1.2_DP regulator as boot-on, matching the hardware: the
+> CTRL_DP_BRIDGE_EN enable line of this supply of the SN65DSI86 DSI-to-DP
+> bridge is pulled up on the module, so the supply is on by default,
+> before any software runs.
 > 
-> I think we can use evidence-refresh to select the blob-instance for the
-> desired slot once the CCA specification supports that.
-
-Jiri these ctlv outputs are really neat, it would be nice to include
-some of them in the commit messages so people can get a sense of how
-this looks without running it?
-
->  ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 state-get                                                                
-> # state-get, 1 fragment, generation 0
->   pci.generation 0                                                                                                          
->   pci.connected 1                                                                                                           
->   pci.locked 0                                                                                                              
->   pci.accepted 0                 
->   pci.tsm-id 0                                                                                                              
->   pci.dsm 0000:02:00.0                                                                                                      
+> Without it the regulator is briefly switched off and on again during
+> the board start-up, potentially disrupting I2C transactions on the bus
+> where the SN65DSI86 is connected.
 > 
-> device is marked connected, but IDE is not setup as indicated by pci.accepted = 0
- 
-> ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 evidence-get --json '{
-> "evidence.challenge": "hex:", "evidence.object": [{
-> "evidence.blob-class": "cert-chain", "evidence.format":
-> "spdm-cert-chain", "evidence.blob-instance": 0,
-> "evidence.representation": "raw", "evidence.data": { "file":
-> "/tmp/cert0.bin", "data-buf-size": 16777216 } }] }'
-> # evidence-get, 1 fragment, generation 0                                                                                    
->   device.generation 0                                                                                                       
->   evidence.generation 1                                                                                                     
->   evidence.object-length 1632           
-> 
-> 
-> I added the file: attribute to verify the evidence blob's contents. ie,
-> we can do:
-> 
-> # file cert0.bin  
-> cert0.bin: Certificate, Version=3
-> 
-> ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 evidence-accept device.generation=0 evidence.generation=1
-> # acknowledged
-> ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 state-get
-> # state-get, 1 fragment, generation 0
->   pci.generation 0
->   pci.connected 1
->   pci.locked 0
->   pci.accepted 1
->   pci.tsm-id 0
->   pci.dsm 0000:02:00.0
+> Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-I believe this broadly matches what was discussed at LPC.
+LGTM,
 
-I really like that we can break down the steps from SPDM setup so we
-can get more information to userspace to have better logging if things
-go weird.
-
-Seeing this makes me much more comfortable that CTLV is really adding
-value here, these data formats are pretty complex in the end..
-
-Thanks,
-Jason
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
