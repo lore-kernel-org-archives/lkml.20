@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741915;
-	b=5Ta4CMT/t+hQceaRAeo/+YXXmw/QJBWInc/HBkYfPjtlxOcxr9naxbc3+mHXmkSBBYSt
-	 59FGlkqgGZxP3AeiJzRDGGV1GAfmxUu8JlD6f0LzItiaV0F8kx5vXoqJsjwFdTd7k7rh/
-	 tNzFohqrKXAy3RL6YYLQsZ/aK9oHY1tNfLydtEoccloJNER4jl1e3YV0A+XE+MzC9jDdf
-	 lNqTynwftpkZhoVfvh45nnoWbr/ScjSX6krI7+EBcXXhpcnj7vnQK6giAs+gf50LWeRUj
-	 3q0zqW9V536Is3wTgWCQFpGxCyuJaYB3rXmBMzV2Q7t21AX9FaVBZ/M+kPhcoII853Q==
+	t=1792741919;
+	b=4pLFu7VwptHvaYbNxrJuU8+agZTFMcQlJshyQIyuuneKlHCr4KXGSaIUAf1APN53r7px
+	 a0edW7zR90fb1yCrcaQszz/U/CkBff25/RHP36uAMfXxq8EkdtcZhQ/RcWvVE8h7rvSvP
+	 8B7Ira3l60j1d9s0A67t01Y7sjvwaAEFUHaW+qRawQvFSMMSMMNRPsTWyIbuEExz+IzgD
+	 5yL21EJBhgtR6rTi2dwwTUnP3aPS4ijOf6gShRq3enrVYU2ErrhEB8CS2EEbTBA2wbCyl
+	 u9laSYRyaYihIsk3NW+syV/goks2kp5unLWHWRGhoeqzYIdRc7b6t9F1pxeTP8LTXLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741915;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=muNE5kIzhzmSy9zy/DQorm6Ec+5hmWxUkOFZe0Ib8VE=;
-	b=QkYmwnqlUCreYiTDRfHpcOn5AmAXyHAI8GQ5PAGf9htVeTmgYTB0+a7k/Sv/i5kw8LOe
-	 tYKLc7SJd2b4JZu+0CEJfpTduP978nNsd76n6uwyPxSkYIYjGbfzu87hhQh71MVHUPf8I
-	 CIqdOyjng8ArFOL+Rx4HkvHdSGq+q68xFnSHEXJs5poKsGQHTV0ebkzJnKo0BKQcOwRBv
-	 1/FY8JRod/zkQqSOumcVoF78q3MfRMM9JoMM9DQMCyj6AY+eW2jGnc4Tj6+4CgAV3mIzM
-	 CoNvIp8dPVIxXLBj0G4yJJgypH2Nbr1LruahDzqJu9tSTPVz7dDMoVQRi8ZT7fi61gg==
+	bh=YqasG4hoa5HMln8cuz36jlojNM8+bH53t/aSP0CVnp8=;
+	b=buIA+X3yYoyf5XetpnbLXIdhz1h053C7O0Yu7pTtrJFka3nPg4kwzLX5cBGjh7sjI/nC
+	 T8fbXpTUVq4ITCR0jYcO5VYPqfyTXj9KVIo8BuzMzcEt15ciIxvGTWN4f6BJFFjLJlhog
+	 vWHBz5OVMFAe+KOVyvjDVVD+5M7voJIcmCmGJpOmuKjE0CN0UeF+GfidsuB94+sLGSulj
+	 S7HZEHhk4yTS/WdFN/3f9iJFBvYh4co0RwZXVMCRJpkBcd+cTeiSZpGRdfH8v4seVse/q
+	 CHL4Kq+eFjY6Bu/Hcv6jKIqikm3jmIaueAhm+hlxeQbCBcJ6MX0zAfbsMSczP39mtAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oSZWyNkd;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RACWuQxq;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4A6606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B4A6606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2238960A260F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2238960A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oSZWyNkd
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e985106c0cso4563075ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:51:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RACWuQxq
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ea7190aea1so2520545ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792741913; x=1793346713; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792741918; x=1793346718; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=muNE5kIzhzmSy9zy/DQorm6Ec+5hmWxUkOFZe0Ib8VE=;
-        b=oSZWyNkd9tx0LydPfzyYjS/fMAlcBOgtM9UhRvjsW5u8xmv+y1Q3UTVfPiDl0VTyZa
-         5cNKc1wDTG/jKS7SCyqAOGKo46llz8o7GuD7gifpoDafi33HLN7cq+nftOOWCUzfyH0F
-         xl330z//hkf0zISYEJM2HnQ+Oh4oNkktA7qG32l6j+1VRDZJuRjipbJx8MGw5qHk5C8I
-         zTA8/ulsz5ERDvSvMTKTPdhEJQLKC5y6wIj/5r7Ix1qfZrg4gkCMEupTJzU/hA6/3EWX
-         SA9KnGIrNfizL8hqk/pOoiPpnQ7haxwUzmCAPcws8XDAU42KxNMosaLfk6erY4MgwkSb
-         BdEQ==
+        bh=YqasG4hoa5HMln8cuz36jlojNM8+bH53t/aSP0CVnp8=;
+        b=RACWuQxqcNvxZdCaZkfaqIrUNiPiYMBz5+g6sqBaI+yYIWvMYlPkMnUBWaiKQID20f
+         bh2Cf3hmYtKlRrrkw7TbIPZRI+BPP2zGFWKj57/PIlqsbw9+8Haf1V5bs5dDRM96eNJc
+         oQ7+LK+uvdX85peHEnZ5eltX6FH8J7DGBj+3uPXtWNSXuhwKtd9VIsIbAVlppPnkIJ3n
+         lgUYHZJsb6OxDwAXLpzlISBSrzFyrRUa2GPhpiP1Vpce6lVuo69sPz3NKWKb0s51L+gi
+         M7UPzlUqfiH0Y8WvsePP3dfmCqRC8Jv+OqfolzDJri0D3izC3LaPXwXNovw6Hp+QOwi5
+         vRyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792741913; x=1793346713;
+        d=1e100.net; s=20260707; t=1792741918; x=1793346718;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=muNE5kIzhzmSy9zy/DQorm6Ec+5hmWxUkOFZe0Ib8VE=;
-        b=hQ26niFpGBs14uP6rinIVOJwNJIfisHl/IbPciOjytBy90IDIuXbiuEqXAYWhJvcV+
-         QmAC4ytkq1u1zRhH6JRe0yiHfXuelItnM7wwehw0BRR7XeRGKIXn5Xtps3pS0l9hpygh
-         T/4wfZQy+XUmtjjcw6dH9JHAwpJNE8JrhbIlD024NMbNh/LtMm2KorJoAHOshmy21YTo
-         Y7Lh89+K4eAqWmUDIzth80ETxRfhOgPLUalC4UGLS0yBbr9+u1m059IkSs31T+eETTXh
-         PqnI5mZ2d4IvMDiZs+alTllRSUs1UyOBqNQBUIM3/682F6Z9WQC5llhuQgqnCXfTw3sf
-         oTbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfWBQaJ/ckJlxkcZ600ranlRqxPprGuNGX0ic7zBZr4HxVzOfeJIDJiagzym9w+KnXstHFCFh017gNOiQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI01zrVbvvUTZX8dyDasbtvxu3s+A7sQjWfmwCIZeIj4wwkwK50
-	N3Zw20iIl87ZqVmP8GT8NpeKS1ucE+h6A3EWIpOcUbRdYaNrHWr/5Dlx
-X-Gm-Gg: AYBFou2LPmr9tX1NggJ2p7Fk+AKdMIYXElpBL6jJojWdAjOd+vKECrhHrFjXXuDZ1RB
-	O4swThh0ZhIXZtxCg7qNbSoUvR9s8GmHNGdMZHlLOxUV7OE9pjvRip+rWAfzoKEfehr5iL5F9SZ
-	xVrmRagRT6DK8Xp1uDPZO5+RBrkWRmj/kvHaovFLFUpDWVTlA9lD+pEHjEsQHG7JK7JE5nLbF0m
-	dbEuGdfLhz5+KOEyERhJMt73G1Fs1xpMcjA9l52/8VCeQBn9+wZbB0t6dsfgNFoJJBvxVC+NdL9
-	if/mEMl5fE9Wji7PQqcvzv256Pr3ILAi2ModhBNy9BUp1Qi71BbdKTM75SyXHZCHeDZZ6pylB7J
-	fX0fNHOOVYOkjm1jdIi4iL90ljCl+PBY7zgeVKBDcy8LZnnIbs6t90Gm10gSsdABR6S0+S/zN0R
-	NgKHGEOClXqKUJziZSCNi2xI3l5q9XFYJVB1VfZSzkH9av1HDWOfb8C+ltksySD5/AbuEU5QDH3
-	6KwmGBFTE4F1Fds1Oa3aNauYL4e6IgZ1N/EQgunR/VLiDLvHO4IEe2DYA==
-X-Received: by 2002:a17:903:2f44:b0:2df:aed3:2ac0 with SMTP id d9443c01a7336-2ea7d09c285mr14383685ad.10.1792741913096;
-        Fri, 23 Oct 2026 00:51:53 -0700 (PDT)
+        bh=YqasG4hoa5HMln8cuz36jlojNM8+bH53t/aSP0CVnp8=;
+        b=lP0QRfe3VaQD9Gd98HLL0IphFfN7POw3QkPw9J6/DjUMnixiDbALFniT2UbIxoYm3p
+         5bRbJ1ewR4fa/dCKVqWmHvMiglWdaTWqgFdkoXiHQilu9bcZEOkh4cqhB5VCfu6kHo0y
+         /iGkW9vcD84MCipIuVomdtV5EPenKl2nNyulE/u/JJ2In900n9KsY0hB/ySxd8akREbS
+         YWyRfSa4ewAHj79rNfAB8/gq5rp5fLpQZrYauOG8nd/rdxSAV/j4pesPX10gPaZCJ1E4
+         mRdWDuH4ApXYQTPUe7trUV42Leaq2Im9mpJihWwc7ihPyxCmFS2mYg6NQWS/VnaD8pUj
+         p80g==
+X-Forwarded-Encrypted: i=1; AKwUvBzQJrqT0pEqX+16ZdjKvsNKB+f0+MvD8qv+OhFcelW54dEWCFWLlceMdWAj2RlE0y00LH0EqO2X1ZArsGc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUaTqUYPk0zsF3FrAgZnSTpAbPrYgm8xnQVqG0kHioImiG96Jg
+	3dUluD5fEdtBZjoM6UzSpJ8y+VmFzj4R8Tyuwb/EiBmxf5bJgNzhGbeY
+X-Gm-Gg: AYBFou3HefsGslyom3+eL/xGCuaDK3VOFwUL+DqGDHNBLBS5h2eu9VbP2kSGnd91SaE
+	DqribmY9MDSsftBiM6+V4tgQuDQbR6tEyFxIi282MW+ekUEjXYpq7tGEX7ziwHJn9AZxxYo0qBS
+	+HfI5d3JlJgVhtfcOf5vS5XpU70NzBEk+Yz8B4MoT1jg5CR9UXWWJB/hkJtGl/tZqK2aInjuY89
+	3KJXTMKGi8OazrVkE2Cc2CkSG6H5Rb5AfDeA4m8es7sTd8Kbyfm7jVGm5Tl6kZvUKcR5kGqUukd
+	MukCDTaJxnOy8Oq+CKdQfe0q0rbLaXGhqcm7hwMwS9xtwJCmT8pDHQIxTDq2dP1y91UqI4Mz4RA
+	8qaKZ1D54CKcTCZTF6ef9ptE+UUoPfOrjVa46EpEO5lE+abhgXhtp8exvZgXjRVYB34A4Xpcaad
+	GHLVD7ZxjeYHV6RCPR5WkhXwyxrxZ0unQfvm9wx466ewRxQEI+BN+/YYK0eNnmJmBM+gju0LR0A
+	g8odwwG1vMNs26ci4sYAfV3YzY+U5kc5CtivIGbCPf3SmFWeJdqIl8y6xPTHMVbt3YsxjUfkpyq
+	bdU=
+X-Received: by 2002:a17:903:26c7:b0:2e9:6be2:1296 with SMTP id d9443c01a7336-2ea7c330b3bmr15087225ad.56.1792741918158;
+        Fri, 23 Oct 2026 00:51:58 -0700 (PDT)
 Received: from gmail.com ([185.220.236.117])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b368c90sm7208265ad.29.2026.10.23.00.51.48
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b368c90sm7208265ad.29.2026.10.23.00.51.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:51:52 -0700 (PDT)
+        Fri, 23 Oct 2026 00:51:57 -0700 (PDT)
 From: Jia Jia <physicalmtea@gmail.com>
 To: netdev@vger.kernel.org
 Cc: stefanha@redhat.com,
@@ -94,9 +95,9 @@ Cc: stefanha@redhat.com,
 	kvm@vger.kernel.org,
 	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 1/5] vsock/virtio: split socket lookup from locked RX processing
-Date: Fri, 23 Oct 2026 15:51:36 +0800
-Message-Id: <20261023075140.9613-2-physicalmtea@gmail.com>
+Subject: [PATCH net-next v5 2/5] vsock/virtio: factor RX skb metadata budget check
+Date: Fri, 23 Oct 2026 15:51:37 +0800
+Message-Id: <20261023075140.9613-3-physicalmtea@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261023075140.9613-1-physicalmtea@gmail.com>
 References: <20261023075140.9613-1-physicalmtea@gmail.com>
@@ -111,187 +112,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Split virtio_transport_recv_pkt() so socket lookup is separate from
-processing that occurs while holding the socket lock. This prepares the
-receive path to retain a looked-up socket across multiple packets in a
-later change.
+Extract the skb metadata budget check from virtio_transport_inc_rx_pkt()
+into virtio_transport_rx_buf_full().
 
-Keep virtio_transport_recv_pkt() on its existing per-packet locking path.
-Pass the caller-provided network namespace to the locked helper so reset
-handling retains its existing semantics. Preserve source validation and
-failure handling.
+The helper retains the existing condition and will be reused by a
+following RX batching change.
 
 Signed-off-by: Jia Jia <physicalmtea@gmail.com>
 ---
- net/vmw_vsock/virtio_transport_common.c | 131 ++++++++++++++----------
- 1 file changed, 78 insertions(+), 53 deletions(-)
+ net/vmw_vsock/virtio_transport_common.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index f225f53ed4bab..43325d7aebbb1 100644
+index 43325d7aebbb1..2a9cfed085515 100644
 --- a/net/vmw_vsock/virtio_transport_common.c
 +++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1774,6 +1774,80 @@ static bool virtio_transport_valid_type(u16 type)
- 	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
+@@ -576,11 +576,17 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
+ 	skb_queue_splice(&new_queue, &vvs->rx_queue);
  }
  
-+static struct sock *
-+virtio_transport_find_socket(struct sockaddr_vm *src,
-+			     struct sockaddr_vm *dst, struct net *net)
-+{
-+	struct sock *sk;
-+
-+	sk = vsock_find_connected_socket_net(src, dst, net);
-+	if (!sk)
-+		sk = vsock_find_bound_socket_net(dst, net);
-+
-+	return sk;
-+}
-+
-+/*
-+ * The caller holds sk's socket lock.
-+ */
-+static void
-+virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-+				 struct sk_buff *skb, struct sock *sk,
-+				 struct net *net)
-+{
-+	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-+	struct vsock_sock *vsk = vsock_sk(sk);
-+	struct sockaddr_vm src;
-+	bool space_available;
-+
-+	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-+			le32_to_cpu(hdr->src_port));
-+
-+	/*
-+	 * The socket may have been closed or reassigned after lookup but before
-+	 * its socket lock was acquired. Listener sockets have no assigned
-+	 * transport.
-+	 */
-+	if (sock_flag(sk, SOCK_DONE) ||
-+	    (sk->sk_state != TCP_LISTEN &&
-+	     !vsock_check_source(vsk, &t->transport, &src))) {
-+		(void)virtio_transport_reset_no_sock(t, skb, net);
-+		kfree_skb(skb);
-+		return;
-+	}
-+
-+	space_available = virtio_transport_space_update(sk, skb);
-+
-+	/* Update CID in case it has changed after a transport reset event */
-+	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-+		vsk->local_addr.svm_cid = le64_to_cpu(hdr->dst_cid);
-+
-+	if (space_available)
-+		sk->sk_write_space(sk);
-+
-+	switch (sk->sk_state) {
-+	case TCP_LISTEN:
-+		virtio_transport_recv_listen(sk, skb, t);
-+		kfree_skb(skb);
-+		break;
-+	case TCP_SYN_SENT:
-+		virtio_transport_recv_connecting(sk, skb);
-+		kfree_skb(skb);
-+		break;
-+	case TCP_ESTABLISHED:
-+		virtio_transport_recv_connected(sk, skb);
-+		break;
-+	case TCP_CLOSING:
-+		virtio_transport_recv_disconnecting(sk, skb);
-+		kfree_skb(skb);
-+		break;
-+	default:
-+		(void)virtio_transport_reset_no_sock(t, skb, net);
-+		kfree_skb(skb);
-+		break;
-+	}
-+}
-+
- /* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-  * lock.
-  */
-@@ -1782,9 +1856,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+-static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+-					u32 len)
++static bool
++virtio_transport_rx_buf_full(struct virtio_vsock_sock *vvs)
  {
- 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
- 	struct sockaddr_vm src, dst;
--	struct vsock_sock *vsk;
- 	struct sock *sk;
--	bool space_available;
+ 	u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
  
- 	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
- 			le32_to_cpu(hdr->src_port));
-@@ -1808,13 +1880,10 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 	/* The socket must be in connected or bound table
- 	 * otherwise send reset back
++	return skb_overhead > vvs->buf_alloc;
++}
++
++static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
++					u32 len)
++{
+ 	/* Allow at most buf_alloc * 2 total budget (payload + overhead),
+ 	 * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
+ 	 * metadata. Check payload against buf_alloc to be sure the other
+@@ -588,7 +594,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+ 	 * queue growth.
  	 */
--	sk = vsock_find_connected_socket_net(&src, &dst, net);
-+	sk = virtio_transport_find_socket(&src, &dst, net);
- 	if (!sk) {
--		sk = vsock_find_bound_socket_net(&dst, net);
--		if (!sk) {
--			(void)virtio_transport_reset_no_sock(t, skb, net);
--			goto free_pkt;
--		}
-+		(void)virtio_transport_reset_no_sock(t, skb, net);
-+		goto free_pkt;
- 	}
+ 	if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
+-	    skb_overhead > vvs->buf_alloc)
++	    virtio_transport_rx_buf_full(vvs))
+ 		return false;
  
- 	if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
-@@ -1828,52 +1897,8 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 		goto free_pkt;
- 	}
- 
--	vsk = vsock_sk(sk);
--
- 	lock_sock(sk);
--
--	/* Check if sk has been closed or assigned to another transport before
--	 * lock_sock (note: listener sockets are not assigned to any transport)
--	 */
--	if (sock_flag(sk, SOCK_DONE) ||
--	    (sk->sk_state != TCP_LISTEN &&
--	     !vsock_check_source(vsk, &t->transport, &src))) {
--		(void)virtio_transport_reset_no_sock(t, skb, net);
--		release_sock(sk);
--		sock_put(sk);
--		goto free_pkt;
--	}
--
--	space_available = virtio_transport_space_update(sk, skb);
--
--	/* Update CID in case it has changed after a transport reset event */
--	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
--		vsk->local_addr.svm_cid = dst.svm_cid;
--
--	if (space_available)
--		sk->sk_write_space(sk);
--
--	switch (sk->sk_state) {
--	case TCP_LISTEN:
--		virtio_transport_recv_listen(sk, skb, t);
--		kfree_skb(skb);
--		break;
--	case TCP_SYN_SENT:
--		virtio_transport_recv_connecting(sk, skb);
--		kfree_skb(skb);
--		break;
--	case TCP_ESTABLISHED:
--		virtio_transport_recv_connected(sk, skb);
--		break;
--	case TCP_CLOSING:
--		virtio_transport_recv_disconnecting(sk, skb);
--		kfree_skb(skb);
--		break;
--	default:
--		(void)virtio_transport_reset_no_sock(t, skb, net);
--		kfree_skb(skb);
--		break;
--	}
-+	virtio_transport_recv_pkt_locked(t, skb, sk, net);
- 
- 	release_sock(sk);
- 
+ 	vvs->rx_bytes += len;
 -- 
 2.53.0
 
