@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792724725;
-	b=DWYyCeeQcV/f4zgQn/PXf0BodUgjAury2tFpw6XA3WMjaohUh54MWiXNR4IUGMVyR+3V
-	 xTv35GHAAYQPfpsV2edGY6zC/il+Ttv2nOAgmbV3QZ6kIKw6rTyITrRhPKL1rSV+8kHzG
-	 fi5XzZFHCRtxfY0ZMiZDpL8tOukWCD9KCJP8zwNUwofAtraqhUg8xJzGJm91ELzPDxCEz
-	 VbzC+y02WX2QfziuRBP9ubueCjOxdtXc/yFVJgcOk1p0RiHGdZGr0Fhn85/uwcQ6Z0EHK
-	 wNgWkKNGCdX9YCw+00nf1yuAhj/wSNZjy/ur/P+pEplnHs1n/LGWUdv+jVnoKEDpfWw==
+	t=1792724734;
+	b=R9ja9lwadkF6+1zWuLXf6ZXZObXohDCkJBrW5wfAZxgudwGZBHdQlKXfatAiTdYesUVm
+	 tQ8s1ujsjZG7WF03U9X/Js3LRqwiasrCm8afjNtc43y4GYnqH2dTmaoVKWMrJqQGl24oK
+	 7r6uCKhi7fwCT3A1F1RoTsoTk0h5udfjb+PfMviWB05MdEQwkUOdA4GOkiVQP66N+AfWn
+	 4c3SPpxirMvCX9HPQchhSXZyIQCT7Fm42ZRodrlbAbrAAjYgsSXWq1tKl6fzw5zmquJrd
+	 14YsJAFBbDAtBCosWdAzMFBVCQCLURVApTqw283Nv6ASBdIkxIu3Vs6TVjaqN4VYwWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792724725;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=dhMnfcK1OZCkXS3jlKG9FO2BzWzDeHFEAl52uVGMzYQ=;
-	b=WJaMFYEN1GnvJlzN1TFVMbqW/vFw6lePSKgXL1iNUKWanXQJ9V2u9HwI3Qfe69ipkHH4
-	 BeAQVPLA20mlocWM7weT3Fi0xwEhrLWqAJCXvhY07fwYaBPpKYWKQg/I/0PCf1bIPuXi6
-	 FHmKDpUUeN0H+M8qhKUgURd/gC9BQisdYY8Gsffeo4SnMHddSmik+TAp3VZqgQ2gxjHf3
-	 P1pL9NAl6CmPA8Bkv5WHJBrTVcf9cL2KBBxIlTSJbNOeXKP6f1H0RmTN5Uy7io/OQzdY7
-	 SoUQj5lo861/9Y0pYKKDoNDnX1xxbdCCwJ0ayEobTTee1KYI4DFhbWe41p/GJTYTCRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792724734;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pOreW26xuh7Frj+IoBIipKrJswLecNXgZZXTEGzCs9o=;
+	b=ni2ABysF7lTzhgjQ6l68HpzQGOA5/FsdHWX2SqDC/yGpGfF+g4B5ejCpyKDHKsPNQcM/
+	 +sqgy+wx3doD6muKWaQ42mTz1BMV+nQH2EZCzVIJE+Sw7/ygSKrz3LqrelntfkjJybEBr
+	 SYACo3pQRNBmc3eCl8krkDHxgqrAPMr3+G72VFBrl+vNF02DNhHXwZpaLJ0VJWMRfpBZ2
+	 Ks1cK2YC/K2z/SIlyywSOV2Ux5VhxzZYUgqi47qIS/Hxp2j+ug63JOK1toYTdI1A+BDtC
+	 JCTpwjP7YAsRS0kHaNLRGBgqn9KVa7crWV1CnN/7Q6Y2cYMAPZHMC4CpMJesOajR6bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hfrTCGXX;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy17Lrhm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825FF606A31A;
-	Fri, 23 Oct 2026 03:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825FF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E399606A31A;
+	Fri, 23 Oct 2026 03:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hfrTCGXX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792724725; x=1824260725;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=m6kBOfHooZ1cfrqoSGRtQrUdWdak3kJ0IQfEZasphkQ=;
-  b=hfrTCGXXO4qALU3MDtZeOD8Gckjslq4PUCeweGPEh3941FD8SiBH+ig2
-   w5RcqRLMh5OoZtQmujnVDHeOJ+8XWAwqZu99zlBImpXP3t70olDKDQHSK
-   h/+GXwOn6VbZTj/Ih2lvPDSwrGBzzlxk5b++ExvVhtROIxobV0EGo8lqU
-   bz0iZzi1QgW6/XHq6iWn6dy3P/5LkxKzVmkghwnwhNj7w7VAC8oTZGFYA
-   1aFJFdFcmoAXn529uvSfxMX5Ba7WlvPtWkwHCfI+Aa7/0kQMWPyVxRaaz
-   faO0O79XK1uRbvf4oW7yXVMr29nE7VPfbDo8XONPs5B41e8xiw6I1/UFq
-   Q==;
-X-CSE-ConnectionGUID: 2jeqCt5wQqaUumTlCwDtIg==
-X-CSE-MsgGUID: BK+hi7ExSqmdarmRl6DrYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1486351"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1486351"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:05:24 -0700
-X-CSE-ConnectionGUID: VwG2/CpzQjGR2tAV6iiDaA==
-X-CSE-MsgGUID: myojr/oLQWupJT3IFQPovg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3403331"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:05:21 -0700
-Message-ID: <88de514b-8f83-4b04-82c8-caa6bd5ac976@linux.intel.com>
-Date: Fri, 23 Oct 2026 11:05:16 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy17Lrhm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401001F01825;
+	Fri, 23 Oct 2026 03:05:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792724733;
+	bh=pOreW26xuh7Frj+IoBIipKrJswLecNXgZZXTEGzCs9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hy17Lrhm2SLixrRMqzphoc7prdI6CmqyW4yavsvC/8MbMd2NaCyCiIbx8antLdHvh
+	 GLvNuWWuBIKJsTfObU5Ul1f/ZqSKOJWnPlLSfOhqPGp0KLXiN5oW9TduPS4pPRaHBH
+	 hCKIwVur07n2tCSITq6CcDTG7GtGUnfu5AbaE/AkDDAMm7bOlwSn3TjB061fK8YE7s
+	 61CF39795eUQ7PXG6U6g+94oNhB2CX91nedvwJph7zQwPxrxG6W2o5cq2tHaUwPlqX
+	 jSerSvoVTIlNcc1fVP5bpliBaW8G0ZR03EY0bQJGoGPNL/POu7U8Ae9xOivahEfQHr
+	 tocUo+qCFWAUw==
+Date: Fri, 23 Oct 2026 03:05:30 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: wim@linux-watchdog.org, linux@roeck-us.net, p.zabel@pengutronix.de,
+	Sergey.Semin@baikalelectronics.ru, mika.westerberg@linux.intel.com,
+	andi.shyti@kernel.org, iav@iav.lv, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] watchdog: dw_wdt: use
+ devm_reset_control_get_optional_shared_deasserted
+Message-ID: <atrO-ntRyvUMrKNE@google.com>
+References: <y>
+ <20261022134354.534642-1-a.shimko.dev@gmail.com>
+ <20261022134354.534642-2-a.shimko.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,89 +61,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
- functions don't match
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, Changyuan Lyu <changyuanl@google.com>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261022210134.612848-1-seanjc@google.com>
- <20261022210134.612848-4-seanjc@google.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261022210134.612848-4-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022134354.534642-2-a.shimko.dev@gmail.com>
 
-On 10/23/2026 5:01 AM, Sean Christopherson wrote:
-> Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
-> entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
-> bug where userspace could bypass the TSX and WAITPKG checks by simply not
-> marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
-> more in-depth validation of the incoming CPUID configuration.
+On Thu, Oct 22, 2026 at 04:43:49PM +0300, Artem Shimko wrote:
+> Replace devm_reset_control_get_optional_shared() with
+> devm_reset_control_get_optional_shared_deasserted() to let the
+> device-managed API handle reset line deassertion and assertion
+> automatically.
 > 
-> This is obviously an ABI change and diverges from KVM's general approach of
-> "let userspace do what it wants".  In practice, no "real" VMM that supports
-> TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
-> actually breaking userspace is basically nil.  And unlike normal VMs, where
-> KVM has full control and thus can deal with bizarre CPUID input without too
-> much fuss, TDX VMs require extra care due to the TDX Module also reacting
-> to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
-> than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
-> setups.
+> The driver currently manages the reset control manually: it calls
+> reset_control_deassert() during probe and reset_control_assert() in
+> error paths and remove. This is error-prone and requires explicit
+> cleanup in multiple places.
 > 
-> Opportunistically rename the helper to make it more obvious that it's
-> checking if the passed in @entry is unsupported, as opposed to returning a
-> set of unsupported entries or something.
+> Switching to the _deasserted variant deasserts the reset line on
+> acquisition and asserts it again when the device is removed, which
+> allows removing the out_assert_rst label along with the related
+> assertions in the probe error paths and in dw_wdt_drv_remove().
 > 
-> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/kvm/vmx/tdx.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-> index 37d088f6f7a8..6abf92ffec24 100644
-> --- a/arch/x86/kvm/vmx/tdx.c
-> +++ b/arch/x86/kvm/vmx/tdx.c
-> @@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
->  		clear_waitpkg(entry);
->  }
->  
-> -static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
-> +static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
->  {
-> +	if (cpuid_function_is_indexed(entry->function) !=
-> +	    !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
-> +		return true;
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 
-Similar to patch 2, if cpuid_function_is_indexed(entry->function) misses some function,
-the value of cpuid_function_is_indexed(entry->function) is not accurate.
+With a minor concern shown below,
 
-For current code, it's OK, since all unsupported bits are in leaf 7.
-In the future, with the TDX CPUID validation patch set
-https://lore.kernel.org/all/20261016091422.3182216-6-binbin.wu@linux.intel.com/
-It still allow userspace to by pass some check in theory.
-> +
->  	return has_tsx(entry) || has_waitpkg(entry);
->  }
->  
-> @@ -2393,7 +2397,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
->  		if (!entry)
->  			continue;
->  
-> -		if (tdx_unsupported_cpuid(entry))
-> +		if (tdx_is_unsupported_cpuid_entry(entry))
->  			return -EINVAL;
->  
->  		copy_cnt++;
+Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
+> diff --git a/drivers/watchdog/dw_wdt.c b/drivers/watchdog/dw_wdt.c
+> index 39031445d754..2cffe337b4ea 100644
+> --- a/drivers/watchdog/dw_wdt.c
+> +++ b/drivers/watchdog/dw_wdt.c
+> @@ -588,9 +588,9 @@ static int dw_wdt_drv_probe(struct platform_device *pdev)
+>  	if (IS_ERR(dw_wdt->pclk))
+>  		return PTR_ERR(dw_wdt->pclk);
+>  
+> -	dw_wdt->rst = devm_reset_control_get_optional_shared(&pdev->dev, NULL);
+> +	dw_wdt->rst = devm_reset_control_get_optional_shared_deasserted(dev, NULL);
+>  	if (IS_ERR(dw_wdt->rst))
+> -		return PTR_ERR(dw_wdt->rst);
+> +		return dev_err_probe(dev, PTR_ERR(dw_wdt->rst), "failed to acquire reset\n");
+
+The driver has been "quiet" in probe().  After the change, it starts to be
+less quiet.
