@@ -1,72 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792782948;
-	b=wQ9OHeTNwUb7qcjZfFkLohTPSxJNQ5Q7XPZYAurTw6LboFZQLoqvpH9aKqKxPfGdNZnI
-	 Gd+mSQ88aJnK8gwPO2i/EaH1GAxxv8l1PwBDyUlbxZ6zZc2sfD5U8I8A63eljFplktHPF
-	 V2DYHehUAg/vcmfvIRz7AnOsVSKiJZPkhyeh9RhlzQqP9Sgk8uPujH00+KONOz73eICFj
-	 7rE9Q8+kyvy+OIbL98ksynKPBllUrdVndgKR3Va1S7dRijfG5hxdd14V/CXRNPP2n3cJg
-	 8KNhRMgDOts9FQyfcMNdOH+fvT3knmgcneBlNA5geDJ9HasM6HDZ/ALNHMjUT3SQh7Q==
+	t=1792783325;
+	b=DuLm9mm9C5ygat7fKEDbQJQfIxnQHcY31MXjBD1Q15at6Xm/MzFzf7vYWVVW3+KkZ+CG
+	 7cIsMoKCCwM7puRFdlxFt9YWnez1l3mpqTEvS8wSZTdOPQgaFMRi+WsU6EAI9dNB/0IyC
+	 nOSmxQVVdhzFCRTL+56EDDSZ4YZapH6KlhDmcOHx94mH8NDjeOWm782kZ2t5T3wW9ead0
+	 qc2MLk4B3EIrp7U0gEhWIBfH6ZY19DMl00Sf3xcbe4F+mlYSkI7BgYY8v0xSvW9+tlHT2
+	 1Nvmltgd0s+SbKpd4M1tSJw0qmi0p2KtFG+tOo0DL+tPUILBNznEk/gIdQ9h25XFAQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782948;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-SEG-SpamProfiler-Analysis:
-	 X-SEG-SpamProfiler-Score:x-atlnz-ls;
-	bh=GYDpi5RtVlsK0rkun9mc+EYvL0sZ5wpDL9jLCDRL5PE=;
-	b=ZYHCjik3I9FjS/7wGic1HygvwGY3zIIsTSkQI7Iq3h4v4DHHcx1HN1Xzm64Hb237OtB2
-	 bKIfQP8z9NGqn5gQgYZ0dLZsY1AeX1uuN0i3m+kwaXyBpYDkFRLFQUqt84QhLjJCctbYH
-	 jsdgz/O57RkOh4lB+IOe1VShVLBLsuRCsiueBx17YcLd6FGBztYlEgex8Bex5x+1njm0M
-	 A7Qf3EuFUVBUBFXVM0EZ+ia8YXM/cPYVBrUi7PiJ/X29AL9RlLESxK689K6ckiX/6SYPp
-	 5X3IH3xdWwjG+OrvSI3MtZFrrMYXFGGVJUmF6lh+ojjlrgCC6HjEyCY9jd7EbZVAeFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783325;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X8md4aIOlBkmqH24qYW8JCIeNhHECyEQ12dw77+1DrU=;
+	b=3lsqCHjmf4nFJs5xqdaObREE38kHvQxQUeitAJeYbfQFze/NUV+KlB26ry7yOlOta/vW
+	 ownJgj7AfrlQE6ZW9eH3i0Ors2V9bIAT7Tv913Hltjs9NWiITYt+BqiAAppNsrmNSF9Bj
+	 J1o/InFR8zFMPEH77Lzjm1iRAqcbYcmCvJPBS1njqBsqbPLKJHkx+3oDalZKDM6qF6UKJ
+	 E4CP7650FyDCgTYZAO0XiGdoQbZ3r2Yvq942BdDscG6ULDqFFEMKOd50YVaLjeihvx2ju
+	 Oi6xXhU13xj9Qgpuem0YDullRjkfF8z/Rb/MzhgK09Qqc321YPP9SLKbNlKR0c4tAhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alliedtelesis.co.nz;
-	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
-	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=CCRfGykf;
-	arc=none smtp.remote-ip=202.36.163.20
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=y+XSboLv;
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78E1606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:15:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78E1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E143B606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E143B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=CCRfGykf
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 3E6112C034E;
-	Sat, 24 Oct 2026 08:15:39 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1792782939;
-	bh=GYDpi5RtVlsK0rkun9mc+EYvL0sZ5wpDL9jLCDRL5PE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=CCRfGykfWdSCc2Jg8sJK3wQfYlYnKpTuILyDQsu7MBwjvLPebwlrGLeXkA5enQmLM
-	 BhNCaz2tt7x4MOtpXOjAWubIlpn1UpmKruQMcwKiZmvREOvvD6Ijfu/ZxMWu4NxROy
-	 3+vueRaQY/Nn14u7mJdWhpHfYVFnLZaxPfL57esUFcMOhETxmPXJqtlwbjF2badSBB
-	 Ds/KmEwMZvpSEu5eReO7mdkXVMnJw4ekxiRXrQQ6zBErqJnwN1RpEbwKMGYZQdrkWU
-	 tWbo1DMK2UXT1UfpGdm3kybdrRPoCNLiHuC44pH1fEqcDwZuZ7jzdwp7mdeEXezHnt
-	 IpNRHB8koZf/w==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6adbb25a0000>; Sat, 24 Oct 2026 08:15:38 +1300
-Received: from carls-dl.ws.atlnz.lc (carls-dl.ws.atlnz.lc [10.33.25.22])
-	by pat.atlnz.lc (Postfix) with ESMTP id EE0ED13ED56;
-	Sat, 24 Oct 2026 08:15:38 +1300 (NZDT)
-Received: by carls-dl.ws.atlnz.lc (Postfix, from userid 1474)
-	id ECF9420388; Sat, 24 Oct 2026 08:15:38 +1300 (NZDT)
-From: Carl Smith <carl.smith@alliedtelesis.co.nz>
-To: wim@linux-watchdog.org,
-	linux@roeck-us.net
-Cc: linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Carl Smith <carl.smith@alliedtelesis.co.nz>
-Subject: [PATCH] watchdog: octeon-wdt: Add a panic_on_timeout parameter
-Date: Sat, 24 Oct 2026 08:15:30 +1300
-Message-ID: <20261023191530.327734-1-carl.smith@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=y+XSboLv
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6d68de53053so655018eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:22:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792783324; x=1793388124; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X8md4aIOlBkmqH24qYW8JCIeNhHECyEQ12dw77+1DrU=;
+        b=y+XSboLvXqMt5nQ+AIFuokPobL4LkcbVHjbQr5cyCqjSTy6p1dE1uWZboKKKrxpgyG
+         7GNN8mNzaUS6VD7MAmcQogyctAAZQBdtdgV40OUvqvHA0QhtLVq+MFvUBxnlQgI3gQbp
+         82HCSo8DP66GWta4Pi4xSkzG8NWnil1/tlbMc/Toj2QOypIOdDXSO7T/ykmKbWMe3brY
+         wIA3CjBGaQ00f+EdHlO+zluPbRu+Nf7WV+dEDZ/0JqQkQuojs41tNnL4iLes6+v5HzPt
+         Javcl4XmKoInKUhJBHerqt6X2yWzbDuzp661Us917gNhwya3BOL2+WB7iT4rZIgsYIaD
+         0mIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792783324; x=1793388124;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X8md4aIOlBkmqH24qYW8JCIeNhHECyEQ12dw77+1DrU=;
+        b=mBASS+EG4kl8R+Z0CefM8rv3WuVbehXdYMJvrwGfeFUwi9ryuMO77ka497wTEjEKdj
+         uKHVeLLVFRiSGsLFZURCBt2UpqoVmdsaZhIHNQwYWx4yoP8RetfnVD1FnMEdV3nVzflw
+         6JYkRtiHGd/DoG4Bx5uyX2kn/vnDkcC3qnlQB9bsypQ07W4b+lymKOA+5sqorLSawbOV
+         MwQzvkghYAaXNSpxCt/+S4ZnkCWJKrffA9vBN36bpmmYVfBDwUEH/9pMVTuQAPb02k3H
+         4Qf1nzhB2XqB9jwCYdww9EIHYHke7Jjv9ZihLRj2Dmi8XmuutUQghsdFn3uXJNgtjWWK
+         P9Bg==
+X-Forwarded-Encrypted: i=1; AKwUvByEN3ZQ59Fu5rQIfg3IeF4wtO2JVioNEydxVuFhgtShrYq+TQCKAzPr5P3NMVyWpjY1Rcoc4EOTAWAGuQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIewgvSypxhrmN+HLVECnHRE02vGErfgC5ucns0ZRlIi/Qkm41g
+	jyD9VnmMapzAJHgxdX6GrPynODfv/sg83zQK7FG3ZIs+82ly0ENo6/q/9oV56nQUcMU=
+X-Gm-Gg: AYBFou0t7yf+vUgQ5oQ4n/iwtezlBFGP6gk1eC1at2fOpTyezBVWGsvpXDisHBP6ItZ
+	aNEVl2Nx7Z27xgo53bTu+nwgBd6xSekWN6h+AZNJhoEN+r8dlmvUX652hsdIMob/HjFQuwNy4p+
+	GIL3MQDrfCoc5N4MfxvRlKAloEFH4conXGObt5B7njLLgNy3fXlmb0pca8rxqlD0VUn1H9ZCQT2
+	ZInAqsJgRkiT8zre9yJWAnDyyZ7zJG/9jFBiPyFqlAI/xUe3yp4gIXAYNiddqwkCVH0HI/RgxxP
+	ePKIyoIupreml9MHYHNzBg0qDXHxof7QZ1N3/Ao7a3SliShVdB2om8fEh/pHv4eCMWq+FMDwuQJ
+	h+XbmxOx/cmVbVtEcCwTQhVgkSzTSgdMNxAmToyVMHFDuy1GYGs4l1Urj2rNzBjzDh6LAlH8/Fa
+	Lej8A298OPb3uakiM1xrmSqsOhgbiulMXpB0eZP2Sm7w7EVbmexW9QIeXduWFOBTOOG/D9woDSp
+	zJWoKkMwF7kIeQY87Xf+sYAaFP71SNgimAtX9Z/smg+MUBtgr3lJC8I
+X-Received: by 2002:a05:6820:3404:10b0:70a:df8e:8f56 with SMTP id 006d021491bc7-70b88aae418mr1419523eaf.78.1792783323778;
+        Fri, 23 Oct 2026 12:22:03 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb649b53sm326403a34.16.2026.10.23.12.22.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 12:22:03 -0700 (PDT)
+Message-ID: <cab7475e-8151-4843-855a-5aa47f75272f@riscstar.com>
+Date: Fri, 23 Oct 2026 14:22:02 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,59 +91,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=FJW4xPos c=1 sm=1 tr=0 ts=6adbb25b a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=LF8zZQ1HZBz04lkw01wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
+ toshiba,tc9564-reset.yaml
+To: Conor Dooley <conor@kernel.org>
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012164354.3872326-1-elder@riscstar.com>
+ <20261012164354.3872326-2-elder@riscstar.com>
+ <20261012-shale-rosy-805c49f6c404@spud>
+ <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
+ <20261012-numerous-flatworm-9e4cfa659541@spud>
+ <325b8836-61a2-4e1c-98e3-92f0a5177f9d@riscstar.com>
+ <20261013-stump-reactor-055d05dc5b3a@spud>
+ <b904f4ea-e198-488e-a6dd-476d744593da@riscstar.com>
+ <20261022-clench-drum-5907c17cb8d2@spud>
+ <638e0f29-1ec9-4a6a-8777-fecef1bff409@riscstar.com>
+ <20261023-bok-thong-0181aa7f3867@spud>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20261023-bok-thong-0181aa7f3867@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The hardware watchdog period is only a few seconds, so the driver counts
-the heartbeat in software and stops poking the hardware when it expires.
-The resulting reset leaves no record for crash loggers such as mtdoops.
+On 10/23/26 1:00 PM, Conor Dooley wrote:
+> On Thu, Oct 22, 2026 at 02:05:12PM -0500, Alex Elder wrote:
+>> On 10/22/26 1:34 PM, Conor Dooley wrote:
+>>> On Wed, Oct 21, 2026 at 02:50:41PM -0500, Alex Elder wrote:
+>>
+>> This syscon driver and "sg2044-topsys.c" are awfully trivial,
+>> and they seem like they could be wrapped in something along
+>> the lines of "simple-mfd-i2c.c".
+> 
+> Yea, I guess there could be some sort of trivial driver that covers
+> these syscons with match data that contains the mfd cells and is
+> effectively just a probe function that looks like:
+> static int _probe(struct platform_device *pdev)
+> {
+> 
+> 	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+> 				   match_data.devs,
+> 				   ARRAY_SIZE(match_data.devs), NULL,
+> 				   0, NULL);
+> 	if (ret)
+> 		return ret;
+> 
+> 	return devm_of_platform_populate(dev);
+> }
+> 
+> The devm_of_platform_populate() you don't need, but there's other
+> syscons that could use this that contain subnodes too so might as well
+> accommodate them.
 
-Add a panic_on_timeout module parameter, off by default like softdog's
-soft_panic, that panics when the heartbeat expires. The panic is logged,
-and the hardware watchdog still resets the board.
+I'll add this to an eventual TODO list for myself.  I won't
+get to it right away but I'd like to see this improved.
+We're left with a little duplication of some extremely
+simple boilerplate code.
 
-Tested on a CN7130 board with mtdoops.
-
-Signed-off-by: Carl Smith <carl.smith@alliedtelesis.co.nz>
----
-Note: octeon-wdt doesn't support pretimeouts, so the panic pretimeout gov=
-ernor
-can't be used.
-
- drivers/watchdog/octeon-wdt-main.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/watchdog/octeon-wdt-main.c b/drivers/watchdog/octeon=
--wdt-main.c
-index 171b46d780e6..d29a63899847 100644
---- a/drivers/watchdog/octeon-wdt-main.c
-+++ b/drivers/watchdog/octeon-wdt-main.c
-@@ -107,6 +107,11 @@ module_param(disable, int, 0444);
- MODULE_PARM_DESC(disable,
- 	"Disable the watchdog entirely (default=3D0)");
-=20
-+static bool panic_on_timeout;
-+module_param(panic_on_timeout, bool, 0444);
-+MODULE_PARM_DESC(panic_on_timeout,
-+	"Panic when the heartbeat expires, instead of a silent reset (default=3D=
-0)");
-+
- static struct cvmx_boot_vector_element *octeon_wdt_bootvector;
-=20
- void octeon_wdt_nmi_stage2(void);
-@@ -143,6 +148,8 @@ static irqreturn_t octeon_wdt_poke_irq(int cpl, void =
-*dev_id)
- 			/* Bad news, you are about to reboot. */
- 			disable_irq_nosync(cpl);
- 			cpumask_clear_cpu(cpu, &irq_enabled_cpus);
-+			if (panic_on_timeout)
-+				panic("Watchdog timeout");
- 		}
- 	} else {
- 		/* Not open, just ping away... */
---=20
-2.55.0
-
+					-Alex
