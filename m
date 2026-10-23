@@ -1,78 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766967;
-	b=hIuQegasmNdd7ekxFsFIdOfOi7IfRixo17FVNg5mt837M+rNeuTh4joK0HYpyz0nV1AE
-	 m/x1oRHXdQuz9GOFpPy/g6MTCfB9XlFn+zYIQyYnOEpUahN29YuHxj+hsLizFBPLPFtRG
-	 5mzPbgrsWazyqElOnlRfGO3P5DpbZHgQ5gBfqkY3bP4NVHJHPc5RV8tAtzcjNyU9+vlSo
-	 EBYebAeF0M2SXs8Gr2LQ9gkjF6izVgRZWX8eUBgc9Y2Bj/Ezv+e3rZV5CiqZ19wfan/AO
-	 BF1VYeCi3menwvDXCuQSTyQIbPBRR+WqjDL9dfR6J8aRCn9PIviqe38UOTaDkFgS1hw==
+	t=1792767016;
+	b=pV0i8S+1ukDPMIT2v32fgKCQkNSJjT/Hw6Lqsaib5IKtYGgj2XB2Ynt10HTXRHlyMYrY
+	 d9C6uP9PCRZls7gZD6yhJDvHcsOpz6IxQznfeYvjA1xOOy4x0nrKHdfW3Y30GfF2XHLUe
+	 Gme4bC8jzmOOtsLSc7Pv/sQIuM3Hreio5DO/0Xy+bMqZpLjEerui3GfXk3gTEoNJfYYnf
+	 lxvm/Nt00Lhom82KSETKIHjEPlb7mMLSeLZ2Cg+0lWIyGdaXIAjTQI9cu6zp5REaI2HJP
+	 +KN4FvWfzF5HAKubCoI2nGEX64pzVYvKfiukco0mPDEbs5QM7wXYHqdol6pyjLpcfmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766967;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=CYzMEAHApivYCP8/exvzfI2CA3vBzZ00qpCpnK0G8Y8=;
-	b=CbAyR8CvjHc4sqa8W6o/6MLqOWankkWLqi5qRyB/D4+TH0BEHmI20yZmA6/bi5WhdLs8
-	 mH6jjkoLvVTD+IWMtA8NJIicPUPy2NSvsQHtuyb4NUlouokf11OdEtMSOPTDfSCo7nuLQ
-	 mT7CKMk5zd9kdwgZrUVFXThSduc2txa6/gjJceFF7hQbA/lY14JE1MObFbIheILBe562Q
-	 4JcRtdB3wVgGLx9VdT2aG4aHlbuUmemoIrk2WkW6yDc0rb4RWMyGm1JGgZvGu6Qp3Prcz
-	 tgTvGocvp7KlQ0youYdFyd4RJnaCtq91n3L7hrbTzCKlP7+WeQVVwGxjG0VoHqVHHPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792767016;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version;
+	bh=NjWFtdnBgSFOZ3uhfMFqtap/ADctSoImeN+zujiPObw=;
+	b=TIEH6rdf/VbHYdqi6Qqs2xqKZNNVcpEfdQ5PhRNcw2AV9s2e4DUuilt7o7cwKGdJvwnE
+	 KpRviJtFkkl+pL7mHC6C3Ar4+oBR1beesYAyjpcKx/py98fNTA5rm4TNOfxxMPKWoJ/Za
+	 HPIHFGfXcp8YIFLY/rPfO5kam3krHP44AY0YzLfN7Y2WmMZ+EyUG08QlqXuZB/QmKk2w8
+	 JM4aqpzkFTd5kO8uxIwVdbmTLLjIwugo+7mpaV6tI2wW/im8ljp6Ux8F4ZuWU0QwweD4N
+	 JCmbycIm/tAEnqH9vMn1QCq134LPkfgrfKhCHVBM/LzTxYrtStiQoEQHyUu+7N3+E+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AMeYNR7+;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b="fmo9C/Vm";
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C19606A31B;
-	Fri, 23 Oct 2026 14:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C19606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8033A606A31A;
+	Fri, 23 Oct 2026 14:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8033A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AMeYNR7+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792766957;
-	bh=SyZaUgV/c3CuArgpdL0JMROnvDgkuW0JU2NShYNaV9Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=AMeYNR7+BfMAp0d9bly7MVr8nRgEc80IJlsaEBat2dwNAu5Wk7BtwLG2phY0uNJcQ
-	 9Qtgu6vNvfQ/7EC0L+pljicNidLHwKAwYvEFqQy6R8vRORZ2Q+JO1SXrpuEYP24v4m
-	 JKsrIeRLx/rfi2Ti/UgruEW86Jkk7MmwJ5rZzFxc7R6ZLZ4KF6k0ZZvprs4OFz4AB5
-	 luP6VFhq+rU1UAfj1S4uIlw6t+50D+mkwiw1SVUi3U7tXxyCIDYsXhDhK9VZUNTOb/
-	 9F7g8kUjBc+8qpEAihKQK+0MpEtkiDtUy7d8dQpN9n31Gq+/HfgK8YrNR8njT1FfgM
-	 T/xnIU75fw8MQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 40C9F25AD9;
-	Fri, 23 Oct 2026 17:49:17 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 23 Oct 2026 17:49:16 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.51.25])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jB5Wc0GzKzcFj;
-	Fri, 23 Oct 2026 17:49:16 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	linux-bcachefs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 6.12] bcachefs: Drop swab code for backpointers in alloc keys
-Date: Fri, 23 Oct 2026 17:45:41 +0300
-Message-ID: <20261023144542.1053-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=fmo9C/Vm
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE6mHI4008465;
+	Fri, 23 Oct 2026 07:50:14 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=NjWFtdnBg
+	SFOZ3uhfMFqtap/ADctSoImeN+zujiPObw=; b=fmo9C/VmYtpi/Ko0sea2FYL41
+	tfzzOQVmRofxDoG3T3YRFyDLUJ6ajUXsgWC/1hwqqr4Z7b2LrNcBu7I4Y67LXdEU
+	86gjxu4vC7s9B1PIx4tepUKzYPN6L96GWJZ9b0zmQqJVxab6etTezwXqGXhqhnKt
+	2UWtL0uyqjdSYLMTq2IfCXBYJhzFduSsn9TBJN5gVDzPCDtqoLn5b/N274csERxN
+	WqfaiW8rbjSTw9pmqw8hophsz6rmQebRtehOK03DIwCWPh0+3vF5XdKAtfiXWzU2
+	W8Rjt+VAle7DMgyrxVhOD/4Spf8lWuXiAlw8XIHjTTVwSnKtbIJAeKH5S0YnQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hf9ftuerd-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Fri, 23 Oct 2026 07:50:13 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 23 Oct
+ 2026 14:50:12 +0000
+From: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@meta.com>
+To: Jens Axboe <axboe@kernel.dk>
+CC: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@meta.com>,
+        <io-uring@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] io_uring/net: Remove useless min_not_zero() usage
+Date: Fri, 23 Oct 2026 07:49:52 -0700
+Message-ID: <20261023144953.3584118-1-cleger@meta.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,70 +73,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206945 [Oct 23 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/23 13:00:00 #28730621
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-Proofpoint-GUID: N1cR58WM3BlUZOydOBDlZQDsmvhu3j2j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1NyBTYWx0ZWRfXxyVfojqUFVoN
+ rXDvTFiVPiCJSUNt5wgVXSHIBHJk2nVrn0Bf08pkw9rvbhoQBKQxIlbZToknzJWP0Zkm4rjY4mC
+ HW8OGXjH64NNULXK3YQajAJDFutV/Ks=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1NyBTYWx0ZWRfX7nF65pFPNXwh
+ krjU4HoLdV+hAOWf5eONww2pVSBNCggCvBdyxBK/07LT5keNPQMi17uF1ZockgeIEyc6UdsFNV9
+ C1xuyfhWnkjorfQtCYqp8KwhCkj2QPDi3tqKvK1ZPEt8taKkDmCdm03xtFxs+aOYmKnQmlHoLUZ
+ 74DV5r4O4B9dq9yAI6+FqOvBMPdXznU8CfjblgzVZYYePsE1vBylqW/LOQMrBSOmy+iuxO9XJOL
+ scQnM2WbI0Sa19OWZDaNDgEi/8FkzrJ8IzgGA+t9xHQajBhpbC3XrqI/hI66FI82OB9d00/m69N
+ gWtqxrM8XsAVE3YjYICrmjh02CpdbXn4XZxYJVbp2evQzNWSK3iMC9uzdWjKyPUFDtK33hh7Vlw
+ b+Et5ETcHvVaCPlvtduFA+tvserQlAyED93Uziqf+SjPFjC8l3SFjqx/3iyRgq46q3y12r6JKe1
+ jmg+tEF94IH3kncov7w==
+X-Proofpoint-ORIG-GUID: N1cR58WM3BlUZOydOBDlZQDsmvhu3j2j
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6adb7425 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=JnKecZnUtZousrUlYMGU:22
+ a=VabnemYjAAAA:8 a=CJ9Eo-JWUmPYsR3IkTAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
 
-From: Kent Overstreet <kent.overstreet@linux.dev>
+In the else arm, sel->val is necessarily 0 so the min_not_zero() actually
+always returns kmsg->msg.msg_inq. Remove the min_not_zero() usage and
+replace it with kmsg->msg.msg_inq.
 
-commit abff9b149dcc0a584cbadc869167e5a7199cd1ce upstream.
-
-Signed-off-by: Kent Overstreet <kent.overstreet@linux.dev>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Signed-off-by: Clément Léger <cleger@meta.com>
 ---
-The upstream commit has no description, so some context for stable:
-bch2_alloc_v4_swab() is called from bch2_bkey_compat() before
-bset_key_validate() when reading a btree node written with the other
-endianness, so the backpointers start and count it uses come straight
-from disk. With bogus values the loop byte-swaps memory past the end of
-the key value, possibly past the end of the node buffer.
+ io_uring/net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Backpointers stored in alloc keys are not used anymore,
-__bch2_alloc_to_v4() and bch2_alloc_to_v4_mut() drop them anyway, so
-removing the loop is safe.
+diff --git a/io_uring/net.c b/io_uring/net.c
+index f5f4f3ce6ef3..efc8ea5010ad 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -1146,7 +1146,7 @@ static int io_recv_buf_select(struct io_kiocb *req, struct io_async_msghdr *kmsg
+ 		if (sel->val)
+ 			arg.max_len = sel->val;
+ 		else if (kmsg->msg.msg_inq > 1)
+-			arg.max_len = min_not_zero(sel->val, (ssize_t) kmsg->msg.msg_inq);
++			arg.max_len = kmsg->msg.msg_inq;
 
- fs/bcachefs/alloc_background.c | 8 --------
- 1 file changed, 8 deletions(-)
-
-diff --git a/fs/bcachefs/alloc_background.c b/fs/bcachefs/alloc_background.c
-index c84a91572a1d..402f20eadae2 100644
---- a/fs/bcachefs/alloc_background.c
-+++ b/fs/bcachefs/alloc_background.c
-@@ -322,7 +322,6 @@ int bch2_alloc_v4_validate(struct bch_fs *c, struct bkey_s_c k,
- void bch2_alloc_v4_swab(struct bkey_s k)
- {
- 	struct bch_alloc_v4 *a = bkey_s_to_alloc_v4(k).v;
--	struct bch_backpointer *bp, *bps;
- 
- 	a->journal_seq		= swab64(a->journal_seq);
- 	a->flags		= swab32(a->flags);
-@@ -333,13 +332,6 @@ void bch2_alloc_v4_swab(struct bkey_s k)
- 	a->stripe		= swab32(a->stripe);
- 	a->nr_external_backpointers = swab32(a->nr_external_backpointers);
- 	a->stripe_sectors	= swab32(a->stripe_sectors);
--
--	bps = alloc_v4_backpointers(a);
--	for (bp = bps; bp < bps + BCH_ALLOC_V4_NR_BACKPOINTERS(a); bp++) {
--		bp->bucket_offset	= swab40(bp->bucket_offset);
--		bp->bucket_len		= swab32(bp->bucket_len);
--		bch2_bpos_swab(&bp->pos);
--	}
- }
- 
- void bch2_alloc_to_text(struct printbuf *out, struct bch_fs *c, struct bkey_s_c k)
--- 
-2.43.0
-
+ 		/* if mshot limited, ensure we don't go over */
+ 		if (sr->flags & IORING_RECV_MSHOT_LIM)
+--
+2.53.0-Meta
