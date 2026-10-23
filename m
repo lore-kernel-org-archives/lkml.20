@@ -1,87 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739957;
-	b=fWZVbWezzkP63Lr53DRpSi0zA7jugJvSDY1QDsjb48A9u1wgSnL2zRjnBjB5fHwkSujz
-	 5K6BsfYyYZ5Oc+4A59E0lCooJnDjNV64+BF1BBED3dkIyKqPveq/PpayZcVAR54DUNrBx
-	 iVEEHCqA6Fjws1sevDSC2LGqLNiIsYrlt3/Ha+cosiFZVKhTA5rOJ+XdXWcA+FiFJghl7
-	 TAkJehAiVp/P16hHpEllW7QArXECKMOzFLME4WUVdhNSjQKjUTb6fAyQn7115rwcrOc1P
-	 zRGGuHABl3/UpBreeXXZUjlJ40z2q9qSUc9aL97KZBUMBo/rdCY5d2LHghyauduJO1w==
+	t=1792740008;
+	b=2gmXX57jcZ+MoBdH9PisqgWk7ljZszPUJBpAVSnRZ+NF09HyRb1gjbU5IVbZhmG0jf+N
+	 LwfiBBLtbXncoMu8//6Y3gY9NvQuuLhgc3WuV3ma08iDubMJwy3+jXodO8TaICBl758BE
+	 m3QHCr4ga3puyXnjcQUvGaWp/T1g7ei/Acg+eBMcOxw+NIYz+KckxWr4EONdmgGMD0UAn
+	 l/ghfHtvZdB3m4oRRKqLcQUR5fY0haOyH+2x8SOmTfQRaR6MAXeqWFqYAZKagfKCsUFNG
+	 niVLTHqJ5+AfAmyodOyiUzdxFtYAztZg2uoMiQ847G6izzTTKLGwf+weiINjzMHxFig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739957;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=sjBoBNagG3bs/Tn74GMqC6JSYkQzxcT48nSaPWKgX/A=;
-	b=r9maGk3zcXPBMqNZ3kBIW1mUICxe1X5M6b1xxDXEl3VE7pwsLCPx544CFWYm18IF+kzv
-	 Iu4s8RoYOMcJODQr59o4D31vylT7XssRcgwlhrbDYTMXofwhgTikgtCl2R1ILcicL98Hf
-	 vY2Oy61QKmVOE5W354NNm9aFYJk+62G+KKHNROM9+ukpPXUEo4RgKNZKTPl44vHfwgmRp
-	 SrROTcwxRyBmUrytZWfiszkJhO2eeDfiQbgAzg7MBxV6MbjsjtLoPPVoO3aAs9n5lki3p
-	 WJSqMvSJhQbXqdT+silxupEI8ReVvpfmURGVBqXhmH7Rca6pma+ZtB++gHnkePFBxGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740008;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=DBIigRwOmB3mzDWu/BG0DQ3cCq9erW6+W+oz6DRhxbQ=;
+	b=T9aKQitNFwaSdmZ76fCddElU0YpXVFv7XpZ1KEFfyU2KNrrdowtxkHI7kvkq9McXkfGH
+	 Boqy52CjMU5K2u8v43sK8WuajXUb1AWA9icROiHzQL/8whD7kZoaHIa5GtHvu9YuwpFwV
+	 YHfq9+Oya9AjdrWEeZtwSQ8PKGTwm9R3o5APz9964+ulXniSJ4vGmLi1C3rT4EI55DIeU
+	 MZ9NipnHw2OmFvfMfQzAt8ckT+w9ClUKnu5QGpXPsz16Qc7k0ZGRGpjmzoFsYGNU+gS3g
+	 i7ssEEhQeGmNrEc5C5xjqYt/NJ07x6Md0/85Lo+EZ8e80YLKctDI4GCknB0BpFbIoAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=FfuOtVMm;
-	arc=none smtp.remote-ip=67.231.148.174
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ii5evdw4;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A468F606A31A;
-	Fri, 23 Oct 2026 07:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A468F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F4E606A31A;
+	Fri, 23 Oct 2026 07:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F4E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=FfuOtVMm
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7Dto02770028;
-	Fri, 23 Oct 2026 00:19:09 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=sjBoBNagG3bs/Tn74GMqC6J
-	SYkQzxcT48nSaPWKgX/A=; b=FfuOtVMm6oqKEn7U7sH3ROuaQQ8IQbIyfuhdF1h
-	jq/hsapsTingZpy+OollKqUp7KNCkyWD3D9Zafd7oWOtSXhDJySOqp7r9WO+Jft/
-	n2h1sOSfU1usAyxYHI3vJElZYv9qwOiFBg2d+di7DMF1T2W3j6B97/yNr95iyI8C
-	MafVeyRsA/H7v4k0UaqiphFoUHVFyCN66sUWSj7n3FRf7YAQ6WfvydK2ZWnxU/Be
-	G6fGMWZ+h9FyxpDANklVFREs7vXkckUAEzT1/NXMBUP/iyrElnsFNgHiaewP5aDQ
-	UVZYS+U9Gx+knCnrbvUs/eFlDA1QUdAAc75zPzzsvIrh5KQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4hfv15su1s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 00:19:09 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Fri, 23 Oct 2026 00:19:08 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Fri, 23 Oct 2026 00:19:08 -0700
-Received: from sjc4ccscust-vm07.sclab.marvell.com (unknown [10.110.24.160])
-	by maili.marvell.com (Postfix) with ESMTP id 319125B6923;
-	Fri, 23 Oct 2026 00:19:08 -0700 (PDT)
-From: kmahammadraf <kmahammadraf@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Ratheesh Kannoth
-	<rkannoth@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David
- S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Kiran Kumar K
-	<kirankumark@marvell.com>,
-        kmahammadraf <kmahammadraf@marvell.com>
-Subject: [PATCH net] octeontx2-af: fix inner LC ltype match for RSS flowkey
-Date: Fri, 23 Oct 2026 07:19:05 +0000
-Message-ID: <20261023071905.2922825-1-kmahammadraf@marvell.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ii5evdw4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792740007; x=1824276007;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rRh9ZEz2g8+VK7Li/T7iOfryrSAg1VQ9stT0b/ftOU8=;
+  b=ii5evdw4AT95YEQREfVzy/9GUeUTLbKT6oT5VsjK7rN1k67H1tCdWwDv
+   fy3SxvqFcLnuvz/Fw4GoUR3fpRwBPoqhhtbpOWFwExTENKDjTwgjRkrb9
+   CZVOz7BJ/HHeRcurxLcrL4V8zGJwCWTbsIn8SVPqGonhO+Y2qj9WwfWH5
+   +lZkWXup5p4WG7NON05g0AFpZqnmCnanzHBdoaHdKfpOlrq5zNesZNnW8
+   9ICQ7FSZgrpn5zGk26BL6sa25wsKN4mOZ7Y6u1iIOofAgFl0v0Qrf3VbL
+   /zLo0OYlzHW33TO3tPWUxD7JUNN2kDjFi7vXq0gJ/veMbeI11zBhWDkcP
+   g==;
+X-CSE-ConnectionGUID: BSF8oZ4UT1KAHO+cPTrQgg==
+X-CSE-MsgGUID: bo8n8MHcTw6v7w3mjWFOLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1372831"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1372831"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:20:07 -0700
+X-CSE-ConnectionGUID: VTopvUN2QhyUpAaTN2kSFg==
+X-CSE-MsgGUID: 1lnYNjwSSN2J1gdWxYXDxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3516182"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:19:59 -0700
+Message-ID: <d742f446-4632-4d15-a6ca-9d0ba144b223@linux.intel.com>
+Date: Fri, 23 Oct 2026 15:19:57 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,93 +72,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: _jtWFSjQaFDWC-DWL13Rs9wTDpIdo4nn
-X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6adb0a6d cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=a7OA6jbs0lbN1ggfU4QA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfX9zEstZeMfmQj
- cLyDU0ITf7X3ADi2mwB/g9XDEBBezM9zOOg05vwAeIiygs3vt01rtpnURIcSh7Z5dtrgkg6LTcs
- T3VENpEckOp2hdGvtHLS7WJ9vQrPauY=
-X-Proofpoint-ORIG-GUID: _jtWFSjQaFDWC-DWL13Rs9wTDpIdo4nn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfX/wEvw7I/DVMy
- oTtMV2KSuUBIeLpUfLbYA5aarKbwfwOdCYDog6owD5xswwuTTz34PerCpqrz/2BMiSjAZHFb1sD
- zD6VFGohmQG723dY9vP7XhUJKob6G/EtnpDwb3+Yr5mS6uOW9mDgsKM9pldw+bWfgKb5RpJY7yG
- 4cuJUyFPHh9fQ9xIEg3aTJ4MDrpXzt7TdBGy5+UBhZe6u1yrHsnLoax5MhJSQ+JqYmX/Abt8cZA
- k9TzHvYUQhWuDT54L8pOcrIe/jzQskyLGJ7uxfXisAxvCm09GgdyLGyI3jsPKdxKL+8dWavDlBN
- e0Pm45dZnqXUgM1VN1UiBiiO6wMS5MtB3vSKzi6fzQ9hA9oKzJDEAn6KYDYBgOP5o0XAgjHZfFA
- 3C7m55+VxB9bogmsUQnQO2iad+qRgIu3woUFTHytRSvx9dySPNhI/l63nDI6KMNYjaA8umqauPe
- bYFgPLZU7JFHDn6HmpA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 07/28] KVM: VMX: Initialize VMCS FRED fields
+To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-8-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-8-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Kiran Kumar K <kirankumark@marvell.com>
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Initialize host VMCS FRED fields with host FRED MSRs' value and
+> guest VMCS FRED fields to 0.
+> 
+> FRED CPU state is managed in 9 new FRED MSRs:
+>         IA32_FRED_CONFIG,
+>         IA32_FRED_STKLVLS,
+>         IA32_FRED_RSP0,
+>         IA32_FRED_RSP1,
+>         IA32_FRED_RSP2,
+>         IA32_FRED_RSP3,
+>         IA32_FRED_SSP1,
+>         IA32_FRED_SSP2,
+>         IA32_FRED_SSP3,
+> as well as a few existing CPU registers and MSRs:
+>         CR4.FRED,
+>         IA32_STAR,
+>         IA32_KERNEL_GS_BASE,
+>         IA32_PL0_SSP (also known as IA32_FRED_SSP0).
+> 
+> CR4, IA32_KERNEL_GS_BASE and IA32_STAR are already well managed.
+> Except IA32_FRED_RSP0 and IA32_FRED_SSP0, all other FRED CPU state
+> MSRs have corresponding VMCS fields in both the host-state and
+> guest-state areas.  So KVM just needs to initialize them, and with
+> proper VM entry/exit FRED controls, a FRED CPU will keep tracking
+> host and guest FRED CPU state in VMCS automatically.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> ---
+> v10:
+>  - s/rdmsrl/rdmsrq (Chao)
+>  - Remove a terse comment which doesn't help at all (Sean).
+>  - Replace direct, raw use of __this_cpu_ist_top_va() with a self-
+>    explanatory this_cpu_fred_rsp() helper for better readability (Sean).
+>  - Add cpu_feature_enabled(X86_FEATURE_FRED) to patch out accesses to
+>    VMCS FRED fields (Sean).
+>  - Remove "#ifdef CONFIG_X86_64" after switching to this_cpu_fred_rsp()
+>    (Sean).
 
-Inner LC ltypes differ from outer LC ltypes, but RSS flowkey programming
-was using outer LC IP/IP6 ltype masks for inner IP keys.
+[...]
 
-For inner IPv4/IPv6, match only the base IP ltype and do not include
-extension-header matches. Keep existing outer LC masks unchanged.
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index 2a2218e0983b..dc80ca5f804d 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -1562,6 +1562,12 @@ void vmx_vcpu_load_vmcs(struct kvm_vcpu *vcpu, int cpu)
+>  				    (unsigned long)(cpu_entry_stack(cpu) + 1));
+>  		}
+>  
+> +		if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
 
-This fixes inner-tunnel RSS key calculation and prevents mismatches in
-inner IP flow classification.
+Nit:
+I was wondering why cpu_feature_enabled(X86_FEATURE_FRED) was needed for a while.
+Sorry I missed the version history :(
 
-Signed-off-by: kmahammadraf <kmahammadraf@marvell.com>
-Signed-off-by: Kiran Kumar K <kirankumark@marvell.com>
----
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+This seems to be the first time this cpu_feature_enabled() && kvm_cpu_cap_has() combination is used,
+maybe have a mention in the changelog?
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index 95f782d47927..9cace7c4c9e1 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -4112,9 +4112,12 @@ static int set_flowkey_fields(struct nix_rx_flowkey_alg *alg, u32 flow_cfg)
- 		case NIX_FLOW_KEY_TYPE_INNR_IPV4:
- 			field->lid = NPC_LID_LC;
- 			field->ltype_match = NPC_LT_LC_IP;
-+			field->ltype_mask = NPC_LT_LC_IP_MATCH_MSK;
-+
- 			if (key_type == NIX_FLOW_KEY_TYPE_INNR_IPV4) {
- 				field->lid = NPC_LID_LG;
- 				field->ltype_match = NPC_LT_LG_TU_IP;
-+				field->ltype_mask = 0xF;
- 			}
- 			field->hdr_offset = 12; /* SIP offset */
- 			field->bytesm1 = 7; /* SIP + DIP, 8 bytes */
-@@ -4133,16 +4136,18 @@ static int set_flowkey_fields(struct nix_rx_flowkey_alg *alg, u32 flow_cfg)
- 					field->bytesm1 = 3; /* DIP, 4 bytes */
- 				}
- 			}
--			field->ltype_mask = NPC_LT_LC_IP_MATCH_MSK;
- 			keyoff_marker = false;
- 			break;
- 		case NIX_FLOW_KEY_TYPE_IPV6:
- 		case NIX_FLOW_KEY_TYPE_INNR_IPV6:
- 			field->lid = NPC_LID_LC;
- 			field->ltype_match = NPC_LT_LC_IP6;
-+			field->ltype_mask = NPC_LT_LC_IP6_MATCH_MSK;
-+
- 			if (key_type == NIX_FLOW_KEY_TYPE_INNR_IPV6) {
- 				field->lid = NPC_LID_LG;
- 				field->ltype_match = NPC_LT_LG_TU_IP6;
-+				field->ltype_mask = 0xF;
- 			}
- 			field->hdr_offset = 8; /* SIP offset */
- 			field->bytesm1 = 31; /* SIP + DIP, 32 bytes */
-@@ -4162,7 +4167,6 @@ static int set_flowkey_fields(struct nix_rx_flowkey_alg *alg, u32 flow_cfg)
- 					field->bytesm1 = 15; /* DIP,16 bytes */
- 				}
- 			}
--			field->ltype_mask = NPC_LT_LC_IP6_MATCH_MSK;
- 			break;
- 		case NIX_FLOW_KEY_TYPE_TCP:
- 		case NIX_FLOW_KEY_TYPE_UDP:
--- 
-2.25.1
+> +			vmcs_write64(HOST_IA32_FRED_RSP1, this_cpu_fred_rsp(FRED_STACK_LEVEL_1));
+> +			vmcs_write64(HOST_IA32_FRED_RSP2, this_cpu_fred_rsp(FRED_STACK_LEVEL_2));
+> +			vmcs_write64(HOST_IA32_FRED_RSP3, this_cpu_fred_rsp(FRED_STACK_LEVEL_3));
+> +		}
+> +
+>  		vmx->loaded_vmcs->cpu = cpu;
+>  	}
+>  }
+> @@ -4500,6 +4506,17 @@ void vmx_set_constant_host_state(struct vcpu_vmx *vmx)
+>  	 */
+>  	vmcs_write16(HOST_DS_SELECTOR, 0);
+>  	vmcs_write16(HOST_ES_SELECTOR, 0);
+> +
+> +	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
+> +		/* FRED CONFIG and STKLVLS are the same on all CPUs */
+> +		vmcs_write64(HOST_IA32_FRED_CONFIG, kvm_host.fred_config);
+> +		vmcs_write64(HOST_IA32_FRED_STKLVLS, kvm_host.fred_stklvls);
+> +
+> +		/* Linux doesn't support kernel shadow stacks, thus SSPs are 0s */
+> +		vmcs_write64(HOST_IA32_FRED_SSP1, 0);
+> +		vmcs_write64(HOST_IA32_FRED_SSP2, 0);
+> +		vmcs_write64(HOST_IA32_FRED_SSP3, 0);
+> +	}
+>  #else
+>  	vmcs_write16(HOST_DS_SELECTOR, __KERNEL_DS);  /* 22.2.4 */
+>  	vmcs_write16(HOST_ES_SELECTOR, __KERNEL_DS);  /* 22.2.4 */
+> @@ -5030,6 +5047,17 @@ static void init_vmcs(struct vcpu_vmx *vmx)
+>  	}
+>  
+>  	vmx_setup_uret_msrs(vmx);
+> +
+> +	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
+> +		vmcs_write64(GUEST_IA32_FRED_CONFIG, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_RSP1, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_RSP2, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_RSP3, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_STKLVLS, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_SSP1, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_SSP2, 0);
+> +		vmcs_write64(GUEST_IA32_FRED_SSP3, 0);
+> +	}
+>  }
+>  
+>  static void __vmx_vcpu_reset(struct kvm_vcpu *vcpu)
+> @@ -8883,6 +8911,11 @@ __init int vmx_hardware_setup(void)
+>  
+>  	kvm_caps.inapplicable_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
+>  
+> +	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
+> +		rdmsrq(MSR_IA32_FRED_CONFIG, kvm_host.fred_config);
+> +		rdmsrq(MSR_IA32_FRED_STKLVLS, kvm_host.fred_stklvls);
+> +	}
+> +
+>  	return 0;
+>  }
+>  
 
