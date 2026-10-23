@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792727030;
-	b=INWYw2VgxysS0NDfBDX5WbkGVhGOa63CY69G2DE54wY0xrf/cV+G7s4jXzNAfVF3fBUu
-	 NEJNwLUn7cmYzvlfuRrlqt+ewOpIftM1PMUdjFottWIfAjBr4Nsr/hn5Bm6MU5vkTZrEh
-	 TObrSjmRyDixhAaaVJQRhE8jH3BALVW/oHHIqojdPQJkD9E8W9BeS5h2z8XUH8yxQxRzC
-	 l+/mA0diQwu8v3tDt8wuQlPZUxSAIqMxg/A7QT/vVh8us0iC55zEycmMtgSjv40lnMO7Q
-	 6jhNrNjlUZViH6cXsU2VSSKWr8wmlTf946tGk/1KcDEljYTk3eU6ybQSTEKfQCzCy7A==
+	t=1792727205;
+	b=l6Lr2RcrnJCCgxK7YfWNO9y2mKLAdaJxEx7W7aUqsSiBPWN64d9/TFiFv55m8S8eIATo
+	 cuUoInumhKjpkQUwKZsdSowPtYOpU8IB377YTowKjdWbpReW8A8BDrdoGWccXIsYlG+gU
+	 zcySVTYaieOXSuEK8h8TxC9Dh7dkAG3Bso37yWmQB3fkDmP8ZGe7FtKRHwegSD2nzV+XP
+	 WIxCJr7jsYX0pyLA2B7RnztZOokLWd8ROjpYvvxeQo+TZtjuJalnQLZHDWyA88IZ607ff
+	 0/2Iy/ZhVHAbdarqGm54B2Ep+LD2V9BVlEwLipo03ZSA4/d94WHbrcqTzMbKcPM2HPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792727030;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6G0+vRbNzu44af59yjeJcszY1vwSJY8LZ/VKcohLElY=;
-	b=1CoExkaI7DH078rObx/175DOHqjcAM02Sos8Havkhyz00/JBKyYPY9vOVv9d/yX2UrXJ
-	 N2Xq+dxA8bG0q4gYzAIPtUpUHqxXYJHPBZY+vBy8Ask2Zkj9yo1M8sMX3bP8OponEZ5+N
-	 qCz2gVtzOQl4w08IrPsZxcuCNRM6UCu94p9jkZhwCxH84MMKiqYaqaYOvtFMq8Sexc0ts
-	 8gIrTl3o+JB9qrr2OFD0jOCB8sVWRELIq7EMqx8Hgeg5qmtujv2XtBEfNjNc5ccC7gAX0
-	 IDyUrbTnhMY04KoyDUM4COJPg7zFtfGYjCyMtYRjlznX/A0/KUfk3zNMzizh4s1o0Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792727205;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ttIYp9SKvrIeTjMeme1a7v/1DuKF5crN8WKfQ1/zVqQ=;
+	b=e8Gl8eV9M4cmJkyQpZtnjqgPMw5v+AFn5vGw4YOuTvIdykYd+fvssOu8yVxLdmLS2R9S
+	 pF09r7mNauOTGPp1y1IjoYpfDtUAju+AwYi8Kn2TG7eQSHX3q+NtSIV8u1vP1vp7n1JDs
+	 aDuzpOwoVlGYElIfq3JMBhkp/u9rWBU/thiim+apsnYQg+fW05DzMpImKtfKGpe5ehY+P
+	 mKsLB+dzcYqAKRnOJTOHyA0WbEzNARHtUZLYKoTVVznRLeEIhwQHCqRAxQcYxM2Ee09lD
+	 qlT1lfLR40DgSNBfYilPFjvwjsqs8oE6Tq2g++z2mW87qJFLHOaJPgpNREU2JVxsiNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=oNmBCFhm;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V9SxOFsb;
+	arc=none smtp.remote-ip=95.215.58.170
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00001606A319;
-	Fri, 23 Oct 2026 03:43:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00001606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B331606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B331606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=oNmBCFhm
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1EHij4011184;
-	Fri, 23 Oct 2026 03:43:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=6G0+vRbNzu44af59yjeJcszY1vwSJY
-	8LZ/VKcohLElY=; b=oNmBCFhmSWumA5X0+ZBPneasDC9boSOZxNGW5MjqFXyaGg
-	Mh+e5MJOLcQlpvuLC16ADNrF/mHZGCGrN0NRlEYW8arWc3iKlUteGigHTIGFeRRA
-	tN/zJaIjqlsSlu/Y9MSsS32dbEztk87ntbGLn2VLEGjDsgYSakAtriVuJgkjZG7b
-	gdi/nRy2VJhUo1TPu55CqKE+QNFA2sHHRL+9/vfrj9kVSyxbRE3hi/0HRzQ+/SFx
-	IgNeqWV0tmEOus0kI1su8SiGFXQ8peA/g8weSQoKqJf8rvz+kPw+ZvROzLphcBiD
-	R5WQtJhl8hMa0mNuYaTT/M7d8ho7k6mVKxU+3oWw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bu53v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 03:43:37 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1JtRn165622;
-	Fri, 23 Oct 2026 03:43:36 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hefssb2dh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 03:43:36 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69N3hYem47513874
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 23 Oct 2026 03:43:35 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D555D20043;
-	Fri, 23 Oct 2026 03:43:34 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 89CC320040;
-	Fri, 23 Oct 2026 03:43:32 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.17.104])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 23 Oct 2026 03:43:32 +0000 (GMT)
-Date: Fri, 23 Oct 2026 09:16:21 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: linux-ext4@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        linux-kernel@vger.kernel.org, Baokun Li <libaokun@linux.alibaba.com>,
-        Jan Kara <jack@suse.cz>, Ye Bin <yebin10@huawei.com>,
-        kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v2] ext4: Fix sparse warning in extents kunit test when
- EXT4_KUNIT_TESTS=m
-Message-ID: <atrYjeSXogEnUBJG@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <20260924073929.2594339-1-ojaswin@linux.ibm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V9SxOFsb
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Hm72Xfl6pvbKv+hg7yoR4S7LNRVKFxz7eQHzNV7biQo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792727201; v=1; x=1793332001;
+ b=V9SxOFsbi2u9Uu+fiTkvQf06afGaagMarU08jGszLxPu/I6Na+u6nAq40izPufIN91vd04Dw
+ IFzE0t9wZSNARZlpsgISwjRMup02OGVKwqkBP/JkA+CYQ8gjn6ts7vwq/9CNsbcG4MPSrShDpns
+ II31xlaPTyn+qGAfS/TnnPc0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c34def1092b89765;
+	Fri, 23 Oct 2026 03:46:41 +0000
+X-Mizu-Trace-ID: c34def1092b89765
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a3601418-7fac-4f8e-82b1-3aa9e731c822@linux.dev>
+Date: Fri, 23 Oct 2026 11:46:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,81 +58,282 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924073929.2594339-1-ojaswin@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: Z35kNbcocHAHZxCpBNS-b7mmnWp-JHw_
-X-Proofpoint-ORIG-GUID: tpbFI48vCHlVzDh3L_v8gqoks7lxqaJI
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX28uD9uDqDyEp
- fuJaZKriTtktGDfPWEEsFjRzGCrStx7RnNrlRDDnFLcH/I/XsgPR4bk0IW89/tJ9PBdba8S7Bu4
- BuvWOiCYg0/LadwvUMm9+g9P0pNWCqw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX/W/KLdn7FVRd
- 85pUDURIVOt9edOKsalfwBcreFqFiREtETTWN+Xi1vSmiAf+1/pfSguPVkJrrD28EhTtCP99UHy
- UCZ+3icbPQrxse2zyu2U92gawmWVbQyyibm1cvKjJTv9zbFC1l5e8z4GkbftcPRps6ogKu0y6Aj
- PUCef5sbicq4eDQqdMwCJodK0+nZ+yJNQERrpMdGjZ2JfYWcGgdBfoMu+4oWc3Igx9aqYQyGVh3
- A6zOdAL/tLN3zkrB3VVHwWlbvbxiGNaYI5D5wSL1nydta8XSAL+hurOFqNGDIwf83trvq1DpYCD
- dVmXWAKuxaBX8t8mod+OPWN/rkqD6WH1Ej4kjUGtZ9qitIJQpWa7qw3ZjjKBp/+1r3hInrIzQXa
- fAfauV0RLu0kNcqY/azeyUME8bnasvmBKKtN+eMuSSSenn7x1/c2WW8uzOporVaxiU437iisias
- LWtfBIaq3rG5zvfDaKw==
-X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6adad7e9 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=SRrdq9N9AAAA:8 a=i0EeH86SAAAA:8 a=VnNF1IyMAAAA:8
- a=ozi8al-SNXDmhG0Np4AA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230012
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] dax/bus: fix Device DAX range alignment validation
+To: Alison Schofield <alison.schofield@intel.com>,
+ Muchun Song <songmuchun@bytedance.com>
+Cc: Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Joao Martins <joao.m.martins@oracle.com>,
+ nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016053944.2579541-1-songmuchun@bytedance.com>
+ <atqk4GgaII0KQQnW@aschofie-mobl2.lan>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <atqk4GgaII0KQQnW@aschofie-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 01:09:28PM +0530, Ojaswin Mujoo wrote:
-> When kunit tests are compiled as modules, the extents kunit test emits
-> a sparse warning:
-> 
-> >> fs/ext4/extents-test.c:59:3: sparse: sparse: symbol 'k_ctx' was not
->    declared. Should it be static?
-> 
-> Fix this by declaring it as static.
-> 
-> Fixes: cb1e0c1d1fad ("ext4: kunit tests for extent splitting and conversion")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609221900.Pgwrcp41-lkp@intel.com/
-> Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-> Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 
-Hi Ted,
 
-A gentle ping on this small fix.
+On 2026/10/23 08:05, Alison Schofield wrote:
+> On Fri, Oct 16, 2026 at 01:39:44PM +0800, Muchun Song wrote:
+>> Only range sizes are currently validated against dev_dax->align. A
+>> dynamic device can therefore select a large-page alignment and allocate a
+>> range whose start is not naturally aligned. The device binds successfully,
+>> but a later write to a userspace mapping may trigger a kernel panic.
+>>
+>> The automatic resize path can also split a size-aligned request across
+>> arbitrary free gaps. When devices with different alignments fragment a
+>> region, this can extend a range by less than the device alignment. A later
+>> allocation then fails, leaving the failed resize partially applied.
+>>
+>> Initialize the device alignment before its first allocation. Validate both
+>> the start and size of allocated and adjusted ranges, account only for
+>> aligned free space before changing ranges, skip unusable gaps, and
+>> serialize size validation with alignment updates.
+>>
+>> Static Device DAX already has a pre-populated pgmap whose full range was
+>> validated against memremap_compat_align(). Its usable data range may begin
+>> after namespace metadata, so require only dev_dax->align for static
+>> devices. Dynamic Device DAX builds its pgmap from the allocated ranges and
+>> must continue to satisfy both alignments.
+> Hi Muchun,
 
-Regards,
-ojaswin
+Hi,
 
-> ---
->  fs/ext4/extents-test.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
-> index bd7795a82607..9669b2197fca 100644
-> --- a/fs/ext4/extents-test.c
-> +++ b/fs/ext4/extents-test.c
-> @@ -48,7 +48,7 @@
->  #define EXT_DATA_LBLK 10
->  #define EXT_DATA_LEN 3
->  
-> -struct kunit_ctx {
-> +static struct kunit_ctx {
->  	/*
->  	 * Ext4 inode which has only 1 unwrit extent
->  	 */
-> -- 
-> 2.55.0
-> 
+>
+> One commit message comment:
+>
+> Now that this is a standalone patch, some useful context from the original
+> cover letter would be useful in this commit message.
+
+OK, I'll add those info to commit message.
+
+>
+> The cover letter explained that Sashiko identified a path where
+> `memmap_init_zone_device()` could initialize struct pages with a large-page
+> order for a physical range that wasn't naturally aligned. You also mentioned
+> that you reproduced the resulting kernel panic.
+>
+> That gives us both the failure mechanism and confirmation that this is a
+> reproduced bug, rather than just a potential problem. Those details are worth
+> keeping in the commit message.
+>
+> So I happened to hit this and the mapping_store() issue that was in the
+> original patch 1/2. Both these fixes solved my problems.
+>
+> Below I do have some style and simplification feedback, and am also wondering
+> about the gap handling logic.
+>
+>
+>> Fixes: 6d82120f4156 ("device-dax: add an 'align' attribute")
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> v4:
+>> - Use dev_dax->align alone for static Device DAX ranges to preserve
+>>    older 4K namespaces (reported by Alison Schofield)
+>> - Condense the commit message to the failure scenarios and required fixes
+>>    (suggested by Alison Schofield)
+>>
+>> v3:
+>> - Serialize size alignment validation with alignment updates to avoid a
+>>    partial shrink after a concurrent alignment change (reported by Sashiko)
+>> - Document the size validation serialization in the commit message
+>>
+>> v2:
+>> - Keep the alloc_is_aligned() name to avoid unrelated helper renaming
+>>    (suggested by Dave Jiang)
+>> - Move this patch after the mapping error reporting fix for independent
+>>    backports (suggested by Dave Jiang)
+>> ---
+>>   drivers/dax/bus.c | 152 +++++++++++++++++++++++++++++++++++-----------
+>>   1 file changed, 117 insertions(+), 35 deletions(-)
+>>
+>> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+>> index b809e1a264af..b2c83a0e4ec5 100644
+>> --- a/drivers/dax/bus.c
+>> +++ b/drivers/dax/bus.c
+>> @@ -848,6 +848,52 @@ static int devm_register_dax_mapping(struct dev_dax *dev_dax, int range_id)
+>>   	return 0;
+>>   }
+>>   
+>> +static inline unsigned long dev_dax_min_align(struct dev_dax *dev_dax)
+> Why the static inline here and also why below do you change
+> alloc_is_aligned() to static inline?
+
+I thought it is a one-line code, inline is better, I usually do
+this in MM area.
+
+>
+> coding-style.rst is against it in .c files and we don't do it in any
+> other drivers/dax/*.c code.
+
+Seems it is not a convention in DAX. I am not an expert in DAX.
+
+>
+>> +{
+>> +	/*
+>> +	 * A static device has a pre-populated pgmap whose range already
+>> +	 * satisfies memremap_compat_align(). Its data range may start after
+>> +	 * metadata at dev_dax->align granularity.
+>> +	 */
+>> +	if (static_dev_dax(dev_dax))
+>> +		return dev_dax->align;
+>> +
+>> +	/*
+>> +	 * The minimum mapping granularity for a dynamic device instance is a
+>> +	 * single subsection, unless the arch says otherwise.
+>> +	 */
+>> +	return max_t(unsigned long, dev_dax->align, memremap_compat_align());
+>> +}
+>> +
+>> +static inline bool alloc_is_aligned(struct dev_dax *dev_dax, resource_size_t size)
+>> +{
+>> +	return IS_ALIGNED(size, dev_dax_min_align(dev_dax));
+>> +}
+>> +
+>> +static inline bool range_is_aligned(struct dev_dax *dev_dax, u64 start,
+>> +				    resource_size_t size)
+>> +{
+>> +	return IS_ALIGNED(start | size, dev_dax_min_align(dev_dax));
+>> +}
+>> +
+>> +static resource_size_t
+>> +aligned_gap_size(struct dev_dax *dev_dax, resource_size_t *start,
+>> +		 resource_size_t end)
+>
+> Please keep the return type on the same line as the function name, like
+> rest of this file.
+>
+> Also a function comment like:
+> /* Return usable aligned gap size and update *aligned_start */
+>
+> and a rename of *start to *aligned_start would make the contract clearer.
+
+Will do.
+
+>
+>
+>> +{
+>> +	resource_size_t aligned_start = ALIGN(*start, dev_dax_min_align(dev_dax));
+>> +	resource_size_t size;
+>
+> How about calculating dev_dax_min_align() once and keep it in a local variable?
+> We use the same value again for ALIGN_DOWN().
+
+Make sense.
+
+>
+>
+>> +
+>> +	if (aligned_start < *start || aligned_start > end)
+>> +		return 0;
+>> +
+>> +	size = ALIGN_DOWN(end - aligned_start + 1, dev_dax_min_align(dev_dax));
+>> +	if (!size)
+>> +		return 0;
+> The above early return looks needless given how callers use the result
+
+Oh, yes.
+
+>> +
+>> +	*start = aligned_start;
+>> +	return size;
+>> +}
+>> +
+> snip
+>
+>>   
+>> +static resource_size_t
+>> +dax_region_aligned_avail_size(struct dax_region *dax_region,
+>> +			      struct dev_dax *dev_dax)
+> Same as previous, keep return type on the same line here.
+>
+> The dax_region argument looks needless as we can get it from
+> dev-dax->region.
+
+Right. My oversight.
+
+>
+>
+> snip
+>
+>
+>> @@ -1062,37 +1130,51 @@ static ssize_t dev_dax_resize(struct dax_region *dax_region,
+>>   	 */
+>>   retry:
+>>   	first = region_res->child;
+>> -	if (!first)
+>> -		return alloc_dev_dax_range(dev_dax, dax_region->res.start, to_alloc);
+>> +	if (!first) {
+>> +		resource_size_t start = region_res->start;
+>> +
+>> +		alloc = aligned_gap_size(dev_dax, &start, region_res->end);
+>> +		return alloc_dev_dax_range(dev_dax, start, min(alloc, to_alloc));
+>> +	}
+>>   
+>>   	rc = -ENOSPC;
+>>   	for (res = first; res; res = res->sibling) {
+>>   		struct resource *next = res->sibling;
+>> +		resource_size_t start, end;
+>>   
+>>   		/* space at the beginning of the region */
+>>   		if (res == first && res->start > dax_region->res.start) {
+>> -			alloc = min(res->start - dax_region->res.start, to_alloc);
+>> -			rc = alloc_dev_dax_range(dev_dax, dax_region->res.start, alloc);
+>> -			break;
+>> +			start = dax_region->res.start;
+>> +			end = res->start - 1;
+>> +			alloc = min(aligned_gap_size(dev_dax, &start, end), to_alloc);
+>> +			if (alloc) {
+>> +				rc = alloc_dev_dax_range(dev_dax, start, alloc);
+>> +				break;
+>> +			}
+>>   		}
+>>   
+>> -		alloc = 0;
+>>   		/* space between allocations */
+>> -		if (next && next->start > res->end + 1)
+>> -			alloc = min(next->start - (res->end + 1), to_alloc);
+>> -
+>> -		/* space at the end of the region */
+>> -		if (!alloc && !next && res->end < region_res->end)
+>> -			alloc = min(region_res->end - res->end, to_alloc);
+>> +		if (next) {
+>> +			if (next->start <= res->end + 1)
+>> +				continue;
+>> +			end = next->start - 1;
+>> +		} else {
+>> +			/* space at the end of the region */
+>> +			if (res->end >= region_res->end)
+>> +				continue;
+>> +			end = region_res->end;
+>> +		}
+>>   
+>> +		start = res->end + 1;
+>> +		alloc = min(aligned_gap_size(dev_dax, &start, end), to_alloc);
+> We're walking the free gaps twice now. Once in dax_region_aligned_avail_size()
+> and again here. It seems the 2 walks need to agree about which gaps
+> are usable so that the pre check doesn't succeed and then the allocation
+> loop cannot satify the request...which would get us right back to a
+> partially applied resize.
+>
+> Please look at sharing the gap traversal.
+
+Good point. I will factor the gap traversal into a common iterator used
+by both the pre-check and the allocation path, so they share the same
+gap selection rules. I will include this in the next revision.
+
+Thanks for your review.
+
+Thanks,
+Muchun
+
+>
+> -- Alison
+>
+> snip
+
