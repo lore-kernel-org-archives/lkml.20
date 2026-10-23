@@ -1,104 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792764755;
-	b=3jb9/y3n4Pdi2xuNXy53rIhJ4cT74oNdTJl/EEzIQk43R4r8yjGljnMyznIX2h8M4Bb+
-	 KptjoLCr998PwODVtDEfzZugDXuKpzAavef+jwxI0/80yE+8rhy4mGNFC5nhKESoRvCpE
-	 8wWO6m/QOTXeJ9ownIQUQiTBFW+sAnJElmkcxu9B7q2JOdsoSm60V2KDO3Y8OwbJgr9/F
-	 Le9EAtuykC8Sy7fzBNl5pY6PZL56SbUos5/kzWOmAVHkQ/1D2VbBm2JhQhlv3msLxP2pw
-	 HxX7ghNrKAqIJOtuhZGEHmQCPvI4WLoSikByrz783bQEuxA2XhHXDFvBA6PJrkJHMAA==
+	t=1792764759;
+	b=EoF6W0PR8pYA9vmMJqBwePgO64r2+8A/WxMwFJAhlG+oaM3YskaW9gTX3eViEtaRcWHT
+	 U5nBu/98v1nawqdQ7Q0mgxuKEmArDc/v1df522gJKumahBPE1dNFPhB1hP+TkYxAsck1T
+	 vGfoOhnVNaWGq10Tpxhw4JbRc1vUDDOuZBQ/wQFGVn0knJhi78UP6ox1IsTnz7Q9QoH4R
+	 AYcTgITftLZSfd1Ricull5pDBhvKrZmUI2vDhran6K2h1jVLfKMlODYloiwMZpDOnVWCj
+	 2tMZgQXU0Fhy9e59y1rk7PbDLAsMq3d8AgkhxZtqTtMlvL/HkbAF4Hmru8B6BLM0CSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764755;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
-	b=QsqV+tICO2vgtnZscnd+J2tsBjjzD7iDT3y4AnwmmdjcnxlqOBq28Fg+F8C58IlbaCmU
-	 6FJ6T4rAvaYa/CuqFMdaI+5Ebho9b4vBo3cccgXNy8wlGcIKInl5WZmS0sol8HI6BOkVb
-	 qAKd2YaNfW/OTAv5asKloMDV8r8jA2ioNkEAk0aM7Pqt38n7aIQnB4wrbl6BCR3bJuGk8
-	 dzwJjemIIEBVXBN3T5Ay+p/DVnGe0K6Qy0LtoCmIwI6k3zT4zELht2ZfdZWMgG9oxICGC
-	 +i/9VEBD2C4sNQxYrQQaAkB0K3fTrdU1RmQHt2BopKEkfKLHe+bojenCyZy7gabg1eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764759;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Ab8RHstOOGsiaRRPvys5lJ6PezymvXrBWNKqeo/lvPM=;
+	b=SAUwE5G1ycsccwSdNPGcqgaB1gOpqb2WCsBSoFHdetNdU2gwd8TIGRhPABBuJphvSGQS
+	 BGGRed8rGLQP4vdfyDKiMDK37N9WrNMcPKEzySNTAJr+7I5waUeYF0chPYb1hCEgfUXK/
+	 OnguxkKxYyIOGhkHpO6wzTHzKliU9SzU6BOruApyshGv4+zb6Y8rXxkPph4VusOZj7Hnp
+	 Pa+bxGSY9rmrSBRCiWTxXlNPnYOVM8mmE9fexL8NxVi/7k3Z+l7vB3AVPrX7DX/X0maWN
+	 LQA3M6v7GPyiwdA2sKJZV9PH0B0DNZcwjcZgYx2sVlbh/hZBcHP3NgLGSNh4mMzQ5EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aEvvqQY4;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CB7606A31A;
-	Fri, 23 Oct 2026 14:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26CB7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555C4606A324;
+	Fri, 23 Oct 2026 14:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 555C4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DCB111F458;
-	Fri, 23 Oct 2026 14:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
-	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
-	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
-	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792764753;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
-	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
-	jZpQGJaVi4w6nsAA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QLXWZEuz;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KE86RIWK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
-	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
-	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
-	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792764753;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
-	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
-	jZpQGJaVi4w6nsAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B7BAA133F3;
-	Fri, 23 Oct 2026 14:12:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xP5FIU9r22q/dwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 14:12:31 +0000
-Message-ID: <5dda588d-e6fa-420d-a73d-b5278094b59c@suse.de>
-Date: Fri, 23 Oct 2026 16:11:25 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aEvvqQY4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792764758; x=1824300758;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=KqznkMmYbL6qu9UlIb3UJC6Y5I0wTV0+qWfGZcx0rlU=;
+  b=aEvvqQY4S4xkfxuYdCu1FggD0ix86Ua3iGW+WiOjElM3bbqVCESpt+7x
+   hHlBwisf8ZEwRURuJvllEivE1ynZ8KMae7AukSSfy59m0YtiKskJOot9Z
+   mQv3y0cnfILTHxzLJui9ejogE8jN6qUfw1JOtyxLEJvT8FQx0kEyDo1Id
+   IKp4NL+LwgAEchBTPm5uZPjRyXo8NGpDbraT3Y0DuSXbGTkI9CKd5xWGx
+   1Fw63IL7RGc7zJt4xyj6KWXc4mGt0tY1Uhd49e/RIl3Z8CQwlRBP5SqfA
+   X+0LcLcUHFoyd9X73SCb6IqQFA8lEazpkesys4Rx95q+svuYZMIza/3v8
+   A==;
+X-CSE-ConnectionGUID: zLmoX2ClTCiYg6NinnIrLQ==
+X-CSE-MsgGUID: C++4a1TvToatmQE00kBmkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1399879"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1399879"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 07:12:37 -0700
+X-CSE-ConnectionGUID: ZTLF/PFATMOEfFXfHp7sUg==
+X-CSE-MsgGUID: ErS4g7JXQcCIbTofzgeKww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="4142845"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 07:12:35 -0700
+Date: Fri, 23 Oct 2026 17:12:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] media: atomisp: queue: remove unused local queue
+ support
+Message-ID: <attrUN_9ilg9W8ah@ashevche-desk.local>
+References: <20261014111213.1967452-1-vladurares@gmail.com>
+ <20261014111213.1967452-3-vladurares@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,156 +86,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in
- ip_rt_send_redirect()
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Joel Granados <joel.granados@kernel.org>,
- Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
- <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
- Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
-References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
- <20261023091419.167088-3-jiayuan.chen@linux.dev>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261023091419.167088-3-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: DCB111F458
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261014111213.1967452-3-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/23/26 11:13 AM, Jiayuan Chen wrote:
-> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
-> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
-> the redirects an exponential backoff:
+On Wed, Oct 14, 2026 at 11:12:11AM +0000, Rareș-Mihai Vladu wrote:
+> ia_css_queue_local_init() has no callers, so no queue is ever created
+> as local. ia_css_queue_uninit() only handles local queues and has no
+> callers either.
 > 
-> 	if (peer->n_redirects == 0 ||
-> 	    time_after(jiffies,
-> 		       (peer->rate_last +
-> 			(ip_rt_redirect_load << peer->n_redirects)))) {
+> All queue handles are in the static css_queues in bufq.c, and
+> ia_css_bufq_init() sets up each of them with ia_css_queue_remote_init().
+> This happens in ia_css_start_sp(), before the host sets
+> host_sp_queues_initialized for the firmware, and css_queues is not
+> cleared afterwards. Before that, the old code would have taken the local
+> path with a NULL cb_local.desc and hit OP___assert(), so the handles do
+> not seem to be used before initialization.
 > 
-> n_redirects only stops growing when it reaches ip_rt_redirect_number, and
-> both redirect_number and redirect_load are plain proc_dointvec sysctls
-> with no upper bound. Set redirect_number past 32 and n_redirects climbs
-> past 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit
-> int by >= 32 bits, which is UB:
+> With only remote queues left, the queue type no longer serves a purpose.
+> Remove the local queue code together with IA_CSS_QUEUE_TYPE_REMOTE, the
+> type field and the type checks.
 > 
->    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
->    shift exponent 32 is too large for 32-bit type 'int'
->    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
->    Call Trace:
->     <IRQ>
->     dump_stack_lvl+0xc1/0xf0
->     dump_stack+0x10/0x20
->     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
->     ip_rt_send_redirect.cold+0x2c/0x146
->     ip_forward+0x1ddc/0x2430
->     ip_rcv+0x2b1/0x320
->     __netif_receive_skb_one_core+0x16b/0x1c0
->     __netif_receive_skb+0x21/0x150
->     process_backlog+0x37e/0x1200
->     __napi_poll.constprop.0+0xa5/0x5e0
->     net_rx_action+0x4c0/0xf70
-> 
-> Fixing this from the sysctl side would mean bounding both knobs, e.g.
-> redirect_load to [0, 65535] and redirect_number to [0, 16], which gets
-> in the way of users who legitimately do not want to cap ICMP redirects.
-> Instead compute the backoff in u64 with the shift count capped at 31,
-> which cannot overflow since ip_rt_redirect_load is an int, and clamp the
-> result to MAX_JIFFY_OFFSET.
-> 
+> struct ia_css_queue appears to be host-only: it is not copied to SP or
+> ISP memory, and the firmware uses struct host_sp_queues, whose addresses
+> the handle stores. Removing the union member keeps the struct size on
+> 32-bit and reduces it on 64-bit, where cb_local held two pointers.
 
-I think we should cap redirect_load with a minimum valid value of 0 on 
-the sysctl. If the user want to disable ICMP redirects or do not cap 
-them, they should use 0 or -1 in redirect_number IMHO.
 
-What do you think?
+I'm wondering if you use --histogram diff algo when preparing patches.
+If not, use it next time.
 
-> The clamp also fixes 32-bit kernels, where the same expression goes
-> wrong long before the shift count reaches 32. With the default
-> ip_rt_redirect_load of 20, from n_redirects == 27 on the result is
-> either truncated or too large for time_after(), which then treats the
-> deadline as already passed, and from 30 on it is 0, so every forwarded
-> packet gets a redirect again until ip_rt_redirect_number is reached.
-> This needs a raised redirect_silence to be reachable, otherwise
-> n_redirects is reset long before. On 64-bit, ip_rt_redirect_load << 31
-> stays below MAX_JIFFY_OFFSET, so nothing changes there.
-> 
+...
 
-Isn't the same issue in 64-bit kernels too? In essence, it would be (int 
-<< u32) which results in a negative value and that is later 
-sign-extended to a corrupted 64-bit value. Am I missing something here?
+> -int ia_css_queue_uninit(ia_css_queue_t *qhandle)
+> +int ia_css_queue_enqueue(ia_css_queue_t *qhandle, uint32_t item)
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->   net/ipv4/route.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index 595a3b7f1783..76807b757046 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
-> @@ -907,6 +907,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
->   	struct inet_peer *peer;
->   	int log_martians;
->   	struct net *net;
-> +	u64 backoff;
->   	int vif;
->   
->   	rcu_read_lock();
-> @@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
->   	/* Check for load limit; set rate_last to the latest sent
->   	 * redirect.
->   	 */
-> +	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
-> +	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
->   	if (peer->n_redirects == 0 ||
-> -	    time_after(jiffies,
-> -		       (peer->rate_last +
-> -			(ip_rt_redirect_load << peer->n_redirects)))) {
-> +	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
->   		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
->   
->   		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
+This change is hard to read. Can you make an intermediate patch to just move
+the "remote" branches to the helper functions first and in this patch actually
+kill the local case altogether? Try to make it so that the ± statistics is
+minimum for the changed lines. It means that create new helpers as they should
+appear after this patch alone (just with different names). Example (ideal case):
+
+// AFTER the mentioned intermediate change
+
+static ia_css_queue_enqueue_remote()
+{
+	...
+}
+
+// in old function
+static ia_css_queue_enqueue()
+{
+	if (LOCAL) {
+		...
+		return ...
+	}
+
+	ia_css_queue_enqueue_remote()
+}
+
+// In THIS change
+
+-static ia_css_queue_enqueue_remote()
++static ia_css_queue_enqueue()
+...
+-static ia_css_queue_enqueue()
+-{
+-...
+-}
+
+Repeat the same for all affected functions.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
