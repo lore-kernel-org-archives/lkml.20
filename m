@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792742925;
-	b=DGcMRZor2AjDngFslcpMrBX2IxY8btk7VXsqV474Nze0ZwfNzeuMaanTRxs7z6tlqOrw
-	 uL6Mk/JwUmt5bGxf7lW3ILSbhVMKsDb6z2UID/93ZaiMQCtazmzPPDlqvm43xgwUYUXok
-	 R9EtMjior2JOb80UIdh2FEHyIiujmtScKOyYVTL6QIkmDb54Wv9kcboe4701oFvfV0gO+
-	 Xd95NlBAXTiLQ9NZum5MLCPszKP0fYnU+aewbnXSpfpMsgMlNF1fdjcsAhgSbox5JzaOJ
-	 BLe2VJ3E0OdRRdLkirwV++FkCBkzFdxnwpyphm/ooVpjtsDTTzgreXKdLeGJeBwaiJg==
+	t=1792742938;
+	b=EZvNYJHKbcGzD8ipJvQ0jGnsarCNZ2H8y3oxPnLkAZ97VSf2j4QWR/kbNzwQK9h8DCW4
+	 qetZeHakAso52F1nH1s0erdzCZgTRdg9DobQZvsVgu4N7zg1FaJtV8wSAaoTEwVwYeWbj
+	 fhyftS596FQrwHJ38lNAxkz+o37Tgr9aQlcWvClXA/QyHDK0Zcc2Om9CE6etJZdIySGWN
+	 hWctkpMWNO3RLCfwVgqnOWGUnyNM5rKohgVYYI+jalUSskfq+FOGZ2aTdBmyp0dDTMS3q
+	 wSilrZZ4DgIKjme9Ks6Tb/C+IT7QNqhiwT0jMtDBh/0cEfJjtFJZO83ijCqvVowWNoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792742925;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rVZNee5ccbbjQfdFTaY1JCBS9kwHn7iOm1l3d7fRUvE=;
-	b=WqZo5OfZuNxTU48xhZKT5HIcz2XVnT+6AJK5GQwYnF1A3bVVl288lCeuZZ3nrzu5hhzV
-	 CT3s3tL+PL1VEJ6UFlPwduNKgwnAlJoYr/73tIy7zgEqzVu9658vrEG1yegyj1pMV7XRX
-	 5UZ5BkQROsgEh4w/KbJFDiiipYb1XAIRA5H+4JLXJclc3pacygZ4zfX26PXaixAngVoMn
-	 Aua9bFzTjXQ7DXoubgOZktL6Jde3/jpSj7GrbenynZKesoM9MYK2f78H285TdJWv+tAke
-	 o2Vib7uhhKnP+qojmNF/gmGhfzBFE8u4kS/7dSSYr5SSeezb5yrFr15qEVxcUwrP6gA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742938;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=1RVh2/Dbz81D9r2JCs/p2pOJTWf7dMj+/zj30/kv+Rg=;
+	b=qEy9KHIhBsXhWp3/Z7mTULfQCXepq3202MBMOygG+mqOKcvJoaIorzLCaVP4uW6ZYt3f
+	 gc4Tg7bu/j+DCpml36kjWTJzwI11SDyL8pO/4bXSgWiv7WRsQ1oYSjRqQmTMKtHLqD0ri
+	 r7frb2udfjaZcy9+bwtMbxTQNPGwHDM3x2AdB/DpJ1JDRaX015gyE3ycJ1SU0kEMH9F3L
+	 0IDvG3MgrRQ5yBSBUEBlulEu6CN8sQEVkzE2XFTFyCFaV/kOS7B2Be7to905UtK8VvDl4
+	 9VaYv9IAegODRD9p3nvnjyNlm2wUlT7RKmAYQYnNXcXRUv8di/pyrCV0PFUdT5tAsVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=DalsohjP;
-	arc=none smtp.remote-ip=115.124.28.146
-Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com [115.124.28.146])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=OXYQntCY;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1C0606A31A;
-	Fri, 23 Oct 2026 08:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D1C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEFC606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AEFC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=DalsohjP
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792742919; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=rVZNee5ccbbjQfdFTaY1JCBS9kwHn7iOm1l3d7fRUvE=;
-	b=DalsohjPBnTI0WLIGqAqXHMtOF6k/7V1ugu8xZep5Nq0YgXLuChuY03zwCiD4cDqL3GlmSpFPn+0Rhktp3MIh6RcNUq0zXKwEnLZgwJukw61TxigfbtemQi61BHZJdkqPMxFqoataxsaXzbiX3qwShZSTsz2A1YHUcqt/2fLI18=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07443242|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0967652-0.000290848-0.902944;FP=10193050280277459346|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jo-72oM_1792742917;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jo-72oM_1792742917 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 23 Oct 2026 16:08:38 +0800
-From: liuc63 <liuc63@xiaopeng.com>
-To: gregkh@linuxfoundation.org
-Cc: cernekee@gmail.com,
-	sebastian@breakpoint.cc,
-	balbi@ti.com,
-	liuwb@xiaopeng.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: bcm63xx_udc: fix dequeue of unqueued request
-Date: Fri, 23 Oct 2026 16:08:29 +0800
-Message-ID: <20261023080837.1680100-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=OXYQntCY
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=1RVh2/Dbz81D9r2JCs/p2pOJTWf7dMj+/zj30/kv+Rg=;
+	b=OXYQntCY9JSvb+0ZyqwbzKWoNTRqfD1P+SAsk+lz3UDzx+yL1GsN/j2pFCeUYIjmZaMwhJBV+
+	2dkR+JpAfJcWMxzM4i/pzVyMBCW2IEukCypSQLhe0Zr2geBNE61Q2hnzHPXmARGEul6k1dQmlcd
+	oyU46dFciaSQpW0bxd1OmtU=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j9wdQ2vPZzcb41;
+	Fri, 23 Oct 2026 16:08:42 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id DD7C840575;
+	Fri, 23 Oct 2026 16:08:46 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
+ 2026 16:08:45 +0800
+Message-ID: <63de9d6d-96c9-401e-963e-0e3183ef5fd1@huawei.com>
+Date: Fri, 23 Oct 2026 16:08:45 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,75 +62,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 02/10] arm_mpam: resctrl: Rename ctrl_comp in
+ mpam_resctrl_alloc_domain()
+To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
+	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <adeb2b33540572b5da5edb79d2ddacc9fc098e01.1792443633.git.reinette.chatre@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <adeb2b33540572b5da5edb79d2ddacc9fc098e01.1792443633.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Liu Chao <liuc63@xiaopeng.com>
 
-bcm63xx_udc_dequeue() only checks whether bep->queue is empty; it never
-verifies that the passed request is actually linked on that queue.  If
-the request was already completed by the data ISR (which list_del's it)
-or belongs to another endpoint, list_del() corrupts an unrelated list
-node.  Worse, the out: path unconditionally sets req->status and calls
-req->complete() even when rc == -EINVAL, so a request that was never
-queued (or was already completed and possibly freed by the gadget
-driver) gets completed a second time, leading to a double completion
-and use-after-free.
 
-Walk bep->queue to confirm the request is queued before touching it,
-and only invoke the completion callback when the request was actually
-removed from the queue.  The -EINVAL path now returns without
-completing.
+在 2026/10/20 6:07, Reinette Chatre 写道:
+> mpam_resctrl_alloc_domain() looks up the component of the resource's
+> class that contains the CPU and fails the domain allocation if there is
+> none. The component is held in a local variable named ctrl_comp and, when
+> the resource supports allocation, it also backs the control domain.
+> 
+> The lookup and its check apply to every resource, including one that
+> supports only monitoring. For such a resource the component does not
+> back a control domain, so the name ctrl_comp is misleading. The name also
+> makes a comment in the same function ambiguous. The comment notes that
+> there may be no ctrl_comp for the L3, which is true of the control
+> domain's component but contradicts the local variable, which always
+> refers to a component once the lookup succeeds.
+> 
+> Rename the local variable to comp. Keep the ctrl_comp name for the
+> control domain's reference to its component because it only ever refers
+> to the component that backs the control domain. Leave the comment
+> unchanged since it now unambiguously refers to that component.
+> 
+> No functional change.
+> 
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> ---
+>  drivers/resctrl/mpam_resctrl.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 3d5f90f9f1f3..b07e5dd895dd 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1623,14 +1623,14 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  	struct rdt_l3_mon_domain *mon_d;
+>  	struct rdt_ctrl_domain *ctrl_d;
+>  	struct mpam_class *class = res->class;
+> -	struct mpam_component *ctrl_comp;
+> +	struct mpam_component *comp;
+>  	struct rdt_resource *r = &res->resctrl_res;
 
-Fixes: 613065e53cb1 ("usb: gadget: bcm63xx UDC driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
----
- drivers/usb/gadget/udc/bcm63xx_udc.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-diff --git a/drivers/usb/gadget/udc/bcm63xx_udc.c b/drivers/usb/gadget/udc/bcm63xx_udc.c
-index 502612a56..a27dc7df7 100644
---- a/drivers/usb/gadget/udc/bcm63xx_udc.c
-+++ b/drivers/usb/gadget/udc/bcm63xx_udc.c
-@@ -1209,15 +1209,20 @@ static int bcm63xx_udc_dequeue(struct usb_ep *ep, struct usb_request *req)
- 	int rc = 0;
- 
- 	spin_lock_irqsave(&udc->lock, flags);
--	if (list_empty(&bep->queue)) {
-+
-+	/* Make sure the request is actually queued on this endpoint */
-+	list_for_each_entry(cur, &bep->queue, queue) {
-+		if (cur == breq)
-+			break;
-+	}
-+	if (&cur->queue == &bep->queue) {
- 		rc = -EINVAL;
- 		goto out;
- 	}
- 
--	cur = list_first_entry(&bep->queue, struct bcm63xx_req, queue);
- 	usb_gadget_unmap_request(&udc->gadget, &breq->req, bep->iudma->is_tx);
- 
--	if (breq == cur) {
-+	if (breq == list_first_entry(&bep->queue, struct bcm63xx_req, queue)) {
- 		iudma_reset_channel(udc, bep->iudma);
- 		list_del(&breq->queue);
- 
-@@ -1235,8 +1240,11 @@ static int bcm63xx_udc_dequeue(struct usb_ep *ep, struct usb_request *req)
- out:
- 	spin_unlock_irqrestore(&udc->lock, flags);
- 
--	req->status = -ESHUTDOWN;
--	req->complete(ep, req);
-+	/* Only complete the request if it was actually removed */
-+	if (rc == 0) {
-+		req->status = -ESHUTDOWN;
-+		req->complete(ep, req);
-+	}
- 
- 	return rc;
- }
---
-2.50.1
+
+>  
+>  	lockdep_assert_held(&domain_list_lock);
+>  
+> -	ctrl_comp = find_component(class, cpu);
+> +	comp = find_component(class, cpu);
+>  	/* class has no component for this CPU */
+> -	if (WARN_ON_ONCE(!ctrl_comp))
+> +	if (WARN_ON_ONCE(!comp))
+>  		return ERR_PTR(-EINVAL);
+>  
+>  	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
+> @@ -1638,10 +1638,10 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  		return ERR_PTR(-ENOMEM);
+>  
+>  	if (r->alloc_capable) {
+> -		dom->ctrl_comp = ctrl_comp;
+> +		dom->ctrl_comp = comp;
+>  
+>  		ctrl_d = &dom->resctrl_ctrl_dom;
+> -		mpam_resctrl_domain_hdr_init(cpu, ctrl_comp, r->rid, &ctrl_d->hdr);
+> +		mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
+>  		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
+>  		err = resctrl_online_ctrl_domain(r, ctrl_d);
+>  		if (err)
+
+-- 
+Best regards,
+Jinjie
 
