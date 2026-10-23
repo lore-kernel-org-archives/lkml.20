@@ -1,114 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792718601;
-	b=26hT2raTtQIay7ZWjQw7L5d1sB2jgKR8WJhZ7acKqkwzPiLb60pr3WuhZt7N+ap3Jifu
-	 n9scqv/64r3UEEa4+Fcrgqvno3S2qRNSUgDohOrXnGwQhu0o29Wyty7Cyqfzr1ARiFjIj
-	 bM5Gx3cUh4jXs8kfPc4/5pjR5wHxBrOycnLbKzxem+0vyCdx1JnetVegSz7OpxSxTGJOs
-	 KjyFklE8kTRhA5ssU+7dI70qk3+x7LrvuH9zAnjTgKv8Jho2ABbi0KM2geNHwe62XDFIj
-	 BeeR+xmLGIGzonVcCB85YDCaXJf9SgsOWyVzaDmJk2g80RbK7dyP+ksEPnas2bb+25w==
+	t=1792718627;
+	b=ItsBE2K5wNMvE1/nXTNamh4VP19fUbEMoVPMPAuzB6xxB6wp68fF1gqLlDvq+N4xCjIG
+	 e4KmJLVhILmf9TrMkLTAP71saKVWCYL9GmX+XCy/rJAtweY+TncBv4zLxvV0e6ZpLkkUZ
+	 Acpg1H2KZ7Ft9DbDMdJftUARrLab17Yp7DhtvGIYlIo3vVXug+E0Z9U5IUCltyUuQv/He
+	 FKXIx+eUIxG4zFsmF1Oi9+4lrksh+ThIOH6heASeK3cHSlKkkexz0SJuienVLvWOShYPN
+	 ALxOlf0x4oivhu4CXYOW84n+YIqAq/bzrkX2X/f6hFHR6w31Zbv01USYYLkAv+2UkbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792718601;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
-	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
-	bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLKJNL9bMo0=;
-	b=O51ip3/V+WrP1/wJ6vHWcCMaPQEyH8EuHKX1O81I2pPwWP25vxtgfwxj+m4pjiJnh49l
-	 CixwlOfuFxN8qYoUPyrF/z3QCcvS52iRUuMYNLf1RqXbQSpvqoiaHn7SSjcmLZFxmjWz+
-	 PaE+LSXBNGt9rUiC3yisvlN6xjVqKenrngr/bdb3Zds9yqRMsH+y+FHAeaSNVaZe/jaz8
-	 mcXl2DN3EFJL/fGHVjVgwgrok53SBDwDSQH1sstNPmvI4U+10yMVTQxk+4d2b34yYQfrP
-	 j35R/q1DEskdcW76Sqkttl27vyM82DP9mSCxYeb4vSBKyI4OwJSfPxb5J0OuyU3zA3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792718627;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=K5yLonYWgOmg+PAeVcPBoGQLdK4Hwc1Y9SMwne6Zl2c=;
+	b=iyOFiCZ7Xb2R0Hdm0f64hy+PKInJgovjm7vUaNGCKw9xTQxAcr1FKpIr5sSDwelFtuoM
+	 cdC6SNeBTlhplHC7rmAm9cA5R6dc3JexFP7Eq5SrrTttvB5w+aMwhwubYGgChy+eWXrtr
+	 p2X8bLyEKAUHngyoYxyxFsz2O/ekOt7I6Thsbp+j1dVIvrgPKhJRiHRtWo5Ahwv3zG6i2
+	 haw/gtoPGbK/69wDGjrooQEQLJ6SDQoyYYxw6qvglUlj+sNbM9+2m+H5Ur1KvG7kVWoMx
+	 Fbtc2dxGe5JnNS2OQHmrnd19slmQz0kT/aVJA/3YA6Q8ZpAw8bWIe50TOSLGxyJXpnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=UfZqc+3Q;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cmsmFIxe;
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dwh3SgbJ;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77FF606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77FF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B979606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B979606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=UfZqc+3Q;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cmsmFIxe
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id EA0397A014E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:23:18 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 22 Oct 2026 21:23:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1792718598; x=1792804998; bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLK
-	JNL9bMo0=; b=UfZqc+3Qrfv23fsfZc2jvmU7RuFQ/CB0TSGHl3tztznkVS9LqM7
-	u7tpvfZq9C7l71qOZ+tfjia2OgBi6BVDn8ZeNRHSsWtc15OSsiGGbH4P5FmSu4XL
-	hXH0IvFh4K5NEEMEykG2IpTO3rkf/uLChSXzE3/7CqFcu71j1S2uCch/nOMebIFg
-	N+OY8EJpSLd8vzn8zDmmRz1lW8uy3OThMVirxrFNsUh3MkEUrDSCBmAWSIQOFR3o
-	t8oB00oO5c9eveC8hTgi/InXp019gaOPxDsU8DaPRWYGqmfgsCGyBSShFyd4s7g8
-	qyzvhPAs2+HQqWQF8lv1iP9Lp4vCFHAqgbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792718598; x=
-	1792804998; bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLKJNL9bMo0=; b=c
-	msmFIxeN/qxDjXj7JHu74YT46slPjygG0V4YKZ0ulfTzTIB2SMU/d5W+9bYZQkzO
-	Z9U9BDdFOc/PBjzz8vt2JlQzMpyPDoA43SKp869dWkWRNol/in13WFQu1cgMuJ4T
-	g38w357DCAY3rOla4Uy16+UM4nfm2hJ13WULtrYDvfJLs0StgxJO3u6tbt23fcQf
-	Xo6p1qshEEvLbT/q7KHC5zOfGHt90oLMUE7Z8lqkgmJiJ+tGGr+D4HqNkjuSmou7
-	RPDcIVjqmP9RCyCiuU6Og54Yv0jjZbVzPmkY0LjmHSYon0Ndl3I1UKXdFFTRZsGT
-	Fw3O4OBK3dbe6yheVRr4A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792718598; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Hq9TDq8GRoWDAyNYu21X0fa/H+Y0PNP/Yz0pmFC1jUkzZbv
-	QyRgNi8/xL+MYF01F2Z3XA8cxjmIWXiMcu6eH7t53Xj09apLb/vdFsLI20MxIB6U
-	vtREiAvXGdNzR+ss1TarocVrpDiaSXC0Mpk7bmIh0XUOROFXajgMY+uUQ9xX/NPm
-	N4UQOchPzWFC0ECZJpWg8BAX1+okUjsf7hponK9WE/VjMs8COLwQTcVg16bFkpvv
-	v52RSLIFNYSzKks/B9fmCLQQSwOWkgCHgLlx8og2+0sa7o6rxfZgxEpQFTqDJjoS
-	zk5LulPN9d9qfs5LLK9Er51AoHz+FPPFmg3Rv8A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:YrN/KlqvJbuKZP5+/zhM5/JVYqXjcKZo0i2ywgzsSYM=:hXcREjO32Ld50T+nbL2hR5exmKKcdTu1Lk84ebTml1k=;
-X-ME-Sender: <xms:BrfaamyaXVGxedXYMFvgKLZdAq8aTe1L7ZMtzPVKUFiRKuiY21AcQw>
-    <xme:BrfaaghOoCO7v3toHGHJI6Nxnvf5DQfxG6kyXV4ot6uGHswML_FQ9ODAJltSPLV9L
-    mhPyeIjLcB0yP5G9GYzXnd6wuixkDzGbhmqwAIlO7dzSeCNF5jo>
-X-ME-Received: <xmr:BrfaahqtCgjZh9fnhHbqjalQDsOuvi1S_aC8Dt44_R4I5wsgak7fcHni8MR37xS_W1SwoFZgH1HHm_nUFIh0DPgIRLFJ6vs>
-X-ME-Proxy-Cause: dmFkZTFOPz9kVuRAJKXCexeAqCEJ3ruIe2UMXhbQkPVg2UFXrQecH2TQP0Zr0KlAgTNkSp
-    FQPdZUhOcjOrbo3H82A3HH0nhqFCKDcix67y6wDLuWb2jiToCxZBBM2lrdj+ind51vGAwU
-    GR9ab9wjgvmbx6ujLCAi0MMKBZUaxKiIob5+udC4a7+6gWEoQa4Hiq3BpWTO2vf+gKIp6J
-    vm4y2vlh8d5zJAhFQ4naGPAGMt1hlMHD1YJj5d/Q8aRxan9IWFa6XtjtvQuLnfb4Vf7d4K
-    Cbifv+b2sOwLuGZ/kXWROmW0/wbwEzJjoyEPVRrFkHmHXubXLJQNaPaw7Uw4JI1G5sePuG
-    OhD5y0oLLdgt0FqDcj++kBSuJY9geFZGVApMi9XaTOhDTzNejzdNxccn4QvU+pvqtUDbyE
-    cWofaU+0T+UxBnz2W7juRDB+jnt08EV0bdc0V7KvSwBe0299ybp65cehBMq8VoAJyeMv9B
-    96VdUM+iq0U9/qjH3z0cfywfuuQlBwjuPLzTgPluPvNvwIzfLwHcXPDetLYYkDXbrVUayB
-    mbQNC8VW5APsArPbdFOAvJqMHCjtQdVuEjtpTemJaE/IIMPEIktQuiJr/VdwweJzA4Jtaa
-    9gjf8hrA3mnx68lCNYA9Ao7nbV2k99y3PRkwZt2Hc4DF3lXZ+ihGwtIYdkqw
-X-ME-Proxy: <xmx:Brfaavji7RqzwhfR13ZV_DCsuBKIsH-quVNcy4lpnxBQYhZtVaIUlw>
-    <xmx:BrfaarOOn01-vrZm67Wv3971pvk2uuVoaFX5XWd9UQxuwh9rox6yOQ>
-    <xmx:Brfaahz_WetjwDvrsrgntQ0787cceiiVZLYM67C9eQFVfn40mpURcQ>
-    <xmx:BrfaaloApk53qIOMRg-shDhcJPwjZEd0lV1M4NJUopTm7DZWWNUA9w>
-    <xmx:BrfaaqcDF_DQeZh0rDC46IK5HxHcb8X-UGBenopU5gf6-uiO-OgFxEeb>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Oct 2026 21:23:15 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dwh3SgbJ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=K5yLonYWgOmg+PAeVcPBoGQLdK4Hwc1Y9SMwne6Zl2c=;
+	b=dwh3SgbJaone+LjT5mlfaGi7Hp3dPFflo8BQwUpDoglDz1qKtQrN6R+w78Mx/d+y1Q1Y8lB3s
+	sfeHGhfpbt5uzMAWWC0nCIg5WZKeeIBvqgAVzTsTkQCEs9DifavLARx2uJ4TzGA58g12CWHej9r
+	TNE34V734uL5Opc+Wj9bI5c=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j9ldy6hKPznTwB;
+	Fri, 23 Oct 2026 09:23:34 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4CD9040578;
+	Fri, 23 Oct 2026 09:23:32 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
+ 2026 09:23:31 +0800
+Message-ID: <87ecba5b-e396-45db-bab0-4eff0f30cb25@huawei.com>
+Date: Fri, 23 Oct 2026 09:23:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,274 +62,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Tom Talpey" <tom@talpey.com>
-Cc: "Paulo Alcantara" <pc@manguebit.org>,
- "Namjae Jeon" <linkinjeon@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 1/3] smb/client: don't unhash and rehash to prevent new opens.
-In-reply-to: <6233e33a-e6e2-4c9d-8372-5aa75f4f3314@talpey.com>
-References: <20260928012812.2890035-1-neilb@ownmail.net>
-  <20260928012812.2890035-2-neilb@ownmail.net>
-  <6233e33a-e6e2-4c9d-8372-5aa75f4f3314@talpey.com>
-Date: Fri, 23 Oct 2026 12:23:11 +1100
-Message-id: <179271859119.2068970.332034501939522955@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
-
-On Thu, 22 Oct 2026, Tom Talpey wrote:
-> One nit below...
->=20
-> On 9/27/2026 9:25 PM, NeilBrown wrote:
-> > From: NeilBrown <neil@brown.name>
-> >=20
-> > smb/client needs to block new opens of the target of unlink and rename
-> > while the operation is progressing.  This stablises d_count() and allows
-> > a determination of whether a "silly-rename" is required.
-> >=20
-> > It currently unhashes the dentry which will cause lookup to block on
-> > the parent directory i_rwsem.  Proposed changes to locking will cause
-> > this approach to stop working as the exclusivity will be provided for
-> > the dentry only, and only while it is hashed.
-> >=20
-> > So we introduce a new machanism similar to that used by nfs.
-> > DCACHE_PRIVATE (given the name DCACHE_BLOCKED) is set when lookups need
-> > to be blocked.  ->d_revalidate checks for this and blocks.  This might
-> > still allow d_count() to increment, but once it has been tested as 1,
-> > there can be no new opens completed.
-> >=20
-> > Unlike unhash which does not need to be reverted on error, and which
-> > must not be reverted on a successful d_move, blocking of opens must
-> > always be reverted.  So we don't block the open until after the last
-> > early "return", and we always unblock on the final "return".
-> >=20
-> > Strictly speaking it is only necessary to block opens before the value
-> > of d_count() is tested under ->d_lock. But we block as early as possible
-> > to discourage new opens from starting.  As open is path-based in cifs a
-> > concurrent rename can be confused a rename of one other the paths.  Once
-> > cifs_open() has generated the full_path it doesn't hold any locks to
-> > prevent a rename from making that path invalid.
-> >=20
-> > The important details of the interlock between __cifs_unlink (which both
-> > unlink and rename use) and "open" are that __cifs_unlink() sets
-> > DCACHE_BLOCKED  *before* testing d_count() which is
-> > in a d_lock locked region,  and cifs_d_revalidate() tests the bit *after*
-> > ->d_lock is taken by e.g. __d_lookup() to increment d_count().
-> > Thus ->d_lock provide serialization between the set and the test
-> > even though the test isn't in a locked region.
-> > (The fact that cifs_d_revalidate() always returned -ECHILD when
-> >   LOOKUP_RCU is important for this sequencing to work as it ensures
-> >   d_revalidate() is called *after* d_count() is incremented).
-> >=20
-> > Signed-off-by: NeilBrown <neil@brown.name>
-> > ---
-> >   fs/smb/client/cifsfs.h |  8 +++++
-> >   fs/smb/client/dir.c    |  3 ++
-> >   fs/smb/client/inode.c  | 68 ++++++++++++++++++++++++------------------
-> >   3 files changed, 50 insertions(+), 29 deletions(-)
-> >=20
-> > diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
-> > index 0c85daa8386e..bcc0fb5c2c9b 100644
-> > --- a/fs/smb/client/cifsfs.h
-> > +++ b/fs/smb/client/cifsfs.h
-> > @@ -42,6 +42,14 @@ static inline unsigned long cifs_get_time(struct dentr=
-y *dentry)
-> >   	return (unsigned long) dentry->d_fsdata;
-> >   }
-> >  =20
-> > +/*
-> > + * This is set to block d_revalidate on a dentry that is being removed -
-> > + * the target of unlink or rename.  This causes any open attempt to
-> > + * block.  There may be existing opens but they can be detected by
-> > + * checking d_count() under ->d_lock.
-> > + */
-> > +#define DCACHE_BLOCKED DCACHE_PRIVATE
->=20
-> Why the alias? The blocking behavior is reasonable but #defining a
-> flag value which is purely local to this file seems unnecessary and
-> confusing. What if another file in fs/smb/client also overloads the
-> DCACHE_PRIVATE flag, for example. Consider removing this hunk.
-
-
-I thought that giving the flag a meaningful name would make the code
-that uses it easier to read. But I'm happy to drop it.
-I'll resend with the IS_ERR_OR_NULL change too.
-
-Thanks,
-NeilBrown
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 00/19] arm,fs/resctrl: ARM MPAM MB_NODE support
+To: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, Ben Horgan
+	<ben.horgan@arm.com>, James Morse <james.morse@arm.com>, Dave Martin
+	<Dave.Martin@arm.com>, Will Deacon <will@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Shaopeng Tan <tan.shaopeng@fujitsu.com>, Chen Yu
+	<yu.c.chen@intel.com>, Babu Moger <babu.moger@amd.com>, Drew Fustini
+	<fustini@kernel.org>, Vikram Sethi <vsethi@nvidia.com>, Shanker Donthineni
+	<sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>, Richard Cheng
+	<icheng@nvidia.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20260831172245.42253-1-fenghuay@nvidia.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
+在 2026/9/1 1:22, Fenghua Yu 写道:
+> This series enables MBA bandwidth control emulation on ARM MPAM when the
+> default MB control is disabled, using a node-scoped MB_NODE control as
+> the native backend.  It extends memory-bandwidth monitoring and
 
->=20
-> Tom.
->=20
->=20
-> > +
-> >   extern struct file_system_type cifs_fs_type, smb3_fs_type;
-> >   extern const struct address_space_operations cifs_addr_ops;
-> >   extern const struct address_space_operations cifs_addr_ops_smallbuf;
-> > diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
-> > index 6fa6d48fdfd3..88fff65320f5 100644
-> > --- a/fs/smb/client/dir.c
-> > +++ b/fs/smb/client/dir.c
-> > @@ -872,6 +872,9 @@ cifs_d_revalidate(struct inode *dir, const struct qst=
-r *name,
-> >   	if (flags & LOOKUP_RCU)
-> >   		return -ECHILD;
-> >  =20
-> > +	/* Wait for pending rename/unlink */
-> > +	wait_var_event(&direntry->d_flags, !(direntry->d_flags & DCACHE_BLOCKED=
-));
-> > +
-> >   	if (d_really_is_positive(direntry)) {
-> >   		int rc;
-> >   		struct inode *inode =3D d_inode(direntry);
-> > diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-> > index 12ed8db10e00..4d34c5622cd4 100644
-> > --- a/fs/smb/client/inode.c
-> > +++ b/fs/smb/client/inode.c
-> > @@ -1967,24 +1967,31 @@ static int __cifs_unlink(struct inode *dir, struc=
-t dentry *dentry, bool sillyren
-> >   	__u32 dosattr =3D 0, origattr =3D 0;
-> >   	struct TCP_Server_Info *server;
-> >   	struct iattr *attrs =3D NULL;
-> > -	bool rehash =3D false;
-> > +	bool unblock =3D false;
-> >  =20
-> >   	cifs_dbg(FYI, "cifs_unlink, dir=3D0x%p, dentry=3D0x%p\n", dir, dentry);
-> >  =20
-> >   	if (unlikely(cifs_forced_shutdown(cifs_sb)))
-> >   		return smb_EIO(smb_eio_trace_forced_shutdown);
-> >  =20
-> > -	/* Unhash dentry in advance to prevent any concurrent opens */
-> > -	spin_lock(&dentry->d_lock);
-> > -	if (!d_unhashed(dentry)) {
-> > -		__d_drop(dentry);
-> > -		rehash =3D true;
-> > -	}
-> > -	spin_unlock(&dentry->d_lock);
-> > -
-> >   	tlink =3D cifs_sb_tlink(cifs_sb);
-> >   	if (IS_ERR(tlink))
-> >   		return PTR_ERR(tlink);
-> > +
-> > +	/* opens might already be blocked by rename */
-> > +	if (!(dentry->d_flags & DCACHE_BLOCKED)) {
-> > +		/*
-> > +		 * Block opens - and all lookups that involve d_revalidate.
-> > +		 * This guarantees that if another thread tries to open(), it
-> > +		 * will either block, or will increment d_count()
-> > +		 * before we test it below.
-> > +		 */
-> > +		spin_lock(&dentry->d_lock);
-> > +		dentry->d_flags |=3D DCACHE_BLOCKED;
-> > +		spin_unlock(&dentry->d_lock);
-> > +		unblock =3D true;
-> > +	}
-> > +
-> >   	tcon =3D tlink_tcon(tlink);
-> >   	server =3D tcon->ses->server;
-> >  =20
-> > @@ -2107,8 +2114,13 @@ static int __cifs_unlink(struct inode *dir, struct=
- dentry *dentry, bool sillyren
-> >   	kfree(attrs);
-> >   	free_xid(xid);
-> >   	cifs_put_tlink(tlink);
-> > -	if (rehash)
-> > -		d_rehash(dentry);
-> > +	/* Allow lookups/opens */
-> > +	if (unblock) {
-> > +		spin_lock(&dentry->d_lock);
-> > +		store_release_wake_up(&dentry->d_flags,
-> > +				      dentry->d_flags &~ DCACHE_BLOCKED);
-> > +		spin_unlock(&dentry->d_lock);
-> > +	}
-> >   	return rc;
-> >   }
-> >  =20
-> > @@ -2536,7 +2548,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
-*source_dir,
-> >   	struct cifs_sb_info *cifs_sb;
-> >   	struct tcon_link *tlink;
-> >   	struct cifs_tcon *tcon;
-> > -	bool rehash =3D false;
-> >   	unsigned int xid;
-> >   	int rc, tmprc;
-> >   	int retry_count =3D 0;
-> > @@ -2552,20 +2563,20 @@ cifs_rename2(struct mnt_idmap *idmap, struct inod=
-e *source_dir,
-> >   	if (unlikely(cifs_forced_shutdown(cifs_sb)))
-> >   		return smb_EIO(smb_eio_trace_forced_shutdown);
-> >  =20
-> > -	/*
-> > -	 * Prevent any concurrent opens on the target by unhashing the dentry.
-> > -	 * VFS already unhashes the target when renaming directories.
-> > -	 */
-> > -	if (d_is_positive(target_dentry) && !d_is_dir(target_dentry)) {
-> > -		if (!d_unhashed(target_dentry)) {
-> > -			d_drop(target_dentry);
-> > -			rehash =3D true;
-> > -		}
-> > -	}
-> > -
-> >   	tlink =3D cifs_sb_tlink(cifs_sb);
-> >   	if (IS_ERR(tlink))
-> >   		return PTR_ERR(tlink);
-> > +
-> > +	/*
-> > +	 * Block opens - and all lookups that involve d_revalidate.
-> > +	 * This guarantees that if another thread tries to open(), it
-> > +	 * will either block, or will increment d_count()
-> > +	 * before we test it in __cifs_unlink().
-> > +	 */
-> > +	spin_lock(&target_dentry->d_lock);
-> > +	target_dentry->d_flags |=3D DCACHE_BLOCKED;
-> > +	spin_unlock(&target_dentry->d_lock);
-> > +
-> >   	tcon =3D tlink_tcon(tlink);
-> >   	server =3D tcon->ses->server;
-> >  =20
-> > @@ -2605,8 +2616,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
-*source_dir,
-> >   		}
-> >   	}
-> >  =20
-> > -	if (!rc)
-> > -		rehash =3D false;
-> >   	/*
-> >   	 * No-replace is the natural behavior for CIFS, so skip unlink hacks.
-> >   	 */
-> > @@ -2698,8 +2707,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
-*source_dir,
-> >   			}
-> >   			rc =3D cifs_do_rename(xid, source_dentry, from_name,
-> >   					    target_dentry, to_name);
-> > -			if (!rc)
-> > -				rehash =3D false;
-> >   		}
-> >   	}
-> >  =20
-> > @@ -2713,8 +2720,11 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode=
- *source_dir,
-> >   	CIFS_I(source_dir)->time =3D CIFS_I(target_dir)->time =3D 0;
-> >  =20
-> >   cifs_rename_exit:
-> > -	if (rehash)
-> > -		d_rehash(target_dentry);
-> > +	/* Allow lookups/opens */
-> > +	spin_lock(&target_dentry->d_lock);
-> > +	store_release_wake_up(&target_dentry->d_flags,
-> > +			      target_dentry->d_flags &~ DCACHE_BLOCKED);
-> > +	spin_unlock(&target_dentry->d_lock);
-> >   	kfree(info_buf_source);
-> >   	free_dentry_path(page2);
-> >   	free_dentry_path(page1);
-> >=20
-> > base-commit: 3879f51857325da9bf3cfb073280257cd16ae067
->=20
->=20
+Hi everyone,
+
+We also have the requirement for the MPAM node-scoped MB_NODE control.
+Are there any follow-up plans for this feature?
+
+Is there anything I can help with?
+
+> control to memory-level MSCs or CPU-less NUMA nodes, and adds
+> documentation and tests.
+> 
+> Background
+> 
+> On x86, MBA bandwidth control is typically associated with the L3 cache:
+> schemata lines use L3 cache ids and monitor domains appear as mon_L3_XX.
+> On some ARM MPAM systems the MBA control is backed by a memory-level MSC
+> rather than the L3 cache MSC.  A memory-level MSC is represented as a
+> NUMA node, and that node commonly has no CPUs of its own (a memory-only
+> node that still participates in bandwidth control).  For such a resource
+> the control scope is NODE, schemata identifiers are NUMA node ids,
+> monitor domains are named mon_NODE_XX, and a node-scoped MB_NODE control
+> may be the only control with usable bandwidth hardware.
+> 
+> Because the memory-level MSC lives on a CPU-less NUMA node, the driver
+> must handle nodes with no local CPUs.  mpam_ris_get_affinity() derives
+> affinity from the component's NUMA node id, so a memory-only node would
+> otherwise end up with an empty CPU mask and never be registered.  When
+> the derived mask is empty, the driver falls back to cpu_possible_mask
+> (masked by MSC accessibility) so the node still gets a resctrl domain.
+> The borrowed affinity is kept out of class->affinity: those CPUs already
+> contribute through CPU-ful nodes in the class, and subtracting the
+> borrowed mask on teardown would remove CPUs that other live nodes still
+> depend on.  Domain setup iterates all MSC components per CPU (keyed by
+> component), so each component — including these CPU-less memory nodes —
+> gets its own control and monitor domain.
+> 
+> Examples of NODE and emulation interfaces on MPAM.
+> 
+> ** On platform with CPU-less nodes, by default, control_mode is legacy.
+> 1. By default, MB is emulated by MB_NODE in schemata.
+> info/
+> ├── MB
+> │   ├── bandwidth_gran
+> │   ├── control_mode        # [legacy] native
+> │   └── schemata
+> │       └── MB
+> │           ├── MB_NODE     # emulated by "MB_NODE"
+> 
+> schemata: Only show MB, which is emulated by MB_NODE. domain id is numa
+> id
+> MB:0=100;1=100;2=100;10=100;18=100;26=100;34=100;35=100
+> L3:1=ffff;2=ffff
+> 
+> 2. root can switch to native by writing "native" to "control_mode":
+> info/
+> ├── MB
+> │   ├── bandwidth_gran
+> │   ├── control_mode        # legacy [native]
+> │   └── schemata
+> │       └── MB
+> │           ├── MB_NODE     # no emulation, native mode
+> 
+> schemata: Only show MB_NODE. No "MB:" is emulated.
+> MB_NODE:0=100;1=100;2=100;10=100;18=100;26=100;34=100;35=100
+>      L3:1=ffff;2=ffff
+> 
+> 3. llc_occupancy in mon_L3_x where x is cache id
+>    mbm_total_bytes in mon_NODE_y where y is numa id
+> mon_data/
+> mon_L3_01  mon_NODE_00  mon_NODE_02  mon_NODE_18  mon_NODE_34
+> mon_L3_02  mon_NODE_01  mon_NODE_10  mon_NODE_26  mon_NODE_35
+> 
+> mon_data/mon_L3_01/llc_occupancy
+> mon_data/mon_NODE_01/mbm_total_bytes
+> 
+> ** On legacy machine which only has L3 MSCs. No NODE scope in schemata
+>    or mon_data
+> schemata: MB's domain id is cache id, not numa node id
+> MB:1=100;2=100
+> L3:1=ffff;2=ffff
+> 
+> mon_data/
+> mon_L3_01 mon_L3_02
+> 
+> mon_data/mon_L3_01/llc_occupancy
+> mon_data/mon_L3_01/mbm_total_bytes
+> mon_data/mon_L3_02/llc_occupancy
+> mon_data/mon_L3_02/mbm_total_bytes
+> 
+> The patches can be compiled but not tested on x86 yet.
+> 
+> The 19 patches are grouped as follows:
+> 
+> 1. Memory bandwidth monitoring and control on memory-level MSCs
+>    (patches 1–10, 12)
+> 
+>    Generalise the monitor infrastructure beyond hard-wired L3 paths:
+>    de-hardcode L3 monitor plumbing, expose MBA MBM counter assignment,
+>    name node-scoped monitor domains mon_NODE_<id>, add a node-scope MBM
+>    total event, and make MBM handling resource-aware.
+> 
+>    On the ARM MPAM side, add memory-level MSC and ABMC support, refine
+>    L3 topology and class selection, refactor domain setup to iterate all
+>    MSC components per CPU (keyed by component), and handle CPU-less NUMA
+>    memory nodes that have no local CPUs but still participate in MPAM
+>    bandwidth control. Memory hotplug locking and notifier are added.
+> 
+> 4. MB_NODE emulates MB (patch 11) [1]
+> 
+>    Wire MB_NODE as the native backend that emulates a MB control
+>    in the ARM MPAM driver.
+> 
+>    If emulation is unnecessary, this patch can be removed.
+> 
+> 5. Documentation (patches 14–17)
+> 
+>    Document memory-level MB control and NUMA nodes in the arm64 MPAM
+>    guide (patch 19), NODE-scoped MBA domains and mon_NODE_* monitoring
+>    in the resctrl documentation (patch 20), and an MB_NODE emulation
+>    example on ARM MPAM (patch 21).
+> 
+> 6. Tests (patches 18–19)
+> 
+>    Add a KUnit test for CPU-less NUMA node affinity handling and a
+>    kselftest that exercises MB emulation mode switching,
+>    resource_schemata hierarchy, and schemata mirroring on ARM MPAM.
+> 
+> Apply the patches on top of [2].
+> 
+> Testing
+> 
+>   # KUnit (CPU-less affinity)
+>   sudo cat /sys/kernel/debug/kunit/mpam_devices_test_suite/results
+> 
+> 
+>   # kselftest (MB emulation; requires ARM MPAM with disabled MB control)
+>   cd tools/testing/selftests/resctrl
+>   sudo ./resctrl_tests -t mb_emulation
+> 
+> This series is in https://github.com/fyu1/linux/  cpu_less.rfc.v2/
+> which is on top of [2].
+> 
+> Change Log:
+> RFC v2:
+> - Remove fix patches 1-2 which are implemented in [2]
+> - Remove the emulation patches 3-8 which are implemented in [2]
+> - Update emulated_by to *emulated_by in patch 11. Ben seems
+>   doesn't like to emulate MB by MB_NODE. If that's case, I can
+>   remove this patch. But for now, I keep this patch for further
+>   discussion.
+> - Add patch 13 to implemente legacy and native modes to emulate
+>   "mbm_L3_assignments" by "mbm_NODE_assignments" in patch 13.
+> - Add patch 9 for memory hotplug locking (Ben)
+> - Add patch 12 for memory hotplug notifier (Ben)
+> 
+> RFC v1:
+> https://lore.kernel.org/lkml/cover.1784217438.git.fenghuay@nvidia.com/
+> 
+> [1] [RFC v2] mpam,x86,fs/resctrl: Generic schema description Proof of Concept https://lore.kernel.org/lkml/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
+> [2] Reinette's resctrl control branch RFC v2: git://git.kernel.org/pub/scm/linux/kernel/git/reinette/linux.git branch resctrl/controls_rfc_v2.4
+> 
+> Fenghua Yu (17):
+>   resctrl: De-hardcode L3 monitor infrastructure
+>   resctrl: Expose MBA MBM counter assignment sysfs
+>   resctrl: name node-scoped monitor domains mon_NODE_<id>
+>   resctrl: Add node-scope MBM total event
+>   resctrl: Make MBM paths resource-aware
+>   arm_mpam: Support memory-level MSCs and ABMC per class
+>   arm_mpam: Refine L3 topology and class selection
+>   arm_mpam: Include all MSC components during domain setup
+>   arm_mpam: Handle CPU-less numa nodes
+>   arm_mpam: Emulate MB control with node-scoped MB_NODE control
+>   resctrl: Add mbm_assign_scope_mode for native assignment file names
+>   Documentation: resctrl: document mbm_assign_scope_mode
+>   Documentation: arm64: mpam: document memory-level MB control and NUMA
+>     nodes
+>   Documentation: resctrl: document NODE-scoped MBA domains and mon_NODE
+>     monitoring
+>   Documentation: resctrl: document MB_NODE emulation example on ARM MPAM
+>   arm_mpam: Add KUnit test for CPU-less NUMA node affinity
+>   selftests/resctrl: Add MB emulation test for ARM MPAM
+> 
+> James Morse (2):
+>   fs/resctrl: Take memory hotplug lock whenever taking CPU hotplug lock
+>   arm_mpam: resctrl: Add NUMA node notifier for domain online/offline
+> 
+>  Documentation/arch/arm64/mpam.rst             | 105 ++-
+>  Documentation/filesystems/resctrl.rst         | 135 ++-
+>  drivers/resctrl/mpam_devices.c                |  59 +-
+>  drivers/resctrl/mpam_internal.h               |   8 +
+>  drivers/resctrl/mpam_resctrl.c                | 879 +++++++++++++++---
+>  drivers/resctrl/test_mpam_devices.c           |  67 ++
+>  fs/resctrl/ctrlmondata.c                      |   6 +-
+>  fs/resctrl/internal.h                         |  18 +-
+>  fs/resctrl/monitor.c                          | 355 +++++--
+>  fs/resctrl/pseudo_lock.c                      |   3 +
+>  fs/resctrl/rdtgroup.c                         | 157 +++-
+>  include/linux/memory.h                        |   1 +
+>  include/linux/resctrl.h                       |  36 +-
+>  include/linux/resctrl_types.h                 |  15 +-
+>  .../selftests/resctrl/mb_emulation_test.c     | 314 +++++++
+>  tools/testing/selftests/resctrl/resctrl.h     |   1 +
+>  .../testing/selftests/resctrl/resctrl_tests.c |   1 +
+>  17 files changed, 1827 insertions(+), 333 deletions(-)
+>  create mode 100644 tools/testing/selftests/resctrl/mb_emulation_test.c
+> 
+
+-- 
+Best regards,
+Jinjie
 
