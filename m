@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778135;
-	b=iSDLHhGBqi/8WvoUJ1BwzlId3oPUO/5pGFv2J4vrl9ZfaZ7I25Kj+HzXYiwE852IBKFF
-	 JnMGkncYdv+dVsb/w9BBjgCxSm0QuZlYAcvBkaFkIK0bol2hwUPDq7EYYoGWltJj328NH
-	 u6Yo9OtM9MCEADbzfyHu93YRPYWTqfAt2IS73dA8MAwQIvwCCYEt6LLDrTJkVLk4Eskc3
-	 tys3cqHbsV9jwy/iUvs4wkH/qSqTwxLrlyyErKbGhYetYP7sU9obv6CvdEH0tfH3unCaC
-	 fLt9WzpC01GCgkNCZPxeU87RnsWCqW+MzDak3HXl97RplUKdACpY6pgEXK98mwwQZvA==
+	t=1792778171;
+	b=jNWNyzQ0tQWOmu8HPnmsVNI2RK2Q3/SV0ZEPdHQ2vje2/fSxVWm3u9MXCXcNwYcdtSDa
+	 g1Mz1Qcn4oN4XPdlyAI5HfBcMeedS6pIF06TsXs5ylun2d571V4+i6lJqV2pPwaGW7C7v
+	 4DGzU0nAtfF44nVu1500vGJZkVWTpAQr5wi5OghZTw2bzxgAicP3aUkqDyJOXa4Zym+Cs
+	 O6yYettvnUWGg2MwNOdTe+XTb6RYvmW5PWLCboxrazs/80KB/oE8xFP0lbtpfjt4o+sx0
+	 xzVKtoypM7w8jUL6czL6BhpTicF/XTKJzqX9Mu7WpuWAM4rwCvAAm7F5Ei0nMwrxnwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778135;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uYTTF5jDNkxMCVJ9mrlfykfmfKah1Cd8hTMk87yFHBg=;
-	b=fKSY/B3reTYktrycqv48D2jn1GTKxP3Fp9oqr/hDWe2EnkVQgVEDQt26d5CiRgsVzfjA
-	 NR0TJ8mSyn6hmGFrkT7vDZI07hA1YuCavws3vQSFxkC+Qw8cfJzOVT1zzOlMnHPm1jBjK
-	 JDXYBZouobE6o9d+/cIXRJ4PAIwbf66ApOH5BwT3D1taRRwdwq/cwjHqk9kmVukX8R4yW
-	 8UMbO7cFdPQOSCK4zjMqJKRCbeG6Mlnd8O7wuQnISbBrIID0ctTyKPkccNkeXEqWblBOK
-	 lcHOXdxQsMaLWAEwNvkwQMYN2ikmHp/4v++igZA8+FZ+XuXEjirmd3Ui8ifLusq636Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778171;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
+	b=n7CgczQjHG5mEST+vVGxf7MZMoqb1Twe1l+Ab28kcshTtGUdaqqUuHJtej1hWcA9pRkm
+	 DNbcFMQM3h3r3wngwRWoiKx+FLbUpJgglZ24NjdvCPzfYiISDBGceWzGip0EQqYh9VYPz
+	 lhhVnJbvB9xvtpG4zfTRI0Q2q2OR8j69Cm79jYUYvYP5MaZMPrazLuKAfa/1SE7B56M3w
+	 TiGHoB6EVBZ+Y63MQOIR45j1EPQDWuHmYBNnCI2C7AcGkyPnwL49/nrI2fyhKbA8b/Uki
+	 +cs3vAYVB+oHK2dyM57ZGNF58qEms1Sj6GfR5/7bE5IZnnfX6eAA4rFon3uAmntK05w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FFx+HjPs;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7bgjUOx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D236D606A31B;
-	Fri, 23 Oct 2026 17:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D236D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB101606A324;
+	Fri, 23 Oct 2026 17:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FFx+HjPs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=uYTTF5jDNkxMCVJ9mrlfykfmfKah1Cd8hTMk87yFHBg=; b=FFx+HjPsKWG+EePtFOBKnIR9Hs
-	GiPfrM6SAXY2vTtQro2pSZDw/MGSKa/4imbtPz8BzVcylikXV2VXIuNwXOoVNMkufpXfFQbD/4Ah3
-	fSKZ0uUV8cUm7TXyZ7RLnpCVkY8tTajyQXzjilHkO4Y0EkuEzhAiaz+11DIDHgPbTuG3/fTtQRJVy
-	s1T02id+dNFvi99iSrYWeRc8QXq+I+yf4Fnffy7Tck+NG1U+X5eq4MT9cyJDUvnkNOaZZy1lbqJTe
-	rBnqniYL30xcHkkDHQElLV8g+PQYcUDj7+YrHkYhlz6nCrB4Kts94DwZ3Q1UdNPoLhS4aLmzYZN5K
-	WmduT+gQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xKJUG-0000000Glen-1HOa;
-	Fri, 23 Oct 2026 17:55:28 +0000
-Message-ID: <26adbb3d-bbd8-442c-aed6-80cf091888b0@infradead.org>
-Date: Fri, 23 Oct 2026 10:55:26 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7bgjUOx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D911F01829;
+	Fri, 23 Oct 2026 17:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792778170;
+	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O7bgjUOxKre3iyRlT1Z/5uJaa6OInUZnvus2FGtd4wAVZ87DzyQREbcDGKOk9njvk
+	 g7ZDoy7FBUt0fVYD2Q2LCCTWaIV8b8vF7PXY3y3fxigia5xTBGJGHED399tzXiRJrN
+	 7ey3rM+p6GvEfBsvORM0W933gCT5+Cw1G/ejObLjaMI1DTG6x9ZnB5v76g8Erykpde
+	 uy1whXpH1OZgNYeWNBvbsSAdbIoxYSdFzLX5DbMdLz4k8lBaLuE6KmgEsfe8jVJe/x
+	 fnu2VK7qY9DrFgoMt7pK9L7wuS8saHnZByDMik5ajvk31O1q3fuG1Tpc1lqGYWynR2
+	 er9DhnCss4OOA==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH 01/17] sched_ext: Pack scx_ent_flags' multi-bit fields at the top
+Date: Fri, 23 Oct 2026 07:55:52 -1000
+Message-ID: <20261023175608.4120910-2-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023175608.4120910-1-tj@kernel.org>
+References: <20261023175608.4120910-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,54 +63,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] binfmt_misc: fix typo in "auxiliary vector"
-To: atanaskunchev@proton.me, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The following patches add a flag for a kernel-owned slice to scx_ent_flags.
+The two 3-bit fields, the task state at bits 8 to 10 and the reenqueue
+reason at bits 12 to 14, sit right above the single-bit flags, so the new
+flag would have to take bit 11 or 15, out of sequence with the rest.
 
-On 10/23/26 10:50 AM, Atanas Kunchev via B4 Relay wrote:
-> From: Atanas Kunchev <atanaskunchev@proton.me>
-> 
-> Fix "auxilary" -> "auxiliary".
-> 
-> Signed-off-by: Atanas Kunchev <atanaskunchev@proton.me>
+Pack the fields at the top of the word, below SCX_TASK_CURSOR, the state at
+bits 25 to 27 and the reason at bits 28 to 30, so that the single-bit flags
+continue from bit 8.
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+The renumbering changes the values a BPF scheduler reads from p->scx.flags.
+Nothing in the kernel or the in-tree schedulers hardcodes the numbers. The
+enum ABI table in tools/sched_ext/include/scx/enums_abi.autogen.h, kept for
+repairing enum values that a kernel's BTF truncates, is regenerated for the
+two fields. In the scx repository, scx_eevdf tests SCX_TASK_REENQ_IMMED and
+SCX_TASK_REENQ_PREEMPTED against SCX_TASK_REENQ_REASON_MASK. Those three
+names belong in its load-time enum table, so that they follow the running
+kernel. No behavior change.
 
-> ---
-> Fix a spelling mistake in the binfmt_misc documentation.
-> ---
->  Documentation/admin-guide/binfmt-misc.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/admin-guide/binfmt-misc.rst b/Documentation/admin-guide/binfmt-misc.rst
-> index 9e84b877d06d..e37668371453 100644
-> --- a/Documentation/admin-guide/binfmt-misc.rst
-> +++ b/Documentation/admin-guide/binfmt-misc.rst
-> @@ -73,7 +73,7 @@ Here is what the fields mean:
->  	    Legacy behavior of binfmt_misc is to pass the full path
->              of the binary to the interpreter as an argument. When this flag is
->              included, binfmt_misc will open the file for reading and pass its
-> -            descriptor into the auxilary vector with the key "AT_EXECFD", thus
-> +            descriptor into the auxiliary vector with the key "AT_EXECFD", thus
->              allowing the interpreter to execute non-readable binaries. This
->              feature should be used with care - the interpreter has to be trusted
->              not to emit the contents of the non-readable binary.
-> 
-> ---
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> change-id: 20261023-binfmt-typo-bf80308e23a0
-> 
-> Best regards,
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ include/linux/sched/ext.h                     | 11 +++++---
+ .../sched_ext/include/scx/enums_abi.autogen.h | 28 +++++++++----------
+ 2 files changed, 21 insertions(+), 18 deletions(-)
 
+diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
+index efd635a99309..b341c328948e 100644
+--- a/include/linux/sched/ext.h
++++ b/include/linux/sched/ext.h
+@@ -107,7 +107,10 @@ enum scx_ent_flags {
+ 	SCX_TASK_RUN_TRACKED	= 1 << 7, /* task is in an ops.running()/stopping() session */
+ 
+ 	/*
+-	 * Bits 8 to 10 are used to carry task state:
++	 * The multi-bit fields are packed at the top, below SCX_TASK_CURSOR, so
++	 * that the single-bit flags stay contiguous from bit 0.
++	 *
++	 * Bits 25 to 27 are used to carry task state:
+ 	 *
+ 	 * NONE		ops.init_task() not called yet
+ 	 * INIT_BEGIN	ops.init_task() in flight; see sched_ext_dead()
+@@ -116,7 +119,7 @@ enum scx_ent_flags {
+ 	 * ENABLED	fully initialized and in sched_ext
+ 	 * DEAD		terminal state set by sched_ext_dead()
+ 	 */
+-	SCX_TASK_STATE_SHIFT	= 8,
++	SCX_TASK_STATE_SHIFT	= 25,
+ 	SCX_TASK_STATE_BITS	= 3,
+ 	SCX_TASK_STATE_MASK	= ((1 << SCX_TASK_STATE_BITS) - 1) << SCX_TASK_STATE_SHIFT,
+ 
+@@ -128,7 +131,7 @@ enum scx_ent_flags {
+ 	SCX_TASK_DEAD		= 5 << SCX_TASK_STATE_SHIFT,
+ 
+ 	/*
+-	 * Bits 12 to 14 are used to carry reenqueue reason. In addition to
++	 * Bits 28 to 30 are used to carry reenqueue reason. In addition to
+ 	 * %SCX_ENQ_REENQ flag, ops.enqueue() can also test for
+ 	 * %SCX_TASK_REENQ_REASON_NONE to distinguish reenqueues.
+ 	 *
+@@ -139,7 +142,7 @@ enum scx_ent_flags {
+ 	 * CAP		sub-sched cap miss, see p->scx.reenq_reason_*
+ 	 * PROXY	proxy state prevented a remote DSQ transfer
+ 	 */
+-	SCX_TASK_REENQ_REASON_SHIFT = 12,
++	SCX_TASK_REENQ_REASON_SHIFT = 28,
+ 	SCX_TASK_REENQ_REASON_BITS = 3,
+ 	SCX_TASK_REENQ_REASON_MASK = ((1 << SCX_TASK_REENQ_REASON_BITS) - 1) << SCX_TASK_REENQ_REASON_SHIFT,
+ 
+diff --git a/tools/sched_ext/include/scx/enums_abi.autogen.h b/tools/sched_ext/include/scx/enums_abi.autogen.h
+index 1186daa9cb14..05a460611c4d 100644
+--- a/tools/sched_ext/include/scx/enums_abi.autogen.h
++++ b/tools/sched_ext/include/scx/enums_abi.autogen.h
+@@ -120,24 +120,24 @@ static const struct __scx_enum_abi_val __scx_enum_abi_vals[]
+ 	{ "scx_ent_flags", "SCX_TASK_IMMED", 0x20LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_PROTECTED", 0x40LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_RUN_TRACKED", 0x80LLU },
+-	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x8LLU },
++	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x19LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_STATE_BITS", 0x3LLU },
+-	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0x700LLU },
++	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0xe000000LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_NONE", 0x0LLU },
+-	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x100LLU },
+-	{ "scx_ent_flags", "SCX_TASK_INIT", 0x200LLU },
+-	{ "scx_ent_flags", "SCX_TASK_READY", 0x300LLU },
+-	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x400LLU },
+-	{ "scx_ent_flags", "SCX_TASK_DEAD", 0x500LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0xcLLU },
++	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x2000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_INIT", 0x4000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_READY", 0x6000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x8000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_DEAD", 0xa000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0x1cLLU },
+ 	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_BITS", 0x3LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x7000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x70000000LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_REENQ_NONE", 0x0LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x1000LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x2000LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x3000LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x4000LLU },
+-	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x5000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x10000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x20000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x30000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x40000000LLU },
++	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x50000000LLU },
+ 	{ "scx_ent_flags", "SCX_TASK_CURSOR", 0xffffffff80000000LLU },
+ 	{ "scx_exit_code", "SCX_ECODE_RSN_HOTPLUG", 0x100000000LLU },
+ 	{ "scx_exit_code", "SCX_ECODE_RSN_CGROUP_OFFLINE", 0x200000000LLU },
 -- 
-~Randy
+2.56.0
+
