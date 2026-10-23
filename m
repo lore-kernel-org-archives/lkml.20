@@ -1,70 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792742680;
-	b=lwjdGLA4q2fa+p/E5pauifhLVV1C1536TDmtOf+z7KLdPgmzQyK9nUBQ5sJMTqtMbN/X
-	 Uc2DbDyqYyicspQKXnaNmLKlc9BbWcl3ad9lKZioWnTP3ojUtZsap8DXHhxAEvSkeQSDV
-	 bH3EpIREABEKhEi2qeYno9sCTkXiNpPtGjtjjNwNMGFk8/mywO4LhrCu2X4AaMESLoKGe
-	 7RdQI4QbjQ6Z328U+gEdMWJjoRP6RV0e5UGdw+xp1GkaL/OI613FqKt0dIijZJgqTIxVp
-	 bXsxSWTDT9iQ8QEudYCJNq0WJMAo5DRX8u73ToSyffru38YmAsKS6rChjpJoaxjjwzQ==
+	t=1792742704;
+	b=gDTUeM+Aosq/BcrgQnV7U1Iy1SO4lD+N8R7Mz+cdydRqjb38xA/hp1PeheUhG+vHfwsn
+	 GCAaqLq1iOoGij+XVXnha+iwvxr1PCfv8bZYPt5oy0u2k5Ki9TJUnVjMV8CgSY4IlDYGd
+	 MI19fJEm0WoLTfl9QPolDC7R+Tbf20d1d94RFrXZ5TugTfvd+54jtjl0RCJsPDMI29wBT
+	 sHv+GHHaJycecJw7/WJq9LteYj3gR8kTnK9bW9pdX7Uo2veT9kxk1vmXKzqWkfcC14PW5
+	 o1cLSyP3S29fjOWpfoBH0Upe7Geq2wI3jVlel9wIUxseVfxLdFmwO47Ff0lzaeP42vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792742680;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=1aER1x8VPZMKUcSsoignSKfToUokcEBP6tnK+zyf6o0=;
-	b=3K9APiZ0Z2SnxmEJ+9EXMNwoUp4KuoeE8tXckZPcBjMsr4GxBmquP8TXyRBSe/y47ay0
-	 AU520kMpv1uhcdoS8iN3Gy9YVd0MgnXub0KUhOI5ext0TRlDW4/ru1iPzSaWhLBE2MHec
-	 uY7QcIakgcYAUqtNqFPHb5Ajvu14WvIweI2hTE3g/y4a20u2lyvx3Pgj63rFzisQr/Cdz
-	 gb6oxb/rzOvpM6tUjJNwhv99ZB6znxSVkF940AKbLnC2LU7b2XbNx4ZexZkltkKhl78w1
-	 ZiIyhEUif9SYrTQdnBsOoPyin+q1aZFt4JAmunFmKidiDXc01ex3DwwiSq+5Ed5RtBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742704;
+	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=m2tmSGXuQRVKV0r4MiiAuAOPVUluBMUb7eqsLcZmIXU=;
+	b=FUeZVafAaoiU5FIe+bjFddaMHiG+RM7LoMC37SNkhLkfncEtr4ff8EuaVbS9YtCaoacj
+	 7T9yrXF822KhBAjpd7Ti2iVaFFBnTZf0wIsi6MS4KZ4bC1sT+aYjUfqTvC6I955zOwWQE
+	 rK6CkO7NPnL9emWuJC01thItBu91tuvafBC7D7uuoArkPXLoze20HAaw3DUBv6MktETZE
+	 /5fg4OxZSqBSs47a2olag23pU3SaMQtkDOCa5CeF/cvSdQhFOz115U+rO86A3b9wQwFEo
+	 snLXTE2LE4m3QwaEPzHpv43wiLe+FSJUwBDzKicktNDW0ezCnJoXRZdnDHdex1U0mMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nAzBZwsg;
-	arc=none smtp.remote-ip=91.218.175.122
-Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lBruzr1e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5717B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5717B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0DF606A31D;
+	Fri, 23 Oct 2026 08:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nAzBZwsg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wjMZ4gCT6bzoDVek/8Cu8ceb5A5pr2WKbPw8oouSwcE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792742677; v=1; x=1793347477;
- b=nAzBZwsgeopV6uQ+/Fn0Kx/w+ClYMIN84t4plX6nr/fcM67GO0JuTQEaboP92JQsLx5q/Cs6
- xyjRvNAbPabgq8bJ9cqIX5FQf9eQkxRJGIFgh1dWIqYi91F0mACjm02MEDCvRUftXYW4UCUHyON
- eIjWD82mwJDMPprCAB8DeNFw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 521efba9aa20a663;
-	Fri, 23 Oct 2026 08:04:37 +0000
-X-Mizu-Trace-ID: 521efba9aa20a663
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-Date: Fri, 23 Oct 2026 16:04:29 +0800
-Message-ID: <20261023080430.465305-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lBruzr1e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D521F01825;
+	Fri, 23 Oct 2026 08:04:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792742704;
+	bh=m2tmSGXuQRVKV0r4MiiAuAOPVUluBMUb7eqsLcZmIXU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=lBruzr1ee/0GkWnTWhoGc3vOszw1v2kglMLuJvfcNuqHtY/xPVO2mI6cP0MfiS6Aq
+	 8gdL6khYEHCDWyhE4rqSPItnrbF2BSSK8O1qTqBFnL8cOLwBpLhz/EgwUL9XaN22J9
+	 QqRxo2Ye7X68+GtPQcWcDWfwal4n/Ss0UA0oeOpoBJLZhwX/JBgs2CuUIPeUcecC/6
+	 kjj95Pc51jlPFVehIFzBeUF9QyR8VtHy3svgRAqLLvqnpyWiCSh0f4kUl6Nb4kpS1r
+	 jmbxXesjaIirUOBO+URQbV5l3DU/3NKgJcIu2o6ZGdKG9otHiiNnyI2D3fh8fAF8ow
+	 U9c7g+3FcDh+Q==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, jgg@ziepe.ca,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
+	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
+	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+	dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+In-Reply-To: <atooh7uO2RauUTfY@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <yq5a7bjajaco.fsf@kernel.org> <atooh7uO2RauUTfY@FV6GYCPJ69>
+Date: Fri, 23 Oct 2026 13:34:53 +0530
+Message-ID: <yq5av76sj10a.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,66 +70,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Jiri Pirko <jiri@resnulli.us> writes:
 
-lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
-lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
-returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
-clearing anything.
+> Thu, Oct 22, 2026 at 12:30:47PM +0200, aneesh.kumar@kernel.org wrote:
+>>Jiri Pirko <jiri@resnulli.us> writes:
+>>
+>>> From: Jiri Pirko <jiri@nvidia.com>
+>>>
 
-A MADV_FREE folio therefore keeps the refs and PG_workingset it had
-before madvise(2).  lru_gen_folio_seq() places it one generation younger,
-and PG_workingset puts it in the last tier, so sort_folio() promotes and
-protects it instead of evicting it and charges it to lrugen->protected[],
-which read_ctrl_pos() uses to balance anon against file reclaim.
-__folio_inc_gen() clears the refs but not PG_workingset, so this repeats
-every time the folio reaches the oldest generation.  If the folio is
-redirtied first, ttu_anon_lazyfree_folio() keeps it and
-lru_gen_eviction() packs the stale state into the shadow entry, so a
-later refault is promoted to the youngest generation.
+ [ ... 67 lines skipped ... ] 
 
-Clear both flags here instead.  lru_gen_clear_refs() only reports whether
-the folio is already in the oldest generation, which lru_lazyfree() does
-not need, and moving the call up would still miss the folios that are on
-the classic LRU while lru_gen_enabled() is true.  Use
-folio_clear_referenced() rather than folio_set_lru_refs(), which is not
-defined without CONFIG_LRU_GEN; PG_referenced gates LRU_REFS_MASK, so
-clearing it zeroes the refs count as well.  PG_workingset is cleared only
-while MGLRU is running, which leaves the classic LRU unchanged.
+>>>
+>>
+>>I am using this to understand what the IDE setup flow would look like,
+>>but it is unclear whether the connect flow belongs in an attestation
+>>framework. I understand the desire to pass the certificate slot number
+>>as part of connect, and sysfs is probably not a suitable interface for
+>>that. However, is CTLV the interface we want to use for connect?
+>
+> I was thinking about this and "connect" really does not belong in the
+> attestation CTLV (same applies to "lock"). I was thinking about some
+> parallel PCITSM CTLV instance, but that does not really click as well.
+>
+> Currently I'm thinking we can maintain existing "connect" in sysfs and
+> extend it with "lock" sysfs knob for Realm side. Both would create
+> ctlv-attestation-spdm instance. The same spdm instance may be created
+> for other non-PCI-backed device.
+>
+> The proposed host flow is:
+>
+>     sysfs connect: select tsmN and prepare the connection
+>         -> negotiate SPDM and discover certificates
+>         -> register ctlv-attestation-spdm instance in DISCOVERED state
+>
+>     SPDM_GET
+>         -> populated certificate slots and digests
+>
+>     EVIDENCE_GET(CERT_CHAIN, blob-instance=slot) /*optional*/
+>         -> retrieve candidate certificate chain for appraisal
+>
+>     SPDM_AUTHENTICATE(device-generation, spdm-slot=selected_slot)
+>         -> authenticate the selected chain
+>         -> complete backend-required session and IDE setup
+>
+>     sysfs disconnect
+>         -> remove the attestation instance
+>         -> destroy the native connection
+>
+> The slot is therefore selected after discovery, rather than supplied to
+> connect. The attestation instance represents the prepared connection; it
+> does not exist beforehand as a controller for a disconnected PCI function.
+>
 
-Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
- mm/folio.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+CCA currently takes the device identity index during pdev_create. I am
+investigating how to retrieve the certificate chains for all slots. For
+now, I have implemented the sequence below.
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 47a437e0f7fd..03be101334eb 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -599,10 +599,16 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
- 
- 	lruvec_del_folio(lruvec, folio);
- 	folio_clear_active(folio);
--	if (lru_gen_enabled())
--		lru_gen_clear_refs(folio);
--	else
--		folio_clear_referenced(folio);
-+	folio_clear_referenced(folio);
-+	if (lru_gen_enabled()) {
-+		/*
-+		 * lru_gen_clear_refs() skips an off-list folio, which
-+		 * lruvec_del_folio() has just made this one.  Left set,
-+		 * PG_workingset keeps it in the last tier that sort_folio()
-+		 * protects from eviction.
-+		 */
-+		folio_clear_workingset(folio);
-+	}
- 	/*
- 	 * Lazyfree folios are clean anonymous folios.  They have
- 	 * the swapbacked flag cleared, to distinguish them from normal
--- 
-2.53.0
+echo tsm0 > /sys/bus/pci/devices/$DEVICE/tsm/connect
 
+./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 device-get                                                               
+# device-get, 1 fragment, generation 0                                                                                      
+  device.generation 0            
+  device.caps                                                                                                               
+    cap.evidence                                                                                                            
+      cap.min-challenge-length 0                                                                                            
+      cap.max-challenge-length 0                                                                                            
+      cap.max-total-output-length 369098752                                                                                 
+      cap.evidence-flags evidence-accept
+      cap.object                                                                                                            
+        cap.blob-class cert-chain                                                                                           
+        cap.blob-instance 0                                                                                                 
+        cap.format spdm-cert-chain
+        cap.representation raw                                                                                              
+        cap.representation tcb-digest                                                                                       
+        cap.hash-algo 4                                                                                                     
+        cap.hash-algo 5          
+        cap.hash-algo 6                                                                                                     
+        cap.max-length 16777216                                                                                             
+  device.info                                                                                                               
+    pci.name 0000:02:00.0                       
+
+I think we can use evidence-refresh to select the blob-instance for the
+desired slot once the CCA specification supports that.
+
+ ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 state-get                                                                
+# state-get, 1 fragment, generation 0
+  pci.generation 0                                                                                                          
+  pci.connected 1                                                                                                           
+  pci.locked 0                                                                                                              
+  pci.accepted 0                 
+  pci.tsm-id 0                                                                                                              
+  pci.dsm 0000:02:00.0                                                                                                      
+
+device is marked connected, but IDE is not setup as indicated by pci.accepted = 0
+
+
+./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 evidence-get --json '{
+"evidence.challenge": "hex:", "evidence.object": [{
+"evidence.blob-class": "cert-chain", "evidence.format":
+"spdm-cert-chain", "evidence.blob-instance": 0,
+"evidence.representation": "raw", "evidence.data": { "file":
+"/tmp/cert0.bin", "data-buf-size": 16777216 } }] }'
+# evidence-get, 1 fragment, generation 0                                                                                    
+  device.generation 0                                                                                                       
+  evidence.generation 1                                                                                                     
+  evidence.object-length 1632           
+
+
+I added the file: attribute to verify the evidence blob's contents. ie,
+we can do:
+
+# file cert0.bin  
+cert0.bin: Certificate, Version=3
+
+./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 evidence-accept device.generation=0 evidence.generation=1
+# acknowledged
+./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 state-get
+# state-get, 1 fragment, generation 0
+  pci.generation 0
+  pci.connected 1
+  pci.locked 0
+  pci.accepted 1
+  pci.tsm-id 0
+  pci.dsm 0000:02:00.0
+
+
+I am wondering why we need 'devsec-run' ops. Isn't that already the result of
+'evidence-accept'?
+
+-aneesh
