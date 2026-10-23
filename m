@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778693;
-	b=3c5nkOG2q2o283BQ2rOzmkEvS7f6by2hpJEnXOUnKyfdOwmY76LQRQcyIwsJFiH5ou3i
-	 bj6ytIrqdxbLOADLJzFIVo8TZFoZ5atp8nc78P42yWp3HYNCAinyjYD/ItXPtJWue6iAS
-	 U/DQEPtUcqc8hIpk7McR9TuEnOXYhy+GKtrdBW9nWNb8tywxa3LKx8MiSZNDUsM3I6jKw
-	 3re83BElwp8zAI0As6W6DgqUgsFgM2E2jn1ode/ff+pnTfkLKFVSU0FmL4qviO+2AszrM
-	 1btU2IP7C+5VmV0OPjK0Qwjn7QyMUPmIi5vxIiszyLd0tWnCA5NH8hi7s769VKPonMw==
+	t=1792778696;
+	b=RhlI8HYyw/h++Z3Ep7x2rpVrmFSROJL+NhWWeyzcD9FCIihjNWmCggfl7uv7Xd+Jv0Yk
+	 gR2tWqNKUugvhxh7TWDSgJvPT9wTmO/DlTkNezF3q3XwcbGnTIgubPG6+b215pk2nk6i2
+	 jOGe9nv56NBgPriAIDU7A3gyMQPGGPKa3DeBHCFf2/hPIG63yYV3mnu5tyj6ghC11EzYI
+	 1oj0DD+FHvl+rdYwjLrWPQGJ4xiKhMShP9rUqzNj/G+cCsZvdjPuJhSbdInUd3n9JqagU
+	 G31NaSZWK/N8vAmOUBk2pcE2oP046ccU+wx1JbTnY1OvUCeKXG+RhaSXKam9Iar2RgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778696;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=mBexMLJiPFmtPzDT8JWrWHKmJ4NS6CY9MOqWPB2Dln0=;
-	b=FPayiGio5at+n5K05LFSxEfTeLnqTifYfeGLnywpNcQefZ6NMbS3XWhlTXEb4SYBmJKx
-	 jSrBCnyXNBPIYCD98QcT/ZgKG0qcTPA4Lxze3GwoJcEYeM2mD8SG+6ZXxvXXT+pLJStBl
-	 iHS4ToImVuuGt2GTdF3/hEUrSaIWIi2BtTLB+t6lirsWt/dRcUqVfwxbTVbUApkvYbBNO
-	 bCPkdzJa3mBe7/x3O3JqC+PK8DLQ0jc/I6GkrBPHj5DrGKt/XiGCMDQizoFHGB0TJVwdX
-	 mbkZiZx7QjSNyFyc7c+PAsXfSdoG4EfBqgA2GEGwsTlOazaCdlEmQ5uYITfeRRFGR4Q==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=YyvIsZLH5odQ9OcSqcettzCR4/nFwFLMVbl002HSWDQ=;
+	b=hwBdtvZ06h+vqnfrtdWctx8kWqp3eUy7O8Ahpw1OdSwvN3TRP0qRS1CTDTCcaPvyh3Oj
+	 FMV08JLQcksYwf5mUYL7AZUwaf2iOssWORwvakcXfMPBmbEXnSb1fOmn7M3eojJhil0iC
+	 ZH7ByWVpaKPVzJUuVuNIQ/WpMzN9sYq0669v8v4Ub07uT+cC/0iLzdwHG8tbD6wc+aIqX
+	 0S5CpegMVd5cgaPRCU5LbaM/9ehwvdC5OQDvpBJvlmCLcGy5Kc4iM8CdLlgOQWIl2H8oc
+	 YatQkyCoREWanbN0EvbbW/val0i5vWpBqC5qhu4DUA+goJfE82j3e7nW0GkmKm3bOaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bPUVTJAu;
-	arc=none smtp.remote-ip=209.85.161.43
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MmjdsJGp;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21928606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:04:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21928606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DD2606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85DD2606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bPUVTJAu
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df7f544919so686675eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:04:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MmjdsJGp
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-451a49abd8aso904497fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:04:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792778692; x=1793383492; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mBexMLJiPFmtPzDT8JWrWHKmJ4NS6CY9MOqWPB2Dln0=;
-        b=bPUVTJAujIQkkIApzRqiVOHngUL0el7GGPKnzHYGZ7lUvMCQ4D8mi4avV+Z8iXoRPx
-         Vn3bVNZ4EbjS+G5x2LR4feWOpsxhZf7+lm66BSAQi8jfUPj9MWl/StOO227DRtsc2Lzq
-         xSAKLfxqegDbZ0DwAReKalJBAifWtoMdWiUTyVvYB3UM5qjBa4tre/jD6SBsf/gNbk93
-         PPXUQCr+VUnPXgkduqdVg8NLmpz/SzdCKPDLsIKKgcpIJpeuiM7LP/dwUXFlxff7aKm2
-         9evHM2YvyB+I5AApdYFqbei9BEV7VJTCpklBR4fRBD0ZZcifL19RjsmyM9+ZXCW8qcOz
-         j7mw==
+        d=gmail.com; s=20251104; t=1792778695; x=1793383495; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YyvIsZLH5odQ9OcSqcettzCR4/nFwFLMVbl002HSWDQ=;
+        b=MmjdsJGpTjrnvIjT1Pzasc8X1ulew39LBn9FeZwjcJeE0vsKRyUfxICh21cikMCsjN
+         ZXZSa/HWUwBr0/IDuU/bKP3e4/nGPf0NmmAsbgQUnhxKfQuf94sily0wDu+mvvNp/0Ul
+         uloK8o+EZw2im+GlCqscjoqUmZH1fVZvOO+F0VHAMT+BZegl4eMqjgGChmAZmoGPhwmg
+         7zhgMup+d8HbE6LRfoxizmLZuqCys3rg7ipdD/Ay+PX5M55IlxlDu+8/jY7k3Iieb7xP
+         Uhnt1S1rbfjJxZ9zrTJP2UG1/KdmCEzzn98La9W2V6zemPswCSl0vk1Eqg1cLLMRuegr
+         aNHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778692; x=1793383492;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mBexMLJiPFmtPzDT8JWrWHKmJ4NS6CY9MOqWPB2Dln0=;
-        b=IPKcCuFhpT/H5MyiRgpBfFj77smwT4V9Ex5jWjW0B8DKO7G2FEXF1dURbSO530QIEO
-         IEFu7kc5gc0XTB8R4j8ByPUZQ0Q2mu/eBlQgb2eEkQ5CghnVbWInTqYWWkDvA0l0RSdC
-         mf4BZKTpgZt1yg0rw9TYrkp6XZSRtOi00X+sABpN490XWuDXBjr9MY9RaMjEhpwPUPJo
-         MPE2G1yJFDNQTKmT0snT1pPUxG1lV9JHZdoezgkan68TRlN9C+rn72zdFZ6NI07kJbY0
-         cMW9jz5QZyeHRzX+pHN1UNqdc0pKbVVNuxU8IS0bjQdA0LpMrgN02alxWswuEWe1Gcgu
-         Y6ZQ==
-X-Gm-Message-State: AFq9FYL8CHCIjrwUubwEowwvQKvooaUUAKGPapDgRbU7m8RD0oQs+YtM
-	L3qqrijAzrEPhDEmw05ojcBXjEs58ojMw189mWxAQTLTEtPobRqRLvYZ
-X-Gm-Gg: AYBFou2wdAy2HbEXFmDpnI9VPE9DBid4f02nQXULT8uSb2VIhR+zu8IDex9/7LyVsNh
-	JofCbp4bq1s0CV/psyxoxX3TtcHToWUriEG6/Tqk8k8NUMOvb4J2SIA9+uy3gwl/3jezI/yX2s+
-	qqo+zICbgFiV3y0nMvJJW8CxCQb9n+1keSD1YW6SOWoSbYmBNclTwb4lED6IXzX9nzDLU/NjSxc
-	fGPUGGyfRUrS7JSlInh4LwQwDybgdD7eExulP3W6WSO/madyiiOSueRj+JkMx5Dy+5lPR7N8eQl
-	g10/nMlFxlqAoFXg65aKBX5qOx4eEJTNKD8vCeb5+Dj0n7Y3J3paRSW5HbyPsDY6dabipM2fjDz
-	BEkbx+A3UfRJp/posMjk6RgaYjx5XU6DJiSJSu2r1+9agdMI0r1bSj3B6K3A4ZwUsyPpPFoYtrm
-	8euc69Mp4B5SN7dtZxC+EHbqPrJXw6oDUkzoSA5JQtjEJ7frZllcKXM7Yjde4q0yRifaii7vkYc
-	TT8VM6nsdOT9CBtVJH3MG5wvTemH4V4xw91IFGbTSfJDu+cRY2T/znNsYfvRPQ7rzgFuW5jj82E
-	Y3UQ0g32iNObAKULu3P1QBwNqqibQT9BEd/XtFt4AdWHL2jlw90Q1kK64QyeGszzvZk2hh3JE+5
-	2esBLVa/b9STOtKe5sK7zXABW82tN8s5CfQK0QkAkjxJGn+EEArRC6iQa2aDLb0vceKUKWqXxpn
-	VX6Q==
-X-Received: by 2002:a05:6820:f012:b0:6d8:6049:124f with SMTP id 006d021491bc7-70b889a0ae7mr1969012eaf.17.1792778692051;
-        Fri, 23 Oct 2026 11:04:52 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792778695; x=1793383495;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YyvIsZLH5odQ9OcSqcettzCR4/nFwFLMVbl002HSWDQ=;
+        b=ED5WvW4EDC8Jp2YIQBWQtkTxPMIIta8iqE9EzGJjrxO8iEnB6IVOTZC1nR4pdTDY8c
+         rKw5EQeEVXH5mfqzDmcYMx1MliYhMZOhabzDCS+vqwoo9TuZD/MF0W8ai+jKvodUl8P3
+         8Ft9EB3rNVLxW/0cj6fgV97VjkiKWMEKDkyufoj47Vesy4D7JDLqdshN0Z0JTiQdUgVG
+         P/yRn8kGru4DO8gvy1nZSpiLYCnsLwLvMgUeYinHcqs4LUyFsyfChMtHCnAN9008yUUI
+         DJDfW4mNymxIq0I7Z1Hpt2iTTzHFJnLfU41XLLxUeDTNPRpfoTDeVHx9tpXwdf4Sst4S
+         gFUg==
+X-Gm-Message-State: AFq9FYJ5IpNGC90QtLEJ5Pkbs0nB9e/U0WWGnTr2wT5XjLNctNzV10c4
+	wvk4cDTRUGV3zUwhFEdWnPtcqbDbybLkszwDSb8RcjmsX8dukOcWXDqX2bF9Zygq
+X-Gm-Gg: AYBFou1jaanC5ODqRV7OceM3goNxeptNvQsMv/ATfxxcKpV0ddfLwYpsH9wiiHzvezH
+	68ZBN8b+ISKmZKAkjV0skMAXiwZR5ujWBGHrLkF2SN3rAHwNeQyhZkmIBedN6nmP0mvQIzX13I9
+	Uv8ihsy2b8sin1BZeC6vp3xuFfdP5A88IjyLYWUS667EC9jNIEEJ9m4l10MxR8PKLI8un84BH7E
+	0MqXPulcxjWGtmWWj508eHmwIRthz8IqKYnBMpEDnUQvzvVeseP7T1Ed1DM25WQtdIxFlv397jz
+	nnw7/i/0Z5trg6Cd4DPHDWS2FkI/oHZ7otoPXylnQ9DOp6OJBnCiW9ogC6PDXEqspXiAsOUv/C8
+	i9BhuQycu6bNTYeQrirjh/uusPLR3ddtm+atzPoIDSap5YEpnftugKmMLM16ZZMKNiH7DXT1K24
+	3e9FWDlnAQUoi/P8sq6weFawozmU7PXphu/Lz3A13b7CrwAft8Cs4UaePIY8z5A4zqUopZeXUuX
+	fJNrXO+bctLFC+ifUu7ahpgzi+Dj88FqUcMOKjR8h++oxFdbIz80bsKZbTDg+LfsOkfM6/K2HOE
+	/Qeb+O+WjfOSjlBQx63SPhG7YHexWWPkP5uyfBdqtXIlfw9Ugw9WdJvOGhS9enq6xBi2yt6Y3pn
+	Bfg6P3C29Dggl6TAd64Zakq3+LYcrsZW/Z4yQ0EGDqOJDgAzUFK0GX3TevVUtNpKzL+CECUuEro
+	sCoQ==
+X-Received: by 2002:a05:6871:6d0e:b0:4a8:26f9:d217 with SMTP id 586e51a60fabf-4a83f00d1e1mr128273fac.1.1792778695376;
+        Fri, 23 Oct 2026 11:04:55 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a838207cb9sm544329fac.5.2026.10.23.11.04.51
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a838207cb9sm544329fac.5.2026.10.23.11.04.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 11:04:51 -0700 (PDT)
+        Fri, 23 Oct 2026 11:04:54 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v3 0/4] serial: 8250: serialize DMA cancellation with
- buffer reuse
-Date: Fri, 23 Oct 2026 12:04:28 -0600
-Message-Id: <20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com>
+Date: Fri, 23 Oct 2026 12:04:30 -0600
+Subject: [PATCH v3 2/4] serial: core: allow drivers to reserve flushed
+ transmit storage
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,15 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Sy27bQAxFf8XQumqHnBcnq/5H0QVnhoxV+JFKi
- tEi8L+XlruICxQIoA0F3nN5yXkbFpknWYan3dswy2VapvPJCv9pN7Q9n55lnLrVAzpM4BDG5bU
- ep3W8yfgwEkY39iOPjU9NDuMFxoqOlIJQaTAY5mUWnX5tFt++32tj/JC23ri3jsqLjHU2wv72y
- xpm+fnlfw74F2o9rzbueiffIe18tOGedgAUlLJgLk6ItVTxAEmTo45CqYZcsOe+oXhte0tpoZM
- LVZk9Q0MIpeQuoGBCrAQcYgDWyPVRlUvvrnjV6qNgDGKe3Soiymr9UFPQEvKjihxHl6BTaC5GT
- qHlZCsmlSodcmmJci1F//HqtQYbkhWUEhTCpolDzTF2X5pKi4EQ/aMqOCJzAsZcLRtbEnTeXMB
- SWl5FKDknGm7n2U/Lep5/bw/iAttqP357+9woKravouid//p85Onw2e6ywe1474D4ASAa0MYXj
- iCeCrwHXq/XP/8xlu7AAgAA
-X-Change-ID: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
+Message-Id: <20261023-submit-serial-8250-dma-cancel-v1-v3-2-d78f9e4c4932@gmail.com>
+References: <20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com>
+In-Reply-To: <20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
  =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
@@ -115,109 +109,187 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Reserve canceled transmit and receive storage until DMA and its completion
-callbacks have retired. Serial-core write backpressure protects a flushed
-TX FIFO while normal transfers continue to DMA directly from that FIFO.
+uart_flush_buffer() resets the transmit FIFO before calling the driver's
+flush callback. An asynchronous DMA transfer can still access that storage
+after the callback returns, while a new write can immediately reuse it.
 
-The series first separates OMAP's locked completion processing, then adds
-the serial-core reservation helpers and applies them to 8250 TX. Flushing
-empties the logical queue immediately. While the old transfer owns its
-storage, write_room() reports zero and write-ready notifications wait for
-retirement. Failed termination retains the reservation until normal
-completion, without advancing the reset FIFO.
+Add uart_xmit_block() and uart_xmit_unblock() so a driver can reserve the
+flushed storage until its transfer and completion callbacks have retired.
+Serialize the reservation with FIFO producers using the port lock.
 
-RX delivers paused data before the PIO fallback and retires callbacks in
-process context. Track FIFO access separately from buffer retirement so
-PIO and the DesignWare empty-FIFO timeout handling can run once DMA has
-released the FIFO. On failure, retain the requested interrupt enables in
-the existing IER shadow and mask receive interrupts in hardware until DMA
-has stopped. Recovery then leaves RX on PIO until reopen. Shutdown excludes
-new retirement work before releasing the channels.
+While the storage is reserved, write_room() reports no space and write()
+and put_char() accept no data. Defer write-ready notifications until the
+reservation is released, preserving one-shot TTY wakeups. Keep the flush
+wakeup under the port lock so it cannot race another reservation.
 
-Based on tty-next with the posted shutdown guard [0], channel
-configuration error handling [1], RX TTY accounting fix [2], RZ/N1
-transfer-length fix [3], and transmit-PM shutdown fix [4].
+Suppress ordinary TX starts while the FIFO storage is blocked. Preserve
+high-priority flow-control characters, which use separate storage.
+Releasing the reservation wakes writers through the existing TTY wakeup
+path. This preserves immediate logical flushing while applying write
+backpressure until the storage is reusable.
 
-[0] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-shutdown-v1-v1-1-3d3ce383c614@gmail.com
-[1] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-config-errors-v1-v1-1-c067587d1ef2@gmail.com
-[2] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-rx-accounting-v1-v1-1-c11795914ab4@gmail.com
-[3] https://lore.kernel.org/r/20261023-submit-serial-8250-dma-tx-length-v1-v2-1-c3106ef4d2df@gmail.com
-[4] https://lore.kernel.org/r/20261022-submit-serial-8250-tx-pm-shutdown-v1-v1-1-0e894afa3bb8@gmail.com
-
-Assisted-by: Codex:gpt-6-astra
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v3:
-- Defer write-ready wakeups while flushed TX storage is reserved, and
-  serialize the flush wakeup with the reservation under the port lock.
-- Suppress ordinary TX starts during the reservation while preserving
-  high-priority flow-control characters, which use separate storage.
-- Separate RX FIFO access from callback retirement, allowing PIO and the
-  DesignWare empty-FIFO timeout workaround after a successful pause and
-  termination while keeping the receive buffer reserved.
-- Use the existing IER shadow for requested enables and a shared register
-  writer to keep receive interrupts masked throughout DMA error recovery,
-  including termios, RS485, modem-status and overrun-backoff updates.
-- Preserve the timeout-enable bit across stop_rx(), exclude late shutdown
-  interrupts from PIO, and avoid FIFO resets during RX DMA recovery.
-- Preserve the completion-path LSR read after stop_rx(), while gating DMA
-  resubmission on the receive interrupt enable.
-- Pack the cancellation flags after moving all their accesses under the
-  port lock, including the recovery worker's snapshot and initialization.
-- Apply the early-return, shared-helper and line-wrapping cleanups.
-- Link to v2: https://patch.msgid.link/20261022-submit-serial-8250-dma-cancel-v1-v2-0-088ea51e3891@gmail.com
+ drivers/tty/serial/serial_core.c | 56 +++++++++++++++++++++++++++++++++++++---
+ include/linux/serial_core.h      | 16 ++++++++++--
+ 2 files changed, 66 insertions(+), 6 deletions(-)
 
-Changes in v2:
-- Add serial-core helpers to reserve flushed transmit storage until DMA
-  retirement. Apply write backpressure during that interval and keep normal
-  TX using the FIFO directly, replacing the private transmit buffer in v1.
-- Document the flush callback's reservation, writer backpressure and
-  retirement requirements, including release before shutdown returns.
-- Split the OMAP completion refactor into a preparatory patch and move
-  the RZ/N1 preparation-order and shutdown PM fixes to independent
-  submissions, keeping four patches in this series.
-- Take runtime PM references around worker UART accesses, and leave normal
-  RX retirement to release ownership without reading LSR or restarting DMA.
-- Synchronize the queued TX ranges before preparing the descriptor and
-  return the mapping to CPU ownership before releasing the reservation.
-- Keep the TX transfer length separate from FIFO cancellation, so a failed
-  termination can account completion without advancing the reset FIFO.
-- Exclude late RX flush work during shutdown, including Intel MID DMA
-  timeout interrupts which are independent of UART_IER.
-- Accept DMA_IN_PROGRESS after successful pause, and recover from failed
-  pause, termination or DMA_ERROR before handing the receiver to PIO.
-- Preserve stop_rx() and shutdown across recovery, and retain the
-  DesignWare empty-FIFO timeout workaround when receiving through PIO.
-- Apply the requested guard spacing and container_of() formatting.
-- Link to v1: https://patch.msgid.link/20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af4..cb4e98886cee 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -119,10 +119,53 @@ void uart_write_wakeup(struct uart_port *port)
+ 	 * closed.  No cookie for you.
+ 	 */
+ 	BUG_ON(!state);
++	if (state->xmit_blocked)
++		return;
+ 	tty_port_tty_wakeup(&state->port);
+ }
+ EXPORT_SYMBOL(uart_write_wakeup);
+ 
++/**
++ * uart_xmit_block - reserve flushed transmit storage
++ * @port: port whose transmit storage is still in use
++ *
++ * A driver may call this from ->flush_buffer() if DMA still owns the old
++ * transmit data. The logical FIFO has already been emptied, but writers
++ * must not overwrite its storage until uart_xmit_unblock() is called.
++ * write_room() reports zero and write()/put_char() accept no data meanwhile.
++ * Write wakeups are deferred until the reservation is released.
++ *
++ * The driver must unblock after retiring the transfer, including on shutdown.
++ * Repeated calls are idempotent, not nested reservations.
++ *
++ * Context: @port->lock held.
++ */
++void uart_xmit_block(struct uart_port *port)
++{
++	lockdep_assert_held_once(&port->lock);
++	port->state->xmit_blocked = true;
++}
++EXPORT_SYMBOL_GPL(uart_xmit_block);
++
++/**
++ * uart_xmit_unblock - release reserved transmit storage and wake writers
++ * @port: port whose storage is available again
++ *
++ * The old transfer must no longer access the FIFO storage, and any required
++ * DMA synchronization must have completed before this call.
++ *
++ * Context: @port->lock held.
++ */
++void uart_xmit_unblock(struct uart_port *port)
++{
++	lockdep_assert_held_once(&port->lock);
++	if (!port->state->xmit_blocked)
++		return;
++	port->state->xmit_blocked = false;
++	uart_write_wakeup(port);
++}
++EXPORT_SYMBOL_GPL(uart_xmit_unblock);
++
+ static void uart_stop(struct tty_struct *tty)
+ {
+ 	struct uart_state *state = tty->driver_data;
+@@ -143,6 +186,9 @@ static void __uart_start(struct uart_state *state)
+ 
+ 	if (!port || port->flags & UPF_DEAD || uart_tx_stopped(port))
+ 		return;
++	/* High-priority flow-control characters have their own storage. */
++	if (state->xmit_blocked && !port->x_char)
++		return;
+ 
+ 	port_dev = port->port_dev;
+ 
+@@ -260,6 +306,7 @@ static int uart_alloc_xmit_buf(struct tty_port *port)
+ 	uport = uart_port_ref_lock(state, &flags);
+ 	if (!state->port.xmit_buf) {
+ 		state->port.xmit_buf = buf;
++		state->xmit_blocked = false;
+ 		kfifo_init(&state->port.xmit_fifo, state->port.xmit_buf,
+ 				PAGE_SIZE);
+ 		uart_port_unlock_deref(uport, flags);
+@@ -593,7 +640,7 @@ static int uart_put_char(struct tty_struct *tty, u8 c)
+ 		return 0;
+ 	}
+ 
+-	if (port)
++	if (port && !state->xmit_blocked)
+ 		ret = kfifo_put(&state->port.xmit_fifo, c);
+ 	uart_port_unlock_deref(port, flags);
+ 	return ret;
+@@ -624,7 +671,7 @@ static ssize_t uart_write(struct tty_struct *tty, const u8 *buf, size_t count)
+ 		return 0;
+ 	}
+ 
+-	if (port)
++	if (port && !state->xmit_blocked)
+ 		ret = kfifo_in(&state->port.xmit_fifo, buf, count);
+ 
+ 	__uart_start(state);
+@@ -640,7 +687,7 @@ static unsigned int uart_write_room(struct tty_struct *tty)
+ 	unsigned int ret;
+ 
+ 	port = uart_port_ref_lock(state, &flags);
+-	if (!state->port.xmit_buf)
++	if (!state->port.xmit_buf || state->xmit_blocked)
+ 		ret = 0;
+ 	else
+ 		ret = kfifo_avail(&state->port.xmit_fifo);
+@@ -682,8 +729,9 @@ static void uart_flush_buffer(struct tty_struct *tty)
+ 	kfifo_reset(&state->port.xmit_fifo);
+ 	if (port->ops->flush_buffer)
+ 		port->ops->flush_buffer(port);
++	/* Serialize the wakeup with reservation changes, including another flush. */
++	uart_write_wakeup(port);
+ 	uart_port_unlock_deref(port, flags);
+-	tty_port_tty_wakeup(&state->port);
+ }
+ 
+ /*
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index 4eeb8253752a..92164bd598ba 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -208,8 +208,16 @@ struct gpio_desc;
+  *	Flush any write buffers, reset any DMA state and stop any ongoing DMA
+  *	transfers.
+  *
+- *	This will be called whenever the @port->state->xmit circular buffer is
+- *	cleared.
++ *	This is called after the transmit FIFO has been cleared, with @port->lock
++ *	still held. A driver whose asynchronous transfer can still access the
++ *	flushed storage must call uart_xmit_block() before returning. This keeps
++ *	write_room() at zero and prevents write() and put_char() from reusing the
++ *	storage until the driver calls uart_xmit_unblock().
++ *
++ *	Release the reservation only after the transfer and its callbacks have
++ *	retired and any required DMA synchronization has completed. Shutdown must
++ *	also retire the transfer and release the reservation before returning,
++ *	since serial core then frees the transmit buffer.
+  *
+  *	Locking: @port->lock taken.
+  *	Interrupts: locally disabled.
+@@ -834,6 +842,8 @@ enum uart_pm_state {
+  */
+ struct uart_state {
+ 	struct tty_port		port;
++	/* Flushed TX storage is reserved; protected by the UART port lock. */
++	bool			xmit_blocked;
+ 
+ 	enum uart_pm_state	pm_state;
+ 
+@@ -909,6 +919,8 @@ struct uart_driver {
+ };
+ 
+ void uart_write_wakeup(struct uart_port *port);
++void uart_xmit_block(struct uart_port *port);
++void uart_xmit_unblock(struct uart_port *port);
+ 
+ /**
+  * enum UART_TX_FLAGS -- flags for uart_port_tx_flags()
 
----
-James Hilliard (4):
-      serial: 8250_omap: separate locked TX DMA completion processing
-      serial: core: allow drivers to reserve flushed transmit storage
-      serial: 8250: drain canceled TX DMA before reusing its buffer
-      serial: 8250: retire canceled RX DMA before reusing the receive buffer
-
- drivers/tty/serial/8250/8250.h      |  59 +++++++-
- drivers/tty/serial/8250/8250_core.c |   2 +-
- drivers/tty/serial/8250/8250_dma.c  | 277 +++++++++++++++++++++++++++---------
- drivers/tty/serial/8250/8250_dw.c   |  27 ++--
- drivers/tty/serial/8250/8250_mid.c  |   6 +-
- drivers/tty/serial/8250/8250_omap.c |  38 +++--
- drivers/tty/serial/8250/8250_port.c |  25 ++--
- drivers/tty/serial/serial_core.c    |  56 +++++++-
- include/linux/serial_core.h         |  16 ++-
- 9 files changed, 392 insertions(+), 114 deletions(-)
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
-prerequisite-patch-id: 3604bfaa3a1c214997de1f11162b81a4541af5ab
-prerequisite-patch-id: 79dd093ffb35e254e790dffb8887faf51b64f947
-prerequisite-patch-id: 80a5061d84c055a64c760268febed179c687b99f
-prerequisite-patch-id: 7dbb404baf1f861982cf6a4b755d39cfec548223
-prerequisite-patch-id: 40881d81a27b3a1aa45203d171214faaf2197768
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
