@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792794710;
-	b=tHAno/gwTCwrsXFKRUZ90x4+a6htdwYGaJGKVFv3piqTdDXq+1lc0JTAMFf7uLt+hUoj
-	 A1gCm2JX5QKVBDxNijLtEiU2yArWDMCxXpM00N9Gle7hrQ68zhdumqaRzAZxlA3oeDJO8
-	 aQ2mVsRPhHcGIAKItAkLADGkwo9qSPCM8V1Bc4HzEQoAgKveZ70rH5SNAAXtknD7KVDX0
-	 N3e9nXUpDdrmuvc+I+Mofvvh/RnWDbA/LIBgYLMs5QZDHErvZF4X/tNSAVP0E3Iq+3grF
-	 DaJGfnr24RJqhWWgXUQH5QMh09E2xPo7W4NHMNTwrkSzK6act1Jv4b4xvlliGxRH++g==
+	t=1792794708;
+	b=vYN0j31kQcrEK9DjfvWF1knSsWotQ7RvVS4AhjxcsEMeKUGXJEoet62yBVgACbTyvH1x
+	 B1g569uPS7lAP1Ju6okr75QotVYpUvXeMyhT8uhaBRuQTstpSszLJzGM7YtLzHHXqDy9X
+	 IueV9p5Xvo2+7pUahh4UlV/0pxG9jXnSOHEttKtIf/UqV6tMgJXEt/pf+znCuUTmRLbam
+	 dYlrAsXRZdTM0Jm5h3dzbPJjOjaop8UnSFt2iyfS4q9cvyabBKM+MpK3qSi+XasONU44e
+	 wofsoKIP9SblFsIKIUkNRbxGcai8N9prkR65Qmu0ac+k8EwHTfp0kUGRwBF0m+KP1lw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792794710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792794708;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Pv9lfdH6qGIjhC3KNAr+nArurm+j+J0ovtgy4G1pXxE=;
-	b=ZH7E6zneSahVDH+6aict+LrQ2C+Pvq9J6TPDJg+yBBSqiWo0xgB0/OB4DbGh90/XoI6O
-	 OPMUrCb5dUb6VblOcD4U4DinxbNbqUm7BdN0chHmi4QGuyLWWiWDkFCWwg5RR9cA0ld5Y
-	 n/79xtdgDTGAnhZWB3eospBPaivEBjZalFKtNLUJy9wIxEuKE4b2IcgQc+z9I5bJhd3Ef
-	 mtH2yncNKFlJnZD5jC/LgNvnQMp0l8bVSdTMoMEI2NMU5ObXi5KXFl3jfVf1i6IXo4ZIM
-	 KwsjVHe4N9OIZ2B/n6RdIudkTs1E1qFY++fSb3FY51VjdTyAxx+vVcw9FVPxNd8asjA==
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	b=nyWzXKfcP0fVoSXv6jW41wFg8g7zmRAs0/RZAcfvl76w3SIL5FaZs0ik3pZO9W8OxoSQ
+	 G7/jn3uq2jDLd55Gp22y58FYLHr/b7sCrcGzEWkyIl9vRLqh5lnh/JT1bglP9A9XI0J+8
+	 AbuiNc5EopnM2SmEuu5TDhUM6M+FrGi33BK34RMmo1bQH4AEIJcnDaFTCjcALbLlgLKra
+	 imSWjh2nOjqMvsI3O5xO5h/zGQhUiZWkdb9KpMph+Wb4GmXqrBoDm0BwkFXj1hxbOirfb
+	 KCrpswlSQLBWGzK5XkBK05MqJoFRtUmr7FqUwIe7gBVlyo/Y7ddnIKM/c2LHbN9SfOQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SO/hSULM";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD0B606A327;
-	Fri, 23 Oct 2026 22:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899F3606A31D;
+	Fri, 23 Oct 2026 22:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SO/hSULM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792794709;
-	b=rq+czyYjnlq2nVlVj1+yE0DfNmeEC6/V7K6cukui+LgWTZpNpmMxFGomRtvZb6zZOAYG
-	 8xebzYORTnjTMMd5DsW92k09pFfw/dCx4mZ3mOdCPUqpX/7WlwOUUefoLmuEnjlB1eVKV
-	 ILUQbTonqAKMcT1S4lrKEGYIx5j6987LgMGQwFJR05+XoA9L2e9UOZOQbKYSQONfkS2Wr
-	 D/quZjsWFvVF2cLcvwlrkt7fQ498LwDvWeeK0vSRXNrQGkYVn0NCF7SveoK+VQ3vbsSJw
-	 jbeSNznDWRjgdcAVPqpMfvJbcxBXoW1YwBmFmQMhIBnPCiDHTo9L7nR2Lg6baL0Q64A==
+	t=1792794708;
+	b=Q/jlTaToqpPf0FUsxiB3cir/g0Vg00xuf+PX7W/v+Cj79J5PUxv+aALpiaw+4kL1A2EA
+	 uqzYRgAYQ3rJRV8gauynHJyns67GdFhwcyKEZzUo45L1eH34671idAuePkh6DMDTKJF3H
+	 mnTX9p9XDCkXwML9HQ9oRAeFAxAcIEq8QnpQFlqAnTPzVKyC6y6r5+NsSfOW9/x9py3U/
+	 kRQNJS0XsWspN5P5ECP+xO6LpKATuNB3Z7sbZtTFJbzqhv5K4MoTpn4qxq3+Pgn23TJ52
+	 h5uMxF5lzwhM0A51tLpJGgj/813PFHg4Hh2yuTvZ/ETtQc6h/08hA+hEL7j2UO5HTcQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792794709;
+	c=relaxed/relaxed; t=1792794708;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Pv9lfdH6qGIjhC3KNAr+nArurm+j+J0ovtgy4G1pXxE=;
-	b=hX1Nc/PedXvxLIFrNA4pTizUIof0FXwLbCoKftHsOLSIGGVGburig5NsjCZyFosCVEGo
-	 5kiE/P+/YG14FCRGjtHNNQ6k1dzxMQQuF6cgzafY1IUW6rv/acZHIIDRuetTJv977kI9q
-	 wybMWES5xQzMNfMH05zicrjNgqZvL0ZGKNWGrUhKNJCSti6Y/zyV07sj/OSD3IZy376ju
-	 cG0zqrsTCG5EX4MJhaiCas8XHrH8d07X6c0sXVx21EC3yrLyFilea1U8hIaBJt7JBVyXd
-	 r2DBOWFBF7HAMJ7vifuN/sNh7c7J1E66xSi/VEo4vw8BfygEx1JGuibCv+KKdJ6mMig==
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	b=ZBjban3nPBn30dwy7kMxPjgoxCbuR8RNTNcZQc0a7K7phSBG6hD1CJydwjC0ECyISwH4
+	 iKo72hUCuuuoo3KTVTeePRb4sPE90YLwcs8MVIUDBIZ71s0Rw/hmTa2FLmV0EjDoWI4fD
+	 /yir+7e0HovABJdcCYb8XSUz1V23JXXTfA90X6hnctfhyc6AQ5Q/R64wNMvCU8AUoeH0f
+	 mkG38/VsQMJoXSIyo2RMxCrU1x7pfz/5WCVLyFhewxigt4VIwgf0d6xQewBxG0tzudOaT
+	 jquMTaAOzz3SmJJxbxLRmBKYrRvcAd8OQdradd+wHrbNhDREu6Z5Xt99EL0ZacjmsFg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81B3B1F01828;
+	by smtp.kernel.org (Postfix) with ESMTPS id 81B061F01825;
 	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792794709;
-	bh=Pv9lfdH6qGIjhC3KNAr+nArurm+j+J0ovtgy4G1pXxE=;
+	s=k20260515; t=1792794708;
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SO/hSULMh5OBS3EzHTkVE6/cp+1Lh4YlnaA3SsCnnqO7RmdjzN+JQ19R5EKg3anb6
-	 cfuXY7ISRWQlK6QQx2d4ggyVux/QyKKb/tvSVHaq23X/xijI1n89C7Kdfhf5QW//4H
-	 59q5kZwX5xfDjX4jU4geSWWEDiMkxAL9Cs1cDO+erHIORap0OJzjkS48t4d1LfwKj7
-	 i2HI1bmdEv0izCPLuXK2O10S7ESDeB/vDcdYk4ig1mJsTOZrBg3zKA254RkssWZchM
-	 YZJUwCTQ59fDQSOwr7/aV9OU8kk1scj/eyj/GS07TwEcdr7ZVpGEkwhOOAPDuxEXT3
-	 9duuYmqrsX8sQ==
+	b=l52pk1dGqCk7vnqoRBzX/U5LPsK26TXEgiVje5uRUpnWU0HkPy8CujFYruuJ6KpDO
+	 r2I4sQMGAcuAHbByXrkxL/ccE6KPyCUm7DMpzrSn+gF9ZV9BP94bhy8F1C8d7OM/av
+	 O0VM0z4BiEsmiPnJS+TJbqd1gd4JO/4bq4feEkPWr+fR1ZpluFc6ec8hXZBVDQd9xD
+	 /4YDKR6PT4Z/mg98or3b3EMSKVupB8G4M4pabM91kX4Vv98/Dx7HMKI56Ge7raVNQs
+	 nwSfHeMtvZ3rveLX1n+NnQ2ifHYKIsYFf11yoI8bxEIbZEGL7yGeZ816abanlP5Tdj
+	 FZvwifqyrxHEw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 018D44465D;
-	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id EB20944659;
+	Fri, 23 Oct 2026 22:31:46 +0000 (UTC)
 From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
-Date: Sat, 24 Oct 2026 00:28:53 +0200
-Subject: [PATCH v2 3/4] media: i2c: ov08d10: drop the cached current mode
+Date: Sat, 24 Oct 2026 00:28:52 +0200
+Subject: [PATCH v2 2/4] media: i2c: ov08d10: use the subdev active state
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-ov08d10-get-selection-v2-3-f8c49972ca18@leica-geosystems.com>
+Message-Id: <20261024-ov08d10-get-selection-v2-2-f8c49972ca18@leica-geosystems.com>
 References: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 In-Reply-To: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
@@ -92,12 +92,12 @@ To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Max Bretschneider <max.bretschneider@leica-geosystems.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=6552;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=8528;
  i=max.bretschneider@leica-geosystems.com; s=20260501;
  h=from:subject:message-id;
- bh=d21sqW2s1rBsQYTJVFlGkOJYCmj7ODQmfprQSCaciQ4=;
- b=Mp+82zE6mOSCcphVHcyC0PElpSN4lmZamxKfLSqH7U98syrL9bNVBhTZupw7cK4ahtckSvuxx
- XV//LhnmyHUD4gH6nWqrlkCSfS5SP/tNhBgIk/67kUbNQ4lQtDSWyYI
+ bh=UO43Xv2+J6Y1h2wiVWCTdjZyFn23oU70HMAlGwInR+0=;
+ b=Cm565KJjeQj4HmyAW7kcM147NrU7IdNINN4aQt8pOCZ746tCnJBZHzRzrTXqTzqiF3MjxoovV
+ NiSzQuwvenUCth1ncGAQFC3zMpzWpHwun+vJ6wXpCmN/CgBn4i3pE39
 X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
  pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
 X-Endpoint-Received: by B4 Relay for
@@ -108,175 +108,256 @@ Content-Transfer-Encoding: 7bit
 
 From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-With the subdev active state in place, the selected mode is fully
-determined by the format stored in the state, so the cached cur_mode
-pointer duplicates information that is already held authoritatively
-elsewhere. Add a small helper that recovers the mode from the state and
-use it where the mode is needed, as imx214 and imx355 do.
+Port the driver to the subdev active state. This simplifies locking,
+replacing the driver's own mutex with the control handler lock, which is
+also used as the state lock, and allows the driver's get_fmt
+implementation to be replaced by v4l2_subdev_get_fmt().
 
-ov08d10_init_controls() runs before v4l2_subdev_init_finalize() has
-created the active state, so it refers to the first mode directly
-instead.
+Sharing those two locks means the state is held whenever set_ctrl() runs,
+so the control callbacks can access the stored format directly, and the
+__v4l2_ctrl_*() helpers can be called from the pad operations.
+
+The driver's get_fmt() recomputed the media bus code from the flip controls
+on every call, and so always reported the Bayer order matching the current
+flip settings. v4l2_subdev_get_fmt() returns the stored format instead, so
+the code is now refreshed in set_ctrl() when the flips change. The flip
+controls carry V4L2_CTRL_FLAG_MODIFY_LAYOUT, which tells userspace that
+changing them may modify the media bus format on the source pad.
 
 Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 ---
- drivers/media/i2c/ov08d10.c | 49 ++++++++++++++++++++++++++-------------------
- 1 file changed, 28 insertions(+), 21 deletions(-)
+ drivers/media/i2c/ov08d10.c | 84 ++++++++++++++++++---------------------------
+ 1 file changed, 34 insertions(+), 50 deletions(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index f19c056608ea..4b503ddfa042 100644
+index 4dc68ff89eda..f19c056608ea 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -568,9 +568,6 @@ struct ov08d10 {
- 	struct v4l2_ctrl *hflip;
- 	struct v4l2_ctrl *exposure;
+@@ -571,9 +571,6 @@ struct ov08d10 {
+ 	/* Current mode */
+ 	const struct ov08d10_mode *cur_mode;
  
--	/* Current mode */
--	const struct ov08d10_mode *cur_mode;
+-	/* To serialize asynchronous callbacks */
+-	struct mutex mutex;
 -
  	/* lanes index */
  	u8 nlanes;
  
-@@ -679,6 +676,19 @@ static unsigned int ov08d10_modes_num(const struct ov08d10 *ov08d10)
- 	return count;
- }
- 
-+/* Must be called with the subdev state lock held */
-+static const struct ov08d10_mode *ov08d10_get_mode(struct ov08d10 *ov08d10)
-+{
-+	struct v4l2_subdev_state *state =
-+		v4l2_subdev_get_locked_active_state(&ov08d10->sd);
-+	const struct v4l2_mbus_framefmt *fmt =
-+		v4l2_subdev_state_get_format(state, 0);
-+
-+	return v4l2_find_nearest_size(ov08d10->priv_lane->sp_modes,
-+				      ov08d10->modes_size, width, height,
-+				      fmt->width, fmt->height);
-+}
-+
- static u64 to_rate(const s64 *link_freq_menu,
- 		   u32 f_index, u8 nlanes)
- {
-@@ -776,7 +786,7 @@ static int ov08d10_set_exposure(struct ov08d10 *ov08d10, u32 exposure)
- 	u32 hts, cur_vts, exp_cal;
- 	int ret;
- 
--	cur_vts = ov08d10->cur_mode->vts_def;
-+	cur_vts = ov08d10_get_mode(ov08d10)->vts_def;
- 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x01);
- 	if (ret < 0)
- 		return ret;
-@@ -896,13 +906,17 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct ov08d10 *ov08d10 = container_of(ctrl->handler,
- 					     struct ov08d10, ctrl_handler);
-+	struct v4l2_subdev_state *state =
-+		v4l2_subdev_get_locked_active_state(&ov08d10->sd);
-+	struct v4l2_mbus_framefmt *fmt =
-+		v4l2_subdev_state_get_format(state, 0);
- 	s64 exposure_max;
- 	int ret;
- 
- 	/* Propagate change of current control to all related controls */
- 	if (ctrl->id == V4L2_CID_VBLANK) {
- 		/* Update max exposure while meeting expected vblanking */
--		exposure_max = ov08d10->cur_mode->height + ctrl->val -
-+		exposure_max = fmt->height + ctrl->val -
- 			       OV08D10_EXPOSURE_MAX_MARGIN;
- 		__v4l2_ctrl_modify_range(ov08d10->exposure,
- 					 ov08d10->exposure->minimum,
-@@ -911,13 +925,8 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+@@ -913,6 +910,15 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 					 exposure_max);
  	}
  
- 	/* The flips change the Bayer order, refresh it even while powered off */
--	if (ctrl->id == V4L2_CID_HFLIP || ctrl->id == V4L2_CID_VFLIP) {
--		struct v4l2_subdev_state *state =
--			v4l2_subdev_get_locked_active_state(&ov08d10->sd);
--
--		v4l2_subdev_state_get_format(state, 0)->code =
--			ov08d10_get_format_code(ov08d10);
--	}
-+	if (ctrl->id == V4L2_CID_HFLIP || ctrl->id == V4L2_CID_VFLIP)
-+		fmt->code = ov08d10_get_format_code(ov08d10);
- 
++	/* The flips change the Bayer order, refresh it even while powered off */
++	if (ctrl->id == V4L2_CID_HFLIP || ctrl->id == V4L2_CID_VFLIP) {
++		struct v4l2_subdev_state *state =
++			v4l2_subdev_get_locked_active_state(&ov08d10->sd);
++
++		v4l2_subdev_state_get_format(state, 0)->code =
++			ov08d10_get_format_code(ov08d10);
++	}
++
  	/* V4L2 control values will be applied only when power is already up */
  	if (!pm_runtime_get_if_in_use(ov08d10->dev))
-@@ -974,7 +983,7 @@ static int ov08d10_init_controls(struct ov08d10 *ov08d10)
- 	s64 vblank_min;
- 	s64 h_blank;
- 	s64 pixel_rate_max;
--	const struct ov08d10_mode *mode;
-+	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
- 	int ret;
- 
- 	ctrl_hdlr = &ov08d10->ctrl_handler;
-@@ -993,13 +1002,12 @@ static int ov08d10_init_controls(struct ov08d10 *ov08d10)
- 		ov08d10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 
- 	pixel_rate_max = to_rate(ov08d10->priv_lane->link_freq_menu, 0,
--				 ov08d10->cur_mode->data_lanes);
-+				 mode->data_lanes);
- 	ov08d10->pixel_rate =
- 		v4l2_ctrl_new_std(ctrl_hdlr, &ov08d10_ctrl_ops,
- 				  V4L2_CID_PIXEL_RATE, 0, pixel_rate_max, 1,
- 				  pixel_rate_max);
- 
--	mode = ov08d10->cur_mode;
- 	vblank_def = mode->vts_def - mode->height;
- 	vblank_min = mode->vts_min - mode->height;
- 	ov08d10->vblank =
-@@ -1069,10 +1077,11 @@ static void ov08d10_update_pad_format(struct ov08d10 *ov08d10,
- static int ov08d10_start_streaming(struct ov08d10 *ov08d10)
- {
- 	struct i2c_client *client = v4l2_get_subdevdata(&ov08d10->sd);
-+	const struct ov08d10_mode *mode = ov08d10_get_mode(ov08d10);
- 	const struct ov08d10_reg_list *reg_list;
- 	int link_freq_index, ret;
- 
--	link_freq_index = ov08d10->cur_mode->link_freq_index;
-+	link_freq_index = mode->link_freq_index;
- 	reg_list =
- 		&ov08d10->priv_lane->link_freq_configs[link_freq_index]
- 			 .reg_list[ov08d10->xvclk_index];
-@@ -1102,7 +1111,7 @@ static int ov08d10_start_streaming(struct ov08d10 *ov08d10)
+ 		return 0;
+@@ -976,7 +982,6 @@ static int ov08d10_init_controls(struct ov08d10 *ov08d10)
+ 	if (ret)
  		return ret;
- 	}
  
--	reg_list = &ov08d10->cur_mode->reg_list;
-+	reg_list = &mode->reg_list;
- 	ret = ov08d10_write_reg_list(ov08d10, reg_list);
- 	if (ret) {
- 		dev_err(ov08d10->dev, "failed to set mode\n");
-@@ -1202,11 +1211,10 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+-	ctrl_hdlr->lock = &ov08d10->mutex;
+ 	link_freq_size = ARRAY_SIZE(ov08d10->priv_lane->link_freq_menu);
+ 	ov08d10->link_freq =
+ 		v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov08d10_ctrl_ops,
+@@ -1147,13 +1152,14 @@ static void ov08d10_stop_streaming(struct ov08d10 *ov08d10)
+ static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	struct v4l2_subdev_state *state;
+ 	int ret = 0;
  
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
--		ov08d10->cur_mode = mode;
+-	mutex_lock(&ov08d10->mutex);
++	state = v4l2_subdev_lock_and_get_active_state(sd);
+ 	if (enable) {
+ 		ret = pm_runtime_resume_and_get(ov08d10->dev);
+ 		if (ret < 0) {
+-			mutex_unlock(&ov08d10->mutex);
++			v4l2_subdev_unlock_state(state);
+ 			return ret;
+ 		}
+ 
+@@ -1172,7 +1178,7 @@ static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
+ 	__v4l2_ctrl_grab(ov08d10->vflip, enable);
+ 	__v4l2_ctrl_grab(ov08d10->hflip, enable);
+ 
+-	mutex_unlock(&ov08d10->mutex);
++	v4l2_subdev_unlock_state(state);
+ 
+ 	return ret;
+ }
+@@ -1192,12 +1198,10 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+ 				      width, height, fmt->format.width,
+ 				      fmt->format.height);
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
+-	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
+-		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
+-								fmt->format;
+-	} else {
++	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
++
++	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+ 		ov08d10->cur_mode = mode;
  		__v4l2_ctrl_s_ctrl(ov08d10->link_freq, mode->link_freq_index);
  		pixel_rate = to_rate(ov08d10->priv_lane->link_freq_menu,
- 				     mode->link_freq_index,
--				     ov08d10->cur_mode->data_lanes);
-+				     mode->data_lanes);
- 		__v4l2_ctrl_s_ctrl_int64(ov08d10->pixel_rate, pixel_rate);
- 
- 		/* Update limits and set FPS to default */
-@@ -1219,7 +1227,7 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 		h_blank = to_pixels_per_line(ov08d10->priv_lane->link_freq_menu,
- 					     mode->hts,
- 					     mode->link_freq_index,
--					     ov08d10->cur_mode->data_lanes)
-+					     mode->data_lanes)
- 					     - mode->width;
- 		__v4l2_ctrl_modify_range(ov08d10->hblank, h_blank, h_blank, 1,
+@@ -1221,27 +1225,6 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
  					 h_blank);
-@@ -1521,7 +1529,6 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	}
+ 
+-	mutex_unlock(&ov08d10->mutex);
+-
+-	return 0;
+-}
+-
+-static int ov08d10_get_format(struct v4l2_subdev *sd,
+-			      struct v4l2_subdev_state *sd_state,
+-			      struct v4l2_subdev_format *fmt)
+-{
+-	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+-
+-	mutex_lock(&ov08d10->mutex);
+-	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+-		fmt->format = *v4l2_subdev_state_get_format(sd_state,
+-							    fmt->pad);
+-	else
+-		ov08d10_update_pad_format(ov08d10, ov08d10->cur_mode,
+-					  &fmt->format);
+-
+-	mutex_unlock(&ov08d10->mutex);
+-
+ 	return 0;
+ }
+ 
+@@ -1254,9 +1237,7 @@ static int ov08d10_enum_mbus_code(struct v4l2_subdev *sd,
+ 	if (code->index > 0)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	code->code = ov08d10_get_format_code(ov08d10);
+-	mutex_unlock(&ov08d10->mutex);
+ 
+ 	return 0;
+ }
+@@ -1270,12 +1251,8 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
+ 	if (fse->index >= ov08d10->modes_size)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&ov08d10->mutex);
+-	if (fse->code != ov08d10_get_format_code(ov08d10)) {
+-		mutex_unlock(&ov08d10->mutex);
++	if (fse->code != ov08d10_get_format_code(ov08d10))
+ 		return -EINVAL;
+-	}
+-	mutex_unlock(&ov08d10->mutex);
+ 
+ 	fse->min_width = ov08d10->priv_lane->sp_modes[fse->index].width;
+ 	fse->max_width = fse->min_width;
+@@ -1285,14 +1262,13 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
+ 	return 0;
+ }
+ 
+-static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++static int ov08d10_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *sd_state)
+ {
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, &ov08d10->priv_lane->sp_modes[0],
+-				  v4l2_subdev_state_get_format(fh->state, 0));
+-	mutex_unlock(&ov08d10->mutex);
++				  v4l2_subdev_state_get_format(sd_state, 0));
+ 
+ 	return 0;
+ }
+@@ -1303,7 +1279,7 @@ static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
+ 
+ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+ 	.set_fmt = ov08d10_set_format,
+-	.get_fmt = ov08d10_get_format,
++	.get_fmt = v4l2_subdev_get_fmt,
+ 	.enum_mbus_code = ov08d10_enum_mbus_code,
+ 	.enum_frame_size = ov08d10_enum_frame_size,
+ };
+@@ -1314,7 +1290,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+ };
+ 
+ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+-	.open = ov08d10_open,
++	.init_state = ov08d10_init_state,
+ };
+ 
+ static int ov08d10_power_off(struct device *dev)
+@@ -1471,6 +1447,7 @@ static void ov08d10_remove(struct i2c_client *client)
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+ 	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(ov08d10->dev);
+@@ -1478,7 +1455,6 @@ static void ov08d10_remove(struct i2c_client *client)
+ 		ov08d10_power_off(ov08d10->dev);
+ 		pm_runtime_set_suspended(ov08d10->dev);
+ 	}
+-	mutex_destroy(&ov08d10->mutex);
+ }
+ 
+ static int ov08d10_probe(struct i2c_client *client)
+@@ -1545,7 +1521,6 @@ static int ov08d10_probe(struct i2c_client *client)
  		goto probe_error_power_off;
  	}
  
--	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
+-	mutex_init(&ov08d10->mutex);
+ 	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
  	ret = ov08d10_init_controls(ov08d10);
  	if (ret) {
- 		dev_err(ov08d10->dev, "failed to init controls: %d\n", ret);
+@@ -1566,17 +1541,27 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	pm_runtime_set_active(ov08d10->dev);
+ 	pm_runtime_enable(ov08d10->dev);
+ 
++	ov08d10->sd.state_lock = ov08d10->ctrl_handler.lock;
++	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
++	if (ret) {
++		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
++		goto probe_error_media_entity_cleanup;
++	}
++
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+ 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+-		goto probe_error_media_entity_cleanup;
++		goto probe_error_subdev_cleanup;
+ 	}
+ 
+ 	pm_runtime_idle(ov08d10->dev);
+ 
+ 	return 0;
+ 
++probe_error_subdev_cleanup:
++	v4l2_subdev_cleanup(&ov08d10->sd);
++
+ probe_error_media_entity_cleanup:
+ 	pm_runtime_disable(ov08d10->dev);
+ 	pm_runtime_set_suspended(ov08d10->dev);
+@@ -1584,7 +1569,6 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ probe_error_v4l2_ctrl_handler_free:
+ 	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
+-	mutex_destroy(&ov08d10->mutex);
+ 
+ probe_error_power_off:
+ 	ov08d10_power_off(ov08d10->dev);
 
 -- 
 2.43.0
