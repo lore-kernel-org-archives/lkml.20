@@ -1,59 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722170;
-	b=LfHWiBPfMJTcJKEZIkSWIhK5BDQzlhEg3PDum0hlxin7H7AWeL/pbu1s5beWkxMolyan
-	 VAu8jZs9sn7uIK6tLpe4pLJvnSKczL4+kk0nmDca+qEe0/n/aaVTdmTRk9bO+Y4mV/FY5
-	 NetrF6QL6xVc6B8GkMWuPyu3X2x1oxAeL4ZUYO30oYRPlC6ZvTQRxagi2Vpo+u6udKVDY
-	 gJz77pSvmHgbj2cyB4+OgXX3eqeiEh3QjcUTxbSeBVX8nl4lAc0/vrTIAHeWc5Hw8e9ne
-	 6C5Tqxf6abmhq6UwGsyJ3Sv5/1YasDac1Pj92hWNVTwdiYfaja/GylAOdyy1AKDo1rA==
+	t=1792722200;
+	b=KXm4nDLck4w6gNgt84tjo+rJiHGTvU4z5XZBaTr9FcMgZLh1MIU3ZVCLwM3fLnhFaQYI
+	 WmgEHRRSqKk0LCJVWfzgr1AWoGJkbvDyFC+OpATKEbBMaysqeYSDFC5l5kP56vCRftOO3
+	 zwkJXeaxBa1aNukic+u4SE3rpljJhC/TdLP3riUhNRGy18DysJ9s0Ey67+jAtybRze8qy
+	 LGAdDd1CSe6/OHK9lsT+ESl3AbKIeReE8ElJCehMPotX61gHnu3qpErrBb9OH2cj2AgIX
+	 bYyNNNEBcOZrE03R/hB6ENsj3ezMpJ0rSR/UudzfXHV1ksyghFgDTA4yJwYIJBGTAYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722170;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=0RtgteZDA1WFIsT9Xr9286F2HyITudCx49JvOlwvwPA=;
-	b=yW/Rzjtcsyxn4+xSdAj6frYVTMub74pWTQHkqhxv4SozJZEOs/qvH8AC1tIdrlWqVsFI
-	 fPZa01CEudIwIxBT2R/iiYBgEzRjSERHgIKR6PdIfbD0bdQKj+krPA4sZyZc5T+u6U3mU
-	 VqSusDzZpUK6zFIoXeoFrpNhLJzD8AxknEJi3YQ/f6/8JwM8lavwpJG5/OeA3M8gkd50v
-	 nccYwQAEiO0LRsOiVKjY1alYFDabSlx9GX4Ghb44keXmNZ/gEcHd5pQwKoEp/whZPW3S5
-	 i7H3/bBFIxofoKmNbnvPoGKN8CS9VkWyJ2ngUVvZZt70E7l+mGrGcx0B2W1Ik7CVRMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722200;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8aR471eyUThLQZ47HPLYqJ5jhcDVu3gnhYgQS0O/yDk=;
+	b=IZ3lndhXijdWQRZ9P1YPl9AOs+IQ++8hF0HdouZI8ZQzO+cGO4nhVxysA/F6T/gkFKh5
+	 rUU46pTzxwDjg5lBxYbTQ6ug5tmTpaaiFl1w+XnxWpfyZi5UoStacXf/Atzkn26MWUrib
+	 Fsd4xhbsW3LcaeWwArn1u70lWU2FG2aAESG5feQMjV7+S/J0XPcbjGpnmTzWDquWSuG93
+	 bdXbrP2G6fu+RoesIWu4jqOSgdxoPJlrEI0EdJsiAe4ee9D31REyMHMj5A872xZiA6FWn
+	 Bi85VSWD8ALvlW+9BrBOOBM5LwTO5PeViIJE7c0FXE5JTwpfUoau5QIf7QX1K1sTxWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MenH73TQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0FC606A319;
-	Fri, 23 Oct 2026 02:22:49 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01DFC606A319;
+	Fri, 23 Oct 2026 02:23:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01DFC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MenH73TQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778361F01825;
-	Fri, 23 Oct 2026 02:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792722169;
-	bh=0RtgteZDA1WFIsT9Xr9286F2HyITudCx49JvOlwvwPA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=MenH73TQm1wKYaiES8UVLqHTnTcaGldSuXAjWd3BWajSz2+wQiCulzs94pfOtjmcK
-	 szkYrukq4PAqfOfuuHuZwglnBntMsio4a50BC6hc4OxKU4oW2oegCXpl3cUgd3bSYd
-	 VsKysDQl/or1/ZRqeu3nqtsCzhRkqzA7XEHsE4Rn6gCFqbJrA/BF+f3BjfhrCFiwMF
-	 jhdL1ezSlurkcZTsUlBk5TpsXNZ/u9v0nhj85NcIfnJLsdQJAWbs5MqWvSvO0rgKJO
-	 BWBmyOTxb1nJDmh5o/IjwO0Pz7e2lrn3DSBqP7y1mqmsyFZQNsZoPTfeHPK4dT/S7H
-	 E9NpTHyX3tW1w==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 34B2BCE0A7E; Thu, 22 Oct 2026 19:22:49 -0700 (PDT)
-Date: Thu, 22 Oct 2026 19:22:49 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH v2 07/21] srcutree: Disable preemption across
- synchronize_srcu_atomic()
-Message-ID: <586297c0-3036-46ce-b06f-19064415c5e8@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
- <20261007205924.1983367-7-paulmck@kernel.org>
- <20261023001955.GA4134349@joelbox>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=byDcUQ8bLcaFJkqjv81W1xI6HfPUk7fwZQKn0w14fcvJ5TsoBkD5glTqZM+MXn0U689Vuzt6NoCMX
+	 btgxb4L+JOOALbbdjk5nrGrVhI9D2ZdaJuFOuAJWVcYh9t+29bsxHaOsMTWPgA6fHBrG7tkcjvCnSe
+	 SHOrWZ7ztgTQS8ng=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adac511138-0f86d;
+	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
+X-RM-TRANSID:2ee16adac511138-0f86d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16adac511d3b-3046d;
+	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
+X-RM-TRANSID:2ee16adac511d3b-3046d
+From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+To: mst@redhat.com,
+	david@kernel.org
+Cc: jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	stable@vger.kernel.org,
+	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+Subject: [PATCH v3] virtio_balloon: drain update works on probe error paths
+Date: Fri, 23 Oct 2026 10:23:10 +0800
+Message-ID: <20261023022311.1577-1-zhaimingbing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +77,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023001955.GA4134349@joelbox>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 08:19:55PM -0400, Joel Fernandes wrote:
-> Hi Paul,
-> 
-> On Wed, Oct 07, 2026 at 01:59:10PM -0700, Paul E. McKenney wrote:
-> > Because synchronize_srcu_atomic() cannot sleep, if a pair of them run
-> > concurrently pinned to the same CPU, it is possible that one will spin
-> > uselessly waiting for the other while at the same time preventing that
-> > other from running.  This commit therefore disables preemption to prevent
-> > this failure mode.
-> > 
-> > Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> > ---
-> >  kernel/rcu/srcutree.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > index 7ff45e992c011..672fb41345c91 100644
-> > --- a/kernel/rcu/srcutree.c
-> > +++ b/kernel/rcu/srcutree.c
-> > @@ -2123,11 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
-> >  
-> >  	// Perhaps others will do our work for us.
-> >  	srcu_state = get_state_synchronize_srcu(ssp);
-> > +	preempt_disable();
-> 
-> Should this be upgraded to local_irq_disable()?
-> 
-> 
-> >  	while (atomic_read(&sup->srcu_atomic_gp_flag) ||
-> >  	       atomic_xchg(&sup->srcu_atomic_gp_flag, 1)) {
-> > +		preempt_enable();
-> >  		if (poll_state_synchronize_srcu(ssp, srcu_state))
-> >  			return;
-> 
-> Otherwise, it is possible that an interrupt handler comes in here while the
-> srcu_atomic_gp_flag is already acquired and then spins forever?
+init_vqs() arms the stats virtqueue callback, so an update work can
+already be queued on the system freezable workqueue while
+virtballoon_probe() is still running.  If a later probe step fails, the
+error unwind deletes the virtqueues and frees vb without stopping the
+works, and the queued work runs after the balloon struct is gone:
 
-If there is a call to synchronize_srcu_atomic() for a given srcu_struct
-in an interrupt handler, then all calls to synchronize_srcu_atomic()
-for that same srcu_struct must have interrupts disabled.  In addition,
-all SRCU read-side critical sections for that same srcu_struct must also
-have interrupts disabled.  The rule is that the SRCU readers must run
-in at least as restrictive a context as the updaters.  So promoting
-that preempt_disable() to local_irq_disable() might instead actually
-make user usage errors harder to debug.
+  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
+   update_balloon_stats_func+0x121/0x300
+   Workqueue: events_freezable update_balloon_stats_func
 
-I believe that Kunwu's lockdep commits enforce some of these constraints,
-but maybe not all of them.
+remove() already handles this via virtballoon_quiesce().  Factor the
+stopping of the update works out of it and run it on the probe error
+path as well, before the queues and vb go away.
 
-> If we disabled IRQs as well, along with preempt, that might add other
-> problems, though, such as a reader calling smp_call_function waiting for the
-> IPI handler to run on this CPU which is spinning with interrupts disabled.
+The same hole exists when init_vqs() itself fails after
+virtio_find_vqs() succeeded: the stats priming can fail with the queues
+up and the callback armed, yet probe jumps straight to out_free_vb and
+leaks the virtqueues while the queued work still references vb.  Unwind
+inside init_vqs() in that case, stopping the works before the queues
+are deleted.
 
-Agreed, that could be another problem.
+The drained work takes vb->wakeup_lock in process_wakeup_event() and
+finish_wakeup_event(), so this depends on "virtio_balloon: initialize
+wakeup_lock before virtqueues are set up", which moves that
+spin_lock_init() to the top of probe.
 
-And of course guest OSes have even more fun!
+Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
+Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
+Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+---
 
-							Thanx, Paul
+Hi David,
 
-> thanks,
-> 
-> Joel Fernandes
-> 
-> 
-> 
-> 
-> 
-> >  		cpu_relax();
-> > +		preempt_disable();
-> >  	}
-> >  
-> >  	// One last check for others doing our work for us under the lock.
-> > @@ -2135,6 +2138,7 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
-> >  	if (poll_state_synchronize_srcu(ssp, srcu_state)) {
-> >  		raw_spin_unlock_irq_rcu_node(sup);
-> >  		atomic_set(&sup->srcu_atomic_gp_flag, 0);
-> > +		preempt_enable();
-> >  		return;
-> >  	}
-> >  
-> > @@ -2152,6 +2156,7 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
-> >  	}
-> >  	ASSERT_EXCLUSIVE_WRITER(sup->srcu_atomic_gp_flag);
-> >  	atomic_set_release(&sup->srcu_atomic_gp_flag, 0);
-> > +	preempt_enable();
-> >  	non_block_end();
-> >  }
-> >  EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
-> > -- 
-> > 2.40.1
-> > 
+> Did you manage to reproduce this? How? (forcing the probe to fail?)
+
+Yes -- KASAN, injection right after init_vqs(): queue both works,
+mdelay() to hold the window open, then err = -ENOMEM; goto
+out_del_vqs, driven by bind/unbind loops. Unpatched: KASAN
+use-after-free with both stacks in virtballoon_probe().
+
+> Does this require the device to trigger us even before
+> virtio_device_ready(vdev)?
+
+Yes -- the callback is armed and the stats buffer primed/kicked in
+init_vqs(), and ready() is only reached at the end of a successful
+probe.
+
+> I guess this path is very hard to trigger.
+
+Agreed. That one came from the sashiko bot's review of v1 for the vq
+leak -- it does look at least theoretically reachable, though.
+
+> Do we really need this comment?
+
+Dropped both in v3.
+
+Thanks,
+Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+
+ drivers/virtio/virtio_balloon.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 8c1b47ec1..cb53acdf7 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
+ 	finish_wakeup_event(vb);
+ }
+ 
++/* Stop queueing of and drain any pending balloon update works. */
++static void virtballoon_stop_updates(struct virtio_balloon *vb)
++{
++	spin_lock_irq(&vb->stop_update_lock);
++	vb->stop_update = true;
++	spin_unlock_irq(&vb->stop_update_lock);
++
++	cancel_work_sync(&vb->update_balloon_size_work);
++	cancel_work_sync(&vb->update_balloon_stats_work);
++}
++
+ static void update_balloon_size_func(struct work_struct *work)
+ {
+ 	struct virtio_balloon *vb;
+@@ -633,6 +644,8 @@ static int init_vqs(struct virtio_balloon *vb)
+ 		if (err) {
+ 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
+ 				 __func__);
++			virtballoon_stop_updates(vb);
++			vb->vdev->config->del_vqs(vb->vdev);
+ 			return err;
+ 		}
+ 		virtqueue_kick(vb->stats_vq);
+@@ -1075,6 +1088,7 @@ static int virtballoon_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		destroy_workqueue(vb->balloon_wq);
+ out_del_vqs:
++	virtballoon_stop_updates(vb);
+ 	vdev->config->del_vqs(vdev);
+ out_free_vb:
+ 	mutex_destroy(&vb->balloon_lock);
+@@ -1115,11 +1129,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		virtio_balloon_unregister_shrinker(vb);
+ 
+-	spin_lock_irq(&vb->stop_update_lock);
+-	vb->stop_update = true;
+-	spin_unlock_irq(&vb->stop_update_lock);
+-	cancel_work_sync(&vb->update_balloon_size_work);
+-	cancel_work_sync(&vb->update_balloon_stats_work);
++	virtballoon_stop_updates(vb);
+ 
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		cancel_work_sync(&vb->report_free_page_work);
+-- 
+2.43.0
+
+
+
