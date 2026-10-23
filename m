@@ -1,67 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788352;
-	b=xTIt8z+m4RwRL30UVgO07cUJwakisAUfsKYZmprkZTp+I43n7MuIJCnJl4ShpQPdTCpZ
-	 PjWFmd2COclkaQpUl9NZaowROO4aHsgDm9vXvbvtqWoAkwP/DipGu+VHJEk239rswHGiD
-	 gKLmfnJ2dobb3vijGz/m6m8gfBc6P+ReCB/igSGt8Q4OxWmKtEgmaLuWsAidqNKYwfbG1
-	 tOxyATuRUEky3hawronDj8vwulU/gPHKMMn8dCj9KcPtPmONUdehV9SeDt0XX/SCZUZtQ
-	 d5jgnCh2EkM1L62XRhagYTFrUkHE8teK80/GsuOBKu3nNRNF/arzmophpPLcSSWe6Ag==
+	t=1792788349;
+	b=d07M5bJF5lFO6jmgVyLQU5vpNcXHEIeJ2tTc0S3buY94VX9tbXAvlxb6WLD+8VfcFRuv
+	 nPi4X9W+tZVycw6Y4ooB1MbbWAXZyMkWLP9K22uhLaacPKXfCleZJa7WwmBnI8Zku135m
+	 Z0nK/74Jd/thUr8/UAUHPM0k+0xRpVfjPOzzuyyFBE4m0ZbbNsMGNTwFTmcWnPZDvCZYv
+	 TcD5M88OJJYAQMZUAQWpFOrmv0YFw+KukeLdkmQJnMEskY7aN5+LnsFUzrQpPBsJ3CKJ3
+	 NKSJzGpDiVhR/UNLtqyvofGRtItR2xlCj5MgBygA0nodRPTZ8aLUh+KKWGTX2cVZcHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788352;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=bFFffzUvgnJue3yyaiYiiCh8qM+TcfI9WgeY9k8g54M=;
-	b=RcWZ2PmqF9O8rSs5H7R0aboKU4uJXdxhjz6jg8z/X6wXopEwwMyOPlwr4tXSZUdf72IT
-	 yejHav9KZsu9ot1UemYxqs8zxzOThn9NSaOjrSe+IzTKiTMWZN3n6oaLyWWqajyuIxf9D
-	 TXpkumVxEGFXLIVUJrGvW7RTYH1N1yqbVPpySV8aSzYJVEhAJaM+Vt2ZkA8YuPhtX3T2V
-	 BbmocYZKakgUPYn9CtOY9SfPUj1r4GA1DvCaowLDnRePxGQkgeYf88pkRBak29/nzryLM
-	 hJmI/bUArsZuPy02/3eCPmwjyWJbCe/EO6Gf+DOLVWChMi9c31U9iYXXbgnmyPApYbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788349;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ERMAe4gQ6i7Ta6EWqnTv8/4TwhPeAc1qJP5T9a65q9Y=;
+	b=1uG5K/RJw5A6Ycy28rfvrocGhMrnevaZQow9581YVs/Nizj+me8BOlTbLeKCu1z/JNd8
+	 F6kbaqKo0gaqibX9aAm2yX14j4GrdmTfMJeaaX2mxExi7bOMypnsCYqjEieioS9eNmm9I
+	 q6oVPd9NcUGKqMs6mMgEG1c7qghugC0B7xou9zvBjrpxviAzcsCkxTb2tCR9U48r23uon
+	 pYbCKAFJ6bv6nZgk8iGGLs2v5w2iNQmgOne5lXkeDa961ZtpuHwB9BBBnwlrCTfMDNoSX
+	 oSuNRPSI0iDbygbm4HwAzvO90NoX40/voIT9oB290za7hyORyJZ2hvBmeaQVYvIySuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AlAT+vVV;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgdiRnMA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34CD606A328
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34CD606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3718606A31E;
+	Fri, 23 Oct 2026 20:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AlAT+vVV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792788350;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bFFffzUvgnJue3yyaiYiiCh8qM+TcfI9WgeY9k8g54M=;
-	b=AlAT+vVVMK+sP7gD7pUZgBpOL9q7XWA/iWVXl0pJAk4QWileHRIIEX4KfyqbvX6qGBYx+6
-	WIp5JvATDqNYe6Y+e+Epl3CRB8MTwD5KOT0/b/gaUBDYi/o9Gau0lOEx4cfZ4A6EXyEVBM
-	HS+UE0sO3IT0pZUGaqFAO1wq+yIEhwA=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-55-75Gnvlz7Pc20nvVELP8pTA-1; Fri,
- 23 Oct 2026 16:45:45 -0400
-X-MC-Unique: 75Gnvlz7Pc20nvVELP8pTA-1
-X-Mimecast-MFC-AGG-ID: 75Gnvlz7Pc20nvVELP8pTA_1792788343
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F2AD1800841;
-	Fri, 23 Oct 2026 20:45:43 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 060071800446;
-	Fri, 23 Oct 2026 20:45:41 +0000 (UTC)
-Message-ID: <8c8f27eb-26af-406e-9766-537dbe9c173a@redhat.com>
-Date: Fri, 23 Oct 2026 16:45:41 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgdiRnMA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6C21F01825;
+	Fri, 23 Oct 2026 20:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792788348;
+	bh=ERMAe4gQ6i7Ta6EWqnTv8/4TwhPeAc1qJP5T9a65q9Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dgdiRnMA1IBRaZV7sbt0GCyCMQHFVcSb55t+wf3P6474xAb5UjqA8aB5U3V9jSSjf
+	 3TMwdyDt5g3d3XRibjlNWvWYD6YSwWY30x1e8YcAdCE9RER542GE6n+kOD0dXX9Q/f
+	 Z2S7Lqy4GxKEajNUyI/3Z6VCxzgZZFOgxlOh6u19zmbPppwsQOQ0XVZabYcPPTSqKp
+	 0xln+pIlXJDnW6j3DCRLAO5GSwnVvCorrPFPS91Ql9sN4Vh5paXMrXgj8Pfhc8KN6D
+	 yw1igtIAOyKKzGSCl2kO4odfMeSudTXueZ8Vfm/Q1DhN0Frpr/zFv02nEb06pEUmfq
+	 SGIeHyZCUPoFQ==
+Date: Fri, 23 Oct 2026 21:45:42 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, Andy
+ Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+ <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Prabhakar
+ <prabhakar.csengg+renesas@gmail.com>, Biju Das
+ <biju.das.jz@bp.renesas.com>, Fabrizio Castro
+ <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 6/8] iio: adc: rzt2h: Prepare for SoCs with different
+ ADC info
+Message-ID: <20261023214542.49c6304f@jic23-hlaptop>
+In-Reply-To: <20261023175919.160103-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	<20261023175919.160103-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,95 +72,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
- in update_parent_effective_cpumask()
-To: Guopeng Zhang <guopeng.zhang@linux.dev>,
- Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-3-longman@redhat.com>
- <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
- <a3caf0f6-da89-4b5c-b80f-3baf6c82a2c4@redhat.com>
- <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/22/26 9:53 PM, Guopeng Zhang wrote:
->
-> 在 2026/10/22 23:00, Waiman Long 写道:
->> On 10/22/26 9:45 AM, Guopeng Zhang wrote:
->>> Hi Longman,
->>>
->>> 在 2026/10/22 11:16, Waiman Long 写道:
->>>> Since the introduction of cpuset.cpus.exclusive in commit
->>>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
->>>> compute_effective_exclusive_cpumask() helper which is later renamed to
->>>> compute_excpus() is added to compute the effective xcpus of a partition
->>>> root. However update_parent_effective_cpumask() is not updated in all
->>>> proper places to use the new helper to check if a given cpuset should
->>>> remain a valid partition root. This can cause a cpuset to incorrectly
->>>> remain a valid partition root even if no effective xcpus is left.
->>>>
->>>> Fix that problem by using compute_excpus() to compute the effective xcpus
->>>> into delmask in all cases except partcmd_disable and partcmd_invalidate
->>>> and use it for tasks_nocpu_error() check as well as checking its
->>>> emptiness. This enables us to catch invalid partition root more
->>>> accurately in update_parent_effective_cpumask().
->>>>
->>> I re-tested the repro from the link below on top of this series
->>> (applied on cgroup/for-7.4-fixes), and it still fails:
->>>
->>>     https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
->>>
->>>     cd /sys/fs/cgroup
->>>     echo +cpuset > cgroup.subtree_control
->>>     mkdir A
->>>     echo 0-7 > A/cpuset.cpus
->>>     echo 0-7 > A/cpuset.cpus.exclusive
->>>     echo root > A/cpuset.cpus.partition
->>>     cat A/cpuset.cpus.partition
->>>     echo 1 > A/cpuset.cpus.exclusive
->>>     cat A/cpuset.cpus.partition
->>>
->>> The last command still shows "root invalid (Parent unable to distribute
->>> cpu downstream)".
->>>
->>> In this case compute_excpus() returns the stale user mask unchanged.
->>> user_xcpus() is gone from update_parent_effective_cpumask(), but the
->>> dependency just moved one level down: the new code calls
->>> compute_excpus(cs, tmp->delmask), and its first line is
->>>
->>>     cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
->>>
->>> Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
->>> 0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
->>> cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
->>> it either - the sibling trim is skipped as exclusive_cpus is non-empty,
->>> and for a direct child of the root cpuset the intersection with
->>> parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
->>> tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
->>> if I got the analysis wrong.
->>>
->>> I have rebased my fix on top of this series and the partition recovers
->>> correctly with it applied. Should the fix be folded into this patch,
->>> or is there a better way to fix it? Happy to hear your thoughts.
->> You are right. My patch series won't fix this particular issue. However, converting an invalid partition back to a valid one is done on a best effort basis. There is no guarantee that it will always happen. Just echo "root" to "cpuset.cpus.partition" again will make it valid again. So it is not a real bug from my point of view. It is just a nice to have feature.
->>
-> Thanks for the explanation. This helps me better understand the
-> intended behavior of partition recovery.
+On Fri, 23 Oct 2026 18:59:17 +0100
+Prabhakar <prabhakar.csengg@gmail.com> wrote:
 
-I did find the reason why your test case isn't working. I have made some 
-adjustment in patch 2 which should make your test case work now with the 
-v2 series.
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Prepare the driver for RZ/V2H(P) support, where the ADC supports 8-bit and
+> 12-bit conversion modes with channel configurations that differ from
+> RZ/T2H.
+> 
+> Allow each SoC to provide its own IIO info structure and use the
+> chip-specific configuration when registering the IIO device.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Cheers,
-Longman
+FWIW as I'm not going to ask you to respin for this...
+I think this should just have been squashed with patch 3 where
+*_chip_info was originally introduced.
+
+> ---
+> v2->v3:
+> - No change
+> 
+> v1->v2:
+> - No change
+> ---
+>  drivers/iio/adc/rzt2h_adc.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> index 94dad479abff..dbe82939acc2 100644
+> --- a/drivers/iio/adc/rzt2h_adc.c
+> +++ b/drivers/iio/adc/rzt2h_adc.c
+> @@ -68,6 +68,7 @@ struct rzt2h_adc;
+>  struct rzt2h_adc_chip_info {
+>  	const struct iio_chan_spec *chan_template;
+>  	int (*sst_to_freq)(struct rzt2h_adc *adc, u8 sst);
+> +	const struct iio_info *info;
+>  	unsigned int num_channels;
+>  	u8 features;
+>  };
+> @@ -763,7 +764,7 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+>  		return ret;
+>  
+>  	indio_dev->name = "rzt2h-adc";
+> -	indio_dev->info = &rzt2h_adc_iio_info;
+> +	indio_dev->info = chip_info->info;
+>  	indio_dev->modes = INDIO_DIRECT_MODE;
+>  	indio_dev->channels = adc->channels;
+>  	indio_dev->num_channels = adc->num_channels;
+> @@ -778,6 +779,7 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+>  static const struct rzt2h_adc_chip_info rzt2h_adc_info = {
+>  	.chan_template = &rzt2h_adc_chan_template,
+>  	.sst_to_freq = rzt2h_adc_sst_to_freq,
+> +	.info = &rzt2h_adc_iio_info,
+>  	.num_channels = 16,
+>  	.features = RZT2H_ADC_FEATURE_CALIBRATION | RZT2H_ADC_FEATURE_SAMPLE_STATE,
+>  };
 
