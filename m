@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792734322;
-	b=ae6enRDvxjvuVadHY25NkX207r/ILK9E7JtDWDh321CXZ+LzfxNCpwVAmgXmZXpn/Enz
-	 RIMDeydwPl4LrQUwLlemAmgNt34KPzbQpUXjDTsidSUpVwcDbB9OuUpYRagjj73tLzmLY
-	 8lSoS5RqarjbOBy8yfd+vhI+7RpAvHm06FWHQvipFZmVZpkG6K11LkrpeicZnTuNxAdci
-	 UF6wzC0CpaK3YLvZ2gNZFFjvy5LyNTR5muCyVbuJVZTt3+hr+0xiqQ3wahai643zz8NRP
-	 FEuAd6aBe2C4dwOGbPgPNCTYLSXJ3X0RYPFbcLeOl5u3OU/mSPwRtiluqkPG73M+7kQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792734322;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=zx81mJCQGymu1OZlc3jNrPjZqmEatAtALfsBDY/sthM=;
-	b=CJwaPFygvY3OXpVWy2q8MLlEFUPUZPrJQWBLYaSLEyJk3RpVs/le6/9VB42UtD9uUKFn
-	 bq84/wdDsZpGzoR65p1EgRG/9fTB3qDxksr+Ys+dtdkodwjB99F/3On+Rl2HUBXpcgwuA
-	 l25jr42WQFPfwyOBEnTqspv1iAqvgJCibwrFY7VejZANHBF8dgiU5iW+CQuQLDRJzD4+z
-	 GvlwolI+Lkaea6kKJVryW152ZL/sbFgPv2lgAUtWC1C17OMKfaH+KUzeQT5sLdCgmoBo9
-	 CwVDob9FhNSZJq3jizmMjKHTrkzII+jgxyuWUcpjxwQFNc3PqpOaVN0QY3qvA890iBQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--gthelen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FIO3Qb5W;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792734367;
+	b=RE0SS9LM1s00hGLrJzrtV4tF7InLGTMP6Zusb56w31ll6cnnUnggkXRujBqXtrNjuKnV
+	 AvDgPwYmeE4AQjohu4lJuMDpwtSLHN68aJOZPW0KV6/hKdnaGY4x0dptpBC6Jq6fdzHN5
+	 tsci1TKp6ngKQJqhjbV9pgnU2qsUhiCaTSIag2EAfETKANXNIuFWIAXflSAsvK1dhnFAs
+	 lbFMxFLz91n0mS7h7U8ibEVQK/8eHqxboYRTpWg1Y/fmCG7Axvquh8l2vg2wdvCfAXWZi
+	 D97GolYl403PvYHBYk8IOF5b8+F8DJLNi3yUy4PWL+Cz/u/lOsqrGg5uRuxzWv/OMtQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792734367;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
+	b=suOSmyf7aJHXCWCtodsAtjcEbErcogru4IihF6HfIJ1hmo3DNKUqQmI12QSJUL0qtr2h
+	 fUYTqHtplyPCLk52OE38/0mGBstf1ERgW4O0AKhgD53sGnuqhI3G7ZeiPyt3jSVRdlVuz
+	 WD1b2CRo/mpT1NKRMTYa3QKiUJW4x+qEtb0dosEztNjfV3tGoADb8uQ2asnlWyrSebNSB
+	 VI+xGod7tNRokiMh25r2bg7omgHh+sbPz0PJc1kkX3BSKFO2P2CUiorZu88uyuRriycSX
+	 qtkXvnBIrx9V1dgsgBN8r+pv9Sazyl5P+A4NxKKaL3DTbXJldGlLMHbdCtZjhd657EA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SqlsijhA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.47
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00475606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00475606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gthelen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5149B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5149B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FIO3Qb5W
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso752717eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:45:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792734321; x=1793339121; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zx81mJCQGymu1OZlc3jNrPjZqmEatAtALfsBDY/sthM=;
-        b=FIO3Qb5WnvBM98/TM8wXx1RxfrCHxCqIkYMFvFvIeUzVTPIh4lSNmDuSL+2ORP5mtO
-         Tzs2jWz3O8BuxWCTKTINprOMfhfbcM9ar/2fpWVVw5Axqid3v8GJ+qh10kW+fBLy2h5W
-         STUABmNiV/p6DW8StYvOoFj4oQhj/5JR8d5yuE5ewy333gR0Q9+UH0imPY7U4G9jogW/
-         gd6aInNHorTJd2Ivh20RIlGOn2f31hEpE6wN/P90mMzm9SDDByTq57vG49ZE1KfWKVbG
-         OlsxNngDR+3OT/VWXavLddeqeAOCFgbYUAIDCYmAq6qrD9aAALM6iSgMEiyGVnzUMSrc
-         9kPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792734321; x=1793339121;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zx81mJCQGymu1OZlc3jNrPjZqmEatAtALfsBDY/sthM=;
-        b=OkmoabbNfuO2GG4y7zNmXVZXP3PfmmtuAXq7Gz7gcXVXFfCB5fzzDA3oVVm2ukmGxs
-         g+r4sYYijLBwHrJqwRIAiDR/MXnSR6YUEbNiP6NqxN6w2uckbqJohZ8S0NdnIf10FEHa
-         J02sN7mZTy+aJfoDUvMKgBXJYlwGwMWDzkx0jEuo4JpBAAbgklAsA6EyNxF8a8wtH0Yh
-         VDjbpRiHYIKkLbj+KCP/Zd9Hk2lVK2OMPD+efH0Q3Ka6Ne+yB5kMDK9F5//mFe+ZltDu
-         n2WgSzw5WCZJGPW84XQq1JLqz2Y7NhknMrE7xiMX1DCtVJHw9vwVT9EFOYQA+R2+Amp0
-         rp+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByjvw4iU+jms4/nGSqEJY/Bmfrz2C03xe3+69bTNjzYCjUd5wPLSyl7GlkRLuOB2fa3pdXwKupufbiZ8pw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmyiK0WHkq88AFHazqxH3BHBzw1kGLcLUzLwcaqi21sEjk5aXP
-	xtKr5nctP4kJ4IAugAlGsQOjEmUsCMgkVp1q+CjhtCOzYl7aj1fA8eUY30x27WsuMTVwDmGR2y1
-	co/n6zNERTA==
-X-Received: from dly16-n1.prod.google.com ([2002:a05:701b:2050:10b0:14a:84ec:bd53])
- (user=gthelen job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:28a:b0:18e:355b:f6b3
- with SMTP id a92af1059eb24-195c6e0b80amr1891111c88.23.1792734320663; Thu, 22
- Oct 2026 22:45:20 -0700 (PDT)
-Date: Thu, 22 Oct 2026 22:45:18 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SqlsijhA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gNuSFSi5Gwkc9vaOLYRsGTkw5FB0jcf5EUNgrY8Lnh9lrveG75bhzx9+Q5xcus1dhAfylckH3Nnl/A1H/RNzSCs8H5wwA9npUhOWjIRBY0OKcIv7Ivv32P08E2X/64uCneLNNaIIohj4DEzZRuXlYAbWd3UV+fRsnKW9DouLkRKRPNtP1kprN1SG5FEogVzO2TZ23I9R+yMt1qSKuLqiJoeHMO9W4MUO84RlY7+/6UoFL4i+rlqiHv6ujxtJpLcID1t/vHFHA5l+8M6YaaYLxoC7uvv7C2Rroy7xNK8KObhvT1xfSJyebn2bvvrQK/JAaNpKE8z/+n3S621avd2j4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
+ b=kMbatyPHIelB7Zse5LJPsoXgEpWs/X7rV5ftdNCsQ+m8iqkalTQdW+yQ3+4B0CtNyhhKQlWRexWDMeE6bAbWN8zt/NrYM+EfgXqy3uF91rCMo+JR7qmeEU84OyJVp+tiBJPxg4Dcsc+xDTsU300f8hL7nZ5U3T5TOPDCFX9sJH78kHyWYYNbosOYolJltpbOq/tAnzqt+U+6oklPYvElP/zQEW3ecDlDjGA4W5FtLOqISeKZaSf8j+effFTRjYyHaC1io2FamwIh68fc9gvPIrLyuXvQJcPSFEN/Taio9uJ7CmMy40k/SF0utZXzUIBfxjs0c8OkbF0VOAx0rODLCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
+ b=SqlsijhA7YxyymPFyrdprPlofZIKColVEkjKpAlBFj1OdBiEHdICBuUIBOOs/fsf9V4UcAmEOIAGQw6Ez/XxRb+srfYl/sUyS8XhbToVY2IfbdZVVod+li/Wmgx1jiqCyXcgmps5VIKNyjDZQox//8uuT9aZxRhXdmzTPTIwFB7AZ9ZzKuZFmvnqlWrHOlurGe+tveIbG0RTMrtSxAN7nHnrtkrkjhZ/bcWPQ+zLBUBgVOjzsiSgvSD3L6auSyjqMIcstXEMta2K0x72UhDlB/prlOb3L24aa0I+CqQLoUtEcgdLaFIwH/KGoLPyt9qIDJWLTSvLh6YIxXozCrmiGA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 05:46:04 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 05:46:03 +0000
+Date: Fri, 23 Oct 2026 07:45:57 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through
+ the enum lookup tables
+Message-ID: <atr0lZ5dHdoZRz68@gpd4>
+References: <20261023000348.2726436-1-tj@kernel.org>
+ <20261023000348.2726436-3-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023000348.2726436-3-tj@kernel.org>
+X-ClientProxiedBy: FR4P281CA0153.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ba::14) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,61 +98,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023054518.3258350-1-gthelen@google.com>
-Subject: [PATCH] kho: check fdt_phys in is_kho_boot()
-From: Greg Thelen <gthelen@google.com>
-To: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Evangelos Petrongonas <epetron@amazon.de>, 
-	kexec@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Greg Thelen <gthelen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DM6PR12MB4403:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02606dc4-61fe-4e12-9860-08df30c8ecc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|56012099006|261021123027099003|261022105027099003|261009223027099003|261022075727099003|11063799006|4143699003|10067099003|18002099003|6133799003|261021121427099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	I/lnqvSYihpIF3M7rVLcvFPhp8b0U5PeUOyF2OYVGtEqrORa8x/oLpC7lL5YDu4dX2RCaIOaL14RL6m67UtzikGmGZ1NsPrSfBdafxzCBnXbeJ7dmYNgmdQPQFjuAWavL0GSVGs1k48c3PN3u+3EXnU1GYiCM5O+P3Vu/720hRtVkPgSTvSsV2C6/1U+iYgpjiz1aWJLFA1850iei298IO179ZXWalJYJ2EWhgvOuyGl4Xug0n/459jnRtc2YJiM1rrZhRatPaEGk/e6d+3x/GGM/RfmXUoJoy5fOzRXxQXPRIrDfAEyevnGU0WJYB8+KtUUbKSNZSvxpdmYlgX1EnbKekytq86yHmhTksYm4faSXsPhtMS+IxCwqhClgtRUH3iMvl+f1zhY+i72+jLRMd85xrHFIXMnUEkJSeRd8rdjUmPvcIr7gikgrm0gIErdlEnfR+ylIIRZolxVF+DWNAO6O6lFP5A+8MmLQcPSgxWabq68XWcUUu4oZs8t4aAddAXekR/ZPFo9Y+uFMLFjH7e5pyet0IMMD+jvqD/SCe7nqstujPo/k+XUmkq6yAk6ue5aEESvH8VjWWbbyZ6bIrhUqth/sa3opCE7HPGsOEsZ8LKEFJ/kl1Ev6z7CeVaglj9iCqemVRVETlTPohcVjs58B/I+YN6F9oSoB1jhBQY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(261021123027099003)(261022105027099003)(261009223027099003)(261022075727099003)(11063799006)(4143699003)(10067099003)(18002099003)(6133799003)(261021121427099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zmzoWJxHKt0JX3DVwaqGH4ZYYGZLcrMo9dZ2ge9kyUhHHgV3aRsECSh9MKOP?=
+ =?us-ascii?Q?KKCi1fuv671hoMwTDEwVfhFOflA6QYhlEXu9VcPLkPPwqZK22dC9qnKcv11P?=
+ =?us-ascii?Q?HU+0n/Bcl0rit1HOKyhABkrW1d4YogbrsuKHa+HvnxZEvNI/Kjxg1FAEtNUW?=
+ =?us-ascii?Q?B0wXZ9gP9oPTZ926q2BbRZwarHf4Znnro4xHCR1DPqMrMGNKdiZmgau234UP?=
+ =?us-ascii?Q?wc+tkQ+fgAsUoM5Ap2WIEzggjSc4yJC209VWn6axIZphHuDysWNncGiyh71c?=
+ =?us-ascii?Q?4X6p+BOXBzOrrgfpxM3+qqPB4cyr59D4MFXn4nutLFweHD5XMYtc1LEjLykP?=
+ =?us-ascii?Q?btbIPMMc+EMkL/G0e2VzqKBwFu5agLPf2fE4PtbwLIsSoKNFzdTX3OT9+xyw?=
+ =?us-ascii?Q?vCFBO35NQNKVPKFCx4EzD3PkQHZIcBgkSA/Zu7Prib3uBgWrTd1OLs0SoYl+?=
+ =?us-ascii?Q?nNS8KUcibk/vpIaYwfqe717yUrcTMFvJx1e5WH9WXjl1CXpQEQBW3e85CkTI?=
+ =?us-ascii?Q?ykNi80YFip1A5I/AaxZsmsWZm6FmWkRi2Nr8A3g8y6R63jovs/cdC+bdKA7u?=
+ =?us-ascii?Q?2F1R2MDxJqlH+QFXY3XGybTWtfT629Vxa1HUFz56kVrDMrTD3NcxosYrH4xF?=
+ =?us-ascii?Q?lJRkRQ9k4lepz+7TUv+sCw7b/OY9Apr0EV/Bhjo7aVfQaOV7nfH1ucPlwC6K?=
+ =?us-ascii?Q?0It6ddbd4ic5EsK1uk8+E8RkH54freyM3hcl2cgrHcgSNh+dVNi3j2m8geGf?=
+ =?us-ascii?Q?SklHC6PChMRNxDi3ICz6KQZhU65d4VqbNk+1fsoNvM/M0cX5sjR3kE/rUj9H?=
+ =?us-ascii?Q?4/meN/a1EA2aytNQo5vegbrLXHtjiwgu3yz7EkwX+afPAUetiVlIMLWHXdKL?=
+ =?us-ascii?Q?0S+kRUdFodsJXrtqIK+LnqXZP25AE+eOtJ5YAS94fGtEKOWD+bREaeY+uoF3?=
+ =?us-ascii?Q?aYOBq9CQQX7YM4yuRkMtiJqEO+6m6N3inM2ePhw46lQmiHJ9Ounb1D1GYYxH?=
+ =?us-ascii?Q?fMgyIIl7RkwE0dH7vdYUq9EfZmNdsKjxpCxOeMNasNXbfumZQwIYEfzk8FqH?=
+ =?us-ascii?Q?c5mfd7DyJobjvi+H9MIKXgCuunMZzAwVZk7hRY1Ae+Fm7WkOuZKFqae58wv2?=
+ =?us-ascii?Q?Bfv8fRBSIWXqJD5axIJ6XwlMM82JFlzwubrTB6QUXq2inN6KI1p9h2yfYhPB?=
+ =?us-ascii?Q?OKcehZsY/GxAyawWfIWzvXe0uUB9GJq/cBMbj07NpPY19poSzAyNpjgO3lhV?=
+ =?us-ascii?Q?t1oqRUTL/BlajzO4Vv3AIDKhdXlmS5MtdmCCe8yuCFSMrhYhl4Bn6YN7w/Bm?=
+ =?us-ascii?Q?zZ4hStKFnVIq1UQfiHHWzEk7zRcZIvjJWH+kWDw4LQnFPBa7UA2wuRGxTz1l?=
+ =?us-ascii?Q?vWaEtf2ScvuqmPXlN/8qjX9ndsmtS2X9zKDigGPw5PeQWcMZK28JsOrmgcXV?=
+ =?us-ascii?Q?qpVibCxdhhjA0bFk5YA+bxF9stplCpiYgvhf3M6iyN3oryBEkkLmDuP+sBrn?=
+ =?us-ascii?Q?Ze1fU/0Rw1SLlgi2yMER6wASwXbDwvdsphVDJ9IlhctGcRKxAkMb4ED/4RQ/?=
+ =?us-ascii?Q?CvFsTobDFq6WHSneu0FRHMkvpUSQ9ARc82mjOIJNnawk+cIRb3Ff7z0NzPI+?=
+ =?us-ascii?Q?a6glhu/JS2jp41FLUMEWO2e1aSLuGeYiglQBiFca8IxOmVNmxMdjJvDD36y6?=
+ =?us-ascii?Q?1NdLdqVvQVZGni1V73BgSpcIpYPb/EGyMXSgnTR2YZTrWo5d?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02606dc4-61fe-4e12-9860-08df30c8ecc1
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 05:46:03.4335
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sZUl7jHG+nHqpaux0azi6Tov8TVrpA9WUD6/GB7bunoF9h1FpvZqjUQI6+GWzaca7boevtL6UU75OyfJym4uFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
 
-During arm64 setup_arch(), efi_init() -> reserve_regions() calls
-is_kho_boot() before arm64_memblock_init() initializes memstart_addr.
-At this point memstart_addr still holds its initial sentinel value (-1).
+On Thu, Oct 22, 2026 at 02:03:48PM -1000, Tejun Heo wrote:
+> 788b494fab1c ("sched_ext: scx_qmap: Drop the compat code") left one compat
+> lookup behind: the -B 0 case reads SCX_RESCUE_DISABLE with
+> __COMPAT_ENUM_OR_ZERO(). Userspace can read SCX_RESCUE_DISABLE only from BTF
+> as it is in the kernel-internal enum scx_consts. The enum lookup tables
+> already read their entries from BTF for every scheduler at open time.
+> 
+> Add SCX_RESCUE_DISABLE to the lookup tables and read it from the skeleton's
+> rodata. No behavior change.
 
-When booting via kexec with KHO enabled, kho_populate() sets
-kho_in.fdt_phys from the /chosen FDT node. Calling is_kho_boot() ->
-kho_get_fdt() invokes phys_to_virt(kho_in.fdt_phys), which evaluates
-PHYS_OFFSET and triggers VM_BUG_ON(memstart_addr & 1) on arm64 kernels
-built with CONFIG_DEBUG_VM=y:
+And, as a reminder, we should add SCX_RESCUE_DISABLE to the scx repo as
+well.
 
-  kernel BUG at ./arch/arm64/include/asm/memory.h:377!
-  Internal error: Oops - BUG: 00000000f2000800 [#1] SMP
-  Call trace:
-   is_kho_boot+0x2c/0x38 (P)
-   efi_init+0x94/0xf8
-   setup_arch+0xf0/0x240
-   start_kernel+0x84/0x490
-   __primary_switched+0x88/0x98
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-Check kho_in.fdt_phys directly in is_kho_boot() instead of calling
-kho_get_fdt() so that early boot callers do not invoke phys_to_virt()
-before the linear map offset is initialized.
+Thanks,
+-Andrea
 
-Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
-Assisted-by: Gemini:gemini-3.8-flash
-Signed-off-by: Greg Thelen <gthelen@google.com>
----
- kernel/liveupdate/kexec_handover.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 7c4d86daf86d..d81baa38497f 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -1630,7 +1630,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
-  */
- bool is_kho_boot(void)
- {
--	return !!kho_get_fdt();
-+	return !!kho_in.fdt_phys;
- }
- EXPORT_SYMBOL_GPL(is_kho_boot);
- 
--- 
-2.56.0.257.gf7497c7d27-goog
-
+> 
+> Suggested-by: Andrea Righi <arighi@nvidia.com>
+> Link: https://lore.kernel.org/all/ataTuzRFTRm_pax6@gpd4/
+> Signed-off-by: Tejun Heo <tj@kernel.org>
+> ---
+>  tools/sched_ext/include/scx/enums.autogen.bpf.h | 3 +++
+>  tools/sched_ext/include/scx/enums.autogen.h     | 1 +
+>  tools/sched_ext/scx_qmap.c                      | 2 +-
+>  3 files changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/sched_ext/include/scx/enums.autogen.bpf.h b/tools/sched_ext/include/scx/enums.autogen.bpf.h
+> index 405a3e6b8f33..d0c37018659e 100644
+> --- a/tools/sched_ext/include/scx/enums.autogen.bpf.h
+> +++ b/tools/sched_ext/include/scx/enums.autogen.bpf.h
+> @@ -13,6 +13,9 @@ const volatile u64 __SCX_SLICE_DFL __weak;
+>  const volatile u64 __SCX_SLICE_INF __weak;
+>  #define SCX_SLICE_INF __SCX_SLICE_INF
+>  
+> +const volatile u64 __SCX_RESCUE_DISABLE __weak;
+> +#define SCX_RESCUE_DISABLE __SCX_RESCUE_DISABLE
+> +
+>  const volatile u64 __SCX_RQ_ONLINE __weak;
+>  #define SCX_RQ_ONLINE __SCX_RQ_ONLINE
+>  
+> diff --git a/tools/sched_ext/include/scx/enums.autogen.h b/tools/sched_ext/include/scx/enums.autogen.h
+> index 7ec2e5e41cb2..c4a7260f0983 100644
+> --- a/tools/sched_ext/include/scx/enums.autogen.h
+> +++ b/tools/sched_ext/include/scx/enums.autogen.h
+> @@ -9,6 +9,7 @@
+>  	SCX_ENUM_SET(skel, scx_public_consts, SCX_OPS_NAME_LEN); \
+>  	SCX_ENUM_SET(skel, scx_public_consts, SCX_SLICE_DFL); \
+>  	SCX_ENUM_SET(skel, scx_public_consts, SCX_SLICE_INF); \
+> +	SCX_ENUM_SET(skel, scx_consts, SCX_RESCUE_DISABLE); \
+>  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_ONLINE); \
+>  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_CAN_STOP_TICK); \
+>  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_BAL_PENDING); \
+> diff --git a/tools/sched_ext/scx_qmap.c b/tools/sched_ext/scx_qmap.c
+> index 9b1cbe187ebd..fe2f206f5c8a 100644
+> --- a/tools/sched_ext/scx_qmap.c
+> +++ b/tools/sched_ext/scx_qmap.c
+> @@ -427,7 +427,7 @@ int main(int argc, char **argv)
+>  			u32 ppt = strtoul(optarg, NULL, 0);
+>  
+>  			if (!ppt)
+> -				ppt = __COMPAT_ENUM_OR_ZERO("scx_consts", "SCX_RESCUE_DISABLE");
+> +				ppt = skel->rodata->__SCX_RESCUE_DISABLE;
+>  			skel->struct_ops.qmap_ops->rescue_bandwidth_ppt = ppt;
+>  			break;
+>  		}
+> -- 
+> 2.56.0
+> 
+> 
