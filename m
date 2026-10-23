@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788993;
-	b=GTkKJhlVlhKwdiH3oe6aSKTU5uuwH9XYPDKo2GDQSjeZABIMmhHlrjwjCBnUNVJ6K9nI
-	 /Jge2UieTQ8KxDx7cjSgfp9RHttWCWQZ70kbZkIt02L7t+SuZCq+wp4CG0dsmWc8AFqzT
-	 jil9d0qiM/aTXzTu5eVvftvLUKv4RqB4W/cmEy4s/pAJAgZKSNWJPSzSxHCV7lUsbkbhX
-	 VqMINl9aRQaU+jEB69PjR1Cr0V5g4Euf13Rl6HHwoNZY9HSQxVilt22L5Hj2TXminosBO
-	 s9rxZr3WhQ35zXTsKxKRi8Ops3tBZHnEKomzQFa+wEZuW2WNMWo5LLoyjWfEK7gLBGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788993;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Y67gO6PRdAEfndN9srTaRF6Nt3BQB1WNhqjL17tr/jo=;
-	b=xDawOhTxNUh35FIzMCE7V8kGxdyjSJtBak7dn+y0IuVsgdqAmGxprdrkaqYXQ3zmQPrY
-	 JQB/dHoworWBicHElalgD+37IK5tYyLwfooYCp5u5VC1xbttfpBcSXbNzA5dIfTdHsoc7
-	 4cVTeVglf3pVKWK9Oh1VT9ijMx3hziH0AvoaTYxYI/qsfQTrh/JLwj17fwwII47oiHNCX
-	 bBd7aYRYlIlW9lHygiDR4ptO2iio+0vY2FugF9Ks5ypjmyDrfpqhHDeROEpjNBQBLcF2N
-	 NPDp+YwasVN32cMgJtTPCzKzX4S0l2NfG2yFd5EETMZote+69OIY1yqgXi+ggPPp5cA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiQGCRhA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792789088;
+	b=pxgq7X/qXsoOhFLtYjU+gfvl9znZX6tfP9X3Ok9U7AdW4hlNti4FeDxXyIUlnBUv2KzE
+	 2vE4JkZLA2kBGJuY0rMzgViQGC5GCE9scEKg0/vlTEkr1cuk3ehZr4a5PMs70j7lb551B
+	 1SXVSQYgUdjUrlMVxY0zJPlEOmdaAi8Z8s6XC4TBTWUfuyaI3rJGGtRUVn5r8/8Gb7P/M
+	 xe0wVuUQh1wROmAnNnqf0lvhDTqYeSsfo1/dkQ9b9Pvi2SfbOBzo4gfjcZoMLt7baA//8
+	 +USFnZhmNeXshEh0tOFoDcEBCa4qhQy650RPdUMLW0p0emiBxLwxi5jwE5SYNDpWDew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=nhm0dehbcsFsPmqbJAMad8C0NuNnGI0kqJ2sTQ044bU=;
+	b=chu/A2J+HVKQi2qqkE81NAyXT6PskaHF5eefFb9d1oBl6tcfndh/KBYBHoIiuTXtdVTG
+	 e2x79cOUytlgSY553Iw+tMIyoZv+8mZ0B5szR2IaCFcd+XsHaPMeEguUzII7rv7P8MUEn
+	 iQ1pUF7zO+BSVaTW3cmp48M7YOwvB8qyrUCQHqFqS0dr/1U3f4Ehg/5n32sStU6I8lj2V
+	 AB/FPCfXuksvK1EUOEonNrw7hPszzqsatMFUrFFMHCYbEBlVL2whcZOMIY/306bEsQSKk
+	 5n5on8iY2kVA35hm4oGylx6RxQ5HoLWowTj1J6Kehqva1wSwJIHIN71FwPv+QBzR1VQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=szeredi.hu;
+	spf=pass smtp.mailfrom=szeredi.hu;
+	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=mp+IjeE7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854D1606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:56:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07393606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07393606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiQGCRhA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FF41F01825;
-	Fri, 23 Oct 2026 20:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792788993;
-	bh=Y67gO6PRdAEfndN9srTaRF6Nt3BQB1WNhqjL17tr/jo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HiQGCRhAgTDsuuAFI1xdM4pzH4DCnuxc5f2pEQtnPLvtOTL2NyImEBAxxN1HPxJ4g
-	 cCEU2gIHN0w5puIT9XCjQ2GHvqK9IH07eLfzo9k0Dcvgmn+WFkNvYdvPzq9LJz1hfJ
-	 XXjFolbTTG/+5mqJQNX47lyuSV49+lSk7KMT7dwjChB8i9NWsOKUXya9tmtOMi8w23
-	 Ffe5unOXSIG6mPZjg3PieJMFhWWxQAas0zj6H1jGTPMtjySVZJz/a/HidfTOG5Zn35
-	 qRY4GdSRizzv89zSG2piiKDVBwjNZTlXydNiqrTgp4BccXL8+QoDc4H2C1aPFciY6j
-	 6hJH4WW6ZuAzA==
-Message-ID: <f0ad7069-5ff2-49fa-b11e-1ae589836980@kernel.org>
-Date: Fri, 23 Oct 2026 22:56:27 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=mp+IjeE7
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53639b8903bso15509951cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:58:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792789086; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HOaYbYPxezHpH23Wyky3p+orxop3bCOEZCrGJAJ3QGvrCz/zb8C0l5zAHOYp5vaB96
+         a4GM/z0Q/0+HvDIlWsfbaEnVN3ZQFa0kyHjVXPTjnWO2n2MEA/YfgCTwwowA8goI/ebs
+         ornkiyjXD+5QoSQjsJWq/fNyFoaXwKcGrv/fvxw9Wiqu5g+AkDTxEvtksumRlZDutg0r
+         +Q9SlzSswhI8eFRsS41+pBdhqwY0CzCb3LvDyE2fIo+C9cFooXm0Km6XNnsANaBMsxZP
+         zSaDPgLLgIJ82ThfdeRMKxqOE1npILzv6w/HNDMaFfU6WiPqnTiSmA/Ny6fn/c1GXiy5
+         pAxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nhm0dehbcsFsPmqbJAMad8C0NuNnGI0kqJ2sTQ044bU=;
+        fh=XNGgLbtOhxjuWjS/mngj1wCcq4VA/zvSfBHMFOlCz7Q=;
+        b=ogEu6TueQsC9XKIN7Z2G5sURzvmUmxPREh05JbYbwuOWjtURJBmsqi4IAYD2I2YKkH
+         CCfMLXZFj6u2UYiRGm4biHHpTOIZKsP//kaZdvfrr6OKgamOl8Pw4YoPM4kcHJ/Cy1gq
+         lsUCF6LefcQQFXDTmKPieOiBDKMKLSyjYfSfAdRE5T4UD3pNWWK7C6pUhCNPNlcEXrm0
+         T3/cVAq23vnVTM2Si9+SZvbrPywb2IHzTuqSvd9WsPRdziEsfSDikR6bryVEknh3+cOS
+         fjhV5UhKOte9S4v/Wtk/F5nI3mCRFbD7UH7CW6dTYa1noboG3MkTNRXkg79laG55ppvg
+         EOYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1792789086; x=1793393886; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nhm0dehbcsFsPmqbJAMad8C0NuNnGI0kqJ2sTQ044bU=;
+        b=mp+IjeE734gk7b7a0fXig43h2mQQ6+K9S2xLKpYpahwuij5a8Fm0K5F1sOe2vTQCkc
+         ZlaI28DpPrh7DEKge+d2+h5xS4FnpSCWTDZC3mDcwLHnVlcAmt8MpwYyYSaxnt88AAJZ
+         e6XYRslyCapLmKh9vZcHEmjMmvyYiqgiSWbqg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792789086; x=1793393886;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nhm0dehbcsFsPmqbJAMad8C0NuNnGI0kqJ2sTQ044bU=;
+        b=Gegr96X+JAPCuIzernFy7PTyLL3lO3NajpQ4w2QeRiZHr1yF2BcFARuZox/v586Ssi
+         bTqn7Hp/KrUX091nEa9QH+V8Cd6qL8YR1SxwFu8us7/l9re9oKt3u2G/HODoq4uZLi5N
+         fVNzwnJbxGD/bFPozi3EmLYl3RMKNp5SotvGy852nLVS6Q2ReLwmd6D6/NFCZQUD1Umh
+         cF7gutnuMrkgwAZlxp++jlFXfdYVg34ZNz+cG0Cno1Q5VaEJmOMIQXKcniU109UFXvc0
+         diIFBP1CrcARi7AMQvBem7kXWcVzBpLYml0DkVHMv/vB/ZCHCr/S07D7nrLWL/lyDe1H
+         1/VA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6HGWx26wGaqxknvSpdPxwwCE/OSe+LkD8zZZw2Qov7wsc3tevwQ3mTqBxPLpTnqO+17TvCjmp5EnxyFc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKojwvxcgHtq4XMv+g/fNttv8sFXIxJwSAzxfGZW8cXLBkblfpP
+	6ilyH53xvYWdGBj9Co9q60tFzhVP1fTK6fEbL28Ph/IIaPGccI5lhOPWXd9jL8CXfJXjYnG6/Dd
+	IhchvypY3IlHgOcgAsOc+fGuYYKSxTODHZWIu2hMzUvdXbKlGdWLB
+X-Gm-Gg: AYBFou0gv5pyFmv4pmfgMx73DhmGBTEAaqz0UJe9czmN3kU1KG/AaFpzMSdsInTlCv1
+	S3tl7nCM7aaI45fXRGCe8wmpJNgaHkUlbAtbGXKPKgERCNq3HSuAdaggbHA00slgYOxYjNCZ+Xu
+	joAfW1pBO6wRW1eBpPNHlIKBdwIn5hJkGPoIMxUAlxlrZXtyptIdsaKuRIv02SKX9/f2EIaSYJ2
+	ZX92z4N5ZiluYljZ7R4Yc12JCnBL5zYp/oWNB3JAdcWYdk81XPImh4Nmtco+kSBoumR//gRaquq
+	jzEawg/4VOto8T3/msAQZaVulbKWwhB82nqD9pBuDqd52iEBuh21xnKBsHjtnSGKJvZNP0Bxnl5
+	+RUP381EL2U60gKlzT6ZySNW9QhaUUFH69raghEi660XdVJiN/pxpeQ3dPGNwO68x+y4FoKUGw3
+	nUVbRb+ZDs5Ls8bH2u
+X-Received: by 2002:a05:622a:5b9a:b0:537:636d:2f2f with SMTP id
+ d75a77b69052e-5383bb192a9mr156221cf.29.1792789085714; Fri, 23 Oct 2026
+ 13:58:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,80 +101,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mempolicy: remove unused mpol_is_preferred_many()
-To: Sang-Heon Jeon <ekffu200098@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price <gourry@gourry.net>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>
-References: <20261023161003.59086-1-ekffu200098@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261023161003.59086-1-ekffu200098@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <atqdWUCzGxs3wwXw@groves.net>
+In-Reply-To: <atqdWUCzGxs3wwXw@groves.net>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 23 Oct 2026 22:57:54 +0200
+X-Gm-Features: AclHuK_KkNk2plVzgFzI4sjd7Ztsti_roGPlFUeDExwL151cFclpP2FgDKprhXY
+Message-ID: <CAJfpegvx9qi9ZcicxdLdmcwqnS0Z4sKQTdNo-OH7=6i=iYmKxg@mail.gmail.com>
+Subject: Re: [PATCH] fuse: handle extent map files in fuse_passthrough_fadvise()
+To: John Groves <john@groves.net>
+Cc: Amir Goldstein <amir73il@gmail.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Shai Barack <shayba@google.com>, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Aravind Ramesh <arramesh@micron.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/23/26 18:10, Sang-Heon Jeon wrote:
-> Since commit a492abe28bec ("mm: hugetlb: move mpol interpretation out of
-> dequeue_hugetlb_folio_vma()"), mpol_is_preferred_many() has no callers.
-> 
-> So remove it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> ---
+On Fri, 23 Oct 2026 at 01:47, John Groves <john@groves.net> wrote:
 
-I'll likely pick this up for the next cycle. After the merge window ;)
+> Fall back to generic_fadvise() when there is no backing file, as the
+> other passthrough helpers fall back to their extent map or generic
+> implementations.  generic_fadvise() already ignores advice on DAX
+> inodes while keeping the EINVAL and ESPIPE checks.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Applied, thanks.
 
--- 
-Cheers,
-
-David
+Miklos
