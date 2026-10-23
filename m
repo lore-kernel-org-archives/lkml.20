@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763288;
-	b=vQ/PVmY0/qW9SW9MwsKWNkZgsBbNBRcRK2waVwc6yC/1OBhM0u4S+qEm4hvqR9d+wq6E
-	 xnU0pBnQYUJf9RNklVnTwzjtai/Gfd6gR/4vyt5N2YNC0mz6LOGSXGQARqDD5cJ3WQAqn
-	 uA2bsZdp1uHb1bmDeWS+83C1EGXTBH8PfKPJZAOrUttQGVtJLXzEHpeUMqnBz0mre7cRW
-	 z09hyEfdkyCeilDArf325D8DIa+zUcjuvMQeKardCcayjZ8wvv9YWOGPJ8ZktrdeY0Eot
-	 RPjZdQ+GMSJHbpVyYyzAgnnV36NjG+Om5qH9fIyhKWpc04AK1T4TY6BCPIyRLVUmHyA==
+	t=1792763290;
+	b=UC1cL19p2eV6NCeXrrPtbkQnOMhRpiwaH2mhXDBPPyng9JRnj9NE58EYW0dzYAWB7RAu
+	 YagPVZPzvc4oSu6rN6NKIsGiuZ3kinCtS1NvEHExk7FTR6qvBYoTBB4jVMup7sVoHPD0W
+	 85+/SW7qExrnEq5oR4i7zWfuW00YQyFo8DoRAqiPKbMx/buRVInspuXDybvGbS0FBfOUu
+	 8RFtMX1LTOTYIU9N/ixJP8bJHZMBGfiYLkZRGmk+7H+GqpIWZRkp/Z/8JuNKZucFPWI0C
+	 bST5MtHWBC72f60hU/WJht0pNgUxzo3ZqSbW3eruVdBX6JZmGOjeX9kGTx2ajlIq7pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763288;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
-	b=vcO198K0KD/mY0/LPYORsu9jsdbAwKvgMFMtohBsroG0PD3SVMbr0uxcVAHRNwm4JR6M
-	 zqPH+1RJa15OYDcCWFbvtoCujZXn645endNuggVuVjteHPL/3gSn3qbe+odjr8EExkC4i
-	 o+GxrzeR3bCq8K9TO0g4o2ysMtSeuesFSjIUs8xb91Lrf9GZZve21jvAyVyMS8nd2MV51
-	 /OduGcWK+xb9S/tgo3dwxVxVuhswjhRZXgDHfwK3JvzaUxxAZ/57tqVfssX1fnYJ8J7xH
-	 0x3leoMSDQXldsV+xxw6vb5cnec152mx5fHrYXwgvbAjZbzKhAdOaxH7ALO1CcDeLyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763290;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=G051RCtTj/aOitt//0BQMpLgWk+aIYRCuFDvRT+dDow=;
+	b=Ac4IaF6qfP1a6ddor9gph/5eOMlxzIoGLQMz2YbGco/kyFInIhK+++112PW0T1PvNoMA
+	 EYBnAGtPrxcvb4Du6yRTIhVCs8g4/m/pikfpfwQ6aHRWzQthM2MvkVydcSdMw3j3C2uK3
+	 I8Udes4hsAKUkqdX6rU9BTrFOaRo57/wY6CnDfxcFEH7h54KwaXLtYKyCucRqoCUA+93K
+	 TNByU/aS1o/Re138+K/v+lbGrwFQle4R5skUkO/FH9e9lYJECzG2qa+GJOAWDNdq4JWp9
+	 rXNLLdVkzlHJUxdLZ4wDDznnld2ezkEGrw8PiFyU4dSidZXoGX4dXsCceMi9O39Y8+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Y1d/PBQp";
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrNWbR17;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53232606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53232606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D8F60A261A;
+	Fri, 23 Oct 2026 13:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y1d/PBQp
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so332084a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792763287; x=1793368087; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
-        b=Y1d/PBQpYKY6/A/y71lA65P779UqaI8jgvAt/xfUqzJ47TuTdD/TgWgrzFAERp4DgD
-         1rovMaCMal5+BfirxwrV+nyvBf29jE8f4OP8Bm5ybJVOuVfc4mIdxD06ygbJRbd945e2
-         mpp/+y02xSsEHvyQPh4WwI02BfxmO/rW9Lgd+EivWxhu6VSztRAt8W71aAQjlGnlPqUD
-         oXU7PHPGItaP6U789LSd/Ovm3Zwb+8J5cCA0bYIZAulenW6WWn5uXFtZzdoqg2nG5hvA
-         prOq+66GfNJ1wRr/zYdLRrIwCtEHpinh9POKCj215i5TSXOIf+nY2dJFuU5fMPmGQQ3f
-         60ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792763287; x=1793368087;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
-        b=Qo9kA2+o6nFXeo608rXP1011471iga26lh98QMn1Uq+qA3vGQ5i+CLDumiGSk6jf9u
-         v06YZ3mH7OGzH6lXpy6jUX8A8wHtFxwQzArkkYVN9rOvGOEHovm7sWHYre9KtsdEy7rw
-         ldA85mDkQsZZck9jqq5IXDQpv0s8o/LSRFdD8ClhPEEXvbUeM0qfh7v2fuOnh40Np52P
-         jkLSf0gAbBMPV3dWrJ1I6NcsuUIL9ZN+SoPEfSvF1v3TfJEALLHkaawzvTWG3g9DPeOo
-         HAaP1g4BrVz8Hn24hWCB88jDUwKhCdbBFGGLlGDpCgdgcnQtx97HkQT9/DQlztnT5opi
-         qOnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwacyOkSzMFzbkldtGuDRLzmP8trkxJc/Ph+wE/jYJgEbo/LMSI4oSUc+CC2QcX+M2ATtqtmUvmzbh59e4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6+gxNaKJFtnypnu0iMNdqSEjTFJ5W/Q26Zuf/cz1SJI/kQd6B
-	zU6V7JA7xjlUaj9TKcKvHsud2H/7nwYKAzqnR5JgQqI/gGNh+Xcfw1PrgMqAD6hf
-X-Gm-Gg: AYBFou0MeB2Qdywke4gnnQLYgpsNDYvD8UsT0D2dNw6mWwYnAZUBhOqDwFE8ZnBq9CV
-	NV+G9B0nilKp+PjCpEq3WJIUNpEM5jdLWTJIwg0yKzHjTTrbRGJmhS9XhyxjZeIb7KYP54kxOPc
-	XFPRbV9/rA8vaspWewwyrK0SE1MxZY5iPSbp/2Te7aK67Ky9ZegRSfEVesRWhkBYWPZAOfIlUgl
-	tDfLWRMXiSkr+G9pMQR3cFlz6fX/FeG7Ke7N0aY5nJL9c9CZdMYWw9JZ1l2yvn4PhGh6xvOWPRa
-	pR0LQjsA+BHk9SX9a8DiKS/3ke3fZqhPcN01Dg5DWdFy/c1D61lliOHqK4rT5mP02Py7r4687kO
-	9N/+aY1rnN1F44Nh8VgJeHhispMBU/JV6bj+zcRqzpmoblaNIsgK/IvYFJqA7eE/lsue43utW3E
-	gDLEYVSk7O772vl+i5moBNuVlrybp9f6h6YKjS1hcJFMNL3Gwjb/L8y7txFv6kLUVRlC3hQubS0
-	agoiQED5OMDx7xxUrk9ssOpYwFlR9/3zsiBWRABhVInfKCLRUlH97UY
-X-Received: by 2002:a17:902:cf0b:b0:2e9:9524:b004 with SMTP id d9443c01a7336-2ea7d07bdf0mr21009825ad.59.1792763286653;
-        Fri, 23 Oct 2026 06:48:06 -0700 (PDT)
-Received: from dev.local ([163.43.243.221])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea946778ccsm521295ad.9.2026.10.23.06.48.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 06:48:06 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Fri, 23 Oct 2026 22:47:57 +0900
-Subject: [PATCH net-next v4 2/2] seg6: skip the route refcount in seg6local
- IPv4 lookups
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrNWbR17
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B0D1F01825;
+	Fri, 23 Oct 2026 13:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792763290;
+	bh=G051RCtTj/aOitt//0BQMpLgWk+aIYRCuFDvRT+dDow=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BrNWbR17+oBuMwIuG7dEwUXWBpidc4FPmVZXUhVpfCqgodMj9N5hS2a/deBqIDhzQ
+	 0cqK/pf94yEEoZPuWuvHwjYhunsTsxP9o5sl27q6hF7qNQO8GxweATd+OTTbqfmVYz
+	 jgdCGDAwVp4i576LPGyxA1J5l58dcEkaaU/SceQmylIcIosYiOEO75mgL+upoGKise
+	 2GLGUYIPFXj92BeIpmdTvktLkBPlwf9ninCqpN+sV90q95dtDeKGOGBBHLpStiSM2h
+	 +oWN5aemU+1vd77qQKSWecQhhKzzlF6jDfgElXUjs315tPD3NeS3M4+gIttmHKEF/O
+	 rM7+LaDxYAFtA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 23 Oct 2026 14:47:30 +0100
+Subject: [PATCH 4/4] mm/vma: avoid losing atomic VMA flags when setting
+ sticky VMA flags
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,93 +55,263 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-seg6-lookup-noref-v4-2-0ad0a83960ef@gmail.com>
-References: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
-In-Reply-To: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gabriel Goller <g.goller@proxmox.com>, 
- Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2336;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=dRDW/7at3wyNN9uALP8BS6Z0fSc8Nk/01osTUNBgfr4=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBq22WNPxnrDPhFO8axQuCzhqgzOhWydCaY329WX
- j1Ei2p6tgKJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCattljQAKCRAq19F1Kl0b
- TR8RD/4lGPTKbC9FNWBsj8NkZsNtj43e1D8FfzYa9V6UIWyJ2fkqVvoes07yH8beA2ofnin1nzd
- kcHJqbXHHV6lr5cQ96Zogc6bNrwzcKSOu/tCGZGjcewJrGfe5ECdOrHLaTiMBBjbNX2aKzz0x4P
- EZmZtyioDL+cZBMI9hnRgLAznqJi2sNcpeyz8JXxYN4r1Wpkzm9+/uZ/REoIziwJ+9msA6pOFad
- 7Sse6sbbLtjH5wtczdUMzvRbjlVcXz9RkzGN0LNw14R2EjHo8fPYmMOqEWmfRv08NHaI2BCFwGH
- lBMQoXJJXhOHv3o2HkKqLeIjLceFYv9LZzUXNRW5PHfsF7S38dPPTlDs4fWMsHwPBkPPgMniqZR
- 6fP4YRQux1DvJDXurBrQgor43DEZSqx5xCOaw0DEIDayptZTp2GGxgkMxy+9mOSq24ERIPG83AD
- XTRTPKU09yEjhd9OxaXBZ/9v9tvjM8LAqRGCFgC2V/MUaZShrQ6MrkWR6kZaT/9EzXwV2sXiP6I
- CHaYIEV2XnNu35llLD/RDZBURAQXfKofXCcIlPcw8NtU4/0slgEAUPNDrIxu/VsYrR5tLVLKUej
- uFNlgaLe00MBnq7wB8rwl/AoO3oxrTVttMQKxcv/FljU+9wVvaKqHTU+J/KP0A3NwPeMnK2moaw
- Je6LVzpHISBH1kw==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+Message-Id: <20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+In-Reply-To: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Davidlohr Bueso <dave@stgolabs.net>, 
+ SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Colin Cross <ccross@google.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8606; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=jnauRsabm7fWTbCZvgqZyNtQKOOPKS6Lkrz/EtjN5R8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJup7b+vWO3komTPaLjemqC/6GzFfw/p9XuM9v63+jec
+ u+PHmkOHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgI9ydGhpcTHJ/qRUw8vEE3
+ 7HtebcDVy74rvebuKVv67PXqPaW//1Qw/M9dUp76uD9+TmyxsPsMSWmufQcb/1RUrLl5YuYnFt3
+ b07kA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-ip_route_input() looks the input route up with ip_route_input_noref()
-and then forces a reference on it, which is dropped again when the
-packet is transmitted.  End.DX4 and End.DT4 call it and hand the skb
-to dst_input() within one RCU read-side section: the one of the
-receive path, or that of the nfnetlink verdict handler for a packet
-reinjected from NFQUEUE.
+vma_merge_existing_range() merges an existing VMA (middle) when its
+attributes have changed to match those of one or both adjacent VMAs.
 
-Use ip_route_input_noref(), as ip_rcv_finish() does.
+Sticky flags are propagated if they are set in any of the merged VMAs. They
+are initialised from vmg->vma_flags, which is assumed to contain middle's
+sticky flags when the function is invoked.
 
-Throughput at 0.5% packet loss of 82-byte IPv4-in-IPv6 UDP packets
-(no SRH), spread by RSS on an ixgbe 82599ES across two 10-core Xeon
-E5-2650 v3, offered by TRex over 10 runs of 10 s, in Mpps:
+However, the VMA write lock is not held for middle when they are first
+populated, so concurrent updates to atomic VMA flags may occur, which will
+be lost upon merge.
 
-  End.DX4
-  queues  cores                   before   after
-  1       1                        0.791   0.811  (+2.5%)
-  10      10 on the NIC's socket   6.118   7.394  (+20.9%)
-  16      10 + 6 on two sockets    3.305  10.205  (+208.8%)
+This can result in fork failing to propagate guard region markers and (if
+file-backed) THP collapse discarding them.
 
-  End.DT4
-  queues  cores                   before   after
-  1       1                        0.481   0.489  (+1.6%)
-  10      10 on the NIC's socket   4.328   4.588  (+6.0%)
-  16      10 + 6 on two sockets    3.351   7.153  (+113.5%)
+Resolve this by propagating the sticky flags after middle is locked.
 
-Every CPU takes and drops a reference on the same input route, the
-one cached on the nexthop.  At 16 queues that cache line bounces
-between the sockets, and skb_dst_force() and dst_release() together
-take more than half of the cycles for End.DX4 and over 40% for End.DT4.
+Make life easier by factoring this into propagate_sticky_flags(), which
+treats vmg->vma_flags as its base (in case any sticky flags are set there),
+updating it as sticky flags are accumulated from merged VMAs.
 
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Also update vma_expand() to use propagate_sticky_flags() so all merge paths
+utilise it.
+
+propagate_sticky_flags() also asserts that the VMA write lock is held for
+the VMA whose sticky flags are being read, with a comment explaining why.
+
+Another means by which atomic VMA flags can fail to be observed is when the
+merge is finalised in commit_merge().
+
+rmap locks are dropped in vma_complete() before the sticky flags are
+written, meaning an rmap walker can observe the VMA without sticky flags
+set, which can also result in retract_page_tables() discarding guard
+markers.
+
+Resolve this by assigning the sticky flags before dropping rmap locks,
+factored into commit_sticky_flags() with a write assert on the VMA being
+written to.
+
+Also remove the vma_set_flags_mask() invocation at the end of
+vma_merge_existing_range() as this was introduced by commit
+64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
+which is now redundant with the introduction of commit_sticky_flags().
+
+The vma_set_flags_mask() invocation at the end of vma_expand() setting
+sticky flags only is also removed for the same reason.
+
+Also update vma_merge_existing_range()'s comment to reflect the fact that
+vmg->vma_flags gets updated.
+
+Finally, update the userland VMA tests to reflect a previously missed
+const-ification in vma_assert_write_locked() which would otherwise cause a
+warning when building them.
+
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- net/ipv6/seg6_local.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/vma.c                          | 55 +++++++++++++++++++++------------------
+ tools/testing/vma/include/dup.h   |  2 +-
+ tools/testing/vma/include/stubs.h |  2 +-
+ 3 files changed, 32 insertions(+), 27 deletions(-)
 
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 7fbcf590297d..209e31c21e33 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -1096,7 +1096,7 @@ static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
+diff --git a/mm/vma.c b/mm/vma.c
+index aa59005e2f42..a65e397d6f62 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -783,6 +783,27 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ 	}
+ }
  
- 	skb_dst_drop(skb);
++static void propagate_sticky_flags(struct vma_merge_struct *vmg,
++		const struct vm_area_struct *vma)
++{
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vma->flags, VMA_STICKY_FLAGS);
++
++	/* Write lock prevents concurrent atomic VMA flag updates. */
++	vma_assert_write_locked(vma);
++	vma_flags_set_mask(&vmg->vma_flags, sticky);
++}
++
++static void commit_sticky_flags(struct vma_merge_struct *vmg)
++{
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
++	struct vm_area_struct *target = vmg->target;
++
++	vma_assert_write_locked(target);
++	vma_set_flags_mask(target, sticky);
++}
++
+ /*
+  * Actually perform the VMA merge operation.
+  *
+@@ -818,6 +839,8 @@ static int commit_merge(struct vma_merge_struct *vmg)
+ 		return -ENOMEM;
  
--	reason = ip_route_input(skb, nhaddr, iph->saddr, 0, skb->dev);
-+	reason = ip_route_input_noref(skb, nhaddr, iph->saddr, 0, skb->dev);
- 	if (reason) {
- 		kfree_skb_reason(skb, reason);
- 		return -EINVAL;
-@@ -1322,7 +1322,7 @@ static int input_action_end_dt4(struct sk_buff *skb,
+ 	vma_prepare(&vp);
++	/* Must be made visible before vma_complete() for rmap walkers. */
++	commit_sticky_flags(vmg);
+ 	/*
+ 	 * THP pages may need to do additional splits if we increase
+ 	 * middle->vm_start.
+@@ -857,8 +880,8 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+  * merge.
+  *
+  * As part of this operation, if a merge occurs, the @vmg object will have its
+- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
+- * calls to this function should reset these fields.
++ * vma, start, end, pgoff and vma_flags fields modified to execute the merge.
++ * Subsequent calls to this function should reset these fields.
+  *
+  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
+  *
+@@ -872,8 +895,6 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 		struct vma_merge_struct *vmg)
+ {
+-	vma_flags_t sticky_flags = vma_flags_and_mask(&vmg->vma_flags,
+-						      VMA_STICKY_FLAGS);
+ 	struct vm_area_struct *middle = vmg->middle;
+ 	struct vm_area_struct *prev = vmg->prev;
+ 	struct vm_area_struct *next;
+@@ -966,24 +987,18 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
  
- 	iph = ip_hdr(skb);
+ 	/* No matter what happens, we will be adjusting middle. */
+ 	vma_start_write(middle);
++	propagate_sticky_flags(vmg, middle);
  
--	reason = ip_route_input(skb, iph->daddr, iph->saddr, 0, skb->dev);
-+	reason = ip_route_input_noref(skb, iph->daddr, iph->saddr, 0, skb->dev);
- 	if (unlikely(reason))
- 		goto drop;
+ 	if (merge_right) {
+-		vma_flags_t next_sticky;
+-
+ 		vma_start_write(next);
+ 		vmg->target = next;
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
+ 	}
+ 
+ 	if (merge_left) {
+-		vma_flags_t prev_sticky;
+-
+ 		vma_start_write(prev);
+ 		vmg->target = prev;
+-
+-		prev_sticky = vma_flags_and_mask(&prev->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, prev_sticky);
++		propagate_sticky_flags(vmg, prev);
+ 	}
+ 
+ 	if (merge_both) {
+@@ -1054,7 +1069,6 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 	if (err || commit_merge(vmg))
+ 		goto abort;
+ 
+-	vma_set_flags_mask(vmg->target, sticky_flags);
+ 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+ 	vmg->state = VMA_MERGE_SUCCESS;
+ 	return vmg->target;
+@@ -1241,16 +1255,11 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	struct vm_area_struct *target = vmg->target;
+ 	struct vm_area_struct *next = vmg->next;
+ 	bool remove_next = false;
+-	vma_flags_t sticky_flags =
+-		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
+-	vma_flags_t target_sticky;
+ 	int ret = 0;
+ 
+ 	mmap_assert_write_locked(vmg->mm);
+ 	vma_start_write(target);
+ 
+-	target_sticky = vma_flags_and_mask(&target->flags, VMA_STICKY_FLAGS);
+-
+ 	if (next && target != next && vmg->end == next->vm_end)
+ 		remove_next = true;
+ 
+@@ -1265,7 +1274,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
+ 		       target->vm_end > vmg->end, vmg);
+ 
+-	vma_flags_set_mask(&sticky_flags, target_sticky);
++	propagate_sticky_flags(vmg, target);
+ 
+ 	/*
+ 	 * If we are removing the next VMA or copying from a VMA
+@@ -1282,18 +1291,14 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 		return ret;
+ 
+ 	if (remove_next) {
+-		vma_flags_t next_sticky;
+-
+ 		vma_start_write(next);
+ 		vmg->__remove_next = true;
+ 
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
+ 	}
+ 	if (commit_merge(vmg))
+ 		goto nomem;
+ 
+-	vma_set_flags_mask(target, sticky_flags);
+ 	return 0;
+ 
+ nomem:
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 815401b19c57..c778fe437993 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1212,7 +1212,7 @@ static inline void vma_assert_detached(struct vm_area_struct *vma)
+ 	WARN_ON_ONCE(vma_is_attached(vma));
+ }
+ 
+-static inline void vma_assert_write_locked(struct vm_area_struct *);
++static inline void vma_assert_write_locked(const struct vm_area_struct *);
+ static inline void vma_mark_attached(struct vm_area_struct *vma)
+ {
+ 	vma_assert_write_locked(vma);
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index f786a585caf0..8d030a3ace84 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -320,7 +320,7 @@ static inline void anon_vma_lock_write(struct anon_vma *anon_vma)
+ {
+ }
+ 
+-static inline void vma_assert_write_locked(struct vm_area_struct *vma)
++static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
+ {
+ }
  
 
 -- 
-2.50.1
+2.56.0
 
