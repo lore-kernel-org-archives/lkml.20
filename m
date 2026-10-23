@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758918;
-	b=FPBkWDbOie43m2JeHl9KSHkqnz3paQgEpln0TJt9hNi+55FgkUFl2ufBO6AKMp5aMOER
-	 P34+RopTGvGDOVmIMi44CsyLqHFYW5MhDxoTEwSHaTP5iblNLcT/1oMrLzmp14DVzLgZI
-	 SpACCEa9oTd02YgbXqigOFwGHlSUZADKiIRFesUJzoBDJ+BBBRg2gTHeQatYrVXcfRdVK
-	 52Ylx5F6WUTDgKqHkv7G7c3QJ4+5sEGN5Rsbs+IRwuF9rMlKf0YDnDIyURkNFc3PMaMsN
-	 mWK6weBIa8aipeyr1y3YQ6oDr8X/cY+b9Mz4bP79xMQQetktIWO11j0Yr/jIWxY2rAw==
+	t=1792758934;
+	b=0mXbGTzFk74dZD6Cs1CmO0Dj0WwzPnbyg+bY9Tto+LK41nTEjhn3IUJsq1tCcDNDs5eo
+	 MyZ5yHhOJJh2Mr4BOKgcoOWODdrBW4F97CA0u1U+H4ZP5vf2jtryTYYBkaJ1cg5DFHwJM
+	 Kic9j4S/fp1Ro9zTNyW9QaJH30VDVfTsRF637pBKdfRMSwK7QaIjfDHuLPk2lTt+lDS+1
+	 1hUejczFwe8osetipGxAR0k3+R8q9RUR2yRquWi1hmLiv1yYoHUa+J8VOif5gtvuIrLXq
+	 ZssqU2GNOiGCr/RQUKUcqoeSLNAN3XX6QkwrlfcS3Pbkpl8CbmzWQGFPZtGVpAoF8Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758918;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MqyQtE1h9yD+Uynuj0QWyaJV566vcpdQv5oWHCYlWoE=;
-	b=SHVZKU9whlRw0eIf1np4tUipZNhxdb1GVJhcavwuluajBerLIvCabx8p81i1BoqauRD7
-	 1+JhUMO/2qGirLJfRXsvFNd2XuuyjcvfggAmtb1qOTG+OMHO+9U9nNuh00dwBd8XJBuiX
-	 hJ19RQcrc7SddQsdxOPGnqwUAQy2qCxcmOEbQNZc6eFqjdGDzgTIMdTyCMGb1pjirQLC+
-	 gVegEiQwquNQdhOa1wwfQGIMQ3B/JgnfmQev9mv4siBM4SHQrPO0EcOpH47Td8r37TMXz
-	 cVoBxVtvJk74ilSr27vNVPMPj+kFztW7K0oyjbUVKFdpYpnPvI1EvldnvPb7GtNnByA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758934;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=i7c5g4V4NRNrPs46Phu5SgSG/wjuIJtWQCmaQrZperc=;
+	b=JPr/BKB5JKCWf+QZtBEQpWwuebGbBQM3oBYfWI+jVJXyxzw/rEZL7mNFgWDQT+DxAXgW
+	 qQsV51foGSDh1npz+V2/7JLBpU/0qQOb+2yie/bdhmGw5jHifkTpbNAuFgEL3qTTQLdAF
+	 2KXB7VKYY2jY1KOYGo/ZVuoOo8hdFDpGYbtwFoQptU5XuGRPH8H5kRbHQ0gYII34PKRz5
+	 I4JxgK4LOkz9TaINR46Hw77Ks4IUoNSaBzOB+2S5GcD43LaVn1XeAYT/eYMIhVOECJqdZ
+	 eU79q1TCsYFPaUICra/iOkQBakMsxmo1NynfgyqzZJLOhdl0uLYrg2uhh8eR5+Jgw9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dqrxOdjS;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="NhOfbM/L";
+	arc=none smtp.remote-ip=43.163.128.48
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BE9606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30BE9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB20606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB20606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dqrxOdjS
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd61a2dfd7aso215274a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792758917; x=1793363717; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqyQtE1h9yD+Uynuj0QWyaJV566vcpdQv5oWHCYlWoE=;
-        b=dqrxOdjS3l+s8RthfNOi7Tu/0ignoAMOFflmDH60BDOIbFqOoMMskTsFsw0Jm60SqU
-         LsAHLl8wj6vHjuh5cS5kvUQGubE35ffVqxnDAlMNnGhvXfAdAFJh7I/kvGcFTSj/0LWt
-         3YarO9NlqkAt/aALB91wfqnlgm10116MxvvxMFmktw9LTEv9TI2iowm3TGLjwHduNztX
-         fenwsXFKHfLSNksvKQvkpUyoBYjmla4SyrOMifFhOoRLAkcQpHz2XNFddXCfqod1ARFH
-         yohqeiJ8GKpoAi+XIIpgHQ0TN/JEDd35PuUrslPWIVObKtZFUI9bEadVrWLbbLdiFV2V
-         57Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792758917; x=1793363717;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqyQtE1h9yD+Uynuj0QWyaJV566vcpdQv5oWHCYlWoE=;
-        b=LRASJqMGzqAsWswNv9KEmrJffIKASEckJV2e+g2/6kw97KpguLeznvl0YANsnAGPMj
-         Ysu8OKccCcWxmvHz+N47dZ3zUIbnLHMZxxF3Ewdx48DPOFHAIdquEktd4lPZb5VSHBmC
-         g2sGL2yoRzJM9IjULkaW/EbvGdlNqMEAfybCy3UQOh5DhpCxNsueWsJ3vk2FfBUySOhx
-         SvdT2b8y0OU7zyOewjcwCUVVVRZTLvHvAtGPN6LSHyrcHFaAVGYuOz2Em51qM5SObG+L
-         X/FCfd2AlhvN6Iimomd3zuTorZyJuOy/ReQ1QGqbM7kd8HYyh4vcYZErZuQOZWyXAPt2
-         5ncg==
-X-Forwarded-Encrypted: i=1; AKwUvBylj1rhzDs316S8KOZtaJ8RSspD1MrgaN8F6CEP9+zt+bUpd1lGJxHs6GYQjuZGydMr4dcB2GT/ZefuHRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkK6AOu3IIDBCeQcc9w2qFmtiRjvzT4vx+Qb/+6J6sQlaO3kRW
-	+SMol0R18wHZn6+KT2tf2/02sa2DKuIstIERy8NExJB9y+cp6gyaxT2s
-X-Gm-Gg: AYBFou0TtIkowREzEz8z0BHvTeKH2C+XtGT9qpvIjm756nAZa8Xw0M480yhcqFRLIHm
-	Ec8RWzYHl6CZLPsudhr7jf9Ows4zlDx7N4RHeeCfTIHEYnga2r7WbxNR6M+dj/Mb234AtSJRYvz
-	KNOHHR9c0FNlveo8D6vyz6R6jJA5sNUY2b2o4JRnB0bEOwkcPG+5OJrXBr/HpWpj2dG5Ivo5xl+
-	LTmVqDGxqKaAIiECWafPPfzM+NhaKYGPMOvsz4VsTj6loLDkGV480JygQZrqpucnAc1yF5wRsht
-	SOOOdMTSITJJh0igF9F/5CVRwhHy2XPPrEuGx8RFEqImaMnEJ72mUjycwHZR4j91ULFb1Io+y+G
-	TdKr4awUkPgzUA2f6ijNo8USGRktm2i+gFSgF8OOFlwiKNt8Q1PmLqLyfD1ml8LPZ2lVlbxgQ8S
-	v0GGcO1jVLG0tJmV7hSaPPfHo5AeRjnLuk81PeQDzBVWXmx3RDNzwZfPEq2CxzuC3KbVIx9uvuL
-	nDmGnsOC4Alw8+XNOWlCTiNuOpTkykvwSXHbOo/Uw/SV7+IW8eh44Zf6onacWMSKS0pNvc=
-X-Received: by 2002:a17:90b:3810:b0:3ac:80dc:f40a with SMTP id 98e67ed59e1d1-3adce5ebc38mr1652472a91.16.1792758917389;
-        Fri, 23 Oct 2026 05:35:17 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3addd7fb873sm129139a91.7.2026.10.23.05.35.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 05:35:16 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: vkoul@kernel.org
-Cc: neil.armstrong@linaro.org,
-	mani@kernel.org,
-	konrad.dybcio@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	val@packett.cool,
-	wesley.cheng@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] phy: qcom: qmp-combo: Leave the USB PCS alone in DP-only mode
-Date: Fri, 23 Oct 2026 21:35:12 +0900
-Message-ID: <20261023123512.1912-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=NhOfbM/L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792758930; bh=i7c5g4V4NRNrPs46Phu5SgSG/wjuIJtWQCmaQrZperc=;
+	h=From:To:Cc:Subject:Date;
+	b=NhOfbM/L0VqaoTy+cyqnlwWNFJud0IJZ3fv2IYIjEYzitm+JSVDJXPNkwfDP9/fRr
+	 n6FNYyDMVKHpp8DcoLE7WEAFZ+gjIQsDJ7o2IQLDCAVG552QZW0trZrP4Rc2SaSm0X
+	 g8NZnm+puy0ivnJRiUOUfHT2++GUHOT+d8k+gvcA=
+Received: from kernel-lab.tail5e91bb.ts.net ([39.144.194.158])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 8DB1E2F2; Fri, 23 Oct 2026 20:35:27 +0800
+X-QQ-mid: xmsmtpt1792758927ticp0kl9c
+Message-ID: <tencent_FE2FC74E3EFEBB3E8582A6AC1C3CA788D809@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLiA9HHanLmRKwRYSMW2dTzqnFvBZ73lqtJXVTQslhdqO2Nl/Xxk
+	 UaylcIrQ6ajJ7u8+t3zacvgwQfd1q5lhfFD8DeGmlvJ4Qx3XADnCwCq16kVTZ15xTRoECIMLJSPP
+	 wl1feGtcx2LOIfZNzovfg/kqNum/KvP3Xfefhe1710FgqF1dWWPRH3w//83U3fcqPnjbtPyF9SZS
+	 lu30ZWH6hQU5lmqsh515WKDmpXMZfharNGhRM6Izep6VE6c8WtFPkBtPyimBzk2rC1+E3T6j7DIW
+	 l0O1PRX8r62ncqWGAevzbNh9U+VPXCWfY1qGQusy7zEla5v5YueXbyLWlX0lcgbgFP/C4hQk4Fbf
+	 AELAbFBdDB0gEjcyU/avESo1PZ6hbuCG3ACpcaPG2Wp48kKrsdgQ+C1UkHopWdqodQtHfXEG+10O
+	 FtonebI8gAP2g66zPMAqW40XX3+386lyEQ3db1ph7lBOljIQ9NL9zBkwpdpnePgPKk+06EQVyuSu
+	 w0qeu4SKRQ+xghZ5cs5IkFjmQaS3Yxq/jbajqVtPTg8SZWGUz04PrYGic8l1Qu3fmrwV0JB/aO/0
+	 SqMH/ylWaN1dDLZhOUmcsPdr1yxc0xnY4YXPutro1VtcaEjsoKs2eHB4a5zQncmWIdABVPB5bhvl
+	 oLksB6p+6J+mO05uSETBJ0JPNHWz/82G6+VlFLU28sIc2CJEQn6uvlMMPCRkuZhn1P66GsDBOG2X
+	 CeuBFGT79LIfFJ5vN3Rqjw/df1qVYKbSm8VuEWtS6ZpppXmUsCSZ62nkGQWhE2BApRNB71FKmAjl
+	 xskaRt1hy4FKHveHNfww9175FCpf9GLYknZ8vJN4acTJtIq7NAWxQonLWfcFKRWBr76ggYyxruu1
+	 mwq+92SNjuHuQtOntXB+TXaiJikSYXtzAFZyaiaKLSfskyJzdF+leJAXk9KHKdsVCvElyQHBYq8E
+	 PoL0IcPehWrgJI3PNsYo8ZoBByIGUAOwcqMXb002Icj/6T4S91iwlzJJ1VpQGieh7oADHXOlNet4
+	 TQOl+OT5Yt2OAA50yYxi0wHqUG9l25lYkaMW7JHW3Xh6qvbd0/rDtHjMs2els=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Yingjie Wang <1075151112@qq.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Simon Farnsworth <simon.farnsworth@onelan.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/dp: Validate the I2C-over-AUX speed parameter
+Date: Fri, 23 Oct 2026 20:35:27 +0800
+X-OQ-MSGID: <20261023123527.118840-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,124 +86,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In DP-only mode (DisplayPort pin assignments C and E) all four lanes
-belong to the DisplayPort PHY and the USB PCS stays powered down.
-Three paths still touch the USB PCS in this state:
+The dp_aux_i2c_speed_khz parameter is documented to accept values from
+1 through 400, but its generic signed integer setter accepts any integer.
 
-- The USB controller can exit and re-init its PHY in DP-only mode, e.g.
-  across a system suspend that loses power. qmp_combo_usb_init() then
-  programs the USB serdes, lane and PCS tables over the DisplayPort
-  configuration and times out waiting for PHYSTATUS, and
-  qmp_combo_usb_exit() resets and powers down a PCS that is not in use.
-- qmp_combo_typec_switch_set() powers the USB PCS off and on when the
-  orientation changes in DP-only mode, e.g. when a DP-only sink is
-  plugged in the other way round while the mux is still in DP-only
-  mode.
-- qmp_combo_reconfigure_phy() powers the USB PCS off again when the
-  port leaves DP-only mode.
+drm_dp_i2c_msg_duration() uses the parameter as a divisor when
+estimating the I2C-over-AUX transfer duration. Setting the parameter to
+zero can therefore trigger a division by zero when calculating the retry
+count for an I2C-over-AUX transfer.
 
-Skip the USB PCS in these paths in DP-only mode. Keep the
-qmp_combo_com_init()/qmp_combo_com_exit() reference and usb_init_count,
-so that qmp_combo_reconfigure_phy() powers the USB PCS up when the port
-leaves DP-only mode.
+Use an unsigned min/max parameter setter to enforce the documented
+range at load time and on runtime writes. Valid values retain their
+existing behavior. Retain the parameter type in the module metadata.
 
-On a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a USB-C monitor
-in pin assignment C, resume from s2idle fails with "phy initialization
-timed-out", the dwc3 resume returns -110 and the following xHCI resume
-hangs the system.
+A software DP AUX adapter reproduced the divide error without display
+hardware. With this change on an x86_64 KASAN build, runtime writes of
+-1, 0, and 401 are rejected. Values 1 and 400 are accepted and complete
+an I2C-over-AUX transfer. A boot-time value of 0 is rejected and 400 is
+accepted.
 
-Fixes: 896277138c13 ("phy: qcom: qmp-combo: register a typec mux to change the QMPPHY_MODE")
-Fixes: 89563a152973 ("phy: qualcomm: qmp-combo: Add preliminary USB4 support")
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+An automated audit of writable runtime parameters identified this
+issue. Codex was used to analyze the bug, prepare the change, and draft
+this changelog.
+
+Fixes: f36203be608a ("drm/dp: Add dp_aux_i2c_speed_khz module param to set the assume i2c bus speed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
 ---
-Changes in v2:
-- Also skip the USB PCS in qmp_combo_typec_switch_set() and in the
-  power-off of qmp_combo_reconfigure_phy() in DP-only mode, as the
-  Sashiko review of v1 pointed out [1]. Since 89563a152973 the mux keeps
-  usb_init_count when it enters DP-only mode, so these paths see a
-  non-zero count there.
-- v1: https://lore.kernel.org/all/20261022165219.1368-1-26rote@gmail.com/
+ drivers/gpu/drm/display/drm_dp_helper.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-Tested on v7.3 with the qmp-combo mux changed to keep usb_init_count in
-DP-only mode as in phy-next, on a Lenovo Y700 Gen 5 (out-of-tree board
-support) with a USB-C monitor in pin assignment C: s2idle resume, a
-replug in the other orientation while the mux was still in DP-only
-mode (qmp_combo_typec_switch_set() then left the USB PCS alone), and a
-USB 3 stick afterwards, which enumerated at SuperSpeed. Kernels without
-89563a152973, where the mux drops usb_init_count in DP-only mode, need a
-variant that does not count the USB user there either.
-
-[1] https://lore.kernel.org/all/sashiko-outbox-181846@kernel.org/
-
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 28 +++++++++++++++--------
- 1 file changed, 18 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 187f0cd11f6c..f1b565852caf 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -4459,10 +4459,12 @@ static int qmp_combo_usb_init(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
--	ret = qmp_combo_usb_power_on(phy);
--	if (ret) {
--		qmp_combo_com_exit(qmp, false);
--		return ret;
-+	if (qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY) {
-+		ret = qmp_combo_usb_power_on(phy);
-+		if (ret) {
-+			qmp_combo_com_exit(qmp, false);
-+			return ret;
-+		}
- 	}
- 
- 	qmp->usb_init_count++;
-@@ -4484,9 +4486,11 @@ static int qmp_combo_usb_exit(struct phy *phy)
- 		return 0;
- 	}
- 
--	ret = qmp_combo_usb_power_off(phy);
--	if (ret)
--		return ret;
-+	if (qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY) {
-+		ret = qmp_combo_usb_power_off(phy);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = qmp_combo_com_exit(qmp, false);
- 	if (ret)
-@@ -4511,7 +4515,8 @@ static int qmp_combo_reconfigure_phy(struct qmp_combo *qmp, enum qmpphy_mode new
- 	dev_dbg(qmp->dev, "qmp_combo_reconfigure_phy: switching from qmpphy mode %d to %d\n",
- 		qmp->qmpphy_mode, new_mode);
- 
--	if (qmp->usb_init_count || qmp->usb4_init_count)
-+	if ((qmp->usb_init_count || qmp->usb4_init_count) &&
-+	    qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY)
- 		qmp_combo_usb_power_off(qmp->usb_phy);
- 
- 	if (qmp->dp_init_count)
-@@ -5087,12 +5092,15 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
- 	qmp->orientation = orientation;
- 
- 	if (qmp->init_count) {
--		if (qmp->usb_init_count || qmp->usb4_init_count)
-+		bool usb = (qmp->usb_init_count || qmp->usb4_init_count) &&
-+			   qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 488fd123a01ad..53fdaa7b59275 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -1975,8 +1975,22 @@ static int drm_dp_i2c_retry_count(const struct drm_dp_aux_msg *msg,
+  * FIXME currently assumes 10 kHz as some real world devices seem
+  * to require it. We should query/set the speed via DPCD if supported.
+  */
+-static int dp_aux_i2c_speed_khz __read_mostly = 10;
+-module_param_unsafe(dp_aux_i2c_speed_khz, int, 0644);
++static unsigned int dp_aux_i2c_speed_khz __read_mostly = 10;
 +
-+		if (usb)
- 			qmp_combo_usb_power_off(qmp->usb_phy);
- 		qmp_combo_com_exit(qmp, true);
++static int dp_aux_i2c_speed_khz_set(const char *val,
++				    const struct kernel_param *kp)
++{
++	return param_set_uint_minmax(val, kp, 1, 400);
++}
++
++static const struct kernel_param_ops dp_aux_i2c_speed_khz_ops = {
++	.set = dp_aux_i2c_speed_khz_set,
++	.get = param_get_uint,
++};
++
++module_param_cb_unsafe(dp_aux_i2c_speed_khz, &dp_aux_i2c_speed_khz_ops,
++		       &dp_aux_i2c_speed_khz, 0644);
++__MODULE_PARM_TYPE(dp_aux_i2c_speed_khz, "uint");
+ MODULE_PARM_DESC(dp_aux_i2c_speed_khz,
+ 		 "Assumed speed of the i2c bus in kHz, (1-400, default 10)");
  
- 		qmp_combo_com_init(qmp, true);
--		if (qmp->usb_init_count || qmp->usb4_init_count)
-+		if (usb)
- 			qmp_combo_usb_power_on(qmp->usb_phy);
- 		if (qmp->dp_init_count)
- 			cfg->dp_aux_init(qmp);
 
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
 2.43.0
 
