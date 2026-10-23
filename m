@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761294;
-	b=jyZrZkxgrvX0H2gGJrhtcJng1eSKlz3XRzhcLxSH1LQGKxk67xYzwn+h9XOkDZF0zS0U
-	 o1nsYEGxA37sqm079f4TNAsBP8z1VxZeuP4rmR+5cYbcQ5PIHpHVuqszxnl4SSkS8dRlG
-	 go+0ehdM9AoqmBELxuL93tcegwjbMx/OkCsRvHqtEaYMrX8sQF2B0p3m2sAs0hfYzy8YB
-	 gKIkM1dfkcfl4IuRitzfs7zihMYqIPdS/YgKw9zSooWIbjkuVrCUe+pk033Ks4O/AwfKY
-	 BTwrcJSdWKnbF4QMjGI06xcPpzsX7O2dd9YqK4rQxgolVcOOmMQ2rgG3yk7x1Agw2ug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761294;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=Is1dHRZckVmNWPbKrC4R2lSg0BxN8FpGmGd8j4z0iwk=;
-	b=Tts0yM1AOo099JqxrWDjoE1KSzPbEHmf5Nf3Xq65sOW+6agbecqNNlOKHDiS9lMM/Uqx
-	 zFy4eUWzZa8qyU0d4Fl0MCgGFigmQiUiViIO3FjtwDhGNS+pvuRO1x1idTh7N/vj71JM+
-	 YP+aAdfCswo0G+5jxARNoUa/TzpD7p3QjEbuC52ZhXh0mEzi4lo+BAtBRZB5hpMg5Ejnq
-	 djY5PDIPBaj2eVYofu/XVSpwsA8qem1Yd/HsnW/euR2aEX9GNjKpUQY7BKn2tWcPC+Zm1
-	 1Zug6yivsy6jfT1+FWuO/0VFPAXcPPUW2EuEViHeQ4hircI5chQx8oV2F3Izf2/ROhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LWgdxZP4;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8312D606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8312D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792761308;
+	b=shW6u4gEyCXVApU2xc06faLcOJxhwmYlDFRfz3y8yFeygJ73CorMKqvtV2KS+/jEs2+G
+	 bw1XlC8NDn4fUZkxwJWEKyJ/93OZg7WR1049lI3+Oeax5kqLMMuSptZRtNOiNKKQ3mGzd
+	 sD10ibg0p8ucqUk8oLzNsYqS/TXNjTJ/KXrijwCs89XmOmWis/P3BgyAlnADIKBzlY9wc
+	 A73Nyd4jkKoXtepN4Gdv/ROxT2C1ip3pzpl+h+OVFAbz5BmQJxn0BhVz8bE96o/p/6M/z
+	 UVC9fcTtf1ifqCRfd8a6usEP2bIZh7so4ICroKucvHQnziT3FkGPSytXi7AxCRi9eUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761308;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
+	b=kyi4H47WFNXKjigrH2AKAfYkQw7nS1an3DGbMSi5gkL7lWOHy0v5v3CIeC4YkGqKBMs4
+	 FIwIm0YKVTjeuZ6dwkMAJTZweyzvTw5VIZsindIhsCJnE8yDdVNoYHNXwgW0kv6KBDRNJ
+	 fdbUx0UO5blJuOqFJ5ilu/eKO+gYDs6dmRr1fGoj99zb7ORi9TBf9hpTid/qSV77i+nnZ
+	 V2exvJ81JJONFZ9gm8WrE2mISxCUmS1D6PuZJidGULR/DmSda1+LwY4I0DSA1RXwOv4Cr
+	 ZhOY0mYPxhl6JdswbfCuk+YW3WFmo2kyyNjrI5SQC2fmbsjShHhMBmCjVQdXLCokz+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rp47p6Dz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80D2606A31D;
+	Fri, 23 Oct 2026 13:15:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A80D2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LWgdxZP4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67188315D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:14:49 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 65E993F673
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:14:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792761292; bh=UQ5/3tBMTbpg8C8cu7Y5xDvLCqAOImajR7a717b4m94=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LWgdxZP4T2QpPBm/B88bGTEFpad3u9RiZfcJDZb7yA/emgtFxKHrx/kty+m0Y5kHb
-	 OrP96iKgCIQB2X/UtmHODUTCJTSt0WTJ3k/s5HFFIiTcP7m88pggvl9dT5sdQGaI+w
-	 UjaWmiZjifU6TLOEe6OP1pt72816Gld/7ZghDW9M=
-Date: Fri, 23 Oct 2026 14:14:50 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
-Subject: Re: [PATCH v7 1/4] workqueue: Simplify unbound sysfs attribute
- registration
-Message-ID: <attdyi_ghyPWJQJv@e142607>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rp47p6Dz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oPlll4y3kjKzD4zJNpBJhLZUWlPVDLagNHiRp+0Zv2A6gt2LJz2mrgOkgWgeyJfS1XM8ifQ9WJSFXV+0WIvl517LxMlXDeri1JOXqd4idKOwoGTHcJl+o1Q2eOHjbjGEGyucmmsgtjVrMiTVMZO9W2aWOGL8TlY+3rNC5p5weJANh8nVqZG1rq8mhlv130dhipgst6NqFUVXr7uLsqkA1swJSXRc+J/huvwmhYxAGGXaOYJDwnnDQctqijAWBLfnjoVfkR50EeuVnqwuQ5c89k5s4XzeJMQSD3JB1lsAN++sOByig2Qnx1eDdPYjyB27L2BxjYfd29rlu3auwWEipg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
+ b=dBLVvXhYbiTPcBa9x9CGOn+0RgUupP4g7SNvCDLbtkgf+PGII04DLvjewNLVgWUoiyu6nt1QZIxPPBPNol3r8OyoT2lXl28Pt3F/F0YyzVKpYov1EJ/iPwgdTiKvO0IxXQAGwWE0+37ZXmIhhKHBDbv7lBG/iBROjd78LU73iP7WGlO1nPOBhSHVT/on/3BthtFO0ICO3bneyIeAID4slS9Qe+w82fqkCtoQAIgE3tGBFtWkCgQeERcogj4S2lSFD7jcF2o28Su6MtWfsO8TK1audjKnC0JjvO13m5MjekBrE1/bqdmLK3477dL0BgQ2bW/rOot3u1cILUvW4SIHow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
+ b=rp47p6Dzw2u675eu8xWibPWcg8H/JBwSrHOiAXXmyeFgFBFtp9oHMIsibcrrHiTy++lwdRZEvdlHvafB0F6SKMsRsTr8zrzOgFcXV+pElQA9H2GMjNAt919/VkiIz0mW/NHRGCUUXzLZjwo8Z96C/+rh+QOgChXlM2xLWQ/+dnWq6gwY8VMHbKQ2Zh5f0ncJWgG/TdJTveABoGX7xRHAmiQE4J2o/Z5TW8xQRXWetOToUCZUBuZcvp4xC+Gy8TvPWv7yjlYIpDyFPWZEevBSki3GyfkFkOlBHrAgyjJQwlhzzfSjyIGA+7P4QPvPfDZNMHHye4aytyjj9q1biMVkTA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHAPR12MB999248.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::22) by IA6PR12MB074433.namprd12.prod.outlook.com
+ (2603:10b6:208:5fc::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 13:15:04 +0000
+Received: from CHAPR12MB999248.namprd12.prod.outlook.com
+ ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
+ ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 13:15:04 +0000
+Message-ID: <d6c14ede-1cfd-4800-a8bf-5093ab8c000a@nvidia.com>
+Date: Fri, 23 Oct 2026 15:14:59 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: mlx5e:zero-prefix corruption during TCP DMA-BUF RX - help
+ requested
+To: jiabin deng <dengjiabin2023@gmail.com>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
+ mbloch@nvidia.com, linux-kernel@vger.kernel.org
+References: <CAFxp=AY2cVRQrZvB9WNnigbsobuw11NMG-cagHx0_V+ur2ToFw@mail.gmail.com>
+ <e4054f5a-e60c-4253-bccf-d05cc7c615b7@nvidia.com>
+ <CAFxp=AapgUYLUhipVjR8oM0fRDSLDX60AQf0UP8=U4M1ASqmOA@mail.gmail.com>
+ <e6a557b3-2986-486d-9679-e7a4fd1cee5c@nvidia.com>
+ <CAFxp=AbmdmTsj4ugjxdKhRR=LJuuC1yr7DFnLCSgOpC2g9470g@mail.gmail.com>
+ <atZKOtjrb9HKSNHF@dtatulea-c5.nvidia.com>
+ <CAFxp=AYqVgR_Eahz2QsC=cCdxo5GmTwdHcgBdXRGf9P+v0OJxQ@mail.gmail.com>
+Content-Language: en-US
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <CAFxp=AYqVgR_Eahz2QsC=cCdxo5GmTwdHcgBdXRGf9P+v0OJxQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0287.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e7::12) To CHAPR12MB999248.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,233 +104,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|IA6PR12MB074433:EE_
+X-MS-Office365-Filtering-Correlation-Id: 521edfea-f057-440d-34ce-08df3107a69e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003|261022113327099003|261022105027099003|261022075727099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	zX8k6vSItw+pJ0IsrZg54ggnV85aB2VJ8fOVTBIYQ6vCmm38sWaz4ZFtwyrzAt8VOcKcjB1OA0J0JXED/1bzMNTMNCnH1KeyEcsKQba54HdvpzHaEIHzRCaFffyELLcsUK/8i7c/0IqYm/y0E8pVbFx0jv5POXLvIfTlcEc8Pc5F9hhCHZejClyl2rfqcYRQ3cuFBu9fIQKc1X9lFao2dExnKgkfRiNQQjaOvKHTSE9t5Lc32plcPurPCTnhalIBufNZR1stmqBeSRRaMXSyGJGIkSpo6nTGykWtzHjLMCPRUFoJPFhOfnZnAYUnmxtnm1B2j8LFSSv43XiSuONQfvwOC1fogjgh6FS1b9+2Mz5VS7CVl0nrbs526ux9ObICDNYMR5Bd9QYo6VV9grG/TXtVFY/NOMHT9/GOSkP5u9nHuvinBoU/zBN9mkX5pm37BCfncl0F5Mti+w5yY1XAPvjX0sw6eg2suARqIfqZPGOg6IqbCrcMUGS7Qv/CUHFrVDe+vlSYQXpTmqThJODvPdqHMr1bfIByKzXP4Nw46/HGNIOcR+TFawc3FnFf3EI63v2Uf7ol1XehXZHx6cJH5Kxjfx+KrkRzRIUjkwRGVl+/Si6MlJFvcdWz3PSn/Ng/SagIGS+c6AEpAbMHDGc348a7tyRpaFNbthQ+QT25DYU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(261022113327099003)(261022105027099003)(261022075727099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SkFVTHFPT1gyUHE0Tk5qZFJkRU92cGRib2xXaWxqbHI0R1dZMVg1SkpOMFdB?=
+ =?utf-8?B?NStIMlIzUG9NVUZndm1INGhrNjRwYjhFc25sSzZ4cmQ3VkNMNFN6NnJ1a2lY?=
+ =?utf-8?B?dnBhWVlOYkY4R2dHOHViRVd0UWNBaEExL3NyckdqdDVucWRROHlBN3QycEJz?=
+ =?utf-8?B?NFB6ZUhSUmtTOFlvT3pZc2FRYjRzdVhEZWNPT21CNHhUR2JybVdheFVZT0N0?=
+ =?utf-8?B?SWwxK1ZRNlpaMzdKeGRVWHZwWGxRVWZQSXB0VFdhTmNENCtabWJFbFlhVndS?=
+ =?utf-8?B?c1BoMEFrRkpic1FNS0RLUU84MEY3bkxqUERGVGc3OE9pUDRRNmZWY2lrYWNx?=
+ =?utf-8?B?M1BCVFV0Qnp3Ny9TcHhpdmJLZzQ4b2ZKeXpPRnhSWmVDNFBUdStFaWNMb3U5?=
+ =?utf-8?B?UHY0dHN2Z1Frak5vN3RoZDVFbmN1RWRCOFZIWWo0YlRSUFpIWmNoUmdSMk90?=
+ =?utf-8?B?RDZnV3hwRkgrUU9xK3ZEQ3Y3OXFpT3BPazlWNGo4SitEeEhwMHZGRHBqb2ov?=
+ =?utf-8?B?eCtIWm9zTDYzQTAzeGF0UUJ2RXE0eHh4MEI5RDkwRzFYSVBRNE5IRCtYQnlw?=
+ =?utf-8?B?b1ZjcUsxRU5WcTlYM2luNHlHTHVXQU9tUnV1eklCdGFvTTkrSjZ2NVY5UEdK?=
+ =?utf-8?B?YldBTjFXQzhFUytWK0FFamRGbldwc1g3VElUV0U1SmhaV2hVUGt5bUVDNG1U?=
+ =?utf-8?B?d3VxLytOcGNETFRNUEd6bEl3anNGZ2hTeGF3clplNUVXaXBtWnY1bEIzMkR4?=
+ =?utf-8?B?NnZnZ1pTd1hTUDJUbUtBUC9WWTFqZmZ2cldieHVTRkpMakxBTUo5aDBvV0Yy?=
+ =?utf-8?B?alJZT09VVk9PWDV0STMwdmFEWjB6TE5BSGFHd3JtQk0wL2F1dXhQKzRIWGx5?=
+ =?utf-8?B?TkQwenZFQXlNMFpXeGcrQzlGaUwzSmVkZWZqTVJHbUQ5eUVoSDZQUW5HLy8x?=
+ =?utf-8?B?Z2pWblZqbGZpempOR1Z2bmpxWUxGSHhMR3NMdkxjUWkwZ2VPbVB6SlRrWGFh?=
+ =?utf-8?B?aDJkWCt2RytIaTU0WWJWVUM1L2xpYXdDZ2U1a1BiY0NYMFFWcVR0K0psVWdD?=
+ =?utf-8?B?U21WRzlPMnB3bytQY1d5MXB3SjIvSlZRTzF0Q2dXQnY4NzZHRjJFUTF3czJz?=
+ =?utf-8?B?SXRmZlJZNWMxSiszRFVpQXhMWnBaU0J5NjliWHV6OG5GeDViamFMbjB6dkZx?=
+ =?utf-8?B?RDBwdGxMc3ErUzNQVTV2eWZCU1VWZExJeHdXQVFML2YyM3NGU3YrYUMrUXBn?=
+ =?utf-8?B?Tlc4c0hqYWxDamtmSUZuenRVS3VYbWkwdC9JUWFTbFVoRkVBeThjb3VGWkpk?=
+ =?utf-8?B?dlp6MUVGL1JSTGFaMGxFTXh1SjllWjYrcE9ZVk8rVGRQNGdtbzBLTVlUcEgw?=
+ =?utf-8?B?THRpNnE5aG1Fb2VSaEptR3F5c2JtN1dBU2dZbHB5VWFDUHYrdHVlajBqOHll?=
+ =?utf-8?B?VDZvaGxxc2RZTXo3aE1nVzd4aG5nTHpCZkJEdGVGRjBmQ2FNUFBqaGRmUnZw?=
+ =?utf-8?B?dFJmM3lhSXBuZmZKWHFlQVFteVFWUjQrZ1VTQytkZlB5OXhmNmluRkhUTERq?=
+ =?utf-8?B?ZmNYK2htektucFVoQTBaaDArNThocnY3NHJGamMxcTBYNDlxSVovRHVHcGp5?=
+ =?utf-8?B?L2FmYW1qUGNrbDBZSGxDaVZjcVI5MHAvZ0lhbHo5bWFaWis2NVNOT3oyTkJ0?=
+ =?utf-8?B?N3l0V0ZyOUxPeFFJN1YvVitZbkgzSnJRbzlEN2QwVkFrdWRLa09UMndYM0ti?=
+ =?utf-8?B?bnRTdjBrWU91dGpuUUFMWTVwTXRqVmtTbzRzN2FZVURRR2lYbkFuQXFSZXc5?=
+ =?utf-8?B?OVJJcWFCRTkvenJXSUlIMUttQmh1S3l2MUxaNGJRcjA2bFBHZU1vUmREYWxQ?=
+ =?utf-8?B?akVKaTNHT3grUS94anhZT2lZT2lQMVE4R0xuYnBzeE1TNUd3TC9SdUxmRHVl?=
+ =?utf-8?B?UUVHNHB4eGNCZmt5Z0UzM0JNZlVOb3FIenBlbytMWVFwcE56aHFUa3UyZys5?=
+ =?utf-8?B?dnJYMldUQjhwMHBiRjZMNE5lNmR0eFNKejV5R2wyY0tLbGJoT2p2U1FUTERF?=
+ =?utf-8?B?eGkvUnBGTDZSanFiTDFEdzRvUTViTFo1MHhzVXBhVlJEaEVBMUthZU0zTU9x?=
+ =?utf-8?B?OTBiV21NL1p3NzJKUTRxbjBvcnR4d2NZSnFPemtiaGJObEZGUHh2SW5wNXl2?=
+ =?utf-8?B?N2F1UkJpbGoyU1dISkh2T0V4aHVraWFYWjU5bmJUTHQ4dHdlVGNvelRlbGlj?=
+ =?utf-8?B?OWlDWUdHNXBjaDBwbUNQdjVMN2xjY2d1VDJJM3JxMzlMaDNoQmVlTTN3NjBY?=
+ =?utf-8?B?bmhsZWI3bVB6ajFDVGFFaVVpYVBySHU4RXErSUVydnFNMUlhVUk5UT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 521edfea-f057-440d-34ce-08df3107a69e
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 13:15:04.1637
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /CAv6wCaaMw7JgFMcYxXp85tvE37qkIduBp8VmqYjnlyRSGbZtfHayMGKODNfWTUXzE/6sjADssOo25RlBZ/3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR12MB074433
 
-On Thu, Oct 22, 2026 at 10:38:45AM +0100, Tvrtko Ursulin wrote:
-> Instead of manually registering each attribute we can put them in an
-> attribute group with a visibility check and device core will handle the
-> rest, which simplifies the registration and error unwind.
+On 21.10.26 07:19, jiabin deng wrote:
+> Hi Dragos,
 > 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Bradley Morgan <include@grrlz.net>
-> Cc: Chia-I Wu <olv@google.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Tejun Heo <tj@kernel.org>
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-> ---
-> v2:
->  * Fix accidental rename of affinity_scope.
+> I applied your suggested change to `rq_end_pad_mode()` on the receiver
+> and reran the standalone GPU-memory reproducer I sent previously. With
+> MTU set to 1500, the single-direction test covered eight message
+> sizes, with 50 transfers per size, for a total of 400 transfers.
 > 
-> v3:
->  * SYSFS_GROUP_INVISIBLE should not be used for un-named groups.
-> ---
->  kernel/workqueue.c | 98 ++++++++++++++++++++++++----------------------
->  1 file changed, 52 insertions(+), 46 deletions(-)
+> All 400 transfers completed successfully. Full payload comparisons
+> found zero failing cases, zero incorrect bytes, and zero corrupted
+> intervals. The zero-prefix corruption observed in the earlier tests
+> did not recur in this patched run.
 > 
-> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-> index 41754f4126a6..d8cf546d853f 100644
-> --- a/kernel/workqueue.c
-> +++ b/kernel/workqueue.c
-> @@ -7599,8 +7599,8 @@ static const struct attribute_group wq_sysfs_group = {
->  };
->  __ATTRIBUTE_GROUPS(wq_sysfs);
->  
-> -static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
-> -			    char *buf)
-> +static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
-> +			 char *buf)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	int written;
-> @@ -7627,8 +7627,8 @@ static struct workqueue_attrs *wq_sysfs_prep_attrs(struct workqueue_struct *wq)
->  	return attrs;
->  }
->  
-> -static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
-> -			     const char *buf, size_t count)
-> +static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
-> +			  const char *buf, size_t count)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	struct workqueue_attrs *attrs;
-> @@ -7652,8 +7652,8 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
->  	return ret ?: count;
->  }
->  
-> -static ssize_t wq_cpumask_show(struct device *dev,
-> -			       struct device_attribute *attr, char *buf)
-> +static ssize_t unbound_cpumask_show(struct device *dev,
-> +				    struct device_attribute *attr, char *buf)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	int written;
-> @@ -7665,9 +7665,9 @@ static ssize_t wq_cpumask_show(struct device *dev,
->  	return written;
->  }
->  
-> -static ssize_t wq_cpumask_store(struct device *dev,
-> -				struct device_attribute *attr,
-> -				const char *buf, size_t count)
-> +static ssize_t unbound_cpumask_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t count)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	struct workqueue_attrs *attrs;
-> @@ -7689,8 +7689,8 @@ static ssize_t wq_cpumask_store(struct device *dev,
->  	return ret ?: count;
->  }
->  
-> -static ssize_t wq_affn_scope_show(struct device *dev,
-> -				  struct device_attribute *attr, char *buf)
-> +static ssize_t affinity_scope_show(struct device *dev,
-> +				   struct device_attribute *attr, char *buf)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	int written;
-> @@ -7708,9 +7708,9 @@ static ssize_t wq_affn_scope_show(struct device *dev,
->  	return written;
->  }
->  
-> -static ssize_t wq_affn_scope_store(struct device *dev,
-> -				   struct device_attribute *attr,
-> -				   const char *buf, size_t count)
-> +static ssize_t affinity_scope_store(struct device *dev,
-> +				    struct device_attribute *attr,
-> +				    const char *buf, size_t count)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	struct workqueue_attrs *attrs;
-> @@ -7731,8 +7731,8 @@ static ssize_t wq_affn_scope_store(struct device *dev,
->  	return ret ?: count;
->  }
->  
-> -static ssize_t wq_affinity_strict_show(struct device *dev,
-> -				       struct device_attribute *attr, char *buf)
-> +static ssize_t affinity_strict_show(struct device *dev,
-> +				    struct device_attribute *attr, char *buf)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  
-> @@ -7740,9 +7740,9 @@ static ssize_t wq_affinity_strict_show(struct device *dev,
->  			 wq->attrs->affn_strict);
->  }
->  
-> -static ssize_t wq_affinity_strict_store(struct device *dev,
-> -					struct device_attribute *attr,
-> -					const char *buf, size_t count)
-> +static ssize_t affinity_strict_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t count)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
->  	struct workqueue_attrs *attrs;
-> @@ -7762,14 +7762,40 @@ static ssize_t wq_affinity_strict_store(struct device *dev,
->  	return ret ?: count;
->  }
->  
-> -static struct device_attribute wq_sysfs_unbound_attrs[] = {
-> -	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
-> -	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
-> -	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
-> -	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_strict_store),
-> -	__ATTR_NULL,
-> +static DEVICE_ATTR_RW(nice);
-> +static DEVICE_ATTR_RW(affinity_scope);
-> +static DEVICE_ATTR_RW(affinity_strict);
-> +/* Avoid naming clash with the other cpumask */
-> +static struct device_attribute dev_attr_unbound_cpumask =
-> +	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
-> +
-> +static struct attribute *wq_sysfs_unbound_attrs[] = {
-> +	&dev_attr_nice.attr,
-> +	&dev_attr_unbound_cpumask.attr,
-> +	&dev_attr_affinity_scope.attr,
-> +	&dev_attr_affinity_strict.attr,
-> +	NULL,
->  };
->  
-> +static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
-> +					      struct attribute *attr, int n)
-> +{
-> +	struct device *dev = kobj_to_dev(kobj);
-> +	struct workqueue_struct *wq = dev_to_wq(dev);
-> +
-> +	if (!(wq->flags & WQ_UNBOUND))
-> +		return 0;
-> +
-> +	return attr->mode;
-> +}
-> +
-> +static const struct attribute_group wq_sysfs_unbound_group = {
-> +	.is_visible = wq_sysfs_unbound_group_visible,
-> +	.attrs = wq_sysfs_unbound_attrs,
-> +};
-> +
-> +__ATTRIBUTE_GROUPS(wq_sysfs_unbound);
-> +
->  static const struct bus_type wq_subsys = {
->  	.name				= "workqueue",
->  	.dev_groups			= wq_sysfs_groups,
-> @@ -7907,14 +7933,9 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
->  	wq_dev->wq = wq;
->  	wq_dev->dev.bus = &wq_subsys;
->  	wq_dev->dev.release = wq_device_release;
-> +	wq_dev->dev.groups = wq_sysfs_unbound_groups;
->  	dev_set_name(&wq_dev->dev, "%s", wq->name);
->  
-> -	/*
-> -	 * attrs are created separately.  Suppress uevent until
-> -	 * everything is ready.
-> -	 */
-> -	dev_set_uevent_suppress(&wq_dev->dev, true);
-> -
->  	ret = device_register(&wq_dev->dev);
->  	if (ret) {
->  		put_device(&wq_dev->dev);
-> @@ -7922,21 +7943,6 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
->  		return ret;
->  	}
->  
-> -	if (wq->flags & WQ_UNBOUND) {
-> -		struct device_attribute *attr;
-> -
-> -		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
-> -			ret = device_create_file(&wq_dev->dev, attr);
-> -			if (ret) {
-> -				device_unregister(&wq_dev->dev);
-> -				wq->wq_dev = NULL;
-> -				return ret;
-> -			}
-> -		}
-> -	}
-> -
-> -	dev_set_uevent_suppress(&wq_dev->dev, false);
-> -	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
->  	return 0;
->  }
->  
-> -- 
-> 2.56.0
+> Thank you for continuing to investigate this issue and for suggesting
+> the fix. I also greatly appreciate the time and effort you and the
+> other maintainers dedicate to the open-source community. As a student,
+> I am excited to have the opportunity to contribute to the community
+> and to learn from this process.
 > 
+Thank you for your good analysis and fast response!
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+> I would be happy to help prepare a formal patch with the test results.
+> Would you prefer to submit the fix yourself, or would it be helpful
+> for me to prepare and submit it based on your suggested change?
+> 
+I am still waiting for input from the HW folks to understand if this
+change is needed for all SHAMPO cases or only specific P2P DMA
+cases.
+
+I think you should submit the fix as you did most of the work. Just
+give me some time to check the above. I'll ping you hopefully next
+week.
+
+Thanks,
+Dragos
