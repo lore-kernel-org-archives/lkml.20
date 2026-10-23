@@ -1,80 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758934;
-	b=0mXbGTzFk74dZD6Cs1CmO0Dj0WwzPnbyg+bY9Tto+LK41nTEjhn3IUJsq1tCcDNDs5eo
-	 MyZ5yHhOJJh2Mr4BOKgcoOWODdrBW4F97CA0u1U+H4ZP5vf2jtryTYYBkaJ1cg5DFHwJM
-	 Kic9j4S/fp1Ro9zTNyW9QaJH30VDVfTsRF637pBKdfRMSwK7QaIjfDHuLPk2lTt+lDS+1
-	 1hUejczFwe8osetipGxAR0k3+R8q9RUR2yRquWi1hmLiv1yYoHUa+J8VOif5gtvuIrLXq
-	 ZssqU2GNOiGCr/RQUKUcqoeSLNAN3XX6QkwrlfcS3Pbkpl8CbmzWQGFPZtGVpAoF8Hw==
+	t=1792758957;
+	b=Sx8Pry3irXsBjWrhoifbwiRtt4x95yFpVMyfIFsOG0jVOIJa0aguj7uBmi2wybghcClD
+	 t0HR/VotB9SSxiwGT3qIzu++LxeckJQUerDOTyf50oyuwazgcgd6ZpTg5tIvK5B4nn+uL
+	 jpW031nvKVYAaXMvwGX0rEGh9xvs3MzGkPtRvtujsS56HSzw7G+cuVNNKkwe4I64kOa1M
+	 sVoYZLF2VebZ/BaDL/sYEB1bZM+i3GSTbp4NEXRJPhhrN1m87QaVhdDYBhnZ82QeoKUmZ
+	 IAmJfUQLlOS7brq2/GKLcnQZA/EOD+huvJ6CuDoUf47P4rnPBUGQIqz7Xv6QtwxOcTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758934;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=i7c5g4V4NRNrPs46Phu5SgSG/wjuIJtWQCmaQrZperc=;
-	b=JPr/BKB5JKCWf+QZtBEQpWwuebGbBQM3oBYfWI+jVJXyxzw/rEZL7mNFgWDQT+DxAXgW
-	 qQsV51foGSDh1npz+V2/7JLBpU/0qQOb+2yie/bdhmGw5jHifkTpbNAuFgEL3qTTQLdAF
-	 2KXB7VKYY2jY1KOYGo/ZVuoOo8hdFDpGYbtwFoQptU5XuGRPH8H5kRbHQ0gYII34PKRz5
-	 I4JxgK4LOkz9TaINR46Hw77Ks4IUoNSaBzOB+2S5GcD43LaVn1XeAYT/eYMIhVOECJqdZ
-	 eU79q1TCsYFPaUICra/iOkQBakMsxmo1NynfgyqzZJLOhdl0uLYrg2uhh8eR5+Jgw9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758957;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=RgmnbZuXKYWtnIJRvSR+ux3Op+h0Pygq2TggjNldeso=;
+	b=LBWn/to8f7bGTqhs56CtFt/jKRHIXg/9BJmigft+uR9b5XxwOkhvleM8cvrwq+lX/e9z
+	 P9h989KEbW9PCaxiyTKpx91faEk3lvzRXWb/DxW7IpY7awzkEWT11Ocwq7go3LuvpuqfY
+	 2GVDqqbjWzGu0y36BV3DQTLyK239FXuUSZbLsgEH41CZsI2kN77ltQXj37REykS50gFR3
+	 s5AeH6lOBzkDMBovyaGf307xGWzkjOieIKOEe2jrzc/8wkwDhPpKFVuYnWSqsctzfNjYV
+	 JJLFGiu4ZS9lExyCcMjziRvve+YvMF6S6QyQLj9DO4GQtGSeWz31WZeSHZfYcWYXFFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="NhOfbM/L";
-	arc=none smtp.remote-ip=43.163.128.48
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB20606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB20606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=NhOfbM/L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792758930; bh=i7c5g4V4NRNrPs46Phu5SgSG/wjuIJtWQCmaQrZperc=;
-	h=From:To:Cc:Subject:Date;
-	b=NhOfbM/L0VqaoTy+cyqnlwWNFJud0IJZ3fv2IYIjEYzitm+JSVDJXPNkwfDP9/fRr
-	 n6FNYyDMVKHpp8DcoLE7WEAFZ+gjIQsDJ7o2IQLDCAVG552QZW0trZrP4Rc2SaSm0X
-	 g8NZnm+puy0ivnJRiUOUfHT2++GUHOT+d8k+gvcA=
-Received: from kernel-lab.tail5e91bb.ts.net ([39.144.194.158])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 8DB1E2F2; Fri, 23 Oct 2026 20:35:27 +0800
-X-QQ-mid: xmsmtpt1792758927ticp0kl9c
-Message-ID: <tencent_FE2FC74E3EFEBB3E8582A6AC1C3CA788D809@qq.com>
-X-QQ-XMAILINFO: NnYhxYSyuBnLiA9HHanLmRKwRYSMW2dTzqnFvBZ73lqtJXVTQslhdqO2Nl/Xxk
-	 UaylcIrQ6ajJ7u8+t3zacvgwQfd1q5lhfFD8DeGmlvJ4Qx3XADnCwCq16kVTZ15xTRoECIMLJSPP
-	 wl1feGtcx2LOIfZNzovfg/kqNum/KvP3Xfefhe1710FgqF1dWWPRH3w//83U3fcqPnjbtPyF9SZS
-	 lu30ZWH6hQU5lmqsh515WKDmpXMZfharNGhRM6Izep6VE6c8WtFPkBtPyimBzk2rC1+E3T6j7DIW
-	 l0O1PRX8r62ncqWGAevzbNh9U+VPXCWfY1qGQusy7zEla5v5YueXbyLWlX0lcgbgFP/C4hQk4Fbf
-	 AELAbFBdDB0gEjcyU/avESo1PZ6hbuCG3ACpcaPG2Wp48kKrsdgQ+C1UkHopWdqodQtHfXEG+10O
-	 FtonebI8gAP2g66zPMAqW40XX3+386lyEQ3db1ph7lBOljIQ9NL9zBkwpdpnePgPKk+06EQVyuSu
-	 w0qeu4SKRQ+xghZ5cs5IkFjmQaS3Yxq/jbajqVtPTg8SZWGUz04PrYGic8l1Qu3fmrwV0JB/aO/0
-	 SqMH/ylWaN1dDLZhOUmcsPdr1yxc0xnY4YXPutro1VtcaEjsoKs2eHB4a5zQncmWIdABVPB5bhvl
-	 oLksB6p+6J+mO05uSETBJ0JPNHWz/82G6+VlFLU28sIc2CJEQn6uvlMMPCRkuZhn1P66GsDBOG2X
-	 CeuBFGT79LIfFJ5vN3Rqjw/df1qVYKbSm8VuEWtS6ZpppXmUsCSZ62nkGQWhE2BApRNB71FKmAjl
-	 xskaRt1hy4FKHveHNfww9175FCpf9GLYknZ8vJN4acTJtIq7NAWxQonLWfcFKRWBr76ggYyxruu1
-	 mwq+92SNjuHuQtOntXB+TXaiJikSYXtzAFZyaiaKLSfskyJzdF+leJAXk9KHKdsVCvElyQHBYq8E
-	 PoL0IcPehWrgJI3PNsYo8ZoBByIGUAOwcqMXb002Icj/6T4S91iwlzJJ1VpQGieh7oADHXOlNet4
-	 TQOl+OT5Yt2OAA50yYxi0wHqUG9l25lYkaMW7JHW3Xh6qvbd0/rDtHjMs2els=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Yingjie Wang <1075151112@qq.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Simon Farnsworth <simon.farnsworth@onelan.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/dp: Validate the I2C-over-AUX speed parameter
-Date: Fri, 23 Oct 2026 20:35:27 +0800
-X-OQ-MSGID: <20261023123527.118840-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A62606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A62606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-823d73ffca1so1081800a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:35:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792758956; x=1793363756;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RgmnbZuXKYWtnIJRvSR+ux3Op+h0Pygq2TggjNldeso=;
+        b=doMNrrXJ96hz+iFmJCMZ+Nf6hbNbTgKatIIe0opy8P24DGDDnPf5L5hzj79ez+7nJI
+         HCo3zwif5AQWPYrtEF8fhWL5KwjSr3Y+XLRIPHX6LR+mGi4PJREZhaSJW/aEtu2OVDk5
+         SIlKtRTk1JvtYiegillmvnJlcZsUkOAHmBs195U6I/DLvMVxH3nhV9huzGO33tnUUTS+
+         TNfyuo1oQov77ypefkWUolx9Hu6XR8OuTjasg5s+2t22UiJSmeIW7QbwLL755/wNXSdi
+         O1em4jrQUkliTGHB/vJQLmudoW0j0s4Him7ZpTKHMr08NruAfOwB2kt3D9YKyEJP4t3H
+         m+Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyoWhsVib4uuM5a3AdpVywDSR/ERLuUUqbEzlm0w4JY3riJJv/GfEUguMVt4pG8xvwRyIHiyWOUY2+8qE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+89lX0DRZIdv9rILD/xZWMOxG3OcuEfhm1mE/6qKISlGzBzLZ
+	GIxgn3MeJ7eqMa6N2nnycytwcks2BXEN5rKUgtqqjUi4GWLltSSwrnxMyYyVP0AR6vHOtuHA2Hx
+	W4E/Qu30W81PqyxiyksIa7iArtkrIgjtgFmNgg3BlVHKL1yxnyOLIuoYUYNM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,68 +58,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:130a:b0:4e9:cbdd:457d with SMTP id
+ 5614622812f47-55be85a6243mr1323057b6e.11.1792758956107; Fri, 23 Oct 2026
+ 05:35:56 -0700 (PDT)
+Date: Fri, 23 Oct 2026 05:35:56 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adb54ac.d1cee5ca.8df35.0007.GAE@google.com>
+Subject: [syzbot] [rdma?] WARNING in __rxe_cleanup
+From: syzbot <syzbot+fef38133c495aeb48297@syzkaller.appspotmail.com>
+To: jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	zyjzyj2000@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-The dp_aux_i2c_speed_khz parameter is documented to accept values from
-1 through 400, but its generic signed integer setter accepts any integer.
+Hello,
 
-drm_dp_i2c_msg_duration() uses the parameter as a divisor when
-estimating the I2C-over-AUX transfer duration. Setting the parameter to
-zero can therefore trigger a division by zero when calculating the retry
-count for an I2C-over-AUX transfer.
+syzbot found the following issue on:
 
-Use an unsigned min/max parameter setter to enforce the documented
-range at load time and on runtime writes. Valid values retain their
-existing behavior. Retain the parameter type in the module metadata.
+HEAD commit:    c03c1a14507d Linux 7.3
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1796a621580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=fef38133c495aeb48297
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-A software DP AUX adapter reproduced the divide error without display
-hardware. With this change on an x86_64 KASAN build, runtime writes of
--1, 0, and 401 are rejected. Values 1 and 400 are accepted and complete
-an I2C-over-AUX transfer. A boot-time value of 0 is rejected and 400 is
-accepted.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-An automated audit of writable runtime parameters identified this
-issue. Codex was used to analyze the bug, prepare the change, and draft
-this changelog.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c9d4a36731a6/disk-c03c1a14.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/3c00e4e185bb/vmlinux-c03c1a14.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/1f95d3156291/bzImage-c03c1a14.xz
 
-Fixes: f36203be608a ("drm/dp: Add dp_aux_i2c_speed_khz module param to set the assume i2c bus speed")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fef38133c495aeb48297@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!ret
+WARNING: drivers/infiniband/sw/rxe/rxe_pool.c:212 at __rxe_cleanup+0x311/0x350 drivers/infiniband/sw/rxe/rxe_pool.c:212, CPU#0: kworker/u8:9/3389
+Modules linked in:
+CPU: 0 UID: 0 PID: 3389 Comm: kworker/u8:9 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
+Workqueue: krds_cp_wq#0/0 rds_shutdown_worker
+RIP: 0010:__rxe_cleanup+0x311/0x350 drivers/infiniband/sw/rxe/rxe_pool.c:212
+Code: f7 be 03 00 00 00 e8 7e 15 e8 fb 40 84 ed 0f 85 26 fe ff ff e9 5b fe ff ff e8 5b 89 cf f8 90 0f 0b 90 eb 09 e8 50 89 cf f8 90 <0f> 0b 90 41 be 92 ff ff ff e9 47 ff ff ff 44 89 f1 80 e1 07 80 c1
+RSP: 0018:ffffc9000f2ff6d0 EFLAGS: 00010293
+RAX: ffffffff88f888b0 RBX: ffff88807f162250 RCX: ffff888034160000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000001 R08: ffffffff917a757f R09: 1ffffffff22f4eaf
+R10: dffffc0000000000 R11: fffffbfff22f4eb0 R12: ffff88807e7615a0
+R13: 00000000ffffffff R14: 0000000000000000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888123abf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd5380382c CR3: 000000003558f000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ rxe_destroy_qp+0x74/0x270 drivers/infiniband/sw/rxe/rxe_verbs.c:661
+ ib_destroy_qp_user+0x354/0x5a0 drivers/infiniband/core/verbs.c:2182
+ ib_destroy_qp include/rdma/ib_verbs.h:4103 [inline]
+ rdma_destroy_qp+0xd0/0x250 drivers/infiniband/core/cma.c:1170
+ rds_ib_conn_path_shutdown+0x9bd/0x1820 net/rds/ib_cm.c:1113
+ rds_conn_shutdown+0x477/0xb20 net/rds/connection.c:440
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 488fd123a01ad..53fdaa7b59275 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -1975,8 +1975,22 @@ static int drm_dp_i2c_retry_count(const struct drm_dp_aux_msg *msg,
-  * FIXME currently assumes 10 kHz as some real world devices seem
-  * to require it. We should query/set the speed via DPCD if supported.
-  */
--static int dp_aux_i2c_speed_khz __read_mostly = 10;
--module_param_unsafe(dp_aux_i2c_speed_khz, int, 0644);
-+static unsigned int dp_aux_i2c_speed_khz __read_mostly = 10;
-+
-+static int dp_aux_i2c_speed_khz_set(const char *val,
-+				    const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 1, 400);
-+}
-+
-+static const struct kernel_param_ops dp_aux_i2c_speed_khz_ops = {
-+	.set = dp_aux_i2c_speed_khz_set,
-+	.get = param_get_uint,
-+};
-+
-+module_param_cb_unsafe(dp_aux_i2c_speed_khz, &dp_aux_i2c_speed_khz_ops,
-+		       &dp_aux_i2c_speed_khz, 0644);
-+__MODULE_PARM_TYPE(dp_aux_i2c_speed_khz, "uint");
- MODULE_PARM_DESC(dp_aux_i2c_speed_khz,
- 		 "Assumed speed of the i2c bus in kHz, (1-400, default 10)");
- 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
--- 
-2.43.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
