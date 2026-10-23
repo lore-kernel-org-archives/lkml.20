@@ -1,109 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725407;
-	b=I0LGvZfjIqyomsFhFWBjti9+OT6QuvX6DhAiGrHYq1Gz8mg1O0nAC9b6UNHCwhxYdqj+
-	 ZlexiFfcE8/jjKWcqXTcCHMUsY+6OUlH0fEcOUcmb3m3L0VfFlQ588Iox7cgjjNCWmbfQ
-	 ITW2+EDiVDRuRL1itcq04IbmxW44ReP8Ix1hHQZEqHe8i1Xn6lDXmS1YduWHwVppvFbvv
-	 g7X5kWyNHsRDkKiyZ+6WGD79M9Nu0Lgc4yrygkvHUhOqv+gx7Wlac9v/ecAEaF8MpdSN6
-	 1EMVIX7qsREeEBDZKa99oOc3h3RkIrTp0H4MFp3eo4I7MonbpNhoR2MrOEeOFsNO6tQ==
+	t=1792725423;
+	b=fGdfUx18NcTdL5effowed/KMztybSbdS2dbIdvnWejN7/fDW/GqS5SZEkFP84Chz25BI
+	 vAq6ZJLe/HMp7TM2urPVd0euXMprHs4Kgpwvi2DAMSFxTcPDLolbCxT2dsWoPosJjTNUA
+	 bB5qaguFtXloEoZKK9AE5tJK6Y5wWQ1R9grV/ROO3u9L2c0Hwh9ad4AhCsgD/xOSEOvu0
+	 /1awpmrR0YQEJ01UTODCVfTrAVaAhHmWH6ymKNTSLHbfALqi2To8lXQ9mPQcxDhKNnZvc
+	 jTXd882o8ezaL6Epn9PVkXfMLRr1WT6wSJiELfPUAIMgJAqetn/t8Ilj4e/Z0sZHqOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725407;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-	b=HlSpV3QMzoSg7OOx79++w/B//kdoHa73trcSBwo+Ui4DY71/ch+IZQ3OeIAZiPVQHwCG
-	 sFBsWqGgF/VxaE96uUcsvHhR0RMruEhXPRLOj0KyBv9nRK9Cj+nYflUWtDTW9+oQ2ugFf
-	 MHl/CcDGpE8r9qDwmy3eKWDRz/dLpuDcp5X3extPbs4SZQd6dmF637kb68j8SFEjzG5K5
-	 +bEYcnub71O/1U9TokEONDOI2MVCx2XE6ZWpSYskFE+xpvCTMmISOJ6KHzvnqhDQ+aBl+
-	 aWieDWuSev84JWacVcnoA7m72EoxDEExrFdr9JJDHs+h0DL9Ptjdtu7SGnemmiWIa2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725423;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=H2IWjALvk048zmw1NNQJbWvBa81ip8KPbZToHaA7//w=;
+	b=jaQifbib0ul3f/C3g+MskCGhRZYtYbREcX7Kia3JaxWTRDBcv2f2jZ/vttOcI6r14scI
+	 MPDTmmp34pBM9MSzahzXc/1rBwxdNrw0MIQg1qsDivtgZXIJOQnl3AaNchT4vh77XPWAx
+	 OfsiBKNfPjBftN4yd8KMB/SQNW8dcAeT9TsUJOdP8sguZCQobwcsR5pC2usWOMPVZPsnF
+	 QxUHKjGQp3plnWytHX9CtUyLALcvEm/hGg3KXAtRDlpnZrh7ocW7J4zlQKyEHUvRzA0Mr
+	 IvjobxjwhikfVU57GAAzgf3GDjAezZRJ9pWm8uHvLgRWtcdPpZhqcOHQvw296TCZVUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bWp1UHT2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eQKQmI3t;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=c+ARJw9r;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56890606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56890606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F1A606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F1A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bWp1UHT2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eQKQmI3t
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1EtLj2389426
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:16:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Xvq0tv9LAvfgk8g4T2nNFc
-	bN/IDFtiOTOPum7364YBo=; b=bWp1UHT2MeTe+d70qpBPFP2HUINXGhWOinXciw
-	CMJS5VSlicK7ebfvRcQff3QpextvSlyujLeC+vM0RHGiW0wVWjujFmK7g69M2Zr9
-	EbasxSeciRuufRK1aCcEMt93pXDPKHSHHVuU+h3XvbG4UyVxWDZz8sC6uNrhRJA9
-	7EH81NYVTLmJtKXv8nNjzXRbMzA0i+vKt9F2tuf8WJQ7wyWOi4Rx1KBJko+2CVrO
-	vI7yqBCsJVhv6iiPoL6OOuVH1tkTwVGoBZtTtuKmHCgfa5f8QOc0CUfH/WHiJFNq
-	fiK4pmn2qRBcFr2uRBLzXN7BpoZma8PqQbBy027QyIQkCd1Q==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmp9mr8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:16:45 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so1459766eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792725405; x=1793330205; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-        b=eQKQmI3twdXmw+v31npwo7oOTcJmjdSI9qGV7fhllMZyd063m3a23PQQxsMCqyBYhi
-         hJu3kt9A0zpU5jp80tn2f65WEzRkvMgQjGC/a29iqVMNShsKyX04shsr3XlhdHo4EotH
-         gR2AFzK0F/6C1p0LsPUeaO2dG8+2lHfNZ8zzHqo/v2DLHOrnbEh1mISOR4ac/BTwwCso
-         lRt0/BXe35+JFYzeVYUnuqYukg5ey9I7g5t1768BMrbOldDXBeUQjOTtBPdUUtG1y/DM
-         CQjL8lAPN0+AbLL/MZQjqUQ3jZwHr0g97LakFzzXydUrSpbracoIT3rtGhr4WnoLLQIy
-         W5kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792725405; x=1793330205;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-        b=IE+gq73i8iRolbFnVJYe2dJsdd1Fvp7gJcnXBsJwovfU6Ut48BYPQsCV9CdxWzQZQ/
-         ZPU8qkocmcqP368ueCPnTej0LnpoPrqUdxitNJbteSxz5qfWLBdj27BiEz4nS3m0Zhir
-         tgIJmW8c45bB73WpeiluCuaSkgny439LDz6RGasyS3SZCQuxG2/p+4mG3cp2PK2MQYxN
-         /dm1Zu9/E6LSrsg8x5mJ0Bys9yOiruHf/K0C/KQ3wIUAuKZNmUiFqmY1lWnR2VnQFAfG
-         lnCFZvUMju9OscFsItP7W4Ryy+GZJLbrIx4QPkRzIlKQGI+MrUSlQo7UZ7OClMEBSqkK
-         xeww==
-X-Forwarded-Encrypted: i=1; AKwUvBxiPeeiRl6F5GJoVr8KKNS7me6hJzlJD04lU2U+Cj44Zwz9c6KQMU2rO3Dd1S5Lwsh0/gC7vcUDUKz2StA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZT30ggY1svun8Hdv3g+oyiTki5M0oDOH97QPIuq5cfuV38+Nx
-	VhV2cgbhcNAfpLIw9HAJKixcc/c3nO4fUlxx0KPbzy/76VLzf9LaUWhrscZIR0JGg5YNQ7vSbRD
-	OiU5Jzt+9VH4dwP7jeW981WX7PkhAC3q6wqBG98DzhVf/YhQOUF4GOIEX74TBsbwlocI=
-X-Gm-Gg: AYBFou3tpiCVDDqpeuJswaHuszQ/0Gf8f/g00VaMo+/C5GCt0sarCGESvEZohxJfgXE
-	doBbBls87K4aqLGxDZnJRqHisDVNMUeH0rwW+8NlsyzK1jDHo5VWGM60AMEyNDFeoQzQyYhpztp
-	CP7saHiZX17JydHbaw6giG3/V3GvAckwUFhbHxw38g11YUa38R5C4fRlKiqpkNksZAb+t2EA/CP
-	sTjRYccUT4+uzdFYimRiVS8UUNC8RcmB28L3Az2Y6UrlnuOyToKFqrX5VS5u16H8EDkiIGqkzhL
-	euGMUW8wpJJLDSErrSNliRDHeDv0gpuG/b/b4d78aksLkY51xnb0tWAGC+LTogM0eqcMFwNwiHz
-	m01DvaFeemyvlicZ7EMwH8C1jkUJodA==
-X-Received: by 2002:a05:701b:2517:b0:174:cf1b:235c with SMTP id a92af1059eb24-195c374b393mr1403060c88.43.1792725404803;
-        Thu, 22 Oct 2026 20:16:44 -0700 (PDT)
-X-Received: by 2002:a05:701b:2517:b0:174:cf1b:235c with SMTP id a92af1059eb24-195c374b393mr1403034c88.43.1792725404193;
-        Thu, 22 Oct 2026 20:16:44 -0700 (PDT)
-Received: from hu-gouravk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e5163e64sm2374454c88.1.2026.10.22.20.16.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 20:16:43 -0700 (PDT)
-From: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 08:46:37 +0530
-Subject: [PATCH] media: iris: add cyclic intra refresh on AR50LT encoder
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=c+ARJw9r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1792725409;
+	bh=H2IWjALvk048zmw1NNQJbWvBa81ip8KPbZToHaA7//w=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=c+ARJw9rrvLe9tFyyKcE7J9TVGK/tQi57xqOBNqKDUTk06ZCLoFQjS0s69s5qEzjH
+	 rCpenispUA01R7V7lkvYgUElwSKMa/U66yXulgt+l1v7eew7o1+n0WgmaylKvvk2TR
+	 UR5TMKl5LRAGPwNkXGdYuYDpiyqA+ipAIAJ4VilE=
+X-QQ-mid: esmtpsz11t1792725347t7dc60920
+X-QQ-Originating-IP: FlUNMiK0eSMbacfSZBIik/POwMPtq8ySglL4HEmJvX0=
+Received: from snode5.. ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 23 Oct 2026 11:15:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13336916703402963863
+EX-QQ-RecipientCnt: 26
+From: Zane Leung <liangzhen@linux.spacemit.com>
+To: gregkh@linuxfoundation.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	alexander.shishkin@linux.intel.com,
+	suzuki.poulose@arm.com,
+	mchitale@gmail.com,
+	anup@brainfault.org,
+	irogers@google.com
+Cc: mike.leach@arm.com,
+	james.clark@linaro.org,
+	leo.yan@arm.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	jolsa@kernel.org,
+	adrian.hunter@intel.com,
+	alex@ghiti.fr,
+	atish.patra@linux.dev,
+	andrew.jones@oss.qualcomm.com,
+	sunilvl@oss.qualcomm.com,
+	liangzhen@linux.spacemit.com,
+	zhuangqiubin@linux.spacemit.com,
+	coresight@lists.linaro.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 10/24] gtrace: Add RISC-V trace funnel driver
+Date: Fri, 23 Oct 2026 11:14:51 +0800
+Message-Id: <20261023031505.2020925-11-liangzhen@linux.spacemit.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
+References: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,92 +92,298 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-iris-ar50lt-ir-cyclic-v1-1-a81d7060585d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJTR2moC/yXMQQ6CQAyF4auQrm3SGUASrkJcQC1aQ4C0QDCEu
- zvq7n2L9x/gYioOdXaAyaau05gQLhnwsx0fgnpPhkjxGijmqKaOrZU0LGkjv3lQRuFY9EUoiao
- K0nc26XX/dZvb3752L+HlG4Pz/AAtJwKbeQAAAA==
-X-Change-ID: 20261023-iris-ar50lt-ir-cyclic-ec24f4150077
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792725400; l=1711;
- i=gourav.kumar@oss.qualcomm.com; s=20260921; h=from:subject:message-id;
- bh=uh9KbzTFh8CqA6ntGZiEBYDrRo4L39Sm+dHQNG584XI=;
- b=QoR97ve8BBTOSE4yP8AE8ZLF2mcGhVr2FuaKGB4k8WbCteoRH4lLf16mKc+mYUWJzoxrSOggR
- fKN0PGZUQkCDJnnIMd84WzHiObiDqlljpyxhy7KPj6zgl3CGvolpCxS
-X-Developer-Key: i=gourav.kumar@oss.qualcomm.com; a=ed25519;
- pk=pp/OfJjGYucjyEYKqArAaVDesbfWZ44Dom+QtAdDZ8E=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX8x61WjiwALwE
- U/4xgT/9w+McFvurBWCeegUjQwH8eo/sT0T8H/ZVOrQdOPOFzc0g0XRObXlJNAvciI5kzExJOFh
- LIvuc06RBDk1iuwZe6A6UvHICWrVj/0=
-X-Proofpoint-GUID: aqj1ZIbj8-RpJFKWQOrzE5OV0S6yQxHv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfXzDmDJp23nhUZ
- 6YuTzM0x+NPL4SWUZuC9vVeRQAWfRFbWdQ33aKKw0DrNgOggu2kpu4gmYbKBFOoTKZGaX1tMCYp
- 7p6sVBhVN03mvB1aflI/wCMmSLwt+ZSm8DpbPdVp4wzcYpQS2X7XCvZ8CebI7D6+jNlBeNaqfh0
- 5vAkBtJfaMkIRntzKMChE0v3GySa2jLojjeNLbsRDTTkKbr51LrPVt4pC16qspI82rRZtEeGaPZ
- Yal3S8HQpVZwzZac1B54zbkvPJdHrS1EyBdpZUXtx3cKsz1bP6Se3YIOektC1bRl+DUqmLTpoWB
- uxvSEXz3WzPJGpCIHJDUjD0926gVDvdziazzlao15T0MJJc7pBTQZkqgHYTjN/jIjNHRRVbQ3gn
- jGmhWm/znIh4LCiahMxK5WhWRVMoK3isELZv1D1gBYeVdyQMJLYMCF5DXAfaqp0eWCf65Eoxr3J
- Vl9G8qiRo0OHhEKxNZw==
-X-Proofpoint-ORIG-GUID: aqj1ZIbj8-RpJFKWQOrzE5OV0S6yQxHv
-X-Authority-Analysis: v=2.4 cv=BdBNQbt2 c=1 sm=1 tr=0 ts=6adad19d cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=XSycHmPQ-ps1G5V6GkMA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230012
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NT6u5eG8AulLbI6iyyB4Wy1vaV39nIB+DTJ6HP+SpjsCgoYUUOpzm9oC
+	pue3ozG5LDqV3wpFSZH9cKVMDvkhhtOCFYhTZndfAJ4FBAob/VH6f3LT+qgulNsXFC1p85J
+	rDkrga0AYJy9T3hWOqoRyzPlBaMPOehLT4QG1L/y4t0G5lNTxPh+AkAWh8DaCzVfkMhpts6
+	2x8h3MVuvIHJXLIxUULPjQc3LIHDUs5KhJLFGlG48dXWQ8+MNHs+UudPtlZzc2IREchbpWt
+	QJn42KBw6Wv6mPksdO+INQ9Hasofg6vTjagxBXkNbvBLR09HAXOdFYbFJWSplqrg+M0m4qM
+	FxZkyxLLs7XQxhEMGN2cKSYtTDDf4JB9N8Vit3uqWW5ftyeLwlkw28i5bv8MGkkwfLSMKVx
+	T/Ge8qQ4pnUK+3D1QjJ98PRJie2sZ3t9f8ayevRKJL/N4sFhwMU1FB6+WaVylJC60XqebLf
+	Y+XIguf1CZ3Waa2DZTgFce/mL/2uqFJUIqEQ559V6pXsskGhy2/Mkdr8xoSGZmquiFd9/h5
+	ahOcdUk83yOAYhO/WLpzew3bD2PLJxkqO4MOMX3ubD4HkIy+l1X/lz8YKw4b9Ig8146JJkL
+	V+YP06AdMGmIqwaAfAKWoRF37OPUz3ivkphf7B31TRvqEawompVaUEMrcs9sCZydfuOa4So
+	wbRnwFOM+5qNO5x/tBZnTbWPthbx0vGiDGAbl93EouI63OxeuM0FRIanil/7XstOrc+BEtO
+	8SKN3BhRXW4nZqi7DmV0KhmnVhcs4OHtsh+tkvZGUvY7YIkDGcsCLijV3puRaIZ94FF1RTG
+	fvdXL326JaJWxeskhaSq18X1EByjOfFDqo+F8GDjLy1tE5lf/REP9qGPgnwbPdvaWMO5JGG
+	2GiwxY2ZwJkaE1DJwGQQkA91alUVOsJQ6muaNsoPcgaqFNt9K2HFSyZccsXBxsUthD2kCye
+	lJSOAn1/CUZ/FddrTWRm5OjFRVtk4ExJ5VNaOxU25KbwnNqFKIen7+PsaT0+m1+1scMYcDc
+	6dZZHcBwxYa4QCrjB5uG6UEa6w7fTuDMoJhFPTyHI3OTjDBSGIj7i6vqgKIBfkpqCi15g2L
+	bzOkZIVvhmNKzS0e80DRFk=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-The Gen2 AR50LT encoder capability table advertises only the RANDOM
-intra refresh type, so V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE
-exposes a single menu entry and userspace cannot select CYCLIC.
+Add initial implementation of RISC-V Trace funnel driver. The funnel
+is defined in the RISC-V Trace Control Interface specification.
 
-Advertise CYCLIC alongside RANDOM in the AR50LT encoder capabilities so
-that userspace can choose between the two intra refresh types. RANDOM
-remains the default, so existing behaviour is unchanged.
-
-Signed-off-by: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+Signed-off-by: Zane Leung <liangzhen@linux.spacemit.com>
 ---
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/hwtracing/gtrace/Kconfig            |  14 ++
+ drivers/hwtracing/gtrace/Makefile           |   1 +
+ drivers/hwtracing/gtrace/rvtrace-funnel.c   | 165 ++++++++++++++++++++
+ drivers/hwtracing/gtrace/rvtrace-funnel.h   |  21 +++
+ drivers/hwtracing/gtrace/rvtrace-platform.c |   3 +
+ drivers/hwtracing/gtrace/rvtrace.h          |   1 +
+ 6 files changed, 205 insertions(+)
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-funnel.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-funnel.h
 
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index 79bbd06ef8d2..794c36d222d3 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -2600,8 +2600,9 @@ static const struct platform_inst_fw_cap inst_fw_cap_gen2_ar50lt_enc[] = {
- 	{
- 		.cap_id = IR_TYPE,
- 		.min = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
--		.max = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
--		.step_or_mask = BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM),
-+		.max = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_CYCLIC,
-+		.step_or_mask = BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM) |
-+			BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_CYCLIC),
- 		.value = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
- 	},
-
----
-base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
-change-id: 20261023-iris-ar50lt-ir-cyclic-ec24f4150077
-
-Best regards,
---  
-Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/Kconfig
+index e5b62d65e2fd..f6026965c54d 100644
+--- a/drivers/hwtracing/gtrace/Kconfig
++++ b/drivers/hwtracing/gtrace/Kconfig
+@@ -57,3 +57,17 @@ config RVTRACE_RAMSINK
+ 
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called rvtrace-ramsink.
++
++config RVTRACE_FUNNEL
++	tristate "RISC-V Trace Funnel driver"
++	depends on RVTRACE
++	default y
++	help
++	  This driver provides support for the RISC-V trace funnel component
++	  which is defined by the RISC-V Trace Control Interface specification.
++	  The funnel merges trace data from multiple input ports into a single
++	  output stream. It is a link component in the trace path between
++	  sources and sinks.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called rvtrace-funnel.
+diff --git a/drivers/hwtracing/gtrace/Makefile b/drivers/hwtracing/gtrace/Makefile
+index 87cb5add78d4..9c99d917b9f4 100644
+--- a/drivers/hwtracing/gtrace/Makefile
++++ b/drivers/hwtracing/gtrace/Makefile
+@@ -8,3 +8,4 @@ obj-$(CONFIG_RVTRACE) += rvtrace-platform.o
+ obj-$(CONFIG_RVTRACE_ENCODER) += rvtrace-encoder.o
+ rvtrace-encoder-y := rvtrace-encoder-core.o rvtrace-encoder-sysfs.o
+ obj-$(CONFIG_RVTRACE_RAMSINK) += rvtrace-ramsink.o
++obj-$(CONFIG_RVTRACE_FUNNEL) += rvtrace-funnel.o
+diff --git a/drivers/hwtracing/gtrace/rvtrace-funnel.c b/drivers/hwtracing/gtrace/rvtrace-funnel.c
+new file mode 100644
+index 000000000000..941cd3360395
+--- /dev/null
++++ b/drivers/hwtracing/gtrace/rvtrace-funnel.c
+@@ -0,0 +1,165 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2026 Spacemit Technologies, Inc.
++ */
++
++#include <linux/device.h>
++#include <linux/gtrace.h>
++#include <linux/types.h>
++#include "rvtrace.h"
++#include "rvtrace-funnel.h"
++
++static int rvtrace_funnel_start(struct gtrace_component *comp)
++{
++	int ret;
++
++	ret = gtrace_enable_component(comp);
++	if (ret)
++		dev_err(&comp->dev, "failed to start rvtrace funnel.\n");
++
++	return ret;
++}
++
++static int rvtrace_funnel_stop(struct gtrace_component *comp)
++{
++	struct rvtrace_funnel_priv *priv = dev_get_drvdata(&comp->dev);
++	int ret;
++
++	ret = gtrace_disable_component(comp);
++	if (ret) {
++		dev_err(&comp->dev, "failed to stop rvtrace funnel.\n");
++		return ret;
++	}
++
++	if (priv->disinput_mask)
++		gtrace_write32(comp->pdata, RVTRACE_FUNNEL_DISINPUT_MASK,
++				RVTRACE_FUNNEL_DISINPUT_OFFSET);
++
++	return 0;
++}
++
++static int _rvtrace_funnel_start_port(struct gtrace_component *comp, int port)
++{
++	struct gtrace_platform_data *pdata = comp->pdata;
++	struct rvtrace_funnel_priv *priv = dev_get_drvdata(&comp->dev);
++	u32 disinput;
++	int ret;
++
++	if (!(priv->disinput_mask & BIT(port)))
++		return 0;
++
++	disinput = gtrace_read32(pdata, RVTRACE_FUNNEL_DISINPUT_OFFSET);
++	disinput &= ~BIT(port);
++	gtrace_write32(pdata, disinput, RVTRACE_FUNNEL_DISINPUT_OFFSET);
++	ret = gtrace_poll_bit(pdata, RVTRACE_FUNNEL_DISINPUT_OFFSET,
++			      port, 0, comp->pdata->control_poll_timeout_usecs);
++	if (ret)
++		dev_err(&comp->dev, "failed to enable rvtrace funnel inport %d.\n", port);
++
++	return ret;
++}
++
++static int rvtrace_funnel_start_port(struct gtrace_component *comp,
++				     struct gtrace_connection *in,
++				     struct gtrace_connection *out)
++{
++	int ret = 0;
++
++	if (in->dest_refcnt == 0)
++		ret = _rvtrace_funnel_start_port(comp, in->dest_port);
++	if (!ret)
++		in->dest_refcnt++;
++
++	return ret;
++}
++
++static void rvtrace_funnel_stop_port(struct gtrace_component *comp,
++				     struct gtrace_connection *in,
++				     struct gtrace_connection *out)
++{
++	/*
++	 * Setting trFunnelEnable to 0 flushes any queued trace data to output.
++	 * Due to this flush behavior of the RISC-V trace funnel during component
++	 * disablement, we do not disable individual ports here. Instead, we
++	 * defer it and disable all ports at once when the entire component is
++	 * stopped. For now, we only need to decrement the reference count.
++	 */
++	--in->dest_refcnt;
++}
++
++static ssize_t disinput_show(struct device *dev,
++                            struct device_attribute *attr, char *buf)
++{
++	u32 val;
++	struct gtrace_component *comp = to_gtrace_component(dev);
++
++	val = gtrace_read32(comp->pdata, RVTRACE_FUNNEL_DISINPUT_OFFSET);
++
++	return scnprintf(buf, PAGE_SIZE, "0x%x\n", val);
++}
++static DEVICE_ATTR_RO(disinput);
++
++static struct attribute *rvtrace_funnel_attrs[] = {
++	&dev_attr_disinput.attr,
++	NULL,
++};
++
++static struct attribute_group rvtrace_funnel_group = {
++	.attrs = rvtrace_funnel_attrs,
++};
++
++const struct attribute_group *rvtrace_funnel_groups[] = {
++	&rvtrace_funnel_group,
++	NULL,
++};
++EXPORT_SYMBOL_GPL(rvtrace_funnel_groups);
++
++static int rvtrace_funnel_probe(struct gtrace_component *comp)
++{
++	struct gtrace_platform_data *pdata = comp->pdata;
++	struct rvtrace_funnel_priv *priv;
++
++	priv = devm_kzalloc(&comp->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	gtrace_write32(pdata, RVTRACE_FUNNEL_DISINPUT_MASK, RVTRACE_FUNNEL_DISINPUT_OFFSET);
++	priv->disinput_mask = gtrace_read32(pdata, RVTRACE_FUNNEL_DISINPUT_OFFSET);
++	dev_set_drvdata(&comp->dev, priv);
++	return 0;
++}
++
++static const struct gtrace_component_id rvtrace_funnel_ids[] = {
++	{ .type = GTRACE_RVTRACE_FUNNEL,
++	  .version = rvtrace_component_mkversion(1, 0), },
++	{},
++};
++
++static struct gtrace_driver rvtrace_funnel_driver = {
++	.id_table = rvtrace_funnel_ids,
++	.start = rvtrace_funnel_start,
++	.stop = rvtrace_funnel_stop,
++	.start_port = rvtrace_funnel_start_port,
++	.stop_port = rvtrace_funnel_stop_port,
++	.probe = rvtrace_funnel_probe,
++	.driver = {
++		.name = "rvtrace-funnel",
++	},
++};
++
++static int __init rvtrace_funnel_init(void)
++{
++	return gtrace_register_driver(&rvtrace_funnel_driver);
++}
++
++static void __exit rvtrace_funnel_exit(void)
++{
++	gtrace_unregister_driver(&rvtrace_funnel_driver);
++}
++
++module_init(rvtrace_funnel_init);
++module_exit(rvtrace_funnel_exit);
++
++MODULE_AUTHOR("Zane Leung");
++MODULE_DESCRIPTION("RISC-V Trace Funnel Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/hwtracing/gtrace/rvtrace-funnel.h b/drivers/hwtracing/gtrace/rvtrace-funnel.h
+new file mode 100644
+index 000000000000..41547c8971ba
+--- /dev/null
++++ b/drivers/hwtracing/gtrace/rvtrace-funnel.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2026 Spacemit Technologies, Inc.
++ */
++
++#ifndef __RVTRACE_HENNEL_H__
++#define __RVTRACE_HENNEL_H__
++
++#define RVTRACE_FUNNEL_DISINPUT_OFFSET	0x008
++#define RVTRACE_FUNNEL_DISINPUT_MASK	0xffff
++
++/**
++ * struct rvtrace_encoder_priv - Private driver data for the rvtrace funnel
++ * @disinput_mask: Bitmask of inputs supporting disable.
++ */
++
++struct rvtrace_funnel_priv {
++	u32 disinput_mask;
++};
++
++#endif /* __RVTRACE_ENCODER_H__ */
+diff --git a/drivers/hwtracing/gtrace/rvtrace-platform.c b/drivers/hwtracing/gtrace/rvtrace-platform.c
+index 64496a638359..ad8daa06e13e 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-platform.c
++++ b/drivers/hwtracing/gtrace/rvtrace-platform.c
+@@ -133,6 +133,9 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
+ 	case GTRACE_RVTRACE_ENCODER:
+ 		pdata->groups = rvtrace_encoder_groups;
+ 		break;
++	case GTRACE_RVTRACE_FUNNEL:
++		pdata->groups = rvtrace_funnel_groups;
++		break;
+ 	default:
+ 		pdata->groups = NULL;
+ 	}
+diff --git a/drivers/hwtracing/gtrace/rvtrace.h b/drivers/hwtracing/gtrace/rvtrace.h
+index fee8e2e4f42a..a345ba110267 100644
+--- a/drivers/hwtracing/gtrace/rvtrace.h
++++ b/drivers/hwtracing/gtrace/rvtrace.h
+@@ -120,5 +120,6 @@ extern const struct gtrace_hw_ops rvtrace_hw_ops;
+ 
+ /* Sysfs attribute groups for RISC-V trace components */
+ extern const struct attribute_group *rvtrace_encoder_groups[];
++extern const struct attribute_group *rvtrace_funnel_groups[];
+ 
+ #endif /* __LINUX_RVTRACE_H__ */
+-- 
+2.34.1
 
