@@ -1,69 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792715840;
-	b=PYnhTSy4T5CNLXFN8XEF+5AQBof6kFUh8rIpSYL80o7b0WMB5XLCWDUqVMv0BrMEhUG/
-	 3/8+B/wpvNlOx40r+4jHzTkd5/cMeIey0GyQ180WPxDJuXCAPZPFM7j0WEmFX4RgX9U09
-	 n7zLsJjcnFp/HydjKpy8tM5ofmJm9JysUn3vBGLTK5CHmyklkbUgY0pbB6sEktmGT/K+4
-	 RmuE24fWHh7Z9evRpguczmdQssZI30lXO9b81m2dhCR64Hu5ntQ5M1oWJi6DwIznN+YfH
-	 89c4kMDZ9AjyGRZAN698F6Sw1cEUSDKhq3KkhLTgiGQKFpxrbYz1Uoxu8zLpAHfyc1Q==
+	t=1792715842;
+	b=G2yPtGg3CIMibsdaBgwNhYPtHrkBsmH/LtZBeBB1Kw6jAi2jZutcZ3i1lX4FjbWixYOd
+	 5+8M7aP5eODchVhvhw/yrtOd3k2b+7jiIvsD+9CuWUOfRwwOHY1tzn7g6j8dXBqpX0o7N
+	 AJ0CljuLplzcURQmyGnrL2hfOofPUvW8j+obaVAifpxfz+1zgB/UB4ZW+TPrFmC/qnUP+
+	 MmTx+0jtmakvGZDptoe+pkNT3Z5Ik1brSdFxjy8SIX78ZBOL4KzZoxCSmNPmmVlpkVEfh
+	 E83ho/RUr1lcGomNfRbtcNNPj5lvNbCbV1cSsDZwELVQ5rPIkfCmAJ5Mx7h8TYgks5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792715840;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=axXiTUjtvwMFRrIO/ly38Bs5w5xgTTTJQ7iKGaFvt4c=;
-	b=BTo/151nW/swcSj9UV/nR49Oe1pVgl+zRS9r0uHoJI2ZJCUDw4B32+rqi72iBU3PQJ89
-	 xICfAVZslAdv5EBmYj0zDQlx2PSpg4LnilS8YFxFDNUEfbAfyZAY1JmvC7ETJ+v35/QAP
-	 RMxt1zpo+T17VFfG5kGQ0kuKrzD7097YbL6h7LrquWmjyccsjQ/ofDxsbIG/2/dz5WBan
-	 34UX5Sou1qpyoQz0WpfQBobSWakiaHgLQ9qyvupTEyikmtqFwsSNwVqD7c/fA7yp4tw6X
-	 AYeTksSKW2VEBm4vqmA0SNiMx6eVSL2zXWngIRDTZ7ASAc1/to3UWSWbgAAGkvPQXXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715842;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ekHro9xAtxRzjQSxLihJ+G5gJFsdRypjIV1jZ3KARnY=;
+	b=qgcLLOsCWur9pB6qzAYBozcmg3iFp4T+KoidXeyFmNHGMBd5ofMO8sSSZ19jyi1u1j7a
+	 F6wxrn+I/HJr8kFcUguIMQiYoO0m/5Lh9BoinTCX7HKjAPVv5SE51vwBy8thTbWLunwMn
+	 0wLr7aOpoYa8dl6etWexB9kpetAB9a9iCyR3YXQaEZWBQu/P5f8+q7rYsWqwtSFjtI7JX
+	 xdMJZzqJ+WrXqsyo24i6XZIiYl9Y5TFBz0j08qXVSl29gidg8Bl6KUXWnuMN5Q7kliKXN
+	 GmD9/P0vHbOPYg6OBdUbZ1kYAXJNL/ogRxC8RE0EF69FwfCZAH98Jrq8mgzPJ8UiUTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NJAieMiG;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rQ6+ZyUm;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2314F606A31D;
-	Fri, 23 Oct 2026 00:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2314F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E206606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E206606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NJAieMiG
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 67EA54034C;
-	Fri, 23 Oct 2026 00:37:17 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id EC75C2002C;
-	Fri, 23 Oct 2026 00:37:14 +0000 (UTC)
-Date: Thu, 22 Oct 2026 20:37:13 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, "Matthew
- Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton
- <akpm@linux-foundation.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr
- Mladek <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
-Message-ID: <20261022203713.1adce485@fedora>
-In-Reply-To: <atp4vVMyX65qYcAt@debian>
-References: <20261005155653.late.426-kees@kernel.org>
-	<20261005155708.1471260-6-kees@kernel.org>
-	<20261016145928.16eddc9a@gandalf.local.home>
-	<202610221058.C5626C5172@keescook>
-	<atpmAQ932J3_8IvJ@debian>
-	<20261022155726.7f20c4cb@gandalf.local.home>
-	<atptYsHyS6YGtzPV@debian>
-	<20261022162000.18aa4162@gandalf.local.home>
-	<atpyCU3fDyU95hbY@debian>
-	<20261022165336.3100a5be@gandalf.local.home>
-	<atp4vVMyX65qYcAt@debian>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rQ6+ZyUm
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so226240a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792715841; x=1793320641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ekHro9xAtxRzjQSxLihJ+G5gJFsdRypjIV1jZ3KARnY=;
+        b=rQ6+ZyUmouL0GWJIvHRIjW6eRebs9l7gK7S+MhxgOpdbt45sArF1c9wHWf6PBXrO47
+         vpOga/4XbC2R2Cd96IhPLOjE2RqOPVTIxYshEUCRouDUT2J4uo1oq4Ww0A6bKsKl2vBE
+         xNkaXuYq0RKPuwSyVZKJ9IKD2t6w7ygjNu3R7Wo2yMZ0XqpqKLx1YEaRRRRbfUn7ZFpM
+         eot2qhR8ZW+TCgYJj/gLE0YJegKIcob2qKABGtnMgSI4wfmmlwZSirr2pPgJzCxsNI7R
+         /UPmZmh8I8QnuhyTt0lI3KtqYMkPvIm7qJF/wluT90cFkpQTBeRrh7q6uKgfe0SCOO7y
+         uJVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792715841; x=1793320641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ekHro9xAtxRzjQSxLihJ+G5gJFsdRypjIV1jZ3KARnY=;
+        b=DZfI5rD6NkXdTYtTGm+aB4RbJQ1Hqjj63rJkQUDbvoXnTu5rBlFmzReshwSiLxluWm
+         cEWD3Rk5/A1ObrdYHRHg328RZh69J/boEkBoHe4/sveEMnO2efDpBmFwplWl0zp/elu1
+         HpUsy7R2oElb1kUP2ge8ovEMCEjP448YkwfsO/qXm8XubDxEHKcTt3noWpH+41rSQPqh
+         /0x+2wlyihNZ3YDzCBzmbbvhdP6E8atyoQzepMf5izKmgpMpb+s/DTb6XhWtmr65HRRN
+         +oCuuJUb6kzvJYNDvWzJvMEHVyBb+K8f7wjhl5yO+74BPhivI/SVXEcTv4nNRlkisd6e
+         HbxA==
+X-Forwarded-Encrypted: i=1; AKwUvBykq7fD5DX9IZgLVuF5DgbPps6HaChQprCQBA0CrudeCMRfHkNjHkG5nlWLmnhEhK8cJzLqDf3/K8tsrj4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3HzCTq9+8AmTsxMDJm9lLHO4hoAIf41bXc49f1Fp8oyNkyJxh
+	3a1CnZQb3rSwp9K+ras0eCd34FH9ccB8/Wxq5LHWVBICFkrwfD+NR+0kv9ULiw==
+X-Gm-Gg: AYBFou0wXOTZJn9YpZVD9KrJtJX97QFjoyc7+KMSlmUG8CRP98H8lj2ht1U+ETrsFUx
+	LdJfFixL/TscNvohQq7vFWQqbi6eJQKeFnVhC5DBggQWYaB2TXeqIQqtwn1oQAh9V7lU+Ubd3jB
+	vTJYPMRSf7RVfIwA31LCZJtWIKIjewzLInkEfyuWTqaI3aLStnxRqypW3EE7Bi5U6mxDe5BDnS5
+	57AC8rbeVPGnSGIK9gtofEAzqi3V2IxeVzOhP9urIQmhehRoquOtGbe2HPyFhud8NAVaOGTes6D
+	wuGTDo5a0vwmIqiG0hkzRWcjXZUIa+08bVIry8EAfxcAsvZJL6PvXUy8dfbViG6Xc+HP0I7huTx
+	qGRCBXe5lq0dG4mbYAbt2NAnAgldDrQztFMriyee12ruWU3EAtd7sHDGkCx7dmTDwsHFFyLKFaC
+	3yBUll6pFSRR+Y9O9r/IiG7AtHPZjMgQB9o3kVRFzKV97opYfUEPyJASMt4Ehas/crf+0Fa/iOr
+	k+oOsXBshepwHT4oLFLITbmM0tgzdgnY58KEc0R1Z+bUg2EF0pjNCb70kols6M1esn89CvmKHdO
+	Ndmsu7qDlW04WD6WGC5fsP+kjPFiqv8/iv6RVT/bdZ2HAi9ErJxghILQ9Io0w8IuhcU=
+X-Received: by 2002:a17:90b:2f8b:b0:3ac:a203:e092 with SMTP id 98e67ed59e1d1-3adce0d002amr472765a91.1.1792715840497;
+        Thu, 22 Oct 2026 17:37:20 -0700 (PDT)
+Received: from monk.wireless.sfu.ca (border-p1.nat.sfu.ca. [192.75.244.1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb0a28f3sm964360a91.3.2026.10.22.17.37.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 17:37:20 -0700 (PDT)
+From: ma.mandourr@gmail.com
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ma.mandourr@gmail.com
+Subject: [PATCH v2 3/3] KVM: selftests: Verify nested VM-Exits while vectoring INT3 and INTn
+Date: Thu, 22 Oct 2026 17:37:03 -0700
+Message-ID: <20261023003703.450577-4-ma.mandourr@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023003703.450577-1-ma.mandourr@gmail.com>
+References: <20261023003703.450577-1-ma.mandourr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,70 +99,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 4hdp6ykrbqhmh6fh37tmjh3b6cr3fcuy
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: EC75C2002C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19jZHCAHt0bGbMwk6BQ39qd8dVWDXz4emw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=axXiTUjtvwMFRrIO/ly38Bs5w5xgTTTJQ7iKGaFvt4c=; b=NJAieMiGRemya9h0G6J0k9xdE0tqsZ88GSAS1JsV9P0ETKlN1JapzL2+psbnwxZSzRxVIpqQkoaIosfhnS9twO/gq8RmwDtgWlHqJkUap3Xryvk1KCpHFh9YVegQ3xsJOxqVz4GNUqk0gIM/SXvBcdeAcP5TnKWKDSPYQDTdNQA=
-X-HE-Tag: 1792715834-340845
-X-HE-Meta: U2FsdGVkX1+QXw1era8vos6X1aEaQNEyg3QofqQx7S0O/Qs7e60GjAIKiF2yl5nJMSiECwu+0BuzPpD5+S5sTXMDy9hDaJNSBSHTSe6bRF0ocypxUPGr0Q3h/KiQBt2DIHxsOCl7qsMPm0rco/dppq80GA72PP9IQY8oegAlZXwzDqf58AL+5trxpMgCx07QFD/5z658BG6+KfBBCJB0u4MmoIKRjJ/D8ijstepXDb5tUGm8t+Wl7/tiqmJGN3kccW185TP6/HWz3I7i6fcZD0Hrq1m8zRGmQ3vQMweWdG3rF+d5e3JqrfLJW6XIV16QtWJW5o/zsM5EUzyne/RlDqnmW4nfnM+q
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 23:02:36 +0200
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+From: Mahmoud Abumandour <ma.mandourr@gmail.com>
 
-> > 
-> > I rather not increase its size. It is embedded in the trace_seq.  
-> 
-> The size shouldn't change:
-> 
-> 	alx@debian:~/tmp$ cat seq_buf_size_comparison.c 
-> 	#include <stddef.h>
-> 	#include <stdio.h>
-> 
-> 	struct seq_buf {
-> 		char    *buffer;
-> 		size_t  size;
-> 		size_t  len;
-> 	};
-> 
-> 	struct alx_seq_buf {
-> 		char  *buffer;
-> 		char  *p;
-> 		char  *end;
-> 	};
+Verify that a VM-Exit while L2 is vectoring INT3 or INTn through the
+empty IDT reports the event and its instruction length, and leaves the
+VM-Entry instruction length alone. Only VMX is tested, as both lengths
+are VMX fields.
 
-OK, I was thinking you were adding another pointer.
+Assisted-by: LLM
+Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>
+---
+ .../kvm/x86/nested_exceptions_test.c          | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-> 
-> 	int
-> 	main(void)
-> 	{
-> 		printf("%zu\n", sizeof(struct seq_buf));
-> 		printf("%zu\n", sizeof(struct alx_seq_buf));
-> 	}
-> 	alx@debian:~/tmp$ gcc -Wall -Wextra seq_buf_size_comparison.c 
-> 	alx@debian:~/tmp$ ./a.out 
-> 	24
-> 	24
-> 
-> size_t and pointers should always have the same size, so this doesn't
-> change the size.
-> 
-> Am I missing something?
-> 
-> 
-> Cheers,
-> Alex
-> 
-> > Yes the seq_buf code can be complex, but it's in one location where it can
-> > be highly tested and verified. The point of seq_buf is to do the complexity
-> > so that other places in the kernel doesn't need to.
+diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+index f47432526ea1..9311af590566 100644
+--- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
++++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+@@ -40,12 +40,25 @@
+ #define GP_ERROR_CODE_INTEL ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG | ERROR_CODE_EXT_FLAG)
+ #define GP_ERROR_CODE_ZHAOXIN ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG)
+ 
++/* No "External event" flag, as INT3 and INTn are software events. */
++#define GP_ERROR_CODE_SOFT_INT(vector) (((vector) * 8) | ERROR_CODE_IDT_FLAG)
++
+ /*
+  * Intel and AMD both shove '0' into the error code on #DF, regardless of what
+  * led to the double fault.
+  */
+ #define DF_ERROR_CODE 0
+ 
++/* Arbitrary, any vector #GPs with the empty IDT. */
++#define INTN_VECTOR		0x40
++
++#define INTR_INFO_VALID_MASK		BIT(31)
++#define INTR_TYPE_SOFT_INTR		(4 << 8)
++#define INTR_TYPE_SOFT_EXCEPTION	(6 << 8)
++
++/* Arbitrary, but not the length of INT3 or INTn. */
++#define VM_ENTRY_INSN_LEN	7
++
+ #define INTERCEPT_SS		(BIT_ULL(SS_VECTOR))
+ #define INTERCEPT_SS_DF		(INTERCEPT_SS | BIT_ULL(DF_VECTOR))
+ #define INTERCEPT_SS_GP_DF	(INTERCEPT_SS_DF | BIT_ULL(GP_VECTOR))
+@@ -70,6 +83,16 @@ static void l2_ss_injected_tf_test(void)
+ 	GUEST_SYNC(FAKE_TRIPLE_FAULT_VECTOR);
+ }
+ 
++static void l2_int3_test(void)
++{
++	asm volatile("int3");
++}
++
++static void l2_intn_test(void)
++{
++	asm volatile("int $" __stringify(INTN_VECTOR));
++}
++
+ static void svm_run_l2(struct svm_test_data *svm, void *l2_code, int vector,
+ 		       u32 error_code)
+ {
+@@ -127,6 +150,18 @@ static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
+ 	GUEST_ASSERT(!vmread(GUEST_INTERRUPTIBILITY_INFO));
+ }
+ 
++static void vmx_run_l2_soft_int(void *l2_code, u32 type, int vector,
++				u32 insn_len)
++{
++	vmwrite(VM_ENTRY_INSTRUCTION_LEN, VM_ENTRY_INSN_LEN);
++	vmx_run_l2(l2_code, GP_VECTOR, GP_ERROR_CODE_SOFT_INT(vector));
++
++	GUEST_ASSERT_EQ(vmread(IDT_VECTORING_INFO_FIELD),
++			INTR_INFO_VALID_MASK | type | vector);
++	GUEST_ASSERT_EQ(vmread(VM_EXIT_INSTRUCTION_LEN), insn_len);
++	GUEST_ASSERT_EQ(vmread(VM_ENTRY_INSTRUCTION_LEN), VM_ENTRY_INSN_LEN);
++}
++
+ static void l1_vmx_code(struct vmx_pages *vmx)
+ {
+ 	prepare_for_vmx_operation(vmx);
+@@ -146,6 +181,10 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+ 	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR,
+ 		   host_cpu_is_zhaoxin ? GP_ERROR_CODE_ZHAOXIN : GP_ERROR_CODE_INTEL);
+ 
++	/* INT3 and INTn also #GP, due to the empty IDT. */
++	vmx_run_l2_soft_int(l2_int3_test, INTR_TYPE_SOFT_EXCEPTION, BP_VECTOR, 1);
++	vmx_run_l2_soft_int(l2_intn_test, INTR_TYPE_SOFT_INTR, INTN_VECTOR, 2);
++
+ 	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);
+ 	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
+ 
+-- 
+2.43.0
 
-We could look into updating it to pointers later, but right now I
-rather keep what we have. Let's focus first on the new stuff. It's not
-that hard to validate.
-
--- Steve
