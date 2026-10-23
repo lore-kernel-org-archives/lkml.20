@@ -1,76 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762759;
-	b=vMlUa+KtpMcM4GUP1cyZN29pbLdH94qLT+61kc2fZOQ7Y/GNjr6CcKZ13TkrPbucs9nM
-	 agfn53hYoxwO14PCl6ekO6Tljte7khqkaWMA2PG9aK6/dOyAvxMxe8ywgR36lhzmaSkLC
-	 xFaaGva/m+0wm9dPUF674zTye1B58XNgSItG3XRioeUeLxnKhSiTNVKyldAD3t2mPyCC1
-	 S+RRRzmCw6bakDTVK3k+0P8rWKI1y8NOEjFK4mHTndMvuFR3azpPxDt53GuBfrXzMrlgJ
-	 ZQlNVPliXpjRXaIVNJlkIDep7zYqaCw3xoNNI8z6lYNwHN0Ma2WrSTQ+JdUitay0lBg==
+	t=1792762766;
+	b=v9HYfSwkge8LeiczT5dkKhqO8VImcw0PKmgOtYQyNCx6GVo0xTB0XsspRUBHQnpsBT7Q
+	 gMWmIpWqx2szP3szY6RunzJyITJglaUEO8CJyzLeUIsN+V9Y/DzxsJ7b6SJjYMTrkcRy2
+	 wdoQJDhw1SsfWB2YT1KVTOCJyS9Pu61O4zkKoG38wnCmZmU9ig3dHE2KznDY1Ku8ZvLkT
+	 BqRa0IVcirxfZSKnCkur3I84pRM4hz3eHrnrB6c/ZhwA7XazbnOSLA768d3qAlQMcfBh6
+	 t2hv9zAYLol2a09NZqJ8bdjjYBHIXEbNuR80mxd2qP/Cccgm0qEp6QFTy1Tpr5NXQVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762759;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=jQJ8dhA2iKUXZKusDvMRU3BFsb6qq9+2GC+fIDmWGXA=;
-	b=NgylPI2goJTdBmCKMUGNLzg8ZFRy63+WA32n8eJ1UNv/AcRrLxjy+syAf1s01r4nQBtN
-	 Ogqr6PDdNcP0KZ0D7vKf38qloAoQqMOYewTto2bVdNhcXPzjDeluybOCJPn2MakGKF/ux
-	 rMxiuZbKhVkrY2lXGQQxPvAp32qJi3IKNs6fq0QX4ytQQy+AqpPHYFP2eyVPwcDSmi55H
-	 5o4kVT74GEi+SlP6nunvG7vgy0ESmTWYzX8ExA4hsQ2XY07+kh46v0aVb+Rvocx25FE1L
-	 PGdBgVaerOwqMRq93oyDxuMyUEQaSxVjQz2U/qgN6gnQFInuBfexjnICwE1zASSEm+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792762766;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OMvMgSarJalS/dnNNgLfRrzbKrygmABuyVhylEY9KzU=;
+	b=oGJIrIfQ3qHoRt9m2yqW1sHF5o8EDWElYYDCUi9dTwPshdVDtW6S3u4UYMRSRgMntlRH
+	 SlWURd91MMOq0BA3J+z4/KBZ/sG6h1OSUvIri5Rrqi0YzCcG1X8QsFN6JjFBoLEqyKUVI
+	 vF9HX76vtOcaxNlMWSvJCWzZYtHGfo6Lfhj69iBwKW4Nw1XrEB6xeVlKtVsYcFFNOeXRz
+	 1U+9/jYRfQOsnSionz1kjTNMiFIaCMrP203/Hn2N8TJEjx6/G8FHV+swgBPVee6VbGSGH
+	 RFucY8igs2XlfNXIhW+hsWPbZHdyDOJ0iRXZ4sIbB6zDOOqMxbiAeNeC5UMRTmYhvbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andrei-z.com;
-	spf=pass smtp.mailfrom=andrei-z.com;
-	dkim=pass header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=Lo4XvNwy;
-	arc=none smtp.remote-ip=82.76.27.144
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pXfPuUcm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5C7606A31A;
-	Fri, 23 Oct 2026 13:39:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A5C7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAAD606A32C;
+	Fri, 23 Oct 2026 13:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=Lo4XvNwy
-Received: from MAILGW-BIG.big.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 697CBFC2B;
-	Fri, 23 Oct 2026 16:39:16 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=jQJ8dhA2iKUXZKusDvMR
-	U3BFsb6qq9+2GC+fIDmWGXA=; b=Lo4XvNwy/QaAkX7p29t05+GqQDnMF6BWKlg7
-	SYI3mrq23IGm69YT4fzByMcj3Vdb8EIaGj039hz3dJ8rOi0M52qpuBphIuCaMFVp
-	PfPq3LaIP61yatHSePaJlSY8J6qPoZn4suI4Jl5J4Fp5/zEaYCTtSGyJUMe/b3Bv
-	QDsbZXDwmQvOpRnL/UCOXaro6//uGUUCyNEmJJb/b4XcWU1psWIn17WPPjta1cC6
-	PD03brjcSw3TtW0N/olShm5JoeaqTbKlsV6CuA13ZTUyyRhBYnMpJcTyvkCHXg3o
-	1/p84mzSB9ZLqIH4gJq83Jns23uP4BcEYJLZPaXFEiAQc4l/zw==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 3FFDBFC2A;
-	Fri, 23 Oct 2026 16:39:16 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 23 Oct 2026 16:39:16 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>, Konrad Dybcio
-	<konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob
- Herring <robh@kernel.org>
-CC: <ath11k@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-wireless@vger.kernel.org>
-Subject: [PATCH v3 2/4] dt-bindings: arm: qcom: add Ubiquiti UniFi U6 Enterprise
-Date: Fri, 23 Oct 2026 16:36:58 +0300
-Message-ID: <19dda5d7c7a003452019eff0311a574e4b37bb84.1792761470.git.me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1792761470.git.me@andrei-z.com>
-References: <cover.1792761470.git.me@andrei-z.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pXfPuUcm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F2C1F01829;
+	Fri, 23 Oct 2026 13:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792762765;
+	bh=OMvMgSarJalS/dnNNgLfRrzbKrygmABuyVhylEY9KzU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=pXfPuUcmBdkkrmWZjtDZWQg8OfJcvpxIL8f4bfQj/wSmXNO27dzh1Brm2vF/dGs1a
+	 EY867D0xuLpDYNHqesFPNhcq4rWIE1DPI0fXjp39tLm+5qOg+y5mg5pEIj2g2av/Pk
+	 1+PXZepD++u63d5rfTIxvUbEv5l3sQUNTwqkClck=
+Date: Fri, 23 Oct 2026 15:31:17 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>
+Cc: Dan Carpenter <error27@gmail.com>, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: axis-fifo: remove unused r_mem local variable
+Message-ID: <2026102319-qualifier-closable-a65b@gregkh>
+References: <2026102337-headroom-shun-9d45@gregkh>
+ <20261023103943.20995-1-breno3011alves@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,34 +54,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023103943.20995-1-breno3011alves@gmail.com>
 
-Document the Ubiquiti UniFi U6 Enterprise, an IPQ5018 based access
-point.
+On Fri, Oct 23, 2026 at 07:39:43AM -0300, Breno Rodrigues Alves wrote:
+> Remove 'struct resource *r_mem' from axis_fifo_probe().  It is filled
+> in by devm_platform_get_and_ioremap_resource() but never read; pass
+> NULL instead.
+> 
+> This is v2 of a three-change series.  The debugfs_create_dir() check
+> was dropped because debugfs has handled ERR_PTR parents gracefully
+> since 2019 (thanks Greg and Dan for the correction).  The
+> -EINVAL -> -ENOBUFS change was dropped as well, after Dan Carpenter
+> noted that -EINVAL is the common errno for this path and that he
+> would leave the choice to the author.
+> 
+> Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+> ---
+>  drivers/staging/axis-fifo/axis-fifo.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis-fifo/axis-fifo.c
+> index 3d358f919..464368e04 100644
+> --- a/drivers/staging/axis-fifo/axis-fifo.c
+> +++ b/drivers/staging/axis-fifo/axis-fifo.c
+> @@ -428,7 +428,6 @@ static int axis_fifo_parse_dt(struct axis_fifo *fifo)
+>  
+>  static int axis_fifo_probe(struct platform_device *pdev)
+>  {
+> -	struct resource *r_mem;
+>  	struct device *dev = &pdev->dev;
+>  	struct axis_fifo *fifo = NULL;
+>  	int rc = 0; /* error return value */
+> @@ -447,7 +446,7 @@ static int axis_fifo_probe(struct platform_device *pdev)
+>  	mutex_init(&fifo->read_lock);
+>  	mutex_init(&fifo->write_lock);
+>  
+> -	fifo->base_addr = devm_platform_get_and_ioremap_resource(pdev, 0, &r_mem);
+> +	fifo->base_addr = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
 
-Assisted-by: LLM
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+This doesn't make sense, if r_mem is really not needed, then call the
+proper function instead (exercise left to the reader to determine what
+that is...)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557ce..4524f76b4b 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -113,6 +113,7 @@ properties:
-           - enum:
-               - qcom,ipq5018-rdp432-c2
-               - tplink,archer-ax55-v1
-+              - ubnt,u6-enterprise
-           - const: qcom,ipq5018
- 
-       - items:
--- 
-2.47.3
+And how was this found?
 
+How was this tested?
 
+thanks,
+
+greg k-h
