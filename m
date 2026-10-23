@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792714937;
-	b=Vztya87+06vj8qNK1GUhajHG9tyTIOrCBStqCa5Qpqxviz+rI7VJ5lPGbfg1zZBzkzk/
-	 CQ3i+MwATGOgW1vOTtcE3IM7tOyMiFAbPwi0wwcSHQ5mM6ZJJ4rHIvPSjIzSCOxsGwnQ4
-	 U7R3rgP2EWY5OtAVh/vDNK+cdEb0UCW5DMZKkvaqVnM5WAysiwdrkvOiSem2ZFCY8BFyk
-	 hbHaaroOe6n79A2h5uVRkD6QAzyZ+0KiUzxGR8rYFRgC2qak/rDCP66kolVXg9SEVM8Ge
-	 LaMUOw55ttWITGr7CmYquvirvZmLzw//E06fykxbtbZxeuoQR6yzJICNLP+NHHbf8fw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792714937;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=VkjwhNqrhec49sZYnWQitZbiXMreHiWthFexlaEi7O8=;
-	b=eTvlryQkfsPqbcB/bhSQArQciE3BTL6cfS9ItINB8oEffGsUiXwFsBhxArp1+bmzsGDd
-	 0V22widnZvbanC9po6Ff0tS3uMrVBUH/lr5ZcRQBBccHrju3gUbowFM4axJ3SxbDLLbf4
-	 9CIZblo3uNrWaGw5+ZgLn+tAY/5pa3n03ZtYOAv8Eo1pcsC6VjmaVMGXhgu7jBv9n5EDK
-	 bS9hjPjf5VtRCD0hlevUaoVLV+JbfrkW9ZuO7zGyEMxiPSh7YOqKqg8u43eto1dRyzLzu
-	 Jodrcn7fx04DMsaveVP8W7wlbfSwg7l9pYSUsAqmryXHnF3vNfN/cLdKVLO6iB6HotQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="a2Q/QNEP";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792715049;
+	b=hhXInMWTXHODj9o+HtY4c+qRRtO8qZLgSMOAx2dGTD17m4aopfGjU7pKU/s+l424JtJP
+	 QTf+zPB+W1VOSIyGgJ0+vteoeusldXNjG1Rp1A/rrpt07dChquDdU8qakrGV3/VABwdEd
+	 aYm/mKKswYCgBz9lKhkwxbK77PrvCqTIWvoFYW1/ZZzzAzcvW9kxLXhVP1if0/wh8Nz7G
+	 FwzHAmsZ0oMnp228TIxq84ZrccoRiriNPMByrIeUnBWafwLW5T4QKdAcFe/u4nYHTDQoI
+	 R8+3snqGpslx1+gjbi4H6DI8ATDZIRmfTtxbkelA14PhRbNEWObI5RDoDLNreRvssXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715049;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sewWTjP+M6E94TwmQI+LvxiP3Dgk+UiInUJ1sYqPvjE=;
+	b=xSP36DqSEzRa30Y7qoE95BH9v2Wfb/uNLQDGBEs34UjdLUVsYM+euqRjJDLZZDbj0SiF
+	 oXROClRr4TPFwRhmzEfgbkkRNOy1gTstb79r2cPN/K/SxDbtgHVrIKE3gXVGUjtoLC9vT
+	 W+bkeZq8z6oWwu4QP4ked3uQmF8u87KuI4afaC4IGFXGiz5Js1aUPVwvnGa1bb+wm0m0X
+	 8K/KlvKo8quP4uKY9L0gt+OXEfcdxdLHSUQEcAIVtP0+o/wI/P+D0MsChGd5T1NukmBjY
+	 ph6IJYr3Io+Qo1/nPnE9aBiogwRSMbx/riM8mPW3Dnvt4nfrCzmYD8twCW4Asf0aISQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=B0iR0guj;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020FE606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 020FE606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB2E606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:24:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EB2E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a2Q/QNEP
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-675617e81f9so406274d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:22:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792714936; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Us8GFPHhkQFQZ37UJSw7VP2Wu7LcnTEfCj9jtX9Mw+DbmzPFA8d+fmIoVF06IVqwsZ
-         UGqcymdd8G91Ors1hdyUEfVum2W6pUZNeA+APsDivYZBmWUlLqbezM7fYKvNNEVVIjtx
-         vR0EhWH5qVaSKUsSk7chkc2l4tr5JnGebdQ45B3O1wQKb4C0tXNsnxLgkXWX5khC7E4b
-         DrAqFy1+QMbfiiCWO6ttO+oOvjOJTSMky6LgBXhvL5nU8ZTKovR+lPogE7wk8mNWzheh
-         9ivEYn8m7b6gtyBpZiwmEfl2KAH2giT9weHHZ6UA8WAx8fcnQGt7mjaAtRLtMJFTjhpI
-         Ck/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VkjwhNqrhec49sZYnWQitZbiXMreHiWthFexlaEi7O8=;
-        fh=O1plbj3ODbP3q9YeF8+bcN7Qe1lNwYhvbOt7d1j5UTw=;
-        b=DtHKfYix4nFox6MQbZOzwS8edDOAwLpMh++xEtM4UgV8cvnp1ygseHVZMkvlw//NtB
-         rnIqAYU1cONZfIMGdvECLprH6Xlh973lUas4XkbnUkfv4ixuB/JP6+sLU8JH43ZHifpC
-         UjodywDDyY3MbNQxsrLY13PEuTniydNv8puCMutL7dt/K1Iq0rovpdX9uOoNDpNTnx7x
-         ipIluqa4AY8NQEqvVPrYhiOHrvjYOxAUNRS5bG0sBkefPpXiYViwKnC/1Gn43tQlljoq
-         +PSxEYyPR3RoaBVv8mTogW61JAe8zzSqnP/r0Vo9IzaFezS4irsKkVdh1secfNQAUSTK
-         t9fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792714936; x=1793319736; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VkjwhNqrhec49sZYnWQitZbiXMreHiWthFexlaEi7O8=;
-        b=a2Q/QNEPVSrvDNMXrTz8Ym23NxEk5ci1YdoOZqJzDzRlxCCmeMlhVNZT4k+TgGJjE4
-         drbaoS7zagqDU8UariXTlHj0GwZm+Ix7NJoHVb5bC54biwZ8vrn5PjKaQNROo+tN5Fno
-         c9D4fuyN7aB1HaRqWCNnUIdt6GMTfMS/0rK4BtEKy2oD56Dmk7yMYmjUrGTn4tGidIWx
-         Jyj+39h1jXivxlrMnrAUmTUshE6yr9am6JQgZIWIUdXYwuTJRr21mGTv9ftcV7z1DKxL
-         g6RZh85aj9lldhFoYVzEMZzUfNSMhSNHehbLqTSV/CDpZZRExRtfjju1hgSb6RML+lEv
-         tgug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792714936; x=1793319736;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VkjwhNqrhec49sZYnWQitZbiXMreHiWthFexlaEi7O8=;
-        b=YROVipEOshpXmUH9DwNQYLh2wylptp7e+r5gbutRMk+SyzcTmE8eluncm0GWs4YBLV
-         qSZBfoJZfUZznvijoUsvDGe6BG/oWLfgL+/XnLn+q20FKGlPcuTPhkH/E+b2a/PG9E6z
-         Rqfhf6mqVvmMytp3EbEIrCS7nacAJ3OAJZ/4uySZdXctiz0kYZERTS9irIqzTcZ3Yo9S
-         0izEWzGgbS9l2PlxBy44+bsyZIWQ9a1re1vzSss+o6Z/mHY+HaA+NOLE06T/PpSw++ol
-         WvNVdF77pj6Ev4kqIkIxy8R0G7yUC78vkCQr5hOYho62Cj7Ug7oBNesc+vHBVmbDryBI
-         iKmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByarlSn/6OWOxlUmJ/E0VJqYMxt4OsJJayglbWacUvMOxnYUD2JTKLVniPKMpwMMjwxmzrJkXMZzp6pm1s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4pPDj7gYC8j67NLks04q8maDKVKt562/E2p43R1Hj/wnpbDed
-	YVvcwVyTNIigdc9o/99xaBuZnfhYflRWlaZRyzL2K2hpGaEKWT8x0HYA7SIoHWVQW2jpaFsl1dK
-	0+cyqSEnq3ZhvXe3gZkHK7OtymKrLmedGqOfm
-X-Gm-Gg: AYBFou2RWd23oieCeZyOzIBefWFE6K+6crZlAc0S/Nm6QWOcXnhQwREbMFDbqsRZEAg
-	nnlNK6rqGRIBT/76FLfUk9McjILsBnT5788nPLu5vSWutTJVVm+6dDQQmLLSDaExWNQXKsLm6Vj
-	EFT/FHepT/ug3THCuUTRNHUpLL17syzML1Q5gd4ra6kfTBc87MxDFg1foQd8yLt23Sf/lSFRYMe
-	fFbKbTdqZM+QXZ1t8gvo9Dyb3znWrX/DJEvcgZUKdGOQb1QZ9DjqktOh6bLLsgSci+tB4i0rGWN
-	BuoAGHzY51RQQTi1tbw9bQ+CAVsX7oqsZ7vUwyfPkJ2zXHJpGp0hrTuK13SpsVOrJECOq8NAGAe
-	HRIbUbEx4qxmAOuTuBj0DZEiXrpXhmUCB/j0iArNzt03lHSPFNHtdAE2pbICMcl6hG6klkeHKs0
-	RzMeHY8W1nVKUFrshcRw9XCAhiXsqJO5tp3ew5J2LJ4jGO7yUCEamEmdpckReT/gOvH/DdaCKY3
-	W4TI8XcPwjCM9hVIEeTGou8c5BHVH1YxRgMn9EWxQXyzB84BEC4ATaNP8e0
-X-Received: by 2002:a05:690e:1507:b0:679:97d1:4378 with SMTP id
- 956f58d0204a3-67a35bfb62fmr416506d50.51.1792714936009; Thu, 22 Oct 2026
- 17:22:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=B0iR0guj
+Received: from ehlo.thunderbird.net (ENVISION-AE.edge1.SanJose1.Level3.net [4.79.220.182])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69N0MTYe1497671
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 22 Oct 2026 17:22:30 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69N0MTYe1497671
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1792714955;
+	bh=sewWTjP+M6E94TwmQI+LvxiP3Dgk+UiInUJ1sYqPvjE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=B0iR0gujNC7PBahAQGPELPfOvA7wFnm4aVgauSDh6Mr2eGjg9f2sjLSQ7t78E+yy1
+	 f8bIVvq6KYitlu1MNVZc3rKXjku7b5th05mhKR3968auNM3tY5s5Ser+GgoQNITSum
+	 ZADmFoGGs0IzvcRHHbEEE6rPcUpxXrq+3jB2dvktUZRlLHRQfdXJNzBfWoR9LWTL/0
+	 Vfr9nrAF6Af+MSU3LPirKQDCQPLvyBm4AXAwcmc36BGcccEuO+/ctQAGEZb2pFmtOB
+	 9hRTTHAao28lytaVTDSTMgSi2sQxwQH+82H9bDetNn7xdIGgwxNjxXV+Ny1OiYpDe8
+	 //k9lsYxpZvPw==
+Date: Thu, 22 Oct 2026 17:22:24 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+CC: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Kees Cook <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+        loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        x86@kernel.org, Mark Rutland <mark.rutland@arm.com>,
+        Jinjie Ruan <ruanjinjie@huawei.com>, Andy Lutomirski <luto@kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Russell King <linux@armlinux.org.uk>,
+        Catalin Marinas <catalin.marinas@arm.com>, Guo Ren <guoren@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Helge Deller <deller@gmx.de>,
+        Yoshinori Sato <ysato@users.sourceforge.jp>,
+        Richard Weinberger <richard@nod.at>, Chris Zankel <chris@zankel.net>,
+        linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
+        linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
+        linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+        linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
+        Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
+        Will Deacon <will@kernel.org>, Brian Cain <bcain@kernel.org>,
+        Michal Simek <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>,
+        linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
+        linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+        linux-arch@vger.kernel.org,
+        =?ISO-8859-1?Q?Michal_Such=E1nek?= <msuchanek@suse.de>,
+        Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5Bpatch_16/18=5D_x86/entry=3A_Get_rid?=
+ =?US-ASCII?Q?_of_the_sys=5Fni=5Fsyscall=28=29_indirection?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <87cxt11ktr.ffs@fw13>
+References: <20260707181957.433213175@kernel.org> <20260707190254.493733289@kernel.org> <20261022142425.3Wx-RrU5@linutronix.de> <87fqxx1r80.ffs@fw13> <87cxt11ktr.ffs@fw13>
+Message-ID: <1149A39E-BEBA-46EA-94F4-4DFFC4733EF5@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +100,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
- <20261021022336.2232886-1-miro.kropacek@gmail.com> <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
- <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com> <atqTLxkEusWSS-wf@google.com>
-In-Reply-To: <atqTLxkEusWSS-wf@google.com>
-From: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>
-Date: Fri, 23 Oct 2026 10:21:59 +1000
-X-Gm-Features: AclHuK-Y6Dnm1r5HCn5OEPDjtqeZI8Ly1qy0RvG-aD-4oneVDHT_0R61QzLB_0k
-Message-ID: <CAN5rfbQWDTXZVyh8fDjxqRVO_HEKvWLC7Q_i-7aTtSxi9sWuSg@mail.gmail.com>
-Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Michael Schmitz <schmitzmic@gmail.com>, 
-	linux-m68k@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
+On October 22, 2026 2:34:08 PM PDT, Thomas Gleixner <tglx@kernel=2Eorg> wro=
+te:
+>On Thu, Oct 22 2026 at 21:15, Thomas Gleixner wrote:
+>> On Thu, Oct 22 2026 at 16:24, Sebastian Andrzej Siewior wrote:
+>>> On 2026-07-07 21:07:01 [+0200], Thomas Gleixner wrote:
+>>> |[RUN]           Checking out of range system calls
+>>> |[FAIL]                  x32 syscall 1:-64 returned -9999, but it shou=
+ld have returned -ENOSYS
+>>> |[FAIL]              x32 syscalls 1:-64=2E=2E-2 had 63 failure
+>>> |[OK]                x32 syscall 1:-1 returned MODIFIED_BY_PTRACE as e=
+xpected
+>>> |[FAIL]                  x64 syscall 1:1073741760 returned -9999, but =
+it should have returned -ENOSYS
+>>> =E2=80=A6
+>>>
+>>> and so on=E2=80=A6 The test has
+>>>
+>>> | #define MODIFIED_BY_PTRACE      -9999
+>>>
+>>> and the ptracer modifies the return code=2E However not always=2E Not =
+sure
+>>> if this was indeed a pointless exercise or not=2E
+>>
+>> Hrmm=2E That's weird=2E Let me have a look=2E
+>
+>So I clearly failed to decode the overloading of the -1L return value
+>correctly and then failed to run the stupid test=2E
+>
+>TBH, this whole thing was a horrid and inconsistent mess=2E
+>
+>The logic in the original code was:
+>
+>    When the entry work code returned an invalid syscall number then the
+>    return value in regs->ax was set to -ENOSYS, except when the
+>    returned syscall number was -1=2E Syscall number "-1" indicated that
+>    the syscall has to be aborted=2E
+>
+>     regs->ax =3D -ENOSYS;
+>     syscall =3D enter_work(regs, syscall);
+>     if (syscall_in_range(syscall))
+>        regs->ax =3D do_syscall(syscall);
+>     else if (syscall !=3D -1)
+>        regs->ax =3D -ENOSYS;
+>
+>So if the ptrace check in enter_work() overwrote regs->ax and the
+>syscall number (either as supplied by user space or rewritten) was out
+>of range and not -1 then the x86 entry code overwrote regs->ax to
+>-ENOSYS again=2E IOW, there is no distinction between a check induced
+>abort and a syscall with syscall number -1=2E
+>
+>The rework changed the return value to boolean, which is true when the
+>syscall should be invoked and false when one of the checks requests to
+>abort the syscall=2E In that case the return code does not touch the
+>return value in regs->ax=2E
+>
+>If the eventually modified syscall number is out of range then the code
+>relies on the fact that regs->ax was preset with -ENOSYS, i=2Ee=2E:
+>
+>     regs->ax =3D -ENOSYS;
+>     // True indicates to proceed
+>     if (enter_work(regs, &syscall)) {
+>         if (syscall_in_range(syscall))
+>            regs->ax =3D do_syscall(syscall);
+>     }
+>
+>That seems to be equivalent, but it is not when ptrace() modifies
+>the return value in regs->ax and also rewrites the syscall number to an
+>invalid value or leaves the user supplied invalid value intact and does
+>_NOT_ abort the syscall=2E
+>
+>So the reworked code does not overwrite the tracer modified return value
+>with -ENOSYS in that case and returns whatever the tracer decided to put
+>into it=2E
+>
+>TBH, that makes a lot more sense than the original behavior=2E If the
+>tracer decides to fiddle with the default return value then that's what
+>the tracer intended=2E
+>
+>That makes the behavior consistent vs=2E other abort scenarios:
+>
+>    ptrace()
+>      regs->ax =3D MAGIC;
+>      return true;            // Allow syscall
+>
+>    seccomp()
+>      return false;          // Abort syscall
+>
+>So when the tracer modified the return value and seccomp aborts the
+>syscall then the tracer induced value is preserved=2E That was the case i=
+n
+>the original code as well because seccomp() indicated the abort by
+>returning -1 as the modified syscall number=2E Similar effects when ftrac=
+e
+>(BPF, kprobe) decided to overwrite the syscall number)=2E
+>
+>Bringing the original behaviour back is trivial enough, but I'm not
+>convinced that it makes any sense and is worth it=2E At least this
+>confines the x32 specific insanity of treating -1 special to x32=2E=2E=2E
+>
+>Thanks,
+>
+>        tglx
+>---
+>--- a/arch/x86/entry/syscall_32=2Ec
+>+++ b/arch/x86/entry/syscall_32=2Ec
+>@@ -77,6 +77,8 @@ static __always_inline void do_syscall_3
+> 	if (likely(nr < IA32_NR_syscalls)) {
+> 		nr =3D array_index_nospec(nr, IA32_NR_syscalls);
+> 		regs->ax =3D ia32_sys_call(regs, (unsigned int)nr);
+>+	} else {
+>+		regs->ax =3D -ENOSYS;
+> 	}
+> }
+>=20
+>--- a/arch/x86/entry/syscall_64=2Ec
+>+++ b/arch/x86/entry/syscall_64=2Ec
+>@@ -64,15 +64,24 @@ static __always_inline bool do_syscall_x
+> 	return false;
+> }
+>=20
+>-static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigne=
+d long nr)
+>+static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigne=
+d long nr)
+> {
+>+	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
+>+		return false;
+>+
+>+	/* Preserve the historic insanity of treating -1 special on x32 */
+>+	if (nr =3D=3D ULONG_MAX)
+>+		return true;
+>+
+> 	/* Adjust the starting offset of the table */
+> 	nr -=3D __X32_SYSCALL_BIT;
+>=20
+>-	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
+>+	if (likely(nr < X32_NR_syscalls)) {
+> 		nr =3D array_index_nospec(nr, X32_NR_syscalls);
+> 		regs->ax =3D x32_sys_call(regs, (unsigned int)nr);
+>+		return true;
+> 	}
+>+	return false;
+> }
+>=20
+> /* Returns true to return using SYSRET, or false to use IRET */
+>@@ -81,8 +90,10 @@ static __always_inline void do_syscall_x
+> 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
+> 		instrumentation_begin();
+>=20
+>-		if (!do_syscall_x64(regs, nr))
+>-			do_syscall_x32(regs, nr);
+>+		if (unlikely(!do_syscall_x64(regs, nr))) {
+>+			if (!do_syscall_x32(regs, nr))
+>+				regs->ax =3D -ENOSYS;
+>+		}
+>=20
+> 		instrumentation_end();
+> 	}
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
 
-On Fri, 23 Oct 2026 at 08:51, Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
-> Could you please re-post v1? Can't seem to find it.
-
-v1 went to linux-m68k only, without linux-input:
-https://lore.kernel.org/linux-m68k/20260814031745.17140-2-schmitzmic@gmail.com/
-
-It touched only atarimouse.c, keeping char * and casting the two
-deltas to s8. v5 is the same two casts with u8 instead of char. The u8
-can't stay in input alone though: a char * hook doesn't accept a u8 *
-handler (-Werror=incompatible-pointer-types), so the arch side has to
-follow.
-
--- 
-http://mikro.atari.org
+It was never limited to x32=2E=2E=2E
