@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757374;
-	b=esijeR9dcpZzWF49DitJQJWt3FJmpBufJWIv+aDhKFDZzUF+XQ0jGDF6bU2ez09K/8/c
-	 onwWq0uJbVDvqT81VEj3CECd8gH2V9e0DieVfziC3HcBxHZNUxaWBsKpwU3kitll/yu1r
-	 HItnJqmrR2gPoLZZ/aZtxkpGnCeZ51n8xXzwo5v8cFz4R4aNIrCAr6IBWx3VjHS6UOwyy
-	 MuwkkSj+TLFRDKmZwZTBChP2A0zkwmjN56ykOpX8s4G7rDP9v1S1E1kGB+ZVt8gTruGvb
-	 qEL/C5v8dNiZNMCVtl1bgwPLp6PZfMLIds3DuJtdwvsFelezTL4pT5eE6zaTuTlc+Nw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757374;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FfNDu2MufhqcFnIpc0s4LixzLKeopjshJLXr4fBuq00=;
-	b=M2MYFoal+S1fQSLiaT3pTjzuhOvYcmENHBghZtdtg8nRHtIFYzt4lnWerG4RO7HXZYZo
-	 KY5QlaHECfjZTVh1Vs/0IJOYXg1sQ8kUGnIB8zaCDp2GzFyA9wveo4/naeI8wIxe3qO71
-	 rlAmKyyoe0HKdBU0Li+h6CorwCYpukVM0F5qo5b/tyh3Ab78QU98fYxcIL9vPP0pgS1tL
-	 OBkFLcLJ0aebwhpV1ToeLdTdrLwdo+N2bvQUj6t8QMOBduv6VYNtAhdCpcRBzSPB2rMVs
-	 VECkp4fnfv9slW280gujPEei+2psjtfQMjiuSkrdZT3nfP3/AjbTwzhlZ2Pmzghd/Tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="XR/dnDfh";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 847AB606A31B;
-	Fri, 23 Oct 2026 12:09:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 847AB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792757422;
+	b=jMg4r6WOHO39sVFbTCDR0N2wciDLREwLlKM6DfbErHX0E1TTkemSCzv3/NdKvFTH4f3o
+	 mHoGky40YnHLsjiRG/8F/Oo0O9sXOZYpQmA05qjN/7KziFxteAYjOgzj99nRL1J/7Cp4Y
+	 NBbqDOVulq0hZ/at09zSg3enlr5bErm4RbQYwLTnwlK7OY51gZlLGgC6O9ohRvvQcj0rK
+	 YdeGwCHCrhN0fdTOyZGsW2Mpj7YnHUFzkFe8Aq4uPHBBvh/RxCPYGgXZG2z9HEnwGIHJV
+	 fZ/hVLB6Em12HCbdj/wWQGRg7/GJsXkfsVbXzZJX80DvdSAdBtHmns9jc3N7RUu3rqw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757422;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TG4Iu73aAEKP2jcwjceYT4rYGA7uks5j6bejX77+yvc=;
+	b=dcBUWqEaRKKzGJImtc3BrQzdR+U7KQAMugwqmU9Ks3UDgJvSEJTYn1pm6rT0i5DLz7E/
+	 qCAGSP92fxueTjRT2Say0kIpV+enG4dzylac58jjJEK1jkPl5ri2yfpXVTx3CTLJlOOh7
+	 DNNNmZiPvq5MC9bKX3RzBZATWGLGSWssfLRl5Q4/vpquvI1yz03D6VqOJ9UWNmB8lbbq7
+	 87Ek9DXSE7FG+GuYNLlpoJZfr4qX2RcRWIkiTcj4ljhwUX5B/AAfj1aWt9df2yP2SGkNf
+	 6uBicRc/BOlcApadH1zlYnaWuvmvs+KFXkh7Wn2Bh4o5REULVfKfT/XrJA2tGYPp6Yg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qbCu9V0Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.19
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010019.outbound.protection.outlook.com [52.101.46.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E844D606A31B;
+	Fri, 23 Oct 2026 12:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E844D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XR/dnDfh
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B2201691;
-	Fri, 23 Oct 2026 05:09:29 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0E5603F7B4;
-	Fri, 23 Oct 2026 05:09:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792757372; bh=SN3o/iL4eW4PQ8inEqf1iSxxRY1YEBE8Xs4TQqQSkEU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XR/dnDfhsetlYyRysR/TdIp7hgR49MPNIN0c61NBGGFqcnoT7qDagReEFlpg9etD4
-	 WMBEPsWUbbYuQPKKN3qmV4zuVYjMm6cV2DwZ6HcjphHDKxudDCkExWOAd/82c3WuFw
-	 oene2hPPyVAV8LBnaFLjJ8mnWpnhkZsZQZ+H6e4M=
-Message-ID: <e267c3d5-a52a-4b55-9eb3-cf42160c3af0@arm.com>
-Date: Fri, 23 Oct 2026 13:09:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qbCu9V0Y
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uy2j5vkGxDzevVa5gXqo8QxJncyvfj2/ORUvEk79QmYA0yNaKiRGkh3QWdwt6K0rMzMbPNwCtsgoY0vspS18BFMvAhlewI4d8Xv9SnNAm9wz7VYyGpt7Y1qViVk7mW6oVE4SAz34ecmJdZqkr8iQJYaE05j4eaRurlhbCCt1F2FJqcdqlWDhmRRUe41SGr6puWk1jEf1z2TqMiXrFNNXLjF3t/ONkPl+vf0u7jGRJ9zlZhe8hLFID/qgDvavizRA+BXAgiVHbibNaiB8534/86+x0fqZ3EiAxN3BE6Ecom/ehUxJ7zqucOUTZXFol7k0upqZqM0sFstNK5atFyihbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TG4Iu73aAEKP2jcwjceYT4rYGA7uks5j6bejX77+yvc=;
+ b=EkFqbkr6b2R+2s1Y2QFSyEwkK8xT8iJnuLS6y1semhf7GpSvFzO94PIvXjBPr0JWDnuy6jIe9ieLdU4/fcXWn5XjrJbwTNee6IKzWhkJuH3OFs71pdSE/WRzSQYUkodpxQ3GXRzaM+69XcrQrO8O6H4LMW9raSBPSaKI6zoLmyj3iJesc84kxWFW24ZiVU+9vkk4ZCOfb0WqB+SzWT6dxyf+lRQmNUU1YCWoQjJferiTrAMZq4/X5GLURIFgyr7xo29St3R/x/2LkWSTogFRZCgOCKPYuKKw4IuFHQz9g1kMc5FyD9V0Ec+baRwMO3w8SD8WcaWUqkguPNU5XMhLEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TG4Iu73aAEKP2jcwjceYT4rYGA7uks5j6bejX77+yvc=;
+ b=qbCu9V0YwD85TCrPhYuTVGaqBHtF1DBQXpyv5eGiMcBCvN9V6n6tsftSrUcbVYvlqrXchKRjw2gC1ydoEEkuu1ENYCviOiGELsyYP7F+UL8mQ8aI5x/KN5vKsngaTQkzA5gEf33sRzAwvWyfOS/s8w7bm7GA1Hl60aOeNhxrfuhfZ0JAdsyG1X5z/WPKGqW6tkDGeV9lj3SSIibrnA8Vfbsqe6Mr/S1Q8z1OZtFKjrfY/eqRDublKtVJ0t+boRI3QbuFmfKj9u9N3alAonpGTfZ2zgsX9hkFm1XKDrxXMjJI2uBKkTz1LMzin+uJB3EG2B1REcJXLq2JYD/2B4kkAA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by CH3PR12MB7545.namprd12.prod.outlook.com (2603:10b6:610:146::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 12:10:16 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 12:10:16 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>,
+ webgeek1234@gmail.com
+Subject: Re: [PATCH v3 2/2] drm/tegra: Support YVU formats
+Date: Fri, 23 Oct 2026 21:10:12 +0900
+Message-ID: <T1504rPqStSSyO9jl0by8w@nvidia.com>
+In-Reply-To: <20261020-tegra-drm-yvu420-v3-2-7f19a834ba98@gmail.com>
+References:
+ <20261020-tegra-drm-yvu420-v3-0-7f19a834ba98@gmail.com>
+ <20261020-tegra-drm-yvu420-v3-2-7f19a834ba98@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OS7PR01CA0026.jpnprd01.prod.outlook.com
+ (2603:1096:604:24f::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,125 +101,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 02/16] arm64: ras: Add probe/remove for arm64_ras
- driver
-To: Umang Chheda <umang.chheda@oss.qualcomm.com>,
- Ruidong Tian <tianruidong@linux.alibaba.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
- zhuo.song@linux.alibaba.com, oliver.yang@linux.alibaba.com
-References: <20260602071540.3711528-1-tianruidong@linux.alibaba.com>
- <20260602071540.3711528-3-tianruidong@linux.alibaba.com>
- <01b1b1bd-2848-482e-af8b-8fab037c7a04@oss.qualcomm.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <01b1b1bd-2848-482e-af8b-8fab037c7a04@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH3PR12MB7545:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21331dc3-0c7f-41ce-f23a-08df30fe994f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|10070799003|1800799024|18002099003|6133799003|22082099003|10067099003|11063799006|56012099006|4143699003|261022105027099003|261021121427099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	P3qQrYngS4qz3xHu4egjiPNo4H+8ZsAAfZRow2EkNmu1mCaAhEs8rONMIOUKJuT3JGo6cBrkBxTU+niC5JuBAV6kGIp8LrfYqtzSgUAwNjBrrduICx5uMb0hRe4x5atminq3c47QshMlDslio9znLoTLglQfxohWGvk7mKkYWqKN2JMaB9uv2g2L/1NBypmfxVQkJWNnE2GyqHESl/HdL/G/8mujy45baKLDw2PJtvemkVN+ipmOW8hfFAuH4DolCY4iqj98RNBC86Z0zaeJIvX4wXRj+NoZgcmH03m7sgu5s6/RmGWWJZDyJMj5xME57qxEh2QYDxaoSvrWB2Dz0iOlWjBpaRNPgkFL2ag6p8vIkddyC8ialyxdR8liJQukPtWLdlBuYrnXFIEdNjJZKeGdxpnu9YrhVj12IOz/edAom93eLJZm1qiWvIVXGt/hQmf4kEmQk9/uf9T4R1xvCyISoC9Mv8theVf2IbpK+2tNoTxN7U4fA0J30bb8YKAyDHBFykD9ffK7WdJieH10RDNohL/nOIOJkZz0VLdJUm3LODtsPXAbMKkZ4TCca6zxMtXeww1au40lkOPwbvaJqmFzsiDTpJMcfKqj6z7V8a0DXJc2zx5HnIJmdjau9GW44DP4AUuAp0QL/cg/svp7GLo4jb0S+IVJncRch50sy44=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(10070799003)(1800799024)(18002099003)(6133799003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003)(261022105027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NXcwK1kxSGRXRVFGYzNKVE1hTEV3OG9VNWRaMHNEdTFjc0lMK1pLNUl3ZzVJ?=
+ =?utf-8?B?MDBwY3JsVkJRYUcvSm8wUHRrTDZmbHU5V1pOTU5zNmlyTUI2enE2MWxzSEFp?=
+ =?utf-8?B?RTZ6YkhIbE96TWhyaGsreTIzeWVMUlB6REtDRE1DajRxdm1jajB6dndvaUh5?=
+ =?utf-8?B?bEJtcndzZy9FMVpjZmg2Y09PemIrNXZZU2xtajZuTWdJUk1zZWc4ZUZCSUpC?=
+ =?utf-8?B?VTB4VXFDdGxTUjJEMDJnQmZRaEhORCtwSFpkWFpMNVNLNjFmWWZvNjlhVElB?=
+ =?utf-8?B?WTJZeFRKZVVFV3Yxc3liSGxvRnV4MDU5MUwrdWV5MC9pRWlNOThQNkV3ZFNX?=
+ =?utf-8?B?TFpVcTNEV1gya0NSSjZGb0o2ZlR4MXZxSElQQ2xCckxsdEtwRklyMlVmd0pO?=
+ =?utf-8?B?bkREWXc2a3VLbE92L01lR1ExYU5NQ0ptQ3oxQnhRYzI0WXYwOUlCY2xBaXc2?=
+ =?utf-8?B?TUlaNXpSSWx3ZmpZMnhWbVFrdlUxSUxmaVdUeUk5L1pxRlRKM2ova2tJRVJL?=
+ =?utf-8?B?a0dyZVdLRmx5TkdmZ09vc0lTeFQzQ2R4R3hlb3JmOElKY2RSdXZ5L1VnOFcx?=
+ =?utf-8?B?VlFPb1Q3MVl3dnBCZ2VxeVhNS3NTWkF2VFFWVWo2MTdvWXJMRmRmK2I0REZh?=
+ =?utf-8?B?R2llVjgvb2tJc3BqY0JNeEk0ZlhjTDB5VW9JeUVlY3NscGMyMGQyRXNyU3Vz?=
+ =?utf-8?B?aGFkUCt6dzZUWGwzMGowNXU5N2RyK0FZN3NVdHhqSCsyYnJGWk5yRDJoaXZT?=
+ =?utf-8?B?c0tRU2hRMmd4YU5wdUFuditZNFdBVStyS0dDUWxYZVQ0QjRJbFUzeUtxQkZ2?=
+ =?utf-8?B?K1ZMUjRNMUlZY21vancraVNzVGVpSy9FdmJGNFFjVVlpRjF3RG5jSVlXczlZ?=
+ =?utf-8?B?VXEvMHZPQ1I2MDVrQ1RZdzB2L0xjb0hVMkFKYW9yNU55d3BaaURvckdsdG5y?=
+ =?utf-8?B?YkE4cC92MEY4Q2x0Wlk0bEd3eHkrN0IzYkZRSjRKRVc3RnZNNFdvd2xBOVFE?=
+ =?utf-8?B?SWNZV0gzVUwrWWFjb1p1N09PbWR3eTY4OWlWTzlXUDdjdHQ2TUZwWDdQQWUz?=
+ =?utf-8?B?WWh3YndNTzEwZ1ZqVXJNVXZmNEpLbDU2VTlJQXhBVmJJQTFGNG5uUFI0TExO?=
+ =?utf-8?B?TXczWFJyTnZ6QmFtcFNsQVJXWHF0NFZ6NXZDR2lLVldwV0NaTnIzQ2hBRG5Y?=
+ =?utf-8?B?bWxrSktsTWNsa0RhdXVNU3FhMFJtVldGd28wajNtK1hwNmVpZlo3U1F5OU5S?=
+ =?utf-8?B?QjJMOFVacWdFSlZKdkd2M2wvTWZUNVQ4aTRxaDkzSEVhTFNNb21PckhMV1BS?=
+ =?utf-8?B?WGQraGwvZmw3Q1VNa0MwdGFmRVlNM3lObjlJcWtWREZGdStmMHNhQS9IUVZl?=
+ =?utf-8?B?OE4vYlhqSnE1WDQvaytSY3FaQS9SVzRYZXNBSk9xWDdoQnRXVGdJKzczcTkr?=
+ =?utf-8?B?REZoNmphaWR6YzV1WHkwWGcweVFsZzM3b3JGSG9nODRJMmx5L216SHU1YStS?=
+ =?utf-8?B?dnNBYzhyMjFjU1dOUHdnV1pzeDY0eVRRN2cxN28xREo5YlR6SHpEZ1dzUkVl?=
+ =?utf-8?B?a2xNWW1PVUtxZ09Jelp2MXNWM0FXcytCQ2RQMjZtbTc1cVZFZlloMU11UlVB?=
+ =?utf-8?B?eHpoRFd0NjRtbUVDZ2xEVGhKYTkxV0NTT09YVjZqakFlTkhJRkoyd0o0QVBL?=
+ =?utf-8?B?aUUyckg2cjhRLzlFMHV3VFZRYzU0ZHRvUkd0TXBQb2UvYzlFMS9DcTIvdjhY?=
+ =?utf-8?B?ZWdqNm5NcDBDMmFUMFIxdjVybTJPWFJQVU5QL29NeWIyUHZnSmdNdG5rbEtj?=
+ =?utf-8?B?UDdLSkJycys3TVAwWUh1VER3UTBnMEJyWUNWZmJVYlFveFhaRXNocVVHQ0th?=
+ =?utf-8?B?UzcwZ3NnalM4Wk4ydmhpUFI2WVUxRlRPWGZrRmZpYXp6NVBvdExmcG93YU96?=
+ =?utf-8?B?NVR5dG1oeW83azFNVW5IUlVuUEgyYzJwVzZLREFwZ1hTVHJKUHlYR3hNUStW?=
+ =?utf-8?B?ZFg1WlJIeFo1Q3VwelhYaVIzemlINEU0SFg2NDVIbzJsM1dJUnBaNFdTRVpt?=
+ =?utf-8?B?dXNsZjdZYU40TXdzU0dyendJQ3hWaHhrMzQxZ0xxWGZnMTdxSUltK3JjVDRZ?=
+ =?utf-8?B?WlFpaCtvanpvTG5PVFZBakxrQjZTZVNUNDMzM01KSXNzQ1d0SVhSNXhoeWg1?=
+ =?utf-8?B?czNxZmdzTmpnTHZBdVJKdjZkR2NuNEJ4MmFyVnFlM0M4MjcxUUp2ZzNOVkRt?=
+ =?utf-8?B?NjBUNEM2VGVLeW0rbHdlVTcyRzBiem9nTWdSSjJZN3dncFJRS0FkVkdiVjUx?=
+ =?utf-8?B?ZTQ5M2U3NmZpM2hzclJwd09NUlJ2b1lTUUszMzJWMk1CV0dSNWwyQStNSDlB?=
+ =?utf-8?Q?Qt99H8sGAWLBfylDwl/gCOdRzL/uiLxJ+ddY8+tJX5i5u?=
+X-MS-Exchange-AntiSpam-MessageData-1: W8+8YxMs/8JZkg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21331dc3-0c7f-41ce-f23a-08df30fe994f
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 12:10:16.4607
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9i8XmFPqo69BjxYzeZSnFMMh41+hCw1gYyOI7qCWFE8hm0g50k7hdiiqW2xjusfdYjx5lI9zHhMvOcPOvxjKeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7545
 
-On 23/10/2026 10:59 am, Umang Chheda wrote:
-> Hello Ruidong,
-> 
-> On 6/2/2026 12:45 PM, Ruidong Tian wrote:
->> Introduce the back-end platform driver that binds to the devices
->> created by the AEST front-end. Driver input is taken exclusively from
->> fwnode properties, so the same probe path serves any future front-end
->> (DT, hand-rolled) without conditional code.
->>
->> The probe builds two layers of state:
->>
->>    - struct ras_node:   one AEST error source
->>    - struct ras_record: one error record inside a node
->>
->> This split mirrors the hardware: a node owns the shared MMIO/ERRGSR
->> window and policy, while records are the unit at which errors are
->> reported, masked and polled. Later patches plug interrupts, decoding,
->> storm mitigation and userspace ABI onto these two objects without
->> touching the front-end.
->>
->> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
->> Signed-off-by: Ruidong Tian <tianruidong@linux.alibaba.com>
->> ---
-> [...]
-> 
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +
->> +obj-$(CONFIG_ARM64_RAS_DRIVER) 	+= arm64_ras.o
->> +
->> +arm64_ras-y		:= ras-core.o
->> diff --git a/drivers/ras/arm64/ras-core.c b/drivers/ras/arm64/ras-core.c
->> new file mode 100644
->> index 000000000000..b5448f4a841f
->> --- /dev/null
->> +++ b/drivers/ras/arm64/ras-core.c
->> @@ -0,0 +1,266 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * ARM Error Source Table Support
->> + *
->> + * Copyright (c) 2025, Alibaba Group.
->> + */
->> +
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/ras.h>
->> +
->> +#include "ras.h"
->> +
->> +#undef pr_fmt
->> +#define pr_fmt(fmt) "arm64_ras: " fmt
->> +
->> +static const char *const ras_node_name[] = {
->> +	[ACPI_AEST_PROCESSOR_ERROR_NODE] = "processor",
->> +	[ACPI_AEST_MEMORY_ERROR_NODE] = "memory",
->> +	[ACPI_AEST_SMMU_ERROR_NODE] = "smmu",
->> +	[ACPI_AEST_VENDOR_ERROR_NODE] = "vendor",
->> +	[ACPI_AEST_GIC_ERROR_NODE] = "gic",
->> +	[ACPI_AEST_PCIE_ERROR_NODE] = "pcie",
->> +	[ACPI_AEST_PROXY_ERROR_NODE] = "proxy",
->> +};
-> 
-> Now that the ARM RAS core framework is shared by both ACPI and DT
-> platforms, should we consider dropping the "ACPI_AEST" naming in the
-> common code and replacing it with a more generic prefix maybe something
-> like "ARM_RAS" ?
+On Tuesday, October 20, 2026 5:10=E2=80=AFPM Aaron Kling via B4 Relay wrote=
+:
+> From: Aaron Kling <webgeek1234@gmail.com>
+>=20
+> YVU420 is used by AOSP for video playback among other things. YVU422 and
+> YVU444 can be trivially supported in the same manner, so add them as
+> well.
+>=20
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c    |  7 +++++++
+>  drivers/gpu/drm/tegra/hub.c   |  2 ++
+>  drivers/gpu/drm/tegra/plane.c | 24 ++++++++++++++++++++++++
+>  3 files changed, 33 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> index 39c2e920d76a6..be913f2609077 100644
+> --- a/drivers/gpu/drm/tegra/dc.c
+> +++ b/drivers/gpu/drm/tegra/dc.c
+> @@ -1282,6 +1282,8 @@ static const u32 tegra20_overlay_formats[] =3D {
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YUV420,
+>  	DRM_FORMAT_YUV422,
+> +	DRM_FORMAT_YVU420,
+> +	DRM_FORMAT_YVU422,
+>  };
+> =20
+>  static const u32 tegra114_overlay_formats[] =3D {
+> @@ -1309,6 +1311,8 @@ static const u32 tegra114_overlay_formats[] =3D {
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YUV420,
+>  	DRM_FORMAT_YUV422,
+> +	DRM_FORMAT_YVU420,
+> +	DRM_FORMAT_YVU422,
+>  	/* semi-planar formats */
+>  	DRM_FORMAT_NV12,
+>  	DRM_FORMAT_NV21,
+> @@ -1349,6 +1353,9 @@ static const u32 tegra124_overlay_formats[] =3D {
+>  	DRM_FORMAT_YUV420, /* YU12 */
+>  	DRM_FORMAT_YUV422, /* YU16 */
+>  	DRM_FORMAT_YUV444, /* YU24 */
+> +	DRM_FORMAT_YVU420, /* YV12 */
+> +	DRM_FORMAT_YVU422, /* YV16 */
+> +	DRM_FORMAT_YVU444, /* YV24 */
+>  	/* semi-planar formats */
+>  	DRM_FORMAT_NV12,
+>  	DRM_FORMAT_NV21,
+> diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
+> index 5a86f8260f136..ac4542e54d7dd 100644
+> --- a/drivers/gpu/drm/tegra/hub.c
+> +++ b/drivers/gpu/drm/tegra/hub.c
+> @@ -51,6 +51,8 @@ static const u32 tegra_shared_plane_formats[] =3D {
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YUV420,
+>  	DRM_FORMAT_YUV422,
+> +	DRM_FORMAT_YVU420,
+> +	DRM_FORMAT_YVU422,
+>  };
 
-But these names and values _are_ defined by AEST (literally "AEST node 
-type", see table 4 in DEN0085) - they are not part of the RAS 
-architecture itself. Even if you exactly copy all the AEST concepts into 
-a DT binding, it doesn't really make them "common", it just means you've 
-defined a DT binding in terms of what are still AEST definitions.
+Well, I just tested this and it looks like the nvdisplay/hub.c based=20
+display controllers don't support planar YUV422. So that's an existing=20
+bug in the driver but I think anyway we shouldn't advertise YVU422.. :)
 
-Thanks,
-Robin.
+Could you respin one more time and drop YVU422 from hub.c? You can add a=20
+patch to drop YUV422 as well or I can follow up with one, either way is=20
+fine by me.
 
-> [...]
->> +
->> +const struct ras_group ras_group_config[] = {
->> +	[ACPI_AEST_NODE_GROUP_FORMAT_4K] = {
->> +		.errgsr_num = ERXGROUP_4K_ERRGSR_NUM,
->> +		.size = ERXGROUP_4K_SIZE,
->> +		.errgsr_offset = ERXGROUP_4K_OFFSET,
->> +	},
->> +	[ACPI_AEST_NODE_GROUP_FORMAT_16K] = {
->> +		.errgsr_num = ERXGROUP_16K_ERRGSR_NUM,
->> +		.size = ERXGROUP_16K_SIZE,
->> +		.errgsr_offset = ERXGROUP_16K_OFFSET,
->> +	},
->> +	[ACPI_AEST_NODE_GROUP_FORMAT_64K] = {
->> +		.errgsr_num = ERXGROUP_64K_ERRGSR_NUM,
->> +		.size = ERXGROUP_64K_SIZE,
->> +		.errgsr_offset = ERXGROUP_64K_OFFSET,
->> +	},
->> +};
->> +
-> Thanks,
-> Umang
+Thanks
+Mikko
+
+> =20
+>  static const u64 tegra_shared_plane_modifiers[] =3D {
+> diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.=
+c
+> index 757bc552809fe..79ef5fc1b3678 100644
+> --- a/drivers/gpu/drm/tegra/plane.c
+> +++ b/drivers/gpu/drm/tegra/plane.c
+> @@ -433,14 +433,38 @@ int tegra_plane_format(u32 fourcc, u32 *format, u32=
+ *swap, bool *swap_uv)
+>  		*format =3D WIN_COLOR_DEPTH_YCbCr420P;
+>  		break;
+> =20
+> +	case DRM_FORMAT_YVU420:
+> +		if (!swap_uv)
+> +			return -EINVAL;
+> +
+> +		*format =3D WIN_COLOR_DEPTH_YCbCr420P;
+> +		*swap_uv =3D true;
+> +		break;
+> +
+>  	case DRM_FORMAT_YUV422:
+>  		*format =3D WIN_COLOR_DEPTH_YCbCr422P;
+>  		break;
+> =20
+> +	case DRM_FORMAT_YVU422:
+> +		if (!swap_uv)
+> +			return -EINVAL;
+> +
+> +		*format =3D WIN_COLOR_DEPTH_YCbCr422P;
+> +		*swap_uv =3D true;
+> +		break;
+> +
+>  	case DRM_FORMAT_YUV444:
+>  		*format =3D WIN_COLOR_DEPTH_YCbCr444P;
+>  		break;
+> =20
+> +	case DRM_FORMAT_YVU444:
+> +		if (!swap_uv)
+> +			return -EINVAL;
+> +
+> +		*format =3D WIN_COLOR_DEPTH_YCbCr444P;
+> +		*swap_uv =3D true;
+> +		break;
+> +
+>  	case DRM_FORMAT_NV12:
+>  		*format =3D WIN_COLOR_DEPTH_YCbCr420SP;
+>  		break;
+>=20
+> --=20
+> 2.54.0
+>=20
+>=20
+>=20
+
+
+
 
