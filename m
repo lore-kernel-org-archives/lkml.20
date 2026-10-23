@@ -1,92 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792719400;
-	b=QZgHlzLxOS5ih3VKyQDWBceN44WVXM1lvbGil6NQcRBUaNdmEo5lzS6KDOhcBqzj8rmw
-	 3KO492kgqcIMaINfIzIwjjF9R0L6K46GC4m3hPAmHypBQlbIFtkRAiKoQsqX3+0yeIZD2
-	 96UyDv9H3evoJ7O46VKRTswLeVNSbxIwxXJHtSPjjl8BeamSSH39U5Zx3OHxZDOShl7Rn
-	 sH2i/gVOddAc96R93v3r2Mv36DtiSqyo98zxdAVqG4iinjC9Z6d5cRnElyc1mYZoVTka/
-	 MOM81C/zhrWWCdJWqEutruONF2W3X4lvbVDutsyXk4p4RqNkIaKjlklKKPcl3UNTocw==
+	t=1792719489;
+	b=FT9Njr10EpbBTU3pjduyeiognxjLvrkuAGBnLbf8MfwBRs4Ue8aJBTk0ygfUdqgW5DDG
+	 2PmJJktnhF2unV2Q0Q1PMYbU+PcSY3z0Lt0nAR3P7VPcnM12XvvQeEjRnX7aj1jpG3Bv9
+	 50G8IGm7RQivkP9wOQKrXSZ01OX0V1U/Sp9Wyn1ntAZbPe4Eo6V/uxM3VLvgVMyOfOGjo
+	 2K33+AMqEI+2N/ukGFa2hVNJvHkVmLWANLq2zLwPC9xBFeAI1n/rAHPCkamf/c5PGSBLX
+	 68s6ecj/TNFkAtrBVbKP0yCVfD9yMqv+qJOy8Oibe9XK5Gk3ht7YSFllkapGnCieA3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792719400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792719489;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+caKoJ5ewCmDfw6YJLvCZQbtkEfaVq/pCFrwOztaY2o=;
-	b=eKKoFiBGnWTdyk+MzxQql6eZ//DvQckevcLnxWm16vBwec8OIwWNhOQWadVaqDxFFq+/
-	 SuN7OU6xHDnSIBb8JwSnyIy66lAeP5u0YPWQVvDVIxIgPFS5tYO+r6vg9V/walPUw5jXS
-	 y52C6KHdCPweu83BFtKwKo5DpXbCjvMTRzDWWRSw+EyM5VQ6IZoO4LqBKsbK6pfQkm/yb
-	 1hMzBa5OweOBqnqbkujByAM2+rUVEIVmxZY6GpVoKgn0Ax5LVdOWMH28L5bWNYZ3SAM2K
-	 fFTnVZ3Wovx0ow68msoY/jayJUXzA5tjt7BQzGTpOLlNbMMXLKW6tOsI/XvQ7pEt1WQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VyS6G3Kx6WPq1nBIZXm3hw0RmZ6T3d+8BhWqtGP+Tt4=;
+	b=lHFh31IhfDsiOxZeVpPGsQ86XnAL80IwvCQUYPEGqVE+SonCD6K5BKe7Nn9pFkWnZY4t
+	 DyCHtWTQuhqEdzWiyIVORNyWUPF3rwU8MGFMrw5db/k69oW8jmwhj4XiVIEbxHSTSQ6XO
+	 nF53anzqChR3vAM5ER8m7YxNCKzCDVnaFQGjA9ReMLjhFAXQUK6lkS4yiomhszhYOU/LV
+	 bYoyWKa3pyMUS6k74F267zW6KOM9y8UbHCuF8j0DcMEhY58hi2rQtpreOLMpkPB06zHfw
+	 ikEf3Maao3olMOaqF9XmI9dWLLtU6N3Bty0KwP0Sy9zXWJ6TjXqTcf6dhLEqA22bwKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZqVaa9KM;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dmarc=pass header.from=cloudflare.com;
+	spf=pass smtp.mailfrom=cloudflare.com;
+	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=NS4IRFub;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6FB606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C6FB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610CB606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 610CB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZqVaa9KM
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06b436dffso177363b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:36:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=NS4IRFub
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-8256106635eso192492a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792719399; x=1793324199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+caKoJ5ewCmDfw6YJLvCZQbtkEfaVq/pCFrwOztaY2o=;
-        b=ZqVaa9KM8kg7qW3KXwRF3cbNjY+wHY540MPU7eiuRoGA5PpOO6lDqjHUSSeCP2oMKC
-         Fd2pgM8TGjRtX0k5w5twdfxrJ3Kd2nFN68iTgU5HqhVapLlEutFf4ye3R8YCDO0IucrM
-         3dvOdzPSHzpUEn93k+GuKhjbfKOs5YfY70osLq8FaLPG42oCNR88XrmFF11OSQkSsms/
-         5hhUzQXuFX/xcpA4kk+9fkauZJ++750IVAANBWCBwAE6OUC2SHg+P0uqBkNnninX8A3p
-         pa2HgeMwH678ZJmDWER1bAjhSdcFAGkLeN9Fz+ubFBrtQs9hQBn+aWRYmZ7ksUw1CxFN
-         +vzA==
+        d=cloudflare.com; s=google09082023; t=1792719487; x=1793324287; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VyS6G3Kx6WPq1nBIZXm3hw0RmZ6T3d+8BhWqtGP+Tt4=;
+        b=NS4IRFubSNO2j9Y1WVfgO6Awpo3hnuCUulnPg4eByIxHDtOwxZOdWL4UoKe1Adbhp4
+         xCnMZ5IuP/e9cEYfwwR5qi+85GwzSDYRfb7FHzEkqxC1SaasJk01AezXkpJCr0++wswi
+         QsHVXluMi9q3rz+c0KuCyFS5VP4sFSUY/S/WaUDqGacY7dbnytqOIFRZ/O8WAa4En9Ez
+         CwnxTZk9XNb2DV6ApTf+KT1MyysDlqIHsizc4zrngtmjpWuvPI2z0WP/1HFToV1qH+5v
+         ml0Iq6VBpUD9Mp6+GsXfBJsq3NZkpQfVMg3h8O3J2wMpj4PHzcU1YR4pqPcy2QWu6qXy
+         YqfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792719399; x=1793324199;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+caKoJ5ewCmDfw6YJLvCZQbtkEfaVq/pCFrwOztaY2o=;
-        b=ORrWMIDwHmHyedkhJPeUt4bGhnUOE1kXDS8Deb7e3BnpxKHpKOac5luoWw+Coo/Y+3
-         sTu88dHJPIk/5kFbHu6bWh3k6xD2IiuwwNZqajSCcyu5Fe99Rge1xm8ZqoK2bE/EgC/y
-         OwNzmzoXhKDufHUSPHmkwjxunlo04wfqiUvuYuiYQHFZSHwNkZjQhqmvE8SVLXsk/Hm5
-         0LtzgDes1z6bSz/YuwUJH77fjYt1eOTAqHgK4mvu2JSVDw+NqI5GtEEl3yC6i2yHqQt5
-         ni+jxGKpIBF4BddPZZcI+Ol+f5k66BqzF6c8OYUwqceQVH0KQmIVtOCSRc+df2pCOLP9
-         +uhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwHJ3DXkdm6OuCjiFcO+gqTn5ajDVbnxvX9lwJ65wuKCyCwjc1/tHUfU6XcAHe+xd+LmWv6v4361NPl56s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLJnOk5tXTM2qZS6O+FelmluyMxPDiRJt/DrKi79rtgDPm5d7Y
-	EzakRkPHX4fyS5UNwbXA9wJJgV0Ddz079GSx1P9ilPZZVkVkR8YGBgkP
-X-Gm-Gg: AYBFou1CTJR53M9DBlROfysae2pviS1HIsdMrUYcMVAZ/xIZmukhXP6v7gvp2bvUzqY
-	PqUzJRjw6DR2moKG/Y7R6KnNneLnft0fFh9xDDkg5fXwplwQIWc4ttXoaj1XgXNNyaWrbOCVt9F
-	9XFZT8UNz3Y6oPcWNwvlIp6sxPtojJiSfHtOiPnrhKEihgcMhJRzEqsPnMytq5wWr62FTGtzyal
-	avu+I9XmKQYfvPEMVnPdpu0f/oqR0AD5zNtWpI1mxnz9fabx3LgYFfg7TDaL20V5ulKc6z8yqWR
-	lFZX75t7rp7XmxFuNryxG7Lah3DYw0tOHbFfrVmTf0VHZjuox8yMfkAWiq9VJ+cSVcI0yE6t3aJ
-	8Esj+6g5eQZhF0+n7QN52IiOloE5Exn81LKbYrSCosOtGd1XU2sXRJjjucsMkYzcLRuoyaGmrIk
-	bBDBiXjEF9OwH5iP9giiWSitwhbyeLhWc4omnQY4CWzNMBk8HAOsaUpuptE+Gxk6nv5A+7OJ9jo
-	3EanzBLhmQNiYYrhEo7xR1PQoNMq24Ceu+tzX3HdUF3MYfoZ7JzGI6/Z+PxPClxpoA+
-X-Received: by 2002:a05:6a00:929c:b0:8a0:7dc4:95c0 with SMTP id d2e1a72fcca58-8a2c5e36c70mr786369b3a.15.1792719399389;
-        Thu, 22 Oct 2026 18:36:39 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a2c8dcab76sm182997b3a.25.2026.10.22.18.36.35
+        d=1e100.net; s=20260707; t=1792719487; x=1793324287;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VyS6G3Kx6WPq1nBIZXm3hw0RmZ6T3d+8BhWqtGP+Tt4=;
+        b=mJL9g5MInfsN0Ohxtt651wAgPkb2rEBbOApL1ezEymP9bPOoCyk2R796Ec0l7/EfVu
+         h/CWweMSRfPlD2HCzrwo7GM+2Td2i52yApbh9YQbG2vLq6iidU/l4KHWbxjQ88HWYiFx
+         3ZWdG92SYCMzgQUPkf2YS2L2kxfvU+ZQsnMKI2zcTFraesdkjB/WdAIsgu3HEhBFcGz6
+         9StR474yMvT8QMW20K9zTRZT9i1vYFTVyKmPKWw5oPmjtZNNiVhRGi7Wg/N71nxDv3K/
+         BR/tshIsm2nWPcQU5Hu5bmtKj7e+adatHK9XoSZ8lcGIL341yM2lLQikhWLTIyoDVR8X
+         3qTw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmMJGtSoVj329ReDcwn9L5kiFPTtnftC5b51k4o3J/3BiFncjQIjSbjATJhmxVYnqXr7segu1Zhe61eXw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKta9VRI//15H/mr4UQVUfG7CmDwQ6CmxIfZ3ahVwnmHa2arxgd
+	JM2iCsiLIZAHgQIdSsGo0mccsL366TpWQno/slwxxvm5jrcTOnHE6Z65d89Eh327Wvs=
+X-Gm-Gg: AYBFou1+e/z1QTGzgh5vPgNrS0k+Rt3yGEkXTK+G8JY12KJWbGHakv7NfpHDfla72oI
+	otUAV1othZ9E2A9Ot2tz4CNuZZhuVk06m6YH+NeApRJSddUS/s6Se/SzgJVr7KY42rR/Z6SYwNM
+	nn3A6bSQ23HbMDsiNNI/tpQ3OXVlBbwDhk0o0ENG8cGktADG7SmEj9XjlFX2yhMbuhM4FjJO8fE
+	NFknlqpA+lDAnlnQ+7pMio+Hn7eHtXBL54n9q72j3fMjYxeVyJnVU9wnMNbIvMXKJVd1B5MsqKt
+	cGCz7MMApePjwqXcehsWLNEGXNWUwO0EmSnKctkHu3b+oua2ap1HU0uN6M8cQLeytYGut6hltF/
+	tic7fAQh622asMinyWmAToPcjrWQZFj943fBQv8+eOcUec3LhxBdlTddxf4Ey9m0HRzgVeIxY6w
+	R+oGn099qIUxkR+JPxqMnGRR2GvOU5vQHEPXSNgNJT6pnfK8ZKpA3fuKzC6HXW0oIrpLCe/jsgX
+	8p5VhpPd3rVHgDhNFSY4K5zri0XEzWnFtk=
+X-Received: by 2002:a05:6830:4412:b0:7eb:9464:ac2e with SMTP id 46e09a7af769-84fb0d542femr668994a34.11.1792719487276;
+        Thu, 22 Oct 2026 18:38:07 -0700 (PDT)
+Received: from 20HS2G4 ([2a09:bac6:bf21:96::f:3b8])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84fbdf59d82sm770666a34.15.2026.10.22.18.38.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 18:36:37 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/autogroup: Fix task_group UAF during thread creation
-Date: Fri, 23 Oct 2026 10:36:31 +0900
-Message-ID: <20261023013631.881730-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Thu, 22 Oct 2026 18:38:05 -0700 (PDT)
+Date: Thu, 22 Oct 2026 20:38:03 -0500
+From: Chris Arges <carges@cloudflare.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+	linux-kernel@vger.kernel.org, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, virtualization@lists.linux.dev, 
+	Max Krasnyansky <maxk@qualcomm.com>, Rusty Russell <rusty@rustcorp.com.au>, 
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: Re: [PATCH net v5 4/7] net: resolve uncommon partial checksums at
+ ingress
+Message-ID: <atq3hiJcsVi_1v0u@20HS2G4>
+References: <cover.v5.git.mst@redhat.com>
+ <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
+ <willemdebruijn.kernel.2987fc5710162@gmail.com>
+ <atpIiwcUlH5ttBb6@20HS2G4>
+ <20261022193052-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,157 +107,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022193052-mutt-send-email-mst@kernel.org>
 
-sched_cgroup_fork() assigns a CLONE_THREAD child in the root CPU cgroup to
-p->signal->autogroup->tg before the child is visible on the thread list.
-Autogroup ownership is per signal_struct: CLONE_THREAD reuses the existing
-signal_struct and does not acquire an autogroup reference for the child.
+On 2026-10-22 19:38:53, Michael S. Tsirkin wrote:
+> On Thu, Oct 22, 2026 at 12:52:36PM -0500, Chris Arges wrote:
+> > > > @@ -335,9 +592,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > > >  	/* Let the basic parsing deal with plain GSO features. */
+> > > >  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+> > > >  				      hdr->gso_type & ~gso_tunnel_type);
+> > > > -	if (ret)
+> > > > +	if (ret < 0)
+> > > >  		return ret;
+> > > >  
+> > 
+> > One other case I found in testing is that a producer can set gso_size
+> > larger than the remaining packet data. __virtio_net_hdr_to_skb() then
+> > succeeds, but intentionally does not install GSO state because the packet
+> > is too small to segment. NEEDS_CSUM has still left the skb with
+> > CHECKSUM_PARTIAL.
+> 
+> So why is this a problem? If checksum offset is correct we leave
+> packet as CHECKSUM_PARTIAL. That's intentional.
+> What does your test do that makes this a problem?
 
-ksys_setsid() releases tasklist_lock before calling
-sched_autogroup_create_attach(), so tasklist_lock does not serialize the
-autogroup move against this unpublished part of copy_process():
+The problem I saw used this case and setting inner_nh_offset incorrectly.
+I'll dig more into this, and follow-up separately if this indeed is a
+real problem.
 
-  clone(CLONE_THREAD) caller      sibling setsid() caller
-  -------------------------       -----------------------
-  sched_cgroup_fork()
-                                  sched_autogroup_create_attach()
-                                    autogroup_move_group()
-                                      lock(siglock)
-                                      signal->autogroup = new
-                                      for_each_thread()
-                                      unlock(siglock)
-                                      autogroup_kref_put(old)
-  lock(siglock)
-  list_add_tail_rcu(thread_node)
-  unlock(siglock)
-  wake_up_new_task()
+> 
+> > The following check fixes my test case:
+> > 
+> > 	if (!virtio_net_hdr_validate_disabled(skb) &&
+> > 	    !skb_is_gso(skb))
+> > 		return -EINVAL;
+> > 
+> > A concern I have is this may reject valid packets, so maybe there's a better
+> > place for this.
+> 
+> 
+> Indeed, it's not uncommon to have small packets with !gso.
+> 
+> See also:
+> commit 7c6d2ecbda83150b2036a2b36b21381ad4667762
+>     net: be more gentle about silly gso requests coming from user
+>     
 
-The iteration cannot see the unpublished child. The final put can therefore
-drop the signal's last reference to the old autogroup. Two RCU callbacks
-then free its per-CPU cfs_rq and task_group while p->sched_task_group,
-p->se.cfs_rq, and p->se.parent still point into them.
+Ok this is helpful, I can see why that doesn't work.
+Thanks
 
-At the last failure-free point in copy_process(), revalidate the child's
-scheduler group while holding the shared siglock and keep the lock held
-through thread-list publication. An autogroup move then either completes
-before revalidation, or blocks until publication and includes the child.
-
-If the group changed, update p->sched_task_group under p->pi_lock, clear
-p->se.cfs_rq so set_task_rq_fair() cannot inspect the freed old runqueue,
-and call set_task_rq() to rebuild the fair and RT group links. The TASK_NEW
-child has no attached load to migrate.
-
-An unprivileged clone()/setsid() reproducer running as uid/gid 65534 with
-all capability sets empty triggered a KASAN task_group slab use-after-free
-in wake_up_new_task() on an unmodified Linux v7.3 kernel. The allocation
-came from sched_create_group(), and the free ran from
-sched_free_group_rcu().
-The fix completed 1,024 iterations of both the original race sweep and a
-delayed-setsid stress schedule without a KASAN, lockdep, oops, or panic
-report.
-
-An AI coding assistant helped identify and validate the race, construct
-the reproducer, and draft and test this fix.
-
-Fixes: b1e8206582f9 ("sched: Fix yet more sched_fork() races")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- include/linux/sched/autogroup.h |  5 +++++
- kernel/fork.c                   |  9 +++++++++
- kernel/sched/autogroup.c        | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 44 insertions(+)
-
-diff --git a/include/linux/sched/autogroup.h b/include/linux/sched/autogroup.h
-index 704391cc1d206e..d61e4a83b12bac 100644
---- a/include/linux/sched/autogroup.h
-+++ b/include/linux/sched/autogroup.h
-@@ -6,11 +6,14 @@ struct signal_struct;
- struct task_struct;
- struct task_group;
- struct seq_file;
-+struct kernel_clone_args;
- 
- #ifdef CONFIG_SCHED_AUTOGROUP
- extern void sched_autogroup_create_attach(struct task_struct *p);
- extern void sched_autogroup_detach(struct task_struct *p);
- extern void sched_autogroup_fork(struct signal_struct *sig);
-+void sched_autogroup_fork_finalize(struct task_struct *p,
-+				   struct kernel_clone_args *kargs);
- extern void sched_autogroup_exit(struct signal_struct *sig);
- extern void sched_autogroup_exit_task(struct task_struct *p);
- #ifdef CONFIG_PROC_FS
-@@ -21,6 +24,8 @@ extern int proc_sched_autogroup_set_nice(struct task_struct *p, int nice);
- static inline void sched_autogroup_create_attach(struct task_struct *p) { }
- static inline void sched_autogroup_detach(struct task_struct *p) { }
- static inline void sched_autogroup_fork(struct signal_struct *sig) { }
-+static inline void sched_autogroup_fork_finalize(struct task_struct *p,
-+						 struct kernel_clone_args *kargs) { }
- static inline void sched_autogroup_exit(struct signal_struct *sig) { }
- static inline void sched_autogroup_exit_task(struct task_struct *p) { }
- #endif
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 10f2d05d816a5f..6df4ff21d1b780 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2500,6 +2500,15 @@ __latent_entropy struct task_struct *copy_process(
- 
- 	/* No more failure paths after this point. */
- 
-+	/*
-+	 * A concurrent autogroup move can replace signal->autogroup after
-+	 * sched_cgroup_fork() but before this task is on the thread list.
-+	 * Recheck while holding siglock so the move either precedes this check or
-+	 * observes the new thread after publication below.
-+	 */
-+	if (clone_flags & CLONE_THREAD)
-+		sched_autogroup_fork_finalize(p, args);
-+
- 	/*
- 	 * Copy seccomp details explicitly here, in case they were changed
- 	 * before holding sighand lock.
-diff --git a/kernel/sched/autogroup.c b/kernel/sched/autogroup.c
-index e380cf9372bbd2..50ad43e7648fc5 100644
---- a/kernel/sched/autogroup.c
-+++ b/kernel/sched/autogroup.c
-@@ -215,6 +215,36 @@ void sched_autogroup_fork(struct signal_struct *sig)
- 	sig->autogroup = autogroup_task_get(current);
- }
- 
-+/**
-+ * sched_autogroup_fork_finalize - recheck a new thread's scheduler group
-+ * @p: new task
-+ * @kargs: clone arguments holding the pinned cgroup set
-+ *
-+ * The caller must hold the shared sighand lock and keep it held through
-+ * thread-list publication.  The task is still TASK_NEW and has no attached
-+ * scheduler load.
-+ */
-+void sched_autogroup_fork_finalize(struct task_struct *p,
-+				   struct kernel_clone_args *kargs)
-+{
-+	struct task_group *tg;
-+	unsigned long flags;
-+
-+	lockdep_assert_held(&p->sighand->siglock);
-+
-+	raw_spin_lock_irqsave(&p->pi_lock, flags);
-+	tg = container_of(kargs->cset->subsys[cpu_cgrp_id],
-+			  struct task_group, css);
-+	tg = autogroup_task_group(p, tg);
-+	if (tg != p->sched_task_group) {
-+		p->sched_task_group = tg;
-+		/* Do not let set_task_rq_fair() inspect the possibly freed cfs_rq. */
-+		p->se.cfs_rq = NULL;
-+		set_task_rq(p, task_cpu(p));
-+	}
-+	raw_spin_unlock_irqrestore(&p->pi_lock, flags);
-+}
-+
- void sched_autogroup_exit(struct signal_struct *sig)
- {
- 	autogroup_kref_put(sig->autogroup);
--- 
-2.55.0
-
+> 
+> 
+> > 
+> > > > +	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
+> > > > +		return -EINVAL;
+> > > > +
+> > > >  	/* In case of USO, the inner protocol is still unknown and
+> > > >  	 * `inner_isv6` is just a guess, additional parsing is needed.
+> > > >  	 * The previous validation ensures that accessing an ipv4 inner
+> > > > @@ -353,7 +613,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > > >  	}
+> > > >  
+> > > >  	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
+> > > > -						 htons(ETH_P_IP));
+> > > > +			    htons(ETH_P_IP));
+> > > >  	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
+> > > >  		if (!tnl_csum_negotiated)
+> > > >  			return -EINVAL;
+> > > > @@ -368,7 +628,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > > >  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+> > > >  	skb->transport_header = outer_th + skb_headroom(skb);
+> > > >  	skb->encapsulation = 1;
+> > > > -	return 0;
+> > > > +
+> > > > +	if (!skb_is_gso(skb))
+> > > > +		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
+> > > > +					       SKB_GSO_UDP_TUNNEL);
+> > > > +
+> > > > +	/*
+> > > > +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
+> > > > +	 * set CHECKSUM_PARTIAL.
+> > > > +	 */
+> > > > +	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
+> > > 
+> > > on second thought, if having to respin, might as well fold the trivial
+> > > fix in patch 7 in here from the start.
+> > > 
+> > > > +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
+> > > > +						 inner_proto))
+> > > > +		return 0;
+> > > > +
+> > > > +	/* A tunnel header implies GSO, so drop. */
+> > > 
+> > > no longer true for the above !skb_is_gso(skb) case
+> > >
+> > 
+> > virtio_net_csum_partial_ok_at_offset()
+> 
+> Sorry I don't get what you are saying.
+> 
+> >  
+> > > > +	return __virtio_net_resolve_csum_partial_mismatch(skb);
+> > > >  }
+> > > >  
+> > > >  /* Checksum-related fields validation for the driver */
+> > > > -- 
+> > > > MST
+> > > > 
+> > > 
+> > > 
+> 
