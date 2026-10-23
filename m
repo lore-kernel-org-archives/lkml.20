@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785356;
-	b=TUKN/LWuQyRXbfrYKmkamwgqiO9FvzLsOkfhLpZbLBcAgFWxjkM2CYDmDzAM9Nboy6ez
-	 6NxGffISy5U85mlDuuM6qBPOEmIQVTPbPTJTQSCCqqfpLpKBzpLI8qC6DFxc6mW+i40ww
-	 3ML2AZuUWNeJe7SFt/bNsNzZU/flx8Tn00HS3EIE6xpynVAlkeCKy/IfJVxNWBh2KySiS
-	 G/raZf2pBRlMGtV1PsoflNLyCcgSKBmpdC2NiZi4QkmXLY0qk9f89g1Y5Vt6slaPEO6MU
-	 7fcCyTfeaVELycQc1Rqd6OsaJYqqDp9HsV/r9vdK3+nyiTe0hJHHbxZpxM056SfurHQ==
+	t=1792785367;
+	b=AHJhrDkSm5xW+NaJz/ifw8QKZe5cWxW11Q3vzRHvUUgCXE/UPnSW8+jxZmhARebGph1+
+	 wbc31PzcBawYwjQzNgqxF3oD1MDgaNJRj7OiHpkPJ211Ccvprqj8MtUAXi0VgsXhatuVY
+	 pAvC1XuKY9WxwS9VGY1rhYxsCjMx+Q/Qj7Q/VVeewNAmdde1EeY3FV0Cfd/Jmg3IqF3Hu
+	 Q+T+fSab6H4vRKwzQNFJXwgbHeSTNerVJg5Vh0SEFNXVeuJMjm0/fcgecBn+ZxP+uI4YH
+	 XXYsbXHFDHlWpJtAvvdc18d8KkuSbiWp7cMZZ6uFk4byq0PdCBfy5Ecq4T74XCKUXRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785356;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785367;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=yW2cg5jvxZEB9rQ3JlWbnr0xW2iaxYeazAqhP4FPfYM=;
-	b=pCFzjjwLK6GI1H4bbcJ4VWug9lCUVAQApikeXxsI0U8igF+9QbTnBqWseezwW2M+pM30
-	 UrUIdYkiGxjHbzzpr/JMU37LhpbNPOmFeKTQxJ21FZdpA2BDfThPQv1ndmDXwDjC/7ymV
-	 9nLAcbHziiV+4sbcB76bbDVMLMbS8d3wJKsatqhRs8IjRFGGvMmCVFk44lsCyY7FDK7HF
-	 jNN38lBTVXRNP2G6HGHF9JYBzayNA4GG/f3tuVUYUmHAk9QGXhDXIXNPj9iReXHm3S6i3
-	 KfgPp7tpHzVBKIKpkD9/4WSwx/rVguTqVX5SMIZfaPnZivsYniwAB56Bw4Epoj1GDSQ==
+	bh=tUnI1u7sr3vxQ+9AJ2z58btSAD+OaPy1Lc3CTeutLSY=;
+	b=yUUmMpI7dcxkedBresipty8gPzgAYxyOr1DwWenSJz+nHGdiX8O0ubwXa9vgzpmfIMgc
+	 qeJsrEUOtQudr/ssfWLxz+J8nPbdDbQrujom2U07g5zD+b8g9zB2G1ST6kGVKdrdjukn5
+	 ndOy836ixlst2rz1+igBTCFOdZFu1BvIZ5+vCARc962EBM5/vU0nck+9WcEhUbU/DGAKf
+	 oqkvUPOjxkiPfrcZE6jy79xq8+/dM8m3YYwL603il74msen7M4DCYq/eu/+Bf1ryX5WJY
+	 2jylNTdpyQd3/3SuENxpjYFcXqW6XzvynGb2nNWHSFCgYdk5gBsUA7JT+QTMCV6qUjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ZgBITB7w;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TgfiZytr;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5165606A905;
-	Fri, 23 Oct 2026 19:55:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5165606A905
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501B7606B290;
+	Fri, 23 Oct 2026 19:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501B7606B290
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ZgBITB7w
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TgfiZytr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785354; x=1793044554;
-	bh=yW2cg5jvxZEB9rQ3JlWbnr0xW2iaxYeazAqhP4FPfYM=;
+	s=protonmail3; t=1792785365; x=1793044565;
+	bh=tUnI1u7sr3vxQ+9AJ2z58btSAD+OaPy1Lc3CTeutLSY=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=ZgBITB7wD8Ybt8gI7Ow33VyGt9IS+ebDk+YTGxIsHMA05xe8r9RFobu22l+Qtaqvu
-	 po17D/PnlN0TGnlOrHJ8lBU5axXMMIJ8SzPK0fZ9VpswwR5xVN5V+OUZVHEnLy2RQz
-	 Qc+/OvZKRZj+k99x7ausB0vkRj5I1GduXk6T8C4bhglfLrybtBiGys0PYdyfkTRl0D
-	 NTOZR9JMpdUxxF0muxAIjB5Y/p9PkpPO7hILZqRGueHSrs2WS6vCLsF5WeRJgYRNnA
-	 astyFUhRAumDyxYN9QNyWBI0zzaYyqd/qeJP+5j6XiO8QxYTt1QFaCQLCj3DgJyR/s
-	 Zx83O1PJUGMzA==
-Date: Fri, 23 Oct 2026 19:55:51 +0000
+	b=TgfiZytrdnjfIW3J3U1uu1mNIUCHZ7j4Wt9p1s5Hr/MoidKJUSGlHX1W+kwlysWgr
+	 bXmDTMScdI5nt0b1Wn2S3Gw1MQ36ri6WMrHn99eVhlVBpa3YbXMHDyVLwnOfwxfM7W
+	 BZqaKycoTpATjQuRToenrGZ2j+c1oH/IMyFQ1l8i8/BcK2K03mfbSFiJThDR5+ikDO
+	 h0fKjJRTgxQooFKQrHWTa9iy1WX4uPqwi9catI3NvSihbLFVl8A7u3tgxg8hqXR9D/
+	 dGJk6eGRIvzkxIBs800b+5FU7biThATULGqplKjpCM+se/ZxZY8BWgAOa5241a+vwy
+	 cVos8XDH+2Rxg==
+Date: Fri, 23 Oct 2026 19:56:02 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 06/11] media: intel/ipu6: clean up fwctx on ipu6_fw_com_open() failure
-Message-ID: <20261023195446.22578-7-valerii.sokolov@pm.me>
+Subject: [PATCH v1 09/11] media: intel/ipu6: unmap the dummy L2 page table in ipu6_mmu_destroy()
+Message-ID: <20261023195446.22578-10-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: a9cdb72b98821508fe4224e4f3d961f7cc4b1c68
+X-Pm-Message-ID: d30bdb6ad93e605b0f87c8a6993dd37d13e3fb2d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,35 +67,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-In ipu6_fw_isys_init(), if ipu6_fw_com_open(isys->fwctx) fails after
-ipu6_fw_com_prepare() has allocated the syscom context and its DMA
-buffer, the function returns the error without calling
-ipu6_fw_isys_cleanup(isys), leaving isys->fwctx allocated until the next
-runtime resume attempt cleans it up.
+ipu6_mmu_destroy() frees mmu_info->dummy_l2_pt with free_page() instead
+of the existing free_dummy_l2_pt() helper, so the streaming DMA mapping
+of the dummy L2 page table (mmu_info->dummy_l2_pteval) is never unmapped
+when the MMU is torn down.
 
-Call ipu6_fw_isys_cleanup(isys) when ipu6_fw_com_open() fails.
+Use free_dummy_l2_pt().
 
-Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware =
-and driver")
+Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU t=
+able")
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
-i/intel/ipu6/ipu6-fw-isys.c
-index a36d64bcb9..5d95fb9234 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -350,6 +350,7 @@ static int ipu6_fw_isys_init(struct ipu6_isys *isys, un=
-signed int num_streams)
- =09ret =3D ipu6_fw_com_open(isys->fwctx);
- =09if (ret) {
- =09=09dev_err(dev, "isys fw com open failed %d\n", ret);
-+=09=09ipu6_fw_isys_cleanup(isys);
- =09=09return ret;
- =09}
-=20
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/in=
+tel/ipu6/ipu6-mmu.c
+index 1a564ceb74..b1c34964ce 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
+@@ -668,7 +668,7 @@ static void ipu6_mmu_destroy(struct ipu6_mmu *mmu)
+ =09free_dummy_page(mmu_info);
+ =09dma_unmap_single(mmu_info->dev, TBL_PHYS_ADDR(mmu_info->l1_pt_dma),
+ =09=09=09 PAGE_SIZE, DMA_BIDIRECTIONAL);
+-=09free_page((unsigned long)mmu_info->dummy_l2_pt);
++=09free_dummy_l2_pt(mmu_info);
+ =09free_page((unsigned long)mmu_info->l1_pt);
+ =09kfree(mmu_info);
+ }
 --=20
 2.56.0
 
