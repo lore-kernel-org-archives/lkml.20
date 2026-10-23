@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789429;
-	b=cTFJf2xgpws/2TQ7iJyNXbO7FTYSQL8Pf7/W4HcKBY5jtmFQr9vyWxQ8fg95XvYFYc14
-	 WiJgMh5fmuWB0ztuufmJ38KVwJ6f2NlPbEp60TO87+bTdl5LObAhvXkWYHngdnzjzCQgR
-	 G/qX5515VaT5UApiuldATByqdGhxFrD5JXHg4RxpD3IebXY/ekI/xFU0KQAqQInw7Ztlq
-	 Yls0Z5uXIUSOtrwS6blMvk47vndBPAR8AFWLwDTzUSkwlc/fxbtpXjzkhCQ6HK8xFBF/e
-	 DRSkr9xnisZmoxYUfzGuS7e7Awz9G9wvSSFymKdTNw2SAz4vDzmg36CrV+OXrNXzn3w==
+	t=1792789493;
+	b=xvvzKxwfvAmlN1IN47HwZhB9ZyaB/6I0RMb0+FGvQ9J/Gs9lj/eXKxWn8mYW0AuErGQu
+	 42TvxZX+B9njCJbT3X/3vE1g9wxVRwokBX5P08yhQBwadHJepSuS32ZjEFU1qTY9Cg6gD
+	 j1cx8H4q58MbMqhEcP/ua+buC/x8ocpU0lwti0DuVtvz+5UMpxCWfCo7xpAbGNK4ZA35J
+	 anKn2zEh9kpRZeqPuGcDSy/c6O4ClsFTtfuNauvle6syiynMDYyEVfPnHuuz0kkGHq0xp
+	 1kUPrQlG9yH7P1l7kJC6YDnh5G1Q0xeG4hvdi0EDJOa1AX4CJxOX1sFt1pKs2liyAsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789429;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789493;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=bTClk+FyBl2Z6T04cipQH6V1AiGgc6/ZuHebpAXvrJE=;
-	b=qfOPMB3GdJAkzqc7UowZDwL6LGSzLAVvXt0pZkjoS7gR4A62baWdch0B14KQjPp588TN
-	 YzMpcCpM4J0yP5bU6TSajzLuPtH1iIGlsW0p+L7Yhbz4r9V7JDygobnJeljXVj1AqlJSS
-	 QALktfHOxA2fynRHNd89++76Lu8ikogxlNAnMUIew8apFUOMnMXvHgxI2WEc5ZoQ3eiKa
-	 lLvBNerft+c00hHRKCk6MiOHoXEe9HXzT4wKHVjSgExFWFj4fELXwvZjvAvmca5E0ZuED
-	 P5M0ds466hORIB6/QAhKrQCTGTvVd9ApG/z/bI8yPJnBohH8tITWfbXUGT8/e/z6vAQ==
+	bh=Ft+jeTX8JPK8dBM+ox3+6SqWpyAIyyLKY5e9QAWb2rY=;
+	b=vZSDo6WyVBURwKkE0JWm6qDoBMcVTbc940xVp72xgKEZ05KY4Zj4hmwY6CzEsDKWkMWb
+	 mGy1gqTpgHDAp5/I1udHynw08PBRDtzuDT6S/319xre0WyB+ABNT1f2fMA7MQnf8t/nBc
+	 PyfqRGNkNL6s8xtRgduJU/aVVW79aUrkEA3cHtF26W42fqZzHLnmrfKMtTMYW+TAAHR5C
+	 GVdPfBJ94AWhFPhsrNEmSRCX7UTizrkcLyERbNdCQ9ImiTCLirvTGpPKwGTOONWZ//EYC
+	 7DGoW7DCNRHfW3NYxDclGvLd/kjk8xALUi6pqeKL5tmcE9oJQ90L9k5naqIaYKhH5/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZyl77KH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHLKhIG0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C599C606A31A;
-	Fri, 23 Oct 2026 21:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5615F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZyl77KH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D50B1F01825;
-	Fri, 23 Oct 2026 21:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHLKhIG0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C801F01825;
+	Fri, 23 Oct 2026 21:04:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789428;
-	bh=bTClk+FyBl2Z6T04cipQH6V1AiGgc6/ZuHebpAXvrJE=;
+	s=k20260515; t=1792789493;
+	bh=Ft+jeTX8JPK8dBM+ox3+6SqWpyAIyyLKY5e9QAWb2rY=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NZyl77KHeaX6sy3jgoOF9efhtsGxMjHxlBcoag9zA0fIUcMGzFraKZl125DqQp2aB
-	 M/uZgF48GED70AZEW0Jpd2OAljm/yc/p67i/dZVVlxoMozyX6TH6TCQYcI9b0sn1gi
-	 7/rCYSxPTXZ8MIbV9pvtULMBZe8hcWPmecXZRvZ2EEvUWnLpp78wI+BCzumYRDmVNh
-	 wUP/Fm1r1E7xyTWlkZy4o3+OzGGZbmxpC/sLBqv7x+oxBl5l9vJXiD5gn1U7jNCoHX
-	 TZveh/s52bacP9dpKYezzKJ0j0QkFqf73ariobD2rRINzpKDDjP8RvU3TW6UUFRt1N
-	 1nw4TKgwbdr3Q==
-Date: Fri, 23 Oct 2026 14:03:47 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, ae878000@gmail.com, daniel.machon@microchip.com
-Subject: Re: [PATCH net v3 0/2] net: nixge: fix tasklet and DMA teardown
-Message-ID: <20261023140347.095c1e70@kernel.org>
-In-Reply-To: <20261018020840.3851552-1-mhun512@gmail.com>
-References: <20261018020840.3851552-1-mhun512@gmail.com>
+	b=iHLKhIG0Brw8BeAtGwF3H8VzsABYztxCSOOAZVkFs2Wi29VyAtanU8pEudl2Dyyzt
+	 5oR6wuIYKBuUCiuOEBZcflkHczYmCkhVIhhHSKowMom1Qh3jtXuhilhMoN5zj0Qkm0
+	 WXgDbIovpVPQKVTDyHSX5ZT/7k/mU7iyJaFvqQjvkc6a5Rnc3l+TeAFdsVlLmhFKhq
+	 NQsqPZ/QaGyWyNz7XTe1/ZzPmx5lLTuElIS/P6Vq3xdvUjzZDLohVupWm3WoILtda4
+	 gUEPcI6LyAG0xdPfhKRnC5AiQs6B2AFS6LizuHnLchShXL/38wg4M1/VWlj2SLTlSE
+	 j4kevicgQmWUg==
+Date: Fri, 23 Oct 2026 11:04:52 -1000
+Message-ID: <145b8e8f1e35e1ccd54bf678519d34d6@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH v7 1/4] workqueue: Simplify unbound sysfs attribute registration
+In-Reply-To: <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
+References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+ <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,22 +63,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On Sat, 17 Oct 2026 22:08:38 -0400 Myeonghun Pak wrote:
-> Separate the IRQ/tasklet ordering fix and the DMA shutdown fix from
-> v2, as requested by Daniel Machon.
-> 
-> Patch 1 releases both IRQ handlers before draining dma_err_tasklet.
-> Patch 2 masks channel interrupts after recovery has stopped and waits
-> for DMA reset completion before releasing the buffers. On reset timeout,
-> it retains those buffers and prevents a later open from replacing them.
+Hello, Tvrtko.
 
-AFAICT these patches don't fix the problem 100% of the time, and are
-fully LLM generated, no tested on real HW.
+On Thu, Oct 22, 2026 at 10:38:45AM +0100, Tvrtko Ursulin wrote:
+> +/* Avoid naming clash with the other cpumask */
+> +static struct device_attribute dev_attr_unbound_cpumask =
+> +	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
 
-This driver is not maintained, let's not mess with its error paths
-because LLM says so.
--- 
-pw-bot: reject
+Can this be DEVICE_ATTR_RW_NAMED() instead?
+
+	static DEVICE_ATTR_RW_NAMED(unbound_cpumask, "cpumask");
+
+It expands to the same dev_attr_unbound_cpumask with the same file name
+and handlers, and the comment can go.
+
+Thanks.
+
+--
+tejun
