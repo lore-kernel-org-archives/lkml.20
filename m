@@ -1,63 +1,96 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792753132;
-	b=s2hY4ZzR6y+/3m5CuYwJiLUBYV1BOMnKglnOzTogaod8F5m3CQlgbleWXRS0+EYuLXVZ
-	 URvBSfcp1uhm6zIZmdhSz9mwTc9ppAaYhXuBkcMxIPpfdQbK+7U+4kXWEiiBJZ7/bAXjm
-	 BUd/ft6Pv+gO62wXiktf3eT1IuiWyAAphHwR1UKmojC5/hgMc3BGDiGhvaAyK4SDQMTuf
-	 m3/Ul/2Q4n8BkOpvZtmtKjOBduCqCChleYzUvH5JTsPUPx3Cz9TmaF7xEKAQC1NzElAL7
-	 CXtiNvUXQxY5h0Fha/pfrnMAXqCXehzAZCD61wr8GzhdkwfyZpLVI/opu5AIVC/e9UA==
+	t=1792753149;
+	b=evWoWdQZxzaETaVzE4pWjNIVGZAbTrrWkRtEQd4oCZQeIbH/ev81W+VBcePA6kYiO5lK
+	 OUg24KLV3eEeqm9E0fd0ZkQgTdyhEjPflKy3WYvdumwyINtPx01AbFmomtZhicPlBAwY/
+	 /mIFymJxS7vd5KReDUp6w1ut+KhbPgXfNt20gWWu6Lc9TT9i/YbfpQN7IrUfn5SdzLoWv
+	 fii+NAgaGBPyIjxs2eR3YayH50cH/v2NLO7/GjQtJaqNUv9gkOH+UdpDsKSKizKOYwCvi
+	 ENC4o9sCcSaJbfbAp8o7HnxmvUl/smLsEHPRTnaHs4QfRW5FhRu9TDqj00898C52SLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792753132;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=lZ/4nUFep4abOULz0lcE1TEgkLFmeIk2eeOi3FRPg9g=;
-	b=oSQiXCqBJH8/c0QZlZIeoU9UpduTtdCJQfGWqcFJUJXzdxRN58xQDPeQXWXkp1Pmh1dL
-	 oenBEOpuZ+xiJ3lGl58Ks+pu1u62Uxvrn9ieR55poT0ZghUd4NxNDoq61HjTPnsuWFKAt
-	 zJjHXxCJCBwOwQLlH/zMAuXwRx5NySwNST3HSdR9xvTnIkOwyObwYnLqs6nP1DDdaoqRt
-	 eLGxKS8uxvW52y1jE76M4tQmSKU8tcoROtl3tloKyS9yjIapEXjpnf5KgkqQu8GrLHL0N
-	 zYakmVFD8LBVsYt6N0qjDzEaLuTbjjrFCeh8kJ6MHwaLTI13NER69ewiaN8ZYarUSwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792753149;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=D2r4ZfyHCaD9dgkcWlKEJHPq9+nOT0JroYVFAyy9ixA=;
+	b=r/1e+uvudtVvsZ++2zuMqTEqcy323/QAvvJ8RC3NAqGxYrbX79yKZNJlQ/LBFR3Mgnfe
+	 uXP/uKoPPiaul5BNjZyunc2VWbzo+AX1xq0xYj0e+TeWoT/UpsVeE1dmShNGIMpg3kZ/0
+	 zEgo2yOKp2p6u0154NB6uwCwvHysgCisDyuTmHIGr7ai1ukD1imM3/PhTkglM2GxftG4Q
+	 YVZz64K2oXEkRotgaVpoP3/8aOBDyYWThc1HdHb1S1b4NCywHLprTymGBUN6jWz9gzHey
+	 jHoSXw0guSaAuYClzCYtJW29F/ixlxNs6/fXmEncbmUgweY+vhaAG5huOPF983eF9ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBXOkpOF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxMEOkn2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D269606A31B;
-	Fri, 23 Oct 2026 10:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCF6606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBXOkpOF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1711F01829;
-	Fri, 23 Oct 2026 10:58:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxMEOkn2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825491F01828;
+	Fri, 23 Oct 2026 10:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792753132;
-	bh=lZ/4nUFep4abOULz0lcE1TEgkLFmeIk2eeOi3FRPg9g=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HBXOkpOFLxOtgpggSPanv4LjH3XTFSXCs8iCUq6NMXSFblbB2wzBrkmgo0fPqj1cw
-	 K9HNS8ly7GWcMyjKHwg1r3zPZjcNO2hqr6w31XtK3EGDm9dR+spDF1iqG1HDxlnT3Z
-	 RuZNex+gezvyf0rJluJSpPUc1Nj0nlOnf9nwwQjgR5aosCBCXa9ZLCXw+n6t0UhW+f
-	 WI0IhUfPwMVKMkmABNrdl9OcEYSWbEmPKZoQt2hBzn+TENM3pW50RUUq4++B5fxegW
-	 v1sL2z9MwtxI4GaKVL2QHR2wfz+CMQujPky4Ui+MpE2qWsjcd39Hcb6vpuVS6NzzEc
-	 pJ+Co6AfxdCMw==
-Subject:
- Re: [PATCH net] net/mlx5: Use only loaded devices for PTP clock operations
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- cjubran@nvidia.com, cratiu@nvidia.com, gal@nvidia.com, kees@kernel.org,
- leon@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- markb@mellanox.com, mbloch@nvidia.com, moshe@mellanox.com, phaddad@nvidia.com,
- richardcochran@gmail.com, saeedm@mellanox.com, saeedm@nvidia.com,
- shshitrit@nvidia.com, tglx@kernel.org
-Date: Fri, 23 Oct 2026 10:58:50 +0000
-Message-ID: <179275313029.3134.3941989506677148178@kernel.org>
-In-Reply-To: <20261021105600.3481485-1-tariqt@nvidia.com>
-References: <20261021105600.3481485-1-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792753148;
+	bh=D2r4ZfyHCaD9dgkcWlKEJHPq9+nOT0JroYVFAyy9ixA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CxMEOkn2QmftN9/St9toBqP7XAtNuAbWcLCpgTK+PMt3x0BqCwxN28K8Ayx+vzucV
+	 Pwan8wjYEC1jXvfZaCoyfaUNvZ+4cJ8bs5DxafA/pXyEq3rg+DCqvQ1MriZHOOutgG
+	 9Kf1QHxbDA9Vvvp8qws2SOS+HENoV/V9SUeJA0lZforHoi2AMCHlcBl6Cq0Vn1Z7Qd
+	 hNyL8NHI5RTaKrNpuZ/l/d7eBVknhC6JTl6AdHiUmLITB5r5AiesR1CMGgz1mhlSG6
+	 Y+qdFdhFEBvjnbA2qGZswHYO1vsy/5JJaWJ6YqZWHwHnwcqiwsMxQM/vKlkoyyJ7WH
+	 zfZZkDQZ2eFCw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9328A198003A;
+	Fri, 23 Oct 2026 06:59:03 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 23 Oct 2026 06:59:06 -0400
+X-ME-Sender: <xms:9z3bakz8Narhsm6NIlOE1eLTc3lHS6fMAu1_6AZRtewOW_nKdFh43w>
+    <xme:9z3bah-XRVU1xBrR7GzQVzp7UFXPEudLVV90gLKTM0sWhlTQStgm9w7E_70p161xM
+    MJsXroMWl4MrFrPat4Mqtl-0yjEldh-HbHsFhV8QJe0KCBEQVzLmQ>
+X-ME-Received: <xmr:9z3balpzXAa4oyEb17mjDnb5bKZ7jvZrGDcxBLCOH7A5QyIVCug8pwpuqWI>
+X-ME-Proxy-Cause: dmFkZTFLMZyDGD5DpP6lSiL2dELHyUp4N06Rl6Lue143rkn3tUALUBKEbbJY+IvL1iRWKq
+    Z4dgEQq0FUdnRtmFyFv4zy4Gipk1NXKUpdUDUE0u6EF3hakrjkxN38+WVeBhS2nVL2lHZb
+    75VM0Av6Bd/1PNVIfgaHNaJ03W0Ny7LmLqoUTHhwQErKe7pJCcHo+AEzr3Wsj9B8lzTHMo
+    H8KiLgkrfoOLC114GyzOjleNKw8JHQsy/mpTRdhcs1uIYE5N5X3CZKwWn/vDlTEIiWXXM4
+    nbNBQlvaL2nm5ycmEWThCY8DfEVm79j+zbIADZBneeVvw+SuWQvYX9sb9LGTljPv6Q4nIx
+    OAN5J4EUxiZttFLQoN4ReJusDmlByS3MUkJ+GoqXrb6BYlbLQkAYgctOiP+WudqZKi2kzs
+    Eo4cD3MQGEE/Z50zZRKMwL7XxWcv9VxDfQFeiuUNirwidXVEnXBLbZ7yVX3zHcXStdVIZM
+    r1FUVwpVrYI33gyqqoUg4x4z8kpo2k5VaHGS61SrSB6iGQlWd/Y91Jf8HHNken5LZIRP3w
+    6xpHLEmTPGugU0ByEbVDg8ZcFjySOg1HetrgTM3cvT2FlXuirxYtC3QDsxVZjMbT/IfO2a
+    KgfQ7u0Cc+SWIBp1jfS+7nLgADrnnEwsFg+B5Fmf7CcbKpIDbVoFX17sbdlg
+X-ME-Proxy: <xmx:9z3baqkX-TfdGYOgfoTmSRdNqnO2J_kmsxDMDdF9VU4Tm7zxj4qFmw>
+    <xmx:9z3baqY95VpbZt8w-QSYTPgo3eFDr7etRJs1xLepJxbuRSjxahw6Aw>
+    <xmx:9z3bavsHAA-TFsQz13dPgtWTDmrCGc3FoJ5NHTb5RX8Sm9X002CyOA>
+    <xmx:9z3bajpFZoxPX6SsvI8uBTyjgv8nBtH-4xkm58Ok9I6KYHWnCZDgnQ>
+    <xmx:9z3bapmrYkD4lXGoqMsluOX2WMGITXGxk5jDLk_w9sg3xDmZVxEybPgG>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Oct 2026 06:59:02 -0400 (EDT)
+Date: Fri, 23 Oct 2026 11:59:01 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <ats7oFM-fsYdUS8y@thinkstation>
+References: <20261009125503.126202-1-kas@kernel.org>
+ <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
+ <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
+ <as5q14OsbK2CmOrh@thinkstation>
+ <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+ <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+ <atiCG2iPrHwDznSZ@thinkstation>
+ <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,182 +100,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Fri, Oct 23, 2026 at 12:09:07PM +0530, Dev Jain wrote:
+> >> I ran a synthetic benchmark faulting in lots of 64k mTHP with swap enabled,
+> >> defrag mode caused me to enter a warn_alloc (and 8 times more compact_stalls),
+> >> which didn't happen without defrag.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Thanks for the benchmark. It reproduces on x86 in the same shape.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I think I found the problem.
 
-- [Medium] The commit message leaves out a large change in how the PHC
-  keeps time.
-- [Medium] The patch makes mlx5_ptp_getcyclesx() (and
-  mlx5_ptp_gettimex(), used as the getcyclesx64 fallback when cycles are…
+Under pressure, the free order-4+ pages left are mostly in partly used
+unmovable and reclaimable pageblocks. A movable request with
+ALLOC_NOFRAGMENT cannot take them. But compaction_suit_allocation_order()
+asks __zone_watermark_ok(), which counts free pages of every
+migratetype, and returns COMPACT_SUCCESS without compacting anything.
+The allocation then fails, and since compaction "succeeded", it is never
+deferred.
 
---
+With the diff below, compaction behaves the same with and without
+defrag_mode. Medians of 15 runs of "compact-bench 99 64 16 20 0":
 
-net/mlx5: Use only loaded devices for PTP clock operations
+                             defrag_mode=0  defrag_mode=1  defrag_mode=1
+                                                           + diff
+    compact_stall                    2135          32476          2290
+    compact_fail                      668          32330           606
+    64K anon_fault_alloc            20689           6780         11804
+    64K anon_fault_fallback           776          14502          9687
 
-This patch serializes PTP clock hardware access with the clock mutex for
-all clocks, not only shared ones. PTP callbacks now return -EAGAIN when no
-loaded function backs the clock. It also ties the PTP overflow worker to
-mlx5_clock_load()/mlx5_clock_unload() and uses the devcom lock to
-synchronize with peer loads and unloads.
+64K allocation is still lower with defrag_mode. I will look into this
+further.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c
-> index 5df786133e4bc..c3e53d219496f 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c
+Could you try the diff on your setup?
 
-[ ... ]
-
-> @@ -580,14 +616,20 @@ static int mlx5_ptp_getcyclesx(struct ptp_clock_info *ptp,
->  						ptp_info);
->  	struct mlx5_core_dev *mdev;
->  	u64 cycles;
-> +	int err = 0;
->  
->  	mlx5_clock_lock(clock);
-> -	mdev = mlx5_clock_mdev_get(clock);
-> +	mdev = mlx5_clock_active_mdev_get(clock);
-> +	if (!mdev) {
-> +		err = -EAGAIN;
-> +		goto unlock;
-> +	}
-
-[Severity: Medium]
-Can this corrupt PTP virtual clocks built on top of the mlx5 PHC?
-
-When expose_cycles is set, mlx5_init_timer_clock() installs
-mlx5_ptp_getcyclesx as getcyclesx64. Otherwise ptp_getcycles64() falls
-back to gettime64, which is mlx5_ptp_gettimex(), and that also returns
--EAGAIN now.
-
-ptp_vclock_read() in drivers/ptp/ptp_vclock.c ignores the return value:
-
-	struct timespec64 ts = {};
-
-	ptp->info->getcycles64(ptp->info, &ts);
-
-	return timespec64_to_ns(&ts);
-
-So while the function is unloaded, the cycle sample becomes 0.
-
-mlx5_clock_unload() only cancels the physical clock's worker, through
-ptp_cancel_worker_sync(clock->ptp). The vclock's own worker keeps
-running. ptp_vclock_register() schedules it with
-PTP_VCLOCK_REFRESH_INTERVAL (HZ * 2):
-
-ptp_vclock_refresh()
-  ptp_vclock_gettime()
-    timecounter_read()
-      timecounter_read_delta()
-        ptp_vclock_read()    /* returns 0 */
-
-timecounter_read_delta() then adds (0 - cycle_last) & mask to
-vclock->tc.nsec and sets cycle_last to 0. Once the function is loaded
-again, the next sample adds (real - 0) & mask. With the 32-bit vclock
-mask, the two partial deltas can add up to the real delta plus 2^32, so
-the vclock may jump forward by about 4.3 seconds.
-
-Before this patch, mlx5_ptp_getcyclesx() always read
-dev->iseg->internal_timer. The iseg stays mapped across
-mlx5_unload()/mlx5_load() and is only unmapped in mlx5_pci_close(). So
-these reads returned valid values during a devlink reload or recovery
-window.
-
-The missing error check in ptp_vclock_read() is an older weakness in the
-ptp core. The new -EAGAIN return here is what makes it reachable.
-
-Should ptp_vclock_read() handle the error? Or should the mlx5 getcycles
-path keep returning valid cycles from the still-mapped iseg?
-
->  
->  	cycles = mlx5_read_time(mdev, sts, false);
->  	*ts = ns_to_timespec64(cycles);
-> +unlock:
->  	mlx5_clock_unlock(clock);
-> -	return 0;
-> +	return err;
->  }
-
-[ ... ]
-
-> @@ -1554,18 +1646,32 @@ void mlx5_clock_load(struct mlx5_core_dev *mdev)
-
-[ ... ]
-
-> +	start = !cpriv->mdev->clock_state->loaded;
-> +	mdev->clock_state->loaded = true;
-> +	if (start) {
-> +		struct mlx5_timer *timer = &clock->timer;
-> +		u64 ns;
-> +
-> +		cpriv->mdev = mdev;
-> +		if (mlx5_real_time_mode(mdev))
-> +			ns = mlx5_read_time(mdev, NULL, true);
-> +		else
-> +			ns = timer->saved_phc_ns +
-> +			     ktime_get_boottime_ns() - timer->saved_boot_ns;
-> +
-> +		mlx5_set_timecounter(mdev, ns);
-
-[Severity: Medium]
-The commit message says:
-
-    To fix that, serialize clock hardware access with the clock mutex for
-    all clocks and fail callbacks with -EAGAIN when there is no loaded
-    function to service the clock. Additionally, tie the worker's lifetime
-    to load/unload and use the devcom lock to synchronize with peer
-    loads/unloads.
-
-Should it also describe the change in how the PHC keeps time across
-unload/load?
-
-Before this patch, mlx5_init_timer_clock() set up the timecounter once,
-and it carried over unload/load unchanged. mlx5_clock_load() only
-registered the notifier and re-armed PPS.
-
-With this patch, the first load re-bases the timecounter through
-mlx5_set_timecounter()->timecounter_init(). In real-time mode the value
-comes from the HW real-time register. In free-running mode it is
-extrapolated from the saved_phc_ns/saved_boot_ns pair shown above.
-
-The commit message does not mention these related changes either:
-
-  - mlx5_update_clock_info_page() now calls mlx5_timer_snapshot() on every
-    update. This stores tc.nsec and CLOCK_BOOTTIME in the new
-    saved_phc_ns and saved_boot_ns fields of struct mlx5_timer.
-
-  - mlx5_ptp_adjtime() now calls timecounter_read() before
-    timecounter_adjtime(). This changes the cycle_last/nsec values
-    published in the RDMA clock_info page.
-
-  - mlx5_clock_unload() now calls timecounter_read() through
-    mlx5_save_timecounter().
-
-As a result, the PHC value and the clock_info cycle_last/nsec pair are
-re-based after every devlink reload, health recovery and suspend/resume.
-While no function is loaded, a free-running PHC also advances at the
-CLOCK_BOOTTIME rate rather than its adjfine'd rate.
-
-This looks necessary because the overflow worker is now cancelled while
-unloaded, so the 41-bit counter could wrap without being observed.
-
-Could the commit message describe this change in time behavior and the
-reason for it? This matters more because the Fixes: tag will bring the
-patch into stable.
-
->  		mlx5_clock_arm_pps_in_event(clock, mdev, cpriv->event_mdev);
-> +	}
->  	mlx5_clock_unlock(clock);
-
-[ ... ]
-
+diff --git a/mm/compaction.c b/mm/compaction.c
+index a049415512c6..09be677fff36 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -2365,6 +2365,10 @@ static enum compact_result __compact_finished(struct compact_control *cc)
+ 			!free_area_empty(area, MIGRATE_CMA))
+ 			return COMPACT_SUCCESS;
+ #endif
++		/* Under ALLOC_NOFRAGMENT it may only claim a whole block */
++		if ((cc->alloc_flags & ALLOC_NOFRAGMENT) && order < pageblock_order)
++			continue;
++
+ 		/*
+ 		 * Job done if allocation would steal freepages from
+ 		 * other migratetype buddy lists.
+@@ -2510,6 +2514,43 @@ bool compaction_zonelist_suitable(struct alloc_context *ac, int order,
+ 	return false;
+ }
+ 
++/*
++ * The watermark check counts free pages of every migratetype.  Under
++ * ALLOC_NOFRAGMENT, a request below pageblock_order cannot take a page from a
++ * block of another migratetype unless it claims the whole block, so look for
++ * a free page the request can actually use.
++ */
++static bool compaction_free_page_usable(struct zone *zone, unsigned int order,
++					int migratetype, unsigned int alloc_flags)
++{
++	unsigned int o;
++	int mt;
++
++	if (!(alloc_flags & ALLOC_NOFRAGMENT) || order >= pageblock_order)
++		return true;
++
++	for (o = order; o < NR_PAGE_ORDERS; o++) {
++		struct free_area *area = &zone->free_area[o];
++
++		if (!free_area_empty(area, migratetype))
++			return true;
++#ifdef CONFIG_CMA
++		if ((alloc_flags & ALLOC_CMA) &&
++		    !free_area_empty(area, MIGRATE_CMA))
++			return true;
++#endif
++		/* From pageblock_order up, a free block can be claimed */
++		if (o < pageblock_order)
++			continue;
++		for (mt = 0; mt < MIGRATE_PCPTYPES; mt++) {
++			if (!free_area_empty(area, mt))
++				return true;
++		}
++	}
++
++	return false;
++}
++
+ /*
+  * Should we do compaction for target allocation order.
+  * Return COMPACT_SUCCESS if allocation for target order can be already
+@@ -2520,7 +2561,7 @@ bool compaction_zonelist_suitable(struct alloc_context *ac, int order,
+ static enum compact_result
+ compaction_suit_allocation_order(struct zone *zone, unsigned int order,
+ 				 int highest_zoneidx, unsigned int alloc_flags,
+-				 bool async, bool kcompactd)
++				 int migratetype, bool async, bool kcompactd)
+ {
+ 	unsigned long free_pages;
+ 	unsigned long watermark;
+@@ -2532,7 +2573,8 @@ compaction_suit_allocation_order(struct zone *zone, unsigned int order,
+ 
+ 	watermark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK);
+ 	if (__zone_watermark_ok(zone, order, watermark, highest_zoneidx,
+-				alloc_flags, free_pages))
++				alloc_flags, free_pages) &&
++	    compaction_free_page_usable(zone, order, migratetype, alloc_flags))
+ 		return COMPACT_SUCCESS;
+ 
+ 	/*
+@@ -2588,6 +2630,7 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
+ 		ret = compaction_suit_allocation_order(cc->zone, cc->order,
+ 						       cc->highest_zoneidx,
+ 						       cc->alloc_flags,
++						       cc->migratetype,
+ 						       cc->mode == MIGRATE_ASYNC,
+ 						       !cc->direct_compaction);
+ 		if (ret != COMPACT_CONTINUE)
+@@ -3073,7 +3116,7 @@ static bool kcompactd_node_suitable(pg_data_t *pgdat)
+ 		ret = compaction_suit_allocation_order(zone,
+ 				pgdat->kcompactd_max_order,
+ 				highest_zoneidx, alloc_flags,
+-				false, true);
++				MIGRATE_MOVABLE, false, true);
+ 		if (ret == COMPACT_CONTINUE)
+ 			return true;
+ 	}
+@@ -3116,7 +3159,7 @@ static void kcompactd_do_work(pg_data_t *pgdat)
+ 
+ 		ret = compaction_suit_allocation_order(zone,
+ 				cc.order, zoneid, cc.alloc_flags,
+-				false, true);
++				MIGRATE_MOVABLE, false, true);
+ 		if (ret != COMPACT_CONTINUE)
+ 			continue;
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021105600.3481485-1-tariqt%40nvidia.com
+  Kiryl Shutsemau / Kirill A. Shutemov
