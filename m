@@ -1,113 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743220;
-	b=T4fyCGqGEAX6oSwkjretrGY2IKT4BcgK7cbH5GQkBtosoaM5WSgbyafzFWimG1Gu14eT
-	 5SmX2KgqNIvulZBNEUu4sGT8LyaZ9ZUj6j2cLRs+9kBut9C1VEBjoz3X5mFVKLv84HM2E
-	 ANb2fYZ0qVEszSYdGEn4wboqENQsUsQ8CCtsKQm3bnZoDs9HQHDdT3plYifHy292xEpK1
-	 zkLud383wY/2GEsPpCDeoW13BYAAmk4KpeKnEgTeh8LOtM5z3+La7b/muCi3N+17j+81Z
-	 s7y+kar2EPGZ+/FbmIKrf4PuyI0jZxoGbDA5Sdh+TJnwYZkD7e9nMsWeLbI6RbWGJlg==
+	t=1792743216;
+	b=OITjaO5/KKim/Hp65pZS1ISvfbPESKF78vjwp5+8eVbrmSWluyzjvnhoE+a7lmBjlfAG
+	 lqugX/SOZYwdec7wFLEo24UO0BGU5PYtroB7hdBmi3llNivEYRp/gymfIVhM25zP0BvXt
+	 +R2gdwANR6qjtujDKgnleTQu+OlFXxM6rRFjauIGAVXZErLkjtqYPCXrcVdPCg+z3Ieth
+	 3KpSlDfsPWhqgcqw5rT0S/w+dvW1l6xXT9s2LkPa3qGk/Bdl78vp9TxS5MSoOHDq5GxMA
+	 n60FebtOImI6S3moiTfkizgfY89Ci1bLe4pYX59VV0g1doSe5hQ+aXFGkA7c/dorabw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743220;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=yT6jPp8HY5vKvIY0G2r/UqKlv2QeCR0DI5RlNnDypO8=;
-	b=UeXUa0k6MWqwIQq1XCN0EIle8LRmix1XF3BSRCqG/SUqeVR63FIRQW5gtCB9fHeQr3+E
-	 1t0LyYrMLQQkdDZTr2/yYY+ZlnVbeNlFeaVkUVH3tVUuyifuVQcEu9ZyCFurCK13UcUfY
-	 o50gbvcX1ebPqTGzORRTIDoNHcVggzFP3MOWbvXdyq/vmkhYqMCHuu37+bygewsH7KtTV
-	 oiJJQQ0FxSgrS9yOTh9hgVrl75NC+/DRwvAd4byI2kmBitAJTkNFRWiJsmIs34WaBSqFE
-	 /WhSseh7ymBMbFwlsth183uPDqXYUmSFeLdM8al4eS8noy3bAihP+TkplrYJnuR6HlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743216;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7NexUVuvDPnYcH5TpaHV6T3xbSzprjsyYDQbk6xgnow=;
+	b=O2pQY0gjHeM9VsBXkFJSJRXbOyKN+VgCOrmwC2xIk1nWecqsJRA1FKZyFcnx8z0v6hcd
+	 a24JIM2IpnGkY9mpuKqJQ4toypKv1hSaqbvH4hUFBsyTr7JrFz2QNJ0NixIJlIsveo4sg
+	 oS8izjor5j3bME86cRLxY5sTGdZDUC4NL+a8dXUIw16Yb/2093kyXkm3HsUK9EwEeeMYP
+	 0FAzL1v+0c/uxakdHQSQB/53Mcs/6XaG47paWnw6ZSL6QxVEo+SvaaTH3ZDZwudWl/Tjx
+	 nzeXO+OBBITjoVuQOFhgK/QiyyaI5gugV96TyXwyD8QVG132q30i09NDw3tIq3GFOvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BsToAD7F;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JyJ0GS8s;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zoDF6v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80DC606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E80DC606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234CA606A31D;
+	Fri, 23 Oct 2026 08:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BsToAD7F;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JyJ0GS8s
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FL8M1552363
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yT6jPp8HY5vKvIY0G2r/UqKlv2QeCR0DI5RlNnDypO8=; b=BsToAD7F4z6PT6ao
-	Dbx6eAkp4dN+Uc09wNhoOpzDiJGaBcnQC79Fo1vA1+99onhGuNbP+145nIUsu5XP
-	OribmwcCr5O4eG/uXwtBmuAOMnNprqyK6LYe1jALe2jE1KHaDDYpCEVnzseIqjcq
-	hPL3JvIXLeE3cSQDjMrrVLOZbE/VXuwkTuWuHX+tOFyF/jqKzu0rxCcWUm3gs90+
-	gytP95IctXyM9rGiw8r0QAjZBMbusbqI0X4fsBemAMPqKcd0StpKITNT6O87gzLW
-	L08WW4LkTdS20l/AGAoyRvgNhAd3CuvX87QzY3mEbbSnlXXnW0XQI0eYOEroOa1J
-	N2d9dg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmttnd0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:39 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b8306ba68so14277466d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:13:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792743218; x=1793348018; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yT6jPp8HY5vKvIY0G2r/UqKlv2QeCR0DI5RlNnDypO8=;
-        b=JyJ0GS8s2sXLgsCIIwQdSFZbbybXOeLxd+Mc8802dXhQ/A7z+1KZ90mAPaEMPTb+oR
-         yN0GJBDNxEXYfmPr+ipdyi+aymPD6HE4D9Qw/sHu8f6rI7nWwrnXfZ27hHaF1eXqZ2NC
-         tdtm8AubU/6R82tLte39O5m7saVqzR4tViVCHTWq5tqI0zejhGTjXNkqD+PXWGsbfs2A
-         6VZnq/76ahwL5UmkSlDQcvrp4i3w/6WS6kYDvUIrzT5+J4FJgnqdXlS/AmQ384LrXWhJ
-         3D0IRX6YcqwflKDRUCir0Y9sTO4fLZZS80Jr57JAJQE7p8ILT/JW7f8XdckUX4s4gVAs
-         177g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743218; x=1793348018;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yT6jPp8HY5vKvIY0G2r/UqKlv2QeCR0DI5RlNnDypO8=;
-        b=Lun6splWjFRvj0HjcQ/ipB+M2ojUlSDIKrlv9RN6VZfM3t8kDyH7O4TxrCJj0dPKgM
-         9v7cErMC3vT4+ecM5SQmTy2bbFrQpJXOeq1LjShr00+MkgbG24vjqw3NgOREEQpqRDtf
-         xOKEykeV2J2rdF0bH26jgo4w+I3a5IoppBmIHOK8AboBWA/WT86l79dnBcVbx2NKqifK
-         OP4ktnRiWATPxxBkVdWZddOt4uemTA6b86/TNt6+TnH6o9faZuqp1fMDqgQMKcChxNgr
-         0FXBEzHRNYK2jmFe8AtbRb17nxvHcTt9f1iDK70XORri/jBtUmJx4AtGzHqPPpT+CKGc
-         LjEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcuQ83gsoaEZTAyhWcUcg4NUXRDkkGvUooHc5+arFyimuTvLun4rzXh9wv3LyxDXHdJWVUp43J1EjOpS4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK39aIIxLZOePdayjc0oQB/xjokwEM831IjvbdBdhxfzR1NWqMH
-	Bm51gKVm/nLkfG0svA/FQArBCwon8+14NnB/uJfQQhtP9bfTN2PaUkGs3thAcn6qisJbVKF1t3W
-	Y1mgI2PYSkderIMS0rjHrcpNRCXOJZxcel65hdThpHZbywvhE29Z+TzmQfJGDJldLhMw50Qu2wM
-	s=
-X-Gm-Gg: AYBFou1CV66mHISIWAGDHiF015swTY+vpLsAEfh0wjxXaXlP7+tZ/CZ7MDp8hrpYqo5
-	zHcSgWLX1HAa6M9HUbBoLg+gm3ndJuWzrRsBIfE+MVuTBjcE0FO7TEGpsZEZuK45kgCx/7aOXRD
-	gCjrVzqTA9MeiLzfwq2stlFL7Scd/YJKpfCnkCfSKdxq9SvNHJggkXzorwILLsQgxqE0YO3G7J7
-	mAjG2X3PurWveKBBNH0fqKxY0Bo1mAy8U5U5gOpGQjs4Mb+hsNYTrjqDv3NfkJhXPpc/iXPe1aX
-	9PlpRiRmGCwyRlUgwJMLorEzVGoXWQe6c0for5+KHc9Mw2ykF7tARcDiCdw8780D/YA0B5pIIHs
-	ECFB/1PBemdARnJabqqPzN2PjRxvcgG2dSTUNXeAsB6tQagZo0jkYG6StiIwDIg==
-X-Received: by 2002:a05:6214:20a2:b0:91b:7601:342b with SMTP id 6a1803df08f44-91c3ab0bd0emr18512476d6.49.1792743217936;
-        Fri, 23 Oct 2026 01:13:37 -0700 (PDT)
-X-Received: by 2002:a05:6214:20a2:b0:91b:7601:342b with SMTP id 6a1803df08f44-91c3ab0bd0emr18512016d6.49.1792743217328;
-        Fri, 23 Oct 2026 01:13:37 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c396af493sm14345626d6.9.2026.10.23.01.13.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:13:36 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 16:13:11 +0800
-Subject: [PATCH v4 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zoDF6v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F531F031E0;
+	Fri, 23 Oct 2026 08:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743215;
+	bh=7NexUVuvDPnYcH5TpaHV6T3xbSzprjsyYDQbk6xgnow=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=O6zoDF6veRo/4X7SMn9BvzY4eYV0ROzr3LFec0b1+F30A+6RBO6vTcX4j3wWtkj/H
+	 gghQ+vl6w7Vn/i9RNCthu1bHgVZ2U6P4BJMmdzW329iX3qsZIbVIf+oYS8tPgFsTJP
+	 b4teXZhbkAU/1CoNXJWOAluAHCQQFQXsc0fxwaCPwmu/Qb8cMlX/pE+VYpSMREIuXQ
+	 G4HTLiBw9w1LZUr/ReeY5LERfBEA2mEbH5or4Qvc6ryXQtx0qpH5tPzx58XEi/nW4I
+	 xdgf0UIn1+0SyotOPEuOYJKMJSJ6aeveQFElYegc5r69C9paPmr5LcyddDrrVRb4gA
+	 LcdLr08QkB6qg==
+Subject: Re: [PATCH net v2 06/14] net: pse-pd: check the PI state under the
+ lock when setting a power limit
+From: netdev-bot+sashiko@kernel.org
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, kyle.swenson@est.tech, ross@r-sc.ca,
+ netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 23 Oct 2026 08:13:34 +0000
+Message-ID: <179274321449.3134.2737207729630977183@kernel.org>
+In-Reply-To: <20261020171249.853085-7-github@szelinsky.de>
+References: <20261020171249.853085-7-github@szelinsky.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,308 +65,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-msm_gdsc2-v4-1-40b6a71d4e3f@oss.qualcomm.com>
-References: <20261023-msm_gdsc2-v4-0-40b6a71d4e3f@oss.qualcomm.com>
-In-Reply-To: <20261023-msm_gdsc2-v4-0-40b6a71d4e3f@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krishna Manikandan <quic_mkrishn@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743200; l=9471;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=SyvO6c5OqZG1y5uyyTt/nacH1a0GGIXJnhjYmRYH77E=;
- b=2PDRPPGqQSheevFKzeSb+UFybjKNC1ZZC9UQkbAwkrEuU/MSUnsim2k59q/UHD+PD8WwLJb5i
- A3maWpNotevCJYdQUR/FBOISA+dcXa1WsZfrlTIpmH04l8YmlIURVPW
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb1733 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=3e6MG95HUu93SJj1PsAA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: 4YnO6k6UJdOu5eFUD9N6Vo3gUFt0podi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX3u4gr1UdiNG3
- aBKoE7uVn4ia+aBdKvNcaJoBn4aVTjBe1X0xTY1KoQC3UCbByVT1jeHsF6/RXk2UQKQCmooyNp1
- aNnYAGIATqHsapgL3eitG4vHwgTmC+igZYamqIzdua+S4THn/67LOGau/4VKeTEmHUNqKRFThKB
- GNmgK7Zwsf03Tz+d1Kc4w49uAbMOu3SuTkeLtUV4XAMfjQapDljLnlzL9JE2ZR/UehFJmZ7jgXg
- EiInffekRg+el6ZNFkxm8x8j/Wn0OzV2g3F3pViNYZm64+STEPxjx+TFajFq/qN3RU1FlqFQjrD
- zD5AHLFW50qhDC9zMA31tZjnsYMW6XIbMbfv2WF3zUPVdDjf5o9T3bA5I0biWIlhF7ZQ7riXKUB
- 5pOUvy2Qnx7Liehes2soeOJLe/94STUqhMnXl5SRRK5Foal1yCfX4XrNiAZFb/H9Yp/iLIBLj08
- cxaoz4ydt5ucTiQ8qrg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX8MJuy5rvCeRT
- 1K3uGhkHsJv/F4lAG2mExzqn4byAgm7Zyv+ubjF0VrJGRiHm+CeX0/Aq8pbL2ypdNfnKf5MTP3L
- T6QXgNEQ+vBRDB/G8PCEFp+GCKopxCk=
-X-Proofpoint-ORIG-GUID: 4YnO6k6UJdOu5eFUD9N6Vo3gUFt0podi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230032
 
-Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
-MDSS hardware and most of the DPU, while INT2 GDSC supplies the
-VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
-remain inaccessible.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Describe CORE and INT2 as power domains of the DPU device, matching
-the hardware partitioning. INT2 only supplies DPU-local source pipes,
-while CORE also remains attached to the parent MDSS device because it
-supplies shared MDSS hardware. DPU performance-state votes on CORE are
-propagated through the genpd hierarchy to its parent MMCX domain.
+Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 1
 
-Keep the widest valid power-domain constraint in dpu-common.yaml and
-narrow it in each platform-specific binding. Require two domains and
-their names for Kaanapali, while retaining the existing single-domain
-constraint for all other DPU platforms.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
----
- .../bindings/display/msm/dpu-common.yaml           |  3 ++-
- .../bindings/display/msm/qcom,kaanapali-mdss.yaml  |  4 +++-
- .../bindings/display/msm/qcom,msm8998-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,qcm2290-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sc7280-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sc8180x-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,sdm845-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm6115-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm6150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm7150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm8150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 26 ++++++++++++++++++++++
- 13 files changed, 61 insertions(+), 2 deletions(-)
+- [High] The new check in pse_pi_update_pw_budget() (drivers/net/pse-
+  pd/pse_core.c:1849-1851) only tests `pse_pw_d_is_sw_pw_control() &&…
+- [Medium] pse_ethtool_set_pw_limit() still races pse_isr() after the
+  change.
+- [Low] The new eligibility check in pse_pi_update_pw_budget() also
+  applies to the rollback call, so the rollback can be skipped while the…
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-index 3f953aa5e694..c67199011f26 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-@@ -26,7 +26,8 @@ properties:
-     maxItems: 1
- 
-   power-domains:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
- 
-   operating-points-v2: true
-   opp-table:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-index 9f935defd6b1..6d6391970d6b 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-@@ -125,7 +125,9 @@ examples:
- 
-             operating-points-v2 = <&mdp_opp_table>;
- 
--            power-domains = <&rpmhpd RPMHPD_MMCX>;
-+            power-domains = <&mdss_gdsc>,
-+                            <&mdss_int2_gdsc>;
-+            power-domain-names = "core", "int2";
- 
-             ports {
-                 #address-cells = <1>;
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-index d5a64c8a921f..bded43a34b87 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,msm8998-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-index 034d3df8d247..6c1476a0faaf 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-@@ -19,6 +19,9 @@ properties:
-           - const: qcom,shikra-dpu
-           - const: qcom,qcm2290-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-index 8137618237ce..3fa0f02f4489 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-@@ -19,6 +19,9 @@ properties:
-       - qcom,sm6350-dpu
-       - qcom,sm6375-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-index df9ec15ad6c3..7703d9b017cf 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-@@ -24,6 +24,9 @@ properties:
-       - qcom,sm8450-dpu
-       - qcom,sm8550-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-index a411126708b8..8e10f9e0d176 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sc8180x-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-index dc11fd421a27..9dafe1d827e1 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-@@ -17,6 +17,9 @@ properties:
-       - qcom,sdm670-dpu
-       - qcom,sdm845-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-index 510eb6c19364..173c2f034241 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sm6115-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: MDP register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-index 8cbf99f9fcba..b8344ff8895a 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-@@ -16,6 +16,9 @@ properties:
-   compatible:
-     const: qcom,sm6150-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-index c79b2d442800..8e50942f3e1f 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sm7150-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-index a88d22f30a60..b407bc399462 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-@@ -17,6 +17,9 @@ properties:
-       - qcom,sm8150-dpu
-       - qcom,sm8250-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-index aa0cf0ec5b93..7f8e52d52078 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-@@ -61,6 +61,32 @@ required:
-   - clocks
-   - clock-names
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          const: qcom,kaanapali-dpu
-+      required:
-+        - compatible
-+    then:
-+      properties:
-+        power-domains:
-+          minItems: 2
-+
-+        power-domain-names:
-+          items:
-+            - const: core
-+            - const: int2
-+
-+      required:
-+        - power-domain-names
-+    else:
-+      properties:
-+        power-domains:
-+          maxItems: 1
-+
-+        power-domain-names: false
-+
- unevaluatedProperties: false
- 
- examples:
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but there is an
+  AB-BA deadlock between pcdev->lock and the supply regulator's ww_mutex.
+- [Medium] This problem wasn't introduced by this patch, but the rollback
+  call to pse_pi_update_pw_budget() in pse_ethtool_set_pw_limit() (lines…
+
+--
+
+net: pse-pd: check the PI state under the lock when setting a power limit
+
+This patch moves the "PI is powered" check from pse_ethtool_set_pw_limit()
+into pse_pi_update_pw_budget(), where it runs under pcdev->lock. The helper
+now reports through a new updated argument whether the budget changed. The
+rollback after a failed regulator_set_current_limit() uses that flag
+instead of a non-zero previous allocation.
+
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index af9eb29792706..36f7dba8190a2 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+> @@ -1821,22 +1821,35 @@ EXPORT_SYMBOL_GPL(pse_ethtool_set_config);
+
+[ ... ]
+
+>  static int pse_pi_update_pw_budget(struct pse_controller_dev *pcdev, int id,
+> -				   const unsigned int pw_req,
+> +				   const unsigned int pw_req, bool *updated,
+>  				   struct netlink_ext_ack *extack)
+>  {
+>  	struct pse_pi *pi = &pcdev->pi[id];
+>  	int previous_pw_allocated;
+>  	int pw_diff, ret = 0;
+>  
+> +	*updated = false;
+> +
+>  	/* We don't want pw_allocated_mW value change in the middle of an
+>  	 * power budget update
+>  	 */
+>  	mutex_lock(&pcdev->lock);
+> +	/* Only a PI under software power control that is enabled and has a
+> +	 * PD detected gets a budget. Check this here, as pse_isr() changes
+> +	 * it under the same lock.
+> +	 */
+> +	if (!pse_pw_d_is_sw_pw_control(pcdev, pi->pw_d) ||
+> +	    !pi->admin_state_enabled || !pi->isr_pd_detected)
+> +		goto out;
+
+[Severity: High]
+Do admin_state_enabled and isr_pd_detected really mean the PI is powered?
+
+Both flags can stay set while the port is off in hardware.
+pse_set_config_isr() hides -ERANGE from the static budget allocation:
+
+	pcdev->pi[id].isr_pd_detected = true;
+	if (pcdev->pi[id].admin_state_enabled) {
+		ret = _pse_pi_delivery_power_sw_pw_ctrl(pcdev, id,
+							&extack);
+		if (ret == -ERANGE)
+			ret = 0;
+	}
+
+pse_pi_enable() also sets admin_state_enabled on -ERANGE. In both cases
+the PI is left pending, with pw_allocated_mW == 0 and pi_enable() never
+called.
+
+pse_disable_pi_pol() is another case. It turns off a powered PI through
+_pse_pi_disable() to shed budget, but it leaves both flags set.
+
+The core already treats this as a separate state in
+pse_pi_is_admin_enable_pending():
+
+	if (!pcdev->pi[id].admin_state_enabled ||
+	    !pcdev->pi[id].isr_pd_detected)
+		return false;
+
+	ret = pse_pi_is_hw_enabled(pcdev, id);
+	/* PSE PI is already enabled at hardware level */
+	if (ret == 1)
+		return false;
+
+A pending PI passes this check. regulator_request_power_budget() then
+reserves pw_limit, and pi->pw_allocated_mW is set to pw_limit, while no
+power is delivered.
+
+pse_pw_d_retry_power_delivery() can power the port later. It is called
+from _pse_pi_disable() of another PI and from pse_ethtool_set_prio(). The
+path is _pse_pi_delivery_power_sw_pw_ctrl() ->
+pse_pi_allocate_pw_budget_static_prio():
+
+	while (regulator_request_power_budget(pi->pw_d->supply, pw_req) == -ERANGE) {
+	...
+	pi->pw_allocated_mW = pw_req;
+
+This requests the full pw_req again and overwrites pw_allocated_mW. The
+earlier ethtool reservation is never freed. pse_pi_deallocate_pw_budget()
+only frees the overwritten value.
+
+Does the pw_limit reserved through ethtool then stay charged to the supply
+for good?
+
+The commit message says the patch stops budget being reserved "for a port
+that is no longer powered". That still seems possible, for example right
+after pse_disable_pi_pol() turns a port off. The same flag test existed
+before the patch, outside the lock.
+
+Would checking pse_pi_is_hw_enabled() == 1 here, under the lock, close
+this?
+
+The comment kept in pse_ethtool_set_pw_limit() ("if a Power Device is
+powered") also doesn't match what this check tests.
+
+[Severity: Low]
+The rollback call in pse_ethtool_set_pw_limit() also goes through this
+check. Can the rollback be skipped while the increased reservation is still
+held?
+
+pse_ethtool_set_pw_limit()
+  pse_pi_update_pw_budget()      raises P -> L, updated = true, unlock
+
+pse_isr()                        DISCONNECTION
+  pse_set_config_isr()
+    _pse_pi_disable()
+      ops->pi_disable() fails (e.g. an I2C error), returns before
+      pse_pi_deallocate_pw_budget()
+    pcdev->pi[id].isr_pd_detected = false;
+
+pse_ethtool_set_pw_limit()
+  regulator_set_current_limit()  fails
+  pse_pi_update_pw_budget(previous_pw_allocated)
+    !pi->isr_pd_detected -> goto out
+
+pw_allocated_mW then stays at L. The pre-patch rollback would have restored
+it to P. Failing this check doesn't always mean the PI's reservation has
+been released.
+
+> +
+>  	previous_pw_allocated = pi->pw_allocated_mW;
+>  	pw_diff = pw_req - previous_pw_allocated;
+>  	if (!pw_diff) {
+> @@ -1854,6 +1867,7 @@ static int pse_pi_update_pw_budget(struct pse_controller_dev *pcdev, int id,
+>  		regulator_free_power_budget(pi->pw_d->supply, -pw_diff);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Is
+there an AB-BA deadlock between pcdev->lock and the supply regulator's
+lock?
+
+Path A, ethtool set_config under rtnl:
+
+pse_ethtool_c33_set_config()
+  regulator_enable(psec->ps)
+    regulator_lock_dependent()
+      regulator_lock_recursive()    locks PI rdev, then its supply rdev
+    _regulator_enable()->_regulator_do_enable()
+      pse_pi_enable()
+        mutex_lock(&pcdev->lock)
+
+regulator_disable() -> pse_pi_disable() takes the locks in the same order.
+
+Path B, the threaded IRQ:
+
+pse_isr()
+  mutex_lock(&pcdev->lock)
+  pse_set_config_isr()
+    _pse_pi_delivery_power_sw_pw_ctrl()
+      pse_pi_allocate_pw_budget_static_prio()
+        regulator_request_power_budget(pi->pw_d->supply)
+          regulator_lock(supply rdev)
+
+On DISCONNECTION, _pse_pi_disable() -> regulator_free_power_budget() takes
+the same supply lock.
+
+pw_d->supply comes from regulator_get(&rdev->dev, rdev->supply_name). It
+is the same supply rdev that path A already holds.
+
+If A holds the supply rdev and waits for pcdev->lock, while B holds
+pcdev->lock and waits for the supply rdev, both tasks hang for good. A
+also holds rtnl_lock.
+
+pse_pi_update_pw_budget(), including its new rollback use, keeps the same
+pcdev->lock -> supply order.
+
+>  	pi->pw_allocated_mW = pw_req;
+> +	*updated = true;
+>  	ret = previous_pw_allocated;
+>  
+>  out:
+
+[ ... ]
+
+> @@ -1900,21 +1915,17 @@ int pse_ethtool_set_pw_limit(struct pse_control *psec,
+>  	/* Update power budget only in software power control case and
+>  	 * if a Power Device is powered.
+>  	 */
+> -	if (pse_pw_d_is_sw_pw_control(psec->pcdev,
+> -				      psec->pcdev->pi[psec->id].pw_d) &&
+> -	    psec->pcdev->pi[psec->id].admin_state_enabled &&
+> -	    psec->pcdev->pi[psec->id].isr_pd_detected) {
+> -		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
+> -					      pw_limit, extack);
+> -		if (ret < 0)
+> -			return ret;
+> -		previous_pw_allocated = ret;
+> -	}
+> +	ret = pse_pi_update_pw_budget(psec->pcdev, psec->id, pw_limit,
+> +				      &updated, extack);
+> +	if (ret < 0)
+> +		return ret;
+> +	previous_pw_allocated = ret;
+>  
+>  	ret = regulator_set_current_limit(psec->ps, 0, uA);
+> -	if (ret < 0 && previous_pw_allocated) {
+> +	if (ret < 0 && updated) {
+>  		pse_pi_update_pw_budget(psec->pcdev, psec->id,
+> -					previous_pw_allocated, extack);
+> +					previous_pw_allocated, &updated,
+> +					extack);
+>  	}
+
+[Severity: Medium]
+pcdev->lock is still dropped between three steps: the budget update,
+regulator_set_current_limit() (which takes the lock again in
+pse_pi_set_current_limit()), and the rollback.
+
+Can updated and previous_pw_allocated be stale by the time the rollback
+runs? The rollback also applies an absolute value to whatever PD session
+exists at that point.
+
+Two interleavings with pse_isr() look possible.
+
+(a) After the budget update, pse_isr() handles DISCONNECTION, which frees
+the budget, and then CLASSIFICATION. _pse_pi_delivery_power_sw_pw_ctrl()
+budgets the new PD as min(pi_get_pw_req, pi_get_pw_limit), using the old
+hardware limit.
+
+If regulator_set_current_limit() then fails, the rollback forces the new
+session's allocation back to the old session's value.
+
+The patch adds a rollback-from-zero case (previous_pw_allocated == 0 and
+updated == true, e.g. for a pending PI). In that case the rollback can
+free the new PD's whole budget while the PD is powered, so the supply is
+oversubscribed.
+
+(b) A PD is classified between the budget update and the hardware limit
+write. It is budgeted from the old limit, and then the new, higher limit
+is programmed. The hardware then allows more power than is reserved.
+
+These windows existed before the patch. The rollback driven by updated is
+new.
+
+The commit message describes the pse_isr() race. Would it make sense to do
+the budget update and the hardware limit write in one pcdev->lock section,
+so that race is fully closed?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the return value of the
+rollback pse_pi_update_pw_budget() call is ignored. What happens if the
+rollback's re-request fails?
+
+When the limit is lowered from P to L, the first call frees P - L mW and
+drops pcdev->lock. A concurrent pse_isr() on another PI in the same domain
+can take that freed budget.
+
+regulator_set_current_limit() can then fail.
+pse_pi_set_current_limit() returns -ERANGE for max_uA > MAX_PI_CURRENT or a
+null voltage, and ops->pi_set_pw_limit() can also fail. The rollback's
+regulator_request_power_budget(P - L) then returns -ERANGE.
+
+pw_allocated_mW stays at L, but the hardware keeps the old limit P.
+
+The rollback also overwrites extack with "not enough power budget
+available". That hides the real regulator_set_current_limit() error.
+
+>  
+>  	return ret;
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020171249.853085-1-github%40szelinsky.de
