@@ -1,69 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740268;
-	b=NUewl+MvmDtso4PXVZwkUpyIat6ES9z+3MyfWncsUdIP0uxgVkQ1duNC59RGLC+J47EO
-	 TSUk5635PEG0rc1szbDyDnvoTTj/pDnSziwjnOsAHPgq0KTRmXMznQ4qAdUQsYV0E4bnx
-	 N6yUow1oVK4J6CU02DfOaMbAnjD0smK3QwDAw6RxIjbPnS/HFsf53ChPrpBfLM1HECvMn
-	 /ALV5LDqFY/Ud/R00CnOlrpvbeFj4imbcWPewzoxHa8MeeaMJGzB6RfiD0IuwqKDWZ8+1
-	 jjczd96VeoxHDdfq/R7Gg5DTlTHB0hDPdFGaLPx43SwIIMU/PW7GheIKAkd3UNNu4yw==
+	t=1792740357;
+	b=Fmi6WSWPRyx7leMfqZUi3VZ+7TkWbiDyFs8W4BvrVu6NAqwNnnuTiagBxkAhn4VaDPra
+	 0x7ZOyI+2nVSsIhUadAkPitv9DTKAjcP5UP1aqr+o+pn6mVXFSxvSCMzvSS6a1EgLFBgA
+	 JZXXd4AhN9n8kBO5pMpXwqpngkstOg9GM6ezpzrQ+hrO60Lyquj7UtCOcCAWHVUwcg/JZ
+	 exO97HCJ0qaF7NU4fSU3TalieM1mODkg6YfndefKl5iUkL/cbZ7cs3T0BTGV30LtfPAKQ
+	 YVUwn557sE6u47GNReT7ry+rcM1SYcjnenGg2SgJVwt8bXKroAYFvQMb3bjdH/cnIMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740268;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Content-Type:
-	 Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 Content-Transfer-Encoding:X-Mailer:References:In-Reply-To:
-	 X-Last-TLS-Session-Version;
-	bh=AigCNMwxBJZuWvXglsaLwBUjZkmiCAeb490K3Kjidoc=;
-	b=TKQdAjdoijFWosUiTdCk1DryyYVrC1GHiph6M9GrU87yfjMG1Hvgbb0D/EthskE5BD0c
-	 WEOYb1HbGvk3iXLSJMq2Mot+et/74cmZL0gXyzYJxqWqpQFqx1vEc63IY+31W9BEqwT/1
-	 gFfd6X5SaqomSK1fJH9FhQ+3OG84QU/cutAuial/B7P6zKdXb4hJI7R9yLjql6AwT528H
-	 lKmkCf/3em8zbvvWiYoqdVT3KrM6Kb0llJ0GtyC3/ZhME7Jynn+g/Dk6+i7TJkk5/B70+
-	 NZT8Q6dVqFR6a7LuXfyEeFbenJFeHucgW8Mvx+3312gkYqX5rc0BTLwMoeK+E9NgY7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740357;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=UR29Az9rweKwmG/FHwYSy4Zxlp5HN7tLC+xHHDEP7Vg=;
+	b=FQ3Efoyp1GAYVPamaz8tuO6U3QoJ5b9yXbvGLLuNOB5FjokdfT799B9g50Do9KnJs4kR
+	 qgTmNBx4UUFq5r4rtMvjHpRIxSYSF/KZv13dP+KUn+aA51t/73UEVGlBGBORspeSbugzH
+	 saBL9XD9xH/Q4iwO8Yjbw5DRrilLRZl3OHuX7ovzjyfz7ysOiIlRwGShf11BLJEDSPkDp
+	 SEaR6iyChXP0FMoZLvdzJqw10rrNhmTzkG2JinTWb5K6CASST+6rIOG9843kC0a0KdiPY
+	 /gSjEI6xBiYUMIOmJpX+CF8Yt6JheFH9ZAG61nmqX449u12fG1oTre0cOpeWM6e4LZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hstKxnHJ;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=LwpEKnlS;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="t/LKUazE";
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8C0606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:24:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA8C0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4AB606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F4AB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hstKxnHJ
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2C48F1A12EC
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:24:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id ED04260398;
-	Fri, 23 Oct 2026 07:24:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A25F710328EBA;
-	Fri, 23 Oct 2026 09:24:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792740258; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AigCNMwxBJZuWvXglsaLwBUjZkmiCAeb490K3Kjidoc=;
-	b=hstKxnHJfU+yB1qlSwWtc8iJkFJc1gclOJhQ6YgKSwGdrFpxR36ZSzouF0DrW9ETDSuv9R
-	SY5gnhS6niaUfwWG29jVin6UCc3oQmWxgsDZ3buofay5/ZsRTaUIMAQOd7DXm+FTgieU4S
-	cOit56+rTh9my65f2a+vHKxRPPdgntmWaO3IFlUsJ9SYU5iRTeTfFV/mS3TRMfCOx1C03M
-	yDTLXKh+Y06/gbDKyiao09IMx8v11ZTwdzexNojA3x2JnFyMUHVmKIcsZy3PDSWC4Yp1m4
-	9zAYwEHUNecZT9mj9xpVr+aYb3jRDVVpuvijlXqnYdAB/8LVZ8OVODZii+FHPw==
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 23 Oct 2026 09:24:13 +0200
-Message-Id: <DMC1DQX9EJ3P.4VWHJ27R9JLG@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>,
- "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Mark Brown" <broonie@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=LwpEKnlS;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=t/LKUazE
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 947971400132
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:25:55 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 23 Oct 2026 03:25:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792740352;
+	 x=1792826752; bh=UR29Az9rweKwmG/FHwYSy4Zxlp5HN7tLC+xHHDEP7Vg=; b=
+	LwpEKnlSruz2MkkO0AO0feSXby0q+0LF8B4+llgF3RfHJ72WmzqCQVCjA6mzuuG/
+	MPv4LS2F7ghNnZMQvwYSFGFJKf+Ql+SeAz4nkw6mMyvLjqnLv6Nioy7D6UH7x+cQ
+	vm/mXDRwkQZvR9tAkvUYcfaH0JYT+U5Jmt6rJzfUhGO04ZW1FFqtKvwU1RETGyiZ
+	8Cfo/qAnEUfP2NKVoQutGfksZSWk2gXR+aDksWjgl8XSY0tgFXSaBcxOxnkosaz1
+	lsSrjjDXoQBboPjz+zE7CdSPzt91N2yXNfbOtROG++Ezz45cH55jA53B0bbIe46T
+	/Z7qGyegNb7f72cgXuaGcA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792740352; x=
+	1792826752; bh=UR29Az9rweKwmG/FHwYSy4Zxlp5HN7tLC+xHHDEP7Vg=; b=t
+	/LKUazEjpptsgOTVVGLOyUx67iN+H8jM5UNTBHv0GnUTgnl92Qqkc6AqONAmKqeI
+	P+GSGnmAqJVfEWOZ7OXCq58W6Sxp1hZ8a6fnsoxkHQ0dvwMblii7qZVRXyjmvVSW
+	K68hHt9H7pXD2Q3gpmNsMkEmKOhugojqAfzsDpAaczpMpwV/jYatn9WDrwbpAeVG
+	KMrRbSABOB+OdVFAXFjcBMX+uwVITmzi3nX8fFrPUCBBpwpRw/oXG770IwBCMXuR
+	7NzWvmJgTj/zI3qxVHkRsxSaPlCIiSC4TMY9ceCNE2q49ekyccaBYXLOeovzFBeD
+	YS55+5UYsA6J4xuY/WZMw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792740352; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ScM1oTv9t4iLKOFm3pK+HltcuATZd1JtQ8pxYVfeEfNii7N
+	rVVps/p5QzBqmaCHtjohfwd8R5zAo1UIaksr2RauA22HhPEiBUehxAUpWqe5SSsm
+	XmlA+1UQxgvyepo0eJ9l1aCjO6ZcW9mqHA9dvq2FNVyUnYxAP1wRXrGdpr142hNQ
+	lv1PDTLSV42wYFSci6sE0r5GhDsnQTM/7BpTIjV+yMp5WyUYqgp87YaRzLxrUIcO
+	BUoNOcoynvbGBBOwTR8Rw8B7A7arWrJDhUYPuZ0fpQFfissPP7HNhLrXHRq2yB+x
+	0idMKE3djFzUH8PGzrTAOGIEikfYS6+tXxPIJBA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:rBYetkeAQu5d2/2n/Dkw5SRbZ2B0w1gShixvi2Bd/eg=:fXbW+yRh06QgiD0PdkLZAhmarNBawaN1PDA3bbeZgtY=;
+X-ME-Sender: <xms:_Qvbask7R9CnJrP0lAGqETxJNwdHuBrx_tbtChhIr_sMaLIM0itV2g>
+    <xme:_Qvbamre5fSZEUD2x1Ck_UmGeHU3ag-f41K37dx_QQwa5202upcpp9Fku36kd25fl
+    liID1czpUGXhSWcSn79eE0gZAh2Wh-xv4nlHSskj2_v0dRJEbMPNB0_>
+X-ME-Proxy-Cause: dmFkZTEClNIKfcap71svuJThdRRvPmrDVzRwWli1kOKd9dtkFjsrm2DeczGsYu0PK0Oq/w
+    oNm8TKtM23P2axpZSE88RCI7olbpXcY+BFOfmz3d1WfydV2xbT3F7QFlD3MUjspzsekhuP
+    Vq4/75LNAwwut8CLiaDxX/lXUm6XqpiKQZYfp33GwiP/YR/gnp4jBMh6/0yu98ygSAP/b4
+    mlc6AiENjR+nwADIKOhDZTgAg34uf4zmhAgJp4JY2SJmtMi54FflTA2PfP568tME9Z5nlS
+    LFFQZds89J84jcG+PbKE4eCmLK1+/1tYw/FBXq76EkF0tUpetJ1jutwNpHHCVK0TE2SPfO
+    6ydcSLEHkTh05dk6rAeOYf/92xWHXZlpacNRwQjMaF7vKkSgS8HvfPA2TSSiXsJE/pP2rS
+    0kDQlQFFUk8KTgIpK489qn6p4Ar5fyC1yETfbyLreYrPoxQJoRCdaoo5bV1/KjovT/eVx3
+    ePVrHjaqc1mbYfIxgRWM53N53hxgtN9W55TapB1UekXSkyk46N9CGlgIYIeV2aotCmhjJ/
+    DiHaQc7Md35SKb65SlkgI7gWgnlznldTromcJtual+vIxgtCOjCtNOTDvE28wV+L/fnDvO
+    ubiBFrF3kjVuxthsTeb2WTWYRAL/4RtuGtAZVE42nDsM2GoTD9wVWSvHDXQw
+X-ME-Proxy: <xmx:_gvbalK__mc47poPj6y8xYq24v7gWxlHDLsgd_57d1K8YPHjzAMqUw>
+    <xmx:_gvbagMdXDEDlBe2OOdRyNXRl3EfRcNnmvDgJFkwiczIdyQBgN7Nmg>
+    <xmx:_gvbaj7KmbInEWQzqXOQauuJHC0HCga5_h0Jc1PS5VJEBWBjirt_4g>
+    <xmx:_gvbai7uP-FmSMMatn2lkpswoCy2xHPjou55t3bLzI5hixq_ZFM-Zg>
+    <xmx:AAzbaihJYtEtcBpc7FCafLIb-JL6JE0qXzZ6bxN62lFuiMHKlqCNd2XR>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 623A432A0093; Fri, 23 Oct 2026 03:25:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,163 +114,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
- <atpJCnOMOlLSNvqL@sirena.org.uk>
-In-Reply-To: <atpJCnOMOlLSNvqL@sirena.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+X-ThreadId: AJ6RlB2RkjcF
+Date: Fri, 23 Oct 2026 09:25:29 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+Cc: "Florian Fuchs" <fuchsfl@gmail.com>, linux-sh@vger.kernel.org,
+ "Yoshinori Sato" <yoshinori.sato@nifty.com>, "Rich Felker" <dalias@libc.org>,
+ "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
+ linux-kernel@vger.kernel.org
+Message-Id: <4eccd2fe-9749-4220-832b-b34308ccc0a8@app.fastmail.com>
+In-Reply-To: 
+ <CAMuHMdVOA2bo2NTz7L=+W_h_eTmXJY7JeuFdKbh-uB3n-23SDQ@mail.gmail.com>
+References: <20261022233410.2959823-1-fuchsfl@gmail.com>
+ <04cfcbc2-0021-4ba2-b3bf-0da3cc82d046@app.fastmail.com>
+ <CAMuHMdVOA2bo2NTz7L=+W_h_eTmXJY7JeuFdKbh-uB3n-23SDQ@mail.gmail.com>
+Subject: Re: [PATCH] sh: traps: Fix kernel unaligned access fixup in branch delay slots
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Mark,
-
-On Thu Oct 22, 2026 at 7:34 PM CEST, Mark Brown wrote:
-> On Wed, Oct 21, 2026 at 12:27:46PM +0200, Paul Louvel wrote:
+On Fri, Oct 23, 2026, at 09:15, Geert Uytterhoeven wrote:
+> On Fri, 23 Oct 2026 at 09:09, Arnd Bergmann <arnd@arndb.de> wrote:
+>> On Fri, Oct 23, 2026, at 01:34, Florian Fuchs wrote:
+>> > @@ -287,8 +287,10 @@ static inline int handle_delayslot(struct pt_regs *regs,
+>> >       insn_size_t instruction;
+>> >       void __user *addr = (void __user *)(regs->pc +
+>> >               instruction_size(old_instruction));
+>> > +     struct mem_access *insn_ma = user_mode(regs) ?
+>> > +             &user_mem_access : &kernel_mem_access;
+>> >
+>> > -     if (copy_from_user(&instruction, addr, sizeof(instruction))) {
+>> > +     if (insn_ma->from(&instruction, addr, sizeof(instruction))) {
+>> >               /* the instruction-fetch faulted */
+>> >               if (user_mode(regs))
+>> >                       return -EFAULT;
+>>
+>> The "insn_ma" pointer is always the same as the 'ma' argument
+>> you already pass, as both are set based on 'user_mode(regs)'.
+>> Why not just use the pointer you already have?
 >
->> +static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev=
-, unsigned int selector)
->> +{
->> +	const struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
->> +	int ret;
->
->> +	/*
->> +	 * The LM51772 uses hardcoded OVP thresholds. Update the OVP threshold
->> +	 * to match the new voltage.
->> +	 */
->> +	if (priv->ovp_thres) {
->> +		ret =3D regulator_list_voltage_pickable_linear_range(rdev, selector);
->> +		if (ret < 0)
->> +			return ret;
->> +
->> +		ret =3D lm51772_set_ov(rdev, ret + priv->ovp_thres);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	return regulator_set_voltage_sel_pickable_regmap(rdev, selector);
->
-> If the voltage is being lowered this will lower the threashold prior to
-> lowering the voltage which could cause the protection to flag.  I guess
-> we need to look to see if the voltage is being raised or lowered and do
-> the change before or after as appropriate.
->
+> That would also handle handle_trapped_io(), which passes
+> &trapped_io_access, right?
 
-If new_uV > old_uV, and we set ovp after or before, that doesn't matter, be=
-cause
-the voltage only ramp up without getting a chance to be > ovp.
-If new_uV < old_uV, if we set ovp before, the protection will flag, and if =
-we
-set ovp after, the protection might still flag because of the slew rate del=
-ay
-(or put another way, there is no guarantee that the voltage will be low eno=
-ugh
-so that the ovp don't trip).
+Indeed, that would be bad. The patch looks fine then.
 
-My idea is to implement the .set_voltage_time() callback, to inform the cor=
-e how
-much time it will take for the regulator to reach the new voltage, to that =
-we
-fsleep() for the correct amount of time [1].
-Then, the core could call .set_over_voltage_protection() if the driver enab=
-led a
-new 'fixed_ovp' flag:
-
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -4014,6 +4014,16 @@ static int _regulator_do_set_voltage(struct regulato=
-r_dev *rdev,
- 				     (void *)data);
- 	}
-=20
-+	if (old_uV !=3D best_val) {
-+		if (rdev->desc->fixed_ovp && ops->set_over_voltage_protection) {
-+			ret =3D handle_notify_limits(
-+				rdev, ops->set_over_voltage_protection,
-+				&rdev->constraints->over_voltage_limits);
-+			if (ret =3D=3D -EOPNOTSUPP)
-+				ret =3D 0;
-+		}
-+	}
-+
-
-[1]: https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#=
-L4005
-
->> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rd=
-ev, int min_uA, int max_uA)
->> +{
->> +	struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
->> +	u64 voltage_uV =3D ((u64)priv->sense_res_milliohms * max_uA) / 1000;
->
-> Does this build on arm32 or similar things that need a libgcc division
-> implmentation?  div_u64().
->
->> +	if (status_reg & LM51772_STAT_INPUT)
->> +		errors |=3D REGULATOR_ERROR_UNDER_VOLTAGE;
->
-> That sounds like an error with the input so I'm not sure under voltage
-> is the right error to report.
-
-Since there is no error for input under voltage, I guess I can use
-REGULATOR_ERROR_FAIL then ?
-
->
->> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *ri=
-d,
->> +			     unsigned long *dev_mask)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int reg, errors;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	errors =3D lm51772_status2err(reg);
->
-> Does this do the right thing if multiple errors are flagged?
->
-
-No.. should iterate with for_each_set_bit() on errors and then do
-regulator_err2notif() on each bit.
-
->> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int reg;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	if (rid->opaque && rid->opaque =3D=3D reg) {
->> +		ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
->> +		if (ret)
->> +			return REGULATOR_FAILED_RETRY;
->
-> Shoud _CLEAR_FAULTS be volatile?
->
-
-Yes.
-
->> +static const struct reg_default lm51772_reg_defaults[] =3D {
->> +	{ LM51772_REG_CLEAR_FAULTS, 0x00 },	{ LM51772_REG_ILIM_THRESHOLD, 0x64=
- },
->> +	{ LM51772_REG_VOUT_TARGET1_LSB, 0x58 }, { LM51772_REG_VOUT_TARGET1_MSB=
-, 0x02 },
->> +	{ LM51772_REG_STATUS_BYTE, 0x00 },	{ LM51772_REG_USB_PD_CONTROL_0, 0x0=
-1 },
->
-> STATUS_BYTE is volatile so a default isn't terribly sensible (but
-> harmless).
-
-Thanks.
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Acked-by: Arnd Bergmann <arnd@arndb.de>
