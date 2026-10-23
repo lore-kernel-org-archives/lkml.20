@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792716051;
-	b=y/RbLlytYwtMnk15FkoeXOCtldSy6OykAKssTzLlNPAgo3sl4oxknc6hoIhaTLxeVxcG
-	 YbcnijffJzGCa+VGcz3abgfOIPo2Cgi+Vi9MF/OeVOcwDNyM2Nk+Sogw3FfQjW7KV/8Im
-	 QgPgLQuL9T7elkCnZWe5fqG2sZqM16MqqNzPo/62WkO38MFV2C3hdJIXvjQVRNPdDGxd9
-	 kaycxZ8zDRLqoX99Vp+uPJx107DXvsRR+QraHSaNmHXZgtrqr0tCar5J95RxkECPNojIY
-	 WvsHx3UL2zFA0+7QiCeyGAmqFd25mZe584Ad5LHWedO8hfwDsdHi/r85dtmUcsnSuUA==
+	t=1792716276;
+	b=BjbR9YSWjMVe3Yb/ytu3prV8wdjj56RjhcGVtgbeY+YZKtxeTtEN3EBkKLbREMHTJP+w
+	 MbowOvid/YVx/gAwPJ7OarwnZ8w1qFXxKCd1aWcBsMWrhirELgChCo0JrhwGJoLG95t0e
+	 x/Cws7J+kpLd0Uw2YiBJ2s26QbnPTYS0wtMEGQ5tsgis4OCn9h2wqI2SKZYFx8puyZD/c
+	 BnN7RxbLlvOzhzvR1//TizS/4RQZ/8uePPMPdZv4rKz3P/haBN5nLOupxylOQGsCTzWGf
+	 l178hQhRXtENWRTe0clOzf/E2WsXVHBxwKJt1/BJcMwOtnOr1xK/WVcerycF9Av4PQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792716051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792716276;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uWyqPtiO9T3gA3HzTMYjuquERoZRGMe37lTtw9Jts+o=;
-	b=JI08qs0jEYLolqzjS6Tby6SOcEFSk1xfPMwA4MhluCuVRBSCDPYWVD/K6FW+w6pw72AG
-	 KzvfP6pu2iOjesLHbNrdgXS0+K3eDf91JbN/wizEeeao8wD4OU8ReH/euK1KZEBL5g0Pd
-	 ln1CZmx2SeKCVwNM3WQ5u8BNiEnMel4QtfoN08BCSUv3vLCXCLAoMvSGf6BEmf/aq0tuZ
-	 s+EuBeY3ZypspJR8NYt0atP4EeRo7lLI2Fgl5P1s90dJ0l7w4CxmgF5nBDYgJ+ul6JvAI
-	 TzxD7BH8MAraC+PlTot7nsDBx+ijToEku5dGs/vPjFbUr8+G/HRdimDHgHX9AJ3/gGQ==
+	bh=stbvk/Q4rllrKutChcAZtWpRBpIsSD5UqUSphO6Dz80=;
+	b=0OtZjhwxEVBcsckCs/OElTS7QfDAwEDjMo3RD43AZcNEP/b7ombpY1wRBuA2yXsEOgJw
+	 ecWItPGCP3OQK2cbgxwLyyrikDT4ezrPJcbaypEhzmTXpuk3ysmjpoXkQ0NH0npWlThmf
+	 I1un3eqUol8DEA7wvIQuIHDQNaP2NyeYYBC29Mvz7yAYcmlusKwjYcYYnUPY22HpcAbqi
+	 Fh0wwd0kyfPhq5Gjg9G8bMtBhHUigO9yxhh2eLjmM86ncGa33SDieqtVfja8plveMXip9
+	 +Q2uYGIM4MB367dvG7pa1xLa2dVYnwTKFmTp1kIx9q61uGt65pvjr1G9m4qgTsVX12w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TXhpX0Bw;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="T/9tDxDO";
+	arc=none smtp.remote-ip=209.85.222.48
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BC4606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:40:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BC4606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B351606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B351606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TXhpX0Bw
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4395d31228so57748866b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:40:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T/9tDxDO
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9906870a9baso242091241.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:44:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792716050; x=1793320850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uWyqPtiO9T3gA3HzTMYjuquERoZRGMe37lTtw9Jts+o=;
-        b=TXhpX0Bw8RC+C+6aO7v84NJcvA6Y6SBRlt/g3tanIP9RPjaV46IAJ7GtnrZigg5+NB
-         u6BDsVBkeabEXXpYzULc1G9c1X5Y8ivE6kxaFq2vCAnmvBU2wqsxL8kPk4Wpvjz852PQ
-         zsiEZQB4DLHXf/LnNWW7QZU8GFbeG7ydwc98Cr0xhQ4eErXDwkolmxsSg32G0kDJFJb0
-         vxthV8K/mM71zLP7qBcRIbholw2QWyaJ0PGqSdCOyW/dT6UvusVn8abJulDGqV2l59eK
-         76zqrbHrbV/7C36vXpcgcGIypP1y6Q1lSyHjhUOpQg5tOAirhT8NkRqkWFOv9V2wjE+s
-         gRWw==
+        d=gmail.com; s=20251104; t=1792716275; x=1793321075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=stbvk/Q4rllrKutChcAZtWpRBpIsSD5UqUSphO6Dz80=;
+        b=T/9tDxDOQD72Iun2lmGBi7dfIQ51B0WiegbeIMkKvs+V5aWBhE3aSiaQu32zpVbhPd
+         0O1Yn/Ak62G3YqN/UMoju6qxIr4cR9yL4efzftrPqpvA5dm4vMCoc566dV5YmARTSsfq
+         blL8NkSZhAGHcod7QtUmgZnfCWSOmLh2RD5t+BTSpa01Rr//lKBpIrUtsk7LsA6QSyWr
+         Kl0mSiZ2Q58KF/i/DYM7yHn5w2SUitoWTc8J4Qa0Mbhhx2vQn6AZb9MPHcMpoBbfB4La
+         Rea+gzBgCookYtMZB5krhUZN7SdrO+4BiSUQxNUVVlcDrZyNQ4K+pnj8ijHpYpdSB+VI
+         tApA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792716050; x=1793320850;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uWyqPtiO9T3gA3HzTMYjuquERoZRGMe37lTtw9Jts+o=;
-        b=D5G34FVgcFPsrlr1FhwQ4mby8/+q/s905YyMLvT4xnK7DxDAP1jrWDTynE/LywWncX
-         bG3DFg7ioS4zcKSxqiCTG2wEcRh6JIGYpPJAHd88KM9duO3FN7Cjdxjett9QTvdAz6Hc
-         jx+60LKtuE6NHLUGcCerqsfaZkuMQCggSAL3eK8N0/j1/kwVqhkKBPElu8YOKUPVe18g
-         Jb0EUkFoad7KgM1t401Slv/81JgIjmbyhagcGrn5qBYAgvvjzGAO+oDBX5N29zpVAS9p
-         aEPaQBq+oXqW94oMYuyZMTnQEAARWra55Sf8xy421ytmnaKaHaZjSQzKulFx0Rjgnbqk
-         FasA==
-X-Forwarded-Encrypted: i=1; AKwUvBx11t4vcuybrgwGlqRMGqmk6vYUB5G/nt6wj8Mlpc4SCq403CGoTW/ZxUdcDe3BvPQig333JV9pGE4kPGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMe+N+eEdKp5YX4BRAVZXNo4moJFcpTxbv9E7t36FO66rMe6dn
-	Wj711Xdfa8ftsvXCKA1rrhSiQJvDRQEG17hjHWf1NTfjLAO/rIkyS7pN
-X-Gm-Gg: AYBFou3yU+2zWWBbihyxJ4B6doAWG8nzUxzM7aNAnQqVTBxQspPuSbXKNiNNT+4R307
-	YDjTyxJmHPIZCUp1usYmng3UttqA3zJc+ttS6lQ8Ncxylg4wECKwV9UaGX64XOI4E5rNpPopsmy
-	GWNnX8tLrlRIv/VLiMcX0f5wRWB1r+RnBxpHT40LR6hjq+X3V8WrsdsajDZD0xLNDc9xne7roQ1
-	tEp1k7MAA4XMX7spy6mJ+kBNHkkAXKLkbrThlgBz/63Y/NmAWIH3Sgp9b/B70hoRNK2s4YU0EVM
-	SLO+jXzofXdvsJjk5SPW2IRalU5AWYfDulGJ8GwQFvALfUsPrHnBgZxotjpuilPTambc+Xt88Fp
-	+4ZlNC6dltoVxBF1UQkMCMjDzFHckOmG7EYlqpOnkTnJhvCXr1g0t3Tt2wF/GH95RzdKifFcSFg
-	fZndRZeJqjmHIHZU2JwCLy8udduzm9Mre1qK8IKTF9/nAnn56dIKFt9UCiaeCk0Cd9vYGpSH5Dz
-	zQaOZhgd6VJz1Of+DohKm+M2KkOn5m4re7rBUqSvQZwCKRTBoqjkWCZstUOhrj7Di4QaNPP1/9L
-	zk3TOK9I/wjgE01W+ok3WFUr40TtMQhJZx83qjH9
-X-Received: by 2002:a17:907:7285:b0:c42:2d07:4c38 with SMTP id a640c23a62f3a-c46a903b6e9mr116843766b.26.1792716049876;
-        Thu, 22 Oct 2026 17:40:49 -0700 (PDT)
-Received: from localhost.localdomain ([45.93.75.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5a90202sm47330966b.5.2026.10.22.17.40.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 17:40:48 -0700 (PDT)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792716275; x=1793321075;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=stbvk/Q4rllrKutChcAZtWpRBpIsSD5UqUSphO6Dz80=;
+        b=ZMKBftmo7xtY/Onh51ZsfmoBzenM0kRDxDM43av2Gbb3V7GPLAMO0E2nguLcXyxlMY
+         J8AUaHYdLpUgcls4wZPoh7wtoaXFSGBl18V0ON+2zAsQuEeu4cJEuYF8jmAWo0gJvBNj
+         rEL8mTG4iPIqKu0fOxGNvxonYM9S5+ZJcC/w7EfLbhnocOB/8gH72okYxUAZnUynz7a4
+         pDM6DV8yRqBh3jz3/fry5aCZIacupOqIh3gMWwMArSr7voOEj51kpnMxBMVhi6VmKJY5
+         SFymo03i4Vv3e/MpcS98SSabJdX5yND/Da9Vuzgs6N6uP71dLN/HfVrwRUZIH9B5nQx0
+         oM0w==
+X-Forwarded-Encrypted: i=1; AKwUvBxN9vrpvwilgaWXxAY43BDg4+Omi6WlduzEfJ3ipX2/Mk0DEpNbM0U4qkm54e5kECKh5z8ecFjld5U+X40=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYk1kQ5VwgtB9AQIgUft9gbLV1UWi2Uj0ODAGOdNheKjaSAvwm
+	Q27Kl/2Stdxanho/RT8SiQQ+bXguxkg9GZcfwIX8Q+ZeN3xdXRF1kIo=
+X-Gm-Gg: AYBFou0qptI9Ff4mNm7KYh+AgggqCFqppxwMAwYs2UK7+JftFzyjalbs4NQ63iszeTf
+	CBBsLzQ7KvreIfgpAkO5uz8oVSZHGZxXPOFAibh48YotC82TaFAWlO7hejOqjquUrP47R/zdzzw
+	LXeSwLBmojvtQYTk1vY2pq3Nu7l74LrYKM1jgfjCOHx9SnXBpjy8hgTJWqCUoGuKpyS6c2/VZvL
+	9/Hj+0Tkcp1//Upx5Qo0V+lodmWnlj6OXEB8DX4Zz+lk3igff3gDhsEB2Lrrv6C6FVQag/76nh2
+	aY4KsDAnhOCOqken/Il0h3eutkt8z2hWKvOBYcSceII/kh2fsCxgj9x9LvPkDS5TTJoruLknJ7Z
+	YFsYCLL6Bj8g6kuP1gxdX/QVfuKayN5EqT+CG2feLdH7mhUKo96R4pfBoVebmkTBDucj/oLJ7U3
+	Yy14Qx5UDFysMqsfMpQVtWsrfVepz64HzOW0KG8uEszvxVWukF1bwk+jXSRQ9u4Rh5V69h5LIQ8
+	e/fn/35s2a7RXZWYutqs5xAHWppfIB4QselgMsIckbmFb0tC0faPTeWtIjQfI3tDQ+HNXFCWqSj
+	rg==
+X-Received: by 2002:a05:6102:1625:b0:7a6:b18e:6d24 with SMTP id ada2fe7eead31-7ccc33488damr458301137.23.1792716275233;
+        Thu, 22 Oct 2026 17:44:35 -0700 (PDT)
+Received: from tatoh-arch.tailfce07a.ts.net ([66.60.20.59])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99101765cdcsm1038487241.7.2026.10.22.17.44.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 17:44:34 -0700 (PDT)
+From: =?UTF-8?q?Ignacio=20Mart=C3=ADn=20Arano?= <arano.ignacio@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Subject: [PATCH] ksmbd: select CRYPTO_AES
-Date: Fri, 23 Oct 2026 02:40:45 +0200
-Message-ID: <20261023004045.98484-1-mike.michalo@gmail.com>
+	=?UTF-8?q?Ignacio=20Mart=C3=ADn=20Arano?= <arano.ignacio@gmail.com>
+Subject: [PATCH] HID: apple: Add "F108Pro Dongle" to the list of non-apple keyboards
+Date: Thu, 22 Oct 2026 21:44:19 -0300
+Message-ID: <20261023004419.53935-1-arano.ignacio@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,50 +97,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ksmbd allocates "gcm(aes)" and "ccm(aes)" AEAD transforms for SMB3
-encryption, but SMB_SERVER only selects CRYPTO_GCM and CRYPTO_CCM, not
-an AES cipher. With a configuration in which nothing else enables
-CRYPTO_AES, ksmbd builds but cannot allocate the transforms, and every
-session that uses encryption fails:
+The 2.4 GHz dongle of the AULA F108 Pro keyboard reports itself as
+"Apple, Inc. Aluminium Keyboard (ANSI)" (05ac:024f), so hid-apple binds
+to it and, with the default fnmode, maps F1-F12 to their media
+functions. The keyboard has no Fn key visible to the host (Fn is
+handled in firmware), so the function keys become unreachable.
 
-  ksmbd: Failed to alloc encrypt aead : -2
-  ksmbd: crypto alloc failed
+Add its product string to the list of non-Apple keyboards so that
+fnmode=3 resolves to fkeysfirst, like it already does for the SONiX
+keyboards sharing the same VID/PID.
 
-Select CRYPTO_AES, as the SMB client already does.
-
-Fixes: a848c4f15ab6 ("cifsd: add Kconfig and Makefile")
-Assisted-by: LLM
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Signed-off-by: Ignacio Martín Arano <arano.ignacio@gmail.com>
 ---
-On x86_64, defconfig plus SMB_SERVER=y ends up with CRYPTO_AES unset
-once MAC80211, XFRM_ESP and CRYPTO_KRB5 are disabled; with this patch
-olddefconfig enables it. Without CRYPTO_AES, ksmbd logs the messages
-above when a client negotiates encryption (seen under UML on
-ksmbd-for-next f75c93278608), and with CRYPTO_AES the same client
-connects. Distribution configs already enable CRYPTO_AES, so this only
-affects custom configs.
-
-The smbtorture smb2 tests run here (dir, create, getinfo, setinfo,
-rename, compound, streams, dosmode, read, lock) passed on the kernel
-without CRYPTO_AES, as they do not negotiate encryption by default.
-
- fs/smb/server/Kconfig | 1 +
+ drivers/hid/hid-apple.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/server/Kconfig b/fs/smb/server/Kconfig
-index b7665e0e494..f8b03605db5 100644
---- a/fs/smb/server/Kconfig
-+++ b/fs/smb/server/Kconfig
-@@ -16,6 +16,7 @@ config SMB_SERVER
- 	select CRYPTO_AEAD2
- 	select CRYPTO_CCM
- 	select CRYPTO_GCM
-+	select CRYPTO_AES
- 	select ASN1
- 	select OID_REGISTRY
- 	select CRC32
+diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
+index 5b32fb8c7..82118d654 100644
+--- a/drivers/hid/hid-apple.c
++++ b/drivers/hid/hid-apple.c
+@@ -357,6 +357,7 @@ static const struct apple_key_translation swapped_fn_leftctrl_keys[] = {
+ };
+ 
+ static const struct apple_non_apple_keyboard non_apple_keyboards[] = {
++	{ "F108Pro Dongle" },		/* AULA F108 Pro 2.4G dongle */
+ 	{ "SONiX KN85 Keyboard" },
+ 	{ "SONiX USB DEVICE" },
+ 	{ "SONiX AK870 PRO" },
 -- 
-2.43.0
+2.56.0
 
