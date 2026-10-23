@@ -1,80 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746985;
-	b=fTMSjjw/9Beum8SnouHAFVlfI0/15HQ6no7ueGVXG3tmsXVJFO5DVdqMeexft7NKewhT
-	 MnLqC4q01Bfy7ibiCc/RC//1ux5DgzjzKD41Wh3gL8BDemEbuN4hHCJRrY4OctqnlWCCR
-	 2JtlB4Nh5eatSZOv/7GZvuHZjXRIoIlnowbBkT2z1cbKbRClS2nEm0shWDMqSzGCzOR9Q
-	 BvxB+e+aUIna4aNR7tLXGTAqXb2LRB4Dcz+Joi/x1J4WJB1838Cym45P07Yf6u7YrqyIt
-	 H2s//8uUrwXQb6Zxp4aczsbwDIxDr+r5xCwWq8fQHflPlAUHHcdlXUpDGb0t508MFpg==
+	t=1792746992;
+	b=IUuNEVU+Vve3KnNWh8umAUrFu6cSCmIr+YgdnzLyXqoxbSEilS9FZD/CL/lI54Ht0XoA
+	 83a+RXD5UoS8ucVCkqaEkKt9nlwHA96YnoVFARfLyp5lDjwacn8BgiKmOinxwm5nZSAax
+	 r26emMH3ggWnUAcPvMQGBREPPu6Gtcu+r23+R973OS/GClZkvOlE1F3VpbqoTObLmNixw
+	 KhH61ydfg9YrZ8gScSM8ZOBj5FrkgioQU3u9Dh/v2T6OSokOtDHlFcSDaBszvoEbmjbYE
+	 FbAOaYzJF0NbauDozRh0GODjEdy+PgZKWXeCKhc1WbmEtZUFl+ESIR3/zGn9pOE7WEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746985;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oBI4N91izr3cJn6kY+KTMO5nPi5tQd2NZvpOi2lFG5M=;
-	b=i6w1TB4/Fu62wWTaOwX2tm9e26ig7Q16HnEcgu0MRmyVJe5l1G4Xwg+pVp7d9TgVzG7V
-	 AhTTUNfChXuo6qRLBdeUwzz881Ddna257U+w6F4WIRXRePzyaCRVzJnnVDmBsDE2pCIBq
-	 4FqAZrisE7gTFlk+1qoM5gMmPiYe0/RA461aKIzCukB83o1OHN5hmfeHDa0DmUtbOZ2lr
-	 muhh4gle47YeCX7U5/GcYt7jxNAf8sDO670jToShdW2354L8fd6lPE5pnzPsswjoCilOl
-	 PQBvl6ovotFdT3AL9XH+pD+i8qTlIP2uzD/Qo5/lI+RTvsl4bBg8JFft3HJsaR0Vy3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746992;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4nuVbqjmwVtBwkEi5lYOaDCphgBSo6SLRygw+zLWz5I=;
+	b=UZqLGEX6GM7PCgzoe4dKlot/Jen2UdcOOl/5FJ7NfUk5U7pMiuFSmEGcmgHt8XHz0Nsl
+	 wsW5o7LkDRboB0mKTHIEVVXSHUpavZGLW3qVhQ/XhSf1sZ4ojliARU/nD9OozxgVwMdKU
+	 9XWpO7V/pDuOp5wKNHqzxh3QoC3MkPbxPVeiy21aHFCKHXX/kgT8yeXGkdxYBMq7U3kdb
+	 PLgyLHfUR4F35qkR0HbvkEH7D9WNZWzr/5YwUAd99VAPXxjeR4FStzA/hmEMzjW/5bP3R
+	 TVqc3TMLwUw+SPpR/HEREuXetJ0o6szHTMIF7gL51jtJiZzYaFdaCOC+9gN3xtNFS3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R4baXqCd;
-	arc=none smtp.remote-ip=91.218.175.33
-Received: from mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ewnVWNE2;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=K4d1fxQ+;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B05606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:16:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2B05606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A59F606A322;
+	Fri, 23 Oct 2026 09:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A59F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R4baXqCd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X9TM650OebmRwJLsuG71hTCuTdvOT1LW5J7WGLHQn1Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792746983; v=1; x=1793351783;
- b=R4baXqCd+baNkD6G9BEMpwbrLyzo2JndASVbQPkuQ3YV8IXYThjngIj+6P1cIu/7sz/S8Z/S
- VGp03pcUDCYj8EtXgD5MkmIxyYSp5f+vkfXO14U1SeuR2kqepvamEmIfj8jzkASsq9UmCn3kbow
- vGt77s5DhVww1a3ktgIM3WNc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 43f3da9f26efb15e;
-	Fri, 23 Oct 2026 09:16:22 +0000
-X-Mizu-Trace-ID: 43f3da9f26efb15e
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	Flavio Leitner <fbl@redhat.com>,
-	Petr Mladek <pmladek@suse.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 4/5] ipv4: restrict igmp_qrv to 255
-Date: Fri, 23 Oct 2026 17:13:30 +0800
-Message-ID: <20261023091419.167088-5-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261023091419.167088-1-jiayuan.chen@linux.dev>
-References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ewnVWNE2;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=K4d1fxQ+
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7GmN4820734;
+	Fri, 23 Oct 2026 05:16:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=4nuVbqjmwVtBwkEi
+	5lYOaDCphgBSo6SLRygw+zLWz5I=; b=ewnVWNE2zbWqgeek4lJcYe/KfCozU9Mn
+	JWBKauKJfZnBELQHP4KLlJWItI9SqAce8VW+xEhc/PEEJttUwjhrKgol2SwGtu8T
+	eFgyZujc4HAgmDLqaizywwaZs4vZNyR0LV+8V4h+b78ow82rqUV9HkxVXjwpvXXn
+	KxZTQ6kfwdCbmVjskrJUYnOMITGnZrED/CtLkifclO0Ae5rbrBTRLvArYS6qaG3/
+	lz1yTrhsKPD9ECtrRMyzxEosAqJtalM6KsFcJuGIMDU7O68kuQZuYEyGbzc/ckxn
+	u//P70ckMBj2dnXcBT/RLRYvT1B3PDMRlKAKIbjY07Q6XfMDJUnW2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=4nuVbqjmwVtBwkEi5lYOaDCphgB
+	So6SLRygw+zLWz5I=; b=K4d1fxQ+GYGyBA3ZieXJI9/IAnjgY/VPXHF/ScTqo44
+	F7Ln5pUtJ2mHJc7pz8xa6eCbTdWHV4TqIT0fi18s9/YMHD8WjwIfrSvgn8VuofG+
+	qMlEo3Dx2koghX2lz9U02qLQCRKKgFXPoyKkGh3tyBzeCmVRBJ1sz2qAqO48Zjlo
+	LRRiPohRwihPhL9b69KKQsyBgLf+cVMnT2XHioRGFr6tPEU/4/BgAzljvlOoqNMI
+	zfxDx98SU2gHMy7c3A2gopz5cSsEk2e2dMbwVANlGpoPlwz/fBC661jwOPJ0HPnO
+	vDD/ikOGFqBBYEnRrAesKn6W/ccL4RKxbzZca4QRZ/g==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hfy3wsrsa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 05:16:16 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69N9GF49049047
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 23 Oct 2026 05:16:15 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from JGERONI2-L01.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69N9FwZC023047;
+	Fri, 23 Oct 2026 05:16:01 -0400
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+To: <linux@roeck-us.net>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <corbet@lwn.net>, <skhan@linuxfoundation.org>, <jdelvare@suse.com>,
+        <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+Subject: [PATCH v4 0/3] hwmon: (lm75) add MAX31875 support
+Date: Fri, 23 Oct 2026 17:15:47 +0800
+Message-ID: <20261023091550.1494-1-johnerasmusmari.geronimo@analog.com>
+X-Mailer: git-send-email 2.44.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,49 +102,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfXxxUKP6Aqbm/y
+ hln7sGXtLTvEFQ3aHpxwkqLz8PFPX75Xke5IzvJME2gfJ1QGXDrtZOHEtWnWdS5pH+vNbOEbYl4
+ sGI1UWHjvxQukVz8MH8bY08IuHIT17tdgK4N1rbpa47W3DQAEZYc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfXxnbsOh7sBSc1
+ EFfOMCKyfZRIaAxijvaC4vTXMMqkbsn7Pucjzzka5XOR6iVfguUtoLYcJnztqmlTxVK5hcZ35A3
+ dWaQTI3DtaWrmhhzg4aI/GdDyJkTXJSEomiZCd7TJ8cEqgQagy+xTfEWzOepqpXLw3m512lp63M
+ +P2Ht88kiaG2xed+XUAh28SNAuG7o5ZUsnH1aXPiGZjlVQvpRNGPeyhvP4VlONbj4RCmTMq7pv5
+ fL0BQkVUTlBqD9+qN3LWFGIfsC7vDFdy8GtySgkAGvQSyj4c9KXsCP7zLvkvU/BZt7Pw8iwevnZ
+ fTLVidilxkuIetoJafQZMvp7JpycAWZL2Aqgln8sBVnY+wJC5hKLJ6AJKCwmyTkFliwAyidrYAC
+ shj8lZ9gEd3VWSlKnGXK891seL3xDsPNvHnpJ0L1Ny93V54mk5/QVn21gnf1CDQ1L56XpJZlgN7
+ 8bWT07ZW2yQG+ARcFlQ==
+X-Authority-Analysis: v=2.4 cv=fJ+sTpae c=1 sm=1 tr=0 ts=6adb25e0 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=vFOL9JNIDB1nI9Vvyn0A:9
+X-Proofpoint-ORIG-GUID: Jn-lZmP5oFTMNcKv1zU6d6VNUVaYzYsm
+X-Proofpoint-GUID: Jn-lZmP5oFTMNcKv1zU6d6VNUVaYzYsm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230036
 
-net.ipv4.igmp_qrv only has a lower bound, but ip_mc_reset() stores it
-into the u8 in_device::mr_qrv, and the IGMPv3 retransmit counters filled
-from it (crcount, sf_crcount) are u8 as well. Anything above 255
-silently wraps. With 256, mr_qrv becomes 0, every
-"in_dev->mr_qrv ?: sysctl_igmp_qrv" falls back to 256, which truncates
-to 0 again in crcount, and igmpv3_send_cr() never puts the state change
-records for the group into a report. The older version querier present
-timeout (mr_qrv * mr_qi + mr_qri) also collapses to just mr_qri.
+Add support for the Analog Devices MAX31875 I2C temperature sensor by
+extending the existing lm75 driver.
 
-Unlike MLD there is no WARN_ON() here, the reports just go missing.
+The MAX31875 provides a 16-bit configuration register, selectable
+resolution of 8, 9, 10, or 12 bits, conversion rates of 125 ms, 250 ms,
+1 s, or 4 s, and an alarm output.
 
-Cap the sysctl at U8_MAX, the largest value mr_qrv can actually hold.
+Changes since v3:
+- driver: skip the alert polarity configuration for the MAX31875. It has
+  no polarity bit, and the bit used for 16-bit chips is part of its
+  conversion rate field.
+- driver: set the default resolution and conversion rate at probe so the
+  driver state matches the chip.
+- The conversion rate field is D2:D1 of the configuration register (see
+  the datasheet's Configuration Register Definition). It is read here as
+  0x0600 because the driver reads this register without byte swapping.
 
-Fixes: a9fe8e29945d ("ipv4: implement igmp_qrv sysctl to tune igmp robustness variable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/ipv4/sysctl_net_ipv4.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Tested on a Raspberry Pi 4B with a MAX31875: defaults are restored at
+probe after the chip is set to 12-bit/125 ms, update_interval selects
+each of the four conversion rates without changing the resolution, and
+temp1_alarm follows temp1_max. This was run on the Raspberry Pi 6.12
+tree, which reads the configuration register byte-swapped, so the
+equivalent bit positions were used there.
 
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index e3760daa3470..ef631a2759b0 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -33,6 +33,7 @@ static int ip_privileged_port_min;
- static int ip_privileged_port_max = 65535;
- static int ip_ttl_min = 1;
- static int ip_ttl_max = 255;
-+static int igmp_qrv_max __maybe_unused = U8_MAX;
- static int tcp_syn_retries_min = 1;
- static int tcp_syn_retries_max = MAX_TCP_SYNCNT;
- static int tcp_syn_linear_timeouts_max = MAX_TCP_SYNCNT;
-@@ -978,7 +979,8 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= SYSCTL_ONE
-+		.extra1		= SYSCTL_ONE,
-+		.extra2		= &igmp_qrv_max,
- 	},
- #endif
- 	{
+Changes since v2:
+- dt-bindings: expand the commit message to explain why the MAX31875
+  needs its own compatible string instead of reusing an existing
+  lm75-family one, and pick up Conor Dooley's Acked-by given
+  conditional on that fix.
+- driver: drop the .resolutions table, which incorrectly tied
+  resolution to the sample-time index even though the two are
+  independently configurable on this chip (Guenter Roeck).
+- driver: use the BIT() idiom for the alarm bit read to match the
+  rest of the file (Guenter Roeck).
+
+Changes since v1:
+- Rework the implementation to use the existing lm75 driver instead of
+  the previously selected max31827 base driver.
+- Add the MAX31875 Device Tree binding, documentation, and driver
+  configuration for resolution, conversion rate, and alarm reporting.
+
+John Erasmus Mari Geronimo (3):
+  dt-bindings: hwmon: lm75: add MAX31875
+  hwmon: (lm75) add MAX31875 documentation
+  hwmon: (lm75) add MAX31875 support
+
+ .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
+ Documentation/hwmon/lm75.rst                  |  6 ++--
+ drivers/hwmon/Kconfig                         |  2 +-
+ drivers/hwmon/lm75.c                          | 30 ++++++++++++++++++-
+ 4 files changed, 35 insertions(+), 4 deletions(-)
+
 -- 
-2.43.0
+2.34.1
 
