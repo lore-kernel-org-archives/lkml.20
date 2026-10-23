@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792794344;
-	b=vrtvTnQg8WUxHd9oVOTYQtos8EvxiRgcdaUjW5qFRMEQsth+nWY7jYoenvB2R1wrvDtM
-	 Qfn9IAKjjr6/1Lf0LeO34fEFJZ7sG/pegjdWYLfA50e2SKqwOt6WRzjI5Ou7WWzUlLqYH
-	 FDT4oTw+QWD4Q3+PD8+zs2MTvSaj/sa8VBKy3fYZ6TB/aji8mpGTh9vZaaWt74jpyS22T
-	 AF778/2UmxEcAm3xi6aCVWi/XuLYFZHHn5ZvAFnazCD30yjGWv4SP0AFhOonHaxo5JWRZ
-	 pJ8DrepR+TpagRfwVAKuhRMeRGVkRxQIkASgWKUKi3+yQ6XHTE+1giIm4U/mjfbJ+CA==
+	t=1792794366;
+	b=AEBBoNli6ihH22U8lYT4RF0kQ9BZ616GD2+DQjTt+5US9+pSAhHfUG97EEUzXM/kIXlf
+	 AXrK6NCUBy7hx+usn7oVpCj40/2xbGZ6Z2XSpBPnqwRPYpxZ6UrNikZyCnJp4QC2YpB/n
+	 NR83wJ9wZKMhivLZrPt/gy9lPOZsOin6rUOzlOT/mOgIJAeAOYL9x6EGsHSmt+gXv2HYE
+	 XeNeJ+I6vxEnTRruXSKItJuWu6cIleiXant3gBRqU/kuOZ1tC0gvOB+vXulEua7RU8P0V
+	 mlga69oaipN/YmWxxjc963i+soSQ5VZCQ+lQ6fk5AZjVixIUbGx2/GKe7agN3GUgVgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792794344;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZW4f/bR0z9X+iXbSmnF3Tp6NyBRkbBWJTCRV7Fj2AnU=;
-	b=H06FjDPoNIBV9Gzp2P0K9u3TAaBESXzPNQd/UMLdYDuoS/d9/L6y4pEv7L7t50lOH/Xz
-	 +kTUI35uAzVEzPCdE67dHcfzgitmj+LzUqcqxVk3jXjAL0gGO2zyftUvMTQwsyUYfitS2
-	 9atPGiK9EqyzowVFykN0h9BD2dP7SFUDpAneSZATVeoEN/Kp4roWP6zI0mGNopJgdmCY+
-	 LAnIvBogrCF4zB8f3H8/Ai5fWaIRxiLbjsrQSqP1UoUK900yLfwN1XlHx7eXQlBLSWfr9
-	 968wCS+R2Q3c++SuOmkIA2RYxvo2wuW0ICzF6tIS1Fq0eF7ZZI4OuohXhDaOcWwfbWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792794366;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=/nqsA1iUfLw0IgEpf7S6ATeJcx4muOihfDGU/5vDak8=;
+	b=Txj+kESW0s62vcONQl6v+/7iBAzufWmCjyCFPfRYjfb3lP33+dwrFSKqmEQrXTgfrBYN
+	 M6shzw3x2LudHqX0OFjbD/gNoTLNQG303dv9lA4ICU8D5Mk3AigbVW3VFC9XSwOpDBRN8
+	 G8FkaKXNO0khabD/kj7sYMwqzXjPXBQY+8YcGUqNLu//M0ckrBhxyG9/I5tqP5ohDVDJT
+	 HHOb6tjL7mceanrryR5+fgittgxYRotxGfwcyl9EUxSJPQRJc9bkQQIYpA6P7yntUDW4Z
+	 DVz1eucXC+038HKAqKiiAuTyo8dBaamcvbW7Um56L8KQjMwwKhcukUEXRZqCWQR2q4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="P/lDtrff";
-	arc=none smtp.remote-ip=91.218.175.150
-Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS3LOkT3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0F8606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:25:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC0F8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22D3606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P/lDtrff
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u2RfliYPbv+3w6elZKzr8CHYPnDNw3MYZtq8+QF/6MI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792794341; v=1; x=1793399141;
- b=P/lDtrffUrzzLvqruj7aLeNYurvmbTFl4CckgrCjD5s7Jf+X63XXt8oSvG6cHXFuNqIA6Fwd
- UgFZifqJmUUTcmYMvd+1XCOJZJLOhon/26JixWxWPVay1KRdunENsZ8okZo9KgK4v7b24kOU1vU
- qxBuc00zEy8ZkI2PbAmv3H3o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aee3234f182cf0bb;
-	Fri, 23 Oct 2026 22:25:41 +0000
-X-Mizu-Trace-ID: aee3234f182cf0bb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <88f41f2c-4226-4122-9627-4fc29a29b99b@linux.dev>
-Date: Fri, 23 Oct 2026 15:25:33 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS3LOkT3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DB51F01829;
+	Fri, 23 Oct 2026 22:26:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792794365;
+	bh=/nqsA1iUfLw0IgEpf7S6ATeJcx4muOihfDGU/5vDak8=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=IS3LOkT3+/DJE494J3yHiYMtCTnAz1DwBsWTB8L2UJOJ9a78v7bFWThj+ysp8kfH8
+	 k1+a7nvGcYMCgudGpxL4a901zGf99a0Ou8g3F0nF7aZeM8SW39YFMWcXg/bqEABEiT
+	 qfiNte30U+v8gPrEJZqjKjk4A+jFRPr90ttbUo8Frbsp/1KCzxcfmTgNal0VmeUr3W
+	 0lUiPWMDfsM4VX4KcKVYNyF9pMf1CktjNJpgG486uheR4RFDKE++L3dWs5eZUukfX7
+	 7OWFIFBzVChyMU7EUsk6JCfXFLbxtDfNmVA0MfuWB//uQSVyyhM2F/XCXoqe3khm7C
+	 nbGArGDIw/YEg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 815B3391B158;
+	Fri, 23 Oct 2026 22:26:05 +0000 (UTC)
+Subject: Re: [GIT PULL] rtla: Updates for v7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261020131811.7e70d93d@gandalf.local.home>
+References: <20261020131811.7e70d93d@gandalf.local.home>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261020131811.7e70d93d@gandalf.local.home>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-tools-v7.4
+X-PR-Tracked-Commit-Id: 5ddc4497508a628b6c18653a0d5208edc6228aaf
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 9ec665e5e7a955f0f5637e420ac5075bef475e33
+Message-Id: <179279436400.1300063.14007788887457350944.pr-tracker-bot@kernel.org>
+Date: Fri, 23 Oct 2026 22:26:04 +0000
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, Tomas Glozar <tglozar@redhat.com>, Valentin Schneider <vschneid@redhat.com>, Crystal Wood <crwood@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,51 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Andrii Nakryiko <andrii.nakryiko@gmail.com>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- peterz@infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kernel-team@meta.com,
- stable@vger.kernel.org
-References: <20261021174406.2891598-1-vineet.gupta@linux.dev>
- <20261021174406.2891598-2-vineet.gupta@linux.dev>
- <CAEf4BzaTYgNwiBtvYoSw1wzuFZchs-2CCP93gh2OeDt-919-eQ@mail.gmail.com>
- <20261023143816.48163575@gandalf.local.home>
- <75b66acc-354e-4cd2-b9cb-4c22e8a02635@linux.dev>
- <20261023180902.2bf7cef4@gandalf.local.home>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261023180902.2bf7cef4@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/23/26 3:09 PM, Steven Rostedt wrote:
-> On Fri, 23 Oct 2026 13:13:41 -0700
-> Vineet Gupta <vineet.gupta@linux.dev> wrote:
->
->> On 10/23/26 11:38 AM, Steven Rostedt wrote:
->>> On Fri, 23 Oct 2026 11:13:44 -0700
->>> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
->>>   
->>>> Acked-by: Andrii Nakryiko <andrii@kernel.org>
->>>>
->>>> I presume this will go through Masami and Steven's tree, is that right?
->>> Yes, but it came in during the merge window, and since it's just a speed up
->>> and not fixing something that's broken, I was going to let this go in the
->>> next merge window. I rather have a change like this sit through a full -rc
->>> release.
->> It is a speed up but not for optimization sake but to cure rcu stalls in
->> production at Meta. IMHO it should go in sooner than wait a full release
->> cycle.
->>
-> Either way, I'd like to give it a bit more testing first. That is, the
-> earliest it will go is after -rc1.
+The pull request you sent on Tue, 20 Oct 2026 13:18:11 -0400:
 
-That's fair.
+> git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-tools-v7.4
 
-Thx,
--Vineet
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/9ec665e5e7a955f0f5637e420ac5075bef475e33
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
