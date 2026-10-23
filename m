@@ -1,93 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778240;
-	b=IiUYqKQslIVLQjesu0fhMDANmKy4G+nqPo0YgCVYehQYKUCECwMb7ZzfhRQ/HzaZVbUG
-	 3DnQcmr0S/m7+CZM5/3dNkrH9uO4ohdXkrBSVJs+mKtmHMBzKvvsXikM07e6+bw5b8do5
-	 J05EZ3E0qq08B++xMq5AzjOWHisBQYyEJlGrE3s0M+f7kRCgcjBaxknmd6HKrXDfknGL3
-	 qZ2pkbP8qO7PvSxMdcVcHwbMqP3tR/aWp39KWCQWWcNO1asaqDgHiPXxRo72VekKdJ6sR
-	 GjSy352X57nXRAUfSofJ3hL5ebnbXwHVkBw70Wll0iSbX5eqSiXqM0gV1K9igsLwHrg==
+	t=1792778315;
+	b=ZgJiYDg/Hh7Bmi9L3KEoBKnkJZvkbOyxYnUcMHoIrS+YtEBBwjC3V1LdngMTG6yuUGkQ
+	 16xJhtBYaDz/sqa9o1R8nQrhXPKGPL/i7howK/eQFQt4JFWy/x+66j/ihQejx8Jc8YU0y
+	 ZYRUiTIIEx8bvtp84faxJr7V5H/RkG//8y7fj06gGtCsj+FJkiVJxDWXj6dTptNaLBiEe
+	 iJd0swucedHWtg/a8OIa0FjAqPZR/nyNbIquJWnp1BOUNnLoGDA0RLYGDEGqLS7CtXNhV
+	 H65KXt5XDEzXR2CABhK54VipC1KZhARSD2pQBeGYxkqpWODBf0cA987HgC7/H/xaPeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6brLkp4HNSnptBFTLt74SChIRfCfigfsHoKebnZBRPE=;
-	b=4N3My0gdBPY/pDqtjNNNCFegMVoc6fiJfKyBkqmXdfKn8icDFYShJvBr6f23WLk4fNoo
-	 4RtLlgWM2dom8nN7nrMSHqwye6lQr6RAMdlXDNTlIlhhEfKRwXVPeUhfnOsuIQ/7pVTkt
-	 aT+bJi/iNP8YMtskSir+7XCCyEr+QSxj4GIrnWeC9OXXpgnPrefVI/tBI09S1T14S8bP8
-	 QZ3utmz0Hh8tHAaDukkhJwFGwhyABmUgA5YoMm3guJUvl0x6Xo44u9RfeVyQqlkBJLyoZ
-	 4UBxff5FC+ADYik4FOvejnwk41LekBKkqBUXEIN1ghp3OkMmjtkcza3Soeh0nHi5k1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778315;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=1Dyo+5P9jqyyV0erlVw7mVKkjTRbY/LB2EHolQl7fOM=;
+	b=mCarrp1/xvyX8HA5qDrRSxGoOyO8cSandlK9LTSBTK/9HrllvHd7PAfwF56dUP+jgghm
+	 ENlliCszTIUX2kCjpBg/oUsFUq1tO5ypVDUiQT20wi0JpGBP52BkvYfvNWilzupDRDx/H
+	 iTvZ1tPW/TaAUIwNdHj69rTfPEWHyVHsgsUUBoudPK3Wr4ca1LviQErDLelFPaZuotS1U
+	 1cqBgQ5AVXjXufLvpK4H+pIcYwA2sUK9ZLcPoB9UKg5XceDmX59lNZQhFpGH+uqU+iZ0E
+	 nduyyaKKA1W1DBDdtKQcUbrUJ3aFKRi2ct5p25NNRlVFYJgaYUJAszRf3K969bTv8yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bj0ur+m7;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CghmvfDI;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF037606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF037606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EF0606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29EF0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bj0ur+m7
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3514b90bb89so2629787eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792778239; x=1793383039; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6brLkp4HNSnptBFTLt74SChIRfCfigfsHoKebnZBRPE=;
-        b=Bj0ur+m7k4e7MizKwnGdujkcRSCNB8Qh6TlCtyipHzPPtcn2xXZ+MH8tbKC7p6lKH8
-         k2I0FXBC5AaCCbuA95AMu9Lz5cdCvwir1zR98X56nWyhsVACLuE83StzhtUgOb/VP1N+
-         kEsLBmNAop0m9MCi/QB6uLeBkeT10wx83p77HdTGb3k6sHfMHP1nmtgpAFs/h8/dnCbn
-         uosA6muR0sgprA2WA419vs8ppWd0KZ68CPihJpF9or88vZOtmxzuQQrCqO9j1R4dUGZI
-         DPGSZDSwP4XdWpujQ8YpfKlRNhhYWW4DrZgeWzWbF9k4mNBLiSCjPEGCYrzdpRiB+OBW
-         QNJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778239; x=1793383039;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6brLkp4HNSnptBFTLt74SChIRfCfigfsHoKebnZBRPE=;
-        b=k20wo0JMVt3kcuxqu66Sf9A4YR2llW2JR/bJEpPJtx2w3XSGVH8+LTIeh9AHfaI6tn
-         xj2DJMD9KVR//q7TUyjKW7p7GehCe+Bcms6482TM2/YY0nnwKbqyiUONJ12gpj5Y5Ja/
-         8WJ7V3B+K7/EGMoOGRTV1Xuql4vPwLtsmpW3DRNj0ZffRGQw6MpqX7/zEUX7les3GX9S
-         3WJnWujlffhgKjkiScRZ2qER2mDRXq6adSoehOhbQdIgRkBMWEn6uq6I+7ojVq+pdbLz
-         +xyjyUesidUiIrtapZ3z29YU/uhej1DUbCm47QuhsBWsWGSCOUBomAIkoY6TiOQz+Go+
-         C7/g==
-X-Forwarded-Encrypted: i=1; AKwUvBz1TC2p2tnenJs5Pn/qySXcldckurDMRAVQCjrHuebmXU9OehEvSfKJB1K2Q5xYrjA1PQnGqQheGG58Eek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3GIFqQdxGHmy0qJ8Wf/3aya8C6KBa/9Cga0qHjnYjwa/VjHYx
-	9DkwxKKVK6Ct4hn0uobn+LDpE4j06ZD7+Hf3M9aWUzAMLooRxN/lrzFn
-X-Gm-Gg: AYBFou34nVIzPyic+MPwlgs8eCsUn1pgxocT6VO1LwA0xF+i4CIRJ7KL7R4NnL2G/tM
-	hGPwyy+52sQrWeHn2SR2JaFGCbYVOykSxeYLLS7QfUbEPGjnzYMYdytHnwy3kJvezq1jV09KkTp
-	t2MaPyPUOLATDYoXHJ3IVTGW39SzHeAqX+exCKLvupdkfodvMPPtbPB2MHLIsM0htIUNizvbGjI
-	UPI0+c0W8bRAifYEKZB2CfWqefz6CnAq4PhJVFb1QBwmy81fUYGsdV0XHSzVUiVEYG6moXGJovd
-	/sY3pzxL0SpRFzTYEMDDcPNjS0kz81xfvXuCaDq3u9xvZh0yYoRxOMloByKXhf4GswhQtq9ucO3
-	glXOw38i9DWPUsS7I9q8vNyI6iRsfgv/iWyI13phHGdRLw1QNF5w7qDSHGQ9+/m+GFvEMfFX3oA
-	kFSBFJOM13o/sjNoY6jK4zlqrYKXUxPTb4g0BgpuRh/gJlZJjjgw7JW9gnEVuplrL0DrE5s7Hwj
-	6KyyuqzktHrjBLBr+Xg2ed6ed66uI5ENMChJrxQpKSv0cxUGcEeJFVzV4xCIocUdrZCEsK4bv4D
-	64uc
-X-Received: by 2002:a05:7301:1a01:b0:356:23dd:3c72 with SMTP id 5a478bee46e88-369e834e1c3mr118671eec.4.1792778238706;
-        Fri, 23 Oct 2026 10:57:18 -0700 (PDT)
-Received: from localhost.localdomain ([110.235.239.152])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e6c7dd34sm1139656eec.1.2026.10.23.10.57.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:57:17 -0700 (PDT)
-From: Vikrant Yadav <vikrantyadav4802@gmail.com>
-To: lorenzo@kernel.org,
-	linusw@kernel.org
-Cc: linux-mediatek@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vikrant Yadav <vikrantyadav4802@gmail.com>
-Subject: [PATCH] pinctrl: airoha: fix bias readback in airoha_pinconf_get()
-Date: Fri, 23 Oct 2026 23:27:10 +0530
-Message-Id: <20261023175710.19181-1-vikrantyadav4802@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CghmvfDI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792778315; x=1824314315;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=3ZrsNEX2uX6PaXIi7xcmX121TOH6INDYHDj9zh11wrA=;
+  b=CghmvfDISpYx7cTUq8WwzLdTcTu6UIiDSPLp8K3niTnDVZmUYRthv3J3
+   vkEknsXVFFxht8qDGzBt3bAI8JuUUSoqZPAYEnVltPEsTvWVZbL9Ehxyf
+   +cOt+WeZP3ZyJc6AVjLxJiYOCjaqqLkKK8OpBnEOktlaJsoSX/b4BG28/
+   zAuQzoACQ2hqeQPPMMulZed7+Ud1F8yEm/Rz1GZx9edmC+djMJDf3G0Za
+   R9CojkTe3NxydVoaNZ4SieaVAn66XukuP1Ou4FkYPuOuc3X9ExVgoGMiK
+   D8ckKZaGPD63T4Gsn3dqagSRswCwzA4BtdZnCnguantJ0WeiCd58uj+xC
+   Q==;
+X-CSE-ConnectionGUID: NfwUlntGTAm0N3DDxk26NA==
+X-CSE-MsgGUID: ty+lUcCEQH65niydkxY7rA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1571365"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1571365"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 10:58:34 -0700
+X-CSE-ConnectionGUID: RWnG4AmLRcmQZ90DhOOfQw==
+X-CSE-MsgGUID: 3hMl4LsxSsCknPcPjIg2mw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3700573"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.32]) ([10.125.108.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 10:58:17 -0700
+Message-ID: <4a71f654cdc03973f309754a2f61810b4547a471.camel@linux.intel.com>
+Subject: Re: [PATCH v2 0/4] powerpc/topology: Introduce llc_override kernel
+ parameter
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com, 
+	linuxppc-dev@lists.ozlabs.org, peterz@infradead.org
+Cc: christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, 
+	ritesh.list@gmail.com, kprateek.nayak@amd.com, yu.c.chen@intel.com, 
+	vineethr@linux.ibm.com, vincent.guittot@linaro.org, srikar@linux.ibm.com, 
+	npiggin@gmail.com, mpe@ellerman.id.au
+Date: Fri, 23 Oct 2026 10:58:16 -0700
+In-Reply-To: <20261023131646.2907938-1-sshegde@linux.ibm.com>
+References: <20261023131646.2907938-1-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,35 +86,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In airoha_pinconf_get(), the last branch of bias check
-"else if (pull_up || pull_down)", has no check on the requested
-parameter. It was meant to reject PIN_CONFIG_BIAS_DISABLE when a pull
-is enabled, but it also runs for PIN_CONFIG_BIAS_PULL_UP and
-PIN_CONFIG_BIAS_PULL_DOWN. When the pin really has that pull set, the
-earlier PULL_UP/PULL_DOWN checks do not reject it, so the execution
-reaches this branch, which returns -EINVAL. Reading back a pull-up or
-pull-down therefore always fails.
+On Fri, 2026-10-23 at 18:46 +0530, Shrikanth Hegde wrote:
+> Provide an option for users to enable cache aware scheduling on powerpc
+> via a command line parameter.
+>=20
+> More details of the problem and context is in cover-letter of v1.
+> v1: https://lore.kernel.org/all/20261012102037.2477378-1-sshegde@linux.ib=
+m.com/
+>=20
+> v1->v2:
+> - Move to kernel parameters from debugfs. This helps to keep
+>   llc_id consistent which doesn't change across sched domain
+>   rebuilds. (Tim Chen)
+> - Update arch_llc_mask to reflect the override (Tim Chen)
+> - Limit only to mc, pkg (Srikar Dronamraju)
+>=20
+> Notes:
+>=20
+> - A selftest for the functional validation of cache aware scheduling
+>   is a good idea as we discussed in v1. It is a significant change on
+>   its own and likely takes time. I am thinking it might be good idea to
+>   revisit selftests for scheduler in general. (We have very few).
+>   Maybe worth a discussion in coming OSPM.=20
+>=20
+> - I am on parental leave. This version is pretty much what I had last wee=
+k
+>   and I haven't gotten any chance to update since. just sending it out.
+>   Sorry if I have missed to address any comments.
+>   Please expect delays in my response.
 
-Signed-off-by: Vikrant Yadav <vikrantyadav4802@gmail.com>
----
- drivers/pinctrl/airoha/pinctrl-airoha.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for sending this while on leave, and congratulations!
 
-diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
-index f505a3f69c5d..8cf4592cbc73 100644
---- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-+++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-@@ -554,7 +554,7 @@ static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
- 		else if (param == PIN_CONFIG_BIAS_PULL_DOWN &&
- 			 !(pull_down && !pull_up))
- 			return -EINVAL;
--		else if (pull_up || pull_down)
-+		else if (param == PIN_CONFIG_BIAS_DISABLE && (pull_up || pull_down))
- 			return -EINVAL;
- 
- 		arg = 1;
--- 
-2.34.1
+The updated approach with boot parameters looks good to me.
+Some minor points:
 
+1. llc_bytes. As Chen Yu noted, get_effective_llc_bytes() returns 0
+   on powerpc because the generic cacheinfo is not populated. With
+   NUMA balancing on and the default llc_aggr_tolerance, any process
+   with a footprint then fails exceed_llc_capacity(), so cache aware
+   scheduling still does not engage.=20
+
+2. Bisection. Patch 2 moves SD_SHARE_LLC to MC/PKG, but
+   arch_llc_mask() only follows in patch 3, so a kernel at patch 2
+   booted with llc_override=3Dmc has sd_llc at MC with per-L2 llc ids,
+   causing mismatch. It may be better to squash 2 and 3.
+
+3. llc_override is only written at boot. Making it
+  =20
+        static int llc_override __ro_after_init;
+
+   and then you don't have to worry about READ_ONCE and WRITE_ONCE
+   to it as Chen Yu pointed out.
+
+Tim
+
+>=20
+> Shrikanth Hegde (4):
+>   powerpc/topology: Introduce llc_override kernel parameter
+>   powerpc/topology: Update mc/pkg flags based on llc_override
+>   powerpc/topology: update arch_llc_mask based llc_override
+>   Documentation/powerpc: Add details about llc_override
+>=20
+>  .../admin-guide/kernel-parameters.txt         | 15 ++++
+>  arch/powerpc/include/asm/topology.h           |  8 +--
+>  arch/powerpc/kernel/smp.c                     | 69 +++++++++++++++++--
+>  3 files changed, 81 insertions(+), 11 deletions(-)
