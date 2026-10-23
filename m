@@ -1,167 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777343;
-	b=o8xtSAtjSxY0EViOuKKg7iURfTkC87mmbNKoxzln431juTpeCLZd3hIpTBJS/nmnBUbq
-	 TAOn2VXtNQXhjsicfDhnKniwr2kyW9PhLmE2QcJSSJYc+F8xYnF8RutlNULkJmjhafLq8
-	 MuoXAMx9xBX+8S27GjvKXntOBtktZQrsN26tBxAvaVX2/NTPEP6hAhfPYvMUTtoQPDsLN
-	 xmtvGbEotX63YMPMaKQB+5DnYCwAMyOLUGmm1h4mYQLOO99dSLvvq02ZJpvKMloccyZhe
-	 sct//LG0tyZFE2gGQBqzlPOzFiAozmwg6x0zgbLuQ3g9z3i9V0H3xzLy8g+j9ZYO0uQ==
+	t=1792777364;
+	b=O9rqgJXUDdQ4bBbNqyBFji/vCsWbtU1LUwVG0FdHqdah3pdASjAmTdXskp7nslQ1BdLa
+	 pV4QftTscVt3CSrmPtU0EkIahO4yt7FIEz9XKIXd+aBn4id4SyagJFZLUvP6yxF6/174n
+	 6gY3l/V/c9mhCwD4VHhv8LYUXMNQ1I3sBjKFVWThQpe/2OQjVUYiXKoFbRbgxOqKBlywb
+	 rv/IpzOydVP4qYIi2joHRFCwap+kgNEWlw+BdPIe71eFoC21RHZQdCL0w+hPCU3n+dVdn
+	 bII0FWf15ZMThdF5jdJXOVfpzZ/z7bPNv1TtmVQXQsSv7AilejQSyji2BkBaoBgLsrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777364;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IArJW2D7DC4NrWDvM238weKBxrWboHP+GmGljUSheNA=;
-	b=qqhxx6dRkZHMwU0Gsz2odspNlql8Bkg2/zGsAQTwb0TdOE9HsGU0Az9FaCoe6ax8mFjo
-	 MgTLOHuX45UltTN/nVA9+rW6e8f9LvJdQVy93BsiaGT/d456lAG9E8gnteCgnZ3mDrYtj
-	 FBcAi4ysvcgQtVkWREnwu/mdUfKmNJWjL13KHUvuIt5lDyIWzEzD8kbGSyrpncoHGD+0N
-	 ywjvLClvJVnnuXdiVlLdN8GcgdmnEZQx7ZNJWENu7e9pJN3pM8CtTcUWTsXnTcfQv8ikI
-	 DdgFwSlPcExrTsb4ELv2CeCzLi/P0UdUqsq+LPxOosegNU8nHYIGYuk4jq32nx1TC4A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+	b=wg/r11deyFhRDhVwLK+3sysv9DVtbHVpsk2pK09a4wHpClqOkp0vSdUn/QgTs9hxhciz
+	 G5VjAHlHTr5das4wPurgxr4CYZaK0fOS86nqxZg55iqjMeHvc3dEUTO/UGECeUrRtQYY+
+	 nbXWW2APyndz1V8/SByyEmjFkW5wd5eBDkmhqF+HWuGgDCRq6Fj0fwt3zwNcqdTnaU3sy
+	 3PJIZj+wwclWaVS6bcydhlp43bAb+k8ONW5M4yQNLrMiQBdjL5ZXCvFDbvgyMjphhDURq
+	 WjsQyaeIuvf51D6zUnW9xA+NvzWFk5qxrOOz9l0HIoMumpfpgmyzT4xbY0SbAHIVlSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qE15pYgN;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE10C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:42:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE10C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283A8606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 283A8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qE15pYgN
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso809135f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91791ec1b83so9695276d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792777341; x=1793382141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IArJW2D7DC4NrWDvM238weKBxrWboHP+GmGljUSheNA=;
-        b=qE15pYgNtOgyK2wp9uhHmPW3lpnIrQjWDDouCy3JYbd1IPAGnpkiQ1sFjBCfeqsgVk
-         11lRWEucebETVSgkVRwe4eQ7IHe8OlPrizWnzae5mEN51Lz7LmMQAvfowgfp7pp9VjSY
-         8ojMFcQ8Y/cMXl9Vl5ClHIKs8MbSDwSpdyrxKk5eONs/+iNwEGuTjszhx81xmGle2j3u
-         5SttvDKVdVVC6L1H6oJIFjikyY5gkiye6rcli8bFHH5Otyy3QtD+qvimrzBlONJNZ6SJ
-         X5NX0lfRgpuebTW3dXrYQ6ah5QMTrTT9+wd/GIR0AgncOrzQqe42eAZ9koOBhOXDH0X3
-         DVDg==
+        d=cs.unc.edu; s=google; t=1792777362; x=1793382162; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+        b=U1s2QB9DlFaxhOLsTT2YhDtTDx6QZRL3z3g2Y5FPkEfdSw7GR4o+3xk++ig1ipFuwB
+         PtmqUiq3xvN26f8mvtrdY5PFLSx+nwNp2CUtRqdhsqO5/uqxDeryww0diBtu2lzk7DjJ
+         Luk7GbI/qQLF+1Hkd0DmcI5nqlp8Oo9SNjfxWiWk2HrJl9Q2g+UMrmpmAOZvNa64/rtY
+         3OA+jSHXUGKq1v2PHrJ95bddadciGt+mLBLWAMabF1sPK3WbOt1MxHT7xuAozWvN3t29
+         /iipGnc/gqj2BWiaeLt6hEQZ7i2eNfkjdag7lSDZobC6tZKmKkly3LlNckxdThRbEi0u
+         Voxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777341; x=1793382141;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IArJW2D7DC4NrWDvM238weKBxrWboHP+GmGljUSheNA=;
-        b=BVA5IhGm38BqNUZozTadqbV81m6udwxZRvQpg1xqFH6bMZpIcJOZ96gBOvqE/h//Hx
-         p6iMcMWpV3vBTccOx3pYjtNhBKgaOoW+gq3QwDJKlw1ILQ/Vo7oNubE3y0At9tsR4Pmp
-         JiMeHIJiSqgxfsVNiz/NzLHSjPG54GQyjh713Hsfd4zJ09985UA+QwUHcJwc7qPlG2iu
-         tBw0oqOECiVi8HHWLivtgm6nKDsLCfPtmXzDig3g8vXUvE45nka83mfzvyFt6dlulGIn
-         SnLeqwRimG0X6zijDibM9XEwKA0mZIiPsZC295B7qF62FuLCQSOZ8/0B3v64I26DcUVY
-         pXsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcFAn/2TEi5c+BIkyDrb537TkOVKvYCbgyGbDOs6+5RmfuipJZMZkuT+gLhPd9bGE6amNBaMChxanb2D8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6xyXihJoIbMU5LHmMpreqe6VZ7ZkU4cIz3fA6vU9BHYI0MpN7
-	tGEdyIUs/KahgKVkAro1TxQRGqm+GkIfHYWFh38qu7o5hObYlDa7Tz/j
-X-Gm-Gg: AYBFou1vHA0lMQWGnm9ROXl8Ru93C3GroNSFvmImMdKqWCgIzTdoSgepeUnBPZZSWOA
-	UhxhWakZehZ7ADrjT+BnjeUmxwOJlSnQ5sW2NCNcVWYxNdUUdk34vPATuoOs+iBDE8IXZg+lEvu
-	2N1V7uK0PgYZjxTOBLv+z4nAkpSin58GSuxiy5BKQWaT6R0ps+sf08/zxSuMTGy9eVaN47kyFKb
-	zMm2u0PxfjQss8Bvp/+RsshPVsoDPUPxhJI9WyzCpFn5kfc9+gXkqP9/MX7qHzHEndVJ3jE3t0t
-	Y0+SDhfU683iP5gFC9YMmZFCALIbK0GD8ZQ8CwV+RHKFs7j1IQkO4zcaBjj+3pv+5Brk9NrUf18
-	xFFHLtS94ce25bBPV6eA0UlycLFM3YkF0WmaABKhWjjKRC93MBVoyOumCkaPEMl7pNQMG2I8u00
-	3XT2UQtZTE4/LuISTajMqz8dN14smktuNq4nPOWJgbp0phcCs2V0oiMT9Mw3p7Ws9Z0hKeMF0yV
-	SCkRK0LViQop0iXE0XtkZyNwjCYfBvXfLJjs2mu9Wog16pAhA14EHCfbpDA9e+50bnKaWY/R3ml
-	upDrMDdEjUQcdI4DKx47skhz8DZP314ff+16qACk886IE37FC7+tb13oyfl45twBHxi5xhy/TWW
-	rpvshIX1t7gz4HEo+
-X-Received: by 2002:a05:6000:98e:b0:48d:ea67:79d4 with SMTP id ffacd0b85a97d-48e385af0d1mr4196895f8f.53.1792777340908;
-        Fri, 23 Oct 2026 10:42:20 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d40c182sm1118217f8f.34.2026.10.23.10.42.18
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 23 Oct 2026 10:42:20 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Alex Williamson <alex@shazbot.org>,
-	Alexander Graf <graf@amazon.de>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Baolu Lu <baolu.lu@linux.intel.com>,
-	Bill Wendling <morbo@google.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	Connor Williamson <connordw@amazon.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Erdem Aktas <erdemaktas@google.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Gregory Price <gourry@gourry.net>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Hugh Dickins <hughd@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	James Houghton <jthoughton@google.com>,
-	Jan Kara <jack@suse.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jianxiong Gao <jxgao@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	John Starks <John.Starks@microsoft.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Justin Stitt <justinstitt@google.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Michael Roth <michael.roth@amd.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Tarun Sahu <tarunsahu@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Tycho Andersen <tycho@kernel.org>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Yan Zhao <yan.y.zhao@intel.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	x86@kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792777362; x=1793382162;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+        b=DA00m6OZ3YeOArdvTeKuSQcy2f9HlB1VpfU9CeYYZ0rytFLmqeRh1Jhj307oQPFyTz
+         nfhNdpinH7g1uzQwpGkE1UW8JTnHVsX2jNdS4WL+cO7r2XYxQA/NAiyGwelodmhzbzoy
+         VxoFV+Rbwvf9wMhzecdSGjg8YDbwjkpkdkOFYwQ+nHhM75z6z0NOqOST6ouobgczkVi+
+         kLimlAR5a4BtXnRFjdsseWuIX8KiiNL76er6lk4HFJV54ebdNtpjaVuxc4plISCtExT3
+         C4qh05pKKdry7yqZjTSi+K9hmCpCHRe30kOpCW+hMd09GU/rNMEo4A4U0PXgHRlIK23y
+         MoOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCQpXS2elFJNMZ40FLS4viRzFh0VYOYzDJaG4TRG4FistthBw0hdHMcakt6IE91xmzV2f8OjDZRVjHRMY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoSPn51XxSzR3DLwtgQqmbZ6vwFhtV7G4imYDzrc3cBtqmWDco
+	RZgfWqqaMhbcK+u2fPzma35Ruym7NOs7XhXkKhDWXc2zhopUEwL2lKLilOepsJrp0A==
+X-Gm-Gg: AYBFou1IjfZvcuWmK1v5apmLHJyHNZ8METEVdHq3zVPFv1GePK0cWguLXDK2PHv53S/
+	6MTquOYAR0kwsntRT4vURetKFTOKxjGNoRWOahRv9iYGacRpDvsjHjGMeoq2rmpL1O8N4w8lUnH
+	4MQtF08gRR7NnNek0dAb5XT9smBtDpfZ0W+4lnqJFVQt/oHXExZYJ/B7ib3l3NLXT3HVL6m998e
+	IM9qc1V10Wf9vLa5baW1hp9UbRO7MPrgWQNf28NqB6Ue0ezeG9jR1VyZPG1CBNJI3nP/fZkGdwO
+	ICrbdarxvztu/ryMu4iKWF9ztwOvMQAnYRYBYMYU9kEVT+bfiipWlZdNsNw1fAP9rIlQdLUhgVS
+	JWGiilChM837MzLEdmx4lXVn+TppQsyC9EK9diQnovEU/DFBL2fHvHu9603x+tOBlgkYZFBMmLr
+	fuS5Y0gRfFj8oEXoVqxtm+fpLtOQTOEzV92FAZiR5aF8KYZtCdliO6l986oN1GPf4T3qxzyvbMx
+	uK6i8YDfTRrKUcrbPDZ5NnwYrLA3pwcVOxy6sXNz/7m5CVr4kyoTY1rNf9qDmSzmswqa35KV5EO
+	hZg=
+X-Received: by 2002:a05:6214:f6a:b0:91b:8c62:eda7 with SMTP id 6a1803df08f44-91c3a86fa9emr45307186d6.29.1792777361801;
+        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cdf6cfsm277166d6.43.2026.10.23.10.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: xiang@kernel.org
+Cc: chao@kernel.org,
+	zbestahu@gmail.com,
+	jefflexu@163.com,
+	dhavale@google.com,
+	hongbohbli@tencent.com,
+	guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH RFC v2 31/50] KVM: guest_memfd: Support getting PFNs for stage 2 from providers
-Date: Fri, 23 Oct 2026 17:42:18 +0000
-Message-ID: <20261023174218.54790-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261022-gmem-alternative-providers-v2-31-5dd1dc6c660a@google.com>
-References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com> <20261022-gmem-alternative-providers-v2-31-5dd1dc6c660a@google.com>
+	stable@vger.kernel.org
+Subject: [PATCH] erofs: fix metadata reads at the end of file-backed images
+Date: Fri, 23 Oct 2026 13:42:31 -0400
+Message-ID: <20261023174232.3282900-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -173,22 +103,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> +	if (kvm_gmem_is_pfn_mode(gi)) {
-> +		r = gmem_provider_get_pfn(gi, index, pfn, max_order);
-> +		if (r)
-> +			return ERR_PTR(r);
-> +		return NULL;
-> +	}
+Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+mounts") made erofs_read_meta_folio() read the metadata of a
+file-backed mount one whole folio at a time.
 
-The order goes from the provider to the fault handler unchecked. MPS
-reports 0, but a provider with contiguous memory won't, and then a
-fault can map a block that the gfn and pfn aren't aligned to, one that
-mixes shared and private pages, or one that covers a page being revoked
-or converted at the same time: only that page's gfn is marked as being
-invalidated, so the fault doesn't retry.
+However, an image only has to be a multiple of its block size. With a
+block size below the page size, it can end in the middle of a page. The
+read of that last page is then short, and erofs_fileio_ki_complete()
+fails it with -EIO. As of now, inodes in the last page of such an image
+cannot be read, and an image smaller than a page cannot be mounted.
 
-Clamping the order in kvm_gmem_get_pfn() to an aligned block of uniform
-attributes, and widening invalidations to the surrounding blocks, would
-cover it.
+The issue can be reproduced with util-linux 2.41, whose mount uses the
+image file directly:
 
-Fred
+    mkdir src
+    for i in $(seq 50); do echo $i > src/$i; done
+    mkfs.erofs -b512 test.erofs src
+    mount -t erofs test.erofs /mnt
+    ls -l /mnt
+
+Before that commit, ls -l lists all 50 files. After it, ls -l reports
+"Input/output error" for 24 of them.
+
+This patch reads the folio only up to the end of the backing file and
+zeroes the rest, as the page cache of the backing file did before.
+
+Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Tested in KVM with KASAN on a804c5742bff: file-backed mounts of images
+with 512 to 4096 byte blocks, uncompressed and compressed, with and
+without directio. With this patch every file reads back correctly;
+without it, 24 of the 36 mounts give errors. Not tested on 16K or 64K
+page kernels, where 4K-block images should be affected too.
+
+ fs/erofs/fileio.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index c36a90a1a4cb..b4ed7fe7347c 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -142,17 +142,26 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 		.dev = { .m_pa = folio_pos(folio), },
+ 	};
+ 	struct inode *inode = folio_inode(folio);
++	size_t len = folio_size(folio);
++	loff_t pos, isize;
+ 	int err;
+ 
+ 	err = erofs_map_dev(inode->i_sb, &io.dev);
+ 	if (err)
+ 		return err;
+ 
++	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
++	isize = i_size_read(file_inode(io.dev.m_dif->file));
++	/* the image may end in the middle of the folio, zero the rest */
++	if (pos < isize && isize - pos < len) {
++		len = isize - pos;
++		folio_zero_segment(folio, len, folio_size(folio));
++	}
++
+ 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+ 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+-	io.rq->bio.bi_iter.bi_sector =
+-		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
++	io.rq->bio.bi_iter.bi_sector = pos >> 9;
++	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+ }
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+-- 
+2.53.0
+
