@@ -1,83 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785227;
-	b=09cUKjV6Mf8+Z9tkDcCenTc18q/HDozGctFRTcHVIRGAtSDE9LuCLmZ05AMQ8VckreeV
-	 KInRPIe5i2maCmBGFmItUSnHozNi2+D8OseLu4upr4qrFYxC26zppjEsM29DEmLP+q07/
-	 TCM90BoIps/UywtKR+7lxmngZjJC+CqVg5CHdB76lzJaP5vbzqnjX6I48TZkGDG+oq172
-	 otJXM/YUHZjTefTE3RHSIHnFcWqpuV2RrVOFPUQwPtMAi1EMIr2L8fqcz6ywvWPeA/Qcg
-	 Yq7I4tyEVE1plMesrvLo5ik9H5mAG8yckp040kausquxqcd0UD9jSDwOuA+AMR1oMzQ==
+	t=1792785245;
+	b=uUh/QyxJfTqut9Di8rikKdFzOlpMq7TBPLYdw36MkWPC1ov9YHN4aM6pcfzvrtx7QIv3
+	 1knLuqvNuLmVTh4PvpiIIeB71nX8LluHcF4hku7hRh7jTWW1iiu270+pXr5KvrgOweyth
+	 pj5lIPmVOW7e1O4AT17CUf1egFmv4x5Saqlh8T/hBXJJJbFO/gN0FBVG8azZZvTFtvN0c
+	 3nWit3tuQBQb3FsXyiHe8FvPfUemYk3NQZasy69NIR8UVkJgoL2XSkhy0M43DjnDLLQgf
+	 Vuhd/n5divHW+BubbFwMNRTt7puNLZuLCbo0KZVnZ3+ETbwtIjkYbHkzqrLRJG7boWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785227;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=rnlgBlJdoi/Lf0uvy9ypW1BedLBEO284FqI2+C9pzoI=;
-	b=3m5jxHgjzkr1oox0as8Ho9hG0U5SSCUdjoy2TfRj0mye1oJ1ma0a73Q4jGlZqd4InsTq
-	 EyzYQWVBFH3cYc0fFuf/2GlpOoNswsTHEv6VO58ETQsS3OxtMYt+QuLxXz9a92PYGimEs
-	 u/C6nHsjUum13CsUIB4kuuch3zzbDf/GYFTcCWJBMatEIIQZbPldB7QmSz658hAdpxXUo
-	 qgxPXO8OE2XpCUuAz5nRN83GQbpSARbi4A+OS8CFfyZMvO37rNIAWmIx6GeMCblTf/b+G
-	 oJMbZm4oCAOXVtBkNC7X0YaV01XiQPGjOFpSc3HY/ld2XA+UHAfFhqpDL6VAfnL0JYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785245;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
+	b=ZDPVtSoczmNQlOgLXw7Aucr2T9VSqreSJrZiUwehBAZHz3zuDH022FHWE/Oh72ELM6Mm
+	 mzLRvWMJbfcRqxpIr6q/JJAKpP/RcagHm8CCPhrQDo6zE2oL4UvrIjQykrpKJml1N1fD8
+	 V94o5xLMQBYUsD8MR1uKX+acNGAj2L0y+LCHOpiiUIkFa5rZmWy7dtiA7e5IpnnYVTg1e
+	 +J+pBE6kacERDMkwWqqTlTKean7cw0ru3xzj330xl1CRR+J0hx870t5WqJaOkCsVVqi2u
+	 bxqLYDtS4B+kXJmCfxOQvsUSYV61w1Xs16tvjE6bCXKDgvY6Aqgt1Q48cHsGQms+G+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XbDcnUce;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kDO2j2Uw;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E10606A31A;
-	Fri, 23 Oct 2026 19:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E10606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C78606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:54:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C78606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XbDcnUce
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792785151;
-	bh=rnlgBlJdoi/Lf0uvy9ypW1BedLBEO284FqI2+C9pzoI=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=XbDcnUceBoAQP1KHH8wibcgH1sDQ3RigQ0Ck73XChpFbEf6MirL4B59Qa96iC8wve
-	 tS5iC1v1uPlAZh3sPfKLwpg7o7jMdE/PlZIjJRvhtLWlgrJWuHbJpQITuE03+lSfj9
-	 /FIoRcMmZ3gmrTX7o4+uAEq2x94WinaqcU0vq51s=
-X-QQ-mid: zesmtpip2t1792785146t50c22cbb
-X-QQ-Originating-IP: Lzp/JTaI8sacwT/+K1muiCHUFVO0LZJkGvRkb4kJo3s=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 24 Oct 2026 03:52:21 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6745179872912661611
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kDO2j2Uw
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso842570f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:54:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792785243; x=1793390043; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
+        b=kDO2j2UwWFwvGWxii+D/B2dwST5vOkMFB6995qrsjTpInhR0p6cgLFf4Lf2aWKB/8X
+         f+EKWq/GcAckmE/XvZ2gRMPLfLy1i6JWD8Jvp5GDw+SO4PRkMdymfp5W1J4iMwjoKCTA
+         XHmuL6M7JJrIbNM6LD+GNe/+i81Lj0UuFBb74ghiyyYdlix8Hnb8Wv9Xh/GGp6ZWaxVX
+         2p2eUhWIDjE1AeEUdNk2e2i2Cvm+fUdWgkJF2dinLCopnrFwe6X7vxwRlfw4NX7HPsjt
+         ImP2VGg/vPvAJhmJaNrznreRs1+/6m/sXheKiTH8giYFD7Yf59FNO2bB7fbDqY2C1KFf
+         1iig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792785243; x=1793390043;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
+        b=nyskTowPoseF9LP4k/LP79VorKWWdlCAQ3m9fVu2uZbTousy4ryTF2WIsg3YqNZrj/
+         h2xIq4jCWf8Ut2JMCPHb3kApi9NAVAapQS4X7AtQ/FIRXtyGHNoFOtyLxvzI55UH0UDf
+         5vYhytEB1YlILKM7sOfW6TXh+KBqmZkcugpEbQslmin6RMRVhqfea+4KtOwi2NP+Tdro
+         T3H50tj4Ab4cE+VxUmF9nwAdQ2401UpLcxSPD5/YtoBw7b2lU9Xvols92jCfOdn+rL1Y
+         DuvPRPPcIlitAFEoiBrIoyvTPrLQKsjzYwWwBKjL6gGVD1UtUevG+cNjNoUn8+3DgCW+
+         K8DA==
+X-Forwarded-Encrypted: i=1; AKwUvBwV5ZDFYBAQ9ZK/bHaSxz+hOpjZYShQlVvMHXAW2bRNIooClxiKjE3IeRDEsSce0c+dHjwcVO1VHM+b/+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAE4OQl2w07LQDRKgZ0wIYOnba3dwXaNxQ4Gso3Un8zQV6Qf0F
+	t54mjHPMoBkv4S0wnpK59s7co3ceojS+dSMxuo0a4Whg6iut5uA+rOg=
+X-Gm-Gg: AYBFou2gGjJcYlUUFOEI2L2qJeM1y2z1CFGo4tiLoNsD7RZQqqOkxvM2WxZSq9hb5qO
+	YNPdHsyZZvr3OEPhQCPfYwHeSgiK7ZRuC7lMj5OWml7JhRq6nDvSbfK662wFedJ+hWHCB+GhHZn
+	WWCq3Z58azhWDKAyO0L0BMuftqka8rnF1Qf/uZAmIp+QVVAD/k0xSTMS223Ynx4IM+gK5QFxUrX
+	7WiegALs9ojRtFbMkSGpZ/rTnkvE+MsjP4LcjO3Y1s+gq8I+G0Cm+rpHiibgzeLMlZuJYisMQ4R
+	FlaTLRPEqTlnYeHvbCWCy3Bg33t5gwvci34H9C3PrWmSJL3dBGCYMHnyhgGIFOnjEpBUXuhIKvS
+	Kc8wnOMDL319kLu4PWlFzDZNX8BAw+GXGzLp4448ESlcZZKj5kjoulVW5XPuyVQWX96pPsrqnVF
+	PDo0jVsjJ7xpiJCtL2gg2saab4/SZCfLenTmvtfPLcBZmWAZ7/8Nvky88TQgrTWsilP5dFkd7lj
+	fpts/Y0ICR+hScYc1mV1lCK
+X-Received: by 2002:a05:6000:4011:b0:48d:c29e:40c3 with SMTP id ffacd0b85a97d-48e3eba80b2mr57511f8f.33.1792785243224;
+        Fri, 23 Oct 2026 12:54:03 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece13aasm32783f8f.58.2026.10.23.12.54.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 12:54:01 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
 	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
-Date: Sat, 24 Oct 2026 03:52:16 +0800
-Message-Id: <20261023195216.2314828-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
-References: <20261023163714.201276352@linuxfoundation.org>
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH net] can: peak_usb: add missing dev_free callback to cancel restart_timer
+Date: Fri, 23 Oct 2026 19:54:00 +0000
+Message-ID: <20261023195400.3531721-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,38 +99,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OYKM/pSuXZktyvI1Cr5T0vK7A81fatkvCXAaT2CFal49HL0LG3qJztlq
-	npdXTcO7WqRfg/BLn7z5mRZRj4MkH9teFiv/wIq+nJFEYHUOMUBYqeUAlABKdRZ7Xl1umR7
-	qSnIaPLIgsZcSQ1rrD3ncWx+P3T7dC3QiQMc/yO410qzQHdc9eOsy+r0I7wqeFQtCwbbD+S
-	apyAaLAjwqfTi0kWdjDRCdPHpSbLGSGTxw9G2NTNZbjNzaVFvtn7z9IDcdqIAwH/qCylCGY
-	tdnzT0C2O+hfdoUJUIU3+eBydjaZyCEE//rlIJ33uXX68Z5v1xHwDfn4p4RDn/zMbDF2f0s
-	O3867mvJOVkHP1OEJ9m4DSiWN7Ex/0K73s4bkBK9sztsqDvbVShcMNjfNsnQ48nTrFiewrC
-	RZxmNBMkSuNJcgYjayp1dnOua+JJN1SFHsTFIqB3VDSzfKJHQZlnB9ejUeiZLv8AsVkfqzT
-	vM2Y6k2yfNkIV7rQ+VNhs1xIW4vzQgZ04LED1BbwqDOZcheDio1CrBzpde/urrCY2rV3ATG
-	383INlrHLsVsY1ecTFepQJodWDFRo9reHUprhrQ+W8YjD/NbwljU9xmRjAiKXV7Fi9sWVn0
-	2QBVstT/fOJPdaKJcUYC7rgFHv+HGa2QgScB4kG9cEdWQWL/pyy7LV1htemPYXevMEZYv0h
-	k59pzCMlVE+8cf0McM1XoPQaGl6Yijdg5jGC+obmnxBnWdN03h2Mym9+OxGxGSIMPj43r9Z
-	m0AMitv9ZXA7Rc28BUbv7p6uNULyEWRAAxvMb7cLN2DX/zP1kVZ+YV+cxyBKpwuSgNQ8EZ+
-	unHoE9+sGg6OJb1lw2r65G7treGDuRLTjDU14mkdHbbtR9sikP3cF+kEWpXxM7+lwW1NVY6
-	cYYdaZSZtFnZyb3y8ucRq4SQPPEompE2E85SrEJ0gUFd9/gmG/l7qoacF7cQt3lXug5ZU3a
-	M9b46JPNE/6B7v9Ml4SxkOnNuhpQe7A3vm3BVtx8dLu+ifJ063wn5cFh6/dH4KBHjiNst5q
-	CXyGVgvFlRAf1n1fnIU+z3MczrOHuybXKVAq+TUK1pm5/3GGT2WIDl6NrIo+JG+UcxXDmi5
-	w==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+The PCAN-USB adapter uses a restart_timer for bus error recovery
+but does not define a dev_free callback.  When the device is
+unplugged, peak_usb_disconnect() calls free_candev() without
+cancelling the timer.  If a bus error armed the timer via
+mod_timer() and USB disconnect races with it, the timer fires on
+freed memory.
 
-Best Regards
-Wentao Guan
+Add a pcan_usb_free() callback that cancels the restart_timer,
+and register it as the adapter dev_free handler.
 
-Log:
-Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sat Oct 24 02:16:34 CST 2026
-Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Oct 24 02:36:59 CST 2026
-Linux version 6.18.59-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Oct 24 02:55:47 CST 2026
-Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sat Oct 24 01:55:04 CST 2026
+Fixes: 46be265d3388 ("can: usb: PEAK-System Technik PCAN-USB specific part")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 8fd058c328564..b0b3c76b2ccb8 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -882,6 +882,14 @@ static int pcan_usb_start(struct peak_usb_device *dev)
+ 	return pcan_usb_set_ext_vcc(dev, 0);
+ }
+ 
++static void pcan_usb_free(struct peak_usb_device *dev)
++{
++	struct pcan_usb *pdev =
++		container_of(dev, struct pcan_usb, dev);
++
++	timer_shutdown_sync(&pdev->restart_timer);
++}
++
+ static int pcan_usb_init(struct peak_usb_device *dev)
+ {
+ 	struct pcan_usb *pdev = container_of(dev, struct pcan_usb, dev);
+@@ -1051,6 +1059,7 @@ const struct peak_usb_adapter pcan_usb = {
+ 	.dev_decode_buf = pcan_usb_decode_buf,
+ 	.dev_encode_msg = pcan_usb_encode_msg,
+ 	.dev_start = pcan_usb_start,
++	.dev_free = pcan_usb_free,
+ 	.dev_restart_async = pcan_usb_restart_async,
+ 	.do_get_berr_counter = pcan_usb_get_berr_counter,
+ };
+-- 
+2.47.3
 
