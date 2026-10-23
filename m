@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748596;
-	b=r/DlJvY/xN1FLHbCbbn2WCJ8acnM1zTm1HdjuIT9cPGUEBlR9KsKWrChEn3jgGQGMQFU
-	 O7cSz7JJNerq3fKTD8JWBtZlGggqQVoOh4vUsUdIq8jDfWdyieNYWezUUbfSeo9i1whHn
-	 VojjpNtA6rpum1poJGw5YRhzFwQrymioLswqxvsT6no8UaVI91vnARWjZUCR0A9/XUbNl
-	 XrrPJEudNv6jXV7MWuiu6Hqn4IOlTm/kHqwag4JjCz34Esmox/60se1l/F2ZjtbBZzvCs
-	 mq4cl9UIO4ZTIlZUa1Yci7qLV9+vpgrAAWqLKUgtR8nN+7kPBo+5/9KMSFt9u8HE67A==
+	t=1792748678;
+	b=w1SXx5hyTXaRYfQYdFINLMmDXywisHPj4/UOw3hdJZFBxfHm0UBhkQg9+RN8+2BX70wB
+	 /5Nves4QzRo27rgKKawvAiwPLj9yaXI8ey9ilWdAL8K1v9btWRlYLv4D1bHe4+oJIaP3I
+	 /8347XMrcDfIpqKJ8DYWfLmMTXef2h1ROa6r6M78o/BfzFqSzqb3/192e8ZjEAd0DCl6A
+	 FaPzPgwjXaB0mNtDlAJB/OAZBCesKORlCXlO17l8cajre+37UOBM0AAmAEIbgBQaXz5Ir
+	 Fg8Lj3WLFKNjWIUQu3scvsqckE75l0Zm01zvhaFQbkvs77yIfhpEeaUU/1e+Y75j7Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748596;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=zvK3Ly8RBAGWd5O0Ri13E/eflgNnR2Spx0fhghD9ZY0=;
-	b=cKS8uvjDORPl8460wGVjfvJou4MpAuvSHOxE5tO3maGf5mZzG/OzYrxTi7yuT+6brdXx
-	 uHJZAZhdl85h65PX719wlOI2G1At98drDEq+twmjEONdwYOul7hz6Rg7HFZ0z2p9s8Uy7
-	 gA6RIKsFPPhSHj4AUnF4UKsPEmIkCfWMUtrvjnI7CUM1Tq6X17enZ8FuLwAgS6HHq24g7
-	 CxlpOVF4LkBnHsHZK+mT13hWI8naxrEtN3JJSg9Ai/Jplcr0UYdb1TzkvYLT29nRIjjex
-	 +8mcdneaDOcZmpq/XyQ/vFjhoWC008tlfkhDvZD0lAubP1wAKBNR2QKTST8zmHgjzvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6eHpkzruNMWM7nEd9yLSMJY9dIBghjETsUAxANFqYe8=;
+	b=UpTBvQraHIpVkQSCTLXroS4H+uhbCez6FGxP/3uQ6Cgbmq7424n8DUtnpC+GZmBMONVe
+	 4uo8obcrAlmigYBJEnt/ckFvakRFlztv6ayQwdRf7ColyaJjuIgGk0m4OpUQpOCQu5RwK
+	 RFXajVdzghpLPeDXfvf4m2AC5f7IP7PHIx+EBbU7fZHA1UqFTQv2TAsGE6UWHSCPr74pR
+	 GkA/AlZD0kv0Zy0uz4pfc27lGsF25hOnOsNSP/uhakZccUM151XBxcNrcm27QjnEnIinX
+	 VsIBz4at+Az4qLxtWwpKQiYZOID+r8D2I2r2hpfePxMDgwA16IOoGMG2i7FHNeus4VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NMvxtWiT;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G8ep9k5+;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79CB60A2601;
-	Fri, 23 Oct 2026 09:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79CB60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB6F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:44:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB6F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NMvxtWiT
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FAD42092782;
-	Fri, 23 Oct 2026 09:42:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zvK3Ly8RBAGWd5O0Ri13E/eflgNnR2Spx0fhghD9ZY0=; b=NMvxtWiTS6WaFKAo
-	LaClPDDG/M+fjJsza6VjtTYg43Lysy6f3ARYnspXrCu5pEhqnXymaDBZ0gpA/qXN
-	UbLLBrLa5tj8GWvd9Q016VfYN8w/nAf+Hce7mZ2C/AXaLkxr1Fr/WQ/dX+6cSq4Y
-	iKz3wp1rVzR0paQ7rEbHhxt5uARCqmus9xPfWtasHQHpivMagt60IAfwKc6KQh4S
-	bWw4CZVNWBZiBhT680ImTnSLJxTkvIzl5wICCopvj4lABREXfIiBBBiRjo4Li++E
-	FT3lFq2sNPeTWiCMX4YFE3QTkP7QR51+bIJ+5Lpvji+nNNJPbEzWtqe8V5d5xKDl
-	UByDDA==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hftyga88p-3
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 09:42:47 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N9IF9U4054752;
-	Fri, 23 Oct 2026 09:18:15 GMT
-Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69N9IEN24054700;
-	Fri, 23 Oct 2026 09:18:15 +0000 (GMT)
-From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 14:47:53 +0530
-Subject: [PATCH v4 1/3] dt-bindings: nvmem: layouts: Add PSCRR NVMEM layout
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G8ep9k5+
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so1449955ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:44:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792748677; x=1793353477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6eHpkzruNMWM7nEd9yLSMJY9dIBghjETsUAxANFqYe8=;
+        b=G8ep9k5+w70jIPSgfhNg2w7SI6742uELJGXG91cEef5XL/sPbv092Nm42ZEUmoeu7K
+         UKQsaG7GH6RXfYBTJ1ZEHVWaSesrBKUnYU1mTxefks7YumhJadCCuNY4yMPjF+mkGxvb
+         IYC98M3+1cI+AL+m2AvKcrdp9MFOX1qL1OKBDVNAflxl1LfzRPrBNvOFt0e8omhypzoM
+         gGTYtjyB+XPXVUKFYmhekTLIjS8SRNRL0zPzJdhRc1G4AdwAxA/GsTdZGagZiIeKzz3N
+         G4fTIcJ6cKGdn6nsixRaivZgQS1NV9qbFcJcTBNPyN0Ep2bLdxf99J+xvi28qimMil0Z
+         Rt4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792748677; x=1793353477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6eHpkzruNMWM7nEd9yLSMJY9dIBghjETsUAxANFqYe8=;
+        b=VQDACcDnk7Wtjqb8SPhZRR924BXcYf1apBZtsQaT5sVTP+/CJQA8U3cJFTWwKCMMgH
+         XiAu/vuY6euKBjAlt7+YVGwxa6rweRoerweLSqNnlJhs410LUS2q6JhcYs7ORP2EUrAv
+         i6ZAZlBxsSLmgj3PkcOElXKMv/kwkzZL7WJipEot7Lyp2d2GoMcElDPO6ryUNdTwvACd
+         D7ADgIoMoH0LbRTVXaozgdeQzf+RRqyUFAJEbZv+th5e+xYnhnuRzEuIMCDXpAbG7hjd
+         8QWXqbYsSXwYukI6xwK/USVHgCgFaDvMN7a+lRRMWUQCH49xIuBc/Tq9pXtpNlgUDNz6
+         RHsw==
+X-Forwarded-Encrypted: i=1; AKwUvByNQg5zsg1gq9y9oFKpGkjEUhm9+71BZYydUcQL7zmR7gmVzN0BV8epk/VKlO/4I4gnkUhQz1raNnXsfdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVuY+HDIWhI9Fsi2K6QgQuslPHn5Ce6JAlGTpObGBbpXU9H+4i
+	XRci35ozoEJ5m352m/tHwr5AyG1dvvyM4QAwd10wnKxRs0HPXrqK0UAs
+X-Gm-Gg: AYBFou1AxBarr3XUhnk+nhDIMXcq138uNEUPBw27rqFwnETmYdNnWn0chBiOkJL5ozl
+	dN1D3Mq+9+9OZ+x7WtvnDZ1cwY/wjO6wyqV4a+VKC5h2dSsJjumnsg1pHqkzAqxb0p1wevEy5r3
+	39ZgHvZRI+upTOHdqk73OWCahsWRR7l6hCFNkWqcxTSh4N1opgtWGb7lCRtyE+IgzeSdt0/3tZh
+	SQo4/FOdETzDcSVUzoVX7VUuRR/weEnL/bDdPBuEdyBgFYyd0VcnR7QLw1uN0uWMdpF8Z2ba577
+	jKySqwIZ1KxXzGDIOMiWmFhKhFaXDI+9/Qwed468cJC71fx7zauyr51Vb9pSUD92/pneRTC4+SW
+	xVl3GC6Bv3PqV0cZbNpKYfFVc8iy65/wzivSzlPk0DyF92G41TRCeuC2Q+GHnR2iqcLpXXlvsfu
+	GezCQBB/7jSQe/seKUYrYKtMj6hNPoo07znpgoFRpcA+Wf3Kn6LymJ35i18iNQkB1JLZeDEfeAY
+	S/YZqjh2Rc/pY/2pOlPIbEy/rEe/x7GrdslSAVru3GjKTGcM/7U1MS6q6/0n4OggZR5AAlcV2s9
+	LLtnzX8=
+X-Received: by 2002:a17:902:db02:b0:2d9:464f:d45f with SMTP id d9443c01a7336-2ea7c169dfcmr18345425ad.5.1792748676866;
+        Fri, 23 Oct 2026 02:44:36 -0700 (PDT)
+Received: from lima-ubuntu.hz.ali.com ([47.246.98.209])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af680a9sm8381185ad.5.2026.10.23.02.44.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 02:44:35 -0700 (PDT)
+From: Qing Wang <wangqing7171@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qing Wang <wangqing7171@gmail.com>
+Subject: [PATCH] mm/slab: only require the requested size when refilling prefilled sheaves
+Date: Fri, 23 Oct 2026 17:44:01 +0800
+Message-Id: <20261023094401.2042862-1-wangqing7171@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,196 +101,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-pscrr-provider-v4-1-e70fabb7e927@oss.qualcomm.com>
-References: <20261023-pscrr-provider-v4-0-e70fabb7e927@oss.qualcomm.com>
-In-Reply-To: <20261023-pscrr-provider-v4-0-e70fabb7e927@oss.qualcomm.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Wim Van Sebroeck <wim@linux-watchdog.org>,
-        Guenter Roeck <linux@roeck-us.net>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-watchdog@vger.kernel.org, kernel@pengutronix.de,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>,
-        Guenter Roeck <groeck@chromium.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        Ahmad Fatoum <a.fatoum@pengutronix.de>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=cZpHPXDM c=1 sm=1 tr=0 ts=6adb2c17 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=T2scfIwO0EnMTC8JHKIA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOCBTYWx0ZWRfX9t8kTn1b7Dxe
- HoVNJTJmyKhhaV0w+vx0rrGBOmWWcGz9Z+Idsyf19vKVgHqeW2t1tG8Bl/nk0rMZY3O3lB193y2
- pq05RL7bCTsONlYXiJhsDFogZpQhZVg=
-X-Proofpoint-GUID: R8Bp7kSJzy75MQ0H_QDLtyRVJMnaPjGa
-X-Proofpoint-ORIG-GUID: R8Bp7kSJzy75MQ0H_QDLtyRVJMnaPjGa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOCBTYWx0ZWRfX6kz0nAEM7GJ0
- LkUBbe6PAFpjY21t49HQTOAAAF/k2Zvuo9nOEQ5TGPECRhzsZPs68XMx2oX6MMX8qoR+M3P96D1
- D88CBL0Tze82pOn3wSQdKv2Ak3pRfKJNvdq0drsMzX9z0OynC/5fFMbIj+6wnFzNsUSGgzwSQoX
- JoJR23thggbMBao7xPcjFKbbYI0px/4hpBHkjTeDFD/hOj2LoypEMrtmhoUPxH3FIy6d6Q/5/Ub
- IuVAEeiCgkA8juClHVxGFlor6ocEWILZ4ClAGLykvi6IcuKHd4Aqh2t39uWm/NRhTelwZL8l6/Y
- m/+ZTZgUt0HBi6owkK4yGpnY039TAk3tRlugDGm2TH9tJAno4OFV44NWtITzXJ8vCKXRFSXwPl3
- t/E76EPuhKd5Q9JLoDxJnhfBTHbjE8SM6dE8vqmE5yL3O1dO7K+38xnssWv4gCH3dan1g809q49
- x4nlvbubpOJf5f5AUSw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230038
+Content-Transfer-Encoding: 8bit
 
-Add a schema for the PSCRR NVMEM layout, which persists the power
-state change reason in a single NVMEM cell so it survives a power
-cycle and can be read back on the next boot.
+kmem_cache_prefill_sheaf() and kmem_cache_refill_sheaf() only guarantee
+@size objects, but for standard capacity sheaves
+__prefill_sheaf_pfmemalloc() uses refill_sheaf(), which actually fills
+the sheaf up to s->sheaf_capacity. The call thus fails with -ENOMEM
+whenever the sheaf cannot be filled completely, even when @size objects
+were already obtained. This leads to needless flushing of the partially
+filled sheaf in kmem_cache_prefill_sheaf(), and may use pfmemalloc
+reserves to fill the sheaf beyond what was requested.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Pass the @size from kmem_cache_prefill_sheaf() and
+kmem_cache_refill_sheaf() down to __prefill_sheaf_pfmemalloc(), and have
+it use the newly added refill_sheaf_min(), which returns success once
+the sheaf holds @min_size objects while still trying to fill it up to
+s->sheaf_capacity.
+
+refill_sheaf() remains the full-capacity variant for
+__pcs_replace_empty_main() and kmem_cache_return_sheaf(), because sheaves
+on the barn's full list must be full.
+
+Signed-off-by: Qing Wang <wangqing7171@gmail.com>
 ---
- .../bindings/nvmem/layouts/nvmem-layout.yaml       |  1 +
- .../bindings/nvmem/layouts/pscrr-nvmem.yaml        | 87 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 3 files changed, 89 insertions(+)
+ mm/slub.c | 36 ++++++++++++++++++++++++------------
+ 1 file changed, 24 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-index 382507060651..24545db61416 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-@@ -21,6 +21,7 @@ oneOf:
-   - $ref: fixed-layout.yaml
-   - $ref: kontron,sl28-vpd.yaml
-   - $ref: onie,tlv-layout.yaml
-+  - $ref: pscrr-nvmem.yaml
-   - $ref: u-boot,env.yaml
+diff --git a/mm/slub.c b/mm/slub.c
+index 544cff39762c..4f92b3e30d84 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2873,28 +2873,39 @@ static unsigned int
+ refill_objects(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min,
+ 	       unsigned int max);
  
- properties:
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml b/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
-new file mode 100644
-index 000000000000..118669d33f5c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/nvmem/layouts/pscrr-nvmem.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+-static int refill_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf,
+-			 gfp_t gfp)
++/*
++ * Refill a sheaf with at least min_size objects, up to the sheaf's capacity.
++ * Returns 0 on success, -ENOMEM if the sheaf could not be filled to min_size.
++ */
++static int refill_sheaf_min(struct kmem_cache *s, struct slab_sheaf *sheaf,
++			    gfp_t gfp, unsigned int min_size)
+ {
+-	int to_fill = s->sheaf_capacity - sheaf->size;
++	int min_fill = min_size - sheaf->size;
++	int max_fill = s->sheaf_capacity - sheaf->size;
+ 	int filled;
+ 
+-	if (!to_fill)
++	if (!min_fill)
+ 		return 0;
+ 
+-	filled = refill_objects(s, &sheaf->objects[sheaf->size], gfp, to_fill,
+-				to_fill);
++	filled = refill_objects(s, &sheaf->objects[sheaf->size], gfp, min_fill,
++				max_fill);
+ 
+ 	sheaf->size += filled;
+ 
+ 	stat_add(s, SHEAF_REFILL, filled);
+ 
+-	if (filled < to_fill)
++	if (filled < min_fill)
+ 		return -ENOMEM;
+ 
+ 	return 0;
+ }
+ 
++static int refill_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf,
++			 gfp_t gfp)
++{
++	return refill_sheaf_min(s, sheaf, gfp, s->sheaf_capacity);
++}
 +
-+title: NVMEM layout for the Power State Change Reason recorder (PSCRR)
-+
-+maintainers:
-+  - Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-+  - Oleksij Rempel <o.rempel@pengutronix.de>
-+
-+description:
-+  An NVMEM layout for a Power State Change Reason (PSCRR) recorder. The
-+  reboot or shutdown cause is persisted into a single small NVMEM cell,
-+  such as an RTC scratch register, a PMIC SDAM (Scratch Data Access Memory)
-+  byte, or an EEPROM byte, so the reason survives a power cycle and can be
-+  read back on the next boot.
-+
-+select: false
-+
-+properties:
-+  compatible:
-+    const: pscrr-nvmem
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+patternProperties:
-+  "^.*@[0-9a-f]+$":
-+    type: object
-+    description:
-+      The single NVMEM cell used to persist the power state change reason.
-+
-+    properties:
-+      reg:
-+        items:
-+          - items:
-+              - description: Offset, in bytes, of the cell within the
-+                  parent NVMEM device.
-+              - const: 1
-+        description:
-+          Offset and size, in bytes, of the cell within the parent NVMEM
-+          device. The reason value occupies a single byte, so the size
-+          must be 1.
-+
-+      bits:
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        items:
-+          - minimum: 0
-+            maximum: 7
-+            description:
-+              Bit offset within the byte addressed by reg.
-+          - minimum: 1
-+            maximum: 8
-+            description:
-+              Number of bits used to store the reason. Must be wide enough
-+              to hold every value of enum psc_reason (currently 4 bits or
-+              more).
-+        description:
-+          Optional. When absent, the whole byte addressed by reg is used.
-+
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    nvmem-layout {
-+        compatible = "pscrr-nvmem";
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+
-+        reboot-reason-persist@49 {
-+            reg = <0x49 0x1>;
-+            bits = <0 4>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 19b9f6605d98..51f31e95f4ea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21693,6 +21693,7 @@ R:	Pengutronix Kernel Team <kernel@pengutronix.de>
- L:	linux-pm@vger.kernel.org
- S:	Maintained
- F:	Documentation/ABI/testing/sysfs-kernel-pscrr
-+F:	Documentation/devicetree/bindings/nvmem/layouts/pscrr-nvmem.yaml
- F:	drivers/power/reset/pscrr/
- F:	include/linux/pscrr.h
- F:	tools/testing/selftests/pscrr/
-
+ /*
+  * Maximum number of objects freed during a single flush of main pcs sheaf.
+  * Translates directly to an on-stack array size.
+@@ -5074,7 +5085,8 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
+ EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
+ 
+ static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
+-				      struct slab_sheaf *sheaf, gfp_t gfp)
++				      struct slab_sheaf *sheaf, gfp_t gfp,
++				      unsigned int size)
+ {
+ 	gfp_t gfp_nomemalloc;
+ 	int ret;
+@@ -5083,7 +5095,7 @@ static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
+ 	if (gfp_pfmemalloc_allowed(gfp))
+ 		gfp_nomemalloc |= __GFP_NOWARN;
+ 
+-	ret = refill_sheaf(s, sheaf, gfp_nomemalloc);
++	ret = refill_sheaf_min(s, sheaf, gfp_nomemalloc, size);
+ 
+ 	if (likely(!ret || !gfp_pfmemalloc_allowed(gfp)))
+ 		return ret;
+@@ -5092,7 +5104,7 @@ static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
+ 	 * if we are allowed to, refill sheaf with pfmemalloc but then remember
+ 	 * it for when it's returned
+ 	 */
+-	ret = refill_sheaf(s, sheaf, gfp);
++	ret = refill_sheaf_min(s, sheaf, gfp, size);
+ 	sheaf->pfmemalloc = true;
+ 
+ 	return ret;
+@@ -5171,7 +5183,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
+ 		sheaf->pfmemalloc = false;
+ 
+ 		if (sheaf->size < size &&
+-		    __prefill_sheaf_pfmemalloc(s, sheaf, gfp)) {
++		    __prefill_sheaf_pfmemalloc(s, sheaf, gfp, size)) {
+ 			sheaf_flush_unused(s, sheaf);
+ 			free_empty_sheaf(s, sheaf);
+ 			sheaf = NULL;
+@@ -5267,7 +5279,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
+ 
+ 	if (likely(sheaf->capacity >= size)) {
+ 		if (likely(sheaf->capacity == s->sheaf_capacity))
+-			return __prefill_sheaf_pfmemalloc(s, sheaf, gfp);
++			return __prefill_sheaf_pfmemalloc(s, sheaf, gfp, size);
+ 
+ 		if (!__kmem_cache_alloc_bulk(s, gfp, sheaf->capacity - sheaf->size,
+ 					     &sheaf->objects[sheaf->size]))
 -- 
 2.34.1
 
