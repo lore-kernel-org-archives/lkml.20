@@ -1,74 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=166.70.13.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772905;
-	b=E1Iw7EgEkMQTbaLMLLkNIqLNkdnI2x+lwWOWsjiAfMUICrKRPXz24GRTs5Zw1b3OcFHD
-	 0tvFJEbVUF7Yz6lKDLXIeXgZHetdxKUnGERLjBXusW56+nqVAyqNw0Tj7MeKiIak06iCp
-	 hUJI3VxVPU0NrHdt2yahute2Pd0yAGcA8jMELs6jK471by7/pQOcTVOfpxRO0CwAGdLye
-	 1LwAukgvgpXpYvFcHkVY+Yucm959aHHcv8rDr9D5rfDbY95fboDAzgAqslUTpQXEyYw36
-	 AIX6rhlqXj0AhV7Mw3QXnxvI+lbb+N/Uz0fzCyvpzv8GUu/LYqyRE2W7HbA6y0K4GrA==
+	t=1792772953;
+	b=Plrh6Eb4Figk+T2+VhhlQGRUrjkf8uZwxREyY0wxXO2NNZ94adjQ4ekdk6GqdNXnsd8q
+	 fEA8cWT+euDRSyKiqt+OfDi978+5oVfV7G/IsiJ9we0kiwJzjE+RWwwCJVGQkxx3t+UML
+	 hHkW5lFHEMWGFm90ogiZVKrLAJnfrWli7/+n4IjlqaxvJVg+e0iMzFX6VWO+I23iE26xS
+	 sWlvgkfdtb6JpMbMJ+xpZnil0hjwAM4DltGx17Tv+b8i9vENDXR8syCCN+A6IHWouQ07f
+	 rIrjZvzD3qza4DFaLkhfxdRfDHW1vg3kTXwDG4jWjiCNEYFoeYz32/BA4QKFLdnhYqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772905;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
-	 References:Date:Message-ID:User-Agent:MIME-Version:Content-Type:
-	 X-XM-SPF:X-XM-AID:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 X-Spam-Report:X-Spam-DCC:X-Spam-Combo:X-Spam-Relay-Country:
-	 X-Spam-Timing:Subject:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=rMmFfJAtBkV6tYwVMY2ABpKfeChIFWqhPbYdrg9VT9c=;
-	b=bEDeyWzF3clknxcMtJeAMOSFyC75zoqkmq3bnsTRkLltgxUVtjjJ9P2CSTehIZKqM7ot
-	 dMGPG/wgXuMVrfh5xvFASnj3+uIJ4734M236HMYQZX/L7D3uWAuuEwqS6VwpA1biA59pm
-	 AxY8ydyf76yITntcFpGGZYQmX/JWjpmCKOuwJBOX4WVHOUbTd8bHOSxP2tejOApcgi2Fz
-	 9YTvR5MT790AEeO/sxM44VUd5U0jdGNuZoWxHe3S90m9pqMZiTg1ruBI6fuSsyCDhIoV2
-	 bnqQGJ+1t276ePgqE7JX5TvlqzYNzyHH6oIFCyNaWm7eVNSb3QavUsTsBl709lqM+LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772953;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MCcCJzJcyMLfAALTRppy1JcclrYetPHK7Z4PTdaUix0=;
+	b=A7wZbRCpYK91QC9etmIUoynSEyraeenrrdK9HHKcNGNfa5f4R9ApiOun1+f0s/TTAQ8o
+	 apjVp+xRyhbexfkFW9GSKkQ32xJTZ+YjiaoES9FQHNboJAsd6Eb1pOct0TYOgiCd6sSD8
+	 Pszs0yP1zE+S8IUiF9YNPs1xRK39Mpny4Qzi5X7Bwh18Ee8QABDMEQpe5+woArYCRrk4G
+	 b1/+mkRVgU/cbD46pmLXWLeA9SmPOkQohHe4bZyPHJVa5q96IenphW6IajcTioN0+dr2a
+	 6/GaOPVjWb3D8naEMIHSWxGO3MPQ4PiJ1Y60RLTxOn4VuZW+et5eGMkUCX1qqsyc2Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xmission.com;
-	spf=pass smtp.mailfrom=xmission.com;
-	dkim=pass header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b="o/S3tiov";
-	arc=none smtp.remote-ip=166.70.13.233
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PkVcJYAR;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13B5606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B13B5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF2E606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:29:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF2E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b=o/S3tiov
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=knH1e86fvkGKZZzxWE9WIOT9yRA/0JUqkXj35RYD+f8=; b=o/S3tiovLwd+S8reJo6T7RfoMh
-	3P3uJx5fksihgLAUJw4hti2U5udIB2+t7cZ79dOnpMtrSFLdSo2uOt0/QpAMRNX7yLkvUTLfCUicJ
-	rQLAyN2iK+HfUqeEllsgaHMATKMBGjf6RiVnbP7WppGqIeDSvUuojSOj7dyEhuC9YGVE=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:37510)
-	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xKI7z-000FhY-NY; Fri, 23 Oct 2026 10:28:23 -0600
-Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:45622 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xKI7y-00H9LE-P2; Fri, 23 Oct 2026 10:28:23 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Avi Weiss <thnkslprpt@gmail.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Christian Brauner <brauner@kernel.org>,
-  linux-kernel@vger.kernel.org
-In-Reply-To: <atswnpqj8VHJwqu9@redhat.com> (Oleg Nesterov's message of "Fri,
-	23 Oct 2026 12:02:06 +0200")
-References: <20261022061015.3737924-1-thnkslprpt@gmail.com>
-	<atn6anj4NRKpT-qN@redhat.com>
-	<878q3po5a1.fsf@email.froward.int.ebiederm.org>
-	<atswnpqj8VHJwqu9@redhat.com>
-Date: Fri, 23 Oct 2026 16:28:16 +0000
-Message-ID: <8733twnzz3.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PkVcJYAR
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e3b22e971so414631f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:29:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792772951; x=1793377751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MCcCJzJcyMLfAALTRppy1JcclrYetPHK7Z4PTdaUix0=;
+        b=PkVcJYARO8fjYAI3jhqXDBujBBuUvnfVWUFmgjS7Z56NnLwAoDT8xOHqF7x5s68qgt
+         gaBLCllAu7gMpHkGD+KRyRkmdxdeW0S0danjpIRL7/U6KwJ5UNwVQKLXhfJ3NVuV0nE+
+         RnzMsEN5SU20V3+2KOftWZCjnPj/DYwyY3tJ6kMf06rW59smD996pB7UgOXZCoPj9kK1
+         1n72B1kbSCuZsYfgl5e596W2mUVwB4cfvgI7FbE3dqtvJyODPDXAE7xk0oQW0C56Umnd
+         s7lEoQYjYNFWYIOz2KHTw5qRIj4hP9rRQ9w4HL7ghsxBXa0PTYeCn/KZbKNxAUIDQKWJ
+         9Ssg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792772951; x=1793377751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MCcCJzJcyMLfAALTRppy1JcclrYetPHK7Z4PTdaUix0=;
+        b=mWkDRFYEjyWHOWPjjyIraMs2AyvTUqTsmngtlkfQtRvCfZExzPBXgp5APbCuXTO4WG
+         rFGPsqOrzJbNW6ktMRdl8cyZuu0kwWM76aPcDLqgmT9J8wKEEK9JYDXiQo7g4q66uIDX
+         XnBXPs6J5wB44Pe4gWuY4vtHmWvqenYkhh/XdX3PlBLEQhxVNwVJK3s6m4kktKaJmGOv
+         7igbgSNrFndTb/3DsCjaYoBTMBAEAgJlZFqV0gIlZg6uzkzcciKxHbX49YN3tyma7o4T
+         4eHhW0pDTBBVlx0ZzmpYHbvZGvrHmC2w6P3+jZb04yAaF2fTr/8MFfTk13782LrZsJs3
+         XnHA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2u4UTFxo1TfiaBf0vmxeldp/Df/S/97PG/rDALH76aKrG8JH38Io2lnNJZ4VlQm0kpC7m/tyDVuZmEpM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMThF6UBh5Twf1kVma83xX1mNcG0wQfOnqz7i4R2FTYILy5MIl
+	aFHlHgZ6opWxNZljFX3y2NRR27tWYy5yQVkOKpT5O5ufofVyPewY2tPI
+X-Gm-Gg: AYBFou02+vojOzQtUBsDHEfsMSt16pxgrhDjOWRCTS9ce8Sx1We8WyvbdC0dzvROcM7
+	bGiz3m9YA4KFvAvWQhvrUOjmXNFWTcJhnCl7nHnIagvHPEj4W3z3w/+Fx35CDmWrgL65xUF1pi1
+	h5yyU83IW9oTyIwICHimgAGqas6AgwfpTrEYlf+qTnm2UVy8xoSDPe43L+cW7wd3p2etqg/b0kw
+	ZWGe7jVIy7cvUkAApTTFlIp6ilWjuIcGtonI6UcronK9ubQ9GGdVNo1nb8G/1ulJTk+YzqKjUR8
+	rEXYGD2KMV05/PlffMLMWUY6tv16ovwx1xtnTq8pWFWLH5VpESK4yIS3nhmfzFFtsTmzmeXL98I
+	EwaNOAaCOPrZF8nSu/yFclAsxDVOb31gtrEPiC2XDV4ZQQk82RteGQc8f/7UlJMGoexNXOLyPnK
+	Af4THzxUtanO6hCzk4Vfg0Q747jSBBkZ+9tlp4rEYjut55PhvpZBvz7lyBsHXZRRpHzqlKrKLKl
+	AN+vUcjtjDO4bgSKYHhN6oC+gh/nRlIG63L3Xe1l/hqJieSSs6ZXcIXfD1CrmN1cVnCD4WYAcZA
+	4kMhkNZf7tcoPsFz3/pq/S3ATjzH
+X-Received: by 2002:a05:600c:3f16:b0:4a2:526b:d417 with SMTP id 5b1f17b1804b1-4a2526bd79fmr16181255e9.7.1792772950799;
+        Fri, 23 Oct 2026 09:29:10 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.98.0.106])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2958bf246sm16379855e9.1.2026.10.23.09.29.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 09:29:10 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: Breno Leitao <leitao@debian.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com,
+	Ran Hongyun <ranhongyun1@huawei.com>,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH v2] configfs: fix slab-UAF Write in config_item_put
+Date: Fri, 23 Oct 2026 17:29:06 +0100
+Message-ID: <20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,67 +102,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1xKI7y-00H9LE-P2;;;mid=<8733twnzz3.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX187X5zaqduZF3EVStlYAlO3ExoowrV3DC0=
-X-Spam-Level: 
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.5004]
-	*  0.7 XMSubLong Long Subject
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa05 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa05 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ;Oleg Nesterov <oleg@redhat.com>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 476 ms - load_scoreonly_sql: 0.05 (0.0%),
-	signal_user_changed: 11 (2.3%), b_tie_ro: 10 (2.0%), parse: 0.70
-	(0.1%), extract_message_metadata: 2.5 (0.5%), get_uri_detail_list:
-	0.74 (0.2%), tests_pri_-2000: 2.0 (0.4%), tests_pri_-1000: 1.91 (0.4%),
-	 tests_pri_-950: 0.91 (0.2%), tests_pri_-900: 0.71 (0.1%),
-	tests_pri_-90: 165 (34.6%), check_bayes: 161 (33.8%), b_tokenize: 4.7
-	(1.0%), b_tok_get_all: 34 (7.1%), b_comp_prob: 4.2 (0.9%),
-	b_tok_touch_all: 113 (23.7%), b_finish: 1.48 (0.3%), tests_pri_0: 270
-	(56.7%), check_dkim_signature: 0.59 (0.1%), check_dkim_adsp: 39 (8.1%),
-	 poll_dns_idle: 6 (1.3%), tests_pri_10: 2.9 (0.6%), tests_pri_500: 12
-	(2.5%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [PATCH v2] signal: respect the blocked mask in
- dequeue_synchronous_signal()
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, brauner@kernel.org, akpm@linux-foundation.org, thnkslprpt@gmail.com, oleg@redhat.com
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
 
-Oleg Nesterov <oleg@redhat.com> writes:
+syzbot reported:
 
-> On 10/22, Eric W. Biederman wrote:
->>
->> Oleg Nesterov <oleg@redhat.com> writes:
->>
->> > And afaics we have another problem. sys_rt_sigqueueinfo() allows to
->> > send a SI_FROMKERNEL RT signal to itself.
->>
->> I don't see where your proposed code is addressing this.
->
-> Hmm. It doesn't even try. And yes, I know it is deliberate, I know that
-> CRIU uses this feature.
->
->> > In this case sigmask(q->info.si_signo) leads to UB on 32-bit.
->>
->> I presume you are referring to a signal number that exceeds 32
->> being put into a 32bit mask.  That does seem worth fixing.
->
-> Yes. That is all. I just tried to explain why this can happen.
-> sys_rt_sigqueueinfo() is the reason. The kernel doesn't sent
-> SI_FROMKERNEL signals with si_signo >= SIGRTMIN.
+BUG: KASAN: slab-use-after-free in instrument_atomic_read_write
+           include/linux/instrumented.h:112 [inline]
+BUG: KASAN: slab-use-after-free in atomic_fetch_sub_release
+           include/linux/atomic/atomic-instrumented.h:400 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_sub_and_test
+           include/linux/refcount.h:389 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_dec_and_test
+           include/linux/refcount.h:432 [inline]
+BUG: KASAN: slab-use-after-free in refcount_dec_and_test
+           include/linux/refcount.h:450 [inline]
+BUG: KASAN: slab-use-after-free in kref_put
+           include/linux/kref.h:64 [inline]
+BUG: KASAN: slab-use-after-free in config_item_put+0x26/0x90
+           fs/configfs/item.c:149
+Write of size 4 at addr ffff88803b6444b4 by task syz-executor324/5709
 
-Oh I see.  I thought you were saying it was a bug that
-sys_rt_sigqueue_info could send those signals, not that
-it sending those signals would cause us problems.
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+ atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
+ __refcount_sub_and_test include/linux/refcount.h:389 [inline]
+ __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+ refcount_dec_and_test include/linux/refcount.h:450 [inline]
+ kref_put include/linux/kref.h:64 [inline]
+ config_item_put+0x26/0x90 fs/configfs/item.c:149
+ configfs_symlink+0x6be/0x11d0 fs/configfs/symlink.c:225
+ vfs_symlink+0x18b/0x330 fs/namei.c:5823
+ filename_symlinkat+0x1cd/0x420 fs/namei.c:5848
+ __do_sys_symlinkat fs/namei.c:5868 [inline]
+ __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5863
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Eric
+Allocated by task 5712:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ nvmet_ports_make+0xe6/0xf00 drivers/nvme/target/configfs.c:2054
+ configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
+ vfs_mkdir+0x408/0x620 fs/namei.c:5439
+ filename_mkdirat+0x289/0x520 fs/namei.c:5472
+ __do_sys_mkdir fs/namei.c:5499 [inline]
+ __se_sys_mkdir+0x34/0x150 fs/namei.c:5496
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5712:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kfree+0x1c5/0x6d0 mm/slub.c:6802
+ config_item_cleanup fs/configfs/item.c:128 [inline]
+ config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
+ configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
+ vfs_rmdir+0x3e9/0x6b0 fs/namei.c:5544
+ filename_rmdir+0x292/0x520 fs/namei.c:5601
+ __do_sys_rmdir fs/namei.c:5624 [inline]
+ __se_sys_rmdir+0x2e/0x140 fs/namei.c:5621
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88803b644000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 1204 bytes inside of
+ freed 4096-byte region [ffff88803b644000, ffff88803b645000)
+
+This is a race between a thread creating a symlink and another one
+doing rmdir on a parent (or ancestor) directory of symlink creation dir.
+
+configfs_symlink() takes a reference on parent_item, the directory the
+link is created in, and then drops the directory inode lock around
+get_target(). While the lock is dropped, a concurrent rmdir can remove
+the group that parent_item belongs to.
+
+If parent_item is a default group embedded in a larger object, such as
+nvmet_port.subsys_group, the reference on the embedded item does not
+keep the containing object alive. rmdir frees the object, and the final
+config_item_put(parent_item) in configfs_symlink() then decrements a
+kref inside freed memory.
+
+Fix this by not holding parent_item across the unlocked window. Drop
+the reference before inode_unlock() and look it up again from
+dentry->d_parent after inode_lock(). configfs_get_config_item() returns
+NULL if the parent dentry was unhashed in the meantime, in which case
+release the target references and return -ENOENT.
+
+Re-looking up parent_item is not sufficient on its own.
+configfs_get_config_item() only fails if the parent dentry has been
+unhashed, and the rmdir path in another thread may skip that: if
+simple_rmdir() failed, the earlier d_drop() was skipped, so the dentry
+can stay hashed even though the directory has already been detached.
+
+Such a directory was created as a default group (CONFIGFS_USET_DIR), so
+configfs_rmdir() takes the CONFIGFS_USET_DIR branch and calls
+configfs_detach_group(). detach_groups() then marks each child inode
+S_DEAD (d_inode(child)->i_flags |= S_DEAD). Check IS_DEADDIR(dir)
+after retaking the inode lock and before taking a reference on the
+parent, and return -ENOENT. This also rejects a detached directory
+whose dentry is still hashed.
+
+Reported-by: syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=63336d70e1af377d7388
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+v2: Added check for dead dir, this would be helpful when configfs_remove_dir skips
+unhashing the dentry.
+v1: https://lore.kernel.org/all/20261017123748.4430-1-drifabdelmalekmohamedsaid@gmail.com/T/
+ fs/configfs/symlink.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
+index 89178f5d371a..7d746a10c369 100644
+--- a/fs/configfs/symlink.c
++++ b/fs/configfs/symlink.c
+@@ -196,11 +196,26 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 	 *
+ 	 *  AV, a thoroughly annoyed bastard.
+ 	 */
++
++	/* Put the reference back, retake and check after relocking*/
++	config_item_put(parent_item);
++	parent_item = NULL;
+ 	inode_unlock(dir);
+ 	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
+ 	inode_lock(dir);
+ 	if (ret)
+-		goto out_put;
++		goto out_put; /* config_item_put on NULL, no problem */
++
++	if (IS_DEADDIR(dir)) {
++		ret = -ENOENT;
++		goto out_put_target;
++	}
++
++	parent_item = configfs_get_config_item(dentry->d_parent);
++	if (!parent_item) {
++		ret = -ENOENT;
++		goto out_put_target;
++	}
+ 
+ 	if (dentry->d_inode || d_unhashed(dentry))
+ 		ret = -EEXIST;
+@@ -218,6 +233,7 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 						     target_item);
+ 	}
+ 
++out_put_target:
+ 	configfs_put(target_sd);
+ 	config_item_put(target_item);
+ 
+-- 
+2.43.0
 
