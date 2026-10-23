@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788963;
-	b=UscSUhf5qDDpRJ4TeBBYoMPDSvTUcb2409rRSk6t5usWOcNfWGYlrtX91n65iKi5jAgF
-	 k78D3epTXBMTBmmLjGFU46o+OBf2mrPVX16zkGCGmxn1jEIhQnDnrO7j/wCCxt1fxN1sK
-	 OuNjGDe2JeOhqGc0JRTsAegoxI4yTSz9fCluNl1y1xZXb99k2p1Vag7LsUuI09OnT/ZCh
-	 hP2l9wkMN7IAHKQCf5zhCNLOuDgHEdvY1F76dWQE53VFioOQjysbWEdx3fmTZ4uZfp9dh
-	 8/H0LGPXPvRM0sRATHeo8mNQksTBsZglepb0ePnjYxiQkJciWoiBhs2YyFHiFJRj/5g==
+	t=1792788993;
+	b=GTkKJhlVlhKwdiH3oe6aSKTU5uuwH9XYPDKo2GDQSjeZABIMmhHlrjwjCBnUNVJ6K9nI
+	 /Jge2UieTQ8KxDx7cjSgfp9RHttWCWQZ70kbZkIt02L7t+SuZCq+wp4CG0dsmWc8AFqzT
+	 jil9d0qiM/aTXzTu5eVvftvLUKv4RqB4W/cmEy4s/pAJAgZKSNWJPSzSxHCV7lUsbkbhX
+	 VqMINl9aRQaU+jEB69PjR1Cr0V5g4Euf13Rl6HHwoNZY9HSQxVilt22L5Hj2TXminosBO
+	 s9rxZr3WhQ35zXTsKxKRi8Ops3tBZHnEKomzQFa+wEZuW2WNMWo5LLoyjWfEK7gLBGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788993;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
-	b=e2Ebu1UANA2jBH4UeTC+YOfBV4an/Io48o5Tu6fq/z32ZCeL3fKd+70sLwbHltUgUG0T
-	 uf/y7Hc5FNvtkkOX5KajfZmC08OWJpXxBXBgQGCXmBBbM6F4XGcmoBEZkjTdE+mRGCzgq
-	 pKFWYNJYoV0x27omUE8/iE9yX7wUhzOqhDqevyVD5lEXQj7oop6apVDxCpxImPJP3+FuA
-	 tdKgIC7GtHflGpG6XbWO5/Cz7C5ywfAB8zWiorSQ2WwfdYveBIKSqDRRxpz+Lx0vvCspC
-	 dFeRFDJFg7FiWRt53vSNsc1APKY1ETYaoPE49BiwnpzNTZMAZwhjxO7fPfHNUKnSGRA==
+	bh=Y67gO6PRdAEfndN9srTaRF6Nt3BQB1WNhqjL17tr/jo=;
+	b=xDawOhTxNUh35FIzMCE7V8kGxdyjSJtBak7dn+y0IuVsgdqAmGxprdrkaqYXQ3zmQPrY
+	 JQB/dHoworWBicHElalgD+37IK5tYyLwfooYCp5u5VC1xbttfpBcSXbNzA5dIfTdHsoc7
+	 4cVTeVglf3pVKWK9Oh1VT9ijMx3hziH0AvoaTYxYI/qsfQTrh/JLwj17fwwII47oiHNCX
+	 bBd7aYRYlIlW9lHygiDR4ptO2iio+0vY2FugF9Ks5ypjmyDrfpqhHDeROEpjNBQBLcF2N
+	 NPDp+YwasVN32cMgJtTPCzKzX4S0l2NfG2yFd5EETMZote+69OIY1yqgXi+ggPPp5cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiQGCRhA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00613606A31B;
-	Fri, 23 Oct 2026 20:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854D1606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4021F01825;
-	Fri, 23 Oct 2026 20:55:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiQGCRhA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FF41F01825;
+	Fri, 23 Oct 2026 20:56:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792788962;
-	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
+	s=k20260515; t=1792788993;
+	bh=Y67gO6PRdAEfndN9srTaRF6Nt3BQB1WNhqjL17tr/jo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NKktgR4rcKUdiO2NkGJRqzAQyHyNqk4IJRrBJu5OAedX8PNttS1iKxSWrk4vI+QCk
-	 YNzgXsxxdNLNEM0LOhDMdTdWBRlT/hiT8BXaWGx9CzvO241Sp7xjXaQQMlT+li1Vmk
-	 xEV8BbhLNv3aETBLsnUYUea273eBkAXi2UlnleTBUcRzusje/zDVOTo7VpvS4HCzqP
-	 XZZoc2CkOJIPULxNsLE8pm7OWICD3bKx8L75lOJptyqzWNQxaZmKTKNYlZZ0t9JZgf
-	 /4WlgKEJZLnCIM0Tuna+bCKkOB1ER1mWz32qJhFlXkmDKNt4I8eWKojYMQm8qkFp7o
-	 rB+6gAabFfuTQ==
-Message-ID: <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
-Date: Fri, 23 Oct 2026 22:55:54 +0200
+	b=HiQGCRhAgTDsuuAFI1xdM4pzH4DCnuxc5f2pEQtnPLvtOTL2NyImEBAxxN1HPxJ4g
+	 cCEU2gIHN0w5puIT9XCjQ2GHvqK9IH07eLfzo9k0Dcvgmn+WFkNvYdvPzq9LJz1hfJ
+	 XXjFolbTTG/+5mqJQNX47lyuSV49+lSk7KMT7dwjChB8i9NWsOKUXya9tmtOMi8w23
+	 Ffe5unOXSIG6mPZjg3PieJMFhWWxQAas0zj6H1jGTPMtjySVZJz/a/HidfTOG5Zn35
+	 qRY4GdSRizzv89zSG2piiKDVBwjNZTlXydNiqrTgp4BccXL8+QoDc4H2C1aPFciY6j
+	 6hJH4WW6ZuAzA==
+Message-ID: <f0ad7069-5ff2-49fa-b11e-1ae589836980@kernel.org>
+Date: Fri, 23 Oct 2026 22:56:27 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,18 +52,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
- PTEs
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
- will@kernel.org, Ryan Roberts <Ryan.Roberts@arm.com>
-Cc: dev.jain@arm.com, baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
- mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
- <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
- <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+Subject: Re: [PATCH] mm/mempolicy: remove unused mpol_is_preferred_many()
+To: Sang-Heon Jeon <ekffu200098@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price <gourry@gourry.net>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>
+References: <20261023161003.59086-1-ekffu200098@gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,98 +105,24 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+In-Reply-To: <20261023161003.59086-1-ekffu200098@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/19/26 09:06, Zhao Gongyi wrote:
-> On 10/14/26 5:41 PM, David Hildenbrand (Arm) wrote:
->> CCing Ryan:
->>
->> https://lore.kernel.org/r/20261013093600.54995-1-zhaogongyi@bytedance.com
->>
->> On 10/13/26 11:36, Zhao Gongyi wrote:
->>> The transparent contpte layer treats PTE_CONT as software state: when a
->>> PTE has PTE_CONT set, the contpte helpers may align the operation to a
->>> CONT_PTE_SIZE block and operate on the whole block. That invariant only
->>> makes sense for valid mappings. Explicit users such as hugetlb manage
->>> their contiguous encodings separately.
->>>
->>> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
->>> set_ptes() users can therefore install present-invalid PTEs with
->>> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
->>> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
->>> PMD split installing PAGE_NONE PTEs.
->>>
->>> This is not a hardware programming problem: invalid descriptors are not
->>> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
->>> is a software-state problem. Some arm64 fast paths intentionally test
->>> pte_cont() directly instead of pte_valid_cont(), for example commit
->>> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
->>> test_and_clear_young_ptes()"). Fixing the producer side preserves these
->>> fast paths and covers all consumers.
->>>
->>> In the observed failure, mprotect(PROT_NONE) installed a full
->>> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
->>> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
->>> path only unfolds pte_valid_cont() entries, so the neighbouring
->>> present-invalid entries kept PTE_CONT while the target entry became a
->>> guard marker.
->>
->> Hm, is there a good reason why we cannot just use the cont-pte bit for all
->> *present* PTEs, even if HW would not be prepared to benefit (!pte_valid())?
->>
->> I guess we really only have to make sure to shatter properly, right?
->>
+On 10/23/26 18:10, Sang-Heon Jeon wrote:
+> Since commit a492abe28bec ("mm: hugetlb: move mpol interpretation out of
+> dequeue_hugetlb_folio_vma()"), mpol_is_preferred_many() has no callers.
 > 
+> So remove it.
 > 
-> Hi David,
+> No functional change.
 > 
-> Right, there is no architectural restriction preventing PTE_CONT from
-> being used as software grouping state for present-invalid PTEs. For this
-> particular failure, making contpte_try_unfold() recognize something like
-> 
->          pte_present(pte) && pte_cont(pte)
-> 
-> would make clear_full_ptes(nr == 1) unfold the block before replacing one
-> entry with the guard marker.
-> 
-> My reason for preferring the producer-side fix is that the existing
-> transparent contpte helpers mostly use pte_valid_cont() as the membership
-> test, including contpte_try_unfold(), ptep_get[_lockless](),
-> pte_batch_hint() and contpte_is_consistent(), while some range fast paths
-> test pte_cont() directly.
-> 
-> If present-invalid PTEs are also considered members of a transparent
-> contpte block, I think we should audit the single-PTE modification paths,
-> rather than changing only this clear path. We would likely also need a
-> pte_present_cont() helper: the pte_present() guard matters because the
-> PTE_CONT bit position is part of the swap offset for non-present entries.
-> 
-> There is no hardware benefit while the descriptors are invalid, and
-> set_ptes() can recreate the contiguous encoding when an eligible range is
-> made valid again. For a stable fix, I therefore preferred to stop
-> contpte_set_ptes() from creating present-invalid transparent contpte
-> mappings, which also matches the pte_valid_cont() contract used by most
-> of the existing helpers.
-> 
-> I agree that saying this invariant "only makes sense" for valid mappings
-> is too strong. I will reword that to describe the current helper
-> contract instead.
-> 
-> If preserving the software grouping across PROT_NONE is the intended
-> semantics, I can rework this as a broader unfold-path audit instead.
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> ---
 
-Hi,
+I'll likely pick this up for the next cycle. After the merge window ;)
 
-sorry for the late reply.
-
-If we have the spare PTE bit, why shouldn't we just use it?
-
-It will make batching over PTEs faster. And we care about that for present PTEs.
-
-So I don't quite see why the stable fix couldn't just do it right away? Do you
-have a prototype that shows that it would require significant code changes?
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
