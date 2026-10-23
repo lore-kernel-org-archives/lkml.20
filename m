@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798107;
-	b=i/YM9b5PLKN6iVN7gfIco6pECFi7yOEcaTeqH55rz9lRBoSwbvONISwFSG4l9thf1als
-	 GCOFVK+a6+CWDX8vV/4OiZtoswtslHKIqYDdOBAbO6Cdv7FSEGjKfKtG14XnRtXLXHdIN
-	 /KW8iVOSVqWVkjrEzKtkeS3EIdfwAWG90eso4j4TG2ky/OrCkdhKWrquhaNCJMiDV1P9g
-	 SRYZT3w5pfLFPE3vApIr+HoMFpoXI4jPVyjpf71LLOeYBm2D4IWOoVIJxeGA02hR/4N+K
-	 msE7c+rJ2JRNZ6/LbBVf9+9x7ezaNgF6x9ToznE7/H6xDnBl4N8E3fGqCGuvK5yMD2w==
+	t=1792798102;
+	b=r6Nh7+zll4H4OC2XQWQ1srW7/peVMe5B+WGoKBwGwJFupa2dALtm8PrpW7o6+xQYrrVp
+	 T86Id8PFonXQH+4ulUDFdc+8tcylcqismKs6j2kCqMR6O4AskFl//GhBCx6gPNE+ELTAu
+	 pjzpCPFiA/4cnaFqxSs9NlD99InezEsiJh+3cRAB2dMfClIIE2B7MSP1p7HGXfOt4XdrX
+	 ps9YPq0iP9dCD50QBvmagq80IYsx8tJh65y8dY3DUcyLz9q7SaSCx7dleDzFs2wzj5Z1s
+	 oyhYFMv/sX/CdEs3CJ94bgUlIPHVt3aprD7swYhFKv6t+jV5uvbchUlWmEuxBdXrtwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798107;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=973K8gxbulZk7sOwqCbvcqPXZuufZsqlMFSnTIy+oT0=;
-	b=pFuGkSDQaYmfDAYd96DfZylkn/opzzhi807/xEx+cnoWJZDcBOtu0jn2kW66ytb3tYGf
-	 DJZnMVv0hJDduQjIKADEUfx0X/v5tRTIdWJ2XoZcvXqQuTTeVicS1akk+Uj9QDxMO7NjS
-	 NeBRmsKkpZqGa7gJ5solk4tie/e/fyt7KZjPYz7tseoZ4IGaLCwJsSzihh/1BcXG7mROn
-	 d+l1mqjmqSCv+WrtBPOAmmZjHOLqqJjxBFIfDRJ1jue5H4N2u7RV7BnYcHeHPZFMDmKi2
-	 RiKEOYpldlRdOUJSALNGaslk8txdj2oxofb5MmUnQerBsLKpvGbgQIJgD3nbO0eMmQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798102;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2oDtGQeFWEGW+Erv6ydtyhxWcHVaF087OwMHXZsQHbo=;
+	b=qJet02+ZCPuf/zVSdtyAKUc4ReyXQrtHQFkcN4LpRFBHIsPO0r+oCrov5ejF+fwIuBRB
+	 qV+nmi/bMyrzpXxWuaZCrJkvX+cuhwm4G7PcC5ldrRibGWduO0Sz9HXtmSEOmL+0za8eP
+	 J8nwKe0dQSsDzugsQ4iSHcWnzAEt0s6FYTuAdbYZaACp/YmFv+ihAJNV77wW5PWvL5gby
+	 jfJSzJhlGNyn2bvhG658d/YOCAXYq6ZYkrrZRQ+fKxdX+9bl+EXtgwi53SEg0F2fr0GbD
+	 YSmPBiRk7le0ngjE87r+5kmoyYyJpX2gVUgcpDIDhiHN84rOmOj9mfpKv4glUnMduCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BQbw40QD;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=rojer.me;
+	spf=pass smtp.mailfrom=rojer.me;
+	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b="hGBrJ/FU";
+	arc=none smtp.remote-ip=144.76.98.110
+Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA86606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BA86606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80222606A31A;
+	Fri, 23 Oct 2026 23:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80222606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BQbw40QD
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eaf34452a9so1150674e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:28:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792798105; x=1793402905; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=973K8gxbulZk7sOwqCbvcqPXZuufZsqlMFSnTIy+oT0=;
-        b=BQbw40QDAKRu8+3TjMKa/v8X7jcocc8T8huszEtUew3vOrml7+lRxcp/7Si4A1Y4DH
-         QhFMcRGKocT1tP0AHyjN5tfdno1w03Htt+NjNdKwlLtw3MudQCxZyJ06Pz6y6ctOnsM/
-         TUySTs3t6CQABiZ2CT15a+mJt+Doq02KNtrnCypa+pZbuig8E8EsndW/kICBd8tZlH8W
-         wg1PBfh29+QP4h/vfrK7zHVz7tT2i9fJCzPa8x2A4yBSEEG4pNbZk+37omwhUTHx/pq6
-         v//msPQ0ZeCWBVYZcYaXEQexRnuZokQ4dzE0Z/Hn2BBesmck4kHWVz4OiK2XDkV+OljR
-         pymQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792798105; x=1793402905;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=973K8gxbulZk7sOwqCbvcqPXZuufZsqlMFSnTIy+oT0=;
-        b=LeA5/EfeM4JrPymLExhhOcDYP/en7viH/u3MKRkdF4F7sQzbfInJxeFPkfhLsSGuBS
-         lb/HpFwYZIfM7KE/Orwg9jx8TnsLb4mRvrntKz0SikkeoBvNBXsmvAE1YihPHxaDbmxt
-         JuE9Sr/0LPvaZ/c79R4O/CEWSEp3q1hc2kjlfvoeGDyUmxfIruvNhXRHay2su8OrRuXL
-         tc1ex0sw/FTuoFRj+s5s/0rem3pUL+PjereEjhxJC4P6RzLHDLcxuz6xsSJkoexve0fS
-         SthKd69jkuVXDzxPmyFUz313TsLqoHD1hjHEDc9Y2j1z1jCW5bi/MExZx2+JVNMN0uiu
-         iYFw==
-X-Forwarded-Encrypted: i=1; AKwUvByrfFMzKAkC2r7MQzo6jPM1idByuLOFpsWfZoKS2pEmzY7w8v6yC0S6g+VYiO1+qYZzSvRD9FrICwD1wKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcuYoxsHsR6dQklY3ctRiBBbflyFIby+wAsLI5Y+9/YwWhkhxO
-	X9LJvGlT5wBnU3CA34NTfPv6umyHxwpk7qwaCjVc2OeZVCzVaSywdY7K
-X-Gm-Gg: AYBFou3Z6SWgFxne7pljz3prUUcd09c+NNUykUNagGSyAhlnn5nPS0/09GGGoEQFRXC
-	xljUh2JvmlAaVEbpA9LuFBY2OS2nu1YZNCGKZ2ceazwrC7RXMGUwW8O46KV6+HEXlfhryHK4hU7
-	xXtYgWRqmmTzQYZYjXpnS8QC1pJN20iaXJ6qi0Rocjm82644gV+CBME+L7u5lOjbNCEOg7YK4ou
-	bUgv7AO5WGYz1sEh8tx/7lVVLYXTmzYItZzGMG9qtpkrUztvNRZF836yWc3GbHozIB9dlXx1aj8
-	c+dZYUmSAtb1+w7Mvc2LlrbUkxYAQX0eAHpHQYL2vDlk1GluSGdPEEigpDrBmyt1xlC8bDimeCo
-	XTIq8/vJrcrNiJrE7L68mRGOaDjNt6b42lwXU8+CChqaCTBzbeKj8jD3qSn0DdbAi6fhaJFxyla
-	TzWyt5gCvPXgSJ5uuGeNZpwIwQI4b06fci1WwlwveKeGCpJNfFgOECBVWFXaWWZ/yjnTUXOOYNz
-	8+LjqFADo+v9q0NOZQoRAGeL60MatndXBfhxFfe5nG4YT+Y/rruUNmCmv/i0uzfIaxAbSgmkkvg
-	qhXueUEcglgGVEzHRdKSKR8=
-X-Received: by 2002:a05:6122:e20c:b0:5ea:c3bc:c54b with SMTP id 71dfb90a1353d-5ec235319d8mr97456e0c.3.1792798105155;
-        Fri, 23 Oct 2026 16:28:25 -0700 (PDT)
-Received: from Biostar-A520MT ([187.94.15.233])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec234a940bsm418764e0c.15.2026.10.23.16.28.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:28:24 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>
-Cc: linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=hGBrJ/FU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
+	t=1792798094; bh=ooy2sH7yBbGaaQdzqtuTjYua3SzGrESVaCclDTeDifg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=hGBrJ/FUccx0fpset+x/woKXcpFpdpfAFQZtKjtNlEj6fT0KiUc56PTJIhlUUYR87
+	 tA5WT80Re8mwrommqJAExDMakIit7HhRNfz5+WY6LOEgEtkZBKzIGP1lpqd1Y6pH8o
+	 XTqH7+nTc4UULgNDLVhBYpdW7jeLWVSpMzOHS+MUF6885hqoC0VDfZhVJEuRnKM9LO
+	 2HEFvFBnqDszLEhzW1ZJ2GqrYDt2qTZ6Z8Drdt2gLkT2lR2SZ5xXqxbXF7KisRvyOn
+	 znRUA6jYm6wfDcUO6h86EzPZVKN+17wwv6EKq9hlru1PQKv8quEamxNOO8Q1LNT86c
+	 cUGqcmyKdMl9w==
+Received: from nbf.lan (212-5-142-134.ip.btc-net.bg [212.5.142.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail1.rojer.cloud (Postfix) with ESMTPSA id 30660126B27;
+	Fri, 23 Oct 2026 23:28:14 +0000 (UTC)
+From: Deomid rojer Ryabkov <rojer@rojer.me>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v2 1/1] MAINTAINERS: mark HPFS as orphaned
-Date: Fri, 23 Oct 2026 20:28:07 -0300
-Message-ID: <20261023232807.206097-2-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261023232807.206097-1-breno3011alves@gmail.com>
-References: <20261023151850.96475-0-breno3011alves@gmail.com>
- <20261023232807.206097-1-breno3011alves@gmail.com>
+	Jensen Huang <jensenhuang@friendlyarm.com>,
+	Deomid rojer Ryabkov <rojer@rojer.me>
+Subject: [PATCH 0/2] mmc: core: sdio: fix UHS init with fixed 1.8V vqmmc
+Date: Sat, 24 Oct 2026 02:28:11 +0300
+Message-ID: <20261023232813.2983368-1-rojer@rojer.me>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,40 +68,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-HPFS has had no active maintenance for a long time.  Mikulas Patocka,
-who is listed as the maintainer, has confirmed that he uses HPFS only
-for personal data shared with OS/2 and is not actively maintaining the
-code.  The only changes to fs/hpfs/ in recent years are drive-by
-cleanups, not functional fixes.
+The Realtek RTL8822CS SDIO Wi-Fi module on the FriendlyElec NanoPi R2S
+Plus (fixed 1.8V vqmmc) reports S18A = 1 in its R4 response although the
+bus is already at 1.8V, contrary to the SDIO Simplified Specification
+3.00, section 3.1.2. CMD11 then times out and the module ends up at
+50 MHz high-speed instead of SDR104.
 
-Mark the filesystem as orphaned so that patches are routed to the
-linux-fsdevel mailing list, and drop the stale maintainer and website
-entries.
+Patch 1 makes SDIO init fall back to high-speed mode if UHS init fails
+(e.g. tuning), instead of failing the card altogether.
 
-The driver remains in the tree.  A future removal can be proposed if
-no new maintainer or additional users step up.
+Patch 2 fixes the RTL8822CS case. There are two ways to do it, and I'd
+like your preference:
 
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- MAINTAINERS | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+  2/2      skips CMD11 when the host is already at 1.8V. Simple and per
+           spec, but a non-compliant card that needs CMD11 anyway would
+           drop to high-speed mode (it keeps working thanks to patch 1).
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7336600952c8..83685243c8f6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12064,9 +12064,8 @@ F:	arch/x86/include/asm/hpet.h
- F:	arch/x86/kernel/hpet.c
- 
- HPFS FILESYSTEM
--M:	Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>
--S:	Maintained
--W:	http://artax.karlin.mff.cuni.cz/~mikulas/vyplody/hpfs/index-e.cgi
-+L:	linux-fsdevel@vger.kernel.org
-+S:	Orphan
- F:	fs/hpfs/
- 
- HS3001 Hardware Temperature and Humidity Sensor
+  2/2 alt  (sent as a reply to 2/2) keeps sending CMD11 and only retries
+           without it if it fails while still at 1.8V. No change for any
+           card that works today; costs ~0.85s of boot time on affected
+           boards.
+
+Tested on a NanoPi R2S Plus (OpenWrt 25.12, Linux 6.12.112 with these
+patches; applies to mainline as of 2026-10-22): both variants reach
+SDR104 at 150 MHz; iperf as a 5 GHz VHT80 station goes from 70/29 to
+123/125 Mbit/s (rx/tx). eMMC (HS200) and SD card on the same SoC are
+unaffected.
+
+The device tree part for the R2S Plus is sent separately to
+linux-rockchip.
+
+Deomid rojer Ryabkov (2):
+  mmc: core: sdio: retry without UHS if UHS init fails
+  mmc: core: sdio: skip CMD11 if signalling is already 1.8V
+
+ drivers/mmc/core/sdio.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
 -- 
-2.56.0
+2.53.0
 
