@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792780065;
-	b=damKl7Rgri440ZIkkccroLiHsYGsqx6uC7pnCC5v9ZRoe9rAa02YM8F0rj4ASKlXgmby
-	 0iNWKKuU2HE7miIUaAVLuOoO+jx22kJ9oZyfFv0kgJ4HdanSyNNlPKJjCVrWOFiDy9fD5
-	 YR9+PHwS9FfBuXEzRCuwR4ao1QLbORu9GPnO7m2ksgwARtkdmu9g8RShjctf2Yemy6tpF
-	 pWHQZWIvxtVxvZq+JeLG8UwN9wMMo7SXC+7Zfcui7uNZ5KdMp+0OR6aiyaMpcyUOJBKwB
-	 vyq7BZDLICR2fybNarmP/EHkM8SSWy1YdBVG5cOITVuMBJ4cUSCVPIiVscStQftbwhA==
+	t=1792780225;
+	b=LR38J6rQeeUjMgMY8k/MjhxP4LVcaXFXEC2qthLi9Qd/hmackDETkg62Ep/3N9mVcevV
+	 Ge5+Yf7w0g8/a7rSQQD2asbqvfxedP4l9IKw8q0T4JRvSu+/obPGrMBe7UvE9KLQ3UKBa
+	 BZCpISB8S2CTf4sJkhMv6gj4mEn/3Wf0YCPAxRAXNtrkKXNcRw5gkcmalIuHYE7cmODz0
+	 OmEL0etUi9CCVSlSevozMvy8riF2O9FcaKl3LNY+AtGl/YtLHzefNNIhXOXtLxWweuJ6B
+	 KF3IhUADEKrCWfsjHfMu9pgql/SspiHAnb23bv6KTBJSf45cC3jMYIoKwHQn53wwvXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792780065;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=3IeOutF+wMeMppvQuqzygdEXEQlLVsY7ZzZRX7jYVpw=;
-	b=x1A1IShPton0r4K7RrtzZiiVjLWUMIZ7lbtU1ZJn7sC6ygyNcZyAjRO/RSt1cyiSMdT8
-	 R0ySQoXtguYAlQj3lThovCQFxEQMucrCRqQ9OrDVmqUKrZhf3nDky2G+b1JUCZNQCAtm/
-	 D9CUfF097hamINk19dfOoApLl7N5U7eJcpmKHKOqTJnZZA+CrSH5hfyMkgTDq6P8XM8yT
-	 8+CFSnPyujA/CBPDjmnOGcdQ4WkLFb6PAJg5i9CFxiHTG8do1x6NqcIpRyIEKcFxqBDFn
-	 9X28tUi0SX5Ksj9l7gwLMD8Qe9Sb7E+VkrxqpGjQxil22CkVgrEG5FGOfCc/wijV5vA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792780225;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=fv/ppcHSQn3X5uWBPKwBqiyayuNUeNnKKoc/mFCU4r4=;
+	b=YMVsm40HQtyA+hmPoshs8WnmAp32sH8uJGTdDi3yD5UThqaEucFM62C6UpfxB01/vJ7h
+	 Jwin2TK11uWGL8NQU9v5gsLEFik9aAMJkrrHxkyw5+aeYjQIBcj91uz6oedCUVroFtUrf
+	 TV5sStbI9Lgm/yW5T65aauAD28q4d0SnrpmmSX1RfXWrzJZljFX4sQSVGfqOax1xEKlhH
+	 aYwQERSinVEOyvva/L4vOfOYdKTLokjDUJp0B/ewJpkqFFWLQjNqDvgLBEGmdptrM7OJ2
+	 k/n3AV2savQJqMdFZDdxFRSCKCb77U8Z+ol24fUDNtTv5Q7tkB5ss4NUgIsNE2zIEGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cDp2UDN4;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=B39x3Kz8;
+	arc=none smtp.remote-ip=212.227.15.3
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ACB606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:27:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39ACB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B710C606A31F;
+	Fri, 23 Oct 2026 18:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B710C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cDp2UDN4
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ada6ccd402so1037706a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:27:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792780064; x=1793384864; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3IeOutF+wMeMppvQuqzygdEXEQlLVsY7ZzZRX7jYVpw=;
-        b=cDp2UDN47M8RQHr0YefYNHYqkoJlDZAJH2S34MJsUlUCxMkQx6K2ceVZ6j/t1MA0d1
-         08qJVn6x9mPuInLC7vAcK/f/cGlL024vhXRAq+Nh3u+ewWmWclGg3Hr4Uen+R2sW8PjP
-         qbKcym2oGrROB3cr4W7GCf5OWGMfZjtrSqYTzFG1ZzmKl4pBwNDsbTRlYmM/wuGRPjkr
-         0FKP3IBTTcf9YyniYe1XmUfhYf4p91TUZ10b38uPYqjvCyT/Aldlnvf3mM2M6L6XuW9G
-         TA+fD1ax5i4qOuJNjzzDsBQnXlV1ESeLJhXL1ZdR55K381+lwmUuFyCIBaSxAktW2QLp
-         9BSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792780064; x=1793384864;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3IeOutF+wMeMppvQuqzygdEXEQlLVsY7ZzZRX7jYVpw=;
-        b=cKr/fxiWD0PDQKzoux0Fhwgb3i8XAtTvlk3HxW5eP571ClCYZg3xP9JLLJv+8OmWmD
-         MpI3oupftpXBHo9RtDX2QoPc8LkIdw9X7p0GyclJ96wmnsAU/zMZXq8TEiGrKGF4yXq0
-         B2dkgjKyRUrrXXIBLRem1k6EGAlwzz031wblSEs+GjJL17M9pgICIRt4UAcEFgDtQrhK
-         yM0BGT/xwbbur4ZByfhHD7fYYfLyk/swh7VdVtShfYGwtYDOqi44RsGJTiKY0lu3EF06
-         5FiWq3YziWPrD4swuusunMCzFwLmhDP/tDr6byG8cZTQdqYpTqNpgu77K8Q1dniw93mp
-         HMPw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2qrS3jwEe1eMV3gD7sTUjMHtHD0YiVF2PLcbS+oS4jpAH3VcrOP9ZOt3JzenYcXmuhzjXXXtY5krkmNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwungLwkBfYPze9ajy7tXkwfV7+em4liCdAf/ccv02ksHpLDrP
-	blhGiNgr8GKNIhT0co79ldCAyQatadoo3clUr09Jn/SKFJVgrVJr4/nGUSv8g6L38al4TaQlCwU
-	FKCGkT4T/irJMVQ==
-X-Received: from pjvk6.prod.google.com ([2002:a17:90a:dd06:b0:3ad:ce09:ff3])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:1a86:b0:3ac:b7b9:6484 with SMTP id 98e67ed59e1d1-3adeae8622dmr109354a91.45.1792780064392;
- Fri, 23 Oct 2026 11:27:44 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:27:43 -0700
-In-Reply-To: <20260918193937.569414-6-zide.chen@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=B39x3Kz8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792780216; x=1793385016; i=markus.elfring@web.de;
+	bh=fv/ppcHSQn3X5uWBPKwBqiyayuNUeNnKKoc/mFCU4r4=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=B39x3Kz8SJwxUICTceZGJKb3M4bI9H8hVzp9gHYxzq8m/c6ONTSe+ahOHhZjcP7e
+	 Zy3oSAdPk11jzNUSP2QvxVkUUMdzhdFcH6PrwKAEp3P/+r5DNqWfWvwsHrA6hJTfd
+	 cSlXeyEvZ1zwZ8Fi2Yjd/BlfQjCcxDe+vRSKtev7eGpWJo228KDPXIPyxlp8mUpNX
+	 w+BDRmm9nXQDYNrFUDjF8VdSD8Lpj1Yt3DbUA5mCoMyTovZHlDdBv0vkruaZZReBi
+	 sbBjiSSBqxkifii5zoDtooLnyAt5aoUOnraDqhFLTb8kQVcO7qtm327VcDgXXupLn
+	 sWNbkC1/4N1ORC3XyQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MFs1z-1xMmSV1z1L-00HNNx; Fri, 23
+ Oct 2026 20:30:16 +0200
+Message-ID: <6217c190-e8f1-4faa-b934-b1774501a3af@web.de>
+Date: Fri, 23 Oct 2026 20:30:13 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,86 +61,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260918193937.569414-1-zide.chen@intel.com> <20260918193937.569414-6-zide.chen@intel.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023182743.3248481-1-jmattson@google.com>
-Subject: Re: [PATCH v9 05/12] KVM: x86/pmu: Support PERF_METRICS MSR in
- mediated vPMU
-From: Jim Mattson <jmattson@google.com>
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Chen Changcheng <chenchangcheng@kylinos.cn>, linux-media@vger.kernel.org,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261022013811.27947-1-chenchangcheng@kylinos.cn>
+Subject: Re: [PATCH] media: dm1105: fix rc_dev leak on probe error paths
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261022013811.27947-1-chenchangcheng@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:UwysyeXDS+vbf3ZHBbRzdTmYLAteeVoNqGHPz9/jgSdY49Y2S4t
+ VQU6dE0mIQZFIlfH4uwuFLkGaqs3KmNk9OhO7d7c/Y1rdakHDgItC0jCpzRYAJlAgGZJ/gv
+ xQCFFMG/BIwjmJIjG5jtTPPcss1LEy/kMqy34zQO1NQTDjBKqi1M7jh2NYI5V6CNKuNsTX/
+ kKM1bPLDraMvUPNfo3x3Q==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:9h+V79O/GkU=;bmCZ05odNueltmsEWPJbEsdly7P
+ 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
 
-On Fri, Sep 18, 2026 at 12:39 PM Zide Chen <zide.chen@intel.com> wrote:
->
-> +static inline bool kvm_vcpu_has_perf_metrics(struct kvm_vcpu *vcpu)
-> +{
-> +	return kvm_vcpu_get_perf_caps(vcpu) & PERF_CAP_PERF_METRICS;
-> +}
+> dm1105_ir_init() registers an rc_dev that must be cleaned up by
+> dm1105_ir_exit().  However, in dm1105_probe() the return value of
+> dm1105_ir_init() is ignored, and neither the workqueue nor the
+> request_irq error path calls dm1105_ir_exit().  If IR initialization
+> succeeds but a later step (create_singlethread_workqueue or
+> request_irq) fails, the registered rc_dev is leaked.
 
-The SDM, volume 3, section 22.3.9.3, says:
+How do you think about to add any tags (like =E2=80=9CFixes=E2=80=9D and =
+=E2=80=9CCc=E2=80=9D) accordingly?
 
-> IA32_PERF_GLOBAL_CTRL. EN_PERF_METRICS[48]: If this bit is set *and*
-> fixed-function performance-monitoring counter 3 is enabled, built-in
-> performance metrics are enabled. [emphasis mine]
+See also:
+* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/submitting-patches.rst?h=3Dv7.3#n145
+* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/stable-kernel-rules.rst?h=3Dv7.3#n34
 
-and
 
-> The values in MSR_PERF_METRICS are derived from fixed-function
-> performance-monitoring counter 3.
-
-Hence, a dependency on fixed counter 3 belongs in this predicate.
-Perhaps something like:
-
-	static inline bool kvm_pmu_has_fixed_counter(struct kvm_pmu *pmu,
-						     unsigned int idx)
-	{
-		return idx < pmu->nr_arch_fixed_counters;
-	}
-
-	static inline bool kvm_vcpu_has_perf_metrics(struct kvm_vcpu *vcpu)
-	{
-		return (kvm_vcpu_get_perf_caps(vcpu) & PERF_CAP_PERF_METRICS) &&
-		       kvm_pmu_has_fixed_counter(vcpu_to_pmu(vcpu),
-						 INTEL_PMC_IDX_FIXED_SLOTS -
-						 INTEL_PMC_IDX_FIXED);
-	}
-
-with intel_pmu_refresh() calling kvm_vcpu_has_perf_metrics() instead of
-testing perf_capabilities directly. (nr_arch_fixed_counters has already
-been computed at that point; all_valid_pmc_idx has not.)
-
-KVM only supports contiguous fixed counters today (see patch 2), so a
-simple comparison against nr_arch_fixed_counters suffices. However, if KVM
-ever honors the CPUID.0AH:ECX fixed counter bitmap, a separate helper
-keeps that assumption in one place.
-
-As it stands, if userspace sets PERF_CAP_PERF_METRICS for a version 1
-vPMU, MSR_PERF_METRICS is passed through (kvm_vcpu_has_mediated_pmu()
-only requires a non-zero version), but intel_pmu_refresh() bails out
-before it gets to the PERF_METRICS code. With patch 11, that leaves
-perf_metrics_rsvd at ~0ull, so a value the guest writes directly to
-hardware can be saved with KVM_GET_MSRS, but not restored with
-KVM_SET_MSRS.
-
-Since nr_arch_fixed_counters is 0 for a v1 vPMU, the above handles that
-case too. It also takes care of the METRICS_CLEAR_EN unmasking without
-fixed counter 3 that Sashiko flagged on patch 12, and it obviates the
-NULL pmc check in intel_emulate_rdpmc().
-
-[...]
-
-> +	case MSR_PERF_METRICS:
-> +		pmu->perf_metrics = data;
-> +		break;
-
-On a part with only four metrics (e.g. Ice Lake), userspace can stuff
-bits 63:32 into pmu->perf_metrics here, and the unchecked wrmsrq() in
-intel_mediated_pmu_load() will then #GP on every VM-entry. Patch 11
-isn't an optional follow-on; it needs to be folded into this patch.
+Regards,
+Markus
