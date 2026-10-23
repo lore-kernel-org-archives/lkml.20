@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792737949;
-	b=xDIo/eNLuJ+JYYUww9agadUhZPglvKBvUE1707NTW24+KxbRtsjkNqwzfCM19swx64bU
-	 j12pjwiQtKPPwnw/oNWLYTCYUhb3Qh5eXhhoKVt16aobuD15CHZ6/D2hJmynHXBnujaTs
-	 g9eMYPGvWGOz1qQhNQ4BRpTQ9dvRQxBBxCxh2hGt5/oH7nCR8gX/fS/ziLQxkk3gjpZz0
-	 oGqB5vo8EWwlu1+smP66uTq+wMGT5CXeNAcOGri4HdInQvJxGZjzeyu3bEIYqb6HrW6DY
-	 PiG9rreIiXtoksMA2BMXqLJ+EH27aW1CXTVPyopYJP3WaHvCYerTH7IgsjZqceoY9Gw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737949;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FyjePWnXgax6OFbSvXTcbJZr2gSepbjX0Gme0sCUEPM=;
-	b=WB/WhEpwxSh6HFec6H6VwOsAAIfYmB0Ha/YpTjl9tkorRFAmnzx+/MbrqKZRoX/Xa6qQ
-	 aG0nZ34egwTZ+h0grQjhcMLBwNTfV+VksNqf4t3bR3kXrcVfjabHBXVKIlaiwMj1EdnJa
-	 mkFbc+KQjb43b6CUCgZDa6iFSrZ2ZYUn2b8z2F70uvqaYrvsQQLjck/tYMLToumQ5bXA2
-	 fJLnQ1kuPd1rhAAzppeq563nEs/A40HfqUxHVWmOt33cQ+scxG+cg0LleA4t83YO7OLaz
-	 s1WSWGmKBJ907oiCNPT2pUr1v+eeCrQUb8nJ7dxRNrGa/g+KWJfdAUfLK0fMYHyxm7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=bkIYOIoM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792737946;
+	b=5YOzG8747/rBCIpYU9Baw4xmaWlzBTb2jONqDyf29WBGA5hbFvrLk/n18hmSIC+SSGu9
+	 iEAwGQJsNn9OzBXd9Th+SSKtufZdcJPIjONgcf0/H9+wsZDji5r10FdhBr39Vzu+6xIxX
+	 VWdPZdiFtWTuQTSC6aPLul3JMNKqyp3eZKxPI0r6EAup6IpJTLpfWfAKrKivOpLvIeCMz
+	 vgdU3FRZ0bMFnzHhxaPAc99kXhdX0QqDNWmAOdOh8CgX46OtZFq3IfSCBPsNunXjH/0ad
+	 xKt86oV474H0Fkwy2GA+348ZZxNktLhf0VBagQPsEM1dDQTTAP+BpfdxzP3VKYnsjTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737946;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uap1d0YQBPlGa3j+uz35jkZOz7so7dVvvr1+5IPZ/Gg=;
+	b=I69Nrd6Xiuoqb0VY3z8J47BoUUOFXvbwQjWsiQgwjXqnDkT8CA6Rw5i2Yltrb2IDofWk
+	 sqNVFwBSKiEklaVHbkCYYcYIq80XjCsYe/xFL1xXNyqWI3LUlrk28+o+XptYQR69xvvaz
+	 voRXhhvVveXDLxxysRWiri6Ze19XhMXoz4vtSg15Gs7VsiBboTRFEzzwytyHzsxpTZjt7
+	 SZySdXBPsZv8GFYItx5/GODbey/HzKFg2Jfr5Dm/Z+mUyK/O9FQw/R6lJ/dXqZ4Twal4q
+	 TGmWKvZT8JAkgQMXPj0UfElQvG8Qr4EY6moHwsmM/cJfcfR5GzP46mk7Ton6Gb7ZzKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R8kCpHQS;
+	arc=none smtp.remote-ip=95.215.58.91
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9B8606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9B8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F77606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:45:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86F77606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=bkIYOIoM
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-53dbe9b8d6eso343763b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:45:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792737947; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I6Qb66YGB3LRT4Wpfg0q/Wjqw+/TLAVZWAeG2Gd2xrrZkpJ0gSdeNACq/hJRQJCwyw
-         99I3+QMyl5l/G6WcUipNXeBlmXRQdcOi2JZGtmflazowM7jAwRftGxLc4j5OOIcqoZsA
-         4yaYjjq1Xti4em5fnh5/A6k3LOdYuFTDE89UooVjns6iQacIQTCgYdfX4VFQJZEisYXb
-         +147zKrE7Tdm2KVeJL669njVOl2Mp5pW7QjCN6M10U2PmAREgSdNg5wUhVbX6UugUe2s
-         Jh6fR2rCTX8pmAo8RdQNKcbVT8OCLPI7PhNxOd2YNv6HkNYRwYHNXjyxoWvXgjHszhow
-         LLow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FyjePWnXgax6OFbSvXTcbJZr2gSepbjX0Gme0sCUEPM=;
-        fh=mgKJq4g1FrUgz1PZU1kHsMQwWkKK8EOXTm8pum7IAP4=;
-        b=DMCGulcqtI396xo1xl0TxSLzlecHQt1TtDDj7TlRRd8k+eS43vF4hjB9jfYVEAGJbH
-         9EIdDXUu8MUuOiX+6GLuw0Oudjlxzi7TYke17Gp1fAM5zXTtxRmFbJB9th9oT8q3u33j
-         qes3nmXw/uYH/KwYWLz8vy96OCOgQF79JBuHi8KU8DiC3AQue8qb9Y3gzfT1JRdvZdUd
-         g+fKCzg4DFDC6DrQjpuI7MCKNumV32jnd9FAjnpzw5RqbVlO21wM5Lug6cBN6vET8NIg
-         D4YNCvNh/lc+4ret98AuDRYFwX4rto9M2dXWZeqL0r82wDQEtl+hXUexTCWeAkqE/sv5
-         b4YQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1792737947; x=1793342747; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FyjePWnXgax6OFbSvXTcbJZr2gSepbjX0Gme0sCUEPM=;
-        b=bkIYOIoMfPmpd3n+D1UkC9IwK504UKDOOGNZCNoIR/RSKzFSZESGnVf3lUBs5Mrj+X
-         dl/Li8Vds3ZGl0JcRXQJV8vK3YzpjIzZIwPPxUsIiWwjVS8XnmuylmfXnGnljCibFoBr
-         UGswKyl/DAumKyEgMCSO8zKMEqfLYpMhWROMg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792737947; x=1793342747;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FyjePWnXgax6OFbSvXTcbJZr2gSepbjX0Gme0sCUEPM=;
-        b=b3K3MgCErxCWMYKppo1NFIv0DGwNtQR0367h3y60zklKXepDYtl3j5u3yxUNmMbsq3
-         dQ823d2UlI8zPOvtu1z9Yu/KtgdESaarEFNmep9X/4N3p7dmJU2sDTxMjw/er1UhZkkr
-         /d4kGeYxGDH+ovucAu79ZJFa10PTUWimHzMaAvS58FeiA1lg67we7DQZ0D8lZClbJ13T
-         kVZ/3Nl2yE3vXTKXpETa88x31ctBrR8eG9B+EN/tdMKyatoUg26BwrEY7dNHcLTt7R23
-         d8f7FVF7iKC0ksEyiakRgIaGWka1vpOJkar2OEuwo75O3E0o7p0uyFh61nuur/YT91bn
-         qr8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxIfwxC7Hne/d1mht2B2pvS1nkejQDa2iwgT4Tp1NxufZBnxYuwtjedA91rY9Lc6tW25c8fPiRgHsCQ7zY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZrupvvq0D2r3elF00B55j32svUvMnPDwDvdra3s4vaT+u+9u3
-	NK4u3Ec9mFoRXbFr+s+Fcg+atCA22Xq0mwQw4MuK6WYgLsIUebkQS9d7GwOnCZNigMMYPlgHr31
-	eVTRnAabQn9quflvzrARKUwyd3VqTFceQQ87zWKOPyQ==
-X-Gm-Gg: AYBFou14irmlQl16E7t+AN7x+kXaXBOyhR+dbYWZYDpYKsR6ZiQ29RpiCIAduxq10FO
-	a5om2+V0cBbXX4d/cz5XUTxyQN/ZfLr32tWb2jJKpRLhS8lF+BEi5iEdlYIJuZIhQcwB2bVShTA
-	Fc6Ag7zNtP6axcnvC6BI19l0kX6oGMN+g/gjT6To5qahvywxftUs0xbm0gzSPu6NH77Ztdl6qoV
-	BsZto8EZ8Hl4ZE8Ctv/Ng/Hq/NS2LFuiCK2AoM4yVhwW6FTf27w0V+FowEUsdm8qeYMvB1I2p2L
-	ae4ySz54Tp4vAcezuLUFKq1QHAWjySV+7qXsQrVrRAFOIyxk+u8gyLdQczh2fhibXaFvgHjO0sJ
-	zsyWJ3E332TVxQ3B4/kYHxOp/asRMSW7CRQq+62TyRhZq9ECElKGKcpHqnXXQL/bzOwjZQwL0Nc
-	dwBuEoCLOdyIxN
-X-Received: by 2002:a05:6808:124a:b0:4b2:8d83:436e with SMTP id
- 5614622812f47-557e8dce9f7mr2356991b6e.8.1792737947323; Thu, 22 Oct 2026
- 23:45:47 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R8kCpHQS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ooKo4YxWexedKOabnOdquTmvn6cl6rHb/OzDbkPDsNA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792737943; v=1; x=1793342743;
+ b=R8kCpHQSs4+K7KnzjYvpDKW95NlF93MjOir+XBlEgIImoC6FtEcXbQgRgaDe5kfg7kJWbjCS
+ VOHgGKf8Vmw5DCbvA8iLwcKAinwlRTXX3kr4SGLdc3JOTcTBMIz5Lizfwdx6FDWogO3GnV/J+lp
+ FQztD3NpQQG5hF6B1IHHCccs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13bbd67df336cd5d;
+	Fri, 23 Oct 2026 06:45:38 +0000
+X-Mizu-Trace-ID: 13bbd67df336cd5d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d4ce3eba-b48a-4e63-af0f-87cd27d04e4c@linux.dev>
+Date: Fri, 23 Oct 2026 14:45:31 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,107 +58,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <asjrq9g8EoUGepcH@pathway.suse.cz> <as3UxRboBZYY3oCH@ashevche-desk.local>
- <as3VC2TmhcRXg0Xj@ashevche-desk.local> <atYw6G8V1gP-ksTM@pathway.suse.cz>
-In-Reply-To: <atYw6G8V1gP-ksTM@pathway.suse.cz>
-From: Chris Hoy Poy <choypoy@linuxfoundation.org>
-Date: Fri, 23 Oct 2026 14:45:36 +0800
-X-Gm-Features: AclHuK_VJ6yl5yodUBBjUyvdPb9njmOquuZ4BFrHD0ZyJ9GTo9hnbc7JYeJwBOg
-Message-ID: <CAKkv+gw1MiOQQ1jywejHuX6u+SMLMGBr=dbzTZTpaBDmQU-Jdw@mail.gmail.com>
-Subject: Re: Create printk@lists.linux.dev
-To: Petr Mladek <pmladek@suse.com>
-Cc: helpdesk@kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, John Ogness <john.ogness@linutronix.de>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	David Laight <david.laight.linux@gmail.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
+ in update_parent_effective_cpumask()
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-3-longman@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261022031643.1351877-3-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi all,
 
-Apologies for the delays on this mailing list - it was dependant on
-the migration to the new listserv infrastructure. As announced earlier
-this week, that migration is complete and new lists are being
-provisioned.
 
-The printk@lists.linux.dev mailing list is now operational:
+On 10/22/2026 11:16 AM, Waiman Long wrote:
+> Since the introduction of cpuset.cpus.exclusive in commit
+> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
+> compute_effective_exclusive_cpumask() helper which is later renamed to
+> compute_excpus() is added to compute the effective xcpus of a partition
+> root. However update_parent_effective_cpumask() is not updated in all
+> proper places to use the new helper to check if a given cpuset should
+> remain a valid partition root. This can cause a cpuset to incorrectly
+> remain a valid partition root even if no effective xcpus is left.
+> 
+> Fix that problem by using compute_excpus() to compute the effective xcpus
+> into delmask in all cases except partcmd_disable and partcmd_invalidate
+> and use it for tasks_nocpu_error() check as well as checking its
+> emptiness. This enables us to catch invalid partition root more
+> accurately in update_parent_effective_cpumask().
+> 
+> Some test case are added to test_cpuset_prs.sh for invalidating a
+> partition root due to its effective xcpus becoming empty as well as
+> making sure that an invalid partition can only be revived when exclusive
+> CPUs are available agin.
+> 
+> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>   kernel/cgroup/cpuset.c                        | 36 +++++++++----------
+>   .../selftests/cgroup/test_cpuset_prs.sh       |  6 ++++
+>   2 files changed, 22 insertions(+), 20 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7ead8c3b7974..db6e4663f4be 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1798,7 +1798,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   	int deleting;	/* Deleting cpus from parent's effective_cpus	*/
+>   	int old_prs, new_prs;
+>   	int part_error = PERR_NONE;	/* Partition error? */
+> -	struct cpumask *xcpus = user_xcpus(cs);
+>   	int parent_prs = parent->partition_root_state;
+>   	bool nocpu;
+>   
+> @@ -1841,30 +1840,29 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   	if (!newmask && xcpus_empty(cs))
+>   		return PERR_CPUSEMPTY;
+>   
+> -	nocpu = tasks_nocpu_error(parent, cs, xcpus);
+> +	/*
+> +	 * Except for partcmd_disable, use delmask to compute the current
+> +	 * effective xcpus value and use it for tasks_nocpu_error check.
+> +	 */
+> +	if (cmd != partcmd_disable) {
+> +		compute_excpus(cs, tmp->delmask);
+> +		nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
+> +	}
+>   
+>   	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
+> -		/*
+> -		 * Need to call compute_excpus() in case
+> -		 * exclusive_cpus not set. Sibling conflict should only happen
+> -		 * if exclusive_cpus isn't set.
+> -		 */
+> -		xcpus = tmp->delmask;
+> -		if (compute_excpus(cs, xcpus))
+> -			WARN_ON_ONCE(!cpumask_empty(cs->exclusive_cpus));
+>   		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+>   
+>   		/*
+>   		 * Enabling partition root is not allowed if its
+>   		 * effective_xcpus is empty.
+>   		 */
+> -		if (cpumask_empty(xcpus))
+> +		if (cpumask_empty(tmp->delmask))
+>   			return PERR_INVCPUS;
+>   
+> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
+> +		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
+>   			return PERR_HKEEPING;
+>   
+> -		if (tasks_nocpu_error(parent, cs, xcpus))
+> +		if (nocpu)
+>   			return PERR_NOCPUS;
+>   
 
-address: printk@lists.linux.dev
-archives: https://lore.kernel.org/printk/
+update_parent_effective_cpumask is only used for the local partition. So I'd 
+suggest adding a local_partition_validate helper, which can be used for both 
+partition enable and update. For now this logic is spread out, and many corner 
+cases would easily be missed.
 
-with the owners as specified:
+For the remote partition, I have also made suggestions when reviewing Guopeng's 
+patches.
 
-Owners     : pmladek@suse.com, john.ogness@linutronix.de,
-andy@kernel.org, rostedt@goodmis.org
+>   		/*
+> @@ -1876,9 +1874,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   		 *
+>   		 * Warn if it is not the case.
+>   		 */
+> -		cpumask_and(tmp->new_cpus, xcpus, cpu_active_mask);
+> +		cpumask_and(tmp->new_cpus, tmp->delmask, cpu_active_mask);
+>   		WARN_ON_ONCE(!cpumask_subset(tmp->new_cpus, parent->effective_cpus));
+> -
+>   		deleting = true;
+>   	} else if (cmd == partcmd_disable) {
+>   		/*
+> @@ -1973,7 +1970,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   		 * A partition error happens when parent has tasks and all
+>   		 * its effective CPUs will have to be distributed out.
+>   		 */
+> -		if (nocpu) {
+> +		if (nocpu || cpumask_empty(tmp->delmask)) {
+>   			part_error = PERR_NOCPUS;
+>   			if (is_partition_valid(cs))
+>   				adding = cpumask_and(tmp->addmask,
+> @@ -1986,8 +1983,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>   				adding = true;
+>   			}
+> -		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
+> -			   cpumask_subset(xcpus, parent->effective_xcpus)) {
+> +		} else if (is_partition_invalid(cs)) {
+>   			struct cgroup_subsys_state *css;
+>   			struct cpuset *child;
+>   			bool exclusive = true;
+> @@ -1998,7 +1994,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   			 * check.
+>   			 */
+>   			if (prstate_housekeeping_conflict(cs->partition_root_state,
+> -							  parent_prs, xcpus, NULL)) {
+> +							  parent_prs, tmp->delmask, NULL)) {
+>   				part_error = PERR_HKEEPING;
+>   				goto write_error;
+>   			}
+> @@ -2014,7 +2010,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   			rcu_read_unlock();
+>   			if (exclusive)
+>   				deleting = cpumask_and(tmp->delmask,
+> -						xcpus, parent->effective_cpus);
+> +						tmp->delmask, parent->effective_cpus);
+>   			else
+>   				part_error = PERR_NOTEXCL;
+>   		}
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index d04aad697b96..47791591002f 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -359,6 +359,8 @@ TEST_MATRIX=(
+>   								       A1:P0|A2:P1|A3:P2|B1:P1 2-4|3"
+>   	"  C1-6:P1 C3-6:P1 C5-6:P1 .      .      P2      .      .    0 A1:1-2|A2:3-6|A3:5-6 \
+>   								       A1:P1|A2:P2|A3:P-1 3-6"
+> +	"  C1-6:P2 C3-6:P2 C3-4:P2 .      .     C5-6     .      .    0 A1:1-4|A2:5-6|A3:5-6 \
+> +								       A1:P2|A2:P2|A3:P-2 1-6"
+>   	" C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
+>   				   .      .      X5      .      .    0 A1:1-4|A2:2-4|A3:3-4 \
+>   								       A1:P0|A2:P-1|A3:P-2 ."
+> @@ -427,6 +429,10 @@ TEST_MATRIX=(
+>   	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+>   	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
+>   
+> +	# A child cannot recover until its exclusive CPUs are available again.
+> +	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+> +	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
+> +
+>   	# Taking away all CPUs from parent or itself if there are tasks
+>   	# will make the partition invalid.
+>   	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
 
-Any queries or issues, please reach out to helpdesk@kernel.org
+-- 
+Best regards
+Ridong
 
-cheers
-
-Chris Hoy Poy
-Senior Systems Engineer
-Core Projects
-The Linux Foundation
-Perth, Western Australia (GMT:+8)
-
-On Mon, Oct 19, 2026 at 11:52=E2=80=AFPM Petr Mladek <pmladek@suse.com> wro=
-te:
->
-> Hi, helpdesk,
->
-> gently ping.
->
-> On Tue 2026-10-13 09:51:55, Andy Shevchenko wrote:
-> > On Tue, Oct 13, 2026 at 09:50:50AM +0300, Andy Shevchenko wrote:
-> > > On Fri, Oct 09, 2026 at 03:27:07PM +0200, Petr Mladek wrote:
-> > > > Address    : printk@lists.linux.dev
-> > > > Description: Linux printk and kernel string formatting development
-> > > > Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.sh=
-evchenko@linux.intel.com, rostedt@goodmis.org
-> > > > Allow HTML : N
-> > > > Archives   : Y
-> > > >
-> > > > Reasons for the list and additional info:
-> > > >
-> > > > Honestly, the main motivation is to allow sending Sashiko review
-> > > > for changes in PRINTK and VSPRINTF subsystems as a reply to
-> > > > the mailing list.
-> > > >
-> > > > I have discussed this with John at Plumbers conference. We both
-> > > > agree that Sashiko review is useful and often has to be addressed.
-> > > > It is much easier to reply a mail than searching for the review
-> > > > via the WebUI, copy/paste it to a mail, and comment on it.
-> > > >
-> > > > In addition, there are several people interested into printk and
-> > > > string formatting code. The mailing list would make it easier to ge=
-t
-> > > > all interested people notified about new patches and problems
-> > > > in this area.
-> > > >
-> > > > That said, printk and string formatting are related only to some
-> > > > degree. The printk() code is more about tricks how to store
-> > > > the messages and show them in various context. While the string
-> > > > formatting is about tricky buffer manipulation and helpers for
-> > > > generating a human readable output of various data structures.
-> > > >
-> > > > There is only partial overlap of people interested into these
-> > > > two areas. Each group might deserve its own mailing list. But
-> > > > I would start simple with a common mailing list. We could always
-> > > > add another one when needed.
-> > >
-> > > Fine by me. Should I do anything, or will I be subscribed automatical=
-ly
-> > > (as an owner)?
-> >
-> > Ah, and it's better to have my andy@kernel.org address.
->
-> I hope that anyone from helpdesk will actually create the mailing list ;-=
-)
->
-> Or I wonder if I did something wrong.
->
-> Best Regards,
-> Petr
->
