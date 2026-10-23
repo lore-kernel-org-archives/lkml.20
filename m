@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738962;
-	b=bi2Sw9tiVX3dvFokLCb0K3YSE2o4xak1wsYBRfmrwdmHTex0cQ4Hjew7XcjC9GeuFtAb
-	 n79NhUr4Js4IcIz9ev9vDsNQRclsbleRUIKI4ZS0lbTbd7j/a/jCtqbdnqlr7Qv6dXhU8
-	 MHiH/GeX+kIZKtDCI+cLH50VPtqwtqitu5OJnYSaY4aUI3rgtMwjXQsZcgbDtC1AeSIfO
-	 KjUbe9gjJiMFHaw5E6ybwIMHiVn8pGec1f9Tbuxtpob+qeR8TpacIhU5wI6XedhzFMmZ6
-	 MPAbSB3tPteJFdqRg+gPCbxYR5KPzP1RNe2EvJROhgxvp9rkOqaWhM7reOk268LxZ3w==
+	t=1792738997;
+	b=UotlygDra5SrhJD35sLlrSoQBpv2LjLEjSTxsVQFfrJfFy9zhxltRslZ2ES5pxqN9wWA
+	 LeWhpj9QqPsAVVOKhP58AhL2KXcMOzKpiP2CuAxf6jCVkKlau3k2TiclGkAZui9GfWmvJ
+	 PYgZpYEfkRbid0x26rpuigxLhSLMmJqybzked9+h4a2hEm3kOOhnKe0rfnkwzk75Z2/2D
+	 SGGmT5PLEKBUAI27VC/Nu6T7rubUTqqf0xO5gWIpwDkFSFBBIAt2bkhL0KKITKDHkzXa2
+	 7Yv7J2bdkUTSy0YPBnYPylJGc2ZsR6M+idO0r8WnsG1XtUOBbnf+J7phCMI6HYQ39NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738962;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Gz199l+B7NQiah1DuE0LCgGXB76bPZwiz6wv18yDHZI=;
-	b=RDw8woaRY7HtDVx8adzCZWy8153f/ODdG43gmE4DPOcqEIRtRfCJqTGMjTPyCKQ5FN71
-	 QqIdns8Ntw1chWyP5J1nlDMlYsBVGmlfYFKC4oZCrDZ0+u7EV8jfaln1tB0NTTrYeogv8
-	 qH/QPfd8rqR3GrXPWaCYnAiX9zLoOb5tbvrW/THrqbOOvH8R8qSwd8LGi2gBSY07IS31b
-	 D438STbfDfaREfWp9jq7b8Dg2XU71f6IMmFtsrGwFaSWJyEKgGOyG1TaLgJvExcMPcjm2
-	 BDON9Y+vgKis17BB0KqavhSkUWwK2hZ/9wo0WTXfUfah6CDBwSrPq7/xuPuhmH85zLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738997;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=AmfJDAjkugxPQ6TZZdNY6FdOTzwxxq33jzmqfI3RYJU=;
+	b=fMKqEo8g0mDPr60rnJmeqkefaSGjpLjup53b67rC2hYp3lzsyQJ9UGyXljdEJw7lPCxE
+	 XwIdMI6BB2esHd0V1vBGnyKFuBK8XoPoy8lC5lnBGL0RHQ1hzaHl3IlajhAc/+hpCUssS
+	 noFvKBfhJnuunEy6TlFIiC1m3rXwVJKwopYHEdlqZPUjtunzcHMpULGW7Ot2Czv4bQxMq
+	 zGE5EryvW9i3niiJttG9yjxteUGlQviDFnAgTIyRKoE+om+vJL8phMOS8FialK/atR5Cv
+	 TckLdionbEU193eMB/01Fl8hyfyaFg2/DLM4Xyp4j/H6COKImUUIYQbNDgLUFZ1B//w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ar2xEn3l;
-	arc=none smtp.remote-ip=95.215.58.103
-Received: from mta1.migadu.com (out-103.mta1.migadu.com [95.215.58.103])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NvnXz2Eb;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17985606BD33
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:02:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17985606BD33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F25C606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F25C606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ar2xEn3l
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=M25OzSHfR3m6+z30EB2GMimOpioSAFbUCrk7t17JYJM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792738960; v=1; x=1793343760;
- b=Ar2xEn3lv5QonRbbAFuS9nptAsz7ZupxzCBdmisigV0RK7y3goBbPt/QW8uUfjekjKcKCKtC
- qSrsh6HBrpQwmUPEUloCVxULMT3Ab21DTadYjI6ipIdBTn/b0Osu7wvM4nDPRuu6DK54v8M+N9V
- bXmzpn1M9g1klDH1Nc8aXB30=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 602095b45816c23c;
-	Fri, 23 Oct 2026 07:02:40 +0000
-X-Mizu-Trace-ID: 602095b45816c23c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6e6986a0-b5b4-4ca2-b230-63088f30704f@linux.dev>
-Date: Fri, 23 Oct 2026 15:02:35 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NvnXz2Eb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792738996;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=AmfJDAjkugxPQ6TZZdNY6FdOTzwxxq33jzmqfI3RYJU=;
+	b=NvnXz2EbfAxSqBv3N9McITuM/rPp0SkeV5icWsyXuMfywmcshhEsvSoEba5EkZ8QKvv19/
+	tZiIsEWkNAjz7wzoBKMNJBF+9SLHS2klwYcVr01dl412ZBsm4Y2A4FGZMWpj6I0peFN4DV
+	zG8mVjhh8SE+5fu6AUlr6seAxU1cvHg=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-94-ajkdnhQkPMC7JQNKU9NkXg-1; Fri,
+ 23 Oct 2026 03:03:12 -0400
+X-MC-Unique: ajkdnhQkPMC7JQNKU9NkXg-1
+X-Mimecast-MFC-AGG-ID: ajkdnhQkPMC7JQNKU9NkXg_1792738989
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5DE151956052;
+	Fri, 23 Oct 2026 07:03:09 +0000 (UTC)
+Received: from poros-thinkpadp16vgen1.tpbc.com (unknown [10.44.32.22])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3A6101800347;
+	Fri, 23 Oct 2026 07:03:03 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Dave Ertman <david.m.ertman@intel.com>,
+	Mateusz Palczewski <mateusz.palczewski@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Rafal Rogalski <rafalx.rogalski@intel.com>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH iwl-net v2 0/5] ice: fix RTNL vs auxiliary device lock inversion
+Date: Fri, 23 Oct 2026 09:02:52 +0200
+Message-ID: <20261023070258.730168-1-poros@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,202 +92,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] mm: hugetlb: avoid recursive CMA allocation during
- migration
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, david@kernel.org, osalvador@suse.de,
- akpm@linux-foundation.org, azpijr@gmail.com
-References: <cover.1792651104.git.zhengqi.arch@bytedance.com>
- <35120f1e65b135ebc7885a85bb39baab90882820.1792651104.git.zhengqi.arch@bytedance.com>
-Content-Language: en-US
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <35120f1e65b135ebc7885a85bb39baab90882820.1792651104.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+
+ice takes the auxiliary device lock of its RDMA auxiliary device from
+three places that run with the RTNL lock held. The RDMA auxiliary probe
+takes the two in the opposite order, because __driver_attach() holds the
+auxiliary device lock across ib_register_device(), which needs the RTNL
+lock. The result is a hard deadlock of everything that needs the RTNL
+lock, so the boot never completes:
+
+  systemd-udevd   state:D
+    really_probe                  <- holds device_lock(&adev->dev)
+    icrdma_probe
+    irdma_ib_register_device
+    ib_register_device
+    setup_device
+    irdma_roce_port_immutable
+    ib_query_port
+    irdma_query_port
+    ib_get_eth_speed              <- blocks on rtnl_lock()
+
+  lldpad          state:D
+    rtnetlink_rcv_msg             <- holds rtnl_lock()
+    dcb_doit
+    dcbnl_ieee_set
+    ice_dcbnl_setets
+    ice_pf_dcb_cfg
+    ice_send_event_to_aux         <- blocks on device_lock(&adev->dev)
+
+Lockdep cannot flag it, because device_initialize() marks dev->mutex
+with lockdep_set_novalidate_class(). A PREEMPT_RT kernel with
+CONFIG_DEBUG_RT_MUTEXES reports "rtmutex deadlock detected" instead.
+
+The probe side cannot be changed, so the three ice callers use
+device_trylock() and refuse the operation with -EBUSY when the driver
+core holds the lock. Patches 1 and 2 are new in v2 and fix two separate
+problems on the same sites, the auxiliary device pointer was tested
+before pf->adev_mutex was taken, and ndo_setup_tc() took pf->adev_mutex
+before pf->tc_mutex while the dcbnl handlers take them the other way
+round. Patch 3 keeps the locks across the whole DCB reconfiguration so
+that BEFORE_TC_CHANGE and AFTER_TC_CHANGE are either both delivered or
+the request is refused before anything changes, and re-arms the service
+task events. Patches 4 and 5 turn the remaining two locks into trylocks.
+
+The proper fix is provider-owned registration as in i40e and mlx5, which
+makes the inversion impossible by construction. That is a net-next change
+across ice, irdma and iidc_rdma.h, this series is the backportable part.
+
+Tested on an E810-XXV with two PFs, irdma bound to both auxiliary
+devices, on net tip commit 191aa41548b2d2 ("MAINTAINERS: add Bobby
+Eshleman as vsock reviewer") with and without this series. A reproducer
+binds the irdma auxiliary driver while driving one of the three RTNL
+held callers into the probe window:
+
+                        without the series   with the series
+  ethtool set_channels  deadlock 10/10       0/10, window entered 300x
+  ndo_setup_tc mqprio   deadlock             0/10, window entered 50x
+  dcbnl ets set         deadlock             0/10, window entered 30x
+
+A window entry is a contended device_trylock(), so each one used to
+close the cycle. 25 reboots on the patched kernel were clean.
+
+Changes since v1:
+- new patch 1 for the auxiliary device pointer race
+- new patch 2 for the pf->tc_mutex order in ndo_setup_tc()
+- patch 3 holds the auxiliary device locks across the whole DCB
+  reconfiguration and sends AFTER_TC_CHANGE under them instead of
+  dropping it when the lock is contended, and takes the locks before it
+  consumes pf->oicr_err_reg in the service task
+- patch 5 warns instead of netdev_dbg(), the qdisc teardown ignores the
+  return value
+
+Link to v1:
+https://lore.kernel.org/all/20261019065301.3983537-1-poros@redhat.com/
+
+Petr Oros (5):
+  ice: check the auxiliary device pointer under adev_mutex
+  ice: take tc_mutex before the auxiliary device locks in ndo_setup_tc
+  ice: avoid RTNL deadlock when notifying the RDMA auxiliary driver
+  ice: do not block on the aux device lock in ethtool set_channels
+  ice: do not block on the aux device lock in ndo_setup_tc
+
+ drivers/net/ethernet/intel/ice/ice_dcb_lib.c | 46 ++++++++++++++++---
+ drivers/net/ethernet/intel/ice/ice_ethtool.c | 26 +++++++----
+ drivers/net/ethernet/intel/ice/ice_idc.c     | 48 ++++++++++++++++----
+ drivers/net/ethernet/intel/ice/ice_idc_int.h |  2 +
+ drivers/net/ethernet/intel/ice/ice_main.c    | 47 +++++++++++++------
+ 5 files changed, 130 insertions(+), 39 deletions(-)
 
 
+base-commit: 07bd391eb9572e74f073c49acef327611234f9bb
+-- 
+2.56.0
 
-On 2026/10/22 15:31, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->
-> Contiguous allocation can migrate allocated HugeTLB folios or replace free
-> HugeTLB folios while holding a CMA allocation mutex. Allocating a
-> replacement through CMA would recurse into that allocation path once
-> non-gigantic HugeTLB pages can use CMA.
->
-> Pass allow_cma through the migration and fresh allocation helpers, and
-> disable it for MR_CONTIG_RANGE and free folio replacement. Move the CMA
-> attempt into the common allocation path, retaining the gigantic size
-> restriction. Honor hugetlb_cma_only even when allow_cma is false.
->
-> The existing gigantic migration restriction is unchanged.
->
-> Assisted-by: LLM
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
->   include/linux/hugetlb.h |  4 +--
->   mm/hugetlb.c            | 69 +++++++++++++++++++++--------------------
->   mm/mempolicy.c          |  2 +-
->   mm/migrate.c            |  3 +-
->   4 files changed, 40 insertions(+), 38 deletions(-)
->
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index 5029c72418631..38612f7b3478f 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -736,7 +736,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->   				unsigned long addr, bool cow_from_owner);
->   struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
->   				nodemask_t *nmask, gfp_t gfp_mask,
-> -				bool allow_alloc_fallback);
-> +				bool allow_alloc_fallback, bool allow_cma);
->   struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
->   					  nodemask_t *nmask, gfp_t gfp_mask);
->   
-> @@ -1172,7 +1172,7 @@ alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
->   static inline struct folio *
->   alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
->   			nodemask_t *nmask, gfp_t gfp_mask,
-> -			bool allow_alloc_fallback)
-> +			bool allow_alloc_fallback, bool allow_cma)
->   {
->   	return NULL;
->   }
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 6b08074d11f52..c1a8d00be11ac 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -1362,18 +1362,8 @@ static struct folio *dequeue_hugetlb_folio(struct hstate *h, gfp_t gfp_mask,
->   static struct folio *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask,
->   		int nid, nodemask_t *nodemask)
->   {
-> -	struct folio *folio;
-> -
-> -	folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nodemask);
-> -	if (folio)
-> -		return folio;
-> -
-> -	if (hugetlb_cma_exclusive_alloc(order))
-> -		return NULL;
-> -
-> -	folio = (struct folio *)alloc_contig_frozen_pages(1 << order, gfp_mask,
-> -							  nid, nodemask);
-> -	return folio;
-> +	return (struct folio *)alloc_contig_frozen_pages(1 << order, gfp_mask,
-> +							 nid, nodemask);
->   }
->   #else /* !CONFIG_ARCH_HAS_GIGANTIC_PAGE || !CONFIG_CONTIG_ALLOC */
->   static struct folio *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask, int nid,
-> @@ -1841,37 +1831,47 @@ static struct folio *alloc_buddy_frozen_folio(int order, gfp_t gfp_mask,
->   
->   static struct folio *only_alloc_fresh_hugetlb_folio(struct hstate *h,
->   		gfp_t gfp_mask, int nid, nodemask_t *nmask,
-> -		nodemask_t *node_alloc_noretry)
-> +		nodemask_t *node_alloc_noretry, bool allow_cma)
->   {
-> -	struct folio *folio;
-> +	struct folio *folio = NULL;
->   	int order = huge_page_order(h);
->   
->   	if (nid == NUMA_NO_NODE)
->   		nid = numa_mem_id();
->   
-> -	if (order_is_gigantic(order))
-> -		folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
-> -	else
-> -		folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
-> -						 node_alloc_noretry);
-> +	if (allow_cma && order_is_gigantic(order))
-> +		folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nmask);
-> +	if (!folio) {
-> +		if (hugetlb_cma_exclusive_alloc(order))
-> +			return NULL;
-> +
-> +		if (order_is_gigantic(order))
-> +			folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
-> +		else
-> +			folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
-> +							 node_alloc_noretry);
-> +	}
-> +
->   	if (folio)
->   		init_new_hugetlb_folio(folio);
-> +
->   	return folio;
->   }
->   
->   /*
-> - * Common helper to allocate a fresh hugetlb folio. All specific allocators
-> - * should use this function to get new hugetlb folio
-> + * Common helper to allocate a fresh hugetlb folio. All special allocators
-> + * should use this function to get new hugetlb folio.
->    *
->    * Note that returned folio is 'frozen':  ref count of head page and all tail
->    * pages is zero, and the accounting must be done in the caller.
->    */
->   static struct folio *alloc_fresh_hugetlb_folio(struct hstate *h,
-> -		gfp_t gfp_mask, int nid, nodemask_t *nmask)
-> +		gfp_t gfp_mask, int nid, nodemask_t *nmask, bool allow_cma)
->   {
->   	struct folio *folio;
->   
-> -	folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, NULL);
-> +	folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, NULL,
-> +					       allow_cma);
->   	if (folio)
->   		hugetlb_vmemmap_optimize_folio(h, folio);
->   	return folio;
-> @@ -1911,7 +1911,7 @@ static struct folio *alloc_pool_huge_folio(struct hstate *h,
->   		struct folio *folio;
->   
->   		folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, node,
-> -					nodes_allowed, node_alloc_noretry);
-> +					nodes_allowed, node_alloc_noretry, true);
->   		if (folio)
->   			return folio;
->   	}
-> @@ -2103,7 +2103,7 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
->   		goto out_unlock;
->   	spin_unlock_irq(&hugetlb_lock);
->   
-> -	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask);
-> +	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, true);
->   	if (!folio)
->   		return NULL;
->   
-> @@ -2139,14 +2139,14 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
->   }
->   
->   static struct folio *alloc_migrate_hugetlb_folio(struct hstate *h, gfp_t gfp_mask,
-> -				     int nid, nodemask_t *nmask)
-> +				     int nid, nodemask_t *nmask, bool allow_cma)
->   {
->   	struct folio *folio;
->   
->   	if (hstate_is_gigantic(h))
->   		return NULL;
->   
-> -	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask);
-> +	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, allow_cma);
->   	if (!folio)
->   		return NULL;
->   
-> @@ -2219,7 +2219,8 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
->   
->   /* folio migration callback function */
->   struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
-> -		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback)
-> +		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback,
-
-alloc_hugetlb_folio_nodemask() now ends with two adjacent boolean
-arguments.
-
-Call sites such as "false, true" are difficult to understand without
-looking up the prototype.
-
-Could you please add a comment at the caller to document this?
-
-Thanks,
-Muchun
