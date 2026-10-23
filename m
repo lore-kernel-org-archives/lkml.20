@@ -1,88 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.116
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792770085;
-	b=IPFr7jawbC7ZKDgL3qFnLMIDDImC7fFc8Mw9qAzooTOvtJl/W72zJQwFOdLa9nLKePHZ
-	 Fld0hRCzF82tMZWC1SmauCTKu4TrFaZhGbKUw2xaaNuJV0sJA2Y04ylv7pLCorfHCVDg2
-	 HB9LhXri9VxuUvV0vkvQAdQCen4jVFWi0hVICn9KBYTJHD3Vr2xev2itZsDZoRuAoHneW
-	 70WYFIsP7v94DPHW7g4i2uDbLhs8YQ/d1Wu2kFDjbYZh6DIMsiXbUFYVlMSl0EZhX9zR9
-	 pt9vj251Uun3yrwg3ciScd2H07UKg/Qe/I/U4gj12Sxk7EcfzNLHYADzrA+bAHALnWg==
+	t=1792770074;
+	b=PUnqWUFMzkuVNFt9sw6eAtqiigKfUyzATxteTPNWg7tXxM+lib2jcQuFNKcpXaTvecIq
+	 xZUKtPbr4ik27vOx66WSSKDW5Z09z+Gn8wNqVSBu5svHEttR8+Bcs+VbE0MdWYNo6DY95
+	 iOgW1R0ZF8/YZARz+GJ6X7NUjPYX5tynkFad0J/v1iCvs8emCRWodCVQTOA/TXOXVzW6Y
+	 Rq3qK/e0iZQssMaHBCIiGdWttP3xns5ej+836GX9e9OboYEFFtzB+nkVLQsl039dzoKXi
+	 CsweI0iWYm9bYmPrLOoG+BB/52kmN8Axw8ENDRvByuGnZzZjOGRIg5z3SsxvTs8K9eQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770085;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770074;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=p4hh99SKEORXQeLjZQntEfDdHiIu0Ik3OVZji7JvLGY=;
-	b=Yb+1Yq6dIgZ3KsT1xoHf72GHAOM55KMVEtUXwqHLIpIlSesVkPjRLbmkfsyC85sceSJp
-	 5sHHFNvwerFaKyTLn5Wk1iObBTtgsP0JNEBSV8fNh6OIMMU6jIaSghpzKfAUMJ/CCl2du
-	 hmdl/ta4CTaZyqcsFqgz0EJZMC9uERiGHJ0etn+A3sN3uPiq4bJQ3BRRP67laruGeEjw9
-	 Dk3OxesJP44/O6Lvjyxp6Lh0qVTfeM1cfY7kEdprir9DG5cXZGpe0+iluEvlIDVfiQXhx
-	 UQdyCxaBp9TW09eLTDdlUfsCDgxGuc9eZhBWAdQdZ8ubdpbcVdz+cOlHHanF7y8zhFg==
+	bh=vm3sGoOFmhNIaRBlVeFnpDCB0pFr0NNDM5GFjwzkHFA=;
+	b=KmKSL0KeKL+iGORhrZEiXZDaXLRwlKPu/KqN/Ko7XYAk4cfKWU461ndCZ6omatR/ouMi
+	 aLDbhxy+bQl5eSxyBQNOVhTwFe9pqNijQo8WoMrH6QyjaSvmjrmBuxxn6Ut9OS8mqSrIC
+	 LK599mMuGtno7GRTvXJdQ75rhZ6aOkWR84EgKR7hh+BGIZabENV8TafLKk1Ls7o3OHESd
+	 epAX8pd6jnrhZjIETO2DPHkGoyu5mg7B6vOtNJRwLyDjwxe7zdxj2gT/s+sUi0pDTlo+K
+	 vEsehUfUJhtA94IiUHmeOhvYEhCf0hjXof6ldpAc4tx6CwqzrFRpljnurxscZFA6Jnw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.116
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020116.outbound.protection.outlook.com [52.101.196.116])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Hz1mCZA9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9D660A2604;
-	Fri, 23 Oct 2026 15:41:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9D660A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1457C606A31E;
+	Fri, 23 Oct 2026 15:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1457C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Hz1mCZA9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DxZLYW8DAbEcCK3kAmWk5vrwFa/32hGGpmsi7kn9nvTf4e8sddXlgooX6PnC+x4p/UXPkJM87MQVUhTCCWas4NX2mseq6jQbsgGrl/hVoTtDLFdeVeHPEEjT/iom4CG70nVEfCC7oGcsHCPQHQWmsvw7uM7GpHORYnk50dpcinkkuPQDXP7Cxdi8FL88hKgB6K/tQVVBVHtrWWN23AxLOIQ2EFE0Kj5+nSZj8jTWTj8vzoOBlrxxPF7w3+av8MZVO+dkNT0sdzr+YUDWlHpSLtJVtZ+Quc0Z60ED8jE/1J1GGvr80SP/F3mlYB/jnqyGOt4z9CC2I2QHEmMGe3OgpQ==
+ b=nQ2EqvAR0IhVUVjT5FTHV4ry3wrY11b/CpJxEPEtco135G2hMd8OYtmz297cUKoSKzbi9JP+kH+hvhsMDSCplYo0b+ZMqtWS9yBYujg5tNii/HRseIUJ3OkLsk814hZTPE/dey5mR8VEQZ5YAtlvsRroS86BVQxTG1N0EvN5k1rVy8buBK8qjgjGsopkCT5rODsxWMHDwCYCPX9qETAZpZbuhuvbFRZfP/HMjhy6pShOStHYnBi2w/3wHB2q+DKg9hkm/utckV+aSqS3mDff8Mf2q8SQY4M/KtrPRbmL//ZxSuoJhg2uyrfSbUn/rUkOPc/zQFJUvWcJ/GAGqLz6Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=p4hh99SKEORXQeLjZQntEfDdHiIu0Ik3OVZji7JvLGY=;
- b=O4Pr76sOiZrtmVNUnvNCmjzUdiHP42dH8oqaNDlIxObSxhPJ/mCMrLYUlm/qrSMneCccLMlhodsSvVHuoSgNH+MGsXcerEGZkLE9o5NHq+CZoLP49od92HwiFVR33EPIJXegfAuVpe9BqGqqMWweMBfvUWWDCW5jHq4WiCQXXuY/9XZxUY+WQgGOjjj2flyUDfyqxW5LOh0QVrwTnS5o0vGrnmaYBbPLUljj/SCd2CttecSHW/HOxClf6yxhYgyFHY6EOzkppNtgnXc9PPsbAMyfdoI6hwMu87JC7XZGTPMzJx/WsJquHbYSD5TOjQ9sBJCVFwKu6LUhc70M6f5tsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO8P123MB8015.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:3d6::8) with
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vm3sGoOFmhNIaRBlVeFnpDCB0pFr0NNDM5GFjwzkHFA=;
+ b=eIJzDaXsDNjgDhqcLeH4UyB4UjiKAOQgfssecRIh9oExzCm4kqf+39m1pJfb82zxTr4WMCvMgzhyFi0p34RDwWf8Ajjo/qZmt7BdHL+/VbYBWNKOxzXlljn8yw3Yaar8tQMudUyJMqTSeKDb8iVxkYi9pq50sNzyGaH4kVEyJkv1nmzfMWLrvUc7Kw+7Nm5bOGhaILp6Tl5gLjqVEe5+MmKupy++PPcoSaXF6jZtg3KkmAyxR9SVGH0xoBWMNcEoBt/pdRcMVXoIcrcjyh1HZmABfGuc0FeLwLpOWDPiiNRENJzykvBwIM9QnDC1Vf8baW6pZJ45xhmY1QH61lNQVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vm3sGoOFmhNIaRBlVeFnpDCB0pFr0NNDM5GFjwzkHFA=;
+ b=Hz1mCZA9wVpB+P8hLRsfBW3fP48lt4r7PUF6f0l5t84Us4xbiZlCwssu6DRJA7Tngz3Yl2Okr8Qr2A1sIZLdZ2ej6c49ug3KNeuS79obzYGYI5eBCdJx/WhcZt2jQ6pnWmwKvyUUHgnGLEBuqpHeTzy4pjOhquj1nlCoFiP8wyymbRI6rABevVbK8mJIG4qIrlk1VBHRtFMY9jIwEsEmSYuhTFvI39yzLuLeQwgTV1W/a2qO7ig4huM/h/Ds+405mG+sT0CA7i1heOluItnN80aABklJRfpqQ7IdITIjJCn2TxkwA0dCuKBPyd6U5LBqCaTXg49D3XFZOr8TFOg2Kg==
+Received: from MN0P222CA0014.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::21)
+ by PH7PR12MB6444.namprd12.prod.outlook.com (2603:10b6:510:1f8::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 15:41:11 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 15:41:10 +0000
-Date: Fri, 23 Oct 2026 11:41:06 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: axboe@kernel.dk
-Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
-	tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, marco.crivellari@suse.com, 
-	neelx@suse.com
-Subject: Re: [PATCH v4] blk-mq: dispatch kworker to housekeeping CPU when
- hctx cpumask is empty
-Message-ID: <eavtifw74jn2uspz4ccis6c2gcntk6lnlv6sup5drgj5usq2ng@fha6al7bmyng>
-References: <20261022034737.47820-1-atomlin@atomlin.com>
- <atoDZ85GTNGyaNPL@localhost.localdomain>
- <w2wpzfonupkljzzcngpie7lkn23kjrr7om7okqtvyhrttxj7ra@dzvrunt3ovp4>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <w2wpzfonupkljzzcngpie7lkn23kjrr7om7okqtvyhrttxj7ra@dzvrunt3ovp4>
-X-ClientProxiedBy: BN0PR04CA0015.namprd04.prod.outlook.com
- (2603:10b6:408:ee::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
+ 2026 15:41:10 +0000
+Received: from BL02EPF0002992A.namprd02.prod.outlook.com
+ (2603:10b6:208:531:cafe::50) by MN0P222CA0014.outlook.office365.com
+ (2603:10b6:208:531::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
+ 23 Oct 2026 15:41:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL02EPF0002992A.mail.protection.outlook.com (10.167.249.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 15:41:09 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
+ 2026 08:40:43 -0700
+Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 23 Oct 2026 08:40:41 -0700
+From: Simon Song <xinmengs@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+	<linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH v2 06/12] rust: pci: add a bind callback after installing driver data
+Date: Fri, 23 Oct 2026 08:40:01 -0700
+Message-ID: <20261023154009.2246627-7-xinmengs@nvidia.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,237 +125,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO8P123MB8015:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3f26eaf-f8fe-40e6-c958-08df311c0fcf
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992A:EE_|PH7PR12MB6444:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ea463dd-0929-41d0-1d27-08df311c0f9c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|18002099003|22082099003|3023799007|56012099006|4143699003|261022105027099003|261022075727099003|261021121427099003|10067099003|261021123027099003|261009223027099003;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|36860700016|82310400026|56012099006|11063799006|261021121427099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	FRVY9RBCwy2h3UX0b6rVgslf0KjXgx+o+C3oTvyPPri7WJert0jcsV7/7Xl1VoGNKhEPoLP50D0hXQd2efNaIDj0ON6OpRTLajq/8dtsGQvG2N0vNRNNqTu4E3/uSBmA7HxZ8mObsyKBOe9UIGukklDD4LZXrk/DJfUtzlArlFho2E1B5kDOPEuOQVEI0zpmhJdD0wrpf5OZmt/jDhuBVttx0psjkO/MpSMrpKaTpPsS+5cU36WkzM2hNolq+URJ8ImdnxkpH5fQyP/MKtxAxGiTddiSLosJn4eUHDsfkxvERq+5lhAt2sEA4HH5TunHqMKBDG1tfB7L2k3UlA4Ovv3/O95q+yK6E8GQ15ndZyeJxBqOeNdkxNRUiKefFY/rNXLHf43IFKYOy7VW1RZHt+J8oUFHNhieOrW1OUMxI53ZXP6zou+KyiOZ/5ANPyhWP/uwYc8jlaltDXcZ/WviThcBYyqvdCkMeN8DZ3uL2a1NxSm/10KLOuxF2n/VIvz1ZQ9RjUzd6WdcKDB3sPWDJLQkGaDt0MHIHK+KLPM/sktyczoDVpBRuF2kA7ORN/1HmCfl4AteKyBM2599UNoRbpRkTrCBqQWU11O7fg3TCLbBiL8XDsuN895YtVNqnn3p
+	wUJZtH9yiRq3DwI9OkoZnGAI0jaUIXyhfw5miIPx7aw4KkkYbluvS+UA1igOYP3ochCCNUzP4tWVKXCn8R3AgVTOTlCw239kuSDirkzK6bEowgkar0Q0RegDt5zqe2GzdkzoexAWdfJXqZLNItBqTva/sbxpFpSGOuxk5hqyTm/QmWCgoc3dCoj4f+CI+zbu8tm24dkJlMPNgxKhM3ir5C1sWCmXLaaLWWkG0xVA3VWGP75ZKGYUYKxYxlgms/FFVKtp0vBWnzLZFbFncOeb1l3c4mmX+Sg5oiEe/tEXYwLSIpdR6MVTtYquigTF1bYkcaI8B5i2HJanFpb5TdVqB6Tr4C6Qq+14uuWLdBLbU8ioYyolMbnq2et0gx1tvkocfh/7qF9fXkhAYmrTRgMn+iBGZV/EGwIAOl6e8vKXYQNnSm1rw1lV2PB38woUAVwbUa6q9Mr1OhXIxRU1RfYnIPl4tjTvtIUB71N7ea2AXLn61BlmO81PvjTcrwrgHgLaQfpISvA/jisgrPa1bZfQH2+0HlyZOU1waF6UpEx5tVtxAgjmpwne9fbGbliv939i8kUPVCB3CWpCU1wx4ctLeSLRH9brhZGz8lQ9yLcfZIJ9b4WOYQ37LI+v7kpnJEVIbF9mjg42m68K/Y2ed6L9CwwdrO60a38s8yLPrSqbtNwG7qZBTGvU4+jN9ovAtv9S/kKKSh/yAl+HD27vJgfUOQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1102;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXRhWnNGcEdnZGpiVVQxdnJtQitzVkhzbkVEdXE3SEFVTVBOYUVBek9zWjVQ?=
- =?utf-8?B?QkFMM3B5cnRmdS9jTU5OSnFuZTcxbUdTRXlUN1lGcko4emZPNUhLdXhtM2Z5?=
- =?utf-8?B?aGVYSEpxV3JUckhQQVM2Ymtsa2VmUDFCWit0L0paTHlYRXNuenBJUFgyQmhi?=
- =?utf-8?B?M2ErNkdEeVNCVjlUSlFrWjUvQit4S01mdFJUbFNBZ1ZTcE45QmhhU0NoNkQw?=
- =?utf-8?B?Y1NGaWV2cGtUaGpGdk51NERSbzk3SDE0S1lzZVFaT29QVEJYalBaSks5VGow?=
- =?utf-8?B?Qm9nU1BleEcxSnlyQ29tK0dpVXl1OWpsK0xDSVI1LzJ5eTEyWEk4azY0dFBF?=
- =?utf-8?B?Yk56WFVLSkVqZmNkSjQydmZ3YkpqVkNjUG9WdDl6aXNHRXpsakloS1ZoN0tG?=
- =?utf-8?B?QUpiLy84QkhxUTNkcHBNMUYvNGNOVWN1WE1Ja1NiTk9sUVY4YzhPYnd3TE9T?=
- =?utf-8?B?UjhaalVFZjhCNWdER3E0dnA1UnI3UEZlQ2hPendZOUx1R0h1ak93dHdkZUFF?=
- =?utf-8?B?eTB2eE9FWkJHVHY5VXdWSVpZMGlXR24rclNVY2Eyc09qZU1BN3gvbk1kaU1a?=
- =?utf-8?B?L2x2M3J1ZHVydFdrRC9hb096eEVBMkNXN1huWHRHdE0zNk1qMWdBV1h3UnY5?=
- =?utf-8?B?VmZVMnFSdFFyRmRTSEJzZVE2QS90Wkw2WGdCRGNVaHloVktNVldqTEd3WVAy?=
- =?utf-8?B?cE5weVdCOE03YkYvaU84dWY5S1lwb2F2OTlnbmRTeTl1eFBBOVdyOU1GUTB3?=
- =?utf-8?B?K2RXekxKdkN3S090TnlXazlscUhzNjk5NEFxbmZzOXZrSXMvbzllOW90dTdw?=
- =?utf-8?B?bTU1S2F0VnMvbkFIMFg2V2drSldGMXBaZ3YrWTh1QWdva0RFNDVPWlhEY01t?=
- =?utf-8?B?aDlNNXVHdDcvNXpSeWVpRWtnN3E2K1o2VVVYZkZaNm8rYWtjc0lMNS9lcGQx?=
- =?utf-8?B?K0NNN3RsWGFIRGd4VHF5TVVLQlMzQy9QeWRnSC80dTVRS3pvaExQS05HSWd1?=
- =?utf-8?B?bzV2ZFVuNFBuRndBNDh3RTdWeXh4TWRFakFtYURwYVlobmZZNU9lc0FNRm9S?=
- =?utf-8?B?TmRhQXBzRTdHK0c0amhsR0M4cEtmZ2RUUlFQZ0ZPVlh2cXVoMDdNNkw0d0E3?=
- =?utf-8?B?ejFDbXE4S3ZiYWxTclQwVkU4QzZwVDg0WXFsK2xjMmtsU2QwTzJTamxBYURZ?=
- =?utf-8?B?b1hMNkw0MDhXbVlZd3hxK0Q3ODVDQXRIT3E0NmhkeTIzTXU5RUFreXRoMXF2?=
- =?utf-8?B?ZE0yOUdJbkh0NTUvemlwZGVUQWltdU9GNzNJY0d3S214bEFLakk1cUF3OXlh?=
- =?utf-8?B?VlpGeUh5bjZ4SzBta2dZdFZaWWFGM3ZuREp4R2JkeXp4OXI2engzY0wwMzhL?=
- =?utf-8?B?OVFUNld4ZHJieGZQbmk0eU9XUVBIWTBrTDJXQ2VGdkp4K1NrTHhwcnZkNDlU?=
- =?utf-8?B?RVVpaHgrbzZXbmxucFAvUFFrSjhrNkd0VlNWKzVyUXNmSlNmbVphWnpsaXVN?=
- =?utf-8?B?M3RCL2xpMEhHTk1HZDVCbzdRVkJ2YVpFbitHV0lTOURQbm5IUjhTcFhwWWQ1?=
- =?utf-8?B?emRaVURuVzdnYzdCcWE0V1d6bWZsd3p0b0piUGlsNUprbk15WnFGSEhpWkZQ?=
- =?utf-8?B?dFYwMmpiYUwxL25sUCtyajExbU1TNzBGL0hsZklucHhCK3FLTmtzdjEwdUlP?=
- =?utf-8?B?QmR1dXV1Rzlvb3o3RDIvK0tBdmhxWjVuSkJUMjA5ZVlIRVRuRUp5ZjFNLzdJ?=
- =?utf-8?B?bU4yeW9YVVlMRlczK05UekUvS1JZY3lmUGpjWG1hK3FJMFNmM2FKVWE0RW5l?=
- =?utf-8?B?cHE5R2FDVVlwSm1VUGlHSlkycUpUbGZHTXZmTVI2S1pqYzlIUy93citOdUdT?=
- =?utf-8?B?M2ZOYVQ2OUxJS0VJN2FYaStWdC9oeXNZVW5wOTBhZVpoT3ZBRTRubm9YQlpB?=
- =?utf-8?B?MDlrNDNOcTY1Y1E3ZzFMSy9ieER6K1MzNE80N3ZIT3ZYa2VqaDQ3Sk5EUnBu?=
- =?utf-8?B?WjNTUkRnZW9lbnpMSGZrQ1FEUE9PaGFjWmdPU05meW1RM2dlMERyR0FZUGU5?=
- =?utf-8?B?YjlkQXFWeUZPWlQrVk56ckMzUFBRVHJoVm50TTRsb1RGdDM3UXRaWkMxOTBl?=
- =?utf-8?B?enJ4M1RrckRzUUM4SkhHL0Y4YlNVazJpcWJNV0NxOUhwZjVhaStOYk9oSTZC?=
- =?utf-8?B?dWNqVjBndjI2cndwV0VMUmMzazdzWElxTHBYTFNjaTNkb1hiMW9WeSt5NnNE?=
- =?utf-8?B?ek4vVUp0SXQzZHZoK3g5NUtVOWZJc0lmbkNxY0ppZHJMY3NmZDVwYzhzMnV6?=
- =?utf-8?B?RDI4SHpkbjlxVWVRaEwxK1RsUnlvVm5pZ0xDbmZWMFVOcXNrcDd5QT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3f26eaf-f8fe-40e6-c958-08df311c0fcf
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:10.5628
+	NuErgbWUF5O6ON3PPPewZgWLegZjJkOQGsUkDS57wrtxoYpKSlr9/Pdo94tvF27t24vYGa7wHMtRTnMq8hCnu2G48aOSusUh6H1eCNKcfuvvNUjL6xqCfpAxSXdDEGcB+Dixwe28gnGYQqYNYIq6MtNQ9fLBeiUhSMyP7jF7CgvYn6MZZVVftWU1SidNd0qW9PH/udZ4BDZRmlCs/hQtFJEvWV10MlX5yH7wqzS7MZaPxiJvj4biEWyw3QkgnZlbBsUqvUsoIthKY8vxLMvMluDAICrzOGJ0L5OENnRo+Q/wjN2bmw99VSWE4JpswnLC0/8Q6gEwlcpW+LxWTVL5XfaWPhsKA7+GpVCYJTU80518UBwth1bwob5JiKgUmkmkMS5Lqwn1CuOHJDSuoVra/i1nkO8EprbiIsIHIJMmJROt70KtLQ4XoH5+EFaVePB4
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:09.9126
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qayR7kCy1m2gIbl+M8FVpDquiV5f+S4/2PHzaF9J5Ws/6mrK+Qnr/FP+m5zOEcvLz7/11xgAu/bCGnUlTUgwMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P123MB8015
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ea463dd-0929-41d0-1d27-08df311c0f9c
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6444
 
-On Thu, Oct 22, 2026 at 09:20:59AM -0400, Aaron Tomlin wrote:
-> On Thu, Oct 22, 2026 at 02:36:55PM +0200, Frederic Weisbecker wrote:
-> > (Adding Marco)
-> > 
-> > Le Wed, Oct 21, 2026 at 11:47:37PM -0400, Aaron Tomlin a écrit :
-> > > Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-> > > CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-> > > threads from executing block work on isolated CPUs. When all CPUs mapped
-> > > to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-> > > evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-> > > the intention of offloading execution.
-> > > 
-> > > However, kblockd_workqueue is allocated as a per-CPU workqueue
-> > > (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-> > > workqueue core resolves the target CPU via raw_smp_processor_id().
-> > > Consequently, if a task executing on an isolated CPU submits I/O and
-> > > triggers an asynchronous queue dispatch with zero delay (e.g. upon
-> > > hardware queue congestion, tag/resource exhaustion returning
-> > > BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
-> > > the local isolated CPU's worker pool. This causes the local per-CPU
-> > > high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
-> > > the isolated CPU. In real-time environments, an active SCHED_FIFO workload
-> > > will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
-> > > in addition to introducing unwanted latency jitter on nohz_full cores,
-> > > thereby defeating the original objective of commit a46c27026da1.
-> > > 
-> > > Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
-> > > from housekeeping_cpumask(HK_TYPE_DOMAIN) via
-> > > cpumask_any_and_distribute() when executing on an isolated CPU, and
-> > > otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
-> > > unbound fallback paths in blk_mq_hctx_next_cpu().
-> > > 
-> > > Additionally, for single-queue devices, gate the check behind the static
-> > > key housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure that
-> > > common configurations without CPU isolation incur zero overhead on the
-> > > fast path.
-> > > 
-> > > This ensures that:
-> > >     1.  When executing on an isolated CPU, deferred queue work is
-> > >         cleanly offloaded to an online housekeeping CPU across single-queue
-> > >         devices, hardware queues with empty cpumasks, and offline CPU
-> > >         fallback paths.
-> > > 
-> > >     2.  The per-CPU high-priority kworker on the isolated CPU is not
-> > >         scheduled, avoiding priority inversion and latency jitter.
-> > > 
-> > >     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
-> > >         preserved, maintaining optimal local execution with zero CPU
-> > >         bouncing while avoiding timer pinning hazards.
-> > > 
-> > >     4.  On systems without CPU isolation, single-queue devices maintain
-> > >         the zero-overhead fast path via a static key.
-> > > 
-> > > Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
-> > > Cc: Ming Lei <ming.lei@redhat.com>
-> > > Cc: Jens Axboe <axboe@kernel.dk>
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> > > ---
-> > > Changes since v3:
-> > > 
-> > >  - Create companion blktests test case (block/050) to reproduce this issue
-> > >    and verify the fix (Daniel Wagner)
-> > > 
-> > >  - Gate the single-queue (nr_hw_queues == 1) check behind the static key
-> > >    housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure the
-> > >    common case without CPU isolation incurs zero overhead on the fast
-> > >    path (Jens Axboe)
-> > > 
-> > >  - Wrap the evaluation of cpu_is_isolated() inside guard(rcu)() in
-> > >    blk_mq_hctx_unbound_cpu() to prevent an RCU lockdep warning and ensure
-> > >    safe dereferencing of the housekeeping cpumask while concurrent cpuset
-> > >    updates occur
-> > > 
-> > >  - Disable preemption via guard(preempt)() around cpumask_any_and_distribute()
-> > >    to prevent a preemption warning under CONFIG_PREEMPT_RCU and avoid
-> > >    data races when accessing per-CPU distribution state
-> > > 
-> > >  - Link to v3: https://lore.kernel.org/all/20261016052203.489760-1-atomlin@atomlin.com/
-> > > 
-> > > Changes since v2:
-> > > 
-> > >  - Query housekeeping_cpumask(HK_TYPE_DOMAIN) instead of HK_TYPE_TIMER
-> > >    to align with cpu_is_isolated(), workqueue affinity rules, and cpuset
-> > >    isolated partitions
-> > > 
-> > >  - Query the housekeeping cpumask under guard(rcu)() to safely handle
-> > >    dynamic cpuset updates without lockdep warnings
-> > > 
-> > >  - Validate that cpumask_any_and_distribute() returns a valid cpu ID
-> > >    before returning, falling back cleanly to WORK_CPU_UNBOUND
-> > > 
-> > >  - Link to v2: https://lore.kernel.org/lkml/20261015020225.422107-1-atomlin@atomlin.com/
-> > > 
-> > > Changes since v1:
-> > > 
-> > >  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
-> > >    to an online housekeeping CPU only when executing on an isolated
-> > >    core, preserving WORK_CPU_UNBOUND and local cache locality for
-> > >    housekeeping cores
-> > > 
-> > >  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
-> > >    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
-> > >    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
-> > >    CPU fallback path.
-> > > 
-> > >  - Elaborate in the commit log on the triggers for asynchronous queue
-> > >    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
-> > >    plugging) and the SCHED_FIFO worker starvation hazard on isolated
-> > >    cores
-> > > 
-> > >  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
-> > > ---
-> > >  block/blk-mq.c | 31 ++++++++++++++++++++++++++++---
-> > >  1 file changed, 28 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/block/blk-mq.c b/block/blk-mq.c
-> > > index 025a799f35b9..f8f862a0e525 100644
-> > > --- a/block/blk-mq.c
-> > > +++ b/block/blk-mq.c
-> > > @@ -2241,6 +2241,23 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
-> > >          return hctx->next_cpu >= nr_cpu_ids;
-> > >  }
-> > >  
-> > > +static inline int blk_mq_hctx_unbound_cpu(void)
-> > > +{
-> > > +	guard(rcu)();
-> > > +
-> > > +	if (cpu_is_isolated(raw_smp_processor_id())) {
-> > > +		int cpu;
-> > > +
-> > > +		guard(preempt)();
-> > > +		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
-> > > +						 cpu_online_mask);
-> > > +		if (cpu < nr_cpu_ids)
-> > > +			return cpu;
-> > > +	}
-> > > +
-> > > +	return WORK_CPU_UNBOUND;
-> > > +}
-> > 
-> > Just for future record, we are working on a WQ_PREFER_PERCPU workqueue flag that
-> > should automatically handle this sort of things. It's not ready for now so these
-> > hacks are still necessary but keep in mind this is a good candidare for future
-> > simplication.
-> > 
-> > Thanks.
-> > 
-> > -- 
-> > Frederic Weisbecker
-> > SUSE Labs
-> 
-> Hi Frederic,
-> 
-> Noted and thank you for sharing.
-> 
-> Sean and I observed this behaviour on a kernel with commit a46c27026da1
-> ("blk-mq: don't schedule block kworker on isolated CPUs") applied.
-> 
-> We will certainly keep WQ_PREFER_PERCPU in mind as a cleaner long-term
-> path.
+VFIO PCI variant drivers will use bind() to register their VFIO devices
+after PCI driver data is installed.
 
-Hi Jens,
+Adding bind() to pci::Driver lets VFIO variants reuse the PCI adapter's
+probe and remove paths. A following patch removes the duplicate
+vfio::pci::Adapter.
 
-Would this patch be suitable for inclusion while we await the introduction
-of WQ_PREFER_PERCPU?
+Suggested-by: Zhi Wang <zhiw@nvidia.com>
+Signed-off-by: Simon Song <xinmengs@nvidia.com>
+---
+ rust/kernel/pci.rs | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Kind regards,
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index adc7e92d44e..1951b3c8a5c 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -154,6 +154,13 @@ extern "C" fn probe_callback(
+             let data = T::probe(pdev, info);
+ 
+             pdev.as_ref().set_drvdata(data)?;
++            // SAFETY: `set_drvdata` installed the pinned `T::Data` above.
++            let data = unsafe { pdev.as_ref().drvdata_borrow::<T::Data<'_>>() };
++            if let Err(error) = T::bind(pdev, data) {
++                // SAFETY: Failed bind leaves no callbacks borrowing the installed data.
++                drop(unsafe { pdev.as_ref().drvdata_obtain::<T::Data<'_>>() });
++                return Err(error);
++            }
+             Ok(0)
+         })
+     }
+@@ -416,6 +423,15 @@ fn probe<'bound>(
+         id_info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
+ 
++    /// Complete probe after the pinned driver data has been installed.
++    ///
++    /// Called with the PCI device lock held. On error, the data is dropped without calling
++    /// [`Self::unbind`]. Any callbacks started here must be stopped before returning an error.
++    fn bind<'bound>(dev: &Device<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) -> Result {
++        let _ = (dev, this);
++        Ok(())
++    }
++
+     /// PCI driver unbind.
+     ///
+     /// Called when a [`Device`] is unbound from its bound [`Driver`]. Implementing this callback
 -- 
-Aaron Tomlin
+2.43.7
+
