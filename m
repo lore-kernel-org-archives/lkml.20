@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770927;
-	b=KwfSfWTWCrFyUYQoRWPD2rhPGB4ah+hLIx3JUOiAnh4yRrwNQt59pP++C61Ma/O/8RZm
-	 /WLo11V+8HiA0RGMKIGdeS2mdp2Po2w47LsswpM3rshwLQP+vjJAahQ8VfQH9ZM4WdH/0
-	 HAkCBYvVNxhMcLnC6SKnK5lQOZ1wYtQAkudiGJThGN9RuXPYZ2l8rnjq0jqlGq1ihSgye
-	 1RXwWCmiZhENw3rjUNQa+mx/zreOCmzhMN4dDtqUoyDhDb5yUCwPJHzIjC+HlzeXfqdkA
-	 eEuFVKt2s3Q77mB/cggeQComgqa1CspMwdCe5e6yIbKdQKkWQFN/WtNj74qbgTkNU+A==
+	t=1792770942;
+	b=FxA7MWdrDMIF5y9EBmUpuKW42o02c9t68GuTybvU9E4gBqX1fZkgQJrRSN9QoRPyDzIi
+	 aoCeIYRJmpkGEbrLEQILcnHRXTzYAp90+PNd5dlt36MU+xLB0XzEXD2YCLt5GPK66ssN3
+	 X50kLDuNcjR9D+IEwKfB3x4PmMRdSjwnrWw0kYiq8rKXUyC+qgmn3A2Q6Skw0XGHqoApw
+	 BIc2uzK1gW40aIx67o3lfYU9SygWI9Nwn92ABmQ/alDLlsc7iDmWiM4qPsGAxlLCXFPv4
+	 P6XdALYiG6gORWUC694X6yfIp9uC6KK0lPN4U/YZp8IUqUgWW/1JMS37N5FykRLuriQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770927;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=obYDQLkkHXiggm2S/jFGDF/Bvg5EgjJRLjpcUkuTCJI=;
-	b=483BN/Ez24aJ5Mx88XiIaYkgUxh4OewB3HhBCi+fhUQhxLPFMt7BOaap4ZxT7GyJ7oBb
-	 qXHmpsqIvoi/N2S8WBVspJ5k9YD2tlRZjnhsT0FOZUIxvkkTjzhnxaHEpTUw5KGLf1NAR
-	 W77r7mygj+tu6xyR3dE2kyG4Av4Ok5GwJfLZcFLrjl0JSUMmju0UeT8vyS4cBOPzgKqY+
-	 rqi1N/v+1KL+pJIK53y+Lf3+PJzvWTvYJv/aDKHAKzYxQF1FQ6kMgTHKiK2jN0g5By1eL
-	 WGQq/ZSkuh/NCFQh3OA5+EuIYj5XvZGW4B7S/S1oN7RakzCiaM0tTvUCxKXRfyuzURg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770942;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=ynnFsRlov1ettI6tdNTmf0TbH0h7G/oa8q2L/bW+DQ8=;
+	b=CKDjUPzkxTB90AwgabZLUFmT5j/eXAJKwqyzAlgaNTUSF+3B1UbYjzemmdpI4hvBYPNN
+	 DC3KtV1TVpBiZ1m4g2XxEmMienSvX+MQYkzy6UzdoZnSBCZSvDjmMyE0yjS2CMA42Afbd
+	 ISnz0esIzyHTQRbHgNIziebYzfLWoekOPkpZpRHU1tgi+rsJwPms3/3nVoSncR/g8Ut7d
+	 rs+f3Xj/muKblHvg+dn689PlL3Y4mpKrijOtjmqZj7sV1TSQkH1oWjSiwjY/Ei5DOIfEl
+	 TvDGXRDQRp/tJLaS8MXfeaJYy9xlHLcnEsuyFlTKxUtUhtL9v4bKffsZdSiDUhC2wxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU76ctpS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YeqVggOP;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A123C606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:55:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FDF606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4FDF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU76ctpS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768D51F031E7
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792770927;
-	bh=obYDQLkkHXiggm2S/jFGDF/Bvg5EgjJRLjpcUkuTCJI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AU76ctpS+cWgn4fHG70gLMmrsKI5n07WctHHaxtbOgD3IveSc4cpmGOUCyZkf5l3T
-	 MNOT9tMBRaxpFSAEgX04bdQxmCjbrbrmf7AApk4iZe+PmMxyT+rOB1/zVPdf/XxD+e
-	 sJz9jxZAa+mAORrzsEbyoOlNzGp3CCr5QJFgb8i7pJw7hZvMXzCJFzxq8+vC4KYMFn
-	 1S4CmJz7SMCR8X/DquHqLcaUHDHVu0YhY5AcxxtZZm/Cnkbu2bCy0q2uJCMny0Enom
-	 MvBHjJ2DV6PcEFzWXBMiAdQ2o4aureDuOyFdI2s1o3B6O9trxJZW3LQyV8VzKvg/8a
-	 CD9UQWPHx6rZQ==
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-702dedeb70dso646848eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:55:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxhRLQGNmopVIDpWtYwzAKEGw5SY4NPwX9uWKygmUPjZLqDD8wfMsk+sflYD6P3ytzTEfD+Xn9NLHAdk5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFD+LhaCvVzHxXyJPP/Q05+f6pC5L/3828dk9c5Y8MEw1Nt100
-	9SJ/vDZGiYTDz/w49d+YOMWqGxa3df2wPJCIBEvQeJ3/0kBlD5bOlA+WrgJ1VWkhI0NWHE6Auzp
-	oxVFZyWiPxLlUjFEwKo3q8dE65/+8nKI=
-X-Received: by 2002:a05:6820:f025:b0:70a:4973:e475 with SMTP id
- 006d021491bc7-70b887ef9femr1819515eaf.9.1792770926558; Fri, 23 Oct 2026
- 08:55:26 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YeqVggOP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792770940;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ynnFsRlov1ettI6tdNTmf0TbH0h7G/oa8q2L/bW+DQ8=;
+	b=YeqVggOPF7MtY45syd+t842rl4Q+dAXgV0SDAoDNSKfd3qpOseKZ6KVh13vtIGP3oDNGK7
+	4qtuOqXChdB33ewPyzsaBc+DUvNpgfnc4TO7phzLCqdaTnJTw9hObdXtNFULMVPZQ355lR
+	HAwGUi5iwJH11BPUVCeQXl75qBvZsTw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-BgUftQijMgmoYf_ioMrlPQ-1; Fri,
+ 23 Oct 2026 11:55:37 -0400
+X-MC-Unique: BgUftQijMgmoYf_ioMrlPQ-1
+X-Mimecast-MFC-AGG-ID: BgUftQijMgmoYf_ioMrlPQ_1792770936
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F21A818005B1;
+	Fri, 23 Oct 2026 15:55:34 +0000 (UTC)
+Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 632451956089;
+	Fri, 23 Oct 2026 15:55:31 +0000 (UTC)
+From: Jerome Marchand <jmarchan@redhat.com>
+To: Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.vnet.ibm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Jerome Marchand <jmarchan@redhat.com>
+Subject: [PATCH] powerpc: Use raw_local_irq_pmu_save/restore() in local_t functions
+Date: Fri, 23 Oct 2026 17:55:29 +0200
+Message-ID: <20261023155529.3895393-1-jmarchan@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,70 +83,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
- <af2ec5b0-7c62-4c6e-a28d-33ed401020af@linux.dev> <CADVnQynhY17Romr6VvzAyq-9h1zQ8gd-+pfC+1qFtz8xRaqCYg@mail.gmail.com>
-In-Reply-To: <CADVnQynhY17Romr6VvzAyq-9h1zQ8gd-+pfC+1qFtz8xRaqCYg@mail.gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 23 Oct 2026 17:55:14 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipvuqdDerVR9AZ6H4kaPvoSEoe-2s1P4RWeB6FwCfbBxA@mail.gmail.com>
-X-Gm-Features: AclHuK_AOyMxLdHlROqLvyZU8YQki78OcLExqwM0QO9VP0-Jx78XGF_CcLHcZd4
-Message-ID: <CAL4WiipvuqdDerVR9AZ6H4kaPvoSEoe-2s1P4RWeB6FwCfbBxA@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
-To: Neal Cardwell <ncardwell@google.com>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Yingjie Wang <1075151112@qq.com>, netdev@vger.kernel.org, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	kuniyu@google.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Le ven. 23 oct. 2026 =C3=A0 17:06, Neal Cardwell <ncardwell@google.com> a =
-=C3=A9crit :
->
-> On Fri, Oct 23, 2026 at 10:50=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux=
-.dev> wrote:
-> >
-> >
-> > On 10/23/26 10:40 PM, Yingjie Wang wrote:
-> > > tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
-> > > sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
-> > > an upper bound, so it accepts values through 255. Values above 31 mak=
-e
-> > > the shift undefined.
-> > >
-> > > A process with CAP_NET_ADMIN in the target network namespace can set =
-the
-> > > per-netns sysctl. With CONFIG_UBSAN_SHIFT=3Dy, setting it to 32 and s=
-ending
-> > > TCP data over loopback triggers:
-> > >
-> > >    UBSAN: shift-out-of-bounds in net/ipv4/tcp_output.c:2264:30
-> > >    shift exponent 32 is too large for 32-bit type 'unsigned int'
-> > >    Call Trace:
-> > >     __ubsan_handle_shift_out_of_bounds
-> > >     tcp_tso_segs
-> > >     tcp_write_xmit
-> > >     __tcp_push_pending_frames
-> > >     tcp_push
-> > >     tcp_sendmsg_locked
-> > >
-> > > Limit the sysctl to 31, the largest valid shift count for a u32, and
-> > > document the accepted range. Writes of larger values now fail with
-> > > -EINVAL.
-> > >
-> > > On a UBSAN/KASAN build of the net tree, values 0 and 31 remained
-> > > accepted, values 32 and 255 returned -EINVAL, and TCP traffic with th=
-e
-> > > valid boundary values produced no sanitizer diagnostics.
-> > >
-> > > Fixes: 65466904b015 ("tcp: adjust TSO packet sizes based on min_rtt")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> >
-> >
-> > Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->
-> Reviewed-by: Neal Cardwell <ncardwell@google.com>
+On ppc64 with CONFIG_TRACE_IRQFLAGS enabled, the ring buffer code can
+enter in an infinite recursion loop.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+The problem occurs because some PowerPC's local_t operations
+(local_inc/dec in particular) use powerpc_local_irq_pmu_save/restore()
+which call trace_hardirqs_on/off() to generate trace events. This
+creates a recursion loop:
+
+  ring_buffer_unlock_commit()
+    rb_commit()
+      local_inc(&cpu_buffer->entries)
+        powerpc_local_irq_pmu_save()
+          trace_hardirqs_off()
+            trace event => ring_buffer_unlock_commit()
+              [INFINITE RECURSION]
+
+Use raw_local_irq_pmu_save/restore() instead of their
+powerpc_local_* counterparts.
+
+Fixes: 6cd74d2b61749 ("powerpc/64s: Implement local_t using irq soft masking")
+Signed-off-by: Jerome Marchand <jmarchan@redhat.com>
+---
+ arch/powerpc/include/asm/local.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/local.h b/arch/powerpc/include/asm/local.h
+index ec6ced6d7cedf..4c033526bfb0d 100644
+--- a/arch/powerpc/include/asm/local.h
++++ b/arch/powerpc/include/asm/local.h
+@@ -32,9 +32,9 @@ static __inline__ void local_##op(long i, local_t *l)			\
+ {									\
+ 	unsigned long flags;						\
+ 									\
+-	powerpc_local_irq_pmu_save(flags);				\
+-	l->v c_op i;						\
+-	powerpc_local_irq_pmu_restore(flags);				\
++	raw_local_irq_pmu_save(flags);					\
++	l->v c_op i;							\
++	raw_local_irq_pmu_restore(flags);				\
+ }
+ 
+ #define LOCAL_OP_RETURN(op, c_op)					\
+@@ -43,9 +43,9 @@ static __inline__ long local_##op##_return(long a, local_t *l)		\
+ 	long t;								\
+ 	unsigned long flags;						\
+ 									\
+-	powerpc_local_irq_pmu_save(flags);				\
++	raw_local_irq_pmu_save(flags);					\
+ 	t = (l->v c_op a);						\
+-	powerpc_local_irq_pmu_restore(flags);				\
++	raw_local_irq_pmu_restore(flags);				\
+ 									\
+ 	return t;							\
+ }
+@@ -81,11 +81,11 @@ static __inline__ long local_cmpxchg(local_t *l, long o, long n)
+ 	long t;
+ 	unsigned long flags;
+ 
+-	powerpc_local_irq_pmu_save(flags);
++	raw_local_irq_pmu_save(flags);
+ 	t = l->v;
+ 	if (t == o)
+ 		l->v = n;
+-	powerpc_local_irq_pmu_restore(flags);
++	raw_local_irq_pmu_restore(flags);
+ 
+ 	return t;
+ }
+@@ -106,10 +106,10 @@ static __inline__ long local_xchg(local_t *l, long n)
+ 	long t;
+ 	unsigned long flags;
+ 
+-	powerpc_local_irq_pmu_save(flags);
++	raw_local_irq_pmu_save(flags);
+ 	t = l->v;
+ 	l->v = n;
+-	powerpc_local_irq_pmu_restore(flags);
++	raw_local_irq_pmu_restore(flags);
+ 
+ 	return t;
+ }
+@@ -128,12 +128,12 @@ static __inline__ bool local_add_unless(local_t *l, long a, long u)
+ 	unsigned long flags;
+ 	bool ret = false;
+ 
+-	powerpc_local_irq_pmu_save(flags);
++	raw_local_irq_pmu_save(flags);
+ 	if (l->v != u) {
+ 		l->v += a;
+ 		ret = true;
+ 	}
+-	powerpc_local_irq_pmu_restore(flags);
++	raw_local_irq_pmu_restore(flags);
+ 
+ 	return ret;
+ }
+-- 
+2.56.0
+
