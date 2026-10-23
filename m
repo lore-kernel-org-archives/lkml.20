@@ -1,90 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792830189;
-	b=ODnA0BRS8x/iZGyOEF8XxWiep6MkPExQ0AtrrKua+9dGXtcOPi4TqSzhlHMfkrsqDMkE
-	 nSaDuuvuqaNgSLKRGHCRa96fgw11BoEKjfsPDl91gMOaKyzTO1aartNaIyBmBNb02SPl/
-	 UWiaMbSiPjVKvTI1XQY5m6M6Z/KXUPUL0KxVDLYo2AsT0zOYm3Ry88+bn0APsj+uRc+kc
-	 7bZV0RqmvHOkS57dLnImrTsXL/SjMzVO41qlMi04BlMm8mUMFEPQD57wx97kI1GUhabyz
-	 BWY+L6wmG7HipN2Kt2gtNpYqNe/lmA0yHBHXnRQilDFpLrjUPTV9GfLaoK/q5c6hyUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830189;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-	b=btAbFoQTj1oLNvL8xBfmPMnngq6HUy2pQdWyaIJUIOLgRZJcIhZbes1u2reGKbc/9ls4
-	 JB6D83Y5uaeJfzdGBwDdyDMt06Rk61S4FfNfeFpwA8Ojpb+pxXBWDrXMxdQKpceHsltqR
-	 8HCCbeR261vJxMEXdyMLr46tBAEOXAG/G+QW7ypt8YYnZI8VPHM1JEDxjDC5MfPxDSbER
-	 R7pJM+BUGUXrT7ZCw6iiaJiO7jPwFa4nHr5nwczWETOYoE2O0I0DGD0ZHxkv7s3W7s0KD
-	 Vhx3bdsrgA4jvaDHvkLdWaA8TeZz/Lq3cEt0MVlBRIq7l61rvw+DFxIDJF8FvnavCHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW;
-	arc=fail smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792830195;
+	b=zv7qMFtPWfb3Xycak0jC3OP0iajR7YCvVPm8ZTxtzLDSgaYzTju7Rc6bAR1VkVPLKshh
+	 XnHQPgqOvdT8UkYSWeRr9d17ug+OdZ7yZx0/8KoE8ty+6TIJG2kn/Lxsexem9G3PHoz0G
+	 Cz2yw9VZFJo/BtybAb02KP/vQeVboFMnGwe7n9zfdeGopDV+yOOiE86Q09qh53zuG1+/g
+	 0RrzC3fZFxu1IfQCM+DdVPgSQmHPsujI/2JEXBJ7+VkiEch6yQ2EkBydDxJ89cT3M/DS2
+	 RvjFN05dJhyH9QZ0oBW2YaAVm1Hn5EVFlRKYuGnMJ8pdzkqFQxQua3TCvA+8oaG9IEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830195;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=BxGg8AbZofUdpgG8WVyjDlIOqWA4Osv9johjSGR+F78=;
+	b=GccBg6pRa9ZC7pEjv3KlArMDER/rE++uRGamQaHgnn0h1fG+2Ngu/JilwLA6/jHGDdog
+	 F/aIc//mMgGH0yJcu7D87PWfHJomutI2DS8+MlOfQRPWy97MmzUvHUe+9sDfQpvLV+uPX
+	 iTN0OebGXwXbQrcE3C5XfoFK4WDbGkkxalv2W9oKgatSvVhHfndnD6EZy3VZ1aiOAFw4c
+	 /SDXez5En3uzlEHmoZdjj1HzfyOJql2QERg+fenJDHBH3M/1RaXpnmXaQcNsZ/TZBmevs
+	 rZsUpMlOP/uB2rKsXo/Cl88XI6ZDJYyt9fMg2bhV10MOFsdq4Qx2c9re5pP0M8e8r/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8cVX4lv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CC606A31D;
-	Sat, 24 Oct 2026 08:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2CC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29423606A31A;
+	Sat, 24 Oct 2026 08:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW
-ARC-Seal: i=1; a=rsa-sha256; t=1792830162; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=iQJsjfbJMxpXE1DdpFwrGdEjDUgp2jPVTW4FVxuYXDDvBkDCs2OBQggqRozc2xYHYd
-    zl8bawHG+GSnOPnq5rAlddwvugYcLunF8tvSq78o//oV70l5mmaaWN9/qgpETN2p3GIF
-    dGA9oW46/pWm7ja/Umd30mssxwSVhYfk8/DcIpnbtWlI0+BQJNA457d/G9mfJCSX/LcE
-    0Kq3INOYXbRTCkmPeTVmW3Gj9YdmFhKPgRjr/+//avhNd3utcgW/KOBuEjsThx/IDPuS
-    b1WXmYJCR9KZl4paN5OdXYzg7AAMB5qN8JwqKjPWGknEgKkOuuKVQUqhdHOF0fm0kbfn
-    qpzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=BfIwc8xZhGZtmm1ZtOLTnU8F9okZGxo2QZxFFJprNf8PLTQ7uxsoQMVoxo6rRJqZX4
-    JJKN8i3tjkirKTvpZiZOaJxutK/xuVhHLkVx/+jEAirimZz3qMOBFDVoFyXzwQZFz8lT
-    h2I9eH8ZCKJEQjlKwbvUbBns2sFNIKpsZdZxmiqTgH2FPRHmiC/atbvxEGLbwJNhP1iI
-    cPG8QXLFbzqb7KVm07H0Ifd8QfbQTa0a7dU4ZVx5u4cTp+JRTRdYvmBIsQBd+dPzqqMF
-    1Rn0bVdp6Ou6nx5jFrRajaPcbxcfpiBtlTKdHwREDUErJDrBfQsgYY/Lv/nLKbDzJSka
-    q5bw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=Ewz0SQBKI9xjG6fbHoUS2zURQbpZk/f6qAYZHCd3iDb2rSgnoEWaFgklRu+8VmoL6+
-    PEM/5/xn38GVfl02iODRL8yjS7i2kzY5WlIqommZgK48xWtc+OM4rxDo69pw7627UrHG
-    BOgsaS0a0zoEhhQ9xzGg6hYqnXaXITqOG/WZNJn2gfKIso/eiFYJkkRlCo6KyPN40VyZ
-    ZuqJgitTVps2u8LfQbkZs87+QbVA3jM/rWC4gzD+DGzhwYE/iUz3S+HJSlAxdD1cbwj7
-    OkVGbDKKdwM3QX/G65wsDLth7d8dc5z7ASMrygtGCYjj8QoSSbJdtS7suS3/xizpqYv1
-    4N3A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=iZ3rjytWh6zqKBqxxwTvoevyS5G0FCg66imV26P8AbqHzDLX8vxOmACOods6S9rN2V
-    kxEa/H00rQF8ruEo4FDA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzssJZVJ1W1pIJ42bR3YaapQ9RNEb"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229O8MfvmV
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Sat, 24 Oct 2026 10:22:41 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8cVX4lv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7FF1F01825;
+	Sat, 24 Oct 2026 08:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792830194;
+	bh=BxGg8AbZofUdpgG8WVyjDlIOqWA4Osv9johjSGR+F78=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=n8cVX4lvx1NSBssH/4YXge7EsXSSU2aw+HnY+U19XYBXCgcKjgzOgyyd1ksdvcBnh
+	 pYFLxMCVKO1ZG4N5VWsQnVBrKrNg/oxXBkxcXLuVab9J8cea5e4Q0IU3wCg6ecmG4z
+	 vfh8lB33lvEFTlL33jIQATs8exqoPrIHrOPLHBBSM1QgtYZPQG4hI/Wq1UEfBssk3m
+	 AOYt1cwZiPLnMNmMAlHUK/Fp/5CIBLo4p8txuRO0tAI99VPDDYocWkt1NL0aOr/fa1
+	 3kAWVce5GdAin18SbOS/fL0VSNnpXCntk1E9chguutsimMFJNBz1xs+SQLCYdMAMK6
+	 QiHIcjpgMnrNQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 9223F1E1FCBA;
+	Sat, 24 Oct 2026 09:23:11 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Michal Simek <michal.simek@amd.com>, 
+ Pufan Jin <cyan2254650260@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261016130812.282624-1-cyan2254650260@gmail.com>
+References: <20261016130812.282624-1-cyan2254650260@gmail.com>
+Subject: Re: [PATCH] spi: zynq-qspi: fix address buffer corruption and
+ support 4-byte address
+Message-Id: <179277759175.3909521.4282064912069805866.b4-ty@b4>
+Date: Fri, 23 Oct 2026 18:46:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,55 +63,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
-Date: Sat, 24 Oct 2026 10:22:30 +0200
-Cc: Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
- Paul Boddie <paul@boddie.org.uk>,
- Andreas Kemnade <akemnade@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6EC261C8-74E7-4F0A-B739-6851D6BFCA44@goldelico.com>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
- <20261024041357.34346-2-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3864.700.51.1.3)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=LLAxb/9SE4njQjhCWgVEyFpwj+1TgmsHyia3ikY0bgU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLuZL3nP1RR9CDy55zFt4+dXmcTmmBY1P9X0GU550KNO
+ 2olGY/aOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAnCTLzP8z/3480/jpuQl+8tS
+ p5ecfzgjIObOi675Ktdvz7PY9e7ZuSRGhtWZqzfIs6rNcX1WzezYHZ19z37x3NcKIaHbLKtmCVX
+ YcwAA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi,
+On Fri, 16 Oct 2026 21:08:12 +0800, Pufan Jin wrote:
+> spi: zynq-qspi: fix address buffer corruption and support 4-byte address
 
-> Am 24.10.2026 um 06:13 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> There is no datasheet here: the register layout and the clock dividers
-> come from the X1600 driver of the vendor's 4.4 kernel.
+Applied to
 
-You can find the programming manual X1600_PM_20220117.pdf here:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-https://github.com/Ingenic-community/datasheets/blob/main/X/
+Thanks!
 
-Chapter 19.4 describes the registers.
+[1/1] spi: zynq-qspi: fix address buffer corruption and support 4-byte address
+      https://git.kernel.org/broonie/spi/c/dc5ca34f5e8d
 
-There is also an X1000 PM to compare.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-BTW: we have tons of patches for the x1600/x2000/x2600 (and even jz4730) =
-waiting for cleanup
-and upstreaming so we should avoid double and incompatible work but join =
-forces.
-Please refer to =
-https://github.com/goldelico/letux-kernel/tree/letux-current
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-BR,
-Nikolaus
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
