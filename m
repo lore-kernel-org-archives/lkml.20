@@ -1,51 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792720408;
-	b=Y3qco/MHkhkvYHj3v1KlzX3GVn3gpLN4B5AQHD6qQ8jP2LDiz2U90k7mT1aRMc7lhoa8
-	 MWYfJKLHAZ0xKzIZUPZBWMMwks+ZXc4T26rZV1/j16s9gunIQdV+Gjh5WkswKOtIyBtL6
-	 lcZWYNDw5/iUxtE7nWKziZwgX32P3SzmMlTc15vN+5MtxfrVqad6sFLW+TQ/B+jh5i11d
-	 kvr9ucDrE8xtDvh+cVrXvjPI3AnKwV6fd6rF21cWcwI6Q1po9mJPbwNChXzNbtHdemBWB
-	 DDownaKF5PWUQ4tLIWhv5xJNPpNmsVCvXl+VuLQtTVFvabCCIWkx/gxnxptfi7/dRLw==
+	t=1792720426;
+	b=5OvnQkReijnwLizZ+6s6Z4vR0VhqRQHXBccSQcoB6Ny7IkFB9foDGBjhZlv1qNdkHDK9
+	 ODdP5UiRkcpxSHHiN6KPZiChGpj7zbGAdMgOgMsKl3qwT/zl/ApLSI7CXUgdQ92B7IB6I
+	 PEGVcIy2DTsaXnFO9/YBuO5JP+D/8m/dLaXw2JZAwzzEWKNLi/+JkvascpwUpZiC5VTPX
+	 cnD+kjAEEoagBq5NQNXpahgWcpVecXh/yVmi3c7qbRD46QON9PVt+CtKInIChgK2BoCWB
+	 dUmffFjW5E7a/dFOz0V5juHFhYWp8CeaXdlPqxHriqkS+7o5kpeOz8GZXG0635b1r6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720408;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=D07eyQXW6CyfYGV/GLKHH76F8XoU44KN7tbJsOmA9ec=;
-	b=hS0FVUun3BFZxM3coqdsM6djZvjfCBtHZkqCSzIT/8IOiAZk9clktEULNyK5o73zgznZ
-	 UT6SdCLrBh/riptbhkbxh1F8Cf0udcnZjQLhAd/91WZw1FQQPAt5JujI3dFHfPC/W88ut
-	 EcdwjCXl0uYJHB5pf9HcUPSR0cbVFqidvgKVQqKQO4FzcI1Plf+xOdPPdjTMjARoJ+GrG
-	 dvGlFet6/kaRboZ2WXOrvJAPbpWr5TQVNpmTi5lUXh63jPV54gDX+RPtCSo5xddIzMGg7
-	 yQjVcQWBRw3BXeuyn86k7pK2H8O2/w2/CVd9EEbZyno/gRcAob4QZ1KgJtkTb2dkdCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720426;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:Reply-To:MIME-Version:Content-Transfer-Encoding;
+	bh=HdHebxdKhpXqqd0m6+YgUsQpX199pECCZdgt3PFRqbI=;
+	b=oezsExW9g8FTIOsqTQ6OjVOqt7M218et3kSQiXnvYQFQsr3DixvyxyPicdtZB9kTmCmI
+	 RMnv7ucPCFZHvwt/YvB7tBxu3KL+ErTCaa0ILHotQnf0HpGk87Wa+47YQQu39bEhJbsvn
+	 JK5HijJ89G0He1NPjrT9ZWqKV/GG9KhZQ0KN6vhjUQW2/YGEbeXcpneUEWXNBlnIA+JW7
+	 DSkVFng2znz1g87EB6mNliNh5QlTGC8Q3pi84QBAKOqu5CxFkYrn8+X13E7k8whL/FPCo
+	 +QhzDyxAETYoNxx4qCUSgOX0TU11dWIZT899a3jqHxUfuCykJ1vx1lQw3DGERgY6uzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.147
-Received: from mta0.migadu.com (out-147.mta0.migadu.com [91.218.175.147])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=gf45WkLk;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=XuB8BDEp;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DD8606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6DD8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ERNQcTMDaUHOgt1ezW5NchEKQ3p5W3gtHeKeBSygDso=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792720404; v=1; x=1793325204;
- b=SB7DLNbzQGdY6heJepkyIeeaXYgjdxfnMhQ33jYud6x20z0l0qP1fqURSHHlcwF9F0exzarz
- OAXwWqwglOXHhfXHW0ewCg8iV6DmZaPoHADNjnYRN4RZhC8tS4TY8Ht8hPy3FYU5gi6zavnaHvL
- Sdhc11rX+DrJ4Pxo/OZtbUVc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cd14fa31b589aab4;
-	Fri, 23 Oct 2026 01:53:24 +0000
-X-Mizu-Trace-ID: cd14fa31b589aab4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
-Date: Fri, 23 Oct 2026 09:53:20 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061C6606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 061C6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=gf45WkLk;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=XuB8BDEp
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 55B3A1D001C1
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:53:45 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 22 Oct 2026 21:53:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to; s=fm2; t=1792720424;
+	 x=1792806824; bh=HdHebxdKhpXqqd0m6+YgUsQpX199pECCZdgt3PFRqbI=; b=
+	gf45WkLkzzhfmI09RtETctc9Nn5BcZfYZA5s/M5mKE76x81q7fp1dqv5jGsnAKcs
+	/Zo6z6K5noZ02sn7SulxVTXAUtHY3WCq32sBFUAbQDLJXIXa5UtVOc7J5gnjXW2e
+	xpbLmcZG5POW4Rsrddudh1mbj1b7Ty0aw7LM6ZDUEkNH3Rf0WzsaN5EO/1705gMC
+	W+1E1ERffIcdnrNftYrCjSZS5V3RhUV7mwSNonZD4EXbv1ztCp+p9OyKTGYEWR65
+	CLVQaJRyp+kSDVa0iIe8nfrGYGP+sHe5kG8An5EiiS3zZm1+AcWvNMucg72mdI5Q
+	adMDS6ZOTcttZzP52FSung==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792720424; x=1792806824; bh=H
+	dHebxdKhpXqqd0m6+YgUsQpX199pECCZdgt3PFRqbI=; b=XuB8BDEpN1+Du50zM
+	MXgjrr/9ZpP+wNqGO3sU51EvZnQ8Pc1c1bxsP1uM012dHqmkl6o34B0YMq2SDJQe
+	kNx+/zJwhbL72lITAOb9IZVLKc98SAwCKOCa1Xc0cOerb6KMR1g+oU9KGNvmC/7m
+	UCiENHlShR1mZ2aGarNZER7ERHLBvXMUhsgN6ONe3DOPB0gSPb/f+XPsOvlc0+JK
+	P7Ro1CeaxKzFtuhGSBLavi2tFYUb7jFjYrId5G+8QN12vpVRfiYJsQE08LcUuqOu
+	zDae+epiXVEE1ZuHZNab5kn03mAxFrVJxaAzdU2rEeME2j7bJjxLH990uUggMPhm
+	nb6ow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792720424; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:CI3e4LFEEsTsR0tgA3I/5WlC4dRhjN26XSxn5sCgtBEwTcQ
+	BPgV3M+K2CYxgoHrfjKpF0eQGNt1VOv66cFyQxLxyEnhjfNG0/hLUYty6px0lKmJ
+	qm/1MEQ7QaXvlYbsMb/LOyqIi1biSfScSGHZdnTBB5KToKJ/0ojdf3NfGRb/WKoQ
+	42gTnnnt6M7En84tR5IT9GcjyEh2MRITpKqIpretIsLRF1LUiFcCkGC+ePe9hCJh
+	ZJ0TjbNci1SqnZDS7fkkXXqsJmOrfas0STHYX8Os7awTe440RNxLkJSu6pCn+9RB
+	BYSdCUSepAOYQzp3A9KdqlWmPfeYFyakX4uMCAg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,reply-to,subject,
+	to;
+Message-Instance: m=1; h=sha256:x7Ii+fFpU4vbH1ECyBBb8sx9l3bGU+o7k9uZHF/HwwY=:wYSIAm8YsbVURQBQTWfolAeLVN33sC0Sn3ksxmzIZX8=;
+X-ME-Sender: <xms:KL7aavReDC6_VydMNUYFeWHJb-5Zobjdi0qHYO8h13mDSePL4mbbrg>
+    <xme:KL7aaj2n-AmnscFTOVLMc_CqTtU_fWuBs271cUH5ZjOaQLejAOnOQDS0aeVidRjs5
+    vwGrNqRFTeKZb4DTBx6a5ef5UDbn663CABDsq-l9_Uc__eG8RY>
+X-ME-Received: <xmr:KL7aavfaeRMdoBwkobdJnoGzHI0AHcwDByGmaMpfC6iBnJQM_NozMLOLGMnLQbleDjaezh_4ot28VXRyb-C0II3_RiyplXc>
+X-ME-Proxy-Cause: dmFkZTFVyNFdAZA/YInXu4cBUv41coFXzEDPlYDDipjNd44Ia/DjUEmy4uZJYf3Ff1wTHc
+    ma5gXE+K5gN81uC/U8tvhPqWiGL69fFdM2OiFXqWmt6yHeen0UWYHq8nNnhM/2fZRZgFVu
+    Et59zr/Cham0BU2l6WZC2hfA7WGTu2wFUyVaPwxeZdwDhGlW8r664If73I/cqgTVNE8GQX
+    F+tnbIcSOITzdTHaai1tWTB/8nPf+iqkKJLKPPywa0hJ2rAjT4FFcfdgtG1y3YofMUu4Nj
+    qLG8ElCPhcCxXCnUeoFyFAcSh85jVzzIeKI0tLHwgs3uQbUpq8nVHJ71S2LFp/0JXC8Lhk
+    w1snlM6Z/0AFY7HHipGof6QKQdwdQ2UF+yqzu8zsoPz20bbTdSoEmgLWsb8atg/McZwxeN
+    sO00TIcmYOixNh/RhT+X5kpwj0Q6IiwEpvT5g1SH5O4w0+3W2tSN742+IUIVTrIYMCJ9aV
+    uOTAhYp7nC9d1PiNzE3cJvwwsRJEB8x0q/LeOSjnpY/EGhQM7EAZF3kjt/fDizbgQH70iR
+    29ICpvEoRLyNzQOWkDoHrBUNDTHBXuM6cM2XXyxQalpq4ihgwNZPbzeBBTfNxGDf8nJdHE
+    TWGbh2pqdYznGXOmz6P7Gm4Mh0KJ35uRQwtbnWzpUeW0ma6Vt+huuo9ThUSw
+X-ME-Proxy: <xmx:KL7aarOcUqxVj2vH93YqXmDOgVNBYZdDVBNAuefiN58cZUKV4EpX3w>
+    <xmx:KL7aajXzudrtNxpG1YHSqKkgJUmGGl4W6MPrQy7KD_JMD9uq9fU2og>
+    <xmx:KL7aajw8_B4DZ1RW93tacDpdgXSTsO8vIHhdm6AgK0roILQubeCcMg>
+    <xmx:KL7aaq9PTuiX9Fj-NSFZzd4OLLWjDjBumcdOsokM3a3CARylpleseA>
+    <xmx:KL7aaqpMJs024TNRWno-P0JYCEqBCkZY_uecXs9ZJaihCBK-Z3LHsz4p>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 21:53:41 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 7/9] nfs: Use d_alloc_trylock() in nfs_prime_dcache()
+Date: Fri, 23 Oct 2026 12:50:17 +1100
+Message-ID: <20261023015239.2163480-8-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+In-Reply-To: <20261023015239.2163480-1-neilb@ownmail.net>
+References: <20261023015239.2163480-1-neilb@ownmail.net>
+Reply-To: NeilBrown <neil@brown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,90 +133,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
- in update_parent_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-3-longman@redhat.com>
- <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
- <a3caf0f6-da89-4b5c-b80f-3baf6c82a2c4@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <a3caf0f6-da89-4b5c-b80f-3baf6c82a2c4@redhat.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: NeilBrown <neil@brown.name>
 
+NFS uses the results of readdir to prime the dcache.  Using
+d_alloc_parallel() can block if there is a concurrent lookup.  Blocking
+in that case is pointless as the lookup will add info to the dcache and
+there is no value in the readdir waiting to see if it should add the
+info too.
 
-在 2026/10/22 23:00, Waiman Long 写道:
-> 
-> On 10/22/26 9:45 AM, Guopeng Zhang wrote:
->> Hi Longman,
->>
->> 在 2026/10/22 11:16, Waiman Long 写道:
->>> Since the introduction of cpuset.cpus.exclusive in commit
->>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
->>> compute_effective_exclusive_cpumask() helper which is later renamed to
->>> compute_excpus() is added to compute the effective xcpus of a partition
->>> root. However update_parent_effective_cpumask() is not updated in all
->>> proper places to use the new helper to check if a given cpuset should
->>> remain a valid partition root. This can cause a cpuset to incorrectly
->>> remain a valid partition root even if no effective xcpus is left.
->>>
->>> Fix that problem by using compute_excpus() to compute the effective xcpus
->>> into delmask in all cases except partcmd_disable and partcmd_invalidate
->>> and use it for tasks_nocpu_error() check as well as checking its
->>> emptiness. This enables us to catch invalid partition root more
->>> accurately in update_parent_effective_cpumask().
->>>
->> I re-tested the repro from the link below on top of this series
->> (applied on cgroup/for-7.4-fixes), and it still fails:
->>
->>    https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
->>
->>    cd /sys/fs/cgroup
->>    echo +cpuset > cgroup.subtree_control
->>    mkdir A
->>    echo 0-7 > A/cpuset.cpus
->>    echo 0-7 > A/cpuset.cpus.exclusive
->>    echo root > A/cpuset.cpus.partition
->>    cat A/cpuset.cpus.partition
->>    echo 1 > A/cpuset.cpus.exclusive
->>    cat A/cpuset.cpus.partition
->>
->> The last command still shows "root invalid (Parent unable to distribute
->> cpu downstream)".
->>
->> In this case compute_excpus() returns the stale user mask unchanged.
->> user_xcpus() is gone from update_parent_effective_cpumask(), but the
->> dependency just moved one level down: the new code calls
->> compute_excpus(cs, tmp->delmask), and its first line is
->>
->>    cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
->>
->> Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
->> 0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
->> cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
->> it either - the sibling trim is skipped as exclusive_cpus is non-empty,
->> and for a direct child of the root cpuset the intersection with
->> parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
->> tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
->> if I got the analysis wrong.
->>
->> I have rebased my fix on top of this series and the partition recovers
->> correctly with it applied. Should the fix be folded into this patch,
->> or is there a better way to fix it? Happy to hear your thoughts.
-> 
-> You are right. My patch series won't fix this particular issue. However, converting an invalid partition back to a valid one is done on a best effort basis. There is no guarantee that it will always happen. Just echo "root" to "cpuset.cpus.partition" again will make it valid again. So it is not a real bug from my point of view. It is just a nice to have feature.
-> 
-Thanks for the explanation. This helps me better understand the
-intended behavior of partition recovery.
+Also this call to d_alloc_parallel() is made while the parent
+directory is locked.  A proposed change to locking will lock the parent
+later, after d_alloc_parallel().  This means it won't be safe to wait in
+d_alloc_parallel() while holding the directory lock.
 
-Thanks,
-Guopeng
+So change to use d_alloc_trylock(), which removes the need for
+calculating the hash or doing a preliminary lookup.
+
+Signed-off-by: NeilBrown <neil@brown.name>
+---
+ fs/nfs/dir.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 8a98247b6b2d..49283f533d6e 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -749,15 +749,12 @@ void nfs_prime_dcache(struct dentry *parent, struct nfs_entry *entry,
+ 		if (filename.len == 2 && filename.name[1] == '.')
+ 			return;
+ 	}
+-	filename.hash = full_name_hash(parent, filename.name, filename.len);
+ 
+-	dentry = d_lookup(parent, &filename);
+ again:
+-	if (!dentry) {
+-		dentry = d_alloc_parallel(parent, &filename);
+-		if (IS_ERR(dentry))
+-			return;
+-	}
++	dentry = d_alloc_trylock(parent, &filename);
++	if (IS_ERR(dentry))
++		return;
++
+ 	if (!d_in_lookup(dentry)) {
+ 		/* Is there a mountpoint here? If so, just exit */
+ 		if (!nfs_fsid_equal(&NFS_SB(dentry->d_sb)->fsid,
+-- 
+2.50.0.107.gf914562f5916.dirty
+
