@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792743681;
-	b=dJ3u1WQYlFbGDwG2lM/8iShiKWxtDH8PbjER8/w7AMz/QGzKN4fxJIR61eF3V221GNsv
-	 nU4INK2DD7GQD0eIBOVzhc7LrRwXQI6Wg0IxnO07/c5dxPGiM1KkKk+9Vm5z4xfuO8XKy
-	 Yfbo2rb1a/HzE/lGa7nIglNaEwQQuiVfLM7SLLoWwivmZC3Q6B4+vU5SBOtmQPZnyQ+ix
-	 akC8JtJtva1s2GErUN7v2ZjA+JEtnws88QoDbnhH7nq9iZ0JoW/fLaH9cl/xoeEkZczyf
-	 5WNZdKRVdXWMKCx8owB/BB+g7rLsYilR092iLuMK9IO1gvVQloUPoWxVSeXqvYjg4pA==
+	t=1792743682;
+	b=YsgV+6KjFV8xmrlhW1C1isQqKhjk4/Lf1V1D+c8YSX9MS00l3W6NSm2lZBH10D71gh67
+	 TNAkOKkh3gx5a5Qicb1PJP/45J1cn88DSt9IxDn1MszJfyCrM0S+CVZ1WN9o3/JLVJDQp
+	 t5lUv08VRim5UAaUQru5GPTw1PV+eUwNxqZvNXrjotkUK3mroccl8Z5Z753ehlwALtmHk
+	 bomU5yUzhJOC1w2CtxhiSORqSmNoLjSk+vs4LVPDAngCQmy0F+HvP8T3udllDbJYljZ3y
+	 1WzAfQSJzi3vDwChZ5Ql2UQITvkyt3AcryTvPR1qoaa0P5P9ZqqQv4PQkSa7kxse2mg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743681;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	b=OLErek5JvchH7D3u6f9gg+E/gJAMMXySzpsLe68WFGn9msu7BwdR+FTrmMsY5/LMXJGb
-	 FbY4A8qYhUSzzwWRWTwRI4UQNCMJb7q81QrfUmqw7MTqdc4FotX69d9oLT/4KKeSXcF/Z
-	 I5Lkj938ozjv3fOm035BOiYdJeU+4hGtM/msFevKtiCpgqXy/IK+NgeYrvc5Kw6JdTrRU
-	 5v869c+HrcUYPbBveC4Cf3Qfref6NdVaXd6IzOStPmFHz69N27BMIdf2vBnM6pN02FMX7
-	 zlI4N3VFvXdGTJJIB3NrNMz/AehWpXycGXUmMFrzS7Nmz6aH1v70nwK6V8Ia25ASAZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743682;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	b=w16zx82pgudVUTzTXBqVxg6xJSnmksy3kGu0Hvg39+qMrgHtNK16d8cCoKySSFL/r12D
+	 MVogGAcuZF1VcpEdgCvCX9vXUCj6H+cW1JENusP/FAcGIRqhYUWflstcTp13c0V0J/VFM
+	 2DlvyT/8fYCBqQ4g81aUZnNLj6ys4YnqoJrdCZDwOliL1WXdc6nu5T63Zo/xpPnoL+G5S
+	 eN8oIsQm+oC2wJHCgM4He+7FMPe6tIqRHmaTAX9mYStY52RFxbsIXPbYGkbaE8RkYqfMZ
+	 bBrfxcJlHcDrHdncUsht/rEU32B7+3/1c1pHkFiIhcGcleY0QRJ2ykhlFOF61f7+WXg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j73r+lT4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1843606A31F;
-	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D8B606A321;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j73r+lT4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792743680;
-	b=yqumJyKUIwjsAXvSZEixJacibLfnkBa+d7NYfvhkGAiTuYDT733LNH9T6l3xB8c4CcY0
-	 iHHWyJVNlZ47vacEoFq1kwe5N62hmQQXRh+fETrKkDWjdATTdluCcBxpJhdDxVp26TazD
-	 7it8JyrCYbwFUDZjpJZKRe2nDabKtooALNW6qiU2lCX6AEzAvfPMLB42js8vi+lpxYPLv
-	 xWNTlIyUdddq8p4l7IuxJ52gotOsmPrL4uDhzG9ecc7tANFBIqtD1+Kin50Ht9W+JitRa
-	 AosPELMRKKmvx9oVHBoDgYnYe+8cRNAuSGwLX4z59QLGIam/ei9LuPHAK+tDgKLu3kQ==
+	t=1792743681;
+	b=ThYx9QsVXVA2VKk7D0EHSt7nAjUr0vkiF3s20A+KHMNfGsyL5hOkRUfNiJcC50JuQ+Xd
+	 fOCmdkU1sIWji1SL002LEPcLk+Vtu8rcg9KqeEwx5qPb/ujMHclACGUO8GziihqduZ+RV
+	 cww9PtQAxftNBvqJuCLYcCASO2BqI/5uh8rN4/MpneEhIG+CcfOMCc/jRYZxsIlIWIw8e
+	 v6VaGJU1X4AXgQWMv/xcUVq2Kl5H4bUzu6TNdktQWB1LiQ7WPQ5jjeHQEDDHO3BoAqjWH
+	 BFqO4pvu8pbTw+PpoypOdWzuU+DyD8ru9I4wLTxcMhQVX/yhXgt5DNgaaLRvLGVwQoQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792743680;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	b=AAhY0Y0n13RTqoCqQaPZn/Tof9MngJXjnKG0jkRQ1zQdTfNmPqbdrVZSFION+jdRHX+E
-	 fC9+V4a3cE1FPp0U+0qCa8UFUe9O5rvawcgc3kGhkEcbHouD/sh+LOlotcQS6frmrhtdF
-	 MGoPT5skZwThiWarwYs7WHbkoWNigUVnrBB+JpUHI4G9n19evwgqm4wcwtuQ6aPVhbHh2
-	 LWsD59Lv/6rpeWOKhhF8M3txIAAsJgZrfJJjLZPV42OqWj+iErepZITkLRr5pfPCPOvHl
-	 XbA3ohtZZ3h2FOKz5bugczxC3a/g+Mc7AqICy/gU7R4jrfwXSdlCzCOftFTkDBXli5Q==
+	c=relaxed/relaxed; t=1792743681;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	b=m6sxvxUqCeLeFla+kwjCZ3HRXe50LLCh21M7B8rbar0FfETql6bgHxsbjDB9W3GikYsU
+	 tI5gw+XuZr9ylmyes1H6+Jn4C5F8ncCMtngDML0d0Mihecraq5ITCxuTNrVc6eBo8XfEP
+	 u4JW2Y/BtX0OK4DNmAIE98gfQOYkO5Vcaga7MuVUdjvIHkMriQCVjZQLvZMSMsLKrENl/
+	 6DcnnPHAU2PiqA//7mz6zc3EYF8SnHsFguN7BExCYG5UdRFfkP01uIuyi6Ypt5c9jA1YU
+	 Q+RhDrv0TmKLRqGSMum1SE7cK5LbsWpE90LUr4U3khHxlvQjPaZ9SpvCVFnsAW3fpxQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EFF6C1F01825;
-	Fri, 23 Oct 2026 08:21:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2D7DF1F01828;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792743680;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=j73r+lT4gTh664Jz/EMl3qFFghk9nujJvX6BWafr8b5iYg/u4c1MJ9aM2fbtH+YZ6
-	 7Bq9oqt3kJfiNN/xAMOWDkZr/2S/qEQIMIOZbxHTz6MTAWzwLy2F6J5NhMob+chanW
-	 cpn1glCQuXdkCJi5aK9O8w+4yIfX/0V+d1ZlNUaeHFfhMYeVbJBLm7U3Utmk7qDG8V
-	 w/CjiG2PBroao/yM4ChQSxTd1DmDnzngKfh4q4vKnknk5Yx2Lsg4M2eAEQv/eOZdvg
-	 ycgFGaGoYpu5rXNQDqaMnNIKLE167dXwegBThFou6fNjIzKjAJPeGsCp1Rx+tRjhX0
-	 lNEuMPQIXoCOQ==
+	s=k20260515; t=1792743681;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=N+6aFS12MLbAGWDmZpfF+/7NCFW8TKljJ3V1gd0/RAe3OsfQs+QsbaJNZe39dlltf
+	 ccXnCxI3cS7Lub6Zz03u+4u56C11agUXHr06/IzsVd56/JZ2PFCrfpVfmVZJqs/71l
+	 CHPgJNkpOT3MqyU5U1Vu6BHfBSfWjP+svlKanUY6MrbfGsYIj5JBf4J1WXfFalZXFi
+	 SCjnVV3K5BJw5MLkFlwjAVDLoZZ15FE77vV/WKg6ofA1Gvl3/f5e5SShqeJU63P3pw
+	 1sQDzekvp+g3WEWc8JPDPZKnzc8ukn2c6jVVHtupbO0XFHw+70F6wYBul70OEDZO40
+	 UBLviGcv+T4Gg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6FC1F4441C;
-	Fri, 23 Oct 2026 08:21:19 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Fri, 23 Oct 2026 16:21:05 +0800
-Subject: [PATCH] gpio: rockchip: Fix debounce arithmetic for GPIO v2
+	by lkml.kernel.org (Postfix) with ESMTP id B80FA4441C;
+	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH 0/2] drm/panel: Add Samsung AMS644VK04 panel
+Date: Fri, 23 Oct 2026 13:51:15 +0530
+Message-Id: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,129 +84,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-fix-rockchip-gpio-v2-debounce-v1-1-f1141bd5b58f@qq.com>
-X-B4-Tracking: v=1; b=H4sIAPAY22oC/yXMQQrCMBBG4auUWTuQTqFFryIu7OS3HYUkJLYUS
- u9u1OW3eG+ngmwodGl2ylitWAwV7akhne9hApuvJnHSt046ftjGOepLZ0s8JYu8CnuMcQkKPru
- hH9RD4Duqj5RRg9//evu7LOMT+v5O6Tg+e9INuoEAAAA=
-X-Change-ID: 20261023-fix-rockchip-gpio-v2-debounce-90767cde2ed3
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Jianqun Xu <jay.xu@rock-chips.com>
-Cc: linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743678; l=3798;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=990tz6V6xSqlnsWsntOcrs9gs3SDwAyWpRr2l3eS5jA=;
- b=MT2tjLEkyabOrZ4KFYK1MjnqubLChv5mTzLHiyvAzJ27voIKRUdgCfGc/HuEDJpf4r0Ur6HxK
- vjeJI+cZ4ILCoeBSjnIhtn2ioR6lVFz7/f31Em4yLqEq8ZqZtgJwf7S
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs7ZJOzbE+CrGRYt/cbxU0kFiQ
+ nh3iiy/xTkzKYpA6dzMVDCJyidXuEND3T3kHkZu1cSWW2f5aIaQ8TLhra3309N6g3SKHNmDmal
+ mQ0GS3395ue7Wb3ygG7cPLcsKOeVzJXQAAAA=
+X-Change-ID: 20261023-panel-ams644vk04-ef8b2b24e222
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743679; l=1791;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=CmyaiwJWwoIMm1mdMGXzb84Z0m35G/pLGpSpkLPfqbk=;
+ b=tWJfdchfzzcMsz0ZZmLr/J/rhEsP7HlXepsJOewkxdR9nqjFRuWQScnNSu8dZNObkScA23PTQ
+ AjiVFN0U98sDzyZtaohbhJu7AvzvLqfvnWHRoTIyhZHbwRiHwjauXsP
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-From: Cunhao Lu <1579567540@qq.com>
+Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
+1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
+OnePlus Nord (SM7250).
 
-The debounce interval calculations use unsigned long operands. On 32-bit
-systems, the numerator used to calculate the maximum interval overflows
-before division, while multiplying the requested interval by the clock
-rate overflows before it is assigned to a u64. A zero debounce clock rate
-also causes division by zero.
+The driver describes only the 90 Hz mode for now; the panel also does
+60 Hz, which needs a way to pick the mode from the display pipeline that
+I did not want to invent here.
 
-Use 64-bit arithmetic for both calculations and reject a zero clock rate
-before division.
+One question for the reviewers: the DSC picture parameter set is the one
+the downstream driver sends (DCS 0x9e, 88 bytes). It differs from what
+drm_dsc_pps_payload_pack() computes for the same geometry, mainly
+first_line_bpg_offset (15 downstream, 12 from the helper) and the last
+rate control ranges. The msm DSI host fills the shared drm_dsc_config
+with the helper values, so the encoder and the panel decoder use
+different rate control parameters; the picture looks correct. If you
+prefer, I can switch to the helper PPS once I have tested that the panel
+accepts it.
 
-At 32768 Hz, a 1 us request rounds to zero divider periods. Subtracting
-one then wraps the divider value to ULONG_MAX. Decrement only a nonzero
-rounded period count so that such requests use the smallest divider
-value.
+Tested on a OnePlus Nord with the msm DSI host (a 7.3-rc7 based tree),
+including suspend and resume. The SoC devicetree nodes are not part of
+this series.
 
-Fixes: 3bcbd1a85b68 ("gpio/rockchip: support next version gpio controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Signed-off-by: Ishu Brar <patches@brar.si>
 ---
-This pre-existing issue was found by Sashiko AI during the RK3572
-mainlining work:
-https://sashiko.dev/#/patchset/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com?part=9
+Ishu Brar (2):
+      dt-bindings: display: panel: Add Samsung AMS644VK04
+      drm/panel: Add Samsung AMS644VK04 panel driver
 
-On 32-bit systems, the unsigned long products used to calculate the
-maximum and requested debounce intervals can overflow before being
-assigned to u64. A zero debounce clock rate also causes division by
-zero. In addition, at 32768 Hz, a 1 us request rounds to zero divider
-periods, so subtracting one underflows to ULONG_MAX.
-
-This patch performs both interval calculations in 64-bit arithmetic,
-rejects a zero clock rate, and avoids decrementing a zero rounded period
-count. The existing set_config fallback and divider register accesses
-are unchanged.
-
-Validation:
-
-- A host reproducer confirmed the 32768 Hz, 1 us underflow and the
-  incorrect maximum interval produced by 32-bit arithmetic.
-- The combined GPIO arithmetic suite passed 126 cases for each modeled
-  arithmetic width, covering both legacy GPIO v2 and RK3572 V2.7. The
-  suite includes zero-clock-rate and request-boundary cases. The 32-bit
-  run models unsigned long arithmetic; the 64-bit run uses the native
-  host width. Both are arithmetic-level host tests, not ARM32 hardware
-  or electrical tests.
-
-AI assistance:
-
-- Codex / DeepSeek V4.1 Flash were used for:
-  - Collecting data
-  - Automating tests
-  - Reviewing and adjusting code style to follow community conventions
+ .../bindings/display/panel/samsung,ams644vk04.yaml |  76 +++++
+ MAINTAINERS                                        |   7 +
+ drivers/gpu/drm/panel/Kconfig                      |  15 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-samsung-ams644vk04.c   | 373 +++++++++++++++++++++
+ 5 files changed, 472 insertions(+)
 ---
- drivers/gpio/gpio-rockchip.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-index 77b239a9a601..714604c11d78 100644
---- a/drivers/gpio/gpio-rockchip.c
-+++ b/drivers/gpio/gpio-rockchip.c
-@@ -201,20 +201,25 @@ static int rockchip_gpio_set_debounce(struct gpio_chip *gc,
- {
- 	struct rockchip_pin_bank *bank = gpiochip_get_data(gc);
- 	const struct rockchip_gpio_regs	*reg = bank->gpio_regs;
--	unsigned long flags, div_reg, freq, max_debounce;
-+	unsigned long flags, div_reg, freq;
- 	bool div_debounce_support;
- 	unsigned int cur_div_reg;
--	u64 div;
-+	u64 div, max_debounce;
- 
- 	if (bank->gpio_type == GPIO_TYPE_V2 && !IS_ERR(bank->db_clk)) {
- 		div_debounce_support = true;
- 		freq = clk_get_rate(bank->db_clk);
--		max_debounce = (GENMASK(23, 0) + 1) * 2 * 1000000 / freq;
-+		if (!freq)
-+			return -EINVAL;
-+
-+		div = (u64)(GENMASK(23, 0) + 1) * 2 * USEC_PER_SEC;
-+		max_debounce = div64_u64(div, freq);
- 		if (debounce > max_debounce)
- 			return -EINVAL;
- 
--		div = debounce * freq;
--		div_reg = DIV_ROUND_CLOSEST_ULL(div, 2 * USEC_PER_SEC) - 1;
-+		div = (u64)debounce * freq;
-+		div_reg = DIV_ROUND_CLOSEST_ULL(div, 2 * USEC_PER_SEC);
-+		div_reg = div_reg ? div_reg - 1 : 0;
- 	} else {
- 		div_debounce_support = false;
- 	}
-
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261023-fix-rockchip-gpio-v2-debounce-90767cde2ed3
+base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+change-id: 20261023-panel-ams644vk04-ef8b2b24e222
 
 Best regards,
 --  
-Cunhao Lu <1579567540@qq.com>
+Ishu Brar <patches@brar.si>
 
 
