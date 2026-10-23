@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762290;
-	b=HPws9S7FEQuDONmQorURHN6IEaDQBF1NKuDoVtDQ06fLfdns9KGkToHRRnr2EqrLZ2Fg
-	 KzKQIWzmXYuwXo/sBGC+0aIwAhs1yRe2IeMsZ4c0iUsDYxgjFNVUcD+h/MV9EmmeC3aYW
-	 NmUYj4GX6TnlwKgbyLn4OtbMi1wczc2jCZLLyorAT0UavIXBEf32AKJue3U3sdOwfYINz
-	 7ZPJ8L0N1PhkrhL/kv/ODTzIVhv3L8rcbUNU6/ggVI0YkLYaaLxrI6F0DCZylLqpb9NZ+
-	 wMHuai2RkawchOka5gC6pG4TnK8Nu2t/s2Zpht8tE0gYcNq/DxjbfnBIgs2TcjF7W3A==
+	t=1792762348;
+	b=Aki7Q1omIRLbKRg/VAxyYipAB4QMePE0iDvAGDI0JAptjDEkk8A+bWLF/tSlvf8vADHS
+	 DETaFViMEA2ZxGFIq5U+VyLL27vFTbb6D9+GoCJwRkTg9VKJ+ZXotnwp2kbGkQI2ovJPh
+	 vZk+bX0/XL4PqbaYOfjuM/NGTOb/KAenVmesZ5l0B6PtyGKsAjkjRyTuI+t8mwdiVg5sO
+	 U9mMM6uINxYYasO+PDzxliXWdrMSDUJoZ+Hg1HSWcPn2dOoD0Xn8qvdb3HUwL2xbts3d/
+	 g5LjQJPm9m9O1C9r0edc/uOQvrou2eWrka9sofLWWsqu0jajF4WckVUT0bAYAbfKLyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762290;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=2WvI4fwTkfjqkPVTmW8l6edz7EjA83sUtMLiWbm6O04=;
-	b=rQKYTy1E44Ic15S1h3xXaVhioXvadC8gewzQrpubFezr+cTI0SC5D8B7XCUiUZfzL65C
-	 B36fRULJb84aHlKMd71dsc0hurd2q9NqaZ2NvvaLNagCC70+jPKl0vdvqOcJouPljT8GI
-	 GCTAdElU8yCm75fPwmjn/s6XqOXazegDD9NuwD2zELbtlSYbZ3Wt/NZR5AuBJUw5yVKn9
-	 FIXQA8CHU/7dxfX5lOB1xanssmt3xKKCnQlrIH4ivFHyzatMxN+PWWjM4tjtzba91yF7Q
-	 zn+Tl1wOc71mDuQnm4YhJIrwo3m1y8LVTrYcypLtB64cVn78c69CDvSz2wVN4Hh1q+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792762348;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
+	b=C7JfSJilCfWy2oabu7N6nV/B/7jexTBDsngaIbUg5HdKQ1tti9peBmM7DlIdZ6NfnaXh
+	 XxFKfZ7btGIaWzfBE1n5FXRNw+i3Tiw1V8ZNhf2iH/CiZC2n+YP0L4mddOZxsuwh1WHc8
+	 Z7Nov7+d1Ymtnxh+/N2UGeOBS01RiUUD4v6vy33rZYROXO1SxD3vEQMzDVfGMKER6H2Fq
+	 BR5eWEow4Al/XU6izV31UQ/1YuuUsFJH5T16CXrATbvIgsoRSySPBc8OjUUASUSy2eViI
+	 saIPBMdp7BJKma5eurT0sS5YZ2BIGcg6lARS4DnDPx2wGA8NhK4PEJBDyMXhBA2zhbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJjN6ITC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD6E606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984A4606A31D;
+	Fri, 23 Oct 2026 13:32:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984A4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJjN6ITC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF631F01825;
-	Fri, 23 Oct 2026 13:31:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792762289;
-	bh=2WvI4fwTkfjqkPVTmW8l6edz7EjA83sUtMLiWbm6O04=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cJjN6ITCrKGp/Zt9vSLOMvG+/9Jn1YUjCSVtWOgD1YQUQEaLudL3DbVrEobl+/CdF
-	 zMnpf8PfHajhhgJuYqaIkQwzTH7X48UCNltVpRUVJ+z5BrinS4OB7+AxCfjHmy7ERE
-	 VyT7yzNeytZs6/vIWH4ap7qm0avTm7AGJHNyKoxxJAxQ4VUp1H6KUFKSnI6KC8Cgif
-	 1Z1t5meazWmwmCtftA46ZqOapfMDSsHJLOBHO8c1g+Ut1G0xR7f19qhlP1pEjFT1jL
-	 fSbp0ym6IgF2Ou1umoKZ9VKEwzruXAluK3sgWGHEHufglt8pQS70izjsRWOEr/AC7v
-	 kX89URuEka2yw==
-Date: Fri, 23 Oct 2026 15:31:26 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tick/nohz: Reevaluate the tick for kicks flushed
- outside hardirq
-Message-ID: <atthrrwRchO2FL8g@localhost.localdomain>
-References: <atofid9HivdbUuj2@localhost.localdomain>
- <20261022175500.15940-1-peng_wang@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C3F6D220D4;
+	Fri, 23 Oct 2026 13:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792762345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
+	b=dBp08XEsblvd5CFBGtTShFlD2cvEEP7pabF1dx5HIgB3Y9OWGcRHa7FeMmsllY9rwyWdh6
+	pzL5gduDFe5trasTScu3GtuUUr8sPw+zikOUWJkBDr/Inor3+/aIb40Q6iYCCXuBxRiu4D
+	npSFpKaAxl+J+OFb8f3sJVZkv8EP7pI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792762345;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
+	b=G5gj3KiNajer/v5zNAC7rbPp4wtOwZCOSAE/D0rrh5On+Blv8ShEceceNFiiG/PPZ9iqtr
+	6UoxEfn6MtqJWGBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792762345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
+	b=dBp08XEsblvd5CFBGtTShFlD2cvEEP7pabF1dx5HIgB3Y9OWGcRHa7FeMmsllY9rwyWdh6
+	pzL5gduDFe5trasTScu3GtuUUr8sPw+zikOUWJkBDr/Inor3+/aIb40Q6iYCCXuBxRiu4D
+	npSFpKaAxl+J+OFb8f3sJVZkv8EP7pI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792762345;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
+	b=G5gj3KiNajer/v5zNAC7rbPp4wtOwZCOSAE/D0rrh5On+Blv8ShEceceNFiiG/PPZ9iqtr
+	6UoxEfn6MtqJWGBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98FD0133F6;
+	Fri, 23 Oct 2026 13:32:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sDISGuhh22oyTQAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 13:32:24 +0000
+Message-ID: <bb1fc73c-84b3-45a8-86e4-458498d0f80b@suse.de>
+Date: Fri, 23 Oct 2026 15:31:22 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,82 +106,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261022175500.15940-1-peng_wang@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/5] ipv6: restrict gc_elasticity to 31
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Joel Granados <joel.granados@kernel.org>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Flavio Leitner <fbl@redhat.com>,
+ Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Petr Mladek <pmladek@suse.com>,
+ linux-kernel@vger.kernel.org
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+ <20261023091419.167088-2-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261023091419.167088-2-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,blackwall.org,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -13.29
 
-Le Fri, Oct 23, 2026 at 01:54:57AM +0800, Peng Wang a écrit :
-> The nohz full kick relies on IRQ exit to reevaluate the tick. However,
-> a remote kick can also be flushed from task context without an IRQ
-> exit guaranteed to follow. If a tick dependency is set or an earlier
-> timer is queued after the idle-exit reevaluation, the required tick
-> update can be delayed until another interrupt.
+On 10/23/26 11:13 AM, Jiayuan Chen wrote:
+> Every counted IPv6 dst allocation runs ip6_dst_gc() once the number of
+> live dst goes over gc_thresh (1024 by default). ip6_dst_gc() decays
+> ip6_rt_gc_expire by gc_elasticity: the smaller gc_elasticity is, the
+> smaller ip6_rt_gc_expire gets, i.e. the more aggressive the gc.
 > 
-> Reevaluate the tick directly from the callback outside hardirq context.
-> Keep the existing IRQ-exit handling for hardirq callbacks. The offline
-> flush remains harmless because tick_sched_timer_dying() has already
-> cleared TS_FLAG_NOHZ.
+> ip6_rt_gc_expire is a u32, but gc_elasticity has no upper bound, so
+> writing >= 32 shifts a 32-bit value by >= 32 bits, which is UB:
 > 
-> Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
-> Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
-> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-> Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
-> ---
-> Changes in v2:
-> - Reevaluate the tick directly outside hardirq instead of requeueing,
->   as suggested by Frederic.
-> - Use the full update for both dependencies and timer deadlines. Keep
->   IRQ-exit handling for hardirq callbacks and the existing NOHZ guard
->   for CPU teardown.
+> 	val = atomic_read(&net->ipv6.ip6_rt_gc_expire);
+> 	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
 > 
-> v1: https://lore.kernel.org/all/43668cf88d976084e2865ec07dea82b64ad402ba.1792240863.git.peng_wang@linux.alibaba.com/
+>    UBSAN: shift-out-of-bounds in net/ipv6/route.c:3369:53
+>    shift exponent 32 is too large for 32-bit type 'unsigned int'
+>    CPU: 2 UID: 0 PID: 615 Comm: ping6 Not tainted 7.3.0-rc7+ #364 PREEMPT
+>    Call Trace:
+>     <IRQ>
+>     dump_stack_lvl+0xc1/0xf0
+>     dump_stack+0x10/0x20
+>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>     ip6_dst_gc.cold+0x15/0x1a
+>     dst_alloc+0x4e0/0x620
+>     ip6_rt_cache_alloc+0x189/0x7e0
+>     __ip6_rt_update_pmtu+0x68e/0x1160
+>     ip6_update_pmtu+0x30c/0x3a0
+>     icmpv6_err+0x1fa/0x330
+>     icmpv6_notify+0x303/0x770
+>     icmpv6_rcv+0xc12/0x1670
+>     ip6_protocol_deliver_rcu+0xb4a/0x1520
+>     ip6_input_finish+0x19c/0x400
+>     ip6_input+0xd4/0x240
+>     ipv6_rcv+0x1fd/0x330
+>     __netif_receive_skb_one_core+0x118/0x1c0
+>     __netif_receive_skb+0x21/0x150
+>     process_backlog+0x37e/0x1200
+>     __napi_poll.constprop.0+0xa5/0x5e0
+>     net_rx_action+0x4c0/0xf70
+>     handle_softirqs+0x204/0x9b0
+>     __do_softirq+0x10/0x18
 > 
->  kernel/time/tick-sched.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Cap it at 31. 31 and 32 are equivalent anyway: ip6_rt_gc_expire starts
+> at 30*HZ (~30000 with HZ=1000), and such a value shifted right by 15 or
+> more is already 0, so val - (val >> rt_elasticity) stops decaying well
+> before 31. Values above 31 add no new behaviour, they only hit the UB.
 > 
-> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-> index 6c3fea386713..ece2c21cec84 100644
-> --- a/kernel/time/tick-sched.c
-> +++ b/kernel/time/tick-sched.c
-> @@ -400,9 +400,13 @@ static bool can_stop_full_tick(int cpu, struct tick_sched *ts)
->  	return true;
->  }
->  
-> +static void tick_nohz_full_update_tick(struct tick_sched *ts);
-> +
->  static void nohz_full_kick_func(struct irq_work *work)
->  {
-> -	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
-> +	/* Task-context flushes may not be followed by an IRQ exit. */
-> +	if (!in_hardirq())
-> +		tick_nohz_full_update_tick(this_cpu_ptr(&tick_cpu_sched));
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Just in case, even though it shouldn't happen, just have the following sanity
-checks to return early:
-
-if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
-    return;
-
-if (!in_hardirq()) {
-    if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
-       return;
-    tick_nohz_full_update_tick(this_cpu_ptr(&tick_cpu_sched));
-}
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
 Thanks!
-
->  }
->  
->  static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
-> -- 
-> 2.47.3
-> 
-
--- 
-Frederic Weisbecker
-SUSE Labs
