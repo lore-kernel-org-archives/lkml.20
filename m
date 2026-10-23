@@ -1,61 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740879;
-	b=IZMWjpVWTkGY+h9EpPBdRq34PqYnCEKty1FsupvG0bvvKy9OQiqPUSY6N/iwi+oCAHgU
-	 +lQNHbFBlqkNJcPUZVWGrv6jjPWw5KcWpowceuubi+1Nh41SYnsRa7ipbxeCRDlBAvvaF
-	 V1CmJu4VNbNt4jOBFnuS4sQYJRWMJ9ot0PM9f6CxVUvuiv1cKbGeubSO8hzhTSh2Ejpvo
-	 gE9C9XzgUMm3bvZ/cuhUIWXWAXuB7jQOmcAd5rEjGRzDBYSvBC+i8QYQxfLhzRs1goqCe
-	 UjIX57FV6p79yY2osQTUgVlWlCegrncbthg9QoPgbEvOnNoY4K8vnTl8bMiMTTgZdsw==
+	t=1792740887;
+	b=xmJc6BDkn1f3XP3Yidow8W9owgLd1LerMGiWHGyeZZVlCFqIcbZZCW+aTonZ2bXO6t3S
+	 tDvYUtq6e2sBlyMc59LWGvMbzLjV7NdUeHZTFFmgm0FzyxzvqprXRbfsuOdAWX6gOMDxI
+	 +yC8YwnXHDjfCD99QqPNkAFis+7HgVbouxZ6NkyD+fCppU5Wd7sPxTC/yBjUhLP7IV7+K
+	 90ZEcl1j3pLjagYcjD0nNAYwfo6L/SC6jFz7OohV/LKnIw7654uHl/WU7hrwJX/n1mvFh
+	 zHiZlCI8uPGsrHWn5+96ec+dHVBXR++PfBqL/76hCI/fOAHrwwMwTTbdw2h1xZHKCzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740879;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OIX7l9JSAlMqQr0Ju+ts9cEQxL6n0uf9RUiDDUXeVNk=;
-	b=Ch4Y87cNXJ4hw7QPmdcftMkH0pNrYUNN/Np81LDnxgU1WArV87L34H+ae+R6Db9D4PfN
-	 f1YDzWtsgcT9JwXvIipuYQoRKFTDc1oOe2/ALWJ+eR2U5Lr1RM7XcSn/ymNNAo6lpbGCZ
-	 GSKzXOrm97kBlQZAwbci/w/uPXOWTU9YrwSY6Hoqaw0F2Xs2ZDJSGhteqYv0D8U63ue+V
-	 nR4zUmrzMAk8U0WAC05YZjw5BLz7AwIjZL/FgkoJaqnCW8K6Rdjqh/EAeSM2Db8p/S6SM
-	 TmICmoncJeJr+RvKprzkOTP1f8OM4cJbN+pFMm67aLkLKtC9Lu0QLK0kSqq+SevHCAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740887;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
+	b=WPMzMMJ5sb+UBnROgtOO8zO4pV6vUdTIHCnpL/PrQmITn548RgBnVwbyvi99/zb8gN8s
+	 Nn3n1D97UOEPjysGLpujqlRIHvukY7MrHoRUXroQz6JM0eYOn0CY7IobSxOeeBLQV4sr9
+	 pnoTtiY1g9DlLHtqquQB2PNwj2N2W1qIZLC+aT57y8WVpiysXnS7hhALAL/Go27HIiyWA
+	 sTr/gQAN9jjp5+hsq43Qmtv4+GonpEq5EizyD8sY5tRVaxdi613xF2hXRSGT3nFAdge4J
+	 e6I/UgWjGCmsFU8mrJ5jbQmY2rdqaFv7creOXeuRCelTAWx85NrjLcr64UwkmEp297g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ct3RZzN4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61D2606A328;
-	Fri, 23 Oct 2026 07:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6E3606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:34:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6E3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ct3RZzN4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E3E1F01828;
-	Fri, 23 Oct 2026 07:34:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792740878;
-	bh=OIX7l9JSAlMqQr0Ju+ts9cEQxL6n0uf9RUiDDUXeVNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ct3RZzN4FJzAgCV52jbDVDNq9GVv8I51XFFJHPXlHaFYSdf36kkOA5pWMm9a6Twnt
-	 moism0coMV3XQTlXilR3+WnBaYjky98vNdZeH9T+VYV4NDmnKNoLl7BKOl3C5Xgvdr
-	 xXnZRnhRvap+mS/jSkfMbC/4ld0F90kOYqOCTiTbuDn75BRT5KrT8sdEaXi5XYcgLJ
-	 GIaiNccrKFRrgs2tHq2Rx5sly+0lGsa/tkkGUy16qXyv/mWv4dUtAUfSl19Eiit8Nr
-	 JwcnEkQsKulvCRRSoOzy9yrTp37ptNuJuJW5WlKfAIFDuV4ozP2YAQEM+K1aSX76e+
-	 NF1dRo6+GdNtw==
-Date: Fri, 23 Oct 2026 08:34:33 +0100
-From: Simon Horman <horms@kernel.org>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Steen Hegelund <Steen.Hegelund@microchip.com>,
-	UNGLinuxDriver@microchip.com,
-	Bjarni Jonasson <bjarni.jonasson@microchip.com>,
-	Lars Povlsen <lars.povlsen@microchip.com>, netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: sparx5/lan969x: do not read past skb->len when
- injecting a frame
-Message-ID: <20261023073433.GG708417@horms.kernel.org>
-References: <20261021-sparx5-inject-tail-bytes-v1-1-7dcc035c8ddf@microchip.com>
- <20261021112533.m6fh7xoqp74uevho@DEN-DL-M70577.microsemi.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e977109392so2997045ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792740886; x=1793345686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
+        b=X4USJsgp9JxA5EpAyYe8aLydL46DSNbPwbJi0kiI0mhWflPQ/M/eMTf/QzhvdpJns3
+         twae2P3d37YqaRgrpXtg/lw5LOLDODdegh/tw5SMLihERPY17wrrolsYwJep9ZmwUPGf
+         DYWsH3E3C5GmZgQE71/dIeP87dCkCeJhxHCwbhI6fBwC3hJ9BjG+pVl5Dd0m8HenzgUj
+         jhooj3bqOBBujEfja6XxIIsCHZRQykXaabQNYzI4aekAzXHbDhZ9e8+q8sGXG9VMI2zh
+         ivG8/InhY74SjFOVKV+8ZW+WbRAyEwilMCZiOPz7ZBIh9So81GTK76OGG4AYJ01xfraU
+         NUtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792740886; x=1793345686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
+        b=idwQsNq1kldzUHAdE3f1yMlpr50+2hUYB4n3ajugtPnq2D8awhwD7yJr65E6ulwnPs
+         b93nrxuVMtrHwUrzMxw952vuY7VW1rDxJZpnkHIGwouH7oEr3Ygz/lFFXWj5DOJWLvKA
+         fZGcsxDvLG6O0Qcdz/2T3a/njnQ1IfztIcWcZTzPql+/qZi9f+c/O0qrIhJFy4sfISoW
+         p4j508/rIezUk63IGWTf2pyDHsFj9NdOfFi8V1B4LUZ417r2C7F+1OZggcyB3eDtKBll
+         7KQmVHnyvAgQ737gVcgdhdpcipBwr2hJ6ckwvEDDnRbODOZPbB+L7Yrc0IHZtDeIujKo
+         0m4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBypx4ZpmOIuHiV1ifGuxE1DWjNIE1BjHwQg9Ev1LDLX1ww+3ZHE1BouA2Jq2Lbz5IPsCqFd6AWEcDMA6Hk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm55HtOuvSDK7cfdskWLmAa1GFNIUAeVc0CUzAZC2eW0xO7nxn
+	YfO16XWVAUbWfXptMioZTRlxBYdYN846wl/gxYOYFGys6rkivoSZPY+U
+X-Gm-Gg: AYBFou0P5mNaLOndCf8vA8WktdUBMzsv9ov1kZq5KGR48AIAi51WfwpBadVX0vpRdFy
+	BseJ68wYzDKbWRBljZxtw6c8brdqrs8BP1/Ad3tzR3AcRaXJtCuO7E7bXqSmPAUH5oz1EpVLjGP
+	dgHWu4c6hgk9Rw/nJi9Igy97+krAEg3ZCZ8uLNRXT+9LTwRKxcI1FfMvEHkTOzB/wVSv3jIvIVn
+	uNndGNC9/VgSNSVfxkFdFV+ySqAIsvnrW5PqRKSgbQqyZg/CUqvcxjp4awoKnRssd2Oyg1SZcxG
+	bDnH5zd4sNWpjr4cxWWYqpnzc+yncAZzYOlRgWEG4NCApq1byKeqYpbXrtrviXW0OUdQO+qc+Og
+	P9O+WBermmoOIrqnvjB3+5sxzDz9Sj/lK9/fIA5hCKHebW13dzoJlyK0i3gSS9BDlkey7UD47qk
+	yk6ynBu5p4uxrNx9XwPKEDyRAEoRVN1L9ZHqLiDjM7xBFFh5v8cuvaQy1pNb+JgiJcgHAj6jMNA
+	YYH4Aks5es7bUKIzPwpgA64rQenGC4jyzXmvSkP6KTH74RVzH5cyEDkOEmXfO4LmttIzV8ecQI=
+X-Received: by 2002:a17:90b:558b:b0:3ab:f38:2b41 with SMTP id 98e67ed59e1d1-3adce081433mr1163793a91.39.1792740885915;
+        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1f93fbsm2494372a91.16.2026.10.23.00.34.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH] media: pxa_camera: guard list_first_entry() against empty capture list in EOF bottom half
+Date: Fri, 23 Oct 2026 15:34:37 +0800
+Message-Id: <20261023073437.1517305-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,32 +95,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021112533.m6fh7xoqp74uevho@DEN-DL-M70577.microsemi.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 01:25:33PM +0200, Daniel Machon wrote:
-> > sparx5_inject() writes the frame to the injection FIFO one 32-bit word
-> > at a time, and pads frames shorter than 60 bytes with zero words.
-> > 
-> > Before this patch, the last word is loaded whole even when skb->len is
-> > not a multiple of four, so 1 to 3 bytes past the end of the frame are
-> > read. For a frame shorter than 60 bytes those bytes are also
-> > transmitted, as VLD_BYTES marks the whole last word valid and the
-> > padding starts at the next word.
-> > 
-> > Write the trailing bytes from a zeroed word. The number of words written
-> > and VLD_BYTES are unchanged.
-> > 
-> > Found by an AI code review agent, and reproduced on lan969x and sparx5
-> > with register injection: bytes 57 to 59 of a 57 byte frame were not
-> > zero. With the fix they are zero, and traffic still passes on both
-> > chips.
-> > 
-> > Fixes: f3cad2611a77 ("net: sparx5: add hostmode with phylink support")
-> > Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-> 
-> I somehow forgot to include the target tree. This one goes to net.
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+list_first_entry() does not return NULL on an empty list; it returns a
+bogus pointer computed by container_of() from the list head.
+pxa_camera_eof_bh_work() calls list_first_entry() on &pcdev->capture
+without checking list_empty() first. The capture list can become empty
+between the EOF interrupt and the execution of the queued bottom-half
+work: pxa_camera_irq() queues eof_bh_work on system_bh_wq on every
+end-of-frame interrupt, and if the DMA completion path runs first,
+pxa_camera_wakeup() removes the last buffer from pcdev->capture (e.g.
+with a single queued buffer) and stops the capture. The already-queued
+bottom half then observes an empty list, obtains the bogus pointer,
+stores it in pcdev->active, and unconditionally writes through it in
+pxa_video_buf_set_actdma() (buf->active_dma = DMA_Y) before starting
+the DMA channels on it, corrupting memory around pcdev and likely
+crashing the kernel. This was found by code audit; we do not have PXA
+hardware to reproduce it.
+
+The sibling function pxa_camera_wakeup(), which operates on the very
+same list and sets the very same pcdev->active, already guards against
+an empty list with list_empty() and pxa_camera_stop_capture(). Add the
+same guard to pxa_camera_eof_bh_work() so both consumers of
+pcdev->capture behave consistently.
+
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+---
+ drivers/media/platform/intel/pxa_camera.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/media/platform/intel/pxa_camera.c b/drivers/media/platform/intel/pxa_camera.c
+index 2269d852a..73ce48650 100644
+--- a/drivers/media/platform/intel/pxa_camera.c
++++ b/drivers/media/platform/intel/pxa_camera.c
+@@ -1161,6 +1161,11 @@ static void pxa_camera_eof_bh_work(struct work_struct *t)
+ 	cifr = __raw_readl(pcdev->base + CIFR) | CIFR_RESET_F;
+ 	__raw_writel(cifr, pcdev->base + CIFR);
+ 
++	if (list_empty(&pcdev->capture)) {
++		pxa_camera_stop_capture(pcdev);
++		return;
++	}
++
+ 	pcdev->active = list_first_entry(&pcdev->capture,
+ 					 struct pxa_buffer, queue);
+ 	buf = pcdev->active;
+-- 
+2.30.2
 
