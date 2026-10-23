@@ -1,100 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792761308;
-	b=shW6u4gEyCXVApU2xc06faLcOJxhwmYlDFRfz3y8yFeygJ73CorMKqvtV2KS+/jEs2+G
-	 bw1XlC8NDn4fUZkxwJWEKyJ/93OZg7WR1049lI3+Oeax5kqLMMuSptZRtNOiNKKQ3mGzd
-	 sD10ibg0p8ucqUk8oLzNsYqS/TXNjTJ/KXrijwCs89XmOmWis/P3BgyAlnADIKBzlY9wc
-	 A73Nyd4jkKoXtepN4Gdv/ROxT2C1ip3pzpl+h+OVFAbz5BmQJxn0BhVz8bE96o/p/6M/z
-	 UVC9fcTtf1ifqCRfd8a6usEP2bIZh7so4ICroKucvHQnziT3FkGPSytXi7AxCRi9eUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761308;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
-	b=kyi4H47WFNXKjigrH2AKAfYkQw7nS1an3DGbMSi5gkL7lWOHy0v5v3CIeC4YkGqKBMs4
-	 FIwIm0YKVTjeuZ6dwkMAJTZweyzvTw5VIZsindIhsCJnE8yDdVNoYHNXwgW0kv6KBDRNJ
-	 fdbUx0UO5blJuOqFJ5ilu/eKO+gYDs6dmRr1fGoj99zb7ORi9TBf9hpTid/qSV77i+nnZ
-	 V2exvJ81JJONFZ9gm8WrE2mISxCUmS1D6PuZJidGULR/DmSda1+LwY4I0DSA1RXwOv4Cr
-	 ZhOY0mYPxhl6JdswbfCuk+YW3WFmo2kyyNjrI5SQC2fmbsjShHhMBmCjVQdXLCokz+Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rp47p6Dz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792761333;
+	b=5caQfzQlG2DS9+aqjgKbErucdjZvm9QMN5iWyLvRrU12oL1PoarYdTPuf6ieBqFdZRgA
+	 B5dnsLTzW+V9GP8DypHDrKqyqOJcIt7r7g9yivfMsiAI7mMrHdMNUWIHtRq/jKOGCJCMq
+	 ObqM5NTOBVQavf/E30yqTN3kvFCtbcjOhMAZm+K/EfBDSNakKkkil9CBFmfmBTjCBXtjD
+	 FsJG1RKnReaLfTbjg4ozx4MQqoJifXnkaBMdz40M1lo5Iq+629AddPm72ScQbJdeAud5X
+	 ondc/m2w587xw/ZERCQ+I8EyXgGN6En3aaUXcCJL+cOeJQ5VZDNH89Z4bf1N+3MfsJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761333;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=NVcW2Ffyo3xz8xHoLfYrXy/+Ll+4LUkHyKuGCIDnxZ0=;
+	b=UkVRBHlmKs6ogFHTb+NNPoMi47I8wPD6DcAa3USjyUJaTp2qUqCY7YF2ne1W5LlykJ3g
+	 L1oUnZ1e3LpsIt0C6t26Nr81kZbLpC7Be5sIrWxxRfhCtgCsFixExt+rbahb3wkgOuytU
+	 aFnh15HlB25eZ5HDf59K8yvbBbbnnqP8F8tiBXIQOo+xJ5aXfBQGneBEtld17XyQqjEiT
+	 WeBPWgfeZlDJWmakkzFbO69GfPLnJE7Oi2/6BKNQ4rWpDXLFswP95/GUkqpcxZ/iq38xt
+	 z7cisMWt4Mn69cbsQKjxYvYifM0pXlqABlZ6tqewqkxAWSzcnxA7i/JmEm8+clmKMFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ONRrkhm2;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80D2606A31D;
-	Fri, 23 Oct 2026 13:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A80D2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754A3606A31B;
+	Fri, 23 Oct 2026 13:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 754A3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rp47p6Dz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oPlll4y3kjKzD4zJNpBJhLZUWlPVDLagNHiRp+0Zv2A6gt2LJz2mrgOkgWgeyJfS1XM8ifQ9WJSFXV+0WIvl517LxMlXDeri1JOXqd4idKOwoGTHcJl+o1Q2eOHjbjGEGyucmmsgtjVrMiTVMZO9W2aWOGL8TlY+3rNC5p5weJANh8nVqZG1rq8mhlv130dhipgst6NqFUVXr7uLsqkA1swJSXRc+J/huvwmhYxAGGXaOYJDwnnDQctqijAWBLfnjoVfkR50EeuVnqwuQ5c89k5s4XzeJMQSD3JB1lsAN++sOByig2Qnx1eDdPYjyB27L2BxjYfd29rlu3auwWEipg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
- b=dBLVvXhYbiTPcBa9x9CGOn+0RgUupP4g7SNvCDLbtkgf+PGII04DLvjewNLVgWUoiyu6nt1QZIxPPBPNol3r8OyoT2lXl28Pt3F/F0YyzVKpYov1EJ/iPwgdTiKvO0IxXQAGwWE0+37ZXmIhhKHBDbv7lBG/iBROjd78LU73iP7WGlO1nPOBhSHVT/on/3BthtFO0ICO3bneyIeAID4slS9Qe+w82fqkCtoQAIgE3tGBFtWkCgQeERcogj4S2lSFD7jcF2o28Su6MtWfsO8TK1audjKnC0JjvO13m5MjekBrE1/bqdmLK3477dL0BgQ2bW/rOot3u1cILUvW4SIHow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bwbHRAsrNNN/8whEZgLoj+OFIjZDkdvmA0PglfzTrEc=;
- b=rp47p6Dzw2u675eu8xWibPWcg8H/JBwSrHOiAXXmyeFgFBFtp9oHMIsibcrrHiTy++lwdRZEvdlHvafB0F6SKMsRsTr8zrzOgFcXV+pElQA9H2GMjNAt919/VkiIz0mW/NHRGCUUXzLZjwo8Z96C/+rh+QOgChXlM2xLWQ/+dnWq6gwY8VMHbKQ2Zh5f0ncJWgG/TdJTveABoGX7xRHAmiQE4J2o/Z5TW8xQRXWetOToUCZUBuZcvp4xC+Gy8TvPWv7yjlYIpDyFPWZEevBSki3GyfkFkOlBHrAgyjJQwlhzzfSjyIGA+7P4QPvPfDZNMHHye4aytyjj9q1biMVkTA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22) by IA6PR12MB074433.namprd12.prod.outlook.com
- (2603:10b6:208:5fc::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 13:15:04 +0000
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 13:15:04 +0000
-Message-ID: <d6c14ede-1cfd-4800-a8bf-5093ab8c000a@nvidia.com>
-Date: Fri, 23 Oct 2026 15:14:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: mlx5e:zero-prefix corruption during TCP DMA-BUF RX - help
- requested
-To: jiabin deng <dengjiabin2023@gmail.com>
-Cc: netdev@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
- mbloch@nvidia.com, linux-kernel@vger.kernel.org
-References: <CAFxp=AY2cVRQrZvB9WNnigbsobuw11NMG-cagHx0_V+ur2ToFw@mail.gmail.com>
- <e4054f5a-e60c-4253-bccf-d05cc7c615b7@nvidia.com>
- <CAFxp=AapgUYLUhipVjR8oM0fRDSLDX60AQf0UP8=U4M1ASqmOA@mail.gmail.com>
- <e6a557b3-2986-486d-9679-e7a4fd1cee5c@nvidia.com>
- <CAFxp=AbmdmTsj4ugjxdKhRR=LJuuC1yr7DFnLCSgOpC2g9470g@mail.gmail.com>
- <atZKOtjrb9HKSNHF@dtatulea-c5.nvidia.com>
- <CAFxp=AYqVgR_Eahz2QsC=cCdxo5GmTwdHcgBdXRGf9P+v0OJxQ@mail.gmail.com>
-Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <CAFxp=AYqVgR_Eahz2QsC=cCdxo5GmTwdHcgBdXRGf9P+v0OJxQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0287.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::12) To CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ONRrkhm2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792761324;
+	bh=rwux77o1GhyryoO0gztA5gaRbZR09g3yJty7OuhiDJU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=ONRrkhm2VFSrNY3s1AQ+91XArmvKeHEc4zj26k8VJa8vpBwuIZbA+NgTUowV1cSHQ
+	 hj/5QvC6tcQJ7SySzBJheMy7MiN9ZSVYito/iR2znhjSjKLzUjQfBt+qgF8JZDfIPU
+	 fqyWoMkjvBcjvrW47OXd/EtKQINnvOz4sdRPAKmjXekoR16aGDdukmd57sjaKUJqVz
+	 HifUzTgJI6ALjIlIIRAAH8keVrV3qCRZMLElBhYsjAudbBHXdTbfXbKsiNk9sGSZTW
+	 Kbu96DI6bW2DzQqhu9xfm+rSGqSOv+qXTisivLShIqYVJ95K89gAU0yYqnE+nSXDAQ
+	 Ovw3PfyNMaTRQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 246F217E011B;
+	Fri, 23 Oct 2026 15:15:23 +0200 (CEST)
+Message-ID: <884a934883ee62444c4f9dc34c3d4d0afe1d2831.camel@collabora.com>
+Subject: Re: [PATCH] media: rkvdec: Handle interrupts without a current
+ context
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Alex Kazinsky <a.kazinsky@ideco.ru>, Detlev Casanova
+	 <detlev.casanova@collabora.com>
+Cc: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Hans Verkuil
+	 <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Date: Fri, 23 Oct 2026 09:15:21 -0400
+In-Reply-To: <20261023131124.94116-1-a.kazinsky@ideco.ru>
+References: <20261023131124.94116-1-a.kazinsky@ideco.ru>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-2Xx+Uh8xlyaOkQPPjVUs"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,102 +90,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|IA6PR12MB074433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 521edfea-f057-440d-34ce-08df3107a69e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003|261022113327099003|261022105027099003|261022075727099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	zX8k6vSItw+pJ0IsrZg54ggnV85aB2VJ8fOVTBIYQ6vCmm38sWaz4ZFtwyrzAt8VOcKcjB1OA0J0JXED/1bzMNTMNCnH1KeyEcsKQba54HdvpzHaEIHzRCaFffyELLcsUK/8i7c/0IqYm/y0E8pVbFx0jv5POXLvIfTlcEc8Pc5F9hhCHZejClyl2rfqcYRQ3cuFBu9fIQKc1X9lFao2dExnKgkfRiNQQjaOvKHTSE9t5Lc32plcPurPCTnhalIBufNZR1stmqBeSRRaMXSyGJGIkSpo6nTGykWtzHjLMCPRUFoJPFhOfnZnAYUnmxtnm1B2j8LFSSv43XiSuONQfvwOC1fogjgh6FS1b9+2Mz5VS7CVl0nrbs526ux9ObICDNYMR5Bd9QYo6VV9grG/TXtVFY/NOMHT9/GOSkP5u9nHuvinBoU/zBN9mkX5pm37BCfncl0F5Mti+w5yY1XAPvjX0sw6eg2suARqIfqZPGOg6IqbCrcMUGS7Qv/CUHFrVDe+vlSYQXpTmqThJODvPdqHMr1bfIByKzXP4Nw46/HGNIOcR+TFawc3FnFf3EI63v2Uf7ol1XehXZHx6cJH5Kxjfx+KrkRzRIUjkwRGVl+/Si6MlJFvcdWz3PSn/Ng/SagIGS+c6AEpAbMHDGc348a7tyRpaFNbthQ+QT25DYU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(261022113327099003)(261022105027099003)(261022075727099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkFVTHFPT1gyUHE0Tk5qZFJkRU92cGRib2xXaWxqbHI0R1dZMVg1SkpOMFdB?=
- =?utf-8?B?NStIMlIzUG9NVUZndm1INGhrNjRwYjhFc25sSzZ4cmQ3VkNMNFN6NnJ1a2lY?=
- =?utf-8?B?dnBhWVlOYkY4R2dHOHViRVd0UWNBaEExL3NyckdqdDVucWRROHlBN3QycEJz?=
- =?utf-8?B?NFB6ZUhSUmtTOFlvT3pZc2FRYjRzdVhEZWNPT21CNHhUR2JybVdheFVZT0N0?=
- =?utf-8?B?SWwxK1ZRNlpaMzdKeGRVWHZwWGxRVWZQSXB0VFdhTmNENCtabWJFbFlhVndS?=
- =?utf-8?B?c1BoMEFrRkpic1FNS0RLUU84MEY3bkxqUERGVGc3OE9pUDRRNmZWY2lrYWNx?=
- =?utf-8?B?M1BCVFV0Qnp3Ny9TcHhpdmJLZzQ4b2ZKeXpPRnhSWmVDNFBUdStFaWNMb3U5?=
- =?utf-8?B?UHY0dHN2Z1Frak5vN3RoZDVFbmN1RWRCOFZIWWo0YlRSUFpIWmNoUmdSMk90?=
- =?utf-8?B?RDZnV3hwRkgrUU9xK3ZEQ3Y3OXFpT3BPazlWNGo4SitEeEhwMHZGRHBqb2ov?=
- =?utf-8?B?eCtIWm9zTDYzQTAzeGF0UUJ2RXE0eHh4MEI5RDkwRzFYSVBRNE5IRCtYQnlw?=
- =?utf-8?B?b1ZjcUsxRU5WcTlYM2luNHlHTHVXQU9tUnV1eklCdGFvTTkrSjZ2NVY5UEdK?=
- =?utf-8?B?YldBTjFXQzhFUytWK0FFamRGbldwc1g3VElUV0U1SmhaV2hVUGt5bUVDNG1U?=
- =?utf-8?B?d3VxLytOcGNETFRNUEd6bEl3anNGZ2hTeGF3clplNUVXaXBtWnY1bEIzMkR4?=
- =?utf-8?B?NnZnZ1pTd1hTUDJUbUtBUC9WWTFqZmZ2cldieHVTRkpMakxBTUo5aDBvV0Yy?=
- =?utf-8?B?alJZT09VVk9PWDV0STMwdmFEWjB6TE5BSGFHd3JtQk0wL2F1dXhQKzRIWGx5?=
- =?utf-8?B?TkQwenZFQXlNMFpXeGcrQzlGaUwzSmVkZWZqTVJHbUQ5eUVoSDZQUW5HLy8x?=
- =?utf-8?B?Z2pWblZqbGZpempOR1Z2bmpxWUxGSHhMR3NMdkxjUWkwZ2VPbVB6SlRrWGFh?=
- =?utf-8?B?aDJkWCt2RytIaTU0WWJWVUM1L2xpYXdDZ2U1a1BiY0NYMFFWcVR0K0psVWdD?=
- =?utf-8?B?U21WRzlPMnB3bytQY1d5MXB3SjIvSlZRTzF0Q2dXQnY4NzZHRjJFUTF3czJz?=
- =?utf-8?B?SXRmZlJZNWMxSiszRFVpQXhMWnBaU0J5NjliWHV6OG5GeDViamFMbjB6dkZx?=
- =?utf-8?B?RDBwdGxMc3ErUzNQVTV2eWZCU1VWZExJeHdXQVFML2YyM3NGU3YrYUMrUXBn?=
- =?utf-8?B?Tlc4c0hqYWxDamtmSUZuenRVS3VYbWkwdC9JUWFTbFVoRkVBeThjb3VGWkpk?=
- =?utf-8?B?dlp6MUVGL1JSTGFaMGxFTXh1SjllWjYrcE9ZVk8rVGRQNGdtbzBLTVlUcEgw?=
- =?utf-8?B?THRpNnE5aG1Fb2VSaEptR3F5c2JtN1dBU2dZbHB5VWFDUHYrdHVlajBqOHll?=
- =?utf-8?B?VDZvaGxxc2RZTXo3aE1nVzd4aG5nTHpCZkJEdGVGRjBmQ2FNUFBqaGRmUnZw?=
- =?utf-8?B?dFJmM3lhSXBuZmZKWHFlQVFteVFWUjQrZ1VTQytkZlB5OXhmNmluRkhUTERq?=
- =?utf-8?B?ZmNYK2htektucFVoQTBaaDArNThocnY3NHJGamMxcTBYNDlxSVovRHVHcGp5?=
- =?utf-8?B?L2FmYW1qUGNrbDBZSGxDaVZjcVI5MHAvZ0lhbHo5bWFaWis2NVNOT3oyTkJ0?=
- =?utf-8?B?N3l0V0ZyOUxPeFFJN1YvVitZbkgzSnJRbzlEN2QwVkFrdWRLa09UMndYM0ti?=
- =?utf-8?B?bnRTdjBrWU91dGpuUUFMWTVwTXRqVmtTbzRzN2FZVURRR2lYbkFuQXFSZXc5?=
- =?utf-8?B?OVJJcWFCRTkvenJXSUlIMUttQmh1S3l2MUxaNGJRcjA2bFBHZU1vUmREYWxQ?=
- =?utf-8?B?akVKaTNHT3grUS94anhZT2lZT2lQMVE4R0xuYnBzeE1TNUd3TC9SdUxmRHVl?=
- =?utf-8?B?UUVHNHB4eGNCZmt5Z0UzM0JNZlVOb3FIenBlbytMWVFwcE56aHFUa3UyZys5?=
- =?utf-8?B?dnJYMldUQjhwMHBiRjZMNE5lNmR0eFNKejV5R2wyY0tLbGJoT2p2U1FUTERF?=
- =?utf-8?B?eGkvUnBGTDZSanFiTDFEdzRvUTViTFo1MHhzVXBhVlJEaEVBMUthZU0zTU9x?=
- =?utf-8?B?OTBiV21NL1p3NzJKUTRxbjBvcnR4d2NZSnFPemtiaGJObEZGUHh2SW5wNXl2?=
- =?utf-8?B?N2F1UkJpbGoyU1dISkh2T0V4aHVraWFYWjU5bmJUTHQ4dHdlVGNvelRlbGlj?=
- =?utf-8?B?OWlDWUdHNXBjaDBwbUNQdjVMN2xjY2d1VDJJM3JxMzlMaDNoQmVlTTN3NjBY?=
- =?utf-8?B?bmhsZWI3bVB6ajFDVGFFaVVpYVBySHU4RXErSUVydnFNMUlhVUk5UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 521edfea-f057-440d-34ce-08df3107a69e
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 13:15:04.1637
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /CAv6wCaaMw7JgFMcYxXp85tvE37qkIduBp8VmqYjnlyRSGbZtfHayMGKODNfWTUXzE/6sjADssOo25RlBZ/3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR12MB074433
 
-On 21.10.26 07:19, jiabin deng wrote:
-> Hi Dragos,
-> 
-> I applied your suggested change to `rq_end_pad_mode()` on the receiver
-> and reran the standalone GPU-memory reproducer I sent previously. With
-> MTU set to 1500, the single-direction test covered eight message
-> sizes, with 50 transfers per size, for a total of 400 transfers.
-> 
-> All 400 transfers completed successfully. Full payload comparisons
-> found zero failing cases, zero incorrect bytes, and zero corrupted
-> intervals. The zero-prefix corruption observed in the earlier tests
-> did not recur in this patched run.
-> 
-> Thank you for continuing to investigate this issue and for suggesting
-> the fix. I also greatly appreciate the time and effort you and the
-> other maintainers dedicate to the open-source community. As a student,
-> I am excited to have the opportunity to contribute to the community
-> and to learn from this process.
-> 
-Thank you for your good analysis and fast response!
 
-> I would be happy to help prepare a formal patch with the test results.
-> Would you prefer to submit the fix yourself, or would it be helpful
-> for me to prepare and submit it based on your suggested change?
-> 
-I am still waiting for input from the HW folks to understand if this
-change is needed for all SHAMPO cases or only specific P2P DMA
-cases.
+--=-2Xx+Uh8xlyaOkQPPjVUs
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I think you should submit the fix as you did most of the work. Just
-give me some time to check the above. I'll ping you hopefully next
-week.
+Hi,
 
-Thanks,
-Dragos
+Le vendredi 23 octobre 2026 =C3=A0 17:11 +0400, Alex Kazinsky a =C3=A9crit=
+=C2=A0:
+> The watchdog can finish the current job before the threaded IRQ handler
+> retrieves its context. In that case, v4l2_m2m_get_curr_priv() returns NUL=
+L,
+> but the variant IRQ handlers unconditionally dereference ctx->dev.
+>=20
+> Pass the device pointer to the variant IRQ handlers independently of the
+> context. Clear the interrupt status and, for VDPU383, disable interrupts
+> before returning if no current context exists. This avoids dereferencing
+> NULL while still acknowledging the interrupt.
+>=20
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Can you share you proof of concept please. Can be private if you plane to
+produce a CVE report.
+
+Nicolas
+
+>=20
+> Fixes: f9c7b7deeffd ("media: rkvdec: Support per-variant interrupt handle=
+r")
+> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+> ---
+>  .../media/platform/rockchip/rkvdec/rkvdec.c   | 23 +++++++++++++------
+>  .../media/platform/rockchip/rkvdec/rkvdec.h   |  4 +++-
+>  2 files changed, 19 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
+dia/platform/rockchip/rkvdec/rkvdec.c
+> index 061281f903f3..02f6a574a8eb 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> @@ -1434,15 +1434,18 @@ static void rkvdec_iommu_restore(struct rkvdec_de=
+v *rkvdec)
+>  	}
+>  }
+> =20
+> -static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
+> +static irqreturn_t rk3399_irq_handler(struct rkvdec_dev *rkvdec,
+> +				    struct rkvdec_ctx *ctx)
+>  {
+> -	struct rkvdec_dev *rkvdec =3D ctx->dev;
+>  	enum vb2_buffer_state state;
+>  	u32 status;
+> =20
+>  	status =3D readl(rkvdec->regs + RKVDEC_REG_INTERRUPT);
+>  	writel(0, rkvdec->regs + RKVDEC_REG_INTERRUPT);
+> =20
+> +	if (!ctx)
+> +		return IRQ_HANDLED;
+> +
+>  	if (status & RKVDEC_RDY_STA) {
+>  		state =3D VB2_BUF_STATE_DONE;
+>  	} else {
+> @@ -1457,9 +1460,9 @@ static irqreturn_t rk3399_irq_handler(struct rkvdec=
+_ctx *ctx)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> -static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
+> +static irqreturn_t vdpu381_irq_handler(struct rkvdec_dev *rkvdec,
+> +				    struct rkvdec_ctx *ctx)
+>  {
+> -	struct rkvdec_dev *rkvdec =3D ctx->dev;
+>  	enum vb2_buffer_state state;
+>  	bool need_reset =3D 0;
+>  	u32 status;
+> @@ -1467,6 +1470,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvde=
+c_ctx *ctx)
+>  	status =3D readl(rkvdec->regs + VDPU381_REG_STA_INT);
+>  	writel(0, rkvdec->regs + VDPU381_REG_STA_INT);
+> =20
+> +	if (!ctx)
+> +		return IRQ_HANDLED;
+> +
+>  	if (status & VDPU381_STA_INT_DEC_RDY_STA) {
+>  		state =3D VB2_BUF_STATE_DONE;
+>  	} else {
+> @@ -1486,9 +1492,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvde=
+c_ctx *ctx)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> -static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
+> +static irqreturn_t vdpu383_irq_handler(struct rkvdec_dev *rkvdec,
+> +				    struct rkvdec_ctx *ctx)
+>  {
+> -	struct rkvdec_dev *rkvdec =3D ctx->dev;
+>  	enum vb2_buffer_state state;
+>  	bool need_reset =3D 0;
+>  	u32 status;
+> @@ -1499,6 +1505,9 @@ static irqreturn_t vdpu383_irq_handler(struct rkvde=
+c_ctx *ctx)
+>  	writel(FIELD_PREP_WM16(VDPU383_INT_EN_IRQ | VDPU383_INT_EN_LINE_IRQ, 0)=
+,
+>  	       rkvdec->link + VDPU383_LINK_INT_EN);
+> =20
+> +	if (!ctx)
+> +		return IRQ_HANDLED;
+> +
+>  	if (status & VDPU383_STA_INT_DEC_RDY_STA) {
+>  		state =3D VB2_BUF_STATE_DONE;
+>  	} else {
+> @@ -1521,7 +1530,7 @@ static irqreturn_t rkvdec_irq_handler(int irq, void=
+ *priv)
+>  	struct rkvdec_ctx *ctx =3D v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
+>  	const struct rkvdec_variant *variant =3D rkvdec->variant;
+> =20
+> -	return variant->ops->irq_handler(ctx);
+> +	return variant->ops->irq_handler(rkvdec, ctx);
+>  }
+> =20
+>  /*
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/me=
+dia/platform/rockchip/rkvdec/rkvdec.h
+> index a24be6638b6b..2e03ff6e33d7 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+> @@ -30,6 +30,7 @@
+>  #define RKVDEC_8K_PIXELS		(7680 * 4320)
+> =20
+>  struct rkvdec_ctx;
+> +struct rkvdec_dev;
+>  struct rkvdec_rcb_config;
+> =20
+>  struct rkvdec_ctrl_desc {
+> @@ -72,7 +73,8 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
+>  }
+> =20
+>  struct rkvdec_variant_ops {
+> -	irqreturn_t (*irq_handler)(struct rkvdec_ctx *ctx);
+> +	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec,
+> +			   struct rkvdec_ctx *ctx);
+>  	u32 (*colmv_size)(u16 width, u16 height);
+>  	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int=
+ row_length);
+>  };
+
+--=-2Xx+Uh8xlyaOkQPPjVUs
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCattd6QAKCRDZQZRRKWBy
+9A63AQCzB1vOPXb+suCMJtgFXZ+FyF52FIA1oEvASku+5T9XhwEA2+XxwSKL6qQW
+f2xjl5mboiTCt6Q3GwRAsVGr7FNmcgE=
+=gi8E
+-----END PGP SIGNATURE-----
+
+--=-2Xx+Uh8xlyaOkQPPjVUs--
