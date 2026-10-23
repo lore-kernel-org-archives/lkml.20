@@ -1,75 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744121;
-	b=NTap+KV2PMgU53WF/eGVKW0Mk/cQxEBjp6wAKropyZbbEJlgmTF3zPQqoA8oYkPY7KZ4
-	 DRM/hidKrHufbuIo3PdTFKxOVVOwjMKuMMtD01aR8jnNM6LfQFu/DkaWRhJlctxl75/Ks
-	 a7suaXX3vwSeWDaISfr+xVpW0Rsfl2O+NJcgg3se2bPu7QPyi//7kXfotFEmWNuhpA8mM
-	 wNz8jQpofasa7W5YZ6WdJnJQFOdx0Yt+crkb4gc7m2Ab4PWOp+d2/Gt4j3O+gnyhjnJ6J
-	 ICIjRVIPP9FBl49e2+4Zu7k3PvatMI++En/gn/JmFGtsXgxt43Ma444Hv6OawbOv8Hg==
+	t=1792744198;
+	b=M+UdHgHtU2Z093zndNpyzqnqt4H747vn6j8tOca85RdD5f8mYiVW3ujrgJWzLnmiRzGE
+	 3StPRQyZgCnd7bg3VF7btrlthZWrTMPI6zbckes5SRpZLudZSq6TGbj331JfhQoLlTqYu
+	 lVKmStQYGte/lU++fnFEyyZuJQYv9JW7Gvmkfwhnk0SnE9GzPMjrh79W0EC8zwqegkCnw
+	 NadRl3fU79W+GchaWWspW9UMYGEllgm+Dnc2aINEIRNNs/78SgTxvvmC3NJb/VcZF1G9t
+	 DcYyA9iDKkDnYRdnRRpSm5rkRUmZh1jb7rf2Yqu8WJcfQBYOt+hgtBy82KTly7+yddQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792744198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
-	b=0o2xjHfQwTBz99LlrH6+1A5Yd66r4aF2cHgGvwodO+cRLlestFzPkr9bL0nGXKx6RPFb
-	 cw/FlJeKdiPcKO7sPpqVnt8bJHH1EzFafbhtxWN8XsuQuxdQUS67pEBX+yTS9Zkszlk3i
-	 L73LeqVTRsFLnY+/jG7AkQwT3rJ50yP6a1qSnP5g5XXJiTiQGv5ESclfCtRPwr5UjdWa+
-	 z130oQYcuON78AWB82jlEY21l5g6gaOBsx8v/OAyesA8SKF4SKJU3w1Nnmfqe9gUf5ahX
-	 hZIMHKy3Bg0qLAyTCzBr3HBDV5NqhCtFEVv3ZhrsPJIyhJbaZD6QKmcqiKvutPc3ISg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
+	b=cTQtTVEnHqDkU0vxtkSoTHJ8z0X/+eRA5dNzeGT231IL85crcdJOGJQl1v1KAEjpDl4Y
+	 78G+0qksDtcgzLVB52kvmVNZR+zkA+ScaSorlKnNA6Jyjr4kaQmsamrjE9LBZl6SzeKco
+	 vOciWtdsrTIQMxAKyKx1pPV61pRtNEf1htCMZdUJ1+paKCuobfh51I92sWxP4jFtkejiT
+	 D+YdYDrlbJk0JnKivMzXrPSnewPz80y0mAqqp+4FAHSJgeAEGYbsmk8daS22NTdkfNll7
+	 BS6cFEyHqTZDsBkkJdTd6wOObShdSquyKs0DjpzxuhszUX0WOB3m50MyNIEzRPW08Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mNwxaodE;
-	arc=none smtp.remote-ip=209.85.128.71
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJiBVQfh;
+	arc=none smtp.remote-ip=74.125.229.2
+Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:28:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0804F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88ABB606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:29:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88ABB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mNwxaodE
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2063be13dso4903445e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:28:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJiBVQfh
+Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-327b1d5824fso583985eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792744119; x=1793348919; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
-        b=mNwxaodE9bZuAnhXe+WT9zRnXBtbmwacb2OJOqAkwdefSt8/FPlGrZ3K5na00KrD4U
-         AbwBMxY6CiHA/ZtTI2lrjxMXGbBSpVT3fu4vMQ/OCT2S638fsdtcowjOvZ+D+X5nZsuX
-         mxed/jjllXqKhGN/ebC0BOIvMANBngXH6W/+hB1ug5s0T/O4y76Gj/2CdgxEtvq8VtIy
-         OzLpQb6yK/XM+uwvYXE0QOLkcqTJTRGGqBpN/yNTvrOZCiBX8qF4JUv+3dE3UD8ugYpe
-         UJ9Vo1m0ifEK0mqvfNFNACEl8BmusbsTuBZyMs0PBS6K2qVlMi15Un9X9A4uvjwd8gOs
-         3lkw==
+        d=gmail.com; s=20251104; t=1792744198; x=1793348998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
+        b=IJiBVQfh33WgHPia3uVLnfpZvdwF6EZecy2uYH3jBNFdjsrFYFedic8cZchvyjTmn+
+         b5WkwLUEVYlfkVYilk6xpX2kmct3p55Rh9HFVmtX7YJFQK27TqObmvPwir42YPRveSTf
+         ci7OOLzI4ZR+fz53GxDwbyIpId0XVumGlM4bIcteU4oosxyhK5qBZxE3Fnu4p9TqPl2R
+         2MJMhhX4wMXjURHwVhbeMHplbpB7y/XpEUNdlrxzkJlA/rgd6i9lqK4e0w/FKPpr1leR
+         hNtFtq7mAAQS3qSmqjcxDma23llwdIBdgG5KwA1AGSZqQLRg9GV/FFopvveTLpR+UbE5
+         T4qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792744119; x=1793348919;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792744198; x=1793348998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JZl+HfrWAJtYCbAOILKeb7E857EVkTmoggdAs0Ji4mw=;
-        b=S2ro/pfWEPy9zbyRVpyUYAd8A8nqiSlYA7aQi3KfPb5jWpNvINurldaMPwWU5Y2jsn
-         kM8p48W/jNSnzRhOVuZi9TQfYAxSXQyGUlBr7cPDFnkR5A+KeIV22dTgwLG9Xg+vh583
-         gO+aLk1O2GC4asRVm1POMcvX+H8I+TpTDA0+GJKEpPHToiV6AhiY7byOYHG6wF1/b+WF
-         Kq0C2pjC7XlQFdkRrAlrxPf7I1ng7F9j164e87bYFUzCIDJPGIzbWvAvs0g5R6csPSw7
-         VFlFGJKrcSUl6JSJSOjXcpXgVVueYE6CSofmmp+TY9YW7BJWr2FOUqiBWbEyiVwiOMvk
-         Zi1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzknHoU8Y2TFrYeE4TjviiQx8sQ0Zo2UMARI05Nta/fDes0dEi7vkX9AA53ABCtgY/llWVV21TIijuVWkA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbp8NfU99jZjMtlcN7bxL4TTz2xH2BA6e9mVV3bH+8gstX2ASw
-	CWPyjeS908zgTzymBHKyUalBVXJOxu41dOFFG10w/YrIzSqdkiwh+MWyv1Xc54uo5mBbf9k4sXp
-	NbdfIPViJ4kbK2tCljQ==
-X-Received: from wmc9.prod.google.com ([2002:a05:600c:6009:b0:4a2:d3e:ee4a])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e8a:b0:4a1:e7ce:10a4 with SMTP id 5b1f17b1804b1-4a211eebdc3mr25679015e9.29.1792744119032;
- Fri, 23 Oct 2026 01:28:39 -0700 (PDT)
-Date: Fri, 23 Oct 2026 08:28:37 +0000
-In-Reply-To: <DM9O11JY63Q2.1U3PB5GL0JYOQ@garyguo.net>
+        bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
+        b=PxPtra0CupLydAWfKWoY5NHoVP+EMLpgYAWmQW1LGowhV6vL1VDKYo6FibNERoCPD5
+         ql7uHfPDQSXM9oqh7whCFn8LYdiXMJPXMbpc5pKgus/u4R0gWrZZdR2GalwW5H7I8skM
+         gYcbkkp7Ri7jgjX4A3t0mCC1U0KOgomm6kGmTjKjOkAD5MY5P2lEVqRNvcNuwjB5NyJZ
+         pu8057SJzMkc50+ShS71OlnlEu4L4LcI5KbS3TEurrM6TSy7XBIoAXddzDRw1VoKSzEh
+         +2wXgCCI4h5VW25VX8No85O91tbzrn1lHUoi5BiSdPlgh8j+T/ogueQ3csmowswTtWCf
+         UPwA==
+X-Forwarded-Encrypted: i=1; AKwUvByRNjG4aws8kmpOfud7/S1EmUTwGTOP0Xvtjk2gGRJQWrujZziAfQQ5wB2xafP9gYMgF81fRtQBuMyLyiw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK77Vb0cH/vPhM6DQ6N3OsKa3PSCeTbORRlCRSAf60yDFaYaM99
+	PcQgoq2zk6UNPFfFdHNmpBTMWwDMZtGD6IQQAI8sg9oHEXAVcihrBVnc
+X-Gm-Gg: AYBFou0GFAJDobGaD+iGF/+ZObts46a2EUPBbspt88//NxQp34W2s22gsHFe3W6vdcW
+	d0eEF+YZVWzi72za6oOusNb0H9fnZPZlMB31SfgfZm3O9aq2kFPFqOp1wv67FfJxbj72FlzFF7l
+	kzjgzNAXxmayU14m1wk2OuV+4rrX9mGwhJ8WpN0I+JjMNRM9VyTLVWs/Wands1O6zSJEozuyBE/
+	ZVHPW3q9HQGfMY5TxmfBv5VV/H1iHuwx9zXCwrUiXa4a9LSZgRsKfO5RwtlNKfj6D4LTW+nxGNe
+	oaAu5JCaqg5gEUHthN+GmNBEOCUYVQQhN7cDOFojqYyxc6P4wnRI2wYAA17rzcuizKPaS0yX0Y8
+	YAysDQGzoIFGWVE2vlyRUNo7Y5hqnGu0j5GfamVNS+GWwGIkdAOLVzfVY81R0rwpeNOoZLVvbQl
+	DbgZD+BZ8xk2Dhs249Pvfl0Wo93Ahnwdz8zmvY4SkkO9TeW6t9B1saOv87Pb3pxnRnsnwK66GKC
+	JF6CPyJQ2kweEmx895Niyj6H9qP9HmJLSx3Ys9lUCzoAu32IKkooBY=
+X-Received: by 2002:a05:7300:a225:b0:351:6b27:d67d with SMTP id 5a478bee46e88-369d9802e3amr1997730eec.30.1792744197389;
+        Fri, 23 Oct 2026 01:29:57 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9a72ff2sm4847349eec.0.2026.10.23.01.29.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 01:29:56 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Kevin Hilman <khilman@baylibre.com>,
+	Roger Lu <roger.lu@mediatek.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Coia Prant <coiaprant@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: mediatek: SVS: fix device reference leak in svs_add_device_link()
+Date: Fri, 23 Oct 2026 16:29:48 +0800
+Message-ID: <20261023082948.1854252-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,49 +98,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com> <DM9O11JY63Q2.1U3PB5GL0JYOQ@garyguo.net>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023082837.1250172-1-aliceryhl@google.com>
-Subject: Re: [PATCH] rust: drm: gem: shmem: do not leak pages when sg_table() fails
-From: Alice Ryhl <aliceryhl@google.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Alice Ryhl <aliceryhl@google.com>, Sami Tolvanen <samitolvanen@google.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 01:31:03PM +0100, Gary Guo wrote:
-> On Mon Oct 19, 2026 at 9:21 PM BST, Sami Tolvanen via B4 Relay wrote:
-> > From: Sami Tolvanen <samitolvanen@google.com>
-> >
-> > `SGTableMap::new()` takes a pages reference and maps the table before
-> > `Devres::new()` allocates. If the allocation fails, dropping the map
-> > frees the table but keeps the reference, and the next `sg_table()`
-> > takes another one. `drm_gem_shmem_release()` puts only one, so the
-> > pages leak.
-> 
-> Sorry, could you explain it in more detail?
-> 
-> Creating a SGTableMap and dropping it doesn't restore the state? If so, it
-> sounds like an API design issue.
+svs_add_device_link() calls svs_get_subsys_device(), which returns a
+device with a reference taken by of_find_device_by_node(). If either of
+the subsequent checks fails, the function returns an error pointer
+without dropping that reference, and the caller only checks IS_ERR() and
+bails out, so the reference is leaked on every -EPROBE_DEFER.
 
-Yes, there are really two bugs here:
+Both error paths can be hit in practice: device_link_add() returns NULL
+when the link would create a reverse dependency or on allocation
+failure, and the supplier status check fails whenever the supplier has
+not bound yet.
 
-1. `SGTableMap::new()` returns `Result<Self, Error>` instead of using
-   `init_scope()`, so `drm_gem_shmem_get_pages_sgt()` runs eagerly before
-   `Devres::new()` allocates.
-2. `SGTableMap::drop()` (`__drm_gem_shmem_free_sgt_locked()`) unmaps and
-   frees `shmem->sgt` without dropping the `pages_use_count` reference
-   taken by `drm_gem_shmem_get_pages_sgt()`.
+Drop the reference before returning on both paths.
 
-I'll go ahead and merge this patch since it fixes the first bug, unless
-I hear any complaints.
+While at it, note that the return value of device_link_add() is only
+used to detect failure. Managed links are owned by the driver core, so
+the driver must not keep or dereference the struct device_link pointer
+to inspect the supplier state; read dev->links.status directly instead.
 
-Alice
+Fixes: 681a02e95000 ("soc: mediatek: SVS: introduce MTK SVS engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
+---
+ drivers/soc/mediatek/mtk-svs.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/soc/mediatek/mtk-svs.c b/drivers/soc/mediatek/mtk-svs.c
+index 99edecb204f25..fecb09b9185c2 100644
+--- a/drivers/soc/mediatek/mtk-svs.c
++++ b/drivers/soc/mediatek/mtk-svs.c
+@@ -2145,21 +2145,21 @@ static struct device *svs_add_device_link(struct svs_platform *svsp,
+ 					  const char *node_name)
+ {
+ 	struct device *dev;
+-	struct device_link *sup_link;
+ 
+ 	dev = svs_get_subsys_device(svsp, node_name);
+ 	if (IS_ERR(dev))
+ 		return dev;
+ 
+-	sup_link = device_link_add(svsp->dev, dev,
+-				   DL_FLAG_AUTOREMOVE_CONSUMER);
+-	if (!sup_link) {
+-		dev_err(svsp->dev, "sup_link is NULL\n");
++	if (!device_link_add(svsp->dev, dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
++		dev_err(svsp->dev, "device_link_add returns NULL\n");
++		put_device(dev);
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	if (sup_link->supplier->links.status != DL_DEV_DRIVER_BOUND)
++	if (READ_ONCE(dev->links.status) != DL_DEV_DRIVER_BOUND) {
++		put_device(dev);
+ 		return ERR_PTR(-EPROBE_DEFER);
++	}
+ 
+ 	return dev;
+ }
+-- 
+2.47.3
+
