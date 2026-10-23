@@ -1,92 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792714360;
-	b=J7q6tan6ywuIpR8hY+aZFm1ahmkz/2nw3JBLTFslbqoRbqhHiZDJSwFffPOk3mtGADmM
-	 zLef8Qyz0iPeZO75zqtZsqT+EYzVio1WKvUQDDeMp9tUXXfu7I/ibDDB5lS1a4x6OcGwH
-	 eQrl/tj/qlqPDLSA+iy//cIy/I61nNgbrs+kqFnzKHOvghK3DJ10UblWj8bBFcVmC6Oxy
-	 SDqdGTpRxf0EV4uhib4JjpIPU3ApdUYYdEzInuKgxXpe12E27bWiouo6D1h7uVdfsd66m
-	 InQY1f4mt//eyb6r+GlLOqqWoPzSiP/0yKLpapT+6gOKeIpTy7AaUeIwaj4cQZXlTmA==
+	t=1792714494;
+	b=rKg5rQpUJ/p9KMeu/w4tK2/2/LxVrZGG8922qZ4nUeqpKbz8TxgBFLQGSYk0+JuXTgQK
+	 +yvymXh3zTV2i6TbH3znZISfT0/xvm6U0HQ3E6b1GWuJMChuXQvSgVZ+QsLSHVFuTwmR9
+	 9AQvLmze5/WykYnDWfm2XpRjF4wQfA5pqp7g3EHc6YmwIYfd7yy66tIwKfpWRU95Slc09
+	 raU5Aj54Q2FLu4wJ85Gb4dXbLaQq49J6z90zknvn8+0NSiWIFp4QWFzOmZkt03XJQvshS
+	 LpZe7TdhO65Mve3EOpFwHsYplYHf7ZIDvNmc9IcEMPv8OJfOAbzt7GN27Q2IkhM2WUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792714360;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:In-Reply-To:
-	 References:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type;
-	bh=o7AUohbGGUYWehwvXPNQa29TKzcuBRBjfzuu7lokhsc=;
-	b=KUaQdK+7ixULvhg9OxllMDgaqU9PJ5XSfZRvFBB9/ocW1Y3PJe5Eaii+xGyl7B0n+Iot
-	 +kYw+4gCX3nJPzJ/emADivXN9AS+v6LhMZqjEh6AFZdkaw7ExSpCkm0ht/273fCTvEuDf
-	 9pqFYo8YeVaI0G0MUv/XSv+WocfVAO1g0ztMAau8OW8Y/cGubAcTLUCSzCzFVS+8WQEBv
-	 5XMGEE/8+Xu3eZd7u+JYVl3jyHIXCNOL6va2CEiIw3TEM5cmN8w2AXTp9hGhEyF5/zYKZ
-	 37lLkTXvnmGD/5D7iZzlzpLPMFTf2DiDf58klpUyuV1ZUrvqFk6UywxY7wkkDM972nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792714494;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lrbvJq8CZZ1i5CdJCdGc3rMDa2+2t/qQi1YR2f+7yBo=;
+	b=0vT9VKJ/dQ1rvNLCMjlAypOMdejlytr1GmcSXpZIudpb6Jks4uPgN/NF8WmpwhIa4Pz9
+	 VJsjdWrgYbrk6WKOcxGLEAMPGZvDIZD8T7Z11VDzMcxgCOYfLHb82IYubF2b90dx8yRps
+	 0iJzHdBgOdfLfSKRhjDKi6ymz9m/3X9+miT5pKFDaqVj+fTw3LC7beaqFPwB+ysL6q5P3
+	 D3QYYiUXCwvSJ16qJ/8O/5+JlCFV13rhDyUNgTfT5oZ6eOWKMQxAB6E7XIMa+M33yqb4z
+	 /QaJgYu33OxN23OG2li1PzTkZQKUxZ6ubYqBVt7wq5muJmkngJHiE97pQtASERUvLEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=accountshq.co;
-	spf=pass smtp.mailfrom=accountshq.co;
-	dkim=pass header.d=accountshq.co header.i=@accountshq.co header.a=rsa-sha256 header.s=google header.b=kRPNVSak;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b="m60/nwHU";
+	arc=none smtp.remote-ip=91.218.175.83
+Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A68606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A68606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=accountshq.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=accountshq.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92AA606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92AA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=accountshq.co header.i=@accountshq.co header.a=rsa-sha256 header.s=google header.b=kRPNVSak
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so471328c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:12:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=accountshq.co; s=google; t=1792714359; x=1793319159; darn=vger.kernel.org;
-        h=content-type:mime-version:date:content-transfer-encoding:message-id
-         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o7AUohbGGUYWehwvXPNQa29TKzcuBRBjfzuu7lokhsc=;
-        b=kRPNVSakfPFjUAevnWOhm2l0uE4QpbUF7GAyp4c4ZkgmQqdxNn8TestRe5ewtE86EL
-         Cw0CbmJuXkSMEUH6WgY1pS/KjL7rO9F8LGLxWpCqItsz9OZ7IOJrIWF8yUltr31Exm3+
-         pnMl1I5lPCAwPimeLfw4RgSl2b5aqdnYrooGVIBHcRDof+f/9t1TCngBbbIreraMJEC7
-         JB8kqSUPPLGUqUKSZMScqwcRjzxRCYgJrClYMN6+43/K+VN4dUEJAIB8h9lVfcpENEUw
-         eRlLxcyMUwOYJ2/W8xCevVJjmlHYM2eKLFLi9fJ4GXOP+8GD3j/rHK2W1B+IFb+QTSK5
-         SOhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792714359; x=1793319159;
-        h=content-type:mime-version:date:content-transfer-encoding:message-id
-         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o7AUohbGGUYWehwvXPNQa29TKzcuBRBjfzuu7lokhsc=;
-        b=iVCKvChHTHmqqIE9HtMrSisNR6UDCDxHjsCHIxGZBrMiPufpjSUl7aJAeze40qVc2d
-         f7TFuI0xZIWW4wiHDiJWes/Ja8SRL074MJZPndvbdmRkjK4hpSPyqm7ZhZwL7ImjQNOa
-         LY554GcOdTTO5UYvlGEobRdmimGL1UXySFmer3HamhVi07TlFlLi83rcQDNqj4Nut5DK
-         /nOamPxSNhCcJnKUblpGSV0CrbJZH3lL2HyibwL0whoLxwSAIFo/X1yJq6kOwfXYw2Lm
-         v0AjvW4EVhmvur3ArC9o+MFcCtzJLtH80itSlWgzMTGYWPJ0zmzunANMM4rw2zhSbZ4m
-         xEcA==
-X-Gm-Message-State: AFq9FYLP6hT7gNH89L0H7bLtezKrDizWj8kECMue0Ry8Mov1hWUgcWh6
-	TAa5cxhvoA3o1rvFVidP3qoErhTrZ3annQUO/n64iisBJJFmYfuvz91cMPKc9PncEx0M2yHT23E
-	L0ZTInw==
-X-Gm-Gg: AYBFou0YQ3tHl74noy4ah2s7AOA8hbty5LMLt8M4BLC94UHWs29kCwEKaQyTKghI7nr
-	reKYSWuzXCQ738LRCsupwqBQe59r6ipCK17w2Q/iZ2dxPdxqCDkOz86fIZjETHFYXTcmxa1MGQd
-	J4FtFx9W2g0ezuKLjhGyWko8xaVbswzGiReKXaCX3eTh5K6rQ8i3yNT9e1ICozhfTgPvTIajKAV
-	lfXlh3UF9UUJFOpaLs+kdOV9/JJuKPgAAYpbmSBk9GR9eT/otVzHsK+2gATbwb6oUZrR4Nf/Rtq
-	/DTqgZlPaeXdVgfOrT0QJxSMGCsoI5eS8pzUzYa5yl+xdR8NSw/tejcsWRT/abKQjAzss7mInqZ
-	K0ENyYaFzao/izGcQmZi0CeyEOJZJM1xN4Subfst1Hs0MqzGaWSBCFm3pNOf5ajg4u3BP803og+
-	aa+t+ExJ8pGsqPGpJGEEcw/rVx0kmlS9MPRnXy4tWGaevzwwh1fBbh410jwOlAKKGRx869H8TQG
-	1u1kFhVlDA9/gBi2nDan6ZNPwGVOeW5T1pDdYZvX+eBQAOIzechjbyVV4jxUo6qcAsv/Iiw38fZ
-	bX/YGQuvJaCwU1CZbQG91NQbm8JMdI95G0gWEEv8VeBcBZA=
-X-Received: by 2002:a05:7022:1183:b0:18c:640f:7f48 with SMTP id a92af1059eb24-195c7c753d6mr832262c88.44.1792714358563;
-        Thu, 22 Oct 2026 17:12:38 -0700 (PDT)
-Received: from accountshq.co (ec2-13-208-223-1.ap-northeast-3.compute.amazonaws.com. [13.208.223.1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9d89b1fsm1353746eec.11.2026.10.22.17.12.37
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 17:12:37 -0700 (PDT)
-From: Noah Simmons <noah@accountshq.co>
-To: linux-kernel@vger.kernel.org
-In-Reply-To: <4f11a7f0-5e8b-413a-b3fb-c90e9de64361@accountshq.co>
-References: <4f11a7f0-5e8b-413a-b3fb-c90e9de64361@accountshq.co>
-Subject: RE: Content Collaboration with somoslibres.org
-Message-ID: <64ad1a86-2aa6-4ffa-bf79-ba42d7798e4f@accountshq.co>
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 00:12:36 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=m60/nwHU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2swJGTcFLv4kEfw8FDByno5CejpjJPgPYrzDrZPo6QQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792714490; v=1; x=1793319290;
+ b=m60/nwHU6DUW1Z/1jMnLsAyKXgyN5KIrtTHBwlmm7wuYzDNBIgHjoEFkCG9n+AUlGukxeIRD
+ 4YPx/QFstIsv4aIUWImB3r36Acbi+ZCrm1pju7gvtf5gflSXDtnnU9sOcXUgwWwTJClE7ERWRyZ
+ tZSbiD/zaqqQtwu+HAgtWmniHkRYwDV0HdWhlZKFyGIIOVswoeumVxd+pY1qShfOw7+BX8lJxMU
+ O6Ooq0OkpMplKRpK15zAu1rBuG4TJqf4jvyIKCfNx/oWRKUuY4INzGZ8f6ypqQ9g4Qwq7xRs6n9
+ HkXbnm81ML7pbnhm4KtfrULoCzXRT3lJCQ5AJjbBLvdMw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0de22f02c81a06ee;
+	Fri, 23 Oct 2026 00:14:50 +0000
+X-Mizu-Trace-ID: 0de22f02c81a06ee
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f8a9d12b-c859-4d3f-82f6-d22b9eaee472@packett.cool>
+Date: Thu, 22 Oct 2026 21:14:45 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,41 +60,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: qcom: qmp-combo: Leave the USB PCS alone in DP-only
+ mode
+To: Joonhoe Kim <26rote@gmail.com>, vkoul@kernel.org
+Cc: neil.armstrong@linaro.org, mani@kernel.org,
+ konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
+ wesley.cheng@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261022165219.1368-1-26rote@gmail.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261022165219.1368-1-26rote@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello again,
 
-I know you are very busy these days.
+On 10/22/26 1:52 PM, Joonhoe Kim wrote:
+> In DP-only mode (DisplayPort pin assignments C and E) all four lanes
+> belong to the DisplayPort PHY and the USB PCS stays powered down. The
+> USB controller can still exit and re-init its PHY in this state, e.g.
+> across a system suspend that loses power. qmp_combo_usb_init() then
+> programs the USB serdes, lane and PCS tables over the DisplayPort
+> configuration and times out waiting for PHYSTATUS, and
+> qmp_combo_usb_exit() resets and powers down a PCS that is not in use.
+>
+> In DP-only mode only take and drop the common reference, but keep
+> counting the USB user, so that qmp_combo_reconfigure_phy() powers the
+> USB PCS up when the port leaves DP-only mode.
+>
+> On a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a USB-C monitor
+> in pin assignment C, resume from s2idle failed with "phy initialization
+> timed-out", the dwc3 resume returned -110 and the following xHCI resume
+> hung the system.
+Good catch. I don't think I've seen system hangs from this on Hamoa, but 
+I've had USB stop working on the ports where 4xDP+USB2 was left 
+connected during suspend..
+> Fixes: 896277138c13 ("phy: qcom: qmp-combo: register a typec mux to change the QMPPHY_MODE")
+> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+> ---
+> Tested on a 7.3-rc4 based tree, where the mux switch itself still drops
+> usb_init_count when it enters DP-only mode, so the tested change skipped
+> the count as well. This version follows the reworked mux path in
+> phy-next and is build-tested only.
+>
+>   drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 18 +++++++++++-------
+>   1 file changed, 11 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 187f0cd11f6c..6e3406d519d2 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -4459,10 +4459,12 @@ static int qmp_combo_usb_init(struct phy *phy)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = qmp_combo_usb_power_on(phy);
+> -	if (ret) {
+> -		qmp_combo_com_exit(qmp, false);
+> -		return ret;
+> +	if (qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY) {
+> +		ret = qmp_combo_usb_power_on(phy);
+> +		if (ret) {
+> +			qmp_combo_com_exit(qmp, false);
+> +			return ret;
+> +		}
+> [..]
 
-But, I would be so glad if you can take a quick look at my last mail.
+The USB4 chunk above (juuuust before the start of this diff's context) 
+does a similar thing in a different style: it increments both init_count 
+and usb_init_count and early-returns, skipping over qmp_combo_com_init 
+as well.
 
-Thank you for your interest in advance.
+I think both USB4 and DP should be written similarly but should 
+qmp_combo_com_init be skipped here? No in both cases or does USB4 skip 
+it for a good reason?
 
-On Wed, Oct 21, 2026 at 10:53 AM =
-UTC Noah Simmons <noah@accountshq.co> wrote:
+(I'm especially wondering about the impact of that on the USB HS PHY 
+clock, since it's actually sourced from here without a properly modeled 
+dependency right now…)
 
-> Hello somoslibres.org Team,
->=20
->=20
-> I hope everything is going well.
->=20
->=20
-> I=E2=80=99m reaching out on behalf of PressWhizz=C2=AE, a digital =
-marketing and SEO agency based in the US. We work with many brands that are=
- interested in publishing sponsored articles on reputable websites.
->=20
->=20
-> Could you let us know if sponsored posts are available on =
-somoslibres.org, and what your current pricing is?
->=20
->=20
-> It would also be helpful if you could share any editorial guidelines for =
-submissions. Additionally, please let us know if you allow content from =
-niches such as casino, CBD, or similar industries and the pricing for those=
- categories.
->=20
->=20
-> Looking forward to your reply.
->=20
->=20
-> Best regards,
+
+Thanks,
+~val
+
