@@ -1,97 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792782057;
-	b=4i/I6k77Mq0pEGOSqSG/yyDd5N0A76GdjjnG7rNXiY4+d22fwiGlWB5GNrh0ErVay0vQ
-	 YKueZbm8ES8hzJKsH80tWwZNbJa0E2rqYFITH54bEPGl32QRmGpTqdf/FiwOIMzA+sX8r
-	 uwNnxF5QDoTa5N0+xvQABdWjXUEX1s49NP968zp7R8sGsn7F/7lTdzwoAP/2fzbM88Xnc
-	 Pt2akYy3QaGnxs/Kwh3E2ElqS5Xyetx9Bboty2fs8JFBFKnUmjIsS8femUYkpiOEKxP9d
-	 hF18LNd7GDpkx+g5dDmkMVuFi6zJdK9cJhhT9Ok6xEhLAxcSa4v8JfUF3yR4rQv20eQ==
+	t=1792782058;
+	b=X9YUcj2Gk6Ot6bbVpZmG4OBCrEsb68lFnLWPt1+CRDjUUMTnJqMcXd7mTPvh9zLmEEc3
+	 W3aM/GECXem8osuYt5VruKR2PFdQqO5sE6BGVWWpf0gOCcpMtryWwwx2VjzdV14d0Ys8H
+	 d8JbN0YJDyxSw6NuTUwzlzxYf9vGuFpv+hUILfGVlcVtz59hdDRAtk56dpRF0R2Qdmzn5
+	 9zkATeWKHogct+MW+ba/qMwYz+ZTVGg8VsosrMl5z/3sQrrcVYhMerhTlOYTv2iSHhE+U
+	 JOcFdGqNNEzFrukPJQ5nJmTI2qOI0TZeM3SCuuRIhf3aITDlK4y3PU4qgPEqKCAJKsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782057;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782058;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
-	b=PQg8WvrrfXdhe/z55yt1BBhA3K58NVxMQ9lYIDsh4jq/YekD508J0XbguPikKbmw6iA3
-	 jjae+xanQTs3grJbSJAB37ZNYx+oPZbEEngRP+s7raRg8HIoglhX9qYXeHmyvGAgvKHe8
-	 BM2S2uKZrOybb+4QjmHsK6EUC8jxhfPwpz1tiOOyuO3mepViuAX7Uk3hwxBUSb4uJgqeH
-	 1ESXM0Fux3ibN4VAW3uM5EKiXw+CAyqGpeB6U1+ABJbE9CHC0uvPAH8OTMFR1XJ3Lm04N
-	 5kjDiV/ZwS9Mt6L01xm1v9wEKYG+l7CJyI+sIpoQaobmsP/myeijN39OFNdgKi7+6zw==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
+	b=wFRpl+VsCfUEcjnLU5+VIE2flNNpUcpi+vANw8SA4oroZbd0SdiSR6tKMZjHpGnO9zqo
+	 D02p7uirply5+fmOtDLbuk1KBSRHkEgkpF6bgW4Qw3949QqHZ5ifV9EDto4GqErd/bz10
+	 RfUYt3TQRnTRGrenw6hCjuKkwb4MLnAiOfaEWg+uOwt4NEl/ZYScTWC4sUgapHAiKLIgn
+	 HnWl1YXOhRu4rubJx4Vc0WcnrQxbklMqu+N0Y2C/V4oN+fxVC/Ao2dgmqUR9GJaR5r82f
+	 wPOBldWsvM9C7L0nRL1KEkeug8YDlHdzOIBg+fdH3tE+Ic7wsvHlIlc5vc/YTKpHBdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=b6JCFlL0;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bzc4Cg9j;
+	arc=none smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A25606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:00:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7A25606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F35606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F35606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=b6JCFlL0
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ab37e44643so8504537b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:00:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bzc4Cg9j
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53397554beaso12640381cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:00:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792782056; x=1793386856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
-        b=b6JCFlL0SqdwCfjEMHJtF0lS8SiRH5kMW/iLsLFnlq19RLPRXJXGacCrgH44nUjwvK
-         xNE8P3jRERVqMS4cOAJy94fjmARxVZyIu1dJ9uLNO3abZ8+1ySKW9OXbndYzoNZO9owx
-         bjmoRNJoMBEMkqNxwshtIO9rrp/9MxJTRAL03j6XiDTELA4rjTUyHgGRuaie/RmEXSh8
-         x0Tv2oFSw2Eg/2p3MuFqPc5BfFnF9AUGsArYJcmgcAXeCzXqwqbo2WRANYL5rKYVGhes
-         cRBX7wEXTkmQgQ/iz2RIZfaPqK5tuG6atk1ipRjM4LeF4rmGFSAKyRj4jgb/XzXkWDh/
-         q62g==
+        d=ziepe.ca; s=google; t=1792782039; x=1793386839; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
+        b=bzc4Cg9jHc+EwZ+EF2GHA00SaE7XNzyRJ2jPm8VaHgqzKDLrehIHY+5e8wqB1yH17y
+         sndSYk22aMmceP9P1fMLTu0Z4V8EzlM2RGsFmTw4gK3j741dLn2NCvrwBRx9Zs2Y9Nrl
+         IH1Flz0MwkfAlUgvicHD3GXb1HCVFF/PCxVAEn/OVSguv9eR9Zs++ljRZWXpHTqI+xAr
+         rfcFCA7qmIwN9IxX9GeYG2HRZ3YRwMSM0MH1BmgGZbTGcamONR+rAGI29PTmp5avInXD
+         sAUAnL9pEXhpYTml9nJyCuJ6EjWQTeYXwbhCn5SvYnMgGcHEU9aguEL9UamXbiSuNSk7
+         hQSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792782056; x=1793386856;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
-        b=xQaUY+9hUu8oUbdyy4Z+hU2jfHE+r8SwzdbTk5soQ64gXgeGVv8RE0w13U5yI8LRj4
-         pM/liFgnFS4Jg3XNDhB0qygG0qpnLm+17YyMnHaPhaFSCnw+GMhCXBHBy/5CsBMGRhGk
-         npMB6BsjFyerNYNcyZ8rvo5OKrCkWYg8Y6YNUqHlhUCKo6x3eCjKu4fuvz7xzuWmS5Bm
-         hFu3LITas22fGt5p5pVcP3LIXY6NK0y33m7SdJyPkFOtG+MovY5teuabjexxj6vIzm2u
-         MNuZ1nsg//dWdm5bSA4Z7+2xVn67cV0L/dMp1FnmwhJOlDHv59MoEb7loFTb4YurfRQi
-         Trkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzs2PhsN3FAOw9U2SGF3Jh3ZRmXHRDVooLX7FxMWSuRwmjq/dCw5VHNVMB1AlvuhIts0JnIGH6qcGG40Ow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIQO0qRXMgXgIhcJEIsp8Ri9ksQnKhTyT0TdgLPVPYS+Zm215f
-	ScN6IEYA2Uo99CA5WKPOx9wg3ZLlWww2BVDS8/fSvZKPHTnp0evxLdA7Ji9pKLQz6Q==
-X-Gm-Gg: AYBFou2uZnUD0S48ivEibmsXRUh/Hkz1KcxbRy53lSi1UDOj8v1EVSmbirJMkuZO1Tj
-	9OZG7/Mx3gvbqsaGTs56MTXLNC1fxTzpV7V1mJzHhHklpAqgIwB0yQO8Szc6pI0+bAqc5Cf3+nZ
-	dZb1PR/BZqXpAFsWkiSSLXuDCSnYr0qTXWyZ/6duPBf3rXZAQvT7JQvsI6LLN/QsuC3cweOtWFZ
-	n4E0XdDnFFkWO3+/lfhewXClZijudcNdpAgHh3UVbOOqJCTDkXKQeyK5EJV3UWvvzUyBQDdCSzt
-	6hrRksZ7a9NOCfWhO+NoJQLNE4np7gX3PW5zN5KKBiXDbyY4iblJEVsmkA+UizuwvafkNXuUQUK
-	GV+w6ty2pkPxt2HXcaj+gf4bASSnmn5ODGOlD4ReSW1n8eczmn1tZLB1Ne5WbuoNlLFvXRpgUVr
-	EO1al1GBPBjn2ljUCLgk32cr5hU0AxpKiGy1CdWf4e9lG7ajKiZ+cepC1hE+VfWH5AH21yExRm6
-	uYiP837C5lyMs83SKeo5onV/c5qWujQDoYmh0EJL0oUBeKswCevO1Br7h2YlPgAM+g1+Y+0LIBF
-	hQ==
-X-Received: by 2002:a05:690c:e0d4:10b0:8b0:cf3d:7b35 with SMTP id 00721157ae682-8b1669bc5a3mr634117b3.15.1792782055599;
-        Fri, 23 Oct 2026 12:00:55 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a42f046f3sm368994d50.16.2026.10.23.12.00.54
+        d=1e100.net; s=20260707; t=1792782039; x=1793386839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
+        b=CJL2GBhcTMgHFrR5FbeNAPCN+qPeMH6RRzaR3PwB9qxQAlm/jxFxavS+mlnOgMaIg7
+         +tNtCZ3j+FADwdGtsyhpH2iNHTckpzk6swe8erTR26t0Kt0DdpNjVB6zF2zm66v9Redw
+         eaoOIQ+m+aNsXGfhuwtxUh7ILai7Mr8Jl76vk6VyavmGc7jllxzyxmu4NRhj3aOWLI3g
+         kSUwZM08MtxpBW60njMOm1nBYrTulMBoZPipPOm3P38dNfpkiFYSNxtGXzas8IdZUNOG
+         bWngo4yv3yGWAiD+5ZjvcknBXH2q9sn9pfxU/3ENFYA3yOKfvPNeukZWozw5J10HyyGt
+         LNPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywBkF/QUqSbqu5+bWjS3QL/ITg98a0Tj+DW48RaVpuoChIDfAhyIk8Rj6TqTHrZ2JsnTx79zNSFjVxkLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWeKUm6hT9lKNE6X6Z63VVzPx/KfY4Vw7ViSN1RK9RpjXOtSgT
+	ycPQQllI0yBCyIpeGorB5XkQT0YWQD1Pu1ckyYrS01tPsCLX8jyo6httggKgQt1Stpg=
+X-Gm-Gg: AYBFou0pdG0meZpGmplQs9t4ssebSME5A51Ku03MgBqzYEERqpK1CQyBrIZEZfmkPSu
+	KmTc7cAmKDlEKA6tbnNiyEMyKDbkJ28peY0SiX20jUvFYdZvyuXuH67u9t3AgTatbcOQvDRdOvg
+	If1/aXhbaGqvPhpTSaokGB4pMGHPdP2nS+pOdTK7GvW2tbCh/WXPQZfsY/j4P+LxQA/6mxGqf43
+	U/fpL3C/8UiBd+SNKk14eSLlryR6j4biEzA8zE1b+MSOk9F5hEIO7Bi6rh+nXwIAPaCe7Q0oYdM
+	VFNw7792cTEe9fom0rsJMIJks8ltGDspoDxQ0xaRRE+Hj9F2V7a+w03s/SFn/8mWKpICZQQ9va+
+	HXlQrHROIAmp14unMj9EfwAEj93X0aPTVtJPaeFQAm5bN3xczgsW+OMPShkmIcP44WU2ME7vQ7D
+	4BX067G6VDFl6q2vW0VrIbzaQvpEtgpDc1SYKPWqT8mFr7enEtrANrpT4rL3/Seex6uCbWMls9a
+	RDDbIAigM4Zo7R0hagEgwfwnBUAMGtuMXAh/SDs9og2qNSZtCUCCT1RLwcuWC21BRqcEiyn9Te5
+	3K7VfqWxv/5LDUatM8xNSl3UrCM6yq5TP6yYkg==
+X-Received: by 2002:ac8:5d8e:0:b0:535:a5f9:7520 with SMTP id d75a77b69052e-536c26e2168mr47897061cf.63.1792782038589;
+        Fri, 23 Oct 2026 12:00:38 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839709ed6sm1185741cf.16.2026.10.23.12.00.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:00:54 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: xiang@kernel.org
-Cc: chao@kernel.org,
-	zbestahu@gmail.com,
-	jefflexu@163.com,
-	dhavale@google.com,
-	hongbohbli@tencent.com,
-	guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] erofs: fix metadata reads at the end of file-backed images
-Date: Fri, 23 Oct 2026 15:00:51 -0400
-Message-ID: <20261023190051.3457491-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Fri, 23 Oct 2026 12:00:37 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xKKVI-0000000GxzN-4BG5;
+	Fri, 23 Oct 2026 16:00:36 -0300
+Date: Fri, 23 Oct 2026 16:00:36 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261023190036.GL3977851@ziepe.ca>
+References: <20261023155914.GK3977851@ziepe.ca>
+ <20261023182715.GA2798722@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,92 +118,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023182715.GA2798722@bhelgaas>
 
-Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
-mounts") made erofs_read_meta_folio() read the metadata of a
-file-backed mount one whole folio at a time.
+On Fri, Oct 23, 2026 at 01:27:15PM -0500, Bjorn Helgaas wrote:
 
-However, an image only has to be a multiple of its block size. With a
-block size below the page size, it can end in the middle of a page. The
-read of that last page is then short, and erofs_fileio_ki_complete()
-fails it with -EIO. As of now, inodes in the last page of such an image
-cannot be read, and an image smaller than a page cannot be mounted.
+> > Yes, the ACS combination is selected to avoid ordering issues
+> 
+> Does a user have any way to know whether the configuration is safe?
 
-The issue can be reproduced with util-linux 2.41, whose mount uses the
-image file directly:
+No, unfortunately in PCIe so much is really difficult when it comes to
+deployment :(
 
-    mkdir src
-    for i in $(seq 50); do echo $i > src/$i; done
-    mkfs.erofs -b512 test.erofs src
-    mount -t erofs test.erofs /mnt
-    ls -l /mnt
+> I'm wondering whether users might use "pci=config_acs=" to configure
+> ACS so things appear to work as they prefer but may not provide the
+> ordering guarantees drivers depend on.
 
-Before that commit, ls -l lists all 50 files. After it, ls -l reports
-"Input/output error" for 24 of them.
+I imagine that could happen, but on most practical systems the root
+complex will blow up if you do asymmetric routing so there is an early
+indication.
 
-This patch reads the folio only up to the end of the backing file and
-zeroes the rest, as the page cache of the backing file did before. A
-folio that lies wholly past the end is zeroed without a read.
+I know this because I've help debug such configurations at
+customers. Some servers helpfully MCE if you do this. Lovely.
 
-Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Changes in v2:
-- Also zero a folio that lies wholly past the end of the backing file,
-  without a read, as suggested by Gao Xiang.
-- v1: https://lore.kernel.org/r/20261023174232.3282900-1-hengyul@cs.unc.edu
+> If that's a possibility, do we have any notes in dmesg that we are
+> depending on fabric behavior that the OS can't discover and verify?
 
-Tested in KVM with KASAN on 734bef548a96: the images used for v1, plus
-three images cut so that whole folios lie past the end. With this
-patch every complete image reads back correctly, and the cut images
-give the same results as v7.2 (EFSCORRUPTED instead of EIO for the
-inodes past the end).
+Maybe, it could be interesting if the P2P logic found asymetric paths
+it refuses to permit it.
 
- fs/erofs/fileio.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-index c36a90a1a4cb..a77af604479f 100644
---- a/fs/erofs/fileio.c
-+++ b/fs/erofs/fileio.c
-@@ -142,17 +142,30 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
- 		.dev = { .m_pa = folio_pos(folio), },
- 	};
- 	struct inode *inode = folio_inode(folio);
-+	size_t len = folio_size(folio);
-+	loff_t pos, isize;
- 	int err;
- 
- 	err = erofs_map_dev(inode->i_sb, &io.dev);
- 	if (err)
- 		return err;
- 
-+	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
-+	isize = i_size_read(file_inode(io.dev.m_dif->file));
-+	/* the image may end before the end of the folio, zero the rest */
-+	if (pos + folio_size(folio) > isize) {
-+		len = isize > pos ? isize - pos : 0;
-+		folio_zero_segment(folio, len, folio_size(folio));
-+		if (!len) {
-+			folio_end_read(folio, true);
-+			return 0;
-+		}
-+	}
-+
- 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
- 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
--	io.rq->bio.bi_iter.bi_sector =
--		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
--	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
-+	io.rq->bio.bi_iter.bi_sector = pos >> 9;
-+	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
- 	erofs_fileio_rq_submit(io.rq);
- 	return 0;
- }
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
--- 
-2.53.0
-
+Jason
