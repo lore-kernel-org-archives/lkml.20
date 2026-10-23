@@ -1,84 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792792334;
-	b=auA+9Bn3G96D2m5z1lUR9d7xVRpSV0iGoDoynNnKFHC2X9mZsRLyyRLYUK8snFSnHWiD
-	 JiV0kR2dT3AGg686BxrNmTps4A2PUr76ZQEuAObDmr4dQdhJ2jRIc/paj/jd+R7yXf8Yg
-	 v0AyLygjk7ELKuv/jkWAjaLAwk52vfclOdQH8AP9VQy/cDOXvVzk1xIRQ97vKB9KECWs7
-	 Xu6mdGccibp4mnyIEOJywmstLv3v+zy9aNNLeDe3aUW6Ps/s7iBdnqwicvuuksCJBf5lT
-	 Vc8EpvYuiPBfN8PrJYTGhokfPtKzcIaaKhX/1pQhOmerDMAFgQj3Rjo9b/GwST2d55A==
+	t=1792792491;
+	b=fyFiSpAlz7Osjqj6AXAEPzsiZXVfCt3ouAs6HgOIXuRTmZezAZPQdrYYUkYhDxQCihNE
+	 yeQlRnXZ5muiDaJkLBCCHCsUPGSk33JeNwDcgbnfnS1GVUHRykoG3OM/V8gt5Zro1xKne
+	 e0lv7cT4UapgXh9E5L2hVpe818pD7uARVOyri5W7R1KB6PIXYOurrleZHeUCQweR2YqZB
+	 hXJqjNkPrd2I0rDghhVwhzjBwK58kZG6FSYX/xg3MYvwTkTjOpvYCTEkCGpu+tQw9vzp1
+	 7uIyce1YH7uiX5an3Ikwf9ZCdaumgudhpWzwDlUHL4+Nl5YKhp2H+fOCr0vtOiLLkMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792792334;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=jU1IZAOHq9r8Ir5hIP1rjGnLwS+weWaNtdurABD6X5g=;
-	b=XJVjhE4CT4+NoQVr6lz9gIwr+DnuAKuWZYT2Nycf6l6MVfrz1bx5QNuli/jbbDmB1Zqd
-	 ZWo7PGcJ1NPikS5LqtCGEw4LZl7K6SyDHXGuSUXyeiEQI3zCGzWcsN1s5zL1s3dDfP4tc
-	 tov4gcd+08bJmykE9FqkrGlVtZTgl+InKQwOXzzGxyimHj4cYw3uAlX00iBXHqEyaueyf
-	 OiNWjKzjJ6AsTLLOSzIcWIft2p/rqjSMHtbaghB4neVr6Ah+HtIoeHPWEqMs449OWT1Hc
-	 qrgHUffWKJuR0/1haCmNTQbb2CC/aF6+Ud03Yv8/hBFbH3HQKZpWq2ZbLVOgfQvbb0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792792491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=f49VQTmPcbTpQbiCT/gCl4FT2Eea+TPPlJl6da1zU30=;
+	b=0yynDMXWFx9Fj7EAQStVN1tQfCKZmmUQY6++K8sksowRHf1zIuSL3O3hNFzfFdPeCOy1
+	 Bqdz/Qggk0hypV1SbayC3xfQNsnBNyrS0TdxyvQHNMcIRzJxYOyfdXAo4fC9b5fuxJPcr
+	 nPgLnLwaXVCKa+2mkcAbhySpcQwBjLN8h2kXXImIFLcqUwXy/L1HpQm5POAAuYqP5Pe0Z
+	 o+Atyk29AFYUzc+IFsOfpGGRvGn8f23mzGypE4sze+F/aWd1vOdvsTPh7unW1JTdQ805D
+	 uYTV8XC3LtitBqqbhH4MOpbyMUgzxhyrBhCN3aXi8XUtbHFTHsWqxfy/vtyx1iewevw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HGqGxOqE;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=szelinsky.de;
+	spf=pass smtp.mailfrom=szelinsky.de;
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=Bu7MqO6n;
+	arc=none smtp.remote-ip=85.214.127.56
+Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1F2606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:52:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B1F2606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D24606A31A;
+	Fri, 23 Oct 2026 21:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D24606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HGqGxOqE
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91bb5795792so14735396d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:52:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792792333; x=1793397133; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jU1IZAOHq9r8Ir5hIP1rjGnLwS+weWaNtdurABD6X5g=;
-        b=HGqGxOqExzIyB7hPavSyBDvkHprEJhOVaBIV5g5URIZNOHs9N4YRyG5vMPVAgS/q/e
-         I+cQ4l3HPXviBlFxpvlTlRpxuOp49ndv7fAU21ovgA65rnX2guDwXIma4qyoNi5MLYEW
-         XdDuwvuS3z1gB5IYmho6szpf4Tiu4hoTuEnvYWQ0aVg16z3kioAJj7b6bMtlkyHxzpaf
-         x7JCS2bPNpM2zG0eH4t9jDuct8F8iPqapD4rp8QHG+PT867T5gcDXwMdI93RmUcWGrEb
-         R5C73gEQs8Vwj6CV7Ik+oQgE3G211F4vOsU82Rad62zdb4R3D4yQIrQarhQRnytIwAHO
-         BB/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792792333; x=1793397133;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jU1IZAOHq9r8Ir5hIP1rjGnLwS+weWaNtdurABD6X5g=;
-        b=fex7xKVJEKXrQtAV//MAJNWyNt4Y0vvU/lHmAqNnzGNpOogS6Y5D8pjUURZdjxlGQP
-         qBxeRJAuEnJG6ErCoR+12/Up7faPbRaA2YXht5cMSzPn3mOGY2t2kzWpFGwZkFLERrzn
-         n7xHYnJm2n8zi5HShPFNCVpCSGK9YsHOUe7AGPfaLRivZohYSq/UiJgYIjmc0SzZZ+k1
-         WdrhyXWvkcyLtkBibpT9IpX06WEa/0arLH7koSfC4/0HBY6L5hbxy9U8XQRRjC9/xW+V
-         h5ZYg3EfXAaWjC7ubU7dukKwB/uU1ZEHv3l3I1iUwDDP5uuTN/B+A0VFkkDbJa/WwBZo
-         C2ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzIa8qJdLTa6ohH5idUe5d+3TEsU26Gxt2jrQ8DDQ92X+CD97/w3HFKecuYgVxSqyfKfbj5m3rl76c2ab0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwXHbCODqiL4gB5gZXeZY26dC4j4XBrwxbQqkzLnGRCF6QBc+N
-	xwhh8qL9Ja/lBhjLEI6bHAkgwvmCnD/7cJ6ggD+c7bwdWmtGwWEdWLmJU+CXk0IwB9I=
-X-Gm-Gg: AYBFou1ryHZOA01s6eiJZJdfB0mguwAQ5+mf+eWFYT9DAp45UmOPn0tVxRld+EnSjdy
-	pFzHobv9AZQ85Vqun0NsxXtOTcndGnAuk3431D2Giixo9xVzT/5/nTlsdLAJVGb1wV0ZPelR5MS
-	T7v4fEL/d6DZQW0/9x+2MpLsOiv3R6NYtYPNS4urqyjOy6ha3/yuAolcr7MvOoBQTJxJQ8jKsro
-	k0QM1WXxDVSbUJgLp82D+ML1yOc9uqNGzdMms45tTzs8fKuOjL/h3FAPHz4OpoPFcCyvEjZ6X5g
-	6gIz3Rp3ZovOYlHAGzvhcEl1w/14jcLseaycSzUVCuaitTzKMa45B9Fx7lvOkWh15EegLi2/egx
-	wC6sq6p2r7XygKBE48z2PmqLAMkg62e5mUga7/ZoIMI0y/XR+FyGRflF3IvIMGH+r1DWwdsoap0
-	GZjc38RrOyIVYFUYMjaEh5SBSA6qSkXo57+CQmc5F7QQD6Ve288S3cv+spTJfQo+fakmcrdomH5
-	qKmyagopu7d3dabERlJItrdNnWNiDOaBUY4u2xiA4biyvvbFcN7rQElzsuHaq6D1pOodE2o+hqO
-	mRYWSK1P8ApNeSj42ZJxc0EGlSo=
-X-Received: by 2002:a05:6214:5c45:b0:91b:8870:3930 with SMTP id 6a1803df08f44-91c48e76cf4mr5685596d6.45.1792792333037;
-        Fri, 23 Oct 2026 14:52:13 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c6f3bcsm5375386d6.29.2026.10.23.14.52.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 14:52:12 -0700 (PDT)
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=Bu7MqO6n
+Received: from localhost (localhost [127.0.0.1])
+	by szelinsky.de (Postfix) with ESMTP id 21708E83892;
+	Fri, 23 Oct 2026 23:54:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
+	s=mail; t=1792792481;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f49VQTmPcbTpQbiCT/gCl4FT2Eea+TPPlJl6da1zU30=;
+	b=Bu7MqO6nC1E3tKPO3jtFzypf4FUN4eUDYJjRQLaBaFWNU4JknbK1cSCs8LKfMqo9HWAL9T
+	3k2cLPgjzNakYnbQ64eobwVpqrEC6BseDP/93LJ7aT8w/hWEQ2FyMN5L8JDGj8ugwE5/ah
+	VCGVDyI/pW7tjJrkqzmy4gQVk+2CbvSBp/ZQmwIaXLv1Yf7xxDxmPIdsrLNui5oEkhBpR1
+	QghAnCpsx+4fwYzkuT42u7uCOnPiYr3uKodFGRxH42o/ZI4nyQn95ye7XhujmCBDAaXDks
+	dhp+LHuEugY9exhLqou6RWlmoF4P/mhzvfNl/fZ+k8VU7j4VIMTo//PP3Jz1LA==
+X-Virus-Scanned: Debian amavis at szelinsky.de
+Received: from szelinsky.de ([127.0.0.1])
+ by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
+ id et1qZnqfkZG0; Fri, 23 Oct 2026 23:54:41 +0200 (CEST)
+Received: from p14sgen5.lanhh (dslb-088-070-183-026.088.070.pools.vodafone-ip.de [88.70.183.26])
+	by szelinsky.de (Postfix) with ESMTPSA;
+	Fri, 23 Oct 2026 23:54:40 +0200 (CEST)
+From: Carlo Szelinsky <github@szelinsky.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>,
+	Ross Cawston <ross@r-sc.ca>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	netdev-bot+sashiko@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 07/14] net: pse-pd: do not tie a shared power domain to its creator's devres
+Date: Fri, 23 Oct 2026 23:54:15 +0200
+Message-ID: <20261023215416.1087206-1-github@szelinsky.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <atmbjbxVUCXRq-3m@pengutronix.de>
+References: <atmbjbxVUCXRq-3m@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,98 +86,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: Path forward for Virtualized Swap?
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>, Wei Xu <weixugc@google.com>, 
- Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
- Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
- YoungJun Park <youngjun.park@lge.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, 
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, 
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, 
- =?utf-8?q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Gregory Price <gourry@gourry.net>, 
- Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
- Meta kernel team <kernel-team@meta.com>, 
- Linux Memory Management List <linux-mm@kvack.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- linux-doc@vger.kernel.org, 
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>
-In-Reply-To: <CAO9r8zOtK7YYdBNS+h5bNW-miKED7p4G0igy=D-=HRnGqA-38A@mail.gmail.com>
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
- <20261014195354.GA371161@cmpxchg.org>
- <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
- <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org>
- <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
- <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
- <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
- <CAO9r8zOtK7YYdBNS+h5bNW-miKED7p4G0igy=D-=HRnGqA-38A@mail.gmail.com>
-Date: Fri, 23 Oct 2026 17:52:11 -0400
-Message-Id: <179279233116.3784731.9576593182600250610.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-10-23 13:25 -0700, Yosry Ahmed wrote:
-> On Fri, Oct 23, 2026 at 1:03 PM Rik van Riel <riel@surriel.com> wrote:
-> >
-> > +-------+     +------------+
-> > | vswap |-----| swap cache |
-> > +---+---+     +------------+
-> >     |
-> >     +----------+-----------+
-> >     |          |           |
-> > +---+---+  +---+---+   +---+---+
-> > | swap  |  | zswap |   | zram  |
-> > | file  |  |       |   |       |
-> > +-------+  +-------+   +-------+
-> >
-> > What exactly do people want to accomplish here?
-> 
-> Today if you swapoff a swapfile, every is swapped in into the
-> swapcache, whether it's in zswap or on disk. With vswap, you have no
-> way to trigger swapin of compressed memory in zswap.
-> 
+On Thu, 22 Oct 2026 07:13:49 +0200, Oleksij Rempel wrote:
+> The power domain lifetime changes in 7 and 10-12 build on each other;
+> if there is another round, folding them into fewer patches would make
+> them easier to review.
 
-This seems like a missing interface in zswap, rather than something
-vswap needs.  But you could just write this as
+Thanks for the review. For v3 I would merge 7, the power domain part of
+11 and 12 into one patch. Then no commit in between still has the
+supply handle problem or the leak on a failed registration that
+sashiko found in 7. The kfifo part of 11 stays a small patch. The
+release function is then pse_pw_d_release() from the start, with the
+lockdep_assert_held() you asked for.
 
-vswap swapoff {
-  disable new backend writeback (swapcache fault-in only)
+I would keep 10 on its own. Without pse_pi_power_off() it only moves
+the free of the PI array to devres and adds the unregistering flag.
+It does not touch the power domain any more.
 
-  for each backend {
-    backend swapoff
-  }
-}
+One downside: Mark and Liam would then have to review the rdev->supply
+change inside a bigger patch. If you prefer, I can keep 12 separate
+for them and only merge 7 and the power domain part of 11.
 
-so rather than vswap.swapoff() you'd actually just want a stop-bit that
-says to disable the swap subsystem writeback behavior to all backends.
+Is that what you meant?
 
-Otherwise the user can just disable each backend individually.
-
--- 
-~Gregory
-
+Carlo
