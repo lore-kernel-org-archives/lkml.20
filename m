@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792797666;
-	b=1VPnG8yr6aPxdBtpTWtqaR4MPYTq3V70l1txRZMQ8YhRGz650ENGjByy70hwPSBwc6lt
-	 pzmObZz/HKNQ/359FGA6HlqTxeoepyam/25qfMQD9hQmWGpI/Pzqko1VlNlcjHX4/5b8q
-	 93UaPHz3jj6AGS8nhR9BQviXjRhkWl7aE4YVXxogLQijufWsODI6/Xpe/h0TbXfzd3sV/
-	 g0qwMMnCCxAYEFqXL0npIAcomdIre9uhzedRtimiikIM/CNSw9vpWfwnTfJUud70+XiFH
-	 h+twelHkZNHgNG67Q9uxJViEx9qFMHqXygWxQLBPGhGaMyX9u5A3IqiCxbmFe/i9MkQ==
+	t=1792797876;
+	b=VqdmjJyxWocRLsp6CYLJ/yX6wRchr4M0RGdou4T4amfDN4NSv9gIHeQp4nAw3XVSX2NB
+	 f8jlskA6e0Gv6jqg1jXKhLAwp4UagGtw+t4osTCoy4t4eE4Bzp04rAmZcfe4Vdlgw74Bq
+	 +pH6WC1JW4mCcCvwleOtRuB1a9h/6M8I4D8D+RNfOLhTXT9OXcejXTMXokIZKSmfcB1Pj
+	 MG+4+1NZkoIuP38uBJDKhKZ7LURWbBMRFB8NrEhpt3ixKIIsfNYn559YIlwHfCykvigGv
+	 5gk30bMKkyP/ByjWpXsXi44mhiyuI2XgQXL+bSP7nN8RlV2/ZSpdUgDsUOwvv7vRq2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792797666;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KMg0KVF3ZWVSxxslXVvdaDd3aj4ZmtDGVo8qd6l4NXA=;
-	b=JqiWiDjmVx+bzSzGvjzehFpc38SDTusp4UoxOUGLgSXusi5Fg6/8/X35uWOizvZ86cVy
-	 RDdnd57oa2+ffkIcQArY+vr+vDp4BAQkcfxNwN0uMwUJTzJwiAThID92XKi4OXVi4zsvM
-	 ev8tliX8nwHJm5r5p1yDdDI3dX8oIsLb0u87fZYKN4w2oxUvF5+UTtDNuLivb/bXxNrOD
-	 abO5Bs0WbXoKes3lwgmN5Sj54K6wivpH000BZWhFpUQIC9P3qpFnJlbxfNi1IKsaxUXFo
-	 qIAaG0+0OBq5DhKazlODjfxL9vzltogEHCgYI+samLUPvDO8z9sfJVp/yC/PDUSqAJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792797876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Message-ID:In-Reply-To:References:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qctrEjDPRvksa3AQ4KXVPQGZIrVdTyfkgfyBHLBiYsg=;
+	b=InotlcgQnuKstCu9fWeYAFEqCDh7FIKHBrRdXhglrmkrcnMFUqYqo5rrZqeIlZaCbPCD
+	 HaYNxgmHoTBa5hrzWvalsMkdyIQjpnl2oHOjal1qLSt0i7mQOp79sfxLdUuZ5DhDGtHFk
+	 1TMeFsIG5Klq3k7HeZ3ppK1IN9ESCLwiC4QUxMzLa7g05fa7KaVKPJpfXqNxS+L1IFhcK
+	 ZGoen4XYWGg70bEkMsKlbvOoRtshkBsBJWVK86cdUMbzT3zOi18x59Gqxu+5sN64oN16N
+	 sz+CQgGLTxXkoNEerzXly9TxT8xvFJbakcEAhauJrlMz/HAxsmuB1PhP81Yw1hNYE5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VJ/xs6JQ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GXwK61Sc;
+	arc=none smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CE8606A327;
-	Fri, 23 Oct 2026 23:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC509606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC509606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJ/xs6JQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C671F031E0;
-	Fri, 23 Oct 2026 23:21:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792797665;
-	bh=KMg0KVF3ZWVSxxslXVvdaDd3aj4ZmtDGVo8qd6l4NXA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VJ/xs6JQIBGALTiKydO/cRvFj+BL/vKz+lRBLBqQqr4FRjGD67Ig1IvXaD1ejXY5d
-	 1ShqSuowzGQ5ZNGtZ6wNTAw7oxlejkqA8sN7H26jpHCecbJsm2pc6YAOYxs5HVT9po
-	 xBP7hrGQ1hzodyTI9MQ45+sy07y2Fqs2tAAH94ehDUsKSS8B6fJ0Oum3QQ6hOQEtGn
-	 XlakBZ6xn0vVZoZhrftc1/zSgG6N9LoSdIUYQl9/pQnmtSE20aDta+QUcsCHMl/dWy
-	 1FcuEk8roi6+Zdr6Nal62m+gkQnxcw1yRGalD3z63fCm0ejEFwgOoDcManPoD3nwQl
-	 0vieJKL0qxWpg==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 2/4] sched_ext: Sync tools autogen enum lookup tables from the scx repo
-Date: Fri, 23 Oct 2026 13:21:00 -1000
-Message-ID: <20261023232102.1124938-3-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261023232102.1124938-1-tj@kernel.org>
-References: <20261023232102.1124938-1-tj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GXwK61Sc
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eadea8f0edso753440e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:24:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792797875; x=1793402675; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qctrEjDPRvksa3AQ4KXVPQGZIrVdTyfkgfyBHLBiYsg=;
+        b=GXwK61SctjOOsjiufYWVOfoV93GiISGLiAKK/sikeLtakMu37g19i4wX5g8DVndbD/
+         VGlGUTKtfmg3r2tBS4KMsgcEZRxlwLQTLnvQ0U20ZUWSvBeo2b/S2rD0EFlAovXmV4kh
+         9dMGBgE2kNZf++/aLQZFGu5fYzy7wurS2hBBmFncuc5to98Dr7XEcDuD1TPa09Vr+upn
+         j9XpbY9G+hNWVIEpcg2qUsnrB+sVgfsfBfn/sBw14EieDr7G2MFLqOKH7yd8YrDgksX8
+         EEueQOY7RmiMuN22ihgdSkcofcScEJarwicP3iKEqHu2wrVdtzOphJWU+8q7GqlexZz4
+         fCeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792797875; x=1793402675;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qctrEjDPRvksa3AQ4KXVPQGZIrVdTyfkgfyBHLBiYsg=;
+        b=HROdpdihUijtcBPjD+khV9hnlfIWiug+oVlpUmUHTk4loEWOuFTxpl4bTdbUQY9hV/
+         +RGUNH2ijAyklo2V/S5Ilp0IulXF73p8CIk7afpQsRLMcPRj8F8USE2Isw7ImJuzYUcC
+         MhY5XPA+fSOQauj73CcUojUh8XytR90oP35r2Tes3OQmeCdKc37HIZLjiTsPg+lXfSfp
+         KzEQn0AlBhEtZ/1nrYeEsxs49nLOzmX83vJCjikJMRqhbhMyUW3eFN7VZ/hHHgRwotRh
+         AXWVoE+v70Ctji+zq4Tz3Yo3Adjlnw721IAiT/C71Sj0U1LGPo+hpqMhL+6iixUA8DiA
+         AjRg==
+X-Forwarded-Encrypted: i=1; AKwUvByYSUqA6jQClL91/q7V2eEOGhRtzsYCzQ1xw2Pd6GkuzQIAS8JCwgs8CyQC8EhWrngqJ2/nL0hGUEJ4cSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhD9Y8nSi+SLudbwB/urzGovHZycY/eGYssQMU2P55Rkdek29Q
+	ZsaPXpd5rbgZlr5IUl0YM2p/VuvrWh77M3M8DYEX3XeCQfPbLCQX/2uh
+X-Gm-Gg: AYBFou2GIvMzSlynRXU7yhLz/qN68h7GQUbcI9vd4CRX+dvWDbKaV2d51PzKzN/Cmh1
+	IaM8rMgcf+zs9s+I4f5Ib9xgzabau8vcrUkItGJonm5ja5DInX9marvxwNOZeBF6aEXGxpdtsE/
+	OgFBFPiWwARMryxGP/BwolWSJvIZPys/Iws+g6GHr7nvgkZ6bdYbf+r8Y9yegpCVSbiOX6obIUs
+	l0sbAXurn80NOeJjmQj3EazkCyYlNrt4uX3/hekRr7eujw6pWt1gejInIMEH/ZcIfSHJ9ESzQhv
+	33lB8fnIv+fAE8lw+HAzVRJ0T/KNmYcuPhK+vJHndhq4WeNwk5KZvZIrTd9o2rd/ilgK6elnHsw
+	lQFKW85STv/0L4TQnaBqi432SWysaGOs59PYPRCxNvy44IluGqhmVUKFTss9Wpd2F4cz0tWsRwC
+	JitE1dYnovikkcACOpUtcClzHGVahecnvOW3uI7Op2O93KS1ntIQiNAjnow6VZbZQH903o2p3rD
+	WrOGrjN0kNyX9CSKDeiyH3N/nFPmrxOsLjVaZzTBsywtZpWh7sBFsw6wW55kCdJgsNIif6Pqd3x
+	V3DQzTnmIyFE4qcdWlwGfdxDM7oWbx7wJdfDcsrDTpZeCAHdx6lI2zp+rAt90Tz/ZzW1MOY51AK
+	Mmv3eiLuQGQAWlCNIScsqCQls6Ow49Ip1Vkwrl7Ty
+X-Received: by 2002:a05:6122:2091:b0:5e9:6d96:a7cc with SMTP id 71dfb90a1353d-5ec235e8039mr93235e0c.9.1792797874653;
+        Fri, 23 Oct 2026 16:24:34 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec232757bfsm466976e0c.2.2026.10.23.16.24.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 16:24:34 -0700 (PDT)
+Date: Fri, 23 Oct 2026 19:24:33 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Cheng Yongkang <teel4res@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Petar Penkov <peterpenkov96@gmail.com>
+Message-ID: <willemdebruijn.kernel.2ec6aa9785f36@gmail.com>
+In-Reply-To: <179268538303.70821.16548460883330758972@gmail.com>
+References: <179268538303.70821.16548460883330758972@gmail.com>
+Subject: Re: [PATCH net] net: tun: hold napi_mutex when deleting NAPI in
+ tun_detach_all()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,54 +107,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Sync the two enum lookup tables, enums.autogen.h and enums.autogen.bpf.h,
-with the scx repo at a094b6ec68c9 ("scheds/include: Sync with kernel
-sched_ext/for-7.5 (b1c2a6b0d90d)").
+Cheng Yongkang wrote:
+> With IFF_NAPI_FRAGS, tun_get_user() takes tfile->napi_mutex, gets the
+> skb from napi_get_frags() and copies the user data into it before it
+> enters the RCU read-side section around napi_gro_frags().
+> 
+> tun_detach_all() waits with synchronize_net() and then calls
+> tun_napi_del() without napi_mutex.  netif_napi_del() frees napi->skb
+> through napi_free_frags().  A writer that is still copying has not yet
+> entered its RCU section, so synchronize_net() does not wait for it, and
+> deleting the device frees the skb while the writer is using it:
+> 
+>   BUG: KASAN: slab-use-after-free in skb_copy_datagram_from_iter+0x175/0x720
+>   Read of size 8 at addr ffff888077def990 by task br029-poc/9406
+>   Call Trace:
+>    skb_copy_datagram_from_iter+0x175/0x720
+>    tun_get_user+0xb42/0x3d00
+>    tun_chr_write_iter+0x113/0x200
+>   ...
+>   Freed by task 9405:
+>    kmem_cache_free+0x184/0x670
+>    __netif_napi_del_locked+0x2bb/0x3c0
+>    tun_net_uninit+0x566/0xa70
+>    unregister_netdevice_many_notify+0x1a26/0x2090
+>    rtnl_dellink+0x514/0x710
+> 
+> __tun_detach() also calls tun_napi_del() without the mutex, but only
+> from tun_chr_close(), when no write on that file can be in flight.
+> 
+> Take napi_mutex around tun_napi_del() in tun_detach_all() for both
+> attached and disabled queues.
+> 
+> Fixes: 90e33d459407 ("tun: enable napi_gro_frags() for TUN/TAP driver")
+> Assisted-by: LLM
+> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 
-The kernel copy gains SCX_ENQ_CPU_SELECTED, which scx added in f2fd24198edc
-("scheds/include: Add SCX_ENQ_CPU_SELECTED to the enum tables"). The flag's
-value changed in 376f8963bbda ("sched: Re-arrange the {EN,DE}QUEUE flags"),
-so BPF code should read it from the running kernel.
-
-ebf993609d70 ("sched_ext: Regenerate tools autogen enum headers")
-regenerated the other two tables, enum_defs.autogen.h and
-enums_abi.autogen.h, from this tree's vmlinux.h. They are newer than scx's
-copies and stay as they are.
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- tools/sched_ext/include/scx/enums.autogen.bpf.h | 3 +++
- tools/sched_ext/include/scx/enums.autogen.h     | 1 +
- 2 files changed, 4 insertions(+)
-
-diff --git a/tools/sched_ext/include/scx/enums.autogen.bpf.h b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-index d0c37018659e..db23be9cc88b 100644
---- a/tools/sched_ext/include/scx/enums.autogen.bpf.h
-+++ b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-@@ -130,6 +130,9 @@ const volatile u64 __SCX_ENQ_WAKEUP __weak;
- const volatile u64 __SCX_ENQ_HEAD __weak;
- #define SCX_ENQ_HEAD __SCX_ENQ_HEAD
- 
-+const volatile u64 __SCX_ENQ_CPU_SELECTED __weak;
-+#define SCX_ENQ_CPU_SELECTED __SCX_ENQ_CPU_SELECTED
-+
- const volatile u64 __SCX_ENQ_PREEMPT __weak;
- #define SCX_ENQ_PREEMPT __SCX_ENQ_PREEMPT
- 
-diff --git a/tools/sched_ext/include/scx/enums.autogen.h b/tools/sched_ext/include/scx/enums.autogen.h
-index c4a7260f0983..369f8d88c7db 100644
---- a/tools/sched_ext/include/scx/enums.autogen.h
-+++ b/tools/sched_ext/include/scx/enums.autogen.h
-@@ -48,6 +48,7 @@
- 	SCX_ENUM_SET(skel, scx_kick_flags, SCX_KICK_ALL_FLAGS); \
- 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_WAKEUP); \
- 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_HEAD); \
-+	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_CPU_SELECTED); \
- 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_PREEMPT); \
- 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_PREEMPT_LAZY); \
- 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_IMMED); \
--- 
-2.56.0
-
+Reviewed-by: Willem de Bruijn <willemb@google.com>
