@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=81.70.206.69
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792745585;
-	b=SVpU1MmYCAeCr7lpV9p0XXj14cAinBjKCtrY7I9cl2vhyFeIKxWnAG+fD1XxmxaT8JcE
-	 Rep3FW186svLzT4/Q+WE+B9DrAQ8bWzYWu3TUGHSSIBkiZSm33Z2ZmA4jO1FVObGlSDt/
-	 N2ZLf1HC/f161Xo36vO68znxoc1sSUU6wASfOVB3GIKB8IjB58HEG5YqM+sNwJ8twOvRd
-	 NumzZBe0Liv6Jdgi3NPwROuNgGrKhPSSnzc7YdDFYUT0xhWqRl7pM6tMp+dysRzb3kssC
-	 CFkWASH/1U1PC4m24uuyEG+daBXkMMcfSDdvcjM0+3f7Gdo3w916QdMGR/Yw4UTHNAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745585;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Originating-IP:X-ClientProxiedBy;
-	bh=r5PwMVw7smUN62UD1e5YSyFTBD/on9Hsq1pWaywHq+Y=;
-	b=ffK+NN0/AVipx4ZNQSvxWJP2x9ZsMjp8ED5WWpal5lTv+k70LkUQwP71weAV4ruoCWe5
-	 s6ZgyMHg6o9KOUHoNCy1mEcpExwl8Gxjnq5xSn4iCtLBYq1jTcH3EnPHSqtCKUil124i0
-	 THkPg3nmd2IGbPsnND25bR0G+Cn4DNAP+WE5uuEKYKg/8kTczK6DIiLCULUeiN/4s22Jd
-	 RtuBG2pI2onqwi4yUEPKRBtg4Ww0AUC5DBP2COMTrrxr4k3hperj0motV7PdIaQg+2hRh
-	 Pm/+81qdJRzUTz7de5swq4vgHs4qnrDHe0lkqJ0oHT0kMfTNjIuo781pS1fPl1PU0hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=honor.com;
-	spf=pass smtp.mailfrom=honor.com;
-	dkim=pass header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=SYFjnLmD;
-	arc=none smtp.remote-ip=81.70.206.69
-Received: from mta20.hihonor.com (mta20.hihonor.com [81.70.206.69])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.75
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792745685;
+	b=4IDqMt/Xf7kCzCBXiWWz+v2hNpA/R0/jFw5tlPkSrnZcHe/Hi5xBxlzB7mIgpzUHAiWV
+	 o+q7/qUPPVaQO2zo24vMdhVjQHgGogG/O6F/7gpWS7rM5KCV/rUBmE2cPrjIUzmERx+SR
+	 4qsNEtgOmGYIZzyrNZdH6hX30z1ir7PGZiIFV9ufs0j6qKYsS6N22ZstS3/oaVfMMRjRM
+	 LOQraQQGedlpXnEAA5H6Fvp0g9kxC6sOC13A2m+tk0wLrEi/8PWRrfDLDeHRABD+kjtJ6
+	 6tBkos7Fc+/CxuF0wD+zJI7BtEIVXofzbncio4gS8INmhf5vW8e++rUZ9IZtgAesbpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745685;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=keS+Mb2+kayankKoQxT0EtUmES+ls4hsXkWi8D4VIlc=;
+	b=ArdEuG8NgpJAPgsFEKUkmD5jcYSDUa2UtRjS9z9WyFl20Mbsjjk2ERgLhAaVN+l2xu9U
+	 GgXdnrWWHGChuH8QjCOpmS5bENxJO0VcON7NjprxeBiDaPDmz5wpIchlBuspvU1LnQAI2
+	 3HYy70O3SNdwXjRpUc7s+36QZ48y9+nT6vtH2cHeazAs10rodZdKVQDYbCZb0cRIssO4O
+	 +r1xzAZcNyx5yloJc6Sm3ZIpieLpBQuHhHL/mfEejRBjs8aW0pznXL3zywciLDMQYG0I3
+	 w3/JJUJcfXh/qlYYZdiS6avBtJNQQEbR/I2KyngYzI2Eval0d6L137zM5w5BqPaVOkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hotmail.com;
+	spf=pass smtp.mailfrom=hotmail.com;
+	dkim=pass header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=GrB4qDoY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.75
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazolkn19013075.outbound.protection.outlook.com [52.103.43.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6717F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6717F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=honor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=honor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D364606A31A;
+	Fri, 23 Oct 2026 08:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D364606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=SYFjnLmD
-dkim-signature: v=1; a=rsa-sha256; d=honor.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=To:From;
-	bh=r5PwMVw7smUN62UD1e5YSyFTBD/on9Hsq1pWaywHq+Y=;
-	b=SYFjnLmDeVAK5lRBdrtreL9fj+ZmnVGlGj0rojwK7gQO0zfIUJ6P2csHZDeBvTlvsthgkkZiS
-	1Ha7BXdcDv70SyaGNwiHaCk0aiDa6KXOWNmC1g87Fgderf0hRaZRCuW8hW015d7KthCCA/XW/1b
-	2KoNBQTDmz/MQb7D1tx7OJU=
-Received: from TW003.hihonor.com (unknown [10.77.199.161])
-	by mta20.hihonor.com (SkyGuard) with ESMTPS id 4j9xcP13KTzYl21J;
-	Fri, 23 Oct 2026 16:52:53 +0800 (CST)
-Received: from TA012-1.hihonor.com (10.77.199.132) by TW003.hihonor.com
- (10.77.199.161) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
- 2026 16:52:48 +0800
-Received: from [10.144.5.36] (10.144.5.36) by TA012-1.hihonor.com
- (10.77.199.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
- 2026 16:52:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=GrB4qDoY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TTkQXdV2Bfh5ilmv4pvjbdcgFcIZMStJggl8dI/BZy1lFwcNz4NOILyLNhdRVKqMYfBZ9qsUBWhG1piBxUJ/WcAemmvgibsHCCJD+RQijwto/S3LlVlvgibfqQ54kUrVA33Vf/pXwJKn7WaKAHKPw519BQKq46pQOCnTVss2CVG76WqXJHsHnLE/RWyRpYwwzI7ipuoppahQJn4Z61z+SCZDq94Bzub5bRADNSonpLVJhYHI6mi6MCYdvbhXmiJ7T4AbHpnA17Q4Agx/PTzBJpkAliwY91EEALXx36li4GFyR/KcDvN7k+eJCqIOKafIc8U6yY6b66wpLH6kCquAkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=keS+Mb2+kayankKoQxT0EtUmES+ls4hsXkWi8D4VIlc=;
+ b=Gpz/lVPAop4/8lzW7PvzTvNNcGxbVIbda4tDvnDZwT0kjjmV7p7Az5URcAQGxfgESg+KIJ3an73TfbtBYB9cqbWRVUv3RtNUCxEuM+3gdKU15WCbJHcX+nSUly2rAui+kSP9aqavOROln5jEh7XqwHLVqj5qH9c+DPWyBAo/XBrcFEq55ZpLv11uBbAekUDw2bG5BI9+mH0w2y3fnOxmxgnTYIWuqBbk5jSxn6t+vnm8pvotZSeM/iP4GHoz5RH5hIGtElqTKmGJtPeOdjJj8u6dkGtYWtoDPKn15WpTqSXpYI+R1/ree6EXOf0OLzAT+2CbwiLsnS9Qz19nV4X5Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=keS+Mb2+kayankKoQxT0EtUmES+ls4hsXkWi8D4VIlc=;
+ b=GrB4qDoY9HPrWixZBQJuTsOlqlQ9/BqxElu3jBMCr9uFhUESv0zraAXEVJ/+lehjH3meF3XqIoIn+B5o3NL5cxvVGZjtFlW11YHCz6x6/n8uMAO0H+KyyDSzkOIlGjzVzJTQgalXNjUOWr0jXLdnsH6kKofiNo3eIcweX4dschLIL6ON/t65sZh30v/mBRy8Np1TGnu2a8X+7OwyyJEndA5sTnlfHlA15Oje7eE/OpWHWu5RTicqA94YdSBCoDmnUNKJQEqOV81CHe8hzWl2GSHKnd3xu5G4L1+ppnNDihdoGZV4o+bhAL+W6hx04IQixKV4hRNW9AdVrqih0Kgf5w==
+Received: from KL1PR04MB7484.apcprd04.prod.outlook.com (2603:1096:820:121::10)
+ by KUYPR04MB9655.apcprd04.prod.outlook.com (2603:1096:d10:96::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 08:54:39 +0000
+Received: from KL1PR04MB7484.apcprd04.prod.outlook.com
+ ([fe80::9def:492a:962b:46d1]) by KL1PR04MB7484.apcprd04.prod.outlook.com
+ ([fe80::9def:492a:962b:46d1%6]) with mapi id 15.21.0546.016; Fri, 23 Oct 2026
+ 08:54:39 +0000
+Message-ID:
+ <KL1PR04MB74849191EAE49D9DBCCD2BDEF3642@KL1PR04MB7484.apcprd04.prod.outlook.com>
+Date: Fri, 23 Oct 2026 16:54:31 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RISC-V: KVM: Fix double free of the split page cache
+To: Li Jinyue <jinyue.li@linux.alibaba.com>, kvm-riscv@lists.infradead.org
+Cc: kvm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, anup@brainfault.org, atish.patra@linux.dev,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ wang.yechao255@zte.com.cn, stable@vger.kernel.org
+References: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
+Content-Language: en-US
+From: "Nutty.Liu" <nutty.liu@hotmail.com>
+In-Reply-To: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TY4P301CA0043.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::6) To KL1PR04MB7484.apcprd04.prod.outlook.com
+ (2603:1096:820:121::10)
+X-Microsoft-Original-Message-ID:
+ <3bd6586e-777f-42b9-86b9-fd267a98d971@hotmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,238 +99,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH mm-new] mm/mglru: clarify the generation placement in
- lru_gen_folio_seq()
-From: <wangzicheng@honor.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-CC: <wangzicheng@honor.com>, Andrew Morton <akpm@linux-foundation.org>, "David
- Hildenbrand" <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, "Michal
- Hocko" <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
-	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry Song
-	<baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
-	<yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
-	<baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Ridong Chen
-	<chenridong@xiaomi.com>
-In-Reply-To: <813b3f19-1cfc-4d07-a9b8-ea20f8fb0bee@linux.dev>
-References: <20261020023548.3242028-1-ridong.chen@linux.dev>
- <179257189711.741142.157439930403322311.b4-reply@b4>
- <813b3f19-1cfc-4d07-a9b8-ea20f8fb0bee@linux.dev>
-Date: Fri, 23 Oct 2026 16:52:52 +0800
-Message-ID: <179274557215.1623101.1816617712512017779.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792745572; l=9658;
- i=wangzicheng@honor.com; h=from:subject:message-id;
- bh=Z8APWKK9r7zgMro38a2UtSMaA8pp0CPBrFMeqPt5BUE=;
- b=Dr8o0DtlGGEa+LvjL88HVOYru+iwRhKjhCtHBaHrrSlSCGoUrPiwRCx9WCMGxKPqRW/cTeIoX
- deWyHRvQ+pyAvouMmZ/b9PqXYcydxtS2wjDp6YlQIayetTfByQUiJev
-X-Developer-Key: i=wangzicheng@honor.com; a=ed25519;
- pk=g+Qn/iierc6RbauMzxguVPAh7jEJCJf1WMdMV9Kk2sc=
-X-ClientProxiedBy: TW001.hihonor.com (10.77.229.151) To TA012-1.hihonor.com
- (10.77.199.132)
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR04MB7484:EE_|KUYPR04MB9655:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04d78590-9a06-4ae7-7ddc-08df30e3458f
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|6090799003|23021999003|24121999003|5072599009|15080799012|55001999006|22091999003|8060799015|19110799012|19101099003|4140399003|25010399006|440099028|3412199025|12091999003|40105399003|52005399003|11031999003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZDJjMVp2c1YvTzE2ZTBSV2FnanVOUWFvNi9ZSFZiajBoKy83aXEwT1paU2Rj?=
+ =?utf-8?B?TmRUM2d2NWRsZGpGVVpYdTNIZlh0RmszRHNFNWpmQm8yVXJNVmtxWW1wbGUw?=
+ =?utf-8?B?OEY2VHdHcldxUXM0NWlrbDFGWTdJY1hHSERsZHBid2VORDNTa2IzV1VVd1dH?=
+ =?utf-8?B?ZFlwdi93M1VXcHhBN1FyVWNZbEE2VktZT0VvRXhYMC9TSCtmdVZjTjZLVmJj?=
+ =?utf-8?B?UUtPZnBKN2JLMmF4UVF4M0F0UjNlVU9wK2k2ZWczd3V0YXFiY2UvWC9HQlNF?=
+ =?utf-8?B?MFV3RElBZ3BiMDVTMklob1hKOWVsbkZjU1dvcmNRZkNzR1VVRVhEUy9nS3FJ?=
+ =?utf-8?B?YVZuQ2ZXWmdSa3VWRmhtZ1djRTBFK1hBT0dkSm8vK1dzRmxmVWQyN1JFWUM1?=
+ =?utf-8?B?eEc0eHIzUkdjMFU1KzRVZHFlNHFHQXpNbWtHKy9xelZLVHZkYnI3RC9FSEFa?=
+ =?utf-8?B?aGUxNC9hYUxOZU9MWlRUTUdjOWlzSmRhSExKRWhRZU5wTENXVWdHSllXckxJ?=
+ =?utf-8?B?SzJHRjZtemxyVVUvaTVyakxwS05NRDNRend2VzVQY3BXNS80aXkzdlVUV2pZ?=
+ =?utf-8?B?am94R25JcDdiaUFCc203cGRaZU5QeVR1dnlGVGZtNVVXZTg1UnlxcmtDVkdz?=
+ =?utf-8?B?d3d4WmkrUkhOanBLZW5jK3RsZDRVQmFUbzE0OTErVjUrTzdjcFpYUmQ3clV5?=
+ =?utf-8?B?WmdjcWIyUTZNUGw1S3JoYnB2NDI1VWdSTlBPcHVaNE9ib2ZuWUZtczkyYXlK?=
+ =?utf-8?B?TTQxU1dJSUdkNjVHT25GeURYR1FDbkRmMUZtY01TRDBMS3kvOWhWYkhXZ0NP?=
+ =?utf-8?B?SkNoS2tKVDNaZnZ3bytObHN5UGQ0V2dIRnhYTTNML05tWnpKQlNhZU40NFRG?=
+ =?utf-8?B?MVhod21vWFZtT3VGdDRZM3NXeWY5eUFldExQSUZjd3FaVUVGUDBweWh6cmRq?=
+ =?utf-8?B?bkppUCtSTTRRbHVQVSt4ck10Rk15bEVHejREY2dzaHU4WitMenVsdHFiWnd0?=
+ =?utf-8?B?dFdqbVhYdkNtSnlTYTlXakNjOUVCNHRJbnF0WEZWRDVPdVlhZWxvSGNWVTlI?=
+ =?utf-8?B?VzVjeXFxeTBMWDFvYVJnUHVnOFFXUFozT0ZvY0RxTkpsWEZlc2xJc1BLQXVY?=
+ =?utf-8?B?NnFSOHl0bENZbmtVeHVVYndDQTNma0huQklGTmxsa2FBSnNkQTVnNjNud3RR?=
+ =?utf-8?B?OWg5Z2FIWlNjRHFXc2FIc3NPaWVxWndpVVRGWDdrK1I0bit2UlMyUXgyR2hY?=
+ =?utf-8?B?dTlHQThUTDczK0RyUnI5bXZQRDBBQ2tHM1hnaXNTL3NsUy9md1FZUWw2ZXpK?=
+ =?utf-8?B?Y2V1d2lqSUFRdmd5bEFySGN3UzNlem9XWE5TMWM0WTJLWUJQZzhWMVZkMlJO?=
+ =?utf-8?B?eXFER3JzclVVMWZ6UUNsaUtjbG5tMXdFT210NGFnaW5ldldkOW1wNWxwUkZq?=
+ =?utf-8?B?aGRoU1VENm1YcGJXMmNEbDlSTlBibVBBOWNQWkFhTlV2M3FtWXQ0T3N2VjE4?=
+ =?utf-8?Q?31GFGhRsGebwkSdUXqg6N1dW1XY?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZVlyeXYyeW1TblZkTGMzZHhYKzBVeE1zQjU5ZXJWNExWZTBabTZCeDhHU25i?=
+ =?utf-8?B?dktjR0F5QjdNT0lZTkdWQ29wN3B4OXdXbDBoWHV1UnZiTGVVZlMzS1ZqVHNJ?=
+ =?utf-8?B?SXg0UVAreXVHSlpVaDl6RHMxSmpnbTdBV3BkVFRFM1ZrVVhJSytDUWJTclNT?=
+ =?utf-8?B?QkJGdTVZbTc0YTZneHZ4WmhDczJ5Q3FCRTUxSklZY0pJZWNPb1FQTUJVRkNC?=
+ =?utf-8?B?SVJkV05nc1RCMEsrYm9ZcWNTanpFTktvTGhjOGtjWG9FUlZYakNLMkVzSXkw?=
+ =?utf-8?B?SkFiRDBOV2VVVWNNenBUOHljVkgyODJsTTRYZTJKd1IxN2d0OWFrWTl3cjBC?=
+ =?utf-8?B?TWtEZUpWSkZhUVlqQlRxeGZFZ3V4N1QydVg1QVZvRVJyZHlTRHZMeW95eDR3?=
+ =?utf-8?B?Qm40VWZMdG5oSWo1YWV5WUwrTm5va00rZ3NOdWszTzRGVWFyTDBFaVFWL2px?=
+ =?utf-8?B?Mk9MMzJaSG9BUVUzckpJL3ZWVlpxMUpyaFBRVHJXK1Q2SDJwVTYxME8xcEFi?=
+ =?utf-8?B?clk2NzVYS2JCcW0wSDdidkNjY2UwUllTNUlISU9RR2lLMlYyd1FxZmM3L09m?=
+ =?utf-8?B?SEN0UU4vbGE3czNyZmtnekRMSW91bEp6NkJSTlJvUS9YQTlKZ0dFYmFNRmRJ?=
+ =?utf-8?B?aTZnYlFITVh6TTh1U1p3Uk9pT1MvV1hDSWQ2RXpTSzcraTdjVnFFYU1NeDQ0?=
+ =?utf-8?B?NUNiZUkyVURSaFJEZFRlWmxXVjBUNnRKZy9QNlZlcTRQVWFZOVMyZFFUbUJV?=
+ =?utf-8?B?NVJRYjRFK3VEbnJNa1QvbGQ0Z2I5dHVFSUEyNE9pZnBNdEZpS1hVbWZFeVcw?=
+ =?utf-8?B?dGFDa3Z1a3V6S1JkdmpEVzRraWhrMXRsNmdWdktHclI4ZE9RSHliekRvQlN0?=
+ =?utf-8?B?Ujc5Yk05RVZ4Z3E2Q3RCcm5iTE9OSjhzZU1HbTFGdjdRZ1Vic084YVJLdkow?=
+ =?utf-8?B?ZHk0MlhGSEdNa1BUL25uZWcrd2tQVFNyWnBQc3RzQ1A4czMrTDdqS2RveVht?=
+ =?utf-8?B?RGJMZTZFeGhkT1paTTZvN0p4VS81YmdVWXNtdk1nSGRwRFhwbW1WeVZxS2Ux?=
+ =?utf-8?B?dzB0Q1JKR0ZpN1owVmJnWUlrYzdWRnlSTHY0Si9na2xoRnA3T2ZaSGh6Zmdw?=
+ =?utf-8?B?OHRNWkxxVFRncGdnMjg2dS9GYng1Yk5uTElnaFhYVjJ1V0crQlh5cSs4cUVi?=
+ =?utf-8?B?SmVWUlMzckFUSHFMWEIydmJ6Wk9tR0srNkZleG9oNURRd1cySExHWFE4VndR?=
+ =?utf-8?B?aVJmOWM2WXc2Y3RJVS9wVWkyRWRkallEWVJyY1RsWVVqWkpzcWN3MmUwKy9F?=
+ =?utf-8?B?dnlDalI1NzlJR0ZDZk1rYzJ0ak1WYlpLWFlsRndOVWFwaVhadEt2SnA3aVNs?=
+ =?utf-8?B?M0laUldISUh3T3lVTTFZYytUR0dLSDQrQjROL09XbjRtMXRkOWlPdVFUdHk1?=
+ =?utf-8?B?akt3eXBqRjFRaEVLWTd6OHNVcW9QWG9ManZWa1dkZ0duTkNUcERHVFRZTHZR?=
+ =?utf-8?B?NzZlQ0l0QmxuN2VsVUJtSlE4MkFrWFErWENyaHQremZxQnd6ZFFFLzVNeFlq?=
+ =?utf-8?B?Y2lCODZVTXVZQkY0dzVoWFc3U1BnQlVTRjIyakVJSGpxNktWaDFRMCtaS1k5?=
+ =?utf-8?B?c0RaTXdaL0lCUUZkWE1mWFZsSHEzV3JMUHRjb2twOG5hQkNsT2V0RThvMzJq?=
+ =?utf-8?B?Mi8vb0tTT2lIUm95SUc1ZGkyS29XSU1rTzlpYjNaRXFsUHNZblZ1OG9mL3Fn?=
+ =?utf-8?B?T0xXcXRSNlBaTWdrblFqWDFpano4eGZSUEJGNTJUc0U4dUpqR1Y2V3RuVmVJ?=
+ =?utf-8?B?cnlWSmVPUmk1cFFIcHkrTVRqYkdJb3FndDdOWTM5dHEzSWpFd3NYVTJ5UlRM?=
+ =?utf-8?Q?aSRYZ7ME5iG+1?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-c3e7a.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04d78590-9a06-4ae7-7ddc-08df30e3458f
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR04MB7484.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 08:54:39.8036
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR04MB9655
 
-On 2026-10-22 14:41 +0800, Ridong Chen wrote:
-> 
-> 
-> On 10/21/2026 4:38 PM, wangzicheng@honor.com wrote:
-> > On 2026-10-20 10:35 +0800, Ridong Chen wrote:
-> >> From: Ridong Chen <chenridong@xiaomi.com>
-> >>
-> >> lru_gen_folio_seq() computes how many generations below max_seq a
-> >> folio should be added to, but stores it in a variable named "gen".
-> >> Elsewhere in MGLRU "gen" means an index into lrugen->folios[], i.e.
-> >> seq % MAX_NR_GENS, so reusing the name for a relative offset is
-> >> confusing.
-> >>
-> >> The comment table above the code also no longer matches it. It only
-> >> covers the PG_active and the final branch, leaving out the reclaiming
-> >> and "can't evict yet" cases, and it lists LRU_REFS_FLAGS as an input
-> >> although lru_gen_folio_seq() never looks at it.
-> >>
-> >> Rename the local variable to "age", redraw the table so that each
-> >> branch maps to the age and seq it produces, and note that the result
-> >> is clamped to min_seq[type].
-> >>
-> >> No functional change.
-> >>
-> >> Assisted-by: LLM
-> >> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> >> ---
-> >>   include/linux/mm_inline.h | 48 ++++++++++++++++++++++++++-------------
-> >>   1 file changed, 32 insertions(+), 16 deletions(-)
-> >>
-> >> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> >> index ab69b9930893..a933d8c14558 100644
-> >> --- a/include/linux/mm_inline.h
-> >> +++ b/include/linux/mm_inline.h
-> >> @@ -302,34 +302,50 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
-> >>   					      const struct folio *folio,
-> >>   					      bool reclaiming)
-> >>   {
-> >> -	int gen;
-> >> +	int age;
-> >>   	int type = folio_is_file_lru(folio);
-> >>   	const struct lru_gen_folio *lrugen = &lruvec->lrugen;
-> >>   
-> >>   	/*
-> >> -	 * +-----------------------------------+-----------------------------------+
-> >> -	 * | Accessed through page tables and  | Accessed through file descriptors |
-> >> -	 * | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
-> >> -	 * +-----------------------------------+-----------------------------------+
-> >> -	 * | PG_active (set while isolated)    |                                   |
-> >> -	 * +-----------------+-----------------+-----------------+-----------------+
-> >> -	 * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_REFS_FLAGS |
-> >> -	 * +-----------------------------------+-----------------------------------+
-> >> -	 * |<---------- MIN_NR_GENS ---------->|                                   |
-> >> -	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * age        |        1        |        2        |        3        |        4        |
-> > Hi Ridong,
-> >    
-> > Agreed, I also found this part confusing.
-> > 
-> > One problem with the new name: in MGLRU a larger seq/gen means a
-> > younger generation, but a larger age means an older one, so every
-> > read needs a flip (max_seq - age + 1). Assigning the seq directly in
-> > each branch might read more naturally.
-> > 
-> 
-> Hi Zicheng,
-> 
-> Thank you for your reply. We both agree that this part of the code is confusing. 
-> 'age' is not perfect, but it is much better. The bigger the age, the elder it 
-> is, just like human age. And it is a local variable, not used elsewhere, so it 
-> is fine for me.
-> 
-Hi Ridong,
-   
-Thanks for the explanation. To be clear, I have no problem with the
-name itself: it is a local variable and there is no functional
-impact either way.
 
-> > Also, both tables run past 80 columns (~95 for the art in mglru-fg
-> > 4/17, ~96 for the redrawn one here, tab as 8). Would you consider
-> > something vertical and shorter? I had prepared a comment for
-> > mglru-fg, and since this is being discussed here too, here it is
-> > (conditions are per mglru-fg, where the flags became the refs
-> > count):
-> > 
-> >      /*
-> >          * The seq is clamped to min_seq[type]:
-> >          *
-> >          *   destination     | folio state
-> >          *   ----------------+--------------------------------------------
-> >          *   youngest        | PG_active, refs >= LRU_REFS_WORKINGSET
-> >          *   (max_seq)       |
-> >          *
-> >          *   2nd youngest    | PG_active, refs < LRU_REFS_WORKINGSET
-> >          *   (max_seq - 1)   | anon folio not yet in swapcache
-> >          *                   | PG_reclaim folio, dirty or under writeback
-> >          *
-> >          *   2nd oldest      | refs >= LRU_REFS_WORKINGSET
-> >          *   (max_seq - 2)   |
-> >          *
-> >          *   oldest          | reclaiming
-> >          *   (min_seq[type]) | otherwise: refs < LRU_REFS_WORKINGSET
-> >          */
-> > 
-> > With a comment like this, developers can see the generation
-> > placement directly, instead of working it out from the code.
-> > 
-> 
-> Thanks for the table,
-> 
-> As Kairui replied, he did not want more code details in the comment, which may 
-> change a lot. And Kairui will pick this patch with his FG series. Although I 
-> wanted to add the table, Kairui felt there shouldn't be too much detail.
-> 
-> What is more, I think the following is needed—it is what this function initially 
-> implemented.
-> 
-> +-----------------------------------+-----------------------------------+
-> | Accessed through page tables and  | Accessed through file descriptors |
-> | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
-> +-----------------+-----------------+-----------------+-----------------+
-> 
-> > Best,
-> > Zicheng
-> > 
-> > 
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * seq        |     max_seq     |    max_seq-1    |    max_seq-2    |    max_seq-3    |
-> >> +	 *            +-----------------------------------+-----------------------------------+
-> >> +	 *            |<---------- MIN_NR_GENS ---------->|                                   |
-> >> +	 *            |<---------------------------- MAX_NR_GENS ---------------------------->|
-> >> +	 *            +-----------------------------------+-----------------------------------+
-> >> +	 *            | Accessed through page tables and  | Accessed through file descriptors |
-> >> +	 *            | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * PG_active  |  PG_workingset  | !PG_workingset  |                 |                 |
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * reclaiming |                 |                 |                 |     always      |
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * can't      |                 |  anon && not in |                 |                 |
-> >> +	 * evict yet  |                 |  swapcache, or  |                 |                 |
-> >> +	 *            |                 |  PG_reclaim &&  |                 |                 |
-> >> +	 *            |                 | dirty/writeback |                 |                 |
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 * else       |                 |                 |  PG_workingset  | !PG_workingset  |
-> >> +	 *            |                 |                 |       or        |       &&        |
-> >> +	 *            |                 |                 |  PG_referenced  | !PG_referenced  |
-> >> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> >> +	 *
-> >> +	 * The resulting seq is clamped to min_seq[type].
-> >>   	 */
-> >>   	if (folio_test_active(folio))
-> >> -		gen = MIN_NR_GENS - folio_test_workingset(folio);
-> >> +		age = MIN_NR_GENS - folio_test_workingset(folio);
-> >>   	else if (reclaiming)
-> >> -		gen = MAX_NR_GENS;
-> >> +		age = MAX_NR_GENS;
-> >>   	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
-> >>   		 (folio_test_reclaim(folio) &&
-> >>   		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
-> >> -		gen = MIN_NR_GENS;
-> >> +		age = MIN_NR_GENS;
-> >>   	else
-> >> -		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-> >> +		age = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-> >>   
-> >> -	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
-> >> +	return max(READ_ONCE(lrugen->max_seq) - age + 1, READ_ONCE(lrugen->min_seq[type]));
-> >>   }
-
-My real point was about the form of the computation: whatever the
-variable is called, the return still does max_seq - X + 1 and then
-clamps to min_seq[type], so a reader has to juggle a plus, a minus
-and a clamp at the same time. When I first read it I had to go back
-and forth. By comparison, the 6.6-era code assigned the placement 
-directly in each branch (roughly `seq = max_seq or
-seq = min_seq + 1` style), which is a bit more verbose but much more
-direct.
-
-Anyway, these are minor points with no functional impact. I don't
-feel strongly about this, so I will defer to you and Kairui.
+On 10/22/2026 10:52 AM, Li Jinyue wrote:
+> kvm_riscv_mmu_free_pgd() frees pgd_split_page_cache after dropping
+> mmu_lock. It is reached from kvm_arch_flush_shadow_all(), i.e. from the
+> MMU notifier ->release() callback, which can run concurrently for the
+> same VM from exit_mmap() and from mmu_notifier_unregister() in
+> kvm_destroy_vm(). The stage-2 teardown is serialized by mmu_lock and the
+> second caller finds kvm->arch.pgd already cleared, but both callers then
+> go on to free the cache, and kvm_mmu_free_memory_cache() does not
+> tolerate concurrent callers:
+>
+>    BUG: KASAN: double-free in kvfree+0x28/0x32
+>    ...
+>     kfree+0xc4/0x428
+>     kvfree+0x28/0x32
+>     kvm_mmu_free_memory_cache+0x178/0x246
+>     kvm_riscv_mmu_free_pgd+0x20e/0x2b4
+>     kvm_arch_flush_shadow_all+0x1a/0x24
+>     kvm_mmu_notifier_release+0x36/0x7c
+>     __mmu_notifier_release+0x182/0x66a
+>     exit_mmap+0x7f8/0x8c4
+>     mmput+0x7e/0x2fc
+>     do_exit+0x57a/0x22b4
+>    ...
+>    Freed by task 15956 on cpu 3 at 8926.103524s:
+>    ...
+>     kvm_mmu_free_memory_cache+0x178/0x246
+>     kvm_riscv_mmu_free_pgd+0x20e/0x2b4
+>     kvm_arch_flush_shadow_all+0x1a/0x24
+>     kvm_mmu_notifier_release+0x36/0x7c
+>     mmu_notifier_unregister+0xf0/0x328
+>     kvm_put_kvm+0x32a/0x7b8
+>     kvm_vm_release+0x3a/0x50
+>     __fput+0x330/0x974
+>
+> The cache only feeds huge page splitting from VM ioctls, so it does not
+> need to be released together with the page table. Free it from
+> kvm_arch_destroy_vm() instead, which runs once after the MMU notifier
+> has been unregistered, as arm64 and x86 already do. The error path in
+> kvm_arch_init_vm() is not affected because the cache cannot have been
+> filled at that point.
+>
+> Found by syzkaller.
+>
+> Fixes: 6c7f75ef096a ("RISC-V: KVM: Add the split page cache for ioctl context")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 
 Thanks,
-Zicheng
-
-> >>   
-> >>   static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
-> >> -- 
-> >> 2.34.1
-> >>
-> >>
-> > 
-> 
-> -- 
-> Best regards
-> Ridong
-> 
-> 
-
-
+Nutty
+> ---
+>   arch/riscv/kvm/mmu.c | 2 --
+>   arch/riscv/kvm/vm.c  | 2 ++
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+> index 3e955d808743..74dece22d172 100644
+> --- a/arch/riscv/kvm/mmu.c
+> +++ b/arch/riscv/kvm/mmu.c
+> @@ -798,8 +798,6 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
+>   
+>   	if (pgd)
+>   		free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage_pgd_size));
+> -
+> -	kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
+>   }
+>   
+>   void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
+> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
+> index a9f083feeb76..a7e1b518257a 100644
+> --- a/arch/riscv/kvm/vm.c
+> +++ b/arch/riscv/kvm/vm.c
+> @@ -54,6 +54,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+>   	kvm_destroy_vcpus(kvm);
+>   
+>   	kvm_riscv_aia_destroy_vm(kvm);
+> +
+> +	kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
+>   }
+>   
+>   int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
+>
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
