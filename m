@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792732726;
-	b=Jt34qkvDjKx0SS4WOnO70Fux2/wUQcfYPGtK8z9XKRFNZGWEqgMy6JCBgY5flIpd4zEu
-	 4SXyDT4ouYjcxUgMf6wwW1PlsOAnydRye1DZH+2BNnMuRMJSwOTKg1OgxLSW1rxK9oX82
-	 RtHL+W+NNbfZEtH3FgHE7oQjNqqYc7CWuTm5zZ7hSQBvu7kwKDYgRJaRGuKNVNXxyEgBB
-	 gBZIBhymiEwyBMFsnjE2by/T0xsmsBQiJCHTy9ztVAjvhvpUYT3nli2SOaU8aDWBKAfbi
-	 TC+kH3dZNjRzQXLKZFWMqUcJLSROm30mX7aKVCD0uxXizU+QOW5qG3uk6orhBhjhO3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792732726;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=H2v7At0gBKH50ptnNc59b5HhlLQje5kkdzxxscMSWWY=;
-	b=30RXYzBLT5vqR5WXxbrpUFAESFYwQ9IbRpEMMsgnfZEJgB+k3T3qFWkX4P5RpuIut7xc
-	 y4uayC0moaAdbsjZQBnmkS8oVe+4308yYqlvbZbDN0wXSnxexx9r5LZ+8Bl1PPp22q3QU
-	 EC2hYtH57mfJTeQjd4X9iavUSwDcSPxnpy4nRGyfvZqL50uI7PUpDe946EcwaCH40ApX+
-	 atBtNWXW2yQ8scDsZnKbi3sesrpbeapCbkHnIvdrkE5zDho0wWAHIOriCOZeZHjDsLc09
-	 jKn5UiR7lm6jAxrszVthVhDIGn3Gk7hb5NGjZ3yomDl5UlartDJW9d4OeeARHtvzxbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mKbx52ho;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bJv8x++O;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792732788;
+	b=Xv/mFiSwD/YXhEpFnEuGe9dG4+9KpI/EfYTbE64npBSz3Y+gTu1jHzfVXKiZIFMAmR5U
+	 qy+ILdzVE7jDg83kph39hdXMJBGPjWkq0ryuK5FWE+NfuxJlLIZ5fmYV/Q2R0FeUUp1Dc
+	 z2N0DJb1d/jpJQgrKXzjigKnVkaXyXgqBQcHU5vV22DZceirw4QJ+QaTFVxfSzQoxwuNi
+	 5L95cgmkXo7FGnxAwLD61ImZnNFS4YrgLoymRyp5Cy75XWbk/RoW/XUDaGW9m4Q+H0nRl
+	 Qv4wUGPAI7kNwGo0gSSRLKXAUM3+D4cyPNInS8n4zGLdro9fN/t+/p2T2/wLIEmYNhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792732788;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/NaKMAAGxxDgzyHN/M6S08Zb78X5Vhy8kShaURHSxac=;
+	b=01xiGJY/i+KhOoX5Kk8uugC5rKPCOW4kJB9lpXKOZyd3f70VZPs2Z5dKc6hqOwve/jw0
+	 TItKLEbNUtXsbSI7uoNyALBwqsIU3fDyQbANmJ6lQjlu7h0khFCZB1FgRy6eDq6kKHXpD
+	 4yQMBo6LVJGOGxUhuPZ2dzMOC2hdjaCmRkiTmiaPq2dvsgM20Sr97Fr3y6Z+S5KdATubY
+	 eVNZ6RsLMY0ZRWZPmxMYkJewns2QKemBPmu1gHEQBqUMuv4Pc5ET70rOotiF8czwLDE0P
+	 Skxbn5ky/f1a8ZKuKhrBUzoX7cGlxkeztoAwWKa0AcFkPn2G9kDezggfvmDcBOHrPag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="uy/1yJgn";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288EB606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:18:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 288EB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C8C606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C8C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mKbx52ho;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bJv8x++O
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1F19d1335237
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:18:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	H2v7At0gBKH50ptnNc59b5HhlLQje5kkdzxxscMSWWY=; b=mKbx52hoTAsoLR9h
-	goDGTxTPzGJ4mQ2inu0l4QHUn5MGLqyVj3TGsUi3h29ouZ9c+y6aBHP1HEJtGcde
-	2rOHGwuPlty+tLhqxXsWTl+idci9WlpacVthGW89HWc685xx9KuKx1UiNm0D4rJD
-	RHCIbDJGXWH0yyKZrMcCt5tndyayRrhnhvwbMs+UVjGdzH7XwoLL9UiUP+guugUy
-	BcXAKJi9apnAVusNg1DH4o3SDSeNG4CusBeWxz358DOUzle4ONKs2EBOxU+gKWmk
-	usaA5jXBfAFQeepDCeHk5umgojd7G+brP1RIztYL26+7dyeUT8aqT5DmgiKMk7Yz
-	mOr77g==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsyk9f27-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:18:45 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab2395f104so515563a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:18:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uy/1yJgn
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5337c7b9937so181061cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:19:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792732787; cv=none;
+        d=google.com; s=arc-20260327;
+        b=isBS4MPVa0Q1Bl8mmW2CSXkcqu9+0bartI0QrhIPeXIzs5KV2uRy0mZ8C1r39LKqQB
+         YHWuVYcswe//b2zcZBlrR1ySgSBPB0Nbhv5g1kECrxKD0F8O67QY2+FsBjU3V7KCZf3H
+         4BAtX5lrQPmPtJrxg2mzQ1W+dB/ByyUSRawL7G8WcCzb8/VKQrCh+ZA/zZRokNUAize1
+         ScAGbvrk8NGttwB38yepnHgtQo54I8dfYj8U7geasfXra5XPuJejYob8Vs8BVgAHryh/
+         dkKUb/GUfON278Ii+n07YY2NiFTfVzZRBlZtgFyYBmjN5+D6q89furIAR/KEza52Hu9U
+         ec5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/NaKMAAGxxDgzyHN/M6S08Zb78X5Vhy8kShaURHSxac=;
+        fh=gNBpz4WESeJROF6+FAi73pYe5zaBsMWDKypGkXw6UIM=;
+        b=hBADVuJUqf7AuSh2R3kKC8xTDYaKxOvUqkij8001ftnrZpDDGmcSqd/Cr5yQVR5VHl
+         3Gf5uJagHK6VwOPmXc+ucE4EjxTTZa1KBls+AiwHVbVzgaTeiTtg5YdB7SeeXKvwU1UB
+         D8WxjvHgEeKSfq3pqCkkAWFTXCpT+3RfW/6Uk4D70e7+pxPLFqrdazIkCZE6nmSL1o0P
+         2yXUH7yRUfLv+mW65uzqoMvXHZqyoV8RJ+/BIUT0TCRxertIRcmiou2Yk/RaD6RTQJMQ
+         3dYyPKlv/HNjrFCDILNVGXH4I5n4CnVKm8dIhWXY+2ekB3r8pdxexIK5S0IkzLET4jBq
+         ZKFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792732724; x=1793337524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H2v7At0gBKH50ptnNc59b5HhlLQje5kkdzxxscMSWWY=;
-        b=bJv8x++O6rwaTkL9bU1QRyNks7kPGke1it2tu6KB5NKgJAHY7DDpApbPUrIlldAe2C
-         4l533EvX7eEjJlCOOgz26RwgdkQuHWZ2X/Qf8wx9v8OtJXFBLAv+OQWPFAH67UHs9YB+
-         o1SLqXMpl0ov2nUXArrgwrATtU56TxiA7YOqywerVADBxcvhdshPUih4dm/3cT7YgmsX
-         FhopFngsl9bx79NbQfFluIsKikpd2rfi3GRMZR8AY3wChuIOr9EXDpYm7CbZXUkL/evu
-         TzUg7ZIENvGXx2CElL9s/670qHWg/zKZIQjuC8N+dQgKyC/yWmzoHBuF2H20HA+72jss
-         9tNg==
+        d=google.com; s=20251104; t=1792732787; x=1793337587; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/NaKMAAGxxDgzyHN/M6S08Zb78X5Vhy8kShaURHSxac=;
+        b=uy/1yJgnJ9y8v/sLjHDmqtwgd+PCbTLhkQfcdb6T5wRpVF2nBmK2jpb11eDmm2YHRN
+         CBLHm2IO/00IlpHuThymVEze8PrK0imVzoO930wlz9GtUk5pdf4O6wRsTU3+4O3tv5x8
+         PQen3aeMbpTZEgKrWawaW1RSWAjahYvoKOaVwLTqdsYY3JjJYIkrSeTMerB4tApx4oTO
+         yrknlYVj4DqFJWpC3EpbpK6mNxST12bi/tZalWparRpJs0V6hUbVTRexceY52zPg4aCN
+         T/TDeFufurGASUB/xn3Fkm3rVqfDmtE9moBHvq3ATxWnnRarp2sRAiHqphaps0MJRtcX
+         f00w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792732724; x=1793337524;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H2v7At0gBKH50ptnNc59b5HhlLQje5kkdzxxscMSWWY=;
-        b=2yq2LHk/sSSBN7I19QzpVpIftBYZYro56pIJ73JLwM+dOYctiBvlPuqUaSKRMR69yc
-         3N0euh7ILT4xLgW75AqUAj7pVse+4rSGclG/mvocAcJN7MUOGWiAFDKpYUfjX9z5kBqN
-         xbXEIXLLitwdGy0GPIFVXnav1UqGeU7RUYagXSEnmR8hy2Gqfrde6ZBkar7NQA9ZUBak
-         sPW6LkRZcJ38LRloFeCC6FF7E30JGw3NCKQo5HU+crp+hlVN3QFWjYnRpD/btpvwJFxK
-         tTOiQd5XlsFVmJQR9QrNzgdJcPuMVmyruZXljDIbgnLnTOQ/Ok/1gxrqf37OjGLVW77v
-         snNw==
-X-Forwarded-Encrypted: i=1; AKwUvBws8WGRnxRW4PNm2IE71kAtz24rSglZ09KckiFEV7jxbYQ7/uutVOzcsPgFJmeAL16p+znpbZXzHH/d2lQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2VHiXIfVUsnm72qyz/MEAHI9Xo7DaIO/WPuUJWfcsXM3rLeJO
-	+bn/E73y/78VbMs2ZHbyC/W5CY10xqa+7abtBMyaos5iRP1dtqrLVcOji3TKsmez+1q+J3m05UR
-	4Tw6vTBTXmykyarVujbsExxxrKMQtGoHI4uy8SU5+s4My61rIA/9tFP7ZYTxbBsAVoA==
-X-Gm-Gg: AYBFou0F2FIUGuFlgmXD7xljCMv8C1K+MyMwhqncUPFJwL6ramgAPUs2u5s2v8y5SYD
-	6LIBug7N/Ea0E0sRfuYoePHXCWeAmOlcPadM0cSJw9zcH0t4MkipX6jg+3JnRrkgPVtIisFnpYW
-	6T4JhaIhjH9o84zIUWFcnpEkR+1jAMQ9xm/SA2aDSPEbOl6TwlgkhaC6cVhM6YK+Fj83teT2b3/
-	qdjuRWLUWI1vUU6iQBxCnylA1KRtb5BdDorkgyAPKqZxZtZkiHpQ6o7fV/r60YfAT554NqED6Gx
-	HBgN0YuAX2sMVk29W7B5/VEXi3jbw4Iu3P1ZRroLCn13e3joRK34lwpuq7gJG+zZXKKzZ9QqRLz
-	A4fyfxFbE6ciLwFknzlyDG4QnaFA8kQ==
-X-Received: by 2002:a17:90b:4a09:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3adce6292c0mr889122a91.25.1792732724422;
-        Thu, 22 Oct 2026 22:18:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a09:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3adce6292c0mr889096a91.25.1792732723727;
-        Thu, 22 Oct 2026 22:18:43 -0700 (PDT)
-Received: from [10.218.33.235] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8a5342sm317639a12.17.2026.10.22.22.18.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 22:18:42 -0700 (PDT)
-Message-ID: <30526f3e-8d44-444f-835e-a8e4f6befcc8@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 10:48:32 +0530
+        d=1e100.net; s=20260707; t=1792732787; x=1793337587;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/NaKMAAGxxDgzyHN/M6S08Zb78X5Vhy8kShaURHSxac=;
+        b=i4eVjCgMmbJuu/DfEYlh+6gl7ODQ+Q6/8qQc8GVuDgOyU5iu8Hm7NcgfRN4o6fM498
+         PRbm/Uko5OA/q1JHhxTE7uSq2z24NHhrTvI85veqBiColysdUck1i9PWvXMWnvs+EEWa
+         pzlfsqTEHSgN/TTTimtVHcJHV/A7WHo2tOG2OMgm5fOJ9JLF0lyNIERpXM37SKmVGlkm
+         7NURwMaLSAxRqVZNLwsC4zWYDhE7m1GtdKs6qMu25J80KocCCoLY2SkPdGA6lE+Kl1eT
+         xAcdMUXaubZAM/dESko04kY3youcT44qleAmTtS7sgV353TNm0Y8I1D/95CZnJm04Q/l
+         FZwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxcvQfoRu63FHyusd4B3kp4P6LCw3MoFA4em0bZfZxeQmAG95brY9VooLJ+VyMu+XUzFxqNqc9aqUfaS0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI31DK+hRlng+IktfCJDgoCafofGybjZvL74iIHzgDLzVjD/lwC
+	y1bVb22L5cj08SdoIShHAs9wYy/9NG3DhHL3ND6ipnNnWsgnhx62NA6CuWQaeIgg6ZoTPoibf7h
+	fPwRSQIt66ATBrRvEmq5yujoH5zm3bFsCcIAg13Eb
+X-Gm-Gg: AYBFou0X+bcpBw1wmd3AHDXWp4EUrWlzNABjI2lK34LN4E3TxRbBsNbyDJssKM59A2f
+	xqLUE60652RHVRttuT76l/lpr09kufKsmZOxockYIf53i0yNFqILXhh/Bj/MTNdATHqKaucCYvk
+	MxirjR9mRb1adakjiaoNuVoKW77I6MZWMQfNfib5XycNca4ab60KT+jMu9sie44idFC0V+OI7X8
+	2grB8EnsJzyLcFDMtpYoC3et9UImohCBCN1AlPirRHcsMUARNRbImUVKFlEICcQoCN+b6uWSZzq
+	Xys32Biel4oHhjOgqc+ulQPtJpBsEn7LQdYxPvfVRbatcAHpEZb4cSbIBZFV0xY1Vx3sT9Yn/CV
+	gJL1EBaZU84ANNb6dAMfU8cFMN0kSY4NDHQFvzQ==
+X-Received: by 2002:a05:622a:410e:b0:531:282:6560 with SMTP id
+ d75a77b69052e-536c499a845mr5631721cf.15.1792732786055; Thu, 22 Oct 2026
+ 22:19:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,433 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] power: reset: Add PSCRR NVMEM recorder
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Wim Van Sebroeck <wim@linux-watchdog.org>,
-        Guenter Roeck
- <linux@roeck-us.net>,
-        Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-watchdog@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        =?UTF-8?Q?S=C3=B8ren_Andersen?= <san@skov.dk>,
-        Guenter Roeck <groeck@chromium.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        Ahmad Fatoum <a.fatoum@pengutronix.de>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>
-References: <20260914-pscrr-provider-v3-0-c45cb16542e8@oss.qualcomm.com>
- <20260914-pscrr-provider-v3-2-c45cb16542e8@oss.qualcomm.com>
- <060c3f44-2567-4b09-8d00-f38b92339029@kernel.org>
-Content-Language: en-US
-From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-In-Reply-To: <060c3f44-2567-4b09-8d00-f38b92339029@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyMCBTYWx0ZWRfX6iFpXHhY1eFG
- o68eFlzHNR5LTKCohbfiQr1B95sfBGD7Pc7gVo0chc6D0yWh0skLAcfAN/B3zwvp7aIF8Q49Yrx
- r01XlwS6D7oZezcMXvTIadptckXEiUcS2bWM8diVX1fbko8XQsNMjzrGCIjCDT5hGqPSxAOL8Xq
- xt//A1e4026B0CNffmzHsr483eTwNtfXxTschI1is7sNkuamuREIZ4iok9MbHgZwwZuEEcmR3UH
- oWTyJ4FFwUvVpnlhOW1qY/BfL5NdaTjN9U/2QQ/oSULH/buzzz6nFi8Tz5hWnIO4MARjwl4cP1/
- AdZwNCyz5Dzpss6gJK6aRvfkyrgv7lgsSz5v+Zkn++nKBl5V7z6PD1Z3KGBW0gUe7Qm4nnQM++a
- Z3OBIRoSfC9G1e8SAQNjIEo3jsKThNQ24F/ajkIYD/f1KHyrE1Q+Tm+sI8y73OsHMKFnx2jJsXW
- D0ZxLopaEh3fE7teMFw==
-X-Proofpoint-ORIG-GUID: A6SQZCJsOAutgAxvErp6XyoPd9d05aZP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyMCBTYWx0ZWRfX/RqiweS1H190
- P+y+0v9wMIFqYFwTMxlJqglBjDXt80/8fti3itEZsJbFzM5Rwysp7dyRGHx1RPpxVhirfFI/VHx
- HzY2bDX4VL2h3mN5zU3WPk5W832XF30=
-X-Proofpoint-GUID: A6SQZCJsOAutgAxvErp6XyoPd9d05aZP
-X-Authority-Analysis: v=2.4 cv=GLKdgeNK c=1 sm=1 tr=0 ts=6adaee35 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=mMMiByi50vCrbbtk434A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230020
+References: <20261020205859.1080743-1-irogers@google.com> <20261022203003.1779152-1-irogers@google.com>
+ <20261022203003.1779152-7-irogers@google.com> <atqUsIBhPaxjp3p8@google.com>
+In-Reply-To: <atqUsIBhPaxjp3p8@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 22 Oct 2026 22:19:34 -0700
+X-Gm-Features: AclHuK8074tTEIi4nbK08SZtgABfkl_zUHjYXnlEC7ftpUdA3DXoCtzUr3SI0rM
+Message-ID: <CAP-5=fUZ+=_b_1SL7B=wtab=8foQ6iDKXrxQ_k8wDZaJTd43Pg@mail.gmail.com>
+Subject: Re: [PATCH v6 06/11] perf bpf-filter: Extend lock_held() to other
+ kernel lock types
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: acme@kernel.org, adrian.hunter@intel.com, ddhariwal@google.com, 
+	eranian@google.com, james.clark@linaro.org, jolsa@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Srinivas,
+On Thu, Oct 22, 2026 at 3:56=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+wrote:
+>
+> On Thu, Oct 22, 2026 at 01:29:58PM -0700, Ian Rogers wrote:
+[snip]
+> > +static const struct lock_prog_desc lock_progs[] =3D {
+> > +     /* Mutex */
+> > +     LOCK_FPROG(fexit_mutex_lock, "mutex_lock", LOCK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_lock_nested, "mutex_lock_nested", LOCK_PRO=
+G_MUTEX),
+> > +     LOCK_FPROG(fexit__mutex_lock_nest_lock, "_mutex_lock_nest_lock", =
+LOCK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_lock_io, "mutex_lock_io", LOCK_PROG_MUTEX)=
+,
+> > +     LOCK_FPROG(fexit_mutex_lock_io_nested, "mutex_lock_io_nested", LO=
+CK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_lock_interruptible, "mutex_lock_interrupti=
+ble", LOCK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_lock_interruptible_nested, "mutex_lock_int=
+erruptible_nested",
+> > +                LOCK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_lock_killable, "mutex_lock_killable", LOCK=
+_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit__mutex_lock_killable, "_mutex_lock_killable", LO=
+CK_PROG_MUTEX),
+> > +     LOCK_FPROG(fexit_mutex_trylock, "mutex_trylock", LOCK_PROG_MUTEX)=
+,
+> > +     LOCK_FPROG(fexit__mutex_trylock_nest_lock, "_mutex_trylock_nest_l=
+ock", LOCK_PROG_MUTEX),
+> > +     LOCK_FPROG(fentry_mutex_unlock, "mutex_unlock", LOCK_PROG_MUTEX),
+>
+> I'm not sure if these are still needed.. it can handle mutexes
+> specially, right?
 
-On 22-Oct-26 1:24 PM, Srinivas Kandagatla wrote:
-> 
-> 
-> On 9/14/26 5:38 AM, Faruque Ansari wrote:
->> Record the power state change reason into a NVMEM cell (a PMIC
->> SDAM byte, RTC scratch register, or EEPROM) and read it back on the
->> next boot, so the cause survives a power cycle.
->>
->> The recorder is implemented as an NVMEM layout driver: it owns the
->> single cell described by its layout binding and adds it to the
->> parent NVMEM device, rather than acting as a standalone consumer of
->> someone else's cell.
->>
->> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
->> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
->> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
->> ---
->>   drivers/power/reset/pscrr/Kconfig       |  14 ++
->>   drivers/power/reset/pscrr/Makefile      |   1 +
->>   drivers/power/reset/pscrr/pscrr-nvmem.c | 269 ++++++++++++++++++++++++++++++++
-> 
-> Consider moving this to drivers/nvmem, as this is an independent driver
-> and no dependency to drivers/power headers.
+The direct lock->owner check only works when we already know the
+mutex's address, i.e. lock_held(<global mutex symbol>). In that case
+prescan_one_lock_expr() adds no LOCK_PROG_MUTEX group, and
+configure_lock_progs() turns autoload off for all of these programs,
+so none of them are loaded.
 
-Thanks for your review and suggestion.
-Sure, I'll move this driver under drivers/nvmem/layout in the 
-next revision.
+They're still needed when the address isn't known up front, or the
+target matches many mutexes:
+ - lock type filters, e.g. lock_held(mutex) or "lock_held(mutex) ||
+lock_held(rwsem)" for the direct reclaim use case. There we need to
+know whether the current task holds any mutex, which means tracking
+acquire/release in held_locks;
+ - slab cache filters (lock_held(&<cache>)), where the lock is
+embedded in a dynamically allocated object and we match on the
+kmem_cache of the address recorded at acquire time;
+ - hex addresses and symbols whose type can't be determined, where we
+hook every lock family.
 
-> 
->>   3 files changed, 284 insertions(+)
->>
->> diff --git a/drivers/power/reset/pscrr/Kconfig b/drivers/power/reset/pscrr/Kconfig
->> index 72de82731b53..459b05ba32d3 100644
->> --- a/drivers/power/reset/pscrr/Kconfig
->> +++ b/drivers/power/reset/pscrr/Kconfig
->> @@ -31,3 +31,17 @@ menuconfig PSCRR
->>   	  unless hardware provides the reset cause.
->>   
->>   	  If unsure, say N.
->> +
->> +if PSCRR
->> +
->> +config PSCRR_NVMEM
->> +	tristate "PSCRR NVMEM recorder provider"
->> +	depends on NVMEM_LAYOUTS
->> +	help
->> +	  PSCRR recorder that stores the power state change reason in a
->> +	  small NVMEM cell (such as an RTC scratch register) and reads it
->> +	  back on the next boot, so the cause survives a power cycle.
->> +
->> +	  If unsure, say N.
->> +
->> +endif # PSCRR
->> diff --git a/drivers/power/reset/pscrr/Makefile b/drivers/power/reset/pscrr/Makefile
->> index e5530a858971..95c80c80c7da 100644
->> --- a/drivers/power/reset/pscrr/Makefile
->> +++ b/drivers/power/reset/pscrr/Makefile
->> @@ -1,2 +1,3 @@
->>   # SPDX-License-Identifier: GPL-2.0
->>   obj-$(CONFIG_PSCRR) += pscrr.o
->> +obj-$(CONFIG_PSCRR_NVMEM) += pscrr-nvmem.o
->> diff --git a/drivers/power/reset/pscrr/pscrr-nvmem.c b/drivers/power/reset/pscrr/pscrr-nvmem.c
->> new file mode 100644
->> index 000000000000..64f67f0521e0
->> --- /dev/null
->> +++ b/drivers/power/reset/pscrr/pscrr-nvmem.c
->> @@ -0,0 +1,269 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * pscrr-nvmem.c - NVMEM layout driver for PSCRR
->> + *
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + * Copyright (C) 2025 Pengutronix, Oleksij Rempel <o.rempel@pengutronix.de>
->> + */
->> +
->> +#include <linux/bitops.h>
->> +#include <linux/module.h>
->> +#include <linux/nvmem-consumer.h>
->> +#include <linux/nvmem-provider.h>
->> +#include <linux/of.h>
->> +#include <linux/pscrr.h>
->> +#include <linux/slab.h>
->> +
->> +struct pscrr_nvmem {
->> +	struct nvmem_device *nvmem;
->> +	u32 offset;		/* byte offset of the cell, from reg[0] */
->> +	u32 bit_offset;		/* 0 when the cell has no "bits" property */
->> +	u32 nbits;		/* BITS_PER_BYTE when the cell has no "bits" property */
->> +	enum psc_reason reason;
->> +};
->> +
->> +static inline u8 pscrr_nvmem_mask(struct pscrr_nvmem *priv)
->> +{
->> +	return (u8)GENMASK(priv->bit_offset + priv->nbits - 1, priv->bit_offset);
->> +}
->> +
->> +static int pscrr_nvmem_raw_read(struct pscrr_nvmem *priv, u8 *raw)
->> +{
->> +	int ret;
->> +
->> +	ret = nvmem_device_read(priv->nvmem, priv->offset, sizeof(*raw), raw);
->> +
->> +	return ret < 0 ? ret : 0;
->> +}
->> +
->> +static int pscrr_nvmem_raw_write(struct pscrr_nvmem *priv, u8 raw)
->> +{
->> +	int ret;
->> +
->> +	ret = nvmem_device_write(priv->nvmem, priv->offset, sizeof(raw), &raw);
->> +
->> +	return ret < 0 ? ret : 0;
->> +}
->> +
->> +static int pscrr_nvmem_cell_read(struct pscrr_nvmem *priv, u8 *out)
->> +{
->> +	u8 raw, mask = pscrr_nvmem_mask(priv);
->> +	int ret;
->> +
->> +	ret = pscrr_nvmem_raw_read(priv, &raw);
->> +	if (ret)
->> +		return ret;
->> +
->> +	*out = (raw & mask) >> priv->bit_offset;
->> +
->> +	return 0;
->> +}
->> +
->> +static int pscrr_nvmem_cell_write(struct pscrr_nvmem *priv, u8 val)
->> +{
->> +	u8 raw, mask = pscrr_nvmem_mask(priv);
->> +	int ret;
->> +
->> +	/* Sub-byte cell: preserve the neighbouring bits, read-modify-write. */
->> +	if (priv->nbits < BITS_PER_BYTE) {
->> +		ret = pscrr_nvmem_raw_read(priv, &raw);
->> +		if (ret)
->> +			return ret;
->> +	} else {
->> +		raw = 0;
->> +	}
->> +
->> +	raw = (raw & ~mask) | ((val << priv->bit_offset) & mask);
->> +
->> +	return pscrr_nvmem_raw_write(priv, raw);
->> +}
->> +
->> +static int pscrr_nvmem_read_reasons(struct pscrr_provider *p,
->> +				    unsigned long *reasons)
->> +{
->> +	struct pscrr_nvmem *priv = p->priv;
->> +
->> +	/*
->> +	 * Report the reason latched at probe (or overwritten by a later
->> +	 * record); the cell itself was cleared at probe, so it is not read
->> +	 * live here.
->> +	 */
->> +	set_bit(READ_ONCE(priv->reason), reasons);
->> +
->> +	return 0;
->> +}
->> +
->> +static int pscrr_nvmem_write_reason(struct pscrr_provider *p,
->> +				    enum psc_reason reason)
->> +{
->> +	struct pscrr_nvmem *priv = p->priv;
->> +	int ret;
->> +
->> +	if (reason >= PSCR_REASON_COUNT)
->> +		return -EINVAL;
->> +
->> +	ret = pscrr_nvmem_cell_write(priv, reason);
->> +	if (ret)
->> +		return ret;
->> +
->> +	WRITE_ONCE(priv->reason, reason);
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct pscrr_provider_ops pscrr_nvmem_ops = {
->> +	.read_reasons = pscrr_nvmem_read_reasons,
->> +	.write_reason = pscrr_nvmem_write_reason,
->> +};
->> +
->> +static struct device_node *pscrr_nvmem_get_cell(struct device *dev,
->> +						struct nvmem_device *nvmem,
->> +						u32 reg[2])
->> +{
->> +	struct device_node *layout_np, *cell_np = NULL;
->> +
->> +	layout_np = of_nvmem_layout_get_container(nvmem);
->> +	if (!layout_np)
->> +		return ERR_PTR(-ENOENT);
->> +
->> +	for_each_child_of_node_scoped(layout_np, child) {
->> +		if (of_property_read_u32_array(child, "reg", reg, 2))
->> +			continue;
-> Please explain this, why are you ignoring child with reg? to start with
-> are you expecting child nodes without reg property?
+So they're only loaded when the filter actually needs them. I'll add a
+comment above lock_progs[] in the next version explaining this.
 
-ACK.
-Yes. Child nodes without a reg property are expected when the 
-complete byte is reserved for a single cell. If only a portion of 
-the byte is being used (e.g. 4 bits out of 8 bits), then the 
-child node should provide a reg property to describe the bit range.>
->> +
->> +		cell_np = of_node_get(child);
-> You are getting only the first child? Please explain why this is not
-> inline with the bindings or vice-versa.
+Thanks,
+Ian
 
-ACK.
-Agree — silently taking the first child was wrong. PSCRR records 
-one reason into one cell, and the binding describes exactly one 
-reason cell.
-I'll fix this so the driver returns an error in both out-of-spec 
-cases instead of guessing:
-- more than one cell  -> -EINVAL ("expected a single pscr nvmem 
-cell")
-- zero cells          -> -ENOENT ("missing pscr nvmem cell")
-
-
-> 
->> +		break;
->> +	}
->> +	of_node_put(layout_np);
->> +
->> +	return cell_np ?: ERR_PTR(dev_err_probe(dev, -ENOENT,
->> +						"missing pscr nvmem cell\n"));
->> +}
->> +
->> +static int pscrr_nvmem_add_cells(struct nvmem_layout *layout)
->> +{
->> +	struct device *dev = &layout->dev;
->> +	struct pscrr_nvmem *priv;
->> +	struct device_node *cell_np;
->> +	struct nvmem_cell_info info = { };
->> +	u32 reg[2], bits[2];
->> +	u8 val;
->> +	int ret;
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	priv->nvmem = layout->nvmem;
->> +
->> +	cell_np = pscrr_nvmem_get_cell(dev, priv->nvmem, reg);
->> +	if (IS_ERR(cell_np))
->> +		return PTR_ERR(cell_np);
->> +
->> +	/* The reason is a single byte; a bit cell still occupies one. */
->> +	if (reg[1] != sizeof(val)) {
->> +		of_node_put(cell_np);
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "unsupported pscr nvmem cell size\n");
-> 6 such instances with same exit point, consider using label.
-
-ACK. I'll address this in the next revision.
->> +	}
->> +	priv->offset = reg[0];
->> +
->> +	if (!of_property_read_u32_array(cell_np, "bits", bits, ARRAY_SIZE(bits))) {
->> +		priv->bit_offset = bits[0];
->> +		priv->nbits = bits[1];
->> +	} else {
->> +		priv->bit_offset = 0;
->> +		priv->nbits = BITS_PER_BYTE;
->> +	}
->> +
->> +	if (priv->bit_offset + priv->nbits > BITS_PER_BYTE * reg[1]) {
->> +		of_node_put(cell_np);
->> +		return dev_err_probe(dev, -EINVAL, "bits exceed cell size\n");
->> +	}
->> +
->> +	/* PSCR_REASON_COUNT must fit in the allotted bits. */
->> +	if (PSCR_REASON_COUNT > (1U << priv->nbits)) {
->> +		of_node_put(cell_np);
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "too few bits for the reason range\n");
->> +	}
->> +
->> +	/*
->> +	 * The cell survives resets, so at boot it still holds whatever the
->> +	 * previous session recorded before it went down. Latch that as this
->> +	 * boot's reason, then clear the cell back to PSCR_UNKNOWN: if this
->> +	 * session is later cut short by an abrupt reset that never runs the
->> +	 * recorder (watchdog power-cycle, sudden power loss), the next boot
->> +	 * reads "unknown" instead of a stale reason left over from an earlier
->> +	 * cycle.
->> +	 */
-> Looks unnecessary comment tbh, has no value to the user.
-ACK. I will remove this in the next revision.>
->> +	ret = pscrr_nvmem_cell_read(priv, &val);
->> +	if (ret) {
->> +		of_node_put(cell_np);
->> +		return dev_err_probe(dev, ret,
->> +				     "failed to read the pscr nvmem cell\n");
->> +	}
->> +
->> +	priv->reason = val < PSCR_REASON_COUNT ? val : PSCR_UNKNOWN;
->> +
->> +	ret = pscrr_nvmem_cell_write(priv, PSCR_UNKNOWN);
->> +	if (ret) {
->> +		of_node_put(cell_np);
->> +		return dev_err_probe(dev, ret,
->> +				     "failed to clear the pscr nvmem cell\n");
->> +	}
->> +
->> +	info.name = kasprintf(GFP_KERNEL, "%pOFn", cell_np);
->> +	if (!info.name) {
->> +		of_node_put(cell_np);
->> +		return -ENOMEM;
->> +	}
->> +	info.offset = reg[0];
->> +	info.bytes = reg[1];
->> +	info.bit_offset = priv->bit_offset;
->> +	info.nbits = priv->nbits;
->> +	info.np = cell_np;
->> +
->> +	ret = nvmem_add_one_cell(priv->nvmem, &info);
->> +	kfree(info.name);
->> +	if (ret) {
->> +		of_node_put(cell_np);
->> +		return ret;
->> +	}
->> +
->> +	return PTR_ERR_OR_ZERO(devm_pscrr_provider_register(dev, "nvmem",
->> +							    &pscrr_nvmem_ops, NULL,
->> +							    priv));
->> +}
->> +
->> +static int pscrr_nvmem_probe(struct nvmem_layout *layout)
->> +{
->> +	layout->add_cells = pscrr_nvmem_add_cells;
->> +
->> +	return nvmem_layout_register(layout);
->> +}
->> +
->> +static void pscrr_nvmem_remove(struct nvmem_layout *layout)
->> +{
->> +	nvmem_layout_unregister(layout);
->> +}
->> +
->> +static const struct of_device_id pscrr_nvmem_of_match[] = {
->> +	{ .compatible = "pscrr-nvmem" },
->> +	{ }
->> +};
->> +MODULE_DEVICE_TABLE(of, pscrr_nvmem_of_match);
->> +
->> +static struct nvmem_layout_driver pscrr_nvmem_layout = {
->> +	.driver	= {
->> +		.name		= "pscrr-nvmem",
->> +		.of_match_table	= pscrr_nvmem_of_match,
->> +	},
->> +	.probe	= pscrr_nvmem_probe,
->> +	.remove	= pscrr_nvmem_remove,
->> +};
->> +module_nvmem_layout_driver(pscrr_nvmem_layout);
->> +
->> +MODULE_AUTHOR("Oleksij Rempel <o.rempel@pengutronix.de>");
->> +MODULE_AUTHOR("Faruque Ansari <faruque.ansari@oss.qualcomm.com>");
->> +MODULE_DESCRIPTION("NVMEM recorder provider for PSCRR");
->> +MODULE_LICENSE("GPL");
->>
-> 
-
+> Thanks,
+> Namhyung
