@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772307;
-	b=E+IjSS/sWUQ7p8C6ynGTH3XhBRjiKv9L9TJlJV+HtpLkEP1YoqDIKrD/fDyw4/LezavH
-	 CjEppwythUN+roUrB+vZ6bY1NIvBTO143L6dou7nkZIB5vcrECaSqoP14fBMbCqaNEkxi
-	 f6Hc3rcrgccOG4bdNdpQ6h5OrTxPXCIhoOtJtF0b4zZ5Mm1WZ+bPtY1jiY0d47F2q3UBV
-	 Pfw+NEVfYSTEOZ/t29mFs/kyK/4+r7MPaf+9iXJKWS90YadHwhogXnDh6I56eyJkI9FUh
-	 6OhHlBHwkm3NVAf+3MIzIucADu0BdZZ5c8z5kUrWQpFINUuu2m3SEuF7GAXPoFpS2UQ==
+	t=1792772393;
+	b=hiTOugCzGMGlN2+GJrDA+g/uek8ZRx4eMiHoOAFFX32WFb7Jt+1pZI3HCpE7qM2D9oh3
+	 8E6UkRw9s9vvdkb72jPXdGJukqhzzm7bsKFBquyn0rbEfy0I/CAVS5pWF/aareuHmg76n
+	 jsW2taT+PRYFGQ7k7tBYcdDTIbdr22O1S5u8A2m0YwJ7+0r5wL5sQdLf8n6/eCzhXtKWq
+	 EHyNGTVeCfdIR59aONIRY7NTilT5ZGLKBhedamIDOA4T89oVbekrpW9S0pGNlRiW4NdZl
+	 9yaHUbLxGPEbt/AbIxzUUinHh84XGfhQVaBmEtlWWp4rdLru5giWCbgDtLCy6uD/1FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772307;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QP7Z5nq9f3M+wzua4Vt0AE8lDl1n5BDSlA4IpFM8kg0=;
-	b=q4SpcHvufDFD8zSPVadX7qMaEDKyyjKHHDSvFBd6rack4H6YAGQkFNGYMVYptWTOZ4i5
-	 9ekK2p+5+2U3lg3AisNMA+t49ALYZgG4/mm8Z6KEZwS7YHmxVpg7MY1z4p0FABFEgGJjh
-	 BzR+dmPQZQTTnZPlzRrCw5YnBL5mjHl2z/oQrqsbqFfPT4jDRGXW/GNRrbJhzKGmze92O
-	 PwBPHqDaQy1UaT+z05C3u8X9gjN5u6ZDuvjDdVo+OnP+c52AV2BD65ojM6aDN1fKr4H+/
-	 H1YdwZ17rHOWsLgGQOWIu7EXCjk9hQ2edM5Eq6r0Z0S3jm4OE9t7wqiuSdpNjvbDSwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772393;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gaEKPTZSxoXAnYK1y13tSuJiEjwopeJd6eksrQwtbXU=;
+	b=CjmxOJL20KatWvDNYo1uuFMmgtXR+OrHebzluzvvJ6Oow7qFv3k6C4IYr7s9J7U+sbBj
+	 WOkp9rksSb+HzfR0w7Pm0QEsqV+bq1l9ARjEyoJaANJ6ZwFZRT4Y868Eb/JURdhqm5sxy
+	 zKOLQoqJXYRdsaEuEz4RXUdluvP0aFfzaaLh3oX7SueJdGvewR3xpkS68EdJTtnHoclJb
+	 HV3YG21QrnDEVzBtZRy1Ei2S/h7eyd/koVSZX5kCg+fa3dhRZ0Fdn3uvVcIpJTEydHjwQ
+	 MVH2O1tjFdBN4cAX13lFb/ZpQQ8bQMMIiahFbaRgFS6+8wF8WQmE4SUBr+qnubK7huA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jJqspCSO;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdbHZPAQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64252606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64252606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30EB606A31B;
+	Fri, 23 Oct 2026 16:19:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jJqspCSO
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b042c0759so745552f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:18:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792772301; x=1793377101; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QP7Z5nq9f3M+wzua4Vt0AE8lDl1n5BDSlA4IpFM8kg0=;
-        b=jJqspCSOzBGAQlcvubxG20AZvgx1ZnB85D3mbTWBg7EXiCUhLxM1XDskyy2fEgGdV3
-         X5RDz3Qa8o13wLdKOoJ6WRmx0kuvikveEyLGFE8RaRHVg6q8v+f4YQAw4TDwfOKpBVD3
-         nAdjj3ZczkFAGjLRTs2hINVdJs9kFPb/yHqHx20CpmqfdnBGFm55snNd18Kkpy1oC2bv
-         5QmzYvIC7e794jecEnZr16sYju1oR5OOB7Rceucq+k3w314AEB2295n37MvcF8dL1XZP
-         Az8T1Cq4LvkhOvbQR9JUkJxty2Cjd71jJRI4ZT0sDi78rKOEGTuf1lHWhL4sBr8pZOs+
-         sAow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792772301; x=1793377101;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QP7Z5nq9f3M+wzua4Vt0AE8lDl1n5BDSlA4IpFM8kg0=;
-        b=Te57A206LJ/VQ9Q4PZzxAQu/Y8ZMUHeiIH4NeSA1QKRpz/TPgkvOr1Wk21v/ZhJRgz
-         EkfE4wXhtsVIl57tGC16noDF1A4cpH3VltHuxYTtzNm1fUaiaXW/cfzK17Tg2k4rl1bd
-         xSEK2j2g4dUCQMXrLGzj2NwpzI7pD6Cbl7sVkMV73RJvPB40oHmlGkMlaFAT3d/DZT0x
-         fOGA71um/hqAq+KXKjx5ce3bXRXewY+vY38Ug95FFDAo3VrCASnb6YkXXoUqolQ4ATX8
-         w7SznXZhuceOIktR81ve80flnlPgGEC6TRxLFvfYeIXDEvCBMBMf7UY4IDMNP4jY1HY/
-         cFYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygCC7UB8OO1VmA9sigBLN20ff5hfV2MkDCV/MQx3GOmxLLd9eZJGsa7T9TZAK6dtdoJ/9wsKaWDzA5WZ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBs0j83emlBc/4pyAVI3HnZH4/PHO/A+lQlGnQkGabL+MBaHHM
-	Poqn0Lskllv54yStxJaZzqcVeRgDXBJ60h4uaGokLRk1IYKoPHXtIDJT
-X-Gm-Gg: AYBFou0SX4f1x5Pq4bzBE3LXTyICJzl11uFPTIe8GqTzQ9BmXCmVVfOGsGABndcvLX9
-	CSa7sT2Lfg8p+9lW+u8lejBmn/IE09oXMTpsts2eqcK+kadXDw7k+pVri5F967gWkDJwAuopxxf
-	Vk74eXuESt3FazQB5cxbOKthOpr+y0PYO79DZpG3vZdpgEb6ftlqwdNAyuB0L9mt8kJQ1Wja/N5
-	YREJwkHHCzQq5R3Uyj/obrheOB+YERaWlTw4pMQPZMmSawEApARJouZqWyDhP492YPw/aU/Eq23
-	W+X72IFnGpXkJKKi8IczEAf/Jp/W13Orem5NGGdhSy+D9iadewTb45Vdoi9J1G7GHBM4pm26PTw
-	i0bQ+eBCt13TbgKUIhULE1jyBpU3C2sd6hDEHyPoh9kBwc/814Hi5wkvbIti4CLFXPxwxE1C0s1
-	0YRmZgeDfinr0oFCRegGvILhpXjhmZfnO4tDAkl3mNFyoljx/Pa6t5+IBetZeC9/PTZJ+jNj4VX
-	Bo+xTcvXdeNaeld7zQnnhBk2c+sD9uT/i2qbvzBGip1tg511Su6
-X-Received: by 2002:a05:6000:2005:b0:48e:a13:7c8d with SMTP id ffacd0b85a97d-48e385ae732mr5020513f8f.49.1792772300560;
-        Fri, 23 Oct 2026 09:18:20 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d421f65sm738672f8f.48.2026.10.23.09.18.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 09:18:19 -0700 (PDT)
-Date: Fri, 23 Oct 2026 19:18:15 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Shuai Liu <847807867@qq.com>
-Cc: SudipMukherjee@gmail.com, teddy.wang@siliconmotion.com,
-	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] staging: sm750fb: remove unused macros in
- sm750_accel.h
-Message-ID: <atuIxyy427lxFwag@stanley.mountain>
-References: <20261023141143.183061-1-847807867@qq.com>
- <tencent_6CA7B248C9B3374DE2DA88094C98BB5F4B0A@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdbHZPAQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CD01F01825;
+	Fri, 23 Oct 2026 16:19:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792772392;
+	bh=gaEKPTZSxoXAnYK1y13tSuJiEjwopeJd6eksrQwtbXU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IdbHZPAQBZWH71S9hbs6ylhLMUtGY4vTZ93/sWmj+tMvqAGPq21YaAKvHD475TaCu
+	 JZ1OAuVlRNxVrVVOT7gFuMiypSnpYlc16R2rD4x5xtY5/2wF5r0AhVxzqvvRRcPtYa
+	 d0YQYouzVvqhyhvHP8gt5T0m/3S6pI1pIuF4K7fprd1PTeOHLDBWaRaIlUDiJWU4W/
+	 eECNjRbCPXHGb7IqS9UeNwnNCqz81ruJjdFAfim6D3J94Lvpw2X8rXKVoXsOPIBLEB
+	 5JmioOeabyTaXC7gFB5VaT412rAV1wFENFzPIJUOis8z1QrjqqNmU1OLL06Gq3CytC
+	 wfMQNhw+p4cOg==
+Date: Fri, 23 Oct 2026 18:19:41 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Stefan Roese <sr@denx.de>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH RESEND] i2c: mt7621: fix copying uninitialized kernel
+ stack with reduced page_len
+Message-ID: <atuI-J9c7PXTqdCN@zenone.zhora.eu>
+References: <20261022193853.670625-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,18 +61,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_6CA7B248C9B3374DE2DA88094C98BB5F4B0A@qq.com>
+In-Reply-To: <20261022193853.670625-1-ansuelsmth@gmail.com>
 
-On Fri, Oct 23, 2026 at 10:11:42PM +0800, Shuai Liu wrote:
-> These macros are not referenced anywhere in the tree. This is part of
-> the TODO item 'refine the code and remove unused code'.
+Hi Christian,
+
+On Thu, Oct 22, 2026 at 09:38:51PM +0200, Christian Marangi wrote:
+> When a page_len is less than 5 bytes in mtk_i2c_xfer, uninitialized kernel
+> stack data is copied and written to REG_SM0D1_REG. Equally on the read
+> part, an unnecessary read is done.
 > 
-> Signed-off-by: Shuai Liu <847807867@qq.com>
-> ---
+> Guard these extra copy/write and read for the page_len to fix leaking
+> uninitialized stack memory.
+> 
+> Fixes: d04913ec5f89 ("i2c: mt7621: Add MediaTek MT7621/7628/7688 I2C driver")
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-These are macros which describe the hardware and they're useful as
-documentation.
+pushed to i2c/i2c.
 
-regards,
-dan carpenter
-
+Thanks,
+Andi
