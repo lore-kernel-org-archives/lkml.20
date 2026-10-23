@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754497;
-	b=P/tXNerHwiWOFYp5obqAVPg+yjNqhzg2VWWBmPAIsS3yXi9xNk+1HFGaWZP/3TCAqqMJ
-	 R1drxTbIAz0E6e91w0q8gQ1ilzReYz+AV68JSrLvciX9+bzE0YrBqvRg7Ugo3E3U4sM+E
-	 IS98qe60DmLWdUCM1JivRw+4oFsz8tN51rg/zsOCYR27zSOInN5gjL2rZK+JjF1Ua1KSq
-	 wc0HU79LVZPzADxl5pyNzgy36Ya+ou7t87FFiN17ThvMgecOcYK1OLmp+Z0OPXcqiavTt
-	 4q7LqKiHufdq8w7FuTtYRiR6JYTVUE3kbyJdfYnsPrOthrINCIbOD4eBb+qCRI2bWQA==
+	t=1792754537;
+	b=Tsxq4SICankfc1DAwxQckLQtEDIRX5F3Jj1Rdi8qhnxpIAQjbtC3Raza1pBuAVOQxD1T
+	 Mj3qsDvJQ4nAZwR7GmBhKiqFN41UPUKTB3DWp25FivNS2P971KFJwB1FhuykjxlxsY3Sh
+	 OizVsGIbcAonk8TtnTZgLwfHiMlVi56m61l1c09GRBrZX87ErBHgEDchg8NgiWLOesiqR
+	 9dU1W2/n3OvlJXPqMQ4YZjTc+P8a/L/YCK1jsw4PBZhXd4pVyGBBOAjWfAmDSaTBS/NCK
+	 l+Bx+SH4mMrJjOM6TnJXG0OfQ3BBr9d3HLZoVWCXq/qg2MLUDsaa67w3M9KO5Be1msw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754497;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=QIbRduFPpCg49J6sKBw6kbel4NImvjAYuxGSKO+X2OY=;
-	b=xdGsWYugSlRSDt9tdjKo1El7L5MYL9rp99mkL/KZPhrJOXsifxtAllOeau+06Sd26xg2
-	 +27RsGgEPhCtkVDSKD//QXCZFgL99oZO+FLthegf8bHHlbGjgA/J95DN796N+Uc3CGRbh
-	 cKoyb6hrDX/Jh7WXM/faDjQvPD/Y9efMIAiRsKcHY18+RID0t3KRRtfmBsrt0PXZo0rpV
-	 vKFUOvTAqFMNDC5vzGgjjnjNKaHwIoSk4p1+nvwWrKL0dy7MZ+v38gN6qj0Hn9w3ujvpw
-	 psE8lCOk7y5aQlnFwC4kSbWjDFIS7n8s8j7vT+RIHL5RTf4N4SPRWV3Elv5iVM5TUvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792754537;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2JIr32shhDAdFV4wsdsTH1dxV1roHF7U6GHSm//gPNQ=;
+	b=V55c7fnSesw5IUzf60AOkywoelP1mMKk0AK503374juNhopL8JQBwqqTnUAaCKqV3FzW
+	 t1vJnDYv7xSUi2nwOrLRRPpYjF+HoFJAd9Ep8JDdcgRf4tY3sbwV7EEhgVN+6RIjguC/F
+	 1OqfQ4wAJRZ/CizmJitEXjxWDZ/pDb9GfL7ezMN/5SVHKf2Nzcwk0QIX/ZLIPZuGWmNwh
+	 GbM611jeOaFAs3kvrT9LW04E/GZ0B9KAxlkxQBTL86BIic0kRUfTMEv9HSc4xpQJUyaXl
+	 oRcVEACMhrqBtbUkEua3/fzfjZDjsb5j4ElE86d8zGbdvYaGyWPQ/vItfjhJNIVKb1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=s6zkJ6f+;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F317E606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F317E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ixSxhJ1+;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E670C606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E670C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=s6zkJ6f+
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jB0vq66w3zMlRG;
-	Fri, 23 Oct 2026 13:21:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1792754487;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=QIbRduFPpCg49J6sKBw6kbel4NImvjAYuxGSKO+X2OY=;
-	b=s6zkJ6f+zClPkwezqXZnc5Y2cp721EhnkKkyh5KzYL54RHCjspwPT5HVVOXbCEjAj8Z4gf
-	ynIrfiIlVWlO+xMjfXGQggnR5y2QJwAVEnSyTjGgurIUTLkpM0yoFBnjn1rgrVYoP124Ob
-	L0DDnQ8rXBYLduHk9xEnW1bCqlrO5TPtCmTK1xRUSnuvYjMDGGDgfpHW1NWZk3dXo4ie0n
-	TKe8N4USqFrxbyD4Yqj9zOBJxW0vFW8kYslJfBp1ZdJcjo514ARcvUUUMNFkT1YqCTe/tb
-	tvhFvDiUyWVOkmTDGxytd+XtZT7Q4Wm5HXADirAGxv29M3NOCmTcfLsfuOTdfg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Subject: [PATCH v2] drm/client: Don't print a NULL firmware config mode
-Date: Fri, 23 Oct 2026 12:21:25 +0100
-Message-ID: <20261023112125.2855499-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ixSxhJ1+
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED3F11691;
+	Fri, 23 Oct 2026 04:22:12 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BE893F7B4;
+	Fri, 23 Oct 2026 04:22:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792754536; bh=pEs3PZgwiPiqg6sjwJKr14el93Iv6edM6dGsgzxNJl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ixSxhJ1+Dmcvys/GZodc/+Jt78DSK1F+KDsahqOP1t17iU5/s1dFp6AHOvHfZ0RX8
+	 zUkOa7zeXfylmXrT6WH7q1TN9ptVS9xK92BqBWue/SJ7NrlKTjjUFLhfanIEp3hAJg
+	 F59g27ySewmTyN0ZYl4/69ocRJLGqL+8SEJBX6HY=
+Date: Fri, 23 Oct 2026 16:52:12 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Shubhang Kaushik <shubhang@os.amperecomputing.com>, "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/vmalloc: reject overflowing vm_map_ram page counts
+Message-ID: <y5yuwnmvq5nouoitqj6lloz6hepha6cf6vmh42rer2zhgv32au@vbvr3ohn24tf>
+References: <20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,60 +61,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jB0vq66w3zMlRG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org>
 
-When some tiles of a tiled display are missing,
-drm_client_firmware_config() replaces the connector's mode with
-drm_connector_fallback_non_tiled_mode(). That returns NULL when
-connector->modes has no mode other than the tile size, but the debug
-message after it still reads modes[i]->name. Accessing a member through
-a NULL pointer is undefined behaviour. Today printk happens to get an
-address below PAGE_SIZE and prints "(efault)"
+On Thu, Oct 22, 2026 at 04:35:20PM -0700, Shubhang Kaushik (Ampere) wrote:
+> vm_map_ram() converts its unsigned int page count to an unsigned long
+> byte size without checking for overflow.
+> 
+> On 32-bit kernels, a count greater than ULONG_MAX >> PAGE_SHIFT wraps
+> the byte size.  vm_map_ram() passes that size to both alloc_vmap_area()
+> and vmap_pages_range(), so it can allocate and map only the wrapped
+> number of pages while returning success for the original larger request.
+> 
+> For example, with 4 KiB pages, a count of 1048577 produces a
+> PAGE_SIZE byte size after wrapping, allowing a one-page mapping.
+> 
+> Reject page counts whose byte size cannot be represented.
+> 
+> Fixes: db64fe02258f ("mm: rewrite vmap layer")
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> ---
+>  mm/vmalloc.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index bea9f76ed7e74247d4ce919250c2f02dd5c36483..e98d3aa551fe205ebd9826daad9ad6bd578b91ea 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -3083,10 +3083,15 @@ EXPORT_SYMBOL(vm_unmap_ram);
+>   */
+>  void *vm_map_ram(struct page **pages, unsigned int count, int node)
+>  {
+> -	unsigned long size = (unsigned long)count << PAGE_SHIFT;
+> +	unsigned long size;
+>  	unsigned long addr;
+>  	void *mem;
+>  
+> +	if (count > ULONG_MAX >> PAGE_SHIFT)
+> +		return NULL;
 
-Print "(none)" as the mode name instead. A connector whose mode is NULL
-is skipped by drm_client_modeset_probe(), so it is left off, as before
+Could vm_map_ram() ever be called with such a large number as count ?
 
-While at it, drop the extra colon in "[CONNECTOR::%d:%s]". Every other
-DRM debug message prints [CONNECTOR:%d:%s], and the double colon breaks
-grepping the log for a connector id
-
-Sashiko found this while reviewing a series that makes the fallback
-return NULL more often, by also skipping modes larger than the client
-
-Fixes: cf1d0180f571 ("drm/fbdev: Fallback to non tiled mode if all tiles not present")
-Link: https://lore.kernel.org/all/sashiko-outbox-173425@kernel.org/
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-Changes in v2:
-- Use modes[i] ? modes[i]->name : "(none)" in the existing message
-  instead of a second drm_dbg_kms() (Thomas)
-- Drop the extra colon in "[CONNECTOR::%d:%s]" on the same line
-- v1: https://lore.kernel.org/r/20261022114356.669988-1-hugo@hsal.es
-
-I ran checkpatch and built drm_client_modeset.o with W=1
-
- drivers/gpu/drm/drm_client_modeset.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 0080a8e9556a..67f90e5d1512 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -754,10 +754,10 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
- 		}
- 		crtcs[i] = crtc;
- 
--		drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
-+		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
- 			    connector->base.id, connector->name,
- 			    crtc->base.id, crtc->name,
--			    mode_type, modes[i]->name);
-+			    mode_type, modes[i] ? modes[i]->name : "(none)");
- 
- 		fallback = false;
- 		conn_configured |= BIT(i);
--- 
-2.55.0
-
+> +
+> +	size = (unsigned long)count << PAGE_SHIFT;
+> +
+>  	if (likely(count <= VMAP_MAX_ALLOC)) {
+>  		mem = vb_alloc(size, GFP_KERNEL);
+>  		if (IS_ERR(mem))
+> 
+> ---
+> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+> change-id: 20261022-vmalloc-reject-overflow-e532c556f3fa
+> 
+> Best regards,
+> -- 
+> Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> 
