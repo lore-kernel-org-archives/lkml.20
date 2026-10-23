@@ -1,49 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757081;
-	b=vlshY8Gcd8B/2IeKNEpoOmUHkb/bUTitT1vZ41kRCK2GkfRVAq0m+Wznu3zvWRTc7hap
-	 ieS2ABHElqh1rTR6cOKiQBel2008crTQo1fxDysbXEKtFv0Y/1mQICIpZ3ehsa5azYfYg
-	 zkOO8I/5deiHdxlLwYiAby6WSA8eyTmblC6W9Xd6gfhigGw88KJy/BdUaD7CcDTk/2ONj
-	 FHo++goKgiOSHGx48D9OhurB1Rodj3A22H6eH6Zuf8uBoGUBhYqysGL9w4ZLxW83MnGn1
-	 v/I0xFKMztcS+fNvTly7plAD3YFgJvX+UXTJXJuslAcAunPl3F+H3JvTHq9qe6gBQAg==
+	t=1792757127;
+	b=KQyHbbJM9gWBLwI3LHkwMvNRFWj+wt8Qy9z8Fo0q+ZHlzYJws7z53kymL8hktimnpfcM
+	 kcjuWIRtKhcHoq9/nXwjunr5gobsdM/CtB8sxKwhuDCrXfVmHFPtTiAQU61oMkXEZvUev
+	 v2bZN0x4ZUQGjwdnLlPitV2e26pL4a7duA7uOERurqQyHipvX4ldTJqsjHGiwUIxCDOYE
+	 Rx7RjxmBKG2ymJyWHFEKHIz6TEaBnSQyF1gUEH6luVAVF1RUGJAFHdSOcu1obW40CdLZZ
+	 uQG95jgBUKfLvGl7EFRexEyv3Cw63pVp+StCfzRy+XY2lZfK/eYv58m3izkaEsNM8tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757081;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ycGpS7m1sazcu7mkgUYYOYML6LDBpyZoHUVl6pqsqzQ=;
-	b=cgvOCywd8z35oJOrx6tU9TuUf3PIFqRn8tLZ+GSxeguuzgxJpDvBgtuB4t5bZU2HVMh7
-	 YedIrdWwJsXhd9cKBr0rZs2BMBm4tQOibFCAJKjxtNAJfq6t0rCWEVVYxXyWmzKPOkZh+
-	 12zxx9uEdU5muuZg4fiE07LQGH4cbhwtPth0WCKxnr0PmplmvsrXtPig9K10oUVuT6DoJ
-	 CHtLrqsGJa38wCLlOiwVg+s2UnMKovp2Jaso64hsstr0F1CNJUCDIVxeO0RnSmgdh9HkX
-	 +KhtPptnSEXe4Vuoan3O4QWAem+qvZspEpt37VkfaIC1vXfSZf+4HWLPMYyqosQpVBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757127;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
+	 Subject:X-Mailer:References:In-Reply-To;
+	bh=uSco1V1HeJRIohr0HU9Igo93pBA2b9NsqhyVUoLr4Hc=;
+	b=uoCpwrtyQPoaoAG7tuTy21GZbFSyVY9tAR00+AKAbAE4nSt9mKlt/nczIecFLCo8HYxo
+	 /PtdPq0n3EhURpEx9DDnBFi0XL4E7XMcwL5txgYUL0toh+6W+v8xG76ZqqDBOkJcxY/Ml
+	 9PHkCO0vF4r3mBkwWLIkN/xsVipUfT3Szc7QgY2Wgd3zx0mIGNy6jKYit5XjoqBa7BEB0
+	 ehe+GcXql3sfW7lVscZZ9Qy6G9ckRE4XnUw6THwHqNsAO23wJ9FJtEh7DuuHWYDT0/5YY
+	 svKYN8GFzbGC2eDqXR6yvVM5T3xHk24TO2yLxp77gXFJ2jgp2rfzKBMlG3DijmNEWyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QJMUxINU;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b="k1/9Upg9";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B851B606A31A;
-	Fri, 23 Oct 2026 12:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B851B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7EB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:05:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D7EB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QJMUxINU
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BC4E9A0956;
-	Fri, 23 Oct 2026 14:04:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792757077; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ycGpS7m1sazcu7mkgUYYOYML6LDBpyZoHUVl6pqsqzQ=;
-	b=QJMUxINU5RSW7wDNpwFRUl/HAYtKVfvyH7AG/PbbRicLGcGnnxeq6gKY1Y/ZbEPkhIJ1zE
-	MG98EbZkza/JjxetgPrliEK4gsbzR17wp/PeEqle9ZKTpBviHMgIUrGGUDnOJkgsR+fAUc
-	e/IkQnbBJ2GJ4azxfRHEThxAIcHvBTAclbw3laxeBXsfxjaCyi/ZPVO+kG50J9aj/Oc29n
-	LT9qq0XhC84HuZva2n+SPS4jTjH9iPoX1DCrawmxsNrA61oYhSHkyD/qIrgco3Pwwl1iaL
-	GPmDe31Abnk/C29UqOsAuzeN4vFXXsll0nY8TyHCT1tpFqgwCK+9rWtQY+3jHQ==
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=k1/9Upg9
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso6402995e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:05:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1792757125; x=1793361925; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uSco1V1HeJRIohr0HU9Igo93pBA2b9NsqhyVUoLr4Hc=;
+        b=k1/9Upg9OMvsI0X2Fuy/4v0AkHqITUFT5daTMELi4Zwjw72wGWcz0z9FO2Va9/UV/R
+         +Ddwew7njKOL33BXKFygaXgek1OeO8qXu/pSMmBfhBlCWHBshfFos1M4mFvkGELkrWiY
+         SaO2feErS/9QyPuqKTrswnqiKm2DBJf/Qb/QRrilYyBvI142O0hiR9w+u9xPa/bYz+ur
+         ZbdorFMzHoK91jfZSgLS58P0HXQ1CFCKhpMo2DMzZyfuBsO1AmGpopssAuy+U1q6sEiw
+         akhv/JdsMJY6oFQjZf9YPcpLZzZ9pSn2XjyKDTRciY+ZJv/C5b4LXaakuSh1fyb1j1vO
+         ehzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792757125; x=1793361925;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uSco1V1HeJRIohr0HU9Igo93pBA2b9NsqhyVUoLr4Hc=;
+        b=aTpWLIgcB+1MfNdM/6ekWb2L4988DqFxNL3txrVhjHpdFQbAGnNBEq9FUJKEl2qXML
+         8B28bdF3agp/ZyBEjD8Knqp2ZHZMB7ZwpMqfrJm0r4w1eIs2qKF/ZXzEGu7lNMecoXmU
+         aNv89aI4l/oAHJnIGBjgo/lBcj4UCnRuC1IEKJEnAhq5pNbDIPfs8UWj6BW9BEJO4hCJ
+         ho6uzFycwtZCFqts89Fdke/3BiL+lRbG01NbN1ekndn6uOmXuj4ktweEEnN0OShjnFLz
+         q8dgn0rZo1k3xgU2II0p8tR/2yLDhSRhF7RcAr2EKQ28RGyFZNjXYrUqZutU1o3nb0lt
+         Ukjg==
+X-Gm-Message-State: AFq9FYJJMpJ/Z00kMAedijwGHWfg1OkPHW7jA5htEtG2Jxzyf0eczNb4
+	kAncapDuZ4esitNGXmKrsaVO5xI63eAJcC9Qph+95IGAHI+L/QLA3s6v5pHqHEm21Es=
+X-Gm-Gg: AYBFou0SKJSpPbC6rpF82Ctrce+4EcUb4q2NpeD7BM9rBOIqq6RmPReDbmYzjZgaQK1
+	hiuMm/WPZYz26X/4eDBq0yP/90MQfD34jGGgVQ2GP3GjzoQMMYcik48m8e+GAePLLnKaogXjQJu
+	pu6f2OtEHkcCz3mvwRf3pNYmeRTfc/FXrilTNxbFWS6wT5bhRv8BbugWt9Rw+DacHebe6EjYVJ6
+	mIdfSxcbJfLatC0UxPEb3s0bFKCB4J4vtacytngspxCC7SmDrWE8TY4N4Ap2JRDMhRjtMavE9Zs
+	fwK3eEXd3FGZD02kW/MOuOvmTGVjjaDdiC96edybbfzJh0cX0Mk37+81AQyidqwt4wuubcrcyE3
+	3N2BfFryMjm3Mu1ge2ku1MnzP23+U9vJRccKFJE8vU9xmhFerjxlbR9TStINkEpFdtmO++9L5gG
+	KHzqxiuQML1Xpng32XScOubRCQHot3et+adQq4T1n3vTiqz4iaM6RW3bQXlFI8kEftnVFEPw4Hh
+	gKB5qnw4elo3wHdtYWaz1Bx/KH4yqkrRv/dL4f8/2s+yL63xedPvrQzTA==
+X-Received: by 2002:a05:600c:1c08:b0:4a2:16c0:f4f with SMTP id 5b1f17b1804b1-4a216c010e4mr22298145e9.30.1792757124684;
+        Fri, 23 Oct 2026 05:05:24 -0700 (PDT)
+Received: from localhost ([93.123.20.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21544dc5csm28563925e9.3.2026.10.23.05.05.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 05:05:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,89 +85,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Date: Fri, 23 Oct 2026 14:04:34 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, justin.chen@broadcom.com, f.fainelli@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] net: bcmgenet: recover from a failed resume
-In-Reply-To: <179275652332.3134.3420351260504788140@kernel.org>
-References: <20261022-nb-genet-fini-dma-net-v3-1-6e9fc89c0156@tipi-net.de>
- <179275652332.3134.3420351260504788140@kernel.org>
-Message-ID: <7a86dc120223465e88cc265a6f597657@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 23 Oct 2026 17:35:06 +0530
+Message-Id: <DMC7CT2C3AZ5.2SEL62SMKTXEQ@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 2/8] arm64: dts: qcom: sm6350-lena: Add
+ qcom,rmtfs-mem node
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
 
-On 23.10.2026 13:55, netdev-bot+sashiko@kernel.org wrote:
-> [...]
+(re-posting my mail from Sep 28 because apparently I forgot Reply-all)
 
-> [Severity: Medium]
-> 
-> After a failed non-WoL resume, can the next non-WoL suspend leave an
-> external PHY powered up with its link active?
-> 
-> On the normal non-WoL path, bcmgenet_suspend() halts and suspends the
-> PHY:
-> 
-> bcmgenet_netif_stop(dev, true)
->   phy_stop()
->     PHY_HALTED -> phy_suspend()   (BMCR power-down)
-> 
-> The failed resume has already done this before bcmgenet_init_dma()
-> fails:
-> 
-> bcmgenet_resume()
->   phy_init_hw()          drv->soft_reset() clears BMCR_PDOWN and sets
->                          phydev->suspended = 0
->   genphy_config_aneg()   restarts autoneg
->   bcmgenet_init_dma()    fails -> return ret
->                          (phy_resume() is never reached)
-> 
-> This new early return then skips any PHY power-down. Calling phy_stop()
-> here would not work either, because the PHY is still in PHY_HALTED.
-> 
-> Nothing else seems to power the PHY down. bcmgenet_mii_probe() sets
-> mac_managed_pm = true, so mdio_bus_phy_suspend() returns early, and
-> bcmgenet_suspend_noirq() only powers down an internal GPHY via
-> GENET_POWER_PASSIVE.
-> 
-> So an external PHY whose driver has both .soft_reset and .suspend (for
-> example genphy_soft_reset with genphy_suspend) would stay powered with
-> its link up through system sleep.
-> 
-> This would not show up with the bcm54xx PHY on CM4, which has no
-> .soft_reset, or with the Generic PHY driver.
-> 
-> Does the !priv->tx_cbs path need a phy_suspend() call (or similar) when
-> WoL is not in use?
-> 
->> 
->>  	netif_device_detach(dev);
->> 
->>  	if (device_may_wakeup(d) && priv->wolopts) {
-> 
-> [ ... ]
+On Sat Sep 26, 2026 at 7:30 PM IST, erebion wrote:
+> Adds the qcom,rmtfs-mem node required for the modem
+>
+> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++=
+++++++
+>  1 file changed, 17 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 79aa2521aed40..0ef3e9e239786 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,6 +4,7 @@
+>   */
+>  /dts-v1/;
+> =20
+> +#include <dt-bindings/firmware/qcom,scm.h>
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> @@ -54,6 +55,22 @@ touch_en_vreg: touch-en-regulator {
+> =20
+>  		vin-supply =3D <&pm6350_l6>;
+>  	};
+> +
+> +	reserved-memory {
 
-Same as in v2: pre-existing, phy_init_hw() powers it up in the failed
-resume and nothing starts it again. Fair that it's reachable now, before
-this series that suspend just hung. Nobody seems to have hit it either, 
-it
-needs a failed resume plus a PHY with soft_reset, so pretty much an edge
-case, don't you think?
+r (reserved-memory) < t (touch-en-regulator)
 
-I'd rather not add a phy_suspend() I can't test ... the CM4's bcm54xx 
-has
-no soft_reset, so the PHY never gets powered up there anyway. The proper
-fix is to stop leaving the half state behind, that's on my list after 
-the
-MTU series.
+But it'd probably make more sense to actually rename touch-en-regulator
+to regulator-touch-en (to keep any future fixed-regulator sorted
+together as well), then the current sorting makes sense. Maybe add this
+as a patch before this one?
 
-Thanks,
-Nicolai
+With that fixed:
+
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+
+> +		/*
+> +		 * The rmtfs memory region in downstream is 'dynamically allocated'
+> +		 * but given the same address every time. Hard code it as this address=
+ is
+> +		 * where the modem firmware expects it to be.
+> +		 */
+> +		rmtfs@fe901000 {
+> +			compatible =3D "qcom,rmtfs-mem";
+> +			reg =3D <0x0 0xfe901000 0x0 0x280000>;
+> +			no-map;
+> +
+> +			qcom,client-id =3D <1>;
+> +			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA>;
+> +		};
+> +	};
+>  };
+> =20
+>  &apps_rsc {
+
+
