@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792792493;
-	b=cHg6OJpJ9lLKT/bv0oBJxKmuiPhIYqsQ+l6fBEXGjg3z8wDq4OMOxAQV5P3samxdbKDx
-	 kcALYMh1SefTlEC5lRa2OXlHqPkyNtKNEnWRgN9PnnwwZgON/VOAsY77++w1vuvH397Qa
-	 OpUNzlFh2439VKwg/tobrvv9XZccWlFqfleSzXj2Cl5OrsIVSbkuOAWy9Xa9jXwkpJQ2a
-	 Bh1FjONxhYk5LHCSus9NJt/Bz20VoK10YDbtRIJ0KMdHs0zlNhpsLiibvikwweopj0vb3
-	 VNUPrFmS99yOTWmAoiCFiVdXZeNDsQEB4cX8YATHGweXNePQ1qvcMp03piCpF+i7jCQ==
+	t=1792792640;
+	b=MM5wAwUo/VCBiKAeihC0DsAq4BTx+PeiRCnrP1c/0HcKLjp+d8oMWBNqPZX5cHXsIdTy
+	 ngyJL0+wmGjDNIjT0Wu7m4xiqHaG1J8yq8XWZ8+oZXwp6TfF2gEB77PWtOyadgE5W27K2
+	 9yshVyHVqAwRWEwgtbFXjPgMrfhApjoFpcqj3ZdeE4TxalVWNcdfpsl46ZO8S8Yz8ezvl
+	 idIkDDd4Q2aErrSFV1vWceJkpg7wp9Pp3no7F06m9UUPHllwtk2ZE5RIojz4xjsYvsg7N
+	 1PEWn60w/0mZWChEJPlpGzRCLbRUHgRqYWSTfKETmvu4z1a5r04vsjiVZdfxbPFY5ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792792493;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qb8IozTgHKQQ6vrxYNMVYzlqHaIYwX6c5i2r79HOrtw=;
-	b=lQkOI2LYV64h5RknG8D9kfDt9p1pH2WjpvcFTPPyv8VnmFHnOjS29bDHvW0dihXkXICb
-	 1dxWP79kPNi3umVNT0mgc8k9gXcE1djyMEe0XFNE58vUXHOLEgiO1BDmRsNhgXCUkBWWu
-	 JpIJsql/jldAZOuSvyMjhuCYDhvmcPPQxByceePyDWL3MOBYJdcYrHImFfjzDTcfnUt1C
-	 SQpQNIFhJ8df+Tpx3xwEhnCfvPP6+uI7xtgISIjr+9NBQGndTR5FOCBC++JMt/PAXBfmZ
-	 PNwnELo0qUIwVP0qzHtU8J5HxSLzy1oi2JoOC7CgEOfz7PsQssv1X0aqmOF4KA9oaIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792792640;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Tu8cvyWH/oOOkyCYeseFYJUgW609McRuCvju08fCeYQ=;
+	b=DgTALtU9nK5a/7MOe8+ExqCe3Nz1IkPkFlzEjtpdVPBWgOB4H2KxW25ZIY1i49Dl92i/
+	 U84wB7B/7H0FlGVPywUl+N9yE8u1Nuchsyygzw9tNscCUw0OKXrqKFHkeUT6Cd/jqGtjy
+	 HZzCL1Nku7/v+7Xb9nFQhByySRkycr/3be9a85/dZW7pOIM+A8yOSMlzt+Ztfh008fJpo
+	 l87exhjo2teyM/2bMFnRenK2sHJrQWJ6AW9lIY9Txa8Jx5mX13Htu+8zv3AJeGHK+kxsB
+	 ktd2dYkyCNA7eost3ge6+VRIMaSNp4CvgocAlsRpaWhbRJeD2SEjSIvhx1RQQB94+NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szelinsky.de;
-	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=TN4NkhEv;
-	arc=none smtp.remote-ip=85.214.127.56
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArBbS8sR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5090B606A31E;
-	Fri, 23 Oct 2026 21:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5090B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF83606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:57:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=TN4NkhEv
-Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 262B1E83954;
-	Fri, 23 Oct 2026 23:54:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1792792486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qb8IozTgHKQQ6vrxYNMVYzlqHaIYwX6c5i2r79HOrtw=;
-	b=TN4NkhEv5J4hL38fW9ekD/Mv0IKypgcjXDTUI7/yXv8JTT0vd9ANKj1+3sPddJLE4yTReA
-	3eAxp6ggXPxYwJBZqLCmfkDKDUX4j5DNVrWY17tp+13wxjpjg0OMs01SjmbdAZEz+kp2U4
-	D4bz6trM5KqwLLX4bJjySnQp71JJmfRS4fCpitwAjNOf2CyjkqWacBEtBjVJtwQLPksELX
-	lyz+9v7XyX9vHk5qblR+/PWwamVzwtTiRJn9eKWPX4rs9Jdof8adDZlLnPW+ua1lH5+xKy
-	N3lazv08xQ5v/H9D+VtBn3oeRK+3ETKkArc0PqE7CiRMs++u48qPdnXY0kddUA==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id KwJjj8dShNYH; Fri, 23 Oct 2026 23:54:46 +0200 (CEST)
-Received: from p14sgen5.lanhh (dslb-088-070-183-026.088.070.pools.vodafone-ip.de [88.70.183.26])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Fri, 23 Oct 2026 23:54:45 +0200 (CEST)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: Kory Maincent <kory.maincent@bootlin.com>
-Cc: netdev-bot+sashiko@kernel.org,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>,
-	Ross Cawston <ross@r-sc.ca>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 06/14] net: pse-pd: check the PI state under the lock when setting a power limit
-Date: Fri, 23 Oct 2026 23:54:41 +0200
-Message-ID: <20261023215441.1087277-1-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179274321449.3134.2737207729630977183@kernel.org>
-References: <179274321449.3134.2737207729630977183@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArBbS8sR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 829671F01828
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792792639;
+	bh=Tu8cvyWH/oOOkyCYeseFYJUgW609McRuCvju08fCeYQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ArBbS8sRe2vZvBPusOGjqBO4rL5/iJmOJ9CkoNhu2e7k0FBxGNrH52nYh00i7StEL
+	 q0XDBQh44yKY+SeL2AfUQqAt2TSOdFPMVwBZ6gA2lZ6rcXJM85LPT6kalfXQ9baMYs
+	 fsvl13QpfrVCSsMIr5vAzn6XoLzf4egFifAFEloe3/vgA4RvocSeoRiurCA/yUx+lk
+	 z08L3Qb3Um5BospfauxuAe9lP38hTSyZf82Ac5LCA2mxiN62w/7eCCeA0lw3/dEq7u
+	 8UkpKXie61nurXw0oYGj7IONt1Jy2RDtoAyWvqslWyxUniA2I8K6BvppggqcvFFwM6
+	 tbsZfYxGbHfEw==
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f2f2edb19so118648485a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:57:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2k3tKLKcqOX3jpaISv99l63NUtdEkDeVJQ5LELMQle4HhfubqMn1EK2fQDpSAsTCs+OqNB6p+2hwy8ls=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF1p4DJk/HOWaILcxbotOTLhcOCSa3xm8Biwn/FzxilBtVrj70
+	kyn2jidObe591lhcG6FJR0XLV8sukpYo29vlgUSgA0YuL2GHgYK9Z6lvfxKNmw1oBtFpLy/Ojzn
+	Cum5225KsnaWnXMvBfLIh16D2GEMN2Ws=
+X-Received: by 2002:a05:620a:8389:b0:93f:5ab9:fda7 with SMTP id
+ af79cd13be357-940ef95664emr52518085a.42.1792792638589; Fri, 23 Oct 2026
+ 14:57:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,23 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019034426.2354049-1-ridong.chen@linux.dev> <20261019035252.2357900-1-ridong.chen@linux.dev>
+In-Reply-To: <20261019035252.2357900-1-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 24 Oct 2026 05:57:06 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z-sbP+qtSk8b2tWGBPTNfKiF3=z69qc9f+FjWGUEgyow@mail.gmail.com>
+X-Gm-Features: AclHuK_VJ_jirLI57h8oBojXk8WvqdC7Lhm8-1ezp_qE6OG-iPQQ44-4rsmpu_4
+Message-ID: <CAGsJ_4z-sbP+qtSk8b2tWGBPTNfKiF3=z69qc9f+FjWGUEgyow@mail.gmail.com>
+Subject: Re: [PATCH v4 1/9] mm/memcontrol: drop unused vmscan tracepoint include
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, bpf@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 23 Oct 2026 08:13:34 +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: High]
-> Do admin_state_enabled and isr_pd_detected really mean the PI is powered?
+On Mon, Oct 19, 2026 at 11:53=E2=80=AFAM Ridong Chen <ridong.chen@linux.dev=
+> wrote:
+>
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> memcontrol.c includes <trace/events/vmscan.h> but does not use any of
+> the tracepoints or macros it defines: all tracepoints invoked here come
+> from memcg.h and writeback.h.
+>
+> Drop it ahead of moving the vmscan trace header under mm/, after which
+> <trace/events/vmscan.h> will no longer exist.
+>
+> No functional change.
+>
+> Assisted-by: LLM
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
 
-Kory, a question about pending PIs. A PI can be admin enabled with a
-PD detected but without power: when there was not enough budget when
-it was enabled or when the PD was detected, or when a PI with higher
-priority took its budget. Such a PI passes the check in
-pse_pi_update_pw_budget(), so setting a power limit reserves budget
-for it if the limit fits. When the PI is powered later,
-pse_pi_allocate_pw_budget_static_prio() sets pw_allocated_mW again,
-and the budget reserved before is never freed.
-
-This was the same before my patch. Should set_pw_limit skip a pending
-PI, for example with pse_pi_is_admin_enable_pending()? If yes, I would
-send that as a separate patch.
-
-Carlo
+Reviewed-by: Barry Song <baohua@kernel.org>
