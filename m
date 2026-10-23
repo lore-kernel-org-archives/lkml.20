@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785663;
-	b=r3gZuC6NzER9QOa+ojfUq2M0bIXUwUrq89u8iHEHxitJJ9bVfRzJ1l6C2+V8dNQXzeHK
-	 tP64Q3vYuGf4mdQ/bmABjG0uYWXCyOpuzUxVlrvXOZOY/Ox357pMqfiIVIi+I6l869L76
-	 JYXF5RQHxw17OMkPKKDIgywjRiekcgN7opuDltjkoIl+xcoF9SyDGU1ka0b4njyZYdn75
-	 F68D/Mt13FOT1ff4u+SUskpvvRuKPKHYmTjI12TumgvNGD06Sdt4ZQLbGnDVNoHBYOylg
-	 odmZde8EJvaba2QobQARVzA8jsRWDFgouZbebDChyU7hfthQOrCWbPHde40FbUN5GtQ==
+	t=1792785674;
+	b=idET2D+EE7/ZPFvYU0OfYE5J2MZFWKvUd2tZlkGY/sJgIJrIpxGsBZMGGCO1J5GhLntm
+	 ivlgV2e0I2jIlU1cv/y8AtvkfgEmHq+kVBeHy7VXhROtq6wtz1fS5H2L292j8nj7IaNLA
+	 r2FeE55v7QTsSxmjgvE9TBfm+gPRcvB4lBG8O6hSsP9iHBXIR7nXh0Upt/ciLVcURYqON
+	 e9YyMgTb1TvIoAbvxm3A7RQRkGI1I+vd2JRXp2nTBCt+h07JTjzLDHFnVhe65Vh13uASV
+	 XDdxhMxA8zpSdR3xeOt18qf477PiLj2idN25ljZQuX5WosROp56i67YPt6LxGcWd2KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785674;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=CY66h1/hR77G09Fc0FyLcpz0yWmb9t9yDWXf907PRJk=;
-	b=whJiMhoOcWD36KQzDOcriwp6rOKeCujKAegoGVyW5KcjTUMCIxPtVevX1wYtKTH6sUW8
-	 GKQHT5yjACnf9yQ/8M791EJnTTq+7LOGuQm9+2LsTPQQOy21Fy2SM3YkCakejGgFaZEX0
-	 vPAg49L6j4YIRIE2gzS3Fj0Bhn93FH8nhIQ8WZzZeceWXHWTdwivtNa3WFVET9kBgzG0j
-	 TwUp93Zzu4Garbimvjo6Qy4nx3g2qBzpcZDjhEEUlcrpodOWvtNejOnBvQXf7iRRYXvu1
-	 bpnJBfSAGCq5XJg1TCpAW41+ugXHOHK/vMAOt43uzQPUEDICC0rY6WwjH710CpD7yCA==
+	bh=dOjKFLT6q7N0NtB4wOtPJKvnXmMMNKlaZzQTuFAhdps=;
+	b=mwtORToVnmGQmb2YOtIytaAJnJmJtxeKTNChjvPEGDosFqVvmhxo6P63KZlzoFq03Mrg
+	 uvAkgc68BrHOtggoJH8FRleklarX9u9Qh6rBr4oZyKUl6UG/8mHbLUsD5RcJ/felJw0aR
+	 ypBWaeKxxVTSweSlNN4H6aF9BbztSlE+XbcCW6DCRO2BV1qb8H6EuJraJFGYOqKm/vi9w
+	 L7HBzOc926MtDOpNNHTj1hkYAmBP9BwATLGgJa+nigfoo6loqUiBqQaKQaXblfucxm4Vf
+	 aUjun3RzQxNUuPB8GSkPOkXyRgfSicnJXGdYsovcbbnvV2d4wvxb5krX95jc4BGZJJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cKnhpwHQ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PD7sOc2a;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6146160A2613
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6146160A2613
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A1460A3815
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A1460A3815
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cKnhpwHQ
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PD7sOc2a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792785662;
+	s=mimecast20190719; t=1792785672;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CY66h1/hR77G09Fc0FyLcpz0yWmb9t9yDWXf907PRJk=;
-	b=cKnhpwHQe9e+MsWZZh2P42fVSt64NSFw9wNkE5wn2XAmUmOUf+4wrTRHrevhdd+TO0Kg0M
-	Mbd7BQyojTHpzEGe98X8Cyb1hCjWSuWH9+IAZFo7JuYA9CFYnkeQEKmSBbHgfN6JoXEind
-	WjyR1dPB5r5hXZpqJXsaq4RATKfra7k=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=dOjKFLT6q7N0NtB4wOtPJKvnXmMMNKlaZzQTuFAhdps=;
+	b=PD7sOc2aSrM0PHEVvzjwP0p8EcG+05uHbvMBwvsRayNc3BiJgMO8Y4Qx8PeZxfyFgtxwoq
+	7HGnixsBZ2Hf0+q4RvwMDwQugkgTGPnmBiiwUnnm0NBwOz0V7yINNUels0b6mH/ATwbyrw
+	qJlAqhssaiXQIBwo9CPXqQd29IvsJng=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-29-zaW6JV2XN-WGuQI_L0HVWw-1; Fri,
- 23 Oct 2026 16:01:01 -0400
-X-MC-Unique: zaW6JV2XN-WGuQI_L0HVWw-1
-X-Mimecast-MFC-AGG-ID: zaW6JV2XN-WGuQI_L0HVWw_1792785659
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-339-47jf6FfHMm2Y4uA4uBb5qg-1; Fri,
+ 23 Oct 2026 16:01:09 -0400
+X-MC-Unique: 47jf6FfHMm2Y4uA4uBb5qg-1
+X-Mimecast-MFC-AGG-ID: 47jf6FfHMm2Y4uA4uBb5qg_1792785666
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2BEC9195DE21;
-	Fri, 23 Oct 2026 20:00:59 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C69671805A22;
+	Fri, 23 Oct 2026 20:01:06 +0000 (UTC)
 Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E38B71956089;
-	Fri, 23 Oct 2026 20:00:56 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 437F91955F03;
+	Fri, 23 Oct 2026 20:01:05 +0000 (UTC)
 From: Waiman Long <longman@redhat.com>
 To: Ridong Chen <ridong.chen@linux.dev>,
 	Tejun Heo <tj@kernel.org>,
@@ -70,11 +70,10 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH-next v2 06/10] cgroup/cpuset: Prevent recursive call of remote_cpus_update() via update_cpumasks_hier()
-Date: Fri, 23 Oct 2026 16:00:32 -0400
-Message-ID: <20261023200036.60560-7-longman@redhat.com>
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH-next v2 10/10] cgroup/cpuset: Integrate compute_partition_effective_cpumask() into compute_effective_cpumask()
+Date: Fri, 23 Oct 2026 16:00:36 -0400
+Message-ID: <20261023200036.60560-11-longman@redhat.com>
 In-Reply-To: <20261023200036.60560-1-longman@redhat.com>
 References: <20261023200036.60560-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -89,118 +88,110 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Guopeng reports that changing the cpumask of a remote partition root
-may set the effective_cpus of the top_cpuset incorrectly. It is
-due to the following call sequence:
+Update compute_effective_cpumask() to call
+compute_partition_effective_cpumask() directly if the given cpuset is
+a valid remote or local partition root. This simplifies the call sites
+where they are being involved. No functional change is expected.
 
-  update_cpumask()
-   -> partition_cpus_change()
-    -> remote_cpus_update()
-     -> update_sibling_cpumasks()
-      -> update_cpumasks_hier()
-       -> remote_cpus_update()
-
-The second remote_cpus_update() call passes in the cs->effective_xcpus
-instead of the trialcs->effective_xcpus of the first remote_cpus_update()
-call.  As a result, the second call can revert what has been done in
-the first call leading to incorrect effective_cpus of the top_cpuset
-as well as subpartitions_cpus.
-
-Fix that by adding a new remote_partition_updating flag into the cpuset
-structure to indicate that a remote partition is being updated and
-update_cpumasks_hier() should skip the whole subtree as update_cpumask()
-or update_exclusive_cpumask() which calls partition_cpus_change()
-will eventually calls update_cpumasks_hier() for that subtree anyway.
-
-This new flag is currently set only in remote_cpus_update() to prevent
-recursive call of remote_cpus_update() on the same cpuset.
-
-A test case is added to test_cpuset_prs.sh to verify this change.
-
-Reported-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Link: https://lore.kernel.org/lkml/20261010075947.333549-2-guopeng.zhang@linux.dev
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
+Suggested-by: Ridong Chen <ridong.chen@linux.dev>
 Signed-off-by: Waiman Long <longman@redhat.com>
 ---
- kernel/cgroup/cpuset-internal.h                   |  5 +++++
- kernel/cgroup/cpuset.c                            | 13 +++++++++----
- tools/testing/selftests/cgroup/test_cpuset_prs.sh |  1 +
- 3 files changed, 15 insertions(+), 4 deletions(-)
+ kernel/cgroup/cpuset.c | 37 ++++++++++---------------------------
+ 1 file changed, 10 insertions(+), 27 deletions(-)
 
-diff --git a/kernel/cgroup/cpuset-internal.h b/kernel/cgroup/cpuset-internal.h
-index 2e44dc8634dc..1ba94ffaff9d 100644
---- a/kernel/cgroup/cpuset-internal.h
-+++ b/kernel/cgroup/cpuset-internal.h
-@@ -161,6 +161,11 @@ struct cpuset {
- 	 */
- 	bool remote_partition;
- 
-+	/*
-+	 * Set to true when a remote partition is undergoing update.
-+	 */
-+	bool remote_partition_updating;
-+
- 	/*
- 	 * number of SCHED_DEADLINE tasks attached to this cpuset, so that we
- 	 * know when to rebuild associated root domain bandwidth information.
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 5585d02ef0f8..d995f1ec5259 100644
+index f9ba711e1e1a..9190dc8e4c49 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -1736,6 +1736,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
- 			goto invalidate;
+@@ -1567,8 +1567,6 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 	struct cpuset *child;
+ 	bool populated = partition_is_populated(cs, NULL);
+ 
+-	WARN_ON_ONCE(!is_partition_valid(cs));
+-
+ 	/*
+ 	 * Check child partition roots to see if they should be invalidated
+ 	 * when all the effective_cpus will be used up and cs is populated.
+@@ -1629,6 +1627,10 @@ static void compute_effective_cpumask(struct cpumask *new_cpus,
+ {
+ 	bool has_cpus;
+ 
++	if (is_remote_partition(cs) ||
++	    (is_partition_valid(cs) && is_partition_valid(parent)))
++		return compute_partition_effective_cpumask(cs, new_cpus);
++
+ 	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
+ 	if (!has_cpus && is_in_v2_mode())
+ 		cpumask_copy(new_cpus, parent->effective_cpus);
+@@ -2224,10 +2226,7 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+ 			remote = (new_prs == old_prs);
+ 		}
+ 
+-		if (remote || (is_partition_valid(parent) && is_partition_valid(cp)))
+-			compute_partition_effective_cpumask(cp, tmp->new_cpus);
+-		else
+-			compute_effective_cpumask(tmp->new_cpus, cp, parent);
++		compute_effective_cpumask(tmp->new_cpus, cp, parent);
+ 
+ 		if (remote)
+ 			goto get_css;	/* Ready to update cpuset data */
+@@ -2326,10 +2325,7 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+ 			 */
+ 			new_prs = cp->partition_root_state;
+ 			if (new_prs != old_prs) {
+-				if (new_prs > 0)
+-					compute_partition_effective_cpumask(cp, tmp->new_cpus);
+-				else
+-					compute_effective_cpumask(tmp->new_cpus, cp, parent);
++				compute_effective_cpumask(tmp->new_cpus, cp, parent);
+ 			}
+ 		}
+ 
+@@ -3961,7 +3957,6 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+ 	static nodemask_t new_mems;
+ 	bool cpus_updated;
+ 	bool mems_updated;
+-	bool remote;
+ 	int partcmd = -1;
+ 	struct cpuset *parent;
+ 
+@@ -3973,21 +3968,12 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+ 	if (!tmp || !cs->partition_root_state)
+ 		goto update_tasks;
+ 
+-	/*
+-	 * Compute effective_cpus for valid partition root, may invalidate
+-	 * child partition roots if necessary.
+-	 */
+-	remote = is_remote_partition(cs);
+-	if (remote || (is_partition_valid(cs) && is_partition_valid(parent)))
+-		compute_partition_effective_cpumask(cs, &new_cpus);
+-
+-	if (remote && (cpumask_empty(subpartitions_cpus) ||
+-			(cpumask_empty(&new_cpus) &&
+-			 partition_is_populated(cs, NULL)))) {
++	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
++				       (cpumask_empty(&new_cpus) &&
++					partition_is_populated(cs, NULL)))) {
+ 		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
+ 		remote_partition_disable(cs, tmp);
+ 		compute_effective_cpumask(&new_cpus, cs, parent);
+-		remote = false;
  	}
  
-+	cs->remote_partition_updating = true;
- 	spin_lock_irq(&callback_lock);
- 	if (adding)
- 		partition_xcpus_add(prs, NULL, tmp->addmask);
-@@ -1757,6 +1758,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
- 	 */
- 	cpuset_update_tasks_cpumask(&top_cpuset, tmp->new_cpus);
- 	update_sibling_cpumasks(&top_cpuset, NULL, tmp);
-+	cs->remote_partition_updating = false;
- 	return;
+ 	/*
+@@ -4013,10 +3999,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
  
- invalidate:
-@@ -2207,16 +2209,19 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
- 		old_prs = new_prs = cp->partition_root_state;
- 
- 		/*
--		 * For child remote partition root (!= cs), we need to call
--		 * remote_cpus_update() if effective_xcpus will be changed.
--		 * Otherwise, we can skip the whole subtree.
-+		 * For a child remote partition with remote_partition_updating
-+		 * set, we can skip the whole subtree as the this function will
-+		 * be called eventually. We can also skip the subtree if the
-+		 * effective_xcpus isn't going to be changed. Otherwise, we
-+		 * will have to call remote_cpus_update().
- 		 *
- 		 * remote_cpus_update() will reuse tmp->new_cpus only after
- 		 * its value is being processed.
- 		 */
- 		if (remote && (cp != cs)) {
- 			compute_excpus(cp, tmp->new_cpus);
--			if (cpumask_equal(cp->effective_xcpus, tmp->new_cpus)) {
-+			if (cp->remote_partition_updating ||
-+			    cpumask_equal(cp->effective_xcpus, tmp->new_cpus)) {
- 				pos_css = css_rightmost_descendant(pos_css);
- 				continue;
- 			}
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index 3c9f67f91366..f0d98da3cfd8 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -347,6 +347,7 @@ TEST_MATRIX=(
- 	"   C0-3    C1-3  C2-3    C4    X2-3   X2-3  X2-3:P2 P2:C4-5 0 A3:2-3|B1:4-5 A3:P2|B1:P2 2-5"
- 	"  C4:X0-3  X1-3  X2-3     .      .      P2     .      .     0 A1:4|A2:1-3|A3:1-3 A2:P2 1-3"
- 	"  C4:X0-3  X1-3  X2-3     .      .      .      P2     .     0 A1:4|A2:4|A3:2-3 A3:P2 2-3"
-+	"   CX1-6  C1-4:P1  .    C4-5     .    C1-3     .      .     0 A1:4-6|A2:1-3|B1:4-5 A2:P1"
- 
- 	# Nested remote/local partition tests
- 	"   C0-3    C1-3  C2-3   C4-5   X2-3  X2-3:P1   P2     P1    0 A1:0-1|A2:|A3:2-3|B1:4-5 \
+ 	if (partcmd >= 0) {
+ 		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
+-		if (is_partition_valid(cs)) {
+-			compute_partition_effective_cpumask(cs, &new_cpus);
+-			cpuset_force_rebuild();
+-		} else if (partcmd == partcmd_invalidate) {
++		if (is_partition_valid(cs) || (partcmd == partcmd_invalidate)) {
+ 			compute_effective_cpumask(&new_cpus, cs, parent);
+ 			cpuset_force_rebuild();
+ 		}
 -- 
 2.56.0
 
