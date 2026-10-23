@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792745866;
-	b=Z36S4e04+90DsPqOlpFiz8UJkbEwPTzBwuHjsCaGf951CD0z59fNcTfNN0XffKwCxqcl
-	 A6gvWPeRdVjrdJze7GtjmVd/N0z2u2NGyP48rzxcZ+gHKR1acOwN6AaKMoP2ThNOl+fmi
-	 w5qtX/LcpUWzkBUTUrgKVp1AHxwd+9Xt3Rlc0nk+86srIfaXKAegCdqGByNp3va5QXthE
-	 bPq67TBrRc4OWb4OC1wWoxZG5FmrPDjTahiGxzQGkuU/WfCAAQI72j7NA2YVulXA2rK54
-	 o+VTBewhskJnnMfXDFs6kYRd03eefMzEiuNG15BXTHoCFwxrJIQ6WP8BeCLz7iq8QuA==
+	t=1792745897;
+	b=LolG651eAYVNZaNY2/Ao2t4s5EVgoEL8jWjLxq1tSYrVIwkLrmtJm7GvkbKtsGetGG43
+	 qFBn/H5NBwfRnrWBFXMBbpUrMmUWGDC8YPOeetwZh9+/D8uBntTSVliywnbjCNUtdOCkY
+	 xLEcveJ9YEERte9gZadXWWEV57oej7vb+5/E967/D92LIY98SrSuhZpzFxI8beNociFo2
+	 hnIX7j0AVY/j4qpbXBJRMtaqTqKexB3mS/XhUCsjkY9oqdDAiAnK9s0oSYrw5qhPINkpv
+	 hhJy7OXOhd9YlrjU6ZfJMKSB0Z8B3wk40iSI3rJhtHDKCfeUg/hcGiZLYmGqmH5L5+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745866;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=mJWrTaQByyrjZ9PzA2t7oDsC+zy0u+1OpsBHzdHiLYo=;
-	b=gzYUKsuTz0CzJPrddl2skS3Ef17OlTIj0JRQUvkvGkMH+lrSloEzWHOqoCIb8Qs/+o1r
-	 dZWDKy79U6XOPOuX6TrsGDm89MXIo9NpmXxdP67/USnCp+/n9rMUlPUvEpYbcl4CrcYPi
-	 OyUH7yx+G5NTB1ffr073uBPDbKFn9j/8KtKuyoTYt446kkR8fq5bjpG0yJeCfg8e4dcrI
-	 Vl6n/25owjtwsrrYHaNgOsCseJ4v+6tXsjepJzAf/iHYOm/Z/rovBdKZpuLL5+PuWHbOr
-	 S89qaSu1rr/1Tjof40Ki04b8X42L9mrRUCo1O6ECA77yQ8I8U0ycVnqmPDhx+8YxLOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745897;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:X-Hop-Count:
+	 X-CMS-RootMailID:References;
+	bh=U2a7kuFhlELNf+MmGZOqsc2PxuXwSEDIwnIA4z6ukmE=;
+	b=zeAzpmpWBvRtKfLZUrcyi0I95uiMetHuOcSYWQuza0QdIrKNrNt6SvWevXveBi9LULal
+	 wkfP8c2ZHpc9bmVK7eSlR8Va99dCzFhVmMS1cBtmZXkcGIOGtWsa4Lbu09stXu9RLRX4S
+	 +jU81gKXLoCJRRzy+DEWr78IPsorzailFQR5cKIv7rnes2foLf3NLA8Rj2D+0BZO8pU3a
+	 Bepg/Yz9B3pUXY3/zvpnT1zGLyVgJbMxA+nvZ3A+fJeusHlJhbO0l1ozeF3djHRDag2FQ
+	 6ysxMkaXXVuxcbUl2BudUMzqi9oDN5qm0A4hly6H+80Ew1mlmD/m7rJECLbKc0AOang==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Q60yuWtc;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=JlEjxIFz;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317C4606A31A;
-	Fri, 23 Oct 2026 08:57:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 317C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76BC606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76BC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Q60yuWtc
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B8962A0190;
-	Fri, 23 Oct 2026 10:57:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792745854; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mJWrTaQByyrjZ9PzA2t7oDsC+zy0u+1OpsBHzdHiLYo=;
-	b=Q60yuWtc2CnGQxUSE7WHIOdfQsWM5KjPO16yW9IORmCsDGt7U5NabgOqv5hjw3x4NsghQI
-	MxdJKf7Mhujwbv5U9/t8Q66af268MICJiWD9RKSWdSywhr+3v9x8P1m+bQwo3G7QENRD0W
-	Y3CScMdYTN+o4biwhQUdmF2QfSjg0H9p4q4w8o5Z0V2HPGT7SF4NTU0xq50WBeutHrFYjP
-	ZfrrOUVG+oEmkZJXlydlyWU78JjzScESx5RFsmjELyQ9pL/vs/0gH5DiaLlkIeBCb8CRc6
-	bbtQ3OBBAoHt2MDiuCRGNOs9sjGnyT0TBEfJRSqP5qif8y4Rgj7Qe6uRdQpbzA==
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=JlEjxIFz
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261023085803epoutp02a6a7ac4693787b4d0c97a491a44024ab~hHOIBuLLm0590005900epoutp02T
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:58:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261023085803epoutp02a6a7ac4693787b4d0c97a491a44024ab~hHOIBuLLm0590005900epoutp02T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792745883;
+	bh=U2a7kuFhlELNf+MmGZOqsc2PxuXwSEDIwnIA4z6ukmE=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=JlEjxIFzthyIx9KZq83wP5HNnK2eV4x6jBn7JMUZMTZ/YA4t1U5zhs7MejELjpUlr
+	 VFZepre60nAzAFweeG1ow4yO+fLKOASSYuCk+gS7vQs1aJ+mT1YjEuTtk6j3Yu7iHL
+	 RtvDjdO7V5+rKQQGgsXeGB5Nli9/m93bs+0Q2C8A=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261023085803epcas2p31a4742e1500cb7a7413ad9b331bbda04~hHOHuhcxo1339413394epcas2p3C;
+	Fri, 23 Oct 2026 08:58:03 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j9xkM2Lzzz6B9m6; Fri, 23 Oct
+	2026 08:58:03 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261023085501epcas2p3cc1319f4442d8fc77fdd64064bede2ed~hHLetksEP2290922909epcas2p33;
+	Fri, 23 Oct 2026 08:55:01 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261023085501epsmtip24b8ca6dd99dc5fc49e638b761bcd1265~hHLelS3Hj2401224012epsmtip2j;
+	Fri, 23 Oct 2026 08:55:01 +0000 (GMT)
+From: HOYOUNG SEO <hy50.seo@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com,
+	peter.wang@mediatek.com
+Cc: HOYOUNG SEO <hy50.seo@samsung.com>
+Subject: [PATCH v1] scsi: ufs: core: add is_sys_suspended state before
+ recovery
+Date: Fri, 23 Oct 2026 17:50:46 +0900
+Message-Id: <1582071873.61792745883325.JavaMail.epsvc@epcpadp2new>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,76 +81,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 23 Oct 2026 10:57:32 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Divyanshu Jha <divyanshuj2006@gmail.com>
-Cc: Oliver Neukum <oliver@neukum.org>, netdev@vger.kernel.org, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: usb: cdc_ncm: add Apple Silicon MacBook Air
- (05ac:1903) device ID
-In-Reply-To: <20261023070419.235361-1-divyanshuj2006@gmail.com>
-References: <20261023070419.235361-1-divyanshuj2006@gmail.com>
-Message-ID: <a386789d3d2d6709cc5e9c8b2b05a283@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261023085501epcas2p3cc1319f4442d8fc77fdd64064bede2ed
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20261023085501epcas2p3cc1319f4442d8fc77fdd64064bede2ed
+References: <CGME20261023085501epcas2p3cc1319f4442d8fc77fdd64064bede2ed@epcas2p3.samsung.com>
 
-Hi Divyanshu
+If a linereset occurs during ufshcd_wl_resume and
+a hibern8_exit fail occurs, recovery is performed redundantly
+in both the err_handler and the __ufshcd_wl_resume function.
+To prevent this redundant recovery, a check for the is_sys_suspended
+state has been added to the err_handler.
 
-On 23.10.2026 09:04, Divyanshu Jha wrote:
-> The Apple Silicon MacBook Air exposes a CDC-NCM interface (05ac:1903)
-> when connected host-to-host over USB-C.
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+---
+ drivers/ufs/core/ufshcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Which model and chip? a5148bc2fa27 says the MacBook Air shows up as
-0x1905, and the Mac PIDs so far (0x1901/0x1902/0x1905) seem to follow
-the SoC generation, not the product line?
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..a164f23e8968 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -7042,7 +7042,7 @@ static void ufshcd_err_handler(struct work_struct *work)
+ 		 * is already in progress.
+ 		 */
+ 		ufshcd_rpm_get_noresume(hba);
+-		if (hba->pm_op_in_progress) {
++		if (hba->pm_op_in_progress && !hba->is_sys_suspended) {
+ 			ufshcd_link_recovery(hba);
+ 			ufshcd_rpm_put(hba);
+ 			return;
+-- 
+2.34.1
 
-Please add the lsusb -v or ioreg output for 0x1903 and the dmesg lines
-you saw, like the 0x1902 commit did.
 
-> 
-> Like other Apple CDC-NCM peripherals (0x1902 and 0x1905), Apple's
-> firmware omits the CDC status interrupt endpoint. This causes the
-> standard cdc_ncm probe to fail with a missing endpoint error.
-> 
-> Add device ID 05ac:1903 to cdc_ncm_devs binding to
-
-nit: cdc_ncm_devs -> cdc_devs
-
-> apple_private_interface_info so the driver bypasses the interrupt
-> check and initializes host-to-host networking successfully.
-> 
-> Signed-off-by: Divyanshu Jha <divyanshuj2006@gmail.com>
-> ---
->  drivers/net/usb/cdc_ncm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
-> index 35db38cb3..6848b9421 100644
-> --- a/drivers/net/usb/cdc_ncm.c
-> +++ b/drivers/net/usb/cdc_ncm.c
-> @@ -2019,6 +2019,12 @@ static const struct usb_device_id cdc_devs[] = {
->  	{ USB_DEVICE_INTERFACE_NUMBER(0x05ac, 0x1902, 2),
->  		.driver_info = (unsigned long)&apple_private_interface_info,
->  	},
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x05ac, 0x1903, 0),
-> +		.driver_info = (unsigned long)&apple_private_interface_info,
-> +	},
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x05ac, 0x1903, 2),
-> +		.driver_info = (unsigned long)&apple_private_interface_info,
-> +	},
->  	{ USB_DEVICE_INTERFACE_NUMBER(0x05ac, 0x1905, 0),
->  		.driver_info = (unsigned long)&apple_private_interface_info,
->  	},
-
-Please note that net-next is closed during the 7.4 merge window [1].
-So please wait until it's open again, before you re-spin.
-
-[1] https://netdev.bots.linux.dev/net-next.html
-
-Thanks,
-Nicolai
