@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748359;
-	b=AzJLeWn1UmkXZyTUTBH5phmbivefAs4UTxKPx/WBi4zDuOfuBdMlI9hxpACVFFhJdAIH
-	 U5boMz9P16vENn/4StI4J3sqDholiGaheK30s6yZ1mPLKm7UtDLb6mF4me28RlDGom1/a
-	 mNLQdrY+9TuXWuZ07cd/lRQuJ4rl1bvjfkN1GqDIYhkOKtOInbb4CTrhaFl/snxLvfoQa
-	 GRaEWvsJaBkyQZtttpo94TWGrfv9cV6mbzwSCEsuSZSLRfCbpoGHDBRJ/xUWuY8N5/Fa3
-	 30B7STaBnJiB5cWrgtsfCtvr0s5WGPlTilhGz7Z1AmvSQshIvAtwDxykxp2seEXIxkg==
+	t=1792748394;
+	b=mXE2FbT+D1PAWFIacNKguGjBvqzqAXiVpdo/tg6Lacalr2JENKjiF0+HND+Hgz09/G5+
+	 gCu+LFpA08v6ZT7lmM9CsjORWwqAxN0o0kW0yfG/PeExhXqe2Q+SpGdA07Lu/iQZn0ery
+	 ZpcQHhcciGYJzdfNCS0bRCwKhdeQeK1T4Qc981g2gh6RnNBcUqWcqcyoU7iJp60HUFmyQ
+	 c5TYF7N2bSrz2o18YfFo+GzdT3ZFjTTQijrnV2S8lftbl8Cq/eMmMHxJdDk5Wvqa6XAmm
+	 uuMcKTYImvdnXVsBWI6cQynVtjKASG1KpayfYZUcvlXzfqOc54kZFuPWDEQmrah6byA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748359;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iN0PCNGlQE2YeIBopbEE/xXfAvmibpRO1mc8hqy0Ks0=;
-	b=UMHnzplr8vKbBzFDbwq7kj88qZt3C4mUXOZMoNUBUWgWEkpSNBomPmKoyt0n8SBbGx82
-	 0qFS5Hy694giv/UPH1SeFPlvAV71QozI8qj5eSS6YqH+6WOkoGZKqwkcMPsR/4Iiq8Fwx
-	 Br8RK3Tb1Dl8AFkCz5VjjUVP9JtNTf1FI1p7G95V7uVyKo60+8oLSIn8P/OI7xFITa8bM
-	 cnL9uWVL/wpJCIP+dC0avVsL+XqywitBy8p3qXfMCXxxepWnLK96UCRxpoqFfrNEjicZr
-	 9IO3xMQxoM8d+brn7INRUkEh1/kjG2DTomV88j5f72LnRehHQrlUJ35oEfJKaYdyy6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748394;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Zbo4H69cUqvzI4mr1Z35AeXw7zrN9617F5T5W5xQxQI=;
+	b=IV0NNWLzcD5Q0CJ3yEZCTupMoZ95VreIvSS8zqbGofpo15YnIEf4hA6u8dKcFRv1DBo6
+	 zgqtYfnvDsJgEdkoPVsRFwJTeYg9f9A9kYPHteuGfbsPRQ+LIdbdf3sXibUhuK3kg3IPG
+	 VSqbExs748nTXGAuXTELE2q0XWe32Zzkn/jf8bIIEQ0odEmWL1IqrD3hn6k+v1XCucPCQ
+	 TiDcV5Sk4J5ng+tKG1BuWO3ZfsxXDIVNbTiu/UYNh/IDjD11yWTl421FYlUhyjORzpTMh
+	 ijcWm20imyKipOLAklPoI6obTFlYo6aeccrD7hk/yDiE0LSszQ9aVeb6/xMU/uk4uqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrgChme2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VytnqpKY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8345F606A337;
-	Fri, 23 Oct 2026 09:39:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B924606A31B;
+	Fri, 23 Oct 2026 09:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrgChme2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D62A1F01825;
-	Fri, 23 Oct 2026 09:39:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VytnqpKY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399CD1F01825;
+	Fri, 23 Oct 2026 09:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792748359;
-	bh=iN0PCNGlQE2YeIBopbEE/xXfAvmibpRO1mc8hqy0Ks0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZrgChme2el/c0UjaCs8GOzRxJSI5bGkwsYbhK9Ym1BnbsYSA4+ymvu/XgtuW+ATA3
-	 qMYO2NeP9nEp4CUO8snhwTnfOIXTLFUZ0bokO4B7MX3/BfosPBiaMRzPkUWW+ONL3y
-	 uLpgN7EmW+kWdKTvaCoCkpp1RiUMLPcZ1Yor1ohc+agmRmjjHX4pCrmsV4kh5i62Wa
-	 2p9AV8wDVKwiNTHjuuRXNhFpXdEneWSCsymNDujdZ6rOiPSPIL5h3KLX5JT/XgVVXi
-	 HSpLkbZOILRSsBgxV6Hbe+pOI+I2iiFsuuS3VG5dDlbW1jPq8E5pJnimE5Svfwu5qe
-	 IJQPa9Z5CRYpg==
-Message-ID: <sashiko-outbox-182615@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC net 5/6] net: macb: kick the transmitter on link-up
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Steffen Dirkwinkel" <lists@steffen.cc>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261022-std-macb-v14-send-v1-5-9187bc545bf6@beckhoff.com>
-References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
- <20261022-std-macb-v14-send-v1-5-9187bc545bf6@beckhoff.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 09:39:18 +0000
+	s=k20260515; t=1792748394;
+	bh=Zbo4H69cUqvzI4mr1Z35AeXw7zrN9617F5T5W5xQxQI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VytnqpKYpIHRPkeXyRIulPMzndR+eR+KkSB5eWRJF0fIGARDHMUlfit0DH9rcGzej
+	 ZEDWt/Ma2mi89dL9tIE2HZ806LYUfYSCYxikbxamsZ7LN3OG7g9hzQspm7MLJ56B6g
+	 8yLZU2g5QN3XZ7S0Z5QY5mhyfXSpDwzFWbzuKIRmbArYFA3q0IMTl8ds/T5isuRfmv
+	 zzfbQ7+9M72iHcoAnkA8/X6YxK3AuGrcGZnbfuf3ATV/HAaOHoKEx7vT/7hKkLZmER
+	 dLgbxRbqV1Kh30CRsgKmLuvqrXzArNAjrIJYzcDuFZTSS4yOg07AjJFGQt1Up49775
+	 o3k9vgs2beZww==
+Message-ID: <aa76425c-0579-42c2-832d-cc767703f3f5@kernel.org>
+Date: Fri, 23 Oct 2026 11:39:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,173 +50,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
+ Lemans and Monaco SoCs
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
+ <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
+ <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
+ <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
+ <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
+ <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] net: macb: DMA of freed skb in macb_mac_link_up() when empty r=
-ing resets TBQP
-- [High] net: macb: unbased TBQP index in macb_tx_restart() breaks link-up =
-kick
---
+On 13/10/2026 13:49, Imran Shaik wrote:
+>>>>> +
+>>>>> +patternProperties:
+>>>>> +  "^etu-slice@[0-9a-f]+$":
+>>>>> +    type: object
+>>>>> +    description: ETU slice configuration
+>>>>> +    properties:
+>>>>> +      reg:
+>>>>> +        maxItems: 1
+>>>>> +
+>>>>> +      pinctrl-0: true
+>>>>> +
+>>>>> +      pinctrl-names:
+>>>>> +        items:
+>>>>> +          - const: default
+>>>>
+>>>> Heh? Which code do you copy?
+>>>>
+>>>
+>>> Each ETU slice has its own external event pin config, so kept pinctrl-0
+>>> and pinctrl-names on the slice subnode. Please suggest if you prefer
+>>> otherwise.
 
-commit 19c83c729b5e6d7a587a6b6ecc879a9a247907de
-Author: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
+Just drop both pinctrl properties, because you should not need them. You
+define them only if they are different than default.
 
-net: macb: kick the transmitter on link-up
+>>
+>> No, from where did you get this code? Why are you sending bindings which
+>> are different then all other bindings?
+>>
+> 
+> I was referring to the example in [1] when adding the pinctrl properties
+> under the etu-slice sub node.
+> 
+> [1] - 
+> Documentation/devicetree/bindings/media/samsung,exynos4212-fimc-is.yaml
 
-This commit calls macb_tx_restart() for each queue in macb_mac_link_up()
-after enabling transmit so that pending frames in the ring are transmitted
-even if byte queue limits previously stopped the queue.
+That's like 13 years old device binding, so unfortunately likely
+antipattern.
 
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ether=
-net/cadence/macb_main.c
-> index 6e7ead23d0b74..3dfc7ffdd5985 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
 
-[ ... ]
 
-> @@ -969,6 +971,10 @@ static void macb_mac_link_up(struct phylink_config *=
-config,
->  	spin_unlock_irqrestore(&bp->lock, flags);
-> =20
->  	if (!(bp->caps & MACB_CAPS_MACB_IS_EMAC)) {
-> +		/* With BQL holding a queue stopped no xmit would issue TSTART */
-> +		for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)
-> +			macb_tx_restart(queue);
+> 
+> On checking further, I found that our etu-slice sub node deviates from
+> that example, since we don't have a compatible string for the sub node.
+> 
+> Please let me know if we should move the pinctrl properties under the
+> tscss node with per-slice names, or instead keep them under the
+> etu-slice sub node and add a compatible there.
 
-[Severity: Critical]
-Can kicking the transmitter here in macb_mac_link_up() cause the controller
-to transmit an already unmapped and freed skb buffer on an empty queue?
+etu-slice does not feel like device at all unfortunately. I see only
+address space, so one resource, which might be enough but lack of
+description for the subnode is not helping. I have doubts that separate
+subnodes should be there in the first place, but if they stay, describe
+the child node fully - what sort of device it is. Just because there is
+independent timestamping counter does not make it separate device, just
+like independent interrupt in GIC is not itself an independent device.
 
-When a multi-descriptor frame wraps across the end of the ring,
-macb_tx_map() clears the used bit on all descriptors of the frame and
-places the sentinel used bit at the new queue->tx_head. The controller only
-sets the used bit on the first descriptor of a transmitted frame, and
-macb_tx_complete() unmaps the buffers via macb_tx_unmap() and frees the skb
-without setting the used bit on the remaining descriptors. As a result,
-descriptor 0 can retain a cleared used bit and a stale buffer address while
-the sentinel sits at start % ring_size !=3D 0.
 
-When that queue is empty (count =3D=3D 0) with start % ring_size !=3D 0 dur=
-ing
-link-up, macb_mac_link_up() -> gem_shuffle_tx_rings() ->
-gem_shuffle_tx_one_ring() skips the ring rotation and reprograms hardware
-to descriptor 0:
-
-drivers/net/ethernet/cadence/macb_main.c:gem_shuffle_tx_one_ring() {
-	if (!(start % ring_size))
-		goto reset_hw_ptr;
-
-	if (!count) {
-		queue->tx_head =3D 0;
-		queue->tx_tail =3D 0;
-		goto reset_hw_ptr;
-	}
-	...
-reset_hw_ptr:
-	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
-}
-
-Unlike macb_tx_error_task(), which explicitly marks descriptor 0 as used
-before resetting the hardware pointer:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_tx_error_task() {
-	/* Set end of TX queue */
-	desc =3D macb_tx_desc(queue, 0);
-	macb_set_addr(bp, desc, 0);
-	desc->ctrl =3D MACB_BIT(TX_USED);
-}
-
-gem_shuffle_tx_one_ring() leaves descriptor 0 with its stale control word.
-When macb_tx_restart() then sets MACB_BIT(TSTART) in the global NCR
-register because another queue has pending frames, won't the controller
-start reading from descriptor 0 on the empty queue, transmit the freed
-buffer onto the network, and advance the hardware pointer past index 0
-while queue->tx_head and queue->tx_tail remain at 0?
-
-> +
->  		/* Reap the frames completed while link-down had TCOMP masked */
->  		local_bh_disable();
->  		for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)
-
-[Severity: High]
-Does macb_tx_restart() compute the descriptor index from queue_readl(queue,
-TBQP) without subtracting the ring base address, causing missed kicks or
-spurious restarts on link-up?
-
-Earlier in macb_mac_link_up(), gem_shuffle_tx_one_ring() rotates the ring
-so that done completed frames sit at [ring_size - done, ring_size), unsent
-frames sit at [0, count - done), and the hardware pointer is reset to the
-ring base:
-
-drivers/net/ethernet/cadence/macb_main.c:gem_shuffle_tx_one_ring() {
-	queue->tx_tail =3D done ? ring_size - done : 0;
-	queue->tx_head =3D queue->tx_tail + count;
-
-	/* Make descriptor updates visible to hardware */
-	wmb();
-
-reset_hw_ptr:
-	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
-}
-
-Then macb_mac_link_up() calls macb_tx_restart(queue) before scheduling
-queue->napi_tx to reap those completed frames:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_tx_restart() {
-	if (queue->tx_head =3D=3D queue->tx_tail)
-		goto out_tx_ptr_unlock;
-
-	tbqp =3D queue_readl(queue, TBQP) / macb_dma_desc_get_size(bp);
-	tbqp =3D macb_adj_dma_desc_idx(bp, macb_tx_ring_wrap(bp, tbqp));
-	head_idx =3D macb_adj_dma_desc_idx(bp, macb_tx_ring_wrap(bp, queue->tx_hea=
-d));
-
-	if (tbqp =3D=3D head_idx)
-		goto out_tx_ptr_unlock;
-}
-
-Because queue_readl(queue, TBQP) returns the raw 32-bit address
-lower_32_bits(queue->tx_ring_dma) rather than a byte offset from the start
-of the ring, dividing it directly by macb_dma_desc_get_size(bp) only wraps
-to index 0 if lower_32_bits(queue->tx_ring_dma) is an exact multiple of
-bp->tx_ring_size * macb_dma_desc_get_size(bp).
-
-In macb_alloc(), queue->tx_ring_dma is not aligned to that product in
-several configurations:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_alloc() {
-	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) {
-		queue->tx_ring =3D tx + macb_tx_ring_size_per_queue(bp) * q;
-		queue->tx_ring_dma =3D tx_dma + macb_tx_ring_size_per_queue(bp) * q;
-}
-
-Specifically:
-- On multi-queue controllers with descriptor prefetch,
-  macb_tx_ring_size_per_queue(bp) adds bp->tx_bd_rd_prefetch bytes per
-  queue, shifting queue->tx_ring_dma for queues >=3D 1.
-- When 64-bit addressing and ptp timestamping are both enabled,
-  macb_dma_desc_get_size(bp) is 24 bytes, which does not evenly divide a
-  page-aligned base address even on queue 0.
-- When bp->tx_ring_size * macb_dma_desc_get_size(bp) exceeds page size and
-  dma_alloc_coherent() returns an address aligned only to page size.
-
-When tbqp at the ring base wraps to a non-zero base_idx instead of 0:
-- If count - done =3D=3D base_idx unsent frames are waiting at [0, base_idx=
-),
-  head_idx equals tbqp, so macb_tx_restart() skips writing MACB_BIT(TSTART)
-  and leaves the stopped queue stuck.
-- If all queued frames completed while link-down masked completion
-  interrupts (done =3D=3D count > 0), queue->tx_head !=3D queue->tx_tail is=
- still
-  true before napi_tx runs, and head_idx is 0 while tbqp is non-zero, so
-  macb_tx_restart() writes MACB_BIT(TSTART) onto a used descriptor at index
-  0 and triggers a spurious used-bit-read interrupt.
-
-Should macb_tx_restart() subtract lower_32_bits(queue->tx_ring_dma) from
-queue_readl(queue, TBQP) before dividing by macb_dma_desc_get_size(bp)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-std-macb-v=
-14-send-v1-0-9187bc545bf6@beckhoff.com?part=3D5
+Best regards,
+Krzysztof
