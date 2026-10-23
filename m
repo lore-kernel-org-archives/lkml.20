@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792752562;
-	b=Wklmx/lmLzyO0WT6xt8QuvP3s5OMEHUDYGXI6/kbqhUqJG9A7ZOasu0oSqa0Sr1TK6Vm
-	 wDzzqbt+OvyQcNp5Irk6ykjfByEhY7ivjeAbl4uVMCnTz5eWIvoRJz+dN9O20huh7GekV
-	 7skPgmmNEy8iooQSDaXZsLEpoOyIZzleyDtLZQ0sGrOqFYQYEosFHjmqfbZ4Q/PbzoU0v
-	 5UQ9G7AvEEx1CL3UZP/zgF9tV1O1NZ+XPgUn9lcz/jVkyS+h8l/bTZ8If4Gz+L2knwmgP
-	 bai1SVX/J99H9NkyFz4bndXD3VsLZTD0AGcviZHFi5l5p9jK2UTLLjmslKKVQD0L2rg==
+	t=1792752647;
+	b=uH1VTgEL89ajpxX6AlIYc6eCU1zswmsqW2e11VX2zzT1PQP+qQWfuOSmagzbFxxM9Od9
+	 VN5qmEM40PE1bYGbWxYDxWOqongHQhdMSNxlOtCiF9Ou0/J5Gg4pWoePF2id9dVkvXUer
+	 MUe72Tq5PMjowBW39BMeCVXN/BnqqTHI0olCdKhh4ruLn3qmCofvey1uQt01llrrt/BoX
+	 NWi+uKB4EDKwK1nv/NDaObwch/Oy5d484TNYKW61FrYvEOa4hOkSGzJoiiJzNCJ/dRFHR
+	 xxM6ISVFgXdwzoB3mm83GPdq8UpOEWvnvxl4ttk+wd/Xx8Db+UOGuE/s0A3jQ87iajA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792752562;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-	b=awCrcWpPE8JJoMgiLQk3fH0is14XMytxFuzM+otdsPdu1ehtTzaKsrnXp/QKCaPQboPh
-	 HXYSZHPeLfgK+ZSmbU+zAIz4oiPyxIhxppJjLGkCezX/SipavI8ijtWsRNSOD7NloETz7
-	 iOeBxCHoHEth0ava95G2Ns/iqMwcAD3RoM5NQu7oiVB79fjR1UUG1wgM9AcC3GjKrP1Cu
-	 GvPmYgJDGjiBzNRm14Y6bciYtU7IuoPamuuFKzISs2b+7q8gEah0TKEIcNi7ONxZk6BLQ
-	 iRxR2Vl4Nf1ZVJ2os2Vjc7gnsu5P+Iw3Jd68xvhxV5FHbgSZNx5g7K75bCmmgD0tCOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752647;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=4MHHy7AEttiDujVao2ghw+rQrpaM49lVqzWBSD5g1mM=;
+	b=A2JuhpbdEs/xakea45h4vfryiNzSTOaGC1GoUwo6yvhN1I2jYhoz6u9Q0ZNv78GSE/9W
+	 WxnqR3qL+xKfzNqrrxqZ6eq/rlZxBXsKAeJxwqOxpgdWkBxCHZ/UTojd7GyPghu7I6eQ3
+	 1eh5WTdPAmVzZraACIFmv3fNjUBfMQz+mGaEDzyOtplhPrNdUnSwhHD1mDepjr2/0Qkgq
+	 7y9+H0nyinbRmtsPMYwmONYbH0GHX3RX48r6ZifZWTRuJI3h+UfUvulXmECUfO7xa8IDa
+	 iP3eyGqXQboCSNGqdOsa8HX1b/70zIscL76HeJ1h6Ag2jqIuR1GLs8d5cfLa+2SBpbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NBpHfLcZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bc10VNay;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h+901jSc;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF539606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF539606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3CF606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B3CF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NBpHfLcZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bc10VNay
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAX872489807
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:49:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=; b=NBpHfLcZLEzJTtxF
-	l3MprFIzMvt6CSzQX73ZK7PUCrx6178LHmXAYHBQ67grkua+/C2kPaaQ2vHaPg/v
-	QpUuMmdj9zOFu2AOK0z2Pw26PrXuJgOx8o53lmLgVQKSyVIZRE6h53fpmkEaukPd
-	1fPyVWOzvomnoFewq2JF5z11lniSknx9DnD++5RQbhlKCIlrCQq5pLUiVS71dkOJ
-	aO28pX6nPbxwsAjWm2UgCijj9xtc4VX8aK0eEOZ1sUFQUezkWN6wlQXTI+Oa4EMb
-	wJEDV+SG9tbwJOwEKiiE6xN80K8ov1GB35EO9p+2Ma/owRwyiEmP7r5L2EDBQCO4
-	eRvArg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hftygagv4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:49:20 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cbf2fd504so137714985a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792752560; x=1793357360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-        b=Bc10VNayHO3vSP/nvk1Vg/3giS21EEKxaNiiz4h98NjVTjNPFcSnIn6rrl7piXPHDW
-         VCDV9ITzg5zF8Lae6VXmwGePaxSYG3Pzs3sYHGRs4eHMdAl+fLhMKLONuIV9RzzBSfU0
-         Uegrxv09Cz0cJvGKL0N35S4L5//VUPzH8j2StBD28Me7N1aNgA0xDYFp16UgPrDD8oug
-         2jC3HInYzzHE5/k+vuP2NIQEIVyNomVR/5andRHZ70kSUuAXu8lMR6rQ3TKoPSzhX2vk
-         UniMg+OiIxHbn8L+hH0MQXPIq/t0h9/ITAtUIOk39GWhWUwa6c1f6WOwbka1gDqRux2Y
-         o4ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792752560; x=1793357360;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-        b=IXcqNT7wZi7a6/WeWPLlTrDdQagboVy5/B1StQ2FHT45AQVD0tK9w6eqJQkwtsY6H2
-         IRzyjx8pjlkx6LuGymiJktwEhSz7odKdPNAaIoWqgbDbcOZWwqhB+R0EjBI5B+2Zd717
-         cOMO+ecUR5YKAKCx1uUHUmAFQtYwdt7lFpG372GbfbcfbgxhCl2DaoGdodEIS5QNsgAR
-         FD7RC0o3dhyF51SKFO58RnsAVnQZ4cpMjWWgN7ySx/i8cTK/JrDa7/Mjj5UjE4UTNP1S
-         7PwjjkESaSz7WJyyBdyuaQKvmSVspxI8gEcXDxnJRVcOgRuj2Ca8PA23zbTHISYcQTia
-         rk7w==
-X-Forwarded-Encrypted: i=1; AKwUvBw2z3zQJJ4iqNdF3x8Zm83AVTWJL9c2ElyD7n4nWNmpo57ebnNFOw8XKqouc014t7kYrYW0hb7gNC9f0HU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKvNV5zapip62Zsph42xfLRqFVBTfOuprMV9End6QBs3e8g2aK
-	DQtvG8Zkgm6qHekEBDPG+UYqHaMWaZzOuT0C7V/jHcUn2ODA7Hu8yr+0ns47OQr8miAImjBTcqQ
-	AiSOeBUvlWdDziCjaCZJHUC06fqes//62QxGY0kYztiQ4J2Su0Awn5Z0yo19KQ4w9/ZE=
-X-Gm-Gg: AYBFou05FXOW+iQN+W/cy+6smbenDyHn65qD1upfaYJfJQMBSUr9ceyE+6Na+Lp1S80
-	UK11cIiQgfKKbWsfJharr96o1n0LO1skLYYVhjv2nHisK3Ip6CkzcQ9577/vNp7LxahHYzvBNOW
-	o7aidvHt0l7yxEonJCKED3KiQvHxjnTJBd5ofj0DdXN3mV6wSgZ3QMJTvr5hGL7Cac7xkGFv1Vx
-	VOodNLU3j5+nv7X+bAydK7u+w7LTCWULoUpjHzF4QX05pVp5TWqvmVC84SDwuqPHBMPH21tbVlt
-	OAO4kXYt3Zo0lyhZIMp6SatuntawlBGjqYDqRdCSDqJt6buY8bZMtvPflTfcSQfhVeF7dgeisWf
-	hlW0YTV/jad3Xxna54vIWpsx/g3eIrdSyQ183AUn7xKIj5OVAJiQwdnP0Ph9K6Q==
-X-Received: by 2002:a05:620a:2b4d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93f6f85dfc2mr320615185a.47.1792752560143;
-        Fri, 23 Oct 2026 03:49:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93f6f85dfc2mr320612785a.47.1792752559716;
-        Fri, 23 Oct 2026 03:49:19 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3802610fsm4407066f8f.14.2026.10.23.03.49.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 03:49:18 -0700 (PDT)
-Message-ID: <36ea62e7-2dd4-424d-9326-1b5f270da00f@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 12:49:18 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h+901jSc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792752646;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4MHHy7AEttiDujVao2ghw+rQrpaM49lVqzWBSD5g1mM=;
+	b=h+901jSclojHJWgutZidDtdhVIctVrmiBLgxnTL5GEt5IdAbHbplg4ga/nWy5cUSkz608U
+	r8medPKYSBdF42JwYNOcrVGLcuZ+hGfU/NvYjOwm4Vz8ZpoTc2Fns3Hbe0ITiEXcJJHxoG
+	3sE6F54xUr/xFTr4A6+j9cZwx1kBv9Q=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-690-28s5e7jXMCqJuBmrHdZ1Xw-1; Fri,
+ 23 Oct 2026 06:50:42 -0400
+X-MC-Unique: 28s5e7jXMCqJuBmrHdZ1Xw-1
+X-Mimecast-MFC-AGG-ID: 28s5e7jXMCqJuBmrHdZ1Xw_1792752641
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5F5A5180131A;
+	Fri, 23 Oct 2026 10:50:41 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id CCA797DA;
+	Fri, 23 Oct 2026 10:50:39 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Fri, 23 Oct 2026 12:50:41 +0200 (CEST)
+Date: Fri, 23 Oct 2026 12:50:38 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Avi Weiss <thnkslprpt@gmail.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Eric W . Biederman" <ebiederm@xmission.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] signal: cleanup the .si_signo checks in
+ dequeue_synchronous_signal()
+Message-ID: <ats7_mSMrLBAq0Np@redhat.com>
+References: <20261022061015.3737924-1-thnkslprpt@gmail.com>
+ <ats7j0mb3VF6lIg4@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,80 +82,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
-        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mark Pearson <mpearson-lenovo@squebb.ca>
-References: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
- <atsmQqSOuqp1LKw8@linaro.org>
- <6ebd380c-1f32-4ec6-86be-99631db4958b@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <6ebd380c-1f32-4ec6-86be-99631db4958b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=cZpHPXDM c=1 sm=1 tr=0 ts=6adb3bb0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=agzqCfvS8LjcRQY4D-sA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX21SknOuJh5bT
- tDK/CLusoP7KDF5vI6tHua8zE0VwCMKJ3bIGlBITWvRAWCJFVCxSpqyjgn/a4SVqDMy0ijzihjL
- XsZJaghyUGPlB2cHdaAyP6lWHyi8e6g=
-X-Proofpoint-GUID: CoNjdS43Dkvsabgw8AiO5LdSSbz4HEEB
-X-Proofpoint-ORIG-GUID: CoNjdS43Dkvsabgw8AiO5LdSSbz4HEEB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX/YqK1mFJ8b7Z
- x473n+NyoiMITIMWtSgdfEWDvCp6m+lrCG3xCKIjP1FSWuY5TyJB1YK/stHDkkca2NaYQuy9Hqv
- AwEbOqdZLNriRbVqx5VrxzJgipryVAjaSRUzu+6Q7+4+Hpj8FeRZX5IBHfbHFq1093/PLtwLilJ
- 1Q2oLPEZTnFYv+RO5WHgfxpSibSo6VG4aC9eOmzMZxJ0UH2WI7qM4wCwtyUI9TcB4MNrTAQycal
- ydZQzJONj32fFvIHVt8WKXyTBqVqYvnveMdbqWyvP05G/Z4J0jjX7SGoLA/yi1Jo8mOaLEPRUyD
- p8VMTXUPEiYge5Ve4XljLyZ7eYqCfXV9E9784pUsCZDHSF8oQYDJJfEyN1cRAgMcbuqKFdB0Exd
- NxILxQ6h+/Bu3M5rLbZ1dKWowPOb1ne4CKD73YMJ/MvQKrhviMY8RSnMartEIS+IZHP7KrjrOTo
- i9MsjQHkjTfSWGW4Caw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230041
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ats7j0mb3VF6lIg4@redhat.com>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 10/23/26 12:47, Konrad Dybcio wrote:
-> On 10/23/26 11:17 AM, Stephan Gerhold wrote:
->> On Fri, Oct 23, 2026 at 10:38:27AM +0200, Daniel Lezcano wrote:
->>> The ThinkPad T14s needs thermal mitigation under sustained workloads to
->>> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
->>> monitoring is not yet supported, so use the board temperature sensors
->>> exposed through the PMK8550 VADC to provide mitigation now.
-> 
-> [...]
-> 
->>> +		/* Sensor near the CPU PMICs. */
->>> +		cpu-pmic-thermal {
->>
->> I'm a bit confused by the node order here. It's not ordered by the
->> thermal sensor (SYS_THERMx) like in x1e80100-crd.dts, but it's not
->> ordered alphabetically either. Or is it still the old order from the
->> previous revision?
->>
->> I think I'd personally prefer ordering by SYS_THERMx, but alphabetical
->> order would be our typical rule.
-> 
-> Thermistor index is what I'd prefer to go by, I think it makes the
-> mostsense
+Christian,
 
-why ?
+This is on top of Avi's
+[PATCH v2] signal: respect the blocked mask in dequeue_synchronous_signal()
 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+If you are going to update your tree and take V2 + my cleanup, I will not
+mind if you fold my patch into the fix from Avi.
+
+And! I just noticed the sashiko's review of Avi's patch:
+https://sashiko.dev/#/patchset/20261022061015.3737924-1-thnkslprpt%40gmail.com
+
+It noticed the problem with UB too. But, unlike me, it noticed another problem
+with the "still_pending" logic. The described scenario is not possible after my
+change, but we have the same problem with posix timers.
+
+This needs another change. I'll try to think a bit to avoid a "brute force" fix.
+
+Oleg.
+
+On 10/23, Oleg Nesterov wrote:
+>
+> - Use SI_FROMKERNEL() instead of open-coded check
 > 
-> thanks!
+> - Use rt_sigmask() instead of sigmask() to avoid UB on 32-bit if
+>   .si_signo > 32
 > 
-> Konrad
+> - Pre-calculate the unblocked synchronous signal "mask" to not check
+>   .si_signo twice.
+> 
+> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+> ---
+>  kernel/signal.c | 18 +++++++-----------
+>  1 file changed, 7 insertions(+), 11 deletions(-)
+> 
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index 7386b9552dc3..64259219bbdc 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -676,21 +676,17 @@ static int dequeue_synchronous_signal(kernel_siginfo_t *info)
+>  	struct task_struct *tsk = current;
+>  	struct sigpending *pending = &tsk->pending;
+>  	struct sigqueue *q, *sync = NULL;
+> +	unsigned long mask;
+>  
+> -	/*
+> -	 * Might a synchronous signal be in the queue?
+> -	 */
+> -	if (!((pending->signal.sig[0] & ~tsk->blocked.sig[0]) & SYNCHRONOUS_MASK))
+> +	/* Might a synchronous signal be in the queue? */
+> +	mask = (pending->signal.sig[0] & ~tsk->blocked.sig[0]) & SYNCHRONOUS_MASK;
+> +	if (!mask)
+>  		return 0;
+>  
+> -	/*
+> -	 * Return the first synchronous signal in the queue.
+> -	 */
+> +	/* Return the first synchronous signal in the queue. */
+>  	list_for_each_entry(q, &pending->list, list) {
+> -		/* Synchronous signals have a positive si_code */
+> -		if ((q->info.si_code > SI_USER) &&
+> -		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK) &&
+> -		    !sigismember(&tsk->blocked, q->info.si_signo)) {
+> +		if (SI_FROMKERNEL(&q->info) &&
+> +		    (rt_sigmask(q->info.si_signo) & mask)) {
+>  			sync = q;
+>  			goto next;
+>  		}
+> -- 
+> 2.55.0
+> 
 
