@@ -1,102 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792791285;
-	b=EKRHMuBulAGgCW6j+b1E0021ElCakdb9UMSCIvaky8gGwDuzh0ak6DwZw10a+yo1Zona
-	 vgqoZxW9zd+pL24yFP+8P2DrUb4nCeMd8Sfeq97myIV5UixYG7pD+8mRPxbAnhgN4asos
-	 dxCkyY2iBcvt9F2rlse+wqO7pq26VDqSkcFjb0CvPE8U7tima4xKMBKVWsevoM1GV1d4F
-	 rptUdI0rnDYxUpKf73JE1UpGGIQ+aO4PDceNJP9v5w2qz3Qm111HIh5WdVotQugjt7Jx6
-	 pBHF3GvIs/9FbK0O0/ZRhWmtI264yfYg/NzZQNY2GLvde36Uh/nAkPoiFO9NVd/luuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792791285;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
-	b=hhix0Z0vVL07G0++AITWqGZP2vlrYoKaR5ACytuKrXGcPYG1oKVGXXrfx/Qlj/1uGL1t
-	 d4H5JsBgU/1BRd9usuCjUhKebqOBTqKL0WB4RdeUPlnnb08miUD1ffQY1j0ac7NJdMmVO
-	 HWkvZePuGMLIbuV5iPYWqMKjevB61E8UJYWJlEqeca6KuHc2xt8KgaXVpRJTBd6bx2RAQ
-	 Lsu2fxerWzQ1AasUWSgP5ajMTQrs1uItqdlfXPm46d0LLJ093w36FiM1PIqbjOpqMGcLR
-	 0hec+QHjyhstRC5KFkoGamhte4zZXcUVf5KbnDDm6yxeAaUY255sDx5v+COF8bS/cTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=debian.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rScLXPxM;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792791368;
+	b=PStKMkxoYgb8MmnbT4CO9fB27zF2MfwdlOfgCgL8vVJ5RXiPwAzhiGeDyL8sGa1Ly3hR
+	 NKQImsTeTqsDQwb30VJcZdTehmm2kjZ7ykdjygN8ZoUxuAIkG0qRF9etIBj0ryE7Z3hir
+	 q+OeGtugUycq0gD1HehptHW90Es3s6V2o5pHYTeOF7HDi/JM1buFvJdbgZ1Hsztu4T3UO
+	 kEttaFoeTfyRxVIIN3/xLFPbgVt+AXhNMMwflgTdB5g3CqZfSC2zMNAwyXLU/Jc21etBn
+	 LogxObKWi6j1cPOs8uId9aO7DgLRjocspJtLbuDnTtuAtjvpiuC603humRwGZqc52vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792791368;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UQYXRg0XLuZur7tP6OlUF0GPi4QD2xRjbaGyfB1wWqM=;
+	b=N7q04vdfpY9kXbh+fJbqUCbmN6VOHEDfsfNuIspLWO9bBIsFjLzb0q4hk/OjoOw3EZ0S
+	 0E4lgleTDhcmmfcjFY7dWWKuFKOXmXR/NAY6nnS76bi8nf/qgPE9HHmssB3RfMX/8v2/z
+	 +yYWylywg+tCLTCRbV9NubVZ0/YZffZ2HCw0d07EVwymb9b1AMcGPEEOWHgqoalby6wOM
+	 XdgMTyQKZcFKgbdQQY/oPLBlX3OXay8cF/6PnDwkTH1bxmovovw8Q02aHETyEjvaPPK/i
+	 tb6GBsQ98hAydhl16dkDa4vXuC3eua1DMlSDxJGMueuXR6ZmvHZxaOkmlKMEDvP3JnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cXKkaXs1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.25
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011025.outbound.protection.outlook.com [52.101.70.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD3F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:34:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD3F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C120606A31A;
+	Fri, 23 Oct 2026 21:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C120606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rScLXPxM
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so7266915e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:34:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792791278; x=1793396078; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
-        b=rScLXPxM2L9viz/qPsXuEN08sKN0SYqLWaw5Z24q+qeAaeF3CAsds0ywZ5AxKuo6yf
-         x36AVCr0DUivP7cvbyALZ8rsrSeVhRY8Yf3Br4nLSF1PMVycG01m0YuUkcKy8c5EbCyD
-         CjQwI2wpkhrVDJC3XeAhtclhdQsqlAqgRDfIvLPhPb92k9X9paeageS8dh3y1cos82CZ
-         Af3J8VoLDi07zhfFffVGM7wFy8N+PVTcJopUb+OnMxCCZUun9prxFiKu69+SxTJeoI9P
-         Ur8bJHaFoYY81M3s+kSooXzvAMisf9qb9iWeLfX3qLOIANWvYkLhyPXjQG1tVHJd7iqn
-         87kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792791278; x=1793396078;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
-        b=c6PpD2aR8sDPbLP2Uw/pRxmeXY8Rv+CGVIzrsvaybAFVuLuTHvxwCD9VdNI7QvGJBK
-         mLzsIJf8rxyQ4xxDEw66yt+nan9C5Q9CtrQaYLASIk2yBpQRLGYNaFziS/cThC6fBs5j
-         5mKP4AFkWOMB1ENCYUfv74lJ/PG99AyhsG/saV5/uW8RurWGQTncacfjOfROum79iW3c
-         Fc1U0F5yyUqNcHg3zLB5wgzTqfPYBlG+MDVBJUJEn3H1J3F1xzepLZMlXm5LIWuk9cK1
-         3e2xtgEaZaPCEFTAAWA0X76FtH4lKjh685yqbAuyYJBi8+RNMHFPW70X6trqd1v7egnV
-         3vLw==
-X-Forwarded-Encrypted: i=1; AKwUvBytGV4643MwbgDkwAKw1EUKuleX++y/M3eMh8HzqCTUvAVKrQ63E40B+9qjM/FJgtqhiblOklYDhMYUzSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7eozEPZ2IwHWZ262eeW+mhf6hRDBafyfk+FV99EXWoP4xk/Jr
-	jlGcO8XXHcmwPLJF8rYAwXpWorxLEsUSBxwOSnU+EQRBaQody/aZJlr5
-X-Gm-Gg: AYBFou0Dk9IXRxQP6l2nNSqvTHgaz8GPhKmd/2OyL4aQIokjdIBrw6MvXyaA9n6UgmI
-	8IXY1ipskhkiz8A3YzbzokaC49+Gi7Tbpzf9pE4CvLP8q4j17BiQV+cPWozCLhKQeV4l/zUd/U3
-	fzgEIP7lc0vdWPEHOHa/tUx1XjbHGmWGoLxTlwWVG9qmwIA3wRiBPO22lt/tVQmyyCa4LdiehQZ
-	va8sdX9vATjkdLV0ScGzh69F15KUneiZmOTfELAhiTjU6Ptr/rof2tSCcdXUXJ7abi2cIo6lL7K
-	5dSE4dCGd8J+A3qq34S8ikX512p9YCxSknM04JVTJZe0hDQBvyt6bPejEwpnBu/61D5P5jesBVw
-	XZ+X6ApE96ebnMTqFFBtPaTIcrPdOQIvygyffUw3InmKKa7XcDQ1WGQ5bPrNeTUq3diVdWSkqpw
-	4HUnuT9JYKI6sGEXSkf31YVko63w2ZF6GZDBoXODW4aqoH9/KthdDNjQw89olMt/dVTaKuoYcCR
-	2rZVJqGkXa194p8dinDvmbQXsMabrJkta4Z9KAoo2zBk1UIHKKu9Q1r+WjQtc/AI32spqN9gfvv
-	Xyxxgz0ObaHKUtU=
-X-Received: by 2002:a05:600c:4e45:b0:4a2:d82:11bb with SMTP id 5b1f17b1804b1-4a35acbf5e7mr1981825e9.30.1792791278019;
-        Fri, 23 Oct 2026 14:34:38 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm34604505e9.1.2026.10.23.14.34.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 14:34:37 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 70FC1DC0579; Fri, 23 Oct 2026 23:34:35 +0200 (CEST)
-Date: Fri, 23 Oct 2026 23:34:35 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Pavel Machek <pavel@nabladev.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
-	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
-	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
-	achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
-Message-ID: <atvS68GhCvmAphrQ@eldamar.lan>
-References: <20261023163713.816071858@linuxfoundation.org>
- <atvHKoRHHjKV4l8A@duo.ucw.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cXKkaXs1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kxZxaJRE0n0+Z2OO5y/eJt2PHoKLW6BAwT9tUUqA/iGNAh25TyoSV1Sd7Ya4XxYyQXNTT/GWtta2d5rHfyS8IjLBU0XF1d+bKEMW/b8bgQIl5vVj99PY7qbcU3reZjPt3Lk5AS0pIOadivqd/QwTcZ76B0EqGl6zVqmQI+V3Snym79V4A2gxMv2jsnhWZDB/liK3FNh15raR864WcVJ4s/8Vp3RafDqxxcBT5SHVFza4qfk8XQ+rXKxpzplljglGr8xhyIt09Hrg20pWVreWaFalxVBta/30VwnJIFZ7L/3tGHgMpOebaYk8Z6Ih8Fq6ehotcgu+2lvUIPrwns4+mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UQYXRg0XLuZur7tP6OlUF0GPi4QD2xRjbaGyfB1wWqM=;
+ b=EgM4QVrfPXhhsmRIVUF2Wf5RiZgrfQ6dL38+ZpAfnFL+qGmTGCsX/xpNmUxVWRbO/KHWPiyln04GPmEiQgiFSqpGFmZ4ps/lPJLfi7kD+O51Dc5oKeB4a+GljWcmCUMHuYvqrXJNji3Yfkildw3iLYpcyPcXiECrHo54wJEGFXHgRvrvhONfztMeMU3xeQE7Mkz4laWsSWyo4i1xtppJXFxPIbNr3RgBno6Ou7aH6t9HRfSD/h8TijPW/kfAiuryNDZTTAZ7vG4fBQfegrT7j+mEA88YjhuWMuvb9FiVE5Qot8RGnpmIO45ccZu2C+xE7lqwDcQhluIDOAnVOs+Tuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UQYXRg0XLuZur7tP6OlUF0GPi4QD2xRjbaGyfB1wWqM=;
+ b=cXKkaXs1b3t+6VSSB10+Et9LC41Y1XUX1gXgv8Zm+pItRO5THxoMfuvGBNVZmpFA/iY2sX3KXAs77b1MkuhOZftHYtNObyhunjTRZHcKYxL+UWIji/7Gk1fQcdXsRJ5VXRf1xXJyEPDZDA898XcxFurVaoDrV3rRDGUxw3Vs8H1optv5DKOclzBzoc8ArcIqkf/iOPkLl8p3of1s90XXHpjpWzI1VkQI0+/0thmsnUdUN3L+tqxPc3fMSuo0AaFNEKpspozkGEkUX1HHlTQQEJSjqQPMLLjfPF0h2UpE22xwBc5ojtzV92lvcKQEW/CsMkG65xDaA0lsQexqMVakxg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by WA4PR04MB343709.eurprd04.prod.outlook.com (2603:10a6:1d0:2d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 21:36:03 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 21:36:02 +0000
+Date: Fri, 23 Oct 2026 16:35:53 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Viresh Kumar <vireshk@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Maciej Sosnowski <maciej.sosnowski@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Haavard Skinnemoen <haavard.skinnemoen@atmel.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dmaengine: dw: Fix XFER bit set, but channel not
+ idle error
+Message-ID: <atvTOT0SApG_tNZO@SMW015318>
+References: <20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com>
+ <20261023-submit-dw-dma-synchronize-v1-v3-1-c62bf048f5ce@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-submit-dw-dma-synchronize-v1-v3-1-c62bf048f5ce@gmail.com>
+X-ClientProxiedBy: PH8P220CA0058.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::32) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +108,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atvHKoRHHjKV4l8A@duo.ucw.cz>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|WA4PR04MB343709:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f00b567-024f-41e3-cb96-08df314da2f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|19092799006|1800799024|261009223027099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	lw6QIeh84atyqgZQpBaQ2BjqT0H2pLl61OdZr9qmd9ixcfigH8H5x1HhWyQiPwZQuGjrBOZJhwJ8GMXAC29T9pb//WU5pk9dGVUIXR517C9NJheOCy3d0KfrsacP58LN7kgiSRZVULYATvKwOAbleKhvZqSRTI5pM4QXTdZAdJvNJTnyz/+pu54GC1wxB5P5IEMqxFz2O+zBdUn7RFCLcc1h76feG1d0vMiJc3ikP0h+B3RN2mk1Ue85rFHlI2zuZbgSFg4RLbz2NhL7s83aB9Z4YOiD8pLJ+IZHpG2wqbYKWebJzkmkbOVKVXA+r/qSJmL02AopLPXMteMeIdkB4ZCCyW5pWLhOnZW+oejQk696wHayehhxfqkG2xyasnH5aMM4WRyx9QdFCyyqw9piskiSTDgktj9i3CYPx7qGOj8JmTfzrFDIkFtLxlHDNwI6ugt66Hc2QcxF/QUR15RvZth6QwZR9+NvTAI8Y87pW9Xm8nkWepAX74Xa0aVgCDDul87Wq+DVgrPh6P4CsLGKLGPTBFUzMUOHiRjfk4fdZw0AhCqEwV8Vw24NC3hYbC4fA6qB9XNdEQkfJuIWcYfTJ/KynHYUsBojlMTK5b7CQkbPyZNMJvx9SCtTi9q3gesbH9N5lxbDdFjqjLO7Ka2W7t36zCOSPrNaS2nsQ8cWZLg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(19092799006)(1800799024)(261009223027099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/5qmgVJmYBnAmQCoz2j1iFOJqPDj5wr3ohSDtAVzqacULbetbel9p4/RiijV?=
+ =?us-ascii?Q?LTheXleE+6Szt/GQlAs4Mil6vsLfviE3Z31npVZF2ZCz6bDx+vwVQjIz2QAj?=
+ =?us-ascii?Q?+byF5lqhga6AkKWGOsg6XPQigtODExwPJWW3vGPRjRgmTbCwc8PPplPIHAXw?=
+ =?us-ascii?Q?Ki9sWzQRCGEdMJKdzTXFAHm8nHU9A+v/FuHdOXcaGrMYkV+9ehufx8KG+OJw?=
+ =?us-ascii?Q?HYXyt+OGFbhjvlN0zAdC2thFHtlHjJxRbTGltyWIqsBOmCX9ootSgCGEN4H+?=
+ =?us-ascii?Q?/UfKVtaekWgsEo2JmcMtuEusrBPIu/2Fn6KYcB8HuuDfGNSKt/+Yw71ncJqh?=
+ =?us-ascii?Q?zDLXGeihea2l0D35Q01zMgDs2lkkP8Vrwlp1g9b+jLxxePPdHrIfEwBJhwsv?=
+ =?us-ascii?Q?thtomemg/qA0F30NqMYwJQlh6AYbR64O1l0eSWZEz5ZPG4XyxzI/EEttWoDD?=
+ =?us-ascii?Q?4sAbp05B197yx+2XrULItwrnOfwTVBLVVOEu0fKS//a+/jAnpSv5+p0gRFsH?=
+ =?us-ascii?Q?xekHhK6UMgcXkHqra6+7AmiFZmoa9K0MSnpNnZUbmTV+riLNSfpzbdg9LDno?=
+ =?us-ascii?Q?+70WVf4LgJRlpOx2cN3IYhQ4DN9NaBFXfWoE6KXGYpZJEIITWemIUDgfKzaU?=
+ =?us-ascii?Q?2T0ZZxCOXDSQT2iMkstgeB3VlTfOWqVkFZf79rqcyydjMiC2h1gP+94jiQIT?=
+ =?us-ascii?Q?G6balA1wFQ7VVWAvJVPSp7qR5LtwqAjSrgL9DgMifSTuSZ8rc+s6alN61ElR?=
+ =?us-ascii?Q?M8GFnRKIRPhLaGW3DHi8N9UQhNfUBYHCcZckwHYSxnG0Zxyvcswq6uHtNapB?=
+ =?us-ascii?Q?gOMT7UHqb/bmiv3GxmTFt1hb1CYQjDUncm4xpOv1/eWDjESWWn1mWP5XLyYx?=
+ =?us-ascii?Q?nRGKYjAouB8EDgsfkSCIHVA1rvz6J+2fZENyb658/Rp0h47+YqwEel5OUud5?=
+ =?us-ascii?Q?cMstyTkMJ38D7nUkmyk2Bu2mbwg92/z0VV1w9VBbQeyQVO7Ei0qeNyO/gAMu?=
+ =?us-ascii?Q?a+AnpIvnXnfUMNWRj2XKRa+QFOaJAyQbFjT604xEoGGd8iHFUeTIHn8G/7M5?=
+ =?us-ascii?Q?yROVQvm7KmDGrwXbUNJ/MMJ4F127oP0cQxN2T5y0WJcQucsdYs7oCVnaCE84?=
+ =?us-ascii?Q?pP4YD8x9dOLog1vjYGSS4/Kz7+dQz7AqnCn5ytFHSw3ppji1lIA5mLZVZTCb?=
+ =?us-ascii?Q?kmaQV0KZssFSBsfEzWAlAUbSwBuDD7fAL7sib5RJZt8LXNPPuCAYiA+hz1Xn?=
+ =?us-ascii?Q?nau1Ovbr9avoCoZciV/EAiJoMmnhfJzxXXeosG4y9jra7oDLjRN7qswxrBiR?=
+ =?us-ascii?Q?Y16wG4mjRdskTd0+7hylyNm0zKlS3mt1HJUcoEBj9tT5PtaE/obh3ZSO08Md?=
+ =?us-ascii?Q?h6E+T42gVOdd7KTGWaSMBVUbejMGb2vutx9G276Fi+5xNFJP35qd5m5Bw4BX?=
+ =?us-ascii?Q?i0AcoC1lT34UdYluqD6XyxAd3xh4ZAsxnMfI3iGfi5XBcxxltRLCHNTegbAl?=
+ =?us-ascii?Q?rwnu+A1zrKnKcgK6BjM8mq9IWG2cYxBZ8KxLMcE3XTn3++DotJJO92Q6Bnds?=
+ =?us-ascii?Q?T62BhglQmXcEGkp0SfrKIusi4rjgRUl4TeOf/8/8vKvBtDkD/aeRu3MpBsUO?=
+ =?us-ascii?Q?ex6ehYUHtsP/gG7k50Jxtg9/Ul30IjUlBKFJV6ufqR50zSXnwyBEGuBGOBGF?=
+ =?us-ascii?Q?MTUhTuU66F50nkfnYStwcc97ynJdvWA/jIF/jVg7bzmPYAXaGZ1Tk426UZd+?=
+ =?us-ascii?Q?JPXUvY8nKcLe1iUrHWrlnJgsSpqzp01c6i0zXbFh+ZfMttpR4BYB?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f00b567-024f-41e3-cb96-08df314da2f5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 21:36:02.8634
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LFxQNlT7fEu7MwoskGT61dnLb96Qql9uhGGpdHWOytJBsYOGVasHKGEcBreNk1fIj3gZyd7sqN2yl/x2tO7DxJI28207Is/tcfsZfQNC1YdiP5ie9jh8gDHlFVkGSZku
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR04MB343709
 
-Hi,
+On Fri, Oct 23, 2026 at 10:27:22AM -0600, James Hilliard wrote:
+> From: Serge Semin <fancer.lancer@gmail.com>
+>
+> If a client driver gets to use the DW DMAC engine device tougher
+> than usual, with occasional DMA-transfers termination and restart, then
+> the next error can be randomly spotted in the system log:
+>
+> > dma dma0chan0: BUG: XFER bit set, but channel not idle!
+>
+> For instance that happens in case of the 8250 UART port driver handling
+> the looped back high-speed traffic (in my case > 1.5Mbaud) by means of the
+> DMA-engine interface.
+>
+> The error happens due to the two-staged nature of the DW DMAC IRQs
+> handling procedure and due to the critical section break in the meantime.
+> In particular in case if the DMA-transfer is terminated and restarted:
+> 1. after the IRQ-handler submitted the tasklet but before the tasklet
+>    started handling the DMA-descriptors in dwc_scan_descriptors();
+> 2. after the XFER completion flag was detected in the
+>    dwc_scan_descriptors() method, but before the dwc_complete_all() method
+>    is called
+> the error denoted above is printed due to the overlap of the last transfer
+> completion and the new transfer execution stages.
+>
+> Clear the channel interrupt status when stopping it, and keep the XFER
+> check, descriptor detachment and queued-transfer restart in one locked
+> section. An empty active list needs no completion processing.
+>
+> When the locked XFER recheck finds no event, only update residue. A stale
+> tasklet snapshot may belong to a terminated transfer, and a zero residue
+> only means the source has been read, not that destination writes have
+> finished. Requiring RAW.XFER also prevents the fallback scan from freeing
+> a descriptor still linked on active_list.
+>
+> Fixes: 69cea5a00d31 ("dmaengine/dw_dmac: Replace spin_lock* with irqsave variants and enable submission from callback")
+> Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+> [james: require a locked XFER event and handle an empty active list]
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/dma/dw/core.c | 70 ++++++++++++++++++++-------------------------------
+>  1 file changed, 27 insertions(+), 43 deletions(-)
+>
+> diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
+> index dd75f97a33b3..07a5f5105787 100644
+> --- a/drivers/dma/dw/core.c
+> +++ b/drivers/dma/dw/core.c
+> @@ -141,6 +141,12 @@ static inline void dwc_chan_disable(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  	channel_clear_bit(dw, CH_EN, dwc->mask);
+>  	while (dma_readl(dw, CH_EN) & dwc->mask)
+>  		cpu_relax();
+> +
+> +	dma_writel(dw, CLEAR.XFER, dwc->mask);
+> +	dma_writel(dw, CLEAR.BLOCK, dwc->mask);
+> +	dma_writel(dw, CLEAR.SRC_TRAN, dwc->mask);
+> +	dma_writel(dw, CLEAR.DST_TRAN, dwc->mask);
+> +	dma_writel(dw, CLEAR.ERROR, dwc->mask);
+>  }
+>
+>  /*----------------------------------------------------------------------*/
+> @@ -257,34 +263,6 @@ dwc_descriptor_complete(struct dw_dma_chan *dwc, struct dw_desc *desc,
+>  	dmaengine_desc_callback_invoke(&cb, NULL);
+>  }
+>
+> -static void dwc_complete_all(struct dw_dma *dw, struct dw_dma_chan *dwc)
+> -{
+> -	struct dw_desc *desc, *_desc;
+> -	LIST_HEAD(list);
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&dwc->lock, flags);
+> -	if (dma_readl(dw, CH_EN) & dwc->mask) {
+> -		dev_err(chan2dev(&dwc->chan),
+> -			"BUG: XFER bit set, but channel not idle!\n");
+> -
+> -		/* Try to continue after resetting the channel... */
+> -		dwc_chan_disable(dw, dwc);
+> -	}
+> -
+> -	/*
+> -	 * Submit queued descriptors ASAP, i.e. before we go through
+> -	 * the completed ones.
+> -	 */
+> -	list_splice_init(&dwc->active_list, &list);
+> -	dwc_dostart_first_queued(dwc);
+> -
+> -	spin_unlock_irqrestore(&dwc->lock, flags);
+> -
+> -	list_for_each_entry_safe(desc, _desc, &list, desc_node)
+> -		dwc_descriptor_complete(dwc, desc, true);
+> -}
+> -
+>  /* Returns how many bytes were already received from source */
+>  static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
+>  {
+> @@ -302,6 +280,7 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  	struct dw_desc *child;
+>  	u32 status_xfer;
+>  	unsigned long flags;
+> +	LIST_HEAD(list);
+>
+>  	spin_lock_irqsave(&dwc->lock, flags);
+>  	llp = channel_readl(dwc, LLP);
+> @@ -310,6 +289,10 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  	if (status_xfer & dwc->mask) {
+>  		/* Everything we've submitted is done */
+>  		dma_writel(dw, CLEAR.XFER, dwc->mask);
+> +		if (list_empty(&dwc->active_list)) {
+> +			spin_unlock_irqrestore(&dwc->lock, flags);
+> +			return;
+> +		}
+>
+>  		if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
+>  			struct list_head *head, *active = dwc->tx_node_active;
+> @@ -341,9 +324,23 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  			clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
+>  		}
+>
+> +		if (dma_readl(dw, CH_EN) & dwc->mask) {
+> +			dev_err(chan2dev(&dwc->chan),
+> +				"BUG: XFER bit set, but channel not idle!\n");
+> +
+> +			/* Try to continue after resetting the channel... */
+> +			dwc_chan_disable(dw, dwc);
+> +		}
+> +
+> +		/* Detach the completed transfer before starting queued work. */
+> +		list_splice_init(&dwc->active_list, &list);
+> +		dwc_dostart_first_queued(dwc);
+>  		spin_unlock_irqrestore(&dwc->lock, flags);
+>
+> -		dwc_complete_all(dw, dwc);
+> +		list_for_each_entry_safe(desc, _desc, &list, desc_node) {
+> +			list_del_init(&desc->desc_node);
+> +			dwc_descriptor_complete(dwc, desc, true);
+> +		}
 
-On Fri, Oct 23, 2026 at 10:44:26PM +0200, Pavel Machek wrote:
-> Hi!
-> 
-> > This is the start of the stable review cycle for the 7.2.13 release.
-> > There are 242 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> 
-> Either something went very wrong with our testing, or this fails on
-> all our targets. 6.18.59-rc1 does not seem to have those widespread
-> failures.
-> 
-> https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2982452623
-> 
-> Example failure is:
-> 
-> I'll look some more to try to figure out what is going on there.
-> 
-> Best regards,
-> 
-> 								Pavel
-> 
-> 
-> [    1.238864] Yama: becoming mindful.
-> L426[    1.238864] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
-> L427[    1.238864] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
-> L428[    1.238864] VFS: Finished mounting rootfs on nullfs
-> L431[    1.238864] BUG: kernel NULL pointer dereference, address: 000000000000002c
-> L436[    1.238864] #PF: supervisor write access in kernel mode
-> L437[    1.238864] #PF: error_code(0x0002) - not-present page
-> L438[    1.238864] PGD 0 P4D 0 
-> L441[    1.238864] Oops: Oops: 0002 [#1] SMP PTI
-> L446[    1.238864] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S                  7.2.13-rc1+ #1 PREEMPT(lazy) 
-> L447[    1.238864] Tainted: [S]=CPU_OUT_OF_SPEC
-> L448[    1.238864] Hardware name: SIEMENS AG SIMATIC IPC227E/A5E42630598, BIOS V20.01.11 03/15/2018
-> L449[    1.238864] RIP: 0010:rest_init+0x33/0xd0
-> L450[    1.238864] Code: 34 ff ba 00 02 00 00 31 f6 48 c7 c7 70 a2 e6 b2 e8 52 d3 28 ff 89 c3 e8 bb 2d 34 ff 89 df 48 c7 c6 80 db 85 b3 e8 9d d7 2b ff <81> 48 2c 00 00 00 04 65 8b 15 63 6e 45 01 48 89 c7 89 d0 c1 ea 06
-> L451[    1.238864] RSP: 0000:ffffffffb3803ee0 EFLAGS: 00010246
-> L452[    1.238864] RAX: 0000000000000000 RBX: 00000000ffffffea RCX: 0000000000000000
-> L453[    1.238864] RDX: 0000000000000000 RSI: ffffffffffffffea RDI: ffffffffffffffea
-> L454[    1.238864] RBP: ffff8cf23ffed080 R08: ffffffffb385db88 R09: ffffffffb385db80
-> L455[    1.238864] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8cf23ffed0ab
-> L456[    1.238864] R13: 0000000000000000 R14: ffffffffb380c040 R15: 00000000b43e8000
-> L457[    1.238864] FS:  0000000000000000(0000) GS:ffff8cf287953000(0000) knlGS:0000000000000000
-> L458[    1.238864] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> L459[    1.238864] CR2: 000000000000002c CR3: 000000000d630000 CR4: 00000000001006f0
-> L460[    1.238864] Call Trace:
-> L461[    1.238864]  <TASK>
-> L462[    1.238864]  start_kernel+0x7a2/0x7b0
-> L463[    1.238864]  x86_64_start_reservations+0x24/0x30
-> L464[    1.238864]  x86_64_start_kernel+0xcd/0xd0
-> L465[    1.238864]  common_startup_64+0x13e/0x158
-> L466[    1.238864]  </TASK>
-> L467[    1.238864] Modules linked in:
-> L468[    1.238864] CR2: 000000000000002c
-> L469[    1.238864] ---[ end trace 0000000000000000 ]---
-> L470[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+what's purpose move dwc_descriptor_complete() implement into here?
 
-Same here indepently, but not yet bisected.
+Frank
 
-Regards,
-Salvatore
+>  		return;
+>  	}
+>
+> @@ -389,22 +386,9 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  			desc->residue -= child->len;
+>  		}
+>
+> -		/*
+> -		 * No descriptors so far seem to be in progress, i.e.
+> -		 * this one must be done.
+> -		 */
+> -		spin_unlock_irqrestore(&dwc->lock, flags);
+> -		dwc_descriptor_complete(dwc, desc, true);
+> -		spin_lock_irqsave(&dwc->lock, flags);
+>  	}
+>
+> -	dev_err(chan2dev(&dwc->chan),
+> -		"BUG: All descriptors done, but channel not idle!\n");
+> -
+> -	/* Try to continue after resetting the channel... */
+> -	dwc_chan_disable(dw, dwc);
+> -
+> -	dwc_dostart_first_queued(dwc);
+> +	/* Residue describes source reads; only RAW.XFER completes a transfer. */
+>  	spin_unlock_irqrestore(&dwc->lock, flags);
+>  }
+>
+>
+> --
+> 2.53.0
+>
