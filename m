@@ -1,101 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750738;
-	b=ltPlkkXxNKm3Lckc6a/f/LiYSYMT9gHSOrhGOWAHavUwcgZo1/YF1oQdZT2uiQH+Qep/
-	 UV5PZkzfJ4uif3glsFoKgQDyDyZxId5hocg17C8rST2/gSPspdKPQy1HBsj/S/ZITWukG
-	 rgr/C0e+VqmuHzhwUPF8OB8tPA2Z6DO7rKjogeuzmdvz74mIxQiplofoyBB4nIQ6oiuEd
-	 jrJZNCA5qrv4Qkj1Tzue01/hWG8KSPKDrQgzhjTp4FIUbV5hv8wKbImKeAGOWaphExmgn
-	 y4rE5ZPWw8vTOyf9BWEtWI0NnrQecZck/3ob/31mWQDeX7vOvie8tXZDHqaU+YPCamQ==
+	t=1792750745;
+	b=Fez70vhzVqTKmIroEbObPR9XxjuyAUKOMQ+n4Oa70zPwQFyySyEM8KEd9s05I+QWCSQm
+	 +sXbu5Zc3FdC6WtzSHWm56qY00dmjcp0bDYMt0sA4tbpE5VeGis3rNEwj/TYK/JhlYeep
+	 TQo1NrR3sDNtAdl/o8mJpmOpBMQ037yFvOyWTcw8KXomE8nq+bndnYrl5h12hK3sNQq3Y
+	 vFCrFNrcrdCDoKSm35YSvsCAerRylQCzkwFIDu+m9DB0SyZCWbRaYjPi8YCFqi2cvhTxS
+	 X2UoziDZ4YJ+6qz2v6nt+EtVxho5A3/up3+4ofswMlmN3t+qJRc1RYu4Q2IxH2dcFmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750738;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EiRKif/CjX01ct6IZOevu5Hw8STctFNztvjIHwXGraI=;
-	b=aIi4AjFaOe1DB+BDu7lj6QuJ1VAhQMOtubxVOxxrdNsWCjskEExXPld2rb9JbB2gcpbs
-	 XWt745S1PKQ5PpmysgjtU82azI/5beVia8p7RgwESqzywFt4eSrb/cAPKhqfir+me/AQN
-	 vdkiwSzcOp4UAiuOwiHoRYvyP5CObYxih+sNZktX6trzAh9SXbsg/GTX8XzGK/8dkNmOy
-	 BFfpo5GtxtYdQIHHF7eaLc07/lqRsep0sRdzTm10nQtj6n/KPAxR8i//TdwhJHpRvqvxO
-	 G0VVMkRuIS+Qs1HIhMYHK8fdgv/L8r0wVjF7ptft/3LaBGWRYQc5igJN4+kxJm+Z2pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750745;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=xVoPvZV32EnV3nhq+nvsH8tkgnbU6lXXBkfpvhV3RiQ=;
+	b=M/TIZKu87SSmREEeRWR9cFiMc3PzEqI2+C+vH7eDbREIRFr0hAgQpOkaG4N+Zw6yf4SQ
+	 GZv38BvlAw4Nv0UTnP0d54XXWhmYEc5joV1isX/e/9xWHFF5W/knCxhABQOtd8PUXu9AL
+	 MFYx1bYKTxZsMlHpiU4oyzp6sx4nlNxArzxcYrWNA7gbzoOiaYJAq4wUQiqlK4Ux56qb+
+	 7oOMu/irtAvY4QGLZOjQMAWgqCLiDZAcB3T4SztISltzA4AGpSG4oKX2HkwFd7Wk57Ixa
+	 eBTz34BsmL/WgEx9MWdbbeRAI2/phb5P/AbhtPUrDWYb9mBPdZ4QMBmt1cNRtAtoTRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NtXZYYB1;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC3F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DC3F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=H87Iowrz;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C226606A31B;
+	Fri, 23 Oct 2026 10:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C226606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NtXZYYB1
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1150569eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:18:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792750737; x=1793355537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EiRKif/CjX01ct6IZOevu5Hw8STctFNztvjIHwXGraI=;
-        b=NtXZYYB1icV/lPS3+rQgreOmR84b11YSHmAYylCI56Ct5xzx2yCVwaJDet8CdjUmIT
-         7RFXyA6k01QFQl/spqK9lgNFRsSkmkjtBM2LwkasA4gn+052pYC5eNc6899TdUHjAFBM
-         OPbn4+rPp2EvQ2k5vcgaL6F7RGAiz/50Y/J+NY7zaiAtlIXcRGl0vIHqcBPWSqVTZbFh
-         cNQw0ykeA0vwtWHwdIr5WjX+YkbEq9rX7Pkim/7nqMIMrcarQnwb+9iEju8AiLnSqFRk
-         oBYPj56oX9BWrFTeY0EKtCt94aFaQMiPwVnDVjvvZyjpCoe9uAqCT3YIQiMbC8tHpTMC
-         BsVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792750737; x=1793355537;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EiRKif/CjX01ct6IZOevu5Hw8STctFNztvjIHwXGraI=;
-        b=rxyJ0cVTmycYxgh1KzVmHmb1laZ6gE9NOInBi/utJGR5l3F6h5xUDWH5ORXRfD7nZV
-         tVfBxjyOKtgtxQjN7ZyuOfDuAovhPOlbfH5x99tNQmyNIWdFcDwvFIY+dWgORQSiZIo5
-         t9+xfBns2gMp44dHrAKKa6c2LaeDgcn2KbVQeYLmhEdrM4jLsU9xKgW2O3jOkzQUql12
-         1Yu38MxGg33TQSLQ/kqAwvYjHlgs7YJd+jiufAtoQfVUwM15cZd9puYCPKofDXtgkx1Q
-         0OLnP+ukFjAjSXFjPoW7Y/ESXJTdVJ8WQFjaHcPLWBrvglmffodEXlWsx8ryGNGfzS93
-         Ceug==
-X-Forwarded-Encrypted: i=1; AKwUvBzwOevzR/6nYY3BDkB4nKjdGEQX6son7MatKBCOKQxOCuqQHI8QaKLbi1/RS/wc/jj6YcgfRH/YY9kWdyY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkU9eAXnbhmXtFTpAXAYdReD/9fqfMiyDYMboqohTRczfP1bQD
-	Y5YdKo5x8o2iEhAE3H8awc7ZL7uCdrMHFRgX1oWe5OdlHGbcmRYm0KP3
-X-Gm-Gg: AYBFou1oKgARABxHnwQlbVCLEBETMT5clfhlFDGP44e9K0gWrC6TkbrOp28KCDINfaM
-	XjW7lh7Gm46Ejgp4NPde1UkpJHj4R0vZVNyovE/lNOT3hBh0y+XAxYc4CBO2GCd7FV9WDscNa3d
-	fdIUetScjLAO46MJ53+yn7IFd4dnaFbf7yroHQUv9ZmeNPY0dkUyR1mKqTzTuQl24/aU5kGtKkU
-	qDkmFXpsP8g4I10lnxR5UJFcZB29/8J7TwXatWIAQtBG9NeFyCCY6U+1K/UzJsRgipDgfjy0k/W
-	8ZLO+T0KaCaJzQHFoGfoYdIbjyhWS9FuCC6OTWBb9Oh0LMXwAYgdYCc7sqP54hNNoPRQxqq+8I1
-	9MVwh9+IC3igxjOzftfoqpY2sNYRyCimjBH7CZxZw/UGwNSz9WOzhElJhDlcT0xBHMYDtfSAMQx
-	G9dPmzqB7XdfBplZRsezzdGNfRcYA21QkmH2kZDfIcbrIKQ+/dJJpYedjTwO5ULpnGR8veMk2yK
-	D77IKbXEmEm7s+RzLhW55J1IRdhMRZUYTkwvUD54gKbPsG9goYSbqWFFo+mK86oyAgxZ1mOew==
-X-Received: by 2002:a05:7300:e9cf:20b0:361:8d52:e148 with SMTP id 5a478bee46e88-369d90c8111mr2746649eec.4.1792750736987;
-        Fri, 23 Oct 2026 03:18:56 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.37])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9deef9bsm5852176eec.22.2026.10.23.03.18.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 03:18:55 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: jiangshanlai@gmail.com,
-	paulmck@kernel.org,
-	josh@joshtriplett.org,
-	work@onurozkan.dev,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	boqun@kernel.org,
-	urezki@gmail.com
-Cc: rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	qiang.zhang@linux.dev,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH 0/9] rcu: Improve callback diagnostics and validation
-Date: Fri, 23 Oct 2026 18:18:32 +0800
-Message-ID: <20261023101841.2910719-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=H87Iowrz
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3502A1650;
+	Fri, 23 Oct 2026 03:19:00 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6AFBD3F7B4;
+	Fri, 23 Oct 2026 03:19:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792750743; bh=cTejc6vMr58Bc8gk6KW2BncO0y2Cvz1clpAKwoF7/Ic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=H87IowrzP0rj9C3cOW7Vzu9QCUMfiSLZ0/G+PHAGddRwpJrTeToyiptqu8vx7+3pH
+	 w8RG+x0XddtHFphc6crHsU1gk8O6PWmj3qeZaN0M0Ly+45BVp2wb77l+7WxSJLLoTm
+	 DUEPs9U6xhyWQsEoNRpuxhalPnHIewHnLwfzo0Zw=
+Date: Fri, 23 Oct 2026 15:48:59 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
+Subject: Re: [PATCH v3 4/4] arm64/mm: fix destructor for unconstructed
+ hotplug page tables
+Message-ID: <4vrj226au2t5cyjsgqem7bami3tsgn57zcbw6cbedhkutknnh3@p4hngiltvm6j>
+References: <20261023063428.3658761-1-songmuchun@bytedance.com>
+ <20261023063428.3658761-5-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,79 +69,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023063428.3658761-5-songmuchun@bytedance.com>
 
-Hi,
+On Fri, Oct 23, 2026 at 02:34:28PM +0800, Muchun Song wrote:
+> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
+> hot-removed page tables") made free_hotplug_pgtable_page()
+> unconditionally run the page-table destructor. This matches page tables
+> allocated by the arm64 mapping code, which runs the corresponding
+> constructors.
+> 
+> However, arm64 also uses the generic sparse-vmemmap population code.
+> Runtime intermediate page tables allocated by that code do not run a
+> page-table constructor. Freeing one during memory hot-remove therefore
+> runs a destructor without a matching constructor and corrupts
+> NR_PAGETABLE accounting.
+> 
+> Free intermediate page-table pages through pagetable_free(). It runs the
+> destructor only for constructor-backed pages and then releases the page
+> through the page-table freeing path.
+> 
+> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-This series improves callback diagnostics and validation across RCU,
-SRCU, and RCU Tasks.
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-Patches 1-3 record callback registration stacks for KASAN in Tree
-SRCU, Tiny SRCU, and Tiny RCU, matching the existing behavior in
-Tree RCU.  This preserves the original registration site in KASAN
-reports when callbacks are deferred through irq_work.
-
-Patches 4-6 add rcu_head alignment and NULL callback-function
-checks to SRCU, Tiny RCU, and RCU Tasks, consistent with the
-existing checks in Tree RCU.
-
-Patches 7-9 detect duplicate callback enqueue attempts at
-registration time, report the callback address, function symbol,
-and object information, and limit diagnostics to the first three
-occurrences.  In Tree SRCU, moving the check from srcu_do_enqueue()
-to __call_srcu() rejects detected duplicate registrations before
-they reach the deferred-list enqueue path.
-
-The duplicate-enqueue checks rely on the existing RCU head
-debug-object mechanism and are effective only when
-CONFIG_DEBUG_OBJECTS_RCU_HEAD is enabled.  They provide
-diagnostics, not full protection against concurrent registration
-of the same rcu_head, which violates the API contract.
-
-Tested by rcutorture with KASAN enabled: SRCU-N, SRCU-P, SRCU-T,
-SRCU-U, TINY01, TINY02, and TREE03, each for 3 minutes.  All
-configurations completed with exitcode 0.
-
-The KASAN aux stack was verified with a custom UAF module: the
-"Last potentially related work creation" line in the KASAN report
-identified the original __call_srcu() registration site.
-
-A targeted Tree SRCU test module exercised duplicate enqueue
-detection on both the direct and irqs-off deferred paths with
-CONFIG_DEBUG_OBJECTS_RCU_HEAD=y.  Both paths rejected the
-duplicate at __call_srcu() entry without list corruption or
-hangs.
-
-A targeted Tiny SRCU test module exercised NULL callback
-rejection, duplicate enqueue detection, and post-callback
-rcu_head reuse with CONFIG_DEBUG_OBJECTS_RCU_HEAD=y.  The
-first two tests produced the expected diagnostics, and the
-callback and reuse tests completed without hangs or stale
-debug-object state.
-
-RCU Tasks duplicate enqueue detection was verified by code
-inspection; no targeted runtime test has been performed for
-that path.
- 
-Kunwu Chan (9):
-  srcu: Record callback registration stack for KASAN
-  srcutiny: Record callback registration stack for KASAN
-  rcu: Record callback registration stack for Tiny RCU
-  srcu: Validate callback arguments
-  rcu: Validate callback arguments in Tiny RCU
-  rcu-tasks: Validate callback arguments
-  srcu: Detect duplicate callback enqueue at registration
-  srcutiny: Detect duplicate callback enqueue
-  rcu-tasks: Detect duplicate callback enqueue
-
- kernel/rcu/srcutiny.c | 30 ++++++++++++++++++++++++++++++
- kernel/rcu/srcutree.c | 32 ++++++++++++++++++++++++++------
- kernel/rcu/tasks.h    | 22 ++++++++++++++++++++++
- kernel/rcu/tiny.c     | 11 +++++++++++
- 4 files changed, 89 insertions(+), 6 deletions(-)
-
-
-base-commit: 940793b926aa94bf65ec404043050888e3053188
--- 
-2.43.0
-
+> ---
+> v3:
+> - Collect Acked-by from David Hildenbrand
+> - Collect Reviewed-by from Kevin Brodsky
+> 
+> v2:
+> - Free intermediate tables through pagetable_free() (suggested by David
+>   Hildenbrand)
+> - Update the commit message for the page-table freeing path
+> ---
+>  arch/arm64/mm/mmu.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 79d90226fd5d..4dce8fa227c3 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -1495,8 +1495,7 @@ static void free_hotplug_page_range(struct page *page, size_t size,
+>  
+>  static void free_hotplug_pgtable_page(struct page *page)
+>  {
+> -	pagetable_dtor(page_ptdesc(page));
+> -	free_hotplug_page_range(page, PAGE_SIZE, NULL);
+> +	pagetable_free(page_ptdesc(page));
+>  }
+>  
+>  static bool pgtable_range_aligned(unsigned long start, unsigned long end,
+> -- 
+> 2.54.0
+> 
