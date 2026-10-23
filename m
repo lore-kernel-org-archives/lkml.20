@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749992;
-	b=xEXZ65Qwqyoq8ZVtPqVcJdHrg6F+R89QOL5MW3NYy/Ls7wUzhnh0MTYzE+sgqfK+4Q40
-	 oSHbtsLAekxOGdnKlX8VOcxWM/+bzxfljl0Eq0ppEGw9+nRTP2qcAklnUv65LKrmD4bt9
-	 +FjEw/DOb7yJj6VL+n4Kf41t6c+4ORdPu7g8Y1D/FM7llEgRCC4zhoPNcFMZyPen7iZaV
-	 TYxpzYIIBGJ3M04uT2XX6wzOp6YEaLwmXIyj48u8lJuWH99ZnCtEi2s/2FEl4tA8Y8H28
-	 1HM/f7+H8Tw3rraCSgIgiRuVr+NUF0Iw4/Faf5NjbrXYmu4fDm45hPNH6YxBRmz1urA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749992;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nTWmeH9i/zciPFKRMIAo/+xF0ZeK70HJ+nGUDNQqdWo=;
-	b=J1NyqitBo6b7J/0z0JXmSo/Zwe9ZSzIu3cgN95AARG45esUX9fuWYsKl1mUqhOWKiEmI
-	 u8eltZcS8x3NmigN1w1HIH8xHpk4iTE5LQ1Og1RBnn3SBnLexHZD17Y6vKf7ri42bC6Rw
-	 Ir9tJQvrU59GNaj9oaj50FSgTLpNwenp2liiivoq7mdSWPz7Rs8U44Uk3+L73XkusTJB1
-	 YqMgTBRW1lyIua3tQvNNZAPhj3UUczhUfvJ/uIetOidnsVB5HztiVIUcorhhWAaMytKEP
-	 lIq/kUVM4nX4fg0rsFRHCfF/qKofYCVK6eilZynxl5R7aXRBlzFRgUNPBt8UGMziyVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kXKV10Fy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792750070;
+	b=PufGkHZm0LBdqsX128zJfRx/4RXZ4B9jyszCF2T9Ks9CmGtNiks/60pFPrhcHeZ53PvV
+	 zE5t5NU4/fHDNXYT0JAklgGsj6WGAvLEsfap0xlPkms0TmYlMtm83JeETaU7JvJc5m6o/
+	 oBRFUJpURpg6y0j7WB5k9l03UP3ma2GVur1q8TqpF8xzSuulzovFIDXSPWkoxudyjLplX
+	 InlYqsg76b6tASdIwsWJ1EG4DknDc0m6uBSQX9yegO2PNwgEIwj0S/gbUWrxmUItIkPDg
+	 /OYUAMF/QRZBgkCR4ZIIclClqQt7ghXYrihCj3K7kgYEm5afC/MSHIqRe3FWTEt8iLg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750070;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=LiuQtGt+oMtbceZsCq43jWxF1+OSU4a06mfxZ9sAZgg=;
+	b=WGmw5CCWKWFrUG6/jX40akEMFb19EZEgqktcTqkqJntCuz7aY0Tuj9ll9xcqgvHk2H0k
+	 KkdCHiU1bgPRGLTgQgjTFqLc1iGx1wru0A3HPaYJY+PB0LVN/VoD6crB3Ni2Gb8cStg01
+	 bOUMxHFHPUy9l4Vs7POmJxXVVd98AvtdWGLC3HUD8vUP07Bd2gGjdG0NDqiu7C1mg9WDm
+	 ev8yjkip5Q4rLomTML1EtLk7+A6+vcuDKsfKp2zdXfm1MYB2YPG4r//kk6WaMMfVDiCEo
+	 Vf86NQ/HAlzUH8yqOVyOKy4BmMr/B96MX39JF8vJl6GdjtXljJ82bTb2Inb3ykLmrxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=BFdptjWT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.28
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011028.outbound.protection.outlook.com [52.101.65.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284C6606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AE7606A31B;
+	Fri, 23 Oct 2026 10:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92AE7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kXKV10Fy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB571F031ED
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792749991;
-	bh=nTWmeH9i/zciPFKRMIAo/+xF0ZeK70HJ+nGUDNQqdWo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kXKV10FyDxIC8tBXivP5X7olR25twvFuz3ZrYMs+uyq6s8KX95pkNqWl7A0DDs7kQ
-	 dRMYCnqlED09DR+/ajG/r6r43Rt3PGKo8HgX8i+C4Y6fm4zzy1nLxsQlFSh9ffizTH
-	 Oeza9LBLOJ07JK+Zrw9nIupH6k/RkQIt1cj1/hxdNZK1UHmK+yGFYObEASoFi92Se3
-	 +u7+FmPtUWHfsQMV/r86gZS2CyspoRV8030KUqyn68EumHESpWrg9wZ4Jhb9a/dcH8
-	 pSpfCI5AA2EqUVDOGuZ0a5tStDAZElP5V+5EuGCMzbppnnvFg22KLrxwK4XGW3H3S4
-	 pgCBzpTH07Svw==
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93e515769d3so66680085a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:06:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByIKWUIrsCHcIWABcU4+JUpH74eCTjGIYNDy0V1YY7y9/7vgjneZe4XZKVM4SVNFQ98eb1vSpxhUvSP7bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOEu3wucYinMgHKo+PHcTEE+iHq/DNgvhy6Ac7wn3BvaIBCQYS
-	04JMls/Bf9RXRY9PiRVzHcFvojlhHH0eoRc93npeUxi5WelhsPsSQ/PD8ygvRlFHym4Z3Sn+Jei
-	jf8iztT4S1tX4o4ZFE0TDaLE8lQKwAmY=
-X-Received: by 2002:a05:620a:1a10:b0:93f:309a:ba5 with SMTP id
- af79cd13be357-93f6f8151demr326659285a.47.1792749991048; Fri, 23 Oct 2026
- 03:06:31 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=BFdptjWT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y30DGSfYeHtxRLaxmYnpD3gedhRXSO1jIULKRxYtBbFKxYAffstx/Bf5HXYxWCpYwi7bg8W6YnLJLROSYMz4fBxfFGzmzvx/6KMJBeukuEpW6KU4tiQ2NkSruOLxNaP3Bjc/rcSzJGyxWJ/XU6UeWqpa+MjvP2BaMFstMiY/hC3l+L58ju5onY81xyc1IKuBSJ5QW0byaR7uSFn7VzU2gls1kwd05AOVhmIOsxrzalpScxEPGNhY66gSvnEHXhxpWJZ9AyP4Cz7IW7iXjUryGS03xYYNAUbdET5PIwjugMuCFiGrbMPiaXJ1pE/f4XqyDYBVHG+eVWF49RKmKMKDRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LiuQtGt+oMtbceZsCq43jWxF1+OSU4a06mfxZ9sAZgg=;
+ b=irabO8/a8c7Zf5siIZcfgy7G+I9quICuqhXHJVSn8wdVJurAvoaJw2o+OuU+ecKE+tepj7BuK6uTZ/dCyphSZVm4cAZ2yCfyhvfCL4y88vCoMtgbPUIVJfWJmvRPo6QKkgbtIZzibbsUWXtTlt7klty2szMdTUAHIoAoNHaqtWzkfy7gBTSp7wde8x51FgMaae01ZQEDLX/pY/L6nwDWin+lmpP9ywy/bc/AehuYCYcWa/LyMY+/nBlOEHxeshxWiR/C6ttBJAwII3x2pr9QfCD2lRBb39LVuPsLrwp//Bl2qb1HxaHNLz/z57BWUvSUse8/lsWuSx8pYsc9O2XTiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LiuQtGt+oMtbceZsCq43jWxF1+OSU4a06mfxZ9sAZgg=;
+ b=BFdptjWT92LEMQRJ2OmPt1cQcy4sRFixMa5JZvPuExBWeN+kZ9jVQy444dqdyP6NwLd9p76SpDvFsckIsnxMJstZxkXD6H3sL1jtTzQaIMt/GL2xnWYAE+kNfDI39JDoDm6KwfFH/ZcY5P9UFf4kMVtuJgLHBAr6B2x72LQ52t0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from DU4PR02MB12006.eurprd02.prod.outlook.com (2603:10a6:10:62a::23)
+ by GV2PR02MB8529.eurprd02.prod.outlook.com (2603:10a6:150:ad::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
+ 2026 10:07:43 +0000
+Received: from DU4PR02MB12006.eurprd02.prod.outlook.com
+ ([fe80::7584:3ff:da11:e6b3]) by DU4PR02MB12006.eurprd02.prod.outlook.com
+ ([fe80::7584:3ff:da11:e6b3%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 10:07:43 +0000
+Message-ID: <f51f9c6d-1272-46b2-a8fe-f0f100b77a9d@axis.com>
+Date: Fri, 23 Oct 2026 12:07:41 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] iio: light: opt4001: refactor driver to prepare to
+ support more devices
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@axis.com
+References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+ <20261023-opt4041-v1-2-45227f82d05c@axis.com>
+ <atsj2tE357ZvUuCm@ashevche-desk.local>
+Content-Language: en-US
+From: Jesper X Nilsson <jesperni@axis.com>
+In-Reply-To: <atsj2tE357ZvUuCm@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0076.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::18) To DU4PR02MB12006.eurprd02.prod.outlook.com
+ (2603:10a6:10:62a::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,102 +106,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023080430.465305-1-hui.zhu@linux.dev>
-In-Reply-To: <20261023080430.465305-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 23 Oct 2026 18:06:19 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wJ7bBNF2DW_c7MboNFEa3GaOs=N_Sd_KkokCGaaCH3=Q@mail.gmail.com>
-X-Gm-Features: AclHuK-Xdt5eGkfevbiMmRq5JHr_XV5TF8iVL1ErkFcg48nEdYLaCtJpU1OZ5wI
-Message-ID: <CAGsJ_4wJ7bBNF2DW_c7MboNFEa3GaOs=N_Sd_KkokCGaaCH3=Q@mail.gmail.com>
-Subject: Re: [PATCH] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Yu Zhao <yuzhao@google.com>, Kairui Song <kasong@tencent.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR02MB12006:EE_|GV2PR02MB8529:EE_
+X-MS-Office365-Filtering-Correlation-Id: edc6fb68-6938-45be-b220-08df30ed7a57
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|261009223027099003|261022105027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	gjFMzh9FPdrDbugTaVszkAWzY4l2RE+IWXfzYtjO82XC5t03f57YsjYDWuAWSxs/mc+/PS6QU3W8jSjcKeQzUxoLHGQ8ZiF6Cpe4WZiDY7sMpzG4HFDUqhzWLHaki7GrYQwHgo5QO7m1XCsLielQHRjf4u7HRCnhcA0efReBrRYrl2ngSjbo1lNIHGXkvm6jvEwd9OIh2H2OXr+aYouqWSAKGWJrnx7fi4HSCW6vjVOjqXX13SphqhhRBWmMMVxCjVukrTEWWK3/GGUJawD+lG5DsLeRTRfMXOy5We1FDRyPutp2yfj09slZcBcmnaHnp8mHQ0jATw4pWXJ5/9JHF/k86Jc8tPDwvmqgmkftFdb8X0G06Uw9Mkd0E+J7nf/BB15nJ2GLXzqvGcd08VDk/hDQXoHTZ38OLqyso+rTSMb2TBe7cCGQw6gaea+95Tm3MPGYejCKphRYlqOr0No2gSSVeVwDmhq5kAtielhkHMh2sgaNdQlPT7KiPTHAuQ43mYbQ92agrWAqM4rTjU5DtVf7TDF3+o8zcbalmeusv7rBXbW7XNJQAkMt5AV7SLyNy/DixZNYF5zJB1KrCNjWUCJM/qbv0E5WRSEzJ9R5+GrINkmfgyGLwNsD/8ONt8Ivdbu+FDXhtBTS5dxrixLOmMjcr0e1/e5yVF1vDeo679E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR02MB12006.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V3dNelBtT3RiMWc1dzlDdjFFL052a1lwWlBsaWQ1b3RTcUc4YWZuajluVTlY?=
+ =?utf-8?B?cDNhU0hkY3hFUTZSV0hsT3hnZjlvOEorNHdwSCtsTDdQWXlaV2FNM1djNWVL?=
+ =?utf-8?B?aUg0WC94ZExMVUpXMEhUdWVpUW81RnlobUFZdmlZVTBtYkVSRS94cSs5SjRx?=
+ =?utf-8?B?djZ0MzBqL3FucnRyZGszQkp6MzdUNlhZbGM5T29rVXZGcVlBMFd1YlhMaEJn?=
+ =?utf-8?B?OTVJK3VLSnp5VzJEQ1gyM2NuZ2xwSTlGU0lIZGdiMHEzMCtNc1ErUmttalBZ?=
+ =?utf-8?B?UTRqMWpGQWtxOXR2RUNvVE1vRUEwMmVBdG4zUVNwL0N0akZwbDA2V3YxQVVr?=
+ =?utf-8?B?enIzbkdjanoxSk1jWVhLYWliTXdWN29BVG8yQzVjVTZlTEhuMFNMODV1WlFi?=
+ =?utf-8?B?RXhONGNtREJnMXFzL0xWZGhGK1dQL2dvaGwwRFFWdnNuNG9UNy9BT3JaVVFB?=
+ =?utf-8?B?SXh2a3lLTEtJVFJMemtlKzBRRmIrRHNGSFVvSXNiVGpQVmh2OHU1anY5ZWpZ?=
+ =?utf-8?B?WmErcklkR21kV1BDRjhVMzhtKy9lNnNncFRHRHlYd2xnRVAzOVRLYjBvTEpi?=
+ =?utf-8?B?WVZIa3IvZktxRVJBM2RNVngya01pVE1WaWY1cG1BRmRBZGNvaWtWeDBERnln?=
+ =?utf-8?B?OC9QeXlydzJaZWdsYmNBRkYweFEyNzBZWi9WRVF5RmtVeGVESUp3cFZRaFpw?=
+ =?utf-8?B?K2drcHdsaDVvL29jTTNScXZhWlN3elpvK0J0b3psblNRRjZ0RlhSMEpQMjBr?=
+ =?utf-8?B?YllYY2lFck44cThUaGg5K0t2eEVYSm5uQlFIRFc1aFNGelo4SnlLMGZsd1NR?=
+ =?utf-8?B?TGdPK1pJamova1lhb0NtS0JGYmJvYTlYVCtXTUFxZmNkbC94OWJCRC9KMm13?=
+ =?utf-8?B?ZnF0dDVUcm8ySG9qc0c4TWxPTFlNRjdTWnlNSUtHODdsRXVSVTB2TVpKS2tG?=
+ =?utf-8?B?OVIxRnBvbWU1V2FtMmNSQ25FWHo1RnUwajZTeUFDM1QrL1F0YktGeTR4eElk?=
+ =?utf-8?B?aG1rbFJaQXdwdVorYnk5cTN3ZXVxZVNoTmZZYllmRm1LeW9GbUR2REN5RXhD?=
+ =?utf-8?B?d2RrTU1wdGJ3RGx3MmNJVGFNbThJWG82d01aTTR2aDJleFhlenlQNGM1Qjdl?=
+ =?utf-8?B?SHhRWlc2NFF1aGQ3ODBBaFlCVThIZGpsY1lUTmpSTjhHRWtqaWNJTHV0R1dn?=
+ =?utf-8?B?dU1sLzQ5UTZsZWhjaUVVSnpiSGt2N3p2emtUTU9uVGtWYURLL3VKYWxlK2pl?=
+ =?utf-8?B?aXA4aWxRRC9LZ2hXRGxrSjRweERPREt4TGZUdm96WStxM3dZcVlxcWw5Z1E1?=
+ =?utf-8?B?clZKZGRWVzNBbVNmUzJTdVc4MU9WaG9rRVJVMURxQklsOTA4Z2ZyQUYyNzEz?=
+ =?utf-8?B?UmgveitxL1dveVhsUEwxazFMb0tpN1hnbXMrV2x3US9GcFE0MTM3Q25wWWdF?=
+ =?utf-8?B?TUFRUHdOaDJ5VFNSKzFqMFdWYUtlNzFIblFrb2ExdnEzQjEvdnh2c254Zmxs?=
+ =?utf-8?B?bWNDWDFwenRZamlrWlVYL0Y3eDVia0FEQ1BnL1ViQlA3TTdGQVRtMENKbUFs?=
+ =?utf-8?B?Unpvc2VCQWRBak9kZjlsejg0UVQxendaS0JobTNTT3h3Q3RJak9hY2RWbVlF?=
+ =?utf-8?B?a0tEMEk1RVN6UUlRVnQyM1BSOG43cGthNFFya2VXbkdKcnIweFBLVWc1YS8v?=
+ =?utf-8?B?WWRDeG5LUE44ZERVNCtObkJNdEtIOXl5QzZWRWcyMHI4SWJkWnhzekQxNXlL?=
+ =?utf-8?B?YnhZS3VmQVYrMXN6NitibGI1THNyemNBd003MzlLYnREblgxWGdVUVQrRVlu?=
+ =?utf-8?B?dSt6dnNJM2RhMDh2ZUJFdElhSVZvSVphdXFTUEY0djBwWVNNdks1UXliNVY0?=
+ =?utf-8?B?WktvdDczdEFFZitRUGJML000c01vZGFEcHVPUUNtZ09SdkRqbUY0aWVmY1dy?=
+ =?utf-8?B?M0JIMzFBQS9UbmF5L3Mvdi9peVF6cWIzdGwvaEVESTJBYjVaRy9qbGVOakVS?=
+ =?utf-8?B?ZnZzYkQzTkorblBkZ3pHQVo5czhqV3ZJREFyblpTamVaODVldzlSakYyZ1k4?=
+ =?utf-8?B?eHRKZFpsOG9qTjNwcE04Uy9lT1VsSkNJZFd1QzBwUEprdlZFcEhVSldRUjF0?=
+ =?utf-8?B?RVhDMXpFM0pNUlZKckZWSEVEbEJ6aDdxK3NZUzZZNHpUWVFMa1NuT0Z4Vlkr?=
+ =?utf-8?B?Z21qVFJnMk1ud3k2cTVaeTNjeS90RGw1ZGY4NE5pczdORW44b2hSTVJ0Z2xu?=
+ =?utf-8?B?K0Zwa1JPUWIrdVA1THZxaDdSTFhlK3piRTlHUy9WTmNrNkZIZ0JwVEg3aWVJ?=
+ =?utf-8?Q?9bv9gQTHLH7zIsFq3s?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edc6fb68-6938-45be-b220-08df30ed7a57
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR02MB12006.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 10:07:42.9970
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hWIcmDIoCwbZIsaCOSTpaZ9clZR6ljRl3tYTP64Mfx3cJkHko1PLuvIYT9k+ZwEwd6VIpkBl3joMdLI8ZnhoRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB8529
 
-On Fri, Oct 23, 2026 at 4:04=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
-> lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
-> returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
-> clearing anything.
->
-> A MADV_FREE folio therefore keeps the refs and PG_workingset it had
-> before madvise(2).  lru_gen_folio_seq() places it one generation younger,
-> and PG_workingset puts it in the last tier, so sort_folio() promotes and
-> protects it instead of evicting it and charges it to lrugen->protected[],
-> which read_ctrl_pos() uses to balance anon against file reclaim.
-> __folio_inc_gen() clears the refs but not PG_workingset, so this repeats
-> every time the folio reaches the oldest generation.  If the folio is
-> redirtied first, ttu_anon_lazyfree_folio() keeps it and
-> lru_gen_eviction() packs the stale state into the shadow entry, so a
-> later refault is promoted to the youngest generation.
->
-> Clear both flags here instead.  lru_gen_clear_refs() only reports whether
-> the folio is already in the oldest generation, which lru_lazyfree() does
-> not need, and moving the call up would still miss the folios that are on
-> the classic LRU while lru_gen_enabled() is true.  Use
-> folio_clear_referenced() rather than folio_set_lru_refs(), which is not
-> defined without CONFIG_LRU_GEN; PG_referenced gates LRU_REFS_MASK, so
-> clearing it zeroes the refs count as well.  PG_workingset is cleared only
-> while MGLRU is running, which leaves the classic LRU unchanged.
->
-> Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> ---
->  mm/folio.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
->
-> diff --git a/mm/folio.c b/mm/folio.c
-> index 47a437e0f7fd..03be101334eb 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -599,10 +599,16 @@ static void lru_lazyfree(struct lruvec *lruvec, str=
-uct folio *folio)
->
->         lruvec_del_folio(lruvec, folio);
->         folio_clear_active(folio);
-> -       if (lru_gen_enabled())
-> -               lru_gen_clear_refs(folio);
-> -       else
-> -               folio_clear_referenced(folio);
-> +       folio_clear_referenced(folio);
-> +       if (lru_gen_enabled()) {
-> +               /*
-> +                * lru_gen_clear_refs() skips an off-list folio, which
-> +                * lruvec_del_folio() has just made this one.  Left set,
-> +                * PG_workingset keeps it in the last tier that sort_foli=
-o()
-> +                * protects from eviction.
-> +                */
-> +               folio_clear_workingset(folio);
-> +       }
+On 10/23/26 11:07, Andy Shevchenko wrote:
+> [Some people who received this message don't often get email from andriy.shevchenko@intel.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> On Fri, Oct 23, 2026 at 09:48:14AM +0200, Jesper X Nilsson wrote:
+>> Prepare opt4001 driver to be able to support OPT4041. Extend struct
+>> opt4001_chip_info with fields channels and device_id because OPT4041 has
+>> two channels and another device id.
+> 
+> ...
+> 
+>> Assisted-by: LLM
+> 
+> Drop this tag.
+> 
+I will drop the tag in v2.> ...
+> 
+>> +static const struct iio_chan_spec opt4001_channels[] = {
+>> +     {
+>> +             .type = IIO_LIGHT,
+>> +             .address = OPT4001_LIGHT1_MSB,
+>> +             .info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
+>> +             .info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
+>> +             .info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
+> 
+> While at it (and I see it was in the original code), add a trailing comma here.
+> 
+I will add trailing comma in v2.
 
-So we can't do the below? But why?
+>> +     },
+>> +};
+> 
+> ...
+> 
+>>        u8 count;
+>>        u8 crc;
+>>        u8 calc_crc;
+>> -     u64 lux_raw;
+>> -     u32 rem;
+>> +     u32 mantissa;
+> 
+> Try to put it to make more of reversed xmas tree order.
+> 
+I will fix it in v2.
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 45c814f3857b..6b779a1ad2f6 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -611,12 +611,10 @@ static void lru_lazyfree(struct lruvec *lruvec,
-struct folio *folio)
-            folio_test_swapcache(folio) || folio_test_unevictable(folio))
-                return;
+>>        int ret;
+> 
+> ...
+> 
+>> +     chip->chip_info = i2c_get_match_data(client);
+> 
+> For now it requires
+> 
+>          if (!chip->chip_info)
+>                  return -ENODATA;
+> 
+I will add the if check in v2.
 
-+       lru_gen_clear_refs(folio);
-        lruvec_del_folio(lruvec, folio);
-        folio_clear_active(folio);
--       if (lru_gen_enabled())
--               lru_gen_clear_refs(folio);
--       else
--               folio_clear_referenced(folio);
-+       folio_clear_referenced(folio);
+> --
+> With Best Regards,
+> Andy Shevchenko
 
-Best Regards
-Barry
+Thanks for the fast review!
+
+Best regards,
+Jesper
+
+
