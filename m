@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.113
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792790646;
-	b=z8WaPlsBcNsBqbTCn27BUQug+ESE+PGvUeYTQDavnTlOHglVxcpT8XR+UllP9O3dZEGI
-	 busjaADrxHQzk7kmkkhKezo5INlS/et2CeO8SQgHCj3Sl6SxLY80suMuv2ExhrBjwEutS
-	 Tyj3zG4LNQuZ3TVI9HiKaL62fBksCNioVq0Qai0q4M8jYBqNjYOhx89dX5w5hVRU811Gh
-	 Nvu54t4FwWkg7feh/J/xEtCs8MLBjS6OV25w0IH15QhUmWd1UvbO2cI4YxX/MpfJrwHrQ
-	 E+wPFAH9YmbDtlSCJVRIUvdcPmJb8pUv8xt0Dqc3ksq+NpgyeOhVU7FgajTrlf1szhg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790646;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=puw/qPN/2s5qKranZlNIwJ7ickyu90fHGW05cGQJZq0=;
-	b=iLZRAsWMwZxVHuvsRF4SfphTyQxBkUwaJ+b1VM9HBr9esgNZEB6dyEwYGeBJOslvGRe1
-	 WKt9TVP2BVLdDIQIQXnlk7FCSE8aUNlkHx6uqpqEo7AenFMnhEyCwO7a3SAMp0j/uYbZF
-	 z3H6y8KFX8T/A7ft0o0cNT23CNaJUGCN6mq6lO0jc+bofgCaJdEQrVkK/DoJc5IY0+v6M
-	 5EIgfLz4jMGyVruf8PCOSdIlP9Hp9WUz4nfn3o8Beu/Zc83Hz0GL68UZWbL8pfx7INs7A
-	 rsFo/Qam2wovgQ2/TQxnV0hUddpiYpRN1tPWhzfoNMBssPEaBNX09lepdjl0VHlFTKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.113
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022113.outbound.protection.outlook.com [52.101.101.113])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792790755;
+	b=yXvCNO6Ts9b2C47lPEMUFqOkYbHdn+YVF38HmMlSL42wAPSGcO6xG1VMHdhz888bXtVP
+	 cul078mL8peqaEXnxZWtEO1jb20WDtF3sNoIghIlPVtZKdjD6blrNAjTjfpIKJF9Ivt64
+	 uSehba5l5MkMa9AjzZ8S9GTlkKIgSSjzPgwDI6snv1z2XZNKaQadkJuudWNAOaziGlXiG
+	 0bsNk7N6PQ727jARTGN6oTBP+V/nIs1p1UpQx9bCmtjkidoTNAdvyJkS+lLbvRjlvA33m
+	 JQ48GwPM+4WbZP7okQ8IRhIKLT6El4H5SYBBSKLiOPtl6heEM8A75UKQobG+KtvCjVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790755;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wrEJlB0+GhfyKlvL7QNS3Hc46DaHpO9tDay0caS65O8=;
+	b=tZYzkxjbpZNpJGvY4f+Pf7b4fMM0fGysYpQn1exPNWwE1/EchG8aTGeVYeDGknxRnIEU
+	 SIxXrjfMTtqDxVcPcBYAws/CiOuuuzTggVX8WqhgjRlQPxe61hk9Q3lEuEaP7921keOBZ
+	 lqv+OO02/TdC3tZ46F3QppvhJ3v8BKsYbbJGv1Xu3HsRBqYobgCClnilB/5hGcdBKBP4q
+	 83RiFmodl69mSrEduG7eNTs7Lp2ytNQEUfKJOLzGFxedIURyN9/Xpktep1BRFVOPiE03J
+	 FVxsPdbaCEiySPOlqh5+oVYnu9RcTuHYLukFYMCB0JAo3Ug+Z/ynoyqd/B9QMOx9nrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUJQuS11;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDF1606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:24:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BDF1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LlOITLCPbXKevFVo30XE2rgtnIVaM2HNuvkjTog8XzKC0/JZVmp5zpPHgRDOZRvzZ1VaeAuErXRZsYtZroUJxaiM7znfXD+dYKo062VfhvzRTNpk484s9CQ3ua4F8RABDS9MQEurnNHooHpCsYgf1yK4h7o5KUbXWoRkKnW+4p3ShOdE60WoRNz/hK9KpljZvgMbPhoYBepc4NygkU5Rs7NTEFXilmYrc+7wY/OkKixjqRM0lTOQgZgA4SMJj9N0+z5xC2SUZAwD4k7qcycUzDnVEbQYsFpgC0feVIh8jS5PoUrup58qnEEVn1iaiu8XkHqiiThwDR6zNgt95ZLWaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=puw/qPN/2s5qKranZlNIwJ7ickyu90fHGW05cGQJZq0=;
- b=pixiNQSBHx3Wo7vzmU4BBdc3JJX0VuSkylf9oOfqYH6E/s/q0JxV+yJpMJ2CI8W1Td5R11niPFefnzKtvYk8tRHZjFTeKf8OLDvHgeVH+ChvbFXMpVABVRjNGV7TGxFyn80mgywNI9qhfHAz85nQAxdQbKmMLYPZQusCaCQFHWnWDkp+9SFBqDQPJXjtaKS/AYgu/76Uvr56UqJ3146m4ACipclsNvEvEOZg6t7DG0/AEVWpnL8T0XASi8rxoaV0o+OSHx+/C1LsXCu8M2a12mJsukzid9qTEQU/NB/41K0iIaCUTCpsTIrUM0cx/KJK0Pl9QwSshQwg2bLswFxPtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO8P123MB7563.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:3aa::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 21:24:01 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 21:24:01 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: akpm@linux-foundation.org
-Cc: osandov@osandov.com,
-	sean@ashe.io,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/mm: add script to display /proc/buddyinfo from vmcore
-Date: Fri, 23 Oct 2026 17:23:56 -0400
-Message-ID: <20261023212356.215922-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0106.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::18) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5E8606A31A;
+	Fri, 23 Oct 2026 21:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUJQuS11
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4C21F01825;
+	Fri, 23 Oct 2026 21:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792790754;
+	bh=wrEJlB0+GhfyKlvL7QNS3Hc46DaHpO9tDay0caS65O8=;
+	h=From:Date:Subject:To:Cc;
+	b=mUJQuS11a+GX0VRvNJR7VYZnSq8lZ6UoXZQ4DvXQM2OR0XLzhjr16e/wcdKTSLxWd
+	 NA3/wcUpieSoQPSUf1s37npJMv3Lbzq7RtQgo7ulC0JAlFzy7O6LlF45u+05Tszcyq
+	 SmoWsOL7Sv5lqUDUkRbnbVUjCqUguv00mwzAdFR9bCEHabR5hqpjCypagwLjVYlbsC
+	 aPLyiiMEK4QMRRVV6KmR11arE6EAQC4PbeVthIhfz2YRnP6GaPrGc4PVmmVkdfkRv/
+	 fpXvHJ3kHRQ/Tu737pFF7uwmtwBWgJ8Q2SoY3mM4auxjMEvT8O1tLCiKN7lUla42Dc
+	 sIA2k2AQ9Cxnw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Fri, 23 Oct 2026 14:25:02 -0700
+Subject: [PATCH v2] ext2: Make sbi an proper alias for EXT2_SB(sb) in
+ ext2_fill_super()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,144 +53,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO8P123MB7563:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c1c94a4-da96-4e87-bcb5-08df314bf4a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|6133799003|18002099003|3023799007|56012099006|261022105027099003|261022075727099003|261021121427099003|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	YVVpQYTia7VBPZnzaRJ5RjP+VeU0YR3bBxo2u11/EfZVvjUSjiKVX4ePpdEXAzy1qw5aiLaJmdgtkeKfBa3PRhv/sMlI4tXywuHQ0xxufkjOlkHXzs8DxiSDTr8/ns7vJfi0aN9NzoPg1+bkRiCgn4UliyYVI5ZJ4FK4jctIFXEJyAL8iTC3/aFXMYNCvCxLzBCIPPLrLmvYFw3nWCxrGVDz9Xvje2/MvEqaD4Ix8K0gMRVSfDCtZX1X5Y0+zPqFmhOMYtmxl6bRyIDW5WzM9hW3YxkZsN2CZO+IRn9hjadNn6DlOWQekFGvwPnLaBnwCFc/9y9lsl+Xq+1sQ4bcUbi8i1QgAuu8F3sODMFkyH/Rc8G3o8j4JoS+l734ZnQR/+i40IxXoiA2BBy74BO++ftq3wqJK68hMyb/V+jNyIfCXOxkKNjyd4yOlXZtgIphTdzdSmo8TIRzDLpTOQH1DA0+l/pxzX8A8HeS5Ad3IJt/6Y9fv+HccJAkth9aMYSlVTrGz/FG4HatAvVovE57FqKK4fur4YBSNr9mWvNgzmNwXDAse1JmSXdFsfZvchSVG5OEBEXA1raimSx+/GSl+WZ76h6742V4c3M6198nyezTjJjwSYru1diCG8FI9FKlWuH9UzR8k6HoEntnEzN0Wu4RWCX1GeA/a7uoGJR7XX8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(18002099003)(3023799007)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWQrWFROTHlIVW5NeTlKZkc4T0loNFV0Q01hVXd0TG8vSFBaREtaOFpXT3lv?=
- =?utf-8?B?L0daYm9pSEFBL2p1c0pMcHJPZHdNTTN6OFJVSzRzYU9JejJNbW0zWUUvOW9S?=
- =?utf-8?B?MVBqUE1Kb3d1cWhEM1lvR1cwSDRrUE5aS3J5Rm9sNVc0U01wVnVpQXBTc05h?=
- =?utf-8?B?QjFrVklwZ3lPbFFEQnIvMUJpdDg2bWZoWkI5QzkwczJmWDNVL2FJcWU0R1RD?=
- =?utf-8?B?bzBmNGlvanlyYkRpY05tK0h4bjljOTlXdGU4L1o2Z1ZMaWF3bnVwSjZaNHBO?=
- =?utf-8?B?RkE0cGtoR1k5RlplWHZ4OFlkb0k5OGFlclBYWWpRNE9ZUUZDMCt0TVdDZWhO?=
- =?utf-8?B?RGUvMjdKSXkyWHd0SlBFR3dHdEUraVJDUWMzZmhIMzFUeUI0TW93dDdrbGdK?=
- =?utf-8?B?WXRlc0haVTFJanJ3THMwMnQ0MXhmT1N2OTFwbCtha2hIRzlWWnU2Zm1hOFV1?=
- =?utf-8?B?SUI2aTQyLy9qNm9DUnFneEgwSE9Md0V2dlQrSVFOZHJOY3F5Y1Zud2JxbVY3?=
- =?utf-8?B?cU1tVmxjYnNGejM5TDdIcjFWUHpYd3hEVnhqVFNpVnFxSm5lTnVVN01pVENn?=
- =?utf-8?B?NzhpVVRBMGhkWndFK3lOTlZSNG5aNzlPVDRpeEpOQUl4NzFmSkJsdW5sLzFU?=
- =?utf-8?B?SUFVMzdRN3g3S21ma21JVjJDWmU0aDVGSStFZEY3OHBRT05lenE3eVNmOGYr?=
- =?utf-8?B?VXVMNHZZQ3Jyc29jdCtmTjVsSUpkQ08xOXRTYXUxb0tlMGJ4UWZNUTFrQWJH?=
- =?utf-8?B?c3F5SDc4N1VkZmRwUnZ0WCs5Z0JrK21JcnE2NlZkbFc5RTlIc05LTTdqR2xi?=
- =?utf-8?B?T2dGbkJod2NMVUNzVFhkR3I5d3BxekR0SFZKeFBBb2tINjJReTRybjA5dFo2?=
- =?utf-8?B?VHV1cmMyS2hPS3V4bWxTZkRDRzIzWmJ3SVFGMWk3NmdxcVBVNTc5V25LZktu?=
- =?utf-8?B?R3BBSHJMdG94T2pQSThvMTRkRk05dUM0Q2VjM3NCaGxSZ05tRTNzVHBuL3dX?=
- =?utf-8?B?bEtJU3M1ME16S1ZpaXdNRzFoY2x5Qnp4a3l4UVphVkhrNTRGeVRtcEtVQUt4?=
- =?utf-8?B?K3JNVVNvaGFXNzVBNlYxMis1WWV6Um5qTjlFL2FaVGxMNk1kdGtzb3pqNmVV?=
- =?utf-8?B?TFlxTnU4d2hNSWFqVVQ2OFlOdzhNM2oxbmRPZUtickszSnBvd1pnVUNVSW1L?=
- =?utf-8?B?TmJwdDBpdDI2VGt4VW1ndTZyZk03RVFOYXF6NVZtdFRaenZBbDVNWW9rVHU1?=
- =?utf-8?B?ajhJTlZvcU01clE3TkFiSzMxdWd2TEpsVCthSDloZGZkaldiQ29XTnJVeGRB?=
- =?utf-8?B?cmMvTGthUG5DdzZoYzU3Mzl3TGx2bm4rWi85L1RUOXg5YXFLV01hVFFSZTVr?=
- =?utf-8?B?TlUzQXNveWh6bTg2Y3Zpa2dTTmIvcDRQeWY1RHoxYVJwRDVFbkhVTDdCa2tB?=
- =?utf-8?B?UmpQVnhubFFDZU56U1NaT1FFb3pKZkhxZEExTUdqa0FhOVZHbHlnYUo4Zmx6?=
- =?utf-8?B?YmRTZWR2OG9sMlFRUDRudkFCVlR6cml3ODhST3ByKzFjQnBYQ2RydWVaV2lF?=
- =?utf-8?B?ZkxkYW9ucHJLc0lpZ0gvQVd3RE90UXNxR2NxR0VnM3lOaTRENFFFOVZvZGY5?=
- =?utf-8?B?T3k1cGVFL2oxR2g2WE9KMmZBNWtjMmw1TWhya090ekpneTlNbDJlVWZtWjVQ?=
- =?utf-8?B?ZlNKNVZRRW95c1dJbWc3SlBCdzhTOHk1cExLOVRONDZOckozejVWRWNvdEZS?=
- =?utf-8?B?TWFCc21XbVRHL0ZmQU1aOVpheGtZS0dqRm5jVVN1RUJkT0dYRHlUYlpEVWJL?=
- =?utf-8?B?YXlXZjlpbTVSZ28waW5vRCs1Z0RETTZzNEd2ZFBLTDZlS0FDSHJmWkx4dVRr?=
- =?utf-8?B?KzNrS3V6MS9OelJqQS85SFQ1MDMxTkFPMVgxYi9LUjczWFdOeTc4d2Jxalpv?=
- =?utf-8?B?ZmtCMG1LeFpkNGt5SkxsS0FKVW9hWVRBcFdRTktHeHNRRFo5YXJMSlJYNkZ6?=
- =?utf-8?B?amdCamdPWEUrZUxqWlBteGp0aVlJdHFrZ1dveW91bnRIcDJYT25hTnkrVUdF?=
- =?utf-8?B?L0xvbEE2SjZNYjI1QkFGR0FXUmRXRXA3b3FFQWxKNDhCaDVaVk5POTM3Sm9j?=
- =?utf-8?B?RW15SmpJdkdnZGl0aWZXcm0zWUdSdE9jSnB3amlJZ3Z3VTgwQlJ3Zng2Z3Mw?=
- =?utf-8?B?MzlrTjY1L2ovUEowK2d1TmRwMm1rcUJPNkNpYUtCL1JzbXFhSnU5ekhiUThr?=
- =?utf-8?B?SGY5aG9BcERCVHlETkpaUTdsZkFLS3cwcXh3RGl4V2IwcXhzRS9HdXVEa0Nk?=
- =?utf-8?B?YXVPWjVsWGpzMGtVVVFrT3FlQStsY2V3dkE2Szd2UUlkNCtld0ErQT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c1c94a4-da96-4e87-bcb5-08df314bf4a6
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 21:24:00.9323
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JTJggsP/zYUWcPMCm+o2gNvpvyINUpJgi1RMVdz4cMy5A6+tTSZmR0lyWgozTQoPzRCnYM0fMlMwNjBsThzepQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P123MB7563
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-ext2-fix-context-analysis-clang-24-v2-1-a33961453899@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOTQ6DIBBGr2JYdxoYpGm66j0aFwij0hpogBqN8
+ e5Fe4IuX/K+n5Ulio4Su1UrizS55IIvgKeKmUH7nsDZwgw5XgRHCTRnhM7NYILPBUB7PS7JJTB
+ j8QFrULxulbVKcnllpegdqQSOkUfz4/Rpn2Ty3rwbg0s5xOV4MYnd+2twEiAAW6mMlMbyTt9fF
+ D2N5xB71mzb9gWKEUmm5wAAAA==
+X-Change-ID: 20261023-ext2-fix-context-analysis-clang-24-504b5dd53038
+To: Jan Kara <jack@suse.com>
+Cc: Marco Elver <elver@google.com>, 
+ Timothy Day <timday@thelustrecollective.com>, linux-ext4@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3093; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=u9u2g1UD0vzTIZM1IpXD8e2bUZrrmTudbZU7VDqIVRs=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFm3L2wpvHknyD36qqxmjtWto8aifb4M3xhFg575eaZ4C
+ z655K3VUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACaidISRYdHFALYnh39r/TjN
+ kfrz79/SxMcMD/vOzZ80QcFb6OeP1/cZ/hn0FO6YffsXw5yGU2Kbf09eUy7l/GryGt3dy9xyPK7
+ JGrADAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-When analysing crash dumps (vmcores), inspecting the buddy allocator's free
-page distribution across memory zones can be useful for diagnosing
-allocation failures, fragmentation, and watermark exhaustion.
+A recent LLVM change to fix parsing and validating __guarded_by on
+structure members [1] reveals a couple of warnings in ext2_fill_super()
+from the annotations added by commit 023051c2d0f1 ("ext2: mark
+s_mount_state as guarded by s_lock") and commit c23746524faf ("ext2:
+annotate s_rsv_window_root as requiring s_rsv_window_lock"):
 
-Introduce tools/mm/show_buddyinfo.py, a drgn-based script that traverses
-online NUMA nodes and populated memory zones to inspect free_area[].nr_free
-and reconstruct the standard /proc/buddyinfo output.
+  fs/ext2/super.c:1040:7: error: writing variable 's_mount_state' requires holding spinlock '_res->s_lock' exclusively [-Werror,-Wthread-safety-precise]
+   1040 |         sbi->s_mount_state = le16_to_cpu(es->s_state);
+        |              ^
+  fs/ext2/super.c:1040:7: note: found near match 'EXT2_SB(sb).s_lock'
+  fs/ext2/super.c:1138:8: error: writing variable 's_rsv_window_root' requires holding spinlock '_res->s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
+   1138 |                 sbi->s_rsv_window_root = RB_ROOT;
+        |                      ^
+  fs/ext2/super.c:1138:8: note: found near match 'EXT2_SB(sb).s_rsv_window_lock'
 
-For example:
-❯ sudo drgn --no-default-symbols -c /proc/kcore -s vmlinux tools/mm/show_buddyinfo.py
-Node 0, zone DMA           0      0      0      0      0      0      0      0      1      2      2
-Node 0, zone DMA32       907    831    581    423    214     85      3      1      2      2      0
-Node 0, zone Normal        1      1    143    731    552    182     32      0      0      0      0
+Context analysis does very minimal alias detection [2], so it is not
+able to figure out that sbi == sb->s_fs_info == EXT2_SB(sb). The only
+reason there were no warnings before the above LLVM change is because
+the annotation was not parsed and verified correctly.
 
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+Rework the allocation and assignment of sbi to have a direct assignment
+of EXT2_SB(sb) to sbi so that the analysis knows that sbi and
+EXT2_SB(sb) refer to the same object, clearing up the warnings.
+
+Fixes: 9708538ba204 ("ext2: enable context analysis support for ext2 filesystem")
+Link: https://github.com/llvm/llvm-project/commit/217e229a1f32785fccdd3b3f51429f0d309dea45 [1]
+Link: https://clang.llvm.org/docs/ThreadSafetyAnalysis.html#no-alias-analysis [2]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- tools/mm/show_buddyinfo.py | 48 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
- create mode 100755 tools/mm/show_buddyinfo.py
+Changes in v2:
+- Fix allocation size (Sashiko). I thought that I checked that they
+  were equivalent but I guess not :/
+- Link to v1: https://patch.msgid.link/20261023-ext2-fix-context-analysis-clang-24-v1-1-2b35c33cd0fa@kernel.org
+---
+ fs/ext2/super.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/tools/mm/show_buddyinfo.py b/tools/mm/show_buddyinfo.py
-new file mode 100755
-index 000000000000..70372329e7c1
---- /dev/null
-+++ b/tools/mm/show_buddyinfo.py
-@@ -0,0 +1,48 @@
-+#!/usr/bin/env drgn
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Copyright (C) 2026 Aaron Tomlin <atomlin@atomlin.com>
-+
-+from collections.abc import Iterator
-+
-+from drgn import Object, Program, get_default_prog
-+from drgn.helpers.linux.nodemask import for_each_online_node
-+
-+DESC = """
-+This is a drgn-based Python script that displays /proc/buddyinfo from a
-+vmcore. For further information on drgn, please refer to
-+https://github.com/osandov/drgn.
-+"""
-+
-+
-+def buddyinfo():
-+    """Display the buddyinfo."""
-+
-+    def walk_zones_in_node(prog: Program) -> Iterator[tuple[Object, Object]]:
-+        for node_nr in for_each_online_node(prog):
-+            try:
-+                pgdat = prog["node_data"][node_nr]
-+            except (KeyError, Exception):
-+                pgdat = prog["contig_page_data"].address_of_()
-+            for zone in pgdat.node_zones:
-+                yield pgdat, zone
-+
-+    def populated_zone(zone: Object) -> bool:
-+        """Determine if the specified zone is populated."""
-+        return zone.present_pages.value_() > 0
-+
-+    prog = get_default_prog()
-+    for pgdat, zone in walk_zones_in_node(prog):
-+        if populated_zone(zone):
-+            print(
-+                f"Node {pgdat.node_id.value_()}, zone "
-+                f"{zone.name.string_().decode('utf-8'):8s} ",
-+                end="",
-+            )
-+            for order in range(len(zone.free_area)):
-+                print(f"{zone.free_area[order].nr_free.value_():6} ", end="")
-+            print()
-+
-+
-+if __name__ == "__main__":
-+    buddyinfo()
--- 
-2.55.0
+diff --git a/fs/ext2/super.c b/fs/ext2/super.c
+index fb217ef2d69f..bde5b433776c 100644
+--- a/fs/ext2/super.c
++++ b/fs/ext2/super.c
+@@ -883,17 +883,18 @@ static int ext2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	__le32 features;
+ 	int err;
+ 
+-	sbi = kzalloc_obj(*sbi);
+-	if (!sbi)
++	sb->s_fs_info = kzalloc_obj(*sbi);
++	if (!sb->s_fs_info)
+ 		return -ENOMEM;
++	sbi = EXT2_SB(sb);
+ 
+ 	sbi->s_blockgroup_lock =
+ 		kzalloc_obj(struct blockgroup_lock);
+ 	if (!sbi->s_blockgroup_lock) {
+-		kfree(sbi);
++		kfree(sb->s_fs_info);
++		sb->s_fs_info = NULL;
+ 		return -ENOMEM;
+ 	}
+-	sb->s_fs_info = sbi;
+ 	sbi->s_sb_block = sb_block;
+ 
+ 	guard(spinlock_init)(&EXT2_SB(sb)->s_lock);
+
+---
+base-commit: 782654a3e9c4065dea2e9f10539899d348b7a1fc
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261023-ext2-fix-context-analysis-clang-24-504b5dd53038
+
+Best regards,
+--  
+Cheers,
+Nathan
 
