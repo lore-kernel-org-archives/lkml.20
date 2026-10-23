@@ -1,66 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792727213;
-	b=NOcAiVXbp3IU+htqdKv1qWmGDAhwMSGyK81qUlsno+GDLcAq/8qLSp8OHQ0J9HYZdCnM
-	 mKs0gfTV248lzdW1vqUH1ekRlXGuICSnWpygtItVTGphW/CcjLiixVcG4gY+NrMa0wFFy
-	 6PXLa2V0OANVNpXL90Q4jRPj6N1j4TBNR9AxUHiV7Z0aH4dgMqjSoYg+Oxr0WHuwylljg
-	 duaYI00jTucb3sEBNBhYejG1Co04MZnGlzP1YxrYNN+86lNVBcyEzQJgl0NT95lHKj5nv
-	 B0RZKItX5u73eucUNcY0TypSIoqEBUd64JhFbp6tFfXpO2t4BWFMksAsg3DbQ1w+zYQ==
+	t=1792727225;
+	b=cAWAQIDqYoK7kyPNJ9GGl+1b8h4Xcr003iuN92m60DR4LqhaSrHxs/Rcb6IDjy/fB+Vg
+	 6npSolK/rqMNv/cK6Fac7Vs3nDNQT/K6RWHGOJ/aILRl0pWQgAM2V7eTz+AuisMzyHgr6
+	 FgX0NidCBYnSJDA2aH9JLJH9KL0qeLpEZjc+4isfyyr2qVrhUb2mmn+33wrLRHSgfPNzx
+	 ykvQnyQe8AAjl+Cb09pGT5SFQiT6pq8u7u5rRkK8ciuSMAIgEWW9B5P4aTiRqg2QfByO1
+	 uFv5IgsazkXMyrqDVHgLq/J8DWqiGxGV7//xhiDkjtggB0pwJwa2QmzyXDQuxl2lK0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792727213;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/zfyKeokjNedSUS7yMiHAkGIRA5q0HB0PWWuzOAnAKI=;
-	b=4UOIT5IHo2HQyz4ELlYRAAMvLPtQTv3rzIT3M7um08rWnsuSd3KLoO5bMKEHrG9/gBzy
-	 4PKjrJFvfOLKNq2054x9xrVZ1fsb3XwsN73W31kfvwupp3b04J7o7ZiHO+jtMh/wSrGFE
-	 Oqlwy+YfF2C4Bhzg9u/ZWlKWoJGF5gabypkqNLYeHVasHzOBpToXmrziQA2vVvNYGdmeF
-	 dCVOnR9PDfzDoOPt7we1c/frhkwtmqGNTZ4DHUxnJq23sYdmZ8Xhb9OeevJsWBdbV3kRr
-	 yOOijq3wnfXpqU5wbEJzlbTU2eyqp4BCDjJJnlKMylKfyt/lDkoRdHtWcFtm9vShvTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792727225;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3VNVf0/RTjTbRf57wl1w88rYS317KM33ofoAQG+5nfI=;
+	b=szdq61LKkD62ozC+lf8PcAcjDjmNs+h2Vh3JBZMeFqTmOdgNW0Apv7+HtQUdjGy2BkxN
+	 Rwz1Y4c/0KnYbmmHS5mDBtz8jGk7dwxhYblcKTc1Gp6J4kk5vUuzP+RSa1LHbRfBWzp9v
+	 LSmBMSZK6Jkkh+wSV3vFM5uPXDk+p3+OJ3hwSSljNt0U6XSsJbDj6y0+fjllHknCzFBH5
+	 Injhx41b0KB4qbpa4TDEZvjq+k6ZrHepnzsRjNAwrvl5JvVT032M4kDJj5ZhzmE8l84fP
+	 y6wjdPG5FA5djRqIYK+6MpjMpqwe41TX0cXU+3hUM+jqB51T3kivaKBeeMAsg7lVdvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hjgnsGdn;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=owwUz7Ao;
+	arc=none smtp.remote-ip=95.215.58.175
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B20D606A319;
-	Fri, 23 Oct 2026 03:46:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B20D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91939606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91939606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hjgnsGdn
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/zfyKeokjNedSUS7yMiHAkGIRA5q0HB0PWWuzOAnAKI=;
-	b=hjgnsGdnjFB1cVo2ZZejGdIcvkNG4tEFj+0NQ1IKK2wzzAkfDCZgQli6HNJCuWOCw5SUzuyxH
-	2bhZteWso3txWqAKPRB1c+A2jBTWJMci0isfJN2BlVcecs5BUXjoReZre9VXWW6aa6zdVO374+6
-	Tk/HiTi9XwF3hf0p4zZ/YcM=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j9pq92x1szLlTc;
-	Fri, 23 Oct 2026 11:46:45 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9B62440586;
-	Fri, 23 Oct 2026 11:46:48 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 23 Oct 2026 11:46:47 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-CC: Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	<linux-kernel@vger.kernel.org>, <liuyongqiang13@huawei.com>, Yao Kai
-	<yaokai34@huawei.com>, <stable@vger.kernel.org>
-Subject: [PATCH] rseq: Prevent self-preemption when granting a time slice extension
-Date: Fri, 23 Oct 2026 12:04:39 +0800
-Message-ID: <20261023040439.3829110-1-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=owwUz7Ao
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=L+H22LxR/S7kNv+P15UOky1GL22rLifgQhK5zAHtVzg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792727222; v=1; x=1793332022;
+ b=owwUz7Aox2bPMrctPPRlHZ2j1tPpyK6dWV4mMLTJepn8eVqJOoQhCTdENneeDNAR+fWlfwlv
+ Wx0Zt9Nd6dczEbVXud+rFJhiGtBJ7KtfecojapI8sCCq6KPW0oxUNtdvrj3KaR5dijDVdXaS9Yv
+ o736bXbls/Y7XgQt/YEnmbLM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 315b90f35bda0009;
+	Fri, 23 Oct 2026 03:47:01 +0000
+X-Mizu-Trace-ID: 315b90f35bda0009
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: songmuchun@bytedance.com
+Cc: osalvador@suse.de,
+	akpm@linux-foundation.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	lance.yang@linux.dev,
+	jthoughton@google.com,
+	david@kernel.org,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 10/12] mm: hugetlb_vmemmap: make vmemmap restoration folio-oriented
+Date: Fri, 23 Oct 2026 11:46:55 +0800
+Message-ID: <20261023034655.37422-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261020115824.823278-9-songmuchun@bytedance.com>
+References: <20261020115824.823278-9-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,80 +74,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemr500006.china.huawei.com (7.185.36.185)
 
-__rseq_grant_slice_extension() makes the grant visible to user space and
-then reads the clock to compute the expiry time before it clears the
-pending reschedule request. This runs in the exit to user mode loop with
-interrupts enabled.
 
-Clocksource read functions are free to disable and enable preemption.
-kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
-counter accessors, which are used when a counter erratum workaround is
-active, do so. With full or lazy preemption, when the request which
-triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
-upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
-read function schedules right away, e.g. in a KVM guest:
+On Tue, Oct 20, 2026 at 07:58:22PM +0800, Muchun Song wrote:
+>Like optimization, vmemmap restoration operates on one folio at a time,
+>but the current interface exposes a raw address range and requires the
+>HugeTLB caller to prepare part of the operation.  This splits the common
+>mechanism across layers and obscures its natural unit of work.
+>
+>Make the folio the unit of vmemmap restoration and move the common
+>mechanics behind a folio-oriented interface.  This keeps HugeTLB-specific
+>eligibility and state in the caller and gives both directions of HVO
+>consistent folio-level interfaces.
+>
+>No functional change intended.
+>
+>Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>---
+> mm/hugetlb_vmemmap.c | 37 +++++++++++++------------------------
+> 1 file changed, 13 insertions(+), 24 deletions(-)
+>
+>diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>index b76203e34881..97748a9cefe2 100644
+>--- a/mm/hugetlb_vmemmap.c
+>+++ b/mm/hugetlb_vmemmap.c
+>@@ -360,28 +360,29 @@ static int vmemmap_optimize_folio(const struct folio *folio,
+> }
+> 
+> /**
+>- * vmemmap_remap_alloc - remap the vmemmap virtual address range [@start, end)
+>- *			 to the page which is from the @vmemmap_pages
+>- *			 respectively.
+>- * @start:	start address of the vmemmap virtual address range that we want
+>- *		to remap.
+>- * @end:	end address of the vmemmap virtual address range that we want to
+>- *		remap.
+>- * @flags:	modifications to vmemmap_remap_walk flags
+>+ * vmemmap_restore_folio - restore the vmemmap backing of a folio
+>+ * @folio:	folio whose vmemmap pages should be restored.
+>+ * @flags:	vmemmap remap control flags passed to vmemmap_remap_walk.
+>+ *
+>+ * Remap @folio's vmemmap so optimizable entries are restored from the shared
+>+ * tail page back to distinct backing pages allocated for @folio, while
+>+ * non-optimizable entries remain unchanged.
+>  *
+>  * Return: %0 on success, negative error code otherwise.
+>  */
+>-static int vmemmap_remap_alloc(unsigned long start, unsigned long end,
+>-			       unsigned long flags)
+>+static int vmemmap_restore_folio(const struct folio *folio, unsigned long flags)
+> {
+> 	LIST_HEAD(vmemmap_pages);
+>-	int nid = page_to_nid((struct page *)start);
+>+	int nid = folio_nid(folio);
+>+	unsigned long start = (unsigned long)folio_page(folio, 0);
+>+	unsigned long end = start + folio_vmemmap_size(folio);
+> 	struct vmemmap_remap_walk walk = {
+> 		.remap_pte	= vmemmap_restore_pte,
+> 		.vmemmap_pages	= &vmemmap_pages,
+> 		.flags		= flags,
+> 	};
+> 
+>+	start += VMEMMAP_OPTIMIZATION_SIZE;
+> 	if (alloc_vmemmap_page_list(&vmemmap_pages, (end - start) / PAGE_SIZE, nid))
+> 		return -ENOMEM;
+> 
+>@@ -399,7 +400,6 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
+> 					   struct folio *folio, unsigned long flags)
+> {
+> 	int ret;
+>-	unsigned long vmemmap_start, vmemmap_end;
+> 
+> 	VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio), folio);
+> 	VM_WARN_ON_ONCE_FOLIO(folio_ref_count(folio), folio);
+>@@ -407,18 +407,7 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
+> 	if (!folio_test_hugetlb_vmemmap_optimized(folio))
+> 		return 0;
+> 
+>-	vmemmap_start	= (unsigned long)&folio->page;
+>-	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
+>-
+>-	vmemmap_start	+= VMEMMAP_OPTIMIZATION_SIZE;
+>-
+>-	/*
+>-	 * The pages which the vmemmap virtual address range [@vmemmap_start,
+>-	 * @vmemmap_end) are mapped to are freed to the buddy allocator.
+>-	 * When a HugeTLB page is freed to the buddy allocator, previously
+>-	 * discarded vmemmap pages must be allocated and remapping.
+>-	 */
+>-	ret = vmemmap_remap_alloc(vmemmap_start, vmemmap_end, flags);
+>+	ret = vmemmap_restore_folio(folio, flags);
 
-  __schedule
-  preempt_schedule_notrace
-  preempt_schedule_notrace_thunk
-  kvm_clock_get_cycles
-  ktime_get_mono_fast_ns
-  irqentry_exit
-  asm_sysvec_apic_timer_interrupt
+Nit: we don't use h in __hugetlb_vmemmap_restore_folio() anymore. Could
+we drop it from that helper while at it?
 
-The task is preempted with the grant already handed out to user space,
-i.e. in the middle of the critical section which the extension is supposed
-to protect. The stale grant is cleaned up when the task goes back to user
-space, so the damage is limited to the extension silently not working for
-such preemptions on systems which use one of these clocksources.
+Otherwise, LGTM!
 
-Read the clock in the interrupt disabled section after the reschedule
-request has been cleared.
-
-Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
----
- include/linux/rseq_entry.h | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-index 31ce349ed42c..3e6a339175f8 100644
---- a/include/linux/rseq_entry.h
-+++ b/include/linux/rseq_entry.h
-@@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	rseq_stat_inc(rseq_stats.s_granted);
- 
- 	curr->rseq.slice.state.granted = true;
--	/* Store expiry time for arming the timer on the way out */
--	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
- 	/*
- 	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
- 	 * several ways:
-@@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	scoped_guard(irq) {
- 		clear_tsk_need_resched(curr);
- 		clear_preempt_need_resched();
-+		/*
-+		 * Store expiry time for arming the timer on the way out.
-+		 *
-+		 * Read the clock only after the reschedule request has been
-+		 * cleared and with interrupts disabled. Clocksource read
-+		 * functions, e.g. kvm_clock_read(), may disable and enable
-+		 * preemption, which would otherwise schedule right here on a
-+		 * pending request and void the grant which was just handed
-+		 * out to user space.
-+		 */
-+		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
-+					   ktime_get_mono_fast_ns();
- 	}
- 	return true;
- 
--- 
-2.43.0
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
