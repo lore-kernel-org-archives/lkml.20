@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792776312;
-	b=ZarzZjrNwbCjyqn/FkN8maALMA7+uwIki/veedK8/vGL8flZpR8iHvEinfF1227fLSjQ
-	 6dGaBX3GqL+Negkw7JstW9ZEori8Qw8X5rmqcp6apdcHGnwyqGAM1OPrKw/Ve3/z3yJxJ
-	 FrxfFuGplskJbmEk7H+zDE1+08SvkZLmJellWotE6h8B4HO/PsvhpLcxhrAfEpgW8JJ9w
-	 vj+wgKDc+x3w2N13Asn7XF2Dj6SnHvajobXS0/WDYsYox6ue1BD2Rcw9xlImOsWNW07nL
-	 gQAvPMJteSQGWKpOEFofqRaq32HdCyIbfKAjSNmTHtXGO+OlXCCVUuovneadDpnCF/g==
+	t=1792776348;
+	b=owSLD/WOhs1UgsA+4Vlo4kM2RnADBF7oW70ODB7Is4f+Yl+IPj+tiTwigMoEVgLzz7E8
+	 4pJLQAJ1rFFIcZF30l84Fnl78gi+UgbYjOxYp6M3Pba3xW9KAgxqYKQNNwDAMOxpppIAy
+	 6Km0bGLpUg+8NX4EgUnyiV1wJF74ESirPSwYxRZiJcsH07JRNggbT5jIi7AOSddhjJ6QM
+	 ZtTxC/axwQVMIjnZj3O0H2iJVVs9sGq3PNa16UcKKXAlAlZrmalZUfuuh955AmzGyMIm8
+	 AQmCWxlWrw1LtkxOVkdxttMLz68UYpI58c2oGjHjZKGRFHjWy/nTvMBQ5NMm8kl2Qhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776348;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=RO+LOoJIbW5iZ7RHeBPtINL9e1shP4vPoVIK7G9kRv0=;
-	b=ln6e+cCbLEWzqHl/WrsNxo/KZmoNuRM16bh/gcfcHdv9cuspdTdWzOYp7sMqu+JiZC+n
-	 6VzA0HdMxiWOvkpdwPuvTXRIkt10AGpUroTOvtfOVmfjo0K1M+1olm5eztRkQmEB+x4g6
-	 +96KHCRQZjdxfDcMBA3VWugbWUl5oNfdgu0dxOxLiXsPBpd6Cn2ltv9nuvh52fE3W4fhS
-	 DmXpQO6GDECosP36gn8A2iNu6dGy3tFc/NVWQed3w8M3QFr4lp7I4kvCM6IgPPz0Cn6dk
-	 qBM6SVUML2qDbZd8ffn9ufdMye9OExAzwQyDPhKpZEeEmF0gnjH+jrKojaHbmbIM6Fg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+	b=capdSVU15plnZoi1PLvthmEbR3Sk4VTnd4JJnTaYtGM6tUruNhRYYgBfM5kAtpLqdXB7
+	 sFAQYb8+xjg+5+EnVg7zQRZYt4mbia1kbEkLnybgDYgBUuB18zLBDIpAtG1F4zDDd+Ht1
+	 0o3FbE+CXoo496lO+hKwXtXMOBbRpc1XpOq2AwdE6aPCF+IIneTA8k389hrBo2hQjB0Gv
+	 E6IDkajUHZNAv1RgibJXwuYtnAW7zK+eipYZzN9Y0UIeei6uNndVHLLzPwcRzmVKDCKFo
+	 gGTIYvLuM1SXAyDBbaD6/gkaVTUvs/mrabeWN3cgQomK6eG3l+JzueiPKMcxVAKGspQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b507oPp7;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=PJtP1iNX;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA33606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA33606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78179606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78179606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b507oPp7
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1931ff67a29so1281641c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:25:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=PJtP1iNX
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b10ac6ab7bso12008937b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:25:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792776311; x=1793381111; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RO+LOoJIbW5iZ7RHeBPtINL9e1shP4vPoVIK7G9kRv0=;
-        b=b507oPp7BjD12Cx61wLhHzE4HYiqaCahDTlK8lggOak4CZ0TZD15XVKQxMsZV1Y8tK
-         B/mVX2FQBUN4ayc9+zK/KqSN4RGXGg4EEPbiCZKRv3SirYQrEUcKnL6BmQ7kPfsRuizr
-         OicIQVBO9o+4b8aCohW9q8CIoEnh63igc/9IdTRpL8ocW/3zgXnUs3KMpadd9csMUyy2
-         ICYbY3uIzpjzF/FAI+jNOPCsR/j8k4HL8TanQWvVYtFUKQAyz2K22XZMnCp8msfpdbb4
-         HhINlgzy5op+nL7Jx3Lh1d1bl8QRq/41NYCehwzaqQSMRksOF+PTaWKms6pkIooiCkbq
-         S/TA==
+        d=cs.unc.edu; s=google; t=1792776346; x=1793381146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+        b=PJtP1iNXTHWLqdEgG9k1IKU8dM9tqr0By9u+R9RrwPEk7DHjZaWPDwbf752jvAMS8a
+         A+RpA9ryTA14MrkL7ba6an7yb6Q/gtb0bj5mWp26C742ApgphByX+aIPIGNEvrR4x8eL
+         1pQZcCbRch1ZrlmQnx17ucgSgXHcGfJmgbQ15U2Hv1fQ4juGh4XECw8EnmEeZQxLYAOa
+         VHcWGizzPOoGPQw7rpxdAtpP5+7sU4F6eaCeqbH5X8li+EobEFWE8aaCfztcFhoBLFeb
+         jMu/YJ0vn4982vtMhSm1Z1ZJV8A+NDxpMPfHjYoyoPaYcX+Q2OzCzJxdjYqrYXjTuwLC
+         qVCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792776311; x=1793381111;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RO+LOoJIbW5iZ7RHeBPtINL9e1shP4vPoVIK7G9kRv0=;
-        b=wQ87Zd49hgLTTSMG3fgEe04FI8+Ckj+yn+gYuV7HGOSMQohxw9IkBeVqe4ay5XJo/U
-         h1BQcG+SCcQHpblpkUCajCqjLVNBd9crPNJSdWcr6K55CWZUwao1wVo6gKCJHUyAVqu1
-         F01ad18CQXW2dZYlPep4IF9hEk6o8/Gt/QqVRuubjGJcM9miu/jipmn+OQLb6diXaYnU
-         fG5xjE3MsbG+YW5J4s7/mdOIqEMwpImQx4Kaq6lHsDNfqfCmxZrjewZopu3QVZaKNp0O
-         JAyoAsuxRdset/yt5wy7fiWLB8EfF0t8LI7XamRJ1kPp8NM9wiM//JPageDlqFL/zk57
-         LRtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzelXOUVPvwbSE5Si8VK2tx1Ik43b2PtM4f2YAGM/z6Aw9JuJoVj5AlAczH5WI6i+amkidKkhDi5Qajw9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKB/AH090dZTEc5Rld6+uUSTwt4+ZOzXg/F1L7r996XCit/LWt
-	lxhi1Y340XW0XGkxm5Yv5yGef4coDzEfrqr+a9c8snU4WmoGWOa/Zo3X
-X-Gm-Gg: AYBFou17zQwv9Z3e8kM6AxkJ8ysilNM0KgOhVECUqaR7Uunq9M8A08UtAJDdNSw1b52
-	2X7BrX4wxv/jrS2sKENXXS4xGGns90IVycxgJnwK7MnUWTkxOoT9TEOJWP3wTWSQADpUZ7F7dC8
-	nTFBXCyOqmIZv6IWBLWWw9DTHBLIDUxtzaN2Qxi5IM2W+6tiuwP+VHfQDem+J02HEFupher7+v9
-	zfqU7wjTD5r/vcgyDBRgh2ejj/auTPLYGUbpAaLD0DHqY3jrR+jO4QC3/fkN0MRI0fI7ud+FeEv
-	xuzDxcMewbsMJDAR7XJtwkPN0ZfU2EQmazXaYm7toEhHXXaAoIXwev4Do9elgKljAqeuLGmDcL7
-	xoZqNw5Ed5FXwl6b+P9QCXqopRoaxpkcyf54GIVhz5omN/wi905HsUF+2KMhycd/v9aXsIUiz4e
-	ruDLZe0mqaE/7qSzlYWfwrC8jL1XJkFvMO3G3PtmxXtBewWTjZ3Xf7K4F+Sd2hCNdYuo0Aaw+xr
-	dNhfvjlponokTU6lwBR4uFrEyH1xDSaHQhPGx+vC6hWoneva6veBsX0UZI7Xg==
-X-Received: by 2002:a05:7022:6606:b0:185:6b47:dcf with SMTP id a92af1059eb24-195a074d885mr4595312c88.36.1792776310587;
-        Fri, 23 Oct 2026 10:25:10 -0700 (PDT)
-Received: from user ([2405:201:c052:b00b:4145:da00:43b2:a151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e6dadb7dsm1039145eec.6.2026.10.23.10.25.04
+        d=1e100.net; s=20260707; t=1792776346; x=1793381146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+        b=Fkk2SRE4sx3BfZUmDxeHzDl7atNm1OoZtWcaMlR9VmRYtpcrlGMl0XUCA/3ylv2D1y
+         +iYtKE0x0VJugMS6m6cjmoD9lQcIgX0CWxvtghY6CF1RMkgvnUyrZC7ZroTaKOUymOxf
+         vIukxJuoTohI+TFLcqvUHuRX+xcaaxtJR6l3b9wqUdIUvndIeJjxpSsPhy1SyEe4eAoC
+         Pj5YsGGMyhjSyMvQvdUJ8ElDy26Dmbo6pP2XyXf/IFcnccKKeJhAJuE2KdSuwlh4debF
+         DPdF3yKHRUibnM9WZAi8zP3YilYz8NhpkNqSrz8lIK1mDMvGFgp/xCCV+KSAZ3xu+WXH
+         W4rg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSKbKWiznANYbLixg60N/iH7p7pyfO5LCYO8Ik0IN/hLe2RYdbvi1JLZJMjkRv8zDNs+nwx2KtuVqtrSE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU9uEZBK63HMMCyVyJekF1jO95kAlqkHuZKbVfNI97uCWC4Hr0
+	SFb/PMfuS9bbh1ximPHvmPA1TZ2c/jgwQz6RJLvvQtUDW+uCwujIV9gfLB8ohzq27Jk49aXjHIg
+	sKYvxig==
+X-Gm-Gg: AYBFou0/IKwEa0GrJP8n+Sawg9SgrRX2zslrs+0igTey/Di4SqPuikRxnO2sUcpzmGu
+	RFAojvbPQ6XMHVTXiHulEk3Nt+HzKImsA80UYeExVF304aDxaolVGR+DLeT/LnIH9gXuTmYHTu4
+	szW6U7QXzRogqa5k60ZwVay2v5J2krWODjqQBUIBPqWVxJhK2k7vjFQd/icCrwyB/1EA4sXHrsG
+	g4JzysRAZBY63DYdtI2xEGcdgqBWEUfVFo3LGCK0ksfFmonpW9rGVrjaQLk5vjF88ckFII38nKT
+	JeSlHSAn3SITs+LaPAUc/D3fl0MLzxswhIQOtJqPuT1fd1MuCA7WC/iPP3VxQDJc0nCLzsIQUlN
+	6wMHqQLzAk/yfl/c5JwkzdoP0kIXMLbk4lIlM3xnhIa8/x5Jl+5UwQfWm3vehsWEJYywo+QA8Dv
+	oruBjpkAiuH1B5K/sdejYRHbt/iEGa5jueapPyAIrqBQucrIyF7KlKhrhq10LNutLE4MFeRX6bI
+	cqAhQp+HaZiYE5vwtMjb+8n/tDQ8BxDR1AD5uJdKGQrLObhPIM0bXOlQBqjr7JCtWujyJb6dI69
+	CQ==
+X-Received: by 2002:a05:690c:13:b0:8b0:e8bc:5663 with SMTP id 00721157ae682-8b157e8afb0mr18899107b3.60.1792776344880;
+        Fri, 23 Oct 2026 10:25:44 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b163d69b33sm2715067b3.23.2026.10.23.10.25.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:25:09 -0700 (PDT)
-Date: Fri, 23 Oct 2026 22:54:42 +0530
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: Alex Elder <elder@ieee.org>, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev, outreachy@lists.linux.dev,
-	johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
-	vaibhav.sr@gmail.com, mgreer@animalcreek.com, vireshk@kernel.org,
-	rmfrfs@gmail.com, dtwlin@gmail.com, pure.logic@nexus-software.ie,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: Replace format specifiers
-Message-ID: <atuYWuWeqvEG6j4B@user>
-References: <20261021163437.280930-1-pavankumaryalagada@gmail.com>
- <3433f922-bffb-4f1c-8e06-a7a87f5dbcaf@ieee.org>
- <77adf02-43a9-7621-a94-9da41f8c5a56@inria.fr>
+        Fri, 23 Oct 2026 10:25:44 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Fri, 23 Oct 2026 13:25:32 -0400
+Message-ID: <20261023172532.3271348-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,129 +105,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <77adf02-43a9-7621-a94-9da41f8c5a56@inria.fr>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 09:30:26AM -0400, Julia Lawall wrote:
-> 
-> 
-> On Thu, 22 Oct 2026, Alex Elder wrote:
-> 
-> > On 10/21/26 11:34 AM, pavankumaryalagada@gmail.com wrote:
-> > > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > >
-> > > Unsigned variables are printed using %d.
-> > > Replace them with %u to match their types.
-> > >
-> > > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> >
-> > I have reviewed every one of these and they look good.  Quite a few
-> > of them--because the size of the value being formatted is less than
-> > 32 bits--would print correctly no matter what their value.  But I
-> > think it at least does no harm to convert the format specifier to
-> > unsigned in all of these cases.
-> 
-> I was suprised the compiler doesn't complain about this.  It seems to
-> complain a lot about type-related format specifiers.  Yalagada maybe it
-> could be worth adding something clearly invalid in one of the argument
-> lists to see if the code is actually getting compiled, or if you need to
-> set some config option to make that happen.
+Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+made generic_perform_write() call ->write_begin() and ->write_end()
+before it finds out that the source buffer cannot be read.  In that
+case ->write_end() is called with copied == 0.
 
-The files compiled sucessfully with the normal build settings. I also
-enabled -Wformat-signedness to check for format mismatchse, as this check
-is not enabled by default. It revealed a few more issues, which i'll look
-into as well.
+However, ext4_write_end(), ext4_journalled_write_end() and
+ext4_da_do_write_end() set i_size to pos + copied without checking
+copied.  As of now, a buffered write() past EOF that fails with EFAULT
+grows the file to the write offset, and the new size can reach the
+disk.
 
-Pavan
+The issue can be reproduced on an ext4 mount with:
 
-> 
-> julia
-> 
-> >
-> > I have highlighted below an existing bug that should be fixed.  It
-> > gives an example of something to look for when you do this sort of
-> > activity.  Please arrange to get that bug fixed.
-> >
-> > I also pointed out one other observation for you to think about.
-> >
-> > Thanks for sending this.  I didn't check to find any other instances
-> > you might have missed, but you seem to have found quite a few.
-> >
-> > Reviewed-by: Alex Elder <elder@riscstar.com>
-> >
-> > > ---
-> > >   drivers/staging/greybus/audio_codec.c    | 20 ++++++++--------
-> > >   drivers/staging/greybus/audio_topology.c | 30 ++++++++++++------------
-> > >   drivers/staging/greybus/bootrom.c        |  2 +-
-> > >   drivers/staging/greybus/fw-download.c    |  2 +-
-> > >   drivers/staging/greybus/fw-management.c  |  2 +-
-> > >   drivers/staging/greybus/gpio.c           |  2 +-
-> > >   drivers/staging/greybus/light.c          |  2 +-
-> > >   drivers/staging/greybus/log.c            |  4 ++--
-> > >   drivers/staging/greybus/loopback.c       |  4 ++--
-> > >   drivers/staging/greybus/power_supply.c   |  2 +-
-> > >   drivers/staging/greybus/raw.c            |  2 +-
-> > >   drivers/staging/greybus/sdio.c           |  4 ++--
-> > >   drivers/staging/greybus/spilib.c         |  2 +-
-> > >   drivers/staging/greybus/uart.c           |  4 ++--
-> > >   14 files changed, 41 insertions(+), 41 deletions(-)
-> > >
-> >
-> > . . .
-> >
-> > > diff --git a/drivers/staging/greybus/bootrom.c
-> > > b/drivers/staging/greybus/bootrom.c
-> > > index 83921d90c322..fb1fbd3f7b99 100644
-> > > --- a/drivers/staging/greybus/bootrom.c
-> > > +++ b/drivers/staging/greybus/bootrom.c
-> > > @@ -222,7 +222,7 @@ static int gb_bootrom_firmware_size_request(struct
-> > > gb_operation *op)
-> > >   	size_response = op->response->payload;
-> > >   	size_response->size = cpu_to_le32(bootrom->fw->size);
-> > >   -	dev_dbg(dev, "%s: firmware size %d bytes\n",
-> > > +	dev_dbg(dev, "%s: firmware size %u bytes\n",
-> > >   		__func__, size_response->size);
-> >
-> > This line actually contains an error (and it was there before).
-> >
-> > The type of gb_bootrom_firmware_size_response->size is __le32.
-> > So the value being formatted needs to be converted into CPU
-> > byte order before being used.  That could be done this way:
-> > 	le32_to_cpu(size_response->size)
-> > or just use this, which is known from a few lines above to
-> > have the proper value and byte order:
-> > 	bootrom->fw->size
-> >
-> > Please add this to your list of things to fix, and submit it
-> > as a separate patch.  This would be a bug fix, which would
-> > also give you a little bit of a new experience.
-> >
-> > >     unlock:
-> >
-> > . . .
-> >
-> > > diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
-> > > index 4f1b3f4db404..2314496a858a 100644
-> > > --- a/drivers/staging/greybus/raw.c
-> > > +++ b/drivers/staging/greybus/raw.c
-> > > @@ -112,7 +112,7 @@ static int gb_raw_request_handler(struct gb_operation
-> > > *op)
-> > >   	receive = op->request->payload;
-> > >   	len = le32_to_cpu(receive->len);
-> > >   	if (len != (int)(op->request->payload_size - sizeof(__le32))) {
-> > > -		dev_err(dev, "raw receive request wrong size %d vs %d\n", len,
-> > > +		dev_err(dev, "raw receive request wrong size %u vs %d\n", len,
-> > >   			(int)(op->request->payload_size - sizeof(__le32)));
-> >
-> > The above size calculation was done somewhere else without the
-> > (int) cast, and the format specifier was %zu in that case.
-> > I don't think this needs to be changed necessarily, but it's
-> > something inconsistent across the Greybus code.  Consistency
-> > helps readability and maintainability.
-> >  >   		return -EINVAL;
-> > >   	}
-> >
-> > . . .
-> >
-> >
+    char *p = mmap(NULL, 4096, PROT_NONE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+    fstat(fd, &st);
+
+Before that commit, the result is st_size = 0.
+After it, the result is st_size = 1048576.
+
+This patch will leave i_size alone when nothing was copied, as
+ext4_write_inline_data_end() already does.  The delalloc path does not
+trim after a failed write, so when such a write reaches past i_size,
+it also drops the folio and the delayed blocks that ->write_begin()
+set up there.  Otherwise that folio stays dirty past EOF and writeback
+never cleans it.
+
+Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Changes in v2:
+- Rebase onto the ext4 dev branch.
+- Also trim when a failed write starts before EOF and ends past it
+  (pos + len > old_size), as suggested by Zhang Yi.
+- Keep the Fixes tag and the new helper, as discussed on v1.
+- v1: https://lore.kernel.org/r/20261009044656.1993196-1-hengyul@cs.unc.edu
+
+Tested in KVM with KASAN: the reproducer above and failed writes around
+EOF on delalloc, nodelalloc, bigalloc and 1k block filesystems.
+e2fsck -fn reports no errors.
+
+ fs/ext4/inode.c | 42 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 6ede3644a738..e96321ce17d2 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+ 	 * it's important to update i_size while still holding folio lock:
+ 	 * page writeout could otherwise come in and zero beyond i_size.
+ 	 *
++	 * If nothing was copied (e.g. the source buffer was unreadable), do
++	 * not move i_size up to pos.
++	 *
+ 	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+ 	 * blocks are being written past EOF, so skip the i_size update.
+ 	 */
+-	if (!verity)
++	if (copied && !verity)
+ 		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	/*
+@@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+ 		if (!partial)
+ 			folio_mark_uptodate(folio);
+ 	}
+-	if (!verity)
++	if (copied && !verity)
+ 		size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	if (size_changed) {
+@@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+ 	return 1;
+ }
+ 
++/*
++ * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
++ * reserved delayed blocks, so drop the page cache and the delayed extents
++ * beyond i_size and leave the blocks that are allocated there alone.
++ */
++static void ext4_da_truncate_failed_write(struct inode *inode)
++{
++	struct address_space *mapping = inode->i_mapping;
++	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
++
++	filemap_invalidate_lock(mapping);
++	truncate_inode_pages(mapping, inode->i_size);
++	down_write(&EXT4_I(inode)->i_data_sem);
++	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
++	up_write(&EXT4_I(inode)->i_data_sem);
++	filemap_invalidate_unlock(mapping);
++}
++
+ static int ext4_da_do_write_end(struct address_space *mapping,
+ 			loff_t pos, unsigned len, unsigned copied,
+ 			struct folio *folio)
+@@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	 * checked, we need to update i_disksize here as certain
+ 	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+ 	 */
+-	if (new_i_size > inode->i_size) {
++	if (copied && new_i_size > inode->i_size) {
+ 		unsigned long end;
+ 
+ 		i_size_write(inode, new_i_size);
+ 		end = offset_in_folio(folio, new_i_size - 1);
+-		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
++		if (ext4_da_should_update_i_disksize(folio, end)) {
+ 			ext4_update_i_disksize(inode, new_i_size);
+ 			disksize_changed = true;
+ 		}
+@@ -3400,9 +3421,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (pos > old_size)
++	if (copied && pos > old_size)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
++	/*
++	 * A write reaching past i_size that copied nothing leaves i_size
++	 * alone, so trim what ->write_begin() set up beyond it.
++	 */
++	if (!copied && pos + len > old_size)
++		ext4_da_truncate_failed_write(inode);
++
+ 	if (!disksize_changed)
+ 		return copied;
+ 
+
+base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+-- 
+2.53.0
+
