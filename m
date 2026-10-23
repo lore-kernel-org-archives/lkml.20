@@ -1,70 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741455;
-	b=FZm+50GKq2Snzk3EKKvj6hWl2FL4XyralciMaqGP4yVMSPbLc94KdXTxYskAih+L4PxD
-	 WDDkCYD7r2u0Xk6SVIAb558Nz0nTBwZMv8B0F+sxEXZItfKcFLO8NjkYqyvJx4gSP7k3l
-	 6RofpFqBQRTN95SZdeGvmqJU0sKe7JgiMnwxsje3XqFlVEn1K5IBhnQf7P7TCwh1X1rZw
-	 sfhxvnvSn2127b+IDOwOYjA15vDHAH7iHtkOOJeGfiVN8c0CZ9nGVb69T+UJYUpbPJLvp
-	 VVA9pyYNvs0+abtFFnrRhalxQiOTvkGVZAA/ASLBZx3+9oB7mWAnqjAA77R8Eid/Lyg==
+	t=1792741537;
+	b=Atszi5wGUWlu21U8oimDW96p3BvTCy+odAqJBaO1Wgs7vcDm1YM3GlX6Cf5L8pidjBBY
+	 3ogGQLkz3je5Dnfic5sUOGDg/itY7xrKpuO+05M26Rs9uCt5yQYzo4vCN1sxiq3AoxfO5
+	 po/GOsW8tMx2ecNSeIDJ3czTIvBPLPe7jQ8OkKGyW0OWgz2bUArJWKKqLGB7mwNKviPuA
+	 hzuELw5oef2iPKZEo3x4rZqFPqLVBqiq1kV+DDJyOwbGWtdZGOMO4fZplk5/Ax1N6dGBu
+	 wZhpOeuU4r28Z3J2hpPt3nx/YMGbEZkJDXj4mjZy7Hz4lTGq55Y4rNvVLwdxseRaEbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741455;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=wy/cnaPswmms/QpZfcVOeHijhXMXPHn20ADaK91xPcA=;
-	b=dTsoxeNIRIxZI1vaI3Lp6J5Wu0xUaKAOvp7jDDOt+XF8ElN/o/XvgD7DCZagn8ZyRF1r
-	 NthybCoaYGGKUJViF/YxRto8cyGYJDBsqCY+1RfwQ7FYFQ5ZJLsKRAe/xxOrsIkzSEwl7
-	 XyP7GyoZMAPhgPNA+coXjyMnQq1oJJcniXP3OW9yCEZC66/eAxx/1dB++6iP4jR0jUexH
-	 YuCg7CIP5+FU4Aam3pZUmDkSwJv4u109N6iM1Vz7Y+a2SimmVzbn5DX6bK3pD6XnBvjDq
-	 UOwo8tx5UeiBShwdpNFTsGciMwsfvgkLC20G6PqBOkG0VEmA5bryqmS1+qUOCa+OClw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741537;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=E7+eeDnrpYAQAno1bPo/PnYZK3Z5dkIdEaeua04xbzY=;
+	b=Cpn9fBGcaeBtnjqbOxNdFl1wBm5x2zpL2VYjpF4cB0SLDp1mliRz7nqCp7Zvgt0JHnrn
+	 Ss1O3Eaxm1YA0A6amZJOQeYavOPu+/75UiC3kxnN+LuK1hWZy108Im9PjrGpX9Nc5/5C5
+	 jdNbb7OotRqSfewOlyd8kN2LCn1HKcvBFqEw0KBqdfNkyoA6nWuoyQbqyPZkjietXriQ5
+	 qw4U3iVmjzFyoW89SE1G2gXfgkgsqebCM+HOJp1GwLDNt6+Q+Z0oHw3H5eqn0NDTyGdF/
+	 /b8QBS9nx3q1uy4AYKwSqpcC/Blarta798myUzP74WK1V/BB8gOFj3lAmMjo2ZeRo6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EaM7GVz8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Mkwjy1cZ;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E82E606A31A;
-	Fri, 23 Oct 2026 07:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24C4606A31B;
+	Fri, 23 Oct 2026 07:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24C4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EaM7GVz8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9170D1F01825;
-	Fri, 23 Oct 2026 07:44:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792741455;
-	bh=wy/cnaPswmms/QpZfcVOeHijhXMXPHn20ADaK91xPcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EaM7GVz8N1F1WL1rJOnrhPXJUtKGkqsv14MRU42ie3CqopgX3LNFxUDnl1OPNUi/e
-	 2iQPCPAmrugokeUqdjjGnxoE/8npZif6jkFURSIYhrlahltUYFVTdLrUtWmi4bJDt4
-	 uJpg0nOqXHeMjeyusKILIH3Cl4Mf3vGvpiVoTnLCyKCJvnhkOfk8IhqWDgFcrVZDsw
-	 RQJc+E3xcDPh7iuKo7qjMm+aQPiRzX97cIhkWDsUcyao4CJSpPFEH+7iNFyZcmmnZH
-	 r3znD2zes+BCcnM/Q+slSfn7Uk5g9JQYqOi58zhfrrPLbNKPn/9s/EmGcuM+9Ol3+7
-	 YAzLqgDZtmCpA==
-Date: Fri, 23 Oct 2026 10:44:01 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: tarunsahu@google.com
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org,
-	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
-	David Matlack <dmatlack@google.com>, jgg@nvidia.com,
-	robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org,
-	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org,
-	pbonzini@redhat.com, seanjc@google.com, will@kernel.org,
-	Alexander Graf <graf@amazon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/4] liveupdate: Rename handler compatible to name
-Message-ID: <atsQQcUiVhb9KXWZ@kernel.org>
-References: <20261021152527.375070-1-tarunsahu@google.com>
- <20261021152527.375070-2-tarunsahu@google.com>
- <CA+CK2bC_wc4LxvHe0TREbBP7esYW3pcMNtkGK-kqvf6MyvOh2g@mail.gmail.com>
- <9huzik2u6hs5.fsf@tarunix.c.googlers.com>
- <CA+CK2bDyk=F7W3J=q3pKCjsr2wy_PLdgqgu+ywp0F5HL=VoMpA@mail.gmail.com>
- <9huzld7q4zjz.fsf@tarunix.c.googlers.com>
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Mkwjy1cZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=E7+eeDnrpYAQAno1bPo/PnYZK3Z5dkIdEaeua04xbzY=; b=Mkwjy1cZgMYAVvHdtAIEhWhNS4
+	LKB20OcUx0TN6vP/iqwqoM3vZzwUGK9wOl5kL13vMmjERfoliT5Oe/D0RVB0dQ/+Cl8TuY18TM4o0
+	kwfqEP4vcpAfEc62Cn4GOqxxel5o0h+YofePQaMteWuCsRMD/ANc2ybJHiquIgbLM/G427wdCgeQx
+	7lt/AqDsHGaHvcBPsvz2B3ylPx08Y6Iwn/N9aP6nsuiUXjLqojkr6MxR2b4TBqjy0PQODyqh6fynZ
+	UtCkjpZZQvOMmBPZLROy1Bt1ASyDAv2Kcv2Atng/L6S3AL4T+F1aMCec8h18cUbfChKbbUR8nQntu
+	NmQbBIwQ==;
+Received: from [151.115.150.205] (port=34728 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xK9xx-0000000HG6h-2CD4;
+	Fri, 23 Oct 2026 09:45:28 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net] inet: frags: prevent acceptance of partially authenticated reassembly
+Date: Fri, 23 Oct 2026 07:45:16 +0000
+Message-ID: <20261023074515.2347924-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,165 +79,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9huzld7q4zjz.fsf@tarunix.c.googlers.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Oct 21, 2026 at 07:35:28PM +0000, tarunsahu@google.com wrote:
-> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
-> > On Wed, Oct 21, 2026 at 2:16 PM <tarunsahu@google.com> wrote:
-> >> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
-> >>
-> >> > On Wed, Oct 21, 2026 at 11:25 AM Tarun Sahu <tarunsahu@google.com> wrote:
-> >> >>
-> >> >> File handler and File-Lifecycle-Bound (FLB) identifiers name the
-> >> >
-> >> > Please use FLB directly, no need to spell it out.
-> >> >
-> >> >> registered handler or FLB rather than a monolithic compatibility version.
-> >> >> Rename compatible to name across LUO headers, structures, and consumers:
-> >> >> - struct liveupdate_file_handler and struct luo_file_ser name field
-> >> >> - LIVEUPDATE_HNDL_NAME_LENGTH (in include/uapi/linux/liveupdate.h) and
-> >> >>   MEMFD_LUO_FH_NAME
-> >> >> - struct liveupdate_flb name field, LIVEUPDATE_FLB_NAME_LENGTH,
-> >> >>   PCI_LUO_FLB_NAME, and LIVEUPDATE_TEST_FLB_NAME
-> >> >>
-> >> >> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> >> >> ---
-> >> >>  drivers/pci/liveupdate.c        | 10 ++++----
-> >> >>  include/linux/kho/abi/luo.h     | 26 +++++++++----------
-> >> >>  include/linux/kho/abi/memfd.h   |  4 +--
-> >> >>  include/linux/kho/abi/pci.h     |  2 +-
-> >> >>  include/linux/liveupdate.h      | 18 +++++--------
-> >> >>  include/uapi/linux/liveupdate.h |  3 +++
-> >> >>  kernel/liveupdate/luo_file.c    | 45 +++++++++++++++++----------------
-> >> >>  kernel/liveupdate/luo_flb.c     | 16 ++++++------
-> >> >>  lib/tests/liveupdate.c          | 22 ++++++++--------
-> >> >>  mm/memfd_luo.c                  |  2 +-
-> >> >>  10 files changed, 73 insertions(+), 75 deletions(-)
-> >> >>
-> >> >> diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
-> >> >> index 51695782ed42..3cf01d7d615c 100644
-> >> >> --- a/drivers/pci/liveupdate.c
-> >> >> +++ b/drivers/pci/liveupdate.c
-> >> >> @@ -424,7 +424,7 @@ static struct liveupdate_flb_ops pci_liveupdate_flb_ops = {
-> >> >>
-> >> >>  static struct liveupdate_flb pci_liveupdate_flb = {
-> >> >>         .ops = &pci_liveupdate_flb_ops,
-> >> >> -       .compatible = PCI_LUO_FLB_COMPATIBLE,
-> >> >> +       .name = PCI_LUO_FLB_NAME,
-> >> >>  };
-> >> >>
-> >> >>  static void pci_liveupdate_flb_put_outgoing(void)
-> >> >> @@ -667,13 +667,13 @@ static struct pci_flb_incoming *pci_liveupdate_flb_get_incoming(void)
-> >> >>
-> >> >>         /*
-> >> >>          * Live Update is enabled and there is incoming FLB data, but none of it
-> >> >> -        * matches pci_liveupdate_flb.compatible.
-> >> >> +        * matches pci_liveupdate_flb.name.
-> >> >>          */
-> >> >>         if (ret == -ENOENT)
-> >> >>                 return NULL;
-> >> >>
-> >> >>         /*
-> >> >> -        * There is incoming FLB data that matches pci_liveupdate_flb.compatible
-> >> >> +        * There is incoming FLB data that matches pci_liveupdate_flb.name
-> >> >>          * but retrieve failed (pci_flb_retrieve() returned an error or LUO
-> >> >>          * failed to acquire a reference to pci_liveupdate_flb_ops.owner).
-> >> >>          */
-> >> >> @@ -998,7 +998,7 @@ EXPORT_SYMBOL_GPL(pci_liveupdate_is_incoming);
-> >> >>   */
-> >> >>  int pci_liveupdate_register_flb(struct liveupdate_file_handler *fh)
-> >> >>  {
-> >> >> -       pr_debug("Registering file handler \"%s\"\n", fh->compatible);
-> >> >> +       pr_debug("Registering file handler \"%s\"\n", fh->name);
-> >> >>         return liveupdate_register_flb(fh, &pci_liveupdate_flb);
-> >> >>  }
-> >> >>  EXPORT_SYMBOL_GPL(pci_liveupdate_register_flb);
-> >> >> @@ -1009,7 +1009,7 @@ EXPORT_SYMBOL_GPL(pci_liveupdate_register_flb);
-> >> >>   */
-> >> >>  void pci_liveupdate_unregister_flb(struct liveupdate_file_handler *fh)
-> >> >>  {
-> >> >> -       pr_debug("Unregistering file handler \"%s\"\n", fh->compatible);
-> >> >> +       pr_debug("Unregistering file handler \"%s\"\n", fh->name);
-> >> >>         liveupdate_unregister_flb(fh, &pci_liveupdate_flb);
-> >> >>  }
-> >> >>  EXPORT_SYMBOL_GPL(pci_liveupdate_unregister_flb);
-> >> >> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
-> >> >> index 288076de6d4a..5fb2f46425d7 100644
-> >> >> --- a/include/linux/kho/abi/luo.h
-> >> >> +++ b/include/linux/kho/abi/luo.h
-> >> >> @@ -39,9 +39,9 @@
-> >> >>   *     Multiple blocks are linked via the `next` field in the header.
-> >> >>   *
-> >> >>   *   - struct luo_file_ser:
-> >> >> - *     Metadata for a single preserved file. Contains the `compatible` string to
-> >> >> - *     find the correct handler in the new kernel, a user-provided `token` for
-> >> >> - *     identification, and an opaque `data` handle for the handler to use.
-> >> >> + *     Metadata for a single preserved file. Contains the handler `name` string
-> >> >> + *     to find the correct handler in the new kernel, a user-provided `token`
-> >> >> + *     for identification, and an opaque `data` handle for the handler to use.
-> >> >>   *
-> >> >>   *   - struct luo_flb_header_ser:
-> >> >>   *     Header for the FLB array. Contains the total page count of the
-> >> >> @@ -49,9 +49,9 @@
-> >> >>   *     that follow.
-> >> >>   *
-> >> >>   *   - struct luo_flb_ser:
-> >> >> - *     Metadata for a single preserved global object. Contains its `name`
-> >> >> - *     (compatible string), an opaque `data` handle, and the `count`
-> >> >> - *     number of files depending on it.
-> >> >> + *     Metadata for a single preserved global object. Contains its FLB `name`
-> >> >> + *     string, an opaque `data` handle, and the `count` number of files
-> >> >> + *     depending on it.
-> >> >>   */
-> >> >>
-> >> >>  #ifndef _LINUX_KHO_ABI_LUO_H
-> >> >> @@ -84,18 +84,16 @@ struct luo_ser {
-> >> >>         u64 flbs_pa;
-> >> >>  } __packed;
-> >> >>
-> >> >> -#define LIVEUPDATE_HNDL_COMPAT_LENGTH  48
-> >> >> -
-> >> >>  /**
-> >> >>   * struct luo_file_ser - Represents the serialized preserves files.
-> >> >> - * @compatible:  File handler compatible string.
-> >> >> + * @name:        File handler name string.
-> >> >
-> >> > We are renaming from cpmaptible to name; I am not sure that is
-> >> > necessary. We can still use compatible for the same purpose as name.
-> >> > Unless it really bothers people, but for me 'compatible' works just
-> >> > the same.
-> >>
-> >> Yes it is necessary, For example if we have two handler for a single
-> >> subsystem. We should refer it by handle this or handler that, not like
-> >> handler with compatible string this and handler with compatible string
-> >> that.
-> >
-> > I still feel like compatability makes more sense to me. Take an example:
-> >
-> > We have two file handlers for memfd (i.e., FH_OLD and FH_NEW): one has
-> > compatibility = "memfd", and the other has compatibility =
-> > "memfd_next_generation". The user chooses one of them to preserve the
-> > memfd data, and the compatibility string is saved alongside the FD.
-> > When the next kernel scans through the registered file handlers, it
-> > must find exactly one that is compatible with the preserved data.
-> 
-> I will open this for vote.
+A reassembled skb retains the secpath from its first fragment, which
+makes it possible for the final policy check to accept bytes that were
+not covered by the transform recorded on the skb. This can affect IPsec
+tunnel traffic, including AH and ESP, and allow a packet to be accepted
+even though only part of its payload was authenticated.
 
-I'd rather won't ;-)
+Reject a fragment when its secpath differs from the fragments already
+in the queue, and keep overlap statistics limited to actual overlaps.
 
-"compatible" does not contradict more fine grained bitfields, and still has meaning.
-Just like in FDT world from where we inherited it, it means "these ops are
-somewhat compatible with that serialized format, will check the details and
-will know for sure".
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ include/net/inet_frag.h  |  1 +
+ include/net/xfrm.h       | 17 +++++++++++++++++
+ net/ipv4/inet_fragment.c |  5 +++++
+ net/ipv4/ip_fragment.c   |  3 ++-
+ net/ipv6/reassembly.c    |  3 ++-
+ 5 files changed, 27 insertions(+), 2 deletions(-)
 
-And IMO we should keep it.
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index 365925c9d2628..b02d2472b003e 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -171,6 +171,7 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_OK	0
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
++#define IPFRAG_MIXED_SECPATH	3
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+index a6d69aaa6cd2d..493faac0faa45 100644
+--- a/include/net/xfrm.h
++++ b/include/net/xfrm.h
+@@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
+ #endif
+ }
  
-And please, trim your responses. I had to scroll 463 lines to see there's
-nothing there.
-
++static inline bool
++secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
++{
++	const struct sec_path *sp1 = skb_sec_path(skb1);
++	const struct sec_path *sp2 = skb_sec_path(skb2);
++	int i;
++
++	if (!sp1 || !sp2)
++		return sp1 == sp2;
++	if (sp1->len != sp2->len || sp1->verified_cnt != sp2->verified_cnt)
++		return false;
++	for (i = 0; i < sp1->len; i++)
++		if (sp1->xvec[i] != sp2->xvec[i])
++			return false;
++	return true;
++}
++
+ static inline int
+ xfrm_addr_any(const xfrm_address_t *addr, unsigned short family)
+ {
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index b286ee429da8f..c18da91c1f031 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -23,6 +23,7 @@
+ #include <net/inet_ecn.h>
+ #include <net/ip.h>
+ #include <net/ipv6.h>
++#include <net/xfrm.h>
+ 
+ /* Use skb->cb to track consecutive/adjacent fragments coming at
+  * the end of the queue. Nodes in the rb-tree queue will
+@@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ {
+ 	struct sk_buff *last = q->fragments_tail;
+ 
++	/* The reassembled skb keeps the first fragment's secpath. */
++	if (last && !secpath_equal(last, skb))
++		return IPFRAG_MIXED_SECPATH;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index c790d2f494870..36105dd192823 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -378,8 +378,9 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
+ 		err = -EINVAL;
+ 		goto err;
+ 	}
++	if (err == IPFRAG_OVERLAP)
++		__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_qp:
+ 	inet_frag_kill(&qp->q, refs);
+ 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index 05c51f669754a..53a685f5c6b7f 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -240,8 +240,9 @@ static int ip6_frag_queue(struct net *net,
+ 		err = -EINVAL;
+ 		goto err;
+ 	}
++	if (err == IPFRAG_OVERLAP)
++		__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_fq:
+ 	inet_frag_kill(&fq->q, refs);
+ 	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASMFAILS);
 -- 
-Sincerely yours,
-Mike.
+2.47.3
+
