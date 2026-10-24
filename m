@@ -1,171 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.10
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792844505;
-	b=LjO/6UbuEyDjAgdZfDdmhqI4SXGO+oy12nReC8UMRb/Y6nWwW6PwkcBmBvVi+9TQ2A4n
-	 kOTBdcHdJQolwziIpFgmw+lEP94pjdkHarqrEexgJ+9i5z3wjpEEQisSD6QeZseXG9v12
-	 Dgmo7TOmFsyPMqnQ32YS17LT7tyQdtU7iW130CbHhm/ykDvyz75RjM+lTnkrHRLGFl7la
-	 MbIS0bvr3+8G2mDe4XjII139JkBXgnOEJ8lUZqcXgsKrCO/uJt/par6Y+ZRT/h6w4pVSq
-	 2NYlo8a9bMl8gh0QKpl3kM2bM0pw80gOcbWS6u8qxO/5F/OzXeRQuiRaJMVaeUykebg==
+	t=1792844755;
+	b=vM2XZHUE69qyaMLR/z6aKeVI5mMVCyFjRPNjRY7Rl9f0eOyxG1Nc/simCvOijZLklSSQ
+	 zZPbF3KEG9iUURGLOgcIF+no+rwvFyFb6y70i8RIX64tLlauRl3XTSW1Dogg1xQK0Q+vi
+	 6g76NM8IWBRZVPPDyPM9pMyC7af4hIm59Yx8XWws6tMQFGxqb0ZXwuogL7yqgbfoiJiW3
+	 P+exjIRf/dmME97UqDYzfXO7KYzQobqj2/SWQC6kP/BRNErfeUJ4Gl09cAwCOrNeZK7wa
+	 uotgl5PAEagpf7x/U3/btkZhKlG5mPAV+inSgG2xIHST3UpHZspSBYi7CgMdHsrBroQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844505;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844755;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OwDPfwbuPswJhCNRDJlO9rvOVCSCy+LBNbyYHF2t2TU=;
-	b=optgNPbvALngt751S/p+OTP+A1oQwBZi62MRLalWRQCJ2rroVmGD5BcMy1SPm41oX2a2
-	 mGlXDCNtYBP5XLTZnnMg04EZjyIZPhHMwc4BhGTs+b4i7wj3kS7sFz3aTatw28Pem/vfw
-	 SZrvs52Ciaxz9WDHyIMcZ7ldHkA6vJN/MEx/7TQR8gCpbuzOJ3Xavfav4Zwg/nCdba1vo
-	 xM+ZsF/YhH/YKytHn5+8RFNovzOBr5QJh8Kbw6fysK79J2bVD2gAzjuqY15cQabjx4s2M
-	 /Kt863AuymF4Q3i3wFGVMJna+T04bFN2XVUaYCxl1qCIbaYESIwlaPTl++5Nwu6Ku4w==
+	bh=bKszCIBeoOpE0GX0h5+5wHlpbP8hNFZX+77PX+wbTEg=;
+	b=I80rc2sI8oQuwO6dpy+m8xKnZ2H+DbiI2+r+FVzfvbXh3/7M0GkgpuTeNMHFWaLmEOBU
+	 GgOmqM1wrjdvPc8pLDC1Tc953uShSYHzoaONFesaaYhwQc8NFAaSSYPEwdDtDFXU5393y
+	 +u4WwaGsCeRwvAjwEPUnZgQy464foop4+KB/9oiDZapBynERhUy0N5IUqqMxPr4HfH+TS
+	 y0O3OkgIQAxhQqwe4YQI3aboU6qEyZBzlnLUBv8cdQLj0ghRrdtQrJIIUh0P0kX5ehTf5
+	 +kE0Qc0YWQqvlK9dU+m+6xx8pfdxK1sboiRLAbpxACbr11Cz9c3KbrIPyFA0gVt5IBA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=sC7zG9B4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.10
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012010.outbound.protection.outlook.com [52.103.23.10])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=IzZLxW2m;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.10
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010010.outbound.protection.outlook.com [52.101.69.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F0C606A320;
-	Sat, 24 Oct 2026 12:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F0C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E3F606A31B;
+	Sat, 24 Oct 2026 12:25:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3E3F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=sC7zG9B4
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=IzZLxW2m
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TgamToQuEyBhhYOakWrYySnt/Kz+UlEzROwYmj3q1j+gAgwAgGv4F247W9wdDwwN3i2GIpbjTk7B6dOyNV4jBICt1wOz/ymSAt3JQ7NhMJge2eehWX65guHsrS96Gq/UURp7kuNK4JApsUbQJkPo2kCkmc4hT3kDYrCoaPR6uKaAMdbBHFmDQvfeIfjCNFEhcmwCHT159cx4S+qcO0mH1/MEl4Xe6PNvqWmjFc+C207WYFDjbpOy4Wrr3elrdhKC6Kzp9PwSuJ/snj8yIhclnQ296K0J123RybVXtysGlJJlFyUoU3I4NclYidiLH1eQ+AJryvgXTHcMVUiVgJDkmQ==
+ b=MyCueLw6NBNNEksyTHUKf8JF4bJY6an9O+LAWld79HLsVwth0f+RUjy3k0ROcpoPuQ6qN/OLtP3cQBj6xItRM0ZCWDQRIPBcZO2m8JUpk4WnCdcBpu2sWaKV/4eOVoICD/YkAdAo+v3r91lx8idalxfyKtFmBOi6goCnoacjSq3yuRtAybkbAvk6bs1GCCDYcIDJ0OEtSnbD+ximEpdgnze0debUa7sLW/5Z0jXGj0ymGCAe3gRV1W8lXXLUGPX9M0Lw3dbxHyPD/W0rV813ALLq1Yce0PIDzCjy39PPTMH5wVQbbdJhFOjVv5KUZ9mb7irTkfKq4MSyT9seo+Ol8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=OwDPfwbuPswJhCNRDJlO9rvOVCSCy+LBNbyYHF2t2TU=;
- b=KP9JbKmmmAUG6ivcVBfu8ahjCc2fJhUdXtJsVciI2yXdRayfRbKV5uVN0zi5eOkaVyFMX37uFYSLEY46aAXSL21swTU56zMiYMp4MBufQ1UWsbJykefZDRsg7AHsx8+BOhKjseWZOnuC+/kEroWf1E+G3gEElccbev5ZpImgxqj7AndydN1jAEb1xzmPyeKvzFA+xu7wBMsMHK3UH6HtBnd/yyNKx8BjlKQxnsE6qm/P7k2LYtMMhBEBaStHGgrO3Iyy1UbWyCQU77Gpl1iJ1Zy1iQeJQc/jE34+/VbAnnie6RLKURO3r0UemCxtx97eos+QTkIWrZ6WWdp4G31+og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bKszCIBeoOpE0GX0h5+5wHlpbP8hNFZX+77PX+wbTEg=;
+ b=lzfSG39aM1M3+i/ssslO0FsKPWiBCEhEZABN0epk6r48RZeNR8bLxHcvkcMPH/fhM+NvD1Dga9u9XSfrH43B7oW7l9+egSKMyd57JCBHHPJAJ5n2wNWlB6iVMRq/iYNyl35id6uwM/YIT/36ieGDzv+jKNe56VmjS7lJLDmHSdr3wMicWVFeaG6ZuGkr9gHe8cg9USNTt9gzc70Ad5TlWM4H892x54iXXsh1K+eb+F2eMOlj6AR3yZQth8k1f1r8bqaYcTomyFZ4O0eBdD2TOb8P+7+7rk3XYEZyypyqhi5lrixoZXwtI+0jJ4TK6UFx7JO4eRJOlkI3mVUTP6Dsvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwDPfwbuPswJhCNRDJlO9rvOVCSCy+LBNbyYHF2t2TU=;
- b=sC7zG9B4BqoHTV4C+ti4j2o/akT001WGldUDMcpC2GpYk9QmYbp/cU6HcLaFOqgCdpz7qvh+OvAdwk72anI7UYtbJLN2TST0ZHqleoRuVj7gum/CkDW2V6YScpOwwQ1uRt3rnDzpPyZgdeLgEdXHHCa8Mf4XRjgKVFcJq6ysuyB8NQFeQqG/wCzskVn1vmio2UboezPBu2BVXI8g6o0VJxTDbpM6fafw5DjjO4HQ5KpAi8NgYlyEjVexkaqCQA5FNXD+elBuA2VRAwTeGAJM+d0Py+dZpQnsBNxk9KtmbStbTVpAEot2uK+xDslvAwFrfWogpMAxmO/oFVog+IJlJg==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by PH7PR05MB9058.namprd05.prod.outlook.com
- (2603:10b6:510:1fe::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Sat, 24 Oct
- 2026 12:21:41 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0546.017; Sat, 24 Oct 2026
- 12:21:41 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, Manfred Spraul
-	<manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, "Eric W .
- Biederman" <ebiederm@xmission.com>
-CC: Yingjie Wang <x-professor@outlook.com>, Vasily Averin
-	<vasily.averin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt
-	<shakeel.butt@linux.dev>, =?utf-8?B?TWljaGFsIEtvdXRuw70=?=
-	<mkoutny@suse.com>, Michal Hocko <mhocko@suse.com>, Alejandro Colomar
-	<alx@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH v3 1/3] ipc/sem: account enlarged sops arrays to memcg
-Thread-Topic: [PATCH v3 1/3] ipc/sem: account enlarged sops arrays to memcg
-Thread-Index: AQHdY7I5+7KGvRyM9Eaj2Ub3pY3rbQ==
-Date: Sat, 24 Oct 2026 12:21:41 +0000
-Message-ID:
- <edbb4aa04440205874d8a02a7f18e82d8188b937.1792808260.git.x-professor@outlook.com>
-References: <cover.1792808260.git.x-professor@outlook.com>
-In-Reply-To: <cover.1792808260.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|PH7PR05MB9058:EE_
-x-ms-office365-filtering-correlation-id: 5f46a94d-72ca-4a8c-cddb-08df31c95c4d
-x-microsoft-antispam:
- BCL:0;ARA:14566002|19110799012|12121999013|8060799015|8062599012|31061999003|25010399006|4140399003|24021099003|38102599003|15080799012|11091999009|21061999006|41001999006|24121999003|22091999003|1602099012|40105399003|53005399003|10035399007|26121999007|102099032|440099028|3412199025|4302099013|1710799026;
-x-microsoft-antispam-message-info:
- =?utf-8?B?aDg5ZEFhZjFMblVUc0c1VFRjaUdGYXg2b0VLbG9oZktvemw1dy82YW02KzFr?=
- =?utf-8?B?REU4dmxISUdFZi9KVUJVT2RRL1FJL3ZPWXZEbXhrTytPbFVzenpicjA4TzNK?=
- =?utf-8?B?YWc1VDU5bmplNDJIa3RsSXUvUkNZekpYQWxBdWl0WWlRMlpaaEFYNDRCWDhm?=
- =?utf-8?B?eWNLQkxadjJGaWNaSG9yU0F3ZGhYQlVmbXFTdmVTeVYvdHZWeGcxcDdxQkF2?=
- =?utf-8?B?L1dQVjR1QTdEV2ZiQW5CdWtYRUZHekdDeDNiRkdRLzR3cEhxKzhWTEJaMjNH?=
- =?utf-8?B?dTdkeld6a09MTWljVVFSNWQvcVh6QXdFTDcyYnZJUWVTZm1OUzR0Ky9nNWlp?=
- =?utf-8?B?STc5UUlsYjhsTURJTVUzdmtkVEgrclVWdUkxM0JMbU96RnVOaVppOXI1YzVZ?=
- =?utf-8?B?L2x1MUhHVldvaFpCc21xdjBVZC9tcmF5ZW5WZEJicEZWMy9jc0FVOTk1T0l3?=
- =?utf-8?B?V2ZvMXM5TXFPTFRNS0wrd0Jpem9yZElFZXlUWDJGZitIc1d1NUZTdjg3OW04?=
- =?utf-8?B?MmVJcnMzeGQ4cHlqTTJZN3l0djREekQ1UHFrQXQwaldOTzFBRnkzeFBTcWkv?=
- =?utf-8?B?a2d2ei9qWWlSTkNqU1BsWXdlUlBHQmZ0blBwTCtOdzlqM1NXSmtBYzZYV0lB?=
- =?utf-8?B?VS9CbGhHWFN0UTdLL2phbmgwdkNRMzBpV0pISzY0RkNKQVNDQnlUa0RRQW0r?=
- =?utf-8?B?L2l5YXV1akVMVUhIVTlnek5MR1M1WDVlaHZLbEpGVlhnRnlaOENiL3Ntbyt4?=
- =?utf-8?B?UDVBY25HeGd1QWd2eVVhaXpkOVp2Q1NRem4ydmY5VnpzbEJYRFlTc0gzNmFt?=
- =?utf-8?B?UkNMZzM2VHBFbFBhN3g3MG4zODFYZmZjVlg2Q01lQTFLb3c4REdFNVFBQ1NF?=
- =?utf-8?B?N09RYlFEVFNTQWRoWVRyQ0dZQWttQUI1TUtxZWZoYWFTWk9VSDJIVUt4VnlX?=
- =?utf-8?B?VFdRQjdJU3JacEZWR2FyNExEWWFSRDR0V2FNTHJQTVlwcTRyZDlseDhsQXdQ?=
- =?utf-8?B?czZ4WXhlN000Y3hBK0dNR01lZTRuWXVYazNCekMxbHBXUFYzQ0l5VG43eTNP?=
- =?utf-8?B?aEhSd3ZKbHBtNFh2OEdsYnNjcDNvTEZVTG9RUXhDWnVSazBYSWRsMWNVZFVF?=
- =?utf-8?B?Q3FKOFM5VVJnT2N4cG9HL01aQlJZMHI1d0U5dTc1UEQ2OVZIVTF4bmVPb3VP?=
- =?utf-8?B?OE1yRGpWN0pqTDQrZXRNbGFQZnZ3TThFSkMyMTJuWjJvaGxJMklYUmdVL0hC?=
- =?utf-8?B?NmlzaTk5N25Ya21KRkUvdUVvUDVJYUpHak9mM1dGU0lsSE9OV2w1QXpHdjE2?=
- =?utf-8?B?eEpDMjhodGY0V1IzYUJoc2lTS3NHazBvc1pocm9HeHVuZ2ZqclU3OGtKRmNN?=
- =?utf-8?B?Y2toZnZoUkhlSklBRm9mR0lQOWxpeHF4Znl3K1o3K0g5VGhiY0s2ZERrbUtI?=
- =?utf-8?B?VGUrdlhZRHppVHZySzRwUERQYi9oR0VCbjQ5b1krVy9tTE5TeHVjcU5nWDVk?=
- =?utf-8?B?dk1hR1JYV3FmRXFkcEg0N2JnVWkwWUlhWDcyYlEyOG12bW50OHEwRE5PNXUw?=
- =?utf-8?B?cVFad1FPby9hL1FlV0NIOTVRYklGaXlYTDN0bGxlZS9CVkhzTEJnWERrNXRC?=
- =?utf-8?B?SUtuMEdMWjlpQk42RVlxR1VlV3NPME4ra2wvMEE3dUtBN0I2Qk5vK3dyWXBv?=
- =?utf-8?Q?QnM3u6cNZ3QIQDWGKJRv?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VVl6Mlk1OVR6M1B6QldObXZhY3hKTDVEaFEwMmF3Z0k3MFdXQk0ydHNoUGVF?=
- =?utf-8?B?Q28wZ0xYc0dMR0lyeUZsb3pUczgxbkVpR3NGdm9UeVRjeVhHZ2Z4V3hCN3lD?=
- =?utf-8?B?NWlsdjJLekM1NnlMcVRNZStXN1plY3VNSkdCbXZ0bXczMzIxNEF6THA3MmRy?=
- =?utf-8?B?a3F2OFZwQWR0NVloVFVKNm1ObFFyZ2VXVHFwOFBTSjl2c3FFcmZTMlZZekxP?=
- =?utf-8?B?UVp6Q0I2THN2bmdiSDJxNTJ2S1RoR1ZHdGVEUFF0bnU5RG9zL1RIY2hCRHF4?=
- =?utf-8?B?Nk9RUlVjRUtzV2g0V21FdmtueEtsV3doWmY0SGxWa0ovdVpzUXY1TkRUU3JP?=
- =?utf-8?B?cldjSElZVlZTeG9zeDN2blk3a2xzMFp1VVo2Q1Jlc1J6dlh5NmR5bERXY29z?=
- =?utf-8?B?djh1Nklzbjd1MmFZOWp1aTZFMXRuZVRkMUJuQTFpQ2JPTE1Bemk2L2w5QXhq?=
- =?utf-8?B?YWQwamJIa0dxMGNianhOcTl0bnBQM0p2MGdBQXYrWTJFaGFLa1p1Tm02b3lm?=
- =?utf-8?B?MnB6eUU1eFZHT3Z1MlEyYlp4Uk9nOWtvNGYwa0tMKzRpbVVuUitZbjBDTHVG?=
- =?utf-8?B?aE5kNGprVHdoYVNyZFJiUlJxMnFaZUlZU2dPY0NjeUg4RExpY2o5WVZCclZP?=
- =?utf-8?B?eHRXcEs1bXpwQlRlRzg2T1JodzdqOXZqdDBlS0FFa1JLTUZBVVgvdktXTCtK?=
- =?utf-8?B?RlBld0NTQmFQRUExVzlodG9BbEp1d0I2NUwydTRUWEMzcGx0LytMWHVHMGpY?=
- =?utf-8?B?TFYvTmF6dk0vTFJJNTd4VGhla013L0xrRWVkeXNyUTBhNnoyNXFSMWkwWC8z?=
- =?utf-8?B?WnZOZUJxdXR2SURFQkhrU2lKSS9hMHcyVCtQbGllbGc0TWxlTUhKRTZxYU5q?=
- =?utf-8?B?U2dKd2ZjbUQvTFgwa3UydkJKcXVuWTBmMWk0T2lQUE50eE5TU1QySmt6ZjYr?=
- =?utf-8?B?ZzNONmlmbjdHWCtrSEgrblZkd2kvL2ROVFp1WnhoMERISnNWcjdETnQvdG8r?=
- =?utf-8?B?KzFLUndUN1p6VjN3WTVXRFdtSzFENW53cEltQlJHVzJOQ2pLK1ZqeHEyb3A1?=
- =?utf-8?B?cVlsMlZSYVF3MTREUFpleUJBWml4RzErWmczWmY5VnE5NmszVytZc1N5VDZ4?=
- =?utf-8?B?eVUxUXFtRi9LSlUzWnZTS2VoRG9yM0N1T0NkNWVueWNhMmN3VWJvZ0lTZHl6?=
- =?utf-8?B?UU9rQVNJb09CU29WN1BWT2dnTW4zVWhwZTV4M3dYUjBSNE81R1NBdVM1dEtv?=
- =?utf-8?B?K04vK3ByWFM2WUQ2Ry9UNkttWisxRW9LdTZxWjNYVUR5SXQxOFZmSkEzcXZC?=
- =?utf-8?B?aENOeVJ5RkkrOHBQZUlBVVNDaTZRSmtxVFN2OEtEOUpyenRDck5EODdNRFBJ?=
- =?utf-8?B?NWl4eXQ3OXlqcUtzaTBYeDluYUxJMU1EK1Z4aXlXcUNTMTFIdmsrRE5GeVJy?=
- =?utf-8?B?MC9rUkF3cVQzRlpidDM0TkNOUGRHSjhjS1dxMXJReitWODhVVWt4Z2RmZ3Rs?=
- =?utf-8?B?YThvV1RoQjY2bUlyRE1Ib09hcWtBa3BwcW9GOUl0cWZ0dlNCbldrYUt0SHJr?=
- =?utf-8?B?Ym0zajBZT3M2T21pbGZmMEdMRFBuQ3d0SzZiWXFTcTBVaytnb3IvbVR5OGMw?=
- =?utf-8?B?V2tpTTcrcEJ2STNGQzdScUthSGtHaENwV1ZESURCdVhTNlBYSTV3L3J6UVBn?=
- =?utf-8?B?U1dvU1B1YlFJWG1ibkx5dEdRV3pvRGtjZllNVWVTalY2VEF1VW50TUtwUUFq?=
- =?utf-8?B?dE1wVnlGdzR5SmZIYUhraEtSUDY0MXA2bmtZd3RZTy9saEk0MjNuSStWMDNo?=
- =?utf-8?B?US9tZndhU05QdHJUZ1l3V0xhRHlWWnoraVlvWHcrNk9vQ3luWmpPcU1OS2hN?=
- =?utf-8?Q?2Akgl6MC34fe3?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ bh=bKszCIBeoOpE0GX0h5+5wHlpbP8hNFZX+77PX+wbTEg=;
+ b=IzZLxW2mfJe6uv+m4bbVCgOSdI02P0n8zQvlf60zGUdNkOxH8oXSxULRDtQ0nZzlWRGoCHj4LUvPqg0ogOV/HWC0B+2C8SID2SLS/W9WgZN9LS8vBU0YXdpl1q9joWrsPdP4srM9xH5XmS5azYlIItbZk46nkWlGO7pitUVP8PrY4PPUZNiIUo5R5Suu2M6B1sVkgbq5I2/8HBHQt9Ps9vqWPFvgM6t0y+H3galfDKTzVnNjleaKVybzpQlZLiOV02/Fy6t/4tyeoDANDioxRv2MG3cBkW8+1z3CHoitrYHbiP7+SqS8UpfBl28gtI4LTqc94di8ndODGukF8Hw8jw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by PA4PR04MB7789.eurprd04.prod.outlook.com
+ (2603:10a6:102:c3::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Sat, 24 Oct
+ 2026 12:25:50 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0546.019; Sat, 24 Oct 2026
+ 12:25:49 +0000
+From: Larisa Grigore <larisa.grigore@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Joao Pinto <Joao.Pinto@synopsys.com>,
+	Hannes Reinicke <hare@suse.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	clizzi@redhat.com,
+	aruizrui@redhat.com,
+	eballetb@redhat.com,
+	echanude@redhat.com,
+	Frank Li <Frank.Li@nxp.com>,
+	Stanley Jhu <stanleyjhu@google.com>
+Subject: [PATCH 04/10] ufs: host: Add common Hibern8 TX FSM polling helper
+Date: Sat, 24 Oct 2026 14:25:27 +0200
+Message-ID: <20261024122533.3609180-5-larisa.grigore@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+References: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P190CA0006.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5de::9) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -175,51 +125,329 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|PA4PR04MB7789:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7daabb01-c862-4338-4466-08df31c9f034
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|366016|19092799006|1800799024|261009223027099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|18002099003|22082099003|921020|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ GWMim0leUA67t+uPdoaDyoN+2NDjktQm2B91QO9sCoAB4B2ED7rgV15z1VlBtJjk6VRgTvRkNjbE3cNi8Kh6ym0PWznH5wvJ1SArAVrBOdE2dKbcqW711XTDyQsw28X6dU6uRJJJks7FkEufhD3ODIcRmm3QNuiIS1WhDAfw8L3OxaTI92J3o94dH4ECPWs74sr8grCVXStkiC4e25hQPB4oBYB5MIUjkYlbXbKczB1quL6UT069XRfvQ2Ebhpyx74QJMGhzthwF6h1ewrieK4usjj77k3w1bwYaqijV22hd0rqmyEw5eMGySVT34shIeIUuNetolu/UgnGqX2Ciq+eYld1t6gQ+nfL60yYeGdqzx+L3KZJ3Nal7SKRcYz+BygBBBwF7jGka9XUlevG5+6DT7CaViqaggmsBbvn1j+kkNyPPzDF3eW+q/nL3MFlgjV6yeOHv7knEVeXmudBmYKF5ubA/a9BHpI8eMlgecIZFmvaQni9ZHVqPo0R2cd4onQMPIlgJFLxRuckMj1zQlInMoraWtsLVYnv3lcRH04bMgMBZa9hWEDpivh2kxf9iLHEorjwMP0aqr7CknCYu7v7w3tgiqRNvjQ7VkdxS1TH4qRlSJTyXANe9QTS+JnWrr+2h97IeS9Wmi+lUc6wO1W1JmGWv933vd8liBBB2p/GP6kzJ70Quh//RNZCutfGuqQ+D9VE8ifabuXNx7zHgpg==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(19092799006)(1800799024)(261009223027099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(18002099003)(22082099003)(921020)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?dFRTdXZndCtKNk1Yb2dCSlV6M1pDMlc1N0pLeDlnMzFzTjJ0R01OekxIemxY?=
+ =?utf-8?B?cUVmSTlRRHdaR0dEdU5NYlRwZ2pGVFdGOEhoSjR2YkJmYnNkKzd5SWkzTDkv?=
+ =?utf-8?B?c0RRbzZSWThaTng1ZE5iUEIrU0UvMUtaTEszL0RNRHFPSDVsa2RWU3hMWEQ1?=
+ =?utf-8?B?QWd1OGJnMmYzWGtGdnAzVjltWkFrZEdWV1dEb1EzOHFDQmVkNTZTQndEY1Fy?=
+ =?utf-8?B?dFFrRnFIR0pWM3k2ZVA1VGk1MWlGelBmYkJ5MmdwbHIrVzVxdktIVTMyeEJI?=
+ =?utf-8?B?YWNQTWRJWU1yeWRkWUxIOWdlM3pZWkZjdTRSZHhxNzJmNDdnNEUxc0lKbE1P?=
+ =?utf-8?B?bmFybWtiSXQ0bnF6Qm1hUHBCTXdNbGpEWnhTM1FkRE5oZmdpK0N3eFA1d0Qw?=
+ =?utf-8?B?QW9pUFdRV1o2Ti9BZmNiVWJrUnZsZkgxc2laMldDSFpLREZ6ODNGR1BRZGFZ?=
+ =?utf-8?B?cWVnU0RJY05BY0E3VDFJRW1WdUlWa2x1KzFxWDNOaktYZWZYSlBidGlHZERw?=
+ =?utf-8?B?WENsblQ5NU5nbHF5STMzMlk0S090cXVKdVc4QUQ2YWpMd0crNTNaRDRoYy9Z?=
+ =?utf-8?B?NVdsTmRMZ3M0dG84eEtxMWJZWkI0Z0UwaEE4cDFNUFpnamZNMjZ0M1hUSEF6?=
+ =?utf-8?B?WkNGbldHSUhaOU5EdWc1R09Gb2ZyMUVJQUJhUm9mNHI4NVNDWnNqTnFQQ29w?=
+ =?utf-8?B?Y0xIMFNBd3I1RkVQQ1lUSGt5aHJWZkFiaEErSllEd2ZOTlQySkVZS3h1ZGJk?=
+ =?utf-8?B?SWZTMXh5VitXOHRnc21KL2dLeFVDQlY1VFBCNHpBV0dSbnk2Z05JRk05dFVI?=
+ =?utf-8?B?RytkcFZDSnUvKy91NERXV2h3S2cyQmk3K0ZXRGx6ZE40dVNYMkR1bG82WHNI?=
+ =?utf-8?B?UXNTb2tWL2RhZkI4SmloSWZBNkJtTkVzWFdDeWMrY21FTjZmVnNNbG9taFFX?=
+ =?utf-8?B?RmxLd3lTZllIUDFNOTF1OE44bnNKeUQ1Mkt6VVhFdk41b3oxeXJaQ3Z5SlRt?=
+ =?utf-8?B?QnYvQzlYMzJqVkM2ZW9xK1dJVmFOMUpHSm1RbHhoM2h3cHJBNEhMUGd6dkpK?=
+ =?utf-8?B?SDd4NzhrQ1kwdWEyY3oxNnlxNDhnT1VERUZtMHVab1djQ29JR01Uek04TWEz?=
+ =?utf-8?B?blF3ck5hMCt3VHBmWTkrNisyU2FBYzBva3J3UVBGdjBwRDVWRmpPMG43R2NT?=
+ =?utf-8?B?THBEb05yZk9wbyt2ZThESUZWaFVoS1NLNzcxcVk0T3NoS2xzZjg1eFUyVlNr?=
+ =?utf-8?B?bzRDbWJpT0pMMU81SnFscGJRd3FoVGx6UlN2S0wvNllxRVFjQVhySjM1dzEy?=
+ =?utf-8?B?Mkp6TmtENXFUNnlrdHJyT3MyeE5PR09KeXJZdjVBOU1ZcTVXS0ZJajNoMXBH?=
+ =?utf-8?B?bEhnZVFvUXlCQk1uTEU1OCt1U3p3MTlyWGtrZWxwVkk5bkNiYy90citBNDZy?=
+ =?utf-8?B?NnhqYXphMHREWmFKU2FVRFh4cm5iYXllelRoMlpYMmdCd3U0cnBRVVZ3UjlQ?=
+ =?utf-8?B?YlV4OXNoZnZ3V3VqQjhRamlndmVvQWlVQ1pXaFNPYk9xRnZLNW1YUGpSaFI1?=
+ =?utf-8?B?ZVhaZ2RYTkdwZUF0c3pIQ3dmQ1VFU2VzWXpNVEtwaVdta0hnRWlkK3Bnc1lZ?=
+ =?utf-8?B?K0MrVkE0V0l3Y3BJNkZ6akNlUFdQZXZGK2ZXZ0hBK3VuOU9yKytzTUtmOGpH?=
+ =?utf-8?B?Qm90MVBQQnNHenFJK1U2M1hxa3BjVGxXWFhuV2MwdzhaYmFPTHppd21SUHBq?=
+ =?utf-8?B?aW9NNmNMSk9KSjFQdVBxTnVUMG9BWUptaXBjQlN4dnI4bUJGSW9UclNsTzZt?=
+ =?utf-8?B?SVZTaG5nNktzTFRudjBZNEtsSURGZ0tsdmpKSXN3YS9tZnlzNUV3Rnpkb0RX?=
+ =?utf-8?B?cHF4bitoYS94WVltdDRrNzJOKzJOaEprVVdJQnVPaXkwM21UWjBibjZrOXlY?=
+ =?utf-8?B?aXNRT0wvVUZOdmRCNVdtUWNBTTYxdGJXaXlyYkxYN3hqTEFMdmIzajlMVis0?=
+ =?utf-8?B?WGMxRUl0Y0MyMEtpdW8rZWtYVGI5OUVKWVN6eWI2ZlFyNExWaWVYdGo0UXJX?=
+ =?utf-8?B?ZUFYY1NmbDlLRzQ2RlNGaDRFYXFtbjdUMkYySUl0eUZtS2ZxUmwxb0cxWUpt?=
+ =?utf-8?B?SzVUR1JZKzFHc0Q1OVdsUFY1SitqdWs1ajdPWnNaU3ZmTXFXejVUL3ZYdGZI?=
+ =?utf-8?B?cHNHaHlvaFlQNXc3WWdoU0tOUzQyRWtCUUQ5WjVXWnE1TFBEWFJQYlhoazlk?=
+ =?utf-8?B?Zmg3VlU3NXI3OUw1ZVNoa3lmNWNKS2Y3dU5hVDcrTy90aGpsS2Q0a3NsM25M?=
+ =?utf-8?B?NGQxTEs0WlR0Y3AvTzRxTVV1R1lnWEwwb3l1NHdqTUFVM2Z0OUF5Zz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7daabb01-c862-4338-4466-08df31c9f034
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f46a94d-72ca-4a8c-cddb-08df31c95c4d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2026 12:21:41.5661
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2026 12:25:49.8781
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR05MB9058
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TGyf4p7BQWZSFjSUlv+KuGJODlMoleLn0Bjs/o5XEwCwUophtElf/G/eo4bIsB6/fViYdxNYetwIAUYgUzibbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7789
 
-Q29tbWl0IDZhNDc0NmJhMDYxOSAoImlwYzogcmVtb3ZlIG1lbWNnIGFjY291bnRpbmcgZm9yIHNv
-cHMgb2JqZWN0cyBpbgpkb19zZW10aW1lZG9wKCkiKSByZW1vdmVkIGFjY291bnRpbmcgYmFzZWQg
-b24gdGhlIGFzc3VtcHRpb24gdGhhdCBzb3BzCmFycmF5cyB3b3VsZCByZW1haW4gc21hbGwsIGRl
-c2NyaWJpbmcgYSBtYXhpbXVtIGNvc3Qgb2YgdHdvIHBhZ2VzLgoKU0VNT1BNIGlzIGEgVUFQSSBk
-ZWZhdWx0IHRoYXQgY2FuIGJlIGNoYW5nZWQgd2hlbiByZWJ1aWxkaW5nIHRoZSBrZXJuZWwuCkl0
-IG11c3Qgbm90IGFsc28gZGVmaW5lIHRoZSBhY2NvdW50aW5nIHBvbGljeSwgc2luY2UgY2hhbmdp
-bmcgdGhhdCBkZWZhdWx0CndvdWxkIGVubGFyZ2UgdGhlIHVuYWNjb3VudGVkIHJhbmdlLgoKS2Vl
-cCB0aGUgaGlzdG9yaWNhbCBzbWFsbC1hcnJheSByYW5nZSB1bmFjY291bnRlZCB3aXRoIGEgZml4
-ZWQgaW50ZXJuYWwKdGhyZXNob2xkIG9mIDEwMDAgb3BlcmF0aW9ucywgYW5kIHVzZSBHRlBfS0VS
-TkVMX0FDQ09VTlQgd2hlbiB0aGUgYWN0dWFsCm5zb3BzIGV4Y2VlZHMgaXQuIFJlcXVlc3RzIHdp
-dGhpbiB0aGF0IHJhbmdlIHJldGFpbiB0aGUgZXhpc3RpbmcgYWxsb2NhdGlvbgpiZWhhdmlvciwg
-d2hpbGUgbGFyZ2VyIHVzZXItY29udHJvbGxlZCBhcnJheXMgYXJlIGNoYXJnZWQgdG8gdGhlIGNh
-bGxlcidzCm1lbW9yeSBjZ3JvdXAuCgpDb21taXQgNTBlYzQ5OWI5YTQzICgic3lzY3RsOiBhbGxv
-dyBjaGFuZ2Ugc3lzdGVtIHYgaXBjIHN5c2N0bHMgaW5zaWRlIGlwYwpuYW1lc3BhY2UiKSBsYXRl
-ciBtYWRlIHRoZSBwZXItbmFtZXNwYWNlIGxpbWl0IHR1bmFibGUgYnkgSVBDIG5hbWVzcGFjZQpv
-d25lcnMgd2l0aG91dCBjYXBhYmlsaXRpZXMgaW4gdGhlIGluaXRpYWwgdXNlciBuYW1lc3BhY2Uu
-CgpMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIwMjYxMDE2MTUyNjA5LjI1Mjg4MDUt
-MS14LXByb2Zlc3NvckBvdXRsb29rLmNvbQpGaXhlczogNmE0NzQ2YmEwNjE5ICgiaXBjOiByZW1v
-dmUgbWVtY2cgYWNjb3VudGluZyBmb3Igc29wcyBvYmplY3RzIGluIGRvX3NlbXRpbWVkb3AoKSIp
-CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IFlpbmdqaWUgV2FuZyA8
-eC1wcm9mZXNzb3JAb3V0bG9vay5jb20+Ci0tLQogaXBjL3NlbS5jIHwgNiArKysrKy0KIDEgZmls
-ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9p
-cGMvc2VtLmMgYi9pcGMvc2VtLmMKaW5kZXggNWVjNDFkZTdlODViMi4uYThjOTgwNzE3NTUyMCAx
-MDA2NDQKLS0tIGEvaXBjL3NlbS5jCisrKyBiL2lwYy9zZW0uYwpAQCAtMTc2LDYgKzE3Niw3IEBA
-IHN0YXRpYyBpbnQgc3lzdmlwY19zZW1fcHJvY19zaG93KHN0cnVjdCBzZXFfZmlsZSAqcywgdm9p
-ZCAqaXQpOwogCiAjZGVmaW5lIFNFTU1TTF9GQVNUCTI1NiAvKiA1MTIgYnl0ZXMgb24gc3RhY2sg
-Ki8KICNkZWZpbmUgU0VNT1BNX0ZBU1QJNjQgIC8qIH4gMzcyIGJ5dGVzIG9uIHN0YWNrICovCisj
-ZGVmaW5lIFNFTU9QTV9OT0FDQ09VTlQJMTAwMCAvKiB+IDIgcGFnZXMgZm9yIHN0cnVjdCBzZW1i
-dWYgKi8KIAogLyoKICAqIFN3aXRjaGluZyBmcm9tIHRoZSBtb2RlIHN1aXRhYmxlIGZvciBzaW1w
-bGUgb3BzCkBAIC0yMjM0LDcgKzIyMzUsMTAgQEAgc3RhdGljIGxvbmcgZG9fc2VtdGltZWRvcChp
-bnQgc2VtaWQsIHN0cnVjdCBzZW1idWYgX191c2VyICp0c29wcywKIAkJcmV0dXJuIC1FSU5WQUw7
-CiAKIAlpZiAobnNvcHMgPiBTRU1PUE1fRkFTVCkgewotCQlzb3BzID0ga3ZtYWxsb2Nfb2Jqcygq
-c29wcywgbnNvcHMpOworCQlnZnBfdCBnZnAgPSBuc29wcyA+IFNFTU9QTV9OT0FDQ09VTlQgPwor
-CQkJR0ZQX0tFUk5FTF9BQ0NPVU5UIDogR0ZQX0tFUk5FTDsKKworCQlzb3BzID0ga3ZtYWxsb2Nf
-b2Jqcygqc29wcywgbnNvcHMsIGdmcCk7CiAJCWlmIChzb3BzID09IE5VTEwpCiAJCQlyZXR1cm4g
-LUVOT01FTTsKIAl9Ci0tIAoyLjQzLjAKCg==
+Factor out the common logic used to poll TX_FSM_STATE until the TX lanes
+enter Hibern8 into ufshcd_check_hibern8().
+
+The HiSilicon and Qualcomm drivers currently implement similar checks
+using the UniPro TX_FSM_STATE attribute after link/PHY bring-up. Move
+this logic to a common helper in ufshcd so it can be shared across host
+controller drivers.
+
+Switch the HiSilicon and Qualcomm drivers to use the new helper and drop
+their local implementations. While at it, normalize the "TX lane failed to
+reach Hibern8" error path to return -ETIMEDOUT instead of the raw
+TX_FSM_STATE value (qcom) or -1 (hisi), so all callers get a proper errno.
+This is an intentional, harmless change of the returned error value; the
+pass/fail behaviour at the call sites is unchanged.
+
+Unlike the initial implementation, the timeout error is now reported only
+once by ufshcd_dme_check_tx_hibern8() after its final check, instead of
+per lane.
+
+This also prepares for reusing the same UniPro-specific Hibern8 check in
+a subsequent commit.
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+---
+ drivers/ufs/core/ufshcd.c   | 73 +++++++++++++++++++++++++++++++++++++
+ drivers/ufs/host/ufs-hisi.c | 48 +-----------------------
+ drivers/ufs/host/ufs-qcom.c | 42 +--------------------
+ include/ufs/ufshcd.h        |  3 ++
+ 4 files changed, 78 insertions(+), 88 deletions(-)
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index ca8329052cbc..c8b7248a769a 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -4448,6 +4448,79 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
+ }
+ EXPORT_SYMBOL_GPL(ufshcd_dme_get_attr);
+ 
++/**
++ * ufshcd_poll_tx_hibern8_lanes - Check TX_FSM_STATE of all TX lanes once
++ * @hba: host controller instance
++ * @num_lanes: number of TX lanes to check
++ *
++ * Read TX_FSM_STATE for every lane and verify it reached Hibern8.
++ *
++ * Return: 0 if all lanes are in Hibern8, -EAGAIN if any lane is not (yet)
++ * in Hibern8, or a negative errno (e.g. -ETIMEDOUT from a hard UIC command
++ * timeout) if the attribute read fails.
++ */
++static int ufshcd_poll_tx_hibern8_lanes(struct ufs_hba *hba,
++					unsigned int num_lanes)
++{
++	u32 tx_fsm_val = 0;
++	unsigned int i;
++	int err;
++
++	for (i = 0; i < num_lanes; i++) {
++		err = ufshcd_dme_get(hba,
++				UIC_ARG_MIB_SEL(TX_FSM_STATE,
++					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
++				&tx_fsm_val);
++		if (err) {
++			dev_err(hba->dev,
++				"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
++				__func__, i, err);
++			return err;
++		}
++
++		if (tx_fsm_val != UFS_TX_STATE_HIBERN8)
++			return -EAGAIN;
++	}
++
++	return 0;
++}
++
++/**
++ * ufshcd_dme_check_tx_hibern8 - Check if all TX lanes entered Hibern8 state
++ * @hba: host controller instance
++ * @num_lanes: number of TX lanes to check
++ * @timeout_ms: overall timeout in milliseconds shared by all lanes
++ *
++ * Return: 0 on success, negative errno on failure.
++ */
++int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
++				unsigned int timeout_ms)
++{
++	int err, ret;
++
++	if (!num_lanes)
++		return -EINVAL;
++
++	/*
++	 * Poll every lane until ufshcd_poll_tx_hibern8_lanes() stops returning
++	 * -EAGAIN, i.e. all lanes reached HIBERN8 (err == 0) or a real error
++	 * was hit.
++	 */
++	ret = read_poll_timeout(ufshcd_poll_tx_hibern8_lanes, err,
++				err != -EAGAIN, 200,
++				(u64)timeout_ms * USEC_PER_MSEC, false,
++				hba, num_lanes);
++	if (ret) {
++		dev_err(hba->dev,
++			"%s: timeout waiting for TX lanes to enter HIBERN8\n",
++			__func__);
++		return ret;
++	}
++
++	return err;
++}
++EXPORT_SYMBOL_GPL(ufshcd_dme_check_tx_hibern8);
++
+ /**
+  * ufshcd_dme_rmw - get modify set a DME attribute
+  * @hba: per adapter instance
+diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+index fb44a776e9e7..b84075dfe00d 100644
+--- a/drivers/ufs/host/ufs-hisi.c
++++ b/drivers/ufs/host/ufs-hisi.c
+@@ -22,50 +22,6 @@
+ #include <ufs/ufshci.h>
+ #include <ufs/ufs_quirks.h>
+ 
+-static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+-{
+-	int err = 0;
+-	u32 tx_fsm_val_0 = 0;
+-	u32 tx_fsm_val_1 = 0;
+-	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+-
+-	do {
+-		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+-				      &tx_fsm_val_0);
+-		err |= ufshcd_dme_get(hba,
+-		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+-		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
+-			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
+-			break;
+-
+-		/* sleep for max. 200us */
+-		usleep_range(100, 200);
+-	} while (time_before(jiffies, timeout));
+-
+-	/*
+-	 * we might have scheduled out for long during polling so
+-	 * check the state again.
+-	 */
+-	if (time_after(jiffies, timeout)) {
+-		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+-				     &tx_fsm_val_0);
+-		err |= ufshcd_dme_get(hba,
+-		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+-	}
+-
+-	if (err) {
+-		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+-			__func__, err);
+-	} else if (tx_fsm_val_0 != UFS_TX_STATE_HIBERN8 ||
+-			 tx_fsm_val_1 != UFS_TX_STATE_HIBERN8) {
+-		err = -1;
+-		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+-			__func__, tx_fsm_val_0, tx_fsm_val_1);
+-	}
+-
+-	return err;
+-}
+-
+ static void ufs_hisi_clk_init(struct ufs_hba *hba)
+ {
+ 	struct ufs_hisi_host *host = ufshcd_get_variant(hba);
+@@ -224,9 +180,7 @@ static int ufs_hisi_link_startup_pre_change(struct ufs_hba *hba)
+ 
+ 	/* Unipro VS_mphy_disable */
+ 	ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(0xD0C1, 0x0), 0x0);
+-	err = ufs_hisi_check_hibern8(hba);
+-	if (err)
+-		dev_err(hba->dev, "ufs_hisi_check_hibern8 error\n");
++	err = ufshcd_dme_check_tx_hibern8(hba, 2, HBRN8_POLL_TOUT_MS);
+ 
+ 	if (!(host->caps & UFS_HISI_CAP_PHY10nm))
+ 		ufshcd_writel(hba, UFS_HCLKDIV_NORMAL_VALUE, UFS_REG_HCLKDIV);
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index d273e16313a1..815ca82a0878 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -382,46 +382,6 @@ static int ufs_qcom_init_lane_clks(struct ufs_qcom_host *host)
+ 	return 0;
+ }
+ 
+-static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+-{
+-	int err;
+-	u32 tx_fsm_val;
+-	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+-
+-	do {
+-		err = ufshcd_dme_get(hba,
+-				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+-					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+-				&tx_fsm_val);
+-		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
+-			break;
+-
+-		/* sleep for max. 200us */
+-		usleep_range(100, 200);
+-	} while (time_before(jiffies, timeout));
+-
+-	/*
+-	 * we might have scheduled out for long during polling so
+-	 * check the state again.
+-	 */
+-	if (time_after(jiffies, timeout))
+-		err = ufshcd_dme_get(hba,
+-				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+-					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+-				&tx_fsm_val);
+-
+-	if (err) {
+-		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+-				__func__, err);
+-	} else if (tx_fsm_val != UFS_TX_STATE_HIBERN8) {
+-		err = tx_fsm_val;
+-		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+-				__func__, err);
+-	}
+-
+-	return err;
+-}
+-
+ static void ufs_qcom_select_unipro_mode(struct ufs_qcom_host *host)
+ {
+ 	ufshcd_rmwl(host->hba, QUNIPRO_SEL, QUNIPRO_SEL, REG_UFS_CFG1);
+@@ -607,7 +567,7 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
+ 		break;
+ 	case POST_CHANGE:
+ 		/* check if UFS PHY moved from DISABLED to HIBERN8 */
+-		err = ufs_qcom_check_hibern8(hba);
++		err = ufshcd_dme_check_tx_hibern8(hba, 1, HBRN8_POLL_TOUT_MS);
+ 		ufs_qcom_enable_hw_clk_gating(hba);
+ 		ufs_qcom_ice_enable(host);
+ 		ufs_qcom_config_ice_allocator(host);
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index dfd302f2dc7c..0d9d0a26eb20 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -1556,6 +1556,9 @@ extern int ufshcd_dme_set_attr(struct ufs_hba *hba, u32 attr_sel,
+ 			       u8 attr_set, u32 mib_val, u8 peer);
+ extern int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
+ 			       u32 *mib_val, u8 peer);
++extern int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba,
++				       unsigned int num_lanes,
++				       unsigned int timeout_ms);
+ extern int ufshcd_change_power_mode(struct ufs_hba *hba,
+ 				    struct ufs_pa_layer_attr *pwr_mode,
+ 				    enum ufshcd_pmc_policy pmc_policy);
+-- 
+2.43.0
+
