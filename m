@@ -1,84 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792874911;
-	b=eAl3HCowJCfsGaqG4ZJxgJw+wjKaGvgY1nKEqvcqNhl1ui+Vx1pn/o9K22gT8WqtfimM
-	 sM6L6drAoW1UqbIIModB1bw//Fkxw0OJ0/CgDssSEaR0ijmPurtuMt0CGoxEaa912WP3Q
-	 H7McfImcFE7/N+YizC/S6qe7jvAT8Ad997DIN210TQ3buhn40YuyTpGh4qFvYpzPrLne2
-	 wzIWLrN62QcQPGfpn4Ak4eyP9PgCSut0tQRH+a3WXUDxOUPfvD45iBNh5qbiWLo8Jj4pH
-	 mbZ7IgtRkhPauhImdo4WFIgej3vC4hKRZsLSNL1w/sskbTAhLGInR8k/bsVyqTTz/5g==
+	t=1792875155;
+	b=mGPiTTSaIQdIBOD5Qf1POtNatOAEEl0v8KMdL8Hps+PXPs2PxucSqWPcrRGAXDLvvrUC
+	 5rXR9KfjOd9/gXZIRo7I7bE7vRuTI/Jabph+bFQxRVpSpOWFbz/4YgEacjJU+05+vEaR0
+	 3fEKb3vZj5hgZH3ApUuFRv2RIPGKUrm5HRuDzgKvtMjFUclt043LjYc5T8YHjAu5Tfjzu
+	 FlMMglpRUkexrqrBO+fLJRuZsK3gYo53sas1bmwzcLAhIt1o5vm9Fi2PzwPdy0in+NdpR
+	 jDzxwU9lMqjObB3gpUo5FYqMUblQoJYzaaP7XcD1H1J7uOdIsTfC1x8OEywV+NUDqMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792874911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792875155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=BuPJgnsG0Ng1Dae+yMYUghn3Dz0uN6VmqtORQTrWN9o=;
-	b=eh1UqtZcQVWJWgFvvQot9zpUrYIiJItp9t3dC9o9iQbvjsZS5XkXXOrB4fkUCekQbOYZ
-	 x/ajVCn2byXLRGeU62odWk/noJ6EhcFH7KRaO2P718Zs396GGlbhtaLZbVbio2KRbN9mi
-	 81jf5637teU3moxWjdmF6hs8xNxE+9zQaWbjT1iZ9spJvtNEeUv5AJwGAU8RvKm+Zt9Ck
-	 hfn9DwoJIg66LBd5zSMFVW3AU03Gn2NAmsQbTmG3tbfDZxiDGHgP9FD9QfNkobHULMrMc
-	 IJU7BR4zq5A1JKejvwoUwtnmFYIXMsUwTc9Icz6bytC1kKzS/2jYcTSvzSo5QSEA55g==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+	b=Kxfg+o84S3JMcI+nzKT6tcuWWRWJbvq2qURMrnG7iqaUOvkivmjMz+CXBDjx3ZBVAjSO
+	 Kw1JjNIhyAdgj/aUl+TE37lXht1Wvsh9uPfZPFFjNKPDetQUHz2SoMqVz5iPsgWJ/eD5X
+	 iY2nSU+0NjnCEmMUFB4lF+4nKFSSS5iJP4JHwHTY+3qSZwMAdUjFmjeWa4No//lWE//D9
+	 rf8/FXV1PyzxhC76tzM8tXT06mafVEClq6SXKz77gV5pkTXAYl+4HJZms243vH50JZfTu
+	 bcdQDhlgi9cpsD34FqzjezWViT5DraL/PuVAL+JTttNQC4Kqv6Zol5TTRwxSNjRaC2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=N8V6EIzF;
-	arc=none smtp.remote-ip=209.85.219.54
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAq6wKcf;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5B6606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:48:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA5B6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4E6606A326
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B4E6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=N8V6EIzF
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-917a707f37eso19929406d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:48:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAq6wKcf
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-843cf077f10so2115957a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:52:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792874905; x=1793479705; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BuPJgnsG0Ng1Dae+yMYUghn3Dz0uN6VmqtORQTrWN9o=;
-        b=N8V6EIzFsfngUUiSHlqZ1m2daMfL/rg419LomABkwSxzbcs1D5/Nsk7zhezLDULqs7
-         EeeKmor8mjzpP+jF2Eq/Jgt7819VQMOwx+L/G7Me6G56+yMPSJXwkOn4VGVjpC7pmkmx
-         hFqtptPuu6KpkC51AQyW+SMj9+cBfEf851ShXi6nxSlUV63+3Fh16wIyDL34MIBbOldz
-         zjqOMTH/kWaclXaKGBhsjrq5f4NAv4jnvfQcLveu4r/CsejNa7ZovPHwrEEjexmAWzjW
-         KYthvDIXysA4LgN8Y2UdB/nq8B2n51cSlOuVcsXCfrtZLx+NU5rmigp9vcRxx1sAC7jl
-         aqqQ==
+        d=gmail.com; s=20251104; t=1792875153; x=1793479953; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=gAq6wKcf3z/+3nF9vgZuI0PqoqdEyOylIwnAX/7TL2NuIhm1dos+YsijsyGpIR+Zfl
+         oaHoWyHngYRqKx8+92Y8THeHJIRF9+2/UQx52Y4xpEXwx6gUirkfWfhWf9qpkqKzvWYf
+         oFIeESHM2ShL+qEx1gI0JVmqWuIC/e3g7Pffv8/mt4OvJX/kaRC2dWoNttUFpFK8lKy3
+         GESnwvYZ5RYvMmlgRVv+oEt2KZ3lUEpfBUyMv7RD54C6qWTNN+3eC88TKgvPyemqM8AR
+         jAHNdgHQTC5N6dI62UMPOInnvjWR2Pe2lYFm268H3J5vipy/bsQ+ph4oDHLgg5/2Q4mz
+         CJMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792874905; x=1793479705;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792875153; x=1793479953;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BuPJgnsG0Ng1Dae+yMYUghn3Dz0uN6VmqtORQTrWN9o=;
-        b=pvCvr2cVoYsTLU9IhIUfc9huhvhEEgpnyqdMu8RCb1kagS1kQPUNlWMv44lvWinWBv
-         s6HC9ctopgREeR7LMvo5Kjmx4ZIKJNQG2ya5eoGDqISJke+KJdeQngsB4UMbIBXfk2Pw
-         YeDPh4hKbVamYNPrHXtgnJmWC/4Y4DPRlOPFxTFKmJIC7r8ZSowzFRNOqMimzS6GDUCE
-         eW47X674g7GdipuZRt9/iEwJrXy7kULGyCkspUI8P6rlFndMjKAc9CjqW9pg/CHNNX9i
-         lJW2hnnogbbf34zynnDvwfZbKYmHc5w0uptnY1OC2Op1J8QpbWowLYJcOsFD5cGafAXF
-         /6Ew==
-X-Forwarded-Encrypted: i=1; AKwUvBz8FJd9L8OBYduLSniJn+RVArKWFqnjDEYQ4RfExsE5s9iq2qmVvYd+x9Jf1rifeGBsjPXtpSgtcAM2FB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6uvRubj4HCsrrSUdgoy7bu6/6Yiuu7RqVPEqX0+QZcyVMyQFe
-	Rdc81ZgLZ7DX3e8arJ5tka+fA6zFYmpJeTvdrVVW41zkmS6gGXLqvTb2Q+R7kuOktqM=
-X-Gm-Gg: AYBFou2pw5lQcq8kdb6L/9WGNuD4NqpSDG+pfN8cfoQbstdHxO3vetS+TR3RdBrUkpn
-	E7OCGQ2ScH1vqgpM1cprKkL/wVSFkQXFBMMVzdAH5mf0tH1HTXmC2pcnzgGwBAG2jcLkgXv6CyT
-	hv/sw0cPTTUh4B9aMkIaG20ytx41OAGflsx4v2bojJ2ECLhdgY2LQWQcAWFIacrH0Fw593Qu15b
-	QQQxeMIG1QlpRJGYQZD6IMy28yUt0bJM0Whv4XWMm5s+GfseVlOaReYxWFjupSmJp0eMCsitT5w
-	OFy3GXfPFx5nQ6AjqtkIZoIy+nbTkEqjIZMgcRJz8xiioDI3qaI2+7CMuEkStJOEcPYQrz6a83o
-	gUUcCBrZhWBSu6uJYvFPaJv1GuQFOG9exekdGhDv0k3UsPyOhBdKRPF8OCit74vmJRS+OXYt/ci
-	la0uzTzRrYHowvOekcGKv2RZ6TWKSjKB0BFtueF2AzbzXeDsz3gUAGV8yUYEEmdaOK1i5tZ4Z2v
-	7DjY2HWCY3ulBcZ1dnMSny2VDg4Hr6RmSHw5dnvgpaSwkf3nnZoYUlTEDiJ7PAOQcGEuFZAsYkG
-	eEZbO7e6pmRfphUWXkzDcmk7PC4=
-X-Received: by 2002:a05:620a:4001:b0:93e:9292:1b9e with SMTP id af79cd13be357-940ef7ad8b6mr372744585a.1.1792874904799;
-        Sat, 24 Oct 2026 13:48:24 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a94a5csm258574885a.41.2026.10.24.13.48.23
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=CX+mE40NLTrsqTNbmTI8Tyf/qOJBpUvWaIk5BDC0HOCqEh/8RGpq0tY34VWOot1CHJ
+         sMQ86yP0t582M2dj+85jtPL9RnKsZejFyoBAEZsd2ZmNJ7n5dK+m4EbDMDLgTPwtXTCa
+         xwUQlE0h5hiy2xGdBwQ19a2RYlg/TGSfjtT1yjLWKoo0tLBlzux6/noI65vgkuuPzlYt
+         oy9l00M+NAyxiIpztjrqpRe8AwZ6m6eHPCNLN1kO3iyNlHM9QzbMT13IP0mYGg9002mj
+         9Ewl7mEyyhckYtoxXg0tZ7uUklMj3IEt0MKFleCjf/WteHnxIjNVsSjPyeuH2pL2Ozqg
+         q8eA==
+X-Gm-Message-State: AFq9FYLvOo2F6cJHuUwf5lraJyDG0SNUf3caEmpPZqMPQGC6j19R5D/G
+	VQOhIQS3Lf4bDTC14rjKwbC6vW5sjkX1OJy0xTAS79ts6WScDyq5UdWo
+X-Gm-Gg: AYBFou3bKNLl+7kZyblBglMVfOfSsZJ1ddY1UtFBdGC1RBVyx+Qe9EU6NDCzFeozP/b
+	VlMKqqG8aA4GD1cgyqVQqOpUPzHMdccp+b9mSy+m6Sk96nX+ODEfnQh0on0yTf3mndVJHuHIGB2
+	DeOneIb7tnZ6y/2CUGEZpubcfQ3LA2ELTbVxIfa58mDq/ktYWAsMu1hl64gi3uD1959DhAN9pC6
+	5RcvlT3mVcd9rfABO/Uu5uU3UO3jp08riD81KW/yV1K0NXEX6nblSG6HboPm9f393QILaD8j443
+	RyfGiK5ZO0PAnGSiNVVUgx+0F6uLN1JpiyXipixxAuy/XGJ9I1MzWHGJ5uK6nXAwc4nhYdBduW8
+	6yeGXnlcJxlY8p6GtpU3FziGfCi2GnK4tPloUsO1i3Sfzv+iGk34LmM6E5jTrd5qGrPn+eo+mRy
+	CC/H34qu6Ug5VwW2AuMps+11E2BJwsGuaGs1Oe+YdGuXxhnGY9x/QzYD51iEtgw4K1cknvZtusT
+	VMC4AG6xQnTk93gHh9AGgigHGt9WW3TL7XTR4QHfLmMJ5fi7iRX9HiASpqZdCZoBuG/v2i2fW9J
+	h2fUgCudavtjEPOANX0Mg6IKoIPZH5UHcbkWbuSpSHXkPnUo/mUGtUVmUpy4kW7HIf9v9DA+yIf
+	odCxT8gwELv+iAiYPNmltLjVHK04yrqSTWovfyELr2pjxlppksgojRLHwiNq7SeRDTrCdXMHgkZ
+	KL9w==
+X-Received: by 2002:a05:6808:c1c8:b0:549:a550:8acf with SMTP id 5614622812f47-55c003426f1mr2007470b6e.50.1792875153162;
+        Sat, 24 Oct 2026 13:52:33 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0429c932sm1986785b6e.7.2026.10.24.13.52.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:48:24 -0700 (PDT)
+        Sat, 24 Oct 2026 13:52:32 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 24 Oct 2026 14:52:26 -0600
+Subject: [PATCH v6 1/5] serial: 8250_omap: separate locked TX DMA
+ completion processing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,92 +94,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: Path forward for Virtualized Swap?
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Rik van Riel <riel@surriel.com>
-Cc: Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
- Baoquan He <baoquan.he@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, 
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, 
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, 
- =?utf-8?q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
- Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
- Meta kernel team <kernel-team@meta.com>, 
- Linux Memory Management List <linux-mm@kvack.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- linux-doc@vger.kernel.org, 
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>
-In-Reply-To: <12081d266e4846f23faacfc65c7be7da4ed013a9.camel@surriel.com>
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
- <20261014195354.GA371161@cmpxchg.org>
- <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
- <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org>
- <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
- <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
- <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
- <CAMgjq7CN7qTes+OXvCfsgPOnbtyY7YPytTEP3zZJTBxrGZ5JnA@mail.gmail.com>
- <12081d266e4846f23faacfc65c7be7da4ed013a9.camel@surriel.com>
-Date: Sat, 24 Oct 2026 16:48:22 -0400
-Message-Id: <179287490291.4123581.5790613647977714588.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-submit-serial-8250-dma-cancel-v1-v6-1-6f366591f566@gmail.com>
+References: <20261024-submit-serial-8250-dma-cancel-v1-v6-0-6f366591f566@gmail.com>
+In-Reply-To: <20261024-submit-serial-8250-dma-cancel-v1-v6-0-6f366591f566@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Timur Tabi <timur@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 2026-10-24 14:16 -0400, Rik van Riel wrote:
-> On Sat, 2026-10-24 at 23:50 +0800, Kairui Song wrote:
-> > On Sat, Oct 24, 2026 at 4:03 AM Rik van Riel <riel@surriel.com>
-> > I also hope there is a way to release swap metadata completely too.
-> > e.g. for fs, you at least have umount, and can rmmod the fs itself
-> > afterwards. We also have many ways to bypass the page cache. In cases
-> > where a virtual layer is just a burden, we want raw physical swap,
-> > and
-> > the ability to swap off that too.
-> 
-> The VM cannot operate without the swap cache, though.
-> 
-> That is very much built into core parts of the VM.
-> 
-> However, having swapoff remove all data from the swap
-> cache, after mapping the memory back into userspace
-> page tables, seems like it would be fairly easy to do.
-> 
-> Does that meet the needs of your use case?
-> 
+Separate the port-locked completion processing from the DMA callback
+wrapper. Keep the shutdown check and locking in the callback, and retain
+the existing FIFO accounting, delayed register restore and THRI handling
+in the helper.
 
-It may be good to talk about this in terms of discrete workflows and
-interfaces, rather than in the abstract.  Just describing effects
-creates a confusing situation without including the cause.
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-Isn't this as simple as having something like:
-
-echo 1 > /sys/kernel/mm/swap/drop_cache
-
-('simple' is doing a lot of work here)
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 4805b644ccb1..b6f108d34854 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
+ 
+ static int omap_8250_tx_dma(struct uart_8250_port *p);
+ 
+-static void omap_8250_dma_tx_complete(void *param)
++static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+ {
+-	struct uart_8250_port	*p = param;
+ 	struct uart_8250_dma	*dma = p->dma;
+ 	struct tty_port		*tport = &p->port.state->port;
+ 	bool			en_thri = false;
+ 	struct omap8250_priv	*priv = p->port.private_data;
+ 
+-	guard(uart_port_lock_irqsave)(&p->port);
+-	if (dma->shutting_down)
+-		return;
+-
+ 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+ 				UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 
+@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
+ 	}
+ }
+ 
++static void omap_8250_dma_tx_complete(void *param)
++{
++	struct uart_8250_port *p = param;
++	struct uart_8250_dma *dma = p->dma;
++
++	guard(uart_port_lock_irqsave)(&p->port);
++
++	if (dma->shutting_down)
++		return;
++	omap_8250_tx_dma_complete(p);
++}
++
+ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma		*dma = p->dma;
 
 -- 
-~Gregory
+2.53.0
 
