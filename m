@@ -1,112 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792843509;
-	b=YyAJAbND+QUC/wDcmpYZUNIsdXNscKQSamPq4rErxDJW9PF3lnS9rKqBKE0ACdTejecC
-	 pfEzEi6YLRheVPgYw30TK5cbmjXKzWKlHLTogCm70AQpaLtEeTGdrgdamo+ofifv1aEmo
-	 GZ0+vF7xmwOLQCzJhTcwnA0/51dYwOKptDHwXigmw6/S+RqxvsmGd9m2mBwYU1Xtji1G5
-	 Ah5jkQW4C3iZXYcEOWFlgroyjaFCDcbFlFpYFgBxuqliUeOt85RLaZ51I43le2InZ2j5a
-	 ZtohAhrObw3N9urwCWnKDc/ua71sjwizhb6J25HaSLpPTN72BgvQSi5/k7rZ3Be3ejA==
+	t=1792843573;
+	b=NRfuon1wDrNn9ijMlAYzbRKz3KUlX+PvaGlRFrf2W96PAMRFJSJvr3HtVnZM8B01Qy0D
+	 FKTI8YFA5U5NnGOeuO2K+fGHNWhxIHMwUmrZ1B3cCaRLtT8wbrgnb+eoSrLCTJgu34T2O
+	 JTul6/3/1w6hb7JGcmU9boAoOX8vx3Ud+kXZXU8aJ6X2JtQYQXf64GYJXXyRJVpiEwTbK
+	 XxEKTM/UhvyKiY2t2HGKIHcOZ6qenyGkWPwzvMcLKwI+1Q2JB4XOKFUl3AleRd5LwTruA
+	 A0MsdjCVWaOes0kfyf8/t85FC7trC2xGaRlBfooHmhSr9qvMykq5xyuWlp2II6YideA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792843509;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XcXND02uVU9mligWZKre8PewcZOkoWJ0b9UoDwiNQPw=;
-	b=PgP0bQZoRmHO4S4dr5bdSg2kLS120VW1ylvIiFpMremlF+WmWNQHJo7PzykFd1QGsQD3
-	 JPiPHkjN5ce9wjLfiWpWwmGd24q6bknXtG+3foq5hbDs1VSo02/MrVo9wP5BaoTBJigNS
-	 m8T6e5CFZCTM665nxw9yecnh8Bz+GROa+7ozLuITuquTtwr/F+y4W6JWMe0Ym1Us6hxQl
-	 uLQLgdJcya2HTyKkctheaaurACdg8Gy8ZVdYpHpMDdc9p1+2krHruBvAuthaPpZmRGrQm
-	 jXrPxFoMvkmb0R/9DXLse+HwhvquWvDmbk+4YKDYyU+VV8u06fYDVzbKmPJmLVBhlVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792843573;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bVCdTHtpt7GG8JcgCc7bG+9s3eoRT/FFD1Bgu+2KeOg=;
+	b=sWmapbdJqgY1I42vcFXnNL61qNx9962YD2Qcxc40H+2S9hpYDysjlZLr2MFd88dq86pR
+	 6QuyIcHPhGuHFIFenVGXdQW5k76URcLVdItsdrLK+uWK2+u67HOD4EkFIKGj0LF5YdWsr
+	 C9qzI0vVDWUV7Es1MRShKymwxv+clxHcAcPC+3K7z0zQgupTEBocyLB2qO5wt5j5Ql+NB
+	 5lIFlfyn8B3E9zhGmApf/BkSvLH/jd3g2Uu/FonFxLDM6bqc9yxwtx5dJlepOjGEYytxm
+	 I/8JUIyA2A1mYOee0GXSwK4n+zB50DBXtVWBknvoKI+1pINQW4i9MpZqezs0vVNBHwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=I0sgSLyf;
-	arc=none smtp.remote-ip=185.125.188.123
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="M7d/fanJ";
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09E2606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F09E2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E135606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E135606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=I0sgSLyf
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8BF574031F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792843502;
-	bh=XcXND02uVU9mligWZKre8PewcZOkoWJ0b9UoDwiNQPw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=I0sgSLyfiwSxnbjIJjhfm6g1YLsCEnhfuW5WZ6ZjzjYCbx3orKIIuYV0pRq0DzXvN
-	 lOwRVWd4ByYKijLzCzVEzxbJE6JwbqXUsAxzysrLt5AoRHDoa+/Uhxt6ihfbKGrCcL
-	 K1yi1AizLgrkT1WTv5qLTqlGM/WvuX+LbcAlhBtdYvWmLUsjahmmupNPpfuZerN+DZ
-	 ZCqwCwU5vB2flUXABFQcsAuq5xdoTsA3shFrtWRjK7wS0KCO/FmJfL5Zg16cHOCuLW
-	 Wjz0qxej8y5ERq4A/3nrV9UauyRdkVrV4ZkptuaDuXG9qdISqfDJF7cj/ssjaaobub
-	 Teq1YkIeUH8lA3SshGx0Rugt/shlpmQL2fHCpcKNvseg+IM8dEkKvOeFrVyYUjzWve
-	 wTeQo9etPzdY9PML+ZSi3RAcYO1fvRW3QZ5lRmL8tfup6vwJFQb4vB6rIWzCY1j/bC
-	 y8ks4b7rn+Hr6sU3L9/xdwIZMiz728A0W1dy+eodYMMTVw6lqK0rAbKy9Vac1UF08K
-	 m+wyFIzpe8Gdpb0wcN49oZ7sekN9u6PPMe3Qi4tSMPPjpr8aoo6qe/VbpKCeyBbruW
-	 EF2InAednb9OijiUIavZjUUJd278+6LkX9DpnxZMibY16GfawjrpXLNGpG8iWWboJE
-	 kbLZb6nsgHhZ0cE+7Le61Sv8=
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab46165261so516132a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:05:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M7d/fanJ
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so2718991c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:06:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792843572; x=1793448372; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bVCdTHtpt7GG8JcgCc7bG+9s3eoRT/FFD1Bgu+2KeOg=;
+        b=M7d/fanJVLn+mKCHa+IqxUbId2WSzV6WMSX/3OsU0eB3dm6rpOzb57sXZbSOlMEbjh
+         /C1K5eJSR/e60JsHjuHzfAY+XM/2UrUAXa/6DKEXOsnI+kyhq1tHtj7jEaNClwICk4mX
+         hMcNZJVdcgMSNmvcEk7QL5WPWSQyQKnyuMW/qm5su0UMrumkYkNYXUMZAK2vOyQWqMZH
+         VPJQdQ1cYW6Kqn7FiLvRoygn/3AHj+QmcFmecKowWLK9dk+na0xEn4lmcF5x4eI1IJAJ
+         2+pJVg+G5o1epOrmeqU1YLoReuNjo2tDm5uwwef4HrWNq3MgUj4XXv5fKuUWC2XAykKQ
+         TGzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792843501; x=1793448301;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XcXND02uVU9mligWZKre8PewcZOkoWJ0b9UoDwiNQPw=;
-        b=LUz/HKNNIsjaFr3zu0fiau7LcKHi6JBFEJFn6aF6qk79VxD9g1VZtsN4ITdbwfWdLL
-         tI1l78GU+zQrKmebM0NwosTUTydeZ5xM20cwgxI54X9GPmxBjLSidnZauYpnPF+tVWez
-         DynXhmkfjc4GVeiP9AZeSYWdO5kXLLlhfL+PM9I/TUBLK6jhkir8tKLk+bDx4syNZJtG
-         yUqdndIrzo/jU2ER0XrE0+Dye0fZUKCHJAh4d4Og3hi4VRYNspH115P9fNtLADWfzH5B
-         OmeTaOzpL3L7ka1xfmun1NNhxVNoedEGlPH2xFSl7HII+Xd4WbDJfnBK+jcrIGTJZdI8
-         oxEA==
-X-Gm-Message-State: AFq9FYKKaa7KyF0T1a4nol+TAzWKvrRKipC1fRXusL/5HQ4zQaPEX6cm
-	LVy4iuOwChneFIKlmGCBQOBYcQcidHMhhoDlcS+hbq8IEoe8+m6lQLB2BWF2gNBCNept/ABwT0k
-	qUgYh7S7/Lq8wfqs2ZIYLtsD0eu9DyG5siMJnlWSykgJsug7crXa205SiYKunlB4bfbygQSTaHZ
-	cB2MR4fYda4b/zBA==
-X-Gm-Gg: AYBFou0xji2TB9q7r+E4sFuHsGkJJUh4zUBaT1y43ApNBxBlOLTTRuxbPztvVeOkVu0
-	CnvRCSNaTgQjIcxRO5/vN7SKNxp+eF88yYRVXTcfyRmaNsU+1uMUJekVImNOcJvDvkfJnUUzp80
-	/Ygh3I/O/X44Uxt1P+J4RiFPZLYDESKLcgoJt++FXVvGTJBMttxfcD8qFN01I/cK8U9BwmCL6Fm
-	2th9768XHIgZvPGn5Jn+VtUcSKDbRuTsEP6YCNJ5POuVRoreVHpRboz0BPtb1W1iUqCCbXycLHW
-	WdRGuFrAQX5CjPevbTWwdLbv2y2N9bLMVZlcX/C1cHqpPiC+TVcxCCqhQolkDcujrvFDtr0GN4Z
-	FLejJIyaYrcI2lGfH71Yblz16cZvZ0d6b/SOxE1yXTkFYodu2vHqS1crgzmOuJ+Y5+jfSSl0qo9
-	9tWDb5I4yyJqiE/bzA7SBkpfYwlAbVqN7mW2yuXsgY/kLyxuJOtWdjbTKY/xrDNudVWHTNVr+aB
-	6HXtu/5aJeiMv7dwK+Crg3A5duGs4IWw6JjEWzWTw==
-X-Received: by 2002:a17:90b:580c:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3ade953ea72mr2539071a91.0.1792843500791;
-        Sat, 24 Oct 2026 05:05:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:580c:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3ade953ea72mr2539026a91.0.1792843500265;
-        Sat, 24 Oct 2026 05:05:00 -0700 (PDT)
-Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-0e25-4b6d-1924-440d.dynamic-ip6.hinet.net. [2001:b011:2008:445c:e25:4b6d:1924:440d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb24a04sm2893409a91.16.2026.10.24.05.04.57
+        d=1e100.net; s=20260707; t=1792843572; x=1793448372;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bVCdTHtpt7GG8JcgCc7bG+9s3eoRT/FFD1Bgu+2KeOg=;
+        b=BO8LlE39UG42Rmg0ztNNj+zru2Dx2Y3jgEeXnPogpHI2xZFgQfRXQzqrrSiqH6AS1L
+         crgrFjobfY3Ho2w7mSgS+B4e86Ot0dN6HNzw2l9KYw3OhOzCZGk3KIzpP0F1v+W633Zm
+         PxujIEtKv5KJa+PS026hL/QEz11oICnwWL/lC6sW75ngfn4UCVmgYsVux0wSU+78Eu6a
+         XBnoiSdQzBPwUDrmeg2EEPPz+IpQyI6OOhRnJ4C3fAmJ5YS0z02N8GczgT33mvs+GLiE
+         IneWxAUPAJK2Qe/hZd3CeubvZ06h44fAZACbN1YmaF9+6LyirbQCfQoKcwSIpvMVKzNR
+         DRjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNpOO1dIiIBQ7Y2Y2L1Pc4axYJT5mKXRAWGv9KMdhmlFJhHv89d611D872MKaK1C475SdG/nMq5DpSHtw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiKFnvykVdYMPqTYo2OBaCRNvGQgprNij8NLpolPcJZ3IP1XwJ
+	9ntPo6FPzNoyQkTlj6f1rspVbK9uaPFNo5fqqBw7uI4V7mVXHUr8AgIj
+X-Gm-Gg: AYBFou2oJyNHy+wKdl67xwErV/K9RDUhPxBhNlFh9GWg5Kgcq6dxm7c2FeBcsvJUJ3q
+	dBGIQOGN/A8kEZBd1XII8yBxaETY1PiWovVRizqj/6He84h3g8WoppacGg33iInhoD0M5fmFVBO
+	Sznpxfjkc6uwLfeTFJy5wl8RPfrdVjiC3ZdJrlsCvtfAh1EIp1QvaUsYbi/XOqDflLoRNgxI5nt
+	kYSs4mJIxzC71uMYSsNRsPczY85IxFVoNTrY+cxtILWj/MdozZvYdnVlWA0+M5HYiNZ3h/46PoF
+	F8hXuZ5bO0Aalpurclzj/Q12Bn0/NTVjaNTRavZltXPOKKpXa/oxpKYehJhp5PMbRE7Arrx+Ouv
+	AN47ngvwEpj79O0KOUdfmrC75XpKFCapMexW0SKsdLeoBEh4EQtnGHBe0cr55YN056IeRu+MkbC
+	RlZ6QK9iB0rpgoleCVJfhJCzERj9A8jrfCS3O6D3cm9lLFjLXUItea+gbZFWwz0xocY0DP9+HOy
+	idnv5UyUcHUNaMJA+Xn5UovHWK0Oqafg1DN82edJtdrI+I1vJYi9qGUNjSDB9NHKmDn
+X-Received: by 2002:a05:7022:7e0b:b0:143:2982:1043 with SMTP id a92af1059eb24-1993639f0f2mr2801303c88.36.1792843571494;
+        Sat, 24 Oct 2026 05:06:11 -0700 (PDT)
+Received: from [127.0.1.1] ([2406:7400:129:3e65:f4a6:5e8f:7da4:c9bb])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a249c331sm15569309c88.17.2026.10.24.05.06.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:04:59 -0700 (PDT)
-From: ChunAn Wu <an.wu@canonical.com>
-To: linux-serial@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	markus.probst@posteo.de,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	mpearson-lenovo@squebb.ca,
-	derekjohn.clark@gmail.com
-Subject: [PATCH v5 3/3] platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger: Bind through normal serdev matching
-Date: Sat, 24 Oct 2026 20:04:40 +0800
-Message-Id: <5e70a181599ada304c6aa6589cc61662f1a8d710.1792831564.git.an.wu@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1792831564.git.an.wu@canonical.com>
-References: <cover.1792831564.git.an.wu@canonical.com>
+        Sat, 24 Oct 2026 05:06:10 -0700 (PDT)
+From: Aman Sharma <amansharma6122002@gmail.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, Aman Sharma <amansharma6122002@gmail.com>
+Subject: [PATCH] drm/i915/hdmi: preserve cached EDID on DDC failure when connector is forced
+Date: Sat, 24 Oct 2026 17:36:04 +0530
+Message-ID: <179284356403.1659508.10439113185286055496@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,84 +93,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The software-node-backed serdev client cannot be matched through ACPI or
-device tree and is force-attached to its driver.
+When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
+laptop clamshell operation) and the external monitor enters DPMS standby,
+some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
+controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
 
-Pass the modalias to serdev_device_add() and give the serdev driver a
-matching id_table, so that the serdev core binds the two through normal
-matching. Deferred probing is then handled by the driver core, so the
--EAGAIN translation is no longer needed.
+Currently, intel_hdmi_force() unconditionally calls intel_hdmi_unset_edid()
+before calling intel_hdmi_set_edid(). When drm_edid_read_ddc() returns NULL
+during monitor standby, the connector's cached detect_edid is wiped out and
+drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
+no-EDID mode. When the monitor wakes back up, because the connector status
+remained forced to connector_status_connected, no hotplug state transition
+occurs and the display remains stuck at 1024x768 until a manual mode probe
+(such as toggling the laptop lid) is triggered.
 
-A failing serdev probe no longer propagates out of the platform probe;
-as for any other bus, the client is simply left unbound.
+Fix this by retaining the previously cached detect_edid when a DDC read
+fails on a forced-on connector. When the monitor is awake or a different
+monitor is plugged in, drm_edid_read_ddc() succeeds and replaces the
+cached EDID normally.
 
-Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
 ---
- .../lenovo/yoga-tab2-pro-1380-fastcharger.c   | 25 +++++++------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-index 8551ab4d2c7d..d0bd9d4e3137 100644
---- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-+++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-@@ -219,11 +219,17 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
- 	return 0;
- }
- 
-+static const struct serdev_device_id yt2_1380_fc_serdev_id[] = {
-+	{ KBUILD_MODNAME },
-+	{ }
-+};
-+
- static struct serdev_device_driver yt2_1380_fc_serdev_driver = {
- 	.probe = yt2_1380_fc_serdev_probe,
- 	.driver = {
- 		.name = KBUILD_MODNAME,
- 	},
-+	.id_table = yt2_1380_fc_serdev_id,
- };
- 
- static const struct pinctrl_map yt2_1380_fc_pinctrl_map[] = {
-@@ -260,25 +266,12 @@ static int yt2_1380_fc_pdev_probe(struct platform_device *pdev)
- 	/* The fwnode is a managed node, so it will be auto-put on serdev_device_put() */
- 	fwnode_handle_get(dev_fwnode(&serdev->dev));
- 
--	ret = serdev_device_add(serdev);
-+	ret = serdev_device_add(serdev, KBUILD_MODNAME);
- 	if (ret) {
- 		serdev_device_put(serdev);
- 		return dev_err_probe(&pdev->dev, ret, "adding serdev\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index b6fa1a1558b8..140d98a61a9c 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2570,6 +2570,18 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+ 		intel_gmbus_force_bit(ddc, false);
  	}
  
--	/*
--	 * serdev device <-> driver matching relies on OF or ACPI matches and
--	 * neither is available here, manually bind the driver.
--	 */
--	ret = device_driver_attach(&yt2_1380_fc_serdev_driver.driver, &serdev->dev);
--	if (ret) {
--		/* device_driver_attach() maps EPROBE_DEFER to EAGAIN, map it back */
--		serdev_device_remove(serdev);
--		return dev_err_probe(&pdev->dev,
--				     (ret == -EAGAIN) ? -EPROBE_DEFER : ret,
--				     "attaching serdev driver\n");
--	}
--
- 	/* So that yt2_1380_fc_pdev_remove() can remove the serdev */
- 	platform_set_drvdata(pdev, serdev);
- 	return 0;
-@@ -305,8 +298,8 @@ static int __init yt2_1380_fc_module_init(void)
- 	int ret;
++	/*
++	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
++	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
++	 * cached EDID rather than wiping it and falling back to 1024x768.
++	 */
++	if (!drm_edid && connector->base.force && connector->detect_edid) {
++		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
++		return true;
++	}
++
++	drm_edid_free(connector->detect_edid);
++
+ 	/* Below we depend on display info having been updated */
+ 	drm_edid_connector_update(&connector->base, drm_edid);
  
- 	/*
--	 * serdev driver MUST be registered first because pdev driver calls
--	 * device_driver_attach() on the serdev, serdev-driver pair.
-+	 * serdev driver MUST be registered first so that the serdev device
-+	 * created by the pdev probe binds to it via the id_table match.
- 	 */
- 	ret = serdev_device_driver_register(&yt2_1380_fc_serdev_driver);
- 	if (ret)
+@@ -2638,10 +2650,10 @@ intel_hdmi_force(struct drm_connector *_connector)
+ 	if (!intel_display_driver_check_access(display))
+ 		return;
+ 
+-	intel_hdmi_unset_edid(&connector->base);
+-
+-	if (connector->base.status != connector_status_connected)
++	if (connector->base.status != connector_status_connected) {
++		intel_hdmi_unset_edid(&connector->base);
+ 		return;
++	}
+ 
+ 	intel_hdmi_set_edid(&connector->base);
+ }
 -- 
-2.34.1
-
+2.43.0
