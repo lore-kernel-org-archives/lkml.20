@@ -1,98 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792821121;
-	b=qhSecHPT2L8g7Oy5OGheNjPzAYTjQiYnw25fCBWYLHWJ9E5mQLJnaLvFD+gvyNxG/1Ae
-	 SWGCFFsK6zZOitBLQQQdXUuy7RdshuTQDiHQ4VqvlvESzheEkNDz++SQNzRuLrNyk7ap1
-	 mRhKhuVItch2ChgKix07+tUJ0iRq5cOzcqNpCd7qbcy2jdNx2ObvZf2p2iA7u2SZbHqt2
-	 JeB1Amob+DNqFXHdvsBD2merxaFC1Bv9wWRmZHoOXkuwyYgnOA3s+5NEoN7fSJKbEEUbz
-	 z3LmoEUxoBh8l0bML7K5AejRZ+2ag4QK72Ke+Bw50StjVuMN+wMvh79ersfKSSvbvCw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792821121;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=Jlpo7fIcByTBeMoPijrvjPiifrT7FNSteMRpBZdk4xs=;
-	b=3qom56daPOMlXid/t/6V1aGNPjgePMUH81TcW2zp7vG+1jee99T/V/IU5GjyHhJEFxhq
-	 2Cx5XnFAiJo51ItzB3B6ado8OWMpr20Upf0p2HLJRzQIgbrEisrdcF4Ryfv/0JfAMIq1w
-	 GTQYqrY/l71E3844DhxE/g6FzKubQodbWruMkt2gBHSyG5Pe6hK9lPNFJe7866D4lcjwn
-	 5pwiK7MIgmkBKjpXwUVqppl0EnhloVWpQGfuVucAs2qWuC+lx43m8uKofe5noID8tMM1F
-	 US8PDjILjSxOasl3cvkZYoM+diVIqIqoemlP73kJ7eWbsmFEyF8GgGbEYJ5fAhXlCCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hkwChsJm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792821351;
+	b=EoDNBz3sCq/1C5kQ4BE7IkZ5+tXihN4ZXUgeYtoDK5fdwnkbOTrCTFg3p+QMpaTUE5RT
+	 6k3XFQo91IvHVi68m6lkViU1NwLVZ3X3Jere2B0aABo2Ws6RxSbq7GrgPiJNRa3im93r4
+	 +FUnr0ET0vpBHV7aPtTQbZEMCt6QINk0OwaKwkAaLdceGKk+822B0WP5LVjYGTE2yzdZo
+	 3D5oneUrGwm2T+olnhrn1pBxBpGrois2huD+Aj0/zgfWNyiOqC3nM9AOzwKpteOWyRWlF
+	 uRSuvy/n2cBDfFTMsmj9cVp4fd/bpJrxEdQLoRYVrNADoP9gosGjMCQ8O0p6qZJg19A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792821351;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=P3RK9WXMHG0tuwk3Uog+befO1lx+KP55QEdWwZwY8Hk=;
+	b=BfyDbL0znrBuO34Rz8z9VKWaqsoFC3AOXztxhHqITlVa19Ui2Tlv9H/M2rx0OdUigotc
+	 u/qWRHgACo86EUIwKpU3Lbf9sQYPs4KsD4MAzMLrC6NDZsZgt6zwx5ohWvE6awB9taJ68
+	 GwhwZtBgJDgfzhCCeJFyrBe9TZhA+qMp9oX6p1Fttmg7rGRlJS9VOQzeOn9lka6pKf/eo
+	 MaE9ocX+7RHVeOkdcrpUTWq4sGytZQtnA0opGbvpcjNYETpmbWY9IskZ4UOKt2i6WhXat
+	 qcFcISI0uoaKvF0rzERTM3jJnRqBEavfkD+KsQHnX0cJCKgqMK1OfmOn8ncdDrngUAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y11PTvEw;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362DE606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:52:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 362DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF483606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF483606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hkwChsJm
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso2096908a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:52:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792821119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E5MTKNAQu4Et1u1H7uPCVOEu6Od65DjQb1KgV0h3Vooo44tjT0d1iuo5Dx5ZqXZ7fU
-         o2iHaZR32p/kH0crFOghzFoA9RGa56Xw+cXJXwtX+3J1ALqevM1MxnXXW/JVtHnb1m42
-         /bMHvHdiiKP2RMkAL8mBe9PgFGoot8bcUbkWFyTUw4yKtU7WHzqEs6xgHno/YLntuBpt
-         jxOC1H/DclABvxGdNa+6zu7oL1TVAukRo39ma6djCj4AodsLLNIKntTdzHMBbT2c8V7C
-         7rQUllJKEaUdsN1so6FK55lJBGrRCYcCPojbLv+lZ9apR/H4psH7nKMwZiydTLe3tUO9
-         xIlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Jlpo7fIcByTBeMoPijrvjPiifrT7FNSteMRpBZdk4xs=;
-        fh=80gD9GkCSSWpUX9oL62x4lIaUY/6x14uGYOfipvD/hg=;
-        b=i/yqr241VfcifqopFhdDh39Bl6GPmtLdbazFSbFl1i6l3Gc0s0qESyJzkoC8Uoxr4l
-         gDrSzSd2kxVmHHKncRyazfH8EZX2HkfdFQCicl11dmTRxneucuMFzIwWa32fNC95+t6K
-         C23pcYFRFfClLZEKksDv4yT1CmXVGYN6RkzRgAvgFm4Eg4O7MyVFd1UsoIrxBAdoCrY4
-         wsg0u16ApabDLbqRlFcHBtw+F5eBryD8fD3FR+sonvUxlhum3DyIuS2i1RaU1Buyn0rI
-         4o6Wch3Xm+xe2uTRHTBQAf0CJgp5bt3UeZsKOGLkdVKGtSjn8bY1VFf6zfTdhydbmKH6
-         5iFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792821119; x=1793425919; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jlpo7fIcByTBeMoPijrvjPiifrT7FNSteMRpBZdk4xs=;
-        b=hkwChsJme7QNNH3tI3Fn3WXS/b/Cb1okFbuJGRBy+gWkbKI2D9SJVisKv6upNvjw38
-         cfjtsaNP4sbWCV1og3e0OBcGXzeBbVOYVGxGFWA3eaVm5RHYFY8X7vgjJ2GSI+8Z/wo8
-         nltNHiXpc31jkjw9kWA8NQJdJXf353M93Kod5PT2lyFca+ilkNIsoZaWQmRPhx4lhlvt
-         VOTRxA/8bRubllssJD6iO80kki4GcUUn+I7AvMpY2wA47VoIGhUIPV5qjqZ5QwkBrE9c
-         AjAZJBi0m+xWRHgzlHD5CzfWKBvRYuGcSDWktlGP1fycJdGWW9itIBhjOIFXMVs0/+ha
-         AsvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792821119; x=1793425919;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Jlpo7fIcByTBeMoPijrvjPiifrT7FNSteMRpBZdk4xs=;
-        b=VwIK//Seba8BXAr8VbkmWIuc8JxfIP7JJUlF//eBak+UIyQlh5E/SVGCFNHfG36HSj
-         REJukdeD5p5D7uXyPR7ENx57OdRN19Ei8eDKXsHMD18VJCGNK/Y9j5dcoXT9vUctEpF/
-         lufPy85iXmj6FdaNZo+/uSj+fDMKFaWKEQJSUoqOaqv6iPfavY4zmdcXhBBRyxpiF9nk
-         94G7kG3wmzcQYtUg0/yJr7uo9Hew9BYJi5RL3lx6DphZLggldJv0ZOS3mt7AjONRukfk
-         ZXSt9T36N2C1XpqgIjWqj1Uka5BQXBL/gG09+2zNB9PGMt6u2uUtnnDC+O7W9SCiEqiu
-         LYHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwk4UJkDBj4WvEAnNmRiYBADRdt4+3UpfUt4tIYKQOdEpJQgiI5gC3rUrIbpE9BsAdGAvWJgVpDc4VyoLo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRGmB/d27hvF8Wcnt0CRp3Hn4EWaK3nvQlaN3crr1b9Drp0Mc2
-	z3m2ktmXukxlNDIbphzIKRQfAnyk++/IA//BMKXCYIcdNcM8y8OI/Q9qhs0ro1Er4eZ5u/noCcG
-	uO6J4a5eraWmVjK1gtECNeDFrnyy/xMY=
-X-Gm-Gg: AYBFou2Hx8q0EwdrDPuys04ihiZOAY+8Ffxl4op31l4HCAm0Nbr0o31+/wYr88nrq2r
-	ceZ4fqpmucepgyPhD29jpgLcFStzc798+ojhAwCHeDy26xR/r6IDv32OkzzstvEuB44LR7+21ag
-	fPcJ46ZUyoopw6gDrrX7oH0CGhNGsomlecxyd4jyPS9Xeqosmk7nfqzQ5wFAy3enYSG+0XoAPs8
-	dFhUBYZdn3S14PQvxhrPA4Y8XhSTM4CbOUMuhPcNCWyVVJbwvY/0fSxrTun4t+w0uYtsBha9A0n
-	GlX/gJySlTTKI4bKKetnLw8mC+ScbunJNN9whYuKnkc8mJ1hge3nxaFt7QdXYkEvb9jz2pDQUIG
-	j/M6LaUP+YmcLFqU5kTCpnp2CfiqC3ztR51d9qVQKufhZcwc4AxgOgAwL7zhG0rYEr9jykHi0J9
-	dfB8U7LKZEeRBKKB5Ke2zjaRFWKyKIJkkbzQ==
-X-Received: by 2002:a05:6402:42c9:b0:6b4:201f:17e3 with SMTP id
- 4fb4d7f45d1cf-6b442fd51b4mr1581114a12.16.1792821119296; Fri, 23 Oct 2026
- 22:51:59 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y11PTvEw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792821325; bh=P3RK9WXMHG0tuwk3Uog+befO1lx+KP55QEdWwZwY8Hk=;
+	h=From:To:Cc:Subject:Date;
+	b=Y11PTvEw5m9/XAqe7Xi9bVHJZmOL7yDnxOB8+Y6PQEYNvJjZDvJVe3Z44LvejD4Aq
+	 PacEWVh9TZEibVvtBcKbyWiwSJkFh4E+jE1b2+V18nYMvCPlMsjbPGkDTd7+jtJRX8
+	 N1dAue72aWp01xu0zWeY3c+cI3mqHpMRf7IGir+s=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id DD789CDA; Sat, 24 Oct 2026 13:55:23 +0800
+X-QQ-mid: xmsmtpt1792821323t8hmf2ii3
+Message-ID: <tencent_850ACCC7270A3775F0BB75E4C3A9C2942205@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLddEWiolZDN8rxMmjnyYA8AA3Ph4NL8HEvtIZH43P+f7QYJMCZh
+	 HusEN62fUX/ObDbfP+GY4i4bpYD+hnkh5169YZr/ix+9/bGYvGgJRFSUN6f/1A6BH5vR7VpnEbi1
+	 PGgGz9cK1gKuA52APicHpxsjrgB0Q/bSrgJZ6XQXFveK2mUcuz48zroLCaktfTTaWnjiOhZg6YVO
+	 337bfYWRBu+g1T8ImKAXzh1uZ5Gp/dlXVzL81vocYGkRtYvfW4Zy4/VGheiuDMLwgLeHgbT8XY4y
+	 YIWfX3LqQG8P/7JBVQHWzsDIbTD6m10kRAo+uBz0wnoy+NFzP/m47/UZ3Z0mO51NJfaeyC0A9AhR
+	 WaYAp+5UJ8XQqM3Q/JSj7HbfqTNCnqlLxzNXNPG3YXXxwYD5kTF7tqmrzwBKnEKTOIuSVjW8Q1fT
+	 xF5u8/fyIYilTGq06PHgT7ZlCl0pmbnrjKBztCr9HyFRKZufHVyXG2CrHhGNOIgz3cGRE6pR+UlO
+	 qkJoOwn3nIpV9I8jUGzvxlnRRHZxV80MtG0/m60q/BRZRKbbiROeq5MLLro6BZg7IIu/F1RuUvtq
+	 w6h8ZQ3WAtB5Jrz7SqAHSm0CWGm5a/ef9kqXAocuiVps8Zbmhm4mKIkoUuGnKPXSPCkmJn8ZwRyt
+	 t3ASYEl0BSC5Z61wfHPwvsdg43bU8xKC4JpylzLj9YMrI0KyXqe3Wf8H4Y6jH2ebqlC/vDDP+f9H
+	 j+44zUcYnmHiQMXp8NYBrtP8XjvWbrbm9Ug5+4f4rHJWeYOLlkAoXjVIO7wEQxHP2tDZcCgPGqZZ
+	 hXJS7m5ns7Ew/Vd3jRpjA8vwudn37wZzrKZa2YjtUGY+SYxQcuifABXI+IAke+M5fYnDaikvzw5t
+	 Mi+nCrkGzVk/gbZZGTVMVnUZzhO9a6G5RLhdhGfQhVwCrJsmbWnzlbi93PMPwS6aTN7YwribUuz3
+	 tHxcB2QRFUL8rwu+tGwCIkyAkr12RfZmB1SRw1+xTzmVkEDUD4WClsiVhqc7W/zpAUR+xJcLioPK
+	 NJ6ANCInZPIbG6svxX6+kSYzjiTPQQPaYB+ShdTwuH+v8cidnLKseyU56P/SkFZRrmlGKMqg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: [BUG] jfs: KASAN use-after-free in diRead() panics the kernel on mount
+Date: Sat, 24 Oct 2026 13:55:22 +0800
+X-OQ-MSGID: <20261024135522.65244-jfs-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,49 +74,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Elliot Alderson <hackerowskiy@gmail.com>
-Date: Sat, 24 Oct 2026 15:51:46 +1000
-X-Gm-Features: AclHuK9YJjm5GNixWxM7scDTrYw4REFQPygYXTy9slYfpoiG72e8KjMFOVfyw1o
-Message-ID: <CAG2k5NBDNqksjd+FUHXAcC-pHwadLzwobr45pTXuATqQ7shyPQ@mail.gmail.com>
-Subject: [PATCH] usb: gadget: printer: clear current RX request on unbind
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+ffc483dc87891d3c107b@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-printer_func_unbind() frees current_rx_req but leaves the pointer in
-printer_dev. A later unbind can then pass the stale pointer to
-printer_req_free() again. Clear the saved request and its associated read
-state before freeing it.
+Hi Dave,
 
-Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
-Reported-by: syzbot+ffc483dc87891d3c107b@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=ffc483dc87891d3c107b
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
----
- drivers/usb/gadget/function/f_printer.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Found by syzkaller-style fuzzing of 7.2.0-rc5.  A crafted JFS image
+triggers a KASAN slab-use-after-free in diRead(), which panics the
+kernel when panic_on_warn is set.  The code is unchanged in current
+mainline (checked against 7.3.0-rc7 sources).
 
-diff --git a/drivers/usb/gadget/function/f_printer.c
-b/drivers/usb/gadget/function/f_printer.c
-index 1857d786110..11471bd065c 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -1462,8 +1462,11 @@ static void printer_func_unbind(struct
-usb_configuration *c,
-         printer_req_free(dev->in_ep, req);
-     }
+The freed object is the dbMap descriptor allocated by dbMount() during
+jfs_fill_super().  diRead() later reads it after it has been freed,
+from the jfs_lookup() -> jfs_iget() -> diRead() path.
 
--    if (dev->current_rx_req != NULL)
--        printer_req_free(dev->out_ep, dev->current_rx_req);
-+    req = dev->current_rx_req;
-+    dev->current_rx_req = NULL;
-+    dev->current_rx_bytes = 0;
-+    dev->current_rx_buf = NULL;
-+    printer_req_free(dev->out_ep, req);
+Full KASAN report (7.2.0-rc5, PREEMPT full):
 
-     while (!list_empty(&dev->rx_reqs)) {
-         req = container_of(dev->rx_reqs.next,
--- 
-2.55.0
+==================================================================
+BUG: KASAN: slab-use-after-free in diRead+0xa30/0xc40
+Read of size 4 at addr ff11000000144034 by task syz.7.6792/81626
+
+CPU: 0 UID: 0 PID: 81626 Comm: syz.7.6792 Tainted: G             L      7.2.0-rc5 #1 PREEMPT(full)
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x116/0x1b0
+ kasan_report+0xca/0x100
+ diRead+0xa30/0xc40
+ jfs_iget+0x9b/0x5b0
+ jfs_lookup+0x27a/0x340
+ path_openat+0x293c/0x3dd0
+ do_file_open+0x216/0x470
+ __x64_sys_openat+0x13f/0x1f0
+ </TASK>
+
+Allocated by task 81617:
+ __kasan_kmalloc+0xaa/0xb0
+ dbMount+0x4f/0xc10
+ jfs_mount+0x28d/0x8b0
+ jfs_fill_super+0x891/0x1070
+ get_tree_bdev_flags+0x389/0x620
+
+The buggy address belongs to the object at ff11000000144000
+ which belongs to the cache kmalloc-2k of size 2048
+
+Kernel panic - not syncing: KASAN: panic_on_warn set ...
+==================================================================
+
+(The same report was sent on 2026-10-16 but was rejected by the
+mailing list because the list addresses were missing from the To/Cc
+headers.  Resending with the correct addressing.)
+
+Thanks,
+Guikun Yang
+
