@@ -1,107 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792877335;
-	b=dL55lZJufWHAwveSIaXazNRCupRNTSVMnZGPI/yV7ZRK2ssu0r7J1w9gdtTIigCmkgsV
-	 xzQZzKRc9c0Q6im8GWgP4YoB7nELrhBG65qAsixM2BWPQJWKt/VJNjD2UQoKHFcvTl0Py
-	 jSxW4Cq6tyPPMxQlntwP9hYwePW1NMXkzXK6dOAAwYKHGULI2FUroPwckofrsJ/pEoUs5
-	 EdiiQ1pVVDNyz2STVkY2BlD4ubgfI1Z8vovXU+jMgeKAJrlRqu/mhm/m3ZAjKZZ0imRFJ
-	 GCZdwFMVawNeqqYaq6f0cGCI5YUEgrkWz1woLlwKfLuqzNgrfsMzIemy/cfHzRo/6Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877335;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WKjXGirCGBWaGZ6gv0IsyrzVZH7S81bL8FiRWNXjU/Q=;
-	b=nIMinvczcjzSz5F4uk2T8/7I42mHnsWg1vTQEuoySCmIv2LrwPm9oybcV+4RoMOHxcPw
-	 tIHFSTcCGFBZ70o0JjVHSTRQ6CPtp1Zm9C4jVETon2wt3NlGcweRLaVaQ0UChIQuOh8KD
-	 wh+zdnV8zYJFJxzpU/66wYbGlGX+v/tm2ilB79+u+RqowHpQ6D388jAJ1dM6nqVoYClk0
-	 LDuvkWHmHUZv9oFSnPsM8iszKkykqwcs8aIs11ebe+ez20PMU58rKzMs7UNgS7HKObz0M
-	 356FxhyZ1tF8SiZnzsaxyZ7UjoFGLuaWdYupUxgYm/u+5KeKH6lm/2TfoENG3DccNMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HElaDVQA;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792877456;
+	b=S5FsaSrDFPSGvpGl5xFsuNHIeGK0GsFXtbYYjBOKbLlcr1CBOGIqQ/OkqLDEbra7w2ew
+	 u7zTZuIwOLl8PSKD7ulW1Oc0yWOtz+iAtNZxggEmklP8fxb9Xeta4gvtQGE7QtTk0aGI2
+	 1wCCKmO0LUBc4b7Dn0kOZz7bSPLJ7g6OELQBmdtcK1Pdzj1T9rWGDLtpZFh5JKkMazq6h
+	 7dCGUnRj/ko/iV9R4iokExNPz3QEj4mF9LyfVEwQXo8g/836VPxc+C0vhFP16Pc11GcPb
+	 CK5vOTXKErJrFdgiOpbQVjczc1HRd61SvDnl0+ckbXjL5VXzGFIVdYlQPPgA9nQdgQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792877456;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=/jjdbJIsZF6G4eCWKJ+aUwuJXb16bpa6KobpLNWwJLQ=;
+	b=yGoOgB5pk6mhaQSD6lUJDtkAAeCgHYO7tQgi8fIjnPs7U//Ns6/a8GWswc0X3Ygui90u
+	 ip1A9EkQzjRMVLh+h2TXmSn+VZeZ8GhQoqbLU3Cj69d/sY8GE5TXyT0rpJLWS/pgW7vH8
+	 tj0AGmTHctKAtf+sOkV8TP1fT3EncAgI/YheTFUEdpkJUzrlDeq56jdjQvu3XQXzKOoGH
+	 ggAjKf28pAatRBPMtZKiov99CTKBlIJvXEhxmtcmk6Vo1HudJNkWgxf0oKSyAhaUGEkG5
+	 fangw+TeQEUuvv3mmrUcYaygvLg31q+WyfvLwVfgDdle+q4sU+4JH/nVl3PYB8+xPhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZtIxKZJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0595F606A31B;
+	Sat, 24 Oct 2026 21:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZtIxKZJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792877455;
+	b=gkMxmyXwbParL7fSnNz3LiaOeEKY6tqy4Wm3Ox7sbj1LCwdeIWGYCqPydE7lBlDs7Ez7
+	 +sPfNSYdBSWgIkR9oJouqC+9XZyCoMwj/Q5OwA1LTTJSkigp9ogY6j9X7RkFFk9tNWsj2
+	 K8GV/3WODnqJ8pkMOQs4C2GmYW+4lsqi6ma4IQJEyN/VcYrHWCDH1D5VUN/Tm7U3SLlFI
+	 FsOm1VbZG+oil0YsybrVcVxujSpzVV7x2MEoVhiB175ctbIAOVxmGuYD2dpXoE4ZeKoZz
+	 d76iIGv4YV7fC8D/2XQJIpV/0XyXZFxnwIb3/R8dMo1mT7y9LB55XqsKCTlmlGiHVUA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792877455;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=/jjdbJIsZF6G4eCWKJ+aUwuJXb16bpa6KobpLNWwJLQ=;
+	b=trKWgUUu8/Z6E41DPxVVNsJ6SGCzhonU+0lu/KBV/JVbfxo6IqYbkRbgvu+HAL+VCP5l
+	 i9oLzRrRLEm+rJAgnx+d6m4WG7hSg2yKwqseCoiHBODqtUbYywguffDI6/ptkhajF1UIf
+	 TtrFaJxzQXWxQdZ1xjApJZRqXRx5i4UDwIMhEzlX3S/20H7t8fQ+QygrLLA7xMxNtT6JE
+	 7Twi251MzO2fjNdMm4RGEI/ghMoTo9t9hnPMbdzEp6+sJBV3rJHfZB7UbrDzctYQYCo4B
+	 qxNGX9VK7C9gaSCXHtcdTkA5IDiPmzNNBQz+b/DOqqSKYEHw8Z7+/dU7ARMXhoLtBvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABBD606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:28:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DABBD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HElaDVQA
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso19709925e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792877333; x=1793482133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WKjXGirCGBWaGZ6gv0IsyrzVZH7S81bL8FiRWNXjU/Q=;
-        b=HElaDVQAIMc1ZsKVqQxudVKxBA/PKKq4A75xkVEdlZT/9HhcHO2VzKFiWBsP7HPB9b
-         hyllLjyICB/v8zGLenX8PX2pzGhsHNi4k8dP1mHqpEzqOmLV7ojJdKC05G5Zu23CpEPR
-         A5NadaMyAvr61l4onROhXW5H2AvlZVySg0Q4zKdQQLdkUDIWOHuENipxaqYFXQQZU6BS
-         yGawIvd20cfm+LyfV46DoQwxVSY5oVkgiZcYPGLGhxzMZSZUNdBJ3N+WBQAnpM6k+vT9
-         R6W1ewio8ZIRAWLvXvItuViKcm0Z85oy4HW1Or0mjMsFWvEcI9ZKXf9Tb0Z0XnOf1/qG
-         8RvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792877333; x=1793482133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WKjXGirCGBWaGZ6gv0IsyrzVZH7S81bL8FiRWNXjU/Q=;
-        b=ewCYETVnqqI1o6yGezqpgzygasRiZL3eRozvKZDFkjtF+JQXK8ZZW13SnvjmUUN9er
-         dfoIlELmiXoWz8Q978eQ5rHI+1r+WNtK+3e9qJvUItfML9zGzs3+rzPSV72zoDoUdX83
-         6iPghoNzuWvpXDDvREuU1uWSug87RC6uvDTuv001M4q2HyWOvOt6PExnZxMHC6VZfuRL
-         b9Sl/cRthwgaqVRo1B+WrVzR3qlpFqrwqp4gdDdvHnChRw74z1BJzTDMNoS33Lo/qGzC
-         NTXenEjahRCTAj9BqTLK6J9pVJOJ9LI7T6rRs8zVHwHiunSHnLsFbOK5SJA831gBLF3U
-         M4cg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZUhDEZn9PXLDmOg3GrhlnJ+aulv0FMl0Enh1FpxkvNBdeFr5G+Nd9kEaavayF9YTDHeua0Pvnfna7IFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIk0ThM+lA4jZOGHRIpDIVyZGFX0LXMJ4lnfPueJJO4rQ4Jmfb+
-	7dEF0l2O2gnrfG+gzBvneyuVmWj0JNGN6EPk9lvFMYTXqKYQCnUX6t+3
-X-Gm-Gg: AYBFou1gpj9NoilptwTfb2nlhvwL4rxja05Zm29ykHzPl2M5XmvDiJk9+QeM1DKu2t1
-	B6+xoER4JkwdtNDBe4eF9QAQVXpnSsQdm6MQpiCxb2WQ1uSZcGLbVhYTg9+Qye6HEG1BoIa+v1j
-	yGJ3NTuAWdrEoL1HupsjCqD7wDdXiCsm0YDx3VhYSi+R29YsoStuyzhZVu85tSIF79kdQ58KpC4
-	tB86yJ0qHS9cteqP6lkFmaWpWewQojXJZmCkOHTxHLxoKvGiAMvx9Uu8N/bcK0vExKC1hQcohh4
-	scQMK2piZxJLY3zQ8gPK92zGJd7t9LNMwRz3mn3ANz5L9v096GRnF0zF2ol6aaraPCZs4FXrFTr
-	qLjbuODkqMM6bsNrzv6u0SlknvFolB9UNxTQPbzHM3uT780rcQVwtvhOuYR+xqjI+uZULaFUSht
-	J0CTQgSFObCgmLAhcUagwO+4jDfdXIuI25IX0Is7TXoAaSlGj26i0d0xrmeO3yoM3ARs81Tkl4D
-	IoBGuuLhA0l6ABdQSaxisU89GZ/nFYKhzJ6WpCljbPyJTskHMaVH12Lv3/HVZv1Z8gYyBWu9M9p
-	Wpq/
-X-Received: by 2002:a05:600c:1987:b0:4a1:db17:c7e6 with SMTP id 5b1f17b1804b1-4a35ac3a7b1mr41192835e9.2.1792877333059;
-        Sat, 24 Oct 2026 14:28:53 -0700 (PDT)
-Received: from ASHA ([2001:630:3c1:164:1a66:daff:fe85:4026])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2e8f25sm77497285e9.14.2026.10.24.14.28.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 14:28:52 -0700 (PDT)
-From: Amir Noohi <amirmnoohi@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Igor Velkov <iav@iav.lv>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <cdall@linaro.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
-Date: Sat, 24 Oct 2026 21:28:44 +0000
-Message-ID: <20261024212844.3405617-1-amirmnoohi@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <87se1v8f2r.wl-maz@kernel.org>
-References: <20261024022450.629980-1-amirmnoohi@gmail.com> <20261024022450.629980-2-amirmnoohi@gmail.com> <87se1v8f2r.wl-maz@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id EB41F1F01829;
+	Sat, 24 Oct 2026 21:30:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792877455;
+	bh=/jjdbJIsZF6G4eCWKJ+aUwuJXb16bpa6KobpLNWwJLQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=VZtIxKZJ5E7ZHKElFJpm+t+eRAHXS51JhEgnDtgfy9MnQn4b7Z8ONkIYEqsQqyRsA
+	 daKFQlDn4nFMuIDAoEvC+NnSfZ8qKAUPUFxvfbxPXuIzkXlP/n1PeOqL6cjWa03/aY
+	 2K8Ipcx1CiVfDk5Z3/Gk//sTraQR8IktKV+1sXdK95lQDKgA5i4fzIcaIvliyWnuRA
+	 8Yq6Y3ne7fZFDhI/las29F5EaIh98niMim5Rx+Q5GYQUXvHcNrW8J2QYjtps8hlRJU
+	 NPelZO8cj4L4LcGNCLGpwK/eRqKDe2dGA1VIjiCETyTJyF3rdNPdRhQcUa7cQDp+wo
+	 9nmrS9HB46HKA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4CBA2448B9;
+	Sat, 24 Oct 2026 21:30:54 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Subject: [PATCH ath-next 0/2] wifi: ath11k: two monitor destination ring
+ fixes
+Date: Sat, 24 Oct 2026 16:30:53 -0500
+Message-Id: <20261024-ath11k-monitor-buffers-v1-0-ff155feca2f6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,43 +84,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI0j3WoC/yWM0QrCMAwAf2Xk2UBTZkF/RXzYutRFsZWkk8HYv
+ 1v18TjuNjBWYYNzt4HyW0xKbkCHDuI85BujTI3BOx/I+R6HOhM98Fmy1KI4LimxGro+hhjIh+N
+ 0gha/lJOsv/EFWoOZ1wrXv7FlvHOs3y/s+wdJDL5uhAAAAA==
+X-Change-ID: 20261024-ath11k-monitor-buffers-04c6c61265d9
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792877453; l=1099;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=L7gjGCmzyeulE7eU8L3X1sKQ8Bvh81x5kGFaYfXJVKI=;
+ b=NJoaftq5eB0g13ykQ6+EM7DAMk3urNmrzlqGDQ+5julXoUdBraj0sIAVZMVoso915GM/3WYFo
+ 5v5y4nH06mtCyRd+Jrvhyl53Fm3xl2KByZyWn8P3ay6ZX3dtxBpGY7R
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
 
-Hi Marc,
+Two fixes for ath11k's monitor destination path (the one non-full
+monitor mode uses, as on IPQ8074), found on an Arista C-360 running
+OpenWrt with a monitor interface on each radio.
 
-On Sat, 24 Oct 2026 13:21:00 +0100, Marc Zyngier <maz@kernel.org> wrote:
-> It really feels like a leap of faith.
->
-> There is nothing that says that it is safe to call this without
-> holding the global lock. For all we know, drivers have been relying on
-> it for a good decade, and I don't feel confident letting things rip
-> just because it (mostly) works with the GIC.
->
-> At the very least, something exposed by the irqchip (a per-IRQ flag?)
-> should tell you whether it is safe to elide the lock.
+The first stops the driver freeing a buffer the device still holds when
+the device lists a buffer it handed back already. With monitor
+interfaces up this corrupted memory and crashed the AP every few hours.
 
-Agreed, and v2 does that. There's a new IRQCHIP_PERCPU_STATE_LOCKLESS
-flag, and irq_set_percpu_irqchip_state() only skips the descriptor lock
-if the chip implementing irq_set_irqchip_state() has it set. Otherwise,
-or if there's a bus lock, it just calls irq_set_irqchip_state(), so
-drivers that don't opt in see no change.
+The second fixes a small leak of MPDU chains each time the PPDU ID wraps
+to 0.
 
-Only GICv3 sets it, in a separate patch. For SGIs/PPIs/EPPIs its
-callback only touches the local redistributor (gic_data_rdist_sgi_base()
-and the RWP poll), nothing shared. FWIW, irq-gic.c, irq-gic-v3.c and
-irq-gic-v5.c are the only drivers with both per-CPU devid interrupts and
-an irq_set_irqchip_state() callback. KVM's own timer chip (GICv5, no HW
-deactivation) doesn't set it either, so those keep the lock.
+The two are independent of each other; both apply to ath-next.
 
-On GICv2 in QEMU it still takes the lock like mainline does (333k vs
-321k acquisitions in lock_stat, within 4%), and on GICv3 it doesn't
-take it at all. arch_timer, arch_timer_edge_cases, vgic_irq and
-vgic_init pass on the Altra. Under QEMU with lockdep, DEBUG_PREEMPT and
-DEBUG_ATOMIC_SLEEP, the selftests pass on GICv3 (VHE and nVHE) and
-GICv2 (the vGICv3 ones skip there). No splats.
+---
+Christopher Griffin (2):
+      wifi: ath11k: don't free a monitor buffer the device still holds
+      wifi: ath11k: don't take a monitor PPDU ID of 0 for no change
 
-I made it a chip flag since it's about the callback, but I can make it
-per-IRQ if you prefer.
+ drivers/net/wireless/ath/ath11k/dp_rx.c  | 32 +++++++++++++++++++++++++-------
+ drivers/net/wireless/ath/ath11k/hal_rx.h |  1 +
+ 2 files changed, 26 insertions(+), 7 deletions(-)
+---
+base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
+change-id: 20261024-ath11k-monitor-buffers-04c6c61265d9
 
-Thanks,
-Amir
+Best regards,
+--  
+Christopher Griffin <christophergriffin05@gmail.com>
+
+
