@@ -1,103 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792843632;
-	b=s3k+gG+DHAxpWh6WJ9rCHYGhrJ8ZxAWlg6pvqXrKDSGsyZJyNLhV1H7EdvDPjbEcT3pg
-	 weONKbmZVh94xyuIwxeV8K7IlJf5N97222zhoxNadrDqUB+YZ5eFBcbVgrjehASiDU9jl
-	 yoyaBJQCiBqbWxmoyJ9bFWhFV2QQNWMbAoHt4KUnydjTH+D9gnY61d/8jAQ1+GfUTWKIX
-	 GiG4XiS0L6enJ+eOz0ckJrMgROR4xf3zhAplMqMBJgDVB6zqGSKKrng8X+Xxz7iSOdffh
-	 xpL7eXSqRA0LEFSWfnE84bSm4H9WYLFmcgndsDxoPuBUpWBEHOGMjMX8bDZ7XiOukDQ==
+	t=1792844021;
+	b=fYMUUMLhyQ76Ge4A4yDrH+qy7TLaXXbopUH6XjLDYdz64qk5xUyvwssMnkWceOGQzfSR
+	 bszfpz7G46o8HcuVmbPwEfI/tM9LsoOS57spdHCedjsWwpcPw1LZH5bgIvYM5VAveJGJY
+	 t7Ql/J0xu+LlU/4EMiwPRORdYF5Kba1teRx9gXQ1t8lbrLUa/CIRdHQnbGMZlRO0tcCGA
+	 9+A2L11iFTl4pZdxcj642ntcLYE0q1BjoLJpLRjqrzUsHZrQrj93xH6jJ78jcPBOg70jh
+	 Hr9mQ0wvF5BvoC9i5+RXiFrCAaHSrst8I7PQzCUv0L9o8rtVe2dEuDg/KmFCRIt/BcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792843632;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BWqMKRtpRqvbPNIk6DggD6V5/6zJIJbBMHDL7fmuUUo=;
-	b=CwWwXSBznFVY/QkUG9PU9bKEnocR6WU2pBvBtETzS9uA5LxT68VMuLryaepr+1AbvrHS
-	 je6iZajlzfqR5SySGoBBQe3mg1m7g75KSkWmoiNCKPPSLvAfA9GI+7GjuBWM0vONW/ziy
-	 e5E8UsCZr6or81EJO2jLP6qqsRjCtTObjsgzPum/xRG/Et8fO3vI96sx+u57Z0L7XN5fa
-	 kWH7xn2Q5n6rY+xsRLTDT6NyO8rxbWo7DYk6XFoWMPQFb4wc8iXHTKPFE1ZjtmiqtgJDU
-	 8bx1+/S310jpU9NmNulnjNdsIZ9yBmchwNesqCvGhupccyAiA0QH5r8Lg2vIh+p1INw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844021;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:CC:Subject:In-Reply-To:References:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=c4C00/XzUMl81Cb9nPtDyYxb7VozrfQ6cNr56bWwPUU=;
+	b=F92bePQ8x53zP/gpRtdgYhUykgFoOHcp6BMYYnN2TCdU1nBFtc6eFVcTKO9KWqdfELAa
+	 oMuZxgtVP7Z2Z/XrE0j9BKHk4XK8Hcb/4b/hZ3J/1SklQeamKOh441HHnAt4R97J9RITO
+	 toxSliZfkoDToGITibubBnozZmulfwRTeNFku9rLh77CIuypaohRkCo5olfMgyHhaPYZc
+	 4PBdDC/XfIrF5kn3W89NTffYYHVyb6gtFEAC1DbeKV0jhjsRFzmR5SavpxhiO7PMOsuX6
+	 ZHtJDMK7CLVy9Vnse6Fmuchxp+duA4s6Hd+QNba6pQgEZ1T+aX4ErftC/SPsxW6KWXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d99l1XNi;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H729Yw4a;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WBWKD0AE;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F9D606A321
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47F9D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AA4606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3AA4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d99l1XNi
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35c76e9614aso2589524eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:07:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H729Yw4a;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WBWKD0AE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792844019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c4C00/XzUMl81Cb9nPtDyYxb7VozrfQ6cNr56bWwPUU=;
+	b=H729Yw4aDG4Zmaz/HoO/4b07gxtQUwZfDiINete1eiVDO+4N4Wl+hzA97URq0sLtgq7HMZ
+	heczcAmpWIgCMn0WJQXHKUk0JWBOEKBvQQ4W6GT2xfshuS3u+ecH5x50XBkY7W7Ga5rOx3
+	ppGgSksZGr72vXalOsJefzuvXOJJ5Dc=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-550-enl4l650PhOmUou2E0P_Vw-1; Sat, 24 Oct 2026 08:13:32 -0400
+X-MC-Unique: enl4l650PhOmUou2E0P_Vw-1
+X-Mimecast-MFC-AGG-ID: enl4l650PhOmUou2E0P_Vw_1792844011
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c29c391bd2fso144098866b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:13:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792843630; x=1793448430; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BWqMKRtpRqvbPNIk6DggD6V5/6zJIJbBMHDL7fmuUUo=;
-        b=d99l1XNicUMMXaK/0ox5HhQyDntzGeL4f/MqQMB4JGBhAl4zKXNq8Xz4JRVIUMaosf
-         bamUG+QdswvY+PAUTWvxLA5w+V1Bkzab5vuUb8ulBMs+k+kaROZTgozDr7+0WuYMiJd4
-         Z/esWGdU3FuLzri8bY91M6IFSa1chzK4Ihf/IKWOfK8cos8nOGYuAbTPlHXpNRc+ws6H
-         +dIjPAVz8LG/ETlVXPyToVEZ5xdQuq6Dv5awkEGFwKEIG2SlvORLh90S2YBmJLitrlZH
-         78vPyOD3F65NKvgyR6UuoT6qk414R/FHC8FTK1rhzRq3p2Uo0zxrKSGvBxPt7CjbYSWC
-         /FYA==
+        d=redhat.com; s=google; t=1792844011; x=1793448811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c4C00/XzUMl81Cb9nPtDyYxb7VozrfQ6cNr56bWwPUU=;
+        b=WBWKD0AEX6gwKYvAKNlxLEnY6kVWbT74w/LRvMAKqPc9GNfSf0Qsfr8UAWMVqFPBJW
+         iDRNPnZwRS5/JfJhetAr/Fb1So4pDmHLbwHp8OGipCzBYuU/R+RMWyKWIHRmwd1aIaeN
+         5u3ki/VjRJ06aJCi/y+RLrId2bYldaLU+EV7vdPwdoRSdNwAZy1h5Js1Hy8AQ4T44y5L
+         wDfyUpHTps6rsiiHb7isRdvmuIlSvOFTZC94M8SfrzF5v/KuxNY+eGG/Ttjm3Cf1MJMA
+         rhhdDPmVd+QJELkX/1BqpqUUNsjklaWi9TlbpdYpaq7OmBcYt0+3rNd/h3/C1P2zLrcG
+         FIXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792843630; x=1793448430;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BWqMKRtpRqvbPNIk6DggD6V5/6zJIJbBMHDL7fmuUUo=;
-        b=t4D3fAuuZzWBllO+FMwk3eV1UA0+Oh7bOeMghiYL8wMm/DtA2OD6NIb+S5LQ+O0p4N
-         UTaYNnze/DtM88VLhX4QwarhsSREQLkVyNiABBv5hlzuAyJ1L8iKNNKQ4U48Go4m0UXe
-         9TR6vWuCUvJumx8Y6ovmWxou3Yqi1jQGKcbS0bWek+lOWWtPput4gCT6oL3X6DNKYnyx
-         Hu3GL89vl7vRShSrSggpITQe6pTGky+OfOvRmIuEgcYsHsJPxP3qBNkKW6Sk+2WoYUEV
-         7aaJA8XS0BFBHiTPMe+qf8edR33ZF/XgVcxJykmDKgbaRTeUhkcTH2XLjqIEdNpLppkY
-         8KoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPFVtlK6PNILln3nqJCdcM2B9Mq9qheQ5cW5V7OIqBmCOWrTEc0P43rpX0uBxm3TAD0l+YBJin3UnuMcw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItbkYzpATsPHXbSjvDta7gZ3SlyizZTZdLKngIHK5WttZz7EZB
-	WgyG9TFT1pQ4BONd60GKtkO478b1wCp3w5cBIfDNwzmfwk0iYzBkOMdY
-X-Gm-Gg: AYBFou0qo2gG0lKY505kFmFlJqOGxkvrI7zIqfHT+VXtCCA2RSoXMxbYK3c5LOG8KSE
-	znrwzl7Qd21jnSzdVshQh813vJTTo8RtUBd7kERPWW9B76XD7tNEwz4kVde2N3N4OHus1QkYweq
-	p0KgGFj03Ou9Y2Kkcsi88qTpWkvwb1+D2WT0krK5L/8u2j+loTS/ajlKCja6flSThle3fmgPHBV
-	mnU2Rr2TvVpwxOrGFX6EK7vcrHQ2IYCfQeaZ1F+MQB1D0AKSY3ZylpQOcqYxGmuXIq09Wx1h84C
-	P/9GasSZkwIU5WebpIxgehzmi62mCR4P1ExUqKBcyXVBlpA1MS2f5mjcAzxo7RwIZcmmluziF35
-	KfgbjkAv+tFNsP19VeO0FlLS0lPH2e+YELTCJljET7bNr5kCetq7lVA2/2g3EArvSsuT1edVdwh
-	tx5G5cPgtwIlA8tcGzGmco4fIQ46Ss474ICfhK1QomjSbaL8jWTZH585Weaf9EAkVji/umq/5tB
-	RCgcCj6HeBI8QYUDKm52T18p+/b4zuy5u1aro/Sh57iuegfowiYjeVdY/VUu+mcfyaOO2po9hBm
-	tPcM6Gt1Dl9KxkCY7W4bd9FphQ==
-X-Received: by 2002:a05:693c:8943:10b0:368:9553:f2da with SMTP id 5a478bee46e88-369e85074b2mr2973587eec.31.1792843630026;
-        Sat, 24 Oct 2026 05:07:10 -0700 (PDT)
-Received: from localhost.localdomain ([136.25.42.214])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d95e91sm8120722eec.15.2026.10.24.05.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:07:09 -0700 (PDT)
-From: Tim Budding <tim.budding@gmail.com>
-To: netdev@vger.kernel.org,
-	linux-sctp@vger.kernel.org
-Cc: Xin Long <lucien.xin@gmail.com>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tim Budding <tim.budding@gmail.com>
-Subject: [PATCH net 4/4] selftests: net: add SCTP I-FORWARD-TSN tests with message interleaving
-Date: Sat, 24 Oct 2026 05:06:27 -0700
-Message-Id: <20261024120627.837568-5-tim.budding@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261024120627.837568-1-tim.budding@gmail.com>
-References: <20261024120627.837568-1-tim.budding@gmail.com>
+        d=1e100.net; s=20260707; t=1792844011; x=1793448811;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c4C00/XzUMl81Cb9nPtDyYxb7VozrfQ6cNr56bWwPUU=;
+        b=GdAYia4+pjp/eVONsczkdb0uuQkyZvOCufqQbeMqjb0+J19IL4KT/T1C4tyNQfBnSp
+         aXkMTKgnh3iJNPjOgbEfpup9dEuOXnxULAYLfvoP20gy+lq+2AMo49W0m/LwhSY7f4Zv
+         gXXy+7pfFT+m6GH4oTCYZN/sxOrkpOEM13ciDCW/SFM7nx3gjN90z6UjqO9ioYrsKS66
+         EhiAnznHXdyBwHjR2zTqXsWI045A4Vg5XgMYHd0RNs+7WY0mx1xA1Moc48otv1Vbu8Te
+         825ZwV0rQ/CL4KaPI8AG/f4+3roU9GCoWWEC3n9ZxgzKCWy1881sHEUQX1+2e5mtACYE
+         fsuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxx8i/GoKRxFls01e8C/CNMDez3A4smROro1s8vOMooDWMEHGNfdrXDQqS4VOyNLuMqupp+iVnPIzrOSWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIu3508Q+n4CwM6rUKH/qsJgQdGLeyH+ef/MVe9Wf3uzc+HJlCL
+	KIc04y9/pJkNaxNXxjmEOR1oFVzoUemQ84NgSEaT/+1Mt870XrUJu7VB6Z0d/oRPiWG3fecoVpF
+	4V20FHZ5lwjSZH50Eg8AZftuiycA25sVT/y1AThPtcl5wIktuMbnNKpVw2IHXT0d9NQ==
+X-Gm-Gg: AYBFou0jStRcWmR976avLbkNaBskf+ipijiL5BL0kL9F7lAKEDmd2EoUMQAZoD/NEAr
+	qbwNJ7OJMUbMVzxHaJcSYhUZdT+ykPvTrpMOXQf8phlYjomkDXDxQyXPwKjRc7iin0VS3QbhtVn
+	QS2eAbCUoHMF+Xzepdht+FmElIOHhXOTtUc8JTEtNgkcs5tXu+Zcsxvj8GVW+IIHLFkA4wbKDxp
+	xkGwYM+zDzCQHQqeGaRI5zr51Ccd0FRJRjnY1V/MgL0pHooWQDS3V7xBc9EYHe88BX6SkiZtrUF
+	gTs28FT06xy8PNzroCUmDXAevHlz9j86nC65iyziC/+7m0mJvr2HhVTTDKcwGpo=
+X-Received: by 2002:a17:907:803:b0:c45:60ec:32c8 with SMTP id a640c23a62f3a-c46bde93f0amr177899066b.38.1792844011005;
+        Sat, 24 Oct 2026 05:13:31 -0700 (PDT)
+X-Received: by 2002:a17:907:803:b0:c45:60ec:32c8 with SMTP id a640c23a62f3a-c46bde93f0amr177894266b.38.1792844010612;
+        Sat, 24 Oct 2026 05:13:30 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2a00:7c80:0:3a4::13])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4ea39fsm83877966b.29.2026.10.24.05.13.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 05:13:30 -0700 (PDT)
+Date: Sat, 24 Oct 2026 12:13:26 +0000
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>
+CC: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] rv: Verify generic IRQ context transitions
+In-Reply-To: <20261022050712.75035-1-kmehltretter@gmail.com>
+References: <20261022050712.75035-1-kmehltretter@gmail.com>
+Message-ID: <FACA54EC-F846-4051-9ADD-DB46E7665FAD@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,762 +128,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add tests for the receiver side of I-FORWARD-TSN with user message
-interleaving (RFC 8260) and partial reliability. The first four tests
-interleave a 64KB reliable message on stream 0 with a PR-SCTP message on
-stream 1, which an nft rule drops so that the sender abandons it. The
-tests are:
 
-- ordered, unordered: the large message, ordered and unordered, must be
-  delivered intact, and the abandoned message's received fragments must
-  be freed.
-- leading_edge: with the large message in partial delivery, drop all
-  data after the abandoned message until the I-FORWARD-TSN arrives; this
-  must not be treated as an association reset.
-- uo_pd: abandon an unordered message during its partial delivery; the
-  partial delivery must be aborted and the next unordered message on the
-  stream must be delivered on its own.
-- reset: an SSN/TSN association reset with interleaving completes and
-  leaves a working association.
 
-The PR-SCTP message is abandoned after one retransmission (RTX policy),
-which keeps the tests stable on slow or loaded machines.
+Il 22 ottobre 2026 05:07:03 UTC, Karl Mehltretter <kmehltretter@gmail=2Eco=
+m> ha scritto:
+>I would especially appreciate feedback on:
+>
+>  1=2E Should the context boundaries be trace events or private RV
+>     instrumentation?
 
-Signed-off-by: Tim Budding <tim.budding@gmail.com>
----
- tools/testing/selftests/net/.gitignore      |   1 +
- tools/testing/selftests/net/Makefile        |   2 +
- tools/testing/selftests/net/sctp_ifwdtsn.c  | 538 ++++++++++++++++++++
- tools/testing/selftests/net/sctp_ifwdtsn.sh | 141 +++++
- 4 files changed, 682 insertions(+)
- create mode 100644 tools/testing/selftests/net/sctp_ifwdtsn.c
- create mode 100755 tools/testing/selftests/net/sctp_ifwdtsn.sh
+There aren't any RV-specific instrumentation sites=2E Now you used trace e=
+vents, for these you usually need a broad acceptance because they are visib=
+le to user space=2E Have a look at tracepoints (the last ones added to even=
+ts/sched=2Eh are good examples)=2E
 
-diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selftests/net/.gitignore
-index 21412510ac26..ca451bfeda75 100644
---- a/tools/testing/selftests/net/.gitignore
-+++ b/tools/testing/selftests/net/.gitignore
-@@ -34,6 +34,7 @@ reuseport_bpf_numa
- reuseport_dualstack
- rxtimestamp
- sctp_hello
-+sctp_ifwdtsn
- sk_bind_sendto_listen
- sk_connect_zero_addr
- sk_so_peek_off
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index df215e1a6262..58ca9fc23979 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -90,6 +90,7 @@ TEST_PROGS := \
- 	run_afpackettests \
- 	run_netsocktests \
- 	rxtimestamp.sh \
-+	sctp_ifwdtsn.sh \
- 	sctp_vrf.sh \
- 	skf_net_off.sh \
- 	srv6_encap_lookup_l3vpn_test.sh \
-@@ -164,6 +165,7 @@ TEST_GEN_FILES := \
- 	reuseport_addr_any \
- 	rxtimestamp \
- 	sctp_hello \
-+	sctp_ifwdtsn \
- 	skf_net_off \
- 	so_netns_cookie \
- 	so_rcv_listener \
-diff --git a/tools/testing/selftests/net/sctp_ifwdtsn.c b/tools/testing/selftests/net/sctp_ifwdtsn.c
-new file mode 100644
-index 000000000000..15346aca10ef
---- /dev/null
-+++ b/tools/testing/selftests/net/sctp_ifwdtsn.c
-@@ -0,0 +1,538 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Helper for sctp_ifwdtsn.sh: I-FORWARD-TSN handling with SCTP user message
-+ * interleaving (RFC 8260) and partial reliability (RFC 3758).
-+ *
-+ * Runs both endpoints of one association: the server socket is created in
-+ * the current network namespace, the client socket in the namespace given
-+ * on the command line. The caller sets up the link and any nft rule that
-+ * drops chunks. Messages sent by the client:
-+ *
-+ *   big:    64KB on stream 0, reliable, fragmented into ~66 I-DATA chunks
-+ *   small:  on stream 1, PR-SCTP "RTX" policy allowing one retransmission;
-+ *           the nft rule drops (part of) it, so it gets abandoned
-+ *   marker: short ordered message on stream 0
-+ *
-+ * Usage: sctp_ifwdtsn <client netns> <test>
-+ * Exit status: 0 pass, 1 fail, 4 skip.
-+ */
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <poll.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include <arpa/inet.h>
-+#include <netinet/in.h>
-+#include <sys/socket.h>
-+#include <linux/sctp.h>
-+
-+#include "kselftest.h"
-+
-+#ifndef SOL_SCTP
-+#define SOL_SCTP	132
-+#endif
-+
-+#define SRV_ADDR	"10.0.0.1"
-+#define SRV_PORT	5000
-+#define BIG_LEN		(64 * 1024)
-+#define BUF_LEN		(BIG_LEN + 1024)
-+#define MAXSEG		1000
-+#define TIMEOUT_MS	5000
-+#define MARKER		"marker"
-+#define UO_MARKER	"uo-marker"
-+
-+struct test {
-+	const char *name;
-+	bool big_uo;		/* send big unordered */
-+	int small_len;		/* 0: don't send the small message */
-+	bool small_uo;		/* send small unordered */
-+	int pd_point;		/* server SCTP_PARTIAL_DELIVERY_POINT */
-+	bool expect_pd_abort;	/* PD on stream 1 must be aborted */
-+	bool uo_marker;		/* then send an unordered marker on 1 */
-+	bool reset;		/* SSN/TSN association reset after big */
-+};
-+
-+static const struct test tests[] = {
-+	{ .name = "ordered", .small_len = 3000 },
-+	{ .name = "unordered", .big_uo = true, .small_len = 3000 },
-+	{ .name = "leading_edge", .small_len = 1000, .pd_point = 2000 },
-+	{ .name = "uo_pd", .small_len = 20000, .small_uo = true,
-+	  .pd_point = 2000, .expect_pd_abort = true, .uo_marker = true },
-+	{ .name = "reset", .reset = true },
-+};
-+
-+static const struct test *t;
-+
-+static void die(const char *what)
-+{
-+	fprintf(stderr, "%s: %s\n", what, strerror(errno));
-+	exit(KSFT_FAIL);
-+}
-+
-+static void setopt(int fd, int opt, const void *val, socklen_t len,
-+		   const char *name)
-+{
-+	if (setsockopt(fd, SOL_SCTP, opt, val, len) < 0) {
-+		fprintf(stderr, "setsockopt(%s): %s\n", name, strerror(errno));
-+		/* Interleaving disabled, or option not supported. */
-+		exit(errno == EPERM || errno == ENOPROTOOPT ?
-+		     KSFT_SKIP : KSFT_FAIL);
-+	}
-+}
-+
-+static void set_assoc_opt(int fd, int opt, unsigned int val, const char *name)
-+{
-+	struct sctp_assoc_value av = {
-+		.assoc_id = SCTP_FUTURE_ASSOC,
-+		.assoc_value = val,
-+	};
-+
-+	setopt(fd, opt, &av, sizeof(av), name);
-+}
-+
-+static void subscribe(int fd, int type)
-+{
-+	struct sctp_event ev = {
-+		.se_assoc_id = SCTP_FUTURE_ASSOC,
-+		.se_type = type,
-+		.se_on = 1,
-+	};
-+
-+	setopt(fd, SCTP_EVENT, &ev, sizeof(ev), "SCTP_EVENT");
-+}
-+
-+static int sctp_socket(void)
-+{
-+	struct sctp_initmsg im = {
-+		.sinit_num_ostreams = 2,
-+		.sinit_max_instreams = 2,
-+	};
-+	struct sctp_paddrparams pp = {
-+		.spp_assoc_id = SCTP_FUTURE_ASSOC,
-+		.spp_flags = SPP_HB_DISABLE,
-+	};
-+	struct sctp_rtoinfo rto = {
-+		.srto_assoc_id = SCTP_FUTURE_ASSOC,
-+		.srto_initial = 300,
-+		.srto_min = 300,
-+		.srto_max = 1000,
-+	};
-+	int fd, val;
-+
-+	fd = socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP);
-+	if (fd < 0) {
-+		perror("socket");
-+		exit(errno == EPROTONOSUPPORT ? KSFT_SKIP : KSFT_FAIL);
-+	}
-+	val = 1;
-+	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-+
-+	setopt(fd, SCTP_INITMSG, &im, sizeof(im), "SCTP_INITMSG");
-+	setopt(fd, SCTP_RTOINFO, &rto, sizeof(rto), "SCTP_RTOINFO");
-+	/* No HEARTBEATs: the nft rules only look at the first chunk of a
-+	 * packet, and a HEARTBEAT bundled in front of DATA would bypass them.
-+	 */
-+	setopt(fd, SCTP_PEER_ADDR_PARAMS, &pp, sizeof(pp),
-+	       "SCTP_PEER_ADDR_PARAMS");
-+	set_assoc_opt(fd, SCTP_PR_SUPPORTED, 1, "SCTP_PR_SUPPORTED");
-+	val = 2;
-+	setopt(fd, SCTP_FRAGMENT_INTERLEAVE, &val, sizeof(val),
-+	       "SCTP_FRAGMENT_INTERLEAVE");
-+	set_assoc_opt(fd, SCTP_INTERLEAVING_SUPPORTED, 1,
-+		      "SCTP_INTERLEAVING_SUPPORTED");
-+	if (t->reset) {
-+		set_assoc_opt(fd, SCTP_RECONFIG_SUPPORTED, 1,
-+			      "SCTP_RECONFIG_SUPPORTED");
-+		set_assoc_opt(fd, SCTP_ENABLE_STREAM_RESET,
-+			      SCTP_ENABLE_RESET_ASSOC_REQ,
-+			      "SCTP_ENABLE_STREAM_RESET");
-+		subscribe(fd, SCTP_ASSOC_RESET_EVENT);
-+	}
-+	val = 1;
-+	setopt(fd, SCTP_RECVRCVINFO, &val, sizeof(val), "SCTP_RECVRCVINFO");
-+
-+	return fd;
-+}
-+
-+static void send_msg(int fd, int sid, bool uo, const void *buf, size_t len,
-+		     bool pr)
-+{
-+	char cbuf[CMSG_SPACE(sizeof(struct sctp_sndinfo)) +
-+		  CMSG_SPACE(sizeof(struct sctp_prinfo))] = {};
-+	struct iovec iov = { .iov_base = (void *)buf, .iov_len = len };
-+	struct msghdr msg = {
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+		.msg_control = cbuf,
-+		.msg_controllen = CMSG_SPACE(sizeof(struct sctp_sndinfo)),
-+	};
-+	struct sctp_sndinfo *si;
-+	struct sctp_prinfo *pi;
-+	struct cmsghdr *cm;
-+
-+	cm = CMSG_FIRSTHDR(&msg);
-+	cm->cmsg_level = IPPROTO_SCTP;
-+	cm->cmsg_type = SCTP_SNDINFO;
-+	cm->cmsg_len = CMSG_LEN(sizeof(*si));
-+	si = (struct sctp_sndinfo *)CMSG_DATA(cm);
-+	si->snd_sid = sid;
-+	si->snd_flags = uo ? SCTP_UNORDERED : 0;
-+
-+	if (pr) {
-+		/* Abandon once the chunk would need a second retransmission:
-+		 * only a chunk that is lost again after being retransmitted
-+		 * qualifies, so abandonment does not depend on timing.
-+		 */
-+		msg.msg_controllen += CMSG_SPACE(sizeof(*pi));
-+		cm = CMSG_NXTHDR(&msg, cm);
-+		cm->cmsg_level = IPPROTO_SCTP;
-+		cm->cmsg_type = SCTP_PRINFO;
-+		cm->cmsg_len = CMSG_LEN(sizeof(*pi));
-+		pi = (struct sctp_prinfo *)CMSG_DATA(cm);
-+		pi->pr_policy = SCTP_PR_SCTP_RTX;
-+		pi->pr_value = 1;
-+	}
-+
-+	if (sendmsg(fd, &msg, 0) != (ssize_t)len)
-+		die("sendmsg");
-+}
-+
-+static unsigned char pattern(size_t i)
-+{
-+	return (i * 7 + (i >> 8)) & 0xff;
-+}
-+
-+static long long now_ms(void)
-+{
-+	struct timespec ts;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &ts);
-+	return ts.tv_sec * 1000LL + ts.tv_nsec / 1000000;
-+}
-+
-+/* Wait until the client has abandoned a sent message. */
-+static bool wait_abandoned(int fd)
-+{
-+	long long end = now_ms() + TIMEOUT_MS;
-+	struct sctp_prstatus ps;
-+	socklen_t len;
-+
-+	while (now_ms() < end) {
-+		memset(&ps, 0, sizeof(ps));
-+		ps.sprstat_policy = SCTP_PR_SCTP_RTX;
-+		len = sizeof(ps);
-+		if (getsockopt(fd, SOL_SCTP, SCTP_PR_ASSOC_STATUS, &ps,
-+			       &len) < 0)
-+			die("SCTP_PR_ASSOC_STATUS");
-+		if (ps.sprstat_abandoned_sent)
-+			return true;
-+		usleep(10000);
-+	}
-+	return false;
-+}
-+
-+/* Wait for a notification of @type on @fd, discarding anything else. */
-+static bool wait_event(int fd, int type)
-+{
-+	long long end = now_ms() + TIMEOUT_MS;
-+	char buf[256];
-+
-+	while (now_ms() < end) {
-+		struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+		struct iovec iov = { buf, sizeof(buf) };
-+		struct msghdr msg = { .msg_iov = &iov, .msg_iovlen = 1 };
-+		union sctp_notification *sn = (void *)buf;
-+
-+		if (poll(&pfd, 1, end - now_ms()) <= 0)
-+			break;
-+		if (recvmsg(fd, &msg, 0) <= 0)
-+			break;
-+		if ((msg.msg_flags & MSG_NOTIFICATION) &&
-+		    sn->sn_header.sn_type == type)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Bytes held by the server association (/proc/net/sctp/assocs RX_QUEUE). */
-+static long assoc_rx_queue(void)
-+{
-+	/* 7 columns, TX_QUEUE, RX_QUEUE, UID, INODE, LPORT */
-+	const char *fmt = "%*s %*s %*s %*s %*s %*s %*s %*u %lu %*s %*s %d";
-+	unsigned long rxq;
-+	char line[512];
-+	long ret = -1;
-+	FILE *f;
-+	int lport;
-+
-+	f = fopen("/proc/net/sctp/assocs", "r");
-+	if (!f)
-+		return -1;
-+	while (fgets(line, sizeof(line), f)) {
-+		if (sscanf(line, fmt, &rxq, &lport) == 2 && lport == SRV_PORT)
-+			ret = rxq;
-+	}
-+	fclose(f);
-+	return ret;
-+}
-+
-+struct server_state {
-+	unsigned char *buf[2];	/* message being received, per stream */
-+	size_t len[2];
-+	bool big, marker, uo_marker, reset_event;
-+	int pd_aborts[2];
-+	int errors;
-+};
-+
-+static void check_msg(struct server_state *s, int sid)
-+{
-+	unsigned char *m = s->buf[sid];
-+	size_t len = s->len[sid];
-+	size_t i;
-+
-+	s->len[sid] = 0;
-+	if (sid == 0 && len == sizeof(MARKER) && !memcmp(m, MARKER, len)) {
-+		s->marker = true;
-+		return;
-+	}
-+	if (sid == 1 && len == sizeof(UO_MARKER) &&
-+	    !memcmp(m, UO_MARKER, len)) {
-+		s->uo_marker = true;
-+		return;
-+	}
-+	if (sid == 0 && len == BIG_LEN) {
-+		for (i = 0; i < BIG_LEN && m[i] == pattern(i); i++)
-+			;
-+		if (i == BIG_LEN) {
-+			s->big = true;
-+			return;
-+		}
-+		printf("big message corrupted at offset %zu\n", i);
-+	} else if (sid == 1 && len > sizeof(UO_MARKER) &&
-+		   !memcmp(m + len - sizeof(UO_MARKER), UO_MARKER,
-+			   sizeof(UO_MARKER))) {
-+		printf("unordered marker appended to the abandoned message\n");
-+	} else if (sid == 1 && t->small_len) {
-+		printf("abandoned message delivered (%zu bytes)\n", len);
-+	} else {
-+		printf("unexpected %zu byte message on stream %d\n", len, sid);
-+	}
-+	s->errors++;
-+}
-+
-+/* Receive until @done(s) is true or the timeout expires. */
-+static bool server_recv(int fd, struct server_state *s,
-+			bool (*done)(const struct server_state *s))
-+{
-+	long long end = now_ms() + TIMEOUT_MS;
-+	static char cbuf[CMSG_SPACE(sizeof(struct sctp_rcvinfo))];
-+	static unsigned char buf[BUF_LEN];
-+
-+	while (!done(s)) {
-+		struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+		struct iovec iov = { buf, sizeof(buf) };
-+		struct msghdr msg = {
-+			.msg_iov = &iov,
-+			.msg_iovlen = 1,
-+			.msg_control = cbuf,
-+			.msg_controllen = sizeof(cbuf),
-+		};
-+		union sctp_notification *sn = (void *)buf;
-+		struct sctp_rcvinfo *ri = NULL;
-+		struct cmsghdr *cm;
-+		long long left;
-+		ssize_t n;
-+		int sid;
-+
-+		left = end - now_ms();
-+		if (left <= 0 || poll(&pfd, 1, left) <= 0) {
-+			printf("timeout waiting for data\n");
-+			return false;
-+		}
-+		n = recvmsg(fd, &msg, 0);
-+		if (n <= 0) {
-+			printf("recvmsg: %s\n", n ? strerror(errno) : "EOF");
-+			return false;
-+		}
-+
-+		if (msg.msg_flags & MSG_NOTIFICATION) {
-+			int type = sn->sn_header.sn_type;
-+
-+			if (type == SCTP_PARTIAL_DELIVERY_EVENT) {
-+				sid = sn->sn_pdapi_event.pdapi_stream;
-+				if (sid > 1)
-+					sid = 1;
-+				s->pd_aborts[sid]++;
-+				s->len[sid] = 0;
-+			} else if (type == SCTP_ASSOC_RESET_EVENT) {
-+				s->reset_event = true;
-+			}
-+			continue;
-+		}
-+
-+		for (cm = CMSG_FIRSTHDR(&msg); cm; cm = CMSG_NXTHDR(&msg, cm))
-+			if (cm->cmsg_level == IPPROTO_SCTP &&
-+			    cm->cmsg_type == SCTP_RCVINFO)
-+				ri = (struct sctp_rcvinfo *)CMSG_DATA(cm);
-+		sid = ri ? ri->rcv_sid : 0;
-+		if (sid > 1 || s->len[sid] + n > BUF_LEN) {
-+			printf("unexpected data on stream %d\n", sid);
-+			return false;
-+		}
-+		memcpy(s->buf[sid] + s->len[sid], buf, n);
-+		s->len[sid] += n;
-+		if (msg.msg_flags & MSG_EOR)
-+			check_msg(s, sid);
-+	}
-+	return true;
-+}
-+
-+static bool got_big(const struct server_state *s)
-+{
-+	return s->big || s->errors;
-+}
-+
-+static bool got_all(const struct server_state *s)
-+{
-+	return (s->big && s->marker && (!t->uo_marker || s->uo_marker)) ||
-+	       s->errors;
-+}
-+
-+static int client_socket(const char *netns)
-+{
-+	int self, other, fd;
-+	char path[256];
-+
-+	snprintf(path, sizeof(path), "/run/netns/%s", netns);
-+	self = open("/proc/self/ns/net", O_RDONLY);
-+	other = open(path, O_RDONLY);
-+	if (self < 0 || other < 0)
-+		die("open netns");
-+	if (setns(other, CLONE_NEWNET))
-+		die("setns");
-+	fd = sctp_socket();
-+	if (setns(self, CLONE_NEWNET))
-+		die("setns");
-+	close(other);
-+	close(self);
-+	return fd;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	struct sockaddr_in sa = {
-+		.sin_family = AF_INET,
-+		.sin_port = htons(SRV_PORT),
-+	};
-+	struct server_state s = {};
-+	unsigned char *big, *small;
-+	int lfd, sfd, cfd, i;
-+	sctp_assoc_t id = 0;
-+	bool ok;
-+	long rxq;
-+
-+	if (argc != 3) {
-+		fprintf(stderr, "usage: %s <client netns> <test>\n", argv[0]);
-+		return KSFT_FAIL;
-+	}
-+	for (i = 0; i < (int)ARRAY_SIZE(tests); i++)
-+		if (!strcmp(argv[2], tests[i].name))
-+			t = &tests[i];
-+	if (!t) {
-+		fprintf(stderr, "unknown test %s\n", argv[2]);
-+		return KSFT_FAIL;
-+	}
-+	inet_pton(AF_INET, SRV_ADDR, &sa.sin_addr);
-+
-+	lfd = sctp_socket();
-+	if (t->pd_point) {
-+		setopt(lfd, SCTP_PARTIAL_DELIVERY_POINT, &t->pd_point,
-+		       sizeof(t->pd_point), "SCTP_PARTIAL_DELIVERY_POINT");
-+		subscribe(lfd, SCTP_PARTIAL_DELIVERY_EVENT);
-+	}
-+	if (bind(lfd, (struct sockaddr *)&sa, sizeof(sa)) || listen(lfd, 1))
-+		die("bind/listen");
-+
-+	cfd = client_socket(argv[1]);
-+	set_assoc_opt(cfd, SCTP_MAXSEG, MAXSEG, "SCTP_MAXSEG");
-+	/* Round robin, so that the small message is sent between fragments
-+	 * of the big one.
-+	 */
-+	set_assoc_opt(cfd, SCTP_STREAM_SCHEDULER, SCTP_SS_RR,
-+		      "SCTP_STREAM_SCHEDULER");
-+	if (connect(cfd, (struct sockaddr *)&sa, sizeof(sa)))
-+		die("connect");
-+	sfd = accept(lfd, NULL, NULL);
-+	if (sfd < 0)
-+		die("accept");
-+
-+	big = malloc(BIG_LEN);
-+	small = malloc(t->small_len + 1);
-+	s.buf[0] = malloc(BUF_LEN);
-+	s.buf[1] = malloc(BUF_LEN);
-+	if (!big || !small || !s.buf[0] || !s.buf[1])
-+		die("malloc");
-+	for (i = 0; i < BIG_LEN; i++)
-+		big[i] = pattern(i);
-+	memset(small, 's', t->small_len);
-+
-+	send_msg(cfd, 0, t->big_uo, big, BIG_LEN, false);
-+	if (t->small_len)
-+		send_msg(cfd, 1, t->small_uo, small, t->small_len, true);
-+
-+	if (t->reset) {
-+		ok = server_recv(sfd, &s, got_big);
-+		if (ok && setsockopt(sfd, SOL_SCTP, SCTP_RESET_ASSOC, &id,
-+				     sizeof(id)))
-+			die("SCTP_RESET_ASSOC");
-+		/* Only send the marker once the reset is done. */
-+		if (ok && !wait_event(cfd, SCTP_ASSOC_RESET_EVENT)) {
-+			printf("client: no association reset event\n");
-+			return KSFT_FAIL;
-+		}
-+	}
-+	send_msg(cfd, 0, false, MARKER, sizeof(MARKER), false);
-+
-+	if (t->small_len && !wait_abandoned(cfd)) {
-+		printf("client: small message was not abandoned\n");
-+		return KSFT_FAIL;
-+	}
-+	if (t->uo_marker)
-+		send_msg(cfd, 1, true, UO_MARKER, sizeof(UO_MARKER), false);
-+
-+	ok = server_recv(sfd, &s, got_all);
-+	rxq = assoc_rx_queue();
-+
-+	if (!s.big)
-+		printf("big message not delivered intact\n");
-+	if (!s.marker)
-+		printf("marker not delivered\n");
-+	if (t->uo_marker && !s.uo_marker)
-+		printf("unordered marker not delivered as its own message\n");
-+	if (s.pd_aborts[0] || (s.pd_aborts[1] && !t->expect_pd_abort)) {
-+		printf("unexpected partial delivery abort\n");
-+		ok = false;
-+	}
-+	if (t->expect_pd_abort && !s.pd_aborts[1]) {
-+		printf("partial delivery on stream 1 not aborted\n");
-+		ok = false;
-+	}
-+	if (t->reset && !s.reset_event) {
-+		printf("server: no association reset event\n");
-+		ok = false;
-+	}
-+	if (rxq < 0) {
-+		printf("association is gone\n");
-+		ok = false;
-+	} else if (rxq > 0) {
-+		printf("%ld bytes left queued on the association\n", rxq);
-+		ok = false;
-+	}
-+
-+	return ok && !s.errors ? KSFT_PASS : KSFT_FAIL;
-+}
-diff --git a/tools/testing/selftests/net/sctp_ifwdtsn.sh b/tools/testing/selftests/net/sctp_ifwdtsn.sh
-new file mode 100755
-index 000000000000..2bf8d28cee52
---- /dev/null
-+++ b/tools/testing/selftests/net/sctp_ifwdtsn.sh
-@@ -0,0 +1,141 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# SCTP I-FORWARD-TSN handling with user message interleaving (RFC 8260).
-+#
-+# TOPO: CLI_NS (veth, 10.0.0.2) <---> (veth, 10.0.0.1) SRV_NS
-+#
-+# A large reliable message on stream 0 is sent interleaved with a PR-SCTP
-+# message on stream 1 that an nft rule in SRV_NS drops, so the sender
-+# abandons it and sends an I-FORWARD-TSN. The netem delay keeps the sender
-+# window-limited, so the two messages' fragments interleave. Most of the
-+# checks are done by sctp_ifwdtsn, see there.
-+
-+source lib.sh
-+
-+ALL_TESTS="
-+	test_ordered
-+	test_unordered
-+	test_leading_edge
-+	test_uo_pd
-+	test_reset
-+"
-+
-+# nft matches on the first chunk of a packet: chunk type at byte 12 of the
-+# SCTP header, flags at byte 13, I-DATA stream id at byte 20 and FSN at
-+# byte 28. SCTP_MAXSEG limits fragments to 1000 bytes and GSO is limited
-+# to the MTU, so no two full-size fragments share a packet.
-+NFT_SCTP="meta l4proto sctp"
-+NFT_CHUNK_IDATA="@th,96,8 64"
-+NFT_CHUNK_IFWDTSN="@th,96,8 194"
-+NFT_FLAG_B="@th,104,8 & 0x02 == 0x02"
-+NFT_SID1="@th,160,16 1"
-+NFT_FSN5="@th,224,32 5"
-+
-+setup()
-+{
-+	setup_ns CLI_NS SRV_NS || return
-+	defer cleanup_all_ns
-+
-+	ip -n "$SRV_NS" link add veth0 type veth peer name veth0 \
-+		netns "$CLI_NS" || return
-+	ip -n "$SRV_NS" addr add 10.0.0.1/24 dev veth0 || return
-+	ip -n "$CLI_NS" addr add 10.0.0.2/24 dev veth0 || return
-+	for ns in "$SRV_NS" "$CLI_NS"; do
-+		ip -n "$ns" link set veth0 gso_max_size 1500 up || return
-+		tc -n "$ns" qdisc add dev veth0 root netem delay 50ms || return
-+		ip netns exec "$ns" sysctl -wq net.sctp.intl_enable=1 \
-+			net.sctp.prsctp_enable=1 net.sctp.reconf_enable=1 ||
-+			return
-+	done
-+}
-+
-+# $1: nft rules for the server's input hook (may be empty)
-+nft_rules()
-+{
-+	ip netns exec "$SRV_NS" nft -f - <<-EOF
-+		table ip sctp_test {
-+			set blk {
-+				type ipv4_addr
-+				flags dynamic
-+			}
-+			chain input {
-+				type filter hook input priority 0;
-+				$1
-+			}
-+		}
-+	EOF
-+}
-+
-+# $1: test name for sctp_ifwdtsn, $2: description, $3: nft rules (optional)
-+run_helper()
-+{
-+	if ! setup || { [ -n "$3" ] && ! nft_rules "$3"; }; then
-+		log_test_skip "$2"
-+		return
-+	fi
-+	ip netns exec "$SRV_NS" ./sctp_ifwdtsn "$CLI_NS" "$1"
-+	RET=$?
-+	[ "$RET" -eq "$ksft_skip" ] || [ "$RET" -eq 0 ] || RET=$ksft_fail
-+	log_test "$2"
-+}
-+
-+# Fragments of the abandoned message must not take fragments of a live
-+# message below the New Cumulative TSN with them, and the abandoned
-+# message's own received fragments must be freed.
-+test_ordered()
-+{
-+	run_helper ordered \
-+		"abandoned message does not purge ordered message" \
-+		"$NFT_SCTP $NFT_CHUNK_IDATA $NFT_SID1 $NFT_FLAG_B drop"
-+}
-+
-+test_unordered()
-+{
-+	run_helper unordered \
-+		"abandoned message does not purge unordered message" \
-+		"$NFT_SCTP $NFT_CHUNK_IDATA $NFT_SID1 $NFT_FLAG_B drop"
-+}
-+
-+# Drop the abandoned message and every packet after it until one starting
-+# with the I-FORWARD-TSN arrives, so that its New Cumulative TSN is the
-+# highest TSN received. This must not abort the partial delivery of the
-+# message on stream 0.
-+test_leading_edge()
-+{
-+	run_helper leading_edge \
-+		"I-FORWARD-TSN at the highest TSN is not a reset" "
-+		$NFT_SCTP $NFT_CHUNK_IFWDTSN delete @blk { ip saddr }
-+		$NFT_SCTP $NFT_CHUNK_IDATA $NFT_SID1 add @blk { ip saddr } drop
-+		$NFT_SCTP ip saddr @blk drop"
-+}
-+
-+# Abandon an unordered message during its partial delivery: the partial
-+# delivery must be aborted, and the next unordered message on the stream
-+# must not be appended to it.
-+test_uo_pd()
-+{
-+	run_helper uo_pd "abandoned unordered partial delivery is aborted" \
-+		"$NFT_SCTP $NFT_CHUNK_IDATA $NFT_SID1 $NFT_FSN5 drop"
-+}
-+
-+# An SSN/TSN association reset with interleaving completes and leaves a
-+# working association.
-+test_reset()
-+{
-+	run_helper reset "association reset with interleaving"
-+}
-+
-+require_command nft
-+require_command tc
-+modprobe -q sctp
-+if [ ! -d /proc/net/sctp ]; then
-+	echo "SKIP: SCTP not available"
-+	exit "$ksft_skip"
-+fi
-+
-+trap defer_scopes_cleanup EXIT
-+
-+tests_run
-+
-+exit "$EXIT_STATUS"
--- 
-2.34.1
+Otherwise you may have a look at my BPF series and use other BPF-specific =
+probes (fentry/fexit), these won't need any kernel addition=2E Just mind th=
+at the series in an early stage=2E [1]
+
+>  2=2E Are dedicated scheduler events the right way to follow
+>     preempt_schedule_irq() across task switches and migration?
+>  3=2E Should irqstate and irqexit remain separate monitors?
+
+Feel free to merge them unless you see a use case where one would launch t=
+hem separately and allow violations from one but not the other=2E
+
+Also the irqentry collection with an irqexit monitor is mildly confusing n=
+ame-wise=2E
+
+Gabriele
+
+[1] - https://lore=2Ekernel=2Eorg/lkml/20261001152042=2E124445-1-gmonaco@r=
+edhat=2Ecom
+
+
+
+>  4=2E Is the KUnit-only hook for an empty ksoftirqd invocation acceptabl=
+e?
+>     Outside a KUnit run, its worker checks take a disabled static-key
+>     path=2E
+>
+>Patches 1-5 add the events, monitors, and documentation=2E Patches 6-9 ad=
+d
+>KUnit coverage=2E
+>
+>This series is based on v7=2E3 (c03c1a14507d) and depends on the followin=
+g
+>accepted change, which is not included:
+>
+>  softirq: Preserve interrupt context on return from interrupt
+>  https://lore=2Ekernel=2Eorg/r/20261011060742=2E30584-1-kmehltretter@gma=
+il=2Ecom
+>
+>A pre-existing issue can make rv_test_dummy intermittently report a
+>false-positive invalid-wait-context warning under lockdep=2E Wen Yang has
+>posted a fix:
+>
+>  https://lore=2Ekernel=2Eorg/lkml/5586dd00789a0f904cc299cd8889744b8c6f8d=
+c9=2E1789412799=2Egit=2Ewen=2Eyang@linux=2Edev/
+>
+>This series does not include that fix=2E
+>
+>Karl Mehltretter (9):
+>  tracing/irq: Add generic IRQ context boundary events
+>  tracing/sched: Add IRQ preemption lifecycle events
+>  rv: Add a monitor for generic IRQ context transitions
+>  rv: Add a monitor for IRQ-exit scheduling ownership
+>  docs/rv: Document the IRQ-entry monitors
+>  rv: Add KUnit coverage for IRQ context transitions
+>  rv: Add KUnit coverage for IRQ-exit scheduling
+>  rv: Test empty PREEMPT_RT softirq worker intervals
+>  rv: Test IRQ-exit softirq provenance and handoff
+>
+> Documentation/trace/rv/index=2Erst              |    1 +
+> Documentation/trace/rv/monitor_irqentry=2Erst   |  398 ++++
+> include/linux/interrupt=2Eh                     |    7 +
+> include/rv/kunit=2Eh                            |   34 +-
+> include/trace/events/irq=2Eh                    |   70 +
+> include/trace/events/sched=2Eh                  |   51 +
+> kernel/sched/core=2Ec                           |    6 +
+> kernel/softirq=2Ec                              |  308 ++-
+> kernel/trace/rv/Kconfig                       |    5 +
+> kernel/trace/rv/Makefile                      |    3 +
+> kernel/trace/rv/monitors/irqentry/Kconfig     |   13 +
+> kernel/trace/rv/monitors/irqentry/irqentry=2Ec  |   35 +
+> kernel/trace/rv/monitors/irqentry/irqentry=2Eh  |    3 +
+> kernel/trace/rv/monitors/irqexit/Kconfig      |   14 +
+> kernel/trace/rv/monitors/irqexit/irqexit=2Ec    |  172 ++
+> kernel/trace/rv/monitors/irqexit/irqexit=2Eh    |   85 +
+> =2E=2E=2E/trace/rv/monitors/irqexit/irqexit_kunit=2Ec |  537 +++++
+> =2E=2E=2E/trace/rv/monitors/irqexit/irqexit_kunit=2Eh |   21 +
+> =2E=2E=2E/trace/rv/monitors/irqexit/irqexit_trace=2Eh |   19 +
+> kernel/trace/rv/monitors/irqstate/Kconfig     |   14 +
+> kernel/trace/rv/monitors/irqstate/irqstate=2Ec  |  289 +++
+> kernel/trace/rv/monitors/irqstate/irqstate=2Eh  |  139 ++
+> =2E=2E=2E/rv/monitors/irqstate/irqstate_kunit=2Ec     | 2062 +++++++++++=
+++++++
+> =2E=2E=2E/rv/monitors/irqstate/irqstate_kunit=2Eh     |   25 +
+> =2E=2E=2E/rv/monitors/irqstate/irqstate_trace=2Eh     |   15 +
+> kernel/trace/rv/rv_monitors_test=2Ec            |   29 +
+> kernel/trace/rv/rv_trace=2Eh                    |    2 +
+> =2E=2E=2E/verification/models/irqentry/irqexit=2Edot  |   21 +
+> =2E=2E=2E/verification/models/irqentry/irqstate=2Edot |   32 +
+> 29 files changed, 4397 insertions(+), 13 deletions(-)
+> create mode 100644 Documentation/trace/rv/monitor_irqentry=2Erst
+> create mode 100644 kernel/trace/rv/monitors/irqentry/Kconfig
+> create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry=2Ec
+> create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqexit/Kconfig
+> create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit=2Ec
+> create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit=2Ec
+> create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_trace=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqstate/Kconfig
+> create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate=2Ec
+> create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_kunit=2Ec
+> create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_kunit=2Eh
+> create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_trace=2Eh
+> create mode 100644 tools/verification/models/irqentry/irqexit=2Edot
+> create mode 100644 tools/verification/models/irqentry/irqstate=2Edot
+>
+>base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+>prerequisite-patch-id: 6ac7167f0aa7c5319dac78bf5b06a989fd7dfac5
 
