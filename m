@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792855945;
-	b=c45fTP3ia0eCw5O4KjpMiBe+wAiiMoymi3xJ7F1PEAx2fvsi+03YEomxtG6TFCUL8Ewu
-	 LHG6kb7SavFX7BbZnlwm3VG5aR2sqtEUN3J/MdlpJjKSQDGO2JaCahGwEHMx2oCr9LR1b
-	 Kfip6WuIsUajs7S6/gE+UHJpVbjLdRYZCKIxZK5PcNPDPiD5BFLIQ7V7u9ZFmjbjA3YYH
-	 W9NKjcBkorkosltKglGSwcKQTLijQpOcuHMILr5QcCrv5W+QBbFZWMdKeXhQSFcMCPIF2
-	 kVzx21PmaXDKCGgO4IMpgTk7IYtECRcsAejO2z7MPS+yk+5rQa5Qr/MwuxvCI2VtoYQ==
+	t=1792855983;
+	b=TZRhrWrn+w3x12/76LT80++hyTvjQmbNWdbIQdVXHoQ/44epvKgzZ/deHkix+um1zciQ
+	 3Rfd8rkw1BguguILiZ6IRhrLeiI/H7d0NB4YYg+ra4wDjYOp+sX/Lbgc+gl+H7WCWLmgN
+	 AHnbNGE9BAdfXCI9LX+harhLdNQbLXb/Bjn+1M2vCJ1VTxdK/3ZLJA5BllUYveQiVWRGg
+	 73YdxctyDZeT8Uh/DYQ9gevv9yZQUlJhtLJ394ZIGQ5PLRJUTFrYv3IZOVF4sJftld1eb
+	 JGci3pNZ5sB83pDf1heQov+X/SjpTU+b6aVriiEpLCLm7j6+HD5XIpk9vevJwp9IzPg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792855945;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=Pq5TTBQpf3VwcXoGs4pN0FqJDNE4MP0bsbNANOOcrSQ=;
-	b=P3tzU1tehCPqYLEV6XIP95cKxPGMfLYCs4DJgR/JgFoASWmWE/lZ7jbtO/CbpR6ftOP4
-	 1Hk3FHka9Yme3Bgb/3LxBBPxIjGYYz08M9RtHRlQeluf++kHrvQ8EPyeCkA4pr/MTzaL8
-	 bK+8ojLvEs4YnKvg1sXrmoTLQIhUAbQsSsnoT8HDGdzmAJXfTj10iBT9Tf25a1xBTi3Ag
-	 dy65EYXMDh/M2bMSN5Rb9nz1mheaM/aSYPjp9e9pz8hJWmM++HgkZGdkvNrY4BT/4q4+P
-	 EKG3uROQ4voCg+GMSRTr/G0oeeFw8B209T/zrDCMtHAtqjrIZ8WEO3mMRMVu/+1U8Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792855983;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=fDjbXdlTu4a88yMI0jTQlxuAUw20WpxuM9mcw2vGQgU=;
+	b=eAl+ouolmWIwhSyCLyphiKdD6bdPn2B4Q/GnPQCvPGwCV2JdTYJnnLu8V2VejRoPB0lf
+	 4OAe+8QJA/nOyjzQNKkZGQSLo6yE93OEdKzp/F81XBTLS6IAorjlawGrEWvmQr6aNovrS
+	 t8M/6usvnzkhWAqtZ7vHPr3gxAfGLrVlqYUuy8ynGvk8aRK2ceWTc7wW81MTEBRe1P9mP
+	 VmM96kANxBAs2fGFUpdHb/brSVc9btls+vMKw7uvzXJtqrNmo0MCyYhH8OEOqMLTD4twn
+	 JKfbRyG1cNbt5fGF6JxdD9/k9RqvjHrsmfrLVJxYMBtm34tLeHn+g2w59MJzkdWa3WQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SApMvrWE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=EV7CZgFS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B5606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8B5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505A0606A31A;
+	Sat, 24 Oct 2026 15:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505A0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SApMvrWE
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso2455385a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:32:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792855943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kyGe1d5MLdst1Ag+uxwl9ku4SG7eAsfgwlyxSCDHghnJtckX8zXOaIY6cfnt08NKWA
-         ZPyqyUGdtBR6/6k8QkOgxtKnlVMTWG1X4D5XxbXMKzxJTRVO1owvDwpNgkcAcDLb3wK1
-         zY9SKeYZe08wpffvFWp+FNA19MOeeMKqdsry0MOsGdFuB29JeBjtnB32fV1UUoL1DApG
-         TpI3nW7swNzKNko4w4xzQ43WtM+wci8r9PtEafjLt66IIl/1bVnYpCFEbEIcz1PjM/nP
-         5iynrYBm3JOJDT+3ATosagFS7kY98WIazQ9SBPMfiS+Rd0RcuxhGCWQN4xADkLOvcKJ5
-         GngA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Pq5TTBQpf3VwcXoGs4pN0FqJDNE4MP0bsbNANOOcrSQ=;
-        fh=HaqBLHH1DWzs2JrPGs+ELH9zNJcmZKTMR0cT4PnQugY=;
-        b=gD15zhpJo8M8WJOkbk3sqNWhO0RGSbqgJa5/rvRGg2E18i7AxZIlpXyHyJodD2x7DQ
-         j7k8odu6w9exN6I9HJwpsvgz/plGm8JfYgL0IhTl1X3a2xOfZ1ITfJaZZu2FrquzV9Io
-         ve4LlfOqMNffWm0EOrbeVSQSyAJDHvVXAy/hZp2u4kWeOKDb9PctRiyEyUmRKkLCi6Mr
-         dYascEcTspwv/QEa/fnslKuXpY3D01mmR3w2BZ5UPbvR0HEwfNxmE6X9KTKIWQxgoH4L
-         KvTh3dml+XJo2bObbC4NMto4lSJFFyDdBnTsKZC/9nfgq0q5SEPl6W9LUH/vvHB5I6rU
-         dRjw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792855943; x=1793460743; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pq5TTBQpf3VwcXoGs4pN0FqJDNE4MP0bsbNANOOcrSQ=;
-        b=SApMvrWEOo3SbIVhYSlC5ZBmjy79BCQcbqY+FZ9miSU2+CubFE5QcwgEpZrMr1U7os
-         qCjYKzBzWjYEwzhhEhx6ADi1e9TWOk/iGe1Te+X2MkEFB1NK3merWE5ak4z6Ph7t/zZW
-         lKyv1VR1rr6R+cq1yzBym8JQtNd+ALXf/KoFpRaOgYXU1QvsXX88aBsiCU11imeYYtEn
-         aDvx4pHB013MW9tyzwNUIcvKjZpwk5Z0SuE9dcCGAreI/1hwtGOAAunx2H+wsykp+EpL
-         JM8NZnZqQX9E2FgeBmUBZ4tACHydDKcGsBnssEj8AvECA8DdssS3ElyUETrKAvpt1qcK
-         /yZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792855943; x=1793460743;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Pq5TTBQpf3VwcXoGs4pN0FqJDNE4MP0bsbNANOOcrSQ=;
-        b=DpkSwothtR5E5HtBdWdrJ/ov1CznBuZ9PMYEBKMUuu5FHs9/hAvUQngkYepCW52dKr
-         BMpFhByrOgDlF1WnjYcZ+t2bWpsuhYLn6wFGaR9KX84HBvz4zuYeLloBDsLnG1KV0ZMu
-         O2KbAwhw1AioPHpDvgiB14P+xDssyPO3NMUlXuOyjxY8FdyKUSPO8Z0s7tVfdbXiW1uD
-         yQqzM7Ckk7Xg4JqbX4XzLZ/1W8hTQ3owqxLkeSXQ6dMN0my6X/LQiNYHBOmcbVgHurDQ
-         aycJ009sOFCxI9rOGRRJ5k7qkN24F9XOT6tR6JTW4YlnNi3Ne7Oqbc2M80mlCswRDELs
-         6Dsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfky99tNpb/rv3IEC1gLWqkY7XrMIZhOtXA3GvRtvAU4QfeHPlVvPlaR2Bjmp39ZTU7q7QXh61XrIJIO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3YXcU2/+MUCYX+f0tMxlL1HJIZ3ogR7yw+0ZywbOE3acW6y+N
-	ADPCxosizwCYKrlNhF6WmkgupY1hMlCnVR+F9EDl7yFHfKm0m4IhNI8ijAaIQD28Mg15RpMvCyE
-	WLM+JBH7cre1k2Btsn2dsYGrvt7G0UYQ=
-X-Gm-Gg: AYBFou0kXICL4prdA0Gode2VHiSqZ3IJyZxNAl3r4Ko0bxRUaqFJ0qqXx3NE13+SX5W
-	GDv4mBvnTIyEIlfycxMushMyv0hMYHNzh91LHS1YHxz+XSuMoJVUkL0xSFSnMubaP7iZrpFDLI/
-	6QFoes2/3/AxLtLEu4t8KR6o/a5D3NbeREHkw/PfK1JHF6Wl/Eb67FcJo8iCpb1Cav7aWrYmZBi
-	lFdfNpam3v5DPj/SDObHF7TIxn1BQOCbviH5J9DinyiuF3uOGok5SJMthMV/4uhl4Q8YumzuNLN
-	k3ks4E/htcbapGj99PDL5g6c+Clrp+LQKbZCghJanNJO4Y1QE9QmsBLVwIw5XEzdqj2aqhFJuzU
-	0wQHAjJhQg4pyEiPmhO3RD6wvGZtdEVH7ayXvQvE0x4negM91goWtd3WQIfvpDlurez1ytIVkJi
-	Kk1MsyvHEgheXibSY=
-X-Received: by 2002:a17:907:930a:b0:c40:4965:72cb with SMTP id
- a640c23a62f3a-c46bde1c9acmr252909566b.21.1792855943476; Sat, 24 Oct 2026
- 08:32:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=EV7CZgFS
+ARC-Seal: i=1; a=rsa-sha256; t=1792855972; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YjGOzWeXrL5xSLlyw5NPMJ0jZvYslGtqHtViI6sLicXaIs7pnSpT4Xxsxu+mFcwGn2VzOiJICwQqwWA8/rA1Yk/mo4YbsJWd0vdRJ/9e/8jpVr3O8HpbC/u/DbZfris5bTvVR9Mtty6tncyD1VB9Q2DZYBy9BusxMFd6ZEVDXxk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792855972; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fDjbXdlTu4a88yMI0jTQlxuAUw20WpxuM9mcw2vGQgU=; 
+	b=cDPwombjdSEEu5ANyLe/GenDN1x4R6hx0RPGZsLyLRTwBgfOi7JIy0zZRB8s1Jbb1fqnBKZdb+FGML0pLtaWjrO6fuAWCKPvG+NAcD7i+Lon+wsUCLn8OpsCjMsE7fwWza6f7JwkVdH3O+3E7RrVhKliolp9et9/k3yGtVo7Q8I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792855972;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=fDjbXdlTu4a88yMI0jTQlxuAUw20WpxuM9mcw2vGQgU=;
+	b=EV7CZgFSiFTInEEscBzbYXetXqAbgm1ysNTTcJVlqloJvrhbfBARc1bVhxLL/9PX
+	Jgw9XhwLoJz9FNUaAtHXndfc2tB5dMhFP1HgEN6uWarQ8Ffw18+GtmoZcCBANQbR6Lb
+	aIfrT8XL9WNbQBrP5pHf0Cc6eKkkicZh+P/myEoH3pfyrlOrlFMp2M3qYjcsYln3ehq
+	Ym+Ryy2ASEutAd5YIp6jq1yeigX/qKLI5FjjsfefFLMcbYKowab3nBSl0gOfM2TTPD6
+	aAebnL7783HvImBo/sdyLB/6MPhKmxOPB/1mSuiw6EYevZrBuR0PlqzLOecGwQp7XH9
+	yStHhQwhhQ==
+Received: by smtp.zohomail.com with SMTPS id 1792855970020729.9714410152917;
+	Sat, 24 Oct 2026 08:32:50 -0700 (PDT)
+Message-ID: <5bdb870be988333df200ac7d4904dd1bda6ef52f.camel@rong.moe>
+Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard
+ controller
+From: Rong Zhang <i@rong.moe>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
+ <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede	
+ <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Maxim Mikityanskiy <maxtram95@gmail.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <7b21717e80a7b779ab94d964ca40ee68@gmail.com>
+References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+		 <8cdbdcb893e2353e0ea2fe919e0c8a6a53f8b683.camel@rong.moe>
+		 <7b21717e80a7b779ab94d964ca40ee68@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 24 Oct 2026 23:30:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,79 +82,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
-Date: Sat, 24 Oct 2026 16:32:11 +0100
-X-Gm-Features: AclHuK9TU3AwsoiPULkfHVkczTh8p5LJGwDjkZKuc4re9S6dugKLiYK4K0vrngU
-Message-ID: <CAHxSwT8=ZA2sFqXNjfX2=Bf369+gNRLfCO+VtVmmWiTzenLwWQ@mail.gmail.com>
-Subject: staging: fbtft: fb_upd161704: Replace udelay() with usleep_range()
-To: andy@kernel.org, gregkh@linuxfoundation.org, outreachy@lists.linux.dev
-Cc: linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000a53d1b065e97cd84"
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
---000000000000a53d1b065e97cd84
-Content-Type: text/plain; charset="UTF-8"
+Hi Dmitry,
 
-Hi Andy and Greg,
+On Fri, 2026-10-23 at 20:20 -0700, Dmitry Torokhov wrote:
+> Hi Rong,
+>=20
+> On Sat, Oct 24, 2026 at 10:15:56AM +0800, Rong Zhang wrote:
+> > >  static bool ctrl_ps2_aux_port;
+> > >  module_param(ctrl_ps2_aux_port, bool, 0444);
+> > >  MODULE_PARM_DESC(ctrl_ps2_aux_port,
+> > > -		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad on/=
+off toggle. If you need this please report this to: platform-driver-x86@vge=
+r.kernel.org");
+> > > +		 "Enable driver based suppression of touchpad events on touchpad o=
+n/off toggle. If you need this please report this to: platform-driver-x86@v=
+ger.kernel.org");
+> >=20
+> > By re-purposing ctrl_ps2_aux_port, you are breaking its existing users
+> > *silently*.
+>=20
+> I'm not?
 
-Please find attached the patch that replaces non-atomic udelay()
-instances with appropriate usleep_range() bounds in
-drivers/staging/fbtft/fb_upd161704.c.
+Yes, and no.
+
+When only focusing on the input events delivered to the userspace,
+nothing is broken if everything works fine.=20
+
+However, the methodology has been changed from hardware-based to
+software-based. Because of the fundamental change, it has the potential
+to break something if some users depends on the side-effect of toggling
+the aux port.
+
+While my device never needs the quirk, I can think of several useful
+side-effects:
+
+- pause the interrupt (and hence pause event handling) to save some
+energy
+- prevent the touchpad from waking up the platform
+- reset faulty touchpads
+
+By switching to the software-based methodology, all these capabilities
+have gone. Of course, relying on these side-effects is a misuse, but
+relying on the parameter itself without reporting it to the mailing list
+is also a misuse! More below.
+
+>=20
+> >=20
+> > Please don't do so, but rename module parameter to reflect the new
+> > behavior. In this manner, the existing users should at least see some
+> > clues in kmsg.
+>=20
+> The purpose of ctrl_ps2_aux_port (introduced in commit c69e7d843d2c
+> ("platform/x86: ideapad-laptop: Only toggle ps2 aux port on/off on
+> select models")) is to let the driver disable and re-enable the PS/2
+> touchpad on models where pressing the touchpad toggle hotkey only
+> toggles the LED in the EC without muting the touchpad itself.
+>=20
+> This patch still targets the exact same i8042 PS/2 touchpad devices and
+> achieves the exact same user-visible behavior (muting and unmuting the
+> touchpad when the hotkey is pressed), just by filtering events in the
+> input layer instead of poking the 8042 controller behind the i8042 and
+> psmouse drivers' backs.
+
+Input events are not the only user-visible behavior.
+
+>=20
+> Anyone currently passing ideapad_laptop.ctrl_ps2_aux_port=3D1 on their
+> kernel command line or in modprobe configuration will continue to have a
+> working touchpad toggle. Renaming the module parameter, on the other
+> hand, is what would actually break those existing users by causing the
+> module to reject the parameter and stop muting their touchpad.
+
+A completely new behavior reusing an old knob is always prone to break
+*something* in a obscure way unless users are notified about the change.
+Breaking something with a visible warning [1] in kmsg is much better than
+potentially breaking something in radio silence.=20
+
+We don't want to support poking i8042 anymore, so the use of
+'ctrl_ps2_aux_port' is anyway becoming unsupported. The parameter was
+introduced only for debugging and is expected to be removed at any time.
+If users don't report their use of the parameter to the mailing list,
+they are already relying on a broken setup.
+
+By renaming it and breaking the unsupported setup loudly, we encourage
+users to report quirky devices, as well as getting rid of an outdated
+parameter name.
+
+[1]: ideapad_laptop: unknown parameter 'ctrl_ps2_aux_port' ignored
 
 Thanks,
+Rong
 
-Abubakar Musa Samaila
-
---000000000000a53d1b065e97cd84
-Content-Type: application/octet-stream; 
-	name="0001-staging-fbtft-fb_upd161704-Replace-udelay-with-uslee.patch"
-Content-Disposition: attachment; 
-	filename="0001-staging-fbtft-fb_upd161704-Replace-udelay-with-uslee.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mvmk3skb0>
-X-Attachment-Id: f_mvmk3skb0
-
-RnJvbSA3NzgwMzBhYTkyOTFlM2E3ZDQwZmZiMDNiMTllNjg3NzA0MWNkZGM4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBYnViYWthciBNdXNhIFNhbWFpbGEgPGFidWJha2FybXVzYXNh
-bWFpbGFAZ21haWwuY29tPgpEYXRlOiBTYXQsIDI0IE9jdCAyMDI2IDEyOjAyOjI1ICswMTAwClN1
-YmplY3Q6IFtQQVRDSF0gc3RhZ2luZzogZmJ0ZnQ6IGZiX3VwZDE2MTcwNDogUmVwbGFjZSB1ZGVs
-YXkoKSB3aXRoCiB1c2xlZXBfcmFuZ2UoKQoKU2lnbmVkLW9mZi1ieTogQWJ1YmFrYXIgTXVzYSBT
-YW1haWxhIDxhYnViYWthcm11c2FzYW1haWxhQGdtYWlsLmNvbT4KLS0tCiBkcml2ZXJzL3N0YWdp
-bmcvZmJ0ZnQvZmJfdXBkMTYxNzA0LmMgfCAxOCArKysrKysrKystLS0tLS0tLS0KIDEgZmlsZSBj
-aGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9zdGFnaW5nL2ZidGZ0L2ZiX3VwZDE2MTcwNC5jIGIvZHJpdmVycy9zdGFnaW5nL2ZidGZ0
-L2ZiX3VwZDE2MTcwNC5jCmluZGV4IDcyODgxNDBlNy4uOTRhZTViYmYwIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL3N0YWdpbmcvZmJ0ZnQvZmJfdXBkMTYxNzA0LmMKKysrIGIvZHJpdmVycy9zdGFnaW5n
-L2ZidGZ0L2ZiX3VwZDE2MTcwNC5jCkBAIC0zMiwyNyArMzIsMjcgQEAgc3RhdGljIGludCBpbml0
-X2Rpc3BsYXkoc3RydWN0IGZidGZ0X3BhciAqcGFyKQogCiAJLyogb3NjaWxsYXRvciBzdGFydCAq
-LwogCXdyaXRlX3JlZyhwYXIsIDB4MDAzQSwgMHgwMDAxKTsJLypPc2NpbGxhdG9yIDA6IHN0b3As
-IDE6IG9wZXJhdGlvbiAqLwotCXVkZWxheSgxMDApOworCXVzbGVlcF9yYW5nZSgxMDAsIDE1MCk7
-CiAKIAkvKiB5LXNldHRpbmcgKi8KIAl3cml0ZV9yZWcocGFyLCAweDAwMjQsIDB4MDA3Qik7CS8q
-IGFtcGxpdHVkZSBzZXR0aW5nICovCi0JdWRlbGF5KDEwKTsKKwl1c2xlZXBfcmFuZ2UoMTAsIDIw
-KTsKIAl3cml0ZV9yZWcocGFyLCAweDAwMjUsIDB4MDAzQik7CS8qIGFtcGxpdHVkZSBzZXR0aW5n
-ICovCiAJd3JpdGVfcmVnKHBhciwgMHgwMDI2LCAweDAwMzQpOwkvKiBhbXBsaXR1ZGUgc2V0dGlu
-ZyAqLwotCXVkZWxheSgxMCk7CisJdXNsZWVwX3JhbmdlKDEwLCAyMCk7CiAJd3JpdGVfcmVnKHBh
-ciwgMHgwMDI3LCAweDAwMDQpOwkvKiBhbXBsaXR1ZGUgc2V0dGluZyAqLwogCXdyaXRlX3JlZyhw
-YXIsIDB4MDA1MiwgMHgwMDI1KTsJLyogY2lyY3VpdCBzZXR0aW5nIDEgKi8KLQl1ZGVsYXkoMTAp
-OworCXVzbGVlcF9yYW5nZSgxMCwgMjApOwogCXdyaXRlX3JlZyhwYXIsIDB4MDA1MywgMHgwMDMz
-KTsJLyogY2lyY3VpdCBzZXR0aW5nIDIgKi8KIAl3cml0ZV9yZWcocGFyLCAweDAwNjEsIDB4MDAx
-Qyk7CS8qIGFkanVzdG1lbnQgVjEwIHBvc2l0aXZlIHBvbGFyaXR5ICovCi0JdWRlbGF5KDEwKTsK
-Kwl1c2xlZXBfcmFuZ2UoMTAsIDIwKTsKIAl3cml0ZV9yZWcocGFyLCAweDAwNjIsIDB4MDAyQyk7
-CS8qIGFkanVzdG1lbnQgVjkgbmVnYXRpdmUgcG9sYXJpdHkgKi8KIAl3cml0ZV9yZWcocGFyLCAw
-eDAwNjMsIDB4MDAyMik7CS8qIGFkanVzdG1lbnQgVjM0IHBvc2l0aXZlIHBvbGFyaXR5ICovCi0J
-dWRlbGF5KDEwKTsKKwl1c2xlZXBfcmFuZ2UoMTAsIDIwKTsKIAl3cml0ZV9yZWcocGFyLCAweDAw
-NjQsIDB4MDAyNyk7CS8qIGFkanVzdG1lbnQgVjMxIG5lZ2F0aXZlIHBvbGFyaXR5ICovCi0JdWRl
-bGF5KDEwKTsKKwl1c2xlZXBfcmFuZ2UoMTAsIDIwKTsKIAl3cml0ZV9yZWcocGFyLCAweDAwNjUs
-IDB4MDAxNCk7CS8qIGFkanVzdG1lbnQgVjYxIG5lZ2F0aXZlIHBvbGFyaXR5ICovCi0JdWRlbGF5
-KDEwKTsKKwl1c2xlZXBfcmFuZ2UoMTAsIDIwKTsKIAl3cml0ZV9yZWcocGFyLCAweDAwNjYsIDB4
-MDAxMCk7CS8qIGFkanVzdG1lbnQgVjYxIG5lZ2F0aXZlIHBvbGFyaXR5ICovCiAKIAkvKiBCYXNp
-Y2FsIGNsb2NrIGZvciAxIGxpbmUgKEJBU0VDT1VOVFs3OjBdKSBudW1iZXIgc3BlY2lmaWVkICov
-CkBAIC02MCw3ICs2MCw3IEBAIHN0YXRpYyBpbnQgaW5pdF9kaXNwbGF5KHN0cnVjdCBmYnRmdF9w
-YXIgKnBhcikKIAogCS8qIFBvd2VyIHN1cHBseSBzZXR0aW5nICovCiAJd3JpdGVfcmVnKHBhciwg
-MHgwMDE5LCAweDAwMDApOwkvKiBEQy9EQyBvdXRwdXQgc2V0dGluZyAqLwotCXVkZWxheSgyMDAp
-OworCXVzbGVlcF9yYW5nZSgyMDAsIDI1MCk7CiAJd3JpdGVfcmVnKHBhciwgMHgwMDFBLCAweDEw
-MDApOwkvKiBEQy9EQyBmcmVxdWVuY3kgc2V0dGluZyAqLwogCXdyaXRlX3JlZyhwYXIsIDB4MDAx
-QiwgMHgwMDIzKTsJLyogREMvREMgcmlzaW5nIHNldHRpbmcgKi8KIAl3cml0ZV9yZWcocGFyLCAw
-eDAwMUMsIDB4MEMwMSk7CS8qIFJlZ3VsYXRvciB2b2x0YWdlIHNldHRpbmcgKi8KLS0gCjIuMzQu
-MQoK
---000000000000a53d1b065e97cd84--
+>=20
+> Thanks.
