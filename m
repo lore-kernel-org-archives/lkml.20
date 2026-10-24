@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792829819;
-	b=NtduZfm8P8Lojg/6KyUIjPN5dR2YwoRNEk8qPKb/72iynlgUOWavembjhHEJraH+7YyL
-	 NOr+ZQ1Lw48S119cXUa1PhYna9eQu/4CivVQ/0yOqMFHT8GfxUT5wzvf33SKjccGzo447
-	 G/q/UIL80ZZXjhVN9PO5OWDf6yCACc1CXF966wGvuICFg/BwYkvBKhtuDxlYT7c6BCA6+
-	 v3VYxt1sUunOb/8yIf9VVgDGOMxUVaUfpQahk3jpU+dold+R5bEmMgiaQd5GZkROOOxYL
-	 upaiLqJtvRmLpNHvsInl3T2WKqW39Vp+lwt0KDg/fQFNBkOP/ksu54vQHI9fFU1lxKg==
+	t=1792829840;
+	b=gtgZP1o0lwSNqiYtzUjgCFT9BCEUXkJOdMl+nRVPjUPHQQJUQl61H0P6OhQsjpc5YEpD
+	 48jH+PbxANHndNizCM35D13juUb99hWl0bM+wiKo4SaW7VQkcZSnIJMqTHA/nX9jxxGyd
+	 zzP2dbHTVf3/UCQT5W6itFU8oRMeaPWFUqkRs5Q2QpSfG5Q1wJYDUPmWYp0mZGLc6TO5Z
+	 bgbjc/S/yQRrqgJVvLHplqUQzfB477mdLHfh4diQDIO3gsKKuNsmdSrZ4LZg6d4ZtFduk
+	 u8rMJVUE2aMrOfsxJzI+rzrCrQFhrvsFm9DT2ZFi/tNzQFIU/cCj0m4C0euprxN8L/Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792829819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792829840;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=uUDc+hglJMdcXxhvbv9wrZ+R2kkDMXVbGgG/7tMuxuo=;
-	b=NcLGcWBPcouignszTx+mVn5D76etgM77zlgBMpLuFzXJnxv6W1x60Gz+9MEbgg703j0G
-	 vWcmjGixFSP0ShLN7KzMf6wLFJ3acy10jk3ipX3AuKB7PLebBFH4d1sIC/psMjNn5qx69
-	 zEILwGLKQkMdpsa6h5otLte5IDUl4miP8C+4AMpL/VNttNZ7X/yi/KFTP1t4uUXi3ljwY
-	 BqicAOJ/QDA2YvPnI/RkomlW5mppqyHGnAGLUYGhv88wOWQWTytgcA1n8vPivhYrS1JUe
-	 yX7wv02vxK27TdMTC4R/0Ugm+GQQDTFcLGHCv5/mlKnhw0k8BFYq7gAWY0dKQbNAb/w==
+	bh=hmSpVMPxaxNz8ENjMhpdf7ua68LrA5ybGxRvYwN8M/o=;
+	b=EkBTIL8qX1UOHQmlBBmx58VmFCL9VYQkTt19mhRQuHzQj8iTc/F3Vxsb3rpf+NGeHjVF
+	 mLDKApynav0GuJv2bGQQfJJIO3lLhbiyu3LAIvbOt+4cWGHU9zEVJok8gBDds0z8fr/+v
+	 1kLd2YdqCSSiXVC78NKXspq0BrKOeYG2s9BdClig0O+bbfLFwMXOfNKchrbBaxD/E1cFp
+	 ker0Bi6j+ZPTKlPLndEv+LIxHHtoLZzjL/PYqJU5ql3pSwry2B0HkCzmELbblM1q11gK4
+	 a2WiCECqfQywSVZMnTnkDH5mmbCVTVL0pa/SimD+KKEt8j5egzFHZ8UpvFd5rBWqHQw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="j9m/eYvc";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ErxrGqoP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1D1606A32A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:16:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E1D1606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A314C606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:17:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A314C606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=j9m/eYvc
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so2250600a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:16:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792829817; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ErxrGqoP
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so838644a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:17:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792829839; cv=none;
         d=google.com; s=arc-20260327;
-        b=neWhpnDpJRFU9tE0Nw0fF91sspVbCKT/3T/HZ0bQQnapURitgu8cXhXe3H6nmJLDDX
-         TmDxUC5ZvUmJGTiWkP/mq3a0Zsz2pKD3YnEuqGUjz4WFR4DGzpjMJ50VLlBA+UFDACkQ
-         fCKvRgjIe402+V2R3na1OmiP4nmYHhTKirYYb+Zs0bhCK5dWlMTV3uSwNg5wiSTAOZnB
-         OguuI9NYfo8hXNJ3761b8YJgZbqEMNc4n1hpbYAhihHvq4H9DHj6MRmEUuC++6qX8BOi
-         Sv9R+9Ag3lW6Cji37b8YzfSBP5yxverb5JsqVKOAjK/YxjH/iQhDQH0E8wWjAioqP3d1
-         W4Kg==
+        b=pNKl4sDOAMv2Ewre4C4ZtAickHf8l+74xoUeUQC9LY3lxyn+SafBwCL+dBQ4JOaA6r
+         YobYS4O3r2OejBjJrBTB280iKVbBqIAimMmR4A5rs96mRCOK/odrExW182+Jrxs3uCqy
+         ePFOrySHvUzQp0xgMgaFvYYc2jjLK827ZiiTKxlUDaOTcjRgabaxPBIn719QJB3qYkOd
+         YpPTv0hyEndikTDF3rku7V0nHfUYqzr+VA39395H5/wCVqabMdf8c5wouiO9YAXTy0ys
+         lsB+RdqGs7P1Qu/jcDF9qfrnTqfHmIbI1SSw3J30DoqXjHP9v4vI5OO1q/26rfdhAQXq
+         RC6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:references:in-reply-to
          :mime-version:dkim-signature;
-        bh=uUDc+hglJMdcXxhvbv9wrZ+R2kkDMXVbGgG/7tMuxuo=;
-        fh=w5JXjcxpBJzaxX4vcYWq7OZ9M52c1IUibp+emftELQA=;
-        b=m4bM0leyBZKKE1lfoT0ETo5syNNM744WrG/vkJZceTFUx+lgZvliLIbiqWHf81SEj8
-         BH0ZQqE3ccUGjH3VsPx1tlK2GSVw5risjSrdVt0WghiwaQuIIMjJif5jJ9Zm126+TPes
-         Lto5IpOCoU9MFP/Qrl/T+j8j79CY6vwnGEfQtwJ7+1oQSEmCdd+u3J1z1ZJX62NQjEbk
-         jwskuUVIU52tdgGdUKGjv0k3UIONVVT5ZkqG2HtHz3J1AbrVNWRUDs2iNlrsEZhK+KdI
-         gGNqGPxTO7vG4s2+SduzvLIrIMT8Ae/CoHwuhGtQOL5cuChxZ4U5IOfo/WwrTeq5U56Z
-         zrjg==;
+        bh=hmSpVMPxaxNz8ENjMhpdf7ua68LrA5ybGxRvYwN8M/o=;
+        fh=7ueCdZj3jW6hKM5JvqRgeMIQkulakcqAdm+dvlTVUkI=;
+        b=jQmLy7fRjixm9IAVJZsztzM1udbemSKmR4NH0O9dj69Yrf/dzC1lGk5sIcid2rA2Of
+         +hPhIuRUvtuFBmqHXJ0oN/l9CCjr1M0E6KB/hLPXxtmssvvxaoM874jw7F8bR3P3kjoT
+         Cgwhwec6n+fkk20WLXVWmv053BWRtHYX7XkeThTjoAxMa9PYBeACcsaubxT0Lr0jPDw/
+         zHFzYWBXJU5OTvxTck5SQvYRxoaDrhsV5a3k11/6rz1OIqJXmFtulD+IzJ/wAbFWs389
+         yKMbbugMIvj0qH9FzvUHMiuB7zf6A/ahUdChIhjpbEx1m3SZQ8yNvsZ/c9rvgQTcCsAf
+         b7QQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792829817; x=1793434617; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792829839; x=1793434639; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=uUDc+hglJMdcXxhvbv9wrZ+R2kkDMXVbGgG/7tMuxuo=;
-        b=j9m/eYvcshaqWdxR1RRPRIr1ItYrA1TN4RRH0Tb/73JTmjyGNBA+MSabq/chQ3jRup
-         FDO+bPo7UmRdMpdeNPL45rZL+MvdTWsOwUsOK1L3CWBxyBfvgHY1GMnC7+rnUD+uEALq
-         OMq+yCYuInNRftXgM4Yo1DFyaRmVERqAUmQ+Y=
+        bh=hmSpVMPxaxNz8ENjMhpdf7ua68LrA5ybGxRvYwN8M/o=;
+        b=ErxrGqoPZ/nb9CghxeboTYWi19dHZA+oLth5nqNwXEPLgCivWeROkUq1jgI00pLPis
+         mnvEJZESOATfA4bwGakbWHbrbZfTg6q/+BsXRBGx/nCeAqO9mecP3eklEPue7ZRetFgl
+         WAQbY6p0/CHxOoA6764p2Z33kLx+HvfLIdMSs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792829817; x=1793434617;
+        d=1e100.net; s=20260707; t=1792829839; x=1793434639;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=uUDc+hglJMdcXxhvbv9wrZ+R2kkDMXVbGgG/7tMuxuo=;
-        b=v36fzrUNu7GSr2Tl6aguLNVNBhqjjGI9aBBfxJ59wCNF+rTHOKdp3zXSNJX5oHZSzP
-         8QyzkJguH8zV+Tu04RSMNnmGWBf81ccEDY+tsWCz2ZWk8G115yNqsFqVnzkd+5TVzsbp
-         Z+rZWXo9exI0KLTkGf0eTF7QIa3wKVgHXu6I71wCKbxRevNgdlsmZHTxnNZtLZQ1iPPQ
-         4ZxSO0aHxI7f8WpKG8JhN0JYUHKLi2Gi08iR8308B0Khtg0SsGF5a1sf/qcD/Q2aYLW2
-         F/kOZey7uMuQD7S7HpsVx+5bjW8h76LiTZ3FmMSSsVEU1yIdZB9YzALTGFDtN1yVLujc
-         D2gg==
-X-Forwarded-Encrypted: i=1; AKwUvByOYTZjkKs3yXv+3uQgKC7rSNRdQ8Dgj5a5f99Xykwgc7KGaihViutBhHVI0BBsJLM93A1UoPIw0IuVuiU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaujIijEt18qx4zwlgNyVRXqDA12Ot7NXpVK1ZvSwZFxwRnxZo
-	Km7GhxKaEQcMRKlvYAuw+vMN7G/xr+ARUOXEOX3isRpRphn9gR9kzBC+jAXGM3ZYcv4C6G12azx
-	bDoYk8cMjZVYREtQzxGXdYyTytQAfZ/bu6um/MM2Y
-X-Gm-Gg: AYBFou1J0b70rCdikrSO0Q4X1NJA4s4hgFB5Kcl4stKZsYIgpJfsiBZBYLx6F5pcCkj
-	LGuuAw9JPaepUzRDK4tOtj8vxVShexU/WEsAfXQs+hLHFJZbxxNfq+3lniaW+nSuhOF0kc7BQ3W
-	SxHyQAKlPusfcB07OyBwcdjOvOLHBKTpzsvlBncztdmDMkuq0W93a7plFGAydPPc5ztZzZaFqqo
-	lKwZxiG19qs5ooWHY1dsHNb3qefs9dEiLNzNwkkJhK7hzTdw9WB91lh1dOeuPca3OURCbNBEAm3
-	1e/YDRGx9ijustv34MfHWlWKfX8B87nAajoMbBMZakoezxYkIzc+HC5qPQhuActft1PbGYpfi2l
-	vjGGvXCLAit92JUFPqCaxjasTpcc9jq5hejQ=
-X-Received: by 2002:aa7:c9d4:0:b0:6b1:c355:c7c0 with SMTP id
- 4fb4d7f45d1cf-6b442fde26emr1152906a12.26.1792829816963; Sat, 24 Oct 2026
- 01:16:56 -0700 (PDT)
+        bh=hmSpVMPxaxNz8ENjMhpdf7ua68LrA5ybGxRvYwN8M/o=;
+        b=H635j+7UV7cMENBx3gJp0cVvG8csYjNuqdyqgUqkx1oAo2oVP7xzuozv8z4Y1GpYtd
+         YTU7uTc08cDiA0cv9G/O1PlLL/WjNHZZgp7WJjfjd/+f2sIvZuxSnXPezEv5PtVoBqP2
+         bRSSgrM4dZPVm5pouPB1Rcf6orVjhgfSH5Fdiw32BC/f6Z78PiowlNAXpBHI12Oa15Wn
+         1YpkFGiYZezOjLKVFQI68Q2zaXjnIEUcIcZXfJXojfgW+wZlKua9bdRRGMOQt6FAeLNI
+         JeJXT1D9nS9czcHO9ZdZ37U7272NdjqDiNxuXR3dcscOVHv98ge+iA5ooioTgQya03FO
+         UDvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzh4i9ga+kBWmgCuirNQLfu107MKv8URgcozNoRDreizmNaj6q7AKK/LjgcY99zg8n7E8jvIeZfzHH/+Pk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0aRXMyhdqji3XwAHGG3q4dtwvTMauziPQRlqQhH0cKg0ZHJRm
+	eGXBiJ3ILBoqiWDsjVjXgDzAU6rPPACE4iNGk0yOOWYNmMOZo8/oyxpRtWypJjXH0wsYInQs/ed
+	e/eOblGOWgaoKfh0oukkgzJP70z19w/IugJknpC2m
+X-Gm-Gg: AYBFou2s64tfT6IrAWa8gOUcf/57dd54K/wFp0KTBYq/hv2lpB0Nd9+N0tDhARDZY5a
+	0wzHoa828PXMfMsuv1rcY4lq9NsgzzJRSgNPa1n55b/Wh3LCY8UcHPM5iTnHlvIZWvMnUWHt5//
+	6IJ//3g/9Xv+iMuj18bwOVlWJHbbiUY0O9UFvlxwSCawXvZjVbiVgLyI/mt1hz0bV3PxOg89Ucb
+	SZo8WZAZpYiyGfZrPYbYbUAyp6uiWL7jEr+wUFvceI8U0n6jDB3b4w0ncnWfj/29neSfItJIdsM
+	EYNNYr4U/TSU6bf3OioPULllgUeXIEauqoDN6gLEw9UTNpLEX5OiIZhWheetj6xBP996tNQd/Ou
+	odJhProHfjOd3vG8EUNOb9IkkgVtQKiUlL8KR
+X-Received: by 2002:a17:90b:2891:b0:3ad:4a8b:c6e1 with SMTP id
+ 98e67ed59e1d1-3adea9dca56mr1447422a91.19.1792829839011; Sat, 24 Oct 2026
+ 01:17:19 -0700 (PDT)
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 24 Oct 2026 01:16:55 -0700
+ HTTPREST; Sat, 24 Oct 2026 01:17:14 -0700
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 24 Oct 2026 00:46:28 -0700
+ HTTPREST; Sat, 24 Oct 2026 01:13:02 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +104,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261020083501.RFC.1.I7ef2211f59d5912146a6816d533638605edd0f36@changeid>
-References: <20261020153652.2907186-1-dianders@chromium.org> <20261020083501.RFC.1.I7ef2211f59d5912146a6816d533638605edd0f36@changeid>
+In-Reply-To: <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
+References: <20261020153652.2907186-1-dianders@chromium.org> <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
 From: Simon Glass <sjg@chromium.org>
-Date: Sat, 24 Oct 2026 01:16:55 -0700
-X-Gm-Features: AclHuK-X20URHOUw51jVSQxB-TyQaLgWVXdt5sH3O8YNafmV3nonazmm4bHkTWI
-Message-ID: <CAFLszTjoZ=TZqW8BTFTot0ZRcv_--BYZgdOCUD-rv6nT479--Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/7] scripts/dtc: Add fdtget.c and fdtput.c to sync script
+Date: Sat, 24 Oct 2026 01:17:14 -0700
+X-Gm-Features: AclHuK-tg0PdtuvuCVecn4H2MwI1d9lfukkzfH1KNqgDlJ_Y2JdAvjK8N50Iivk
+Message-ID: <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/7] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support
+ using fdtfactor
 To: dianders@chromium.org
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -122,22 +123,91 @@ Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
 	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
 	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Marco Elver <elver@google.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
+Hi Doug,
+
 On 2026-10-20T15:35:18, Douglas Anderson <dianders@chromium.org> wrote:
-> scripts/dtc: Add fdtget.c and fdtput.c to sync script
+> kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
 >
-> fdtget.c and fdtput.c were imported into scripts/dtc/ in commit
-> cd296721a964 ("dtc: import latest upstream dtc") prior to the creation
-> of update-dtc-source.sh, and were never added to the sync script.
+> Add opt-in support for factoring the DTBs inside a compiled FIT image
+> into shared base DTBs and per-board overlays using `fdtfactor` when
+> `FIT_FACTOR_DTBS=1` is passed to make:
+
+Please can you add a short paragraph at the start saying why this is
+wanted (the bootloader needs a base DTB plus a per-board DTBO) and
+where fdtfactor comes from? It is not in scripts/dtc, so someone
+reading the git log won't know where the tool lives or which version
+is needed. A link to the dtc series would help.
+
 >
-> Add FDTGET_SOURCE and FDTPUT_SOURCE to update-dtc-source.sh so they are
-> kept in sync with the rest of scripts/dtc/.
+> - When `FIT_FACTOR_DTBS` is set, pass `-@ -L` to `dtc` for the DTBs
+>   included in the FIT image so they retain `/__symbols__` and
+>   `/__local_fixups__` metadata needed for factoring.
+> - Run `$(FDTFACTOR) $(FDTFACTOR_ARGS) -f $@` (with `FDTFACTOR_ARGS`
+>   defaulting to `--strip-local-fixups`) at the end of `cmd_fit` and
+>   `cmd_fit_its` when `FIT_FACTOR_DTBS` is set.
 >
+> Assisted-by: Gemini:gemini-pro-prerelease
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
 >
->  scripts/dtc/update-dtc-source.sh | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  scripts/Makefile.dtbs |  8 ++++++++
+>  scripts/Makefile.lib  | 18 ++++++++++++------
+>  2 files changed, 20 insertions(+), 6 deletions(-)
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> @@ -425,6 +425,8 @@ quiet_cmd_uimage = UIMAGE  $@
+>  MAKE_FIT := $(srctree)/scripts/make_fit.py
+> +FDTFACTOR ?= fdtfactor
+> +FDTFACTOR_ARGS ?= --strip-local-fixups
+
+Patches 1-3 go to some trouble to build fdtget and fdtput in-tree, and
+cmd_fit_its puts scripts/dtc on the PATH, but fdtfactor comes from the
+host. So FIT_FACTOR_DTBS=1 uses whatever fdtfactor happens to be on
+the PATH, and the build does not depend on it. Is the plan to sync
+fdtfactor.c into scripts/dtc once it lands upstream? If so, it would
+be worth saying so under the --- line.
+
+> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
+> @@ -137,6 +137,14 @@ DTC_FLAGS += -Wnode_name_chars_strict \
+> +# When FIT_FACTOR_DTBS is set, pass -@ -L to dtc so the built DTBs retain the
+> +# /__symbols__ and /__local_fixups__ nodes required by fdtfactor.
+> +ifneq ($(FIT_FACTOR_DTBS),)
+> +ifneq ($(filter arch/$(SRCARCH)/boot/dts%, $(obj)),)
+> +DTC_FLAGS += -@ -L
+> +endif
+> +endif
+
+One thing I'd like to check is composite DTBs (the foo-dtbs :=
+base.dtb bar.dtbo entries built by cmd_fdtoverlay). My understanding
+is that fdt_overlay_apply() merges the overlay's __symbols__ into the
+base but drops its __local_fixups__ after using them to renumber
+phandles inside the overlay. So the __local_fixups__ in a composite
+DTB only cover the base part, even though both inputs were built with
+-L
+
+This doesn't affect lga or trogdor, but the make_fit.py path packs
+every DTB in dtbs-list, and qcom has lots of composite entries
+(lemans-evk-camera.dtb, etc). If fdtfactor relies on __local_fixups__
+to find phandle properties, it may silently produce a bad overlay for
+these. Please can you check this? It might be enough to detect such
+DTBs and skip or refuse them.
+
+> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> @@ -486,7 +490,9 @@ quiet_cmd_fit_its = FIT     $@
+> -		done
+> +		done \
+> +		$(if $(FIT_FACTOR_DTBS),; $(FDTFACTOR) $(FDTFACTOR_ARGS) \
+> +			$(if $(findstring 1,$(KBUILD_VERBOSE)),-v) -f $@)
+
+Just to check, does fdtfactor handle compressed DTBs in the FIT, i.e.
+nodes with compression = 'lz4' as in sc7180-trogdor.its from patch 7?
+If not, FIT_FACTOR_DTBS=1 with that .its will either fail or silently
+skip the DTBs. Either way, it would be worth mentioning in the commit
+message.
+
+Regards,
+Simon
