@@ -1,112 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792831243;
-	b=j9Nhoypgjy9GxNFuBBS8B0Iie6EmQZNQc/g2aD9R9v48Gd38E8oDu97SBDfgQkFZMp0W
-	 t3PbjrrOXtQWjPdrqo+OBtNVAppbVXfuk2botZthJ5RAV42O8lyrBFSV2lNy1gyCxXGNX
-	 8MdhDE20IGJMNx8xKulZWVMN/cYTbKcQHVaSekvivXMOt35yXs3EgvhLJcCDSvRDkSpyd
-	 +7mbN1BdRyN2qUXsv2L+wI5QGxEzILSDBtN8XwSb2yeC8u7GIdBNqDW2xNpFb3e37m+CU
-	 L0CgKFFjagMFaY9WJRet38rnv+dgxlp58EPSZ4uxtiloJt2N3xVRPcQBPCSlGktYraA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831243;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792831414;
+	b=RuTfZFKNmtgMgkDj5v+N3Wa5JHzzeJgiDsdYmI9GtJNnI2TSy0cROMWRkqJKk8xfn8BZ
+	 HvUlJm4ZRSMlhaOVrBp/S2phDYxiAOhkJDUMq2oWl9QziFjo/ai4fhhZnjNPrzTbfOWAI
+	 XGt2Y4k/GwJDOZ2eOCkCXsUCAAZ8Tf9/3/QCnGVp9C3u84mj2JONpZmu1/mYcUFSMTK0P
+	 nSvvf4oYgQNaX3737cw1sJvjaJowuiODJZBMXNRsDfzIJL5x6rWr9fU0c8G3pwvl/53QF
+	 qkKVoUQWTyD4j98fw8HzshKIDXsX1mwiPpxhRSR3+a291O0jGhlwON/acZ6Br2Aic1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831414;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yXq52twcMI4Pp7oE3JQoJWzm+YSJCWMd6m0T6uz2FyY=;
-	b=MDilAqMAmLJJaGMFngMXfRE7FIzcJg12i7nGSRRg0W0et7DJ0JbkT116CTWW3XgrMk0q
-	 2e5gCGiifRRZZsJoOmcXIzHrc0GncyJfBptpQ4g5us5jT655OANDNQ8VrdCKo97S+tg5j
-	 5jcrV5iJ6jWIcBk4FmNFLsSEr6szGfB9czwigohrpQd78rDx/hmNFOk6VMH/7xg3S/nRA
-	 LuNNdNflm/2bbAAT+6PAnSnXRZH/m7NZQ8rRiV8aew9g8vKV4bfjRFm7w5FV+9VN7C2BK
-	 mNm8yi7G04Iq35zZhy1Lv++Q2uPBY7/BS3RNNSwQbX+3nviS7q/s+r5BvVc7ujPjnuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=RWGzfM5E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+	b=wKhYkJE/PA7DIC3wOHuYY+YzJPF29HXbgN/yXWOYAUJGBPi6VoEk69yFx4y2r+TqmO8p
+	 4QmM28x5k+O6R8DOWfr1G9zSk9Mf36CzI3851knURxE4/VcftzRantM7R1wfkpYjGGnGI
+	 3Ob3hhES2zLnJe9AzOIL8e+rJv7k08rh5fgJQJnJaJJkwCljh5TF+fMyciH0U6HTtrWIQ
+	 7zb9yfKMv6Do1L8pOwUWCLKyMtfSB//8jJaWksZ6hM33cKXFoOaRoNIIA5jKCPvjSYre+
+	 cWFsBy8Z6vOHsU1dfKP27SVo40nFnwlViPf+TtbBc6wrs22Suslewn+WKDi067S/2ww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ncOG1xga;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EAD606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47EAD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D8A606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D8A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=RWGzfM5E
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 2C694402DC
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792831239;
-	bh=yXq52twcMI4Pp7oE3JQoJWzm+YSJCWMd6m0T6uz2FyY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=RWGzfM5ErxOVLdI8XJpxlcLmXn8iUZXzY2VW2zIJgikQXCaPH/ITUBadQJS/HQBt9
-	 50s4xhguHny6+B36AQUx4cXY0sxwvZEh70Wcrh1BrMwVo/U/5YTrdROLf4gRy2rQUE
-	 d2m6gfSZGo6j/qNVznjSAfMNzqDk3rMb/1wvBfuQh6+/jJZ5JZjIdmR2Ayw9fAIA59
-	 88KHXOP7Xlss3P/0FwlrKvGm+2zB2w+Vthx6j1vNjqhsiaRyIZC4fgGrL3Qsno3CEt
-	 v70vtzef3j9+WWfpI8DrplobNtYX0j/abb4XyLcra6mjvl9XjMWWoCX3XMsVTK9MxD
-	 KurQU6EQhCAMh3P/MmpFVQoVjb+zjItCjX8jrnHO/nVUQy01xQnpyDtAMGWYZQ2pU0
-	 vXMEm2KaBf8FP93vBsqIcuwoJ3QyRSoEAuEtJeqznIlSizDhxySNdaUI4AWyPIvgtQ
-	 o8k8rZ2gee5IfiXfYEloK8mrPOuWN+iYMZi0TqIZN1Wx+dhdmdg+KptcZu2xfeV0kX
-	 lBIFXBCXraIXbBtJTu2sZytV00Md/Z0LduY4vjWUyhUYPjTqkGQU8b7uoiAiZsvnmS
-	 MVZr1NTRti6GSTcqEt+nCeDfmLUsFjQXioNvMd+E3r8eUVQxhG+UZUglUH9pXj014Z
-	 GQi75yZBJunvS1o2j81BM3NE=
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-81b5451da7cso915270a34.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:40:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792831237; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cx9q4ocGyPijFkcz9WqcCRUpgWm4wv68iRmWSWW/VJKGQ2P8LLECQ787z8s2K6kq5r
-         7Y5kRYKNADJXtUNB4mMgmluqpvvmE8JxjYmHbJYhzil8lS4w67Iu9/K/LpFTh388uz3l
-         rM1gv3ESds7WdQmx1DMMddElXMeeaaiGX7b9TVpH8o6H3xYZY/5xBwVTLeq8Vhv/7ard
-         4GCygWCablbBhwqvlUlFFO5kuoJz+Kt+1FgSOK2f5TEluxrWTphuUpFVeoc2yzfEQHGE
-         rcMak+kZfdRPNu5qjinTuQG8ZszBxdCwSi4yb/2oXLT8jB4DeR7dyR+gDBnFDEaKFMJz
-         M6Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=yXq52twcMI4Pp7oE3JQoJWzm+YSJCWMd6m0T6uz2FyY=;
-        fh=2uBPYL4qfXd7YxRhj70ax1je9Y3bi0NJwXAVPCYpjmE=;
-        b=cQYMJI1tWkLM/giAkQAZ58yt6b96Wo0rI1z9HtTcrQ1gvWKmgDPzTG1eCAH0XkZjyT
-         jFHYQLDDfhyhUhODvFMHYuo0KJEaUVKl8LBK4bFU5L8S3qOT4BOSIie86O7iKDi5czF8
-         YBKOG7Es4aE8PVupdRK1cUQF0vqYPZWsb7RuMz9uwmmbfc40jRBxRsf3DDZey8S3IydY
-         XZV5CL/uKiLJJMamlxoyLmQcPVB6UUuGVf7WyH2qaHw3UEdMt/LSq8VFH4+0oxNC+jx/
-         p28MSaTOJoLUIkgOMTOHZom2udZUJ0J4uPxMsVCKJ4SzCXVsPaKzTh5NVBarbiDtF+y5
-         zoAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ncOG1xga
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2055573c8cso199318666b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792831413; x=1793436213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+        b=ncOG1xgaONvXeiaMUE7R79ovJmwawvtZtfagrUqVaV6SCx3XMHlsbs6sSfOF8KdlSv
+         AMAp+8v00bmNVHOUvqO2+6QzbcTm2dHjSPn6ykRWAbQI3FAj9QkqeRhtDrBSQObhk9Hl
+         olSDf3wCDZSvG+bru+umoFIOSZBg2a9hsh6HLiquxNDSAK6HV0dCNDfdfnU9tJ500gsc
+         SPg4ybU6xy22v58T+GJmx3gBX53Y9taqF41tXHGihH+DH8i8P1C9wED1kHKvHtbVDBhF
+         pmTD3ADcqNcwMRBxtcrSY7lJvOj5zKaTPXZeJHyWNTV/kfjd0Cg8PHw9y0ZXq62r7GX2
+         G/1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792831237; x=1793436037;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yXq52twcMI4Pp7oE3JQoJWzm+YSJCWMd6m0T6uz2FyY=;
-        b=r4X6zHIyvnhBG0+CEcThsEeI+TqjRa7awW4jNfPrlo69Q09QdBbtvG4ostiSpvqTDT
-         XN4tZvaM61d93puxEzWKKMzZ3QS0rMaYw/fyNRVRFmw+cx7HZxS6Dk0ns0IE9J9cK971
-         RHsXhQ6D4iP5V5EBi6qp8/IzOUOQxOHXNocCrgeZjMnC8WgfdoYrY7Ka4HyYxmPcjVDm
-         K1XrQ6jwuSMHBkk96IVRqxqj57jVrd72GE0BgPDyCOgVnyhoxEdNFsPIXUPzelzqGmgE
-         Jq5sIQ2cWlNZHN+qZFmb/F2GKektUdxT9amt5J8k7RBzeAMhHJHT4kMRiux1QhGqf0N1
-         J6MA==
-X-Gm-Message-State: AFq9FYIlVYSpkXWuf++Qxym2/YOLrcL8X90Uk1+QESXrQVQ8cE9zJjiC
-	2D6EhTg/hnF78uOz4wGid5acFubpkHV/Lzdo6MgoYmKmQmqSZtj5j1jlZ6EJ5yoFG5ZYNwOkzXq
-	qxj263zRA7fsFUBRK1YJJviE+e5HtDH0gIk1YEyYUaKpjZdQAvDo9ANHdEdz/7Te9onP+n5QIrV
-	CLUqQCs+O6epIkD4M7BljdXA/0mbVC+Sf0H1zpsELfYHT+yiNMaWyvjUCB
-X-Gm-Gg: AYBFou13VFC8T44b1rfg6qXBmVDoFhJ4Q6jlgiEJgLjZLEmLKru5BBeYYU5U+hA18vS
-	PXhTWX7fiKip1t7XMmjITCjO2G1chy/+75ynvjl5m6ysQ4svctPSKLufM/zsQIyHuPadOe1GhjD
-	g//Q48qm+3koiwUwolXOUmz+O++5uPplAE2CXbbNMEYxJV9HrqSkMM2H+RXrH+Lp3+c34W+D/ha
-	sdKZ4++vVIwAuIXKLD5cDs1lCSBZacQKCtgIvzLQk0GMCgt47XAgA5mYWMp8jnpahD3XmHOsU+v
-	NDJAZw7Z4uacF7M=
-X-Received: by 2002:a05:6808:180f:b0:4e8:9e40:a0dc with SMTP id 5614622812f47-55bfff897a6mr1484022b6e.1.1792831237639;
-        Sat, 24 Oct 2026 01:40:37 -0700 (PDT)
-X-Received: by 2002:a05:6808:180f:b0:4e8:9e40:a0dc with SMTP id
- 5614622812f47-55bfff897a6mr1484014b6e.1.1792831237305; Sat, 24 Oct 2026
- 01:40:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792831413; x=1793436213;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+        b=mdf2B2eYgfNEZ7Vk4iWMC2McHKctc97B9lPRDFg920GDg3+9EIknMNkyKRsFE6yXOM
+         oiopwFcp9An/fS0YYCMJKAkFsr/o/8qCBbDndcDHFJdE30NNen3KhbaoGb7NM3BvhDmC
+         ZfEKSb87YhbrooW/57R7x82ZasYsD15gXaPxjnEfOJggA5in/XXqCT4TtfnTb3Xaba6w
+         a8IOYg4eHsnNiOuzuWq/lP0ix5PbfrI8/jvCOx441wCUKU3qfpn3ofPSjbJ2wceGoIwT
+         g+v5cnqZGvgY+9layNCgmVAyKg5hCK4di1Vb0EYb+OTvXpMxvE3uwYq7SjNGI0IyUcep
+         mlPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsi0vqHHGQgETr1oJl6BSYqM/rw4nHeyXzFgGH1lXx6kJ4Lt1h7w3qE57dd6fuHmJ7zFwb3o+JTtK3QAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSqzT6u259ktLmCMn0LwpVzZ8CjJVZg9pdtWsxjN/PmkSJeMGt
+	7++oNwjsp6ANHyi3u43kLU8wlo3WkntO9IOjoH5LOEwlji1j62qlC+0K
+X-Gm-Gg: AYBFou10GM6ctsDEVNzhYKXt+KpTXN4lTcf+iJZeTtbKRltUV747njrQEwjB7QPkn0d
+	Bnt2yogWlEblJwlK30JA09KAWvfiJg8NTS182OLHYjCegAbslKuXQmN527vojKDnnpo7LHr0TD7
+	9twYcJZO1AAY4WNIP8yr1BywVQ3DbsSReNlvHUisqzvFH2+iPCPzjdYSvP26I4dOwCg8Jq8BUaq
+	ToDjSZp9eu4lGd7uv8kTC9m28wsn+krmeEBhuZSV2ZLX0qFtkWSuHvPpOoGpy2IEKGCfj8G/u7T
+	0OcKh4cATqleaBU2LvIDOMFtbb/2nXP+n6bdL/1VFsQmzfut9TwnVQHkjU6aBC9d6ceWQXo6SFM
+	YUPtIQUEvMtbj5TK80mvVtZ/kCAIdHPjIpSipVJMfypxpEXZ4elNfvm7STDjszIFjCS8aiWhdaH
+	tQILxVOW6GyYkeYP6r4wwZImWFo09YhKqABNs2rjqdV2wXJ2jskw8LStyd/NDVJK5JcmVq+NNqq
+	m4OaBjc7W1WqinrggeZSXVQnY0gnLf3hYQRZlyM5dEitD1JyIvfLIgjKuzOI9nit4F3IJu4x+Gh
+X-Received: by 2002:a17:906:c141:b0:c40:c6c8:6bd8 with SMTP id a640c23a62f3a-c46bde0a0e9mr153005466b.20.1792831412672;
+        Sat, 24 Oct 2026 01:43:32 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4ea608sm64608566b.21.2026.10.24.01.43.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 01:43:30 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 RFC] ASoC: dt-bindings: Define '#sound-dai-cells' only in the dai-common schema
+Date: Sat, 24 Oct 2026 11:43:07 +0300
+Message-ID: <20261024084307.116715-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,159 +99,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024022930.2704030-1-an.wu@canonical.com>
-In-Reply-To: <20261024022930.2704030-1-an.wu@canonical.com>
-From: An Wu <an.wu@canonical.com>
-Date: Sat, 24 Oct 2026 16:40:26 +0800
-X-Gm-Features: AclHuK_lw0KrbOay5TaRrHza0ih03wUncsXLxEBm0ja6_fb_XrMQvlNi_qhwGNo
-Message-ID: <CAO4Mv0bkBSHHXo=_0SyCAN54Jb76fy34ba1hFVPVkFfs6ufoqA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] serdev: handle devices without an ACPI or device
- tree node
-To: linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, markus.probst@posteo.de, 
-	gregkh@linuxfoundation.org, jirislaby@kernel.org, hansg@kernel.org, 
-	ilpo.jarvinen@linux.intel.com, mpearson-lenovo@squebb.ca, 
-	derekjohn.clark@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Makus
-    According to sashiko:
-'''
-In drivers/tty/serdev/core.c, serdev_controller_alloc() places controller
-devices on serdev_bus_type:
+Define the '#sound-dai-cells' property only in the dai-common schema with
+an enum of commonly used values and a description on how to use them. Drop
+all trivial uses of '#sound-dai-cells' across devices with DAI support,
+replacing them with a reference to the dai-common schema.
 
-    device_initialize(&ctrl->dev);
-    ctrl->dev.type =3D &serdev_ctrl_type;
-    ctrl->dev.bus =3D &serdev_bus_type;
+This should resolve any issues with codecs having multiple DAI cells, no
+DAI cells at all, or incorrectly configured sound-dai-cells properties.
+Simply include the common schema and switch additionalProperties to
+unevaluatedProperties.
 
-When yt2_1380_fc_module_init() calls serdev_device_driver_register() for
-yt2_1380_fc_serdev_driver (or when a new serdev_controller is added), the
-driver core runs serdev_device_match() against every device on
-serdev_bus_type, including struct serdev_controller instances:
+Non-trivial '#sound-dai-cells' usages can still be overridden in dedicated
+device schemas.
 
-static int serdev_device_match(struct device *dev, const struct
-device_driver *drv)
-{
-        const struct serdev_device *serdev =3D to_serdev_device(dev);
-        const struct serdev_device_driver *sdrv =3D to_serdev_device_driver=
-(drv);
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+NOTE: This is currently just a concept. The actual patch will be very large,
+as it touches nearly every codec binding. Therefore, I am sending this RFC
+to ask if this change would be acceptable in principle, and if so, how it
+should best be structured and split. Thanks.
+---
+ Documentation/devicetree/bindings/sound/dai-common.yaml   | 6 +++++-
+ Documentation/devicetree/bindings/sound/linux,bt-sco.yaml | 7 -------
+ Documentation/devicetree/bindings/sound/linux,spdif.yaml  | 5 +----
+ 3 files changed, 6 insertions(+), 12 deletions(-)
 
-        if (acpi_driver_match_device(dev, drv))
-                return 1;
+diff --git a/Documentation/devicetree/bindings/sound/dai-common.yaml b/Documentation/devicetree/bindings/sound/dai-common.yaml
+index 1aed2f0f17756..152f319d8f382 100644
+--- a/Documentation/devicetree/bindings/sound/dai-common.yaml
++++ b/Documentation/devicetree/bindings/sound/dai-common.yaml
+@@ -13,6 +13,10 @@ allOf:
+   - $ref: component-common.yaml#
+ 
+ properties:
+-  '#sound-dai-cells': true
++  '#sound-dai-cells':
++    description:
++      Use 0 if only a single DAI cell is available, or 1 if there are multiple
++      DAI cells. For special cases, check the device schema.
++    enum: [0, 1]
+ 
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml b/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
+index a67b79cbe006b..f30aea4b545c9 100644
+--- a/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
++++ b/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
+@@ -13,13 +13,6 @@ allOf:
+   - $ref: dai-common.yaml#
+ 
+ properties:
+-  '#sound-dai-cells':
+-    enum:
+-      - 0
+-
+-      # For Wideband PCM
+-      - 1
+-
+   compatible:
+     enum:
+       - delta,dfbmcs320
+diff --git a/Documentation/devicetree/bindings/sound/linux,spdif.yaml b/Documentation/devicetree/bindings/sound/linux,spdif.yaml
+index aea6230db54c8..62c035b739d38 100644
+--- a/Documentation/devicetree/bindings/sound/linux,spdif.yaml
++++ b/Documentation/devicetree/bindings/sound/linux,spdif.yaml
+@@ -18,9 +18,6 @@ properties:
+       - linux,spdif-dit
+       - linux,spdif-dir
+ 
+-  "#sound-dai-cells":
+-    const: 0
+-
+   sound-name-prefix: true
+ 
+   port:
+@@ -30,7 +27,7 @@ required:
+   - "#sound-dai-cells"
+   - compatible
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+-- 
+2.53.0
 
-        if (of_driver_match_device(dev, drv))
-                return 1;
-
-        return !!serdev_match_id(sdrv->id_table, serdev->modalias);
-}
-
-Because serdev_device_match() does not check is_serdev_device(dev) before
-casting dev with to_serdev_device(dev), and yt2_1380_fc_serdev_driver has n=
-o
-ACPI or OF match table, serdev_device_match() falls through to
-serdev_match_id(sdrv->id_table, serdev->modalias) on struct serdev_controll=
-er
-devices.
-
-In struct serdev_device, modalias[SERDEV_NAME_SIZE] starts at offset
-sizeof(struct device) + 4, which in struct serdev_controller overlaps the
-struct device *host pointer, ctrl->nr, ctrl->serdev, ctrl->ops, and extends=
- 12
-bytes past sizeof(struct serdev_controller). When the overlapping byte at
-modalias[0] is non-zero, serdev_match_id() passes that non-string memory an=
-d
-trailing out-of-bounds bytes to strcmp().
-
-Should serdev_device_match() verify is_serdev_device(dev) before casting de=
-v
-to struct serdev_device?
-'''
-
-If we remove is_serdev_device could cause some problem due to the
-serdev_controller could also
-run into this function and "serdev_match_id(sdrv->id_table,
-serdev->modalias);" can be a potential risk.
-
-I will add the "is_serdev_device" back and send v5 out.
-
-BR
-    An
-
-
-On Sat, Oct 24, 2026 at 10:29=E2=80=AFAM ChunAn Wu <an.wu@canonical.com> wr=
-ote:
->
-> Driver-created serdev clients without an ACPI companion or device tree
-> node currently have no modalias and cannot be matched to a driver:
-> their modalias sysfs read returns -ENODEV and their creators force a
-> bind with device_driver_attach().
->
-> Backlight function on dell-uart-backlight is not affected: that class
-> device is registered independently and gets its own add uevent. The
-> user-visible breakage is the failing modalias read on an existing
-> serdev child -- Checkbox dkms_info_attachment aborts with
-> "OSError: [Errno 19] No such device".
->
-> Resolve the two long-standing serdev-core TODOs by letting the creator
-> pass a modalias to serdev_device_add() and giving the serdev driver an
-> id_table, modelled on the SPI bus. ACPI and OF match first and are
-> unchanged. Convert dell-uart-backlight and the Lenovo Yoga Tab 2 Pro
-> fastcharger to this path and drop their force-attach workarounds.
->
-> Changes in v4:
-> - Patch 1: drop the dead is_serdev_device() guard from the match
->   callback, and dereference serdev once at the top
-> - Patch 1: drop the "large enough" comment on SERDEV_NAME_SIZE
-> - Patch 1: in struct serdev_device_driver, place id_table right under
->   driver, next to driver->of_match_table and driver->acpi_match_table
-> - Patch 1: merge serdev_device_set_modalias() into serdev_device_add()
->   so the modalias is set at the only point where forgetting it would
->   matter; internal firmware callers pass NULL
-> - All three patches: tightened commit messages and moved the v2/v3
->   changelog narrative out of Patch 1 into this cover letter
->
-> Changes in v3:
-> - Rename struct serdev_device::name to ::modalias; dev_name() is
->   unchanged
-> - Model matching on the SPI bus: add struct serdev_device_id and
->   id_table; drop driver->name matching
-> - Add serdev_device_set_modalias() helper and SERDEV_MODULE_PREFIX
-> - No MODULE_DEVICE_TABLE(serdev, ...) support: both in-tree
->   firmware-less clients are created by the same module that provides
->   their driver, so udev has nothing to autoload
->
-> Changes in v2:
-> - Instead of silently returning success with no modalias, use a
->   creator-supplied name as a "serial:<name>" modalias fallback and as
->   the matching key, so clients can bind through normal serdev matching
->
-> v3: https://lore.kernel.org/lkml/20261023052717.2577234-1-an.wu@canonical=
-.com/
-> v2: https://lore.kernel.org/lkml/20261022032842.2492572-1-an.wu@canonical=
-.com/
-> v1: https://lore.kernel.org/lkml/20261021092124.2306053-1-an.wu@canonical=
-.com/
->
-> ChunAn Wu (3):
->   serdev: handle devices without an ACPI or device tree node
->   platform/x86: dell-uart-backlight: Bind through normal serdev matching
->   platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger: Bind through
->     normal serdev matching
->
->  MAINTAINERS                                   |  1 +
->  .../platform/x86/dell/dell-uart-backlight.c   | 33 ++++------
->  .../lenovo/yoga-tab2-pro-1380-fastcharger.c   | 25 +++----
->  .../platform/x86/x86-android-tablets/core.c   |  2 +-
->  drivers/power/sequencing/pwrseq-pcie-m2.c     |  2 +-
->  drivers/tty/serdev/core.c                     | 65 ++++++++++++++-----
->  include/linux/device-id/serdev.h              | 19 ++++++
->  include/linux/serdev.h                        | 12 +++-
->  8 files changed, 105 insertions(+), 54 deletions(-)
->  create mode 100644 include/linux/device-id/serdev.h
->
->
-> base-commit: 9e947d96915af63e28896caae85a81b74855621b
-> --
-> 2.34.1
->
