@@ -1,111 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792837877;
-	b=32dYKpFLj9m4/OAmFKtr1uoHtKwl46PKTzgBvmgTK7mr8Lif8WTmREiqAVghYBYh3RWR
-	 rB2pK+/yVnguchLCEI1SLrtrN4syjIeCZcA+j6CpOW0b5XlwNL0p1HZAte0DGUlC6l/Dp
-	 WnSGWzTtknGOlkZ/EzhcXXi17sBmB9PjOE23qIZPspjdMrrOEpfB56MDQrE8m9uITxcsw
-	 ulmd2bjigBvvZu8GrpRAk3B/otCniQlMuLoxTAl2U03Cqz+ggbnTmlavlBO/6T0PgOhzJ
-	 ykxrFYs6y5vJUqgUBFMtdp4yECOLCYXOhg6xHvfy1mlMKUv3+VDRoxfhEQ9GwLbJLXw==
+	t=1792837950;
+	b=RSqH/Ms37BHXZex/GdOlltYxw+qcEy7LSeudbf6nH7OC+fSz0WQQuSYy/CowJ5X+5Pyy
+	 IlFRvKotQT9D/SzIs13TkXi50Bqu7TBhng6oIApi+JY4/mOqX6ZNYGgr4ur4ssy4uoX6v
+	 cvnzg2UUS27/Awn94eusAq6LSe5s/iRD9PbbdoQglGPsBjiFDHDpxQIQFW0qnshPdc2Lu
+	 0/yP0NCtGQjaSdMD9hXyfaKgONg+4jKAyQbSqUF3qt4E9VVe5py7VNPRQNqHaM8YKVw8O
+	 xmbZR7tQ6YaI3ihDYlOu5XzKYXVkCpYKLhKfZPg+5JUeFYjxYKCy5AeQotyk+2Z88ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792837877;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=;
-	b=iyRiXlXcIU9N2YH/Okqkym9XKM9ASl/N+0M4RTXCNl0UbLozLwuLkMML46/lx5rpABaw
-	 T+DvthSrOtY5WA8pyboWzVdyQ9V4JogS1/XS4ngwsKddDd0lLJj5mgvk0kvWfG/eMg6IM
-	 yD5ovfxF1zMEu135LFx7JSYJL0hzMZqdaC1QOo0R8reuHTUVdXwnWomslzVEPmyYpWYsx
-	 y4IRGw1krkj9WRqKH6jMJRfmOunbuBs5hV1u+bXmKlXhnBZDzKQqOSSvwGOJiH39rEkYY
-	 0QpLzkTuijxTpnmkp7dBq+yDzjSJ4ez3TiYdamE0Qaa+iJ0Ol5/Tj3c2h7i47xU3tig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792837950;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=by5k9Rwpd3Lb929kxnzIlO4/xIraDNSa5LNfIcf1c7w=;
+	b=yBHdIkuU3G+Coc6Qf7NnPzLuOvYZ8wgsHcgYVhXdOTKo+5csRYHqQesl0E7k+Muu2kK+
+	 U0lBBMQ5NgHiqCwlN8DyNO/uQ+1WaXVIGfylhcyXK9/qT+Ll0WnmFOlsfvB/BYO1Q9ljd
+	 v11N7O3N+4AnWqRkzSFKypuwyNCt2HFG3Mtq653hToQdXsiZKSzd3YHB8BN5XW7KeKQmH
+	 YyfVn0sB/SV5/K621TWM3uemyB3UGgKxmED24RSmmbwZ9UxCvEkahT5AkyMUYxGoATqMf
+	 IRa2GdISISBrQMMft2I6p3Hj/IB8+K4A5pNfjwd+8zWaRRu5oZyHKj7qOeSf46fXtmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=POaySfmr;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Z/E/16Pk";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mmiELwFI;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53988606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53988606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EDE606A31B;
+	Sat, 24 Oct 2026 10:32:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89EDE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=POaySfmr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z/E/16Pk
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69O8o64j611223
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:31:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=; b=POaySfmr2zWvxh07
-	3S0ZVpsfY7f8Y4FE06+L/2UfpZ+i8jSmmb49bIUm3JyBejnwgh2UXSHHzLITyyTN
-	mgaa8TsVm77gV7XEcNCWJHYCsLqz3GQYjUteq7i4/aza/DgaIBbB3psihXKmKaEQ
-	LxVJkp5Y4NXEBLlN27nfx6suryimr4Woma7c8NU6Mz3jkTa2LjDNEyECTTt022D6
-	mQnUZgGS4wLJvtHJswPt4D0wV3P/xxNVwtRxr4QgDlaNyHNy5nfqy8Oq2j6lHmwn
-	0b5ICZ0CbLmpjxpfCHbkEWwMBBijMoUM7QWCFYf0vCYzgClugx6+ahtaygWR4hIm
-	rHU88A==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgnehgmu0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:31:16 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-151ba226e1bso3388987c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792837876; x=1793442676; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=;
-        b=Z/E/16PkQReVFYDWeDqmK2UNsaHor02sSc3WnIUhldzdb4dIjTAdY2uB1mOVro9alp
-         R3zSZjSj13SMPkgJSmgoh+OjwIl0OAauQ6PlZ8lJd70GhlSouunfbI33CXQoiMeSaTIe
-         CjX2g/XHJlCFWOH65CNYF0t4z8SuaEmjWJEIZfKf4jKAx00elPneI8iwrJ60CBiagY1i
-         DO6y3hEmflAp4vIg6JCnwY5INADG4BGbMKsBoTMOIfECMuZj0TdObJia4nGRMX4ZbpSI
-         VRJhlDy1cO4xMUnEGCfMyQTJ5V+Tx9jzQEL5YZbTkuyCO56ly/6WlG+Y3ksMqX4ubr9u
-         DyqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792837876; x=1793442676;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=;
-        b=Sn/aAE2OFJV2PnJk+Vh/FVMX52nCc2sSDTjLUPoU6svteGilTTkvVd/wu2zf7jGFyh
-         K7PcVL1eMFHmzdNq3PQKUTCQimOKBkdriavPq8FGejaPQQixbAfhojBBEezt23a8Dlsy
-         25K3z3vD3w5d69Y2uSg6DrMwZNmwgwT3+f51PiEn7dxvwhUFDYQocktkbOrpqnQojfQN
-         GWl4uwnF5D6Kcq5J957GOXbu8I7+qUK5ty02Nc1Dr9Ybx/PvonXgbfgnPN9NoYXFJxMO
-         gP07AVPz8BkP6AzC/y5utcdpWa/SBOw5ci09WEC/Mq+JtWxcy9ODe+E+18Vm8E2zuLft
-         gEwA==
-X-Forwarded-Encrypted: i=1; AKwUvByY14ZQ5SSL6nSmQHlzGRqjAO4XUySD2Vks3CPRXYWbeaMmguQ+Ki105pWT024OEF9H2A8MwrnCu+6vc8A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj9Q+MOYYfny9PLAtHdRZwpRt07tzt0W/Y0YFYGVPAuep4nYBO
-	SLDBu0IHDAvWH7HQ4m2C0lMEIsyfeNsxkfRnhRTrEWz3i5gGF2sQs6hHUn1qcpvPMT3rK8lr5IX
-	JoyaM/nX/DxE6IxUJArnlMVAFYuGD3w+9uEGTJjPmB4p1DTDQyWZvdfuFsi6wAbEizps=
-X-Gm-Gg: AYBFou1Bc8WDbMgy8ep87nTsbMe85LooccU5tSAT7l8vZw5LX5O2Z3FrCHnw71u3qeF
-	GjOQPALhfGWxQm8qUhrf8KX1jtSBW+SRpg1nv/j+sBOwW2d+ZOLEyzVwicuAhxqJjBqLQ+AMftP
-	ArR3QnIZ7V72k7uhAvibczbYuwIMdvWuJGz4JVYgWNnemepVV7djKhD0lWUj30Tyu2OW7gChoQ3
-	mDCXRdFI+dsInzAd/3kxrzu2dvs3ICAVC6N/zNjZ7e4hiBlRWLtSXVNZI1VunjjEqh/3YP3xN8Y
-	+N319u6JBRNbtGiFSj4jYfnj9RZnU1+/R/3EQ/sEkhGKgKvJAGmuvJtzhfDWnx+EwcvLR/HxNwk
-	bHJ7RO/2usyHeUHYDAlH8uSE=
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-199363a356emr2026604c88.17.1792837875910;
-        Sat, 24 Oct 2026 03:31:15 -0700 (PDT)
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-199363a356emr2026570c88.17.1792837875267;
-        Sat, 24 Oct 2026 03:31:15 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a10csm6009441c88.1.2026.10.24.03.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 03:31:14 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Sat, 24 Oct 2026 16:00:14 +0530
-Subject: [PATCH 8/8] drm/msm/a8xx: Add AQE firmware to Adreno X2-90 GPU
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mmiELwFI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792837943; bh=by5k9Rwpd3Lb929kxnzIlO4/xIraDNSa5LNfIcf1c7w=;
+	h=From:To:Cc:Subject:Date;
+	b=mmiELwFIw3xoTp4Hjx8+WOk24cx7HjEDZuMMWZOgKfIHidvGPgTWtTsJ1T/5ecGBR
+	 raDceycgdomxjVPsh2WJvSBqMjwqBv1+eDUkg1SzP+EA1OoE4gRh7i7mkmDuhJXUx4
+	 HDuZc3WrYftC7sx0AqRBImC2bXQUaib4tEIthNuA=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 81485A0D; Sat, 24 Oct 2026 18:32:20 +0800
+X-QQ-mid: xmsmtpt1792837940ted38oxsm
+Message-ID: <tencent_43A65D51143E18518EA968DF9323694EFD08@qq.com>
+X-QQ-XMAILINFO: OOO9dHjlsLs7JqcpGfDwOyvxM76Y4MtmMEynPxk+fpDtCR8etUzE/RdOL7ZFdT
+	 /b2p+++hyIaWTXP2wczGr37txuTP+GGs8P6zeUU9OG6d5B/U+EiyjQ0hgqwRfyN+Wbc87VTpMjFZ
+	 uuFKwPtYdehH8lOPG5v7rL3O5V3ipvW2Ma1Z5TFzpyrF5LCoWZWzAKA8FoM9QtSG+DufATpQs9iw
+	 OudJeldYG9EAWfjg2/IAjLa6Pyoe2rFNybQsQlS1Xs6RqHOCBHvZzJwFMHBRmVCturSF5sNT8sXl
+	 txvfgA6fRJB12OSsnD6GXm32Lv3FuIyObI8plHv2lfwRLGI2yG0eneg+yGt98fCUqSnEFRqFeuDZ
+	 einR9OQUFkWNDT1JVihCSdfiTQmpHH18LdsYIKxyBprDCFO7pPVVaUIYVwtsSpar4gl6OyazwA4I
+	 16VSlUnrZKi4kQQEz39QFw/YJa/fKjQAIt2bxA7hXTqt2LLPChEMiDa+iKc128dyJOwExXtJAY55
+	 RONJZVep3moxXmgaOxVZtt4cNLXDATwZ/xA5omNyKQrnGBd7EfEGiYmvk9R9k98Mhts6A2DDVKQi
+	 SHTSFTeXVPWebV9S39UALBq9QWwnSfaDIQq6VoYB8Pfm2Lfh80KUZbq7qymCyKS9tzQrAhI1fOf/
+	 lDUguPEPkK8J5izTX9OHuSdFD7QLxDUCzrPFXJVydCP34JowSMzA1G86usZyiUj2I+FlVIv7eeWi
+	 JhOpIPlmCHOiKkJrzJorZvItpTzMrk1e36mMXFxFEi66pOPhM3IkUrvpjotZXZCcmuxUDNnAWOux
+	 Ny0c8lyICbfSZSn99gaWhgAEpBdafsdpmB9OQwMtTPFPRW4pvWHR51gSPCM/oD2fZY7D/86X6ykN
+	 wiv1jBu0t4CzfNZ/iIVBiN1zVOtWrmCtczHvQMkQPjoJNqOZMQ5q/5w9TIlUCepKp+rH92NjIDIT
+	 UBoLMUoap4tmpDHNoOKaSdEuleVh3tHfhBBbGLsW7X7mMQ3hFaiJeD01SCwUApe9H0XJ7dSKoDOg
+	 tfJjScWMDa/ZA+nwSFrqpxz/c2EoM2LAq9ZFyN+IWcHPKjxFBdcnMiWrXe+qWP8xcesQSUnh9lZF
+	 qySFz2qMHTK5/Bc4g=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>,
+ Matt Johnston <matt@codeconstruct.com.au>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG net] mctp: sk_buff leak in mctp_dst_input() when mctp_key_add() fails
+Date: Sat, 24 Oct 2026 18:32:20 +0800
+X-OQ-MSGID: <20261024183220.64968-mctp-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,81 +77,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-assorted-fixes-oct-v1-8-2977f974ddb7@oss.qualcomm.com>
-References: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
-In-Reply-To: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Luben Tuikov <ltuikov89@gmail.com>,
-        Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837816; l=758;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=6jmsPstXRSfknq1XodxmYZvUhspzwwQE2hSVoneLg8I=;
- b=Hx/1/hc3l+NGbzYOE4B5IZ8a9HEQEd14sU4mikm18b12ltSKrCeyQdGfZiLcmnEkmV9KRmVWZ
- 2nhiRi5Ya70DDbbG84Qw3t7aDbYMJye+XM6j65PhrewxK1J542MF3J8
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX0YzMsgwfbYNz
- a4bXYYWrtOpLsUlzIYdL7XHXbNv7rhZLJkKJgXmfODRSP67NV2ZudNzT6KSjNfEoSo9Nlhg/dvD
- B0qLAvW/IBzf/Dx/cxUJudt4qfu682M=
-X-Proofpoint-ORIG-GUID: pbDW5DTm5_Wf9oDM6915NfevycHfm3Lm
-X-Authority-Analysis: v=2.4 cv=d5tgWhjE c=1 sm=1 tr=0 ts=6adc88f4 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Kvm9o7dbxh_Zzo95XxIA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfXxSt3GUavEZ08
- eEy5XDbegmZyYAVjGGctYLHm6i521/Uc/CrqTLp2zGycb10pZlOWbBA838fCdQkwlaKNmDxLYxw
- cvVFMT2YLLfTQe+VQieSf2H9zSoU15z0dF9KaHkfKn1uePtxZgxEXge6VpGYMgCl4EE1pFs9Fwr
- 2ovBqfz4R6vi3nHsG0TU2B3cuSVO9ZtD0Rh11xnjoxJADzfPH2ZFg5alizR76YinM30fN9Bg3x4
- bhzbb9hSQNHfy7PTUGk01yB6KUqeafnwwEzZK7kJS7WWXAqCI9GewL3voOdW0Mmdkt5eyNIA49P
- waK1Oazojntam6yyj4tWdDLesCZNXUF/CXjYWcdLx5q4xyAlaYoXMhRlV9500Icoazj8RdYs/dJ
- efAnxoRD9eab0pWxENahYnEAnU8gI/ATVbwCl7FIH+TCxrccN3PcrbdqH8fYqVC5GZaEs2IvQzm
- 7Z/mmYn1StlPoDwKdBw==
-X-Proofpoint-GUID: pbDW5DTm5_Wf9oDM6915NfevycHfm3Lm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 adultscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240041
+Content-Transfer-Encoding: 8bit
 
-Update the catalog to add AQE firmware to the Adreno X2-90 GPU.
+Hi Jeremy, Matt,
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 1 +
- 1 file changed, 1 insertion(+)
+In mctp_dst_input() (net/mctp/route.c), the SOM (start-of-message)
+branch allocates a reassembly key, queues the packet into it, and only
+afterwards publishes the key:
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-index 55a805ab438c..775aca1964ee 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-@@ -1582,6 +1582,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 		.fw = {
- 			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
- 			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
-+			[ADRENO_FW_AQE] = "gen80100_aqe.fw",
- 		},
- 		.gmem = 21 * SZ_1M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+		if (!key) {
+			key = mctp_key_alloc(msk, netid, mh->dest, mh->src,
+					     tag, GFP_ATOMIC);
+			if (!key) {
+				rc = -ENOMEM;
+				goto out_unlock;
+			}
 
--- 
-2.55.0
+			/* we can queue without the key lock here, as the
+			 * key isn't observable yet
+			 */
+			mctp_frag_queue(key, skb);
+			skb = NULL;
+
+			rc = mctp_key_add(key, msk);
+			if (!rc)
+				trace_mctp_key_acquire(key);
+
+			mctp_key_unref(key);
+			key = NULL;
+
+If mctp_key_add() fails, the packet has already been consumed by
+mctp_frag_queue(): for the first packet of a message it takes ownership
+of the skb via skb_unshare() and stores it in key->reasm_head, and the
+local variable is set to NULL.  The failure path then drops the only
+key reference (mctp_key_unref() -> refcount 0 -> kfree(key)) without
+freeing key->reasm_head, so the sk_buff is leaked: neither the caller's
+out: kfree_skb(skb) (skb is NULL) nor anything else ever releases it.
+
+mctp_key_add() can fail in two ways:
+
+  1. -EEXIST: a concurrent packet with the same (net, src, dst, tag)
+     won the race in mctp_key_add()'s duplicate check.  The frag_queue()
+     call happens outside net->mctp.keys_lock, so two CPUs processing
+     two identical SOM packets can each allocate a key; the loser fails
+     here and leaks its skb.
+
+  2. -EINVAL: the socket went away (SOCK_DEAD) between the bind lookup
+     and key_add -- e.g. the fd is closed while the packet is in flight.
+     This window is much wider than the double-SOM race and does not
+     need any attacker-side timing.
+
+Either way, each failure leaks one sk_buff (the reassembly head,
+including whatever frags it has).  Repeated SOM packets racing a close,
+or hammering the double-SOM window on an SMP system, leak memory until
+exhaustion.  The packets only need to reach a bound AF_MCTP socket on
+the local machine, so anyone on the MCTP bus can trigger this against
+an mctp-i2c/serial/netdev interface.
+
+The same shape is handled correctly elsewhere: the !SOM duplicate path
+uses __mctp_key_done_in(), which takes key->reasm_head and kfree_skb()s
+it.  The fix is to do the same on the key_add failure path -- free
+key->reasm_head (and tail fragments, of which the first packet has
+none) before dropping the reference, e.g.:
+
+			rc = mctp_key_add(key, msk);
+			if (!rc)
+				trace_mctp_key_acquire(key);
+			else {
+				kfree_skb(key->reasm_head);
+				key->reasm_head = NULL;
+			}
+
+			mctp_key_unref(key);
+			key = NULL;
+
+Checked against linux-next (2026-10-24, net/mctp/route.c): the failure
+path is unchanged.  syzbot has no MCTP report matching this; marc shows
+no prior report (the usblib series is unrelated).
+
+Found by code inspection.
+
+Best,
+Guikun Yang
 
