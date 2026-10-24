@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792882835;
-	b=n7ZzW3VJWYgtnTJcSRcWHamaNWq3DB0h0qhCr6E6WtaTmlYHYgnGiCYXFhfX4fpdfpcr
-	 ziCWIfsK7FXm3L7/8cu0PEF7GaHUkDAxMtWKtM74+qeJ2rDI6tsEFeDdbwHKk8V2k8sIY
-	 ytcBrOrHthAI7A7qr/CggqU9w+c3loM+FlczJbhzAXyMKYkG5iHBr89I58rhEuQbMRl0P
-	 Ds/afHSA03jrpz4hyWj74EYdYWI4ECt/nhGNnqrDjyj63KAYMTmrM7dKgf0eD9tUpuh1F
-	 8HgwJCTeyaEh6oEFcWNAOfIBH0RNm4Q67Vc9gwmi965KqswD3pBBZ9HDEMeBETbbb1g==
+	t=1792883196;
+	b=bbAxGPMl5e8yARkZMv5nDcuVYvaUuzU+9vDxy77X/lemuzXtbIE4bd10gIvlv6f053kW
+	 YpCdbZlH4HqQC7ehE0lmPJt5tceGmT413b07vKhTXpJhFo4X7GPORdqry9BFQZFRn8gDi
+	 hQqxk2LTVXfyOEYEPhX3CVeSq26Q9QpQPIUN2LNq3g1R6ekV3uuCJxm0Av7pb+f9Vexy5
+	 ZvsapqXCD3o1rdlV0Y9sqgaauMge31u+/jaQSdSBsfz/uwway+YOm/PGR6359lrZPK3y8
+	 PNV9xf612A6EMEK+GjjLCMMoU0RTKnKvxFHblAudl1fv0kysKY5J0kc5J1y9jgahfVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792882835;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MIBaBlgFfKNp4SB/CQNEvITaAygX5mK6xOYuzCcBJ2U=;
-	b=XmOi8ls3WO06eROnnDf96RbEX1h+pfPORTvvsUUapxB+CbC6K9WJD6h5jHIS1SFI++rp
-	 E7Dm1Le6lPSdJkNLX7rNuZ4NYi2MswxA5Of6vnLG4AXECq6ixV3lmxM07/DruWZ7IOPar
-	 I5eQghnif+enh+iQE7eKRk90Chik19a+4Oor1cqMHEqqrLBzQRwCOahbeJvzj1xwMciyw
-	 DqVodfjRhKaspn1G9aDULL4JDFC4IcwTzn82GanYG9lKZJLirqMBTITc7W996NhL0CyFV
-	 pZQSAYo96FZNi59sw20KjDAyAc5CqCNLoCS7jrN1kml+r0s2X+rcQPo7H4tVsFPv7Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792883196;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
+	b=QWW5j05veZAq1v9b9XtNgqB361t2tN4BEUJLmEwqhv1CLxcojN9yef6qY3rpdObHC4X9
+	 WJ3pRKddgHdMI3Pf/MEUMosGZ5UECsS/7x5CerHuU5J9pfgkR0A4/Ad3p7KCCYw9Lnaie
+	 F2KNaVSMqDU6jn9djbV9iUNepvO6cfz+Jy2aewIYZqposj949U4ofsiNI+0N9cIIo4A+m
+	 qnXcF+Ly0RUSsOXBL9L+1DeKcSvk+3mWXGxqKzXaSz8rNOncXjypsYrDOej06h8gv7Ms+
+	 /7n6ajZv0R91Uv2fv2kp5S3PV1xl2F+vCwC2xP0VHrZad/vcm9ipyRsK44uGiDlodPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=0CBtduUA;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="a/qIsEoI";
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB8E606A31B;
-	Sat, 24 Oct 2026 23:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FB8E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64771606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:06:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64771606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=0CBtduUA
-Received: from [IPV6:2601:646:8001:6901:13a7:2ebc:3952:fbbd] ([IPv6:2601:646:8001:6901:13a7:2ebc:3952:fbbd])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69OMxhmV2132992
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Sat, 24 Oct 2026 15:59:43 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69OMxhmV2132992
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1792882785;
-	bh=MIBaBlgFfKNp4SB/CQNEvITaAygX5mK6xOYuzCcBJ2U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=0CBtduUAoLw1x5TA22tszcwJQFG+8XVc0R4VuieSyeZD062+rFAtm96hSIDORFy6R
-	 wUDecMMQPuDndXw/oMco55pKM52Levm7ukf/T6kiZADrs+qtL/OX1Wi4B7IFjQ9YUS
-	 n6132lPn76xoW8mPHJW0H/gqlQz43uzNr4VKt98Jzvs9xA6N7UzvGsdOiFQuEkvS2n
-	 g0Q6MTJez4li9x4/PMU4XCn3U0gbdUboV0XOtYhrbFguLGvsTA9wsUkfQnNWeNZRI2
-	 jfow8BuNVl06TW5yAaf821zEbU9PrkD9HWJn4YReZk56nrN8/090CJllfTAw1wwXRZ
-	 a/Ylk9ohAl//Q==
-Message-ID: <9467c7b6-d797-4462-bee1-1406bb8469cd@zytor.com>
-Date: Sat, 24 Oct 2026 15:59:37 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a/qIsEoI
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c418e215671so246870766b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:06:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792883194; x=1793487994; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
+        b=a/qIsEoIJ7JXd7dDRfKIL8boCPjx4/MXqK1bE26QZaFCzqI+Rdxqpp5jXFOSzVoolc
+         v1zInRtKr9gTdubOUayPsUa8EJEENGSfm/QJ658WblAxdzVHz6IR5+Y/xMIUovw8LP32
+         2N33OQaEcr9CODQSkmjNa0MU4vKwhesNS056Iw/GDxNcsoD06HhJ0ndiqAbchNfbgEzz
+         keKwlOTRZaEyIU2PbyOxEsaZu52y+vk1YK1OdzGEc+Vj/NR5KxnLiO95355/5QjEjKWv
+         c/9nz4/uF5GK1Ie5KxMEiNnVeo6hqhl+vaFTq94nAKXAjgkol8yoHxfUJpRw9P8y5Isb
+         OH8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792883194; x=1793487994;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
+        b=w1xfrM0cRgq1OuWKwnq6Lwukt8xAx460ko2ppl4ixNCSemSrS9S/wFAxEfPnm8mnmG
+         q1olkf/ZNGDV/ysu1uuiTsznNhBB2wgTbRRVlz9h+1UF6PvEiXBk/7xNiBxgSamXhTP5
+         gw/7wvzbHSgQyHn+xYPuRE2uVXAYvVE0XFv36YUe6v3HWPoxdjZGrzVhcpCQ4iN+x6jH
+         STy3DLlt6OX1Hu6dprxDtYLgB6ArWyNslcYGQ+XYuWyDSAM+OebY54oDLr+mXbHiHNay
+         CyyTpvGlN05uY+OyeVs0gZ9mskB9hKJDx9gxqnWzjwpvIxOKFpSfMq6Eaoqp+Efpkto2
+         xydg==
+X-Gm-Message-State: AFq9FYJpDeTepYQSTRYAzPuDCdaO9hkoucxBCBowDug8nhGxiifpNbGM
+	8SBTlZUUgP2cAKHmXAtexQAeOEQ1jJQBUk4wezLxRFSMS0WQN8xSB5FZ
+X-Gm-Gg: AYBFou0VfyI5M/mLbNmBIW6IPwEyBquByzjXZ+aKC2BkL+64KFx+Whwko8+yrFrysdX
+	K7uR7uVB4m573H0wIjOfHbqdlWTd0FhAAhs+QHgj572xbdbq2OJjF2jJwpQ9vdWRobKqmtNmILs
+	9e28PzqM/VPkqKYmqQkGRyJwNWX1vtiVJsxllG7dIWgNFzT2DqbCE+JoBomy7bPDNzlSXwoXANO
+	+38oOiMGAlBBoUlwA/sZYLFdNkxwsuBY8Vu9sjwN+XGBC8gCtqNGQY+JqUI/KIENA5/nxOspBIn
+	ZtK23617neouuEVecR0owdzbdQbT014K3H/CxDINcVh00WFf2S4jjQHr3wCV3yPaV8mPg0f5TjD
+	UaEaVFtzVPti3+Z6Oof08RoeDmFQG5PbhiD15zIBpKqjwx0q2pfUtDcI40uS1FWO874rtFKMLpl
+	cpZEy3no1Ve36xFYGFE8WO4MUu2Bm/Q6AS9RQdmnzftqAg6HSEak4PeBGMWCE9wgJY7cITDotkU
+	3SaSBu+Eb9xAsngH7Em9qv1VNqsuS2bPFqbTqyS2EkFn9APfpTvDqA=
+X-Received: by 2002:a17:907:160b:b0:c25:afb6:2d91 with SMTP id a640c23a62f3a-c46bdaa7283mr360392266b.2.1792883193723;
+        Sat, 24 Oct 2026 16:06:33 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:6::])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd650890sm141551566b.51.2026.10.24.16.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 16:06:33 -0700 (PDT)
+From: Sam Crossley <samuelcrossley@gmail.com>
+Subject: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
+ demand
+Date: Sat, 24 Oct 2026 16:06:02 -0700
+Message-Id: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,61 +90,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 00/28] KVM: Enable FRED support with KVM VMX
-To: Xin Li <xin@zytor.com>, Sohil Mehta <sohil.mehta@intel.com>
-Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Andy Lutomirski
- <luto@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Tom Lendacky <thomas.lendacky@amd.com>,
-        Nikunj A Dadhania <nikunj@amd.com>,
-        Shivansh Dhiman <shivansh.dhiman@amd.com>,
-        David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
-        Binbin Wu <binbin.wu@linux.intel.com>, Zhao Liu <zhao1.liu@intel.com>,
-        Yosry Ahmed <yosry@kernel.org>, David Matlack <dmatlack@google.com>,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <E7D55C5F-91DF-45AC-BCC8-BD2759CEE0C4@zytor.com>
-Content-Language: en-US, sv-SE
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <E7D55C5F-91DF-45AC-BCC8-BD2759CEE0C4@zytor.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANo53WoC/3WNsQqDMBQAfyW82ZRErdZMhUI/oGtxiPGpKZpIE
+ qUi/nvRdu16HHcreHQaPQiygsNZe20NCMIjAqqTpkWqaxAEYhZnrIgzajAoazx1OPZyodPog0M
+ 5UH4pEBWrUpUXEBEYHTb6fZSf8LjfoPxCP1UvVGFv7lqnfbBuOf4zP+TfKv+7mjllFLNzzRKsk
+ 7Rh13aQuj8pO0C5bdsHENRCZ9UAAAA=
+X-Change-ID: 20260926-netcons-replay-upstream-189eec0b4c79
+To: Thomas Gleixner <tglx@kernel.org>, Breno Leitao <leitao@debian.org>, 
+ Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Paolo Abeni <pabeni@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Sam Crossley <samuelcrossley@gmail.com>
+X-Mailer: b4 0.16-dev
 
-On 2026-09-14 23:03, Xin Li wrote:
-> 
->> On Sep 11, 2026, at 2:36 PM, Sohil Mehta <sohil.mehta@intel.com> wrote:
->>
->> I mainly rebased the patches to the latest kvm-x86/next branch and fixed
->> a handful of issues reported during internal testing and basic AI
->> reviews. I've avoided making any major code changes or commit message
->> updates as this is the first iteration that I am posting. 
-> 
-> Thanks a lot for taking care of the patch series.
-> 
->>
->> Going forward, based on the feedback, I'll rework the patches as needed.
->> I've listed a few opens below that need additional discussion or
->> clarification. I'm relatively new to the KVM subsystem, so please feel
->> free to provide suggestions on the series structure, code organization
->> as well as commit log clarity to smoothen the review process.
-> 
-> I’ve been thinking about an optimization: because FRED drops most of the old    
-> syscall MSRs (IA32_LSTAR/IA32_CSTAR/IA32_SFMASK), we should be able to omit     
-> them from KVM's uret MSR tracking entirely as if host enables FRED (no matter   
-> whether a guest uses FRED).
-> 
-Yes, although they will need to be handled properly between VCPU switches, of
-course.
+leitao and tglx had discussed this at LPC, sending RFC as suggested
+by Breno Leitao.
 
-	-hpa
+Netconsole only forwards records while an enabled target and its
+transport are available. A target enabled after boot, or one that was
+unreachable during a network outage, leaves a gap in the remote log that
+cannot currently be recovered.
+
+This adds a write-only "replay" attribute to the netconsole configfs
+subsystem that rewinds the netconsole consoles so the retained ring is
+re-sent. Patch 1 adds the printk helper; patch 2 is its only caller.
+
+The replay is best effort. console_try_replay() uses console_trylock(),
+so unrelated console activity can silently skip the replay.
+
+Testing: verified in a VM and on a physical host (the latter rebased on
+a 7.1 kernel) that records emitted before any target was enabled are
+re-sent on trigger.
+
+---
+Sam Crossley (2):
+      printk: add per-console replay helper
+      netconsole: add configfs trigger to replay printk buffer
+
+ Documentation/networking/netconsole.rst | 14 ++++++-
+ drivers/net/netconsole.c                | 25 ++++++++++++
+ include/linux/printk.h                  |  6 +++
+ kernel/printk/printk.c                  | 67 ++++++++++++++++++++++++---------
+ 4 files changed, 94 insertions(+), 18 deletions(-)
+---
+base-commit: 00513fc3d6c467b1ef3c101a2943cb92de25c49a
+change-id: 20260926-netcons-replay-upstream-189eec0b4c79
+
+Best regards,
+--  
+Sam Crossley <samuelcrossley@gmail.com>
 
