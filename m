@@ -1,56 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792850972;
-	b=MVs6EeXFGHvOP8YhZHMRPzC7qWEdDEZRbkExvdWHvSbvAWJNVdbYBRyQ0+mdUOi8YAB+
-	 0CKd9CcHa0hVF+CHMRORKLy+O8zC9s6+UR95tf8VTOlaEztqeUXBHpMju1bHtVFQa2CE9
-	 36dTQWFQioIJ7ifnx6KZAhj5gjW/uIENNN859L1ANZSWowBxT6bWM42aVMalyHMUSHAuO
-	 eYwTE1r6Ltdu4btB1rfVX8Mt1vO6FPPCPncyiOs6qpJyoet7+q9hKIHHOUJmJ1kmcaK7q
-	 Zz10BGtoZwL1vkxNCk5giSST3k/oNXsWGu3c7Yx2UKMwjV9Zskkccpw118kIetGuUxQ==
+	t=1792851010;
+	b=26Qk2BBsM+CVZBj/XbeQyrBvyLxfFRdjY23bwK3+EMbuoAKkjzYuOZpSJaBVDQW4Dion
+	 L3nZWWqu7LayjKqoMqC2SMh3IG5vKavZusVl1egbFGiS1lGrG5SpiIKlyL2KsPMcUPc8b
+	 Ta0Uwhdq5sbzwZRz3M8M/54OYnZdmbQx+UguNFZVTxGPnf21W0NmWOWW1GonB8mfq95km
+	 +9IAKvJpKWZipH4hcdiOxRbcFUvWWjK6fZe5y+voNoXcQHc12yZ2/+2OsUtkWlYOO2H/J
+	 u45K0uuJYMNmmRAHX5NwKj+5Mf+hBWXD8eUOEuzRp12sutjSgeZTeOhFLQW664YhDnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792850972;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=P05892k1Sjquw3DwLgvMsJENfB8hU5xbQKeOl7fjF94=;
-	b=cswWQUAwJK/giX/cy1c9FOIJECxIsaY0d25HyGE4TsBXJ2l41zhPKKN7bp1qepTXIjEs
-	 qsm/2XlwO89TuP0QyDdY4HyKdcwkMnGNW0t4AgQGkj3td7AM4eSEV8lE7j1rTFZvF0U6L
-	 gygTzIhxuvLMOscAmIDzsc70UZCYKRnFi2hfPcLibZrHTtCRx07RYvWhjc7S+e0jiR+S0
-	 4ZAAmLtANTRYsSPB47jBa9hnhUvZv5ZX5NSVVhx7pbMguoO6+3FMlmsTINGJLUoBlbyM1
-	 hsU+mA4bMHmKE6vQMamkrh1Lf+PPqWAWDH1cZOH+LpHpOFQ+uLxYWBoFo+D71UBLr/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792851010;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wgAtn1Ma4PVKHlUK3UiNKyPauME0OXi6ZH0cEqroxT8=;
+	b=Cuxmev0W2sh0upyWNFrsoxIoIbT9HCQhno6nrCf8S0ipEyEUHNBKPX4uJSy0NbD6jRlH
+	 EuCn+y5umDdp1LzBRFjWl+sw5rIh4LPA+KjY3g4mox3FrxtuONKFyBKntyFUdDb8YiDio
+	 OY+nLtEurbVI63x6P1/gEBmUBua9zX4Y7HepKCKL907DTcnFuASN2qVcrIEdKfYCozl9W
+	 aw4qBJsuLKZPCRMG9duy5M9CF17mUB+EC/n5fhnoNA2iSd13drBY/HR7CwS5cg4xWBDGe
+	 dUY0bFsLQlyX/6iX5/QtRywvuZuJzy79VefOgyPs5+ZAy3SB4FgWSenxfWehZ82PSjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QAzim/kk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvGIiKE8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAFB606A322;
-	Sat, 24 Oct 2026 14:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B00C606A31A;
+	Sat, 24 Oct 2026 14:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAzim/kk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6F31F01825;
-	Sat, 24 Oct 2026 14:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvGIiKE8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760EE1F01825;
+	Sat, 24 Oct 2026 14:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792850971;
-	bh=P05892k1Sjquw3DwLgvMsJENfB8hU5xbQKeOl7fjF94=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QAzim/kkzZl1Qpjd9NwMf58UZs0gx2PV6gyGxy6k3biJLIDTM4qZMxy1cySlMlKTN
-	 PLupJ9vlpOvTWYpPpIl0ogdtyXP5gQSct+NRTmK8g4dkJZ8MyVWihZP5CGpWE8puAO
-	 mSzMYZ6Zcx+71j317ADpKM/hM6ymyZWj3NDoXW8QnA2UVJ0EBJctH/XyqP/skzKzf7
-	 cXK8kS846FcG3OaiM0lMJJb+oJPMfbJw3Dlp/DD1xmrkSFmezZbZ2SRDkqpjEE6vSH
-	 04QID0wHyCwLbyDKX3UnvZPcRB9UY2ijymIL/46qlXVyWCYBH++CE6NkY8AMLBw1FA
-	 F0ADrWsyEI5Ew==
-Date: Sat, 24 Oct 2026 19:39:23 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Lukas Wunner <lukas@wunner.de>
-Subject: Re: [GIT PULL] PCI changes for v7.4
-Message-ID: <aty5tHQi8YNM51Rr@debian>
-References: <20261021224355.GA2571577@bhelgaas>
- <CAHk-=wioEin24Sm4DM9TFgYw=kH+PR7NHQ_Z5pzk2=AfpQd0qg@mail.gmail.com>
+	s=k20260515; t=1792851009;
+	bh=wgAtn1Ma4PVKHlUK3UiNKyPauME0OXi6ZH0cEqroxT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GvGIiKE8JhYtXv4XKMNBhgYEL/4w5T8C3/c9IQrp21+jj01EqQZInXpB6IC43VI/5
+	 6bgJSi0nEp2yGmJ5sHK2uHsP16Rs4UKVSNIESeyyBvaPV4YvNpSUAUJckx9WrmeN7/
+	 fT3+lLDvVJQyh4y6RtjuTCrJCtfG03zWtJELKoJnpkplmr00loBqagcIS37JNNvl9i
+	 2JS5hICQGIu9UraDQQiw29M5JZwbwVAGs9dFCzl46nmKa3T4uDFUJvzQ0EVj9pzPaZ
+	 pYzZxW6wJYffjNoqqVC8gJFtqAt+wS46Pmk5W8dWFJWo6budaddpv3odgDjEBUA6Ak
+	 iQt98pG6669mA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org
+Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
+Date: Sat, 24 Oct 2026 16:09:57 +0200
+Message-ID: <20261024140957.154160-1-ojeda@kernel.org>
+In-Reply-To: <20261023163713.816071858@linuxfoundation.org>
+References: <20261023163713.816071858@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,30 +74,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHk-=wioEin24Sm4DM9TFgYw=kH+PR7NHQ_Z5pzk2=AfpQd0qg@mail.gmail.com>
 
-+ Lukas
+On Fri, 23 Oct 2026 18:37:22 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 242 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 25 Oct 2026 16:36:45 +0000.
+> Anything received after that time might be too late.
 
-On Fri, Oct 23, 2026 at 03:41:39PM -1000, Linus Torvalds wrote:
-> On Wed, 21 Oct 2026 at 12:44, Bjorn Helgaas <helgaas@kernel.org> wrote:
-> >
-> >   - Fix leaks when ACPI APEI/GHES error events overflow the kfifo or
-> >     mention a device that no longer exists (Priyank Rathod)
-> 
-> There were conflicts in this area that I resolved differently from
-> linux-next. Somebody should double-check.
-> 
+As reported by others, this failed within QEMU for all the ones where
+I boot-test it (x86_64, arm64 and riscv64).
 
-It looks good to me. Lukas preferred a different approach [1], but the current
-version does the right thing by calling pci_dev_put() whenever pdev != NULL,
-irrespective of the state of 'err'.
-
-- Mani
-
-[1] https://lore.kernel.org/all/as4S2GFTRLLuwAXS@wunner.de/
-
--- 
-மணிவண்ணன் சதாசிவம்
+Cheers,
+Miguel
