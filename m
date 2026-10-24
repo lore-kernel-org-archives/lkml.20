@@ -1,101 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792823893;
-	b=tgWIGZ62qCGYjzDOaJYfIMSuQ365L3Tm+CvvyHaLKoKXQKNGuKi2E6AxeTpKuuvuN6TI
-	 G3xtorAN0Cd54hiUBxQ2xMkU3ND5r7ak7da7D9f1l1zu5hS6l30nnLlMT3jqqqd16Vj6R
-	 VvuJ+PgeIw3jP5e5OvpJhSt6CDHeVnWucj1QSvxG7JBW8j+BEc3LDxQGVEb2o+SY/Hy0C
-	 LQnSIExb07Wxs2qwzKD3TEY8Hi6Nobq/X0Fmy2RO39Xig+o2CC13umSdGXtxKCPJxMRmD
-	 VaIPlWykWwm4bxXTQgkgzFk/e4nLk9Vwstr/QB3jbaqeSz0TjoUAUM03aENpyCRRrCw==
+	t=1792824052;
+	b=k7vy8Qe6/HUTt8CmulvtZFBrsebtrhT3sc1JFWloDYkQKuEfdwBL0aSL2VykJjvOOcLf
+	 Scw0Z6e8z2Rz1QazM/wiBA51zfae18SczLYZuPODT9ZDrv6+vAEUwVUHBqHUUMo/sRoOO
+	 Nl2nuVn7swezjNUgO25fY5D5BFOLE8f+dYEWGQhsWu6EDNVGB26RF0ZP14dyBypBg+Zom
+	 b30uGHyYltExglTrA1uPznBv2lmJXKAeb/Gu1IbRo7cYqfq2OKhMkDxLyxGimXFDk7ybR
+	 GkOzpOH5DaPF00LilbNrpWmPNRBdbUctn4t8SV6+SANfjw4LWNeNRlMGRtUf0rnJNTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792823893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792824052;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
-	b=VzDSzLX/RWeIyeHImsNfbDVCPti3/ccDasANW3ziRLhJmiJfdqQ2KtpRutioK1/5lGpw
-	 A896jeimF2BoqaTYgMbDxuy6JZ92cTzdDkCi8NTym9doygznFNlduHrL5LzgPx0c+D43A
-	 h9oo/rmqwerSfT+pg8Aw17JRg1NxW8mw+bl+8DcGlNhEftAIxOyvff1/krUIdLHgFj/h9
-	 2TieLxQN7YbKgX4wlQKP+YQRWqAOxaibRIHiwkG8Ih62+/6yZLIxYOpSEZdWNmK2Zx/T/
-	 uLTOeD6qhcrFO0D8PkicEGbciHApABZbuuhxYSYcbJBMbHeMDW58UjWMEFwS3PlJWCQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+	b=37coIC5EuuDH0TMn57oRzTJcoGJsPF5HqoMffCvV9nWhOcc4rRe0jphXxMuws2ZdE3W0
+	 mEmdG66zdxxrwOOgvA5ssXtB3u5Q1db4VsVjLa07W6OnxSuqvg4eai2FHrHlL3rGKwzt5
+	 qmpQ+DmaywNrLig4xGTDvKLY4FwLW6vBvH2tR7iyPuZJAR0m1zgvW2j4KfS9yLr78gH7g
+	 V49bclS2Mf096VDbUFOowfqxJh2pc6OfQZvw3fVLuHz/Dt/Vq2JpQ8ZIbDA97VU1imRoz
+	 rhlSRkKJtEPXO1m+auJMZn8WFprDu6Yt2pUwlLiNdDWYTDl3n8HMCuCeuuIjFbbyjLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JSq5usht;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d30j8H1v;
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99316606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99316606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D09606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36D09606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JSq5usht
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so13940555e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:38:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d30j8H1v
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-82109f51565so650939a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:40:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792823891; x=1793428691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
-        b=JSq5ushtKCOp88C6tHvh//K5tNcwrAAwAHXEk/x9OnSeJ/X9kmdoR7O5qQ51NAbMXf
-         PDaoU5tQ3bQOy7RkA2Xe7tSu0TgTxjIWtZtnmhxMaxVIaDhauDuYTTPB2D18kW6LOa3a
-         copeaz0+6y2herGTsVGoBl7nU6YdW+c7qmbS+/scTzCXantPYa/AvOTu/rTxxN54c4qE
-         snedA8EKU068xKbI0cT9dOgtk8ora/IKMl1pQ4flfYz4RbMahCMzNBarV6gMV4Ykz0ML
-         4HPLYq1EZhhqGGrzUvGIvCDclZGXCB3FeqgdzY8PTbLg491oCK9Z7fai5d1OPScoiC1j
-         2m8Q==
+        d=gmail.com; s=20251104; t=1792824051; x=1793428851; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=d30j8H1vjZ55HFIhncWSScYUvpCWn74ZPocxwU34Jc13PiIB34jmSMmDWqbru6ozSZ
+         YC6cNohO9xmUQ7hkS16ubYaIXA7G0jHHeV3ucvVr5lmdQU1liDgkt6dhB+0wc4OJ/MWx
+         45MphtLCnZMLwOxV68kW/t8IW8vSREabK7RayR46Ioj6owJsJdccWKf1AyX35ZbVIKHD
+         VJJbV36UagDBkWtophmbj74WhX0r6gJze7wvMgA2RmUgwfbv1HkmX0MjGfc8rRJLs/ct
+         DFmLzSR1U2TK3UDKKzNiaBt7DnEhVmhUYOQCM5ZHNu+Ueb55IxaUQyP3lWjDBFLyAP2E
+         77Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792823891; x=1793428691;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792824051; x=1793428851;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
-        b=kEBxZ9tCh3dtG2G+/SlgACfXFOGUH3onFwsOo3pePlT39MVjDKNhGx/ZOwhdvGtAh1
-         8uZAMPxzJloeB000YU4SOwS8uFOOKVp8gOQVEJk9jktOT+lyBqJVCEABK2UVKnejU9Aq
-         ld1CWpn0AOIA6F9KpBKQSBFRqyFVUISAKH8YlY1rPcBCSR8VtTydck2eLTV0Y37yszZs
-         t+dx4nPgslFEyiphXC8Zl1khPEL/jngob6L+NVVsPn5ZnV5Mw3p3kDlNIUNwonW/dQPn
-         80+tbsE0pqqqLMf7wSz0RmvQSTkNNCGMdVerh/YJ/iFFg/2JfQeeW44nd5iz+N14qIwi
-         5caw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdxcOhij5qP/mVm2vXhamXDRAo5RCgJMD2nuySyOPRCgekderjkvr0PNknnkqJ1kUqd2bCMuBqda6kUdU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVZU/Jt+muk97osu2Vn2NF0iQl53pEP29UGsy+oOZM/i+5Q/Ja
-	Y3v6wb8q3mSFfUEqm7C5K+v2eMBI6hOqvty4Oy4ARXl9pUiCKwGoTYlb
-X-Gm-Gg: AYBFou1Lrv7U0lYGzDfcUtydIoxrpHh66VTrQ6GFHlfpPoTRPF/K78sTd1rnICBwdXR
-	uJ6ln6oDNVy6Ydn3gw9N9HgXZiCKyWwTD0Z4wMemIG3sTskliEJaM+Kctm70u0GUs5Snk0150Le
-	vSg96YSbB2LcmeAsv4AwriFO1vg6bAfN3FTws1daGZtenpxj1iQGMMdcoSY7Cb96vwF5ux8crSj
-	Ms9Q+EpZlpYOvMy8TkQAxQ9GkdzChdG0deVVcsBIUzT/xyRYaSbXZiU889Jy6Tndel9hsUZ6y+v
-	9O6VyiIeg6Q+a0x2w8QpObDAOBYSRWkFf8tZqvgXjPFtevcWXo4eQDlkimuwIe9/trnOjxdjwFe
-	sDU6zzY02dy1V38zN7RUVqoZlhJpuBEoSvynkf/nJnORh9Itnrb+W7F6BLkl1Hmy7O5Oef4niDR
-	POg6wCH2RMcfSAqneoyW3eyVkKGJ7nEpl+dRDaGXB7PnSnAb2+DXO3nvvRLTFzVScIHFwQLsk4/
-	fB5IK75YIeqYWsbNXabOUut7ydGcp6OlE5izYoXWv80v1328pyIJ2kt8vUdM/5A1b+gWZFu5TXG
-	QpxWuEggjbPC6AaXaXnB2UnARBnINWGID+ZeLQ3T9rhBVaFrxHzgUTeMdzjAW+okjEdQsGWpagN
-	pKLrQAIVmZy84+o5xiNhu3Nra1CTmKd+BDT9pNqg1+MJB/h82A4EbmtGDex6k1o+XbZFLIBio6W
-	kb5DLYQ5wTzacRHTQKnw3sipkBVoFA
-X-Received: by 2002:a05:600c:5308:b0:4a2:86b8:7e9 with SMTP id 5b1f17b1804b1-4a35ac9d077mr14744425e9.16.1792823890868;
-        Fri, 23 Oct 2026 23:38:10 -0700 (PDT)
-Received: from localhost ([2001:718:1202:45:44bf:6db8:6c32:23e1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bdd59sm22278075e9.4.2026.10.23.23.38.10
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=fhR1xLF5UXjMOqjCLBMDOBqKzo23qGk3w0FSWpmiubrteDmPh0iDaq7Qs8FDv5s8Gh
+         lGC2p8plqz9dnwnFRhnBPhrXqXZ8bTzaufeO5yy1dB3rA2QyNfAqrjaxt8U5KLkZpEEj
+         Krj+cgGXEZrj4zDG8dKrm3a4j+cdhTpqdtPEFnczbWc0d99KcKXbTWims9P34KT4a1WX
+         VSmNHKe2XCa1ZVWRpuwrQKx8qT83Ezr+4fbT1u3Xla6x27IIj1MvJWOIR7tEEuhaq2Gt
+         HhH/V5e+MsHEbDrV0jkCN9nU48qz+PjRmuEKqX0g1Wai8ftxhz7lzAOcD08I1YifSmVs
+         9ufg==
+X-Gm-Message-State: AFq9FYLa6tIzpXcoCdz3FiDpSff+KuxcDRhwQgyoOQKhsqUv1poXDS0K
+	oekvSW42bIW1S54g0MXvZ20puwZTUwqV+LR/9XMsmazs3p/gmWgN3FMt
+X-Gm-Gg: AYBFou0TYJ89CIORpN398F5qlhbtZyrDuOagv6XlgwGqfFM5VXVZ/AieaTZRIg12kT4
+	P3eoBBp6kjH97yionoOOvIMSjhc8PI7Tary+xiKdxlNOq70d+4o1q+wcUcOapxr5KbtUnBpY/V6
+	nUrsl2M5f6hlFWbKJrfzrjfx1up4qmlAYThhL0nPbD8jufHvEFYxBb+BTA0lTSkGcCA0h/JWOqM
+	7fG0bZdU606dW65kNpOEJFajj34TeLAJUhFkXy5Y5U8c+HjuDo/SouhqyhL9K6hSXrpcsrLvuDv
+	jmTkQdsyIQ88Uc/bADhMsS7jeiAzRPLZOGpu03t1lslHnxqKb3rNN1zZyQ+5ezU7wIKgVsxpqcQ
+	vj2GlRDViYXHcsU5FWv7VTmlFwKcXgsO56syEHZZU1Wj9hRvzwSDmNjnzek2GNbFS4cxdNuV+oH
+	CYoWUGJGEOPfGTjNF40tYlieHvcQ9hRLgFyBSLpZSgaDG4k5tzA+D3K38qu3+U6p9yOrP+5p5op
+	GNLkXgCafuXuIZSLzvUNixdLeIMo3zOZobXcSV19BLgmub1aHEZ6zVwMU+RmAV6uFYtZbgpuGGE
+	ZA3g2YFJs93DsGrtZy2U8TYYr9h7jTiwKqN0nniv+A9lkpp1U/br1RtW2CGUALH0An4FDrnMRL7
+	MQER4LaCps3lXYS74zQtitW2LQ1u2mqfKFmJPwiyBbl1xVWyhR5+5l9nqooSoEj9E81g54VuBSw
+	el6qvLMsag4Ff0rEFg/wBfy10=
+X-Received: by 2002:a05:6808:4fe3:b0:4f0:1f76:8ca0 with SMTP id 5614622812f47-55c003e9dbbmr788058b6e.56.1792824051160;
+        Fri, 23 Oct 2026 23:40:51 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0429c56asm864633b6e.9.2026.10.23.23.40.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 23:38:10 -0700 (PDT)
-Date: Sat, 24 Oct 2026 08:38:09 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
- Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-Message-ID: <20261024083809.000026e5@gmail.com>
-In-Reply-To: <20261024041357.34346-1-olivier@mgcrea.io>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Fri, 23 Oct 2026 23:40:50 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 24 Oct 2026 00:40:40 -0600
+Subject: [PATCH v5 1/5] serial: 8250_omap: separate locked TX DMA
+ completion processing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,21 +93,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-submit-serial-8250-dma-cancel-v1-v5-1-9e52968928d2@gmail.com>
+References: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
+In-Reply-To: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Timur Tabi <timur@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Sat, 24 Oct 2026 06:13:56 +0200
-Olivier Louvignes <olivier@mgcrea.io> wrote:
+Separate the port-locked completion processing from the DMA callback
+wrapper. Keep the shutdown check and locking in the callback, and retain
+the existing FIFO accounting, delayed register restore and THRI handling
+in the helper.
 
-> The X1600's SAR ADC has four auxiliary channels and none of the
-> touchscreen or battery engines of the JZ47xx ADCs in
-> ingenic,adc.yaml, so it gets a binding of its own.
-> 
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-Please use a cover letter when submitting a patch series.
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 4805b644ccb1..b6f108d34854 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
+ 
+ static int omap_8250_tx_dma(struct uart_8250_port *p);
+ 
+-static void omap_8250_dma_tx_complete(void *param)
++static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+ {
+-	struct uart_8250_port	*p = param;
+ 	struct uart_8250_dma	*dma = p->dma;
+ 	struct tty_port		*tport = &p->port.state->port;
+ 	bool			en_thri = false;
+ 	struct omap8250_priv	*priv = p->port.private_data;
+ 
+-	guard(uart_port_lock_irqsave)(&p->port);
+-	if (dma->shutting_down)
+-		return;
+-
+ 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+ 				UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 
+@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
+ 	}
+ }
+ 
++static void omap_8250_dma_tx_complete(void *param)
++{
++	struct uart_8250_port *p = param;
++	struct uart_8250_dma *dma = p->dma;
++
++	guard(uart_port_lock_irqsave)(&p->port);
++
++	if (dma->shutting_down)
++		return;
++	omap_8250_tx_dma_complete(p);
++}
++
+ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma		*dma = p->dma;
 
 -- 
-Kind regards,
-Joshua Crofts
+2.53.0
+
