@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792803035;
-	b=evI0CUSFRpEeMBKc5nSiTm6pI+vkcItBDXAxK9EmVmDa+DFuX44UQ8pWdYzDJCGa4lvW
-	 hKTtqfbxNzv+FSG/FvYa4RFTC0KwqgmmnMC2s6D8kGJUwrLXpVEgusiEdDQMLUJvUX2ci
-	 z6JH/yAdcMfA0wGbIwGXvCx+e4Sjt/panO3D2JeTU8uu5DGonUpGUElg1CfMI975y9VBB
-	 uT+BJyuXny8b2mT4YLit/3vy/uvOIsZW+O1fsTMOJKhrnz6xQepJi5vS2SMKnIvohpKh8
-	 NbQ34BFm/gWYoO56o+0NmFeQbMInwtRHKJh0gtJwTIsLfbXapmLfdC5p9qT3OLGglTA==
+	t=1792803036;
+	b=4SB7TyFhewND0hED3a0K8bMtaLAcI8yHCZ+Fv+AFVuNnFAsm50HeIBNrDqn8BhUfK1XZ
+	 dGXsBfLk7d3eA+n+8zsYbx3aFS2eENSDSTfRxQ/vXgNStCQwvOVZ7eOq/xLzhOs8+pqAp
+	 wwWY4es9LZN4MR+egiENH1RusdBuoE0ki86Kw79E8v4MnM6XwqrJIVXuXdhUeSPd+lCsK
+	 JHursLpC3S2ztrDammO3U/nHzWOa0OGpbBUmzg/bTpIjk7ka9d5Mqa7BP3nlxabbTVuFf
+	 Vy/vtRt1knTtxrl8Z85CJhvf6/j1gYTKuArF3TJrciAyIQ8yx2GctToFkIBnBaLskOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792803035;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792803036;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
-	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=dkcxwk0nTIfjOeGkBRylFasllyV4GAtda1cDQcr8HAY=;
-	b=JyRg+wDcox7QiCpe2LY4wb5ulPX+rbKROALysW4xk5ZyB+PGhSuKXmpQXZiQLYIROhto
-	 TL5ZEdDUWmRmMmh5wuckTkfdFk79YK7+aLIq9rdbemTvpHqQC7gs0ijusbylgImn2cfMJ
-	 D45uu9g8EKmtN1+ascCT1BCxOan3FfKHq/XvSk4axI6YLfkZCgHlLuT78Y/cTzb3vo7Js
-	 d6utwDWc8y+KfWHHjV4DuxQveBrVd2NDM93lsCbhKHkQxU/6Mj9NkfAfcZjAa941LuVs1
-	 TTmN5B62DM9kNhT1DOo9dRbazzNcz7/1LrH+uK0E0JHj34XBY+qhI4zXp7UAVvqradg==
+	 Cc:Subject;
+	bh=DkwqrmprBsYpLUFFYOYV62XRTkoRaVCiC/x3PeDiK38=;
+	b=eB4SGTk8JMKv6v4nGDB6w3XEnJxydC3qKNayUgbMZJFH0r5J+Ssr7nxoUVHG2BVe/BSL
+	 jATRW3hro+RrRqmhVZl7zAE2l2Cgi5sALd4SfcLPxKNow1Knrp8m5aK1cm9dZoozKs1v/
+	 zVbIES0Q3du2Ys2W6Pz3/mAkLRX1dEtsZngcZj/28QXq4RHiBn1F1eZzfyxwpJMIygODF
+	 jwPX5G0uc0lX+JtClTnUIvpwaUwy8bhsRUd5JsAwr07WQCGUNRr7HtQ15gVQ9YjTOSMtQ
+	 zsF/RfIa9zuG4XR7Lelw0LwTZAbZeENMdtYG/wwkxNxO45zEZUmUi3B+fdSLU7AvUcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKUELp47;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j4VHLH3Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49214606A31E;
-	Sat, 24 Oct 2026 00:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8D1606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKUELp47
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260B61F031E0;
-	Sat, 24 Oct 2026 00:50:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j4VHLH3Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1E451F01828;
+	Sat, 24 Oct 2026 00:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792803035;
-	bh=dkcxwk0nTIfjOeGkBRylFasllyV4GAtda1cDQcr8HAY=;
-	h=Date:From:To:Cc:Subject:References;
-	b=XKUELp47VhPpdEmv2c+BichvCuBocdvkFunDn8v6u5R2g8u0x4lkrOwAfcY3+bvqX
-	 X5cK0EzPtpK4vPcXjiA+1SqBwvpqWkhFA8wXownMkG3O5KF2lc49iiS0tCFtvJV/OO
-	 SPOBiCJO6GbOrZly/2BAor8kmkXGi0aJ32d1qZHpA4sYM+RbCZboxE3QyaEFBdEJZw
-	 jDADxxeiNntMIYxq1LXDRYiSloTuNtFSjwbLkjTldAADsOqrXiqtuTm5TOtXouONPj
-	 i8nF99tyhZX+JxQDCEHerPdQs7y3r7rNenWmOuVUnCwujOK163ZLK73WumThzFbeX8
-	 ZD+iPKhswvaZg==
+	s=k20260515; t=1792803034;
+	bh=DkwqrmprBsYpLUFFYOYV62XRTkoRaVCiC/x3PeDiK38=;
+	h=Date:From:To:Cc:Subject;
+	b=j4VHLH3ZhW4M/7vOKam2fUMP6rFfEvvGvJGyjL5dzaaFhy6HW5OibvXmP0nHzx8QU
+	 FlZlhJiQoJHLbazaxCKhX6aRJ4Zcop4Yno5DICYO5I2u5eacRFkIbsNQuB+KDlavWz
+	 EnjompkvJ/350iswFEYHqBKh3bVAWWXPcu/Da+M6GLjh8LAdwofYJEamKulZw5fw9y
+	 FZlcqoBW7Wze0OOHBBSqRHJTneKOyJlHAIICU/pZ1IN2OwjE1wRwCqLs5H+EFf9bUh
+	 pjw3A2fuq05IDs+rYYF0/MpYz2Tdf0Yre76uHzl7NiNvu+JPSD8572oLQX57TvqmXt
+	 74jSkI+xMwP+g==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xKPxy-00000004gN8-1vBC;
-	Fri, 23 Oct 2026 20:50:34 -0400
-Message-ID: <20261024005034.265881641@kernel.org>
+	id 1xKPxx-00000004gLR-3QX0;
+	Fri, 23 Oct 2026 20:50:33 -0400
+Message-ID: <20261024005012.676772644@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 23 Oct 2026 20:50:15 -0400
+Date: Fri, 23 Oct 2026 20:50:12 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- "JongHyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- Kyle Zeng <kylebot@openai.com>
-Subject: [for-next][PATCH 3/3] tracing: Reject incomplete event filter expressions
-References: <20261024005012.676772644@kernel.org>
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [for-next][PATCH 0/3] tracing: Last minute updates for 7.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,90 +61,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 
-From: Kyle Zeng <kylebot@openai.com>
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace/for-next
 
-A non-empty expression normally finishes in predicate_parse()'s inner
-loop, which resolves the pending logical operators before jumping to
-finalization. If the input ends after an operator, possibly followed by
-unary '!' tokens, the outer loop instead falls through with unresolved
-operator state.
+Head SHA1: 1fdc4164e488916402badddbb1f51e9380dabb91
 
-For example, "common_pid == 1 || common_pid == 2 &&" leaves
-prog[0].target equal to -1. The second pass then reads prog[-1] before
-the forward-jump check can reject it. Depending on adjacent slab
-contents, it can also copy an out-of-bounds word into a branch target
-that passes the forward-only check. A self-targeted perf tracepoint
-counting event can reach this path through PERF_EVENT_IOC_SET_FILTER.
 
-Reject the outer-loop fallthrough when a predicate has already been
-parsed. This ensures that non-empty expressions only reach finalization
-after the inner loop has resolved their operators. Keep the existing
-no-filter error for input that has no predicates. Add a regression test
-for trailing logical operators and unary negations.
+Haoran Wang (1):
+      tracing: Guard trace_event_get_offsets() against an empty fields list
 
-Fixes: 80765597bc587 ("tracing: Rewrite filter logic to be simpler and faster")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261023174620.91969-1-kylebot@openai.com
-Assisted-by: Codex:gpt-6-astra
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Tested-by: JongHyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/trace_events_filter.c            |  6 +++++
- .../test.d/filter/event-filter-incomplete.tc  | 24 +++++++++++++++++++
- 2 files changed, 30 insertions(+)
+Kyle Zeng (1):
+      tracing: Reject incomplete event filter expressions
+
+Steven Rostedt (1):
+      cpuidle: haltpoll: Only define guest_halt_poll_ns tracepoint when used
+
+----
+ include/trace/events/power.h                       |  3 +++
+ kernel/trace/trace_events.c                        |  4 ++++
+ kernel/trace/trace_events_filter.c                 |  6 ++++++
+ .../test.d/filter/event-filter-incomplete.tc       | 24 ++++++++++++++++++++++
+ 4 files changed, 37 insertions(+)
  create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index b3b13700abce..5e74d2dae40a 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -598,6 +598,12 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 			top--;					/* #12 */
- 		}
- 	}
-+	/* Only the inner loop can complete a non-empty expression. */
-+	if (N) {
-+		ret = -EINVAL;
-+		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
-+		goto out_free;
-+	}
-  out:
- 	if (top != op_stack) {
- 		/* Too many '(' */
-diff --git a/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
-new file mode 100644
-index 000000000000..cc6df762845f
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
-@@ -0,0 +1,24 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: event filter - reject incomplete logical expressions
-+# requires: events/sched/sched_switch/filter
-+# flags: instance
-+
-+filter=events/sched/sched_switch/filter
-+
-+for base in \
-+    'common_pid == 1' \
-+    'common_pid == 1 || common_pid == 2' \
-+    'common_pid == 1 && common_pid == 2' \
-+    '!(common_pid == 1 || common_pid == 2)'
-+do
-+    printf '%s' "$base" > "$filter"
-+    for tail in '&&' '||' '&& !' '|| !' '&& !! ' '|| !! '; do
-+        if printf '%s' "$base $tail" > "$filter" 2>/dev/null; then
-+            echo "Accepted incomplete filter: $base $tail"
-+            exit_fail
-+        fi
-+    done
-+done
-+
-+echo 0 > "$filter"
--- 
-2.53.0
