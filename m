@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792821823;
-	b=ES5MYUfC+OkjmwlK1fWCTVNfRo9eiLoQxyGq2kD4eR8xCpygACy1IA+gaZHvpm5SjLgi
-	 /OSgSSgjc8xGzAU89eT4r50ADtJm3Yn1+EwtmqGj1Pe7gcC7cccedShcWc77bH6JWwWMl
-	 nrkTrL5SrYbvfn56iruBTz9lS4G2Btbv8IBU7tljnIlPnaDBS4OFYnaMgx86dcyKZSQ+v
-	 OBW+yg+lMhKRHj9bmcWrvx9R/k29PPvGI2lLoO5LmP66T0fD3inx5UHvIjoOZ7dM5x+2E
-	 9tDSry9LfB2wQQGKwSevuttM/i1MOOY8uMdePNKKPk0UZ/RifiyyQSNK4eRyodHSU0Q==
+	t=1792821950;
+	b=I42jNZuSXvQV/fA3MZRAjp/04MgCaqf5SSDzuczTz+HpB9vfBZCMo/5f7xJL47Tq5nw8
+	 lqhmRoTHGgRO1TwIKMPG/4xNNPmFKYE0bTGnT/afNrh429/8htR7X0H8ZLlXyJtfW3Vav
+	 9kRk6lVBry8Vg5nzU+ITU5ZaphlFr5yyopDmq941GYTsahpZrG0zDaG6NJevQc6JNBd/F
+	 ANorERs/hLF57Dg9TIkhHyqcc7geMh5zIIK8eedVt/iTWBuhBgYE0hpwUKlKhkuSsP5ix
+	 sMWog0ssvd2RmCSxjBTON1oFy+4Gr5fN6pKwITOhK4iRZI2UHFq/QCQJVCPyiIq7A/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792821823;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792821950;
+	h=DMARC-Filter:DKIM-Signature:In-Reply-To:Received:From:Date:
+	 Message-Id:Mime-Version:X-Lms-Return-Path:References:User-Agent:
+	 Content-Type:X-Original-From:Reply-To:To:Cc:Subject:
 	 Content-Transfer-Encoding;
-	bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
-	b=c4qh/cH6KbU8CSUUHX8Ie3O6qq1yfETWlRKZUpd7LhwYkeRNMXa/Zeq6YCsrWfxgnQba
-	 tWEjebQjo3/lkmdLv7wQC+u+yPHdShfveKgSkS3VnZA5i+oAR10K6nFSR/lJBe6vd4HUE
-	 kueLGQL1boz30cJlw8wAqSyblGDNpsKtJ3e4KNcp5PKi05YeNK/76X/ZB9tOPbaPVaRTm
-	 /4tjMWwL8QArCRGyAIWOTbfRM642eTGBu5VO9gQ1freVX1tTb8UKPMFgKCNMm2bSVhMw5
-	 7gY1dd7tlYDRg3n/A77GDjFSuZBT4dKnML+9SmU1mHbtl6/M3VC2gOGb2IitOBRbr7A==
+	bh=ZG+iexJUa6s5gxuQi2MmuGOOwAlj/REWt6XK+ey3uk4=;
+	b=kCKtLuraBzQYAqBv6Xt1H7NoFSqbYN48dbLITjZl+trBnxFXk0pE2UHgIC2/Gga8OEvu
+	 4DFDP/SnUGzWLpBTgrYnOIucn6G1Cp+wMP7kN2rUyW415dKFX2UldzH9ZueDGTHwNaz5y
+	 vmBcWdFpqIvmT64vZUTxuh7bUyfoR49wI/0BXgpZQHU5N3gYgTOSF1fZH2d1i9TufaxwT
+	 fcCaoSqb6ndIsL6+7+1RQEgafa+tQ2RxlODzeCklQTCadnAVIeo7SBbCFOEmQ+5625mU3
+	 23BHu1CADhMtVfvmdruPE3o2RnVMAU2xEXFuDmgxkVEK+5s1LN18+JfcIczM0DuMQIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NS9s0YHL;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=onWJb4Nd;
+	arc=none smtp.remote-ip=209.127.231.20
+Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6130606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:03:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6130606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A5B606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A5B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NS9s0YHL
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd633ef819bso629780a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:03:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792821822; x=1793426622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
-        b=NS9s0YHLEKDzxHQNG8GHrW2G4rAOvB/28sje2wIMzZaZkOpOBIv/eWcH3e/chqKhyf
-         4KBQ4gdD3eo1JBwX2a5pLI7US07RUWHN1jkY/OJWd6gby7Nh2oLopKIR1kLhm93xAoD7
-         mCGYBckEahJiX8edFjwimSM9AdiASHdV+4yclpHRTQdTffrnKhsl57fBn2Lm7xO/sIYo
-         5imsdmYG3gp09rQYdC88AQX2dezzf6Ek126++SHEVFttBM0hKHq2HngVdFQTJZQ8u8Ni
-         4KDcQRbm28CGReSZpD0/i05TbTmPWyXRS1vCiMRIT0kAbZeVhOpmHwsUVl3OvjZtROkl
-         tqRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792821822; x=1793426622;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
-        b=je69UevIuhBKpDklK+82Gep+H7Zw2lzLAfcoyKrjQCwOkSQOY37wKCbBQli/tMbJ47
-         m95vwxGqz7Ea85M+ogoXNRIiGkv73g0LSMB9y8FKRGdaXPjrj0OBxI0D61S7sFoySE00
-         9VtqOj8WN2rPy9BD/uIf/oUZzmyY5k/NsEpYm5M6E/fGiSzphKGNqVVXThowdmtLSzEx
-         8ncoYO6vEzKMPAcnILCqd2u9K9lcEnV/uofMLc7Cg0GMND6z02OGSNh6+yeJmAnycSlM
-         VCNfHWRhtm3UvKXkvzsGKVpjEPF0myDSkEhw7GOrjlsT7SEsZSPn6Q6HrAXTWjCv63pX
-         y/pA==
-X-Forwarded-Encrypted: i=1; AKwUvBypoSH/exM4j9hTVhLxlu/lwQA0fuOd87XyRuXG6YLV15IIb90NSbvp4FHmz53RqlGaPrNTKUL7s/2C/14=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY/ETvWiL/DNYetolO1fx1OIJNE/p4pTKmbQKurvL4YnQD1KUc
-	iBA3I8ax2z5zJhCQWVGbMtOEluiB8XSll8GoF3xFV7b4Fqy4crWpCvKw
-X-Gm-Gg: AYBFou060jydVzKmUafekAnE9Po4+5OEBRQJ73mxfYWDxZdrXxis8zfWh46yV4OlNT9
-	B5Hz7ygOetpivBx0JbHIEJlES54iRj6hADRRnnmEKVIH5eLUwchwPBv1AL8sCSCmEg+PmHaf0i/
-	hbBVbMa5aE9hk4GYGlmHXmJe7BjW0I+U6EG/tqu3vELIJEcK0DRUIdz88XpknVuQ0IXZ/2nD7Pw
-	ndkk/I/fUnwzPapF5js75U2hGNm/dRulc/z1c8Jf70CAuAbppk4xk5mCKpu6UxJY0xmdIGo6bbP
-	h69bcPxmG92d3zANs6Cw/vyLjRzLRIMuQXOHKbhT++BFupCIeJRqd6muLqW+rKJ0PKIzXc0WEqR
-	wKRi9DrXHY5OOsA9IN0dXM2fJBWI5RG7WMrpCZHt0BSYmHlKGs6KS2dUGSh68PIvnKIDaUtyfL/
-	0Wfs/gCgWB6M9VSgxJ+SQAZO/VEH5p2SdjNTjfaxWdmjF/A46H4H+OIWVNnDlRpqD0KT2sgGRl+
-	N+HGwcIqZS8EoHGdIYb2V6emp8Wt2KvliXpgAvwC832/fmw5Ww=
-X-Received: by 2002:a17:90b:2d45:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3adeae6d89dmr1071274a91.40.1792821822050;
-        Fri, 23 Oct 2026 23:03:42 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebae0094sm1664019a91.10.2026.10.23.23.03.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 23:03:41 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3] Bluetooth: Create debugfs directory before running selftests
-Date: Sat, 24 Oct 2026 14:03:35 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0188-v11-36d2c5e734fec40a3363@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=onWJb4Nd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1792821945;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=ZG+iexJUa6s5gxuQi2MmuGOOwAlj/REWt6XK+ey3uk4=;
+ b=onWJb4NdPENRkWvXPICHiK522ktj5WPoxOiiiXKUAkXuhoGiEA70N2ukMJzEMS5/KWoHWM
+ 0YICv1uIoRr5OJTKlrrFybjtxBbYhQYTkjNs85QcUWcXFYRkBuwctCukObkSUbeoyBv5kS
+ 0N+JIyyv6qE34aLdD7vbyCDRRTstUHbw29XpG8sK67GUF5YHRcWrifxyblsNuJUmTXKO9F
+ qY0HnkZmNhv8K2eJBXHUSHCn+wJjRzswOSmEx/0Pt3tYrlmK3BhUafePOB7lf65fHulqE4
+ xatXwuwRv5FlXHyD2Ld5+6WP/N/YvmQs095CzXcBGTbDQSHRghuIl/jLjLKLyw==
+In-Reply-To: <20261014115334.619923-1-jinpu.wang@ionos.com>
+Received: from [192.168.1.104] ([39.182.0.21]) by smtp.larksuite.com with ESMTPS; Sat, 24 Oct 2026 06:05:44 +0000
+From: "yu kuai" <yukuai@fygo.io>
+Date: Sat, 24 Oct 2026 14:05:40 +0800
+Message-Id: <ee303663-1b09-4e88-a129-d91e046b296b@fygo.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,159 +57,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26adc4ab9+0f5650+vger.kernel.org+yukuai@fygo.io>
+References: <20261014115334.619923-1-jinpu.wang@ionos.com>
+User-Agent: Mozilla Thunderbird
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Original-From: yu kuai <yukuai@fygo.io>
+Reply-To: yukuai@fygo.io
+To: "Jack Wang" <jinpu.wang@ionos.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Jack Wang" <jinpu.wang@cloud.ionos.com>
+Subject: Re: [PATCH v2] md: clear MD_CLOSING when array_state_store() bails on interrupted lock
+Content-Transfer-Encoding: quoted-printable
 
-Selftest debugfs files must be removed before the module storage
-containing their file operations is freed. With CONFIG_BT=m, bt_init()
-calls bt_selftest() before creating bt_debugfs. test_ecdh() and
-run_selftests() therefore pass a NULL parent to debugfs_create_file(),
-publishing selftest_ecdh and selftest_smp at debugfs root. bt_exit()
-removes only the bluetooth directory, leaving these files behind.
+Hi,
 
-Commit 64aabf94ecccb ("Bluetooth: selftest: Pin module for selftest debugfs
-file operations") already gives both tables a module owner in
-bluetooth-next. With debugfs and either selftest enabled, unloading
-Bluetooth without any open descriptors still leaves the root entries
-pointing at the old module. A later open permits the following ordering:
+=E5=9C=A8 2026/10/14 19:53, Jack Wang =E5=86=99=E9=81=93:
+> From: Jack Wang <jinpu.wang@cloud.ionos.com>
+>
+> Writing "clear", "readonly", "inactive" or "read_auto" to array_state
+> calls mddev_set_closing_and_sync_blockdev(), which sets MD_CLOSING to
+> keep the array from being reopened while it is torn down. The flag is
+> only cleared again at the tail of array_state_store() (for readonly /
+> read_auto / inactive, or the failed-clear case).
+>
+> Between setting the flag and reaching that tail there is an early return:
+>
+> 	err =3D mddev_lock(mddev);
+> 	if (err)
+> 		return err;
+>
+> mddev_lock() is mutex_lock_interruptible() on reconfig_mutex. If the
+> writing task catches a signal while blocked there, it returns -EINTR and
+> MD_CLOSING is left set on a still-running array. do_md_stop() /
+> md_set_readonly() never ran, so the array keeps working internally, but
+> every subsequent md_open() now returns -ENODEV for all callers - the
+> device shows up in /proc/mdstat and sysfs is fully populated, yet cannot
+> be opened, and cannot be recovered without a reboot (all clear paths
+> either need the device open or re-enter test_and_set_bit(MD_CLOSING) and
+> bail with -EBUSY before the clear).
+>
+> The window is easy to hit on a busy host: reconfig_mutex is held for long
+> stretches by a running resync/recovery, widening the interruptible wait,
+> and a userspace helper writing to array_state and then being killed or
+> timed out is enough to leak the flag.
+>
+> Route the interrupted-lock exit through a common label so the flag is
+> released. Guard the clear with a set_closing flag that records whether
+> this write actually set MD_CLOSING: when mddev->pers is already NULL (for
+> example a concurrent STOP_ARRAY is mid-teardown) this write skips the
+> mddev_set_closing_and_sync_blockdev() call above, so it must not clear a
+> MD_CLOSING that the other thread owns - doing so could let the array be
+> reopened while it is being destroyed. This also tightens the pre-existing
+> tail clear, which had the same unconditional behaviour.
+>
+> mddev_unlock() is correctly skipped on the goto path since the lock was
+> never acquired.
+>
+> Fixes: 99b902ac1725 ("md: sync blockdev before stopping raid or setting r=
+eadonly")
+> Assisted-by: Claude:claude-opus-4-8 [Claude Code]
+> Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+> ---
+> v2: resend, rebased on md-7.4-20261013 (md/md-7.4), no code changes.
+>   drivers/md/md.c | 17 ++++++++++++++---
+>   1 file changed, 14 insertions(+), 3 deletions(-)
 
-    Module init/unload                Reader
-    bt_init()
-      bt_selftest()
-        publish selftest files at root
-      create bluetooth directory
-    bt_exit()
-      remove bluetooth directory
-    free_module()
-                                      open root selftest file
-                                        full_proxy_open_regular()
-                                          __debugfs_file_get()
-                                            read real_fops members
+Looks like this is just a resend, while I already replied to previous v2=20
+patch:
 
-Here free_module() completes before the reader opens the file. Debugfs
-active-user tracking still permits access because the root entry was
-never removed. The open reads freed file operations before it can acquire
-the owner reference, which can cause a kernel fault.
+Re: [PATCHv2] md: clear MD_CLOSING when array_state_store() bails on=20
+interrupted lock - yu kuai <https://lore.kernel.org/all/eded31de-2e92-4a3b-=
+9384-03dbebc5e9e7@fygo.io/>
 
-Create bt_debugfs before running the selftests so their result files are
-covered by the existing recursive cleanup on initialization failure and
-module exit. On selftest failure, jump directly to the directory cleanup
-without running cleanup for subsystems that have not been initialized.
-Removing the result files revokes new opens and drains active operations
-before module storage is freed.
 
-Before the selftest file operations gained module owners, reading a held
-root ECDH descriptor after unload produced the Oops below. The owner
-reference closes that held-descriptor window; removing the root entries
-also closes the remaining post-unload open window.
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 03e35386a802..f6dfd5d76199 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -4671,6 +4671,7 @@ array_state_store(struct mddev *mddev, const char *=
+buf, size_t len)
+>   {
+>   	int err =3D 0;
+>   	enum array_state st =3D match_word(buf, array_states);
+> +	bool set_closing =3D false;
+>  =20
+>   	/* No lock dependent actions */
+>   	switch (st) {
+> @@ -4691,6 +4692,7 @@ array_state_store(struct mddev *mddev, const char *=
+buf, size_t len)
+>   		err =3D mddev_set_closing_and_sync_blockdev(mddev, 0);
+>   		if (err)
+>   			return err;
+> +		set_closing =3D true;
+>   		break;
+>   	default:
+>   		break;
+> @@ -4719,7 +4721,7 @@ array_state_store(struct mddev *mddev, const char *=
+buf, size_t len)
+>   	}
+>   	err =3D mddev_lock(mddev);
+>   	if (err)
+> -		return err;
+> +		goto out_clear_closing;
+>  =20
+>   	switch (st) {
+>   	case inactive:
+> @@ -4792,8 +4794,17 @@ array_state_store(struct mddev *mddev, const char =
+*buf, size_t len)
+>   	}
+>   	mddev_unlock(mddev);
+>  =20
+> -	if (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
+> -	    (err && st =3D=3D clear))
+> +out_clear_closing:
+> +	/*
+> +	 * Only clear MD_CLOSING if this write actually set it. Otherwise a
+> +	 * concurrent teardown (e.g. STOP_ARRAY) may own the flag - this write
+> +	 * would have skipped setting it above when mddev->pers was already
+> +	 * NULL - and clearing it here would let the array be reopened while it
+> +	 * is being destroyed.
+> +	 */
+> +	if (set_closing &&
+> +	    (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
+> +	     (err && st =3D=3D clear)))
+>   		clear_bit(MD_CLOSING, &mddev->flags);
+>  =20
+>   	return err ?: len;
 
-Oops report as below (preceding and following console output omitted):
-
-    BUG: unable to handle page fault for address: fffffbfff805758f
-    #PF: supervisor read access in kernel mode
-    #PF: error_code(0x0000) - not-present page
-    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
-    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-    CPU: 3 UID: 0 PID: 424 Comm: cat Not tainted
-    7.2.0-rc6-pmb-bt-functional-v1+ #2 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:full_proxy_read+0x103/0x180
-    Code: fc ff df 48 c1 e9 03 80 3c 01 00 0f 85 82 00 00 00 48 b8 00 00 00
-    00 00 fc ff df 49 8b 5d 00 48 8d 7b 18 48 89 fa 48 c1 ea 03 <80> 3c 02
-    00 75 70 48 8b 43 18 48 89 ef 48 8b 34 24 4c 89 f9 4c 89
-    RSP: 0018:ffff88810d95fcf0 EFLAGS: 00010212
-    RAX: dffffc0000000000 RBX: ffffffffc02bac60 RCX: 1ffff110220d5080
-    RDX: 1ffffffff805758f RSI: 0000000000000004 RDI: ffffffffc02bac78
-    RBP: ffff888116e98700 R08: 0000000000000001 R09: ffffed1021b2bf8f
-    R10: 0000000000000003 R11: ffff888110d59d00 R12: ffff8881085a82f0
-    R13: ffff8881106a8400 R14: 0000000000040000 R15: ffff88810d95fea8
-    FS:  00007fadb62ba780(0000) GS:ffff8881fdc22000(0000)
-    knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: fffffbfff805758f CR3: 0000000106a42001 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     ? __pfx_full_proxy_read+0x10/0x10
-     vfs_read+0x1a0/0xc20
-     ? __pfx_vfs_read+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7fadb634c687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8
-    fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f
-    1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007ffd26510c30 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
-    RAX: ffffffffffffffda RBX: 00007fadb62ba780 RCX: 00007fadb634c687
-    RDX: 0000000000040000 RSI: 00007fadb6214000 RDI: 0000000000000000
-    RBP: 0000000000040000 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 00007fadb6214000
-    R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000040000
-     </TASK>
-    Modules linked in: [last unloaded: bluetooth]
-    CR2: fffffbfff805758f
-    ---[ end trace 0000000000000000 ]---
-
-Set bt_debugfs to ERR_PTR(-ENODEV) after initialization cleanup. A NULL
-parent would make later built-in selftests and 6lowpan initialization
-publish files at debugfs root. An error parent makes those creations
-fail safely and is also rejected by existing IS_ERR_OR_NULL checks.
-
-Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
-Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v3:
-- Address the NULL-parent cleanup issue raised by Sashiko:
-  https://sashiko.dev/#/patchset/94464
-- Store ERR_PTR(-ENODEV) after initialization cleanup so later debugfs
-  creation fails safely.
-- Clarify that the module-owner fix is already present in bluetooth-next.
-
-Changes in v2:
-- Address the stale bt_debugfs pointer concern raised by Sashiko:
-  https://sashiko.dev/#/patchset/87920
-- Clear bt_debugfs after initialization cleanup.
-
-Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0188-v7-e3c91e5159902df34c8c@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0188-v10-ad807db51e45722aae62@gmail.com
-
-Module-owner prerequisite: already merged in bluetooth-next
-  https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth-next.git/commit/?id=64aabf94ecccb1120a63b4ee5a6761871a181a41
-
-diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-index 411d66f24393d..3b8c3ecb7cc52 100644
---- a/net/bluetooth/af_bluetooth.c
-+++ b/net/bluetooth/af_bluetooth.c
-@@ -935,11 +935,11 @@ static int __init bt_init(void)
- 
- 	BT_INFO("Core ver %s", VERSION);
- 
-+	bt_debugfs = debugfs_create_dir("bluetooth", NULL);
-+
- 	err = bt_selftest();
- 	if (err < 0)
--		return err;
--
--	bt_debugfs = debugfs_create_dir("bluetooth", NULL);
-+		goto cleanup_debugfs;
- 
- 	bt_leds_init();
- 
-@@ -983,7 +983,9 @@ static int __init bt_init(void)
- 	bt_sysfs_cleanup();
- cleanup_led:
- 	bt_leds_cleanup();
-+cleanup_debugfs:
- 	debugfs_remove_recursive(bt_debugfs);
-+	bt_debugfs = ERR_PTR(-ENODEV);
- 	return err;
- }
- 
+--=20
+Thanks,
+Kuai
