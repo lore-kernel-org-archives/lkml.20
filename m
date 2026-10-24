@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792809361;
-	b=PvSQu+geTuzlT5EoMttEp4ZyTLZFWxavVOcd6a3JFJ8PKoQ9NWgFX9dx3NITJT2D26kB
-	 7CD2caYwujVInOBebhicnOzEmdTYcGgwIA7ECNgdCnTYCoKO8vvlM3gTpNzo1DI096td/
-	 fjyFiWCjJHjWrcKyfBZQWYG28FFyOXDDRQnfaNno+JAS4khap2xM9h/yogQj0LEhvv7+3
-	 JasggQ7kL8/7GBLNsa0ZxgMYehB4juQ/cPOesewXRqLECP3zTrGhSCYZpOjSnTOISuZDP
-	 rJgc4CCKME/ozOo1N2jSAZzBy/IhzmItTHl8OIJGxvcrg20K7Bhu1OFh26YBD2JgVcg==
+	t=1792809399;
+	b=ZF2Sn35pJ+JtzWno8TrVfS2WkBRpsDTwBGgWc56DVZ4SRhaJHAsjkd9P73ST4FMVHwPx
+	 W69XyOLBy2KeiD8yzT/mIShNoYUT8wxpVZubopBqpEge5tWsz/7Cz/+0rKTH2UTKh+sb+
+	 Hh8REzaAmbovfXKJRmejlljkSeqK7aH2W5ofhu4A/JDJJiUWGQVWp1dUrPqt78IPzYb15
+	 bf+12AePnsN30JZ/dmK1+igb/IELKTiiBkM5Is8VyzYC8g3e6E/abduC7JaDC+eVaWnzI
+	 igBMxuuFcnouJQ78oR6rSywBQF/z/tGYFP5qMMtgHukoCMssIt9WK+YoQqnEhqwve9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792809361;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=T7cJbpg0mZrBdKFY2KdKIefURH8yPh7R0JwZrrE54Sw=;
-	b=V40kADp4s8IxEXKguXvnYpnWmZw++svk8TSdeWj0tfQU7EBDp/w8WvDJUB44JxTbI1P1
-	 aOeNe0Lwx1wmZEJlIwbaFHZ6Hn/sqkv7xiP6U9cZJ7NhF6xPD1o4vIovjZLF/rvs2dlZv
-	 z5X9Gyn6wBW+EZktd11QaLblcz2lk+w7YlyHo2caQPodKMjXyuREVVcJWDWIC8k2NQ0b3
-	 0hwniycmsNRRlv8BakEuffcKTZ3/Z/YZJPE2PcSoxbtcyhb6dVFJA42XSLt7g0OYAQ9o0
-	 6RyiwMwKe97e6e4Y6BUfOoUvG/wyNJOjUV6Ch9MRUutZx3StvL5NydhlBLeIHQyT+AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792809399;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=p8y+ApMqVZOXxJ2K2EJRI4adLyFlM0rJYm1p3LBR06A=;
+	b=VvtR+aTckRmWH9ubFKvGwwKFVEXXaxA1g1o2vhqYcHmZE7VsJcfurDZHXBMw+ehXoHIw
+	 nYaq49VSW6qlsCea6MXOcdN+OD7xB0ABhqgPwOWfVKPlOyZtUmZk6KAhWKF52emQSBdih
+	 TGlcFvZ4ogy6QoI9GjtyevOlVdgRHy93y6bmNJ49JYCO6H4Aux9VvADdQQgXmM2C56KJZ
+	 s0J4dJMgehl2+4V6EFc9Rhs01BrqTQJl71eRe2eCUzjiXBlnh9uepUWWIugDxUil6Numi
+	 7uEPHCvy4YIJnwf22boeq9KwPfPIgA2JMAd25KLf4FEPcAAC4wCDvNrxxmpjMfdvhKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ks3044wK;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EP9iokq2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393DE606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 393DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C02606A31A;
+	Sat, 24 Oct 2026 02:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ks3044wK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=T7cJbpg0mZrBdKFY2KdKIefURH8yPh7R0JwZrrE54Sw=;
-	b=Ks3044wK0/rr6NVpTbwaj/1wyi1rm/2lWBjuL+ofS+XUWA7jPZSzhUlUSpkvF0
-	GxZn7BXAeF0Mx2t9YOjrupisQa9pB25lcu2Vu1AKy1EWEE7p1DKs6VGuASWt+Pll
-	5K4/DlAt+pKWdYLw/70rfQulueieC2v2TA9TQVhceuaFE=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnLzJZGdxqA9VzCQ--.54169S2;
-	Sat, 24 Oct 2026 10:35:06 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: rahul@summations.net,
-	anup@brainfault.org
-Cc: tglx@kernel.org,
-	radu@rendec.net,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	hppiscas@163.com
-Subject: Re: [PATCH] irqchip/riscv-rpmi-sysmsi: Validate system MSI indices
-Date: Sat, 24 Oct 2026 10:35:05 +0800
-Message-ID: <caplitmus-rv.reply.20261024.sysmsi.405bf889a4ab4be898f95a2cbeb6f0f2@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260718040000.006.d6f39b01-caplitmus-rv@iscas.ac.cn>
-References: <20260718040000.006.d6f39b01-caplitmus-rv@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EP9iokq2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A8BD1F01825;
+	Sat, 24 Oct 2026 02:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792809398;
+	bh=p8y+ApMqVZOXxJ2K2EJRI4adLyFlM0rJYm1p3LBR06A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EP9iokq2DlRqzuWGTlHFj73R5lNVjoeG4TTpdrxgzX7bauv0JWaIL/hssYV2cvE7K
+	 E5MmgiWIF88KTgvYG+QVrC074mKlTIczI5ICr05yg0HNyAdwF/tr3fxL2IUpNt0Ouk
+	 +QhMdt5JS/YP5RSQ5AlbqdTBQah/Uh9AdDphRdxPwb0wufCPd4ib3pay+vGeDhEWwu
+	 jkeMsCT2tOk6VZ1HXdmMGZxi29+erNQ5hqXKDe4MqbbQCjOeHtmk45Y2B91hQQ9FRC
+	 SKp9tCr+cPd3sXDhDR2+ZOH9FldZpTZsdnrQWhXMaw9xFLG3K9m9XQWPcElvIO+Bas
+	 KecJqM4wGoMRw==
+Date: Sat, 24 Oct 2026 03:36:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: osf: keep the RAW cache current when the buffer is
+ full
+Message-ID: <20261024033633.4d769023@jic23-hlaptop>
+In-Reply-To: <36f5bc0a26aadf8f2208e6423c8a9847568ccd3d.1792315003.git.kimjinseob88@gmail.com>
+References: <36f5bc0a26aadf8f2208e6423c8a9847568ccd3d.1792315003.git.kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +60,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnLzJZGdxqA9VzCQ--.54169S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfUnhL0UUUUU
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7Rou9mrcGVq-4gAA3H
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Rahul, Anup,
+On Sun, 18 Oct 2026 18:27:05 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-A brief follow-up on this patch.
+> A full IIO software kfifo returns -EBUSY from the buffer push. The
+> sample handler currently treats that as an application rejection and
+> returns before publishing the valid sample to the direct-read cache.
+> Consequently RAW values and the last accepted sequence remain stale
+> while a consumer is not draining the buffer.
+> 
+> Continue cache admission for this normal saturation condition. Keep
+> other push failures as errors, and retain all sample, scale and session
+> validation before publication. The buffered sample is still dropped
+> when the kfifo is full; subsequent samples can be queued after it drains.
+> 
+> Fixes: 2da37c28edc6 ("iio: osf: add IIO devices from capability reports")
+Not a useful tag as I'll be rebasing.
 
-I rechecked mainline at 17bb0e2f6c80. The DT translation still does not
-reject system MSI IDs at or above nr_irqs. Wired-MSI allocation uses
-MSI_ANY_INDEX for the descriptor and stores the hardware ID in its cookie,
-so the descriptor limit does not validate that hardware ID.
+Given this will go upstream with the driver anyway I've just dropped it.
 
-Would it be appropriate to reject out-of-range firmware IDs here? Please
-let me know if any changes are needed to the patch.
+Applied without that or the LLM tag (change of kernel policy).
 
 Thanks,
-Pengpeng
+
+Jonathan
+
+> Assisted-by: LLM
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> ---
+>  drivers/iio/sensorhubs/osf/osf_core.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/sensorhubs/osf/osf_core.c b/drivers/iio/sensorhubs/osf/osf_core.c
+> index 4f73ff5e9572b95e1cd237671f01e149784b92b5..377645e7a8a31c60bb719b7c98e3230f04725f1c 100644
+> --- a/drivers/iio/sensorhubs/osf/osf_core.c
+> +++ b/drivers/iio/sensorhubs/osf/osf_core.c
+> @@ -231,7 +231,8 @@ static int osf_core_handle_sensor_sample(struct osf_device *osf,
+>  		return -EPROTO;
+>  
+>  	ret = osf_iio_push_sample(indio_dev, values, sample.channel_count);
+> -	if (ret) {
+> +	/* A full software buffer must not prevent the direct-read cache update. */
+> +	if (ret && ret != -EBUSY) {
+>  		dev_err_ratelimited(osf->dev,
+>  				    "failed to push sensor %#x:%u sample: %d\n",
+>  				    sample.sensor_type, sample.sensor_index, ret);
+> 
+> base-commit: 6a27f3a7d1063aec5aa3d9370161e850fc3a85dd
 
