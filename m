@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792819634;
-	b=t7jx945vn2rJOnclCOKck2KxxsUAsLDjARR3aJx2gmNf0A20TdD3MlRUxO/gv3SMHLRO
-	 rgfdxBsFsobyVs3f1Lb8Bjt7xlpqsK1y5VXp1sT/T0cWJy9CjJB1DuHQ2gB/Shmm1PulG
-	 +YCT2YSOZLbwzwStnKjfCbS8k+35dOJe15vViOOGsxE5xz9ZhpGSBQV8ygZA+Q0PysUS+
-	 A5WeyrHzXzNrCtqzpBlYEBgUu37XeNGwf67F53NqFoiUQ5Lum7A07MqDGrkeRs3tSnZcf
-	 R9O1DvrmIiqkqJvkafTVQ22fyBz9tdcpP9c1mhGc8Kh/sFGk2mjIsAVJb1Fhe2ReaDw==
+	t=1792819835;
+	b=5mhnQaxmW9DQOs2W6fN1XJXqp/ocidsRajqm3fapHLd4WAYRvWYcx0TmU/VhiCPEvPy6
+	 pi3+t5o1fV4QS76F3sy18Nj9Oa+lrlInLCaDB1qGdTg0HDaaaWbs2NxIdfIsOjYLwRZmH
+	 vAFwCiFCNRD9mgdrQw/TyybPG0QwhylTnbs025JT5tnuOseWS6pj00/9vrDiT9BaJs1s+
+	 zZR2yZ1zGpzQO9sqRDXX2D+jsH7BbyZ74XBLP4a7ZWheKsvd7Wphb5/wARqBYMklq/yYi
+	 w24SkLC8DCX3m0F7ZP44S93DqKFtDgFBmnaKSakXbTFKgRJorTdiyBwIAQ0MG8BP+SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792819634;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=zeB7Ey/qbrJR+OHigTHJh4vHbV7H095IbRUGb1BIXX8=;
-	b=wjT3/l4n7/HQ4SaHibX5F3hvT7jR7Hl+/kxS8IXIarb4hZ+2byV6jvt7hWCa4AKnBf3O
-	 99XAAe5+LePvfkKs7Wj3/xotd913pSbLQC4JGN+eRFZx1Pa+DbBzcEo0mnwn17CBseWWb
-	 2c9jKMmGvXAxbSPJwm8JR3TTxpF8xMCZNz4Z3wpHE+SQ5LJP5p7oqN7kPwZU6cta6mudM
-	 25bRw8vVBYPQG4dr+thkUmp9+j2SA3dwnDSmPDuxZOQUyj3klpwD+8xF2zE1xC6IHL0Lr
-	 P1lY9j1X3lUC+u9dLLmrimsQz2LMSFbmoW7MrINuXbrCc2xrPF0FYGPJ4m2dUzdNhZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792819835;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=Dh97gih9aT0Yo7bMvplVYEJ4VBEfmnBHPPAVkbiXI60=;
+	b=vn3pOTNW/4gLoV5h0uSXcslxsCWxv456OGRMjdLsUhy79ChzlqcOUr5RSz8l7b71pR0X
+	 G8TfdeGA6WrTF1jtcahVMTIAKEIXuHoS50ySxcGXxbKCy9vL00nAL7+JPbU4EWvAJ9ibd
+	 FDN0NuK6HfIqeadBgKdRpGWR/9uYK0GsPO2zO2Oxrbdz4MBmo6Qf7sYzUYTRijgldU08x
+	 2/4MFySogXOD/kSCB4MDhW0NXfdM9HURb+eF3h2Od9FnO5RGT/l+0P98KOCw+WfKeXTOR
+	 oEmhq1NB322iZkrnisamcZyQ/vNE2WofDkOVrVwdrGoLsOHPcrj6nkgVczqX7eKPBTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1wt.eu;
-	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=gjpHxwjL;
-	arc=none smtp.remote-ip=51.159.59.229
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9h0KzME;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89B8606A31D;
-	Sat, 24 Oct 2026 05:27:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E89B8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC70606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=gjpHxwjL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1792819630; bh=zeB7Ey/qbrJR+OHigTHJh4vHbV7H095IbRUGb1BIXX8=;
-	h=From:Message-ID:From;
-	b=gjpHxwjLN7G4UO2LI2zbqgjlm46bJvuB/Y9dXGuoOoIgZA1YBhRUpL3/OHQBWusl5
-	 9jn6tdTzRHvqfQ30WRhPHNEVTfcRei7VhEON0TAerTwfA26vs6GA2BJnyue8el4Ici
-	 /OhsRdbDPWVgva6vKH4aJSsAoQXCyrUvm9R9HOnM=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id CC340C0944;
-	Sat, 24 Oct 2026 07:27:10 +0200 (CEST)
-Date: Sat, 24 Oct 2026 07:27:10 +0200
-From: Willy Tarreau <w@1wt.eu>
-To: Daniel Palmer <daniel@0x0f.com>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-        linux-kernel@vger.kernel.org, linux-sh@vger.kernel.org
-Subject: Re: [PATCH] tools/nolibc: sh: enter _start_c with jsr instead of bsr
-Message-ID: <atxBrgD1Xfcvw7pL@1wt.eu>
-References: <20261022100159.525910-1-daniel@0x0f.com>
- <cd8fcccd-aa70-46f9-b497-ec3070b5f8db@t-8ch.de>
- <atrsI4aaq9t4BVra@1wt.eu>
- <81607eb0-596c-4943-a8fe-d272fcd258c4@t-8ch.de>
- <atuJZwT7LIzceQ2c@1wt.eu>
- <5a82da39-1f60-41b6-9359-f08e6fefdb6d@t-8ch.de>
- <atuo-ZOI7koEs8RV@1wt.eu>
- <CAFr9PXnggcsL5JSV0ASXSfvcbkt30-g1kpTrsa0PDWqgdhcsOg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9h0KzME
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127C61F01829;
+	Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792819835;
+	bh=Dh97gih9aT0Yo7bMvplVYEJ4VBEfmnBHPPAVkbiXI60=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=J9h0KzMEsDoUNBMST/J9upJ11zYX9B+pcPL6uqiTtep5beDRZfmZXggi0mWeezslP
+	 GhqaNfvLG0WK+RGGIlcpnLqEuyHt2m5aByChs8eoYZHItz6jEQgRqo2V/5bSkVGGi4
+	 WHYbd6fMZrc3z8V0FGQvHKGGAy7bGZt1EfClJvwJZI3rf0VWhe7nMemggb0FlgDe3U
+	 l9cPMEYHlKXhjHOmt7CTpCLNd/AiFpk4572QgKfhVHH/l0CdhGOwW4Qnc/wxmw2DJ+
+	 2CKPVKAkC6+xgRgCqIcXscSQaZzD+hjGf2ywzGQyE6u2Llf7BaecxFLuOc/kdl6KHy
+	 8TtMg9DrvNLiQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 05A10391B17E;
+	Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
+Subject: Re: [git pull] drm for 7.4-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
+References: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-21
+X-PR-Tracked-Commit-Id: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+Message-Id: <179281983374.1490995.11409284564633418898.pr-tracker-bot@kernel.org>
+Date: Sat, 24 Oct 2026 05:30:33 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Danilo Krummrich <dakr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,51 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFr9PXnggcsL5JSV0ASXSfvcbkt30-g1kpTrsa0PDWqgdhcsOg@mail.gmail.com>
 
-Hi Daniel,
+The pull request you sent on Thu, 22 Oct 2026 10:24:59 +1000:
 
-On Sat, Oct 24, 2026 at 02:16:10PM +0900, Daniel Palmer wrote:
-> Hi Willy, Thomas
-> 
-> On Sat, 24 Oct 2026 at 03:35, Willy Tarreau <w@1wt.eu> wrote:
-> > > Maybe we let Daniel break the tie? :-)
-> 
-> mmm I have the same big binary (Quake using nolibc + a thin DRM/KMS +
-> ALSA layer, some libm bits from musl) on 32 bit ARM and x86-64 and
-> they were fine so my gut feeling would be that this is an SH issue and
-> a few extra bytes is fine for such a niche arch.
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-21
 
-x86 can call 32-bit displacements, so you have some margin there ;-)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
 
-> On SH this also seems to happen for much more normal binaries if you
-> enable LTO and get unlucky which points me towards letting the SH
-> entry code deal with it.
-> 
-> But also I'm still working on the static PIE thing so nolibc can
-> create binaries that nommu can run and in that case it would probably
-> be helpful for all of the code that runs before relocation to be close
-> together.
-> 
-> I'll have a go at the ld solution and see what happens.
+Thank you!
 
-OK!
-
-> Slightly different topic but related: Another thing on my pile of
-> patches is some stuff to extend memcpy() slightly so it generates
-> word-by-word copies where possible without passing -O3. This helps
-> m68k and SH a lot but everyone would end up with the extra bytes for
-> the word-by-word copy loop and the check if fallback to byte-by-byte
-> is needed. Would wrapping that in something like "#if
-> NOLIBC_FAST_MEMCPY" be acceptable?
-
-I've been thinking about similar things a few times, and I think that
-for such cases where we implementa naive function for size purposes, we
-could also rely on #ifdef __OPTIMIZE_SIZE__ to keep the small one and
-switch to the faster one otherwise. That way we can respect each user's
-expectations.
-
-Willy
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
