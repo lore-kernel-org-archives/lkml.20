@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858618;
-	b=45VucqUWI09EVnooJoO1Me2QyrVCjokhAyTCnedlgpER/EiJJe9YNI1ie92nVrhAd/cQ
-	 zqip88Dj3SU/2Z31dHsUzTE9AhasXTMOVshRKxHzfYNsPdvf7y9R19H98ocsSOQiXaTvk
-	 FUFnP5rGkDBuuCyiL1pz7gL002n1Rp9/QLUBgNMHb99RVeXfRJt7zLhdGKUlh0UCX3Gve
-	 5edQyH7st7uXKAouxytQ+h6W3qSU3rGA0OtXnLPwscyDcZeuczI2SdjQ6H9Sta/5r2BJF
-	 yvlS+ZkyM3LeN0PCmmj+Dc87K8coVo3dgavZNobeSfrXYITVzHJe5laYvxiBaejXdxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858618;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792858716;
+	b=iUW5wUa1FV80hwZ+AU89k0mo7yHsWEGCiVJwy6jlQi+yOPDxmH2zrSiWJtlbU6tmNCRg
+	 Q6h7x8j4gzu76evqOaYXaZ3yd776Pm3yMlDsFDEfPZdiAjh5YSRcczagggSPB69hpKVh3
+	 n3lOhRjoap1R+xAGPv0PsAFEsVZuOLgUeE9sUeDcTptCVFr0GtOQYXv6poH3Ybr28qvYz
+	 kNNhre5ETSSYlvW2T5VuRb9pO3klYD1Yr4JBVbrtSf0+U7yi7LwApFe1F4LiAOcDpgNND
+	 XvtXUOP43rLemvwmwDb9ukau5xZGRaAc42CHXs1kLZZYCJDbFT9jtSUsx6X5NGClhGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858716;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
-	b=DGMd+wPNnix0EJXx0S/ibQPxb28BPx8+W6SGNSgah8WtKmCB/M6z26TbpkRUifgFqrPO
-	 A2CrWEKPuDv4QwpzGiRmqBN3cWM+uhkEDIG6xdOvJ6699GOoYyip6iBigypRdYtzA/Iqt
-	 PHi5S3ql5JxXx9n8Qo2HZMkIue97gQVI/8WD1PxpYLkU48p/4DuDLIRCO+L/XHKEw0Lpa
-	 EiNmAl+XwIIQIpx8VVbKWiTk/DNGesS+Q2zZ53kTYLBMCWuYWyzdTpQRmkN+E2y/eiwKf
-	 4FNlzK6lKKIAuhqywO+Mqm5RT2P4V/8n9bw7TdWr1vAbjYGhRic+vqvK74xxTFC0pvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=asseily.com;
-	spf=pass smtp.mailfrom=asseily.com;
-	dkim=pass header.d=asseily.com header.i=@asseily.com header.a=rsa-sha256 header.s=google header.b=RAaYSvon;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+	b=2QxJiuw50OUn6zbW1G9ticM6Zzal1vxNthKfipztj7PHdEz7mj9P4JoNL7xY5QBtOj8G
+	 qNbqU+NOPKAFZI21jrqTxILxfMYQuvGmrn2EpLSbfAjfMeaEbUqXBBcLWWWcF7xmB39t5
+	 MGJoY4X1mgcmFfIFs0LTjO7MjQw0heQS1iUpDuG8M8P0TFVTu8IiauFl0lk+l2suf68lX
+	 uCAk5yOYxQDDzI3XiCRkWhq8JCSOs/NBq31cF+NI2Q6sPOrXqdlKviPjfBHSkIUfTNdCb
+	 Aiaw51FSIg3H3+VHLL7LhC3sMmaVxH7kNYqXnDdEkWggSG0r+ySi8E0v6hN1DV7lY6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="OlXmPG5/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75965606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75965606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC316606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC316606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asseily.com header.i=@asseily.com header.a=rsa-sha256 header.s=google header.b=RAaYSvon
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso20788275e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:16:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OlXmPG5/
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8ab432273c5so14350787b3.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:18:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792858715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ocxcHG5F2OLjnnzynMUSGtSfTbqdq3Ma4YTMeR6jRXEKiwnGcQSsb1OFEOs3BQZtvW
+         BNBT+lK5jm9i1kHAlAAfcl4H1HStD+WlPU6LffLL84wXYK9ojk4XGZ+80qVyTjkQy7mL
+         t3p89HlA9oPdG32RztahiYRuc9+/Ni/P8Op/UJw/9OwCBZbC2zhLBr1fOuEFhY+bNcuE
+         hsz0XyFkvhbCWaFk7YnKMNYrtMTPgs8cSrDKlyV6x1iD40mpiqf7QuOoE0Ynn9wyg33v
+         ubyw+KmDiIe+MWk+qD875lI4I7ftA2uub3obCUowHU4t0zYPbVsDO6EgHM8BRd3ffDig
+         pdlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        fh=VI2wzUb6HadtXq4XibE41lJURyV7Zl0EtPU0IrpSLVk=;
+        b=LCgxufQFIp0CmJIPUMprgVs4mGuQTH8J+4PANMMPl769C9KAGe25BQdcQaz5Ko2I02
+         NG09oxzUAFrIu2/lc3k/uHO6iRxwjsayRA4VD+mEmym/YNfj6tRi9do9+XkRZn+o+9WA
+         Ha5P0QqMZEO/EHeYDTTEK9hf0/b4yLgcu/JSNw0342IlVAVyafBZH/b7VbZRfQ+KR9mn
+         TUQGJt4e/dVkxrJALUSF+32BeEaR5lMeWJQzOlfvk9fnLbWouaNxlZs3G/rEK7At6yG8
+         cgB38jfVQbv3kcN7HaFJB3689i2jwN1fzTJU6vDi4U4XtxkeqlqRnObWbZZjO0z5SH2C
+         XzbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asseily.com; s=google; t=1792858616; x=1793463416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
-        b=RAaYSvonR4qouJog0CyJbGB6T9+L01g1zbd3cM6gD7yyOlhk1jwBHBZdcBxdGiV5a2
-         +Hn6UnzguUG8Dy99BTUnBcOa5rC3EU7VuULinOizOgqi9vHwRLP6f/RBxmc2Wm3gru8z
-         hE3PFyKIElmCEdx5WIpTfkBupROGoujMgEgiDPSdNQ7gbwB3jQwTevLS57vhf+UW4ipJ
-         BKOY449szzRt0o39Z+wP8M2ueSrkWrP2C2hmWGdLYaoKBJPInR1ba4SPneW6w3jwqPJK
-         zHEQAhtuWRToLILi5qKy6qdER5gBCvAW7NnVq1ZhKtAbAgBcZn2qkZh5T0YTAZH0FaI+
-         pjtg==
+        d=gmail.com; s=20251104; t=1792858715; x=1793463515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        b=OlXmPG5/sAKCL9I7yq00rAKjJUqs3lDGX6LAWPM12qMwvE2TwWLZuI969q24e+XN1k
+         okGi8kuf7C7X1w1YRSajRzcFwtGWzOX9xA1fFTRPkhgYsldF6gr3b6gvx6a3cIxQ/B59
+         lp1n0/CGsCt/bH5jPOj8/0TUUwS8ZBdoxdHSxBLFdu7foJ+9oIObAIxnEJKwMBtQcrQa
+         wpkjXGXs6G3EdtIgwBH6QoTi4BUgaqfAfwTSU9JUU7arFcVL4yIGlwlA7gU+DUNbP3PL
+         Jpqr9c4DkhdW9sOEsWXVxIe39Dzcs6d/K6m6dS0DlnzrqTVjLbISPmBlpUO+QWTw0kNP
+         YjAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858616; x=1793463416;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
-        b=OyV6yIiceOPMVdn+eDcIdISa4PEXCMyxwhEsAvy8xnAQda7JQksLTuaoW4P3le7K21
-         bPj/0uB6oI9faJEekff2u5N5PSmDuWxZv/80bhJYl/WYFfK8mDRTabqSxatd6f8aKvMh
-         NSKgmDgdYBC8NM9A7hhTnYmbQtQzCS1fAvnHh8XjOylPIq5tkIwqlvpIxCOjRgVN/mPh
-         DVZ5iJERTiWSHzZLEoMcoya4C62vijPONiXsw7NPtbNJtBcnRN4TfabNN9xDMciZBaNy
-         q183MFhOGDZ/fT5AsjVQDcR61jV6DOT4kn5f+5uDh5+YQi7ZBHM4cYUHOBxZi7pnpY8P
-         M6fA==
-X-Forwarded-Encrypted: i=1; AKwUvBxPcOqO7ZaEdi2RGJ72y4OO2VVyDvdcVzdh32NkvXZaJONuXVq18zU2r0oxJRH/zHfP6eHwyCSU5o8nxAg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYSJ4tXj+fZGneNyR+xhXm42w+ZcLlXSkXdvAeuKLfNx1EkEKx
-	9DplQvZLuEUUNkRBjXpvNzy2MR/e0oMy0mK8qscj3681kvCTF0xVSr5lUvL46rM9UDQ=
-X-Gm-Gg: AYBFou0ODPqURHsaSAnl9uNEiqY+Uz66Ftusu8pjAibfRw09+AUNqhM3xFdcJR5svPJ
-	CkFCf2sJCUaGfBqyUpNn4V8PMLWNjBlJ7BBD3S4xg9NPJqJNJCvaH3z1lB7wZXQCAfbOfpdJWIC
-	BtsJxBlxEOok4H42D5AK+MkCnXQA9i/JP3jNtcyz0dFpcimW8HNWf4Y0C8Nsx40LDQ7ZaGu2eKj
-	oDVW9pWoONGcvou96NkOx23TYDYTlFZFGp0lBeap1KyS89Qsk8AXXqmczSLXYFhN7GK/AnGnawK
-	zcs1qll81g4LBwJiLKJpdpWtix/Sg4ClmcDE+2X/jiWD4JLvgKxCr0vP5wl9ZMUXwzdfeDD14X0
-	Nuv/CQcld1UEaSJXxZUq0xZM+ZcuP6HPEL+TaVw6F9uwAiLbugFC3zOkfQSIkOIwZY9oGqi8mxa
-	fiyKhu12HcONMlqSDIiGDP0STK+C/8RFwciOJDEEuKbkCDJr058fpH07ILJPi/WR1oDcGkcG3C8
-	X8JLxGZidn9xu2lD+OiLe2NWAepfw7Rjt+Xw4fUMM0AoKFJBauZY0ugWKCOuqYRn+v6ZA==
-X-Received: by 2002:a05:600c:4688:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4a35aca5a1amr34062485e9.22.1792858615676;
-        Sat, 24 Oct 2026 09:16:55 -0700 (PDT)
-Received: from localhost.localdomain ([178.135.21.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm78516845e9.1.2026.10.24.09.16.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:16:55 -0700 (PDT)
-From: Karl Asseily <karl@asseily.com>
-To: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Asseily <karl@asseily.com>
-Subject: [PATCH] ASoC: es9039q2m: Document the FIR coefficient payload format
-Date: Sat, 24 Oct 2026 19:16:34 +0300
-Message-ID: <20261024161635.12956-1-karl@asseily.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1792858715; x=1793463515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        b=ApC6nofb5MJsa7ynbqZvKwvo4wdwOs+oWWrlTWsl7ZJoWT1XirWskj81sqVm6YgexE
+         vUBKA6bxak+iuvac/ETLZoQEOza8tzImctF07AfS7dX79SYl2Yanu58ZZ+e4rCfgf/yc
+         64DOoL0ONM4ErzaJ7BHauaTO8wnQnqJvuturgDF8G1ckLoJ/fSh+pb6FW6728SAIjprV
+         upNHMY7COtOUYg6MDuazWxb+V5sZTxNqG4KE8I52NDw+v+EINhuqEEbyDQl2Q12JnDcZ
+         4/nDtrgzARLcmOdwRjzVYx8OUNmDuGc4XWaaXcZrEjXEW9uBoveqbyaoBvydW/zU/SG5
+         O7Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+CDioiCzNnQPPV6sSRpsVjfcB+2JrBLh8Xgxnrb3y0Cap6cfqP2stoLhfok2xjMD89kzqQ3gywPnV4xA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5HNZs8wzU411DiCKr6P7rC13L+gWnrsQdNB/dV3026RAcscSz
+	2ohH1XsIDTAb/WaK/ixoLA2PvU3eaGfT4SetbTScYgvHQ4IEb/AMydqjXz7DAGgnF7OTRwFleNv
+	+p9P4a26vRIM5x7ol5BQnk2nin0YVD1I=
+X-Gm-Gg: AYBFou37kj11kd3bqT+qhKciq099VoRNeupe9Td802kruD8Hte2E6d5YJ8KGfkWYdQT
+	SlWqDEFI9MFFXtXlgATcrk1qgh9+NOYWIup1P2Z8AIrpbVTG2w5SAQtI8Xutze24LlZfqX5uVSE
+	t3Lnq3vD2RfCwGboLfASiBlllXix+OlRW+gm5Nznic4Qe5yQtesepg0v0BmquRQvXPUlBbhS/wq
+	FuiVqW15FWBWuSztyps81Bru7xGl9K3EFoTmYij8GB5kKCaQX04omcGv25rcpQkR2mg1GBvblGI
+	BfNQZw1eF6A2tSRUt8s9v0wEzB651TOmCGJOz20ccB3bsQJ4Zn5zcXgfmcaBlmyki7n9cdSuDK5
+	PMJC5N88ecUExhkIWjcMqzBjnioFtO92NJVGFclTd
+X-Received: by 2002:a05:690c:89:b0:8b0:e13c:2854 with SMTP id
+ 00721157ae682-8b1669e55a4mr18271807b3.5.1792858714927; Sat, 24 Oct 2026
+ 09:18:34 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,53 +104,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
+ <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
+In-Reply-To: <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sun, 25 Oct 2026 00:18:22 +0800
+X-Gm-Features: AclHuK_VfC0_HAFy2LMxdYARoi52mIFRU4CCMwSsyLqo5xk4mZaw1sLNyRN_7E8
+Message-ID: <CAFRLqsUXK3rX6-uM3+2cMmSCPYMz9WxNGRXh7zG1+1YhNxTjgg@mail.gmail.com>
+Subject: Re: [PATCH] ocfs2: wait for filecheck kobject release after a failed add
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The programmable FIR controls are TLV byte controls whose payload is the
-raw coefficient data, with no type/length header. Nothing in the driver
-says so, and the in-tree precedents differ - wm_adsp takes raw data, SOF
-expects a header of its own - so user space is left to guess.
+Hi, Joseph
 
-The driver cannot catch a wrong guess either.
-snd_soc_bytes_tlv_callback() clamps the byte count to .max before
-calling .put, and .max is exactly the size es9039_fir_put() checks for,
-so an over-long write with a header in front is cut to a valid length
-and loads the header as the first taps.
+Joseph Qi <joseph.qi@linux.alibaba.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8824=
+=E6=97=A5=E5=91=A8=E5=85=AD 23:49=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Why not name the owner directly to ocfs2_super?
 
-Document the format at the control definition. No functional change.
+Thanks. I've updated the comment in v2.
 
-Link: https://lore.kernel.org/all/CA+gvwbqrav5C9e=9Jx1i31nrEZGDko73tAAhGzzexeRa1f72LQ@mail.gmail.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Karl Asseily <karl@asseily.com>
----
- sound/soc/codecs/es9039q2m.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+> And "delayed release" is only accurate under CONFIG_DEBUG_KOBJECT_RELEASE=
+.
+>
 
-diff --git a/sound/soc/codecs/es9039q2m.c b/sound/soc/codecs/es9039q2m.c
-index 4e9f86cb7..bf206bf95 100644
---- a/sound/soc/codecs/es9039q2m.c
-+++ b/sound/soc/codecs/es9039q2m.c
-@@ -632,6 +632,20 @@ static struct es9039_fir_ctl es9039_fir4x = {
- 	.stage_4x = true,
- };
- 
-+/*
-+ * The FIR coefficient controls take raw coefficients and nothing else:
-+ * tlv[] carries taps * ES9039_COEFF_BYTES bytes with no type/length header.
-+ * snd_soc_bytes_tlv_callback() passes the user pointer to .put unchanged,
-+ * so a header would be loaded as coefficients. wm_adsp uses the same
-+ * convention and SOF embeds a header of its own, so the choice is stated
-+ * here rather than left to be inferred.
-+ *
-+ * The driver cannot enforce it. The callback clamps the count it passes on
-+ * to .max, which is exactly taps * ES9039_COEFF_BYTES, so the size check in
-+ * es9039_fir_put() can only reject a short write. An over-long one - a
-+ * header followed by a full coefficient set - arrives truncated to .max,
-+ * passes the check, and loads the header words as the first taps.
-+ */
- #define ES9039_FIR(xname, xctl)						\
- {									\
- 	.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,				\
--- 
-2.47.3
+The delayed-cleanup scenario in the commit message is also
+explicitly scoped to CONFIG_DEBUG_KOBJECT_RELEASE.
 
+> Thanks,
+> Joseph
+>
+Best regards,
+Cen Zhang
