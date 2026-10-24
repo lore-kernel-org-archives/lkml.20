@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792810957;
-	b=VlqMPQiCDPqZboXgFP+8iTU/jBYSvdeq/+uwVXkeusvBFxIY2ytz0JgFv1nMVNeHR5js
-	 sfBU7I+Af5s7RmKOvVk9JFi3DHta9GvfxzSBrzGTmZl3pPimrmNVX8dEk6J95o08ofE8F
-	 zyCH6ghSU9CDX7R+TdYu9r/eEzqreOh0cT6xdlVDQnlDQOOo3KIyftJwiBH1mp+mKp6g8
-	 zTzAp4C1D9cwUJSSyz4l0IKGbAZJb/6yel5Obnl3jMQBclxaY5J4RzaSrJM2UYXkXrkoE
-	 t7tbPrO428+/UKafBbZ3ruIyzegn55AjlgQgsVmYnHhcBJVk5CU9jwZewyQJ1uLUxGg==
+	t=1792810947;
+	b=xxrUe/PVtNb3CisResSt//TUWv0zs2I+WDuPUKJdQRSmtXNnCcH/dTmW/SKjnVJL/3OZ
+	 K06yWFbI7Ly0FZGD8ZFSshDTBmI2etUI5hSVcVfYXniKb8W+z1R8fxS0MR8pdY68zfdXx
+	 RbNI5impgzMYAyI2J+rb1hs2sxILvU7x1HIk/oPFDDIqxa8xp/9TsLbXxzT21Cv9yi2G6
+	 Ah3bBKtH2eBDPhmabCl4XGoRHIqZ50t9GwRMLcm78B5YWUqV4ey1W2d2J2j2GmZ/OUNFc
+	 BHz9qf2+DS3mnz/QHMd879vcKgR3DHpUFS1HQNW3oYfUZoN5AvVOBdZ1kLHfo4bSYqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792810957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792810947;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5aDf44Gat6Pf0H0w4M0JG4CAOddgF7K2Xbo5NNmzKjI=;
-	b=iFiQ4gV/Oty3is8Qe6gTA7hp4uL2e41q2LuiZJxWEiKLYP/eUeMOijowja8a1a8fSyLE
-	 tODg8kdP8ZD4uj+4tZxE5if5XHkphJKdNfUXJcnMUvzYrVsxnWWRAiNTCzjWbEnGVUbpF
-	 ekouTMXiHZidoKRS05oSCXWdfJ7durLLCnG5iQvT2TzNz3ekLjfhWNcHrMNu5aAbEpKbu
-	 J/vU3bWIYHdPmdmfhQD4S2NbTRzp+22U5rw5rpH1E0lJXR45Nwpys/EX1WHjM+evhLWxJ
-	 shccdj3IFczITgQI8NBVq7giLf2ZUU1+H8/0/CIZdIluqBqnh1d603zOTEPGYKmp4uA==
+	bh=19hh/+WHY1QppPzIy1oNIREpwHyJPWnwZ7GJt11J8h0=;
+	b=bUFF6yo1WK8ruWhp9Dp0eyPV1YyYDN4LBZP1clhccbxFEM92cce5lDaFViz32/c/3oRs
+	 4uWWUcn+iybMDrb92M+G9BAZq7wUx1rOfBMuurGeZU8m/2xDuttXgcG+xAz6vzmpi4eDc
+	 tCwWG81VBgKD6xicqJXpm6g0iQUnnkEYzGz/4O3yGO7V3iZu7tajfEPmDlhTNwlgbcGyM
+	 Uzzj2GsHedAFVnQkoq1m91FRJbh1MOhYQ8lirYrY67nHA4OKKXwx9QtN9PhvXEBchhfMY
+	 77JRiK6jKzgKfE8sMdhNiM7OP5xR62Ltbi1MpDvV3d1jmg6lZZ79K57pdq243Ef007A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WwEhG62+;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=miXrIXDO;
 	arc=none smtp.remote-ip=209.85.161.45
 Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB09A60A5BC8
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:02:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB09A60A5BC8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4829260A262E
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4829260A262E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WwEhG62+
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6de2f213b7aso649097eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:02:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=miXrIXDO
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6faddda49e7so1257852eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:02:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792810956; x=1793415756; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792810946; x=1793415746; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5aDf44Gat6Pf0H0w4M0JG4CAOddgF7K2Xbo5NNmzKjI=;
-        b=WwEhG62+BnK/G1CmjOKJEAdiw0cztslgqRQMTvvG/OKwJkQYpKybttT8gmQGrxro5C
-         MVgBYyYct1m3wZV+uT7b+nKBxwXCgj+/poDJGnsXG3Rio6UJrcGe1OuVzd1X81r7B6S/
-         KD3/3aoRVYZu3qeV/xlXjGpuPsgA5eqV1CquwrNh1QHHap1SxfFZnu2xdNAtYcS5tbOJ
-         4qzkbGyOKux4goYUnVZgY0mdtP9y+t4dcYja/Y1041UH9GW+N24OHChberYJSsCI1AcK
-         xTIM9lTjAKXXPfYvsAE7VvQEK/nC0MxAtxQkro3uA47K1g67NpItcRr2mQp9iughsmey
-         Blfw==
+        bh=19hh/+WHY1QppPzIy1oNIREpwHyJPWnwZ7GJt11J8h0=;
+        b=miXrIXDOK8g3how+NK4ph2kcI3NyopKkZupvbcGiCGo/73yTn1jSe3WwhkEcAfpg0Y
+         TB8lW7EzeBvYWKVhI5M+YK1nVgKTgZzzZ8BclFhEQn0Pi7wCKcrAQevZH7ahf0i9/iaN
+         cLErMFiVXkwWV++StnqsyNUI75X+jTGOeW3bhgL7dAHEPEKnSM5vg7PleJoKsa8Hz+Ns
+         kPQbfTFkVnbbi2cpqF0mquyRXU6MGqHVbTH2ob1Mxyg32HKhpJBsWR5jk0fG1At6HtqS
+         sacHncJTARw7LB+DRzg1U8WMe7BUDaV4K2npWhDDbYV7drZxvYmlR9ltvsWGuRCX5oCp
+         LEDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792810956; x=1793415756;
+        d=1e100.net; s=20260707; t=1792810946; x=1793415746;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5aDf44Gat6Pf0H0w4M0JG4CAOddgF7K2Xbo5NNmzKjI=;
-        b=joqoD18mHW7N2I5SI7jmp2sPYHpJeJR3m6y7Rgdur/fNoydkOJtM/gkIEZREpcN4aM
-         tu9WtZ8G9MrGlEFrS14YDh1Inc0SPJ/fcsf7jdkAYDS7rnlkykRN5AHvRDVCUasKySkX
-         LQGN6HyGYXogP1Ws7F95ecMxwcWC3sdThbzMTm209m6ycRkLfIYrUv8um65T1RaWU1ZI
-         +wNhJE3eNOa1Rv2NMfryNN8tkC8m7Uq7DUTUX/FBTLUs1Whjd9xtcnb3qnHLsWZ3gMYY
-         rnPP/pBEMN1B8cHMQLIBkOAnPgvzUk6yu3z2Oy7F0kb5fBjwx4ViLAvGfS1Bc1lvP5CX
-         Gwxw==
-X-Forwarded-Encrypted: i=1; AKwUvBwao6ao670zTn8+i7lTuDCIOsliCxKTdoXcL6VIdw/YIwo4obYNONGZ8qTix4JXOKJi1ED3BvkWl+JCteg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+KWf4KJGEWWqX5TVvSVaImo0wcNEH7D6ClXmKnI2S9dg76/cp
-	Qxs5oLtqsxSN+uNIsTJp0iPQKv5IAqmahGgJYUICZpwfbOwSVtePjhCS
-X-Gm-Gg: AYBFou0/T7VBf9goON8xjNKyTCOrdfStjuY4bFdImah4rGPukjUlre+fNeJStttgTj4
-	0sGW8ZcqCZ7Krasg0A1QTgvQ287pV1z7b2yt3pdrxoQpK30XS2Qd4XH74Be1lq1oHFMu3+1c7U1
-	ABiR3BWqp2ZKzGRVCdlmdG+EJJJnlLwDqd11CGEl93trUJ4GZ+zpzK5pTHL7ZINw9GWvkWDpL+3
-	HlIuQsVxepjj9U1ejnBmaoXh8mFPYeCXIolt/uAKyMD1PUFNhqp3V1iGydR4hv8fhLcZ698oTB6
-	eoHHqJfPaMYUxZqslkHt17XaLXVYo+clkF0rTxWMPYcTFJXACa96YLdYhaWTIC8o/3+cSXVfuNY
-	QQ4llBY4z+VZLS9xRl1NPtKdqrWFB+Z1fNMgNbnFxC6dM8/Lip1SZPynm8y+J0l/0nTtIlxIpvH
-	cNsyU9ElxcinWOd85T6HyDgM9B5jsmqU6sFM9M9hfzg51tNNvUQ8PEIlEVLneYNj+vbT+lDvFJF
-	6hbulDpZqtZme6rRWHKAvTs2Ae35L/mNPt8R24ZEHVB8ImTnpaYYNqQnoo8cMCPiJsp7pTtpsY0
-	4aOC
-X-Received: by 2002:a4a:e915:0:b0:70b:8307:9bd9 with SMTP id 006d021491bc7-70ba0f6f55dmr422950eaf.78.1792810955676;
-        Fri, 23 Oct 2026 20:02:35 -0700 (PDT)
+        bh=19hh/+WHY1QppPzIy1oNIREpwHyJPWnwZ7GJt11J8h0=;
+        b=p6XUrG0S7O66+7urPVgtcOwHaN7XASpr9KRPPKMybMRpE5zEvwh0MTS49Ds86Xk4zw
+         E0jmcYPrUKDzCJTIppopOaACneNz8T20iDTURCQrIJkg727/IiKr1fjkX9ktywROOfS/
+         8FGyGH8sh0poVC2BJBQrKJ1kNUBNfWdSulrNMqUXDEmjyeeLhvBICpDoYd8VMqD4cT/e
+         whryHYqYgCJGe8Iz+qbHBFVMMtXG3SiCF+qClR6SRNPBaCXUGr+/2WwOGaJ8Q9PgOR80
+         29jMfdJLjNHZzubhg2RywW2b+btefS+/34J2pQLe5ZtAf+V7x3RvV52cGQBxxT+7R67y
+         6lkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzP2Q0ihdZCUsiu7E8qmzAPIH16KgcBBn5izkuCJj680/bwbfmzcn9x15vrPKD9Xz3wqKTBUtkMzeUwshQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLph1C6sLo7DViUWMfyGY2bGfCdDs5etkmJkHe+XEhU94Flwx6p
+	LrpNDRLdA9zunWyJRyxuCovmZnkvw8H2SWXmq4GcwqlWlm/tQ1vAOBeK
+X-Gm-Gg: AYBFou3IbbnsSKP/7nAjZZpVsoom8gXRo9VXQdWUj8dMArnUAp5s+Lj4/5p/V+WqU4f
+	QnIXfhziWA56Fs0j83r6wcr7xDlP+X374fDJ45BqoBdwp9mIbu0IwbcHHjyupWtthW3AX48dzOs
+	lIokNvv1ERa0A+jmEO2QgwHj56GCo1fBPtlMC3hggPolBvOzL7YfZqmRhlDCRfwWkVVl4Ed3B0d
+	DWO3L0hpEy7aIhEFvE9K0RZtzYljyAk/PDgiBZzVlbw7wyCxoH/jVd1Z4eWXyNviZcx9BLy8P9B
+	4CzmNscee0sCcCtBmt/uYhg5eOAarf9JasYbkurC4TAeNH5RuNhQvKT5xhZmXvHhT4/iRFNsCxE
+	c64WPH2XCrXVT/1u+ukBd3eao+jUSD2stkhAXDv/1Zl/HieP521Q4oHrHxWiSaC+96c4C+mY8Nh
+	AvnY1ESta7y/Z8J4N8Xr7pQde0OLj3a/WkL37kT+5hUjPJtU8kjwyitLrk/IDXRubtFe1Dlsnaf
+	gVZc3QvpGUxLF0XzHJMbgctiC2l8h/ceGdhGc21oKSlbWxxsQdREC6IsgD5SOJcB1Ecb+77DIe4
+	Zig0
+X-Received: by 2002:a05:6820:f012:b0:6b6:93d6:afcd with SMTP id 006d021491bc7-70ba0e13073mr403628eaf.26.1792810946228;
+        Fri, 23 Oct 2026 20:02:26 -0700 (PDT)
 Received: from jeffmr (63-152-17-145.cdrr.qwest.net. [63.152.17.145])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9e1fa334sm824552eaf.9.2026.10.23.20.02.34
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9e1fa334sm824552eaf.9.2026.10.23.20.02.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 20:02:35 -0700 (PDT)
+        Fri, 23 Oct 2026 20:02:25 -0700 (PDT)
 From: Jeff Roach <jeff.roach0@gmail.com>
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>,
@@ -94,12 +94,12 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
 	Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v5 11/11] phy: qualcomm: qmp-combo: Fix error propagation in qmp_combo_dp_power_on()
-Date: Fri, 23 Oct 2026 22:01:36 -0500
-Message-ID: <20261024030142.13643-13-jeff.roach0@gmail.com>
+Subject: Re: [PATCH v5 04/11] phy: qualcomm: qmp-combo: Ignore Type-C orientation for Glymur DP mode
+Date: Fri, 23 Oct 2026 22:01:29 -0500
+Message-ID: <20261024030142.13643-6-jeff.roach0@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-glymur-phy-v3-v5-11-3848c2615d5a@oss.qualcomm.com>
-References: <20261001-glymur-phy-v3-v5-11-3848c2615d5a@oss.qualcomm.com>
+In-Reply-To: <20261001-glymur-phy-v3-v5-4-3848c2615d5a@oss.qualcomm.com>
+References: <20261001-glymur-phy-v3-v5-4-3848c2615d5a@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,10 +111,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 01 Oct 2026 15:04:28 +0530, Nabige Aala wrote:
-> The configure_dp_phy() callback can return an error (e.g. -ETIMEDOUT on
-> PLL lock failure), but qmp_combo_dp_power_on() was ignoring the return
-> value and always returning 0.
+On Thu, 01 Oct 2026 15:04:21 +0530, Nabige Aala wrote:
+> Glymur platforms use a fixed DP lane mapping and do not support DP PHY
+> mode reversal based on Type-C orientation. Add a configuration flag to
+> ignore reverse orientation during DP mode setup and enable it for Glymur,
+> ensuring that QSERDES_DP_PHY_MODE is always programmed with the
+> fix mode value (0x5c).
 > [...]
 
 Tested-by: Jeff Roach <jeff.roach0@gmail.com> # HP OmniBook X 16 (Mahua)
