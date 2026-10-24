@@ -1,97 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792816211;
-	b=HzbKQWsW4KUmxrcKe3VTClWGGF1HNllFvv5iXrw9G3l9MGETlXEc2nCjqSUKBXSsvVs1
-	 w/BgFy3TG4ZCWrMV3hDvEo9QDvKh1M+B3Z/WlKm/C7oNUXVqtinebChYSST5ZPplqgOwR
-	 oX12Y8t32SO9lWHfqbOeoH5Krp7G77Qtf0ApDxoZuYv3E0M+JEqZHaIZ55ozLl6I8Se5V
-	 xklY2TgHwf1uWQeiYvHKJrW8nmY4Qw7m7uoQvCjZOPbpPGLLfgXOSqqS54RyMFknT3XXA
-	 ip7Tn2xjqyy5LHH6o7NP0IAGyOybcPRQtiUSLIQFxuBKG+yszzWqGR/oqYb5UZf2RmQ==
+	t=1792816580;
+	b=29mOvk/KmUwPqTyuFXYGY8ODIXlDS0wCqYeV/Jnypx/nKEW/b396SA4QldNDl8+GrCKf
+	 TWmTFstuiTSnpgEBp9UMQttUpDDFCZp4Ulapmrv8NQ1Gmsunlko1WW8IguQdv/dmwlB24
+	 oGIYwCvzHtWVh4153ljZrgIQiz26izZpkK+8AD6Iakwrn4n17XzX/ZkCadOdO94wGz7yo
+	 xLRFWqfTT8r1XpnXdkayOk8ygg7ec/vLXDrWI/RwDT719My85FQaxsA39IIk2UofHUK5u
+	 VZeQFFLdbT+kUNUGEfkBwOsafPjFCS4L5rCFxI6YF0Q0vwTEZ8ibNfSXcggLG6D7/gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792816211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
-	b=gEa9fPQsIQe8P9GUwlyB37gv2a++6TjLaGkA6fBf///QIQJe0tIctSX54bhUxwTKPt4X
-	 tJW6688cj+uYXN+g7Ohavx0utyXkbDemgtGt0hgQCpnrXtyba5w97ILK2Dg0rWgIgqihD
-	 Kg4JbAFSXTE9j56sdhxkCyk9Y3Z6JAtNp6sAG0XRWA8rArR3sr49HhUbL6mMuEYKzVf7m
-	 mQb5FwJfTtQ4QfjT2z24ys0PQ2UeUJnscmVe8tjWL7qyztHSOwsFNN2e+ukOkRiNZzAlp
-	 d9vb40+0LA2DsXoUSRfViCJUZndPpDuM+vDHgWtZkLbVFm269HNDZMct4GUpwXaNEAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792816580;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=/xOHDajFF3o4xN4B/1VnY05hUtt8gBxeUxaaYUwlIws=;
+	b=rR8g39UM/52fSxPgtJJnX1YlQcjGyQFP67b2dcIbsXF4S5zxNQZQZl9qoYMYD19Hxgi0
+	 uuaP0eHK0BP9e5dNabH4PIMqfh1QADipZnF9PDkbZbot+GFoJItictx+VB+2xQllwkVws
+	 1JrBWZoRhzs3WbJ9b/ibsJsOr0rR2H4/Itx/y6VsMsj2urGePFg1wA65rEGUZfRm5Nu1F
+	 +Tr99tU02Bt2gy3gG8dbQqvFgB710IP9qqVBIxKgyE7zMKUsN6CcfleOKRVZvDSsDOPVg
+	 b396Ap3hDcY4mhriMuaB4qtfPVJqce3F913gqw9ApwO+0f3rlit5+rFAsSx1PfcqWYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzi8tAPV;
-	arc=none smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M2yG0xb/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47CD606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A47CD606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF69606A31A;
+	Sat, 24 Oct 2026 04:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzi8tAPV
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1400662e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:30:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792816209; x=1793421009; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
-        b=hzi8tAPVKcYUDH8FGM7gnF7SbUQSl1BcNQF2Iwy9MGDSO+BWQ/wJtPW0mA6FPYD2Sx
-         Gmy/R8K8ThDhFVVcyg+ltUDc4il8tUuEYs/c7q82vOiVBOE1IoSOjDeYnbRyoCe0c0GM
-         GxXvjQKp9XCgpS0g4UD+P5LN/87szacBjzpxVqDfRQkeL/K6hsafKppFaqpZwDgk3to3
-         5/iIpo7CTj5UYTxPxFIJHF2S+Tn/W7wPV5r2BnMOTPgozAYvIztDam5qWwC3hj8eca5i
-         6Q7+7JktppSrKbdgdPBhswliQ24kuenTkzTu8Zqdv3wewJwd+SWNP/ienz9KVQu8AWth
-         O5vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792816209; x=1793421009;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
-        b=1ilGZQVq83BWWTD11Gvrkc0qlnTplOb1yH8P80qWVkCUsmAtJiILy0qDimrvtLOr3T
-         6NUH1yOtemVXhxSsL+4t0HNoD7P2HgPpWXQwStK+XsMRvifsAEJpsk0LV2cnw8iDnMO0
-         OrIQKQDXsquJEJJWocERmtIR1IV5OFsKuL388mPLi4PAXoa8eU7PXKnKH7dX9/wz5Whp
-         uAGDyRX8kgvCoKfZ0nsOHVYyuM8ueaGz0jv+gOUOhXtkQa0o1ML9iQEw5liS01X0jSPb
-         d/ulvP7cFC11HBVYTzYFOM978cPOhf7vVjq5+WVCkh5q9gYTLC4h+IWpmmPwbNBdKiLv
-         qXLg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3ZlB4wDL6KLFTmcaK2XYd3jyQ0p529Lnat18nuip+acxd6d3DKOheCv5bIzewQv4QluUsMDbH3yV675w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEsU/STdTKxInQppjV3h+yWw91cujorgZHLy8iHWs1wYopro2C
-	Sken87rt0aoq3pfQ4paQL/9lBXtx8KRPb7AgHRiIqufc+jWNm9m9raoY+/vSR/chfNU7SA==
-X-Gm-Gg: AYBFou1FdwsL9FsjQEnM0jgCVPxE2xw8laWp+gbw4+lTDiETPk4jKch3PAvFfy/pXd5
-	aKwoQ/EYoC+lat0Nas9SzcSOVY2GA0/aipFeUGjQX3fIXWafIWZ9dPmvMKCLbYGy6HdIb0q1QaQ
-	0mmVe/vK5npbwJiAl7sM8dNK4NfG0pO2UQVGwFd9rsv1dZRsqOKFPhODYosmnm+WTmXYFCKUkcz
-	IpjmxVxvpvkvtRVbpFLEyxDGxRl9M+sL0abqvn+1kMjTU+KvY8Sj+OsN3fP/C+PiITCN76Q29eo
-	+rMXi2cqZrPoe3BMqKBJ2j6EcU9D5WODKjIAnQZmSjmZcisk8M7tvA7fvnR1wnRRuPV9e1jG1+f
-	SOfDDn2JmXT5ebnfDldqrjl7tHrbPfRMXwdL6qUjeqQicKO4wK1CY9k+BcOHpUQj4tIJYOvi90G
-	mO+xIjhXzku5KLU1l9BO6/6I+p5i4DWbTd7AUxvTO5DA+PufSEUEsZ4Xcqe+RMlHrZQFbRJfSJo
-	hE+pwJwxsV0t62urqORv07m1LtsC7Ih+PIMKrlbNM8HJxRskSmNTuq5H3Cb
-X-Received: by 2002:a05:6512:6694:20b0:5bf:b7d1:6488 with SMTP id 2adb3069b0e04-5bfb7d16896mr109075e87.52.1792816208523;
-        Fri, 23 Oct 2026 21:30:08 -0700 (PDT)
-Received: from localhost.net ([196.240.54.42])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6b051sm168295e87.14.2026.10.23.21.30.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 21:30:08 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	Eduard Zateev <hackerowskiy@gmail.com>
-Subject: [PATCH] keys: use long workqueue for garbage collection
-Date: Sat, 24 Oct 2026 06:29:44 +0200
-Message-ID: <20261024042944.52493-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2yG0xb/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90CC1F01825;
+	Sat, 24 Oct 2026 04:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792816580;
+	bh=/xOHDajFF3o4xN4B/1VnY05hUtt8gBxeUxaaYUwlIws=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=M2yG0xb/190Kcv3ADRcpnpu4Hw9PuCaY6Tu7IliLHlkuAO+W9ebsJzuedr9cxzL4R
+	 J0VZS2z+2rdJAXnzQdRyE409tekZpTgVlj5SRu+yUSTIoBaRy7/7s7xKGzF8XmUavs
+	 IRqTJ53H3lWajZabgYf9BnQ1ko7w0waAsgQX2kC3GywhMVgg/lLT7bZAd26qQcXmxA
+	 yv2s+VMRMjXDGmLkkHMCR8YLGkjHE8cvs/utpZQbJ9U+t/xXaiJeBxDmCfLmfQekBo
+	 VRvvV0I1tgtrtSt/+0N2Xekn11bsAQ9Bbj0/EoC6Swj2vVsRqIyUUr6tu9EBLCSs6f
+	 OoaL8OgNHGFWw==
+Content-Type: multipart/mixed; boundary="===============1203158203768635065=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,68 +49,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <7fe212a5137bf5211aef0a489098fa17f460e7cbc307afb2ca434af4674126bd@mail.kernel.org>
+In-Reply-To: <20261024035902.44566-1-hackerowskiy@gmail.com>
+References: <20261024035902.44566-1-hackerowskiy@gmail.com>
+Subject: Re: [PATCH] libbpf: fix helper macro C++ compatibility
+From: bot+bpf-ci@kernel.org
+To: hackerowskiy@gmail.com,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,hackerowskiy@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat, 24 Oct 2026 04:36:19 +0000 (UTC)
 
-The key garbage collector can wait for RCU grace periods. This can occupy a
-normal events worker for a long time and contribute to workqueue lockups.
+--===============1203158203768635065==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Queue key GC on system_long_wq because its work may wait for long periods.
+> libbpf: fix helper macro C++ compatibility
 
-Reported-by: syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=c15de43f1e7fffbb7b9b
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+TL;DR:
+- bpf_for() and bpf_repeat() may still fail to compile in C++ (void *
+  initializer left unchanged)
+- Fixes: tag looks inaccurate and would pull this into stable trees
+- Nit: generated-header comment misplaced
+
+>     libbpf: fix helper macro C++ compatibility
+>
+>     C++26 warns about the GNU named variadic parameter syntax in
+>     bpf_helpers.h, which prevents consumers from using the header with
+>     -Werror=variadic-macros. Replace the named parameters with __VA_ARGS__.
+>
+>     C++ also rejects implicit conversions used by helper argument packing,
+>     bpf_for_each, and generated helper function pointers. Use explicit
+>     integer and typed pointer casts so these helpers can be parsed and used
+>     from C++.
+>
+>     Verified with GCC and Clang C++26 syntax checks using helper macros,
+>     an ARM64-targeted BPF C smoke build, and generated helper definitions
+>     from scripts/bpf_doc.py. checkpatch.pl reports no errors or warnings.
+>
+>     AI assistance: OpenAI Codex helped reproduce the C++26 failures and
+>     draft changes to tools/lib/bpf/bpf_helpers.h and scripts/bpf_doc.py.
+>     The human submitter must review the changes and test results before
+>     submission.
+>
+>     Fixes: d6a6a55518c1 ("libbpf: Move BPF_SEQ_PRINTF and BPF_SNPRINTF to bpf_helpers.h")
+>     Closes: https://github.com/libbpf/libbpf/issues/974
+>     Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+
+Is this Fixes: tag accurate?
+
+d6a6a55518c1 only moved BPF_SEQ_PRINTF and BPF_SNPRINTF from bpf_tracing.h
+to bpf_helpers.h.  Their args... syntax came from c09add2fbc5a
+("tools/libbpf: Add bpf_iter support").
+
+The other constructs changed here came from different commits:
+
+  - bpf_printk()'s args... and ##args from c2758baa9798 ("libbpf: Modify
+    bpf_printk to choose helper based on arg count")
+  - bpf_for_each()'s (void *)0 initializer from the open-coded iterator
+    work, moved into bpf_helpers.h by c5e647416708
+  - the "(void *) %d" helper initializer in the generated header from
+    7a387bed47f7 ("scripts/bpf: teach bpf_helpers_doc.py to dump BPF
+    helper definitions")
+
+None of those commits broke C++ support for the header.  It never had C++
+support, so this patch looks like it adds it rather than fixing a
+regression.
+
+The tag would also mark this change for stable trees back to v5.14, many of
+which do not have bpf_for_each(), bpf_stream_printk() or __bpf_vprintk().
+
+Should the Fixes: tag be dropped, given that Closes: already gives the
+motivation?
+
+> diff --git a/scripts/bpf_doc.py b/scripts/bpf_doc.py
+> index 15d113a1bc1d..02e31ad509af 100755
+> --- a/scripts/bpf_doc.py
+> +++ b/scripts/bpf_doc.py
+> @@ -829,6 +829,11 @@ class PrinterHelpersHeader(Printer):
+>  /* Forward declarations of BPF structs */'''
+>  
+>          print(header)
+> +        print("#ifdef __cplusplus")
+> +        print("#define ___bpf_helper_stub(id, name) reinterpret_cast<decltype(+name)>(id)")
+> +        print("#else")
+> +        print("#define ___bpf_helper_stub(id, name) ((void *)(id))")
+> +        print("#endif")
+>          for fwd in self.type_fwds:
+>              print('%s;' % fwd)
+>          print('')
+
+This isn't a bug, but the header string ends with the comment
+"/* Forward declarations of BPF structs */", and this new block is printed
+right after it, before the struct declarations.  The generated
+bpf_helper_defs.h now reads:
+
+    /* Forward declarations of BPF structs */
+    #ifdef __cplusplus
+    #define ___bpf_helper_stub(id, name) reinterpret_cast<decltype(+name)>(id)
+    #else
+    #define ___bpf_helper_stub(id, name) ((void *)(id))
+    #endif
+    struct bpf_fib_lookup;
+
+So the comment now sits on top of the macro block instead of the forward
+declarations.  Could the #ifdef block be printed before the comment, or after
+the forward declarations and the blank line, so the comment stays next to the
+declarations it describes?
+
+[ ... ]
+
+> @@ -382,16 +403,18 @@ extern void bpf_iter_num_destroy(struct bpf_iter_num *it) __weak __ksym;
+>   * extension: __attribute__((cleanup(<func>))), supported by both GCC and
+>   * Clang.
+>   */
+> -#define bpf_for_each(type, cur, args...) for (							\
+> +#define bpf_for_each(type, cur, ...) for (							\
+>  	/* initialize and define destructor */							\
+>  	struct bpf_iter_##type ___it __attribute__((aligned(8), /* enforce, just in case */,	\
+>  						    cleanup(bpf_iter_##type##_destroy))),	\
+>  	/* ___p pointer is just to call bpf_iter_##type##_new() *once* to init ___it */		\
+>  			       *___p __attribute__((unused)) = (				\
+> -					bpf_iter_##type##_new(&___it, ##args),			\
+> +						bpf_iter_##type##_new(&___it, \
+> +								       ##__VA_ARGS__), \
+>  	/* this is a workaround for Clang bug: it currently doesn't emit BTF */			\
+>  	/* for bpf_iter_##type##_destroy() when used from cleanup() attribute */		\
+> -					(void)bpf_iter_##type##_destroy, (void *)0);		\
+> +					(void)bpf_iter_##type##_destroy, \
+> +					(struct bpf_iter_##type *)0); \
+>  	/* iteration and termination check */							\
+>  	(((cur) = bpf_iter_##type##_next(&___it)));						\
+>  )
+
+The commit message says C++ rejects the implicit conversions used by
+bpf_for_each(), and this changes its ___p initializer from (void *)0 to
+(struct bpf_iter_##type *)0.  The sibling macros bpf_for() and bpf_repeat()
+still end their ___p initializer with:
+
+    (void)bpf_iter_num_destroy, (void *)0);
+
+___p is declared as struct bpf_iter_num * there (in the same declaration as
+___it), and C++ does not allow an implicit conversion from void * to
+struct bpf_iter_num *.
+
+Won't a C++ BPF program that uses bpf_for(i, 0, N) or bpf_repeat(N) still
+fail to compile with the same error this patch fixes for bpf_for_each()?
+Since the stated goal is that "these helpers can be parsed and used from
+C++", should bpf_for() and bpf_repeat() get the same
+(struct bpf_iter_num *)0 change?
+
+
 ---
- security/keys/gc.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/security/keys/gc.c b/security/keys/gc.c
-index eda445f815d..b174b8c511b 100644
---- a/security/keys/gc.c
-+++ b/security/keys/gc.c
-@@ -19,6 +19,7 @@ unsigned key_gc_delay = 5 * 60;
-  * Reaper for unused keys.
-  */
- static void key_garbage_collector(struct work_struct *work);
-+/* Key GC may wait for RCU grace periods, so queue it on system_long_wq. */
- DECLARE_WORK(key_gc_work, key_garbage_collector);
- 
- /*
-@@ -57,7 +58,7 @@ void key_schedule_gc(time64_t gc_at)
- 
- 	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
- 		kdebug("IMMEDIATE");
--		schedule_work(&key_gc_work);
-+		queue_work(system_long_wq, &key_gc_work);
- 	} else if (gc_at < key_gc_next_run) {
- 		kdebug("DEFERRED");
- 		key_gc_next_run = gc_at;
-@@ -85,7 +86,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
- void key_schedule_gc_links(void)
- {
- 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
--	schedule_work(&key_gc_work);
-+	queue_work(system_long_wq, &key_gc_work);
- }
- 
- /*
-@@ -119,7 +120,7 @@ void key_gc_keytype(struct key_type *ktype)
- 	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
- 
- 	kdebug("schedule");
--	schedule_work(&key_gc_work);
-+	queue_work(system_long_wq, &key_gc_work);
- 
- 	kdebug("sleep");
- 	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
-@@ -322,7 +323,7 @@ static void key_garbage_collector(struct work_struct *work)
- 	}
- 
- 	if (gc_state & KEY_GC_REAP_AGAIN)
--		schedule_work(&key_gc_work);
-+		queue_work(system_long_wq, &key_gc_work);
- 	kleave(" [end %x]", gc_state);
- 	return;
- 
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40061559445
+--===============1203158203768635065==--
