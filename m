@@ -1,87 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792803576;
-	b=2+jUFdE69M2SPTFQw6/o6Ihfzmd55143UfGL2y4EVm8ZyLwiFLUO9PH2Wt6PZO8DedSt
-	 bXaD45D/Hn4pTnVflvj6d3mfGwTlw5GWhRZLvXl9S9JSP6fq9NRLLuqn1FgCGMOlpVhmO
-	 4Yaa2QnKGYn1FmPF2gXS30Fdj52O2ldeG7UtzsALlEEL42+utB5guQN++c40qC2EdMZe9
-	 gyCQJgoKz3P1nBjJRNJNQAqGJfK0cBShlGAUD4e5jz3DE6okSpqzh7fO2g8hRJVneM/Jo
-	 xoA9hT8/0jiDzLwY2pb0daAKDxZPl76FWRwRgx9hSUaV00/wo5tb/+h+OPNAw1fsf/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792803576;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=QYliG5JrqqllTHxErrxFqWbYyN3g1Gh8xTc8edp61B8=;
-	b=ae19vzUuZyidFcDDq3mSHT0BJxAh6pcMBc5GhYgFmglXLuyWKrv5wOm8rH17QrUhAIZ1
-	 Obg4shQ1k5uNTznCyQ2l5co7idgw0Ktzc54fjUu+Kqu7jjJRvzBDU/Q18qmpCLtDqpFx5
-	 aXkI//Tk0m0nruLBemPxRQwmHTU2HGeExXUaGuISgdFSOogCq62yWD26QpL9h1Sk039oj
-	 mBGhlDc2E4s0KyU2dxdi9X/ER7bWmD3yBd73Hf3ajyAOvfrZIx4oeAkPeJ64EFci4LMBG
-	 rsIW/1CmsYZN0GO9Q0uNtn2My82FRfp6rIWRi2n9dkG4DeJjL1s/4klfNRhiW58Brtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nbx9a8yG;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792803768;
+	b=AnkN3Cu0KsIuxXKKGMbmKCtthKgtMhphY32sjlqAQv3RkpWFkiOuBx9DkcZvfvtqrCzd
+	 WFBtHYamJo3Xvar8e4qPU9gJsNmhaWLqRFKohZsyLXe5ZkmYXHZUF0XAvdL71T8ZZZAut
+	 G8DZDNK6KYHkXeP3l7BoCC+G9n3p0KkfVT7E4zyTm9c8vgayqkOuIGFvIUiGXd8y08UOM
+	 G6tfK5EVnFVM40zDxsHFRYHvMSTVS+iMyo6U/lDdQM8CevifonQGVue0qwWOR/v6vvDcD
+	 JHSTw37FIudaBw/F08lVRxBsQVXF/jqmjOLBhkoRYx0nngCdX+VGl0CvtfDETd5O7+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792803768;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=omGL6LcMhGREa1S5q4pFujxAG/NXDja8zf9xS2NZp5Y=;
+	b=ii3C1o2/GBKnKbv8HhDsoZHgIFo6kFGUG3TpOw/Nhhf4psW72R4Uek99W0+pm6XGtAPC
+	 5P0HfmOjhoiqAU/EFSOqcBfeOyGbtw6+QGLpk0EhWH8qPmCSwGVd3EImCRWR1TDhRaIOh
+	 QqhsXtSHufxwmmGuKKQB65kA70vzq9ZMhg/IrMSSjufd7xhg0h97zBPbNjHYZQcYYts8m
+	 a/T+w2TOLUnCphWNiUSlX3Cicpn/8ZFedHCDUYXST9aRGhvEuJcvmGTyWuthGrY74AK/L
+	 af5WbC2MKgYHC+JnTWkcGsTKApr/lPxqIzCJlXKABQeGz3y/STnjEb64sbhazgn5+Ag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJ93YXdH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4773C606A31D;
-	Sat, 24 Oct 2026 00:59:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4773C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7196606A31A;
+	Sat, 24 Oct 2026 01:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nbx9a8yG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792803575; x=1824339575;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=U3gmOgWDxR60gD64nCE0iSuuzCf3ICRp5+uOCWLX4u8=;
-  b=Nbx9a8yGzTUwUxblVAtL7FAWohBl9ACh/T7l0ZQ7PvJrAjc0iZdHThf4
-   jmtAB5+4I5Z3+i6GP4g5p4EYONFj/sjDRsUN2Yx91R4Jl84M1s0QHh33m
-   alTETVeSjyAO5bSEqtfEafwg0w9zZIFMopDMkMNIPXqhoV/qrNdsb2b8R
-   wQtrl/5pAfQ4PdZnA+brNwDYhtpvYfgY9LVTHhgEFpB674gXkv/iFnzQR
-   lyc52oU04m83vtOXRLStjrRsGslvf/4bgH0d36sOGMuhNpixbmdJmg9/s
-   yVrvz+Al6MkBy7tqXVQiWzNuksf8rBaM5wMPC2PVeYmmz9KFn9qqS+0s6
-   w==;
-X-CSE-ConnectionGUID: VZyhaBLJQL2SiSDug/8TfQ==
-X-CSE-MsgGUID: kxrQIbgbRw+9eLZP8pDqig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1468448"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1468448"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 17:59:34 -0700
-X-CSE-ConnectionGUID: qXl+4vPMRdWX13HfD+/dPg==
-X-CSE-MsgGUID: F1fBYjApSMC90pk5pmk4IQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="3841319"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 23 Oct 2026 17:59:31 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKQ6a-00000000TRO-1Jg2;
-	Sat, 24 Oct 2026 00:59:28 +0000
-Date: Sat, 24 Oct 2026 08:58:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: vmukunda <vmukunda@marvell.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Sunil Goutham <sgoutham@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	vmukunda <vmukunda@marvell.com>
-Subject: Re: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for
- cn20k
-Message-ID: <202610240855.NijJJoJD-lkp@intel.com>
-References: <20261023100112.3402726-1-vmukunda@marvell.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJ93YXdH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792803767;
+	b=zIZQSDVPrkbMX6ntSfQ0jG9XCG5cj01b0obgEVr1qyEfPIsFhXFQgyV5cEO47FqQQfif
+	 c7Ors3Yxji4E5HHlq5oNKQ5OhT4G5PDoY8BBH/G1yQxDtiFx+TURpM5Yr6aytg3kd+Pwc
+	 Vxx0vTewKG9su85y6uvNgEqANeHVxUXgyxx2KyztDlkHdRVsOZGpBiAqQnBn0sEHh4Kxb
+	 8se5F9vFFUUml4e/FPdpqApwBojJdEpH/P5HHYnSygLfVRQJ1Ol7P/Ok5GG632Amb3nBj
+	 tKfNQfdwGm/QV7ms/vWJP8d7frnPLZjhAPhG4Bku1Ox9oA1ROtLVH52PVePBZ72ytZQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792803767;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=omGL6LcMhGREa1S5q4pFujxAG/NXDja8zf9xS2NZp5Y=;
+	b=CjP2C/GOZZntud2HWUMkdnw0oM9cPssnhX4BAYh57j30jC/AuL7aoACW7RcyhxWbCPhq
+	 ZKduBVLbbdGI48KinhGMEXSq0SaEZC7u40AIjuLr+ZLo6XqGxwRP8kUw8mtmO/Jgjg2GJ
+	 Ur4eljNdRhBA2ZElegZpuAfB2GRfJPNuCIeyriqOo1BuLyA+6u8vm2YsR3CxU+2gXg8QD
+	 MPWKwa78oXpFQrmbfcbGRvQsFuNl3gw0mqKlzFQyQrZQKDy5u0qEV/87+IWQkDtojtHsj
+	 lUjhJ9FYCD6sPaumGdz8GUM0Qk4vgBqxZPpJqtjR05qWUSE/8HkIunMg8z1sRY44H2g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C89C71F01825;
+	Sat, 24 Oct 2026 01:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792803767;
+	bh=omGL6LcMhGREa1S5q4pFujxAG/NXDja8zf9xS2NZp5Y=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=GJ93YXdHwFqu6Lsy9cSI74DVafUS1RrKGVdU1MenjUVoc9cP00PVsMQdvPsSGYpKl
+	 jWrmZSzD2j2+WBLOAkM4PyLKsdsLerBcmKGIn3fnI/TVUKz5cE8z+mGzTReNlwr7Xh
+	 pb49StYa19LzNU/M4QS80afgh/yvFWtKSkeUnlDgNnWDDk/say7UqtNuM7GCMBC1q3
+	 1E7tCWJPVxnytN7olYLlA4qFzhrfdFy71cHwW6eZe3LzRwbHxJR62kV8GOdbs3dwcw
+	 6Wn5ZxFY87jB+RQLEc4g1Wy7dUOo9NMDXEjawS+JbP/jW86c009nrE5teNBqdOwlrk
+	 rX3w5Vhw+6mjg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 493C944691;
+	Sat, 24 Oct 2026 01:02:46 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 24 Oct 2026 04:02:43 +0300
+Subject: [PATCH RFC 1/2] PCI: rockchip-host: Retry link training that times
+ out
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,68 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023100112.3402726-1-vmukunda@marvell.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-rockchip-pcie-resume-v1-1-58e54a5cf5f1@iav.lv>
+References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
+In-Reply-To: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
+To: Shawn Lin <shawn.lin@rock-chips.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2899; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=XyiyrHT+pm4QSQTgMimlGl6CYo9QtiIPmsWqK8gJ4SM=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl3mLfkvz242aLCc9kGMaUY60fpTxlnm+nuqd7PImudz
+ zGF7556RykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZiI4CRGhjvf9A4u3tt4JNBi
+ 2qysDcdeC+u/XX/soP6jr8vXf/hZ6nuNkWFtyEdT+bgjFXO5zrGdSjbXjDS2Y66bwXex9P81rY/
+ md1gB
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Hi vmukunda,
+From: Igor Velkov <iav@iav.lv>
 
-kernel test robot noticed the following build warnings:
+On a Kobol Helios64 the JMB585 SATA controller sometimes does not train
+the link on resume from s2idle. The 500 ms poll times out and
+resume_noirq() returns -ETIMEDOUT. On v7.3-rc7 with the mainline DT
+this happened in the 14th of 14 cycles, and the system did not resume.
 
-[auto build test WARNING on net/main]
+When training times out, bring the port up again, at most twice. Each
+attempt initializes the PHYs again and, where PERST# is wired, holds it
+low for at least 100 ms. Without an endpoint, probe now gives up after
+three attempts, in about 2.1 s instead of 0.7 s.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/vmukunda/octeontx2-af-Fix-npc_delete_flow-counter-read-for-cn20k/20261023-100112
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261023100112.3402726-1-vmukunda%40marvell.com
-patch subject: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for cn20k
-config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261024/202610240855.NijJJoJD-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610240855.NijJJoJD-lkp@intel.com/reproduce)
+Print the LTSSM state with the timeout message.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610240855.NijJJoJD-lkp@intel.com/
+With the patch, one such timeout showed LTSSM 0x10, and the first retry
+trained the link.
 
-All warnings (new ones prefixed by >>):
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+ drivers/pci/controller/pcie-rockchip-host.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
-   In file included from drivers/net/ethernet/marvell/octeontx2/af/rvu.h:13,
-                    from drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:11:
-   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c: In function 'rvu_mbox_handler_npc_delete_flow':
-   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:58: error: 'rvu_pdev' undeclared (first use in this function)
-    1962 |                                 if (blkaddr && !is_cn20k(rvu_pdev))
-         |                                                          ^~~~~~~~
-   include/linux/soc/marvell/silicons.h:22:41: note: in definition of macro 'is_cn20k'
-      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
-         |                                         ^~~~
-   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:58: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/soc/marvell/silicons.h:22:41: note: in definition of macro 'is_cn20k'
-      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
-         |                                         ^~~~
->> include/linux/soc/marvell/silicons.h:22:46: warning: left-hand operand of comma expression has no effect [-Wunused-value]
-      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
-         |                                              ^
-   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:49: note: in expansion of macro 'is_cn20k'
-    1962 |                                 if (blkaddr && !is_cn20k(rvu_pdev))
-         |                                                 ^~~~~~~~
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index 5b071bdc4f90..b4499fc3f90b 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -325,7 +325,10 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ 				 status, PCIE_LINK_UP(status), 20,
+ 				 500 * USEC_PER_MSEC);
+ 	if (err) {
+-		dev_err(dev, "PCIe link training gen1 timeout!\n");
++		status = rockchip_pcie_read(rockchip, PCIE_CLIENT_DEBUG_OUT_0) &
++			 PCIE_CLIENT_DEBUG_LTSSM_MASK;
++		dev_err(dev, "PCIe link training gen1 timeout! (LTSSM %#x)\n",
++			status);
+ 		goto err_power_off_phy;
+ 	}
+ 
+@@ -377,6 +380,26 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ 	return err;
+ }
+ 
++#define ROCKCHIP_PCIE_INIT_RETRIES	2
++
++/* Pulse PERST# and train again when the link does not come up */
++static int rockchip_pcie_init_port_retry(struct rockchip_pcie *rockchip)
++{
++	struct device *dev = rockchip->dev;
++	int i, err;
++
++	for (i = 0; ; i++) {
++		err = rockchip_pcie_host_init_port(rockchip);
++		if (err != -ETIMEDOUT || i == ROCKCHIP_PCIE_INIT_RETRIES)
++			break;
++		dev_info(dev, "link training retry %d\n", i + 1);
++	}
++
++	if (!err && i)
++		dev_info(dev, "link up after %d retries\n", i);
++	return err;
++}
++
+ static irqreturn_t rockchip_pcie_subsys_irq_handler(int irq, void *arg)
+ {
+ 	struct rockchip_pcie *rockchip = arg;
+@@ -881,7 +904,7 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
+ 	if (err)
+ 		goto err_disable_0v9;
+ 
+-	err = rockchip_pcie_host_init_port(rockchip);
++	err = rockchip_pcie_init_port_retry(rockchip);
+ 	if (err)
+ 		goto err_pcie_resume;
+ 
+@@ -938,7 +961,7 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
+ 		goto err_set_vpcie;
+ 	}
+ 
+-	err = rockchip_pcie_host_init_port(rockchip);
++	err = rockchip_pcie_init_port_retry(rockchip);
+ 	if (err)
+ 		goto err_vpcie;
+ 
+
+-- 
+2.43.0
 
 
-vim +22 include/linux/soc/marvell/silicons.h
-
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  12  
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  13  #define CN20K_CHIPID	0x20
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  14  /*
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  15   * Silicon check for CN20K family
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  16   */
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  17  static inline bool is_cn20k(struct pci_dev *pdev)
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  18  {
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  19  	return (pdev->subsystem_device & 0xFF) == CN20K_CHIPID;
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  20  }
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  21  #else
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11 @22  #define is_cn20k(pdev)		((void)(pdev), 0)
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  23  #endif
-25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  24  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
