@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833972;
-	b=LZOf7eLCK1MOBDmIs25aJ0EI3hARa+OlgMDAsj6pCrFBUKMjay7dybG+YOMyflC9YdiY
-	 07OL2mrPnifWLW/yLMU+zrAj6+6QUOj3oXQnE7lTZ+psTtRfeYZcsPor5pMcTUaBI1sSk
-	 4287+EkRkiBtwU3IiuFYaxDqbFM+EOga+5jUqcZDZ5HerfSm5DnxTNN7wB04EDWjKgDvv
-	 9br6kcV6kgWw4tKcmKkQOiBKTJ+UJXjQeqZ6sW0wANb6g1iR1b6y3zTLvKsJg9xX50CGG
-	 6JUglIm0NSlU1nIbY6OYDxpKYYG54J5cde7LEzhC8cvjXmKybRynqkpYBlxFznz99FQ==
+	t=1792833975;
+	b=Mu6CcSpkBYaehBpJEjiE0aSRHtSbnUhB9JQk3CdqC3N3FFWjuZ9h7dSK1FeeQXF8l249
+	 68243ceU6NJrBeXFkH2ZYJrsDZ6I1HYf/uM0narwpIA7NTrGw1AFwxJo8h+CTp8hj0CTN
+	 d4qJpf5Xj8J8pbDG9QoWRDaM0gJ/SVnsBLXi8jxlhenHz6DOhK9kdQjOitwrIkKzhSoZq
+	 BM/eB3DjrnMg2kNSCx3WEzbEInPs1Nn7Sffu88UyR+JjhargcvbSA2rIFviRMhHO45T/q
+	 cPhai8saEEm6kYv7K7gH6SHQZGdO8eOfajMC4nTWrbyNl0gBS1HbbhigDfi0Kav9buw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-	b=EKB65IWKBjC7F3N2EY258I9Q9MBpyUPYLoYXet7enIMO206rog3G1IVraI8Us8q0OKKB
-	 2OIo8zJyfS6HDlsO65l1MwrneG6CuG7Kavn72AEeeRJQ3cMIdbCBxmSUWSFVYYzD3aeXE
-	 6y27riZ1EEWeuz1l1OQFlhcLYNobsMZnzmx3bZegpkP6YVj8+Q3hUR+wkc89W/9HKFDCv
-	 RmjX6rgxyOVuyuXsjnxLMr0McpGxrmz+MXrfiMLyX7SyzUz0pShcfzMaqrJVk8IzqLDNL
-	 NET6ld50M1ZZb+ZqJJSZwAOeHbjJbWce8dG2hnE6tKFPgmbdusAiWiVKM4AGG1izWlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792833975;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=P5pgjPuDWekL4PDuVC1dqeWj8mNBEfrz3m7ImGErQYg=;
+	b=qyKyl5aNyMS3TVCmDqAJzhagACeqkaHTj9NCgJ+Rx6A3nun1MhwR1OdfbxyXT08z10KO
+	 HN0bq5t3splfaKhwC2VuL1QUueU7i21HTWtJF+lbgkf0hSiC7aUFtN+fEHW/Zrm49FMjt
+	 CfzdxIOTbGhWyZATLuW+AMc88GgVUej16iRGcPKKz7UUgG63gr4ahSYqN9vShyD2I/a/6
+	 tm2Duie/ix0QaytvpzOhJjnxi+xnO5VIDm2Ns0HU0vsw4YDjqjYrYueRRquR4GlPP4SHU
+	 GIjWZ3Q9YTrfzWbjC2CRgcNPOkpTkzJAKSgoAQq9aXmAKAAf7G8t4lKacb7X+o+Ib+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yom9RZ3l;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=adVAFdVs;
+	arc=none smtp.remote-ip=195.10.208.46
+Received: from mout-b-106.mailbox.org (mout-b-106.mailbox.org [195.10.208.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687E9606A321
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 687E9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6242606A322;
+	Sat, 24 Oct 2026 09:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6242606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yom9RZ3l
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so881322a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:26:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792833971; x=1793438771; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-        b=Yom9RZ3lbEZ6Ax6ZUwhl8hPNc4gHe8FzT3pYzh7VUa9NX7nyj8Fxc4nAGg6OowU28I
-         mAB7peGMdUBo3782ZWTuQxaVFLn6M1tYp45M3HLyIh7MLlndZwSAVkvxfi97H9VbvniO
-         FOnT3i2BH+38FkBrUl3vmMq2Eiv7SAUrnA3Y9fCZQ+xqhEyb9htEcjaWjualhqBFv91a
-         M95XjryA6L6UNN/Y1iG67QkFBt+I31yHp3CofNImku26o7pse+zLTTtUPL51hYi94QTX
-         ZpNxTSbwICCncT5okcQcXX+EUk6fTGroreTrgj0Vl9aTR9AQbH/87AJ+PmnTWvwEJzZr
-         +FVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792833971; x=1793438771;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-        b=KNHdRidEzincX+hx13iH+tbwDdtrPbA2C0pq/tZK+/5PtuU6Syz3khw/wIgu0wsycq
-         oNkuQD4RjpBjurqTHLoMhfCAQmXAUH0op4o+wRe5WRmsJuuzaUrtP0oieiPltB1cYNri
-         RudhlBw7MvJ38nJ1gTxhh0jUFk56IrzcqiQAeCK/DFrb6kQhYUsv1RU4EWMOepkzlnrN
-         BdY4ECIBkkJ6G8axgoQM8daC8/w2ShL8jJER2lB5jTmYwA5V9KuNM/BIuZJFzKooRXMd
-         bBE2hYCypAie3Onhwn55057FpFAluXEGZhjliLIygCmW88CYgEbXa1HIx8RD7jXt+bIq
-         vjhA==
-X-Forwarded-Encrypted: i=1; AKwUvBykiYR8wW/jGnLDQaRkc+af8miOcG5RmXbWA9SoXAi4vhtqMzJGddyAETi8ZSD1gYb7O7I3HadxE5KC5fE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIP52SggNuFCCtJchva00b2dzGJl2uZaK3TpGEE/bY36S2E3yLC
-	PraQO7QV7lt+t7I0Q9oGcTPBp1A3xH7siCjoWgSDudLhwAfyb65xvzGu
-X-Gm-Gg: AYBFou2uqykCwtIHTXhQSmz3C4rB7jAplrY4qccgv0I3BL8xrmABtIh2QjHW88btdBi
-	3Y9/MXGUVZ5NWb8mpF0Tu+hH0j/W6wtFKuLqDK0Ovai0X/NGhOPjyrvTa+vM5ozeXEkJWKAnPSk
-	fYDdwAQw172y9fPqX16XWg47UhZn3uKvdOaQ5Am0VJumXq2jEzcZJbrIDeAM5rIdYCpC4bow6WD
-	May0EfDfGyoZ7sJL7TUPtvveWbM/lahCZpvwmxawKSwUQsYYu4ay9/5nhCWCQjnhdcQ6OHRuJMm
-	FFfwKFtY8klYIJSCM8Bn+VLshItEo/d5HZH7frtJPYfsnjllWiiZa/0JfQj+cr7suUeYcesBz81
-	V7KddH+q9gB0fvv+CFMPy3Te4iQAtI8wd7Wt+50Cax9MLllvSXBsMfaePS3RXJD2pOIupC+qaan
-	1fad7nBbKqsCSoUuYFw5d1hzOsUNVzsItgWdzmP4ok6QAbCu64D/CPmAT32YsTKVew3iRMgANPK
-	vRfh70VgQntsci8PV02z+MjY6IxL+huMwrWj7tshejlFuTYiO1s9VexPDGnL1Kd0HVSdH67FzxW
-	u+HIxlbgGdWjdb083SMAL1zKZCyPLH6WH/07itTvTFEUa5UnEtYjUYNJZMVgjPmkdBAwlpy1Z20
-	6J3P+mVQ/QtCw8YbEJ8tg0LsmMKQyTqkTlX4=
-X-Received: by 2002:a17:90b:35c6:b0:3ac:8897:7baa with SMTP id 98e67ed59e1d1-3adeae64f23mr1257289a91.40.1792833970704;
-        Sat, 24 Oct 2026 02:26:10 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm1392312a91.1.2026.10.24.02.26.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:26:10 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=adVAFdVs
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-106.mailbox.org (Postfix) with ESMTPS id 4jBZJF1dPLzNm0l;
+	Sat, 24 Oct 2026 11:26:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1792833965;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P5pgjPuDWekL4PDuVC1dqeWj8mNBEfrz3m7ImGErQYg=;
+	b=adVAFdVsXrMb19r0W25mSSPAcoO1iLzDfk0BkkYYoFlvV6iQu9EO80Ji3fz+cy3a/lLo9u
+	I/f7F4zBoB2cFC0zhR4oelLvt+M66zE4C7DbOXhlUCrMED+ODWRuxkP+zI4iSyvlpEzRBB
+	aMZrprgtDuNjtWqc/Y0HiLXKr4qwkdilrRtWrukqtiMBAAxX2Yd93OJoQwfxODereUNmf6
+	9sjFyInjpijhHRylPeA+r2lBNmn3+LSZqHv6HgCKwvL5RyKTthbYSeAjWI5+62anh0w19t
+	7lgS7g/wito0SCTGKgep3zceZzCkYIwhSCwcEzAVdORTxvo1PhyS7cbRE/QUbA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+From: Ralf Lici <ralf@mandelbit.com>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	=?UTF-8?q?Daniel=20Gr=C3=B6ber?= <dxld@darkboxed.org>,
+	Antonio Quartulli <antonio@mandelbit.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Alice Mikityanska <alice.kernel@fastmail.im>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Sat, 24 Oct 2026 17:25:58 +0800
-Message-ID: <20261024092558.143621-3-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+Subject: [RFC net-next v2 03/18] ipv6: allow output fragmentation to reuse a Fragment Header
+Date: Sat, 24 Oct 2026 11:25:13 +0200
+Message-ID: <20261024092532.172005-4-ralf@mandelbit.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261024092532.172005-1-ralf@mandelbit.com>
+References: <20261024092532.172005-1-ralf@mandelbit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,315 +84,172 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jBZJF1dPLzNm0l
 
-The board EEPROM at 0x50 holds the DRAM configuration (number of chip
-selects, data rate and type), which has to be read before DRAM can be
-trained. The P1 PMIC at 0x41 supplies the CPU core (buck1), the 1.8 V
-rail of the EEPROM (buck3) and the SD card I/O (aldo1), which have to
-be set up before that. Boards that boot from SPI NOR also need the
-flash.
+IPv4-to-IPv6 translation constructs an IPv6 Fragment Header before the
+target route is selected. If that route has a smaller MTU, IPv6 output
+must split the translated fragment again. Adding another Fragment Header
+would create a new fragment domain instead of subfragmenting the
+original datagram representation.
 
-Mark these board devices bootph-pre-ram on the boards that have them.
+Allow ip6_fragment to reuse a locally constructed Fragment Header,
+preserving its identification, datagram-relative offset and More
+Fragments state. This mirrors IPv4 refragmentation, whose fragment state
+carries the original offset and whether more fragments follow the input
+fragment.
 
-Reviewed-by: E Shattow <e@freeshell.de>
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Signed-off-by: Ralf Lici <ralf@mandelbit.com>
 ---
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 6 ++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    | 6 ++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  | 6 ++++++
- 6 files changed, 33 insertions(+)
+New patch in RFC v2 replacing ipxlat's v1 IPv4 pre-fragmentation
+machinery.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-index 81c40df2a3..5d1132f5a9 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-@@ -71,6 +71,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>;
- 		pagesize = <16>;
- 		read-only;
-@@ -100,6 +101,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -113,6 +115,7 @@ pmic@41 {
+ include/linux/ipv6.h  |  2 ++
+ include/net/ipv6.h    |  1 +
+ net/ipv6/ip6_output.c | 53 +++++++++++++++++++++++++++++++++++++++----
+ 3 files changed, 51 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/ipv6.h b/include/linux/ipv6.h
+index a7421382a916..558260074842 100644
+--- a/include/linux/ipv6.h
++++ b/include/linux/ipv6.h
+@@ -177,6 +177,8 @@ struct inet6_skb_parm {
+ #define IP6SKB_L3SLAVE         64
+ #define IP6SKB_JUMBOGRAM      128
+ #define IP6SKB_SEG6	      256
++/* the local stack owns fragmentation of this IPv6 representation */
++#define IP6SKB_FRAG_SOURCE    512
+ #define IP6SKB_MULTIPATH      1024
+ #define IP6SKB_MCROUTE        2048
+ };
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+index e3f245d640ac..a1cca04fd17a 100644
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -189,6 +189,7 @@ struct ip6_frag_state {
+ 	int		hroom;
+ 	int		troom;
+ 	__be32		frag_id;
++	bool		not_last_frag;
+ 	u8		nexthdr;
+ };
  
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -127,6 +130,7 @@ buck2 {
- 			};
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 25fe0ba98b1a..73633483f1ab 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -204,7 +204,8 @@ static int __ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff
+ 		return ip6_finish_output_gso(net, sk, skb, mtu);
  
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -155,6 +159,7 @@ buck6 {
- 			};
+ 	if (unlikely(skb->len > mtu ||
+-	    (IP6CB(skb)->frag_max_size && skb->len > IP6CB(skb)->frag_max_size)))
++		     (IP6CB(skb)->frag_max_size &&
++		      skb->len > IP6CB(skb)->frag_max_size)))
+ 		return ip6_fragment(net, sk, skb, ip6_finish_output2);
  
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index 58035d886b..90c4585d94 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -194,6 +194,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <16>;
- 		read-only;
-@@ -223,6 +224,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -236,6 +238,7 @@ pmic@41 {
+ 	return ip6_finish_output2(net, sk, skb);
+@@ -805,6 +806,7 @@ void ip6_frag_init(struct sk_buff *skb, unsigned int hlen, unsigned int mtu,
+ 	state->troom = needed_tailroom;
  
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -250,6 +253,7 @@ buck2 {
- 			};
+ 	state->offset = 0;
++	state->not_last_frag = false;
+ }
+ EXPORT_SYMBOL(ip6_frag_init);
  
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -278,6 +282,7 @@ buck6 {
- 			};
+@@ -873,7 +875,7 @@ struct sk_buff *ip6_frag_next(struct sk_buff *skb, struct ip6_frag_state *state)
+ 	state->left -= len;
  
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-index 635e95aad1..93f486ba60 100644
---- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-@@ -208,6 +208,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c04";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC18 */
- 		pagesize = <16>;
- 		read-only;
-@@ -230,6 +231,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -243,6 +245,7 @@ pmic@41 {
+ 	fh->frag_off = htons(state->offset);
+-	if (state->left > 0)
++	if (state->left > 0 || state->not_last_frag)
+ 		fh->frag_off |= htons(IP6_MF);
+ 	ipv6_hdr(frag)->payload_len = htons(frag->len - sizeof(struct ipv6hdr));
  
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -257,6 +260,7 @@ buck2 {
- 			};
+@@ -891,10 +893,13 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	struct rt6_info *rt = dst_rt6_info(skb_dst(skb));
+ 	struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
+ 				inet6_sk(skb->sk) : NULL;
++	struct frag_hdr old_fh;
+ 	u8 tstamp_type = skb->tstamp_type;
+ 	struct ip6_frag_state state;
+ 	unsigned int mtu, hlen, nexthdr_offset;
++	unsigned int old_data_len, old_offset, unfrag_len;
+ 	ktime_t tstamp = skb->tstamp;
++	bool frag_source, refrag;
+ 	int hroom, err = 0;
+ 	__be32 frag_id;
+ 	u8 *prevhdr, nexthdr = 0;
+@@ -910,6 +915,31 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	hlen = err;
+ 	nexthdr = *prevhdr;
+ 	nexthdr_offset = prevhdr - skb_network_header(skb);
++	frag_source = IP6CB(skb)->flags & IP6SKB_FRAG_SOURCE;
++	refrag = frag_source && nexthdr == NEXTHDR_FRAGMENT;
++	if (unlikely(refrag)) {
++		/* The current fragment header describes this locally built
++		 * IPv6 representation. We need to replace it with smaller
++		 * fragments rather than nesting another frag hdr around it.
++		 */
++		if (unlikely(skb->len < hlen + sizeof(old_fh) ||
++			     skb_copy_bits(skb, skb_network_offset(skb) + hlen,
++					   &old_fh, sizeof(old_fh)))) {
++			err = -EINVAL;
++			goto fail;
++		}
++
++		old_data_len = skb->len - hlen - sizeof(old_fh);
++		old_offset = ntohs(old_fh.frag_off) & IP6_OFFSET;
++		unfrag_len = hlen - sizeof(struct ipv6hdr);
++		if (unlikely(old_offset + unfrag_len > IPV6_MAXPLEN ||
++			     old_data_len >
++				     IPV6_MAXPLEN - old_offset - unfrag_len)) {
++			err = -EINVAL;
++			goto fail;
++		}
++		nexthdr = old_fh.nexthdr;
++	}
  
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -285,6 +289,7 @@ buck6 {
- 			};
+ 	mtu = ip6_skb_dst_mtu(skb);
  
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -386,6 +391,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 23f32a8a3d..ce7342ed82 100644
---- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -167,6 +167,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <8>;
- 		read-only;
-@@ -199,6 +200,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -212,6 +214,7 @@ pmic@41 {
+@@ -939,8 +969,11 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 		goto fail_toobig;
+ 	mtu -= hlen + sizeof(struct frag_hdr);
  
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -226,6 +229,7 @@ buck2 {
- 			};
+-	frag_id = ipv6_select_ident(net, &ipv6_hdr(skb)->daddr,
+-				    &ipv6_hdr(skb)->saddr);
++	if (refrag)
++		frag_id = old_fh.identification;
++	else
++		frag_id = ipv6_select_ident(net, &ipv6_hdr(skb)->daddr,
++					    &ipv6_hdr(skb)->saddr);
  
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -254,6 +258,7 @@ buck6 {
- 			};
+ 	if (skb->ip_summed == CHECKSUM_PARTIAL &&
+ 	    (err = skb_checksum_help(skb)))
+@@ -953,7 +986,8 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 		struct ip6_fraglist_iter iter;
+ 		struct sk_buff *frag2;
  
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -353,6 +358,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index eb77aae9d6..83ad1cc06d 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -158,6 +158,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		pagesize = <16>;
- 		size = <256>;
- 		read-only;
-@@ -187,6 +188,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -200,6 +202,7 @@ pmic@41 {
+-		if (first_len - hlen > mtu ||
++		if (refrag ||
++		    first_len - hlen > mtu ||
+ 		    ((first_len - hlen) & 7) ||
+ 		    skb_cloned(skb) ||
+ 		    skb_headroom(skb) < (hroom + sizeof(struct frag_hdr)))
+@@ -1038,6 +1072,15 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	ip6_frag_init(skb, hlen, mtu, rt->dst.dev->needed_tailroom,
+ 		      LL_RESERVED_SPACE(rt->dst.dev), prevhdr, nexthdr, frag_id,
+ 		      &state);
++	if (refrag) {
++		/* Mirror IPv4 refragmentation: start at the old datagram
++		 * offset and retain its MF value on the final new fragment.
++		 */
++		state.left -= sizeof(old_fh);
++		state.ptr += sizeof(old_fh);
++		state.offset = old_offset;
++		state.not_last_frag = old_fh.frag_off & htons(IP6_MF);
++	}
  
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -214,6 +217,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -242,6 +246,7 @@ buck6 {
- 			};
- 
- 			aldo1_3v3: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 790234f355..dba5f8a021 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -185,6 +185,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		pagesize = <16>;
- 		size = <256>;
- 		read-only;
-@@ -214,6 +215,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -227,6 +229,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -241,6 +244,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -269,6 +273,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -366,6 +371,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
+ 	/*
+ 	 *	Keep copying data until we run out.
 -- 
-2.43.0
+2.55.0
 
