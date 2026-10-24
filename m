@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792853305;
-	b=35V6WGvxQv6fgzZAv/S9rELXq8mlYQGdlfan3FRvBUHrH3uG1+FwsumBTyMgzRG/0oBK
-	 eKrRP6auxg/iQsyIPE5wSG1mfp/NOgg+6/i3S/Mbpjy5T1qjaz7HpnAKfbWBtuQLl0LEN
-	 sZKTVTp+KztczbQ6EpSeqxJy9nw7UjmkgvIvoLVgEc1J1kXeXBiWM1iToerPXnLtr/IcI
-	 2lch3CIengjxRIYW+iYgNw3aU08GnZH+5yQrj6K5kTQ18GjOZJu4SycHECdqBBCJvHUC0
-	 NZasSON8pN7MYCwWFadUveo/Eewpg9lGr3zhdOR+C2Bx4woDPvuKx/xSPrAogHaX8zg==
+	t=1792853429;
+	b=W1rdH5krFTTaA7+ruOiyakVkk+gk23K87ENQpA7EKRNJ9Pvfb87yqzxlWoScFG+lLrkz
+	 UbqvOTaCm3Z/2eGQcgLw+HknOVPNWXgIqE6EMzEotoa3kVPncQM5m56tjGeG8dnzla5uy
+	 m9cn1nfbQMhvTWud2eJ+RoeTIUGPOCAL8THOIsDHtOAVT0BU4tPGywRW7+NguY7G5G8FT
+	 dORXuq4wT3LtXtn63dbebOTVihcNS8Fog9C2Bai5g50c0mSP7crkn077Xv/TIb5vNjdmQ
+	 vMepnYF2lVWj7aTOuDo5FD4Tf96ABxW0rfqgT3hbRGQtiJx241pTzdYSEwkfpTQ6ZOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792853305;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=ABDMRmX2qjUWTye2+cWKlCKH3jB8QfXq511EgObbU6Q=;
-	b=zJw1FrgOaojdgoFkZmkK44zQdvNnIQAZnr8OCK+b1E88Ovn+g1qX+fgJJmuskY97P34N
-	 sipu0Z3uUGP+sQJKe65RLYa194G6Y1t8aM8VjHxAe4JjMp/syfModTtXE7f8adFMD/mvB
-	 MR2Aq6mNVSF93jAQ5nnT6HPgJgIHrXT1wA81cqaEsme1CDblX8RE6IIX8gT6kv1klCb7u
-	 Oi3GtJmM0/QoMn3Zx0m4VYpKQ7KBo7VhJAqJUSiQlhR2w+kd8dhru35mWoQk+QGllQY+j
-	 IUfmt2Tol1kVfJi9rVTFhojeEFCOJQERg1dm+H/QKrTEWBmvetteVbp7WN69fSBe3mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792853429;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:User-Agent:In-Reply-To:From:
+	 Content-Type:Cc:Mime-Version:Content-Transfer-Encoding:References:
+	 X-Lms-Return-Path:To:Subject:Date:X-Original-From;
+	bh=L0VbpmrkDXp5SRFASfh5Wj4ga8p/F6MDKjY6zQhL8g8=;
+	b=XhTGNRpiRuauQvv8pgRyhw1Yyzjvj3nBIhbIo07omdqWipy+NBrq+5iCknqBYwt7u7dP
+	 ZZZS+mR7KL+FpkrcIWnCZvB7pPxnNntJnQdKWuN3gK5AOJZCxpaoyeTf68ytk7NNK8e0s
+	 uwDf8jOhvGz1A/yKdPzBVYy0jf/et9fx5TFD9GDNbEBmojR2OMD6IYi+Mj9ACgo5aoiua
+	 pfKz0BYGnMgeoGp20H1tICJo/X5xtNJUy5HtJBA47Mb1LbpZxWK7FuzLkDjssN6vVo86u
+	 ENqpFhcx41ma8Neow7466dV62wnJydpexfw0v/xc5Lx8Swj6FUj4zs8uvKZCLb1Sk0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vQTLFVbz;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=nlhFEcMR;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CEE606A31A;
-	Sat, 24 Oct 2026 14:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51CEE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3590D606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3590D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vQTLFVbz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792853299; bh=ABDMRmX2qjUWTye2+cWKlCKH3jB8QfXq511EgObbU6Q=;
-	h=From:To:Cc:Subject:Date;
-	b=vQTLFVbzAd5lN3pTBd2zjr9yL2XUkqlgxaF5ulPV57hnsLjYZxdNVSDWfNSixpEBX
-	 TQW35VmBi8VxcfoGJLvdX2y5IrCRPe7TAIXcW8axorfDaHAttMaxEKLbagnpOgO805
-	 CL+TH6WEyWunL42S/Jyfgoi5404/CH87dYbwGZKw=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id C113044A; Sat, 24 Oct 2026 22:48:17 +0800
-X-QQ-mid: xmsmtpt1792853297tyw74ycl9
-Message-ID: <tencent_51CD3420AAC8A722EA2FD5FEFB6524D4A905@qq.com>
-X-QQ-XMAILINFO: NCmjBvJFq6XNAbEtx0Z7xNxzzqc47/GroJE9x+wPdFR8MfzfNmjq7PMNCVFM/C
-	 ePrbLqSWa7gNqYk/HWN/0Izh3JJcVYcWHZIksej7JjTit30IeCzAKVHq87NHLWeib5SWBuQdAR9e
-	 +ALM8h5RZy1FW8dVMTJXU1jOiztsVGi9izvfaiwJPMiGIrGA2fgxrtTkJT10vQ7FbU1xvrPJ9rEf
-	 mPSQEyjI1F2jUAziAyaAm39WaRvsafCBz7FSSKe8HD5GxWMwIfmfQ20ezO1eCVpzcA0kCq8gCpm8
-	 wMvB0qYQ6hEsApf0dGTFVPzTBTX09/LPgw6MGJp4CBqVhYAke+ELq6etktV7+SE/kSoee/+NCGAl
-	 Fv9GT6Btvc8RZEhxiPNhBUWLooISO65uKei4YDj47ht5uz2j/tXUAgUkjXBIg4+hkyHBk9cjKF5m
-	 0YzXvTfPCkR3J6eMtCJzgvPD8KYmTtCFyAsjyMi+UVVi9vcDbe7myUlUVq3wHI0jsX7geE+UBP0k
-	 J86n40WmiZmR+EIAiMNAL0sdhXREvE00LamMdcHXuZh1xnezi446yIquvZJCnSQ+w6aZw4dljXua
-	 4qAwdETStyZfbgRiGKf6hmg2wqDlyUSdMz5yNcmP1ztyJBil8Da7R7Dmk3LWAxxuG7jI7qVNqKwO
-	 cZHrQXhhtq9QXSEDKMAkfbTsQpIUYhv9KNCSgtG/jXRI8TPVZGjBSFVrb4219/AmNF2EI9h5844C
-	 uFIN3sIcdaN/lg1Q01QovMYqrxVf9ptTNjv6bBXbOFUbfoxYlu+cJp3LDxYM+6tsl74X2v2JkLde
-	 Flxpli8ycrhYOcD/q2w56PaUE9rVXDbw9b4GawGDgOsMkhQUUTVY4bIlFeh2KyddZo3Ac2twL82s
-	 e3GXEoeZ7Yq79+8/winzCJ1Kr49jyA2Co9YgzUqkQpkk2SuQxkkEw+C3pENPih1bWjqYOKkVuWt2
-	 pb0gnMlDUjHKZ12epFOqLwY0FjG5Qvfb3UwNOXoQ9LdiYBwMa/9OncRpltE4AzB8JW3x50RHqFgp
-	 H2WFEvJlW7GfFYSvXjUkZADYBPTd4kemTEWFTMVerCmBE3iOYs70ttdp88Ug5i93CL6LxPL0q6uH
-	 LmwbTFBnpoiBX/GSQ=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Guikun Yang <yangguikun19@qq.com>
-To:
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] tracing: trigger filter use-after-free in set_trigger_filter()
- ENOMEM path
-Date: Sat, 24 Oct 2026 22:48:16 +0800
-X-OQ-MSGID: <20261024213000.91820-trigger-yangguikun19@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=nlhFEcMR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792853422; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=L0VbpmrkDXp5SRFASfh5Wj4ga8p/F6MDKjY6zQhL8g8=;
+ b=nlhFEcMRiuEK6eDh9q6wPx028q61zJYF5UGz5FnQnK/VQDeZUEyrCz8JuhTiRsmq1nk5Sz
+ U/k9OM4ggQ23zoBJYL5ODC0oyE11hN1uRmAHs4KQkiKv5MEsamFszfgWtiQeMmvVaNhCmI
+ 90Hx2aW1ZpH8eYebBNhNMcvXKNqBf/4gLuXusb9tesvbIlIKksVUnFI4nXJhSSTNhzRJHU
+ S4UW9kGFlUqJOKptbnqbOcMbDNN8vSEBS8hiqBbpZhmwRHwn1NE0RGaQGgqKYp565D8dXr
+ 0xgn+tbBb+DKnPp2Ky9BlY0JHxF20z/evnRO38Jt1BiUD6XJ3As98vf3/2gKJQ==
+Message-Id: <beb5fc93-4cca-4dc9-a4e3-f406e8c9cd58@bytedance.com>
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <attf9KALBQyOGyco@redhat.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>, 
+	<ruanjinjie@huawei.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,89 +59,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com> <attf9KALBQyOGyco@redhat.com>
+X-Lms-Return-Path: <lba+26adcc5ac+c66acf+vger.kernel.org+zhaogongyi@bytedance.com>
+To: "Oleg Nesterov" <oleg@redhat.com>
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a group-stop
+Date: Sat, 24 Oct 2026 22:50:06 +0800
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-Hi Steve, Masami,
+On 10/23/26 9:24 PM, Oleg Nesterov wrote:
+> On 10/23, Zhao Gongyi wrote:
+>>
+>> --- a/arch/arm64/kernel/ptrace.c
+>> +++ b/arch/arm64/kernel/ptrace.c
+>> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+>>   	if (regs->syscallno == NO_SYSCALL)
+>>   		return;
+>>
+>> -	/* We should only be called when target is in a ptrace stop */
+>> -	if (WARN_ON_ONCE(!info))
+>> -		return;
+>> -
+>>   	/*
+>>   	 * For compat tasks, orig_r0 is provided directly through GPR index
+>>   	 * 17.
+>> @@ -588,7 +584,7 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+>>   	 * Don't update orig_x0 for a syscall-exit-stop, as x0 now contains the
+>>   	 * return value of the system call.
+>>   	 */
+>> -	if ((info->si_code & ~0x80) == SIGTRAP &&
+>> +	if (info && (info->si_code & ~0x80) == SIGTRAP &&
+>>   	    target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT) {
+>>   		return;
+> 
+> LGTM, but I don't understand this arm-specific code.
+> 
+> And... Do we need to check target->last_siginfo at all?
+> 
+> ptrace_signal() -> ptrace_stop() path sets ->ptrace_message = 0.
+> 
+> In all other cases: if info != NULL, then .si_code == target->exit_code.
+> ptrace_event(event) users always use event != 0 and != 0x80.
+> 
+> So it seems that we can just do
+> 
+> 	if ((target->exit_code & ~0x80) == SIGTRAP &&
+> 	    target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT)
+> 
+> ?
+> 
+> I'll recheck... If I am right, perhaps it makes sense to simplify
+> ptrace_get_syscall_info_op().
+> 
 
-set_trigger_filter() (kernel/trace/trace_events_trigger.c) violates RCU
-publishing rules in its ENOMEM path, leading to a possible
-use-after-free of struct event_filter.
+Hi Oleg,
 
-The normal path is careful:
+Thanks for the review. I checked target->exit_code when the tracer calls 
+PTRACE_SETREGSET after waitpid(). It
+was 0 at syscall-exit-stops both with and without PTRACE_O_TRACESYSGOOD: 
+wait_task_stopped() clears it when
+reporting the stop. last_siginfo still held the corresponding si_code (5 
+or 133).
 
-	tmp = rcu_access_pointer(data->filter);
-	rcu_assign_pointer(data->filter, filter);
-	if (tmp) {
-		/*
-		 * Make sure the call is done with the filter.
-		 * ...
-		 */
-		if (system_state != SYSTEM_BOOTING)
-			tracepoint_synchronize_unregister();
-		free_event_filter(tmp);
-	}
+I also used temporary kernel logging to check orig_x0 before and after 
+writing a distinct value to x0 at each
+stop. orig_x0 remained unchanged in both cases. Using exit_code in this 
+condition would instead fall through
+and copy the new x0 into orig_x0.
 
-The old filter is freed only after tracepoint_synchronize_unregister(),
-because trigger handlers read it under rcu_read_lock_sched() via
-rcu_dereference_sched(data->filter) in event_triggers_call().
+So I think we should keep the last_siginfo check in v2. The same 
+exit_code lifetime also seems relevant to
+ptrace_get_syscall_info_op() after waitpid().
 
-But the tail of the same function is not:
-
-	kfree(data->filter_str);
-	data->filter_str = NULL;
-
-	if (filter_str) {
-		data->filter_str = kstrdup(filter_str, GFP_KERNEL);
-		if (!data->filter_str) {
-			free_event_filter(rcu_access_pointer(data->filter));
-			data->filter = NULL;
-			ret = -ENOMEM;
-		}
-	}
-
-At this point data->filter is the freshly published "filter" (from the
-rcu_assign_pointer above).  When the kstrdup of the filter string fails
-under memory pressure, the just-published filter is freed immediately,
-without any grace period.  A concurrent event_triggers_call() on
-another CPU can have already dereferenced data->filter (this filter)
-under rcu_read_lock_sched() and be walking the preds when the kfree
-lands — a use-after-free.
-
-Sequence:
-
-    T1 (tracefs write, holds event_mutex)      T2 (tracepoint fires)
-    -----------------------------------------  -------------------------------
-    create_event_filter(...) -> F_new
-    rcu_assign_pointer(data->filter, F_new)
-                                               data->filter deref -> F_new
-                                               filter_match_preds(F_new)...
-    kstrdup(filter_str) fails
-    free_event_filter(F_new)   /* no sync! */  ... still using F_new
-
-The write side holds event_mutex, but the trigger execution side does
-not take that mutex; the only protection for the filter lifetime is the
-RCU grace period, which this path skips.
-
-Trigger conditions: an admin writes a trigger with an "if" filter
-while the target event fires at high rate (e.g. sched_switch,
-irq handlers), and the kstrdup fails (GFP_KERNEL allocation under
-memory pressure).  The failing allocation is easy to hit repeatedly
-via a memory-hungry cgroup.  The freed filter's preds array is
-then read by filter_match_preds().
-
-Fix: either free the new filter before publishing (i.e., don't
-rcu_assign_pointer until the filter_str copy succeeded), or perform
-tracepoint_synchronize_unregister() before free_event_filter() in the
-ENOMEM path, mirroring the normal path.  The first variant is
-cheaper: move the kstrdup above the "assign:" label and release the
-pointer only after the string copy succeeded.
-
-I found this by code inspection.  Checked against 7.3.0-rc7 and
-linux-next (2026-10-24): both are unchanged.  syzbot has no matching
-report (its trigger coverage focuses on counting/snapshot triggers,
-not on the ENOMEM path of filter assignment), and I found no prior
-report on lore/marc.
-
-Best,
-Guikun Yang
-
+Thanks,
+Gongyi
