@@ -1,121 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856549;
-	b=kD9atKGL8gSrVWTR4jqGXuwCdhkUzC0M8eStiJyi/Poba4FHxCCqkWBxHQMJb3Yqkh3a
-	 BgymjClkgC5VnEozTvT+V5SIs0Le36UGTMbHiA1vw3VNbqYZcltQUKcbyZnmZ+xlSau+8
-	 ktaIvn5hRtRuqnv6VlAqRod4xDLKd8q8tUZ2jdxqJ3LupYqgEvV/bZFozmEoJvrT4vAqi
-	 IL4xP0iMTQWDYysH9mCnInHksGPDjBmoD3sFPv5zy/ADJ4Kg/Ra7pizO3wpDtQS77bFvC
-	 Xbd1qVpsB+/FmGe80uyUmodd9PvLuht8K79naRfeGfQQPPx5rthaClPO0+vMDXilmbg==
+	t=1792856982;
+	b=jNXD+nnirkOWe6VGuWLupnagmkRQZaHwyPaanqhjXYyXdU28JdKZai5SRB2rhctkU4Qu
+	 RI2wHCjRlPTXeOf+LcmAYUeKrDFI+04Z3HZNVzbr5BEpuUvYuuZdkFERBLJ7UUO9SyNZ1
+	 YNZ88IUziew5gV3f2W/oyQ6sf5kLTwBkhYo9iHn2H6Ses+bok/CXfk778/S5/4A0vdfsL
+	 7bTnAHOR147xn+SM5GJaK91Qt82AaEGaHy+TZBhpvk+1apTnZGAbMhyMy50ildPqhZihQ
+	 AyuPJOvdaAIFEP7UULK1sCSuDmzxX5RpuMTcw4iDC0or8b1tg7U7HLBzUOgL3OAvxQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856549;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
-	b=LAy2Bn4p7Ik8mWVwXwgsuQ61G8xPIgNavgY0/+pqXguu+18NZRAPHrKpNe4hoe7e5zq5
-	 5RxcU0Tfj+8IS/NyASszF0TSYIPeZ5wToUdfxXt8LOiWAIPyN/l0xccDzl3e8ZkaHUso2
-	 1/G4F70yzh70I6Kw751ZtOo0Q/VPQa2Ij5YKb+AxBu0DFdRSdlrwVISQub4Oz+qd2/kX0
-	 lO+REBlsxP3T1etKvfecqawqPiB/PsRxbA+k4nTws8sIGb12hq3/QqEF9jX/QGEF5iSXN
-	 MfV2eI7GKeWj8CWzBZJkLEDsG03iv/FqYeoW8olK79o2/hiIeoyhzqjPy7VxWIjUCHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856982;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=wblaXljSo131LqOUdT42ykZ2Daqoeu17S/51SQCuRm8=;
+	b=1sQp1IDTVp10t6SsOi3SsxpHYHS2PAQIiBNxWaUJm3HoVQlV3hKanmKPXCfwWhsj8ODJ
+	 hxXEE7BCxaPMVMs6rqVLWnYJTkl6cW7O5dXtm48EUCu+UmMpxiEScoiVeDt7EfTfbSfXN
+	 HODgLDmifLw7mxT2dta97N7IoONSxCuR3z8T3c0/DcpLgazjSotplrXMhPJxSD6Orrjmx
+	 wHTu1R0pKkpzdL4TGl5kBI8yDezIxtLtxu9MisuxVdVcp697mliYKyg+tp39v7a5Jw9jU
+	 rfhsTn7gQq65AnyTlo7TwOhy3hWy9ryPEs09np/1DNl4bWrZFeR2DPiGsqEmbtyST2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WBvYbDqG;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fyVHr3Yd;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C75606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:42:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5C75606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WBvYbDqG;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fyVHr3Yd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792856547;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
-	b=WBvYbDqG+1mFq0XvcsAcy5kGqtI5WsHjPrVYdCSXzeugru14SLKOnWKzvTR7fpW21ke5+2
-	tDH4Izl9lKt22JywCwpSuoz+HNtNuAPEh1WKNFltcT68d6n752M/EZ0N5OIeD3yAxCTKuO
-	Wb7pd6DPip/31LjLlSchEAjNIlB9Q1Y=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-692-8f9iVrwENAC0VrCcvw38aA-1; Sat, 24 Oct 2026 11:42:21 -0400
-X-MC-Unique: 8f9iVrwENAC0VrCcvw38aA-1
-X-Mimecast-MFC-AGG-ID: 8f9iVrwENAC0VrCcvw38aA_1792856540
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a4654add56so1507605e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792856540; x=1793461340; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
-        b=fyVHr3Yd5U6HTwhektAYa7Z2qxUP6o01ozDcwtjeUU7L2CFQS8DkTbjuIoGji2QpQW
-         DDuuiai93ttmjcBfbBqDpr256wEmCrfzR7wHFJUc/6ykcv+blXxav7/y+rmXnS3Zf0Rj
-         YXV4xDzJFb9s/EpspEBSpxhWxEql18P9yOfUmBZW0p/+FI7AFrjMDN/DoKR2Xdzh4qeX
-         ZWMNR2MB7dOHg6H3EDEs+JlNP9mlMIWzQhnLfbIcQkgEBJKV9KWcP2gqa7g37+AzYDUb
-         nitpc43a0w2nvqdYvWh9rDLeUTQuRVb2tEd5An0F0zjdLXw082843kX71kJql36xCBSh
-         ZjaQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43039606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43039606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f2040e10d8so1578213b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:49:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792856540; x=1793461340;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
-        b=chIZbFp3cZpt96Vr/SIdcKxkuYduv+ILPxpKJNFVdZ6kYZrb+ogtwuS3RYhhlMHcKX
-         b7v07PdoJw2LuC8wFyFmJ09q0ZbMtfYxn/3s3NnUF5ZrOVuEC9JeXT/jNeODRVk8mpUu
-         ch3WtaWyUHtxg52jq4xpg7gss38sNUrtQ9lCHJhMSq8D98mky6HIQf4M2RBUTJOyXxzF
-         +NGCDUt9Yr+hzdYy0zKTY5/q9G5bApvBOsjolcKy+IIpB5yJU5UQJOjWnzdm0wB0iVKH
-         1qWOUsfzx4B5Kk73WJaRDsGNY5J1HaBSYVG078iuTFeF2i4K3Fk6iaDADF8nHaXtJwNt
-         97nw==
-X-Gm-Message-State: AFq9FYLm9hdCq0/kNNWo2/LojK36u2I8TM6bkWRD0OKgCFxhjolEJ99b
-	nrWyDoNjColYcMFc4La9yfv6K2BJd4D0Pp4A54Wdqliu18Dt6Ww71wWGH0LVwp1MKhiVLfogzOM
-	uGNSNkTFCWBKiQq0RvDFI27coCL5I1ra5VL4pCfpuAqwbHOyaLaxi44364lo1mLjXOFmbDSb2x+
-	mE6yPBj+W9AhV0ATLMWsRIRDA2XfzMw9J9IftW4H0lQhQ=
-X-Gm-Gg: AYBFou2v6p70IFlUq9XTAKh3z4Ns9UxfFLOVMNbhXhZA/oTrVcBtILQZhN8+xDQnt9q
-	prYqWCgIGuGumzDnb/oXm5H8Rhy12rUWhNZP6lWfx/GMCZlb8jkxY0/YVT2jHw8ktJKHt/CnIlb
-	qiwq+5SKYu0upYMjsKLRo+uqu9GH85swH0U3Tv4iPQ42zB2ia0vzKABvYxeFvb7dbFXsoGn9A/r
-	XIUYtkOhdtBc+js3nw2qBrc9uYCNuQkTTUq5S48Jw0oAy1GTibT1quH03q89rfWuJOB6MoRzcZs
-	dP7TWicZTOhCYK0xxoovAGvDpHozAG7+zt8MDQoeknaDpOaSErMPoMwitHR3rjTlF+BooH0=
-X-Received: by 2002:a05:600c:46cd:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4a35ac39396mr36771005e9.4.1792856539769;
-        Sat, 24 Oct 2026 08:42:19 -0700 (PDT)
-X-Received: by 2002:a05:600c:46cd:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4a35ac39396mr36770405e9.4.1792856539078;
-        Sat, 24 Oct 2026 08:42:19 -0700 (PDT)
-Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm49273505e9.3.2026.10.24.08.42.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:42:18 -0700 (PDT)
-Date: Sat, 24 Oct 2026 11:42:15 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Chris Arges <carges@cloudflare.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
-Message-ID: <20261024113809-mutt-send-email-mst@kernel.org>
-References: <cover.1792768096.git.mst@redhat.com>
+        d=1e100.net; s=20260707; t=1792856981; x=1793461781;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wblaXljSo131LqOUdT42ykZ2Daqoeu17S/51SQCuRm8=;
+        b=aev9p+vTQ2aXOpCtM+ffu2VRm883ahHKQiJkFTyWz3hsobloY1GASwxzChHbJxUp4S
+         72KBAy/StspIZPBAXgFguXTJdSa+7GG4vzJKhJzQpMIOowIJep1jn4XwUHClrVeqkEaR
+         LnSUUVZAcD3F4PndyZ1NNMGIoqfiAusu8CT7yNVdxBH8sYgxu7axzNz1lU5R6waGgHzr
+         qWOMNcCi7/VfvkkOUhb9kDf1v8FiJtbUlesIRMDX7gVlDCpFW/0G4Yj/DSVx93E+x8DE
+         jb+JYl+KtaAMbXX7tye1VJPp6+QpktYOdQpe/+itByP2sIGOnp7eLTz9BrxFAJZKmdWN
+         kTPg==
+X-Forwarded-Encrypted: i=1; AKwUvByLGin6AUexPwnnn3YwUfkRBQ3fmvHkkU8wwHrMa7VMbmmff3d9hQxezW+EjkdVO0quFKhEDTAjeQv6a1k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzEjDT/yd63pov1+5/nhf+j983LopG9WxX2ECiOg462HrEx927
+	boSU7kpB7KJDyLzmm9fZNKcrMTBFIUROFiOGOcoQS0x+wTvnSeaeD8fR7aqHkjdTsRIYFB7yIpo
+	6bsNZYVxF12y96h31oVEvXQM2Im+hVJVJctN2WFJZ1p6k34n14S9ldQEY1AM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,223 +58,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1792768096.git.mst@redhat.com>
+X-Received: by 2002:a05:6808:3a0c:b0:4f4:b5ba:a241 with SMTP id
+ 5614622812f47-55c003614e5mr1705811b6e.39.1792856981116; Sat, 24 Oct 2026
+ 08:49:41 -0700 (PDT)
+Date: Sat, 24 Oct 2026 08:49:41 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adcd395.998fdb85.f0000.0011.GAE@google.com>
+Subject: [syzbot] [dm?] KASAN: slab-use-after-free Read in snapshot_ctr
+From: syzbot <syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 23, 2026 at 11:09:17AM -0400, Michael S. Tsirkin wrote:
-> 
-> Okay this seems to be converging.... But sashiko did find some issues I
-> thought are best fixed. Specifically I thought of a better way to handle
-> short gso in a tunnel - just clear tunnel gso! As a side effect we now
-> fix up the checksum for these dodgy packets like we did before, instead
-> of a drop. Good. And more false positives that prompted me to write a
-> bit more comments. So here goes.
-> 
-> Apologies for reposting so frequently, I know netdev bot will be unhappy
-> with that.  But Paulos's report made a lot of publicity, there is a lot
-> of people looking into this, so I feel there's value in defending
-> against all this class of issues sooner rather than later.
-> 
-> The issues were mostly found by code inspection, but all reproduced by
-> me in a VM.
+Hello,
 
-Ugh. I found another wrinkle( Firewalls that shape the payload.
-They are currently seem to simply be hoping most traffic is CHECKSUM_PARTIAL and
-only looking at that, and that will break.
+syzbot found the following issue on:
 
-I am not sure what to do yet. Extending the sysctl knob to control what
-happens if validation fails: pass/drop/complete - is the best I could
-come up with. Or ignore the issue. Or just forget the complete at input hack
-and drop if we can't figure it out.
+HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=127202a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=97e47414c855a3d8
+dashboard link: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a47f71580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13edba35580000
 
-> ------
-> 
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users):
-> 
-> allowing untrusted hardware to specify csum start/offset for
-> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-> outside the actual checksum, and depending on the setup, the networking
-> stack could be looking at the packet both before and after the edit, and
-> seeing different results.
-> 
-> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-> completing checksum") validated all known instances where this
-> causes the most grief, but the real fix is to make sure
-> that either only actual checksum fields are ever edited,
-> or the checksum is completed before the net stack looks at it,
-> so it is always consistent.
-> 
-> 
-> This basically goes back to
-> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
-> except in a narrow list of specified known good cases.
-> 
-> 
-> Summary of the patchset:
-> 
-> These are probabably net material (and seem to be too big for stable,
-> or I would recommend backporting there, too):
-> 
->   net: account for ingress-resolved virtio net hdr state
-> 	- accounting, not the fix itself, dependency of the fix
->   um: vector: trim skbs before verifying the header
-> 	- fixes the um receive path: without it the checksum would be
-> 	  completed over the unreceived tail of the buffer
->   virtio_net: parse tunnel csum_start little-endian
-> 	- bugfix, a dependency of validating the header
->   net: resolve uncommon partial checksums at ingress
-> 	- fix itself
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 	- reducing risk of the fix by adding a sysctl to disable it
-> 
-> These are cleanups, can be deferred to net-next, too:
-> 
->   net: add ip4_parse()
-> 
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> 
-> Changes since v1:
-> 	- reorder patches to fix bisectability, addressing
-> 	  a comment by Björn Töpel.
-> 	- code refactoring, different patch splitup,
-> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
-> 	- fix a bunch of minor issues spotted by LLMs
-> 
-> 
-> Changes since v2:
-> 
-> virtio_net: parse tunnel csum_start little-endian
->   - new patch. correctly parsing the header is a dependency
->     of validating it, otherwise i do not know what to validate
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - make rx_csum_sw counter 64 bit so it won't wrap
->     (spotted by LLM review)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - tunnel fixes to bugs noticed by Willem de Bruijn and
->     Chris Arges
->   - restore the csum_offset checks as suggested by Willem
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - the knob is no longer writable by root inside a user
->     namespace: changing it now requires capable(CAP_NET_ADMIN)
->     suggested by Willem de Bruijn
-> 
-> net: add ip4_parse()
->   - comment converted to kernel-doc format (Willem de Bruijn)
-> 
-> um: vector: trim skbs before verifying the header
->   - new patch, found by code review
-> 
-> 
-> Changes since v3:
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - um: vector: honor virtio net hdr conversion failures
->     folded in (Björn Töpel)
->   - count on tap and virtio_net, too (Willem de Bruijn)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - walk the frame on loopback, too: loopback_xmit() runs
->     eth_type_trans() on it (Willem de Bruijn)
->   - return the mismatch handling directly, GSO is implied in
->     the tunnel path so drop there outright, and fold the helper
->     into its one remaining caller (Willem de Bruijn)
->   - read the IP version through struct iphdr (Willem de Bruijn)
->   - document the ipv6_find_hdr() flags choice
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - renamed to virtio_net_hdr_validate, in case more validation
->     is gated by the same knob later (Willem de Bruijn)
->   - point .data at the value like the neighboring entries,
->     the per-netns registration rebases it, and the handler reads
->     the value directly - no ctl_table copy (Björn Töpel,
->     Willem de Bruijn)
->   - check the opt-out before parsing: with the knob off, packets
->     the parser cannot handle were still dropped (Willem de Bruijn)
->   - include virtio_net.h in net/core/dev.c so the static key
->     definition sees its declaration (build warning reported by
->     Jakub Kicinski)
-> 
-> net: add ip4_parse()
->   - add the missing kernel-doc Return: section
->     (Jakub Kicinski)
-> 
-> 
-> Changes since v4:
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - count on tun only: dropped the tap, macvtap, ipvtap and
->     virtio_net counters (Willem de Bruijn)
->   - the driver side branches are in their final form here now,
->     moved from "net: resolve uncommon partial checksums at
->     ingress" (Willem de Bruijn)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - no longer touches the drivers (Willem de Bruijn)
->   - a packet too small to be GSO: ignore the tunnel GSO request,
->     same as plain GSO ones, and complete wild metadata in place
->     (sashiko)
->   - document the zero copy interaction (sashiko)
->   - honor a preset skb->protocol on ethernet: the stack uses it,
->     except on loopback which re-parses the frame (sashiko)
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - document the netns lifetime requirement (sashiko)
-> 
-> net: add ip4_parse()
->   - pull the whole header, options included, so that the
->     transport header offset is within the linear data
->     (Willem de Bruijn)
-> 
-> 
-> Changes since v5:
-> 
-> net: resolve uncommon partial checksums at ingress
->   - read both skb->protocol and the frame ethertype: do not
->     validate when they disagree, instead of preferring the
->     preset protocol; same check after the IP version inference
->     where there is no L2 header (Willem de Bruijn)
->   - pull the IPv4 options in the helper as introduced, with the
->     transport header offset computed before the pull
->     (Willem de Bruijn)
->   - fold the trivial protocol calculation cleanup, formerly a
->     separate patch, in (Willem de Bruijn)
-> 
-> net: add ip4_parse()
->   - the options pull moved to the helper introduction in
->     "net: resolve uncommon partial checksums at ingress"
-> 
-> Tested: full suite on the final tree, tunnel included.
-> um part compiled only.
-> 
-> 
-> Michael S. Tsirkin (5):
->   net: account for ingress-resolved virtio net hdr state
->   um: vector: trim skbs before verifying the header
->   virtio_net: parse tunnel csum_start little-endian
->   net: resolve uncommon partial checksums at ingress
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 
->  Documentation/admin-guide/sysctl/net.rst |  19 ++
->  arch/um/drivers/vector_kern.c            |   6 +-
->  arch/um/drivers/vector_transports.c      |   4 +-
->  drivers/net/tap.c                        |   4 +-
->  drivers/net/tun.c                        |  41 ++-
->  drivers/net/virtio_net.c                 |   2 +-
->  include/linux/virtio_net.h               | 319 ++++++++++++++++++++++-
->  include/net/netns/core.h                 |   1 +
->  net/core/dev.c                           |   7 +
->  net/core/net_namespace.c                 |   1 +
->  net/core/sysctl_net_core.c               |  50 ++++
->  net/packet/af_packet.c                   |   4 +-
->  12 files changed, 441 insertions(+), 17 deletions(-)
-> 
-> -- 
-> MST
-> 
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f47d2236.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a94d6307dbbf/vmlinux-f47d2236.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f114012b9c35/bzImage-f47d2236.xz
 
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in snapshot_ctr+0x5cb/0x1340 drivers/md/dm-snap.c:1282
+Read of size 8 at addr ffff888038e19518 by task syz.0.17/5512
+
+CPU: 0 UID: 0 PID: 5512 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ snapshot_ctr+0x5cb/0x1340 drivers/md/dm-snap.c:1282
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f239a99f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffdb38c50f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f239ac25fa0 RCX: 00007f239a99f559
+RDX: 0000200000001640 RSI: 00000000c138fd09 RDI: 0000000000000003
+RBP: 00007f239aa36b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f239ac25fac R14: 00007f239ac25fa0 R15: 00007f239ac25fa0
+ </TASK>
+
+Allocated by task 5512:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x3d1/0x620 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ open_table_device drivers/md/dm.c:733 [inline]
+ dm_get_table_device+0x23e/0x740 drivers/md/dm.c:821
+ dm_get_device+0x327/0x760 drivers/md/dm-table.c:388
+ snapshot_ctr+0x2b2/0x1340 drivers/md/dm-snap.c:1267
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5512:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6802
+ close_table_device drivers/md/dm.c:798 [inline]
+ dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
+ upgrade_mode drivers/md/dm-table.c:326 [inline]
+ dm_get_device+0x56f/0x760 drivers/md/dm-table.c:399
+ snapshot_ctr+0x471/0x1340 drivers/md/dm-snap.c:1277
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff888038e19500
+ which belongs to the cache kmalloc-96 of size 96
+The buggy address is located 24 bytes inside of
+ freed 96-byte region [ffff888038e19500, ffff888038e19560)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x38e19
+flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 04fff00000000000 ffff88801c041280 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 195, tgid 195 (kworker/u4:7), ts 22161879156
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7418
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x47b/0x720 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ lsm_blob_alloc security/security.c:218 [inline]
+ lsm_task_alloc security/security.c:270 [inline]
+ security_task_alloc+0x4d/0x330 security/security.c:2785
+ copy_process+0x1c7a/0x44b0 kernel/fork.c:2301
+ kernel_clone+0x2d7/0x940 kernel/fork.c:2785
+ user_mode_thread+0x115/0x180 kernel/fork.c:2862
+ call_usermodehelper_exec_work+0x5c/0x230 kernel/umh.c:169
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+page last free pid 195 tgid 195 ts 22161737366 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ ___free_pages_bulk mm/kasan/shadow.c:333 [inline]
+ __kasan_populate_vmalloc_do mm/kasan/shadow.c:385 [inline]
+ __kasan_populate_vmalloc+0x12d/0x1c0 mm/kasan/shadow.c:424
+ kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
+ alloc_vmap_area+0xd1a/0x1420 mm/vmalloc.c:2145
+ __get_vm_area_node+0x200/0x2f0 mm/vmalloc.c:3248
+ __vmalloc_node_range_noprof+0x343/0x1540 mm/vmalloc.c:4064
+ __vmalloc_node_noprof+0xc2/0x100 mm/vmalloc.c:4165
+ alloc_thread_stack_node kernel/fork.c:359 [inline]
+ dup_task_struct+0x2c6/0xa00 kernel/fork.c:930
+ copy_process+0x7ef/0x44b0 kernel/fork.c:2143
+ kernel_clone+0x2d7/0x940 kernel/fork.c:2785
+ user_mode_thread+0x115/0x180 kernel/fork.c:2862
+ call_usermodehelper_exec_work+0x5c/0x230 kernel/umh.c:169
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff888038e19400: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+ ffff888038e19480: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+>ffff888038e19500: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                            ^
+ ffff888038e19580: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+ ffff888038e19600: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
