@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792839671;
-	b=wj3d1k1E6WoG5+WrRSmEH4r7MB2Qv5hEL0dRdv99ORG8UqIvsCodu+XN0Nb5kCPLBRD0
-	 6Je/1umFPvcocSHom0aR5J12Kkm90MrwaxmcrDf6DMszQOhHcyWxTrUqnMKXJxtkZA3Tq
-	 /XtdGpYtAlLFfvX1xzhQMmQYuU60/bg4ks14BjohOOopILvkmR4S0M87W+33fiKwfd0dw
-	 JEfi1if0W/GJVuSXSdB1h22D2IPuhLF8Fsq5L/QTt8fkm2XJcSpQNKlXYGIr2JeCd5gXQ
-	 8CSu04QF8MgIZh0QQyDD32V3N0E+BgfpFgrELf0mJQMRd/YR83aouc9Rlcu2qSmUO1w==
+	t=1792839690;
+	b=IItK8b2qMAXGzpF4QzdE8pc0Ew7YR8qRfTvxQ1YCR9NGlr/8SuTB5p73JxICiE7a3AhB
+	 xkn+r2VbsAKvF++9kWMlEbx+HfC56CDzPKRvo1bdkzAjSmscGJkSIDEL5PCpD6Z+6LPuv
+	 8pE4JqJACrxUW48M00o6X3AorW0PW44/UdyFx2CRC+WWi7SSdtVGEvAoe8m+NuCB6WVeD
+	 s0xujXnPGF3GXBYJe8y4mdTrw8forYS3HkafxqxBNAs+p5cqrUbDbokr+Uyp8Fb8ISyu0
+	 OMGyNlG5pwTemWGdCaTLmRdmVYS4AWBOOm9r6Pz4ifNJjqS1K7eF3fLhHJja2/yObpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792839671;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Mk/nez9nenBsnQjciCAGiDdqXpw8qDo2kH67Oa3IArQ=;
-	b=OI1Qjjs8OPVBBIJkurr6qHCqb7uE6/7SEmKxASOlg2aPAjOARBLSDQ8UelDTBaUGkZxz
-	 AMvB2EptMRgIvYpfOcjnplg1/ndAD3syhDk1cdJf2Ne5sJCHHDnDKCPfgotwQ0L/NOfCj
-	 aQRW/mXIjg5jzXlp6XxW3cTtezMSp8Mkl/AYhMK4c3sd6XDXr3DAKQUjBbxJbpDPqRihJ
-	 goAEojoSnmY/G9m3thjGqrBGJYh8XwvDJCSthZDQjAw7ydNUiDbIYFDIIIm6v8FUj5ZyN
-	 wqW13dRLa64CusEWTO0gb8Fc7jyk9C//auLz5kZLEy9y3HsXn1IsmG086OuWj/ry9hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792839690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z/AIP7tnKK/4+bwJtDzlzu0jwt67zrCvDiXb/N418ik=;
+	b=v1Wf49saQ7s4fu3NjNlyAzA5DLINDbXtJ03DKOIgIr6iqEa15njslYoJ36VIU5Qas9Pk
+	 KqPHrBKJznGDJHvnu30uiWg2jdKLh8u1jVuSI37TQU9MOu6yefe13SVKO8Ip0CdLKmYyp
+	 KUxkxAvQVEt5l1PN9Fle8jhN3bcKQ6DLnBFLXeg4928Zr0d3hcpVjS7++AayyX2rcX8Cz
+	 WUrm3R5etZK3wl/4jP3wQ+ZatAIml6pXAJNzNeTO3uT/WHXaDtLo2InsbWaBvc2k1ywlL
+	 06vYIjE+gh3LemDth7UhjI75l8Dq7+bedkbcgzc1bQTJXB+3NN3Vrkukr3trHcf6qIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZaU9S3g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NhIpUUiz;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F220D606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:01:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC0B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:01:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC0B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZaU9S3g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758DF1F01825
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792839670;
-	bh=Mk/nez9nenBsnQjciCAGiDdqXpw8qDo2kH67Oa3IArQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GZaU9S3gSwPmSPqYPyU7A/QGTA46xOv0Jf6Z1AlwqU6cIs62wd+vrITEKX6siJTKM
-	 kA8BDJozMYIOnfwk4NC62QHqpfodaTDvonpP+w/EyEhM6mit1r6P508M0/yYaZRKpR
-	 ihXe87mHtg1uV1w1gCmTLBeoZfgWTrxWD4H1D/untTyY+x4z+chu4hIebbijAGtSKB
-	 KVKPlKnWRP3HhMTFYeeBSvr9ugZxVQYclVPfUK4c9il4qxmbfb1yyoeI7HmPz+SIX2
-	 nk2fUpeIfgPtOVDk0MS1SxX0sUd96nsaPJeGjF2+3Oo3n+zHW3A9n33OfCAoQW3Gkd
-	 96Ch3x4lLhRSQ==
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f079a63b8so152265785a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:01:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCs1sALdWP105CkbkyKtZcrzjc6Aab3siyqvqxhmmvywuQjIfEt/Suvu/y/sqdUFA4TsFPkR2al2Rwlto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOMsZmCcNS9gyFJs34/kLp5A49qa9+XJiWgs1DaotiBtsHEfRg
-	aF6WpYHhAr7eBG710hE9vc0LF/EtexC0cGFwKwtytMqcKVWOr6ynKpictxwzfW+m3ph2tkwJ7aE
-	ubptVlNrhRy2Gsg4tPlGuO8FCTmEbIV8=
-X-Received: by 2002:a05:620a:262a:b0:93f:3863:268a with SMTP id
- af79cd13be357-940ef92bffbmr223374585a.37.1792839669908; Sat, 24 Oct 2026
- 04:01:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NhIpUUiz
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so5733125e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792839688; x=1793444488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z/AIP7tnKK/4+bwJtDzlzu0jwt67zrCvDiXb/N418ik=;
+        b=NhIpUUizuCr4oq7rqnXBsUKCxO4JcZRB+dC3MpSSLVHuj8O8idnQNu/f16J8a+jjwo
+         UzXon4kUVJP66AJolXBJCUjoyRuf6Rj6pqqctvBk560ulmj526cukzLJyuPMcV831B4d
+         Y827ZiUQRLfzyTFqQJaUduRU35uW/wxOoKRtGqzMbiXBM8+0wxnM7nYsR0udyDgldFXe
+         W209v1tT1cYWlnOj3UG1jS/p2WsL96rpoM40St0JnW9raVJmN4KVpySpajJWD8RiywMq
+         Td2nrXHt/tll8fa1C/eudNNv73S1d7KHeEBA1ydE/QaLqw9C1qAqA509qkRxCBrR9jZN
+         sfOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792839688; x=1793444488;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z/AIP7tnKK/4+bwJtDzlzu0jwt67zrCvDiXb/N418ik=;
+        b=Atrh9S+9415wS53IKNSngvfE1X/R+m5RSqRXUKwi6rgiiprpSScbsQiASZ81W1S8+N
+         szfpo0jM0n3lQI0fLnAFlgsuS3qBZyLouprfp67je3lvwztHlbfjiweufLDqCQf9K+Jt
+         ZpSPdqkJ/hOAPSEmJUCrAXCVfNgXj3QDXrLDTIfzZMHwTcRAl8ZaBZqVqpZtJxMLFbCB
+         VjcCcgkxP0WUiDaVRMkZSb7XJJeYI9nrDz24xOa/LJxw3/wsT7qkEmQ/RLjevmITFblK
+         LZLKyoC+xOpPEOAjTXZGZ8n7qcOAVKh8CBtDCl6N8AnXbR79rBEN5IpLRFUsJO6CiVaM
+         /Xew==
+X-Forwarded-Encrypted: i=1; AKwUvBywiR2NRDCzV/CFaAIGAoMhIGDq32aRW9hZz9MuFbvP7s0A39v5q8Uy1qk2AbiTKEkaLVV1ZjRvToz+CWQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWaq0yOqTBS6izVR6VjAINCc0X/a/ahoOhfokuNuJLSbgIRbbL
+	yKh4fOt4m8j9vIrD4VOJ86n8NW6IdKVV9GJc3I2xkq4DlsT8JTzZ/3oG7Sjc+UYh
+X-Gm-Gg: AYBFou0lCHAcb9cOBHx9pX8NqA3ePu5J69RD51nyDrZfH/W5Od9i3o5VoKptunc5ipA
+	dq9JDVeb12veLnxwXKuZdGp7syKuiaErCZ+YoFuIA5hvV7e80aSk+dl4RfrdpZSxroeIGCwWOjy
+	rBzcKujaP1Ia9GdZLIHk2UO3fwy/OuAMcXGZFb/BskqiX6wSakMoZLFOw7i4aPrLYkOYDp/o77A
+	LF1NurdzoAcym1KaXnWMnfsWkheHKIjBBaD0IDgqA8FEd5aOL8r9VHU3y9SY8J7QX1M93zzID3f
+	hL2IetLSfxEXISUiJSCQYeYqTnGKMNkczTPaSpFHASiPJYUyHXFTRkGafXcJPTv6l4gEhoZVXLO
+	yyjVVoaWyDK4sqr936UFbA2gO2E/I+HzgbDLTJasqrOb5maclJEX6g+rkKYdR932TJauwNeTQ2P
+	zpOUIjIkBqPmDaL9HOPNUp3aWCOszoDuwk9ACHkQhrQxkyOndQr8Gm1Z7UT6xMvWewROy3DUhRz
+	+9L6CjEE3xlFVHaqTVHsOaiS9dzwJTbnTnNvSXjpeVmNE2VWksPx7d6/KNHlhoQseEaK20OBio1
+	hQZhcXrwSR4KaSK+q2JoESvaOkxqk3yxdKWngjOkGVql8ukMZHLmisatgHQdwGeQ+v+3sTLFemI
+	hPnRBvUus6OMmpPQ3waTJr5j181+fIXHsDtCRJXghqmI/M6EUs59ss3aMa+I=
+X-Received: by 2002:a05:600c:5307:b0:4a1:d456:ddc8 with SMTP id 5b1f17b1804b1-4a35ac8bb56mr24174315e9.7.1792839688051;
+        Sat, 24 Oct 2026 04:01:28 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9da9-5f01-d5f0-7ecf-afa4-4bc6.310.pool.telefonica.de. [2a02:3100:9da9:5f01:d5f0:7ecf:afa4:4bc6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm56863845e9.1.2026.10.24.04.01.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 24 Oct 2026 04:01:26 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-clk@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] clk: tegra: Fix Tegra210 IQC2 clock lookup
+Date: Sat, 24 Oct 2026 13:01:13 +0200
+Message-Id: <20261024110113.63341-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,65 +102,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260802074018.73887-1-baohua@kernel.org> <20260802074018.73887-2-baohua@kernel.org>
- <anCu3DOrXDeMrwi5@lucifer> <CAGsJ_4xM7mmv_Xa3g2mB_0gW0_VtYhMtwz0idgYLyoAYiHFmfg@mail.gmail.com>
- <anH3jVrBlUMLd-28@lucifer>
-In-Reply-To: <anH3jVrBlUMLd-28@lucifer>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 24 Oct 2026 19:00:59 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4w9eTngW4TbqhmgDgCW6ugd=3Thq+u8ufqJ1WX-c_4p=A@mail.gmail.com>
-X-Gm-Features: AclHuK91tBy5WqlUSNbGFKdzZTc1OWL-WRH6V00N6zby1epMlwqFq2F3wTNVRPE
-Message-ID: <CAGsJ_4w9eTngW4TbqhmgDgCW6ugd=3Thq+u8ufqJ1WX-c_4p=A@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 1/2] x86/mm: use VMA lock for kernel faults on user addresses
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, x86@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, surenb@google.com, liam@infradead.org, 
-	vbabka@kernel.org, shakeel.butt@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, zhanghongru@xiaomi.com, willy@infradead.org, 
-	zhangbo56@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 4, 2026 at 10:46=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
-[...]
-> > >
-> > > And finally - Willy is working on a grand clean up of this stuff _I t=
-hink_ so
-> > > you probably should coordinate with him also?
-> >
-> > I have no problem waiting for Matthew's work. It is the right
-> > thing to refactor the duplicated code across architectures for
-> > the VMA lock page fault path.
->
-> Seems sensible thanks!
->
+gate_clks[] uses tegra_clk_iqc1 for both iqc1 and iqc2. On Tegra210,
+gate_clk_init() overwrites the TEGRA210_CLK_IQC1 provider entry with
+iqc2 and leaves TEGRA210_CLK_IQC2 unpopulated, so looking up
+TEGRA210_CLK_IQC2 fails with -EINVAL.
 
-I'm not quite sure when Matthew's cleanup series will be sent.
-Matthew, what's your plan for this?
+Use tegra_clk_iqc2 for the iqc2 gate.
 
-Maybe we should send RFC v2 of this series on using per-VMA
-locks for kernel faults on user-space addresses to collect
-feedback across different architectures? RFC v1 only included
-demos for two architectures.
+Fixes: 88da44c5edb9 ("clk: tegra: Add missing Tegra210 clocks")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested on a Jetson Nano 4GB (Tegra210) with a small probe module that
+calls of_clk_get_from_provider() on the Tegra210 CAR node. Unpatched,
+TEGRA210_CLK_IQC2 (220) returns -EINVAL and TEGRA210_CLK_IQC1 (221)
+resolves to iqc2. With this patch on 5b0764a53235, ID 220 resolves to
+iqc2 and ID 221 resolves to iqc1.
 
-We may need feedback from architecture maintainers to confirm
-that we're correctly checking for page faults triggered by
-kernel-space accesses to user-space addresses.
+ drivers/clk/tegra/clk-tegra-periph.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I also think the cleanup series might need to take this
-requirement into account. So, even if the cleanup series hasn't
-been sent yet, it might make sense to discuss these changes in
-parallel=EF=BC=9F
+diff --git a/drivers/clk/tegra/clk-tegra-periph.c b/drivers/clk/tegra/clk-tegra-periph.c
+index 4dcf7f7..47bb657 100644
+--- a/drivers/clk/tegra/clk-tegra-periph.c
++++ b/drivers/clk/tegra/clk-tegra-periph.c
+@@ -813,7 +813,7 @@ static struct tegra_periph_init_data gate_clks[] = {
+ 	GATE("apb2ape", "clk_m", 107, 0, tegra_clk_apb2ape, 0),
+ 	GATE("cec", "pclk", 136, 0, tegra_clk_cec, 0),
+ 	GATE("iqc1", "clk_m", 221, 0, tegra_clk_iqc1, 0),
+-	GATE("iqc2", "clk_m", 220, 0, tegra_clk_iqc1, 0),
++	GATE("iqc2", "clk_m", 220, 0, tegra_clk_iqc2, 0),
+ 	GATE("pll_a_out_adsp", "pll_a", 188, 0, tegra_clk_pll_a_out_adsp, 0),
+ 	GATE("pll_a_out0_out_adsp", "pll_a", 188, 0, tegra_clk_pll_a_out0_out_adsp, 0),
+ 	GATE("adsp", "aclk", 199, 0, tegra_clk_adsp, 0),
 
-Another suggestion I made earlier [1] was to wait for the writer
-to finish and then retry acquiring the VMA lock, rather than
-falling back to mmap_lock when lock_vma_under_rcu() fails on
-the first attempt. I guess this is also something to take into
-account when working on the cleanup series?
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+-- 
+2.39.5 (Apple Git-154)
 
-[1] https://lore.kernel.org/linux-mm/CAGsJ_4wXGf90BMoJp3_z8G4fMTAgED88RXvbp=
-6C4Gf+iy_2nvg@mail.gmail.com/
-
-Best Regards
-Barry
