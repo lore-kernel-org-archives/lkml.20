@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792803559;
-	b=a6dwa8sRZfJ9KAASNXFhLppU8+8MO/RhD9RFKkz9YpfuMjJOTfnL7MOGl7LZJwW3E5wt
-	 WxKzZHcDSLPYNWXmX3/w+E0SR/eSkzx0hmfYSTEXWnMCzLtNT78AXjukYO5NbVoLydJZk
-	 Z/c7rvoP0HhZCDk2e7DFivISPHvbyqSlXoKly6pyJ/pIlnmFPij4QG7RVowCUKCjYPu+z
-	 2s2DDUxfMXQmnxvyhqlQbyrDpNAIbGm56wvRvyy7PtCR5BQomfShCQAiSCICf7pbpBrsJ
-	 W2CkqFcqBUzMR9vsZm4WlycMx6GaXIWyGYGeqZpEP8f61M6cfKjhx5VngtHWKiPwXIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792803559;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dZo8YGXipFDOPlk5LjrlXEXfuFOOoXy5+FZD35r1Kog=;
-	b=NKiK7wzDe8PbTX3ZDQQdOFXZw9eHzf7axJwoTUdb1N4xrSBQA1NKfxs5RpdWOElx2qfs
-	 +DZr6j9SDlQbN9ZlS2uy5XFfrYRyeaoGs3vrgDG6UJlMifoedwS4RZT6BiphxJ4MrP+Eo
-	 mnchjJA1g6qlLSg+JFXNBgOSHflEpJ4Puev7E00jOCDx4tHExIdZrlw8aysAQFbVJ1/Db
-	 LyawnwNFt7SWfr+uuUu8Snyw3aykCNTlZABokTX9uN8xbGHbPSK0wfdKe9szXMf/ef9IG
-	 zARBhCNEiE41GK1i67xJxBkfI+nnRVHOkGtkTMpbhEGOdoHcTl4XwXq1wGJ7slJBVmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BvNnJ2qJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792803576;
+	b=2+jUFdE69M2SPTFQw6/o6Ihfzmd55143UfGL2y4EVm8ZyLwiFLUO9PH2Wt6PZO8DedSt
+	 bXaD45D/Hn4pTnVflvj6d3mfGwTlw5GWhRZLvXl9S9JSP6fq9NRLLuqn1FgCGMOlpVhmO
+	 4Yaa2QnKGYn1FmPF2gXS30Fdj52O2ldeG7UtzsALlEEL42+utB5guQN++c40qC2EdMZe9
+	 gyCQJgoKz3P1nBjJRNJNQAqGJfK0cBShlGAUD4e5jz3DE6okSpqzh7fO2g8hRJVneM/Jo
+	 xoA9hT8/0jiDzLwY2pb0daAKDxZPl76FWRwRgx9hSUaV00/wo5tb/+h+OPNAw1fsf/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792803576;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QYliG5JrqqllTHxErrxFqWbYyN3g1Gh8xTc8edp61B8=;
+	b=ae19vzUuZyidFcDDq3mSHT0BJxAh6pcMBc5GhYgFmglXLuyWKrv5wOm8rH17QrUhAIZ1
+	 Obg4shQ1k5uNTznCyQ2l5co7idgw0Ktzc54fjUu+Kqu7jjJRvzBDU/Q18qmpCLtDqpFx5
+	 aXkI//Tk0m0nruLBemPxRQwmHTU2HGeExXUaGuISgdFSOogCq62yWD26QpL9h1Sk039oj
+	 mBGhlDc2E4s0KyU2dxdi9X/ER7bWmD3yBd73Hf3ajyAOvfrZIx4oeAkPeJ64EFci4LMBG
+	 rsIW/1CmsYZN0GO9Q0uNtn2My82FRfp6rIWRi2n9dkG4DeJjL1s/4klfNRhiW58Brtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nbx9a8yG;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3655606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3655606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4773C606A31D;
+	Sat, 24 Oct 2026 00:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4773C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BvNnJ2qJ
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-16079d54c17so2916703c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:59:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792803558; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c0PqJaxhj0j+LjhaiJBjSMfd19FtAMT2DezF+ps/B3hC3Pof81ESuto7T+Rvyh3ioZ
-         lIOi4hyYalOwjRiqjiSUdnpAUIzjcbkaIVSpeBib5zk7CmXi0ecpxtRP0M6uPa9wV9zG
-         YJPsq9A0tF5c8AyKRczqZFboNPa1TkbUzTQbwi5qOkdsOQ7pUMEZMCmuRi06VtG/2Gcl
-         9fh33rSXm//+zhLTPeLVPfLZQjESdVdKh2j3/eKUKNSs5YZbVkVS0UFLEKVmz2+4ucD3
-         QWLV4ML3hK8hVB2IswxA/y93en+v/MvXPU3BsRE56zc4/5m/ZubZg9csdYE9E7x1KujA
-         1Jqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dZo8YGXipFDOPlk5LjrlXEXfuFOOoXy5+FZD35r1Kog=;
-        fh=yg9/hLc1mjPvHkhy8VQbtnTDD2fs9yo4V9xcXA8Mshk=;
-        b=TBu2B7bBGV6/emmz1WD6WBT1PFV51lPOMk1n1LujAjyREEnJ+6Ygp671fyfLeWNsWt
-         w6MG86go3+PuATx6ZqG7IrG4eV/YpmC/jMOtX44WLHsb65/iKwaKiq4KBg6L5KWs9vui
-         vLIEtBcWl4iWDm6LFZ8zLXWHvQMEHNiSzXKPqEhVkkzn0EFIB/Ms8KFU6/oTmpl6MHT3
-         TGbeN49lXH/ybVUgw5O7YFcMqrhQ5KMxOTLqGvQzbGkSvUdHCwP+nh4fFvQo3MpExGqm
-         VTY3A65S2u3EmOZj9GwnAa8ipIAQXDJz6fueNxNrkxiBVM0u2rMPeybLCP5ATVloCyZk
-         DhOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792803558; x=1793408358; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dZo8YGXipFDOPlk5LjrlXEXfuFOOoXy5+FZD35r1Kog=;
-        b=BvNnJ2qJiKNYx+kMqLstZUfLbZO3SWFMHIFNvg5PlmWaoOBd1ZXExM66HZnXjTCi4S
-         unE6rjajRqY8/A7SPEfI+4LBAuyuJiZmoG6Q0Fq7Y+tQ9wmZa108XB9h2/Ng2vW0Xp/b
-         AuD3gZTSlSYuSougzvuYb2iXNty1CyVxCSA205hal/Jtbnmth7kFubu1V8Iv8Z9fKKNc
-         jNTDfuf7/PVrPtMco3654bq7gxYWtmwWshbc7A+9XOhzjwvfjRy6RUeLptR0GdzXx5k2
-         Z19S16Xi3RX+FXqQpE5fkAoh5JaAMd13ZeR4cQZkBBCyl5sEOlwgR5aS2wARVCM7yyxc
-         16ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792803558; x=1793408358;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dZo8YGXipFDOPlk5LjrlXEXfuFOOoXy5+FZD35r1Kog=;
-        b=WMBD1eY66ieP3eyS00Fomi2+zqN5bJ6GEnjPMzIhATzMy53St3g8JTrIWK5v3eX6a4
-         rCz/ar+25nj+7VhA66QFQg5ax9vt5Xa2j3alswgdId7JhE4SDSeAJfG+SJXEV0FW68rM
-         L1o4A66AnKLZUFV91V3z0t7gEWapxDxmCmctLnWvVd8mRErTzaMs/XacqAKArMZULJlb
-         j0WDKVEen3Pn5uzjDWtY4UEhizy4Uu3uRM/t/i3IT7ret1XYthmExrtrTyriviUXlRgR
-         DLRR5Toz7qCqsdz24Fh3cCMooVo0pnNCpwhTLsjsWZd7BhE5SWpyZIOrfqDie/464C4x
-         FQoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwY9v5VrnYv6FJAOE0FM7iCLEL/Ipgv0SZz6t10FNAj9Ypis0qZXlrNMBkML4kqYSqsd25npbzL4qlsbCw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVFdLvpLXIy2cbd/yNTixrtaL39TWcmp/1qf9nQoEuOB1Uldvr
-	c0qIjpsBo/2jKsvPA0erYHsqWOIL9i3IIm8G5RyFP3OBETHl/y3F+63uCxih6OhWxCI0twJDHPu
-	Wk5a5Zc7BEyRe89xSk4TjKgKALXNWbzA=
-X-Gm-Gg: AYBFou3uskhTRPLhrGlVrXC2ON6VI/Ladp+Rr1iBCE3kLDEe0buKIVwr4LQmAr2sl5D
-	Q6ccM75oB6r7tKFtyi2Y3kexjQyopQQG8NqT1fNw8xTmHX7UhLKo7VnBEl+UMqpRhxQfPU6Ukak
-	1kZ6u8Y5R354fMGVweOZ/Q6ScRFxliz2fifotD/wFO+V1QzTIs0Ckt/4l/trjLBJZoFcAnTUKOw
-	d7SjRHH6vvLLYkVLFrwMHvejKijSs5CNOnt6qN3rbyposjZgea0hR3HgnFwcO9ijhPC/9FTPIfu
-	V6vRveihEhv0SEr87bgtAR26+okjkR6NN8JpLgVYAayfSxHRgnyrU6uFMQsnikguLFuw5JmiQNG
-	e2NJk4kIU1YKVBw3y5KQ7VowASL/0pYRTgslgoM7CHTjXw9KYKArQVn1J6Fv3zqJFBdeZ
-X-Received: by 2002:a05:7022:ea4a:b0:193:9aa3:4748 with SMTP id
- a92af1059eb24-1992a250624mr874553c88.1.1792803557836; Fri, 23 Oct 2026
- 17:59:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nbx9a8yG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792803575; x=1824339575;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U3gmOgWDxR60gD64nCE0iSuuzCf3ICRp5+uOCWLX4u8=;
+  b=Nbx9a8yGzTUwUxblVAtL7FAWohBl9ACh/T7l0ZQ7PvJrAjc0iZdHThf4
+   jmtAB5+4I5Z3+i6GP4g5p4EYONFj/sjDRsUN2Yx91R4Jl84M1s0QHh33m
+   alTETVeSjyAO5bSEqtfEafwg0w9zZIFMopDMkMNIPXqhoV/qrNdsb2b8R
+   wQtrl/5pAfQ4PdZnA+brNwDYhtpvYfgY9LVTHhgEFpB674gXkv/iFnzQR
+   lyc52oU04m83vtOXRLStjrRsGslvf/4bgH0d36sOGMuhNpixbmdJmg9/s
+   yVrvz+Al6MkBy7tqXVQiWzNuksf8rBaM5wMPC2PVeYmmz9KFn9qqS+0s6
+   w==;
+X-CSE-ConnectionGUID: VZyhaBLJQL2SiSDug/8TfQ==
+X-CSE-MsgGUID: kxrQIbgbRw+9eLZP8pDqig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1468448"
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="1468448"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 17:59:34 -0700
+X-CSE-ConnectionGUID: qXl+4vPMRdWX13HfD+/dPg==
+X-CSE-MsgGUID: F1fBYjApSMC90pk5pmk4IQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="3841319"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 23 Oct 2026 17:59:31 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKQ6a-00000000TRO-1Jg2;
+	Sat, 24 Oct 2026 00:59:28 +0000
+Date: Sat, 24 Oct 2026 08:58:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: vmukunda <vmukunda@marvell.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Sunil Goutham <sgoutham@marvell.com>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	vmukunda <vmukunda@marvell.com>
+Subject: Re: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for
+ cn20k
+Message-ID: <202610240855.NijJJoJD-lkp@intel.com>
+References: <20261023100112.3402726-1-vmukunda@marvell.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +91,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
- <20261022-psci-fix-v3-3-9ce2133c5659@gmail.com> <e0becea2-c5a1-46d4-932e-50517311fb96@oss.qualcomm.com>
-In-Reply-To: <e0becea2-c5a1-46d4-932e-50517311fb96@oss.qualcomm.com>
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sat, 24 Oct 2026 07:59:06 +0700
-X-Gm-Features: AclHuK805OtpEX04XfOwa7m3QcwJPrF0jSlDAfdHBuylNxB6UZKJYqAFi9tMyjQ
-Message-ID: <CAAq9HC7EdA3proF75D9kKa0QFJswV-bFp284u2vUfJi-dcj2_Q@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: msm8917: Use a shallower cluster
- state to fix unresponsive idle
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Val Packett <val@packett.cool>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023100112.3402726-1-vmukunda@marvell.com>
 
-On Thu, Oct 22, 2026 at 5:14=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 10/22/26 11:41 AM, Reza Kurniawan wrote:
-> > MSM8917 is a single cluster SoC, so powering down the cluster means
-> > powering down the whole system. This causes two problems:
-> >
-> > 1. The system becomes unresponsive, even to common interrupts. Waking i=
-t
-> >    requires an interrupt from the MPM (MSM Power Manager) or scheduling
-> >    the MPM to wake the system later. Linux currently has no way of doin=
-g
-> >    the latter, so the cluster may never resume operation.
-> >
-> > 2. Entering power collapse blanks the screen. When the state is entered
-> >    and exited repeatedly, this shows up as visible flicker.
-> >
-> > Even if MPM scheduling were implemented, the second problem would remai=
-n
-> > and it wouldn't fix the system being unresponsive at idle.
-> >
-> > Replace the idle state with PSCI mode 4 (dubbed GDHS downstream), which
-> > is less aggressive and can wake up from conventional interrupt sources.
-> >
-> > Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
-> > ---
->
->
-> https://lore.kernel.org/lkml/20261005-s2idle_state-v1-0-3c402c66f388@oss.=
-qualcomm.com/
->
-> and
->
-> https://lore.kernel.org/lkml/20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0=
-d5638@oss.qualcomm.com/
->
-> are in flight, you may want to integrate/test them locally!
+Hi vmukunda,
 
-Thanks for the tip!
+kernel test robot noticed the following build warnings:
 
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
-> Konrad
+[auto build test WARNING on net/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/vmukunda/octeontx2-af-Fix-npc_delete_flow-counter-read-for-cn20k/20261023-100112
+base:   net/main
+patch link:    https://lore.kernel.org/r/20261023100112.3402726-1-vmukunda%40marvell.com
+patch subject: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for cn20k
+config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261024/202610240855.NijJJoJD-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610240855.NijJJoJD-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610240855.NijJJoJD-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/net/ethernet/marvell/octeontx2/af/rvu.h:13,
+                    from drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:11:
+   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c: In function 'rvu_mbox_handler_npc_delete_flow':
+   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:58: error: 'rvu_pdev' undeclared (first use in this function)
+    1962 |                                 if (blkaddr && !is_cn20k(rvu_pdev))
+         |                                                          ^~~~~~~~
+   include/linux/soc/marvell/silicons.h:22:41: note: in definition of macro 'is_cn20k'
+      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
+         |                                         ^~~~
+   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:58: note: each undeclared identifier is reported only once for each function it appears in
+   include/linux/soc/marvell/silicons.h:22:41: note: in definition of macro 'is_cn20k'
+      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
+         |                                         ^~~~
+>> include/linux/soc/marvell/silicons.h:22:46: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+      22 | #define is_cn20k(pdev)          ((void)(pdev), 0)
+         |                                              ^
+   drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:49: note: in expansion of macro 'is_cn20k'
+    1962 |                                 if (blkaddr && !is_cn20k(rvu_pdev))
+         |                                                 ^~~~~~~~
+
+
+vim +22 include/linux/soc/marvell/silicons.h
+
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  12  
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  13  #define CN20K_CHIPID	0x20
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  14  /*
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  15   * Silicon check for CN20K family
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  16   */
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  17  static inline bool is_cn20k(struct pci_dev *pdev)
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  18  {
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  19  	return (pdev->subsystem_device & 0xFF) == CN20K_CHIPID;
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  20  }
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  21  #else
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11 @22  #define is_cn20k(pdev)		((void)(pdev), 0)
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  23  #endif
+25d51ebf0f54f9 Subbaraya Sundeep 2025-06-11  24  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
