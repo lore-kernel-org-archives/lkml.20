@@ -1,63 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792885703;
-	b=m0CIIdIXKs3YO3JX9wTm8RXHDCgnWcWTa1E8EeEMZ53rAaRjssEQBzZu5vJdb2i25g3b
-	 3z2bwWyCgHA17D6d8/3nEv1l46shXkbQ1qujBnhO8peedueelpyk0HArn+Gb9nRCAkXzd
-	 nNhoJLh4UVsT+F663uPMmGvbX9W7/H9Was4VKnJ9wtV/HWEww6jfqsMebpu2CiQkLYy2g
-	 H5EaToaIa7V2u5xEontZW4kcBo/z9YdJSFIbUNo0mwihjrGMY6hbxll4ry3hMpSVpTafp
-	 8AyjM2Ym+KQVmxr83XjgfvOd+Cm3+kwAoywOI8QREw7PSvR/Gj8uxbVPch4WhgPmHMg==
+	t=1792886388;
+	b=YWJA8Q4dtbVC6FeHgdc7rJ1mcdMKaha+zoJzHvBEeHR0rJs6jfpLzX77x5pOATC10nHm
+	 +BgCfFJMjWgyYXZLZYDU82RiOS9m7qNXwfqmkvYdcEkNTsfp514mZk3Ul2hEQuzj5SEMF
+	 fCnPhHlMZjHhjYhetGuDGW1f9jAuCVk5txvjxjoUpkpweySm+uON0M0HbWBBgRqvNkvJ4
+	 Q+YpPZHuol2rXbeoBHPimPRGyke5GScz5KJxyPHJB8LeRkhjthrrNsSdP9cXHbwJ42kyA
+	 t9NbZze+zbAeCYJ/4jejspmY5H5PUqEsSkQmYB1wR1acn0fwsxz0T35XnZ4XifHKWKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792885703;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PvD2eY8/Btwg8oEFTU1OxGBiRLbSrmrFxd6Fpk47nio=;
-	b=GUnVmKuvvJJ6m2oJzNkZCoZAadFVTJNzaqJzYI7M8fxOCIxuUKRe53kNxBi8vIqa0jpz
-	 nx91iEJ2FkGgE31089AIE036jgqXXBLWaNvHoo6+8SOtUuK/aj8LC3a1idK2yBLc0dcXJ
-	 1F9kH7FgWbkOcqUTYPmuOEeali119I/wSH0pxxHaAWX9XXC3pGk2Jo/mRA6HBm4di9EXc
-	 vA499h8wUOaSqtH8J4gCpiArdKIvxYfbbQqwoWyTGR9xATvqQpw566eW+X5AbO3UwMkc6
-	 mNDNK7i8Ll8n7Zpp1rRnkd7n1PLTuZq28MzGFizF5rzuFjWXyoZMAQBPJ9iunX7IHRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792886388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=kPGkV1PrAtGPm5u8Uv9TfVrX1KaCYLI/ILzCGAHiWVU=;
+	b=myTeJqxlrVlsKq2AMtVIpA6YzSKIAlphn+QIxgAuWfGUnCc7TkE/8GpKiTqzXJZR2VgH
+	 L8uSjeTjyfMKXvRHpynes4JKMyj7aNjuTD2G0w8FY3pVDiTaDfBpd30GHE2qNHDjLUC2d
+	 P+rDz8UN7XUV1Uot3XThKHkX9RFYDtDrf9SesQhw2jte36DsL4R4TJQRrmZPVtjdtfSSY
+	 XHXuOurWYSPs+S3Zek/a7kYEu15PFxCsolGh7BkVQc2SOy4iSZGLAkoX3n15A2T9U89mg
+	 6qWr6dpmWslxh38/KaEsxh768dCfmIMuzRNSPsRM9sg0H0/w1XpzOn4Qt7Lz+UxezYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDn3+RHV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WloVDXD6;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4CC606A32F;
-	Sat, 24 Oct 2026 23:48:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D07606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43D07606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDn3+RHV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE1A1F01829;
-	Sat, 24 Oct 2026 23:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792885703;
-	bh=PvD2eY8/Btwg8oEFTU1OxGBiRLbSrmrFxd6Fpk47nio=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jDn3+RHV30FbVvjjFAEIda6+EE8Iq05MPUmHs3p6xhYafM3Wwdp1EZP/UEl2hMi8+
-	 F1uwIil/Rxi3I6XI21xVlUI8ebNiU1UPwuvIz9EKk/vmQ6TuD+PokDkjGxpKJOKahx
-	 oCRUUbu+AVB5sUhfXvxugDOPUEiB+vBvcJWXy7TQ/IVGBOgbwQLuC/wNqmWT75ACpR
-	 Nx8IhVvsUHgpbL5nRwlKzV1b3xbXDftrMp2SY5mBlCQDaDnsMb5ajU+M3awT5lO8C2
-	 ZYw4STMe8L60UuvMW/oCWpB68WXXP9O84YImP+dRkcFyJLIt96106WhiuMQKBWVjon
-	 ToQkylu99jVjQ==
-Subject: Re: [PATCH net v3 2/4] psp: support ipv6 extension headers in
- psp_dev_rcv() decap
-From: netdev-bot+sashiko@kernel.org
-To: toddfreed@meta.com
-Cc: netdev@vger.kernel.org, borisp@nvidia.com, saeedm@nvidia.com,
- leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- daniel.zahka@gmail.com, willemdebruijn.kernel@gmail.com, horms@kernel.org,
- shuah@kernel.org, cratiu@nvidia.com, raeds@nvidia.com, rrameshbabu@nvidia.com,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, bjorn@kernel.org, dtatulea@nvidia.com
-Date: Sat, 24 Oct 2026 23:48:21 +0000
-Message-ID: <179288570143.3134.8925369868949382653@kernel.org>
-In-Reply-To: <20261023234640.1459291-3-toddfreed@meta.com>
-References: <20261023234640.1459291-3-toddfreed@meta.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WloVDXD6
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-369f33df08eso588250eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:59:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792886386; x=1793491186; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kPGkV1PrAtGPm5u8Uv9TfVrX1KaCYLI/ILzCGAHiWVU=;
+        b=WloVDXD6l+pIZoSuUYA2v1ecepRDeOY/98L4cBaFUnmdRioBkEBCuosjzGB95QYmyz
+         cf8ETJoaRyLTbUdk29oQX9Pd06r1pw9ck/OnFGffFOhKUTrOX062tJJ+Emj6X9n+iwAJ
+         AK6kEYIy3QpXVll2lLC6ClP9pCeh48f3w05eYWJUe6DyvQyXU7JT1xcyEiKw4Ez3dSPb
+         WhmyfAbMxa42p9jafEhFxGEKH2Rg5agHKe2/364HccVsMhBwwoSsdvmRH2Ackp2gm6L/
+         CmSuw1hgmsps+o4TngBhrlO4K5xOJDJEjZ1OKNvDTho8AJcC88RM6HNOyVpVrhW9H2Rm
+         u/4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792886386; x=1793491186;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kPGkV1PrAtGPm5u8Uv9TfVrX1KaCYLI/ILzCGAHiWVU=;
+        b=zLcALv7478DvKNLKU5SLGJSEqWXKXpE6z1s7E0M3LwgFa6z5qa9gzuZ70X2qDxzf57
+         zJ6AIkfsdRDceNyFugMarbUveDTZ4efUZMKVbktJ2CGCSGo78S7fGve+d/pij9WrvHiY
+         rg1h5CUJsyoz+n/US59a9RDKMpaR/3TtzCnDtO7NeYBeP78ZcNkf0EaJiTeMIa4urRXV
+         YcC1E9aJERYXzQxqpfAzC+54GZMGeri/zEirOy5qPwpLw01vE3QAFS6K1npeC+fhSE6M
+         o6T9mGpfMYiQ5QjcqvqZWuqUCtAUCzxSOn0sJJoGGGok4/y3drF1hREZ040hP8vrzMvn
+         M9rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0FabbD+CnRNvzTmWMm5BNwtBp2cYxFRaq+WTnMxdN9GSylpVU7kJOCRhv7mGS4JRNnSMeokkQDzPrAPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9f1d+2UFcmmw3pWYCugHeLx4yN57mtDWsEMukNXy7Ght8paEO
+	np/xwiIyQYQl2s9Vp++yvXgpELIUJgqtAfHCUnwHsTzAxhsiVLwsd2cI
+X-Gm-Gg: AYBFou1CfbxyqfA75vaDE1zM7PcLCKf473zQLR02wMeIiNe7BcZRG4QBW1pck6hyPNk
+	S/nRuqD+17yhiZ8ynBFIh59TW/41aGM50CMntdtXWOkt/MsQcf20qlCrv+rmPQOR/5VDEXkQYCV
+	CHYZYSRoPEJxYwF1k4j7z0IUTTwk9JJ4xCwoEChOYZd8UMHRjzC6hFqXK1DDhW8Dig+STcnYWhK
+	JmzOave7L7VGMxN03ezLj1t+s6kdTVfgBg8cTuLVAVqIe2Q/9e6uB63B1nfQvMXWaBCNeizwr/g
+	26iwaKwnx6WWgq+RjQqf+rvB2ko3jXlC29+c64hVdwSkyLlwHiTPG8qJDyg4IHr0Bai0WJVWy8D
+	MB1HxXjdt6Wke7qd2+nYtsOOpOx2xTNFsrSnmTUuN2WTQ20TR+wkMLr2KjahqQLhaTs09yqsJtr
+	S4BC7iMNzmagbc0YXIPEpTzFC2xpoGJlUY0qLPcbznubG/wvTX59cA2HknA9llTewq5n1imBwRg
+	9SOELXPo9nSA3No5nZPay2RNxBA49zLGMX84qPtk7uQJx90ArYPFVNI508=
+X-Received: by 2002:a05:7022:e10:b0:14b:cf58:ce15 with SMTP id a92af1059eb24-199377d8c81mr6217789c88.43.1792886385960;
+        Sat, 24 Oct 2026 16:59:45 -0700 (PDT)
+Received: from localhost ([73.222.46.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a249c331sm24522674c88.17.2026.10.24.16.59.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 16:59:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,169 +86,284 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 24 Oct 2026 16:59:44 -0700
+Message-Id: <DMDH6IGUKIG4.PFYGRQT3YJB9@gmail.com>
+Cc: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, "Paul Moore"
+ <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, "Serge E.
+ Hallyn" <serge@hallyn.com>, "Shuah Khan" <shuah@kernel.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "John Ericson" <mail@johnericson.me>,
+ <linux-security-module@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC 0/3] landlock: Add access rights on created files
+From: "Farid Zakaria" <farid.m.zakaria@gmail.com>
+To: "Justin Suess" <utilityemal77@gmail.com>, "Farid Zakaria"
+ <farid.m.zakaria@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
+ <at0agiPbtxz5zD41@zenbox> <at0o7LydcgezBf7D@zenbox>
+In-Reply-To: <at0o7LydcgezBf7D@zenbox>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Justin,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
+Thank you for engaging me on this RFC. Admittedly, I have not followed
+the landlock discussions closely. This was an idea I had concocted while
+thinking how we can make Nix sandboxing faster.
+(I'm also exploring the space with AI - so I'm a landlock newbie but not
+a Nix newbie.)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Mickael, et al: I see that sashiko found some legitimate concerns.
+I can fix that up in a V2 if we like the general idea and want to
+continue exploring it.
 
-- [High] psp_dev_rcv() now decrypts and decaps PSP packets that carry
-  IPv6 extension headers.
-
-Pre-existing issues:
-- [Low] TX/RX asymmetry for IPv6 extension headers.
-
---
-
-psp: support ipv6 extension headers in psp_dev_rcv() decap
-
-This patch makes psp_dev_rcv() skip IPv6 extension headers to find the
-UDP and PSP headers. On decap it writes the inner nexthdr into the last
-extension header instead of the fixed header. Packets that carry fragment
-or authentication headers are dropped.
-
-> diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
-> index 273b010d2355c..206ab7c3e3b51 100644
-> --- a/net/psp/psp_main.c
-> +++ b/net/psp/psp_main.c
-
-[ ... ]
-
-> @@ -188,6 +189,39 @@ unsigned int psp_key_size(u32 version)
->  }
->  EXPORT_SYMBOL(psp_key_size);
->  
-
-[ ... ]
-
-> +static int psp_ipv6_nexthdr_off(const u8 *hdr, unsigned int len)
-> +{
-> +	unsigned int nh = offsetof(struct ipv6hdr, nexthdr);
-> +	unsigned int off = sizeof(struct ipv6hdr);
-> +	const struct ipv6_opt_hdr *eh;
-> +	unsigned int rem;
-> +	u8 type;
-> +
-> +	while (off < len) {
-> +		eh = (const void *)(hdr + off);
-> +		type = hdr[nh];
-> +
-> +		if (!ipv6_ext_hdr(type) || type == NEXTHDR_NONE ||
-> +		    type == NEXTHDR_FRAGMENT || type == NEXTHDR_AUTH)
-> +			return -EINVAL;
-
-[Severity: High]
-This filter only rejects NEXTHDR_FRAGMENT, NEXTHDR_AUTH and NEXTHDR_NONE.
-That means routing headers of any type and any segments_left value are
-accepted. So are hop-by-hop and destination options headers with any
-option content. Could this expose decrypted plaintext through ICMPv6
-errors?
-
-The PSP ICV doesn't cover the outer IPv6 header or its extension headers.
-An on-path attacker could take a captured PSP packet, insert one of these
-headers, and set saddr to an address they control. This assumes the
-device authenticates such packets, which this patch's premise implies.
-
-Once psp_dev_rcv() succeeds, the driver marks the skb as decrypted.
-For example, mlx5e_psp_offload_handle_rx_skb() sets skb->decrypted = 1.
-The IPv6 stack then processes the extension headers before tcp_v6_rcv()
-reaches psp_sk_rx_policy_check().
-
-Several of those handlers reply with an ICMPv6 error that quotes the
-packet. With default sysctls, this happens for an unrecognized routing
-header type (type 0, for example) with segments_left != 0:
-
-net/ipv6/exthdrs.c:ipv6_rthdr_rcv() {
-    ...
-unknown_rh:
-	__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
-	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
-			  (&hdr->type) - skb_network_header(skb));
-    ...
-}
-
-It also happens for an unknown destination or hop-by-hop option whose
-action bits request a parameter problem, through
-ip6_parse_tlv()->ip6_tlvopt_unknown():
-
-	case 2: /* send ICMP PARM PROB regardless and drop packet */
-		icmpv6_param_prob_reason(skb, ICMPV6_UNK_OPTION, optoff,
-					 SKB_DROP_REASON_UNHANDLED_PROTO);
-
-When seg6_enabled is set, ipv6_srh_rcv() calls icmpv6_param_prob() if
-segments_left >= (hdrlen >> 1). It also sends ICMPV6_TIME_EXCEED in the
-hop_limit <= 1 loopback case.
-
-icmp6_send() copies up to 1232 bytes of the original packet, starting at
-the network header, into a new skb. That limit is IPV6_MIN_MTU minus the
-IPv6 and ICMPv6 headers. The new skb doesn't have decrypted set, so
-sk_validate_xmit_skb() doesn't drop it. It is sent in cleartext to the
-attacker-chosen saddr, carrying the decrypted TCP header and payload.
-
-Before this patch, all of these packets were dropped at the is_udp check.
-Forwarding the decrypted skb itself looks blocked by
-sk_validate_xmit_skb() ("unencrypted skb with no associated socket -
-dropping"). That leaves the ICMP error path as the open channel.
-
-Should psp_ipv6_nexthdr_off() be stricter about which extension headers
-and options it accepts? Rejecting only routing headers with
-segments_left != 0 would not cover the destination or hop-by-hop options
-case. Later patches in the series don't change psp_ipv6_nexthdr_off() or
-psp_dev_rcv().
-
-[ ... ]
-
-> @@ -390,10 +445,11 @@ int psp_dev_rcv(struct sk_buff *skb, u16 dev_id, u8 generation, bool strip_icv)
->  	} else {
->  		struct ipv6hdr *ipv6h = (struct ipv6hdr *)(skb->data + l2_hlen);
->  
-> -		if (unlikely(ntohs(ipv6h->payload_len) < encap))
-> +		if (unlikely(ntohs(ipv6h->payload_len) <
-> +			     l3_hlen - sizeof(*ipv6h) + encap))
->  			return -EINVAL;
->  
-> -		ipv6h->nexthdr = psph->nexthdr;
-> +		((u8 *)ipv6h)[nh_off] = psph->nexthdr;
-
-[Severity: Low]
-This is a pre-existing issue, not one introduced by this patch. The TX
-side in psp_dev_encapsulate() still writes IPPROTO_UDP into the fixed
-header:
-
-	} else {
-		ipv6_hdr(skb)->nexthdr = IPPROTO_UDP;
-		be16_add_cpu(&ipv6_hdr(skb)->payload_len, PSP_ENCAP_HLEN);
-	}
-
-The UDP and PSP headers are inserted after skb_network_header_len()
-bytes, which include any extension headers. A TCPv6 socket with
-IPV6_HOPOPTS, IPV6_DSTOPTS or IPV6_RTHDR set would therefore emit:
-
-  fixed(nexthdr=UDP) | EXT(nexthdr=TCP) | UDP | PSP | TCP
-
-The new psp_dev_rcv() code expects the UDP nexthdr in the last extension
-header. Here it would treat the first extension header as the UDP header
-and drop the packet on the dport check.
-
-In netdevsim, nsim_do_psp() calls psp_dev_encapsulate() and then
-psp_dev_rcv(). So at this commit, the new RX path can't be tested end to
-end with extension headers.
-
-The next patch in the series, "psp: support ipv6 extension headers in
-psp_dev_encapsulate()", seems to fix this. It reuses
-psp_ipv6_nexthdr_off() and writes IPPROTO_UDP at nh_off. Would it make
-sense to land the TX change before this one, or together with it?
-
->  		ipv6h->payload_len = htons(ntohs(ipv6h->payload_len) - encap);
->  	}
+On Sat Oct 24, 2026 at 3:03 PM PDT, Justin Suess wrote:
+> On Sat, Oct 24, 2026 at 05:43:26PM -0400, Justin Suess wrote:
+>> On Sat, Oct 24, 2026 at 01:39:16PM -0700, Farid Zakaria wrote:
+>> > This is a proposal for an idea to add support for landlock to work
+>> > better with build systems such as Nix where they want to apply
+>> > restrictions but the paths may not yet exist.
+>> >=20
+>> > TL;DR;
+>> > =3D=3D=3D=3D=3D=3D=3D=3D
+>> >=20
+>> > Landlock rules attach to inodes that exist when a ruleset is built.
+>> > That makes a directory shared between trusted and sandboxed tasks hard
+>> > to confine: the sandbox may create entries there with
+>> > LANDLOCK_ACCESS_FS_MAKE_*, but no rule can name those entries ahead of
+>> > time, and granting read access on the directory to cover them exposes
+>> > every other entry as well. This series adds a rule flag that grants
+>> > access rights on the entries a domain creates in a directory, instead
+>> > of on the directory.
+>> Hi,
+>>=20
+>> I'll chime in since I run nix and have a little bit of familiarity.
+>>=20
+>> Looking at my (admittedly bloated) nix store.
+>>=20
+>> [justin@zenbox ~]$ ls /nix/store | wc -l
+>> 259356
+>>=20
+>> That's a lot of inodes. And a nix derivation creates hundreds if not
+>> thousands potentially throughout it's build.
+>>=20
+>> My main concern is that rulesets are generally considered
+>> immutable after enforcement. This allows for well-defined semantics on
+>> inheritence. This from my understanding would mutate the ruleset after
+>> it's already enforced, so changes wouldn't be copied to inherited
+>> domains automatically.
+>
+> * nvm on this, it looks like you are adding them to a different
+> heirarchy. The point still stands though on the inode pinning, which you
+> pointed out.
+>
 >
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
+On the cost:
+
+only entries created directly in the directory that has
+the rule get recorded. For Nix that is /nix/store, so a build records
+one entry per output ($out, $dev, ...). Nothing is recorded for
+$out/foo or anything else under $out.
+
+Access there is allowed because the path walk at access time reaches
+$out and finds it in the recorded set, the same way a rule on a directory
+covers what is beneath it. Existing store paths are never recorded, so the
+store's size does not matter... right?
+
+A bad actor could still create many entries in the store
+(touch /nix/store/junk1 ... junk1000000), and each one stays pinned
+until the domain is freed. I can add a per-domain limit on the number
+of created entries. Nix only needs as many as the derivation has
+outputs ($out, $dev etc..).
+
+>>=20
+>> My other concern is with the overhead of automatically generating an ins=
+erting
+>> a rule for every new inode that gets created. It seems like a complex
+>> way to tackle this problem.
+>>=20
+>> But beyond that, let's go back to your usecase.
+>>=20
+>> ....
+>>=20
+>> Basically from what I'm seeing you want to grant some access to certain
+>> subdirectories (including newly created ones) but exclude others.
+>>=20
+>> Presumably in the nix case, you want to grant /nix/store/{abc,efg,hij} a=
+nd NOT
+>> /nix/store/{xyz}, but still allow /nix/store/{foo} (the derivation
+>> output) to be created and written to. This would allow the nix build to =
+only
+>> have access to certain inputs, while being able to write to the /nix/sto=
+re
+>> and produce an output. This is a valid usecase that Landlock cannot toda=
+y
+>> accomplish.
+>>=20
+>> There was this NO_INHERIT series I proposed a little while back.
+>> [1] It's sort of the inverse of this (removes accesses inherited from
+>> parents rather than granting new access) but would accomplish this
+>> goal.
+>>=20
+>> With NO_INHERIT, you could grant whatever access rights you want by defa=
+ult on
+>> the parent directory, and place NO_INHERIT on any specific entries you
+>> don't want to have inherit those rights.=20
+>>
+> It seems like NO_INHERIT too might scale poorly for the usecase. Since th=
+en
+> you are trading O(store) for O(inputs) so not much better (strictly
+> worse).
+>
+> Thoughts?
+>
+> Justin
+
+On NO_INHERIT: besides the O(store) cost, other builds keep adding
+paths to the store while this one runs. Those new paths have no
+NO_INHERIT rule, so they would inherit the store-wide access and be
+readable by the build. With the CREATED flag, nothing is readable
+unless a rule covers it.
+
+>> So for nix use case, you could grant no_inherit on everything except the
+>> inputs you need, then add READ/WRITE/MKDIR etc on /nix/store. The new
+>> directories would inherit this by default, while the ones you added
+>> NO_INHERIT on would be restricted.
+>>=20
+>> Additionally, you should also examine the mutable domains proposal by
+>> Tingmao Wang, which could also facilitate this usecase as well [2] (i.e =
+by
+>> dynamically adding and removing rules with some fanotify/inotify glue).
+>>=20
+>> That being said, neither of these two patchsets / proposals are merged,
+>> and the playing field is still open on this.
+>>=20
+>> So the problem you are pointing to is legitamate, but the solution still
+>> needs to be considered carefully to avoid complexity.
+>>=20
+>> Justin
+>>=20
+>> [1] https://lore.kernel.org/linux-security-module/20260621035223.2651547=
+-1-utilityemal77@gmail.com/
+>> [2] https://lore.kernel.org/linux-security-module/cover.1741047969.git.m=
+@maowtm.org/
+>> > Motivation
+>> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> >=20
+>> > The motivating user is the Nix build sandbox. Every Nix build runs in
+>> > its own sandbox, and a build may only read its declared inputs in
+>> > /nix/store and must be able to write and read back the outputs it
+>> > creates there. Nix enforces this with a private mount namespace: it
+>> > creates an empty store directory and bind-mounts each input path into
+>> > it, one mount per input. Nix has paid this per-input cost since the
+>> > sandbox was introduced [1].
+>> >
+>> > The cost is paid per build and grows with the size of the input
+>> > closure. Nix is moving towards much finer-grained builds (many small
+>> > derivations instead of a few large ones), so the number of sandboxes
+>> > grows while each build's own work shrinks, and the sandbox setup is
+>> > becoming the bottleneck. A typical build has hundreds of inputs; large
+>> > ones have thousands.
+>> >=20
+>> > A microbenchmark sets up and tears down a Nix-like sandbox (user,
+>> > mount, PID, IPC, UTS and network namespaces, pivot_root into a chroot,
+>> > removing the chroot afterwards). It compares one bind mount per input
+>> > with a single bind mount of the whole store plus one Landlock rule per
+>> > input. Median latency per sandbox, one sandbox at a time, Linux 7.1,
+>> > ext4, 16 cores:
+>> >=20
+>> >   inputs   bind mount per input   one bind mount + Landlock   speedup
+>> >       10         3.2 ms                    2.3 ms               1.4x
+>> >      100        11.6 ms                    2.8 ms               4.1x
+>> >     1000        79.3 ms                    6.4 ms              12.4x
+>> >     5000       400.1 ms                   24.4 ms              16.4x
+>> >=20
+>> > With Landlock, an input costs an O_PATH open and a landlock_add_rule()
+>> > call: there is a single mount, and no mountpoint directory to create
+>> > before the build and remove after it (removing the 1000 empty
+>> > mountpoints alone took 17 ms).
+>> >=20
+>> > The single bind mount is only sound if the store listing and the
+>> > undeclared store paths stay unreadable while the build can still use
+>> > its outputs. Without this series, covering the outputs requires a rule
+>> > on /nix/store itself, which makes every store path readable again.
+>> >=20
+>> > [1] https://github.com/NixOS/nix/issues/179
+>> >=20
+>> > Series
+>> > =3D=3D=3D=3D=3D=3D
+>> >=20
+>> > Patch 1 lets an LSM observe inode creation through the
+>> > inode_init_security hook when no LSM provides an xattr. Patch 2 adds
+>> > the LANDLOCK_ADD_RULE_CREATED flag for path-beneath rules and bumps th=
+e
+>> > ABI to 13. Patch 3 adds selftests.
+>> >=20
+>> > Testing
+>> > =3D=3D=3D=3D=3D=3D=3D
+>> >=20
+>> > The series applies to the Landlock next branch (3e271a27c46f) and was
+>> > tested on Linux 7.3 with that branch applied.
+>> >=20
+>> > Without patch 2, the five new tests and the ABI version check fail.
+>> >=20
+>> > Open questions
+>> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> >=20
+>> > - A created inode stays pinned until the layer's hierarchy is freed, s=
+o a
+>> >   sandbox that creates many entries in such a directory keeps them all=
+ in
+>> >   memory. Should this be bounded?
+>> >=20
+>> > - Creation is detected in inode_init_security, so on filesystems that =
+do
+>> >   not call security_inode_init_security() created entries get no right=
+s.
+>> >   Is there a better hook?
+>> >=20
+>> > - Through overlayfs, created entries get no rights either, because the
+>> >   upper inode is created with the mounter's credentials. Should overla=
+yfs
+>> >   be handled, e.g. via security_dentry_create_files_as()?
+>> >=20
+>> > - A file renamed or linked in keeps only the rights it had at its sour=
+ce.
+>> >   Should it get none instead?
+>> >=20
+>> > ---
+>> > Farid Zakaria (3):
+>> >       lsm: Call inode_init_security hooks without xattrs
+>> >       landlock: Add access rights on created files
+>> >       selftests/landlock: Test LANDLOCK_ADD_RULE_CREATED
+>> >=20
+>> >  Documentation/userspace-api/landlock.rst     |  42 +++++
+>> >  include/uapi/linux/landlock.h                |  18 +++
+>> >  security/landlock/domain.c                   | 182 ++++++++++++++++++=
+++-
+>> >  security/landlock/domain.h                   |  28 ++++
+>> >  security/landlock/fs.c                       | 176 ++++++++++++++++++=
++--
+>> >  security/landlock/object.h                   |   6 +
+>> >  security/landlock/ruleset.c                  |   6 +
+>> >  security/landlock/ruleset.h                  |  14 ++
+>> >  security/landlock/syscalls.c                 |  20 ++-
+>> >  security/security.c                          |   9 +-
+>> >  tools/testing/selftests/landlock/base_test.c |   2 +-
+>> >  tools/testing/selftests/landlock/fs_test.c   | 227 ++++++++++++++++++=
++++++++++
+>> >  12 files changed, 703 insertions(+), 27 deletions(-)
+>> > ---
+>> > base-commit: 3e271a27c46fd591d1011c7de5a644a41e2010f1
+>> > change-id: 20261024-landlock-created-rights-9340b00a8c4d
+>> >=20
+>> > Best regards,
+>> > -- =20
+>> > Farid Zakaria <farid.m.zakaria@gmail.com>
+>> >=20
+>> >=20
+
+
