@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856984;
-	b=CRcEicNwCgaG315ekF/Km63DylI1od6/aHRgA3n0/etepFP3Ajge/P3TcOSTenaWkiDb
-	 U44dbl7B/4C4LttpdAW0xVXwyrFhys5HPU9nGJ7kCjZUIMdCJP7ijEh6GzWw3hKEr0WH0
-	 8IAQEi1C6Vif764B5o2+UfO48dN0bMufUiByXrMita4cETTjQLzuzEXs3wAingWqkh6vD
-	 9RodO+/XiKen9AN3icdqtN8ysUmtGX+DKh9a6ch2aAE8OXcdHaLdNfDJKDV/B9sM5Xpek
-	 UHoRyeRHbOTU/qWxUBScFUnmu4oP96RuirO/ijNGJADIYloAOTXL/KoMHLVvCO8Vf+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856984;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=o1P+HiFg5jjK++IcW6OQS0jw7dpyFfVuJcdsEocNrNo=;
-	b=r8P2po75vd6MRnPqyxI5T3qi+GvAefxuuwmqJ2plpSMdOXJHIL9VDe98OEha4q9Ip/BG
-	 fJKwL1F1lLtQWwDU/UTiAAeSP6fBxNDVZ04J5r/o7G+ElvDC/Iw7Yq7tMD6JVFYGFm4Rj
-	 uZY82PDF/KKnv3rv5bC7TGfQDwEjsFNHd+UMssZijPktQveECp+AF6VjgPag7A9zIhiik
-	 2MQz90fYvmznFoed24JwdyQtBAYOFEz6neOPazFvX2Jt1A0EkDQOB7QTJSIncLS/74hVE
-	 vaQ52y03y4pKhQ1rHFaV9nZlVZmNT1V9/50W4jGMWoT8WxzcIELP4MHNT/w+VuUkxXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="rYVX/3U9";
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792856986;
+	b=xRZ89aUtiqwiE6XDo2L3tgsRP8dmBCY4heMlOLHOa+nCibeu+0W8udOYOoCM1YYn1zZG
+	 2Koao+I1jSI395KsOqeQQOxedDLa8fiAhop/M0XWlDnKsIAlc6Gr07kGK5u3iRkbDm7r6
+	 9yZRVM5s4SxoraS7vU9LZfqDA/hiXlfctFADYqitM9sY07biEU4twc2TqGKW3o8hNM0nz
+	 Y/YMrvCLaciaM0ss35/w3wxdtitiNsQg7JDayiIubhh2NdFNty4cO7zu4echkUCFG5XQ1
+	 /Gos5N/u5uZlUf7T88eBavZVre6hDp6veRMErAns7s85ZNOkLkeqFR3Ukdy25i9kwyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
+	b=ztY+S5fqe72KdmcREeIhyIg4swVzAPnmRbyafYi3G8iNh+BsM1DPpqwvieGL4PDqxycT
+	 76Ycb7SvO6Xh8mi5Cp2lBK5C/5bgssWA43igwwmXAVJrnehWQXQAR3qcunEhT4Ek6E0d3
+	 Pzzcybnlvc65SaXKyxTGdZAQ61/UPsI+zdw1r+3eIpAnq4GsZiF3jkgDq7JdFPIQ/RAjn
+	 ilL6Uty4sMM8b4uJxBPoRbm9/mKIEMtCiYOdUdmFl6sRDIpvPJ325InKrE6LV4/e1MzjN
+	 q1plLIDLhBiWVMzNx0T3lWJb0O4ksRzhNVioTW+lCOvcbaTuYUucBYGnQARBkWvpDlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=brainfault.org;
+	spf=none smtp.mailfrom=brainfault.org;
+	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=hU41R2zB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE2C606A31A;
-	Sat, 24 Oct 2026 15:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DE2C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB07606A339
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BB07606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rYVX/3U9
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792856979; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=o1P+HiFg5jjK++IcW6OQS0jw7dpyFfVuJcdsEocNrNo=;
-	b=rYVX/3U9i5X6MZU4LEVFKlFt8D4EOUpnXdFTUTr1fLeueinVr/EaPzUaBN95urfL8ymssXZ4iG6AP4D8jz3bJjLBRkWm+VU+mBRVGS1bgP35naSA5SFMN2k1p6t7JchgrujjxMog1VmB+s/zYRYTKiS5ksxvgW0erln5mbMFPG4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDOSQqC_1792856977;
-Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDOSQqC_1792856977 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 24 Oct 2026 23:49:38 +0800
-Message-ID: <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
-Date: Sat, 24 Oct 2026 23:49:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=hU41R2zB
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e20edd106so1522518f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:49:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792856984; cv=none;
+        d=google.com; s=arc-20260327;
+        b=crqbtvhM+X/UKJpSOIjq0XY94+kTLE9S0vo/MoqNunEqvV4OspzDzV6LLuJyXK1Wvu
+         EPgSbUtTlyr3iBb0tsKYpOnGld+/lAoln2HvHoOknM7dAMhStRuUIaCMI1KzP0z4kESD
+         SFpH/fPGncEB0IrJ3zHop90jdj5F1viMyt/oAyFOr/oWg7bbhJ5zkeHJdzqZEw6Xy0v9
+         9ZACo2AKIA6hovI+GZ4brsNVb3bBOt1XVFPVWuNw7Ppk+plvfQFB1MWnpy6+JUg6PeP9
+         p62tCV2CHsivGCTBhXTzukJG84xbAqoAqwP8qCizdHdZbnlDMLvfgtkPAYfi4GTw7PH1
+         mf9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
+        fh=22o5hvW+jEf6ULJGBgJctVxfdqGQWww0EuVna5JRe3o=;
+        b=KTpUPKzlyTNonyUw0jYnmCKV97JP4uivEiMlxaU1lMCJd1Hyf4ANvX1/pGs3Tj6bk2
+         VYK6G8g3PjAoVFtj5kIgBgiyB8YUeVyN1A81C5Lvi7FiWcYJlLPTnBFSRZr3/gWCDj4j
+         7RCcS/EK2jOewJqDEx1DbfsZu7o08rnoqAt8+4NRlBF5i4Q9mRd9prRiD1J5zwU8P51X
+         4KLwI7hbiTTNKJylBDRlaeUgbLcl61Uf8ZYegfUraZBbI5xds4TvM91YCXSASZ/7/T7/
+         mLnuNogcJc5XtSZFgiNZO2v9CoD/aWO8J1CUB2DOz0TdO6+lM0p8S7jM/FroPh9UlW7w
+         /O6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1792856984; x=1793461784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
+        b=hU41R2zBZM4iCQu4aSRvGSrij/rzZmnywMtg7VcpxGUNWODNVANWCGPTSHMoUb+qty
+         4xlGXquygG60IwtefYL2jQfitTB8e5XMuD8dNjb75vs//vSFGrGWyYZswyVi5NljWVel
+         D2dtX0NBTSF3D5oFx63yS6RhEdroEOik6ppCNS/piAHfEwJEMLBeg9aq8QIjgXNzL2BG
+         ehQGWoX/pL3Absq8/uiMOA9nRUkhr1Mqh+omwzf2f9SSL2OiN19BzAG4W2ovnJs6I+Fy
+         aWs4Hp416sJBpLFFK64+hPQbkcVkTHMQ8UQ5Rosdp0dqB0MAgrxPFwMfum7vCer28Xkz
+         tnug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792856984; x=1793461784;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
+        b=LEFez092ZR9NHm15aWp/Pq3jcAfwVmNB723XvHNVjf4I1u7073c0/vjayIBuz9Lm5r
+         SB5ScySr/9WeGCvfpo0MfQOXoc6Kia6QgXzoVc5YH9vsVMCqISuHRQ0D5TaaFkHAmWOg
+         EC6yrftrT5l/xpPVeT6ilWVqvVrkIPIRZ6T0nT+pKZyPLowUaCnge7rRor4UKRMoTdKc
+         FFgr1UkCJbkKbIMAAW50w2LaFNWRfVUN0vO/hNmVi+CdKE/Dfd+9Io0KSLWxJTE/bG8l
+         MvPQ8kJEJf+zgIrZ8DDYq3Lbg0PQOIL8fghuU2ZNIKq0nasx1Ps3P5IULWN7YacZMQ+n
+         AvXw==
+X-Forwarded-Encrypted: i=1; AKwUvBwzgcep7ycsAtJU61vaHkwO392jno1wlS/bnhXrnLaDthl0FaBQLa1/UnSni397ZVfFn6rB0yPmb5varTg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsUXfCTPPqpdbtmO5e1EL3mHMtxvNcACG2LLpDloX3Jd2NAWJ/
+	Tcc0kmpTTTuPar4XRRkzf4DA0nZgPse9EC/TCfulwn44inT1nX/KR5ueX1q7DJlbRRV7+rnsxaI
+	lOOV+Gw4wEDKY/6ARZsm3kVLzlWjtd3XEnu3uCe5ihA==
+X-Gm-Gg: AYBFou3NFQ0Jz9xIk7jpFRs+vmMNKFig5Tzfd+Z1eY1SDPRy5DC6dsXF1bplp6EtwwG
+	/dihEYZbkFS0FjQGe8HO5jXvKn/Ct9QrhKYU1TvSox+HIuKIRGiGFGisM4H8eJCLPRpN1YLdDxY
+	UpCKyeRphF8er4QsJ327whrXM6lB0Iq6dn4zEhmLrR45lFVtQWG597d0+ArupUoSTOuuR/7BNfZ
+	iik7ZlTjBIJE5KNnhEBL8fcEWc7nT3c/EWKYUyeWCfGrs1+9ASkXYuW9MQuZI9cmBmVtURIQR0N
+	UHz/qE2RLfvqfdXLVjq0s7MROQdXg7zCBmUgnLwe0tw82r9h4XEX9TZwy4FhnYnVuJtmzGrtmcy
+	4kcKvBr34RgzQqpY5Q3OOovbodcwOlcpOx5IYzZPXHRx+ME6BciUoXSaQpGD0HIoRrKauhoNrkS
+	Kuil/6QAsnjhspYMOdAsfzVmoYNHxGg3O51NXYZ0yVjtursjS0Vmus5wc=
+X-Received: by 2002:a05:6000:2905:b0:48e:2a6c:153b with SMTP id
+ ffacd0b85a97d-48e3eb912e7mr4110791f8f.35.1792856983094; Sat, 24 Oct 2026
+ 08:49:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,233 +105,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: wait for filecheck kobject release after a failed
- add
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260817102447.40259-1-guoyaxing@bosc.ac.cn> <CAAhSdy2qwdHE7SB2gRK3_PQ6m_bMSfWpvcuSG-31W2yd3-UTKg@mail.gmail.com>
+ <285419e5-c4fc-4c75-a765-436165bdc8b9@bosc.ac.cn> <CAAhSdy1Q7a+54qn0xNBQBd1eV2ve+Nzqz9uRsWrGSmTn35z8=A@mail.gmail.com>
+ <c050c85c-482a-4351-b627-ac074f7f7952@bosc.ac.cn>
+In-Reply-To: <c050c85c-482a-4351-b627-ac074f7f7952@bosc.ac.cn>
+From: Anup Patel <anup@brainfault.org>
+Date: Sat, 24 Oct 2026 21:19:31 +0530
+X-Gm-Features: AclHuK8dPnhV5N0WLUCo7WCIcHQkxUlghpct-iOYcXADe2akSebbMvp9jc0Ck00
+Message-ID: <CAAhSdy3XDEGfFJJnHfx2Q0w+dG4FombF3Lj5O_V4wBpkyAYTNg@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Flush VS-stage TLB before reusing a host CPU
+To: guoyaxing <guoyaxing@bosc.ac.cn>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	majiuyue@bosc.ac.cn, anzoso@outlook.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Oct 10, 2026 at 2:36=E2=80=AFPM guoyaxing <guoyaxing@bosc.ac.cn> wr=
+ote:
+>
+>
+>
+> =E5=9C=A8 2026/10/10 15:50, Anup Patel =E5=86=99=E9=81=93:
+> > On Sat, Oct 10, 2026 at 4:12=E2=80=AFAM guoyaxing <guoyaxing@bosc.ac.cn=
+> wrote:
+> >>
+> >>
+> >>
+> >> =E5=9C=A8 2026/10/10 02:51, Anup Patel =E5=86=99=E9=81=93:
+> >>> On Mon, Aug 17, 2026 at 12:25=E2=80=AFPM Yaxing Guo <guoyaxing@bosc.a=
+c.cn> wrote:
+> >>>>
+> >>>> Guest Linux uses mm_cpumask to decide whether an sfence.vma needs to=
+ be
+> >>>> local or remote. Under KVM that mask tracks guest CPUs, not the host=
+ CPUs
+> >>>> that previously backed a vCPU.
+> >>>>
+> >>>> This can miss stale VS-stage TLB entries when a vCPU migrates across=
+ host
+> >>>> CPUs. For example:
+> >>>>
+> >>>>     - vcpu0 runs on host CPU1 and fills a VS-stage TLB entry.
+> >>>>     - vcpu0 migrates to host CPU0.
+> >>>>     - the guest updates the mapping on vcpu0 and issues a local sfen=
+ce.vma.
+> >>>>     - later, the guest task runs on vcpu1 while vcpu1 is backed by h=
+ost CPU1.
+> >>>
+> >>> When the vcpu0 is brought back to host CPU1, the kvm_riscv_local_tlb_=
+sanitize()
+> >>> will ensure TLB entries associated with Guest/VM are nuked.
+> >>>
+> >>> By default, kvm_riscv_local_hfence_gvma_vmid_all() will only do HFENC=
+E.GVMA
+> >>> for the associated VMID because most RISC-V H-extension implemenation=
+ will
+> >>> tag VS-stage TLB entries with VMID and HFENCE.GVMA must remove both
+> >>> G-stage and VS-stage TLB entries for given VMID.
+> >>>
+> >>> If your HW does not tag VS-stage TLB enteries with VMID then it buggy
+> >>> / inefficient
+> >>> so you have to set kvm_riscv_vsstage_tlb_no_gpa in
+> >>> kvm_riscv_setup_vendor_features()
+> >>> as work-around.
+> >>>
+> >>> NACK to this patch from myside.
+> >>>
+> >>> Regards,
+> >>> Anup
+> >>>
+> >> Hi Anup,
+> >>     Thanks for the review and clarification.
+> >>
+> >>     Regarding =E2=80=9CWhen the vcpu0 is brought back to host CPU1=E2=
+=80=9D: the failure
+> >> we hit is not caused by vcpu0 being brought back onto host CPU1. In ou=
+r
+> >> case, after vcpu0 has already migrated away, neither vCPU migrates
+> >> again. The guest process is later scheduled inside the multi-vCPU gues=
+t
+> >> onto vcpu1, which is still running on host CPU1. So the stale TLB is
+> >> re-hit without any further KVM vCPU migration, and
+> >> kvm_riscv_local_tlb_sanitize() is not involved on that path.
+> >>
+> >>     My commit message was a bit too terse on this point. The concrete
+> >> sequence we observed was described earlier in the RFC discussion:
+> >>
+> >>
+> >> https://lore.kernel.org/kvm/0d15b098-b8f7-4080-9f33-e8c49c2331e1@bosc.=
+ac.cn/
+> >>
+> >>     In short, the issue is: because vcpu0 migrated away, cpu1 still ha=
+s
+> >> stale TLB entries while cpu0 has the new mapping. After that, neither
+> >> vcpu migrated again, but the process was scheduled from vcpu0 to vcpu1
+> >> (which is on cpu1), causing it to hit the stale TLB. Consider the
+> >> following scenario:
+> >>
+> >>     1. vcpu0 and vcpu1 are both running on cpu1. At this point, vcpu0 =
+is
+> >> on cpu1, and a process on it reads a page, which gets cached in the TL=
+B
+> >> (let's call this the "stale TLB entry").
+> >>
+> >>     2. vcpu0 migrates to cpu0, and then the process (on vcpu0, now on
+> >> cpu0) does a CoW (copy-on-write) and establishes a new mapping.
+> >>
+> >>     3. Neither vcpu0 nor vcpu1 migrates again. At this point, the proc=
+ess
+> >> gets scheduled inside the VM onto vcpu1 (which is on cpu1), reads the
+> >> same page, and hits the stale TLB entry.
+> >
+> > This cannot happen because in step#2 when mapping was updated the
+> > Guest OS will do TLB flush for all its VCPUs which means vcpu1 on cpu0
+> > will also receive TLB flush and the stale TLB will be removed. This mea=
+ns
+> > when process is moved back to vcpu1 on cpu0, HW will fetch updated
+> > PTE and new TLB entry will be populated.
+> >
+>
+> Hi Anup,
+>
+> Thanks for the follow-up. I may be missing something, so I wanted to
+> double-check this against the guest TLB shootdown path.
+>
+> If I follow the Linux guest CoW path correctly, when the mapping is
+> updated in step#2 it goes through:
+>
+>    wp_page_copy()
+>      -> ptep_clear_flush()
+>        -> flush_tlb_page()
+>          -> __flush_tlb_range(mm, mm_cpumask(mm), ...)
+>
+> So the remote SFENCE.VMA appears to be targeted only at CPUs in
+> mm_cpumask(mm), rather than at all VCPUs of the guest. mm_cpumask is
+> updated in switch_mm()/set_mm() for guest CPUs that have actually run
+> that mm.
+>
+> In our case, before the CoW the process had only ever run on vcpu0. From
+> the guest's point of view it did not migrate: the host migration of
+> vcpu0 from cpu1 to cpu0 is not visible to guest Linux, which only sees
+> vCPUs. So at CoW time mm_cpumask still contains only vcpu0 (or at least
+> does not contain vcpu1), and __flush_tlb_range() would not IPI vcpu1.
+> The local SFENCE on vcpu0 would only cover host cpu0, where vcpu0 is
+> currently running. The stale VS-stage TLB entry left on host cpu1 from
+> when vcpu0 previously ran there would then remain.
+>
+> Later, still without any further vCPU migration, the process is
+> scheduled inside the guest onto vcpu1, which remains on host cpu1, and
+> can hit that stale entry.
+>
+> This also seems more likely when the ASID allocator is enabled, because
+> set_mm_asid() does not always local_flush_tlb_all() on switch_mm(). So
+> even the first time the process lands on vcpu1, a stale ASID-tagged
+> entry on host cpu1 may still be present.
+>
+> In other words, I am not sure this case is covered by a full guest TLB
+> flush to all VCPUs on the mapping update. Guest shootdown looks
+> mm_cpumask-based, and host pCPU migration of a vCPU does not by itself
+> add other vCPUs that never ran the mm into that mask.
 
+This makes sense now considering ASID allocator in Guest Linux is global
+and not local. In any case, KVM RISC-V must not assume that the Guest OS
+has local ASID allocator hence the kvm_riscv_local_tlb_sanitize() must also
+santize TLB for other VCPUs of the same Guest which can potentially run
+on the previous host CPU where current VCPU ran.
 
-On 10/22/26 6:56 PM, Cen Zhang wrote:
-> The filecheck kobject and its release completion are embedded in
-> ocfs2_super, so the osb must outlive the kobject. On a failed
-> kobject_init_and_add(), creation clears fs_fcheck and calls
-> kobject_put(), but returns without waiting for the release callback.
-> 
-> With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
-> Mount failure can then free the containing osb before the embedded
-> release timer expires:
-> 
->   Mount failure                     Delayed cleanup
->   -------------                     ---------------
->   ocfs2_filecheck_create_sysfs()
->     kobject_init_and_add() fails
->     fs_fcheck = NULL
->     kobject_put()
->       queue delayed release
->   return to mount error cleanup
->   ocfs2_dismount_volume()
->     remove_sysfs() skips the wait
->     kfree(osb)
->                                     expire embedded release timer
->                                       access freed osb
-> 
-> The normal removal path waits for fs_kobj_unregister, but it returns
-> early when fs_fcheck is NULL. The failed-add path therefore leaves the
-> delayed work and its completion in freed storage.
-> 
-> Wait for the existing release completion after the failed-add
-> kobject_put(), before returning to mount error cleanup. This keeps the
-> enclosing osb alive until the kobject has finished releasing, matching
-> the normal teardown path.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
->     Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
->     
->     CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <IRQ>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? __run_timers+0xa6d/0xa90
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? __run_timers+0xa6d/0xa90
->      kasan_report+0xe0/0x110
->      ? __run_timers+0xa6d/0xa90
->      __run_timers+0xa6d/0xa90
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx___run_timers+0x10/0x10
->      ? __lock_acquire+0x5a3/0x2140
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      timer_expire_remote+0xfa/0x160
->      ? __pfx_timer_expire_remote+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      tmigr_handle_remote_up+0x4ba/0x9d0
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      ? tmigr_handle_remote+0x21a/0x340
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      __walk_groups_from+0x5a/0x160
->      tmigr_handle_remote+0x24f/0x340
->      ? __pfx_tmigr_handle_remote+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      run_timer_softirq+0x222/0x270
->      ? __pfx_run_timer_softirq+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      handle_softirqs+0x1fa/0x8d0
->      ? __pfx_handle_softirqs+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_spin_unlock+0x23/0x40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      </IRQ>
->      <TASK>
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
->     RIP: 0010:pv_native_safe_halt+0xf/0x20
->     Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
->     RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
->     RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
->     RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
->     RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
->     R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
->     R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
->      ? ct_kernel_exit.constprop.0+0xc5/0xf0
->      ? do_idle+0x3ae/0x650
->      default_idle+0x9/0x10
->      default_idle_call+0x6c/0xb0
->      do_idle+0x3ae/0x650
->      ? __pfx___schedule+0x10/0x10
->      ? __pfx_do_idle+0x10/0x10
->      ? rest_init+0x1cd/0x330
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      cpu_startup_entry+0x54/0x60
->      rest_init+0x1e1/0x330
->      ? __pfx_acpi_read_bit_register+0x10/0x10
->      ? __pfx_rest_init+0x10/0x10
->      ? acpi_os_write_port+0x23/0xb0
->      ? __pfx_kernel_init+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_ut_status_exit+0xd6/0x180
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_ut_status_exit+0xd6/0x180
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? acpi_enable_subsystem+0x2b0/0x4e0
->      ? __pfx_x86_late_time_init+0x10/0x10
->      start_kernel+0x417/0x4b0
->      x86_64_start_reservations+0x18/0x30
->      x86_64_start_kernel+0x111/0x120
->      common_startup_64+0x13e/0x158
->      </TASK>
->     
->     Allocated by task 494:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_initialize_super.isra.0+0xab/0x3070
->      ocfs2_fill_super+0x801/0x3920
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     Freed by task 494:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_dismount_volume+0x43c/0x9b0
->      ocfs2_fill_super+0x258f/0x3920
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     The buggy address belongs to the object at ffff8881178a4000
->      which belongs to the cache kmalloc-8k of size 8192
->     The buggy address is located 5720 bytes inside of
->      freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
->     
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
->     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->     flags: 0x200000000000040(head|node=0|zone=2)
->     page_type: f5(slab)
->     raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
->     raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
->     head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
->     head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
->     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
->     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->     page dumped because: kasan: bad access detected
->     
->     Memory state around the buggy address:
->      ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                                         ^
->      ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ==================================================================
-> 
-> Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> 
-> ---
->  fs/ocfs2/filecheck.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-> index 75334e4bd082..7e547769beb2 100644
-> --- a/fs/ocfs2/filecheck.c
-> +++ b/fs/ocfs2/filecheck.c
-> @@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
->  		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
->  		entry->fs_fcheck = NULL;
->  		kobject_put(&entry->fs_kobj);
-> +		/* Drain delayed release before freeing the embedded kobject owner. */
+Having said the above, there are multiple issues with the current patch:
+1) The kvm_riscv_local_hfence_gvma_vmid_all() is sufficient for most
+implementations to sanitize both G-stage and VS-stage TLB entries
+because both G-stage and VS-stage TLB entries are generally tagged
+with VMID. The kvm_riscv_vsstage_tlb_no_gpa work-around is for
+implmentations which do not tag VS-stage TLB entries with VMID
+and this patch remove this work-around.
+2) The other VCPUs on the previous host CPU may be already running
+and may still hit stale TLB entry before kvm_riscv_local_tlb_sanitize()
+gets a chance to sanitize TLB on previous host CPU.
+3) The per-CPU pointer in struct kvm_arch is racy because we
+may have two VCPUs on same host CPU which are migrated to
+other host CPUs. Instead, it is much simpler to have an atomic
+cpumask in each VCPU where any part of KVM can mark a host
+CPU in the cpumask of the VCPU to force TLB sanitization whenever
+the VCPU runs on that particular host CPU.
 
-Why not name the owner directly to ocfs2_super?
-And "delayed release" is only accurate under CONFIG_DEBUG_KOBJECT_RELEASE.
+How about the following change ?
 
-Thanks,
-Joseph
+diff --git a/arch/riscv/include/asm/kvm_host.h
+b/arch/riscv/include/asm/kvm_host.h
+index a30600579231..c975eee7240c 100644
+--- a/arch/riscv/include/asm/kvm_host.h
++++ b/arch/riscv/include/asm/kvm_host.h
+@@ -9,6 +9,7 @@
+ #ifndef __RISCV_KVM_HOST_H__
+ #define __RISCV_KVM_HOST_H__
 
-> +		wait_for_completion(&entry->fs_kobj_unregister);
->  		kfree(fcheck);
->  		return ret;
->  	}
++#include <linux/cpumask.h>
+ #include <linux/types.h>
+ #include <linux/kvm.h>
+ #include <linux/kvm_types.h>
+@@ -184,6 +185,9 @@ struct kvm_vcpu_arch {
+     /* ISA feature bits (similar to MISA) */
+     DECLARE_BITMAP(isa, RISCV_ISA_EXT_MAX);
 
++    /* Sanitize TLB host CPU mask */
++    cpumask_t tlb_sanitize_mask;
++
+     /* Vendor, Arch, and Implementation details */
+     unsigned long mvendorid;
+     unsigned long marchid;
+diff --git a/arch/riscv/kvm/tlb.c b/arch/riscv/kvm/tlb.c
+index 2ae34632cdcb..b1387a00c8b0 100644
+--- a/arch/riscv/kvm/tlb.c
++++ b/arch/riscv/kvm/tlb.c
+@@ -207,11 +207,31 @@ void kvm_riscv_local_hfence_vvma_all(unsigned long vm=
+id)
+
+ void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *vcpu)
+ {
+-    unsigned long vmid;
++    struct kvm_vcpu *tvcpu;
++    unsigned long i, vmid;
+
+-    if (!kvm_riscv_gstage_vmid_bits() ||
+-        vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
+-        return;
++    if (!cpumask_test_cpu(vcpu->cpu, &vcpu->arch.tlb_sanitize_mask)) {
++        if (!kvm_riscv_gstage_vmid_bits() ||
++            vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
++            return;
++    }
++
++    /*
++     * The VCPU might have left stale TLBs on the previous host CPU so
++     * mark previous host CPU in the tlb_sanitize_mask of other VCPUs.
++     */
++    if (vcpu->arch.last_exit_cpu > -1 && vcpu->arch.last_exit_cpu !=3D
+vcpu->cpu) {
++        kvm_for_each_vcpu(i, tvcpu, vcpu->kvm) {
++            if (tvcpu =3D=3D vcpu)
++                continue;
++            cpumask_set_cpu(vcpu->arch.last_exit_cpu,
++                    &tvcpu->arch.tlb_sanitize_mask);
++            kvm_vcpu_kick(tvcpu);
++        }
++    }
++
++    /* Clear current host CPU from the tlb_sanitize_mask */
++    cpumask_clear_cpu(vcpu->cpu, &vcpu->arch.tlb_sanitize_mask);
+
+     /*
+      * On RISC-V platforms with hardware VMID support, we share same
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index dd786f758eb7..c00dc0b191dc 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -107,6 +107,8 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu
+*vcpu, bool kvm_sbi_reset)
+
+     vcpu->arch.last_exit_cpu =3D -1;
+
++    cpumask_clear(&vcpu->arch.tlb_sanitize_mask);
++
+     kvm_riscv_vcpu_context_reset(vcpu, kvm_sbi_reset);
+
+     kvm_riscv_vcpu_fp_reset(vcpu);
+
+Regards,
+Anup
