@@ -1,68 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792841649;
-	b=M/YDRGDl1FBdeusm+kKynSaQ1IQ7t/IKjGRYNjjdy2SCFu8aWioZnEu+9qjapwCg/RWM
-	 wAkAxQuYbog1bvgB1u2lmbA1K4mh9epYyR3Oy8YKCFVmbLP1F05+mbezcwKcVfCCcffmT
-	 m9vPbYF0SyBviOcGktj0hQhKciOUzoS+KsWbi58KLamPon4x4ZHgoEjoxpJGRzG26KBEp
-	 HNwHaKugzhnKxUdXuXhJrqtTdg6VAEcbDspD/TTIVEYspUYrhqwGkbrLcBw1i4pbugew8
-	 Os9xctrLgqaYQd2ksSVm5JMr/tBut17V3PVl65oTdZfU0W674Xuk6kueC1XxKS9ck/w==
+	t=1792841685;
+	b=P4qtCYy4JmSOPdezyu4RQb3bPpsiUGnCrh2l+cEf5DM0iatWVUpLwaTZQWY8mLGx8OMz
+	 c2nNDUin4x8UXamZzcUvGZ+H4/u7D1GAqts8YFcdsg0gjMiUhkFbZUprrUcYXvImiQUvE
+	 l92/WjHmZM5qQYP9lqxPlSkl/DwDyBByfEiQAgOP1c4S/GJuP4hMUCZhfC6x6JsAPWQim
+	 d6+9UGFlUAB/AtYhxvTUaY+4mhjnmAJnCldsXD7H9X7UlobJed+Zdwjqm68pJno41mGLh
+	 wxcmSPMnF/y1f7b7j+aVp338ymoCzb+BQQ665MRj6aBhgJUuwDud0xSJlh2iuAaptRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792841649;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
-	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=JQrf5hea7mv5gjlexaj6fvZlR+Uj9ye/hSYIgADZYkY=;
-	b=yGkfKP7tom12vD47EAjIuyZlf8XlFFcC4CzSWVgwsSHf3R8ljU/R+OIqtRVCQcXpNSaL
-	 0sDklCyEpIC2pc4hV1rFnXevM/qJp6AZ/foBO0bH/Sqidayw7dnMVyk/w6stfBZP8JtVH
-	 AZygVu/ebMxvD8h9NKGFnfn/tb3lB4OCYhZRaVntgzE0spotK+TSDJlOdvhHt/3FBjMuG
-	 4I/ya6valCeQgAQ1nea1N6qePbylWMqs/6z/EfqkGvmIzycZnIj90qzxbwNUDWmVReVIz
-	 d1PxXNUJGdGCz/jahySEVawr488cxFGuHCXJVqBLQJW6MyiOBDuzH9wcp4cBRUNaJVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792841685;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=K1zCcAMhGvhxM+qOw07Udi1L+XA5YYnybA3CyiqDJKA=;
+	b=NTJ//SqvumFc54SVUGn6iRHguVqDs0otjrOFTYKyJJ64YpWdf30lMD1gy3Bnmx43nKMT
+	 Bx+oJbqkm0GPAruFYVVf5tIxaqYO8myRtuuJ7dNuLQSa8cZzbqIbJz6Odwbs8sU9fhn1G
+	 MtjVHxVRl4GIg2wj+yZ1oWb4ukfn9yDcAwekb3Q+x1rskmSK3M/AjjQzI4spyeBP+AKJ7
+	 bCV1OZsXKghDQ95F0aqasv+yOZr0BpdQEZNK+7rpze0P3AOQAJqsIePafSKGBiilhZXng
+	 HZt1rSzR8sSDMydiwpEoMaFIy7DL1if6NUDWnPfm3T1Uj7/sHcOkw3q6MksnlwyHgaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=d4kWojzW;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=2r0ShDFQ;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20251104.gappssmtp.com header.i=@layalina-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rc9mMNg7;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4726D606A31A;
-	Sat, 24 Oct 2026 11:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4726D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E589606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E589606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=d4kWojzW;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=2r0ShDFQ
-Date: Sat, 24 Oct 2026 11:34:05 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792841646;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=JQrf5hea7mv5gjlexaj6fvZlR+Uj9ye/hSYIgADZYkY=;
-	b=d4kWojzWyuscCHCFIAfF3X+9/ezG9MAyrUdNVAO0iMwy5oot55JMVTv0Ddwu5kDzmHOLBv
-	n91AyaEe0GBtmd4dwJ4eX5Q10Kaxw08nHSnWpqwp5eIgAOt+uaZvl4n708DsQjuLWA5+KA
-	D2V+4fMRgCJR+29zPRGa2fzjkrbLHiq30IzMupujc0oCI5vymrD6QgHHLpkqSI8FWOXSRg
-	uD14FOUDBDOLXZr2ZjjIow4fPSlSust1XVMooWYTLR59jEqYEA9kYFLfSrDX++C9xyB/CB
-	OFKDqme9GU+QJAFZWq4kkWFiUsU36MqvpgY8Dn38b/CtN6V3Km29cPoImDUG3A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792841646;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=JQrf5hea7mv5gjlexaj6fvZlR+Uj9ye/hSYIgADZYkY=;
-	b=2r0ShDFQTM4psNLgthvcah+q2SGYnUp8mOhmZHWSd507j2fD7WAwjru4ebSs/erimuGr9d
-	kVpIC3OAjurhSmDA==
-From: "tip-bot2 for Lee Jia Jie" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf: Fix UAF in attach_task_ctx_data()
-Cc: Lee Jia Jie <mkofdwu@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20251104.gappssmtp.com header.i=@layalina-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rc9mMNg7
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b042c0759so1065377f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:34:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=layalina-io.20251104.gappssmtp.com; s=20251104; t=1792841683; x=1793446483; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K1zCcAMhGvhxM+qOw07Udi1L+XA5YYnybA3CyiqDJKA=;
+        b=rc9mMNg7TJsFoSyVEJUG/CyA+XRIYXmCUowbcdmBORswsRcVJEz5SSNsEj/nCqKG4F
+         51VWU0rLhkRt8++wXaLLT/GsWNzvXj7HGKuriJB1pBGN47UQ4FJ7i1SNoME/jZzqntPS
+         wI1hwRH7v2Mo5L9MpNaUmoTXtTY8WX7covNzyQA2F7XhIZIkGIHoH4ZEYPHt2+84zZYU
+         jXTmQKkMahsYcqXkrXmByYKs1v7xC3Ex2oL6FQQtr9ec6BJwwR1SQFh9+pOberYwhDGQ
+         t1IWwenislGfzks7Ydu36wWfCShRUUFleMEA+VFbAKBShOGh3tm3ctuWe7InbkthDw9/
+         gO9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792841683; x=1793446483;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K1zCcAMhGvhxM+qOw07Udi1L+XA5YYnybA3CyiqDJKA=;
+        b=1a0d/i3OFuWxA7aQ9dY3K9hoIYwjp26gc+Idv6DAfTGFilPVYuQ5wnEJZ/nEgj/0Lu
+         mKwRneqfn7RArvmyy8mq8s7VYwQmx5HUuNJdi9VCEsLz1t4DdYd59ed0aDh4l7fR8/xx
+         zwLiiJrbNZ+qnXIyxv809D0dl69PnbEqj1Q2UOE60VJKbS3ES6LXBsDZfLuhBoJsztPu
+         tQoKzAVvnRwaPyCywVcF9ze1AX1+OMXgYI9gMwtZ5j1WXfuvgSkZuPLA8ZfLZ/mEKW91
+         YZggz4QnZ80tExirirc5EBa4rtGt+ZUi16B33FOfGvPH3iA1/p3/6YdANrKjAx3fS0u+
+         ZzKA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjqLcC9X4XLYGyg4F6C3sFsqoJ1hNVbzpiK8L9XAxgB53haJZeV8Iv0bNfJ5Tw9NYmr84XxFBIv+ALIo4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIETYEkJrSQLOIURQmwwBGSaOo16DE6a8hxVWC3gKPjfYLwy93p
+	bisaqlqg+bE9960O9j5IZFrjV2BYaaDoUSfr8IYyL5EjhW8Yx6E3DX8iD4kNv90gPXE=
+X-Gm-Gg: AYBFou2HK+HhGwYg5VklbOxkWNAk1zeTvVeMUvI2WjGqxCx1jK527ZqEU2wGLpypdDq
+	C+MxkaoHRFTZttybNCbXNKSaghNUJd7D6BAKOEmipV71H9YkkwiAf2gvFDPjrICvR7bC/IevHiZ
+	Bwgn/60E8Nqvn8kCFQU93C3nizE20tHyd7uBKtvhsrVaAuxA0cW/LATfVuvHZpDfaP2yF0bqQIG
+	4Xk/LwADKOEcfeud5VOS+1L8MsDeLMRdoWGz88ybkE1BFMs5c7O1jGsTTQTDqhGEyKyzFqxFW/5
+	w9LQlI7mFI8eLltvNrq4l+mDiejoSnOIbxVsypuO5TfiODsVmn6U+H1gCUM5pkC/YdSTUg/44bv
+	0B0VZL5VAJ93hH5+LMGAFY9YqXqCDHNqgo0YBryiRgguKODzEg1ReVYYtJHBug6cwgIQMhs6Fjq
+	TkBnV3xJTtyxCxDW4q0ry8OqZ4NeikV3GVQYIhmQgXkXeYJtZ4ejxwHV/UJ7Vh0wbSg0qzZ+oNE
+	mhzq2YIzsvG7rMamv2DHXKBAaqtPM0x/+lmQv5vgp9kqPKxBV3ZmMGw3PtIneJffZ87pwp/MWq/
+	Vxx4G5Yg/Jy8Sa506ii2v9Oisb3FouYMwVeGGCUM
+X-Received: by 2002:a5d:5d10:0:b0:48e:1c72:abc with SMTP id ffacd0b85a97d-48e3eb9890amr2555328f8f.35.1792841683180;
+        Sat, 24 Oct 2026 04:34:43 -0700 (PDT)
+Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm3795461f8f.6.2026.10.24.04.34.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 04:34:42 -0700 (PDT)
+Message-ID: <fca73fed-da43-485e-8a7c-1ddef9515f16@layalina.io>
+Date: Sat, 24 Oct 2026 12:34:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,70 +92,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179284164527.4109677.4201624416478371364.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
+To: Christian Loehle <christian.loehle@arm.com>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Qais Yousef <qyousef@google.com>, LKML <linux-kernel@vger.kernel.org>,
+ Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>,
+ Wei Wang <wvw@google.com>, Patrick Bellasi <patrick.bellasi@arm.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>
+References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
+ <20261020152933.16989549@gandalf.local.home>
+ <20261021113806.GE2823843@noisy.programming.kicks-ass.net>
+ <20261021132058.kxzyumgxzir4jzi2@airbuntu>
+ <20261021132956.GO2823843@noisy.programming.kicks-ass.net>
+ <20261021140222.tazz6aw4j5pvqwox@airbuntu>
+ <005ed941-2737-413c-8436-a9de227d01ca@arm.com>
+Content-Language: en-US
+From: Qais Yousef <qyousef@layalina.io>
+In-Reply-To: <005ed941-2737-413c-8436-a9de227d01ca@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the perf/urgent branch of tip:
+On 10/22/26 14:18, Christian Loehle wrote:
 
-Commit-ID:     64ea0e8226ed98d14e0231af1beae10c3d5c043a
-Gitweb:        https://git.kernel.org/tip/64ea0e8226ed98d14e0231af1beae10c3d5=
-c043a
-Author:        Lee Jia Jie <mkofdwu@gmail.com>
-AuthorDate:    Thu, 22 Oct 2026 20:58:48 +08:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 23 Oct 2026 19:09:52 +02:00
+> So I guess the clear-when-entering-idle taper is sufficient for UCLAMP_MIN.
+> UCLAMP_MAX (where on a sufficiently low setting we may just never have that
+> idle entry to clear) we expect to be fine because it's max-aggregated, i.e.
+> a second task would let us escape the low stale UCLAMP_MAX on the rq?
 
-perf: Fix UAF in attach_task_ctx_data()
+I am not sure I got you. We should eventually go to idle and reset the 
+settings. But you made me realize the unconditional reset could break 
+the saved uclamp max at idle :-/ I could either unconditionally set both 
+uclamp_{min, max} to 0, or just have some conditions to do_once when 
+uclamp_is_used(). I prefer setting to 0, but this is a change in behavior.
 
-struct perf_ctx_data is RCU protected. In attach_task_ctx_data(),
-the cmpxchg retry loop runs without holding rcu_read_lock(). If
-task->perf_ctx_data already holds a pointer (call it `cd1`), then
-try_cmpxchg(&task->perf_ctx_data, &old, cd) fails and loads old =3D cd1.
-A concurrent thread running detach_task_ctx_data() could free cd1
-leading to UAF and further memory corruption when cd1 is reclaimed by
-another thread.
+> I guess we could reevaluate the static branch at every tick too if we really
+> care?
 
-  CPU 0: attach_task_ctx_data()     CPU 1: detach_task_ctx_data()
-  -----------------------------     -----------------------------
-  try_cmpxchg(&task->perf_ctx_data,
-              &old, cd2)
-    -> fails; loads old =3D cd1
+It seems you are worried about the temporary corrupt state after boot 
+(first uclamp use more precisely) where there's no idle time, right? I 
+think we can live with that.
 
-                                    refcount_dec_and_test(&cd1->refcount)
-                                    try_cmpxchg(&task->perf_ctx_data,
-                                                &cd1, NULL)
-                                    perf_free_ctx_data_rcu(cd1)
-                                    [ RCU grace period -> kfree(cd1) ]
 
-  refcount_inc_not_zero(&old->refcount)
-    -> UAF on freed cd1
 
-Fix this by taking rcu_read_lock across the race window.
-
-Fixes: 506e64e710ff ("perf: attach/detach PMU specific data")
-Signed-off-by: Lee Jia Jie <mkofdwu@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- kernel/events/core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a9ee911..e248f34 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -5434,6 +5434,9 @@ attach_task_ctx_data(struct task_struct *task, struct k=
-mem_cache *ctx_cache,
- 		return -ENOMEM;
-=20
- 	for (;;) {
-+		/* Protect @old until inc_not_zero(&old->refcount) */
-+		guard(rcu)();
-+
- 		if (try_cmpxchg(&task->perf_ctx_data, &old, cd)) {
- 			if (old)
- 				perf_free_ctx_data_rcu(old);
