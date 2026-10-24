@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792867633;
-	b=UPll5+AowZhad4PCYncv9SKa5d1m3uC3KDJLruIOlUwSp4tlh2VTloWjwoZmFWIxkUvB
-	 1d8cwBMhvZ348oC5DVvobOJDugGksNGud50WW34LbAR0A8/OS7q+yCU3a8wsLwZGUlmL6
-	 jiCQ1HhXntQLGch7RfRmnzZmCu4Hu7p8bvV4/sausGy+i/QUjLthOHr7IrHaUVR7hghS0
-	 cqasaLhu7oievsjS/rMqe+BZB5ALoU1cgt3HfnQOqxnTQ7jEalgn4O25nDcN36NIe3z19
-	 gB4ABJ0JR9IiGLYT1lk7apIK55M9YRb+uLUGZmLZmnxWP9kw7+0wvzntbA3CKjITgyQ==
+	t=1792868165;
+	b=m5POCDMY+3ePAimsTNXtnYwIgJTer6Go81Yki0AqljeEjQlKIQzdZW/JcW+o7+3xsBY+
+	 Y/thL5PY3P+EDbRQZk/8x33gac+OPhiId+gpVMtGL5jLsokWFJbPO5IRp3N+RZ/FcEsqj
+	 HGRM6DYMwtKm5EYfvTK0RQMKWJShavxl/JzBRLPhUVG24Rr/tKJBWugifG4JQ4mDmh4/f
+	 kwyDbV7ijub2bI8Txuhwil17P6x1km1+HZZoiGuPSBm/Hv1k2FjBEOGGbQOk2DFBeWInf
+	 +IoCLhkPG/ImQ10PxuNxn7rQtBOzhetdvFXoteNkyaZ41kLXiw2feM2dC3L0EbGljzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792867633;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=sMwqTLtobjq9y4v04ViG193gMutnOIBCJMmSiPL0QaU=;
-	b=Zdh+oNfV1KhHwR0RZvLqNQF4J0Z4ztWDDSlSIFZaxnG+x9b1MHXs4dfO3HVK73HhGjh6
-	 Bi1aAAILC831CL+sk0yQa3UElBNjieuGLdrZRqNeftsSxYltVau71mQu/LRdG3HFezxQd
-	 dtpgr/xofGHWtbSniNEl+dTK/Drlc/uUx66rGq1+M5QChXXqovyFudfQY6Unj+DG+rMil
-	 LQA+BcGa7c0XxlcPGkaguKG8IyxYpZziZUTLI4HO1HR8dO0SAPe8vsdYOMQPIbV8o9XPY
-	 EJiyItp++HpnIuDZksNGjP2FoRUSxDvSg9zJjPJPtPWEs92XGnO44NOs9oauuetlK8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792868165;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zHonWZvAJxHm8LpxaiLGc2DeJqF8Z6lwSh7XwdTqGtE=;
+	b=uRLOtBnObSNKyOWOf1uE0YdYx2Aesb0bgB6us4b/Xy8Gjp+/6ez6O7jFJTG04nO4IynY
+	 B+vGpBy492XK+QjtXgXg02p+y/C22iEcfMvVpWK8/mHTQVKfdRiMcA4AJEQWa5N37csrf
+	 Xk2LVs/33TQV8oVck6CdgFCR4oTAfGwvzJaDgtq6GfM2V+GPzlCsAChRv8APTpGvKk1fO
+	 n3u/imhluH0hSXVwCHGLzIQQ/eIsko5BNfOyHh1zkpGefYUHfyG14jg1y69dGHagIt6sW
+	 EHwBRwPZVQQTzdshJFtAUYc8vRr8Jvi/ISPpK5DqUG10IRiS9wTWvGYuXIODQ5XRoOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=lRTw2REA;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GpyvUbE7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C0B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:47:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67C0B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE601606A31A;
+	Sat, 24 Oct 2026 18:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=lRTw2REA
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id A6AAFD312D;
-	Sat, 24 Oct 2026 21:47:08 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro A6AAFD312D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1792867629;
-	bh=sMwqTLtobjq9y4v04ViG193gMutnOIBCJMmSiPL0QaU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=lRTw2REAsTGOTHe91Ot2A5V7siQRADaJQxab4/3iubUgCLH30bVdIaOAl8OHheibt
-	 aOrVREhG/GvEnhM3MnxwkdxZlspnA/GepgcgXVBqr+w9x4QFT5U6L0UHg/1CFNEFhN
-	 vRKX/VQUs1cavU41CO8XKvsIXpqkJs1d0izkkJwd7Jmq1W4bIGq+GJcu2o3OjS7n/g
-	 0cPvuB11a96QWx2xINKcCDEmAQKV71DnwjSngCe6TmE+QrQK1U/NoxQdA4SAhSgKmx
-	 EcmRVpN9PTLv6kooZ+2KGHKJxWiFTwB0Hv850wezgqS4/fwbsKpTiFXy3RBpdVmvB1
-	 Uo51+56HppPKA==
-Message-ID: <d413238a3c5533572013d1fb27142345aabdd101.camel@rendec.net>
-Subject: Re: [PATCH 4/4] irqchip/alpine-msi: Add debug logging for MSI
- allocation
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Antoine Tenart <atenart@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 24 Oct 2026 14:47:06 -0400
-In-Reply-To: <20260923083703.38974-5-farbere@amazon.com>
-References: <20260923083703.38974-1-farbere@amazon.com>
-	 <20260923083703.38974-5-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GpyvUbE7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296E41F01825;
+	Sat, 24 Oct 2026 18:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792868164;
+	bh=zHonWZvAJxHm8LpxaiLGc2DeJqF8Z6lwSh7XwdTqGtE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GpyvUbE7eXTpMs2EK7JRwxpPhhy1AKc6BWBbFkMqz4MCt3fMHTHKc/R21xtJa8xFy
+	 xU0MxFpCbDaaiEoK0vdIt1y0u3I6FoGhQQlxOB7pPz52KEG25CCnBSN/J6GJb50TKx
+	 QlkIGVylGZIdRFe4T7UwyYvmmsC1lOP8uVr7pQf5D+213132V0fqyeEHEf6tRsNxvG
+	 Ln2T9sW7La2ngqAJyLQ99FKF3mPXMOyra68N9YNt3bdg5a8I07x8Sat24hqho2saz2
+	 kLuhp4rVeLyxRXZlDdxiyluGRS7ui2X6IofvChc36FbpXKdUkV2tny/1ME0i1TO+r+
+	 /A6t8b2KrnYTg==
+Date: Sat, 24 Oct 2026 11:56:02 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>,
+	Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
+	Basant Kumar <basantk@qti.qualcomm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH 0/5] Add support for a TEE agnostic Inline Crypto Engine
+ service
+Message-ID: <20261024185602.GF2553@quark>
+References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,75 +66,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
 
-On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
-> Add log messages to help follow the driver flow when debugging: an
-> info message on successful initialisation, and debug messages on the
-> MSI interrupt allocation and free paths.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> =C2=A0drivers/irqchip/irq-alpine-msi.c | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpin=
-e-msi.c
-> index 8155f63cfd29..0e68f81014e7 100644
-> --- a/drivers/irqchip/irq-alpine-msi.c
-> +++ b/drivers/irqchip/irq-alpine-msi.c
-> @@ -104,6 +104,8 @@ static int alpine_msix_middle_domain_alloc(struct irq=
-_domain *domain, unsigned i
-> =C2=A0	struct alpine_msix_data *priv =3D domain->host_data;
-> =C2=A0	int sgi, err, i;
-> =C2=A0
-> +	pr_debug("trying to allocate %d msi starting from %d\n", nr_irqs, virq)=
-;
-> +
-> =C2=A0	sgi =3D alpine_msix_allocate_sgi(priv, nr_irqs);
-> =C2=A0	if (sgi < 0)
-> =C2=A0		return sgi;
-> @@ -116,6 +118,9 @@ static int alpine_msix_middle_domain_alloc(struct irq=
-_domain *domain, unsigned i
-> =C2=A0		irq_domain_set_hwirq_and_chip(domain, virq + i, sgi + i,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &middle_irq_chip, priv);
-> =C2=A0	}
-> +
-> +	pr_debug("allocated %d msi starting from %d\n", nr_irqs, virq);
-> +
-> =C2=A0	return 0;
-> =C2=A0
-> =C2=A0err_sgi:
-> @@ -132,6 +137,8 @@ static void alpine_msix_middle_domain_free(struct irq=
-_domain *domain, unsigned i
-> =C2=A0
-> =C2=A0	irq_domain_free_irqs_parent(domain, virq, nr_irqs);
-> =C2=A0	alpine_msix_free_sgi(priv, d->hwirq, nr_irqs);
-> +
-> +	pr_debug("freed %d msi starting from %d\n", nr_irqs, virq);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct irq_domain_ops alpine_msix_middle_domain_ops =
-=3D {
-> @@ -235,6 +242,9 @@ static int alpine_msix_init(struct device_node *node,=
- struct device_node *parent
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> =C2=A0
-> +	pr_info("initialized successfully, spi %d to %d\n",
-> +		priv->spi_first, priv->spi_first + priv->num_spis - 1);
-> +
-> =C2=A0	retain_and_null_ptr(priv);
-> =C2=A0	retain_and_null_ptr(msi_map);
-> =C2=A0	return 0;
+On Wed, Oct 21, 2026 at 09:13:06PM +0530, Harshal Dev wrote:
+> This patch series adds a generic ICE service which provides TEE agnostic
+> APIs
 
-Not that this matters in reality (because all these numbers are "small")
-but for the sake of correctness: all the variables you added messages
-for are unsigned, so you should use %u on them.
+There is already an ICE driver: drivers/soc/qcom/ice.c.  If it needs to
+do different things on different platforms, then it should be updated to
+do so.  Adding a separate middleware module underneath it, with the ICE
+driver as its sole user, is unnecessary complexity that will just cause
+problems.
 
-Since you're cleaning up this driver, you may want to look at the other
-prints. For example, the existing pr_debug() in alpine_msix_init() has
-the same problem.
+In fact the middleware module is called qcom_ice.ko, which is the exact
+same name as the ICE driver.  That's broken, as it's a name collision.
+I think the fact they have the same name hints pretty strongly that the
+functionality should just be incorporated into the existing qcom_ice.ko.
 
---=20
-Regards,
-Radu
+AFAICT, this series also breaks boot on platforms without ICE firmware
+support, due to indefinite EPROBE_DEFER.  Choosing a simpler design
+would help avoid issues like that.
+
+- Eric
