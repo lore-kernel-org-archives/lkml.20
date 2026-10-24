@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792864972;
-	b=SDTC76V8blqvfYG314+QXqOpv6js/U4uvuG0WOaehECpTUKOQYGJMPc3e7rwY8UsHi2F
-	 s1E2m0sHahqimMjzRlmECiGgNcSl9Wc3q+CaAQH0k6uhHDnsEd5ZUUlF3hBl9PVZ3RLSx
-	 llyRbOTumg1z8k5k654yduEoHky47MFbize0XZUvMKhV28svpaWUISRPeBZub5T5tsd6J
-	 /P4TYjB1SjGnSAoIqMnBtPoB1r0HMdy94LwOuOH4LAD0vR8BfkxnCTS4yTLIaIWtsRF0L
-	 Et3FZ3ZWwXE/y273OD3+7fdCcKSK8J8HBgjSrmzrSWQTddmszA1SzvPmlC/HEFLPHwg==
+	t=1792865133;
+	b=GAEkf25sC7jahDtszykDam4+9RvpsLKUx35DcwBiFc2gVVtO47X7Hhhh6SDTuDajrEt2
+	 ve5tFfzbNo0twLSHTu+hBvjdh7sc3/5eF5eq+ayNWhtMV9QsH2rIbo5kZfZ6jlF7UG4QD
+	 cRK+Qz9ukhJ/NkzVQnizImwX54oPbliWA7RpFZebA0Sm9CU0Bl4/UQHjgdgqNdWe0fBpW
+	 aRGd4DMdTGak9YcHFs1gYsfZ7MlncsyqzPTyZZwMrFQRQPNOTDC34qlGs/ABH0vOMZjjf
+	 /gW+qXxzEWjGlRPAodsE0DioHv/Tmr3Kwfh6s7ilZfjoWo2z54Qw1kjINW5mWv11vYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792864972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eIeVJTLozSdLbIKTdmQoMBob0wlVQZIBGS5B40KWhyU=;
-	b=pIeGfXR2ygqGnLMhuesASThmpgSlZnpUwClho0DYgUX67c8TQCfSbVWlF66TrrGvK60h
-	 aHBnLFZSvdPJBTn+oE2joCHwoZbpyAYcP4aKzErmEIpyEjBaEaH1DGV1VCS+QLqzqw8ZR
-	 SBLuWi5ZkQOVYF95ATybylzLQCb161Bcd33m/Uijq4qkAc+lu+6VaC2YBIUPaey4NCvsD
-	 ot4BGvPGumrXFaxM+5Lh5fOug58YpWocLJ+jvxcejKKRwq0z6jXvMplpb0xaWDbboAzj0
-	 hAiJf+UgKLfqvE1Uf5DOQz7OPdQOsInXe9MgH1islA0i5lraup0lMq1OW+1CluDgfqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792865133;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=FpzwCxPPS9IwFBjAs06Z/W/Hx2bJLTKEYnKVn0uvtA0=;
+	b=qfdLTXUKvic0ogas2C51UmWbFT1rrgU4QJKuVzS88DkgqWmYQZicDwaKdyKjK3C3xtp+
+	 PYj9oYu1c73GDdum9NEFR8Zeqz3M5a8LXXJnZEbQv2TvCzqKder4tiUCiIyWuZX+9vlFV
+	 K0VppTJfzvRlXr1nluRyahXzjVBz0cLi7V1k+tGWNkXbZlqRhOU2xp07nrMkpnKdvHEnu
+	 dqCcLV8UbR2UvV2lYEiOeZUtARGGa9oT1C0DiYdK1QGrF2cWjn84uAmww8mX40lSeubSV
+	 xGsJ2WiNhAG1xvhUTOTZzOOtnaSUCGXjG9go0Dv3gwO+4heW5AGngMTL2GAlQXtQv5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IRccZDxo;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=wXQnmlLl;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4034F606A31A;
-	Sat, 24 Oct 2026 18:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4034F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16190606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:05:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16190606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IRccZDxo
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jBnmW5x6Zzlfvps;
-	Sat, 24 Oct 2026 18:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792864969; x=1795456970; bh=eIeVJTLozSdLbIKTdmQoMBob
-	0wlVQZIBGS5B40KWhyU=; b=IRccZDxowA4GvZGH14ueAYLz8AJ+ye9v8IXWvq8+
-	s2Ms7MOTVIJDBz8Lqyex5Daz4zM2rKTGPnT2EgZaWZMEbhKh9X2Z0JlcI9jpEda7
-	3UnZ4mWn7XhqluMKncDVgWmujOFlbtL8m8Iiga2kSJn6BYYRwhFV5/fZj+De+yJK
-	+Z4TpESdHOMijUavC+vY1Lxb9IfugeULK5ZQWj/6z3FIkGToqJkDV/Kj80b/QNoO
-	vQTzLpGvgT+OmSAZyUu/8XeJZSyJnIq5LrwAgviHEY6ufNgENwwbryrLAxVJfg+e
-	3VZgoTOEo8U/4euXH0IS4j9nfhk2GEf5hLZ25SN6UasU9g==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id fZcaJXGGZAEK; Sat, 24 Oct 2026 18:02:49 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jBnmT0TQYzlfvpN;
-	Sat, 24 Oct 2026 18:02:48 +0000 (UTC)
-Message-ID: <75465b8f-1109-4a83-84ab-f4b464f187e3@acm.org>
-Date: Sat, 24 Oct 2026 11:02:48 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=wXQnmlLl
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id B6576D312F;
+	Sat, 24 Oct 2026 21:05:22 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B6576D312F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1792865123;
+	bh=FpzwCxPPS9IwFBjAs06Z/W/Hx2bJLTKEYnKVn0uvtA0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=wXQnmlLltfKxte+M6I5nW33rVCJnzHb+5dVLwE2M1C1FkvLePr0ENj0Hon2ICcHZg
+	 izGFUgkRtEZWtMsm/UshW9IzLyTEWBTy4aC+xECOxMnk7AVActsfZCJdTJTJoABVFw
+	 VB2Bfu9o2T/o/6WmweDyOVf5t/udzrnPCYvT0tHNTBjhmovvE5uHM1RUQ6wuxoemXl
+	 2IiiZw0EBFBlLnwRCY+mRFqfUNPCti/iRwjIie8n/yzdC0EF/gTet37RHRaFcGK558
+	 xxDer5Y/jmqSs6ZqiKR2MAsEfx7iEnLxyzluyE8WE6YVkglT6ivechXJZl7DuR3hp6
+	 tk5BI3KbmuyjA==
+Message-ID: <3693b2aa2bba051b82406baac73e0e03921bad34.camel@rendec.net>
+Subject: Re: [PATCH 1/4] irqchip/alpine-msi: Use SPDX-License-Identifier
+From: Radu Rendec <radu@rendec.net>
+To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Antoine Tenart <atenart@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 24 Oct 2026 14:05:20 -0400
+In-Reply-To: <20260923083703.38974-2-farbere@amazon.com>
+References: <20260923083703.38974-1-farbere@amazon.com>
+	 <20260923083703.38974-2-farbere@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,21 +69,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] RDMA/srpt: widen the indirect RDMA context
- counters
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261024162852.3528224-1-yhlee@isslab.korea.ac.kr>
- <20261024162852.3528224-3-yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261024162852.3528224-3-yhlee@isslab.korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/24/26 9:28 AM, Yehyeong Lee wrote:
-> Make both counters int, the type the values they accumulate already have.
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
+> Replace the free-form GPL v2 license boilerplate with the equivalent
+> SPDX-License-Identifier tag, as preferred for new and updated files.
+> No functional change.
+>=20
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+> =C2=A0drivers/irqchip/irq-alpine-msi.c | 5 +----
+> =C2=A01 file changed, 1 insertion(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpin=
+e-msi.c
+> index 6764d64e7950..0d97abb85e16 100644
+> --- a/drivers/irqchip/irq-alpine-msi.c
+> +++ b/drivers/irqchip/irq-alpine-msi.c
+> @@ -1,13 +1,10 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> =C2=A0/*
+> =C2=A0 * Annapurna Labs MSIX support services
+> =C2=A0 *
+> =C2=A0 * Copyright (C) 2016, Amazon.com, Inc. or its affiliates. All Righ=
+ts Reserved.
+> =C2=A0 *
+> =C2=A0 * Antoine Tenart <antoine.tenart@free-electrons.com>
+> - *
+> - * This file is licensed under the terms of the GNU General Public
+> - * License version 2. This program is licensed "as is" without any
+> - * warranty of any kind, whether express or implied.
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+
+Reviewed-by: Radu Rendec <radu@rendec.net>
