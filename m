@@ -1,85 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792851245;
-	b=scVNKp+Et1mplGA6batXIXeWVV9L49IrM+r80f9TR0bmyemGSRUNIlEZ0F7GTCZNCis5
-	 OIXppu8HVc2tKfF4+OISPKq1vUsCsKzQHlsaj0dP9J+qNIW3BI6VzYwsPKRl/+zmzzdoU
-	 5fgG+2Ap5Gt7sN/hZZGCdeO0JiOZjgXVyeNCLm5JGdKnERb6SP2AW35/zLuaKnDY1bQjn
-	 KW13ms32Oprq/0vn6Ic7ypabfl1ST47xa8ht4qH4gvnWiCJHxpDH6Usk6I0lmknO0wDLR
-	 Uj+0IhkrKkINPMs/Wm93m5ek10LmeaBeOgzvQAJr14KwOG5y6w5LIIBnpieToEbdggw==
+	t=1792851278;
+	b=Y2cy1gZhW9HLGwK5TK8ad+WlSbJEjfDmR5u9+Hb7qQH2PaO2/7pMgYCw9Gv25c4TXzA8
+	 AndgMgcaqJw1xDcWayFg4BteqyGvfsJUtjvcJfTbCT+D4kj4RjfqEqj4SFmFioxE4Z2xJ
+	 2eFCIrttpAafP31YZxEN/JXpCnf6zgBezy5Cc1NpaZndH06hk8ruWUpsiPiE8/e2WCdtl
+	 tDWnFtS6NiXtfolCDhyBY7uPuoVFcJG88DnfWV07BP9aqTscxMI71OnzAbrYlxfq19Pe6
+	 wvG1IMkeiZVKwogTW0d7igyWdaPyg4eMAEqYaQY6e4L5C9RiCTD13T651x5kAE5qNMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792851245;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
-	b=jDndlZTisetkWMIhVAdldsugkw2ky6XetO0OiKvhVt6dCnqJmKZ7oMpq/ZRnbgFcFZju
-	 +ck1O9XPYo/kVNRLDUlzdlNI3zIKVnJLRnUTqktLmXVrNKT4beJHIL+bEnru5P1JjVLCJ
-	 T/y68J/Vc84latYz8P4Y3jMMCfXyRtreIvQKuf48OVgJlIJb+EI0CYr0ltSLMddPOD00f
-	 t3F53hrjVbjOO8xQDEuH4dUDKelBZd2jfx31WP5VnoTkvkR3Ngu38L09onkaRs+9W+LE4
-	 gIrG7Ijlf593B/YPqKyp6nETes57cdEJ0J9bX3yq+ScnFDciFUKK+vxRRHpLj7t4J8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792851278;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=8Bv8zm7XNsLRVn3LnImSn0NVeOMUvsqV0SZT9DMvmik=;
+	b=kdhIgTcHFWErDmagPOKDjK+bzpOZdgpyxzzb+M6yrhSBpW7t3vppLDP2dJxx7v/QMCyJ
+	 7X4NBDm+tdUL+UwxXn3U9RJPR7zjohZKHvtM2jx61GZ/F1kAvgQV5bPWBMQFuc2BodRCf
+	 arKkWnXjXGlYVDsLdT9bXHuQFV9CDkKnpYVDxl3e35cKRf5lO+DAORwUKa0IRphqXcsLH
+	 UUOzXLqQgZP2ZsX2+0fONGm0ebAqOtZG5CHVbGm7D8bDBozwAiri41cyJgQycWRVNVmYo
+	 5++SndNbCtQ5AO7Cp1MgtL36JuxDzoQ8x47gDn/Qyqah7iKT88Q3NYcCBFQh6wgPU/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=PCDf4AFU;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=db9xt5Mv;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A19606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:14:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A19606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8BF606A31A;
+	Sat, 24 Oct 2026 14:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8BF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=PCDf4AFU
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-70094949641so1563418eaf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:14:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1792851243; x=1793456043; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
-        b=PCDf4AFUPcoMwJEsPToZlvA0AbfeIIch7rSzbwffG46to0WMd5aPQAoV4AKVNTqT5i
-         pdwxW94j3PfUDqtRzzR6pgvgpreJ71Qh8ix9Ah1NCTMbOxHxT3kY5Hu6DWStWF2DCdl/
-         hGtbwhtwjIk5RWHJ1M6qR6gi2NXh9raPgLaMo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792851243; x=1793456043;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
-        b=uNdhOZO+xm30JCAR0WFaq7fA//ygQm7oEcqk4GhVm9PRFOcEEOdUxlc/9Q8uI9b6mP
-         nSkVWU27VxjbgiHF506UuJVEOjAyicAnzBCdYEP12vNjnGmnfBi6zBaeA8VbWhtT5Om2
-         4CnNkEenV3yuuJmTgBSp7sO2APsuqeqtyzrZN69N+TE6LqcJ/OHoL76FJgK67UF2MVOD
-         XPAA2hh0xDFg9T3WTO+aRL4V1f1rSJpUBIxom7N0XG5+caKHgU6UHaftYnD4mTdSqGjk
-         jf+KCG2t6wdPnoqpYIM1ZCbbTPPLHhFxoMHREolMZivDno8PjpCB1xBMSsJu1N3uzFzA
-         FObQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwua6/UQfhHcEsHdxRDoJpP0tNpTDLlIdAhZRTG6mUxKyAXwfU7FDHMdgJhi61/3LPweTWhQvyRJTDyXuw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbUEiLnd0ycWhftIF6eSBLT5MEYaSOfP8n0D0SjbyxB8deZbGL
-	c5MwgoZGLTxrrOgLQY1Ze2wzw0/miS6CVp0VH8GuEA4kOV0v7ZoebS23Vp8us0dgaQ==
-X-Gm-Gg: AYBFou2qXHfF2st7Og62ba8GQ2QWdKVO1IiIGQWOD/josIq80o7FKRTiKooEKsoc80Z
-	MV6a+B50JDNNr6ofaig3ESR/BFCrvAw3axVTRsbRuHu85ExUW+LvrhWRpZ5rQ7lbBVgk0vRItXw
-	lq2IeG2W4VDCMWWV15tDqxCa450eu7lnsKT9m8dBBmjz7NGR9i51Z/uKaXH4jdzy1CZaSpO93DF
-	PZTywTSnjuwauDrTW98tHs5oRFlIGMCIousQYVBkz2VM+QXU+CC450Fgx6VGnvYbO2eDUfUQseV
-	j+rxDiau6oDJzeds3XxMPvAGmFUtwWDUnN/E2IqTTJ3p+FAk6aLrHCrQ3jyin6skeqn2BUi8Dlf
-	jVL9GJKSW5aZZZ7gTKssZc/YvXr1vBeVoJvmViuKwVtxDIGdiYdwxC/hDosEDGXmo1Z+tIMNGWJ
-	euAAoAIA9Z5OzoEuFxX9Y6Y81wHvRHXjwMFWWOLyPgmObhELl/Sa3NWglbVWG7RTphhJ1sks0a1
-	aHePVAsMMBJPpRaunEUz/prorCjWwqplZArrNEUaJr2LJnR4mFICG+8mE+/SUANaSk6SBIn/pyD
-	eBS5PA==
-X-Received: by 2002:a4a:e907:0:b0:6f4:e301:cc28 with SMTP id 006d021491bc7-70ba0e91903mr844092eaf.24.1792851242978;
-        Sat, 24 Oct 2026 07:14:02 -0700 (PDT)
-Received: from [10.211.55.5] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-850fc0fc7a1sm2509401a34.25.2026.10.24.07.14.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 07:14:01 -0700 (PDT)
-Message-ID: <3d919bc5-0fe0-4afc-a5fe-12c0ef1989dd@ieee.org>
-Date: Sat, 24 Oct 2026 09:14:00 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=db9xt5Mv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792851277; x=1824387277;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=usH5EuShCy2UbML2kbeFVG+kU8NRmf11PsDnNGqiAvY=;
+  b=db9xt5MvsIgLQPQyju66o7BxIyHdvOq/y/dzhMddvjYsC1OaqQpJe75w
+   x5xOsMWQOyq46zVzdz8eRQQ3dse4VKzUZ9xl8TjDpKrLSzOrkv+U2lUNy
+   uDqKqYv7frIu5KI1BJo8toHYYv4VxAqAJHrF1aDGM2q4bNTt2v++8cLkv
+   iudxQFrK4niQiKYt6GKviXe/3dvnAGTFtJirkd3PJcw+FyjTU/5mvmmCx
+   p40KA1Vkwdt/695SlTtPRGkvz4UnEF9jzOhRLL/jc18SOizcmiB8Q73SG
+   txLydsRAiWyH5pw/id1oAbnI4qcW7FTBSdzTRsJYov/mrZVjOKW4+s/Sv
+   g==;
+X-CSE-ConnectionGUID: qmTp7o6BTOO8YfQmIGa1MA==
+X-CSE-MsgGUID: 9pbRMMw7S3mTsPiIfPuaXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1594542"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1594542"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 07:14:36 -0700
+X-CSE-ConnectionGUID: EfaqV5EhQT26ry0mQSZHHg==
+X-CSE-MsgGUID: nV1Z65ktSMOV29IAbSTkqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="3744843"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 07:14:13 -0700
+Date: Sat, 24 Oct 2026 17:14:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] serial: 8250_dw: preserve BUSY-safe fractional divisor
+ programming
+Message-ID: <aty9MzTQX-iKPdt3@ashevche-desk.local>
+References: <20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,58 +84,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: greybus: Replace format specifiers
-To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
- Julia Lawall <julia.lawall@inria.fr>
-Cc: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org,
- gregkh@linuxfoundation.org, vaibhav.sr@gmail.com, mgreer@animalcreek.com,
- vireshk@kernel.org, rmfrfs@gmail.com, dtwlin@gmail.com,
- pure.logic@nexus-software.ie, linux-kernel@vger.kernel.org
-References: <20261021163437.280930-1-pavankumaryalagada@gmail.com>
- <3433f922-bffb-4f1c-8e06-a7a87f5dbcaf@ieee.org>
- <77adf02-43a9-7621-a94-9da41f8c5a56@inria.fr> <atuYWuWeqvEG6j4B@user>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <atuYWuWeqvEG6j4B@user>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/23/26 12:24 PM, Yalagada Pavan Kumar wrote:
-> On Thu, Oct 22, 2026 at 09:30:26AM -0400, Julia Lawall wrote:
->>
->> On Thu, 22 Oct 2026, Alex Elder wrote:
->>
->>> On 10/21/26 11:34 AM,pavankumaryalagada@gmail.com wrote:
->>>> From: Yalagada Pavan Kumar<pavankumaryalagada@gmail.com>
->>>>
->>>> Unsigned variables are printed using %d.
->>>> Replace them with %u to match their types.
->>>>
->>>> Signed-off-by: Yalagada Pavan Kumar<pavankumaryalagada@gmail.com>
->>> I have reviewed every one of these and they look good.  Quite a few
->>> of them--because the size of the value being formatted is less than
->>> 32 bits--would print correctly no matter what their value.  But I
->>> think it at least does no harm to convert the format specifier to
->>> unsigned in all of these cases.
->> I was suprised the compiler doesn't complain about this.  It seems to
->> complain a lot about type-related format specifiers.  Yalagada maybe it
->> could be worth adding something clearly invalid in one of the argument
->> lists to see if the code is actually getting compiled, or if you need to
->> set some config option to make that happen.
-> The files compiled sucessfully with the normal build settings. I also
-> enabled -Wformat-signedness to check for format mismatchse, as this check
-> is not enabled by default. It revealed a few more issues, which i'll look
-> into as well.
-
-I think you might find that "sparse" complains.  Run your build
-with "C=1" to run (by default) sparse, and see if it says something.
-
-					-Alex
-
+On Fri, Oct 23, 2026 at 11:50:17PM -0600, James Hilliard wrote:
+> dw8250_probe() installs a divisor setter that makes the UART idle and
+> checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+> fractional-divisor support, it replaces that setter with the library's
+> callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+> bypassing the divisor setter's idle sequence and DLAB readback.
 > 
-> Pavan
+> If the LCR update fails to set DLAB, the subsequent divisor writes can
+> reach TX and IER instead of DLL and DLH.
 > 
->> julia
+> Install the BUSY-safe setter after hardware discovery and extend it to
+> write DLF when fractional divisors are supported. Program both divisor
+> fields only after DLAB has been confirmed, retaining the fractional
+> divisor calculation selected by dw8250_setup_port().
+
+...
+
+> static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+
+>  	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+>  		goto idle_failed;
+>  
+> +	if (pd->dlf_size)
+> +		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+
+I still think it's better to export dw8250_?et_divisor_dfl() from dwlib and use
+both here.
+
+In dwlib:
+
+unsigned int dw8250_get_divisor_dfl(struct uart_port *p, unsigned int baud,
+                                    unsigned int *frac)
+{
+        unsigned int quot, rem, base_baud = baud * 16;
+        struct dw8250_port_data *d = p->private_data;
+
+        quot = p->uartclk / base_baud;
+        rem = p->uartclk % base_baud;
+        *frac = DIV_ROUND_CLOSEST(rem << d->dlf_size, base_baud);
+
+        return quot;
+}
+
+void dw8250_set_divisor_dfl(struct uart_port *p, unsigned int baud,
+                            unsigned int quot, unsigned int quot_frac)
+{
+        dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+}
+
+
+static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+                                       unsigned int *frac)
+{
+        return dw8250_get_divisor_dfl(p, baud, frac);
+}
+
+static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+                               unsigned int quot, unsigned int quot_frac)
+{
+	dw8250_set_divisor_dfl(p, baud, quot, quot_frac);
+
+        serial8250_do_set_divisor(p, baud, quot);
+}
+
+In dw:
+
+static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+                                       unsigned int *frac)
+{
+        return dw8250_get_divisor_dfl(p, baud, frac);
+}
+
+static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+                               unsigned int quot, unsigned int quot_frac)
+{
+	...
+	if (pd->dfl_size)
+		dw8250_set_divisor_dfl(p, baud, quot, quot_frac);
+	...
+}
+
+...
+
+> +	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
+
+...and here
+
+	p->get_divisor = dw8250_get_divisor;
+
+> +	p->set_divisor = dw8250_set_divisor;
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
