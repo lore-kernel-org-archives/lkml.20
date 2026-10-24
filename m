@@ -1,66 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792857664;
-	b=u0uCvVlPYra49rbWDfErvz2FCzBwsYD5dPyoJtUsW0GpwaZZua8HLkfyb0XuUciNMKaV
-	 pg+t5PsNdQKK0ybVl+2YdBLohQAlQnFc0FD0IWb7755roDyW8/i3ErRyK8kYmpPAUuMhz
-	 jgD+Rq0X/OqEvLglr0l02KUvJB/JUzNLgBhT6udUmWieJpV/4CxlD/w0uXOX6EeUKpkS9
-	 E+Za2nzZkW3IEIpTbZfV+tDeDzOHqp1+2hjIYtF4LY5ctTPrjgZ9knxAAQP+OZ/4lnHzS
-	 o04Vp7dzhQ2weqHcr2y/KFrfuGfc1jhirvQdgrl3j7WDBwuVpqEcC86cQ8RQGsWbENA==
+	t=1792858138;
+	b=3VNETJhulY1dheBanuHCTKVbes7q3RL64UpeI8BRJwMSM+yWaSwPtV453wBv9EnJRpUL
+	 MZ/iYUF+WHiURRjHhNZCzMV3OGnRp8TLRKcALLq8im+ZmASzeH43StHLpbSOZzPtAXF3+
+	 1VeKRPQ+kEQr0s7WJD1fifC7EAcumraKts7uWzme9VxerspUk3MeIT0BgwDjtPvgfybS8
+	 doRzMrZmn7XOycS6O10+9PGHMsHir3bxWIx79FpUj0hnL7MW6MUzdODJPcvVQ6kYZEMfy
+	 uylbLAw3OoTktau/1QD2q50M6QQxDlcbu77WJU+5t6FHYRuqBA5TlgpD8UNEhtDj+ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792857664;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:In-Reply-To:Subject:Date:
-	 Content-Transfer-Encoding:Content-Type:User-Agent:To:
-	 X-Lms-Return-Path:References:Cc:Mime-Version:X-Original-From:From;
-	bh=vSkKqqPrcRVk3BVNulEaeACxkD/BbD3EQ9kOWBnKbIk=;
-	b=fUbQ6US8QTmWZiN5sZ8cGAGznVOKkv+5GOW6CyVvTaoWRu+zOVnlW9e1pd4FjSNhp++d
-	 w6CKenoXpTwBRlT5K4Cb1aL3U1LCwUKKUbIGxmluLOkk3TSggD6Id85yWbXdl01ude0Ro
-	 NPhiWca/dpCjvek1QC50QsQKfzT4XQU6DuTHVAW74KtrrIThiTsSYcWm4dVqQX2mRTp2d
-	 tHFAPY3RRpG9zA974V+MURvams6HnORvKkcI7NwNyNR2Ky6kqGJe8NEW6CRD9r/ijGVrz
-	 95KB6hui44YtLZ+boZTydbUFVV3aI10hwLl4ZPWDKXc00dvhIJHGEjaAniZHZWmpiKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858138;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=jqgo1XywgsdgGPVlo0B4zN6yPIeNTL0VXgREkra6lSU=;
+	b=Fs6/J6/DIQ7AAKFamVY2UiFUEqzIFRHT4u6P4d0d5xx/YC1IDlJ+fyuWuySUNwBfc7jG
+	 6+9fYsaT1OOXfoZ0Iog5AGbslHBgi8aY2C1ALunSgAG4bEtSOWeQAlBv5szIDI9qDHU+P
+	 8oZsAsG+1o4U6NQXgYt+qFhRWElqky96qibcADD3oIHZgA4ejo5khSmYpKGEShvn5d9Ul
+	 EgkHD8rNbHR07ya04v33U8Gisu3kxWqNdiN8Jm8aWbkSGQ/ja48YqAIWh+6dtU0/pkd7X
+	 Wx5h706pW/5cp9GvkAOZqVQFFR3tT7FAWT7aM1vQjr3z5q2DffQ2j2IgcrkI4CYt+ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y8nqlMG6;
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VN4LNyDR;
+	arc=none smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2F6606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED2F6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D78606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D78606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y8nqlMG6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792857657; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=vSkKqqPrcRVk3BVNulEaeACxkD/BbD3EQ9kOWBnKbIk=;
- b=Y8nqlMG6xNk4CE50/o38uj+s9sIqVf8QCKM01PwMWpWmoxt9f3f48NdTZ8IhCJaMhNe0yI
- Degyuq0fWnZ+aqXwVdYnczcV/8uG34ZMqBkG7uLfASajhr2bQEvwkS9XRyp0Crpnnki6fq
- zXYlmXEDd9+zSfLSQ7X36bf3kBOk1CNP6agH4tIF0NPwBslNf1wpC22S2ySwuHDBmv7NTv
- KCkkEWXtHtomxwyFrZonIdeTUH2gVaD7AMmrED3Jl+Pn1Yoe397kVdoFYXfRTSEy96L4o+
- k2/SRf5q5nIew3oI1ciQp3CGUYNJ9AYgrx0JLQK5XWc1KYZq+IT/BBtaffFS5Q==
-Message-Id: <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
-In-Reply-To: <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
-Date: Sun, 25 Oct 2026 00:00:33 +0800
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-User-Agent: Mozilla Thunderbird
-To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
-	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
-X-Lms-Return-Path: <lba+26adcd637+d0c240+vger.kernel.org+zhaogongyi@bytedance.com>
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org> <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com> <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
-Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
-	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
-	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
-	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VN4LNyDR
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c9e7731b34so1360653e0c.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792858137; x=1793462937; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jqgo1XywgsdgGPVlo0B4zN6yPIeNTL0VXgREkra6lSU=;
+        b=VN4LNyDRn0nF8VT5iTrawyuNKTNtSTLtnLK1Tp9Gir/5VxAldXkG4dm/WbYUgwbCTM
+         7Z6/f1LYMDuxLtL7FEl0DkLpaKMqz7heaNTd6yfTAvuTyv97pzNT7Z/dAdD9eJiXB6iN
+         2BbyOb3OM5AVgjoZkSPaqr+AEl/Us1oAtshkVkZLhX6U3UnkyivyDDzcheXp2qGNM6UO
+         PNK9iUzL9DRTniSiLaSvpOvK5MD5TZ2QyhefdJCb/qiW5aE5QmlA2fWCv2iD5K0C6pQe
+         cTiU45HAFCxhM2aKjWBOHJzS6UCrVys7+25yHI9MJvMjokmPavoheC+5Glq81WrPGGmA
+         PG6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792858137; x=1793462937;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jqgo1XywgsdgGPVlo0B4zN6yPIeNTL0VXgREkra6lSU=;
+        b=lSNwFtBR/GeE+MSpj/Jt4mU2jA5hl+F2cQ9EhpkhCzeaIMaMZ7SqxoV+7REyivfgr3
+         DV+4ggDQXAPaeSKEhd3rY/WlzEjKGeuoUQZQm2oYnQf7qZ72BFpDYMIUkHNh/Ax0tsIH
+         35TJwv23+nsdIpFSBwLl5V+Jn6oay6HLVmI8LE2w+pp3oYoliHapfRYyMrmaxsCvZ60W
+         vfI+pmE6C1W1V7ydqPntZhFkjcZGIddECEZihHpufkzDNH4N1ROJ/piNH7JKqQf4exQb
+         PVjr3Cm81Dbl7EcRt4mO5L/1Gvj7p9mSvgWBpyntZr/v8oIrepLbfcMxJybs7yPoJyCt
+         WZow==
+X-Forwarded-Encrypted: i=1; AKwUvBzCY3UF5bPfP/yfk27CJfxpdprQXqcmISBk1kBkCbXIp1LCvAaNXVRD4eOWheC7EXQJIJ3HPVlSqun9jCc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5vDBcd0yFiogkP32s1cC9VW32ujrTY5eAlsfkSr7snXeTRMAe
+	TQpo8SkqoO0t3lVITB641AD/dw1kU+8bpk9IcO0hKlda5JF1M6AHSIeO
+X-Gm-Gg: AYBFou3VwEhwIXap4RCzElpogRdb8F2rsPEaU5U4HYkFK54dThLyZPmVHTIRGHUdpbQ
+	XSvJvk3kA5C9mQnFhPMyYqpFW1RbvuHI5OJ2hw0HyIFiFOiZbqdueI6AglGOzWIxnX8IYXtmVvm
+	0v72F46po3L18oFkGz3j/bOmn2WnCNjlhp0kp92U2wS1wEqpYSEbZ5qtQ/holNtHzjDbH09uS7B
+	99QsXkW4dP+6vlccc6H6La6TlFZ98LU+mXnNhk4scZ1EnQyOnufkefE/T80f1x/X3qaE/2D/fz3
+	AZrjssdx+BzZSNoMNwbJxaUZnG5QsZyL9NJDIR8xV6aO+fHD3kPP8qHeWM4tTSZ7qAe+qDeqm+R
+	GKG4RzMFZQKMCmpnnwJ8FIEi5a+4j1yTzVLaTRDIq+w1xe29Uyu2T7abPMEgNVV0/X31EhYUOyk
+	/UrKHTJDt9rx+/pLWuShbIv4x50LhqI0Nkhfa0dS/ZWuoiTrzG/lPiEoQsLVO6EXQpQLeJz0L80
+	+NadmGNhU1wuW5zKLOWVVzxEz3fNYRFY1x+6Cx8hJZLNf47lOX3t29n9nNTV2IxERm/weGNSmRM
+	UhD9YjBplcE2FuoxeaEr0D1AGQQXg3wR8dUdDaF5gDNvuOY8fdIEj0dCn7HKYXdUlCbUXQoKcE3
+	SKvUXTXm5or4FmXTnXSykBlaf1clDOuV+Vl90cT09
+X-Received: by 2002:a05:6122:1c07:b0:5ea:a1ad:6376 with SMTP id 71dfb90a1353d-5ec230a26b8mr706060e0c.1.1792858136874;
+        Sat, 24 Oct 2026 09:08:56 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec234277b8sm2521988e0c.8.2026.10.24.09.08.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 09:08:56 -0700 (PDT)
+Date: Sat, 24 Oct 2026 12:08:55 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Chris Arges <carges@cloudflare.com>, 
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+ Phil Sutter <phil@nwl.cc>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Max Krasnyansky <maxk@qualcomm.com>, 
+ Rusty Russell <rusty@rustcorp.com.au>
+Message-ID: <willemdebruijn.kernel.288f04be304a@gmail.com>
+In-Reply-To: <20261024113809-mutt-send-email-mst@kernel.org>
+References: <cover.1792768096.git.mst@redhat.com>
+ <20261024113809-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,40 +113,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
+Michael S. Tsirkin wrote:
+> On Fri, Oct 23, 2026 at 11:09:17AM -0400, Michael S. Tsirkin wrote:
+> > 
+> > Okay this seems to be converging.... But sashiko did find some issues I
+> > thought are best fixed. Specifically I thought of a better way to handle
+> > short gso in a tunnel - just clear tunnel gso! As a side effect we now
+> > fix up the checksum for these dodgy packets like we did before, instead
+> > of a drop. Good. And more false positives that prompted me to write a
+> > bit more comments. So here goes.
+> > 
+> > Apologies for reposting so frequently, I know netdev bot will be unhappy
+> > with that.  But Paulos's report made a lot of publicity, there is a lot
+> > of people looking into this, so I feel there's value in defending
+> > against all this class of issues sooner rather than later.
+> > 
+> > The issues were mostly found by code inspection, but all reproduced by
+> > me in a VM.
 > 
-> Hi,
+> Ugh. I found another wrinkle( Firewalls that shape the payload.
+> They are currently seem to simply be hoping most traffic is CHECKSUM_PARTIAL and
+> only looking at that, and that will break.
 > 
-> sorry for the late reply.
-> 
-> If we have the spare PTE bit, why shouldn't we just use it?
-> 
-> It will make batching over PTEs faster. And we care about that for present PTEs.
-> 
-> So I don't quite see why the stable fix couldn't just do it right away? Do you
-> have a prototype that shows that it would require significant code changes?
-> 
+> I am not sure what to do yet. Extending the sysctl knob to control what
+> happens if validation fails: pass/drop/complete - is the best I could
+> come up with. Or ignore the issue. Or just forget the complete at input hack
+> and drop if we can't figure it out.
 
-Hi David,
+Sounds like such users will just have to disable the sysctl for now: pass.
 
-I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
-It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
-recognize pte_present(pte) && pte_cont(pte), instead of checking only
-pte_valid_cont(pte).
+And update their firewall, then reenable the sysctl?
 
-With this change, the guard-marker reproducer passed 100 iterations
-in an arm64 QEMU/KVM guest running a KASAN-enabled kernel. The fork
-and PMD-split probes passed five runs each, with no warnings or KASAN
-reports. In the earlier A/B test, the unmodified kernel failed on the
-first guard-marker iteration.
-
-The prototype makes the reported reproducer pass with a small change
-while retaining PTE_CONT. I therefore cannot point to evidence that
-fixing this failure requires significant code changes.
-
-Thanks,
-Gongyi
+Does adding a third drop option help in any way? The sysctl is the safety
+valve to go back to old behavior.
