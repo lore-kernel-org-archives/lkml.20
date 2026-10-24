@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792807315;
-	b=pmBUTNtN47cJg4wQePeev0jHC9iqUABJla3JcJ77f2HDwCnAIiZhIgGX5a8WxFqU1VJx
-	 dPBHMLCRbfFdBE3jFBgy0g3HBXBhcIiddP9NPthkJKzm7YMMiefNUDvMndGrLTp8It6qH
-	 VLpa2ZZxOtz4BSI4zRluFPeoYliljDznD9teBvfoHMKbH/gy4wiPgOHTAYcxl64Lu+5P8
-	 Wz2TegY16DHVndstCAzKTiDbdsZqTGeTYJE62pdIMDmUrTdYBKDecdbybKOk8k893wTzZ
-	 087hL3C7yxRVNW3bygHxEhIC4npI8UanudjLaY92hz1KJYzyNv4Ct7JITs3RKvG/7kg==
+	t=1792807331;
+	b=ZitaY34t768N6q5oEjdykbACWFGX2ByW9sll+51RBJOWBsFEaqPX0g+VBXXM4QgYpUiy
+	 R8LZEpoT68Gf7be1ZBw35Ahn14I6z0dqIU4GsCnBovHBtKcMz5MeCVdc8rIM2sftyB1OS
+	 BfzKtZDBT6kpGMatoQvvCKJGI4C961lx3wAWfut6L2rA64stOPLrbZIHOVvYcZc/W6vSg
+	 r0yr+FBlaAYAFUPt4VDH7wcsBx2qQQk2FA++RcZgyJS6ZFFXV14em5Dd4kmdyXeXcYaIh
+	 C7DZJ3KWu9kSnWzOtAi5XaGQSgsFrUiz7lIHhjxB5s4nTqbqg8Ya9mmHgzKnBseQRKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792807315;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l9TljpQRZ6ZTyvJSq5KUPD3kevzwaC9DocCYFhPRWvo=;
-	b=DG8BChkwl+Mdoc5FSLc3ZG6Gp5jffQ8mL1yhT4tPDxDUzwIPkIkUKVMl4jEtwHtixh+V
-	 QM5rkUUvNwc/qL4FVeEMaleMqboggH9L8CpORSSS44C7V8ZSoJLVIb6Blz3iQcuPjh5q4
-	 haJ0KOBP8L1XQx0VZWO17twNJ6tk1TdINLCP4vXgBhDHfkU1d2HqzIa8Rq3w267Lz53qZ
-	 n75zwiFJAF/Ur0A96KB+6uE/pxxTZ8WtJv7OUQPm2QOwJ3lOfvlKwW+b113AlSpiqTkM/
-	 AJ6VGqnDk2t1Ly2yei0ZwaAN5JTIuZX4x/ye7YNoteKGLiSwdR7qhR4fFRZRagbxZWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792807331;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ko8HbQkUxJ3WYE4XEMFhbEJ5Im87vvyQeBfDmnTXtAw=;
+	b=x1iksKvlnnS3NTBvP0hrMk9Rod+9CsjhXKy/TlYS0BWpGFMurNW8nyy3jm5eSb3WGjDx
+	 n62oREKg2+wQVSacMoO0dSlBL1oshPIL2hd53rCmbSkt5f2cyumAy6NFacP6YT0/fQ0op
+	 bOa4x+NBNsGUy9iiSw0fl/ta7A1kugGO5JifuO+6ej/7mBIbiXGuz0WX9bd7UWxRb91Y8
+	 gUGHnqelzlAlqi37fQ3KhsJqVWgdqhfZoUCLBDHqXUcEtFFI0ToMJdLMxq6W6t6La+q+c
+	 4amuW0+tjEwkrrpd9sfjN5Ie/xK27AA0t+XT6i7mNdFE/OdRv1kqYLaT1hLSHuRZkcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgpOyvb5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1337C606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1337C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xKR4z-00E0VB-7H;
-	Fri, 23 Oct 2026 22:01:53 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Rio <rioo.tsukatsukii@gmail.com>,
-	Petr Mladek <pmladek@suse.com>,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] panic: zero the dynamically allocated taint buffer
-Date: Fri, 23 Oct 2026 22:01:52 -0400
-Message-ID: <20261024020153.830459-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30946606A31A;
+	Sat, 24 Oct 2026 02:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgpOyvb5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4161C1F01825;
+	Sat, 24 Oct 2026 02:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792807330;
+	bh=Ko8HbQkUxJ3WYE4XEMFhbEJ5Im87vvyQeBfDmnTXtAw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dgpOyvb58/6uYgwj1HsgLsLOf2E3ABQq2kfWt95MdOXwzKYUT/mVy5dZObWSZY5pm
+	 V3qVdr0WV/kFLojIfrn+vDYC6CPWgObN1Ci6alxiME3R5lejRGAIoKN91We33XnfWu
+	 WzfrhonImIs9fnHTl9Fv6ZQ+Il8pSABmZxu78kHkv8X8Uez6czjKEb9JO9K/H9mIM1
+	 FDTtXJrD8yLI6HX0xcqV9hUFgNxWNPqyVY7Qyzkf1y4eCtwR/bXd7jZZQ/XPwvGa85
+	 kJsgrtb3JX9N3HZJR5euYDVw1SbFWKz0Mys23LLIkRdAO1RBQ6QzfmsyD+N+2ZJ+Yj
+	 M5MA+zoVIpZMg==
+Date: Sat, 24 Oct 2026 03:02:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: joshua.crofts1@gmail.com, Jean-Baptiste Maneyrol
+ <jean-baptiste.maneyrol@tdk.com>, David Lechner <dlechner@baylibre.com>,
+ Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: inv_mpu6050: use named initializers for temp
+ in hw_info[]
+Message-ID: <20261024030205.1ed973b1@jic23-hlaptop>
+In-Reply-To: <20261021183823.169199-1-kapoorarnav43@gmail.com>
+References: <20261018000924.758186-1-kapoorarnav43@gmail.com>
+	<20261020095936.00002ff3@gmail.com>
+	<20261021183823.169199-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,124 +64,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A %s read of print_tainted()'s string can run past the end of the taint
-buffer while another CPU rebuilds a longer string in it, reading slab
-memory out of bounds into the kernel log (a KASAN slab-out-of-bounds
-report at taint_buf + size). A warning or an unhandled-signal dump on
-another CPU reaches print_tainted() through dump_stack_print_info().
+On Thu, 22 Oct 2026 00:08:00 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
-alloc_taint_buf() sizes the buffer for the longest taint string and
-allocates it with kmalloc(), so the bytes past that string are never
-written and the object holds no permanent NUL terminator. _print_tainted()
-rebuilds the string in place without locking and writes the terminator
-last, so a reader that overtakes a writer extending the string past the
-previous high-water mark finds no terminator inside the object and walks
-off its end. print_tainted()'s kernel-doc promises the string is "always
-NULL terminated", a guarantee the previous zero-filled static buffer kept.
+> On Tue, 20 Oct 2026 09:59:36 +0200, Joshua Crofts wrote:
+> > Your patch fails to apply, please check it out.  
+> 
+> Thanks for trying it. The patch is based on iio.git fixes-togreg, on
+> top of commit 2b8d4cd20ac8 ("iio: imu: inv_mpu6050: fix swapped accel
+> and gyro startup times"), which changes the neighbouring .startup_time
+> lines in every hw_info[] entry. It applies cleanly there, but not on
+> togreg or testing, which don't have that fix yet. I should have said so
+> below the ---, sorry.
+> 
+> Jonathan, I can resend once that fix has reached togreg, or rebase it
+> however you prefer.
 
-Allocate the buffer with kzalloc() so its trailing bytes stay NUL and
-every reader stops inside the object.
+I'll hold it in patchwork so you shouldn't need to resend.
+I tend to do a sanity check on state of patches ever few weeks that
+picks up things like this.
 
-Reproduced on QEMU riscv64 under KASAN by growing the taint set while
-processes took unhandled-signal dumps on several CPUs: the unpatched
-kernel reports a slab-out-of-bounds read at taint_buf + size, the patched
-one is clean.
+But feel free to poke me if I seem to have lost it.
 
-Fixes: a9dff0d0d11c ("kernel/panic: allocate taint string buffer dynamically")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+Jonathan
 
-Notes:
-    This is a race on the shared taint_buf: the fix removes the memory-safety
-    consequence (a buffer with no terminator inside it), but two concurrent
-    callers can still garble each other's "Tainted:" string. That is accepted
-    behaviour -- print_tainted()'s kernel-doc already says the string is
-    overwritten by the next call.
-    
-    taint_buf and taint_buf_size are published by plain stores in
-    alloc_taint_buf(). A hart racing the postcore_initcall could in principle
-    see the new pointer before the kzalloc'd contents, or see the torn
-    (pointer, size) pair; both are harmless now (every writer stops within the
-    smaller bound and the object is zeroed), so this patch does not add an
-    smp_store_release(). It can be added if that boot-time window is ever
-    tightened.
-    
-    Reproduced under KASAN on QEMU riscv64 (-cpu max -smp 4, slub_debug=P). The
-    window between the body and the terminating NUL in _print_tainted() is
-    narrow, so to hit it on demand a test-only mdelay() was inserted there (it
-    is not part of the patch). As root, grow the taint set while several
-    processes take unhandled-signal dumps on different CPUs:
-    
-    Reproducer (needs CONFIG_KASAN and a test-only mdelay() in _print_tainted()):
-    
-      #define _GNU_SOURCE
-      #include <fcntl.h>
-      #include <sched.h>
-      #include <string.h>
-      #include <unistd.h>
-      #include <stdint.h>
-      #include <sys/wait.h>
-    
-      static void grow_taint(void)
-      {
-      	int fd = open("/proc/sys/kernel/tainted", O_WRONLY);
-      	if (fd >= 0) { write(fd, "2097151\n", 8); close(fd); }
-      }
-    
-      static void crasher(int cpu)
-      {
-      	cpu_set_t s; CPU_ZERO(&s); CPU_SET(cpu, &s);
-      	sched_setaffinity(0, sizeof(s), &s);
-      	for (;;) {
-      		if (fork() == 0) {
-      			*(volatile long *)(uintptr_t)0xdeadbeef000UL = 1; /* SIGSEGV */
-      			_exit(0);
-      		}
-      		wait(0);
-      	}
-      }
-    
-      int main(void)
-      {
-      	long n = sysconf(_SC_NPROCESSORS_ONLN);
-      	grow_taint();
-      	for (long i = 0; i < n; i++)
-      		if (fork() == 0) { crasher(i); _exit(0); }
-      	for (int k = 0; k < 120; k++) { grow_taint(); usleep(50000); }
-      	return 0;
-      }
-    
-    Unpatched: a flood of
-    
-      BUG: KASAN: slab-out-of-bounds in string+0x..
-      Read of size 1 ... 0 bytes to the right of the 347-byte region
-      allocated by alloc_taint_buf(), from dump_stack_print_info() ->
-      vsnprintf() in a do_trap() dump.
-    
-    Patched: the same dumps run, no KASAN report.
-
-    Developed with the assistance of an LLM.
-    
- kernel/panic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/panic.c b/kernel/panic.c
-index a4dbb6b8cd2bf..f23f6bc38ab41 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -886,7 +886,7 @@ static __init int alloc_taint_buf(void)
- 
- 	size += 1; /* For NULL terminator */
- 
--	buf = kmalloc(size, GFP_KERNEL);
-+	buf = kzalloc(size, GFP_KERNEL);
- 
- 	if (!buf) {
- 		panic("Failed to allocate taint string buffer");
-
-base-commit: 26344c0dd32af8790d8474d233619db825441138
--- 
-2.53.0
+> 
+> Thanks,
+> Arnav
 
