@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792879637;
-	b=wgM1tScc95vzK/w0jX5tFcvR9fV3XCUIvXCIBnAWOwIItcsomANZpRkZjkQ+9bBbsvMS
-	 VNHDfVrL1PD7//dCYJtTICv6v4d8Slhd3kGQrGYvA2DftWb44T2fyIfe7O9M5NtU2Vnri
-	 mHMqfK+yYoKqNwYFWDbcqrEJQpTThpsWBYN3YEvfTe+7uRzNTYRysv8t0DTDTK+XciV93
-	 QjsxSEwbGfcNKTv7ORbhfB80Nc5mn+Ry3NtbsyybQKVF/X45Q140XdTs4eHYUtH7+awlx
-	 OaqCjTYIWQWz7p5KV+2mnQu2SWBbTe/C0R0RJEc6VABgMZAruk4JjAISYaQLFC/vkPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792879637;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792880109;
+	b=hbTvFlkqif59IiB3070IMmzppJpq9Gqxanor55ZHA9ZPoij0XIqHJqf/iWpwCYj41nRz
+	 ptHHHm617LjhosE5ygYY03B3Yu/YzfBRLWf2MNjQKjZHxy0FqvdHUkdDn4WV2T5/jv9M4
+	 gi59dw3gY61tXrUBWZNNJYRYgDbBB125IQW4gq66lu6EwKf/Ek9jhnswfAXbkmiHy8wqb
+	 l1fBCh5/oUdqoYo1xD5gXJ8DSpj+yTaVJcdmIRiTy67vcbsyobO2zcsIiTfVAzplkHQxo
+	 OLhaOaPI0jGh4YVNZNu2i+jttCa9F8XDQGq9TNDXiakvki0yJXEC4Ye1S88U4smnkgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792880109;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	b=q8IVQuqPNL9FOJa7lz0pn6HuJv8ULrEUBSBXPZegVJk65vVKjwLAQ9kUAxxVeHT4BwvS
+	 14SJn2HCK72alHoSqEl/J2VxJF5LaNnw2B1yng6IqZlucqk1ibIbJIMudiDOzf72aUyMG
+	 Tofjr+cLSM5sNKQq2f8AnjMRoTyW14IjqjRyROb6KuPxSyDJJPDNNjVX91yl/sg2dXyPm
+	 1jerKfJ0aZmdKfM2TAOXlvyZM9kbB5OffRcr/+ayItTqv4EMETsxzrytjqT4Mn2Df8Jrw
+	 5/WKPJn9Fu41J7hDiEf3V0niQnsDeaL2uagZVmNvUlYop9ef2hJuFkr+wesAyfz1toA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcnNS8Tm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16437606A321;
+	Sat, 24 Oct 2026 22:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcnNS8Tm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792880108;
+	b=TDnFzVEcvMWSZvffwloJwn0y6puG5QuzCfO2KhljkH0/r8P1tWaqjYmlk6pNuZWgSkr+
+	 gF0z3+SDj46Ntwj6iOrHrreWsXyFdWiPZGxdeNWgm+e/j0MGKX1wt2LIW/8uzaBWlK0cd
+	 G+xRRrdlMoaBeKpy2JaGfzr0hakzFogcZAUD0kEGki29SkKaP6/Hst1LXF3SItCP274bW
+	 o2KVfXUdft6OntHrad44Ic8kLc3QiOWNS/8nggoAHsLFrKzAY9/BABZoyZNuMUd/BtjDk
+	 4W8lqtpNPOZUBitKQ49vYF40bUqLt48LFVMZQsL55hmtzN7CtkW3Pdfe5BlhYrKjV5w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792880108;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-	b=o1MXKDVmA+6yE16fWBzb5qp36VPMBnyXhHmGn/V/n4M2931E0nKzls10+Qm9dnUlZK+a
-	 ZUcVzfj5xSiDlBHzvvEUppl9nION13mArE4nIwQ+Ts0JCasczHz6dY2uzfc/jCBHHq9Z2
-	 ZOUGuQ+K0oYdI67Ypx9dp5j131cngCkeiRk6oU5YYzOsD2GTjfpOUvCD+cgPAL5shmq97
-	 Y3y0TIwE4kla4IK5ll5hjXHnkfj+vU4h+bYXZd3NCEyONNG3rXO4o9J1zRi7JXZimGJC1
-	 daP6Vzkuj2LrvhjxLQ0O8gpRxS/wyt3KHi5xM6QqNNvITlbsgEDDjZnv2iP0KKsc+lA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="m/Yiaxx0";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	b=Nyz1muwitGrHqzS7D4q+U7Rsi1hNEHMMq444nVjnlKdlw4tq/BWBztiKGwA2hRlUSTn0
+	 BbwhtEJW0K4+1GC/sxUzVF1nQnYFGdVxdvyd33ZCG8FPNk4HL9HlhVMMSTzBQTxSLvWk7
+	 KC1BdnfLUIzbdpl5t273uc/9462DYmnI2hJ4fXT7+3X0kET4odMPgZfct5qeJ7Mgj8Dql
+	 p/FMQq5xqWD/KsMbJpQ0kH+g5cBHWRj+zsTe4xvwduIvV6+0ZCHZ+ZtfAbooew1NY6IQ0
+	 FJj3vxzQGh9bhIYB+etfjv92Wf0WAmKkr92wvuub6/qa7oa0Hh02WkGoZ2/4e81cPxA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CBC606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20CBC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=m/Yiaxx0
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a208d93758so20817165e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792879634; x=1793484434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-        b=m/Yiaxx0FIqI6y8cI2iuR0zdNsFeLRnz0FOtHgOsrzW+5KCuuPQugZ93Ke01QJE0CX
-         bgEDUwewvdImvccpLlwzLdHkfPZWi2K/DoFq/lsKSQv0yIyu6uj8Svv8UWocoX/ECUi7
-         Wv6KiU0K2hsSfxOzPqVVRrI+BT0H3JV3FlRPM0NckY3Xn3lnAdIWdBftRG/rBpPP8cbs
-         8oJiQc4RsgtjfL3PzpAMPFlqZPHOD0V7FTsocJv8o7mW1CqfE2O+QX0+8uFQwxTd3ZgY
-         Tj5hJwq8B/p2U7kBtr7+rtkWpbVQevAwMYQFJxGeWh61fK17emqcVXjCer/HZlmpxtTE
-         WIEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792879634; x=1793484434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-        b=V6FYf7PP6HQlzWvTYiarDggH2uf3INgI7UR/ZcXzdXDvYGdJ+MeZUV1Fw0KbHq3a3r
-         +TU9R7rn92KEeEO/fp3qNmslQkoN9EQhUxdGiKs/n43j3xRvFSkn/v0oCea5BYO63aAm
-         XQyIUzmpLK4v8G3wDp8qOjUOpISSyaln7LTlmU2Ar0ytpuWpEEnnX0MFmlgs7Au71kaO
-         YzGZCySWXgCRsectCxLGIAL44O7dvv97ZozRMGbn0Xo03isjXb6qVH8ES0MM1sDQ0lyu
-         qPNTJ/BN3UCqK3qzVWFhaYuFC1ewcterjMvc4zbTjbRIxZ6vhj7LRa9hCzC/RjKRIH/6
-         EgBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQV55hI7NBePjNYbh2Y6MV00pKC/cBlSkPCt/gite7dijf+fZB0eeW+P7EPjTj1LaoDT5YOxDS2CE1Ln0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuBp5wAD4Hu72XboCB+8FB832kYptnBntsqm6PBNc6iAeDq3v7
-	vX8JOLqas54SPJlg7p1P5mhyitZk2549dGHGHaJYgMypa0UOR3AnjbAXQZsJwJYTQRo=
-X-Gm-Gg: AYBFou3xT4L636Oy3bqJNUqCtBKI8Lgj4Y2M5UEJU4fMW0O4E8u0H23x6VzknaVFzFT
-	1edY5+azdL1VcpXuuPyuT2NzeuZJ8ClNRKMMrHbhMO3ccaZGHearUVGGED5vVBIHv0qTZRDgfZZ
-	HxSIWlaVt9cRszPCYuTjzZ2ZcVkT5UHa8Z7ktdA63K3Rg53yTio6OH4OT0uojqbjQVKQJlaiITk
-	naseOvoast7WG0Vy9oxyUZZ5PIPWsEg0B/LNEC2LFRKpmGZlORmnAavf0sztZEup93SokXYk5ju
-	RCdJEjSKAfwZMpLH2OW8PkWWbLUDzzmm23/7AiQqeYAAVlfp1fRirCxj2t+nn6DNl1W955Q/LFm
-	9aMr5FzPtehFsV6eyuVK6e6SHZ/TrbEEeipGXPZ3i5f592c4LOhrCTekiODSzTR09rcZPDwcpJz
-	8hUBwtIKwlMS5RqFa37klkNMR9qMez+PYfa3U3XcS1V/zoDMSCXJah9RZO6B2ThDyygorJf3SZV
-	kkrsx8Qp+Z1TBsYhsWxIhOhWrO4NUonaLhifE+z/Xg7CVYHWWwIq46/nQw067ml/zr9unm/nf8/
-	JyLUzgJom66twDQSYtOuJJglLrhlzMA+n+MtY5CUJW5Trmr1Hl6dTHFVBQDmsrF1mehT
-X-Received: by 2002:a05:600c:1906:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a35acc3f50mr41010605e9.34.1792879634534;
-        Sat, 24 Oct 2026 15:07:14 -0700 (PDT)
-Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm53466635e9.3.2026.10.24.15.07.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 24 Oct 2026 15:07:14 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2 0/2] serial: 8250_ingenic: Set UMR and UACR, add the X1600
-Date: Sun, 25 Oct 2026 00:07:10 +0200
-Message-ID: <20261024220712.23250-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 31A281F01825;
+	Sat, 24 Oct 2026 22:15:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792880108;
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kcnNS8Tm3AaWdbwd4g+/0FXMBQHsyLeyhcO2rD36X/osf3HBJFWp6SqhgdyDvuNYo
+	 eSMKbzS0yM5Ck7t0ZhS4PpYhIgK3Di1R1pTEDXQ+jfw4O+V92bJezPfImzEeE0NGtC
+	 E/Rqa7k0u8MTmsrSl0/GDLavcg9JzJOXkYKNNzy19i5tR+sXCnx1Qn9BEGqwuuaZGf
+	 47pxiVT5pwPHXWvWnxYPYoDG4ZxaqlIlU5Nb2/hA9m0Pe3yjT7FoYHAP8J6e28GjZh
+	 bdHaMBi+Cdia9XAi5V4gkIdp4FtZkOLYQH7usBa+W0H9Lb0ZIJjbVX7d8J/WMMKO6l
+	 Jx2Vt7BX68K0A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BAA63448CC;
+	Sat, 24 Oct 2026 22:15:07 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 24 Oct 2026 22:15:04 +0000
+Subject: [PATCH v2] arm64: dts: rockchip: Add the GPIO expander to Kobol
+ Helios64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +83,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-helios64-pca9655-v2-1-97210e9aafb1@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAOgt3WoC/32NSwrCMBRFt1Le2Ej+EkfuQzoI6at5UJqSlKCU7
+ N3YBTg8B+65BxTMhAXuwwEZKxVKawd5GSBEv76Q0dQZJJdWcO5YxIVSsZptwTtrDFPOahWkD7O
+ eoM+2jDO9z+Rz7Byp7Cl/zocqfvZPrArGmb0pRK2VtIY/yNfrUmFsrX0BjMhYFK0AAAA=
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2516; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=NxG+xHVeylkpzOnvEZLanDkLJTXNZz8dgrlgIaGTkKw=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl3dV/d6TAQm7Npl2PW069avwLfBltsv2fFzcbnUztpR
+ deDGd8COkpZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEbi1gZFgQbsmwMNKU9xyb
+ bXLOMam4R1xHNzAl2y5cxxRXeUSqRIPhv3dFqTFXxhdWJSkTB/uIMt35/0uYZoWKbPqZlW43474
+ aGwA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Ingenic UARTs carry a bit clock count (UMR) and a per-bit adjustment
-(UACR) that the driver never sets, so a UART runs with whatever was left
-there. On the X1600 of a HiBy R1 neither the vendor's 8 nor the reset
-value 0 gives the 16 clocks a bit the 8250 divisor assumes, and the
-Bluetooth chip on UART0 fails to set up. Patch 2 sets 16 and 0 at probe.
+From: Igor Velkov <iav@iav.lv>
 
-Changes since v1:
-- Set UMR and UACR on every Ingenic UART rather than in an X1600 entry,
-  as Nikolaus asked: the JZ4725, JZ4740, JZ4755, JZ4760, X1000, X1830,
-  X2000 and X1600 programming manuals all have them at 0x24 and 0x28.
-- Write 16 rather than the reset value: with UMR at 0 the R1's Bluetooth
-  chip fails just as it does with 8.
-- The binding keeps the X1600 compatible with the X1000's as fallback;
-  the driver needs no entry of its own.
-- Rebased on tty-next.
+Helios64 has an ON Semiconductor PCA9655E 16-bit GPIO expander at 0x20
+on I2C2, powered from VCC3V3_SYS_S3. Its 16 lines go to pins 4-19 of
+the P5 GPIO header, one line per pin in order, so name them after the
+pins. Its INT# output goes to GPIO0_B1 with an external pull-up (R59
+to 1V8_S3), so the pin has no internal bias. Schematic, sheets 34 and
+35:
+https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
 
-I could only test the X1600. On the other SoCs this writes the value the
-divisor already assumes.
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+The node is the one tested on the board in v1; the line names are
+checked with dt-validate only.
+---
+Changes in v2:
+- Drop the binding patch, applied by Bartosz as 356cab616b6f.
+- Name the lines after the P5 header pins, label the node p5_gpio.
+- Rebase on for-next.
+- Link to v1: https://lore.kernel.org/r/20261009-helios64-pca9655-v1-0-673ee4432650@iav.lv
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-v1: https://lore.kernel.org/all/20261024051515.55639-1-olivier@mgcrea.io/
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index 63ad79b4c8ac..df993cbb17c8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -461,6 +461,25 @@ &i2c2 {
+ 	i2c-scl-falling-time-ns = <30>;
+ 	status = "okay";
+ 
++	p5_gpio: gpio@20 {
++		compatible = "onnn,pca9655", "nxp,pca9555";
++		reg = <0x20>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		/* All 16 lines go to pins 4-19 of the P5 GPIO header */
++		gpio-line-names = "PIN_4", "PIN_5", "PIN_6", "PIN_7",
++				  "PIN_8", "PIN_9", "PIN_10", "PIN_11",
++				  "PIN_12", "PIN_13", "PIN_14", "PIN_15",
++				  "PIN_16", "PIN_17", "PIN_18", "PIN_19";
++		interrupt-controller;
++		#interrupt-cells = <2>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PB1 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&exp16_int_l>;
++		vcc-supply = <&vcc3v3_sys_s3>;
++	};
++
+ 	temp@4c {
+ 		compatible = "national,lm75";
+ 		reg = <0x4c>;
+@@ -501,6 +520,12 @@ user1_btn: user1-btn {
+ 		};
+ 	};
+ 
++	expander {
++		exp16_int_l: exp16-int-l {
++			rockchip,pins = <0 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	fan {
+ 		fan1_sense: fan1-sense {
+ 			rockchip,pins = <4 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
 
-Olivier Louvignes (2):
-  dt-bindings: serial: ingenic: Add the X1600
-  serial: 8250_ingenic: Set UMR and UACR at probe
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261009-helios64-pca9655-39643c2acf4d
 
- .../devicetree/bindings/serial/ingenic,uart.yaml     |  3 +++
- drivers/tty/serial/8250/8250_ingenic.c               | 12 ++++++++++++
- 2 files changed, 15 insertions(+)
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
-
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
---
-2.39.5
 
