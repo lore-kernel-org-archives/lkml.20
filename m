@@ -1,109 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792845834;
-	b=zdW5wt5lV21KWATs3T9BnrQ43OrExslJ2MLVcMZGiszixCQpdgAfdqCDSICKrRm4V2bk
-	 8vuA+YOj2/r33bVutic6irSeKhQgg8Ik68DEvUtcxk3TyQFRDsaPfwWjA8kNXsW0HavWZ
-	 y9VCwF34Ozfb+bYLQo1HGF+5Ycg1aUzhqjm5D/mcFGODMtbOZSLg398jtbHJbWzyxU9Th
-	 vhXR2zvzJYW6c55cwaB2rECO7N9DaZsAbTZzAO4ObGb3G9MxxinBEQrRx+49bTNAtu3OJ
-	 y0PsgMnxolBKqDoXCUvM3f55Ni6GbfOKtFYAzmll7t4/KK3akb1xT1+zJUm7BnWxilQ==
+	b=d/I9NqPInSOfimiJlzL8ZJEDr4GGSuZvP6xN/GggmUGludVgVvZ/g/kIQDJ3tuIm6/cv
+	 mlYjdM15thCa6r6yqGtayNK6Gf4tWdbVKxg+a+pdcG9HZ+4SNm/BNgqHiwwODd6zt54MB
+	 YUvGpJ6ipcfrWMJ6kRStlYHsyvTjrJR6N9T3t/MUeO04zlhsrrbUK0xWaK+jSp134QB0x
+	 T3pZCAJ2mvDTU685F5fixAGzKv1G4CcZeFl0pmhw7F9DboPlTyUIcvVdC1C/AZ3Qspnik
+	 rTPtr69W6PZ5oJeGUx8F2awZFBYzRBmLEcXBx6cdlIGDeJ4jNADTjeE0e7htsok/JqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792845834;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ENhw4oZ7dkCvLtEmjtoon6DPAJB7hCjSjNl5XJyd9Oc=;
-	b=w4u1GzZN1VUVYX3HJdY2amIlTNyudLT3xAsN5lZlKhHrjl4knTBIdrRoOI61Jvg7Lh2d
-	 R/juoZunHFtKx3UVhwU8ciKBoVaH92tZhR8JYdmNLlBFaQUbIXsx+XYZ1GjjNTn24ULgd
-	 rnNOamAj2x3vQHbEKEKPzEEA/u7+4f7ZqG52f6gS0/aAqgSFcK3RdaDSRJrbl4sAqtJhl
-	 uglNAcQUe5W8ud+5d0VEhjzZ1Mb/HMKGARU2fpab3PXjcQ2NitmxFMzr1lY/fEdEGPInL
-	 5M22uT7uCLz4jF2H1myYYVynSi3Mdc5sZqArOVh12cEMprf+6uqR2mCFPb7QYtEtjtw==
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=PJMwachCcqRYCX2Z0PCMjUBZKODxkOBb1Ewo6sCszuk=;
+	b=krFnItp8QenjAbP52wYs8xKBCtbE5kej0Cj9c0KBJiUFHk9GBOK0zArLYlGWOXJVENgN
+	 D7VaR0QtHkxVIV4RoLIqfm/2+IlU5ei7wG8dfKRTRtNSh/myk12tU6coCTjG33JvCM2CO
+	 9HBJyw/YUb1GQKByjRZDtpO6VQScAxXtFg5CCJwJNnxhTTsx/Jn+hphUcNKE1rfX2Z28t
+	 RyvL7Pq7lCSQzp6vxXH9O7NlXyCFW2wwkyzoPMKefHImTEEv3n4mR6vBVQMZyO2YhtMUU
+	 eCt3ziQQxVB8fCsaW2KPUvFzyePnowgkyDFSNfD3OZSAZcO+Ppo6DYgjSI1MjU1VaKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=alepacheco.dev;
 	spf=pass smtp.mailfrom=alepacheco.dev;
-	dkim=pass header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=el6As6qC;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=OHRQFyCF;
+	dkim=pass header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=B2z5nwCc;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tddHPVLO;
 	arc=none smtp.remote-ip=202.12.124.143
 Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620DF606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62039606A31A
 	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:43:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620DF606A31B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62039606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alepacheco.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alepacheco.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=el6As6qC;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=OHRQFyCF
+	dkim=pass (2048-bit key, unprotected) header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=B2z5nwCc;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tddHPVLO
 Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id A76A01301A5B
+	by mailflow.stl.internal (Postfix) with ESMTP id BFF2B1301A85
 	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:43:53 -0400 (EDT)
 Received: from phl-imap-02 ([10.202.2.81])
   by phl-compute-05.internal (MEProxy); Sat, 24 Oct 2026 08:43:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alepacheco.dev;
 	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:message-id:mime-version
-	:reply-to:subject:subject:to:to; s=fm1; t=1792845832; x=
-	1792849432; bh=ENhw4oZ7dkCvLtEmjtoon6DPAJB7hCjSjNl5XJyd9Oc=; b=e
-	l6As6qCTal9LLJ/htEX/Stn2qLwfpUxt64s1D5Hsedgca5n2rOcRpqUwTMUFZ0Wz
-	c51yVL/raBGUF16P1D0GgDfIbvC01Dksfdv1ccCqcfMHYAxhU1w6fGg2QOJXdhfz
-	cpAlbMktQEr2UqglTcbS9m2mySGT2WdQqB3YwSPI4Z81XQceBRGoyr65VwiUvqRa
-	UsLEuN2NftrrofbaXctz8p8JibucqZ0mS9s4/lHzOaSoaUs0I9TnxjDt4MG1E53k
-	ShCd3tbrtTeK+F9d2lGMpnsrBaOvn1fveKrfUj98nxRrd2xIW5HAIySyeNli/ApI
-	wEvmIIdacwYH6aEdYoDzw==
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
+	 t=1792845832; x=1792849432; bh=PJMwachCcqRYCX2Z0PCMjUBZKODxkOBb
+	1Ewo6sCszuk=; b=B2z5nwCc1t+VwpnKFv+BwVvspR+YFw7bqUwBwWo8c3KxoTNX
+	s8mibMmcSnhDSILmfMj4QYYQvp3G18YqpD7qPGj5vNXev6MRCujYZaeExoCWY6ik
+	iIYvygkKvrkPwZNM+VrO7M4dwd+OokU3xcY82YOCfUmzMvOMTe2tqMZSlZONOcup
+	D3HWuDU4dwmEVqDEo9GQYYTeWAD8iPWXaOWppHlsqMFO+MH11CA6wNQ3r+gO4QRQ
+	SNhLdHZi9ZDTiFrI3GUayxVw98lSG6itl4bjl4sFQJoLURmH2hhVuj5WCTlWS7vv
+	JiojujZzNzPq5L/HfbBvu9QF/q5GvewLWF/bzw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792845832; x=1792849432; bh=ENhw4oZ7dkCvLtEmjtoon6DPAJB7
-	hCjSjNl5XJyd9Oc=; b=OHRQFyCFcyylnJohh+i+FQgH/xttTDiYrJxJw7UpCumn
-	TH8FUEed/2D3aoJRlqOBi3Hungvypi5KvKp89hwZgGTGB39WsKVs7BBdExTpQ3Tv
-	jEwMraC9jnDNT6h+Hkf/XjKs70Z3uZLgbBkFHmZniMPE7yJFcJgVJi4/LwCGr6RX
-	sGcb3tsugnId1XVKyguMa7laxx7XQ3SV1Z0SS6AugIhbUsxlmUJ2qVY5sr/XETgL
-	uzq9irYlUJ7wIZG+A69vgjPyV3Wvq9TbWAyEMeM9dMPPnSp/J1+hle3m4h6pB5TU
-	8Dfdti8OvefZGfjCiloDGcaYmB+QeLwjqK9HZB0Dew==
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792845832; x=
+	1792849432; bh=PJMwachCcqRYCX2Z0PCMjUBZKODxkOBb1Ewo6sCszuk=; b=t
+	ddHPVLOCfEdlhDgbefLAecc+6/Ig2KSEmGN/meiBIUzjqgy1yEx5L8xcHiMiwF00
+	3y4lIHxl9vxJhWEtdsJomauKcTc6yYzWyiZpMfnOfo8KtQb8C8bFkoU/KWJs1+yp
+	QK+E/er8PhsgbmTBP6Tdbzh4Fv6NCg6u9HwnJrXAOUspJ0pI3qcMFJWCPTIIrmwp
+	bik4miLeA98/+uffPxkl+W/arsJqPVwWV3+Nrcz8/QeUSVCT5pdmdseu50jeCiIf
+	ZjI7QIrK6I/WMYvJYqFVdqxANfcSFmUMtqtGUmEHGmuG4fyvKclqR8O6P9tvvUXE
+	eHRb2hy5k3ZXVwPInJGhQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=alepacheco.dev a=rsa-sha256;
 DKIM2-Signature: i=1; m=1; t=1792845832; d=alepacheco.dev;
 	mf=PGFsZUBhbGVwYWNoZWNvLmRldj4=;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SFbe12wN0+ubah2K1yL9RnoRygwOvKa4P2HNmIVErkLMaxa
-	CMtx2/TFI9GjbZj87CFM3DQeMJ9CpareyHr55VpiYmHcKn7/3tPfJcfOLb5t6h8E
-	9bjM5TjAr9Je0cRhUCwT3eKws0HL+dA51ywVxgLMRsuvg66cnmSeTNmSgaJfPvYI
-	o4Y9X3/n6SqnYz14CKd3+CSsI1m2V/s2f8Ukw8gr+o2Q5w7twLTdRPtF2j+CD0Kt
-	EdF8Vu+NTw/QDIHE7N4w7Z8u6/mpSMhXaEgUKNdkcXwdRcgHjrzt14gea1lnMjWB
-	pSHEYTmKNKvi+DNTGL3Q/Oq5kBvICW9YYqAQHcw==;
+	s=fm1:rsa-sha256:qA8/P8o+YZT9O8IgweZFTs34BfSgA9A7WBgs4WvJNRU+B/O
+	h18x3WWeDoVTHg22dy4LkC6pCi4w61Kc0gQCtHdWi9yTz1JuAPCIsWENOVhB5C2o
+	iZ5Y/7f95SOfpm0lY6hlN8jY8UKsfTtjCfvlokQN4aIu3eR4cQWSu479kdbyTFoP
+	x7FTeqx7bbrDPED3GINVbT/wdh2Q+d4qyU5EDGDuDt1n94VbIR01i8MctEsgi+jc
+	wlIFFdHoDdTPRL+S/aAa2h9huxNLEp4kqXuVr6UR3zv2B378AxKK7GztqM4oxHWM
+	A9fx43NfXPTXfNS8PULw6exeY/pKOL0XqS253FA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
+	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:q/20VQU3SVZJvTb9VFDJq2fqOsmMOSC23FicZ+FboCQ=:slF7uynnDrqUAcmaJgx1X4rd1EXSlyPTMvetHGJ2f+o=;
-X-ME-Sender: <xms:CKjcaggvhXENat1fSCST6gbc7KXn-N7sRYMtBGiRQy2niX7OdFxsvw>
-    <xme:CKjcaj0K5ST1e6yn5DHqHYvei9iLOlMC4h5Uzcea910TjJxX5E5342VpDefy3cGzD
-    NCMwdkqgOxJvftcttLohWVsjOQU_fm2nmEiGCEE_TBPy7JEXGZDeI1w>
-X-ME-Proxy-Cause: dmFkZTGV7SK1cWrGZthFWa8XkmJ66JuwGiPPOMutVIbcRSFR6MLAIUMYblUOqL5GWGSJ0v
-    YNr6zpsE5vYSmbv8sRU7UrC841yllAbKXaUPKr7l9YuWZRbjqQX9I3w6jcRv454c67vyz9
-    2a60rFrOourTzmy3lFCrhfX9+1aDyxRktApyboxLqofk2HrrViGBrOe9GVsm23VHzNT+Wn
-    mZjNA1sVzeYLXW/mtccpkFnYIGe9rSQpHXRfVM5b3WU8QzV9lpXknZHoANHV4MlXo54zdn
-    rQzTEfEVAF2NDPPBHzPa1b/5+h8UF9oedc1Kw7aYq9glpsBMbWhhqGNriuFjQ7fPRnifAz
-    Afkb8+FKGKZy2RkUOQsw4UmEM/C5uFDuIHGvorP5GBLZtLZuAxtRLx1+72bqvYZyMSyK5a
-    QbBT6QjiyHj1/YzKsZMmF8kx3pAJYxLDwIhQ1DuAwrIxcAAwXyhQcHypyRlyCh0Gsz02xo
-    p2SPBhujUwUX5oAVYKc28NN/FgsD8wrBnID3zCsucudhld/By2R6xumFQc9iUzMRvvJGE6
-    2oxvy+LK2qOJjJ8P9fXBfSwgL4Jc30KPpqWdEnKn7oSz1SCFwLd3defEZVmqE0uI5m7PsA
-    zi90t8zzjZ2I/iOK7eUpl9mP9ADWqeAup6t1tk2MnLlnUnQTH4eZzHBD8LWw
-X-ME-Proxy: <xmx:CKjcaqjur_KfSgA-rbKT36p9-2HyT13Xu5U1TzHZWXgLghgX8cSR_g>
-    <xmx:CKjcal-sY6eRu0tPMz2Qr6SE-JW9tIo0yTvQuiDba2PFc7a9S26kXg>
-    <xmx:CKjcahE16invgkQdG2MLZV59alYBnzbPSEKv-5a2ajJBlZleP0UqcA>
-    <xmx:CKjcaoni3-z8nIh7rs4hnl3E_M886Do8MkyCvezhmaEP-OO8naZjjA>
-    <xmx:CKjcavMDrHNI6gsx4SNhT8gaasu2roO7R1nmkuzYCUWfj1r0ZCblpjMb>
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:HSrSjjqnhb4zF3qYbXac3wWr9W9/ieZc48VxVizXgUk=:/WwECYBYaz0RtfG4RJ17uKTJsKoSrZsHFkJyi/TPmLs=;
+X-ME-Sender: <xms:CKjcavf7vfJ4fOPhXMJPcB0Za3mHPN5cUAwI5wtQq10t7-wFcKvMXA>
+    <xme:CKjcagAGh2AYBe7DzUU3wUWJvvYHI6FLFYjBmjggwABoTyrZYdUu9iQgHt63_ql4_
+    ol6Zg8Sq38H1W7RVwJGLAOCEwR1QUzL-Ip8t8UZ7WxwCQGW7prYxweF>
+X-ME-Proxy-Cause: dmFkZTFQaEfFHmDDkMRiWeU7z8blMPF79QeSm/V8M6NPW120fk/aMqYMXuF6FpKygg1L4p
+    407ISxGstzXVbmW8WHCRHwrbAIk1vhEZ9NvHBU0+1hT0t/Winvf8n2naQgXwgu8kuirct1
+    5DPglaqhPRL7CcSo8w/ljCSnqoOvATzNFDRdh/bykfa0Kk7sFYltoazi/TWEG//XuvXGP9
+    S3Lyc4rxl1g1EFY/0gcZuTSnPqLu+WOmsxsH89R+4SSabZyOi4xZJH3+UMaiwLIcZWzBPB
+    Ybq2BXLgumBP1tLWQE2lpttLw+JP7vn5BjraRG2XEu11gSpXylsR7s6QOLSpxFSigaMJOV
+    F4jvUrJd/RzGJeq0iE8cfj0oI73H5R9/FK6cJHBL2YXvtVw0bwlieylcvVXkRqhQ+5LesT
+    W8HNE854voc+SFmHI3SYj/PnR4atYlSw8XlnfAdQHwCwqFLKMoMKlje8s3tRJGUTrrzOi4
+    JnVwBel1YAu8XRrKgeO5xDXgwNIXOu5eNm+mbRgE+f5/NLyH4c2GAIzio8m/BwuCE+eiXe
+    np8UVzBSzHdNuD5wesbp2K/HtJoqoQRTuU1x3FS8994Zu2dvKR6o3FX4GXUIa+AYBE0oX5
+    ScrSEO4ATCPJYqMs9ySxQ82KeOTxjjItSlx1uNz47rfKUfPRTFuE6axEwKPA
+X-ME-Proxy: <xmx:CKjcag8svclYnT23DcRHZPksx5yrdbWMAP2ThPwhPFCjXCLDheIzMQ>
+    <xmx:CKjcajpbJQo-2aRHN5BegBgJKXaDYLSq9wwxhHIZ08dBfzvrLogUgA>
+    <xmx:CKjcalBqXlV964imdSAFRsaPJ6KEaRiJGYdJ3gcjiCwj4rAmjpVeuw>
+    <xmx:CKjcalwoRY3z0vKdKPU_krsxMahXx2tqLTtfUoJv_3VuQVtvKfYHFg>
+    <xmx:CKjcaoRJGjLGxdwfKwxokEIVuqg90uHsJKI9scc1VB926oq_Lgcqwvld>
 Feedback-ID: if58e4a8f:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 1A26A700065; Sat, 24 Oct 2026 08:43:52 -0400 (EDT)
+	id A22F6700069; Sat, 24 Oct 2026 08:43:52 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,66 +115,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 24 Oct 2026 08:43:51 -0400
+Date: Sat, 24 Oct 2026 08:43:52 -0400
 From: "Alejandro Pacheco" <ale@alepacheco.dev>
 To: "Richard Weinberger" <richard@nod.at>
 Cc: "Zhihao Cheng" <chengzhihao1@huawei.com>,
  "Miquel Raynal" <miquel.raynal@bootlin.com>,
  "Vignesh Raghavendra" <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Message-Id: <6083713b-4c4e-4e17-93c5-61f3bb7a77f1@alepacheco.dev>
-Subject: [PATCH 0/2] ubi: Check two values read from the media at attach time
+Message-Id: <67870349-f17c-44ef-8647-28a78da80624@alepacheco.dev>
+In-Reply-To: <6083713b-4c4e-4e17-93c5-61f3bb7a77f1@alepacheco.dev>
+References: <6083713b-4c4e-4e17-93c5-61f3bb7a77f1@alepacheco.dev>
+Subject: [PATCH 1/2] ubi: fastmap: Check the PEB numbers in the fastmap lists
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-Two values that UBI reads from the media when it attaches a device are
-used as an index and as a length without being checked against the
-device or the volume:
+From: Alejandro Pacheco <ale@alepacheco.dev>
 
- - the PEB numbers of the free, used, scrub and erase lists of a
-   fastmap, which ubi_wl_init() uses to index ubi->lookuptbl;
+ubi_attach_fastmap() reads the free, used, scrub and erase lists of the
+fastmap and adds every PEB number in them to the attach information as
+it is on the media. ubi_wl_init() later uses these PEB numbers as
+indexes into ubi->lookuptbl, which has ubi->peb_count entries, and the
+PEBs of the used and scrub lists become the PEBs of the volumes' LEBs.
+None of them is checked against the device, so a fastmap listing a PEB
+number that is negative or not below ubi->peb_count makes ubi_wl_init()
+write outside ubi->lookuptbl.
 
- - the data size of the last LEB of a static volume, which
-   ubi_check_volume() reads into a buffer of vol->usable_leb_size bytes
-   when the volume is first opened.
+The PEB numbers of the two pools are not affected: scan_pool() reads
+every pool PEB from the flash before using it, and the MTD layer refuses
+an offset outside the device. A PEB number of an EBA table is only
+accepted when it is found in the used list.
 
-Patch 1 rejects a fastmap with an out-of-range PEB number, so that UBI
-attaches by scanning instead; patch 2 makes check_av() reject a static
-volume whose last LEB data size does not fit its usable LEB size. Both
-need a crafted image: the fastmap and the VID headers carry CRCs.
+Check every PEB number of the four lists against ubi->peb_count, next to
+the other sanity checks of the fastmap, and treat a fastmap with a bad
+one as unusable, so that UBI attaches by scanning instead. Fastmaps
+written by UBI are not affected: ubi_write_fastmap() only lists PEBs of
+the device.
 
-Testing: UML (ARCH=um) with KASAN and KASAN_VMALLOC, a 64 MiB mtdram
-device with 128 KiB eraseblocks, fastmap on, this base with and without
-the series. Each boot formats the device, makes a dynamic volume and two
-static volumes (the last LEB partly used and exactly full), writes them,
-detaches, attaches from the fastmap UBI wrote and reads every volume
-back; that passes with and without the series. It then attaches once
-more with one value of the fastmap altered:
+This needs a crafted fastmap (its data CRC catches random corruption)
+on a device that UBI attaches at boot or that a user with
+CAP_SYS_RESOURCE attaches.
 
- - the first PEB number of the free list set to the PEB count (512):
-   without the series KASAN reports a slab-out-of-bounds write in
-   ubi_wl_init(); with it UBI logs "bad PEB 512 in fastmap free list",
-   attaches by scanning, and the volumes read back;
+An LLM coding assistant was used to find this bug and to write this
+patch and its changelog.
 
- - the last LEB data size of the static volumes set to the LEB size
-   + 1024: without the series the first read of the static volume
-   fails the UBI assertions in ubi_eba_read_leb() and ubi_io_read() and
-   does not return (the boot was stopped after 15 minutes); with it the
-   attach fails with "bad attaching information, error 6".
-
-The altered values were set by a test-only change in
-ubi_attach_fastmap(), right after it reads them from the fastmap, not by
-a crafted image. Not tested: the used, scrub and erase lists, negative
-values, patch 2 on the scan path, and 32-bit kernels. W=1 builds of
-drivers/mtd/ubi/ (x86_64) show no warnings with or without the series.
-
-Alejandro Pacheco (2):
-  ubi: fastmap: Check the PEB numbers in the fastmap lists
-  ubi: Check the data size of the last LEB of static volumes
-
+Fixes: dbb7d2a88d2a ("UBI: Add fastmap core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alejandro Pacheco <ale@alepacheco.dev>
+---
  drivers/mtd/ubi/fastmap.c | 40 +++++++++++++++++++++++++++++----------
- drivers/mtd/ubi/vtbl.c    |  6 ++++++
- 2 files changed, 36 insertions(+), 10 deletions(-)
+ 1 file changed, 30 insertions(+), 10 deletions(-)
 
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+diff --git a/drivers/mtd/ubi/fastmap.c b/drivers/mtd/ubi/fastmap.c
+index 3f9fb7c181f..41ead6b4f0a 100644
+--- a/drivers/mtd/ubi/fastmap.c
++++ b/drivers/mtd/ubi/fastmap.c
+@@ -558,7 +558,7 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 	struct ubi_fm_ec *fmec;
+ 	struct ubi_fm_volhdr *fmvhdr;
+ 	struct ubi_fm_eba *fm_eba;
+-	int ret, i, j, pool_size, wl_pool_size;
++	int ret, i, j, pnum, pool_size, wl_pool_size;
+ 	size_t fm_pos = 0, fm_size = ubi->fm_size;
+ 	unsigned long long max_sqnum = 0;
+ 	void *fm_raw = ubi->fm_buf;
+@@ -640,8 +640,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 		if (fm_pos >= fm_size)
+ 			goto fail_bad;
+ 
+-		ret = add_aeb(ai, &ai->free, be32_to_cpu(fmec->pnum),
+-			      be32_to_cpu(fmec->ec), 0);
++		pnum = be32_to_cpu(fmec->pnum);
++		if (pnum < 0 || pnum >= ubi->peb_count) {
++			ubi_err(ubi, "bad PEB %i in fastmap free list", pnum);
++			goto fail_bad;
++		}
++
++		ret = add_aeb(ai, &ai->free, pnum, be32_to_cpu(fmec->ec), 0);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -653,8 +658,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 		if (fm_pos >= fm_size)
+ 			goto fail_bad;
+ 
+-		ret = add_aeb(ai, &used, be32_to_cpu(fmec->pnum),
+-			      be32_to_cpu(fmec->ec), 0);
++		pnum = be32_to_cpu(fmec->pnum);
++		if (pnum < 0 || pnum >= ubi->peb_count) {
++			ubi_err(ubi, "bad PEB %i in fastmap used list", pnum);
++			goto fail_bad;
++		}
++
++		ret = add_aeb(ai, &used, pnum, be32_to_cpu(fmec->ec), 0);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -666,8 +676,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 		if (fm_pos >= fm_size)
+ 			goto fail_bad;
+ 
+-		ret = add_aeb(ai, &used, be32_to_cpu(fmec->pnum),
+-			      be32_to_cpu(fmec->ec), 1);
++		pnum = be32_to_cpu(fmec->pnum);
++		if (pnum < 0 || pnum >= ubi->peb_count) {
++			ubi_err(ubi, "bad PEB %i in fastmap scrub list", pnum);
++			goto fail_bad;
++		}
++
++		ret = add_aeb(ai, &used, pnum, be32_to_cpu(fmec->ec), 1);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -679,8 +694,13 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 		if (fm_pos >= fm_size)
+ 			goto fail_bad;
+ 
+-		ret = add_aeb(ai, &ai->erase, be32_to_cpu(fmec->pnum),
+-			      be32_to_cpu(fmec->ec), 1);
++		pnum = be32_to_cpu(fmec->pnum);
++		if (pnum < 0 || pnum >= ubi->peb_count) {
++			ubi_err(ubi, "bad PEB %i in fastmap erase list", pnum);
++			goto fail_bad;
++		}
++
++		ret = add_aeb(ai, &ai->erase, pnum, be32_to_cpu(fmec->ec), 1);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -732,7 +752,7 @@ static int ubi_attach_fastmap(struct ubi_device *ubi,
+ 		}
+ 
+ 		for (j = 0; j < be32_to_cpu(fm_eba->reserved_pebs); j++) {
+-			int pnum = be32_to_cpu(fm_eba->pnum[j]);
++			pnum = be32_to_cpu(fm_eba->pnum[j]);
+ 
+ 			if (pnum < 0)
+ 				continue;
