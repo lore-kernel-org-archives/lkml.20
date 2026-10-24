@@ -1,52 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792826762;
-	b=zldfYzGDh9Q1fAzzTkw1mbJLcWU5WYirRn18kGByrhYcbntsshGc6WvgAQRVpX+fE+HZ
-	 MAsHI22irLViHYTkuK28248d7EhDFW56TZF67B9XJ/I11JTfu4PqmNU/dxCDrSH09R7lr
-	 jR3dKb2rluQq4CqD7gQt/m0HcmdwMzxA7/zTEdtTleeILLVxEqnjAYWYG1LbA6uh1rNRo
-	 h7WYuacqr7ytgmPO/QmHcwE5GBRLWd0nO39x/4jeg5NY9W0T70YMLQoJdSZQdtzHhkHT6
-	 R7zlKUSMK/udYmc7ELVN5MMy4fCy58LUhwgddQIr179IPoEvG56vzVGPjIDc21XxZOw==
+	t=1792826763;
+	b=HUJMiZGNfpS3JFRvzCxrLZKJTuJO8Plz/YhbHB+jrlL5X5iyHAki7XSnKaToEv+ZyxLG
+	 nxR56mwZQp3G0sZ9SGW99byXue4bBqEc353xppbE49b1W779pO5c0/wG/wiB13DyMfpQ0
+	 amd0tJABmpD8QaedGwAoCsvZyyGcSpb3jq0uUrC1vkrYRFXm0JZiBPq6Vhn9P/0EDV0xM
+	 u3wnESryybj/pO0+0MocuKofMeyAEYIzk+IbW9XjNUOiUNz7aPUKwEN0BuURJMaXEEYJ9
+	 Zjq+6VcISiuHVpodOtmbuzDpetVmTjv734U3S8kIuWw+u2ogSBIIiz8ESaOT/INWkng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792826762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792826763;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
 	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=8OX2L3KNr6+/ZONd4VIawy1koiNom/7rML5csNyPw8Q=;
-	b=0HPVgVQ0tTWSd+TBn8G/dLdF/XRlQM3UspvBqyFllwv0NVqkjS71fXIZhaza8M2R0YFx
-	 UOKIvy77OIEs5u/vY22Z4xjkjvJLk9nSntqca5LZH1ajdu0HTW3MtaiU/Gotmj78Vxn3t
-	 TMub49OfXGNBJXmTDFob8WGV9AYqPcpxRPW+uWRKyWtJfXLaUnN8zS1ljWNLA1Mb0FRbP
-	 tdLbrWwwx/dhpMsweWuS6NtZYgyWMDzbSKXRRJGVal5kzpY0J30UBUNEBsXBCnL8EbNIg
-	 vUe+HDmQWMeZm34Vnirx9ET4QyEgR0/IhDEDkwnfKy7rJsj3IjYMZXmKQSGjf7kOIKA==
+	 Message-ID:X-Mailer:MIME-Version:X-ZMAIL-USEORIGINALEMLTOOUTBOUND:
+	 Content-Transfer-Encoding:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=xkc3b6HGWJInF4BQHxhXTl6CTBSGMxfVDbY3nD6nogc=;
+	b=kY6GsBvGvXWsHliXFI2JzC5F25P+SwXpjH/D/G4/NAAP3ovEaeqrYVzahzkPRk8WFbik
+	 JSmr53WqH5Fy2nb5tp9HL87P9isZMN+TyTTUb2V7qZlH2WumGlHJfzxO480UdA+d7BOlG
+	 ipM/vAsEtcnPSX9iZh0BllILkWwHcTPJgH9fPf1qe/ZxwK7tlDtoxroNexcioGgx960ih
+	 pm7++UcfA7mK0Cn62TgB+/ozvMH7lgYUocu5yxcyxW7lH2tySi2OTIiZ0ZJSepBzRQBXj
+	 mLYbaSnL2xPnQvNkg345pD2HnFzzeB1zL+68mCqYSOuqE0UMq4+6m/aJYuZalgLdM7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6FF606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F93606A31B;
 	Sat, 24 Oct 2026 07:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A6FF606A31D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5F93606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jBWdY19dqz5B109;
-	Sat, 24 Oct 2026 15:25:53 +0800 (CST)
-Received: from szxl2zmapp07.zte.com.cn ([10.1.32.52])
-	by mse-fl2.zte.com.cn with SMTP id 69O7PkIS094826;
-	Sat, 24 Oct 2026 15:25:46 +0800 (+08)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jBWdV2qLQz55y2L;
+	Sat, 24 Oct 2026 15:25:50 +0800 (CST)
+Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
+	by mse-fl1.zte.com.cn with SMTP id 69O7PhtZ030406;
+	Sat, 24 Oct 2026 15:25:43 +0800 (+08)
 	(envelope-from zhang.yanze@zte.com.cn)
 Received: from localhost.localdomain (unknown [192.168.6.15])
 	by smtp (Zmail) with SMTP;
-	Sat, 24 Oct 2026 15:25:48 +0800
-X-Zmail-TransId: 3e816adc5d7b026-b7ba1
+	Sat, 24 Oct 2026 15:25:45 +0800
+X-Zmail-TransId: 3e816adc5d66026-b7b58
 X-Zmail-LocalSMTP: 1
 X-Zmail-RealSender: zhang.yanze@zte.com.cn
 From: Yanze Zhang <zhang.yanze@zte.com.cn>
@@ -55,12 +54,10 @@ To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
 Cc: linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
         wei.quan@zte.com.cn, han.junyang@zte.com.cn, ran.ming@zte.com.cn,
         han.chengfei@zte.com.cn, zhang.yanze@zte.com.cn
-Subject: [PATCH 5/7] RDMA/zrdma: Add device probe and remove logic
-Date: Sat, 24 Oct 2026 15:15:37 +0800
-Message-ID: <20261024071539.2182864-6-zhang.yanze@zte.com.cn>
+Subject: [PATCH rdma v6 0/7] Add ZTE DingHai Ethernet Protocol Driver for RDMA
+Date: Sat, 24 Oct 2026 15:15:32 +0800
+Message-ID: <20261024071539.2182864-1-zhang.yanze@zte.com.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024071539.2182864-1-zhang.yanze@zte.com.cn>
-References: <20261024071539.2182864-1-zhang.yanze@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,324 +69,119 @@ Precedence: list
 MIME-Version: 1.0
 X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
 Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl2.zte.com.cn 69O7PkIS094826
+X-MAIL:mse-fl1.zte.com.cn 69O7PhtZ030406
 X-TLS: YES
 X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 24 Oct 2026 15:25:53 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 24 Oct 2026 15:25:50 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ADC5D81.000/4jBWdY19dqz5B109
+X-Fangmail-MID-QID: 6ADC5D7E.000/4jBWdV2qLQz55y2L
 
-Implement the auxiliary bus probe and remove functions, including device
-initialization, hardware resource setup, and IB device registration.
-This replaces the stub probe from the initial skeleton patch.
+Hi,
 
-Signed-off-by: Yanze Zhang <zhang.yanze@zte.com.cn>
----
- drivers/infiniband/hw/zrdma/zrdma_main.c | 294 +++++++++++++++++++++++
- 1 file changed, 294 insertions(+)
+This is v6 of the ZTE DingHai (ZXDH) RDMA driver, providing RoCEv2
+support for ZTE DingHai network adapters.
+
+The driver binds to the DingHai Ethernet function through the auxiliary
+bus; the corresponding Ethernet network driver is being submitted in
+parallel [1]. Because the auxiliary device is only created by that
+network driver, the RDMA driver cannot probe unrelated PCI devices even
+though Kconfig currently depends on generic NETDEVICES and PCI. We plan
+to replace this with a direct dependency once the network driver is
+merged, but the current dependency is intentional and safe at runtime.
+
+v6 addresses the review feedback on v5 [2], folding each fix back into
+the patch that introduced the affected code:
+
+ - Patch 1/7: drop the ineffective .driver.name indirection in
+   auxiliary_driver.
+ - Patch 2/7: drop ZXDH_RDMA_TOOL_SHOW_RES_MAP (bit-5 collision with
+   ZXDH_RDMA_TOOL_CFG_DEV_PARAM); move zrdma_abi.h to
+   include/uapi/rdma/ and include <linux/types.h> so userspace can use
+   the ABI directly.
+ - Patch 3/7: pick up the new UAPI header location.
+ - Patch 4/7: remove the now-unused SRQ_DB_OFFSET macro.
+ - Patch 5/7: use .dealloc_driver for probe/remove cleanup; add a
+   NULL guard in zxdh_del_handler; drop the duplicate
+   ib_register_device retry; publish the handler only after
+   ib_register_device succeeds; pass the name buffer length to
+   zxdh_get_del_rdma_name() instead of strlen() on an output buffer;
+   take the common_func() result as int so a negative errno is not
+   mistaken for a capability; guard max_ceqs against msix_count == 0;
+   free the leftover zxdh_rdma_list on module exit.
+ - Patch 6/7: use kvfree for the vzalloc'd regions; rate-limit the
+   PD-allocation warning; apply the page-offset mask to
+   srq_db_bar_off like the SQ/CQ doorbells.
+ - Patch 7/7: use rtnl_trylock instead of rtnl_lock when walking the
+   bond's lower devices; add an ethtool_ops NULL guard; build
+   sys_image_guid with addrconf_addr_eui48(); set ibdev_status before
+   ib_register_device(); rewrite extract_version() to handle both
+   "E310-V25.30.103.01" and "<ver> (<vendor>)" layouts.
+
+rmmod stress-testing also found a refcount_underflow in
+ib_device.refcount: ib_unregister_device_and_put() performs an extra
+put, but the auxiliary-bus probe path never takes a 'get'. v6 uses
+plain ib_unregister_device(); ib_dealloc_device() still runs
+.dealloc_driver via the normal refcount-release path. This was
+reproduced before the fix and verified with repeated load/unload
+cycles after it.
+
+Testing in this version focused on the review fixes above: the driver
+builds and probes on DingHai hardware, and 'rdma link' / 'ibv_devinfo'
+enumerate the device correctly. Functional verbs testing (QP/CQ/MR
+creation and data path) is being run against the parallel network
+driver submission and will be reported with that series; we did not
+want to hold these review fixes on it.
+
+The following items were raised in review and are deliberately not
+part of this series. None of them affects the probe/remove path or the
+verbs implemented here:
+
+ - __iomem annotation: mem_rsrc is plain vzalloc'd memory, not a BAR
+   mapping, so the annotation is moot until the access path changes.
+ - XArray/IDA for resource tracking: current list-based tracking is
+   bounded by the number of resources created per device; converting
+   it is a cleanup we will do separately.
+ - The common_func() opcode for the IRQ capability query: needs
+   confirmation against the firmware interface document; the current
+   opcode works on the tested firmware.
+ - shutdown-vs-quiesce semantics, doorbell isolation mechanism, and
+   the resource-pool name in the allocation failure log: these need
+   input from the hardware/firmware team and will follow in a separate
+   series.
+
+[1] https://lore.kernel.org/netdev/178598040988.599522.8462097247667886071.git-patchwork-notify@kernel.org/
+[2] https://sashiko.dev/#/patchset/20260811093740.2607476-1-zhang.yanze@zte.com.cn
+
+ MAINTAINERS                               |   6 +
+ drivers/infiniband/Kconfig                |   1 +
+ drivers/infiniband/hw/Makefile            |   1 +
+ drivers/infiniband/hw/zrdma/Kconfig       |  12 +
+ drivers/infiniband/hw/zrdma/Makefile      |   7 +
+ drivers/infiniband/hw/zrdma/zrdma_ctrl.h  |  22 +
+ drivers/infiniband/hw/zrdma/zrdma_defs.h  |  19 +
+ drivers/infiniband/hw/zrdma/zrdma_hw.c    | 103 +++
+ drivers/infiniband/hw/zrdma/zrdma_hw.h    |  21 +
+ drivers/infiniband/hw/zrdma/zrdma_main.c  | 299 +++++++++
+ drivers/infiniband/hw/zrdma/zrdma_main.h  | 216 +++++++
+ drivers/infiniband/hw/zrdma/zrdma_type.h  |  86 +++
+ drivers/infiniband/hw/zrdma/zrdma_verbs.c | 753 ++++++++++++++++++++++
+ drivers/infiniband/hw/zrdma/zrdma_verbs.h | 128 +++
+ include/uapi/rdma/ib_user_ioctl_verbs.h   |   1 +
+ include/uapi/rdma/zrdma_abi.h             |  81 +++
+ 16 files changed, 1756 insertions(+)
+ create mode 100644 drivers/infiniband/hw/zrdma/Kconfig
+ create mode 100644 drivers/infiniband/hw/zrdma/Makefile
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_ctrl.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_defs.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_hw.c
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_hw.h
  create mode 100644 drivers/infiniband/hw/zrdma/zrdma_main.c
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_main.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_type.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_verbs.c
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_verbs.h
+ create mode 100644 include/uapi/rdma/zrdma_abi.h
 
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_main.c b/drivers/infiniband/hw/zrdma/zrdma_main.c
-new file mode 100644
-index 000000000000..5127e56fd164
---- /dev/null
-+++ b/drivers/infiniband/hw/zrdma/zrdma_main.c
-@@ -0,0 +1,294 @@
-+// SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
-+/*
-+ * ZTE DingHai Rdma driver
-+ * Copyright (c) 2022-2026, ZTE Corporation
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/auxiliary_bus.h>
-+#include <linux/types.h>
-+#include <linux/netdevice.h>
-+#include <linux/workqueue.h>
-+#include <rdma/ib_verbs.h>
-+
-+#include "zrdma_main.h"
-+
-+MODULE_ALIAS("zrdma");
-+MODULE_AUTHOR("Yanze Zhang <zhang.yanze@zte.com.cn>");
-+MODULE_DESCRIPTION("ZTE Ethernet Protocol Driver for RDMA");
-+MODULE_LICENSE("Dual BSD/GPL");
-+
-+LIST_HEAD(zxdh_handlers);
-+DEFINE_SPINLOCK(zxdh_handler_lock);
-+
-+static struct mutex rdma_name_lock;
-+static struct list_head zxdh_rdma_list;
-+
-+static void zxdh_add_handler(struct zxdh_handler *hdl)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&zxdh_handler_lock, flags);
-+	list_add(&hdl->list, &zxdh_handlers);
-+	spin_unlock_irqrestore(&zxdh_handler_lock, flags);
-+}
-+
-+void zxdh_del_handler(struct zxdh_handler *hdl)
-+{
-+	unsigned long flags;
-+
-+	if (!hdl)
-+		return;
-+
-+	spin_lock_irqsave(&zxdh_handler_lock, flags);
-+	list_del(&hdl->list);
-+	spin_unlock_irqrestore(&zxdh_handler_lock, flags);
-+}
-+
-+int zxdh_get_del_rdma_name(const char *sbdf, char *name, size_t name_len)
-+{
-+	struct zxdh_rdma_node *pos, *tmp;
-+	u8 len = 0;
-+
-+	if (!sbdf || !name || !name_len)
-+		return -EINVAL;
-+
-+	if (name_len > IB_DEVICE_NAME_MAX) {
-+		pr_err("zrdma: name buffer too large\n");
-+		return -EINVAL;
-+	}
-+
-+	mutex_lock(&rdma_name_lock);
-+	list_for_each_entry_safe(pos, tmp, &zxdh_rdma_list, list) {
-+		len = strlen(pos->sbdf);
-+		if (strlen(sbdf) == len) {
-+			if (strncasecmp(sbdf, pos->sbdf, len) == 0) {
-+				snprintf(name, name_len, "%s", pos->name);
-+				list_del(&pos->list);
-+				kfree(pos);
-+				mutex_unlock(&rdma_name_lock);
-+				return 0;
-+			}
-+		}
-+	}
-+	mutex_unlock(&rdma_name_lock);
-+	return -ENOENT;
-+}
-+
-+/* Must be called after zxdh_get_common_func_num_max(). */
-+static void zxdh_get_net_irq_cap(struct zxdh_pci_f *rf)
-+{
-+	if (rf->common_func_num_max > ZXDH_FUNC_IRQ_FREE &&
-+	    rf->common_func_num_max != 0xFF)
-+		rf->net_irq_cap = true;
-+}
-+
-+static void zxdh_get_common_func_num_max(struct zxdh_pci_f *rf)
-+{
-+	int num_max;
-+
-+	if (rf->gen_ops.zxdh_common_func) {
-+		num_max = rf->gen_ops.zxdh_common_func(NULL, NULL,
-+						       ZXDH_FUNC_NUM_REQUIRE);
-+		if (num_max >= 0 && num_max != 0xFF) {
-+			rf->common_func_num_max = num_max;
-+			return;
-+		}
-+	}
-+	rf->common_func_num_max = -1;
-+}
-+
-+static void zxdh_fill_device_info(struct zxdh_device *zdev,
-+				  struct zxdh_rdma_core_dev *zdev_info)
-+{
-+	struct zxdh_pci_f *rf = zdev->rf;
-+
-+	rf->ftype = ZXDH_FUNC_TYPE(zdev_info->vport_id);
-+	rf->pf_id = ZXDH_PF_ID(zdev_info->vport_id);
-+	rf->sc_dev.ep_id = ZXDH_EP_ID(zdev_info->vport_id);
-+	rf->ep_id = rf->sc_dev.ep_id;
-+	rf->sc_dev.driver_load = true;
-+
-+	rf->zdev_info = zdev_info;
-+	rf->pcidev = zdev_info->pdev;
-+
-+	rf->msix_count = zdev_info->msix_count;
-+	rf->msix_entries = zdev_info->msix_entries;
-+	if (rf->msix_count)
-+		rf->sc_dev.max_ceqs = (rf->msix_count - 1);
-+	else
-+		rf->sc_dev.max_ceqs = 0;
-+	rf->rdma_ver = ZXDH_GEN_2;
-+	rf->rst_to = ZXDH_RST_TIMEOUT_HZ;
-+	rf->qp_index = 0;
-+	rf->gen_ops.zxdh_common_func = NULL;
-+	rf->net_irq_cap = false;
-+	rf->dh_dev = NULL;
-+	rf->drv_np_cap =
-+		(bool)FIELD_GET(ZXDH_RDMA_COMM_FUNC, zdev_info->ver.support);
-+	if (rf->drv_np_cap == ZXDH_RDMA_COMMON_FUNC_CAP) {
-+		if (zdev_info->ops && zdev_info->ops->zxdh_common_func)
-+			rf->gen_ops.zxdh_common_func =
-+				zdev_info->ops->zxdh_common_func;
-+	}
-+
-+	zxdh_get_common_func_num_max(rf);
-+	zxdh_get_net_irq_cap(rf);
-+
-+	rf->zdev = zdev;
-+
-+	atomic_set(&zdev->tx_port_affinity, 0);
-+	atomic_set(&zdev->sport_counter, 0);
-+
-+	INIT_LIST_HEAD(&zdev->ah_list);
-+	mutex_init(&zdev->ah_list_lock);
-+	zdev->init_state = INITIAL_STATE;
-+	zdev->roce_mode = true;
-+}
-+
-+static int zxdh_probe(struct auxiliary_device *aux_dev,
-+		      const struct auxiliary_device_id *id)
-+{
-+	struct zxdh_auxiliary_dev *zxdh_adev =
-+		container_of(aux_dev, struct zxdh_auxiliary_dev, adev);
-+	struct zxdh_handler *hdl;
-+	struct zxdh_device *zdev;
-+	struct zxdh_pci_f *rf;
-+	struct net_device *netdev;
-+	int err;
-+
-+	if (!zxdh_adev->rdma_ops || !zxdh_adev->rdma_ops->get_rdma_netdev) {
-+		pr_err("zrdma: rdma_ops or get_rdma_netdev is NULL\n");
-+		return -EINVAL;
-+	}
-+
-+	netdev = zxdh_adev->rdma_ops->get_rdma_netdev(zxdh_adev->parent);
-+	if (!netdev) {
-+		pr_err("zrdma: failed to get netdev\n");
-+		return -ENODEV;
-+	}
-+
-+	zdev = ib_alloc_device(zxdh_device, ibdev);
-+	if (!zdev)
-+		return -ENOMEM;
-+
-+	zdev->zxdh_adev = zxdh_adev;
-+	zdev->netdev = netdev;
-+
-+	zdev->rf = kzalloc_obj(*zdev->rf);
-+	if (!zdev->rf) {
-+		ib_dealloc_device(&zdev->ibdev);
-+		return -ENOMEM;
-+	}
-+
-+	zxdh_fill_device_info(zdev, zxdh_adev->zxdh_info);
-+
-+	hdl = kzalloc_obj(*hdl);
-+	if (!hdl) {
-+		ib_dealloc_device(&zdev->ibdev);
-+		return -ENOMEM;
-+	}
-+
-+	hdl->zdev = zdev;
-+	zdev->hdl = hdl;
-+	zdev->netdev_speed = SPEED_UNKNOWN;
-+
-+	rf = zdev->rf;
-+	err = zxdh_ctrl_init_hw(rf);
-+	if (err)
-+		goto err_ctrl_init;
-+
-+	err = zxdh_ib_register_device(zdev);
-+	if (err)
-+		goto err_ib_reg;
-+
-+	/* Publish the handler only after the device is registered, so a
-+	 * failed probe cannot leave a freed handler on the global list.
-+	 */
-+	zxdh_add_handler(hdl);
-+
-+	dev_set_drvdata(&aux_dev->dev, zdev);
-+
-+	return 0;
-+
-+err_ib_reg:
-+err_ctrl_init:
-+	ib_dealloc_device(&zdev->ibdev);
-+
-+	return err;
-+}
-+
-+static void zxdh_remove(struct auxiliary_device *aux_dev)
-+{
-+	struct zxdh_device *zdev = dev_get_drvdata(&aux_dev->dev);
-+	struct zxdh_handler *hdl;
-+
-+	if (!zdev) {
-+		dev_err(&aux_dev->dev, "%s: zdev is NULL\n", __func__);
-+		return;
-+	}
-+
-+	/* Detach the handler before ib_unregister_device() so it is not
-+	 * visible to new callers during unregister.
-+	 */
-+	hdl = zdev->hdl;
-+	zdev->hdl = NULL;
-+	zxdh_del_handler(hdl);
-+	kfree(hdl);
-+
-+	/* No 'get' on the ib_device, so the _and_put variant would
-+	 * underflow ib_device.refcount; see cover letter.
-+	 */
-+	ib_unregister_device(&zdev->ibdev);
-+}
-+
-+static const struct auxiliary_device_id zxdh_auxiliary_id_table[] = {
-+	{
-+		.name = ZXDH_PF_NAME "." ZXDH_RDMA_DEV_NAME,
-+	},
-+	{},
-+};
-+
-+MODULE_DEVICE_TABLE(auxiliary, zxdh_auxiliary_id_table);
-+
-+static struct auxiliary_driver zxdh_auxiliary_drv = {
-+	.name = ZXDH_RDMA_DEV_NAME,
-+	.id_table = zxdh_auxiliary_id_table,
-+	.probe = zxdh_probe,
-+	.remove = zxdh_remove,
-+};
-+
-+static int __init zrdma_module_init(void)
-+{
-+	int ret;
-+
-+	INIT_LIST_HEAD(&zxdh_rdma_list);
-+	mutex_init(&rdma_name_lock);
-+
-+	ret = auxiliary_driver_register(&zxdh_auxiliary_drv);
-+	if (ret) {
-+		pr_err("zrdma: failed to register auxiliary driver\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void __exit zrdma_module_exit(void)
-+{
-+	struct zxdh_rdma_node *pos, *tmp;
-+
-+	auxiliary_driver_unregister(&zxdh_auxiliary_drv);
-+
-+	mutex_lock(&rdma_name_lock);
-+	list_for_each_entry_safe(pos, tmp, &zxdh_rdma_list, list) {
-+		list_del(&pos->list);
-+		kfree(pos);
-+	}
-+	mutex_unlock(&rdma_name_lock);
-+
-+	mutex_destroy(&rdma_name_lock);
-+}
-+
-+module_init(zrdma_module_init);
-+module_exit(zrdma_module_exit);
--- 
+--
 2.27.0
-
