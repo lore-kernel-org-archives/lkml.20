@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792817397;
-	b=IffYRfR2Xb4nHuNj9P9+teVbqC+jtjXKenTtuhy5c9jWlea/Bc6eiHW6zyGBevXAYZm3
-	 qPXx6K+/sGfmB+CzG6mqVEMSMb2AbOPHCoK71C5oSVQIKB7W63nta32X3B2nAVuo1UiIn
-	 WK3cN+OtA7MN9UdRFq+gLrmnVcJ3lOywuoUadLbAWH6iPIGuY4Iyw0JudcCNSZTEsN/Ws
-	 vSFje5jwq1X5ArtEDrexoSTmjkrUvrbcW+KnsoHHUzp+iVx5QSzQpeBx/WvHgFRcu4CaY
-	 yLRRle4vUfAV3U+/f1UftcjoRHgjs7ZTdyefg9526iAwaY8okDVDnNLi6ApSxrVdWQQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792817397;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YxBmcqUyq+7y7gmZ9dBOvMilScJYMeNzGz+wY+G2j1M=;
-	b=O2zCy4Lvlz1axFo5HoGfRwZIWof7mzwSNThmtgY3wezkAP505NBv2TsIxEEmT6nDeKOK
-	 HWN0Xrd8b2osJTLtgn0HSdPtM/gfT/BbZiQPpoa49MiMRZaHYrVeEXamyEWThaAX80wtp
-	 zWZy0alI6Sg/9gbH4bdtulzYnryuCD+WSTaiN4Zsk9c8maUUO0DON2jp2TxKpbKIzUo2q
-	 WPcckuuoY5is8ciVMPKoe3TA8vqm+VucKHjHHuJ56Z+z5F+vRGS6+6pxrQZGnvSGcFbhs
-	 4kTFFo/8xdKxTTbVA8/412c7HPTijWgXVBEYXVDOxMWd0OLL5zcNiwPXJ1ls7/2sQwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b="dHk/WJ7n";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792817388;
+	b=IIWE8LFLoC1HeIF/S/uPMnHInmwfB3MBD2UnlFMFnBgwt2NHquG81SdpVuJCIDswZoDw
+	 4TOEpbHozeCLgxyCYJmyPgBdjNmQFyrRSCyOe9Tw3+xGyItxsvvCq//6VVavjYGu+Fo/6
+	 38riB7QoP8DqkBmxFT0BE+qyny7T6UVVREIbhe4hpGsZfS4KP+xbz4gRgO/30/eGAJOzL
+	 +tbI/cjXcE+HSbLtlbyYoEYUgICcZa3cz416+QwLMFtZA2wrvLbLhYKg+/sxreOMH+Q/9
+	 h6twM0HhISbEDay+bvLBBhPBH9kYHegFoTxWcX3x+j/C6GZ7N9XOS26jrWK9DeBS3Ww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792817388;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=nbpqjlesvT1Wv4sjUPG1VGTnR0m0XWWmAt2W5g0+KvA=;
+	b=RqFMGUvz24U9uPkr/B2Myf5u33mnETg+uzLWNDIt8Col+V0MQDbmWFZJgUT1Ksyu8KAO
+	 3eUMIjvlPT8qYV//JGn0+bxnkQlH4UIqJ5wMwrhtskfRPTn323IH3v2nK9/CMFfr64KTG
+	 8YS5SNoh10xIUAOgW1dvWWEYUpeQxnfAD5svcvISBqSPa0ocLger0nEpX+lBdPbopHBvF
+	 vSPqaULt7KGgygQcMSJaul6k5/zsywuBFqfIWNa2d6hPp9yHfLB4/WI7WwcLJRWxrDFR1
+	 BJl0byIHumE+CTlqFMjA1tOE9xLhgKNHY0xLbvbHr6cjiftsbUCb0THHPRhBtO3elog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=etVbqwej;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381A8606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 381A8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E469606A31A;
+	Sat, 24 Oct 2026 04:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E469606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=dHk/WJ7n
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so9883255e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:49:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792817396; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WPH2tnCrspkz1EwlJUWaqUNsXQwwcRP1POqBV3cIpBA/YpJXVSf5lcNzsiiwstxS41
-         Vk9cr4Co8EYIEpbQi3pVJ20cz3f3qumEEN6gcwuSRy5sMBwgJptHATkZgZfjAftO9zG3
-         gG5gA/Dv7zdBI4f7rocPybN9V4pzed8IjYnwU0SyMbFhSVjULUfvhcVVYH7MpBelc2vh
-         ydAyUefOYMTeZvlgQMf1eBYpag8D1N+ArvDH4NduEfhdz1HXxmOWbvTAgQaoU7A8r2Mg
-         45mQ/phwP9nmAtwOED6VpyEbsj3NElJIZphCRrN9SjXGN52skjiYGKgrnES75clD/xiH
-         b98g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YxBmcqUyq+7y7gmZ9dBOvMilScJYMeNzGz+wY+G2j1M=;
-        fh=M12wLtJj0kUTHORRyh6tQHraxtnAqe5GEzRqVr0mosg=;
-        b=cUY3Ni894fJSpbfl0aypmmRghrU1wkbokb6EfvPH0xIJ5vmU21g30ntSp1Hzw8V9UM
-         +fKE0IiZ2oFBFEqMd+gGnImuSqqKY2qzgps8oL7uRhI3tudWsyWkLo77LiJc5w+hywQ5
-         zkuml87GMglQqgaFvw85CgO2opYccx1C80sWWQq7cVq/iOeK5clGrZNSu8d9f5OqPLjD
-         BREi6nRfQ9PpvCYwQYTWA2SLAyKzCAVM9Bq4IjKLnl00uk61y1f4jhi4q8PCVLdFSS5L
-         Axp8u2QE1fJ9nEPS2TLNlIMTlzcwN1jTW9jXYvmPRYhnyBqMqwMTwM7AyMNhaoAZdUvN
-         A++A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1792817396; x=1793422196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YxBmcqUyq+7y7gmZ9dBOvMilScJYMeNzGz+wY+G2j1M=;
-        b=dHk/WJ7nuF4n6s5fi4NtyAD5I7nCSnSZIyyz3kynKii5OHyKDjuTV/+X4jpJky+Nac
-         ia5LLsmnz3Br4W0QsB94Sd6cmdKL0RdNt5OGWpwv9MD0gtv51sH4VIYfm8c10yjRuf8S
-         4/TQeWGGnjzQkplrHGNtnKdEGeCEk1RptYAiaTycXpSyF8nB67iDdCHPbk9gJIOjoj/u
-         r3y85Stzb+OM312MlQJeV4AJo4FAWIX9OpPLcGumaCgefPg8DNgW6EGsJIfpnHu+TW0x
-         CVaa9QDHVJ7zOp388zvtY5CGTpzEnjpFTOuEe30TIgg1SaIeNR1yNerUZB5be/qCW5j4
-         To4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792817396; x=1793422196;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YxBmcqUyq+7y7gmZ9dBOvMilScJYMeNzGz+wY+G2j1M=;
-        b=LlJ0+k3zxDvICgswxO5uBAIKmCFaV1Umch3X5riQUFiYIyFo/YO0xF0gmrivvXYbEf
-         lIILQ2ndYjizvtqu76N5HEFc8ouPFiWhP4vWay/TGPT85foFw3HUY9aGtDQjhrgqNx+P
-         sywPUfxz/V7nHQkmzdqWUVszzkCHqPNIeJXkIdYe1sFVrx2r5ou6rtH624xwVgI3LZUn
-         WwAyxkptpQX4eMKbVGmAa7hSe0pY9N5lj9rXgeSUhuXT9tx7IC5VThcdYUkOm9LqzaQT
-         aW730FvOamBitaVZFaqWFtQJLjnxhm9Lx9pDYPsWVkccOHelJeu8fLouCTIyTpgRcu/n
-         EcmA==
-X-Forwarded-Encrypted: i=1; AKwUvByAloWT/yny3Iarqn1xl6AbJjFA9MWrb/5V/Z23zZ32eA6oREsT/Y3Xpa6n7AIwsQyh20Ve0D3vz7T6Dic=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ4UAQUyIG2C47SDRNCf37FbsaAWzcX+pzsJxTxEtGOQ6uekCg
-	Skq802366Ch5/gp/3JAReKpaLDDMgkzVzZAZPfawx3FU8XXK4LE82O7dr5u/Q3GadxwaOadV0pY
-	XJx2I7tNCEvu4Q4e7j//NzpckTzS+sqJsia3HKMKcRA==
-X-Gm-Gg: AYBFou1/54IpVX3uxlzG4cRYh0v1mtJ6nAdAl8/zAJqADXxcxSN1hb4FHRkC47r2y8D
-	BMPgH1geiXyyiauP+/tO97edahV7QnoJqOLxQd5KEemh22PqAAmN9A1YvcAplk7GcSbFktoF+My
-	n2N3k3lLk6SyG1kpsh1uB1yL9x6rDuCR6EAKMnACnrdNatjiIbyHhevD5A7hYlCG6Nd8YCQzA9V
-	UDWtlvet3KeVtdQy+FQuXyNJLQt18+gTf4ZZ9HzptVqCYtYPiUYhKICzjsi+5DOncvvluv3V3Sh
-	m4oTK4p1jzybqkKadfKdS9JhfetoDn7d32rYuHcJHecPEtChV5HkYU7g+YMlLFe/9JaMBv8/eR3
-	2L665uVUhKnH/fExy/JNAdsoEoX95mfUPMFSbz+VgoMz7I8d2boy41/p7emh86+mv/7Gchp2DXJ
-	hWlw4O90Cu078SJE3DMeQYE6oFz0hW9H700SB33imYplQSCAHN9hko0A4=
-X-Received: by 2002:a05:600c:3e10:b0:4a1:e01e:1927 with SMTP id
- 5b1f17b1804b1-4a35ac8d939mr12203795e9.5.1792817395557; Fri, 23 Oct 2026
- 21:49:55 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=etVbqwej
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nb
+	pqjlesvT1Wv4sjUPG1VGTnR0m0XWWmAt2W5g0+KvA=; b=etVbqwej0Zw+GiYEYn
+	3YjgOzY7GRYhH0/4HU3HgvV2bGY77WWIGZ+RdVowROEY5Q41VqzUcPMBvaf8JfnG
+	UfgdFfPKEVC2xKUxpxuCD4zA3/jGBvsZWcasqHoXsWMxntVTEYTwij82LOYOiJ7k
+	MXswVDxJ1kxqANg1Sv2gpEyZQ=
+Received: from flipped.. (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCH153AONxqc+zrBg--.26204S2;
+	Sat, 24 Oct 2026 12:49:05 +0800 (CST)
+From: Sicong Huang <congei42@163.com>
+To: netdev@vger.kernel.org
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Louis Peens <louis.peens@corigine.com>,
+	Hui Zhou <hui.zhou@corigine.com>,
+	oss-drivers@corigine.com,
+	linux-kernel@vger.kernel.org,
+	Sicong Huang <congei42@163.com>
+Subject: [PATCH net] nfp: flower: fix use-after-free in neighbour update work
+Date: Sat, 24 Oct 2026 12:49:03 +0800
+Message-Id: <20261024044903.1130380-1-congei42@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,90 +68,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <caplitmus-rv.75b0e9ee82984422ba17d833767912a8.d33@163.com>
-In-Reply-To: <caplitmus-rv.75b0e9ee82984422ba17d833767912a8.d33@163.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 24 Oct 2026 10:19:44 +0530
-X-Gm-Features: AclHuK-rwyUpMrCtlF-8OzUUpfS51mxj7irl2dKCroJ9WfO9LDr7DIESO4VEff8
-Message-ID: <CAAhSdy1UwajY2P2ca_h0NUd2v00TR18go0gGNwRTxd66HQxS_Q@mail.gmail.com>
-Subject: Re: [PATCH] perf/riscv: clear snapshot setup state when a CPU goes offline
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: Atish Patra <atish.patra@linux.dev>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	Samuel Holland <samuel.holland@sifive.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgCH153AONxqc+zrBg--.26204S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKr1UAry8Gw1kGrWUKw45ZFb_yoW7WrW7pa
+	y5K3y8CFWktw15W398Z3WUZF13K3W8K3W5CF1xCw1Y9an0q3y2kFWDKFyjk3WrArZ5G34F
+	yrWFkF1fA3s8trUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pMKZXUUUUUU=
+X-CM-SenderInfo: 5frqwvrlusqiywtou0bp/xtbC0wEQA2rcOMHg9QAA3b
 
-On Sun, Sep 6, 2026 at 9:58=E2=80=AFAM Pengpeng Hou <hppiscas@163.com> wrot=
-e:
->
-> pmu_sbi_dying_cpu() disables the calling hart's SBI PMU snapshot shared
-> memory but leaves snapshot_set_done set. When the CPU comes back online,
-> pmu_sbi_snapshot_setup() returns early without registering the shared
-> memory again.
->
-> Snapshot operations on that hart can then fail because the firmware no
-> longer has a snapshot area, while the driver still follows its snapshot
-> paths.
->
-> Clear the per-CPU setup flag after snapshot disable succeeds. Retain the
-> flag and the existing error return if disable fails, so a failed teardown
-> does not claim that the firmware registration has been removed.
->
-> Fixes: a8625217a054 ("drivers/perf: riscv: Implement SBI PMU snapshot fun=
-ction")
-> Assisted-by: GPT-5
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+The netevent notifier handles neighbour updates and redirects by
+queuing nfp_tun_neigh_update() on system_highpri_wq. Each work item
+holds a reference to the neighbour, but only stores a pointer to the
+flower app.
 
-LGTM.
+During device removal, nfp_tunnel_config_stop() unregisters the
+notifier. This waits for notifier callbacks to return, but does not
+wait for the work they queued. The teardown then frees app->priv and
+app without waiting for these work items. Flushing cmsg_work in
+nfp_flower_clean() does not cover the neighbour update work.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+A pending work item can therefore run after the app has been freed.
+Its call to nfp_flower_get_port_id_from_netdev() can then access freed
+memory while checking whether the neighbour's device can be offloaded.
+Even notifications for unrelated devices can reach this check. The
+same problem affects shutdown and probe error paths that tear down the
+app after the netevent notifier has been registered.
 
-Thanks,
-Anup
+One possible interleaving is shown below. The neighbour belongs to
+another network device that remains registered.
 
-> ---
-> The issue was found by our static-analysis tool and manually reviewed.
->
->
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 50220f7b..f38a64c7 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -1175,6 +1175,10 @@ static int pmu_sbi_starting_cpu(unsigned int cpu, =
-struct hlist_node *node)
->
->  static int pmu_sbi_dying_cpu(unsigned int cpu, struct hlist_node *node)
->  {
-> +       struct riscv_pmu *pmu =3D hlist_entry_safe(node, struct riscv_pmu=
-, node);
-> +       struct cpu_hw_events *cpu_hw_evt =3D per_cpu_ptr(pmu->hw_events, =
-cpu);
-> +       int ret;
-> +
->         if (riscv_pmu_use_irq) {
->                 disable_percpu_irq(riscv_pmu_irq);
->         }
-> @@ -1182,8 +1186,12 @@ static int pmu_sbi_dying_cpu(unsigned int cpu, str=
-uct hlist_node *node)
->         /* Disable all counters access for user mode now */
->         csr_write(CSR_SCOUNTEREN, 0x0);
->
-> -       if (sbi_pmu_snapshot_available())
-> -               return pmu_sbi_snapshot_disable();
-> +       if (sbi_pmu_snapshot_available()) {
-> +               ret =3D pmu_sbi_snapshot_disable();
-> +               if (ret)
-> +                       return ret;
-> +               cpu_hw_evt->snapshot_set_done =3D false;
-> +       }
->
->         return 0;
->  }
->
-> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
->
+  CPU0 (remove)                   CPU1 (notifier / kworker)
+                                  nfp_tun_neigh_event_handler()
+                                    queue_work(system_highpri_wq, ...)
+                                    return
+                                  /* Work has not run yet. */
+  nfp_tunnel_config_stop()
+    unregister_netevent_notifier()
+    /* Notifier callbacks have finished, but work may be pending. */
+  nfp_flower_clean()
+    vfree(app->priv)
+    app->priv = NULL
+  nfp_app_free()
+    kfree(app)
+                                  nfp_tun_neigh_update()
+                                    app = update_work->app
+                                    nfp_flower_get_port_id_from_netdev()
+                                      app->priv  /* use-after-free */
+
+The work items are allocated per event and free themselves, so they
+cannot be cancelled individually, and flushing system_highpri_wq is
+not allowed. Use a dedicated workqueue for neighbour updates instead.
+In nfp_tunnel_config_stop(), unregister the notifier and destroy the
+workqueue before cleaning up the tunnel state. This prevents new work
+from being queued and waits for pending and running work to finish
+while the app and its resources are still valid.
+
+Found by code inspection.
+
+Fixes: 0ad722bd9ee3 ("nfp: flower: fix for take a mutex lock in soft irq context and rcu lock")
+Signed-off-by: Sicong Huang <congei42@163.com>
+---
+ .../net/ethernet/netronome/nfp/flower/main.h  |  2 ++
+ .../netronome/nfp/flower/tunnel_conf.c        | 24 ++++++++++++++-----
+ 2 files changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/netronome/nfp/flower/main.h b/drivers/net/ethernet/netronome/nfp/flower/main.h
+index 2b7c947ff4f2..bd4399758ed4 100644
+--- a/drivers/net/ethernet/netronome/nfp/flower/main.h
++++ b/drivers/net/ethernet/netronome/nfp/flower/main.h
+@@ -94,6 +94,7 @@ struct nfp_fl_stats_id {
+  * @ipv6_off_lock:	Lock for the IPv6 address list
+  * @mac_off_ids:	IDA to manage id assignment for offloaded MACs
+  * @neigh_nb:		Notifier to monitor neighbour state
++ * @neigh_wq:		Workqueue for neighbour updates
+  */
+ struct nfp_fl_tunnel_offloads {
+ 	struct rhashtable offloaded_macs;
+@@ -103,6 +104,7 @@ struct nfp_fl_tunnel_offloads {
+ 	struct mutex ipv6_off_lock;
+ 	struct ida mac_off_ids;
+ 	struct notifier_block neigh_nb;
++	struct workqueue_struct *neigh_wq;
+ };
+ 
+ /**
+diff --git a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+index 3b47e9fe64e1..46b6cda7f3d3 100644
+--- a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
++++ b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+@@ -736,7 +736,7 @@ nfp_tun_neigh_event_handler(struct notifier_block *nb, unsigned long event,
+ 	if (!update_work)
+ 		return NOTIFY_DONE;
+ 
+-	queue_work(system_highpri_wq, &update_work->work);
++	queue_work(app_priv->tun.neigh_wq, &update_work->work);
+ 
+ 	return NOTIFY_DONE;
+ }
+@@ -1509,6 +1509,13 @@ int nfp_tunnel_config_start(struct nfp_app *app)
+ 	if (err)
+ 		return err;
+ 
++	priv->tun.neigh_wq = alloc_workqueue("nfp-flower-neigh",
++					     WQ_HIGHPRI | WQ_PERCPU, 0);
++	if (!priv->tun.neigh_wq) {
++		err = -ENOMEM;
++		goto err_free_macs;
++	}
++
+ 	ida_init(&priv->tun.mac_off_ids);
+ 
+ 	/* Initialise priv data for IPv4/v6 offloading. */
+@@ -1521,13 +1528,17 @@ int nfp_tunnel_config_start(struct nfp_app *app)
+ 	priv->tun.neigh_nb.notifier_call = nfp_tun_neigh_event_handler;
+ 
+ 	err = register_netevent_notifier(&priv->tun.neigh_nb);
+-	if (err) {
+-		rhashtable_free_and_destroy(&priv->tun.offloaded_macs,
+-					    nfp_check_rhashtable_empty, NULL);
+-		return err;
+-	}
++	if (err)
++		goto err_destroy_neigh_wq;
+ 
+ 	return 0;
++
++err_destroy_neigh_wq:
++	destroy_workqueue(priv->tun.neigh_wq);
++err_free_macs:
++	rhashtable_free_and_destroy(&priv->tun.offloaded_macs,
++				    nfp_check_rhashtable_empty, NULL);
++	return err;
+ }
+ 
+ void nfp_tunnel_config_stop(struct nfp_app *app)
+@@ -1537,6 +1548,7 @@ void nfp_tunnel_config_stop(struct nfp_app *app)
+ 	struct list_head *ptr, *storage;
+ 
+ 	unregister_netevent_notifier(&priv->tun.neigh_nb);
++	destroy_workqueue(priv->tun.neigh_wq);
+ 
+ 	ida_destroy(&priv->tun.mac_off_ids);
+ 
+
+base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
+-- 
+2.34.1
+
