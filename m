@@ -1,71 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792826123;
-	b=V4EDQVz5jY1t2LpicjLY/NLLyUli1hQQfnITGciL52bCXG9+dgYoqZjeOe5JWIw4Yzqw
-	 IngmU/WYyRlbO7JzHrj5Memo3NigjPrOqYJAb7I4BWuOLTBLpKndKH+Pqfx/5ZEXmk5IT
-	 NqvpT4KnVG392k1Q1eeEPNCivZilZWQEOIlmFRRLVkGcVUcVvCj8B8X3D0c+46mQiIN0U
-	 2koRu3hZLZFFDXX7lt2WlwXTHMlPNwmSo0FBJ4oC9yNrh9MR1yh34Czk4WC2PyppYHrfc
-	 p3pnabtkhLfoAg8ERX/zlEhLBHFqfpO1Pr050AQjHCdUEjFmlI3zfzVmPiTGmRd91qQ==
+	t=1792826141;
+	b=Dzn2eY8QFQ6q587qjVhkNuzMuz/CVwoGWTyw5u35n7bFkIBqI9k7pOlx8x4KCYZVW0MG
+	 rzhd3xUWp3fR4SNTZ9EIT0WTpdwNg2iXX+6NVXUdhKskQsF4+hKHFJ6pdrXoGRbHYwWhj
+	 0gtR+hGdMZzTtyJ5DwSPL/mZnZqa6kK9QTlVY/IW8ipC9iqX6tCitltDcifXo1KWaCSRG
+	 SF6AixoJaMJqFRmi7xqQaXT913ZTESU8YzTpdsEUmBchAyaBgE9jBmroMpabhteVYnDgB
+	 lfwaaI23Z8r5sMPDbznE8f35nrQr/fs1xtsKFM83kr4n1XvSqhzr3YHJ9bkLgONWh1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792826123;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=bwf4WuvizE5NsoXFdTXjETdYXegFLEL7OxtAZ9dSDUQ=;
-	b=h/y8IHnsu4t/bXyy5y8+U2VxRBN3BVbc8qUWnFlEdmvyYmAQfS0NC3Efx8dGa1DbdEqQ
-	 u0+cxdDtdahHWgScm3Cr6ZwWwreQgl8OrzS0sWO/FmxidBXDgvrvWat0ZOIw+bmNxGjX8
-	 Ei7DwNj2SIYRtewjXNCleutN4ih0JEuPpGqXzjZjrqZaM2PRj4SE9PKjJA1YlHFuTe8h3
-	 bSIsb5KN71+z1L/hi7VWxCun6yeVoqPOi1DNnhXdfP+RDs3YoEzkpWbhIzcGezE0bDlK+
-	 4yvnmScPbRn+mQ4uIz4Fnxm6crHsOjSbWlz5skW8sX13VZO+Dyf2WPUaJolgXocJYLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792826141;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=xgVmkxubDRg1cJuzFYDYMiEdO1rVdRyOgY/ruAhYY2s=;
+	b=RQqH5fSabmHYjCKk8nWb7AThV4nQr/3e+eYlss2nhLK6mth/qsnGLXOTdP9zvybvBi5e
+	 gVnsKnzTiNTNnV6bQ1wn1hxNSR8qo9eCjgaKg9ZMUEzBj/DBxwvJCJ3+4Ecxe9F1Ahx+H
+	 aC3sw10hVI8sAPYwKkPKk7dGd/FlJlxhD/AO5TUlKE/3713FK6vEiUyyq32Bu14RTk5GR
+	 FvqfnRGwUNZVomxpyJ+rrgax+BkgUF9q+LyxprM9ONYLtQLD0qhQrtT1hj2j0Vgg43Q+y
+	 MEuZ/ZUfj1FxjamOXEjj7Bc66dEz5j342fa5+5IQOb3Hn0quJUd0alyLndukqFLcB0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="JtEYmq/F";
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SIDrDSuI;
+	arc=none smtp.remote-ip=91.218.175.252
+Received: from mta0.migadu.com (out-252.mta0.migadu.com [91.218.175.252])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B228606A31E;
-	Sat, 24 Oct 2026 07:15:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B228606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF5F606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF5F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JtEYmq/F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bw
-	f4WuvizE5NsoXFdTXjETdYXegFLEL7OxtAZ9dSDUQ=; b=JtEYmq/FkqR93/oeFm
-	90LoplFrYwebjoUWMJzB9ZmYDocDPplo3FBqlySLPiiDtvESuVFPAKAQOsbiXFaS
-	P7tM99kXQghzPaK91qd4UQTyDIT7VxwWivzLaNQ6GxaWaDIM8jgfApKIMZq3DF93
-	8VgUl8RA4CZnMLkwC2FlRjvag=
-Received: from 4CV529F122.company.local (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD310ySWtxq_y0rCg--.41124S5;
-	Sat, 24 Oct 2026 15:13:42 +0800 (CST)
-From: Ding Hui <dinghui1111@163.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
-	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: dinghui@lixiang.com,
-	xiasanbo@lixiang.com,
-	yangchen11@lixiang.com,
-	liuxuanjun@lixiang.com
-Subject: [PATCH net-next v6 3/4] net: stmmac: release descriptor resources through priv->dma_conf on open failure
-Date: Sat, 24 Oct 2026 15:13:17 +0800
-Message-Id: <20261024071319.875921-4-dinghui1111@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261024071319.875921-1-dinghui1111@163.com>
-References: <20261024071319.875921-1-dinghui1111@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SIDrDSuI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fS8yvEoIwEhEI1jeJexTVj+BAmw6eQpccC70A0wbAfc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792826137; v=1; x=1793430937;
+ b=SIDrDSuIdqDjWjuWlD3GF6mv/NsjlAK9idm7EK3iB+9rr6Gl4sU9nvShUdjzlczoxS8zTTbM
+ PE7Hg5IrUhbizXUv2CVuOK9i+r2DRAgSw9LU3eb9Hk0N1nSOAtvj/kBexg7+55vSLPrzwktaogY
+ jaHGPzYNVT1t0VmzD/0oHrUI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 423ee3d297c991de;
+	Sat, 24 Oct 2026 07:15:37 +0000
+X-Mizu-Trace-ID: 423ee3d297c991de
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be4a7b9e6fso2050e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:15:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwKUMPWNhT0AT2mNwB+rqT+/XI7Arx2cj/XGmgmmpZT2v9KnDhLuaqt4+GSI9KzCMRoduo867dBggvFpAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbdwGML+IXqvoLuVUdEd++s9Y/06YndI9NYCUJCk0qZdzwxK9t
+	02H9qRgyXHglgjifMYhiF/w2kDsL0c1Oo4gqMnEcXOLmGEIlWeAEcOlqihW09SoY6rSbhswj0lE
+	G+AayONZiR5rvu10/y9ywtKfu9853s0kUO2Y/ZtTR
+X-Received: by 2002:a05:6512:3e1a:b0:5bf:b27b:6371 with SMTP id
+ 2adb3069b0e04-5bfb79f9850mr46341e87.10.1792826135785; Sat, 24 Oct 2026
+ 00:15:35 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,103 +66,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD310ySWtxq_y0rCg--.41124S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGry7Cr45ur1kZw1kZryUAwb_yoW5uFykpr
-	Wxua98JryDArn3Jws8Ar4UXFyFyaySyF45Gw1xJ3yfAay5WrZIqrWYqryjvF1UCFWFvw1S
-	qrWYyryUC3WDXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bjQ6XUUUUU=
-X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC8waRvWrcWqZjZwAA3X
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+ <20261023070110.1833446-2-fuad.tabba@linux.dev> <86fqxwzul7.wl-maz@kernel.org>
+ <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
+ <86ecdgzp6m.wl-maz@kernel.org> <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
+ <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com>
+In-Reply-To: <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Sat, 24 Oct 2026 08:14:59 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
+X-Gm-Features: AclHuK9QvFT6f4TAsNTrh2PdecgAYJ19yM-sYm9uDvK9gvirJINXHV46-ipXL60
+Message-ID: <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ding Hui <dinghui@lixiang.com>
+Hi Arnd,
 
-__stmmac_open() copies the temporary dma_conf passed by its callers
-into the long-lived priv->dma_conf before setting up the hardware.
-When the open fails after this copy, the descriptor resources now
-belong to priv->dma_conf, but the error path returns without
-releasing them and leaves stale pointers behind. The callers then
-free the already-copied resources through the temporary dma_conf,
-which aliases priv->dma_conf after the memcpy.
+On Fri, 23 Oct 2026 15:10:23 +0100, "Arnd Bergmann" <arnd@arndb.de> wrote:
+[...]
+> That sounds good. For reference, I have prototyped support for
+> LS64_ACCDATA in Linux drivers based on the corresponding x86 code.
+> The code is not yet tested on hardware, but it may help understand
+> how this may be used in the future.
 
-Fix this by making __stmmac_open() release the descriptor resources
-through priv->dma_conf on failure. Callers of __stmmac_open() only
-need to free the temporary dma_conf container in that case, while
-failures before the call (PHY setup, serdes power up) still release
-the resources through the temporary dma_conf via the existing
-err_dma_resources path in stmmac_open().
+Thanks, that's useful to see.
 
-stmmac_open() no longer jumps to the serdes label chain after
-__stmmac_open() fails, as that chain would double-release the
-descriptor resources and double-put the runtime PM reference, so the
-cleanup is done inline instead.
+[...]
+> diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
+[...]
+> @@ -254,6 +269,8 @@ switch_mm(struct mm_struct *prev, struct mm_struct *next,
+>          if (prev != next)
+>                  __switch_mm(next);
+>
+> +        switch_iommu_mm(next, tsk); /* FIXME: is there a better place to do this? */
 
-The resource release is merged with the error unwinding that stops
-the DMA engines and the MAC: failures after the hardware setup
-first stop the DMA engines and the MAC, and then fall through to
-the common init_error label that releases the descriptor resources,
-while a stmmac_hw_setup() failure jumps to init_error directly as
-the engines were never started.
+switch_mm() isn't enough when the same thread also runs a vCPU. In v2,
+which I'll post soon, KVM will save and restore ACCDATA_EL1 only for
+the guest, since nothing in the host uses it today. So after KVM_RUN
+returns from a guest that has LS64_ACCDATA, the VMM thread's next
+ST64BV0 would use the guest's value, unless KVM also saves and
+restores the host's.
 
-Signed-off-by: Ding Hui <dinghui@lixiang.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c    | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+[...]
+> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
+[...]
+> +static bool try_enable_st64bv0(struct pt_regs *regs, unsigned long esr)
+[...]
+> +        isar1 = read_sanitised_ftr_reg(SYS_ID_AA64ISAR1_EL1);
+> +        if (!(isar1 & ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA))
+> +                return false;
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a8401b04d79f..b093119e752f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4246,7 +4246,7 @@ static int __stmmac_open(struct net_device *dev,
- 	ret = stmmac_hw_setup(dev);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
--		return ret;
-+		goto init_error;
- 	}
- 
- 	ret = stmmac_setup_ptp(priv);
-@@ -4282,6 +4282,8 @@ static int __stmmac_open(struct net_device *dev,
- 	stmmac_stop_all_dma(priv);
- 	stmmac_mac_set(priv, priv->ioaddr, false);
- 
-+init_error:
-+	free_dma_desc_resources(priv, &priv->dma_conf);
- 	return ret;
- }
- 
-@@ -4314,8 +4316,13 @@ static int stmmac_open(struct net_device *dev)
- 	}
- 
- 	ret = __stmmac_open(dev, dma_conf);
--	if (ret)
--		goto err_serdes;
-+	if (ret) {
-+		stmmac_legacy_serdes_power_down(priv);
-+		phylink_disconnect_phy(priv->phylink);
-+		pm_runtime_put(priv->device);
-+		kfree(dma_conf);
-+		return ret;
-+	}
- 
- 	kfree(dma_conf);
- 
-@@ -4324,8 +4331,6 @@ static int stmmac_open(struct net_device *dev)
- 
- 	return ret;
- 
--err_serdes:
--	stmmac_legacy_serdes_power_down(priv);
- err_disconnect_phy:
- 	phylink_disconnect_phy(priv->phylink);
- err_runtime_pm:
-@@ -6343,7 +6348,6 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 
- 		ret = __stmmac_open(dev, dma_conf);
- 		if (ret) {
--			free_dma_desc_resources(priv, dma_conf);
- 			kfree(dma_conf);
- 			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
- 			return ret;
--- 
-2.34.1
+v2 will add an ARM64_HAS_LS64_ACCDATA cpucap, so this could test that
+instead. As written it tests bits [1:0] of the register, not the LS64
+field, since ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA is the unshifted field
+value.
 
+> +
+> +        sysreg_clear_set(accdata_el1, ACCDATA_EL1_ACCDATA, pasid);
+> +        sctlr = current->thread.sctlr_user;
+> +        sctlr |= SCTLR_EL1_EnAS0;
+> +        current->thread.sctlr_user = sctlr;
+> +        update_sctlr_el1(sctlr);
+
+On a host that runs at EL1 (nVHE or hVHE), this also requires
+__init_el2_fgt to set nACCDATA_EL1 in HFGRTR_EL2 and HFGWTR_EL2, and
+__init_el2_hcrx to set HCRX_EL2.EnAS0. Without them, the ACCDATA_EL1
+access traps to EL2 and the hypervisor panics, and so does ST64BV0
+once SCTLR_EL1.EnAS0 is set. Happy to write those and the KVM change
+once you're ready to post this.
+
+Cheers,
+/fuad
