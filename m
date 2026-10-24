@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792825220;
-	b=1LyjtzZT31fLAa7EXINUmjO9kEJG+zhDpiOrXhmytee1xZCyXy/VoSdiFbT0vVPGW/L1
-	 zEGEugJMgZFK7ErptknMPFrQNnmdZKXK4J9+Ji45pwvaqO34DQNUIMTPPbg37eafa9lXw
-	 Kuw+KZxkwHTOQ75hUpm1HplivSqCiMwkx8hQOMvwMG8toQS8tkVq5mC0k/H58VJ4hvCon
-	 B60xozgv9wcfTxxWJElretzFlkMuDrLm7DVAnAZqgr4KY72SFNeLNHCNIcSKgSt3KuXnM
-	 q1/FQ/q2/u8WIVbwieeSSYsBjJ2vnwOjOXqcK5b8VrUTe9hX9tbWBTFLc9L81PZ0SMQ==
+	t=1792825436;
+	b=MBByK+RHV+7vQujvG3Ndi3WvSu+kTJsYEfXRtnfhCl4r3AF7u1jVLD/5b/KBBqXFAHRz
+	 f+jGTaNY/8SaEjlKH5+ibUNTVj08OaNs+2AxANLi3xgv/Sssd4zdFfiHa6xyfDGH82S/j
+	 3CDBcJHVYpFPfmld9cxZErwDda/v6p7YEQYf9c1aJ8AY4187DUYumjEgWGkJmw5tERtw0
+	 9XSo+huBaF8EpKa40bZ8L85qbFQdLeYyokpOQfhwQhMrNRGo0h8ACJoESxgcLKa8CyFa5
+	 TxXPKj1ruiXvFbG3hJ3N8k2b3BYMCwoRkwR+q17MDKx1yx3Uy23E7gkp6iUgVntcdDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-	b=0MWmiz5pBBTDBR17Voy/I9qU7PrmvYqWz9k4qZZKXGMsAETkTawFs5ZcsQQ+zey0vh3L
-	 x4XqE5zqdFJAOdVhlwM2/I8vnTmHlAANpDa5fpjv/ACEP2RtDnC1sXAldApNqgJLtISsE
-	 ScOW/AEZ8Hez/ueLR8t1uMr+8T8UAPNqhWladJd6g+Utvh7NLlspTMm2agp6aSGLHKUW3
-	 tkM+DyXSlckBtteP3h8hl7eYzOwWTNmJ4EPOQhH215vXcIfzfl4z+wdTvtylEHK4Axivd
-	 J7AGliprefyoCItUqGY88L/cn8WuxQ+zG9cMArSKHe0EqmuA9zSYBrwai6WsT2R5XRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792825436;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yrjT2zKROfzZYFkQjkjZVkcJKooPMH1EarRQ32hBJzc=;
+	b=lSOmTe96waUraXiOJkppCQx/Cl0V4WcD0hnoa4z2QM4i7hfzXAsbXlKmfHtWFVbNIUID
+	 BJTlAcR3opfQCUfmgv11PHGJJsrSEK69icBc33Jwla45rbz2tfH9eTk1F6UQKydNEaKtj
+	 AHYNQnmgGNdExmDH6kiri9S48rovpYuuODxUW7v4ppym+GpEAO777/MLYvrI1ig5EbdQb
+	 jQmHMb7EYpnVTKss2xw+qKgiWUoN0MTr2/G+/MlzS7et6i8wITbXRHQYXRavASOBK0nGl
+	 qP4fvdf2BjdDu564V8P8qGciDhXQOa4ZiRk4ofzwzk5nuN77iJ5DgLB6xOQ4RFDYXfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UYn1LBbD;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYPBnpI7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D8E606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3D8E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D21606A31A;
+	Sat, 24 Oct 2026 07:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UYn1LBbD
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20b122af8so12835975e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:00:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792825209; x=1793430009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-        b=UYn1LBbD088fngO6Ea5WxjmUHVrrWb6podP0F3wiQvM0gVTs5C42y7l+i9kh6QpE9k
-         /6WBRyKDvXQlY3n4SKrYRVJ+pRqc6Bl0PdS8Jsk4QAU93686VXi7iEfITXHWb3zoEUAp
-         ffWyEkT9StzVDCMcGlBUQkv9QbPpYc8HQ+9SYO0UNTkec2wBNqRk8cl+ccUONziuYIYX
-         P4RNH7IX+S8Eq5yDP450hPZtzCwBzIPxEIqDC2l/peyBPk7kL5dc8ghmfruKe47puiRE
-         e04ghXYmkrCDjWeoVpKvxdUIGkUT5t97QMJg5jcVsnG7tcvK0gPgxd9V63dqrtH4BULX
-         yINw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792825209; x=1793430009;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-        b=R6NuifmR2qbd+lruKOqXUFM5CAxrD2Wme2d30B5z1TZDXa4mT8jGyULJpE/XELdQRK
-         LNq8v40/BUNON+vw7fsZWxBdjK2I6LjfIEsbaNGe6PjDEFXyfja4bYf9PF//3zxz2dBH
-         4G4O/zRswaTRarzitTih8YRUa2rdIwvCOV27aZz47ZvYoJp235G3hQLzNpw7GyNpWJPR
-         9efrpm0mZUrSyS44P8AApHfApcm4g61AHUVYGKYZhkjcXtkNBgbGN3fw0OSAphfPwZ8a
-         Of+WsuMiMSLBBzvCiZlnm49Gvxmn9enpfMQqtMukxHo/xJVpvOedWjzAWmY1kvjwfXeD
-         y/sA==
-X-Forwarded-Encrypted: i=1; AKwUvByuMY/+avAvVdCPSihv8flcH77bD4EnuhMufA5yqQu4GnI1MJ/X3WvkHv4paZfECWSMk0wKCnYAc9rfchc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLP2Jr7tVR+o88+i8GxiviPP6ZOgZ6I7qLyXPTErL6EzuxVcGax
-	/C3mnixZSrufbad8QmcOLGp3M9Eb6JliHSgGiwvHG5bB/SxNujjVv4wH
-X-Gm-Gg: AYBFou2hAuvlzg2iOFbdJG8tfazmDQ6kUTy8V+H3uNJv0LpdhUYSmBsMUCIPkervSXI
-	Slj6cU/zc1AaDQGNTeToBkxO1NUbzZ8HBScaA3UaUW2C7m+ENaJ7WaxXEthOPSZXEhSSi2lPSmF
-	f/1uxZ7TaiYQiv4c1DmS9SrrLY9w2zbLaP4DrUHcq3Z1RXrZcLCdRQYEqh1lJb4oSexa9GcKvia
-	fjcYOmkSt0v4CITBaLSM/JDsT1GiZHqxGU0IWD9z5LGi5ez0Iz/FqumXWlSilmi+HQx5OI91HP2
-	CL8nRZ8vb9FZ7gPkLfGNekWmZ3Z9hmxrehxPPVtoCCLH6Mgja3kcSpF+G94nZ/csXFSfdury2Wd
-	4MkdEljqLLxUzPH75ckj0hAPoh/JlE3mgh4Lo5PVKglYhTgJdJj4JuikoUjp9KutXLRYrjZ64y5
-	ujFNMhVEYdalXEZj8m9Kz0FdBGC5OH+VaeUuqq6HNVt8Eb6YS9VTFOEBiL40C1S2Xxta5Rld5GM
-	7M+hQT8unkGDYcmYhOaMO6QioRZtIBmbqOMhh59AoXy8Q1NkVQGLa4K1HfBcxXXKeBdqke7AJjN
-	rcoRYgVc7mufcd8ciTATMRe13sVIkdVJjnKTjYCK9fiYkFiDL8GzZI0Rlv/Ka8iJ6/vKZQDE1Gr
-	rIo9AYsEK4kHissMZ3oCUkTJLSX6JHsKxbYf5ZgTk1bc1uOdk4GxDeXbN7+AmtbM3hBPL9kHEwL
-	xhEkPN/pJCEPCiEudaVTgNuhySy9S3gIc0p39Zb7wwaix0EjmTWb+fk5G3VcsYvw==
-X-Received: by 2002:a05:600c:6748:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a35aca53camr16321375e9.15.1792825209014;
-        Sat, 24 Oct 2026 00:00:09 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm100667405e9.1.2026.10.24.00.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 00:00:08 -0700 (PDT)
-Date: Sat, 24 Oct 2026 09:00:06 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
- Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261024090006.00002720@gmail.com>
-In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-	<20261024041357.34346-2-olivier@mgcrea.io>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYPBnpI7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A3E1F01825;
+	Sat, 24 Oct 2026 07:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792825436;
+	bh=yrjT2zKROfzZYFkQjkjZVkcJKooPMH1EarRQ32hBJzc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GYPBnpI7ySDWyq4vygWt6gr/6ttk+KjlZ4qG/+84OqhGIYvikRKmKTQawOR+zP2yd
+	 Ch9LIk90YrG2Z2sjdEETh/e5yqeJqQ4ZkiMWH5Vi6a7HeFDiwSK+i0Z/ag26KQT5/d
+	 0+fqfKJBKjjUI5wuXiUcHFRyN/0JZseMPXpOQbfwjmWuFRjiVlkEKxFieAGg9lqsSO
+	 GwpidlmJNE3ufrMQTjSzdkHA4UH2bM4T4ysE+dnt0GTbTMnO52Al+XnIYEPzj/NoKA
+	 5iYVA/v/bK8S26uZibiEK/hEp13rzbhy9ZPhoOCt7iAmx1Ok1AeuyuM4fyoRHVVm9O
+	 fWA0vcby+5NrA==
+Message-ID: <sashiko-outbox-183579@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH iwl-net v2 3/5] ice: avoid RTNL deadlock when notifying
+ the RDMA auxiliary driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petr Oros" <poros@redhat.com>
+Cc: intel-wired-lan@lists.osuosl.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261023070258.730168-4-poros@redhat.com>
+References: <20261023070258.730168-1-poros@redhat.com>
+ <20261023070258.730168-4-poros@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 24 Oct 2026 07:03:55 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,261 +60,229 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 24 Oct 2026 06:13:57 +0200
-Olivier Louvignes <olivier@mgcrea.io> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] ice: premature AFTER_TC_CHANGE and unlock before ice_dcb_noncontig=
+_cfg()
+- [High] ice: inconsistent QoS and DCB state on error path in ice_pf_dcb_cf=
+g()
+- [Medium] ice: unrolled state mutations when ice_pf_dcb_cfg() fails with -=
+EBUSY
+--
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ecc22d1149d1..bbb63228e330 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -12925,6 +12925,13 @@ F:	include/linux/mfd/ingenic-tcu.h
->  F:	sound/soc/codecs/jz47*
->  F:	sound/soc/jz4740/
->  
-> +INGENIC X1600 ADC DRIVER
-> +M:	Olivier Louvignes <olivier@mgcrea.io>
-> +L:	linux-iio@vger.kernel.org
+commit 0b49c36f284346b01578d0498826a110d7c3a315
+Author: Petr Oros <poros@redhat.com>
 
-Drop the list, get_maintainer gets this via the directory.
+ice: avoid RTNL deadlock when notifying the RDMA auxiliary driver
 
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+This commit avoids an ABBA deadlock between rtnl_lock and the RDMA
+auxiliary device lock by acquiring the auxiliary device lock with
+device_trylock() via ice_aux_dev_trylock() around RDMA event delivery.
+In ice_pf_dcb_cfg(), the locks are held across the DCB reconfiguration
+from IIDC_RDMA_EVENT_BEFORE_TC_CHANGE through
+IIDC_RDMA_EVENT_AFTER_TC_CHANGE, and the non-contiguous traffic class
+fallback is deferred until after the locks are released.
 
-The changes above should go into patch 1 (checkpatch will
-raise a warning if you're creating a new file and it's not
-documented in MAINTAINERS).
-
-> +F:	drivers/iio/adc/ingenic-x1600-adc.c
-
-And this addition goes into patch 2.
-
-...
-
-> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-> new file mode 100644
-> index 000000000000..60683f26c693
-> --- /dev/null
-> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
-> @@ -0,0 +1,226 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * ADC driver for the Ingenic X1600 SoC
-> + *
-
-+ Copyright (c) 2026 YOUR_NAME <YOUR_EMAIL>
-
-> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
-> + * bit, interrupt and 12-bit result. The register layout and the clock set-up
-> + * were read from the vendor 4.4 kernel's driver.
-> + */
+> diff --git a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c b/drivers/net/e=
+thernet/intel/ice/ice_dcb_lib.c
+> index 0bc6dd3756879..9916bd408071c 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+> @@ -5,6 +5,9 @@
+>  #include "ice_dcb_nl.h"
+>  #include "devlink/devlink.h"
+> =20
+> +static bool ice_dcb_tc_contig(u8 *prio_table);
+> +static int ice_dcb_noncontig_cfg(struct ice_pf *pf);
 > +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/platform_device.h>
+>  /**
+>   * ice_dcb_get_ena_tc - return bitmap of enabled TCs
+>   * @dcbcfg: DCB config to evaluate for enabled TCs
+> @@ -352,11 +355,16 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct ice_dc=
+bx_cfg *new_cfg, bool locked)
+>  	struct ice_aqc_port_ets_elem buf =3D { 0 };
+>  	struct ice_dcbx_cfg *old_cfg, *curr_cfg;
+>  	struct device *dev =3D ice_pf_to_dev(pf);
+> +	struct iidc_rdma_priv_dev_info *privd;
+> +	struct iidc_rdma_core_dev_info *cdev;
+>  	struct iidc_rdma_event *event;
+>  	int ret =3D ICE_DCB_NO_HW_CHG;
+>  	struct ice_vsi *pf_vsi;
+> +	bool noncontig =3D false;
+> +	bool dcb_ena;
+> =20
+>  	curr_cfg =3D &pf->hw.port_info->qos_cfg.local_dcbx_cfg;
+> +	dcb_ena =3D test_bit(ICE_FLAG_DCB_ENA, pf->flags);
 
-+ bits.h, types.h, array_size.h, cleanup.h, jiffies.h, minmax.h
+[ ... ]
 
-> +
-> +#define X1600_ADC_REG_ENABLE		0x00
-> +#define X1600_ADC_REG_CTRL		0x08
-> +#define X1600_ADC_REG_STATUS		0x0c
-> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
-> +#define X1600_ADC_REG_CLKDIV		0x20
-> +#define X1600_ADC_REG_STABLE		0x24
-> +
-> +/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
-> +#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
-> +/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
-> +#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
-> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
-> +#define X1600_ADC_CLKDIV_DIV0		GENMASK(7, 0)
-> +#define X1600_ADC_CLKDIV_DIV1		GENMASK(15, 8)
-> +#define X1600_ADC_CLKDIV_DIV2		GENMASK(31, 16)
-> +#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
-> +
-> +#define X1600_ADC_NUM_CHANNELS		4
-> +#define X1600_ADC_VREF_mV		3300
-> +#define X1600_ADC_BITS			12
-> +/* The vendor kernel brings its 140 MHz APB clock down to about this. */
-> +#define X1600_ADC_CLK_RATE		1166667
-> +#define X1600_ADC_TIMEOUT_MS		20
-> +
-> +struct x1600_adc {
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	struct completion done;
-> +	/* Serialises conversions: there is one completion for all channels. */
-> +	struct mutex lock;
-> +};
-> +
-> +static irqreturn_t x1600_adc_irq(int irq, void *data)
-> +{
-> +	struct x1600_adc *adc = data;
-> +	u32 status;
-> +
-> +	status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
-> +	if (!status)
-> +		return IRQ_NONE;
-> +
-> +	writel(status, adc->base + X1600_ADC_REG_STATUS);
-> +	complete(&adc->done);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-> +{
-> +	u32 data;
-> +	int ret = 0;
-
-Reverse xmas tree.
-
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	reinit_completion(&adc->done);
-> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +
-> +	if (!wait_for_completion_timeout(&adc->done,
-> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
-> +		ret = -ETIMEDOUT;
-> +
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
-> +	*val = field_get(X1600_ADC_DATA_MASK(ch), data);
-> +	return 0;
-> +}
-> +
-> +static int x1600_adc_read_raw(struct iio_dev *iio_dev,
-> +			      struct iio_chan_spec const *chan,
-> +			      int *val, int *val2, long mask)
-> +{
-> +	struct x1600_adc *adc = iio_priv(iio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = x1600_adc_read_raw_channel(adc, chan->channel, val);
-> +		return ret ? ret : IIO_VAL_INT;
-
-You can use the Elvis operator here.
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = X1600_ADC_VREF_mV;
-> +		*val2 = X1600_ADC_BITS;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
+> @@ -405,16 +413,21 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct ice_dc=
+bx_cfg *new_cfg, bool locked)
+>  		goto free_cfg;
+>  	}
+> =20
+> -	set_bit(IIDC_RDMA_EVENT_BEFORE_TC_CHANGE, event->type);
+> -	ice_send_event_to_aux(pf, event);
+> -	kfree(event);
+> -
+>  	/* avoid race conditions by holding the lock while disabling and
+>  	 * re-enabling the VSI
+>  	 */
+>  	if (!locked)
+>  		rtnl_lock();
+> =20
+> +	if (!ice_aux_dev_trylock(pf)) {
+> +		assign_bit(ICE_FLAG_DCB_ENA, pf->flags, dcb_ena);
+> +		ret =3D -EBUSY;
+> +		goto unlock_rtnl;
 > +	}
-> +}
-> +
-> +static const struct iio_info x1600_adc_info = {
-> +	.read_raw = x1600_adc_read_raw,
-> +};
-> +
-> +#define X1600_ADC_CHANNEL(ch) {					\
 
-Small nit, but align the \ with the others.
+[Severity: Medium]
+When ice_aux_dev_trylock(pf) fails here and returns -EBUSY, what happens to
+the state mutations that already took place earlier in ice_pf_dcb_cfg() and
+its callers?
 
-> +	.type = IIO_VOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.channel = (ch),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-> +}
-> +
-x
-...
+Earlier in ice_pf_dcb_cfg(), when ice_dcb_get_num_tc(new_cfg) > 1,
+ice_tear_down_devlink_rate_tree(pf) has already run before
+ice_aux_dev_trylock(pf):
 
-> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
-> +	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
-> +
-> +	rate = clk_get_rate(adc->clk);
-> +	div0 = clamp(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 1UL, 256UL) - 1;
-> +	/* DIV1 and DIV2 as the vendor kernel sets them. */
-> +	writel(FIELD_PREP(X1600_ADC_CLKDIV_DIV0, div0) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV1, 1) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV2, 99),
-> +	       adc->base + X1600_ADC_REG_CLKDIV);
-> +	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
-> +	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
-> +	       adc->base + X1600_ADC_REG_STABLE);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
+    if (ice_dcb_get_num_tc(new_cfg) > 1) {
+        if (pf->hw.port_info->is_custom_tx_enabled) {
+            ...
+            return -EBUSY;
+        }
+        ice_tear_down_devlink_rate_tree(pf);
 
-devm_request_irq() already prints an error message on failure, just
-"return ret;" is fine.
+        set_bit(ICE_FLAG_DCB_ENA, pf->flags);
+    }
+
+Unlike the is_custom_tx_enabled check, failing at ice_aux_dev_trylock(pf)
+reverts ICE_FLAG_DCB_ENA while leaving the devlink rate tree torn down.
+
+In addition, callers that configure 1 TC (where is_custom_tx_enabled could
+never trigger), such as ice_dcb_sw_dflt_cfg() and ice_dcb_init_cfg(), zero
+pi->qos_cfg.local_dcbx_cfg with memset() before calling ice_pf_dcb_cfg():
+
+    memset(&pi->qos_cfg.local_dcbx_cfg, 0, sizeof(*dcbcfg));
+    ...
+    ret =3D ice_pf_dcb_cfg(pf, dcbcfg, locked);
+
+If ice_aux_dev_trylock(pf) returns -EBUSY before curr_cfg is populated,
+does local_dcbx_cfg remain completely zeroed out? Similarly, in
+ice_dcbnl_setapp(), a negative return from ice_pf_dcb_cfg() is converted to
+ICE_DCB_NO_HW_CHG without rolling back dcb_ieee_setapp(), dscp_mapped,
+desired_dcbx_cfg, or ice_aq_set_pfc_mode().
 
 > +
-> +	/*
-> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
-> +	 * and powering up takes 2 ms.
-> +	 */
-> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
-> +	fsleep(2000);
-> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
-
-+ blank line.
-
-> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-> +	if (ret)
-> +		return ret;
+> +	set_bit(IIDC_RDMA_EVENT_BEFORE_TC_CHANGE, event->type);
+> +	ice_send_event_to_aux(pf, event);
 > +
-> +	iio_dev->name = "x1600-adc";
-> +	iio_dev->modes = INDIO_DIRECT_MODE;
-> +	iio_dev->channels = x1600_adc_channels;
-> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
-> +	iio_dev->info = &x1600_adc_info;
+>  	/* disable VSIs affected by DCB changes */
+>  	ice_dcb_ena_dis_vsi(pf, false, true);
+> =20
+> @@ -441,13 +454,28 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct ice_dc=
+bx_cfg *new_cfg, bool locked)
+>  		goto out;
+>  	}
+> =20
+> -	ice_pf_dcb_recfg(pf, false);
+> +	ice_pf_dcb_recfg(pf, true);
+> +	noncontig =3D !ice_dcb_tc_contig(curr_cfg->etscfg.prio_table);
+> =20
+>  out:
+> +	cdev =3D pf->cdev_info;
+> +	if (cdev) {
+> +		privd =3D cdev->iidc_priv;
+> +		ice_setup_dcb_qos_info(pf, &privd->qos_info);
+> +	}
+> +	clear_bit(IIDC_RDMA_EVENT_BEFORE_TC_CHANGE, event->type);
+> +	set_bit(IIDC_RDMA_EVENT_AFTER_TC_CHANGE, event->type);
+> +	ice_send_event_to_aux(pf, event);
+
+[Severity: High]
+Can jumping to out on error leave curr_cfg, ICE_FLAG_DCB_ENA, and
+privd->qos_info inconsistent with the actual VSI configuration and cause
+active RDMA queue pairs to transition to the error state?
+
+In ice_pf_dcb_cfg(), if ice_set_dcb_cfg() succeeds (updating firmware and
+PRTDCB_TUP2TC) but ice_query_port_ets() fails and jumps to out:
+
+1. curr_cfg still contains new_cfg (unlike the ice_set_dcb_cfg() failure
+   path, which restores old_cfg), and neither error path restores
+   ICE_FLAG_DCB_ENA to dcb_ena.
+
+2. Because ice_pf_dcb_recfg(pf, true) was skipped, vsi->tc_cfg.ena_tc still
+   only has the old traffic classes enabled.
+
+3. At out, ice_setup_dcb_qos_info(pf, &privd->qos_info) populates
+   privd->qos_info from the new curr_cfg and PRTDCB_TUP2TC register, and
+   ice_send_event_to_aux() delivers IIDC_RDMA_EVENT_AFTER_TC_CHANGE.
+
+When irdma handles IIDC_RDMA_EVENT_AFTER_TC_CHANGE via
+icrdma_iidc_event_handler() -> irdma_change_l2params() ->
+irdma_sc_suspend_resume_qps(), it attempts to resume QPs on the new TCs in
+qos_info->up2tc[] via irdma_ws_add() -> icrdma_lan_register_qset() ->
+ice_add_rdma_qset(). Since vsi->tc_cfg.ena_tc was never updated for those
+new TCs, ice_ena_vsi_rdma_qset() fails with -EINVAL, causing
+irdma_sc_suspend_resume_qps() to call irdma_modify_qp_to_err() on the QPs.
+
+> +	ice_aux_dev_unlock(pf);
 > +
-> +	return devm_iio_device_register(dev, iio_dev);
-> +}
-> +
-> +static const struct of_device_id x1600_adc_of_match[] = {
-> +	{ .compatible = "ingenic,x1600-adc" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, x1600_adc_of_match);
-> +
-> +static struct platform_driver x1600_adc_driver = {
-> +	.driver = {
-> +		.name = "ingenic-x1600-adc",
-> +		.of_match_table = x1600_adc_of_match,
-> +	},
-> +	.probe = x1600_adc_probe,
-> +};
-> +module_platform_driver(x1600_adc_driver);
-> +MODULE_DESCRIPTION("ADC driver for the Ingenic X1600 SoC");
+>  	/* enable previously downed VSIs */
+>  	ice_dcb_ena_dis_vsi(pf, true, true);
+> +	if (noncontig)
+> +		ice_dcb_noncontig_cfg(pf);
 
-MODULE_AUTHOR()?
+[Severity: High]
+When a DCB configuration has non-contiguous traffic classes in
+curr_cfg->etscfg.prio_table, does deferring ice_dcb_noncontig_cfg(pf) until
+after IIDC_RDMA_EVENT_AFTER_TC_CHANGE and ice_aux_dev_unlock(pf) break RDMA
+QP resume?
 
-> +MODULE_LICENSE("GPL");
+Previously, ice_pf_dcb_cfg() called ice_pf_dcb_recfg(pf, false), which saw
+!ice_dcb_tc_contig(dcbcfg->etscfg.prio_table) and immediately ran
+ice_dcb_noncontig_cfg(pf) to reset local_dcbx_cfg and hardware PRTDCB_TUP2TC
+back to the default TC0 configuration before populating privd->qos_info,
+sending IIDC_RDMA_EVENT_AFTER_TC_CHANGE, or re-enabling the VSIs.
 
+With this change:
 
+1. ice_set_dcb_cfg() programs the non-contiguous prio_table into hardware
+   PRTDCB_TUP2TC.
 
--- 
-Kind regards,
-Joshua Crofts
+2. ice_pf_dcb_recfg(pf, true) configures the PF VSI with
+   tc_map =3D ICE_DFLT_TRAFFIC_CLASS (only TC0 enabled in vsi->tc_cfg.ena_t=
+c)
+   and skips ice_dcb_noncontig_cfg(pf) because locked is true.
+
+3. Before ice_dcb_noncontig_cfg(pf) runs, ice_setup_dcb_qos_info() reads
+   PRTDCB_TUP2TC from hardware:
+
+    dcbx_cfg =3D &pf->hw.port_info->qos_cfg.local_dcbx_cfg;
+    up2tc =3D rd32(&pf->hw, PRTDCB_TUP2TC);
+
+    qos_info->num_tc =3D ice_dcb_get_num_tc(dcbx_cfg);
+
+    for (i =3D 0; i < IIDC_MAX_USER_PRIORITY; i++)
+        qos_info->up2tc[i] =3D (up2tc >> (i * 3)) & 0x7;
+
+   This populates qos_info->up2tc[] with the un-reset non-contiguous TCs
+   (> 0) while vsi->tc_cfg.ena_tc only has BIT(0) set.
+
+4. ice_send_event_to_aux() then sends IIDC_RDMA_EVENT_AFTER_TC_CHANGE. When
+   irdma resumes QPs via irdma_sc_suspend_resume_qps(), irdma_ws_add() ->
+   ice_add_rdma_qset() -> ice_ena_vsi_rdma_qset() fails with -EINVAL for
+   any TC > 0, and irdma_modify_qp_to_err() transitions the QPs to the
+   error state.
+
+5. Finally, ice_aux_dev_unlock(pf) drops the locks and
+   ice_dcb_ena_dis_vsi(pf, true, true) re-enables the VSIs before
+   ice_dcb_noncontig_cfg(pf) resets the configuration, and if the second
+   ice_aux_dev_trylock(pf) inside ice_dcb_noncontig_cfg() ->
+   ice_dcb_sw_dflt_cfg() -> ice_pf_dcb_cfg() fails with -EBUSY, the fallback
+   aborts with local_dcbx_cfg zeroed out.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023070258.7301=
+68-1-poros@redhat.com?part=3D3
