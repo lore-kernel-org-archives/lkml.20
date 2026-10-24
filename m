@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792883196;
-	b=bbAxGPMl5e8yARkZMv5nDcuVYvaUuzU+9vDxy77X/lemuzXtbIE4bd10gIvlv6f053kW
-	 YpCdbZlH4HqQC7ehE0lmPJt5tceGmT413b07vKhTXpJhFo4X7GPORdqry9BFQZFRn8gDi
-	 hQqxk2LTVXfyOEYEPhX3CVeSq26Q9QpQPIUN2LNq3g1R6ekV3uuCJxm0Av7pb+f9Vexy5
-	 ZvsapqXCD3o1rdlV0Y9sqgaauMge31u+/jaQSdSBsfz/uwway+YOm/PGR6359lrZPK3y8
-	 PNV9xf612A6EMEK+GjjLCMMoU0RTKnKvxFHblAudl1fv0kysKY5J0kc5J1y9jgahfVw==
+	t=1792883215;
+	b=q/TGv2vUonbFoZlAA4d+Lj5FWQO1q8JT/4CfihaGPyQ0YJfG2TFo7R3TBWqKTc6ZHNuX
+	 G61vePPXnzwFSzVRDQJTac57A080ZEA2zxkhOt+s2sZIWetZU2yx+iJIOITdDdFd0oaPI
+	 Y/mkw8B9TIivFe2rQ4URW/YkXs9jbOUG+T6hnREO3a52LsS3KsX1rOASf+Q7nZCvhat/M
+	 draN8i/txnHJAk8u+L4REsYk5Z+G/xblC9odfIzwHFnUu3mWQsNsSHL6goUkCIV7b1YgW
+	 /1gmBMhFRX0gcnpYOQt8XKmLt7/miun0OWPnhyWE0z580X1ZGV4MBOBRB+KXA/HfB9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792883196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792883215;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
-	b=QWW5j05veZAq1v9b9XtNgqB361t2tN4BEUJLmEwqhv1CLxcojN9yef6qY3rpdObHC4X9
-	 WJ3pRKddgHdMI3Pf/MEUMosGZ5UECsS/7x5CerHuU5J9pfgkR0A4/Ad3p7KCCYw9Lnaie
-	 F2KNaVSMqDU6jn9djbV9iUNepvO6cfz+Jy2aewIYZqposj949U4ofsiNI+0N9cIIo4A+m
-	 qnXcF+Ly0RUSsOXBL9L+1DeKcSvk+3mWXGxqKzXaSz8rNOncXjypsYrDOej06h8gv7Ms+
-	 /7n6ajZv0R91Uv2fv2kp5S3PV1xl2F+vCwC2xP0VHrZad/vcm9ipyRsK44uGiDlodPg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=Mj/IlOlFiVg3XOKyCX4qOu3ZEou8sRwfHozl03ktwdA=;
+	b=p3wMZhZ167TEpSrBIOlkxR8UVYORmiu9N4skFw7wazCOQp3MEivjiM0rWhJ6Ibdd38Ry
+	 mLHr0GjgHTx86pJoPGZZuZRWbxB7G0Nm2MztK/3V+CA2XatkD+eQDkOpzMsMF+Ut8Qnoy
+	 BRbuTtA1XqiRjF93QIamP02YO/uD28pyx3gOjIbq4g7RUFpg6Jidbzz59EMvTNeUIIdlu
+	 5n+a0+5Qfim8oltduVt4GSOIMHvCH+2X5+DtJ/gc6e8JM19pGnCYDQVDB8HJ/WxUo65fp
+	 C7cwzc0iy/qzvPfzXwS6xKIeocK3T6H0h9QaNeeCcRfwq3ZpP8dWvLBX5qi6Ckoof4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="a/qIsEoI";
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mjChOsJS;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64771606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:06:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64771606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AC6606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:06:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73AC6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a/qIsEoI
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c418e215671so246870766b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:06:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mjChOsJS
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c315869241fso234534766b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:06:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792883194; x=1793487994; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
-        b=a/qIsEoIJ7JXd7dDRfKIL8boCPjx4/MXqK1bE26QZaFCzqI+Rdxqpp5jXFOSzVoolc
-         v1zInRtKr9gTdubOUayPsUa8EJEENGSfm/QJ658WblAxdzVHz6IR5+Y/xMIUovw8LP32
-         2N33OQaEcr9CODQSkmjNa0MU4vKwhesNS056Iw/GDxNcsoD06HhJ0ndiqAbchNfbgEzz
-         keKwlOTRZaEyIU2PbyOxEsaZu52y+vk1YK1OdzGEc+Vj/NR5KxnLiO95355/5QjEjKWv
-         c/9nz4/uF5GK1Ie5KxMEiNnVeo6hqhl+vaFTq94nAKXAjgkol8yoHxfUJpRw9P8y5Isb
-         OH8w==
+        d=gmail.com; s=20251104; t=1792883214; x=1793488014; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mj/IlOlFiVg3XOKyCX4qOu3ZEou8sRwfHozl03ktwdA=;
+        b=mjChOsJSBKyxYdudhgBUdrwXDZGnRq7mzjLe4b896IiV9ScSlVs3nf+OdHOnuR+1+2
+         5aNUB0kHa3/MgRYtn8QeLa8NCE4u0Z2G++vMIRh5j1wAwJF5i1Vkmg1Zv6Qdrjs5r5dG
+         IWWojEH5bOTcWiUWjGAtZlSR9l6mtGnF6YPrxxpQ5CEvwo6lLHjUKuxvzFGALlyFIxN1
+         w8kmicB2OGO7O9l88oR0+LZ/qjZjm9YHj4K2myOmdiIavK3SMx+uSqPu0cPs9HgztFEu
+         rbVwqsnvWeoiJulYX1P327B7wf9oE0X2Uk66Ft1WGTE4DvpcQMBjLtemfNKuWEizxfkz
+         v33Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792883194; x=1793487994;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=l5X1zhTt/mo79FT/cl05olacIHJU1uD7Qt4zdE13cqI=;
-        b=w1xfrM0cRgq1OuWKwnq6Lwukt8xAx460ko2ppl4ixNCSemSrS9S/wFAxEfPnm8mnmG
-         q1olkf/ZNGDV/ysu1uuiTsznNhBB2wgTbRRVlz9h+1UF6PvEiXBk/7xNiBxgSamXhTP5
-         gw/7wvzbHSgQyHn+xYPuRE2uVXAYvVE0XFv36YUe6v3HWPoxdjZGrzVhcpCQ4iN+x6jH
-         STy3DLlt6OX1Hu6dprxDtYLgB6ArWyNslcYGQ+XYuWyDSAM+OebY54oDLr+mXbHiHNay
-         CyyTpvGlN05uY+OyeVs0gZ9mskB9hKJDx9gxqnWzjwpvIxOKFpSfMq6Eaoqp+Efpkto2
-         xydg==
-X-Gm-Message-State: AFq9FYJpDeTepYQSTRYAzPuDCdaO9hkoucxBCBowDug8nhGxiifpNbGM
-	8SBTlZUUgP2cAKHmXAtexQAeOEQ1jJQBUk4wezLxRFSMS0WQN8xSB5FZ
-X-Gm-Gg: AYBFou0VfyI5M/mLbNmBIW6IPwEyBquByzjXZ+aKC2BkL+64KFx+Whwko8+yrFrysdX
-	K7uR7uVB4m573H0wIjOfHbqdlWTd0FhAAhs+QHgj572xbdbq2OJjF2jJwpQ9vdWRobKqmtNmILs
-	9e28PzqM/VPkqKYmqQkGRyJwNWX1vtiVJsxllG7dIWgNFzT2DqbCE+JoBomy7bPDNzlSXwoXANO
-	+38oOiMGAlBBoUlwA/sZYLFdNkxwsuBY8Vu9sjwN+XGBC8gCtqNGQY+JqUI/KIENA5/nxOspBIn
-	ZtK23617neouuEVecR0owdzbdQbT014K3H/CxDINcVh00WFf2S4jjQHr3wCV3yPaV8mPg0f5TjD
-	UaEaVFtzVPti3+Z6Oof08RoeDmFQG5PbhiD15zIBpKqjwx0q2pfUtDcI40uS1FWO874rtFKMLpl
-	cpZEy3no1Ve36xFYGFE8WO4MUu2Bm/Q6AS9RQdmnzftqAg6HSEak4PeBGMWCE9wgJY7cITDotkU
-	3SaSBu+Eb9xAsngH7Em9qv1VNqsuS2bPFqbTqyS2EkFn9APfpTvDqA=
-X-Received: by 2002:a17:907:160b:b0:c25:afb6:2d91 with SMTP id a640c23a62f3a-c46bdaa7283mr360392266b.2.1792883193723;
-        Sat, 24 Oct 2026 16:06:33 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:6::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd650890sm141551566b.51.2026.10.24.16.06.32
+        d=1e100.net; s=20260707; t=1792883214; x=1793488014;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mj/IlOlFiVg3XOKyCX4qOu3ZEou8sRwfHozl03ktwdA=;
+        b=j1mRQ4hPDSFFucqkmoybxmhsVgW7XUzNTx5pCoc4qM+swGRtdlFVjEYIBRAsouxn2C
+         iQvOAvdNk4Xo8PmTbwy4o87QngZhucZlj9htbr1dzr9VbpFPCXuEgkpWHTN3CAv3V2ly
+         NXs+Z1TK6CQjqs9txOBg3M7rQrRAqjoqPYlw8yINoQuV6KE0bXK/IY99+jk9U2n1sNcx
+         EhYJZV0hZ5t4sB2GHmjz5IBfG4O0zZINJJWcrzpZadJUCDuz2uKpbrYioFHJL+nkXOdF
+         c6RXFernL2+5OV8EBJXOlGc5mQ1Apc4sVIOZUHagevz2hU+VgVXdZPSxaWGeei7VOh84
+         23Ww==
+X-Gm-Message-State: AFq9FYI6oH3RuVZLqJOEmPe2ftX9jrnYM8V7BEMpRXyIFHslsNIP/+Z0
+	DfMXva99uokG5BwlFvMoRwHJPgwoR+/x7pJn4mONneE/kX+qI/+e1B3q
+X-Gm-Gg: AYBFou0zzy+IVFi587yMJjeRotBkCkRN2krgHFM8jxJW7aSGRTyTyB/3vbbTs87RT6F
+	MYzqjPG3m41iwUK1kvRTvGY3UspErl/Pj65Y0uZpRc+ChktgFgaGpDjzxyk3rurNkAMitT8pOjI
+	paKxtPh4mmUEa6ug5LCsl4uOSsr0r2LKCDHs2VhRFUoFk5XKYHSQE99wmqfN3Nw9FbwWPMruRm4
+	dUhlmOjxBBbsSqoC6115npRyuZhcwUrPRzxjlsBJJLbEPlA76IhrbKGeR4komMwnASw0puF8WMB
+	czHXFGL5PJJt//v9MwU/w8B4iz0eE609ejwHIVdbx6iFJXmcjYKXGe7OrHepCyHVeiP1LkKR5oK
+	W3cLZ2/ZLqTdXRkbKywinAbG5v5/cfwc1Z8AiD+5Wixt7dhJ8E1WjaDM/anpe6pcnQyGZ9yyY5y
+	OZNVG/FfSOEqxrviwvxO/ochQlDZlMT9A52aCub+RenWKBlrdRcr2K/ZHV5ZUQSwnZcoGw2hrxv
+	FtEcBpEVLaINoHp8sWEXOzQL4IQQidH+OlmnMOxffNN9U/gJwVKGIRmc4CNS2aLrSjFqIkJCWNN
+	4A==
+X-Received: by 2002:a17:907:96a1:b0:c46:75e7:25af with SMTP id a640c23a62f3a-c46bdd6feb2mr358195166b.11.1792883213773;
+        Sat, 24 Oct 2026 16:06:53 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:46::])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd5206dasm137287266b.33.2026.10.24.16.06.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 16:06:33 -0700 (PDT)
+        Sat, 24 Oct 2026 16:06:53 -0700 (PDT)
 From: Sam Crossley <samuelcrossley@gmail.com>
-Subject: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
- demand
-Date: Sat, 24 Oct 2026 16:06:02 -0700
-Message-Id: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
+Date: Sat, 24 Oct 2026 16:06:03 -0700
+Subject: [PATCH RFC 1/2] printk: add per-console replay helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,11 +92,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANo53WoC/3WNsQqDMBQAfyW82ZRErdZMhUI/oGtxiPGpKZpIE
- qUi/nvRdu16HHcreHQaPQiygsNZe20NCMIjAqqTpkWqaxAEYhZnrIgzajAoazx1OPZyodPog0M
- 5UH4pEBWrUpUXEBEYHTb6fZSf8LjfoPxCP1UvVGFv7lqnfbBuOf4zP+TfKv+7mjllFLNzzRKsk
- 7Rh13aQuj8pO0C5bdsHENRCZ9UAAAA=
-X-Change-ID: 20260926-netcons-replay-upstream-189eec0b4c79
+Message-Id: <20261024-netcons-replay-upstream-v1-1-9613f38496e5@gmail.com>
+References: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
+In-Reply-To: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>, Breno Leitao <leitao@debian.org>, 
  Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -110,40 +108,161 @@ Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-doc@vger.kernel.org, Sam Crossley <samuelcrossley@gmail.com>
 X-Mailer: b4 0.16-dev
 
-leitao and tglx had discussed this at LPC, sending RFC as suggested
-by Breno Leitao.
+console_try_replay_all() rewinds every registered console, which is too
+broad for a caller that needs to resend records through one console.
 
-Netconsole only forwards records while an enabled target and its
-transport are available. A target enabled after boot, or one that was
-unreachable during a network outage, leaves a gap in the remote log that
-cannot currently be recovered.
+Add console_try_replay() for that, sharing the locking and flush logic so
+existing callers are unaffected. A NULL console is rejected, since the
+shared helper reads it as "every console".
 
-This adds a write-only "replay" attribute to the netconsole configfs
-subsystem that rewinds the netconsole consoles so the retained ring is
-re-sent. Patch 1 adds the printk helper; patch 2 is its only caller.
+Like the existing all-console operation this is best effort: it does
+nothing if the console lock cannot be acquired immediately. That lock is
+global, so unrelated console activity can cause a replay to be skipped.
+Records have not necessarily been printed by the time it returns either --
+consoles served by a printer thread are only woken here.
 
-The replay is best effort. console_try_replay() uses console_trylock(),
-so unrelated console activity can silently skip the replay.
-
-Testing: verified in a VM and on a physical host (the latter rebased on
-a 7.1 kernel) that records emitted before any target was enabled are
-re-sent on trigger.
-
+Signed-off-by: Sam Crossley <samuelcrossley@gmail.com>
 ---
-Sam Crossley (2):
-      printk: add per-console replay helper
-      netconsole: add configfs trigger to replay printk buffer
+ include/linux/printk.h |  6 +++++
+ kernel/printk/printk.c | 67 +++++++++++++++++++++++++++++++++++++-------------
+ 2 files changed, 56 insertions(+), 17 deletions(-)
 
- Documentation/networking/netconsole.rst | 14 ++++++-
- drivers/net/netconsole.c                | 25 ++++++++++++
- include/linux/printk.h                  |  6 +++
- kernel/printk/printk.c                  | 67 ++++++++++++++++++++++++---------
- 4 files changed, 94 insertions(+), 18 deletions(-)
----
-base-commit: 00513fc3d6c467b1ef3c101a2943cb92de25c49a
-change-id: 20260926-netcons-replay-upstream-189eec0b4c79
+diff --git a/include/linux/printk.h b/include/linux/printk.h
+index f594c1266bfd4..9cd06a67e7c83 100644
+--- a/include/linux/printk.h
++++ b/include/linux/printk.h
+@@ -203,6 +203,7 @@ void show_regs_print_info(const char *log_lvl);
+ extern asmlinkage void dump_stack_lvl(const char *log_lvl) __cold;
+ extern asmlinkage void dump_stack(void) __cold;
+ void printk_trigger_flush(void);
++void console_try_replay(struct console *con);
+ void console_try_replay_all(void);
+ void printk_legacy_allow_panic_sync(void);
+ extern bool nbcon_device_try_acquire(struct console *con);
+@@ -301,6 +302,11 @@ static inline void dump_stack(void)
+ static inline void printk_trigger_flush(void)
+ {
+ }
++
++static inline void console_try_replay(struct console *con)
++{
++}
++
+ static inline void console_try_replay_all(void)
+ {
+ }
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index 9a205f94bfac7..59e6df8a57de2 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -3494,13 +3494,14 @@ void console_unblank(void)
+ }
+ 
+ /*
+- * Rewind all consoles to the oldest available record.
++ * Rewind a console, or all consoles if @target is NULL, to the oldest
++ * available record.
+  *
+  * IMPORTANT: The function is safe only when called under
+  *            console_lock(). It is not enforced because
+  *            it is used as a best effort in panic().
+  */
+-static void __console_rewind_all(void)
++static void __console_rewind(struct console *target)
+ {
+ 	struct console *c;
+ 	short flags;
+@@ -3511,6 +3512,9 @@ static void __console_rewind_all(void)
+ 
+ 	cookie = console_srcu_read_lock();
+ 	for_each_console_srcu(c) {
++		if (target && c != target)
++			continue;
++
+ 		flags = console_srcu_read_flags(c);
+ 
+ 		if (flags & CON_NBCON) {
+@@ -3557,7 +3561,7 @@ void console_flush_on_panic(enum con_flush_mode mode)
+ 	console_may_schedule = 0;
+ 
+ 	if (mode == CONSOLE_REPLAY_ALL)
+-		__console_rewind_all();
++		__console_rewind(NULL);
+ 
+ 	printk_get_console_flush_type(&ft);
+ 	if (ft.nbcon_atomic)
+@@ -5047,6 +5051,48 @@ void kmsg_dump_rewind(struct kmsg_dump_iter *iter)
+ }
+ EXPORT_SYMBOL_GPL(kmsg_dump_rewind);
+ 
++static void __console_try_replay(struct console *con)
++{
++	struct console_flush_type ft;
++
++	printk_get_console_flush_type(&ft);
++	/*
++	 * The console lock is global, so the replay is silently skipped when
++	 * an unrelated console holds it. A trylock is what keeps this
++	 * callable from any context.
++	 */
++	if (!console_trylock())
++		return;
++
++	__console_rewind(con);
++	if (ft.nbcon_atomic)
++		nbcon_atomic_flush_pending();
++	if (ft.nbcon_offload)
++		nbcon_kthreads_wake();
++	if (ft.legacy_offload)
++		defer_console_output();
++	/* Consoles are flushed as part of console_unlock(). */
++	console_unlock();
++}
++
++/**
++ * console_try_replay - try to replay kernel log on a console
++ * @con: The console to replay the available records on
++ *
++ * Try to obtain the console lock and replay all available records in the
++ * printk buffer on @con. Does nothing if @con is not registered.
++ *
++ * Context: Any, except for NMI.
++ */
++void console_try_replay(struct console *con)
++{
++	if (WARN_ON_ONCE(!con))
++		return;
++
++	__console_try_replay(con);
++}
++EXPORT_SYMBOL_GPL(console_try_replay);
++
+ /**
+  * console_try_replay_all - try to replay kernel log on consoles
+  *
+@@ -5058,20 +5104,7 @@ EXPORT_SYMBOL_GPL(kmsg_dump_rewind);
+  */
+ void console_try_replay_all(void)
+ {
+-	struct console_flush_type ft;
+-
+-	printk_get_console_flush_type(&ft);
+-	if (console_trylock()) {
+-		__console_rewind_all();
+-		if (ft.nbcon_atomic)
+-			nbcon_atomic_flush_pending();
+-		if (ft.nbcon_offload)
+-			nbcon_kthreads_wake();
+-		if (ft.legacy_offload)
+-			defer_console_output();
+-		/* Consoles are flushed as part of console_unlock(). */
+-		console_unlock();
+-	}
++	__console_try_replay(NULL);
+ }
+ #endif
+ 
 
-Best regards,
---  
-Sam Crossley <samuelcrossley@gmail.com>
+-- 
+2.53.0-Meta
 
