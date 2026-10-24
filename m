@@ -1,101 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792812385;
-	b=iA+Tjve483yHaARquC9nzmizQbQlik7eu2xctb0yN6+24mZuraAZOgelcwVpPX+6Ksvr
-	 K7aNdUkITDmFBaf5tbdr8rQ0bwhiFa+Yj1Hs5YcG4d1EQ/Ru9nGz+OxvgMgTFJvdcZnhq
-	 0N2q4c4P/8oQurJOtLPk3Ex3BlvHlukCvNFSrYzUgwzFSNfpEu/rSkOcq7p7FRHkOuM5k
-	 pz+unaZGAqWcHWvqGtJlF13n4MPbHV9oMTbqR2XrLmUREXo9KlcOlvztqxd5g5vpwTCk0
-	 WxR2MrA0jS9jt/oa6aPYRoJcs4dazg/7qTW73M8dT6sjKYBc0SziX12NN5OyCGXER/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792812385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FicJIZs2+/qCTDE+0FRHSg6kJmTqD7XGGr4iZ+o1ZRU=;
-	b=SdixhKMBrVVMDH/TovgilOMvpWH1aMflDZIrUe6lSSZ+9BR3spmVCrfzdZuELdOF4XvS
-	 AQa/mmKD+Io9LrVzeA8lypQlPQp8FFnmSiQq1uo+4HH4ok0TExnzbmZILEhps/23S8Ebb
-	 KvjAaWFWRyX+YVjCWO2ohYSW+AGzpqysrggbDLqbmanJHnWqx39YIIt5XZy/ve0DCqqjF
-	 4FUFLrs2Lu9YA3qcmePbCpmt9vKryhJ+6Ut7UzQN4u+QA1e2eTdaR5eGaEh7T8ePWtgBa
-	 C4BTG0e8GicCGNpSLYcVobQjQuxRjDHEtSnlpjfTSJNF08SQdBcGloS4W2L6wraUHFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JPkEfqc3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792812632;
+	b=jPMTwA3d8Vn1IwaElpRzHFl8lXaFlMoos4HZCg76DQARpV90dAtXTPtLlJJA5Fm0j96B
+	 /aKC6CMRop6/vf4KVJkjYP1ft8m57L3qeEGOcwtuN8tvNEimy+Ilw7G1B/z4//vTkAxkT
+	 UPwqOBRzqCKISuHzyL1KzOwQh9Gz7obi77B/QWeiRrVd83rwcktj4tsYnFghjQFXXa/MO
+	 qSfbLSnLB61TITdn8OcMeFaV2TTHOYIuHsJw4aVRwVCNgVeFIx+Bych9KD8iPX/mmGIe6
+	 Nxqv96xoPcAwOjMj+qjd1TJcQuSJwrK4O0L18ohNZ+O/ynkX6vF9Nl4FdzbwWoMOYNw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792812632;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DxREnxXFL74zEXnlXFVXWPlkVOMBFqhGQRo3iyJ0jLE=;
+	b=CA16Qu5I8MOQfsDH/8IzuqUe7ea0BpnPZTa26j+8SCSRTaFOIxABZ1ucMQY5oqnT+eXS
+	 bvxNqZEaHOr7L89HZKBq7QYfN++Bxsk9LwGQ5sHxR+TI6OrAHLgzQ4b6cVqcjb5kd7ljZ
+	 K0L+9lrRlJ/OXsNMsDBIlAsr80nx+S/1z7pNWv/XumlRirxU9ULFiWFO5CdCYTjUAPqmj
+	 ZZyj7GNi3zgKcCcWhbGC4Q4JcORfd4EIuLdStS2agXk4qVSidbhjzldp+eKSaspOUgGdB
+	 oWMMhJhVa+ld6bzcxQE2p5Lg6FNYrjcjrbBb8Tu/HrdxbTD86BvDvyZpfGqr/mFtP2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=XlupHKHL;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E133606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E133606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8018A606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:30:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8018A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JPkEfqc3
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5363c8de563so14213201cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:26:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792812383; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qc0UGMrQO/pYwuAP2aslqTow8VgJY+b9yaNLZhHZ37Sm+wuvTuj2KzzM5hgpJXIppY
-         EK2JHeC1ya7jfuG/0cYx6rMnIHGeyde1c5/Ycdn89mACS7MxyxRW+dchb55gCtVgpP/H
-         LW6jE5pQO+DnZOK98vl+FPp5s3hryAmGecYWkbJ/7jixLWLsiLlmi8uKZp6h0WI7/LHJ
-         KXZT3gqV2Ce75tGl8xNsV9b4ACDee5Yh78QfvroMt3SLwDZxnv59HGjGVVFBuCy1SOMz
-         68sY+m/g7wm8fJmTeqSJ5MtBCjT17HmmGUOUXPFEVaBK66IgyO+hc+L1cULvaQIXnCAP
-         WXGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FicJIZs2+/qCTDE+0FRHSg6kJmTqD7XGGr4iZ+o1ZRU=;
-        fh=erzS/n2PbbDnyr8nU7sMr1+NR15yTYteUiyXLxT+a1w=;
-        b=koCi4Jp1noBEQJH8I6OBLuKDSKx+AQAHnIC8/nyLNl2AymiQvHeYfuWnb6bzL8oQMA
-         DD5ULodQmsNp+1vQaNk+uy8+h/i7aVKabhphM4vkCHNJC6ggxOJJCOMI3hb1BGtvyOsA
-         XGeEJ5fiLLn30y8wZAsihrrQh2Zvnh+2AymEXOf3IoJr4n9eJzTCuBbahp8s9UpeRs46
-         +8fWY4fwmxQqdSddDTrdUtwhJLSYPc2fFFYB3BYm1Epq75PT7sk8cAUpRen5KhLecxjs
-         qoYjKrZ6573KVdmpnnERjfhMswEMDWdzo3232088goZWSBi3le7p7paEmA2Px2C4L2nt
-         QpKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792812383; x=1793417183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FicJIZs2+/qCTDE+0FRHSg6kJmTqD7XGGr4iZ+o1ZRU=;
-        b=JPkEfqc38rmVYfBrogvq0HcazTissN0pHHCPFvXuEHZAFWWFfqeXm++eSjOmi06YDL
-         SJcUq8tZjdWdtztCDSE4OnOhc7+JupfiOahyimATsNI2DfpxgRDl5VikOe1KqEa2bxRb
-         x1Rag0wSOPQT489sGmvn7vOkDJuwKRhf+nSYqDBb5NDmOkXbbnhTvioy1WS843k1+m+c
-         xKeJxq8dwAHDkVgGayc+kNBX3ADw63+op6lwCt6enK2g45SEnzjzijeu+PztTXcvcSlW
-         W2dxvy2YcGbWnjqU8E64E6zMvOffo43W9UpFDUpygE8FkeyCWGKHL2+ICOJZuwYBlmkv
-         Mu9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792812383; x=1793417183;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FicJIZs2+/qCTDE+0FRHSg6kJmTqD7XGGr4iZ+o1ZRU=;
-        b=zieVRA8JISOLWeycjvASSDPGoXmdamCQ7mkm5X0Xx+pwQG1YNo4Ua2v/eLe6MEGV1a
-         yKUFZvTY0JStIwo6LfV3AJefiQWx6Kz3HMUWnz8JURXM64TIj/88zCgSSjJxFWcP4OjT
-         Q1uFQxAO6G4xklL3ht/tBvaCYSUyd3tMzorwTk+YLn3zcOl6iZjgeuzjZ8SDdygNwyQu
-         PNoo5GxhB89m9LBWiVJXFGVXqXJqnoBeSPGDa2TWLqcGyzelzI58FDwmzGOPp+FdCWJn
-         Er3mgM2PNDm+u8XumSPchWqsUI9mQChQ2HerLe5fmTsYG3lCK5qO0oc5oWmn4xxnQPtP
-         D9Aw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7HwleAvfgU3gu4eV1iApSBQ2wH5yoelfuBHFNp+GuHRe6J8fbM8+CfrRSGRGsjldLHRChHRCkk+gdPIA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLE7KKd6UsbRyxXwwKVni1TlNHtcDeNNQ3h8ennKPH32PtuJIiA
-	OSmWSXwu3DDKFlqVKEBxVRaKn1THXEl8LV7ebDG4+hnfVX8LPexWoA73VhoVke+8CWlIyxmFC6V
-	LmC3z9EznWhIYZwc7YI3ntZWYNaWw9Sc=
-X-Gm-Gg: AYBFou3whj8avpUkAOambrJQ+lwyCSozwkoCPhE5J7Pr3y84efUPvJ9Jwnw8uNExr10
-	7gFZxlAT5r0LLSvv0Bmoi6b0EeNVtXiCJM4ETbqtRM2JsHcg22bCGF9lUS2eRvt/aQD8Bl1AyTp
-	M7oE6zuHDub4dpszpWw0/sCWi2NJpSouUiPibCJ9/ik/ZZXLilZgnucYWXJcTQ6yV9LaEh+XP4J
-	wrTJkICtUfJp0JrPYB/wUF8BcLNmnXJ30UvqurBAK2rql6Hao7ZWVsWZ0HFbHEYnBRENndeIeDa
-	32kfC8YCY8VTWls54Jvk2BWZu6PBBke78WxzzHy8TZCM0ScF+ybHHcPNrNoLG7swlUEaE6wY05S
-	4t03XwVwJ7yaZX4Jrq+GQxl4YT/eN34q5dGvPP2ylO4o34OdLLdtO3DDVceOHaliwlDd63H0gMc
-	MXjfqMwZFMEX2iR7E/XWA=
-X-Received: by 2002:ac8:5f93:0:b0:535:11e7:fdb3 with SMTP id
- d75a77b69052e-5383b4fd48cmr11061231cf.34.1792812382943; Fri, 23 Oct 2026
- 20:26:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=XlupHKHL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=DxREnxXFL74zEXnlXFVXWPlkVOMBFqhGQRo3iyJ0jLE=; t=1792812631; x=1793676631; 
+	b=XlupHKHLpRFmdluWHfjziaHaQxpnzyIc15B0KGp+IoxQJED0J9Erd/yDzNGAseaEJ0Wx8wo0OSg
+	aNRoZl8uJx2PbB7LvwxFu/uHmfJWiUqKW1GrJaBcXbc5s9OzwOONJL51e71f75Sgw/gq88eo1qU3k
+	+MiB7VDXOgoA74MXJ0EkGeKZW6amuAR9M2LkN8/QdY2y1XkA1ApHnpYf7PD9KNLjQsvcbQJvPvwCU
+	x5T//BAry6XuMSJtevZaCST60tpwg8Z29ZAdcVj/4Q2NVRiv9gZj1h8nvilpyEuiBm40RPJd1Ej0j
+	+px0EfzXuA4PHi1AVAU/RxYa9zX/0qCUCdug==;
+Received: from mail-dl1-f48.google.com ([74.125.82.48])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xKSSk-00EHef-CU
+	for linux-kernel@vger.kernel.org;
+	Fri, 23 Oct 2026 23:30:30 -0400
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15943c9c005so1931578c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:30:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByYO9lqapr3I4ZwSlVA52ETPk+G48s+bYXb+by3KOxaEEJzHv9VM63RQTW1KdRxE9TOOU/pTfEbmNlufX0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkpxOIr450TpOvgkX3EKcdS+Cuz37AuQKpmu7R6B1dT0V+jzHb
+	1Vkz7dviU/J+99yyozivjhIf1twk51NGBNChMqzzEI1F8WfSpAKZnmuZXPdA1RlHBXe+4xDif/e
+	s32kat01i7gR4E4sdAcq4LUiUvVjrtlM=
+X-Received: by 2002:a05:701b:2915:b0:196:e254:db24 with SMTP id
+ a92af1059eb24-199375eb26amr1030037c88.21.1792812629421; Fri, 23 Oct 2026
+ 20:30:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,168 +71,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018201727.96924-1-williamwoodstock79@gmail.com> <20261019141053.7b2d8e23@nvidia.com>
-In-Reply-To: <20261019141053.7b2d8e23@nvidia.com>
-From: William Woodstock <williamwoodstock79@gmail.com>
-Date: Fri, 23 Oct 2026 20:26:12 -0700
-X-Gm-Features: AclHuK-yfT4LvkJ-ln5yWRznOXG4xObhTaFvAUkqkJ-ddhw8muvQiG6pyIjtX5o
-Message-ID: <CAC_eNMPu=3Tez6L0jO2f-OkRWPL9-ub8BS+7uftcRqSGKbCFQA@mail.gmail.com>
-Subject: Re: [PATCH] PCI: Avoid bus reset on NVIDIA GB202 and GB203 GPUs
-To: Alex Williamson <alwilliamson@nvidia.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20261016222721.791785-1-nickolai@csail.mit.edu>
+ <atZw_gtMIIKXgc1q@bfoster> <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
+ <atdHhW7JU8j5pozl@bfoster>
+In-Reply-To: <atdHhW7JU8j5pozl@bfoster>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Fri, 23 Oct 2026 23:30:17 -0400
+X-Gmail-Original-Message-ID: <CADGQE7Gaw9t14nOr_FYcT4d5y+VEjX+oSgkQoNWiNtomCfkVRQ@mail.gmail.com>
+X-Gm-Features: AclHuK8U-00Ea83CZV1_hG7vFrciQgbpxapAyoOn_d2XFtjDVI9f8nU_G2FcSqA
+Message-ID: <CADGQE7Gaw9t14nOr_FYcT4d5y+VEjX+oSgkQoNWiNtomCfkVRQ@mail.gmail.com>
+Subject: Re: [PATCH v1] mm/truncate: fix the zeroing end of pagecache_isize_extended()
+To: Brian Foster <bfoster@redhat.com>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Theodore Ts'o" <tytso@mit.edu>, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Resending because html was rejected, and I also tried kernel 7.3, with
-no success.
-
-> What's your RTX 5080 vBIOS version and system information?  Is it the
-> same Asus X870E as the other 5090 reports or something else?
-
-vBIOS: 98.03.3b.c0.0b
-Card:  Zotac GeForce RTX 5080 (10de:2c02, subsystem 19da:1765),
-       primary PCIEX16 slot, bifurcation Auto
-Board: Gigabyte X870E Aorus Master, BIOS F14d (not the Asus board)
-CPU:   AMD Ryzen 9 9950X3D2, GPU on root port 00:01.1 [1022:14db]
-Host:  Proxmox VE, kernel 7.0.14-20-pve; guest Windows 11 Pro,
-       GPU passed through with vfio-pci
-
-It reproduces without a VM. On the host, with the link at 32GT/s x16:
-
-  echo 1 > /sys/bus/pci/devices/0000:00:01.1/reset_subordinate
-
-brings it back at x8. A bwctrl retrain restores the speed but not the
-width; only a cold boot gets x16 back.
-
-> Is the issue still present on kernel v7.3?
-
-Yes. I built v7.3 from kernel.org with no patches, using the Proxmox
-7.0.14-20-pve config (make olddefconfig, LOCALVERSION=3D-stock), and ran
-the same host-only test with no VM running:
-
-  uname -r: 7.3.0-stock
-
-  before: 01:00.0 LnkSta: Speed 2.5GT/s (downgraded), Width x16
-  after:  01:00.0 LnkSta: Speed 32GT/s, Width x8 (downgraded)
-
-  [  211.617016] vfio-pci 0000:01:00.0: resetting
-  [  211.617225] vfio-pci 0000:01:00.1: resetting
-  [  212.898377] vfio-pci 0000:01:00.0: not ready 1023ms after bus
-reset; waiting
-  [  279.586064] vfio-pci 0000:01:00.0: not ready 65535ms after bus
-reset; giving up
-  [  279.587022] vfio-pci 0000:01:00.0: reset done
-  [  279.589284] vfio-pci 0000:01:00.1: reset done
-
-The 65 s "not ready" wait didn't happen on 7.0.14, where the reset
-finished in about a second. On this run the guest had been
-force-stopped just before the reset, so that may explain it rather
-than 7.3. The x8 result is the same either way.
-
-> Disabling bus reset entirely should be a last resort, it has
-> implications for device isolation when no other reset mechanism exists.
-
-Understood. What I measured:
-
-- 01:00.0 (GPU) reports reset_method "flr bus"; 01:00.1 (HDA) none.
-- With only .0 assigned, FLR is used and the link stays x16.
-- With .1 assigned too, vfio falls back to a bus reset and the link
-  drops to x8.
-
-So the bus reset is only reached because the audio function has no
-reset of its own. Would you rather see a quirk that gives the HDA
-function a usable reset, or keep the bus reset and restore the link
-width afterwards? Happy to test either.
-Thanks,
-mark-ship-it
-
-
-On Mon, Oct 19, 2026 at 1:11=E2=80=AFPM Alex Williamson <alwilliamson@nvidi=
-a.com> wrote:
+On Tue, Oct 20, 2026 at 6:51=E2=80=AFAM Brian Foster <bfoster@redhat.com> w=
+rote:
+> On Mon, Oct 19, 2026 at 03:54:14PM -0400, Nickolai Zeldovich wrote:
+> > On Mon, Oct 19, 2026 at 3:35=E2=80=AFPM Brian Foster <bfoster@redhat.co=
+m> wrote:
+> > > > --- a/mm/truncate.c
+> > > > +++ b/mm/truncate.c
+> > > > @@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *ino=
+de, loff_t from, loff_t to)
+> > > >               unsigned int offset, end;
+> > > >
+> > > >               offset =3D from - folio_pos(folio);
+> > > > -             end =3D min_t(unsigned int, to - folio_pos(folio),
+> > > > -                         folio_size(folio));
+> > > > +             end =3D min_t(loff_t, to - folio_pos(folio), folio_si=
+ze(folio));
+> > >
+> > > Good catch...
+> > >
+> > > folio_size() returns size_t and folio_zero_segment() expects size_t f=
+or
+> > > the offset params. Perhaps we should that instead of loff_t?
+> >
+> > size_t is (unsigned int) on 32-bit machines, like i386, which has the
+> > same issue (reproducer from the patch).
+> >
 >
-> On Sun, 18 Oct 2026 13:17:27 -0700
-> mark-ship-it <williamwoodstock79@gmail.com> wrote:
->
-> > NVIDIA GB202 (GeForce RTX 5090, RTX PRO 6000) and GB203 (GeForce RTX
-> > 5080/5070 Ti/5070) GPUs train their link at x16 at boot, but after a
-> > Secondary Bus Reset the link comes back at x8 and stays there until the
-> > next cold boot.
-> >
-> > The GPU's HD Audio function (e.g. 10de:22e9 on GB203) has no reset meth=
-od,
-> > so when both functions are assigned to a VM, vfio-pci falls back to a b=
-us
-> > reset at VM start and again at release, and the GPU then runs at half
-> > width. Assigning only function 0 avoids the bus reset because the GPU
-> > itself supports FLR, which is why the problem is usually reported as
-> > "passing the audio function breaks x16".
-> >
-> > Observed on an RTX 5080 (10de:2c02) behind an AMD Root Port, kernel
-> > 7.0.14, Proxmox VE host with a Windows 11 Pro guest:
-> >
-> >   boot:                         LnkSta: Speed 32GT/s, Width x16
-> >   echo 1 > /sys/bus/pci/devices/<root port>/reset_subordinate
-> >                                 LnkSta: Speed 32GT/s, Width x8 (downgra=
-ded)
-> >
-> > No VM is involved in that reproduction. Stepping the link speed through
-> > bwctrl (Gen5 -> Gen4 -> Gen5) retrains the link and the speed follows,
-> > but the width stays at x8. With a VM started frozen (-S), the link is
-> > already at x8 before any guest code has run, so the guest driver is not
-> > involved.
-> >
-> > With this patch applied, reset_method for the GPU is "flr" only, both
-> > functions can be assigned, and the link stays at x16 Gen5 across VM
-> > start, shutdown and restart, with the Windows guest driver working.
-> >
-> > The same symptom has been reported with an RTX 5090 (10de:2b85) on an
-> > AMD X870E board, where passing only function 0 was the only thing that
-> > kept x16.
-> >
-> > Link: https://forum.proxmox.com/threads/asus-x870e-pcie-x8-bifurcation-=
-bug-with-rtx-5090-vfio-passthrough.178461/
-> >
-> > Signed-off-by: mark-ship-it <williamwoodstock79@gmail.com>
-> > ---
-> >  drivers/pci/quirks.c | 9 ++++++++-
-> >  1 file changed, 8 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> > index 1aa87a3ef..a4adcc3e7 100644
-> > --- a/drivers/pci/quirks.c
-> > +++ b/drivers/pci/quirks.c
-> > @@ -3769,10 +3769,17 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_NVIDIA, =
-0x22D0, quirk_no_bus_reset);
-> >  /*
-> >   * Some NVIDIA GPU devices do not work with bus reset, SBR needs to be
-> >   * prevented for those affected devices.
-> > + *
-> > + * GB202 (0x2b80-0x2bbf) and GB203 (0x2c00-0x2c7f) GPUs train at x16 a=
-t
-> > + * boot, but after a Secondary Bus Reset the link comes back at x8 and
-> > + * stays there until the next cold boot; a link retrain restores the s=
-peed
-> > + * but not the width.  Function Level Reset does not have this problem=
-.
-> >   */
-> >  static void quirk_nvidia_no_bus_reset(struct pci_dev *dev)
-> >  {
-> > -     if ((dev->device & 0xffc0) =3D=3D 0x2340)
-> > +     if ((dev->device & 0xffc0) =3D=3D 0x2340 ||
-> > +         (dev->device & 0xffc0) =3D=3D 0x2b80 ||
-> > +         (dev->device & 0xff80) =3D=3D 0x2c00)
-> >               quirk_no_bus_reset(dev);
-> >  }
-> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_NVIDIA, PCI_ANY_ID,
->
-> What's your RTX 5080 vBIOS version and system information?  Is it the
-> same Asus X870E as the other 5090 reports or something else?
->
-> Is the issue still present on kernel v7.3?
->
-> Disabling bus reset entirely should be a last resort, it has
-> implications for device isolation when no other reset mechanism exists.
-> Thanks,
->
-> Alex
+> Ah, Ok. So loff_t makes sense for the min_t(). I do still wonder if it
+> makes sense to switch offset and end to size_t while we're here though.
+
+I believe they're always pretty small (bounded by folio_size, which is
+bounded by 2^MAX_PAGECACHE_ORDER), so size_t isn't going to make a
+difference here.
+
+Nickolai.
