@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792859220;
-	b=Cnr7FU+nynZARcCAOoJjO3EnbwoIUsQOquWvEnWsYufPTYXXvzqBKuFpt8pHve23lQ61
-	 bMCnYJSqNqZxLcrk1+XsRXDtFF2/b4U4LRURDEcNwU9d8ORjRCgu2HGC8RN0KQ9vmaLr4
-	 yd/ORRI/HVzn2zApWMsRofjdkXNA+0ta0eKTGZEDM4W+SQVo+lV1WoNBxO43j2tSB5i3q
-	 rhhfqEfw4I1GtqDikHrBgQpUtBgjXQ6vZc/qnsPKWWtXDzmkGLoEMWqKbFfc+qfMO25Qm
-	 bREnOghb9pjL5IQbjszQ+rHhxxW8jKI67LG7vasyknvfdz5fEDwKrc6xNzbxIHuOc2A==
+	t=1792859349;
+	b=NPozgCaWkrkUgLcWXJ7yHACDkJ5RRz0sykGJ29ZycIC1AZD3UuwKvQysNzFvT7ZXuyI3
+	 dfI/46TV0hAQrGiuoj4fv2hM8nB+2CHMaKLlUkrXotPgaU2mRsuvmPwKUS+6V/sp2w8Un
+	 xjP1+L5DG0JrbilAeziFR0+U7dz43uxA8ATJgHfX05qTCc19MncoM4pDPodtS3wCBB/rD
+	 N5+WAZxYEOdKnRzYCckStAoQQE3wCg2vvbz5FCeROqfzpJqFl9eUppWuYSV9w5wvtMSNO
+	 cXSKvvGRyv8ztFJOX4PdyHe3LHJSKNaB3KCQ3YVISPk1gAPB8ya1n7DqBgl4Q0dOijA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792859220;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859349;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=A/Elg2VGIiiKUhU95MSseS/kc7VdURgqQOZScaQReX0=;
-	b=nIOIDpo+a1uFjH1bgr6sBr8DWg4NaQp59MizgcjcTqofRnFErttMo4S76s+4l9JcuZmO
-	 fHnSgh4MgW7GbKueWoLIqgJM2IdQryU7/hUS4EapcIJCbzTj61mdOYetRPqekegALb/ju
-	 F6czafN52GRog93tOyB5UmlJCucxSyB/0Sy77kM3ompc0a/yJxFZskowuQmw2twIH68K3
-	 BPztxbfvggBWupsFSRkpqnntaXIT+4p7nVkf91nuEvP+PLZReIJk5wb+y50agWXPUlDkW
-	 y6yZufodugjeicAumWCa/d2f8bRRvyPqPI0T8o3gLMvDLjKw5GmFmFElthczg69FcFw==
+	bh=llsgWckxU6HrF1Oq7gERdngWWd2BM5NRfeUcsEwDim4=;
+	b=kHMQHMQrBKd0nGZBlxEizYPMxwOWkjxC0NJwWCid8ZrxjW4lZ9+AtMv1G7UC6nVLBg6N
+	 yYCY7Vp2sbnvsCgts508kx67JGwQ7mUkhmbrTih6WYUZ6c2P3i3aTx2rVZ34yLdt2YTE5
+	 PT18x/hTw+jeTneE0BSiHxM6YH5NjZZUS0GfS+o5FXKkdAHjjQC5WUae4BTUM8ujbpo5x
+	 RWkswuoVxltQwMr/0nYBWpjVEb7BG+0lj9TZ+VakOIgf65F4Alj47oMsme5joBL93mkT+
+	 kldcGc/kRQo29IFYTWUdHFcgIXEZS3+mGu393MAJY0E45BVxVpD93TfY+Ur/NLvqRhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3UHEVNS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Nmqafhes;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EAE606A31A;
-	Sat, 24 Oct 2026 16:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BD5606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78BD5606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3UHEVNS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6D11F01828;
-	Sat, 24 Oct 2026 16:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792859219;
-	bh=A/Elg2VGIiiKUhU95MSseS/kc7VdURgqQOZScaQReX0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G3UHEVNSaks1iOmIJrWm8Q6ociwN6rNuXS4p4MAPXnc/A4Aa3I4c/sCauVLreSNjd
-	 T7Lix7lZVHzJsgqy9d53yxlsiGra1zeAJLX1N/yua7ZPz5wz8fftLpFDLGQgD027ht
-	 Cm/9r71KvNv+rxfatYahs8rKI4o05QCZoy1SysNvLFpNLcOmIl4bNIpVmLOds7dELT
-	 gqOk/Y95yHk9ZLcHywJEkM3S62J8br+Sln0gOccjOSZGyYNpQAJClBS32YlydUMVS/
-	 no7nll/soCk7RSXrEcINNUWPxTrgSuQSvB3h3tqrCKCwHiwN5ZOdLSpeUSXl9Sqmcx
-	 njIU4uNzh9LDg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Nmqafhes
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35f036b17easo3875287eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:29:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792859347; x=1793464147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=llsgWckxU6HrF1Oq7gERdngWWd2BM5NRfeUcsEwDim4=;
+        b=NmqafheshdwPak0EWBNwAofN8AZNgmQptxYh3iGuiskd4q9UV02Q5UGh/oeX7f6FAP
+         hsww53lS37P3JAtMBHk1Ke30ZUyjQ970syUPgtgen7abOm3OdBvvHzNhQeSS8thBBjN2
+         SC3HNizvps20P1by+xoZcccTn9VK6mlBWX86kM9SgLixrnZqkm2a15VPLsC1r5akYpOd
+         GbFtf6SAKcIIaCFJLHlyrXE7eppDpukU3KNhEmWL7AFobu0iXnIDJT2TSN8h/2LThiu3
+         chbxN23xEius6S8t10nOzv38wj/umbcr/Gbh4ewd8+Qxc1HolXYT5oZhHgwwouOLAZCq
+         SWFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792859347; x=1793464147;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=llsgWckxU6HrF1Oq7gERdngWWd2BM5NRfeUcsEwDim4=;
+        b=oyuWYzaqOvCFQPfIF1Jf3p3lWlAGiv6U7wD9fJ4QkOEObDTsfEC0y2xbcHISYs+/4V
+         HHn4n+MN+AdHZDfFgzLXpVIQbfaTW3NABUPv/I3DdHxJyeOnwVeTLa9IVBilMNgu1Fxh
+         nJ9Y0oN2R1DAac3/OOZPMz7bFf709eQbbzVe7lVzooXfpwv+2oOZoZeWWaQt0iJh6Ghz
+         XbTCc4tV8OM9B4QMzIHBZa1oj6o4EbG/YvFoiCmmSP96Rmw+2T5GP+AbJFpO/O6vNp7Q
+         nddnanks0wcsy5zKFAwsyf95rQ+VFlQ5YXKrWnVHFo68L8UbgqpuC7Sujl4JD3goz9AH
+         xUFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywYbJ4LyfAP9/ZHysrv5bX9O9Ok50BEwWL7angpzxJeErYVkUN4qkoH344j17tqMyMZW43d+gELS4KvrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoizNXh0ePlOayEGKUT6UxOvljVERyFw1tR9oNFcP5DmUbtkfm
+	OEO+BsceXXzfhD+ZzxGcQcN1PbXSWYqj/WjWQEJuv9y9VvudA0Fw99LUtLQFhwO5U8Q=
+X-Gm-Gg: AYBFou3Y+fX8BxvYw/Qnim7e7A8SJ2mou+D8/w03sHddI0fLiDLTQLkWMdwHu+zYtQ5
+	ccwFl4DYTrFbnu/G8MMTUuE4IdZDXNRpTcD66Y9E41RyfEnRkemXzYlyH/qZAin1Uh2p/GHQFeh
+	KJyLFbLv2e4G5yTjrXIWZ2/Xwq1q9lmFy6dZHbu4nSS55vjYUF8gt3Z/N5M4IZUX2TA8oYvzGog
+	7tJkeZR9uHcpbHLnSw39Hj53Mhh2da/Y/vZIcwQxh63OGc5+W3LEwPVjuOZiG8JdghKIdJe2JXg
+	NKHPMNlh8oZ6IOwLPV2gH7WbUnMvQ3H4bGn4c3qdJWXfph97vJGaKKjybyIfqW90SFusGSZcGG1
+	dkv9W3dr8Wl+Kw0sUZ+ZRtgS5KB5+IEGrMFqjZP72kMAfLCO/iy74BITYr4fKCB9YvmEQGm0vRM
+	X+kGqOtiUwIeBdAnBIr69QSeNtFAUftyk8HASTgNjNX+/vQNKq+Ffwm+kGRecIKGKv2NjNI2T6C
+	yX/t6GZ/DWikCQ/hp4Ie6GH1n5AJAg6U5a7pEyMUG53BgVRjsEgTbwdWoRORKsyyhE1RqJXeWig
+	NgVycTZs9fBhgQ4t/N0GB6wJz2bjpKI9lJKoM+TP1jC2mrvCo1oMCi+fhei1Ds1h
+X-Received: by 2002:a05:7022:220f:b0:14c:aaa0:941c with SMTP id a92af1059eb24-1993fba154cmr5334530c88.35.1792859347154;
+        Sat, 24 Oct 2026 09:29:07 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:dba3:be57:a674:a67f])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19a3736d16fsm7192350c88.12.2026.10.24.09.29.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 09:29:06 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 10/10] selftests/ftrace: Add event filter syntax check test case
-Date: Sun, 25 Oct 2026 01:26:56 +0900
-Message-ID: <179285921665.466249.3671034793634001868.stgit@devnote2>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v4 0/2] RDMA/srpt: fix the indirect descriptor table bound and the context counters
+Date: Sun, 25 Oct 2026 01:28:50 +0900
+Message-ID: <20261024162852.3528224-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179285912318.466249.7425922682086130057.stgit@devnote2>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2>
-User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,80 +99,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Both changes are needed, and they fix different things.
 
-Add a new ftracetest test case (filter-syntax-check.tc) to verify valid
-event filter expressions, error_log caret reporting for malformed filter
-expressions (empty filters, missing fields, unbalanced parentheses and
-quotes, dangling logical operators, invalid fields/values/cpulists),
-newline truncation on multi-line filter input, and error returns on
-invalid subsystem filters.
+A 510 entry table fits in the default 8276 byte IU when the additional CDB
+is empty, so the bound accepts it and the counters then have to hold it.
+With only the bound, a conforming command carrying 256 or more descriptors
+still wraps n_rw_ctx and leaks every context it allocated. With only the
+wider counters, a command that sets ADDITIONAL CDB LENGTH to its maximum
+still walks a descriptor table that runs past the receive buffer.
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- .../ftrace/test.d/filter/filter-syntax-check.tc    |   52 ++++++++++++++++++++
- 1 file changed, 52 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
+The two defects also come from different commits, which is why they are
+split here.
 
-diff --git a/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc b/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
-new file mode 100644
-index 000000000000..68c8accc5ffd
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
-@@ -0,0 +1,52 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: event filter - test filter syntax error check
-+# requires: set_event events/sched/sched_switch/filter error_log
-+# flags: instance
-+
-+check_error() { # command-with-error-pos-by-^
-+    ftrace_errlog_check 'event filter parse error' "$1" 'events/sched/sched_switch/filter'
-+}
-+
-+# Valid filter expressions
-+echo '(common_pid == 0)' > events/sched/sched_switch/filter
-+echo '((common_pid == 0) && (prev_pid == 0))' > events/sched/sched_switch/filter
-+echo 'prev_comm ~ "*sh"' > events/sched/sched_switch/filter
-+echo 'common_pid == CPUS{0}' > events/sched/sched_switch/filter
-+echo 'common_pid != CPUS{0}' > events/sched/sched_switch/filter
-+echo 0 > events/sched/sched_switch/filter
-+
-+# Empty or meaningless filter expressions
-+check_error '^()'						# NO_FILTER
-+check_error '=^= 1'						# INVALID_FILTER
-+
-+# Unbalanced parentheses and quotes
-+check_error '^(common_pid == 1'					# TOO_MANY_OPEN
-+check_error 'common_pid == 1^)'					# TOO_MANY_CLOSE
-+check_error 'prev_comm == ^"bash'				# MISSING_QUOTE
-+
-+# Dangling logical operators
-+check_error 'common_pid == 1 &&^'				# TOO_MANY_PREDS
-+check_error 'common_pid == 1 ||^'				# TOO_MANY_PREDS
-+check_error 'common_pid == 1 || (common_pid == 2 && )^'		# INVALID_FILTER
-+
-+# Invalid field, operator, or operand value
-+check_error 'no_such_field ^== 1'				# FIELD_NOT_FOUND
-+check_error 'common_pid == @^'					# INVALID_VALUE
-+check_error 'common_pid == CPUS0}^'				# MISSING_BRACE_OPEN
-+check_error 'common_pid == CPUS{}^'				# INVALID_CPULIST
-+
-+# Multi-line input must be truncated at the first newline
-+echo > error_log
-+! ( printf "common_pid == CPUS{0\n\"} && common_pid == 0 && common_pid == CPUS{0\n\"}" | \
-+    dd of=events/sched/sched_switch/filter bs=4096 ) 2> /dev/null
-+grep -q "Missing '}'" error_log
-+! grep -q "Missing matching quote" error_log
-+
-+# Subsystem filter must fail on invalid filter expressions
-+echo 'common_pid >= 0' > events/sched/filter
-+! echo 'no_such_field == 1' > events/sched/filter
-+! echo 'common_pid == 1 &&' > events/sched/filter
-+echo 0 > events/sched/filter
-+
-+exit 0
+Changes since v3, both from the review of 1/2.
+
+desc_off is a uintptr_t subtraction now, as Bart asked.
+
+The room check is gone. It divided the bytes left after the header by the
+descriptor size, and the division truncates toward zero, so a byte_len one
+to fifteen bytes short of the header gave room zero rather than negative.
+A table_desc.len below one descriptor gives nbufs zero at the same time, so
+nbufs > room was false and a truncated request was accepted. That is
+Sashiko's [Medium], and the v3 commit message claimed the opposite. v4
+compares the span the table occupies against byte_len directly, which needs
+no division and no sign, and the wrong paragraph is gone.
+
+2/2 is unchanged. Bart asked why int rather than an unsigned type. The
+values are counts and never negative, so unsigned fits, but
+rdma_rw_ctx_init() returns int and the WARN_ON(ioctx->n_rdma <= 0) in
+srpt_rdma_read_done() is a signed test, so int leaves the surrounding code
+alone. I am happy to make both unsigned int and turn that test into == 0
+instead.
+
+Link: https://lore.kernel.org/linux-rdma/20261022143901.2991062-1-yhlee@isslab.korea.ac.kr
+
+Yehyeong Lee (2):
+  RDMA/srpt: bound the indirect descriptor table to the IU
+  RDMA/srpt: widen the indirect RDMA context counters
+
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 11 ++++++++++-
+ drivers/infiniband/ulp/srpt/ib_srpt.h |  4 ++--
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+-- 
+2.43.0
 
