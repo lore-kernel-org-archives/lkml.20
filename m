@@ -1,51 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792867261;
-	b=tdioYKthvUamk9MwE9suv75H9eINrSBSG2ORwz5NvQekWnqHxnV8K+7QcaAXkMo1VRFF
-	 P3VQj+/RJuPoKY7ioYEHaFGoV0oKgdQe0KagS3d7xXh5hE6/QlRT8Sp/sNo2DOC5OV98j
-	 lBvOVsl4zN8WU70edgKQq4jjaejA9Y/sILUlEg3J64qh0f2zbx3lFNkC5fcWgJHeYyaPf
-	 2qIDL+S7yA2oSmgywgHoyiQwg2D8kP5Yizp3jyQ+gS4gVM5WT1jdoSSKlHZV38azBHch4
-	 TmOEwDwafqp4NepEll75o/0izltREfmgWs50Le4OnbU1VopYFJ5vwLlBCgjLXWpQdjw==
+	t=1792867522;
+	b=oeSHm6p3YIhcUbGHsHvhqfEOnnDClZkK6XTZ9VI+o8WPUDqVYkLoMJFtFdYc23tT/CbX
+	 fLjT6BjGFCcOXvZcfdopG2ScOwlHbwJa3X7NON+YnaaLmVwbv45WWK1Cb3HwiOczcBnag
+	 RkFXn08z7GIkGS7OtI/jLnSXCWqYWWTIjzhGex8bEq5XPwlHPzCs8wDGlA1UgmaGdWOZ7
+	 ukdfGwqHNzzopF/HJLumgZocpsK3Pi4LooHRJuFgWYh2nLzmn9B8VfOWfDpK8Gb/W+p0x
+	 6Gq6TghODcjBBxUakob9+v7QzcQLJTBNM28DvzesErO+6s7Y0iFYum3ow0BkHJwHT8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792867261;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=etTUIx9AFU7PpN6otuCm31aSKtwgOyFT6yOu3kJm3wc=;
-	b=nJgn+lzBNYnMEfGU6VIXvqEzcHgV/Tb9GON2z43GxuOlOX+AGV8jYAqcjitfroUzC2FN
-	 p+TTEdO8xGUR2rj8ulMPodJ1gQxqDY5UPenUeiO8eAHS+Br2/18JJyamRpeSguxjxN7GY
-	 nJal+xsbI64Rjv46HOtQuvpyw6UvxE3CeOxqCXeM4XURwOvYCqarWw8Xi2xzlKP+msBJv
-	 YNN81eLMgHCaQzpcJ0T68pZwIIrqFCu7KhNT1JUx9xHlnyt2ECX68qlerTje7Vezk6N7M
-	 7oAs1Uz/muOAouDhituHBbR68RovOil65R4JnFNfqZ7z4hajU0EOl/oKqK8j/wjT0eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792867522;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+	b=DJH1yfsz7X42wuSFFhfYM/9hAUGmmYqXjKjIIFRfrr4ska9v/Dj+d90pwt45HSGXd7qK
+	 w/JHFSIR6c0unQ1yF3G+g9CS6J2Ya8mehJ5NFeqU3tdSPfz9QEEh7vdFDEIkRV0GhIyke
+	 R3tTh5lUn+PouoxfruMVatr57qnP2ZjsfKd4e0X2uN+KI7RivrypVkCCTQEyX6aj9QGjQ
+	 IfXN4z05rUzXx+DjFP6AkbAjqrdbvP2Z5AmlZDOPtkma0S8W+ymKLaUL+Pw4jsGF9U0OW
+	 ER4f+hYWhpr47u+GziyLb+IcsRca8jGoiOkWaSO48aXXGzWc3jBj3iEmzXm8TpE9CnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xiedada.net;
-	spf=pass smtp.mailfrom=xiedada.net;
-	dkim=pass header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=PUHBhNIY;
-	arc=none smtp.remote-ip=101.71.155.84
-Received: from mail-m15584.qiye.163.com (mail-m15584.qiye.163.com [101.71.155.84])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Ve/5r0+s";
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788A4606A31A;
-	Sat, 24 Oct 2026 18:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 788A4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiedada.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiedada.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BB8606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7BB8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=PUHBhNIY
-Received: from matebook (unknown [36.141.109.67])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 523894800;
-	Sun, 25 Oct 2026 02:40:48 +0800 (GMT+08:00)
-From: Xie Youtian <xiedada@xiedada.net>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-kernel@vger.kernel.org,
-	xiedada@xiedada.net
-Subject: [PATCH] ALSA: hda/conexant: Fix swapped speaker/headphone outputs on Huawei MateBook 16s
-Date: Sun, 25 Oct 2026 02:40:49 +0800
-Message-ID: <20261024184049.107280-1-xiedada@xiedada.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ve/5r0+s
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-82380b0f55dso785989a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:45:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792867521; x=1793472321; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+        b=Ve/5r0+s4HTSaPMV+Kcd0hHLM4mvn30baQ0K+5/cDnRd1/q4ZAdyzOH8Qx8XwZdUwG
+         iZEHx/mZKCNTq/+KL7IxQjvkMqJYCgHm3Kp/lLMDPoEgVWPZ2R5DiHK5PEs4g2ADKAVi
+         yYuK0EEVEDQkZFg48hcb+xwu5JiftUyGemWFaAKWc/rH/yqNbngOsY17MPtClvNH5fJ9
+         wMQDKJDpzDWoXJ0Gl/lkNpqllyH2b4B3pSR9fRZ0VodECxwUfjl8+D+2C41wxGu8Jijr
+         wPlELm44jX8sz8L4RAXqw3Jvdt5/Bx+DpMl+kezbTZtGxNzcgWbPeHF/eZhTAOQoqEwb
+         4e6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792867521; x=1793472321;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+        b=X92OzJDmDcnKJP9hRhpxBGW2zaUOOcLNH6TznY71ifyq+pIMLPHuY/y7nrICIy5mwu
+         pJS4rnOipAA4RJ9JxsA9ILAvCVV7gTFuUlYToIfcRvWTlcWKCM9qXx1d57veGjmJtf98
+         CemzJyzykzRf0Wbn/hoXwxrmtfkWhzw2k4ev/f2ajM17PqTwzcMpg+RiOmBp910P4hxG
+         t0+AhXNw7Ame+oiW7dUAD1QvMJwvaB2TiefhGyd1fMvbjpxS17a4nCFmn4O1wrM+JFyF
+         9IFhWF2gOl8e5echJk3+h2V61xJp+YAjw8DcLcEvdzU/PRZxXrTaRD5FIO3kQx75y0EA
+         W2AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylCF+06uzSiWasTmKD1sag+EJteq/DLFnJVJErD2Jtb8hx62kQSQMz8chnbI7OFof6E4oWKVf3cMbU18E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjrrs3fZRDp5o9gWHTjI/csf2KaDnEwHdPFamIGlY+muvySyeQ
+	7pP4R0mLa9e8aIHA+iQqFxsuv0x6vGQV2zYCZsLZnsOsp50zVo8Meqsa
+X-Gm-Gg: AYBFou36MH3VfCD37I9sf+v+kJ9s+airaAuVgzNZdmWWhttDSfbuXw5yjkEwGqjub5C
+	QSoZOQAjY4amIGFrozMygGi6i7B6yB0Q3CiG0MPT19BuH9OQV+eh0/6/+uL3dYT0un10XXbu1Yv
+	vTkOdg0/xtoE0T409Nu1xUAvK4DWzNcvR5jNqmtqHRu1eIGDErr+H55FogDNFe4HeEWEIkB71gM
+	gvSwhjQ2YPqUZ5LvmhJHiHdEGPxr5Th8Zq6SIeQzG6EcC8Zie5PcY4xJC4l7G+0ccktpIyruHji
+	nIVy1+Jd5F+Cd0r281mWxJ0eVCu5AKHd+RifSamrrPTPUcw/vn9LJ5InQF192FG7KAaSL1UkxPV
+	a8W4gMetegtm5hOHKJxOSbjmI8bK5t9dDb49KQAT82yJUOur/MdMXpvKPp26EuQPRQl30vHmWmd
+	Jzci1g84c7vWH3ICGz3+FqfFMpUd2nLaEBOpcsDJY/GXPKUCzkySz9oyTIMKOTQe7xNkL/SNo+u
+	LGYfS5JZA6bXBwbfXK/AWvQEboA2msFvCOmQNmS03eB+o5lQMILXXYzmdZQNTlJldX/Y+SHMsSO
+	8PRYC8x81DxaKjnNGSLo0yjB6PwhlISVTezmTc202sxAo3yaor3JvKhnxTgepi2eDpvdfrtcvbv
+	Q/6smD2zME6uPt6/B0NnUZTavZbl6EN0fLOGjEYYI2micOfDV0Kvk5W76IYi0ajLlM3hb0lBFIR
+	L2Tew=
+X-Received: by 2002:a05:6871:287:b0:447:4fc:1da1 with SMTP id 586e51a60fabf-4a83f445ec0mr1555289fac.12.1792867520675;
+        Sat, 24 Oct 2026 11:45:20 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843231095sm1477278fac.17.2026.10.24.11.45.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 11:45:20 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 24 Oct 2026 12:45:18 -0600
+Subject: [PATCH v2] serial: 8250_dw: preserve BUSY-safe fractional divisor
+ programming
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,250 +93,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa16f372a7a0a37kunm23980d7f80361
-X-HM-MType: 4
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOSEhLS043V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQx1LGFYYHk1JT08dSE
-	kdTUxWHQkeHlUCFhMWGhIXJBQOD1lXWRgSC1lBWUhNVUpPSlVKS0JVTUxZV1kWGg8SFR0UWUFZS1
-	VLVUtVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=PUHBhNIYEQ4UfTFzj7afSIzB/PLUEVCJHuPsNO8xaNILH2pFUHX3KZMdPctvC580aArL68MUYHGb0KFJnB6Ds5AMeOabR135HnwfGBJAM02Kw2qPaM2BnnpQzffa6AE7FKGALPw0A3CxVd5SArMBXp76bOX9bxon9D8OYg4h3tY=; c=relaxed/relaxed; s=default; d=xiedada.net; v=1;
-	bh=etTUIx9AFU7PpN6otuCm31aSKtwgOyFT6yOu3kJm3wc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-submit-serial-8250-dw-divisor-v1-v2-1-032ca5338359@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WO3Q6CMAyFX4Xs2iqbjKBXvofhYj8FagTMNhFCe
+ Hc3fAKT9uK0PV/Pyjw6Qs+u2cocTuRpHKIQh4yZTg0tAtmomchFyXNxBv/WPQVINvWESsgc7Ac
+ sRevoYOIgG15WF7S5VBWLmJfDhub9xb3+6ch4oAmJmy608gjaqcF0aRTCcooNA84hrTvyYXTLH
+ nHiCfNHmlgcmkIKW2jNNW9uba/oeTRjz+pt276XvDWCAQEAAA==
+X-Change-ID: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Raul E Rangel <rrangel@chromium.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On the Huawei MateBook 16s (2023) with a Conexant SN6140 codec (codec
-SSID 0x19e5:0x3291), the speaker amplifier and the headphone jack are
-both fed from the analog output line of pin 0x16: the jack through a
-tap that needs GPIO1 enabled and driven low, and the speaker amp
-switched by the EAPD of pin 0x17 - none of which matches the BIOS pin
-config.  The generic parser therefore routes audio to the wrong
-physical output and never powers the jack:
+dw8250_probe() installs a divisor setter that makes the UART idle and
+checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+fractional-divisor support, it replaces that setter with the library's
+callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+bypassing the divisor setter's idle sequence and DLAB readback.
 
- * headphones plugged: the headphone path (DAC 0x10 -> pin 0x16)
-   drives the speakers while the jack stays silent
- * headphones unplugged: the speaker path (DAC 0x11 -> pin 0x17) feeds
-   no transducer at all and the machine stays silent
+If the LCR update fails to set DLAB, the subsequent divisor writes can
+reach TX and IER instead of DLL and DLH.
 
-Route the shared line to whichever DAC the parser leaves unmuted for
-the current jack state, keep the jack tap open, and gate the speaker
-amp through EAPD.  The verbs are applied from a private jack callback
-(the generic unsol->automute path never fires on this machine while a
-stream keeps the codec awake) with a debounced presence sample, and a
-delayed recheck re-applies everything from a settled sample, since any
-reader of the pin sense can see stale data for a short while after a
-codec power transition.  The 600 ms recheck delay matches the factory
-Windows driver's plug-detection restart window.
+Expose the library's fractional-divisor calculation and DLF write as
+shared helpers. Install the BUSY-safe setter after hardware discovery and
+use the shared DLF helper to program the fractional field only after DLAB
+has been confirmed, alongside DLL and DLH. Select the shared calculator
+when fractional divisors are supported, preserving the core calculation
+for integer-only ports.
 
-The factory Windows driver groups codec SSIDs 0x19e5:0x3291 through
-0x3294 into a single audio configuration, so the siblings very likely
-share this wiring; only 0x3291 could be tested.
-
-Tested on the machine: headphone/speaker switching in both directions,
-during playback, over the bare PCM path and through PipeWire, and
-across suspend/resume.
-
-Problem detection and the verb-level hardware experiments were
-performed with the help of an AI coding assistant, with all audible
-verification done by ear on the actual hardware by the submitter; the
-fix was drafted by the assistant and then reviewed, understood,
-adjusted and tested by the submitter.
-
-Link: https://github.com/geniusinsanity/huawei-matebook16s-speaker-fix
-Signed-off-by: Xie Youtian <xiedada@xiedada.net>
+Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- sound/hda/codecs/conexant.c | 150 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 150 insertions(+)
+Changes in v2:
+- Share the fractional-divisor calculation and DLF write through exported
+  dwlib helpers, and use them in the platform driver as requested by Andy.
+- Select the fractional calculator only when DLF is implemented, preserving
+  the existing core calculation for integer-only ports.
+- Link to v1: https://lore.kernel.org/r/20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com
 
-diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
-index 9bfdbf5c9032..62a41c764ccb 100644
---- a/sound/hda/codecs/conexant.c
-+++ b/sound/hda/codecs/conexant.c
-@@ -43,6 +43,10 @@ struct conexant_spec {
- 	unsigned int gpio_mute_led_mask;
- 	unsigned int gpio_mic_led_mask;
- 	bool is_cx11880_sn6140;
+Previously included in the DMA cancellation series v4:
+https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
+
+Changes in DMA cancellation v4:
+- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
+  discovery, writing DLF and DLL/DLH only after confirming DLAB.
+- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+---
+ drivers/tty/serial/8250/8250_dw.c    |  9 ++++++++-
+ drivers/tty/serial/8250/8250_dwlib.c | 15 +++++++++++----
+ drivers/tty/serial/8250/8250_dwlib.h |  2 ++
+ 3 files changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index eca02e8bd6d1..d036a2fe258a 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -190,6 +190,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_port_data *pd = p->private_data;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+ 	int ret;
+ 
+@@ -201,6 +202,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+ 		goto idle_failed;
+ 
++	if (pd->dlf_size)
++		dw8250_set_divisor_dlf(p, quot_frac);
+ 	serial_dl_write(up, quot);
+ 	serial_port_out(p, UART_LCR, up->lcr);
+ 
+@@ -651,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
+ 
+ 	p->set_ldisc	= dw8250_set_ldisc;
+ 	p->set_termios	= dw8250_set_termios;
+-	p->set_divisor	= dw8250_set_divisor;
+ 
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -768,6 +770,11 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	if (!data->skip_autocfg)
+ 		dw8250_setup_port(p);
+ 
++	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
++	if (data->data.dlf_size)
++		p->get_divisor = dw8250_get_divisor_dlf;
++	p->set_divisor = dw8250_set_divisor;
 +
-+	/* quirk for Huawei MateBooks with Raptor Lake */
-+	struct hda_codec *rpl_recheck_codec;
-+	struct delayed_work rpl_recheck_work;
+ 	/* If we have a valid fifosize, try hooking up DMA */
+ 	if (p->fifosize) {
+ 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index 9bb02a4ab11f..88562c8d5d1d 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -23,8 +23,8 @@
+  * we have: div(F) * (16 * baud) = rem
+  * so frac = 2^dlf_size * rem / (16 * baud) = (rem << dlf_size) / (16 * baud)
+  */
+-static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+-				       unsigned int *frac)
++unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud,
++				  unsigned int *frac)
+ {
+ 	unsigned int quot, rem, base_baud = baud * 16;
+ 	struct dw8250_port_data *d = p->private_data;
+@@ -35,11 +35,18 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+ 
+ 	return quot;
+ }
++EXPORT_SYMBOL_GPL(dw8250_get_divisor_dlf);
++
++void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac)
++{
++	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
++}
++EXPORT_SYMBOL_GPL(dw8250_set_divisor_dlf);
+ 
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
+-	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
++	dw8250_set_divisor_dlf(p, quot_frac);
+ 	serial8250_do_set_divisor(p, baud, quot);
+ }
+ 
+@@ -217,7 +224,7 @@ void dw8250_setup_port(struct uart_port *p)
+ 
+ 	if (reg) {
+ 		pd->dlf_size = fls(reg);
+-		p->get_divisor = dw8250_get_divisor;
++		p->get_divisor = dw8250_get_divisor_dlf;
+ 		p->set_divisor = dw8250_set_divisor;
+ 	}
+ 
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 39fcb1b323ad..7191cabfb086 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -97,6 +97,8 @@ struct dw8250_port_data {
+ 	int		srbr;
  };
  
++unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud, unsigned int *frac);
++void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac);
+ void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+ void dw8250_setup_port(struct uart_port *p);
  
-@@ -312,6 +316,7 @@ enum {
- 	CXT_FIXUP_HP_A_U,
- 	CXT_FIXUP_ACER_SWIFT_HP,
- 	CXT_FIXUP_HUAWEI_MATEBOOK_HP,
-+	CXT_FIXUP_HUAWEI_MATEBOOK_RPL,
- };
- 
- /* for hda_fixup_thinkpad_acpi() */
-@@ -863,6 +868,143 @@ static const struct hda_pintbl cxt_pincfg_sws_js201d[] = {
- 	{}
- };
- 
-+/*
-+ * Huawei MateBooks with Raptor Lake and SN6140 (e.g. the MateBook 16s
-+ * 2023): the speaker amp and the headphone jack are both fed from the
-+ * pin 0x16 line.  The speaker amp is gated by the EAPD of pin 0x17, the
-+ * jack tap by GPIO1 - none of which matches the BIOS pin config.  Point
-+ * pin 0x16 at the DAC the parser leaves unmuted for the current jack
-+ * state, keep the tap open, and gate the speaker amp via EAPD.
-+ */
-+static void cxt_matebook_raptor_lake_coerce(struct hda_codec *codec, bool hp)
-+{
-+	snd_hda_codec_write_cache(codec, 0x16, 0,
-+				  AC_VERB_SET_CONNECT_SEL, hp ? 0x0 : 0x1);
-+	snd_hda_codec_write_cache(codec, 0x17, 0,
-+				  AC_VERB_SET_EAPD_BTLENABLE, hp ? 0x0 : 0x2);
-+	/* keep the jack tap on the shared line open; with the speaker amp
-+	 * gated separately this is correct in both jack states
-+	 */
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_MASK, 0x02);
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_DIRECTION, 0x02);
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_DATA, 0x00);
-+}
-+
-+/* jack presence right at a plug event bounces for a few milliseconds;
-+ * sample it once, debounced, and use that one value everywhere below
-+ */
-+static bool cxt_matebook_raptor_lake_jack_present(struct hda_codec *codec)
-+{
-+	bool a = snd_hda_jack_detect(codec, 0x16);
-+
-+	if (snd_hda_jack_detect(codec, 0x16) != a) {
-+		msleep(100);
-+		return snd_hda_jack_detect(codec, 0x16);
-+	}
-+	return a;
-+}
-+
-+static void cxt_matebook_raptor_lake_apply(struct hda_codec *codec, bool hp)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+
-+	spec->gen.hp_jack_present = hp;
-+	snd_hda_gen_update_outputs(codec);
-+	cxt_matebook_raptor_lake_coerce(codec, hp);
-+}
-+
-+/*
-+ * Right after the codec powers back up every reader of the pin sense -
-+ * ours and the parser's alike - can see garbage.  Re-apply everything
-+ * from a settled read a bit later, which heals any misguess made at
-+ * init or during a jack event.
-+ */
-+static void cxt_matebook_raptor_lake_recheck(struct work_struct *work)
-+{
-+	struct conexant_spec *spec = container_of(work, struct conexant_spec,
-+						  rpl_recheck_work.work);
-+	struct hda_codec *codec = spec->rpl_recheck_codec;
-+
-+	if (codec) {
-+		bool hp = snd_hda_jack_detect(codec, 0x16);
-+
-+		codec_dbg(codec, "matebook-rpl: recheck hp=%d\n", hp);
-+		cxt_matebook_raptor_lake_apply(codec, hp);
-+	}
-+}
-+
-+/* the parser reprograms pin 0x17 and the DAC amps on jack events; the
-+ * recheck heals a stale presence sample taken while the contact still
-+ * bounces
-+ */
-+static void cxt_matebook_raptor_lake_update_outputs(struct hda_codec *codec)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+	bool hp = cxt_matebook_raptor_lake_jack_present(codec);
-+
-+	codec_dbg(codec, "matebook-rpl: hook hp=%d\n", hp);
-+	cxt_matebook_raptor_lake_apply(codec, hp);
-+	mod_delayed_work(system_wq, &spec->rpl_recheck_work,
-+			  msecs_to_jiffies(600));
-+}
-+
-+/* our own jack callback: the unsol -> automute_hook chain is
-+ * unreliable on this machine (stays silent while a stream keeps the
-+ * codec awake); apply immediately and keep the delayed recheck as the
-+ * safety net for anything the debounced sample got wrong
-+ */
-+static void cxt_matebook_raptor_lake_jack_event(struct hda_codec *codec,
-+					       struct hda_jack_callback *jack)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+	bool hp = cxt_matebook_raptor_lake_jack_present(codec);
-+
-+	codec_dbg(codec, "matebook-rpl: jack event\n");
-+	cxt_matebook_raptor_lake_apply(codec, hp);
-+	mod_delayed_work(system_wq, &spec->rpl_recheck_work,
-+			  msecs_to_jiffies(600));
-+}
-+
-+static void cxt_fixup_matebook_raptor_lake(struct hda_codec *codec,
-+				  const struct hda_fixup *fix, int action)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		spec->gen.automute_hook = cxt_matebook_raptor_lake_update_outputs;
-+		INIT_DELAYED_WORK(&spec->rpl_recheck_work,
-+				  cxt_matebook_raptor_lake_recheck);
-+		spec->rpl_recheck_codec = codec;
-+		/* pin 0x17 drives the tap line; enabled once, like the
-+		 * Windows driver does
-+		 */
-+		snd_hda_codec_write_cache(codec, 0x17, 0,
-+					  AC_VERB_SET_CONNECT_SEL, 0x0);
-+		snd_hda_codec_write_cache(codec, 0x17, 0,
-+					  AC_VERB_SET_PIN_WIDGET_CONTROL,
-+					  0x40);
-+		break;
-+	case HDA_FIXUP_ACT_INIT:
-+		/* the parser's own view is the best guess at init; the
-+		 * delayed recheck above heals whatever it gets wrong
-+		 */
-+		snd_hda_jack_detect_enable_callback(codec, 0x16,
-+						    cxt_matebook_raptor_lake_jack_event);
-+		cxt_matebook_raptor_lake_apply(codec, spec->gen.hp_jack_present);
-+		schedule_delayed_work(&spec->rpl_recheck_work,
-+				      msecs_to_jiffies(600));
-+		break;
-+	case HDA_FIXUP_ACT_FREE:
-+		cancel_delayed_work_sync(&spec->rpl_recheck_work);
-+		spec->rpl_recheck_codec = NULL;
-+		break;
-+	}
-+}
-+
- static const struct hda_fixup cxt_fixups[] = {
- 	[CXT_PINCFG_LENOVO_X200] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -1062,6 +1204,10 @@ static const struct hda_fixup cxt_fixups[] = {
- 			{ }
- 		},
- 	},
-+	[CXT_FIXUP_HUAWEI_MATEBOOK_RPL] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cxt_fixup_matebook_raptor_lake,
-+	},
- };
- 
- static const struct hda_quirk cxt5045_fixups[] = {
-@@ -1164,6 +1310,10 @@ static const struct hda_quirk cxt5066_fixups[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad/Ideapad", CXT_FIXUP_LENOVO_XPAD_ACPI),
- 	SND_PCI_QUIRK(0x19e5, 0x3289, "Huawei Matebook", CXT_FIXUP_HUAWEI_MATEBOOK_HP),
-+	SND_PCI_QUIRK(0x19e5, 0x3291, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3292, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3293, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3294, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
- 	SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
- 	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
- 	SND_PCI_QUIRK(0x1d05, 0x3012, "MECHREVO Wujie 15X Pro", CXT_FIXUP_HEADSET_MIC),
--- 
-2.56.0
+
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
