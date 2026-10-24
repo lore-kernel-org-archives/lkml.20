@@ -1,94 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792827464;
-	b=uQHQs3m0F0sOIJmLeJxk6fmFwyjZT8MeFuIEEoGsFAVm3ChTdn09gq1zg58EKJhjvm7v
-	 IK0ywOFrJQS4u5Klyq5gsxjg8OFsyvv+aBl9rowA/u79jXxK0+VIGlexODMiPs0FMokWZ
-	 Y98cr+z5R05HgDwuwaeIN20cj9aeGxY0GGHw+g5vyPLmxPGZwVf6tFdxHX6GaupshaUxq
-	 1thO/7Tryg31z9vaHZVSsmHymqOtKNq5UgVHTBISTvfoF5G/vtaxJ/vLPLSlFz+hTizFG
-	 3Vw2RyEaR5/bPUWmma7KEG/H98Xr40eMGpUt3DpXidgFIFlloP5UFgt0/yLQsZs4Ecw==
+	t=1792828036;
+	b=kduAVrCWHZ0ECsQ3zMnI2Dw+Vb8zSiHmmz4r+zP1KnWpfC43Hy2l4ygmNoxTiahALc2i
+	 J7wz6CBPfj6AVnpgZ+xEQLPXM/Vr1YpSXdZwzIDusoUXPt5mPq0c/F2bWzCPO3H1g0Afw
+	 K0j1zlfd8GIIzw/I3ibV0xFDASVgDoJbCjsdlJ2R3GKCJXoEd2SDGMBiSk7x4A46Bw5wq
+	 Vq4n15NQcGat56MvEqASM0W3iYDHXT0aJQoOKc9k50lFPiSA+afbUPSIdrIgfLFOIONcS
+	 a+bb0A9eI8ZMbJhlx9VeIRVSweg8+iFmaI1WczxneDgegOWTyeIenx0VUXL2zoQZv4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792827464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
-	b=YH1l9APj0Sb9uron8IiOzGRkK0mAiUummK682WGfHTx1nBBLk9j31GUXULjl3xnuPSqr
-	 iHg4cQ1S17WEwl72eTe1W0+eB/gANHUDytFzytjnqlima52QOQWrTCNywCLZ3JZbo6xcJ
-	 XbikIMT+pJfvheBACRUAI6B+MBuUFH1KJVFf8nOJDD76MrBGr/JOZpPFuHvid5iLThTkJ
-	 D0a/NcFRCk8wuoFCUKbp6j1PU1tJ7TUBAU/tEM0jnSXBc3vTI+QohFfMzquTadGjtzQAM
-	 AagHG8OmPAGoprbqmcT13dNrONEIQAmzRKloMZLRskYKcFKn4f9vYUZd0gMXGC2htWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792828036;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-USESPAMBG:From:To:Cc:Subject:Date:
+	 X-OQ-MSGID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ah8RfH5v6OYr6iRTpj8ge+YVLnDp8X2o3dtZGTD58eo=;
+	b=rltCKv1R090Ly+MPcqoVFEI785SY2GlSMtdxHXL5Ws46rwQ1leYzdVazKPYf9zuU9/qW
+	 uP7kZrDElyjDWN9c2STYkWWrGLqU7Rr7Jkmy09x4YuCmchGDmLhO8Jqd2aNve3IoiFKIs
+	 dtydPamKNq7sLH16sl+kdYbt3nBT6UIWCGesu5QOmkBj4E7vjCoaM20a5gTcc1WElI3Kr
+	 iRf8GgF05YIC4TJiUD/aVJK9GUSao+4oucOTI/OcTGRb+vnwwjQBuYYEWAw120CrUYdfL
+	 xDiGirUKhquO35avTXWS/OmiS2eNkPozGi5ubprKjoS3Z1vnrvYN9f1ZtxsFOGhKc+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qbtIkNoc;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=w+pf4eL8;
+	arc=none smtp.remote-ip=43.163.128.55
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.55])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF706606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:37:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF706606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2365606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2365606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qbtIkNoc
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso2399546eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792827463; x=1793432263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
-        b=qbtIkNocUInzBbe1NJ0k2D2r6wGOBKFmnv9Dk7rD1iV1uktCGw//EErLXowyFxAibE
-         6jDdJDp4WFaNf/bZtprPb88/jUYgkUbGwHYfEYdTJsPNrGwqhDvEdA0ZjJdtbslt85ev
-         0dK11bWPJ6+GHnEjXe/Uc2co4foPmKmRcF6wSIY5r+wYwap6QF8gIa92EgzeS08Rp2yT
-         nBCM/wknbNGriOk0IT6zcojAbnGZ3YqLcCUUgpTVI3/4kmSGdDfwFuF/9v6OYng5ATKe
-         E86AXzwOoaAH8X1QiNv6YIGQY9tHtfA41XAPVIZXyLs/L1LGF97YG2QA+HC9fPH/jHJO
-         GGyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792827463; x=1793432263;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
-        b=QCPKQu8TAQ7Xb5X3LxfNQ1DSXuHk7E8e5obXlnEbNzIBY2sgxxoxwuGXFnXBV9urjT
-         zKRhSzmrJldIZtChs2b4ZkSreT+i1AX2JB05Hco+auRtCtJQu4ipqlt0OD/zKXtq1dwS
-         N+kvlKmq2aqvAzu2MzT/hZSO/aXHz2KwqyhlOGVxSlZtooQjcDC7KNPrujlVt9K6fw+K
-         FbVKfNW1RYkceeWp768uy2OynsVEIP0Yrj0+TQpO/iiHtQhbmhimJ/hjlp8PgDSXc1aD
-         MVG9T4Auu7982aDkh2lM6++Dl+bGqwqcIgRJ4ro2jPXze++RoD7fqiqwQClk/oO7VvmK
-         +hBg==
-X-Forwarded-Encrypted: i=1; AKwUvByw1efSgIUqQAmHcxwi7gADHG2I+6gtZKbqsw9ltVUYaaf0nnzRQR4PXJ7SJHbTSQtAFCUfrhBpaV75mBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7a3zqVhQqsnRP/IkOWy6LxweDLJyvi3OBot6FH/Ba4+tycRRf
-	NuwaY4h1TWSREtLzw5Ra7kBhDDv/ZgA5JIe59mrs/3x7PliE46GtjVCc
-X-Gm-Gg: AYBFou0imkaXl9G+y7JlZA363RYZZ6ISfvj54B8HTukWqa0DDS8uLry7FBpOsLaChzk
-	5hwnpUa2TRNFH0fcRPBLX4sZ1T02A6fqITaw3XMnxGNj9/tMvVi21ofB7xH8LVneevZYMfOenkq
-	URuYC5AnHkfOmBE1qVYyfLJjtLkMwuvReyWbHpdC0i7OznCxSKAeIo4aPqHYm+bWwFaDzexMAZT
-	PdBSXr0nUn/CGgdXO44Kupyc/iJDRefH1E9opNrLpF9P8UmefYL3BG9SEB5fmZcoB5tpEVvdJJ2
-	u8hBzv3I5EnMla/rCFvFlTaoPcJj6xoYQUX8XcXDRIgL66vYWRzwkFsAGwCd1fGdtNdwjKMznH/
-	v21K0iZLC0Yv5boh/usKYfIbDOoRF//bL+XK50qB+kbexl32csjWoO2HaauINvFGamDBuIMJknD
-	N00Hax3loOy801EowSxzRg99mAjxi1GkFgzk5XIKhAGKUCvXxXX2hSbgYzpwXNabH73aCj2LGVX
-	e3IeQ5/oAdx8F5SN+Ci3/IcFrqbFlKdUYH2n9vWii2lP8iNNwA7rn8OYw2LKg1iwO/XCKfPruSz
-	1OnyFir5Fd2Kk6yp83IS
-X-Received: by 2002:a05:7301:1694:b0:368:da6c:4fb6 with SMTP id 5a478bee46e88-369e84ba936mr2974905eec.18.1792827462776;
-        Sat, 24 Oct 2026 00:37:42 -0700 (PDT)
-Received: from himanshubakshi ([2401:4900:1c9b:1c1b:d646:355d:1105:8655])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm5294951eec.13.2026.10.24.00.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 00:37:42 -0700 (PDT)
-From: himanshu bakshi <himanshu.bakshi478@gmail.com>
-To: sudipm.mukherjee@gmail.com
-Cc: teddy.wang@siliconmotion.com,
-	gregkh@linuxfoundation.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-Subject: [PATCH] staging: sm750fb: clean up PLL calculation code
-Date: Sat, 24 Oct 2026 13:05:49 +0530
-Message-ID: <20261024073549.29531-1-himanshu.bakshi478@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=w+pf4eL8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792828031; bh=ah8RfH5v6OYr6iRTpj8ge+YVLnDp8X2o3dtZGTD58eo=;
+	h=From:To:Cc:Subject:Date;
+	b=w+pf4eL8pW2BWe4LQtKh5kmPCl6pzC8KxFmXVEsJofRRPjJumRmhLTzpfxCeHwE1S
+	 wAfduBu5t2c4Ww7R7Twuno9Xfsz1f5m8/1abm7RvZ8xUuZWMZ6RPJXG9EZ/2KHVnsM
+	 dRc7X7aSgp+0GBWw4cXAY04jcyqJqrNicH3GFkvU=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id BC9926FE; Sat, 24 Oct 2026 15:47:09 +0800
+X-QQ-mid: xmsmtpt1792828029tygxfm8yk
+Message-ID: <tencent_572AA31E5369BE41464E9DDA4CEDA2DA7C09@qq.com>
+X-QQ-XMAILINFO: MMvVzQSdFuTpdNSqRJc+XE/41x6b9sScCnCsoioCr2kejld7QaiKnKuHS7QsXL
+	 U4XeL7927WYVdsD53LTN0avhEoPmy2fb58DjGXvQfK5ztD35S+IPW8pvF8q2FuP0EDpHrVZemgYY
+	 vn74SBxrP/jPf7ra7OKb0e9OKIf6iRWxsB4L03qdyjWYcmNoppd/OnUIE+xGwohmY+cyAzJj2Bnb
+	 IsxXytK5ujvG22he8DwYpGXgZgNqLsqBM5Y58bPSHEdNAV97Jno+NIN546DSNmZ6NSRDUOJIE/IH
+	 lik/UsxYnOMGoTIjah0I08ChwfHRYhiw2ZCtKehQhuSqLWkN0BPva2eufCQwI6V7L1nNRqPwGDE5
+	 7ZBswPXXLwyrTb1VBciV+HA73v1EWGsbR8q4W62N4wBmCmP7ltJ8KdiYAkofrJQwuBJwnqpnwNCd
+	 9FlE0WZ5ZOVl8VeooaISwElEULTq5AZmVVsSZ2NgcJWBHjeNfb+B+4Y3zdh7GLWq7kUmzsd7xN06
+	 UOzhmeIfWSRBzScI7ikqgGCG5z8gFneQgiXq1S9BUGMk/d4wCf0N/8+aWqbkHoX7WCXXTIrFP8Mh
+	 tfpoINimL3hL9B10ad1bdDvENaB6eKhYD3ZVzXFm7Ptn8tJHvwfw1MbrceWOabMN/f0RHrrNlbU5
+	 oUH4ki1YphTmCTXEFZKy/N9G6/ERTnoK1LAyihf/2UjGHv2zfHnUQN0fAHU8DaKw23sTKy/uG32I
+	 Q7X1fcfhPTnAvfROckR8WzdWqgVaoQzsE2rWUTj7EtwIpFUo1pR0fyhu4HdgQzzGVYuO+hbpdO8L
+	 xAHamjFUg/s+7ywqqTniPjSfyMDweaO1fk58OvK8j9/Jfm8hPlGnxvtnbJu/JJ+q5TcppGRKQNmC
+	 1PCSiwpPPn+QHERxLcHVgpJGxngVpdR1XgYktYXT7FadAzy7uHX42cTKgicAvqWvsfYqin/alMLT
+	 yVQtqlod+//5SgnIqKW0QJs94HsA6S78/oviWVFcO1aH3v/OpSiaMuBkpyxBkW4WWSDf2Yh/SanG
+	 pDRgW7hgylNn2JowpFBLyM+s9ql5htmb/e6YPiWPMnewXkQuN+0Pn1FNvyJhnvuWfKMd4qnVEixE
+	 +0PKhl
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-USESPAMBG: true
+From: Guikun Yang <yangguikun19@qq.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [BUG] sched_ext: sub-scheduler kfuncs use struct scx_sched beyond the RCU read side under sleepable ops
+Date: Sat, 24 Oct 2026 15:47:07 +0800
+X-OQ-MSGID: <20261024154707.71448-sched-ext-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,142 +76,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Hi Tejun,
 
-Improve the PLL calculation function's documentation and
-readability.
+The four sub-scheduler kfuncs scx_bpf_sub_grant(), scx_bpf_sub_revoke(),
+scx_bpf_sub_caps() and scx_bpf_sub_kill_bstr() obtain the child
+scheduler through scx_find_sub_sched(), which is an
+rhashtable_lookup() call.  rhashtable_lookup() is the _fast variant:
+it takes and releases the RCU read lock internally, so the returned
+struct scx_sched * is only valid inside the caller's own RCU read-side
+critical section.
 
-Simplify candidate selection by skipping candidates that do
-not improve the frequency error, and defer updating the PLL
-parameters until the best candidate has been selected.
+The kfuncs themselves only take guard(irqsave)() (sub.c:2323).  They do
+not hold an RCU read lock and take no reference on the scheduler, yet
+they use the returned pointer for their whole body, for example in
+scx_bpf_sub_grant():
 
-Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
----
- drivers/staging/sm750fb/ddk750_chip.c | 84 +++++++++++++++++----------
- 1 file changed, 54 insertions(+), 30 deletions(-)
+	struct scx_pshard *pps = parent->pshard[si];
+	struct scx_pshard *cps = child->pshard[si];
+	...
+	scoped_guard (raw_spinlock, &pps->lock) {
+		guard(raw_spinlock_nested)(&cps->lock);
+		...
+		scx_cmask_for_each_cid(cid, changed_cids)
+			queue_sync_ecaps(child, cid);
 
-diff --git a/drivers/staging/sm750fb/ddk750_chip.c b/drivers/staging/sm750fb/ddk750_chip.c
-index aa78d0bc1..74ce320b6 100644
---- a/drivers/staging/sm750fb/ddk750_chip.c
-+++ b/drivers/staging/sm750fb/ddk750_chip.c
-@@ -269,21 +269,18 @@ int ddk750_init_hw(struct initchip_param *p_init_param)
- }
- 
- /*
-- * monk liu @ 4/6/2011:
-- *	re-write the calculatePLL function of ddk750.
-- *	the original version function does not use
-- *	some mathematics tricks and shortcut
-- *	when it doing the calculation of the best N,M,D combination
-- *	I think this version gives a little upgrade in speed
-+ * Calculate the PLL parameters that produce the clock frequency
-+ * closest to the requested frequency.
-  *
-- * 750 pll clock formular:
-- * Request Clock = (Input Clock * M )/(N * X)
-+ * The SM750 PLL uses the following formula:
-  *
-- * Input Clock = 14318181 hz
-- * X = 2 power D
-- * D ={0,1,2,3,4,5,6}
-- * M = {1,...,255}
-- * N = {2,...,15}
-+ *     request_clock = (input_clock * M) / (N * 2^D)
-+ *
-+ * M ranges from 1 to 255, N from 2 to 15, and D from 0 to 6.
-+ * The selected parameters minimize the difference between the
-+ * resulting clock frequency and the requested frequency.
-+ *
-+ * Original implementation by Monk Liu @ 4/6/2011.
-  */
- unsigned int sm750_calc_pll_value(unsigned int request_orig,
- 				  struct pll_value *pll)
-@@ -293,12 +290,15 @@ unsigned int sm750_calc_pll_value(unsigned int request_orig,
- 	 * N located in 2,15 and M located in 1,255
- 	 */
- 	int N, M, X, d;
-+	unsigned long N_best, M_best, POD_best, OD_best;
-+	unsigned int diff;
- 	int mini_diff;
- 	unsigned int RN, quo, rem, fl_quo;
- 	unsigned int input, request;
- 	unsigned int tmp_clock, ret;
- 	const int max_OD = 3;
- 	int max_d = 6;
-+	bool found_best = false;
- 
- 	if (sm750_get_chip_type() == SM750LE) {
- 		/*
-@@ -335,26 +335,50 @@ unsigned int sm750_calc_pll_value(unsigned int request_orig,
- 			X = BIT(d);
- 			M = quo * X;
- 			M += fl_quo * X / 10000;
-+
- 			/* round step */
--			M += (fl_quo * X % 10000) > 5000 ? 1 : 0;
--			if (M < 256 && M > 0) {
--				unsigned int diff;
--
--				tmp_clock = pll->input_freq * M / N / X;
--				diff = abs(tmp_clock - request_orig);
--				if (diff < mini_diff) {
--					pll->M = M;
--					pll->N = N;
--					pll->POD = 0;
--					if (d > max_OD)
--						pll->POD = d - max_OD;
--					pll->OD = d - pll->POD;
--					mini_diff = diff;
--					ret = tmp_clock;
--				}
--			}
-+			if ((fl_quo * X % 10000) > 5000)
-+				M++;
-+
-+			/* Reject M values outside the supported range. */
-+			if (M >= 256 || M <= 0)
-+				continue;
-+
-+			/* Calculate the resulting clock frequency. */
-+			tmp_clock = pll->input_freq * M / N / X;
-+			diff = abs(tmp_clock - request_orig);
-+
-+			/*
-+			 * Skip candidates that do not
-+			 * improve the frequency error.
-+			 */
-+			if (diff >= mini_diff)
-+				continue;
-+
-+			/* Update the best PLL parameters. */
-+			M_best = M;
-+			N_best = N;
-+			POD_best = 0;
-+
-+			if (d > max_OD)
-+				POD_best = d - max_OD;
-+
-+			OD_best = d - POD_best;
-+			mini_diff = diff;
-+			ret = tmp_clock;
-+
-+			found_best = true;
- 		}
- 	}
-+
-+	/* Apply the best PLL parameters if a valid candidate was found. */
-+	if (found_best) {
-+		pll->M = M_best;
-+		pll->N = N_best;
-+		pll->POD = POD_best;
-+		pll->OD = OD_best;
-+	}
-+
- 	return ret;
- }
- 
--- 
-2.56.0
+These four kfuncs are registered in scx_kfunc_ids_any (ext.c:10868),
+and the context filter unconditionally admits in_any:
+
+	if (in_any || in_idle || in_cid)
+		return 0;
+
+so they are callable from every sched_ext op, including the ops that
+bpf_scx_check_member() (ext.c:8194) explicitly allows to be sleepable:
+init_task, cgroup_init, cgroup_exit, cgroup_prep_move,
+cgroup_set_bandwidth, cpu_online, cpu_offline, init_cids, init, exit,
+sub_attach, sub_detach.
+
+A sleepable struct_ops program holds no normal RCU read lock.  The
+sleepable trampoline only takes rcu_read_lock_trace() and
+migrate_disable() (kernel/bpf/trampoline.c:1446), and the framework
+documents this at ext.c:10567:
+
+	/* KF_RCU covers only @p - a sleepable program holds no RCU lock */
+
+On the teardown side, sub-scheduler destruction drains only normal RCU:
+
+	/*
+	 * All tasks are moved off of @sch but there may still be on-going
+	 * operations (e.g. ops.select_cpu()).  Drain them by flushing RCU.
+	 * ...
+	 */
+	synchronize_rcu_expedited();
+	scx_disable_bypass_dsp(sch);
+	scx_unlink_sched(sch);
+
+(sub.c:1626) and the release runs from scx_kobj_release() via
+queue_rcu_work() into scx_sched_free_rcu_work(), which ends in
+scx_free_pshards() (kfree of the pshard array, sub.c:135).
+
+There is no synchronize_rcu_tasks_trace(), call_rcu_tasks_trace() or
+kfree_rcu_tasks anywhere under kernel/sched/ext/.  A normal RCU
+grace period does not wait for rcu_read_lock_trace() sections, so a
+sleepable op running inside the teardown window keeps using the freed
+scheduler object.
+
+Trigger sequence:
+
+1. The parent scheduler implements ops.cgroup_set_bandwidth as a
+   sleepable program (explicitly allowed).  Its caller,
+   scx_group_set_bandwidth() (ext.c:5044), only holds
+   scx_cgroup_ops_rwsem, not scx_enable_mutex, so it can run
+   concurrently with sub-scheduler teardown.
+
+2. The op calls scx_bpf_sub_grant(child_cgroup_id, ...) (or
+   sub_caps/sub_revoke/sub_kill_bstr).  The kfunc resolves "child"
+   once in sub_cap_preamble() (sub.c:2270) and then dereferences it
+   throughout.
+
+3. Concurrently the sub-scheduler is torn down (its dispatch calls
+   scx_bpf_sub_kill_bstr() which goes through scx_exit_bstr(), or the
+   sub-scheduler itself calls scx_bpf_exit(), or a scx_error() fires).
+   synchronize_rcu_expedited() does not stop the sleepable op; the
+   reference count reaches zero, scx_kobj_release() queues
+   scx_sched_free_rcu_work(), and scx_free_pshards() kfrees
+   child->pshard[].
+
+4. The still-running sleepable op reads the freed child->pshard[si],
+   takes its raw spinlock, writes caps_updated and the delivery list,
+   and calls queue_sync_ecaps(child, cid), which also reads
+   child->pcpu after free_percpu().  A sleepable program only has
+   migrate_disable(); it can be preempted, so the window is wide.
+
+Impact: kernel use-after-free.  Under KASAN this is a clean
+slab-use-after-free on struct scx_pshard and on the scheduler object.
+In production the corrupted raw spinlock and list nodes lead to
+arbitrary later crashes.  Loading a sched_ext program requires
+privileges, so this is not an unprivileged attack surface, but the
+kernel is crashing on an API-legal call sequence.
+
+I verified against linux-next (2026-10-23 snapshot of
+kernel/sched/ext/sub.c, 3198 lines vs 2682 in 7.3.0-rc7): the four
+kfuncs are still in scx_kfunc_ids_any, the sleepable whitelist is
+unchanged, scx_group_set_bandwidth() still takes no scx_enable_mutex,
+and there is still no tasks-trace RCU anywhere in the directory.  The
+new nr_ecaps_reports/ecaps_report_wait mechanism (7.4 series) covers
+per-cpu ecaps reporting, not this path.
+
+For contrast, the DSQ iterator (bpf_iter_scx_dsq_new) has exactly this
+problem and solves it with KF_RCU_PROTECTED plus the verifier's
+MEM_RCU handling, which makes sleepable programs wrap the iterator in
+bpf_rcu_read_lock().  The sub kfuncs take a cgroup id (an integer), so
+the verifier has nothing to track and there is no equivalent
+enforcement.
+
+Possible fixes (for you to pick from):
+
+  1. Take a kobject reference on the resolved scheduler and drop it on
+     return (kobject_get/kobject_put).  The pshard free happens after
+     the kobject refcount reaches zero, so holding a reference closes
+     the window.
+
+  2. Move the sub kfuncs out of scx_kfunc_ids_any into a group
+     constrained by the per-op allow table, and drop the relevant ops
+     from the sleepable whitelist.
+
+  3. Make scx_group_set_bandwidth()/scx_group_set_weight()/
+     scx_group_set_idle() hold scx_enable_mutex while calling the op,
+     serializing sleepable cgroup ops with teardown.  This fits the
+     existing design (the other sleepable ops already run under
+     scx_enable_mutex) at the cost of a global mutex on top of the
+     percpu rwsem.
+
+Full analysis with line references against 7.3.0-rc7:
+
+  sub.c:95      scx_find_sub_sched() - rhashtable_lookup()
+  sub.c:2270    sub_cap_preamble() - child resolved here
+  sub.c:2323    guard(irqsave)() in scx_bpf_sub_grant()
+  sub.c:2346    child->pshard[si] usage loop
+  sub.c:2570    scx_bpf_sub_caps() same pattern
+  ext.c:8194    bpf_scx_check_member() sleepable whitelist
+  ext.c:10567   "KF_RCU covers only @p" comment
+  ext.c:10868   scx_kfunc_ids_any registration
+  ext.c:10975   scx_kfunc_context_filter() in_any passthrough
+  ext.c:5519    scx_kobj_release() -> queue_rcu_work()
+  ext.c:5492    scx_sched_free_rcu_work() -> scx_free_pshards()
+  trampoline.c:1446 __bpf_prog_enter_sleepable()
+
+Thanks,
+Guikun Yang
 
