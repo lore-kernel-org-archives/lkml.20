@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792859156;
-	b=LtOvkIai4xDliQrdJnaHQ0EhluJ5DetP02DdikhiuQHhmnO54x74kJUZ8jad8SM/2pU2
-	 XAq1Q6UXi9DPFHMLxoomAKAio1Wero+LUmS4iMfmVrsAXecaNy/oN+aVTLAOntezgJVVM
-	 zvlCjvSoQ0YnxIH4cdCY2FAcpg7/HeJNfL+CVZOInRbKeTCNwXyD3QOQM4ID0l7UR6Qtt
-	 s0RwuRZklINZ87YpI/ahmJmKQNO7dN337/o4fQoceuO2qg8jUOiKIPHPTfO7J//2/RoNQ
-	 WJ6z+5rs/6pmnFCzKEyXovs36F+CWzNFGtjIFJ0bwyaapm3GabwaVctizsTWXLm8oag==
+	t=1792859170;
+	b=uN8k8PtlNzJDe+hqZTOKFz2pcIMd63an89uJRrEsQCuOh6c2O3CfxBGYuU16fnUFQhrm
+	 zcDfV0LoRa7x0ZJrAjRfiztfb3FSq6FjPmtJyCUcfZLvKVnJF3d+/iUAK+1934cFDLCn3
+	 qmGKQD01VekEtygOd8zDp8MJpGkwHNzseOXheMuIIW2cQJujpfYvmmk2nvURR+hD6KOt0
+	 dL+mNcg8TyCiXPcEorvkg6w6A9XxdxUlkZO8qIr+gan0EoXaLE0mBot2ystZ5NNfR89kk
+	 E3ZHFR4t+2B7ztbSpvJpFGOZeZmnSNLPZL6rnyi18TGMwpzdkvEcPop5Vo/QTtLuiqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792859156;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dX070Ewz6qc5pSc5W0pr0hTHo3VE/xkTK0rhCXuN9c4=;
-	b=1nTN91L5ZYBcCuxIT0Hkj+o0V7+0GJ/SiqADS8y+BvNBTSEkCVTa9q5TWAvNdpi6wvp8
-	 gh+0s4uPXlaM2R36hZNeKqyQMGyK6loys5Fptyn/FV0Fsvt8jUw6lHajMEEw0cYZ4rfa0
-	 Y8o2FRJf1kwfrRRgiP9XKNR9JUOl26SdDu8mPp0wNjdKxXLS4obxKywJbjWH6HmYw//ny
-	 u4l7IKypqLwgNZZbZ/9m7dsLb9qmUl2mf3pd+1Df9ftrS2og7btx8TSrGnOby7fCNR+Ka
-	 8V3ba4wvxTOZg7vnunIr1uUUrV9ls8rEWL/a4d1XbgQfjzxLelQuessvWHQ6AsFcrQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859170;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=z/p2VUdb1mRboXHrAHabwKrriZCrUMsu8HfRneN5UBc=;
+	b=a8nrZ6bdImkmLpl29ZeqiNnl/QCrvImcw5d8rbQybxHZS6NthXcgOEmUMtwGZRgDcSCH
+	 mqdAcif0NjrGdvT1NM6lEpQO451DsSLcb/QD88QPw49wDNhniE2HTzstUQ+E5987HBcrx
+	 syr8MibotxOZ6J5ZwfZFr85Otp4iEP2R9CL2sPtCzc9H0s+hejKofN1DD/9mA5okVp23c
+	 ncnr+wFLqagCeZiJ14Hhk1lWlVZoWsf/9qCXgs8dBQFaCOvww0y/jqWNpQ0BjYDyqkcSW
+	 IGgjaVI3Q1GKbXWfdQF3eEzvKNcgkK0+vRYv0b8jYrjLB0TR/AAr5p+ZlGAmD8y9KPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIJvUOFu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=c7au+LeJ;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47754606A31D;
-	Sat, 24 Oct 2026 16:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF9B606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF9B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIJvUOFu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C27C1F01829;
-	Sat, 24 Oct 2026 16:25:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792859155;
-	bh=dX070Ewz6qc5pSc5W0pr0hTHo3VE/xkTK0rhCXuN9c4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aIJvUOFu69yVoyLVnTDtLpA6NUyYaSuZCbBYBWypd3if4KXt9g3uJ9Dfvk6421Nmz
-	 pcDLj7GVwctBrZ4Sb0tsP4zAWMvvow3MHqC+gQXwpi4R1E2v1gcio34OIuaJrjDvQg
-	 WZ64xIhcg7ci8j1xhV8p8lnRmr29Oz+Gf1zOYSp2gBekXhrQ4bpyITiyUSNLAnBdZe
-	 LIz7urykTa8m68SnnlIEbQf9TthB8F4Kk6LDbdzBslINg626ugXx8GD0DvI53oR78E
-	 qel+BsqM3YAT4fR0P0Nohv6paAicayymf+SHrXAjZj1jjO7dRniED8Nw85JONH00e4
-	 jol3jz5QcZmcw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 03/10] tracing/filters: Check CPU bounds before cpumask_test_cpu() in do_filter_cpumask_scalar()
-Date: Sun, 25 Oct 2026 01:25:52 +0900
-Message-ID: <179285915196.466249.7067056297377577459.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179285912318.466249.7425922682086130057.stgit@devnote2>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=c7au+LeJ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792859166; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=z/p2VUdb1mRboXHrAHabwKrriZCrUMsu8HfRneN5UBc=;
+	b=c7au+LeJFC6fIK4KmU1przhw+K89Mz43517nZqJrJsPz8/GqDyo5g/io+6dzQ6iO7IKdJySomoffTATDqduozK3Ox1tHH2N3Ifo4MEHNZyHfpvZFwdN+MeqfiR3YaerAmAUUA7Cs2uDXt+XgApKqVXOyU6naHBrdFzBjgb7hY1A=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDOXgDK_1792859165;
+Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDOXgDK_1792859165 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 25 Oct 2026 00:26:06 +0800
+Message-ID: <d7cc3c11-c99e-4f25-8de8-bf8779810239@linux.alibaba.com>
+Date: Sun, 25 Oct 2026 00:26:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,43 +53,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] ocfs2: replace ocfs2-specific inode flags with
+ generic ones
+To: Anthony Iliopoulos <ailiop@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261022130457.69343-1-ailiop@suse.com>
+ <20261022130457.69343-3-ailiop@suse.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261022130457.69343-3-ailiop@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-In parse_pred(), single-CPU cpumask filters are parsed via cpulist_parse(),
-which checks against nr_cpumask_bits (NR_CPUS). When NR_CPUS > nr_cpu_ids,
-a user can provide a CPU number where cpu >= nr_cpu_ids.
 
-When evaluating such a predicate in filter_pred_cpumask_cpu(),
-do_filter_cpumask_scalar() calls cpumask_test_cpu(cpu, mask) without
-checking cpu against nr_cpu_ids. This triggers a WARN_ON_ONCE under
-CONFIG_DEBUG_PER_CPU_MAPS and causes an out-of-bounds bit test.
+On 10/22/26 9:04 PM, Anthony Iliopoulos wrote:
+> The ocfs2 inode flag macros are alias definitions for the generic fs
+> flags. Remove these redundant macros, most of which are anyway unused,
+> and use the generic flags directly.
+> 
+> Signed-off-by: Anthony Iliopoulos <ailiop@suse.com>
 
-Check "cpu >= nr_cpu_ids" at the start of do_filter_cpumask_scalar(). When
-the CPU index is out of bounds, return "op == OP_NE" since an out-of-range
-CPU is never present in a valid cpumask.
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Fixes: 38c6f6808389 ("tracing/filters: Further optimise scalar vs cpumask comparison")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_events_filter.c |    3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index c2c35b4de85e..69da95f42541 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -695,6 +695,9 @@ do_filter_scalar_cpumask(int op, unsigned int cpu, const struct cpumask *mask)
- static inline int
- do_filter_cpumask_scalar(int op, const struct cpumask *mask, unsigned int cpu)
- {
-+	if (cpu >= nr_cpu_ids)
-+		return op == OP_NE;
-+
- 	switch (op) {
- 	case OP_EQ:
- 		return cpumask_test_cpu(cpu, mask) &&
+> ---
+>  fs/ocfs2/inode.c    | 24 ++++++++++++------------
+>  fs/ocfs2/ioctl.c    |  8 ++++----
+>  fs/ocfs2/ocfs2_fs.h | 27 ---------------------------
+>  3 files changed, 16 insertions(+), 43 deletions(-)
+> 
+> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> index 180107a11046..64d92d30aa31 100644
+> --- a/fs/ocfs2/inode.c
+> +++ b/fs/ocfs2/inode.c
+> @@ -107,16 +107,16 @@ void ocfs2_set_inode_flags(struct inode *inode)
+>  	inode->i_flags &= ~(S_IMMUTABLE |
+>  		S_SYNC | S_APPEND | S_NOATIME | S_DIRSYNC);
+>  
+> -	if (flags & OCFS2_IMMUTABLE_FL)
+> +	if (flags & FS_IMMUTABLE_FL)
+>  		inode->i_flags |= S_IMMUTABLE;
+>  
+> -	if (flags & OCFS2_SYNC_FL)
+> +	if (flags & FS_SYNC_FL)
+>  		inode->i_flags |= S_SYNC;
+> -	if (flags & OCFS2_APPEND_FL)
+> +	if (flags & FS_APPEND_FL)
+>  		inode->i_flags |= S_APPEND;
+> -	if (flags & OCFS2_NOATIME_FL)
+> +	if (flags & FS_NOATIME_FL)
+>  		inode->i_flags |= S_NOATIME;
+> -	if (flags & OCFS2_DIRSYNC_FL)
+> +	if (flags & FS_DIRSYNC_FL)
+>  		inode->i_flags |= S_DIRSYNC;
+>  }
+>  
+> @@ -125,18 +125,18 @@ void ocfs2_get_inode_flags(struct ocfs2_inode_info *oi)
+>  {
+>  	unsigned int flags = oi->vfs_inode.i_flags;
+>  
+> -	oi->ip_attr &= ~(OCFS2_SYNC_FL|OCFS2_APPEND_FL|
+> -			OCFS2_IMMUTABLE_FL|OCFS2_NOATIME_FL|OCFS2_DIRSYNC_FL);
+> +	oi->ip_attr &= ~(FS_SYNC_FL | FS_APPEND_FL | FS_IMMUTABLE_FL |
+> +			FS_NOATIME_FL | FS_DIRSYNC_FL);
+>  	if (flags & S_SYNC)
+> -		oi->ip_attr |= OCFS2_SYNC_FL;
+> +		oi->ip_attr |= FS_SYNC_FL;
+>  	if (flags & S_APPEND)
+> -		oi->ip_attr |= OCFS2_APPEND_FL;
+> +		oi->ip_attr |= FS_APPEND_FL;
+>  	if (flags & S_IMMUTABLE)
+> -		oi->ip_attr |= OCFS2_IMMUTABLE_FL;
+> +		oi->ip_attr |= FS_IMMUTABLE_FL;
+>  	if (flags & S_NOATIME)
+> -		oi->ip_attr |= OCFS2_NOATIME_FL;
+> +		oi->ip_attr |= FS_NOATIME_FL;
+>  	if (flags & S_DIRSYNC)
+> -		oi->ip_attr |= OCFS2_DIRSYNC_FL;
+> +		oi->ip_attr |= FS_DIRSYNC_FL;
+>  }
+>  
+>  struct inode *ocfs2_ilookup(struct super_block *sb, u64 blkno)
+> diff --git a/fs/ocfs2/ioctl.c b/fs/ocfs2/ioctl.c
+> index 2d95c1e5ad8b..2d962da9ba5c 100644
+> --- a/fs/ocfs2/ioctl.c
+> +++ b/fs/ocfs2/ioctl.c
+> @@ -78,7 +78,7 @@ int ocfs2_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+>  	flags = OCFS2_I(inode)->ip_attr;
+>  	ocfs2_inode_unlock(inode, 0);
+>  
+> -	fileattr_fill_flags(fa, flags & OCFS2_FL_VISIBLE);
+> +	fileattr_fill_flags(fa, flags & FS_FL_USER_VISIBLE);
+>  
+>  	return status;
+>  }
+> @@ -105,11 +105,11 @@ int ocfs2_fileattr_set(const struct mnt_idmap *idmap,
+>  	}
+>  
+>  	if (!S_ISDIR(inode->i_mode))
+> -		flags &= ~OCFS2_DIRSYNC_FL;
+> +		flags &= ~FS_DIRSYNC_FL;
+>  
+>  	oldflags = ocfs2_inode->ip_attr;
+> -	flags = flags & OCFS2_FL_MODIFIABLE;
+> -	flags |= oldflags & ~OCFS2_FL_MODIFIABLE;
+> +	flags = flags & FS_FL_USER_MODIFIABLE;
+> +	flags |= oldflags & ~FS_FL_USER_MODIFIABLE;
+>  
+>  	/* Check already done by VFS, but repeat with ocfs lock */
+>  	status = -EPERM;
+> diff --git a/fs/ocfs2/ocfs2_fs.h b/fs/ocfs2/ocfs2_fs.h
+> index c501eb3cdcda..53ddeb5e762f 100644
+> --- a/fs/ocfs2/ocfs2_fs.h
+> +++ b/fs/ocfs2/ocfs2_fs.h
+> @@ -235,33 +235,6 @@
+>  #define OCFS2_INDEXED_DIR_FL	(0x0008)
+>  #define OCFS2_HAS_REFCOUNT_FL   (0x0010)
+>  
+> -/* Inode attributes, keep in sync with EXT2 */
+> -#define OCFS2_SECRM_FL			FS_SECRM_FL	/* Secure deletion */
+> -#define OCFS2_UNRM_FL			FS_UNRM_FL	/* Undelete */
+> -#define OCFS2_COMPR_FL			FS_COMPR_FL	/* Compress file */
+> -#define OCFS2_SYNC_FL			FS_SYNC_FL	/* Synchronous updates */
+> -#define OCFS2_IMMUTABLE_FL		FS_IMMUTABLE_FL	/* Immutable file */
+> -#define OCFS2_APPEND_FL			FS_APPEND_FL	/* writes to file may only append */
+> -#define OCFS2_NODUMP_FL			FS_NODUMP_FL	/* do not dump file */
+> -#define OCFS2_NOATIME_FL		FS_NOATIME_FL	/* do not update atime */
+> -/* Reserved for compression usage... */
+> -#define OCFS2_DIRTY_FL			FS_DIRTY_FL
+> -#define OCFS2_COMPRBLK_FL		FS_COMPRBLK_FL	/* One or more compressed clusters */
+> -#define OCFS2_NOCOMP_FL			FS_NOCOMP_FL	/* Don't compress */
+> -#define OCFS2_ECOMPR_FL			FS_ECOMPR_FL	/* Compression error */
+> -/* End compression flags --- maybe not all used */
+> -#define OCFS2_BTREE_FL			FS_BTREE_FL	/* btree format dir */
+> -#define OCFS2_INDEX_FL			FS_INDEX_FL	/* hash-indexed directory */
+> -#define OCFS2_IMAGIC_FL			FS_IMAGIC_FL	/* AFS directory */
+> -#define OCFS2_JOURNAL_DATA_FL		FS_JOURNAL_DATA_FL /* Reserved for ext3 */
+> -#define OCFS2_NOTAIL_FL			FS_NOTAIL_FL	/* file tail should not be merged */
+> -#define OCFS2_DIRSYNC_FL		FS_DIRSYNC_FL	/* dirsync behaviour (directories only) */
+> -#define OCFS2_TOPDIR_FL			FS_TOPDIR_FL	/* Top of directory hierarchies*/
+> -#define OCFS2_RESERVED_FL		FS_RESERVED_FL	/* reserved for ext2 lib */
+> -
+> -#define OCFS2_FL_VISIBLE		FS_FL_USER_VISIBLE	/* User visible flags */
+> -#define OCFS2_FL_MODIFIABLE		FS_FL_USER_MODIFIABLE	/* User modifiable flags */
+> -
+>  /*
+>   * Extent record flags (e_node.leaf.flags)
+>   */
 
