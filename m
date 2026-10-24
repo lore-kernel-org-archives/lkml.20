@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792805904;
-	b=SwbXCw1BJH4Un2URRcomgD/wfVxGZSz0Jed2FKZmI47eepiffq+goUUMc3TDWQOhgVPm
-	 1pdoaKbmzb8a/bv0YOxBpkloW3+sdO5yQXks2OZOO/OnAtU7k4dcpkIQOwEb8csui5Hew
-	 fd7k+Rf7ZAvK91NSi97iyOoH7EdgGcQZXRr2G+jHkAs4VET/ccTp1EmeODG0J5De33tOM
-	 nNHzNw++jMrDVpX4O2L/vY28Oj0SkDgU1g4SA405Lk3qQUUrZQIgBadr93/xgicP9BBMP
-	 avwhE6pURVrLsbPunfuf64LmodATHIbl+Qn55O+BpCF2rg7GB8Ho8iM2FwR+u1jfDVw==
+	t=1792806050;
+	b=xWw4KW5Rri5pIA1MHh0hBcvitvDPOeCQXf3/yLfu8dsYZZDMvkN9uEZGKNcMwGmzkh1v
+	 1ZediqY6wyZTAzz8pfmLBrkcQ3qyLgkk9VGQdFsYPtwgd+yXRGIAECdOfb8fhP1XE+S74
+	 sdVFV6SApx36pIxV+Hh4CInGHhDKF0HnWAp/Qn0oxa0bgC1DrjQEc982bykOfRZdrIo8I
+	 FHpnRSPxipLB+oFgU106Qi1Bv10tqxxAVN+PIaINx7sOXwqKOSMEqv1nfUlVeO0DZ8OPI
+	 ppi1ov8jBqFEY5SPZa+AVvCRwJObr001Wxu/Od9TiyOmBqHIiGTh2iXUy2Ylxu0KXIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792805904;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GE6+U0BYl/gxLk+WhH0myEBpK899UvVfGxeXSmRPFeE=;
-	b=DsWcVNRYsZ3dnsqJ3nXpSgYOp+Ir8XSy4tpEO1bceOay557gG9Pfeo9GDpG3xVUKzITz
-	 kZt00KHiCLue6bdVRLC4XhEK83OiPN7PsXiBs21M/ARvvKgau02ES5bOCeH2qk9sdjGIG
-	 95VAThqE8RacUK5Xqa0E+ogW0k466I3vrZdPNFrKLwZ1BLZxoAQLPkTJrOMomxWjDUd3H
-	 3jx1xWl5liuRIh1G+Qw73DB5cTsRcsISvYHv73jNTHSR/nqUdJJizhn1rGHbEOqbsTWWT
-	 do/ho5KH4N4Y4XJGJ+g20aGfe47lMY5BVrLP0nsRgSozif7nTV0nBliG3hFpJOhB4Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806050;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z79+tdgxsQW9kZqIwRO1EwdUxztE35H4zfyldg/VVYo=;
+	b=P0hlosLhqG4aaUX+ttpaL4AdRWsBONxSKFZOhWO5TruOIc+Cly6ZGMTF2o1P3btTcs49
+	 SgPg6ncpV+8+coZgJ2Jy5AlPgID4X9PNjpEu9vOz0iCp0P5E7rOHdami+wXaCHvV9wtS0
+	 mlByW8Xk+sDRPYjnuQO25UMWIT0vh1eoxFSYRyWcuU52PxkkEcyugfNyYuEMSh6TSyGvv
+	 9k1sFQgrLfX225YlC+wx97CNK9Ffkbo+UQ5BS3IcarS1OFGM7WpXAOKAQDkEo9QLNxZxO
+	 trQ99UBMrfuPDyaxSi9Ti7X35pYTbqIzCNCnlza/D5iOHnuFmImfC72BWfvTxRKBaGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=AIKpU5dv;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CaQK0YD2;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B1606A31A;
-	Sat, 24 Oct 2026 01:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2B1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D348E606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D348E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=AIKpU5dv
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=GE6+U0BYl/gxLk+WhH0myEBpK899UvVfGxeXSmRPFeE=; b=AIKpU5dvniKr+gypfihPgMduE6
-	Om1oE2fGwFAIpMss8ydzwLlHqa71TuDNbq18vehkMcX2FDxOhkpY5AfhtsHWOgLGBDlsAWOWxK82x
-	9FQ38pI8Z1I93H1Pk+tMqe+4gMHQWuxQuLRxH4alFABrDUe+HTCIm952EEtFuU9VrY+kwDIHc6Hh7
-	GQDtWWKz6tAi6YTlbxjT4OD/bplhN8niHtIo8pb41QfMS6WORtMNLbtV4sVJ8h6qs96erCPsqB2sX
-	t///ifBCNG29TDhwjgmEF4UhSw55bKOx3eJNCCV3gxjz7/7yOxIfdUJkuKWqHCTop6+1E+sNjXjuq
-	DmOapaJg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xKQi9-0000000HJtS-0EiF;
-	Sat, 24 Oct 2026 01:38:17 +0000
-Message-ID: <40c69814-f9eb-40d6-b735-98eec67898a0@infradead.org>
-Date: Fri, 23 Oct 2026 18:38:15 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CaQK0YD2
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-536c8f958d7so6827371cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:40:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792806049; x=1793410849; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z79+tdgxsQW9kZqIwRO1EwdUxztE35H4zfyldg/VVYo=;
+        b=CaQK0YD2bwOqn25gU5jW2f3KNG1ORMq9m3qYgnHelR85J9Sl7/IBIZbyaPNiUwsLz/
+         qtcpQecvi+H9mIt6UiUBkhPaOK02KVQK4Xk16l/1HwaypmR9XFUXsGl9NHA8pNJJkTwg
+         jY9x3UZh7MbPIPiQJz1vyL2hQGzBJtTvF1+zJkwru8K+eaJ6UVbtvHjFfvlmXvvydjJ9
+         /E4HOxNYFNj6PvXwh94mfQL2f/uu9EPBhLMhnE3UqRHouZIEG7eiKwC+3yelwAJbt1cK
+         FXLHUXEX4L1wJJk/gXW8U4+9NWyyOPjT39dkuFKyid84WXXZtp03v0N39B+B6zJmIUN3
+         nWFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806049; x=1793410849;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z79+tdgxsQW9kZqIwRO1EwdUxztE35H4zfyldg/VVYo=;
+        b=KVx7KQoqF8cebItc3R51Zzq3gXMHNow+zp6TBeT3l7pQh3RGlK1KD4kPzl/exw0Qc3
+         AlhGfsNAN2wXfR8exhu3BMBM4jEe5kleN0aq0zSYyKXKGwPvJhp0YOG8EiSBhZ9aEdLg
+         llMWb1L1Yh7XbBMaTYlMS4uYeO2YblJiiuIX/2pYRFab+Rr5p+kPsvREtF5zp3WP3YJH
+         C27Q1uBCBI5g0XLo78t983anf5RyF1bCNVZdcYWzRXMhHB3tUpHl3VptrrZWselxjJ49
+         8fIrSIlEoxcMXqeG875lqk8ESaGypN3Z3calfpSGYw+zjSn9MXvQ4Q7zI+RaSk1EHs5A
+         ufsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxM/Y4bL1AVOQapyjSub84EQNKWH+O/O/ffNZNcTPaqCNkupC+wpVz6RyG+mF8O8evoSqbqFEVkHtmfJHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcRb5LS2sHJ1JcZXhv6oM2QHL4m63f9khrLRWei7Nd9G7gyhSI
+	Ydzag8G9SeoT78IX960/kQApgZmt32fqnDUczodONWbebL2BJw5Okfk=
+X-Gm-Gg: AYBFou165p9VbTJ0SD/55skRn12mOyXAuLxhj/fqWixiF/HcTrSJXJHo91E3vyMS9JW
+	rS83fJof5zF6UKf8X/j7IK6P70Y8rlysrJG3SHIbclBUsV1eNJahjkhbicPFcrDuct/FfCfnUJj
+	c1IE8AidRW4r3/YSjXxq2kxsiWmlv+VQNW+k/OB3E6cPxeV3bxqLaLYRQUL+AoxOEz1/2i1DTbR
+	iCo4kh96OGb5Vs3qm7y0uLKoPZthuxCAoiEsEAaBecM82j3lk1VbJzNKZmhACxqRzJRcDeyfhtC
+	3HCFPLBBn7A6dsu+OM4xtAqrunSbslKyeGtX1nF4QGdzuWdA6MGm4Iz0vG7JdHTaAtQdfih89TF
+	0barujaCWNokgYeQpfZoU7oSp0blfTxctkP/V0AWkaUYEBafd73w8FAzP61GQFXdJen0HtawuVu
+	N8RrSV8I+niLB87wexXbafkyMrSm0L0GkutcxYmWBNCcO8Qd9gF85GEdmajDma/Iia2Rjo0z6BU
+	x9YuyB8yZlMDd4ITfaOplYdzgMoFtaY/PFskTenmQtCMvO1N4rKARDJHKJnCwT4C/Wj1b/LV3ol
+	pck6cAJynSrHJXr/x0j2Ya0Q0mb9kTDgg98+gz4/wl7Ubpa5o5zQLe+piymAzKZ1FpTDmFGWOin
+	mb9hpP39k/Q==
+X-Received: by 2002:a05:622a:1aa2:b0:536:8bb4:2a9c with SMTP id d75a77b69052e-5383b4cac1dmr8960551cf.21.1792806048703;
+        Fri, 23 Oct 2026 18:40:48 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c1af0csm9261606d6.19.2026.10.23.18.40.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 18:40:47 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v3] hwmon: (sht15) Stop deferred work before releasing its resources
+Date: Fri, 23 Oct 2026 21:40:44 -0400
+Message-ID: <20261024014044.27853-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,148 +96,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] loadpin: allow untoggleable enforcement on
- filesystems which don't appear to be read-only
-To: Amelia Crate <acrate@waldn.net>, Kees Cook <kees@kernel.org>,
- linux-security-module@vger.kernel.org
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E . Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023171508.3460300-1-acrate@waldn.net>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261023171508.3460300-1-acrate@waldn.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The IRQ handler and regulator notifier can leave work pending after a
+measurement or notification completes. Neither work item is drained before
+its resources are released on removal or probe failure.
 
-On 10/23/26 10:15 AM, Amelia Crate wrote:
-> Some filesystems, such as composefs created from layers which are entirely
-> read-only, can't be easily detected as a read-only file system. In addition to
-> filesystems which are read-only without having a backing read-only block device
-> I believe this is also useful for cases where immutability of the filesystem is
-> enforced by the hypervisor or the host, such as 9p shares or virtiofs.
-> 
-> It is still desirable to enforce LoadPin and disallow toggling enforcement in these cases.
-> This patch gives system administrators a way to disallow toggling LoadPin enforcement even
-> when the immutability of a filesystem is unclear.
-> 
-> Signed-off-by: Amelia Crate <acrate@waldn.net>
-> Assisted-by: Codex:gpt-6
-> ---
->  Documentation/admin-guide/LSM/LoadPin.rst     |  8 +++++++-
->  .../admin-guide/kernel-parameters.txt         |  7 +++++++
->  security/loadpin/loadpin.c                    | 20 ++++++++++++++++++-
->  3 files changed, 33 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/LSM/LoadPin.rst b/Documentation/admin-guide/LSM/LoadPin.rst
-> index a90fd9dac960..f1e8825d0fe8 100644
-> --- a/Documentation/admin-guide/LSM/LoadPin.rst
-> +++ b/Documentation/admin-guide/LSM/LoadPin.rst
-> @@ -16,10 +16,16 @@ boot ("``loadpin.enforce=0``").
->  
->  LoadPin starts pinning when it sees the first file loaded. If the
->  block device backing the filesystem is not read-only, a sysctl is
-> -created to toggle pinning: ``/proc/sys/kernel/loadpin/enabled``. (Having
-> +created to toggle pinning: ``/proc/sys/kernel/loadpin/enforce``. (Having
+Disable read_work before freeing the IRQ, since the worker can re-enable
+it. Use request_irq()/free_irq() for explicit teardown. Unregister the
+regulator notifier before cancelling update_supply_work and disabling the
+regulator. Apply the same ordering to probe failures.
 
-Ah. The sysctl documentation had the incorrect name there.
+Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Compile-tested with GCC 15.2.0, W=1 (x86_64). No runtime testing.
 
-Would it be possible to put all of these command line parameters / sysctls
-in the same place instead of having one of them in LoadPin.rst and
-another one in kernel-parameters.txt ?
+Changes in v3:
+- Drop IRQF_NO_AUTOEN and IRQ caching; preserve the original initialization.
+- Keep request_irq()/free_irq() and work synchronization.
 
-Thanks.
+Changes in v2:
+- Switch to request_irq()/free_irq().
+- Add IRQF_NO_AUTOEN and IRQ caching.
 
->  a mutable filesystem means pinning is mutable too, but having the
->  sysctl allows for easy testing on systems with a mutable filesystem.)
->  
-> +Some filesystems may appear to be mutable, but are in fact read-only.
-> +In this case, ``loadpin.force_enforce=1`` can be set to require enforcement
-> +of LoadPin on all filesystems. When LoadPin is enabled,
-> +``/proc/sys/kernel/loadpin/force_enforce`` reports the state of this option.
-> +This option is independent of whether LoadPin is enabled.
-> +
->  It's also possible to exclude specific file types from LoadPin using kernel
->  command line option "``loadpin.exclude``". By default, all files are
->  included, but they can be excluded using kernel command line option such
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 1b2ae71def21..df8c145cc63d 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -3540,6 +3540,13 @@ Kernel parameters
->  			Enable Live Update Orchestrator (LUO).
->  			Default: off.
->  
-> +	loadpin.force_enforce= [SECURITY]
-> +			Format: <bool>
-> +			Force LoadPin enforcement until reboot, even when the
-> +			pinned filesystem is not backed by a read-only block
-> +			device. Requires LoadPin to be enabled in the active LSM list.
-> +			Default: off.
-> +
->  	lockd.nlm_grace_period=P  [NFS] Assign grace period.
->  			Format: <integer>
->  
-> diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
-> index f71861f98e1a..b260ad299a2c 100644
-> --- a/security/loadpin/loadpin.c
-> +++ b/security/loadpin/loadpin.c
-> @@ -45,6 +45,7 @@ static void report_load(const char *origin, struct file *file, char *operation)
->  }
->  
->  static int enforce = IS_ENABLED(CONFIG_SECURITY_LOADPIN_ENFORCE);
-> +static bool force_enforce __ro_after_init;
->  static char *exclude_read_files[READING_MAX_ID];
->  static int ignore_read_file_id[READING_MAX_ID] __ro_after_init;
->  static struct super_block *pinned_root;
-> @@ -60,11 +61,19 @@ static bool loadpin_root_writable;
->  static int proc_handler_loadpin(const struct ctl_table *table, int dir,
->  				void *buffer, size_t *lenp, loff_t *ppos)
->  {
-> -	if (!loadpin_root_writable && SYSCTL_USER_TO_KERN(dir))
-> +	if ((force_enforce || !loadpin_root_writable) && SYSCTL_USER_TO_KERN(dir))
->  		return -EINVAL;
->  	return proc_dointvec_minmax(table, dir, buffer, lenp, ppos);
->  }
->  
-> +static int proc_handler_force_enforce(const struct ctl_table *table, int dir,
-> +				      void *buffer, size_t *lenp, loff_t *ppos)
-> +{
-> +	if (SYSCTL_USER_TO_KERN(dir))
-> +		return -EPERM;
-> +	return proc_dobool(table, dir, buffer, lenp, ppos);
-> +}
-> +
->  static const struct ctl_table loadpin_sysctl_table[] = {
->  	{
->  		.procname       = "enforce",
-> @@ -75,6 +84,13 @@ static const struct ctl_table loadpin_sysctl_table[] = {
->  		.extra1         = SYSCTL_ZERO,
->  		.extra2         = SYSCTL_ONE,
->  	},
-> +	{
-> +		.procname       = "force_enforce",
-> +		.data           = &force_enforce,
-> +		.maxlen         = sizeof(force_enforce),
-> +		.mode           = 0444,
-> +		.proc_handler   = proc_handler_force_enforce,
-> +	},
->  };
->  #endif
->  
-> @@ -436,6 +452,8 @@ DEFINE_LSM(loadpin) = {
->  };
->  
->  /* Should not be mutable after boot, so not listed in sysfs (perm == 0). */
-> +module_param(force_enforce, bool, 0);
-> +MODULE_PARM_DESC(force_enforce, "Always enforce module/firmware pinning");
->  module_param(enforce, int, 0);
->  MODULE_PARM_DESC(enforce, "Enforce module/firmware pinning");
->  module_param_array_named(exclude, exclude_read_files, charp, NULL, 0);
+ drivers/hwmon/sht15.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
+index 7bb2105d1ae223e7131ba4cc0523e4e074e01302..48d93c61345c1d4a00b0edd2fc452161ac90db9e 100644
+--- a/drivers/hwmon/sht15.c
++++ b/drivers/hwmon/sht15.c
+@@ -31,6 +31,7 @@
+ #include <linux/bitrev.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of.h>
++#include <linux/workqueue.h>
+ 
+ /* Commands */
+ #define SHT15_MEASURE_TEMP		0x03
+@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
+ 		goto err_release_reg;
+ 	}
+ 
+-	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
+-			       sht15_interrupt_fired,
+-			       IRQF_TRIGGER_FALLING,
+-			       "sht15 data",
+-			       data);
++	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
++			  IRQF_TRIGGER_FALLING, "sht15 data", data);
+ 	if (ret)
+ 		goto err_release_reg;
+ 	disable_irq_nosync(gpiod_to_irq(data->data));
+ 	ret = sht15_connection_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 
+ 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "sysfs create failed\n");
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	}
+ 
+ 	data->hwmon_dev = hwmon_device_register(data->dev);
+@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
+ 
+ err_release_sysfs_group:
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
++err_free_irq:
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
+ err_release_reg:
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ 	return ret;
+@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
+ 	hwmon_device_unregister(data->hwmon_dev);
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
+ 
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
++
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
+ 
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ }
 -- 
-~Randy
-
+2.53.0
