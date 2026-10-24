@@ -1,131 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792878655;
-	b=kcx+OoxoCJ1qpcxDkWUtqixzbvosYBnBdE4YZnc7x9zoC1bFMvwlQDjOHe6PKpxB1jEA
-	 CIvRfk943ANV+mhvklJ9M/hRz4N2/lr9KX+buXzayRYSD9Un0RvvGukSzKMxcM/e8AmBT
-	 h6avkBFLBiUkzUI5/shPuCVW2q4PqpRyJCYCvQPGrue9YApWKpVNWzg8g68rEHHS8OZlm
-	 Fr+CKnJdI4TADemJpErCChCGDE8CEDgNAoyr55ls0LIrLhiELZrB+6MQCvifsuceQVWQO
-	 uztCC6T2mDs3gKQTMRp7392Z8tYhBA5oNHu2D0i+oiP136vTVlhnCYHEAeG0lqFfkvw==
+	t=1792879339;
+	b=NEdo0ccrUEHPB3Zxqov3TIoxlOMEobUOKanfY+vkGPvyoCx+izbWSinkztpHH0mu+jNj
+	 +mNSn5NN7cI2kR+j6v18sB44DCURwaXapew4J95ppgKp2+Edjg9ZAzikwbvzZOYUxEU/y
+	 /H1uXbRHH9qzxWzBHvqbG72OWKB6//rHcKrJhA8P8dvaINIlkjANwJa4WscytQQ96nYnk
+	 HB17yTznfdnxxakNSocMkVS7ZQL7v8eknndLnnLHfOpuUXWf8QTJZCun8ISOWygblWFK4
+	 iBqm7XttMsOpZs5jBHirFjY9s+6FYtUmAYSWOIduci/QlZwGMArUr/HQDLadz2d64fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792878655;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=BrGoEFHtqBmKXcb+UUckvq2KsUQ5PsLAHRWOdAWZVZY=;
-	b=dA1REdtKnf/kMWUCxSpDA2XZ8eDDBrO6b7CanDQv6uFybqfmAkqfZ9wr3aY/X2CIdx4f
-	 y1qlm45eJaupMUAetyL+Uss7RR3P16IylPX7BdffaOQdwBBOMU/mMI0JUZKztWvsrgNXZ
-	 rRzrMYSWkbBxrnB3QfQxTQDsTWt/ZAsWw4pjWFAbjh56YqjUfxDxNTbmk5ZrJ/+bhF7QT
-	 l+XQyoNysXt90Nq3oDlTB+1fjKGv+DKKqLGEb9e6XAHHhndWnON6gRcdPipoSYrQWM0Ps
-	 rFRazLOXIThtqQ7Lb2QTDTJHHEc1hcLicTkrKyoD5EkMgmINVnhW2cil7ysdSHdz4qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792879339;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sia3q9+4NG/D0pyHeAoqQkOv62xgWS+3D097ZDTA1Nw=;
+	b=oC4x9I0TMPaR19EjT5eJiCX/8PfbnX1d+X4DgFyqOCCys1143T4M95g36RS/ij7qlGc/
+	 JhIu0MTDtjYa2p4enFMywOBlllLre0aeULuK0d2On38M0o05wJcHmZqTWrbuNFo3MOcRD
+	 KaqZwVive5Lq7bwC/htxm+ziVfUppiMRgTVcPLPmc8UqUOjBgCf/2Tlu01Quobqt8u4XH
+	 WuMbSOZW5uCdJzb3pbYzNZP2sWW6v84FwoxhC/Uvxn3EKabRJhZikuaqzObr953oYlHcM
+	 JkVH8nzE8epVe+5jgqvEUdPr6u+r6sm80RHNBOusBAeF2/OCnk2pYOKGk03UHIs//UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bF5tMPeK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eBn49Umn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiZrToBU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CBC606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88CBC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FFB606A31A;
+	Sat, 24 Oct 2026 22:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bF5tMPeK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eBn49Umn
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69OLbPo11795152
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:50:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=BrGoEFHtqBmKXcb+UUckvq2K
-	sUQ5PsLAHRWOdAWZVZY=; b=bF5tMPeKlBMtr38JagLlRF0GW+2Glwt87ZjNrMnh
-	F5Sb6vnT+dP/VBXFjdEchNoDnzT1Sm6ssiOSbJ64BXBzFWzoGFoweWNRvQwXyy8P
-	PDzkJLpeIcamWSQPmK08XOApNAQE5QiCH9Q3pzLHd49XFjPuv2t5lUnCNvt3avtS
-	aNq5dXakjDg6KiukX/pkBrMzxSfLfYtbin+JA2uJGDRyFg2TYg0sAxbVFLx0dRMD
-	ddrV6HLFIU9S8PGnDLxpluQAVOIgXEF7V8rA0Mx7lXGe6/9eMH2UA9qfEr97BTMF
-	4aHyr9lB3WnowrVEoSZhg1I/KLdI5TfsbOVBPP480lR+Hw==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgny9sqcr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:50:53 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-45952ce9ee0so2206065fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:50:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792878653; x=1793483453; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BrGoEFHtqBmKXcb+UUckvq2KsUQ5PsLAHRWOdAWZVZY=;
-        b=eBn49UmnXmQZs1LdRsd0+j95m7DXPVkZrjrSaTfLowFCsfCBhK97YjyL+uhiT195Xj
-         nXbyoeNwGyokEDaqoDp9tN41in2VbKoCBtYMMp4M6+OUWm5/fLYXRY1M3LTKR/Zqwbad
-         4f5zkqpwEOGrh9UrRhRn0fY27BtRJWroCFHfVx9LQLqZ0bclkFjEYPK5NkgZIFGEQQUx
-         upd3DelHybPTCEKOpNIdHINyTL5k3W/rAd+KsOFzL0kPxMm43LTDoYN8KcOeIuHcENsH
-         s/g7A9PxqyvyXB0ovpLARY4NrRVXvUQiUJ8Y309CJTe1TpOyaE/Xa0MaU213vYg49/t5
-         0bgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792878653; x=1793483453;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BrGoEFHtqBmKXcb+UUckvq2KsUQ5PsLAHRWOdAWZVZY=;
-        b=rdCpfMffuHWbnF/i+EeaJjQEuxO/dOG1EGLt9LwrLiWAocFOhzmdodY5eXV3YI9UCo
-         aeqM16irerzdGbjdZN5LjmQFn4y0L4HWmngmTZ9+VG5uYsjPkqRK1KJAHbcB54ECWTVh
-         8ZorfmzzjqF0ecL6tLvV/jn4hCq1n0W1kUXWycdbbgReAgnnBNL0f0tBSPjzlesefGN+
-         8tryNso6XsphSVDiUxJXBiJh0KxsmTeHdGRSoFAsS2cerbDW7kg90Rb6p7tYqhazYewD
-         avKdKULindLFbAMSE4E5Dd6vdMdER01X2IOXXo8ma/5Vq9k2h39HKQo4dY1tuwiafBOu
-         hjxg==
-X-Gm-Message-State: AFq9FYI/aYSW0/qpMpestLeUKYDbyj6joe8owVVUtERQUpqCE3Jo+eGl
-	BeiNoqJULjLzh2sMibVGdw2dUi/PmDE8BeNb03TjccGUhcYDt/1xapdo8epYcsyIEnhK/Mn9JCF
-	9UHUR4K07QozQigSxv7SpSlnChBaeQCF8HlwkkT0t89URmrVRYAtx2GKRCbevHzOjyok=
-X-Gm-Gg: AYBFou1gxjt1lyyvSAQwy48RhMo3rtrpM5XuqyKqDyaq+h77IFhVH4wER0Q0pzRQiLR
-	jkd+OdOqGy2k5fcZs71mrXD/s6iaJnRnWh8lc4VvEjG01SgoTmu0e/hq3P7i9Zs3hd23Tc+Jed1
-	EZ0O1/WhqiArh4zK4vH/s0d9iUIgDQZ+CdOgvWKPcbcHf97NRqiugiPJ834ZEkhu/Bl/aek+k/l
-	8ZL+CoVONuoJcXXVeOVY/49T8HYnsXZ8pI5qcvqjTGj2PrFyBRIMR1uzReMboOGgZWpD+733IJU
-	4v4K78A589acj+vAWLW2YCRuYtjbV0hLsKtBHoGOOQz1Q921kJNN6UEFOzUolZpI09FTR26xvOJ
-	vzWf2cseiaqWgbNytMSHWpiiDSq/ETsR5y5WORcGwHaa7HFFYdA==
-X-Received: by 2002:a05:6870:a2cc:b0:48f:e107:317b with SMTP id 586e51a60fabf-4a83f5bda63mr1957118fac.46.1792878652688;
-        Sat, 24 Oct 2026 14:50:52 -0700 (PDT)
-X-Received: by 2002:a05:6870:a2cc:b0:48f:e107:317b with SMTP id 586e51a60fabf-4a83f5bda63mr1957110fac.46.1792878652228;
-        Sat, 24 Oct 2026 14:50:52 -0700 (PDT)
-Received: from hu-ashoraj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a84315c274sm1783227fac.9.2026.10.24.14.50.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 14:50:51 -0700 (PDT)
-Date: Sat, 24 Oct 2026 14:50:48 -0700
-From: Ashok Raj <ashok.raj@oss.qualcomm.com>
-To: Pierre Gondois <pierre.gondois@arm.com>
-Cc: linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>,
-        Mark Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-        Hanjun Guo <guohanjun@huawei.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Shuai Xue <xueshuai@linux.alibaba.com>,
-        Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-        Pawel Chmielewski <pawel.chmielewski@intel.com>,
-        Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        "Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-        Breno Leitao <leitao@debian.org>, Terry Bowman <terry.bowman@amd.com>,
-        Dan Williams <djbw@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-        Morduan Zang <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
-        linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev,
-        Ashok Raj <ashok.raj@oss.qualcomm.com>,
-        Ashok Raj <ashoraj@qti.qualcomm.com>,
-        Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH v2 5/6] ACPI: APEI: add separate Memory Error Section 2
- handlers
-Message-ID: <at0oOH1Pma1MvFlU@hu-ashoraj-lv.qualcomm.com>
-References: <20261019203915.2019037-1-pierre.gondois@arm.com>
- <20261019203915.2019037-6-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiZrToBU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE1F1F01825;
+	Sat, 24 Oct 2026 22:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792879338;
+	bh=sia3q9+4NG/D0pyHeAoqQkOv62xgWS+3D097ZDTA1Nw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JiZrToBUh3fiC7FHds/yQFmv7oc93QouaS0PSPV3QCZscBgmOdGzTVv7Qc0Qw3mpL
+	 dPiBcKOlW5hu6jWpuGiopXnmwmytjiPXkxc5Jpwrq7Fjd+PLsx9rMcQ3WE1jzz0OIm
+	 9cLusgU8aP0tOeCTM+Q5VEIJsuclVJLmqvqlb+UDGTnMpfmJNQj6KC9QSYiudqaLj1
+	 eir5uOugtanszTwYQ6lJY4hmpGer6cbsuzgvvHn9Fw66mXufFFEVVRSm78Ss8yjFwE
+	 WTQYpnoJjGYYWwujGXrCQ8MmIy1unXlvsMQdrG3sI4u2sOldhOuq7imF/o2LqxtkfC
+	 KfyGGAP5GC0JQ==
+Subject:
+ Re: [PATCH net v2] tls: keep TX and RX hardware offload on the same device
+From: netdev-bot+sashiko@kernel.org
+To: rjethwani@purestorage.com
+Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
+ sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, borisp@mellanox.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 24 Oct 2026 22:02:17 +0000
+Message-ID: <179287933702.3134.9880453017789029456@kernel.org>
+In-Reply-To: <20261020214500.972308-1-rjethwani@purestorage.com>
+References: <20261020214500.972308-1-rjethwani@purestorage.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,111 +65,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019203915.2019037-6-pierre.gondois@arm.com>
-X-Proofpoint-GUID: LctOPKZFfeGVJounKpEH4Nk-ezdtMlg5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA4NyBTYWx0ZWRfX+LFsk0mDmWOj
- J8k0D/DXjtAmaEWylE5sg8yIydK4OKumnXS8tmrnzS/M9fvTv7SRPYY+BRn5pWEoAHteZxQ1tcR
- TaqWhmwZmq6p+EPCFmL/xj2/lqZCRzMm7GbDETdq0yR7urkZLWW5wa2pkMvpwfe1gW8+prxKVOc
- IMUwgHxjQWhyxsdZTDHrnK5dGdXJnNKJA70fVIDupUBZ7e/1ejBI5jj1pcASf2TnR9x9Fh9HZ9C
- 7M0jc0J1V776fhNytmp8SgoTNG/wjWBykJCGnf4nBE/uWCQ7RCw7eWLvk8nYScwpZRSPbafPF76
- YcqK3sMEZptr8HhPLnKFuSSBgAxqWf5cK4KgwwrkNcolE+bs9yWQWBx29TbDcrsuJmYwCShdWRQ
- nZk10Udvv+504+wShsEGvqJoA0jeEaZn52HL/PsSUPXizkxEU3rKtJV6oVVtpT3eNq0avuBTODF
- b0VUQHoFssx/tYpjljA==
-X-Authority-Analysis: v=2.4 cv=PqcG/AM3 c=1 sm=1 tr=0 ts=6add283d cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=xNf9USuDAAAA:8 a=7CQSdrXTAAAA:8 a=SBTCx-jMH1C4PCkex7IA:9
- a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: LctOPKZFfeGVJounKpEH4Nk-ezdtMlg5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA4NyBTYWx0ZWRfX+gdisKSJnrnx
- gznD1nfy4x1sy5fp7FlyBYZ4YRdxwdmiBFRcZ8tChR6QdNXPEd+YY3MeA7A2rl9alue8bnvugka
- deuDEd/f47KPDoNqpdPZ3/dIosRrFBQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-24_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240087
 
-Hi Pierre,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 1 · High: 0 (1) · Medium: 0 · Low: 0
 
-On Mon, Oct 19, 2026 at 10:38:44PM +0200, Pierre Gondois wrote:
-> Add dedicated GHES and EDAC callbacks for Memory Error Section 2
-> records. Use a separate GHES notifier chain so existing consumers
-> continue to receive legacy memory error sections.
-> 
-> Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
-> ---
->  drivers/acpi/apei/ghes.c |  49 +++++++++++++++-
->  drivers/edac/ghes_edac.c | 118 +++++++++++++++++++++++++++++++++++++++
->  include/acpi/ghes.h      |   2 +
->  3 files changed, 168 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-> index fe10ab0e02f6..c7fb15543b56 100644
-> --- a/drivers/acpi/apei/ghes.c
-> +++ b/drivers/acpi/apei/ghes.c
-> @@ -101,6 +101,7 @@
->  #endif
->
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[snip]
+- [Critical] tls: type confusion and UAF in tls_device_down() when TX is
+  not TLS_HW
 
-> @@ -952,6 +977,16 @@ static void ghes_do_proc(struct ghes *ghes,
+Pre-existing issues:
+- [High] tls_set_sw_offload() (net/tls/tls_sw.c:2594) sets the shared
+  ctx->push_pending_record = tls_sw_push_pending_record unconditionally,…
+
+--
+
+tls: keep TX and RX hardware offload on the same device
+
+This patch adds tls_device_can_attach(), which is checked under
+device_offload_lock before each tls_dev_add() in tls_set_device_offload()
+and tls_set_device_offload_rx(). A second direction is only offloaded if
+it resolves to the netdev already bound to the context; otherwise setup
+falls back to software for that direction.
+
+> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+> index f11d0528fc431..9df183d0dd972 100644
+> --- a/net/tls/tls_device.c
+> +++ b/net/tls/tls_device.c
+
+[ ... ]
+
+> @@ -1227,6 +1246,11 @@ int tls_set_device_offload_rx(struct sock *sk, struct tls_context *ctx)
+>  		goto release_lock;
+>  	}
 >  
->  			arch_apei_report_mem_error(sev, mem_err);
->  			queued = ghes_handle_memory_failure(gdata, sev, sync);
-One issue here.
-
-> +		} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
-> +			struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
+> +	if (!tls_device_can_attach(ctx, sk, netdev)) {
+> +		rc = -EOPNOTSUPP;
+> +		goto release_lock;
+> +	}
 > +
-> +			if (gdata->error_data_length < sizeof(*mem_err)) {
-> +				pr_warn(FW_WARN "Memory Error Section 2 length is too small\n");
-> +				continue;
-> +			}
-> +
-> +			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
-> +			queued = ghes_handle_memory_failure2(gdata, sev, sync);
 
-could this accumulate queued with |= ? 
+[Severity: Critical]
+This isn't introduced by this patch, but the patch now deliberately
+steers sockets into the state that hits it, so it seems worth raising
+here.
 
-queued describes whether any section in this GHES status record queued
-memory-failure work. The synchronous GHES path sends SIGBUS after the
-section loop when `!queued`.
+When RX is on hardware and TX is declined by tls_device_can_attach(),
+do_tls_setsockopt_conf() falls back to TLS_SW for TX (or TX is simply
+never configured and stays TLS_BASE), while ctx stays on
+tls_device_list bound to the RX device. If that device later goes down,
+tls_device_down() does this for every matching ctx:
 
-For example, a synchronous record can contain an eligible legacy memory
-section followed by a Memory Error Section 2 record without a valid
-physical address. The legacy section queues memory-failure work and sets
-queued, but the Section 2 handler returns false and this assignment clears
-the previous result. ghes_do_proc() then reaches the `sync && !queued`
-path and sends SIGBUS despite having queued recovery work for the earlier
-section.
+	WRITE_ONCE(ctx->sk->sk_validate_xmit_skb,
+		   tls_validate_xmit_skb_sw);
 
-This series appears to be based before the queued accumulation fix [1].
-Could the new Memory Error Section 2 branch follow the same pattern?
+without looking at ctx->tx_conf. The tls_dev_del() calls further down
+are guarded by tx_conf == TLS_HW and rx_conf == TLS_HW, but this store
+is not.
 
-> +                     queued = ghes_handle_memory_failure2(gdata, sev, sync);
+>From then on every skb with TCP payload on the socket goes through
+validate_xmit_skb() -> tls_validate_xmit_skb_sw() -> tls_sw_fallback(),
+which casts tls_ctx->priv_ctx_tx with tls_offload_ctx_tx() and passes
+the result to fill_sg_in(), which takes ctx->lock and walks
+ctx->records_list through tls_get_record().
 
-should be:
+With tx_conf == TLS_BASE, priv_ctx_tx is NULL. Isn't this a NULL
+pointer dereference on the first data segment sent after the device
+goes down? With tx_conf == TLS_SW, priv_ctx_tx is the struct
+tls_sw_context_tx from init_ctx_tx(), so fill_sg_in() would take a
+spinlock and walk a list that are really unrelated fields of that
+structure.
 
-        queued |= ghes_handle_memory_failure2(gdata, sev, sync);
+Close looks worse still. tls_sk_proto_close() frees priv_ctx_tx via
+tls_sw_free_ctx_tx() before calling ctx->sk_proto->close(), but with
+rx_conf == TLS_HW the tls_context and the sk_validate_xmit_skb hook stay
+around until tls_device_sk_destruct(). Data pushed out by tcp_close()
+or retransmitted afterwards would run tls_sw_fallback() on freed
+memory.
 
-Otherwise, an earlier section can queue memory-failure work, while a later
-Section 2 record for which no work is queued clears `queued`. For a
-synchronous GHES record, ghes_do_proc() will then reach `sync && !queued`
-and send SIGBUS despite recovery work having been queued for the earlier
-section.
+The updated tls-offload.rst says a declined direction "uses software
+instead", and NETDEV_DOWN clearing the binding is now an explicit
+reason to decline TX, so the patch relies on this combination working.
 
-Thoughts? 
+Should tls_device_down() only switch sk_validate_xmit_skb when TX is
+really device offloaded? ctx->tx_conf is only set by
+do_tls_setsockopt_conf() after tls_set_device_offload() has dropped
+device_offload_lock, so I'm not sure tx_conf alone is a reliable test
+there. Would comparing against tls_validate_xmit_skb, or having
+tls_validate_xmit_skb_sw() bail out when TX is not TLS_HW, work better?
 
-[1] https://lore.kernel.org/r/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org/
+[Severity: High]
+This isn't a bug introduced by this patch, but it is related to the new
+tls-offload.rst wording that a declined direction "is handled in software
+as if offload had never been tried".
 
-Thanks,
-Ashok
+Suppose TX is already on hardware and RX is rejected here. Then
+do_tls_setsockopt_conf() falls back to tls_set_sw_offload(sk, 0, ...),
+and that function sets the shared TX callback whatever the direction:
+
+net/tls/tls_sw.c:tls_set_sw_offload() {
+    ...
+	ctx->push_pending_record = tls_sw_push_pending_record;
+    ...
+}
+
+This replaces the callback that tls_set_device_offload() installed:
+
+	ctx->push_pending_record = tls_device_push_pending_record;
+
+The hardware RX success path also calls tls_set_sw_offload(sk, 0, NULL),
+so this could already happen before this patch.
+
+Now suppose device TX leaves an open record, for example because
+sendmsg() with MSG_MORE set pending_open_record_frags. A later sendmsg()
+with a TLS_SET_RECORD_TYPE cmsg then takes this path:
+
+tls_device_sendmsg()
+  tls_process_cmsg()
+    tls_handle_open_record()
+      ctx->push_pending_record() -> tls_sw_push_pending_record()
+
+tls_sk_proto_cleanup() reaches the same callback on close when
+sk_write_pending is set. tls_sw_push_pending_record() does:
+
+	struct tls_sw_context_tx *ctx = tls_sw_ctx_tx(tls_ctx);
+	struct tls_rec *rec = ctx->open_rec;
+
+but priv_ctx_tx is really a struct tls_offload_context_tx here.
+
+Doesn't this read an unrelated field of tls_offload_context_tx as a
+struct tls_rec pointer?
+
+If that field is NULL, the open device record is not flushed before the
+record type changes. Data that is already buffered then goes out under
+the new record type. If the field is non-NULL, rec->msg_plaintext is
+read through a garbage pointer.
+
+This seems to go back to 3c4d7559159b (2017). Could tls_set_sw_offload()
+set push_pending_record only when tx is set? Then RX setup, hardware or
+software fallback, would leave the device TX callback in place.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020214500.972308-1-rjethwani%40purestorage.com
