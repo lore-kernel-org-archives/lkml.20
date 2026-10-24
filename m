@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792867595;
-	b=AiWw9PREYHFKZUikPFFqXBcl5gflv0xBJCknQ9g4FbZn4l3NiEMua3p8C+wS1SQhVDTN
-	 1X2XgZJGEdtYTvU61w6juwXXHaacFAVKzwgOM3skYrAQfdZhI7o86+TwVTQqu6exYelIP
-	 lWtXgJEcBmaJvNrvDbrUR+dw2nhSTsEs3pXXVNopTZGvgYcl9eZGHsdZ01bq/Gu3QbKog
-	 5lRL6AloIgtC2+xz8I+t7RiWQHtSiXrU0GtQCSWsdJw8fciCDvOQ94PDKe0b6etaWXKE7
-	 gAJCaETtbVrbj4ZpmWRMnp7QXN+wMGg3qOP9uhy8lMK13zUo3D622p4Y6Njv3LPre9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792867595;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MnrQ55dyeMSwGwNReeOBPj4JjDJpMy1sTzm2Nuwa9vc=;
-	b=2xj4ESdmO34QAO+k6NomPGF++wW8g4ZZO0voUyEYxAy40nBl3OXNXghLiRK4YJNJM0Tw
-	 0Ks1PZjvh8vr6go8oM5e9Qu5W8gxD7R4c5aQTeZO2aOiDYXwUClgKfntnLIPNVHzyGi3d
-	 iU81gr6LmAvj53Cx3QdDx6QeIs2EBw5HnbnLRPv/6nOfar65ci1XXVU+d7LR7BfxqauQI
-	 l52wi2ERwckrV7ZX2VMZ5Ps2Zz5IeFonihFaS7K5r2vI+VDB8VSae+a26OJSusSPh95yC
-	 SYEZCvdQvGBChykW3n3K3758PdtTGEHiQ1jZ4XNVQ3k73Q2EweHb5ddHlZxvt1tZEHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=HSYR8zaP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792867633;
+	b=UPll5+AowZhad4PCYncv9SKa5d1m3uC3KDJLruIOlUwSp4tlh2VTloWjwoZmFWIxkUvB
+	 1d8cwBMhvZ348oC5DVvobOJDugGksNGud50WW34LbAR0A8/OS7q+yCU3a8wsLwZGUlmL6
+	 jiCQ1HhXntQLGch7RfRmnzZmCu4Hu7p8bvV4/sausGy+i/QUjLthOHr7IrHaUVR7hghS0
+	 cqasaLhu7oievsjS/rMqe+BZB5ALoU1cgt3HfnQOqxnTQ7jEalgn4O25nDcN36NIe3z19
+	 gB4ABJ0JR9IiGLYT1lk7apIK55M9YRb+uLUGZmLZmnxWP9kw7+0wvzntbA3CKjITgyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792867633;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=sMwqTLtobjq9y4v04ViG193gMutnOIBCJMmSiPL0QaU=;
+	b=Zdh+oNfV1KhHwR0RZvLqNQF4J0Z4ztWDDSlSIFZaxnG+x9b1MHXs4dfO3HVK73HhGjh6
+	 Bi1aAAILC831CL+sk0yQa3UElBNjieuGLdrZRqNeftsSxYltVau71mQu/LRdG3HFezxQd
+	 dtpgr/xofGHWtbSniNEl+dTK/Drlc/uUx66rGq1+M5QChXXqovyFudfQY6Unj+DG+rMil
+	 LQA+BcGa7c0XxlcPGkaguKG8IyxYpZziZUTLI4HO1HR8dO0SAPe8vsdYOMQPIbV8o9XPY
+	 EJiyItp++HpnIuDZksNGjP2FoRUSxDvSg9zJjPJPtPWEs92XGnO44NOs9oauuetlK8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=lRTw2REA;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92333606A31B;
-	Sat, 24 Oct 2026 18:46:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92333606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C0B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67C0B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=HSYR8zaP
-ARC-Seal: i=1; a=rsa-sha256; t=1792867546; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=HMGKB+tQQA0SUzq/7fIY2rMaXUkIHQnMuNtypWS40CnW9W0EbRFYNA4rQOgpo/7ApgcieY5rLDEbU6JTtgiaapjVgrHb/L639wWlUMTAbZLo0cV3wxJXJVklSsZBKaEDiSpvs6ZgFcQS0jKDtWqTAuggELF3NoMFzxVVdEalya0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1792867546; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=MnrQ55dyeMSwGwNReeOBPj4JjDJpMy1sTzm2Nuwa9vc=; 
-	b=eHTBdEgl3aH8rhyTOVvvBR+3b2em1krWG6BN3z5H3+F18u622PDXfV9QDC55d9jbspTfMigNBKkoAn506lIA3VqDDCcLB4lK5oNwxJpPNerrXusybtm3BhkNSvNJjQP12aMbAsK3W+0usBdduDKKIaqcF8BBBCrFqhMh8JBSWc4=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792867546;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=MnrQ55dyeMSwGwNReeOBPj4JjDJpMy1sTzm2Nuwa9vc=;
-	b=HSYR8zaPo5cI7PAYG/5oMroV+utChHPYR/p+FsssRjfBf4e+G7qcFdxv+R8SwI4k
-	1tL1fiPSTbwXBxEYdOnSouEcvDP9V5ur5aUgQ2r/a3kstTtQyEVKFsja6TPzpD5beEZ
-	4Jzuna2bajfZtT1JdjBCkfShJRdopCZx1LqDrCv8=
-Received: by smtp.zoho.eu with SMTPS id 1792867544042885.6437458142384;
-	Sat, 24 Oct 2026 20:45:44 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, p.zabel@pengutronix.de, Sergey.Semin@baikalelectronics.ru, mika.westerberg@linux.intel.com, andi.shyti@kernel.org, Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH v4 2/2] watchdog: dw_wdt: manage reset line during system suspend/resume
-Date: Sat, 24 Oct 2026 21:50:00 +0300
-In-Reply-To: <20261024140854.25664-3-a.shimko.dev@gmail.com>
-References: <20261024140854.25664-1-a.shimko.dev@gmail.com> <20261024140854.25664-3-a.shimko.dev@gmail.com>
-Message-ID: <20261024-dw-wdt-shimko-v4-resume-imbalance@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=lRTw2REA
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id A6AAFD312D;
+	Sat, 24 Oct 2026 21:47:08 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro A6AAFD312D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1792867629;
+	bh=sMwqTLtobjq9y4v04ViG193gMutnOIBCJMmSiPL0QaU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=lRTw2REAsTGOTHe91Ot2A5V7siQRADaJQxab4/3iubUgCLH30bVdIaOAl8OHheibt
+	 aOrVREhG/GvEnhM3MnxwkdxZlspnA/GepgcgXVBqr+w9x4QFT5U6L0UHg/1CFNEFhN
+	 vRKX/VQUs1cavU41CO8XKvsIXpqkJs1d0izkkJwd7Jmq1W4bIGq+GJcu2o3OjS7n/g
+	 0cPvuB11a96QWx2xINKcCDEmAQKV71DnwjSngCe6TmE+QrQK1U/NoxQdA4SAhSgKmx
+	 EcmRVpN9PTLv6kooZ+2KGHKJxWiFTwB0Hv850wezgqS4/fwbsKpTiFXy3RBpdVmvB1
+	 Uo51+56HppPKA==
+Message-ID: <d413238a3c5533572013d1fb27142345aabdd101.camel@rendec.net>
+Subject: Re: [PATCH 4/4] irqchip/alpine-msi: Add debug logging for MSI
+ allocation
+From: Radu Rendec <radu@rendec.net>
+To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Antoine Tenart <atenart@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 24 Oct 2026 14:47:06 -0400
+In-Reply-To: <20260923083703.38974-5-farbere@amazon.com>
+References: <20260923083703.38974-1-farbere@amazon.com>
+	 <20260923083703.38974-5-farbere@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,29 +70,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 05:08:51PM +0300, Artem Shimko wrote:
->  	err = clk_prepare_enable(dw_wdt->pclk);
-> -	if (err) {
-> -		clk_disable_unprepare(dw_wdt->clk);
-> -		return err;
-> -	}
-> +	if (err)
-> +		goto unprepare_clk;
+On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
+> Add log messages to help follow the driver flow when debugging: an
+> info message on successful initialisation, and debug messages on the
+> MSI interrupt allocation and free paths.
+>=20
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+> =C2=A0drivers/irqchip/irq-alpine-msi.c | 10 ++++++++++
+> =C2=A01 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpin=
+e-msi.c
+> index 8155f63cfd29..0e68f81014e7 100644
+> --- a/drivers/irqchip/irq-alpine-msi.c
+> +++ b/drivers/irqchip/irq-alpine-msi.c
+> @@ -104,6 +104,8 @@ static int alpine_msix_middle_domain_alloc(struct irq=
+_domain *domain, unsigned i
+> =C2=A0	struct alpine_msix_data *priv =3D domain->host_data;
+> =C2=A0	int sgi, err, i;
+> =C2=A0
+> +	pr_debug("trying to allocate %d msi starting from %d\n", nr_irqs, virq)=
+;
 > +
-> +	err = reset_control_deassert(dw_wdt->rst);
-> +	if (err)
-> +		goto unprepare_pclk;
+> =C2=A0	sgi =3D alpine_msix_allocate_sgi(priv, nr_irqs);
+> =C2=A0	if (sgi < 0)
+> =C2=A0		return sgi;
+> @@ -116,6 +118,9 @@ static int alpine_msix_middle_domain_alloc(struct irq=
+_domain *domain, unsigned i
+> =C2=A0		irq_domain_set_hwirq_and_chip(domain, virq + i, sgi + i,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &middle_irq_chip, priv);
+> =C2=A0	}
+> +
+> +	pr_debug("allocated %d msi starting from %d\n", nr_irqs, virq);
+> +
+> =C2=A0	return 0;
+> =C2=A0
+> =C2=A0err_sgi:
+> @@ -132,6 +137,8 @@ static void alpine_msix_middle_domain_free(struct irq=
+_domain *domain, unsigned i
+> =C2=A0
+> =C2=A0	irq_domain_free_irqs_parent(domain, virq, nr_irqs);
+> =C2=A0	alpine_msix_free_sgi(priv, d->hwirq, nr_irqs);
+> +
+> +	pr_debug("freed %d msi starting from %d\n", nr_irqs, virq);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static const struct irq_domain_ops alpine_msix_middle_domain_ops =
+=3D {
+> @@ -235,6 +242,9 @@ static int alpine_msix_init(struct device_node *node,=
+ struct device_node *parent
+> =C2=A0	if (ret)
+> =C2=A0		return ret;
+> =C2=A0
+> +	pr_info("initialized successfully, spi %d to %d\n",
+> +		priv->spi_first, priv->spi_first + priv->num_spis - 1);
+> +
+> =C2=A0	retain_and_null_ptr(priv);
+> =C2=A0	retain_and_null_ptr(msi_map);
+> =C2=A0	return 0;
 
-If clk_prepare_enable() fails in dw_wdt_resume(), we return with the reset
-still asserted. The _deasserted devres then asserts it once more at unbind,
-and on a shared control with deassert_count already at 0 that is a WARN_ON
-and -EINVAL; the next suspend hits the same. Deasserting before the clocks
-are enabled (or on the error paths) keeps every exit balanced.
-Not tested on hardware: I can't make the clock enable fail.
+Not that this matters in reality (because all these numbers are "small")
+but for the sake of correctness: all the variables you added messages
+for are unsigned, so you should use %u on them.
 
-v4 re-tested on ROCK Pi 4A (RK3399, resets = <&cru SRST_P_WDT0> added
-locally): watchdog daemon at 60 s, 6 x s2idle for 90 s without a reset;
-killing the daemon without magic close resets the board.
+Since you're cleaning up this driver, you may want to look at the other
+prints. For example, the existing pr_debug() in alpine_msix_init() has
+the same problem.
+
+--=20
+Regards,
+Radu
