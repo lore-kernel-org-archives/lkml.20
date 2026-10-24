@@ -1,79 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792874369;
-	b=TsravUy2Xo2Bjb2IABu2p6YYnXY8JVRIQuWWWd5rBIvhYYlQpZ4B/wLDWmf4YG4imhGj
-	 rJ5UZ5hretSwzk5lEtZy0NE5eJWrQVG5sbBiaKRnAuBB2SEkinJZSVFGIagzquFlwqFhS
-	 wxXZtWSA/V6nQ5oDVGqGQRlyyGLEhRHEzir780tCl6qmR0alLelj9Ds2pG9PTqSrXIdSU
-	 awh7f14aPaEfAB98WqEG4OQ9SYQ8BW6LjL/9xeIFrwlJRDfzJZaqV3lo9etiurHIDlFoI
-	 EhyApMd811io2lLFGai+o15CTXTe941HAQzsNi1Ml0ycmM1RTqj4XoO8CbUYuWXjcKQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792874369;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
-	b=iOxyboMKTkus91Z2QDBjq+pIZH6PLAvlgKCwDQ6BsCHaFdp/GrKyVmIHmae5zeES5rp7
-	 EUAJ5wRjeaFN3skXFTECGzD/kYM5tsJY7eLdMraGZZGVZACBEa7hIHqfcKSSAoqzhmB8x
-	 ZEg2kEhfjmHseONZwvUjrFvf57WItqHpL6G+rIt3n3xy3EFp67cBPF6Ck5MKARFPftuBy
-	 8zY2rcUbzgc+h7UX7OLS0HVDkC/kHrlfc1qdQBKb+xPUVDHUMWmoR8OYS6d7hPsbrallC
-	 fL2ZYrs4IFSps15se0QF2jXYcmgyHhs90yk1TDdnreYTIMJKIyaxN5rel42itqMqh7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RP3XUeYq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924A9606A31B;
-	Sat, 24 Oct 2026 20:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RP3XUeYq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792874369;
-	b=hTrovD3UifkayUAaVXI0vUfwFl7XXbYhVGElDWK3GULwREiGx2vWSf4fiZvtZYeqJs0O
-	 vpXPL5wxUkxjSOVXmyUlUGtGrEuAxKSujXl2hStXQPZ/GFs69dTnfbqdurCr+mq56aIM5
-	 bEau96+KOtXoPyLV/2CZOW24jVsJsZvjYm36+aO2Ai6O82RyBfjcdA2uJfSwDrpcDYrnr
-	 YXsVyR8MDYfefwj8FH3oFIpMuJuxqDX7xQwjb/5kLMj+lmiYcIG4utp5+vlolBvjz7/n9
-	 KMt3PUj2mXoCwT+IFJkHOwkYn6UcugUKxiCjzEzWN/v7/TDQ5KTG60xJKtXAw/sWzSg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792874369;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
-	b=oO9IkskXi6dET/t50PxnKj9hFN7ncuM5raRfxzlS+NqM+7l00IKh0j9q13xbGvO83J2i
-	 gAHMPDdNlEEQZaUlGGiWWECmB+ASjfKNWb4FvcFdXkdfWYBMUWlLQyahYqqf9gyyhm6mZ
-	 HYqLOGjEUoNmzficPqUBDCUXUM0zJMV67uS8a2DWSFHzFETAQ8fnt8GCrtGDsa+ISFoeP
-	 E2awDCPbTUZ29X/m4fFRQTbdxySNe77DvOsoNsldtMbVtc3TaeKp1uRaYlI9CC/fkMQMr
-	 EuLbdKrtN1evsv1+V7KbPaUkXIh8BRLSEMaXSR0Tl0P/k9SFn8fwqOUO40R9JJU5zyw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792874382;
+	b=aswmDyqPSaJ1RpbV5EkgzhpvDbR1qmZYU0n/AfRi0vbNM5l/9L2TfmFnluzKPiWD1u5A
+	 PrzySppS+8OiQnX4Hxr+oMw6HJuw75vkTAr56irKxYxDZu/qCqMqAF1fpnnCvrGvNvaT6
+	 b17rf0lDZM3N1418BFoUMB9msG7hNkDtsXogu4/eDXEC18x9+PF7VopScHEtvNwJLsCy/
+	 BqYroYMzKAmIR6pr8YVA2N13OxQ3ZDdqRZ++cumIIE9qQv2t7TWu5F63SrCRr0cNAKhVg
+	 SyrGsI/04MjPzduq/xODG0TQq6jiBHlYI+aEoWGcN+meiiwNZa1KvWEyLi+BZeIa5CA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792874382;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=2/XF0CUDnW6R6lIlNke+9b08IY9KYK5NcupSvZbkTSI=;
+	b=2TOyqReBqwDHyagu1Hkyg7z3mVzvEotkSBmYqc0pcTZnu+Y10JnN6cEd7HdUMlgv2Iu5
+	 i5x/1ctk/lt3SukZlbXUZsmuUFYtbU1N6lniJCWPop0Hg2ClNA9N5rH63BKhk0jJHgDom
+	 odcXLkJYHTD6vuNTOM2ZXDxr095/y8iqY6zlalsb+C10DqrKt4VxhHWRc44eOMChn72wp
+	 KSkSLYMmysBnJdWUDXX6IsF7YXMNzC3veobVV1K6CezlcTpChy4FcPqu5eJQ0clOZbfTj
+	 d048710LjxffRhwq57Nop4aQ3ClTbEidLHtKBHKPJhkMal/2HZSS/lQ/iXu992R6G4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ny7DlEzb;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id F3D9F1F01825;
-	Sat, 24 Oct 2026 20:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792874369;
-	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=RP3XUeYqtTYGYiNw8pO+tal3q/uQpyF2B9xqicCHNQFbT0m2KE42K2JOdPpt/SmPk
-	 8ezOYb1nyOHvRetRiJdqSWpWwEOU2dhfH0aopBOyUQhtGuN/yaah9VnZf2DckICNoo
-	 z34R+iCql93u6F2h2hKAsOXl22TwkicgUiqCz1Cqr1dVSg/VNtY6jo5aLFy34C2IBH
-	 HfYxEl6imp0QPVBW4jc0Bj6O9fsalP2LBcXUFSYexrXuSLN9s02Ekec2Ckqd1nlIpv
-	 SeQGdu1pLIrp7EfOjKDywplhDOfm2cdJdZPVx9JqZyitbxZxLts0A5aNVUcXOIPkx0
-	 i7LPiMQkEZ4vA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 84C9F4489F;
-	Sat, 24 Oct 2026 20:39:28 +0000 (UTC)
-From: Arnaud Ungaro via B4 Relay <devnull+contact.arnaud-ungaro.fr@kernel.org>
-Date: Sat, 24 Oct 2026 22:39:28 +0200
-Subject: [PATCH] platform/x86: hp-wmi: Handle cTGP left enabled after the
- EC timer expires
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFE6606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABFE6606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ny7DlEzb
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-156cbe59622so1219353c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792874381; x=1793479181; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2/XF0CUDnW6R6lIlNke+9b08IY9KYK5NcupSvZbkTSI=;
+        b=ny7DlEzbQgSfdcm+uRZCkdg7h1Mda48FRZD2+H4+8WVU2M/FCSc0TIJLapuWetIUGr
+         4sT1NIYhx0ZxVJTHeel2FVheuNCPJRFkpBEbleY9t3r+++SAnBG3ffhNZ9CoGjpSREHh
+         7rcKE6DWQTEZfC/jLl93u1k3008/GrZ/fMDEqhKEl8SBj3yy1sS2b4MlUl7q/6wuIaBl
+         iH4eRMDYYxKP9d10Qex6qIoGVIvEsjGgBnSxO8P/1JRc5U1FCepeWj15kqN44o6t21H2
+         C/SuBwFslM/A72KDDSnxSM3Hm7CDjIYZcvaSFZBONNCDCjS09G8GH08PT6Go33T5sonW
+         qkNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792874381; x=1793479181;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2/XF0CUDnW6R6lIlNke+9b08IY9KYK5NcupSvZbkTSI=;
+        b=1Io+tm+SApAXqVHt5KlIdy3V+Hs2aBF5CbPniRHoYnBG9vXIF3zoYMT3o4pBfLJUTj
+         Yteanmzt8mkgRVSneSnMrtSjSKb49Y6m85pUlPBSrKwDmIKYu6J8j0jmHxkducdmgwNz
+         XjmMvyuwPbr9P1jvSyquTZdXOe1tZOWh1K4+WMbHF2seC84Ua+3vtfVaGqUJq8DRKavF
+         oiwQ7Xg2dm/50E50vaRw/F1HlWXOfXk82vXHPTMAOUOyvT12YxKguCof/T9bVNcDSbr3
+         gA0FXSYm8ZV1ZdkFC+UzhvLI71GdTbFDcCLG9jVcEc903nbtfIIMwOcJaPxLovNgKJqu
+         Gczg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKNN8KmwvNBns8Byj1EWl3srDslJMRBEDoEJ0F4f7T41Bh+5YzClpL9vs2ZEJk+DyfFnPERLgiM15ZuGM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7eZBXXgcLrwG0x6LYEP95niEcIf+yikgCVUW9Ram/Dyv+AzIL
+	PJpSIBzQA4w7rx+yAo9GBMlF5Cq19oG1Dih5srO+PceWrSNx270lpX9mTjwXMzaFq2Q=
+X-Gm-Gg: AYBFou0HUSUhbww4RpemIEDLoBdRJVKtfoiLwvN5aAmk3yo5vC396Xnt58SLhjPsqf9
+	g0yc5JrpxayNTFI0mCeLDq9FzzwMCt+UNWPD+WA/y85ySNFJdnGg0OanjIVRJy0mUejpmx+CiKk
+	gkDfFeqTaDIfYarEJr3dzFsV34s6ale2C5/1R3vDSxWRh9qeMGuSDnGLk1n8AXEWUrk/k2TPxmM
+	dzLAhn0pQv3Q3NFAOZFrcUMprJ5LGwOF3+wutKekdpgSy+mmR9Jhbf4o2nh4tL5BheRFWseZLQo
+	jWDz9ykMUJ8V2PRbipnmk7vB1hXYrMVBrirMUaALmK1nxm9sBNnoW7YTdC0bLQhIwh2LtbNBRjQ
+	TIWM3q8Oq731ZEBVZY9bW93qjpTWwEr4pY/Ax9bra9nuRck/yNmxJPlhTYguV3RNkwEaIrmXw6e
+	5LGHMa+ooK7Yb+3eKEcCE/lZP/GC2ufZdOSsJvNcfUin+zQm1+38wSIKZt0miBV+TuCx///FC3+
+	EeGCyhGZuQY3ctE9IhDU3ZUnCqgVg7QH8kYOe34ijliv+vdRh+XJQcsTeL2OI/7FFjzwak1qlOK
+	BlbuQ3o=
+X-Received: by 2002:a05:7022:b05c:b0:164:ae59:935 with SMTP id a92af1059eb24-199363a338bmr3729020c88.34.1792874380668;
+        Sat, 24 Oct 2026 13:39:40 -0700 (PDT)
+Received: from [127.0.0.2] ([73.222.46.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm9764737c88.14.2026.10.24.13.39.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 13:39:40 -0700 (PDT)
+From: Farid Zakaria <farid.m.zakaria@gmail.com>
+Date: Sat, 24 Oct 2026 13:39:19 -0700
+Subject: [PATCH RFC 3/3] selftests/landlock: Test LANDLOCK_ADD_RULE_CREATED
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,99 +92,272 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-hp-wmi-rechargement-v1-1-45d9f8447f41@arnaud-ungaro.fr>
-X-B4-Tracking: v=1; b=H4sIAIAX3WoC/x2MSQqAMAwAvyI5G2iDC/Ur4sElag6tkooK4t8tH
- odh5oHIKhyhyR5QPiXKFhLYPINx7cPCKFNiIEOVNVTguuPlBZWT1oU9hwOdKa2leaodDZDKXXm
- W+7+23ft+KYUVYWUAAAA=
-X-Change-ID: 20261024-hp-wmi-rechargement-905112fd792b
-To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>
-Cc: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- Krishna Chomal <krishna.chomal108@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792874368; l=2857;
- i=contact@arnaud-ungaro.fr; s=20261024; h=from:subject:message-id;
- bh=WHIOpMJQcoqQDNURmL6QodtJb2QRPTimKwNCf0bbr9Y=;
- b=jzG7e2xlatCWljfyicjvPSKBNNYWStHl0T3eT+3A+N33CDoLr4io5myHUsV1ZU1TIOQc7hVQ1
- E98jQfhfZGsCd1GsRJJG87w2Zn5whxyljqrOoE+ypZTY3M61wRHaDbr
-X-Developer-Key: i=contact@arnaud-ungaro.fr; a=ed25519;
- pk=E36DBHlmRhVNV3rriuNdMXwzVy3fGJ5rWE/saD1H0XU=
-X-Endpoint-Received: by B4 Relay for contact@arnaud-ungaro.fr/20261024 with
- auth_id=1313
-X-Original-From: Arnaud Ungaro <contact@arnaud-ungaro.fr>
-Reply-To: contact@arnaud-ungaro.fr
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-landlock-created-rights-v1-3-77c8db3f6bd2@gmail.com>
+References: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
+In-Reply-To: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, John Ericson <mail@johnericson.me>, 
+ linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Farid Zakaria <farid.m.zakaria@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Arnaud Ungaro <contact@arnaud-ungaro.fr>
+Cover the new flag: entries created directly in the directory are
+usable while the directory and its existing entries stay unreadable, a
+renamed file keeps the rights it had at its source and gains none, a
+parent layer covers the files a nested domain creates, an unrelated
+domain with the same policy cannot use them, and invalid flag
+combinations are rejected.
 
-Board 8A4C uses omen_v1_legacy_board_params. About two minutes after
-switching to performance the EC moves the thermal profile in register
-0x95 back to its default value while cTGP and PPAB stay enabled. The
-same fallback is reported on 8A4D in the bugzilla entry linked below.
-
-platform_profile_victus_s_get_ec() returns -EINVAL for this state
-because it only accepts the default thermal profile with cTGP disabled.
-If hp-wmi is loaded again at that point thermal_profile_setup() fails
-and no platform profile is registered. The power source event handler
-also fails to read the profile in that state.
-
-Read this state as balanced since this is what the EC thermal profile
-says. thermal_profile_setup() then sets balanced again and this
-disables cTGP to match.
-
-Tested on an OMEN 16-k0001nf (board 8A4C, BIOS F.21) with kernel 7.2.9.
-Unloading and loading hp-wmi after the EC timer expired registered the
-platform profile again. Without this change
-/sys/firmware/acpi/platform_profile was missing and in my test it only
-came back after a reboot.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221680
-Fixes: eeeb4c9874bb ("platform/x86: hp-wmi: Add EC offsets to read Victus S thermal profile")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arnaud Ungaro <contact@arnaud-ungaro.fr>
+Assisted-by: LLM
+Signed-off-by: Farid Zakaria <farid.m.zakaria@gmail.com>
 ---
-Found while adding board 8A4C (OMEN 16-k0001nf). That patch is sent
-separately.
+ tools/testing/selftests/landlock/fs_test.c | 227 +++++++++++++++++++++++++++++
+ 1 file changed, 227 insertions(+)
 
-Tested on the laptop with 7.2.9. The change also applies to 7.0.14,
-7.1.13, 7.2.12 and 7.3. They all have the code from the Fixes commit.
----
- drivers/platform/x86/hp/hp-wmi.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 7e25a6f6073c..84980d426436 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -2640,6 +2640,233 @@ TEST_F_FORK(layout1, refer_mount_root_deny)
+ 	EXPECT_EQ(0, close(root_fd));
+ }
+ 
++/* clang-format off */
++#define ACCESS_CREATED ( \
++	ACCESS_RW | \
++	LANDLOCK_ACCESS_FS_MAKE_REG | \
++	LANDLOCK_ACCESS_FS_MAKE_DIR)
++/* clang-format on */
++
++/*
++ * Creates a ruleset where dir_s2d1 plays a shared store: tasks may create and
++ * remove entries in it and use what they create, but not read it otherwise.
++ * dir_s1d1 is a read-write source and dir_s3d1 a source without read access.
++ */
++static int create_created_ruleset(struct __test_metadata *const _metadata)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s1d1,
++			.access = ACCESS_RW | LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		},
++		{
++			.path = dir_s2d1,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG |
++				  LANDLOCK_ACCESS_FS_MAKE_DIR |
++				  LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		},
++		{
++			.path = dir_s3d1,
++			.access = LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		},
++		{},
++	};
++	const int ruleset_fd = create_ruleset(
++		_metadata, ACCESS_CREATED | LANDLOCK_ACCESS_FS_REFER |
++				   LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		rules);
++
++	add_path_beneath(_metadata, ruleset_fd, ACCESS_CREATED, dir_s2d1,
++			 LANDLOCK_ADD_RULE_CREATED);
++	return ruleset_fd;
++}
++
++/* Creates a new regular file and returns 0 or the open(2) errno. */
++static int create_file_at(const char *const path)
++{
++	const int fd = open(path, O_CREAT | O_EXCL | O_WRONLY | O_CLOEXEC, 0700);
++
++	if (fd < 0)
++		return errno;
++	close(fd);
++	return 0;
++}
++
++/*
++ * Checks that entries created directly in a LANDLOCK_ADD_RULE_CREATED
++ * directory are usable, while the directory, its pre-existing entries, and
++ * entries created deeper in pre-existing subdirectories stay inaccessible.
++ */
++TEST_F_FORK(layout1, created_rule)
++{
++	const char *const new_file = TMP_DIR "/s2d1/new";
++	const char *const new_dir = TMP_DIR "/s2d1/newdir";
++	const char *const new_nested = TMP_DIR "/s2d1/newdir/f";
++	const int ruleset_fd = create_created_ruleset(_metadata);
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	ASSERT_EQ(0, close(ruleset_fd));
++
++	/* The directory and its existing entries are not readable. */
++	ASSERT_EQ(EACCES, test_open(dir_s2d1, O_RDONLY | O_DIRECTORY));
++	ASSERT_EQ(EACCES, test_open(file1_s2d1, O_RDONLY));
++	ASSERT_EQ(EACCES, test_open(dir_s2d2, O_RDONLY | O_DIRECTORY));
++
++	/* New entries are usable. */
++	ASSERT_EQ(0, create_file_at(new_file));
++	ASSERT_EQ(0, test_open(new_file, O_RDWR));
++	ASSERT_EQ(0, mkdir(new_dir, 0700));
++	ASSERT_EQ(0, test_open(new_dir, O_RDONLY | O_DIRECTORY));
++	ASSERT_EQ(0, create_file_at(new_nested));
++	ASSERT_EQ(0, test_open(new_nested, O_RDWR));
++
++	/*
++	 * Only direct children of the directory are covered.  The file is
++	 * created before open(2) fails, and the layout teardown expects
++	 * dir_s2d2 to contain only its own files.
++	 */
++	ASSERT_EQ(EACCES, create_file_at(TMP_DIR "/s2d1/s2d2/new"));
++	ASSERT_EQ(0, unlink(TMP_DIR "/s2d1/s2d2/new"));
++}
++
++/*
++ * Checks that a file renamed into a LANDLOCK_ADD_RULE_CREATED directory keeps
++ * the access rights it had at its source and gains none it did not have, by
++ * moving one file from a readable source and one from an unreadable source.
++ */
++TEST_F_FORK(layout1, created_rule_refer)
++{
++	const char *const moved_rw = TMP_DIR "/s2d1/moved_rw";
++	const char *const moved_ro = TMP_DIR "/s2d1/moved_ro";
++	const int ruleset_fd = create_created_ruleset(_metadata);
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	ASSERT_EQ(0, close(ruleset_fd));
++
++	/* Keeps the access rights a file already had at its source. */
++	ASSERT_EQ(0, rename(file1_s1d1, moved_rw));
++	ASSERT_EQ(0, test_open(moved_rw, O_RDWR));
++
++	/* Does not gain access rights a file did not have at its source. */
++	ASSERT_EQ(EACCES, test_open(file1_s3d1, O_RDONLY));
++	ASSERT_EQ(0, rename(file1_s3d1, moved_ro));
++	ASSERT_EQ(EACCES, test_open(moved_ro, O_RDONLY));
++}
++
++/*
++ * Checks that the layer holding the LANDLOCK_ADD_RULE_CREATED rule grants
++ * access to files created by a nested domain, by stacking a permissive layer
++ * and creating the file from within it.
++ */
++TEST_F_FORK(layout1, created_rule_nested_domain)
++{
++	const char *const new_file = TMP_DIR "/s2d1/new";
++	const struct rule rules[] = {
++		{
++			.path = TMP_DIR,
++			.access = ACCESS_CREATED,
++		},
++		{},
++	};
++	const int ruleset_fd = create_created_ruleset(_metadata);
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	ASSERT_EQ(0, close(ruleset_fd));
++	enforce_fs(_metadata, ACCESS_CREATED, rules);
++
++	/* The parent layer grants access to what nested domains create. */
++	ASSERT_EQ(0, create_file_at(new_file));
++	ASSERT_EQ(0, test_open(new_file, O_RDWR));
++	ASSERT_EQ(EACCES, test_open(file1_s2d1, O_RDONLY));
++}
++
++/*
++ * Checks that an unrelated domain with the same policy cannot use a file
++ * another domain created, by keeping the creating child alive while the
++ * parent enforces its own domain and tries to read the file.
++ */
++TEST_F_FORK(layout1, created_rule_other_domain)
++{
++	const char *const new_file = TMP_DIR "/s2d1/new";
++	int pipe_created[2], pipe_done[2], status;
++	pid_t child;
++	char buf;
++
++	ASSERT_EQ(0, pipe2(pipe_created, O_CLOEXEC));
++	ASSERT_EQ(0, pipe2(pipe_done, O_CLOEXEC));
++
++	child = fork();
++	ASSERT_LE(0, child);
++	if (child == 0) {
++		const int ruleset_fd = create_created_ruleset(_metadata);
++
++		ASSERT_EQ(0, close(pipe_created[0]));
++		ASSERT_EQ(0, close(pipe_done[1]));
++
++		enforce_ruleset(_metadata, ruleset_fd);
++		ASSERT_EQ(0, create_file_at(new_file));
++		ASSERT_EQ(1, write(pipe_created[1], ".", 1));
++		ASSERT_EQ(1, read(pipe_done[0], &buf, 1));
++		_exit(_metadata->exit_code);
++	}
++
++	/*
++	 * Closing the unused ends makes a read return if the other process
++	 * fails before writing.
++	 */
++	ASSERT_EQ(0, close(pipe_created[1]));
++	ASSERT_EQ(0, close(pipe_done[0]));
++
++	/* A domain with the same policy can't use what another one created. */
++	ASSERT_EQ(1, read(pipe_created[0], &buf, 1));
++	enforce_ruleset(_metadata, create_created_ruleset(_metadata));
++	ASSERT_EQ(EACCES, test_open(new_file, O_RDONLY));
++	ASSERT_EQ(1, write(pipe_done[1], ".", 1));
++
++	ASSERT_EQ(child, waitpid(child, &status, 0));
++	ASSERT_EQ(1, WIFEXITED(status));
++	ASSERT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
++}
++
++/*
++ * Checks that LANDLOCK_ADD_RULE_CREATED is rejected on a file, combined with
++ * LANDLOCK_ADD_RULE_QUIET, or with an empty allowed_access.
++ */
++TEST_F_FORK(layout1, created_rule_invalid)
++{
++	const int ruleset_fd = create_ruleset(_metadata, ACCESS_CREATED, NULL);
++	struct landlock_path_beneath_attr path_beneath = {
++		.allowed_access = ACCESS_RW,
++	};
++
++	path_beneath.parent_fd = open(file1_s1d1, O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, path_beneath.parent_fd);
++	ASSERT_EQ(-1, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
++					&path_beneath,
++					LANDLOCK_ADD_RULE_CREATED));
++	ASSERT_EQ(EINVAL, errno);
++	ASSERT_EQ(0, close(path_beneath.parent_fd));
++
++	path_beneath.parent_fd = open(dir_s1d1, O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, path_beneath.parent_fd);
++	ASSERT_EQ(-1, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
++					&path_beneath,
++					LANDLOCK_ADD_RULE_CREATED |
++						LANDLOCK_ADD_RULE_QUIET));
++	ASSERT_EQ(EINVAL, errno);
++
++	path_beneath.allowed_access = 0;
++	ASSERT_EQ(-1, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
++					&path_beneath,
++					LANDLOCK_ADD_RULE_CREATED));
++	ASSERT_EQ(ENOMSG, errno);
++	ASSERT_EQ(0, close(path_beneath.parent_fd));
++	ASSERT_EQ(0, close(ruleset_fd));
++}
++
+ TEST_F_FORK(layout1, refer_part_mount_tree_is_allowed)
+ {
+ 	const struct rule layer1[] = {
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 52077833ac89d3f4bd9b99fbbc1812c4f09d16c7..699531157b5e8b002b28a3669acb33b7223cee75 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -2414,12 +2414,18 @@ static int platform_profile_victus_s_get_ec(enum platform_profile_option *profil
- 						       &current_gpu_slowdown_temp);
- 		if (ret < 0)
- 			return ret;
--		if (current_ctgp_state == 0 && current_ppab_state == 0)
-+		if (current_ctgp_state == 0 && current_ppab_state == 0) {
- 			*profile = PLATFORM_PROFILE_LOW_POWER;
--		else if (current_ctgp_state == 0 && current_ppab_state == 1)
-+		} else if (current_ppab_state == 1) {
-+			/*
-+			 * cTGP stays enabled when the EC thermal profile timer
-+			 * drops performance back to default, so treat it as
-+			 * balanced, which the caller can set again.
-+			 */
- 			*profile = PLATFORM_PROFILE_BALANCED;
--		else
-+		} else {
- 			return -EINVAL;
-+		}
- 	} else {
- 		return -EINVAL;
- 	}
-
----
-base-commit: 9d3475065167197742b0882aff21cf8e78393277
-change-id: 20261024-hp-wmi-rechargement-905112fd792b
-
-Best regards,
 -- 
-Arnaud Ungaro <contact@arnaud-ungaro.fr>
-
+2.55.0
 
