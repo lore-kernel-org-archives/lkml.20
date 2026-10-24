@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792834096;
-	b=WDvKn3snIEKiUserTWbHmtDOTJHvZy05V3/ojmr6NiJ6dl1yeprZyHrwz9b/yr9BsHfi
-	 0IY2DUaN2lUTPCrq66qzvKl5tG0u4K/Yd/TspVj/i4WiKO7xvPuDRYw4dRUpdd15imr8D
-	 0JDb5Xax+FS6PQsS31oprvznR/ECDjY1PHAjP2yNOqWMoUZ31O6V6FY57XVkd4Vp8v2rr
-	 QOydTL6dSEe1mJfizxmFsS3wMkX8Kc895X15TuyhoX2P7C0/ShJj+fJag4hUHXbpgusqE
-	 2D0fkPvfsILGF/7/S188NpAWNnpuickdTTmdc/qEBFdJ0hNUTlPRGlSJVD+pX557TZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834096;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=sA9NrF57wXefuVdwuE8J8LtPsGWkgUPuXqVuimGggaA=;
-	b=CLKCq4hiVzTmFwCix5iEfnlDrWwrLrt9I+DNUQ5Unq8Ht2s0wPOyvy4sd2ZcgYzarQvL
-	 3mWmF7V2GIAkZH3gARwJLWVt2DwZmvsSoOSRVNt0uCg+bXgIT6nEihrplgeHVuctSvStS
-	 2zeXbPvlTIlSlgw/iSwUX9YfgxYs5H4ri65NN+oFTHcZO3eVYylnfsiSK28VMrGTYBRdS
-	 9XzoWmGFCwDnR4S9danP7aX4PoIQ2b5StRHXuWoJBcq81z/73hkWHoCMyb9l/VwVk6QUS
-	 FsF80tQkJkcCw7SzQZCHuSVeEVBwGXpPuFfvl6aidkRNecG7MzZTN2nHYWNnEsRQrUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTy96DZH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631B2606AC3C;
-	Sat, 24 Oct 2026 09:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTy96DZH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792834096;
-	b=K9JzXlR3W7VwaVQ8l1XVBSq9mLGa+imyf/rwaSxWy9DVRRYI7ENNmj9GoC0wHIMLUDZD
-	 hvF3C3mWoqhuTmxpjBhLwh8MVKr3ebD1XnuuwWDeFCYDHQ+t9Vhm1dPKIFI4teu/F/tZo
-	 zD3ePQN2mJZNYMK764siIN0GKk2A7mA1NrermpMey8JJ8F0osk9GFChMCnY5MpdSHy2ST
-	 iEpHKET5PHEoZ8wg//7qNvydOkqOcx1oZCdokN6GiRVPPAXF+JS+I7ZG4vSVzv+5ZDeDW
-	 obmksGf8OQrMRe495544U9JzEatKCUVzazCez+XZCdZosBAKSvh4IKDnh8gzdrRpcJA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792834096;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=sA9NrF57wXefuVdwuE8J8LtPsGWkgUPuXqVuimGggaA=;
-	b=ZTZzvFFFanxt4LKM0xoXOO13osnmDpbwxKjeFUFew9sJmR6xwmaPaRW0ZKWXS75iW6tV
-	 1n7GqkVhQiFKqNjIrDeZU0dL5xHNwiOqrZTW3NsEyK12uWudZsFJrsy4FStlcLgRIfjbk
-	 tNjrDw3aYBNWnPOUyduSTArj8D9n3uRT92f2sWdyS2Bfq09nggShuMTyR6h7k/3ltZE+a
-	 i2b0oTSJjYeKjkIundDIwJUJzrmV0S7NTHMiAtMFgU7/4T5p5+DrTwp9Lpjv+h2WlexaU
-	 0tlOsi5K3rmhEYc7ZLnh91hxw7b2i0T2oHqUHgT4coEpIeRKDms5APKSLC8534OGGrA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792834099;
+	b=CVKIkkoaeDYuN7ZrJhuuyMua5kQBP7gOyzh6B+W4Ha6s3TFiGQ3eXci4+sLl/1Q8m6N0
+	 JEEwCzRle9TMOQBWyNB4dbE4kDpbs8EKeb5IghPMC9zSTuC4YN7dXuXa8d4Y/GhYkwyQd
+	 iacYGT3eOFfu+FFb2wsco0nwTY4Bj+qSjY+BhyKz/kgoKkqH+c9i6zisAwaa+AJ52xDmg
+	 maBK1DSUO5hXtekxtZazmwSzBpLcxXUxPB/XSHjhiqRRyLlw3G5yrpxhaNu+8Zh2syU1X
+	 qdFQjkx3AgQgxIZKQ9j/h3ZduXSN95lRjNTC/gCGeyQD0OkYm0X8rmu3srrsd+b+ydQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=64Kmwjd4qcYgR0POkFaJ2RJup2bAmi9Lok2+15Er75w=;
+	b=jOKJL4iIU/JsLQ+XknE+rc4vXrKYje8XAVCjaCggsQ+hpTXD1rhJLn79fEROv6NF6E6p
+	 ozemnBKEqbOQGS24x6uChNlfV+mx9sHbBqBx97RWj2nTBSESUCmar25sPfD3Q6Sm2ZoBI
+	 peRpy29SwcjNxLK/aedqoZx3mAhwXHR1J7V489+qjRGsMnOnFY0y42H/cGum8ioR9Tz09
+	 hkNQAOk7M3mNDzdQI64gds87yjoNmWu7NxlduI9eFDSpySEgsTgu3Y80MkyPTwfUwZkOw
+	 CFQQBmCZpAiq+rOfIewO+tlzjWF1Nq1Pt4m5+oOySAoHnFKcDAdVOrND0moZyPfR5DQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="C5/RMUaE";
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E37AE1F031E0;
-	Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792834096;
-	bh=sA9NrF57wXefuVdwuE8J8LtPsGWkgUPuXqVuimGggaA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nTy96DZHiFtZwBuJpKn8p3FnaM3euBNSfF0FB0lzTKfAtSj5KaVHjbsuSS5Z17xDd
-	 v7n7RfBwRzfXRDcqAm9EM+JP9JnUjj6B2vlUDxYDM0fEuPgKBJrA+EgdMJDaIiHLlz
-	 zO7txDKzX/bfDnDA6BbIrosQ/hAa0YW/2C3z+vXyhW9GJPtNBYLvjuMY2wMQBHoF0/
-	 82EB981M0fvztllllcPy4tzJhXgiFymRFPE1+B9ffKsDQfNhLElGQ2VzhLBcAWo/8K
-	 mH7YaKySiE6BhEoldrSo5cgGGJfBU2vknhSMW7dUuLrjSOEB+RpRw+R876/cV+KAE+
-	 QICL75WC2RgXw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DC2CA44792;
-	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
-From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Sat, 24 Oct 2026 17:27:57 +0800
-Subject: [PATCH v6 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B4E606BF36
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:28:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B4E606BF36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C5/RMUaE
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-353804b591eso2790172eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792834098; x=1793438898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=64Kmwjd4qcYgR0POkFaJ2RJup2bAmi9Lok2+15Er75w=;
+        b=C5/RMUaE2YPhsn4PJiAKT/SVNqQ9rE4NfM1j0lrb6VAkEQ/GHd+yqTuZDjShe6G7XW
+         SJFEoDDWzMk0YVHPN7ILJkvxekfzh05lvR5nQkkdLdu9+AClxHsRjDqWERlI9KWgw3i3
+         Gphv74TM17r1F6HB6euLEd0ZwSBCdUu4gd+9/EBd3QZXqiVt/BlkxqsuLwIoH7mzvVfE
+         OXdnqbhDTLHB4njOiA/G/cEkFzTtm1czufx0rwCNUJtccJRRvOE7C4D2mAgZR9doMsuA
+         wFv78n0MaJ9b09kjf+r5yQ2udXYn37hNBHx2EhiRQhNpPvA03az5BrOQOdEvc492jhmF
+         nyWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792834098; x=1793438898;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=64Kmwjd4qcYgR0POkFaJ2RJup2bAmi9Lok2+15Er75w=;
+        b=QZCKdSE/oPAiDRlzdFt1kLat8G/x8N08LE1OpVyP4mlPnOTdy6rR/VpmfJja2hbvl2
+         ttRpmFZVcONciwONj69wTDyOZKrPJoUi90tTAyFSrcDyUYWlyJOlAZk1jBRdXJapSovH
+         FhGM5Sb2UcvrPEqaymS45AKoxzmHwCXgelgf44bdbc4Guf3eCpuUA9swoD1dy9OmY6GB
+         VfDikeXfalqsMYv7xqe2hDGDpISAevHuptBisVmrzVgzVsQuRDLUzguH6Y1wNNVe7/Eh
+         uz8IJp2AJlVmtfEgohpP4dv1lNP1J9VATSptG5w8ZuV4ON0hi0TddYZZAhQIquUsGr3Y
+         p88w==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ8SbthEJr+pkXlkhAJw1kUBEdbAhqq4PVl+zOcyIYlSafF1zbgyRfJMUHkN7L9lRiptGRVEkJALn9tUc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhXWUFY1hITltLZCnC5WSzULrkHQ9tmvSQPqhqj1+eWLaM2V5z
+	YBFRotH6D8kRps7hhbhY3YQ8hzgzIwrNjXpgu50PIaZEwwQlegJzcKxP
+X-Gm-Gg: AYBFou0fZEDsXFrXAnhZV5hl+9NXOFB/WpGou647bEhEY1Kvn1MG7zN/icNF6ktZjBM
+	wTuHAZhCvhlfvoUux4k2nCkPl5AJrbXJoQbAdh/bVcGl+SPNiRaAT5lCSNQybrICyLGaHl5mxxa
+	qHrYS4nwg41muyL1snEYy0V71z5OJI4NfJ/iG1bKEyXTaY9ic9ZyRHrRV9W2OQwb1gIWdX9Lm8e
+	l3JOJTkQQrzEgQJg0Pjsc9J+LolNj4vVMw51SoIkxRwCiYL/jmAige8Q9DQB01hKYvmBq8Ngeat
+	W34cnIN83hiLodEPjV/3lzqVbwCYpyaZWymouIgDGPXipMSGqWsQ9rjMDU4m5NTFJJAhWpU+Aru
+	33rni1ELCr+oMbjq989lln/w0kjqffn1qooKapZF6hYffiXDfQJNDh2OXlFqlWutiyl8pnXiElq
+	dilyQ8Zl+0VLkGOOvAvK5MdSniRWx788KcfBU1GlBw+J1plMOvBihFQFZkc3c89hK6WBEuN8GSe
+	eV0zVzMTbSRPtg6j0BjUcRu/SLSYQTWREg3CfSEdsTZDVAfpxkMV0x5WAG3rOHSpsRG+M424Dll
+	RPLn5NQFT8n4ThM6/8CAlnQUJbLmjE2TPBms7tKMlHwuyJqheJxne1V1EWqFHycFYyjPBY3+cw=
+	=
+X-Received: by 2002:a05:7301:a10:b0:369:4c3f:8a0 with SMTP id 5a478bee46e88-369e84aba41mr2187644eec.19.1792834098277;
+        Sat, 24 Oct 2026 02:28:18 -0700 (PDT)
+Received: from nixos ([2405:201:c40d:9039:e1f8:b9bb:b037:3cab])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm5236604eec.18.2026.10.24.02.28.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 02:28:17 -0700 (PDT)
+From: Ayushman Rout <ayushmanrout27@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	Ayushman Rout <ayushmanrout27@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf 2/3] bpf: Fix bpf_dynptr_copy() for overlapping ranges in one packet
+Date: Sat, 24 Oct 2026 14:56:57 +0530
+Message-ID: <20261024092659.76422-3-ayushmanrout27@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261024092659.76422-1-ayushmanrout27@gmail.com>
+References: <20261024092659.76422-1-ayushmanrout27@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,394 +110,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-ultrarisc-dts-v6-7-c62994d8a114@ultrarisc.com>
-References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
- Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- linux-riscv@lists.infradead.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=7807;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=SByuMay1i9EDHMw+1UNcfjKWxQwvz7yfWXdi3K55pew=;
- b=AqG3GH7KeAKO+T4ynpB95x4ekiGqpqUSEfFsZsaeeVhYNajqGnjdWXAAE8MnawA392dG3a0pg
- 5IOIWdNG9ITCJg4hsThfvlUM8d5suuwX8aU+72bG9S+IQfPzVCuPcGx
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
- auth_id=1046
-X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Reply-To: jixincheng@ultrarisc.com
+Content-Transfer-Encoding: 8bit
 
-From: Jia Wang <wangjia@ultrarisc.com>
+When neither dynptr can be sliced, which happens when both ranges cross
+a segment boundary, bpf_dynptr_copy() copies through a 256 byte stack
+buffer. It copies the chunks from the start to the end.
 
-Milk-V Titan is an ITX motherboard based on the UltraRISC DP1000 SoC.
+If both dynptrs point into the same packet, the ranges overlap and the
+destination is above the source, a chunk written to the destination can
+overwrite source bytes that a later chunk has not read yet.
 
-Link: https://milkv.io/docs/titan/overview
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Example: a 1200 byte copy with the destination 100 bytes above the
+source. The first chunk writes source bytes 100..355, so the second
+chunk reads bytes 256..355 after they were overwritten.
+
+In that case, copy the chunks from the end to the start. This only
+applies when src->data == dst->data and the destination is above the
+source. All other copies stay as they are.
+
+The selftests added later in this series fail without this patch.
+
+Fixes: daec295a7094 ("bpf/helpers: Introduce bpf_dynptr_copy kfunc")
+Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
+Assisted-by: LLM
 ---
- arch/riscv/boot/dts/ultrarisc/Makefile             |   1 +
- .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 108 +++++++++++
- .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 201 +++++++++++++++++++++
- .../boot/dts/ultrarisc/dp1000-shenrongda-m0.dts    |   2 +-
- 4 files changed, 311 insertions(+), 1 deletion(-)
+ kernel/bpf/helpers.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts/ultrarisc/Makefile
-index 454d849a6ce4..dfd15c064d07 100644
---- a/arch/riscv/boot/dts/ultrarisc/Makefile
-+++ b/arch/riscv/boot/dts/ultrarisc/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-milkv-titan.dtb
- dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-shenrongda-m0.dtb
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-new file mode 100644
-index 000000000000..7a812e40a249
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000.dtsi"
-+#include "dp1000-pinctrl.h"
-+
-+&pinctrl {
-+	i2c0_pins: i2c0-pins {
-+		pins = <PA12 PA13>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c1_pins: i2c1-pins {
-+		pins = <PB6 PB7>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c2_pins: i2c2-pins {
-+		pins = <PC0 PC1>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c3_pins: i2c3-pins {
-+		pins = <PC2 PC3>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	io_pins: io-pins {
-+		pins = <PA10 PA15 PB0 PB1 PB2 PD6 PD7>;
-+		function = "gpio";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	gpio_keys_pins: gpio-keys-pins {
-+		pins = <PA4 PA11 PA14>;
-+		function = "gpio";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	mux_dcdc_i2c_pins: mux-dcdc-i2c-pins {
-+		pins = <PA5>;
-+		function = "gpio";
-+	};
-+
-+	mux_i2c3_pins: mux-i2c3-pins {
-+		pins = <PA6>;
-+		function = "gpio";
-+	};
-+
-+	mux_uart0_pins: mux-uart0-pins {
-+		pins = <PA7>;
-+		function = "gpio";
-+	};
-+
-+	spi0_pins: spi0-pins {
-+		pins = <PD0 PD1 PD2 PD3 PD4 PD5>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	spi1_pins: spi1-pins {
-+		pins = <PA0 PA1 PA2 PA3>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart0_pins: uart0-pins {
-+		pins = <PA8 PA9>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart1_pins: uart1-pins {
-+		pins = <PB4 PB5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart2_pins: uart2-pins {
-+		pins = <PC4 PC5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart3_pins: uart3-pins {
-+		pins = <PC6 PC7>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-new file mode 100644
-index 000000000000..89c41b382942
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-@@ -0,0 +1,201 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000-milkv-titan-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/input/gpio-keys.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+	model = "Milk-V Titan";
-+	compatible = "milkv,titan", "ultrarisc,dp1000";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gpio_keys_pins>;
-+
-+		key-wakeup-0 {
-+			label = "Wake-Up";
-+			gpios = <&gpio_a 14 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_WAKEUP>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_ASSERTED>;
-+		};
-+
-+		key-wakeup-1 {
-+			label = "Power";
-+			gpios = <&gpio_a 11 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_POWER>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_ASSERTED>;
-+		};
-+
-+		key-wakeup-2 {
-+			label = "Wake-Up-by-USB";
-+			interrupts-extended = <&gpio_a 4 IRQ_TYPE_EDGE_FALLING>;
-+			linux,code = <KEY_WAKEUP>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+		};
-+	};
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0_pins>;
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1_pins>;
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pins>;
-+
-+	rtc@68 {
-+		compatible = "st,m41t11";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3_pins>;
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0_pins>;
-+};
-+
-+&spi1 {
-+	num-cs = <1>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi1_pins>;
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart1_pins>;
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart2_pins>;
-+};
-+
-+&uart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart3_pins>;
-+};
-+
-+&pcie_x16 {
-+	status = "okay";
-+};
-+
-+&pcie_x4a {
-+	status = "okay";
-+};
-+
-+&pcie_x4b {
-+	status = "okay";
-+};
-+
-+&gpio {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&io_pins &mux_dcdc_i2c_pins &mux_i2c3_pins &mux_uart0_pins>;
-+};
-+
-+&gpio_a {
-+	dcdc-i2c-mux-hog {
-+		gpio-hog;
-+		gpios = <5 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "dcdc-i2c-mux";
-+	};
-+
-+	i2c3-mux-hog {
-+		gpio-hog;
-+		gpios = <6 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "i2c3-mux";
-+	};
-+
-+	uart0-mux-hog {
-+		gpio-hog;
-+		gpios = <7 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "uart0-mux";
-+	};
-+};
-+
-+&ethernet {
-+	phy-handle = <&phy0>;
-+	/*
-+	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
-+	 * integration adds fixed delays in both directions.
-+	 */
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+
-+			leds {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				led@1 {
-+					reg = <1>;
-+					color = <LED_COLOR_ID_YELLOW>;
-+					function = LED_FUNCTION_INDICATOR;
-+					default-state = "keep";
-+					linux,default-trigger = "netdev";
-+				};
-+
-+				led@2 {
-+					reg = <2>;
-+					color = <LED_COLOR_ID_GREEN>;
-+					function = LED_FUNCTION_ACTIVITY;
-+					default-state = "keep";
-+					linux,default-trigger = "netdev";
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-index 43f713bcea25..b6027420175c 100644
---- a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-@@ -106,7 +106,7 @@ mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
+diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
+index 648abe1ba63a..8eb600cc9d12 100644
+--- a/kernel/bpf/helpers.c
++++ b/kernel/bpf/helpers.c
+@@ -3293,6 +3293,7 @@ __bpf_kfunc int bpf_dynptr_copy(const struct bpf_dynptr *dst_ptr, u64 dst_off,
+ 	const struct bpf_dynptr_kern *src = (struct bpf_dynptr_kern *)src_ptr;
+ 	void *src_slice, *dst_slice;
+ 	char buf[256];
++	bool rev;
+ 	u64 off;
  
--		phy0: phy@0 {
-+		phy0: ethernet-phy@0 {
- 			reg = <0>;
- 		};
- 	};
-
+ 	src_slice = bpf_dynptr_slice(src_ptr, src_off, NULL, size);
+@@ -3313,15 +3314,17 @@ __bpf_kfunc int bpf_dynptr_copy(const struct bpf_dynptr *dst_ptr, u64 dst_off,
+ 	    bpf_dynptr_check_off_len(src, src_off, size))
+ 		return -E2BIG;
+ 
++	rev = src->data == dst->data && dst->offset + dst_off > src->offset + src_off;
+ 	off = 0;
+ 	while (off < size) {
+ 		u64 chunk_sz = min_t(u64, sizeof(buf), size - off);
++		u64 pos = rev ? size - off - chunk_sz : off;
+ 		int err;
+ 
+-		err = __bpf_dynptr_read(buf, chunk_sz, src, src_off + off, 0);
++		err = __bpf_dynptr_read(buf, chunk_sz, src, src_off + pos, 0);
+ 		if (err)
+ 			return err;
+-		err = __bpf_dynptr_write(dst, dst_off + off, buf, chunk_sz, 0);
++		err = __bpf_dynptr_write(dst, dst_off + pos, buf, chunk_sz, 0);
+ 		if (err)
+ 			return err;
+ 
 -- 
-2.34.1
-
+2.54.0
 
