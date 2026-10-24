@@ -1,91 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792873712;
-	b=u3mjewMZZfnlHsfa/MbK0+Gs+/9jljb2y4WMRg3Fu8+HDxJ6PXcd5NAkUV/smi3GiDOq
-	 M2hWfOSbNIiGA61IXc5sb2hF8Qw5aRS5PEWFPfYaaxnVP1o44JmXFhbEcnC73Vsyzyxfi
-	 cilpmlWeQ5GwgW0ACrqWVZ2kq3aMxmq95vBMUZihCLVka0wt4N+iGrTGn/kfrUoDQQ4u4
-	 OWgBx8xF8Q7RA8Ya8N/bvZzo4aLFJyvCNjPhsQqDQ4NH+fyVgda8ZNAU5UKybYXaihSmX
-	 51iOr9VuU3PvNwSfa1/jqgLVTSf3kN7rjaVG9m8qqm8KytvQLMyeRknLF55pSblpRqQ==
+	t=1792873816;
+	b=CVVI5rREw848OUxGKojrF9VBwZjZ6Ypnzp6RjM+u0BGn6kBKr2zT0WkP87TuMa5+R5//
+	 F1YMO1MqBiQiRuGQbqmYLg1SHSNwmpyRZn/ZW8sWKSnshTDK1hHSxKvtfAHHTQUFWimwR
+	 GNPDi8KQjU+Tb6XPumkiReUm+Wi6RN2IwWkoJGZMm7Z7UTt0AgIQlElbTVdkWtX2XLEbO
+	 Jh7OVAbEN5ihM6IzAOyU3Etbvx25U6OLBz9KFMZInO3trtXiA4r5LwsTvjlbyODf3cHdF
+	 NOTiwB9OvWmw+oV8X3SyqNwmdimncLbUyrpomEjtzVoPkeoFJ3qQTRzpLqiUoDZRDpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792873712;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kikhthoaQlWBu42au/eGBn/q99FtaNm9yiWtkx2cnsk=;
-	b=NIsmgZ3HAGPnvBN396UyP/kvEcJppsJ+8AhT/l2Ocy8/qmB2uP4a6OSY4rM98mBJqu7I
-	 f7MjZWLwbu7lcw9kR6DWWATz8/50d8cSo5L9h/Aj9C5l6vQF8Giaa2i1HCrklngbCSTYn
-	 /sHoabrOws05Xl2cC6zXAFP5jVipqIljyUVCWA7jgz7kv8eyGk2047TeI4cAObUIr4QuL
-	 jnTHNNiLoFyBkiOYVhMjkCeEKCYn8x3SnROVdtC1ugnhrNvxYYBGxrEVZO3d9s5LRgNhR
-	 pZrRhYYdBVPY0UfjZl2LEB7uihVFtGj22C3dxkbapMb1OdJ631zMuWPIkF08G1Lz/Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792873816;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=KeiwgXi1K9u8VMrXK+4xDuwPm9KyRDE8crSBulhqGvY=;
+	b=A9ohdVR2bsujPsRAK+/KHA8dnpKWTbIiv8OfIkl9kxE2crirN/BfZpTfHYaD/syMjrOx
+	 x+U+t9wdkUa8V/kEZyjuLva2oiNf81ZIkopEmfiTzx0V94aYkEtJjv66038M/PHDV7WpK
+	 nSP/8aHI+iXX1BeixbYI7aVz/mUZrQE4Lw/jhPBfbxbD5/EAlSlcK1aii753c/qyMVEvg
+	 UME6Xlcux/R1kGx6cA4R+rp75OGd/AIj+IxaLid7zLqREWo8RJJMKNZLMFka5bTzlQkCZ
+	 n8QEksuwXWJcEFJK62DEQo4cYK/kIU35QqjEbj/90+S2Z5WgYSfyukLM8WEHJiR5e8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Vnv/VXJ2";
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LM7su+fd;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGRvwvn1;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE1B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE1B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7522E606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:30:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7522E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vnv/VXJ2
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35f036b17easo4235334eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:28:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LM7su+fd;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGRvwvn1
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69OITprH3375812
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:30:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=KeiwgXi1K9u8VMrXK+4xDuwP
+	m9KyRDE8crSBulhqGvY=; b=LM7su+fdDMxjVmM4ceqqXJs/RRlJVqAelDJuAUCJ
+	VrNAlFqMBnhIct7u++9kYqh6RQHpbbRFSijeXjOYSnbP6kQJbLdSGUdgzD4QKHcX
+	BL693X/iNRuzIp3rwU97R3LmTE9tENfArSGRQID0Ih0harZRgAv/94KngIwmxW+X
+	JxtxN5X+NYTGSsTHWDxylEbyfLf4xz0gYgrJOvG/EzNa2ZN9EUXq1RgYAH1n3cVf
+	H8WcJ/uaeMxSy3Q+D8uYkQ9iSZbwWhc2a4ZlqGxWlFy+9w2eSTsD36ruLmAvwEox
+	Pg8ndN4aaoIjchSoBz84JPBw4NcLqSPsXQw+WEJ6/6LEBA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkms9v7y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:30:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f1f2fafeaso260686785a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:30:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792873711; x=1793478511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kikhthoaQlWBu42au/eGBn/q99FtaNm9yiWtkx2cnsk=;
-        b=Vnv/VXJ2lB58VILA6ioygffnws5UkzzQ/PjShVmAzAxAEzxAgS02Js0YebOFQQfFc7
-         E9dX9uMAgb/fXkhlqqlWPlKDWPHx61QdAutGcV+CRgLCKYLoxOOBIEiy1Oj1IdA7uK+K
-         HbZ/uXHwvXnjRK5XfoJ2YYTA2o1mO+M5i/uMDfP6G6oJOmgvhINsLHWkj+ooCz0jWg2w
-         8CpVurbi5C+fGW3IwIYEg79rJjMqXGaHu8sy4Pe1ch9u82+Tt9tdFWzfov5UcNMrCDii
-         GjY0AcJ6oWirhZVLCZr1wzcZXqUfYxcJQbTaBDClEQcVsu5vGZ0JBAE2ElZHg4yZ3Zft
-         dvtw==
+        d=oss.qualcomm.com; s=google; t=1792873814; x=1793478614; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KeiwgXi1K9u8VMrXK+4xDuwPm9KyRDE8crSBulhqGvY=;
+        b=CGRvwvn1FzpW6ZEW+fWe3NNDpRWwjX2Ifwwd6g9t7JPOPJ2hm1+VKrFZ98z4tN1Eyd
+         cxt9AwRvhpqGJpHNWHZykNVoT5fvpU1dwlOgLhQj/wl7ZLJrFSRs6nQTraIEj8P+GrsC
+         Ve1WqePz7i22KipFsbWFe9GIoOWiiSNovK0xJwqteTvT7DTt+VdoxEA1TNuOjcG+CYK2
+         cpWvKEoQgwexd6DWiRp0ojNsoPJSVs7IGhKUJob2RK0h167Wxv1cJEX2gRB2wFl/oFQs
+         yfoeObHupaUG73U+XFl6PT9JeDfe+eKAgoDKkeJU6Wj+jQ4RGaPDq274n0u4CIJC3IzN
+         N/Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792873711; x=1793478511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kikhthoaQlWBu42au/eGBn/q99FtaNm9yiWtkx2cnsk=;
-        b=I1uW9d8GR8kR7rfWSRgfPvGj5PTGk6krDBoRMJE2h6F3NWTW0u7gLGrP/CaML0d3XA
-         +k1IybxNBRvcs+NTAOk1az/OK/MQP2wSx17NtIE+nxTh01cMeY+dKnUEDF8gRMhR5bOg
-         NUJKqWP+AxSTaGCBgKuajUPQptnWRu1tpKhMxwEg20n+ZHE7+ro3asNw65f9WSJVK35P
-         6YtKsUZHd46O6pt2ZcaMqJcWDNxJfmUa0zXnlOYuP1xgqqobmvF8jysgv6j8yZ7JZiWJ
-         uBcvbDJqzBXUBAWwX2LdaJRf69VBZ/bF5IeUmEcjzl7Y2xLxqAaTtOVTlpBv45Zws7gL
-         +MUA==
-X-Forwarded-Encrypted: i=1; AKwUvBx29MgvAXPEDt5drYYUJv8luWwfbUJ1umjcKVQxvoEdm4nmHjTeMIDFoBc8Rt+1lkY7nRk7/YX7qZ3EWkc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcRwozQEoT2TLDRNAgZOeJF3lBUW4NkozoDz5V5jaxRS+W0FPm
-	WArrL3vJmtViWRBrZjdEERSSimTmIs6kSN1wr26baF2ixRjrk4jwchi7H47wrA==
-X-Gm-Gg: AYBFou3e3EXPirAkGzy9qWjo9FzifO6mt8GVY2bg8Mw5Z0fq9X/+KHQScjG9DJE+GpC
-	xbRsd0F8/UFDQzrorqC4tRIYTWn+GvDbmPHlR5d+Jjoc/9l7Q3hx1bDmVxGFRONbILodXPDyQ2C
-	cOixjaM6Fx0QEB/rdjXzQ9QzHmYbcvaJpKTj7UuPMu3cj9yyOiDueUQv4e+Qz9UnjYBJPHhIXwz
-	b1RgzO0YJB5vUFwI1CXFhQR+WFwrLtNlxJdyBA1/YBEwwSY3JoILMz2z7wsrRXO4Y1YL2FB9sUW
-	seY3yj7zs3Lmu2gID1FvxM0rYpzA4f/rx6e2Ld+7co3ad1BIw1SaXMaAbv5/rEGlAvWZcFeS7W2
-	Z02fXXaUyTj+0KX7fZudByCXfNhOIZmsHa1LLBXmxAj06ZHYrPwQ1mMRXirQ2lWRK8sbN9/CCtp
-	8+CtaaKIDBBm9QBTf3syw5NFuCpxA+jrbDC/jYnTxvR0qYWfBbp0vV2sLeKUWtwO+yJVIwuBnF/
-	LXj3egRRPVPcaYIR44ivGmqXBC6C3ixNTp+8HSKKpT1S/80nN/bAUeAgQ70GTlkMVYHyqPxag/i
-	3lY=
-X-Received: by 2002:a05:7022:438e:b0:195:e4b9:d326 with SMTP id a92af1059eb24-19936a5e5e9mr6393651c88.12.1792873711407;
-        Sat, 24 Oct 2026 13:28:31 -0700 (PDT)
-Received: from localhost.localdomain ([49.42.181.238])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee69sm13495358c88.4.2026.10.24.13.28.28
+        d=1e100.net; s=20260707; t=1792873814; x=1793478614;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KeiwgXi1K9u8VMrXK+4xDuwPm9KyRDE8crSBulhqGvY=;
+        b=1lt/WGCsN3y/HUHq4U1UQxPxdoETURcxOmi1MTqfSmxh3y1ziMc51XGajffGv1EVmZ
+         OvT3runp3QBt2xF4WK80YZjzyua9Tm6DX3Th9x5q+CGUZDXHFE4b9QZiN+pZn/1ICxvy
+         4fue+HedHg0R59z/6dq4I8JNPqla+1K3Ru7Yhe6UDWX8ZuAAJX8PjrQb3NJDhv9g4AnF
+         colPlj+rnFaWqaLm2z8p4Hcn16EfUWAL0uj36enapmjIHdPmcI8JQhL4KGdaaRqYUluI
+         FRC3LWIQ4MYobAojmhsx7q/FVYs95qIL1Yz3sIj4QPyeF5oNdg74f6pkyhq1r/eoB5nW
+         WRlw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmXvRoS+GOkR6pduWmrGJqwIZDUuF6X+4J1k5ZVZTBHGLBpTnqD5vzn7CjUHZMWk54YgwT8ESeBesdcpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0WqR6hMZLUrItKx6qEFFZU6P8ID106z28K41fUBdINa7NnWbE
+	J7ICuPXWQDTeHbV1eHIHaeLxnkV8MKV1WzdStVG/xIp3WINVLV2PEqoKGvl9mxePh1PBDyJR6uw
+	TKSAzlRsFrs9aHn307D/j5dNZJHY6fOTRp0nW6bAbnXGJ4iHFTwjzBZK0nRE3tsU0bgI=
+X-Gm-Gg: AYBFou3hy7UD4DMgvVLL9CiAA/yttqZDdlMrVzrjokloGHPZlmugaNugtc/oBmUZvCO
+	9Qt9RfEd6/JwSP2p7gX26sLhid8cNsRnjbmTUC42NzhG272KEYYEIR6hozniKjfxxDdCASG3Ie0
+	/nMc6/8MGWRHZkJXn0p6JfqW7JNcEGiMIdOXlSPKL4NG/3lfzXbFEFUmCh8HH6f8+NRZQWL0Zzt
+	7LW3oSmwdJ2jsQLDP5vEyghpnZY6YjZ4Iah0U7BkGvBz4A5OBrFnCmjZ9ctJg6ZBzNk6LD1bvHf
+	oi0hFYH6yenxGDBfVzJtzrznVzL3zp5OiNF+oumVTnpS0u//LH4DRtZEzxfusyWzBpqsxTOqd1d
+	qEy+ZqUNqEQaEFRXY
+X-Received: by 2002:a05:620a:4413:b0:93f:3cb0:464b with SMTP id af79cd13be357-940ef980d30mr409042985a.49.1792873814357;
+        Sat, 24 Oct 2026 13:30:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:4413:b0:93f:3cb0:464b with SMTP id af79cd13be357-940ef980d30mr409038385a.49.1792873813758;
+        Sat, 24 Oct 2026 13:30:13 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8ddasm6746311f8f.48.2026.10.24.13.30.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:28:30 -0700 (PDT)
-From: Sourav Nayak <nonameblank007@gmail.com>
-To: ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sourav Nayak <nonameblank007@gmail.com>
-Subject: [PATCH] platform/x86: hp-wmi: fix platform profile values for Victus 15-fb0xxx (8A3D)
-Date: Sun, 25 Oct 2026 01:56:58 +0530
-Message-ID: <20261024202658.13149-1-nonameblank007@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sat, 24 Oct 2026 13:30:13 -0700 (PDT)
+Date: Sat, 24 Oct 2026 23:30:11 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Nizat Mikayilli <nacht@dxdmail.cc>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
+Message-ID: <k4ogudreh2a7ug3mtovxqyelip3kog2bz5vswtjryba6hk7vx7@oervurjnf22q>
+References: <20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc>
+ <20261022-gts9wifi-dts-v4-2-a361428fe59c@dxdmail.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,115 +125,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-gts9wifi-dts-v4-2-a361428fe59c@dxdmail.cc>
+X-Proofpoint-ORIG-GUID: rrQ-sEv0V_dYB5ohU72_mZ6eivbnHrRk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA4MSBTYWx0ZWRfX3SdFzIflWxsj
+ LmsT8hgYCGeiJKGy5LSbP7rr4PYMByE9mZDX9XbkUggdPvauvXeC2lc9O8bKUDBAi5G5O3J0Cg/
+ ZDCM0Sovx3dJGfdYaBXRqClz/Vw1OMrZ4snQKNaenAEKFKRelVK1D2MWu37jkPYUtwCEZZPzG/C
+ e737OqPsedgfjl7j9utQU+xi5ZL0GWo5xV6kDglhCbCl6L7vZJG99k+VKHAskan0eVRok0TuDp+
+ 8DVfl+y4AmE2qBuGeRM3Y0fYQIkFlRQiXwNeOvNyuwL7Qlo1Al5Nk564HYBfR0uPSrq8psP1KNW
+ o6irFsN0ozvud2DHLtEIJlSr3COoDBR3wy3tvS3iglqp6tpcAXO0OkSKjQE4trBnZDi55hjauPH
+ kLv+ASwtcASiq4ke4yuey8/Qn9kiVDu8fZ0qOQgB2AwbJpAtGLQ+libyftPIiaYkVFDjn4euGO/
+ ysIhQfJnJyaQsDeSg3A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA4MSBTYWx0ZWRfX/uGMoxamKNiR
+ BYAyAyU46S0KvlMylnzlj2sfgccetPXX83TLOjyQ9Z7paDXwRcAujXArJAUDJyS1RkYyJwIxKvQ
+ Q1E1JJ+vk6jJ2YwPNsPcDO34X+ssHsQ=
+X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6add1557 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=AqZmfHzJsoaMp3Ki:21 a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=zDk8rvenn9N7faQbNqAA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: rrQ-sEv0V_dYB5ohU72_mZ6eivbnHrRk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-24_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610240081
 
-Currently Victus 15-fb0xxx (8A3D) takes victus_s_thermal_params,
-which causes it to register as incorrect EC layout while cold boot.
+On 26-10-22 23:58:20, Nizat Mikayilli wrote:
+> Add support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710, codename
+> gts9wifi) tablet, based on the SM8550 SoC. This is the Wi-Fi SKU, but
+> it still ships modem firmware, so the modem carveouts are kept. The
+> modem itself is left disabled for now, so rmtfs_mem is dropped.
+> 
+> Described hardware: UFS storage, the microSD slot, USB 2.0 peripheral
+> mode over the eUSB2 PHY with an NXP PTN3222 repeater, the
+> bootloader-provided framebuffer console, power and volume keys, the
+> book-cover switch, GPU, video decoder, ADSP with the internal audio path
+> (four CS35L45 speaker amplifiers and the VA-macro digital microphones),
+> and the WCN6855 with Wi-Fi on PCIe and Bluetooth on UART.
+> 
+> Tested on hardware: booted via U-Boot on top of linux-next
+> next-20261002, with the default kernel command line (no
+> clk_ignore_unused, pd_ignore_unused or regulator_ignore_unused).
+> Verified: UFS storage enumeration, USB 2.0 gadget, framebuffer console,
+> power and volume keys, the book-cover switch, CPU frequency scaling, GPU
+> (firmware loads, render node present), video decoder (device opens),
+> microSD (UHS-I SDR104, read/write and card detect), speaker playback and
+> DMIC capture, Wi-Fi (ath11k probes and scans) and Bluetooth (firmware
+> loads).
+> 
+> The display panel, touch, pen digitizer, cameras and battery/charging
+> are not described here.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 
-- On other hand windows Omen Gaming Hub registers EC offset as 0x95,
-- which is set in driver as HP_OMEN_EC_THERMAL_PROFILE_OFFSET.
-- So, address it by adding victus_s_ec_thermal_params.
-
-- Also perfcontrol modes as performance (0x1), default (0x0), quiet
-(0x3) registers. So, add support for quiet mode.
-
-Also, hp_wmi_fan_speed_max_reset() caused fans to freeze during loads at
-0RPM, introduce a 'if' statement to resolve it by calling hp_wmi_fan_speed_max_set(0),
-and passing platform active again to reactive curves. Test data:
-
-auto/max:
-hp-isa-0000
-Adapter: ISA adapter
-fan1:        5400 RPM
-fan2:        5200 RPM
-
-mannual[255]:
-hp-isa-0000
-Adapter: ISA adapter
-fan1:        5800 RPM
-fan2:        5800 RPM
-
-Tested-by: Sourav Nayak <nonameblank007@gmail.com>
-Signed-off-by: Sourav Nayak <nonameblank007@gmail.com>
----
- drivers/platform/x86/hp/hp-wmi.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 615b4cf6fc45..c35bbe1427e3 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -121,6 +121,13 @@ static const struct thermal_profile_params victus_s_thermal_params = {
- 	.ec_tp_offset	= HP_EC_OFFSET_UNKNOWN,
- };
- 
-+static const struct thermal_profile_params victus_s_ec_thermal_params = {
-+	.performance	= HP_VICTUS_S_THERMAL_PROFILE_PERFORMANCE,
-+	.balanced	= HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
-+	.low_power	= HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
-+	.ec_tp_offset	= HP_OMEN_EC_THERMAL_PROFILE_OFFSET,
-+};
-+
- static const struct thermal_profile_params omen_v1_thermal_params = {
- 	.performance	= HP_OMEN_V1_THERMAL_PROFILE_PERFORMANCE,
- 	.balanced	= HP_OMEN_V1_THERMAL_PROFILE_DEFAULT,
-@@ -164,6 +171,11 @@ static const struct hp_wmi_board_params victus_s_board_params = {
- 	.fan_profile		= &victus_s_fan_profile_params,
- };
- 
-+static const struct hp_wmi_board_params victus_s_ec_board_params = {
-+	.thermal_profile	= &victus_s_ec_thermal_params,
-+	.fan_profile		= &victus_s_fan_profile_params,
-+};
-+
- static const struct hp_wmi_board_params omen_v1_board_params = {
- 	.thermal_profile	= &omen_v1_thermal_params,
- 	.fan_profile		= &victus_s_fan_profile_params,
-@@ -245,7 +257,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
- 	},
- 	{
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8A3D") },
--		.driver_data = (void *)&victus_s_board_params,
-+		.driver_data = (void *)&victus_s_ec_board_params,
- 	},
- 	{
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8A44") },
-@@ -2121,10 +2133,14 @@ static int platform_profile_victus_s_get_ec(enum platform_profile_option *profil
- 	 * but logically it should have tp == 0x30 || tp == 0x31, as
- 	 * corrected by the Omen Gaming Hub on windows. Hence accept both
- 	 * of these values.
-+	 * Since boards like 8A3D write 0x3 to EC offset 0x95 to
-+	 * engage quiet mode. Map this to PLATFORM_PROFILE_LOW_POWER.
- 	 */
- 	if (tp == victus_s_thermal_params.performance ||
- 	    tp == omen_v1_thermal_params.performance) {
- 		*profile = PLATFORM_PROFILE_PERFORMANCE;
-+	} else if (tp == HP_VICTUS_THERMAL_PROFILE_QUIET) {
-+		*profile = PLATFORM_PROFILE_LOW_POWER;
- 	} else if (tp == victus_s_thermal_params.balanced ||
- 		   tp == omen_v1_thermal_params.balanced) {
- 		/*
-@@ -2657,7 +2673,17 @@ static int hp_wmi_apply_fan_settings(struct hp_wmi_hwmon_priv *priv)
- 				 secs_to_jiffies(KEEP_ALIVE_DELAY_SECS));
- 		return 0;
- 	case PWM_MODE_AUTO:
--		if (hp_wmi_fan_control_supported()) {
-+		/*
-+		 * Victus models like 8A3D, calling hp_wmi_fan_speed_max_reset()
-+		 * freezes fans at 0 RPM under load. Instead, disable max fans and re-apply
-+		 * the active platform profile, so the EC firmware thermal curves regain control.
-+		 */
-+		if (hp_wmi_thermal_profile() == &victus_s_ec_thermal_params) {
-+			ret = hp_wmi_fan_speed_max_set(0);
-+			if (ret < 0)
-+				return ret;
-+			ret = platform_profile_victus_s_set_ec(active_platform_profile);
-+		} else if (hp_wmi_fan_control_supported()) {
- 			ret = hp_wmi_get_fan_count_userdefine_trigger();
- 			if (ret < 0)
- 				return ret;
-
-base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
--- 
-2.55.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
