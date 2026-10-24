@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792863903;
-	b=mdO96fhM1faArvMdjtt/uvMPYAvX4WWgOEKMstFV1Ry0cjiJkAHl7AHHD+d46mXxtC+4
-	 EzpDRfpS3uO1Zc1OWQGxVRUYzdwQxwCKSsQ/Lsq/+5/Ijm6PY42tDvA+wHLzWvmSzWqnl
-	 enk1fypVNe8RkyQEHAhGps1D1IQDgXZVHTuBh+3DHs7goHrGlp9yko1FMpLfMPztyglM7
-	 jDXGIFfLTosPCxCkfGBHikQKKA5AzFzr39YLElg1E+HrRZ4K+dGYs7AmD7/WE6budvyS+
-	 EdWa2kcWNgaz3nC3Akn4KFXN09bHcKBryix/T5kKsN2IhASIXcrb/zSmofhoWykvOrQ==
+	t=1792863928;
+	b=3RTfzw15mXy0DuK9HkK9jUSuSljUzJhXEcmnNnxaORuGqU2WeehRmxEMm4RRQNDcvzCz
+	 P9sp+lBL7tvZS5HSYqj3z9TNSCP9OSBLyljP/kYwf0ZypQloYtXxkF959m8e0oxomWcWQ
+	 T9HwqRCusxHtS7YMU0qcGKeGivYNrZsPp0GoWoQa5d7Oap2vZHzarZXAqBOQeKmD7Nfe4
+	 A1fxA+TdeK1w3WLGQJmZlpDYBLSDts1xiZTjILT5DMnisJEyPqQZivvr7DmUJHbELIDPj
+	 UgrEq3BiIUsnDhHFg0pICa0q9xRsQS+U1cRUW2WtLSu/kHAezDhOr50liksGacgLEtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792863903;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nn33RrLK2jP6yegXcMbyk7CADovV75ox65AHlodMd48=;
-	b=Ld1gCYomDxMwT0sR19bjPV/MepQ5ZTpZDYSjJsNOzt8nYJGvh9TnMxTTJqrCxrD1qyef
-	 uWNUBohisAbgxGmkzscs49lYARbDNHnLaFabQb07Kn72ktb2PX5ArLTLLsUEi71HVM4OS
-	 M+jrZmqxNfz70yCSPhLFONLOVlW6UkHL5D3XMxICjqV3rbdqkmrJFKS5rVqSM2btW86F6
-	 Zm2UnpU8NshBHpGr8j1rc5lV5tJxsN1EWOxjB+8nQqBzajLRBx+hWR7QRqIERPvrgmdeq
-	 0F8r+4MPUShqcXeV4aWEnuzBhIQEdlVSEUhtjoe90GwXC8OZa7kVqXb64eCJa0D9kgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792863928;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YPntnK5/sTqgJzzmr8vORbmE7z2ohaOAG1bhPVxZBnc=;
+	b=ZLCxI3ioM/vHH0vn0TrfVzOC4RVC14xmZI5e1QyZ+4MUZNsUTsIxQ6q+0wXBXlmpep33
+	 bwzBlrt2AVUHqp7X/Yg21Dt8Jg8nO8BOF9PeUQ++WICp2+WmZAuO/yFifq4vvgCwno9Zq
+	 q1DIikuLNAvo89O1aFF4gxnl34UhcuNcfCQvtlg2IG6sAGuXove6ZcUWYJHS+0R8JJRfS
+	 VyC8xa3vVPBAVfXWejecg5hY2y7K+vM1bq8FLYDfEVZx24dK1/kjcoFuTyNUC8PSPzCQ7
+	 ziEztv/Pp4Uy+riCUjJ5nKiErqa//v/hK33bCS5naMwGcn490p8qPJRxQJwPY0O/5Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U9KL1kyn;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV55JokN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AE1606A321
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:45:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7AE1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B6606A31A;
+	Sat, 24 Oct 2026 17:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U9KL1kyn
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1532818f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:45:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792863901; x=1793468701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nn33RrLK2jP6yegXcMbyk7CADovV75ox65AHlodMd48=;
-        b=U9KL1kynmW4e9Kq9IiiNvGdF+51Gbk5+qvhsS4w4NciYSk8hrON1hl1eSeMWhlxgjN
-         pJHRkV1N4GJXQQur+n8FXZctAO7+Dj1Vye1rez9Y+Ycum0mArRSLaVD3n4rUgNhR9ptg
-         dxY7bl83dz4U+bPOs2ILmjuOUdPlB+BaKLFvDanLiLUO7xWT9mD/H9J+CUUevoGo6UiL
-         vnMiw7BshVQdKn0A4qJ+iW7KDfB70MLXj+uLB6GVTHd3dHzfVBsZZTLTv0Lli9Fgi2fv
-         6hBF/sURvxQ/bJKeTJ+YvGJ/uw03P0vqo9HnqSfziYQiEYAeAy5u88zgQ2kC2X2H7aKS
-         W6hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792863901; x=1793468701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nn33RrLK2jP6yegXcMbyk7CADovV75ox65AHlodMd48=;
-        b=TpHtOzLVHfYJWy1xd/nTmYEg110qJKVw+esgh4dVTONHgQCQnl6XXegT9Cytyjftlr
-         3PrzXoRJfeqGdjFEEHvmwfiRRNjRwVsBUwZ73FOtAJbgaSL3ansXDaig9sp2IigfcqTO
-         AFO0I/N+IBGanmg5+5ZnuCbtynf7gR3+ZBy0OX/f5F4+UTgjf60rgvmPRXPXhrUJi3Ma
-         SS3UN6VuqVxs19XYQK38MfQHyhzTy+CT2e77SP01xLmOO241EE6JYLRuWDR05hA4UI5d
-         2U0xRHeMXVeQMCPedsKimlRb6UqoL8/ODTTkQl1kRxOQ1wxftiitgkAKOp37nmNPpHsU
-         hSpw==
-X-Forwarded-Encrypted: i=1; AKwUvBynkkZnV1S9f3rJxjrh0N8yuBQXWgo3v0d2ckYtFKZIlIKEoEdRET0lj9tdzBn3WGQAeapzb6+8ijWkXkg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJovPetzpCjrUrdr2kZoj6fgIZPcynF9i15gxuPXAEzUEPjPvYP
-	xC2UdmSfmeq+P8RaJdi63EfyPTrZl+kWx+U4d1obEm6Z/yc4zj5MnkCp
-X-Gm-Gg: AYBFou3R/9CHFt/6rBWLvBburzDPoW7D8ZKiQFpLqodJr9tz5Z8qpWObqhiup08DE+L
-	1xcfKwHbuL47DhVSPbr0mQPNU6ooxwNRg63sSelf1+2b0CocDmFdN4oSKG0k0Sl4hQzkevdEbMk
-	TkXrB/XWxLH1SV54spySpmCaxXJ7NkZAjv40PGfLYIjLbxAiZNQswMYt6I8nj6LaY7zlM4qa9ju
-	gW3s0NEAZnvKuz5Wy9WdnP65Ls+M11D0alSulvQPLZyV48uWViR2JMCrTsS+sqWx6T2fhCoyBJU
-	WJ2z/vPBN3q0/MBAjU5B5esKXjkKmqlxlMm25fE66qY7UWDAgmTKqDiDwyndmheurW3Ex6Njoat
-	eVZTx9qnErC2AJhffR8DK49uJ6a5T8S9aAegaPH4k9a2HGcKkK5rUbcv/7xTkV+/Dp4kxiHYG9o
-	TVvePLxfDsYYS0OGQnQKmvSeJB6Kjnv6/fWJ0dG1mZzCTiYmLIGu7fFeJ1kf3Xm1Or4v7uqg6hs
-	CIw1+fRZajkQ4NxwqNwTNHIdfL6/berxHgaoZfY13+O83IVhLX/NGPp2w+1hswTMVLNJkaUtHeK
-	s7EzHbJYXkTFS9hzA03sbculG1I=
-X-Received: by 2002:a05:6000:178d:b0:48e:75f:477d with SMTP id ffacd0b85a97d-48e3eb262f0mr3872646f8f.7.1792863900975;
-        Sat, 24 Oct 2026 10:45:00 -0700 (PDT)
-Received: from john-desktop.station ([93.107.83.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb8d5sm5748244f8f.28.2026.10.24.10.44.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 10:45:00 -0700 (PDT)
-From: John O'Callaghan <johnocallaghan@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-amlogic@lists.infradead.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: meson: vdec: reset the VLD before H.264 decoding
-Date: Sat, 24 Oct 2026 18:44:36 +0100
-Message-ID: <20261024174436.1835068-1-johnocallaghan@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV55JokN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC561F01825;
+	Sat, 24 Oct 2026 17:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792863927;
+	bh=YPntnK5/sTqgJzzmr8vORbmE7z2ohaOAG1bhPVxZBnc=;
+	h=From:To:Cc:Subject:Date;
+	b=ZV55JokN4t9sQ+Hr+sbHPsm6P7K7HBgl60hdmptGKYcK4lRWi05GrdE8tA6WHmfiB
+	 DmjRmD2WCUpa9oVbmejv8c2Bv3etcx3xmBlcA7dMYG3fUeYh8QSKdehHI2Ag/Vq+y7
+	 ss6YEmMm3YUxnEhJf0qkTvrD0MkS4O51jwT9PLqoLXM+SPrik7TgRMCUksJF78gwnu
+	 3mqFGeLLOESD6iWHBSUsVffCd2BZc0kUwNTPama3loAW7NyjFJIAiptXAqCX41/XFW
+	 LP4nUnIgoPjfxRzXx/hEEmt5cQF/UyivAswrSu0uXEL/X4Tyg4LvC+HNr2wZyKmDUB
+	 fe3hKVDSC2pEg==
+From: Sasha Levin <sashal@kernel.org>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: x86: Compute the max guest TSC frequency from the current tsc_khz
+Date: Sat, 24 Oct 2026 13:45:25 -0400
+Message-ID: <20261024174525.1218244-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,93 +61,136 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The H.264 decoder outputs wrong luma until the second IDR picture of a
-stream. Chroma is correct. The top-left macroblocks of the first IDR
-picture hold garbage that is different on each run. Intra prediction
-spreads the error over the picture, and inter prediction carries it to
-the following pictures.
+KVM computes the highest frequency that KVM_SET_TSC_KHZ accepts once,
+during vendor init, from the tsc_khz of the time. When KVM is built in,
+that runs before tsc_refine_calibration_work() refines tsc_khz, about a
+second later. If refinement raises tsc_khz, the cap stays below what the
+maximum scaling ratio gives for the refined frequency, and
+KVM_SET_TSC_KHZ rejects frequencies that set_tsc_khz() would accept, as
+set_tsc_khz() computes the ratio from the current tsc_khz.
 
-vdec_1_start() resets the VDEC1 blocks with DOS_SW_RESET0 before it
-powers on the VDEC memories with DOS_MEM_PD_VDEC. The VLD then starts
-in an undefined state. The vendor driver resets the VLD, IQIDCT and MC
-again in vh264_prot_init(), after the memories are on. This driver
-does not.
+nested_tsc_scaling_test runs into this on AMD: its last case asks for
+the frequency KVM_GET_TSC_KHZ reports times SVM's maximum ratio, and gets
+-EINVAL on boots where refinement raised tsc_khz. KernelCI sees it
+intermittently on a DL345 Gen11 (EPYC). On Intel the cap is limited to
+INT_MAX, so the test does not hit it there.
 
-Reset the VLD (DOS_SW_RESET0 bit 4) in codec_h264_start(). The VLD
-reset alone fixes the corruption. The other resets that the vendor
-driver does (IQIDCT, MC, DBLK, PIC_DC) make no difference.
+Like commit 741e511b4208 ("KVM: x86: Don't snapshot "max" TSC if host TSC
+is constant") did for the default frequency of new VMs, compute the cap
+from tsc_khz when it is used instead of taking a snapshot at load time.
+This covers KVM_SET_TSC_KHZ on both the vCPU and the VM file descriptor.
 
-On G12A, every decode session is affected. On GXBB, only the first
-session after power-on is affected.
+This also drops setting the cap to tsc_khz in the Hyper-V reenlightenment
+notifier, which left no room for scaling up once the host TSC frequency
+had changed; commit 0092e4346f49 ("x86/kvm: Support Hyper-V
+reenlightenment") gives no reason for that limit. The cap now follows the
+new frequency the same way. The notifier still does not recompute the
+multipliers of vCPUs that already exist.
 
-Fixes: d7647e7c90f5 ("media: meson: vdec: add H.264 decoding support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: John O'Callaghan <johnocallaghan@gmail.com>
+Fixes: 92a1f12d2598 ("KVM: X86: Implement userspace interface to set virtual_tsc_khz")
+Link: https://d.kernelci.org/test/maestro:6adc828a55fda507607f79c3
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-How this patch was made: the bug was found and the fix written with an
-LLM coding assistant (Claude Code). I reviewed the fix and ran every
-test below on my boards. checkpatch is clean; W=1 and sparse give no
-new warnings.
 
-Users see this bug in normal playback. On G12A, every H.264 video plays
-with the wrong brightness until the second IDR picture: the first
-8 seconds of my test clip, with a band 72 levels too bright on the left.
+Reproduced on an AMD DL345 Gen11 booted with tsc_early_khz= 500 kHz below
+the refined frequency, so that refinement always raises tsc_khz after KVM
+is initialized. With KernelCI's x86 build of mainline 5b0764a53235,
+nested_tsc_scaling_test failed 3 out of 3 times with KVM_SET_TSC_KHZ
+returning -EINVAL. With the same config plus this patch it passed 3 out
+of 3, and tsc_scaling_sync, tsc_msrs_test, kvm_clock_test and
+nested_tsc_adjust_test still pass. A nested SVM guest with the same
+tsc_early_khz trick gives the same result, and with tsc_early_khz above
+the real frequency (refinement lowers tsc_khz) mainline passes.
 
-Tested with H.264 High profile clips (1080p and 720p, 600 frames, IDR
-every 250 frames), GStreamer 1.26 (v4l2h264dec) and FFmpeg 7.1
-(h264_v4l2m2m). Every decoded frame was compared by MD5 with the FFmpeg
-software decoder.
+This does not change the existing window between the cap check and
+set_tsc_khz(), which read tsc_khz separately.
 
-Radxa Zero (S905Y2, G12A), Armbian kernels 6.18.45 and 7.3, staging
-vdec with Armbian's patches:
-- before: frames 0-249 wrong in every run (10 of 10)
-- after:  all 600 frames bit-exact (32 of 32 runs)
+ arch/x86/include/asm/kvm_host.h |  2 --
+ arch/x86/kvm/x86.c              | 30 +++++++++++++++---------------
+ 2 files changed, 15 insertions(+), 17 deletions(-)
 
-Odroid C2 (S905, GXBB), Armbian kernel 6.18.44:
-- before: frames 0-249 wrong in the first decode after power-on,
-  later decodes bit-exact
-- after:  bit-exact, including the first decode after power-on
-
-Odroid C2, plain v7.3 (no out-of-tree vdec patches), GStreamer:
-- before: frames 0-249 wrong in the first decode after power-on
-- after:  bit-exact. Two GStreamer starts failed first with the known
-  poll() start race, so the decoder had already run before this decode.
-(v7.3 also drops the second-to-last frame at the end of the stream.
-That is a separate bug and is not addressed here.)
-
-The DOS_SW_RESET0 bits were tested one at a time: only bit 4 (VLD)
-changes the result.
-
-Not tested: GXL, GXLX, GXM, SM1, interlaced streams, 4K. On G12A the
-tests ran on Armbian kernels; their vdec patches do not touch
-codec_h264_start().
-
-The same fix is in Armbian:
-https://github.com/armbian/build/pull/11098
-
- drivers/staging/media/meson/vdec/codec_h264.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/staging/media/meson/vdec/codec_h264.c b/drivers/staging/media/meson/vdec/codec_h264.c
-index a6074de15..497fbada6 100644
---- a/drivers/staging/media/meson/vdec/codec_h264.c
-+++ b/drivers/staging/media/meson/vdec/codec_h264.c
-@@ -182,6 +182,14 @@ static int codec_h264_start(struct amvdec_session *sess)
- 	if (!h264->sei_vaddr)
- 		return -ENOMEM;
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1ee4b127004df..35a74f0eb45e5 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -260,8 +260,6 @@ struct kvm_x86_pmu_event_filter;
+ struct kvm_caps {
+ 	/* control of guest tsc rate supported? */
+ 	bool has_tsc_control;
+-	/* maximum supported tsc_khz for guests */
+-	u32  max_guest_tsc_khz;
+ 	/* number of bits of the fractional part of the TSC scaling ratio */
+ 	u8   tsc_scaling_ratio_frac_bits;
+ 	/* maximum allowed value of TSC scaling ratio */
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba99..9e22072f39c18 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1156,6 +1156,19 @@ static inline u64 __scale_tsc(u64 ratio, u64 tsc)
+ 	return mul_u64_u64_shr(tsc, ratio, kvm_caps.tsc_scaling_ratio_frac_bits);
+ }
  
-+	/*
-+	 * vdec_1_start() resets the VLD before the VDEC memories are powered
-+	 * on. Reset it again, or the luma of the first pictures is corrupt.
-+	 */
-+	amvdec_write_dos(core, DOS_SW_RESET0, BIT(4));
-+	amvdec_write_dos(core, DOS_SW_RESET0, 0);
-+	amvdec_read_dos(core, DOS_SW_RESET0);
++/*
++ * Use the current tsc_khz, not the one at load time, as the TSC frequency can
++ * be refined after KVM is initialized.  Make sure the user can only configure
++ * tsc_khz values that fit into a signed integer, otherwise KVM_GET_TSC_KHZ
++ * would return a negative value and confuse userspace.  A min value is not
++ * calculated because it will always be 1 on all machines.
++ */
++static u32 kvm_max_guest_tsc_khz(void)
++{
++	return min(0x7fffffffULL,
++		   __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
++}
 +
- 	amvdec_write_dos_bits(core, POWER_CTL_VLD, BIT(9) | BIT(6));
+ u64 kvm_scale_tsc(u64 tsc, u64 ratio)
+ {
+ 	u64 _tsc = tsc;
+@@ -3728,7 +3741,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 		user_tsc_khz = (u32)arg;
  
- 	workspace_offset = h264->workspace_paddr - WORKSPACE_BUF_OFFSET;
+ 		if (kvm_caps.has_tsc_control &&
+-		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
++		    user_tsc_khz > kvm_max_guest_tsc_khz())
+ 			goto out;
+ 
+ 		if (user_tsc_khz == 0)
+@@ -4695,7 +4708,7 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+ 		user_tsc_khz = (u32)arg;
+ 
+ 		if (kvm_caps.has_tsc_control &&
+-		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
++		    user_tsc_khz > kvm_max_guest_tsc_khz())
+ 			goto out;
+ 
+ 		if (user_tsc_khz == 0)
+@@ -6749,7 +6762,6 @@ static void kvm_hyperv_tsc_notifier(void)
+ 		for_each_present_cpu(cpu)
+ 			per_cpu(cpu_tsc_khz, cpu) = tsc_khz;
+ 	}
+-	kvm_caps.max_guest_tsc_khz = tsc_khz;
+ 
+ 	list_for_each_entry(kvm, &vm_list, vm_list) {
+ 		__kvm_start_pvclock_update(kvm);
+@@ -7188,18 +7200,6 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops)
+ 	if (!tdp_enabled)
+ 		kvm_caps.supported_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
+ 
+-	if (kvm_caps.has_tsc_control) {
+-		/*
+-		 * Make sure the user can only configure tsc_khz values that
+-		 * fit into a signed integer, otherwise KVM_GET_TSC_KHZ would
+-		 * return a negative value and confuse userspace.
+-		 * A min value is not calculated because it will always
+-		 * be 1 on all machines.
+-		 */
+-		u64 max = min(0x7fffffffULL,
+-			      __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
+-		kvm_caps.max_guest_tsc_khz = max;
+-	}
+ 	kvm_caps.default_tsc_scaling_ratio = 1ULL << kvm_caps.tsc_scaling_ratio_frac_bits;
+ 	kvm_init_msr_lists();
+ 	return 0;
 -- 
-2.50.1
+2.53.0
 
