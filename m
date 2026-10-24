@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792870439;
-	b=B6BNDkUlY/KV/T8b31fXjIWyEmX1LiDOwE4iDAWK8YD54ELL6mwNpU9Y0B407mi15V7z
-	 QnS9/GjZqZPDffeZcil/RWfwRAFoP2eryGQdO+0YHheJMQmVH7WFpZK0pATAC+sLJadJ7
-	 w9VoQuAde8eRWaHnL6RCpdxb1ER7l2HngXErDhOU8/MCebZ9NQ4XpCP+VdnxHkcu/VsRg
-	 yvhHJMpAyMhQGyAZ0L3z25R1mXWATIwE8WJlv8j2NQY1kD+Qop+7kT7coFo07kQtaTVyZ
-	 6n5t2KrP2fj8HvkRr4+Rfd9ui64etsmilI106zccck9s8S0oGcYHsuwyeVZSUytaRPw==
+	t=1792870589;
+	b=kz//J7KA7s8wZO/SuOU+Mqb9a25EIiY9s1kamwFMv8nsgBVDtL05Lr3O2l4dGr7tDqjs
+	 ea0T+BHxITn3Md1brlgqihX4NZ8fo08wBN9o6YkkBNvwpNjeyAQDvi/fZPLYA9Iex5AvM
+	 9nE6W+p2mQl/35F0v9itwxjsIiE5UVEL4mp6rNziBMHN92aoJsPHqLuWK34OcCSoG/RRd
+	 l/S4j7S8uDJW0Yhu0GADQnsBJhFbWVWR6rJYcqmnsE9QimXxFhyjig7eDixotCsZY2ssq
+	 MLEvBOd+9dNLxHbUEPNHS1djRkm23GYbEpQttSI5Os0J82u+spsmYiIMAfItNq94wrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792870439;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aV53s/thMev0qSzH+ayYeyKX09O6kEW4ly1bV0/xJfs=;
-	b=27iRfTwOy0QIg1KQhkBxSB2L2T0YzNG0hS1IZU9thvdfXJbuYDhTm0BtUdNmLXdLQV6Y
-	 mtDYlo9Ax/OtZMM+YO7IWd3hA12EKSIknH6ifjANMFCzqy7jDRZ3xP46jB9RV1oaYmDW+
-	 36vXmLD9AW+d/zsD9yYw5cDWShd1PYjb1jbR4LZdQ/vHqtlYSNZyzL2Cz0PfCyovcfRPx
-	 G/+oS4pyjrJozE6FDLrnQkh1rdcsbSC+6y80tGJSg3q0vhsuvRweO1Rg0yO77Ssz5+xkf
-	 WgWgZAFwFVe5FDwcr2zfkkbUYDnyKsDNhsq41pXJHperQ1ogCULr1cbULKSY7uleteA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792870589;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=i/eSNZ0iOeZ23He1SMGd7qc88ESlcmv15eX4fDnlw/o=;
+	b=jNEmWiAd/mSY1EVTKxKZRnK7wudwEn0ZQ0JfMgVRO405XYiKww8wdkvm+cTdHkbcLT+7
+	 3B4sVjKw6+WAaJyg0zZ0Xd+qDi7OLYN+2b8BysvWCzf6HIkAdzzRlzisqZmzGM+mqyoDz
+	 mVCec10AR1VkmeIaxRy32CTUzVXKEFzsKM6YAIwG6JY8fQh3SvakYNDO/pD2ogBf7Pizl
+	 GYk44edMTK6PCyDtN/XsiCysDS6QqyNOvZfKtqpSwJ5A/ePn7ARsERwN+1AsKyDrud+Hu
+	 w/ehfps+CXUEqaVVqiw0jZ1tf+WVnRx9X3KHIbePcagE1I/S/XVaAf4JWHRWF/pNuSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LACHCK6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sOYevR1g;
+	arc=none smtp.remote-ip=52.42.203.116
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F63B606A31B;
-	Sat, 24 Oct 2026 19:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53880606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53880606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LACHCK6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A38F1F01829;
-	Sat, 24 Oct 2026 19:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792870439;
-	bh=aV53s/thMev0qSzH+ayYeyKX09O6kEW4ly1bV0/xJfs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LACHCK6OV3GbL6mZehTtgLpGXlnvq6Vujkxhv60FGXqZ44vgROHr+18efgaVrhvXz
-	 ikQIh9QIdEGsXohV5PxI8O8jBZtfla/Covtfq35X4XIGQh10dsU1F34v02eqQCqTLH
-	 X3xIN+uX5nio0NBrq1B+/ku+3PGU8of3crlz90OuqzPJYkjf90H6bYnAC5ASKWwV6a
-	 kX45GCY+jj5Gy3huVbQRWe1CUxK4Ca/ShnSvPYiqQZp27/5kJkh92IJdPlosM8RSec
-	 R8uz0NwGH+C5AZo0cdk2fkYD9zSdWDCK8X426JiGwUlu2CAUyNfsB5Pv0nLt1ZDGF3
-	 o2yECMtxEYyLQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 1/3] mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_metric_store()
-Date: Sat, 24 Oct 2026 12:33:47 -0700
-Message-ID: <20261024193351.87130-2-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sOYevR1g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792870589; x=1824406589;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=i/eSNZ0iOeZ23He1SMGd7qc88ESlcmv15eX4fDnlw/o=;
+  b=sOYevR1g2JBU1zjMt1B5nlCawYBzpR7XahJxuhdNd0jdu78Dm5GBhgww
+   gRt8SB9TF574K+M9XkG0EpaL68iXZ3UrvHAh5JjIKqJehuEET4m1F4yyG
+   dCh+CCmRKIyAud1SpL/18GK9dT4p25yhWGgfB0egqsZpKZOwfBxlbTIM2
+   ub8IBdBy8+gP6nYF6Gv1LTmvozS6MnSCpT8PjdWETTFeuJoNIIzos/TL9
+   i31LQw15Muj4737Ab/bK4AAJVKV2N/TZ4lc0w+3gFZ+FTPPRa4PKwb8Gy
+   YQyzNiyW1PNCI8GOSmsrPQ4lLIpaC/I4ITiQw4QKmLmtyeVfnavfCsi99
+   w==;
+X-CSE-ConnectionGUID: p4aL8ta6TWGkTcJzkDvR3g==
+X-CSE-MsgGUID: q825xlkIQpiJqtz3GJ9y+A==
+X-IronPort-AV: E=Sophos;i="6.27,176,1787011200"; 
+   d="scan'208";a="32180774"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 19:36:26 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:8716]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.61.165:2525] with esmtp (Farcaster)
+ id 8c2e6b8c-3405-4d6d-9fab-8f40645f2305; Sat, 24 Oct 2026 19:36:26 +0000 (UTC)
+X-Farcaster-Flow-ID: 8c2e6b8c-3405-4d6d-9fab-8f40645f2305
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sat, 24 Oct 2026 19:36:26 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Sat, 24 Oct 2026
+ 19:36:24 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Thomas Gleixner <tglx@kernel.org>, Antoine Tenart <atenart@kernel.org>
+CC: Radu Rendec <radu@rendec.net>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Eliav Farber <farbere@amazon.com>
+Subject: [PATCH v2 0/5] irqchip/alpine-msi: Cleanups and debug logging
+Date: Sat, 24 Oct 2026 19:36:15 +0000
+Message-ID: <20261024193620.39999-1-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024193351.87130-1-sj@kernel.org>
-References: <20261024193351.87130-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,65 +84,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-damon_sysfs_add_quota_score() reads damos_sysfs_quota_goal->metric
-twice, once to set damos_quota_goal->metric to the value, and once again
-to set the metric-dependent damos_quota_goal unions based on the value.
+This series contains a few small cleanups for the Alpine MSIX irqchip
+driver, followed by the addition of some optional debug logging.
 
-target_metrics_score() can update damos_sysfs_quota_goal->metric between
-the two reads.  This time-of-check to time-of-use (toctou) race can make
-the union fields incorrectly set.  The incorrect damos_quota_goal will
-be passed to the core layer and make DAMOS incorrectly behave.
+Patches 1-4 are trivial, no-functional-change cleanups: convert the
+license boilerplate to an SPDX identifier, drop the redundant
+<asm/msi.h> include (already pulled in via <linux/msi.h>), fix the
+missing space after a comma in a GENMASK_ULL() invocation, and use %u
+for the unsigned values in the existing registration debug message.
 
-Users could reproduce the race by writing a new value to the
-target_metric sysfs file while DAMON is starting, or online parameters
-update is ongoing.  The issue will only rarely happen in the real use
-cases.  It requires sysfs write permission.  The race window is short.
-Sane users wouldn't do such writes while DAMON enablement and/or online
-parameters update is ongoing.
+Patch 5 adds an info message on successful initialisation and debug
+messages on the MSI interrupt allocation and free paths, to make it
+easier to follow the driver flow when debugging.
 
-The user impact is not very critical.  The race is not easy to
-unintentionally trigger.  No leak or crash happens.  Nonetheless, DAMOS
-could be unexpectedly more or less aggressive and does not achieve the
-auto-tune goal.  Because of the nature of races, investigating will be
-difficult.  Users can control the impact from unexpected aggressiveness
-using additional quotas and resolve the issue in runtime by
-re-installing the quota goal, though.
+Build-tested for arm64 with the aarch64 toolchain and KCFLAGS=-Werror.
+The driver is used by the Alpine V2, Alpine V3 and AL8 SoCs.
 
-Avoid the race by protecting damos_sysfs_quota_goal->metric write in
-target_metric_store() with damon_sysfs_lock.  Because
-damon_sysfs_add_quota_score() is called while holding the same lock, the
-race is removed.
+Changes in v2:
+- Collected Reviewed-by from Radu on patches 1-3.
+- New patch 4: use %u for the unsigned values in the existing
+  "Registering" debug message and fix its wording (Radu).
+- Patch 5: use %u for the unsigned values in the new messages (Radu),
+  and write MSI/SPI in upper case to match patch 4.
 
-The issue was discovered as a part of a bug report [1] from Sashiko,
-which is partially outdated.  In more detail, the Sashiko report [1] was
-mainly for an outdated bug [2].  But it was also mentioning the issue of
-this patch as a similar class bug.
+v1: https://lore.kernel.org/r/20260923083703.38974-1-farbere@amazon.com
 
-[1] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[2] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+Eliav Farber (5):
+  irqchip/alpine-msi: Use SPDX-License-Identifier
+  irqchip/alpine-msi: Drop redundant asm/msi.h include
+  irqchip/alpine-msi: Add missing space after comma in GENMASK_ULL
+  irqchip/alpine-msi: Fix format and wording of the registration debug
+    print
+  irqchip/alpine-msi: Add debug logging for MSI allocation
 
-Fixes: 85fcf0ffc460 ("mm/damon/sysfs-schemes: connect damos_quota_goal nid with core layer")
-Cc: <stable@vger.kernel.org> # 6.16.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs-schemes.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/irqchip/irq-alpine-msi.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 8f083611741fd..637f1bd0c950b 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -1310,7 +1310,10 @@ static ssize_t target_metric_store(struct kobject *kobj,
- 
- 		metric_name = &damos_sysfs_qgoal_metric_names[i];
- 		if (sysfs_streq(buf, metric_name->name)) {
-+			if (!mutex_trylock(&damon_sysfs_lock))
-+				return -EBUSY;
- 			goal->metric = metric_name->metric;
-+			mutex_unlock(&damon_sysfs_lock);
- 			return count;
- 		}
- 	}
 -- 
 2.47.3
+
