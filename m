@@ -1,93 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792867058;
-	b=wpO/+TuPSmqn0iEeWZtCBIbG94X28myPTu1AKLDWo26RrqAlcNo/ghKBSJI3bBV05EXN
-	 svhJmnL1/ONK7LfK2jOKzgglwkfeqUxxH/HLkNiV9C1jELKuHkqHxOMOnxEKJKob2nxmq
-	 RySdwvJuN2WUdqIfwwsYDuhwNnZZsKjRqbGPj7sdsLv6PHKKLWDeE+Pm9QISL7Yb+6hP4
-	 ovQQ/LVYLM3a6OZhazhStjua/nU8MaP1AbRSDU0FdFfbIwyEmebP5Kxdi4ceFhsUkX/0Z
-	 9hGQq17ZPxVE5e5LC9jupp264C96vuSVyOypwJYaAxKNFk30SmAd4u/LV4kce+ref5Q==
+	t=1792867261;
+	b=tdioYKthvUamk9MwE9suv75H9eINrSBSG2ORwz5NvQekWnqHxnV8K+7QcaAXkMo1VRFF
+	 P3VQj+/RJuPoKY7ioYEHaFGoV0oKgdQe0KagS3d7xXh5hE6/QlRT8Sp/sNo2DOC5OV98j
+	 lBvOVsl4zN8WU70edgKQq4jjaejA9Y/sILUlEg3J64qh0f2zbx3lFNkC5fcWgJHeYyaPf
+	 2qIDL+S7yA2oSmgywgHoyiQwg2D8kP5Yizp3jyQ+gS4gVM5WT1jdoSSKlHZV38azBHch4
+	 TmOEwDwafqp4NepEll75o/0izltREfmgWs50Le4OnbU1VopYFJ5vwLlBCgjLXWpQdjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792867058;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9kG33+vND2Vxi7z7pWua9Yb7mC6lR8Mn3eWvlvS93PQ=;
-	b=YxB+EuyvK4+P5GA9a0GyxnjBO+5dN+QM0ABaHt113TNumAxxsmJymln/sTuriMj0M6j1
-	 xYy2r814OA8lfwf7xUvukXoJtce8PV9YDPi1fHJtmhfll5fkvNVQkTS4COqMqeYAA8mJU
-	 erCelSB7WSBMp+yfmVgdcpp2nG0Y8EaP19U3AaEX8ZbiGjjwCKjwVl5x5Mwwc9eA7n7wd
-	 hQ0edRsirVp0ghV/Wp/CnIj84/Ovu1//usiJVebEIqEaPZWLF10U0cL41TBYzt0REHaDH
-	 6S+aOHsa9h1HCJOeg/cpu0FYw6yEyMAtUWTjUjq/EtWMNI6Xtv6BFTiRU4/d83b1B5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792867261;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=etTUIx9AFU7PpN6otuCm31aSKtwgOyFT6yOu3kJm3wc=;
+	b=nJgn+lzBNYnMEfGU6VIXvqEzcHgV/Tb9GON2z43GxuOlOX+AGV8jYAqcjitfroUzC2FN
+	 p+TTEdO8xGUR2rj8ulMPodJ1gQxqDY5UPenUeiO8eAHS+Br2/18JJyamRpeSguxjxN7GY
+	 nJal+xsbI64Rjv46HOtQuvpyw6UvxE3CeOxqCXeM4XURwOvYCqarWw8Xi2xzlKP+msBJv
+	 YNN81eLMgHCaQzpcJ0T68pZwIIrqFCu7KhNT1JUx9xHlnyt2ECX68qlerTje7Vezk6N7M
+	 7oAs1Uz/muOAouDhituHBbR68RovOil65R4JnFNfqZ7z4hajU0EOl/oKqK8j/wjT0eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GCEVNksB;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=xiedada.net;
+	spf=pass smtp.mailfrom=xiedada.net;
+	dkim=pass header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=PUHBhNIY;
+	arc=none smtp.remote-ip=101.71.155.84
+Received: from mail-m15584.qiye.163.com (mail-m15584.qiye.163.com [101.71.155.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9938B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:37:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9938B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788A4606A31A;
+	Sat, 24 Oct 2026 18:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 788A4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiedada.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiedada.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GCEVNksB
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so1357673e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:37:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792867056; x=1793471856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9kG33+vND2Vxi7z7pWua9Yb7mC6lR8Mn3eWvlvS93PQ=;
-        b=GCEVNksBh8Kd9atM5BrIoYWs55GIfI23ilBmuBNUyl3IBSB2mE2zFKkW6iI2zyrc0X
-         dfljKq5O2B/qli0X8TjPaW1Tu59kWGK78oG03PXlh1VYponQn3M2zAKq6hOeQzdT0Du2
-         4xMZm2/6fo+CmJWOpkJYGkxtoulr3r0a9dfmu7ZzSrvs86ivPS30ooaV1Z9GF51gfRUA
-         d5VZxGdM3EoeG42UlmMC/O/ld3g+owiG4nz73n4tOuD5qER9+W9wN+IL4idYE0RPlzsQ
-         +7OJNtyrN9k7Rqf5HpQ1t7y00PwJbZuPpW9Ey/xqZ2BeqzL5DoJLANEX3M+Q0T5XXCS6
-         s5PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792867056; x=1793471856;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9kG33+vND2Vxi7z7pWua9Yb7mC6lR8Mn3eWvlvS93PQ=;
-        b=oW2lWmP0SA3H7RnMtqIOqinXYEf6oZZJrLQThkPWk+lMa3a56ibr8/lglaA5YaT7Hv
-         2yTjtTxvMYmsucYAgGjZEeW3QnFk/zIwK6xUQ1Up8GmAcS8Lb0bhzflj3Qojdw/cn5WN
-         rFf8Cnx4+DrAE2QacYJOCz6y/37mBn4MLSscHY0iifh23Lp+lN64Q/z6N5ZoD/jTY15O
-         hGOsmoYreDNFlYAbzobHPoYjFcz6poUn3EsAW9pfP9ZfHIkoVp+8hhY1DazuvbjrUfFb
-         Who3xeW6tb04Jg6z4leMsJLLGATY80coAqIFIGTzkcfMjNXSA1VwyUkJvhyFAKAl8Xib
-         dmzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwuMV3i4L0VIZz3WalQALm1hFH0ENXiznYHQ3my6g1XNlQ1aYVrnxXGmdw3orw0Q2vtdb38Jb/5SNxKRQQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ90pAjyYPV+gjS9eGFZlqTwR3++sxYYhSivFBHQRscmzzTPlv+
-	EE9yyF5ToOGNHvl4SWgB0TOuSqrVqB7p6Dez/YUkHp+kNn5omfzvaL+3
-X-Gm-Gg: AYBFou1WLxpeL8gFFWeCK/2epW//CTKKdOLCmH86V27pFsKffDJrBMoWO1Kh2kBYxZ+
-	9lIotptUQabx6qZMN/BJCRqe1TvPo4RS0/7hPk0tEyBNEOCXrWHvifljoM01Ni394q5DymIxSA8
-	HJ0Q4Db7aJp6ZLlkyQqiDaFLttyf1iOfTFYmhbmDR0t7e6F+JYnSI5gQh7Q+1qbul/iE28bSJ1s
-	vGJHuFpEaC2OC5zy0oDg9veJoJ3gu1J0/29Z9miTTJXLzPfduj5KxqnmUtaNiWO4RKRKIRnBiVk
-	rGKbWxff266voK55/Wt9Tq8OBB02Qb0JH/3CFTaQfdgifjQ8FnG/lFNcvyB9aMiKYEEybBsKFjR
-	qy+Ugay8QuHtzaqomL3+MA1YEJSb/C/JUbxizr/ajQmzITCE8A4gDwLlYRlitlChiofIK9If9/t
-	7SuNCPycDkgzTOZbP1EBLSl7MjZI+WyXt5ctSSPDxLGvqG9HNv2S0stTrHI/cHelgamq0uQ6T3p
-	bb15NJzfHl2o/IYXhprYluxrSllkVfZGItO6REGjl/p+nzkET8obAODwh59lELqpqy8Sngb4/+4
-	gNHU11wuqRCrDFCIFKJuH0gSld/nYqYN7x9pfVEbnsJztzTxxi/XvG0f/qwJ
-X-Received: by 2002:a05:6512:3a95:b0:5bf:a6d3:b277 with SMTP id 2adb3069b0e04-5bfb71d899dmr910515e87.42.1792867055479;
-        Sat, 24 Oct 2026 11:37:35 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a920a1sm557060e87.61.2026.10.24.11.37.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 11:37:35 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Andrey Konovalov <andreyknvl@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=PUHBhNIY
+Received: from matebook (unknown [36.141.109.67])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 523894800;
+	Sun, 25 Oct 2026 02:40:48 +0800 (GMT+08:00)
+From: Xie Youtian <xiedada@xiedada.net>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
 	linux-kernel@vger.kernel.org,
-	syzbot+b7534c9b380f81a3b4be@syzkaller.appspotmail.com,
-	Igor Putko <igorpetindev@gmail.com>
-Subject: [PATCH] usb: raw-gadget: fix double-free race during UDC unbind and rebind
-Date: Sat, 24 Oct 2026 21:37:27 +0300
-Message-ID: <20261024183727.42339-1-igorpetindev@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	xiedada@xiedada.net
+Subject: [PATCH] ALSA: hda/conexant: Fix swapped speaker/headphone outputs on Huawei MateBook 16s
+Date: Sun, 25 Oct 2026 02:40:49 +0800
+Message-ID: <20261024184049.107280-1-xiedada@xiedada.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,197 +56,249 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa16f372a7a0a37kunm23980d7f80361
+X-HM-MType: 4
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOSEhLS043V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQx1LGFYYHk1JT08dSE
+	kdTUxWHQkeHlUCFhMWGhIXJBQOD1lXWRgSC1lBWUhNVUpPSlVKS0JVTUxZV1kWGg8SFR0UWUFZS1
+	VLVUtVS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=PUHBhNIYEQ4UfTFzj7afSIzB/PLUEVCJHuPsNO8xaNILH2pFUHX3KZMdPctvC580aArL68MUYHGb0KFJnB6Ds5AMeOabR135HnwfGBJAM02Kw2qPaM2BnnpQzffa6AE7FKGALPw0A3CxVd5SArMBXp76bOX9bxon9D8OYg4h3tY=; c=relaxed/relaxed; s=default; d=xiedada.net; v=1;
+	bh=etTUIx9AFU7PpN6otuCm31aSKtwgOyFT6yOu3kJm3wc=;
+	h=date:mime-version:subject:message-id:from;
 
-raw-gadget defers endpoint disabling, request freeing, and descriptor
-cleanup to dev_free(). However, dev_free() is only called after
-dev->count drops to zero in raw_release(), which happens after
-usb_gadget_unregister_driver() has already returned.
+On the Huawei MateBook 16s (2023) with a Conexant SN6140 codec (codec
+SSID 0x19e5:0x3291), the speaker amplifier and the headphone jack are
+both fed from the analog output line of pin 0x16: the jack through a
+tap that needs GPIO1 enabled and driven low, and the speaker amp
+switched by the EAPD of pin 0x17 - none of which matches the BIOS pin
+config.  The generic parser therefore routes audio to the wrong
+physical output and never powers the jack:
 
-Once usb_gadget_unregister_driver() finishes, the UDC can be immediately
-rebound by another raw_gadget instance. If that new instance enables an
-endpoint, it assigns its newly allocated descriptor to ep->ep->desc on
-the shared UDC endpoint. When dev_free() from the old instance runs
-concurrently, it calls usb_ep_disable() and frees dev->eps[i].ep->desc,
-which now belongs to the new instance. The new instance's usb_ep_enable()
-subsequently fails with -ESHUTDOWN, and its error path frees the descriptor
-again, causing a KASAN double-free.
+ * headphones plugged: the headphone path (DAC 0x10 -> pin 0x16)
+   drives the speakers while the jack stays silent
+ * headphones unplugged: the speaker path (DAC 0x11 -> pin 0x17) feeds
+   no transducer at all and the machine stays silent
 
-Tear down all endpoints and requests synchronously in gadget_unbind()
-before the UDC can be bound again. Keep the descriptor pointer inside
-struct raw_ep and clear ep->ep->desc on error and disable paths so no
-dangling pointers are left on the UDC endpoints. Additionally, make sure
-raw_release() always unregisters the driver if registered, and release
-the ep0 request if gadget_bind() encounters an error.
+Route the shared line to whichever DAC the parser leaves unmuted for
+the current jack state, keep the jack tap open, and gate the speaker
+amp through EAPD.  The verbs are applied from a private jack callback
+(the generic unsol->automute path never fires on this machine while a
+stream keeps the codec awake) with a debounced presence sample, and a
+delayed recheck re-applies everything from a settled sample, since any
+reader of the pin sense can see stale data for a short while after a
+codec power transition.  The 600 ms recheck delay matches the factory
+Windows driver's plug-detection restart window.
 
-Reported-by: syzbot+b7534c9b380f81a3b4be@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b7534c9b380f81a3b4be
-Fixes: f2c2e717642c ("usb: gadget: add raw-gadget interface")
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+The factory Windows driver groups codec SSIDs 0x19e5:0x3291 through
+0x3294 into a single audio configuration, so the siblings very likely
+share this wiring; only 0x3291 could be tested.
+
+Tested on the machine: headphone/speaker switching in both directions,
+during playback, over the bare PCM path and through PipeWire, and
+across suspend/resume.
+
+Problem detection and the verb-level hardware experiments were
+performed with the help of an AI coding assistant, with all audible
+verification done by ear on the actual hardware by the submitter; the
+fix was drafted by the assistant and then reviewed, understood,
+adjusted and tested by the submitter.
+
+Link: https://github.com/geniusinsanity/huawei-matebook16s-speaker-fix
+Signed-off-by: Xie Youtian <xiedada@xiedada.net>
 ---
- drivers/usb/gadget/legacy/raw_gadget.c | 69 +++++++++++++++++++-------
- 1 file changed, 52 insertions(+), 17 deletions(-)
+ sound/hda/codecs/conexant.c | 150 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 150 insertions(+)
 
-diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/legacy/raw_gadget.c
-index 4febf8dac7ca..379351a010f8 100644
---- a/drivers/usb/gadget/legacy/raw_gadget.c
-+++ b/drivers/usb/gadget/legacy/raw_gadget.c
-@@ -141,6 +141,7 @@ struct raw_ep {
- 	enum ep_state		state;
- 	struct usb_ep		*ep;
- 	u8			addr;
-+	struct usb_endpoint_descriptor *desc;
- 	struct usb_request	*req;
- 	bool			urb_queued;
- 	bool			disabling;
-@@ -205,7 +206,6 @@ static struct raw_dev *dev_new(void)
- static void dev_free(struct kref *kref)
- {
- 	struct raw_dev *dev = container_of(kref, struct raw_dev, count);
--	int i;
+diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
+index 9bfdbf5c9032..62a41c764ccb 100644
+--- a/sound/hda/codecs/conexant.c
++++ b/sound/hda/codecs/conexant.c
+@@ -43,6 +43,10 @@ struct conexant_spec {
+ 	unsigned int gpio_mute_led_mask;
+ 	unsigned int gpio_mic_led_mask;
+ 	bool is_cx11880_sn6140;
++
++	/* quirk for Huawei MateBooks with Raptor Lake */
++	struct hda_codec *rpl_recheck_codec;
++	struct delayed_work rpl_recheck_work;
+ };
  
- 	kfree(dev->udc_name);
- 	kfree(dev->driver.udc_name);
-@@ -218,14 +218,6 @@ static void dev_free(struct kref *kref)
- 		usb_ep_free_request(dev->gadget->ep0, dev->req);
- 	}
- 	raw_event_queue_destroy(&dev->queue);
--	for (i = 0; i < dev->eps_num; i++) {
--		if (dev->eps[i].state == STATE_EP_DISABLED)
--			continue;
--		usb_ep_disable(dev->eps[i].ep);
--		usb_ep_free_request(dev->eps[i].ep, dev->eps[i].req);
--		kfree(dev->eps[i].ep->desc);
--		dev->eps[i].state = STATE_EP_DISABLED;
--	}
- 	kfree(dev);
- }
  
-@@ -316,6 +308,12 @@ static int gadget_bind(struct usb_gadget *gadget,
- 	ret = raw_queue_event(dev, USB_RAW_EVENT_CONNECT, 0, NULL);
- 	if (ret < 0) {
- 		dev_err(&gadget->dev, "failed to queue connect event\n");
-+		usb_ep_free_request(gadget->ep0, req);
-+		spin_lock_irqsave(&dev->lock, flags);
-+		dev->req = NULL;
-+		dev->gadget = NULL;
-+		dev->eps_num = 0;
-+		spin_unlock_irqrestore(&dev->lock, flags);
- 		set_gadget_data(gadget, NULL);
- 		return ret;
- 	}
-@@ -328,6 +326,43 @@ static int gadget_bind(struct usb_gadget *gadget,
- static void gadget_unbind(struct usb_gadget *gadget)
- {
- 	struct raw_dev *dev = get_gadget_data(gadget);
-+	int i;
-+	unsigned long flags;
+@@ -312,6 +316,7 @@ enum {
+ 	CXT_FIXUP_HP_A_U,
+ 	CXT_FIXUP_ACER_SWIFT_HP,
+ 	CXT_FIXUP_HUAWEI_MATEBOOK_HP,
++	CXT_FIXUP_HUAWEI_MATEBOOK_RPL,
+ };
+ 
+ /* for hda_fixup_thinkpad_acpi() */
+@@ -863,6 +868,143 @@ static const struct hda_pintbl cxt_pincfg_sws_js201d[] = {
+ 	{}
+ };
+ 
++/*
++ * Huawei MateBooks with Raptor Lake and SN6140 (e.g. the MateBook 16s
++ * 2023): the speaker amp and the headphone jack are both fed from the
++ * pin 0x16 line.  The speaker amp is gated by the EAPD of pin 0x17, the
++ * jack tap by GPIO1 - none of which matches the BIOS pin config.  Point
++ * pin 0x16 at the DAC the parser leaves unmuted for the current jack
++ * state, keep the tap open, and gate the speaker amp via EAPD.
++ */
++static void cxt_matebook_raptor_lake_coerce(struct hda_codec *codec, bool hp)
++{
++	snd_hda_codec_write_cache(codec, 0x16, 0,
++				  AC_VERB_SET_CONNECT_SEL, hp ? 0x0 : 0x1);
++	snd_hda_codec_write_cache(codec, 0x17, 0,
++				  AC_VERB_SET_EAPD_BTLENABLE, hp ? 0x0 : 0x2);
++	/* keep the jack tap on the shared line open; with the speaker amp
++	 * gated separately this is correct in both jack states
++	 */
++	snd_hda_codec_write_cache(codec, 0x01, 0,
++				  AC_VERB_SET_GPIO_MASK, 0x02);
++	snd_hda_codec_write_cache(codec, 0x01, 0,
++				  AC_VERB_SET_GPIO_DIRECTION, 0x02);
++	snd_hda_codec_write_cache(codec, 0x01, 0,
++				  AC_VERB_SET_GPIO_DATA, 0x00);
++}
 +
-+	if (!dev)
-+		return;
++/* jack presence right at a plug event bounces for a few milliseconds;
++ * sample it once, debounced, and use that one value everywhere below
++ */
++static bool cxt_matebook_raptor_lake_jack_present(struct hda_codec *codec)
++{
++	bool a = snd_hda_jack_detect(codec, 0x16);
 +
-+	for (i = 0; i < dev->eps_num; i++) {
-+		struct raw_ep *ep = &dev->eps[i];
-+
-+		spin_lock_irqsave(&dev->lock, flags);
-+		if (ep->state == STATE_EP_DISABLED) {
-+			spin_unlock_irqrestore(&dev->lock, flags);
-+			continue;
-+		}
-+		ep->state = STATE_EP_DISABLED;
-+		spin_unlock_irqrestore(&dev->lock, flags);
-+
-+		usb_ep_disable(ep->ep);
-+
-+		spin_lock_irqsave(&dev->lock, flags);
-+		usb_ep_free_request(ep->ep, ep->req);
-+		kfree(ep->desc);
-+		ep->desc = NULL;
-+		ep->ep->desc = NULL;
-+		spin_unlock_irqrestore(&dev->lock, flags);
++	if (snd_hda_jack_detect(codec, 0x16) != a) {
++		msleep(100);
++		return snd_hda_jack_detect(codec, 0x16);
 +	}
++	return a;
++}
 +
-+	spin_lock_irqsave(&dev->lock, flags);
-+	if (dev->req) {
-+		if (dev->ep0_urb_queued)
-+			usb_ep_dequeue(dev->gadget->ep0, dev->req);
-+		usb_ep_free_request(dev->gadget->ep0, dev->req);
-+		dev->req = NULL;
++static void cxt_matebook_raptor_lake_apply(struct hda_codec *codec, bool hp)
++{
++	struct conexant_spec *spec = codec->spec;
++
++	spec->gen.hp_jack_present = hp;
++	snd_hda_gen_update_outputs(codec);
++	cxt_matebook_raptor_lake_coerce(codec, hp);
++}
++
++/*
++ * Right after the codec powers back up every reader of the pin sense -
++ * ours and the parser's alike - can see garbage.  Re-apply everything
++ * from a settled read a bit later, which heals any misguess made at
++ * init or during a jack event.
++ */
++static void cxt_matebook_raptor_lake_recheck(struct work_struct *work)
++{
++	struct conexant_spec *spec = container_of(work, struct conexant_spec,
++						  rpl_recheck_work.work);
++	struct hda_codec *codec = spec->rpl_recheck_codec;
++
++	if (codec) {
++		bool hp = snd_hda_jack_detect(codec, 0x16);
++
++		codec_dbg(codec, "matebook-rpl: recheck hp=%d\n", hp);
++		cxt_matebook_raptor_lake_apply(codec, hp);
 +	}
-+	dev->gadget = NULL;
-+	dev->eps_num = 0;
-+	spin_unlock_irqrestore(&dev->lock, flags);
++}
++
++/* the parser reprograms pin 0x17 and the DAC amps on jack events; the
++ * recheck heals a stale presence sample taken while the contact still
++ * bounces
++ */
++static void cxt_matebook_raptor_lake_update_outputs(struct hda_codec *codec)
++{
++	struct conexant_spec *spec = codec->spec;
++	bool hp = cxt_matebook_raptor_lake_jack_present(codec);
++
++	codec_dbg(codec, "matebook-rpl: hook hp=%d\n", hp);
++	cxt_matebook_raptor_lake_apply(codec, hp);
++	mod_delayed_work(system_wq, &spec->rpl_recheck_work,
++			  msecs_to_jiffies(600));
++}
++
++/* our own jack callback: the unsol -> automute_hook chain is
++ * unreliable on this machine (stays silent while a stream keeps the
++ * codec awake); apply immediately and keep the delayed recheck as the
++ * safety net for anything the debounced sample got wrong
++ */
++static void cxt_matebook_raptor_lake_jack_event(struct hda_codec *codec,
++					       struct hda_jack_callback *jack)
++{
++	struct conexant_spec *spec = codec->spec;
++	bool hp = cxt_matebook_raptor_lake_jack_present(codec);
++
++	codec_dbg(codec, "matebook-rpl: jack event\n");
++	cxt_matebook_raptor_lake_apply(codec, hp);
++	mod_delayed_work(system_wq, &spec->rpl_recheck_work,
++			  msecs_to_jiffies(600));
++}
++
++static void cxt_fixup_matebook_raptor_lake(struct hda_codec *codec,
++				  const struct hda_fixup *fix, int action)
++{
++	struct conexant_spec *spec = codec->spec;
++
++	switch (action) {
++	case HDA_FIXUP_ACT_PRE_PROBE:
++		spec->gen.automute_hook = cxt_matebook_raptor_lake_update_outputs;
++		INIT_DELAYED_WORK(&spec->rpl_recheck_work,
++				  cxt_matebook_raptor_lake_recheck);
++		spec->rpl_recheck_codec = codec;
++		/* pin 0x17 drives the tap line; enabled once, like the
++		 * Windows driver does
++		 */
++		snd_hda_codec_write_cache(codec, 0x17, 0,
++					  AC_VERB_SET_CONNECT_SEL, 0x0);
++		snd_hda_codec_write_cache(codec, 0x17, 0,
++					  AC_VERB_SET_PIN_WIDGET_CONTROL,
++					  0x40);
++		break;
++	case HDA_FIXUP_ACT_INIT:
++		/* the parser's own view is the best guess at init; the
++		 * delayed recheck above heals whatever it gets wrong
++		 */
++		snd_hda_jack_detect_enable_callback(codec, 0x16,
++						    cxt_matebook_raptor_lake_jack_event);
++		cxt_matebook_raptor_lake_apply(codec, spec->gen.hp_jack_present);
++		schedule_delayed_work(&spec->rpl_recheck_work,
++				      msecs_to_jiffies(600));
++		break;
++	case HDA_FIXUP_ACT_FREE:
++		cancel_delayed_work_sync(&spec->rpl_recheck_work);
++		spec->rpl_recheck_codec = NULL;
++		break;
++	}
++}
++
+ static const struct hda_fixup cxt_fixups[] = {
+ 	[CXT_PINCFG_LENOVO_X200] = {
+ 		.type = HDA_FIXUP_PINS,
+@@ -1062,6 +1204,10 @@ static const struct hda_fixup cxt_fixups[] = {
+ 			{ }
+ 		},
+ 	},
++	[CXT_FIXUP_HUAWEI_MATEBOOK_RPL] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cxt_fixup_matebook_raptor_lake,
++	},
+ };
  
- 	set_gadget_data(gadget, NULL);
- 	/* Matches kref_get() in gadget_bind(). */
-@@ -450,10 +485,6 @@ static int raw_release(struct inode *inode, struct file *fd)
- 
- 	spin_lock_irqsave(&dev->lock, flags);
- 	dev->state = STATE_DEV_CLOSED;
--	if (!dev->gadget) {
--		spin_unlock_irqrestore(&dev->lock, flags);
--		goto out_put;
--	}
- 	if (dev->gadget_registered)
- 		unregister = true;
- 	dev->gadget_registered = false;
-@@ -469,7 +500,6 @@ static int raw_release(struct inode *inode, struct file *fd)
- 		kref_put(&dev->count, dev_free);
- 	}
- 
--out_put:
- 	/* Matches dev_new() in raw_open(). */
- 	kref_put(&dev->count, dev_free);
- 	return ret;
-@@ -886,6 +916,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, unsigned long value)
- 		if (ret < 0) {
- 			dev_err(&dev->gadget->dev,
- 				"fail, usb_ep_enable returned %d\n", ret);
-+			ep->ep->desc = NULL;
- 			goto out_free;
- 		}
- 		ep->req = usb_ep_alloc_request(ep->ep, GFP_ATOMIC);
-@@ -893,10 +924,12 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, unsigned long value)
- 			dev_err(&dev->gadget->dev,
- 				"fail, usb_ep_alloc_request failed\n");
- 			usb_ep_disable(ep->ep);
-+			ep->ep->desc = NULL;
- 			ret = -ENOMEM;
- 			goto out_free;
- 		}
- 		ep->state = STATE_EP_ENABLED;
-+		ep->desc = desc;
- 		ep->ep->driver_data = ep;
- 		ret = i;
- 		goto out_unlock;
-@@ -962,7 +995,9 @@ static int raw_ioctl_ep_disable(struct raw_dev *dev, unsigned long value)
- 
- 	spin_lock_irqsave(&dev->lock, flags);
- 	usb_ep_free_request(dev->eps[i].ep, dev->eps[i].req);
--	kfree(dev->eps[i].ep->desc);
-+	kfree(dev->eps[i].desc);
-+	dev->eps[i].desc = NULL;
-+	dev->eps[i].ep->desc = NULL;
- 	dev->eps[i].state = STATE_EP_DISABLED;
- 	dev->eps[i].disabling = false;
- 
-@@ -1010,7 +1045,7 @@ static int raw_ioctl_ep_set_clear_halt_wedge(struct raw_dev *dev,
- 		ret = -EINVAL;
- 		goto out_unlock;
- 	}
--	if (usb_endpoint_xfer_isoc(dev->eps[i].ep->desc)) {
-+	if (usb_endpoint_xfer_isoc(dev->eps[i].desc)) {
- 		dev_dbg(&dev->gadget->dev,
- 				"fail, can't halt/wedge ISO endpoint\n");
- 		ret = -EINVAL;
-@@ -1096,7 +1131,7 @@ static int raw_process_ep_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
- 		ret = -EBUSY;
- 		goto out_unlock;
- 	}
--	if (in != usb_endpoint_dir_in(ep->ep->desc)) {
-+	if (in != usb_endpoint_dir_in(ep->desc)) {
- 		dev_dbg(&dev->gadget->dev, "fail, wrong direction\n");
- 		ret = -EINVAL;
- 		goto out_unlock;
+ static const struct hda_quirk cxt5045_fixups[] = {
+@@ -1164,6 +1310,10 @@ static const struct hda_quirk cxt5066_fixups[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad/Ideapad", CXT_FIXUP_LENOVO_XPAD_ACPI),
+ 	SND_PCI_QUIRK(0x19e5, 0x3289, "Huawei Matebook", CXT_FIXUP_HUAWEI_MATEBOOK_HP),
++	SND_PCI_QUIRK(0x19e5, 0x3291, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
++	SND_PCI_QUIRK(0x19e5, 0x3292, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
++	SND_PCI_QUIRK(0x19e5, 0x3293, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
++	SND_PCI_QUIRK(0x19e5, 0x3294, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
+ 	SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
+ 	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
+ 	SND_PCI_QUIRK(0x1d05, 0x3012, "MECHREVO Wujie 15X Pro", CXT_FIXUP_HEADSET_MIC),
 -- 
-2.47.3
+2.56.0
 
