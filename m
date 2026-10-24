@@ -1,115 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792813825;
-	b=f+I1n0ySRYtaTYTVUHVWX0lGdxaWogAb1TXDOOsdh4ljysGPrTijX23By5D5IKga7YCe
-	 ObPxtoiiUSxXGKz03wbW+DXUamo35tN8Fcq/lgOlrYegeP7uMwcI6jROPpn30QbURJaYS
-	 gVI0stAXWk6QvxD3rS6ZExak3YwdJ9hyB7iFzkbYfO6fYNq1Dgh8g7/e+bliUFuLJz93Y
-	 9SX8F/Tlk+RljAPH/IvVlKkBJo9mxW0lRb6fx8uIFt1Fx3kX/K/zypkovb8ZA8cv4Ujt1
-	 T79o0pToNM5vMKC3KPgExmhqmDbp61JnizAG2ieteYBkma23wCey6ppGA0jThDvfY7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792813825;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i4VVej3KE6r0xh/Sp6hm3WcrpLIYI5P1lVi2/jNr6p8=;
-	b=fhbUBVTP0rIu6uKfEKij2EDo18pgteyz49YXnkb+N5s+g+AkXY7Nzcube0i7Aee08Cvu
-	 yMXKv5PyYonib3TA8eZ77j6QT3KBpaoeZiXyDgBIicNldgTNeKJjB+PTCBOv+zFzJzAec
-	 jDvlgl7JDkp3sLjmr/6aRzYv5HZZ55OnhAGW88UiaZCd7rRgyMD3SiOkxdLJBtFBbmzQ6
-	 3999o2bym4b+ANd81f3wx1qHlFdyV3s8924Yt9Mi+h+e80Cj9xSzf27WW24w5O0XP5M1m
-	 18375/54VQ2LBOK7fXhtw2xjk/crfFcgNPPwIifJlImC+9dsq5flUaijNcygtkYmz5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=joXqts16;
-	arc=none smtp.remote-ip=185.125.188.123
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792814070;
+	b=zPgGLx6cF9JoQ4EVzdc46gxYUBNLj7vybEu5aS64NcefWBqRbIbexO4x0fm7/tY6TGil
+	 JSVCf/SrZJqt5AgI0AVNZzQPvAYh3kdt7qAXbPMRRSkMuzwA7ss7IfTm+wsr8luKHZB1y
+	 Vo1XHtPUERjMeO1uyOcl1hUIJUYZmHqnMFpPaoWkOEMMVU1T33b2AJ6UAIea8DIjIrVHM
+	 8sZ/55JuMh6LdfS+0bbasu2NNusOwUmItrlGIcwNf2Xyq5a4vyig3ZYQOddxhkvwE//Dq
+	 fE2PWY8eUqyGTLdRRl7iJQOi8MK72Gtzqw33X3QeC5fDVEIa0yLjIfDxieDUkiA9TGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792814070;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=r9Oeew+HIGKjdLmCd0UHv5aPDW3Qih0WbW9njiFpnK0=;
+	b=KQYnyQH7tDOUR1XGPJDnkSKn7eIENKtzJVny63v6yCXxd6CmPX8G3ArRRKKo7VXQHMds
+	 4FF4ROaq1k5J3hQqgOKpk3D4vuwLjQi2Q+lTL+/9I9YwOI8c2wOe3oNqsB41cWnv4GUPC
+	 7bEGRmFEQNt0wlbCp1SQ+ouAyp7IObiMHe9hXPKPQ6gw79LgVzf4FKiqlYmMVy1K5bFQY
+	 UY/uRr9WGqqZfh2zrMwi8FV+WiI5Y3TKn3vP2ap77HvZju3yfjeXju6lG+m/B+nOdCDr0
+	 jNfcnLqjSXmtK5bCcbFXsdcH//JSopP/tSIchXIAznPiw059J4oUz3czvkuj5J3SAwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRSzzD+V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E991606A31A;
+	Sat, 24 Oct 2026 03:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRSzzD+V
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792814069;
+	b=xs3Yah1q2+U/bBGGfAO4pSNJfBki9qFJAzsENYHYvw40525cA8XjZFriPdrv9KJfhsW/
+	 9nKhzXJ48gyVhr8bc70Pguz8QS/7cZ7Xma3BuVNsNeGaZzkt7QCdXm1Y5OyX/TdIcJjbz
+	 xRCDtQ/cW9W4gQj6B/yLjqJ/Pic3a/Jn/cUMTVLSoGn5iW3Zpyr32sJJU6a3+MRlfNSdS
+	 3unyxArWHfEfZBvOp6f6k4rjcNWuY58aC91cJsfGfmPiG+A3vbmr000qvCy3yx7MgbM73
+	 XkBMyTKeuYGTcujSvjrbIXyCFCxzlDCoUQctFrBvaoK4by2Y+vcuHT3UbXWY1Fx1xgw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792814069;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=r9Oeew+HIGKjdLmCd0UHv5aPDW3Qih0WbW9njiFpnK0=;
+	b=RjxMHqHkm9jPu8rWJToXXOWFadrl+aR/4xtGk7sNZahETeYNZllS4S8Rc/VqYkEUFiDc
+	 Mz5hjIfFyF6L0KOOlqYhHnTnlbtHTJR+vkxlcHVzH6jWSfoOphYygUB6a3THJ10I9RKnb
+	 ZrIKGmrAnk4imi5zW3iqfa5tEJ9kciBgainI9LU0L1ppiZ9RlbbrcaQI+Ij0RqCXWJEHR
+	 KrjZppvuSPUk4Gb/PSENG7fpB4cuzM3vYEJsGz+6Aij1SLx21TIovwK4XDgh2lRaQz3fY
+	 B4CBDqswigCZ4xRZ7fTvE+Om4kYoXNm+eJ7vYe/CXGH5F8p3RvWTqP3i15yTT1SN7cg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A43606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A43606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=joXqts16
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 65A76402EF
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792813821;
-	bh=i4VVej3KE6r0xh/Sp6hm3WcrpLIYI5P1lVi2/jNr6p8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=joXqts16mhOeqke2vxiWmtKbs6h8xr+drNbAEFZvxAAQgztEtjPfkAUL/xkfOTDS2
-	 UZL8mVyX1plEo1RV4//XUOsURpaHpvxzquuQ1TdH87S/WkbmGZMJ1+bTj7ozTFc7fV
-	 uwJZ9gMDjkcAivCHCWuSGjPOzsVixpiViBP+s74QZ3PAK+AXxTvb9RZLbdqN4Ymfzr
-	 fFC7e5WEIeTXyWJCRiM5y+s4rbre7kjI9gWK5G3HRIcGKl1afcFmFmXBGTSEpg+sdX
-	 nFbpZuu000c2PK/4sU22HsqsDElaTAAXIIZ1qrhc7Q79jfKKoIVmC/g7K6z4LeEuq9
-	 0APIZj+LyiREZVYPIQL5wEla2H7Pu5/zxolZljgncwKdIZJRSXqbF/qAUDhNCWcAGW
-	 5cr709OJSgb/QOYczI9rvfSXwxaiRi2GAHdDiP+voqEyollF+DHMbcu8rf1ahU3kvc
-	 qLC1LFa6zhg/ikBsTotTz+SB5qIFpiDTWwlBLZfonJ47P6V/4sigaq5lh1unXbkpua
-	 X0Pdu3iYNd6PNaiE87t5s0sdHu14RzgipGi3jVUYODSDpi6rFbaxwmVOWdzYrOrMRI
-	 wGlbkGIXUEJhs0m7hY0CoQX8Y+/0nxjA6JIlVFJmq7b/r5GN3TCTqN5mU/xutOSq8k
-	 EewXhjogOQv/ji5gWd9F3E/8=
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e848cd27beso5453435ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:50:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792813820; x=1793418620;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i4VVej3KE6r0xh/Sp6hm3WcrpLIYI5P1lVi2/jNr6p8=;
-        b=Id4wQr2auXQcPAv4rcgdyhG8fpQ4LP3FW6sAoTm+numSdAe1xyMXM4BixA8jEkP75J
-         OPJF+LFO+0Ks7zddolnUXo/TTnDJ2/2dwGzNt2d4HivIOLrtnwMzA7WZTAW7xWjPhbzH
-         UOK8DsFctkv/mgHXXjNPHqdwekh9ULRd4wLp74I11SuP+83PRZwVTkRylYZiw5Kov6kL
-         1KZDV2gAAptnCx4kGnmdrS3V8uQyvn7tguLo+ObtfO6AAN0edImaktEb5ydLmC44QbkZ
-         EGGv5Eozpp2evJA2uUauLtbGEhJlYml6IcXmKGUfdKWCuf9WA26azSULtfjf4/QYncCU
-         rIQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSODi4BtA3bSjrEsGU+E/nxASXb6VkvR0LmfM3GN9R0u6WOUhYKEF8epO5JgpZ/AFQsp6se4JIGBV+wII=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqyoGfdVYcmHjENeIiiJzOGJJK67BebRQ/trPxethxGKuDfZJ7
-	XoF1wK+BM3mwUCpyCyfCU7xqAyvgCwvK5E5v8XSJkjhTS1P46+7A+kAzEovNxwGoBaafOVuS36R
-	wfHK1LfMKFcF+9E+FXbOGYHL+FqSDurP3CJIQzzKt/ignDTat/0L3OcRYwyzOJCrrHocxMkEEeU
-	J6vZ+0eg==
-X-Gm-Gg: AYBFou34vRHpHo11x+awNUzSM+sYS0vBsAHeWPz1Ygp0OQ7qBhWP31wV2GgCEQ/Od+O
-	jTkkoaS92L5wmZIGHTxu7LOBkDoYzq/2zm/YXeqR6/k3uW26BRmKcErWO39Ny9o345Kd+oKIPeP
-	tULkyumcvnaxGJgt6S04BdGs1CZ6+sp+Vj+RD92CcZIa+0NqvEQ3LyhUyX6XvsQk7tweRI2K8qw
-	uhSKZ7J4zzEksDPfnJYFQRPONraE1KtlADfMy1lrXBcpJHkYwbTc5fypHhs/CNO0CojbiU5BBT3
-	RDeW5DPdIKBKmaIqFvM5IwhFCpjHsUsFW1qbiIgqkGkeRocdrtQI0s9K15Ua6qZtal8sEBlDSyb
-	fFylUYlvyS4eGJKj1WbX6iehsKx3WZ189jhBk+XfzUvZLbx6veZqrO+hAqS3bMH2bfkFwOPBLtS
-	THNAK/HcALMZPa+2cJ0PAoOi5+KpqXx99CsJ/m+nzldDaYc6CIbDYvgYkzbDGRPm3w71dMqV3VJ
-	8B1nyb5TcnsBBogyLtH4isAkNdeYt/HENu+3Y+lC2k=
-X-Received: by 2002:a17:90b:39a6:b0:3a7:a463:54bb with SMTP id 98e67ed59e1d1-3adeb10f4c4mr1658965a91.5.1792813819847;
-        Fri, 23 Oct 2026 20:50:19 -0700 (PDT)
-X-Received: by 2002:a17:90b:39a6:b0:3a7:a463:54bb with SMTP id 98e67ed59e1d1-3adeb10f4c4mr1658949a91.5.1792813819479;
-        Fri, 23 Oct 2026 20:50:19 -0700 (PDT)
-Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-9c57-136b-f73a-3698.dynamic-ip6.hinet.net. [2001:b011:2008:445c:9c57:136b:f73a:3698])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa96sm1320191a91.7.2026.10.23.20.50.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 20:50:19 -0700 (PDT)
-From: ChunAn Wu <an.wu@canonical.com>
-To: an.wu@canonical.com
-Cc: derekjohn.clark@gmail.com,
-	gregkh@linuxfoundation.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	jirislaby@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	markus.probst@posteo.de,
-	mpearson-lenovo@squebb.ca,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH v4 2/3] platform/x86: dell-uart-backlight: Bind through normal serdev matching
-Date: Sat, 24 Oct 2026 11:50:11 +0800
-Message-Id: <20261024035011.2712103-1-an.wu@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261024022930.2704030-1-an.wu@canonical.com>
-References: <20261024022930.2704030-1-an.wu@canonical.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 1DFDE1F01825;
+	Sat, 24 Oct 2026 03:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792814069;
+	bh=r9Oeew+HIGKjdLmCd0UHv5aPDW3Qih0WbW9njiFpnK0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CRSzzD+VsJibtdGqeuXN9LpGAP1S5ilm6AYwjbwgaP5hS8cjpTUiE1YWLrfy+FgZz
+	 1wn+b/Q1JwRYMI2etG+UgFzKlSSuhGIsuy1MaJVBaEaKTLYmgMw4XbjHLI1KlCxn1r
+	 bwBCX8btex4RQn1Whjx58iTvxab98y3TBF57eP2NVAT/q9Wg5iXvbUM3KXPJKDdHzB
+	 26Nr1TnBBEK47V8p4Oo/SGsSotdpobnQsEWPiR0+wsbhaopqqnZyy1ZJ+vRUMUhj7Z
+	 2FD6zHdfHV/WRe2bI4Gp8YU3G3Lo/PYIravCxibL6ZMGKCx4Te53XBulAkCVXdxpON
+	 BfMGt39vPQPXg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8803344706;
+	Sat, 24 Oct 2026 03:54:28 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Sat, 24 Oct 2026 09:24:27 +0530
+Subject: [PATCH v2] dt-bindings: remoteproc: qcom,sm6350-pas: Document
+ SM7250 ADSP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,77 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-adsp-sm7250-v2-1-ef278af8da5d@brar.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0JmbU1boQgr72FYlHaQMRFIBxsN6
+ d0FjAuXL3n//QUYAyFDnS0QMBLTOKygDxm43g43FORXBi21UVIVwnqeBD9KXUjhbXH2rcK8tAb
+ WxRSwo9deuzZf5md7Rzdvic3oiecxvPe7qDbvVzZ/5aiEFLo7VdapTuaVubTBhiMTNCmlD5D63
+ pq2AAAA
+X-Change-ID: 20261015-adsp-sm7250-da58db1e47a6
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792814067; l=2822;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=GuEwrEMO43vHoIW4u6rPZvhBWRNxjETv3/Mw/VJkhR0=;
+ b=J7g9bjVXCQ3xsqu578Sr23l8hEGB4wJwwCBDJA67wIAE2OmsJXWkrHEUPDJI+Zw12rKF2fiSw
+ mxueE191jyrBjetKy9Gw9nQ/1xDd6DxU6GNOstir7OGw8EsICRdVC6b
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
+Content-Transfer-Encoding: 7bit
 
-The driver creates a serdev client without firmware metadata and
-force-attaches its driver to it.
+From: Ishu Brar <patches@brar.si>
 
-Pass the modalias to serdev_device_add() and give the serdev driver a
-matching id_table, so that the serdev core binds the two through normal
-matching, then drop the manual attachment.
+Document the ADSP Peripheral Authentication Service on the Qualcomm
+SM7250 SoC. It has the same interrupts and LCX/LMX power domains as the
+SM6350 ADSP, so use the SM6350 compatible as a fallback.
 
-The client now also reports a "serial:dell_uart_backlight" modalias to
-userspace instead of failing with -ENODEV. A failing serdev probe no
-longer propagates out of the platform probe; as for any other bus, the
-client is simply left unbound.
-
-Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- .../platform/x86/dell/dell-uart-backlight.c    | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+Document the ADSP remoteproc of the Qualcomm SM7250 SoC (Snapdragon
+765/765G/768G) in the SM6350 PAS binding, with qcom,sm6350-adsp-pas as
+fallback. The SM7250 ADSP behaves like the SM6350 one: same PAS ID, same
+interrupts, same LCX/LMX power domains, same SMEM crash reason item. So the
+driver needs no change.
 
-diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-index f323a667dc2d..9b8ef91bb0a2 100644
---- a/drivers/platform/x86/dell/dell-uart-backlight.c
-+++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-@@ -325,11 +325,17 @@ static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
- 	return PTR_ERR_OR_ZERO(dell_bl->bl);
- }
+I am bringing up mainline on a OnePlus Nord (SM7250, "avicii"). With
+this binding the ADSP boots on that phone and I can play audio through it
+and read the sensors from it.
+
+The SoC devicetree is not part of this series; it is being sent
+separately.
+---
+Changes in v2:
+- Use qcom,sm6350-adsp-pas as fallback compatible and drop the driver patch
+  (Krzysztof)
+- Match the fallback with contains in the allOf conditions
+- Drop Reviewed-by from the binding patch, since the binding changed
+- Link to v1: https://patch.msgid.link/20261016-adsp-sm7250-v1-0-2f39ac1f0496@brar.si
+---
+ .../bindings/remoteproc/qcom,sm6350-pas.yaml       | 23 +++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
+index 42e02c643..8387471d6 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
+@@ -15,10 +15,14 @@ description:
  
-+static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
-+	{ KBUILD_MODNAME },
-+	{ }
-+};
-+
- static struct serdev_device_driver dell_uart_bl_serdev_driver = {
- 	.probe = dell_uart_bl_serdev_probe,
- 	.driver = {
- 		.name = KBUILD_MODNAME,
- 	},
-+	.id_table = dell_uart_bl_serdev_id,
- };
+ properties:
+   compatible:
+-    enum:
+-      - qcom,sm6350-adsp-pas
+-      - qcom,sm6350-cdsp-pas
+-      - qcom,sm6350-mpss-pas
++    oneOf:
++      - enum:
++          - qcom,sm6350-adsp-pas
++          - qcom,sm6350-cdsp-pas
++          - qcom,sm6350-mpss-pas
++      - items:
++          - const: qcom,sm7250-adsp-pas
++          - const: qcom,sm6350-adsp-pas
  
- static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
-@@ -354,7 +360,7 @@ static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
- 	if (!serdev)
- 		return -ENOMEM;
- 
--	ret = serdev_device_add(serdev);
-+	ret = serdev_device_add(serdev, KBUILD_MODNAME);
- 	if (ret) {
- 		dev_err(&pdev->dev, "error %d adding serdev\n", ret);
- 		serdev_device_put(serdev);
-@@ -365,20 +371,10 @@ static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_remove_serdev;
- 
--	/*
--	 * serdev device <-> driver matching relies on OF or ACPI matches and
--	 * neither is available here, manually bind the driver.
--	 */
--	ret = device_driver_attach(&dell_uart_bl_serdev_driver.driver, &serdev->dev);
--	if (ret)
--		goto err_unregister_serdev_driver;
--
- 	/* So that dell_uart_bl_pdev_remove() can remove the serdev */
- 	platform_set_drvdata(pdev, serdev);
- 	return 0;
- 
--err_unregister_serdev_driver:
--	serdev_device_driver_unregister(&dell_uart_bl_serdev_driver);
- err_remove_serdev:
- 	serdev_device_remove(serdev);
- 	return ret;
--- 
-2.34.1
+   reg:
+     maxItems: 1
+@@ -83,9 +87,10 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - qcom,sm6350-adsp-pas
+-            - qcom,sm6350-cdsp-pas
++          contains:
++            enum:
++              - qcom,sm6350-adsp-pas
++              - qcom,sm6350-cdsp-pas
+     then:
+       properties:
+         interrupts:
+@@ -102,8 +107,8 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - qcom,sm6350-adsp-pas
++          contains:
++            const: qcom,sm6350-adsp-pas
+     then:
+       properties:
+         power-domains:
+
+---
+base-commit: 23d0516587f896f5f16a47c97ddb41d28e6289ff
+change-id: 20261015-adsp-sm7250-da58db1e47a6
+
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
+
 
