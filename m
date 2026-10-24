@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838059;
-	b=F2ruSRPlseeRdHdsAJmdpN52W/nS0rL1esVQTTeoWUvpMyPS4vrsyzd3wH+e/OsnAX7t
-	 wFUKODN2El4PR6CJnuNP9R0ZAF2Jm5SlO8rFHPAS8jE8jJdXggEYN/GX78I7UEvmuVeGK
-	 FEEFeAOwMgaQjhq4sa574CYOCvPbppeBl20ifABk1QWxJVsZUetejlhRgH4ysWHToU91A
-	 25P0Jed7fUti+dgReK9E1r451Empsk+kp2sarNfbHohizk6+YjSsQu0De+km53cex2t32
-	 u8iO7TbEMqR8GtaVbobP+GAmCemEskSNT7nfx3i0r0lNa/F4/CrUpVvzdohiJ6YAK6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838059;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792838122;
+	b=uFQLzG0Jo+xDkPXt35Z7M8k08cmFEWZA1xzuOFu8/2f0wZcZC1bqv9zI1SBuPazlSfhP
+	 /kwqNeiqXvj+SxQ7Ym/qFsNpQF/1VYVaUcXs/lE2oYVNrTVnZf/jk2apSBdiQFS9IVNwF
+	 i5QlgNf3z6z7geAMAq0tcdETK93gqK1mX6Eja93hzCpcGeAs4KImTrQdGdP/RYZMqeDtf
+	 Zc2VZvZl50NMW7dmmoZABVnJlLfA4IuqCVU1jJhROybh1HqsJjioRu/xGASIh7H5A1vWa
+	 j6rsh6dJp9lVntkPAVtaWU9q4VTMlK12cIb1TshegKznzB6Jb66URgHv4v4kcyqD24w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838122;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-	b=u60XRYchQq8ggCz60hZzJMS07lIsUwYaA6AnqYWjzqxePFc3Avuk6HetorA57LqVmkqw
-	 QoZhqifwN1UvHU//vOfivwOLIoxBgzDbipLD15YXEjyeVUg0rvidSK5P1saDnex15VIg7
-	 sJ8y4f/vl6fVnNXH8SyFsAj9RgV4Wrh1KAgunrUTgG8dRQSN9MJJKVUY5E1pNtwwz8tAu
-	 xPXCrGv5UwVsr/oJROh8i1vFaMSOOl4x2TfeReRO+bIIonEWrrcjNG2SLrRMafc3VJKwn
-	 BoaMiI9crs/7jdLrURgR2b/EoaTZRAWoXlp5d3Wx/Sb+tci8mlNj4ri9XOUR2XAbfsg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uGCDdPjdm8PF4Q8Mw+M6rMsR2imognmPTuJapISunSQ=;
+	b=zyA70cEEdEkrLd3uZMmEKcM45SVmvunTN7XkgH9O4dqTUAO4IRCVkpfwGyh9yjCFWLqN
+	 xqbpivl1VlIE81Qg7GgVeM6hOjR6tbrjPfdsIph4sbhF2hQhK4mDHrEcnqauVEjyP5A2G
+	 bHJoEO6XeGfy1dDz0xg/Ap58KOA7bJXkH84hfvRTFnLqnyIvrMO7Jt4BiyB4+14LFdVls
+	 g4H24LUkaxB2YGLIag6khF2WqY0DF7/9mgyIITWfql4lX3Moyy317ZPIXjE7AHrGSVMBh
+	 +//VDtt1nFIkk5sZT2PkwOUCOfFUgwLAX3GyA5v9/gqdxvk2nkkE2Vnr+tK+s+oaHug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=ljANwm9B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3139A606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3139A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314C0606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 314C0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so932898f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=ljANwm9B
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1024356a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:35:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792838121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F3j9hcHiWbajj0Hm3iKAnmQR/I+21ISCYaqtBnxoNGEnaqdYe7IRSPDSH8a68ttHrv
+         BaXoIYV07Iae/0zU1REJuWuKnexqqQZnWqk3nbKW1B3lGnsqOQb9aERzbt6Xs0AIawFe
+         i/8iAJoVF61JWpTS3j+sTrOOEwN7KYvbduQGDkSRhH2ej+UrpdRGEVnWHD/FBwaGFO18
+         cK6JDbYh7Rs7cPYXiiHSo2Rjf4XiL4Q/AwmaVoWYM2CgN2CA0uck7mvBrU7/PTEejno+
+         Oiqw2OiJ7Uer0HwosuuWt8YwM4mNtARH3nhMoLdAxclFeH2MqEWaddq/MgAdmQNcAqxn
+         C4Lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uGCDdPjdm8PF4Q8Mw+M6rMsR2imognmPTuJapISunSQ=;
+        fh=d3uQWd6gaURvtpEDKuJAgty/ESbh+nNM9zHtf+MiWB4=;
+        b=Zu2QiXTK949c9bIT+tpd67qbr3zp4X2E1tNQkrLxLnCpA3fiicJv4tJqhEpeKb5hON
+         vN/c1+yaoWJPc+hQc8cz5lnD7MUvW8nbJ89xUqMJwrj0LZBGyXiZ+Yf/DxTM6FzpWDfQ
+         lkOzQKgWt9FudBJE0VxJVYEzTIejUoyNLTDCVI4oi2XCFLETSMeEKwqcLT+Xp00Qyz0E
+         WoZ03mBz9xbIhQ7rYpY1ts020HrtwZSGadlYSLNtzmiwOFZfHaBXd5f0iML5nDxobWPD
+         biSZ0+zuXVZE4f/azNIA2j7JRVrO2TR+ER4mQALkya/DWVhoC4ktz9orvZNGBlCHuID7
+         YPGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792838051; x=1793442851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-        b=YKgowXyLWBwrg7I++LDP8W180Q8ZiqniVMWkvWW4/5iaBMr2iDr91+cTkh1b3/m4Sv
-         Lea1ql+KOC7EtGE/uJDarJSmpxelzCuHTBIVoce3HLGWesCapXCXBPK9wSsP4E9oE/KW
-         um9D8prowuOKuB8EHFlLI02pStgKNsLQlt8oLKhxZaLgwHA23puRZtrvnWuj4ryDGqBW
-         /K7w/9mWlK8LlfeKJwraHbK5ByzlQAUDD8SUCv0eVS0kEIfuyUEm3uF1LnCMQ7em7eJM
-         vYoWLjhE3IDHpIyjKzsBeLYQawgqgrYl48ympnOHRm4P5/xSLaN4WpJWZpdvcR04WiXf
-         8VOQ==
+        d=sartura.hr; s=sartura; t=1792838121; x=1793442921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uGCDdPjdm8PF4Q8Mw+M6rMsR2imognmPTuJapISunSQ=;
+        b=ljANwm9B6EoPJseb/Kq4puCiEF4EWyMyp3X4n2LWv14GXwcMXrQFunBzY7NF2E9Kvh
+         xoYmLEaKc7xY3wniTybZ00WnXOXYEeViJU1q8hAjd23BuQeZ1PVEIRnsiXggdN7gi7av
+         roBQeMjH6PF8lsFFd7DgRfYyWH/k0KxDXEyjnTVs73NNTKNpwYrRFsItYFA6/BY+i63g
+         i6maHwiCRuuiGcsW0Hk9rhVlvGPADq42KmeiH+Dz2TPeB2OTJUFUEIyay3e4K6O4PMJ9
+         G4uQ/e0A6ITIG7MP1X6F3PuHc2HnbAj7R3LDRS2JcLWacivlBpU3RzU55UsdPMMEgQe4
+         s9ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792838051; x=1793442851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-        b=ikHKB5huPjIMzyxqEhbo2rhZ1GUYX6DHW91f3vJKtv0e1y54ZrHdBRXosVkxXYY3U9
-         cUQ0NbRcwaFStgkatbNz0vCWuEYOTrkOHXbQCeMRykLvaPp5mK8ZoDa09kO9Sor/900Q
-         fT//0b9kM8k3LH0LpgppElPa7NSywMIatwgJTAODkoZlwnMWR7VDMaGBTh9hCYpc1o7N
-         t4DKT8jca2ROcaW1lFX+Wq8kYmOTyqX9UMN1bnsUsqOz44Lk877KlTHmbqvmwGilu2mE
-         kLTbUcomldMfbTxhtc0pkTAUwpGBc53tXV9H9vVZW0twUQIYlPeHiX/B4MsT1bOD//Pm
-         gIEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwl70hGmcebFrQubN036U7wE/ZzbfsmqIXGT1yyG+RXzLxbbcVvyTTWgDIFt7was3CEs/0gAgebptzKlD4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0F9paCAp+1cWU3Lyvu/sugCxc00nQqmcWXTOhbzrQOH3KUQFc
-	v+9j0OxpLTCHPKMT+rcYvriM1ilZW4kB3DvB8y2alIv5yLzG6cUNBF2M
-X-Gm-Gg: AYBFou0LowsqCWksjC//0Zx10HF3dw2Yk0H/HruYOgCgn6AToyRNuS4qJBj8FpZjx19
-	5CyaKd1GgQUarrl8IXDHFF4AEOorDFKyFzXqRnIk8mdJDoLhe1wU94tMaOChqNFkX+/K6cbNVBM
-	aNESRfKJdYCwS+iLDDcDE+g0N4WXQWSCRz4/B5sOOcH+nPkdP+MYbxhCT7PXxzOEB8eGd1SE8Q9
-	ryUWlSpePj4r5aNnX4G+3GrKDLlC7Lnz2k7+Q1f8V6e1W16CZ54AYJIfl/nwct98r/9DSEGrmVJ
-	fq2ORS+xs4/pxlB/rTPV0xpF2IJ5p3ZE83ZzFaAzYlbD//AMLxyYTdPLqoyEKlGVcn5vmKVgnuu
-	XrGTopjDs20g1YJYI5Bc7wctI65qIeMgwiFl/0gP8gIX2AbkOA6qdq6/xhvTHvEhgCClmlikSpN
-	2cB53m8MaQ4qsFrR7qWMEVkTY1S3cKeJlCGe+b55lFI+CwCAebXTPLdR1Gje318RZfXZDEu4KNa
-	xB1YxoMjmyM7c9lyG787+rUPGv0Z3+zidoKIkmGYTCw1X1dA7TTJfrOzc5KpJMZYNNHEUIT9TWV
-	KXN9fs4g1Gpu/E0s0URipPfCh2c1iEZ1gJ8SwCkEz4syrqQt+dGpJB9pi4SQddNSqlqdShLbgrE
-	LAe/GvV0=
-X-Received: by 2002:a05:6000:2312:b0:48e:e98:8b64 with SMTP id ffacd0b85a97d-48e3eb8b45bmr2346024f8f.19.1792838051352;
-        Sat, 24 Oct 2026 03:34:11 -0700 (PDT)
-Received: from threadripper-fedora-workstation (d-zg2-024.globalnet.hr. [213.149.37.24])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm3544825f8f.39.2026.10.24.03.34.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 03:34:10 -0700 (PDT)
-From: Robert Marko <robimarko@gmail.com>
-To: andersson@kernel.org,
-	abelvesa@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	konradybcio@kernel.org,
-	taniya.das@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Robert Marko <robimarko@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: clocks: qcom,gcc-ipq8074: allow CMN PLL bias clocks
-Date: Sat, 24 Oct 2026 12:33:09 +0200
-Message-ID: <20261024103401.761125-1-robimarko@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792838121; x=1793442921;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uGCDdPjdm8PF4Q8Mw+M6rMsR2imognmPTuJapISunSQ=;
+        b=A6CkthBt3y1PO5mtDKUjBl/6WTuiNIJo4HYMXx1xEbJxvqLd88J2/dSbMbczyFu8hO
+         uMRQa5smC+p+8xGqOv0oyATo9uJrAk+YtgmUEFeUJZdZi4ozC1dNUsMyYd+uWz3mr39T
+         dEN+JntM/MZaR2Cer50YECO/8kJZESxMukjX8208uTw18+OcIrwu+H/Gy1t67eIxVXpu
+         4hvf4pm5xVtDitJKYrAs9XaRnt+pFPVdcJEJ4qwbTGhnaI7g4RObmqHCG+DKbWq8GUhG
+         IRFPcC/JDitXuwuDx2Tn/Gk7MHlqw6nywvLteGSz3YQXPXnlUsea8wOfWGY5VRUgkFZs
+         174g==
+X-Forwarded-Encrypted: i=1; AKwUvBwmtCYgmhpBGAEez788aiQ0KI2isnCX2YpYN1h9P7+z2cJPHE6rSSwlwW9C9Vh8/x50eCqXW5ja36fLPEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJZkmIDVCSTioJz2PCbQOdrnczhKTPoYeaxVBhpBwRqunQj3YR
+	2tW/BDaeX4iLJ2q2KZXG1C6uF9vZv651tzFYR3ENmrQjQAe1m66oLaMgZouVVEc/LaXu1VzmuPO
+	bM4nVAXoH4qAwlBVNq9FDFszMwf9dmEVVTYoMzabrOg==
+X-Gm-Gg: AYBFou2fLrPbxJsr9WnSZtHEvj8R2ytFt0tWjOTkGj+g0Dag6FwzGCle89Z7syfYgeD
+	RVrG+R8kufncjzAq9U4LKFkin0zCOOLjU5LmN7iUSKaQXLTmZac/5uFsRS+IOc00P2qNU9AgkBp
+	eZWIvlBkDeznZ8qvrm4cDibMdcecWP7zWsHeY8EnlkoSM7NGEvBJ0UfKi+vbmu3X+n6jABOnhlj
+	jsvwixl9pfn4205QdD4x0nz35WjAHhANjNTX+lNa2og7ptn/ngzds+judLGpGKzopzUY8uPNEYS
+	WxD3GnzG6PFfDohgiPK5pCMdMQ7Pd+jQpy6Sh0eomvqWgRC3As0Jk3T3Y7khmOiocOsGZiL+J1q
+	0yhDsjAKwEvTSH7YOSohPVBQ7qHD+/60arWQKwgNZlZ/4lWOiyuZ0ireg3tICLt14C+yrU6FGnT
+	B0KeAy+aAsK2E/guSw
+X-Received: by 2002:a17:90b:582d:b0:3ac:c024:b275 with SMTP id
+ 98e67ed59e1d1-3ade9b2ef33mr1458580a91.9.1792838121551; Sat, 24 Oct 2026
+ 03:35:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,40 +105,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261020065430.1251541-1-julius@bairaktaris.de>
+ <30c21159-3008-463c-9cd2-a07f26668a25@sartura.hr> <9699033c-a9e1-4b11-a55f-b1aa216c700f@oss.qualcomm.com>
+ <CA+HBbNELhPAAZoUuXm3SrvgxiU0eMaiu5LB3wfup04_HuZ+yxg@mail.gmail.com> <729312d0-d48b-4c92-ac6c-98ffbb23d7c7@oss.qualcomm.com>
+In-Reply-To: <729312d0-d48b-4c92-ac6c-98ffbb23d7c7@oss.qualcomm.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Sat, 24 Oct 2026 12:35:10 +0200
+X-Gm-Features: AclHuK931L2oXiPPuKzWcoF3-rZklcyBCLSRbJVaUCSuCAcGKc-a8jrSumJzuR4
+Message-ID: <CA+HBbNFiAF03WTz_N-_N8ZJantFdSBud0vZbiNw60_Oxju_=FQ@mail.gmail.com>
+Subject: Re: [PATCH] clk: qcom: gcc-ipq6018: add fallback names for the bias
+ PLL parents
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Julius Bairaktaris <julius@bairaktaris.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Vladyslav Andreichykov <vladdrako007@gmail.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CMN PLL in IPQ8074 provides 2 fixed clocks to the GCC clock controller.
-In order to describe this in DTS, allow passing them as the inputs to GCC.
+On Fri, Oct 23, 2026 at 11:46=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 10/23/26 11:41 AM, Robert Marko wrote:
+> > On Wed, Oct 21, 2026 at 10:06=E2=80=AFAM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 10/20/26 1:39 PM, Robert Marko wrote:
+> >>>
+> >>> On 20/10/2026 08:54, Julius Bairaktaris wrote:
+> >>>> From: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >>>>
+> >>>> bias_pll_cc_clk and bias_pll_nss_noc_clk are outputs of the CMN PLL,
+> >>>> which takes its AHB and SYS clocks from GCC, so the device tree does=
+ not
+> >>>> pass them back to GCC. With only .fw_name these parents never resolv=
+e,
+> >>>> nss_ppe_clk_src stays an orphan, and setting it to 300 MHz fails wit=
+h
+> >>>> -EINVAL. The NSS clocks below it, such as gcc_nss_edma_clk, read 0 H=
+z.
+> >>>>
+> >>>> Add .name fallbacks so they resolve to the clocks the CMN PLL regist=
+ers,
+> >>>> as gcc-ipq8074 already does.
+> >>>>
+> >>>> Tested-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >>>> Assisted-by: Claude:claude-opus-5-5
+> >>>> Signed-off-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
+> >>>> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+> >>>> ---
+> >>>
+> >>> Hi,
+> >>>
+> >>> This issue does not exist upstream, as CMN PLL is not yet wired due t=
+o missing
+> >>> networking, even then the solution is not to add global name matching=
+.
+> >>>
+> >>> The required clock inputs should just be passed to GCC directly which=
+ I have
+> >>> just pushed to OpenWrt.
+> >>
+> >> Just read your reply after writing mine, I'm looking forward to seeing
+> >> that patch!
+> >
+> > Hi Konrad,
+> > You mean the wiring for CMN PLL or?
+>
+> Yes the wiring
 
-This has a benefit that it avoids doing a global matching by name.
+Thanks for reminding me, I have sent the IPQ8074 wiring.
+IPQ6018 will follow.
 
-Signed-off-by: Robert Marko <robimarko@gmail.com>
----
- Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Regards,
+Robert
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-index 00d7df75b3d6..d489c6332e6c 100644
---- a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-@@ -29,6 +29,8 @@ properties:
-       - description: sleep clock
-       - description: Gen3 QMP PCIe PHY PIPE clock
-       - description: Gen2 QMP PCIe PHY PIPE clock
-+      - description: 300 MHz bias clock from CMN PLL
-+      - description: 416.5 MHz NSS NoC bias clock from CMN PLL
- 
-   clock-names:
-     items:
-@@ -36,6 +38,8 @@ properties:
-       - const: sleep_clk
-       - const: pcie0_pipe
-       - const: pcie1_pipe
-+      - const: bias_pll_cc_clk
-+      - const: bias_pll_nss_noc_clk
- 
- required:
-   - compatible
--- 
-2.56.0
+>
+> Konrad
 
+
+
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
