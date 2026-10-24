@@ -1,103 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792877975;
-	b=d4WI9CVch0o/M2xvDsWaV5aAEnZr9j0E02RQAhyHEgFR+UUTw23QoArkWFeIUs5N4KTX
-	 E9+IeaqrS2f8c6c43q3J4DQc1063jMP4iFIQnKqo8S9B9cGYVkYaL/+5RdYI9k2YksG0d
-	 wyMiyn/xpZJXEhf+ImmHTyw9SsUR9Jk7D5I2HyL/drh07tjbjER5WfKaODIJ2xLInfEzC
-	 s6/3IrJUOkAYtNA3tDuGLHFls0kS3jcyQE5PqCtsnpJli13P8UKYY/rZZSccERs0qNNS6
-	 xl0eNSSSR3Hw56xOc1GiKYANpGmtWe7EpbctnSmCKJ9QXVJUYP1pFyjSXACpXhOyeLA==
+	t=1792878210;
+	b=Igd322mDbsV5Eqh4c7wioF4zX3MjbfPFREVWKlWVYA5M8mPE/RPPINgqzUYPhd13dQ30
+	 f7sb9nCFR5OdssKO0uBM6YOcSjMvEltvm4TsPhbLsO03//34GVN4MdJ7G/gaYbBCacb1V
+	 83agpwH96k5HvP9gcQzyhg0vyWzqUhpT/rYLgWJD/+XU9K+/CHiqrn6W9KRP0VZG3hYXV
+	 Hx6dUyBhPxJKTsl8CkFMGf31Er2IIio0o0P7hpGxvWQtfBoGugsIImOGKoeWJ1buzNMQj
+	 9gmpofMFyqoo8J14YBQFTiqmtE8P2lgzR4IHf2NycsMnOpvn3qbXv5T+pZyL/sJ1eVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877975;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=vm7/fsP/sg92Pgvt7+1980ql6OkAUgOzW7e5joju6Wo=;
-	b=Fa9/JaoNNIIerazz6WUklnFhoQPkLkJE+DBJyB3owhuXZE4XVJkrIXV3vWKQxcUvUFeU
-	 e1PX0X2Xkju+UMNReW7JGRZHjP+P7+UFn+jKwM8T8JxOernQRhegd2U3s5wewGvFj5eW6
-	 Ys+X+fdJJdKpLwbQzYFo5IaE94STXrhSi/RYXx6aBYiDR/xc6ydRDR8XK8N8pLKZK7j4Z
-	 5JFY2rJBAHfxNhzuSMMoK/GGu6TgI0XdjcHnz3Y/huY8fdszayDUlgIgG0qjcq9mhLsf4
-	 JQ8aM8LelrDudu/fiGC4DJTkY3CVVosn176RacOUFfJ3rkZLm5D1kNxr8kNp6F3srDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792878210;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3UXVe85EdeFNcxpcFxDAp5kR4bnXLI0O4+ZpE8jB/ao=;
+	b=1ase5DySRIdZ25PR5eckS1LivOzU5y42xpjPbrc9Xk0Oq61d0HkcPxhwKSMvGdfPE4Sv
+	 VNDwFzXESiwVcwVaKHKKIxwo3av3ke7qvtMnOm+Q1CvO81Rc3mdNJxcGPlVavqBnju363
+	 ZsJgKUOOljUYf+f95xHg1Iaa4ojj1qfGNJCFbKLgJ5d3CQU2tqlZvxYFD+AgASduWRgvK
+	 Wh494o05MIFeB7BK2RqS4dDls/7mwEEaVL2WV/mqv77yr2bnEt8Nf1e9QsyY+zADeFNeF
+	 LXU59jd2saU622SU40DtySyVZZWFtFgikiPvamVHwy5csM475UD9JexaQb24KSJUU/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSuLecdn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Emy51tGX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSuLecdn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Emy51tGX;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q7nBjGrY;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2FC606A31A;
-	Sat, 24 Oct 2026 21:39:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2FC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4DB606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A4DB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSuLecdn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Emy51tGX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSuLecdn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Emy51tGX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 72A3322529;
-	Sat, 24 Oct 2026 21:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792877972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vm7/fsP/sg92Pgvt7+1980ql6OkAUgOzW7e5joju6Wo=;
-	b=ZSuLecdnBnciu14T0QD4DIXt9MDvm9G9X48nA+9FDjtdCtOBjE7545gUazAEc619aukRh4
-	RTR9tDiJlbMxdCBo3J+4IjZvyQFuWGP1UZbCexWMaRT1yZmb5IIKMwk13nJ6Wu41AF6FC+
-	2NrW+tvhS05Mfo+Au347B3JPdkdTKpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792877972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vm7/fsP/sg92Pgvt7+1980ql6OkAUgOzW7e5joju6Wo=;
-	b=Emy51tGX94iL1lrgA+Lz4XFn294NYmIlFx0gEwMUyMuKB5dmD5OhTOFHXIdGSJAUZ4kk8w
-	K4dlqrOERgEqyjAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792877972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vm7/fsP/sg92Pgvt7+1980ql6OkAUgOzW7e5joju6Wo=;
-	b=ZSuLecdnBnciu14T0QD4DIXt9MDvm9G9X48nA+9FDjtdCtOBjE7545gUazAEc619aukRh4
-	RTR9tDiJlbMxdCBo3J+4IjZvyQFuWGP1UZbCexWMaRT1yZmb5IIKMwk13nJ6Wu41AF6FC+
-	2NrW+tvhS05Mfo+Au347B3JPdkdTKpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792877972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vm7/fsP/sg92Pgvt7+1980ql6OkAUgOzW7e5joju6Wo=;
-	b=Emy51tGX94iL1lrgA+Lz4XFn294NYmIlFx0gEwMUyMuKB5dmD5OhTOFHXIdGSJAUZ4kk8w
-	K4dlqrOERgEqyjAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CF0CF133F3;
-	Sat, 24 Oct 2026 21:39:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GBHMJZMl3WrKAQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Sat, 24 Oct 2026 21:39:31 +0000
-Date: Sat, 24 Oct 2026 22:39:30 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
-Message-ID: <at0kGRzkfLeqD7yq@pedro-suse.tail5790ac.ts.net>
-References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q7nBjGrY
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0f59a5fdeso15275247b3.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792878208; x=1793483008; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3UXVe85EdeFNcxpcFxDAp5kR4bnXLI0O4+ZpE8jB/ao=;
+        b=q7nBjGrY9g7kt/F4pBV+TbcxWh3uw6vi0Nxk5mssyr9PIfi9EmZ5hFh3gYmXREwPWd
+         qsN0PD224j77dsc6FX9Alpbr71uTHDlLWpSCKNPT2WfR0hnnT1TdzzDgysccM6zhGKz5
+         dVTbCIHMGnqVsXsejSecTiGiA7WGpWwayKl5LqR4NTrFtAPTHdoz88Da0QoZuYxqOMPl
+         fju5eZ3/tIUuWWFdWBPitEWHdEaglsQevXV6TookxF9uU6GYw+1ZGERp8e8nSV9O5JHT
+         XrRcuSMsdcp8bF/ixaXe67qNn/x6IjqDF9UAi38eGzxCy0M8S3M6/fLloMoa/OrywNf4
+         HPUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792878208; x=1793483008;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3UXVe85EdeFNcxpcFxDAp5kR4bnXLI0O4+ZpE8jB/ao=;
+        b=d3diCf/LtD5wIjUKomnrX8rmiMHpKoFV1PvwOrToflvQmLHImWrDF4wArllc6I0tkb
+         O+oOcwxiHzaiGjfDrz1cebFw38SzJB6WbPW2j6091VZa5BFawoEhoGl4fjcaWIZvOo9j
+         fvOb0eechtdPuC/pXFvYKThfEau5E3ohRQ1xjE3VtwlYI90xWf8H0KwPiWkoEBtdfF3n
+         r3uZMdKYAiR/kI0DL9hyP8hoAZIb/T2gGxrIugM2xkZ8p/LchAI/uQ0DccqB9RhN4w9r
+         0S+qA6u7cGZdYqXLzs5pi66lgW3GHbdammUnMZiGxiX+a+4rafq+W62L6own7HE+Z8Ye
+         pKkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySH04RV2bTo6VkUcCwgtsjQErAV3kx+RD8p0Y7ZaW9qycknry47m7H9fXr5gRTDBG69qxLRH7wDi8WA+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs5H/SQGjvVv4+e/byODAwxDiUhZOBAkLIgAH93f6fgqrZArC6
+	ATvX/HFO+nGpHf6pOGW1ORjKHJPlwZZ3DO39U8vvQNN77Jb5LTtFfgRu
+X-Gm-Gg: AYBFou1+icuvX7Rr9aq8AOeew/VVrIlDdwBS0HQx73s+hfOwbRlfWdNJf5uBtVgbCAw
+	eCuUaV2HA8WqfdQtpg/ovXLzqjK25TlE3Ptp9WRmFrUgIxX016aiRgXplxvBFe3fIOpxc3xIkZI
+	gMRFJbcYGhyLzV2cguxWaubiGGxHH9gquf2H42qkhOqBU9JUv2FFdcBN9mCuPZACoS6xrkPbqn3
+	I8N6XD6W3jiGMCUeWOdv+emblm5l5nh4qCX34RwUIDQ9xqAVSHvmLzJNqgWpvLAkIeJYsK9Fytx
+	2cKE5V0cxtf8HPf154JnEXoKgf0bokQoRiaw/XG1WQZ55jf0WMknubDZ86n3ONonGDZCrQ9x6gc
+	iiLZ4mO6Qrg65cxjIeXiy5ulNhGXW+uIngsQAWKMSD2XnLqix0qoGER0zk6FxgOYjlHsiGGCVMO
+	GeuxMexzJb3V/B3Qya/CUT+6iQWuL3Bz8HiPbgTv/DgLPn9/V5gCWqI3jSoTmtJFGIdPWPQ5Mcm
+	FfCmraV+RQdeD54EWB7QFlW0z6VucEEjcI1xLnT7Hg9zLkD6aQvovjvAwGlrB/L7ulGCYzvz86A
+	odo=
+X-Received: by 2002:a05:690c:fd5:b0:8b0:a8cf:f46a with SMTP id 00721157ae682-8b166cd9439mr22677767b3.69.1792878208273;
+        Sat, 24 Oct 2026 14:43:28 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:f15a:4eed:c4ba:3585])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b166dcf529sm13199467b3.12.2026.10.24.14.43.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 14:43:27 -0700 (PDT)
+Date: Sat, 24 Oct 2026 17:43:26 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Farid Zakaria <farid.m.zakaria@gmail.com>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	John Ericson <mail@johnericson.me>, linux-security-module@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] landlock: Add access rights on created files
+Message-ID: <at0agiPbtxz5zD41@zenbox>
+References: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,60 +102,190 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,ufrgs.br:email]
-X-Spam-Score: -13.30
+In-Reply-To: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
 
-On Wed, Oct 21, 2026 at 01:21:04PM -0300, Matheus Alves de Almeida wrote:
-> The current fat_write_failed() implementation calls into
-> fat_truncate_blocks() without holding truncate_lock. Make it so it is
-> held exclusive while truncating.
+On Sat, Oct 24, 2026 at 01:39:16PM -0700, Farid Zakaria wrote:
+> This is a proposal for an idea to add support for landlock to work
+> better with build systems such as Nix where they want to apply
+> restrictions but the paths may not yet exist.
 > 
-> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+> TL;DR;
+> ========
+> 
+> Landlock rules attach to inodes that exist when a ruleset is built.
+> That makes a directory shared between trusted and sandboxed tasks hard
+> to confine: the sandbox may create entries there with
+> LANDLOCK_ACCESS_FS_MAKE_*, but no rule can name those entries ahead of
+> time, and granting read access on the directory to cover them exposes
+> every other entry as well. This series adds a rule flag that grants
+> access rights on the entries a domain creates in a directory, instead
+> of on the directory.
+Hi,
+
+I'll chime in since I run nix and have a little bit of familiarity.
+
+Looking at my (admittedly bloated) nix store.
+
+[justin@zenbox ~]$ ls /nix/store | wc -l
+259356
+
+That's a lot of inodes. And a nix derivation creates hundreds if not
+thousands potentially throughout it's build.
+
+My main concern is that rulesets are generally considered
+immutable after enforcement. This allows for well-defined semantics on
+inheritence. This from my understanding would mutate the ruleset after
+it's already enforced, so changes wouldn't be copied to inherited
+domains automatically.
+
+My other concern is with the overhead of automatically generating an inserting
+a rule for every new inode that gets created. It seems like a complex
+way to tackle this problem.
+
+But beyond that, let's go back to your usecase.
+
+....
+
+Basically from what I'm seeing you want to grant some access to certain
+subdirectories (including newly created ones) but exclude others.
+
+Presumably in the nix case, you want to grant /nix/store/{abc,efg,hij} and NOT
+/nix/store/{xyz}, but still allow /nix/store/{foo} (the derivation
+output) to be created and written to. This would allow the nix build to only
+have access to certain inputs, while being able to write to the /nix/store
+and produce an output. This is a valid usecase that Landlock cannot today
+accomplish.
+
+There was this NO_INHERIT series I proposed a little while back.
+[1] It's sort of the inverse of this (removes accesses inherited from
+parents rather than granting new access) but would accomplish this
+goal.
+
+With NO_INHERIT, you could grant whatever access rights you want by default on
+the parent directory, and place NO_INHERIT on any specific entries you
+don't want to have inherit those rights. 
+
+So for nix use case, you could grant no_inherit on everything except the
+inputs you need, then add READ/WRITE/MKDIR etc on /nix/store. The new
+directories would inherit this by default, while the ones you added
+NO_INHERIT on would be restricted.
+
+Additionally, you should also examine the mutable domains proposal by
+Tingmao Wang, which could also facilitate this usecase as well [2] (i.e by
+dynamically adding and removing rules with some fanotify/inotify glue).
+
+That being said, neither of these two patchsets / proposals are merged,
+and the playing field is still open on this.
+
+So the problem you are pointing to is legitamate, but the solution still
+needs to be considered carefully to avoid complexity.
+
+Justin
+
+[1] https://lore.kernel.org/linux-security-module/20260621035223.2651547-1-utilityemal77@gmail.com/
+[2] https://lore.kernel.org/linux-security-module/cover.1741047969.git.m@maowtm.org/
+> Motivation
+> ==========
+> 
+> The motivating user is the Nix build sandbox. Every Nix build runs in
+> its own sandbox, and a build may only read its declared inputs in
+> /nix/store and must be able to write and read back the outputs it
+> creates there. Nix enforces this with a private mount namespace: it
+> creates an empty store directory and bind-mounts each input path into
+> it, one mount per input. Nix has paid this per-input cost since the
+> sandbox was introduced [1].
+>
+> The cost is paid per build and grows with the size of the input
+> closure. Nix is moving towards much finer-grained builds (many small
+> derivations instead of a few large ones), so the number of sandboxes
+> grows while each build's own work shrinks, and the sandbox setup is
+> becoming the bottleneck. A typical build has hundreds of inputs; large
+> ones have thousands.
+> 
+> A microbenchmark sets up and tears down a Nix-like sandbox (user,
+> mount, PID, IPC, UTS and network namespaces, pivot_root into a chroot,
+> removing the chroot afterwards). It compares one bind mount per input
+> with a single bind mount of the whole store plus one Landlock rule per
+> input. Median latency per sandbox, one sandbox at a time, Linux 7.1,
+> ext4, 16 cores:
+> 
+>   inputs   bind mount per input   one bind mount + Landlock   speedup
+>       10         3.2 ms                    2.3 ms               1.4x
+>      100        11.6 ms                    2.8 ms               4.1x
+>     1000        79.3 ms                    6.4 ms              12.4x
+>     5000       400.1 ms                   24.4 ms              16.4x
+> 
+> With Landlock, an input costs an O_PATH open and a landlock_add_rule()
+> call: there is a single mount, and no mountpoint directory to create
+> before the build and remove after it (removing the 1000 empty
+> mountpoints alone took 17 ms).
+> 
+> The single bind mount is only sound if the store listing and the
+> undeclared store paths stay unreadable while the build can still use
+> its outputs. Without this series, covering the outputs requires a rule
+> on /nix/store itself, which makes every store path readable again.
+> 
+> [1] https://github.com/NixOS/nix/issues/179
+> 
+> Series
+> ======
+> 
+> Patch 1 lets an LSM observe inode creation through the
+> inode_init_security hook when no LSM provides an xattr. Patch 2 adds
+> the LANDLOCK_ADD_RULE_CREATED flag for path-beneath rules and bumps the
+> ABI to 13. Patch 3 adds selftests.
+> 
+> Testing
+> =======
+> 
+> The series applies to the Landlock next branch (3e271a27c46f) and was
+> tested on Linux 7.3 with that branch applied.
+> 
+> Without patch 2, the five new tests and the ABI version check fail.
+> 
+> Open questions
+> ==============
+> 
+> - A created inode stays pinned until the layer's hierarchy is freed, so a
+>   sandbox that creates many entries in such a directory keeps them all in
+>   memory. Should this be bounded?
+> 
+> - Creation is detected in inode_init_security, so on filesystems that do
+>   not call security_inode_init_security() created entries get no rights.
+>   Is there a better hook?
+> 
+> - Through overlayfs, created entries get no rights either, because the
+>   upper inode is created with the mounter's credentials. Should overlayfs
+>   be handled, e.g. via security_dentry_create_files_as()?
+> 
+> - A file renamed or linked in keeps only the rights it had at its source.
+>   Should it get none instead?
+> 
 > ---
->  fs/fat/inode.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Farid Zakaria (3):
+>       lsm: Call inode_init_security hooks without xattrs
+>       landlock: Add access rights on created files
+>       selftests/landlock: Test LANDLOCK_ADD_RULE_CREATED
 > 
-> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
-> index 141276fcf8db..2a16ed415631 100644
-> --- a/fs/fat/inode.c
-> +++ b/fs/fat/inode.c
-> @@ -216,7 +216,9 @@ static void fat_write_failed(struct address_space *mapping, loff_t to)
->  
->  	if (to > inode->i_size) {
->  		truncate_pagecache(inode, inode->i_size);
-> +		down_write(&MSDOS_I(inode)->truncate_lock);
->  		fat_truncate_blocks(inode, inode->i_size);
-> +		up_write(&MSDOS_I(inode)->truncate_lock);
-
-Hmm, I think there's still a race here. Nothing's stopping a sequence of
-events like:
-
-1) truncate_pagecache
-2) concurrent pagecache look creates mapping for out-of-range blocks
-3) fat_truncate_blocks() truncates the blocks out from the inode
-4) page cache has stale pages pointing at stale blocks
-
--- 
-Pedro
+>  Documentation/userspace-api/landlock.rst     |  42 +++++
+>  include/uapi/linux/landlock.h                |  18 +++
+>  security/landlock/domain.c                   | 182 ++++++++++++++++++++-
+>  security/landlock/domain.h                   |  28 ++++
+>  security/landlock/fs.c                       | 176 +++++++++++++++++++--
+>  security/landlock/object.h                   |   6 +
+>  security/landlock/ruleset.c                  |   6 +
+>  security/landlock/ruleset.h                  |  14 ++
+>  security/landlock/syscalls.c                 |  20 ++-
+>  security/security.c                          |   9 +-
+>  tools/testing/selftests/landlock/base_test.c |   2 +-
+>  tools/testing/selftests/landlock/fs_test.c   | 227 +++++++++++++++++++++++++++
+>  12 files changed, 703 insertions(+), 27 deletions(-)
+> ---
+> base-commit: 3e271a27c46fd591d1011c7de5a644a41e2010f1
+> change-id: 20261024-landlock-created-rights-9340b00a8c4d
+> 
+> Best regards,
+> --  
+> Farid Zakaria <farid.m.zakaria@gmail.com>
+> 
+> 
