@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792841101;
-	b=YY/I170ifb6DWMAiuVj/+o0fUhi7nEb8vHJQ4jCBguEUWT2r/IkhtMrxKBv7McP+XbWi
-	 yuPa/RYZ2l/qy1I0PyACaBpQ+DD1wyQgm2JtmQLBqLZ7rKtF+kFLdyqOgpPybc22sYZVE
-	 68StyQyoNCQ1RspwjXsUDUhgD6qt8Hf2gZeucUL9K3+Z+3VntKE9rRAD7ami0m3ZvBBkk
-	 c5YvhNhSZiPgVQ47lLptlMLK98R6yara1U3S+AmoWQzUAgaY2V2wJTFdlZCtKXLQsOGyy
-	 GS2hYIuAA4+JDBWZQPBSpTfhXFEZPFZ1TxtO+ghNjBPIfIxHRMdk5j2U91QOiZeRWIg==
+	t=1792841096;
+	b=EfORYTwB7B8xPdIcUXy+cRZQ9LXnb3pUE4X/rsmj0PwXPP3F3Sy8Nqc6TAO9eJa1bB7A
+	 zSTf9I4OdYeKLOa9xG9Sn/xahZRWrczL4E02rCIraxylc0pcwphgfCTy89FI/wKq9uG3J
+	 tpNP0qBRAN6WHsN+HCWi0DMsVMkkL0DIULj7JOZzvu5C9ek9GRdMbraAnSydZVeNLuy12
+	 XVqsumg6PXn0UDYssIIbZ+diy8X4eAamcZ1hKd09bH3ZbIcyVv9T4tllfoYwXWfuTvUXB
+	 RMhTUrdP0LasVAPeGvehNvaIsX9CUt1cBIdDdsQJwXMfhPv425q/iVCj7bE9MEzCPFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792841101;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792841096;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UyIS5HrPAfwsrXJYXiNzhXcKwNQ0JKe7IvE+jZe2qjY=;
-	b=Wu24eTOYg6JCA+QX8WNINLh8sJ8aPsPqZYVeQk52QckQHXovyiflL2seRO7r6Uq6y21D
-	 DeAxyAK7nvuEteCxz91Wv1gwnXzweG2+2xMc4/ogqQLaNiLs6r0zHhJhKhXNqMPMECiVj
-	 407Rc9CnkYhxVxI/sxO5FP6jsPpk4+p2Y4gytrTVltMyFHEHe3LYSj0yhXfwIkMTFap2M
-	 VNgwroNKw9hJhh40aaYGqpFSzo/DlacNDUed2kehxr3rC/2aC1pqGRGMjoa+WWDKsL0g6
-	 Rx34Q1gOq2+g6mteX8EGE6E6GT/U0CEZs88c6p1h69HFqr0gIVXc0oXVGAjUxdrOkLw==
+	bh=Ta/hufzKWtQdh9GqXfEiUQG+bNrs7dxExPKRK806f+k=;
+	b=yIDkf7GSTLpLVgef1uYnU0978RQ4NnS4R1zNzXAZMmQFO52tNrkVDEPlHowgPMJQM9U1
+	 +6SuEdSPrJYYE+HCG1bbS3LMNssj9H+oQLPy6G+NhRGFg0Q8+4O1EZz0LBQVDpm73S483
+	 tAkdeklU+fBgEHJJawhOp7/37aIPkKtqdBl4PBVxUO8o/8UalLCmr7dEaJyeYUctUIE0k
+	 tvIHgZDXjOhVeEtkfDUoENs07l06Qbfcql7DTS9LsVUNax9RSs3yFyBWDv+EC4Xj5fJ+x
+	 LSDQveIv/USNfCacZxEGjY+wOH955uTIRlr2e8tF66eu+vBRGSd13CCGq6N4+r+fZ1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fGiiHYKW;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fv9jnZeB;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1624606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1624606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289D8606A32C
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289D8606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fGiiHYKW
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67583c777abso1787717d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:25:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fv9jnZeB
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8ac525c1f05so14161457b3.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:24:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792841100; x=1793445900; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792841095; x=1793445895; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UyIS5HrPAfwsrXJYXiNzhXcKwNQ0JKe7IvE+jZe2qjY=;
-        b=fGiiHYKWxphjU1XlWxDPW+oPdglZEczhN8/zPhNkFl2k8iH3+kVmlEADQDRMea+n7/
-         BESAv8DtC2Msgqfhjb0b/rf7wnvyckTNCw4jeMAEqmP2vGblx2B+jSPLvEnUBM/kn/ES
-         73hq+83vIC+dzRPk4e31vIPEUZfBL6RmWZvSoe/69fyrp900TXrxFgm+/r3UipaLwSM2
-         O8rQY6Kn7naZ006oyntv5J2nnUPNhOfx+isWO0lNlwqv1WFTlKjHmH8nUYXswMXx5UOi
-         egiSmXcIJAxs1FGfSoom6S7JPSID0tBIrfB/EcsAvAApYSIn4a/3wp/2nB0W8k/QX/v+
-         38vQ==
+        bh=Ta/hufzKWtQdh9GqXfEiUQG+bNrs7dxExPKRK806f+k=;
+        b=Fv9jnZeBiFs2yn7IXMRDPyfXcDs1/S5gu2RQ/QFkjVKtDS/JN6ckELHI6s0qOfBUid
+         KEGcLFDiCS2C1gip+EpNNTK1yDwCqmtYMhF4+k1Jo1N/U/qUExikrqiCjJBN1e4BkbWY
+         q43+/ACdEV9E3h5Q1Fjmw5N5DUefSjmiBmV+BT+md2CuAIdydCdZq5eBC5lZlqb34+6t
+         Hc05NUjT2TjAgPfplw34pbVoEsJEuwi4pp/WxPa4MMA9St+6+gCPh5rPEbl2FrpQ4uk5
+         q6vuGKIi0FcNz5Pb/bd1oPjMt466qyaBLKoGqIibPoxCUqJ2+BjyXHPDHmz5Hp/uyDJM
+         h8Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792841100; x=1793445900;
+        d=1e100.net; s=20260707; t=1792841095; x=1793445895;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UyIS5HrPAfwsrXJYXiNzhXcKwNQ0JKe7IvE+jZe2qjY=;
-        b=j6q+ujY76W9y/+eWjGhqEdsTOSlSUn7pWM6xysEAaLD13JyOD0YVD75e+MBPP6qI24
-         x/MXeb7ttkM71bTTQKlqLMu3g1pR6NvtB7LlBl/CCU3ZVoBskp5IbRLT5pwlZFlwCpvK
-         FtIwBCHDrsibpHmdVCZwiMgIFD+Jn9vSDTVENPMhN9kg9tsUpKdBot916gx8cLiybrRK
-         NUB4WCJASWrBHqZWmzjFVnmoRTeOO8x/sgkkBnMT4z69xoCn9V8GDPBvOGJ739mai1rQ
-         E5Uz+4pLJwUanv+XHC95o6cfmhrVTTNoWBJ3Z8ApNsGiHYaV3DBMhGLKfMnaWyXmUmXr
-         CdtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBAqszXJZ5ONLYL+ItjY7tx9M5DrounltTLCCj2O+WYXDGLYPwHT5n6IFIz9nfeoepa99jEH8GGVv5j/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHhHNXT91UuzHrd+xJJRw5D44EBL2hL6A7KkhcxJkmmsQJzvne
-	yqu17712exEB4olT5dTRnN7r+YWfXMqmtdGiRFGLao4nmLyGOP8VN4Q+
-X-Gm-Gg: AYBFou0C13YOAZkS5uCvgNeqvEpgbxtXehnPfVfXf24N+ZDZbtyZGonh0Tx0j5XESTA
-	ynwKuInvk+J4NOdyfqWd2VQfKMAesBN71FHIBBQsxpwPRadMnWq8OyArIcjdwLWUQaLmdS276Tj
-	aV4KzB1eKkF4Jk1WddTpBaCq94J4RCHcSmdRGmw/KBElxsFxYLp3bFilnSojk1IUY1LTffmCnCu
-	t/PkyYSvM0Ujp6I7xGUfmZmtStuoQR0qA8c7Y4ISzMzOxroEo/LAa8cnkhZqsiNZSIXTv1S+7/2
-	Dr4RtfLgQ4WiKVqr6hxGqNEHnh2s1tnqNzwUSc5P7Ty25OY/jWMhPv2d9LW4cJc6MKAV8g2uOpd
-	waHnuWx3yyXbGRpVugf5+JFG8rw7LSbjDXuVwKTgZ+Gmr58jtgNNxOB7j5J/TEMH688moPQz8cV
-	obEsgpOA33xTziNZsgfqLtwfE9TEaAXi+xspOiI3x/vnkmsVPydF41lokR6Ow0GSs5mo/IIGtF6
-	xdDfNbKfja6vSTIqKlRqjSaoIsfIEoJG57R9MY7ECJil9Q=
-X-Received: by 2002:a05:690e:169b:b0:67a:48c4:6b0e with SMTP id 956f58d0204a3-67a48c476bbmr911988d50.15.1792841099825;
-        Sat, 24 Oct 2026 04:24:59 -0700 (PDT)
+        bh=Ta/hufzKWtQdh9GqXfEiUQG+bNrs7dxExPKRK806f+k=;
+        b=hlBsBux49Yr4lA0FyhOd3dZQnOTk+VHJt/uO3sP2zk/yWRm/teHn6eLaPLU1Qhl2fv
+         w58L7mM96KOmDvEEj5QInnGQ3kxRzuA8O0vCUm4atAKBv0u0gjplcdUgUZlAYLLaazJI
+         skish23XYNL0CkS2+/xeCMKggC4v0gq0vPMPNNEG8alGaHIJ0TLEvzTDocjM/e/ZSQJ4
+         d36aiOzW0WsX9e8Ll45ESUbOiDbh0BJEoc+ge3gEVhgqn0PhWyf3Ku7S6fEPrpznvRNo
+         AdVAlIGIDLzvm10XJtFYXx69oJCnN35hW9EpYswR50+vTLLFxgq1Y0QpSESne3/A8Jpy
+         xcVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxKb2//HwaytWdactTIUGRaiJGD2VlLAan4rWlv3gvneZTng9yIqPm+t5ny5n6mybXMZ8JfBvVfeesvGtc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFHUtZjJ39I9m7jekbJPJf8LK25oV6bp4Bp+zYPlwXnsuJZffi
+	aLr9Sw+XiA0Eq19pFz878FtpoizgJ4qaVVBwPK/ogrBY9j0wvZi4ZsxU
+X-Gm-Gg: AYBFou26noiMnnUsvbOAzm+uOX0yFC2kETA2+R/00X/95vq5ScO7QJqILBrrEfepj1Y
+	tH+3HdD8yHhIkHnVF+ygWRgeRaf0vExBy3Cp131tIg/wYFahxdDWWcbDqgSoSQc1rzMkaaWooQZ
+	dGpg+gUJO8BVgZlcDVsrXEJhDNShYJiH2w/oEj+5jspIw3t9kPyFPsX2wkVN5nG+xX3rI/PBxiM
+	E8NdPn5ZmIaVBWMl56hgu/qvj0eRgT1J7Pfuak3aEPfPLo2Xh3u3Eetp7ogU4cBrfUOlgKTuogz
+	HbOkqrnuP7oQi/s5seVka0Tem6ePi5AE7BZolN5kZJsLNEFNSQL0QknR2IDI4m7OA9urtgwMELH
+	ljU8d9BZGL47vF8Yv58o14L02xJWJ9gSutFT5c6OZZMcrfkoy65fCXGc4XpcVvuA5UBiXz0sRfF
+	nmQ7zREV9AvL1nOUO5rH1Bz3ia3V7QZOKTvijFDs3Mp9dAOqUWUQ3HjcJpGO+cBJNLeAjQhBopm
+	KWfgFRyraUT0jIis6OhekmdQR7qCmWuZN7kDmIhOlCH6pkwZJa8JgLztEBKkgpjgo2a
+X-Received: by 2002:a05:690c:c3c6:b0:873:5bb2:6c08 with SMTP id 00721157ae682-8b166c516dbmr10487707b3.50.1792841095062;
+        Sat, 24 Oct 2026 04:24:55 -0700 (PDT)
 Received: from WillzDenali.lan ([2600:1702:7a80:3c5e::dff])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a4626cbb4sm855725d50.16.2026.10.24.04.24.59
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a4626cbb4sm855725d50.16.2026.10.24.04.24.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 04:24:59 -0700 (PDT)
+        Sat, 24 Oct 2026 04:24:54 -0700 (PDT)
 From: Brandon Williams <turbine.bmw@gmail.com>
 To: linux-bluetooth@vger.kernel.org
 Cc: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Brandon Williams <turbine.bmw@gmail.com>
-Subject: [PATCH 2/2] Bluetooth: SMP: distribute the identity address when bonding
-Date: Sat, 24 Oct 2026 07:24:35 -0400
-Message-ID: <20261024112435.247650-3-turbine.bmw@gmail.com>
+Subject: [PATCH 1/2] Bluetooth: SMP: ignore an all-zero IRK
+Date: Sat, 24 Oct 2026 07:24:34 -0400
+Message-ID: <20261024112435.247650-2-turbine.bmw@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261024112435.247650-1-turbine.bmw@gmail.com>
 References: <20261024112435.247650-1-turbine.bmw@gmail.com>
@@ -100,57 +100,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-build_pairing_cmd() only offers our Identity Information and Identity
-Address Information when privacy is enabled. Without privacy the peer
-never learns our identity address, and bonds without it.
+An all-zero Identity Resolving Key "indicates that a device does not
+have a valid resolvable private address" (Core Specification, Vol 3,
+Part H, 3.6.4), and a controller given an all-zero peer IRK in its
+resolving list accepts only the peer's identity address (Vol 6, Part B,
+4.7).
 
-Some peripherals need it. The Microsoft Surface Slim Pen 2 only
-advertises to reconnect, after a button press, if the host it bonded
-with distributed its identity, as Windows does. Paired by Linux, the pen
-stays silent. Enabling privacy is no workaround: the host then scans and
-connects from a resolvable private address, while the pen directs its
-advertisements at the host's public address.
+smp_cmd_ident_addr_info() stores such a key like any other, and
+hci_find_irk_by_rpa() then resolves addresses against it in the host.
+As the key is known to everyone, any device can generate resolvable
+private addresses that the host reports as the bonded peer.
 
-Offer the identity key whenever we bond over LE. Without privacy,
-hdev->irk is all zeros, which "indicates that a device does not have a
-valid resolvable private address" (Core Specification, Vol 3, Part H,
-3.6.4), so the peer receives our public or static identity address and
-no usable IRK; the previous patch makes Linux ignore such an IRK. The
-peer still decides: the Pairing Response masks the distribution down to
-what it accepts. Cross-transport key derivation over BR/EDR is
-unchanged.
-
-Tested on a Microsoft Surface Pro 11 (X1E80100, WCN7850): the Slim Pen 2
-now accepts our identity key, and reconnects on a single click, double
-click and press-and-hold after it has dropped the link. The Surface Pro
-Flex Keyboard also accepts our identity key over its out-of-band pairing
-and still reconnects.
+Treat an all-zero IRK as if no identity key had been distributed: do
+not store it, and keep the peer's other keys under its connection
+address.
 
 Assisted-by: LLM
 Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
 ---
- net/bluetooth/smp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ net/bluetooth/smp.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index fc75cf568471..8ce5f92d7ee5 100644
+index 984b2d0b5e3e..fc75cf568471 100644
 --- a/net/bluetooth/smp.c
 +++ b/net/bluetooth/smp.c
-@@ -636,7 +636,13 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
- 	u8 local_dist = 0, remote_dist = 0, oob_flag = SMP_OOB_NOT_PRESENT;
+@@ -2624,6 +2624,16 @@ static int smp_cmd_ident_addr_info(struct l2cap_conn *conn,
+ 		goto distribute;
+ 	}
  
- 	if (hci_dev_test_flag(hdev, HCI_BONDABLE)) {
--		local_dist = SMP_DIST_ENC_KEY | SMP_DIST_SIGN;
-+		/* Always distribute our identity address when bonding, so the
-+		 * peer can tell who it is bonded with. Without privacy the IRK
-+		 * sent along with it is all zeros, which the specification
-+		 * defines as having no resolvable private address. Some
-+		 * peripherals only reconnect to hosts that did this.
-+		 */
-+		local_dist = SMP_DIST_ENC_KEY | SMP_DIST_SIGN | SMP_DIST_ID_KEY;
- 		remote_dist = SMP_DIST_ENC_KEY | SMP_DIST_SIGN;
- 		authreq |= SMP_AUTH_BONDING;
- 	} else {
++	/* An all-zero IRK means the peer has no resolvable private address
++	 * (Core Specification, Vol 3, Part H, 3.6.4). The key is known to
++	 * everyone, so storing it would let any device pose as this peer
++	 * with resolvable private addresses generated from it.
++	 */
++	if (!memchr_inv(smp->irk, 0, sizeof(smp->irk))) {
++		bt_dev_dbg(hcon->hdev, "ignoring all-zero IRK");
++		goto distribute;
++	}
++
+ 	bacpy(&smp->id_addr, &info->bdaddr);
+ 	smp->id_addr_type = info->addr_type;
+ 
 -- 
 2.56.0
 
