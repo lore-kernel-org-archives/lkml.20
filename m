@@ -1,74 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792827209;
-	b=pLURvyKipVTQFy3xwd/DRcpffcayfYSj4RsLD9/j8p1gDXuKtKBjKGFPKMvP2FIjiEFN
-	 mjSx1a6x+Gb8qvp2bdv9XHBShGmJ5YsUALKhipo1xEWLQ0zX5slGnlhmZxeG3+Z1VIEcP
-	 tYJrg3yaR+mZ2ksgSCXDOjzN1qom4MGp24UCT+nvdRAu6F253c8VLh7eZdEov0sHi5S/q
-	 w8vSMlQsxj6hQAc/FQN2wB1dU8N7mYOD+UPe97I/KQkZGBX87ZdDixEJrBXehTA+4+AVL
-	 Ntm7ClSfP10UEMgyZocmGeq12xHksJkFEF0OAIycTMANDM4+xmb+AUvPstKfCV1bDtA==
+	t=1792827464;
+	b=uQHQs3m0F0sOIJmLeJxk6fmFwyjZT8MeFuIEEoGsFAVm3ChTdn09gq1zg58EKJhjvm7v
+	 IK0ywOFrJQS4u5Klyq5gsxjg8OFsyvv+aBl9rowA/u79jXxK0+VIGlexODMiPs0FMokWZ
+	 Y98cr+z5R05HgDwuwaeIN20cj9aeGxY0GGHw+g5vyPLmxPGZwVf6tFdxHX6GaupshaUxq
+	 1thO/7Tryg31z9vaHZVSsmHymqOtKNq5UgVHTBISTvfoF5G/vtaxJ/vLPLSlFz+hTizFG
+	 3Vw2RyEaR5/bPUWmma7KEG/H98Xr40eMGpUt3DpXidgFIFlloP5UFgt0/yLQsZs4Ecw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792827209;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792827464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ok3pjg22edXzQhuK8h6FzdRDjegD24d8xy6xP3Un7Og=;
-	b=redg4FJ+fVf/l1FIfpgXag9dd4JrN/MouXfgEGuMsm+/LoDw2PK/0ws+U042zQlLXhTd
-	 R4Q1VFkuyF79GBsAGM1mZv2zojwI/Fjqetl1OY+Q988k5XbNWoWCxIH+f80QnS90qhTTf
-	 qPAZ+WPsTCiuYaef26DqX0hfeUTpeX9lcevC3jamUqn569O8W5U6aNCtLTlPVBji1e3q8
-	 shNoUbQ//5/o7CrRZuSfhGvc/BeeBavQwQYyx4HQ/jv6ct77JV6O0K7P2rxU6l92M4J4d
-	 T/QUdigo+lqLcFDz9eUSqX8eIe+RjnVg6iFhNT51uNGlYiWKxUiZAwmip+6jo7PD9Qg==
+	bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
+	b=YH1l9APj0Sb9uron8IiOzGRkK0mAiUummK682WGfHTx1nBBLk9j31GUXULjl3xnuPSqr
+	 iHg4cQ1S17WEwl72eTe1W0+eB/gANHUDytFzytjnqlima52QOQWrTCNywCLZ3JZbo6xcJ
+	 XbikIMT+pJfvheBACRUAI6B+MBuUFH1KJVFf8nOJDD76MrBGr/JOZpPFuHvid5iLThTkJ
+	 D0a/NcFRCk8wuoFCUKbp6j1PU1tJ7TUBAU/tEM0jnSXBc3vTI+QohFfMzquTadGjtzQAM
+	 AagHG8OmPAGoprbqmcT13dNrONEIQAmzRKloMZLRskYKcFKn4f9vYUZd0gMXGC2htWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fzdllpE6;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qbtIkNoc;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C91606A31A;
-	Sat, 24 Oct 2026 07:33:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C91606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF706606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:37:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF706606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fzdllpE6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792827203; bh=Ok3pjg22edXzQhuK8h6FzdRDjegD24d8xy6xP3Un7Og=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fzdllpE6O5GmIISEiixKEHXvpzrpblzndNtULG9lk+boRG5QVvg6kYzt38scv8siQ
-	 x/72E1EbEy3WJe790wUVUz4/YSgUDCQH372K9wOMP8S4pxOlEMdQAIb3M69auBrmKn
-	 4ycwP1iB0mEtYDnGkbI9wCgT+bq4Z+kIX24tM/F0=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 855128F4; Sat, 24 Oct 2026 15:33:21 +0800
-X-QQ-mid: xmsmtpt1792827201t5bz1fjn2
-Message-ID: <tencent_4528029FEDA8E7D49AEFE291032742538F07@qq.com>
-X-QQ-XMAILINFO: M1rD3f8svNznoVYgx84LsIAP5h2YIyC95fLBj1+igaesL7k2a3y8AV0oqlqnGK
-	 btgd/OgvLzUpyxM0HB9VguSu56OjljM2QW4Wu/w7OqtIbX34vVMB3He83DkZecQKvX49yOOBrB44
-	 2FTsbOzykZZ8vzXIH1Ye2nEE95688cK4Uc8OyEzAWIczuLGbm3VOL/zX2pddpXtZ7lAwUDLbSXDS
-	 d/7nQrXZH91K6eXxhd0gjSOrBXB/MXC0AatQkDjUl1ImEWkT8T82jkG0791+DqD8LY+la6w60I9k
-	 LLPpbmdAM2laYP43dBS5MalHr8PtL/DW7FOps5oh9PTDK6DMn2sEDO4ssJJsZBztSTVnVL2Jetc8
-	 NFErxvRoTc/0moD9/fH2GSFjHWp/rvQ1YYMPGLdNW2I7NBnpc45pJvEfkF66Kfzz4METLDmP621K
-	 qVOSaPlPYWq0mjgWTZosT+TbZ8qUC3JwKpeOqfMWUtAfjCWj+wwY+x48MUfKJmCRMi+wkm48mInG
-	 PhWdvrkVfAOuE2dUTL+KRVa3o9cRnoFBwalRX29Ps8xtk5VL4fRBEvcFV41sP0jjw25R+OTORkHB
-	 1AS9wa3P4X1HGdHDOvsME337oNwzzfCNi6BY2l0b5nDb2w1RHMt9ZArSlnUW1fJN8oh2eoVWdyxP
-	 Zk8AqZmtaSKI+heHUl4X/QvfjkTSdhcdqGAHcbzNwSums+0twgyOe52JTQqgRvU45QMqIRKe/iHj
-	 gkfXHkrQ4ExzBwdswyn0KkPxCnchttF2isjJNM93q1xP3e6NTGB3+eWv+IEjcj3ZPLS92UPzSU9s
-	 L1D2CxtQ2YvA0KONXcnDUfjlByj5exhl9VCwVHlKp5YKQkafVDm5pkkbACHoAbKOBfIXjs0FnTJ+
-	 jNqSvFvgZY3k5kXROAq3PP3bQd7g/SRtqzt0VJ8FPmjX3+Dsy+HJBg7IPUsC3iDCGaWmP1gIaSD8
-	 J9MDT2Qv1tZYmOtpqxLLufx7UpnqGeQbsbZ7WK85F1FhZTDSNWoqJU6OZkffvvVP3O8NrJeGeXU1
-	 buyOLnoKzom+B9pZ3vh9EfNSf5gFE7gGqaLFao0dxclUxhefDvXLuu8rLcO9L/H8+BeD/nCLMux+
-	 gylTKh7JM24jBQjGo=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Michael S. Tsirkin <mst@redhat.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vhost/net: initialize the whole negotiated RX vnet header
-Date: Sat, 24 Oct 2026 15:33:19 +0800
-X-OQ-MSGID: <20261024153319.61076-vhost-yangguikun19@qq.com>
-In-Reply-To: <20261024150815.36216-vhost-yangguikun19@qq.com>
-References: <tencent_803981983647D9F9444561A4227F138C600A@qq.com> <20261023080824-mutt-send-email-mst@kernel.org> <20261024101101.71420-vhost-yangguikun19@qq.com> <20261024150815.36216-vhost-yangguikun19@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qbtIkNoc
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso2399546eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792827463; x=1793432263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
+        b=qbtIkNocUInzBbe1NJ0k2D2r6wGOBKFmnv9Dk7rD1iV1uktCGw//EErLXowyFxAibE
+         6jDdJDp4WFaNf/bZtprPb88/jUYgkUbGwHYfEYdTJsPNrGwqhDvEdA0ZjJdtbslt85ev
+         0dK11bWPJ6+GHnEjXe/Uc2co4foPmKmRcF6wSIY5r+wYwap6QF8gIa92EgzeS08Rp2yT
+         nBCM/wknbNGriOk0IT6zcojAbnGZ3YqLcCUUgpTVI3/4kmSGdDfwFuF/9v6OYng5ATKe
+         E86AXzwOoaAH8X1QiNv6YIGQY9tHtfA41XAPVIZXyLs/L1LGF97YG2QA+HC9fPH/jHJO
+         GGyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792827463; x=1793432263;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tc1XY534B8TE5CFUGmLcAlz66NS2raVPHqc7qDFoaz8=;
+        b=QCPKQu8TAQ7Xb5X3LxfNQ1DSXuHk7E8e5obXlnEbNzIBY2sgxxoxwuGXFnXBV9urjT
+         zKRhSzmrJldIZtChs2b4ZkSreT+i1AX2JB05Hco+auRtCtJQu4ipqlt0OD/zKXtq1dwS
+         N+kvlKmq2aqvAzu2MzT/hZSO/aXHz2KwqyhlOGVxSlZtooQjcDC7KNPrujlVt9K6fw+K
+         FbVKfNW1RYkceeWp768uy2OynsVEIP0Yrj0+TQpO/iiHtQhbmhimJ/hjlp8PgDSXc1aD
+         MVG9T4Auu7982aDkh2lM6++Dl+bGqwqcIgRJ4ro2jPXze++RoD7fqiqwQClk/oO7VvmK
+         +hBg==
+X-Forwarded-Encrypted: i=1; AKwUvByw1efSgIUqQAmHcxwi7gADHG2I+6gtZKbqsw9ltVUYaaf0nnzRQR4PXJ7SJHbTSQtAFCUfrhBpaV75mBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7a3zqVhQqsnRP/IkOWy6LxweDLJyvi3OBot6FH/Ba4+tycRRf
+	NuwaY4h1TWSREtLzw5Ra7kBhDDv/ZgA5JIe59mrs/3x7PliE46GtjVCc
+X-Gm-Gg: AYBFou0imkaXl9G+y7JlZA363RYZZ6ISfvj54B8HTukWqa0DDS8uLry7FBpOsLaChzk
+	5hwnpUa2TRNFH0fcRPBLX4sZ1T02A6fqITaw3XMnxGNj9/tMvVi21ofB7xH8LVneevZYMfOenkq
+	URuYC5AnHkfOmBE1qVYyfLJjtLkMwuvReyWbHpdC0i7OznCxSKAeIo4aPqHYm+bWwFaDzexMAZT
+	PdBSXr0nUn/CGgdXO44Kupyc/iJDRefH1E9opNrLpF9P8UmefYL3BG9SEB5fmZcoB5tpEVvdJJ2
+	u8hBzv3I5EnMla/rCFvFlTaoPcJj6xoYQUX8XcXDRIgL66vYWRzwkFsAGwCd1fGdtNdwjKMznH/
+	v21K0iZLC0Yv5boh/usKYfIbDOoRF//bL+XK50qB+kbexl32csjWoO2HaauINvFGamDBuIMJknD
+	N00Hax3loOy801EowSxzRg99mAjxi1GkFgzk5XIKhAGKUCvXxXX2hSbgYzpwXNabH73aCj2LGVX
+	e3IeQ5/oAdx8F5SN+Ci3/IcFrqbFlKdUYH2n9vWii2lP8iNNwA7rn8OYw2LKg1iwO/XCKfPruSz
+	1OnyFir5Fd2Kk6yp83IS
+X-Received: by 2002:a05:7301:1694:b0:368:da6c:4fb6 with SMTP id 5a478bee46e88-369e84ba936mr2974905eec.18.1792827462776;
+        Sat, 24 Oct 2026 00:37:42 -0700 (PDT)
+Received: from himanshubakshi ([2401:4900:1c9b:1c1b:d646:355d:1105:8655])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm5294951eec.13.2026.10.24.00.37.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 00:37:42 -0700 (PDT)
+From: himanshu bakshi <himanshu.bakshi478@gmail.com>
+To: sudipm.mukherjee@gmail.com
+Cc: teddy.wang@siliconmotion.com,
+	gregkh@linuxfoundation.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Subject: [PATCH] staging: sm750fb: clean up PLL calculation code
+Date: Sat, 24 Oct 2026 13:05:49 +0530
+Message-ID: <20261024073549.29531-1-himanshu.bakshi478@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,91 +98,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-First, a correction to my previous message: the AF_PACKET injection in
-that run never actually worked.  I took the "ifindex" from the ifreq
-returned by TUNSETIFF, but TUNSETIFF fills in ifr_flags there (the
-values 4098/20482 I printed were BROADCAST|MULTICAST|VNET_HDR flag
-bits), so every sendto failed with ENODEV and no packet was ever
-injected.  The all-0xAA buffer in that run only shows that no packet
-was processed at all, and the "payload starts at offset 24" claim was
-wrong.  Sorry for the noise.
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
 
-I fixed the injection (SIOCGIFINDEX by name) and re-ran both
-configurations on 7.3.0-rc7 with a 64-byte broadcast frame injected on
-the tap.  With IFF_VNET_HDR enabled (plus TUNSETVNETHDRSZ(24)) the
-result is worse than stale bytes: the packet is consumed from the tun
-queue and then silently discarded, so the guest sees nothing at all:
+Improve the PLL calculation function's documentation and
+readability.
 
-  tunnel mode (no IFF_VNET_HDR), sendto 64 bytes ok:
-	hdr: 00 00 00 00 00 00 00 00 00 00 01 00
-	     aa aa aa aa aa aa aa aa aa aa aa aa   <- stale 12..23
-	     ff ff ff ff ff ff 02 02 ...           <- our frame at 24
+Simplify candidate selection by skipping candidates that do
+not improve the frequency error, and defer updating the PLL
+parameters until the best candidate has been selected.
 
-  tunnel-vnet-hdr mode (IFF_VNET_HDR | TUNSETVNETHDRSZ(24)),
-  same 64-byte sendto ok:
-	hdr: aa aa aa aa ... (all 32 bytes untouched)
+Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+---
+ drivers/staging/sm750fb/ddk750_chip.c | 84 +++++++++++++++++----------
+ 1 file changed, 54 insertions(+), 30 deletions(-)
 
-The guest buffer is never touched in the second run.  The packet was
-read out of the tun queue and then dropped.
-
-The reason is a peek/read size disagreement:
-
-  - peek_head_len() returns head->len, i.e. the raw skb->len.  The tun
-    vnet header is not in the skb; tun_put_user() adds vnet_hdr_sz
-    bytes at read time.
-  - With VHOST_NET_F_VIRTIO_NET_HDR negotiated, sock_hlen = 0, so
-    handle_rx() computes sock_len = peek = skb->len (64) and calls
-    recvmsg(sock, &msg, 64, ...) with a msg_iter sized for
-    vhost_len = 64 + vhost_hlen(24) = 88.
-  - tun_do_read() delivers skb->len + vnet_hdr_sz = 64 + 24 = 88 bytes
-    and returns 88.
-  - handle_rx() then sees err (88) != sock_len (64) and takes the
-    "Discarded rx packet" path: vhost_discard_vq_desc() rolls back the
-    descriptor, but the skb has already been dequeued from the tun
-    receive queue.  The frame is gone.
-
-So for a tun backend, the three combinations are:
-
-  VHOST_NET_F_VIRTIO_NET_HDR | IFF_VNET_HDR | result
-  ---------------------------+--------------+--------------------------
-  off                        | on           | ok (classic: tun header
-                             |              | passed through)
-  on                         | off          | header written by vhost,
-                             |              | bytes 12..23 stale (the
-                             |              | patch under discussion)
-  on                         | on           | every packet consumed and
-                             |              | dropped, guest RX blackout
-
-VHOST_NET_F_VIRTIO_NET_HDR means "vhost supplies the header, the socket
-data has none", so it is only consistent with a backend whose
-vnet_hdr_sz is 0.  When the backend has vnet_hdr_sz > 0 the peek and
-the read disagree and handle_rx() eats every frame.
-
-Given that, I don't think disabling "vhost + !IFF_VNET_HDR" is the
-right fix: that is exactly the combination VHOST_NET_F_VIRTIO_NET_HDR
-is for, and it works apart from the 12 stale bytes my patch addresses.
-The combination that is plainly broken is "vhost supplies the header"
-together with a backend that supplies one (IFF_VNET_HDR set), which
-today results in a silent total RX blackout.
-
-So I'd suggest one of:
-
-  1. Reject VHOST_NET_F_VIRTIO_NET_HDR (or refuse the backend attach)
-     when the backend's vnet_hdr_sz is nonzero, so both broken
-     combinations become impossible; keep my patch for the stale bytes
-     in the remaining valid combination.  The backend header size could
-     be queried at attach time the same way TUNSETIFF-derived sockets
-     are handled today.
-
-  2. Keep all combinations and fix both symptoms: my patch for the
-     stale bytes, plus making the peek path account for the backend
-     header so peek and read agree.
-
-Happy to test whichever you prefer.
-
-Best,
-Guikun Yang
+diff --git a/drivers/staging/sm750fb/ddk750_chip.c b/drivers/staging/sm750fb/ddk750_chip.c
+index aa78d0bc1..74ce320b6 100644
+--- a/drivers/staging/sm750fb/ddk750_chip.c
++++ b/drivers/staging/sm750fb/ddk750_chip.c
+@@ -269,21 +269,18 @@ int ddk750_init_hw(struct initchip_param *p_init_param)
+ }
+ 
+ /*
+- * monk liu @ 4/6/2011:
+- *	re-write the calculatePLL function of ddk750.
+- *	the original version function does not use
+- *	some mathematics tricks and shortcut
+- *	when it doing the calculation of the best N,M,D combination
+- *	I think this version gives a little upgrade in speed
++ * Calculate the PLL parameters that produce the clock frequency
++ * closest to the requested frequency.
+  *
+- * 750 pll clock formular:
+- * Request Clock = (Input Clock * M )/(N * X)
++ * The SM750 PLL uses the following formula:
+  *
+- * Input Clock = 14318181 hz
+- * X = 2 power D
+- * D ={0,1,2,3,4,5,6}
+- * M = {1,...,255}
+- * N = {2,...,15}
++ *     request_clock = (input_clock * M) / (N * 2^D)
++ *
++ * M ranges from 1 to 255, N from 2 to 15, and D from 0 to 6.
++ * The selected parameters minimize the difference between the
++ * resulting clock frequency and the requested frequency.
++ *
++ * Original implementation by Monk Liu @ 4/6/2011.
+  */
+ unsigned int sm750_calc_pll_value(unsigned int request_orig,
+ 				  struct pll_value *pll)
+@@ -293,12 +290,15 @@ unsigned int sm750_calc_pll_value(unsigned int request_orig,
+ 	 * N located in 2,15 and M located in 1,255
+ 	 */
+ 	int N, M, X, d;
++	unsigned long N_best, M_best, POD_best, OD_best;
++	unsigned int diff;
+ 	int mini_diff;
+ 	unsigned int RN, quo, rem, fl_quo;
+ 	unsigned int input, request;
+ 	unsigned int tmp_clock, ret;
+ 	const int max_OD = 3;
+ 	int max_d = 6;
++	bool found_best = false;
+ 
+ 	if (sm750_get_chip_type() == SM750LE) {
+ 		/*
+@@ -335,26 +335,50 @@ unsigned int sm750_calc_pll_value(unsigned int request_orig,
+ 			X = BIT(d);
+ 			M = quo * X;
+ 			M += fl_quo * X / 10000;
++
+ 			/* round step */
+-			M += (fl_quo * X % 10000) > 5000 ? 1 : 0;
+-			if (M < 256 && M > 0) {
+-				unsigned int diff;
+-
+-				tmp_clock = pll->input_freq * M / N / X;
+-				diff = abs(tmp_clock - request_orig);
+-				if (diff < mini_diff) {
+-					pll->M = M;
+-					pll->N = N;
+-					pll->POD = 0;
+-					if (d > max_OD)
+-						pll->POD = d - max_OD;
+-					pll->OD = d - pll->POD;
+-					mini_diff = diff;
+-					ret = tmp_clock;
+-				}
+-			}
++			if ((fl_quo * X % 10000) > 5000)
++				M++;
++
++			/* Reject M values outside the supported range. */
++			if (M >= 256 || M <= 0)
++				continue;
++
++			/* Calculate the resulting clock frequency. */
++			tmp_clock = pll->input_freq * M / N / X;
++			diff = abs(tmp_clock - request_orig);
++
++			/*
++			 * Skip candidates that do not
++			 * improve the frequency error.
++			 */
++			if (diff >= mini_diff)
++				continue;
++
++			/* Update the best PLL parameters. */
++			M_best = M;
++			N_best = N;
++			POD_best = 0;
++
++			if (d > max_OD)
++				POD_best = d - max_OD;
++
++			OD_best = d - POD_best;
++			mini_diff = diff;
++			ret = tmp_clock;
++
++			found_best = true;
+ 		}
+ 	}
++
++	/* Apply the best PLL parameters if a valid candidate was found. */
++	if (found_best) {
++		pll->M = M_best;
++		pll->N = N_best;
++		pll->POD = POD_best;
++		pll->OD = OD_best;
++	}
++
+ 	return ret;
+ }
+ 
+-- 
+2.56.0
 
