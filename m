@@ -1,40 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792862402;
-	b=vecFjX0RCEzzZPKl9IiD0o0c8hSf9KsmiS/Pe6kmkEQZCUHS1GLeHQWJqTRIs3p1PxV5
-	 DHRgkQoPb9CVuQAvJ5Gnq67mpd6AXLF0J/UcaZr7sPpiHP/vSkDVDIcrh1rVSznQs9ijP
-	 uhgEX5cV/yh5c1e0hd0mQq1e2OHMD0ofCa136IhaYXkJjJh5PUFYFNKHwXtTENA8I/m39
-	 vApcPmvWH7r8+JKADTSyMdONJ+RO5s2rRW8j2V0D3hu3pkcdXy+JqVPxsB2lSDKzjb70O
-	 iOG2mYiVfYQ5iNXxKAUhIJbhiv0Y13ZsXH9mLaRJe0FXQRT3gj7qPg6qin9llRfw9qA==
+	t=1792862425;
+	b=hLZSExuBisaUt/7y0jeCHnLLd3mkK3vtMa1XhJwAqYEavSVL8RtVA27/XE8nNW9hWezF
+	 L35CmscnkjGF5/0wU0FHQy7ZcHYTmYNJ85HQXudfqlzqlUWX907JbVTLRTX6OLcUxIcsS
+	 bWuI9/pgOCzR9U6wEgTxMhAxNprLybyXCmQdlMPxgvDS6vzWGbT4eGQbRFB2qMPqRT5fW
+	 IC1qRQrzjCcGYiOQDcoMDdRAihzBRdrNSpYv6rX9rzrloWTgGf/Ut+SYCLR+hKGWpFOOv
+	 WrDInPCoJWKIeV3y5tcWR00m4pEHvuJR8AfoxlFqXQZF0u8Knk7CUl6ubZy0og9mP6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862402;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=sd+yctJGX58GYgR2VMHbAaQET091sbKp1a2O1nu6sRY=;
-	b=L6U6p8qMAlLQwhCDZAhT5mD3btTDzin5osUr2E9O0KEEMXAITxQ1xMwlrGCDBwEjvBGe
-	 IjJRlRYH+oKrZLxz+a85gk9ihgyV4o1GQr3mZk9OsDwEb/IEwVb+WJNgB05F25b7iXCyt
-	 P7b7DhjcKtcSd3AuCYfW/+Tueaeq5J/gkQqte3qObjemoxSwyWyMdyW14QbfsWu+le3Ex
-	 V89P5AcYryYmDWJpubXVhiyglHSwAPIiF3dhd3IiF8B+GlJ6ftFT0O4PtB/OkVLZdIRJJ
-	 BPL4KuYRGvWPjnYWL2yvoYnvMNyD9zWng+eLEof332c2KCn5n/fAv8poLgyIVh3esWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862425;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=;
+	b=bKQrGJbQzoxZxGyWUJ6Ca3VewDHfCf3ahiDDkkxfCLhmjVEShuD3RFUJdsmT1QdFFvZN
+	 bg7aYr0ANvQ6BFyK9fn6NSmbotyyZbM9+HaaBTSyFpJ7Mn+xw9MPEl/QUrfhYVDtkI6q6
+	 VHY7HFhcAoirYCpqTDnHOKfJ2JC36sZC+Dqub+mrtP9IVZupI1dle/a15vy8s8ZNO0MlT
+	 UktoUK7NuiXtSGBOXzGALFTNE6MwcgEwU5A4rXMdMchGvaN+vtlrLyR8AxAmEtAeSTUkb
+	 O5lTuAr9JFME0X3my9qNJaIfQo79Px6vkjEBH90Wvmnq+sDE8CHjZWXsoMWKiIY08/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=easystack.cn;
-	spf=pass smtp.mailfrom=easystack.cn;
-	arc=none smtp.remote-ip=103.209.128.206
-Received: from mail-m128206.netease.com (mail-m128206.netease.com [103.209.128.206])
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq;
+	arc=none smtp.remote-ip=103.168.172.150
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AAD606A31A;
-	Sat, 24 Oct 2026 17:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3AAD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2] (unknown [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 206c2f1c2;
-	Sun, 25 Oct 2026 01:19:47 +0800 (GMT+08:00)
-Message-ID: <06925440-8df8-4f2e-aea0-ede1a98435fa@easystack.cn>
-Date: Sun, 25 Oct 2026 01:19:47 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFA0606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFA0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.phl.internal (Postfix) with ESMTP id 599EEEC0179
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:20:23 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Sat, 24 Oct 2026 13:20:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1792862423; x=1792948823; bh=RG
+	VmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=; b=SgFe3PF26dqJYCYx/J
+	RhDeBOIhddOlXAAKijwb8Vy8wdHGMNCLnZBuyhjMVXtCLTCav+E37VcUJB/tamAz
+	KB7zJttcMUm/NwINhgjM70OyORb1oy5Wo1rlMorHZ8QYX7cnfxYauXuan1QECwKd
+	/VRzwbKngb7YJ8FXEaiXsAP4/TAyu+0FmtsRoQU24obUq6J2HGCw0hPACUBuNA7k
+	6iCbvheZ+BhEEQKbs2fMsx8tF+x9D+VcbMMJPH04ONrvE8Bo5cy6dZu6hFU0Eoii
+	+ibPvRU2kkr1okSJ/6l7QTge1tvT/lo+Hhu8x2irzTrQ4HnYvextysFMPZA8OUdl
+	GJNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1792862423; x=1792948823; bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgT
+	sAownRry7w6u7Wk=; b=jTy7nzHqlw7jZptH9I2RxK9RzBW6GYIXgvwd2wUmv7NT
+	QNyiXqpSN9ciqVCaMR2tRIbXNr32qeA1cg50PVOYN1vsKzBQSKUJ3jmqV1hEIZZo
+	1tDhlEr3wzx/juoO2KVRNdwhdJwIjAs20xzdydf3PIjPB+eBeuJmarwZXGbqPAJT
+	AIC/8zc0Y+VHR2jNTbv8nKYMqFlasQIw+wC9GJJkGUyOhti0N5+DP5qPTDlfnGwH
+	DePikNuiwak4JarV/mxOCHJ8finvZTHPJw4vM0Z5pjYI0xDWqK64dfjR5PNOmH4C
+	Ga2zRhIzOOFTjDo1qLxtKBk7qjERm9S+pnRirOWbMA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792862423; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:RxMjlYUkcoKrTxYII0120GtOXo9bUjK1SGCFoOu6vuyxTFC
+	7Zj1RrXGzdK1X10oboKCwqDFPpiFdMtUSkvBUNAaMy+jq6Ujs/OEYbCKUj0pehsS
+	TEDqP3sNUB7LYCWtxFouGK3Fttazck8Zm+Df7/9P9CEkPM+fhdY2Vwqp2hOu03yi
+	t+wzfHxjE4vlbkRcRktnDUfCXX2w+GUxdfV6N8NBHV1jyHCru9QLFzyd/36zXmls
+	zZJD0dyUIvv6nHcvVre5SFn48YHbIqhEhmLJ+KL7iPoI3lkXNhTotxPh/4NsNxYf
+	xRVv9jTEss/wJvfcZQC2Jaae5+aZmg7ZTYM5SaA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:MjjdUjD1TH1u8FR4jM1dnnIhA67LmvEfPVf+2sRrAt0=:bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
+X-ME-Sender: <xms:1ujcaiRqpIsfZ3uU4sG9rhjKABy01FRmqtfy7XOzM2-Y4y64c3UgFQ>
+    <xme:1ujcatwAkBZN1cxQ1FeA9M3KuHVGGnQPDxyIqqK-dC0qkvj6Fli7CeoS39gqGzOYP
+    cvCAeSxyit0eqS6eod-bxaHi5X90qzrItTuogzKPIe-nlsGca_Klcw>
+X-ME-Received: <xmr:1ujcaqpupiIfASvhwY9LEQtHAFEjYtFPaS33O89i67YhpoWy-AjvMkvOk8esVCvOgmq0jTm1F13S4cx3XkBNVE7S20av14WA9gI>
+X-ME-Proxy-Cause: dmFkZTFQFZYiDCjVoB0mM+FknsDb4uzSDQV4OYgeIXaKM3oOz3w3kfT7x2bRm/9casA+3R
+    QKLMXO1C06dwbXqPEanqqziKkWXacuUxzU0v4Gu0+c7EzB8DR8nKdiN1buKMN4i6lz49hu
+    2CVTvVME7aFXf4UQyCHvgww8R5GIzrzG7PGFZgM/Ck9x09tWESRbTlAFg8CpOdlO1N9F0p
+    7Tju3NfAN6KN3zMk+ghkCqkUiJxA5VyzxYg9FDNFYWTlHqf/Q8oJUevXlrRHHtZ8axWwft
+    NQ3VOeCKiYUjbe0F8OHOVblLNwObWaKBaAktjdqXSGV5z7D/YATUOjS0ES7RKyDFi///eH
+    5STZNZmV5LrZM99gwNSilJ2kfI3hegPrekgmbiZulVCDfrfzkccTpdvwaMYswI5Wwdu6lu
+    kHtpQMQ9rjSOe7MSYSHxZ4Px6yRM09oKF/wsH8CtJOpIs6aGg75ouuUzaB/Wc+tuFp31tE
+    U01soXg32sdRZEC81fWNk6aKAarTqCcwsKlhd1nHyOGXn5grxRF/dUUwg8s5rmSRc6SlhC
+    TjSTdAsR5UfTgYyjHdRVgvQcabdRSbjfUP2ON4qk3a0YxuJueX8c0g/ujSMzfaCgqfagcF
+    aA8/YKSNemIBY1K3CIpwdSBbSbDqSAJ9ucEJsVcWpFlYbAm/T0MAjEVRWAJA
+X-ME-Proxy: <xmx:1ujcag3rc3vMh2fGKMnB995VqJwdabn-X06vy-szgPs2u6DjgsvyrA>
+    <xmx:1ujcaqyE_zRvSovXMkFeOzjjYaZJrKwqe6wlDYcwquQNXesUJiRTOA>
+    <xmx:1ujcakiLBvuP0QXeeKaUTpSNyzVV5h1Q734ouLoNjtLiKTW4bSS1Ug>
+    <xmx:1ujcalpBmpDgDcfqEow1bQBoQwFrVJ_3KKVb0qph0GNRc-JBm98Jqw>
+    <xmx:1-jcaoNUlE3UdH2zyy3CPWiAED7-vSLUjsoeFFr52hqhIvk4CBYhy7xb>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 24 Oct 2026 13:20:21 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Sat, 24 Oct 2026 19:19:59 +0200
+Subject: [PATCH] net: atlantic: AQC113: Initialize struct hw_atl2_priv
+ fully
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,175 +119,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
- mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
- ziy@nvidia.com, shuah@kernel.org
-Cc: bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
- <DMAURQCKK6CG.10CZ7MFXGJO3V@gmail.com>
- <d39db4fb-e511-440e-9065-72c34a1a295a@easystack.cn>
- <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
-From: "zhen.ni" <zhen.ni@easystack.cn>
-In-Reply-To: <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa16eecfd8c0229kunm0bf4aa98351e65
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHUlLVk8fH0IaGkodGEpMHVYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaSUtBHklIQUkaHk9BQ0NKS0FDHUxPQUMYSU
-	1BSVlXWRYaDxIVHRRZQVlPS0hVSktJT09PSFVKS0tVSkJLS1kG
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-net-atlantic-aq113-apple-regression-v1-1-b8305415a8b1@jannau.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NwQrCMBAFf6Xs2YUkRgV/RTyszWtdKDFuQhFK/
+ 93ocQ4zs1GFKSpdh40Mq1Z95Q7+MND4lDyDNXWm4MLZuxA5o7G0RXLTkeXt/ZGllAVsmA315zO
+ im6J7pNMlgXqpGCb9/C+3+75/AdXyfqZ1AAAA
+X-Change-ID: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
+To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Janne Grunau <j@jannau.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2370; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Ly5I7WRfEcBwY4rq1yfma9jlmGU2+jR9jzDlns2y8
+ Qv3w7q7HaUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACZS58LwT8v78Nz6ZwcKPsz4
+ 9ZddIl/w5tzaRUpdvWeWn7np/GOumzvD/6yKnO4Vb750BL4wuyi/dUXAScsDvvOETAP8zC9ar96
+ xlhkA
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
+Leaving parts of struct hw_atl2_priv uninitialized breaks data
+transmission on AQC113 NICs integrated in Apple silicon desktop Macs.
+Commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
+slot, MAC address") replaced a memset of the whole struct with memsets
+of a few fields and initialisation of l3l4_filters[].l[34]_index to -1.
+This leaves other fields uninitialized.
+Restoring the full struct memset while keeping the initialization of
+the l3/l4 filter indices fixes the regression on Apple silicon systems.
 
+Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
+Cc: stable@vger.kernel.org
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+Hej,
 
-在 2026/10/23 23:58, Alexei Starovoitov 写道:
-> On Fri, Oct 23, 2026 at 07:51 AM zhen.ni <zhen.ni@easystack.cn> wrote:
-> 
-> tldr: it's still nack
-> 
->> underlying iteration logic. This shape is also what Documentation/bpf/
->> bpf_iterators.rst prescribes:
->>
->> When adding a new BPF iterator program, it is expected that similar
->> functionality will be added as open-coded iterator for maximum
->> flexibility.
-> 
-> It says what to do when an iterator is added. It doesn't say that
-> one is needed.
-> Iterators are for kernel data structures that a prog cannot walk
-> on its own: tasks, cgroups, kmem_caches.
-> pfn is a number. bpf_for() is the iterator.
+commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
+slot, MAC address") broke data transmission on Apple silicon systems
+with integrated AQC113. The cause appears to leaving parts of struct
+hw_atl2_priv uninitialized. Since the most sensible fix for the issue is
+restoring the full struct memset I did not investigate which value in
+which field causes the issue.
+The fix restores ethernet data transmission on an Apple M1 Max Mac
+Studio.
+---
+ drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-I agree the doc is prescribing what to do when an iterator is added, not
-that every case must have one. But my point is that having both
-iterators coexist is the convention, not overkill.
+diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+index 25dd7150aaaf..5d6e81fa3bae 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
++++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+@@ -145,11 +145,7 @@ static int hw_atl2_hw_reset(struct aq_hw_s *self)
+ 	if (err)
+ 		return err;
+ 
+-	memset(&priv->last_stats, 0, sizeof(priv->last_stats));
+-	memset(priv->l3_v4_filters, 0, sizeof(priv->l3_v4_filters));
+-	memset(priv->l3_v6_filters, 0, sizeof(priv->l3_v6_filters));
+-	memset(priv->l4_filters, 0, sizeof(priv->l4_filters));
+-	memset(priv->etype_policy, 0, sizeof(priv->etype_policy));
++	memset(priv, 0, sizeof(*priv));
+ 	for (i = 0; i < HW_ATL2_RPF_L3L4_FILTERS; i++) {
+ 		priv->l3l4_filters[i].l3_index = -1;
+ 		priv->l3l4_filters[i].l4_index = -1;
 
-Page owner traversal looks like iterating over PFNs, but PFN is just a
-number; what is actually being traversed is page_owner records, buddy
-blocks, online/ offline sections, memblock holes—kernel state that a
-prog cannot see on its own. So it is not a pure numeric-range walk.
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
 
-> 
->> 1. What range to scan. Where do ctx->start and ctx->nr come from? No
->> in-tree iterator context provides them, and a prog cannot derive them:
->> min_low_pfn..max_pfn, memblock holes, and offline sections are all
->> kernel state. The loop bounds alone require either another kfunc or a
->> kernel-side walk — which is exactly what the iter target already is.
-> 
->  From user space. It's a syscall prog, like scan_open_coded() in your
-> patch 7. Its ctx is what user space passes in ctx_in.
-> /proc/zoneinfo has start_pfn and spanned for every zone.
-> In holes and offline sections pfn_to_online_page() returns NULL
-> and bpf_page_owner_read() returns -ENOENT.
-> 
+Best regards,
+-- 
+Janne Grunau <j@jannau.net>
 
-I agree the range can be obtained. But being able to obtain a range is
-not the same as that range being meaningful to the user. Page owner
-users typically care about a process, a cgroup's leaks, or the global
-distribution; PFN is just a physical address index, and users almost
-never know in advance which zone or which PFN range to scan. Letting the
-prog specify a PFN range raises the bar for writing it while the
-practical use cases remain limited. This is not a feasibility issue—it
-is a question of abstraction level.
-
->> 2. What makes a page eligible. The alignment test in the sketch is the
->> only part the kernel agrees is expressible in a prog. Everything before
->> it reads state a prog doesn’t have a handle to: pfn_valid() over
->> MAX_ORDER_NR_PAGES areas, pfn_to_online_page() under get_online_mems(),
->> skip_buddy_pages(), the PAGE_EXT_OWNER / PAGE_EXT_OWNER_ALLOCATED flags
->> in page_ext, and taking the record snapshot inside the RCU window so the
->> checked value and the reported value are the same copy.
-> 
-> bpf_page_owner_read() in the diff does all of that:
-> pfn_to_online_page(), page_ext_get(), PAGE_EXT_OWNER_ALLOCATED check
-> and the copy of the record before page_ext_put().
-> PAGE_EXT_OWNER is set together with PAGE_EXT_OWNER_ALLOCATED and it's
-> never cleared. No need to check both.
-> __reset_page_owner() clears PAGE_EXT_OWNER_ALLOCATED, so
-> skip_buddy_pages() and MAX_ORDER_NR_PAGES steps only make the walk
-> faster. They don't change what is eligible.
-
-I agree on eligibility. But I'd like to expand on "only faster": what
-those steps change is the scale of the walk, and under SPARSEMEM that
-scale is structural, not a constant factor. On a 256G, 8-NUMA machine I
-have, node0 is:
-
-crash> struct pglist_data ffff0106ffffe580 | grep node_spanned_pages
-   node_spanned_pages = 17235968,
-crash> struct pglist_data ffff0106ffffe580 | grep node_present_pages
-   node_present_pages = 523024,
-
-For this one node alone, about 97% of spanned is holes. With
-bpf_for(pfn, start, end) plus a bpf_page_owner_read() per iteration,
-that is at least 16,712,944 kfunc calls, and bpf_for has no scheduling
-point inside, and all of them are wasted work. The gap grows with memory
-size, and I'm concerned "only faster" understates the runtime cost on
-real machines.
-
-One more structural issue: bpf_for is capped at BPF_MAX_LOOPS = 8 * 1024
-* 1024, and this is a runtime check—the verifier will not reject it up
-front. The spanned of this node is already 17.23M, so a single bpf_for
-cannot cover it; you have to split it into N chunks and poll, with the
-chunking state kept in a prog map, i.e. a loop nested in a loop.
-
-And cur/end are stored as BPF_W (32-bit), while the PFN upper bound
-tracks the physical address width: on x86-64 with 46-bit PA, max_pfn can
-reach 2^34, and 2^40 with LA57; on arm64, 2^36 for 48-bit PA and 2^40
-for 52-bit PA. A 32-bit PFN range will overflow here.
-
-Solving all of this requires yet another, more complex kfunc—and it
-looks increasingly like bpf iter. So why not just use the iter?
-
-> 
->> 3. The walk is deliberately lockless, so exposing struct page to the
->> prog is not safe. The pfn validity check and the page_ext dereference
->> must happen under the same kernel-controlled RCU window. Otherwise the
-> 
-> The prog doesn't see struct page or page_ext. It passes a pfn and gets
-> a copy of the record. The lookup, the check and the copy are in one RCU
-> section inside the kfunc. offline_page_ext() does synchronize_rcu()
-> before freeing page_ext.
-> page_ext_from_phys() does the same lookup from any context.
-
-I have no doubt about feasibility.
-
-> 
->> 4. One record doesn’t give the prog the useful data. The record holds
->> only opaque handle/free_handle tokens; stack-depot resolution exists
->> solely in the kernel. The memcg is neither in the record nor trivially
->> reachable — the path is built by cgroup_path() walking the kernfs parent
->> chain. The NUMA node comes from page_owner_get_nid(), which bypasses
->> page_to_nid()’s poison check. And so on.
-> 
-> The handle is the key to filter and aggregate by.
-> page_owner_stacks/show_stacks_handles maps handles to stacks.
-> Same for memcg. bpf_page_cgroup_ino() in the diff returns the id.
-> st_ino of the cgroup directory is that id.
-> 
-> 
-
-Similarly, I have no doubt about feasibility. I do have some concerns
-about data consistency and performance. It also increases prog
-complexity.
-
-In summary, while I don't dispute the feasibility of the bpf_for +
-bpf_page_owner_read approach and fully agree that kernel-side simplicity
-is paramount, I wonder if we should also weigh the complexity on the
-program side. If using this kfunc imposes a steep learning curve, I'm
-concerned it might limit adoption. If a feature lacks practical utility,
-it becomes difficult to justify the effort.
-
-Thanks for the detailed explanations and for walking me through
-these points.
-
-
-
-Thanks,
-Zhen
