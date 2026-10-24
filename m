@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792820033;
-	b=symjGwCrL36tWouk1tIMFIa2GUsKyyvd15LRZTgFGQkle7vzkP+XxvWYHlP7VP93Bx9O
-	 iSlxhY5IMQ2YQgW8wR8D9GVeO0C8HJjaTTlkSv5Qxure/ze4qlccVZveNDytzlOi9mn2g
-	 jAKYrDQsu4KB1+GgpQDhJqhfcAlVzIMYBd4kQMtzm85YI7ylvk6ELOAkAGiKZE4Ykqcxb
-	 7lVEm+MpTwJjoLrf9eRDwKX5FzZCcRieImhYF50Kuu3xniR1Jl94IwpXDYKKwqjqSOS8p
-	 ClhoGKwRvYQNtYAQCETDXrm4cwVgHO5JjhXtuNEmKEaVAoEVUEuMRbrHFiJTYSVHV/Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792820033;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bD4W43pUpXqutJS8BdTi6cNfD5w9bG7qp9SO761d/FM=;
-	b=OA2eMQDeXXTILDuLL4V8mYf4lSwQjmqKW8NRfZKAP6O8MaEgIvFZCk+oFg/Nen/WOLq7
-	 vcUDgH7CIPOhnFAT/8pIDcKYMUr9pmL3hLjyArOGpRB0m13BGllnM4ev+xWBsRNiFryZR
-	 XrRJ+iIYK+q0pkVXHEq7zTNrnMDloDDd1gZzljlbvnVYa2uy1GQS4x3wRywkpqYEReolz
-	 8p7Ntk3i754dpbOf2/CBxebW9HZnrsJK1GeJ1SQCKnwdqSMqzR8e98pY/gpY1mnC46IL9
-	 Sl2qTrk8ZkEYSQ0+Me1MwLnICxVIpcwKqWtueE6S0j9DcvCD1juonU6tFW5SoIFW7kA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jj7imCxL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792820198;
+	b=efJJ6J5qQ22T1KWy2fKjc7aH+D3O3TwrP793tbMDFF463aTVYzKAqcU0zafMUxFicvQJ
+	 DGMI26dZc1kFxzxV7GKmEF9EjsAoVz4H0snfTS6Fziw8ubmzzJWfWaQrEbZ3PCRvYTs/s
+	 066o0kTcRBu9MmEgG5myN0K6fCmLr1qd4cLEpewlQaYmLsNhGEt5gD+HBNfaU5qo/RAMM
+	 16GXoLPcSsu9BIIQyDVVwpwTGdUIqZWcJ97y66PQjX+/Yy+K9oLktuw0WRYMmuDeiBYVq
+	 oxTAbbllUVam1qr7jTq9CMh/2yJgPW9RgfJfym1dtgU8Wz4l5fwyZY8EPksdANl7nWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792820198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=uOhtVlIsXaCqD9aysCR6LbQn+NNrDAK283YUAw1IIn4=;
+	b=aSqZZM8qzrU0MgcHS0n9niNoxIpeyRp3D14eb3DS0v3HD6EUte2oq5yC5g/ao0s8+joo
+	 opDmzn05/2Tn71vWbPYMlElqlfU2Ykw1SI2zpYL+bKyB1iqYGoTeDUMRUknYrfiWk+oYU
+	 JouGhqphPGXArKpFOl2N2SY/Dk2GtsjB76U/HnRLGkXdCNUlgwZQSOPEqfvf6MKWKU7VW
+	 3T++weFQvKlwM6tq/GlXKKomDZJrctsWToaNhYe93oulcazYoRTWiYhtDb1f1KRLAjqoE
+	 bw4oFT5hW4LbfFviozGXUPaanKm0B55Cl5AkXn+VKPuS4VovljTS0KH9VVMtQD6LecA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=0x0f.com;
+	spf=pass smtp.mailfrom=0x0f.com;
+	dkim=pass header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b="c/iqOkGk";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57925606A32A;
-	Sat, 24 Oct 2026 05:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0560D606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0560D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jj7imCxL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9681F01829;
-	Sat, 24 Oct 2026 05:33:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=c/iqOkGk
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2431020eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:36:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792820197; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FpxCg4Ckuv1r39HOSz+Hi4cIrBwqWZaoZZ3FUeD/mNlIhQ+iGrNl47yqEyQYb/fou4
+         qXj983zpkGZUD0V55fZLZfzf61YsGx9zaDilpqUQycBCL9nf47cdNXoJGojj75tuypbo
+         wXmMnVwgP1QlmYtRz6MxyYfOpj+wMDxRn+R5cGwHhbYvvQLx37kvtAPaU1IHb0imw5UP
+         D+TKHOvOJgDWUplWwAYALiBR8X/7jlSTnlizjeITnTjfCKDPygyxr8/MuKgLtOXD7s01
+         ySthsSqz/IGbBz79N0l7j1x+JwSk0Yxde2Orfh2uikIkgCzAEZOpmDp2v7alPoeHPLHh
+         A8qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uOhtVlIsXaCqD9aysCR6LbQn+NNrDAK283YUAw1IIn4=;
+        fh=WF4GVWeMoVMAsSUXswxr5bgt4JxJcbVsDvUj77BeHwU=;
+        b=NDeOOhNqpiuWnr1EZFg3dnqPrWNU5ZSR8XYKDYW0+20dHZHrdHaiz8WQoRScW0LOVC
+         NM4wKD7M8aoTLFnt70J7cwU2OGV6rT79VKtVC0JdElg03HEM5PcglFIPKw1vCRHoSdSF
+         FuesvssTUUHmy9dT1D4u9R8SJdrkjka+U9vFI1zcsOn41nZnY/sfkaYP65WGe7XmTVGW
+         KpLglrcYbMWAob2JDDcfPjr+NKYWFR5nEy3FVg017fP3gXnADQv8TAT32RJRfp/NnF8F
+         UAFzoiYhfbI1Abyf53Xp2M34rVjGfr3wCXbFc/hsctvBCn6NdqQ7fKnx1V2kaaHc+CY3
+         PSkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792820033;
-	bh=bD4W43pUpXqutJS8BdTi6cNfD5w9bG7qp9SO761d/FM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jj7imCxL/O2GcEZ6WAJ2fvkEkHX/X98ciZQtykNn3xUJflybmBO/Fmqph0y2S7MRo
-	 BwytBJZ2Lyic/envHpJqoguzNSwUyfYaUHhPZpZ1IYp7Tv9Cy/NAaezxTS/P39AiqA
-	 PB/OxnWHFrW0BB1qhvb2JNJ7YoBokrnB/4fJI0RM=
-Date: Fri, 23 Oct 2026 22:33:52 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Samarth Narang <samarth.colleges@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>, Peter Xu <peterx@redhat.com>,
- Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Lance
- Yang <lance.yang@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
-Message-Id: <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
-In-Reply-To: <20261021182157.1873726-1-samarth.colleges@gmail.com>
-References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=0x0f.com; s=google; t=1792820197; x=1793424997; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uOhtVlIsXaCqD9aysCR6LbQn+NNrDAK283YUAw1IIn4=;
+        b=c/iqOkGkTS9Qs47aOf6e892MeASztmFycAAzTnCLVisWPaHWWZvg/n0D4eDUtYR9QM
+         nyCV5ZVjdppsaxOiOqsScF3o0rKgXgWYqpsxMqFAKHAhgVDhIHyHkyMmnJRC0jmwalZJ
+         E21vuNbtmvPfVolSDaqVdknrFCUd3MmIh9Jlk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792820197; x=1793424997;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uOhtVlIsXaCqD9aysCR6LbQn+NNrDAK283YUAw1IIn4=;
+        b=GFUnEfciC7z48s6gxPb6Bd72jgVhowOkHpGtxsMVSpFJSjtQjQFuMkFX8Cmo2IbQzV
+         a8gnu0Gm+MR0dQC21c7ilyVTi44ExgtuhKQ+gZFPH3sFRRpR2UlHK5UxiIXoTzn3vQ6W
+         4EuTpiZeJgm/XFxCx3zWE5ZjEvCrbtnyl2dIi24RuUxEcJQFcDXBNgXWjh2662xp+kXc
+         NhuyRPP25AW0ZqNwIusJ2OaGSeRxkZZWVSKnGjJmwW11U3E5MP/5B7FGgGgiJTb4edJU
+         PrpO1MbNScpkuNjvsEGYvSu7uPey8dtZ2nsNXiPBvtEMrGGyJgm+VBIBzsRxVqBJzYLq
+         W1dA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVIX6ytarZivZlFF+NiZBv4932gQfHid2h4XVrGSrDvHKTISkhXRg4oojTFNv4oaraOwSOCpk7lbnsSFI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK88OsS8kfwSvvBazMAfeu33gOdTGqkCIBmFnvDOSsSdZrrp++p
+	AoYd26erll4BjrRE3L1aWu7Mfmp77NnDuWllOCWWFP3Q/82HVh40gFuhwjyxkjZ0aD1XjFgqICv
+	1fJ4sVTToSi4c7Wk/XtM34l+CW7TFqfS18G9lywBC1Q==
+X-Gm-Gg: AYBFou3cljM8Z7qqVEI6mKPJabIHKQ35aprIsZh9bfFZJE04bQRZ1L+v8qbWtiKebrj
+	PrBQkkILRZVNwpTbsH9gQgKpzEUm7cVgh/aUQ6AEJqu2GTLKlsz+a+5qrxABRdkAHuHt8r5Clx0
+	kbjUxEK4mx8K3YpxCm/iJI/KGhNC44rurhxd+SBHcXHVrXlA4b/GIPDPZMOAh/6G2ogngLSMDs6
+	ig677V+BGoXJaDT1K/pU7dCyQ6+5XvgRDCIHIoIZLG4GrakoHJelG/rO8SWkdtTpHIyfYsYczm9
+	c+VC+zdmdJcd0XOWZVGg3fZ4+BqBvzomtPTWEBlLLPj09NBNqSZZpWd3Z8qhmSM36zgJPQln6bo
+	Ohr+jqrRmZTjMIzUgAmPAtiFxJtnkpirqNiuXpRT3z9XeG7/KodwHnWAoC28E
+X-Received: by 2002:a05:701b:4502:10b0:185:b157:f271 with SMTP id
+ a92af1059eb24-19935fc552bmr1439575c88.23.1792820196846; Fri, 23 Oct 2026
+ 22:36:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,49 +99,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20261021-b4-8139cp-napi-v1-1-c9b683d9564b@gmail.com>
+In-Reply-To: <20261021-b4-8139cp-napi-v1-1-c9b683d9564b@gmail.com>
+From: Daniel Palmer <daniel@0x0f.com>
+Date: Sat, 24 Oct 2026 14:36:25 +0900
+X-Gm-Features: AclHuK--U4y5WwbG_OvCFvKm5ZdggLi6MEGxzSrvBZK47svhkInkttu0YdkNR6A
+Message-ID: <CAFr9PX=KVQpPmh076AXFaYu9dgqA-uFpRXCBVZsoJkna9ph2Pg@mail.gmail.com>
+Subject: Re: [PATCH net] net: 8139cp: close race between NAPI completion and
+ Rx unmask
+To: colton.pawielski@gmail.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026 11:21:57 -0700 Samarth Narang <samarth.colleges@gmail.com> wrote:
+Hi Colton,
 
-> replace_page() maps the KSM page with a PTE built from scratch, so the
-> soft-dirty bit of the PTE it replaces is lost. A page written since
-> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
-> a soft-dirty based dumper treats it as unchanged.
-> 
-> Copy the soft-dirty bit from the original PTE to the new PTE.
+On Thu, 22 Oct 2026 at 08:12, Colton Pawielski via B4 Relay
+<devnull+colton.pawielski.gmail.com@kernel.org> wrote:
+>
+> From: Colton Pawielski <colton.pawielski@gmail.com>
+>
+> cp_rx_poll() calls napi_complete_done() and only then takes cp->lock
+> with interrupts disabled to unmask the Rx interrupts.  An interrupt
+> that is not masked while polling (TxOK, TxErr, ...) can arrive in
+> between.  cp_interrupt() then sees the Rx status bits, which are still
+> set, finds NAPI no longer scheduled, masks Rx and schedules NAPI again.
+> cp_rx_poll() then carries on and unmasks Rx anyway.
+>
+> From that point Rx interrupts are enabled while NAPI is scheduled:
+> cp_interrupt() leaves the Rx bits for the poll routine, does not mask
+> them because napi_schedule_prep() fails, and the level-triggered
+> interrupt fires again as soon as it returns.  On an SH7751 LANDISK
+> under combined Tx/Rx load this interrupt storm was captured with a RAM
+> trace right before the board locked up hard.
+>
+> Do the completion and the unmask under the lock, as 8139too does.
+>
+> Fixes: ab1e7e1d2666 ("8139cp: use napi_complete_done()")
+> Signed-off-by: Colton Pawielski <colton.pawielski@gmail.com>
 
-Thanks.  My LLM review thing says:
+I tried this out on my landisks and it seems to be fine.
+So for as far as "I put this on my hardware and it didn't break my
+ethernet or make it explode":
 
-: There's a separate, pre-existing problem with the KSM zero-page
-: path which is worth pointing out.
-: 
-: When use_zero_pages is enabled, replace_page() constructs the
-: replacement PTE using:
-: 
-:     newpte = pte_mkdirty(pte_mkspecial(pfn_pte(...)));
-: 
-: The dirty bit is deliberately set so that KSM can distinguish its
-: own zero-page mappings from ordinary zero-page mappings. However,
-: on x86, pte_mkdirty() sets both _PAGE_DIRTY and _PAGE_SOFT_DIRTY.
-: 
-: Consequently, a process can clear its soft-dirty bits through
-: /proc/PID/clear_refs, perform no further writes, and subsequently
-: have a page marked soft-dirty simply because KSM merged an all-zero
-: page. Userspace then sees bit 55 set in /proc/PID/pagemap even though
-: the page hasn't been modified since tracking was reset.
-: 
-: Your patch doesn't introduce this problem, but it doesn't fix it
-: either. The new pte_soft_dirty(orig_pte) check cannot help in the
-: zero-page case because pte_mkdirty() has already set the bit in
-: newpte.
-: 
-: I don't think this should hold up v3. Losing soft-dirty when merging
-: ordinary pages is a more serious problem, since it can cause
-: incremental checkpointing to miss modified pages. The zero-page
-: case instead produces false positives, causing unnecessary copying.
-: 
-: It would be worth addressing separately, preserving KSM's internal
-: zero-page marker without manufacturing a soft-dirty indication.
+Tested-by: Daniel Palmer <daniel@thingy.jp>
 
+I don't know enough about the APIs involved to review this properly
+but for FWIW I had my clanker try to reproduce this in QEMU with an
+emulation of the landisk and it said it could get into the state
+described in the patch so it seems valid.
+
+Cheers,
+
+Daniel
