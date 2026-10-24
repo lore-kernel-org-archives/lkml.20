@@ -1,65 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792834267;
-	b=rFOpCwERCC4GkykZrMtZfncL+WKlgzlIHzmnqunoj6XVOWlV1Hqt3By/pVttAps7awRJ
-	 Mus4omEVJO5cKk/ES5x6HLapi5ei0/pEuMSikLbznVdDDvtO2r+kdnJFD9KvsmoU4PCNa
-	 GGlFW44HS9KZ8sy01vFiWpsdo+dyXMeZ9MwVtEMkL8rMbExqv8ZHSJOGA37Cwkbyq9hd8
-	 /C0USrCQzDIj2tlUg7M2bvMGFg/DcU4p20sWeEuh1p3YLRL3QN7tdfzITw46CuKjyCtqm
-	 2cUHAZhr+xj/pnsYlbDVYry/ohEB1+TokM8SM31lRp3KWV4WAJAJAiIAE1gsv+sFzow==
+	t=1792834345;
+	b=NdZBeAjq0aLcCVPzhA60KFQTh4b5YSVvXhOEXFHgR2L3umaKkaD6WJWzb7rDg1PzCy11
+	 MeBOCYOdAGagyOllVfYPf8vw680BiAD4EPhyHZf8w8KBoFmRqYE6vfS4/IxVgZWJOKCas
+	 QNrCHIWtD0XjNiC8cDIgtHMK5nptXbUn0hFLvgj7CklqMo54/ay0nQRaug020C8zb9Bfo
+	 mhjbodVRgo/vkT0stV08bY4+NpFCH/pA4+PZL7zMnOmw1qYA1MN2/ZnGhHToVC8Js3veh
+	 zT2jwfONpWuo/BemoJkMtuiyw+grp/SdY1t6FrJgnj90cG3nmbRQHHHp2gn5jeMpm/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834267;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=4kB+oCvMNA58pfhmwFvYubC2faFkfDxCdQSIlTSMT20=;
-	b=AJA+d3KGXsI+iNZNjqaX0ZZWwh1FdXwq+S7o8xjBfiLf4Z33VXRqPbwdBlgfYyghbugl
-	 erXt88nS5phefZ+CIToUI/C0vbd2fBBVSWFU3959ZYn1tNamsHQX3aWaqK9rlaR3lbbH5
-	 gsMV4J/JV2uUj3k9zd1I57lCrxUqqpIzUyG60VaCI9bM07dZQt+NgvKYHTb/UgKfUpHES
-	 LLyDqVJlHnzO97CnM+D2Y3/QW/bCBZuR3iPD1oWybz1oEX1VNEd9L74piGlXCVwcwwM+h
-	 w6S2XXvLbfj87Tr+DiUJBWEw51X9i4shY6FcUiHVd6u7VWsZlhnxufn7RN0B9ckD5RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834345;
+	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
+	 X-ME-IP:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RR3yjdaJgIdd4CGVtBbCqKG6w24xVr9FXnig/GJExvw=;
+	b=J8B5Liuve/5BZWafj+GS1HIQNTjwfGvkqz1gBhfszH0lK75E0mrgbNBgn+4tMS0ugwZh
+	 StqciZU2CRd9Ld4OBzn5vEOtozbxjGB3eJlVxdQTm3ckCPDgoiF7gLz7eqrclwtIfUr2p
+	 FsTZCW1RMDciAJimItvI46Yl1a0ZIf1UtU7W3J2uPn+rw9+6EPrJbwBtwbfUCGY6sT4j1
+	 fiY4WizywIEa0fkstlSjKFqfAd0t/91dDKyJ7nvUq/9UbjDbMNKDd0G/hRobYx3PkF31L
+	 UCp9ThBT1Y6VpuinOOLDIt05zlkxeYaXyTWmQJ8oaUUFgBFTyv+0k0KH5oTGr+0frjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PfgqQzIA;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=wanadoo.fr;
+	spf=pass smtp.mailfrom=wanadoo.fr;
+	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=q7v5iJLj;
+	arc=none smtp.remote-ip=80.12.242.19
+Received: from smtp.smtpout.orange.fr (smtp-19.smtpout.orange.fr [80.12.242.19])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188DF606A31F;
-	Sat, 24 Oct 2026 09:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 188DF606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA43606A31B;
+	Sat, 24 Oct 2026 09:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA43606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PfgqQzIA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4k
-	B+oCvMNA58pfhmwFvYubC2faFkfDxCdQSIlTSMT20=; b=PfgqQzIAU+3Uw+BPyB
-	cbf2VsCKfgMBCB7chcGVuv+kf0hKPWJsnwiAEvboR25vfiyDtizzwym48YtM7AwX
-	jRe9Ww7plYLtJd1jDaSIE95MuxvT9vI7sICyqIZKV5D81PuCG+OySY4IE2BL8dQr
-	3a6fS77Nacnsd78FSl007+iBU=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX35eretxqoPpsCg--.62139S2;
-	Sat, 24 Oct 2026 17:30:21 +0800 (CST)
-From: Xia Yan <yana06070@163.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	hangbin.liu@linux.dev,
-	yana06070@163.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v4 1/2] veth: keep carrier off when resizing channels with a down peer
-Date: Sat, 24 Oct 2026 17:30:06 +0800
-Message-Id: <20261024093007.12981-1-yana06070@163.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=q7v5iJLj
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id KY6oxMvXfVN4wKY6oxnW7u; Sat, 24 Oct 2026 11:32:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1792834336;
+	bh=RR3yjdaJgIdd4CGVtBbCqKG6w24xVr9FXnig/GJExvw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=q7v5iJLjDkIWa/05wPUav1ROWVXZjhkg2Z8feFI5F9xZKbTH407mu8tMIGVK+OLC8
+	 jNSvWwTcq/ZI77LubVkYPDs8seAhtfbvOI+Lq3BHGsMTu5Mm5U/0Yk8R5Gn/22mmVj
+	 AYGj2VXPQ4eA5N8QtWZ/oaiE5DIDCpP5f1nXcRfcu2i2Kc0VX+BmkDG/hJvTA3O1Ow
+	 ESLVxLzD29CexgTIYlzKzxh2okuuXZQvfrlr069nipOqtnukwIxRrnFRadnvp6Kr0I
+	 qTNPj13Bwk0qmvE+DRKPWCGSTfelyaPHpA5QMGRN9fEJlGA+thQCPrnDanDPzKJwNB
+	 DYKpMMIx+oLFA==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 24 Oct 2026 11:32:16 +0200
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v3] ASoC: qcom: qdsp6: Add an error handling path in q6usb_component_probe()
+Date: Sat, 24 Oct 2026 11:32:09 +0200
+Message-ID: <68e28df174c8524bef54cb437e568afcb8a82e1e.1792834312.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,79 +76,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wDX35eretxqoPpsCg--.62139S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF4rZF1rAFWxJr47WFy3urg_yoW5Jry3pa
-	1fAa4ruF18WF1Utw40g34jkFyjga1fXa45WF9Yg3yru3Z8JFn8Zr1Fyayj9F1UKFn5XF4I
-	qrZ09r1kZa98uF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJ3ktUUUUU=
-X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC3w2bImrceq1-DQAA34
+Content-Transfer-Encoding: 8bit
 
-veth_set_channels() temporarily turns carrier off while reconfiguring a
-running interface. It then turns carrier on for both ends without
-checking whether the peer is administratively up. If only one end is up,
-changing its channel counts therefore reports LOWER_UP even though the
-peer remains down.
+If an error occurs after a successful q6usb_dai_add_aux_device() call,
+some resources should be released as already done in the remove function.
 
-For example, after creating a pair with two RX and TX queues per end:
+Re-order the code to avoid unnecessarily destruction of devices in the
+probe path and add an error handling path with the missing clean-up.
 
-  ip link set vca up
-  ethtool -L vca rx 1 tx 1
-
-vca incorrectly reports LOWER_UP while vcb is still down.
-
-Only restore carrier when the peer has IFF_UP, matching veth_open().
-The local interface is already known to be running at this point.
-
-Found during LLM-assisted source review and reproduced with a veth pair
-in network namespaces, without kernel instrumentation or error injection.
-The companion veth.sh test reproduces the two mixed up/down failures
-before the fix and passes after it.
-
-Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Assisted-by: LLM
-Signed-off-by: Xia Yan <yana06070@163.com>
+Fixes: 72b0b8b29980 ("ASoC: qcom: qdsp6: Add USB backend ASoC driver for Q6")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
-Changes in v4:
-- Driver code is unchanged. Add Hangbin's Reviewed-by.
-- The companion test drops the extra GRO on/off runs, as discussed
-  with Hangbin, and keeps up/up and both mixed up/down states.
+Changes in v3:
+  - Reorder code to avoid unnecessarily destroy devices in the probe path
+    [Dmitry Baryshkov]
 
-v3: https://lore.kernel.org/netdev/20261022085842.2527-1-yana06070@163.com/
+Changes in v2:
+  - Propagate the error code returned by snd_soc_usb_allocate_port()
+    instead of an explicit -ENOMEM.   [Dan Carpenter]
 
-Testing on 513444cc62e2, x86_64 QEMU/KVM with three vCPUs:
-- Complete default veth.sh:
-  before: 56 checks pass, two mixed up/down carrier checks fail;
-  after: all 58 checks pass. The 55 existing checks pass on both.
-- Script exit status: 1 before, 0 after. No checks were skipped.
-- Both guests powered down normally.
-- bash -n and git diff --check pass.
+v2: https://lore.kernel.org/lkml/1a3bf0ee02f880919190944e581bef2b428ca864.1751703113.git.christophe.jaillet@wanadoo.fr/
+v1: https://lore.kernel.org/lkml/7338875b20cb41693f803c6b9673cf7f3e5f089a.1746781775.git.christophe.jaillet@wanadoo.fr/
+---
+ sound/soc/qcom/qdsp6/q6usb.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
- drivers/net/veth.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 643b97dc52456df80de10068ccac9af2ada70256..4e75830061ccd3def0476b19a2f92e818464fce9 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1372,9 +1372,10 @@ out:
- 		 * to identify the range we have to disable
- 		 */
- 		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
--		netif_carrier_on(dev);
--		if (peer)
-+		if (peer && (peer->flags & IFF_UP)) {
-+			netif_carrier_on(dev);
- 			netif_carrier_on(peer);
-+		}
- 	}
+diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
+index 6381b289c55c..e226dd126364 100644
+--- a/sound/soc/qcom/qdsp6/q6usb.c
++++ b/sound/soc/qcom/qdsp6/q6usb.c
+@@ -322,22 +322,26 @@ static int q6usb_component_probe(struct snd_soc_component *component)
+ 	struct snd_soc_usb *usb;
+ 	int ret;
  
- 	/* update XDP supported features */
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
-
+-	/* Add the QC USB SND aux device */
+-	ret = q6usb_dai_add_aux_device(data, &data->uauxdev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	usb = snd_soc_usb_allocate_port(component, &data->priv);
+ 	if (IS_ERR(usb))
+-		return -ENOMEM;
++		return PTR_ERR(usb);
+ 
+ 	usb->connection_status_cb = q6usb_alsa_connection_cb;
+ 	usb->update_offload_route_info = q6usb_update_offload_route;
+ 
++	/* Add the QC USB SND aux device */
++	ret = q6usb_dai_add_aux_device(data, &data->uauxdev);
++	if (ret < 0)
++		goto free_usb_port;
++
+ 	snd_soc_usb_add_port(usb);
+ 	data->usb = usb;
+ 
+ 	return 0;
++
++free_usb_port:
++	snd_soc_usb_free_port(usb);
++	return ret;
+ }
+ 
+ static void q6usb_component_remove(struct snd_soc_component *component)
 -- 
-2.39.0.windows.2
+2.56.0
 
