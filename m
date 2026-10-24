@@ -1,89 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792872360;
-	b=nS7IEKnKc+gRz0pArGgdc0V8SBczny6gv9RiO9J283rBnBtwWLrRVcXtd+CdCB7F1bvq
-	 qQD8wU/+kr0zcF+QxyZV6py9sAEz/k7ixcIIaZQJfTZvr0yPtHbc45NVisM0hTqdQbdRJ
-	 No02+c8Eo5lo+basjXIEAy0MoKSl6izmKOZEByV2gMaVUBBZHTrSyzOd0AOY5n+BJNcaB
-	 IVxhFcLCzPEtfNaexHfrwFNPZDjZBnWeKT5f28anzElQUFKv7dPaAgYW627PXzbcPvfjD
-	 e2zJoKeyQfI7c62cDG7xFplf8rdgvPwvO/IEBvnu7598JM923oLlCCQ5weFWexVCUnw==
+	t=1792872965;
+	b=2wSr5NZS11fqUMJuE3uP2311TSYdItxCJnmRW4qPHkf19B++hJSiNTK5B/rxNmKnJReQ
+	 lyU7xeTxAzuv+2pFGKY4M8La5B9EBYR13/DERC3686ARNB6Ojn5gMOlldo8zXD7n649g0
+	 F1iNIqJtd4GK/U8+JUq0tf2HK+8dqZo8nSYXFrfproxtgfGrdmmAOEacgfglBWO3LGNeu
+	 POtnEdsdjDqtH2D97+8EmQadnfeihFvUeSng6/l0GmdAth3VFn85qn2gFjRbhbcTFuJj9
+	 +snms97kHRivR14QiaQzf2oSSAlOXeEJ0q/Fxz/hjMp8FDnmV6YkUdEccSIwDuZ+m4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792872360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792872965;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=cgdV2l8OQBJLScaiLLZmyJ8udq04GHVSVzdhmyemrjQ=;
-	b=f+4FffiQGU5PM4XxLQRY2Khgg82WJmzMuXXv7AljCtcKB0uu8W/4mFN/sysdhh1uA3qR
-	 JZHMRYuO2cJbjGVP5xYDnmCuqceWGoJ4/zFDXrnu4O92PIpegaRWFGQNoV1UgVvfSqpdc
-	 FNS58iGq439JOkoGbYFwjhVMViS5hcTgL8z+e6uQq/3l2AGnkn6uBvsQCqJPzoWpYz//E
-	 rpNLf+ybusLa0R3TAJUwNUKEfar4brL6TBARlhJWpx0o77/N2KEr+nrJKS506bZil5Sd3
-	 SwT8Cei3awb9pA24CLUziBrc8PQ6ghVca9GY8MJPJPnnv2uFfNu3eW9UVLIfXYIpY8Q==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xOdSrRSD68sU03mdy3xyH/obHFukp7AFHKnxKyzExEA=;
+	b=bN7RNVbqwQ4kYYfcZYlXT+AlbB7XA1ZjjBiwRDgZClnkrDgytJ0oVSjd7DiGEChT6/Q2
+	 y6OpjKAIMSzyjHzMNlLlemNh2F3Srff3M+wG2JpKmSevweyXVjNMinLMnhe8Lsx/5QRUJ
+	 LhIw0OaJd7PQFMmsG1M1AC+xfbUgFcuxYhxxBWL7V5je/2lbI01MwCzd38OwCK6oTcslf
+	 E/KqPNqOhY8HaNY13kgDcxg7P7wsp/oFjNYTJo/nTkilhjGO8tXKQBcnr/7YDahYXibZF
+	 dUDloi9WDIHt9aZsenMwQJFvRUd5oLwrRz5aeNP9b4pbMGZn+080t3JGbbWtRI3sn/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EKnj1Z+N;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=WQBFRA2D;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E49606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:05:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4E49606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0265C606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:16:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0265C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EKnj1Z+N
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6dd4f3f696aso1118138eaf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:05:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=WQBFRA2D
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0728so477499f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792872359; x=1793477159; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cgdV2l8OQBJLScaiLLZmyJ8udq04GHVSVzdhmyemrjQ=;
-        b=EKnj1Z+N2wxcJs99oyz38lqNAF6LDQsvgbmvLwf7S/dPne7EeP6sJvZZS1yl9JLaPt
-         F6Ksz0jcflKDiqF98BMlmc0gqIXe9zphn0bXO4K9Nckfbb8zFRIoTD+ZMH8IUo9P9lYL
-         Mh7sIxoRH1XI8I//HERZ7cTGjtX2IVtYw7pQcSZr2Lv/T/rcvFoj2TrXYXND7fgDv4UN
-         Dh0DANke7dax2GC2kYD4fcq3gT1nfHCTpl3LP4WodyHNAn4HYzJDZvy/3894tedg3yZm
-         MwJE9ZCMMsu29xi3Xj53dOa6XRX0FJ3gF7bMu7qc7qPgR/tIkl0U4w1R66vHmhesf3tz
-         SdRQ==
+        d=googlemail.com; s=20251104; t=1792872963; x=1793477763; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xOdSrRSD68sU03mdy3xyH/obHFukp7AFHKnxKyzExEA=;
+        b=WQBFRA2DHulKxtiRFCmc4qQ2bXOc9WyTsgvY6RyLoOOFM9P9l5dSt2Z8apXqZn4t5P
+         SD+sowgsEzE9dYKs4zlv78FmttAFO1Wpl9vG4JEtOmncn39P+SVGcbf6a5B/NTLIMhHk
+         OA/A10TXS2enTZtjLh260T3OJKOKotfSDvZ05Se4G26rS4WWANzf++/Xk9Htr4QdxAAI
+         xISybnI/tagJspCGYI/f8f6jELof7uX4Oeyj2+RjxoO0YHuMPGLILhAGGic2SFzhtxvp
+         HGhZ/blsHMCRN/E0sLem+lO/7b/f74YPq8FdJMaHNIeNTbLUFXkHBEATbzsYRUEJiuED
+         6Ksg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792872359; x=1793477159;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cgdV2l8OQBJLScaiLLZmyJ8udq04GHVSVzdhmyemrjQ=;
-        b=0XQMnOW2iURic3o0ZwTYpLeekGvLizs7kGBrcooEsYr1Wnhz5EctUJsgdGLT44PEcU
-         XiEQ/xe8JSlLp/38Jazv/OZpS5zxJBDXTYkV/dfzSXclp7ZsOjt2Jk7pAUFXyatsd/x3
-         42Atua3PsCVXxAUVVxFuR/J0iWFdpXjdRSQAxdDxZGvvOQ1bfL70hTkB40kwiYl+shIg
-         8DjbtPJao+xO1t3C95FAKNoH75YBc4a9n8M3TFkP24dBcxZZDZ12XnoPA30vyk1GCEVw
-         s1IkV30eflljk2q1TATW1YHFDLI7ycNblxRZJlcmEcDFbu1DXkoGpZLcBZp1LlkaU9oU
-         3EmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWMlAtj8Kscurec3ym9xMtQImO/8vXJggQ6Fg0R8edyCDfme4vra4vZk1kJjUvP/FEyCa+sgrC1MH3lUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQQg+0tRgNEGJtzR3HLraIGmpupog+An7sqwYV69AJ6pMqPgMk
-	h47IlZFuyI4sel77mOCoJkx7enbErGqWHqezG1ZtwC92v5zEBcvpj9T4Jyb2z8Nm
-X-Gm-Gg: AYBFou1P5/wthoXJ/CsIrkdv5uUijLFnC2tnqNNTFdjKGATg5KrO5mKeRTYc73jSsz0
-	e/ETlrXmfFQlztltOUktfV7TCPiCP6SeIPJVOW+tRaS3o3EQLr3JDrG13+OcS5tCONhqAufh95J
-	BLTdMZRyRv5W7EGwrXSjLhPspKHpbwad2kLjQJ3seovrCiUBZXokU1V4FSDA4xpX01ikzCVdCAg
-	pchDdzrkHQ2ufyZMt/1vB3HYeM129cll2D6qewXXMejjdOnZVnq4j/74a765F1rhX72PDe3WlIn
-	TcfKa6N6m/kWCrp0qMBF2dTtwlgQqP4nGZpgMKTyOQg0izwFdKdUORBe9A9FKzscmkdWkh/DmsJ
-	CYGpOhtbW8YIDzLB6R73UabYD5AEeWdL+KxtDHJhU/gsF/+wIWHFquK3mSj3ZtyFFL2cMfwewzs
-	vCJtyXXOPUjryEPc4CZpYLCZA6WlA0ayHUx9shjGZGoq3Tz4bpt+gTJZNo3aeMHYRWrzR1AIRmn
-	m2ubhXmOSFLyM7paFyX/PhdJ0vn79lRZydw4AhA6EerGmj4yrpjJIDY2eB7MGLEuPTojo6UpjGp
-	3CG7ovqx1nkEdC3f4w5MdF31h2oh6/xiFIl2OuBYd2/cZPVrBAQEN0QHfCn8Mk6kefKlwmv85tH
-	jVULLQwqxA0nNkWK+/W6K3I93BgWOOEYxy9ab2bMEdKlS343OrU7KmXwCe1Smj0aTZILzJJ5dNm
-	++zw==
-X-Received: by 2002:a05:6820:c2cc:20b0:6e0:8fc2:84a3 with SMTP id 006d021491bc7-70ba0e26b06mr838530eaf.39.1792872358767;
-        Sat, 24 Oct 2026 13:05:58 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fbb25f59sm3017611a34.20.2026.10.24.13.05.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:05:58 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 24 Oct 2026 14:05:57 -0600
-Subject: [PATCH] serial: 8250: clear RX trigger callbacks when removing a
- port
+        d=1e100.net; s=20260707; t=1792872963; x=1793477763;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xOdSrRSD68sU03mdy3xyH/obHFukp7AFHKnxKyzExEA=;
+        b=ZbaL/77zlwwlMWxeFBzZAOEdkt3u5e4+DCwRIi9j+SryLKwsvhxihdy+fNhoWAONS1
+         wVox/FFBOFhEYO13UYjOCnZ2avuiWSdn+vbK0LASA5eaaLj92RQoZ4D6moGG1V4RmWup
+         0fJ8UMH9htBfJnzGw2CBwFgpxOVB/qS1r9Tj1KW7trlOXACwwP2MmLO3ywHJif1lDEJH
+         LA3VUTZhayaX5wJRunnrJm3Cw/iOsnc7uwvZERoUxGXSe01TAaZFkyabdZe5mo5a8nE6
+         Ovy/3+zbdlpCsyeyJUHWCDaa8XSk653TNxYjc4DlR7OzRVvjKbajm5PphYO9ia1VW2j1
+         LEew==
+X-Forwarded-Encrypted: i=1; AKwUvBzsu9teS89qI97G2sf5jPcDzrWGwcdCDoj3zCWhosqkSHaD0nL8bpxfZBn23QGJALKWAqWG6OtADJ8DYU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3MB9VUKLJhIj0EWoABR5wg0RAelmKZitLx26L59nxouTUpBBB
+	XH+HH9eWn2YZPSMUVXT0NBJPT03la8G+v9WN4CKNubfzu7B9QhTiZCI=
+X-Gm-Gg: AYBFou1uk+5zOP2ufb4T3bcSl71YkU+K7jb6HW2QRHsxcw6ZdS3O6vdfzIWh6JtmDsy
+	f1FlFoj8T/K/8ZyoydecAVkTJUNegr5lD4c7+vpINc1wnHOQ3814pCsvwwQkklRtS1WcMLFrOhz
+	0QcTu6hf+bsZu3/I4AkEnQrsZ4VZpY84xGTCzz7Sh/o1lompmd+d/SyUY51WimLrvCULfxyUf4a
+	++mFAY2pL8klTg8nVgSqe2LWNDKZzZFGL86QJNSKscuqWHU9FwIwaio3rknxzcxmDjLjEjtDESG
+	bjKDECxq1RPajhvMhvRTXMhXzRXcX5kDbaKyiQd+g00z2RTqH+9x9gFM99Z0IG/s8fFFxmS+U6M
+	3zj1iGko6f9ZrICfnoJ+uE27YSivfViH8JXy5siLbnpwZW6h0h9T4favVbyicLtcXye/r+8tErB
+	45SYurkVrJp8qpFCz8TGCivWCo0pTdJFntuUbBDWfH/WQd1qHzyQEm1Po/f/fqF7hQuaZGmvsTa
+	xRwJf6vEHTJ3aG8dazb6pNEKXSQ/2fJnbJnprfKaVtAarFfTbG8YiuFDQlQoti5SeqdMdS+wQYo
+	ClivhdhAL8vnPP7ztVibQKj4QY2dTQ==
+X-Received: by 2002:a05:6000:4549:b0:48c:7306:18e9 with SMTP id ffacd0b85a97d-48e3eba0c36mr2612894f8f.43.1792872963065;
+        Sat, 24 Oct 2026 13:16:03 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b4b2b.dip0.t-ipconnect.de. [91.43.75.43])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4115f496sm5555426f8f.5.2026.10.24.13.16.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 13:16:02 -0700 (PDT)
+Message-ID: <1cf833a2-1ca8-4fee-97f8-fb9b8e76b868@googlemail.com>
+Date: Sat, 24 Oct 2026 22:16:02 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,78 +91,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1J5jUUStfyuglikwWmN2oASUwVVv
- TsJLLx4o5nnFRJFpgSXZoVICyd+hgJ614AbbRgI+V4YjDIHrUyL6d3PLFhndsKT6RTGLJEHnNi
- T8Ey4aGy9PbfKqKOlDorrFclz/v253v5cRA9yUuW10dtE2Ecb3Fgjkc++HAbKAtv2BdlBIe2oA
- AAA
-X-Change-ID: 20261024-submit-serial-8250-rxtrig-lifetime-v1-4fa940207ae5
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- Crescent Hsieh <crescentcy.hsieh@moxa.com>
-Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261024064731.125251200@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-serial8250_unregister_port() removes the device supplied by a driver and
-normally re-registers the persistent slot as an unknown legacy port. The
-slot retains its RX trigger callbacks and sysfs attribute group, so the
-replacement rx_trig_bytes attribute can still call the removed driver's
-code. Unloading that driver leaves the callbacks pointing into freed
-module text.
+Am 24.10.2026 um 08:59 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 243 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Clear both callbacks after uart_remove_one_port() has drained the old
-sysfs users and before registering the fallback port. Its RX trigger
-attribute then uses the generic handlers, which reject a port without
-FIFO capabilities.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Also copy the callbacks unconditionally during registration. A replacement
-port without custom handlers must use the generic implementation instead
-of inheriting callbacks from the previous owner of the slot.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Fixes: 8a6c543cf8b3 ("serial: 8250: allow UART drivers to override rx_trig_bytes handling")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250_core.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index 42319843cb5b..c638e10c43e2 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -830,10 +830,8 @@ static int __serial8250_register_8250_port(struct uart_8250_port *uart,
- 		uart->port.get_divisor = up->port.get_divisor;
- 	if (up->port.set_divisor)
- 		uart->port.set_divisor = up->port.set_divisor;
--	if (up->port.get_rxtrig)
--		uart->port.get_rxtrig = up->port.get_rxtrig;
--	if (up->port.set_rxtrig)
--		uart->port.set_rxtrig = up->port.set_rxtrig;
-+	uart->port.get_rxtrig = up->port.get_rxtrig;
-+	uart->port.set_rxtrig = up->port.set_rxtrig;
- 	if (up->port.startup)
- 		uart->port.startup = up->port.startup;
- 	if (up->port.shutdown)
-@@ -953,6 +951,9 @@ void serial8250_unregister_port(struct uart_8250_port *uart)
- 	}
- 
- 	uart_remove_one_port(&serial8250_reg, &uart->port);
-+	/* The fallback port must use the generic RX trigger handlers. */
-+	uart->port.get_rxtrig = NULL;
-+	uart->port.set_rxtrig = NULL;
- 	if (serial8250_isa_devs) {
- 		uart->port.flags &= ~UPF_BOOT_AUTOCONF;
- 		uart->port.type = PORT_UNKNOWN;
+Beste Grüße,
+Peter Schneider
 
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261024-submit-serial-8250-rxtrig-lifetime-v1-4fa940207ae5
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
