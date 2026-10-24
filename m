@@ -1,92 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792820920;
-	b=Swmg3nSAkozTaSmwzfVkdz3izd+NFX59VfJYfni5ytg5e3bxyuhqge8mNosJfd+uXknk
-	 pAcSDp9Gdv5oiXM6Ze7+goGJEPUK54C1qjP2e9eoBuY395RRZpWRZHxVDzZt16Cjg9TYu
-	 JPDYQe0cTN1C8007mhzSdVDq8e8/XSI5ps2giGZCFEIS17KQsOOpbUUaQQKPPDFD9Dydu
-	 AQiAFMr2Ne2ZsgTrecko05lBaz2O4aXc0Zibdz80jWHHlvdvsEo+yX5ODrRrXSa9aYnpG
-	 Jzq1SGsN/hdu1dX7MvpmOMwG17oRonCy3k1fuqP9Cq4EDaWsnZ+nmwsYO20mQ3hy1QA==
+	t=1792821022;
+	b=UzHG9D5R+9fUDWovdJjQSaOpfgJXjUnfrt7qqbCqM2xKqIU73MpbdQu+lO4aptHQ4enW
+	 BROtTJklutlV/xm96pSJz196bnOLfZhE46HoZXXkBNhsmZl/HErzqUAARzxNVGUYkkadL
+	 fyWv9R2nqX9GYZhbh/zFb1zz5FCU1/GX5nixvk0YE6UbJ28bvQTY5NPzmi4TR3jj74/za
+	 31hgsUs/JbBAcxmLzFFfJ9/nqhTdxKgfS1I39tjDHVngULoKZfEoc7VMp86O00v09aOfy
+	 FZnkvucs5Lo9KOQ1yEBkqSsNGbznUOmFk/G9NxZqt6OgqzaM7e0uBHVVjF7kUaHGlIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792820920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792821022;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6D6lOz4P8rDJmxVCDMDICqLLJN650pwKHNbrX64l7+4=;
-	b=uCsTciaxyERWLl6EkKn0vYtjmJC6SZIHW18+tqpOuCyg+HHyJ7PGaYa4EbXMaeM6dHQa
-	 PcXFn9NipPn8TvH0ErtJhFt0iJQJNj31qzkVkD7LnDYa+H2z2bsAiy8lQsUteQ6/CAxaG
-	 P1Ye6Qik3H0iOtsK/LwHjWIOXQUPnBHiryzLwrfRobtZYmyxKSyNgWFMWYqSFJYFK3tL6
-	 Zye+Di1mDDJhy98n20M8YkBEs06Fj/8Y3PvhQE5AEL49I+L+PrZzTGE3QXxUe1u+hxl6r
-	 A9WULtdh6Sj/H/LBZ80tB5aAiGbQTKlk0QKVAgoZWhw76192Il+Ot+vZlQOoU+KZf+w==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
+	b=BDDwNfttL7BQ85fTfRUPVSekZE0kG/RvygPHDv3VtgxyaT+qV43cWUY6TWFESB4MEO97
+	 st2eUSQMMsZTHWp2iDs6CA2i/Hff7oiYh/JC0Ijg6UvnDkeaN9K4V/NQ0FTkXXel0Aiji
+	 0buCqKGc80nPdnTgoExdkWP4Q3MSiRESYTdfm1Aq+NVpXSAlCVMJ4PBh/bupGpPoaBrHA
+	 paKyRdPndk+U5UNU4ZWCZqeq8WxHCCYOb3HKp2lI4tG+VK6E75fPHIOlZfh3diUeTZGsk
+	 P+readxt08y3VzPwSU3RCzTsF6UQ1e+FKxODP3T6oyBRcZXHxd56FtCeBqqhbCiUbyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MQ4Ux4MS;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ljsoYV7l;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE457606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE457606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB97606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EB97606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MQ4Ux4MS
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36681e85e87so3860145eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:48:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ljsoYV7l
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-847ac7ccd85so959477a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:50:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792820919; x=1793425719; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6D6lOz4P8rDJmxVCDMDICqLLJN650pwKHNbrX64l7+4=;
-        b=MQ4Ux4MSSJOvA76JDEwDAWqrRgqKVRQdAX3P8Wm5QWhU30VvSBzD9axwGXhBzGaKqn
-         lP86J1wRQKGBLRTy+Fktrz2yg8FaeBoxPDsk+XTgXUckb85JQ2DVRyxo4BIVLHaDDJKG
-         RnpHBU3aJDq2wMlB1ROjdxoQUY5bbsoGv1fU4=
+        d=gmail.com; s=20251104; t=1792821021; x=1793425821; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
+        b=ljsoYV7l95fh24Ei7MO1YbariBg9iLmsVp2HPUfYBhsZrTPhaLU58Qq9KAxUn+udIM
+         4ygWHM4GsqWhCWu5HJeteywZ3teCPktoKSSH/bDTzIkx9bTFOAJtJbZ1PdEStNRY/RSC
+         tnnjI8fnsJhfdlJ/i8J+nuVYrWY76U15kLWoEQyfouKZu54XlMRibjp3zUtEeIIytDs9
+         5MLYB0uyZuTvYJa6jMjHlx943H31nKTUuQZszQ6n9CaeqsQomxUsDptpYGAqBV+8bkmG
+         y9pwXXLQCVU+yNZBJS4nGxdL/dkmPLVWZ4enlSIIXrn4MMx2XCAED02JfhNnhoDPmBjc
+         uwwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792820919; x=1793425719;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6D6lOz4P8rDJmxVCDMDICqLLJN650pwKHNbrX64l7+4=;
-        b=vux6R5nogROqCTHGqtvQQ6I+qtli8DL/KRt/86JK4LJ9CfNIWbUI+7Y7NUxKW+pEXE
-         BfXtCPzvDuFuqQkGBeA8k8fELzfvsAOWTdSFSHdySBQueAEufkvdTDRV86kvConFIHMJ
-         diN0CI6Jz6pFPLpZBEU3NNE1m1ehOsQH1tk6SmUWTnefLsGtQPanEnHIENTYyVKPuryf
-         GUfOrZLakKnL1AY674tajPbvrlLfjiAGngs6KYPHtF8m/qMqPaFD466vjIbxQsu+n0cG
-         cDZpXcRMMXYo+nLnToC/9KusLy0zNI/4Ym/dlCYtyqEBUzmFFcuRuEU5QWoM4Cd8y0Uy
-         XxiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Eqeo4o2yn56Jqd4+sPxQ9KGQjU7vm5ygW1UdNtDS9n69MCZWCio7tYNYtOxEVpaU4sHHMaALAkVbTCY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI25cbDB2TNI5flAH3HVbVIH9s8RjINh768yrOOXo/cfdnOx0cI
-	/QMNGRuAKF4Gxd3rHc5Ut9NPqF0mHy/JMUPfMNndNs1GKQ7GqwTDfPt690EZ6uO5BQ==
-X-Gm-Gg: AYBFou14y3z3W5oDfcmNbiPXxlE2oUSVw0bZnAFqILg4LOdpgzUmvAMCEyTDDJeAorc
-	nDLZOvkhzhvG8p5sr9ieFdcEzPkcRsNoCv6TLq4gSET0scsU/u34kIENH7d+wUMW5len5x+2SVA
-	LTwDK8wMB0oCSbzQVNRZzfXLXijYs27klHCmNi0+078SxwQDuACvI+7bcP6JW8lQEVxzqEK9tI3
-	V47s+stQd3TaHZgpVvCUeeTIw06odriYt21T/kTm3g/XPnIi26+R2U3hVZkvEGDxgZFFl6mb6en
-	YY0C4zcE6ol6sji0beKKhcRCozepToQMD7PfijnYSkRfGsGOepTL06n3auwl9cn7hMx9WRr6y1V
-	FxTJiHI5dt08AL400sabhpiNOLFJHWz2YGdThmSPINAmI0YoJdr4WGG6Mo4UdpqMCSQ5eAB3ZBE
-	3oWZ3TtUt5YaCgJNzgsN/gOtUQjgOpgQLMYYD2FxTbvWuWwqEOoi1WLQ+Jw4J034Q3Iq1kYtm7d
-	8wY4ap2aemt7KRhgGzS0atrvibLnezFCrQLkgIZHr/wAm/sbc9Hnpv4LcK5qSssPJkp5ui2tjsg
-	kyJO8O4nOuoH119EuhDw+/879jrg6vbiXhY4ZlrZjA==
-X-Received: by 2002:a05:7301:2284:b0:369:1084:8ee3 with SMTP id 5a478bee46e88-369e848c506mr2557802eec.23.1792820918864;
-        Fri, 23 Oct 2026 22:48:38 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:f7b9:fe46:772a:da49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm4221618eec.13.2026.10.23.22.48.35
+        d=1e100.net; s=20260707; t=1792821021; x=1793425821;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
+        b=sAqp3OjpLgeKXkc3BSjplTZIHqPpqzA+iUdzwNfCLaTYTJ1UMCqfgT4hYNqv3Le8iw
+         3lJ/IsSJlaoaiXhDqjHEMm2+KQ+0BmTeQNA6mjklZkAPR/nKDQ5cE4XPVU2fiCVo2AD4
+         uJlS3VJb9dxLCkb1AW3kbWKFHklKU/WUSQxwVrtQC25pVsmQdBuGpEGbagRgvPzKOB19
+         k6uyWnAdfI0zDaCeGzTjqe3NH0JAD+7IepFpw+yOlUWJ+s1exjNRq613mavC+dYRfKvs
+         Lt7tzHqU3e24JuS5MJMTUGIbEaXpWBjPBYS8eqLwfuWgINlh0NKWx352zyCDBTVmjNkU
+         s77w==
+X-Forwarded-Encrypted: i=1; AKwUvBxPI3gL7wEvnUTMH8uMMX8bHRqTq8jZzWVhtMlMb1RdmamyS5hA8nCmfJyhSxFw2v5cRlu7dnViisBxxZI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPIjgwmswIrk5FwxrbJtK/8KR8SE14c/gat85QZiqEvyAniF+D
+	M98DHIKM+4gfLagGTIyVhRNnS5tYozDY4wr1LpO3iUKq5lY/Aod1IIlS3i5+4GFH
+X-Gm-Gg: AYBFou3NCQsx0YYmXWKj7uFDPTBNEeEnyCDIfv4j/NFqOpRsYsqYU1s/4r1PkyP4PQR
+	fYTqZrTkTA20vJuyBzXwuHm5ypIl8EH6NeUV3nb86Lx7t6BYN2Zb6YQgaOrCE1jdY/J0dYQDiwa
+	fQ5kY5GN7fbl4d0JWKkYChrqHe/8H9RWCjbyzvxpIzjQPDR6YMMSr/r1yWWT6CYtJXBQYW/M6wM
+	qWUHMAl36Fy72QIHWCNzsaEM9OeTOu/JbsooYKBH6M3Kv3Ap4Ly0bpAtN7PVxh952XuNeEe3Hdt
+	b/SSC5q4MxzfkyzA0f4dl7LhOkttDDLnSry6PNySFsDh+otap8AtAS8QrY2nZvEKz8Wd7W3Ebck
+	jBDGf3Cu35vyX03e5amq6KluGrmKVnYivZNPW8GWqK1BcC/ZKK98zzSvAH9ks+xUvkXmtrSrd7O
+	AadNBsM+dal3zZEk7LLaeeuEVL9MUDncEve5/CKAIfIk8jkddcqRL96SvOYpssPb9u/Efl+Mh+x
+	3xkEH6U+Izxwuocvm6gKBxnuRKOehaZ2kTNDGgiN+xz9KyyMJZVWVEkHxVfc1QFmZ4OFEyO2emt
+	WFehuJn42XSZkV1WO8MQfUpr7eWrNA4sHGP3m3g4P8j4F8k1QLWjFq1i11BnJeyjnxzzpyiznU+
+	NuBx2A8maH7O5u15nyeD57M2BBup52cWH1iMgNacKx+lD3x0cMbAnWfdoLLmST5JvrdX8s15140
+	G2G2jf90/rZ/6e+lQrlrGklSTX
+X-Received: by 2002:a05:6830:4408:b0:821:c01c:2ec3 with SMTP id 46e09a7af769-850f81696eamr1208809a34.0.1792821021056;
+        Fri, 23 Oct 2026 22:50:21 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fc002444sm1460625a34.23.2026.10.23.22.50.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 22:48:37 -0700 (PDT)
-Date: Sat, 24 Oct 2026 14:48:32 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Hillf Danton <hdanton@sina.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Barry Song <21cnbao@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Brian Geffon <bgeffon@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
-Message-ID: <atxFgutP-N3UZex2@google.com>
-References: <atrnvuQkeldgPqH5@google.com>
- <20261023114050.1011-1-hdanton@sina.com>
+        Fri, 23 Oct 2026 22:50:20 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 23 Oct 2026 23:50:17 -0600
+Subject: [PATCH] serial: 8250_dw: preserve BUSY-safe fractional divisor
+ programming
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,169 +93,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023114050.1011-1-hdanton@sina.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1J5jUUSlCpwFcQiH5caQYqSUIqq3
+ p0EFl680czzCpkSU4ZTt0KimTNPsYLcdeBHG6+EHCqDEqqXQh0wv9yDC7aZvaNRWmB4Y+A6nRL
+ OEvUge3OkILQ1UDXPRAMvvxfny5+r40a+NG9rOJsJXbLRjy0q5bOvh5GWAtv2BY04vRCjAAAA
+X-Change-ID: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Raul E Rangel <rrangel@chromium.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On (26/10/23 19:40), Hillf Danton wrote:
-[..]
-> > writers vs readers 3 runs
-> > 
-> >     BASE+PE     IOPS 1,271k  avg 5.57us  sd 1,393us  p99.99 27.5us  max 1,581,800us
-> >                 IOPS 1,461k  avg 3.43us  sd    78us  p99.99 23.9us  max   227,015us
-> >                 IOPS 1,444k  avg 3.48us  sd   222us  p99.99 23.9us  max   592,628us
-> >     PATCHED+PE  IOPS 1,457k  avg 3.32us  sd    18us  p99.99 27.5us  max     5,620us
-> >                 IOPS 1,464k  avg 3.31us  sd    17us  p99.99 24.2us  max     5,621us
-> >                 IOPS 1,475k  avg 3.29us  sd    16us  p99.99 26.5us  max     5,620us
+dw8250_probe() installs a divisor setter that makes the UART idle and
+checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+fractional-divisor support, it replaces that setter with the library's
+callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+bypassing the divisor setter's idle sequence and DLAB readback.
 
-BASE+PE looked noisy, so I sat down and tested properly (also tested
-zstd and various compression levels).
+If the LCR update fails to set DLAB, the subsequent divisor writes can
+reach TX and IER instead of DLL and DLH.
 
-(PE enabled for all tests)
+Install the BUSY-safe setter after hardware discovery and extend it to
+write DLF when fractional divisors are supported. Program both divisor
+fields only after DLAB has been confirmed, retaining the fractional
+divisor calculation selected by dw8250_setup_port().
 
-######## zstd compression level 3 W-vs-R
-    BASE     IOPS 1,154k  avg 7.84us  sd   444us  max   697,634us
-             IOPS 881k  avg 14.16us  sd 2,242us  max 1,387,000us
-             IOPS 704k  avg 20.43us  sd 3,499us  max 2,058,300us
-             IOPS 563k  avg 29.02us  sd 3,910us  max 1,649,800us
-             IOPS 626k  avg 24.79us  sd 4,013us  max 2,085,800us
-             IOPS 976k  avg 11.54us  sd 1,518us  max 1,165,800us
-             IOPS 1,178k  avg 7.44us  sd    22us  max     3,103us
-             IOPS 1,120k  avg 7.39us  sd    21us  max     7,222us
-             IOPS 522k  avg 32.51us  sd 4,311us  max 1,598,300us
-             IOPS 581k  avg 27.54us  sd 3,626us  max 1,448,600us
-             IOPS 1,160k  avg 7.69us  sd   352us  max   702,099us
-             IOPS 1,169k  avg 7.52us  sd   129us  max   281,428us
-             IOPS 954k  avg 12.06us  sd 1,705us  max 1,545,600us
-             IOPS 1,029k  avg 10.24us  sd 1,156us  max   976,065us
-             IOPS 1,169k  avg 7.48us  sd    24us  max     4,305us
-             IOPS 1,177k  avg 7.45us  sd    53us  max   118,777us
-             IOPS 579k  avg 27.43us  sd 3,661us  max 1,615,800us
-             IOPS 1,169k  avg 7.52us  sd   115us  max   228,074us
-             IOPS 1,110k  avg 8.59us  sd   985us  max 1,288,000us
-             IOPS 1,177k  avg 7.45us  sd    29us  max    72,245us
-             IOPS 580k  avg 27.74us  sd 3,755us  max 1,507,000us
-    PATCHED  IOPS 1,179k  avg 7.40us  sd    23us  max     7,404us
-             IOPS 1,179k  avg 7.41us  sd    22us  max     2,857us
-             IOPS 1,176k  avg 7.40us  sd    22us  max     6,615us
-             IOPS 1,175k  avg 7.44us  sd    23us  max     5,623us
-             IOPS 1,176k  avg 7.42us  sd    24us  max     5,625us
-             IOPS 1,173k  avg 7.42us  sd    24us  max     5,632us
-             IOPS 1,172k  avg 7.41us  sd    23us  max     6,223us
-             IOPS 1,173k  avg 7.40us  sd    25us  max     5,848us
-             IOPS 1,173k  avg 7.40us  sd    24us  max     7,563us
-             IOPS 1,172k  avg 7.42us  sd    24us  max     5,625us
-             IOPS 1,175k  avg 7.42us  sd    23us  max     5,626us
-             IOPS 1,177k  avg 7.42us  sd    23us  max     4,243us
-             IOPS 1,170k  avg 7.46us  sd    25us  max     5,622us
-             IOPS 1,178k  avg 7.40us  sd    22us  max     3,213us
-             IOPS 1,167k  avg 7.43us  sd    25us  max     7,593us
-             IOPS 1,174k  avg 7.44us  sd    23us  max     6,971us
-             IOPS 1,179k  avg 7.38us  sd    23us  max     3,477us
-             IOPS 1,180k  avg 7.39us  sd    23us  max     2,894us
-             IOPS 1,145k  avg 7.37us  sd    21us  max     4,048us
-             IOPS 1,177k  avg 7.38us  sd    22us  max     5,620us
-             IOPS 1,177k  avg 7.40us  sd    23us  max     5,623us
+Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Previously included in the DMA cancellation series v4:
+https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
 
-    IOPS: BASE 932k (+-260k), PATCHED 1,174k (+-7k), 21 runs each.
-          significant difference at 95% confidence: PATCHED is 241k (25.9%) higher; 95% CI [+136k, +353k], Welch's t-test p = 0.000
-    max latency: BASE 3.1..2,085.8 ms, PATCHED 2.9..7.6 ms
-          runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 11 of 21, PATCHED 0 of 21
+Changes in DMA cancellation v4:
+- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
+  discovery, writing DLF and DLL/DLH only after confirming DLAB.
+- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+---
+ drivers/tty/serial/8250/8250_dw.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-######## zstd compression level 12 W-vs-R
-    BASE     IOPS 690k  avg 21.53us  sd 3,088us  max 1,635,500us
-             IOPS 478k  avg 36.51us  sd 4,385us  max 1,941,300us
-             IOPS 822k  avg 16.13us  sd 2,865us  max 2,263,800us
-             IOPS 1,161k  avg 7.73us  sd   114us  max   190,307us
-             IOPS 780k  avg 17.56us  sd 2,717us  max 1,550,500us
-             IOPS 1,166k  avg 7.66us  sd    40us  max    94,522us
-             IOPS 585k  avg 27.51us  sd 3,847us  max 1,550,600us
-             IOPS 1,147k  avg 7.97us  sd   344us  max   496,483us
-             IOPS 1,166k  avg 7.64us  sd    49us  max   115,243us
-             IOPS 1,163k  avg 7.66us  sd    23us  max     7,006us
-             IOPS 1,071k  avg 9.42us  sd 1,489us  max 1,915,500us
-             IOPS 962k  avg 11.88us  sd 2,168us  max 1,904,500us
-             IOPS 607k  avg 26.05us  sd 3,538us  max 1,591,100us
-             IOPS 1,167k  avg 7.63us  sd    23us  max     2,903us
-             IOPS 1,157k  avg 7.78us  sd   198us  max   418,930us
-             IOPS 1,163k  avg 7.66us  sd    40us  max   100,346us
-             IOPS 1,162k  avg 7.70us  sd    32us  max    82,602us
-             IOPS 488k  avg 35.43us  sd 4,340us  max 1,786,400us
-             IOPS 563k  avg 28.85us  sd 3,989us  max 2,209,500us
-             IOPS 843k  avg 15.43us  sd 2,490us  max 1,572,100us
-             IOPS 604k  avg 26.30us  sd 3,560us  max 1,555,700us
-    PATCHED  IOPS 1,166k  avg 7.60us  sd    23us  max     5,623us
-             IOPS 1,169k  avg 7.58us  sd    23us  max     5,629us
-             IOPS 1,157k  avg 7.67us  sd    27us  max     5,639us
-             IOPS 1,166k  avg 7.61us  sd    24us  max     5,644us
-             IOPS 1,160k  avg 7.64us  sd    26us  max     7,543us
-             IOPS 1,167k  avg 7.60us  sd    24us  max     7,514us
-             IOPS 1,160k  avg 7.61us  sd    25us  max     6,643us
-             IOPS 1,162k  avg 7.65us  sd    25us  max     7,315us
-             IOPS 1,161k  avg 7.66us  sd    24us  max     6,237us
-             IOPS 1,158k  avg 7.62us  sd    27us  max     7,688us
-             IOPS 1,167k  avg 7.58us  sd    24us  max     5,637us
-             IOPS 1,165k  avg 7.59us  sd    24us  max     7,098us
-             IOPS 948k  avg 7.58us  sd    23us  max     7,808us
-             IOPS 1,166k  avg 7.60us  sd    24us  max     5,621us
-             IOPS 1,166k  avg 7.58us  sd    24us  max     5,672us
-             IOPS 1,162k  avg 7.65us  sd    25us  max     6,824us
-             IOPS 1,165k  avg 7.59us  sd    24us  max     7,078us
-             IOPS 1,168k  avg 7.58us  sd    23us  max     6,191us
-             IOPS 1,170k  avg 7.56us  sd    22us  max     2,851us
-             IOPS 1,171k  avg 7.55us  sd    22us  max     2,834us
-             IOPS 1,166k  avg 7.59us  sd    24us  max     5,627us
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index eca02e8bd6d1..7b7dfad583fe 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -190,6 +190,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_port_data *pd = p->private_data;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+ 	int ret;
+ 
+@@ -201,6 +202,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+ 		goto idle_failed;
+ 
++	if (pd->dlf_size)
++		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+ 	serial_dl_write(up, quot);
+ 	serial_port_out(p, UART_LCR, up->lcr);
+ 
+@@ -651,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
+ 
+ 	p->set_ldisc	= dw8250_set_ldisc;
+ 	p->set_termios	= dw8250_set_termios;
+-	p->set_divisor	= dw8250_set_divisor;
+ 
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -768,6 +770,9 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	if (!data->skip_autocfg)
+ 		dw8250_setup_port(p);
+ 
++	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
++	p->set_divisor = dw8250_set_divisor;
++
+ 	/* If we have a valid fifosize, try hooking up DMA */
+ 	if (p->fifosize) {
+ 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
 
-    IOPS: BASE 902k (+-269k), PATCHED 1,154k (+-47k), 21 runs each.
-          significant difference at 95% confidence: PATCHED is 252k (27.9%) higher; 95% CI [+142k, +367k], Welch's t-test p = 0.000
-    max latency: BASE 2.9..2,263.8 ms, PATCHED 2.8..7.8 ms
-          runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 12 of 21, PATCHED 0 of 21
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
 
-######## lz4 W-vs-R
-    BASE     IOPS 1,422k  avg 3.84us  sd   418us  max   619,495us
-             IOPS 1,450k  avg 3.57us  sd   326us  max   609,723us
-             IOPS 1,414k  avg 3.92us  sd   543us  max   879,815us
-             IOPS 1,451k  avg 3.56us  sd   253us  max   503,428us
-             IOPS 1,460k  avg 3.40us  sd    68us  max   135,825us
-             IOPS 1,413k  avg 3.31us  sd    44us  max   188,450us
-             IOPS 1,432k  avg 3.73us  sd   503us  max   844,228us
-             IOPS 1,387k  avg 4.20us  sd   719us  max   961,827us
-             IOPS 1,464k  avg 3.38us  sd    44us  max   133,675us
-             IOPS 1,469k  avg 3.38us  sd    22us  max    65,812us
-             IOPS 1,465k  avg 3.40us  sd    49us  max   111,788us
-             IOPS 1,465k  avg 3.39us  sd    64us  max   174,040us
-             IOPS 1,467k  avg 3.38us  sd    36us  max    97,821us
-             IOPS 1,445k  avg 3.63us  sd   343us  max   671,026us
-             IOPS 1,472k  avg 3.35us  sd    27us  max    86,795us
-             IOPS 1,473k  avg 3.33us  sd    44us  max   138,096us
-             IOPS 1,439k  avg 3.71us  sd   353us  max   619,815us
-             IOPS 1,398k  avg 3.36us  sd    54us  max   206,815us
-             IOPS 1,471k  avg 3.36us  sd    15us  max     2,832us
-             IOPS 1,407k  avg 4.02us  sd   629us  max 1,074,800us
-             IOPS 1,465k  avg 3.40us  sd    63us  max   158,779us
-    PATCHED  IOPS 1,471k  avg 3.30us  sd    15us  max     6,946us
-             IOPS 1,473k  avg 3.29us  sd    16us  max     5,618us
-             IOPS 1,474k  avg 3.29us  sd    15us  max     5,615us
-             IOPS 1,473k  avg 3.29us  sd    15us  max     5,625us
-             IOPS 1,440k  avg 3.26us  sd    13us  max     2,829us
-             IOPS 1,456k  avg 3.30us  sd    15us  max     5,623us
-             IOPS 1,476k  avg 3.29us  sd    15us  max     2,835us
-             IOPS 1,464k  avg 3.28us  sd    16us  max     6,063us
-             IOPS 1,468k  avg 3.32us  sd    19us  max     6,692us
-             IOPS 1,465k  avg 3.30us  sd    17us  max     6,834us
-             IOPS 1,468k  avg 3.28us  sd    16us  max     7,268us
-             IOPS 1,463k  avg 3.31us  sd    17us  max     6,480us
-             IOPS 1,454k  avg 3.33us  sd    20us  max     8,418us
-             IOPS 1,452k  avg 3.32us  sd    19us  max     5,621us
-             IOPS 1,477k  avg 3.27us  sd    14us  max     2,834us
-             IOPS 1,468k  avg 3.30us  sd    16us  max     5,617us
-             IOPS 1,475k  avg 3.30us  sd    16us  max     3,884us
-             IOPS 1,475k  avg 3.30us  sd    16us  max     5,692us
-             IOPS 1,471k  avg 3.30us  sd    15us  max     5,616us
-             IOPS 1,473k  avg 3.28us  sd    16us  max     7,014us
-             IOPS 1,475k  avg 3.28us  sd    15us  max     5,616us
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
-    IOPS: BASE 1,444k (+-27k), PATCHED 1,467k (+-10k), 21 runs each.
-          significant difference at 95% confidence: PATCHED is 23k (1.6%) higher; 95% CI [+11k, +35k], Welch's t-test p = 0.001
-    max latency: BASE 2.8..1,074.8 ms, PATCHED 2.8..8.4 ms
-          runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 1 of 21, PATCHED 0 of 21
