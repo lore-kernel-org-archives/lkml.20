@@ -1,53 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792830835;
-	b=gAQ5+Ef2dbxd56zqqsU/JT5TwYqoy5VXo9rLCoJrIvACd8+aOPcyEreAtrV0zhXo/Lzj
-	 QA8007LEbzpLC27mydgwnUO9U9Ad4KlVSHYlPOCwezuAhRFO3LfzUDvUkoqGahpx/A0Y+
-	 TmOscod6w9l/2mHFwemLcPGozJNwl/FQPEKHazSM8M0DtTR/HYiSDvAoWlL9DC2RhYEYB
-	 XAGo+r9hx0nCbKvQINPHssEizO9GZr1qhauA2QZ2iTAiqd9NLO7kiTP24aA3lbX9moIKf
-	 NHlBhvdabVAVYbmgi4LslYibCMNk/LLOGYIuQkNYw12Moso42coUwWymEayfg1GV1og==
+	t=1792830875;
+	b=rY+2Eu700Bf2LkzcgDqfv3wgW6NqMOhbXZdD1TTIoEsL37UtCKcch3zXaD887mRvBp+v
+	 aBlUKdJNUY6eaRSFM+dQdjgIO41Zdbprjv6IeO27rmjnr1w6TCSwR7ieSKQ3nzJdZrZ4Z
+	 f9zDa6Wt3rzsDtYpByXd961HitMd7WhLkPxey7e88k/nLe4jHb9ipIM2hmn6TcfJoJycP
+	 KWStinPYBglmfUWtakzQMvIkwGG4wx/YE1j1QakNOEzggdDWdeCGJJZjQR2o2LOSW464u
+	 xPLBffvVCvs7QNLZNKaU4c8Gxot8tZ0Pe72VK0dsTw/5d/Z8Tqtre3/dHKaT4g6fAhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830835;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YZp8rZSWWef+hEr5NB+SbuoHJzJ2AWaAzEx8GEGIuyQ=;
-	b=w07O2ZxPDGKHPl4+fcBD2nYnJEmqOfMUpwoSG9yWVo0b+ViQOdPznjrQQzH6MuNU/lYl
-	 NSObJETlnRpDSOnLcRhQaO3Vwe8z3kC9UsxiJMJJk0zbf+WGIwMCEhPNHDc7wRCfM+Jpr
-	 VCzaG49EXnerZvYzsULoxgOYujLeEluF854vTAQRFUidJ/5BKtUoV8ASPEwsl8t6XUlQu
-	 yGNRlOVHmdZnOPHwPH4JV7CesWPRyg5W2nxgt8MfJT7vqZndjwUO7qyJQ0kaUQqwcEGgC
-	 i83smQnoPjH4hyPHVZYQo1qtwA2mLkDsmMompW7uIfmyocr4V2eQDPUPv5iQ6pXarEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830875;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9gML2L5Gbq54P7rLcSn7y+PNPtfoj3QVb3QDNFtDtJE=;
+	b=4ogRl88IokOLZuDlbv2CJFF/DzpMPuitLEK1H1RWG1ieBUYMf8jCiOfwcDrCYk1+Rnmr
+	 zrOmD+ip8xtzH8lTD9pRPSo/P2MK8Shu0QHf1baNoR8XEEjAdi/HXT0iXSB36VLhF03Fc
+	 eR1x9Nol6fd7lS1bXWOx8hSVtm05FgA47q5HcBfF7IwvBaEy6knjXhxCz0U20fYZ5CNeu
+	 xtLo2ruKRQZCaSuHcc9fg/ez0MN8cmnzHsi1B2XbN6ez6//fRhOuVxDxOu1NLxovHllO7
+	 VV+BfTwP3ApQNU7cSLJZ42SL6jOBaFgHr0MPmgn/6/WmsW9m3S6CetIEvULgRTOGOkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=BFusP6TS;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GVO3ygRD;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30008606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30008606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AEF606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01AEF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=BFusP6TS
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=YZp8rZSWWef+hEr5NB+SbuoHJzJ2AWaAzEx8GEGIuyQ=; b=BFusP6TS+Hz4o2rJgHW/d5pNLQ
-	XeZQPJXD2kfpJbHlCFYxupyVZIw6917Lwo1Bq6+Nitpd/h3OXh5aW9V/j33cRlGTnp/Z07gUUiMWY
-	VoWqDQDLpOSQqjGImn8gl6EY4BZ+FgRn7VdQ9VwJkoZ6pZuNTRy0p4j2Xkcajne5iXrZ5NjON03gN
-	xwJ+Cv43QTbsW2tTVX7cnK32oTBELTYwhpQppHAbEyDVPtbq2PX34nZ+TpjbEdB/CwOj5/aJlEbWX
-	KoWaOWHdh62utanx1qtaloVPH6DTG2H/rO5RE3DVoA9Qb12Ek+6nX1K+GTpulXsGDoLiSbJsxj72P
-	MiR7fa3g==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xKXCB-008iD9-5r; Sat, 24 Oct 2026 10:33:43 +0200
-Message-ID: <9d6add80-2ec9-4f29-a815-ad0e955f7b5a@igalia.com>
-Date: Sat, 24 Oct 2026 09:33:42 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GVO3ygRD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792830868; bh=9gML2L5Gbq54P7rLcSn7y+PNPtfoj3QVb3QDNFtDtJE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GVO3ygRD90JVyKDZtdD2hVIxQtKgpAOPB84Jh+DyZKqBptw8+qJvCIG/YjcUdYC0/
+	 J4ZvJNjIMlOcpvjXS2M0HCh59I8Ddd0KrTifRcSxAiRBFB59Xd2WrLQTF9PCOsNY1Z
+	 Gb+LLj4nSWJU7x36KwnrTWrWVw7HZylpg6EH6vBs=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 89A27EC4; Sat, 24 Oct 2026 16:34:26 +0800
+X-QQ-mid: xmsmtpt1792830866tp1iiyik9
+Message-ID: <tencent_6ED0889B53BFA949D48A8F799467EAD8F706@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJ0Fa5cEqh1vaxRXZVHuH/WGo/ayj2JH/VIuGklEn1EQ70Y9VYZ5
+	 WnWIt2VKCcqIwpfl1gGxwRhci2dLoPaTW4Sq/SGZevJSWlLtGZpgLU8VuwBrkzzemUYJ86lhjR1J
+	 iH/8H5nv5020V2YazYed/1J66HEzQD1YkYWaGASErF40+uvfE29v51Cm8qb3ym2H6DKmye8+3egS
+	 sOJ4vxPtyvTz2Qk8eQGQD9YfMIYWLjHEQZet3VfDPVIErH5zMPwWIPeCKtz7bYK0Fo/Nu0JzlTp1
+	 dcUHgJw7MH1CcvcgLbA/xfozwnRbuoXK/tgV0+DXXPwVSHG4b5Gdcy0LL5pajvR3VT6WheawnSSZ
+	 DIxEscmeG5nu/aIMaZXPe9Jpibs5z1zGVw0ePkLYUdWFzSHOSP0gOKh9rI1K6RiZZ1MxEpK2SATi
+	 1/sr5rhiV7Vo+rsxCWxY9qnMQ48qx0qjnHYlDBz8bOkIadAtF36mWcjDeW+7CgMmLP8v/By7GJy2
+	 gvhy/iYYXQVzXArrszXWVXHaJZvNDXLxav79qkVk4pCkoUn7yd3ikBKLe9e6I4Ty1VPLx9uVEePt
+	 HY6wxXOANhAXo1wM6Z54708Bu6VsECFf9AjASK2JtK2g/9e8PMWwaBhMoG1uKj+62bTdMjlMP1Y/
+	 sv3UYbXv6UnyJKJPDiGiQt3rD4W2Chw9Oqci6ZxR4fDSQdxlW+R0rgFBIuJKr9AZpRUtS1YdgXQ/
+	 BRC5giBTeWzlg+savbuWdTzV0zmA924vRnBRUUc1R77vAGblgf/7SAOgFu4ag7ytadwWf85UvirN
+	 0NjEQrlSX8xq32knofXdiZOTOP9p8eHs2SzXymHhBjD2iGq7sLRGD1kx4VBFaMxXObUz72DHhyGS
+	 nv0mKdOQx8uiTLOs+ayo0ZiSmDZHJ9byfO/0RiRdm2CuOPlXS0at7AEGyICzOv847VNdxfHLjNre
+	 sQ1AQdvS0PZ6VR7bmx3XTib4gpe/exmjPoummq/vyLDr4E+l7CKOXf9YjSm+PGC8VegrBocw+hB6
+	 jGcvrJM/omyjxm/QTFvZENO+10DzA54t0d/n6YlGLkIcsBAXocknngXjEfk6uZ4Oe/mCGbgg==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] jfs: KASAN use-after-free in diRead() panics the kernel on mount
+Date: Sat, 24 Oct 2026 16:34:24 +0800
+X-OQ-MSGID: <20261024163424.64996-jfs-yangguikun19@qq.com>
+In-Reply-To: <20261024135522.65244-jfs-yangguikun19@qq.com>
+References: <20261024135522.65244-jfs-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,97 +77,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/4] workqueue: Add support for real-time workers
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-4-tvrtko.ursulin@igalia.com>
- <a3ae9a0f13e3972d0645f555bcc26f4f@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <a3ae9a0f13e3972d0645f555bcc26f4f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
+Hi Dave,
 
-Hi Tejun,
+I need to retract my report from earlier today: it is a duplicate of
+1sh1ro's report from October 12 and their follow-up with the reproducer
+and root cause.
 
-On 23/10/2026 22:28, Tejun Heo wrote:
-> Hello, Tvrtko.
-> 
-> On Thu, Oct 22, 2026 at 10:38:47AM +0100, Tvrtko Ursulin wrote:
->>   struct workqueue_attrs {
->>   	/**
->> -	 * @nice: nice level
->> +	 * @prio: priority encoded analogous to task_struct->prio.
->>   	 */
->> -	int nice;
->> +	int prio;
-> 
-> Can the nice to prio conversion be split into a preparation patch with
-> no functional change, so that this patch only adds WQ_RT on top?
+I did a background search before sending, but my keyword search missed
+the original report because its subject line does not mention diRead.
+That is my mistake, and I should have found it.  1sh1ro's analysis is
+also more complete than mine: they identified the exact window
+(jfs_mount_rw(sb, remount=1) freeing sbi->bmap between dbUnmount() and
+dbMount()), the exact access (BLKTOAG() reading bmap->db_agl2size), and
+they have a working reproducer.  My report only had the KASAN trace from
+a fuzzing run, which covers the same race at the same offset.
 
-Can do. I'll get to it the week after next. (Tweaks to other patches in 
-the series as well.) Should I switch to a different base branch by then?
+Please treat 1sh1ro's thread as the authoritative report and disregard
+mine.  Sorry for the noise.
 
->>   sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
->>   				   struct workqueue_attrs *attrs)
->>   {
->> +	if (wq->flags & WQ_RT) {
->> +		attrs->prio = RT_PRIORITY;
->> +		/* Strict CPU affinity for low latency execution. */
->> +		attrs->affn_scope = WQ_AFFN_CPU;
->> +		attrs->affn_strict = true;
->> +	}
-> 
-> Can WQ_RT set only the priority and leave the affinity at the defaults?
-> If the pinning is needed for the latency, can you share numbers with
-> and without it?
-
-I could do that although note the current numbers are actually without 
-strict affinity because that is what the initial RFC did. Then in msg-id 
-  b3e5bcb21184d13c7c631daac955f465@kernel.org you suggested to make them 
-strict affinity. So latencies 95% and 9% percentiles were already good 
-enough without it. But if you are curious how much better strict 
-affinity makes them I can measure, it is not a huge effort.
-
->>   	mutex_lock(&wq->mutex);
->> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
->> +	if (wq->attrs->prio == RT_PRIORITY)
->> +		written = scnprintf(buf, PAGE_SIZE, "rt\n");
->> +	else
->> +		written = scnprintf(buf, PAGE_SIZE, "%d\n",
->> +				    PRIO_TO_NICE(wq->attrs->prio));
-> 
-> Can the sysfs interface comment above struct wq_device be updated too?
-> It still lists nice as RW int, while nice reads "rt" and is read-only
-> for WQ_RT.
-
-Sure, I did not spot that comment until now. Tunnel vision it seems. :)
-
->> +rt_prio = prog.constant('RT_PRIORITY', filename='kernel/workqueue.c')
->> ...
->> +    nice = pool.attrs.prio.value_()
->> +    if nice == rt_prio:
->> +        nice = 'rt'
->> +    else:
->> +        nice = nice - 120 # PRIO_TO_NICE
-> 
-> These fail on a kernel without this patch, where neither RT_PRIORITY
-> nor attrs.prio exists. Can they fall back to nice, the way wq_attrs()
-> falls back to unbound_attrs for the earlier rename?
-
-Hmm.. I could do that, but since the tool ships within the kernel does 
-it _need_ to have backward compatibility regarding kernel _internal_ 
-implementation details?
-
-Regards,
-
-Tvrtko
+Best,
+Guikun Yang
 
