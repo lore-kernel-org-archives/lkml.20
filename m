@@ -1,61 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844093;
-	b=yslnA0pXqP7N41J8pgUVGOeDcbXS3cpmj/u6Mly2rKOlvRsZBN55OKgJH09RyJn4qWrX
-	 9c3PjwQSyMSOmru8CWBJL64CGxGKQxq6D1YJaFB5meQydnR3UoY5/LqD6AnGzSKWwY8xv
-	 b7ucbQDWN5fyvBYPfwMSgCE7JLXxEIULvhujawwcH1P3tTIJMgK/Cm6mnrj/rKR6OP+JV
-	 kQGjCL+PeC5WPeEY66KEoLrWlQgcbMRM9ly7AaqCJ+pSI1s56+kao51Vk/6HUPogyi/u8
-	 eRaG4C/TxP72uWFVVFKN2ubzcU3LQVFCl67TKWNpu4Mz25Po+faDPZCBZh/86G9TYQQ==
+	t=1792844266;
+	b=cbhPT2alpcgetaKOzGL7Vrzx5lgtCLePlGnNO5zNgPILlqv6Uv6Hi+EmabdpcyF3fDZy
+	 d8oVBguAxkTxQAUrQb2AyRtnQb6OdIcaZ1tBmWFMphxt3/Kep8MJN1RiuYnxMXiEgtSWK
+	 /uG516/BBoudimZpzhcLY1NdALYpuNcUQ8SS2Fd9dBKNk1hRCMI2tzuzyP4ygxG9/j0g7
+	 TLQYwOQI5QVFM8Ql6Lj3AKf74MyGQUfv6jRrwerWzy4jvncPXHkwHpw4CEQ4QaiqW3IN2
+	 NUitFCPANe9u6XPD5ieBAY8J89aOZ3WLHRqnxuh6utboq9iQJHhEC/seUJa03fKI5RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844093;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=k+xY6wjN669G76yFjea0bngxD4QytUquknD9Cl1+FpI=;
-	b=ohtZ3AslyVliiPxbCdmVoBBOyDJYQa1Hm0I928J6UGkDeJugZHtonFlXnuJ6jqU0adfa
-	 ltge6lwfK/Rjgldh0VF3Fba4VfFyPtiwa2vSk5WrWJ5GVc3LMCUqPDXh89IM+C8n1oKWF
-	 YQWd7iSMHNshCiTJfbBCfxihYxiFJCCiouh82ieVzI2DpZy0NNZ2HaRwrf+aGeKLKRqMO
-	 /SnqYrLlqNnc7LZxrXJ5JFVtLTbOxyxa+/G5hApA5SbVc9cjP04dDi9Mki+iP6zEbekby
-	 p3Lk2ImUAv/5KfhqWGPzgrtudDYzmm/KbFI+endx46c8xzd/g6lR4CYPr1Y7ihtdtJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844266;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=R+Kivv+zlEGPU+9SEUXQD6rceDKEZP4lAk4GmwDpTwk=;
+	b=M/SDOipRVANESD/wWmifyi/KfzwitLoRBJGDGI3+p457tdBNr08jJVy+fYDZMqrmfCfF
+	 c8Dzx1h0wjdRgiZHoOhTG79I57N/gg4I9W8OAPuWhUI1DQPIDwdZSRc1Smhq0kYDJhJCy
+	 YagPZLMyb9RJ3WN3yJ8BZs4ggIvaFXv4VG17UbAVrRCYuzxOsct2ph5t6JaQZuP21B9/z
+	 LZ+DdMeX4bsDtH3MP1wvhK44TXWCq8wunK/i7JwYloBPCB9AFDnN8Kj/wyQvUoEaD91qn
+	 4vi4YPWzbgLxksS2iP3P1rRixVAd1ilMd/X26jNVBexJE3cC5eeXVPnrD1znvc6wXfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+9quHwQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuzqdhn0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2874E606A32F;
-	Sat, 24 Oct 2026 12:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FE9606A31A;
+	Sat, 24 Oct 2026 12:17:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+9quHwQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34D51F01825;
-	Sat, 24 Oct 2026 12:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuzqdhn0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE12D1F01825;
+	Sat, 24 Oct 2026 12:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792844092;
-	bh=k+xY6wjN669G76yFjea0bngxD4QytUquknD9Cl1+FpI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=d+9quHwQ6MSN9NYNH4bNTx9Jv2e7DTkYGwNr7wstdf1yZ+vMp0WCzEWrPOoi6TvJB
-	 lBeGTapWoeZJkyhKwK1BqXoHbgOMeKNe7zKasYoXwl8U8fmSfBFEqYCxR6dYgR8ibn
-	 PZmEWi8J0Zxgeh+c0xiXowcc3QKyTFU6jDc8bb7+3hsFGlf4VBkOZBwSF0z1pHOJG/
-	 1a6f7S13Dsim3SAD826Gm8QVpfwyF0vLKlJ4jJOIow0l2xTyIazCwNWYmG1tlpDPbq
-	 gKFd0fH33zmBwXOl1CeZg/qYXALimJNjpEi6UghZgxGGrgNcl1HAtKuh+550rgH8Sw
-	 Js29g4YRTcJew==
-Subject:
- Re: [PATCH net-next v4 5/7] net: ftgmac100: Require phy-mode for AST2700
-From: netdev-bot+sashiko@kernel.org
-To: jacky_chou@aspeedtech.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew@lunn.ch
-Date: Sat, 24 Oct 2026 12:14:51 +0000
-Message-ID: <179284409138.3134.17526077074509394471@kernel.org>
-In-Reply-To: <20261020-support_ast2700-v4-5-4d36b40939b3@aspeedtech.com>
-References: <20261020-support_ast2700-v4-5-4d36b40939b3@aspeedtech.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792844265;
+	bh=R+Kivv+zlEGPU+9SEUXQD6rceDKEZP4lAk4GmwDpTwk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cuzqdhn04FqsErQkVJnYS7+La9ms9fOlIoOQr1y5n1F7G0rsuKDu/jFUgPLRTtMGN
+	 fouh6gEYOFgOqVQIHuT95nfLObp9mfDkaxxhZCVmO1q7iyOcnwWsSMba2XgmUzIRLw
+	 YsDuYVNuwTMTe41snOBfkhsD7io6gSIW/DU5yyNQFUy6enSUq0fMtsW8gQRlnNX22h
+	 1fQdo/RMFb4NlJ0NJxJFLhkf+51lUh8nng7d1WZq6MnvUwIejUdcBBYoKfu8vedVY7
+	 UpR0Z0D0EKn3Q993vDnoUOWHYEYzYQBJqcmcRvGUeIXrtz0ITCbQDCCwbnMUrH09wO
+	 cd3hPQbNtKazw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xKagx-00000006kav-2zdA;
+	Sat, 24 Oct 2026 12:17:43 +0000
+Date: Sat, 24 Oct 2026 13:21:00 +0100
+Message-ID: <87se1v8f2r.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Amir Noohi <amirmnoohi@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Igor Velkov <iav@iav.lv>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Christoffer Dall <cdall@linaro.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
+In-Reply-To: <20261024022450.629980-2-amirmnoohi@gmail.com>
+References: <20261024022450.629980-1-amirmnoohi@gmail.com>
+	<20261024022450.629980-2-amirmnoohi@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,180 +82,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: amirmnoohi@gmail.com, tglx@kernel.org, oupton@kernel.org, radu@rendec.net, iav@iav.lv, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, cdall@linaro.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 (1) · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new AST2700 "phy-mode is required" check in
-  ftgmac100_mii_probe() (drivers/net/ethernet/faraday/ftgmac100.c) can…
-- [High] The commit message says that on AST2700 the driver will "fail
-  probe with an error message if [phy-mode] is not specified", and the…
-
-Pre-existing issues:
-- [High] NULL pointer dereference in ftgmac100_reset_and_config_mac() on
-  ndo_open for an Aspeed MAC with no PHY attached.
-
---
-
-net: ftgmac100: Require phy-mode for AST2700
-
-This patch changes ftgmac100_mii_probe() so that on AST2700 a missing
-phy-mode property returns -EINVAL. Previously the driver fell back to
-RGMII. The goal is to make phy-mode a required property for AST2700,
-because that SoC also supports RMII.
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 9b7becb017262..5a578a62df673 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *netdev)
+On Sat, 24 Oct 2026 03:24:49 +0100,
+Amir Noohi <amirmnoohi@gmail.com> wrote:
+> 
+> irq_set_irqchip_state() acquires the bus lock and the descriptor lock of
+> the interrupt. A per CPU devid interrupt has a single descriptor for all
+> CPUs, while its irqchip state is per CPU, e.g. each GICv3 redistributor
+> holds the active and pending state of the PPIs of its own CPU and GICv5
+> keeps that state in per CPU system registers. Callers which modify that
+> state have to be pinned to the CPU anyway, so the descriptor lock only
+> serializes CPUs which update their own private state.
+> 
+> KVM on arm64 sets the active state of the host timer interrupts on every
+> vCPU load, i.e. on every KVM_RUN ioctl and every time a vCPU thread is
+> scheduled in. When many CPUs load vCPUs at the same time, they all spin
+> on the descriptor lock of the same interrupt, even when every vCPU has
+> a physical CPU of its own. A global serialization point on the same path
+> was removed before in commit 64b6d1d7a845 ("genirq: Get rid of global
+> lock in irq_do_set_affinity()").
+> 
+> Provide irq_set_percpu_irqchip_state(), which sets the irqchip state of
+> a per CPU devid interrupt on the calling CPU without acquiring the
+> descriptor lock. The irqchip callback is still invoked with interrupts
+> disabled. The caller has to have preemption disabled and has to ensure
+> that the interrupt is neither freed nor reconfigured concurrently, which
+> is the case for an interrupt it has requested. Interrupt chips which
+> require a bus lock are rejected, as the bus lock may sleep and cannot be
+> taken with preemption disabled.
+> 
+> The function is not exported as its only user, KVM on arm64, cannot be
+> built as a module.
+> 
+> Signed-off-by: Amir Noohi <amirmnoohi@gmail.com>
+> ---
+>  include/linux/interrupt.h |  2 ++
+>  kernel/irq/manage.c       | 36 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 38 insertions(+)
+> 
+> diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+> index 3bf969ad8fe0..ab20129615d4 100644
+> --- a/include/linux/interrupt.h
+> +++ b/include/linux/interrupt.h
+> @@ -507,6 +507,8 @@ extern int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
+>  				 bool *state);
+>  extern int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
+>  				 bool state);
+> +int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
+> +				 bool state);
 >  
->  	/* Default to RGMII. It's a gigabit part after all */
->  	err = of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id == FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
-
-[Severity: High]
-Can AST2700 ever reach this check? Earlier in ftgmac100_mii_probe()
-there is:
-
-	if (!priv->mii_bus) {
-		dev_err(priv->dev, "No MDIO bus available\n");
-		return -ENODEV;
-	}
-
-priv->mii_bus is only set in ftgmac100_setup_mdio(). ftgmac100_probe()
-only calls that function for FARADAY, AST2400 and AST2500:
-
-	if (priv->mac_id == FTGMAC100_FARADAY ||
-	    priv->mac_id == FTGMAC100_AST2400 ||
-	    priv->mac_id == FTGMAC100_AST2500) {
-		err = ftgmac100_setup_mdio(netdev);
-		...
-	}
-
-On AST2700, ftgmac100_probe()->ftgmac100_probe_dt()->ftgmac100_mii_probe()
-returns -ENODEV before of_get_phy_mode() is called. That makes the new
-branch look like dead code.
-
-The phy-handle and fixed-link paths go through of_phy_get_and_connect().
-That function already returns NULL when phy-mode is missing:
-
-drivers/net/mdio/of_mdio.c:of_phy_get_and_connect() {
-	...
-	ret = of_get_phy_mode(np, &iface);
-	if (ret)
-		return NULL;
-	...
-}
-
-Given that, is this part of the commit message accurate?
-
-  The driver currently defaults to RGMII when the "phy-mode" property
-  is missing from the device tree. This default is no longer valid for
-  AST2700
-
-As far as I can tell, AST2700 never reaches the RGMII fallback, and this
-patch does not change how AST2700 probes. The companion patch
-"dt-bindings: net: ftgmac100: Add AST2700 compatible" says the binding
-matches "the driver's probe-time requirement", so it depends on this
-check working.
-
-Could the check move somewhere AST2700 actually reaches, such as the
-start of ftgmac100_probe_dt() or ftgmac100_probe()? The later patches in
-the series, "net: ftgmac100: Add AST2700 upper DMA address support" and
-"net: ftgmac100: Allow building on ARM64", don't seem to touch this logic.
-
-[Severity: High]
-Two other AST2700 probe paths in ftgmac100_probe_dt() still succeed
-without phy-mode.
-
-The first is use-ncsi:
-
-	if (of_get_property(np, "use-ncsi", NULL))
-		return ftgmac100_probe_ncsi(netdev, priv, pdev);
-
-ftgmac100_probe_ncsi() never reads phy-mode and always connects with
-RMII:
-
-	err = phy_connect_direct(netdev, phydev, ftgmac100_adjust_link,
-				 PHY_INTERFACE_MODE_RMII);
-
-An AST2700 NC-SI node without phy-mode therefore probes successfully. A
-node with phy-mode = "rgmii" passes binding validation, but the driver
-ignores that value and runs in RMII.
-
-The second is a node with an mdio child but no phy-handle, fixed-link or
-use-ncsi. ftgmac100_probe_dt() skips the ftgmac100_mii_probe() block and
-returns 0 without reading phy-mode:
-
-	if (!ftgmac100_has_child_node(np, "mdio")) {
-		...
-		err = ftgmac100_mii_probe(netdev);
-		...
-	}
-
-	return 0;
-
-Doesn't this conflict with "fail probe with an error message if it is
-not specified" in the commit message? The binding also requires phy-mode
-for every aspeed,ast2700-mac node.
-
-Should the binding allow a use-ncsi exception, or should the driver check
-phy-mode on all of these paths?
-
->  		phy_intf = PHY_INTERFACE_MODE_RGMII;
-> +	}
+>  #ifdef CONFIG_IRQ_FORCED_THREADING
+>  # ifdef CONFIG_PREEMPT_RT
+> diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+> index bdb47837c66f..e76fe1cec9fb 100644
+> --- a/kernel/irq/manage.c
+> +++ b/kernel/irq/manage.c
+> @@ -2777,6 +2777,42 @@ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool v
+>  }
+>  EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
 >  
->  	/* Aspeed only supports these. I don't know about other IP
->  	 * block vendors so I'm going to just let them through for
+> +/**
+> + * irq_set_percpu_irqchip_state - Set the irqchip state of a per CPU interrupt
+> + * @irq:	Linux interrupt number of a per CPU devid interrupt
+> + * @which:	State to be set (one of IRQCHIP_STATE_*)
+> + * @val:	Value corresponding to @which
+> + *
+> + * Variant of irq_set_irqchip_state() which sets the state of the calling
+> + * CPU's instance of a per CPU devid interrupt without acquiring the
+> + * interrupt descriptor lock. The descriptor and its lock are shared by all
+> + * CPUs while the state is not, so acquiring the lock only serializes CPUs
+> + * which modify their own state.
+> + *
+> + * Must be called with preemption disabled on an interrupt which has been
+> + * requested, so that the interrupt chip hierarchy cannot change
+> + * concurrently. Interrupt chips which require a bus lock are not supported.
+> + *
+> + * Return: 0 on success, a negative error code otherwise.
+> + */
+> +int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
+> +{
+> +	struct irq_desc *desc = irq_to_desc(irq);
+> +	struct irq_chip *chip;
+> +
+> +	lockdep_assert_preemption_disabled();
+> +
+> +	if (WARN_ON_ONCE(!desc || !irq_settings_is_per_cpu_devid(desc)))
+> +		return -EINVAL;
+> +
+> +	chip = irq_desc_get_chip(desc);
+> +	if (WARN_ON_ONCE(chip->irq_bus_lock || chip->irq_bus_sync_unlock))
+> +		return -EINVAL;
+> +
+> +	guard(irqsave)();
+> +	return __irq_set_irqchip_state(desc, which, val);
+> +}
+> +
+>  /**
+>   * irq_has_action - Check whether an interrupt is requested
+>   * @irq:	The linux irq number
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can
-ftgmac100_open() dereference a NULL phydev on the mdio child path
-described above?
+It really feels like a leap of faith.
 
-Take an Aspeed node with an mdio child but no phy-handle, fixed-link or
-use-ncsi. ftgmac100_probe_dt() returns 0 without connecting a PHY, so the
-netdev is registered with netdev->phydev == NULL.
+There is nothing that says that it is safe to call this without
+holding the global lock. For all we know, drivers have been relying on
+it for a good decade, and I don't feel confident letting things rip
+just because it (mostly) works with the GIC.
 
-On ip link set up, ftgmac100_open()->ftgmac100_reset_and_config_mac()
-does:
+At the very least, something exposed by the irqchip (a per-IRQ flag?)
+should tell you whether it is safe to elide the lock.
 
-	/* Aspeed RMII needs SCU reset to clear status */
-	if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+Thanks,
 
-is_aspeed is true for every Aspeed MAC. ftgmac100_open() only checks
-netdev->phydev later, just before phy_start().
-
-This dereference came from commit af350ee72e9dda, before this series.
-The series extends it to AST2700.
-
-The earlier patch "net: ftgmac100: Enable AST2700 RMII support" adds
-another unguarded read in ftgmac100_start_hw():
-
-	if ((priv->quirks & FTGMAC100_QUIRK_RMII_ENABLE) &&
-	    phydev->interface == PHY_INTERFACE_MODE_RMII) {
-
-That patch's comment says ftgmac100_probe_dt() always attaches a
-phy_device, but this path shows it doesn't. The phy-mode check added
-here doesn't cover this path either.
-
-Should these reads check for a NULL phydev, or should
-ftgmac100_probe_dt() fail when no PHY is attached?
+	M.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-support_ast2700-v4-0-4d36b40939b3%40aspeedtech.com
+Jazz isn't dead. It just smells funny.
