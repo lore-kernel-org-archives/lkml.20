@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792858716;
-	b=iUW5wUa1FV80hwZ+AU89k0mo7yHsWEGCiVJwy6jlQi+yOPDxmH2zrSiWJtlbU6tmNCRg
-	 Q6h7x8j4gzu76evqOaYXaZ3yd776Pm3yMlDsFDEfPZdiAjh5YSRcczagggSPB69hpKVh3
-	 n3lOhRjoap1R+xAGPv0PsAFEsVZuOLgUeE9sUeDcTptCVFr0GtOQYXv6poH3Ybr28qvYz
-	 kNNhre5ETSSYlvW2T5VuRb9pO3klYD1Yr4JBVbrtSf0+U7yi7LwApFe1F4LiAOcDpgNND
-	 XvtXUOP43rLemvwmwDb9ukau5xZGRaAc42CHXs1kLZZYCJDbFT9jtSUsx6X5NGClhGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858716;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792858742;
+	b=GGI740PEHqkJvGrClkN7lhhznoVFiom3dEfdUNsRLOrduFHO6wbNhFTiC9ewWElm/e+j
+	 YSasL8g9U7YoVklQ2oGGbqzmsKFZi1eQSfJ2kNsXmuwU+kqortUvFs+AICfbPR7ptAl+T
+	 q7K2e3sNlBUB2dWv+bt4Eux0aLThhOtNSII4oduN73l+BBXH9q4y8gWWZbg5S5HGJQeQ3
+	 KWjY1Df3BWPwcNcF77vi/SNC5N41zs4q4iNh7Qun7ZbJMylyE54gutjKXIdCEV0GS3ERg
+	 8b3f4h2HoEUaHwHL/jAslSyRK5HFOPYXM+9LlEDHRfIQBo1+ybyYzZdXg4aJ2zK0Fvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858742;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
-	b=2QxJiuw50OUn6zbW1G9ticM6Zzal1vxNthKfipztj7PHdEz7mj9P4JoNL7xY5QBtOj8G
-	 qNbqU+NOPKAFZI21jrqTxILxfMYQuvGmrn2EpLSbfAjfMeaEbUqXBBcLWWWcF7xmB39t5
-	 MGJoY4X1mgcmFfIFs0LTjO7MjQw0heQS1iUpDuG8M8P0TFVTu8IiauFl0lk+l2suf68lX
-	 uCAk5yOYxQDDzI3XiCRkWhq8JCSOs/NBq31cF+NI2Q6sPOrXqdlKviPjfBHSkIUfTNdCb
-	 Aiaw51FSIg3H3+VHLL7LhC3sMmaVxH7kNYqXnDdEkWggSG0r+ySi8E0v6hN1DV7lY6w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
+	b=GZomRNt0KLbBPZH7Kyy75n7eriq7By15+R0HNI4/QXGICS0kxb69a2Lya4g6zM/gVdJD
+	 KMwNZJjCGLAWXC47uKKCOaf1o2XWxEqEUNZKbgA5AIwgR/n0JJjYfAhA951J4RJiAdJmT
+	 XXgH7oxCiccHcEBCT3+eiY4Fk2MKSRL8bgIA5gf87IcjCh9eoPnQH79ZkpI/4a010BixY
+	 P0FjZCpxUdAGO7XpOmim/FgwkuKPRtSb+sKCxadvDmjBH6FZy4R3DKKukrgp2Za5ms6kv
+	 egMdBkkVLXDS1Mnicw8Cl3y7hfqeXayCCAjDr4yxHoK0lun3Uku6kVRqIG3tT+4AyUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="OlXmPG5/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg6iKvr4;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC316606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC316606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79935606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:19:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79935606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OlXmPG5/
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8ab432273c5so14350787b3.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:18:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792858715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ocxcHG5F2OLjnnzynMUSGtSfTbqdq3Ma4YTMeR6jRXEKiwnGcQSsb1OFEOs3BQZtvW
-         BNBT+lK5jm9i1kHAlAAfcl4H1HStD+WlPU6LffLL84wXYK9ojk4XGZ+80qVyTjkQy7mL
-         t3p89HlA9oPdG32RztahiYRuc9+/Ni/P8Op/UJw/9OwCBZbC2zhLBr1fOuEFhY+bNcuE
-         hsz0XyFkvhbCWaFk7YnKMNYrtMTPgs8cSrDKlyV6x1iD40mpiqf7QuOoE0Ynn9wyg33v
-         ubyw+KmDiIe+MWk+qD875lI4I7ftA2uub3obCUowHU4t0zYPbVsDO6EgHM8BRd3ffDig
-         pdlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
-        fh=VI2wzUb6HadtXq4XibE41lJURyV7Zl0EtPU0IrpSLVk=;
-        b=LCgxufQFIp0CmJIPUMprgVs4mGuQTH8J+4PANMMPl769C9KAGe25BQdcQaz5Ko2I02
-         NG09oxzUAFrIu2/lc3k/uHO6iRxwjsayRA4VD+mEmym/YNfj6tRi9do9+XkRZn+o+9WA
-         Ha5P0QqMZEO/EHeYDTTEK9hf0/b4yLgcu/JSNw0342IlVAVyafBZH/b7VbZRfQ+KR9mn
-         TUQGJt4e/dVkxrJALUSF+32BeEaR5lMeWJQzOlfvk9fnLbWouaNxlZs3G/rEK7At6yG8
-         cgB38jfVQbv3kcN7HaFJB3689i2jwN1fzTJU6vDi4U4XtxkeqlqRnObWbZZjO0z5SH2C
-         XzbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg6iKvr4
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a06210b29fso666862b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858715; x=1793463515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
-        b=OlXmPG5/sAKCL9I7yq00rAKjJUqs3lDGX6LAWPM12qMwvE2TwWLZuI969q24e+XN1k
-         okGi8kuf7C7X1w1YRSajRzcFwtGWzOX9xA1fFTRPkhgYsldF6gr3b6gvx6a3cIxQ/B59
-         lp1n0/CGsCt/bH5jPOj8/0TUUwS8ZBdoxdHSxBLFdu7foJ+9oIObAIxnEJKwMBtQcrQa
-         wpkjXGXs6G3EdtIgwBH6QoTi4BUgaqfAfwTSU9JUU7arFcVL4yIGlwlA7gU+DUNbP3PL
-         Jpqr9c4DkhdW9sOEsWXVxIe39Dzcs6d/K6m6dS0DlnzrqTVjLbISPmBlpUO+QWTw0kNP
-         YjAA==
+        d=gmail.com; s=20251104; t=1792858741; x=1793463541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
+        b=pg6iKvr45QnZs77ME+ktsykS0Rjq8w/TTX6bJd78Pc7NSZPbhGCmZPnHW8+ahI1pMd
+         oA3fzpmjyhU+2lfSqsIQgQM1xd5mKAmXzh8yUEVKu1FvOHEYN0bACs5E/i8WekUQdoMP
+         N9ZrF1b9E8M4ws1EnXsv9cCSVPTifaC9t0WyfM8X5zzoFzZOuC4IqwLS0U3wFj2FsFgF
+         1Rs6mOy4iLWyf3RgQs7ZZ8lvquLywSsH/zgyOBttnXrwaAcXiQtNhU2mG8gQ3SZW3pEB
+         V7lrTcgD4FW14YTkmNHHBg3/ZF0ByD2RYTHvTxn7XO/1V2FKv/psEaCQSNYxg3Lgoaud
+         dNJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858715; x=1793463515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
-        b=ApC6nofb5MJsa7ynbqZvKwvo4wdwOs+oWWrlTWsl7ZJoWT1XirWskj81sqVm6YgexE
-         vUBKA6bxak+iuvac/ETLZoQEOza8tzImctF07AfS7dX79SYl2Yanu58ZZ+e4rCfgf/yc
-         64DOoL0ONM4ErzaJ7BHauaTO8wnQnqJvuturgDF8G1ckLoJ/fSh+pb6FW6728SAIjprV
-         upNHMY7COtOUYg6MDuazWxb+V5sZTxNqG4KE8I52NDw+v+EINhuqEEbyDQl2Q12JnDcZ
-         4/nDtrgzARLcmOdwRjzVYx8OUNmDuGc4XWaaXcZrEjXEW9uBoveqbyaoBvydW/zU/SG5
-         O7Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+CDioiCzNnQPPV6sSRpsVjfcB+2JrBLh8Xgxnrb3y0Cap6cfqP2stoLhfok2xjMD89kzqQ3gywPnV4xA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5HNZs8wzU411DiCKr6P7rC13L+gWnrsQdNB/dV3026RAcscSz
-	2ohH1XsIDTAb/WaK/ixoLA2PvU3eaGfT4SetbTScYgvHQ4IEb/AMydqjXz7DAGgnF7OTRwFleNv
-	+p9P4a26vRIM5x7ol5BQnk2nin0YVD1I=
-X-Gm-Gg: AYBFou37kj11kd3bqT+qhKciq099VoRNeupe9Td802kruD8Hte2E6d5YJ8KGfkWYdQT
-	SlWqDEFI9MFFXtXlgATcrk1qgh9+NOYWIup1P2Z8AIrpbVTG2w5SAQtI8Xutze24LlZfqX5uVSE
-	t3Lnq3vD2RfCwGboLfASiBlllXix+OlRW+gm5Nznic4Qe5yQtesepg0v0BmquRQvXPUlBbhS/wq
-	FuiVqW15FWBWuSztyps81Bru7xGl9K3EFoTmYij8GB5kKCaQX04omcGv25rcpQkR2mg1GBvblGI
-	BfNQZw1eF6A2tSRUt8s9v0wEzB651TOmCGJOz20ccB3bsQJ4Zn5zcXgfmcaBlmyki7n9cdSuDK5
-	PMJC5N88ecUExhkIWjcMqzBjnioFtO92NJVGFclTd
-X-Received: by 2002:a05:690c:89:b0:8b0:e13c:2854 with SMTP id
- 00721157ae682-8b1669e55a4mr18271807b3.5.1792858714927; Sat, 24 Oct 2026
- 09:18:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792858741; x=1793463541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
+        b=fG3vB/AMZBPY0WFowNn6UekGh0IFohcx67Z2CJWwUPh49N3Jc9lemr76m1pW4rJHIx
+         sDEd7g0Ti+i2ruaO5lPZJKShy1tkxQq0vI7+Xz0OXK4gsHTc4F02zX12Cxzs8QQvH2Ii
+         1a6GE7iHLAIgdqbVKhEaHiu1PTViJGyuPj+lXsAFi7v+rUNMREuFR+R7+ocq0u035xF6
+         zf/3SkiUuT++J8yXs8AC805hmrVVyehSMQj/GmJ4mKy8jBJBW1H6xE33h2vpgKoDylMK
+         p7DLjvjQ996IxGHSsMGertIcZvIqoXOgoxYrE9OIv/VJs9yqbKW9UVGmOePdMjn1LncB
+         dCMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCSwXkk1VCebyJqUybJScCzjR3uhYU4OxSQ4mZTlJ2mA7Eh8M2Fl5LirGW4QC4EjGsftkldmz8kd8ooSw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFWknimrn91ssbdCB2KVDT0rIEjGnZCtyDwOA9O6YoYMkY870L
+	fPCd3AJSLuY3DxbxcwEZ+IzKMfkMaD2ip6X0rgLBpxd8tzSVe3ZUlNdQ
+X-Gm-Gg: AYBFou0Bu8f2oZTZfF8VePzFneUrWbI57oAxyiR6V7d0hnN/GkF59yO2252E+uFVHNa
+	1+9ap4GZzRMHYxJmqMjDDPZyd4cRXYSL9cLj9wEMUxrSZIZ67YNeDmAFSs/BJb8tL7pJLeXMVJK
+	jPgitFHTuIsZlXbmiseJI+4jqPLtYHdMOUVqHoU0FuuYbUPJq3O1229zG4r/JbPdoGiLP3e4RyK
+	EyT6b6JJbxn57xMauQMSCrITrboh2bcc7fjBPCz3CWIdtXIF91dfQZNscc3augfWbXEMlCD3A4U
+	IJr32f1yZKvmG7+UZ/K7g/HDtKKRQjOwtZHXP9zJfGsRre3qkRVi8UNConGbV8v56LjugDgp2kM
+	4Q/lndV7VVumlvzw4oAmbldZ8oRtNCV5uzNo178RE/IJfQBm9o6rrlowZ7ecyxk0H806HSqOe58
+	zoJTDbIIsy3h+oA+/Jy0c4o5k0M41LqWSSo51+Vbn0EJSID+gooY7BXEYZAO8Zi2+vvgTdQD/Ul
+	faXqBZ8lKJH69RX58Q0RSi6+rxtcLoEYNdL56lKuS+eGMikq38=
+X-Received: by 2002:a05:6a20:160e:b0:3de:46cc:b641 with SMTP id adf61e73a8af0-3e7af7fc650mr2055741637.8.1792858740708;
+        Sat, 24 Oct 2026 09:19:00 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a37233d293sm454265b3a.16.2026.10.24.09.18.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 09:18:59 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2: wait for filecheck kobject release after a failed add
+Date: Sun, 25 Oct 2026 00:18:52 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +100,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
- <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
-In-Reply-To: <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Sun, 25 Oct 2026 00:18:22 +0800
-X-Gm-Features: AclHuK_VfC0_HAFy2LMxdYARoi52mIFRU4CCMwSsyLqo5xk4mZaw1sLNyRN_7E8
-Message-ID: <CAFRLqsUXK3rX6-uM3+2cMmSCPYMz9WxNGRXh7zG1+1YhNxTjgg@mail.gmail.com>
-Subject: Re: [PATCH] ocfs2: wait for filecheck kobject release after a failed add
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, 
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Joseph
+The filecheck kobject and its release completion are embedded in
+ocfs2_super, so the osb must outlive the kobject. On a failed
+kobject_init_and_add(), creation clears fs_fcheck and calls
+kobject_put(), but returns without waiting for the release callback.
 
-Joseph Qi <joseph.qi@linux.alibaba.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8824=
-=E6=97=A5=E5=91=A8=E5=85=AD 23:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> Why not name the owner directly to ocfs2_super?
+With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
+Mount failure can then free the containing osb before the embedded
+release timer expires:
 
-Thanks. I've updated the comment in v2.
+  Mount failure                     Delayed cleanup
+  -------------                     ---------------
+  ocfs2_filecheck_create_sysfs()
+    kobject_init_and_add() fails
+    fs_fcheck = NULL
+    kobject_put()
+      queue delayed release
+  return to mount error cleanup
+  ocfs2_dismount_volume()
+    remove_sysfs() skips the wait
+    kfree(osb)
+                                    expire embedded release timer
+                                      access freed osb
 
-> And "delayed release" is only accurate under CONFIG_DEBUG_KOBJECT_RELEASE=
-.
->
+The normal removal path waits for fs_kobj_unregister, but it returns
+early when fs_fcheck is NULL. The failed-add path therefore leaves the
+delayed work and its completion in freed storage.
 
-The delayed-cleanup scenario in the commit message is also
-explicitly scoped to CONFIG_DEBUG_KOBJECT_RELEASE.
+Wait for the existing release completion after the failed-add
+kobject_put(), before returning to mount error cleanup. This keeps the
+enclosing osb alive until the kobject has finished releasing, matching
+the normal teardown path.
 
-> Thanks,
-> Joseph
->
-Best regards,
-Cen Zhang
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
+    Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
+    
+    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <IRQ>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? __run_timers+0xa6d/0xa90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? __run_timers+0xa6d/0xa90
+     kasan_report+0xe0/0x110
+     ? __run_timers+0xa6d/0xa90
+     __run_timers+0xa6d/0xa90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx___run_timers+0x10/0x10
+     ? __lock_acquire+0x5a3/0x2140
+     ? __pfx_do_raw_spin_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     timer_expire_remote+0xfa/0x160
+     ? __pfx_timer_expire_remote+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     tmigr_handle_remote_up+0x4ba/0x9d0
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     ? tmigr_handle_remote+0x21a/0x340
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     __walk_groups_from+0x5a/0x160
+     tmigr_handle_remote+0x24f/0x340
+     ? __pfx_tmigr_handle_remote+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     run_timer_softirq+0x222/0x270
+     ? __pfx_run_timer_softirq+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     handle_softirqs+0x1fa/0x8d0
+     ? __pfx_handle_softirqs+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_spin_unlock+0x23/0x40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __hrtimer_rearm_deferred+0x1fb/0x5d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     </IRQ>
+     <TASK>
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+    RIP: 0010:pv_native_safe_halt+0xf/0x20
+    Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+    RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
+    RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
+    RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
+    RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
+    R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
+    R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
+     ? ct_kernel_exit.constprop.0+0xc5/0xf0
+     ? do_idle+0x3ae/0x650
+     default_idle+0x9/0x10
+     default_idle_call+0x6c/0xb0
+     do_idle+0x3ae/0x650
+     ? __pfx___schedule+0x10/0x10
+     ? __pfx_do_idle+0x10/0x10
+     ? rest_init+0x1cd/0x330
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     cpu_startup_entry+0x54/0x60
+     rest_init+0x1e1/0x330
+     ? __pfx_acpi_read_bit_register+0x10/0x10
+     ? __pfx_rest_init+0x10/0x10
+     ? acpi_os_write_port+0x23/0xb0
+     ? __pfx_kernel_init+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_ut_status_exit+0xd6/0x180
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_ut_status_exit+0xd6/0x180
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_enable_subsystem+0x2b0/0x4e0
+     ? __pfx_x86_late_time_init+0x10/0x10
+     start_kernel+0x417/0x4b0
+     x86_64_start_reservations+0x18/0x30
+     x86_64_start_kernel+0x111/0x120
+     common_startup_64+0x13e/0x158
+     </TASK>
+    
+    Allocated by task 494:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     ocfs2_initialize_super.isra.0+0xab/0x3070
+     ocfs2_fill_super+0x801/0x3920
+     get_tree_bdev_flags+0x35d/0x5f0
+     vfs_get_tree+0x93/0x320
+     fc_mount+0x1d/0x200
+     path_mount+0x592/0x1e00
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    Freed by task 494:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     ocfs2_dismount_volume+0x43c/0x9b0
+     ocfs2_fill_super+0x258f/0x3920
+     get_tree_bdev_flags+0x35d/0x5f0
+     vfs_get_tree+0x93/0x320
+     fc_mount+0x1d/0x200
+     path_mount+0x592/0x1e00
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    The buggy address belongs to the object at ffff8881178a4000
+     which belongs to the cache kmalloc-8k of size 8192
+    The buggy address is located 5720 bytes inside of
+     freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
+    
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
+    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+    flags: 0x200000000000040(head|node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+    raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+    head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+    head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+    page dumped because: kasan: bad access detected
+    
+    Memory state around the buggy address:
+     ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                        ^
+     ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    ==================================================================
+
+Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+
+---
+Changes in v2:
+- Name ocfs2_super explicitly in the lifetime comment and describe kobject
+  release without assuming CONFIG_DEBUG_KOBJECT_RELEASE.
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com
+
+ fs/ocfs2/filecheck.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
+index 75334e4bd082..e3b79bc749f5 100644
+--- a/fs/ocfs2/filecheck.c
++++ b/fs/ocfs2/filecheck.c
+@@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+ 		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
+ 		entry->fs_fcheck = NULL;
+ 		kobject_put(&entry->fs_kobj);
++		/* Keep ocfs2_super alive until the kobject is released. */
++		wait_for_completion(&entry->fs_kobj_unregister);
+ 		kfree(fcheck);
+ 		return ret;
+ 	}
