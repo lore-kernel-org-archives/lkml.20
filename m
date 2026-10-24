@@ -1,79 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792834096;
-	b=scnKJre8neq1/Ob1edhtEkgtmMaaHrLpirUERWRhSrDrq3n9rmKSNyQAHjXCzLwiHDAj
-	 55uFGN/EodA/X+YNszOMeCR/agTPuGRSalCmyXiNptJ+bHvkPB2VpswLfzNLvlUOp/LYM
-	 UoSD8dpzCuR6qEjvsetpOnD5GEimRzbMCYltxUntGHsPY2tOP0bKuTuDGTMsGTIrT45aP
-	 XfkM1sxzuCuWkUU2KtkcjVMjvhz1IPJNLV1p1BHKPx7R6QGIjbCdTZdOzPUnA2BabMgIw
-	 bWgXNEsc7iv2uxMOa5QBt686Ije+Wspv+4htV7hcEr6YwtBDPrHVou8bQBuQchjZriA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834096;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Vw7ZEhGFs1BjehCmf3SdDN3rq9JuYZ50K+jNCEaZYok=;
-	b=tQiPkRkT9j7sLw8pcEqGtwTlZ7zq31RE+yOqjwYvATWlxn4lRqOTrcnvbwfLqxRTKkwm
-	 A1452O6vMKhC0Bd1Q01fmKUjwp8m3MnyJGkWz8c74lxoZCcg/lbnRNO8Kliak83iwI32K
-	 sJKpz0X/xD1LZq+uNJimLjymZ4I6eLOvQ6yx1/fmTl+pWd5sl/aroPkYdClespAAeG9w/
-	 74wMs/9NtLwfDW0l0HWW8Kewkzhw6PWwbJaOBFKhr1jsSgNJnJ1XqeYu1tWzpYFKx8d8t
-	 b5gmLEYti89/Ux1WMWHMPqPEHBMFQ+1EMIF6m4gnxN/CF+Vo8cMnyVHTt7q9f8mqFOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmuOx5Wn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E56606AC39;
-	Sat, 24 Oct 2026 09:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmuOx5Wn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792834095;
-	b=S1haCOQCxwfqciJMPpkpt8TEv8RFCaOHksUCX3O/teETVsXLKkzt8vxN3ZsZgYx2lhN3
-	 zL7nyHASgaI15FCPg3mWqRe99qIoYILD7ZrQjuR9oXJCpvN335HI60kX15Wk6AEH+/0se
-	 ImBm8ULAFcvPOcW/Su9fPh2uXZCeUuKRF8x/0LWs/GdvruktTFB67gOiZoFj4+CHqJl/6
-	 jg3FNz3b/TTdPSA5xEQySjaguCb18e/FtvpUfvlWdTQknMQ0RoEh9I+FfBPgcLXiLUPvk
-	 c547w5w5MOw/KNwvfKOXE+bX5Ag5Xy/WfpJUJNBtXZdRhNsG7w3OQIMyhSDufffdMaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792834095;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Vw7ZEhGFs1BjehCmf3SdDN3rq9JuYZ50K+jNCEaZYok=;
-	b=TC43KGMkdGquwTZW7/aV4/C/rfvrZ4w4kH5nrOnRYPg2xrP+TSI7E6ZSJdlZzEVvF9gT
-	 nBbyb6gkqPeInOgB+cs0EGvBdZI6T2HzJJy8zuK1A3m5vRrIaqiOxp2dlzH9ulxsjIKG4
-	 SRaDQR6jcDXXyErfF4G1Nb6jVWTNnqChY5nrtYCxK07yZ8yoS7PmBUZXHUxZxkBiGlbpB
-	 +O01iY7u7V2+4jn/9QNVNMODFYxGPVSmPZ4Rgw0iQV0zeTPavYkgdT2Tjvko+pqopVWqt
-	 FmKyoo8fQDbxiFXT7ew1PlVovyITctsoR9T4yosswt9whWuLAoA1nvvps465qj5wyUg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792834092;
+	b=xXPP+1IZlNff90+uHhtjgNuJZfwEv/FZr4MbH8vIlCiHhkqCGbHzBOAesnlIA6OGg61T
+	 ZrSq39+I9Yh3iM4DkNlc0rdxpHz+0a4f1dY06kcLC9ln73UDLo43T17nPz0HsIovWWK/d
+	 z/8fK1PXS8GBhiXOCjAoT56a4M5jV9AYKLNRCCghrZGR98BL+jgElUEdSMD32W/14dC/h
+	 qUPXHtCfCAX4fXN0IGeIezpeYbw2l8s3CuJasinTx85O9Wisp+blF1JRHCCiaxCrqk/Hv
+	 k5SGZj4hDPYmG+4Uak0BM4iRCxgg/8AP5/y7jssDYkhPEiQQn9OvA7vroYl8mb7t6jA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834092;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
+	b=KLx+u+EahV5m39RBNM1IUr8Tq+HSek/0cSe29jqHb67zSmmbrYEfNG9Y3y6JtcfJkB6R
+	 h/r0fFTpLU2sT6b47HNQIVUn4AolXQrsH2G686HgwUoTCy+IdbloJb5WwUgQEopxlfkBn
+	 Toos0x4zbp9SbEZYVki4ROnjNv1ubTVOtQpFzGUPguwOvI8lVYiugIfnjtbLjIkdNBCTj
+	 jlVHxCJLap9R+i7GUkE5tfcE+74ne4J2JQ6DcBp+Vlv+vAHf5GoUWq51Pj7UuREUMm0gJ
+	 4pvJoXlZal2dbDPv1GjxVdm9EgcCkcSwj+n2w45kLOLV5BW2SI8LATrIg0vIwmAMbAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ih3d3dCX;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 676691F01825;
-	Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792834095;
-	bh=Vw7ZEhGFs1BjehCmf3SdDN3rq9JuYZ50K+jNCEaZYok=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QmuOx5Wn4WQkyVpZcr/KVduxzCGcVdJpWMciyKN8o3dhlfZoJakT3HKKCJoK4ZDXh
-	 mTCltOy2+a0tUVPeX7UkThG/zOJv2TkRDJlHDE8XJ2na9Gq+XkCeS4X1DjLeyXNTec
-	 LAw7c60umg6ihjCKgSRwIZPJ7UL33CpkklehrXZfMJ/OMRRdoYXde14lVENJCaMrMk
-	 9zyzUINiHu5cSpT9cZ5dKI1At91vDpwhFSuH4+otiCCIUE6XKMITI1kBhnYBaOXjc0
-	 AkJwjDA4750O6jEMmoIk00diwzQnN8V1URvMVGGox+gNg9OhAS9jizCJBshyiVBp8l
-	 Sf1DsWrrSBhDg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D3A1F4478E;
-	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
-From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Sat, 24 Oct 2026 17:27:56 +0800
-Subject: [PATCH v6 6/7] riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board
- device tree
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CC3606A339
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CC3606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ih3d3dCX
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so3747313eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:28:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792834091; x=1793438891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
+        b=Ih3d3dCXpGqvS9/JJ4lYikN4QpmLu1PHRnhCRHuvEi62AWi848YXltabub4vDjBU1E
+         JtDL930znVfowUOp6RB9+HmoPkyJM46GRlA10xLfnkFN30ieRG4lfFEbWv54o51rWYUQ
+         i29qLpdRhgIc4ur0vsEgdQ6g0kDqJOdBBmDHLGmGr3gyw/OC58By44Oycw+eHlUqygWJ
+         r0GX0Ksb0i+jg+8I8I2l7ItArZGa6c58C4V4k46DRSYmNmsHBJCWsyzDXq/pGN3mp1ue
+         Zim2O4BFF0OALDRJbFyWjze43upH3X1UJFG5lhdA++z3T+NZaprJSC32s7+slIRjFadc
+         mkgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792834091; x=1793438891;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
+        b=Lz4TbKpMLKTzbkTk155jFQhkdTKlqugAXfiiRmgo8r7x0mSf8gc7maiRKMCKNmmVy7
+         +8qTQSWQrLwvkmV1zpS+fqqL2vTMzLkiTZp4ru+i1DbxspAyHOaYkn5iraZxn1tGCT/P
+         cYm/l9VyU5tT0+Bu8I4YV1MeWe5c7brWCxy0GIE1fa3y1xttuRp8KaHNyER3U7kXmdq9
+         0UGa00c2ZrTiM4aThP55A9uMYSzyTh7+QjgQNUB8Xzoo8h+7H6T7Cds41GruSheuBGJd
+         +F4bFkPLmcYT84UJzP6GxkJbvahMtego2Z4XY/RX6YSUcB093mtWCiG2ad9emCjViokS
+         uyEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwc79O95XDsjTP67SEV99EfyPulAjacIs7itV1qeZguFuEiucmlnvvhPD66xQ4APNGlc8bWSoJGtO1ad+Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj73pDWX47Ga6riBTtRWtLq8XgFpvfenXPL8eAfSzTEOUanxCI
+	mDnFfxW5Bl5r9anQzlzrGmqEdkioYwUWnKhUkb0NbyiSA/zCUhV0BDK+
+X-Gm-Gg: AYBFou3RUBrYYfRTHhkfMLmOo2TmaylhDIRaRbysDwcvLnrejYsfzhADqELLxdsFZmp
+	YJ7WavDdpPzuyKNSP6NnaviDBtI4bzf8RddN8jyhG7zQXz7kYUJ58GEDGf5Yei7BpqrDC33Wm2f
+	eXrxzVWh1vc7cgjp7/Gq6VQrduvKMW2WyihnAKWPlMPDQ1LuTb6ej78Sm67MuuU5KcpdapUD4vl
+	1bCsJznLts2EJvnrm8H0od6mlqwNMFTxMiCzFUGqpRVgtAH1hkt7o8ou88utJ6Btf9fOpx2vuwX
+	ircfn6zqsR9DHeoiid2BByXQlYAlQZsiPzMXCbN0pVIhX5sO3FFkqhEvgdcLWbYtxJWsw2c49zc
+	Lde6AWVYH9dgbT1obXagv2dJGmHJwG4VleXmXKgJPbV4WLHvQpv5w+SOZM35x3qPxxjcj9Kaax+
+	6SVnAsd02tRCBr7CchKtejGa6WFO1mjumW1CnX1JgrCGTcyETbZHY/BtSfAL/X/Ifq10CslmWcm
+	uzd3yXB3oZ6PilLJy/i59S+kxyS+NzF2HjxPhniznfOukGXOA4cnYXO0+FU9c6dGIGJ3E1HYTy2
+	kIS2FrBd25l66dQtfTQXIR3WLsIQjJZRWX76jRaSyitfDH1mKXxvNP9bnxpY+9bbyX2khHR1aA=
+	=
+X-Received: by 2002:a05:693c:69c3:b0:351:29c8:643 with SMTP id 5a478bee46e88-369e8486ee8mr2014862eec.18.1792834091341;
+        Sat, 24 Oct 2026 02:28:11 -0700 (PDT)
+Received: from nixos ([2405:201:c40d:9039:e1f8:b9bb:b037:3cab])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm5236604eec.18.2026.10.24.02.28.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 02:28:10 -0700 (PDT)
+From: Ayushman Rout <ayushmanrout27@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	Ayushman Rout <ayushmanrout27@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Daniel Rosenberg <drosen@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf 1/3] bpf: Fix bpf_xdp_copy_buf() when the buffer overlaps the packet
+Date: Sat, 24 Oct 2026 14:56:56 +0530
+Message-ID: <20261024092659.76422-2-ayushmanrout27@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261024092659.76422-1-ayushmanrout27@gmail.com>
+References: <20261024092659.76422-1-ayushmanrout27@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,343 +119,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-ultrarisc-dts-v6-6-c62994d8a114@ultrarisc.com>
-References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
- Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- linux-riscv@lists.infradead.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=6533;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=FLco8EKil9coXfOOohEgx8XQNQE43bTkwaWzTcrXeQk=;
- b=bNXqxid8+rK5Spm+wU55Agex/uyWG+cC7lv8Rvlj5SPfLymXyQw6+5rhdZXwp/9+8FwSdAn0t
- X5c0LrJ3S91DBUXnJpu4ySglS4gZo3H7P+x8QvoMHZPaz0g3V1k5sJx
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
- auth_id=1046
-X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Reply-To: jixincheng@ultrarisc.com
+Content-Transfer-Encoding: 8bit
 
-From: Jia Wang <wangjia@ultrarisc.com>
+bpf_xdp_copy_buf() moves data between a caller buffer and an xdp_buff
+one segment at a time (the linear part, then each frag) with memcpy().
+bpf_xdp_load_bytes(), bpf_xdp_store_bytes() and bpf_dynptr_slice() with
+a buffer all use it.
 
-Shenzhen Rongda M0 is an mATX motherboard based on the UltraRISC DP1000
-SoC.
+The buffer does not have to be outside the packet. A program can pass a
+slice of the same packet, for example one from bpf_dynptr_slice_rdwr().
+Then a piece that is copied early can overwrite bytes that a later piece
+still has to read. memcpy() is also not valid for overlapping memory.
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Example: a 100 byte linear part, a 4096 byte frag0, a buffer at
+frag0 + 10 and a 64 byte load from offset 90. The first piece copies
+linear[90..100) to frag0[10..20), which destroys data that the second
+piece needs from frag0[0..54). A store fails in the same way.
+
+Commit ab08863c58b1 ("bpf: Use memmove() to store bytes in an
+xdp_buff") fixed the case where the range is inside one segment. A
+range that crosses from the linear part into a frag still goes through
+here and is not covered.
+
+Use memmove() for every piece. For a load, copy the piece that is in the
+same segment as the buffer first. For a store, copy it last. This
+assumes that the frags do not overlap each other.
+
+The selftests added later in this series fail without this patch.
+
+Fixes: 2012c867c800 ("bpf: verifier: Accept dynptr mem as mem in helpers")
+Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
+Assisted-by: LLM
 ---
- arch/riscv/boot/dts/Makefile                       |   1 +
- arch/riscv/boot/dts/ultrarisc/Makefile             |   2 +
- arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h     |  63 ++++++++++++
- .../ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi    |  79 ++++++++++++++
- .../boot/dts/ultrarisc/dp1000-shenrongda-m0.dts    | 113 +++++++++++++++++++++
- 5 files changed, 258 insertions(+)
+ net/core/filter.c | 59 ++++++++++++++++++++++++++++-------------------
+ 1 file changed, 35 insertions(+), 24 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c..702882974251 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -12,3 +12,4 @@ subdir-y += spacemit
- subdir-y += starfive
- subdir-y += tenstorrent
- subdir-y += thead
-+subdir-y += ultrarisc
-diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts/ultrarisc/Makefile
-new file mode 100644
-index 000000000000..454d849a6ce4
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-shenrongda-m0.dtb
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h b/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h
-new file mode 100644
-index 000000000000..4668e45d2335
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h
-@@ -0,0 +1,63 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 09c60a58c82a..716efafe7e0a 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -4210,47 +4210,58 @@ static const struct bpf_func_proto bpf_xdp_adjust_head_proto = {
+ void bpf_xdp_copy_buf(struct xdp_buff *xdp, unsigned long off,
+ 		      void *buf, unsigned long len, bool flush)
+ {
+-	unsigned long ptr_len, ptr_off = 0;
++	unsigned long ptr_len, ptr_off, o, l;
+ 	skb_frag_t *next_frag, *end_frag;
+ 	struct skb_shared_info *sinfo;
++	u8 *ptr_buf, *b, *orig = buf;
+ 	void *src, *dst;
+-	u8 *ptr_buf;
++	int pass;
+ 
+ 	if (likely(xdp->data_end - xdp->data >= off + len)) {
+ 		src = flush ? buf : xdp->data + off;
+ 		dst = flush ? xdp->data + off : buf;
+-		memcpy(dst, src, len);
++		memmove(dst, src, len);
+ 		return;
+ 	}
+ 
+ 	sinfo = xdp_get_shared_info_from_buff(xdp);
+ 	end_frag = &sinfo->frags[sinfo->nr_frags];
+-	next_frag = &sinfo->frags[0];
+ 
+-	ptr_len = xdp->data_end - xdp->data;
+-	ptr_buf = xdp->data;
++	for (pass = 0; pass < 2; pass++) {
++		o = off;
++		l = len;
++		b = buf;
++		ptr_off = 0;
++		ptr_len = xdp->data_end - xdp->data;
++		ptr_buf = xdp->data;
++		next_frag = &sinfo->frags[0];
 +
-+#ifndef _DP1000_PINCTRL_H
-+#define _DP1000_PINCTRL_H
++		while (true) {
++			if (o < ptr_off + ptr_len) {
++				unsigned long copy_off = o - ptr_off;
++				unsigned long copy_len = min(l, ptr_len - copy_off);
++				bool self = orig >= ptr_buf && orig < ptr_buf + ptr_len;
++				bool turn = pass == flush;
 +
-+#define PA0		0
-+#define PA1		1
-+#define PA2		2
-+#define PA3		3
-+#define PA4		4
-+#define PA5		5
-+#define PA6		6
-+#define PA7		7
-+#define PA8		8
-+#define PA9		9
-+#define PA10		10
-+#define PA11		11
-+#define PA12		12
-+#define PA13		13
-+#define PA14		14
-+#define PA15		15
-+#define PB0		16
-+#define PB1		17
-+#define PB2		18
-+#define PB3		19
-+#define PB4		20
-+#define PB5		21
-+#define PB6		22
-+#define PB7		23
-+#define PC0		24
-+#define PC1		25
-+#define PC2		26
-+#define PC3		27
-+#define PC4		28
-+#define PC5		29
-+#define PC6		30
-+#define PC7		31
-+#define PD0		32
-+#define PD1		33
-+#define PD2		34
-+#define PD3		35
-+#define PD4		36
-+#define PD5		37
-+#define PD6		38
-+#define PD7		39
-+#define LPC0		40
-+#define LPC1		41
-+#define LPC2		42
-+#define LPC3		43
-+#define LPC4		44
-+#define LPC5		45
-+#define LPC6		46
-+#define LPC7		47
-+#define LPC8		48
-+#define LPC9		49
-+#define LPC10		50
-+#define LPC11		51
-+#define LPC12		52
-+
-+#endif /* _DP1000_PINCTRL_H */
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
-new file mode 100644
-index 000000000000..ab927c6cd614
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000.dtsi"
-+#include "dp1000-pinctrl.h"
-+
-+&pinctrl {
-+	i2c0_pins: i2c0-pins {
-+		pins = <PA12 PA13>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c1_pins: i2c1-pins {
-+		pins = <PB6 PB7>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c2_pins: i2c2-pins {
-+		pins = <PC0 PC1>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c3_pins: i2c3-pins {
-+		pins = <PC2 PC3>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	spi0_pins: spi0-pins {
-+		pins = <PD0 PD1 PD2 PD3 PD4 PD5 PD6 PD7>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	spi1_pins: spi1-pins {
-+		pins = <PA0 PA1 PA2 PA3>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart0_pins: uart0-pins {
-+		pins = <PA8 PA9>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart1_pins: uart1-pins {
-+		pins = <PB4 PB5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart2_pins: uart2-pins {
-+		pins = <PC4 PC5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart3_pins: uart3-pins {
-+		pins = <PC6 PC7>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-new file mode 100644
-index 000000000000..43f713bcea25
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-@@ -0,0 +1,113 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000-shenrongda-m0-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Shenzhen Rongda M0 Board";
-+	compatible = "shenrongda,m0", "ultrarisc,dp1000";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0_pins>;
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1_pins>;
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pins>;
-+
-+	rtc@32 {
-+		compatible = "whwave,sd3078";
-+		reg = <0x32>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3_pins>;
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0_pins>;
-+};
-+
-+&spi1 {
-+	num-cs = <1>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi1_pins>;
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart1_pins>;
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart2_pins>;
-+};
-+
-+&uart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart3_pins>;
-+};
-+
-+&pcie_x16 {
-+	status = "okay";
-+};
-+
-+&pcie_x4a {
-+	status = "okay";
-+};
-+
-+&pcie_x4b {
-+	status = "okay";
-+};
-+
-+&ethernet {
-+	phy-handle = <&phy0>;
-+	/*
-+	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
-+	 * integration adds fixed delays in both directions.
-+	 */
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy0: phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+};
-
++				if (self == turn) {
++					src = flush ? b : ptr_buf + copy_off;
++					dst = flush ? ptr_buf + copy_off : b;
++					memmove(dst, src, copy_len);
++				}
+ 
+-	while (true) {
+-		if (off < ptr_off + ptr_len) {
+-			unsigned long copy_off = off - ptr_off;
+-			unsigned long copy_len = min(len, ptr_len - copy_off);
++				o += copy_len;
++				l -= copy_len;
++				b += copy_len;
++			}
+ 
+-			src = flush ? buf : ptr_buf + copy_off;
+-			dst = flush ? ptr_buf + copy_off : buf;
+-			memcpy(dst, src, copy_len);
++			if (!l || next_frag == end_frag)
++				break;
+ 
+-			off += copy_len;
+-			len -= copy_len;
+-			buf += copy_len;
++			ptr_off += ptr_len;
++			ptr_buf = skb_frag_address(next_frag);
++			ptr_len = skb_frag_size(next_frag);
++			next_frag++;
+ 		}
+-
+-		if (!len || next_frag == end_frag)
+-			break;
+-
+-		ptr_off += ptr_len;
+-		ptr_buf = skb_frag_address(next_frag);
+-		ptr_len = skb_frag_size(next_frag);
+-		next_frag++;
+ 	}
+ }
+ 
 -- 
-2.34.1
-
+2.54.0
 
