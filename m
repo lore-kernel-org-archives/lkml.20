@@ -1,65 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792866035;
-	b=Obb8NlbgBZZ2OwK5uJH0OOwrn6QS4l6ShO2LsAB1+VRO3e+aGNjCVPsQXsxxVXPws7jk
-	 PNdfl7dWuG5kafZ+d/z6xmas5bVeMtKTY90k0+RIUg07FqdKdvGB/lZATMkDqW+TyyhBU
-	 JkdFWdm5tQVBlLV2jILCk5nHNPZcEQr4JO39af7rMc1irHrws9G9Tc1D/15pLpysaDG13
-	 gvzY2oDaiFavWFl9xzIaM0O+wxX9eJ1vu0y6tTcemZRgpnmUwh+qan2Fp0xYagAAdSrf4
-	 cJwGe60w1IKT0E4TKej9Avwy/qft0viY69G1xw55zjJJHBBXmK1TWVYBYF4p14L3v6w==
+	t=1792866089;
+	b=zybbjCjOSXX1CnX6mi8ZRgjoQGi6RWHpNROiqlWPRuejPA14obD+qqmdstfTgmyDLAMh
+	 x0/jpRLSj11UTC8TOMYseoEpA3U6xd9Ltv89dGrNRm70VlYAjBUTH9A4IqE0+ztQQ660+
+	 Ug/z7dxIxtVzhksTsjoiG1Tm6V4L8wi8pJ40gSQhWgGQxPcImYhB5fN0hPY0jyGl+ntP5
+	 JYAlXx/NlWYeqggQqBI0DuBaRv8tgi11b2mQpDJk7M06teT62Wt0NjqebajjRaVBZJsX3
+	 k3emijldO+82fL8bB0NBJMYDRbX5KUUzZhQ/R+ITJsRuSGLjOeYdd0qaeUdFy1ZUx1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792866035;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=vmV4lQnSO2Bn4fy60UoiGjkHhPKslPFl/aNWvs1arNc=;
-	b=zDRm7W3rxbOW1h7XuPrzJpTGVh2pECMyKxBVOBhdUmFlJrLg0h+hBSLY9xAwSbjwfsWm
-	 SUHu478R702kxGhpn5m4bbgSwLK8syfKvKLfj6LQUSo4c2AHvMV7RVeiRfnQp0fqNqXPH
-	 SWYPLVpKO36WdleF1OypLzeexwBTs5oT8ZM4yA9c+SaHlZ8tSmKD0D45MbkY+yJjnj4pb
-	 Es6uEnbNFu3oYFYHeuHuZ3LaDkQkDWRlbkmibsEKkhOO9p6Tt77bUjSrXNotJ8xSDupM/
-	 sw/1nuyYqfpkIjRJighnb4s7/Un7VEb4vX+Ksji5ztpcSN6lS9ZT3yRDH7UK6fzBpsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792866089;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tnWMP+dPC4jAvQQAcsQzyieuynX50OBlfcZb/HMCvdc=;
+	b=QdeRo059eBHN+bbu9abW8KkB7PCoCT2hqNjPXZY0KhhQSmBrVUhsDqlDda7jMeCwS5BZ
+	 u+TMDqkd8sBYHxt3uzseHn+UJN8+FkJifIqeOr8eWTmsE+COlp7ZyiAsZQMXry4/Om1Zh
+	 3pisYpYCdnAJziauk6RrY00G2zpE3np68D4wUr81rZw1CkBnmNpG0hapkU319V68QYJZj
+	 dC0x4u+uUY5xcRDAxf2XBM8yNli8E4hYKOQqUvPBTzf13jsvZKLSG1ZTjtbIGh3/AWl0b
+	 ypPm05se9TaAkaXKAgYaxBvDVlsQJayv50xtPp4FQ107JhP+0uYi7JT0RpUSh5rQ4Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=mdC2Daft;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EnrmlxZm;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AB2606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:20:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AB2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2115606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:21:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2115606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=mdC2Daft
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 857DED312F;
-	Sat, 24 Oct 2026 21:20:30 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 857DED312F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1792866031;
-	bh=vmV4lQnSO2Bn4fy60UoiGjkHhPKslPFl/aNWvs1arNc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=mdC2DaftTNrer2AXTJTCUDU6YzhakrgTJAFmsuxReRsFJ/NheGYcsVZcGBkuE0rhG
-	 17iNJe20ZnjstYVGCXSkI7NJGg0vSIKteqc9Z7NzeRfNysJgItFC1GhMC2eYiGsw7U
-	 HPd7uCgdaFokVZuE8LGICwBzoNcNWg2w2JfGJg2wWd7SKKDaOcZ3oOcZt0phPOQHpl
-	 TGa27OhsC2mpjjK4NorLvmEzxez4xX+khPzTH+x818zOyq/A9ewoQlZmP3XmarfrLf
-	 IN3Sm7EqtlmA2wAQmNJgDchbRVPj3VzQK2inrbGhG194Hy5qnEX32S3X9RPrhDNRfk
-	 BbKt+j8nxuFhQ==
-Message-ID: <1a128eaffb2994591882308f67e0d7a0c4bcd4b1.camel@rendec.net>
-Subject: Re: [PATCH 2/4] irqchip/alpine-msi: Drop redundant asm/msi.h include
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Antoine Tenart <atenart@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 24 Oct 2026 14:20:28 -0400
-In-Reply-To: <20260923083703.38974-3-farbere@amazon.com>
-References: <20260923083703.38974-1-farbere@amazon.com>
-	 <20260923083703.38974-3-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EnrmlxZm
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15ea896ddc8so3102438c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:21:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792866088; x=1793470888; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tnWMP+dPC4jAvQQAcsQzyieuynX50OBlfcZb/HMCvdc=;
+        b=EnrmlxZmo6vlijW49ATP7KLoUG9bEwCrhuL99N4Qx5LWAiQmTJFDrg4x/P7hJxSiki
+         JqjtcOqezLBkCyBdeW0aAqNN6r33SSLuhUXEADTOxrwn/xkPJ5A5PkcVNSN6wSEPlkzx
+         eDdMH996EuWyZoUjMYkTVofhSk00izOTAyTv2+VVZ8gy+cLmFmnS8/CixMIS/ftejvlx
+         v9//BsLUOVlbR/j3SsSjak/cI953bu6qe8JUmvoYs+4sBgkXcAkfMwtuuZAj+Cx+Kxn9
+         JlvVaRqk1rqEdzN8Xi4KQ6QCYXsUn0hhnYpdufqMF5tle0+F3VbesQxA24/mIiw84jNg
+         p3Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792866088; x=1793470888;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tnWMP+dPC4jAvQQAcsQzyieuynX50OBlfcZb/HMCvdc=;
+        b=kyBII3JLMyMLLr7gBAm30M2Ig7L0pxJBjs6jbaXnaOZHPVod3nswGOIRHdzL5GC6ov
+         7OazO4/QE4DzllapRl/832nAd9eqamTL7qw+EV9deQopVEwuQDZi0DwkiWOon4Smmq2d
+         QBvc0/RqcLPZ4Qbup+gOBRA9EtexYLMi2JbReFEeWNRkRUiInvqXXKImaTiEDkIS90tQ
+         NzlWzNwwQsVb19RWnvkCG8rlEc529X90XbBm6MsmWBKJ4GsxjYxNT7cjpUTGoks5O6Ok
+         Y/wTDNQMiVEYNOTLB9tTUrlYR1vDcYTERiO5AZh/YtavcVw5R7uwgt4xiU0ZfNjZrmwN
+         YxIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQjFp7iVPN+Fv1IGNCSPqhSZc6GbRNGvW8zvb3dQJ0UYxADlpgjIb96IkPQGI52unDf+NhVYaxk5VkRJY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3KX3tUrTiRkv5nlb6/L6G3VpCvmUIQQLttY6C2220EdsyKLEc
+	TrlPLP0IO+ltOjlwFxkUUBy/t+wyTBw/5gehaaLQt1kV/TafzYDNx7XM
+X-Gm-Gg: AYBFou2UrBLmo1xyPnCtRThrFtV4ai7OXXflmzkTAl+Yxjg/VR7a6naSuqFgja0CCu3
+	13U4tIeLygrkNrcsejahO9Qf4thnwvGgR+gKRAFXKPebDUWV3CN0Wh42Qky0qZg1g+HER3bscve
+	znQn+WYGx9Ej+IXGRSLG3ZAv7CBgOubIvIcAcm9oicL68XWZqoAJmz1hZDkv/vGoQB7KA+Nky/L
+	9o2Hu1MDcXAsxngfK9uHexaXqTkuwAztmhMtIghp7hGFGKqzDECsUeVVyDNMIhb51FnNJxSpJPF
+	duEcZDPRaHn37iFPE9yHE5mQQbEfgL7NDjk7vRgHg0xI8syZmkMiaA88vUGzFE288N3QPkOhQNl
+	kWPoq/i8iyZRyA6bwxhUwBYG2XOhYjqheM8zUEIdo/g4zY9IpADsF4r+UVL+64ks8M3rMgR2clO
+	hgGolroBFodxFwGWPBLAiunRfVstTe3Ex+QVUK/mPKOMaKOelIQ37l3ehe3raFK7gBDT+PgMeTi
+	hFL7Wiz8B1FNWae8HFNyDFG7/PQugQG00wUCZERy3IyrPxUXw/kR2LM6Xx+CXSGP1ZaNRdnd2A8
+	xA48dA==
+X-Received: by 2002:a05:7022:7e0b:b0:143:2982:1043 with SMTP id a92af1059eb24-1993639f0f2mr3810907c88.36.1792866087710;
+        Sat, 24 Oct 2026 11:21:27 -0700 (PDT)
+Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm8174893c88.21.2026.10.24.11.21.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 11:21:27 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net 0/2] net: dsa: mv88e6xxx: 88E6171 stats fixes
+Date: Sat, 24 Oct 2026 11:21:22 -0700
+Message-ID: <20261024182124.296988-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,30 +101,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
-> The driver already includes <linux/msi.h>, which itself pulls in
-> <asm/msi.h>, so the explicit arch include is redundant. Remove it;
-> checkpatch also flags the direct use of the asm header in favour of
-> the linux one. No functional change.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> =C2=A0drivers/irqchip/irq-alpine-msi.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpin=
-e-msi.c
-> index 0d97abb85e16..20f1f7f7612b 100644
-> --- a/drivers/irqchip/irq-alpine-msi.c
-> +++ b/drivers/irqchip/irq-alpine-msi.c
-> @@ -21,7 +21,6 @@
-> =C2=A0#include <linux/slab.h>
-> =C2=A0
-> =C2=A0#include <asm/irq.h>
-> -#include <asm/msi.h>
-> =C2=A0
-> =C2=A0/* MSIX message address format: local GIC target */
-> =C2=A0#define ALPINE_MSIX_SPI_TARGET_CLUSTER0		BIT(16)
+These two patches fixes statistics on the 88E6171 present on the Linksys
+EA4500 router. These changes were found during testing using a
+resurrected version of Andrew's dsa-tests:
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+https://github.com/lunn/dsa-tests
+
+Florian Fainelli (2):
+  net: dsa: mv88e6xxx: fix 88E6171 statistics snapshot
+  net: dsa: mv88e6xxx: fix 88E6171 statistics type
+
+ drivers/net/dsa/mv88e6xxx/chip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+-- 
+2.53.0
+
