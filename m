@@ -1,64 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792819835;
-	b=5mhnQaxmW9DQOs2W6fN1XJXqp/ocidsRajqm3fapHLd4WAYRvWYcx0TmU/VhiCPEvPy6
-	 pi3+t5o1fV4QS76F3sy18Nj9Oa+lrlInLCaDB1qGdTg0HDaaaWbs2NxIdfIsOjYLwRZmH
-	 vAFwCiFCNRD9mgdrQw/TyybPG0QwhylTnbs025JT5tnuOseWS6pj00/9vrDiT9BaJs1s+
-	 zZR2yZ1zGpzQO9sqRDXX2D+jsH7BbyZ74XBLP4a7ZWheKsvd7Wphb5/wARqBYMklq/yYi
-	 w24SkLC8DCX3m0F7ZP44S93DqKFtDgFBmnaKSakXbTFKgRJorTdiyBwIAQ0MG8BP+SA==
+	t=1792819974;
+	b=XO2nFSYLTsbSo3v8Iai0TJfQjeT5Yq9KSwyBvabaHSBJLhsgqzjbMWnafQAHxt0eAQMO
+	 xFzAE6cBspR4HK9birTzfEhn4XurS6LnTWrr7POXikHbV8Tr73JmyvgCSEFmIbzsCRX4Y
+	 A4Z9vutp5tj3uP7QaLsTSopmyH5PoL1E/SjsHd1m9KovtENHCZ3dQmCSWmpHQ4ZCCN92W
+	 PUBg8I1HoAISs07Qu5XmGDame+dKVroJ2gfX9hI2vxdRp062rHeSnq+1aTye5+DW8vbTZ
+	 WBzsBl3pzxPJYy6WorYHud2ybagfhgHu+COznQVhj7GyYNQ/wdfSoz5SCJq2sjLhf+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792819835;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=Dh97gih9aT0Yo7bMvplVYEJ4VBEfmnBHPPAVkbiXI60=;
-	b=vn3pOTNW/4gLoV5h0uSXcslxsCWxv456OGRMjdLsUhy79ChzlqcOUr5RSz8l7b71pR0X
-	 G8TfdeGA6WrTF1jtcahVMTIAKEIXuHoS50ySxcGXxbKCy9vL00nAL7+JPbU4EWvAJ9ibd
-	 FDN0NuK6HfIqeadBgKdRpGWR/9uYK0GsPO2zO2Oxrbdz4MBmo6Qf7sYzUYTRijgldU08x
-	 2/4MFySogXOD/kSCB4MDhW0NXfdM9HURb+eF3h2Od9FnO5RGT/l+0P98KOCw+WfKeXTOR
-	 oEmhq1NB322iZkrnisamcZyQ/vNE2WofDkOVrVwdrGoLsOHPcrj6nkgVczqX7eKPBTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792819974;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
+	b=i9+8+XiHv0mF3CjXHofMkQe1MkydisUGxDS9aUqqN44E2MFuD6aKAxjXtAYruqhkgluv
+	 YcPzQ/7D4sji5tVdnuHYTBDXsf68sHCWO2yxV7BgIr9spGWe6ZKxVsApRut+DQH7cXuy2
+	 qJphP6cLtzOv2iqOBhXxM+Y3cZ2M7sGLHq6SeBL6BbseLJ39s14zqaVRDZj6vhF+SCo3D
+	 EfENyPIwOU6Un+3NzCtmCkelgglP81rCbGOPf6xHjIYxuk0vzBKIovsLsAzN7XKpSElOE
+	 +HsykXu7mIWGh10Xgj7gXwHWj8tBCBosoQqPeCpz61Za1S6Mv9JkbryuFgnLnrPvzWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9h0KzME;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC70606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D55606A331;
+	Sat, 24 Oct 2026 05:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9h0KzME
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127C61F01829;
-	Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792819835;
-	bh=Dh97gih9aT0Yo7bMvplVYEJ4VBEfmnBHPPAVkbiXI60=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=J9h0KzMEsDoUNBMST/J9upJ11zYX9B+pcPL6uqiTtep5beDRZfmZXggi0mWeezslP
-	 GhqaNfvLG0WK+RGGIlcpnLqEuyHt2m5aByChs8eoYZHItz6jEQgRqo2V/5bSkVGGi4
-	 WHYbd6fMZrc3z8V0FGQvHKGGAy7bGZt1EfClJvwJZI3rf0VWhe7nMemggb0FlgDe3U
-	 l9cPMEYHlKXhjHOmt7CTpCLNd/AiFpk4572QgKfhVHH/l0CdhGOwW4Qnc/wxmw2DJ+
-	 2CKPVKAkC6+xgRgCqIcXscSQaZzD+hjGf2ywzGQyE6u2Llf7BaecxFLuOc/kdl6KHy
-	 8TtMg9DrvNLiQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 05A10391B17E;
-	Sat, 24 Oct 2026 05:30:35 +0000 (UTC)
-Subject: Re: [git pull] drm for 7.4-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
-References: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9twkDYDGdznUrXk8c-t1tXD52Df2LsdnF6KFDz_0xoYv7Q@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-21
-X-PR-Tracked-Commit-Id: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
-Message-Id: <179281983374.1490995.11409284564633418898.pr-tracker-bot@kernel.org>
-Date: Sat, 24 Oct 2026 05:30:33 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Danilo Krummrich <dakr@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925C61F01825;
+	Sat, 24 Oct 2026 05:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792819974;
+	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aksZiEgyHKSbd31vCh540tOm5q6v6AsQMCd1mWZIdK7W4rti5Q+P7DzE811VpsP9m
+	 SWbrTkhC9jIesYRProuV98r/2BAZfLDX1otBVJrk4r5QVSOcjL9a0YOA9Ge8xEa/fd
+	 AhPKd56cddMtHBnFXsFZrma/XMowwRHhVHyJT1RQ=
+Date: Sat, 24 Oct 2026 07:32:51 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Salvatore Bonaccorso <carnil@debian.org>,
+	Pavel Machek <pavel@nabladev.com>,
+	"stable # v4 . 9+" <stable@vger.kernel.org>,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
+Message-ID: <2026102452-upstream-plod-9ed4@gregkh>
+References: <20261023163713.816071858@linuxfoundation.org>
+ <atvHKoRHHjKV4l8A@duo.ucw.cz>
+ <atvS68GhCvmAphrQ@eldamar.lan>
+ <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +63,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
 
-The pull request you sent on Thu, 22 Oct 2026 10:24:59 +1000:
+On Fri, Oct 23, 2026 at 03:44:07PM -0700, Florian Fainelli wrote:
+> On 10/23/26 14:34, Salvatore Bonaccorso wrote:
+> > Hi,
+> > 
+> > On Fri, Oct 23, 2026 at 10:44:26PM +0200, Pavel Machek wrote:
+> > > Hi!
+> > > 
+> > > > This is the start of the stable review cycle for the 7.2.13 release.
+> > > > There are 242 patches in this series, all will be posted as a response
+> > > > to this one.  If anyone has any issues with these being applied, please
+> > > > let me know.
+> > > 
+> > > Either something went very wrong with our testing, or this fails on
+> > > all our targets. 6.18.59-rc1 does not seem to have those widespread
+> > > failures.
+> > > 
+> > > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2982452623
+> > > 
+> > > Example failure is:
+> > > 
+> > > I'll look some more to try to figure out what is going on there.
+> > > 
+> > > Best regards,
+> > > 
+> > > 								Pavel
+> > > 
+> > > 
+> > > [    1.238864] Yama: becoming mindful.
+> > > L426[    1.238864] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> > > L427[    1.238864] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> > > L428[    1.238864] VFS: Finished mounting rootfs on nullfs
+> > > L431[    1.238864] BUG: kernel NULL pointer dereference, address: 000000000000002c
+> > > L436[    1.238864] #PF: supervisor write access in kernel mode
+> > > L437[    1.238864] #PF: error_code(0x0002) - not-present page
+> > > L438[    1.238864] PGD 0 P4D 0
+> > > L441[    1.238864] Oops: Oops: 0002 [#1] SMP PTI
+> > > L446[    1.238864] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S                  7.2.13-rc1+ #1 PREEMPT(lazy)
+> > > L447[    1.238864] Tainted: [S]=CPU_OUT_OF_SPEC
+> > > L448[    1.238864] Hardware name: SIEMENS AG SIMATIC IPC227E/A5E42630598, BIOS V20.01.11 03/15/2018
+> > > L449[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+> > > L450[    1.238864] Code: 34 ff ba 00 02 00 00 31 f6 48 c7 c7 70 a2 e6 b2 e8 52 d3 28 ff 89 c3 e8 bb 2d 34 ff 89 df 48 c7 c6 80 db 85 b3 e8 9d d7 2b ff <81> 48 2c 00 00 00 04 65 8b 15 63 6e 45 01 48 89 c7 89 d0 c1 ea 06
+> > > L451[    1.238864] RSP: 0000:ffffffffb3803ee0 EFLAGS: 00010246
+> > > L452[    1.238864] RAX: 0000000000000000 RBX: 00000000ffffffea RCX: 0000000000000000
+> > > L453[    1.238864] RDX: 0000000000000000 RSI: ffffffffffffffea RDI: ffffffffffffffea
+> > > L454[    1.238864] RBP: ffff8cf23ffed080 R08: ffffffffb385db88 R09: ffffffffb385db80
+> > > L455[    1.238864] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8cf23ffed0ab
+> > > L456[    1.238864] R13: 0000000000000000 R14: ffffffffb380c040 R15: 00000000b43e8000
+> > > L457[    1.238864] FS:  0000000000000000(0000) GS:ffff8cf287953000(0000) knlGS:0000000000000000
+> > > L458[    1.238864] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > L459[    1.238864] CR2: 000000000000002c CR3: 000000000d630000 CR4: 00000000001006f0
+> > > L460[    1.238864] Call Trace:
+> > > L461[    1.238864]  <TASK>
+> > > L462[    1.238864]  start_kernel+0x7a2/0x7b0
+> > > L463[    1.238864]  x86_64_start_reservations+0x24/0x30
+> > > L464[    1.238864]  x86_64_start_kernel+0xcd/0xd0
+> > > L465[    1.238864]  common_startup_64+0x13e/0x158
+> > > L466[    1.238864]  </TASK>
+> > > L467[    1.238864] Modules linked in:
+> > > L468[    1.238864] CR2: 000000000000002c
+> > > L469[    1.238864] ---[ end trace 0000000000000000 ]---
+> > > L470[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+> > 
+> > Same here indepently, but not yet bisected.
+> 
+> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to
+> struct kernel_clone_args"), it looks like we need to cherry-pick
+> 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"),
+> with that I can boot a kernel.
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-21
+Thanks for the bisection, I'll go queue that up now and push out a -rc2
+soon.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+greg k-h
