@@ -1,96 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858545;
-	b=KUq2F6IwRJbXIYKMO+TNlHSdXTfrntNU7xyvjP1reVNJKOuDvEEbkAXU8Ak4W9lsBtcS
-	 O2TFljxkZGeMyUAe5ObEZoM+CCP5xegaqmOu8F+xphdT2X2lBU8WH8Cr+Nyjs5xhme0Ol
-	 65Ng5gIc8xSoxdNtw/IiWqviQxteboG4MrCDS2GR0xn2+W1xtLz4P+56+IEL33BD07Ymy
-	 Xefmy5KqKHTAUsoCdGw/A6thP3yetg1RkGwfdGNdl3WWMFkNUswC97ysMc+Inbis/gY9G
-	 tYHo0+soQMbEXoEVKNyDrlUn7kQpRpoBHCuIPxIQlop2F9WmuDoGR98TZENXmxb9OHA==
+	t=1792858618;
+	b=45VucqUWI09EVnooJoO1Me2QyrVCjokhAyTCnedlgpER/EiJJe9YNI1ie92nVrhAd/cQ
+	 zqip88Dj3SU/2Z31dHsUzTE9AhasXTMOVshRKxHzfYNsPdvf7y9R19H98ocsSOQiXaTvk
+	 FUFnP5rGkDBuuCyiL1pz7gL002n1Rp9/QLUBgNMHb99RVeXfRJt7zLhdGKUlh0UCX3Gve
+	 5edQyH7st7uXKAouxytQ+h6W3qSU3rGA0OtXnLPwscyDcZeuczI2SdjQ6H9Sta/5r2BJF
+	 yvlS+ZkyM3LeN0PCmmj+Dc87K8coVo3dgavZNobeSfrXYITVzHJe5laYvxiBaejXdxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858618;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-	b=mAW9PdngqzYM2oFJ/Sj16HZNny01cQjWwEMRsp5intocgEAWJNubd5r4atP2Qb1oCWxZ
-	 IGmYrjCnwXHq8557raETONg9Qr/Tkt5hKasA+GiSugeYJth14RdjT85xsZTxkpaWquY5X
-	 MsqeUZrnl1ermSFXzyM8+I4ilGoHDNZhDAkjX3IyuUkNCYUfEEcGbtVE7Bz7ZFHY5ZxNX
-	 5UY5BW3g15CU86h8JdSZbwTiDmhpE5LAEY/EXGIUChWHgbUIaL7asY0pc5iBV1YPa9FZm
-	 ID8hNR94G1Bkbbbi1+H/ZzVRJ57QwFN3IdyDGL55Q4oFOvF0pnswIAFvvGP71G/Kf0w==
+	bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
+	b=DGMd+wPNnix0EJXx0S/ibQPxb28BPx8+W6SGNSgah8WtKmCB/M6z26TbpkRUifgFqrPO
+	 A2CrWEKPuDv4QwpzGiRmqBN3cWM+uhkEDIG6xdOvJ6699GOoYyip6iBigypRdYtzA/Iqt
+	 PHi5S3ql5JxXx9n8Qo2HZMkIue97gQVI/8WD1PxpYLkU48p/4DuDLIRCO+L/XHKEw0Lpa
+	 EiNmAl+XwIIQIpx8VVbKWiTk/DNGesS+Q2zZ53kTYLBMCWuYWyzdTpQRmkN+E2y/eiwKf
+	 4FNlzK6lKKIAuhqywO+Mqm5RT2P4V/8n9bw7TdWr1vAbjYGhRic+vqvK74xxTFC0pvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D0BLdy5H;
-	arc=none smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	dmarc=none header.from=asseily.com;
+	spf=pass smtp.mailfrom=asseily.com;
+	dkim=pass header.d=asseily.com header.i=@asseily.com header.a=rsa-sha256 header.s=google header.b=RAaYSvon;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E6A606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E6A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75965606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75965606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D0BLdy5H
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a75f960be4so10321821fa.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=asseily.com header.i=@asseily.com header.a=rsa-sha256 header.s=google header.b=RAaYSvon
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso20788275e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858543; x=1793463343; darn=vger.kernel.org;
+        d=asseily.com; s=google; t=1792858616; x=1793463416; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-        b=D0BLdy5HYV45c9qpPXBdOUZmb20eOXzBkqmnKBAfshAYG5diu6bzXGW2wOGtOHPasg
-         K391NmMWxtLMR0Nj5375zWZlkUi/iau/lbUdl9OVQAK4UrQXLD1J9EOg0S1VnrYddamM
-         S1ScwKaYBUgkGTQg4gwWzb26CrZfju/eA9+250EOFqWv69auZrCFU3GlXw+NVQIl7mCf
-         aQIHWVKT3hrQvRKbPEi9FSdfLk8NnhVWaOsI/NhLvLd2Kg97GV3pKosR7BlBZLNxUNEd
-         0Y2u19i1yNxC7zzBsW6u0DJzSRx4whP/2vRBLP4riAyZZjVowNf1y1bAI/BGon3HU6Xp
-         pVRQ==
+        bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
+        b=RAaYSvonR4qouJog0CyJbGB6T9+L01g1zbd3cM6gD7yyOlhk1jwBHBZdcBxdGiV5a2
+         +Hn6UnzguUG8Dy99BTUnBcOa5rC3EU7VuULinOizOgqi9vHwRLP6f/RBxmc2Wm3gru8z
+         hE3PFyKIElmCEdx5WIpTfkBupROGoujMgEgiDPSdNQ7gbwB3jQwTevLS57vhf+UW4ipJ
+         BKOY449szzRt0o39Z+wP8M2ueSrkWrP2C2hmWGdLYaoKBJPInR1ba4SPneW6w3jwqPJK
+         zHEQAhtuWRToLILi5qKy6qdER5gBCvAW7NnVq1ZhKtAbAgBcZn2qkZh5T0YTAZH0FaI+
+         pjtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858543; x=1793463343;
+        d=1e100.net; s=20260707; t=1792858616; x=1793463416;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-        b=Ug0/Uh46FV6z3Nsy8FPTuJcPoHWQyBs+NjmR3kB43W6ygTcEmboc+aa73iznd6eGkJ
-         ZK0xtJvYpNDad98HcHN2lHlEFJ5LbUFQCFIGNoF4oGxM7YKYeKT1x9iubvTqrbml0ARr
-         rARqjXtGnX3oKR0FrdZaV+c/qmXKi5iOzRCxFuS1DXgtoeFRiUD3JhmgR206Njq41Wex
-         C+awjBd6FHnEC9UCc7GGx2VuqMwD0nDO7ak/Le/rrVFBJWYmIIE/jpXYpjclhAcA83zH
-         oOlLZkQ5wmCbn5xNh1lVdPidsNFhTOLOVEWZ9bJsZY0d+9axgQW/ZLTtfHerrQwerjm9
-         OnvA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0Eksl5lNYYG8h9cHATE7xghngy+aZF6TW3TRYfRmT8+MBpYq2qs+Dq/YIuC/0lJlLGKfDJbiJjj4Gta0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLpKAK8X+INWhsnU0rFKd5sTxGCqYUKqxbCFbnqDaifKTxvZ9W
-	My3q2xT3CB54XI7r/iix/rT8hoocol5sqgvc3VqsmlXyt0Qa3dFjGcbA
-X-Gm-Gg: AYBFou2YK26nCdoiZF+h0g8DuamwSnl9F6pYXjzusVzfWlthf4jea20yH91/9mDzSSW
-	FO7xLrYagU0AaoLeHbVP8Z3LA9VmHiLgJnbns/O1Lu4ewlZwEXorK6J1oHo+Ltbj5ifE2bqEGUM
-	GELZMxP0Vmu2Cedywa9nzApdOBunNex7XSCcOK3Eo9+uI/d2qPQVEltSVGdhH/qS5oGgaJy6Kdp
-	2aRPjqGdoGGuWq0LrA9rL8WL78VEuC3/48phr0jBZUJo4GSA3TVF5ZeO3b1Jl7D2jgn2msT3Jk7
-	vdSSCJX9ahVgIdrO9eKu+36/zoHsTekpQ9A6aWn3lLqYP+myEq1ZQBCxkIoHTPsf67cCDzSgYbo
-	I19mn587/QHOngrY/bceS/ZqTlbgFmjI/11neo1ir7ysTxLgofmbsPdUDVlrfswjwe6yy2AI5K2
-	zK3bMSKGqQIr1prqT3I+r+GfemY7JdXxvg3n+/D8KefPIac48TMeOrmkawUsYPD/iHFlgzLBe2B
-	HZu+dXWZrrBraUNM9piGm+i2Wjrszu7DQOrPiCnqZcUwgi6v5Go3o3Thu4A3bcxAdh8Jm7QzF7Z
-	N2ptgBZ+fqN6PuDPMce3eBKzoZl/QbHI4OTPLsF2DpSmmIpzUVwiRsUhDoLN
-X-Received: by 2002:a05:651c:211c:b0:3a6:553d:cb1c with SMTP id 38308e7fff4ca-3ac6fceb510mr5573981fa.12.1792858542702;
-        Sat, 24 Oct 2026 09:15:42 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a493b6sm5645121fa.37.2026.10.24.09.15.41
+        bh=AOGWZcrBZoO7CPXaiikuuyaqjGZKSk1gc081ebM1RZM=;
+        b=OyV6yIiceOPMVdn+eDcIdISa4PEXCMyxwhEsAvy8xnAQda7JQksLTuaoW4P3le7K21
+         bPj/0uB6oI9faJEekff2u5N5PSmDuWxZv/80bhJYl/WYFfK8mDRTabqSxatd6f8aKvMh
+         NSKgmDgdYBC8NM9A7hhTnYmbQtQzCS1fAvnHh8XjOylPIq5tkIwqlvpIxCOjRgVN/mPh
+         DVZ5iJERTiWSHzZLEoMcoya4C62vijPONiXsw7NPtbNJtBcnRN4TfabNN9xDMciZBaNy
+         q183MFhOGDZ/fT5AsjVQDcR61jV6DOT4kn5f+5uDh5+YQi7ZBHM4cYUHOBxZi7pnpY8P
+         M6fA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPcOqO7ZaEdi2RGJ72y4OO2VVyDvdcVzdh32NkvXZaJONuXVq18zU2r0oxJRH/zHfP6eHwyCSU5o8nxAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYSJ4tXj+fZGneNyR+xhXm42w+ZcLlXSkXdvAeuKLfNx1EkEKx
+	9DplQvZLuEUUNkRBjXpvNzy2MR/e0oMy0mK8qscj3681kvCTF0xVSr5lUvL46rM9UDQ=
+X-Gm-Gg: AYBFou0ODPqURHsaSAnl9uNEiqY+Uz66Ftusu8pjAibfRw09+AUNqhM3xFdcJR5svPJ
+	CkFCf2sJCUaGfBqyUpNn4V8PMLWNjBlJ7BBD3S4xg9NPJqJNJCvaH3z1lB7wZXQCAfbOfpdJWIC
+	BtsJxBlxEOok4H42D5AK+MkCnXQA9i/JP3jNtcyz0dFpcimW8HNWf4Y0C8Nsx40LDQ7ZaGu2eKj
+	oDVW9pWoONGcvou96NkOx23TYDYTlFZFGp0lBeap1KyS89Qsk8AXXqmczSLXYFhN7GK/AnGnawK
+	zcs1qll81g4LBwJiLKJpdpWtix/Sg4ClmcDE+2X/jiWD4JLvgKxCr0vP5wl9ZMUXwzdfeDD14X0
+	Nuv/CQcld1UEaSJXxZUq0xZM+ZcuP6HPEL+TaVw6F9uwAiLbugFC3zOkfQSIkOIwZY9oGqi8mxa
+	fiyKhu12HcONMlqSDIiGDP0STK+C/8RFwciOJDEEuKbkCDJr058fpH07ILJPi/WR1oDcGkcG3C8
+	X8JLxGZidn9xu2lD+OiLe2NWAepfw7Rjt+Xw4fUMM0AoKFJBauZY0ugWKCOuqYRn+v6ZA==
+X-Received: by 2002:a05:600c:4688:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4a35aca5a1amr34062485e9.22.1792858615676;
+        Sat, 24 Oct 2026 09:16:55 -0700 (PDT)
+Received: from localhost.localdomain ([178.135.21.173])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm78516845e9.1.2026.10.24.09.16.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:15:42 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Mike Snitzer <snitzer@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	dm-devel@lists.linux.dev,
+        Sat, 24 Oct 2026 09:16:55 -0700 (PDT)
+From: Karl Asseily <karl@asseily.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Igor Putko <igorpetindev@gmail.com>
-Subject: [PATCH] dm snap: fix use-after-free when origin and COW devices match
-Date: Sat, 24 Oct 2026 19:14:59 +0300
-Message-ID: <20261024161459.5539-1-igorpetindev@gmail.com>
+	Karl Asseily <karl@asseily.com>
+Subject: [PATCH] ASoC: es9039q2m: Document the FIR coefficient payload format
+Date: Sat, 24 Oct 2026 19:16:34 +0300
+Message-ID: <20261024161635.12956-1-karl@asseily.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,77 +99,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When snapshot_ctr() parses target arguments where both origin and COW
-paths resolve to the same underlying block device, a slab-use-after-free
-occurs.
+The programmable FIR controls are TLV byte controls whose payload is the
+raw coefficient data, with no type/length header. Nothing in the driver
+says so, and the in-tree precedents differ - wm_adsp takes raw data, SOF
+expects a header of its own - so user space is left to guess.
 
-The origin device is acquired first with origin_mode (e.g. BLK_OPEN_READ
-or BLK_OPEN_WRITE). When opening the COW device with dm_table_get_mode()
-(typically BLK_OPEN_READ | BLK_OPEN_WRITE), dm_get_device() sees that
-the device is already in the table list and calls upgrade_mode() because
-the requested mode is broader than the existing one.
+The driver cannot catch a wrong guess either.
+snd_soc_bytes_tlv_callback() clamps the byte count to .max before
+calling .put, and .max is exactly the size es9039_fir_put() checks for,
+so an over-long write with a header in front is cut to a valid length
+and loads the header as the first taps.
 
-upgrade_mode() opens a new table_device, points dd->dm_dev to it, and
-calls dm_put_table_device() on the previous one. Since the refcount drops
-to zero, the old table_device is freed. However, s->origin still holds a
-pointer to that freed table_device. The subsequent check:
+Document the format at the control definition. No functional change.
 
-    if (s->cow->bdev && s->cow->bdev == s->origin->bdev)
-
-dereferences s->origin->bdev, tripping a KASAN slab-use-after-free read.
-Furthermore, under the bad_store error path, dm_put_device(ti, s->origin)
-fails to find s->origin in ti->table->devices because dd->dm_dev was
-replaced, leaking the device reference count.
-
-Fix this by resolving cow_path to a dev_t via dm_devt_from_path() and
-verifying that it does not match s->origin->bdev->bd_dev before calling
-dm_get_device() for the COW device.
-
-Fixes: 26110d5afe81 ("dm-snap: simplify the origin_dev == cow_dev check in snapshot_ctr")
-Reported-by: syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+Link: https://lore.kernel.org/all/CA+gvwbqrav5C9e=9Jx1i31nrEZGDko73tAAhGzzexeRa1f72LQ@mail.gmail.com/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Karl Asseily <karl@asseily.com>
 ---
- drivers/md/dm-snap.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ sound/soc/codecs/es9039q2m.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 7c3725e4ac54..4a7c04c780d1 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -1232,6 +1232,7 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	int i;
- 	int r = -EINVAL;
- 	char *origin_path, *cow_path;
-+	dev_t cow_dev;
- 	unsigned int args_used, num_flush_bios = 1;
- 	blk_mode_t origin_mode = BLK_OPEN_READ;
+diff --git a/sound/soc/codecs/es9039q2m.c b/sound/soc/codecs/es9039q2m.c
+index 4e9f86cb7..bf206bf95 100644
+--- a/sound/soc/codecs/es9039q2m.c
++++ b/sound/soc/codecs/es9039q2m.c
+@@ -632,6 +632,20 @@ static struct es9039_fir_ctl es9039_fir4x = {
+ 	.stage_4x = true,
+ };
  
-@@ -1274,15 +1275,21 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	argv++;
- 	argc--;
- 
--	r = dm_get_device(ti, cow_path, dm_table_get_mode(ti->table), &s->cow);
-+	r = dm_devt_from_path(cow_path, &cow_dev);
- 	if (r) {
- 		ti->error = "Cannot get COW device";
- 		goto bad_cow;
- 	}
--	if (s->cow->bdev && s->cow->bdev == s->origin->bdev) {
-+	if (cow_dev == s->origin->bdev->bd_dev) {
- 		ti->error = "COW device cannot be the same as origin device";
- 		r = -EINVAL;
--		goto bad_store;
-+		goto bad_cow;
-+	}
-+
-+	r = dm_get_device(ti, cow_path, dm_table_get_mode(ti->table), &s->cow);
-+	if (r) {
-+		ti->error = "Cannot get COW device";
-+		goto bad_cow;
- 	}
- 
- 	r = dm_exception_store_create(ti, argc, argv, s, &args_used, &s->store);
++/*
++ * The FIR coefficient controls take raw coefficients and nothing else:
++ * tlv[] carries taps * ES9039_COEFF_BYTES bytes with no type/length header.
++ * snd_soc_bytes_tlv_callback() passes the user pointer to .put unchanged,
++ * so a header would be loaded as coefficients. wm_adsp uses the same
++ * convention and SOF embeds a header of its own, so the choice is stated
++ * here rather than left to be inferred.
++ *
++ * The driver cannot enforce it. The callback clamps the count it passes on
++ * to .max, which is exactly taps * ES9039_COEFF_BYTES, so the size check in
++ * es9039_fir_put() can only reject a short write. An over-long one - a
++ * header followed by a full coefficient set - arrives truncated to .max,
++ * passes the check, and loads the header words as the first taps.
++ */
+ #define ES9039_FIR(xname, xctl)						\
+ {									\
+ 	.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,				\
 -- 
 2.47.3
 
