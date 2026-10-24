@@ -1,89 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858397;
-	b=vCk8t0jGkw0I9On6O4pWPI5aTGEGqa0EU4etJQXTSsliQx2uZCSLJn/PnTeUPQcYB0YA
-	 9+JFdPxjxXwCoSDZNj2cCoM9MVLMEXy6d2cBcUP4vGU/klmwFHrHF+ywtHroOzNpu9P1O
-	 VdQfrM4jT407Wb2KU0FqYoNy5q6BC+gga07OOqWpTraio0HqNwYbf7r9EPOs6WZmKcZZd
-	 rQT4RBiKeV5D3Xxw6VIPmdzChvnRrUoGwlbWrI78R9N+CjaBq7/6j4N63fEO7JjvKW5Al
-	 5MPlqLJnxDNMxMbIVy0hhp9kgzgkPcdXuEJcl4gHC++xCUyGno/k0eD8Y/nMEiztKkA==
+	t=1792858433;
+	b=FAC9chK0eotIqAUmU4LVdDCnm5vnSGTuLq5dSlBOUYAGMRnQXhK1d/vB1SG4t04ynW/A
+	 39EEBAoa/38sxBZypr1KUikAYCy9cGbAcGSuNKttgSKDcGW2JAKXFgzQyGyKxMGgjtWjb
+	 W1OxaYmzGlYXqQNm+ydSp/FJw0cDvqTDqYARTHhz5nIj/9RPOL8wfA+dnaqTysEigDEWs
+	 ticdeBBst8OAEnko1uxEQUUzFQQex6KYg3y89puXqHXMjve/T5/LYmZBvC7moCc7af3Sf
+	 /wRz1S+X0TfKfVqBg6lJ73mBgz9cbTGk/nzm32gHEEpoMji2DAANBTPoG3BZG8nTiWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858397;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8m4A9jkTkwuo4ipkSykg8HyuJpfZHAGONM9dzpmnNxQ=;
-	b=PkG0SvnJlawVssVYiMW/GpvbqBq4tuaYPEUlpLFkmFA/yeE0OXeIpFs7fTqxEU6VBXKj
-	 8ZohPF2bY2Z38fsIF+fc3Hr77+7FcIEw9SFMIKxpyibY7FTlaqC5f3qJP2WULP4kWFh3r
-	 X36zTmxgKMLVle6ibLcFum8uoMZFRpvygwPUHCGMvLoGqfFMhjS6QMIPoqyhUQppJyS4a
-	 o5C6ExG1PCZIeHA10CVgoWxu6uAYAg/1xWSgU8PufSkpXCFdACzTFKaDTmV/Ej9dn+OZN
-	 49ItudLY/WTl0qjPLiWaOZxTpPmBPzc07XgDjJKtE6OpsjjE084bDi2WIK6TMJkOKxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858433;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=Py+Z5I/MajAjJGZNOZOZq0i/a4XelqMNOHlME6I2PwE=;
+	b=1yck0dQ04RA9RSoTT17mDfm5UMu8EpUw6ThAEuokSTjCxAEVdyw7fUDUjfRCwh/t9rDl
+	 tzrCo00j6IZvP+JzupGho+WGUPoxHNrI2PgFzi9r3Ek+xw9ZyztxRwdVxHc1Eu+Sr2NFI
+	 0pVbPo/f7wqVfewx/+NTS/o6vUopfUn7c3ERdIBQW0jOeI6aSUnYD6yEjm0Xx4clap521
+	 kSOKT6TdxjBx6MvvQq/sX665pfg98C9LsuM8uAulyJm9A6oOKFo/lmlboO6Do8KVX7EMk
+	 2KeYV5i2TPXGXhkZLdOVIjF8UsWyd/pNUTE2q/cz6v0jCqtx89y8VP1wJf6U63wHxEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LOwkl1uJ;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCgrczlB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5331B606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5331B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7240D606A31B;
+	Sat, 24 Oct 2026 16:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LOwkl1uJ
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-930c0f9c1b1so160559085a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858396; x=1793463196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8m4A9jkTkwuo4ipkSykg8HyuJpfZHAGONM9dzpmnNxQ=;
-        b=LOwkl1uJjZXsyTq8dwsJoMHwAKpGn77KQcY3H0yw23C9r4dTTVvcDlgLDEikbuJY+4
-         Ao/uvrFCciO3LdnUywnotj6RN588OeRabGyqdlDG6XQrn6ecjwoIvditQV2+okx3PRCI
-         qHAIDX+fcPbPxKJjhJovUMMwo18HTYhyyYX9IsKIWYcCnr0gPBFPAXGfL7MeNpu8AHSw
-         q5TB07O1KXthKywbT/uBoivV4wNHY7NJPxPO5X2zf+pgbqHX4Fo4HmW7ob34IHZ3JLbD
-         mx8GEW8h3wxFZVouORyiokQDKPFY/dzt/l3DWAqoTKEUvyefvizzCr/ZNem859PHjQ2D
-         K1yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858396; x=1793463196;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8m4A9jkTkwuo4ipkSykg8HyuJpfZHAGONM9dzpmnNxQ=;
-        b=2JNeZTZp+aGI32tc+5IgX5j4WmgWiAxpuz0qLvnwwcpc/A2EEtw9GYaJ8zfLPX7TEf
-         NMLfQrX2BZ9pYBsuHGB1po5aG0pug8TyXIZJUw8Ci41cNhPfrFTiD7lRpA9kRVo9xw/p
-         sbJRguZMFXjTgG1jzTJzhOquUQw80NCnDlRzP0FsZ7NU/T0pBVe7YXLxlZR8aeD8vpn3
-         XAGF5DIhrgKEbLeC2yeDIXLv85Yw4aFpdLXxybgb0VXApESu5URqfV/dFCiH1kfnY+Ji
-         VcCG7UrHBXal+Pn5sgDwQ6ZiyPOixODbhhv8xUqLZq5arMbeCAgiRwRU4TT7RPe5PhR6
-         C85g==
-X-Forwarded-Encrypted: i=1; AKwUvBx6jlECOXVCcHsQcIT1ZlrYX5BpDQZqq5yMWDezJ0m4yunRC2KLRXFnO3thFRQ3lsAvOM9xSgJ8HigiLZ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMBqi7X4YdDOrIqIqeLA5EV4X3jpNMxCsZ0h7CgDgcfhpiQIB3
-	s70s2U1wEAHixqk4FTIURfTy80EqBO3WKOryc2vYrCJnBFAvZr/sPjOb
-X-Gm-Gg: AYBFou1LyWcP0y9ejs4vySvg95sx5bp/tKRHo9/3gaHVXC2uy49CSyONlUs/eLyqkMh
-	VsccwpDwNMD7rPU2h4nbs2NrCSVseWQ5TD7mpZjQD1htMsujAjdfXpBC2tIjq8pWFnfcAiSSGyw
-	ypb1nggdCH91sx0tzv66OS7Rgjws5diFDqC/m7VuattBQeX9cy1M4Fc0fCn99S60gK59GXTtYi/
-	BkP1e/6MC0LfeYu/QgjI/VxAg+ROlOisnvGnlcYicvAqrAzRS2l45ggeRpONZfNMq49yoAXLj2x
-	FuxtLsQ+2TZRZwRNELt/GTcqbAFpDYIfu/mYyyRxo5iTHaCT1R9ySgV1T0ZItaXobhqPOOAg4Fm
-	25EzZyUXcLZ1YEf7hdKEr62x7e6MywmCCEExc0gkT4XJh1Lq71Xq3syGHZkUU/PZEniU/Eo6T0v
-	lgZkTv0nBZKdLX07X6ZJ7l/IxlJ571CZ8fcl9iBl92awfsXhKNbNE61Ed/6wB8LSTel6j4zERgH
-	f06DJ6vva5qoJMnLyen91DLwT+9ItUa1mAIDNp86qO4J6eE9P8AfFDMk0PXoagZMeKajxUWlJaY
-	t5O9oz/Q1Ii51DvIxXRb14tEpA1OSZQoXzeOQfyMEUwKEqPDDPu9oN3G3bhDl4MzQhFi1A/jPOY
-	34MPa3EpOXuybX6DnX747iZLxYIqanxbJBEA=
-X-Received: by 2002:a05:620a:4515:b0:93e:fc4e:c490 with SMTP id af79cd13be357-940ef913660mr339909185a.15.1792858396158;
-        Sat, 24 Oct 2026 09:13:16 -0700 (PDT)
-Received: from [192.168.0.124] ([134.231.41.122])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a9720csm210593385a.42.2026.10.24.09.13.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 09:13:15 -0700 (PDT)
-Message-ID: <59ad0f62-dd4c-4d42-b50a-ab91bf469fb7@gmail.com>
-Date: Sat, 24 Oct 2026 12:13:14 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCgrczlB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571F71F01825;
+	Sat, 24 Oct 2026 16:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792858433;
+	bh=Py+Z5I/MajAjJGZNOZOZq0i/a4XelqMNOHlME6I2PwE=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=KCgrczlBlVN3/eYHL022erEAjqNxIylKBS+rv1PIHUkoS9gtD6TGfU8UCr1khuvQK
+	 XfnHVDnrKZV4H4uoC8X5lGUvJFbrOta+CwKc62U//3rWHT5vGR1+I49KVEpm6lNzdA
+	 s1DrJuAj4fTfFFAQ1NPEp2WpLa1zA7OX8jmIOYybhoi3CurGDEiWwjWwAxRkyldTi0
+	 9uWVSkBBFSg9RxAOpllTsvkflpndKWbeXIQfEotQkhxcYod6LCx0agY+MaiBJa7eIn
+	 4XLaVFgUfTgeh4S+Wjy6knO/vrCyjAGc3ljYEUtt+lSobTeJf/YviD9T5ZxEJksy+z
+	 tRrfirMa0E+KA==
+Content-Type: multipart/mixed; boundary="===============8738876045916716804=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,47 +49,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/1] ALSA: add PreSonus Quantum PCI driver
-To: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-sound@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260820083646.11383-1-nicholas.johnson-opensource@outlook.com.au>
-Content-Language: en-US
-From: Jamie Steele <steele.jamie1991@gmail.com>
-In-Reply-To: <20260820083646.11383-1-nicholas.johnson-opensource@outlook.com.au>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-Id: <5d94730579f232c7be1c83bc7287e91af9a858bcea83765e58bdd2fc3956a229@mail.kernel.org>
+In-Reply-To: <20261024153608.58569-5-leon.hwang@linux.dev>
+References: <20261024153608.58569-5-leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next v4 4/6] libbpf: Factor out __sys_bpf_fd helper
+From: bot+bpf-ci@kernel.org
+To: leon.hwang@linux.dev,bpf@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,hawk@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,shuah@kernel.org,kuniyu@google.com,liuhangbin@gmail.com,mkarsten@uwaterloo.ca,masashi.honma@gmail.com,linux-kernel@vger.kernel.org,netdev@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,leon.hwang@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat, 24 Oct 2026 16:13:52 +0000 (UTC)
 
-On 8/20/26 4:36 AM, Nicholas Johnson wrote:
+--===============8738876045916716804==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-    The driver provides playback, capture, raw MIDI, sample-rate control,
-    clock-source control, XRUN reporting, and surprise-removal handling.
+> libbpf: Factor out __sys_bpf_fd helper
 
-Hi Nicholas,
+TL;DR: Nit only, not a bug: the new libbpf helper __sys_bpf_fd() has a
+misleading name and a different argument order (cmd not first) than
+sys_bpf_fd(); a name like sys_bpf_fd_log() is suggested.
 
-I previously encountered sample-rate switching problems with this 
-driver. Another Quantum 2626 tester has now reported similar behaviour 
-using the August 20 RFC with Internal clock and direct ALSA hardware 
-access, without PipeWire, JACK or a DAW.
+> diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+> index b49822d212ae..9a2107d4f6d8 100644
+> --- a/tools/lib/bpf/bpf.c
+> +++ b/tools/lib/bpf/bpf.c
+> @@ -203,6 +203,30 @@ int bump_rlimit_memlock(void)
+>  	return 0;
+>  }
+>
+> +static int __sys_bpf_fd(union bpf_attr *attr, const size_t attr_sz, enum bpf_cmd cmd,
+> +			struct bpf_log_opts *log_opts)
+> +{
+> +	const size_t attr_common_sz = sizeof(struct bpf_common_attr);
+> +	struct bpf_common_attr attr_common;
+> +	int fd;
+> +
+> +	if (!OPTS_VALID(log_opts, bpf_log_opts))
+> +		return libbpf_err(-EINVAL);
+> +
+> +	if (log_opts && feat_supported(NULL, FEAT_BPF_SYSCALL_COMMON_ATTRS)) {
+> +		memset(&attr_common, 0, attr_common_sz);
+> +		attr_common.log_buf = ptr_to_u64(OPTS_GET(log_opts, buf, NULL));
+> +		attr_common.log_size = OPTS_GET(log_opts, size, 0);
+> +		attr_common.log_level = OPTS_GET(log_opts, level, 0);
+> +		fd = sys_bpf_ext_fd(cmd, attr, attr_sz, &attr_common, attr_common_sz);
+> +		OPTS_SET(log_opts, true_size, attr_common.log_true_size);
+> +	} else {
+> +		fd = sys_bpf_fd(cmd, attr, attr_sz);
+> +		OPTS_SET(log_opts, true_size, 0);
+> +	}
+> +	return fd;
+> +}
+> +
 
-His 15-minute 48 kHz duplex test completed without new xruns. At 
-requested rates of 44.1, 88.2, 96 and 176.4 kHz, measured capture 
-delivery remained around 48,000 frames/s. A nominal 10-second playback 
-at 96 kHz took about 20 seconds. The actual hardware clock hasn’t been 
-independently measured, so the cause is not yet isolated.
+[ ... ]
 
-Full setup and results:
-https://github.com/jamie-steele/presonus-quantum-linux/issues/34 
-<https://github.com/jamie-steele/presonus-quantum-linux/issues/34>
+> @@ -248,20 +270,7 @@ int bpf_map_create(enum bpf_map_type map_type,
+>  	attr.excl_prog_hash_size = OPTS_GET(opts, excl_prog_hash_size, 0);
+>
+>  	log_opts = OPTS_GET(opts, log_opts, NULL);
+> -	if (!OPTS_VALID(log_opts, bpf_log_opts))
+> -		return libbpf_err(-EINVAL);
+> -
+> -	if (log_opts && feat_supported(NULL, FEAT_BPF_SYSCALL_COMMON_ATTRS)) {
+> -		memset(&attr_common, 0, attr_common_sz);
+> -		attr_common.log_buf = ptr_to_u64(OPTS_GET(log_opts, buf, NULL));
+> -		attr_common.log_size = OPTS_GET(log_opts, size, 0);
+> -		attr_common.log_level = OPTS_GET(log_opts, level, 0);
+> -		fd = sys_bpf_ext_fd(BPF_MAP_CREATE, &attr, attr_sz, &attr_common, attr_common_sz);
+> -		OPTS_SET(log_opts, true_size, attr_common.log_true_size);
+> -	} else {
+> -		fd = sys_bpf_fd(BPF_MAP_CREATE, &attr, attr_sz);
+> -		OPTS_SET(log_opts, true_size, 0);
+> -	}
+> +	fd = __sys_bpf_fd(&attr, attr_sz, BPF_MAP_CREATE, log_opts);
+>  	return libbpf_err_errno(fd);
+>  }
 
-Is this a known issue, and is anyone already working on a fix? Is there 
-a newer patch series or development branch available to test? I’d like 
-to avoid duplicating work if an update is already underway.
+This isn't a bug, but __sys_bpf_fd() is a higher-level wrapper that
+dispatches to sys_bpf_fd() or sys_bpf_ext_fd() after validating log_opts and
+probing FEAT_BPF_SYSCALL_COMMON_ATTRS, while a leading double underscore
+usually marks the lower-level variant of a function.
 
-Thanks,
-Jamie
+The helper also takes (attr, attr_sz, cmd, log_opts), whereas sys_bpf(),
+sys_bpf_fd(), sys_bpf_ext() and sys_bpf_ext_fd() all take cmd first, so the
+new call reads differently from the nearby calls:
+
+    fd = __sys_bpf_fd(&attr, attr_sz, BPF_MAP_CREATE, log_opts);
+
+Would a name that describes what the helper adds (for example something like
+sys_bpf_fd_log()), with cmd as the first argument like the other sys_bpf*()
+wrappers, read more naturally next to sys_bpf_fd() and sys_bpf_ext_fd()?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40108748084
+--===============8738876045916716804==--
