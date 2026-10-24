@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792859193;
-	b=T3pjC8X5SgcbQXVYRLtivsCNZ0G2RIxf19msTUlSg8IpuOFj0+5JulwIQOuhoXD/pgOc
-	 yAwBVyVAt0zchsMRZvsL8Qwn+4zIEEnEveQzyE/T6MvB+Bo5ca8le1xiKp45pZKlfxp7U
-	 h5tWPnePRNxZ3p8hx+9JvQpBesMieIXozHg2MOASE1bzEMeMKtHi9cGhCyTAradFbuxCT
-	 khiKziBnWFM+K8vOBW3CJsu+D7mpA+81fiaPcQFk8yIoLLwzgFoOLaDb1/j1sX48PMDXj
-	 isejLyOAncJM87VBnKoDqKTvfw27IHAp9Xiki+jeMPDqhMITCBEIFvDgD7kfioN84VA==
+	t=1792859202;
+	b=vB2YTlHvlaIZo5t+N2CaU9B7DWge6H8187IjdP87eHYLA6UB0AQNQoOhtmu2kxuidP72
+	 3ujluOeu5PTSxARRsBVSJmLOMNowU5YoiVBWufLRZxitM5NNsYeQjU+ptszKUrergKwdR
+	 A7QoJq9MqQzvzmciolV3K8GvSB61BAWALl/8FsErKPz+yTrDS+OJYCdNHTTvXlsbnWYB9
+	 u6oEFPMSqnvFgG4nBp6bTZ1cgfHH0gPobq4TlKU1vTzigLyajV36MB9cHs+uxMrpduW5E
+	 byo9L3V0OkNF5LUonTzeNVfmP9A8rvjtxfond4ZKm/sFp1wXXWkMbKdSPhCvHjBl2hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792859193;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6hnJgBFdglAF6dXEFA5rs8hQOCYXKV182Qh4+QI28p8=;
-	b=Hhl5Dm64/IRXd93na+Qkyd8bnUUWQMYuHRjVenfQOI7w6YrtrxRnfazSZJadS9pNHPM+
-	 +JvkQGxLYdqJyAKu7RIswXhKIO19gZy4eXMejUZAg5wWUGTYBrG2CFRn5NIjDNoiqbgqn
-	 kuzP2vAAr7/icIbt4XKuUKlg004rIy0Q9hPC+ciGN+3YE6ne5FmK9inCU13kd4dAPvMAd
-	 PugJgSqlP9LXJSSScS1RdEdT2N0gZgFydL+r3YHFXnPKOuy8L3CTgxxrg+5wqZ6c9ecyQ
-	 XDfZCmS6IY8RRq7V9YfQSzKGnGqCwe5IkP+vdrHSRtMECDRVUvqDBqwIW7Fk3YuMNMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859202;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cjCUpJFLgm36iIs/dyRyZyVqFTn0qb8FK16OH3CULcw=;
+	b=UBmH4T7bvt4H0vjB25fr2Jt1qbb743EYFzzge7b5xBWliPyRE9EgUKpNr1FRukFh5+XC
+	 KvHO2IziLeGeO6BsS5tfGdt/m3m89NpUmWXrc4N+P9kCQB4QDQN5R/erYfrUmD4QqFVrQ
+	 NliSqQe3qo5aMyXFgUd/+mq28HdEXeOtCcfk+MNRnnKJQt43oapgWpb7IBgRb8CpyQG4h
+	 gAcUf4ea5MDlKPIBrc5OBoxEltTpjbWvufI8S2C63SbdAuH8pu6gz/n75fcZ+QL9vfjO0
+	 eW6ilEr/mtm0/uU5YFU2LUzDrzOoOVIEqRMepM+cmQwyC517WQU/50CcaQzOn84CVfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUoFkCqG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjbYBYu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5530F606A31A;
-	Sat, 24 Oct 2026 16:26:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E1B97606A31A;
+	Sat, 24 Oct 2026 16:26:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUoFkCqG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C11E1F01828;
-	Sat, 24 Oct 2026 16:26:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjbYBYu
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3B4051F01828;
+	Sat, 24 Oct 2026 16:26:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792859192;
-	bh=6hnJgBFdglAF6dXEFA5rs8hQOCYXKV182Qh4+QI28p8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZUoFkCqGj/1W7Gazqyzv1edq82rcqS5GL0yWnb1rZwOXD5zM5dkI0ibUv2hgMe/sL
-	 4C8WUzD9bzkMYmlzENGkHHkMqzgrASOs4TMv5ePchAudr+e+0kwF8fuNlELkSxZYop
-	 HKuFjCpjHAjvBDJYRzarwsH0mP7C7Br/MFlvwJX7fYiqDJ4TjR1IMKokQzVYxeUlLE
-	 uFqoKIX317XIsV7NPX+SitxfzHuK7zJTZ+b4hL4eDX7ELToNOkWgci24LWbmNmsu1D
-	 PsiC4A8Ft+juyYtqGCzSpCvjQ1bss1udxaL8ywWWdKgXRhuJxcY1NVfESGkxsjIS2V
-	 LQbhtZxPDUkmQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 07/10] tracing/filters: Skip second character of '&&' and '||' in calc_stack()
-Date: Sun, 25 Oct 2026 01:26:29 +0900
-Message-ID: <179285918908.466249.18270745423264950845.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179285912318.466249.7425922682086130057.stgit@devnote2>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2>
-User-Agent: StGit/0.19
+	s=k20260515; t=1792859201;
+	bh=cjCUpJFLgm36iIs/dyRyZyVqFTn0qb8FK16OH3CULcw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jfjbYBYufp5/BY1Pto7nqef9kFCdeVEqA8y+tZwDwIY9FGAi3PWm51z90I3YiIBwk
+	 tcJ3VUpUB7qzldNoi2j7Gkwlwv49KmdZyMwxylpXOv0V0PO1qxf5AvX2LRBFl4iWHM
+	 pbUFKAXNEpreuWKj3ECwC0pjriLFyQS9JHyhTGd1WJ4iRlYSGh7GSRU8+MEVa4S17h
+	 oXJYhvgXQYBsEY3EUVniqHI1ZI3wDsgBHt5XPl8/17qozvuZOGlmoaNYbD/56Cv/es
+	 lIj6php+Q8RiTMgQIdoR/isXkNmhkfNVNCXK63V6GRnwzOSxkaMKFbBS43n0KTk4fv
+	 xFGX1pGCnyYKw==
+Date: Sat, 24 Oct 2026 19:26:37 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v2 5/6] KEYS: Replace assoc_array with rhashtable
+Message-ID: <atzcPWlu-vh0WHbT@kernel.org>
+References: <20261023120953.1206778-1-jarkko@kernel.org>
+ <20261023120953.1206778-6-jarkko@kernel.org>
+ <atzAk-1IhxTN5nk8@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,42 +64,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atzAk-1IhxTN5nk8@kernel.org>
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Sat, Oct 24, 2026 at 05:28:39PM +0300, Jarkko Sakkinen wrote:
+>  	kenter("{%d},,%zu", key_serial(keyring), buflen);
+> @@ -512,20 +485,18 @@ static long keyring_read(const struct key *keyring,
+>  		return -EINVAL;
 
-In calc_stack(), when encountering '||' or '&&' (where str[i+1] == str[i]),
-the loop sets 'is_pred = false' and continues without advancing 'i' past
-the second character of the operator. On the next iteration, the second '|'
-or '&' sees str[i+1] != str[i], breaks out of the switch statement, and is
-counted as the start of a new predicate (incrementing nr_preds and setting
-is_pred = true).
+This is another issue I have with the code that I recalled afters
+sending the patch set.
 
-Consequently, a trailing logical operator (e.g. 'common_pid == 1 ||') is
-counted as having 2 predicates instead of 1, and any subsequent non-space
-character before a delimiter fails to increment nr_preds.
+Do we really want to retain kenter or kleave? I don't see any point
+as kprobes and kretprobes have literally existed for decades already.
 
-Increment 'i' when matching '||' or '&&' so the entire two-character
-operator is skipped.
+I propose removing them from add/modified functions in this patch
+set or alternatively prepend this with a commit that deletes them
+entirely from the subsystem (I like the latter better actually).
 
-Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_events_filter.c |    1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 96eac7ccd488..e734d8664444 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -2207,6 +2207,7 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
- 		case '&':
- 			if (str[i+1] != str[i])
- 				break;
-+			i++;
- 			is_pred = false;
- 			continue;
- 		case '(':
-
+Br, Jarkko
