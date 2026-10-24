@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792840644;
-	b=ylcuemVCDTmq2EuQrHa+3dDcLdTKtstDSDXMV66PEsCdFqBzjvIVRsvI6AS7+K7JeWsR
-	 qSaQp1Z4qJj8Wz5ljkhwyxgROl+8lItWame6FJnZG8R1tpHNADsMfQ2jGlh41NPPGWoOg
-	 T6ROAh5eZWLMn9a/hDQa863/bWIUgm1zsU8AKXraKjv0LOxFMq0A1JHmqCw/o+smwHg05
-	 zvgo/S/0pjwNRyZEfZDQgBT0C9vUiyXPUHpgLzCME6F+85YnY4sCKBvHUK9PFhqDPETmg
-	 nxGsuw2+QA1Q0UHAc8UKGv3uoTS4tFp7KOHW8PHH4fVIMW2+U0ZWNo+mH304gD8RBPg==
+	t=1792840905;
+	b=z2jbktpzMHyoG7Rci3VJhruWL17Gx2dr5oPa8PkVt6cwIytYVJQMRKSRtN2TMJnp3TsR
+	 SAELFvN3ZyBefJrnNJ57PV0ULxDxT0LQcX652GBLqHSngHjMxGDAiWCKqGdRnTyVqVERA
+	 y9toBKQob0BcSn+JbFBZy6+D4+QSAoZxlZBcDNbIdTOEY0PjJ/xHdfEuRp2MCA05nZVKP
+	 q/omNyjEBJrj4gklBmbLXvArmW8BTi64+nbi3AP2RD8Gq0alE6tWJ2HexyOoHTmTeh2LL
+	 mWWHJEj0q3gAH2j32OuYZhR8OXlENGya8/og3ZdowQUsENmltkNmF45kJK3ex48wGqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792840644;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=UWioxnS7+9M848vOzYEdNrzd7ZlxotcHELBkStbCFN8=;
-	b=NtUj9b241SQYICkgSI+SUTxS7UCGUHtIsg21TZuQcwkkLvLfBNWYaA7bDevp6gvBQ5Fw
-	 OKXvSGpfk0J5s8loGVotALiqbh6ILxcKmB53VmU9v/GBdHJYSKmO3jeQix6UrX9xTl/HX
-	 2tpimL4VOzh+ZxSPzW7v3YahuCv8Xp83tq2VPqh/3LCszUrF9w7NUX2XWP469eJG8lbVY
-	 1LAVIIeTYJqIBQUkedmjfA44BCJBzwy+QG0n9/OdmEM7iyUZAAEQQb/el6FFrSJAldp6s
-	 M79W0jJ3jt9rUOdlvhKbueQJ41irH3EH5EULKO8wDyFM6Ljk9h0/hIKZQSAAvJU7jtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792840905;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iDDeg9qjHmGV6IXYQKG3+nLfuCV82jMJnayxqcQwlbI=;
+	b=STs9Mzu+MWJyHkbUYR204bjqDphBl08BTivxh+H3egGVGvK4kH4B7IFP8QhQutI7Laej
+	 d6nYca9YGWtwYtQEuW3bES+tO0Xu4RmtE86H9Kxpny5fp8J5CcN8eGDjsQ7QZdyevtUbn
+	 FLOB+/WUtgmiojSLQxh013TvNdpCZMB8l/JjSeNhZPxsY1QCT0QyLbGryXpK7Yq3Zqtt6
+	 OYTOM0s+Uz0b4YvgwvvweQvXimBOkkMQ1++rXcZUmiqoXvxRIXPiXQWkdIUYrKVPmg3VV
+	 M1KhtpAuD+rRTKmQ/LOY0zbz3MyrxupzS9BkkPa18O8OuZUGwiyBF0kVVbQ3LBC/RCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=N1C6S9gU;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWeHkD3B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514A4606A31A;
-	Sat, 24 Oct 2026 11:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514A4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558D1606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:21:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=N1C6S9gU
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 32423A15A3;
-	Sat, 24 Oct 2026 13:17:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792840633; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=UWioxnS7+9M848vOzYEdNrzd7ZlxotcHELBkStbCFN8=;
-	b=N1C6S9gUE1z337eFBvCI7/A6w/c5tjnXAVHCR1Qib9hSuNOKyZHeZWPZBv8dQoS/6X7e8H
-	1TdSRxQsNGvC6V1We4py/b2yy3R//BW8BDZoYFhuvhHAw1kLHIZpP3XM+z7wltUpd6B/UT
-	zXbNQCl3Bs0cA3VxLK4ctILrXAx9SAUXBrTxWOBciNPjG/vRFh9eq5llyg+8viRFmvGWo0
-	wWvy3F4PbAddV7YmrSx9JMQLkAV511ASG5N9nqKCP/fBsSILFcvKYpI33bdDGEu46OQ21g
-	vsUpYF2ijJi0PFdzD7rsfJpwfR0Nw9u6bEMKfOi1sFPOj6A9bjgLAUgakh8U0A==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWeHkD3B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500221F01829;
+	Sat, 24 Oct 2026 11:21:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792840904;
+	bh=iDDeg9qjHmGV6IXYQKG3+nLfuCV82jMJnayxqcQwlbI=;
+	h=From:To:Cc:Subject:Date;
+	b=BWeHkD3BxXtLiI7xqTS7+XkJgaANCXW93y9p4EzdaFJ1wuLgNj5IJLtyL4UukLqee
+	 A1Uk9MK+qPb8qIScenE4BJNTXaFXVx+p8/uRSUPTMTKWFqXGMTzpZIyeb18AFoK61c
+	 UZsTxMqJymOvLFCf1FZrl00MIz0/KjWMbgcISrhTf9+t7DtdvK3M1sGPe5FxnAH108
+	 SDurcjRm3GtrL0dcNTDFWITE3PdxpKQrEMw3ssB2/D9NF44HvPGJtSScv95UdKbl/H
+	 8dkDjQbv6zi4RjdqQ0swEDBJP4TylEJEQI/CQH7LyE8a8lua1amC6mhD+QGIBk9aYF
+	 Ys9yKuxnzjsmA==
+From: Mike Rapoport <rppt@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] memblock: updates for 7.4-rc1
+Date: Sat, 24 Oct 2026 14:21:29 +0300
+Message-ID: <20261024112131.3384572-1-rppt@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,65 +59,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 24 Oct 2026 13:17:11 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
- <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-In-Reply-To: <20261023202645.7bf4827a.michal.pecio@gmail.com>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
- <20261020184244.69b78d5e.michal.pecio@gmail.com>
- <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
- <20261021005654.23517441.michal.pecio@gmail.com>
- <cae2e837872be0560f7f46e13651059b@tipi-net.de>
- <20261023202645.7bf4827a.michal.pecio@gmail.com>
-Message-ID: <bc5865736052c55683b2d3f2eeca0e01@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 23.10.2026 20:26, Michal Pecio wrote:
-> On Wed, 21 Oct 2026 11:34:19 +0200, Nicolai Buchwitz wrote:
->> I checked on Windows 11 (Intel xHCI, WinUSB + libusb): same
->> descriptors as on Linux (HS, bulk wMaxPacketSize 64), and a single
->> 4096 byte bulk IN read returns the complete 110 byte reply, so it
->> seems, that Windows programs the 64 bytes into the endpoint instead
->> of forcing 512.
-> 
-> Yes, that's what it seems to be doing. I passed a fake storage device
-> with weird endpoints to Windows 10 in QEMU and with some debug tracing
-> (slot/ep context hexdumps are my addition) I see this:
-> 
-> usb_xhci_fetch_trb addr 0x0000000139a3c450, CR_CONFIGURE_ENDPOINT, p 
-> 0x000000013a18d000, s 0x00000000, c 0x01003001
-> usb_xhci_slot_ctx addr 0x000000013a18d020, c 0x68000000 0x00000000 
-> 0x00000000 0x00000000
-> usb_xhci_ep_ctx addr 0x000000013a18d0a0, ep 4, c 0x00000000 0x00400016 
-> 0x39a3cc01 0x00000001 0x00000000
-> usb_xhci_ep_ctx addr 0x000000013a18d1c0, ep 13, c 0x00000000 0x00400036 
-> 0x375ff001 0x00000001 0x00000000
-> 
-> The 0x0040 in the second field is packet size, and it becomes 0x0400
-> when I change to 1024, or 0x0002 with 2050. Windows blindly copies
-> those eleven bits here and only gets upset if they are all zero, then
-> it resets and enumerates again a few times.
-> 
-> I don't have any out of spec device, so I tunned a Cypress FX2 into
-> one - it exactly replays every received packet back to the host. I
-> found that power of two sizes from 1 to 512 work, except on Etron HCs
-> which only take 512. Guess we could have an exception for those.
-> 
-> So this seems very viable. I will turn it into a proper patch and see
-> what the maintainers think. Seems better than patching class drivers.
+Hi Linus,
 
-Thanks! If you need something testing with the devices I have at hand, 
-please let me know.
+The following changes since commit 6e33dc90df108c76899dc544a42d17adcba61668:
 
-Regards,
-Nicolai
+  MAINTAINERS: update memblock tree URLs (2026-09-09 20:28:14 +0300)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock.git tags/memblock-v7.4-rc1
+
+for you to fetch changes up to 7933ad3f669670ca5f5f13de2b5cb0f92b91abf5:
+
+  memblock: use binary search to locate candidate regions (2026-10-15 09:39:37 +0300)
+
+There is a conflict in mm/sparse-vmemmap.c and here is how my resolution shows
+up with git diff --cc 17bb0e2f6c804  -- mm/sparse-vmemmap.c:
+
+diff --cc mm/sparse-vmemmap.c
+index 5a2469fb1838c,23b31bc4bf94a..0000000000000
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@@ -78,8 -62,7 +62,7 @@@ void __ref *vmemmap_alloc_block(unsigne
+  		}
+  		return NULL;
+  	} else
+- 		return __earlyonly_bootmem_alloc(node, size, size,
+- 				__pa(MAX_DMA_ADDRESS));
+ -		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node, false);
+++		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node);
+  }
+  
+  static void * __meminit altmap_alloc_block_buf(unsigned long size,
+
+----------------------------------------------------------------
+memblock: updates for 7.4-rc1
+
+Performance improvement:
+
+* Use binary search in memblock_add_range() and memblock_isolate_range()
+
+Cleanups:
+
+* Several simplifications in memblock and mm_init that remvove redundand
+  code.
+* After rework of sparsemem buffer preallocation, memmap_alloc() does not
+  require exact_nid parameter. Remove that parameter, drop now unused
+  memblock_alloc_exact_nid_raw() and ajust memblock tests accordingly.
+
+memblock test updates:
+
+* add coverage for lowmem allocations
+* fix 32-bit build warinings
+
+----------------------------------------------------------------
+Kaitao Cheng (3):
+      mm: Remove unused exact_nid parameter from memmap_alloc()
+      memblock tests: Move exact nid tests to memblock_alloc_range_nid()
+      memblock: Remove unused memblock_alloc_exact_nid_raw()
+
+Mike Rapoport (Microsoft) (3):
+      Merge patch series "memblock tests: cover low-address allocations"
+      Merge patch series "memblock tests: fix BUILD=32 address conversions and warnings"
+      Merge patch series "memblock: Remove unused exact nid allocation API"
+
+Sang-Heon Jeon (4):
+      memblock: simplify reset_all_zones_managed_pages()
+      memblock: remove conditional return with no effect
+      mm/mm_init: remove zone_absent_pages_in_node()
+      memblock: reject non-page-aligned reserve_mem regions
+
+Tarun Sahu (2):
+      memblock: drop for_each_memblock_type() and open code its users
+      memblock: use binary search to locate candidate regions
+
+Tianyi Chen (6):
+      memblock tests: model the low allocation limit within dummy memory
+      memblock tests: cover allocations below the low address limit
+      memblock tests: use physical addresses for region removal
+      memblock tests: zero-extend simulated memory addresses
+      tools: use __pa() in virt_to_phys()
+      memblock: initialize the region merge end index
+
+ Documentation/admin-guide/kernel-parameters.txt    |   3 +
+ include/linux/memblock.h                           |   4 -
+ mm/memblock.c                                      | 127 +++---
+ mm/mm_init.c                                       |  38 +-
+ mm/mm_init.h                                       |   4 +-
+ mm/sparse-vmemmap.c                                |  17 +-
+ mm/sparse.c                                        |   2 +-
+ tools/include/linux/mm.h                           |   2 +-
+ tools/testing/memblock/Makefile                    |   3 +-
+ tools/testing/memblock/README                      |  12 +-
+ tools/testing/memblock/TODO                        |   5 -
+ tools/testing/memblock/asm/dma.h                   |   6 +
+ tools/testing/memblock/main.c                      |   2 +
+ tools/testing/memblock/tests/alloc_exact_nid_api.c | 454 ++-------------------
+ tools/testing/memblock/tests/alloc_low_api.c       | 148 +++++++
+ tools/testing/memblock/tests/alloc_low_api.h       |   9 +
+ tools/testing/memblock/tests/alloc_nid_api.c       |  20 -
+ tools/testing/memblock/tests/alloc_nid_api.h       |   1 -
+ tools/testing/memblock/tests/basic_api.c           |  20 +-
+ tools/testing/memblock/tests/common.c              |  12 +-
+ tools/testing/memblock/tests/common.h              |   2 -
+ 21 files changed, 294 insertions(+), 597 deletions(-)
+ delete mode 100644 tools/testing/memblock/TODO
+ create mode 100644 tools/testing/memblock/tests/alloc_low_api.c
+ create mode 100644 tools/testing/memblock/tests/alloc_low_api.h
