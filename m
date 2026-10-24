@@ -1,45 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792825528;
-	b=USv6k8/JDkKBhkDicoWJEpmEDeuBeFXyLHGcpvkEbqpfRyGlUkiy81mnroMFuq+vgJcj
-	 CumBiwe9LFvwUtWkl2LusH60wtLKgswD8dwVV9Liheiwu/Fx1Og7EX7U/Q4EyhuG5Ipeq
-	 O7bHTx/jsvFohmnnRAtgDO1hjREWNBylQxOgt5IiUq1hOES57bti6jss1LVTKCx6/O+Dw
-	 IoIzdfxtlLj4FkdfetIfOTnQzNsQ29jaEyiSJSPJSm+fdZA/hm655U9jxXnYaRC48TKlM
-	 VYauXHb4OQQK5l+AJcW2cXHtP6sQA8Xe59cyJ5cqI1pV+Ap7bVKFdiNHnh+Sjm82doQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825528;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=rAuzurPfsLQhSEiLbgaU/pfbgL67ZN11Nrab8/1fyE8=;
-	b=QoRJr7UyZE8mxACpwr8hPEv1maDdXFR7fCkYQ3YaG6sjrTTGic73rvpe4H60ZSE+EtDe
-	 Zk8tIfyHxI98YjRRMW4iDe63Yu2htK2w3cA7cvC/4749twr4HfoQK2UOy5frmMMOxy03i
-	 FHJbprrIgKu/qIVKlmiiIwYQDp5eLhkvp9EvMei51/wofuvtj+sZq59e94PAoIW0HORYa
-	 gYPEERlGq64fZdODdG7GMExuax1kOLwutJt+UJX9nPqfpQFzVm0+84KrcqhJZnluEOLpY
-	 aCNbD7SeBFQb9tL4Zpzxm6sl2aIMjcUOq2DKJ4sIK4igOr+49nv63NgRPadF3rBn5UQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbR7RRDy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792825567;
+	b=I5AslFFFhsmP2GUTUsYNxcs4GiYbY+McVbD15+6Dm5y1wJM7krBKkwtn+OirepUmnMbI
+	 y6hKyySdL+l7HVAv0wNWLQxQhBnxQm9ur04dt0LzTShh0OOitZ8A7wTOWwbO9ifRmQQ0o
+	 Ob0SbhfpQcjoy34klXKtO2SEjtP81kWnozprQf6K/B1Yng3ogAnPcDzY9qeH7F5+tBf5c
+	 AEWc/gsvHE++JHlUXs/bbZ9f3btR55s+KSfawJVK7FX9uia8pJGgQm1haTYI5CDSTeH6W
+	 TVWiC/RggWjt4gJ5OPpgizEaYc3AUrdnIK6rFAVDudySUXXbYhehON2bTADqjfGHP4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792825567;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
+	b=JPrKA3+bbBrxZyAltpGs5qgSGmUF4g0//M9n9wnDQsPdyb6vhq/bRpm9W9kPM21u1NbE
+	 6nwpxp+5czozUDm0eT3VxjSuAbJCdF4lqM+jvpVykJQmWTrcH4rgbGXptojh2ceER6ns7
+	 GL0ybXxEuaibqp7aL4JfghtpVYI+8wmLX0cA6KeTTTg3roAvLEo3eViGhAuiUG03EddYy
+	 ViStCmO0Z75/0BJFWvmw7vU51i+fIyo4nwsqVTKGh4IAg3cERe7LpfPnUacXdy2wOT+OX
+	 V92JCMCctlGkxfdV2HiDN9imxU1CijLBhWxfAaedbVGl+rnkvjChemRRS3fqguFMIGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OaqPuphi;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VI0sC5Pk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FDD606A31A;
-	Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993E2606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 993E2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbR7RRDy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637B61F01825;
-	Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792825527;
-	bh=rAuzurPfsLQhSEiLbgaU/pfbgL67ZN11Nrab8/1fyE8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=TbR7RRDyKk7k20qZjfNpSBmbfuECJu/WQfwP2rVMhAoTTHCsnaQyaNGie8bCVqgtH
-	 DIkrKoG3DwOIQBfRuLcMFtBEBQ61RJkcmcGhnzKtp+2Qt01XORo0sp9aqXBqLrxSph
-	 tiajVXiLwzrToRWyWWaWyDI9ohjyL/ikt+pHdV60pD+oKKT+xaf+8ThtA3UaMnpGGH
-	 g/9HfLMP2CEsV8Pp+Oan0z8HJiNbESeAcULccpn26NlOBTou1JYq8ClHB/zsO182NM
-	 UoG3VG9KW4rRTh8Jbvc3nfn7IIpxEMbEfU4vMMsW2B87XZvsRLlhq3h7aj6bf8YVcN
-	 6Hf1qEZiU9pnw==
-Content-Type: multipart/mixed; boundary="===============2269967893526965054=="
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OaqPuphi;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VI0sC5Pk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792825565;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
+	b=OaqPuphihpLfN48K3vWNcW8UOlMCZkrFPbu8LOy8udoIizo9OT5pG5SUGTwspgjklL9ADO
+	AisnaJMlPjo8BEalctxFYREEQSZUXqVxunUk1ZkjtHPU7u4Kjw6WDOF4avkwbxVzMRv2fV
+	Xwvg7ruXWqXB1ds/cdMSeRfrXfRWbIM=
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-315-O4WBS8_uMd-P9iS8O5AbjA-1; Sat, 24 Oct 2026 03:06:02 -0400
+X-MC-Unique: O4WBS8_uMd-P9iS8O5AbjA-1
+X-Mimecast-MFC-AGG-ID: O4WBS8_uMd-P9iS8O5AbjA_1792825561
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3580c07911eso4544136eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:06:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792825561; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oOwuPnOrwsp2PHLypn+OOT/lUzhFBZCqw+V3W4+OhE/o4ziIFeciapJE/EzcTvJ/0a
+         fwpYIChCFv2LLAJZLo5s53FSogfY/kogKy64i7ZiKzI6ogURAAUw/TjefoyiOgv0+UQI
+         jYxD6MG6fkV9NLi7vtj7q+DYT+XkrVmdLSzqGDwmIaDUMuG5W2ZjVMgXt2RcOJQBQR9H
+         TQrpXrVxi3kSn3cJJWh/zMPWp5/O+ndduXA9/neFEz226lz+cvMHhAgGCo2uRiEwv5gE
+         YYJjfp6BB+C+ueEQObS1kngPLl6VLTJpVLPByMJuUXaE/UrELkknmMnJtEG+NyD9wGUJ
+         7Wzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
+        fh=sp0Kcm5DIG8ePkLIgYun87kXE7wZPgVAPTb+cWnhnoM=;
+        b=HoSZJSX9JXCBEIxdLi5DIORlh+vME7+t4aNwT+k2uo6TRvvvSm5UK8BKP9a76Y8N5p
+         nCN4VgPgOGw9/E+9tCdSpEiU/H+Px9H+qlqxYcs+X3zFmksTKfyB6r13GI+lLPKypQuR
+         nlzdBJoeuoMZkWnIKhPYpaio8EcbFruf8G8Vri5R5xvgrgLwQxF/M1xBjlqF7Fu31FuY
+         S8temuK9QvqlB0+/+YdiW+k4r8E4EZvddAvqlcghFh37ZXKl0qDVhBcRkbJ4vKalwvNa
+         ixN0kfPDlEe2Y54wpaD5xqivKLjVfegIJhCWwbWlltPWXOYqPoAMVXEPGOPXnB1YOLmB
+         hj5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792825561; x=1793430361; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
+        b=VI0sC5PkHr6yKoBsfWvmw1q15lUhtPLbRjHBiuIHOHMQnk8XgipowikfYIDZcLeA++
+         RiNRGn9WF52/jBJyaBFin/D1ZsiS/EYIKMznxoMBs0jxxMdSngruoWmdJT8ylcobANK9
+         p8bVbuMe9lugVXkcy8+p94b0hYmbH0FKyg89A2u/HHzElHqiNT/4bQVt7Yx22HFbMxW9
+         yGNoRgf5SaU95Ubydzm7ZLDplv8hZBg0tp+eF4qqIdqH/Ols6XAlly+WM83Ndzu9GydX
+         MVf/CCM7fcF8FDsfcgWcg4S1IvcrJ8YV2X9Ra0xbYNM1zx62VGHM/btZAnlD23eOJG+o
+         Ui9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792825561; x=1793430361;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
+        b=0eyB+Iv9STzEy5A9czn2A3C2WLVHGMyhH0+cwPMImGDrfGPVWwo9gabj1bW0W1fgWL
+         ztrGOo5EANn7I+07ovfObisNMo1p4lv/skRkxgdhHMq+i351vJwAnSkA0VHoaYyw2sYZ
+         mIcLlhXF+Tx7HqKGjqI1xlfcgaw/GTKjddDo+1iGS6ssm3XEbDar0TR4KbNMGjTflUca
+         C25JYhC4t88X7Q2FKYCcVgx3Qmw7AGt4AMr65ZBGJQroSnZqMQLoDIBT63taby19YkEb
+         MXnFJfCIbr4eH58b1KnK/A/UUK5JYoLsPvENb77pnAcAvSud0iljnOOVtjSwsEX9z5Q6
+         kFOA==
+X-Forwarded-Encrypted: i=1; AKwUvByWqm2RTfMUwzCiwZFiKEPrwqRNO8etfK0JZGjNN7WGGVmOWHMWcaP8MOXoNIhLk5BCq1JaXrt0jv7qLFE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDHz58GsZs8iWqKq8CfLUveq3SG7CbHIimw7KK4L2yCN9khcX5
+	RW9op50FQMxgvWuuW/xWZhsKrknLegxZ0PgkMoZRgOOLywO1Hc+wssJVz1yKv7165gGzrfITaKA
+	4qqHFtUc2Pm8T1HY2b4/7Cg9wdlfz5UMI/1LMqqlFEQhsWrwPSDXkNQv86ATJZ+D511HcJhlNqA
+	xOGZo1Gbr5EJslRVo689wFpsjY3zNLd4V9SGHPUCu4
+X-Gm-Gg: AYBFou0fINaoDrAjuVPJ+9xphTorkYIPIJqwDl7D2HlNGMqQlRl7FbZ9UeKUZL9Ak/q
+	ZKT6jKDyzZIrcFo8FgC+nfMZx0h1h/D3piTCaLnQAeXPqreQjK25eMb8ne7PcYlPbjDlTHfg8Wv
+	MQ01ZJm/jARw6q2XIcIOE4Jl4ymWBjMKHMKWJzo+y4YibmhMcj13b8lMemW2/r3KJIm9fwtY1sM
+	iRyE5UR/fkaHgPV
+X-Received: by 2002:a05:7022:f90e:b0:165:aced:1fde with SMTP id a92af1059eb24-1991b421e8dmr1507376c88.0.1792825560697;
+        Sat, 24 Oct 2026 00:06:00 -0700 (PDT)
+X-Received: by 2002:a05:7022:f90e:b0:165:aced:1fde with SMTP id
+ a92af1059eb24-1991b421e8dmr1507363c88.0.1792825560145; Sat, 24 Oct 2026
+ 00:06:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,108 +125,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <4fc72796a6ccf2acff87fc27a0f73bb64b74199cad21829b1c6a59fbf0b474d4@mail.kernel.org>
-In-Reply-To: <20261024062329.264086-1-hackerowskiy@gmail.com>
-References: <20261024062329.264086-1-hackerowskiy@gmail.com>
-Subject: Re: [PATCH] bpftool: fix line info in multi-function CFG dumps
-From: bot+bpf-ci@kernel.org
-To: hackerowskiy@gmail.com,bpf@vger.kernel.org
-Cc: qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,hackerowskiy@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
+References: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
+In-Reply-To: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
+From: David Airlie <airlied@redhat.com>
+Date: Sat, 24 Oct 2026 17:05:48 +1000
+X-Gm-Features: AclHuK-0XItFovw3G1bBVKRVCBplwABReOzmq7h2Qp7p5fFLlK5pknGM07AUT98
+Message-ID: <CAMwc25pyuJxHJnziCvorWvFb5awsgn9RZeYQ8GXpQ3Vzs7ro6A@mail.gmail.com>
+Subject: Re: [PATCH] drm/nouveau/gsp: only handle GSP interrupts routed to the host
+To: joe@sudmix.de
+Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Ben Skeggs <bskeggs@nvidia.com>, dri-devel@lists.freedesktop.org, 
+	nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============2269967893526965054==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Oct 23, 2026 at 7:38=E2=80=AFPM Joe Finzel via B4 Relay
+<devnull+joe.sudmix.de@kernel.org> wrote:
+>
+> From: Joe Finzel <joe@sudmix.de>
+>
+> The GSP's interrupt handler takes every pending interrupt the RISC-V
+> IRQMASK enables as its own, without looking at IRQDEST, which says
+> whether an interrupt goes to the host or to the GSP itself. One that
+> belongs to GSP-RM, pending when the host's handler runs for the message
+> queue, is reported as unknown, cleared and masked off with IRQMCLR,
+> taking it away from the firmware:
+>
+>   nouveau 0000:01:00.0: gsp: intr 00040000
+>
+> NVIDIA's driver reads the interrupts routed to the host as
+> IRQSTAT & IRQMASK & IRQDEST (kflcnRiscvReadIntrStatus_TU102() and
+> _GA102()). Do the same, with IRQDEST from NVIDIA's register headers
+> next to IRQMASK on each falcon.
+>
+> Seen once in a few boots on an RTX 3070 Ti (GA104, GSP-RM 570.144),
+> before the login prompt. There IRQMASK reads 0x01049042 and IRQDEST
+> 0x01000040: 0x00040000 is enabled but routed to the GSP.
+>
+> Fixes: 830531e94712 ("drm/nouveau/gsp/r535: add interrupt handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joe Finzel <joe@sudmix.de>
 
-> bpftool: fix line info in multi-function CFG dumps
-
-TL;DR:
-- Selftest's expected string likely never matches: it doesn't escape '>' in
-  "skb->len", unlike the DOT output
-- Even if fixed, the check may not distinguish fixed from old code
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
-> new file mode 100644
-> index 000000000000..7d5b80927b65
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
-> @@ -0,0 +1,41 @@
-
-[ ... ]
-
-> +void test_bpftool_cfg(void)
-> +{
-> +	struct bpftool_cfg *skel = NULL;
-> +	struct bpf_prog_info info = {};
-> +	__u32 info_len = sizeof(info);
-> +	char output[MAX_BPFTOOL_OUTPUT_LEN];
-> +	char cmd[MAX_BPFTOOL_CMD_LEN];
-> +	const char *expected = "return\\ bpf_ktime_get_ns()\\ ?\\ skb->len\\ :\\ 0;";
-> +	int err;
-
-Can this expected string ever match the bpftool output?
-
-The DOT output prints source lines through btf_dump_linfo_dotlabel() ->
-dotlabel_puts(), which escapes '>' as well as ' ':
-
-    static void dotlabel_puts(const char *s)
-    {
-        for (; *s; ++s) {
-            switch (*s) {
-            ...
-            case '<':
-            case '>':
-            case '|':
-            case ' ':
-                putchar('\\');
-
-So the line "return bpf_ktime_get_ns() ? skb->len : 0;" is printed as:
-
-    return\ bpf_ktime_get_ns()\ ?\ skb-\>len\ :\ 0;
-
-The expected string escapes the spaces but not the '>', so it contains
-"skb->len" where the output has "skb-\>len".  Would the string need to be
-"skb-\\>len" for the strstr() in ASSERT_HAS_SUBSTR() to find it?
-
-As far as I can tell, no other part of the visual output contains this source
-text unescaped, since print_insn_for_graph() escapes '>' as well.
-
-[ ... ]
-
-> +	err = get_bpftool_command_output(cmd, output, sizeof(output));
-> +	if (ASSERT_OK(err, "dump program CFG")) {
-> +		ASSERT_HAS_SUBSTR(output, "cluster_1", "second function in CFG");
-> +		ASSERT_HAS_SUBSTR(output, expected, "second function line info");
-
-Even with the escaping corrected, can this check tell the fixed code from the
-old code?
-
-In this program the main function is only two instructions (call; exit) and
-helper() is longer.  With the old function-relative lookup, the basic blocks
-of helper() at relative index 2 or higher already resolve to helper()'s own
-line info records, because their global insn_off is also 2 or higher, and
-those records all point at this same source line:
-
-    return bpf_ktime_get_ns() ? skb->len : 0;
-
-So that line probably appears in cluster_1 before the fix as well.
-
-The commit message says the selftest "checks the second function source line
-in visual output".  Would it discriminate better to check that the main
-function's line, "return\ helper(skb);", does not appear in cluster_1, or that
-the helper() line comes right before the first instruction of the cluster?
-
-> +	}
-> +
-> +cleanup:
-> +	bpftool_cfg__destroy(skel);
-> +}
+This seems very reasonable.
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40071369261
---===============2269967893526965054==--
+> ---
+>  drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h  | 1 +
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c       | 1 +
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c       | 1 +
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 4 +++-
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c       | 1 +
+>  5 files changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h b/drive=
+rs/gpu/drm/nouveau/include/nvkm/engine/falcon.h
+> index 341f133dc38..eb8adaf07fe 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
+> @@ -63,6 +63,7 @@ struct nvkm_falcon_func {
+>         int (*select)(struct nvkm_falcon *);
+>         u32 addr2;
+>         u32 riscv_irqmask;
+> +       u32 riscv_irqdest;
+>         bool reset_pmc;
+>         int (*reset_eng)(struct nvkm_falcon *);
+>         int (*reset_prep)(struct nvkm_falcon *);
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c b/drivers/gp=
+u/drm/nouveau/nvkm/subdev/gsp/ga100.c
+> index d5126fe39d2..10e2813a016 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+> @@ -27,6 +27,7 @@ ga100_gsp_flcn =3D {
+>         .enable =3D gm200_flcn_enable,
+>         .addr2 =3D 0x1000,
+>         .riscv_irqmask =3D 0x2b4,
+> +       .riscv_irqdest =3D 0x2b8,
+>         .reset_eng =3D gp102_flcn_reset_eng,
+>         .reset_wait_mem_scrubbing =3D gm200_flcn_reset_wait_mem_scrubbing=
+,
+>         .bind_inst =3D gm200_flcn_bind_inst,
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c b/drivers/gp=
+u/drm/nouveau/nvkm/subdev/gsp/ga102.c
+> index b6b3eb6f4c0..96fa26fa612 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
+> @@ -140,6 +140,7 @@ ga102_gsp_flcn =3D {
+>         .select =3D ga102_flcn_select,
+>         .addr2 =3D 0x1000,
+>         .riscv_irqmask =3D 0x528,
+> +       .riscv_irqdest =3D 0x52c,
+>         .reset_eng =3D gp102_flcn_reset_eng,
+>         .reset_prep =3D ga102_flcn_reset_prep,
+>         .reset_wait_mem_scrubbing =3D ga102_flcn_reset_wait_mem_scrubbing=
+,
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> index 94925f1590e..463e463db24 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> @@ -64,7 +64,9 @@ r535_gsp_intr(struct nvkm_inth *inth)
+>         u32 intr =3D nvkm_falcon_rd32(&gsp->falcon, 0x0008);
+>         u32 inte =3D nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->add=
+r2 +
+>                                                   gsp->falcon.func->riscv=
+_irqmask);
+> -       u32 stat =3D intr & inte;
+> +       u32 dest =3D nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->add=
+r2 +
+> +                                                 gsp->falcon.func->riscv=
+_irqdest);
+> +       u32 stat =3D intr & inte & dest;
+>
+>         if (!stat) {
+>                 nvkm_debug(subdev, "inte %08x %08x\n", intr, inte);
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c b/drivers/gp=
+u/drm/nouveau/nvkm/subdev/gsp/tu102.c
+> index 11a37963bd4..823532758af 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+> @@ -420,6 +420,7 @@ tu102_gsp_flcn =3D {
+>         .enable =3D gm200_flcn_enable,
+>         .addr2 =3D 0x1000,
+>         .riscv_irqmask =3D 0x2b4,
+> +       .riscv_irqdest =3D 0x2b8,
+>         .reset_eng =3D gp102_flcn_reset_eng,
+>         .reset_wait_mem_scrubbing =3D gm200_flcn_reset_wait_mem_scrubbing=
+,
+>         .bind_inst =3D gm200_flcn_bind_inst,
+>
+> ---
+> base-commit: fb26cf4f1df40a462ea65552a3fbcc8cfafab523
+> change-id: 20261023-nouveau-gsp-irqdest-a0819d1eda96
+>
+> Best regards,
+> --
+> Joe Finzel <joe@sudmix.de>
+>
+>
+
