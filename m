@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792880658;
-	b=gP8KOZ589x6mUMFus8I/fN91349AZHBFON3D3nuP+xFLJXtE+VRAA2aKm2TQ2S/8J8rF
-	 0I7yFg32F4XqbBczPj4FZtvWIjvZX9oplnRrZ3v3B8rGqvL4AmGKsFU9a3TTVKJWHZ/es
-	 KMk+QdGi0j4mK1W7hxbH1U0TyeN0pRGp6Xnam8yuvKozT6CO0bUSjDoBcADGF4NvFfSoS
-	 AMAZa+/9pzJ/9TRXJPs8zNFxjTu4oO9D6sO5ldvrX2ZULBHhPYvTJzJJvlrOYtEbJqPTN
-	 982aAiZw9ixBCaHpWeJsWgQdQKnq6UMFS2n2dp2dkzr0Sgs16wAEW8QN9FQ3OcoKNaw==
+	t=1792880865;
+	b=srMNYIl5tQxnYgCySAw1amhGc+3BmQXwCL5a0MiE5SRUj2JccvQHMjavo7K4JWJTFf/G
+	 9vkXRTq0iSHqXvIba6vQ/ELDAnlw8ke89u9YC/jXiu3Pxuv9fbnOEN7FtUMoPqT3laBGh
+	 rFTMzWrY28hN7IMEFkbwPPE6ZGSWrb0EcZWhkt+BtNzEh25WNIXfmdnJQcs30BMQLZUPo
+	 vfuw0VMaKyGUGa1ZHNqjcLR8c5giLM82+oAZTDlkGNDy44thAi34WhfHizZ1481AQQ92d
+	 ivC6MOANqmOLl9lR2JiaZqAnVnFwRbPWBVdNs1diagoBNSwpmCU6ED1Lk+MpZhoLOoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792880658;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZO95lvl9Nqr2fnKfjhNvY3odHppkPAvE0sy9YV0MAyE=;
-	b=CIyQhF2pn7x0IxsYAQ/oolLzvyW4FONYb10QxxnS7zV2V+1UHJfvslu5FD6U3XNR1gwz
-	 16xwpNvus7Q99FvqI9Tn+whYz8Ey1ogUC3nbW5bLZLR590DLryc6oeymF01dkS9Uu1HTa
-	 anudjKxbf96th6fdQ0TJdAc+s85l7/8yUSHspfBr+F3vU6yLaR0x/YymGrQRTWoebM5Bk
-	 j/HPxXy+qTNHuG0QHLL5sb+9NNVUcjw2bkYryvVMnnKJlVpPSSZ9STSD2+xRz/AVtO8UO
-	 hywTdYN8trha+dFFA67kurC91GpZ4pCzMRwFpDqEOu2g/5hRjVLKTmq6j0Ja9T8YMUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792880865;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=8IjwxK5O6fnO5h2EAjlrc0UR17dDIl2naJJr1D8wc5k=;
+	b=MlyMnxLGTTaqwOylxIJ+O73C3hCX8WxWAOnb/SmtXgCUpQGxMASblVtoZzrYqO0TOfBC
+	 dR4Vj/WQCFOxvpSSHD57D37h6IBYJ8Zmo5FAm2S2l1BiubW5iwy9cjoZ6/sIUid4oYhXL
+	 nXY8jYJSZuVJ8cOaYfRD1kxDdooiT3QuaQAw/B+SFv+ZRb+mRfaMyIHGGICr4yIy3TfOa
+	 6iipMyaV86usrbw+Z/H4UHTFESFIfnkB5GC8uIRMzKgeBTk6nhaLcXOBgMKYPlXKwal9q
+	 XHJxZlbiVSB9g35nGsyehm25JrqSq6ZgOIjLHFcalga6jIRYycCEBo8ElJAZh8iB+kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcwlgpnI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="f/oAOKlM";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=j+JrD4Vb;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XO0ftCwi;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cSIAVOoD;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26A1606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43361606A31A;
+	Sat, 24 Oct 2026 22:27:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43361606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcwlgpnI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9351F01825
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792880657;
-	bh=ZO95lvl9Nqr2fnKfjhNvY3odHppkPAvE0sy9YV0MAyE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DcwlgpnI8DL+2mapwB28c0Uuo/uZkOQbIkpHc/v1SllyC8AnQiHsey8hJ4aUWdbT4
-	 prMadH1kOhGswoIzNgX1P+u7U3KoTwqUBcWHh2XYWZ5bxDbPXCFaxmk+P2urzWr1Rm
-	 tN/5ED+hsmoVE+0QG0XA0UDNI4BCf1ZefiXFb5Qd5/jU4/xxPiEDB4jLllmx0hbm3K
-	 EN3bqey/NcRl3d0IV+S3TGGgleI5BqCIn+v74y01Z2wbeUWXGv7IvSemJyMiXrTytO
-	 jmFrvEKOiSx/o2gKOwmTm2S066vyIZyZSIob0mQDj8qkp6Et+Vy3xhiiFLqwSXFeD6
-	 V70By5SJLar2w==
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91befbcad6dso33795856d6.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:24:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwfI+M+q1QlEX/Lc0lRXu77+uABMEVDS8rtSivyh5PYilvekDUb8zkVA6atcXg2ZHmXLcbVS6L0RS8qSqs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJk4YYDhxbOAU+CqoOCPhPXyD/Ad/McpZJXWG9bLV847vMgwbK4
-	CZ0Yo0+XZFb0Yl1oUyc40fHn+ZWz7xzgvaaWzuUNDLOyjyyJPnmzcf6+PofyYZBOrmQpNfCRaJr
-	E18Io2EcrM1nAlzGKHdYSMGxq8LY9uqU=
-X-Received: by 2002:a05:620a:2616:b0:93e:c06a:7313 with SMTP id
- af79cd13be357-940ef914186mr385330485a.13.1792880657009; Sat, 24 Oct 2026
- 15:24:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f/oAOKlM;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=j+JrD4Vb;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XO0ftCwi;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cSIAVOoD
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3CEAA22447;
+	Sat, 24 Oct 2026 22:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792880863; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8IjwxK5O6fnO5h2EAjlrc0UR17dDIl2naJJr1D8wc5k=;
+	b=f/oAOKlMtyLYwUjrobJAy+2RUIsEe4uWV/TmsAZUALQLnalwQ1pw5VAVUZvqHMMO9pPj3Y
+	SkbBjRtuPVg7fB/0zPHoJnSrcLv6p57b+bUeyWgEyURPJ01iywTH5QvV+TsYlCc2hZIpNz
+	dV2PGqb85jDKHgzq15CMy8Cj0PUw5fo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792880863;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8IjwxK5O6fnO5h2EAjlrc0UR17dDIl2naJJr1D8wc5k=;
+	b=j+JrD4VbkZfFpN1jbyaXjQUiLPJG7iQY0f4mSkq06cTuhuAQTeVyyyw31uvS4WOR7nsdAN
+	y/nrkJdQVuW2uBCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XO0ftCwi;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cSIAVOoD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792880861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8IjwxK5O6fnO5h2EAjlrc0UR17dDIl2naJJr1D8wc5k=;
+	b=XO0ftCwiUnlxxXl9b3DvFhZRXcC6iYnHDDQ08qxD05RU4YWpAOOH520rdBz0ZQ2Ne3wOCe
+	Bpwcf+RrdU0XTrir35lDGps28jNnA1GZMBnf4yM23NkZq/o7Nug47pPsWq6lDv8sroSjje
+	ej9CozYVVQXQvfPuNa/qvhjORXCuZRA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792880861;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8IjwxK5O6fnO5h2EAjlrc0UR17dDIl2naJJr1D8wc5k=;
+	b=cSIAVOoD3wD6cn0a6LzutkFt8nW7qLw7bsSE6gDsc4++lKdimQtDmYwpYfZODX6FQrNiY+
+	ZVUEpF+ib2nshbCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7798C133F3;
+	Sat, 24 Oct 2026 22:27:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id NDv8D9ww3WpWMgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Sat, 24 Oct 2026 22:27:40 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Jan Kara <jack@suse.com>
+Cc: linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Pedro Falcato <pfalcato@suse.de>
+Subject: [PATCH] ext2: take invalidate_lock in ext2_write_failed()
+Date: Sat, 24 Oct 2026 23:27:26 +0100
+Message-ID: <20261024222726.889520-1-pfalcato@suse.de>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,53 +106,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019034426.2354049-1-ridong.chen@linux.dev> <20261019042308.2372396-2-ridong.chen@linux.dev>
-In-Reply-To: <20261019042308.2372396-2-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 25 Oct 2026 06:24:06 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
-X-Gm-Features: AclHuK9i0KBXAHQuNAppLi1kJlXPAo77Un_nGJoXjbM4tmAAAAcT3v5pEG65SEY
-Message-ID: <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
-Subject: Re: [PATCH v4 7/9] mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
-	Qi Zheng <qi.zheng@linux.dev>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, cgroups@vger.kernel.org, bpf@vger.kernel.org, 
-	Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ufrgs.br:email,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 3CEAA22447
 
-On Mon, Oct 19, 2026 at 12:24=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev=
-> wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> balance_pgdat() passes sc.order and sc.nr_reclaimed to
-> mm_vmscan_balance_pgdat_end as bare arguments. Pass the enclosing
-> struct scan_control instead and read the fields out in TP_fast_assign,
-> consistent with the other reclaim tracepoints. highest_zoneidx stays a
-> separate argument: it is a balance_pgdat() parameter, and
-> sc.reclaim_idx may differ from it by the time the end event fires.
->
-> No functional change. The tracefs event format (TP_STRUCT__entry and
-> TP_printk) is unchanged, so tracefs-based consumers are unaffected.
-> BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
-> to be adjusted; tracepoints are not a stable ABI (see
-> Documentation/bpf/bpf_design_QA.rst).
->
-> Assisted-by: LLM
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Currently, ext2_write_failed() takes care of removing extra data
+(folios & blocks) from the page cache by first truncating the page cache,
+then truncating the actual inode's blocks.
 
-Could we combine patches 4=E2=80=937 into a single patch? The changes
-seem a bit too scattered across separate patches.
+Understanding that this is correct - namely, that a concurrent page cache
+lookup can't create stale pages and stale block mappings between
+truncate_pagecache() and ext2_truncate_blocks() - is non trivial. This is
+correct for two non-obvious reasons:
 
-Best Regards
-Barry
+1) every caller of ext2_write_failed() holds some sort of exclusion
+against truncation. In most cases, callers hold (in some way) the inode
+lock. ext2_write_failed() is only reachable from buffered/direct IO write
+paths, which hold it. page_symlink() can also call write_begin _without
+the inode lock_, but at that point the inode is I_NEW, so there are no other
+users.
+
+2) the page cache is generally extremely careful at never instantiating
+pages beyond EOF.
+
+This is all quite confusing. Holding the invalidate lock across both
+operations is largely simpler, and mirrors other bits of other filesystems
+(like ext4_truncate_failed_write). Do that.
+
+This has the side effect of making it so ext2_evict_inode() doesn't take
+the invalidate_lock when truncating blocks on inode deletion. This is safe
+as the inode should not have any users at that point.
+
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+---
+
+This is a patch that fell out of trying to understand whether
+20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br was correct. I think
+it is, for the same reason ext2 is correct. I find this to be easier to reason
+about if we just take the invalidate lock across both operations.
+
+ fs/ext2/inode.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+index 12ac4cfe1500..723b31dc7dac 100644
+--- a/fs/ext2/inode.c
++++ b/fs/ext2/inode.c
+@@ -58,8 +58,10 @@ void ext2_write_failed(struct address_space *mapping, loff_t to)
+ 	struct inode *inode = mapping->host;
+ 
+ 	if (to > inode->i_size) {
++		filemap_invalidate_lock(mapping);
+ 		truncate_pagecache(inode, inode->i_size);
+ 		ext2_truncate_blocks(inode, inode->i_size);
++		filemap_invalidate_unlock(mapping);
+ 	}
+ }
+ 
+@@ -1236,9 +1238,7 @@ static void ext2_truncate_blocks(struct inode *inode, loff_t offset)
+ 	if (ext2_inode_is_fast_symlink(inode))
+ 		return;
+ 
+-	filemap_invalidate_lock(inode->i_mapping);
+ 	__ext2_truncate_blocks(inode, offset);
+-	filemap_invalidate_unlock(inode->i_mapping);
+ }
+ 
+ static int ext2_setsize(struct inode *inode, loff_t newsize)
+-- 
+2.56.0
+
