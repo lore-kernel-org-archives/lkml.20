@@ -1,115 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792865287;
-	b=wH32D2hm23KAy+bGDGg9EM5sE0PdD/BR7dvSCZtX9fWMQSxziW2qmUsjxInr9Fb3K9mA
-	 k6e6+ubxLeoLjsKRO+zyoD0kWrENWUoZrVSX75MpvqUmj4V7ABS3vQKsxzytHJ5T65FS4
-	 bOUsZLw35AGd0Yvy2q+zRst9nB65RisP3HZnxRqXZOs/mzUE7tFk/dlYxr16EKZBZEL0s
-	 NiCFuwMADhZ4jKUwfGcI2g+Fx+TPiKBksBEA7LoRGd3T7xjPbacOhkBJas6/iXfLun8gp
-	 Isq5g/e3dBv1D/YWCqjd92OFrxHctpgGMr0JsAykg2ywer2gIr8hSstv1FPizvP778g==
+	t=1792865376;
+	b=yh0UTRfGl7vn2HEeyQZDxZBNcV2nAVUdSPN4WkkZXmVzFR7wB9vqFQ6z4q6YMrdCp7Ep
+	 j0sbyZNmoybgwwrHkvL/pZm625h+h3vxmtTE++Pzl88+XNd9nzXZrSWcxFJFE6u/1vm4X
+	 WtPUU8HxOIAD7faTdgCSbd9hebr36q/oEbu8xVv7nalDrJerVWvUMwuyPLqihiG4v/NNI
+	 zAEa9j0DqcbiX6atfxBE7QYrIW++sNUh47uWh2x4cPV2el6H9OujJLctI/mCnSADbnKFa
+	 EecL9kM+5/t/OX3j23FhVcKvdphKPIr35d69JCA5SxFtDDE6SeWJ6ShsB4ymMijr+4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792865287;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792865376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=;
-	b=uOrqtrOXwbEtpB7XRdVePdM5bEYQHHEIwFPCF6hCoZIZB01jxaW9yLV+eFwBz7RYuRZO
-	 eI43AqyKeubyDMtN4Q+FOQHiyHPTK6RoWsH/p0lL+I3H73iOe938C5XP5uEoSFze1SAqE
-	 ennw4NcjafuQwf2PfMGrOP4tX2fVN1JA8q/EN0Idcd2DeKFY+GWZY/3t1cIP3bWm/wYvp
-	 6ZtmsbrbPuIzVsg8tldKBzS+tzE591u3yPeJsC2W+64Mo8eWJchvMNYSElnbHfpVzrh4Q
-	 Y9V4FiEwYSpa9O07pTLdNV8oGb3SMKCYUkqmDuquYSqdi+mtTwKEzqcRyceOAGo3Cbw==
+	bh=1do5SZCsNsXFNjC3kteHvHno5OZSZlN4oGD9w4JlcOk=;
+	b=M6vB6RnnBPadcaGxMsWwPm7nyv3ZklZUL9S0miIOrZ63AiydYuHCynySCpOFMDdJ7swf
+	 xJtGz4Qh6a1FaJuuwNbwBOkKr4TQXCQbjKv+kNa2E9U34VUgHGba/ww3WFA8cIzh1ichc
+	 SBYPczoDcs+xB4T1qNd1fiG6tKJ01zwAanFwIbCa673uAQDrKlFdLf8CBQtqvVn0vM8hT
+	 8LYygll4DAcA29Y5JdvpAt9oG+jwGr1zjpmKzg2RXa8AVjmu5j+V6+7dZoDuXpqyO/zR5
+	 0MhFtcJQQN/oJNw0K0skw4mvVPoAuvbMp6grVZGYfI3EiYfoFOHBW12FMXtIZfY/VTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=ayJ4jhHE;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tKAUVvoy;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CgLabGsW;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663C9606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:08:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 663C9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C3A606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83C3A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=ayJ4jhHE;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tKAUVvoy
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id EA2CF1D0015B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:08:06 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Sat, 24 Oct 2026 14:08:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792865286;
-	 x=1792951686; bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=; b=
-	ayJ4jhHEJAHrgzGUkGMl0TvUcl6L17Mu0X8pxbRgnOxV3PjjZ49AjDMpzNvnOF7+
-	NBoSnE1PtMUdG3mTx4GkL+Rj3eIWWQl8mHTLmfLA2riqwMkz7HuEBn+XqA5lR8lK
-	/uH4n8VDFi/04vXsKfN/nLauD2hu3C5UbNNYXUY6IQw06t8nnI1hsLAaajZSty3b
-	/Qogg6PkVsarXJDbDa6xgkkPPO9sN702fy5Th167qKu+Jnsf7kurZ84k96AD59YK
-	X+GkQU2c9OvhoqQ5Otvek1K0sLYMIoWkCH8p3x2PWL4OFfr4QZdUrIEDYbAv5Y7e
-	ZUYxdN4A5ALqi3TlfdlK0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792865286; x=
-	1792951686; bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=; b=t
-	KAUVvoyIn+C7qpsPlWKUtAWUafkkGc+Axhg7Uoou6Qo3RqJ4Ae9INpf+RAwdnWlI
-	LXduPD7T/SrLS9WQU47iG7HAxMc6aMHx2ldjjM+5CHnYmqUjNZsd53U/OQZkq0GG
-	c+lj0XcP/JFag5/cmLqhACSz3kNE5cWyqi7vdq+VGs933O8CAp0srpkOTvNd9G9u
-	naQg1FtZFTvrem+lDTY2hbMQSZitc1zb8evVO6aJSlWdL1whemta3m9g0EzIKoEd
-	Xnp0o2iWHbftuQ0Q1GG/ZKFw83ECjTBfDODlACxPn+f9xQJkbuzCCZYMvI/ryLeV
-	W6HBH6+axDF8bjTDlpImg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792865286; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fxK8dpO9N/OBg+wwBCcXCR/hkmjIMf4z7HNP31Nmf3aJ+Ml
-	Xb9bgMiBduK1TcuaqlIA+fbdi7ysSMXGC0hswxBXLWKJJu3rPiiZjY6h5/46Ed4F
-	WHvmQtmO3Ro1MDhXTPCl3kZ+Ry+tFC2hxOUM4YNM3syy9F1Hbi4cN6gMykFTqaPR
-	eaB7OLdsV4hJV75n6/tEnu90jhYkUsgiundrqM2/fLXbn0SjvjOcSWAhMDguDQ3j
-	rO3N315dMSDiLYn9wbmLVkv5WVI0QL17Ciurkvv2/6k+1TiM1427P2UZe/W4ILP3
-	zVDkToTKasg5tRyPhkMfaRjA12lsNYhFDseLMbw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:g8d1SrDpkB7jFw1yVSxo1IHVwGPdxGif6JDacDKKV7c=:m7M8EwyUOl8ghFICT+o3uF8kldXOlLzyZO7zAE8a5XI=;
-X-ME-Sender: <xms:BfTcak997IVkCQBPfnV54n_kMjVlcAXqU9z4J-Ol5o7fEp0FAZOktg>
-    <xme:BfTcaomjHWEB4q7g5e7J23YIVcMJKz1k1hb1viT9_traXPZYuAjiepXdHv2-1BxoM
-    eo8IgFFYb5yniN98gUCVhHQQaJTjrmpl3SZoE9Wr7k1r1jiXzYcV3CS>
-X-ME-Received: <xmr:BfTcalie65NZxHZ5PMXOP5TsxLKCd6X53h6BxpPj3ZmHQ5g1-xh4M4XmKAsMxYBeJstJVGspAEI_SNhQ4rTrOIN_gKnhpQXY>
-X-ME-Proxy-Cause: dmFkZTGCqH1U0fUyPYkYXCdWJpBt4Z9n+7HApp/XAxf2t172zYJ4sracn/P78U5r4VmMLD
-    EobjwBoomajwoxxNIBNaNXhy/0bVfBocAUao5qQ/9DcmZhx2LhjLdoBVOYiTpnDtunHJpE
-    LO1zvnf2Crm9730d4QgEcARhyR1oHpDXWNoiMZF3TLxRj3RP8VCWSsGFkYRttGR6AXmBOh
-    lj4Ncmpb0j/IjrijolQfh4dH+iI7Ptg66rSDFsYMQIR4mOCJfU3ZjcD71DXRoU4cxlUePk
-    5rqiF8E3EAqApE8/HTkI3GFtnAHfukY0XmG951lqQGKQPPfCMzEk7yprrZJATQyIlPiZA2
-    zXyRvJUwHW5b1iJmWAL9bRMuzS0l4fSKfrAsdILtKzrhnIlAfK4ZpTUtut8/5Rm0ZSdfpF
-    6P7RIzucL4nMWVCPmk2aRLxkwD6YSFugDmwgpqHELPfU8kkTn2VpM2P8ohJMZyL8cTQzez
-    yCpnrSkGOcnYF12bZRfi+X4hZ7zj/Mh5TzoT5KUSK943X8YIdbAJLqVK5tW9gwNUo42BP/
-    Jz5e9W8729g9Qb3/3bL/5aFzSDYyYaPWZfeTanppsBqOSexCL2hQ1jn1w1tu6jU4Ls1jUe
-    zd1Oc3AVI8EgKPY7TkYoFsBokMwokCJj3x5jSDcFeFzyQ1v5UMfQT/y8irfw
-X-ME-Proxy: <xmx:BfTcaoZlKEiEyRftZQxgra7xREaitfk-0OGQ1RqOM9B64tzKx6tsjg>
-    <xmx:BfTcahFXXUuvLasybUVhHywGN7xt_IFnzE4ZJtsrDfpbvbdIE1CmFQ>
-    <xmx:BfTcatbu_rQl_NTTgQr9YtzNLMbHJJw0KsV_3rBH6sr7StqVCdU4FQ>
-    <xmx:BfTcaq0WMuZ0-I-zuS0DniuwzQ89K_sV3WflWE_mWbzjdGeGWgMA-Q>
-    <xmx:BvTcajSAJPJSZaRnY6Dz_afdyaJkP9JjzoJttMVKymOqFjp-6JV9CYH0>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 14:08:03 -0400 (EDT)
-Message-ID: <c2227d20-c533-47ad-8446-aa0838f7c0be@pobox.com>
-Date: Sat, 24 Oct 2026 11:08:02 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CgLabGsW
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3282db206d3so2999192eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:09:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792865375; x=1793470175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1do5SZCsNsXFNjC3kteHvHno5OZSZlN4oGD9w4JlcOk=;
+        b=CgLabGsWu9Qgfc/Gq8E0HEFES6Eek5LmDQjn1UieZ4EaH1/W8ZFpZN79PY6RXOsMIn
+         KJdkHykrbj90WNV8V8B/pSBMFjKNJp48N7C27gAPL2HN0VbY89aLHA+DyVA6MifC03f6
+         R9rDF7YAyppLydwDG5M/z4DOh1VT4R0ZDcOceJfTTtY6ybczyJ1JdSAjPT3UuTyoWG83
+         xm7DVN0Wq+/3jjyqToq3XeomaFVG/JVaq40aaSs9oSsF40x9MNBhA9bWZW5Xby6cZhBP
+         nrFwygbFocDLCsFq/l1fokooV7WaV3eFJJu0XrTt5rpI5/Axr6o9wnKQteSeyv2bHeHl
+         vbwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792865375; x=1793470175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1do5SZCsNsXFNjC3kteHvHno5OZSZlN4oGD9w4JlcOk=;
+        b=oYFFzNAu0aaNa5UNHhuBZv4gyQYzUxXwGgHuVlnIxoo/GiLTgS4mj9e93McqY8agk2
+         +BwjQnhSIaS8/GfKkYaVqbY2bPL2MHudIoa2lAL/c9TUpaYk19LGxYCphnGTnPVtSdR/
+         aFpYhTWOmbz22j1ezQaVVV44l6eq/SIqhxpVvCREf1XBm9symsmVCiF9B6d08fupzMCX
+         ys5WDAklJOXei9ZsTs55Sftidcx1uo4pXpYzUhQ0JF9X6/LStyZHQ2KfNSP6p223ZfzV
+         3d5dvjaxdii+wVZDJxoa3D2cnxuAmSpkqS1fCduaOvvTUrnXXYvrcBE3F1y7ofpk9HoV
+         1gbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz6aI2TCMyjs3OWwky2WwyjNZRJV3mMS+WhlUC7aXGIg77RNczrQ98WZlNbDncBxPAOVInXftROqHMzixY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+/QGX3ejzR0iTTeUi4kvk/KfAt2QjumYUCSiBZm+kXChtbbcE
+	1CzaG0OZMrVdkNVKhyOd9GAIy/OUm46yYe2Nj2oTRPV3rna0hZiJu6/G
+X-Gm-Gg: AYBFou2ozPJex4YsfmA3669L2wcLZVACaWwg2xOU8aPiRW/h68jNX9XzIwhheqNHU8S
+	FKteE7NaoiIuXUFunspe6oLjmkG1015VQIWTOq24JHSmB3l2eqR9EAuapjRGBGjci/f+XmMETvu
+	xHvnxbzKM78pzCgxOxwz45STvXDU4ECCONuVvSD5P/DOuEhOVRuHq9hxDawBFm+HIEYH8FDFmbn
+	Cb/pFSU+zFDSPNHuB76OnRlEn6raSkBF994qk7bZoyfssZFZccJDEfTFn9L44cAXgm2ldsPBNOL
+	v/GQWslC5lhOrla+zcpGfPkbOWlRdqmxicxCb/UCjthDXZ6Y7LgfZ8sBkX3jweZpW+ejHnivVlb
+	OL0SrPxYP2V39CaHkIMp3XiA7V1Pt9CWtDUyzIQZcAL2cc5FfMYxlNYMFDmq0ie/eEI/tJa3yi1
+	zXSPqod7b5A6BCNtZJ3Mo5Tj3PQ1LXKxr8xzKnQRatBkbX/sX68qB+qiQ7nLxeDCsuzYAOcYTAA
+	NuDIRHxNNkk+llnJEPOlDPIm5/W408CDGlaJb5pp6LzHgR/fqfKdTkuFqIVi9wgppTc7hOLep4=
+X-Received: by 2002:a05:693c:62d2:b0:360:8a6e:640f with SMTP id 5a478bee46e88-369e8625854mr3682464eec.39.1792865375371;
+        Sat, 24 Oct 2026 11:09:35 -0700 (PDT)
+Received: from himanshubakshi ([2401:4900:1c9b:1c1b:d646:355d:1105:8655])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec865esm8020891eec.26.2026.10.24.11.09.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 11:09:35 -0700 (PDT)
+From: himanshu bakshi <himanshu.bakshi478@gmail.com>
+To: andy@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Subject: [PATCH] staging: fbtft: Fix line length warning
+Date: Sat, 24 Oct 2026 23:38:03 +0530
+Message-ID: <20261024180803.108872-1-himanshu.bakshi478@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,81 +97,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: "Barry K. Nathan" <barryn@pobox.com>
-Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261024064731.125251200@linuxfoundation.org>
- <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
-Content-Language: en-US
-In-Reply-To: <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/24/26 7:32 AM, Barry K. Nathan wrote:
-> On 10/23/26 11:59 PM, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 7.2.13 release.
->> There are 243 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
->>
->> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
->> Anything received after that time might be too late.
->>
->> The whole patch series can be found in one patch at:
->>     https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc2.gz
->> or in the git tree and branch at:
->>     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
->> and the diffstat can be found below.
->>
->> thanks,
->>
->> greg k-h
-> 
-> With 7.2.13-rc2, each time I go through a suspend/wake cycle on my Lenovo
-> ThinkPad T14 Gen 1, the following line appears in dmesg:
-> 
-> (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
-> 
-> This is new and appears to be a regression, and it is 100% reproducible.
-> It does not occur with 7.3.0, 7.2.12, or 6.18.59-rc1. I will start
-> bisecting it shortly after I send this email.
-> 
-> In case it's relevant, my ThinkPad T14 Gen 1 has an Intel Core i5-10310U
-> CPU (Comet Lake-U), and it's running an up-to-date Debian trixie.
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
 
-It bisected down to these two patches:
+Split the line in fbtft_init_dbg macro to keep it within the limit of 100
+columns and address the check-patch warning.
 
-fs-add-umh-argument-to-struct-kernel_clone_args.patch
-fs-stop-sharing-fs_struct-between-init_task-and-pid-1.patch
+Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+---
+ drivers/staging/fbtft/fbtft.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-That is, with all of the patches prior to fs-add-umh... the bug does not
-reproduce. With fs-add-umh... the 7.2.13-rc1 boot problem happens, and
-adding fs-stop-sharing... fixes the boot problem, but now I have the
-new message when suspending.
-
-dmesg context before and after the new message (should've included this
-in my previous email, sorry):
-
-[   55.793416] PM: suspend entry (deep)
-[   55.825734] Filesystems sync: 0.032 seconds
-[   55.825812] (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
-[   55.826364] Freezing user space processes
-[   55.827740] Freezing user space processes completed (elapsed 0.001 seconds)
-[   55.827744] OOM killer disabled.
-[   55.827745] Freezing remaining freezable tasks
-[   55.828885] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-[   55.828941] printk: Suspending console(s) (use no_console_suspend to debug)
-
-Except for the new "(NULL device [...] error -2" message, all of the
-others are the messages that normally appear when suspending.
-
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index c7afb0fd3943..fd7f8fc2afba 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -424,7 +424,8 @@ module_spi_driver(fbtft_driver_spi_driver);
+ #define fbtft_init_dbg(dev, format, arg...)                  \
+ do {                                                         \
+ 	if (unlikely((dev)->platform_data &&                 \
+-	    (((struct fbtft_platform_data *)(dev)->platform_data)->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
++	    (((struct fbtft_platform_data *)(dev)->platform_data)-> \
++	    display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
+ 		dev_info(dev, format, ##arg);                \
+ } while (0)
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.56.0
+
