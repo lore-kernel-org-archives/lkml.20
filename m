@@ -1,93 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792845232;
-	b=nYJfUTLVibx0wwEAGkJHlZuNIFJWyldsAbVh5xP7ejZrJxaqpfHgv3xQdm5ya06KB+KP
-	 43sNQCxBifNlxsoNlMBHoc2dQsvQkEE+RX3FzZjYIdrVu0oKoMHcyTvdELSxaNpxePN8S
-	 MDYVSEdoAQ8L0AahaaETsc6Q8iz3rPBZ9MMJLVXKNEjjiK9mel027q6w6CR8o8ERRTBq0
-	 J/iHHWBZHprPgmKUWUBbUJwN6sk0bt/EVtsoH79Y4aWT8NUbTtG+++ulcMROTiN6HUuwh
-	 6kjAPs6aT7+21q+S1mu7yaZ12kvptT3Kyok4ZBg+OWuWXXJ1kij/B4dlSmS3FQ0hIWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792845232;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UcH8rYHopQiyfN2N9CeJ5UIPAEXGC3cUJ4H4eP6mIrA=;
-	b=dcdJUHeCeZXjJQtnSwa0zkDoK0LFrv1RCKqhkUFplS7HyAdEnAm1bT5N79fggt+UvpOs
-	 GysbHcBRh/W9LoQ7j84twopZgMxByUoOlT5MnNASDJm59+5FimBy2Yb/Q/WMoZnYD3dXX
-	 84rllLQbzil6CnYAQyt2nMQyqB2wt2Oo95/7TszZfDwvBQAB2KWNfdzc+u0Y+FnvCXH9S
-	 tE3b7+qYRssnloPn50/focRSZaYEnaaWgdOgR1YQup7Ky8JRB5ovABFe5K3irt52shgF2
-	 MAREvlulQCKZgh8P27GpeDYUDBag0tO4KXjn01ouJLp5uQH8T50EtcGcH9XuHyFmUrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="IIeMd/xT";
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792845648;
+	b=MgTTL+ihFx8EiPvE8X0KlXtBXdDzJFft7qKKrjBPj1p0AcQpgcme0JRxKBjpOi9zYCcq
+	 MhodJarMAneRugeOLXblIGIhr1M8bSgs1LBXe5DTgzV2Y62EVOCAP9cshOFefj8JUMQkn
+	 GqdV9xZ0tdBCEZTCmULTke7dFTDEhRh51wCb/vEU6ZMSJZzdypG1/xFL/0tYAEA6Oqcr5
+	 FR53bRISvulNrlS0+b1kR9mJ4X7ijhmCcUTTnf4lEqMOh9pIjVQrcBpgNp2DW0+3SLnKW
+	 31Y3/of8PGd1MxPVo5v0P+nguyJenSs0pc+k8XiBNUXUzJmMkaNgxeEfYrwDRjM+RHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792845648;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	b=o2aIftJKRGpJPWi6mBljIJt+3v85eYJ1cg3/e7PqkiRrsLwUyvrJdngEAhk4oGDq3l0d
+	 G3rMh2znvn/8SAdkBwnUsdvgHfHIfYe/i0kNY1XQ3IlY/i4YvHH3+8t9pkH3PTwmoTZk0
+	 oiQfSNLZZFPB7PrEu4QBEfnZ/Y1B617SOyWPoKy6RtS2K2O6AZnBq8ROi9oDjyg9Neqbc
+	 C/ToFRyK7uUsroVsqAzfSIq3XRFLoM5a1VrsHR41c+NgesqiKTaiSkUMUJFaITG75nN0s
+	 JPOrE8tAWCgx7uBSnIskLydls5jVeDvJyj2oLV/yAmT7F8CkiI7yGRPLW7aR5XixaVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E338F606A31D;
+	Sat, 24 Oct 2026 12:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792845647;
+	b=wC3oAdy0laok08FTaAMJwjR++zoelTRj9hnSvPuj7VT69cJJJg1Pi1pGoo618VhvbOzH
+	 PzK4+sWM4MeCXIWbdH+8/PhZ9seXb3oO9O8AmoOVHwIc5UhtGJpuxNYHi/B8VHcbjSFwG
+	 2n+56gtACiLKOavexxSCdEzjuxH8n7gXtuP65Li31bMzMDkw/tiJhVhB5rZfqaC1Qbu7p
+	 z3KGJ0QtHn5TzGEM1DIYi8MFgYsUwyIelR2wHCIbLh/1PJWdr3ASVwxfAWbDC0mfAhIKu
+	 u1dHGb+M6BcFLBRliqIR3EIPK7GzZTwRI+zEDKI5D0+dE4Xs43p6+Y176g88rEWeRuA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792845647;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	b=nNAYadCHNhv4BPn7VndOf0z24aSGtsar4XQhRLaDngTsXF+NkMslSUwPekEn1BQlgNYJ
+	 c31lg1zf8Ea31XTp+00VwwWQUp+qpYuiU2DnbCmkfIe5O6H1E+96tClUvi5PiOJP6EvII
+	 exK8gAOqJUownfbfH9l3PEoInfROGx/+Z/z1Q+L4lXi9jTMcknyRRxtrUQ3k3krYrumgo
+	 /GrcFCAnUwfnjIE4SEgkwEMNnSDe8jarQ5bV5Abca1ExbOYCG061+f/Yl0H7FvYa0iXyJ
+	 Vcbpoenn/s0O1HRXfqchVtitEyTh+llWt5LDhxFcdFxVIPiQqJvs3Qz+bMynKtdPDYA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0453606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:33:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0453606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IIeMd/xT
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14fd9dafb0dso994407c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792845231; x=1793450031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UcH8rYHopQiyfN2N9CeJ5UIPAEXGC3cUJ4H4eP6mIrA=;
-        b=IIeMd/xTKVdBVT6y5kUxVk+2HYTOiJpVfWfxEXe4Ihb/0jwLIA/hJu5Vscj6e6c4TA
-         sFO+Tkkaz1sJtU7Gq7jkphObo1Y3lXeV1z8qkOwyaLlsfAU6RiyzQ10t8vZjFQkkdk6b
-         6yCL2v49d5bdrTF/bgpU2EIsGYdgcsRB++PAOoxYKHRAC/fywjFJNsB+ZYj41QtF9X67
-         qkuojxQgKhRBFGIZzLsSrnfQe5/auyd205RL34vP7UIMLjBUeyWN5ZPgN5bP9KnQvbUn
-         ECkHfHmF3y9EXsGn6SbLNpXXajVCWwt/MBYNpCTGr2jafs4GrdYTgo5V2dCKzQK+tdcD
-         UYDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792845231; x=1793450031;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UcH8rYHopQiyfN2N9CeJ5UIPAEXGC3cUJ4H4eP6mIrA=;
-        b=hOOKHw8i/J3PfddJK3EB6P7qrb8rwXPra87w6uU7efuTrhreRt9DzwGU4BsBsnYuYu
-         SivG5ib+yFXS1T9QOE/FiVWxN49IcNgSEyMOfWNwQzsZDBjThF1XzckWQg8O0Mzrvp6R
-         rlCK5dn3VDTTHxZHW9ZmxmkOWrLsM3qIP4nCL+TUclhg9sl2A2plV3NqfJsPncuiQC9n
-         6vg5NiW3uHEtS/3GePwu/I00H2ordigFpmxSPZ1EwgwHPwHNlbDKDOckj9k0Xu146DvM
-         Me/yLt9bAibfzaCWdP9CwrFVxk/GNB/3uGwYjB4GAhKukWUTxJ6O7y4MiVpye1RtXtkg
-         rl6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwTwoMqGsLkJI5Lw4aN+XOorPziX5JAVFdWHN9nvWFvqPIvR5rSa53jlokJHMxh92VZkiwGZgIG9cgMaEE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8EDhAASVkMjeS+cGzdPsAIc1X9/4v70ui6rgY9U+WQ2GgNXKB
-	rmlZVqGiZWNnQR1qCDPKwl+aZxRYQmRHhp9h1m05h6As995Ev9746ZiC
-X-Gm-Gg: AYBFou0DDVIEuoB9M2YbXyRwf4JQy6QOChSiDvNve7woq2ocjG+THyq0rsZCTcjmezD
-	TEGn4EoDh02Cv/3kNevkUbZ8wzCyHn/+Oyagjb+gdPbvg3i9HvfdTrVoIkiI8iL6TvK2nxHnpzW
-	gwSBwZKT9PU/B8QZ0Rx49TRKavQVlKrUnkcY8GolOiQsLjeLfi7YRoCffMAyoJ2Pn71SwGUJc21
-	a1YLnmL1KF/OrtL1ZmSNrKQ2jFyDcYNBpmwcpulrzjQrlWKrZnM4PJGeQf/6j8BsFY60mk6nMtm
-	ocx7qGx+OiVJ6gUcQtO9KOR8yD8wJ7q24+8jixbgNiD4lp/3JHajLTx5Xz/mc+6VcxrhRm0d9LV
-	17MdnHOMw8jwcEbca0DpJROw0wPtRbpUNCKJHnFJ9MoN2NMAFwgHpMyW0rWbLhS/ceXFiQjrvcB
-	4gQWWAfhBJpjNMGXJYMNpi0B/MPWYAXXngRCPSFHUORpmxzvSAWkx9KT3T1cayr06pWAchJbr2q
-	OYtUU9kJ3mHUyW5HuWU4ru4D/nLR3Vgx2kLhKCsNH+0sQmnsRKzEj2Q5h665odwo+PBUp10PDXC
-	XsALdlF1HubOVPY=
-X-Received: by 2002:a05:7022:7f18:b0:143:296a:3ee with SMTP id a92af1059eb24-1993571a3bemr3230839c88.25.1792845230770;
-        Sat, 24 Oct 2026 05:33:50 -0700 (PDT)
-Received: from [127.0.1.1] ([2406:7400:129:3e65:f4a6:5e8f:7da4:c9bb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a470sm6295559c88.2.2026.10.24.05.33.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:33:50 -0700 (PDT)
-From: Aman Sharma <amansharma6122002@gmail.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, Aman Sharma <amansharma6122002@gmail.com>
-Subject: [PATCH v2] drm/i915/hdmi: preserve cached EDID on DDC failure when connector is forced
-Date: Sat, 24 Oct 2026 18:03:43 +0530
-Message-ID: <179284522321.1666644.7085985666852699043@gmail.com>
-In-Reply-To: <179284356403.1659508.10439113185286055496@gmail.com>
-References: <179284356403.1659508.10439113185286055496@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id E39EA1F01825;
+	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792845647;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=i1IFp77Ea/uX+05A78KwTlGF6HAJt/jebeJdWosrIY2mZ8lOFiXjuYpCja2XHJ+yn
+	 RHAv0clhu1wTtyoiaC9ieRqIgyubYAZeUHUlqIUoZ13pxBQlHa8JtzFaCNEWrFKt1+
+	 gyYKP0W0f6HawUwcF+QRcmG7rdzVqei28uvdoY97IACSRaYNyr+6/5QW3knWuIRqOs
+	 YhoQzFaYjOQj+ntoBES/1N5kdPWMnaiYzVYls7CGUlh/WlfeS4RvZcPTFIPIao5+Ph
+	 p9ISH1D7zQtQNlYPk8WyrUDGc/BiF0EhrOCjdBB4HxY4I8JEYWzR1zEyKYeVnSh7m0
+	 qRemOuNm+sLdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 40B43447E0;
+	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
+From: Franck Baur via B4 Relay <devnull+franck.baur.67.gmail.com@kernel.org>
+Date: Sat, 24 Oct 2026 14:40:44 +0200
+Subject: [PATCH net v2] net: jme: keep RX MAC clock enabled for WoL
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,97 +82,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEun3GoC/x3MSQqAMAxA0atI1gZqHPEq4sIhakSrtHUA8e4Wl
+ 2/x/wOWjbCFMnjA8ClWNu1BYQDd1OiRUXpvIEVZpCjBeWW8tgVPQnu0qzhUAyd9W+RUpDH4bjc
+ 8yP0/K9DsoH7fD1/+LzhoAAAA
+X-Change-ID: 20261024-jme-wol-v2-submit-0fe4db872853
+To: Guo-Fu Tseng <cooldavid@cooldavid.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Franck Baur <franck.baur.67@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792845645; l=5786;
+ i=franck.baur.67@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=22BEaH8HKwqaRYpioIznd0XJzULoDFALusQ6AsH9C08=;
+ b=ZJnzMfzAMFTzgHH4A3FnhMapPYhdQxqyABK8rFksQxXAcuFVv9VoCG9l0x0s1YybjRphadpWQ
+ EVce2go1QqjBMS/eXK2VLwXChANNDPLiOIuw8dOYpn45If7urHk0wnz
+X-Developer-Key: i=franck.baur.67@gmail.com; a=ed25519;
+ pk=jhUaI4DVBj7JgOebLvsUGOrgJCBubeK6gqDJjxIqtZ4=
+X-Endpoint-Received: by B4 Relay for franck.baur.67@gmail.com/20261024 with
+ auth_id=1302
+X-Original-From: Franck Baur <franck.baur.67@gmail.com>
+Reply-To: franck.baur.67@gmail.com
+Content-Transfer-Encoding: 7bit
 
-When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
-laptop clamshell operation) and the external monitor enters DPMS standby,
-some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
-controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
+From: Franck Baur <franck.baur.67@gmail.com>
 
-Currently, intel_hdmi_detect() and intel_hdmi_force() unconditionally call
-intel_hdmi_unset_edid() before calling intel_hdmi_set_edid(). When
-drm_edid_read_ddc() returns NULL during monitor standby, the connector's
-cached detect_edid is wiped out and
-drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
-no-EDID mode. When the monitor wakes back up, because the connector status
-remained forced to connector_status_connected, no hotplug state transition
-occurs and the display remains stuck at 1024x768 until a manual mode probe
-(such as toggling the laptop lid) is triggered.
+On the JMicron JMC250 revision 03, the MAC reset performed during
+suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
+Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
 
-Fix this by moving intel_hdmi_unset_edid() into intel_hdmi_set_edid() after
-checking whether a forced connector already has a valid cached EDID
-(detect_edid and edid_blob_ptr) when DDC fails, and only clearing
-detect_edid on Gen11+ digital port disconnect when the connector is not
-forced. When the monitor is awake or a different monitor is plugged in,
-drm_edid_read_ddc() succeeds, resets the previous EDID and dp_dual_mode
-state via intel_hdmi_unset_edid(), and updates the connector with the new
-EDID.
+Keep the RX MAC clock enabled while WoL is armed. Restore the gated
+clock state immediately after disabling WoL during resume, preserving
+the RX engine initialization ordering.
 
-v2:
-- Move intel_hdmi_unset_edid() into intel_hdmi_set_edid() so hotplug
-  detection via intel_hdmi_detect() also preserves the cached EDID on
-  forced connectors and resets dp_dual_mode when updating EDID.
-- Clear detect_edid on Gen11+ disconnect when the connector is unforced,
-  and verify edid_blob_ptr is non-NULL before retaining detect_edid.
+Prevent concurrent link-change work from gating the clock again after
+WoL has been armed. Quiesce interrupt-driven link-change scheduling,
+synchronize pending interrupts, and cancel outstanding link-change
+work before programming WoL in suspend and shutdown paths.
 
-Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
+Restore the deferred processing state before requesting link
+reinitialization on resume.
+
+Tested on an ASUS K42JE with JMC250 [197b:0250] rev 03 using a
+Debian 6.12.111 kernel and an externally built module. ACPI S3 wake
+with a Magic Packet completed in 19 seconds, while a control without
+a Magic Packet resumed through the RTC alarm after 123 seconds.
+Ethernet and SSH recovered after resume.
+
+S4 and S5 wake behaviour has not been validated with this revision.
+
+Fixes: 854a2e7c331a ("jme: Safer MAC processor reset sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Franck Baur <franck.baur.67@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 25 +++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+Changes in v2:
+- Restore RX MAC clock gating when WoL is disabled on resume, before
+  reinitializing the RX engine.
+- Prevent new interrupt-driven link-change work during suspend and
+  shutdown, and drain pending work before arming WoL.
+- Restore deferred processing before requesting link reinitialization.
+- Validate Magic Packet wake from ACPI S3 on a JMC250 rev 03,
+  including an RTC-only control test.
+- Link to v1:
+  https://lore.kernel.org/r/20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com/
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b6fa1a1558b8..89ab9a790a41 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2570,6 +2570,19 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
- 		intel_gmbus_force_bit(ddc, false);
+The full kernel allyesconfig and allmodconfig builds have not been
+completed. The JME driver object builds with W=1 under both
+configurations. The full allyesconfig build was limited by host
+memory during vmlinux.o processing. S4 has not been tested, and S5
+wake remains unconfirmed with this revision.
+---
+ drivers/net/ethernet/jme.c | 37 ++++++++++++++++++++++++++++++++-----
+ drivers/net/ethernet/jme.h |  1 +
+ 2 files changed, 33 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/jme.c b/drivers/net/ethernet/jme.c
+index 25ec5f757c6828a5f5241340bf3fb01d8e0aa3e9..acb4d41f56e1002c0a34a253be20c780ad9b062f 100644
+--- a/drivers/net/ethernet/jme.c
++++ b/drivers/net/ethernet/jme.c
+@@ -1502,7 +1502,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 		 * all other events are ignored
+ 		 */
+ 		jwrite32(jme, JME_IEVE, intrstat);
+-		schedule_work(&jme->linkch_task);
++		if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++			schedule_work(&jme->linkch_task);
+ 		goto out_reenable;
  	}
  
-+	/*
-+	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
-+	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
-+	 * cached EDID rather than wiping it and falling back to 1024x768.
-+	 */
-+	if (!drm_edid && connector->base.force &&
-+	    connector->detect_edid && connector->base.edid_blob_ptr) {
-+		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
-+		return true;
-+	}
-+
-+	intel_hdmi_unset_edid(&connector->base);
-+
- 	/* Below we depend on display info having been updated */
- 	drm_edid_connector_update(&connector->base, drm_edid);
- 
-@@ -2611,10 +2624,11 @@ intel_hdmi_detect(struct drm_connector *_connector, bool force)
- 	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
- 
- 	if (DISPLAY_VER(display) >= 11 &&
--	    !intel_digital_port_connected(encoder))
-+	    !intel_digital_port_connected(encoder)) {
-+		if (!connector->base.force)
-+			intel_hdmi_unset_edid(&connector->base);
- 		goto out;
--
--	intel_hdmi_unset_edid(&connector->base);
-+	}
- 
- 	if (intel_hdmi_set_edid(&connector->base))
- 		status = connector_status_connected;
-@@ -2638,10 +2652,10 @@ intel_hdmi_force(struct drm_connector *_connector)
- 	if (!intel_display_driver_check_access(display))
- 		return;
- 
--	intel_hdmi_unset_edid(&connector->base);
--
--	if (connector->base.status != connector_status_connected)
-+	if (connector->base.status != connector_status_connected) {
-+		intel_hdmi_unset_edid(&connector->base);
- 		return;
-+	}
- 
- 	intel_hdmi_set_edid(&connector->base);
+@@ -1546,7 +1547,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 	/*
+ 	 * Re-enable interrupt
+ 	 */
+-	jwrite32f(jme, JME_IENS, INTR_ENABLE);
++	if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++		jwrite32f(jme, JME_IENS, INTR_ENABLE);
  }
+ 
+ static irqreturn_t
+@@ -1892,6 +1894,7 @@ jme_powersave_phy(struct jme_adapter *jme)
+ 		jme_set_100m_half(jme);
+ 		if (jme->reg_pmcs & (PMCS_LFEN | PMCS_LREN))
+ 			jme_wait_link(jme);
++		jme_mac_rxclk_on(jme);
+ 		jme_clear_pm_enable_wol(jme);
+ 	} else {
+ 		jme_phy_off(jme);
+@@ -3158,6 +3161,21 @@ jme_shutdown(struct pci_dev *pdev)
+ 	struct net_device *netdev = pci_get_drvdata(pdev);
+ 	struct jme_adapter *jme = netdev_priv(netdev);
+ 
++	if (netif_running(netdev)) {
++		set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
++		netif_device_detach(netdev);
++		netif_stop_queue(netdev);
++		jme_stop_irq(jme);
++		synchronize_irq(pdev->irq);
++		jme_stop_irq(jme);
++		cancel_work_sync(&jme->linkch_task);
++		tasklet_disable(&jme->pcc_task);
++		napi_disable(&jme->napi);
++		tasklet_disable(&jme->txclean_task);
++		tasklet_disable(&jme->rxclean_task);
++		tasklet_disable(&jme->rxempty_task);
++	}
++
+ 	jme_powersave_phy(jme);
+ 	pci_pme_active(pdev, true);
+ }
+@@ -3172,11 +3190,16 @@ jme_suspend(struct device *dev)
+ 	if (!netif_running(netdev))
+ 		return 0;
+ 
+-	atomic_dec(&jme->link_changing);
+-
++	set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 	netif_device_detach(netdev);
+ 	netif_stop_queue(netdev);
+ 	jme_stop_irq(jme);
++	synchronize_irq(jme->pdev->irq);
++	jme_stop_irq(jme);
++	cancel_work_sync(&jme->linkch_task);
++	tasklet_disable(&jme->pcc_task);
++	napi_disable(&jme->napi);
++	atomic_dec(&jme->link_changing);
+ 
+ 	tasklet_disable(&jme->txclean_task);
+ 	tasklet_disable(&jme->rxclean_task);
+@@ -3215,6 +3238,7 @@ jme_resume(struct device *dev)
+ 		return 0;
+ 
+ 	jme_clear_pm_disable_wol(jme);
++	jme_mac_rxclk_off(jme);
+ 	jme_phy_on(jme);
+ 	if (test_bit(JME_FLAG_SSET, &jme->flags))
+ 		jme_set_link_ksettings(netdev, &jme->old_cmd);
+@@ -3226,8 +3250,11 @@ jme_resume(struct device *dev)
+ 
+ 	atomic_inc(&jme->link_changing);
+ 
+-	jme_reset_link(jme);
++	napi_enable(&jme->napi);
++	tasklet_enable(&jme->pcc_task);
++	clear_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 
++	jme_reset_link(jme);
+ 	jme_start_irq(jme);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/jme.h b/drivers/net/ethernet/jme.h
+index 860494ff37144da9dc25d3105ecabb77072077b0..ec5dfddf7322730a316a4900026a88e479f8a8a1 100644
+--- a/drivers/net/ethernet/jme.h
++++ b/drivers/net/ethernet/jme.h
+@@ -450,6 +450,7 @@ enum jme_flags_bits {
+ 	JME_FLAG_SSET		= 2,
+ 	JME_FLAG_POLL		= 5,
+ 	JME_FLAG_SHUTDOWN	= 6,
++	JME_FLAG_WOL_QUIESCE	= 7,
+ };
+ 
+ #define TX_TIMEOUT		(5 * HZ)
+
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: 20261024-jme-wol-v2-submit-0fe4db872853
+
+Best regards,
 -- 
-2.43.0
+Franck Baur <franck.baur.67@gmail.com>
+
+
