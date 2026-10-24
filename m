@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792840905;
-	b=z2jbktpzMHyoG7Rci3VJhruWL17Gx2dr5oPa8PkVt6cwIytYVJQMRKSRtN2TMJnp3TsR
-	 SAELFvN3ZyBefJrnNJ57PV0ULxDxT0LQcX652GBLqHSngHjMxGDAiWCKqGdRnTyVqVERA
-	 y9toBKQob0BcSn+JbFBZy6+D4+QSAoZxlZBcDNbIdTOEY0PjJ/xHdfEuRp2MCA05nZVKP
-	 q/omNyjEBJrj4gklBmbLXvArmW8BTi64+nbi3AP2RD8Gq0alE6tWJ2HexyOoHTmTeh2LL
-	 mWWHJEj0q3gAH2j32OuYZhR8OXlENGya8/og3ZdowQUsENmltkNmF45kJK3ex48wGqA==
+	t=1792840925;
+	b=b9yrt1mR10VAIA8a+cSJjUGiDbZ1shFbnBwp557VxgGY+994QXn4ij6tkKL52RtLD0o8
+	 yzFgbKgDQw01dpVYFTv2aOBOA8PBPfQ/N9jXw46KqX9S9iUWhI2KaDgoll1JfoL7FJZhD
+	 ZssezICfaEtv1FdIqChVemPlIzs6L1KBTO45jgNUKwkZ6jYDFC8S7yKXttTKfPOUuQgir
+	 U0QaxU4M/LWnSf8e8JrgLSW7pu+3ulihFpH773nRt/olmXITuW/GCMdI/LbP7Ke2doxXu
+	 GoibYHT1XMXLVF62DG15itgFjtrtoZkduoRXy8nTmyZBDbaTNn8igTyzFzHsIG1MQmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792840905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792840925;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iDDeg9qjHmGV6IXYQKG3+nLfuCV82jMJnayxqcQwlbI=;
-	b=STs9Mzu+MWJyHkbUYR204bjqDphBl08BTivxh+H3egGVGvK4kH4B7IFP8QhQutI7Laej
-	 d6nYca9YGWtwYtQEuW3bES+tO0Xu4RmtE86H9Kxpny5fp8J5CcN8eGDjsQ7QZdyevtUbn
-	 FLOB+/WUtgmiojSLQxh013TvNdpCZMB8l/JjSeNhZPxsY1QCT0QyLbGryXpK7Yq3Zqtt6
-	 OYTOM0s+Uz0b4YvgwvvweQvXimBOkkMQ1++rXcZUmiqoXvxRIXPiXQWkdIUYrKVPmg3VV
-	 M1KhtpAuD+rRTKmQ/LOY0zbz3MyrxupzS9BkkPa18O8OuZUGwiyBF0kVVbQ3LBC/RCw==
+	bh=cGiQ8OTVAeX0o47MTz+ktInH/fOBwJghtHtytzaWqSA=;
+	b=pJRICJ5ZfO9JhFccVGAgAhD2jn7gwtNnoqBuVBtFKqyPgbYvvAdGFOBd4fRaa5C/humk
+	 WWb8v0s2Es7NDT7+rjo7f2O9nfbkvjOO8+rt5himabCSpx3DSBegOdSRTUP3x8hGhgCfd
+	 P21ID7w+3oV5oJGqCxo05aLlBv0YzZFoGRCYr9V7bStEBM6KMWS7kxhM0cSUZRcQiWV+h
+	 AUfWFdE0zSA9bDws2ibHQso8z4h5bom/K41aCatMkTWqIUgn3Fe9K0JtmFpEqBRFjGeuh
+	 oyNx7a+AHGltbl2QgCWZZKblXl1y5ml3cx0oJqn1ga6kytCGXZ7KtPaNAhqtpaYgDUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWeHkD3B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRNbwXhW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558D1606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1F1606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWeHkD3B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500221F01829;
-	Sat, 24 Oct 2026 11:21:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRNbwXhW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA88F1F01825;
+	Sat, 24 Oct 2026 11:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792840904;
-	bh=iDDeg9qjHmGV6IXYQKG3+nLfuCV82jMJnayxqcQwlbI=;
+	s=k20260515; t=1792840924;
+	bh=cGiQ8OTVAeX0o47MTz+ktInH/fOBwJghtHtytzaWqSA=;
 	h=From:To:Cc:Subject:Date;
-	b=BWeHkD3BxXtLiI7xqTS7+XkJgaANCXW93y9p4EzdaFJ1wuLgNj5IJLtyL4UukLqee
-	 A1Uk9MK+qPb8qIScenE4BJNTXaFXVx+p8/uRSUPTMTKWFqXGMTzpZIyeb18AFoK61c
-	 UZsTxMqJymOvLFCf1FZrl00MIz0/KjWMbgcISrhTf9+t7DtdvK3M1sGPe5FxnAH108
-	 SDurcjRm3GtrL0dcNTDFWITE3PdxpKQrEMw3ssB2/D9NF44HvPGJtSScv95UdKbl/H
-	 8dkDjQbv6zi4RjdqQ0swEDBJP4TylEJEQI/CQH7LyE8a8lua1amC6mhD+QGIBk9aYF
-	 Ys9yKuxnzjsmA==
+	b=TRNbwXhWlrh6M/1ClNTKGyPNstnCcPOnZb6JJKfrQxHhK7/JK+RatDhSfByg57hNX
+	 6oFHvIvyDJMBVMWPyZS9ugRtKgj4cqHmurv4A3xBJZMVjjPreNyP/DIMecHI4gvKWl
+	 kva6WY1FEjD2e5PiBQCCZ6x77//aFUiU/7AtSgCapiJRh83Xr1Ohl9YqG4B86UjD+x
+	 XpEeuXs799qQOIV+vDIJNnIsTTQdJLWZxjYVKpVRQcHYLPPdJnyH0KEKW68/7J31yu
+	 DJZTU9CGZQRYpK1z5zfgDBumgHjN9fy2xKKHeyALrUhXc6iTrXfkgmtUayzEeqLwkH
+	 NeqgDwLuidrqQ==
 From: Mike Rapoport <rppt@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	kexec@lists.infradead.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] memblock: updates for 7.4-rc1
-Date: Sat, 24 Oct 2026 14:21:29 +0300
-Message-ID: <20261024112131.3384572-1-rppt@kernel.org>
+Subject: [GIT PULL] kexec: updates for 7.4-rc1
+Date: Sat, 24 Oct 2026 14:21:54 +0300
+Message-ID: <20261024112155.3384616-1-rppt@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,108 +64,56 @@ Content-Transfer-Encoding: 8bit
 
 Hi Linus,
 
-The following changes since commit 6e33dc90df108c76899dc544a42d17adcba61668:
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-  MAINTAINERS: update memblock tree URLs (2026-09-09 20:28:14 +0300)
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock.git tags/memblock-v7.4-rc1
+  https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git tags/kexec-v7.4-rc1
 
-for you to fetch changes up to 7933ad3f669670ca5f5f13de2b5cb0f92b91abf5:
+for you to fetch changes up to 833d2b79ed9520e77c5d83eb11644e5239b2c5bb:
 
-  memblock: use binary search to locate candidate regions (2026-10-15 09:39:37 +0300)
-
-There is a conflict in mm/sparse-vmemmap.c and here is how my resolution shows
-up with git diff --cc 17bb0e2f6c804  -- mm/sparse-vmemmap.c:
-
-diff --cc mm/sparse-vmemmap.c
-index 5a2469fb1838c,23b31bc4bf94a..0000000000000
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@@ -78,8 -62,7 +62,7 @@@ void __ref *vmemmap_alloc_block(unsigne
-  		}
-  		return NULL;
-  	} else
-- 		return __earlyonly_bootmem_alloc(node, size, size,
-- 				__pa(MAX_DMA_ADDRESS));
- -		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node, false);
-++		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node);
-  }
-  
-  static void * __meminit altmap_alloc_block_buf(unsigned long size,
+  Merge branch 'kexec-7.4' into kexec-next (2026-10-15 11:38:21 +0300)
 
 ----------------------------------------------------------------
-memblock: updates for 7.4-rc1
+kexec: updates for 7.4-rc1
 
-Performance improvement:
-
-* Use binary search in memblock_add_range() and memblock_isolate_range()
-
-Cleanups:
-
-* Several simplifications in memblock and mm_init that remvove redundand
-  code.
-* After rework of sparsemem buffer preallocation, memmap_alloc() does not
-  require exact_nid parameter. Remove that parameter, drop now unused
-  memblock_alloc_exact_nid_raw() and ajust memblock tests accordingly.
-
-memblock test updates:
-
-* add coverage for lowmem allocations
-* fix 32-bit build warinings
+* Fix probe error codes and error propagation:
+  * make architecture functions that probe loaded image consistenly return
+    -ENOEXEC when they do not recognize the image format
+  * Make kexec_image_probe_default() to distinguish image format mismatches
+    (-ENOEXEC) from real errors (e.g. -ENOMEM), propagating real errors
+    immediately and only continuing to the next loader on -ENOEXEC
+* Make sure the next kernel does not land on hardware-poisoned pages
+* Remove unused arch_kexec_locate_mem_hole hook
 
 ----------------------------------------------------------------
-Kaitao Cheng (3):
-      mm: Remove unused exact_nid parameter from memmap_alloc()
-      memblock tests: Move exact nid tests to memblock_alloc_range_nid()
-      memblock: Remove unused memblock_alloc_exact_nid_raw()
+Breno Leitao (2):
+      kexec_file: stop the top-down search before it underflows
+      kexec: keep the next kernel off hardware-poisoned pages
 
-Mike Rapoport (Microsoft) (3):
-      Merge patch series "memblock tests: cover low-address allocations"
-      Merge patch series "memblock tests: fix BUILD=32 address conversions and warnings"
-      Merge patch series "memblock: Remove unused exact nid allocation API"
+Mike Rapoport (Microsoft) (4):
+      Merge patch series "kexec: keep the next kernel off hardware-poisoned pages"
+      Merge patch series "kexec: fix probe error codes and error propagation"
+      Merge branch 'kexec-fixes' into kexec-next
+      Merge branch 'kexec-7.4' into kexec-next
 
-Sang-Heon Jeon (4):
-      memblock: simplify reset_all_zones_managed_pages()
-      memblock: remove conditional return with no effect
-      mm/mm_init: remove zone_absent_pages_in_node()
-      memblock: reject non-page-aligned reserve_mem regions
+Mukesh Pilaniya (2):
+      kexec: return -ENOEXEC from image probe functions on mismatch
+      kexec: fix error propagation in kexec_image_probe_default()
 
-Tarun Sahu (2):
-      memblock: drop for_each_memblock_type() and open code its users
-      memblock: use binary search to locate candidate regions
+Sourabh Jain (1):
+      kexec_file: remove unused arch_kexec_locate_mem_hole hook
 
-Tianyi Chen (6):
-      memblock tests: model the low allocation limit within dummy memory
-      memblock tests: cover allocations below the low address limit
-      memblock tests: use physical addresses for region removal
-      memblock tests: zero-extend simulated memory addresses
-      tools: use __pa() in virt_to_phys()
-      memblock: initialize the region merge end index
-
- Documentation/admin-guide/kernel-parameters.txt    |   3 +
- include/linux/memblock.h                           |   4 -
- mm/memblock.c                                      | 127 +++---
- mm/mm_init.c                                       |  38 +-
- mm/mm_init.h                                       |   4 +-
- mm/sparse-vmemmap.c                                |  17 +-
- mm/sparse.c                                        |   2 +-
- tools/include/linux/mm.h                           |   2 +-
- tools/testing/memblock/Makefile                    |   3 +-
- tools/testing/memblock/README                      |  12 +-
- tools/testing/memblock/TODO                        |   5 -
- tools/testing/memblock/asm/dma.h                   |   6 +
- tools/testing/memblock/main.c                      |   2 +
- tools/testing/memblock/tests/alloc_exact_nid_api.c | 454 ++-------------------
- tools/testing/memblock/tests/alloc_low_api.c       | 148 +++++++
- tools/testing/memblock/tests/alloc_low_api.h       |   9 +
- tools/testing/memblock/tests/alloc_nid_api.c       |  20 -
- tools/testing/memblock/tests/alloc_nid_api.h       |   1 -
- tools/testing/memblock/tests/basic_api.c           |  20 +-
- tools/testing/memblock/tests/common.c              |  12 +-
- tools/testing/memblock/tests/common.h              |   2 -
- 21 files changed, 294 insertions(+), 597 deletions(-)
- delete mode 100644 tools/testing/memblock/TODO
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.c
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.h
+ arch/arm64/kernel/kexec_image.c   |  4 ++--
+ arch/loongarch/kernel/kexec_efi.c |  4 ++--
+ arch/riscv/kernel/kexec_elf.c     |  2 +-
+ arch/riscv/kernel/kexec_image.c   |  4 ++--
+ include/linux/kexec.h             | 15 ---------------
+ include/linux/mm.h                | 14 ++++++++++++++
+ kernel/kexec_core.c               | 10 ++++++++++
+ kernel/kexec_elf.c                |  4 ++--
+ kernel/kexec_file.c               | 34 ++++++++++++++++++++++++++-------
+ mm/memory-failure.c               | 40 +++++++++++++++++++++++++++++++++++++++
+ 10 files changed, 100 insertions(+), 31 deletions(-)
