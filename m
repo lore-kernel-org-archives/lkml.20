@@ -1,115 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792860422;
-	b=dIL8Yqkj7ITr5TPbeLsODeIMqVeHKJm4koEWWeABZ21vdm1seynpkKIleJozrDNXG3YI
-	 stHab14bUfrlgPOX3YzHHLK1zxs1CIbkIHxQTRyYw/uV+2ypo60baIrLmOWhoGN6mi3Jb
-	 4/4UbmHZxX75YbnYsMFdYY65Hn8Iod3e1W6kMjMc9lEBV5yLQoEUt2jTTdznKsNZ5zCmI
-	 HN/qRQeLaTLYwxTiuebe0Ana9kTYD3bTMdlh26tOWBU/ZMJW33F9wI2ztVAxXxz/UyNwG
-	 4zJPEq6mNTj/nLeJFUZ4G1AhVvo8wYwEig6ocFBBhoLNFIxtfkEd3DAjr4U05CLYo0A==
+	t=1792860485;
+	b=1d/FvvLxFTwT2cQwoGgPracUsGOjt1nJ61x0gdf6msoaiPN551meycrmP9J/Ref9EPgd
+	 IG8rfgw+/kIvU7aSzEap12qA3b1w3jwURwsAfIdkX9MBiCi0VgTl/c8ub5WPyVSu1jQRh
+	 0WK0OWHUkRzeIkyz8bx7MFKNT5808tncntnnEaI/ylhPA5NvBs1TozVssIg5sjXJflxAT
+	 UjiqOiOqckL1kgOPIbpwh+rs7g85KyLC+GOAWbTsJyB3xYXVcFpE5C9ZtiNaMhxbYBHjx
+	 t3Beu8rw9eCcdbcTAICPcB4/v1BSEo2AQSZ+kNcq4u64o+Qyt+thwu5P/AQUPn9G0LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792860422;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=g3jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=;
-	b=PwR+jzznexGARaLOmKZHqU9MmwwAOas0RxEnoDMjdSiUyvtM0LW5h17KflUtSsT2DJcU
-	 gZ/ZGe0yw9ZQFbX4n16zNaE+6FoOQ3RhafLAMbtA7nKbKWS8Jo+CrmzyJIbaZh9CluxgE
-	 s8s6kGlmIr97FuO5bN0neSu5BFb4ChaCiHz3fpTGYNAlrEq+B6kk/OBibMY1w/Ub/YsCg
-	 yhVp5ERjVQ1ahntu2OnMHid8BaW1Pw9gmH1YuhrhDMvsisfayPLMi0WqeYj/X0sNrGKtc
-	 zZMKvKeHBOLWKKsqD9X9Ebt0FYttCtoskvHDiHeTd7856igGNvIPk0c1J33tTwI5Ung==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792860485;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/nSNOYlsRmTSeCA9izzSk7iicvciGMpmTzAgDFQrTWM=;
+	b=NfvM0brf+Cu8nUwOjLinKW11W+Ra3FfBrsbcE+iuBP4/01dhrusN4wtediBjHshYDRVz
+	 KReqJ/GuJMK5QyAwi9QDxnRIcxKNpPWWcvAP+AXeoheWT6cvDfLT0yKcbbUS/yWyyqdvA
+	 lYs01nTdbuBsRhg2gcsP1D/H3UDAHWD0Z0h8oA6cSrJLk2918nA73wd6GSzNwZxPWF9Rj
+	 yftYhKM7E4NxH77U9Ls58Jb7qN61Gxhzayj6tVVelti1kLoiYmmK2V5o2A6a7xX7hreYU
+	 +OwPYejIQYkOLOhRaHdlKPajqrchZ/xhjxQvkl9KoSomRYmIh9DkuEZpUEHqyQzIT1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=doFUy87X;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5AB606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B5AB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B46606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:48:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B46606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2B2C714000E0
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:47:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Sat, 24 Oct 2026 12:47:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792860420; x=1792946820; bh=g3
-	jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=; b=JYk8KFESW9t3uw6qBy
-	hI/PwK8AqQ6yFbUahVBIP3PjU6CXfJXb9WPnV7uu3tF2oOc7h19sWTe5Vn+uepxK
-	+g3XKFjl/uh6IbtXhJ8v+WLl9sO9rkqghmOBYePhoMfUDLgb6tu0Fcz8YfzGUi5k
-	ziD0/WwbVb2b9zlbSTkqjOIYf9M8KEtVsoh+smN8WaE0HQ7zeUwfHYD53fYR6s0I
-	0PwWW8IxsZ8lqDoWOK8GQr0QvIiDvoAjtuBuurVixNJIC7rBFgkQrdkCSiSmSdPO
-	q8dV620jP+99WrraFbAvTMLJpzKu0oMX17uE9kiP1YJWYRdKPh7gyMrNhc0ZjHaF
-	BtgA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792860420; x=1792946820; bh=g3jJ/aniX5kGUGfAlghqlj05kG4x
-	ZJjBRp+ULqjc2Gw=; b=Y9rEqULrYK0Ug1f0iANDinyqNxnGSkCXSHIU9Na5/SGv
-	z1d/4jjs6CEFnUvsiqHefkTjD6j2SYY/sLClTWH9/7stLnstl5XAx2ZLwy1Zz6k0
-	/VvthJlQckvYmlCVr4s6VGuFW08jjsJ1Up088kzVdOnVgMHpr1QmAZ4Ap3Yd9+fm
-	ijPs0g4CG4WJ/k0MDQLESaAJIkIQanAoVnQHYYcK8JJ19QKKXjFvm2UpNN3hxsun
-	dlEqKRFno179Vav2JEllVqisjGqd7I9Doq5eh9k1vkrAy6VEiORQCKhceeISDzoX
-	EARnXgPaCEoAmnFHGQ4Jp5i0GdWTeqZK21vuWiLcww==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792860420; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fLcItAF2HYfLUyA4VHdfdnM5mdMrlttwfgAI8pEmnOcOcTd
-	8pn4Jt/KX/dGN2OzK6Ri49hjX82u6BfskfIgHekXpA2gJYlAzqErMpneMIykXNjx
-	I+ZOCJnrS5M2wlYOw1hxbkcKIVZ5yq9aOF/NxZwdmrf9mV0jm/Sqz5Z8WYT+CUyP
-	wGX81s0QcjUMBLUa/6b6ONDmT7uvLOld83uoaMeVu+Cg4pip58CF2Koy7Rj8OVfn
-	Xhi0BHUDOZABYE7628Vd8BlOJ21tXACDwqFoY5TkM0ggcGMciRTGJ99fHngrnZAJ
-	Lds88D02Ahdcy6N0zkbxNcKil25U4p8tu23Nn+A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:2V7vfyQFvagtebhP31LBhTs9FJNOAs1HcL4UqvhRpTM=:ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
-X-ME-Sender: <xms:A-Hcar0r6yysYVq4VsjiXryZ_6TyMiEWaA9aZBHCj05-Y05FhOCy5A>
-    <xme:A-Hcal9AjpiUGToQub6dA0TsiPl28k7m08W1LQ83cTjPDiUyUch4W4uX3HgynSXbC
-    WBkKFhcAccel-uIt6RSVNQZ-25WJBwC4sH_Z4t8imkVjScvaKKUvspM>
-X-ME-Received: <xmr:A-Hcao7dxUubB5i9BBbMeatKL7vDhjgPQcYgYPk1VWx8j9RqA6-nAE8JiZGjNIoTkCkAP9-t9Iy38NglR5VORSsbHx22Gv39fdA>
-X-ME-Proxy-Cause: dmFkZTE2M4sKdu9IXP/yF3S2UenmF60GkjF+Ba+YLrK8eiTG1IZ0LHx4YFF6nwNNknF+Ep
-    eH6JdyxLINrYvBw10zwWot8XIez8Ww9JXjzi05CRq++lBGhIgidceLLn2R2kBm+4TYOneJ
-    5oTwS+2icLsbqK4lfMCd0uHS24aq8DV3cnbKS0aGN/ueBLbqwfR1cv+uG2P8lZtrv8QPqe
-    75I6yUWPgsWW3qjQeHwOMmI7RWsN8FSHRL50sDQUEjzvY3NsK5CLJg9yPLnXJgothjgsim
-    IGsq9sq7Tm9qis4lOMZW8QkDZK25JtmRCKhRAZHMOM2mpk10CcdfE5Gh50pUj6VCjHtSGE
-    OFYS/yjRyCTH1Xjyrmtgwg9Mex9izuo8T0Gq3FCIABEdUg9FykWtfgqDv2e2qO6Tbmvg4a
-    4hAAcB+D5/uYG3Kv/hicQzMiFpf3Xl3V8ceoUmvfGNxReB1sjI+nKj+144QvT6wG3xrnEx
-    X9rlM/R4BoduovaQx78Hux9xbMN/kTQmJLtbdWDYenkMOGw/dkBtOA5xwcXeF7FtWleW4u
-    QPTF+cu8kO6kp7ewtcfvGT08hrs4dUFlCFcImonrekEdWxfDC3xEvgfSp1a8U+ibuDDgnV
-    6Us8lyERJO8hmpRrSTEbIFiVwoP1XtQZzcIWbbMVFQdFkYbL8r8K3j9SiqMw
-X-ME-Proxy: <xmx:A-HcaltUZihd2XSitSQx6i3qr3NlO1ywXrvEUTOVK7HviKr8eIyluw>
-    <xmx:A-Hcai3mkJl3njrqHBGha5El-MFmX2LT8yHO2ap3coAQkVFvHJKaIA>
-    <xmx:A-HcamqsqPv9AiBaHy0eY7Pv-dq21IXoHF6KXxitCMvJ2bSGv9JpWQ>
-    <xmx:A-HcaqI7-9WUj_BL0uKpSjBbdMYOwkNXveqrHixaHuZ9omAUbxUMpA>
-    <xmx:BOHcajZTGZnP-bB7RKe24vnLYd-WAnXMVMIsx8QeVe8fG1jO23e_MRAq>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 12:46:59 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Sat, 24 Oct 2026 18:46:54 +0200
-Subject: [PATCH] PCI: apple: Avoid PERST# deassertion through gpiod
- initialization
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=doFUy87X
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so914406a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:48:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792860485; x=1793465285; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/nSNOYlsRmTSeCA9izzSk7iicvciGMpmTzAgDFQrTWM=;
+        b=doFUy87XTMAZBcgxsctiSxQm6UY2QpLcDhFXPl7Q5FUufUfrnr0IqaRvQy5BGIFsXN
+         vDPq4a5HJGH49+CstisPR4zii7cHvgxSckywC3Fleysm/+e1Ylp3j6+Sf9tPZOAVSr0t
+         C3wBSCcyGbaHOePNv363BRwrX+IXsc7p5m6cpRTkbNWuTQ9CXCaBpbHHvB9cPrS7fFU3
+         m+O9ye0KZqO0tobxJ6zIJecaXb0z2SjFQX2/iZI2JtntPjQh0DU5WjU9XRzexzkNrsYX
+         JAMof+kEyBM3D2wpT+oCXiqKcuA/vnaOGSRS8Co2I+dbSdSI/1VoBLCVPtbNYaYlIqAW
+         7Opw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792860485; x=1793465285;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/nSNOYlsRmTSeCA9izzSk7iicvciGMpmTzAgDFQrTWM=;
+        b=smKrfDHEu0siRbAO1NqDB7aF4g+pxnUtPPRnXt7FL+ERp/CIy4q+fZAqWKUFy4YPei
+         ++d2o1xnD7mpqjzV13A/fbbkuor3q54+WPMORBb/OwGOOiW6BxF6UolXgy5Pplwpkoi4
+         P5e1kAlDjGCZWouB1lAj+GBtAooIpSP69eLnMnxlWqEN3dTPIfql8V0eY1tfTJ+bwt8l
+         lWisJe+FcMpMzdEHUuOK6F+/zG6jjPGyi8P3hFMmCNg+JnKvKCfnYXPadZsL8swiGrIf
+         Vn4C9qouuM8UWMUMp6MpmEPl/RrSl2SKtSHTEaLRC+/mnpMiJvCqIEJqJAklAtm5JJN3
+         0iVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxeA4MB4hIlKkXFYebEz4d4+U8dmeh1RbACU2TuyzySsJu8oV2h5lxfH/SoLBcc8aGJDMS0MRNVQD8kcto=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLe9ABMzo96yjqSpx32bIY6CxSkCrjbQC6OP0bct6qt+EtYFkrp
+	OdPVDwmcPo2iPg4rNYrRpGSkHJrD4D+5t6pT38GzTznxeRgDciKlK50xuL272onzZRw=
+X-Gm-Gg: AYBFou1NM3vB2Zt7zCy1SSNG3Lv/v/cbaAlm5+HJOqu+FlRy0BQYmKuH1OeOzfIytVU
+	orVfBkXXoEGiukb9u7sK5rPSBMy89/5VX8LGQHOi5FqjDmkHIpZtQO6vHBOHZ6pKLt2YVgafcCJ
+	4qB01oFFvEjFFDvhv/6NzsLiXiK+g9rKZYuo0yULhMjcjSe0ifNjC91bU0JvqOXvoO80++ybdr4
+	dNCCMwmv2AKhUQATzmLG4T5tWeUJdA1x+2IHTX8XKklehAUmnER8hFcOeI3O+Yva37oxSmBS/Iz
+	BajsY6ymiW9K9mEJ0gIaSaVlaYt1dKemHkXq0PQ07xrKrdM8CdbOCKYSocEVvr3+SsGxAFxcC/a
+	UAyQF433MsavEc2SibdnGVZhDIODSmCrFNVaa7abssJr5K6mQoaoJ6UFbRecYEzH8qF2KPGTqgQ
+	ZFTGN0D+RhLhbi+NwyUAPWivn7hsItF2I6EEZ9ahTYKWX/OY7OI+gn7pnwQU8dBk6ay2ZXpxrgs
+	Jr3hwUqFIHsggBffY53iotPEvcReOHL6JJfSDXDSDgWLbeYwnAqnISmRLOmU0AmnYQrUppKiEVh
+	aUE0dd0cONsDKbKROhSNi3DpEfnoym1sqMq2gI5DGGivIIr5b6KOXSDAQjvB6ljm
+X-Received: by 2002:a17:90b:1a92:b0:3ab:189b:6981 with SMTP id 98e67ed59e1d1-3adead4fa0emr2149206a91.48.1792860484851;
+        Sat, 24 Oct 2026 09:48:04 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:dba3:be57:a674:a67f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6af24sm3289037a91.6.2026.10.24.09.48.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 09:48:04 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v3 1/2] RDMA/srpt: bound the indirect descriptor table to the IU
+Date: Sun, 25 Oct 2026 01:47:51 +0900
+Message-ID: <20261024164751.3531142-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ea3e91af-53b7-419c-b83e-d70d002ea321@acm.org>
+References: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr> <20261022143901.2991062-2-yhlee@isslab.korea.ac.kr> <ea3e91af-53b7-419c-b83e-d70d002ea321@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,71 +101,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-pcie-apple-perst-gpiod-init-v1-1-f92f30f205ef@jannau.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrDIBAF0KuEWXfAiLjIVUoXVn/TD8EMGkoh5
- O6VLt/mndLRiC7LdErDh517HZhvk+R3qiuUZVi883F2PqhlQpPZBjW0fuhq3Iuy8tBndB4IJac
- QZQzW8OL3v98f1/UDTf31o20AAAA=
-X-Change-ID: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
-To: Marc Zyngier <maz@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1647; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Dxm1Ik9o8zt8jm1keLr0xsfkaz5HXXJyZe5qvJon1
- xbUOnVWRykLgxgXg6yYIkuS9ssOhtU1ijG1D8Jg5rAygQxh4OIUgIkov2ZkuLGuT2y5Ce+7bx2/
- HF2yjNnXrGM/PjNrVbeBW1RC5pENhxn+Jx20r7/y4aVR4fzkD6uqmkUmbbrVszkjsTXzLH/i0Rc
- xXAA=
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
 
-Commit 87620512681a ("PCI: apple: Fix PERST# polarity") switched the
-PERST# polarity by annotaing its GPIO as active low in the device tree
-via [1]. It missed to update gpiod_get()'s flags to GPIOD_OUT_HIGH
-resulting in deasserting PERST# through gpiod initialization.
-The Aquantia AQC113 10GB ethernet device used in some Apple silicon
-desktop does not finish link training with this additional PERST#
-deassert before the usual PERST# dance.
+On Thu, 22 Oct 2026 08:56:12 -0700, Bart Van Assche wrote:
+> The idiomatic way in the kernel for subtracting pointers is to convert
+> these to uintptr_t instead of u8 * before subtracting.
 
-Link: https://lore.kernel.org/linux-pci/20211123180636.80558-1-maz@kernel.org/ [1]
-Fixes: 87620512681a ("PCI: apple: Fix PERST# polarity")
-Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
----
-This issue affects only a single PCIe devices of the handful of built-in
-devices integrated in Apple silicon devices. It is usually hidden by
-u-boot's initialisation of PCIe devices.
----
- drivers/pci/controller/pcie-apple.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v4 is posted. desc_off is a uintptr_t subtraction now, and the room
+division is replaced by a direct span comparison, which also removes the
+truncation Sashiko flagged in 1/2.
 
-diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-index c2cffc0659f4..a7f327803060 100644
---- a/drivers/pci/controller/pcie-apple.c
-+++ b/drivers/pci/controller/pcie-apple.c
-@@ -562,7 +562,7 @@ static int apple_pcie_setup_port(struct apple_pcie *pcie,
- 	int ret, i;
- 
- 	reset = devm_fwnode_gpiod_get(pcie->dev, of_fwnode_handle(np), "reset",
--				      GPIOD_OUT_LOW, "PERST#");
-+				      GPIOD_OUT_HIGH, "PERST#");
- 	if (IS_ERR(reset))
- 		return PTR_ERR(reset);
- 
+https://lore.kernel.org/linux-rdma/20261024162852.3528224-1-yhlee@isslab.korea.ac.kr
 
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
-
-Best regards,
--- 
-Janne Grunau <j@jannau.net>
-
+Thanks,
+Yehyeong
