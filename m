@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792880600;
-	b=0lqvCHm/NbbqxSShkpsAY4MnfGOvJzsWdlWA60gGxBpN18XrdiNk+tO5VgifW07emP5z
-	 ITaV1LjpXq700dr90KjwImOcNAlnsFt4wK01v9SwTfvLp2L2q+LC4UzWcjxP4UAdKRdH4
-	 Dk8XUYSyK0ifXea81ec/PpEpAdQFSWt5TfonLpki2vaHX9cCDU2RTKcrSOJWDLXG1rLaK
-	 jylT5xTCKQUCdiN2SBgX8xm9JQLh/ubYqdqJnrG+JL/oBzht9cI9t3X/f4ynx+yMz8FNS
-	 TveFxlVQm4kLSMXdZIjHiGX694RVjd2WE/GNZ0es4TOQeey1ELyY88N5yWq4OF0UgvQ==
+	t=1792880658;
+	b=gP8KOZ589x6mUMFus8I/fN91349AZHBFON3D3nuP+xFLJXtE+VRAA2aKm2TQ2S/8J8rF
+	 0I7yFg32F4XqbBczPj4FZtvWIjvZX9oplnRrZ3v3B8rGqvL4AmGKsFU9a3TTVKJWHZ/es
+	 KMk+QdGi0j4mK1W7hxbH1U0TyeN0pRGp6Xnam8yuvKozT6CO0bUSjDoBcADGF4NvFfSoS
+	 AMAZa+/9pzJ/9TRXJPs8zNFxjTu4oO9D6sO5ldvrX2ZULBHhPYvTJzJJvlrOYtEbJqPTN
+	 982aAiZw9ixBCaHpWeJsWgQdQKnq6UMFS2n2dp2dkzr0Sgs16wAEW8QN9FQ3OcoKNaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792880600;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fEpek5FX8wNTYU//B1YNrG48vGFcw694wmGUQhenV1A=;
-	b=z6ZU5PCK7iGCbKZlBRXljSt/K9UHGPPh/I2VQMb43UMwHsyaI9xqTYx2pcdrc6gT/dDh
-	 2x7FkUeQI2aiUz0LEKNmdBZUnnSWb9NMxcXO32+gxI24EPjujL2fc1jne60Bpt3vlFlBf
-	 H0Yoz1Ti/cHyrxgC0tQECmG5p1ItWrOAobkOKkR8W9qLItInynN4lw718+wI7RqJ0gP0X
-	 qeo4FqiTq0xyrNJmHsxXrSHjbK1ebZpTLGqHDFbr56u8WZbKHa8tinEfhYB6VLwHivFAo
-	 XjlE1fs7xSThObWggeF2dYA/PkYb+jUUp0ZgZ99rHyQ0z/yZJF6tKY5+LrSwtDAzTBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792880658;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZO95lvl9Nqr2fnKfjhNvY3odHppkPAvE0sy9YV0MAyE=;
+	b=CIyQhF2pn7x0IxsYAQ/oolLzvyW4FONYb10QxxnS7zV2V+1UHJfvslu5FD6U3XNR1gwz
+	 16xwpNvus7Q99FvqI9Tn+whYz8Ey1ogUC3nbW5bLZLR590DLryc6oeymF01dkS9Uu1HTa
+	 anudjKxbf96th6fdQ0TJdAc+s85l7/8yUSHspfBr+F3vU6yLaR0x/YymGrQRTWoebM5Bk
+	 j/HPxXy+qTNHuG0QHLL5sb+9NNVUcjw2bkYryvVMnnKJlVpPSSZ9STSD2+xRz/AVtO8UO
+	 hywTdYN8trha+dFFA67kurC91GpZ4pCzMRwFpDqEOu2g/5hRjVLKTmq6j0Ja9T8YMUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcwlgpnI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F5606A31A;
-	Sat, 24 Oct 2026 22:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579F5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 1937360AF0; Sun, 25 Oct 2026 00:23:10 +0200 (CEST)
-Date: Sun, 25 Oct 2026 00:23:09 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
-	Weiming Shi <bestswngs@gmail.com>, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf] netfilter: nft_set_pipapo: skip transaction elements
- during GC
-Message-ID: <at0vzdlVTF8XAzHj@strlen.de>
-References: <179287943591.17355.17353179557993329094@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26A1606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcwlgpnI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9351F01825
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792880657;
+	bh=ZO95lvl9Nqr2fnKfjhNvY3odHppkPAvE0sy9YV0MAyE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DcwlgpnI8DL+2mapwB28c0Uuo/uZkOQbIkpHc/v1SllyC8AnQiHsey8hJ4aUWdbT4
+	 prMadH1kOhGswoIzNgX1P+u7U3KoTwqUBcWHh2XYWZ5bxDbPXCFaxmk+P2urzWr1Rm
+	 tN/5ED+hsmoVE+0QG0XA0UDNI4BCf1ZefiXFb5Qd5/jU4/xxPiEDB4jLllmx0hbm3K
+	 EN3bqey/NcRl3d0IV+S3TGGgleI5BqCIn+v74y01Z2wbeUWXGv7IvSemJyMiXrTytO
+	 jmFrvEKOiSx/o2gKOwmTm2S066vyIZyZSIob0mQDj8qkp6Et+Vy3xhiiFLqwSXFeD6
+	 V70By5SJLar2w==
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91befbcad6dso33795856d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:24:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwfI+M+q1QlEX/Lc0lRXu77+uABMEVDS8rtSivyh5PYilvekDUb8zkVA6atcXg2ZHmXLcbVS6L0RS8qSqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk4YYDhxbOAU+CqoOCPhPXyD/Ad/McpZJXWG9bLV847vMgwbK4
+	CZ0Yo0+XZFb0Yl1oUyc40fHn+ZWz7xzgvaaWzuUNDLOyjyyJPnmzcf6+PofyYZBOrmQpNfCRaJr
+	E18Io2EcrM1nAlzGKHdYSMGxq8LY9uqU=
+X-Received: by 2002:a05:620a:2616:b0:93e:c06a:7313 with SMTP id
+ af79cd13be357-940ef914186mr385330485a.13.1792880657009; Sat, 24 Oct 2026
+ 15:24:17 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,21 +59,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179287943591.17355.17353179557993329094@gmail.com>
+References: <20261019034426.2354049-1-ridong.chen@linux.dev> <20261019042308.2372396-2-ridong.chen@linux.dev>
+In-Reply-To: <20261019042308.2372396-2-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 25 Oct 2026 06:24:06 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
+X-Gm-Features: AclHuK9i0KBXAHQuNAppLi1kJlXPAo77Un_nGJoXjbM4tmAAAAcT3v5pEG65SEY
+Message-ID: <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
+Subject: Re: [PATCH v4 7/9] mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, bpf@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Joas Antonio dos Santos <joasantonio108@gmail.com> wrote:
-> Since nft_set_commit_update() runs set commit callbacks before processing
-> NEWSETELEM transactions, pipapo_gc_scan() can observe elements added by
-> the transaction being committed: nft_pipapo_commit() calls
-> pipapo_gc_scan() on the clone, which already holds the freshly inserted
-> (not yet activated) elements.
-> 
-> pipapo_gc_scan() selects elements to collect using only
-> __nft_set_elem_expired(), without checking the element's transaction
-> state.  A new element that is already expired at commit time (for
-> example a short expiration whose delta elapses during a large batch
+On Mon, Oct 19, 2026 at 12:24=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev=
+> wrote:
+>
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> balance_pgdat() passes sc.order and sc.nr_reclaimed to
+> mm_vmscan_balance_pgdat_end as bare arguments. Pass the enclosing
+> struct scan_control instead and read the fields out in TP_fast_assign,
+> consistent with the other reclaim tracepoints. highest_zoneidx stays a
+> separate argument: it is a balance_pgdat() parameter, and
+> sc.reclaim_idx may differ from it by the time the end event fires.
+>
+> No functional change. The tracefs event format (TP_STRUCT__entry and
+> TP_printk) is unchanged, so tracefs-based consumers are unaffected.
+> BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
+> to be adjusted; tracepoints are not a stable ABI (see
+> Documentation/bpf/bpf_design_QA.rst).
+>
+> Assisted-by: LLM
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 
-Please ask your LLM to explain how a newly added element can be both new
-and expired at the same time, then fix that.
+Could we combine patches 4=E2=80=937 into a single patch? The changes
+seem a bit too scattered across separate patches.
+
+Best Regards
+Barry
