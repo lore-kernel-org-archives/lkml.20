@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856184;
-	b=o6MLCYKXPKeRoM4Q7BB/Zsg0obqSxe3sK4UFLEPebvuXhyw0Pcz+VciU5ND5Y0qQkCsv
-	 W6RoQllO1oyiy7TElGf1MMnR3OKJh0Q88fmABkW1VfbQKj/TBv3e+vyC6UIsDqfhLbgk9
-	 dngvzzjBPVvseSbu6GlGv+zBugVG3Z8BAJP6KdcYeyLdvoGucrmSfcGt1EG+fNdZtlHay
-	 /roY3lwiahgW3YjiRLUcoquFacHKFXYzoSBwqsXue4OkQQqHi2HuRW6Ew5QovKOlFoA6X
-	 jfQ36htTUTABKri/ZXQxIUY3Xs2jfY3zOYSMTZYIWdVUaFTVYhsW8GSK/vFOyTEq1dQ==
+	t=1792856220;
+	b=mAE1q6KTf2glsm0MbnP0Lb7ELJ4vznvWppDPRX7sQ2ikJmIqh1djzeE4JBOHPNw9QjBp
+	 Nn6UdiZUe1heoXF4jjg4HWqdQY087kgcTf9Zn8jSuKaCpHUdxnpPWFGhhGOivJUu6r0PC
+	 C5aimPI7PTl4FvYFh9Dhoe/Bn57UBd53E3lZGibrEmdCk6tNhMEditiQSXHsgFX4bUyPW
+	 2LTW/cybRCouPgDo1092hK0y7mXsOP4u5lw9Kj4cSFdEiSAeot0Tw+sS+Uht0+k44nkQb
+	 Yk/iiwKV/h3Rg6BVYKDfykeXwogxtKJmSt6+XHBGw0M6PpQKeGsC8WoG/4fANlGX8zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856220;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=SU23wimUV2O9Kr887mHEYzQkX67Pl7prB5aGY6kmyZg=;
-	b=eGkFSOeN2ecp4SMLSkk0c1jbnrq0ptIfAadMhA2U/3mH4ffqZB77EkfZJcHqd+mKB+1P
-	 eqFxilaI5c4OBDZaosQw1QuoCPJMqvUrQjOP36/XBLtkWq7E8+Vi0mF8ur8/1x48tELAi
-	 A8KNe6Ve5IpDWb+g/v/V60rkEtqGE/PAGhg4IUjRB/qSsHvsQ2/gTQz6QIeTI5oNVDuY3
-	 OKSKfnACeWNA4WaKq1GcJ6dxHox1M0ZEYcEBooYlQ4QjM55oGOSBufk/EKO8pp3NiNiNy
-	 IdkX+eb0NHWmX38e9frbH4dZCsNumbrFPNNmRP3VzUHiAmuy5vdyfNAM/cz7QpMf4cQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KVTYbR14YYgS4yah5hFkztdQ5rEEHZC+1mz3Q0u1oEs=;
+	b=APBEFCzl0uqaac2m7hDXKO235AhuMO7sEMXenzWqIiCC0Xm9u47EpSyK9aX51hH5uV4a
+	 pvTB3UiJlMOxyJ/9zTpxKJ45pnQr6DFA13NY0nEHqGlYlqP+/I9xBB2Yc5G5Ezo35lhO7
+	 +g84Vl80nNS07QUxcWpUZl0NJKBg6Z1Q5r8To6UA5Vv80Lu7+vnFUBhQcR5mTuHP8amdp
+	 sPlRrWEIBpYOwnBYlEgeTjQwYHTNHKWP06qRBGY0PI7VimYMBm7xaXOoet0LX2hPnYuxR
+	 u8KVl87GbLxNdcX6y+Z9wDqCnSBHlW0/c/qGVKfEsKfYd/AQ4GzqvC8IqTVcfRlyFeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Gbu/jhc1";
-	arc=none smtp.remote-ip=91.218.175.159
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="OxPKoJ/u";
+	arc=none smtp.remote-ip=95.215.58.45
+Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65ED1606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65ED1606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB34606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:36:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB34606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gbu/jhc1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OxPKoJ/u
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lkiUzgBYqoo5dMOvB4u6X+W6b0S+xloWwMi5V8DIHqk=;
+DKIM-Signature: a=rsa-sha256; bh=CfPc369hGVqKqwx/bCg1l8qsUmx6TMYTOAmZtXg4gRU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792856181; v=1; x=1793460981;
- b=Gbu/jhc1TC10ggZi4ne3nKl/uROgS77uwZLYPt16tHVBfTJZlOQglPcRtLPo6D7pqkd0AHLv
- cug1G8MI8/QtgFJlDJ5QVHBo3cZm9+uD432DXO4Zx7HoakmjDPyrqCH1b/q/zDAoF/VGaTaaBqC
- DBDqoOCATx3WKirj2pe9TH+Q=
+ t=1792856217; v=1; x=1793461017;
+ b=OxPKoJ/urMiMyl6V50voH4Tvlrn8l9isOgheXKd2FNpS5N05ZbiiXgB1xRWW9g8q9Rck4hna
+ grxgQz3hfCkxK0UiRqEKt5snBc/RQSkP27OA4e8+RooFML3YULBm6qlTpLyHpDxbinFObD7y3Qi
+ PzE8UspEUIfdS5zzOMIlBi9I=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1700512b1c0e2c8e;
-	Sat, 24 Oct 2026 15:36:20 +0000
-X-Mizu-Trace-ID: 1700512b1c0e2c8e
+Received: by smtp.migadu.com with ESMTPS id c2f0715eee8f9767;
+	Sat, 24 Oct 2026 15:36:57 +0000
+X-Mizu-Trace-ID: c2f0715eee8f9767
 X-Migadu-Flow: FLOW_OUT
 From: Leon Hwang <leon.hwang@linux.dev>
 To: bpf@vger.kernel.org
@@ -81,10 +82,12 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH bpf-next v4 0/6] bpf: Add syscall common attrs support for xdp link_create
-Date: Sat, 24 Oct 2026 23:36:01 +0800
-Message-ID: <20261024153608.58569-1-leon.hwang@linux.dev>
+Subject: [PATCH bpf-next v4 4/6] libbpf: Factor out __sys_bpf_fd helper
+Date: Sat, 24 Oct 2026 23:36:05 +0800
+Message-ID: <20261024153608.58569-5-leon.hwang@linux.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261024153608.58569-1-leon.hwang@linux.dev>
+References: <20261024153608.58569-1-leon.hwang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,63 +99,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I'm planning to add syscall common attrs support for LINK_CREATE cmd.
+In the next patch, it also needs to use the extended BPF syscall to
+receive the reported log.
 
-This is the first series for the plan, that adds syscall common attrs
-support for xdp LINK_CREATE.
+So, factor out __sys_bpf_fd helper.
 
-Thereafter, retire the tracepoint bpf_xdp_link_attach_failed, because
-the underlying driver's error can be back-propagated to user space via
-the syscall common attrs.
+No functional changes intended.
 
-Changes:
-v3 -> v4:
-* Pass errmsg pointer to bpf_xdp_link_attach(). (Jakub)
-* Place log_opts at the slot of iter_info in libbpf. (Andrii)
-* v3: https://lore.kernel.org/bpf/20261020152804.39863-1-leon.hwang@linux.dev/
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+ tools/lib/bpf/bpf.c | 41 +++++++++++++++++++++++++----------------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
 
-v2 -> v3:
-* Drop bpf_log_attr_report_size() helper. (Alexei)
-* Drop 2nd write for log_true_size and the put_prog label. (Alexei)
-* v2: https://lore.kernel.org/bpf/20261019153628.15912-1-leon.hwang@linux.dev/
-
-v1 -> v2:
-* Add log for invalid prog type in link_create().
-* Reject log_opts for fallback bpf_raw_tracepoint_open() in libbpf.
-* Report log_true_size as 0 before creating concrete link, and report
-  the actual log_true_size when fail to create the concrete link.
-  (Sashiko)
-* Add stub bpf_log() when CONFIG_BPF_SYSCALL is not set. (bots)
-* Check 'extack._msg' before adding 'extack._msg' to log buffer.
-  (Sashiko, bot+bpf-ci)
-* Change __bpf_sys_fd to __sys_bpf_fd in the subject and body of
-  patch 4. (bot+bpf-ci)
-* Move OPTS_VALID(opts, bpf_link_create_opts) to __sys_bpf_fd(). (Sashiko)
-* Move bpf_link_create_log to the LIBBPF_1.9.0 section. (Sashiko)
-* Update patch msg with a concrete case in patch 5. (bot+bpf-ci)
-* Factor out helpers to simplify the tests code. (bot+bpf-ci)
-* v1: https://lore.kernel.org/bpf/20261017142649.51047-1-leon.hwang@linux.dev/
-
-Leon Hwang (6):
-  bpf: Add syscall common attrs support for link_create
-  bpf: Add syscall common attrs support for xdp link_create
-  bpf: Retire tracepoint bpf_xdp_link_attach_failed
-  libbpf: Factor out __sys_bpf_fd helper
-  libbpf: Add log_opts support for bpf_link_create
-  selftests/bpf: Add tests to verify link_create logs
-
- include/linux/netdevice.h                     |   3 +-
- include/trace/events/xdp.h                    |  17 ---
- kernel/bpf/syscall.c                          |  43 ++++++--
- net/core/dev.c                                |   7 +-
- tools/lib/bpf/bpf.c                           |  61 +++++++----
- tools/lib/bpf/bpf.h                           |   5 +-
- .../selftests/bpf/prog_tests/xdp_attach.c     |  65 -----------
- .../selftests/bpf/prog_tests/xdp_link.c       | 102 ++++++++++++++++++
- .../bpf/progs/test_xdp_attach_fail.c          |  54 ----------
- 9 files changed, 190 insertions(+), 167 deletions(-)
- delete mode 100644 tools/testing/selftests/bpf/progs/test_xdp_attach_fail.c
-
+diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+index b49822d212ae..9a2107d4f6d8 100644
+--- a/tools/lib/bpf/bpf.c
++++ b/tools/lib/bpf/bpf.c
+@@ -203,6 +203,30 @@ int bump_rlimit_memlock(void)
+ 	return 0;
+ }
+ 
++static int __sys_bpf_fd(union bpf_attr *attr, const size_t attr_sz, enum bpf_cmd cmd,
++			struct bpf_log_opts *log_opts)
++{
++	const size_t attr_common_sz = sizeof(struct bpf_common_attr);
++	struct bpf_common_attr attr_common;
++	int fd;
++
++	if (!OPTS_VALID(log_opts, bpf_log_opts))
++		return libbpf_err(-EINVAL);
++
++	if (log_opts && feat_supported(NULL, FEAT_BPF_SYSCALL_COMMON_ATTRS)) {
++		memset(&attr_common, 0, attr_common_sz);
++		attr_common.log_buf = ptr_to_u64(OPTS_GET(log_opts, buf, NULL));
++		attr_common.log_size = OPTS_GET(log_opts, size, 0);
++		attr_common.log_level = OPTS_GET(log_opts, level, 0);
++		fd = sys_bpf_ext_fd(cmd, attr, attr_sz, &attr_common, attr_common_sz);
++		OPTS_SET(log_opts, true_size, attr_common.log_true_size);
++	} else {
++		fd = sys_bpf_fd(cmd, attr, attr_sz);
++		OPTS_SET(log_opts, true_size, 0);
++	}
++	return fd;
++}
++
+ int bpf_map_create(enum bpf_map_type map_type,
+ 		   const char *map_name,
+ 		   __u32 key_size,
+@@ -211,8 +235,6 @@ int bpf_map_create(enum bpf_map_type map_type,
+ 		   const struct bpf_map_create_opts *opts)
+ {
+ 	const size_t attr_sz = offsetofend(union bpf_attr, excl_prog_hash_size);
+-	const size_t attr_common_sz = sizeof(struct bpf_common_attr);
+-	struct bpf_common_attr attr_common;
+ 	struct bpf_log_opts *log_opts;
+ 	union bpf_attr attr;
+ 	int fd;
+@@ -248,20 +270,7 @@ int bpf_map_create(enum bpf_map_type map_type,
+ 	attr.excl_prog_hash_size = OPTS_GET(opts, excl_prog_hash_size, 0);
+ 
+ 	log_opts = OPTS_GET(opts, log_opts, NULL);
+-	if (!OPTS_VALID(log_opts, bpf_log_opts))
+-		return libbpf_err(-EINVAL);
+-
+-	if (log_opts && feat_supported(NULL, FEAT_BPF_SYSCALL_COMMON_ATTRS)) {
+-		memset(&attr_common, 0, attr_common_sz);
+-		attr_common.log_buf = ptr_to_u64(OPTS_GET(log_opts, buf, NULL));
+-		attr_common.log_size = OPTS_GET(log_opts, size, 0);
+-		attr_common.log_level = OPTS_GET(log_opts, level, 0);
+-		fd = sys_bpf_ext_fd(BPF_MAP_CREATE, &attr, attr_sz, &attr_common, attr_common_sz);
+-		OPTS_SET(log_opts, true_size, attr_common.log_true_size);
+-	} else {
+-		fd = sys_bpf_fd(BPF_MAP_CREATE, &attr, attr_sz);
+-		OPTS_SET(log_opts, true_size, 0);
+-	}
++	fd = __sys_bpf_fd(&attr, attr_sz, BPF_MAP_CREATE, log_opts);
+ 	return libbpf_err_errno(fd);
+ }
+ 
 -- 
 2.55.0
 
