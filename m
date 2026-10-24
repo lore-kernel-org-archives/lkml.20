@@ -1,54 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792821950;
-	b=I42jNZuSXvQV/fA3MZRAjp/04MgCaqf5SSDzuczTz+HpB9vfBZCMo/5f7xJL47Tq5nw8
-	 lqhmRoTHGgRO1TwIKMPG/4xNNPmFKYE0bTGnT/afNrh429/8htR7X0H8ZLlXyJtfW3Vav
-	 9kRk6lVBry8Vg5nzU+ITU5ZaphlFr5yyopDmq941GYTsahpZrG0zDaG6NJevQc6JNBd/F
-	 ANorERs/hLF57Dg9TIkhHyqcc7geMh5zIIK8eedVt/iTWBuhBgYE0hpwUKlKhkuSsP5ix
-	 sMWog0ssvd2RmCSxjBTON1oFy+4Gr5fN6pKwITOhK4iRZI2UHFq/QCQJVCPyiIq7A/A==
+	t=1792822171;
+	b=ya8bFEOp2YgBaEz6hdI5RD6iEY+7fQfJ92S7hIdiCqaP/2EdKDQY79me45q9IdQOjcTH
+	 kPa2UvyqX0zAyMIcGYhV43VlbBeoUvjMB9jcVt/ejNNw+i6JUppoDKOid7QWC5oIQNJnn
+	 JqQbQEH92Od+AadYEygKPykg/zpBzFjoXhgSx3c4P9ZGf8TIMjs4lAIq6FhJuSMrwF3pp
+	 qSQohOiORFs5KxykH+KS/1VpLzsNoLqbTyrD7cAkvirW5tZMgH1mnFsmyUnrVLFt/K3BB
+	 u1ot4Iv8cP+zGWVOWHHAZoNYhj4j6NGy7NlsjPqlkCvcH2FcbvAKRhV/nzvNSlTdiOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792821950;
-	h=DMARC-Filter:DKIM-Signature:In-Reply-To:Received:From:Date:
-	 Message-Id:Mime-Version:X-Lms-Return-Path:References:User-Agent:
-	 Content-Type:X-Original-From:Reply-To:To:Cc:Subject:
-	 Content-Transfer-Encoding;
-	bh=ZG+iexJUa6s5gxuQi2MmuGOOwAlj/REWt6XK+ey3uk4=;
-	b=kCKtLuraBzQYAqBv6Xt1H7NoFSqbYN48dbLITjZl+trBnxFXk0pE2UHgIC2/Gga8OEvu
-	 4DFDP/SnUGzWLpBTgrYnOIucn6G1Cp+wMP7kN2rUyW415dKFX2UldzH9ZueDGTHwNaz5y
-	 vmBcWdFpqIvmT64vZUTxuh7bUyfoR49wI/0BXgpZQHU5N3gYgTOSF1fZH2d1i9TufaxwT
-	 fcCaoSqb6ndIsL6+7+1RQEgafa+tQ2RxlODzeCklQTCadnAVIeo7SBbCFOEmQ+5625mU3
-	 23BHu1CADhMtVfvmdruPE3o2RnVMAU2xEXFuDmgxkVEK+5s1LN18+JfcIczM0DuMQIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792822171;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4sAOQ2/8GJ74cU0InQXZiuSKN+kyx1d7ticl4Lmxpl4=;
+	b=YyZ5CV6XkFjKaq86S6VtWsoNGmMBh95iajHfi3PrGbngqlG6doSLHanvKM75HRkYTiqO
+	 nKBrGCA+wafw0F+dTofo4bO1v1MnbO+KD9/oTnTUxgY0tM5sjNyrzuEmMAfpb8h5zTNfq
+	 Wjd7OOatpK1j+d5NhQkSN+mxtypc+h9OHTNc4KnjkCgpz+DIrQ2nGtS8q+4yibeLCYAkx
+	 J2EdMFMR+v6W7dY3xF7MsYVJWMJX1YdnC+sxNHgMa/4CjeQ+1tE9DGKhTdIJHYR2kPYOB
+	 GsA8IJlX+6+a+0NogTlsO6gCWYXPfq26ILADGRK7IY6CgfJ2pZWvywta7HJP8dkuVHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=onWJb4Nd;
-	arc=none smtp.remote-ip=209.127.231.20
-Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=b6qm6O77;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A5B606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A5B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F99606A31A;
+	Sat, 24 Oct 2026 06:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=onWJb4Nd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1792821945;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=ZG+iexJUa6s5gxuQi2MmuGOOwAlj/REWt6XK+ey3uk4=;
- b=onWJb4NdPENRkWvXPICHiK522ktj5WPoxOiiiXKUAkXuhoGiEA70N2ukMJzEMS5/KWoHWM
- 0YICv1uIoRr5OJTKlrrFybjtxBbYhQYTkjNs85QcUWcXFYRkBuwctCukObkSUbeoyBv5kS
- 0N+JIyyv6qE34aLdD7vbyCDRRTstUHbw29XpG8sK67GUF5YHRcWrifxyblsNuJUmTXKO9F
- qY0HnkZmNhv8K2eJBXHUSHCn+wJjRzswOSmEx/0Pt3tYrlmK3BhUafePOB7lf65fHulqE4
- xatXwuwRv5FlXHyD2Ld5+6WP/N/YvmQs095CzXcBGTbDQSHRghuIl/jLjLKLyw==
-In-Reply-To: <20261014115334.619923-1-jinpu.wang@ionos.com>
-Received: from [192.168.1.104] ([39.182.0.21]) by smtp.larksuite.com with ESMTPS; Sat, 24 Oct 2026 06:05:44 +0000
-From: "yu kuai" <yukuai@fygo.io>
-Date: Sat, 24 Oct 2026 14:05:40 +0800
-Message-Id: <ee303663-1b09-4e88-a129-d91e046b296b@fygo.io>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=b6qm6O77
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02F41F01825;
+	Sat, 24 Oct 2026 06:09:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792822170;
+	bh=4sAOQ2/8GJ74cU0InQXZiuSKN+kyx1d7ticl4Lmxpl4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b6qm6O770Vndjx7EOBKekVZdKZ3Fho/hU2rerm618hu6bNcyDTTdFFfb00VVEuz0u
+	 1hUoOsnJB7u1DIpjO3Gtai3IQ7kg8l7kGXIzQvHHCMB8tdZCs2iGRRQOpjoKIJyv2b
+	 zkWMtKzrlE95j8BlRplEodEgSr7yNM23KfrgfNEU=
+Date: Sat, 24 Oct 2026 08:09:26 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Elliot Alderson <hackerowskiy@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+ffc483dc87891d3c107b@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] usb: gadget: printer: clear current RX request on unbind
+Message-ID: <2026102419-dried-poison-521a@gregkh>
+References: <CAG2k5NBDNqksjd+FUHXAcC-pHwadLzwobr45pTXuATqQ7shyPQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,137 +53,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26adc4ab9+0f5650+vger.kernel.org+yukuai@fygo.io>
-References: <20261014115334.619923-1-jinpu.wang@ionos.com>
-User-Agent: Mozilla Thunderbird
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: yu kuai <yukuai@fygo.io>
-Reply-To: yukuai@fygo.io
-To: "Jack Wang" <jinpu.wang@ionos.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Jack Wang" <jinpu.wang@cloud.ionos.com>
-Subject: Re: [PATCH v2] md: clear MD_CLOSING when array_state_store() bails on interrupted lock
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAG2k5NBDNqksjd+FUHXAcC-pHwadLzwobr45pTXuATqQ7shyPQ@mail.gmail.com>
+
+On Sat, Oct 24, 2026 at 03:51:46PM +1000, Elliot Alderson wrote:
+> printer_func_unbind() frees current_rx_req but leaves the pointer in
+> printer_dev. A later unbind can then pass the stale pointer to
+> printer_req_free() again. Clear the saved request and its associated read
+> state before freeing it.
+> 
+> Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+> Reported-by: syzbot+ffc483dc87891d3c107b@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=ffc483dc87891d3c107b
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> ---
+>  drivers/usb/gadget/function/f_printer.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_printer.c
+> b/drivers/usb/gadget/function/f_printer.c
+> index 1857d786110..11471bd065c 100644
+> --- a/drivers/usb/gadget/function/f_printer.c
+> +++ b/drivers/usb/gadget/function/f_printer.c
+> @@ -1462,8 +1462,11 @@ static void printer_func_unbind(struct
+> usb_configuration *c,
+>          printer_req_free(dev->in_ep, req);
+>      }
+> 
+> -    if (dev->current_rx_req != NULL)
+> -        printer_req_free(dev->out_ep, dev->current_rx_req);
+> +    req = dev->current_rx_req;
+> +    dev->current_rx_req = NULL;
+> +    dev->current_rx_bytes = 0;
+> +    dev->current_rx_buf = NULL;
+> +    printer_req_free(dev->out_ep, req);
+> 
+>      while (!list_empty(&dev->rx_reqs)) {
+>          req = container_of(dev->rx_reqs.next,
+> -- 
+> 2.55.0
 
 Hi,
 
-=E5=9C=A8 2026/10/14 19:53, Jack Wang =E5=86=99=E9=81=93:
-> From: Jack Wang <jinpu.wang@cloud.ionos.com>
->
-> Writing "clear", "readonly", "inactive" or "read_auto" to array_state
-> calls mddev_set_closing_and_sync_blockdev(), which sets MD_CLOSING to
-> keep the array from being reopened while it is torn down. The flag is
-> only cleared again at the tail of array_state_store() (for readonly /
-> read_auto / inactive, or the failed-clear case).
->
-> Between setting the flag and reaching that tail there is an early return:
->
-> 	err =3D mddev_lock(mddev);
-> 	if (err)
-> 		return err;
->
-> mddev_lock() is mutex_lock_interruptible() on reconfig_mutex. If the
-> writing task catches a signal while blocked there, it returns -EINTR and
-> MD_CLOSING is left set on a still-running array. do_md_stop() /
-> md_set_readonly() never ran, so the array keeps working internally, but
-> every subsequent md_open() now returns -ENODEV for all callers - the
-> device shows up in /proc/mdstat and sysfs is fully populated, yet cannot
-> be opened, and cannot be recovered without a reboot (all clear paths
-> either need the device open or re-enter test_and_set_bit(MD_CLOSING) and
-> bail with -EBUSY before the clear).
->
-> The window is easy to hit on a busy host: reconfig_mutex is held for long
-> stretches by a running resync/recovery, widening the interruptible wait,
-> and a userspace helper writing to array_state and then being killed or
-> timed out is enough to leak the flag.
->
-> Route the interrupted-lock exit through a common label so the flag is
-> released. Guard the clear with a set_closing flag that records whether
-> this write actually set MD_CLOSING: when mddev->pers is already NULL (for
-> example a concurrent STOP_ARRAY is mid-teardown) this write skips the
-> mddev_set_closing_and_sync_blockdev() call above, so it must not clear a
-> MD_CLOSING that the other thread owns - doing so could let the array be
-> reopened while it is being destroyed. This also tightens the pre-existing
-> tail clear, which had the same unconditional behaviour.
->
-> mddev_unlock() is correctly skipped on the goto path since the lock was
-> never acquired.
->
-> Fixes: 99b902ac1725 ("md: sync blockdev before stopping raid or setting r=
-eadonly")
-> Assisted-by: Claude:claude-opus-4-8 [Claude Code]
-> Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
-> ---
-> v2: resend, rebased on md-7.4-20261013 (md/md-7.4), no code changes.
->   drivers/md/md.c | 17 ++++++++++++++---
->   1 file changed, 14 insertions(+), 3 deletions(-)
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-Looks like this is just a resend, while I already replied to previous v2=20
-patch:
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Re: [PATCHv2] md: clear MD_CLOSING when array_state_store() bails on=20
-interrupted lock - yu kuai <https://lore.kernel.org/all/eded31de-2e92-4a3b-=
-9384-03dbebc5e9e7@fygo.io/>
+- You have marked a patch with a "Fixes:" tag for a commit that is in an
+  older released kernel, yet you do not have a cc: stable line in the
+  signed-off-by area at all, which means that the patch will not be
+  applied to any older kernel releases.  To properly fix this, please
+  follow the documented rules in the
+  Documentation/process/stable-kernel-rules.rst file for how to resolve
+  this.
 
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 03e35386a802..f6dfd5d76199 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -4671,6 +4671,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   {
->   	int err =3D 0;
->   	enum array_state st =3D match_word(buf, array_states);
-> +	bool set_closing =3D false;
->  =20
->   	/* No lock dependent actions */
->   	switch (st) {
-> @@ -4691,6 +4692,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   		err =3D mddev_set_closing_and_sync_blockdev(mddev, 0);
->   		if (err)
->   			return err;
-> +		set_closing =3D true;
->   		break;
->   	default:
->   		break;
-> @@ -4719,7 +4721,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   	}
->   	err =3D mddev_lock(mddev);
->   	if (err)
-> -		return err;
-> +		goto out_clear_closing;
->  =20
->   	switch (st) {
->   	case inactive:
-> @@ -4792,8 +4794,17 @@ array_state_store(struct mddev *mddev, const char =
-*buf, size_t len)
->   	}
->   	mddev_unlock(mddev);
->  =20
-> -	if (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
-> -	    (err && st =3D=3D clear))
-> +out_clear_closing:
-> +	/*
-> +	 * Only clear MD_CLOSING if this write actually set it. Otherwise a
-> +	 * concurrent teardown (e.g. STOP_ARRAY) may own the flag - this write
-> +	 * would have skipped setting it above when mddev->pers was already
-> +	 * NULL - and clearing it here would let the array be reopened while it
-> +	 * is being destroyed.
-> +	 */
-> +	if (set_closing &&
-> +	    (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
-> +	     (err && st =3D=3D clear)))
->   		clear_bit(MD_CLOSING, &mddev->flags);
->  =20
->   	return err ?: len;
+thanks,
 
---=20
-Thanks,
-Kuai
+greg k-h's patch email bot
