@@ -1,81 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792836435;
-	b=bS+9R+UN/aPbUPbpkWXsDJRZqVxox6GcJP3PWJ0lum8U3c9UoASrNZCV9dlb5R00Ol0z
-	 yWnVTmNI344i6xavmxHzZLIJcVftUrHMdVirFcRDKZozVk5iDlKPuc11MKckFsbdW5Vdb
-	 kIu+cy/g+JLBRJO+u5iYqDKAVeyUapk77AFvT4Tjd03eZ/RCQX+WauQ7yg4hX3S+BCPjS
-	 BGtpHNgKt6bRRhKnZgXhXnFANXd2Iegfgtti3JpA8/Gra06Rr5ejRFyHcu7/LVuU87NY6
-	 Im1IF+Yz4ESenomPsRvQvow7Otafgrw/9LwKvItV26s8Ryy/5PskxJRtp77tlKkEHhA==
+	t=1792836595;
+	b=Gm2ZB9YF6l05GS7Jb1oEAYJifxZUfzimADahDlZKp8T7uMWkZ4UKaEDfMI1wwj91YB5N
+	 eKLDtuLPHaVFdrZb3nt6VUcbZHsSY/+tFS+alyMT3dcewF1KzIopJkOE2SHWogDCXY8/q
+	 SKlVWOd7sg3UJhl22DgxZxUl+nQNCiPHgqT12qqCQIp7LX2FHlV2+jUlKobB/X6F2C8Cy
+	 w8WxOuORkS5QxfHB8eQe/c2GFVZZ0F6wNZ6a8d6TPfv/kWerssq3S2MX22kxAledRjBZC
+	 zh8LErDI3QsRbVLCqy9CUbDxuCvtc22C/W4xSiYdOpo5RIdxYiNJ4SB2ehS06W0oXlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792836435;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=wiysUtLk3lfEVPST58NT/imQAcUbTWAJDWvjbp8HbtA=;
-	b=kJekqpNeTQu9WMVn6B4PQTVVLpis2Uy0Qv7KehzkU0BVP3ps49leoM8l+Yn4cGE1cpAR
-	 vH0o2oFLWQzvVw9lBfgaFkBrxTxCM9huN/LrTGeQsVV6jv4I/w+2+LMML5aump8vEi/WI
-	 BhAc6qQ+r1Xg0ThJPN74rRC0Ss9YHTyAqBViN7o0H1krIboAMeJ3xxtu+Q5PZ4ACxMGYa
-	 F3YjOTlyJoTJ++qI7NOJVWS72+9OV9OBsj3immo4dvvQMNM79sIG7dfM7YlCH+bKo7o5f
-	 PbxQKq8lzt+j3SPFEWII4Q/sEDLZgooSB0sgdmiJDrE4BR0aj0lUESMdQZkUVK0CkRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792836595;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gBmeT5JJ7GeeblMXaEFca81tlnSg9rFzTcGutmMmxPA=;
+	b=TbIWHu50vM8Ng8ZgMdKUyD3dyPili4rlfe0fRF0JNv2hNgT5skWTWPr9E5B3TSe7QeGx
+	 6Bm22O1lAjmfvHxNaYWlYmE1M24HxrxHpKbQRWC+u27dAZL4GQrD/8pJXYNEHloSwnvvN
+	 W1KJhQoO9Qz1FnL5t4tMqFqZpxIkocl1Gitsuo2BY//PuAn+r9HDeU/D2hlcTwAyxcRnk
+	 XWJMxXvXbM3UyZ1lUkdQV+Y0zxMvsYtve5JPKnEsq5BS1RoPmkYcGBdcYAP2zaKqwt7He
+	 O/EgOot2LE6K1XcEnAjgnbU7EiqN1c0INuraJahFmvLy9dQESdadRRGy20mz72xZfsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzRwirMB;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TqAKNBFG;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4882D606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:07:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4882D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D1F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D1F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzRwirMB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792836435; x=1824372435;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Xw2jl1jyMe1f5nKxN19T6Qbsz3XJiNKnasIRdKdxcTo=;
-  b=IzRwirMB9ECgIXpbLkPj0EDIf/8IPJu7uvxPKBK/tAeug8uT9qsGKBDS
-   O0loKsri+v/J8yCTPuI6MQPeY9uvlfwkfDJ6he3+eyiLQH6iBvqbrStmi
-   ZIkTbg/KLLB2Y2ToE6jxMKE8r+NDwMq1t9qu9wwKJa4jjrV4h0AnSzp/1
-   ipzvJ753Gx08OHzChYoH1Ts5mEQhLMaWcrb2HqSfyQc6rsmSuSDDq9kJZ
-   lYCdCMgEO/PQfc/CZuXo0JROm2G4Zqb1gbCacsJcl6/F7O0BLT+bRhd9W
-   Jc7CD7O8AZafTd42dqlCLjcuGQdj5Nhem3Mao+1hlG4q9pnQnSOQPQ58N
-   A==;
-X-CSE-ConnectionGUID: YDRGptPTSfGIupu/ZcUzeg==
-X-CSE-MsgGUID: WBxAZRpGS1Spb0oZp+7u5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1465379"
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="1465379"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:07:14 -0700
-X-CSE-ConnectionGUID: E3E/STo6Qmy4CYk2ai8pKw==
-X-CSE-MsgGUID: X/cayD43TFSvhu/87nJSSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="5655144"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:07:11 -0700
-Date: Sat, 24 Oct 2026 13:07:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: Re: [PATCH v5 2/2] kallsyms: Don't leak pointers for unresolved
- symbols
-Message-ID: <atyDTcu92iqtQ0h3@ashevche-desk.local>
-References: <20261023-vsprintf_kallsym-v5-0-57ff92187c1d@linutronix.de>
- <20261023-vsprintf_kallsym-v5-2-57ff92187c1d@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TqAKNBFG
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e977109392so8988325ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:09:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792836594; x=1793441394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gBmeT5JJ7GeeblMXaEFca81tlnSg9rFzTcGutmMmxPA=;
+        b=TqAKNBFGu7Oay7kVjz7Sb1PxLYaXAZZlnGcKtDpMpW1Kkd/7x/OSpK9LruS07mebPB
+         tKE1MRySUZvQYWM4iaaWg5mPC5JYbvK9zx8R50JsXjQCmWlk9va8JwWhVL/HqjZrFab4
+         5F/HurqY1cuGtt5otkp9ge6GQ69QnVgkvSfIOh4eeuhNTwmPzbWuxQL88EPBGWvx2y7J
+         J1oDcjYxDhRYkk1VETe0ofRev+SMfWEBuxl+qdIkIoN/26fgAPAO0ruvxdhUSsWj6ImW
+         8KqUlV6s2/2rKJE0BlmvWgMbPJBeO/yFq74Z97y4/3qLCHrOL9crycND2eD5xdaVZbw5
+         DsyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792836594; x=1793441394;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gBmeT5JJ7GeeblMXaEFca81tlnSg9rFzTcGutmMmxPA=;
+        b=xZECFmY40xO6p0IyjzKDtTmFG3tulpLisiyGv3kzpVIux8/l4kkS4kdWAzj154+dL9
+         AWzPNjyAzaZxIOmwhKgcsCPCu7L6vlknqyCAiZw/lE8lM+88YlCPFr+emUgoiBMAoafd
+         tp1/xLsDc4mthEovNenyK++MMgl2yB1096b4h3Aa2iuBay90mwWno3j51Qpplnv19AIO
+         wSeDLpy5j00GfXXNyH/SKZ4JMAgBOS7DuDe1oOeHD2Bl9S2GOXQRBIB+oZ7bdo3+8Hag
+         Qu6ylSNFEASZhsGdVo6opQ+S8/01Da9seElBoQJYeywNE3cfgG1csx8Qi/hILcgt2RUF
+         tNww==
+X-Forwarded-Encrypted: i=1; AKwUvBwH3TgYlvkaLgmL42z7Hb9ZYLedFB+Aa96s9ZWHnOZpkP5fiR3fEXMnV084XTHI+E/5THOJFV9JDo9rMQE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZMQWT5Aj2WIfFzoiWCmDXPWs8x/kyO72ZCqmu5Sj1DBGujfhi
+	S3M/J3aydr1gqjqXmnxSTi5LQErU/+Dha6ygGBde4JNNmi9hsNX5LSGf
+X-Gm-Gg: AYBFou0em8VYuqNozCCpWc3pf7IJqK/a9OWLSudwyYjwTyPHrtzj2drIbozB4El7Ill
+	Mf9sK/6D8vc5JRWRpS7ASUH7+wbRoU7bnoUqrusdhaKufng2/On1mwN8mXv/DtLEp7wEQJxNH6w
+	S8Nhw7YKI2J7Du/lR/4Lb8Qf9T2t8EZh6+dALYEdiY6afWGEVwYp6rpS7GkC3+QuJpq53dkEexo
+	OWBrgA8fvZhIKt0WzHh+rdoD1i6SpFiFzr2a2fHtgh/stB6TObwMAbdmEnsYhzApxAZTEWAHwF2
+	gNoo99neMPaY9arJQmyUZP7lwB5qaNnaQWnpYABByaLUF4cA+efUabP97zGtcSdo4h+fozRRKws
+	H1DvRakf6z7wgKJC8MPam+P19OOAagOJP/FRZV3RJ4DMLoeUpfPP4VJCYo1sm3BeVXOFB/Tzf3E
+	XcAhPPii3q5EcYn0fEPvfzmrMOF67SzlZQZj80NgurwmO55wMxsBa3fmLIUez89bCn8plQ1HBkk
+	Vfimkey0KsNpeVFtoL7KKinazm4l17Kjb0361pFThttXxxEDK8yEEqdL4C3SsUfnFbuoMya1V5s
+	cb75W0I=
+X-Received: by 2002:a17:902:d50a:b0:2e5:54b9:6b5c with SMTP id d9443c01a7336-2ea9c66bb6emr12267095ad.20.1792836594441;
+        Sat, 24 Oct 2026 03:09:54 -0700 (PDT)
+Received: from localhost.localdomain ([14.187.77.45])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1982d2sm4635355ad.41.2026.10.24.03.09.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 03:09:54 -0700 (PDT)
+From: Nguyen Duc Thinh <ducthinh100812@gmail.com>
+To: Mark Severson <gr3yf0x87@skyn3tlab.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Federico Vaga <federico.vaga@vaga.pv.it>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	bpf@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Duc Thinh <ducthinh100812@gmail.com>
+Subject: Re: [PATCH v2] docs: changes.rst: set the pahole minimum back to 1.22
+Date: Sat, 24 Oct 2026 17:09:45 +0700
+Message-ID: <20261024100945.34029-1-ducthinh100812@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261022014811.2803450-1-gr3yf0x87@skyn3tlab.com>
+References: <20261022014811.2803450-1-gr3yf0x87@skyn3tlab.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,34 +103,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-vsprintf_kallsym-v5-2-57ff92187c1d@linutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 06:46:24PM +0200, Sebastian Andrzej Siewior wrote:
-> __sprint_symbol() is supposed to resolve the passed address to a symbol
-> name. If the symbol can not be resolved it will print the actual pointer
-> that was passed. The pointer policy is to not reveal actual pointer
-> values.
-> For post-mortem analysis the pointer in the backtrace shouldn't be
-> relevant. In BUG(), WARN() and panic() related backtraces the PC
-> register will contain the actual value. This affects passed pointers and
-> callchain content since it is not part of the register dump.
+On Wed, Oct 21, 2026 at 21:48:11 -0400, Mark Severson wrote:
+> Set the table back to 1.22, in the English document and in the Italian
+> translation, which carries the same table, and remove the Italian
+> translation's copy of the paragraph that the English document no longer
+> has.
 > 
-> Use %p for the hashed pointer output if the pointer has not been
-> resolved.
+> Fixes: fd5425b67355 ("docs, resolve_btfids: Document kfunc BTF annotation emission")
+> Signed-off-by: Mark Severson <gr3yf0x87@skyn3tlab.com>
 
-...
+Hi Mark,
 
-> -		return sprintf(buffer, "0x%lx", address - symbol_offset);
-> +		return sprintf(buffer, "0x%p", address - symbol_offset);
+Thank you for catching the mismatching requirements (pahole)
+alongside the Italian documentation update. The patch makes 
+complete sense and resolves the contradiction cleanly.
 
-Hmm... Do we need a 0x here? I believe it's embedded into %p output, no?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Nguyen Duc Thinh <ducthinh100812@gmail.com>
