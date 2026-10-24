@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792854623;
-	b=bNWwtBH3xvvitMcRbz7yhFNGNp4PxAYvOU64o+2+iFqdIp4n21Jn8qD1FlJTguNinyjN
-	 da1SBMttCT4Jbi44fa4/6vF00HzggPpe5XgNuc1RWYofVDOkAMijTJcQV2S0j06KPKioP
-	 KS42SOdPffb5BHjsNRF5KkeXqP7PM2K/2TX6QiAt+TUa04qp7dJ1V490W09H590EAV/9W
-	 2fAbdyBzDto+wJRIK0A/zDOIyTJ0unJNBVo9/s/1827C3w9S2Gu3asoCwU1pHJVYvKhN5
-	 L2xXoEwA8rmeF01tCUgf53hrR2byPW0B3f6LCXz7hgk1xmkbrazrhnQcHcvDNz0Wm/g==
+	t=1792854629;
+	b=MHMGo99XexkrHOd7CGbsNUkDCxEStIRWNsilENgEVk/RTczUwAcExiF0SmvWNSEjQJ4c
+	 /VuAEXkg4QPbXRL5NAiBjRkVk7Ln4qR1/j4ewNNCrAscJsJIaUrlt8UZ/ojSSwwECiFAC
+	 zuesrBCUSTyqC/DmeuzxerTqgVcnK5K2OGCQ/GHjcRDiROuK1ybCaCXpPcN8YZLc1TEpc
+	 wFKyHceu+sThWjOqnt4WSK5YCp1U9zpp9gSCt9fXqFJHd9WD9blT2OrelBpmGuy0jj6qQ
+	 IxBmKkNI+nW8b+3w3OGm2+lzUaP88XRxOXOpdIraxX4uXXeW99f9nDyafuXGNFlB5xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792854623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792854629;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9JDFRrI5Zm8lm4r9xZObuGaRC6mhGOsAjpj/UhYTsMY=;
-	b=P8mzmieAR6iAB/JCfTsmazlSvicpDdF53UQoqXxZkKhZrMcQ61CLhS5TNjIouaYaz/VD
-	 23D99UAE07zBV9vEze8eq7G81ybziyF1SHY2Ua7rQMBr9Ru8p30T+gwUrXroJmE1/ud4j
-	 UGDQZ4w6RTNLmS4gU0rI+Yud6Bt4nVXyGgBLkz9OmID8cFZxc4k5Wa1Y6nDSOxv5v+lIC
-	 jh6ZxhYl2oOPP1iTnMwwga9z5An3Gi7QfOBkEYy1i9R0JXLT5S2FIWL5tjgqjllqi7ffd
-	 yD2Sf518TOSTLpZLEQFTi9kLjZXEX85nt2nunmcdcJE6vVJs+irdU9NculrXPnEkUpw==
+	bh=ryanL2dbdeecwzZPf9Ejq3ZeRrQmdc2FE6i0mK67jZY=;
+	b=OU5KWU1jWGZghACg8lojorKn8363A5yegwSGrAW4iJCzsuDkm9UUWntt1ioRW5haPsSj
+	 7L/IgITfyOuFgzapNlk1GBiwlvWpN6uHpKzqwtDH4SjypzlX2yw94fH9CNPotwtRif2Nf
+	 6lAuW8YXci9WvZO8FogOwgogK1Y0+IUv5VXFqTOK2mqb6Z59MIANPYlqRY1kuF+xaO/Ug
+	 1gRDEJTeiZbj2vvP/SpXXozYcBj3oTsNoeQjIeK+PyyfzNeY8h7HFPXeMqd727nTihIyi
+	 aaq5WYbrGjIwUbN/tw40mTf7p4JTXLN2AeHDDNERO8E98ShmLcH2MxR3P5lh9nlFEWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sL2Q2jjw;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Yrxp06rU;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E7E606A334
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E7E606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2528560A2606
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2528560A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sL2Q2jjw
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Yrxp06rU
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1792854615; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=9JDFRrI5Zm8lm4r9xZObuGaRC6mhGOsAjpj/UhYTsMY=;
-	b=sL2Q2jjwAAcSAu10SakqgOLn3/lWY+r0sKzE08p4bGPPSSqMyk/maJhFp67AqeED3grA3H76vA1L5+Nt8hfLi6UmiNtvJncfwTUtOYRd0tR4cuNvBHhC4n8OgfqeQa90FvhEeq/MLwXtPdXswuECd19yHE/UUB4BUzCga0zeYWk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R461e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDONeQ2_1792854614;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDONeQ2_1792854614 cluster:ay36)
+	t=1792854618; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=ryanL2dbdeecwzZPf9Ejq3ZeRrQmdc2FE6i0mK67jZY=;
+	b=Yrxp06rUQCF5eDYlHBMqDjaApdE1SHXmK4/KZOtTMZJJuQoiv4eWQgC/P1vRhPoJvbqrqAP16DNeZR8nOik4tc7NVJXlO+Yn6VxjzufaexWzk74MWTJqRhIs+Py3/8Ax9d1hPoSfheqBozWkgy6J/U13QpF20RgMFi3DU2aWZtA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R691e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDORGhn_1792854617;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDORGhn_1792854617 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Sat, 24 Oct 2026 23:10:14 +0800
+          Sat, 24 Oct 2026 23:10:18 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -49,9 +49,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	Joel Becker <jlbec@evilplan.org>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/6] ocfs2: find the xattr entry again after defragmenting a bucket
-Date: Sat, 24 Oct 2026 23:10:08 +0800
-Message-Id: <20261024151012.1059683-3-joseph.qi@linux.alibaba.com>
+Subject: [PATCH 6/6] ocfs2: do not read the entry array of an empty xattr block
+Date: Sat, 24 Oct 2026 23:10:12 +0800
+Message-Id: <20261024151012.1059683-7-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261024151012.1059683-1-joseph.qi@linux.alibaba.com>
 References: <20261024151012.1059683-1-joseph.qi@linux.alibaba.com>
@@ -66,90 +66,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ocfs2_xattr_set_entry_bucket() hands loc.xl_entry to ocfs2_xa_set() twice:
-once for the bucket as it stands, and, if that reports -ENOSPC, once more
-after ocfs2_defrag_xattr_bucket() has packed the name/value pairs down.
+ocfs2_cp_xattr_block_to_bucket() sizes the name and value area it has to
+carry over from the block's last entry, so an empty block makes it read
+xh_entries[-1].  That lands on the header, where xe_name_offset overlaps
+xh_name_value_len, and block storage never maintains that field, so it
+reads as 0 and the copy runs from the header to the end of the block.
 
-Defragmenting ends by sorting the entry array on xe_name_hash.  Buckets
-are kept sorted, so the sort only permutes entries that share a hash, but
-lib/sort.c is an unstable heapsort and it does permute them.  loc.xl_entry
-is an address inside xh_entries[], so afterwards it denotes whichever
-entry landed in that slot rather than the one the search found.
+The bucket that comes out has xh_count 0 but a name_value_len of
+blocksize less the header, and a matching xh_free_start that claims
+those bytes are in use -- nearly the whole bucket with the common 4K
+block size -- while the last block of the bucket holds a copy of the old
+block's bytes.  Nothing but a trace event reads xh_name_value_len, the
+copied bytes came from the same inode and were wiped before the entry
+was removed, and ocfs2_defrag_xattr_bucket() recomputes xh_free_start,
+so this corrupts the header rather than leaking anything.
 
-The second ocfs2_xa_set() then works on the wrong entry.  Nothing on that
-path compares the entry's name with xi->xi_name, so what happens depends
-on how the two entries compare in size: ocfs2_xa_reuse_entry() trips its
-BUG_ON() when the padded name sizes differ, and otherwise the new value is
-written into the neighbouring attribute's value slot while the attribute
-being set is left untouched.  setxattr() reports success either way.
+Leave the bucket empty instead, carrying over the hash the block was
+keyed by, since ocfs2_add_new_xattr_bucket() and
+ocfs2_xattr_bucket_find() both read xh_entries[0] of an empty bucket.
+That read is the exception ocfs2_xa_remove_entry() documents rather than
+a new out of bounds access.
 
-Remember the entry's hash before defragmenting and look the entry up
-again afterwards, the way ocfs2_xattr_bucket_find() does.  An entry that
-cannot be found again means the bucket no longer holds what the search
-found, so fail with -EFSCORRUPTED rather than writing through the stale
-pointer.
+A block reaches the conversion empty when truncating an external value
+back fails partway through: the "reusing" and "overwriting" callers of
+ocfs2_xa_cleanup_value_truncate() remove the entry without setting
+ctxt->set_abort, so ocfs2_xattr_block_set() sees a plain -ENOSPC and
+converts.  The "growing" caller does set it, and the block form makes a
+single attempt with no defragment and retry in between, so that is the
+only route here.
 
 Fixes: 012255961c9e ("ocfs2: Enable xattr set in index btree")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/xattr.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ fs/ocfs2/xattr.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index bb5b12924e1b..d6d07116ce97 100644
+index 822b1e9c3ba2..ac41653e59f5 100644
 --- a/fs/ocfs2/xattr.c
 +++ b/fs/ocfs2/xattr.c
-@@ -6052,13 +6052,18 @@ static int ocfs2_xattr_set_entry_bucket(struct inode *inode,
- 					struct ocfs2_xattr_search *xs,
- 					struct ocfs2_xattr_set_ctxt *ctxt)
- {
--	int ret;
-+	int ret, found = 0;
-+	u16 xe_index;
-+	u32 name_hash;
- 	struct ocfs2_xa_loc loc;
- 
- 	trace_ocfs2_xattr_set_entry_bucket(xi->xi_name);
- 
- 	ocfs2_init_xattr_bucket_xa_loc(&loc, xs->bucket,
- 				       xs->not_found ? NULL : xs->here);
-+	/* Defragmenting below may move this entry, so remember its hash. */
-+	name_hash = loc.xl_entry ? le32_to_cpu(loc.xl_entry->xe_name_hash) : 0;
-+
- 	ret = ocfs2_xa_set(&loc, xi, ctxt);
- 	if (!ret) {
- 		xs->here = loc.xl_entry;
-@@ -6077,6 +6082,29 @@ static int ocfs2_xattr_set_entry_bucket(struct inode *inode,
- 		goto out;
- 	}
+@@ -4704,6 +4704,21 @@ static void ocfs2_cp_xattr_block_to_bucket(struct inode *inode,
+ 	for (i = 0; i < blks; i++)
+ 		memset(bucket_block(bucket, i), 0, blocksize);
  
 +	/*
-+	 * ocfs2_defrag_xattr_bucket() sorts the entries by name hash and
-+	 * lib/sort.c is not stable, so entries sharing a hash may have traded
-+	 * slots.  Look the entry up again before writing through it.
++	 * An empty block has no names or values to carry over, and the
++	 * xh_entries[count - 1] below would be xh_entries[-1].  Leave the
++	 * bucket empty, but carry over the hash ocfs2_xa_remove_entry() left
++	 * in the block's xh_entries[0] so that the bucket still holds the key
++	 * it is looked up by.
 +	 */
-+	if (loc.xl_entry) {
-+		ret = ocfs2_find_xe_in_bucket(inode, xs->bucket,
-+					      xi->xi_name_index, xi->xi_name,
-+					      name_hash, &xe_index, &found);
-+		if (ret) {
-+			mlog_errno(ret);
-+			goto out;
-+		}
-+		if (!found) {
-+			mlog(ML_ERROR, "xattr entry not found in bucket %llu after defrag\n",
-+			     (unsigned long long)bucket_blkno(xs->bucket));
-+			ret = -EFSCORRUPTED;
-+			goto out;
-+		}
-+		loc.xl_entry = &bucket_xh(xs->bucket)->xh_entries[xe_index];
-+		xs->here = loc.xl_entry;
++	if (!count) {
++		xh->xh_num_buckets = cpu_to_le16(1);
++		xh->xh_free_start = cpu_to_le16(OCFS2_XATTR_BUCKET_SIZE);
++		xh->xh_entries[0].xe_name_hash =
++			xb_xh->xh_entries[0].xe_name_hash;
++		return;
 +	}
 +
- 	ret = ocfs2_xa_set(&loc, xi, ctxt);
- 	if (!ret) {
- 		xs->here = loc.xl_entry;
+ 	/*
+ 	 * Since the xe_name_offset is based on ocfs2_xattr_header,
+ 	 * there is a offset change corresponding to the change of
 -- 
 2.39.3
 
