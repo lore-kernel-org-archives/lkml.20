@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792863928;
-	b=3RTfzw15mXy0DuK9HkK9jUSuSljUzJhXEcmnNnxaORuGqU2WeehRmxEMm4RRQNDcvzCz
-	 P9sp+lBL7tvZS5HSYqj3z9TNSCP9OSBLyljP/kYwf0ZypQloYtXxkF959m8e0oxomWcWQ
-	 T9HwqRCusxHtS7YMU0qcGKeGivYNrZsPp0GoWoQa5d7Oap2vZHzarZXAqBOQeKmD7Nfe4
-	 A1fxA+TdeK1w3WLGQJmZlpDYBLSDts1xiZTjILT5DMnisJEyPqQZivvr7DmUJHbELIDPj
-	 UgrEq3BiIUsnDhHFg0pICa0q9xRsQS+U1cRUW2WtLSu/kHAezDhOr50liksGacgLEtw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792863928;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YPntnK5/sTqgJzzmr8vORbmE7z2ohaOAG1bhPVxZBnc=;
-	b=ZLCxI3ioM/vHH0vn0TrfVzOC4RVC14xmZI5e1QyZ+4MUZNsUTsIxQ6q+0wXBXlmpep33
-	 bwzBlrt2AVUHqp7X/Yg21Dt8Jg8nO8BOF9PeUQ++WICp2+WmZAuO/yFifq4vvgCwno9Zq
-	 q1DIikuLNAvo89O1aFF4gxnl34UhcuNcfCQvtlg2IG6sAGuXove6ZcUWYJHS+0R8JJRfS
-	 VyC8xa3vVPBAVfXWejecg5hY2y7K+vM1bq8FLYDfEVZx24dK1/kjcoFuTyNUC8PSPzCQ7
-	 ziEztv/Pp4Uy+riCUjJ5nKiErqa//v/hK33bCS5naMwGcn490p8qPJRxQJwPY0O/5Bg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV55JokN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792864335;
+	b=uq2FVOy+h/YghFkPsqrjmqwSVP8jwSJX+XvgzEddtRp8qbmaYunFhKaAazkT3jDKDd8/
+	 2RCLyqT6z/wVzB4nFik2L48Q7HvF30IP5qnCVVp4XeRgtw4A8NwY6mkvU5zoylmv2t1Nu
+	 ZjO/T1Dmov8zfz66Hh/+a/k6xpUKnj07OYs0w9Nv78xENdXNUO4uMHkiJMfrBvj2MEwDW
+	 e34sNxuSCfxezEFUTSLrqW1roap+7096eYPyHf9B/zVbc0ciOs1Zrr0FDhOoT63DzR5Au
+	 bqpImWZWurmb5uBgM2a3PeO2ps/11U73aZMDUrFHDPxMJnulVIRU7XK3DBwVQfh0oIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792864335;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bpEwuRreNChB+u1Z6agfQGrbJBQaLJYv0EH9wyrxoFE=;
+	b=pGv+pN8TDitsOyEjmTcD1x7ZFfgwXjp2hxioV6C8w2W6bcN3h3Oj+zDg5Ni4dDmYSckd
+	 xwPYoqRMJfAXJezwdNBv8zf04AQ6nPatL4BDUipCedFvACAwa3QS9ipjQSVtQ1xhx74dx
+	 FB5n6VJ1RCFc0oWo3Zv5zbDglLHAIFW1yqwJFJS2DLazq6Z+qRWlfesbyMm7tgbXGq7+R
+	 sOTUrEO7unrQBN7k3IqvKinqc2SBmkb1xcAMTGa09J0Oilf3VmgWV2B6BEnBcQErEdgn+
+	 MQuTyzXzmg3yPDbSnDWjNtgCWcKaSo4dTnj7KMCJdopJ7ErTLEnbmMHXN2+7DvJyG7w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BMsFzLFx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B6606A31A;
-	Sat, 24 Oct 2026 17:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CC5606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35CC5606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV55JokN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC561F01825;
-	Sat, 24 Oct 2026 17:45:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792863927;
-	bh=YPntnK5/sTqgJzzmr8vORbmE7z2ohaOAG1bhPVxZBnc=;
-	h=From:To:Cc:Subject:Date;
-	b=ZV55JokN4t9sQ+Hr+sbHPsm6P7K7HBgl60hdmptGKYcK4lRWi05GrdE8tA6WHmfiB
-	 DmjRmD2WCUpa9oVbmejv8c2Bv3etcx3xmBlcA7dMYG3fUeYh8QSKdehHI2Ag/Vq+y7
-	 ss6YEmMm3YUxnEhJf0qkTvrD0MkS4O51jwT9PLqoLXM+SPrik7TgRMCUksJF78gwnu
-	 3mqFGeLLOESD6iWHBSUsVffCd2BZc0kUwNTPama3loAW7NyjFJIAiptXAqCX41/XFW
-	 LP4nUnIgoPjfxRzXx/hEEmt5cQF/UyivAswrSu0uXEL/X4Tyg4LvC+HNr2wZyKmDUB
-	 fe3hKVDSC2pEg==
-From: Sasha Levin <sashal@kernel.org>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] KVM: x86: Compute the max guest TSC frequency from the current tsc_khz
-Date: Sat, 24 Oct 2026 13:45:25 -0400
-Message-ID: <20261024174525.1218244-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BMsFzLFx
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df7f544919so1093252eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:52:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792864334; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Etng4yQFpB8jqCG3ZHBJNhAG6LDgRh2N3SLOvWWs/gLBEDLriwEoslcciesjFEUFhf
+         74THRC7gru4rsbVXBgI02BBlX0J8h5odbc9TbaQ0cwGTZdbyvk7JB+mT8ppPJZBtvcI1
+         Hqv3EgXp143yuOsh6Jj7aUYe3p+QaYHuTJFeoR/48BhChBsxS6yMNbCyrUu0+D9Tjlnx
+         xtMCa4paB79BQdjgotblfFM8V7EoHpd2shV8cwI44tjkyTvYkke6uAPXxYgMWOGdD8v2
+         JxI9EWv9vzqfSBfHniSSye/BKZZg7IT2k/sMu5qOuYx7JTw4A4m0KpWU2SrtwkFVkQrN
+         +lGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bpEwuRreNChB+u1Z6agfQGrbJBQaLJYv0EH9wyrxoFE=;
+        fh=gF943Z8yeq6GGNdDU97vmhCrLIek0n2RyFN+shnIbuI=;
+        b=VoHD3kuVvybVaF02MiyWd50mwa9W+q+SnjbVEue2pstr3MYtu44IqnYFcQBUkIsO6X
+         mQArZ0W2vLNafh85Olvm15QeiupoKtr63et/uSs3HiDyNpjXvwGgx7jJQKNIT0mLUPN/
+         SZtWatce0/Y3l6DwZJPeQfatcZ1SLMjyvCPluf29vxgN+Zsv6e2GP2JgJVQjOTVxNNWo
+         SAeFCBPE9XKBtfhDzxv9eHrsPpRUYErhceSVjfv8liniP/j6fmCrRSPeP2s3hAYqUZrx
+         8slJy0AT7elR5S/d4AwbRu2M7e5CZBAZotuE1NT7loyC7DSH0/stIMi65oN5DVLiqXAA
+         AN2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792864334; x=1793469134; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bpEwuRreNChB+u1Z6agfQGrbJBQaLJYv0EH9wyrxoFE=;
+        b=BMsFzLFx3LtutkGefGNi/ZDmwTWkJozZ+zkbE47xwz4ri+SpNNb28gTxC19glia4OJ
+         NC8YdiMng31PeB1TQUmUjtnNQHcrMg1I3cDF0Mm+IPmzaU/qXWkK6kNLcYCecHFD06q7
+         xTISCk/Yh2Hiov8JBavC7yZCG0Hn1xfVTCCXD4Gg6YYcVVYmq4YoT+L8ZiOUkEmQ1Jjo
+         FQs4mIvcW5kQ8dlZRYoPnpR0JX4Ubgua8025OcwsRSoFQXmuWU78LOUdiGw/ofcjY0pI
+         4u2UKKzQppWBdJyxPEN/NQA3WUWErZ+MQ/jBleBREFCg42KEo6KRgaYSfsCYlk50iHdy
+         rBOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792864334; x=1793469134;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bpEwuRreNChB+u1Z6agfQGrbJBQaLJYv0EH9wyrxoFE=;
+        b=VU4sU26ZMxxCLsgLnNgJB6upjbrQgHPVE1eSgH8omxeS28Afmpylb3RsefLaaKq/E5
+         pdFm06A1hKR4liuytX+muUjWtlyMDEE0uzELMvgY1w6dmg2VZUSr68I6nS7P1g3PVbz1
+         0yYB9KB7raCVEP8cdwbN4O5z7Ks+kKXvQ6IdWVuqKOOUhZKqKInUCZeehaJvyTobscVC
+         7InuksvvU8VmHGQsJ3blook2q9l9bh6REl8pY8OGTmMqLnYplwzYeVADhc5EbGbiSBhy
+         tusoUncPv+OojDkQ2gKyRGXiAul8Rb5zfLDD03fqZtdzaKfqNhKV5QMXyNV/HakEwnyo
+         VIIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Tr1ixqZv2Kk/0RShZVo6IRLEOqBd1qCab8na7lYpGTXnYLMkPg00V0T6OHQKWs8UlQXXqTWrWfLRq9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtcaAbbz8gGaeqJ5KaUHeHVrfO5rN2ohbVP7WAFGDBHWNJBj3g
+	VhW6cx5k5xlzu7SmzGEHRiubiVPbn5LZ3tHs101+mASj983Wm6qu7Zbq4VKBd/uqXU1ZwLBNCaw
+	zLuaEL05r+xQfSCCR0gBgVPRXr+EyZcU=
+X-Gm-Gg: AYBFou1bKPRIa2dWK7ZuGgFA9y4a+2xmYNz1oOHG9UtAO6ZqL5U7Led2Dzu+fF+8SMH
+	mvKxPEFxKlakMs/wKl1W2QkKLRjSEwKK+vSUJwYGqAwKM61KavjxAy9AidXGLeOzdi6tbfpuSsI
+	DED5NDeCY/UJJ1NhER1b+QibxVDi42Q6jH7x+V1dVGyhVmW06OQw5fXIr+Z+bNeEzGhUnVAZZqQ
+	FF112Dli9kM67HLPxBtzXU922VqbLQU30OVb7ubAgd9jy7aAJH4q5E1VB8Hdz4elQIG6l5e+yBt
+	ukCQjLDI6q9bahx6tezkgIyNfEIuZMxPuiZDTfihJBpTPIQddLFhUAtakq3N4XnktbsgKH+g31Q
+	piz7a1XZDpQP4bWttTikIim90pRqxde3LYg==
+X-Received: by 2002:a05:6820:3285:b0:6d0:1fe7:1744 with SMTP id
+ 006d021491bc7-70ba0ff44acmr987867eaf.83.1792864333972; Sat, 24 Oct 2026
+ 10:52:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,138 +104,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024172426.85842-1-kmehltretter@gmail.com>
+In-Reply-To: <20261024172426.85842-1-kmehltretter@gmail.com>
+From: Nicolas Chauvet <kwizart@gmail.com>
+Date: Sat, 24 Oct 2026 19:52:02 +0200
+X-Gm-Features: AclHuK-D5m-VTC9W4g1jyUecKnd6iuPcMx40ZM19rHe_pOaJrrAaaS8tE7DJczw
+Message-ID: <CABr+WTnD8RXfth=MT562uPT5qn6VefvcF0CbEn+Ye++nFRji3A@mail.gmail.com>
+Subject: Re: [PATCH] PCI: quirks: Skip nv_msi_ht_cap_quirk when host bridge
+ 00:00.0 is absent
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-pci@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-KVM computes the highest frequency that KVM_SET_TSC_KHZ accepts once,
-during vendor init, from the tsc_khz of the time. When KVM is built in,
-that runs before tsc_refine_calibration_work() refines tsc_khz, about a
-second later. If refinement raises tsc_khz, the cap stays below what the
-maximum scaling ratio gives for the refined frequency, and
-KVM_SET_TSC_KHZ rejects frequencies that set_tsc_khz() would accept, as
-set_tsc_khz() computes the ratio from the current tsc_khz.
+Le sam. 24 oct. 2026 =C3=A0 19:25, Karl Mehltretter
+<kmehltretter@gmail.com> a =C3=A9crit :
+>
+> __nv_msi_ht_cap_quirk() runs on all PCI_VENDOR_ID_NVIDIA devices to
+> enable or disable HyperTransport MSI mapping relative to a host bridge
+> at bus 0, slot 0, function 0.
+>
+> On NVIDIA Tegra SoCs (such as Tegra210 on Jetson Nano), the PCIe
+> controller exposes root ports at 00:01.0 and 00:02.0 with no device at
+> 00:00.0, and the root port's HT MSI mapping capability is already
+> disabled (found =3D=3D 1). Looking up 00:00.0 returns NULL and logs a
+> false-positive warning on every boot:
+>
+>   pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
+>
+> Return silently when no 00:00.0 device exists on the domain, matching
+> nv_ht_enable_msi_mapping().
+>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Observed on a Jetson Nano 4GB (Tegra210, p3450-0000) booting v7.3
+> (c03c1a14507d), where the Tegra PCIe controller (1003000.pcie)
+> enumerates the active root port at 0000:00:02.0 ([10de:0faf]) with no
+> 0000:00:00.0 device on bus 00:
+>
+>   pci 0000:00:02.0: [10de:0faf] type 01 class 0x060400 PCIe Root Port
+>   pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
 
-nested_tsc_scaling_test runs into this on AMD: its last case asks for
-the frequency KVM_GET_TSC_KHZ reports times SVM's maximum ratio, and gets
--EINVAL on boots where refinement raised tsc_khz. KernelCI sees it
-intermittently on a DL345 Gen11 (EPYC). On Intel the cap is limited to
-INT_MAX, so the test does not hit it there.
-
-Like commit 741e511b4208 ("KVM: x86: Don't snapshot "max" TSC if host TSC
-is constant") did for the default frequency of new VMs, compute the cap
-from tsc_khz when it is used instead of taking a snapshot at load time.
-This covers KVM_SET_TSC_KHZ on both the vCPU and the VM file descriptor.
-
-This also drops setting the cap to tsc_khz in the Hyper-V reenlightenment
-notifier, which left no room for scaling up once the host TSC frequency
-had changed; commit 0092e4346f49 ("x86/kvm: Support Hyper-V
-reenlightenment") gives no reason for that limit. The cap now follows the
-new frequency the same way. The notifier still does not recompute the
-multipliers of vCPUs that already exist.
-
-Fixes: 92a1f12d2598 ("KVM: X86: Implement userspace interface to set virtual_tsc_khz")
-Link: https://d.kernelci.org/test/maestro:6adc828a55fda507607f79c3
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-Reproduced on an AMD DL345 Gen11 booted with tsc_early_khz= 500 kHz below
-the refined frequency, so that refinement always raises tsc_khz after KVM
-is initialized. With KernelCI's x86 build of mainline 5b0764a53235,
-nested_tsc_scaling_test failed 3 out of 3 times with KVM_SET_TSC_KHZ
-returning -EINVAL. With the same config plus this patch it passed 3 out
-of 3, and tsc_scaling_sync, tsc_msrs_test, kvm_clock_test and
-nested_tsc_adjust_test still pass. A nested SVM guest with the same
-tsc_early_khz trick gives the same result, and with tsc_early_khz above
-the real frequency (refinement lowers tsc_khz) mainline passes.
-
-This does not change the existing window between the cap check and
-set_tsc_khz(), which read tsc_khz separately.
-
- arch/x86/include/asm/kvm_host.h |  2 --
- arch/x86/kvm/x86.c              | 30 +++++++++++++++---------------
- 2 files changed, 15 insertions(+), 17 deletions(-)
-
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 1ee4b127004df..35a74f0eb45e5 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -260,8 +260,6 @@ struct kvm_x86_pmu_event_filter;
- struct kvm_caps {
- 	/* control of guest tsc rate supported? */
- 	bool has_tsc_control;
--	/* maximum supported tsc_khz for guests */
--	u32  max_guest_tsc_khz;
- 	/* number of bits of the fractional part of the TSC scaling ratio */
- 	u8   tsc_scaling_ratio_frac_bits;
- 	/* maximum allowed value of TSC scaling ratio */
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba99..9e22072f39c18 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -1156,6 +1156,19 @@ static inline u64 __scale_tsc(u64 ratio, u64 tsc)
- 	return mul_u64_u64_shr(tsc, ratio, kvm_caps.tsc_scaling_ratio_frac_bits);
- }
- 
-+/*
-+ * Use the current tsc_khz, not the one at load time, as the TSC frequency can
-+ * be refined after KVM is initialized.  Make sure the user can only configure
-+ * tsc_khz values that fit into a signed integer, otherwise KVM_GET_TSC_KHZ
-+ * would return a negative value and confuse userspace.  A min value is not
-+ * calculated because it will always be 1 on all machines.
-+ */
-+static u32 kvm_max_guest_tsc_khz(void)
-+{
-+	return min(0x7fffffffULL,
-+		   __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
-+}
-+
- u64 kvm_scale_tsc(u64 tsc, u64 ratio)
- {
- 	u64 _tsc = tsc;
-@@ -3728,7 +3741,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		user_tsc_khz = (u32)arg;
- 
- 		if (kvm_caps.has_tsc_control &&
--		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
-+		    user_tsc_khz > kvm_max_guest_tsc_khz())
- 			goto out;
- 
- 		if (user_tsc_khz == 0)
-@@ -4695,7 +4708,7 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
- 		user_tsc_khz = (u32)arg;
- 
- 		if (kvm_caps.has_tsc_control &&
--		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
-+		    user_tsc_khz > kvm_max_guest_tsc_khz())
- 			goto out;
- 
- 		if (user_tsc_khz == 0)
-@@ -6749,7 +6762,6 @@ static void kvm_hyperv_tsc_notifier(void)
- 		for_each_present_cpu(cpu)
- 			per_cpu(cpu_tsc_khz, cpu) = tsc_khz;
- 	}
--	kvm_caps.max_guest_tsc_khz = tsc_khz;
- 
- 	list_for_each_entry(kvm, &vm_list, vm_list) {
- 		__kvm_start_pvclock_update(kvm);
-@@ -7188,18 +7200,6 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops)
- 	if (!tdp_enabled)
- 		kvm_caps.supported_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
- 
--	if (kvm_caps.has_tsc_control) {
--		/*
--		 * Make sure the user can only configure tsc_khz values that
--		 * fit into a signed integer, otherwise KVM_GET_TSC_KHZ would
--		 * return a negative value and confuse userspace.
--		 * A min value is not calculated because it will always
--		 * be 1 on all machines.
--		 */
--		u64 max = min(0x7fffffffULL,
--			      __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
--		kvm_caps.max_guest_tsc_khz = max;
--	}
- 	kvm_caps.default_tsc_scaling_ratio = 1ULL << kvm_caps.tsc_scaling_ratio_frac_bits;
- 	kvm_init_msr_lists();
- 	return 0;
--- 
-2.53.0
-
+There is this patch that was well tested on the tegra side (but likely
+less on the older x86 nv cases)
+https://codeberg.org/libre-tegra/linux/commit/63f7810994f4d2866a27b753ec8d5=
+bc36e84373c
