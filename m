@@ -1,82 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833978;
-	b=rMs+c9kkyuQ6i2JAtHlX1JJHYvo4gj3S1QS4vcsWOCStca/4pegbPqYkAXNlFX5oNXJi
-	 dX/qcQvIxv1ujG0oDx5Qll7vChEa6KwXUryWPIfnVX/Kfg05kRE/M2ebZTyLY2Gu9D7dR
-	 j3D6EYLFAHwynL8KTVCWonHfeVBk95l8KiX8I++0sgNAsmCceywg6aLInPKp/pPZzPj8v
-	 PN8oXw7FqUKqujoEb7DRKPut1xVmXtBngIoCXIGYwI50u0ahrDb/O/o2PK5djy03Qh6po
-	 Wn8a47rk6jXya+T6cDpFD79bOxNwpjHGlu1HLDjcBk5yv6MGKsN+T2j5AV1VvmhFhvA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833978;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=CtYn2jSKE3zNH8y22788m97cy326kpminN9yuclLntM=;
-	b=hAmmEum4vy9RfU9KkFfoxl8KE86rDMd2MnX8phD8JvJnL2S1iu+Auqb91ApKQ1d+e88U
-	 GcZdsFEo9PDKtBe3LAQPB8byz0jxeWcdBhne4+zwesqJYSz5poR1ezfcOiaxb7l/pEJ1x
-	 J2M8Px0PrulP2DsDBNVgy+0SvJJiBE9SyUpNBqe6CGbdSHvgu6UIJQPbfmBRww76bJcEH
-	 Ugqr7yjPpFTHLz5WO5dVDaqOAnjSlSyhK02GkeyNOWKoh7S2VXZj/LivZ/KU59NBNNCY+
-	 DVL4hrrXpJEacA7rIiOTnmDxWklWpjSzDyY7jxZUEXz1XnheQnWBfttlPMxoPyAdjmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=LIw+ui87;
-	arc=none smtp.remote-ip=195.10.208.51
-Received: from mout-b-206.mailbox.org (mout-b-206.mailbox.org [195.10.208.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792834092;
+	b=z3MtBd8wAgi+YuvAG/4iDM/5Y10PHJ/rb0+jXg7qkoKULhQYgIApVxsOkKC62g4VmIft
+	 aiZ4S4fIyH+vKgV+cw8yhmZ/o6jRAzOlsk8KxJeb7jS21B/VKpJvUrC3benOMdiiTgvRS
+	 Eftcmb9hBJOdlJ8oK8YVNfPCmfZkyaeHXXpyN2QHeQZOd8HRv6UOPgM+kb598aF75zO6S
+	 xLuMQCh8QtU/U/DGvLOVebgNKisrGhGOwz6zXIip8QB+Zs0F4SvLvmrfOeoY0jeHymJrD
+	 1TF7FJ0Y2/ay+xH7jde6LWVydlblwOOp+35caBTZ2Ykd/j7BTxAGokZ1MysTr9o2isA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834092;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
+	b=GTNykuNJad/OSR/oKq7/8vZb8XU6D6+Cs52gLGV9xuh1RN4sRdlJ315vCu8h1GDCYcbL
+	 9zA9kaybnE03HXsFsqVF5YhWFQWcG1Sb7VxsnotFpTmmENW06d0/WiCa5ckMjeBNv5pDT
+	 XktkiGtYBhkapxJa0yJT2EuFUuFqScBuJoLuJupl+WgP6TPoNf3DfhtH0xvgPYPS9rgrn
+	 9EJt0nl+45O5NDRHhkNm3hbu5/yA4PXaodplGqplD0aIo+O9Wg40gFb0sf6WK6kk6ioyy
+	 2IjcEB00vWWT58q9mdqj1jP3kRs7CEDxw1WJAiXCRXNQzqE22Hsmp/FmDzczv2EY+Qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeJFFpOs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1897606A31B;
+	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeJFFpOs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792834091;
+	b=22gtAqLmVUCzJQ2eIaWXuJPBluzWG1WkK6MH3OdFx5icVh5Y7QXIWNWrdJp8o7uley1e
+	 Sz8EIelJ6NQ78DnczQrRmmRCSG1nSpTO6JEvNqKVVpkr8/WOXGJXK7FNsIJOOSA+aHsJ9
+	 pv1d/zsWAwkbTAQ4725vFx4gTOd19TGQbLTOOAz9TS3xZc+z8EfndcuzNBNd4/71MVAq+
+	 m7QUHZ/T9/IhTFpA9r8OUBIPt6534DzgM3+1ei5/aBlE9x7CtnFDpJXIa7099Y3OmS4HY
+	 lpQDGRN4jul3M4c87LJrkl6ie/c+W3RNbf/DGBdFPgcMiAQbB7r93K5BrDAewqUYr3A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792834091;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
+	b=toAT+XVKsSInGuhhHdMzCJ4N7HAAfLHZ06eJONvnvoUIs+U7sSeHq/zWg5nnao5TwzsD
+	 V74xqLeX8RQIigKewbvZgPow2sCpqOBzr7ySXMJzFVATgG7A+/NojAu2qW/bXjSVKBj81
+	 MAPMnyZqtrWl0sY3bZSFpSSTCaGxh+Q60MWAadiTGD//Yz16D6bK4wPLgnRLoSKvrqKIT
+	 X3p20TrpSASj7D4ro0IokqnVRR5RRqef/Uq45JO3ZMO9ahfkQ1Jy0eAgagr1qqmCdet/L
+	 u5eP+xoVhTJtS2/Bqit5NKGPZILdk/84i7pA6weAt3ZFw9s9Iz33hSCBjmq13rD9ISw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB12606A320;
-	Sat, 24 Oct 2026 09:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB12606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=LIw+ui87
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-206.mailbox.org (Postfix) with ESMTPS id 4jBZJ94B0DzZ8;
-	Sat, 24 Oct 2026 11:26:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1792833961;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CtYn2jSKE3zNH8y22788m97cy326kpminN9yuclLntM=;
-	b=LIw+ui87VUgXGmh5WO3jooIfdYkN/bAGF0h7wGjBCsNZ8xUnJ///BR0gCg5kK5VoeRJATI
-	YzdeAqjqRmWW1HxurAcEP51kda8oNP9JEj4ubZbQjEwnOXzIjmnExNaVBpDN0PWnlhul2V
-	qCWKZn+O/92L4fIzMJ5Zq6+sAnREFtBxnzGjUtoyxu7UttuU1nbkUtj/czO/TSLjUPGQi3
-	Im694NlGbnf+ckN957t9e2zJp0BGiPH1V4PyH4tnnVtKeueTmvYLrPdxeU6zmG5m9rwx6v
-	nZSewNMlVQj354LA01Mkvn+rsVX+5ORp4PnSfHc60Wydw1iHm8wg4tYFc/HLUQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>,
-	Beniamino Galvani <bgalvani@redhat.com>,
-	Xavier Hsinyuan <xavierhsinyuan@outlook.com>,
-	=?UTF-8?q?Daniel=20Gr=C3=B6ber?= <dxld@darkboxed.org>,
-	Antonio Quartulli <antonio@mandelbit.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC net-next v2 00/18] net: introduce ipxlat stateless IPv4/IPv6 translation
-Date: Sat, 24 Oct 2026 11:25:10 +0200
-Message-ID: <20261024092532.172005-1-ralf@mandelbit.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B7701F01825;
+	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792834091;
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XeJFFpOsJoorhfqoMkIco2vWEUb4PW+qokBw+J2oUmJuyrifcg1emthMgS/sw0+OB
+	 gH8jBciXqjru35XvH5y/vtDVsbVC4/Ze1Ffj7DKqcvRIq43I+zHS31K7atC/ZUcq3M
+	 PnecjvVJf/UHQdgu88mfOL/QaQVmZ0q8pHjQirUzP2L5jl3stPdHXJoJl8pOXrbHXk
+	 /1KJtsNWZwqx5pi6eG6UKxbN0ifvicwTiwmFdffToJxQQF62jYgcVbKts6Qr0/v6xT
+	 RgrneKYSeyxyeVRsC8/VhTvSlrV+dt7hE3v6nhQbJZViIjGsMDHZBwVSwic6E7Oi+A
+	 tAlsBg+r82FPg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B15754477F;
+	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Sat, 24 Oct 2026 17:27:52 +0800
+Subject: [PATCH v6 2/7] dt-bindings: riscv: cpus: Add UltraRISC CP100
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,318 +83,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jBZJ94B0DzZ8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-ultrarisc-dts-v6-2-c62994d8a114@ultrarisc.com>
+References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=804;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=4TAyfkBcv/s6Kdb5vlK3fVOCoBkGrwHfHTtS6V/To4w=;
+ b=f/Z6uMfHMGFDJscFuj8+khVzYGXItUBHmZl9/uSGKequeJ1h+YxchxeMwuy0SwlxUoMBWgBPr
+ jhIgubmNsqTDPIVwkpWN7OLFv8Ws1/4HkFjWQrRR2/6/gmKKTPf1TQl
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-Hi all,
+From: Jia Wang <wangjia@ultrarisc.com>
 
-apologies for the long gap since RFC v1; the attachment redesign and the
-related fragmentation work took longer than expected.
+Document the UltraRISC CP100 CPU compatible.
 
-This RFC introduces ipxlat, an in-kernel engine for stateless IPv4/IPv6
-and ICMP translation, together with a lightweight-tunnel attachment.
+The CP100 CPU is used in the UltraRISC DP1000 SoC.
 
-ipxlat implements the SIIT algorithm from RFC 7915, RFC 6052 address
-embedding, optional RFC 7757 Explicit Address Mapping, transport
-checksum and GSO metadata, and ICMP translation including quoted packets
-and RFC 4884 extensions. It is intended as a common building block for
-CLAT, stateful NAT64, 464XLAT, and SIIT border translators.
-
-NetworkManager currently provides CLAT with BPF [1], and
-systemd-networkd is developing a similar implementation [2]. Those
-implementations cannot cover some paths which need facilities outside
-the BPF program, including fragmentation, fragmented ICMP, and complete
-checksum generation for zero-checksum UDPv4. A reusable native
-translator lets network managers share those mechanisms rather than each
-maintaining another partial implementation.
-
-This RFC has 18 patches. The first four are networking-core
-prerequisites for LWT continuation and IPv6 refragmentation. Keeping the
-remaining 14 changes separate makes the engine, LWT attachment,
-selftests, and documentation substantially easier to review. NIPA’s
-series_format will complain that the series is too long, but the split
-can be adjusted for a non-RFC posting once the design has settled.
-
-See Documentation/networking/ipxlat.rst for the full configuration and
-operational model.
-
-The latest code can also be found at:
-https://codeberg.org/IPv6-Monostack/ipxlat-net-next
-
-
-== Architecture ==
-
-RFC v1 exposed ipxlat as a virtual netdevice which translated packets in
-ndo_start_xmit and injected them back into the receive path. Review
-identified that this required artificial device, MTU, routing, and
-statistics semantics and made the packet appear to have arrived from a
-device after translation.
-
-v2 instead separates a reusable engine under net/ipxlat from its (first)
-attachment. An IPv4 or IPv6 route carrying encap ipxlat selects the
-packet and supplies immutable translation configuration. The selecting
-route terminates in translation; after the family switch, the packet
-gets a fresh route in the translated family. There is no translator
-device or ipxlat-specific netlink family.
-
-The engine performs validation and translation but does not decide which
-traffic should use it. Routing rules and filters remain responsible for
-deployment policy such as CLAT source selection and downstream source
-validation. Keeping the engine independent also leaves room for later
-netfilter or BPF kfunc attachments without duplicating the translator.
-
-
-== Address configuration ==
-
-Each attachment has one required RFC 6052 prefix and an optional RFC
-7757 Explicit Address Mapping. Each source and destination is considered
-independently: an EAM match takes precedence, while an address outside
-the EAM uses RFC 6052 conversion.
-
-This represents both CLAT addressing models requested during v1 review.
-A single-host CLAT maps one dedicated IPv4 address to one IPv6 address.
-A delegated-prefix CLAT maps the downstream IPv4 prefix into a prefix
-delegated to the CLAT, while remote IPv4 destinations continue to use
-the far-side NAT64 prefix. This v2 accepts at most one EAM per
-attachment and does not implement RFC 7757 hairpinning.
-
-Configuration belongs to each selecting route rather than to a shared
-ipxlat object. A bidirectional setup therefore repeats the configuration
-on its original and translated family selecting routes. Userspace must
-update both routes whenever a configured address or prefix changes, for
-example after DHCPv6-PD assigns a new prefix.
-
-The dev associated with an ipxlat route belongs only to the
-original family selecting route; it is not a translator interface and
-does not select the translated packet's egress device. The fresh
-translated family route lookup does that.
-
-
-== Family switch and policy traversal ==
-
-The original family route lookup ends at the LWT callback. The callback
-discards route, conntrack, security, socket, and other metadata which no
-longer describes the translated packet.
-
-For received traffic, the translated packet enters the translated
-family's PRE_ROUTING hook and receives a fresh route lookup. For locally
-originated traffic, it enters translated family LOCAL_OUT with no
-socket. The normal translated family path then owns:
-- forwarding,
-- TTL or Hop Limit,
-- PMTU,
-- XFRM,
-- conntrack, and
-- NAT.
-
-This allows a stateful NAT64 PLAT to be built from stateless ipxlat plus
-ordinary IPv4 conntrack and masquerading. No conntrack object crosses
-the family switch.
-
-Translated output is socketless. It uses the normal kernel-originated
-UID and global XFRM policy; socket, cgroup, and per socket XFRM identity
-cannot cross the family switch.
-
-If preparation determines that a packet is valid but unsupported, the
-LWT invokes the route's original input or output callback and leaves the
-packet in its original family. This is needed, for example, so native
-IPv6 Neighbor Discovery still works for a local address selected by an
-ipxlat route. Malformed packets and failures after translation begins
-are dropped.
-
-This continuation is the central semantic choice in v2. Does PRE_ROUTING
-for received translated traffic and LOCAL_OUT for locally generated
-translated traffic provide the right policy visibility for a
-cross-family LWT action? And does the harness discard and retain the
-right skb metadata across the family switch?
-
-
-== Fragmentation ==
-
-v1 fragmented oversized DF-clear IPv4 packets before translation, using
-a synthetic route to supply an MTU. v2 translates first and lets IPv6
-output use the real translated route and PMTU.
-
-IPv4 packets which are already fragments carry an IPv6 Fragment Header
-after translation. This series extends IPv6 output so it can fragment
-that representation again while preserving the translated
-identification, base offset, and More Fragments state. IPv6 conntrack
-reassembly preserves the indication needed for the later output path to
-do the same. An MTU metric on a translated family route can be used as
-an administrative ceiling where Packet Too Big feedback is unreliable.
-
-If an earlier original-family component has already reassembled a
-datagram, ipxlat cannot recover its previous fragment boundaries or
-identification. Fragmented ICMP and zero-checksum UDPv4 must likewise be
-reassembled before translation because their translated checksums need
-the complete datagram.
-
-
-== Testing ==
-
-The selftests use an iproute2-configured namespace topology and cover:
-- local and forwarded translation,
-- native fallback,
-- zero-checksum UDPv4,
-- translated family conntrack and masquerading,
-- route-PMTU fragmentation,
-- conntrack reassembly followed by refragmentation,
-- PMTU feedback, and
-- ICMP errors.
-
-Along with this series, an iproute2 ipxlat-enabled tree is provided [3].
-
-[1] https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/blob/1.57.2-dev/src/core/bpf/clat.bpf.c
-[2] https://github.com/systemd/systemd/pull/41412
-[3] https://codeberg.org/IPv6-Monostack/iproute2/src/branch/ipxlat-lwt
-
-
-== Points for discussion ==
-
-- Is the translated-family continuation described above the right
-  contract for an LWT family switch?
-
-- Is an LWT attachment with inline immutable route configuration the
-  right first harness for the reusable engine?
-
-- Is reusing an existing IPv6 Fragment Header in the output
-  fragmentation path a suitable general mechanism for translated IPv4
-  fragments?
-
-
-== Acknowledgements ==
-
-The ipxlat translation engine is derived from Jool so it can benefit
-from the project's accumulated implementation experience and
-golden-packet tests. Thanks to Jool's principal author, Alberto Leiva
-Popper, for maintaining that work and for writing the original joolif
-prototype from which ipxlat started.
-
-Thanks to Toke Høiland-Jørgensen, Beniamino Galvani, Xavier Hsinyuan,
-and Jonathan Corbet for their RFC v1 review and deployment input.
-
-Thanks to NLnet's NGI0 Core Fund for supporting ipxlat development.
-
-
-Thanks for your review,
-
-Ralf Lici
-Mandelbit SRL
-
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes since RFC v1 https://lore.kernel.org/netdev/20260319151230.655687-1-ralf@mandelbit.com/
-
-- Replaced the virtual netdevice and generic-netlink control plane with
-  a reusable translation engine under net/ipxlat and a route-selected
-  LWT attachment. Deployment policy remains outside the engine. (Toke)
-
-- Added an optional RFC 7757 EAM before RFC 6052 conversion, covering
-  both single-host and delegated-prefix CLAT addressing. (Beniamino)
-
-- Defined received and local traffic continuations into the translated
-  family, including fresh routing, conntrack, NAT, and XFRM processing.
-  Added native LWT fallback for packets the engine does not support.
-
-- Removed the lowest-ipv6-mtu parameter and IPv4 pre-fragmentation. The
-  translated IPv6 route now owns PMTU and fragmentation, including
-  refragmentation which preserves an existing Fragment Header across
-  conntrack reassembly.
-
-- Moved TTL and Hop Limit handling to the translated family forwarding
-  path, so translation itself does not consume a hop.
-
-- Replaced the v1 netdevice tests and documentation with LWT coverage
-  and deployment examples.
-
-
-Ralf Lici (18):
-  lwtunnel: track callback dispatch separately from return value
-  ipv4/ipv6: add LWT receive helpers
-  ipv6: allow output fragmentation to reuse a Fragment Header
-  netfilter: preserve IPv6 refragmentation state across reassembly
-  net: ipxlat: add engine skeleton and configuration model
-  net: ipxlat: add RFC 6052 and EAM address translation
-  net: ipxlat: add packet metadata and header helpers
-  net: ipxlat: add IPv4 packet validation
-  net: ipxlat: add IPv6 packet validation
-  net: ipxlat: add checksum and offload helpers
-  net: ipxlat: add IPv4/IPv6 header and transport translation
-  net: ipxlat: add translation preparation and dispatch
-  net: ipxlat: add translator-generated ICMP errors
-  net: ipxlat: add ICMP informational translation
-  net: ipxlat: add ICMP error and quoted-packet translation
-  net: ipxlat: add lightweight tunnel attachment
-  selftests: net: add ipxlat coverage
-  docs: networking: add ipxlat guide
-
- Documentation/networking/index.rst           |   1 +
- Documentation/networking/ipxlat.rst          | 333 ++++++++++
- include/linux/ipv6.h                         |   2 +
- include/net/ip.h                             |   1 +
- include/net/ipv6.h                           |   2 +
- include/net/ipv6_frag.h                      |   2 +
- include/net/ipxlat.h                         | 113 ++++
- include/uapi/linux/ipxlat.h                  |  56 ++
- include/uapi/linux/lwtunnel.h                |   1 +
- net/Kconfig                                  |   1 +
- net/Makefile                                 |   1 +
- net/core/lwtunnel.c                          |  15 +-
- net/ipv4/ip_input.c                          |  10 +
- net/ipv6/ip6_input.c                         |  11 +
- net/ipv6/ip6_output.c                        |  53 +-
- net/ipv6/netfilter/nf_conntrack_reasm.c      |  11 +-
- net/ipxlat/Kconfig                           |  27 +
- net/ipxlat/Makefile                          |  19 +
- net/ipxlat/address.c                         | 218 +++++++
- net/ipxlat/address.h                         |  57 ++
- net/ipxlat/config.c                          |  82 +++
- net/ipxlat/core.c                            | 156 +++++
- net/ipxlat/icmp.h                            |  70 ++
- net/ipxlat/icmp_46.c                         | 588 +++++++++++++++++
- net/ipxlat/icmp_64.c                         | 615 ++++++++++++++++++
- net/ipxlat/lwt.c                             | 643 +++++++++++++++++++
- net/ipxlat/packet.h                          | 243 +++++++
- net/ipxlat/packet4.c                         | 410 ++++++++++++
- net/ipxlat/packet6.c                         | 468 ++++++++++++++
- net/ipxlat/translate_46.c                    | 217 +++++++
- net/ipxlat/translate_46.h                    |  77 +++
- net/ipxlat/translate_64.c                    | 226 +++++++
- net/ipxlat/translate_64.h                    |  96 +++
- net/ipxlat/transport.c                       | 179 ++++++
- net/ipxlat/transport.h                       | 127 ++++
- tools/testing/selftests/Makefile             |   1 +
- tools/testing/selftests/net/ipxlat/Makefile  |   5 +
- tools/testing/selftests/net/ipxlat/config    |  13 +
- tools/testing/selftests/net/ipxlat/ipxlat.sh | 554 ++++++++++++++++
- 39 files changed, 5694 insertions(+), 10 deletions(-)
- create mode 100644 Documentation/networking/ipxlat.rst
- create mode 100644 include/net/ipxlat.h
- create mode 100644 include/uapi/linux/ipxlat.h
- create mode 100644 net/ipxlat/Kconfig
- create mode 100644 net/ipxlat/Makefile
- create mode 100644 net/ipxlat/address.c
- create mode 100644 net/ipxlat/address.h
- create mode 100644 net/ipxlat/config.c
- create mode 100644 net/ipxlat/core.c
- create mode 100644 net/ipxlat/icmp.h
- create mode 100644 net/ipxlat/icmp_46.c
- create mode 100644 net/ipxlat/icmp_64.c
- create mode 100644 net/ipxlat/lwt.c
- create mode 100644 net/ipxlat/packet.h
- create mode 100644 net/ipxlat/packet4.c
- create mode 100644 net/ipxlat/packet6.c
- create mode 100644 net/ipxlat/translate_46.c
- create mode 100644 net/ipxlat/translate_46.h
- create mode 100644 net/ipxlat/translate_64.c
- create mode 100644 net/ipxlat/translate_64.h
- create mode 100644 net/ipxlat/transport.c
- create mode 100644 net/ipxlat/transport.h
- create mode 100644 tools/testing/selftests/net/ipxlat/Makefile
- create mode 100644 tools/testing/selftests/net/ipxlat/config
- create mode 100755 tools/testing/selftests/net/ipxlat/ipxlat.sh
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769..85adf72899c9 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -67,6 +67,7 @@ properties:
+               - thead,c908
+               - thead,c910
+               - thead,c920
++              - ultrarisc,cp100
+           - const: riscv
+       - items:
+           - enum:
 
 -- 
-2.55.0
+2.34.1
+
 
