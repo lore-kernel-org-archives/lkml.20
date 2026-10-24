@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792811034;
-	b=QJafFtfTDqbLMzhGhVV56dWq+H/Pn1aaxFUzyX3zsrmEYcbibgfvRzSxzIksWx1/I97x
-	 ruRCSsFaOpdyZJVqua2uzrI7i+dKCfsm2E6DKTVg8Z+cQu8NmgIseY/mpCKx6VeFBdQQP
-	 ARGVvc063yaJSiIPUNdYobaxugkqkHXpinXQxJ9WwvG2sy+2QUz4TdpAmXMOuB1tFnYxb
-	 Sji6bcvtatuSs7kIWuql50vyeOll0c1pzLOjmkWwqgRJM/g6aGGwzgEEl8yZ5slNyOuYK
-	 2HFdV6sHOxTGwGJc7siXGe+zPRPZD7wooq85jFRwJ6dbPwn1fT8ZtQKwPiMMLhzBvkg==
+	t=1792811044;
+	b=ih3D1ih3xs+Om7K+g3nDG5rz9tYHAJS7h1clJS7beDfn5O1K0+IuqKxNZ9osdy0irSsj
+	 0d+aBf2qoHofDRibhIyWm+HuaO/nq/O/nwKChLJdHyk1IFUSxUuh/r1mDMHH7b3gSYfWE
+	 fu2b3eY3gjAkiJN/5YZ+TTWLxT4Vq7GuIlnmeG79S7ru1jG+iwE/L/OfBKAgtlflDjv6N
+	 XTbcTH+xO0+FwxPvz5Q5qneDTiMRCUQDwhfnhC2Q2tAUewTTcVUjCTf3ZqGTcYCKiFPKv
+	 QQVMkRakMMySilD5iOUshHfer8M6T6JsEHBtLbxV58EGRsOu273YbDF7bcOGwwFpT8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792811034;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JgNtmgCu9nLRngDA9LIF/6Je3yHIdY2z9nmBR/y8Sn0=;
-	b=xxdDsfavv6rcFyB4X9qKRFcj2cjKGeco0V8woKV/GTDIK2jDRtHXkc4TbyJON6Q+1X4C
-	 QNZ9qEC56ygQYVylN5gJFROR66gaLhyp95AescQ9SEVBAlJAFvEIEMCsZ8GS/PgJ7zqQU
-	 CqMDq0v3QJ2Sni+Batv6jMp0lRQxItFpfbizId3cWHbIXeIuAvr+lk+L+Ogzjru3mD9n7
-	 tidGYw7zqh6x0lbrIwHxSxc6TD4MLY7zp3tiyddInpFn1D9Dw9COYclZqNkP6lWZZ3ed4
-	 QNIAwCpAK2Gcy7dGooSw9d/GSLtYqCd4HGk8q//nKB+1pbxQarCF1uRgidhA+zDZbMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792811044;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=TmK84cuyXL/OTFiUXGEgEikpxQYq9UtzXSvMycfVZmM=;
+	b=WxgEI8pzGoBAqjZqyQ/Zf0CLdZNejmoZxmTzrJt8Q+vLjbLWl2p5Kg0pFTgQh8vIm2MQ
+	 V7ZbBf5L/QDCrfxJF7gftSk9PZ/FLSIKB2bPv+R2TCesXZiDDw/ZrITE02jRltu94x0UV
+	 Qjmi59hTl6NT3hSyvEV/st1XLIaYbxfHN0gx6T234fLWXefJ4QqNQQ70jFgq5b17UCEw3
+	 RTdNrmY5fB6tHl40PcofjrQmj7QUlHvk4KlI5ddfI01FrYzwJESeZUsbrErR6+7x8PdB0
+	 +VgphYC5sshUBtbNU/UL0pC4OnIBD2C7IpAnvbRMLb3yGPpSE7j2GrBP21W7Zt+oVcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtZCUODf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDqQoyeh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E64606A31B;
-	Sat, 24 Oct 2026 03:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92306606A32D;
+	Sat, 24 Oct 2026 03:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtZCUODf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244031F01828;
-	Sat, 24 Oct 2026 03:03:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDqQoyeh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C681F031E3;
+	Sat, 24 Oct 2026 03:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792811033;
-	bh=JgNtmgCu9nLRngDA9LIF/6Je3yHIdY2z9nmBR/y8Sn0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RtZCUODfdkUQj5JBthRPlWg7Ob0q4cKZayVVsbGKoogjaik/BW+/nVwocXNDr/ILw
-	 QDkviisJR/u4m9Z5KOX0hg1KhrW9QTabOd1oObef7PU+FRnQcGtp2Jubu6261sV7GU
-	 cO8Mtig0rkMB9sgXcmcbeIC66SQS2YnIgAjrOsoUg7E92moExiZoKF42xXhOKzJjA9
-	 0BP2NDJTj8CDxRkruJ68aYy5OWtt9ChLfiPNJTTmdiUS3pf693c5df+3QfmOzyWISE
-	 XDWZYx0zYz/da9ITrz/Wo2b56wvI/JbOxgorQgjpvNjkBlikIZ1UciDzRWh16j8LzN
-	 hQmQnkBMLK4Sw==
-Date: Sat, 24 Oct 2026 04:03:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Christoph Rudorff <chris@rudorff.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: light: gp2ap002: add led power supply
-Message-ID: <20261024040345.1fc6b6ff@jic23-hlaptop>
-In-Reply-To: <CAD++jLmCo8tnG5vp4Qv=6rDG3nob25LHELretdu7t3_SLxQASQ@mail.gmail.com>
-References: <20261020-iio-light-gp2ap002-v3-0-b7e0946c9e79@rudorff.com>
-	<20261020-iio-light-gp2ap002-v3-2-b7e0946c9e79@rudorff.com>
-	<CAD++jLmCo8tnG5vp4Qv=6rDG3nob25LHELretdu7t3_SLxQASQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792811044;
+	bh=TmK84cuyXL/OTFiUXGEgEikpxQYq9UtzXSvMycfVZmM=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=XDqQoyehhrXZSf5g3ZZgNDggw9S+puk3uA6GsYPiB5IoHkmv6HgRsyWxniUmEKdJP
+	 9KObSK5CtOndf6FpQ1QB1uZvcHcCW/SoQRrnQO1y5YDrg+qvAem+3rLvJQVIoneYP4
+	 VlRN0cq7iI89iOLnDv/3inMdLEsods1OG7jny0pjwntvYELdjy83TRY961L+6tt1CB
+	 a0R+u9Xlymv14iCeJDUnqNdJ0RFbGROE79BisauiKiPiFy0mJqCR2WTLyQHRC4utg9
+	 eLOww3VxV07nB4DfC6+qE+4BaIkXtXwjMRN+kyBMfygZc7MWggcjN//3Mqzj01+RZ7
+	 ZTXSisgpKw7VA==
+To: Wang Yingjie <x-professor@outlook.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,  Jens Axboe <axboe@kernel.dk>,
+  Bart Van Assche <bvanassche@acm.org>,  FUJITA Tomonori
+ <fujita.tomonori@lab.ntt.co.jp>,  "James E . J . Bottomley"
+ <James.Bottomley@HansenPartnership.com>,  "linux-scsi@vger.kernel.org"
+ <linux-scsi@vger.kernel.org>,  "linux-block@vger.kernel.org"
+ <linux-block@vger.kernel.org>,  "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] scsi: handle out-of-range SG_SET_TIMEOUT values
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261022025508.294713-1-x-professor@outlook.com>
+Message-ID: <yq133tv94ve.fsf@mail.kernel.org>
+References: <eb20226b-cfae-4b10-b42c-1b12c2d17687@acm.org>
+	<20261022025508.294713-1-x-professor@outlook.com>
+Date: Fri, 23 Oct 2026 23:04:02 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,29 +63,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Tue, 20 Oct 2026 19:15:53 +0200
-Linus Walleij <linusw@kernel.org> wrote:
 
-> On Tue, Oct 20, 2026 at 1:36=E2=80=AFPM Christoph Rudorff <chris@rudorff.=
-com> wrote:
->=20
-> > tested on samsung-j5
-> >
-> > v2: Use regulator bulk api.
-> > v3: pretty up, rename vled to leda
-Change log goes after ---
+> SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character
+> device rejects negative values and limits positive values so the
+> converted timeout fits its destination field. The block SCSI and BSG
+> paths instead pass the value to clock_t_to_jiffies(), which accepts an
+> unsigned long, and store the result in an unsigned int.
 
-> >
-> > Signed-off-by: Christoph Rudorff <chris@rudorff.com> =20
->=20
-> I think that commit message needs a bit of elaboration ;)
->=20
-> With that fixed:
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
->=20
-> Yours,
-> Linus Walleij
+Applied to 7.4/scsi-staging, thanks!
 
+-- 
+Martin K. Petersen
