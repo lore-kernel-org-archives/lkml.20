@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806260;
-	b=Nsyq5MJbZwF3y37+FuDGJrGfXvc085YsZF6eo/Zp3zE3VcTa0udqSuyCY3iObv3win7s
-	 ghEcz3RWTSIki2G5temGMa6OqTvl+Wj6BKudLIWxTtnwCP+37Yii2jfOOZXb8mWsjNCo8
-	 p6+Qs+mMRqM3rrl8CFnZGMS1jgsh+vz7iRxx9bTMGeUkZ6mr9CWUOxtYniPb4cuei4I/y
-	 w7PtNUpn+Zo99n/QBDBTP1Qv+zfHtx4QJ3VzAs6rIUOwNjdI7uvZc00oe8oFz9VkIGSVe
-	 1J1Bzt/FbiUVXs3uenXOkMlNVJyNX326tbWamyk6sPDZHI1tfTHWaFXztUNmDOZV9JQ==
+	t=1792806292;
+	b=4VvujoKtDPV5PCKwRvnWPfHjz6NOxVHra/xz4pl/dojKdgYHaHl3/feQ3OaiDeEG9Kut
+	 E8gq6GHtnWLZzwNivOmEWhp7UX2xXDYCn020kj5kKd/Tgb61gRQtoUQD5CnTE0idt4FaV
+	 HESp7aZHryWzfJmURG/RMp+fgr2MPwD6nSRIKxJpGwJgQoltpCniTHiheFEo2NyQA3Nh9
+	 uwgZf/hXGtKalZ0HNxPhMcDTkbEHBcIpGqG1o0zEu5Ze/YYeJ9E4cemPOs9EisZpPVStl
+	 JcLaUDdSHggLBZdEmWPWxyEfZj49fP0iniHDz4pk/GZRVWvIbPYL+YtOXSSp/EbOQIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806260;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
-	b=A2y/aYvSF6HT+KmHibxP7kjPwwKYFtv8K2SIPDeIscZ48BXaqdSJHKTigCQnT5xa/rXa
-	 baPtJXqnmA2UMbnYaj97g7KDeoEpaejsRF31Cjt6WenOwkMiQvT0D64HidkJGZBsBa5ov
-	 TQDYL45J2HV3SK/Snn/pQxObFED4yH3lsgM7WPqGZvg+r4BL+52Gm2r8O/2FlcjfWoI/w
-	 P3bFw9UDtXPNp5HcircZhPpUhd6uduiE8H3FAKsL6VONGgHrZoOWToEGbROCLZ2VS24k6
-	 nxF0OwdKDe5yPx+oh4jthAmWEcQdVYPVFFZZYnbzSkX21WdpikZO0qGY5mNtBskIYjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806292;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=mxVb7oQQyhCzXTf8Q6KVBf93tVdrbTHX5eRVTct8tjE=;
+	b=3pA7Adw1uVl61FqDJCxHun+zbXhI0mllbzCVJYtInfLzi4PGlYSYZiuoU5qFgtUBiiXp
+	 K7fcSjWb0yWighcPqg6MaJcO9AL9QbPa4Vwt6Gc2HOwNj6I3cDJXbh3ov3sbDDSi4GKeU
+	 a4w5vNY2nYErVBA+PttygL99SOndihj8Hsn8sF+9tFLY0F/qUthDdoDAULp8W7a5Wukdy
+	 G7C/llc53SWzICmyEnVvoDwKe7nZ4vfwjGOIqOp4cmxCn0iY1Kpo9esyxTiBwPuMvepA4
+	 YeV0XA3N9FGinjKJf9u+Hv5xsflbtxZZevyNXuyHcvlTHESCubwIQy2Ku7MFCAn9+Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205E606A31B;
-	Sat, 24 Oct 2026 01:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09811F01825;
-	Sat, 24 Oct 2026 01:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792806260;
-	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AeDgx7pC74sQPUM3WGP4IayUX+OTFLBRFSjVjknZAHSNOCRAWTeHJVmJYR8sKUSVJ
-	 2Tb/dqrjJYjQII/XA3V0FQMO7VwIFEew1b6TeW638tuGqKfPODFW3kl0wMH3Aj1u7M
-	 oKYqLrfiYaw51fJtmGnzsbSQS/ec7sBjid0l0RJbidtnFflad2TGDs2fQhFHTnRzKA
-	 ywv0aHOe6LP+22ph93h0ql4Ljdh1QbO0ZuyXkQOGcv2BwNKXTRhFPrRTy5Q8XvemFq
-	 mifdyXfwIr8wwRKuZRIJO3q2GuUT11JlFEFtLeL882j656fMzz3U83+ShxJomlob+6
-	 pDOrj/EWq8hSg==
-Date: Sat, 24 Oct 2026 02:44:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261024024412.2fa37c17@jic23-hlaptop>
-In-Reply-To: <20261023204209.48556-2-olivier@mgcrea.io>
-References: <20261023204209.48556-1-olivier@mgcrea.io>
-	<20261023204209.48556-2-olivier@mgcrea.io>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F143606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F143606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-81447a16061so3073445a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:44:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806291; x=1793411091;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mxVb7oQQyhCzXTf8Q6KVBf93tVdrbTHX5eRVTct8tjE=;
+        b=H1jjH9wsN0ZrjISwduQeHdkZ6HvdEYoNlBYHeeqkSXJskBxuwWdxCZbyr3RkajgiqS
+         I9oE9X+KGL2u8/cukcywAWD5x86t3koq2XpOnuAycPBCvez4go5bUjQkl3q8nw2cFbaF
+         cp0YY05K+QBjvupUu95L8M5sv84gdZ0zlRHyj/7ZNBJFspI9ki9GYIut9rRxy6EHyMdt
+         aIotM6cYix+JTKsWMm0qydfYCH1q18IDtd2+x+nq+HdQsAmLrFkoBB3vblD0IeIcQUF0
+         JvVz5k1xqk10G4Eu4NxB53GKVg53gutOd+CZZ2RhqecODCqzJfJEf/8w+TD/657uCqOV
+         lN7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz7534bITMQPT6TQk8dRMLKnJPTVsewNj9pqiB1Ds3acMLNl9sucXqd5lZMbsCxDwKDqQGC+/GDueizzO8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPLhJAi77MQxpmpKaijFaQmcOsc6xEeq9De3bwxhBF5ySpIIc3
+	9NuYMKxFXyglRaMRZVj+T2RoItZqsT7Gzyga9tGWL4VUdEA00W0xef1kHYjxoNvsa7+Fsu1xobG
+	rITK1W8VSA8C+ZyJu0PL+2b+h92nQM/zEsJawnvDKaSDd7Z+cJYL+MvBfpYU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,220 +58,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:50a6:b0:4c3:ebb:63d6 with SMTP id
+ 5614622812f47-55c002e9610mr640257b6e.39.1792806291581; Fri, 23 Oct 2026
+ 18:44:51 -0700 (PDT)
+Date: Fri, 23 Oct 2026 18:44:51 -0700
+In-Reply-To: <6a9e1995.a5e650b3.26d8a.0024.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adc0d93.4ce6c07b.2dfc0c.0000.GAE@google.com>
+Subject: Re: [syzbot] [jffs2?] possible deadlock in jffs2_xattr_delete_inode
+From: syzbot <syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com>
+To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, richard@nod.at, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 23 Oct 2026 22:42:09 +0200
-Olivier Louvignes <olivier@mgcrea.io> wrote:
+syzbot has found a reproducer for the following issue on:
 
-> The X1600's SAR ADC has four auxiliary channels, each with its own start
-> bit, interrupt flag and 12-bit result, and none of the touchscreen or
-> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-> driver that exposes the four channels as voltages against the 3.3 V
-> reference.
-> 
-> There is no datasheet here: the register layout and the clock dividers
-> come from the X1600 driver of the vendor's 4.4 kernel.
-> 
-> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-> behind adc-keys: all three read and report correctly.
-> 
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-Hi Olivier.
+HEAD commit:    734bef548a96 Merge tag 'net-next-7.4' of git://git.kernel...
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=147da38e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2ced4746a89083f5
+dashboard link: https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=167da38e580000
 
-Very clean driver. Just a few really small things inline.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com
 
-Thanks,
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kswapd0/116 is trying to acquire lock:
+ffff8880143729d8 (&c->xattr_sem){++++}-{4:4}, at: jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
 
-Jonathan.
+but task is already holding lock:
+ffffffff901caa00 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0x243/0x1f00 mm/vmscan.c:7177
 
-> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-> new file mode 100644
-> index 000000000000..d54f6d7989b6
-> --- /dev/null
-> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
-> @@ -0,0 +1,227 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * ADC driver for the Ingenic X1600 SoC
-> + *
-> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
-> + * bit, interrupt and 12-bit result, and none of the touchscreen or battery
-> + * engines of the JZ47xx ADCs that ingenic-adc drives. The register layout
-> + * and the clock set-up were read from the vendor 4.4 kernel's driver.
-
-I'm not sure we need the comparison with the JZ47xx ADCs here.
-Keep that for the patch description / cover letter.
-
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
-
-Drop this. Now assumed to be coming via platform_device.h
-after that header got broken down into bus specific ones recently.
-
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/platform_device.h>
-> +
-> +#define X1600_ADC_REG_ENABLE		0x00
-> +#define X1600_ADC_REG_CTRL		0x08
-> +#define X1600_ADC_REG_STATUS		0x0c
-> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
-> +#define X1600_ADC_REG_CLKDIV		0x20
-> +#define X1600_ADC_REG_STABLE		0x24
-> +
-> +/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
-> +#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
-> +/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
-> +#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
-> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
-> +#define X1600_ADC_CLKDIV_DIV0		GENMASK(7, 0)
-> +#define X1600_ADC_CLKDIV_DIV1		GENMASK(15, 8)
-> +#define X1600_ADC_CLKDIV_DIV2		GENMASK(31, 16)
-> +#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
-> +
-> +#define X1600_ADC_NUM_CHANNELS		4
-> +#define X1600_ADC_VREF_MV		3300
-
-Use _mV . Fine to use case for units in IIO at least.  Avoids
-us maybe thinking it's Mega Volts :)
-
-> +#define X1600_ADC_BITS			12
-> +/* The vendor kernel brings its 140 MHz APB clock down to about this. */
-> +#define X1600_ADC_CLK_RATE		1166667
-> +#define X1600_ADC_TIMEOUT_MS		20
-
-> +static irqreturn_t x1600_adc_irq(int irq, void *data)
-> +{
-> +	struct x1600_adc *adc = data;
-> +	u32 status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
-> +
-
-Split declaration and assignment given error check should be right next to assignment
-	status = readl();
-	if (!status)
-
-> +	if (!status)
-> +		return IRQ_NONE;
-> +
-> +	writel(status, adc->base + X1600_ADC_REG_STATUS);
-> +	complete(&adc->done);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-> +{
-> +	u32 data;
-> +	int ret = 0;
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	reinit_completion(&adc->done);
-> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +
-> +	if (!wait_for_completion_timeout(&adc->done,
-> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
-> +		ret = -ETIMEDOUT;
-> +
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
-> +	*val = (data & X1600_ADC_DATA_MASK(ch)) >> (ch % 2 * 16);
-
-Can that be field_get()?
-
-> +	return 0;
-> +}
-
-> +
-> +static int x1600_adc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct iio_dev *iio_dev;
-> +	struct x1600_adc *adc;
-> +	unsigned long rate;
-> +	u32 div0, reg;
-> +	int irq, ret;
-> +
-> +	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-> +	if (!iio_dev)
-> +		return -ENOMEM;
-> +
-> +	adc = iio_priv(iio_dev);
-> +	init_completion(&adc->done);
-> +	ret = devm_mutex_init(dev, &adc->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	adc->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(adc->base))
-> +		return PTR_ERR(adc->base);
-> +
-> +	adc->clk = devm_clk_get_enabled(dev, "adc");
-> +	if (IS_ERR(adc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
-> +
-> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
-> +	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
-> +
-> +	rate = clk_get_rate(adc->clk);
-> +	div0 = clamp(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 1UL, 256UL) - 1;
-> +	/* DIV1 and DIV2 as the vendor kernel sets them. */
-> +	writel(FIELD_PREP(X1600_ADC_CLKDIV_DIV0, div0) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV1, 1) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV2, 99),
-> +	       adc->base + X1600_ADC_REG_CLKDIV);
-> +	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
-> +	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
-> +	       adc->base + X1600_ADC_REG_STABLE);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
-> +
-> +	/*
-> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
-> +	 * and powering up takes 2 ms.
-> +	 */
-> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
-> +	usleep_range(2000, 3000);
-
-fsleep(2000);
-
-Lets us be lazy when thinking about what slack we
-should allow by standardizing it for us.
+which lock already depends on the new lock.
 
 
-> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
-> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	iio_dev->name = "x1600-adc";
-> +	iio_dev->modes = INDIO_DIRECT_MODE;
-> +	iio_dev->channels = x1600_adc_channels;
-> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
-> +	iio_dev->info = &x1600_adc_info;
-> +
-> +	return devm_iio_device_register(dev, iio_dev);
-> +}
+the existing dependency chain (in reverse order) is:
 
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:5010
+       jffs2_alloc_xattr_datum+0x1c/0xe0 fs/jffs2/malloc.c:264
+       create_xattr_datum fs/jffs2/xattr.c:363 [inline]
+       do_jffs2_setxattr+0x6f0/0x1610 fs/jffs2/xattr.c:1175
+       __vfs_setxattr+0x175/0x1e0 fs/xattr.c:223
+       __vfs_setxattr_noperm+0x127/0x660 fs/xattr.c:257
+       __vfs_setxattr_locked+0x127/0x2b0 fs/xattr.c:318
+       vfs_setxattr+0x14a/0x390 fs/xattr.c:344
+       do_setxattr+0x145/0x180 fs/xattr.c:662
+       file_setxattr fs/xattr.c:672 [inline]
+       file_setxattr+0x139/0x1b0 fs/xattr.c:666
+       path_setxattrat+0x335/0x3b0 fs/xattr.c:732
+       __do_sys_fsetxattr fs/xattr.c:782 [inline]
+       __se_sys_fsetxattr fs/xattr.c:779 [inline]
+       __ia32_sys_fsetxattr+0xc4/0x140 fs/xattr.c:779
+       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+       __do_fast_syscall_32+0x14b/0x8c0 arch/x86/entry/syscall_32.c:282
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:307
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+-> #0 (&c->xattr_sem){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x86/0x1f0 kernel/locking/rwsem.c:1631
+       jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+       jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
+       evict+0x3c2/0xad0 fs/inode.c:822
+       iput_final fs/inode.c:2014 [inline]
+       iput.part.0+0x989/0x1050 fs/inode.c:2063
+       iput+0x30/0x40 fs/inode.c:2029
+       dentry_unlink_inode+0x403/0x4d0 fs/dcache.c:493
+       dentry_kill+0x25d/0xca0 fs/dcache.c:840
+       finish_dput fs/dcache.c:1015 [inline]
+       dput.part.0+0xd2/0x240 fs/dcache.c:1056
+       dput+0x1f/0x30 fs/dcache.c:1051
+       ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:236
+       destroy_inode+0xcb/0x1c0 fs/inode.c:387
+       evict+0x599/0xad0 fs/inode.c:846
+       iput_final fs/inode.c:2014 [inline]
+       iput.part.0+0x989/0x1050 fs/inode.c:2063
+       iput+0x30/0x40 fs/inode.c:2029
+       dentry_unlink_inode+0x403/0x4d0 fs/dcache.c:493
+       dentry_kill+0x25d/0xca0 fs/dcache.c:840
+       shrink_kill fs/dcache.c:1289 [inline]
+       shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1306
+       prune_dcache_sb+0xea/0x150 fs/dcache.c:1388
+       super_cache_scan+0x32b/0x550 fs/super.c:225
+       do_shrink_slab+0x411/0x1200 mm/shrinker.c:445
+       shrink_slab+0x171/0x12e0 mm/shrinker.c:676
+       shrink_one+0x398/0x850 mm/vmscan.c:5119
+       shrink_many mm/vmscan.c:5180 [inline]
+       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+       shrink_node+0x2b1b/0x4310 mm/vmscan.c:6247
+       kswapd_shrink_node mm/vmscan.c:7101 [inline]
+       balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+       kswapd+0x556/0xb50 mm/vmscan.c:7555
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(fs_reclaim);
+                               lock(&c->xattr_sem);
+                               lock(fs_reclaim);
+  lock(&c->xattr_sem);
+
+ *** DEADLOCK ***
+
+locks held by kswapd0/116: 2, last CPU#0:
+ #0: ffffffff901caa00 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0x243/0x1f00 mm/vmscan.c:7177
+ #1: ffff88804f2ec0e8 (&type->s_umount_key#57){.+.+}-{4:4}, at: super_trylock_shared fs/super.c:670 [inline]
+ #1: ffff88804f2ec0e8 (&type->s_umount_key#57){.+.+}-{4:4}, at: super_cache_scan+0x9b/0x550 fs/super.c:200
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 116 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ down_write+0x86/0x1f0 kernel/locking/rwsem.c:1631
+ jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+ jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
+ evict+0x3c2/0xad0 fs/inode.c:822
+ iput_final fs/inode.c:2014 [inline]
+ iput.part.0+0x989/0x1050 fs/inode.c:2063
+ iput+0x30/0x40 fs/inode.c:2029
+ dentry_unlink_inode+0x403/0x4d0 fs/dcache.c:493
+ dentry_kill+0x25d/0xca0 fs/dcache.c:840
+ finish_dput fs/dcache.c:1015 [inline]
+ dput.part.0+0xd2/0x240 fs/dcache.c:1056
+ dput+0x1f/0x30 fs/dcache.c:1051
+ ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:236
+ destroy_inode+0xcb/0x1c0 fs/inode.c:387
+ evict+0x599/0xad0 fs/inode.c:846
+ iput_final fs/inode.c:2014 [inline]
+ iput.part.0+0x989/0x1050 fs/inode.c:2063
+ iput+0x30/0x40 fs/inode.c:2029
+ dentry_unlink_inode+0x403/0x4d0 fs/dcache.c:493
+ dentry_kill+0x25d/0xca0 fs/dcache.c:840
+ shrink_kill fs/dcache.c:1289 [inline]
+ shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1306
+ prune_dcache_sb+0xea/0x150 fs/dcache.c:1388
+ super_cache_scan+0x32b/0x550 fs/super.c:225
+ do_shrink_slab+0x411/0x1200 mm/shrinker.c:445
+ shrink_slab+0x171/0x12e0 mm/shrinker.c:676
+ shrink_one+0x398/0x850 mm/vmscan.c:5119
+ shrink_many mm/vmscan.c:5180 [inline]
+ lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+ shrink_node+0x2b1b/0x4310 mm/vmscan.c:6247
+ kswapd_shrink_node mm/vmscan.c:7101 [inline]
+ balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+ kswapd+0x556/0xb50 mm/vmscan.c:7555
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
