@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792842570;
-	b=E4IV/qeenYQ3g8USheF1RNBNpOdJ/2u7D03gaRPFZ54jI0197bhZG1Ci+pakCB+0YvWa
-	 DcPPEwhMvYYKSzceHk59mIkGLCstpqMyb3O9Q2gyMeeOUYLYqAFAjbsQiyQ02daL7U4EK
-	 ZXPi4o+uJ2rsc78+kJ+/AWd56ezKLKXEfBpUEcT1M7GjSDURSeYbctwM7nT8By70Ef2fF
-	 Rg2ozjjY+5xijSRuaSFkcj6hTtnJbLOb97csOE1Yl6Gs2oczwZUtYidlAbW5adniSiVDo
-	 hv/kb5SDAcB+gTMcQCQHCtKUhdd3FZo7echjJBJpzy8Cx4di4JqHheMmWpqWkWb+DnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792842570;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=FuqXf7oFIzUBEcQbKPY0llvBnP0Pu2NRXKoSWtEKfn0=;
-	b=tWu90DjtMUGIoNeCdMdBdiU4nncw0db0TUBXr+huXA8Oc8VGwefx7YFAr65b17EhBexl
-	 /pYWdyUJFoW3wQsN8JpB8+bvZ7HP4/KNuvRO6u4mvOBYkSocISgdDNLWS6diLO4NapkJp
-	 6HjSRei73kpCuOeMJSBBUBuKLHjhXQ0RAzXGoXGidgRQ0LhRabaIDqRKjTCvJ5K8N6zUW
-	 zSOF7PT2s69GM2Yn1psRM+DI35KHE8BwabgD2N6nkHBVJCB8Pc+m+4KwuYFvC7P5JqfOx
-	 GABRI7ivhypBxn1L5mKW8U6TyBnH7D9Q4gfiC5skrL1QRY9DTzzU5nkxdxxAPQVg1hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEjZ1CRI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792842655;
+	b=T/0fwzzsDkUghelapE80EjLQnT4cxH7X81i3yhUULrEvMYovtPdtgq/apVPh1bJtSfPv
+	 7pG6qsZFTNcwIQDdLZgVoJR0uGy/VIfSASQWagXvRYA40qvPzwFdJTE7UYbr3Z8dxe1VU
+	 m18+mS9a+1N4GgGUn2xuIWlLVvX6UaAbH3TXHIUfvNNYPOpKBsDdsVbTeQRj4vB5qExc4
+	 gx/HHlgZUoaIbQl1YDT1woHbzauGQRyPJDQ7tr9IX639rKdU0mQM8RixbJO6f4q7xObKI
+	 CqoWoWk9eIh0GHWMnEfkc/uqdpWOG7rmHqSavulrP+yaciPCyJ6z1Uoufo2AcbQzQ1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792842655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5Fk1gBgZ4AUPxIMy56kMymtAhp/DJX3lqyPJTQrRewM=;
+	b=himpws2inhAstQ92/1xR+67zb6JFtqHGz8TvMvXmQPdc13ogkmJ3CL738lrNsWaiO/jM
+	 Vv2TOKWQPFYvYMKSs9TGQNDs3usPMfFAIFBF4ng9V9BKCrPArBg+22MXutXABVQiQ1Kpc
+	 k7VmT6KErd0nqjElo3h5Biaxcl9sBEs20g3lAjQGWq2ypI1P0eH/8S5FI5X3K8ptga2sW
+	 CmyT3oy417bn3midoHvhmZTyTG5KEbH8dKi5JHS9gG44M+YXgpzeVV6i638BGWLQslKi1
+	 6yeNdFCr34vLLxRhRrfNu2KhFAikomIcC1jv/pDGEqxjI+v+NeWEFVPEgLCY8ZV9uxA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C9KU+x7E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0EE606A31A;
-	Sat, 24 Oct 2026 11:49:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EFA606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EFA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEjZ1CRI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9461F01825;
-	Sat, 24 Oct 2026 11:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792842569;
-	bh=FuqXf7oFIzUBEcQbKPY0llvBnP0Pu2NRXKoSWtEKfn0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WEjZ1CRIcbCJAp/JIdnJ/lHTbaGXMf7MCXDF9mrTgwfRVdgWDLQeZZ3+EelpxSQX5
-	 SKoLSEERZcVQTB9OD1Vh5eDSMwhPUsrhQPtlWsGhBJ8KDUc9XvShjbHdFA8AC5AZ8N
-	 V5SWdX6Gi4m49WsO7Lpey8V4+pLGfNAK7mQNzV/8MCnNUm8YN0W7ze63PhY4AcUCKi
-	 7IrRuKbkGXgShhOliQe5X2QbCNrQ3SCjhjKtAAPNQSnwRdTLx5PpfjgxeBoJ69aXyB
-	 UJ/ZCC2KhCQVSKL/Tu/v9MmzMGbv3wnsDmUaLm8qHRfarR72rZxxao2RglWbwtoyJ9
-	 AHufBBq1UK93g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xKaFb-00000006kGD-2If9;
-	Sat, 24 Oct 2026 11:49:27 +0000
-Date: Sat, 24 Oct 2026 12:52:44 +0100
-Message-ID: <87tsmb8gdv.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Amir Noohi <amirmnoohi@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Igor Velkov <iav@iav.lv>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] genirq, KVM: arm64: Avoid the irq descriptor lock on vCPU load
-In-Reply-To: <20261024022450.629980-1-amirmnoohi@gmail.com>
-References: <20261024022450.629980-1-amirmnoohi@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C9KU+x7E
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6aa9606ddadso1171821eaf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:50:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792842654; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jvMmkUF6BlP5OdZ456YhrToZcME/jscXuqNdDtUo82Mh1ORuUMwE6Tt3gef0R0tsFx
+         lBpJkzgbLFTPT/IUn9RoT0FsSFzV9QFDCi6d0aW5jSkKf0FFPLerPF+hu7FPX7Fw9vIM
+         CpLxU2z3pxK/7PdH+ZBsZkqyfTtA8viTj02D6uXmMBubhHs53h4mGuJPSrpK1mvZwnQw
+         zk6Dk2xpIAdaFs3h8z9DAXnh81h5ZpyGM+rNkzfe8+jHnRdOo2nxJIkswQ9VqFo8dbnm
+         K6cqudP76PgJ/uYwCZp3jdt/MNYMCuQcFWbdakt5PiIDjKLfJUnCcxhjOyUK5ns2APTB
+         8p8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5Fk1gBgZ4AUPxIMy56kMymtAhp/DJX3lqyPJTQrRewM=;
+        fh=o+8Owor7ODcfiUg1K8G/QLdvuQRdpT6eSTYxjyEMk5Q=;
+        b=OqbIrqJd4C9+kE4bhYKBYIdMsdUPUlK77G1FhVo5bnxgXZR8wrRsnQmOb7QaFLfMwT
+         rFHISxFVzJxE7ZwqrWS7MZyo7558nSAWArBhqd5VJK9mnPYixJ3yWbsNX1VMKcrnYmvk
+         Kd5UlbrGmF2LgFXVw1kyNm2M2HoXJ9/82KoSWVn+/XXvUa9j2wRAnV/xU3y/DWs8xWbL
+         E2Re2FlV6iaDMhkxkKDI1iA9+1JGnXNIU2sGeaaKgDgLWnAG0/tOs5bShvjVC5tcYRcw
+         2Et3bmem8HoWD+PTHyDuj6DbCklNLjfcR3PlLMN5dlpXx+ZGuBbj4ARz6ZdjPEpsjElR
+         KbUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792842654; x=1793447454; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5Fk1gBgZ4AUPxIMy56kMymtAhp/DJX3lqyPJTQrRewM=;
+        b=C9KU+x7E/r7l4XM0r/IKrahEoW7jsBvONG31JXVMp6hwt9NcuobnMS/wWD3QfWlAxg
+         DemGI8DBG4NYVcru5hH2BcgNfjWe2t8DTaUbkDvAKnhsc9SI+Pw+78p9ELpMAPgsXmYw
+         FmVCg6AEa7D7K5Jx1XiT29sC/n+ut3/Kn/6Dt2vqmuScceK0xlsLnU2IAvBvfJWDmgTl
+         VRdETeFTixNknbM7p0ezihe7a7Kyx94/AC12CYt5Yco0AQrNHATnE9tqiTU7rS2SNrYO
+         E1yDgUaLOWgt9WrnT0h7H6mXfjFWjDbbFxH5QyIL8BccfnwcHc9PEPwi+eYGdQCHkMAg
+         SdKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792842654; x=1793447454;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Fk1gBgZ4AUPxIMy56kMymtAhp/DJX3lqyPJTQrRewM=;
+        b=iKW8bMaRisIJY0xXNwdSP6sdD1s4cxiYWvdF+Mg8Pxm7OOc8u+PNV8b+2Z5J/Osk57
+         J1iNinvTW5UYXSbi2106a6vMOnDR1qeFc54/UyobZAa3uOyi9UU4sGLccv+5a6CB35u4
+         vXewahCkxJNlrj+H3UyKaxhrQEOQZ/0psF0xTriCyk/7bDRhh4dV0dRIQ6r3pHQVo6iI
+         b2yH6KS/8Pr6veRaS3oQOqIIigM7YJogrhT0wh55wp5vr3l9cmTClMBkR32cMPBG24Dn
+         +bmlk1ld4tZ0id9RGlNr5tbX/s62CINehYi3dCM1fh1jKmyC1IZerFsAnWK5nLjQWRc/
+         cemg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ2W66G+KtQDpfzXNM8RawUy3WDqSVryrJOkixq+RcNHCcpC+DsMJaadIXCxc7WGAMzr91VFSNEcwMKzQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLajotxZ2e/cFWylzpFdNgQDXxpFg0ob61rplE5pKjc6wjzhSdY
+	DRpUpjIkx5r/XuD6AjBachOfg6VPoz3V4JM87NwjC/S1U7jpCWF+Mn87c8IDGzOrYBcGkZYlqpX
+	cryJ2M5ZFWni8vuaCVBT7a4qYkw1n8g4=
+X-Gm-Gg: AYBFou1GVLBENS0RFKfJmPvAYqpZeiUlCS0qTUgw0VnGAp18Onw+PAUsNi7m61pSGPU
+	klxRUqWS9L+ujOe3LT0c8KYIiO4oqPDuJsMOs6b1SLa2w79aKei+q0Z+rukpJn+bcPsACtsqZQT
+	QmJCXtQSeE806yXcw68LVG3B187436G6Z96DfM9ObyiJsmjHivEHNrWPQjRvyOxwRRJBHQ+SlhP
+	pgt7epXETYmgv2JS34P/gfN8H+d3lCpKnFzDJ4CJvfmckEIm7SYPWOEAmhnk2jqDqmpZoWcGhtQ
+	l/WXPXAWACdDXQ1MqTvGxkxqcYcTFIgFJ84WQm6pIoQpqeeADzpQRkbiwjtDrHAvoX1TELqDJdM
+	NfBQbcOmwAU+wPqUrRhFHEKb0w+ktqSwIMP+cE1PUI7lkRIktj0L6pvKRmee6jnwnyZN+4FU=
+X-Received: by 2002:a05:6820:7041:b0:6ff:6b2f:a11b with SMTP id
+ 006d021491bc7-70ba0fb21ebmr627518eaf.67.1792842654085; Sat, 24 Oct 2026
+ 04:50:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,46 +103,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: amirmnoohi@gmail.com, tglx@kernel.org, oupton@kernel.org, radu@rendec.net, iav@iav.lv, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+References: <20261024073549.29531-1-himanshu.bakshi478@gmail.com> <2026102448-tackle-footnote-9ca0@gregkh>
+In-Reply-To: <2026102448-tackle-footnote-9ca0@gregkh>
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Date: Sat, 24 Oct 2026 17:20:41 +0530
+X-Gm-Features: AclHuK9RPNdG4PwTXd2ZHIWGfUPuk3tIjaYeZzEYcbczOXET7r-HnUoxLVjvyWk
+Message-ID: <CAGLmz9+J-s98cT_ZFHF5EU7t=beK8m82fjq20+n5dmncdrMSEQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: sm750fb: clean up PLL calculation code
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com, 
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 24 Oct 2026 03:24:48 +0100,
-Amir Noohi <amirmnoohi@gmail.com> wrote:
-> 
-> KVM/arm64 vCPUs slow each other down even when every vCPU has a physical
-> CPU to itself. On a 32 CPU Ampere Altra (GICv3, VHE) running mainline,
-> with an in-kernel GICv3 and each vCPU thread pinned to its own otherwise
-> idle CPU, a vCPU which exits to userspace in a loop manages 320k exits/s
-> on its own, 120k when 16 vCPUs do the same and 59k with 31. The aggregate
-> rate stops growing at 8 vCPUs. No two vCPUs share a CPU and nothing is
-> over-subscribed.
-> 
-> The cause is the interrupt descriptor lock of the host timer interrupts.
-> Every vCPU load sets their active state with irq_set_irqchip_state()
-> (twice on VHE: virtual and physical timer). The timer interrupts are per
-> CPU interrupts, so all CPUs share one descriptor and its lock, while the
-> state being written is per CPU (a redistributor register on GICv3, a
-> system register on GICv5). The lock serializes nothing but CPUs updating
-> their own state. At 8 vCPUs, 99.9% of all lock contention events during
-> the test have __irq_get_desc_lock() or irq_set_irqchip_state() on the
-> stack.
+Hi Greg,
 
-Looking at the test case, this really isn't a representative or
-realistic workload.  This is a contrived setup that has trapping to
-userspace as its only purpose.
+I found this while reviewing sm750_calc_pll_value() and looking for a
+cleaner way to handle the PLL candidate calculation.
 
-I'm not saying that this is useless observation. But it is not
-something that represents something exacerbated by "real" VMs.
+I tested the change as follows:
 
-I'll look at the patches shortly.
+Built the sm750fb driver successfully using make -j2
+M=3Ddrivers/staging/sm750fb W=3D1.
 
-Thanks,
+Ran a standalone C differential regression test comparing the original
+and modified algorithms across 2,010,084 test cases, including
+frequency sweeps, boundary values, and randomized requests.
 
-	M.
+Compared the return values and resulting PLL fields. All tested cases match=
+ed.
 
--- 
-Jazz isn't dead. It just smells funny.
+The differential test uses standalone copies of the original and
+modified algorithms rather than executing the function inside the
+kernel, so it verifies that the two implementations behave identically
+over the tested inputs. I have not tested this on physical SM750
+hardware. If by any chance you would like to see the test c file, let
+me know.
+
+Thanks and Regards,
+Himanshu Bakshi
+
+
+On Sat, Oct 24, 2026 at 1:32=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Sat, Oct 24, 2026 at 01:05:49PM +0530, himanshu bakshi wrote:
+> > From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> >
+> > Improve the PLL calculation function's documentation and
+> > readability.
+> >
+> > Simplify candidate selection by skipping candidates that do
+> > not improve the frequency error, and defer updating the PLL
+> > parameters until the best candidate has been selected.
+>
+> How was this found and tested?
+>
+> thanks,
+>
+> greg k-h
