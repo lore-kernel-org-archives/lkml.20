@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792830400;
-	b=zeLSmlHwol0OWcbMfwgQqGu2HNoUFatBUTsa7oRO9z+Q83vze+c5Bu2rN+VUsThgeltB
-	 odH9HV+SI30KHoimCKqxzIz15otqMASd0h5i8ATp+3Z3ZRGSWi7cUP2M4kBNZ0H7WwpCv
-	 UzZTamgAuPbFwOIPS8QynYYkUvF2WnCTMnwjSmXKrFtJzb3YsK37kpdaIp5yaQHire81n
-	 hquS93uOjhwlKjLDyHF6GjOfdc/HkIflrDkW64YUWa7IC5RnMP/FisEwFVLYFye89lRAr
-	 Cgld5fgtyp4vVk8FBWgc8zmDixNeTwHh9gCuVtVILlappGjJKhOqbqoK9VxKGJcR7Ig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830400;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792830533;
+	b=rhZBixjRAYC1hZ1BvJNCxhMs4jAhBknsheSIySEppI1V+Pb5txYJ0l37dIV5QHbCIP2S
+	 PX6wuJxZ713ZIGr/Tke/wyu/6AcRO0o/wrUSR0RAr3S2WnrvmJlFW62JEmIA78QsXZ81h
+	 Vs5ApQTzAk/IAfrvH5hG9o4lVmyWYG5RjehLsxdrC1zfEZaGi5U4O+4WXSc/tvHxYKrZq
+	 8MqRBm8imsBrz1UxLlRQho/3EEhe3cnmdfdqGdhkN4+CqYMBJdSpD2rSA3+j5gwg4TsZF
+	 sOxKlmL2vTl1TqqX+U/Jux5Zl9XyKWyKS152dtnMuaApJi0hHK6ZJZjpp6WlO64xFnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830533;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
-	b=Pnl1xQmYwNjLq9bbcHUSKALJ3Myg2EInek9WeNkraxzDT9vL37CFcqLEb9CixJfo2V1Q
-	 15paNy/LQ7zCC7KYls0Jq4erG+KWI/4VzEd7E9GhxgGCG2z9VwGaTMwdE8Rmky2+pDKRY
-	 GSQmFD2BkDGP57JvNO8zprvyA8B+CU9iV2h8JhvO+P+dVa4umosCDpTefzoCWSsBaOis1
-	 fADIBcvrLTR5p8CDQXIKo0xiEZ8HG+Kud7EHmq83b+Yfzz8webvmw6nhBSBaRy4HYogP3
-	 uEzRRQUwB9MMiJrbOY0CtiHN4jV6FuuaLPLWqCMldbUickNqpyv2HsCObaW75vSMMcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
+	b=ebCcpkPwVwzyFACai/ZbDb6Gvy8COsmcFvHZfpl4qIzB/4Y/OjfrJ9unWv6cvMo9LPwD
+	 tDZdL5PwCH3Zbx47VZTTXJWzWgtFvJ2We3bB1ZzPQOtwVbhFFH2tA74ZuOZwvaHtfQHS7
+	 1ouOvkwRgnaFpEzOQgp/dTzXgw9JsUXUxndmRMSXB0VvNHTRyHmhHoWKGMxfsH+mjEhcK
+	 mx9j1D/vXvucz2GALInEe7QPQyPp5Qqco4KHNe5CreJK2c4Fr/obt5WDJ6jVAFnnu3wAH
+	 qdurDvHm4vXxT73SPd5H3iBNmDrB7NkuCIp6Y7rA/kPzYeysnLbKJC4uhumFJoos/Vw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nmzVZfCr;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRpSXZU1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BA6606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BA6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F85B606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F85B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nmzVZfCr
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91befbcad6dso26867926d6.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:26:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRpSXZU1
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f20b304c0so147612585a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:28:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792830527; cv=none;
+        d=google.com; s=arc-20260327;
+        b=frGwIS+jFnV45wkEhrp7y8FQKPOKbu0iTear8hOqW8lMBK+Z0KDns+vdC7tXCNkYwf
+         Ti9mRGCKGxJkEA5m90vdey8WjYbQKB3vQcc02p1UiCC7oMBzX9F9V7ws8IW3rOxP10A4
+         dFdvs60jvOuMeJuSBAXe6AU92u5OpeRt3TYG/3J4ROQWE2lwN4uPznR86Yi7CCZUlect
+         vei/+1tIKgUQyQRMnQwH7Izkc2mqrhmlr/pMJ7cSXeeVuoOFBYD8wRxrGU4K7/nq9C8C
+         Fdug1d/qRBALYLCNPXdu5OsUAdG5dSumLREWy592jkClFtFsOFIqZxj6LoK6upkOTX21
+         PAdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
+        fh=e9SPQEY7nBYRJgut+gayORKGHDEW2vsJI4AzorfCsbk=;
+        b=Mljr9FCt6UPWamK8EtEhmMVNiCv3ur6VRhyOw+6CYXCsGl9ZbUDfrQFP4ubXNW23aT
+         5pZvIpDKGKt9EiWUxy3WsV0O3ST2ZxD9u2jC8SMipn91eZwKVJx/cEw0sc6tUdSt0RA3
+         KfLwKrQ/kwLdFFFmu5jJLz/UHGe1Nrtw2h3MX98TlthBGO/SB0iwh6enHto+cq+lWur4
+         2IkEYn3eknD5W/VSRlkJAp1TEnh8v6hX3CVfzWgGpdTuYpiVQVb3toAtPe5t0u+8d3zI
+         B9OZuFDSfgGQBYNkhGlNtk3+fqfx5GcEZVROjiqPvS+5XMQSwerdk655DobryLxJePjX
+         NrWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792830399; x=1793435199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
-        b=nmzVZfCr2pXrL+EtREBKGcClpv1x2lS2Y/rofm90hyR/z7evX5Psds1zLlopJfUz4p
-         tjlvx3T3Rne8z2YtCs2lJCzhvtGbHZMxub50xoYEH4e5S6xHMAw1ZBgnjsxn9HeImhH4
-         PD/26m5I6Pu+g+Ga59CvKGWu2wvgOL16rc0F3Pwe9a2NHKel5LHhxUCENkkXc2s0iEAq
-         CxjbzbiwVtQrlL9RBX+Jq16TrCl+pYRWf0Uo+u++H0gMb411Rz5xymm7MY8Qmf0lXvtp
-         jOvz5pOX7m0sNIWI3XSaRPeT1B3ij17oGJcmaBEcuxhNpOaxn39K7aezx3MVzbWW5ag1
-         CBpw==
+        d=gmail.com; s=20251104; t=1792830527; x=1793435327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
+        b=pRpSXZU1yQT1y44daKHD3tUj3rHLXFVwuW/CQz8RSUdaCT6N4yQKBiyjJydRsWD0pW
+         g28B1qLz2bwONEtegXVtN3jQk8kTIBJnXEvdb61iXJ6GOmdcdJzzfWoGPXJ8Zc3AAkIs
+         WFhFWHFXD3GvhhjyB6SZ+UEZsDPVeUQXyFq7orv9RYQ4Ddy4yyleAD4+BKuksm118uF/
+         0FReZdmVzFujp+6kBucxhZu4Ep8MI33EAFpewip65G9SfZGmv5piy6+j36vFaM/mAdIu
+         19DXBjsISyvcXO6q06teRbNMfwFkw+dnbAyHZsBMvLQnln/PFxgnGeCCEnOQ1fHE+nej
+         2bPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792830399; x=1793435199;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
-        b=CKO6W/emFIEJnhncYErfV/k6b/DThIgjmhcjOmZuIAjQwTA9j0p5LWITu6KjqOgFuA
-         uP9VdbUKw+BjRUu1gWhiLdgGdzmQZjIIQHZqJTqPPP+09xET+fuhp2kaITMVlaTdWTSu
-         xnwOIVKduZnLD0wi4TR3giN2vQ1sWigM2OIqwsYeJU/sk1S/kJQvf8ZaT+WKXFSvmrQY
-         DAjgwnu8SU2wcLaAqLFPEm+uGZWGLbmfgVIg4XKSSXlugW94pSc8fxW0nYG1AucqCHgG
-         bR6twz3sCKAwFYL5rEoWl6NiD7FD4kamHWsGa3IUjqjUD8wp62FjP+M7qNMiQHgPzRpu
-         WAaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkCLF8n1YAYiRNe1DHBZ6uPpFwS/Y3eGEnMMz1YV3EUJvULl7ElUJ0zn9SgEyVPiXhn4NYVI3rmqStFWg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQAj6RToQFgmgrlOqbU/jpTP4xwIQdrmJXDN8ICmim+YZORYoi
-	5L0NOmvY4qiCT/k3pB/l/B26EadOgJUQZeLn1rliQAaOnwJEX8tqxBJpSQ/TfUS0GSU=
-X-Gm-Gg: AYBFou2MR+ZTjsqRnmcIF5uyjMe12d1tHK7nsYathGGV79OaijRNoNVgItyJtWwJmYq
-	RjWGeH0ddUwRgRLiFu40bdYAPxE8xL49/M5TJzZMsj+IZP4f8syVNW35bqCsfnyWLR0nOraqzUZ
-	VyS5TVk5DvIFHi2FIvQWk1Qqr0Yjx9grNho6bzI9MIvbNsYJIOksnrUJVfKSh3EhAJ0rWMMBeBg
-	o3+xqkBhMCRDJz5DoIGy1zGpINLYQbdm28mnKS7bj42ii3pSopQ0Tdh5YXF9kP61ScF+xBEY0Ym
-	iUoxFncOD+IS5TK0PnkzL5gz68OSwZtJbHzb2sy1scCJoBWSAtkA/kkQzeo88klYHuS3T7ilpJx
-	EV1rK2nCKvKmnooRisYLC8QcXlFCBqv/1Cq7lMS9THmNExGXzUXvi/4jFhmgw70EXlImDAkw29L
-	iKbC1GdMiYmZOL+ZiFWEmNH0mOspmlAYfwStVy0z1uUXbhzIE7US0454Mwc6POYRgxMkZsePf48
-	Q/e+3LtBasbj2OTS0ljj88Oc7+1DhJiV7q5bt2fmgdih9jt4xKLs05cTic78JXnmjq6i1/OqcQO
-	pwXyRg6VS/iOHweF81fRKXd81pDQWWgFxn/xEA==
-X-Received: by 2002:a05:6214:19c8:b0:91b:5d3b:7ab9 with SMTP id 6a1803df08f44-91c48ebcc1dmr22164846d6.53.1792830398964;
-        Sat, 24 Oct 2026 01:26:38 -0700 (PDT)
-Received: from [192.168.1.216] (static-acs-24-154-158-10.zoominternet.net. [24.154.158.10])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd5b65sm16066826d6.10.2026.10.24.01.26.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 01:26:38 -0700 (PDT)
-Message-ID: <2bcdce5d-aa6c-4789-ab50-68dad16127b1@gmail.com>
-Date: Sat, 24 Oct 2026 04:26:37 -0400
+        d=1e100.net; s=20260707; t=1792830527; x=1793435327;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
+        b=a7YriSY1M/Ia89siIW7iCQYhYXtiwFSjqqjG57o0oM1TU2FKw+I62DuR+ugiJa6M1i
+         sTmxVAw8vnGQkyIq/9AaHwoHbzLxRJFj6qCCRYBX+MuP46isPUrdYM2Tv+XLho2W6HZZ
+         4EPP7sVQZB1QO4s+95KRrn0mwbYuYIEu/2EL+gAjsn2xbqUNH2JAzXM80EUFN58nmD78
+         FFt5Db0w83BPWZp9S3QbX7Oscues4MmDZ52appX9UXIweuCNoQ5T1MiQdCg1V41fD4Rz
+         4PbXd4hRlJrsFNo7b86IcFvtVYcHQ3jM1Y+3poDPsMUGmg+/GQjrIvr2IPPLhgPn/GBL
+         i2Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5o5CUCA04aQZW/spXuzdxIwN53b3P+nEXX2ziKYq16T2Db5UiQMd4AyiD4rUhC8KauJadaCyc8KIZ9Cs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSvMlCvbFsyLo5sLanYcsEL6SqJrPGDacwA/jZM6AkKyUzZW08
+	wWeok/VGcBecyMWYSVxYAMqmGSLS2ky/617sscXTcOM3bDYgK0Aprf88CA30dJU9x/uH4v8KqLA
+	PCi+/4sbq88Ckk31JIrODJFvf1RYUSfA=
+X-Gm-Gg: AYBFou1CNw1DJnUKA3LmmLSg14UojC+jLeSSlFvIwcb/HDMHCPs18juFJdQHyKcK8tD
+	37urjNvDgEEkbUDRhPkAkYRodeJ6r4N8zfL18Klij/TFMZIx5/cerzxViIPAQgAyaiWiCwesFXj
+	KdlxFrvT/UmM25GiUtfp9hwXgyheuNhgmaidstj3QMJ4YTDF00XaVjPF7opFw9earknmc/EZrJo
+	yJwZGnIXnSYzT1iYRBsKuEXf66y++oCm/w96iuCQn5tyZ7jEtQPMux1n4XD/TVVkBlJf2WcehUP
+	xZzZ4AZ1l+4tjr22T9+rZdgP1wDTLUr8N7LzYsYEP1K8WEIs65fJgNsvDCRDTg5hrAXNuGa2gDO
+	N5s/kEVhhv3U1JdWFZ9X/YY9oXLoajSPqZ40PJ7PsZbO1f6BlHXpGVukcLj7jAJfcNmLCXHnvll
+	W74+YqPyN1u+WHkr6ZvoZrwBs83es+5VgHiZmLPoXdBYFYSitHF8yb56J8zZi4M7IpTx910Lh9V
+	xou5yMrp3KfDHWkf9c=
+X-Received: by 2002:a05:620a:2a03:b0:93e:c12c:9dc6 with SMTP id
+ af79cd13be357-940ef9c39f3mr186553985a.70.1792830527402; Sat, 24 Oct 2026
+ 01:28:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,43 +106,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix speaker dropouts on MSI GE66
- Raider 11UE
-To: Andrew Udvare <audvare@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909193104.26508-1-audvare@gmail.com>
-Content-Language: en-US
-From: Benjamin Pryor <programmer2514@gmail.com>
-In-Reply-To: <20260909193104.26508-1-audvare@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261017065012.3063980-1-austin.linux@gmail.com> <n59f1S6wQICe5ZxgcNxb3w@nvidia.com>
+In-Reply-To: <n59f1S6wQICe5ZxgcNxb3w@nvidia.com>
+From: Austin Schuh <austin.linux@gmail.com>
+Date: Sat, 24 Oct 2026 01:28:36 -0700
+X-Gm-Features: AclHuK_tinEg57N73i4__wGq3AIgvdQZH-j58Q4vGTYODbuD3w6t9rMnKMeodvE
+Message-ID: <CABsbf=Gvd8NGG=yafF5La-pW77QOMAXYkoyWU9y4-B8S2_0Ong@mail.gmail.com>
+Subject: Re: [PATCH] firmware: tegra: bpmp: populate debugfs in the background
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, anrao@nvidia.com, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Add a fixup that programs the amplifier's initialisation sequence at codec
-> init, which turns silence detection off.
+On Fri, Oct 23, 2026 at 1:16=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia.=
+com> wrote:
+> Sashiko reports some hard to trigger but worth checking concurrency
+> issues.
 
-This fixup should apply to device ID 1462:1305 as well, since it uses
-the exact same coefficients as 1462:12fb and suffers from the same
-silence detection cutoffs.
+I couldn't find Sashiko's report, so I went looking myself and found
+two, both fixed in v2:
 
-See: https://github.com/thesofproject/sof/issues/10475#issuecomment-6380540623
+ - The work could run across a system suspend.  Once suspend_noirq sets
+   bpmp->suspended, its requests fail with -EAGAIN, and the error path
+   removes the whole mirror.  v2 queues it on system_freezable_wq, so
+   suspend waits for it.
 
-Best,
-Ben Pryor
+ - With more than one BPMP, the populations used to run one after the
+   other in their probes, and now run at once.  One failing could remove
+   the shared root while the other was creating its directory in it.  v2
+   holds bpmp_debugfs_root_lock across the whole population.
 
----
-diff -u alc269-old.c alc269.c
+If you've got a link to Sashiko's report, that would be wonderful.
 
---- alc269-old.c	2026-10-24 04:14:40.174188675 -0400
-+++ alc269.c	2026-10-24 04:14:28.725047392 -0400
-@@ -7593,6 +7593,7 @@
-  	SND_PCI_QUIRK(0x1458, 0x900e, "Gigabyte G5 KF5 (2023)", ALC2XX_FIXUP_HEADSET_MIC),
-  	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
-  	SND_PCI_QUIRK(0x1462, 0x12fb, "MSI GE66 Raider 11UE", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
-+	SND_PCI_QUIRK(0x1462, 0x1305, "MSI GE76 Raider 11UG", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
-  	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
-  	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
-  	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
----
+> This does seem a good idea, but I am a bit concerned about the change to
+> what userspace sees. Ideally we'd be able to have userspace stall if the
+> debugfs population was still in progress. If that's not possible, at the
+> very least userspace should have a way to voluntarily wait for the full
+> debugfs to be available.
 
+debugfs has no way to stall a lookup, so v2 fills the mirror in as
+.debug-populating and renames it to debug once it is complete.
+Userspace either finds no debug directory or a complete one, and can
+wait for it by waiting for debug to appear: polling, or inotify on the
+parent, since the rename sends IN_MOVED_TO.  On the Orin Nano the rename
+lands about 1.3 seconds after the initramfs starts, and before systemd
+starts on the root filesystem.
+
+If you'd rather have something explicit as well, I can add a file in
+bpmp/ whose read blocks until population is done and returns its result.
+
+> Just inline the work_struct inside tegra_bpmp. In any case the work
+> should be synchronously cancelled if the bpmp driver instance is going
+> to go away (not that that will happen, but good practice).
+
+Done in v2: the work_struct is in struct tegra_bpmp, and a devm action
+calls cancel_work_sync().
+
+Thanks for the review!
+
+Austin
