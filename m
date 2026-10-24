@@ -1,50 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=147.102.3.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792841219;
-	b=DHqwZHZXRjWhyR7bCXSwr1gIuOP0atgnrPBLIycMKUIs9099EAI5MP6VReKg55AyT1gb
-	 MMnhKxcCQ7KVx7COuU4ocjAkya0lJN6uiRd/ha60GHnZMasueIGO+9ZP6cGvqEsQGUZ8a
-	 rP3qH765aa4IlD1bZm0acHVzJ7+OxJB5YhX2w8kkrer11bgFvCR5GiZe8KNXZ/qqLEK/Q
-	 Ri3ZlF5f8qHPCZH4Yh3KgZRVAKNVm+6y0WdCEAq87IoKLa9ODpgz6rFuIFfzbhL10CVD2
-	 2tpbvq7Xw1H3fmSpc9wLiQz36AlYQ+X6lKJnfqqgkVBHK7w2104uUqQMtS/T/VlgRPg==
+	t=1792841391;
+	b=NG+ntnoCYRb+nSYe0wGy0fupOVuAlLImahJnIdwEqUHvTuVJd2KxDryLngtqHK6dH3Ke
+	 Yp5Umhxv0wu25YjC4ZvZaFSMBoqBE9AdvFOhX/O3fakvAyLMdvhIWIjgha+OOZvx/qCOV
+	 yCkybpoHFLFnjZk68hhpAO3muqf2z0zqXGhcCD8q0730yQDkerxPWNM9MBOusZhHQvu6R
+	 2JEI1q/Q2EdUBJQ08Xx9DqLGP4SIl9swQBILprzSk+n0Ecd3dDXNpZp7g7lo59xF5VoEK
+	 /zxIExC5aK67C7g+tbLOdqoCZ/YgFiqVriuO59nylIbUD+3waFZuRksmKrD7GXuqF3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792841219;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SODtelJKNz5lpKljfUqqvtwJpgZo4GIqzSkNOmKgNxM=;
-	b=xd3siaw8YyWm7DsEjTBqN9TWynP16HhduyeABck0HZlBdVtMPj/SVE0IPVXhUs0Y4CVY
-	 O1c9GRqMjneiFbKaJZN9Is+Jz5uEg3+c+kDoCWSnjCAVvv+PLangtyoL+eNexkQk7QmtC
-	 FDmFvtSa6sRg1xgA3sByH9NOgzS+d74Xl9kJjKzXyW153rhKFPLISV/wSOFOoo5gLmbmP
-	 zzhNjiOe+gTx5BQlGOeEqxTzbCZ+ytW7YLJQaYQas3fuyOgWeNp5DKguNeaYv9PhdRgqM
-	 J2tlN69jdgWk+1EgsJOBUNtI4jFwP3kVluir4RZsFt7lvFqDcdzIlbsw731QAnZMQnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792841391;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HHrPvvB7UUqd1RCXud0IPNgMqze5S1MFspwatvlUBew=;
+	b=huneFzT+fx6JkKsAZ9RRo+H1A50sD6jux3ohIwif6hpiaYrZHiUtlCzhxJlmy6PUVgvS
+	 y1NiLITlUH8aMIZYj9Kvd3+OmjOyLgzmOgcJ/lfyW6S33nCLRB7uL/aXkVsEtihGwe0rB
+	 /JgA8upEMLcj5ZIb0mTeuof2xiBeaA6nC7Y95DZ/CER+mLSGj6fkLelK0DzdJLNG4TmlB
+	 hvRkpilboCAZJpMe73rqJ83az6TqRKuz7J8Bg47UMqF62E5jqtC0I2GzSmdt96tnx/VSN
+	 6svNDZU9vyod2x3j/NMEpAQNJkryUEBZirKwp4VQ4C7ix5/Vojix639R6Y+eLLvP3Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cslab.ece.ntua.gr;
-	spf=pass smtp.mailfrom=cslab.ece.ntua.gr;
-	dkim=pass header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.a=rsa-sha256 header.s=smtp-cslab header.b=gyDtI9+1;
-	arc=none smtp.remote-ip=147.102.3.1
-Received: from danaos.cslab.ece.ntua.gr (danaos.cslab.ece.ntua.gr [147.102.3.1])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Q1XJyn97;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=+NkJhs8G;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B414606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B414606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0438606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0438606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.a=rsa-sha256 header.s=smtp-cslab header.b=gyDtI9+1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cslab.ece.ntua.gr;
-	s=smtp-cslab; t=1792841208;
-	bh=XjHt8HPKu1fEim6ZRYfiWk1ofwZMfFScMlz9vo5EbY4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gyDtI9+16mLjv1PQsjT5HoEL5XLArVqapqmrFV1EDs/QfMs1JEn96Do6DCOEKLo3N
-	 KZUfGWVDMKq5Si/WwdWqz1m0Bq7aYWM0pwu2KnBnGGYAhU6AoREGgtEe/N6gP1t2E7
-	 3NXU3enzXJEIVh9QBotS94Kk+aJJlxEuC+f9I6C4=
-Received: from [192.168.1.5] (130.43.37.55.dsl.dyn.forthnet.gr [130.43.37.55])
-	by danaos.cslab.ece.ntua.gr (Postfix) with ESMTPSA id 182FE120040;
-	Sat, 24 Oct 2026 14:26:48 +0300 (EEST)
-Message-ID: <5c05a17b-167e-4379-82f0-dbdff783d050@cslab.ece.ntua.gr>
-Date: Sat, 24 Oct 2026 14:26:47 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Q1XJyn97;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=+NkJhs8G
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792841360; bh=HHrPvvB7UUqd1RCXud0IPNg
+	Mqze5S1MFspwatvlUBew=; b=Q1XJyn978adN7xTDUfC+iECj0Y1aI7QH1WIAdV8bF2l9n+7rS+
+	JBFaAq+AXlemvQRcxWZkq6Ye6ctSvTjc56d00icACMdRSVzTnF2JcRbIVuNJSPHqGBLORvGAnHq
+	FOsXTuNSZnknbqIl+sUI37tRuwUDww7Jf+yUdrF+phFpY3fWcLmN/Jp2BiF6+hsdYBa78c/QpYp
+	mbYLSNjjDKeSdVUqlUNAlH8LYHQWLPg+U3nm0jfBz62Z24jeeHp6rm1AkGt74/BWDG2D0e6Yt9s
+	AvI4w8L1xnKliTa9LEexntP1XCFweM6Gk23XRmAdb7MFQNqFYzAvoKmwaSclTmMLlqw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792841360; bh=HHrPvvB7UUqd1RCXud0IPNg
+	Mqze5S1MFspwatvlUBew=; b=+NkJhs8GF19SlXrI5gw6M+wz23Mbx6NfsenTkHPqKtjmyJ6IXO
+	86wGisODr65zPE7BKJ7DFUBhtXyMRHfG4wDA==;
+Date: Sat, 24 Oct 2026 12:29:20 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: nickolai@csail.mit.edu
+CC: akpm@linux-foundation.org, linux-kernel@vger.kernel.org, pmladek@suse.com,
+ rioo.tsukatsukii@gmail.com
+Subject: Re: [PATCH v1] panic: zero the dynamically allocated taint buffer
+In-Reply-To: <20261024020153.830459-1-nickolai@csail.mit.edu>
+Message-ID: <B31973BB-607F-4332-AB43-76EA9CACA524@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,97 +63,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] test_maple_tree: test maple_range_64 node in RCU
- mode
-To: Florian Schmaus <florian.schmaus@codasip.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>,
- Andrew Ballance <andrewjballance@gmail.com>,
- Suren Baghdasaryan <surenb@google.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- maple-tree@lists.infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261005-fix-maple-tree-range64-rcu-v3-0-ebe7fb278e20@cslab.ece.ntua.gr>
- <20261005-fix-maple-tree-range64-rcu-v3-2-ebe7fb278e20@cslab.ece.ntua.gr>
- <179276488829.1655926.9998832837982828676.b4-review@b4>
-Content-Language: en-US
-From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-In-Reply-To: <179276488829.1655926.9998832837982828676.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-
-On 10/23/26 17:14, Florian Schmaus wrote:
->> This commit adds a test that builds two maple_range_64 trees in RCU
->> mode.  The first tree has a root that is a full maple_range_64 node and
->> ensures that the destruction under RCU does not misinterpret the last
->> slot as metadata. 226 insertions produce such a root on a 64-bit build.
->>
->> The second tree is a height 3 tree whose root holds 15 child pointers
->> and metadata in its last slot, so every slot is non-zero and ensures
->> that the destruction under RCU does not descend into the metadata slot.
->> 3166 insertions produce such a tree on a 64-bit build.
->>
->> Signed-off-by: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
->>
->> diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
->> index b9367c61e8b5..fb40e193a3cb 100644
->> --- a/lib/test_maple_tree.c
->> +++ b/lib/test_maple_tree.c
->> @@ -3710,6 +3710,36 @@ static noinline void __init alloc_cyclic_testing(struct maple_tree *mt)
->>   	MT_BUG_ON(mt, ret != 1);
->>   }
->>   
->> +static noinline void __init check_range64_in_rcu(struct maple_tree *mt)
->> +{
->> +	unsigned long i;
->> +	unsigned long nr_entries = 226; /* Build a full maple_range_64 root node */
->> +
->> +	MT_BUG_ON(mt, !mtree_empty(mt));
->> +	mt_init_flags(mt, MT_FLAGS_USE_RCU);
->> +
->> +	for (i = 0; i < nr_entries; i++) {
->> +		MT_BUG_ON(mt, mtree_test_insert_range(mt, i*10, i*10 + 9,
->> +						      xa_mk_value(i)));
->> +	}
->> +
->> +	mtree_destroy(mt);
->> +	rcu_barrier();
->> +
->> +	nr_entries = 3166; /* Height 3. Root has 15 children + metadata */
->> +
->> +	MT_BUG_ON(mt, !mtree_empty(mt));
->> +	mt_init_flags(mt, MT_FLAGS_USE_RCU);
->> +
->> +	for (i = 0; i < nr_entries; i++) {
->> +		MT_BUG_ON(mt, mtree_test_insert_range(mt, i*10, i*10 + 9,
->> +						      xa_mk_value(i)));
->> +	}
->> +
->> +	mtree_destroy(mt);
->> +	rcu_barrier();
-> This case passes on an unfixed kernel.
+On 24 October 2026 03:01:52 BST, Nickolai Zeldovich
+<nickolai@csail.mit.edu> wrote:
+>A %s read of print_tainted()'s string can run past the end of the taint
+>buffer while another CPU rebuilds a longer string in it, reading slab
+>memory out of bounds into the kernel log (a KASAN slab-out-of-bounds
+>report at taint_buf + size). A warning or an unhandled-signal dump on
+>another CPU reaches print_tainted() through dump_stack_print_info().
 >
-> The bug that exists today requires a non-root node with 15 children and a
-> tree of height 4. The size-2768 test case in my series covers that. You can
-> find my test at
+>alloc_taint_buf() sizes the buffer for the longest taint string and
+>allocates it with kmalloc(), so the bytes past that string are never
+>written and the object holds no permanent NUL terminator. _print_tainted()
+>rebuilds the string in place without locking and writes the terminator
+>last, so a reader that overtakes a writer extending the string past the
+>previous high-water mark finds no terminator inside the object and walks
+>off its end. print_tainted()'s kernel-doc promises the string is "always
+>NULL terminated", a guarantee the previous zero-filled static buffer kept.
 >
-> https://lore.kernel.org/all/20261015-maple-tree-fix-slab-corruption-v1-3-160d97f7304c@codasip.com/
+>Allocate the buffer with kzalloc() so its trailing bytes stay NUL and
+>every reader stops inside the object.
 >
-> and may fold it into your check_range64_in_rcu(). It fails without your (or
-> my) fix and succeed with.
-Hi Florian!
+>Reproduced on QEMU riscv64 under KASAN by growing the taint set while
+>processes took unhandled-signal dumps on several CPUs: the unpatched
+>kernel reports a slab-out-of-bounds read at taint_buf + size, the patched
+>one is clean.
+>
+>Fixes: a9dff0d0d11c ("kernel/panic: allocate taint string buffer dynamically")
 
-KASAN catches the invalid pointer access in the first tested tree on
-an unmodified kernel. The second test guards against the cause of the
-second bug: a node (at least) two levels above the leaves with exactly
-15 valid child pointers.
+Hi, let's review this code
 
-That being said, I do think that covering the case where this is an
-intermediate node has its own value. After all, more testing is never
-bad :-).  Feel free to send / extend the test. Since it exercises the
-same underlying issue, extending check_range64_in_rcu() seems like
-the right place to me.
+>Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+>---
+>
+>Notes:
+>    This is a race on the shared taint_buf: the fix removes the memory-safety
+>    consequence (a buffer with no terminator inside it), but two concurrent
+>    callers can still garble each other's "Tainted:" string. That is accepted
+>    behaviour -- print_tainted()'s kernel-doc already says the string is
+>    overwritten by the next call.
+>    
+>    taint_buf and taint_buf_size are published by plain stores in
+>    alloc_taint_buf(). A hart racing the postcore_initcall could in principle
+>    see the new pointer before the kzalloc'd contents, or see the torn
+>    (pointer, size) pair; both are harmless now (every writer stops within the
+>    smaller bound and the object is zeroed), so this patch does not add an
+>    smp_store_release(). It can be added if that boot-time window is ever
+>    tightened.
+>    
+>    Reproduced under KASAN on QEMU riscv64 (-cpu max -smp 4, slub_debug=P). The
+>    window between the body and the terminating NUL in _print_tainted() is
+>    narrow, so to hit it on demand a test-only mdelay() was inserted there (it
+>    is not part of the patch). As root, grow the taint set while several
+>    processes take unhandled-signal dumps on different CPUs:
+>    
+>    Reproducer (needs CONFIG_KASAN and a test-only mdelay() in _print_tainted()):
+>    
+>      #define _GNU_SOURCE
+>      #include <fcntl.h>
+>      #include <sched.h>
+>      #include <string.h>
+>      #include <unistd.h>
+>      #include <stdint.h>
+>      #include <sys/wait.h>
+>    
+>      static void grow_taint(void)
+>      {
+>      	int fd = open("/proc/sys/kernel/tainted", O_WRONLY);
+>      	if (fd >= 0) { write(fd, "2097151\n", 8); close(fd); }
+>      }
+>    
+>      static void crasher(int cpu)
+>      {
+>      	cpu_set_t s; CPU_ZERO(&s); CPU_SET(cpu, &s);
+>      	sched_setaffinity(0, sizeof(s), &s);
+>      	for (;;) {
+>      		if (fork() == 0) {
+>      			*(volatile long *)(uintptr_t)0xdeadbeef000UL = 1; /* SIGSEGV */
+>      			_exit(0);
+>      		}
+>      		wait(0);
+>      	}
+>      }
+>    
+>      int main(void)
+>      {
+>      	long n = sysconf(_SC_NPROCESSORS_ONLN);
+>      	grow_taint();
+>      	for (long i = 0; i < n; i++)
+>      		if (fork() == 0) { crasher(i); _exit(0); }
+>      	for (int k = 0; k < 120; k++) { grow_taint(); usleep(50000); }
+>      	return 0;
+>      }
+>    
+>    Unpatched: a flood of
+>    
+>      BUG: KASAN: slab-out-of-bounds in string+0x..
+>      Read of size 1 ... 0 bytes to the right of the 347-byte region
+>      allocated by alloc_taint_buf(), from dump_stack_print_info() ->
+>      vsnprintf() in a do_trap() dump.
+>    
+>    Patched: the same dumps run, no KASAN report.
+>
+>    Developed with the assistance of an LLM.
 
-Dimitris
+Thanx for the declaration.
+
+>    
+> kernel/panic.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/kernel/panic.c b/kernel/panic.c
+>index a4dbb6b8cd2bf..f23f6bc38ab41 100644
+>--- a/kernel/panic.c
+>+++ b/kernel/panic.c
+>@@ -886,7 +886,7 @@ static __init int alloc_taint_buf(void)
+> 
+> 	size += 1; /* For NULL terminator */
+> 
+>-	buf = kmalloc(size, GFP_KERNEL);
+>+	buf = kzalloc(size, GFP_KERNEL);
+
+yeah, makes sense. Thanks for fixing the bug.
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+Andrew: Perhaps wait for Petrs opinion on this patch too?
+
+> 
+> 	if (!buf) {
+> 		panic("Failed to allocate taint string buffer");
+>
+>base-commit: 26344c0dd32af8790d8474d233619db825441138
+>
+
+--- Thanks!
