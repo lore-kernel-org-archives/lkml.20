@@ -1,60 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792808933;
-	b=lmShpk5NAtefTLrNbXFvidWnqw0fafPvwdch4HQz0aO5rVZnD/EonvHvYexsQ5m5Wi1Q
-	 BBjAtcsVRofduPusH+ENxcB880mUPpnrD4EI2Ann8t78YeoMyPqHIBxczQ2/2qe0JRAAn
-	 FMvd/5RH6q/KFi18SoEw5GlnCvAuNSuDs/JkUN95XQuwpuuuNVlbd0auw6kmcXg3ZPSBU
-	 aQF1zOQtGFipNigNUZY5gvdibL4Q4QWcfbo5cXAc5HOcdz45ENsCi4W6Bu8Sw9Y8T5Owl
-	 +RCn4XRyZlYNs1R3UOXJvaFof+R5ORefeP5LxG3mg8xG5GMGO80UOm4V+SDBDA5oVpw==
+	t=1792808986;
+	b=kng8z866dqwAC3pheboBKXct5J/GeDc3pPs422HVE/QUeMb89kx+ss29u+ql1pOavMYE
+	 vFLYHz2uZtPnyeftUJtras4UJRrKP1ZNp5sdIimDp1c01kJIdpNNN4BLHFN5XdZmzZQ21
+	 88L3ceOJKkx3WA3XOej5lAJ4i/GNuq2Focr7Jod1Bvoj155Q+nkVjAbIXWIfG/Zu/nHa+
+	 XdfrmW0sd3PW/PJi5vW1JqrCoMnMYSXVG9rGUCZh4qhYLRt3s3g8v3fkBIfXpCHTUGnvx
+	 nvpVkMqnhQzw5FtTYvC3HaRaJOXzUmrmh4IYLmXoBVmRnuTwxqiDxLIwu/6WBd/tVfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792808933;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jDykHkr6tOhRuUWTmpi5zfGasj4fVNM/1U6BQikHSBI=;
-	b=GaMAhusLNSu0HKylIjPes2xxrNl9n/cVK/wEy/DAuW9LITdQ2pljo22EvClzydXRue5p
-	 bSvwc5hIjyBbC2eQY3lkQCKC2kbmwHdCdjardzpik1EoAMHoUpTIUbsSByUbRGWvNxncX
-	 flvSwbolLDkf19MGUsP5mr4n//bAJ0CK/9BTbElgBDSnnzCGRnUV0Ybuzew3cuohMjOBf
-	 N/bA2fmnNjw21Np5vGgY8FC1Y/Cp7i+pLmYndmji97EXj+FLVqyQKHYnQWB1hUCqL54ax
-	 Rff1nlA2MknsQI8jcZiem/u4eZ2zKZKPMJwBe7lQLpm9HgI8BoyE+7kVeh0R3RwE4tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792808986;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=v818dsjJiTLRVDVSMrkwVlVa2f76W/AoAfUq24SdAxw=;
+	b=s4qTjJ6gbRHYmOXLA8wiuJmiLVHyza8whOwSfBX0KBCy2PCXvxor0BXAu4RSgc9aLE2U
+	 tZEWEnE/dNuaJL5u9LCbX+zs6fIaoWu+GPV+ltWhDX6ybjJvSIcfwDAfgPZf21qZ0UInD
+	 y5uUBI95JifDL8nwoi7THKY3h4C38T6iakW/YXcDoEYbK5PxkyWgi9t6E56nKxZXXRIsv
+	 eLu0Jqd9qYhgr63TiWbSbZuXg3oeC0w9w3AFzXtyZGoTEjFdbnKSOTLxvc6XRycS9q1ml
+	 D+MPesBif0AvY09SyNKefzz0o3uWv/8/7IPjj3R8qYL+VA27yZYHZBXQ+qUUB2V04GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JcaI0f+B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=lJ5Tks0A;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431D6606A31A;
-	Sat, 24 Oct 2026 02:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36343606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36343606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JcaI0f+B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03AD21F01825;
-	Sat, 24 Oct 2026 02:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792808932;
-	bh=jDykHkr6tOhRuUWTmpi5zfGasj4fVNM/1U6BQikHSBI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JcaI0f+B/E91v0gnvoY3Jw+JahkcOmJ+e73lvrzMxD9/8PnKq8iQXuFYnDtnuPSst
-	 vj/GFPYotKWRv9OGA87pEZ+iQ+fKw+5XBMSrHHNV/hWHzEfBLKW5PNPSGfmv55rT6b
-	 xdrzWB2Kq/mFLxMEhqr9+MJzEc4cFBZF1F85JemP6m56/HpOyhO8giBYRFxXiCNLpv
-	 FcpGQdc/RfVqSi/c9CZzbHToGk9JzKp0nqR9M3eMxdGBIBNQmgOk9fmoGzhnlG0P8d
-	 gA0HvWBC1BO/Np9HfayFFWGcPRoYPdMUIRLSafJSzRkKG1rwEcKEKrmasCluTalsZQ
-	 V4kqrs+udTkmw==
-Date: Sat, 24 Oct 2026 03:28:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <20261024032844.0d6210d9@jic23-hlaptop>
-In-Reply-To: <SN1PR12MB25283EB260FD897BFE29C603A5632@SN1PR12MB2528.namprd12.prod.outlook.com>
-References: <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<SN1PR12MB25288BF227D6555AEE60DF73A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<20261023040143.2e7043bc@jic23-hlaptop>
-	<SN1PR12MB25283EB260FD897BFE29C603A5632@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=lJ5Tks0A
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 6749240140
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792808982;
+	bh=v818dsjJiTLRVDVSMrkwVlVa2f76W/AoAfUq24SdAxw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+	b=lJ5Tks0AYuet+rHv0CrgeqCerTEfhwgyq7HQbwl2nH+agPzTiUePzG7WwoeaPFK2b
+	 /bYO4WPXQk0bDJPJ/GLcAU8KiNC+IIQJ2NlEnKzQGxOkpSoWs6NtqASQuNqds+6/AY
+	 pg3ENswPnidMov72/QAkshrSTNdKf2OTnCmwdF76EfhcUDHlVh1ARbdXid5051mN+A
+	 JoUKVQzOQTZKgb5iWPGyCJykNCAKhBFJRXqYOBUdywDkwg3Fma7iiuw64L2y2Tl29I
+	 Ns7JMiYUGomFdpeAgVaDWddmdniAnsMIwv0EJz91raCEmloCed4OCLBomMlfZBWq+z
+	 l3em1lewXpbsBF3FF4NdDp99DGAnWhIKLbMNNZj17sN8OkkH3nBl4UD1g5DFHVCvya
+	 uiB/oiMcmJMaC/bs2vNLQrcfGKXLdlO43e/EXd1RyI6RsRkdTvYWM5C6kXiJzWjyDu
+	 gwpOfIwXdGpMs1c6o+Un/mvO0Z8ykonnUUAV2cyfge94tPnGH1J/TBr91irhoNdZdG
+	 osqX6ixc1IYZJNdU/rJ5T/Oj+nfXidoSDg3u0/xVPCN/ZF0KTR4hsFvmd6/kizUAKi
+	 Q8gQBTmJiIQsCLt0Xun+XE0sqQb8XLXI8QU5fgObRfOhhINgVwLfWgf2mZy3CTCGdH
+	 +1Ov2gDH3GSaF7OKz+FS0Evk=
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac94f8df66so348738a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:29:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792808981; x=1793413781;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v818dsjJiTLRVDVSMrkwVlVa2f76W/AoAfUq24SdAxw=;
+        b=jOVo095/M5SudrTE6pq3gzPttrQWRCjEkqVL5+zXubffRl9RWC1TyA9jMRpUMmbX6B
+         c6fBQyncz8mcBJbR9kbdESwQrRC18tGOmU27Q7SxivRQGbNOmfjs46vt9NBeh9OwPSZG
+         RL3Ju7+imrQJyuilGSIyJP4g3uteyzkYg4r+Hb1529c/zYSqd0FiHVQb55renQ+SDZCn
+         p2nKvmQ7gA2EB0pzad00wx4b42oSAgWr3WSZspOCkqYfbhxuqZxpgjdpJUfhSOYmZfgP
+         H+EaBudUNKdvFw82nuXI3m5f5iYz3e95oOSUOfBAgctXHmaQXLzWc9QuWWmnAPPNOnLl
+         bHKg==
+X-Gm-Message-State: AFq9FYLQnLMlzhb9K+5UF51UqA8AQ0+0hcPPePVY1xohE0xky5wyERG/
+	teu2Yj+GY56CLRwYEcQovfZIOoqqOJ4f+POLh87jwVDujHX5i9C2lbKoIaNXu4XFEm6n6kCBwur
+	z/ry4T5G21VvU47AvTJWKMt41Obpk5qJVtO7ga3QO2IxMGpNJwrdHr01uZws0h6wQezRJfwiAnj
+	n6eoTl+Q==
+X-Gm-Gg: AYBFou2Eu9D/JTTE7F50eN0Yfq0lOkoT2w32MBPWR6T5IkDIbZ0NGSUIn4Fa+XE62eK
+	lgWNAbCC/3/I3Av3nIIlnPxALP/TU4azZi1+2/BVBK4FXCjgxW6S09K3jxshJpiZy17GIFyDBiU
+	YXYE2BYDQ8ZCTqSotafIRDyrD5WDC9xwV0UqD/YhzLz0b7mY6JkLiVDqJ8l+etx5fqa1OCCVBXl
+	mn42X1lsFVw31yV4a7xp8M0TLzcsCdnh0wP3/INUb03ASwGYgqoBD5dhG0tGANJE7ZGepGq0Gae
+	sPrmn15ScG7825nomwdhZDcdaT1BG7mOzFntRmZxlW+9+x79B6QLWDHYdJokSK37tRGX8Wjl53m
+	2vcFTlOJ+RzwJpjyr1cw3yO0fhT5/jv/9lNGbN6QFAQUMkSPj0phWHTLCE6y1qslBAUYHcfsFgC
+	yD2aJcN3L8PmgaEcCqoAwee5lrIOVd+ik8oGaf/V95oabHu+BO8WjS9HUN0HCT0FoRl5nASwHLN
+	Z1ToaW/dWn0gEijb76Flh1MhggNBrDNRSXJm71Mpy4=
+X-Received: by 2002:a17:90b:2645:b0:3a6:e61f:749d with SMTP id 98e67ed59e1d1-3ade9b2ce6bmr1498311a91.1.1792808980720;
+        Fri, 23 Oct 2026 19:29:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:2645:b0:3a6:e61f:749d with SMTP id 98e67ed59e1d1-3ade9b2ce6bmr1498293a91.1.1792808980286;
+        Fri, 23 Oct 2026 19:29:40 -0700 (PDT)
+Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-9c57-136b-f73a-3698.dynamic-ip6.hinet.net. [2001:b011:2008:445c:9c57:136b:f73a:3698])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb75254sm587341a91.4.2026.10.23.19.29.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 19:29:39 -0700 (PDT)
+From: ChunAn Wu <an.wu@canonical.com>
+To: linux-serial@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	markus.probst@posteo.de,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mpearson-lenovo@squebb.ca,
+	derekjohn.clark@gmail.com
+Subject: [PATCH v4 0/3] serdev: handle devices without an ACPI or device tree node
+Date: Sat, 24 Oct 2026 10:29:27 +0800
+Message-Id: <20261024022930.2704030-1-an.wu@canonical.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,90 +113,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 00:13:08 +0000
-Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
+Driver-created serdev clients without an ACPI companion or device tree
+node currently have no modalias and cannot be matched to a driver:
+their modalias sysfs read returns -ENODEV and their creators force a
+bind with device_driver_attach().
 
-> Anything I don't reply to I've addressed in v2.
-> 
-> 
-> > Given offset is applied prior to scale. Is this in appropriate
-> > units?  I'm not following that description.  
-> 
-> I believe the units are correct, but I've changed the wording so
-> it's hopefully more clear what's going on.
-> 
-> > common convention to add the error condition to the exit one rather than do it
-> > in here.  Then check ret after the exit from teh poll.
-> > Tends to give nice code to read.  
-> 
-> I think I understand the change you want, but please check v2 to make sure.
-> 
-> > For a capacitance channel I'm going to guess that expectation is
-> > wiring is such that only a subset of channels matter for a given
-> > configuration?  It may be more user friendly to put that in
-> > dt (see how we do it in adc/adc.yaml for instance).  
-> 
-> Does it buy us much to not expose disconnected channels? Whatever code is
-> reading from the sensor presumably has knowledge of the configuration
-> anyway (otherwise, how would it know what "channel 1" even represents?), so
-> does it need to be protected from reading the disconnected channels?
-> 
+Backlight function on dell-uart-backlight is not affected: that class
+device is registered independently and gets its own add uevent. The
+user-visible breakage is the failing modalias read on an existing
+serdev child -- Checkbox dkms_info_attachment aborts with
+"OSError: [Errno 19] No such device".
 
-That was the argument behind exposing all channels in early drivers like
-the max1363.  In general it seems to be more convenient to limit
-to what makes sense, but it isn't an ABI requirement so if you prefer
-it like this fair enough.
+Resolve the two long-standing serdev-core TODOs by letting the creator
+pass a modalias to serdev_device_add() and giving the serdev driver an
+id_table, modelled on the SPI bus. ACPI and OF match first and are
+unchanged. Convert dell-uart-backlight and the Lenovo Yoga Tab 2 Pro
+fastcharger to this path and drop their force-attach workarounds.
 
-> > Interesting that you have these only for the single ends.  I guess they
-> > are tweaks on the analog side?  
-> 
-> Well, the sensor doesn't allow you to set calibration values on
-> a differential channel, only separately on the two channels involved.
-> 
-> > Putting that aside, the base unit of capacitance in the ABI
-> > is a nano farad. The part is documented at 0.5 femto farad
-> > resolution so I'd kind of expect a scale of only 0.5e-6.
-> >
-> > Perhaps the issue here is desire for a very high degree of
-> > precision on the scale factors?  I don't mind that if it
-> > is useful but with a documented 0.2% gain error I'm not
-> > sure it is.  For next version add some reasoning for
-> > why such high precision is useful.
-> >
-> > We frequently round scale factors as often they are swamped
-> > by error / noise.  Perhaps that doesn't apply here.  
-> 
-> I think you're right that in this case the extra precision doesn't really
-> make a practical difference, but does it hurt? We have to use *some* unit,
-> so why not just use one that doesn't introduce rounding? To me, that seems
-> like the default choice. It's rounding that I would expect to require
-> special justification (like what you're doing by citing the resolution and
-> error values).
-> 
-> Even if we decide that a given amount of rounding is okay for *this*
-> sensor, imagine TI releases a new one that's a drop-in replacement but
-> with better precision. We can't be sure that the rounding is still okay
-> for this new sensor, unless we don't do any rounding in the first place.
+Changes in v4:
+- Patch 1: drop the dead is_serdev_device() guard from the match
+  callback, and dereference serdev once at the top
+- Patch 1: drop the "large enough" comment on SERDEV_NAME_SIZE
+- Patch 1: in struct serdev_device_driver, place id_table right under
+  driver, next to driver->of_match_table and driver->acpi_match_table
+- Patch 1: merge serdev_device_set_modalias() into serdev_device_add()
+  so the modalias is set at the only point where forgetting it would
+  matter; internal firmware callers pass NULL
+- All three patches: tightened commit messages and moved the v2/v3
+  changelog narrative out of Patch 1 into this cover letter
 
-There are sensors with that sort of level of precision, I'm just not
-convinced they are ever going to get there for capacitance sensors.
+Changes in v3:
+- Rename struct serdev_device::name to ::modalias; dev_name() is
+  unchanged
+- Model matching on the SPI bus: add struct serdev_device_id and
+  id_table; drop driver->name matching
+- Add serdev_device_set_modalias() helper and SERDEV_MODULE_PREFIX
+- No MODULE_DEVICE_TABLE(serdev, ...) support: both in-tree
+  firmware-less clients are created by the same module that provides
+  their driver, so udev has nothing to autoload
 
-The burden ends up on whether userspace code runs into any problems
-with high numbers of digits. I don't mind them being long if not.
+Changes in v2:
+- Instead of silently returning success with no modalias, use a
+  creator-supplied name as a "serial:<name>" modalias fallback and as
+  the matching key, so clients can bind through normal serdev matching
 
-> 
-> > I'd look at using regmap even though you only have a single bus. It provides
-> > a rich set of helpers and the caching functionality that will save a bunch
-> > of bus traffic.  
-> 
-> Ah... is that a strong preference in new drivers? That would be quite
-> a bit of rewrite work...
+v3: https://lore.kernel.org/lkml/20261023052717.2577234-1-an.wu@canonical.com/
+v2: https://lore.kernel.org/lkml/20261022032842.2492572-1-an.wu@canonical.com/
+v1: https://lore.kernel.org/lkml/20261021092124.2306053-1-an.wu@canonical.com/
 
-Tends to end up cleaner and not really be that hard to do in a register
-based driver.  I don't mind that much though if you prefer to not do
-so.
+ChunAn Wu (3):
+  serdev: handle devices without an ACPI or device tree node
+  platform/x86: dell-uart-backlight: Bind through normal serdev matching
+  platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger: Bind through
+    normal serdev matching
 
-Jonathan
+ MAINTAINERS                                   |  1 +
+ .../platform/x86/dell/dell-uart-backlight.c   | 33 ++++------
+ .../lenovo/yoga-tab2-pro-1380-fastcharger.c   | 25 +++----
+ .../platform/x86/x86-android-tablets/core.c   |  2 +-
+ drivers/power/sequencing/pwrseq-pcie-m2.c     |  2 +-
+ drivers/tty/serdev/core.c                     | 65 ++++++++++++++-----
+ include/linux/device-id/serdev.h              | 19 ++++++
+ include/linux/serdev.h                        | 12 +++-
+ 8 files changed, 105 insertions(+), 54 deletions(-)
+ create mode 100644 include/linux/device-id/serdev.h
+
+
+base-commit: 9e947d96915af63e28896caae85a81b74855621b
+--
+2.34.1
+
