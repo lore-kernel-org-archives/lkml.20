@@ -1,115 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792862425;
-	b=hLZSExuBisaUt/7y0jeCHnLLd3mkK3vtMa1XhJwAqYEavSVL8RtVA27/XE8nNW9hWezF
-	 L35CmscnkjGF5/0wU0FHQy7ZcHYTmYNJ85HQXudfqlzqlUWX907JbVTLRTX6OLcUxIcsS
-	 bWuI9/pgOCzR9U6wEgTxMhAxNprLybyXCmQdlMPxgvDS6vzWGbT4eGQbRFB2qMPqRT5fW
-	 IC1qRQrzjCcGYiOQDcoMDdRAihzBRdrNSpYv6rX9rzrloWTgGf/Ut+SYCLR+hKGWpFOOv
-	 WrDInPCoJWKIeV3y5tcWR00m4pEHvuJR8AfoxlFqXQZF0u8Knk7CUl6ubZy0og9mP6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862425;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=;
-	b=bKQrGJbQzoxZxGyWUJ6Ca3VewDHfCf3ahiDDkkxfCLhmjVEShuD3RFUJdsmT1QdFFvZN
-	 bg7aYr0ANvQ6BFyK9fn6NSmbotyyZbM9+HaaBTSyFpJ7Mn+xw9MPEl/QUrfhYVDtkI6q6
-	 VHY7HFhcAoirYCpqTDnHOKfJ2JC36sZC+Dqub+mrtP9IVZupI1dle/a15vy8s8ZNO0MlT
-	 UktoUK7NuiXtSGBOXzGALFTNE6MwcgEwU5A4rXMdMchGvaN+vtlrLyR8AxAmEtAeSTUkb
-	 O5lTuAr9JFME0X3my9qNJaIfQo79Px6vkjEBH90Wvmnq+sDE8CHjZWXsoMWKiIY08/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq;
-	arc=none smtp.remote-ip=103.168.172.150
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792862463;
+	b=OH4pUrypxg2zisr6B7HKp7DLfvm+TqNlGDc5mRL7Iqbdg8Mq2qyCR+MsivjKQEZZow4y
+	 Y4yuJDzKmY07J10BtywuBwp9DweSv+ocI1KgKT8Fs4hyJETZ+C5mM9pmeDYXiA9+sSrz1
+	 gE7kgtOFOgxrF+m26b4KhjcfQri7kXc4q4cPeqOxTDEViRtGOxioScoMM+eFnNjlz9r5C
+	 cSnjfvblEsgRAodlEJ+65ioLjOq+4AyBieRgr97UtOO/nTrrWIgGWsHXzFjMXHf6Sa9Oa
+	 XRYhzoXxmm3P3uMs25lENfYauZUNOUC/xVIL71tBVe/BjXdoOMf0ba2QlbFWusDSSCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862463;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=yWTYQe4+vsul0a+jPNLTYJLGDVUj/49CjjZ6yX9Uw/E=;
+	b=zbvUCLPNJCKR0aruvzabcanbRFucpg3/VMu7NGxg2jGLywb2Z/QnLzGAxYuUk4fmWUNf
+	 EJ8/7ADfO+9T8xuPYl+EibP41cbz/b3227aYs3m+CdPtL1WGpiScMlM1Gov42J1CdNjyP
+	 o30/m6cW/UU2+2fHdacivQqrCqBHHMKiuDqf1bwt+FmQd6oaOfp/i5BX9/TU1e3y/T0GO
+	 I3psBqnVHfdAMjZU+0MK043CEGoxNVOLvRI4F9peUg/PhYdVadgwkWaNSrz01wu4nn7Wq
+	 gjG97HxeYqJbc5GPNrAWISyWt47q5ORacYnSgIJpXDYds3CXfoVyUv1oNx28sCvqXzQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xuu3iS8z;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iVKY82fS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFA0606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFA0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275A0606A31A;
+	Sat, 24 Oct 2026 17:21:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 275A0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.phl.internal (Postfix) with ESMTP id 599EEEC0179
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:20:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Sat, 24 Oct 2026 13:20:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792862423; x=1792948823; bh=RG
-	VmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=; b=SgFe3PF26dqJYCYx/J
-	RhDeBOIhddOlXAAKijwb8Vy8wdHGMNCLnZBuyhjMVXtCLTCav+E37VcUJB/tamAz
-	KB7zJttcMUm/NwINhgjM70OyORb1oy5Wo1rlMorHZ8QYX7cnfxYauXuan1QECwKd
-	/VRzwbKngb7YJ8FXEaiXsAP4/TAyu+0FmtsRoQU24obUq6J2HGCw0hPACUBuNA7k
-	6iCbvheZ+BhEEQKbs2fMsx8tF+x9D+VcbMMJPH04ONrvE8Bo5cy6dZu6hFU0Eoii
-	+ibPvRU2kkr1okSJ/6l7QTge1tvT/lo+Hhu8x2irzTrQ4HnYvextysFMPZA8OUdl
-	GJNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792862423; x=1792948823; bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgT
-	sAownRry7w6u7Wk=; b=jTy7nzHqlw7jZptH9I2RxK9RzBW6GYIXgvwd2wUmv7NT
-	QNyiXqpSN9ciqVCaMR2tRIbXNr32qeA1cg50PVOYN1vsKzBQSKUJ3jmqV1hEIZZo
-	1tDhlEr3wzx/juoO2KVRNdwhdJwIjAs20xzdydf3PIjPB+eBeuJmarwZXGbqPAJT
-	AIC/8zc0Y+VHR2jNTbv8nKYMqFlasQIw+wC9GJJkGUyOhti0N5+DP5qPTDlfnGwH
-	DePikNuiwak4JarV/mxOCHJ8finvZTHPJw4vM0Z5pjYI0xDWqK64dfjR5PNOmH4C
-	Ga2zRhIzOOFTjDo1qLxtKBk7qjERm9S+pnRirOWbMA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792862423; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:RxMjlYUkcoKrTxYII0120GtOXo9bUjK1SGCFoOu6vuyxTFC
-	7Zj1RrXGzdK1X10oboKCwqDFPpiFdMtUSkvBUNAaMy+jq6Ujs/OEYbCKUj0pehsS
-	TEDqP3sNUB7LYCWtxFouGK3Fttazck8Zm+Df7/9P9CEkPM+fhdY2Vwqp2hOu03yi
-	t+wzfHxjE4vlbkRcRktnDUfCXX2w+GUxdfV6N8NBHV1jyHCru9QLFzyd/36zXmls
-	zZJD0dyUIvv6nHcvVre5SFn48YHbIqhEhmLJ+KL7iPoI3lkXNhTotxPh/4NsNxYf
-	xRVv9jTEss/wJvfcZQC2Jaae5+aZmg7ZTYM5SaA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:MjjdUjD1TH1u8FR4jM1dnnIhA67LmvEfPVf+2sRrAt0=:bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
-X-ME-Sender: <xms:1ujcaiRqpIsfZ3uU4sG9rhjKABy01FRmqtfy7XOzM2-Y4y64c3UgFQ>
-    <xme:1ujcatwAkBZN1cxQ1FeA9M3KuHVGGnQPDxyIqqK-dC0qkvj6Fli7CeoS39gqGzOYP
-    cvCAeSxyit0eqS6eod-bxaHi5X90qzrItTuogzKPIe-nlsGca_Klcw>
-X-ME-Received: <xmr:1ujcaqpupiIfASvhwY9LEQtHAFEjYtFPaS33O89i67YhpoWy-AjvMkvOk8esVCvOgmq0jTm1F13S4cx3XkBNVE7S20av14WA9gI>
-X-ME-Proxy-Cause: dmFkZTFQFZYiDCjVoB0mM+FknsDb4uzSDQV4OYgeIXaKM3oOz3w3kfT7x2bRm/9casA+3R
-    QKLMXO1C06dwbXqPEanqqziKkWXacuUxzU0v4Gu0+c7EzB8DR8nKdiN1buKMN4i6lz49hu
-    2CVTvVME7aFXf4UQyCHvgww8R5GIzrzG7PGFZgM/Ck9x09tWESRbTlAFg8CpOdlO1N9F0p
-    7Tju3NfAN6KN3zMk+ghkCqkUiJxA5VyzxYg9FDNFYWTlHqf/Q8oJUevXlrRHHtZ8axWwft
-    NQ3VOeCKiYUjbe0F8OHOVblLNwObWaKBaAktjdqXSGV5z7D/YATUOjS0ES7RKyDFi///eH
-    5STZNZmV5LrZM99gwNSilJ2kfI3hegPrekgmbiZulVCDfrfzkccTpdvwaMYswI5Wwdu6lu
-    kHtpQMQ9rjSOe7MSYSHxZ4Px6yRM09oKF/wsH8CtJOpIs6aGg75ouuUzaB/Wc+tuFp31tE
-    U01soXg32sdRZEC81fWNk6aKAarTqCcwsKlhd1nHyOGXn5grxRF/dUUwg8s5rmSRc6SlhC
-    TjSTdAsR5UfTgYyjHdRVgvQcabdRSbjfUP2ON4qk3a0YxuJueX8c0g/ujSMzfaCgqfagcF
-    aA8/YKSNemIBY1K3CIpwdSBbSbDqSAJ9ucEJsVcWpFlYbAm/T0MAjEVRWAJA
-X-ME-Proxy: <xmx:1ujcag3rc3vMh2fGKMnB995VqJwdabn-X06vy-szgPs2u6DjgsvyrA>
-    <xmx:1ujcaqyE_zRvSovXMkFeOzjjYaZJrKwqe6wlDYcwquQNXesUJiRTOA>
-    <xmx:1ujcakiLBvuP0QXeeKaUTpSNyzVV5h1Q734ouLoNjtLiKTW4bSS1Ug>
-    <xmx:1ujcalpBmpDgDcfqEow1bQBoQwFrVJ_3KKVb0qph0GNRc-JBm98Jqw>
-    <xmx:1-jcaoNUlE3UdH2zyy3CPWiAED7-vSLUjsoeFFr52hqhIvk4CBYhy7xb>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 13:20:21 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Sat, 24 Oct 2026 19:19:59 +0200
-Subject: [PATCH] net: atlantic: AQC113: Initialize struct hw_atl2_priv
- fully
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xuu3iS8z;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iVKY82fS
+ARC-Seal: i=1; a=rsa-sha256; t=1792862452; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ttBq2p1mPBNCtoltzIsgyBXKIMWzs6o/VsQynm3hQc89lQrzdWCeUeebopjhOwPEE6
+    hXnv1KiBmmLJR90RoFkQo0EnVKWVXWyAo7guSnUyqvtbybK/GOqxBIoyyMWnrHMlWX5W
+    QYyJVu3EzkTGSkIcKWHeylvERh96L4n55wjC28SJW8osy9+sC0zIhRrUws2AeEhTGC9g
+    JeOsaNZgpxzBRBCe7ABcVZrZnttVlZRQG8Qk6Xrc0MWhkX9e3Q9AKyy5hE8n+ebbAbnm
+    wztwL1AOfRcLlNLAVAnR+aubKntRpeue5Njoa9VzLbrjvGCRcm8TASVbmg1km8F7NIEK
+    568g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862452;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=yWTYQe4+vsul0a+jPNLTYJLGDVUj/49CjjZ6yX9Uw/E=;
+    b=rGfPqdNVmOkxy4Vlj4GFZM2niJ7qF5dnXV3PqJQdHtIGZofPEpgj3Dv1fHsN6KiTEe
+    6hSFBHheqUDQ1XhYsK6J4Dt3jHs1LYlO+EdqrrUaZZcPYsm50HWRHHB9K87Cj1nOU4io
+    M9lKnATLF7KwXD899ca3YyZQqrsqkXJU71yMOBr+4s6u5vFloJsqJSipUCkLw+hLEmDz
+    fYsGzTxvkEl+SYozN+3GjDjQXczgea7p9E6zzdLQ+4D/j5nHXqS63A0BodMSiwlxJF9j
+    UoI36C/Wx33ZnnCTnmmMVLh3xOgnrsp29UNtO/hS2v7wvoSNUDRyVas6IBIQuGERiydW
+    eaPw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862452;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=yWTYQe4+vsul0a+jPNLTYJLGDVUj/49CjjZ6yX9Uw/E=;
+    b=Xuu3iS8zOF2c8Sv/wIsqjKiTZ4v8tcA825VDkkEPop/WT4FCM5G8+7b2zy9zt/Rp7W
+    /trfD/FNXz3IppU2ytxG+oJu9DmUaDvpq2CnfqttkKg2J44ZPz9JKmz0uEHIxhZGhXzj
+    VzReNdIcIO27apMb/21Syr6/TAxbQpWbGznGjYI7ZpZBQBO6jkWS5yGtIgJ6SbmUv4r8
+    nuETy3AXzPuGDDPabTupr4KLf7vUHN9Ujnnxrk2hWVtXFJARZM6z1JHoWT0DN7wH06rx
+    wuaIpl9Mw39+xiNOEy2cNRHurFvD1ugAa8Cfhr0QlJbFpLdBcBqabhM9A2Rs8N7zoTI0
+    Vkcg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792862452;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=yWTYQe4+vsul0a+jPNLTYJLGDVUj/49CjjZ6yX9Uw/E=;
+    b=iVKY82fSOtU1ebPoColEhqmWz0zHqy32Ku9ft0FV9eWptZ5cdZhxQE8kP4g3+l9Rq1
+    kgZD2rg9vCQlYQ+KPKDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzptYNlV1C1yk7253raiyx+O3Hxli"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229OHKqwqD
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sat, 24 Oct 2026 19:20:52 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,81 +93,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-net-atlantic-aq113-apple-regression-v1-1-b8305415a8b1@jannau.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NwQrCMBAFf6Xs2YUkRgV/RTyszWtdKDFuQhFK/
- 93ocQ4zs1GFKSpdh40Mq1Z95Q7+MND4lDyDNXWm4MLZuxA5o7G0RXLTkeXt/ZGllAVsmA315zO
- im6J7pNMlgXqpGCb9/C+3+75/AdXyfqZ1AAAA
-X-Change-ID: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2370; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Ly5I7WRfEcBwY4rq1yfma9jlmGU2+jR9jzDlns2y8
- Qv3w7q7HaUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACZS58LwT8v78Nz6ZwcKPsz4
- 9ZddIl/w5tzaRUpdvWeWn7np/GOumzvD/6yKnO4Vb750BL4wuyi/dUXAScsDvvOETAP8zC9ar96
- xlhkA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 1/2] pinctrl: ingenic: Add X1600 groups for each I2S
+ system clock
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261023204207.48277-1-olivier@mgcrea.io>
+Date: Sat, 24 Oct 2026 19:20:21 +0200
+Cc: Linus Walleij <linusw@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-gpio@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Andreas Kemnade <akemnade@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <60DEBDEF-AA9A-46D3-8B14-8731AAA1B9CC@goldelico.com>
+References: <20261023204207.48277-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Leaving parts of struct hw_atl2_priv uninitialized breaks data
-transmission on AQC113 NICs integrated in Apple silicon desktop Macs.
-Commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") replaced a memset of the whole struct with memsets
-of a few fields and initialisation of l3l4_filters[].l[34]_index to -1.
-This leaves other fields uninitialized.
-Restoring the full struct memset while keeping the initialization of
-the l3/l4 filter indices fixes the regression on Apple silicon systems.
+Hi,
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
----
-Hej,
+> Am 23.10.2026 um 22:42 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>=20
+> The X1600 has a system clock (MCLK) pin for each direction: PB22 for
+> receive, PB26 for transmit. "i2s-sysclk" takes both, which a board =
+that
+> only plays cannot use when PB22 has another job. Add "i2s-sysclk-rx" =
+and
+> "i2s-sysclk-tx" for one each.
 
-commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") broke data transmission on Apple silicon systems
-with integrated AQC113. The cause appears to leaving parts of struct
-hw_atl2_priv uninitialized. Since the most sensible fix for the issue is
-restoring the full struct memset I did not investigate which value in
-which field causes the issue.
-The fix restores ethernet data transmission on an Apple M1 Max Mac
-Studio.
----
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+That is very reasonable.
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 25dd7150aaaf..5d6e81fa3bae 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -145,11 +145,7 @@ static int hw_atl2_hw_reset(struct aq_hw_s *self)
- 	if (err)
- 		return err;
- 
--	memset(&priv->last_stats, 0, sizeof(priv->last_stats));
--	memset(priv->l3_v4_filters, 0, sizeof(priv->l3_v4_filters));
--	memset(priv->l3_v6_filters, 0, sizeof(priv->l3_v6_filters));
--	memset(priv->l4_filters, 0, sizeof(priv->l4_filters));
--	memset(priv->etype_policy, 0, sizeof(priv->etype_policy));
-+	memset(priv, 0, sizeof(*priv));
- 	for (i = 0; i < HW_ATL2_RPF_L3L4_FILTERS; i++) {
- 		priv->l3l4_filters[i].l3_index = -1;
- 		priv->l3l4_filters[i].l4_index = -1;
+>=20
+> Used on a HiBy R1, which only plays and has an interrupt input on =
+PB22:
+> its DAC takes MCLK from "i2s-sysclk-tx".
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+> drivers/pinctrl/pinctrl-ingenic.c | 5 +++++
+> 1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
+b/drivers/pinctrl/pinctrl-ingenic.c
+> index 1aa6a6dc1209..28e7f1852054 100644
+> --- a/drivers/pinctrl/pinctrl-ingenic.c
+> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+> @@ -2411,6 +2411,8 @@ static int x1600_i2s_data_rx_pins[] =3D { 0x35, =
+};
+> static int x1600_i2s_clk_rx_pins[] =3D { 0x37, 0x38, };
+> static int x1600_i2s_clk_tx_pins[] =3D { 0x3b, 0x3c, };
+> static int x1600_i2s_sysclk_pins[] =3D { 0x36, 0x3a, };
+> +static int x1600_i2s_sysclk_rx_pins[] =3D { 0x36, };
+> +static int x1600_i2s_sysclk_tx_pins[] =3D { 0x3a, };
 
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
+Verified to match data sheet/programming manual (PB22 and PB26) in =
+correct
+mapping.
 
-Best regards,
--- 
-Janne Grunau <j@jannau.net>
+>=20
+> static int x1600_cim_pins[] =3D {
+> 0x14, 0x16, 0x15, 0x18, 0x13,
+> @@ -2493,6 +2495,8 @@ static const struct group_desc x1600_groups[] =3D =
+{
+> INGENIC_PIN_GROUP("i2s-clk-rx", x1600_i2s_clk_rx, 0),
+> INGENIC_PIN_GROUP("i2s-clk-tx", x1600_i2s_clk_tx, 0),
+> INGENIC_PIN_GROUP("i2s-sysclk", x1600_i2s_sysclk, 0),
+> + INGENIC_PIN_GROUP("i2s-sysclk-rx", x1600_i2s_sysclk_rx, 0),
+> + INGENIC_PIN_GROUP("i2s-sysclk-tx", x1600_i2s_sysclk_tx, 0),
+> INGENIC_PIN_GROUP("cim-data", x1600_cim, 2),
+> INGENIC_PIN_GROUP("slcd-8bit", x1600_slcd_8bit, 1),
+> INGENIC_PIN_GROUP("slcd-16bit", x1600_slcd_16bit, 1),
+> @@ -2539,6 +2543,7 @@ static const char * const x1600_i2c1_groups[] =3D =
+{ "i2c1-data-b-15", "i2c1-data-b
+>=20
+> static const char * const x1600_i2s_groups[] =3D {
+> "i2s-data-tx", "i2s-data-rx", "i2s-clk-rx", "i2s-clk-tx", =
+"i2s-sysclk",
+> + "i2s-sysclk-rx", "i2s-sysclk-tx",
+> };
+>=20
+> static const char * const x1600_cim_groups[] =3D { "cim-data", };
+>=20
+> base-commit: f33a24cc012d34f25bb9942681bd478a1757b806
+> --=20
+> 2.39.5
+>=20
+>=20
+
+Reviewed-By: H. Nikolaus Schaller <hns@goldelico.com>
 
