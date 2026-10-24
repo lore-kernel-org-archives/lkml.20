@@ -1,90 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792862667;
-	b=UYl9dNlqZYC9HRuH/tHwZgUR0koCe7vpkz18NyGOpLYpZj3jovTwPg3jY+nM394XgVoo
-	 f+OnGvk7n+BL6qu14Ip4dezrFH90BvBUeh1KG5rxDJLlhiz06l8NrRa7ZPl8UctwKAaDc
-	 ueTE1sHSx/1yGt29vYsseRkoQ+7OjzTtP8QnxlPsSXrCTyghWnNeZTiNmguvLnvbKlr7j
-	 VgOJ3tP6F1vbppEIjBKFnxSTxYLs2knJ3+Jn+r798WDuEZLERjexoYeQa3QMg+BPDHj5S
-	 5IXTKb9hMRxcDmbaAudd/loIDFgVYKitjrLq1A+xijbWq6XkjKrgzEkgK4nnMYACvDQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862667;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=NyHZ1WoLFJCbwQ2arInuj/P7au0hCeBBoItzKYMGoJc=;
-	b=IigrCUDopebSbquHB9zRUxK/qu9paNDG4/ZO5H0j5nm9VEpwDcMAaAa8tKkMROBdTQk4
-	 DuvY53LY5psLwvEmvt/1fRlf5rvXQv9oErbnl+pkgsf1hJkGtdkIXITMtKNtqEG+ON4gz
-	 wzPXgfbUm5cYBiQ59wJd/QuMkBLYdl8fTGndzafN3P/ts4Nm5uTlbyugTUpzlSmfkBlYE
-	 XxUkciWtkB53ZB9G0SoUtSS1+Hk/nMoAoCBdNl3SOetYA3uHPUNqgxoGeSbgP/pwUhf67
-	 9ciMq9pC1NcClibKEmR7+YP+k3FVdrnv09fJ9XFf44IsmpxLUJvZaG25j+Q4nPZlexg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=i9TSvpbd;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=SPOQVknT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792862687;
+	b=qKTxQysQfZVlbexserpiez5Q2iijXR9WmpMxqzCVpRIQ5m994priV7RUP90vRlkUnK4I
+	 AnvFxmdEKjmUFY34ZRKgO/6Zo6w6OSepmAoIEXGASGOIxW0QMHIM/EZSeJFCTUy+t+0xV
+	 XA6GnlHIwE/MPyZw9ANQvIXe32Nfg2wQXOTjV+vuFtWaDeqCYKe1lWiUiaY1HT3/reyuB
+	 sDkyL22ZToKfOymDon59dEERGMzG/SowxpT6DYr4GI97Z5PJ8gKaBNfmBWNOn5Rq8G0oz
+	 5GDCKCecFwpLFZ++1yJqLZKcRstGR2CNmGC2UpZrTwIofq6ezLDVvGHTzqiOANJSW6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862687;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=x7nrxvqw7BIVjKxlluiLcYREpgrFvqJvaHMxfNmrkLM=;
+	b=ryGYvVBq28shrC8NCsrUEH8c2qinrDqh7gTmrvnfzkP3HBl1X/VDzYCg9BXEucHtdT2N
+	 B20k1brMXlq9JBWwBvo7/RES5QUW5fQLZ0HhhrWjSfGIZENQAUyslDQIgCpYbuLLvdTsr
+	 JWUETSXKjLRApHiLTGyl8yjCKtGxjqvk5L8rZVjr8lxFXO1n7ZPA3F5FMr+zrIV3g9X7s
+	 5bL7L6YfC/Ws2dz+vSfQTQIiuLbnt4p/1hP3eJCXkFE33fHGiTStEAegKS/D5hOWEyyXV
+	 znKdM6/5cIEiXP9Lj0jvFmtuV48EAh5MVBaZROrKweuc/XnHCf4Yp67xOciYPFxEO2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B0IOMheK;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D149D606A325;
-	Sat, 24 Oct 2026 17:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D149D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD50606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:24:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CD50606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=i9TSvpbd;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=SPOQVknT
-ARC-Seal: i=1; a=rsa-sha256; t=1792862649; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=jWrDuyazXjEy4vkpfI7W4/MDGM7AShl+mzr/jFNHg10kTrf3CE51oBMLp2hoXusWcZ
-    VAI+ZNw/HLCs5gBMXS3q1D+0IGNdcJhDd1VIQjMGSXs2gyMK3s4pNxQ5i/pyyzL+Y/mb
-    MNs+qOldJdnsuwRfl7spt93x3GQuxu0YxqpwKmea9jo+n8dYDv15p8ZBtJqKnfw1q050
-    r4IaER/JhYz5izunecNTHgJwCIZKDpauWNQxOw/kGRPOei6DIL8TnhQ6C0B3a71A5U9v
-    pHIRzy5QoI8TUQGP9S/WW4BgKKVHq1M3n8YgOFGZWoR9eYOcduSfGtSu5pGGUOnH10wr
-    tfvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862649;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=NyHZ1WoLFJCbwQ2arInuj/P7au0hCeBBoItzKYMGoJc=;
-    b=Q+v2/y48Y3avZwrJBRPVcOFdHMCJ4vCjgFYZfoXfhCPRtEDJmUT3HZetjT4k+ZRcbs
-    8CCEkIagJepUJed9dCRnjgrr3ZdynI8tpaOAoiENlQE8PrUPVWIm6/87CnWR3KEFb8W4
-    3UJA56o2DjroCzAVDMNXT4L7NZrzRG4t0AseRyBmrPD3NpEDLYPT5EMHuks07p+ACsxX
-    YWug/O0t9Ne4CkwYHAms/QB92Z3gCPJQWCPZ7JWCa3eJKYps0zqzWburvSaZAT4gbZ3D
-    NM7wNKfic/nS0wFRaBdpa2+2C5AH6wfagS/kbMvFVANft1/1aoUwNQGxVn6jwGw5XKph
-    v4nA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862649;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=NyHZ1WoLFJCbwQ2arInuj/P7au0hCeBBoItzKYMGoJc=;
-    b=i9TSvpbd37gE6jfegnD3Z3erHiN4OvPF6zipTyh3t0onAFd2DBlYLbxirUZuZXB8HK
-    GGSlTbP18AoUJ1sxrvUovIeyDORgYMOIDGYXDF+GvbjUWMoPrXPp3C/gQz5aX66jBi6x
-    223wBrhSYhkL1W312PIIiYF/hDakgfXpjhC/zIImxobagaZw9QciRrvjxMjWB6Yjg2K2
-    HU+/r1jth9RCxBPhQ71y2NIabF404jRQwLTvSIeK2NYscY8CQh3INCrl193arnbhN5JC
-    +muAhJIBkoMEZSFQhh8pfNfCxLywZA6QKbYA9ihpwOPDnYlZFCe7avCFRhTxIzgy93c5
-    mbNA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792862649;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=NyHZ1WoLFJCbwQ2arInuj/P7au0hCeBBoItzKYMGoJc=;
-    b=SPOQVknTUWL1nHVOqPBECoNFNFh1C/+eyHbPha2FX1ExbuVj8eLHIwnsCfupEHDvpZ
-    qillqK50DC8jlW09F8Cg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzptYNlV1C1yk7253raiyx+O3Hxli"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229OHO8wqQ
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Sat, 24 Oct 2026 19:24:08 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B0IOMheK
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so136815e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:24:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792862684; x=1793467484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x7nrxvqw7BIVjKxlluiLcYREpgrFvqJvaHMxfNmrkLM=;
+        b=B0IOMheKeJThOLJjE9YVnNnLE4knkhDF1KSxEAHHEFIPyfIrux6NO1XXW7Ycphaywn
+         vicXEK/ohXujqc+LrTcilWa7mpUFujtikDK+oehOcYJ55ZOvxaNfKum7wrhC0CwHPubq
+         FQ1V9FuQwey4q14tKOtgojzlIVpniG92Exk0//ROLd9vsNlXx4lpvlMjvQda5ybOdVq/
+         U9cwslKcgVHh5rgOkgRkkSggIghMJEsZl61nmeBL/Rmoj0VlQtaRBgKueH9UAjex5886
+         +4Fb1T02IPSBtRp1WCpr7y4FOELCG/3aylWnE1wsqgpuVFEFgM8yg0E+mb5+0N1LEI06
+         CWqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792862684; x=1793467484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x7nrxvqw7BIVjKxlluiLcYREpgrFvqJvaHMxfNmrkLM=;
+        b=hA+T2/oKUxff9Mv0sDRJL4tjx0oo1CscF9spqAB1pA5u5pzvOPw4ruoT0fnAhQx3Xa
+         8tqz4OGDcR+Q0FnULu292JOxX/JRqN1TDdMQAnx4aHgec0a0BeSOTt3zWRfRaA9tVrPS
+         azqM7UZl2mP2DcRkqOoeEohS9+TNlR/up+Zzu8usJ7KRP6YyDi59xQgAcFTuhFcqFHcg
+         qvSWuRdcCSsUDvZ+R41L6lJF3FFk9CmP7CrQAtZtJf958u4iy6OyIAuQSW09PwbAC/eQ
+         Qtorf541LTmhzDm/ROlJGrfsjvzgq9q65B/3UaSsa0cKRVpvL5jKMpWpM5oTcafWIaNf
+         G6lw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhWHh7zdFCNSIVHT4cfDTAy9WGjZP/TYzoEsUsdVxbeofjjrrWGtGxnlLtnXwdKfhHzsZSdYiSoBUfOiQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4DesGcOuJ0aMPXcQk0QCnpCNpzkuk6cUg46bX1cfMM36UwKc4
+	MG3MJgDarTo1+q/Y6p+PCdj39sdhBWCX5kEckj6GPdEWsxMeoq5ggAgp
+X-Gm-Gg: AYBFou2rj0O8EuSH8gmNPKxN9YhVXUPJQ5uPznFxM0IiTyhCd4roTre4iCRyyg7rz/5
+	d68T0FJy39oayywtIdwMEhTdjizPdLe77B6ZEv5aEN4/99gwaRef7dDIKaoEKRbI+QIdkaz1PRU
+	GhpvADYfECTfW2C+xlEU/v4lHzfGuTzbrPaZPMiPvYPqJKJIC4Y/2Nv7A0Aqxzn1LmKZmVcgWoB
+	D612xUdihB9mKGQH0Wklka8WW1Tcown5KzxvXsxLp3auaRdau+btmKayrt9+2FHKYkkvvb5eggG
+	WtK7M9j/xD8v5afVHvbn70jtyl09MkiGMrMLkwMq/wfhfMsvP+XvftRcNMGTU1QZ+P5fwUETB8E
+	6vTftSlZWIMYD75rtJB7vskdHiGtKe74vOy8ttGoJD10xZpB7aTIVULzL7S491Pk6NhO6b4tz5C
+	yztEs+FtxDRb3CuW3JnlwdGXNE5vUGZroIDwIbdGmIpxz/nUqJfcjN6WiPDM6GLb2OlsQMsUsuY
+	bpMpvqyabB2CM/cunlkxMTBG9Kz0kMk86rQritmxYHyxki7fpKiiSFEoq3dqod9H/6LkqxPmnXU
+	ww80rOE8NK5kgDwx0LEuggM7juTGLEYkrXSbN8+c3J3SpUEA2k5rApjN+zTSPDZHEt/VjRchwrk
+	cvMG4NaE1c2nLTcGFXZD0trf93WjXNEHJu+fFfSUscUfSC2ACCpFX/rjGY2i2JL6J9fgFhbsGIC
+	wSUR9a
+X-Received: by 2002:a05:600c:19d4:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4a35ac9114dmr35075715e9.10.1792862684213;
+        Sat, 24 Oct 2026 10:24:44 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9da9-5f01-d5f0-7ecf-afa4-4bc6.310.pool.telefonica.de. [2a02:3100:9da9:5f01:d5f0:7ecf:afa4:4bc6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm80685955e9.1.2026.10.24.10.24.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 24 Oct 2026 10:24:43 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: quirks: Skip nv_msi_ht_cap_quirk when host bridge 00:00.0 is absent
+Date: Sat, 24 Oct 2026 19:24:26 +0200
+Message-Id: <20261024172426.85842-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,99 +99,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH] pinctrl: ingenic: Add the X1600's 32 kHz clock output
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261024051639.67806-1-olivier@mgcrea.io>
-Date: Sat, 24 Oct 2026 19:23:38 +0200
-Cc: Linus Walleij <linusw@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- linux-gpio@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
- Paul Boddie <paul@boddie.org.uk>,
- Andreas Kemnade <akemnade@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <51688C86-1907-4B89-8A65-2A90D4B59261@goldelico.com>
-References: <20261024051639.67806-1-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+__nv_msi_ht_cap_quirk() runs on all PCI_VENDOR_ID_NVIDIA devices to
+enable or disable HyperTransport MSI mapping relative to a host bridge
+at bus 0, slot 0, function 0.
 
-> Am 24.10.2026 um 07:16 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> PC26's function 0 puts out the RTC's 32 kHz clock. The vendor device
-> tree calls that pin setting "rtc32k-enable" (function 5 is its
-> "rtc32k-disable"). Add an "rtc32k" group and function for it.
->=20
-> Used on a HiBy R1, whose Bluetooth chip takes it as its sleep clock: =
-on
-> a cold boot without it the chip does not answer its reset, with it the
-> chip comes up. The clock on the pin was not measured.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
-> drivers/pinctrl/pinctrl-ingenic.c | 4 ++++
-> 1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-ingenic.c
-> index 1aa6a6dc1209..ac6e2a152bdd 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -2452,6 +2452,7 @@ static int x1600_pwm_pwm6_b20_pins[] =3D { 0x34, =
-};
-> static int x1600_pwm_pwm7_b10_pins[] =3D { 0x2a, };
-> static int x1600_pwm_pwm7_b21_pins[] =3D { 0x35, };
->=20
-> +static int x1600_rtc32k_pins[] =3D { 0x5a, };
+On NVIDIA Tegra SoCs (such as Tegra210 on Jetson Nano), the PCIe
+controller exposes root ports at 00:01.0 and 00:02.0 with no device at
+00:00.0, and the root port's HT MSI mapping capability is already
+disabled (found == 1). Looking up 00:00.0 returns NULL and logs a
+false-positive warning on every boot:
 
-Yes, is PC26.
+  pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
 
-> static int x1600_mac_pins[] =3D {
-> 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c,
-> };
-> @@ -2511,6 +2512,7 @@ static const struct group_desc x1600_groups[] =3D =
-{
-> INGENIC_PIN_GROUP("pwm7-b10", x1600_pwm_pwm7_b10, 1),
-> INGENIC_PIN_GROUP("pwm7-b21", x1600_pwm_pwm7_b21, 2),
-> INGENIC_PIN_GROUP("mac", x1600_mac, 1),
-> + INGENIC_PIN_GROUP("rtc32k", x1600_rtc32k, 0),
+Return silently when no 00:00.0 device exists on the domain, matching
+nv_ht_enable_msi_mapping().
 
-Yes, it is on Function 0.
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Observed on a Jetson Nano 4GB (Tegra210, p3450-0000) booting v7.3
+(c03c1a14507d), where the Tegra PCIe controller (1003000.pcie)
+enumerates the active root port at 0000:00:02.0 ([10de:0faf]) with no
+0000:00:00.0 device on bus 00:
 
-> };
->=20
-> static const char * const x1600_uart0_groups[] =3D { "uart0-data", =
-"uart0-hwflow", };
-> @@ -2557,6 +2559,7 @@ static const char * const x1600_pwm6_groups[] =3D =
-{ "pwm6-b9", "pwm6-b20", };
-> static const char * const x1600_pwm7_groups[] =3D { "pwm7-b10", =
-"pwm7-b21", };
->=20
-> static const char * const x1600_mac_groups[] =3D { "mac", };
-> +static const char * const x1600_rtc32k_groups[] =3D { "rtc32k", };
->=20
-> static const struct pinfunction x1600_functions[] =3D {
-> INGENIC_PIN_FUNCTION("uart0", x1600_uart0),
-> @@ -2581,6 +2584,7 @@ static const struct pinfunction =
-x1600_functions[] =3D {
-> INGENIC_PIN_FUNCTION("pwm6", x1600_pwm6),
-> INGENIC_PIN_FUNCTION("pwm7", x1600_pwm7),
-> INGENIC_PIN_FUNCTION("mac", x1600_mac),
-> + INGENIC_PIN_FUNCTION("rtc32k", x1600_rtc32k),
-> };
->=20
-> static const struct ingenic_chip_info x1600_chip_info =3D {
->=20
-> base-commit: f33a24cc012d34f25bb9942681bd478a1757b806
-> --=20
-> 2.39.5
->=20
->=20
+  pci 0000:00:02.0: [10de:0faf] type 01 class 0x060400 PCIe Root Port
+  pci 0000:00:02.0: nv_msi_ht_cap_quirk didn't locate host bridge
 
-Reviewed-By: H. Nikolaus Schaller <hns@goldelico.com>
+ drivers/pci/quirks.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 1aa87a3..47778c1 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3115,10 +3115,8 @@ static void __nv_msi_ht_cap_quirk(struct pci_dev *dev, int all)
+ 	 */
+ 	host_bridge = pci_get_domain_bus_and_slot(pci_domain_nr(dev->bus), 0,
+ 						  PCI_DEVFN(0, 0));
+-	if (host_bridge == NULL) {
+-		pci_warn(dev, "nv_msi_ht_cap_quirk didn't locate host bridge\n");
++	if (!host_bridge)
+ 		return;
+-	}
+ 
+ 	pos = pci_find_ht_capability(host_bridge, HT_CAPTYPE_SLAVE);
+ 	if (pos != 0) {
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.39.5 (Apple Git-154)
 
