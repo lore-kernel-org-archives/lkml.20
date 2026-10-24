@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792814333;
-	b=Rp2Jfc6qOKe1l2BSnfp+irvF2BLFrD3ClzXAcFF0kiJl9+eSbOTpsYz1ouDwcq4W+vel
-	 0MSNGdG1aMIdYJEJpNxonSk7u/V/rgbiuKl2kM25Zqz5/xKvvfki5BpQN85+DZajBX++g
-	 M3XpnLv6uQSXCaICAY/PVx3lg7OZWXbHB3v5cU1/1HHNRcSyimvDFkZB2Ol0kUH7wibkU
-	 Y1JhR/AOh55vVJOF5ZB81/dtjDfWDd4dfLuio56eRdY3z0QKk1aIB/n2qicpBkIiGJyVW
-	 e1O/Fer1V1RE1VcEUvCHz/bgW6nrqouGlRsbJv82eIW/nwxr1M+SR0AaXuf+AJ/LU2w==
+	t=1792814373;
+	b=yL8RpT6iPncm2m00HYgv3L1MsdfoGhtRCe1qkrzIAXJSDMap6iy76rWm6dg4laEkRk3h
+	 npo1k4ThIJtTYFu1Q+G/JqRb1fLsbqStdim6L3teqWotNTMqHpsejQjIjJ3ZkS2rJ/XsJ
+	 lzkFjSXOAdAnZnMVZTk0GlaliUxJmKWWfOfIRuGUI/iAdpu3HKFaH1FsdIXZnXZRSw8+K
+	 S8rV2rT8s2OZMtML1+QBMACt9doOmWBsw2HhJI2SW/1/Mveh85pxGB63JVsmtqFFkjhU4
+	 nPyCHUSVrePl/MzZrr2JcdLG3sUAJG7RGjw/XX3liugFmsLsObv++m8cUes59zomimg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792814333;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3mTgRnLhsdY5CnedtJDb77nGg3hZqBLMMhQMdL5jNng=;
-	b=5t5K8zWLqL/SWfsNb/Suy4JfJetuD7i0fDo5iDhy6SOX6Z2iedv233HV2e7wefU0QYVv
-	 4mypQqPBgrVACxiOpGIhHu33DGyzCWF3BYKtGDRGCiGkbpFExDJIJcDxOOr8b9vpthKNw
-	 aAal2t12NXVXTAEF/0HnWWRrXEKFPVHtanFdM+1LePuoNIILuhTGFL8MUH6LFZ3hRdAxU
-	 T48+oItEGFIzDhITDGaoT72sCWNSGeW8staTlol67V0y8DLOVr/53BB+yQMgct497Wc8Q
-	 TX8WyI7kQmNbGk8P1wzooVQhl0H4/UT7jpatS0VXEQt7ZdyIP62D40YisiykT3DHAew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792814373;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XAtFDMryQisCTaDWbSvN98SuLth7CLqkE2NAokAnzFk=;
+	b=TITu+lhO1Na0+kWcIxwhDIdy4J6lQfSoBUURzcmwa2uNnBMiRH1+xvtEvdCXRYmmTTlz
+	 cuj/jKtnz6EqtE4zB/b9YGdI18UPcbSE/ubF5Ds4uTLh1Y4DILnsaXrBcKuaMQ+2cnzUb
+	 tu0+8aQVu/2Ibo7lXMthPL1DEVdm8zhjXy7RbbL3n+ii+Q12VOQox0KhqP9y9VbpaPPtJ
+	 s/XeMCEicz8bxxInDDvO2aQpy0yZEsYZI1H6zq4dBNFKUDT7/jlTCVx569nu9ND3LEEYH
+	 9eEZ8d46dnygLXUbn2VJ5Wji4U9efVc36lQv3220KOte5WeXXpOuoyzWioGRXS1Q7mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMjtceFh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iT3Eueht;
+	arc=none smtp.remote-ip=209.85.208.179
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B76606A31F;
-	Sat, 24 Oct 2026 03:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B9606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:59:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F35B9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMjtceFh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A151B1F01828;
-	Sat, 24 Oct 2026 03:58:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792814333;
-	bh=3mTgRnLhsdY5CnedtJDb77nGg3hZqBLMMhQMdL5jNng=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GMjtceFhWIHzpL70r7B6WTxMSgJO96WAImetMBrYZ6oRQhpNPH10ZuK/8Y8fXIHiD
-	 7HRQFnBInJVfDau1Q5XMaPnePcvW9ILzvf3m0PAyYYwWpK55oWJfar1C1/zdrXclQs
-	 M2FgdHOnNiUnjjw6oxyCCWKNMEeRaHC1/auQNvtD6H2MfNSpOD/orLj4pFVfeBUH3a
-	 NX/huSIru/R6c8yAbWA1wUnwgg4tsvOvcGT66cNWCUuXqrERvQWNt6CQtk/tMTOIG8
-	 MRqd1CqVC1hb4vX4zZj2snFdC+qFD8xY1dLg6HRj5ipu7+UqLDL0VO6AiT3yf2XYMR
-	 4WZjpNPKgOuig==
-Subject:
- Re: [PATCH v6 06/13] can: peak_usb: harden channel handling in PCAN-USB FD
-From: netdev-bot+sashiko@kernel.org
-To: s.grosjean@peak-system.fr
-Cc: mkl@pengutronix.de, mailhol@kernel.org, wg@grandegger.com,
- error27@gmail.com, lukas.magel@posteo.net, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sat, 24 Oct 2026 03:58:52 +0000
-Message-ID: <179281433224.3130.6010222623227756144@kernel.org>
-In-Reply-To:
- <20261022-canfd_check_channel_idx-v6-6-197704231551@peak-system.fr>
-References:
- <20261022-canfd_check_channel_idx-v6-6-197704231551@peak-system.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iT3Eueht
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a9a1ed66b9so10275031fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:59:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792814371; x=1793419171; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XAtFDMryQisCTaDWbSvN98SuLth7CLqkE2NAokAnzFk=;
+        b=iT3EuehtcQrriaPS9m07s+nwhaqmbvVAV74maB+SETR1yp9plTSMme16mNfwfXhm1p
+         KrSKUwSXCZmnzZoPYydeQF7r11BFNbxbg+5S9m3HXKrggUp/4r1cyZAZQz6T5FqTRSSI
+         PomRcZvgwK/091Qq28j7qNyDcCZ8zhaMw3lnwIRlh5Oob0HC0MHXP+aT/f5kaV1rUp+t
+         TpiGXbm+OJN++PU0XkiKpuUrVlX/Vr6BQP3thT71aBN+WiYDaR1m3on0haWSa+4FJooR
+         XnG+J3sOpEG2pPM7usAw+/3ppLU/v9/CGatZ6MRYy2pnIUmQhhGJ6uEs8ISmb+etWRzo
+         xjLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792814371; x=1793419171;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XAtFDMryQisCTaDWbSvN98SuLth7CLqkE2NAokAnzFk=;
+        b=QOQrHOS1rYXAF8dzy7Q4Ob1vX1av7o1Zf9Kg0Jabnql0f6mWuvvu10BZ7BepP8Jrh/
+         AdYCmt7JG+iv6uLf/8CvVlJ+VODKJdrR/xAXQjAL/JxgALUMDzBlIWDhgR+8qyqpdyx9
+         khPCjjx55aHHAqaA9+6k8/YdMhOrN+xc60NZfe1xQ7CRV7IGux5qSawJZ402uzbkWp8D
+         mZlF9hcCH8yWxcE0MoTh7IczKSnkRUOKNhwuH6vupN0d/MqkwGDnvPhKbUZr2eo7e0Bb
+         n8xuFRg4mxpDAr8Qz9EtdzbHGPLZgwgfTGvlOsDXjQf81qioV9Q8IsMeDQebYP50GEDC
+         2D+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzT6O7gjLD9jYpD8FVpHbaSAvTxTAE/3jKU8EQF8TDCByf0ImDWuRD8As3dnVeNRYt6zqdWhQW/JcocsXw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaQtXMqFWSWXYVIP3bgxegvZ6AC4PiT/YrY97IG/cs8rWC8TYF
+	aTlXbY/fH12WpE7EZFnRek/BMLymg02SKSC5GjvgXtvHcoQ2AsJi2+gK
+X-Gm-Gg: AYBFou1N/YPx0x5La8hjZ25xha35eX1kobcTZpZvLxWNENb6H6YFkIxtFVMP1e1fQK+
+	qwbMAzm/LtbA3E0dx8+BeSVU/adPBR03XIxwrksXQ5dKH9yY011SS3NdwqGLiU9sui3sNFc5k0j
+	58hO4OoDudydY3JMDesPN4sLhGWsEtIyLwp/fuP3jGad5CmYqH98gMyrAyRUxMAVvPo0XjfNKFI
+	ybiFdxyF4PmVGaaoeWHzwcp+0DYFVqYUSo1P/H7AiGoQo7MFTfD+NlSkOvUhlLMueV0VmBI8pmx
+	UT921qbf8VOUNUrYy6eUxRBd/tVlIzLV/aFHLEdDxDE9+ahk92BZZIZ/EbTXSFppJW7LP8ruCOu
+	qmEI1quS1ell9opSs1c9kuKaIbuo/qXjHiSDPdOzMLmUn60jOfnAMlSSiMFi5ByAGdqGbHP4RZz
+	eUqwV7pnwKFNNB2BW+bkiqHQ7qa77FQoZ+GMedRGrbeESGvhc0ymJD0VZq2SV8tULqKM6Qebs37
+	NoGHtBnks80Zs6sv8lRbIwPe/5qQwtCT1vUeju9/zjFFfmKkTKS7+Ji0wM=
+X-Received: by 2002:a05:651c:31dc:b0:3a3:1cfc:d2a7 with SMTP id 38308e7fff4ca-3ac6fd09b21mr2185601fa.14.1792814370747;
+        Fri, 23 Oct 2026 20:59:30 -0700 (PDT)
+Received: from localhost.net ([196.240.54.42])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a49f67sm1933811fa.38.2026.10.23.20.59.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 20:59:30 -0700 (PDT)
+From: Eduard Zateev <hackerowskiy@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	linux-kernel@vger.kernel.org,
+	Eduard Zateev <hackerowskiy@gmail.com>
+Subject: [PATCH] libbpf: fix helper macro C++ compatibility
+Date: Sat, 24 Oct 2026 05:59:02 +0200
+Message-ID: <20261024035902.44566-1-hackerowskiy@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,198 +104,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+C++26 warns about the GNU named variadic parameter syntax in
+bpf_helpers.h, which prevents consumers from using the header with
+-Werror=variadic-macros. Replace the named parameters with __VA_ARGS__.
 
-Critical: 0 · High: 1 · Medium: 0 (2) · Low: 0
+C++ also rejects implicit conversions used by helper argument packing,
+bpf_for_each, and generated helper function pointers. Use explicit
+integer and typed pointer casts so these helpers can be parsed and used
+from C++.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Verified with GCC and Clang C++26 syntax checks using helper macros,
+an ARM64-targeted BPF C smoke build, and generated helper definitions
+from scripts/bpf_doc.py. checkpatch.pl reports no errors or warnings.
 
-- [High] The probe-error cleanup in peak_usb_create_dev() (adap_dev_free
-  label) calls peak_usb_stop_rx(dev->prev_siblings).
+AI assistance: OpenAI Codex helped reproduce the C++26 failures and
+draft changes to tools/lib/bpf/bpf_helpers.h and scripts/bpf_doc.py.
+The human submitter must review the changes and test results before
+submission.
 
-Pre-existing issues:
-- [Medium] PCAN-USB Pro has the same NULL channel-slot bug that this
-  patch fixes for PCAN-USB FD.
-- [Medium] When peak_usb_disconnect() runs from the probe-error path,
-  peak_usb_stop_rx() clears PCAN_USB_STATE_CONNECTED on all siblings…
+Fixes: d6a6a55518c1 ("libbpf: Move BPF_SEQ_PRINTF and BPF_SNPRINTF to bpf_helpers.h")
+Closes: https://github.com/libbpf/libbpf/issues/974
+Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+---
+ scripts/bpf_doc.py          |  10 +++-
+ tools/lib/bpf/bpf_helpers.h | 107 ++++++++++++++++++++++--------------
+ 2 files changed, 72 insertions(+), 45 deletions(-)
 
---
-
-can: peak_usb: harden channel handling in PCAN-USB FD
-
-The PCAN-USB FD decoders now check the channel number against the
-adapter's controller count, and they drop records for a channel whose
-usb_if->dev[] slot is NULL. The slot is cleared in pcan_usb_fd_free().
-A new helper, peak_usb_stop_rx(), clears CONNECTED under RTNL and poisons
-the RX anchors. It is called from the probe error path and from
-peak_usb_disconnect().
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-> index a1b17e1e6fea6..49d2c01b8ef7e 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-
-[ ... ]
-
-> @@ -1014,6 +1041,12 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
->  	return 0;
->  
->  adap_dev_free:
-> +	/* the whole interface is released when probing a channel fails:
-> +	 * stop RX on the channels already created, since their RX URBs may
-> +	 * carry records for this one.
-> +	 */
-> +	peak_usb_stop_rx(dev->prev_siblings);
-
-[Severity: High]
-Should this also stop RX on dev, and not only on its previous siblings?
-The comment above peak_usb_stop_rx() says it stops "dev and on all its
-previous siblings", but this call skips the channel that is failing.
-
-At this commit, peak_usb_create_dev() calls register_candev() before
-dev_init() and dev_set_bus(). So userspace may already have opened the
-failing channel, and its RX URBs may be in flight, when
-dev_set_bus(dev, 0) fails.
-
-On a single-channel PCAN-USB FD, dev->prev_siblings is NULL, so nothing
-gets stopped. The error path then runs:
-
-peak_usb_create_dev()
-    dev->adapter->dev_free(dev)
-        pcan_usb_fd_free()
-            kfree(pdev->cmd_buffer_addr);
-            kfree(pdev->usb_if);
-    unregister_candev(netdev)
-        peak_usb_ndo_stop()
-            dev->adapter->dev_stop(dev)
-                pcan_usb_fd_stop()
-                    pdev->usb_if->dev_opened_count--;
-
-Can the RX completions of this channel, and then pcan_usb_fd_stop(), use
-usb_if and the command buffer after they have been freed here?
-
-The later patch in this series, "can: peak_usb: register the netdevs only
-once all channels are set up", seems to close this window. It moves
-register_candev() into peak_usb_probe(), after all channels have been
-created. At this commit, though, the window is still open.
-
->  	if (dev->adapter->dev_free)
->  		dev->adapter->dev_free(dev);
->  
-
-[ ... ]
-
-> @@ -1038,13 +1071,14 @@ static void peak_usb_disconnect(struct usb_interface *intf)
->  	struct peak_usb_device *dev;
->  	struct peak_usb_device *dev_prev_siblings;
->  
-> -	/* unregister as many netdev devices as siblings */
-> +	/* stop RX on all channels before unregistering and freeing them */
-> +	peak_usb_stop_rx(usb_get_intfdata(intf));
-> +
->  	for (dev = usb_get_intfdata(intf); dev; dev = dev_prev_siblings) {
->  		struct net_device *netdev = dev->netdev;
->  		char name[IFNAMSIZ];
->  
->  		dev_prev_siblings = dev->prev_siblings;
-> -		clear_bit(PCAN_USB_STATE_CONNECTED, &dev->state);
->  		strscpy(name, netdev->name, IFNAMSIZ);
->  
->  		unregister_candev(netdev);
-
-[Severity: Medium]
-This is a pre-existing issue, but when peak_usb_disconnect() is called
-from the probe error path, the device is still attached and its interface
-has not been disabled.
-
-peak_usb_stop_rx() clears PCAN_USB_STATE_CONNECTED on every channel before
-any unregister_candev() runs. For a channel that is already up,
-unregister_candev() then calls:
-
-peak_usb_ndo_stop()
-    dev->adapter->dev_stop(dev)
-    dev->adapter->dev_set_bus(dev, 0)
-        pcan_usb_fd_send_cmd()
-
-and pcan_usb_fd_send_cmd() starts with:
-
-	/* usb device unregistered? */
-	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
-		return 0;
-
-After a failed probe, is the CAN controller left bus-on, while
-peak_usb_ndo_stop() treats the bus-off command as successful?
-
-The old loop already cleared CONNECTED just before each
-unregister_candev(), so these commands were dropped before this patch
-too. The patch now clears it on all channels at once.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> index 15d275d6a1277..eee5b5eaa247d 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-
-[ ... ]
-
-> @@ -536,10 +537,16 @@ static int pcan_usb_fd_decode_canmsg(struct pcan_usb_fd_if *usb_if,
->  	struct sk_buff *skb;
->  	const u16 rx_msg_flags = le16_to_cpu(rm->flags);
->  
-> -	if (pucan_msg_get_channel(rm) >= ARRAY_SIZE(usb_if->dev))
-> -		return -ENOMEM;
-> +	/* Reject invalid channel numbers reported by the firmware */
-> +	if (pucan_msg_get_channel(rm) >= usb_if->adapter->ctrl_count)
-> +		return -EINVAL;
-> +
-> +	dev = READ_ONCE(usb_if->dev[pucan_msg_get_channel(rm)]);
-> +
-> +	/* reject records for a channel that is not (or no longer) set up */
-> +	if (!dev)
-> +		return -EINVAL;
->  
-> -	dev = usb_if->dev[pucan_msg_get_channel(rm)];
->  	netdev = dev->netdev;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the PCAN-USB Pro decoders
-look like they have the same problem that this patch fixes for PCAN-USB
-FD.
-
-In pcan_usb_pro.c, pcan_usb_pro_handle_canmsg() and
-pcan_usb_pro_handle_error() check ctrl_idx only against the table size,
-then dereference the slot:
-
-	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
-		return -EINVAL;
-
-	dev = usb_if->dev[ctrl_idx];
-	netdev = dev->netdev;
-
-The channels share the bulk-in endpoint, so channel 0's RX URBs could
-carry a channel 1 record before pcan_usb_pro_init() has filled
-usb_if->dev[1]. Can that lead to a NULL pointer dereference in URB
-completion context? At this commit, register_candev() runs before
-dev_init() in peak_usb_create_dev(), so channel 0 can already be open at
-that point.
-
-Unlike the new pcan_usb_fd_free(), pcan_usb_pro_free() also leaves
-usb_if->dev[dev->ctrl_idx] set when the channel is freed.
-
-The commit message does not mention PCAN-USB Pro. Two later patches in
-this series appear to fix this: "can: peak_usb: reject records for unset
-channels in PCAN-USB Pro" and "can: peak_usb: register the netdevs only
-once all channels are set up".
-
->  
->  	if (rx_msg_flags & PUCAN_MSG_EXT_DATA_LEN) {
-
-[ ... ]
-
+diff --git a/scripts/bpf_doc.py b/scripts/bpf_doc.py
+index 15d113a1b..02e31ad50 100755
+--- a/scripts/bpf_doc.py
++++ b/scripts/bpf_doc.py
+@@ -829,6 +829,11 @@ class PrinterHelpersHeader(Printer):
+ /* Forward declarations of BPF structs */'''
+ 
+         print(header)
++        print("#ifdef __cplusplus")
++        print("#define ___bpf_helper_stub(id, name) reinterpret_cast<decltype(+name)>(id)")
++        print("#else")
++        print("#define ___bpf_helper_stub(id, name) ((void *)(id))")
++        print("#endif")
+         for fwd in self.type_fwds:
+             print('%s;' % fwd)
+         print('')
+@@ -849,8 +854,7 @@ class PrinterHelpersHeader(Printer):
+             print('')
+ 
+     def print_footer(self):
+-        footer = ''
+-        print(footer)
++        print("#undef ___bpf_helper_stub")
+ 
+     def map_type(self, t):
+         if t in self.known_types:
+@@ -908,7 +912,7 @@ class PrinterHelpersHeader(Printer):
+             comma = ', '
+             print(one_arg, end='')
+ 
+-        print(') = (void *) %d;' % helper.enum_val)
++        print(') = ___bpf_helper_stub(%d, %s);' % (helper.enum_val, proto['name']))
+         print('')
+ 
+ 
+diff --git a/tools/lib/bpf/bpf_helpers.h b/tools/lib/bpf/bpf_helpers.h
+index b37b727ef..6c9fdb696 100644
+--- a/tools/lib/bpf/bpf_helpers.h
++++ b/tools/lib/bpf/bpf_helpers.h
+@@ -233,20 +233,53 @@ enum libbpf_tristate {
+ #endif
+ 
+ #define ___bpf_fill0(arr, p, x) do {} while (0)
+-#define ___bpf_fill1(arr, p, x) arr[p] = x
+-#define ___bpf_fill2(arr, p, x, args...) arr[p] = x; ___bpf_fill1(arr, p + 1, args)
+-#define ___bpf_fill3(arr, p, x, args...) arr[p] = x; ___bpf_fill2(arr, p + 1, args)
+-#define ___bpf_fill4(arr, p, x, args...) arr[p] = x; ___bpf_fill3(arr, p + 1, args)
+-#define ___bpf_fill5(arr, p, x, args...) arr[p] = x; ___bpf_fill4(arr, p + 1, args)
+-#define ___bpf_fill6(arr, p, x, args...) arr[p] = x; ___bpf_fill5(arr, p + 1, args)
+-#define ___bpf_fill7(arr, p, x, args...) arr[p] = x; ___bpf_fill6(arr, p + 1, args)
+-#define ___bpf_fill8(arr, p, x, args...) arr[p] = x; ___bpf_fill7(arr, p + 1, args)
+-#define ___bpf_fill9(arr, p, x, args...) arr[p] = x; ___bpf_fill8(arr, p + 1, args)
+-#define ___bpf_fill10(arr, p, x, args...) arr[p] = x; ___bpf_fill9(arr, p + 1, args)
+-#define ___bpf_fill11(arr, p, x, args...) arr[p] = x; ___bpf_fill10(arr, p + 1, args)
+-#define ___bpf_fill12(arr, p, x, args...) arr[p] = x; ___bpf_fill11(arr, p + 1, args)
+-#define ___bpf_fill(arr, args...) \
+-	___bpf_apply(___bpf_fill, ___bpf_narg(args))(arr, 0, args)
++#define ___bpf_fill1(arr, p, x) (arr[p] = (unsigned long long)(x))
++#define ___bpf_fill2(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill1(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill3(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill2(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill4(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill3(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill5(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill4(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill6(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill5(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill7(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill6(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill8(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill7(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill9(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill8(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill10(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill9(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill11(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill10(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill12(arr, p, x, ...) do { \
++	arr[p] = (unsigned long long)(x); \
++	___bpf_fill11(arr, p + 1, __VA_ARGS__); \
++} while (0)
++#define ___bpf_fill(arr, ...) \
++	___bpf_apply(___bpf_fill, ___bpf_narg(__VA_ARGS__))(arr, 0, __VA_ARGS__)
+ 
+ /*
+  * Format strings are in a section of their own. When global data of the object
+@@ -260,15 +293,12 @@ enum libbpf_tristate {
+  * BPF_SEQ_PRINTF to wrap bpf_seq_printf to-be-printed values
+  * in a structure.
+  */
+-#define BPF_SEQ_PRINTF(seq, fmt, args...)			\
++#define BPF_SEQ_PRINTF(seq, fmt, ...)			\
+ ({								\
+ 	static const char ___fmt[] ___bpf_fmt_sec = fmt;	\
+-	unsigned long long ___param[___bpf_narg(args)];		\
++	unsigned long long ___param[___bpf_narg(__VA_ARGS__)];		\
+ 								\
+-	_Pragma("GCC diagnostic push")				\
+-	_Pragma("GCC diagnostic ignored \"-Wint-conversion\"")	\
+-	___bpf_fill(___param, args);				\
+-	_Pragma("GCC diagnostic pop")				\
++	___bpf_fill(___param, __VA_ARGS__);				\
+ 								\
+ 	bpf_seq_printf(seq, ___fmt, sizeof(___fmt),		\
+ 		       ___param, sizeof(___param));		\
+@@ -278,15 +308,12 @@ enum libbpf_tristate {
+  * BPF_SNPRINTF wraps the bpf_snprintf helper with variadic arguments instead of
+  * an array of u64.
+  */
+-#define BPF_SNPRINTF(out, out_size, fmt, args...)		\
++#define BPF_SNPRINTF(out, out_size, fmt, ...)		\
+ ({								\
+ 	static const char ___fmt[] ___bpf_fmt_sec = fmt;	\
+-	unsigned long long ___param[___bpf_narg(args)];		\
++	unsigned long long ___param[___bpf_narg(__VA_ARGS__)];		\
+ 								\
+-	_Pragma("GCC diagnostic push")				\
+-	_Pragma("GCC diagnostic ignored \"-Wint-conversion\"")	\
+-	___bpf_fill(___param, args);				\
+-	_Pragma("GCC diagnostic pop")				\
++	___bpf_fill(___param, __VA_ARGS__);				\
+ 								\
+ 	bpf_snprintf(out, out_size, ___fmt,			\
+ 		     ___param, sizeof(___param));		\
+@@ -309,29 +336,23 @@ enum libbpf_tristate {
+  * __bpf_vprintk wraps the bpf_trace_vprintk helper with variadic arguments
+  * instead of an array of u64.
+  */
+-#define __bpf_vprintk(fmt, args...)				\
++#define __bpf_vprintk(fmt, ...)				\
+ ({								\
+ 	static const char ___fmt[] ___bpf_fmt_sec = fmt;	\
+-	unsigned long long ___param[___bpf_narg(args)];		\
++	unsigned long long ___param[___bpf_narg(__VA_ARGS__)];		\
+ 								\
+-	_Pragma("GCC diagnostic push")				\
+-	_Pragma("GCC diagnostic ignored \"-Wint-conversion\"")	\
+-	___bpf_fill(___param, args);				\
+-	_Pragma("GCC diagnostic pop")				\
++	___bpf_fill(___param, __VA_ARGS__);				\
+ 								\
+ 	bpf_trace_vprintk(___fmt, sizeof(___fmt),		\
+ 			  ___param, sizeof(___param));		\
+ })
+ 
+-#define bpf_stream_printk(stream_id, fmt, args...)					\
++#define bpf_stream_printk(stream_id, fmt, ...)					\
+ ({											\
+ 	static const char ___fmt[] ___bpf_fmt_sec = fmt;				\
+-	unsigned long long ___param[___bpf_narg(args)];					\
++	unsigned long long ___param[___bpf_narg(__VA_ARGS__)];					\
+ 											\
+-	_Pragma("GCC diagnostic push")							\
+-	_Pragma("GCC diagnostic ignored \"-Wint-conversion\"")				\
+-	___bpf_fill(___param, args);							\
+-	_Pragma("GCC diagnostic pop")							\
++	___bpf_fill(___param, __VA_ARGS__);							\
+ 											\
+ 	bpf_stream_vprintk(stream_id, ___fmt, ___param, sizeof(___param));		\
+ })
+@@ -346,7 +367,7 @@ enum libbpf_tristate {
+ 		   __bpf_printk /*1*/, __bpf_printk /*0*/)
+ 
+ /* Helper macro to print out debug messages */
+-#define bpf_printk(fmt, args...) ___bpf_pick_printk(args)(fmt, ##args)
++#define bpf_printk(fmt, ...) ___bpf_pick_printk(__VA_ARGS__)(fmt, ##__VA_ARGS__)
+ 
+ struct bpf_iter_num;
+ 
+@@ -382,16 +403,18 @@ extern void bpf_iter_num_destroy(struct bpf_iter_num *it) __weak __ksym;
+  * extension: __attribute__((cleanup(<func>))), supported by both GCC and
+  * Clang.
+  */
+-#define bpf_for_each(type, cur, args...) for (							\
++#define bpf_for_each(type, cur, ...) for (							\
+ 	/* initialize and define destructor */							\
+ 	struct bpf_iter_##type ___it __attribute__((aligned(8), /* enforce, just in case */,	\
+ 						    cleanup(bpf_iter_##type##_destroy))),	\
+ 	/* ___p pointer is just to call bpf_iter_##type##_new() *once* to init ___it */		\
+ 			       *___p __attribute__((unused)) = (				\
+-					bpf_iter_##type##_new(&___it, ##args),			\
++						bpf_iter_##type##_new(&___it, \
++								       ##__VA_ARGS__), \
+ 	/* this is a workaround for Clang bug: it currently doesn't emit BTF */			\
+ 	/* for bpf_iter_##type##_destroy() when used from cleanup() attribute */		\
+-					(void)bpf_iter_##type##_destroy, (void *)0);		\
++					(void)bpf_iter_##type##_destroy, \
++					(struct bpf_iter_##type *)0); \
+ 	/* iteration and termination check */							\
+ 	(((cur) = bpf_iter_##type##_next(&___it)));						\
+ )
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-canfd_check_channel_idx-v6-0-197704231551%40peak-system.fr
+2.55.0
+
