@@ -1,54 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792860237;
-	b=cBQihGsetKr0sChQZAaewhXz1LMTzl58DivF0kDPF8hetmP6RolEaDPc43JUoGsB2jWT
-	 Ym+wFo1WqITUpv88XKCrsLsHBdgxEWEjGFeG38UwOqVUnrnJLozrlLSro8WydHZq2oHoL
-	 cSbSYNL21ushX8G63P/DGLA2H2aGAOLM7uaz7O2vMMxiVF88E6Co3dLC8bRl0ZK6zQLtK
-	 AZgtGULxhL4AZJBTjivvm0Cs2iJxAOi6xajG93ifcafUeFMRE90JYhhI34jChNaADTzTX
-	 dzgAz0OZ4Vni5dkmxnhiXYEzS/fw4bN0i3SA9fsTvs9tB/frLgzUZ1rsMb8UM1bmd9g==
+	t=1792860422;
+	b=dIL8Yqkj7ITr5TPbeLsODeIMqVeHKJm4koEWWeABZ21vdm1seynpkKIleJozrDNXG3YI
+	 stHab14bUfrlgPOX3YzHHLK1zxs1CIbkIHxQTRyYw/uV+2ypo60baIrLmOWhoGN6mi3Jb
+	 4/4UbmHZxX75YbnYsMFdYY65Hn8Iod3e1W6kMjMc9lEBV5yLQoEUt2jTTdznKsNZ5zCmI
+	 HN/qRQeLaTLYwxTiuebe0Ana9kTYD3bTMdlh26tOWBU/ZMJW33F9wI2ztVAxXxz/UyNwG
+	 4zJPEq6mNTj/nLeJFUZ4G1AhVvo8wYwEig6ocFBBhoLNFIxtfkEd3DAjr4U05CLYo0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792860237;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+/j266sJfIqDeAfgkEM0MUVjoZ5c4ZSL2NlWj4wux/Q=;
-	b=Co3Q1pkD5+vfJktOUldKoKZbJmj4DxrO4lnldSP6RrAXB8zyU5ASu4goFBtzRLw32P5B
-	 8ZBnYN/dY0CvDHkwepIm5zU2BdFNZFM8BiUrtED2QcIb+QaPW1HZOISBxbwQ2CwHU28wR
-	 bBWJ0q+Yzp78qA8JFcxLHtoxOaxleBCIMUY/gLeAoM4cWTvjDUP7T4xBNwjUf297ohYcV
-	 cbnWGtgWT3SkL9CYyUvxrbU9OBAv92sou5ERX+MC8qBVa2UGwNECh7hxBPWwehs274YfK
-	 06texCBEKKT2eFrEzos4dT+cRZOJYFgyAs6dix/43Y8Ayh2VwyGhgNBovIiATQpu6UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792860422;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=g3jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=;
+	b=PwR+jzznexGARaLOmKZHqU9MmwwAOas0RxEnoDMjdSiUyvtM0LW5h17KflUtSsT2DJcU
+	 gZ/ZGe0yw9ZQFbX4n16zNaE+6FoOQ3RhafLAMbtA7nKbKWS8Jo+CrmzyJIbaZh9CluxgE
+	 s8s6kGlmIr97FuO5bN0neSu5BFb4ChaCiHz3fpTGYNAlrEq+B6kk/OBibMY1w/Ub/YsCg
+	 yhVp5ERjVQ1ahntu2OnMHid8BaW1Pw9gmH1YuhrhDMvsisfayPLMi0WqeYj/X0sNrGKtc
+	 zZMKvKeHBOLWKKsqD9X9Ebt0FYttCtoskvHDiHeTd7856igGNvIPk0c1J33tTwI5Ung==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GQmipm9n;
-	arc=none smtp.remote-ip=95.215.58.155
-Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9363606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:43:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9363606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5AB606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:47:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B5AB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GQmipm9n
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YaB4ADKDgt+Vb2IvZ5bZWg1lDZ+WYJjWnqvVAGLvasI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792860232; v=1; x=1793465032;
- b=GQmipm9n1/AsSrr7Em7oB9sqMBuhxeG28HqgJUlrhZ9CIVaFiNUZdW/YSxg4UWyA2y+iIve2
- 1rtaXivcaDOV7b3lCuD3mjjaFGdQQqwPXngJ9SeETxc6FJc1/GCm+gCgqp9VFLUxU4Qtx9gAEKD
- hxVnQBjUUghzkhezNKmCt/pE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2282dd039a80869b;
-	Sat, 24 Oct 2026 16:43:52 +0000
-X-Mizu-Trace-ID: 2282dd039a80869b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6047c828-07a4-449e-aaa6-8fa182c11cba@linux.dev>
-Date: Sun, 25 Oct 2026 00:43:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 2B2C714000E0
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:47:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Sat, 24 Oct 2026 12:47:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1792860420; x=1792946820; bh=g3
+	jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=; b=JYk8KFESW9t3uw6qBy
+	hI/PwK8AqQ6yFbUahVBIP3PjU6CXfJXb9WPnV7uu3tF2oOc7h19sWTe5Vn+uepxK
+	+g3XKFjl/uh6IbtXhJ8v+WLl9sO9rkqghmOBYePhoMfUDLgb6tu0Fcz8YfzGUi5k
+	ziD0/WwbVb2b9zlbSTkqjOIYf9M8KEtVsoh+smN8WaE0HQ7zeUwfHYD53fYR6s0I
+	0PwWW8IxsZ8lqDoWOK8GQr0QvIiDvoAjtuBuurVixNJIC7rBFgkQrdkCSiSmSdPO
+	q8dV620jP+99WrraFbAvTMLJpzKu0oMX17uE9kiP1YJWYRdKPh7gyMrNhc0ZjHaF
+	BtgA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1792860420; x=1792946820; bh=g3jJ/aniX5kGUGfAlghqlj05kG4x
+	ZJjBRp+ULqjc2Gw=; b=Y9rEqULrYK0Ug1f0iANDinyqNxnGSkCXSHIU9Na5/SGv
+	z1d/4jjs6CEFnUvsiqHefkTjD6j2SYY/sLClTWH9/7stLnstl5XAx2ZLwy1Zz6k0
+	/VvthJlQckvYmlCVr4s6VGuFW08jjsJ1Up088kzVdOnVgMHpr1QmAZ4Ap3Yd9+fm
+	ijPs0g4CG4WJ/k0MDQLESaAJIkIQanAoVnQHYYcK8JJ19QKKXjFvm2UpNN3hxsun
+	dlEqKRFno179Vav2JEllVqisjGqd7I9Doq5eh9k1vkrAy6VEiORQCKhceeISDzoX
+	EARnXgPaCEoAmnFHGQ4Jp5i0GdWTeqZK21vuWiLcww==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792860420; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:fLcItAF2HYfLUyA4VHdfdnM5mdMrlttwfgAI8pEmnOcOcTd
+	8pn4Jt/KX/dGN2OzK6Ri49hjX82u6BfskfIgHekXpA2gJYlAzqErMpneMIykXNjx
+	I+ZOCJnrS5M2wlYOw1hxbkcKIVZ5yq9aOF/NxZwdmrf9mV0jm/Sqz5Z8WYT+CUyP
+	wGX81s0QcjUMBLUa/6b6ONDmT7uvLOld83uoaMeVu+Cg4pip58CF2Koy7Rj8OVfn
+	Xhi0BHUDOZABYE7628Vd8BlOJ21tXACDwqFoY5TkM0ggcGMciRTGJ99fHngrnZAJ
+	Lds88D02Ahdcy6N0zkbxNcKil25U4p8tu23Nn+A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:2V7vfyQFvagtebhP31LBhTs9FJNOAs1HcL4UqvhRpTM=:ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
+X-ME-Sender: <xms:A-Hcar0r6yysYVq4VsjiXryZ_6TyMiEWaA9aZBHCj05-Y05FhOCy5A>
+    <xme:A-Hcal9AjpiUGToQub6dA0TsiPl28k7m08W1LQ83cTjPDiUyUch4W4uX3HgynSXbC
+    WBkKFhcAccel-uIt6RSVNQZ-25WJBwC4sH_Z4t8imkVjScvaKKUvspM>
+X-ME-Received: <xmr:A-Hcao7dxUubB5i9BBbMeatKL7vDhjgPQcYgYPk1VWx8j9RqA6-nAE8JiZGjNIoTkCkAP9-t9Iy38NglR5VORSsbHx22Gv39fdA>
+X-ME-Proxy-Cause: dmFkZTE2M4sKdu9IXP/yF3S2UenmF60GkjF+Ba+YLrK8eiTG1IZ0LHx4YFF6nwNNknF+Ep
+    eH6JdyxLINrYvBw10zwWot8XIez8Ww9JXjzi05CRq++lBGhIgidceLLn2R2kBm+4TYOneJ
+    5oTwS+2icLsbqK4lfMCd0uHS24aq8DV3cnbKS0aGN/ueBLbqwfR1cv+uG2P8lZtrv8QPqe
+    75I6yUWPgsWW3qjQeHwOMmI7RWsN8FSHRL50sDQUEjzvY3NsK5CLJg9yPLnXJgothjgsim
+    IGsq9sq7Tm9qis4lOMZW8QkDZK25JtmRCKhRAZHMOM2mpk10CcdfE5Gh50pUj6VCjHtSGE
+    OFYS/yjRyCTH1Xjyrmtgwg9Mex9izuo8T0Gq3FCIABEdUg9FykWtfgqDv2e2qO6Tbmvg4a
+    4hAAcB+D5/uYG3Kv/hicQzMiFpf3Xl3V8ceoUmvfGNxReB1sjI+nKj+144QvT6wG3xrnEx
+    X9rlM/R4BoduovaQx78Hux9xbMN/kTQmJLtbdWDYenkMOGw/dkBtOA5xwcXeF7FtWleW4u
+    QPTF+cu8kO6kp7ewtcfvGT08hrs4dUFlCFcImonrekEdWxfDC3xEvgfSp1a8U+ibuDDgnV
+    6Us8lyERJO8hmpRrSTEbIFiVwoP1XtQZzcIWbbMVFQdFkYbL8r8K3j9SiqMw
+X-ME-Proxy: <xmx:A-HcaltUZihd2XSitSQx6i3qr3NlO1ywXrvEUTOVK7HviKr8eIyluw>
+    <xmx:A-Hcai3mkJl3njrqHBGha5El-MFmX2LT8yHO2ap3coAQkVFvHJKaIA>
+    <xmx:A-HcamqsqPv9AiBaHy0eY7Pv-dq21IXoHF6KXxitCMvJ2bSGv9JpWQ>
+    <xmx:A-HcaqI7-9WUj_BL0uKpSjBbdMYOwkNXveqrHixaHuZ9omAUbxUMpA>
+    <xmx:BOHcajZTGZnP-bB7RKe24vnLYd-WAnXMVMIsx8QeVe8fG1jO23e_MRAq>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 24 Oct 2026 12:46:59 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Sat, 24 Oct 2026 18:46:54 +0200
+Subject: [PATCH] PCI: apple: Avoid PERST# deassertion through gpiod
+ initialization
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,136 +119,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v5 0/2] sysctl: add CTLTBL_ENTRY_XXX() macros for
- ctl_table initialization
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1774463505.git.wen.yang@linux.dev>
- <3626b4c0-319b-4944-b7ff-704ab146fd1e@linux.dev>
- <57fctybn2i7fapt7mo466rou7pu2qfudhkqfmd22y2yu72uilh@zpaewmnbjqbo>
-Content-Language: en-US
-From: Wen Yang <wen.yang@linux.dev>
-In-Reply-To: <57fctybn2i7fapt7mo466rou7pu2qfudhkqfmd22y2yu72uilh@zpaewmnbjqbo>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-pcie-apple-perst-gpiod-init-v1-1-f92f30f205ef@jannau.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrDIBAF0KuEWXfAiLjIVUoXVn/TD8EMGkoh5
+ O6VLt/mndLRiC7LdErDh517HZhvk+R3qiuUZVi883F2PqhlQpPZBjW0fuhq3Iuy8tBndB4IJac
+ QZQzW8OL3v98f1/UDTf31o20AAAA=
+X-Change-ID: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
+To: Marc Zyngier <maz@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Janne Grunau <j@jannau.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1647; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Dxm1Ik9o8zt8jm1keLr0xsfkaz5HXXJyZe5qvJon1
+ xbUOnVWRykLgxgXg6yYIkuS9ssOhtU1ijG1D8Jg5rAygQxh4OIUgIkov2ZkuLGuT2y5Ce+7bx2/
+ HF2yjNnXrGM/PjNrVbeBW1RC5pENhxn+Jx20r7/y4aVR4fzkD6uqmkUmbbrVszkjsTXzLH/i0Rc
+ xXAA=
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
+Commit 87620512681a ("PCI: apple: Fix PERST# polarity") switched the
+PERST# polarity by annotaing its GPIO as active low in the device tree
+via [1]. It missed to update gpiod_get()'s flags to GPIOD_OUT_HIGH
+resulting in deasserting PERST# through gpiod initialization.
+The Aquantia AQC113 10GB ethernet device used in some Apple silicon
+desktop does not finish link training with this additional PERST#
+deassert before the usual PERST# dance.
 
+Link: https://lore.kernel.org/linux-pci/20211123180636.80558-1-maz@kernel.org/ [1]
+Fixes: 87620512681a ("PCI: apple: Fix PERST# polarity")
+Cc: stable@vger.kernel.org
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+This issue affects only a single PCIe devices of the handful of built-in
+devices integrated in Apple silicon devices. It is usually hidden by
+u-boot's initialisation of PCIe devices.
+---
+ drivers/pci/controller/pcie-apple.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 6/17/26 23:25, Joel Granados wrote:
-> Hey Wen
-> 
-> Sorry for not getting back to you sooner.
-> 
-> IMO, this is approach is the way to go to bring back the control of the
-> sysctl variables into the sysctl subsys files. Would like to get another
-> set of eyes on it before committing to it though.
-> 
-> I think it has not gotten too much attention because it does not touch
-> any other subsystem. Would you consider adding one subsys to the series?
-> Something like implementing it for the users in arch/ or fs/ or
-> drivers/.
-> 
-> Also, this might be a signal to park this temporarily and let it simmer
-> until more ppl are annoyed at making changes to the sysctl API.
-> 
-> Best
-> 
-
-Hi Joel,
-
-Apologies for the long delay, and thank you for your helpful feedback. 
-
-I've been tied up with other commitments, but can now return to this 
-
-work and prepare v3 based on your suggestions. 
-
+diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+index c2cffc0659f4..a7f327803060 100644
+--- a/drivers/pci/controller/pcie-apple.c
++++ b/drivers/pci/controller/pcie-apple.c
+@@ -562,7 +562,7 @@ static int apple_pcie_setup_port(struct apple_pcie *pcie,
+ 	int ret, i;
+ 
+ 	reset = devm_fwnode_gpiod_get(pcie->dev, of_fwnode_handle(np), "reset",
+-				      GPIOD_OUT_LOW, "PERST#");
++				      GPIOD_OUT_HIGH, "PERST#");
+ 	if (IS_ERR(reset))
+ 		return PTR_ERR(reset);
  
 
-Given the time that has passed, I'd appreciate any updated advice or 
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
 
-related developments I should take into account. 
-
- 
-
-Thanks again for your time and patience. 
-
-
+Best regards,
 -- 
+Janne Grunau <j@jannau.net>
 
-Best regards, 
-                                                            Wen
-
-> On Sat, Jun 13, 2026 at 11:56:50PM +0800, Wen Yang wrote:
->> Hi Kees, H jioel,
->>
->> Gentle ping on this series. Please let me know if there are any
->> concerns or if further changes are needed.
->>
->> The series is available at:
->> https://lore.kernel.org/all/x5stdwwsfp2h22zyexn5ycbxnkyc4ioxscninxsa6q7lf6djqr@jkuppwwqubkp/
->>
->> Thanks for your time,
->> Wen
->>
->>
->> On 3/26/26 02:39, wen.yang@linux.dev wrote:
->>> From: Wen Yang <wen.yang@linux.dev>
->>>
->>> Historically, changes to how struct ctl_table entries are initialized
->>> (e.g. removing the child field, const-qualifying ctl_table) required
->>> touching hundreds of files across all subsystems.  Such series require
->>> the attention of many maintainers, sometimes need to be pulled into
->>> mainline in a special way, and create lots of unnecessary churn.  With
->>> CTLTBL_ENTRY_XXX(), future structural changes to struct ctl_table need
->>> only update the macro definitions.
->>>
->>> Conversion of existing call sites will proceed incrementally from
->>> kernel/sysctl.c outward, rather than as a treewide sweep.
->>>
->>> This series:
->>>    1. Introduces the CTLTBL_ENTRY_XXX() macros in include/linux/sysctl.h,
->>>       using _Generic() for automatic proc_handler selection, auto
->>>       address-of, auto maxlen via sizeof(), and compile-time validation.
->>>       Supported types: int, unsigned int, long, unsigned long, bool, u8.
->>>    2. Converts kernel/sysctl-test.c as a demonstration, adding a
->>>       parameterized KUnit test covering all macro variants (V, VM, VMR,
->>>       VN, VNM, VNMH) across int, u8, bool, and char[] types.
->>>
->>> Based on discussion and suggestions from:
->>> [1] https://sysctl-dev-rtd.readthedocs.io/en/latest/notes/ctltable_entry_macro.html
->>> [2] https://lore.kernel.org/all/psot4oeauxi3yyj2w4ajm3tfgtcsvao4rhv5sgd5s6ymmjgojk@p3vrj3qluban/
->>>
->>> ---
->>> Changes in v5:
->>>     - Extend __CTL_AUTO_HANDLER to support bool and u8
->>>     - Replace individual test functions with a single parameterized KUnit
->>>       test (KUNIT_CASE_PARAM) covering all variants and types
->>>     - Use struct ctl_table as the expected-value container in the param
->>>       struct, eliminating custom expected_* fields
->>>
->>> Changes in v4:
->>>     - Fix Wpointer-type-mismatch warnings detected by lkp:
->>>       https://lore.kernel.org/oe-kbuild-all/202603050724.SZxrEyyu-lkp@intel.com/
->>>
->>> Changes in v3:
->>>     - Replace the unique macro with "capital letter approach"
->>>     - Reduce the name further
->>>     https://lore.kernel.org/all/rn4rsazh7kxf5byq65vw2phyqgzvwm3scczu3l5h2r4aqit2r6@znlpb24z2zuo/
->>>
->>> Changes in v2:
->>>     - Add lvalue check, handler type check, etc.
->>>     https://lore.kernel.org/all/xptwb3uwbzposd4xf7khj52ifv4tchcjdgllhv7aabi6d7wgef@2msurl564v53/
->>>
->>>
->>> Wen Yang (2):
->>>     sysctl: introduce CTLTBL_ENTRY_XXX() helper macros
->>>     sysctl: convert kernel/sysctl-test.c to use CTLTBL_ENTRY_XXX()
->>>
->>>    include/linux/sysctl.h | 307 +++++++++++++++++++++++++++++++++++++++++
->>>    kernel/sysctl-test.c   | 237 ++++++++++++++++++-------------
->>>    kernel/sysctl.c        |   2 +
->>>    3 files changed, 447 insertions(+), 99 deletions(-)
->>>
-> 
