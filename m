@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833982;
-	b=mpzWGU203nyN5UdltZ7QP+272zJs9a7g/uha+ZmaSpwD3D1jAQ67bFkkpj8UUBr32hv/
-	 bs15vFxcTsp/azrSHFjmfObhN+DJcCh1e/BqD0thSKdnpTyhumZX6vn6KdEJCOxTMYz6F
-	 dxjPiYmwST6T8PY599CJCsoflxm/rBZGj9Mm6zU56dBVYE2qnQqB30faq5yjAbjtqQkkX
-	 OCAyyEqkU5ZGOLtBuLV4G7VemHcv8zb2ROfaZT1P96Razuvf2g0SLgz8rs2MCxWO5rQmB
-	 +tzTanyPjpf/UrOt8YgS3XlyuXQ5vjB4TKyDMQ5To7aS9bWu359MZTOIjOpql2D7v3Q==
+	t=1792833977;
+	b=jikGrznFIcYNDvXxm2berDSHDLLPmR6AK1Fno+ZAbFMD5hUAk5nzvghenaT7IFakzEtS
+	 BxfWsLP4I8y1YGYr7H+a21QnZcV+09EIKM+nXTo59/bBdbCP+1p7vja18pj60Bx2ghy25
+	 TJSVHbdi0woBgS8YhDsKNAt4y+0rNjiU+TsTUIGkHcFJw1XzbIi9DFydZNUisop0A919W
+	 dJhgwoslKJs2EJDodw1hBUzvL8pxyUwECR6/Y6LFwYiRMtbURU4JIr1XfPCazzhw4NWnb
+	 T9jr9yU7EAHEQAoqKUHffxeL9guSMr5YHsKdqXFMeEk/UArj4PyffMWJU7kyPKGtXhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792833977;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=3xlPK5rfjvIpCumPx4sya77S1DpdTCfoE90ByGw/BeM=;
-	b=DqsCbBV+Ga0fxyPlXBlUrbq9albVadDcj89ZlVbAqJwKoQjWo6EQH7ghB7npor8QTMjT
-	 0vj0w/r9XvmgAt09XBk9PVmEBFVODUtZ4AkIf73GldTtlLvvafV8G34FzYFFrSbscGb4B
-	 mFsuOV3MACCYehF9QMgGXxGp41Kt8J/p0hHpSLQ/F8wXPs8Fsstjl9jPQCljhgcxXPWTW
-	 Qu17SF3hbJAKAVyZq6aIyk4Hahk8EA765zQR69ecq5BRK60QWN4+91+LxiqSlRPzM0812
-	 pyHguE0XDtQQn9o0uEettuu8bCYMbmNhQUUQ4DN1cWe9QhQNxOP66u36CSyKq0sbPdQ==
+	bh=CWscuE6h4MsT6ScEWupVOzqsOKdqnz8AjJsWzvvF6ck=;
+	b=s4JLKnNWV/MHKDpBSUzNhZvHouLjuUerOJRIE1lXKkGTmpvyT5Ym93AfgQ1ZokRiLtUR
+	 mxHLWV9guEDCXnJE2gz1ad8ShMFBvSDzxMZ3lPVajqjdolOlwZ2dRtTjX6f9bL3Suc6Ft
+	 cYWqSWdguci4Ado5gUwhCsUBHnu7LcVBo4pgMGHfDnor14qR/ytoH/KjAVdngRKEzO7U+
+	 RfZU72aUxc4VZ7rCMtJKZWuuF/5qYt4gaW2ksmBd0eggjHRoiT63O70gJmJ5T/XhGpPGG
+	 R9VOXVPVu+h/Ac5P1Szfa0U4SlwqkGsJP5kdiT6R0jDxYRPBK9WpryMvTsNH05YAI9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mandelbit.com;
 	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=LEJMB8J9;
-	arc=none smtp.remote-ip=195.10.208.62
-Received: from mout-b-202.mailbox.org (mout-b-202.mailbox.org [195.10.208.62])
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=f0FPFHkh;
+	arc=none smtp.remote-ip=195.10.208.47
+Received: from mout-b-107.mailbox.org (mout-b-107.mailbox.org [195.10.208.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DCB60A2613;
-	Sat, 24 Oct 2026 09:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DCB60A2613
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F308606A32C;
+	Sat, 24 Oct 2026 09:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F308606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=LEJMB8J9
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=f0FPFHkh
 Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-202.mailbox.org (Postfix) with ESMTPS id 4jBZJJ6qqgzKnWZ;
-	Sat, 24 Oct 2026 11:26:08 +0200 (CEST)
+	by mout-b-107.mailbox.org (Postfix) with ESMTPS id 4jBZJN6Kzjz3y47;
+	Sat, 24 Oct 2026 11:26:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1792833968;
+	s=MBO0001; t=1792833972;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3xlPK5rfjvIpCumPx4sya77S1DpdTCfoE90ByGw/BeM=;
-	b=LEJMB8J9HV32iN68/RPE/r0DPWN1FeulsVFYkWH9fRfFxwzI9Muf+nuKJCTqkpxTEYjjxz
-	SDB4+TK1UYGgIeIgyWx916VcMKOevPYyr8Z0bvmN7CehM7fV7aG38W2aHaTmJWcU3D52BE
-	onCur8QrH7nlMEOdibjlAfs4jND6VV+67TMGkgZLg4gATBjgn771yYWuDzXqXEoNuTRDOP
-	dZuzT4Mm6NakMYlTFXGL+Kwtla+fVidyCESJqPT8SAJ549D9tK90gB6eTsEzWVikrrXk6p
-	12IY0V3JWBkMQZCyCMbn3IKhy03FEhnSQ3ITasRao4Cag6aYRIFO2bNuS5LUfg==
+	bh=CWscuE6h4MsT6ScEWupVOzqsOKdqnz8AjJsWzvvF6ck=;
+	b=f0FPFHkh52NrqBYd3dxtXDyeOasShqiwe2nT9lpT0qrMm0X8s3X+98XTXU0DaHtea2um7Y
+	7zjWKpVkK1E3Pc17G7u8yrz6GzRerYSUSDTw2sm+hIQPtfBSbYYFR7MPPKs3EH+92qUvzb
+	mNquC+LxNwJ6SbKiaN/T9OT5MH3LOuGWOjwtoe0nUh+gvxJo29fAZWn2YDCY8O34X4gmOd
+	Vm5M4+sXDXmJbfIQsfmK5Eqh0NIsBsiRWZrRweutuJQNJcceXBpQm54OrC5ZPXt0yWRaxi
+	rbGKwSwnOTEjy2iPhxqdsYC5rCe3egRVSTo0gs8B9f3DjxmZhm68e9HPVs6FoQ==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
 From: Ralf Lici <ralf@mandelbit.com>
 To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	=?UTF-8?q?Daniel=20Gr=C3=B6ber?= <dxld@darkboxed.org>,
 	Antonio Quartulli <antonio@mandelbit.com>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [RFC net-next v2 07/18] net: ipxlat: add packet metadata and header helpers
-Date: Sat, 24 Oct 2026 11:25:17 +0200
-Message-ID: <20261024092532.172005-8-ralf@mandelbit.com>
+Subject: [RFC net-next v2 12/18] net: ipxlat: add translation preparation and dispatch
+Date: Sat, 24 Oct 2026 11:25:22 +0200
+Message-ID: <20261024092532.172005-13-ralf@mandelbit.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261024092532.172005-1-ralf@mandelbit.com>
 References: <20261024092532.172005-1-ralf@mandelbit.com>
@@ -79,276 +82,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jBZJJ6qqgzKnWZ
+X-Rspamd-Queue-Id: 4jBZJN6Kzjz3y47
 
-Define the skb control block used while a packet is prepared, together
-with offset, length, fragment and pending-error helpers shared by
-the two protocol families.
+Expose a two-stage engine interface which validates and caches packet
+metadata before rewriting. Mark translated DF-clear IPv4 packets so
+IPv6 output owns any required fragmentation or refragmentation.
 
 Signed-off-by: Ralf Lici <ralf@mandelbit.com>
 ---
-Changes since RFC v1 https://lore.kernel.org/netdev/20260319151230.655687-4-ralf@mandelbit.com/
-- Reshape the v1 control block for the prepare-translate engine contract,
-  remove netdevice actions and continuation policy from its metadata,
-  and split family-specific parsing into packet4.c and packet6.c.
-- Make headers which expose IPv6 packet and Fragment Header types
-  include the declarations they use. (Sashiko)
+Changes since RFC v1 https://lore.kernel.org/netdev/20260319151230.655687-9-ralf@mandelbit.com/
+- Replace the v1 ndo_start_xmit dispatch/actions with the exported
+  ipxlat_prepare and ipxlat_translate engine interface so attachments
+  other than the initial LWT harness can reuse the translator. (Toke)
+- Complete eligibility checks and protocol preflight before mutation so
+  unsupported packets can be returned untouched. Allocation failures
+  during the rewrite still leave the packet for the caller to discard.
+- Stop decrementing TTL or Hop Limit inside the engine: the
+  translated-family forwarding path owns the one forwarding decrement.
+  (Sashiko)
+- Remove pre-fragmentation and mark translated DF-clear IPv4
+  representations for fragmentation by the target IPv6 output route.
 
- net/ipxlat/packet.h | 243 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 243 insertions(+)
- create mode 100644 net/ipxlat/packet.h
+ include/net/ipxlat.h | 35 +++++++++++++++++
+ net/ipxlat/core.c    | 92 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 127 insertions(+)
 
-diff --git a/net/ipxlat/packet.h b/net/ipxlat/packet.h
-new file mode 100644
-index 000000000000..463f1ef027d0
---- /dev/null
-+++ b/net/ipxlat/packet.h
-@@ -0,0 +1,243 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*  IPXLAT - Stateless IP/ICMP Translation (SIIT) engine
+diff --git a/include/net/ipxlat.h b/include/net/ipxlat.h
+index 6b8efb2669b8..ddc98058ff20 100644
+--- a/include/net/ipxlat.h
++++ b/include/net/ipxlat.h
+@@ -16,6 +16,7 @@
+ 
+ #include <linux/in6.h>
+ #include <linux/types.h>
++#include <net/ip.h>
+ 
+ struct ipxlat_prefix4 {
+ 	__be32 addr;
+@@ -63,4 +64,38 @@ bool ipxlat_prefix6_len_valid(u8 len);
+  */
+ int ipxlat_config_validate(const struct ipxlat_config *cfg);
+ 
++/**
++ * ipxlat_prepare - validate a packet and cache translation metadata
++ * @cfg: validated, immutable translation configuration
++ * @skb: packet to prepare
 + *
-+ *  Copyright (C) 2024- Alberto Leiva Popper <ydahhrk@gmail.com>
-+ *  Copyright (C) 2026- Mandelbit SRL
-+ *  Copyright (C) 2026- Daniel Gröber <dxld@darkboxed.org>
++ * The caller must own @skb exclusively. This function uses @skb->cb as parser
++ * storage but does not rewrite packet bytes. On success it sets the transport
++ * header offset. %-EOPNOTSUPP means ipxlat does not handle the packet. A caller
++ * that passes such a packet back to the original stack must restore the old
++ * control buffer.
 + *
-+ *  Author:	Alberto Leiva Popper <ydahhrk@gmail.com>
-+ *		Antonio Quartulli <antonio@mandelbit.com>
-+ *		Daniel Gröber <dxld@darkboxed.org>
-+ *		Ralf Lici <ralf@mandelbit.com>
++ * Return: 0 when @skb is ready for ipxlat_translate, or a negative errno.
 + */
++int ipxlat_prepare(const struct ipxlat_config *cfg, struct sk_buff *skb);
 +
-+#ifndef _NET_IPXLAT_PACKET_H_
-+#define _NET_IPXLAT_PACKET_H_
++/**
++ * ipxlat_translate - translate one prepared skb without consuming it
++ * @cfg: configuration used by the preceding ipxlat_prepare call
++ * @net: namespace in which translation runs and whose IPv4 ID state is used
++ * @skb: prepared packet to translate
++ *
++ * The caller must provide a non-NULL @net and must not change @cfg, @skb or
++ * its cached metadata between preparation and translation. Successful
++ * Translation of a DF-clear IPv4 packet sets @skb->ignore_df and marks the
++ * resulting IPv6 packet as locally owned for target-family fragmentation. A
++ * harness which scrubs the skb must preserve both properties.
++ *
++ * Return: 0 with @skb in the translated representation, or a negative errno
++ * with the packet representation unspecified, in which case the caller must
++ * discard it.
++ */
++int ipxlat_translate(const struct ipxlat_config *cfg, struct net *net,
++		     struct sk_buff *skb);
 +
+ #endif /* _NET_IPXLAT_H_ */
+diff --git a/net/ipxlat/core.c b/net/ipxlat/core.c
+index 85037446291e..1dc1fc7e6f04 100644
+--- a/net/ipxlat/core.c
++++ b/net/ipxlat/core.c
+@@ -12,6 +12,98 @@
+  */
+ 
+ #include <linux/module.h>
 +#include <net/ip.h>
 +#include <net/ipv6.h>
 +
 +#include <net/ipxlat.h>
++#include "address.h"
++#include "packet.h"
++#include "translate_46.h"
++#include "translate_64.h"
 +
-+/**
-+ * struct ipxlat_cb - per-skb parser and control metadata stored in skb->cb
-+ * @l4_off: outer L4 header offset
-+ * @payload_off: outer payload offset
-+ * @fragh_off: outer IPv6 Fragment Header offset, or 0 if absent
-+ * @inner_l3_offset: quoted inner L3 offset for ICMP errors
-+ * @inner_l4_offset: quoted inner L4 offset for ICMP errors
-+ * @inner_fragh_off: quoted inner IPv6 Fragment Header offset, or 0
-+ * @l4_proto: outer L4 protocol (or nexthdr for IPv6)
-+ * @inner_l4_proto: quoted inner L4 protocol
-+ * @l3_hdr_len: outer L3 header length including extension headers
-+ * @is_icmp_err: packet is ICMP error and carries quoted inner packet
-+ * @emit_icmp_err: datapath must emit translator-generated ICMP on drop
-+ * @saddr4: translated outer IPv4 source address for 6->4
-+ * @daddr4: translated outer IPv4 destination address for 6->4
-+ * @inner_saddr4: translated quoted IPv4 source address for ICMP 6->4
-+ * @inner_daddr4: translated quoted IPv4 destination address for ICMP 6->4
-+ * @pending_icmp_err: ICMP type/code/info cached for deferred emission
-+ * @pending_icmp_err.type: ICMP type to emit
-+ * @pending_icmp_err.code: ICMP code to emit
-+ * @pending_icmp_err.info: ICMP auxiliary info (e.g. pointer/MTU)
-+ */
-+struct ipxlat_cb {
-+	u16 l4_off;
-+	u16 payload_off;
-+	u16 fragh_off;
-+	u16 inner_l3_offset;
-+	u16 inner_l4_offset;
-+	u16 inner_fragh_off;
-+	u16 l3_hdr_len;
-+	u8 l4_proto;
-+	u8 inner_l4_proto;
-+	bool is_icmp_err;
-+	bool emit_icmp_err;
-+	__be32 saddr4;
-+	__be32 daddr4;
-+	__be32 inner_saddr4;
-+	__be32 inner_daddr4;
-+	struct {
-+		u8 type;
-+		u8 code;
-+		u32 info;
-+	} pending_icmp_err;
-+};
-+
-+static inline struct ipxlat_cb *ipxlat_skb_cb(const struct sk_buff *skb)
-+{
-+	BUILD_BUG_ON(sizeof(struct ipxlat_cb) > sizeof(skb->cb));
-+	return (struct ipxlat_cb *)(skb->cb);
-+}
-+
-+static inline unsigned int ipxlat_skb_l4_len(const struct sk_buff *skb)
-+{
-+	return skb->len - skb_transport_offset(skb);
-+}
-+
-+/* return the L4 length of one eventual segment rather than the GSO aggregate */
-+static inline unsigned int ipxlat_skb_l4_seg_len(const struct sk_buff *skb,
-+						 const struct ipxlat_cb *cb)
-+{
-+	const struct skb_shared_info *shinfo;
-+
-+	if (skb_is_gso(skb)) {
-+		shinfo = skb_shinfo(skb);
-+		/* legacy UFO's gso_size already includes the UDP header */
-+		if (shinfo->gso_type & SKB_GSO_UDP)
-+			return shinfo->gso_size;
-+
-+		/* TCP and UDP-L4 GSO sizes describe payload bytes only */
-+		return cb->payload_off - cb->l4_off + shinfo->gso_size;
-+	}
-+	return skb->len - cb->l4_off;
-+}
-+
-+static inline u8 ipxlat_get_ipv6_tclass(const struct ipv6hdr *hdr)
-+{
-+	return (hdr->priority << 4) | (hdr->flow_lbl[0] >> 4);
-+}
-+
-+static inline u16 ipxlat_get_frag6_offset(const struct frag_hdr *hdr)
-+{
-+	return be16_to_cpu(hdr->frag_off) & IP6_OFFSET;
-+}
-+
-+static inline u16 ipxlat_get_frag4_offset(const struct iphdr *hdr)
-+{
-+	return (be16_to_cpu(hdr->frag_off) & IP_OFFSET) << 3;
-+}
-+
-+static inline bool ipxlat_is_first_frag6(const struct frag_hdr *hdr)
-+{
-+	return !hdr || ipxlat_get_frag6_offset(hdr) == 0;
-+}
-+
-+static inline bool ipxlat_is_first_frag4(const struct iphdr *hdr)
-+{
-+	return !(hdr->frag_off & htons(IP_OFFSET));
-+}
-+
-+/**
-+ * ipxlat_replace_l3 - replace an outer or quoted L3 header in place
-+ * @skb: packet containing the L3 header
-+ * @old_l3_end: current offset immediately after the L3 header
-+ * @new_l3_end: desired offset immediately after the L3 header
-+ * @transport_off: transport header offset after replacement
-+ *
-+ * The caller must provide valid offsets and enough headroom. Bytes following
-+ * @old_l3_end remain unchanged, and the network header is reset to @skb->data.
-+ */
-+static inline void ipxlat_replace_l3(struct sk_buff *skb,
-+				     unsigned int old_l3_end,
-+				     unsigned int new_l3_end,
-+				     unsigned int transport_off)
-+{
-+	skb_pull(skb, old_l3_end);
-+	skb_push(skb, new_l3_end);
-+	skb_reset_network_header(skb);
-+	skb_set_transport_header(skb, transport_off);
-+}
-+
-+/**
-+ * ipxlat_cb_rebase_offsets - shift cached cb offsets after skb relayout
-+ * @cb: parsed packet metadata
-+ * @delta: signed byte delta applied to cached offsets
-+ *
-+ * All cached absolute offsets include the old outer L3 length. Apply the same
-+ * delta to keep them pointing at the same logical fields after replacement.
-+ */
-+static inline void ipxlat_cb_rebase_offsets(struct ipxlat_cb *cb, int delta)
-+{
-+	cb->l4_off += delta;
-+	cb->payload_off += delta;
-+
-+	if (unlikely(cb->is_icmp_err)) {
-+		cb->inner_l3_offset += delta;
-+		cb->inner_l4_offset += delta;
-+
-+		if (cb->inner_fragh_off)
-+			cb->inner_fragh_off += delta;
-+	}
-+}
-+
-+#ifdef CONFIG_DEBUG_NET
-+/**
-+ * ipxlat_cb_offsets_valid - validate monotonicity and bounds of cb offsets
-+ * @cb: parsed packet metadata
-+ *
-+ * Checks that L4 precedes payload, quoted L3 follows the outer payload and a
-+ * quoted Fragment Header lies inside the quoted L3 area before quoted L4.
-+ *
-+ * Return: true if cached offsets are internally consistent.
-+ */
-+static inline bool ipxlat_cb_offsets_valid(const struct ipxlat_cb *cb)
-+{
-+	if (unlikely(cb->payload_off < cb->l4_off))
-+		return false;
-+
-+	if (cb->is_icmp_err) {
-+		if (unlikely(cb->inner_l3_offset < cb->payload_off))
-+			return false;
-+		if (unlikely(cb->inner_l4_offset < cb->inner_l3_offset))
-+			return false;
-+		if (unlikely(cb->inner_fragh_off &&
-+			     cb->inner_fragh_off < cb->inner_l3_offset))
-+			return false;
-+		if (unlikely(cb->inner_fragh_off &&
-+			     cb->inner_fragh_off >= cb->inner_l4_offset))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+#else
-+static inline bool ipxlat_cb_offsets_valid(const struct ipxlat_cb *cb)
-+{
-+	return true;
-+}
-+#endif
-+
-+/**
-+ * ipxlat_mark_icmp_drop - record an ICMP error for a dropped packet
-+ * @skb: packet carrying the translator metadata
-+ * @type: ICMP or ICMPv6 type
-+ * @code: ICMP or ICMPv6 code
-+ * @info: ICMP or ICMPv6 auxiliary information
-+ */
-+static inline void ipxlat_mark_icmp_drop(struct sk_buff *skb, u8 type, u8 code,
-+					 u32 info)
++int ipxlat_prepare(const struct ipxlat_config *cfg, struct sk_buff *skb)
 +{
 +	struct ipxlat_cb *cb = ipxlat_skb_cb(skb);
++	int ret;
 +
-+	cb->emit_icmp_err = true;
-+	cb->pending_icmp_err.type = type;
-+	cb->pending_icmp_err.code = code;
-+	cb->pending_icmp_err.info = info;
++	DEBUG_NET_WARN_ON_ONCE(skb_shared(skb));
++	memset(skb->cb, 0, sizeof(struct ipxlat_cb));
++
++	switch (ntohs(skb->protocol)) {
++	case ETH_P_IPV6:
++		ret = ipxlat_v6_validate_skb(skb);
++		if (unlikely(ret))
++			return ret;
++
++		/* packets with non-translatable IPv6 addresses can be handed
++		 * back to the stack unchanged since they might be intended for
++		 * native traffic such as ND
++		 */
++		ret = ipxlat_64_convert_endpoints(cfg, ipv6_hdr(skb),
++						  cb->is_icmp_err, &cb->saddr4,
++						  &cb->daddr4);
++		if (unlikely(ret))
++			return -EOPNOTSUPP;
++
++		if (unlikely(cb->l4_proto == NEXTHDR_ICMP))
++			return -EOPNOTSUPP;
++		break;
++	case ETH_P_IP:
++		ret = ipxlat_v4_validate_skb(skb);
++		if (unlikely(ret))
++			return ret;
++
++		if (unlikely(cb->l4_proto == IPPROTO_ICMP))
++			return -EOPNOTSUPP;
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	skb_set_transport_header(skb, cb->l4_off);
++	return 0;
 +}
++EXPORT_SYMBOL_GPL(ipxlat_prepare);
 +
-+/**
-+ * ipxlat_v4_validate_skb - validate and summarize IPv4 packet into skb->cb
-+ * @skb: packet to validate
-+ *
-+ * Ensures required headers are present and consistent, populates
-+ * &struct ipxlat_cb for subsequent 4->6 translation, and may mark a
-+ * translator-generated ICMP action on failure paths.
-+ *
-+ * Return: 0 on success, negative errno on validation failure.
-+ */
-+int ipxlat_v4_validate_skb(struct sk_buff *skb);
++int ipxlat_translate(const struct ipxlat_config *cfg, struct net *net,
++		     struct sk_buff *skb)
++{
++	bool frag_source;
++	int ret;
 +
-+/**
-+ * ipxlat_v6_validate_skb - validate and summarize IPv6 packet into skb->cb
-+ * @skb: packet to validate
-+ *
-+ * Ensures required headers are present and consistent, populates
-+ * &struct ipxlat_cb for subsequent 6->4 translation, and may mark a
-+ * translator-generated ICMP action on failure paths.
-+ *
-+ * Return: 0 on success, negative errno on validation failure.
-+ */
-+int ipxlat_v6_validate_skb(struct sk_buff *skb);
++	switch (ntohs(skb->protocol)) {
++	case ETH_P_IPV6:
++		return ipxlat_64_translate(cfg, net, skb);
++	case ETH_P_IP:
++		frag_source = !(ip_hdr(skb)->frag_off & htons(IP_DF));
 +
-+#endif /* _NET_IPXLAT_PACKET_H_ */
++		if (ipxlat_skb_cb(skb)->l4_proto == IPPROTO_UDP) {
++			/* calculate the csum of a csumless UDP packet */
++			ret = ipxlat_46_prepare_udp_csum(skb);
++			if (unlikely(ret))
++				return ret;
++		}
++
++		ret = ipxlat_46_translate(cfg, skb);
++		if (unlikely(ret))
++			return ret;
++
++		/* Replace parser state with IPv6 fragmentation metadata.
++		 * DF-clear IPv4 packets may be fragmented by the target route,
++		 * while IP6SKB_FRAG_SOURCE lets reassembly and ip6_fragment
++		 * preserve an existing translated Fragment Header.
++		 */
++		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
++		skb->ignore_df = frag_source;
++		if (frag_source)
++			IP6CB(skb)->flags |= IP6SKB_FRAG_SOURCE;
++		return 0;
++	default:
++		DEBUG_NET_WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++}
++EXPORT_SYMBOL_GPL(ipxlat_translate);
+ 
+ MODULE_DESCRIPTION("IPv6<>IPv4 stateless translation engine (SIIT)");
+ MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
