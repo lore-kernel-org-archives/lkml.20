@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792810720;
-	b=j5A93T1zwYa/zKSAA6y8gHrIWedc0ZZx257N/gZlrqw2NDTs5cQ1h4kI+i3CsUgcNAfU
-	 8zOEgX28QbpVo1v6qzL6BDzaCY2NspTrCGZeHhWNeq/O4YNa/r8rmTOiqR1XbGR5wzuU0
-	 QVZbmpFp1VpXeHr6BkGxBZiJxlltC9gNXUEuNmOfEwmR34VjPAR+ujqRFwqz/I9hRsCw5
-	 EoNKJqA0fzL28xq01nVLj78PfBloAXwqWox5jjeeeLNZqVjou2hkp7luSL+s0J8yzZkxK
-	 5KvTqnfJo7EhxWNQPCNdd3InGsF0gKxJPZiD27A2XZq69Vq0LzB7bcLusYop7vzuMpw==
+	t=1792810788;
+	b=NL0iXdWubIvGaYZTw7/k86iYzIXCS7o2sk3F4mPUnQX7fGUKcAKcwgqvqDf4Yr3Uqpt0
+	 gtK+Xw0HZxpGlOGDkEWvVa49RfndmAJVHlpfWkeEfSjFJzyvjK+fpIfDYr8U8A2raj84h
+	 Rz/cPUCOs1cTW7T3XJLu0FUzqIYixwdTPdzG0tXHaEGPixxQr9ozoylxlUEy/X+odKl3D
+	 O39wLYKAl+R3ZggT/47yVJqBx9RRxP57RW6wK0lsg9cuLFz8fB/wisBBN30cwbfGijZzg
+	 CCFpgBj8+HTGiO67bMz3W9VR5UTKN1sVlXzT1SZf2SNr092s6RLESfCobqn2QZxsg2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792810720;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DMCCmtvheCPZ6z25FzUW0Qd9uAafljfKefGPpydFs30=;
-	b=RSZQ+rS5CvvBh7Z3lQhBD8/VLJrEmSXoUnrGJgcDzO+h1R4LcuAAA7JFWVGwhHfluFo7
-	 2tgo8tzOYcPSABj3iqZeg4OYhq4VN6H3k5ePeptumTLvZ+/g1TZJPhrMCJgZzjMbBXNQ/
-	 6Lne9QNF0jQSItkbrBA8JiHidmqSkIU+OeJ8cisqEgfPfy9vBXHVNicByG3MnNWMrOzjl
-	 t8wlUEwtzzo1YMRvAlA+MH5F6DESETs4q8NqHie8/RVApqSfmPeLwqcjfqJVVLuVV0eEA
-	 dz1aRF9V3+7E5jy7jYsdHJPHcm0c0XRk2/5nJPXXHGUe3nFGUt5RqjW4CiIj1TQOs1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792810788;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5dvfWf9RXx0yO1VYyhyNJZafDFoC0+dDXPTBwAUaQwo=;
+	b=pvIqI5snutsBtrmCkWO2HMQjJhMRPqirwasi90loL8kNFdgQAjH2s0NtiMzdUACMKdLj
+	 Wiu5vjDL5GuPFtVIfELukDrCQq6Y38D+qwSVdUDMOdRDWh8gR5s2cWomI6tWWucPXsUXR
+	 spRtDRfu4yZwd1L8cTwWeBWvtl2YaV0COXKcGTtnwq102lL9gEYS0TI9l5yuNDXhfk+kH
+	 pIVbrFVlgD7y0jRM+Mu16qPW0PqOwQhaxuOicYIYQb5mkDfRN4LclujpUOBrsIjGlMrD8
+	 mLuwXJSotiaWCyYzLqYGowvL2DUBOy33Gpk2LfzqgqgpwU8AUOqnKbbamIo/0xIMhUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=PlWGrR3n;
-	arc=none smtp.remote-ip=91.218.175.103
-Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DFe2okgL;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F26606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F26606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5DA606A31B;
+	Sat, 24 Oct 2026 02:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C5DA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=PlWGrR3n
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gMqBedMqV6/PbEo4P/C/wuOOsirk4D+GGPXOjLgDTws=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792810716; v=1; x=1793415516;
- b=PlWGrR3n5CnVaJDtS1BCZrLEZV3BF47ZC06Vma1LNJdgfCCgzrXTMjkFGKt+sa0M4rJgIwaK
- k9ZAf95fFi3BfwFIZ9Jy5AxUE8QAd35QRYOnQTb77MZggU2qQ2iAhPZ5E5j+/wKgAud/knZx/Lr
- v3F7bd7suXx+ICwQZp79cus9p8Ke6NTVM4dkrUUe8pRkQHoxmBE8UZmM5r8oaD5vUPSTsAqnva+
- ck4gYX12rZE9HpeiCRmiL0cH1HyQM+UZ8vg48r/NeghbdUC80hpGVYnnu+0XyJxrFAt4ZHYCW0v
- ynhE94sD95pd3aJWyXGcJT9k0yYW8Wr11RuiOpVnC4oHQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 16e8be6ff7b3bc0f;
-	Sat, 24 Oct 2026 02:58:36 +0000
-X-Mizu-Trace-ID: 16e8be6ff7b3bc0f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c1f5b813-4228-42ff-94ac-2ea6533328f2@packett.cool>
-Date: Fri, 23 Oct 2026 23:58:25 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DFe2okgL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792810787; x=1824346787;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XjtHZy24l7lU9ZVx6Z0N/W5smjnDjkMBTb96jJtM0Ds=;
+  b=DFe2okgL0N5FG8+VTFnAU/xzGPpsNU1NH098Xhv9EhiR5+QB5S05I1NB
+   EA/ZHh4rSF1Fx37DEaob34PfzaGHH85xndCIYTCAvYum4neEtbZBnJxDN
+   Cd2lDP6yNOVCQ6ev1Xe4aALJhkAfaQS5jTHsi8bvNx8w89e7LBFzW8MpG
+   7rjq4Lzc/3yYVjMIesVmdDrnEUbrkP4W/ULPxwaSVQZRfWVyQhCFzdOTi
+   pwihqQ+smULteax8Cn/38KBtBysQcVxmZvkBpU1HMhbrIgOMbqLjblWAF
+   d/ALUpfacdFg8d5OgSvaPNEKUXIIiR0Zkulruee/27DquGQOKQUfHOW3U
+   g==;
+X-CSE-ConnectionGUID: VyadVyDdQf+s+t7xyLVF3w==
+X-CSE-MsgGUID: 9HbESt1gRuydFWSKYG/xMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1587419"
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="1587419"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 19:59:47 -0700
+X-CSE-ConnectionGUID: rgDMD7UgQYyrZcRUKtUq/g==
+X-CSE-MsgGUID: m5SPcwAHR4Kp+MC+cEoNdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="5639305"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 23 Oct 2026 19:59:45 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKRyw-00000000TWU-2aFr;
+	Sat, 24 Oct 2026 02:59:42 +0000
+Date: Sat, 24 Oct 2026 10:58:42 +0800
+From: kernel test robot <lkp@intel.com>
+To: Liang Hao <haohlliang@gmail.com>, linux-gpio@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Liang Hao <haohlliang@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpiolib: Add irq_set_affinity helper for GPIO line
+ IRQs
+Message-ID: <202610241003.gRosyohv-lkp@intel.com>
+References: <20261023151209.58772-2-haohlliang@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,149 +84,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v2] drm/msm/dp: hold one runtime PM reference per plugged state
-To: Joonhoe Kim <26rote@gmail.com>, robin.clark@oss.qualcomm.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- yongxing.mou@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261007155848.106-1-26rote@gmail.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261007155848.106-1-26rote@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023151209.58772-2-haohlliang@gmail.com>
+
+Hi Liang,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on brgl/gpio/for-next]
+[also build test ERROR on linus/master v7.3 next-20261022]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Liang-Hao/gpiolib-Add-irq_set_affinity-helper-for-GPIO-line-IRQs/20261023-231104
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio/for-next
+patch link:    https://lore.kernel.org/r/20261023151209.58772-2-haohlliang%40gmail.com
+patch subject: [PATCH 1/2] gpiolib: Add irq_set_affinity helper for GPIO line IRQs
+config: microblaze-defconfig (https://download.01.org/0day-ci/archive/20261024/202610241003.gRosyohv-lkp@intel.com/config)
+compiler: microblaze-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610241003.gRosyohv-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610241003.gRosyohv-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpio/gpiolib.c: In function 'gpiochip_irq_set_affinity':
+>> drivers/gpio/gpiolib.c:2154:14: error: 'struct irq_data' has no member named 'parent_data'
+    2154 |         if (d->parent_data)
+         |              ^~
+>> drivers/gpio/gpiolib.c:2155:24: error: implicit declaration of function 'irq_chip_set_affinity_parent'; did you mean 'irq_set_affinity_hint'? [-Wimplicit-function-declaration]
+    2155 |                 return irq_chip_set_affinity_parent(d, dest, force);
+         |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                        irq_set_affinity_hint
 
 
-On 10/7/26 12:58 PM, Joonhoe Kim wrote:
-> The plug handler takes a runtime PM reference every time it runs and
-> sets dp->plugged; the unplug handler drops a single reference when
-> dp->plugged is set. msm_dp_bridge_detect() also takes a reference and
-> marks the sink plugged, and keeps that reference as well -- on every
-> detect while the sink stays connected. On top of that, in the current
-> tree the plug handler runs more than once per plug:
-> drm_bridge_connector_detect() calls .detect() and then .hpd_notify(),
-> and pmic_glink altmode reports an IRQ_HPD as "connected" too. Every
-> extra reference is leaked on unplug.
->
-> On a Lenovo TB323FU (SM8850, DP over the USB-C port via pmic_glink
-> altmode) the DP controller's usage count reached 28-34 after a few
-> plugs (rpm_usage tracepoint), so the controller never runtime-suspended
-> after the display was unplugged. It in turn kept the MDSS core GDSC on
-> while all displays were off.
->
-> Make the plugged state own exactly one reference: the plug handler
-> only takes it when the sink was not plugged yet, and detect() returns
-> its own reference when the plugged state already holds one, or drops
-> both when it finds the sink gone.
->
-> With this the count stays at 1-3 while a display is connected, the
-> controller suspends 3-4 s after unplug, MDSS suspends and its GDSC
-> powers off on DPMS off, and replugging (quickly or after 20 s) still
-> brings the picture back. Only tested on this device.
->
-> Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
-> Assisted-by: LLM
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
-> ---
-> Changes in v2:
-> - Drop the plugged state's reference once, after the if/else, instead
->    of in both branches [Val]
-> - Drop the comments
-> - Link to v1: https://lore.kernel.org/all/20260929130627.959-1-26rote@gmail.com/
->
->   drivers/gpu/drm/msm/dp/dp_display.c | 15 +++++++++++----
->   1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 6abe30bdff12..4059cb9dba64 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -412,10 +412,12 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
->   
->   	guard(mutex)(&dp->plugged_lock);
->   
-> -	ret = pm_runtime_resume_and_get(&pdev->dev);
-> -	if (ret) {
-> -		DRM_ERROR("failed to pm_runtime_resume\n");
-> -		return ret;
-> +	if (!dp->plugged) {
-> +		ret = pm_runtime_resume_and_get(&pdev->dev);
-> +		if (ret) {
-> +			DRM_ERROR("failed to pm_runtime_resume\n");
-> +			return ret;
-> +		}
->   	}
->   
->   	msm_dp_aux_enable_xfers(dp->aux, true);
+vim +2154 drivers/gpio/gpiolib.c
 
-This part (msm_dp_hpd_plug_handle) is now also handled by the IRQ_HPD 
-series:
+  2128	
+  2129	/**
+  2130	 * gpiochip_irq_set_affinity() - irq_chip set_affinity helper for GPIO lines
+  2131	 * @d: Pointer to the GPIO line irq_data
+  2132	 * @dest: Affinity mask to set
+  2133	 * @force: True to enforce the mask without online CPU checks
+  2134	 *
+  2135	 * Hierarchical irqdomains with parent_data delegate through
+  2136	 * irq_chip_set_affinity_parent(). GPIO irqchips that use a chained parent
+  2137	 * handler resolve the parent virq and apply the mask through the parent
+  2138	 * irq_chip as described in gpiochip_chained_parent_virq().
+  2139	 *
+  2140	 * Affinity is programmed on the parent irq, not independently per line. GPIO
+  2141	 * lines that share one parent irq also share its affinity; updating one line
+  2142	 * replaces the mask for all lines on that parent.
+  2143	 *
+  2144	 * Return: IRQ_SET_MASK_* on success, or a negative errno on error.
+  2145	 */
+  2146	int gpiochip_irq_set_affinity(struct irq_data *d,
+  2147				      const struct cpumask *dest, bool force)
+  2148	{
+  2149		struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+  2150		struct irq_data *pdata;
+  2151		unsigned int parent;
+  2152		int ret;
+  2153	
+> 2154		if (d->parent_data)
+> 2155			return irq_chip_set_affinity_parent(d, dest, force);
+  2156	
+  2157		parent = gpiochip_chained_parent_virq(gc, d);
+  2158		if (!parent)
+  2159			return -EINVAL;
+  2160	
+  2161		pdata = irq_get_irq_data(parent);
+  2162		if (!pdata || !pdata->chip || !pdata->chip->irq_set_affinity)
+  2163			return -EINVAL;
+  2164	
+  2165		ret = pdata->chip->irq_set_affinity(pdata, dest, force);
+  2166		switch (ret) {
+  2167		case IRQ_SET_MASK_OK:
+  2168		case IRQ_SET_MASK_OK_NOCOPY:
+  2169		case IRQ_SET_MASK_OK_DONE:
+  2170			irq_data_update_effective_affinity(d,
+  2171				irq_data_get_effective_affinity_mask(pdata));
+  2172			return IRQ_SET_MASK_OK;
+  2173		default:
+  2174			return ret;
+  2175		}
+  2176	}
+  2177	EXPORT_SYMBOL_GPL(gpiochip_irq_set_affinity);
+  2178	
 
-https://lore.kernel.org/all/20261024-hpd-irq-events-v8-6-6ee949e7a384@oss.qualcomm.com/ 
-
-
-> @@ -897,6 +899,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
->   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
->   	struct drm_dp_desc desc;
->   	bool phy_deinit;
-> +	bool was_plugged;
->   	int ret;
->   
->   	dp = to_dp_bridge(bridge)->msm_dp_display;
-> @@ -910,6 +913,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
->   		return status;
->   	}
->   
-> +	was_plugged = priv->plugged;
->   	phy_deinit = msm_dp_display_host_phy_init(priv);
->   
->   	msm_dp_aux_enable_xfers(priv->aux, true);
-> @@ -962,6 +966,9 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
->   		pm_runtime_put_sync(&dp->pdev->dev);
->   	}
->   
-> +	if (was_plugged)
-> +		pm_runtime_put_sync(&dp->pdev->dev);
-
-Thinking about this again, this flow of the reference(s) seems confusing.
-
-If I understand it correctly now,
-
-* there's a long-term reference associated with priv->plugged;
-* and this function needs the device to not be suspended because it's 
-doing transfers to check if there's something plugged into the port.
-
-With the current flow (fixed by this v2 patch to not leak, or at least 
-leak less):
-
-* we always take +1 reference;
-* if we "find a plug" (!was_plugged && priv->plugged): no drop, our 
-reference "becomes" the long-term one;
-* if we "find an unplug" (was_plugged && !priv->plugged): we drop our 
-own reference, as well as the long-term one;
-* if we "find no change while plugged" (was_plugged && priv->plugged): 
-we only drop our own reference;
-* if we "find no change while unplugged" (!was_plugged && 
-!priv->plugged): no drop, is this intended or a leak still? Not clear 
-who needs the reference to persist in this case?
-
-**If** that last case is actually **not** intended to keep the 
-reference, I think it would be clearer to, instead:
-
-* use a guard (probably PM_RUNTIME_ACQUIRE_IF_ENABLED to keep the error 
-check) for this function's own reference;
-* and use a plain get an extra time when setting priv->plugged = true..?
-
-> +
->   	return status;
->   }
->   
-
-
-Thanks,
-~val
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
