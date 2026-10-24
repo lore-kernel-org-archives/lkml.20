@@ -1,146 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792859727;
-	b=v1K1IU1p5dH/SR8qxER9wXmX9UKM3TK8q3gNb6apGk3GU+f3c2s93vBdF5gVSkqVN7qf
-	 qSpfQI8fDLO2lQpMHvNZSCzEYIBJYiAbRhDAkXYiXcEHinkJc+xMH4fZ8rM/KMV80y6qS
-	 cq26umVXp6NCSsodJnISyAXOJQ+vNXGqCb4qfQkYs+zDrekUd+nTXAtgt9RvOwII00mE7
-	 vo/PZZzg7PnFONLJSrmN77IeK5sKr7IIAGIpfgbdqOwhe6LfJGq6jJnZjrT5DJaaZ0Hu1
-	 IgBHM/0JWnhHhM6ncvqQN5wb7AN4G/DJPLaGA9j0MRbFu2GEQUZorvHnyALAVyOXehw==
+	t=1792859729;
+	b=ElqC5l4XC16W6lxRPbEDC6QAOPgE7QpK9FRCKCr5MB5IJs+wB97/hIKQDmsMB6eHB7lk
+	 2ysHZvhY7qD9VnnBTJT2YdoiWsTZkp5JYSBTSoc44FwVzPqhniwiWfrMd3nrc03eWqdgF
+	 UB3HHkhDCWE043S/0WVMGvP4/29T528pVY0aAlcIQPBHvrFbQB8hl5TGl17IrlwP4UC1T
+	 hsMGCJ9EhEp+j+QvhLc4mVAwEe6vdJ7+Qq3PIs8FSeVLBUHe/r1r0YwAbUg8X+JT+SNfS
+	 WuoktHvf8aD6hxdWeoRN+5ncIHMZ3Fjapc2752gBzeEAafpedD57+GD891FVAjD1oNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792859727;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Q3hza6gfFdynstbaNLuNyAqlUowt1fWQwFZR5teeLxg=;
-	b=OdxtRYLnJeHvQjUFYaFLSR+T06zESZs8SJVenqff+OQFbDDsX3bJJcnEpZBU+3CZwXjR
-	 8he/Oermln/pCKv1Vc2sjCCfnPLiK2xQws149YhAssqPR1MQpdI5UMq/jsyQiJhhA930d
-	 jfE/haVQXKWFrdaim/W8NXKobug6Af8GY2vMvGgPN9CMs2epuC96Omsh9z8k6c2xG0d+Z
-	 d5p0QuOZD0ULEc5JD0mvciKrE5fHZ4XBbfryJqHzseBg8QlI02ieH2UoGCuGGZfNvs6Ny
-	 O7iJLK9xElPFzfiEPjtHhR6WqZHlbFMtEaXwqGN1UNWj1ZmspJ6OIjls6+wUrrKGoSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859729;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
+	b=lJSzqnyiM2pX7nRa+akvI7Ootdi4XfPk8m9R4kEiUWwrLsDSAOtVH4GRVPBPETs2zZ/o
+	 1DECdw/N8j0XSn/1I9xcaTjc9LOpSu3Isl5q8CjPKq/0SxsoZgs19EtBJrO9ORt1CeQUc
+	 UtjJAMIGpno60IHsmRtwICfuES2dM4sDcO+sSHhPemJjHFnqbwueawW7XZCq95L4LvmCD
+	 p9P+hCiBImGojv87foBeUeMTrqy40/Kz7VPNUimSqE1QXCuCNa/A6E7MG6x1NLwLFsD4e
+	 pW35mUBjCLaMkpv0g1wBrQiaMxjuzwQOT3Bqa5+u3VciS+1KCuLZcXuS90HEoRdq3WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=E9TTTyuV;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=HSLmwBuR;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cj0IM7MX;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCE8606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:35:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBCE8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF00606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF00606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=E9TTTyuV;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=HSLmwBuR
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id 11F851D0016E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:35:21 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Sat, 24 Oct 2026 12:35:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792859717;
-	 x=1792946117; bh=Q3hza6gfFdynstbaNLuNyAqlUowt1fWQwFZR5teeLxg=; b=
-	E9TTTyuVq5dqLfibvKAUPgIg5tosgfal3gshY7YFVMEvMYBiRtsE/hVOZz+s9E/s
-	Vp2Mw+33W+xC5axSUv6LiW6jYatqKOB5v9I05nc0ybaBcpLWshDYhkElOb63LJQa
-	5mpWbHmgXLqi/jfi5yzFs5tqgdAcKZZ33LufqE1y0ccmAd5Q2UO75ZaoYMrWplpS
-	bz4023BNvDLPHdfxR8em3XXyTd/MJhW0w0KkQGIlAQRC5iVlx9GKHe0E7Fq0NizZ
-	iZMYZ9oVMwNQai85YBxlmJidCy+s/9t0+LGErr2goPyIoRxsbsUbppJam9TWjcLF
-	oebVumhwCwCnko/ixXCeTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792859717; x=
-	1792946117; bh=Q3hza6gfFdynstbaNLuNyAqlUowt1fWQwFZR5teeLxg=; b=H
-	SLmwBuRRP2v647BWrpPT4ump0Bi3DOHEEVDkCvC1Z+khtGlflWopAywI1565MjwV
-	dfRCBs0WVYow5r3uTm+/ImdcNdW0LshiNslhvGKamfXyDXu2wGqF6VjWmSfEnfi/
-	JNfA4N0+/x9qTqCtpiA1OhE2k2y6SKDSKtg477VkRWWVZKjJbH2m6GKQheurdynM
-	dySzra7q/jN+o9xrvg4bexh4ur6/psywQSDB+6zccVPfMb6ihmrBh9sHM1+0I3xn
-	SCm5yidr3P9G14p9kd5/ZLvLiVM8wpyanAwrKXZW2/Gk/QIHnShXe8LT1It9minP
-	abx4p5iwwEwtRMGlPRkNw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792859717; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:NI39smC6Y5Xw8UwLChR0kCIdWoohb5xEr79dvHonVbp2lT4
-	uGJ0WlKS+0b0Obp4UqAO2/2kfx5rCrrwEvsjQlbJh+ZKu4JkkZKNAsYt6h/T9nS2
-	03iTMX6wp3+ZfzxGpZILgFDkIWMNWiy9KxMGIrUIWo5Vp1cw6DSAjfcn06OQXhG7
-	+JZMvz93lwkmjrcz0OK414HVTE0KNQT0FBthedfeMt8DBO3NwWtJ/Lb5seKWJk/n
-	7d7EGSHw1t9ol1raP8D/TlRLx+aHqgwK5dwS877yPx/wiDXVotXbl07ItJDYv0dU
-	oOlEJEjc5nbwQl6IsCIjcGLA0MJCeAvDDJC2uEQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:JnbRzMatNOWh6VYk3BtMyVistKV9n98HRh1lJrMuiyI=:s7RKaOxqLU8WzgWaRyrCiYLjCHz0idVdL2rlY3c6L5w=;
-X-ME-Sender: <xms:Q97carmA3_xGeqSlgVk8faN9acf8fxLirifsX3U9VTRqL8U5BKfszw>
-    <xme:Q97cavkNz9L4po1mV2XOeF5DcVEndKPwyd413O8HaE-Au3TPJY6jd4bkNa7yut72N
-    97rywkUVO3ReW-HI3kJIXje6Q7zWYfLxtcwtvQvJfY9JA3gINcE>
-X-ME-Received: <xmr:Q97caqjYB8YGnVQGqpVwONajta7tJM0SiEkEfbanOZY2GQp6SYfr3KgNGIfRFQ>
-X-ME-Proxy-Cause: dmFkZTF9g0HInb6yy90yfs+ss2zLTr6q9s2zMqnyVsBip2hj18csqpDRvrtfuwSbKKJdKA
-    psdh8APLESm8UW8KW01iTqR/S/iRc1Cr4qo4b5Xvo1no8IwYaEMVHtNNjO+pv3ub7J5k4n
-    szfnLzyxBxdMpJ70bAXPu417N3F0afseT87ZW2VZCtJeqMVXl3L9yeaBEZmUVots99yNm7
-    fErISCP5VUjfv2eP10lfqk0j76TstgnE+aocUeQ5nhqqoe7/7PSyPHEZtYRK9uIa37tQGz
-    daj0FHGFjc2S8vyptHVdBTYLfKS0jbo0wjNsNJchNiZajaKm6mcEi63hGrqETG70q6Q7iY
-    2aDtOSpItAChdWXVXgRsecuefI3YGiNy/5tzR+n94CkkrgWuYrfga0EBN2TZhjMAla6DB7
-    08mXSwJMEpvrbzfNCbuIDYpjIUrJSpfs4YYhH2Zk6LM4fgA0VlbnrxlpUIInldNvCwCwwi
-    nyDGoI5RTkojCyZKpoAKEA5LEZjHAv4esvgzLWW9LUsXv2W1pal6pcX0grJnNh+ICAdr3X
-    1sMnr+bWuARbAQ0lzpoLGz8HL+VysK7EfCg+SQyz8j4CTYwPdLl0USuckBMLT1ONgPXxgI
-    sblheuKLPQHtfON71CR2+i3cC7syWwmzs8IqhBPh/STaXERhx43fa5rVoGGA
-X-ME-Proxy: <xmx:Q97carfFfA4SXJtQiRgFajU4VapE3uPl5gkpqu0fLCYli2F0957kqA>
-    <xmx:RN7cao_bSBYz6_AU4G_ivQhzgNK86Q5bEAi8UShmqhP2zTqObGxUCg>
-    <xmx:RN7caphlL7Mlc8KWfZbl2GPnu19Sl2Vw9qG1uReehdpmDTVj-d9zvg>
-    <xmx:RN7cak-MaVrw-X_KHEiKfZbm9VsstGzvp_XMLnPmZEjeLXaiQ2p0gQ>
-    <xmx:Rd7canhIppUmJGzskxC_Ni_y7PxhQy9T-N5ARTumtHQB2GalI6fGR1z4>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 12:35:13 -0400 (EDT)
-Date: Sat, 24 Oct 2026 10:35:12 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>, Danilo
- Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Petr
- Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami
- Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh
- <nogikh@google.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
- Richard Weinberger <richard@nod.at>, Thierry Reding
- <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- alex@shazbot.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261024103512.4601ee4f@shazbot.org>
-In-Reply-To: <2026102437-vista-unsoiled-b089@gregkh>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
-	<DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
-	<arIvG0nx4LXG9nlW@monoceros>
-	<defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
-	<9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
-	<2026092321-province-yearly-44aa@gregkh>
-	<arOfHEsGGglNse7T@monoceros>
-	<2026092348-victory-erased-0e5a@gregkh>
-	<20261023181326.0dc2f7ed@shazbot.org>
-	<2026102437-vista-unsoiled-b089@gregkh>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cj0IM7MX
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso8875115ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792859728; x=1793464528; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
+        b=cj0IM7MXu4d+VrnTPUtOdeDHOVplQNaTd6KJFLS2ksUTk/tneXL2xjceiGG/Q5jcFt
+         uqisNf7l+ieEWxW+pzp/VzV4tCZaQZgi8PoqL7iKI1XQ2ZiM/g9V8LHDTYxPOKCMZ6PS
+         846kxjdVokVw3uEw9K1VyN0RbGIYuNjTFNNdvVuzqE6YS5MWjJttPtDDR7oR/Tzf12jz
+         zexoarhQsRR0GhYPMeaZcPWMETbn9FQYNmnpJU6dZckuHruvICQLV/SEPiNptz/QYu2R
+         z5sIEGZnZLin+R7b2M1KuoM7E1OF2bMHPKLuVO/m7na7fCOKeFugsQQtDlfrj2kEOkTV
+         IcuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792859728; x=1793464528;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
+        b=YibQN+X9yzSMupfpFop3bCKZ55XoSmg/gIKmxtPX9uootfsDhQ/j4jZr/Khaqo7U3r
+         kK/NM+ljwLgYKG1G/53aswoh3E9NXj0SP0tTfDz1ue4Yh5AhLT2qM4dWnRTr5s5o2P8q
+         o62YlH5Zt0mS1WRTYTM5KVmLCiXotQnvyZf5vsHTsjZ0k/Z7pM8V6+n1ZyhTavOx6vAn
+         UQHOWTXBxsOsEFXCr8JcPjIadcjQoh+3VDoCY3k09GmwbbvQYSJbccUnunMiPQtRTiPu
+         lC2hsAGzKiHWOp9P9JyoZcs12UeK0tYL2Pyb5qXIzbatM6y34x7QlGdAjezpA9IKzAkN
+         p2Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfKFotLRJx+ozYe6zG2fv3++ep/lkCigHgsou1BXnDXHdDXj54k7UC85/P6CVsflsvnyhdM0hMOt8Vn80=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLx4YB+rJo9Cw2qEgZW+X14qyU5u7ZARNijImGLgcWwHetnbesq
+	mwxRxSPc+45/ByXfo96InK2hGTYDlwX0XbskOPBXfqSY3fVlV3TBoOMY
+X-Gm-Gg: AYBFou38fomu2eWGpnbT5qHbCekUtOLong48ORQfIti9LdtUPFK4No0QnzOu/SzfaQ2
+	VyROiv7D4TWDM2YSn1jgWzjkY9n4M1IIOQwrPCtgdGZeYAvOm34Esc1IDn0gb1ttuCjZNwCx2xa
+	vDf3L0Ug23x4oEt0V9ooDHl6nLbiE7k1Gxc1BzHsK9i3aJn5xcrUh77tAJOCzXTj+EapM4I6OTv
+	3kj/m3Av0cgdqp0AnbHHQMJrLNNmgVfCxGQakar6tSuYH4oEsJqqXECKPUQnB0Zy+nKHaBhSvad
+	etR5Z9zCL+cBaTma68TbcugmVDEJLOCKsd5BW0ZPZ+qrBl0p16QFS3NjlkgTcluSJkaQSsMxR2w
+	POBNTBE6tVPpmHn8BxHFQBGTi4YUZGdwXayKCVKEleT0S23oIfrtfZJyIHcm2KXmYjpNjYjNAoi
+	uxj60MTJb5KkAJMqVsARrmItouRMW3wGJKOWy5IT5nlSkgGrcdDjBXMFTkDVd0RIE5fhU2jyoRs
+	ESk8MpHYe2YRTdz0LuM/SgFQQsO926U4mN7oUPoEjcms2Gk1AQ=
+X-Received: by 2002:a17:902:e946:b0:2e9:a090:dd69 with SMTP id d9443c01a7336-2ea9c80170dmr18935915ad.39.1792859728209;
+        Sat, 24 Oct 2026 09:35:28 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a1c63sm6159575ad.47.2026.10.24.09.35.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 09:35:27 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] Bluetooth: L2CAP: Protect the receive reject-list lookup
+Date: Sun, 25 Oct 2026 00:35:21 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0157-v8-a3b1b1bb30aa6b263b32@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,179 +99,347 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 06:56:34 +0200
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+Reject-list entries must remain alive throughout a lookup. Management
+updates the list under hdev->lock, but l2cap_recv_frame() traverses it
+under conn->lock after l2cap_recv_acldata() has released hdev->lock.
 
-> On Fri, Oct 23, 2026 at 06:13:26PM -0600, Alex Williamson wrote:
-> > On Wed, 23 Sep 2026 12:29:56 +0200
-> > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> >  =20
-> > > On Wed, Sep 23, 2026 at 11:54:50AM +0200, Uwe Kleine-K=C3=B6nig wrote=
-: =20
-> > > > > No, drivers should NOT have to do that in their .probe() function,
-> > > > > that's what we moved away from decades ago!  The match function s=
-hould
-> > > > > handle all of that for you, otherwise it's contant duplication
-> > > > > everywhere that is unneeded.   =20
-> > > >=20
-> > > > Well then you have to accept that root can provoke a null pointer
-> > > > exception (e.g. by forcing the pwm-tegra driver on a device) becaus=
-e at
-> > > > least with today's platform bus match function such a match is ok. =
-  =20
-> > >=20
-> > > Agreed, yes, root can cause a crash and can do tons of horrible things
-> > > much worse than this, that's not the issue.
-> > >=20
-> > > That's why this taint is there, to make it obvious that this is not a
-> > > "real" bug at all.
-> > >  =20
-> > > > > Please, learn from our history, don't make the same mistakes.
-> > > > >=20
-> > > > > Now I might be convinced that driver_override is the way to go he=
-re, but
-> > > > > it still feels really odd as again, bind/unbind was created as a =
-driver
-> > > > > debugging option only, it should NOT be a normal operation that a=
-ny user
-> > > > > should rely on.  The driver should "just work" properly instead, =
-without
-> > > > > requiring manual bind work, as that's not a good model at all.   =
-=20
-> > > >=20
-> > > > I agree in principle, but (in my case wifi) drivers are buggy somet=
-imes
-> > > > (due to missing documentation and/or engineering effort) and being =
-able
-> > > > to rebind the driver instead of rebooting to get a working device a=
-gain
-> > > > is very useful.   =20
-> > >=20
-> > > Fine, use it!  Just don't expect that to be "normal".
-> > >  =20
-> > > > So yes, theoretically bind/unbind isn't needed, but theory and prac=
-tise
-> > > > differ in practise.   =20
-> > >=20
-> > > Agreed, but again, don't rely on this as a "real" solution fo ranythi=
-ng. =20
-> >=20
-> > Sorry, late to the party, but this isn't a few user scripts that rely
-> > on this behavior.  Effectively every use case of vfio relies on this
-> > behavior.  We rely on unbinding the default driver from the device
-> > before using driver_override and drivers_probe.  That means every
-> > hypervisor with device assignment and every userspace driver use case
-> > now experiences a tainted kernel. That seems like a significant
-> > regression. =20
->=20
-> Or finally, a real bugfix :)
->=20
-> > There is currently no alternative for this process.  It's not a matter
-> > of upgrading to a newer kernel where the drivers claim the device IDs.
-> > We can't claim the device ID, vfio drivers represent a secondary use
-> > case for the device. =20
->=20
-> How can vfio know that it can properly talk to any device like this?
-> Surely you have a list of real device ids that you know will work,
-> otherwise all bets are off.
+An established LE connection can still receive ACL data after its peer
+has been added to the reject list. If a management socket unblocks that
+peer during the receive-side lookup, the following ordering is possible:
 
-There's not a list of real device IDs.  PCI, in particular, is a
-self-describing bus.  Devices are discovered via bus walk, their
-resources are probed via standard mechanisms, they support interrupts
-and resets as described by capabilities defined in a specification.
-The vfio-pci driver just provides a generic way to represent a device
-as resources mapped to file offsets with ioctls to discover those
-offsets and interact with things like resets and interrupts.  For
-example, PCI config space and BAR regions are just defined indexes into
-the table of file offsets.  This works with any endpoint device, where
-even that distinction is based on the discoverable PCI header type
-rather than a table of device IDs.
+  HCI receive                        Management
+  l2cap_recv_acldata()
+    release hdev->lock
+    acquire conn->lock
+  l2cap_recv_frame()
+    lookup selects entry
+                                     unblock_device()
+                                       acquire hdev->lock
+                                       hci_bdaddr_list_del()
+                                         unlink and kfree(entry)
+    read entry->bdaddr_type
 
-Even if we could come up with a set of device IDs, it's a policy
-decision whether a given device is intended by the admin to be used by
-the default in-kernel driver or a userspace driver.  This policy
-changes over time, within the same host session.  That means that at
-one point we want the default driver bound and at another we want a
-vfio driver bound.  Coordinating this is exactly why we have
-driver_override and, building on that, match IDs that require
-driver_override.  This allows drivers to describe themselves as vfio-pci
-compatible drivers via modules.alias while requiring userspace to
-enable the match via driver_override.
+Management does not take conn->lock, so deletion can free the selected
+entry before the lookup reads its fields. This causes a use-after-free
+read in hci_bdaddr_list_lookup().
 
-This is how vfio-pci variant drivers work.  These drivers contain
-device specific knowledge, for instance the ability to serialize and
-expose device state for migration, but they're still a secondary use
-case to the in-kernel drivers.  This is effort and coordination with
-subsystems and driver-core over many years and relied on by every
-hypervisor, now deemed unsupported through a kernel taint before we can
-even bind the driver.
-=20
-> > A production use case of panic_on_taint now results in a hard failure
-> > for a scenario that has been allowed and documented as best practice
-> > for many years. =20
->=20
-> It was never "best practice", you took a debugging option and somehow
-> thought it was a valid use case.  Yes, I'm being harsh but I am sure I
-> complained about this in the past and obviously never followed up on it,
-> so that's on me.
+Compute the reject decision under the existing device lock in
+l2cap_recv_acldata() and pass only the boolean to l2cap_recv_frame().
+For pending receive data, take the snapshot in l2cap_conn_ready() and
+l2cap_security_cfm(), which already hold hdev->lock. Publish it under
+conn->lock before queuing the worker on the existing device workqueue:
 
-I won't doubt that you know more about the history and intent of these
-interfaces than nearly anyone, but I don't find any documentation or
-comments that specifically declare these as debug interfaces.  In fact,
-Documentation/ABI/testing/sysfs-bus-pci has documented the bind and
-unbind ABI for over 20 years.
+  HCI callback                       Pending RX worker
+    hold hdev->lock
+    acquire conn->lock
+    lookup reject list
+    save boolean; queue work
+    release conn->lock
+                                       acquire conn->lock
+                                       consume boolean
+                                       drain pending frames
 
-You've certainly expressed more than once that users get to keep all
-the broken pieces if they bind devices to drivers that don't support
-the hardware.  This is the first that it's been formalized in a
-taint without warning or an escape hatch for drivers like vfio-pci that
-do in fact intend to work with all hardware.  It affects the industries
-that depend on this usage model.  It's a regression.
+The snapshot belongs to the scheduled batch. A subsequent scheduling
+callback refreshes it under both locks, including when queue_work()
+coalesces with already pending work. No reject-list pointer survives the
+lookup, and the worker reads the boolean under conn->lock.
 
-> > What's the solution we can pursue for the scenario where devices have
-> > dual use cases between in-kernel drivers and userspace drivers?  Thanks=
-, =20
->=20
-> So what is the real use case here, taking any type of any device and
-> thinking you can bind a random kernel driver to it and it will work ok?
-> You all have specific platform and pci vfio drivers, why not use the
-> proper device ids there instead, or better yet, bake-in this type of
-> functionality into the bus-specific logic so that you can have generic
-> userspace control of a device (like usbfs and uio does today)?
->=20
-> We have real problems with random "bind/unbind" attempts that this taint
-> is here to help resolve as it was creating hundreds of false-positive
-> bug reports on developers all across the tree now that the fuzzers
-> decided to think this was a valid action to take.  Without this taint,
-> people were being forced to add hacks to all drivers for this which is
-> not an acceptable solution.
+Taking the device lock in the worker would deadlock against
+l2cap_conn_del(), which holds it while cancelling the work synchronously.
+A failed trylock followed by immediate self-requeue would instead keep
+retrying without a delay and extend a concurrent workqueue drain. Keep
+the lookup in the scheduling callbacks so the worker needs neither the
+device lock nor a retry. Skip scheduling when pending_rx is empty.
 
-At its core, vfio is describing the fundamental aspects of a device,
-regions and interrupts, without purporting to know anything about the
-specific programming model of the hardware.  In the case of PCI, the
-vfio-pci driver effectively decomposes the PCI representation of the
-device into a set of ioctls and a file descriptor.  A userspace driver,
-for example QEMU, recomposes that representation back into a virtual
-PCI device to the VM with virtualization, emulation, and direct access
-wired through to the physical device.
+KASAN report as below:
 
-There are no devices deemed only for vfio use by default.  Often we're
-unbinding a device from the host, exporting it to a userspace driver
-through vfio, exposing it to a VM, only to bind the same driver to it
-in the guest that it was previously using in the host.  Binding to a
-vfio driver is always a secondary use case governed by the policy of
-the system.  We cannot create scenarios where there are competing
-drivers for a device.  The vfio driver is always brought into the
-picture via driver_override, and except in the rare case where no host
-driver exists, unbind must be used to release the device for
-drivers_probe.
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in hci_bdaddr_list_lookup+0x145/0x160
+    Read of size 1 at addr ffff88810cba64d6 by task kworker/u17:0/493
 
-Is there some way instead that we can resolve the string written to
-driver_override and only taint for non-vfio drivers?  It's a much more
-confined problem if vfio drivers filter hardware outside their scope of
-support in their .probe function, and I think we largely do that
-already.  Thanks,
+    Workqueue: hci0 hci_rx_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? hci_bdaddr_list_lookup+0x145/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? hci_bdaddr_list_lookup+0x145/0x160
+     kasan_report+0xe0/0x110
+     ? hci_bdaddr_list_lookup+0x145/0x160
+     hci_bdaddr_list_lookup+0x145/0x160
+     l2cap_recv_frame+0x865/0x8830
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_lock+0x182c/0x2590
+     ? __pfx_l2cap_recv_frame+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? l2cap_recv_acldata+0x1eb/0x10e0
+     ? __pfx___mutex_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_unlock_slowpath+0x147/0x920
+     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
+     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
+     ? l2cap_recv_acldata+0x13d/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     l2cap_recv_acldata+0xe9f/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     hci_rx_work+0x5a6/0xf00
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
 
-Alex
+    Allocated by task 604:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     hci_bdaddr_list_add+0xdf/0x2c0
+     block_device+0x112/0x260
+     hci_sock_sendmsg+0x128b/0x22e0
+     sock_write_iter+0x4c0/0x550
+     do_iter_readv_writev+0x59c/0x860
+     vfs_writev+0x30e/0xc10
+     do_writev+0x241/0x2f0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 606:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     hci_bdaddr_list_del+0x1a9/0x2a0
+     unblock_device+0x112/0x260
+     hci_sock_sendmsg+0x128b/0x22e0
+     sock_write_iter+0x4c0/0x550
+     do_iter_readv_writev+0x59c/0x860
+     vfs_writev+0x30e/0xc10
+     do_writev+0x241/0x2f0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff88810cba64c0
+                                                                which
+                                belongs to the cache kmalloc-32 of size 32
+    The buggy address is located 22 bytes inside of
+                                                                freed
+                                32-byte region [ffff88810cba64c0,
+                                ffff88810cba64e0)
+
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x10cba6
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000000 ffff888100042780 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000400040 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff88810cba6380: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff88810cba6400: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+    >ffff88810cba6480: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                                                     ^
+     ffff88810cba6500: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff88810cba6580: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+    ==================================================================
+
+Fixes: cc8dba2bc302 ("Bluetooth: Block ATT connection on LE when device is blocked")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v2:
+- Address the immediate self-requeue concern raised by Sashiko:
+  https://sashiko.dev/#/patchset/95508
+- Snapshot reject-list membership under hdev->lock in the connection and
+  security callbacks, and pass the decision to pending RX under conn->lock.
+- Remove the worker trylock and self-requeue, and avoid scheduling an empty
+  pending RX queue.
+
+Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0157-v7-408aa9db5365c34b5f8b@gmail.com
+
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index 54eddcdd341f9..bca4a16c99b54 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -636,6 +636,7 @@ struct l2cap_conn {
+ 
+ 	struct sk_buff_head	pending_rx;
+ 	struct work_struct	pending_rx_work;
++	bool			pending_rx_blocked __guarded_by(&lock);
+ 
+ 	struct delayed_work	id_addr_timer;
+ 
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 83b622a428118..fda25fe726c26 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -1759,10 +1759,40 @@ static void l2cap_le_conn_ready(struct l2cap_conn *conn)
+ 	}
+ }
+ 
+-static void l2cap_conn_ready(struct l2cap_conn *conn)
++static bool l2cap_is_blocked(struct hci_conn *hcon)
++	__must_hold(&hcon->hdev->lock)
++{
++	/* Since we can't actively block incoming LE connections we must
++	 * at least ensure that we ignore incoming data from them.
++	 */
++	return hcon->type == LE_LINK &&
++	       hci_bdaddr_list_lookup(&hcon->hdev->reject_list, &hcon->dst,
++				      bdaddr_dst_type(hcon));
++}
++
++static void l2cap_queue_pending_rx(struct hci_conn *hcon)
++	__must_hold(&hcon->hdev->lock)
+ {
++	struct l2cap_conn *conn = hcon->l2cap_data;
++
++	mutex_lock(&conn->lock);
++
++	if (!skb_queue_empty(&conn->pending_rx)) {
++		/* Teardown holds hdev->lock while cancelling the worker.
++		 * Pass the decision under conn->lock to avoid that lock.
++		 */
++		conn->pending_rx_blocked = l2cap_is_blocked(hcon);
++		queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
++	}
++
++	mutex_unlock(&conn->lock);
++}
++
++static void l2cap_conn_ready(struct hci_conn *hcon)
++	__must_hold(&hcon->hdev->lock)
++{
++	struct l2cap_conn *conn = hcon->l2cap_data;
+ 	struct l2cap_chan *chan;
+-	struct hci_conn *hcon = conn->hcon;
+ 
+ 	BT_DBG("conn %p", conn);
+ 
+@@ -1794,7 +1824,7 @@ static void l2cap_conn_ready(struct l2cap_conn *conn)
+ 	if (hcon->type == LE_LINK)
+ 		l2cap_le_conn_ready(conn);
+ 
+-	queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
++	l2cap_queue_pending_rx(hcon);
+ }
+ 
+ /* Notify sockets that we cannot guaranty reliability anymore */
+@@ -7381,7 +7411,8 @@ static void l2cap_conless_channel(struct l2cap_conn *conn, __le16 psm,
+ 	kfree_skb(skb);
+ }
+ 
+-static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
++static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb,
++			     bool blocked)
+ 	__must_hold(&conn->lock)
+ {
+ 	struct l2cap_hdr *lh = (void *) skb->data;
+@@ -7408,12 +7439,7 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 		return;
+ 	}
+ 
+-	/* Since we can't actively block incoming LE connections we must
+-	 * at least ensure that we ignore incoming data from them.
+-	 */
+-	if (hcon->type == LE_LINK &&
+-	    hci_bdaddr_list_lookup(&hcon->hdev->reject_list, &hcon->dst,
+-				   bdaddr_dst_type(hcon))) {
++	if (blocked) {
+ 		kfree_skb(skb);
+ 		return;
+ 	}
+@@ -7461,7 +7487,7 @@ static void process_pending_rx(struct work_struct *work)
+ 	 */
+ 	while (!test_bit(HCI_CONN_ENC_KEY_SIZE_PEND, conn->hcon->flags) &&
+ 	       (skb = skb_dequeue(&conn->pending_rx)))
+-		l2cap_recv_frame(conn, skb);
++		l2cap_recv_frame(conn, skb, conn->pending_rx_blocked);
+ 
+ 	mutex_unlock(&conn->lock);
+ }
+@@ -7912,7 +7938,7 @@ static void l2cap_connect_cfm(struct hci_conn *hcon, u8 status)
+ 
+ 	mutex_unlock(&conn->lock);
+ 
+-	l2cap_conn_ready(conn);
++	l2cap_conn_ready(hcon);
+ }
+ 
+ int l2cap_disconn_ind(struct hci_conn *hcon)
+@@ -8051,8 +8077,7 @@ static void l2cap_security_cfm(struct hci_conn *hcon, u8 status, u8 encrypt)
+ 	mutex_unlock(&conn->lock);
+ 
+ 	/* Process data held back while the encryption key size was read */
+-	if (!skb_queue_empty(&conn->pending_rx))
+-		queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
++	l2cap_queue_pending_rx(hcon);
+ }
+ 
+ /* Append fragment into frame respecting the maximum len of rx_skb */
+@@ -8141,6 +8166,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
+ {
+ 	struct hci_conn *hcon;
+ 	struct l2cap_conn *conn;
++	bool blocked;
+ 	int len;
+ 
+ 	/* Lock hdev for hci_conn, and race on l2cap_data vs. l2cap_conn_del */
+@@ -8163,6 +8189,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
+ 		conn = l2cap_conn_add(hcon);
+ 
+ 	conn = l2cap_conn_hold_unless_zero(conn);
++	blocked = l2cap_is_blocked(hcon);
+ 	hcon = NULL;
+ 
+ 	hci_dev_unlock(hdev);
+@@ -8199,7 +8226,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
+ 
+ 		if (len == skb->len) {
+ 			/* Complete frame received */
+-			l2cap_recv_frame(conn, skb);
++			l2cap_recv_frame(conn, skb, blocked);
+ 			goto unlock;
+ 		}
+ 
+@@ -8223,7 +8250,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
+ 			 * setting the socket unreliable.
+ 			 */
+ 			skb->len = len;
+-			l2cap_recv_frame(conn, skb);
++			l2cap_recv_frame(conn, skb, blocked);
+ 			l2cap_conn_unreliable(conn, ECOMM);
+ 			goto unlock;
+ 		}
+@@ -8273,7 +8300,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
+ 			 */
+ 			struct sk_buff *rx_skb = conn->rx_skb;
+ 			conn->rx_skb = NULL;
+-			l2cap_recv_frame(conn, rx_skb);
++			l2cap_recv_frame(conn, rx_skb, blocked);
+ 		}
+ 		break;
+ 	}
