@@ -1,90 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792862346;
-	b=mc+UYlwe1SgINsN2nfeUV2Cm4sKhqf/w5FIxm78ujlidK7XNCy1xt3O0TWxt0ftlGuMh
-	 74GeVNqb6K7VJDTqILSH0o7YkFB9MAYdY0wcGlv55Cb+ov0tLmZseVkgKLN42InThnLsK
-	 jYkWoduVGD+v7cTmq05zTVpnZwccgXVTDxNhSuXEDzZxD9jHXIT5jEcUI6h8Ljfgq1xrw
-	 oDHd8BskSOkFteFmNapWUiMCaA16ngRsbAOClu1aDPtSd6XXKqjYxMoEk7RnToAWKHadn
-	 5DlBdhy4W23OrriuGdyoZjzJOffYq97qdLzAFC1lMEzgTxcAHTKAw+gyevOa13aOrHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862346;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=GKo9T9OwQ84leb4q/bd9aODGcaIrdjoihosbnMEgJgg=;
-	b=zrr0GfLj+5bq/rmdqfO0p/I82o7UMaAkXUMgnMEa3N33rD3ERaZ0/uYJ22AFgefpgBN+
-	 6m+5ZNWNrbfdjGxDWt0GAYFucfi6D+drMzhrq8ZSW/+H7UQbMsjICqR23KU2ScAtH4bq2
-	 dvcVNts4cbdNMA5csWdhdkeraoLhHMCYWUbCB+65mJxO9ExbpXYmTIyjge9gauPCLx32r
-	 V2VV1gRvgfNM+PBQk7tjNXH/iwxoZBXGkfxtpqD72hkdgducFpAGfsK+TJMfaOJ5A/zBr
-	 JlqA3UG2Q4QcswvfLBMwyi1XM1LSuY2oHgOHpj2q9cG9fIRzNnuOkjPJhWWdcdQ2IXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="b/yw20jh";
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=cUqmgugE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.206
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792862402;
+	b=vecFjX0RCEzzZPKl9IiD0o0c8hSf9KsmiS/Pe6kmkEQZCUHS1GLeHQWJqTRIs3p1PxV5
+	 DHRgkQoPb9CVuQAvJ5Gnq67mpd6AXLF0J/UcaZr7sPpiHP/vSkDVDIcrh1rVSznQs9ijP
+	 uhgEX5cV/yh5c1e0hd0mQq1e2OHMD0ofCa136IhaYXkJjJh5PUFYFNKHwXtTENA8I/m39
+	 vApcPmvWH7r8+JKADTSyMdONJ+RO5s2rRW8j2V0D3hu3pkcdXy+JqVPxsB2lSDKzjb70O
+	 iOG2mYiVfYQ5iNXxKAUhIJbhiv0Y13ZsXH9mLaRJe0FXQRT3gj7qPg6qin9llRfw9qA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862402;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
+	bh=sd+yctJGX58GYgR2VMHbAaQET091sbKp1a2O1nu6sRY=;
+	b=L6U6p8qMAlLQwhCDZAhT5mD3btTDzin5osUr2E9O0KEEMXAITxQ1xMwlrGCDBwEjvBGe
+	 IjJRlRYH+oKrZLxz+a85gk9ihgyV4o1GQr3mZk9OsDwEb/IEwVb+WJNgB05F25b7iXCyt
+	 P7b7DhjcKtcSd3AuCYfW/+Tueaeq5J/gkQqte3qObjemoxSwyWyMdyW14QbfsWu+le3Ex
+	 V89P5AcYryYmDWJpubXVhiyglHSwAPIiF3dhd3IiF8B+GlJ6ftFT0O4PtB/OkVLZdIRJJ
+	 BPL4KuYRGvWPjnYWL2yvoYnvMNyD9zWng+eLEof332c2KCn5n/fAv8poLgyIVh3esWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=easystack.cn;
+	spf=pass smtp.mailfrom=easystack.cn;
+	arc=none smtp.remote-ip=103.209.128.206
+Received: from mail-m128206.netease.com (mail-m128206.netease.com [103.209.128.206])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3B7606A31B;
-	Sat, 24 Oct 2026 17:19:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB3B7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=b/yw20jh;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=cUqmgugE
-ARC-Seal: i=1; a=rsa-sha256; t=1792862336; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=VwVEghs5CpOIYwMyuhR+iT2wuSamVVIZY3gOCp+5mbpAkp4XBE0/mO/qk0v552TRYe
-    0Ay98BgUHZSj2cqLmsnJCmoCJ5lPaCyLZr+6P5GcNYE1p2al8vgVc6LkE1gnOpckf41L
-    2WsxqUXd45hFxSq4GTEz2RHd9u9ISAnJxbM+iAm2Zg+QgxFasQj8B/6OFN1+mpC1zMHl
-    xrSd7JR30vVcDeSfc8/tfIX6wHAYZPtiEfQHxeJc0YEJs7LDJKJK2ELvNMhzEki3QLr2
-    1t1IOk4oR0tyLXv74m0oplfqCCzEb79qvuevmpXov+kUk13c8chnsG3NrEZzGxRu7ELs
-    LRJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862336;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=GKo9T9OwQ84leb4q/bd9aODGcaIrdjoihosbnMEgJgg=;
-    b=Hig4j0kfpCQmu5POQEjQ3ISxOBe//2BATQ5UzxSMufPctkWqC75rdeRAj8nqdJ3gGi
-    0VgLRknLHXJssq6zch+bEjqIo/J0Uiba9PHWccwDRWUdbFPhSOcEOfEn7sYJqH3gUaHa
-    oj7nFj/F0zc2CQFF6LoBpI6iV3fzHKfjX5Lf+VlfZrMq9O5O8Hb76NtMqLros3MYEVXT
-    sk+UOqfJOizmMElK5jUiFxBCPuEfT6GleEWLsHo9BGJYCFv/QdaXR1mole1SAtiwF9I5
-    suIS7IVXqCo0f1v5UN6HLKikz2dGteVBq/99mVHm/kfw6DVZJ6jq9jGsDOnS6Ep6uwo+
-    AoAg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862336;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=GKo9T9OwQ84leb4q/bd9aODGcaIrdjoihosbnMEgJgg=;
-    b=b/yw20jhe7smdwIxJyanrG4NulJQYCmVhRdcaT8D+kNOKqH0mM9/1awhycxt4+6aPh
-    uPlnXHSmaEifIjPyPWIP5HAdyZSNugZWADzy99/FfMXzBSzf9ODYcd3MkKWuZ8eclMwS
-    4b12meVUtZX8V6V6KFUG7dpocW+FLOIhSiNl44Y3g43p7th6zXrQdFYrN2orsPk1S8ue
-    CAzbCrHqYvs4c5HuCY0aDj57ylnQ+uqJsrglu3wC4ltD3qqqRhvrWTHSJDazUkJTC35c
-    s4kQ2rtvPD4dqEsElgIAq4tcXskQHr7w8/veZEE1fBnUfKbKc8SIGXhh3PAKP4D8pYfs
-    ns6g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792862336;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=GKo9T9OwQ84leb4q/bd9aODGcaIrdjoihosbnMEgJgg=;
-    b=cUqmgugElN3TIAyT1U1gl6OCQrU6j/rjpDJoX0bW6fQAMyrdftDDijcMGfn+ePf1TK
-    TaHOiLnXZyggXAotXjBg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzptYNlV1C1yk7253raiyx+O3Hxli"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229OHIuwq1
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Sat, 24 Oct 2026 19:18:56 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AAD606A31A;
+	Sat, 24 Oct 2026 17:19:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3AAD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2] (unknown [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 206c2f1c2;
+	Sun, 25 Oct 2026 01:19:47 +0800 (GMT+08:00)
+Message-ID: <06925440-8df8-4f2e-aea0-ede1a98435fa@easystack.cn>
+Date: Sun, 25 Oct 2026 01:19:47 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,101 +43,176 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 2/2] pinctrl: ingenic: Add an X1600 group for 18-bit RGB
- on the top lines
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261023204207.48277-2-olivier@mgcrea.io>
-Date: Sat, 24 Oct 2026 19:18:26 +0200
-Cc: Linus Walleij <linusw@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- linux-gpio@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
- Paul Boddie <paul@boddie.org.uk>,
- Andreas Kemnade <akemnade@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <311BC431-1F73-4C07-B3FE-A908E3BD9263@goldelico.com>
-References: <20261023204207.48277-1-olivier@mgcrea.io>
- <20261023204207.48277-2-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com, shuah@kernel.org
+Cc: bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+ <DMAURQCKK6CG.10CZ7MFXGJO3V@gmail.com>
+ <d39db4fb-e511-440e-9065-72c34a1a295a@easystack.cn>
+ <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa16eecfd8c0229kunm0bf4aa98351e65
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHUlLVk8fH0IaGkodGEpMHVYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaSUtBHklIQUkaHk9BQ0NKS0FDHUxPQUMYSU
+	1BSVlXWRYaDxIVHRRZQVlPS0hVSktJT09PSFVKS0tVSkJLS1kG
 
-Hi,
 
-> Am 23.10.2026 um 22:42 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> Boards that wire an 18-bit panel to the six most significant lines of
-> each colour leave PA0, PA1, PA8, PA9, PA16 and PA17 free for other =
-uses,
-> which the cumulative lcd-16bit and lcd-18bit groups would take. Add
-> "lcd-18bit-msb" for that wiring.
->=20
-> Used on a HiBy R1, which drives its panel this way and uses PA0, PA1,
-> PA16 and PA17 as GPIOs.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
-> drivers/pinctrl/pinctrl-ingenic.c | 14 +++++++++++++-
-> 1 file changed, 13 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-ingenic.c
-> index 28e7f1852054..8c424db27fd5 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -2442,6 +2442,17 @@ static int x1600_lcd_24bit_pins[] =3D {
-> 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-> };
->=20
-> +/*
-> + * 18-bit RGB on the six most significant lines of each colour of the =
-24-bit
-> + * bus, with the clock, data enable and syncs.
-> + */
-> +static int x1600_lcd_18bit_msb_pins[] =3D {
-> + 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-> + 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-> + 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-> + 0x18, 0x19, 0x1a, 0x1b,
-> +};
 
-I just wonder if you can't get this by combining some existing partial =
-pinctrl,
-e.g something with lcd-16bit and lcd-18bit?
+在 2026/10/23 23:58, Alexei Starovoitov 写道:
+> On Fri, Oct 23, 2026 at 07:51 AM zhen.ni <zhen.ni@easystack.cn> wrote:
+> 
+> tldr: it's still nack
+> 
+>> underlying iteration logic. This shape is also what Documentation/bpf/
+>> bpf_iterators.rst prescribes:
+>>
+>> When adding a new BPF iterator program, it is expected that similar
+>> functionality will be added as open-coded iterator for maximum
+>> flexibility.
+> 
+> It says what to do when an iterator is added. It doesn't say that
+> one is needed.
+> Iterators are for kernel data structures that a prog cannot walk
+> on its own: tasks, cgroups, kmem_caches.
+> pfn is a number. bpf_for() is the iterator.
 
-But there is no good overlap with existing settings to achieve this.
+I agree the doc is prescribing what to do when an iterator is added, not
+that every case must have one. But my point is that having both
+iterators coexist is the convention, not overkill.
 
-> +
-> static int x1600_pwm_pwm0_pins[] =3D { 0x40, };
-> static int x1600_pwm_pwm1_pins[] =3D { 0x41, };
-> static int x1600_pwm_pwm2_pins[] =3D { 0x42, };
-> @@ -2503,6 +2514,7 @@ static const struct group_desc x1600_groups[] =3D =
-{
-> INGENIC_PIN_GROUP("lcd-16bit", x1600_lcd_16bit, 0),
-> INGENIC_PIN_GROUP("lcd-18bit", x1600_lcd_18bit, 0),
-> INGENIC_PIN_GROUP("lcd-24bit", x1600_lcd_24bit, 0),
-> + INGENIC_PIN_GROUP("lcd-18bit-msb", x1600_lcd_18bit_msb, 0),
-> INGENIC_PIN_GROUP("pwm0", x1600_pwm_pwm0, 0),
-> INGENIC_PIN_GROUP("pwm1", x1600_pwm_pwm1, 0),
-> INGENIC_PIN_GROUP("pwm2", x1600_pwm_pwm2, 0),
-> @@ -2549,7 +2561,7 @@ static const char * const x1600_i2s_groups[] =3D =
-{
-> static const char * const x1600_cim_groups[] =3D { "cim-data", };
->=20
-> static const char * const x1600_lcd_groups[] =3D { "slcd-8bit", =
-"slcd-16bit",
-> - "lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-no-pins",
-> + "lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-18bit-msb", =
-"lcd-no-pins",
-> };
->=20
-> static const char * const x1600_pwm0_groups[] =3D { "pwm0", };
-> --=20
-> 2.39.5
->=20
->=20
+Page owner traversal looks like iterating over PFNs, but PFN is just a
+number; what is actually being traversed is page_owner records, buddy
+blocks, online/ offline sections, memblock holes—kernel state that a
+prog cannot see on its own. So it is not a pure numeric-range walk.
 
-Reviewed-By: H. Nikolaus Schaller <hns@goldelico.com>
+> 
+>> 1. What range to scan. Where do ctx->start and ctx->nr come from? No
+>> in-tree iterator context provides them, and a prog cannot derive them:
+>> min_low_pfn..max_pfn, memblock holes, and offline sections are all
+>> kernel state. The loop bounds alone require either another kfunc or a
+>> kernel-side walk — which is exactly what the iter target already is.
+> 
+>  From user space. It's a syscall prog, like scan_open_coded() in your
+> patch 7. Its ctx is what user space passes in ctx_in.
+> /proc/zoneinfo has start_pfn and spanned for every zone.
+> In holes and offline sections pfn_to_online_page() returns NULL
+> and bpf_page_owner_read() returns -ENOENT.
+> 
 
+I agree the range can be obtained. But being able to obtain a range is
+not the same as that range being meaningful to the user. Page owner
+users typically care about a process, a cgroup's leaks, or the global
+distribution; PFN is just a physical address index, and users almost
+never know in advance which zone or which PFN range to scan. Letting the
+prog specify a PFN range raises the bar for writing it while the
+practical use cases remain limited. This is not a feasibility issue—it
+is a question of abstraction level.
+
+>> 2. What makes a page eligible. The alignment test in the sketch is the
+>> only part the kernel agrees is expressible in a prog. Everything before
+>> it reads state a prog doesn’t have a handle to: pfn_valid() over
+>> MAX_ORDER_NR_PAGES areas, pfn_to_online_page() under get_online_mems(),
+>> skip_buddy_pages(), the PAGE_EXT_OWNER / PAGE_EXT_OWNER_ALLOCATED flags
+>> in page_ext, and taking the record snapshot inside the RCU window so the
+>> checked value and the reported value are the same copy.
+> 
+> bpf_page_owner_read() in the diff does all of that:
+> pfn_to_online_page(), page_ext_get(), PAGE_EXT_OWNER_ALLOCATED check
+> and the copy of the record before page_ext_put().
+> PAGE_EXT_OWNER is set together with PAGE_EXT_OWNER_ALLOCATED and it's
+> never cleared. No need to check both.
+> __reset_page_owner() clears PAGE_EXT_OWNER_ALLOCATED, so
+> skip_buddy_pages() and MAX_ORDER_NR_PAGES steps only make the walk
+> faster. They don't change what is eligible.
+
+I agree on eligibility. But I'd like to expand on "only faster": what
+those steps change is the scale of the walk, and under SPARSEMEM that
+scale is structural, not a constant factor. On a 256G, 8-NUMA machine I
+have, node0 is:
+
+crash> struct pglist_data ffff0106ffffe580 | grep node_spanned_pages
+   node_spanned_pages = 17235968,
+crash> struct pglist_data ffff0106ffffe580 | grep node_present_pages
+   node_present_pages = 523024,
+
+For this one node alone, about 97% of spanned is holes. With
+bpf_for(pfn, start, end) plus a bpf_page_owner_read() per iteration,
+that is at least 16,712,944 kfunc calls, and bpf_for has no scheduling
+point inside, and all of them are wasted work. The gap grows with memory
+size, and I'm concerned "only faster" understates the runtime cost on
+real machines.
+
+One more structural issue: bpf_for is capped at BPF_MAX_LOOPS = 8 * 1024
+* 1024, and this is a runtime check—the verifier will not reject it up
+front. The spanned of this node is already 17.23M, so a single bpf_for
+cannot cover it; you have to split it into N chunks and poll, with the
+chunking state kept in a prog map, i.e. a loop nested in a loop.
+
+And cur/end are stored as BPF_W (32-bit), while the PFN upper bound
+tracks the physical address width: on x86-64 with 46-bit PA, max_pfn can
+reach 2^34, and 2^40 with LA57; on arm64, 2^36 for 48-bit PA and 2^40
+for 52-bit PA. A 32-bit PFN range will overflow here.
+
+Solving all of this requires yet another, more complex kfunc—and it
+looks increasingly like bpf iter. So why not just use the iter?
+
+> 
+>> 3. The walk is deliberately lockless, so exposing struct page to the
+>> prog is not safe. The pfn validity check and the page_ext dereference
+>> must happen under the same kernel-controlled RCU window. Otherwise the
+> 
+> The prog doesn't see struct page or page_ext. It passes a pfn and gets
+> a copy of the record. The lookup, the check and the copy are in one RCU
+> section inside the kfunc. offline_page_ext() does synchronize_rcu()
+> before freeing page_ext.
+> page_ext_from_phys() does the same lookup from any context.
+
+I have no doubt about feasibility.
+
+> 
+>> 4. One record doesn’t give the prog the useful data. The record holds
+>> only opaque handle/free_handle tokens; stack-depot resolution exists
+>> solely in the kernel. The memcg is neither in the record nor trivially
+>> reachable — the path is built by cgroup_path() walking the kernfs parent
+>> chain. The NUMA node comes from page_owner_get_nid(), which bypasses
+>> page_to_nid()’s poison check. And so on.
+> 
+> The handle is the key to filter and aggregate by.
+> page_owner_stacks/show_stacks_handles maps handles to stacks.
+> Same for memcg. bpf_page_cgroup_ino() in the diff returns the id.
+> st_ino of the cgroup directory is that id.
+> 
+> 
+
+Similarly, I have no doubt about feasibility. I do have some concerns
+about data consistency and performance. It also increases prog
+complexity.
+
+In summary, while I don't dispute the feasibility of the bpf_for +
+bpf_page_owner_read approach and fully agree that kernel-side simplicity
+is paramount, I wonder if we should also weigh the complexity on the
+program side. If using this kfunc imposes a steep learning curve, I'm
+concerned it might limit adoption. If a feature lacks practical utility,
+it becomes difficult to justify the effort.
+
+Thanks for the detailed explanations and for walking me through
+these points.
+
+
+
+Thanks,
+Zhen
