@@ -1,101 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792818994;
-	b=Y3LmBYnsgbI5c+bK7b5AWMcaEmYXn8TV0Sg1hiy2tSD0/c0FFhNma4g7EE3xx6fKx/wg
-	 jb+ooAp34J8iyQ0Wht2gK+oOEmRy1/1wOT09iTkm00T045NutlQamfzdwZ/CWpiOQ/P7W
-	 h2pmPvv+L/JSdIMLRlhK1mmnvuGrY3X09ssO9f8Nv8TMDLa4kaTWTfoQjvkPTyYR7V1fC
-	 4NaM5w3L1Ex/N2HNCm8+r7ZkCNMEQP4gMv/8qocmRuB9B0ANRKzMHIPjqzu1BUczqID+z
-	 kNswxtnReKjT2kfquUuzV4e7Etu0eKVoe6mTPBLTYUt9dyPOXaGtswdlIDNVI23qqlw==
+	t=1792819021;
+	b=eU4BaD17wFj9BwvWKWig/+cm5+h9yvYupyfLI5HobURdCnr8IwGSBce0YofGSt92hrSx
+	 eCs8Drf/D37JTGr7VXSthWXuALx2S9RMbc16b5skiaU22TWdrNDwXyQeGK5j8QW9Chai/
+	 6vo3O+OwBZSWvsu3/sPrw276vDdSpL6vrxRzktVf0tKpJZnGDkqynVzMHejYF0l4K5z9Y
+	 bPxfz3S2cCZJTC1qzwzkT04xVZqweRK1ZQlo/B0dOYDGdKijnq+Bjlng8sknPex9ZCCB/
+	 JID4b+tc4nDLqY4zTjtpsUfZFR40e/WE4qSUgUA38TGEcOUdYgrn7DLHA11ipTN4Q9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792818994;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HXzEtDGwOk5WnadgfugPpYWOH9KPkM2ozlPjHTw35RE=;
-	b=A+lAjUF9PlKLVk8cj76U644QWOXsj5gsd5i0Ih+H6s4O6P9KI5FLpyZ2zLnjnYaEqiVw
-	 kyvJQ2vY7s6EsLia4ZMZ3RQ90FQptLrTaGq8a9Y1AC6XrR04FktivwEAeGDxSkPsy1SwP
-	 qnsLJFk+ZoBA24Go9gnFu/qNXGxgshWbBprE+mLkAwY7GH4zcXtDtpC7wpqnj1yapu3Rg
-	 GcphNKPZrHoSMnsweQGqRU0nzD42+RaQ3ggdo8ETHzMTH968ClI6LYAtSQ+QdQUUX2y53
-	 nKXz1abSUuBanfo7lPevfMbaK7lNsuuk/FObXEIVXAf+tdwMXJwjk9+HMO0thKtEarA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792819021;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ScrLm99vH6FZ2mLK70y8HlqXBENukSNyevMBSno+jOY=;
+	b=mEhP3YHjaiGd8jpaJRG16u/Y0AUtOpPGMcoTfu0Q5Bx2gjWamgAKosLcact9FM5O+uvP
+	 uuy3owB7x4DgbRE98AySRTiR0OvboY4g2i5h2wWpgyxGdp/Aazavf4p+LH9S6MruHfxD5
+	 6rGw0UJunx3PmqRpnRC1noyb8X57e1FAIEFkJKtKRnj/hHVWvJuxoDDVJm7LbR867mpDf
+	 I10hhYLfnycUYG3KRagd/e4RePxQ8W60my+gAQuv9i3Bf6n8AZ75FpE/WtIHA46RkJHJg
+	 7Hzr3euEaMQWz1QbhRnlYuGvFN9X/qwYcLHGQDEcAjCVw1ILJCCxucv7szpeR7uSQnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=SJKOCatG;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ilaGBQmw;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEC6606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:16:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BEC6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD00606A31B;
+	Sat, 24 Oct 2026 05:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD00606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=SJKOCatG
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a208d93758so15613925e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792818993; x=1793423793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HXzEtDGwOk5WnadgfugPpYWOH9KPkM2ozlPjHTw35RE=;
-        b=SJKOCatGK37boERyX5adGldwj8VveNPWPKFSXYUFSJSWYrq/74OCGXFP4va9YiM2Mm
-         4IoLbLjA6R1AvYVUIprdLmF+V+8Wb6q3rrbCQf79icXZo3I1389x0AqBQptVsjfPr/n/
-         YiIt4KtOkddKO3KNPDAuYrBlsQQmV9r6PqOJaqP3bE4TBDrM27OHz5+FyBubY2jvKynB
-         xhyxYjmHz5hBt2kW10BEj1YwgRNRU6F1dmlj152u3uqca9uGSBzFb632RPE4w9lFSYJS
-         muPJ+Amt//Gxqgvbp2SU150EOWeSq1X1wHiMD546DPnuM9dlS0dQpmTasRFuhFoCUxXc
-         tNIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792818993; x=1793423793;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HXzEtDGwOk5WnadgfugPpYWOH9KPkM2ozlPjHTw35RE=;
-        b=wWYcjAQtYWFpPvG5Bbb8ku3muTphEoNTNEmdpqdFxBL4fkRYXrKENZhHNJ/an/1Won
-         vfeXYRwuNOKKbXxXDdQRIVyMc4Oya6sM0yNJ5ggLj3+NERyVAgIFH6+/50eIH1eZ8zdo
-         TYtbCsSi/2K3FxEq6y+QD1TD7EP8S3pSoQ7QitSw/XedpriV4w4cyp9YNs/Q54+Ba8ih
-         PIlfGNEcp66OPNhjDJHMtYbA16Jqf2LiTvJDi8HwZu3h8cu4PyipCfTQjKa1D6BWre/U
-         54a1P7bVouhvOkXFGkhBii00hLQsTxUyzd0VePjrx2dY3QbpWT+FP75SZg9khB5r4bIv
-         sTKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGy5I0G+NjJQocHs2NhQFYbvGUc4eGXIJljPMLTyny+fKwzHg+cDu2gLpzEthdjyqYaVFSxVeFOLioBFM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTzgHUE5Vz6Uq13+PrhCfttiFqU1nyjl4Drux09jsomCwwRsal
-	oiz9ppxOqTSFD1EP/EU/MF+6IcCQzC5cI09wG8mfsDr7WEE+lPcYct9SmbbdADESlkI=
-X-Gm-Gg: AYBFou0h/qlzXIkhNQX216T9OmU71hf6wSlZe4rmKG6uF9lp5kQ+fsf0ITpIigj4bqZ
-	/xGNYz6sDXVzkPHntzTM5mLQ4QdPanbDzR5p0xNtkZBsNTWt1F/YuJtuMU+tZSUKFHkIYpt4djU
-	z0p/pyMX0anE4zY1uA69al2ndqLaOcd1+J/PoM3Bdyk+ZA5ZXHuo0ODrfAwlbGwkUcG+gdjdVmy
-	7RCeGCkIBFtZ9EDfqm6eB7jRiBeiltGZXG4eb5S4a/RVtWkgXokDHgFaTII9+DbI3Gk9WnsJN7T
-	uuruGWxgEJsAvVpKXM0rjzs66AsCnZ01FcFWlC4U8IS2bqd+Mjt1+vcNpZuE5Fe5IQ7V7mP409L
-	epR3GCEri/fJ8xosBVvlKA4w7y+elaOOFmQiyqEuT7d93Fs/u0NohWiWdgGao303SdrgmJycKKB
-	qEewR+oNmDrL/Kt1w4rUTN22f3dmLdoV2r+xjfHfXPa3TyM6NYH7X01N75rHz/xofc5yuSO/2Gi
-	19r7WuV1Pqp/jPmFi25fg89qRzPBC/HSo6Pjmpg1c1LjFVh8X95WTscCI44viF8Rbg/sP6BJSqU
-	7PDtLU6zfUw=
-X-Received: by 2002:a05:600c:1906:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a35acc3f50mr11902195e9.34.1792818992913;
-        Fri, 23 Oct 2026 22:16:32 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9c3:9990:89bb:701c:1852:56c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a55e9aasm27604415e9.5.2026.10.23.22.16.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 22:16:32 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 2/2] serial: 8250_ingenic: Start the X1600 UART from 16 clocks a bit
-Date: Sat, 24 Oct 2026 07:15:15 +0200
-Message-ID: <20261024051515.55639-2-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261024051515.55639-1-olivier@mgcrea.io>
-References: <20261024051515.55639-1-olivier@mgcrea.io>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ilaGBQmw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792819020; x=1824355020;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IIv2fZBANIicJi2ej+JSsJjS2vcWWkfUJDU36V78g9g=;
+  b=ilaGBQmwM+/bA6NaCATu3sUxRk+cIfOEi+oYi4nnlWPf9W838HMXgAPX
+   3+54sUVYcU7scprKVJza8Y0npZENCauGsW2IDh6pYbLMftS1jCUYQedds
+   ZHzYiKnMWc7u8zGUEeFEyCQmMXAaHbYNso7dVznHczgnxWxGEtpNsmaeV
+   YltRQgcUB3pgvHgQpayvD+3eyLVEA7lxZU8KuQ+VHMGCcRr9RqAQ9BRY7
+   gAUKZAfrhH2RFD1vANHeNCalY4G7yePHDNNMAkv5xqy50AYZQnZU1snny
+   VpxKpmrvhUQBdkJvgzhyTTVAjb/6W85Cqh3nYIE6rsxDtwNV/D08/0Vst
+   g==;
+X-CSE-ConnectionGUID: RpPl1rrEQpmrWFYbRYJklg==
+X-CSE-MsgGUID: G1VReFdRR5aB5A+TRkLeTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1590965"
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="1590965"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 22:16:59 -0700
+X-CSE-ConnectionGUID: nHnj8W89SzyZwvB+ogGEmw==
+X-CSE-MsgGUID: 1xz0TVDqSfuedbh7bk1LMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
+   d="scan'208";a="5562893"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 23 Oct 2026 22:16:54 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKU7e-00000000TbW-3Xnc;
+	Sat, 24 Oct 2026 05:16:50 +0000
+Date: Sat, 24 Oct 2026 13:16:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Jie Zhang <jie.zhang@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/14] drm/msm/a8xx: devcoredump state capture support
+Message-ID: <202610241330.82NsqXG7-lkp@intel.com>
+References: <20261021204244.67160-12-robin.clark@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,91 +95,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021204244.67160-12-robin.clark@oss.qualcomm.com>
 
-The X1600 UART samples each bit with UMR clocks, adjusted per bit by
-UACR, while the divisor the 8250 core computes assumes 16. The driver
-never sets them, so the UART keeps what ran before it: on a HiBy R1 the
-vendor kernel leaves UART0's UMR at 8, which by the register's meaning
-doubles every rate set here (the line rate itself was not measured). The
-Bluetooth chip on that UART then never answers: "command 0xfc18 tx
-timeout" from hci_bcm.
+Hi Rob,
 
-Add an X1600 entry that writes UMR = 16 and UACR = 0 at probe. The
-offsets come from Rockbox's X1600 register headers and match the UMR
-read on the R1. The X1000, whose compatible the X1600's falls back to,
-may have the same registers, but I could not check one, so it is left
-alone.
+kernel test robot noticed the following build errors:
 
-Tested on a HiBy R1: UMR reads 16 and UACR 0 after probe, and the
-BCM43430A1 on UART0 comes up at 1.5 Mbaud and streams A2DP audio.
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on drm-tip/drm-tip next-20261022]
+[cannot apply to linux-review/Rob-Clark/drm-msm-Import-adreno_snapshot-h/20261020-134615 drm-misc/drm-misc-next daeinki-drm-exynos/exynos-drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes linus/master v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
-The test on the R1 ran with the same reset placed in the X1000 entry; the
-R1's device tree lists "ingenic,x1600-uart" first, so it takes the same
-path with this version. Build-tested with W=1 on tty-next.
+url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Clark/drm-msm-Import-adreno_snapshot-h/20261021-134126
+base:   https://gitlab.freedesktop.org/drm/kernel.git drm-next
+patch link:    https://lore.kernel.org/r/20261021204244.67160-12-robin.clark%40oss.qualcomm.com
+patch subject: [PATCH v2 11/14] drm/msm/a8xx: devcoredump state capture support
+config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20261024/202610241330.82NsqXG7-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610241330.82NsqXG7-lkp@intel.com/reproduce)
 
- drivers/tty/serial/8250/8250_ingenic.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610241330.82NsqXG7-lkp@intel.com/
 
-diff --git a/drivers/tty/serial/8250/8250_ingenic.c b/drivers/tty/serial/8250/8250_ingenic.c
-index 0cdadacd7019..40307189021b 100644
---- a/drivers/tty/serial/8250/8250_ingenic.c
-+++ b/drivers/tty/serial/8250/8250_ingenic.c
-@@ -25,6 +25,7 @@
- struct ingenic_uart_config {
- 	int tx_loadsz;
- 	int fifosize;
-+	bool has_umr;
- };
- 
- struct ingenic_uart_data {
-@@ -40,6 +41,10 @@ static const struct of_device_id of_match[];
- #define UART_MCR_MDCE	BIT(7)
- #define UART_MCR_FCM	BIT(6)
- 
-+/* Clocks a bit, 16 for the divisor the 8250 core computes, and their per-bit adjustment. */
-+#define UART_UMR	9
-+#define UART_UACR	10
-+
- static struct earlycon_device *early_device;
- 
- static uint8_t early_in(struct uart_port *port, int offset)
-@@ -298,6 +303,12 @@ static int ingenic_uart_probe(struct platform_device *pdev)
- 	}
- 	uart.port.uartclk = clk_get_rate(data->clk_baud);
- 
-+	/* Whatever ran before may have left another count: 8 on a HiBy R1. */
-+	if (cdata->has_umr) {
-+		writel(16, uart.port.membase + (UART_UMR << uart.port.regshift));
-+		writel(0, uart.port.membase + (UART_UACR << uart.port.regshift));
-+	}
-+
- 	data->uport = serial8250_register_8250_port(&uart);
- 	if (IS_ERR(data->uport)) {
- 		err = PTR_ERR(data->uport);
-@@ -344,6 +355,12 @@ static const struct ingenic_uart_config x1000_uart_config = {
- 	.fifosize = 64,
- };
- 
-+static const struct ingenic_uart_config x1600_uart_config = {
-+	.tx_loadsz = 32,
-+	.fifosize = 64,
-+	.has_umr = true,
-+};
-+
- static const struct of_device_id of_match[] = {
- 	{ .compatible = "ingenic,jz4740-uart", .data = &jz4740_uart_config },
- 	{ .compatible = "ingenic,jz4750-uart", .data = &jz4760_uart_config },
-@@ -352,6 +369,7 @@ static const struct of_device_id of_match[] = {
- 	{ .compatible = "ingenic,jz4775-uart", .data = &jz4760_uart_config },
- 	{ .compatible = "ingenic,jz4780-uart", .data = &jz4780_uart_config },
- 	{ .compatible = "ingenic,x1000-uart", .data = &x1000_uart_config },
-+	{ .compatible = "ingenic,x1600-uart", .data = &x1600_uart_config },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, of_match);
--- 
-2.39.5
+All errors (new ones prefixed by >>):
 
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   include/linux/bits.h:49:27: warning: right shift count >= width of type [-Wshift-count-overflow]
+      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
+         |                           ^~
+   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
+     682 |                 if (!(condition))                                       \
+         |                       ^~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:51:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      51 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |         ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:9: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |         BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |         ^~~~~~~~~~~~
+   include/linux/bitfield.h:74:17: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      74 |                 __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +                 \
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:17: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      91 |                 __BF_FIELD_CHECK_MASK(mask, val, pfx);                  \
+         |                 ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:17: note: in expansion of macro '__FIELD_PREP'
+     138 |                 __FIELD_PREP(_mask, _val, "FIELD_PREP: ");              \
+         |                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:22: note: in expansion of macro 'FIELD_PREP'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                      ^~~~~~~~~~
+   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
+      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   include/linux/bits.h:48:27: warning: left shift count >= width of type [-Wshift-count-overflow]
+      48 |              (type_max(t) << (l) &                              \
+         |                           ^~
+   include/linux/bitfield.h:92:50: note: in definition of macro '__FIELD_PREP'
+      92 |                 ((typeof(mask))(val) << __bf_shf(mask)) & (mask);       \
+         |                                                  ^~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:22: note: in expansion of macro 'FIELD_PREP'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                      ^~~~~~~~~~
+   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
+      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   include/linux/bits.h:49:27: warning: right shift count >= width of type [-Wshift-count-overflow]
+      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
+         |                           ^~
+   include/linux/bitfield.h:92:50: note: in definition of macro '__FIELD_PREP'
+      92 |                 ((typeof(mask))(val) << __bf_shf(mask)) & (mask);       \
+         |                                                  ^~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:22: note: in expansion of macro 'FIELD_PREP'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                      ^~~~~~~~~~
+   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
+      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   include/linux/bits.h:48:27: warning: left shift count >= width of type [-Wshift-count-overflow]
+      48 |              (type_max(t) << (l) &                              \
+         |                           ^~
+   include/linux/bitfield.h:92:60: note: in definition of macro '__FIELD_PREP'
+      92 |                 ((typeof(mask))(val) << __bf_shf(mask)) & (mask);       \
+         |                                                            ^~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:22: note: in expansion of macro 'FIELD_PREP'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                      ^~~~~~~~~~
+   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
+      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   include/linux/bits.h:49:27: warning: right shift count >= width of type [-Wshift-count-overflow]
+      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
+         |                           ^~
+   include/linux/bitfield.h:92:60: note: in definition of macro '__FIELD_PREP'
+      92 |                 ((typeof(mask))(val) << __bf_shf(mask)) & (mask);       \
+         |                                                            ^~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:22: note: in expansion of macro 'FIELD_PREP'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                      ^~~~~~~~~~
+   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
+      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
+         |                                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:510:33: note: in expansion of macro 'GENMASK'
+     510 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
+         |                                 ^~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h: In function 'CD_WRITE':
+>> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_635' declared with attribute error: FIELD_PREP: mask is not constant
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
+     683 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:67:17: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      67 |                 BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),          \
+         |                 ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:91:17: note: in expansion of macro '__BF_FIELD_CHECK_MASK'
+      91 |                 __BF_FIELD_CHECK_MASK(mask, val, pfx);                  \
+         |                 ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:138:17: note: in expansion of macro '__FIELD_PREP'
+     138 |                 __FIELD_PREP(_mask, _val, "FIELD_PREP: ");              \
+         |                 ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h:503:22: note: in expansion of macro 'FIELD_PREP'
+     503 |         *(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | BIT(21) | BIT(0);
+         |                      ^~~~~~~~~~
+
+
+vim +/__compiletime_assert_635 +702 include/linux/compiler_types.h
+
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  688  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  691  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  692  /**
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  696   *
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  699   * compiler has support to do so.
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  700   */
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  703  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
