@@ -1,87 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792825990;
-	b=RoufamW9ge9M6Q6SAKNOQu4m20wmOmF7vajMhdXyzqlLt6sZXlBIpC0hKTg5OxGxZN3P
-	 PrXmj4nX/0NRoIIZkLSmI2uTxHbNzt0snnVPKXNJOXtUMaepsi4Vy81AZOYMz+M5KCJyQ
-	 WKkmDZcJcnmsjtYzScoLVganHCmq0c/MwRGeVRKU9BkWT8523swkhxoPZHYzCQ8UR2P9/
-	 pSkHYFYB/sFC5A5R/flZ2otEnhD7FviChsC13Y5ndaCwQaCWWkBg1fLmouDef9SZcz8Hm
-	 0M4UYl39TX1kYVpEtUO2X4u5J5Y9mvWSValTPhIClQrt3rhS9X3cDc/B3VShMU4z05A==
+	t=1792826021;
+	b=vC/SnbfLZQP0DbZwsVu40cCML6Vmileu4licxO0UvvZqmH25OLLc0GOdhP8MhQ1goP32
+	 Tdp7zumvwJcov64NZJXLmTc4nswNbM7Cl3QB4835DcxUIgG8xksMcpD3tIXw07obxm1CB
+	 55EoetwaA7FPy+/X4a3oQy6WHiez8KXI5jfgZvneQ7gFvISgPRgtCW+CE+L1lItZMXRXp
+	 foBJ4sp/JwhuffM31kAxma8Y2dtryz5W/pJb4JDYqbRFjbDEaWS3V/EMiRVY7QBTZv8br
+	 nmnc9Jlzr3YzvjuCVXWfvrw7XpnCuhRd2w2c6vurx+Tdb0eSI8StpKCY5s2lvaYqjqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
-	b=k/EKUsoDv3/VPXhexTVC/4CbmwOt94IUw6mjYQN3IqXhjejddZPSW37dfwZiGFzcfLJz
-	 X6pdFIvSYLnIEZweiOOMkucmXAD2BYdnu9nzxeR5CZs8/ceHPo87oRSBz2O9YXs6bsp81
-	 0L0HHEGg463CFo9WdehGkeczZFiiv9cCrwnms6GCV/ZNrG7MbDFEjODxrtu0KuoCqUQav
-	 7Tv62QWmtqeqhSBtDbUuoQoQ8a9IXgOpI4g4iCQybwuMB5SmDK2eihZmKC1Wce48/LGeG
-	 c2prgxg9VtOWiYLBKXPjRG57MQ3V8TSS9AdP5OS27cikFffsu6aBv4QmqmXyCb+Gi0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792826021;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=kNHFNt8SmJ8cd5Z9Sx/36IlbVhmpvjSnWwa8Mn0QAug=;
+	b=Evf9mSe8dYY/dyV785GTfgdj2Crjoq3lbLo02yr7KK9MUrN4lHkJyWkI1JwTys+gxNbd
+	 2altUjSoSuGSH7GgnUFLLyj4QUeYFxBMrI5G9USUmQscX4++iPD3S8HMIo+cTyM80nKKS
+	 sNHET5Mxu4nvS7+cNNDvRmJCzA8OWok/X1YT80qcu9S+Yd5qzIGv4FcP+C+k/lWocRdLI
+	 hrh9gLy4lJYMLntnELgqoQeV9DackU7oXAKTpgwXKUdeq1XqTH+VlodghIhnnaWaN6XyU
+	 57nVNIm0QLP9Dm20LHKeFuvICbheaqi3W+PGGX+xnhOFoyVjGaxme0n/ye2tyYPBkVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gaaCZKW9;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C915606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C915606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gaaCZKW9
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so545322a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:13:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792825989; x=1793430789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
-        b=gaaCZKW97VyVrU/UyqRFDCtRPkmeVHzomoYOSsaSLwy9qc1oyKdXLDd2xNt9iRiBrm
-         jqYJlin3hbz/1w0/aFEwX6+jsw8fhFlndilXsXCXmpTi6v99GUKpU6r1zwKe9DBofW9C
-         jZXE1bnCoHNLiKq2JXbHDVHQ+U7fNH6piDeQrDCXDnDLzenNUNC4zSn2V3JZkQxD4kL8
-         gqhud9Pr3E6yLkmb1+kyoMrftn7P1e0+Keh1aOLv0jROV+YtlW+ck9V/5IptxIjLmSUU
-         tNz2VbP9G+Tb7Qa6O5deJtcsWeqD5FbVBif3UG9NlOYJTC6gk7b4t203EYBJCkgPHqEu
-         E0Uw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEE4606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCEE4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4db3db8687fso2338257b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:13:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792825989; x=1793430789;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
-        b=Ej8UDjq70zzRMNcoWEJrPZtwvcWysGW432ClJ9WttoBxewAeJu7LMREiKEhSnmUjj1
-         xBkExyuYcywDjOcQeYQp5tf7N1UPV2b9mO3rCTSKRye5Qijbsp8i310MmKT9Rqth4YwZ
-         8u54P0C0OuX6qDogWiR0ucDdgOzSqeZU+o8P7jDe3zeZnWSDEOSO0BSohYVkvnkmRyKt
-         vX67YH8XKIGBbNyZOCGcN/dkg4DwoAO7Y/bWpI5GZVpVGkf5MaWGPgsLSVj2q/QYSg0R
-         qWxIsaELYJs5ucbnjmWcEGoWTGWbNio+/+2Ih7Ec09iGPLMTq8rKMwkwBaJTEN47hzDx
-         wbFg==
-X-Forwarded-Encrypted: i=1; AKwUvBz833G4yrGxUm6S4Nk/VgVtS584JmNqPsWcgWKPtH8nnBQyhoMKVLeWci5VePdRPTk4BnKS/V3QxDjN3Oo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz6qKsqHphdHqiyTt8FPG5LiYO18VYtwG7h7xGFD2EKLy30F7d
-	LWYoFlsTWpWMmjFogsSCsrIRg0Zh6/eubQxGq52f89UN6atirgdogLUT
-X-Gm-Gg: AYBFou1XnDDceTM1VsXfwsFX/PNG8Aoyj2gMarR4rKtxFvbUJirVnXkcTY8zkGoNAFR
-	aEwZZWwJMfRZHhd/Dmon++l2uXLu1kET8gyoF8K3L3LT26PiIRQAZlfedtyOlsQPnT4fupa/HaD
-	DuoW/b3Q9XgmO1pbpZVGklQnC6CmIFh/AKgmWwhmdlhknNKmLffx9/wnbDICEgEhe7H7JvU6ZOI
-	hRK3aQjVk2tOEn0sQFQ//Kw600lsgT5/EMokUMkKzfdyv1YgiaWQ3q9C99bdkrxFnkl9hXhcttF
-	AzX+OvQ/jSd2AYXiiJDqgmdP7ZxZGO2erZr41lUgR3ptoFHrastjjZyejJ7m1S5/jl38eLcmIvp
-	n45z6QpKBUzloz48EkeOodqY9jWjmO5pYBlqFeSo3qcAyoviZWPaXcaeSo4DfoDkzTWQN4EZ+BA
-	w4cdD7oPDHPGGhl7o1pO2E77fpc0rzDXhPhybOzZRYXGKe2ZZSN8XUdQONWsIovWprBjQhyWS6B
-	xB3JnqcnHUZEtkkG4bwml9dx/iZ//hic5PVoF+bOdxJ2gF8Oy69BEFOweFLa7Kw6Vb4AEjGcVWv
-X-Received: by 2002:a17:90b:4acf:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3adea0b1206mr1026779a91.7.1792825988773;
-        Sat, 24 Oct 2026 00:13:08 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6af0dsm1895499a91.5.2026.10.24.00.12.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 00:13:08 -0700 (PDT)
-Message-ID: <abcaabca-d99e-4bf2-b31b-5e96e7accd29@gmail.com>
-Date: Sat, 24 Oct 2026 15:12:35 +0800
+        d=1e100.net; s=20260707; t=1792826020; x=1793430820;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kNHFNt8SmJ8cd5Z9Sx/36IlbVhmpvjSnWwa8Mn0QAug=;
+        b=aSl59OCBaqE9Fj+o5/c9Ln2CQ8+qAVpRsfFs5l0OGDSr98IdggNwUmmEp3knKT6hde
+         voqiB6jNd/IohCvAqW9WTnAfpuz0tMAZ4dhKsmsRWI67RCou+1Iw8GMo1mWa0EFcnjV9
+         KsWwWStEcAAI+i2B3WKgdRL3XuT0rnYbDTXLWjQXnK/nfRe0BhQDgTEKqM6RTJilTTUP
+         uoqkG4MTEaJqQGULOfxqBMJPZAPwfgYO6hVrwVS5zNTS1ikfVvhkEe5RGjFBQ8/oJ1XO
+         DYogdNV2l41+B0i8mXfgkJkHbFKRrjdYYh9V9hVQx8yccAHYMf4/+xpYg4p0g2kCVIFa
+         bMcg==
+X-Forwarded-Encrypted: i=1; AKwUvBwjMNMsKFGs0i+VDxihKCQq2ZfUhTLWPAyJgrNV9gorAbo2fTx4/ijP3kQzJ28cS4p/JkqsNYUOO0PRjAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzAeouLYwNoKFvGC2S+FSQSrcstLX/YsfP65HCrw/6joq6/UEW
+	rZTHeBCQ5I4M6tfaGSb6M3pyWwOP1jM74yf5MNWthbwO3zlvnvw7nGytLO4k1d6obVLwBDSiZkH
+	9zjCvWz3mHeWWVr+gj8iOxPrrmMGhcnO6OLGUx0SXFrfJtQWfbWsNH0szeaU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,188 +58,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ext4: do not advance i_size on a buffered write that
- copied nothing
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
- libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
- ritesh.list@gmail.com, yi.zhang@huawei.com, yi.zhang@huaweicloud.com,
- dave.hansen@linux.intel.com, akpm@linux-foundation.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261023172532.3271348-1-hengyul@cs.unc.edu>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <20261023172532.3271348-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1205:b0:4fc:5e91:5377 with SMTP id
+ 5614622812f47-55c0038d63fmr828839b6e.59.1792826019851; Sat, 24 Oct 2026
+ 00:13:39 -0700 (PDT)
+Date: Sat, 24 Oct 2026 00:13:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adc5aa3.4ce6c07b.2dfc0c.0002.GAE@google.com>
+Subject: [syzbot] [jffs2?] KASAN: slab-use-after-free Read in jffs2_garbage_collect_thread
+From: syzbot <syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com>
+To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, richard@nod.at, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/24/2026 1:25 AM, Hengyu Liang wrote:
-> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
-> made generic_perform_write() call ->write_begin() and ->write_end()
-> before it finds out that the source buffer cannot be read.  In that
-> case ->write_end() is called with copied == 0.
-> 
-> However, ext4_write_end(), ext4_journalled_write_end() and
-> ext4_da_do_write_end() set i_size to pos + copied without checking
-> copied.  As of now, a buffered write() past EOF that fails with EFAULT
-> grows the file to the write offset, and the new size can reach the
-> disk.
-> 
-> The issue can be reproduced on an ext4 mount with:
-> 
->      char *p = mmap(NULL, 4096, PROT_NONE,
->                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->      int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
->      pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
->      fstat(fd, &st);
-> 
-> Before that commit, the result is st_size = 0.
-> After it, the result is st_size = 1048576.
-> 
-> This patch will leave i_size alone when nothing was copied, as
-> ext4_write_inline_data_end() already does.  The delalloc path does not
-> trim after a failed write, so when such a write reaches past i_size,
-> it also drops the folio and the delayed blocks that ->write_begin()
-> set up there.  Otherwise that folio stays dirty past EOF and writeback
-> never cleans it.
+Hello,
 
-I feel the last sentence isn't quite accurate. Dirty folio past
-EOF will be cleaned up during writeback. In mpage_process_page_bufs(),
-when lblk >= blocks, if 1) there are no blocks to map, it will
-directly call mpage_submit_folio(), which clears the dirty flag on
-the folio, and then mpage_submit_folio() will shorten the writeback
-length, so that ext4_bio_write_folio() will also clear the dirty
-flag on the corresponding bh; if 2) there are blocks to map, then
-after the required block allocation is done, it will likewise call
-mpage_submit_folio() and do similar cleanup. Am I missing something?
+syzbot found the following issue on:
 
-> 
-> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> Changes in v2:
-> - Rebase onto the ext4 dev branch.
-> - Also trim when a failed write starts before EOF and ends past it
->    (pos + len > old_size), as suggested by Zhang Yi.
-> - Keep the Fixes tag and the new helper, as discussed on v1.
-> - v1: https://lore.kernel.org/r/20261009044656.1993196-1-hengyul@cs.unc.edu
-> 
-> Tested in KVM with KASAN: the reproducer above and failed writes around
-> EOF on delalloc, nodelalloc, bigalloc and 1k block filesystems.
-> e2fsck -fn reports no errors.
-> 
->   fs/ext4/inode.c | 42 +++++++++++++++++++++++++++++++++++-------
->   1 file changed, 35 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 6ede3644a738..e96321ce17d2 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
->   	 * it's important to update i_size while still holding folio lock:
->   	 * page writeout could otherwise come in and zero beyond i_size.
->   	 *
-> +	 * If nothing was copied (e.g. the source buffer was unreadable), do
-> +	 * not move i_size up to pos.
-> +	 *
->   	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
->   	 * blocks are being written past EOF, so skip the i_size update.
->   	 */
-> -	if (!verity)
-> +	if (copied && !verity)
->   		i_size_changed = ext4_update_inode_size(inode, pos + copied);
->   	folio_unlock(folio);
->   	folio_put(folio);
->   
-> -	if (old_size < pos && !verity)
-> +	if (copied && old_size < pos && !verity)
->   		pagecache_isize_extended(inode, old_size, pos);
->   
->   	/*
-> @@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
->   		if (!partial)
->   			folio_mark_uptodate(folio);
->   	}
-> -	if (!verity)
-> +	if (copied && !verity)
->   		size_changed = ext4_update_inode_size(inode, pos + copied);
->   	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
->   	folio_unlock(folio);
->   	folio_put(folio);
->   
-> -	if (old_size < pos && !verity)
-> +	if (copied && old_size < pos && !verity)
->   		pagecache_isize_extended(inode, old_size, pos);
->   
->   	if (size_changed) {
-> @@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
->   	return 1;
->   }
->   
-> +/*
-> + * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
-> + * reserved delayed blocks, so drop the page cache and the delayed extents
-> + * beyond i_size and leave the blocks that are allocated there alone.
-> + */
-> +static void ext4_da_truncate_failed_write(struct inode *inode)
-> +{
-> +	struct address_space *mapping = inode->i_mapping;
-> +	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
-> +
-> +	filemap_invalidate_lock(mapping);
-> +	truncate_inode_pages(mapping, inode->i_size);
-> +	down_write(&EXT4_I(inode)->i_data_sem);
-> +	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
-> +	up_write(&EXT4_I(inode)->i_data_sem);
-> +	filemap_invalidate_unlock(mapping);
-> +}
-> +
->   static int ext4_da_do_write_end(struct address_space *mapping,
->   			loff_t pos, unsigned len, unsigned copied,
->   			struct folio *folio)
-> @@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
->   	 * checked, we need to update i_disksize here as certain
->   	 * ext4_writepages() paths not allocating blocks and update i_disksize.
->   	 */
-> -	if (new_i_size > inode->i_size) {
-> +	if (copied && new_i_size > inode->i_size) {
->   		unsigned long end;
->   
->   		i_size_write(inode, new_i_size);
->   		end = offset_in_folio(folio, new_i_size - 1);
-> -		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
-> +		if (ext4_da_should_update_i_disksize(folio, end)) {
->   			ext4_update_i_disksize(inode, new_i_size);
->   			disksize_changed = true;
->   		}
-> @@ -3400,9 +3421,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
->   	folio_unlock(folio);
->   	folio_put(folio);
->   
-> -	if (pos > old_size)
-> +	if (copied && pos > old_size)
->   		pagecache_isize_extended(inode, old_size, pos);
->   
-> +	/*
-> +	 * A write reaching past i_size that copied nothing leaves i_size
-> +	 * alone, so trim what ->write_begin() set up beyond it.
-> +	 */
-> +	if (!copied && pos + len > old_size)
+HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15f8c121580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b8fd4ba7675545d0
+dashboard link: https://syzkaller.appspot.com/bug?extid=ae2d1f6d474e1725bdc0
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-Why do you keep the '!copied' condition? AFAICT, if copied is non-zero
-but less than len, the excess delalloc extent allocate by
-ext4_da_write_begin() should still be cleaned up.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Thanks,
-Yi.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/259fe840897d/disk-f47d2236.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c8fb4bab2404/vmlinux-f47d2236.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e3144718bd67/bzImage-f47d2236.xz
 
-> +		ext4_da_truncate_failed_write(inode);
-> +
->   	if (!disksize_changed)
->   		return copied;
->   
-> 
-> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com
 
+==================================================================
+BUG: KASAN: slab-use-after-free in rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+Read of size 1 at addr ffff88804f2b02c0 by task jffs2_gcd_mtd0/12364
+
+CPU: 1 UID: 0 PID: 12364 Comm: jffs2_gcd_mtd0 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ __kasan_check_byte+0x2a/0x40 mm/kasan/common.c:585
+ kasan_check_byte include/linux/kasan.h:402 [inline]
+ lock_acquire+0x7d/0x350 kernel/locking/lockdep.c:5916
+ rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+ spin_lock include/linux/spinlock_rt.h:45 [inline]
+ jffs2_garbage_collect_thread+0x1dc/0x720 fs/jffs2/background.c:94
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 12363:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ jffs2_init_fs_context+0x4f/0xc0 fs/jffs2/super.c:314
+ alloc_fs_context+0x9a3/0xd00 fs/fs_context.c:295
+ do_new_mount+0x177/0xb00 fs/namespace.c:3966
+ do_mount fs/namespace.c:4350 [inline]
+ __do_sys_mount fs/namespace.c:4566 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4543
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 10613:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kfree+0x1c5/0x6d0 mm/slub.c:6802
+ deactivate_locked_super+0xbe/0x110 fs/super.c:586
+ cleanup_mnt+0x204/0x2a0 fs/namespace.c:1396
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88804f2b0000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 704 bytes inside of
+ freed 4096-byte region [ffff88804f2b0000, ffff88804f2b1000)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x4f2b0
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x80000000000040(head|node=0|zone=1)
+page_type: f5(slab)
+raw: 0080000000000040 ffff88813ff44140 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 0080000000000040 ffff88813ff44140 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 0080000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: 00000007f6daf3f9 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 157, tgid 157 (kworker/u8:6), ts 576233263105
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d8/0x350 mm/slub.c:7418
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_node_track_caller_noprof+0x61e/0x7b0 mm/slub.c:5545
+ kmalloc_reserve net/core/skbuff.c:637 [inline]
+ __alloc_skb+0x2c1/0x7a0 net/core/skbuff.c:715
+ alloc_skb include/linux/skbuff.h:1384 [inline]
+ nsim_dev_trap_skb_build drivers/net/netdevsim/dev.c:744 [inline]
+ nsim_dev_trap_report drivers/net/netdevsim/dev.c:801 [inline]
+ nsim_dev_trap_report_work+0x2b1/0xcb0 drivers/net/netdevsim/dev.c:847
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page last free pid 5567 tgid 5567 ts 576130778544 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
+ __slab_free+0x250/0x2a0 mm/slub.c:5823
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __kmalloc_cache_noprof+0x353/0x680 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ poll_get_entry fs/select.c:168 [inline]
+ __pollwait+0x27f/0x430 fs/select.c:223
+ poll_wait include/linux/poll.h:45 [inline]
+ pipe_poll+0x186/0x5a0 fs/pipe.c:759
+ vfs_poll include/linux/poll.h:82 [inline]
+ select_poll_one fs/select.c:480 [inline]
+ do_select+0x1016/0x1640 fs/select.c:536
+ core_sys_select+0x86f/0xb40 fs/select.c:677
+ do_pselect fs/select.c:770 [inline]
+ __do_sys_pselect6 fs/select.c:809 [inline]
+ __se_sys_pselect6+0x267/0x320 fs/select.c:800
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88804f2b0180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88804f2b0200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88804f2b0280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                           ^
+ ffff88804f2b0300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88804f2b0380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
