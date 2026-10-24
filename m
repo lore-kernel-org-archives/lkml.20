@@ -1,88 +1,156 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792800258;
-	b=MSZMLxHe0svOvbOxjkAAqeAKiYlHW9ux7u5AYG0gRtCo2Cmuw8uH92RBTJED8yY1XLGJ
-	 5Np6NqK9AB2Y3nW6i91TpVnbbM8aA/4ZMF8AMAE185MEIbdqp5LKpB1TIzD41BP2kgDkt
-	 QzCzHOFvtHpEWpamf4aeBVw/XgBlTYBrXpDSnltcrkeddlXSYYgFaIpMqMd3Ogb34jJ+J
-	 FePTEGoNCtlms0y6V3PZyAa9BCgHbV2sEI3Ytw95YtkdFXoc+mkGKHNTcuABLCaSf4ypX
-	 d5Ms+rV/7NFOk+Ce7rvmJAX1Yskz/Pk4VnmInVs7QcaNAVXAuRRobc0ds42IoE4CbWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792800258;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=IP4SXJLolNGj8GM5COqEi+6FqjwpuNDCYi1PHZX7pR4=;
-	b=AjwkbgGuN0yKyH8ARliceH0M1M3xQoJEm0Siic0FO/MHmkxehJFRWyZyKCg1Tj9J5szU
-	 k6C/1w//ixvNCnzD+tlyLq4FzknA5STltG+SzPL6LuXu715JcIUevCpB81mZr5CBsM+yA
-	 g79zq4HE2m8g98zpunsu2+DBNZGxa+leP2ONfRsp2OXkTOIswC28X0XN/57HS1et0u7zE
-	 TeQJA3vhVN2ZSNuqWyKiHK/aCc25BOebISLzETDSE8TY0pL+LuJ/TLEcrZDTA5FMfzq21
-	 IVjnAczQOvnno4Urm1LGrxDxpxRQQq2j1yTCpOIbKcZZ9Tn/p58UpzIM5ghvy43Ukxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9UE2ZKL;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792800387;
+	b=f1UEuj99zhEj0rVO3CSJp9xPrTopiGHudjmUrR+qEoTZNNnCjAOBeOrRJ+Mt9pCU6EVl
+	 5jkvxM83gPCKCTTfi2n6EtWXuSLQVD84m/vBeO5qQh6aUxtmFSPnBtAJ/n9hQmv1Fn8e/
+	 rk3U3yoJo9jF/bJzGjIShs0PV/teEANHkJxhqgzMRvQpAUhV4cNmtyhgjW1JEUih8o+0d
+	 hx98onU+RJq8UWfAEOaOm+1g03glasiFk9gx7otpHalkV530nHx64VlCHUz0aol/SIeEl
+	 K5Gxh+YcG67Xa0paMHLSSSJq0zB43Yz2ACRmYgnuU6u4JsYLjv8g3In90Q1oJv5KbDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792800387;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-exchange-messagesentrepresentingtype:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-slblob-mailprops:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pJLkM20fqxOHCRD7r1vSc9uENrBKh1P6QWiuy1xlBSQ=;
+	b=Ie3NaGd6yAEr9tyB+bfKK8p6876dq/2EytgDyfiG+V6Uea1vMZ4F3t+N8qu+OHzdBP2e
+	 FVuHILjeTMGnjvEJsFSubePDhzyDVsFTKMnRxsO/yWYEiNkdI7je03BVLDp/0T4kLkpZs
+	 48Dibsss/PhR1c0zgM0Fdj8ms5V2u9A/gMeSSB68x7IHlyiQPrl2Y3CYUZTSqdjwv/Zz8
+	 X702QKNhnzunr8ix7GU7jLQop6N2FGlXWL6klt8uNLo/XPRrgMKZW+rOLW6gmfvnX+awW
+	 sYzL4nZIq6Ny6+RurRwD1r5AwgLAcl+VvqkUFBzpZPu1HJ/sxPr0mCG1LAVq0qPmWGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bLOrKM6A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.1
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010001.outbound.protection.outlook.com [52.103.13.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252F2606A31A;
-	Sat, 24 Oct 2026 00:04:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 252F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD50606A31A;
+	Sat, 24 Oct 2026 00:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD50606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9UE2ZKL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792800258; x=1824336258;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P+WfGzR35UbRfWugdtCWwaOpsuK0iCs7ZWA1C8vDcZw=;
-  b=b9UE2ZKLsYrtwp2obzTh15E2r5wsgQWmZbXOmppAL/HiB55/dD+mBUfm
-   x/3M/Rj5QcikYCCspt5LlHCEtvmXIG8ivgCmwRTTkQYiLVpNxPcITmNuR
-   w12vStUWVQTDOlMypskoD8f5+m4msr1Opq7Y8BktyI2KJ2wjg2YMw9xSi
-   kicfdU92Eo1dXDawSiQbDGvUTTYhrDxuMgtGdZRCgRA4qKub1aGowti6x
-   rZgUGp5VzYTywAVXYL7vYxru/YBCTIttOZSvYtY1KOmIsBGWMDZ32Y1gU
-   MxZWyzySHNRsQwAxCdv3duyAalXvfaxVuV0rTVBM2t0axfEhiW5n84+/5
-   w==;
-X-CSE-ConnectionGUID: Yd90rh63TIaP1NisxHL0DA==
-X-CSE-MsgGUID: JQWvlJSWRqiniBqG5ET6pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1571221"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1571221"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 17:04:17 -0700
-X-CSE-ConnectionGUID: 8ZKO3aQSQUqN2JunwYUlEg==
-X-CSE-MsgGUID: mcR2cGJBRrelzRwbxZT/Rw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="5612886"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 23 Oct 2026 17:04:14 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKPF4-00000000TNy-3Gst;
-	Sat, 24 Oct 2026 00:04:10 +0000
-Date: Sat, 24 Oct 2026 08:03:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: vmukunda <vmukunda@marvell.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Sunil Goutham <sgoutham@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	vmukunda <vmukunda@marvell.com>
-Subject: Re: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for
- cn20k
-Message-ID: <202610240701.QMuYCXhI-lkp@intel.com>
-References: <20261023100112.3402726-1-vmukunda@marvell.com>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bLOrKM6A
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZgK/stLKcX5KBhMwv8+xnnvZU51wJrcDWKYT36Sjrwat15iMThw4Bqx/ci06Z7a8ukBscqbRLpPPQCI1v2NYoV3zizuwvYsmx5pWkjVA3lPKotmzCx5rw2rHpeWKxlGcOsKm4wsn9S2N9PGMEzqhAivEwmN+CUcOSCYrvZ0gYnoyl5uXC9TD31FzxrR+0rCdgOH840/OyvYclCpkWkVliWpVtlRR2GLjfHlJR8QNUJJc7dzrr4KqWM8hs7SW//jL3Oq5ifLuQO4KwxNFY9jTSTUb/lGyR0319fXZzfio8Y02QnmnV+f0F7GeUwE5lWClE1AQ+dzKs+z//CytIUC7MA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pJLkM20fqxOHCRD7r1vSc9uENrBKh1P6QWiuy1xlBSQ=;
+ b=rwZySJhpDTvFOoxLspBGJBsLkEUpWOS7BHk75CGXKMLKmYPo7BOdKFEfuc0MziZAfYucGQ5T069HNXJkSSqkbOCWsD3ZSY4XUX/2PgN8pW+3TyqAQ9uRyQr9eSAxHS6o4EdRwnUo+BLb/5RxshQYe6eV2mNBtbFvYzlHvJ3GAEZHOV3GonWut21PkT8cr8CHiuDujfNP39E3lyhiBn5rErJT8bGmwd/eLClIpHGTICAChob6rATXglcaYdM3wOv2EHXgPp9neE7th4noqv7EbeHuiPKMSH1L2vClgpZ/FSPufQLak/sRE2gN70zkoetXAZ5vMluRUHpOx89meOKPEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJLkM20fqxOHCRD7r1vSc9uENrBKh1P6QWiuy1xlBSQ=;
+ b=bLOrKM6A72gBycrb8uOQBkd8cxgfEn/x6HNvksp9m2aQhS207F0moc5bNwPXpWbRTAXttCznWYnUWkM9yUPZECTwjrhiwb0UJvYoEAn7rxS7IAhsp5Ntqr7dRRpxSkoNpoG/39Bdmmun1/ucBWNchRfaVzy+no/t1TDLTKTnCtG6jnIdAPsg5JpHPsOP9Zwo28c8eul4/U26G1xLtuu9Iq1yclVfu1j8Emw4vcwlrHzA6+zIQh3JRDoPSTEbgj8LSpCGA7RnZLNq3zrojBqdcJYMWNjwozqXUHhQfjoJXdbbc300oSe6XA5m0JcL2Dr4ghZlULPsSCq0EBkp+KHI6Q==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Sat, 24 Oct
+ 2026 00:05:26 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0546.012; Sat, 24 Oct 2026
+ 00:05:26 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/3] iio: cdc: add Texas Instruments FDC1004 driver
+Thread-Topic: [PATCH 0/3] iio: cdc: add Texas Instruments FDC1004 driver
+Thread-Index: AQHdYn7WUhVUIOKG9ky+b5jJGaFnRLcKtdOAgAESvYs=
+Date: Sat, 24 Oct 2026 00:05:26 +0000
+Message-ID:
+ <SN1PR12MB252895FEB136DA236B70EA93A5642@SN1PR12MB2528.namprd12.prod.outlook.com>
+References:
+ <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <atsIGZswWCjXlNSX@ashevche-desk.local>
+In-Reply-To: <atsIGZswWCjXlNSX@ashevche-desk.local>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN1PR12MB2528:EE_|IA0PR12MB8352:EE_
+x-ms-office365-filtering-correlation-id: e729483a-0af6-492f-35dc-08df316281b9
+x-ms-exchange-slblob-mailprops:
+ hnD4Fgoc1bPokEwHA1l2GYyEHUkO2myIrX8kMDhREvwIynrhwJ1dswpRd0vVlm7HIsviBpLe7GTegDrhdq2BOgNUepc5386Oo/7MCoqP2NhAHKg7m9N58L9WkQNtLLymzN0n1hQyiGO5gcR6SurNclpW0zY15AftDe7RJ+Z2rQ6Onj8inrky53/st9RDMMZ9C/0Azd/cnw+Qo/DrdOtKQQUtm47IGd8zhbxM/YD+Ofqr9Ny8L3duzLCBupwGcgJ9S0vl/zEEzwlzC3FDMZUwEgFhY5qnJUchNh2LkXky10GwnSTlKJPn6q2b1BTWjKUFHAcp/TtwjsT6sBAMrWiBaYgrLPsxmb24iopPAennVlqQmSM9qvghGiD+JwrGNyvCudIVHT7h1VsWHsRxZY3HlLofdVxJAlIiKOMjFpt8RLwtODom8gXKSI9zM86F8cgcfVIh5ohsbfRKFnNpyx9ajpsuYuPgpzPekpwT2SOLqghCXv22tX1pEYYRly6phGbnPDPV4LwpKD4SDtQ+JuzGkseq3zXnGRvyIEfREzIZo4JM4HRMsSOaVa3F0ngY+jpyn1IFsAAayj2bJPtF55ZMH/6JV9CwW1qfn/KTX2vYExNrcnp1f9Mll7eTf1v9a4tW
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|19110799012|8062599012|24021099003|8060799015|31061999003|25010399006|22091999003|51005399006|15030799006|15080799012|24121999003|40105399003|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?xlT0iv+VVsDh63tE/4hA59ijyz2WwauQtYyA+g62J0mbuB/yxB6b5YrstG?=
+ =?iso-8859-1?Q?9OgqmRF6/0R1S2J4qXPiV/CpLz0INYT4zWa9BwAceJdTZdkCCPlTw7+VSr?=
+ =?iso-8859-1?Q?TaYRvcU/9xWUKiYrM7UvVN3zAcjsgFvftdZnOSO62cfwR8lTTHvj3Ys1nM?=
+ =?iso-8859-1?Q?WITxv+BWmzDdVlbfCteFNpI+w3y+fWPbxGeyWNgKte7cCIqe9PruKJapVl?=
+ =?iso-8859-1?Q?zFrbyJQglecTXun6xh3O/ZO2SlpAKcnZ7eMe5l2GgqGdhOKZ++ZGFeSXqB?=
+ =?iso-8859-1?Q?Gslh74IuS3IDHq/qlY0dNhvc3W/ElhVs+1i+KGTLGqXRR5mZrkS7ZekpX3?=
+ =?iso-8859-1?Q?/jB17tqBp/mU7+pc7C/YB6dNWC8DLirh+Oukb77f/aJUGy6EV2dIjXIbYH?=
+ =?iso-8859-1?Q?4Garfzh03uOhso7x+J6CXUFnc8hvS/1bBpLspka/Ccmga7fYYPVfHiIRLZ?=
+ =?iso-8859-1?Q?NBsP8wzXAn/dzgrcOnFZWWvsigAiTDDwVlKWj46FEQrs4isgv8/1TSDsKt?=
+ =?iso-8859-1?Q?KAtp7YziYR5fOlkdp1/uCOrJDAdh3G1axmPzXufCIlEBxgvsBlWC8u4zAi?=
+ =?iso-8859-1?Q?NAn/SZxzO1LWRLUjHeqd23NJCaZ+yYmJPi24BZ5VhrVMw2lGzYI7NJ08ln?=
+ =?iso-8859-1?Q?99rwqq1nH2rTXyXGAWHoGm16QSOPY9lsiezFsqMzzY1fKieOkaMLNWoNkx?=
+ =?iso-8859-1?Q?lhc9/TwYxjhagUHg7s8bNxhlT6f0wWqdCM//IExdNr715jOTVUEFszzZSX?=
+ =?iso-8859-1?Q?dIN8IgiuaNFR+gXVz+wQEyAw9D9+cAyFRDaGkdZ2iYNgYlQfLPuXEbKqSb?=
+ =?iso-8859-1?Q?9UfBq//HenJAcutxhw2ddWRZ5LRH+wUbFAnH6RFiOXySbgENQl1WWYzKuX?=
+ =?iso-8859-1?Q?v6B07jXgJ4ECuXvsLU0+RDEmF8CM8e3jHmD5jSR8MV0jwMzugQbvuHDm9Q?=
+ =?iso-8859-1?Q?LSTDU99NttpLdTLFb90a5C/DEHPPk1LxBQn1r9YrCvqLkpn13fPPux5vup?=
+ =?iso-8859-1?Q?Bz+H/iFcM2ycZDL9ui/JTJvowhuXdPumR4P8tDs52duehFg+nrKc6QA3cu?=
+ =?iso-8859-1?Q?fbEEusyTvvt92y+T9MhrhAY=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?6N2NudlSdNMJWb4LRrlDjgQXoeKCDhjt5YZGcjloyNCEnxNQpr7/1o7pbp?=
+ =?iso-8859-1?Q?26B/f/LLguLzXs8hxR1u2Ibs+gnAC44Ym4wuhzGbYpv5RnSPUMRdN0dWKi?=
+ =?iso-8859-1?Q?Q8LlGFxf366uGW65HMAlGBIlHNzg1CfIziO1ycdAqSI5grWmphWFyUCm1k?=
+ =?iso-8859-1?Q?X+JhkluQJ53ZWGO3U2qrSNG1nXp3Hn4y2QphmhNHVJYhLxC0qSLM2SxNR4?=
+ =?iso-8859-1?Q?jeflayrfl22B55NQcaMgE3eCsbMVV2Cw8RYR9n4Gn5uX7SjZZr9YxP53eO?=
+ =?iso-8859-1?Q?192uEfHgGDTYEEHkS8B423FWBuSzjAcduwIoYwC2Z38XLF80GQCYYZS/ao?=
+ =?iso-8859-1?Q?Fsk0d9oOXLd7eNMbupTSL6lwMLwAyyThvoRZMMG79Lc1ySxeX8Y5xQOefh?=
+ =?iso-8859-1?Q?15rbXsA3DekTohLbCzkZoZv4BGbwRPpWXXbmSCxQ8A06UymEN6qTwSS9LA?=
+ =?iso-8859-1?Q?HRD2hlMbQyPkAGsNaaToPxAIV/TX06YQlUZE276ad2P/bvtRqFTTu5uQtP?=
+ =?iso-8859-1?Q?nsf25mqmv6RTz8Htm7znjPEXdiER+fQIJWIk8C17GgG6QzfpEoZ6Vb9DmH?=
+ =?iso-8859-1?Q?OMXSuSjNl6hk8NQD/l2kJJFkn8pcn0fo0NrMUi4Icaw7QomhQedPu+ZWPc?=
+ =?iso-8859-1?Q?j6+vXGACGeitbDVt+b/ZiErfPEzCydI6HlaW3jS5hO6nxJ0MSNJhXQ+v9K?=
+ =?iso-8859-1?Q?NR/p0qQVkW5N6nnaUYUFKQ8aB3Y4x3nisY6L/Uia1QtcqGd+5f+8xXAM7a?=
+ =?iso-8859-1?Q?stsHF+KsAEP9Q9yygvXN/fOIzNhZSKvU4M/kzm2vJU+aEaDy544j8iKdKn?=
+ =?iso-8859-1?Q?X4ziK9X22qBMF2BS7O25gfU56QTiDZmvlpmUtKor4ELjZGlFIkgVatNqBB?=
+ =?iso-8859-1?Q?IWAsNW80A1LptEvjaH40xQYpuqDPQNlv6uefZEefIa+Nk2nVy/E0uEO7yU?=
+ =?iso-8859-1?Q?JuPvpgTHQzTlZRocylngDD1JePcgNWhOKt5luTuvvIwa0vl9QXhuKquE3g?=
+ =?iso-8859-1?Q?/L68x2cLOLDVMw9PY2GqFMfO6eeRQSMEf7JdwOS8vj7iSiofrAu8v3gST8?=
+ =?iso-8859-1?Q?6Uqt+qS4n2KB55CGJ9PRkAdbc/8nbi1wGLdj9b5QCovpOFiJIZcbZ5SLt0?=
+ =?iso-8859-1?Q?EcXciH/yalv4CHKJhPdqIuXqkbxpNI6g4GD/zIqsckZrQo38MV5EHYVKNX?=
+ =?iso-8859-1?Q?rA/qoE3qGISCcY5m/SiiMND2tyjTkrlfgbm1QdhZlfNsdPpffHXcjtlJSi?=
+ =?iso-8859-1?Q?J99DkdRAV2o73wp3xu2q5mvICBF/vKtqBzIebvQD+ejQq8cYvFzovgI94l?=
+ =?iso-8859-1?Q?1cbK7L6SXYRikhCgeC0GPTDS9qEYCpmG85G/CFI1x44AiGhY5A5I+VB4/f?=
+ =?iso-8859-1?Q?sFA7hYdtHcSnSlUY2ilRFx7oFsbqk3oNYV/OaAHgcWp0PDo2AH3BUxNGzM?=
+ =?iso-8859-1?Q?utdjDFlPap87UWaNmdQT2FMKN52Ui/BB4ppoPA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,93 +160,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023100112.3402726-1-vmukunda@marvell.com>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: e729483a-0af6-492f-35dc-08df316281b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2026 00:05:26.2448
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
 
-Hi vmukunda,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on net/main]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/vmukunda/octeontx2-af-Fix-npc_delete_flow-counter-read-for-cn20k/20261023-100112
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261023100112.3402726-1-vmukunda%40marvell.com
-patch subject: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for cn20k
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261024/202610240701.QMuYCXhI-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610240701.QMuYCXhI-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610240701.QMuYCXhI-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c:1962:30: error: use of undeclared identifier 'rvu_pdev'
-    1962 |                                 if (blkaddr && !is_cn20k(rvu_pdev))
-         |                                                          ^~~~~~~~
-   1 error generated.
-
-
-vim +/rvu_pdev +1962 drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-
-  1932	
-  1933	int rvu_mbox_handler_npc_delete_flow(struct rvu *rvu,
-  1934					     struct npc_delete_flow_req *req,
-  1935					     struct npc_delete_flow_rsp *rsp)
-  1936	{
-  1937		struct npc_mcam *mcam = &rvu->hw->mcam;
-  1938		struct rvu_npc_mcam_rule *iter, *tmp;
-  1939		u16 pcifunc = req->hdr.pcifunc;
-  1940		struct list_head del_list;
-  1941		int blkaddr;
-  1942	
-  1943		req->entry = npc_cn20k_vidx2idx(req->entry);
-  1944		req->start = npc_cn20k_vidx2idx(req->start);
-  1945		req->end = npc_cn20k_vidx2idx(req->end);
-  1946	
-  1947		INIT_LIST_HEAD(&del_list);
-  1948	
-  1949		mutex_lock(&mcam->lock);
-  1950		list_for_each_entry_safe(iter, tmp, &mcam->mcam_rules, list) {
-  1951			if (iter->owner == pcifunc) {
-  1952				/* All rules */
-  1953				if (req->all) {
-  1954					list_move_tail(&iter->list, &del_list);
-  1955				/* Range of rules */
-  1956				} else if (req->end && iter->entry >= req->start &&
-  1957					   iter->entry <= req->end) {
-  1958					list_move_tail(&iter->list, &del_list);
-  1959				/* single rule */
-  1960				} else if (req->entry == iter->entry) {
-  1961					blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NPC, 0);
-> 1962					if (blkaddr && !is_cn20k(rvu_pdev))
-  1963						rsp->cntr_val = rvu_read64(rvu, blkaddr,
-  1964									   NPC_AF_MATCH_STATX(iter->cntr));
-  1965					list_move_tail(&iter->list, &del_list);
-  1966					break;
-  1967				}
-  1968			}
-  1969		}
-  1970		mutex_unlock(&mcam->lock);
-  1971	
-  1972		list_for_each_entry_safe(iter, tmp, &del_list, list) {
-  1973			u16 entry = iter->entry;
-  1974	
-  1975			/* clear the mcam entry target pcifunc */
-  1976			mcam->entry2target_pffunc[entry] = 0x0;
-  1977			if (npc_delete_flow(rvu, iter, pcifunc))
-  1978				dev_err(rvu->dev, "rule deletion failed for entry:%u",
-  1979					entry);
-  1980		}
-  1981	
-  1982		return 0;
-  1983	}
-  1984	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Tell us more. Why do we need a brand new driver?=0A=
+=0A=
+Sure, I've made the cover letter more detailed in v2. I was a bit afraid of=
+=0A=
+repeating too much of what I wrote in the driver patch...=0A=
