@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792812725;
-	b=t87fqVFwFTV3IT6y3dpQOwnp7WJ9uZmbOXaYkHIlHGg9Zlho3ak3dg3s6fvePf3eixkq
-	 sjC6rNX89PNgj8YuygP12gLy3Mcawn3w3NfG4aif4/61dnEJF3n/qGpCq3vQ4HZcFcB3T
-	 rK/zioBODMusPvr3SZ5Bp8RJLM+hlD2WwIvlKoNdFfyWHvUA6JmE/WITH/9s/PxzoZBXp
-	 SIe69qXGVUPA98zopgWKda0FpmWcgzssIjdpF7KPGP7294GGywxs8aeXFCJqMKH8hsVSW
-	 TUdkNmsLKOQr1Y+/gY21T0RISt+WyCH4cXidyGJpq7R565gWHHz59r2suzS8W2lVG5Q==
+	t=1792813148;
+	b=BjG2ql/QACf4//TqGtzMHTQPoCgiNRWVRjMZTTWG8aszcOgxjd1QD9X5pRRW8FYYm4vi
+	 QoxD2Li/WTT/MEEY086cp5OcfSjxYngHrX2Dr1q5get9MikCDnsXfWZAlSiQymaZoCRTr
+	 71WqmUa9pStsXAe2FiCXqmPRRYXXNfCY/gJSXw77FCwu2SJnvrfafugZJg8R0c5X+Tttn
+	 DePKqPDw6Ha6i0GTqQOcxDRWnVxsRTPzhbAlI/DCyW3a4WegpUQgP6eVUs60/cmXSg8hz
+	 dK9vuchXmTb7bUXbS2ESUFgf7VH/8o/2ZT9iDTUOC14YNpJbB1ClucMyNsV5OvoOs5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792812725;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TRDvZq2SHT+aDt9EJj+nR03z379cD3vR6Hr6yZB6kOw=;
-	b=4++oe1tPHBatIKBaIMjG4MmaJJpLjFz/59upkPFUkwPHjsLNHDT5IMjebg7w6TiBH9f8
-	 vvAc1JBY7/y7KAupJ0fxvY56TjFnXTXDy+n0FeFtBL7igfC5ZIFD9owiLDLBkhz/wzRnD
-	 D/n73WeoiIgA482AyFbciSENaKexHpWrPzp1iuvvconA7C5OGS0gbmqhjmzyGBIRyR3ey
-	 +b97T97s1u2Oi1SaqyiQ0Sy9pQTw9QoCKg+DRe0+U9Ht6KIXhLkiylwcZ+KGAd7hTuNm2
-	 Klvhc4loI61dXbIZnFyVoHwxtYzoRF26riq1OiIb/71+UcnOWIdeAbYoZPye4Z8d1PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792813148;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WYmeP11c3p0dd86mSeXtaGZvX/MagLMgwhEaQuAh27U=;
+	b=bNjVSYKZPs6vh4gA0BFPU9X/ukHwd0GxiWyD1GVzwWNgTj7osxHnY6GwXeMn4lyMCXjT
+	 08ANlc7x8DGbacIKn12hzjqC1ytfMm0qC71FqeTfIvFn0FKRzvnl6AM9jLbhJRm/nwRE8
+	 AYMVvEzVP7xxspmjCA+5MsKFMY/CjkajoqgSndCD6LGyNqRcEv9Ap34dO6zQAyPvRF+iY
+	 z63rDwTQv9oQfAV2MyOcXm/cV8Ew2AZOXPvQAKUtAXi/Qo4AdTiwr0F74W+p9NoDW8eDm
+	 G58EwT7YDyYhvK5eHtD268/NI/TVXDk/wk3CxVq08Sqmz7opPIkSW1OcE0vayYF6mTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NvooyQwj;
-	arc=none smtp.remote-ip=95.215.58.151
-Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36310606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36310606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NvooyQwj
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qpsR5uNxn2W8gPQgV5MSbXHu1Mv18oSF9sQu+dRz/54=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792812721; v=1; x=1793417521;
- b=NvooyQwje/UxBd91HWR/lP9HoazFTS37n2Yp4l9I+g2LU2D+ElLonblKGpC1pIGbbakcEcOm
- YKjO965SULozUJb7r1bb3JG5zuq18lWVRMXef90SJWicU5pGTs6myLSRYmPQtwUwAKEbULdv/Nz
- tTg0o2eow0utClftEarJGfCU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 18b050aee73788f3;
-	Sat, 24 Oct 2026 03:32:00 +0000
-X-Mizu-Trace-ID: 18b050aee73788f3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5da8af66-b180-4bea-8851-273b669f1a3c@linux.dev>
-Date: Fri, 23 Oct 2026 20:31:54 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225F4606A31A;
+	Sat, 24 Oct 2026 03:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 225F4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xKSb2-00EIrc-E7;
+	Fri, 23 Oct 2026 23:39:04 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2] clk: Free the parent map only in __clk_release()
+Date: Fri, 23 Oct 2026 23:39:04 -0400
+Message-ID: <20261024033904.830766-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016164050.790594-1-nickolai@csail.mit.edu>
+References: <20261016164050.790594-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,129 +56,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [rdma?] WARNING in __rxe_cleanup
-To: syzbot <syzbot+fef38133c495aeb48297@syzkaller.appspotmail.com>,
- jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com,
- zyjzyj2000@gmail.com, "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-References: <6adb54ac.d1cee5ca.8df35.0007.GAE@google.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <6adb54ac.d1cee5ca.8df35.0007.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/10/23 5:35, syzbot 写道:
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    c03c1a14507d Linux 7.3
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1796a621580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
-> dashboard link: https://syzkaller.appspot.com/bug?extid=fef38133c495aeb48297
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> 
-> Unfortunately, I don't have any reproducer for this issue yet.
-> 
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/c9d4a36731a6/disk-c03c1a14.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/3c00e4e185bb/vmlinux-c03c1a14.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/1f95d3156291/bzImage-c03c1a14.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+fef38133c495aeb48297@syzkaller.appspotmail.com
-> 
-> ------------[ cut here ]------------
-> !ret
-> WARNING: drivers/infiniband/sw/rxe/rxe_pool.c:212 at __rxe_cleanup+0x311/0x350 drivers/infiniband/sw/rxe/rxe_pool.c:212, CPU#0: kworker/u8:9/3389
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 3389 Comm: kworker/u8:9 Tainted: G             L      syzkaller #0 PREEMPT(full)
-> Tainted: [L]=SOFTLOCKUP
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
-> Workqueue: krds_cp_wq#0/0 rds_shutdown_worker
-> RIP: 0010:__rxe_cleanup+0x311/0x350 drivers/infiniband/sw/rxe/rxe_pool.c:212
+Since commit 9d05ae531c2c ("clk: Initialize struct clk_core kref
+earlier"), every failure in __clk_register() frees the parent map
+through __clk_release().  clk_core_populate_parent_map() still cleans up
+after itself on failure, so an allocation failure while registering a
+clock with parents either dereferences a NULL map (core->parents is NULL
+while core->num_parents is set) or frees the parent names and the map a
+second time.
 
-Hi,
+Leave the cleanup to __clk_release(): return the error without freeing
+anything, and have clk_core_free_parent_map() check for a missing map
+instead of num_parents == 0.  The map is zero-allocated and
+kfree_const(NULL) is a no-op, so a partially filled map is freed
+correctly.
 
-Looking at the stack trace and rxe_pool.c:212:
+Fixes: 9d05ae531c2c ("clk: Initialize struct clk_core kref earlier")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-203     if (sleepable) {
-204         if (!completion_done(&elem->complete)) {
-205             ret = wait_for_completion_timeout(&elem->complete,
-206                     msecs_to_jiffies(50000));
-207
-208             /* Shouldn't happen. There are still references to
-209              * the object but, rather than deadlock, free the
-210              * object or pass back to rdma-core.
-211              */
-212             if (WARN_ON(!ret))
-213                 err = -ETIMEDOUT;
-214         }
-215     }
+Notes:
+    Changes in v2:
+    - Shortened the commit message (Jerome, Brian).
+    - Added Cc: stable (Brian) and Jerome's Reviewed-by.
+    - No code change; rebased onto current master.
+    
+    v1: https://lore.kernel.org/r/20261016164050.790594-1-nickolai@csail.mit.edu
+    
+    Developed with the assistance of an LLM.
+    
+    Reproduced on riscv64 under QEMU by rebinding a fixed-factor clock
+    provider through its sysfs bind file with failslab aimed at the parent
+    map allocation: without the patch the kernel oopses with a NULL pointer
+    dereference in __clk_release(); with it the bind fails with -ENOMEM and
+    "failed to register clk" is logged.  The second failure path (a parent
+    name copy failing) was reproduced only in a userspace transcription of
+    the four functions under AddressSanitizer.  The clk KUnit suites pass on
+    x86_64 and riscv64.
 
-The WARNING triggers because __rxe_cleanup() timed out waiting 50s for 
-the QP reference count to drop to zero during destruction.
+ drivers/clk/clk.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-This indicates an unreleased QP reference leak on the upper layer side 
-(RDS) during connection teardown (rds_shutdown_worker -> 
-rds_ib_conn_path_shutdown).
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index fef87167a60b5..c32c3e9d62bdb 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -4353,15 +4353,8 @@ static int clk_core_populate_parent_map(struct clk_core *core,
+ 			WARN(1, "Must specify parents if num_parents > 0\n");
+ 		}
+ 
+-		if (ret) {
+-			do {
+-				kfree_const(parents[i].name);
+-				kfree_const(parents[i].fw_name);
+-			} while (--i >= 0);
+-			kfree(parents);
+-
++		if (ret)
+ 			return ret;
+-		}
+ 	}
+ 
+ 	return 0;
+@@ -4371,7 +4364,7 @@ static void clk_core_free_parent_map(struct clk_core *core)
+ {
+ 	int i = core->num_parents;
+ 
+-	if (!core->num_parents)
++	if (!core->parents)
+ 		return;
+ 
+ 	while (--i >= 0) {
 
-While RXE forces object cleanup after 50 seconds to prevent a deadlock, 
-the root cause lies in net/rds failing to drop all held QP references 
-prior to calling rdma_destroy_qp(). This needs to be addressed on the 
-RDS layer.
-
-Thanks.
-
-Yanjun Zhu
-
-> Code: f7 be 03 00 00 00 e8 7e 15 e8 fb 40 84 ed 0f 85 26 fe ff ff e9 5b fe ff ff e8 5b 89 cf f8 90 0f 0b 90 eb 09 e8 50 89 cf f8 90 <0f> 0b 90 41 be 92 ff ff ff e9 47 ff ff ff 44 89 f1 80 e1 07 80 c1
-> RSP: 0018:ffffc9000f2ff6d0 EFLAGS: 00010293
-> RAX: ffffffff88f888b0 RBX: ffff88807f162250 RCX: ffff888034160000
-> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: 0000000000000001 R08: ffffffff917a757f R09: 1ffffffff22f4eaf
-> R10: dffffc0000000000 R11: fffffbfff22f4eb0 R12: ffff88807e7615a0
-> R13: 00000000ffffffff R14: 0000000000000000 R15: 0000000000000000
-> FS:  0000000000000000(0000) GS:ffff888123abf000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007ffd5380382c CR3: 000000003558f000 CR4: 0000000000350ef0
-> Call Trace:
->   <TASK>
->   rxe_destroy_qp+0x74/0x270 drivers/infiniband/sw/rxe/rxe_verbs.c:661
->   ib_destroy_qp_user+0x354/0x5a0 drivers/infiniband/core/verbs.c:2182
->   ib_destroy_qp include/rdma/ib_verbs.h:4103 [inline]
->   rdma_destroy_qp+0xd0/0x250 drivers/infiniband/core/cma.c:1170
->   rds_ib_conn_path_shutdown+0x9bd/0x1820 net/rds/ib_cm.c:1113
->   rds_conn_shutdown+0x477/0xb20 net/rds/connection.c:440
->   process_one_work kernel/workqueue.c:3396 [inline]
->   process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
->   worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
->   kthread+0x38b/0x480 kernel/kthread.c:436
->   ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
->   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->   </TASK>
-> 
-> 
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
-> 
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-> 
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
-> 
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
-> 
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
-> 
-> If you want to undo deduplication, reply with:
-> #syz undup
+base-commit: 4da9dedf3fc59137fd86d664693776aa38cb97f5
+-- 
+2.53.0
 
