@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792861404;
-	b=38ugKnTALFKBfXukN+m1cHWBdC+UNAkwO0EaGrCVvxlw0JYbzVvhvmrFWOLHMcFbCSGJ
-	 9ZUEG7f6bzFFx5MJ4cxC+V6QvL0dtanE10Epqm1Y9MtnaCfJtFiaU8wtvC7JarJm3rKsT
-	 ijVsDcp0SHmFlQUHkO3zFkcsYqKQh56HeFdeuNUgQb1FcqNn0FF3zyjawo8/Y7R9Obfq0
-	 J6QrvzwlmKAw/5V2CXftRlb9Loa5Ji4FoIwJBaxARtDEp3NJw3SJfgCXNP1AIFQFIFzE+
-	 thfULaIRALAgxmnZH8j4uHsmndoC28q37Y+tldZL0MKjb8MfWvtYSecgskjPrVoWKJg==
+	t=1792861464;
+	b=NbNS8BtmFwSJIzCuEL3Hf9X/JAFhjPzEiU1EQc9Pt58cpqyMXkdylhbZ14I/MSV0L5VN
+	 NUWDW+lfkxbOwTJ+lwcnlHgybkF/nq8Rd7z33gzON2pIum6VHNV7LkMIEuD999keLIsz4
+	 NsGUaamheD4RJO1b7pmnEw7Gp0euA7FpJUSws7dSbYjjnyGHxCrMHyJBwkR7gdiuygFlD
+	 BaZSUxtGQr3G0SbKhowoUtVFuyVOYw2gJcLk2Jz+/NhwoYz1mVwnUtfEU/R2T4cucuEUn
+	 2hByD61MC6DvccI17sBdZmrrmRmAs74z6jvCgmjEz9opvxnKeAcScasXo1+pZoYFtAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792861404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792861464;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=jo8gmaFEhKj3JngpBjGb7fjIKG8buSADfQD1SD8Q+M4=;
-	b=pTjzwPlp4cxqCaDh4Ifyd/0X+h/gbTutrUcV9YPFsAu8803URdxTy0rAq6iKz+w8UxiX
-	 6WZr7AWNqyCDT9TPyecGsX/DPuFeK9IuXJTkJ30gnY5ysFfFn+l/hf0aD+0balJ4xloTW
-	 4vMq/UMwRI8LJly6+M27F/FYpccuuYgnRY4RmWMX9P/puIGjxcDOfNGBCbmrumaNkIHEx
-	 kjuc1e+7TuYFM/x+wHBnUNaY12CG5wITqUSGI3CVwOI0jbZ4hTu1o89h5yjblXiMzBQFo
-	 3tI4KL9lDdsqrB9LIP6AuFYk1sizcPB+md9B57XVPybDvpIMR89WvA9k5WIwrAXrBcg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+	b=j0O2daZKf9piB0A5Cl6Op9iN5gm3qHrGLE8qskUHRR7Es2I73CgkOLyqO2VUPi6u/82c
+	 2r+0jSso02QkhCwG3ogQyAvsweoqfRndw59qB2TQQ6P2c/bgMjgU52VVteNn7gTKEt7LX
+	 n2oede17JVt8VJ1KZWdgcexhg+cLBqLL/BrpYdkKTsZ2p268C7CnLBKmDcdvS3GMDRUcO
+	 nOO+Py99Uu5wBLoV4jdSprQGLWY6CV7vpUjhZzBY28afK8Ccq7/nhTZTYP9DxURVC984/
+	 ZM5tAgvblwpF19sHkP2NCylXlM8kZnhn8BOP/Nz43YSaX2qjU6dEXVyz+nDLl6Ohscw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bLV5+rK3;
-	arc=none smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hjlJwtbm;
+	arc=none smtp.remote-ip=209.85.160.170
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21623606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21623606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5738D606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5738D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bLV5+rK3
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so529992241.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:03:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hjlJwtbm
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-537548b811aso8266071cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:04:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792861403; x=1793466203; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jo8gmaFEhKj3JngpBjGb7fjIKG8buSADfQD1SD8Q+M4=;
-        b=bLV5+rK3XK4YT3V2W+IonkQsuEwFvajZnI4HZcQTFPYUff3uvQA3FjTu9QJd59qLLu
-         Qt6p8wJbbIQfurLx0x7pNWMLGcwEGCnmcpl97UkPjDLgiIYPQWXVGeifujDTKCxGnAFN
-         2Bbh6ANBdrNtIovjYSp2qgEJs09rnSsCLX9Sm1iIrTHRmbX3apzk4SDxqBCgnA235r9L
-         +1xyXQ9J24YbQryNaMTeU97ew2Z5eVwIY4vOCNnjqEoTgqhR+r2n0z019QyRGv/+I/cK
-         SYj5cOsMPjf5QMBab3y27Aygy4xhW5Y/i4+wLPPLaJhrSZplIsGPp2hAyVd4Hdt3n4La
-         RKxw==
+        d=gourry.net; s=google; t=1792861462; x=1793466262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+        b=hjlJwtbmHchJtyzdan970kA17Un7oxYq8/9Noasmq9qAybX7aCdsF+FsDf1Vyn2kXY
+         kYOEtsTrZYiO1npfi4vA9wMVYnb3LiFTvCt0jayupi1vdjSGU7pVFMm+Q2p5XXxqPkv0
+         6I5p82Ly5zpcJKX4lqhrZ0APv64wiDrPF/OuiX5NaAou6NuArSAUfd96+/T8CW5GwGb1
+         8oh17dK/3RE1hhLFwabbXNafAi53bs6ZFrN2rG98mtvPzevsmWzOySVRBcL6A3Ug9AT0
+         sZK4p2skd7a0GQahbcCHxG+obdjFbWb28QXvhjS3Dc/hG3mZgp+hf3xIuS+NHrcDUrZu
+         /LJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792861403; x=1793466203;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jo8gmaFEhKj3JngpBjGb7fjIKG8buSADfQD1SD8Q+M4=;
-        b=uwIkhOjV28aBkUDVHMhKs2srazxfPlDyc6Z1VzqUyla5YlaHkdg3Wg28bL4FlqeIyc
-         uaaXs9vYvLa2DBaM5qPAyF4GTQsMd2/uWhozm4qwhODSYAcw4/yREPOlHzZ3nKVcRypT
-         N/yNe5pAd/YhW/Fy7HAMstrnc6Wmz8F57xuFCPgaCSHi59sJzmNEkOASWnSJlE7d9wO/
-         OXUZAJXIvXKJE6NPih6LPJBYzANWeJZSPKVRZDOf+JS6OUxdtL+awRV4FJoha/kHOExk
-         H1DvFVMukY7t8FSzQmlt/MbwYEkHKipFqsXtXC5J9/4jiXD1ah2HOfsR7JrF5nQTHBWE
-         0dvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSudS7i4mtmAEzecko39VrGklOuxb5bFDwhjysFgJh138P/EG5D/K1CbWjBm2uk5t58t4wsdqnft58sBU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOInqHClU6uALAAYLYQCD0vrIGGoF0Md4+odDzoCgwVrogSZx/
-	qXgF+kGhMlDEmT7r7ZsYDf0KMeCRVCyOtpkZekgP9in+a2Q+2YpffFeT
-X-Gm-Gg: AYBFou1PLE8+32U+/DZSfhS7l6fUEc6SlAJvv9tDwwdUjbU0WF1iQsm2pMbIFzzv1Si
-	d4LUvP/Mki+Ko2gpSIj1GEG8nRfJdHAOvmgQEiKAr2qXnyAs3E9qhbmkWY98YTZiJwejTStX8XP
-	8bVNwJGcmiijqr8Hvrgudb4ZKzSEXl+GKhkHgimVLZOYgL3JRqidLgL8VWOy1eBFgjcNd7NGi0H
-	SP1O2Tv9qe6tT5V/U1NJcHkSyoah6zuvy54IQtB5jQ7j70XsSKJSURtOUQ08KX+GKvmrm/IlM+Y
-	YF245pCQLhgfSFEvU/d2yEiEG0FLblia/0QEHpUBbeTeyesKCVLlFMUrsmrYSjFour+uY5BSSkk
-	7ynEewQnxzGSyuI8kPye7WJcg3kP05/nAeMyp7WhMOX7VXjv8bh/olkC1a5SZk5wxlq5s8nNrZv
-	ByB1Wo0OfM5KOzyvpimxHS55ePf5MSo6aIIyIGbclvb68NdR29gdeeoVi8DXqzA/0+qqO7RNsrZ
-	ZW37yd3FYQgHYaFfGiu3JiJUjUSPEgyP8G7MjbWfpQeDmBT7TtCDg5HjohD7rYdF/s0NR+pv7X1
-	TauxzWPRE6Fcu08T3ZNIe+uiBiSgk9xA0WNsT6OngeEa7uJF8Z3leW1AETfLskC9MYEWZI7r
-X-Received: by 2002:a05:6102:c46:b0:7cc:c7aa:106 with SMTP id ada2fe7eead31-7ce5cd91867mr658536137.18.1792861402974;
-        Sat, 24 Oct 2026 10:03:22 -0700 (PDT)
-Received: from 1.0.0.127.in-addr.arpa ([2804:7f0:b101:277b:c08d:c9f9:7c08:79c4])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5df73970sm2525746137.1.2026.10.24.10.03.19
+        d=1e100.net; s=20260707; t=1792861462; x=1793466262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+        b=NmkNqfGiZNs3uqYb2YinDYH3i3/md6yUNyB+rXFJGKQ8NhzkCBgeRTN4CJrIFoUpMO
+         r/1TnUKF38q3LHR/D4D6qe7mhwXsoeYJppxmUNhPvAQPcoR/Oxfs1F2okueeis1S/w4o
+         uITQVw9iLx1lHuiER9tM6MZQC1Itb8D5JxJZdyQAluPWpb64AZJhGyEl6/N7VY8xLqbA
+         W422Ngew0BpG0OXc0kvx1/MetCZvmCutYnr5YVn2epaDzqV3nzYyvBT2LtpIgD+ySew/
+         wDw7H0HiSUT4jtew2Pk5dW0T1Mwd0dAG8jDr464TtLopIyy3TxAk2T5dsNKpJ/zT262T
+         x1Kg==
+X-Gm-Message-State: AFq9FYLUAHf42/D3Sgi1ggQwcLigxP4m6BGyi35ivxls6JIIYciHzgDX
+	T+FgyrFIxWtASZj8wwpFg8EWKQMPJksJsow29ZB+9RRHkIW0JPJ8thIGCks9/B310UI=
+X-Gm-Gg: AYBFou3zbf9pnJR2oHSBZejrnoHWbVsgw/abpC6wjf3x1yLt/kUarMqbLvJVNsb/hYe
+	fK6DWct5vT07rBMHbiA3MVZb44FyWv9klxwxLLbhvIFCSZaBE69ZgWlorF0xQxYE0z6M5fFC/mS
+	2cVpKlJBbU8lC8pyz/Y3Rayh9Tviwaiv19CJag8mPenuPZpoW4MINWTainYYE1F5scgzz7B8PS+
+	eavvh8TSY+EKvIVlIID4kgny3I4wW8OZjPELNDKWQSyrQcur6pzBMFE05uT8qjCoo0KoB5TMGKc
+	vehhNCVnxpKwEdaxUYXOPCEttasaNzZWz/ccn6k5EObMS6zYc0BNb8y2o3mxHrOoIzd/V+iN5aH
+	P3SxehTIHhGSD2kTvZEFQUOytF8ybD+AJKljyNw4cEA3wUDidAb2MGLst3djE22Dl45DvB1iRDk
+	1YCn+mxMhreZnc3+/DoEAeRay1iOePQAj3DeQuz81k3yBsuRw08oTLOwApVbmgKirZ0Z66CbzDa
+	/Rtu9DP8EnbilHDgaFdPHuXwkrNLdlOjdgfCqHtpAVUtItbxzPbQ/1CoOcbe9lSy4ASQfApL2xQ
+	TNywRHcUqKV7tsJZJkG0PJtvRC/e5VpDaD9UtRVnyg==
+X-Received: by 2002:a05:622a:5291:b0:536:119e:1767 with SMTP id d75a77b69052e-5383b605700mr29740511cf.65.1792861462021;
+        Sat, 24 Oct 2026 10:04:22 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c5273sm19020701cf.9.2026.10.24.10.04.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 10:03:22 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>, Duc Anh Luu <luuducanh05051995@gmail.com>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH nf v2] netfilter: nf_conntrack_sip: fix OOB read in
- ct_sip_parse_transport()
-Date: Sat, 24 Oct 2026 14:03:17 -0300
-Message-ID: <179286139765.93379.986858959213810476@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        Sat, 24 Oct 2026 10:04:21 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	honggyu.kim@sk.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mempolicy: recompute automatic interleave weights on memory hotplug
+Date: Sat, 24 Oct 2026 13:04:15 -0400
+Message-ID: <20261024170415.4121901-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +101,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-ct_sip_parse_transport() compares the value of the "transport=" header
-parameter against "TCP"/"UDP" with strncasecmp(..., 3), but it never
-checks that the parsed value is at least 3 bytes long.
+In auto mode, weighted interleave derives each node's weight from its
+bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+node's bandwidth once, when the node first gains memory, and nothing
+else on the hotplug path recomputes the weights.
 
-ct_sip_parse_param() returns matchlen = end - start, where end is the
-next ';' or, when there is no ';', the end of the payload buffer
-(limit = dptr + datalen).  If the "transport=" value is only 1 or 2
-bytes long and runs exactly to the end of the payload (e.g. a REGISTER
-request whose Contact header ends in ";transport=T" with no trailing
-CRLF), matchlen is less than 3 while strncasecmp() still reads up to 3
-bytes, reading 1-2 bytes past the end of the linearized skb data.
+When a node loses its memory, the other nodes keep weights computed
+with its bandwidth until another node reports. If one does while the
+node is away, the reduction skips the node and resets its weight to 1,
+which it keeps once its memory returns.
 
-Add a matchlen check before the comparison, mirroring the
-sdp_media_type() pattern a few lines below, so short values cannot reach
-strncasecmp().
+With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
+nodes 4 and 5, weighted_interleave/nodeN reads:
 
-The bug was found by LLM-assisted manual review of the SIP helper's
-parsers and confirmed with a userspace ASan harness built from the
-verbatim parser functions, which reports a heap-buffer-overflow read of
-size 2 in strncasecmp() called from ct_sip_parse_transport().
+  event             node 0-3   node 4   node 5
+  node 4 online         7         3        -
+  node 4 removed        7         -        -
+  node 5 online         7         -        1
+  node 4 back           7         1        1
 
-Fixes: ea45f12a2766d ("[NETFILTER]: nf_conntrack_sip: parse SIP headers properly")
-Link: https://lore.kernel.org/netfilter-devel/20260815133104.50369-1-joasantonio108@gmail.com/
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Claude:claude-opus-5-5
+Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
+6, 3 and 1.
+
+Recompute the weights from the recorded bandwidth whenever a node gains
+its first memory or loses its last.
+
+mempolicy_set_node_perf() now only records the bandwidth and calls the
+same helper, so the bandwidth is kept even if allocating the new weights
+fails. wi_state_lock is dropped between the two steps, which should be
+safe because the helper reads node_bw_table and the mode under the lock,
+so a racing writer only makes it work from newer state.
+
+With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
+node 4 is back.
+
+Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
-v2:
-- Retarget to nf, rebase on current mainline (no code change).
-- Say how the bug was found, add Link: to v1 and Assisted-by:.
+ mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
+ 1 file changed, 38 insertions(+), 28 deletions(-)
 
-v1 (2026-08-15) got no review comments on the list. An equivalent fix
-was posted on 2026-10-22 by Duc Anh Luu (Cc'd):
-https://lore.kernel.org/netfilter-devel/20261022172248.554687-1-luuducanh05051995@gmail.com/
-
- net/netfilter/nf_conntrack_sip.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
-index 64bc440b1..b05dc8858 100644
---- a/net/netfilter/nf_conntrack_sip.c
-+++ b/net/netfilter/nf_conntrack_sip.c
-@@ -701,9 +701,9 @@ static int ct_sip_parse_transport(struct nf_conn *ct, const char *dptr,
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 0884c629670d..ffb293a4cc56 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
+ 		new_iw[nid] /= iw_gcd;
+ }
  
- 	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
- 			       &matchoff, &matchlen)) {
--		if (!strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
-+		if (matchlen >= 3 && !strncasecmp(dptr + matchoff, "TCP", 3))
- 			*proto = IPPROTO_TCP;
--		else if (!strncasecmp(dptr + matchoff, "UDP", strlen("UDP")))
-+		else if (matchlen >= 3 && !strncasecmp(dptr + matchoff, "UDP", 3))
- 			*proto = IPPROTO_UDP;
- 		else
- 			return 0;
++/* Recompute the weights from node_bw_table, unless they were set manually */
++static int wi_state_refresh(void)
++{
++	struct weighted_interleave_state *new_wi_state, *old_wi_state;
++	int i;
++
++	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
++	if (!new_wi_state)
++		return -ENOMEM;
++	new_wi_state->mode_auto = true;
++	for (i = 0; i < nr_node_ids; i++)
++		new_wi_state->iw_table[i] = 1;
++
++	mutex_lock(&wi_state_lock);
++	old_wi_state = rcu_dereference_protected(wi_state,
++					lockdep_is_held(&wi_state_lock));
++	/* NULL wi_state assumes auto=true */
++	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
++		mutex_unlock(&wi_state_lock);
++		kfree(new_wi_state);
++		return 0;
++	}
++	reduce_interleave_weights(node_bw_table, new_wi_state->iw_table);
++	rcu_assign_pointer(wi_state, new_wi_state);
++	mutex_unlock(&wi_state_lock);
++	wi_state_retire(old_wi_state);
++	return 0;
++}
++
+ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+ {
+-	struct weighted_interleave_state *new_wi_state, *old_wi_state = NULL;
+ 	unsigned int *old_bw, *new_bw;
+ 	unsigned int bw_val;
+-	int i;
+ 
+ 	bw_val = min(coords->read_bandwidth, coords->write_bandwidth);
+ 	new_bw = kcalloc(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
+ 	if (!new_bw)
+ 		return -ENOMEM;
+ 
+-	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+-	if (!new_wi_state) {
+-		kfree(new_bw);
+-		return -ENOMEM;
+-	}
+-	new_wi_state->mode_auto = true;
+-	for (i = 0; i < nr_node_ids; i++)
+-		new_wi_state->iw_table[i] = 1;
+-
+ 	/*
+ 	 * Update bandwidth info, even in manual mode. That way, when switching
+ 	 * to auto mode in the future, iw_table can be overwritten using
+@@ -271,25 +289,10 @@ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+ 		memcpy(new_bw, old_bw, nr_node_ids * sizeof(*old_bw));
+ 	new_bw[node] = bw_val;
+ 	node_bw_table = new_bw;
+-
+-	old_wi_state = rcu_dereference_protected(wi_state,
+-					lockdep_is_held(&wi_state_lock));
+-	if (old_wi_state && !old_wi_state->mode_auto) {
+-		/* Manual mode; skip reducing weights and updating wi_state */
+-		mutex_unlock(&wi_state_lock);
+-		kfree(new_wi_state);
+-		goto out;
+-	}
+-
+-	/* NULL wi_state assumes auto=true; reduce weights and update wi_state*/
+-	reduce_interleave_weights(new_bw, new_wi_state->iw_table);
+-	rcu_assign_pointer(wi_state, new_wi_state);
+-
+ 	mutex_unlock(&wi_state_lock);
+-	wi_state_retire(old_wi_state);
+-out:
++
+ 	kfree(old_bw);
+-	return 0;
++	return wi_state_refresh();
+ }
+ 
+ /**
+@@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
+ 	case NODE_REMOVED_LAST_MEMORY:
+ 		sysfs_wi_node_delete(nid);
+ 		break;
++	default:
++		return NOTIFY_OK;
+ 	}
+ 
++	/*
++	 * HMAT and CXL report a node's bandwidth only when it first gains
++	 * memory, so recompute the weights whenever N_MEMORY changes.
++	 */
++	wi_state_refresh();
+ 	return NOTIFY_OK;
+ }
+ 
+-- 
+2.56.0
+
