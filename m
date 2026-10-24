@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.122.197.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792881023;
-	b=40riiPcXEPvMGy5b3ZGAWrw8lLkG93NiPyN5QYd3ZbHsP/ZI834TnQuNcLMNQpIciBgk
-	 AixsdzrTPV78AqP5wm+9uPYrPFla8yBVysAOgSqug9GXbHbUFdneokeCm5Hk2eHR5CnfI
-	 WQfyr729vQC4ATlvr8s/C6poAglS3UfkCFhTWNLYKquxVS3ldVUYdIYitzqyZCUkm8IOU
-	 0fOnENtvVRAfNQZ895/UyEkCJG2u6I8B4VspfDpeUKF2mtcb4E/L56paj1UDclAt+1zbR
-	 J4ROIYqSrxPiAgLaH5i5RXBFV2DghBiu2orrwcmiFPC390/3DEB+beibWVLH5gpIowQ==
+	t=1792881244;
+	b=G6W+d/Rkzy4+8HEf7VyCW8QmFAMiZHUWGmDy+WHoBlczsEwceOF0Eq21vbdTWcEuB7HK
+	 4tyvNdzXsp537j4OyoO1Rw/CS/lbpFwXPLlqaJMvYgYZlLLbA4Rw0giOKk01CMBPmeqYj
+	 v0voRHNO5wP4C5Q8dJMXnxssoG2FlPJz0wyjaDXnwrI1kQ4d/lqF5USwkj/LssKi8EdPv
+	 8ngWTIee01DNxbY+V8kicxk3kCQbrNqcJ4ZZTlzWfXWs1O0QIQMPiITP7yyoJ/qyEGucq
+	 NAaCcafkhT0cyoReE4JnAwcHz5gKfBUAn3CLvogBNhrAVpoAYO0fh/5VW/Xf04iK0Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792881023;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=vJgzqHcBsfs4faDREqkt6EK1r4wJAxa4ufgaTxHf+T4=;
-	b=WyGrgZLTaLYLTeOa2F6f6eUjHSpqGP6c9kuTOGQkZvYhkzUx9n/wPH22s2jduDRualZ/
-	 JaDJqLKMUGYV6j1BOrBEDz8bJwVb1pExNM2Tfrqoo1PiCSWe6PHBpcdhP68M6X3KaWv2t
-	 66FG8RJ17hRZsXWtzhfhvUUYjwPJv9RqJSZiaPQ0bJVRlQmrBb+Zjzp1lhO0ONzG2KOaf
-	 v+96V3NGDBwnNQXbggRFHm206OtKxOvHwpX0kTOgfhtYAGP9izO9Yuae5NgcOlVGKdOCt
-	 ffQ+Fb8LWcAABYvN97yPfteCgftcwneX3XPud+gLnoD7nw8bAkuW1/bPzgdnlE0c+Ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792881244;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=9FKFT4GV4wTq0oAbEu1SN4x45q9hHNfBb4/xX4YHDwU=;
+	b=gbOvu8x4LxopiMLaQa7g/C/crl8K3hjKSxUClsWTzqYJBNpxsdPTg3mU7C4nXwSoKaqq
+	 9b7W4wImj7XmOWTa1pi9tjFEh3SkIjYSg3WBXT/+fxiPyI6omCDbJUO0frR4n4DIX50Dn
+	 tMnqIi3ayFNLnFa9nMtT34gYZF3TSQ7Jjogs6ItgbZNlA4sZLbWGxRnfFfapwYoKLX59P
+	 GM9bfFapfW41Jx3wAm+DGgLzkSTuFUVrla7TyuyXB1npmN8UvwAO90v27jjqcctcWztfg
+	 5YimQpgve1W1aNFE12m77Zi+wfrhDanjTKfolr/19gQGxq8lG5643Eqmwg2Y/LRw0+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inf.ufrgs.br;
-	spf=pass smtp.mailfrom=inf.ufrgs.br;
-	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=mWL1i5ul;
-	arc=none smtp.remote-ip=143.54.11.23
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ptudor.net;
+	spf=pass smtp.mailfrom=ptudor.net;
+	dkim=pass header.d=ptudor.net header.i=@ptudor.net header.a=rsa-sha256 header.s=epistula202610 header.b=u9v3+Y3Q;
+	arc=none smtp.remote-ip=74.122.197.115
+Received: from junia.packetexport.com (unknown [74.122.197.115])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2835A606A31A;
-	Sat, 24 Oct 2026 22:30:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2835A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3210C606A31B;
+	Sat, 24 Oct 2026 22:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3210C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ptudor.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ptudor.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=mWL1i5ul
-Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 2EFAE120590;
-	Sat, 24 Oct 2026 19:30:11 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1792881011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vJgzqHcBsfs4faDREqkt6EK1r4wJAxa4ufgaTxHf+T4=;
-	b=mWL1i5ulK/dXg4fcOfJtBOpgIApoywQQ3pBo9/IdGEduLJoP27seAmwb8DIKSS7djPC6Js
-	l7vsUd5Fq0O2EmXmzx+1Bt5qGFR6hMr3zKQbdc4mx7qaL+vqI+AErOxmTH2lrwVpSsJ9kX
-	vtil/hivYfq4/gPPCWyGveEUl1cocZjPqcq3XcZSm5rsbqaKg6Coc5PZFt8s1zglODz1D9
-	Mg70+ZbPDD97c7BJAWut9ZGt0pReUnBj9X6X7NeYk/Kmz+3ja44xK9dtn5cVavvGiWvztn
-	B2SFWJ47coW+jRUNBivjAnCqcux4eKdHFT4sLeHG7a5cGOieuWwBSJlt74p2Cg==
-Date: Sat, 24 Oct 2026 19:30:05 -0300
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
-Message-ID: <at0v6ghpGLC5VO_h@DESKTOP-PJTTJ93.localdomain>
-References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
- <at0kGRzkfLeqD7yq@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key, unprotected) header.d=ptudor.net header.i=@ptudor.net header.a=rsa-sha256 header.s=epistula202610 header.b=u9v3+Y3Q
+Received: from junia.packetexport.com (unknown [74.122.197.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by junia.packetexport.com (Postfix) with UTF8SMTPSA id C282F1A8F4;
+	Sat, 24 Oct 2026 22:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ptudor.net;
+	s=epistula202610; t=1792881235;
+	bh=9FKFT4GV4wTq0oAbEu1SN4x45q9hHNfBb4/xX4YHDwU=;
+	h=From:Subject:Date:To:Cc:From;
+	b=u9v3+Y3QBsILPCGvEueHvFsak4yg9Dczx5FmhPGDdQoSl7MtIyh0jgq0c+VjQFjLj
+	 fnoMrxM7UDHeMgJ/Vzr6BYGaC8SX5Kqfaz8liF2GBEVXnmRt1dDMl3DtXyhpVUjlso
+	 Ze4UPyolYeEl6P4le2qhIPLejcFwmwqItQa02kV8bqdEGFodHHdm2yhYqVkRa2iayh
+	 aTrFHfxVnzXQ1f4AfDoHmBSIjD+PRPPFayvCHRhzji7UHs5dDnEr5W05fx9d4KzzSo
+	 6cMB8AdIvy9SWnIYtUxco67YyPiP0epwDWfLAh02OV9fDPsDRi2HOX8Gf8kZvraSO7
+	 o+uhEwCtgc6FA==
+From: Patrick Tudor <ptudor@ptudor.net>
+Subject: [PATCH 0/3] hwrng: add Microchip RNG90 support
+Date: Sat, 24 Oct 2026 20:18:21 +0000
+Message-Id: <20261024-rng90-submit-v1-v1-0-e265cfabc9af@ptudor.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,49 +62,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at0kGRzkfLeqD7yq@pedro-suse.tail5790ac.ts.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQ6CMAyA4VchPdvYTYXoqxAP26yjB4ZpkZAQ3
+ p3p8Tv8/wbGKmzwaDZQXsRkKhXu1EAaQsmM8qoGT7515K+oJd8J7RtHmXFx2NEtXVJHwbkWavV
+ Rfsv6P/bP6hiMMWooafh9JpUs5TwGm1lh3w9KZ9rwgQAAAA==
+X-Change-ID: 20261024-rng90-submit-v1-705c3c70a116
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Olivia Mackall <olivia@selenic.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, Patrick Tudor <ptudor@ptudor.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ptudor@ptudor.net;
+ h=from:subject:message-id; bh=BEsr2UYznJ1f7avw8c0N4xKRrhZmnDrB3+ETAb7s0/s=;
+ b=owEBiQJ2/ZANAwAKAUJsSqIaQAcoAcsmYgBq3RLK+lNbgUC3/1zv7/0dgEdwSwWMpc8Ud/5k7
+ qZEHeWl0f2JAk8EAAEKADkWIQSMT1jvuUVJAiZ9mz5CbEqiGkAHKAUCat0SyhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQQmxKohpAByjwChAAhyDHVKor77hPmp1XLylHBpeYFRyxaXb
+ QuhuOENv42ht8J0PkLbhTc00mpDm3D9ZQuOmXoECyiNTOrxXWRI8BHbamAFUrFq+dgo82d+Pztf
+ RmtUPvRegzEMVn1X+Mj6P8HLKryLb4Hdz+w3imzUpFvhoWMkba5qgz7n+Q3QX5Y7+BvzufD32KP
+ 36+UjMwIV1Jx+7HAaZOmZqGCVZjGgP3+sK4xWqxW9ssxsTwZQ34I1HvRGKCccLBQELESkdlyJMn
+ 2Kzmv2TsSHeRDavya6sYrVCgvfA6MciMaIa5Tiu3YU+Yy/qfE/KFPcEdoW5nzytFRY2MkSgiXfD
+ DxSfjJmJzEOo/rh4hR+sdkAkNNw4JRArbDQm9OQBaO/cVgabfjYL0KejRIA/sgyv78Qeirvvxb/
+ YNxdnpIP+7kDZ4tvqjIsqsvApPvp+yJUcKuxS+ms6y1jyt6RmSKpXKLD6pYXa1/MYbzZ5ytiMZn
+ XHSbNojXzVhEWwt3ohj0wLDD8XS/QDTcr/dAOV0ygTIauX9yuZvj9ccWQfWGYIrFwVkeCP8DeYT
+ apYGkS1X6XjcXFSMVimAJ0gBrvJLjHqQH9quSw3VNd6XZf2WkROkvc4OllkqGFrheAS0tHiw5/g
+ 91m/vgD1zCsCbRjoplVIYHiNM7v1uezlg+J/zUWyHguovB16/vns=
+X-Developer-Key: i=ptudor@ptudor.net; a=openpgp;
+ fpr=8C4F58EFB9454902267D9B3E426C4AA21A400728
 
-On Sat, Oct 24, 2026 at 10:39:30PM +0100, Pedro Falcato wrote:
->On Wed, Oct 21, 2026 at 01:21:04PM -0300, Matheus Alves de Almeida wrote:
->> The current fat_write_failed() implementation calls into
->> fat_truncate_blocks() without holding truncate_lock. Make it so it is
->> held exclusive while truncating.
->> 
->> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
->> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
->> ---
->>  fs/fat/inode.c | 2 ++
->>  1 file changed, 2 insertions(+)
->> 
->> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
->> index 141276fcf8db..2a16ed415631 100644
->> --- a/fs/fat/inode.c
->> +++ b/fs/fat/inode.c
->> @@ -216,7 +216,9 @@ static void fat_write_failed(struct address_space *mapping, loff_t to)
->>  
->>  	if (to > inode->i_size) {
->>  		truncate_pagecache(inode, inode->i_size);
->> +		down_write(&MSDOS_I(inode)->truncate_lock);
->>  		fat_truncate_blocks(inode, inode->i_size);
->> +		up_write(&MSDOS_I(inode)->truncate_lock);
->
->Hmm, I think there's still a race here. Nothing's stopping a sequence of
->events like:
->
->1) truncate_pagecache
->2) concurrent pagecache look creates mapping for out-of-range blocks
->3) fat_truncate_blocks() truncates the blocks out from the inode
->4) page cache has stale pages pointing at stale blocks
->
->-- 
->Pedro
+The Microchip RNG90 is an I2C cryptographic random number generator at
+the fixed 0x40 address. It combines a physical noise source with a
+SHA-256 Hash_DRBG and returns a 256-bit result for each Random command.
+The device performs runtime health tests and self-tests before releasing
+output.
 
-The read/fault path eventually reaches fat_bmap() with from_bmap = false,
-which does not return mappings for blocks at or beyond i_size.
+This series documents the compatible, adds the hwrng driver, and adds a
+KUnit suite using a scripted I2C adapter. The driver wakes and identifies
+the part, validates framing and CRCs, polls within data-sheet deadlines,
+recovers once from transport or synchronization failures, and withholds
+output after any device verdict or malformed response.
 
-Do you have a specific path in mind that can cause this race?
+The data sheet specifies 128-bit security strength for each 256-bit
+result, but that does not establish entropy per output bit. The driver
+therefore starts at the hwrng framework's minimum nonzero quality of 1.
+An administrator can raise rng_quality after qualifying the complete
+platform and its operating conditions.
 
-Thanks,
-Matheus
+Validation against the base commit:
+
+  - dt_binding_check for trivial-devices.yaml
+  - full x86_64 defconfig build and a separate W=1 module rebuild
+  - UML KUnit: 32 tests passed
+
+The driver was also exercised on physical RNG90 hardware through the
+in-tree hid-cp2112 adapter: three 500-block streams, hot unplug/replug,
+unbind/rebind, and S3 suspend/resume completed without driver errors.
+
+Signed-off-by: Patrick Tudor <ptudor@ptudor.net>
+---
+Patrick Tudor (3):
+      dt-bindings: trivial-devices: add Microchip RNG90
+      hwrng: add Microchip RNG90 driver
+      hwrng: rng90: add KUnit tests
+
+ .../devicetree/bindings/trivial-devices.yaml       |   2 +
+ drivers/char/hw_random/Kconfig                     |  26 +
+ drivers/char/hw_random/Makefile                    |   1 +
+ drivers/char/hw_random/rng90-kunit.c               | 820 +++++++++++++++++++++
+ drivers/char/hw_random/rng90.c                     | 555 ++++++++++++++
+ 5 files changed, 1404 insertions(+)
+---
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+change-id: 20261024-rng90-submit-v1-705c3c70a116
+
+Best regards,
+-- 
+Patrick Tudor <ptudor@ptudor.net>
+
