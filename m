@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792851055;
-	b=nHQJWDJSbpLbDDY7baHIdbkCVjnvtYeF2H+Cpx3kaBN2IdVUtxIrfOC/m05odmqQjYQY
-	 kpptZfP5ugdh99uk7//0hKK3Y01JIwaxkoNFd63LBHXvjJY0VDbyal67ORjLKqMHrzvDo
-	 WNJsziZNW+08fchsQ1TL6knSHuhDVmEpgTxhC+c01m4o6UXIbAi3ixa/GqtRBzl+M3NbE
-	 CfG7WP0fTqXGT4BzuBV0GDbhPf6TjQDAy1xkyHG2pAk+XNome+LEbbXnA8dnWP86q80pK
-	 ZP+mE8KvkdR27PqeTPetG8MBurMyK7olAnnhEjjlRwkNG+n58CD+BEUTnnehUNkleRA==
+	t=1792851128;
+	b=ayrEE6oQog0WGCA7a5xHGx4KyGd/7qLv5dw56MWnkf5WikMf/biVVe8GsJL4TI6V9BQ8
+	 kkezDjYTj6q2wwLaENydqI/KSkzcGp2VCHYwgQn42WAHaDOP8myIDBgaB60U01QYb7UXQ
+	 kM33jN1qOp4+nNkW0XfBRyRSYVOvg2yFkwRNLnESBE/VaotofXXWoiJC1lVnJ1iNVZ7xo
+	 aXTO3kiOvcC7K1kplJpw7yMcquuXQqxJTVQlnl9VADCitXu3OtxwH38K4VM7I9TPVMOGt
+	 /Ib79N6XiVChCGLTD/2tOPaVOvIW27noVjl2OGk9Uwl0anvFvZqFZIZHiPJNbnGTnqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792851055;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=77L0zCZoOr1z13ZaKANU7WNCtV3LEiZYs/dClJg+u74=;
-	b=iZCKqsRTuo0gJUwvWoIDsrBpUVIlLr1LVbdxvpKYwPfH1nsaKEHfsN4fBLQaHu//frJb
-	 SxeCtqqmk/qjVrD5eOue1mbrExYyq4CrGWnSBPjwI6ldOFz4VL7OJmlqtPBw0YEPaGqV/
-	 N9otAkWS2lvFuAGUxvYvfXLZ6fAovBuclJoHZoBtzKIEHN42EDWZ0YUfW1Yno1gS7aRWx
-	 Qrsr61AVOM0NkBIXuGOiYyxd5U41TspkEkdm40gbvf4qfZIALeE/ij6Pto9FNceieBZ8s
-	 Q0yMZvE0yAc4QE82wQ3HI20lPYfqJbn43EEAlqu2jjzt1S3mXyAYiCl2AyNc9Uasgxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792851128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CGYl3C86hfPgxp/SJNcGcvJ+3Ge62EjjXQJjZpVCIVY=;
+	b=L96ddB5CB4My0jcg00y/7qiJ7soDhFD9EKnpspCa8hm42c7sds/YAr3BHHK7hXtB7t8f
+	 vojzHXYo2uUz2cwHQEzTP7m12P1LiM8Sg/yrntkkMRTFAMVE6LW3BJq6msiOmrp3JPTdD
+	 mn59BAtprL1kHoLAm50mhzi/vRnUvFzERPL1OA3e2GT6vc/w13LxkHMUVBPfMkJYuMDq3
+	 IZOYLmDMkdHw63vj6FvVC7Aq2JMR0wZfUNzlxPr0vOyaFwxPD4NwIKqSmrQilNimqI9YL
+	 SAcq5OSWNKN6WlLuUwfvYarlNx3IRePTJNtjZ4qpWzb0rLOjeg1cbVuSBgCpHRw6XRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7PQAbc7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="qN5mw/Re";
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F97E606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F65F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F65F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7PQAbc7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED41C1F031EB
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792851055;
-	bh=77L0zCZoOr1z13ZaKANU7WNCtV3LEiZYs/dClJg+u74=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=O7PQAbc765tV6BQe5z/Q+kEi4GBzWszlyJHrOqDa07Fb4O59K54EyqncHoVX0up7r
-	 IBlIivdSRXqyGDMG48VdbfMuSUrKqAEbanFkQRYCfyGaHJV4B8l2lfPbd05zS2e0lP
-	 jcYBxVKpflgZPtttF8g9qBukbEWcDmi9DFDGv0IHYR1ygtfoGcUNsGY+0uLk9yeqYb
-	 E7JjTPrFlMw8xFKYCQmZsf4Ll7kJ+o3Quth4/PnCPmus0oYB98LkjK3dLZ/mjh9Sy8
-	 Uen3Tt5MGuDOt6MdrZLSnPBqNa25HshtZ5IasyK4opT/VNwUwTMFnfXf0C6wf2PnvI
-	 LZz8EGzT8MX7Q==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a5a26c8412so11962711fa.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:10:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzST8wgKIf8wJu1JHeDTshLfp+omNcJEovqnlTlEs6LzueVPFdlvtBkSZFA9wWiLmlGbv733gw9GRqI50c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKd44WD7QVq3zQUlsS9RzoEeWi9dlW8ucoM0z8jj6RJ1OI7uU3L
-	iHD5Vlaa/Qnv6apAvFVNec+umRsJnzQ+cQ7KDjDiOJ+ySnVzhoo0qfI92/gmvTkSORItVZxCd2d
-	wJJPq7MmI8dlMukx448U3+gdxMykVwqQ=
-X-Received: by 2002:a05:651c:b1f:b0:3a5:e792:2dc8 with SMTP id
- 38308e7fff4ca-3ac6fd2b91fmr5065141fa.16.1792851053288; Sat, 24 Oct 2026
- 07:10:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qN5mw/Re
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so1648242eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:12:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792851127; x=1793455927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CGYl3C86hfPgxp/SJNcGcvJ+3Ge62EjjXQJjZpVCIVY=;
+        b=qN5mw/ReCB7w8Fr8wpbp17/Wt0LcVzV62xdjLQJ45acFlyX54MQXD0yvZoA6L8h9UW
+         SiiD9IQhqeUWGygZQriJ8FqLzFn9RLTs8083oNXLfcKarEq3cvER4owatxsYqXeq8Jkd
+         W9C1Sz6G7shKH5U1M8kbiBE6OgQDySs4MCSjBmrQqu9wSo9UlV2qE/T+bfMdQ+GA5fU5
+         r0f7O+Yx5nywRv6ffU3HEQ4x2mFkftgZJu4dvT7m66Afx1IY4sR/aYG94t4t1bczeWFi
+         mZHgp8AqWv99yVVShTVN2KQTRP9ugWMbOdhS++FaWnokQ19pN6smKvYZi51G1H5Ozps5
+         0+mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792851127; x=1793455927;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CGYl3C86hfPgxp/SJNcGcvJ+3Ge62EjjXQJjZpVCIVY=;
+        b=pR6QC+RyIrMSVkWxvD/CPnNmZ8429ADmPz/weOC7YlbRKWB7wJKuWrNm+d9vduo0uM
+         yBsJt+TqbXrRXliMoXFEap9B2F5yTElnPtkSbYIOhZgeClSOSbeYdAkJXgzn0HrANp9A
+         7zHdBLpexKUJFUb1X0GWMjwSrEX7AcIcuGLf9TD/m1rEbGYl83lIxGiqUW08RkuuTFev
+         vcTT3ApNQor/pV7/Px17PVkTeIhXfMurOumdpeCb9loHPo7/A9hYDPKXi+I4c4yIQT9v
+         DecZuBGdOKVY/kPdQM5SxrScIUpZA4GURYUx8p2Qd1IrR+4kgFpOvJzPFMbcIOJGF9+k
+         Gy4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxwKJwzQtJncty6q0zpCZ6SuX2NEuzicshvpXW7RXss4qIOcBw9EkJjdH0tY06jkB82qOHG6xzOtUCE7G0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvISPJlzJBlUe3QFMAj/n/LuNgCCzZ3BbPpljYUIvKXqYB6mnx
+	MbJbdG72b0Fbe2bayhbInGVR8QXqfSXQCFkpHoMdt5FwtVFyU1W1/hsQ
+X-Gm-Gg: AYBFou2loqVMvy0azgCJmUgguBrXjav6Bf0cNBAw3cJIY+VgKBjNl445972tQ9WaQ41
+	CEQIihHtH9l+7F8R0LPkesIxEsZdy9x0LEJZuaVianPd4iiG+9BLWdHRDHGfEG+e3HplfFZ9ans
+	D2acpFKEIYEKRIUa7yhcCUjwG1W7X0Q6JgzS/Dfux3Ut9482/te/f5d2yyb5cug+cqVGw5J+T55
+	yLfRihm/m4r+wXFsTfpKPQ9xo41d21gMniDqhFGybyd8EBPc2trvx50Tfp5CdmunJenZazqiUNV
+	FZWUuFRKqH8oJKpFfRvXOukmJ6gHHM6DApx2esQo2rWeMtJOcEh22ryu77ibzMtR5OfNiakpdI1
+	mJRZqPB9/lClndzgI49H+MKZQhihm8QEeVvvtLPnhEc1AehUdMyvq+2Dec1/dNYv6iUh87dIz64
+	c/NDMO8tZGBykA94zvbStGSI/InNUj036jWjCBeXj1cKTM8U1Lwe4fzlYnIA/68bsjerahdMLbi
+	OBeDjupgWsmq9Cmk1DPC8fIA5T8mXOsRnGPQL6lJbuDWY9GKG4V1jz2L1nyRwS+HfiPJF5A5csZ
+	wXkVy9BI1y/l6naIONoxOG/N
+X-Received: by 2002:a05:7023:a8e:b0:14d:c9e:a356 with SMTP id a92af1059eb24-1993571a2eemr3465311c88.12.1792851126409;
+        Sat, 24 Oct 2026 07:12:06 -0700 (PDT)
+Received: from 192.168.1.7 ([2409:8a1e:2330:4ef0:6887:87ec:7e6f:2a79])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19a3736d16fsm6366905c88.12.2026.10.24.07.12.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 24 Oct 2026 07:12:05 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Jason Xing <kerneljasonxing@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	stable@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rongzheng Wang <testwrzwrz@gmail.com>
+Subject: [PATCH net v2 0/2] xsk: fix multi-buffer TX software checksum
+Date: Sat, 24 Oct 2026 22:11:55 +0800
+Message-Id: <20261024141157.59301-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261024091256.17918-1-testwrzwrz@gmail.com>
+References: <20261024091256.17918-1-testwrzwrz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,112 +104,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
- <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
- <atseYvQUYvpMFEIM@ashevche-desk.local> <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
- <CAGb2v65LVm1GV2kV4bVO8YJd16tkubHOvXUtbJ3uuBw2O3TBsA@mail.gmail.com>
- <atywVnHU5NsP_gOP@ashevche-desk.local> <CAGb2v64P2rM0VnFh0NfNhi+3_xGPYkxt2j+2hmBMu5ZvugHRow@mail.gmail.com>
- <aty37_xHO-QRa7hQ@ashevche-desk.local>
-In-Reply-To: <aty37_xHO-QRa7hQ@ashevche-desk.local>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 24 Oct 2026 23:10:40 +0900
-X-Gmail-Original-Message-ID: <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
-X-Gm-Features: AclHuK8in-RebYr4WdGY52-xcg2ve7F2PHG1dtE5MpFbEAzuaEhl8yb8pdBRewE
-Message-ID: <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
-Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: James Hilliard <james.hilliard1@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 10:51=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Sat, Oct 24, 2026 at 10:41:55PM +0900, Chen-Yu Tsai wrote:
-> > On Sat, Oct 24, 2026 at 10:19=E2=80=AFPM Andy Shevchenko
-> > <andriy.shevchenko@linux.intel.com> wrote:
-> > > On Sat, Oct 24, 2026 at 10:10:33PM +0900, Chen-Yu Tsai wrote:
-> > > > On Sat, Oct 24, 2026 at 12:12=E2=80=AFAM James Hilliard
-> > > > <james.hilliard1@gmail.com> wrote:
-> > > > > On Fri, Oct 23, 2026 at 2:44=E2=80=AFAM Andy Shevchenko
-> > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrote:
->
-> ...
->
-> > > > > > >       /* Internal 8250 only */
-> > > > > > >       UART_PORT_AIROHA                =3D 124,
-> > > > > > >       UART_PORT_AIROHA_HS             =3D 125,
-> > > > > > > +     UART_PORT_DW_APB_256    =3D 126,
-> > > > > >
-> > > > > > Why? Besides the poorly chosen name, what prevents us from modi=
-fying the
-> > > > > > corresponding parameters at probe time by leaving the one of th=
-e existing
-> > > > > > types?
-> > > > >
-> > > > > The new type was primarily a way to reuse the core's FIFO configu=
-ration
-> > > > > table, including the RX trigger mapping. H616 uses thresholds of =
-1, 64,
-> > > > > 128 and 254 bytes, whereas PORT_16550A maps the same FCR bits to =
-1, 4, 8
-> > > > > and 14 bytes. Overriding only fifosize and tx_loadsz would leave
-> > > > > rx_trig_bytes reporting and selecting the wrong thresholds.
-> > > > >
-> > > > > The core already has get_rxtrig/set_rxtrig callbacks, though. I'l=
-l rework
-> > > > > this to retain PORT_16550A, supply the H616 FIFO parameters durin=
-g setup,
-> > > > > and use those callbacks for the correct trigger mapping.
-> > > >
-> > > > Please consider just taking the FIFO size from the DT. On some chip=
-s
-> > > > not every UART has the same size FIFO, so we already need to deal w=
-ith
-> > > > it.
-> > > >
-> > > > Also, FIFO size is a standard UART DT property, though somehow not =
-included
-> > > > for dw-uart.
-> > >
-> > > FWIW, it supports all standard properties for UART.
-> > > Check what uart_read_port_properties() does.
-> >
-> > Ah, that's nice. I hacked up something [1] in the past to get it to
-> > work, but that was probably before you added the helper. I never got
-> > around to splitting up the commits and sending it out.
->
-> Hmm... The helper is in the kernel for the past 2.5 years.
-> Maybe you rebased it and it lost original dates?
+This is v2 of the AF_XDP multi-buffer TX software checksum fix.
 
-I had been carrying the changes locally without committing them. I only
-committed them recently to back them up remotely. So yeah, the dates are
-not accurate.
+v1 was a single patch containing both the kernel fix and a standalone
+selftest.  Review feedback asked to split it into a 2-patch series and to
+reuse the existing xdp_metadata selftest infrastructure.  v2 does that.
 
-> But if it's not working, we need to address that, I believe it should wor=
-k out
-> of the box, because the same function is used across dozen of serial driv=
-ers.
+Patch 1 moves the software checksum calculation from xsk_skb_metadata() to
+the point where the last descriptor has been added to the skb.  The old
+code calculated the checksum after the first descriptor, so multi-buffer
+packets only included the first fragment in the checksum.
 
-The new helper probably works fine. I can rework my code to use the values
-given by the helpers and give it a try sometime next week.
+On a checksum failure the packet is now dropped after the descriptors have
+been consumed.  Metadata validation makes this path unreachable in the
+current copy-mode implementation; keeping the defensive drop avoids a
+retry path for an skb that is no longer complete.
 
-> It might be an issue in 8250_dw.c, but I can't tell for sure.
->
-> > [1] https://git.kernel.org/pub/scm/linux/kernel/git/wens/linux.git/comm=
-it/?id=3De7e0741fa04f349ad9f94a4059e32467a30ef5d9
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Patch 2 extends test_xdp_metadata instead of adding another test harness.
+It reuses the existing AF_XDP setup, packet generation, completion, and
+verification helpers, and sends the same UDP packet both as one descriptor
+and as two descriptors.
+
+Testing:
+- final exact-else patched kernel: xdp_metadata 1/0 PASSED
+- same-config unpatched kernel: checksum mismatch, xdp_metadata FAILED
+- checkpatch --strict: 0 errors / 0 warnings for both patches
+
+Changes in v2:
+- split the kernel fix and selftest into 1/2 and 2/2
+- reuse test_xdp_metadata helpers and reduce the selftest patch to
+  86 insertions
+- use literal else and unlikely in the checksum error path
+- document the drop decision and test it on patched and unpatched kernels
+
+
+Rongzheng Wang (2):
+  xsk: defer software checksum until the skb is complete
+  selftests/bpf: cover AF_XDP multi-buffer TX software checksum
+
+ net/xdp/xsk.c                                 |  22 +--
+ .../selftests/bpf/prog_tests/xdp_metadata.c   | 126 ++++++++++++------
+ 2 files changed, 100 insertions(+), 48 deletions(-)
+
+-- 
+2.39.5 (Apple Git-154)
+
