@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792883632;
-	b=lpqipFALgrQasoQ9xD7EA6uDY0STMAZ9TlpY5BTXUOdIKPSrEjau3fp8KfQKm4EprYSe
-	 6llDIsdR22vOD8N2otjMoVGeUcisE3THAKpM+txG2vAmUiZL4o3UH4nHE/84g4EALSGPE
-	 crEsZTKwCUmj1FCf8BXtJdqlm4lI+Gq3UkyTbJz9C56795Z05gWbv5LhBuvErPZaLAnrA
-	 /rqSyZwM4VXqrGYsc7p62PbX/eNblhaYXSj8tE9dhdzxQjArNt+SQJ50jDkQTIs1OkJOM
-	 rrI7ys+czFJ7UhTs+uUU0WKPyYaTaL3k77F2+IpZKQu5FFFEhOp3mJAgFumY1wA3Htw==
+	t=1792883634;
+	b=3BhmrV5o3v0Au6lVpa0btLaO+aRvA+L1pOdrzsktRHUn/7bCIdT0mdEWwQO2tB0LNxt2
+	 fb01hv2HW1CYgDH5Ffbh2uUpEZmUjAfOncT1zV9c1jfrMLrCR+IG1USFj3m9DLD0s5y0b
+	 9En+W8UaL7RCJDkC+0S7AqmrJXgzEPMhQOrVTU10Zqz7oBTpgJLgyNqc4CDL5HhNbwqgx
+	 5huiJKMkBqK8zAEzQO+3yyiL1jmm3GfDef3dryLajbvqxfRWg5678atS9uf3er0oznqWk
+	 XcouSA/oLZIuhnlYK2sRbyxYnYpGYKieVRJJLWApW7Q2x4him9ML/AgpV3H1/gXOobQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792883632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792883634;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1AIKyvNFejxgpJElRWUpbqx4cqYCbCrAW59Sl75hF3M=;
-	b=qHD6k/iM7rC514YvUwE7nfC2yk+AwSmCwI/hS7Kcfk1ND8jcY0gXqEcyNKIYK2fCDx9e
-	 9yiZ2jfhWGdPht7ipzzYIrpNfBKD0AvKlXQg5LTd4ImD5oMQqYKal9hYGir2EyoQzw+rn
-	 Dyaq1Lk2XU+HXb5F6Q2D9EUPlkeGIZb4LNagmhlhm3rD1dxazDvJLut3qbu0bNS3NUlV/
-	 NhBwH5AU4eKVrdN6axFSmbGaaj2pd+tEfSWrdHiFVwbpUHYUQLowi7NyGsG1IxPkyJedr
-	 2osCD83NUjz0JgtKixsBJ5NZYY79IVUYAvoUSyDWsAydlVmsGhhRVWqx4UqlUI2NEEQ==
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=imAl4+nQz/6gt4gpxMhLcrwfP6Z7GTEGSm74OZaRico=;
+	b=VvYauWjXFGdE0CRK2+y7tuaPzHW5/Op1nZXb9nR4KK/P+ic6vd0CakR9xos5k6nwsTKf
+	 M/n6iZnWFeZVVMC+8umKNfz/RnkNsah5hnj695QgGdyPTxph+DzbCgEfQ5vi3ElSm6+I/
+	 y7ntAydEoQWB7bCl7VBavCtQl7SU7QJSGUzS7rkReS9fUMIPWtEpU1COuoJFSZOLMD79I
+	 F4Mp/9i25n8Jkg0qrQFmCzC2CszHdZ+XTCPfTUuMPiPFjdi0piCJQL6bdZOOIE65YkBQc
+	 L48Gd3YWydw1/QGnuPUiW1ZyGz2sMdzX2zevm7EF6NmEHWvCVSMWzeqSflWLEdZ5OUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bEAEJVkO;
-	arc=none smtp.remote-ip=209.85.217.53
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrStFlRl;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F1C606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F1C606A31A
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BEBF2606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:13:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEBF2606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bEAEJVkO
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7c03a445cb8so1281638137.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:13:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrStFlRl
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-354ba08cfd1so3457967eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:13:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792883631; x=1793488431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1AIKyvNFejxgpJElRWUpbqx4cqYCbCrAW59Sl75hF3M=;
-        b=bEAEJVkOFRV/r5SFuPpgkq3+D+fdTibg2XIBWT2eXGiN8BxiFuGhps5MZxebVN+ZF8
-         yK0pCdbN/M4QUwyYfHYHk7McXb78HB+3XZb/DDi1wN5kjJPLGjds5I6wJubT9U+RXY8V
-         /QepWwgIoP7e4eEfCko9Lc8zXkBO5b3/77l6N+AZNatYbIEk3Y3qn6rsLCnJCuLWtnP3
-         1NCBQBqH22915CxlGJb5UKAzXUoULFzh4sgtejeAxENtixWS60mA+yxBI38/gsWY6zVZ
-         jSUsZ5Oubh1XusNCLNYqq657SPBittlCwS8a84xQ5sZCgPLGhUjcgxAHEIxGYa2i3uWu
-         DaKQ==
+        d=gmail.com; s=20251104; t=1792883633; x=1793488433; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=imAl4+nQz/6gt4gpxMhLcrwfP6Z7GTEGSm74OZaRico=;
+        b=NrStFlRltiFi7cA7liJFpE6qPKybS4VZpOjC5fp0LXf/iEtTddkuQspnqk3FuCL2Gl
+         P8nT2Nhhfx1/QFKJ6SAiJlDtZYbjs8u/CP9secYM9yFnL4kBM0oGONLZ9hYteeSBdwbb
+         f3G0Je9HzdAkRDG//UKBtwTAdcYm9aCV2s7lxjj2pvM/XMG6w+iL60Aj+Coba8Kyrjrf
+         M0jXUlBHfMi2WxcHgsnkEXOShdfRCuJSOO2Z9QcuaqYSR3Z85Y5U9quONEDqssJVybiN
+         nDX67zcJAbBmTxfJJIrDE6Kqdf77Mma98YmhJlSeC1e/v4gfGW3n9sPtTyXkwOKeAH5y
+         TDgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792883631; x=1793488431;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1AIKyvNFejxgpJElRWUpbqx4cqYCbCrAW59Sl75hF3M=;
-        b=SxKHIEM/v2H3041lGjZHXtWizk65cmvCm68sb2WM4r1tLTt91sfRppQgz3mYhGQ5Bv
-         kDwSeLKt4leEbwJbYvAmZ42U5rXRlrnIvcoMY7urBl9vyEPvNWxmISiSy/6LHPQzB6Br
-         EelCPKRIfnaBq1W1J2HNyu/vyInO02h35yDDPK3+dCSOMS4NyRiwcwHWIvE+Q6Mf7rYg
-         Ck+SwuHyulEYxSC1KYYRr9EPd6JhC6k3FBh1zFONjcOkcbjL8pLnL36emesvYB0PpsFH
-         sfq29XSuD3rWjCJlAaeB23aH5EfKSgmWe7rzMr7ZsGdXYbWuKlsLnliI2fj9vb2GLcrY
-         5C6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxDtRHCw5OzINbqjEARdo7Hj0lZM10yauAXucUn8oPwRfPc+kSKQZpMXeGRdj1yVlIUu5bzDWXL6yk4S78=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG14xXvk6L7WYpuWG6VxVgs9Aivl/9XrgH309ExPZFtAIr7lJJ
-	beTIZNfJJZ7RVwT/3mTJ7gPqEDYH6NR6zdCeNER6Mxkll2HJRbbmxAM0
-X-Gm-Gg: AYBFou0LqKpKPQJ5ISq5cszwM5ReDtFyOdg9jt51b0jfguA1j1q/Gzs/JS340UpumFt
-	nmf8MlymoEg1y0hgEMycpOT1haimtKbAH/if/VZiZ3oWUBo4cXH+Mc2qdB3WMZDi1FphVnpzllz
-	hPJo/dSe8VIvYZR//PQz77wgEspeoePAH009qBqSixiHp9Bibkyv0T6lJxwsIJY7nSOr/ZDJ63O
-	7OqGKUg1DYn2hTzgL0aqQKUIZ+F7c3vROG2tpIDhoxfxOZQaV3SBOzAFez4RFMkl8W45Krq19vV
-	YivkD9+uZI4XMRTmBvcD3RorWfaNq9UVKaxrRhxghCWjWc0kltospufiiti+bh/ZEO3sEO3sZdq
-	CjLJ2/5m7cNcVGM9qSEXp0pUTBHazGV2Rlgy5IOTXQrBogjum9IvPPO2uMOP+QMfD093rsgSyA4
-	oO9Ow7jkOyKbXRwsaHnk8whNAyMrOqyNDD229i3T1F4HfQr+rcsXEfHTPaoOp5n6QL6SI1pGH/W
-	/ay02TvSq03h/MWPK7KaCtA/GNPztRT9x0i+dULqnXUS8teCZbHiHpXwWzENDMh0Z2NydBPgLN0
-	eJwM
-X-Received: by 2002:a05:6102:5708:b0:7b2:f3ff:6b34 with SMTP id ada2fe7eead31-7ce5ca75b82mr1051989137.1.1792883630780;
-        Sat, 24 Oct 2026 16:13:50 -0700 (PDT)
-Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:efc9:520c:e99d:e5ce])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e7b8f0csm3775406241.5.2026.10.24.16.13.45
+        d=1e100.net; s=20260707; t=1792883633; x=1793488433;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=imAl4+nQz/6gt4gpxMhLcrwfP6Z7GTEGSm74OZaRico=;
+        b=dMvk7vDY7I3Y7zbtCfw0iYrEV95axwwetSQwn0+pVqKOLB8Avl6IsQXz7szQGV5wT0
+         pZtwGXmy8apzh8vRBf2OeuDADqPTlryBUTkrHxTd+Fqg41323wuxqcuFmFULN0ZPN2Gu
+         eAH/JkYg31YiF4TNJTdEVv6ECKAdRr8DbVieylsNEUDKgnSsvYRoZrD0JKUmpmbGIaHq
+         fO9oMSkNsTrfZpXL0Cry6PcekOYmmKK02J+6kRQARMnR/ByiRbZDISJDPVhzcs8Ja+3z
+         1P8PQR/bL3C2nU2EejGFhAZyx5v1LOstkRID+z+ljx5/u4gZfASIFPHTrxZ2Hnh0XxVh
+         WoQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfEvu2gDYZ+aE5ItimJ2k8vVmuzMKCFPjVdx6+5xZ2/D2y6J8ar6Q0aHPPE4XOA8NlCsgMQjXAPJ75cvk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfac96G+1/nEuQhqk6t2xzhXrYGrYxtCndE44MTzsyUfM5HHJ5
+	AJGOAp2pqzFXUeqKCOy5UaQRSlLf/v8QUvVE11zltA0DS1DVxCqwG/6O
+X-Gm-Gg: AYBFou2QfrtNhfKJGPgzQ1g4cbyhAi+vuSXNEcFjEzlEV1hwPySi7sRRXa9MpuiEvq3
+	W2DpGue47ORCY3K4PTa+sWL7JR+SjBE5srlKfSkhRz1ApueIpv+ETxpDKy7hPzBgseF/+xNPdXJ
+	I/c+9Tt6JOI8LW+7zR/WdT7F+UsSKNkadWqD1cFppoXqC8lhnIWZxwrmgfPenK9RrUgwo23jcb+
+	5cShCWAibFh+ZIdYVwFwOlUTfjz6WQPieNZnqY/6DZ9NGVZYt+LddoDwwmvPwhLmxxo2QUAQunn
+	7ypT+W+NcQsdGEg4tREj6F3ru3NI89NoOk15SU/xpkB4dUmqxhLvQBw0p167HPFkWUW7VKukRDZ
+	4JamRvVbKPp2rPpcYsB0Lu/4h4G2Ls9YC9ZalRS9NtUtobyS+NKLOLL8XZPcjEUJoM46dgQ3zdE
+	O/L7iQMV4zLKywyL5GKgBvKaYOx9KK2p7e1MaC4EmgVsjJ+jrER5P682tXXcWORyU584XyTy2nz
+	3+x1AV2McRocQAa088R4E/c09GYQMKhr7undi1weiL3DG7Dsy+yquhYMNaNioVKXEUKefRbIoM6
+	vhRQgXO2MXDxUFDfc2CwULf2oaW1lj9QAdNlYmEX
+X-Received: by 2002:a05:7022:49c:b0:144:c128:4c4b with SMTP id a92af1059eb24-19937309cd8mr5409029c88.36.1792883632404;
+        Sat, 24 Oct 2026 16:13:52 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5937dsm10508969c88.20.2026.10.24.16.13.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 16:13:50 -0700 (PDT)
-From: Stephan Costa Barros <stephanbrrs8@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mike Looijmans <mike.looijmans@topic.nl>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Sat, 24 Oct 2026 16:13:51 -0700 (PDT)
+Date: Sat, 24 Oct 2026 16:13:50 -0700
+Message-ID: <ab1d30eca12d5e7a764da99b68d0e229@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Rong Zhang <i@rong.moe>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>,
+	Maxim Mikityanskiy <maxtram95@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/6] iio: adc: ti-ads1298: fixes, and ADS1299 support
-Date: Sat, 24 Oct 2026 20:13:29 -0300
-Message-ID: <20261024231335.280955-1-stephanbrrs8@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard controller
+In-Reply-To: <5bdb870be988333df200ac7d4904dd1bda6ef52f.camel@rong.moe>
+References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com> <8cdbdcb893e2353e0ea2fe919e0c8a6a53f8b683.camel@rong.moe> <7b21717e80a7b779ab94d964ca40ee68@gmail.com> <5bdb870be988333df200ac7d4904dd1bda6ef52f.camel@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,88 +104,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-This series adds the TI ADS1299 to the ti-ads1298 driver. On the way it
-fixes twelve issues in ti-ads1298 itself. Five of them come from the
-automated review of v1, which was a separate driver derived from
-ti-ads1298; the others came up while reworking and testing.
+Hi Rong,
 
-Changes in v2:
-- Extend ti-ads1298 instead of adding a new driver (Andy, Jonathan).
-- Bindings: the ADS1299 goes into ti,ads1298.yaml, with no clock-names
-  (Krzysztof). ti,ads1299 names the 8-channel part, as TI sells it as
-  plain ADS1299 with no "-8"; ti,ads1299-4 and ti,ads1299-6 fall back to
-  it, since the channel count is read from the ID register. Each ADS129x
-  part also gets a compatible, with ti,ads1298 as the fallback.
-- The issues the automated review found in v1 were inherited from
-  ti-ads1298, so they are now fixed there, in patches 1 and 2.
-- No <linux/mod_devicetable.h> is added (Uwe).
-- The ABI that v1 added beyond ti-ads1298 (writable scale, _available
-  lists, timestamp) is left for a follow-up; see the end.
-- v1: https://lore.kernel.org/all/20261019001247.483005-1-stephanbrrs8@gmail.com/
+On Sat, Oct 24, 2026 at 11:30:06PM +0800, Rong Zhang wrote:
+> However, the methodology has been changed from hardware-based to
+> software-based. Because of the fundamental change, it has the potential
+> to break something if some users depends on the side-effect of toggling
+> the aux port.
+>
+> While my device never needs the quirk, I can think of several useful
+> side-effects:
+>
+> - pause the interrupt (and hence pause event handling) to save some
+> energy
+> - prevent the touchpad from waking up the platform
+> - reset faulty touchpads
+>
+> By switching to the software-based methodology, all these capabilities
+> have gone. Of course, relying on these side-effects is a misuse, but
+> relying on the parameter itself without reporting it to the mailing list
+> is also a misuse! More below.
 
-The series:
-- Patches 1 to 3 fix ti-ads1298 as it is in mainline today, grouped by
-  area: the data read path, power-up and the device clock, and smaller
-  issues (scale, ID check, regmap, Kconfig). Each has a Fixes: tag and
-  none depends on the rest of the series, so they can be applied ahead
-  of it.
-- Patch 4 prepares the driver for more than one chip family, with a
-  chip info structure, given as match data, that holds what differs
-  between families. The ADS129x behaves as before.
-- Patches 5 and 6 add the ADS1299 to the binding and to the driver,
-  with a compatible for each ADS129x part and the optional DVDD supply
-  and PWDN pin.
+This reminds me of https://xkcd.com/1172/ ("Workflow").
 
-The ADS1299 shares the commands, the data format and most of the
-register map of the ADS129x. It differs in:
-- the PGA gains, 1 to 24;
-- the data rates: no HR bit, and bit 7 of CONFIG1 is reserved;
-- a fixed 4.5 V internal reference, and the reserved bits of CONFIG3;
-- the ID layout (bit 3 alone tells the two families apart);
-- the register map, which ends at CONFIG4;
-- inputs that are shorted out of reset.
-These are fields of the chip info and an ID decoding callback; the code
-paths are the same for both families.
+Also note that I8042_CMD_AUX_DISABLE / I8042_CMD_AUX_ENABLE only toggles
+the AUX clock inhibit bit in the 8042 controller; it does not power down
+or reset the touchpad (psmouse is unaware that ideapad-laptop poked the
+controller behind its back, which is the whole problem), and i8042
+already manages the AUX port and wakeup state across suspend and resume.
 
-Testing:
-- On real hardware: an ADS1299 with a Raspberry Pi 4, running the
-  driver from the tip of the series. Probe, scale, data rates,
-  single-shot reads, buffered capture, and buffer start and stop under
-  stress all behave as expected. The clock fix in patch 2 was checked on
-  the same board.
-- With a KUnit test, kept out of this series, that runs the driver
-  against an emulated ADS129x and ADS1299. It fails when most of the
-  fixes are undone, and it found the command timing issue fixed in
-  patch 2. I can post it if it is of interest.
-- Three of the fixes in patch 1 were found by review and could not be
-  reproduced; the commit message says which.
-- Not tested: an ADS1298 or other ADS129x part. Mike, if you still have
-  an ADS1298 board, a test of the series would be welcome.
+> A completely new behavior reusing an old knob is always prone to break
+> *something* in a obscure way unless users are notified about the change.
+> Breaking something with a visible warning [1] in kmsg is much better than
+> potentially breaking something in radio silence. 
+>
+> We don't want to support poking i8042 anymore, so the use of
+> 'ctrl_ps2_aux_port' is anyway becoming unsupported. The parameter was
+> introduced only for debugging and is expected to be removed at any time.
+> If users don't report their use of the parameter to the mailing list,
+> they are already relying on a broken setup.
+>
+> By renaming it and breaking the unsupported setup loudly, we encourage
+> users to report quirky devices, as well as getting rid of an outdated
+> parameter name.
+>
+> [1]: ideapad_laptop: unknown parameter 'ctrl_ps2_aux_port' ignored
 
-Proposal for a follow-up: once this series is in, I would like to add
-generic IIO ABI that serves both families in the same way: the PGA gain
-of each channel through a writable scale, with
-in_voltage_scale_available, sampling_frequency_available, and a
-timestamp channel. Would that be acceptable as a follow-up series on
-top of this one?
+We already have DMI matching for this quirk (ctrl_ps2_aux_port_list[],
+which has only ever contained the 2011 IdeaPad Z570 since commit
+c69e7d843d2c added it in 2022), and the module parameter simply sets the
+exact same priv->features.ctrl_ps2_aux_port flag as the DMI table.
 
-Stephan Costa Barros (6):
-  iio: adc: ti-ads1298: fix the data read path
-  iio: adc: ti-ads1298: fix power-up and clock handling
-  iio: adc: ti-ads1298: fix scale, ID check, regmap and Kconfig
-  iio: adc: ti-ads1298: prepare for more chip families
-  dt-bindings: iio: adc: ti,ads1298: add ADS1299
-  iio: adc: ti-ads1298: add ADS1299 support
+Intentionally breaking the module parameter for anyone who might be
+using it for its intended purpose (making the touchpad toggle hotkey
+work on an older IdeaPad) just because of hypothetical spacebar-heating
+workflows does not make sense to me.
 
- .../bindings/iio/adc/ti,ads1298.yaml          |  41 +-
- drivers/iio/adc/Kconfig                       |   7 +-
- drivers/iio/adc/ti-ads1298.c                  | 513 ++++++++++++++----
- 3 files changed, 448 insertions(+), 113 deletions(-)
+Thanks.
 
-
-base-commit: c9dbe2a47f635465c9985b7af74d2ae310e98125
 -- 
-2.43.0
-
+Dmitry
