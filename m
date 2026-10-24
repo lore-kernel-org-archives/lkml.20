@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792857048;
-	b=SId/GAgxwMOUSZ1hkPQc53P2l1LR7eS6oooyFxPr8CoI/Bwzp82STtEMX3XYYQzrEyrR
-	 Yt4Jg4CU9xOvWWBRobA9O85M4hiVtt2EwXQS1/6vF4rBDZMFrUG7vYEDzmuSp3W6btEpN
-	 tmo+ANYT/oEbuq+MC2hofU7dH+NLCfoP9/THHUkj01BQF45dn/svwQ06sVEN5vRz3e+fd
-	 6xmaTeL69rljtjdY/7vWoLJvgVWnwZFRFVYhIYqGvx4Xz6yIQ1xF1vA+QLAf/YMFg6reN
-	 ikSSI4P09cwaTfmuJ9Zs2DAkB4f5WkubD/Osrxq5knPANMLZ8ClApUEwu7l43BNN1pw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792857048;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792857363;
+	b=DMSQl5fVwKh9WZqSPWY6I3GWS4tjOEefCGK0BAtwru3J4tBUTwIVFQH8SA+MwWQ/Y3md
+	 SOdhdk9J8W3u6xC+xyyglWzPH57G6Xl9xJl6Hz7/92zCECXSmoWOQf9TyhBKJO59AhRCQ
+	 ZjmjAdnW3N8MZpZVpDSf6UqaGBSR2AlP7LR7SHUYUUy1x/JQJ2guFQw6mHXrJIE5jeqo9
+	 PKIeo7ScsCVJGBF2Z0Cg90duN+4z3MBxLXN3f5yHsAn9HrrArHOBklr2x/2w5fnuITDJb
+	 TpBfQLJkAqcrdNIFn/Q+ZO5LWf3y19SngfNAbniHvzXrWvVNc8CPfgw4TyEI+RJbrKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792857363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
-	b=IzTYFTOduMG+m8ZxeM4avwWl7sBOVVIxl30i2xDC5ng5m61G4LGZaI4k7ko0JDquAqLN
-	 xfEQpt5trZiKBOzN9iBX3Kda7nFPxIoC5p4dIuGD2CgPZ7xqKAupF69jQKHqKQtrXMSyl
-	 lzb+t3mBXgCZH/ZFxqjwnCofYok52QqtFYLDwbelIbMRxvDgMOE8R966MV2XA3S3GtLV/
-	 BzvsgFbMarWaWjfBdr77Fel1XrWkneBspaRDqio1mYOrYh/3Q+F0FZ/7FiQzAd9p+OFGY
-	 /uLSnDyFYW8X6UXNoFUjGYmi6ansP+Ln4Rp6RbL75+t6W3DwF2wXwb5GBy5NlN9ijDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vox89apY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xwpMYDYcOgRgHbSKUixXR2QDd4uBp9abfLMB5Scqs14=;
+	b=aTgtVmBzC8IIKssphWDrAQjE9VA7UhRLfSLlZ7d3pUwuI4CFBeti6jTcQarUqx4/S6gc
+	 NC1EbBv+p9unLlsv6UEzeu/y0Mp3egeXV6pyQmW2Fwlyqc7TEht0e1XN4IEhTQxpfQgZ+
+	 5FuazAYURgLR5yB6nmz8zFJkZsUzOkf/dVudOZA/NjXiw7pCQ7rKKWpCfVzMh/YPQpWpv
+	 CZS0Uy2zd9T87YhaohReUa+mNNcwAgLT433oxxZ8mseiplBTBImtWD067BAnpYTDqFUHx
+	 UEhCcuTn29ZhxeHSd9mudodoZInTLFc+Nw+/JYZf0Y6yDezYW27z7wvWttqSUet93rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=iIJNe01a;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205E3606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:50:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 205E3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ECE606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82ECE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vox89apY
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c414e5d282eso198635066b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:50:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792857046; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TWEolK2GkTnjNOJr2qNXuEKKH2d5Hs8mwUFmGysIMONOvT8t1CYd09qmy7kPz+L2wg
-         YbSvUjRHtyGv10/Ed3kTxvjezi9Gtd5elsfDbJdb8b7WKWDakYzE7w6B/GLfywyTR9BP
-         bO1PBdMN30P0vemKM18VXmWYUrEBQzH7CRdbw8ew/K9rJWLhH18n03U6y4zZABHcRGSz
-         XF9EGRxfe7IGalKYTUj0Hh651BSHK68l6khjkaWZUKXLcIdgIV6hoE4fpv4AQIeoXmKg
-         7LCPv5KtsElpPuuwxMbDbbDspMiaUGLWZPMClHupgwQPg6ryMO8T5Bizs3zQyn7zsHSW
-         +25A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
-        fh=md6ON9+uA25Ktu4PpPPy/jHV4ZJUVSdrnUHtR0h+sYo=;
-        b=C8hOGCMpcSZpMCn8eS0LxZ1YcZN+yAY6AoiGHEy1HpG0K2Bp3SZSrdvZK6Ii2nt8I7
-         tTWdawCGwZZcfqbBgmmfYMIJy2FewcC2YV9nG7xon7B7WRy9z2Cbf2yvBF4iza/HeFSP
-         EOaBSfnvY3XQ0v1L2hInjIVwGpcSbUWxL1465pRpAVJsYmr23Ue3ZEOLp1HUjfg/KDIb
-         T1OHgZeIg1FU32YC+K8CRHBHzO0Pdjxp5l+P4esWkoIsdzLyenhbEAXRwiXmWvhzrzQL
-         9rvkXbyu9c6kuWDREdYuxIWLE9nDb0/DBnJ1mDhqBoiw7GRlamBnVhT3yPTzt9OD7ALP
-         IaGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=iIJNe01a
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35c76e9614aso2766238eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:56:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792857046; x=1793461846; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
-        b=Vox89apYKkxzNP74T2aNak5u22twqgjwpHPx+TqfYVI0UJWK006HQLjZkZctsylKGW
-         OdyR809srohJ5Y3qGxuK2W8T/C2JGVFF353PRQN8LnBXRXizIFOonARk9qtHVMvZAL5Y
-         907gpDI0XshwymoUI4HpatxHpTmFpZFhnzlNOtKKaW8hh6T5743QXiv+E2sAh2Shrv6C
-         lov+NAcVRKcR1cDfGudqJQcrkBkoELFFnrj/qGBSSCxAicpRfuMbh9dHP6x881FjA0rg
-         5IQcjVKVNaHZPgBEDGmaSbyODaFxyys81Djm4kb1xFPSiNjkAE2s+VWYDsJ1qyCJ4wCe
-         E1XA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792857361; x=1793462161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xwpMYDYcOgRgHbSKUixXR2QDd4uBp9abfLMB5Scqs14=;
+        b=iIJNe01aE7cAImpH3BDqEPFBUyCMjosDYRuFKuqUo19KbM3T325lRYH7QmpcZtH5hL
+         iOlqpcMwnghpKm1YJIkZRX9Nrki2724SJhri66r4fv+c6rfgvLPH+DoQK6dVsS1VtVdg
+         lfSmRzH4+2bSCgDd8VjzbCheYEXcFZFlFZlh2W8aCqbTBY+BBq5hWvEundD1xEoKU1np
+         PNJvhyVMrM4PMyENq/P4Ub4fEN+KrLVWM008BZ5xHKIsVIpPBVTLqOZ7kwllBAUQ/OFU
+         VlfPJzYs5lA/ndpxFjeXgj2mcs7gx45PFvk/Fqx1z+PaxHRCq4DKcDnvMQnW5KgEOAXR
+         RrqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792857046; x=1793461846;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
-        b=Dd4FdhsmJWD3gLyEr1TtvxdJdmEPRXb6wYftsKmmwSTgnVMOkVdL6+6LdjfOFKpwLz
-         9lBDNbkd26m3s9//ArchNHRXl0B9FQiKESU6yX1++foS+3Ys/oc1YTXhsUa4GG+eyW9F
-         BkkKp3vBOLYdD6OV//8P1Elelsg+1yR8RXPj7jqiYtHkSXtK43psKrave1eToQWYd5Me
-         ysYiJVTmpt8PYWvMFMYjJvCl9ovhDHdFjPLnW0XDKDlWbx+1H4dhLmMO27eDEwjjHeZy
-         em4de8+J30q8kpZRMsnxWyORMwYfzcPQ03GCzpJ3WSAWthx/bZHOaqxIqDST1ywJQxcn
-         q3gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuvC2I2lEX6uZc1d6PhoNP7P6k/WsL3oo6VpO8b0yYXqw5YfNu8/S+tcX+VuIRkQAAtq7Z4qiK061cJ3c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZxB99ropReHhqDF7lHlHYUzEhDUxxZ0F9WM2O1r5jSErk74S5
-	sPBYzLqmaX3H+/bKxJ+eTITi4KJKEGASiQ+kxj2uQo3iAsx5NxFV6jyLcDbbbSALlz4TDYxJxMN
-	GTG2n3CKpLwnl+XrtRcitcni7sEVbEoU=
-X-Gm-Gg: AYBFou1qr2HwrmC2Oa+Rje8Th0ID4gGgvCCBICpgwaruoCKC+JQDCSQFtq8U4NL/3bH
-	/6i6w0z/oE/CUYCwzd+QQV4QMk9Ibxxkz4InDSeRlJ0Rc7ODQMiB0drjiwlh6/r0js/G9nXi8xJ
-	25/cCa6/a+owRc58pPVxbR9/vk0a97PqhSYik1X4JEesxLlwxBbybSVrFbrZfFDUs4Pk51aySA6
-	Xckkhf9WxlZc5PH/LZHZCeLO66LRPGI5VeDV9haC2+uOQ2SYgXJQuxRibcji4bMWueVm4oIsQJR
-	NpTfIp6dgRS+Av2y8xSgA6IKB/O6P668ALGbhzFDZ8T+/7baQCFl4FL4K31CxaUNTJzE11WmtlK
-	zBDIurT3/5mwMrNUO9LNqvjBS2dxp4Gu9l/dnH2qA/TGVC0QMy/MFNxc0S7Wkj+e6zlWtYwvqiA
-	n/Eh7h90Yb8qeHl2c=
-X-Received: by 2002:a17:907:3f1e:b0:c41:26b8:c49c with SMTP id
- a640c23a62f3a-c46bdd97c19mr234177866b.10.1792857046023; Sat, 24 Oct 2026
- 08:50:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792857361; x=1793462161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xwpMYDYcOgRgHbSKUixXR2QDd4uBp9abfLMB5Scqs14=;
+        b=iMxuf7iCjHQq4JyzT6TEygjCdR3gnJZmEUpleksTUQucbSN7wo07NZC4libfEpTx8z
+         nQ1WUb/Flh0I2o4JCHJnSTGhc0AE2XjwlGp6L+an4qW02CA3pER3H350OvWoXXwWuxaM
+         n7WkuAxZvfMVrhO02y9jtd2IcY4tOlV1wsa1CclQwDnTrJaXk8odbQ3csvKl/kgMzcD5
+         bbWKaOcpi1CLVsKgq2YoAqvPdwhdryoWta7uMduESf9Rm884I/kDF+Y40xC+OGTvfbPe
+         Fi7kC5sKUiphY1qJ6ySTTtPq9k2ItwQfacvh8kXTgOFCiqZW4L2yJSERLSoSQZPN7UET
+         PcwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFf4alIkzlCA7GOD3uvt76Y6YNR9+dHFshpC/28b7baW32mU/IBAPsiOMFsSS707wYMejZ3ntHRDRugZo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJa1aZm4Mucb/7u2OWlPBFStCxiY0g7kXsYTk97w743/0i+OEg8
+	NKQmmf1+d6u3VUfNXwczrvaxdOub5cIwp5ONSikSog0P/tP5TZQSYXhLfE3gaYmAMDw=
+X-Gm-Gg: AYBFou2cYDYUyeYmmw1uhiH5I45D4TV7jkPMbfterHiFKqr2uFvcUxJfKju8NstgOjT
+	iOteGRRjgO6n8q9fQgJq0+ePLCqVOcif2PHP1PjgFgqFLysWAFZPANCEMGYS76MVO6w+IQ3wY4w
+	Rd6CP0XzkVRL2dn677w2oxkB26w7bfHoSUf3ensKLsdM4mN53tG0q6qS6q61++5zOJ1RW5fn3sF
+	C5PWyEsx5j0m6wqlt5KIsmDcS7sx4p77Zzg4277kii3YOZ38B/yww7A3LaliyZFdINoRC5EMhVl
+	3b4U0PXSaM7GD5kxaGMLRge+V++578DH87evXECRC1EGPQxRhaz0wgicKztxTXEyjxCOFA/hODv
+	TpvCPgZ3WseVrUowy5dl9R1oDqwzXTj6hiXK8MEfbD0dGwMiYvZmbI5csFaJeFCFRUZthJOvGcD
+	/e/AdNQ9Xvf0kKpwOZ5PLywxVozQ9Z35nAyq1UAuphCeD6doAF5Z5oCJzXh1RI010LM50VTCbBO
+	sWaUlInNu5FQ125DLNjrMpU9wBqEvwBQgX/0qk0aQL6PN6Gly3zgfapr/wuLhglp98q0DuJgAAb
+	UOsjfD2EFPfkxPyDHrgLDyrR6gl7Xjf6fiq1sOG7GSTPc01feYY/D8vhSLSWKGCo
+X-Received: by 2002:a05:7301:a2d:b0:368:6e2a:af3b with SMTP id 5a478bee46e88-369e84ba94cmr3652224eec.16.1792857361288;
+        Sat, 24 Oct 2026 08:56:01 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:dba3:be57:a674:a67f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d812d6sm8641532eec.10.2026.10.24.08.55.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 08:56:00 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: Sean Hefty <shefty@nvidia.com>,
+	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] IB/cm: hold a cm_id reference across the send error callback
+Date: Sun, 25 Oct 2026 00:55:07 +0900
+Message-ID: <20261024155507.3418345-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,114 +99,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
- <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
- <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
- <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com> <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
-In-Reply-To: <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 24 Oct 2026 23:50:09 +0800
-X-Gm-Features: AclHuK8EdrvPlNQOkv86BcPqxKsSvjXgFWnjUR3jEYoufbz3bHhkuKrZQsexIF0
-Message-ID: <CAMgjq7CN7qTes+OXvCfsgPOnbtyY7YPytTEP3zZJTBxrGZ5JnA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 4:03=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Fri, 2026-10-23 at 10:24 -0700, Nhat Pham wrote:
-> >
-> > * Swapoff: this was brought up as a request, but we ran out of time
-> > before we could discuss the motivations and use cases behind them.
-> > Folks interested, could you explain as a follow-up?
->
-> This is one that I really don't understand.
->
-> In my mind, we have vswap sitting as kind
-> of a swap VFS between the rest of the system
-> and the swap devices:
->
-> +-------+     +------------+
-> | vswap |-----| swap cache |
-> +---+---+     +------------+
->     |
->     +----------+-----------+
->     |          |           |
-> +---+---+  +---+---+   +---+---+
-> | swap  |  | zswap |   | zram  |
-> | file  |  |       |   |       |
-> +-------+  +-------+   +-------+
->
-> When a page is unmapped from userspace by the
-> reclaim code, it goes into the swap cache.
->
-> The vswap layer then decides where to store it
-> at eviction time. This is configurable by userspace.
->
-> If the zswap pool is shrunk, the vswap layer knows
-> where to put the data next. There is no need to
-> change page table entries to indicate that the
-> data was moved from zswap to a swap file.
->
-> If we decide to disable one of the backing swap
-> devices, the vswap layer can just move the data
-> into the swap cache, and the page reclaim code
-> can evict it into a different backing store, if
-> needed.
+cm_process_send_error() lets cm_free_priv_msg() release the reference the
+message held on the cm_id and then keeps using cm_id_priv, dropping
+cm_id_priv->lock and calling the consumer's cm_handler() callback. If that
+was the last reference, a concurrent ib_destroy_cm_id() takes the count to
+zero and returns while the callback is still running, so the consumer frees
+its context underneath it. For an RDMA CM consumer that context is the
+rdma_id_private which _destroy_id() kfree()s once ib_destroy_cm_id() has
+returned, and the callback reads it through cm_id->context before any state
+check.
 
-And in this case we want to disable vswap itself.
+Reaching this needs a send that expects a response, so a REQ, REP, DREQ or
+SIDR_REQ, to complete with a real error rather than a flush, and the
+consumer to destroy the id while that error is being processed.
 
-> Using vswap as a swap VFS would also allow us to
-> get rid of the page table and tmpfs scanning
-> code we have in swapoff today.
->
-> In that model, I really do not understand what
-> "swapoff vswap" means.
+The report below comes from an out-of-tree KUnit test. The race is a few
+instructions wide, so the test blocks after the spin_unlock_irq() until the
+racing destroy has finished and KASAN can observe the access. The cm_kt_
+frames stand in for a consumer and its destroy path, and the test is not
+part of this patch.
 
-...
+  BUG: KASAN: slab-use-after-free in cm_kt_handler+0xaa/0xd0
+  Read of size 4 at addr ffff8880029582c0 by task kunit_try_catch/39
 
-> What exactly do people want to accomplish here?
+  CPU: 0 UID: 0 PID: 39 Comm: kunit_try_catch Tainted: G                 N   7.3.0-07363-g734bef548a96-dirty #1 PREEMPT(full)
+  Tainted: [N]=TEST
+  Call Trace:
+   <TASK>
+   print_report+0xcd/0x620
+   ? cm_kt_handler+0xaa/0xd0
+   ? __virt_addr_valid+0x208/0x3f0
+   ? cm_kt_handler+0xaa/0xd0
+   kasan_report+0xfb/0x130
+   ? cm_kt_handler+0xaa/0xd0
+   cm_kt_handler+0xaa/0xd0
+   cm_process_send_error+0x2d9/0x560
+   ? __pfx_cm_process_send_error+0x10/0x10
+   ? __lock_acquire+0x57d/0x24a0
+   ? trace_hardirqs_on+0x17/0x100
+   cm_kt_destroy_returns_during_callback+0x1e8/0x700
+   ? __pfx_cm_kt_destroy_returns_during_callback+0x10/0x10
+   ? kunit_try_run_case+0x1a4/0x4c0
+   ? lock_release+0xc3/0x250
+   ? lockdep_hardirqs_on_prepare+0xd5/0x180
+   ? ktime_get_ts64+0x1e5/0x2e0
+   ? trace_hardirqs_on+0x17/0x100
+   ? __pfx_read_tsc+0x10/0x10
+   ? ktime_get_ts64+0x242/0x2e0
+   ? __init_swait_queue_head+0xca/0x150
+   kunit_try_run_case+0x1ca/0x4c0
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? lock_release+0xc3/0x250
+   ? lockdep_hardirqs_on_prepare+0xd5/0x180
+   ? _raw_spin_unlock_irqrestore+0x3f/0x50
+   ? trace_hardirqs_on+0x17/0x100
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x3aa/0x550
+   ? _raw_spin_unlock_irq+0x23/0x40
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x493/0x940
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xdb0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
 
-One thing is, to prevent page fault (minor), not sure if everyone is
-aware, but a page fault itself is sometimes slower than swap IO /
-compression (especially for compressed swap backend).
+  Allocated by task 39:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_cache_noprof+0x201/0x4a0
+   cm_kt_make_id.constprop.0+0xa0/0x470
+   cm_kt_destroy_returns_during_callback+0x84/0x700
+   kunit_try_run_case+0x1ca/0x4c0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
 
-There are suggestions to use MADV from userspace, which is not really
-maintainable when you have thousands of different, opaque and dynamic
-workload, and that is very common for cloud providers.
+  Freed by task 40:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x119/0x490
+   cm_kt_destroyer+0x31/0x50
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
 
-I also hope there is a way to release swap metadata completely too.
-e.g. for fs, you at least have umount, and can rmmod the fs itself
-afterwards. We also have many ways to bypass the page cache. In cases
-where a virtual layer is just a burden, we want raw physical swap, and
-the ability to swap off that too.
+  The buggy address belongs to the object at ffff8880029582c0
+   which belongs to the cache kmalloc-8 of size 8
+  The buggy address is located 0 bytes inside of
+   freed 8-byte region [ffff8880029582c0, ffff8880029582c8)
+
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888002958900 pfn:0x2958
+  flags: 0x4000000000000200(workingset|zone=1)
+  page_type: f5(slab)
+  raw: 4000000000000200 ffff888001041500 ffff888001040348 ffff888001040348
+  raw: ffff888002958900 0000000000800048 00000000f5000000 0000000000000000
+  page dumped because: kasan: bad access detected
+
+  Memory state around the buggy address:
+   ffff888002958180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+   ffff888002958200: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  >ffff888002958280: fc fc fc fc 00 fc fc fc fa fc fc fc 00 fc fc fc
+                                             ^
+   ffff888002958300: 02 fc fc fc 02 fc fc fc 02 fc fc fc 02 fc fc fc
+   ffff888002958380: 02 fc fc fc 02 fc fc fc 02 fc fc fc 02 fc fc fc
+
+This reference used to be released after the callback, which kept the cm_id
+alive for its duration. Restore that ordering and drop it on every return
+path.
+
+Fixes: c1cf6d9f743aa ("IB/cm: Call the correct message free functions in cm_send_handler()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/core/cm.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/infiniband/core/cm.c b/drivers/infiniband/core/cm.c
+index 1a2c2775b14d5..67efb70ba58d1 100644
+--- a/drivers/infiniband/core/cm.c
++++ b/drivers/infiniband/core/cm.c
+@@ -3768,6 +3768,13 @@ static void cm_process_send_error(struct cm_id_private *cm_id_priv,
+ 		cm_deref_id(cm_id_priv);
+ 		return;
+ 	}
++
++	/*
++	 * cm_free_priv_msg() drops the reference the message held, so hold one
++	 * across the callback below or a concurrent ib_destroy_cm_id() can free
++	 * the id underneath it.
++	 */
++	refcount_inc(&cm_id_priv->refcount);
+ 	cm_free_priv_msg(msg);
+ 
+ 	if (state != cm_id_priv->id.state || wc_status == IB_WC_SUCCESS ||
+@@ -3802,11 +3809,13 @@ static void cm_process_send_error(struct cm_id_private *cm_id_priv,
+ 
+ 	/* No other events can occur on the cm_id at this point. */
+ 	ret = cm_id_priv->id.cm_handler(&cm_id_priv->id, &cm_event);
++	cm_deref_id(cm_id_priv);
+ 	if (ret)
+ 		ib_destroy_cm_id(&cm_id_priv->id);
+ 	return;
+ out_unlock:
+ 	spin_unlock_irq(&cm_id_priv->lock);
++	cm_deref_id(cm_id_priv);
+ }
+ 
+ static void cm_send_handler(struct ib_mad_agent *mad_agent,
+-- 
+2.43.0
+
