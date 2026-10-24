@@ -1,52 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806932;
-	b=5AwhtSF/d2FufdBiwoMxT0fku1n73HwdFm1jEMcpyRap8JiTdDDc02IXQDJaSz6diGgD
-	 epPDcadDX5MTt3Vvsmge91PohWqJY655lI7vap2r01AmVIJjFkCmLjDGjw+CsPnaQy4fr
-	 MUwGUc9IofrLTN65nzCc3VEdLKQ30aTaoK4BInzB5QglB/rs/fBjOOtPoNz4PYq85/W/n
-	 9dFkR7aPhifzr9eJRT1nObCYiyFPgFMc+T7FLL8o/Uicznp2zVRd0eg+WPidLW3Qp9Zpp
-	 tqnx91P34AQucA9T5GvnLwXSov7qQHBX2GdAtXa1YGsVY9PY65/krYv2WlFDQZTcwcA==
+	t=1792806943;
+	b=h8NFC0D14ih2t/Skac0p3pRVc/8DA7yux6HTiOsvcfTZNHndWbezkOZRQ/iyFMyuh5bB
+	 h1RZ8g1ZXmlnsNMbTPqWHjWHge1r+IiRO6HpQzcBf0KuVeaJPQFmLqJ/UffCnVDgJLQTV
+	 tIBsAeS3mgNcvhepJr+113mPh2wi7AdpUJ0NNgA3MmJ7I+T+1CRpLbDDX6Xg7TqCJYm8C
+	 xofYCVWGTwnOhbbWQZ4WtK76fODwDAgwcpXyFHWBXxgl3S7phTEp5NlrDDYYa8tq5vAUs
+	 Zmlqxs4mSQwSZYxm9i0ev0Pf3BlYuqfB6iNn9cQdzG0DHQSjRzzpciiVtA25wRnpHRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806932;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YppIFjEuyXfo+V14+YVBV0eu26CmssT56Hs/hEGdv6s=;
-	b=TuUd0qArxEg2IxYXLIgEhBYMvGp054q5/CdyzeYk5AYb+VGNxWb80qpQw2JUj9/qp430
-	 6VypkjpsMZboQDIP6QftN0Xs8vyy/OeyC8iVjP9zSOy+QNWuyBYa3JyLtKSjmAp/7aLbt
-	 HzOhQzxp6Atf0Yd5hr4mH4nzZFk4DrAWykf+Ce519HDwlmy/y/+1HGlu0r8wqEvzTZDm4
-	 I6Iwbs6vyut4dVnYkv8iaV6stYoBY2iLAnK/kZcz5UqwJhbMBMLEUStjEV1K3Ua5tHbKi
-	 HE0aQO5tIZoltd7f+F3ZqEjQuBfUsyjqSEk5jdLOcG7PWrdQHdbO24dt00KsPTFov2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806943;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+	b=gqhhJRRBfsC7tNDDMU6NPVEp1xFXWy8POS09FFv3PVO/RBgMitgA3AX0yxiNuhcbTfak
+	 xU6GiJFTkqyJgauDYgdpkaXrt4lSGNC+5li5Q4DpgtOde+QFknzUYa6wyu9hklhWUEyNd
+	 GW6sAmS95MAWDUAyyeFJmOyPZGNKDcf27NnxtN2kY4c0Dgdw075VDOOtxbcB/w05wDAFU
+	 P8YUB+9ejA1goHOzBJS3yszuDqhhX+oHRFhavcnTkqD2PXxjrjheCrne2GpEsEp1NOjs/
+	 9XYGxFpKoeuvM++3DMiIrzIPAemcpLsq+DkqNd4LYg0R9+ol4Mxc3Q2Wcpqsh+zYxaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO;
+	arc=none smtp.remote-ip=74.125.82.71
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8277C606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8277C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xKQyX-00Dycq-CM;
-	Fri, 23 Oct 2026 21:55:13 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	"Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Serge Hallyn <serge@hallyn.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] ucount: read the parent ucounts before dropping the rlimit count
-Date: Fri, 23 Oct 2026 21:55:13 -0400
-Message-ID: <20261024015513.830312-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941FF606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 941FF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso2581293c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:55:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792806942; x=1793411742; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+        b=Nlbsh4UOoFahNOoAuPj9v5HGS1pWjjXyDelKFUfWeIl/2wsq76INs9hLZSw1vRPHLP
+         PHUdbHiAcP2EYgQl4gowcoeh7tvDjvjksgmM+ACgDSdPeLJRQMeW3G91mctym84XiPkp
+         JzJ5un+AD4vb/0YTZJiG5tVFwR+9NDlSIjvFrlTVIgvG+OJ5SZm2pYyeJ5oxZZyhp/vT
+         LALC5IojEVkKlPHfITvWrT2nHkhC7Gr1KxKdfDlE2TYa0aehuG8PZbdyXOcD14zoPhIj
+         JZ2hhzqAyZKvtNSmrxziWKv3L3VM0mNhlyCsk7dPIEfBTmjF3wrUMk+RpuAyICwQkqmf
+         Lnpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806942; x=1793411742;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+        b=QWwxGCv3cvZCQKp6TCkBsSYal6DYxvF71EgRZOTDFB9BzkEEJZqBoCvJQjX/8uFyOC
+         BKGmwm/g1FV5W5FupppFostfRMvVbd1wPz2ZtT1UwTs2fopnnu2zkVFczmErORvmTblp
+         o+Lu5FGLS42U9NcKUFQlPUHmsm4jluHV27KaDA3i2Hu7lG+ROC2UnPU+5Yv5fgUrfqNl
+         23ABFvMPHuMNzoo8xg0XmTgtagVgR+TC2o1ogKLkaV5uR0pBwtjPFAZvZLS8a3wJlFvY
+         BET6WWO1YnOIZ1vDiDOETdpH8e3/rnMmPfhi2HbETT7K7xlxB8AXOMI3Wi0TwbABUXRm
+         g09w==
+X-Forwarded-Encrypted: i=1; AKwUvBzqGEOgWUl+gaCEqqjBMoZ03Ci4ysZb+VhmUUbPSgS/S34Z+K6DUWEUjjdIPKrib+SzTABjX53hBbDUTCM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLi7mVkqKYgdtzVMBtmDN5yPNm/ZLmnbI5pQfDeW32tEgo1HGQ
+	w+10180I1sL618T86ImZ+YHBPbHL1BOyn50wUbPHFQFYQoYuKWVYpK7nMRWVQnX5rue1R2F+dgT
+	i2B4bXqH+WtjlktGVZ0yEhfphrg==
+X-Received: from dybta14.prod.google.com ([2002:a05:7301:6f0e:b0:368:2c6d:de10])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:e990:b0:197:b597:c441 with SMTP id a92af1059eb24-1993f3f1820mr1399557c88.47.1792806941376;
+ Fri, 23 Oct 2026 18:55:41 -0700 (PDT)
+Date: Sat, 24 Oct 2026 01:55:40 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,155 +75,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261024015540.538758-1-almasrymina@google.com>
+Subject: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to vmf_insert_pfn_pmd/pud()
+From: Mina Almasry <almasrymina@google.com>
+To: Alex Williamson <alex@shazbot.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Peter Xu <peterx@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-do_dec_rlimit_put_ucounts() drops its share of iter->rlimit[type] and
-only then loads iter->ns->ucounts. If the decrement leaves the count
-non-zero, a concurrent caller can take it to zero and put the last
-reference, which frees the ucounts and possibly its user namespace with
-kfree_rcu(). An exiting task frees its pending signals without siglock
-or any RCU read-side section, so when it is preempted between the
-decrement and the load for a grace period it reads freed memory and
-then decrements a counter through the pointer it found there.
+vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
+vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
 
-A pending signal holds no reference on its ucounts: the reference is
-taken by whoever moves the count from 0 to 1 and dropped by whoever
-moves it back to 0, so the caller's share of the count is all that
-keeps iter alive, and only until it is dropped.
+In insert_pmd() and insert_pud(), write=false skips marking newly
+inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
+maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
+on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
+clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
+downgraded to read-only so insert_pmd()/insert_pud() with write=false
+installs a write-protected huge PMD/PUD. Subsequent write faults enter
+wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
+to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
+write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
+!write, do nothing, and return VM_FAULT_NOPAGE without setting the write
+bit or splitting the huge page, causing an infinite write page-fault
+loop.
 
-Load the parent first; it stays pinned by the caller's share of its
-own count.
+Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
+dirty and writable.
 
-Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+Cc: stable@vger.kernel.org
+Cc: Ankit Agrawal <ankita@nvidia.com>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
+ drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Notes:
-    Callers that run the loop outside any RCU read-side section on master:
-    exit_signals() (flush_sigqueue_list() after dropping siglock),
-    release_task() (flush_sigqueue() of shared_pending) and
-    posixtimer_free_timer() (timer_delete(), posixtimer_delete_timers()).
-    The callers that hold siglock run with interrupts off, and since
-    put_ucounts() and free_user_ns() free with kfree_rcu() the objects
-    outlive them. Before commit 5f01a22c5b23 ("ucount: use RCU for ucounts
-    lookups") put_ucounts() used kfree(), so the window was open for every
-    caller.
-    
-    The interleaving, on a ucounts whose SIGPENDING count is 2 and which no
-    cred references any more:
-    
-      CPU0 (exiting task)              CPU1
-      dec = sub_return(1) -> 1
-      <preempted>
-                                       dec = sub_return(1) -> 0
-                                       put_ucounts(iter): last reference,
-                                         kfree_rcu(iter)
-                                       <grace period ends>
-      next = iter->ns->ucounts  (freed)
-    
-    Loading first is enough: until the decrement, the caller's share
-    keeps the count at 1 or more, so the reference taken on the 0 -> 1
-    transition is still held; iter->ns is pinned by iter, ns->ucounts
-    by ns, and next by the caller's undecremented share at its level.
-    atomic_long_sub_return() is fully ordered, so the loads complete
-    before the decrement is visible. rcu_read_lock() around the loop
-    would also do on master, but only because both objects are freed
-    with kfree_rcu().
-    
-    Reproduced on x86_64 under QEMU with the program below on a KASAN kernel
-    (CONFIG_KASAN=y, CONFIG_USER_NS=y) with a test-only delay injected in the
-    window between the decrement and the load in do_dec_rlimit_put_ucounts()
-    and a kvfree_rcu_barrier() added after put_ucounts() so the freed node is
-    reclaimed inside the window; the unpatched kernel reports
-    
-      BUG: KASAN: slab-use-after-free in do_dec_rlimit_put_ucounts
-      Read of size 8 ... by task ucdprace
-       do_dec_rlimit_put_ucounts
-       __sigqueue_free
-       exit_signals
-       do_exit
-      Allocated by task ...: alloc_ucounts <- set_cred_ucounts <- __sys_setresuid
-      Freed by task 0: __kasan_slab_free <- rcu ... (kfree_rcu callback)
-    
-    and the patched kernel, with the same delay moved to just after the load,
-    reports nothing.
-    
-    Reproducer (needs CAP_SETUID; an unprivileged user reaches it in a user
-    namespace that maps more than one uid; cc -O2 -static -o race race.c):
-    
-      #define _GNU_SOURCE
-      #include <sys/prctl.h>
-      #include <sys/syscall.h>
-      #include <sys/wait.h>
-      #include <signal.h>
-      #include <unistd.h>
-      #define U 4000
-      static void worker(int rfd)
-      {
-      	sigset_t set;
-      	siginfo_t info = { .si_signo = SIGRTMIN, .si_code = SI_QUEUE };
-      	char go;
-      	prctl(PR_SET_NAME, "ucdprace", 0, 0, 0);
-      	sigemptyset(&set);
-      	sigaddset(&set, SIGRTMIN);
-      	sigprocmask(SIG_BLOCK, &set, 0);
-      	setresuid(U, U, 0);
-      	syscall(SYS_rt_tgsigqueueinfo, getpid(), syscall(SYS_gettid),
-      		SIGRTMIN, &info);
-      	setresuid(0, 0, 0);
-      	read(rfd, &go, 1);
-      	_exit(0);
-      }
-      static pid_t spawn(int *go)
-      {
-      	int p[2];
-      	pid_t pid;
-      	pipe(p);
-      	if ((pid = fork()) == 0) { close(p[1]); worker(p[0]); }
-      	close(p[0]);
-      	*go = p[1];
-      	return pid;
-      }
-      int main(void)
-      {
-      	int ga, gb;
-      	pid_t a = spawn(&ga), b = spawn(&gb);
-      	usleep(200000);
-      	write(ga, "x", 1);
-      	usleep(100000);
-      	write(gb, "x", 1);
-      	waitpid(a, 0, 0);
-      	waitpid(b, 0, 0);
-      	return 0;
-      }
-    
-    This patch was written with the assistance of an LLM.
-    
- kernel/ucount.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/ucount.c b/kernel/ucount.c
-index ec8b1445e2877..c91840cab8b85 100644
---- a/kernel/ucount.c
-+++ b/kernel/ucount.c
-@@ -285,9 +285,12 @@ static void do_dec_rlimit_put_ucounts(struct ucounts *ucounts,
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..204d959086e9 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 				   unsigned long pfn,
+ 				   unsigned int order)
  {
- 	struct ucounts *iter, *next;
- 	for (iter = ucounts; iter != last; iter = next) {
--		long dec = atomic_long_sub_return(1, &iter->rlimit[type]);
--		WARN_ON_ONCE(dec < 0);
-+		long dec;
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
 +
-+		/* Our count pins @iter; once it is dropped @iter may be freed. */
- 		next = iter->ns->ucounts;
-+		dec = atomic_long_sub_return(1, &iter->rlimit[type]);
-+		WARN_ON_ONCE(dec < 0);
- 		if (dec == 0)
- 			put_ucounts(iter);
- 	}
+ 	lockdep_assert_held_read(&vdev->memory_lock);
+ 
+ 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+@@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+ 
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+-		return vmf_insert_pfn_pmd(vmf, pfn, false);
++		return vmf_insert_pfn_pmd(vmf, pfn, write);
+ 
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+-		return vmf_insert_pfn_pud(vmf, pfn, false);
++		return vmf_insert_pfn_pud(vmf, pfn, write);
+ 
+ 	return VM_FAULT_FALLBACK;
+ }
 
-base-commit: 26344c0dd32af8790d8474d233619db825441138
+base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
 -- 
-2.53.0
+2.56.0.257.gf7497c7d27-goog
 
