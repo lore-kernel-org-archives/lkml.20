@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792808747;
-	b=exRMKQ5CLitrrrO+K5THGo5AfYIHi57Dv6VhRoOACbJd0gpoiFlou+/DUcjbKZdgCzxU
-	 au98hNNIE15GLngq97EV03OhzU6BOwWdX7yHM/B3zfptESwasQ4mdlJLMrpJGcBp93tmK
-	 dAgtM/kXwqysf6LSZrdap72e/C+Go8Bc27bZV9Wu0yD6zzqgUFnYdXCztRFAE1UjxO5jZ
-	 0WzPvgGEQ+1dPYtl2jVVzpbrDiUSY+usyMBBzWbdYd9dvZgzKESrCWSzUltVndq6uihgd
-	 trJnClFgJ9Gd88huLzQfPyNzS0rIGglX/lp4xuLqz6+j8pSKXcW/ljDEWbc+HBsV1pQ==
+	t=1792808835;
+	b=BiLjhB6xyb1RkpNC227Fwo5lPBWFzcK0YajncFWxF+m6iJLgFo355mU5Ro4UApRb1k/a
+	 4CQfb3eeAWBi8NT+gDQdJwQTABB/C0GpqQrFrBEt8GOnOc4kLWPmqb91cbxEMfAMGVm8x
+	 CxsWOrbaJN0I0MPLATrDSSuB/6XEYiy6oglIwYrq5pT++JWjtvcadlCYfimyUfey5NfGw
+	 6wtyNxQJtNjY153jwG8Bsm7lja3l+zUtzoXMsGy/qUZRSPoqgS7cFfLO2NK8dYkogh2Vk
+	 WWPbJJjQdFLpHTgWsJrWZNZOciIe4tp4rLYBy+JO2vxx6br5640gR3I3ZHq8HLmj3QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792808747;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=dPWbmLr59T8e+2TlBRacI+IgQsnfj+U97VaVYm40bRM=;
-	b=yj3L/U9zB7eSq+17Rbuy+Nk4jL8m3QCf0kPhBMpR3mUkoWnKmTqz2pMgIT0LM7/iBP0d
-	 3vgQhNJbuVwE0WuSzoqn0hrySoZUxW953qil1XVDEShcCcYIusI3/FRR2gXEpvsChwhFW
-	 Y0LMvSUZVikaQL23hRSDTe0fN5rBTlhdzA+dU5Q/+EvxaxoVdqqaNAPNIUX9V0drm3Ze1
-	 JevjZMrqNdJEaOVb6AvWpQx9ZQeFJpkj1sq+fRFsmYNhb6tvSwcHa+dQ/KkU/3UICFVRq
-	 rbnleeSs7OXnnxIEitZT9GkXPB/dQN5AM0CGtMQiUnSAMLmzl36AgoKkFDehHIC32hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792808835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+	b=pJg1sDVgCGA7ZLML02j2AVxZylFavlI1O3xlUtLBVNYH2k8YI+OZq9U7L0t8oh9f/O69
+	 +NRSavGQLy9z+FZWMs0w6LmHVfhz04SDvyIzKJ/mQ/cs4qbaPQwemZ97fRC/1mWSsgjHS
+	 X34pUXFnz/ds4r0MV2cTZBTqN7+OxK15VR/rixZZ0q7NPn/Punp4JdJJHCLfwaTYXNazz
+	 U1kCzo8UQsc+Z7bo/W++1YJVrG9yEGbWdEhqVONzuWb2vD2mVQjpaIAN5+KQGUlTQLqQD
+	 V+0U8GjHLc1s1yw6I9ZShX0G65yHHioy5ctO/1MAid0iRP8Gh0m0maTOK9S23TqeH/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YxQfB+j4;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=GWaJI1zI;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5B1606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:25:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D5B1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C55606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77C55606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YxQfB+j4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792808746; x=1824344746;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9z7fk9knGX9sKiE2em0bX9/7uTbHHQ6pMQxcxugWRJw=;
-  b=YxQfB+j4bibEB6n/9/nc8B6xjtOSws4vkmI3RJ0mhL3q8qdttxKEygiw
-   WmWgNUPCQpW68WakV7WCrZGxRfGdtDyt51N0L9rdDJPRbAX+5Mn2soitl
-   dmtta4aorM+TN8I8KJJYcB/UTJrRJjhtU65fwnOE5SSF0AeZvwqmvoQM/
-   Q/8UitJU6MQoy0VTOsK0/ENE4sfUYtZkV/aV9JEn4NAh/nu2lW4smna7h
-   W0oOdSB97h0fFg3SRZEbDroy6JDLftM/L26sp8eot7XPeADM5nqxOTXQQ
-   x6Yz0mxNNICvqxYgf3DOPRmvglI+sBmO8hyeKNruySyOF/x0ekdt6syDQ
-   Q==;
-X-CSE-ConnectionGUID: 1NJRaoDITeO+Ar98sWB52w==
-X-CSE-MsgGUID: JC9AebXBS9WlZ2oCRZXp7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1576281"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1576281"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 19:25:45 -0700
-X-CSE-ConnectionGUID: bwDFRVyvTIqLgv5zlBPxfw==
-X-CSE-MsgGUID: cw796wBmQwiZz7NYZxg7JQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="5635668"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 23 Oct 2026 19:25:44 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKRS1-00000000TVa-3ZAO;
-	Sat, 24 Oct 2026 02:25:41 +0000
-Date: Sat, 24 Oct 2026 10:25:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: LiuJunyuan <2058432396@qq.com>, gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, LiuJunyuan <2058432396@qq.com>
-Subject: Re: [PATCH] staging: vme_user: use scnprintf in tsi148_alloc_resource
-Message-ID: <202610241010.ezQcs5lj-lkp@intel.com>
-References: <tencent_F5EEA06B3CD49F9EFF5C185259BF4134DA0A@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=GWaJI1zI
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so7132765e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1792808834; x=1793413634; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+        b=GWaJI1zIUBB052oSJa9UtU2rFA/QQz6czNQ8xYEa+mHu29BouCsuGhzzCRrwbTmbnB
+         w3Kyn0Jl+G3E0xjX4PG9qH0C6XPUrixLrpd33yo9GKJc8GpTXrahRdEnp1RNi3Lmj52I
+         W3derfTam89gY47QoSd0mhe8/hhDLPKB6OQrHlWsuXA+Xx872AoZDbZIWjEwVB1zHTlZ
+         eSywb10VDzfQ6qs3zeXq63+IQ6owAuaUwhgT39IxePdNQO1o421tWCNJGIUjHtVoTcUo
+         I4146WfzVMKSab5szv7wOr6w5UpP3l1tYzjsMmpm88IBgA0I5j5ipszWfhfpgIhQKMQ9
+         eaww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792808834; x=1793413634;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+        b=ni5R1C2nkdpnxQRLsWxc85d/iAHrh/WFEhEuE60p+WxDYZpwviswUbORVKDnRdST2R
+         80YOx4tegmfFJByAXLc8+IfjI7HCqSf8/OsUV/XO8j0McwImdYyk80NiIFmHp4gZV6Np
+         sWKfb5x8ybtUXJg3HwvxA610N4w2sw6BrbySaBk4TDR01oFGBF1l9vuwWc06skcmtrVm
+         a8Mfe+BejfUoP3e0nRgyqKy+qNkeDJQLLmgOeB93aGaiO1cnHwIaGS3UrIW3/6UOcVH4
+         mc8UbjoDPSH6J+6eRVk/dC0nRWlLPKHY2S3KVcQUJ9Oj6m3hvxPNJ+zPwi1SzdjjQDnp
+         YWtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwuobCdmibq1F2h+ZK9SvvRYwI8JtqJKjLHgsL/OXljr5ThIjQEA/bv0cO7aMBpl7KUDHsLQGIKzSqCcUw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk9Cikn5jatGkdytTAsbpJk8LEzRkIblEvlpLpDu4bYlFLGotr
+	uQejWNmIZIbWhnJwB0lqj4Vwz+th1y3+q0uN3XBxJeLP9iWTj+/DqEg=
+X-Gm-Gg: AYBFou3sqzmqiyBub859tU0Dm3sYeyEa4F/VyCqp7eY4EkJngU9gK0ZHpbmpoVagxkD
+	NP+/D2WM3ulwZ3OUEv78ZXVQWwxYrMApD0NLgjF84R+kZf2/GauygQka7pqihS0fW34YssnIScf
+	OOdUBgjeQ0s2b2E07zSJYEzPfkf/Igdp+X3Vrb1lfjTzFNHP5zUHzdu31BNxRSSqZoFPoZ+1km9
+	YFgVdO/WLxPJWM+122RLkeW0SIv7w3DPXpPCfsE9j/hCbRy3HT1g/jLjeiLgGMTRgYlBDIeafA2
+	N2a5s6gQlPbsSMtg2PBCG0yJ02IjIfLvXJWyjs9tVLovT/h1+jvSasvPGWZOi+Xeq/rg/7gj9/p
+	dY3UZdZkZTjTr119a53yRRtcB7SJiaRjoC4KA9ZzedVS8yY72f9jknr8xiXaNq+gMHO9jV249NT
+	Oe670LD7RldujTtlYkjDDDKLTze/rVwRUb1q1EvDbtZYEmwzgOdI4+azX0ewFE5zXt0/Cc7LK4H
+	+rvJIMfDvVRee+e8b8dTKVU9PvQlsJeXKsyP0wFG04v+HdjWkycD839VdVLZafImapM0/1OJ2ZA
+	cCbkMt2G1HR811Ei0l45FneEIsDQajbgmCw73arE0VbXSIrad+lQdQ==
+X-Received: by 2002:adf:ed8f:0:b0:48e:1d87:f170 with SMTP id ffacd0b85a97d-48e3eb83fffmr740933f8f.12.1792808833581;
+        Fri, 23 Oct 2026 19:27:13 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac555.dip0.t-ipconnect.de. [91.42.197.85])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm1742797f8f.44.2026.10.23.19.27.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 19:27:12 -0700 (PDT)
+Message-ID: <a4ebdccd-4f47-4449-b120-59e1d6bc4951@googlemail.com>
+Date: Sat, 24 Oct 2026 04:27:09 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,138 +91,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_F5EEA06B3CD49F9EFF5C185259BF4134DA0A@qq.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261023163714.201276352@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi LiuJunyuan,
+Am 23.10.2026 um 18:34 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.59 release.
+> There are 193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-kernel test robot noticed the following build warnings:
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-[auto build test WARNING on staging/staging-testing]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/LiuJunyuan/staging-vme_user-use-scnprintf-in-tsi148_alloc_resource/20261021-111349
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/tencent_F5EEA06B3CD49F9EFF5C185259BF4134DA0A%40qq.com
-patch subject: [PATCH] staging: vme_user: use scnprintf in tsi148_alloc_resource
-config: i386-randconfig-1006-20261021 (https://download.01.org/0day-ci/archive/20261024/202610241010.ezQcs5lj-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610241010.ezQcs5lj-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610241010.ezQcs5lj-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/staging/vme_user/vme_tsi148.c: In function 'tsi148_alloc_resource':
->> drivers/staging/vme_user/vme_tsi148.c:748:38: warning: passing argument 1 of 'scnprintf' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
-     748 |         scnprintf(image->bus_resource.name, VMENAMSIZ + 3, "%s.%d",
-         |                   ~~~~~~~~~~~~~~~~~~~^~~~~
-   In file included from include/linux/kernel.h:32,
-                    from include/linux/random.h:7,
-                    from include/linux/nodemask.h:94,
-                    from include/linux/numa.h:6,
-                    from include/linux/cpumask.h:15,
-                    from arch/x86/include/asm/paravirt.h:19,
-                    from arch/x86/include/asm/irqflags.h:100,
-                    from include/linux/irqflags.h:18,
-                    from arch/x86/include/asm/special_insns.h:10,
-                    from arch/x86/include/asm/processor.h:25,
-                    from arch/x86/include/asm/timex.h:5,
-                    from include/linux/timex.h:67,
-                    from include/linux/time32.h:13,
-                    from include/linux/time.h:60,
-                    from include/linux/stat.h:19,
-                    from include/linux/module.h:13,
-                    from drivers/staging/vme_user/vme_tsi148.c:12:
-   include/linux/sprintf.h:15:36: note: expected 'char *' but argument is of type 'const char *'
-      15 | __printf(3, 4) int scnprintf(char *buf, size_t size, const char *fmt, ...);
-         |                              ~~~~~~^~~
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-vim +748 drivers/staging/vme_user/vme_tsi148.c
+Beste Grüße,
+Peter Schneider
 
-   705	
-   706	/*
-   707	 * Allocate and map PCI Resource
-   708	 */
-   709	static int tsi148_alloc_resource(struct vme_master_resource *image,
-   710					 unsigned long long size)
-   711	{
-   712		unsigned long long existing_size;
-   713		int retval = 0;
-   714		struct pci_dev *pdev;
-   715		struct vme_bridge *tsi148_bridge;
-   716	
-   717		tsi148_bridge = image->parent;
-   718	
-   719		pdev = to_pci_dev(tsi148_bridge->parent);
-   720	
-   721		existing_size = (unsigned long long)(image->bus_resource.end -
-   722			image->bus_resource.start);
-   723	
-   724		/* If the existing size is OK, return */
-   725		if ((size != 0) && (existing_size == (size - 1)))
-   726			return 0;
-   727	
-   728		if (existing_size != 0) {
-   729			iounmap(image->kern_base);
-   730			image->kern_base = NULL;
-   731			kfree(image->bus_resource.name);
-   732			release_resource(&image->bus_resource);
-   733			memset(&image->bus_resource, 0, sizeof(image->bus_resource));
-   734		}
-   735	
-   736		/* Exit here if size is zero */
-   737		if (size == 0)
-   738			return 0;
-   739	
-   740		if (!image->bus_resource.name) {
-   741			image->bus_resource.name = kmalloc(VMENAMSIZ + 3, GFP_ATOMIC);
-   742			if (!image->bus_resource.name) {
-   743				retval = -ENOMEM;
-   744				goto err_name;
-   745			}
-   746		}
-   747	
- > 748		scnprintf(image->bus_resource.name, VMENAMSIZ + 3, "%s.%d",
-   749			  tsi148_bridge->name, image->number);
-   750	
-   751		image->bus_resource.start = 0;
-   752		image->bus_resource.end = (unsigned long)size;
-   753		image->bus_resource.flags = IORESOURCE_MEM;
-   754	
-   755		retval = pci_bus_alloc_resource(pdev->bus, &image->bus_resource,
-   756						size, 0x10000, PCIBIOS_MIN_MEM,
-   757						0, NULL, NULL);
-   758		if (retval) {
-   759			dev_err(tsi148_bridge->parent, "Failed to allocate mem resource for window %d size 0x%lx start 0x%lx\n",
-   760				image->number, (unsigned long)size,
-   761				(unsigned long)image->bus_resource.start);
-   762			goto err_resource;
-   763		}
-   764	
-   765		image->kern_base = ioremap(image->bus_resource.start, size);
-   766		if (!image->kern_base) {
-   767			dev_err(tsi148_bridge->parent, "Failed to remap resource\n");
-   768			retval = -ENOMEM;
-   769			goto err_remap;
-   770		}
-   771	
-   772		return 0;
-   773	
-   774	err_remap:
-   775		release_resource(&image->bus_resource);
-   776	err_resource:
-   777		kfree(image->bus_resource.name);
-   778		memset(&image->bus_resource, 0, sizeof(image->bus_resource));
-   779	err_name:
-   780		return retval;
-   781	}
-   782	
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
