@@ -1,69 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792816178;
-	b=kUjtfeu4ul+NaCSEXF+zvdA7Ms/uBy5c/XB/UrI93oUXjajMVPMsYW+L8SNBO0pTvwWj
-	 Z1Ve/8i7VdTjkH6KGCfD+J/ZawGJfGIuud+tR/xgcODBuo0YWpIdOGIjxeFY98eztllbu
-	 /TUmMMNcgkVgmOknFaS6wBGGQ54fqgr3R6QBJ336qa7WLQ5L+twCoGHJ7oV19gt6UkToA
-	 ami3CGq/zRHb/hByLB9RimvzznHe00fED5Up/DNmVD6zjEU1rPCW8h7uOAbBZlzbj74+v
-	 8T255+mmocvzGavVe4lfzGikx8YkYJqt9p2tYCTsoHCuBznfrNilqyEpyZHFw4/2oOw==
+	t=1792816211;
+	b=HzbKQWsW4KUmxrcKe3VTClWGGF1HNllFvv5iXrw9G3l9MGETlXEc2nCjqSUKBXSsvVs1
+	 w/BgFy3TG4ZCWrMV3hDvEo9QDvKh1M+B3Z/WlKm/C7oNUXVqtinebChYSST5ZPplqgOwR
+	 oX12Y8t32SO9lWHfqbOeoH5Krp7G77Qtf0ApDxoZuYv3E0M+JEqZHaIZ55ozLl6I8Se5V
+	 xklY2TgHwf1uWQeiYvHKJrW8nmY4Qw7m7uoQvCjZOPbpPGLLfgXOSqqS54RyMFknT3XXA
+	 ip7Tn2xjqyy5LHH6o7NP0IAGyOybcPRQtiUSLIQFxuBKG+yszzWqGR/oqYb5UZf2RmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792816178;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZSvwR2YJ1CP/uX9g/vwhWrs7jjPYqf6IJu5EEXhYd60=;
-	b=DDHvuIOG7Psaxwp+UBiLi9VI+2AFJgTQc37IfS3jSM/qF8FVickV2rwTGKzqZ9rlwuOn
-	 gP1cBoXc1Kbjya5p8GMDeX5m4AFA5zhxSUHkcQkzJrrj2UFEYS6xypbhy4JpLKhqFaGGj
-	 qVwW9XE/XGrPDeO8udoHIOvE84FqjUyWUGWBmqtasVPucgyBjzx0Ncfa4WqwIAGgzoDjp
-	 6MYRaoyodqzyC1fwdcypFMNNC6hef8XC7eIbmVvD+uNdQ2i/pvxjhQPLmmiuAC+/jvtbG
-	 WaPrb8CrgXLah3XxDQoqhrpx9gM8f1TNJDZStQIeDu7UUnhfOGBMhGApuwEY2dr1cZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792816211;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
+	b=gEa9fPQsIQe8P9GUwlyB37gv2a++6TjLaGkA6fBf///QIQJe0tIctSX54bhUxwTKPt4X
+	 tJW6688cj+uYXN+g7Ohavx0utyXkbDemgtGt0hgQCpnrXtyba5w97ILK2Dg0rWgIgqihD
+	 Kg4JbAFSXTE9j56sdhxkCyk9Y3Z6JAtNp6sAG0XRWA8rArR3sr49HhUbL6mMuEYKzVf7m
+	 mQb5FwJfTtQ4QfjT2z24ys0PQ2UeUJnscmVe8tjWL7qyztHSOwsFNN2e+ukOkRiNZzAlp
+	 d9vb40+0LA2DsXoUSRfViCJUZndPpDuM+vDHgWtZkLbVFm269HNDZMct4GUpwXaNEAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iQGBctqj;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzi8tAPV;
+	arc=none smtp.remote-ip=209.85.167.41
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7DB606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A7DB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47CD606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A47CD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iQGBctqj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ZS
-	vwR2YJ1CP/uX9g/vwhWrs7jjPYqf6IJu5EEXhYd60=; b=iQGBctqjxevSf56Pqs
-	8MkTC6RTQ6Bhe/KrcpS/rbyFYK9EpKEkrdTKxrbcu7uiR777hKGSgIdC7WnhJps/
-	aUGnnQxm5c7menTEQAfAyfQNHQmVGvNTtrqVvwRx3H14yWAmx0iXRsd2rn3Qvyq8
-	la9S/OxOnr3bPUHQpvfQfRWy0=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnk4vOM9xqL9z1Bg--.19254S2;
-	Sat, 24 Oct 2026 12:27:59 +0800 (CST)
-From: albin_yang@163.com
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	chen.yu@linux.dev,
-	kayracizmeci@gmail.com,
-	mintaohuang@tencent.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzi8tAPV
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1400662e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:30:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792816209; x=1793421009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
+        b=hzi8tAPVKcYUDH8FGM7gnF7SbUQSl1BcNQF2Iwy9MGDSO+BWQ/wJtPW0mA6FPYD2Sx
+         Gmy/R8K8ThDhFVVcyg+ltUDc4il8tUuEYs/c7q82vOiVBOE1IoSOjDeYnbRyoCe0c0GM
+         GxXvjQKp9XCgpS0g4UD+P5LN/87szacBjzpxVqDfRQkeL/K6hsafKppFaqpZwDgk3to3
+         5/iIpo7CTj5UYTxPxFIJHF2S+Tn/W7wPV5r2BnMOTPgozAYvIztDam5qWwC3hj8eca5i
+         6Q7+7JktppSrKbdgdPBhswliQ24kuenTkzTu8Zqdv3wewJwd+SWNP/ienz9KVQu8AWth
+         O5vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792816209; x=1793421009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9fTxeCcNNzzF29W6dGmG1z9MBljc31aj3PxIdltLkYA=;
+        b=1ilGZQVq83BWWTD11Gvrkc0qlnTplOb1yH8P80qWVkCUsmAtJiILy0qDimrvtLOr3T
+         6NUH1yOtemVXhxSsL+4t0HNoD7P2HgPpWXQwStK+XsMRvifsAEJpsk0LV2cnw8iDnMO0
+         OrIQKQDXsquJEJJWocERmtIR1IV5OFsKuL388mPLi4PAXoa8eU7PXKnKH7dX9/wz5Whp
+         uAGDyRX8kgvCoKfZ0nsOHVYyuM8ueaGz0jv+gOUOhXtkQa0o1ML9iQEw5liS01X0jSPb
+         d/ulvP7cFC11HBVYTzYFOM978cPOhf7vVjq5+WVCkh5q9gYTLC4h+IWpmmPwbNBdKiLv
+         qXLg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3ZlB4wDL6KLFTmcaK2XYd3jyQ0p529Lnat18nuip+acxd6d3DKOheCv5bIzewQv4QluUsMDbH3yV675w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEsU/STdTKxInQppjV3h+yWw91cujorgZHLy8iHWs1wYopro2C
+	Sken87rt0aoq3pfQ4paQL/9lBXtx8KRPb7AgHRiIqufc+jWNm9m9raoY+/vSR/chfNU7SA==
+X-Gm-Gg: AYBFou1FdwsL9FsjQEnM0jgCVPxE2xw8laWp+gbw4+lTDiETPk4jKch3PAvFfy/pXd5
+	aKwoQ/EYoC+lat0Nas9SzcSOVY2GA0/aipFeUGjQX3fIXWafIWZ9dPmvMKCLbYGy6HdIb0q1QaQ
+	0mmVe/vK5npbwJiAl7sM8dNK4NfG0pO2UQVGwFd9rsv1dZRsqOKFPhODYosmnm+WTmXYFCKUkcz
+	IpjmxVxvpvkvtRVbpFLEyxDGxRl9M+sL0abqvn+1kMjTU+KvY8Sj+OsN3fP/C+PiITCN76Q29eo
+	+rMXi2cqZrPoe3BMqKBJ2j6EcU9D5WODKjIAnQZmSjmZcisk8M7tvA7fvnR1wnRRuPV9e1jG1+f
+	SOfDDn2JmXT5ebnfDldqrjl7tHrbPfRMXwdL6qUjeqQicKO4wK1CY9k+BcOHpUQj4tIJYOvi90G
+	mO+xIjhXzku5KLU1l9BO6/6I+p5i4DWbTd7AUxvTO5DA+PufSEUEsZ4Xcqe+RMlHrZQFbRJfSJo
+	hE+pwJwxsV0t62urqORv07m1LtsC7Ih+PIMKrlbNM8HJxRskSmNTuq5H3Cb
+X-Received: by 2002:a05:6512:6694:20b0:5bf:b7d1:6488 with SMTP id 2adb3069b0e04-5bfb7d16896mr109075e87.52.1792816208523;
+        Fri, 23 Oct 2026 21:30:08 -0700 (PDT)
+Received: from localhost.net ([196.240.54.42])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6b051sm168295e87.14.2026.10.23.21.30.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 21:30:08 -0700 (PDT)
+From: Eduard Zateev <hackerowskiy@gmail.com>
+To: dhowells@redhat.com,
+	jarkko@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	albin_yang@163.com,
-	albinwyang@tencent.com,
-	Chen Yu <yu.c.chen@intel.com>
-Subject: [PATCH v4] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Sat, 24 Oct 2026 12:27:52 +0800
-Message-ID: <20261024042753.2276779-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
+	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	Eduard Zateev <hackerowskiy@gmail.com>
+Subject: [PATCH] keys: use long workqueue for garbage collection
+Date: Sat, 24 Oct 2026 06:29:44 +0200
+Message-ID: <20261024042944.52493-1-hackerowskiy@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,82 +102,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBnk4vOM9xqL9z1Bg--.19254S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWkZF1DtrW5GF4xXFy8AFb_yoW5tw4kp3
-	95W3yUAa1kKr4rGrnrZr4UWryagwsrG3yaqF1kt348GrW5JF1Yqrn2qa13XFsYyrZ2yFZ3
-	ZF1jganIya1qyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziWE_tUUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC8BHSdWrcM9GwRQAA3n
 
-From: Wei Yang <albinwyang@tencent.com>
+The key garbage collector can wait for RCU grace periods. This can occupy a
+normal events worker for a long time and contribute to workqueue lockups.
 
-With DELAY_DEQUEUE, a blocked task stays on the runqueue with
-se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
-is not counted into run_delay.
+Queue key GC on system_long_wq because its work may wait for long periods.
 
-When such a delayed (sleeping) task is migrated across CPUs via the plain
-migration paths (move_queued_task / move_queued_task_locked, the latter used
-by __migrate_swap_task), activate_task(dst, 0) calls enqueue_task() without
-ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
-task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
-re-arm last_queued at wakeup time but is suppressed because last_queued is
-already non-zero, so sched_info_arrive() folds the whole sleep duration
-between migration and wakeup into run_delay.
-
-Load balance is affected too: the sched_delayed check in can_migrate_task()
-bails out only when env->migration_type != migrate_load, so it does not
-block migration when the type is migrate_load - which active load balance
-always uses (its lb_env leaves migration_type at 0 == migrate_load), and
-which regular load balance can also use via calculate_imbalance(). Either
-way the re-attach goes through attach_task() -> activate_task(rq, p,
-ENQUEUE_NOCLOCK), without ENQUEUE_RESTORE.
-
-Fix by not re-arming last_queued for a sched_delayed task in
-sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
-sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
-runnable tasks are unaffected.
-
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Reported-by: MingTao Huang <mintaohuang@tencent.com>
-Signed-off-by: Wei Yang <albinwyang@tencent.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Reported-by: syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=c15de43f1e7fffbb7b9b
+Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 ---
+ security/keys/gc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Changes in v4:
-- No code change; resending after the proxy exec discussion to resurface the
-  patch.
-- Proxy exec has the same re-arm problem, but it is handled separately:
-  t->is_blocked cannot gate it (in ttwu_runnable() the real wakeup enqueue
-  sits inside the if (p->is_blocked) branch, while is_blocked is cleared
-  afterwards in ttwu_do_wakeup(), so !is_blocked would suppress the very
-  re-arm this patch relies on), and task_is_blocked() cannot replace
-  se.sched_delayed since a delayed sleeper has no blocked_on. Coupling them
-  would also prevent backporting to v6.12.y..v6.16.y, where the bug exists
-  (DELAY_DEQUEUE, v6.12) but proxy exec does not (v6.17).
-
-v3: https://lore.kernel.org/all/20260922082432.2987855-1-albin_yang@163.com/
-v2: https://lore.kernel.org/all/20260920043116.1298017-1-albin_yang@163.com/
-v1: https://lore.kernel.org/all/20260909133345.1572954-1-albin_yang@163.com/
-
- kernel/sched/stats.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-index ebe0a7765f98..dc626f99ffd9 100644
---- a/kernel/sched/stats.h
-+++ b/kernel/sched/stats.h
-@@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+diff --git a/security/keys/gc.c b/security/keys/gc.c
+index eda445f815d..b174b8c511b 100644
+--- a/security/keys/gc.c
++++ b/security/keys/gc.c
+@@ -19,6 +19,7 @@ unsigned key_gc_delay = 5 * 60;
+  * Reaper for unused keys.
   */
- static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+ static void key_garbage_collector(struct work_struct *work);
++/* Key GC may wait for RCU grace periods, so queue it on system_long_wq. */
+ DECLARE_WORK(key_gc_work, key_garbage_collector);
+ 
+ /*
+@@ -57,7 +58,7 @@ void key_schedule_gc(time64_t gc_at)
+ 
+ 	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
+ 		kdebug("IMMEDIATE");
+-		schedule_work(&key_gc_work);
++		queue_work(system_long_wq, &key_gc_work);
+ 	} else if (gc_at < key_gc_next_run) {
+ 		kdebug("DEFERRED");
+ 		key_gc_next_run = gc_at;
+@@ -85,7 +86,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
+ void key_schedule_gc_links(void)
  {
--	if (!t->sched_info.last_queued)
-+	if (!t->sched_info.last_queued && !t->se.sched_delayed)
- 		t->sched_info.last_queued = rq_clock(rq);
+ 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
+-	schedule_work(&key_gc_work);
++	queue_work(system_long_wq, &key_gc_work);
  }
  
+ /*
+@@ -119,7 +120,7 @@ void key_gc_keytype(struct key_type *ktype)
+ 	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
+ 
+ 	kdebug("schedule");
+-	schedule_work(&key_gc_work);
++	queue_work(system_long_wq, &key_gc_work);
+ 
+ 	kdebug("sleep");
+ 	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
+@@ -322,7 +323,7 @@ static void key_garbage_collector(struct work_struct *work)
+ 	}
+ 
+ 	if (gc_state & KEY_GC_REAP_AGAIN)
+-		schedule_work(&key_gc_work);
++		queue_work(system_long_wq, &key_gc_work);
+ 	kleave(" [end %x]", gc_state);
+ 	return;
+ 
 -- 
-2.43.7
+2.55.0
 
