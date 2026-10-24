@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792885702;
-	b=PrfpiLCuLB2YhDgbJKbNzGosiRlhmfNm9ECvSZT4wJEMkF67afxBtE0mGNllNlWo9Tp+
-	 tRm8bBriDu+Mn0wv5K56eKS1VyRXk1Ut71o2hk2V4vkl6RRXkUZRpTB+zzLOp6aBs6DSt
-	 L26XakkVBeIg770iU5RckFH47s2ilSHCskpF/VDAz5IRLCgLDyuRk9PSbOkYDHAdMODxT
-	 Oiow2rEwnv3Toaisn0jjJ/ftuyFzP7mfIOBN8o/IbxCBIGjIlWUlIUn6yAmpEfESE+ng1
-	 tnILLRMk6wyz/dZ4cvxAC2atJfs7J+InXWaPsTf8h2jSxhTstWvYtEcZmDFb+ImN+WA==
+	t=1792885705;
+	b=m4T3Y5d2SyfDGQvAqVjTNn7rqUY9UkvdCxI30vR51FGc0XtC65J47Wcjd7ETMVM0U8A/
+	 dTGMpCNeS5u0uoojZKlrCB7FdS+dx4j16KsTLKPzx1O2IPXRKy3YOOKeCotgbH9Mja9kx
+	 DUhfy8LLcCQ3BmOHtodGzlJpbl5r+XOPEZUnnGhKVMIeKuwjcNrnElKb1ul+IsiWJJgCj
+	 dLIqGeVVmc4imOsr5fdxZ3kX13QiKZwDdeKC9ZtM994XRa2owWG5n+tFKTVXYkklgKCvf
+	 Lz2sFdKZjVgxjFgBhuQ9a2mx8peH2YQhkLB/03ZslbHcmgV1oGdjoJq50fp1jlYXNFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792885702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792885705;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=N/S5p3ClsDWesXk5Z4KBRIEVgb22vgbzOMvRltxMdN4=;
-	b=KJOvRjHvK6S7s/VD8HxnmngYndO51Nwmom0l7FMVdsrQxUiVClxTIWK0GjlDHu7P2wNB
-	 /yYPqY2LIYoh5wSAxLkopkfbjUfZvf8TP4WN92XQnY54SieHKQ00MtKFkBh/bkN6STv3B
-	 ZIWtAWje8F7ZpOZDQzH4zKxEjLfe3Br6zgfCmem/AI0m7X9KSyLK+INsG2UQs/yDUf+7u
-	 K7wmmJeLCmb8UTVAgYAcz+QETuyyOCNcyVWV+AVK2oKcLHd5kbL+6vfGeEjt4QGTa38t2
-	 VrVWlMG1fsG9rWKJ9uJztGTbtPyfOv/p4NKGvl8rSJeTwTumHKU2TTNNNHUfeBzSrKw==
+	bh=TeJm7zc7lEIpBVq9wFNx6l6n9j2IH2aj6mrm2Pb6m0Y=;
+	b=BDwHVq9qFt1L8cbG0w8GfHeoCpfL0dWfeN7LDZa1LauEh4lu+kOFG4zCYFQYoJfGu4LE
+	 2FwZpZsmRH6g64KnHnv0UWo17HutDRiHriFnfDKIvCTQErSCj0FDyYJein534/6FWfWFj
+	 lCxjjBs93YAdDLD0+/vHsRETzvkBwtOUHoYwL3ncjYwp8DMClrysFRzQtcBFeeMKvxHO5
+	 Gfghx82a2PtNlxmX+De5evBmOb4bdor/k5ixhVJ/QjqzV3Lj6oJ0T+/kmWKgXemEXr2h7
+	 0Xixmlu9VXjNQoqYBLVJV03F5uuX46CHKh7StnKKpdP9TBGXguqXL6J3uwhdJV4z+Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXfCREPT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHLRXUBe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC922606A31A;
-	Sat, 24 Oct 2026 23:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A078606A31E;
+	Sat, 24 Oct 2026 23:48:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXfCREPT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB3A1F01825;
-	Sat, 24 Oct 2026 23:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHLRXUBe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949891F01828;
+	Sat, 24 Oct 2026 23:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792885701;
-	bh=N/S5p3ClsDWesXk5Z4KBRIEVgb22vgbzOMvRltxMdN4=;
+	s=k20260515; t=1792885704;
+	bh=TeJm7zc7lEIpBVq9wFNx6l6n9j2IH2aj6mrm2Pb6m0Y=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QXfCREPTpDrP3jw+ylhf/HN8fkeyTzPEfNHOwYl/owbbhFHyQDIN8eT+LyNZSs3m6
-	 aJJUE2/hkzgf2tVLLulLLDaH0dHJCvXnv72j6cljvW51IHeKj10ZTv5BocMKscNv0z
-	 uO7mLONOa6BQH7ig6J3YpBpbLAQE/yOF55MRFEPpOCRqi2xcz8wzmKhZ/cPxITJ9Bt
-	 oVvdREkIwqJmiekxSQ61Jcrmy6NuTQ316N28FQKdmURz8z0cCz15nZRrPtYk0O9Iwn
-	 gqmQfwxOMwG+kC44HbL/01b6xpzANJ2Xf3lyzbFTANWtR6w9oKkKohg6ohUICv/JWd
-	 4xPrIwktozT1g==
-Subject: Re: [PATCH net v3 1/4] net/mlx5e: psp: tso: replace only the length
- in checksum seed
+	b=gHLRXUBeutqrRN8mV/yRzcuSHfB7iPhstEZ7Mw1YneQuPX8guBC0Fs8Sd5W+S6qUF
+	 tlh5GnFDZ+s5RbPh5z6gC4WmK7EqUCjKhjXG3aLBOLKN8+GcdZikmVGFnpjlASWojC
+	 FcSw7vBzACTKeZUnJ4w03QUr4+eLEZsOJJmr3HuQoBhDVZ8o98sjUy8UQ1OvchLWxn
+	 auBJ8oaoY5dQvOUvZ1b96wMifDlnb0pcLC9gsO8m81V2zY111tviuvo357AAZXvZN5
+	 x1qxDBqp3pqT+/js6JI/1lKttO/2cBZ4LdPJdif+ES1iFbYi7MRIDHsG7Bcl1tSM+I
+	 8rSBtl+pwbG9g==
+Subject: Re: [PATCH net v3 4/4] selftests: drv-net: psp: test ipv6 tcp socket
+ with extension headers
 From: netdev-bot+sashiko@kernel.org
 To: toddfreed@meta.com
 Cc: netdev@vger.kernel.org, borisp@nvidia.com, saeedm@nvidia.com,
@@ -51,11 +51,11 @@ Cc: netdev@vger.kernel.org, borisp@nvidia.com, saeedm@nvidia.com,
  shuah@kernel.org, cratiu@nvidia.com, raeds@nvidia.com, rrameshbabu@nvidia.com,
  linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, bjorn@kernel.org, dtatulea@nvidia.com
-Date: Sat, 24 Oct 2026 23:48:19 +0000
-Message-ID: <179288569938.3134.7210568419074045775@kernel.org>
-In-Reply-To: <20261023234640.1459291-2-toddfreed@meta.com>
-References: <20261023234640.1459291-2-toddfreed@meta.com>
-X-sashiko-severity: Low
+Date: Sat, 24 Oct 2026 23:48:23 +0000
+Message-ID: <179288570316.3134.17338958323067090592@kernel.org>
+In-Reply-To: <20261023234640.1459291-5-toddfreed@meta.com>
+References: <20261023234640.1459291-5-toddfreed@meta.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,63 +68,152 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [Low] Commit message dependency.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In data_send_ipv6_exthdr()
+  (tools/testing/selftests/drivers/net/psp.py), a missing remote UDP…
+- [Low] The new test does not exercise two code paths that earlier
+  patches in this series fix, so a regression in either would still pass.
 
 --
 
-net/mlx5e: psp: tso: replace only the length in checksum seed
+selftests: drv-net: psp: test ipv6 tcp socket with extension headers
 
-This patch changes mlx5e_psp_handle_tx_skb() so that, for PSP TSO packets,
-it adjusts only the length part of the TCP checksum seed instead of
-recomputing the seed from the l3 header addresses. The goal is to avoid
-bad checksums when the l3 header daddr is an intermediate hop.
+This adds a data_send_ipv6_exthdr test to psp.py. It sends on a PSP TCP
+socket in three phases: with no option, with an IPv6 extension header set
+via setsockopt, and with the option removed. After each phase it checks
+tx-packets, the received data, and that no plain UDP reaches the peer.
+There is a variant each for dstopts, hopopts and rthdr, and the test is
+meant to skip if the peer can't install the tc flower filter used for
+counting UDP.
 
-> the length difference is expected by the device. however, the
-> difference in addresses is incorrect in cases where the l3 header daddr
-> is an intermediate hop (e.g. IPV6_RTHDR). this causes every segment of
-> the tso packet to go out with a bad tcp checksum, in this case.
+> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
+> index 473500901879b..ddf69c0397da1 100755
+> --- a/tools/testing/selftests/drivers/net/psp.py
+> +++ b/tools/testing/selftests/drivers/net/psp.py
+
+[ ... ]
+
+> @@ -658,6 +709,85 @@ def removal_device_bi(cfg):
+>          _close_conn(cfg, s)
+>  
+>  
+> +def _ipv6_exthdr_variants():
+> +    padn = bytes([0, 0, 1, 4, 0, 0, 0, 0])  # one PadN option
+> +
+> +    def srh(peer):
+> +        """ segment routing header, with @peer as its only segment """
+> +        return (bytes([0, 2, 4, 0, 0, 0, 0, 0]) +
+> +                socket.inet_pton(socket.AF_INET6, peer))
+> +
+> +    yield KsftNamedVariant("dstopts", socket.IPV6_DSTOPTS, lambda peer: padn)
+> +    yield KsftNamedVariant("hopopts", socket.IPV6_HOPOPTS, lambda peer: padn)
+> +    yield KsftNamedVariant("rthdr", socket.IPV6_RTHDR, srh)
 
 [Severity: Low]
-The code change in mlx5e_psp_handle_tx_skb() looks correct. However, is
-IPV6_RTHDR the right example for this patch on its own?
+This isn't a bug, but two code paths fixed earlier in the series are not
+exercised by these variants.
 
-At this point in the series, psp_dev_encapsulate() still writes the
-nexthdr of the base IPv6 header unconditionally:
+Each variant sets exactly one sticky option, so this loop in
+psp_ipv6_nexthdr_off() in net/psp/psp_main.c only ever runs once:
 
-net/psp/psp_main.c:psp_dev_encapsulate() {
+    while (off < len) {
+
+A version that rewrote only the first extension header's nexthdr would
+still pass all three variants. A TCP socket can emit two headers here, for
+example IPV6_HOPOPTS plus IPV6_DSTOPTS. ip6_xmit() pushes those through
+ipv6_push_nfrag_opts() and ipv6_push_frag_opts().
+
+Also, srh() builds an SRH with segments_left=0 and the peer as its only
+segment. In ipv6_push_rthdr4():
+
+    sr_phdr->segments[0] = **addr_p;
+    *addr_p = &sr_ihdr->segments[sr_ihdr->segments_left];
+
+So the L3 daddr ends up equal to the final destination. As a result, the
+intermediate-hop case fixed in mlx5e_psp_handle_tx_skb() by "net/mlx5e:
+psp: tso: replace only the length in checksum seed" never comes up here.
+
+Would it be worth adding a variant that sets two sticky options? The
+intermediate-hop case probably needs more topology setup.
+
+> +
+> +
+> +def _remote_seg6_enable(cfg):
+
+[ ... ]
+
+> +@ksft_variants(_ipv6_exthdr_variants())
+> +def data_send_ipv6_exthdr(cfg, opt, val):
+> +    """ Test PSP on IPv6 packets with an extension header """
+> +    cfg.require_ipver("6")
+> +    _init_psp_dev(cfg)
+> +    if opt == socket.IPV6_RTHDR:
+> +        _remote_seg6_enable(cfg)
+> +
+> +    s = _make_psp_conn(cfg, 0, "6")
+> +    try:
+> +        # In happy path, PSP traffic arrives at the remote decrypted as TCP
+> +        remote_udp = _remote_udp_from(cfg, s.getsockname()[0],
+> +                                      s.getpeername()[0])
+> +        if not remote_udp:
+> +            raise KsftSkipEx("can't count UDP on the remote")
+
+[Severity: Medium]
+Can this skip path end up reported as a failure?
+
+_make_psp_conn() has already opened the data connection by the time
+_remote_udp_from() runs. psp_responder then runs conn_setup_psp() inline
+from run_session(). It sends its key and then blocks waiting for the
+client's key:
+
+tools/testing/selftests/drivers/net/psp_responder.c:conn_setup_psp() {
     ...
-	} else {
-		ipv6_hdr(skb)->nexthdr = IPPROTO_UDP;
-		be16_add_cpu(&ipv6_hdr(skb)->payload_len, PSP_ENCAP_HLEN);
-	}
+	sz = recv(data_sock, info, sz, MSG_WAITALL);
     ...
 }
 
-With a routing header present, this overwrites NEXTHDR_ROUTING in the base
-header, while the UDP+PSP headers go in after the routing header. That
-means the packet is already malformed before the TCP checksum seed
-matters. So this patch alone doesn't appear to fix the IPv6 RTHDR case.
+The tc filter install can fail, for example when cls_flower or act_gact
+is missing on the remote. In that case KsftSkipEx is raised before
+_spi_xchg() sends the client key, and the finally block runs:
 
-The IPv6 case seems to be fixed later in the series by "psp: support ipv6
-extension headers in psp_dev_encapsulate()", which has its own Fixes: tag.
-The only mention of that dependency here is the testing note:
+_close_psp_conn()
+  _close_conn()
+    _send_with_ack(cfg, b'data close\0')
 
-> tested on connectx-7 with the rest of this series applied, with a psp
-> tcp socket whose segment routing header's first hop isn't the final
-> destination, and the peer checking tcp checksums in software.
+The responder is still blocked in conn_setup_psp() and never reads the
+'data close' command. The recv(4) on comm_sock, which was created with
+timeout=1, then raises TimeoutError. That replaces the KsftSkipEx, and
+ksft_run() records a FAIL instead of a SKIP.
 
-The case this patch fixes by itself looks like IPv4 source routing
-(IP_OPTIONS with SRR/LSRR). There, ip_hdr(skb)->daddr is the first hop,
-but tcp_v4_send_check() seeded the checksum with inet->inet_daddr.
+In _close_conn(), s.close() comes after _send_with_ack(), so the data
+socket is not closed explicitly either.
 
-Could the commit message mention the IPv4 SRR/LSRR case? Could it also
-say that the IPv6 RTHDR case depends on the psp_dev_encapsulate() patch?
+What happens when the socket is eventually closed? The responder might
+see the data socket EOF before the queued 'data close', hit the
+race_close path with data_sock == -1, and leave a stale 'err' reply on
+the control channel. Later tests, including the next variants that take
+the same skip path, could then fail with "Unexpected server response".
+
+Could the remote filter be installed before _make_psp_conn() is called?
+Another option would be to finish the key exchange before any early exit.
+
+> +
+> +        rx_assoc = cfg.pspnl.rx_assoc({"version": 0,
+
+[ ... ]
+
+> +    finally:
+> +        _close_psp_conn(cfg, s)
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
