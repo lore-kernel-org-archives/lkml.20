@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792820366;
-	b=nxPu8bM73QPa+qphAXZwWZiAs5idWVTM1P0rQBcrUR8/49cXbzfD+kNzfPermeoLzuEL
-	 bNpaLrIFBrYwXhdf12A8WnlbuF1qqbhCtGe3f3iSGUQPacdu34ILwYlDrzjFAzX/mAfz6
-	 Bx3U6OAKJQqgbIm8QC6ofQe2T9cdRPf5kz/5SNuei8pj29e+VhjDKisomwXntWdr6r3WZ
-	 MEKb8ki7cb/hTNKdRPzedKVA/yk4d/Hv4kPotr1redSYNxn/2QOHlNtNDTbWZqHCalCmu
-	 FXCK50PnI89xIQlU7QfPgKfBhLctVI7lpepyLpko9rCG1lRl0cAhjyJwDHg1TE4HfaA==
+	t=1792820633;
+	b=HHij1tEf1Eciq9Sfk/aT+qeRvaF4HNlYXf07jjnSmsQ3MykAjY4luztwtn1X36Lgf5pk
+	 R0Y5kyZhGHwb4Zoup1BobYe6TFb8BETRgzqvYBmB6fnIMowROqAv7h7TMWK9Du3sjEiP7
+	 w61qXgJDcDbasvdaGASL/pZylc44JqlAr/DGnT6J3ZfWzi2KQ5+IJtVGweJibsSPsb28O
+	 rq3lq1aM5L/krlhFjlflagbyu7phv9P9JpLIWwS1PfWpt8i+5hcx3aO5rukZhWVisTicX
+	 YVEqVG/KMmWxKpZ+w//OEOKUZMKggJSqz+zVnC8QwERYDHaYmVR9p2NezHgx534z4ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792820366;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=NAlRJHzy1wsPSPz/FaTmSQg0jcdHnFgdak9YR0MMUoY=;
-	b=mSPgLaRblYAdMMH3XVG8fS+S0/dvH/KH5maIzPK+INenY2puq6z88c8HvGnrvG1WcEPh
-	 w42wMUPjEIP6GgkOvSLrkh5fYrmVl04Tj0WBEykbSvgvnu173x01a+DVZgVgS7mOzI/X+
-	 k8tdlNzOS46BlAL8MuX9Kh1OjWm+Kr1foPG8NCROM5ZXQE0/09xt1LKxPq0UgRRjMEH6/
-	 KEhh4hBa0TPZezKczdvvcRDRUol6JzJMANfHavcd7bZ+0jU85C/zyZwvgBx5Bh49YOXGa
-	 av02ndoSIBvKbbz1OImAo0SGwLSwznEIjoWyNEOQPvyzhPKbZ4XnHB5A2meDm0ifvXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792820633;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Wiy7ZrHhw15Iry1Hperv5vWO08e018Xa7ESlKnGxgP4=;
+	b=p3YNHMdxpC8fh89vtBv0SSsIqsRlYo+FVFbc82i+ZpsdGoYGhGg0vLOFVLjKx7obLxGi
+	 0TdpBEJXCUkqHT8ptMzj7uIrEF/C/xe7pTsl7dVampFgxDTaasJabi0YGChwBE2J7o+Qt
+	 BseBcAaDgJqapdz+E78K+eADlVuX5pcpbZeVNg5RDqPm3ydFsUfqYorP8ETV+UpG+Yw/R
+	 1GbYkl+urTMIbDtUhzlo8b5nZnHGdtxWYwqgSVrffpb2FCG6VPoo/YJHwNb3Og3BIbuqy
+	 N1OdaE2yGY/dT7Xil3lUhngQH4m7hCZP7C5yaouduVCngmpv9A+JToJbuiUfukBupuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EtWcgvjg;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkYUYPuX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C31606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:39:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30C31606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 21CDD606A31A;
+	Sat, 24 Oct 2026 05:43:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EtWcgvjg
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35c76e9614aso2321709eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:39:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792820365; x=1793425165; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NAlRJHzy1wsPSPz/FaTmSQg0jcdHnFgdak9YR0MMUoY=;
-        b=EtWcgvjggaTKu6c9xlUsSlUPQ6XVUNtVsXGVTtLyceX/QcXgGPbSXKY8XeO2FSGU8d
-         VciVKo4mE+QmwXcFJK17qw3PZJvca5a+XpL3bfM28dRd5YnTJZ8D7Mm5d66V8NbPZjMe
-         dqvXyiTC4D9CqynigaiyFXB3lqc4x51FqnkqnHA8ameVrie4P0WrFy4HLXRnpiPGVB2s
-         Xuedp+gr5V5TRR0jOv/kTRom+sIznW2P/+AKjJ6DTxvyNS1sipl5zYsTJzJQnMmMJexz
-         93sOWST6MHyjBHcu/uNB6dnhbSdVMJwqcTC3N+OOpw0Ys/r9SIHNDHbG24NuvR9ctKGX
-         JUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792820365; x=1793425165;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NAlRJHzy1wsPSPz/FaTmSQg0jcdHnFgdak9YR0MMUoY=;
-        b=bD1L4PaYZNnI2gcgt1wfmolJUgTeiPsJTVfpYtXVQRzPiGW4eVTrdvt7DohbfL0b64
-         4OAB9ywOahV9ZbuehLdqY9ytjewWQYaxlxnV1QZRFma1pKpoGYc3tJ/mR9R4KkbEwwdY
-         NgHEzNJc0iP7wymtFlgYM9gjtb7b1yzjwO7zZ4W75G1rX2WqN2A1RV5LGn6pmqdhUwQ9
-         tNVvDnRDbkxHuQ0RpDIYxT3JuQI8+2bNesuROuud2fqz7qQ6LnnMORvWDAExsm60B6yV
-         NorwdLeJ9svjeYMn8P0N3CyuHSmvqbQpT8JP8QFnRaEt9OWpRkXbcje7bjx8BeVgtkpo
-         WsSw==
-X-Gm-Message-State: AFq9FYIEbepICOx/DTMJdrV2bMES/pN8/34MdtaxuPl9S+qahwfV7oSI
-	uLwb/dbZUHuEARzqMblNe9yIQg++x6r5T/F+s0dOvj3aXRCfp2a2OMB3
-X-Gm-Gg: AYBFou3Y/XH5AeESO1IiIEzMkbJcv1+cstJn8q1zGyAxWse+gj3/uc2/z6pJK1G+MhR
-	rOoeezM2ZhsgvjbG5AAaf70ifL1n/ojqN+nC4pNy1iChyLrpC1hFEZ1sqgL92huDDO4KfeMtgC4
-	zZIHw8hBryD4ctPE7N85XyaryYUnuYtnOFLqUztV7fRjJ8u3P/k+lZ2GlUtZZOfDzJQHHDC8XWa
-	l+qoBpM+YfEAgXaiLr3mTAXucMkK64dfd91W0QpIRSO6Ihk4ZhGSftjc+LmHeOxYdwZwCtlu+Z7
-	9x6Y/x46y0tsY7NTZkq/02DQFvzcZxLtXisz8Qxz2urGtW0J7vG6iBR78olcUCE03PQVMDExa6M
-	WLlPjOsuKwe4koJ/dH2AaGUZJBI41PuDqbfF8mxFcK6vewcgG5u8b4RU1CDk+1pmffTCeHntUfP
-	zUctva/cKSWTF27S8kGpzrnvANT7bs8ZgnEUCfanGgktm0pER3Xu11ULr7Sa6/F3aYQyS1CWaP5
-	eGVpBwdHH/oyNREAClrmIz+pKc25OUq3IO4M5guArvo+v/QrnMvM4TLGEK+HOkbuU1eE9wJBTxt
-	zn8SXncjKenUppYSRI7t1S4AQyji5iyVEys3eWGYXqXz45EEp69FOfvY6Suv6qhyvjNX8LxqWTB
-	0OhzvpNBegLuhRdI8Eo63CoMLwJ6Akg==
-X-Received: by 2002:a05:693c:62d9:10b0:35f:2bc:82d3 with SMTP id 5a478bee46e88-369e84bc16bmr1906522eec.15.1792820365214;
-        Fri, 23 Oct 2026 22:39:25 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d56957sm7466859eec.5.2026.10.23.22.39.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 22:39:24 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH ath-next] wifi: ar5523: don't select ATH_COMMON
-Date: Fri, 23 Oct 2026 22:39:23 -0700
-Message-ID: <20261024053923.3585009-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkYUYPuX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 62E8D1F01825;
+	Sat, 24 Oct 2026 05:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792820632;
+	bh=Wiy7ZrHhw15Iry1Hperv5vWO08e018Xa7ESlKnGxgP4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZkYUYPuXAaZTTqsqd1uu/NLftykv0x7JOgv5e7M5ckkrPOc4TPMTJ7NtCQO7QxmQC
+	 gTFMHD+hAtNI40XPWn2N+bnx4Y16EVdXAx5aSb6TC/arDxXko5XsHI+CQm4dFb/IKO
+	 TKFLv+mRF4l2rBh/ecrtoAEOETHZUl9FJhSdw97LUOw+9oBcgi4B/HmlXlYGQ/WCmy
+	 35PTyxmDtadaHZkEUY1QwBFpT0tAF4IYnhwMx74lP6tAa5YlcZ0k8xHukau9BbXT1o
+	 awttVwY7dkmwm09cKUycBSFF5lc++UnLuOyiHcTf2xB1OIJ/9Kx9gf1i9WXfHRmUrX
+	 3tszC9aDWsxeQ==
+Date: Sat, 24 Oct 2026 08:43:49 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] keys: use long workqueue for garbage collection
+Message-ID: <atxFldwBDvSALp46@kernel.org>
+References: <20261024042944.52493-1-hackerowskiy@gmail.com>
+ <atxAM9JW6oi2MEeT@kernel.org>
+ <atxEIlD8yeW30Nwr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +61,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atxEIlD8yeW30Nwr@kernel.org>
 
-ar5523 does not use anything from ath.ko, the module does not depend
-on it. Selecting ATH_COMMON only builds ath.ko for nothing when no
-other Atheros driver is enabled, so drop it.
+On Sat, Oct 24, 2026 at 08:37:42AM +0300, Jarkko Sakkinen wrote:
+> On Sat, Oct 24, 2026 at 08:20:55AM +0300, Jarkko Sakkinen wrote:
+> > On Sat, Oct 24, 2026 at 06:29:44AM +0200, Eduard Zateev wrote:
+> > > The key garbage collector can wait for RCU grace periods. This can occupy a
+> > > normal events worker for a long time and contribute to workqueue lockups.
+> > > 
+> > > Queue key GC on system_long_wq because its work may wait for long periods.
+> > > 
+> > > Reported-by: syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com
+> > > Link: https://syzkaller.appspot.com/bug?extid=c15de43f1e7fffbb7b9b
+> > > Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> > 
+> > This commit message is not huge selling point for any possible argument.
+> 
+> You ignored key_gc_timed_out(), which leaves code to a broken state and
+> switching workqueue is not solving any possible root cause of anything.
+> The long queue exists mostly for the sake of flush_workqueue().
+> 
+> Please stop sending patches like this in the future.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/wireless/ath/ar5523/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+Makes me wonder was this even tried a single time TBH given the obvious
+glitch.  I would bet for no.
 
-diff --git a/drivers/net/wireless/ath/ar5523/Kconfig b/drivers/net/wireless/ath/ar5523/Kconfig
-index 0d838c1e7b12..2ee9aadfe19e 100644
---- a/drivers/net/wireless/ath/ar5523/Kconfig
-+++ b/drivers/net/wireless/ath/ar5523/Kconfig
-@@ -2,7 +2,6 @@
- config AR5523
- 	tristate "Atheros AR5523 wireless driver support"
- 	depends on MAC80211 && USB
--	select ATH_COMMON
- 	select FW_LOADER
- 	help
- 	  This module add support for AR5523 based USB dongles such as D-Link
--- 
-2.56.0
-
+Br, Jarkko
