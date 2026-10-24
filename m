@@ -1,113 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792827177;
-	b=OYv8gvqATibCxX7dP5vrZOGALQ2fuw6OBTZaTR8QI2jFankCAFxw7utFM103P5HSpkZn
-	 ntng4Lz3oJ0Rki/fdj8QiCrtccJeHgzFTZYVCHBX2i3hOJ6fEmGrP4XQn10ULGz6ZX4tV
-	 gmcDBOY95OMIVp8HiVH6apgTcOHCUoVbLmP2cmubtmBNxLUg4HwGJb7ytohpZ1QbO3z5h
-	 cNBDfsJF+jnZYza9airS0N6JkbfSyqcr/fVCe7FxBgb4/x7nBCuqou7Oq94swUIeyowT7
-	 UDgykSDg5g+yNEPOlulQQCnDYqLvDgVWFdhMIGvvGNccwezbtrkfqdTkOR0J58lFy7g==
+	t=1792827209;
+	b=pLURvyKipVTQFy3xwd/DRcpffcayfYSj4RsLD9/j8p1gDXuKtKBjKGFPKMvP2FIjiEFN
+	 mjSx1a6x+Gb8qvp2bdv9XHBShGmJ5YsUALKhipo1xEWLQ0zX5slGnlhmZxeG3+Z1VIEcP
+	 tYJrg3yaR+mZ2ksgSCXDOjzN1qom4MGp24UCT+nvdRAu6F253c8VLh7eZdEov0sHi5S/q
+	 w8vSMlQsxj6hQAc/FQN2wB1dU8N7mYOD+UPe97I/KQkZGBX87ZdDixEJrBXehTA+4+AVL
+	 Ntm7ClSfP10UEMgyZocmGeq12xHksJkFEF0OAIycTMANDM4+xmb+AUvPstKfCV1bDtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792827177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
-	b=1T/ioFYBlr0S1SJh6Aopu+efxwNCqIeonT8E6t/8xrgcLypuAKQrgPDkBhIZltfjZt5s
-	 waBae78PrYF+4PA5PG+Kgwl54Y0n5Ft69PMFvBIzC/XPkWEQfitLg+g0XLzOjBsjayRX5
-	 TeVzwzrXbXRq09bzM/yeeb6QOVYZuKgwU2lsjO9mkDTJbEHFvi6lazbxOBHw4LgT3dNT9
-	 25o0cQKjp+iXgZ3mB/JbrCU9DMuC4yv6qMN6Yjq+fCXeROxuVXBwVlrbhte4YKd4zc3ml
-	 tHHe7PotHKefZCp7Jmlc3Sf0hYog8WRnK9RD6TRNWNdqBVEgRE4f8NNHTqlOz0SD0Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792827209;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ok3pjg22edXzQhuK8h6FzdRDjegD24d8xy6xP3Un7Og=;
+	b=redg4FJ+fVf/l1FIfpgXag9dd4JrN/MouXfgEGuMsm+/LoDw2PK/0ws+U042zQlLXhTd
+	 R4Q1VFkuyF79GBsAGM1mZv2zojwI/Fjqetl1OY+Q988k5XbNWoWCxIH+f80QnS90qhTTf
+	 qPAZ+WPsTCiuYaef26DqX0hfeUTpeX9lcevC3jamUqn569O8W5U6aNCtLTlPVBji1e3q8
+	 shNoUbQ//5/o7CrRZuSfhGvc/BeeBavQwQYyx4HQ/jv6ct77JV6O0K7P2rxU6l92M4J4d
+	 T/QUdigo+lqLcFDz9eUSqX8eIe+RjnVg6iFhNT51uNGlYiWKxUiZAwmip+6jo7PD9Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bIDYtbOn;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fzdllpE6;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE5A606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE5A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C91606A31A;
+	Sat, 24 Oct 2026 07:33:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C91606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bIDYtbOn
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b060ec084so956500f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792827174; x=1793431974; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
-        b=bIDYtbOnPGADlrjGilR6HlFVpF/eIp31wIxr3wVKS/McxWVagsZZJcNMwIGOaDkaGh
-         jPydXHn40ca3LBrlABACC/cWWoUxiiNQ6K37TuAZ9OwdOWByTtGVMcTPttbPs/rrEPpo
-         lJ60v1+90zWJIUQbjPMADewT4OKMmnJWfpxYytolFHNH7DWkKldRUsZyWrhDofT7/PhB
-         hnOIsKB4wTNr035cZj+SICgnq++LdGkxL98N7LJaydych2gY8QLXItAv1k93WeYHehTv
-         Ds3pnjJrMgM8GsA9BuPW6XaI9nQwpsSBGPGmFcNOQnnUl7tbCIZ3e6bA8AfUd7KMXs7D
-         IkNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792827174; x=1793431974;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
-        b=RDKd4iIazb6WWL3VwMOIE4nPFv/leGUIm2M9xSc2vhBAJhymEFcBHLw8Cfkwp0Acgy
-         Vh3xpiPK4zxDXEfoq1aylDSpdcZJMlqrUuoFFiWEsetANv5IVo6xYuy1ZVHSCvlWb8bC
-         6scUmzRjQ3HfuX3gMDCSSTdk+xGUO97b/mGe7O0LrOU7Ko8FWj4qMl1ObXfOlf+94Mgl
-         h9rztXukoj1tuUTl+RgZyV3nW1TeHm6EH3pGc04PwHiLVPzwd5cvJj4mkwR29rjMvSqV
-         wNnnWu0HznFKBbK6TES8dwr/vS00AJwAAW8McztjWGjapU5tFQ2d+rD8XCUlaZQCMHhL
-         OI3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByvozXxDfxCApfr1zFOXb3NpJSuO47ymfjNF0r6SH3FSBuEULfNzk9qSZgT5Ms1IFtdorjzXS5cGzeHw0s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGU+BffU+r8l1v7VFDy0lLuZLC0a7PmO/pDt2Yi92hZbGKOd6l
-	nID69NJP23YjXbFnL4P9qSayamY/LQTTj1GvH9Yxzp6L6R/ySlld0VgPvF6r6BaWYss=
-X-Gm-Gg: AYBFou1OF22888y2RdNYP1fvPl65Jjv+r1zvAHOj+hjcQKgpJZm4Cl91Dz4ZAE+tO/Y
-	UGot3q0Te1A6Q/Kx4O6vwO37vvDyZcxZazLtfOdXe1XmrLboHIeSzJS+Thtn/NdDZbcIyxpomSX
-	qNlv2DDS+ndBtcC35sKkQOuLaY35BmHmdcaLgiuvJb9C70cKEqCBv99yzZX15hMxEeNVQWST+gu
-	uck5vCJGS1kEcIMRXfAPQML02FolyasHp5cZvfnXRYEJb1rHVkF7S5zLWXPlvPCgyTecdZZ7Un5
-	K8Sf0V8phMrwL0mc/mVkKjXOzpT/p1smBp3qUr+tegpiK7IUc85N2c7Wi8iNcQDhZ4yX930mnYa
-	15ZZErGxrbGmhA9mf6abiw7Cv3EtefP3WD4q0V0VoUxFuqnDSWinvj/P226e2zFJ4X5vuQLo8Ce
-	FxJInA1keSJvFD3NBeZvXqY5mfyvhKEjANFP1OtZyPEd3gzCz9JJp5IAoYUm5vHydDHmnRDwax/
-	VZzK5Sa3+zQk5rv5cFGLy3uf+y+nJ8SiqsCaZdt68o53XUTq88F4Uimr3dxoO9Mdb3MOco5wuAp
-	skCB8Qrm8/Bq5h47phOHnVXwWDhVhIWZ4xs=
-X-Received: by 2002:a05:6000:40e1:b0:48e:932:aefa with SMTP id ffacd0b85a97d-48e3eb9263fmr1987532f8f.26.1792827174053;
-        Sat, 24 Oct 2026 00:32:54 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ecd35c2sm2752126f8f.39.2026.10.24.00.32.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 00:32:53 -0700 (PDT)
-Date: Sat, 24 Oct 2026 09:32:51 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alex Williamson <alex@shazbot.org>, Armin Wolf <W_Armin@gmx.de>, 
-	David Lechner <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
-	Johan Hovold <johan@kernel.org>, Richard Weinberger <richard@nod.at>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <atxdQ4vfh-b6GD0B@monoceros>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
- <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <2026102437-vista-unsoiled-b089@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fzdllpE6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792827203; bh=Ok3pjg22edXzQhuK8h6FzdRDjegD24d8xy6xP3Un7Og=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fzdllpE6O5GmIISEiixKEHXvpzrpblzndNtULG9lk+boRG5QVvg6kYzt38scv8siQ
+	 x/72E1EbEy3WJe790wUVUz4/YSgUDCQH372K9wOMP8S4pxOlEMdQAIb3M69auBrmKn
+	 4ycwP1iB0mEtYDnGkbI9wCgT+bq4Z+kIX24tM/F0=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 855128F4; Sat, 24 Oct 2026 15:33:21 +0800
+X-QQ-mid: xmsmtpt1792827201t5bz1fjn2
+Message-ID: <tencent_4528029FEDA8E7D49AEFE291032742538F07@qq.com>
+X-QQ-XMAILINFO: M1rD3f8svNznoVYgx84LsIAP5h2YIyC95fLBj1+igaesL7k2a3y8AV0oqlqnGK
+	 btgd/OgvLzUpyxM0HB9VguSu56OjljM2QW4Wu/w7OqtIbX34vVMB3He83DkZecQKvX49yOOBrB44
+	 2FTsbOzykZZ8vzXIH1Ye2nEE95688cK4Uc8OyEzAWIczuLGbm3VOL/zX2pddpXtZ7lAwUDLbSXDS
+	 d/7nQrXZH91K6eXxhd0gjSOrBXB/MXC0AatQkDjUl1ImEWkT8T82jkG0791+DqD8LY+la6w60I9k
+	 LLPpbmdAM2laYP43dBS5MalHr8PtL/DW7FOps5oh9PTDK6DMn2sEDO4ssJJsZBztSTVnVL2Jetc8
+	 NFErxvRoTc/0moD9/fH2GSFjHWp/rvQ1YYMPGLdNW2I7NBnpc45pJvEfkF66Kfzz4METLDmP621K
+	 qVOSaPlPYWq0mjgWTZosT+TbZ8qUC3JwKpeOqfMWUtAfjCWj+wwY+x48MUfKJmCRMi+wkm48mInG
+	 PhWdvrkVfAOuE2dUTL+KRVa3o9cRnoFBwalRX29Ps8xtk5VL4fRBEvcFV41sP0jjw25R+OTORkHB
+	 1AS9wa3P4X1HGdHDOvsME337oNwzzfCNi6BY2l0b5nDb2w1RHMt9ZArSlnUW1fJN8oh2eoVWdyxP
+	 Zk8AqZmtaSKI+heHUl4X/QvfjkTSdhcdqGAHcbzNwSums+0twgyOe52JTQqgRvU45QMqIRKe/iHj
+	 gkfXHkrQ4ExzBwdswyn0KkPxCnchttF2isjJNM93q1xP3e6NTGB3+eWv+IEjcj3ZPLS92UPzSU9s
+	 L1D2CxtQ2YvA0KONXcnDUfjlByj5exhl9VCwVHlKp5YKQkafVDm5pkkbACHoAbKOBfIXjs0FnTJ+
+	 jNqSvFvgZY3k5kXROAq3PP3bQd7g/SRtqzt0VJ8FPmjX3+Dsy+HJBg7IPUsC3iDCGaWmP1gIaSD8
+	 J9MDT2Qv1tZYmOtpqxLLufx7UpnqGeQbsbZ7WK85F1FhZTDSNWoqJU6OZkffvvVP3O8NrJeGeXU1
+	 buyOLnoKzom+B9pZ3vh9EfNSf5gFE7gGqaLFao0dxclUxhefDvXLuu8rLcO9L/H8+BeD/nCLMux+
+	 gylTKh7JM24jBQjGo=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Michael S. Tsirkin <mst@redhat.com>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vhost/net: initialize the whole negotiated RX vnet header
+Date: Sat, 24 Oct 2026 15:33:19 +0800
+X-OQ-MSGID: <20261024153319.61076-vhost-yangguikun19@qq.com>
+In-Reply-To: <20261024150815.36216-vhost-yangguikun19@qq.com>
+References: <tencent_803981983647D9F9444561A4227F138C600A@qq.com> <20261023080824-mutt-send-email-mst@kernel.org> <20261024101101.71420-vhost-yangguikun19@qq.com> <20261024150815.36216-vhost-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,54 +78,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="snd5d5o342ief275"
-Content-Disposition: inline
-In-Reply-To: <2026102437-vista-unsoiled-b089@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
+First, a correction to my previous message: the AF_PACKET injection in
+that run never actually worked.  I took the "ifindex" from the ifreq
+returned by TUNSETIFF, but TUNSETIFF fills in ifr_flags there (the
+values 4098/20482 I printed were BROADCAST|MULTICAST|VNET_HDR flag
+bits), so every sendto failed with ENODEV and no packet was ever
+injected.  The all-0xAA buffer in that run only shows that no packet
+was processed at all, and the "payload starts at offset 24" claim was
+wrong.  Sorry for the noise.
 
---snd5d5o342ief275
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-MIME-Version: 1.0
+I fixed the injection (SIOCGIFINDEX by name) and re-ran both
+configurations on 7.3.0-rc7 with a 64-byte broadcast frame injected on
+the tap.  With IFF_VNET_HDR enabled (plus TUNSETVNETHDRSZ(24)) the
+result is worse than stale bytes: the packet is consumed from the tun
+queue and then silently discarded, so the guest sees nothing at all:
 
-Hello Greg,
+  tunnel mode (no IFF_VNET_HDR), sendto 64 bytes ok:
+	hdr: 00 00 00 00 00 00 00 00 00 00 01 00
+	     aa aa aa aa aa aa aa aa aa aa aa aa   <- stale 12..23
+	     ff ff ff ff ff ff 02 02 ...           <- our frame at 24
 
-On Sat, Oct 24, 2026 at 06:56:34AM +0200, Greg Kroah-Hartman wrote:
-> We have real problems with random "bind/unbind" attempts that this taint
-> is here to help resolve as it was creating hundreds of false-positive
-> bug reports on developers all across the tree now that the fuzzers
-> decided to think this was a valid action to take.  Without this taint,
-> people were being forced to add hacks to all drivers for this which is
-> not an acceptable solution.
+  tunnel-vnet-hdr mode (IFF_VNET_HDR | TUNSETVNETHDRSZ(24)),
+  same 64-byte sendto ok:
+	hdr: aa aa aa aa ... (all 32 bytes untouched)
 
-Why is it false positive? IMHO unless it involves a driver_override it
-is a bug to fix. So have you considered tainting on driver_override
-instead of bind/unbind? You did, I'm sure because several peoplel voiced
-that approach already, but unless I missed something, you didn't share
-your thoughts about it yet.
+The guest buffer is never touched in the second run.  The packet was
+read out of the tun queue and then dropped.
 
-https://lore.kernel.org/all/cover.1790612298.git.u.kleine-koenig@baylibre.com/
-would be a suitable thread to share your opinion.
+The reason is a peek/read size disagreement:
 
-Best regards
-Uwe
+  - peek_head_len() returns head->len, i.e. the raw skb->len.  The tun
+    vnet header is not in the skb; tun_put_user() adds vnet_hdr_sz
+    bytes at read time.
+  - With VHOST_NET_F_VIRTIO_NET_HDR negotiated, sock_hlen = 0, so
+    handle_rx() computes sock_len = peek = skb->len (64) and calls
+    recvmsg(sock, &msg, 64, ...) with a msg_iter sized for
+    vhost_len = 64 + vhost_hlen(24) = 88.
+  - tun_do_read() delivers skb->len + vnet_hdr_sz = 64 + 24 = 88 bytes
+    and returns 88.
+  - handle_rx() then sees err (88) != sock_len (64) and takes the
+    "Discarded rx packet" path: vhost_discard_vq_desc() rolls back the
+    descriptor, but the skb has already been dequeued from the tun
+    receive queue.  The frame is gone.
 
---snd5d5o342ief275
-Content-Type: application/pgp-signature; name="signature.asc"
+So for a tun backend, the three combinations are:
 
------BEGIN PGP SIGNATURE-----
+  VHOST_NET_F_VIRTIO_NET_HDR | IFF_VNET_HDR | result
+  ---------------------------+--------------+--------------------------
+  off                        | on           | ok (classic: tun header
+                             |              | passed through)
+  on                         | off          | header written by vhost,
+                             |              | bytes 12..23 stale (the
+                             |              | patch under discussion)
+  on                         | on           | every packet consumed and
+                             |              | dropped, guest RX blackout
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrcXyAACgkQj4D7WH0S
-/k6DIAf8DAU1k1OUjt0oOb7bxXYD1+h/zw0y3dtkGS8G+zRTS/qzzPPjfmqRP0h9
-J5L7m6Y88ojmkEkaTuZykFHJjTD0oRB1HPOJTgCW6xGNMm2ZWeh0nTUKgD9H5GY7
-w2HgqDafsFSbrwjrivGi8AGwp3WErwD0r+kOCr0MrPDA9d4RxztnKRXgDPP79VFz
-52dVyEVot3hTvhqxMfO0yLVcwGhQaO5VnfAGO3zqb7oOJoL3MzMUVk3Qo8NuSz6R
-zP04L1Pg9uTjUgCUKeKGGkzd/2+nMfGXjUGnId1rwsRI7WfBXP4t0r6JIOZsSNIY
-RuU/lvGyyvYfTEwZjc1S5kWfcRrIdw==
-=5xdK
------END PGP SIGNATURE-----
+VHOST_NET_F_VIRTIO_NET_HDR means "vhost supplies the header, the socket
+data has none", so it is only consistent with a backend whose
+vnet_hdr_sz is 0.  When the backend has vnet_hdr_sz > 0 the peek and
+the read disagree and handle_rx() eats every frame.
 
---snd5d5o342ief275--
+Given that, I don't think disabling "vhost + !IFF_VNET_HDR" is the
+right fix: that is exactly the combination VHOST_NET_F_VIRTIO_NET_HDR
+is for, and it works apart from the 12 stale bytes my patch addresses.
+The combination that is plainly broken is "vhost supplies the header"
+together with a backend that supplies one (IFF_VNET_HDR set), which
+today results in a silent total RX blackout.
+
+So I'd suggest one of:
+
+  1. Reject VHOST_NET_F_VIRTIO_NET_HDR (or refuse the backend attach)
+     when the backend's vnet_hdr_sz is nonzero, so both broken
+     combinations become impossible; keep my patch for the stale bytes
+     in the remaining valid combination.  The backend header size could
+     be queried at attach time the same way TUNSETIFF-derived sockets
+     are handled today.
+
+  2. Keep all combinations and fix both symptoms: my patch for the
+     stale bytes, plus making the peek path account for the backend
+     header so peek and read agree.
+
+Happy to test whichever you prefer.
+
+Best,
+Guikun Yang
+
