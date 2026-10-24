@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792858246;
-	b=4FsIGNgoZ8fnHVOFc6sxqt7kJ4hh56uQHqtRQmReZuE4jXdHOyqS6mGut6z2cGFMvI4/
-	 4RDB/q3vdhDYxq0+l/0vqRUBoJ2PBU295tFarLku1+bDd4DA8nWgVb2w1X+1Z9NdhhQA2
-	 wadiZMt3CZiv9hX+kgWh/LKJ17HP40UmFGdIVxJsF+foLFLWT8bzsslTi79/CciO7ZqA+
-	 Sc3jCEm9khZV6W/9xjVDvAzoW3KBRd7jNJR8BodKJWFRDBaVEgZoagfPp00CE4nfJolgw
-	 /D70txe0MmOpXjf4WBQu9LIAh13I8e0SCnH0eBnsIuR6XMSJHc9raUmeZdYqq07rTpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O8lYg+fnY/scDiybaCmI8FMgC2eiB+AC2lyV0CyUaD4=;
-	b=n8V/YSfXcYviy6WvqEYaN0/AIFmRCIkG99/Jjw+nn8lUBAdEUOULwNWCAYOo5/AOaIwo
-	 avbb/ZKzlpesgcQgq74jXZy00igV5HScRPVgHMaJ9mtd91Et1+Thm4Pt/e7ZGkjvebI2J
-	 omgJMuvuWb3lVGI4Pk364Z1H/87sEFOOcdap60f7B1S7n3H9X7YBsw3Ozv/QVydf859UN
-	 qbuGK6NtTazY+NfUDYzny6xO/f49EonKpigd8yyn/TIQaPBmJEjhjuIYVBhFs2Wuca48+
-	 73iymw62NOl370G7kn4iNGorV3cvF1vVTHsOqYiVFj66u1qbpiJiaWLWBFzRclL+ugg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JD2Q0yS+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792858282;
+	b=h6yKQKnhZsf7GoQ69RPeOcksErL4oMDgcvQE6DXmcrwxGHf8Bl0H8JqzuM2BvHJ3y+YW
+	 ukqk+6HsRaqvl3hUvSk40qT+3BiV+kOVFuYl/x5aAsCsuRuH8xGC5X7lzQKt+Ft4KftTc
+	 eDWq47E7BqaJ0qfIcWzntloVcHi4lql0Ul+C85HlsxluHgNi2kqsdmKYhuhjQh+YdrZTO
+	 q5i/8eE6RozJ2JKDKIid4/GEj9c7/iEWjZONGqenWH8PiuCE5RdptAyKrIGWBxg1VmXSl
+	 1m/4qmFc69m7AxSJtYcfj53UwaEVWIba1+gWRltS7+dJqvd331z9RmFz+w7vCbE8o/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858282;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=W27aSalgzv2Xbhoow/lwveUu1WS93+h0c2znFzv+Gb4=;
+	b=lDm7yuAScq3tLVpfChm4mpjomuw6iqnFee0toXXsEfIYEv1y/0AUhCZPuyil4AFeBbYF
+	 9esSrNo+aFP5gdZSmo96xSaZBqzM55dmMkmg3cDZjvH8PHFBFH9NYzvr3ssppJcdOIyVC
+	 a2bcaSREkXLMO0Lv2Yu977lf5Zvj4BOpW5yloXygz1O2noUxaOY655ns1bmez7CAoP++k
+	 gDcfNI5LZClgleFd6r+1WxU3k0yhsm1xTuxd7xvCIsmexjqdeihDUy35KSf1XZonUfvNx
+	 BSswecJ5HUpq2iMsBvId2wCC/k9UrutUrWcNf3ywD9vgUXmwAJvQlktwNr4LNGw+ouw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2Q+YVI4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C023D606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:10:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C023D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC7D606A31E;
+	Sat, 24 Oct 2026 16:11:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JD2Q0yS+
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c263415982eso215755466b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:10:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792858244; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cohd+uBAo6mkLRbDP4Vv/UGJwTYg/k+v0jPKf3A7oqABO5lWUMUJUpIqCaO2rI+adZ
-         zYihb7SAgrtmpIFzAgUK1//fyxW9gOd7I7y2tvkbkt83C7QYA2Is5Ug0GnlEU2WiWkeQ
-         n5fXGVWr7FcL/BKyRZM33znZrOGSbBUgQPaGGw4d85f5IydX/FfGoOTkceoBDtpRuCFN
-         BuodJKFcr63PrUW4GhY0KSIV3ybuOc5MjjJrkZWSo+m2Sv7eyOZK18H5AGoPDpC8lt2p
-         r8YLMRNpogYoVuuZGH6G7GgGw3BfZem0GB3yry82MD8kWX0XyOGJRycBxoJpYFmKV9u7
-         1YOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O8lYg+fnY/scDiybaCmI8FMgC2eiB+AC2lyV0CyUaD4=;
-        fh=ElnS4F9hlkmTSngX5UzjMqOl343DJxMygkDR1sthnR8=;
-        b=p3mX/AHoKSTJ+qXXWb1HoR5IlcJBArOxZEN40NoiG/0yL3wfncKk5cmYQoawvl4c2g
-         8M/JrZ6xzKp6kUd4tDUXn/eTiIdSRJRe8S5P2Qfxgvt0tYELnbLNUFiKGBvm06Ib/0W4
-         1WYY0qsI2ekfXVLqqmVHYb9i+ZFzYkZM7oUQ2n2O/VghmVySQ/Y1JxBA//fEXnwNDkWt
-         T9eJLKlbqvLsuEnIwE5z4VdtUkxAzfhIQ6SBhrzeOP/w+PmSrqK88dY/H/Fhqt/WrrC8
-         ujSWjvrYCmjP3FvE0Y4PxQCaC72+0b3qeCvnIY2uaWLhrL4L+7EfYRapuXkFhQuqUyeC
-         Sg2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858244; x=1793463044; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O8lYg+fnY/scDiybaCmI8FMgC2eiB+AC2lyV0CyUaD4=;
-        b=JD2Q0yS+Crx1yIKHI4mAisGDDvObziGAva6uOk3z3rINdjFvSeN6ze9MJ2Lnazm4Ra
-         nUDNvdLNhoqYOoNII7YAYdSAkwTKuz18NxcmK10GYxYca9ihsuUg9+12lFojbYaaKRwm
-         Z74yljxLU3UmsrFR9HMsP8zjhW57p5LxFE+1MkaXFVozrkZX/qInEkBNWqp3b2R5f1Dt
-         tI84hKoXdmuOCSvK7QJM6pxJfwleQhZa/9k9OkSWgUKy9WM4sF4WU/VFdFm1eVSmPTla
-         iGHGPaKfUDpStNoroi3mrmPXuu8yRpta4G9QJ2HfEKgdP8Z6Ijc1/fCsK98xMe6+QHRV
-         DXQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858244; x=1793463044;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O8lYg+fnY/scDiybaCmI8FMgC2eiB+AC2lyV0CyUaD4=;
-        b=vvLWNg/uOFRQO2fgEv+6T9LZMShOW3/f0+3x0Yvf/oxWYmb2W5dH4O9udPbwEjobY6
-         5ONFZMt3V7LLG5VCWfirM+iricPHqHOR0vIcCe9ls7dew/U1RjgsxtAb77VbNJnpRxta
-         5YEB1vGL2s3tFOYyPkQMCr6r6XZYaAWC80muySfQwgvP16lzqNNSJPnrp2f56KkzbnwW
-         0c4H8mJpT4zH4BHbOsMsv6lbcTBPkauJK078VmenXSv1uwOLNEcdfEMMK6id6mWd1dmG
-         pegqvu1U5kfnHqIqTw5WuOE4qDINTSkZ9ijMOz0fTzQiMfLXTCSiyeurYfrh4ZjOFRlI
-         383g==
-X-Forwarded-Encrypted: i=1; AKwUvByF384tX3C/1O55dX7V5W7/t9XrtL5Nu4NRQeo+DvfEjq7q4p1qeZTTmCy3WZATEbFW3yQaUBoysaMZF/E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCG1mcx/hm2XrS/QL/IkztZV0CfgaFLfufWUCYbULmPZ1Nd9VC
-	o5z09D2tP0hmvXKvoCZbWzb7XeYZyoQtGWCxgqv8PxgPPKycB4ijhoviKSnEZkz/5xRWHQwbT/l
-	1Hh93ft+3mAOwD9vyKDREtxOJXlwsQ6Y=
-X-Gm-Gg: AYBFou0rk2/pbCef3FMgd1zcwGvN9UgXswXQigC37C3E+svxYfc2i6TYEOVs+X1Dtsv
-	aI123dx883oHDvEI8DLrpwmKMt38ZpMSTiYonrtW3ANkXtiUpvMgURfC+5DYbpur7JF9GFCOw1U
-	cWgvZoWHfk9uEbc4q7BqIspzwfkaCJA1D9k1qOF0cNV486GMcQnsMiBcT9UnFILR63GQvxZrh0b
-	QVTD0bO3ARpBRblRrrPq7LgON4J4+rcspWCw5uBNPntJnDr+Dgn48jlQwQJQof7/lW0d0nEkwFC
-	yNmXDrhIgQ+QJkQ/lozYWS5WNNbVtQ4RHQ6nu6/k74G5k1oIdfTcWkycMBHFRUt0tWlZNBhK9uM
-	GkQgR5DwqrwQBHfjj4lgZF0SC9l8LY7fZislxlsif2PkB10hEGQJ9fa93pVy8WVP4lY4nGg==
-X-Received: by 2002:a17:906:c111:b0:c29:f5d5:5a97 with SMTP id
- a640c23a62f3a-c46bde8850amr239585766b.33.1792858243877; Sat, 24 Oct 2026
- 09:10:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2Q+YVI4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6BC1F01825;
+	Sat, 24 Oct 2026 16:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792858281;
+	bh=W27aSalgzv2Xbhoow/lwveUu1WS93+h0c2znFzv+Gb4=;
+	h=From:To:Cc:Subject:Date;
+	b=X2Q+YVI4JJRsEhbQrDjwlDFBW1bkYeTfu/NVkgbhJQosNuEypKZGkOILmN4DthdpU
+	 a3kSC4CnRyy5nN+5jfVJz41vPvG+dT6kP8mgSUPKgwb8cbE7xy2KKYj08Vm5/VC74W
+	 wA0ChyCgi01R2pmgS1rKMS7h2P8QISkKN503K3nNbXBSXrQspvLjVPEsSwMR/y6lhM
+	 XOrpsP2NLCJZfh4X7yGbhr13dUhSA0bfC2izzxeFrFfcvmvJ+JdlGhBkGpxRPpwQ4s
+	 rnOnK451RgnTRfzf06YzPhkq5uQrEcBKD5B844ux7BDfWjWdJaDz9LGbIX8wZMX/Sn
+	 Lj7xBvatHsN1Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: arm64: selftests: Skip ignored AArch32 ID regs in the failed-run test
+Date: Sat, 24 Oct 2026 12:11:18 -0400
+Message-ID: <20261024161118.1007472-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,201 +71,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022220203.91911-1-baohua@kernel.org>
-In-Reply-To: <20261022220203.91911-1-baohua@kernel.org>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sun, 25 Oct 2026 00:10:07 +0800
-X-Gm-Features: AclHuK_zKvVN-u_xkgLG7OpnDHiy6FM15-noft6nDg26HGMwK6XiyRffHviluFo
-Message-ID: <CAMgjq7C6htO2bp21Bq-dU2feN2tXuxHaqgNcG5sD=u1bwbEuYQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v5 00/14] mm: mglru: fix swappiness behavior
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, hui.zhu@linux.dev, 
-	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, david@kernel.org, 
-	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	weixugc@google.com, yuanchu@google.com, zhuhui@kylinos.cn, 
-	baoquan.he@linux.dev, liuxiang.277@bytedance.com, wangzicheng@honor.com, 
-	lianux.mm@gmail.com, liam@infradead.org, surenb@google.com, mhocko@suse.com, 
-	rppt@kernel.org, zhangbo56@xiaomi.com, lyugaofei@xiaomi.com, 
-	ridong.chen@linux.dev, kunwu.chan@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 6:02=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.=
-org> wrote:
->
-> Classic LRU respects swappiness, while MGLRU only partially honors it
-> when selecting the scan type, resulting in a much smaller overall
-> impact.
->
-> For example, when building the kernel in a memcg limited to 1024 MB
-> of memory, with swappiness=3D200, CLRU barely scans or reclaims file
-> pages, while MGLRU still reclaims a significant number of them.
-> Similarly, with swappiness=3D1, MGLRU does not reclaim as many file
-> pages as expected for such an extreme swappiness value:
->
-> pgsteal_file
-> swappiness   CLRU          MGLRU(no patches)
-> 1            5,894,538     756,589
-> 36           799,998       497,282
-> 71           548,331       415,612
-> 106          407,012       383,814
-> 141          253,737       354,249
-> 176          189,003       347,805
-> 200          0             346,078
->
-> pgsteal_anon
-> swappiness   CLRU          MGLRU(no patches)
-> 1            3,962,404     2,768,654
-> 36           2,830,250     2,976,260
-> 71           3,121,386     3,142,954
-> 106          3,521,720     3,382,383
-> 141          3,504,471     2,970,859
-> 176          3,592,335     3,163,130
-> 200          14,095,617    3,209,132
->
-> pgscan_file
-> swappiness   CLRU          MGLRU(no patches)
-> 1            10,270,808    886,997
-> 36           1,010,341     569,036
-> 71           656,136       490,972
-> 106          460,326       436,042
-> 141          295,184       403,132
-> 176          235,147       390,358
-> 200          0             398,363
->
-> pgscan_anon
-> swappiness   CLRU          MGLRU(no patches)
-> 1            19,341,957    5,960,884
-> 36           17,530,774    6,394,951
-> 71           18,624,264    6,673,569
-> 106          20,088,558    6,976,364
-> 141          19,686,813    6,206,580
-> 176          20,936,177    6,344,854
-> 200          45,313,873    6,295,581
->
-> refault_file
-> swappiness   CLRU          MGLRU(no patches)
-> 1            5,795,115     678,254
-> 36           720,877       419,659
-> 71           469,270       338,518
-> 106          331,584       308,983
-> 141          174,509       277,375
-> 176          113,352       272,390
-> 200          0             269,349
->
-> refault_anon
-> swappiness   CLRU          MGLRU(no patches)
-> 1            738,618       578,308
-> 36           451,410       665,723
-> 71           514,961       657,870
-> 106          633,161       786,893
-> 141          648,640       662,673
-> 176          668,779       708,969
-> 200          4,816,312     672,514
+test_idreg_frozen_after_failed_run() checks that changing a feature ID
+register after a failed first KVM_RUN is rejected with -EBUSY, and does
+so for every register in test_regs.
 
-Hi Barry,
+On a host without AArch32 support at EL0, KVM treats the AArch32 ID
+registers as RAZ/WI: aa32_id_visibility() returns REG_RAZ | REG_USER_WI,
+and kvm_sys_reg_set_user() ignores the write and returns 0 before
+set_id_reg() checks whether the ID registers are final. The test then
+fails on the first such register:
 
-Thanks for pushing this series forward!
+  arm64/set_id_regs.c:870: r < 0 && errno == EBUSY
+  ID_DFR0_EL1_PerfMon write after failed first run: r=0 errno=16
 
-One nit pick so far is the test data seems redundant with the one
-below, maybe we can just keep one of them.
+KernelCI hits this on every run on an AArch64 only GB300 host.
 
-> This model also allows scanning and reclaiming from the two youngest
-> generations, including the youngest generation itself. This can help
-> resolve OOM situations[1] and reduce the need for aging.
+An ignored write leaves the register unchanged, so the ID registers are
+still immutable and only the test's expectation is wrong. Skip the
+AArch32 ID registers that KVM_ARM_GET_REG_WRITABLE_MASKS reports as not
+writable for this VM, which is decided by the same
+kvm_supports_32bit_el0() check as the write path. The aarch64_only flag
+that test_vm_ftr_id_regs() uses is not a good fit here, as it comes from
+the EL0 field of another VM's vCPU, which reads as AArch64 only whenever
+that vCPU has EL2 enabled, even on hosts that support AArch32.
 
-Right, the OOM reproducer is demostrated here previously:
-https://lore.kernel.org/all/20260318-mglru-reclaim-v1-0-2c46f9eb0508@tencen=
-t.com/
+Fixes: 00e309933879 ("KVM: arm64: selftests: Check ID regs are immutable after a failed run")
+Link: https://d.kernelci.org/test/maestro:6adcad0c55fda50760800a00
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-That series is merged at V7:
-https://lore.kernel.org/linux-mm/20260428-mglru-reclaim-v7-0-02fabb92dc43@t=
-encent.com/
+Tested on an AArch64 only GB300 (Neoverse V2) running KernelCI's arm64
+build of mainline 5b0764a53235: set_id_regs fails as above without this
+change and passes with it (104 pass, 4 skip, 0 fail) in three runs.
 
-The problem is largely eased as described, but it isn't 100% fixed at
-that time. It will still go OOM with higher pressure. So before this
-series, I could still see OOM after hundreds of loops. And problem is
-gone after the fixing patch in this series. Unfortunately it's very
-hard to reproduce and that reproducer is the best I have so far.
+This does not change the AArch32 ID register readback issue under nested
+virtualization that Itaru reported:
+https://lore.kernel.org/all/as8x38o9taXgKZym@sm-arm-grace07/
 
->
-> Patch 9 from Barry fixes a cold/hot inversion exacerbated by patches
-> 1=E2=80=938 (which also exists in mainline) and improves reclaim efficien=
-cy.
->
-> Patches 10-13 from Gaofei and Barry optimize aging based on folio
-> distribution imbalance and improve reclaim behavior at extreme
-> swappiness values such as 1 and 200.
->
-> Patch 14 from Bo Zhang addresses the GFP_NOIO issue in MGLRU.
->
-> After the patchset, the results track CLRU across the full swappiness
-> range (see table below), with more file scanning at low swappiness
-> and more anon scanning at high swappiness.
->
-> pgsteal_file
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            5,894,538     756,589       7,394,183
-> 36           799,998       497,282       526,176
-> 71           548,331       415,612       433,353
-> 106          407,012       383,814       347,647
-> 141          253,737       354,249       314,437
-> 176          189,003       347,805       261,677
-> 200          0             346,078       188
->
-> pgsteal_anon
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            3,962,404     2,768,654     5,362,153
-> 36           2,830,250     2,976,260     2,736,749
-> 71           3,121,386     3,142,954     3,246,589
-> 106          3,521,720     3,382,383     3,074,851
-> 141          3,504,471     2,970,859     3,178,409
-> 176          3,592,335     3,163,130     3,650,544
-> 200          14,095,617    3,209,132     14,538,399
->
-> pgscan_file
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            10,270,808    886,997       16,246,260
-> 36           1,010,341     569,036       614,389
-> 71           656,136       490,972       484,769
-> 106          460,326       436,042       367,969
-> 141          295,184       403,132       328,943
-> 176          235,147       390,358       268,142
-> 200          0             398,363       188
->
-> pgscan_anon
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            19,341,957    5,960,884     7,646,122
-> 36           17,530,774    6,394,951     5,914,405
-> 71           18,624,264    6,673,569     7,167,762
-> 106          20,088,558    6,976,364     7,821,921
-> 141          19,686,813    6,206,580     8,495,970
-> 176          20,936,177    6,344,854     10,585,375
-> 200          45,313,873    6,295,581     30,313,342
->
-> refault_file
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            5,795,115     678,254       7,315,064
-> 36           720,877       419,659       448,199
-> 71           469,270       338,518       355,269
-> 106          331,584       308,983       270,736
-> 141          174,509       277,375       237,643
-> 176          113,352       272,390       184,908
-> 200          0             269,349       102
->
-> refault_anon
-> swappiness   CLRU          MGLRU         MGLRU+patches
-> 1            738,618       578,308       1,383,725
-> 36           451,410       665,723       543,071
-> 71           514,961       657,870       683,874
-> 106          633,161       786,893       669,716
-> 141          648,640       662,673       719,231
-> 176          668,779       708,969       901,918
-> 200          4,816,312     672,514       5,511,787
+ .../testing/selftests/kvm/arm64/set_id_regs.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-Right, that's really nice result. Do you have system time or
-performance readings? BTW for the performance reading I think we can
-focus on the 36 - 176 range. If a user asks for extreme bias towards
-anon/file, they strongly favor reclaim priority over throughput, and
-the behavior is arguable at that point.
+diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+index 10849d21c0dd2..c8c9aaf9d7e86 100644
+--- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
++++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+@@ -815,6 +815,10 @@ static void test_idreg_frozen_after_failed_run(void)
+ 		SYS_REVIDR_EL1,
+ 		SYS_AIDR_EL1,
+ 	};
++	u64 masks[KVM_ARM_FEATURE_ID_RANGE_SIZE];
++	struct reg_mask_range range = {
++		.addr = (__u64)masks,
++	};
+ 	struct kvm_vcpu_init init;
+ 	struct kvm_vcpu *vcpu;
+ 	struct kvm_vm *vm;
+@@ -831,6 +835,7 @@ static void test_idreg_frozen_after_failed_run(void)
+ 
+ 	vm = vm_create(1);
+ 	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
++	vm_ioctl(vm, KVM_ARM_GET_REG_WRITABLE_MASKS, &range);
+ 	kvm_get_default_vcpu_target(vm, &init);
+ 	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
+ 	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
+@@ -852,8 +857,18 @@ static void test_idreg_frozen_after_failed_run(void)
+ 	 */
+ 	for (int i = 0; i < ARRAY_SIZE(test_regs); i++) {
+ 		const struct reg_ftr_bits *ftr_bits = test_regs[i].ftr_bits;
+-		u64 reg = KVM_ARM64_SYS_REG(test_regs[i].reg);
+-		u64 val = vcpu_get_reg(vcpu, reg);
++		u32 reg_id = test_regs[i].reg;
++		u64 reg = KVM_ARM64_SYS_REG(reg_id);
++		u64 val;
++
++		/*
++		 * KVM ignores writes to the AArch32 ID registers when it can't
++		 * expose AArch32 EL0, and reports them as not writable.
++		 */
++		if (sys_reg_CRm(reg_id) < 4 && !masks[encoding_to_range_idx(reg_id)])
++			continue;
++
++		val = vcpu_get_reg(vcpu, reg);
+ 
+ 		for (int j = 0; ftr_bits[j].type != FTR_END; j++) {
+ 			u64 ftr = (val & ftr_bits[j].mask) >> ftr_bits[j].shift;
+-- 
+2.53.0
+
