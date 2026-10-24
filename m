@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792868877;
-	b=SaWSdLBv4umTuRpd3CuMaDvA1nqVP3e6AoGNy8k94JJwf2ooDTmSIZUmYJpD4mBNsXR2
-	 z1202xrpCgO4NhWgekRq7LJGZUggWMbpvqzJJUyoshvg4w78yjlcLFq9ynfyQrwlePu5Z
-	 kSsgSqjcuu/MJAzHDYk9NzrCBvK07DMi2PSFo8CXbCh/YD1KRBZQcsLdqVfgsk7/UPS6j
-	 3TZVTljQuW3Gvwf5z3FewlV1TXrEJ/swuKm24vWuUsEtCx0uVjgkQADpYhqsmQkbOwrcH
-	 VZpnAtkdKGQmpX6c08dF4ACX/P82+lsw7afV+LAujVL6+WLlegkLxSuwUb7wsXeResQ==
+	t=1792868923;
+	b=5tkeU6gScB6ZelFWFugV6sAgiRRAyMUEKBcoN61TeDcRC7ZNE2XzCMbSeagjDcvSVAJp
+	 UjcVHYYYV6DBY8V7tqy/401+X/9QXWkVgWi/5f+0SYOHyYdaJOR3slPPtdCzVZvFXWraI
+	 H0FA2zUEcDSKKPiqMnIpuR+fO2d4FCuiAylnPWFAkQPCIp1vWp7CTPitKEScBR9KuLD8R
+	 DHfWNYl0h6LDf1g0lVQ7YgJizCopXD0IWv2OZraFu35Ww5Uax00JR5k7yYd5DjS+AuuFj
+	 L9bi8wdv4c2lhNNCWNXSxSwjRHqFbJgwAYVqdJstY0vnqzf8w5svQGTj/DHsZiEYv/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792868877;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=BMyYTioU/FrU2fWhiwuWu1FFpNsNlrYz9eN4f3WcI2I=;
-	b=QlGw5fhGwZs0VpFJrBZmpwIUx/Mnp53zPCOJ3SPj+d0eXJBwnl82oTKweCXhV86hS/IZ
-	 kDRoDGhyboKtlYCVtz1I/4QnUyYepCz6R/xJJZsYLnhvYVo5rkmE5HL4PU36BXzaLe4GN
-	 dsPHZF/85DrxV5skCs77J6WJ+0sMo01EMzPUOKDGj8r819zuMA4L9PuNwOWmpHjBE9RiD
-	 a8qgF0DSYPqqDtXSDqY0QQuyuup7E0t5+Jso3k5EadzroT2o0hdiNJud2MuL+G6oyhUNm
-	 qYXLxqRXGcAw4gEP2e5B3AXM62DC8w8FGSjb6snxuFZHteSaM0RSMILF4CiyOc6lKSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792868923;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=h0buNEI0lCJJCgoM1UYKZVz0XsBP4KkH0W95H0CbqBI=;
+	b=ypzqnPN+BeoR/uaV2mkfT8GG/a7Ft4JijFeLEBc3Houl4pDFuSvyzFhwAH0r1HGC4REM
+	 GvPdXJfKXihz4WNDfXlYb8dnjVlxL+43DfLO7vOHW9HVi/sABc8igUQk/UN0bm1r9KSeZ
+	 6j8uL7dUowDj/G+1Dr8r4FvrfmRousrluwUjenibKGSUVS0C2r4mgQ8OJMhqo0PY3pvV/
+	 UaeK5R7iePN0C1T+fCNqOhleX3YvICQg8AMalv1YlVU3U6xfqQJLnHTvW0Yzp4ofsPdIc
+	 tpCIKNPaB0ww20h5qnduOG5aX0J52kI8OIoYds2+hhtmA3kYzlBMSDyzPXUPbkuANxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+3r7WjY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ps30KaC4;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550C560A2605
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:07:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36ED606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36ED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+3r7WjY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860C61F031E0;
-	Sat, 24 Oct 2026 19:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792868876;
-	bh=BMyYTioU/FrU2fWhiwuWu1FFpNsNlrYz9eN4f3WcI2I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=n+3r7WjY0T01eAUCq/zRS0G+2hGEX5GFurChhcOIYE/HpDty0WA6gmzikNcxTYdH5
-	 LhJWqrngg+qlGLVhYQimSpyue667XC+oTW6/Rxmbi6YLpG2amWpIW+41nxBiKRvPrG
-	 WJSCfxvpry0it2d4f/nZKPV/i9+7MudMWie7qr9DtEmLffMO7uj7+Gy1UolLzetOQ5
-	 yyplSGcW1ofPrAArDLBpw0F9Rx4ZQN8TjkBWRG7FfXY5BZ2iJldfxNENi9M7Gr023V
-	 3N0Fu1cYoper5E9v9Z1XiFPaLA9apxQwEo/s+bz3O9k1ymRsh+WlkQYoR8MNPndQ6/
-	 ZbloiE7IXl+uQ==
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Sat, 24 Oct 2026 21:07:30 +0200
-Subject: [PATCH RFC v2 8/8] mm, slab: deprecate CONFIG_SLUB_TINY and reduce
- its Kconfig effects
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ps30KaC4
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a595487d43so13487471fa.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:08:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792868921; x=1793473721; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h0buNEI0lCJJCgoM1UYKZVz0XsBP4KkH0W95H0CbqBI=;
+        b=ps30KaC4LcxN0pKtqOCXqtxdBEtVN+LYEc7sesWnBq0HahPnvdICoess/QzilKIaWQ
+         kv/W2KKI9XeUEtnjm/QUpi843Cle5p5Z2IHNIbofhXz9HP9WYFiJ1cDDSRneQ/mNhPfQ
+         GMa0BFA41d/aArBsJhdmFv+n5yMLKi5aIFZJuNuiWK5JUcejZW30YvevTt3R6aQQah36
+         X4m8frfpsLK4QyjQe3ewstWfTPf722Kx0vofkJRx1IfEVYB6ym2wRUP7hfdfoOeqeOOQ
+         Cxk5rQj3Rfy516yqU56pPDlvWR+wMx6vhiGOSkr7uWGS1JwrCpLvhT9W3UE+bYYJUS5B
+         5QGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792868921; x=1793473721;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h0buNEI0lCJJCgoM1UYKZVz0XsBP4KkH0W95H0CbqBI=;
+        b=IznZf4bWxICBRCtq9kmp92xPN+HCbj4pVJcXpxh09Mp5hzjK5vLDLI3xlk/+DN+0qe
+         Hfxl4+Kj9dpkYBQu6IlYtl82qBb//wXpFvf9uVyTJsvWF1RRajvFxFzoSHnAUfytdvYA
+         yI4d8Bxht4BZ3qRCozsCLCl9//0/DJd91xclXZdhqKEnFkpIVGefTUFBEU++9ueBwdlA
+         JSUTX1v4/Q6t/kde2oZkHDZ5cSoWSL4+nrbFlNY24LlXAnZcTqEmZQ7yFIrGSN/QMD7/
+         b4HLfPBox8qZTAw66fS1xGbZiPN7KM5WcReVwzyiOkWjZbwMRudyOcG4TxPDUJ+9zJ2W
+         pK+g==
+X-Forwarded-Encrypted: i=1; AKwUvByNnDqloilxmM37mvy4vtLLOSgE6e94w5nJ3aT3i5cq0n9DMBlLFP5bXDydY/CiviBQUUBvc6g/FuJ+qZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJM03xzGxIrQvxQuAFyp4GQ1kwTllzNVaRvZKYlYHNBm1B31TSB
+	ypPec7xP34TryYA4VZtO6b00gy1x/Fi1d7YqFKZYs3dpClGWGamB5NJT
+X-Gm-Gg: AYBFou15UUV9p3SwbNrDy4uXwys9EL3+UCyHPg9lz8w9W/YxR62kxYQNRXSw3G08Krs
+	pYLLEVwMUkQDd1cPV2kZQ/hbjHwIbJk8AO7z+1DBKdMbkBJNUOKXDXcucaz8TO7UHSeyOiLPKQ5
+	SYylWRUiXqWHgEAqQPJLaN/qm8m/OzFxzIki8dfQfEUruJc5BlkxRg87kFATPzLJ6N/hREIf0lt
+	Kyhomy/TR4BC2BOznQ1WSlbViVy6J8NjxCRooWDIa1IlBy8GNgjTINKL4WX7U3eKmeaE1julmPW
+	3ol5tD7tkBn02MrE1cnawm8hg6VB/FpENi58GRDFj8oGwy8fG9WOs2Sf97SIwoAdN2lb6NoAJ5Z
+	4lypHuFdoiRGJkQI+EkAUVp7OFYNKhBef8VtpcQCbTGurWA5qGotrlAxubmlr52hsywFleylWzx
+	KRQ0qg8zOefmsBz71pJgy/weDSL4qTcBHsWo7zNzwZVbJqNcE2ONUKAtxXLvFv7XfWe7pRFKybx
+	kXSC4HFRInk/nV9Quq2lbaYQaCdEVpwRP7SfCZkQ6+95RZGiiR1XQAh+/1PNZ18/TbRu3xJ7EQZ
+	Qn13CsRHmh+gWc1yLFUhv8yBPek77vVgvb8XuVkC08LVsYYOZTP5gAKwM4v3
+X-Received: by 2002:a2e:bc05:0:b0:3aa:f72e:8ef5 with SMTP id 38308e7fff4ca-3ac6fd3cdacmr7038501fa.19.1792868920702;
+        Sat, 24 Oct 2026 12:08:40 -0700 (PDT)
+Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70993dddsm5764931fa.7.2026.10.24.12.08.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 12:08:40 -0700 (PDT)
+From: Igor Putko <igorpetindev@gmail.com>
+To: Andrey Konovalov <andreyknvl@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+b7534c9b380f81a3b4be@syzkaller.appspotmail.com,
+	Igor Putko <igorpetindev@gmail.com>
+Subject: [PATCH v2] usb: raw-gadget: fix double-free race during UDC unbind and rebind
+Date: Sat, 24 Oct 2026 22:07:58 +0300
+Message-ID: <20261024190758.2526-1-igorpetindev@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261024183727.42339-1-igorpetindev@gmail.com>
+References: <20261024183727.42339-1-igorpetindev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,143 +100,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-slub_tiny_rework-v2-8-bf1419ab5ffd@kernel.org>
-References: <20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org>
-In-Reply-To: <20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
- David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
- Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-At this point CONFIG_SLUB_TINY only affects the default value of
-slab_tiny_enabled which has a boot-time parameter. Thus deprecate it in
-the Kconfig description.
+raw-gadget defers endpoint disabling, request freeing, and descriptor
+cleanup to dev_free(). However, dev_free() is only called after
+dev->count drops to zero in raw_release(), which happens after
+usb_gadget_unregister_driver() has already returned.
 
-Also remove its interactions with other Kconfig option, as they are not
-necessary:
+Once usb_gadget_unregister_driver() finishes, the UDC can be immediately
+rebound by another raw_gadget instance. If that new instance enables an
+endpoint, it assigns its newly allocated descriptor to ep->ep->desc on
+the shared UDC endpoint. When dev_free() from the old instance runs
+concurrently, it calls usb_ep_disable() and frees dev->eps[i].ep->desc,
+which now belongs to the new instance. The new instance's usb_ep_enable()
+subsequently fails with -ESHUTDOWN, and its error path frees the descriptor
+again, causing a KASAN double-free.
 
-- KASAN, SLUB_DEBUG or SLUB_STATS support do not need !SLUB_TINY
+Tear down active endpoints and requests synchronously in gadget_unbind()
+before the UDC can be bound again. Keep the descriptor pointer inside
+struct raw_ep and clear ep->ep->desc on error and disable paths so no
+dangling pointers are left on the UDC endpoints.
 
-- KVFREE_RCU_BATCHED can simply depend on !TINY_RCU
-
-- various hardening options do not need to be excluded, although it's
-  unlikely that somebody would enable those with extra memory overhead
-  together with slab_tiny
-
-- SLAB_MERGE_DEFAULT does not need to be selected, although it's likely
-  to be used together
-
-Keep the "depends on EXPERT && !COMPILE_TEST" as there's no point making
-the deprecated option more visible.
-
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reported-by: syzbot+b7534c9b380f81a3b4be@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b7534c9b380f81a3b4be
+Fixes: f2c2e717642c ("usb: gadget: add raw-gadget interface")
+Signed-off-by: Igor Putko <igorpetindev@gmail.com>
 ---
- lib/Kconfig.kasan |  2 +-
- mm/Kconfig        | 16 +++++++---------
- mm/Kconfig.debug  |  2 +-
- 3 files changed, 9 insertions(+), 11 deletions(-)
+v1 -> v2:
+- Keep ep0 request handling in dev_free() to avoid any lock recursion.
+- Synchronously disable and clean up active endpoints in gadget_unbind()
+  to prevent use after UDC unbind.
+- Update endpoint cleanup in dev_free() to free raw_ep->desc.
+---
+---
+ drivers/usb/gadget/legacy/raw_gadget.c | 30 ++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/lib/Kconfig.kasan b/lib/Kconfig.kasan
-index a4bb610a7a6f..f20b574f6653 100644
---- a/lib/Kconfig.kasan
-+++ b/lib/Kconfig.kasan
-@@ -49,7 +49,7 @@ menuconfig KASAN
- 		     (HAVE_ARCH_KASAN_SW_TAGS && CC_HAS_KASAN_SW_TAGS)) && \
- 		    CC_HAS_WORKING_NOSANITIZE_ADDRESS) || \
- 		   HAVE_ARCH_KASAN_HW_TAGS
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT_ALWAYS_INIT
- 	help
- 	  Enables KASAN (Kernel Address Sanitizer) - a dynamic memory safety
-diff --git a/mm/Kconfig b/mm/Kconfig
-index edb4a6c0a870..2286073ea906 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -167,16 +167,18 @@ config SLUB
- 
- config KVFREE_RCU_BATCHED
- 	def_bool y
--	depends on !SLUB_TINY && !TINY_RCU
-+	depends on !TINY_RCU
- 	depends on !RCU_STRICT_GRACE_PERIOD
- 
- config SLUB_TINY
--	bool "Configure for minimal memory footprint"
-+	bool "Enable slab_tiny by default"
- 	depends on EXPERT && !COMPILE_TEST
--	select SLAB_MERGE_DEFAULT
- 	help
-+	   Deprecated option that enables the slab_tiny boot parameter by
-+	   default, and can be overridden by booting with slab_tiny=0.
+diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/legacy/raw_gadget.c
+index 4febf8dac7ca..a6b42679acc7 100644
+--- a/drivers/usb/gadget/legacy/raw_gadget.c
++++ b/drivers/usb/gadget/legacy/raw_gadget.c
+@@ -141,6 +141,7 @@ struct raw_ep {
+ 	enum ep_state		state;
+ 	struct usb_ep		*ep;
+ 	u8			addr;
++	struct usb_endpoint_descriptor *desc;
+ 	struct usb_request	*req;
+ 	bool			urb_queued;
+ 	bool			disabling;
+@@ -223,7 +224,9 @@ static void dev_free(struct kref *kref)
+ 			continue;
+ 		usb_ep_disable(dev->eps[i].ep);
+ 		usb_ep_free_request(dev->eps[i].ep, dev->eps[i].req);
+-		kfree(dev->eps[i].ep->desc);
++		kfree(dev->eps[i].desc);
++		dev->eps[i].desc = NULL;
++		dev->eps[i].ep->desc = NULL;
+ 		dev->eps[i].state = STATE_EP_DISABLED;
+ 	}
+ 	kfree(dev);
+@@ -328,6 +331,20 @@ static int gadget_bind(struct usb_gadget *gadget,
+ static void gadget_unbind(struct usb_gadget *gadget)
+ {
+ 	struct raw_dev *dev = get_gadget_data(gadget);
++	int i;
 +
- 	   Configures the slab allocator in a way to achieve minimal memory
--	   footprint, sacrificing scalability, debugging and other features.
-+	   footprint, sacrificing scalability.
- 	   This is intended only for the smallest system that had used the
- 	   SLOB allocator and is not recommended for systems with more than
- 	   16MB RAM.
-@@ -199,7 +201,6 @@ config SLAB_MERGE_DEFAULT
++	if (dev) {
++		for (i = 0; i < dev->eps_num; i++) {
++			if (dev->eps[i].state == STATE_EP_DISABLED)
++				continue;
++			usb_ep_disable(dev->eps[i].ep);
++			usb_ep_free_request(dev->eps[i].ep, dev->eps[i].req);
++			kfree(dev->eps[i].desc);
++			dev->eps[i].desc = NULL;
++			dev->eps[i].ep->desc = NULL;
++			dev->eps[i].state = STATE_EP_DISABLED;
++		}
++	}
  
- config SLAB_FREELIST_RANDOM
- 	bool "Randomize slab freelist"
--	depends on !SLUB_TINY
- 	help
- 	  Randomizes the freelist order used on creating new pages. This
- 	  security feature reduces the predictability of the kernel slab
-@@ -207,7 +208,6 @@ config SLAB_FREELIST_RANDOM
+ 	set_gadget_data(gadget, NULL);
+ 	/* Matches kref_get() in gadget_bind(). */
+@@ -886,6 +903,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, unsigned long value)
+ 		if (ret < 0) {
+ 			dev_err(&dev->gadget->dev,
+ 				"fail, usb_ep_enable returned %d\n", ret);
++			ep->ep->desc = NULL;
+ 			goto out_free;
+ 		}
+ 		ep->req = usb_ep_alloc_request(ep->ep, GFP_ATOMIC);
+@@ -893,10 +911,12 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, unsigned long value)
+ 			dev_err(&dev->gadget->dev,
+ 				"fail, usb_ep_alloc_request failed\n");
+ 			usb_ep_disable(ep->ep);
++			ep->ep->desc = NULL;
+ 			ret = -ENOMEM;
+ 			goto out_free;
+ 		}
+ 		ep->state = STATE_EP_ENABLED;
++		ep->desc = desc;
+ 		ep->ep->driver_data = ep;
+ 		ret = i;
+ 		goto out_unlock;
+@@ -962,7 +982,9 @@ static int raw_ioctl_ep_disable(struct raw_dev *dev, unsigned long value)
  
- config SLAB_FREELIST_HARDENED
- 	bool "Harden slab freelist metadata"
--	depends on !SLUB_TINY
- 	help
- 	  Many kernel heap attacks try to target slab cache metadata and
- 	  other infrastructure. This options makes minor performance
-@@ -216,7 +216,6 @@ config SLAB_FREELIST_HARDENED
+ 	spin_lock_irqsave(&dev->lock, flags);
+ 	usb_ep_free_request(dev->eps[i].ep, dev->eps[i].req);
+-	kfree(dev->eps[i].ep->desc);
++	kfree(dev->eps[i].desc);
++	dev->eps[i].desc = NULL;
++	dev->eps[i].ep->desc = NULL;
+ 	dev->eps[i].state = STATE_EP_DISABLED;
+ 	dev->eps[i].disabling = false;
  
- config SLAB_BUCKETS
- 	bool "Support allocation from separate kmalloc buckets"
--	depends on !SLUB_TINY
- 	default SLAB_FREELIST_HARDENED
- 	help
- 	  Kernel heap attacks frequently depend on being able to create
-@@ -234,7 +233,7 @@ config SLAB_BUCKETS
- config SLUB_STATS
- 	default n
- 	bool "Enable performance statistics"
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	help
- 	  The statistics are useful to debug slab allocation behavior in
- 	  order find ways to optimize the allocator. This should never be
-@@ -245,7 +244,6 @@ config SLUB_STATS
- 	  Try running: slabinfo -DA
- 
- config KMALLOC_PARTITION_CACHES
--	depends on !SLUB_TINY
- 	bool "Partitioned slab caches for normal kmalloc"
- 	default RANDOM_KMALLOC_CACHES
- 	help
-diff --git a/mm/Kconfig.debug b/mm/Kconfig.debug
-index 9eaa25d1cf23..4e36c7c63ef7 100644
---- a/mm/Kconfig.debug
-+++ b/mm/Kconfig.debug
-@@ -48,7 +48,7 @@ config DEBUG_PAGEALLOC_ENABLE_DEFAULT
- config SLUB_DEBUG
- 	default y
- 	bool "Enable SLUB debugging support" if EXPERT
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT if STACKTRACE_SUPPORT
- 	help
- 	  SLUB has extensive debug support features. Disabling these can
-
+@@ -1010,7 +1032,7 @@ static int raw_ioctl_ep_set_clear_halt_wedge(struct raw_dev *dev,
+ 		ret = -EINVAL;
+ 		goto out_unlock;
+ 	}
+-	if (usb_endpoint_xfer_isoc(dev->eps[i].ep->desc)) {
++	if (usb_endpoint_xfer_isoc(dev->eps[i].desc)) {
+ 		dev_dbg(&dev->gadget->dev,
+ 				"fail, can't halt/wedge ISO endpoint\n");
+ 		ret = -EINVAL;
+@@ -1096,7 +1118,7 @@ static int raw_process_ep_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
+ 		ret = -EBUSY;
+ 		goto out_unlock;
+ 	}
+-	if (in != usb_endpoint_dir_in(ep->ep->desc)) {
++	if (in != usb_endpoint_dir_in(ep->desc)) {
+ 		dev_dbg(&dev->gadget->dev, "fail, wrong direction\n");
+ 		ret = -EINVAL;
+ 		goto out_unlock;
 -- 
-2.56.0
+2.47.3
 
