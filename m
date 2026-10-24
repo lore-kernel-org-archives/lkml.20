@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792842089;
-	b=AK4OhEzwavhK7KLw6KffFOnW7iiRxC8PCi4F/b0GJkYvls1Yrb9AV5sE1mw9Axn8rGDl
-	 P9qszxeWSnk0U2Xv5dlTUoaMDeTkPh2f9EqhPTG11Cz1ZW6uqgpZYqpSblwtJ4glpLrFL
-	 ukj1NY0PlSuljmyc3zTx+7ZR/usCp2ZMdXuf+ct5vE/kxXg7Jb8UVyRen5nby0jt6QfoK
-	 TGO8OOe491lfGPFRRBha60VRU4KGxVEpIsVvzUzcW0k6el1moBEE7iHwOvkJxjQUDNHuF
-	 f2UK899/xEnFeZXhKJKS7nXUNokrd5wBK13/87gkdaDs9jip9Cbcm9QHvsMvn7j0fZw==
+	t=1792842093;
+	b=XVvhNY4Ce3iQ/wSOQe5feHHRoJAm3+FuCinfq2g1BKmBfNTiurbprnNddpTHOjrRMVz9
+	 0IcQGtOm4HZ4ajia81V1NZovnsj2xhKbVu1BGEnSkoHmbd1AmcbTFCFPimwirp+mlVPKX
+	 Srj5LrHy170YNGVA81yw/ORdhPx9rJGTneQQ9exdGs+o4//SB5/THIcWTCVhOMVmXesKy
+	 mFE0KSfdrReQmylZvEiuEqf6hyZf9zLpton6Raiebe+BcGr7veLo+NYKoFo+xwFChWUHk
+	 U2krwMfJkAlIbrR2tTY3otSB1iXUOyHCkfImvvI6eL6bPiu9w2cpP/AVvjZOX9Hm3PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792842089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792842093;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=u+Zxi5HHYWwOsq0kbcP9QgLrzMzDG1UW1G+Z+4fNxWQ=;
-	b=muqNOESRaN1k0P0Guc+K8VYcnY6CWvpnfHngh6QMEqDgv6NbTridlc0OfZDiAoj8R2xi
-	 mLlLNZjfkt5PK7LYLZJYFUwcMt6NH1EcfSEK8S959zXqAtgO/lv1ShB9AZOESCMkmsBxl
-	 Nx2ZVglYFQQPEQmVKixcKnoVfiUYLKtxjoNJ1/Q8ZLX7AO8CFPj9K7eNA6oke6uR2SO2z
-	 2W4XwDMcDU+BFHygr89inwwq4RwvpDWA0gQA+EZCFrNW/YdvKDbKONFhW+axy+m0mT6yF
-	 iawkSi9d6F1FJm3Pm9R+2Ps9+n1bxdKuLJLq0xYQ9THuJImlPWEfJN0uDGnLvqBlTCA==
+	bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
+	b=UWIKCqzK2YWLOqIMzpse3wG3lsB8oAz/rv6OQxe+Dcf4yH6lE2rtQ3KLP5uy2srQYlmy
+	 JoNIqDSTKSCcceFDFus/Uqa2fEWMuGjIYHbzIQyabQe/1kUrRZ//O8QG+OIfiLKdXwb5e
+	 1mPx+lSwg540+27RZHzR2PjCYg9AUCUmEFlueCaF2oe2999yayZrkiL4yC/uvdjQZZMFh
+	 UPtfKKWz3OkutU4MBDS5k3cfhLwSdRRrAI8BCcH1uq72chVwppmfd+qsTcaCAzasHKcb5
+	 Tp0qKlC10ZIYxiJjTGa1cF56V6i5g1w/Jp4NrWA1Yd1QDgMIYylBrj9bQkGDr6MtdyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Fh/3LC+N";
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Q6k/zVM6";
+	arc=none smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F50606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:41:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F50606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26DA606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F26DA606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fh/3LC+N
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8fe8e343fso9006985ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:41:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Q6k/zVM6
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e9d7791b00so8469155ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:41:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792842088; x=1793446888; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792842092; x=1793446892; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u+Zxi5HHYWwOsq0kbcP9QgLrzMzDG1UW1G+Z+4fNxWQ=;
-        b=Fh/3LC+Nq/hnkEqAcqOPueRSloqraLPDEok5T41+axD5sC5jiMpahTHXQWqXH28o5M
-         bm6+KKvN1lkaeLI7egvw91GHczfxm1fAJ8LRWV1npPhjTI60vq84pIGgrVGodwcty43o
-         ElVllB8CpfzKTT2WYGlIyck12PcPIkVI2BtO3sTZ7WBdLGUO4/0yHKiwfbQgOp+HxZpM
-         G53U+etdOIJbcvT8UViWZU3aQQoQJf6Z3Or9qy8j4Ef+wGH1aKaczI/zrl5WMYqg1QIY
-         Q6q8DcLmozQqJaAy5fvHF0Nt+zzFSl8x3WkSrdfh3PYkjWOdg/8sBLxEO1EqMg4un6BM
-         eulQ==
+        bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
+        b=Q6k/zVM6D66RE3FA0X3wcrNy57oxJpYmiLfOnkAJZdBPr2D1O12m/JQH+JfX35zQgV
+         LnkGSRF6CHEsSwixLaQNk8DDNEic/f/vJN8SMj0QaX9wMhLfpbl2aadQlnjL6fyeEcyv
+         TM/1c7TpCX27axPwdH1eSbi0kNsiCPMDIp0hrk2zQF8dkPGcbrEk2AU4ENxJ8i3NNJXO
+         uARRcnhBXnhe5WQ0RTXs9YGHucvBWZMTcR4j5N3qCcZznZ2y6hXC6d30PSCtYv3kXeRD
+         NMye9B4woEzJAwbLdiK84cUPN53YsPzm7XWrQx9OW9RJwjsllrZPrztxwR2HfAF/4h2T
+         2FBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792842088; x=1793446888;
+        d=1e100.net; s=20260707; t=1792842092; x=1793446892;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u+Zxi5HHYWwOsq0kbcP9QgLrzMzDG1UW1G+Z+4fNxWQ=;
-        b=k6jRdg7RU1FLZOQCIAs2oq/zXTwQSk39qmIZf0HtmOpUL/FJ0CWFEXoRrvtJf5S/M6
-         zmdcrf1AA2iLIU3FLK1/mCBLTgvbLbtH68Ky0NJjImlOU5/LeLr0F4qxD0/gi7f9lI52
-         e0hxKU0LMVBf42c7Mqasf1GN5Q3qve6373cHlXLr05fOrFOVJpP8tzrRtPb+AC4zyKXS
-         OTzPfHY97UKZ2vCAHeW0uAq4HzgjUnp5SQciJQN7Q8hlRJ1oO0FNz5rS5+Vm/RcPqxOa
-         RCIOW1vj0Hr8rTGR6tIms0s9wBboywOlwJnKOdafjd+5bs2ESBimt5J0N8nc7MyoU3LW
-         l1QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwciAe6zkfwEdQnu11yMigF+0Q6rWYR5WCWOy4fj/vrY3tEVN2PPvOPBdkC/IsmFRJnovN6RXwEm7Sf7E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMgKP8gEe8iiaunRFspvEVALllE0E4lYp3v680Pgg0fcGKu9OG
-	JSOcqoNR+e3yGR4aY/oca6nHhNM3UFIrRxCoSSmEYTB0JEXJAlvAQk6X8e5rjkmeitFjlA==
-X-Gm-Gg: AYBFou22IIj9eQT7ck9MQ9FhwA956HUC8jh6Si++cVfvCFxdxMU/KUEccVkCr9K7yj3
-	M+D3HHh5B5zrJWZct4PMJg1boeyPju6q0WdoGH9w/m204iDC9uBdskM0rMpGoJSajAa3ZhZpUr3
-	ufbY002sX0Cv2Av/4Wn208xADojpDzSRy8CpVsqvYXlD3zwksAcS0PVqIar/Xs8j4AZ2XX8JXpg
-	o0CwulKocSsRfs6IfMFd7NaNLRZideT1whUB4U9qSsmG/iCtJ7pdhGWlaywN0ESBI6GOyEBlkuz
-	3x5BQain6KPnm8jF9NIEaGDx4kXeDCfeEWKlUVaAhUF3iM79TWT+ez5pZIvFpQqn2xS3qqabJ4N
-	h3zmaY4meOw8T/nimgvhmtGcU8Q3u/jCHjAKhVyLzI+wWv3B5T6BjDsmjx5T0Pmcnjqj812Ma9E
-	JrO8z3NjfquH7NM76k9FYZoQbh5p9KTgUz5bq3Phj2yUNwjDfz4HwqIjgzU2Zxlr5+jOnA3IUQg
-	UlPoc7fPUEP/7B+JgH8xIobB7H/4xAFH2VQ0ssBmbBEr8B45j75mc0wOqaL4G6ez7H8TarF
-X-Received: by 2002:a17:902:fc43:b0:2dd:c0ff:e72e with SMTP id d9443c01a7336-2ea9c91f1dfmr12219905ad.64.1792842087808;
-        Sat, 24 Oct 2026 04:41:27 -0700 (PDT)
+        bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
+        b=dLBkfOSwxsJZsj+Xtm5rACIeTIR3oSuVIvHK7mBTPskYaYTlHTw9lSu7Zebfy8iNO/
+         XNL/xDx3jkbhkXTkzmZ2FinLjpq7J20/JlQvWtWCerBCpeyq159N7JbjKAf3Tp/Y3G2h
+         bMilS5s22IxuatRaqCdMinclRjuQ1No44JmGyq11bdvgNnlvg/IZEvT/et5vxTrYEPY+
+         Xd9XqleLzv5lZy1wnjQfqmOQqd8LYwIxh6lSwYRCD31XFCDV8689FDvq3qzCq0h+F36q
+         y81YnJlQVFN5hFK5SYZBjHPA2qPf4DYfyyXqRvdwvsYtwJMZOWNFJQ0IW3ISPYCpkibC
+         9EuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEyePfGAUPQco2BXG/dRM9KmpkRgrwmxfJGLv4w1qgp6Yn4x9jMNVXBS6ZjSHUIei20aqhFrejc92uIlk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLr6CZ+4bmNnSBiUx0yJAIY/ROqYzdCK3fiz1PqmfGGIVIqQiXl
+	pMO7HVRsBhz97/qPvgQ2FnuhxZKeFZWQ1vwAcp4x3HpqpSxax+KVJAE7
+X-Gm-Gg: AYBFou2H7+GF12c45tXSnkpoxSFLAItS61lAfvI9/n/2VIaIRmmicRyONOB8x2wKUJN
+	jXsjDdc+CwU38/yKv8Xx6nr0FNEXNruNqpr+zOwl+q5IoGEDJLqTiA1j8BMAxvIqBdIvmPWONL2
+	ikCGhzQ2paM4Wm0rJYTLKRaycCpdtKeJES2FOeqt1o3HcEk5l8CSMEfA+pra94/KYRmigMXN9xD
+	0wtVM/3KA5BcClLPdffOELSSiuABMhOCRL9eLRXjuWjVZ47dzImmlgtBIboQg+HjLlE0d3a5ccx
+	fIp4KM9X+Hhoxy009+fdY7zfWFpSQHXNHx0vujA4cnnM6Qf5e7ooLQkhW1U8+Dvk6pPnAdEOyE5
+	14mFjAi20sNGpw8BPJRKjjMNmTqMIPpPsTv8XjZe8ECY62lLDu5MqR+KnFG/z17eQcbqpgvDXCh
+	bAbZhmJqjpX+PThe6D4AIMGugBeIdo61AZ/mf51A7+yC2DEPb8mfsuL1Vp9DDZ7SNMWGkvuHujB
+	6TJihJIh6neQJ/gY5tIg6VUN5h/tQzPK6ObCHRMpW179SID+Ys=
+X-Received: by 2002:a17:902:e948:b0:2e9:6972:54d7 with SMTP id d9443c01a7336-2ea9c7c9d0amr13791805ad.52.1792842092272;
+        Sat, 24 Oct 2026 04:41:32 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b14c774sm4738515ad.38.2026.10.24.04.41.23
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b14c774sm4738515ad.38.2026.10.24.04.41.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 04:41:27 -0700 (PDT)
+        Sat, 24 Oct 2026 04:41:31 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com
@@ -86,9 +86,9 @@ Cc: linux-sound@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v2 1/3] ALSA: pcm: Retain components across native minor lookups
-Date: Sat, 24 Oct 2026 19:41:14 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-1@gmail.com>
+Subject: [PATCH v2 2/3] ALSA: pcm: oss: Retain the PCM from minor lookup through release
+Date: Sat, 24 Oct 2026 19:41:15 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-2@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com>
 References: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com>
@@ -103,271 +103,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The card reference acquired by snd_lookup_minor_data() does not retain a
-PCM component that its owner explicitly frees on a live card. A native
-open can obtain the PCM and be delayed before substream attachment or
-the driver open callback acquires its own usage reference.
+An OSS open uses the PCM before acquiring open_mutex and before the HDA
+driver's open callback takes a codec PCM reference. In particular,
+snd_pcm_oss_look_for_setup() walks the stream's setup list during this
+interval. The lookup's card reference does not retain a PCM component
+removed by codec-only unbind on a registered card:
 
-For example, writing a codec name to its HDA driver's sysfs unbind
-attribute disconnects and frees that codec's PCMs while the card remains
-registered. The codec PCM usage count does not cover an opener that has
-not yet entered azx_pcm_open():
+  OSS open                             HDA codec unbind
+  --------                             ----------------
+  lookup OSS minor
+  retain card reference
+  snd_pcm_oss_look_for_setup()
+                                       disconnect PCM
+                                       wait for codec PCM references
+                                       snd_device_free()
+                                         snd_pcm_free()
+  use setup list or PCM in open
 
-  Native PCM open                       HDA codec unbind
-  ---------------                       ----------------
-  look up minor, retain card
-  retain raw PCM pointer
-                                        snd_hda_codec_disconnect_pcms()
-                                          disconnect PCM
-                                        wait for codec PCM references
-                                        codec_release_pcms()
-                                          snd_device_free()
-                                            snd_pcm_free()
-  use PCM in substream attachment
+The OSS module pin retains its code, and proc disconnect drains proc
+callbacks; neither retains the PCM for this early OSS open.
 
-Acquire a PCM usage reference while still holding register_mutex across
-minor lookup. Transfer it to the file on successful open and release it
-after substream cleanup, before dropping the file's card reference.
-Mappings also keep this reference through the file they retain. Balance
-the temporary references used for PCM file checks and failed opens.
+Use the PCM core's lookup-and-retain helper for the OSS minor. Hold the
+PCM reference through the early setup lookup and transfer it to the file
+on success. Drop it on every open failure or after substream release,
+before the last card reference can invoke final card destruction.
 
-Keep proc rundown in the existing component disconnect path, after
-open_mutex has been dropped. The PCM usage wait belongs in final free,
-with no registration or open mutex held while users finish.
-
-Close lookup admission and reject new substream attachments on component
-disconnect. Final free closes admission even for BUILD-state cleanup,
-wakes waiting openers and waits for existing PCM users without holding
-register_mutex or open_mutex.
-
-Keep registration under the same lookup gate and roll back earlier
-direction minors if a later registration fails. Otherwise a failed
-BUILD-state component can leave a minor pointing at freed storage.
-Initialize PCM timers only after both direction registrations succeed,
-so a failed registration leaves no partially initialized timers to
-replace on retry.
+The final PCM free now waits for that early opener before removing OSS
+setup lists. A pending opener which resumes after disconnect is rejected
+before entering the driver, and a waiting OSS opener observes the PCM's
+component disconnection as well as whole-card shutdown.
 
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- include/sound/pcm.h     |  9 +++++++
- sound/core/pcm.c        | 59 ++++++++++++++++++++++++++++++++++++++---
- sound/core/pcm_native.c | 44 ++++++++++++++++++++----------
- 3 files changed, 95 insertions(+), 17 deletions(-)
+ include/sound/pcm.h      |  2 ++
+ sound/core/oss/pcm_oss.c | 20 +++++++++++++-------
+ sound/core/pcm.c         | 15 +++++++++++++++
+ 3 files changed, 30 insertions(+), 7 deletions(-)
 
 diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 1cf511f8d880..8fdb07f2f542 100644
+index 8fdb07f2f542..12559c2144cf 100644
 --- a/include/sound/pcm.h
 +++ b/include/sound/pcm.h
-@@ -543,11 +543,13 @@ struct snd_pcm {
- 	struct snd_pcm_str streams[2];
- 	struct mutex open_mutex;
- 	wait_queue_head_t open_wait;
-+	struct snd_refcount users; /* minor lookups and open files */
- 	void *private_data;
- 	void (*private_free) (struct snd_pcm *pcm);
- 	bool internal; /* pcm is for internal use only */
- 	bool nonatomic; /* whole PCM operations are in non-atomic context */
- 	bool no_device_suspend; /* don't invoke device PM suspend */
-+	bool disconnected; /* no new substream may be attached */
+@@ -577,6 +577,8 @@ int snd_pcm_new_internal(struct snd_card *card, const char *id, int device,
+ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count);
+ 
  #if IS_ENABLED(CONFIG_SND_PCM_OSS)
- 	struct snd_pcm_oss oss;
- #endif
-@@ -559,6 +561,13 @@ struct snd_pcm {
- 
- extern const struct file_operations snd_pcm_f_ops[2];
- 
-+struct snd_pcm *snd_pcm_get_by_minor(unsigned int minor, int type);
++struct snd_pcm *snd_pcm_get_by_oss_minor(unsigned int minor);
 +
-+static inline void snd_pcm_put(struct snd_pcm *pcm)
-+{
-+	snd_refcount_put(&pcm->users);
-+}
-+
- int snd_pcm_new(struct snd_card *card, const char *id, int device,
- 		int playback_count, int capture_count,
- 		struct snd_pcm **rpcm);
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 064df4cd3b50..17cd60e8825d 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -725,6 +725,7 @@ static int _snd_pcm_new(struct snd_card *card, const char *id, int device,
- 	pcm->internal = internal;
- 	mutex_init(&pcm->open_mutex);
- 	init_waitqueue_head(&pcm->open_wait);
-+	snd_refcount_init(&pcm->users);
- 	INIT_LIST_HEAD(&pcm->list);
- 	if (id)
- 		strscpy(pcm->id, id, sizeof(pcm->id));
-@@ -862,6 +863,14 @@ static int snd_pcm_free(struct snd_pcm *pcm)
- 	if (!pcm)
- 		return 0;
- 	if (!pcm->internal) {
-+		/* Also close lookup admission for BUILD-state cleanup. */
-+		scoped_guard(mutex, &register_mutex) {
-+			scoped_guard(mutex, &pcm->open_mutex) {
-+				pcm->disconnected = true;
-+				wake_up(&pcm->open_wait);
-+			}
-+		}
-+		snd_refcount_sync(&pcm->users);
- 		scoped_guard(mutex, &register_mutex)
- 			pcm_call_notify(pcm, n_unregister);
- 	}
-@@ -897,6 +906,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
- 		       stream != SNDRV_PCM_STREAM_CAPTURE))
- 		return -EINVAL;
- 	*rsubstream = NULL;
-+	if (pcm->disconnected)
-+		return -ENODEV;
- 	pstr = &pcm->streams[stream];
- 	if (pstr->substream == NULL || pstr->substream_count == 0)
- 		return -ENODEV;
-@@ -1015,6 +1026,44 @@ void snd_pcm_detach_substream(struct snd_pcm_substream *substream)
- 	substream->pstr->substream_opened--;
- }
- 
-+static struct snd_pcm *pcm_get_from_minor(unsigned int minor, int type,
-+					  void *(*lookup)(unsigned int, int))
-+{
-+	struct snd_pcm *pcm;
-+	struct snd_card *card;
-+
-+	scoped_guard(mutex, &register_mutex) {
-+		pcm = lookup(minor, type);
-+		if (!pcm)
-+			return NULL;
-+		if (!pcm->disconnected) {
-+			snd_refcount_get(&pcm->users);
-+			return pcm;
-+		}
-+		card = pcm->card;
-+	}
-+	snd_card_unref(card);
-+	return NULL;
-+}
-+
-+/**
-+ * snd_pcm_get_by_minor - look up and retain a native PCM component
-+ * @minor: native ALSA minor number
-+ * @type: playback or capture PCM device type
-+ *
-+ * The lookup holds the PCM registration mutex through reference acquisition.
-+ * The caller must release both the PCM reference with snd_pcm_put() and the
-+ * card reference with snd_card_unref(). An open file retains its PCM reference
-+ * until release, including any mappings that keep the file alive.
-+ *
-+ * Return: A referenced PCM, or NULL if the minor is absent or disconnected.
-+ */
-+struct snd_pcm *snd_pcm_get_by_minor(unsigned int minor, int type)
-+{
-+	return pcm_get_from_minor(minor, type, snd_lookup_minor_data);
-+}
-+EXPORT_SYMBOL_GPL(snd_pcm_get_by_minor);
-+
- static ssize_t pcm_class_show(struct device *dev,
- 			      struct device_attribute *attr, char *buf)
- {
-@@ -1081,14 +1130,17 @@ static int snd_pcm_dev_register(struct snd_device *device)
- 					  &snd_pcm_f_ops[cidx], pcm,
- 					  pcm->streams[cidx].dev);
- 		if (err < 0) {
-+			while (--cidx >= 0)
-+				if (pcm->streams[cidx].substream)
-+					snd_unregister_device(pcm->streams[cidx].dev);
- 			list_del_init(&pcm->list);
- 			return err;
- 		}
--
--		for (substream = pcm->streams[cidx].substream; substream; substream = substream->next)
--			snd_pcm_timer_init(substream);
- 	}
- 
-+	for_each_pcm_substream(pcm, cidx, substream)
-+		snd_pcm_timer_init(substream);
-+
- 	pcm_call_notify(pcm, n_register);
- 	return err;
- }
-@@ -1101,6 +1153,7 @@ static int snd_pcm_dev_disconnect(struct snd_device *device)
- 
- 	guard(mutex)(&register_mutex);
- 	scoped_guard(mutex, &pcm->open_mutex) {
-+		pcm->disconnected = true;
- 		wake_up(&pcm->open_wait);
- 		list_del_init(&pcm->list);
- 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 35152fae74ca..ba544fb4bc6c 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2355,17 +2355,20 @@ static bool is_pcm_file(struct file *file)
- {
- 	struct inode *inode = file_inode(file);
- 	struct snd_pcm *pcm;
-+	struct snd_card *card;
- 	unsigned int minor;
- 
- 	if (!S_ISCHR(inode->i_mode) || imajor(inode) != snd_major)
- 		return false;
- 	minor = iminor(inode);
--	pcm = snd_lookup_minor_data(minor, SNDRV_DEVICE_TYPE_PCM_PLAYBACK);
-+	pcm = snd_pcm_get_by_minor(minor, SNDRV_DEVICE_TYPE_PCM_PLAYBACK);
- 	if (!pcm)
--		pcm = snd_lookup_minor_data(minor, SNDRV_DEVICE_TYPE_PCM_CAPTURE);
-+		pcm = snd_pcm_get_by_minor(minor, SNDRV_DEVICE_TYPE_PCM_CAPTURE);
- 	if (!pcm)
- 		return false;
--	snd_card_unref(pcm->card);
-+	card = pcm->card;
-+	snd_pcm_put(pcm);
-+	snd_card_unref(card);
- 	return true;
- }
- 
-@@ -2942,11 +2945,16 @@ static int snd_pcm_playback_open(struct inode *inode, struct file *file)
+ struct snd_pcm_notify {
+ 	int (*n_register) (struct snd_pcm * pcm);
+ 	int (*n_disconnect) (struct snd_pcm * pcm);
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index e8df27d09b97..9f0dae051ecf 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -2497,8 +2497,7 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
  
  	nonseekable_open(inode, file);
  
--	pcm = snd_lookup_minor_data(iminor(inode),
--				    SNDRV_DEVICE_TYPE_PCM_PLAYBACK);
-+	pcm = snd_pcm_get_by_minor(iminor(inode),
-+				   SNDRV_DEVICE_TYPE_PCM_PLAYBACK);
- 	err = snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_PLAYBACK);
--	if (pcm)
--		snd_card_unref(pcm->card);
-+	if (pcm) {
-+		struct snd_card *card = pcm->card;
-+
-+		if (err < 0)
-+			snd_pcm_put(pcm);
-+		snd_card_unref(card);
-+	}
- 	return err;
- }
- 
-@@ -2957,11 +2965,16 @@ static int snd_pcm_capture_open(struct inode *inode, struct file *file)
- 
- 	nonseekable_open(inode, file);
- 
--	pcm = snd_lookup_minor_data(iminor(inode),
--				    SNDRV_DEVICE_TYPE_PCM_CAPTURE);
-+	pcm = snd_pcm_get_by_minor(iminor(inode),
-+				   SNDRV_DEVICE_TYPE_PCM_CAPTURE);
- 	err = snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_CAPTURE);
--	if (pcm)
--		snd_card_unref(pcm->card);
-+	if (pcm) {
-+		struct snd_card *card = pcm->card;
-+
-+		if (err < 0)
-+			snd_pcm_put(pcm);
-+		snd_card_unref(card);
-+	}
- 	return err;
- }
- 
-@@ -2999,7 +3012,7 @@ static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
+-	pcm = snd_lookup_oss_minor_data(iminor(inode),
+-					SNDRV_OSS_DEVICE_TYPE_PCM);
++	pcm = snd_pcm_get_by_oss_minor(iminor(inode));
+ 	if (pcm == NULL) {
+ 		err = -ENODEV;
+ 		goto __error1;
+@@ -2545,7 +2544,7 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
  		mutex_unlock(&pcm->open_mutex);
  		schedule();
  		mutex_lock(&pcm->open_mutex);
@@ -376,25 +177,38 @@ index 35152fae74ca..ba544fb4bc6c 100644
  			err = -ENODEV;
  			break;
  		}
-@@ -3025,6 +3038,7 @@ static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
- static int snd_pcm_release(struct inode *inode, struct file *file)
+@@ -2566,14 +2565,19 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
+       __error2:
+       	snd_card_file_remove(pcm->card, file);
+       __error1:
+-	if (pcm)
+-		snd_card_unref(pcm->card);
++	if (pcm) {
++		struct snd_card *card = pcm->card;
++
++		snd_pcm_put(pcm);
++		snd_card_unref(card);
++	}
+ 	return err;
+ }
+ 
+ static int snd_pcm_oss_release(struct inode *inode, struct file *file)
  {
  	struct snd_pcm *pcm;
 +	struct snd_card *card;
  	struct snd_pcm_substream *substream;
- 	struct snd_pcm_file *pcm_file;
+ 	struct snd_pcm_oss_file *pcm_oss_file;
  
-@@ -3033,6 +3047,7 @@ static int snd_pcm_release(struct inode *inode, struct file *file)
+@@ -2584,14 +2588,16 @@ static int snd_pcm_oss_release(struct inode *inode, struct file *file)
  	if (snd_BUG_ON(!substream))
  		return -ENXIO;
  	pcm = substream->pcm;
 +	card = pcm->card;
- 
- 	/* block until the device gets woken up as it may touch the hardware */
- 	snd_power_wait(pcm->card);
-@@ -3042,8 +3057,9 @@ static int snd_pcm_release(struct inode *inode, struct file *file)
- 		kfree(pcm_file);
- 	}
+ 	if (!pcm->card->shutdown)
+ 		snd_pcm_oss_sync(pcm_oss_file);
+ 	mutex_lock(&pcm->open_mutex);
+ 	snd_pcm_oss_release_file(pcm_oss_file);
+ 	mutex_unlock(&pcm->open_mutex);
  	wake_up(&pcm->open_wait);
 -	module_put(pcm->card->module);
 -	snd_card_file_remove(pcm->card, file);
@@ -404,6 +218,32 @@ index 35152fae74ca..ba544fb4bc6c 100644
  	return 0;
  }
  
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 17cd60e8825d..380ce0781342 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -1064,6 +1064,21 @@ struct snd_pcm *snd_pcm_get_by_minor(unsigned int minor, int type)
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_get_by_minor);
+ 
++#if IS_ENABLED(CONFIG_SND_PCM_OSS)
++/**
++ * snd_pcm_get_by_oss_minor - look up and retain an OSS PCM component
++ * @minor: OSS minor number
++ *
++ * Returns the same PCM and card references as snd_pcm_get_by_minor().
++ */
++struct snd_pcm *snd_pcm_get_by_oss_minor(unsigned int minor)
++{
++	return pcm_get_from_minor(minor, SNDRV_OSS_DEVICE_TYPE_PCM,
++				  snd_lookup_oss_minor_data);
++}
++EXPORT_SYMBOL_GPL(snd_pcm_get_by_oss_minor);
++#endif
++
+ static ssize_t pcm_class_show(struct device *dev,
+ 			      struct device_attribute *attr, char *buf)
+ {
 -- 
 2.43.0
 
