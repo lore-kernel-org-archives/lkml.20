@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844076;
-	b=XdEj82Ga2ZC0X1hoG9TBo+hY2yGmmgN1wzhvrTa8om5pAJBNkpQIzAvN0Wy92O7NF7Sr
-	 7WhCGa2jzI4yqyR5yGVbgaBAhln6OA+7gc5XUz/orW0gBf11u7PLbwQaPzZ290M+Qf56w
-	 BLbvUEjGquuKuYBHZ0PZnXfTyl7rkGJe+i44DdnXetTkhu94m/1YxAlgdznhH5DXTX8Dl
-	 yndYIpLDbEy+Ki91sGny7PQYjoFWavYA7HyqLy2YPcayE+Xqlb4pqluY4utRiZ37GrGaV
-	 RdQxeAxNQwFls+3CT+Ksij5gdvDpwB+X/Tjtdo2YO4taJId/abUux6mSsRGnu+Pz2nA==
+	t=1792844079;
+	b=rGNWQ6t8Yew9RD0VfwX64AAlr+DQR1X5fouRuB4rU+RGJOj922iognv24eBBOL3iSQg5
+	 JKzYpjP3qyt4Kg/MK+MTFhpD5AXFhjkBW/V1fN7HBi+XEN58HRHURHaInxfLI9erNUzKC
+	 dpgEBUqvg8c6Ob7UDos1ThZRKyWk6rQEYv6WOPERSx8qUYZ5XUNUpBHzjI/tgKI/J0WLf
+	 iCF5xIgxAbEfl8/zqoK6C+VDzwGhIjQhrHJxXR/93jrUYlHaqHvWqUfoQG9Ncp1qwLLOg
+	 gigMyn4YlLgbMYMaASK+KMa8lYkG1Q81HxYqa9YPCJ5PpHmDku6CtooUlF2OnesvDCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844076;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844079;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3IjMPJb38YAf6cwqMCv7g254aUrxQzhzPP6hfN2i0bE=;
-	b=z1z41sQxZJ3K/KTCI5ew85LgFxdJ3qpBakSJL7xEJTRF9tXvmmNznvIp+n6ETlBKY7PQ
-	 fSr6F58Oc+j0kNBHcmL2rtwUyRGDOCNLNSril0vIfWE0wQk5jY6mh8t+ttyFvvONEqXmD
-	 laSOXwi9SnMI00vfacomH14ntYNlPVXV6Dmf/fENcjPd6pm2GS907xxE+IURWsN1Vg1/A
-	 1BmtUuePorxwC5y/1551MKsHKL/ukhgzPU4wY4NfXj8haKGrEZnqX1UOAyW44svKGciTs
-	 6CbuEq8fxGIX5kLYEj+Y+pWXFRBKIHB9Fe+enmJFDpi+rzZghQk5eFdU6cUTF4np8RA==
+	bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
+	b=O1BixBkKDoTon08uyAssifCwgIGWqkTzS0X3jJWefLw0DzvHBQ9z+2gXhjTEEC7Qm11Y
+	 y8GforOe3WwljUsSkm4N+vuxMCMKPzUOTpGwtUWi4qPCDVhhC9FGF/huEMqTe/a8QKxGi
+	 dC9wMt+swlKdmCEn8AXSByDI7iesNJ/Lbu3U8vq3Le69eb3nsdS8gMFFR5/d4RXUU2w5q
+	 pP5l89tlEPXh4g7MBH84RzLTIa5++vK4P57tsGAepgZTmiWzruh3tJEyW+PcCHxid4W2N
+	 OADNpGU2B5z6bKUI1DINnbscCo/GRx9I0j/Wbcia+mbKjUU+anaccICs+Mp/Vrvz5Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lt49uhn3;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kk9QGqNq;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80426606A32A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80426606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853A7606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853A7606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lt49uhn3
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afbd2c386so935647f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:14:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kk9QGqNq
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso932567f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:14:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792844075; x=1793448875; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792844078; x=1793448878; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3IjMPJb38YAf6cwqMCv7g254aUrxQzhzPP6hfN2i0bE=;
-        b=lt49uhn37Z+8mdul7EfjiDo090a6ajh+wxBaz5Rp3prC/KjJJ1lAaS4MjTRk1ywb15
-         AgkGRq8fcuLvbpFpxXRcpKF2ATtGUc53WIJkO+hsZaALVZWgi9Vl/xWu2+3Y5mkImdJP
-         e7FDQz/rKIBCQyHFkbaI1ysgWaFIzr14S81L3Q0qH/0JtH+EJL58gsa1AmtKHl7sWzzf
-         cbuCnEJXY/RfE7XHw9wpACIfLBir7kyHbj8kgQDnOeTvL/3a6JwspCAA81wTa984tcgC
-         DzKdskByJp7wPAG0/DD4TNAq67mBlpCwa8Ln65/uhCM4bmjBM4x1mZLmVZ43/pWxSgCN
-         hBOA==
+        bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
+        b=kk9QGqNqPm0wSvRaXOTRIxpQRw2ERMl1qZCUO1hO1D+r1xDHcZc2tncdiKL0G8a9G9
+         pOG4h3w37r6iZfPL2AbgLa03L1aO3NeHF2MxT2VGkzme1TIqteUykHCx201tydvmr0js
+         5I2cWOVMqxg97ks2kG4FDJvHY5RDgM/H3I+7Ws7ywsMSPGgFmMlwaJ6cIRfBWxcYT/Sk
+         HqMXi7lZUVOeVJor4jBX6tV1IrtYCS1kKxVlOzHsb1gZ6vB8sRQ21Y9QzvIME9JrNNdx
+         WIp6N1mUwBdNyqJzgurUpZtdapDi9wF/qSeD+fhAiGpp1aggcaYmxG6HRTbmuNkuNVRg
+         IDow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792844075; x=1793448875;
+        d=1e100.net; s=20260707; t=1792844078; x=1793448878;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3IjMPJb38YAf6cwqMCv7g254aUrxQzhzPP6hfN2i0bE=;
-        b=qRBgFmhV69NM4SfIJQOE8MWIruS0SzVeE/Jb/SJsIeTfWcYGa6EEGX6Kf9Dg5NPj2l
-         G4GH2x5qSJe0P8/DUtaBoHYopdALrJ8zwg6olpQci9PBNAjdOar4i8BfuUUtfgWXvflW
-         v/A2MH69uu+coajG12h4ulzjX1JUM6HR4tyvS1uc/tTSC/vC7IQ1mBSr0Kme9Qgnxkrs
-         pjBYGNSsliualABZcuxyjPb7PLplywi/0z2XqFhGo9Lqxp7+ni9Q18VUWVN8aeRUSrjB
-         zI91FUZvJqHQqMbtCutep5ukPE18kyed6nlA9QVraepZp2xoosQ7ITSdnLKbP6pSZB9G
-         wMXw==
-X-Forwarded-Encrypted: i=1; AKwUvByztanTJ3GdSUlQrRYayqFB9w1hUoh87PesIfVvY9+JKyc6suA8rxFPIeM0Y2mx614Uj46I4HzGtXjD0uI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8KCS5FglK9TGL9A4jJ/wdGwFr5YOFi+aFIcND+ALPWTay60Ju
-	FCLP0W24LuVHchPMruwQuCXZbqTCs5GXlSPfPCbYyrqcMvhFxqT1/AAJ
-X-Gm-Gg: AYBFou3Vy4fgkShgC9xI76GltYVY5AW9xzvJ6pQP1ET5ec33swz3ZN9zeE4Zk9LRbNl
-	PWjnd9CLpatq6/+JndsvAWaXrpKbe6IkIV5EKxfoFOQDfMSoPIIonawacaB+BoUt0IV3xEQY3X4
-	Tc6V1zoKpwVhbxaznRJmyagKCQS8P034OuDgu43Xok3LFoNZH/EASieX6k3L7SQqfHdt0OdHOWs
-	wImzvJc4CDloFWIH2/egeLZDkIUT4vQtvFqrC2XfslZHcIFQlf++mJqadYvzwtkSMrLnH9KVSPF
-	jS46a5eBY64CWlj4z8Yl9Xg30vUWRRoc/S9kgs9MZbFHGeeFSUXlUbnbrh/ApXrThV9X+uhwEug
-	98lcZPsXzSXk4T8Aag/09569Eq3WrSs4N3f7e/RuhEFJVYQvNTJ+aaUjmlOmL3eMtQOsG+469xV
-	wbiS3g3N1dRVh3jAHRkNBEFRdLJle3lC8gYLQDVDDQLpy3+RTkNK77xfWuRsmyhdMGB8AQeRIHJ
-	GLhOm1rrBY9E445UsKzf730TKYfpmQvQHoor3ZsFOxreTXJGNL9SKn7agwGLMBLWeuKsf+nbEWq
-X-Received: by 2002:a05:6000:27c9:10b0:48c:4444:f0a2 with SMTP id ffacd0b85a97d-48e3eb247e3mr2009823f8f.7.1792844074714;
-        Sat, 24 Oct 2026 05:14:34 -0700 (PDT)
+        bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
+        b=IjKxYrz+MEwP56rmTZqqglAVKhiDpuUBxVqkk2QFQ+wnsdbPV6zs7/ZDxsbzyvLhMo
+         P8VYDOYrjK0NxbEVqf3TI34KpGFCA/ho8keshsMUlfbqqtXPPeZNcNNgnUbPrT2F6dN5
+         m9DNqxn8aG1t9dNXKtlSyIZwGoZH3OrzmR7mUJlQ/Piw2wV56jNwb8rH2mfka24Imy2h
+         MTxYat7kl94TUjEQxF5CiPiO2GnSuE4MRIp7I9Q54D2CJIZNzysIey6D9lacWdh5z+BR
+         26LZkvjg7P8RBGP5C0eBnk+MLHBg+oau4N0iV9NO0ltMJKEEKHtAr6WFflaYLG2rdpMD
+         LFFw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsgV4MMk0fUWmi370UKetwABAdYpqdSLT6/gtWyy82rwIvDAVrkUIZ57DHv6xHGg20Tl8BBb/grFI8Eng=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDsdd7CHeSSVmmHxPw4WY0rvrwPpG4T9/9Jzq1UoV+tUojKJM8
+	Ulqwf7p5DZqXZZAk70FORn32orQFlMjfOtEyvOLGnIqi2p5TzOw8M3pM
+X-Gm-Gg: AYBFou2g7DSNmlUcoAyX7I377BiTo9rjTgd5Qd2+YaJI+YKMdm3vm6nvjSdN4nYNVS4
+	2x/mNGirNDgeaDRAd/QHL7otwVealt8oMXqn7rB+guqdzlCJ3mB1Dkf8kAtrhSI2Y9c+fSQgeOM
+	Wjt4NasgYpnNeZKyAm+I0tRYz+pPojaCW26tOOGvFcevadduXM2Epe0yOsQngERpbphsmbXFqoG
+	9WPP5rtfwYRwzTGGR1PfKob8e/YI1ythj4OnagEV9tVQojuO55/+uGaPW9qRGNepimOqD1eqRIv
+	4cR/368TcNlHrm5aUh5Ey52C6Ajdgt+ZKkUZN1OwOkqs7PosNUSBCXy3Rw7nzEsdKo9A58qQo/g
+	S+7kHkpkDtATAg6JJuwXUSmybo7SFz7frObYr3ECMl2vCDBoeDlCPPAtdMOqk0tGVT6H1DH62fI
+	/beFMGvCb0nkY1JnP/+n0o0d1YU6oMuVysM9kieGBd1FgtZIbp/GGglcpipAeQEUgpKZLi7QF5N
+	Fr+rpOQZVguqNG3eQqU/dRe7EyHJVtfFUJVYG6wpRIwypF+39RzPvo=
+X-Received: by 2002:adf:f5ce:0:b0:487:930:8acc with SMTP id ffacd0b85a97d-48e3eb83fb7mr2248305f8f.16.1792844077924;
+        Sat, 24 Oct 2026 05:14:37 -0700 (PDT)
 Received: from NB-6746.. ([178.66.130.53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm3860411f8f.59.2026.10.24.05.14.33
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm3860411f8f.59.2026.10.24.05.14.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:14:34 -0700 (PDT)
+        Sat, 24 Oct 2026 05:14:37 -0700 (PDT)
 From: Artem Shimko <a.shimko.dev@gmail.com>
 To: tzungbi@kernel.org,
 	linux@roeck-us.net,
@@ -89,9 +89,9 @@ Cc: Artem Shimko <a.shimko.dev@gmail.com>,
 	wim@linux-watchdog.org,
 	linux-watchdog@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] watchdog: dw_wdt: use devm_reset_control_get_optional_shared_deasserted
-Date: Sat, 24 Oct 2026 15:14:23 +0300
-Message-ID: <20261024121428.18862-2-a.shimko.dev@gmail.com>
+Subject: [PATCH v3 2/2] watchdog: dw_wdt: manage reset line during system suspend/resume
+Date: Sat, 24 Oct 2026 15:14:24 +0300
+Message-ID: <20261024121428.18862-3-a.shimko.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261024121428.18862-1-a.shimko.dev@gmail.com>
 References: <y>
@@ -107,82 +107,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace devm_reset_control_get_optional_shared() with
-devm_reset_control_get_optional_shared_deasserted() to let the
-device-managed API handle reset line deassertion and assertion
-automatically.
+The watchdog controller reset line is not currently managed during system
+suspend/resume. This can lead to an inconsistent hardware state when
+resuming from suspend, as the controller may not be properly reinitialized.
 
-The driver currently manages the reset control manually: it calls
-reset_control_deassert() during probe and reset_control_assert() in
-error paths and remove. This is error-prone and requires explicit
-cleanup in multiple places.
-
-Switching to the _deasserted variant deasserts the reset line on
-acquisition and asserts it again when the device is removed, which
-allows removing the out_assert_rst label along with the related
-assertions in the probe error paths and in dw_wdt_drv_remove().
+Assert the reset line before disabling clocks during suspend to ensure
+the controller is held in reset while power is gated. During resume,
+deassert the reset after clocks are enabled and before restoring register
+state to guarantee the controller is properly initialized.
 
 Tested-by: Igor Velkov <iav@iav.lv>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
 Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 ---
- drivers/watchdog/dw_wdt.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ drivers/watchdog/dw_wdt.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/watchdog/dw_wdt.c b/drivers/watchdog/dw_wdt.c
-index 39031445d754..2cffe337b4ea 100644
+index 2cffe337b4ea..844a5f7738b6 100644
 --- a/drivers/watchdog/dw_wdt.c
 +++ b/drivers/watchdog/dw_wdt.c
-@@ -588,9 +588,9 @@ static int dw_wdt_drv_probe(struct platform_device *pdev)
- 	if (IS_ERR(dw_wdt->pclk))
- 		return PTR_ERR(dw_wdt->pclk);
+@@ -378,10 +378,15 @@ static irqreturn_t dw_wdt_irq(int irq, void *devid)
+ static int dw_wdt_suspend(struct device *dev)
+ {
+ 	struct dw_wdt *dw_wdt = dev_get_drvdata(dev);
++	int err;
  
--	dw_wdt->rst = devm_reset_control_get_optional_shared(&pdev->dev, NULL);
-+	dw_wdt->rst = devm_reset_control_get_optional_shared_deasserted(dev, NULL);
- 	if (IS_ERR(dw_wdt->rst))
--		return PTR_ERR(dw_wdt->rst);
-+		return dev_err_probe(dev, PTR_ERR(dw_wdt->rst), "failed to acquire reset\n");
+ 	dw_wdt->control = readl(dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
+ 	dw_wdt->timeout = readl(dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
  
- 	/* Enable normal reset without pre-timeout by default. */
- 	dw_wdt_update_mode(dw_wdt, DW_WDT_RMOD_RESET);
-@@ -617,11 +617,9 @@ static int dw_wdt_drv_probe(struct platform_device *pdev)
- 		dw_wdt->wdd.info = &dw_wdt_ident;
- 	}
++	err = reset_control_assert(dw_wdt->rst);
++	if (err)
++		return err;
++
+ 	clk_disable_unprepare(dw_wdt->pclk);
+ 	clk_disable_unprepare(dw_wdt->clk);
  
--	reset_control_deassert(dw_wdt->rst);
--
- 	ret = dw_wdt_init_timeouts(dw_wdt, dev);
- 	if (ret)
--		goto out_assert_rst;
-+		return ret;
+@@ -391,16 +396,19 @@ static int dw_wdt_suspend(struct device *dev)
+ static int dw_wdt_resume(struct device *dev)
+ {
+ 	struct dw_wdt *dw_wdt = dev_get_drvdata(dev);
+-	int err = clk_prepare_enable(dw_wdt->clk);
++	int err;
  
- 	wdd = &dw_wdt->wdd;
- 	wdd->ops = &dw_wdt_ops;
-@@ -655,15 +653,11 @@ static int dw_wdt_drv_probe(struct platform_device *pdev)
++	err = clk_prepare_enable(dw_wdt->clk);
+ 	if (err)
+ 		return err;
  
- 	ret = watchdog_register_device(wdd);
- 	if (ret)
--		goto out_assert_rst;
-+		return ret;
+ 	err = clk_prepare_enable(dw_wdt->pclk);
+-	if (err) {
+-		clk_disable_unprepare(dw_wdt->clk);
+-		return err;
+-	}
++	if (err)
++		goto unprepare_clk;
++
++	err = reset_control_deassert(dw_wdt->rst);
++	if (err)
++		goto unprepare_pclk;
  
- 	dw_wdt_dbgfs_init(dw_wdt);
+ 	writel(dw_wdt->timeout, dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
+ 	writel(dw_wdt->control, dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
+@@ -408,6 +416,13 @@ static int dw_wdt_resume(struct device *dev)
+ 	dw_wdt_ping(&dw_wdt->wdd);
  
  	return 0;
--
--out_assert_rst:
--	reset_control_assert(dw_wdt->rst);
--	return ret;
++
++unprepare_pclk:
++	clk_disable_unprepare(dw_wdt->pclk);
++unprepare_clk:
++	clk_disable_unprepare(dw_wdt->clk);
++
++	return err;
  }
  
- static void dw_wdt_drv_remove(struct platform_device *pdev)
-@@ -673,7 +667,6 @@ static void dw_wdt_drv_remove(struct platform_device *pdev)
- 	dw_wdt_dbgfs_clear(dw_wdt);
- 
- 	watchdog_unregister_device(&dw_wdt->wdd);
--	reset_control_assert(dw_wdt->rst);
- }
- 
- #ifdef CONFIG_OF
+ static DEFINE_SIMPLE_DEV_PM_OPS(dw_wdt_pm_ops, dw_wdt_suspend, dw_wdt_resume);
 -- 
 2.43.0
 
