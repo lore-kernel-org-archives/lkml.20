@@ -1,105 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792876805;
-	b=L3Sg4vdux4Hdkb6qb8D95o5UqS3vb1Mhcq0OG6vJfc7MsBCmKkynb0080/1oHFfWhIsz
-	 k3w6PQglMqj6cFy7MQQz8x8BLcjSvYhRlwI72V0nno4E/iYgeuQ2PNkRxivEWni0rcWkb
-	 6TC/mt33onGSPUn6/XZDhZrZSwrr/ONqsEP9DV1GsGZasql/Jgq/b6bHXRXzu3vvG2eVk
-	 BClZJWqwQo8FDVDYruWhjHmD1pAdDwk3wXJj14DqpL5il+wmR8HNyclLzCR43nGPOoLDl
-	 ygX5GIcVZKAmDKlFld8i0PhPGvbzbwHp23nrSDbjB4TdDv2L9VMB21akVu+9jMsPObw==
+	t=1792876995;
+	b=aCl+eUq3V/F9NOEiuAkz5PSgW8GqAgblk4aKAK5Y5OZsUOwQKv+gDDO5o0YltUuoYiTf
+	 6T2814eiSiRJRsNXUPeGC6F3jjsAamWpsZA1vWe+pG0yL8I3sCG9fQoCt8LPPDFYJ/Hqr
+	 8Rtiib+nvPgwXb6O2YLXw4AQK4XIhH4G3Vc2V+5lJ08IYDeMEvEViFonquQcsdDogQI7D
+	 dyaqznZj9d6MOk8RoP+Cks3hj7Xi4EBEUO7/827h3wTe8U1hzmIo85CBZrDJ/f7g/rOQb
+	 8fhPs5heNC1VcrZOFeN3VSGTA22nAQWM9zk4MuXcHtpJX1k9swC5A2NKW4vRGzaY10A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792876805;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792876995;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2qX06TRcsoaA1V6tFyU6u4Clht3fXnSDMXbx6q3STP0=;
-	b=bXi2fn4aJUzwDcQZ6OMN00Vmqw5kEVuG7DdP0VrugvBfxEl8BnzVCsWhLRvY4L2OV8j/
-	 hxvGOURpX2dDaMz08dVh1J3sQqM9/F/WdthtX/stFdLTrEKtVaTtCd2N0qUqURbMBl/6t
-	 iE8xnyOZ9G8jNcubHRXWHgsjXAHZp1sDhUp7CC+hy4xNcUwHdFe0Hmn+/QHbpIUjsG4KJ
-	 ecpuRj67E/xixZme+4AGB/rTnuB22/UTs8Xv/SOT5LpwUiFTI6fH6R2HFaqyl9PXrFM4w
-	 hsdiYc/clnUrxUm30S7GF1fuX0mbar/zeuDs0FoPLuS5Lp6zvbXukouPM+hkDqwrcjg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/uDSBSON0zRSqoCF+kBzR4qoVmokC3Xn3ipHg55DqZs=;
+	b=WHdVQuUfxQdskD8/DgnbgzpgQGSdKIgrDGzuFyjnlMNE96e4Q+88Vd5LIK3y82soX1iw
+	 ggQsdgtAr5q663zzlRCE6UiOYjH4JJek55uxUeRIN4eMJ183YzCJCHpxlcuR093Oi9zkp
+	 VCDi0PZ3PpSmM8RZsffyN10HQ92b72fkPB3HXVh0tDPeqDEUzU/A5R8T1emuasSb1BUi5
+	 0sntFrN2isclHHjqAL37eOc7mauSN0hn48xeXjDso7mvknIbgvoxlZF+Imh6rurehzUUY
+	 /4CuptWWMrXT8bduizzw0tt2jwmXaaig1uP8OKGrfzAuIPASoyiOFjFYM30yMZz2PGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FJW8YnIe;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FnDFv9FC;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25F4606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25F4606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B29606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B29606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FJW8YnIe
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c5b7d5865so292094f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:20:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FnDFv9FC
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso15053805e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:23:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792876803; x=1793481603; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2qX06TRcsoaA1V6tFyU6u4Clht3fXnSDMXbx6q3STP0=;
-        b=FJW8YnIeGGHORmKZRLw8h586uC4rWoQAABujeOgEiLyO2yPG84kUWpoiBOZlKgn4+p
-         6ytJ5bQMCMj7QA+uZUehDtWGch7mWm2mINSKUJZZDcYQAuqLXKaxjz3D0Kp7w5gTyKdZ
-         3vH/bderHSJDYxOkJzVSmAirIWMyot98092WY3EywRO8Xyxs2RCliHFQjCmtAtG6ucNs
-         AYmx4BoBt/+HRDSXLQMzS5iBVzHZcNmJuvENM+oRQ8cPaYfTgJ14RBKI6trKKQCqhJ+O
-         o9vXrEBvX03c+0YGfdBoKYAuB6so7AzRMbB7biw/pVlydzXxs0ug7l5yO83a7FEdVyv1
-         JpUA==
+        d=gmail.com; s=20251104; t=1792876993; x=1793481793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/uDSBSON0zRSqoCF+kBzR4qoVmokC3Xn3ipHg55DqZs=;
+        b=FnDFv9FC0AHYyP5czxkqqlZwWra2RtzF2z1eXJhYudz5n0i+dp+GtgI43Uw4o0sun9
+         ZbhTL2y7qp0FgwwS+Upt0OpshaSddBfgzZAPWg49SmyiiKXIUYBVSpMUMNOlJfvmAsVs
+         6D7UUrX+3/gQb4XfSFki6C4jtUvgCK/0ZYHihKKRn7QACjYeIIjvMIFX7d/KLsKeWS79
+         DJkAZcvtkY84Go1W3T3eXAmCM/Kwl51MxZi+Uxgu0xCh1kiN0ysfJQAUcKribzWwQZEd
+         zNfEiooshsZq2G3+K/5P+MlT80bHePXqKMtfr8qK85bJhbDq6yk9YsbyhBXlm4i93j03
+         DDGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792876803; x=1793481603;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2qX06TRcsoaA1V6tFyU6u4Clht3fXnSDMXbx6q3STP0=;
-        b=rHmI5Pg/RsfhUZvrNnZmkoXw+pOJyCzqOmVktbaMwgsIr2H/VDXImLKrvA+YVz1wlF
-         0JUtv6ffesPYC/TAZaXqcn/ZtozC5So34Yqs6nJVgap/ULIYWItog0Sf+XFYW2y9R21w
-         WASQMOThFVwdTt4ji6XKwhWT41/e4PLM5BZJkjpdbkRTFPj1ivwJe56MALCIdie6k/bj
-         22gW2UdLFTzXhMqWY3rN5uQnYwsns7LOamder3yB/ZQdibzz5pjtq0ImJBAhAbGg9mD5
-         2h89EswVKGdvfojYiLr1YhH5oP9/wYxlqWNFelqTIfcYd2v5TlqWIdukZNzGt9eH9RKA
-         X3Ug==
-X-Gm-Message-State: AFq9FYISE3BAxPFdnyNN5rPCeSLxqzniwcO10iueuMrSQpUNaNR3pAIz
-	uZgkgU5H2bSdnslPU/F4c+GeSj3HUjf4j0zw5HqiYXeoR/NbALd3uACr
-X-Gm-Gg: AYBFou3TUPFON+0OYgtK7BqcqM8PHXIrbLkVuGKC8a6lNpsnQdQzEXdFDzUl8xE3K0l
-	FBGuBPlBWgyKvlBPhzfRmy40LiiXR88kDnlEom31xS+QZtQQwoc2/xv5YqRroGbE1WVu+jMuZ0J
-	/IXqK5ioiNP9sxk4Ez6NzQaQWUcR4WiC1fSdorAnDFpIo6j4yrj3itxbDCJvFsiIYUbPNyflc1n
-	QBOzFNvByqCWQT9ZCnC6ShqDhsqe/E7DkuU9wpM/B8ifvW3K5GR07JGBitrzVD+jf6rWnRji9Lk
-	a+4bRO4zkV7UhrA4I7XkyYOrvuTHBalHWIuqAZ5eNSuCD8iox1pF8tx1DZhh833m55PE2pe32ym
-	rqkcs1qM0DFsjvLat+2JBRepC5XzEOjnQFFNHwKNWNweGzZShWiJ6W8YKlD+1iMcaHiUHgurMZ0
-	oFoFhrDAvmeZueKkErR2IjCfVii3W/oHZ7PvMJH1EV5LIzGuyvBAJRIGU+lkBuK7VvnT+D6EUWS
-	1oLSzS+8n2UWkxh8upL7bCc397NJtFaLt2wSP2aBkM5f4J+kOvuO8XkP/Px/sdqg+xZ6mA0NQ13
-	aTZT/mM=
-X-Received: by 2002:a05:600d:b:b0:4a2:417:7db5 with SMTP id 5b1f17b1804b1-4a35ac7c2f8mr38083235e9.2.1792876802949;
-        Sat, 24 Oct 2026 14:20:02 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece13aasm5787359f8f.58.2026.10.24.14.19.59
+        d=1e100.net; s=20260707; t=1792876993; x=1793481793;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/uDSBSON0zRSqoCF+kBzR4qoVmokC3Xn3ipHg55DqZs=;
+        b=PNWAZOULV6GO96iYNWkGw9USI5tnGGgzh+vm1nf8LvbGf2TogUGh4RpD7GQOn8zeO2
+         rrRxLaAAMAeXKBiC+WMtMwnCD4xYT4kp7MA3t1R9kkLVYM+2RZqiY/XItW54bzazw0oz
+         Zy/yYm5p1zxVSbd4PeJwjXTrMmesSaKmaYgdsWnyqRCtVW3S77DLRR/6EGu0GeY1g3ZA
+         e5irHM9RPu5/9HJNIjTX0Z6MDscI5lsfqyBsKOHBmcxTF7hxJNiFj+VHIvvK/8kfjC6N
+         Sock24UYJBcTmT46du/Fm9WcYtT1bbVIec0vL6yzia5p2ENQAs1v7sVh/BsG8CNxRlL5
+         f6JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdziyF3eSgT/cI1/f7BdE4LvpxVOGHFIUwHO/O3/dFkVBzXHAn7SBlyxJ0MrKhe3j41iYW9cDzj0un7R4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpo1VxXsse8YKztX5YQIOPKZlojHhYC2tpjPaSyVvRrf/JGzOD
+	shvMjd+lGeYqKgbih4VK7pe1ICR/H7Fe8kATnZlsGsdH90eKnQXonwak
+X-Gm-Gg: AYBFou37v6pKCNjD0d99u64EMM5W8UhN6SLG2xcx1y7gq5XLUpbaGVjYF3jlXk/I7o3
+	dCWfbPpAGKaGequDQ7ZhlyhiOg2O59XRxjvhU0sA3r6+KhHqe9VgBpRPLlvtY/wu85Rd0L67Try
+	uF90bEzAso5X39HaUjaNSavkBZDA6RaN0/fiAPQOg7S5Dp/7iv6SZjjfYBdClapbdD6pv2jOUAU
+	kd5hpTldq/to9+s+fqi1TQyh7ug78fA8sYaKXGrCEj2yEEqrQ1KOkIOK+L96ZuKTCsot9t2Swcj
+	1l6neLB7vTRFWFo1tD1Vc5YepwRfDIrEWDEO603FR4lqU6lCMRGNpmP3lEpdq2+uuQYoZpisXb6
+	BqjweJ8ZBalEurFZocGOu6ZfMh5zzeBWiwO6CVFbCvPX/Kczrs3DOp9clQ/UAFZHp9xUl4lHvMh
+	HJENcOM2Aq5fDMgGpcrNW8cqo68imlnV+RzAr9xtotWAAWQGmOx7waNaULXVlfhczZMgj/m0qAU
+	yZvnW/LZk9YfNYka8I4LQ3DcTTWC24oZUPr2kdocn+3/3ARDg+a/lqjBCoxSU/MBHPi0YjWCUGl
+	dofMkw==
+X-Received: by 2002:a05:600c:6095:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4a35ac8bf3amr39663215e9.11.1792876992941;
+        Sat, 24 Oct 2026 14:23:12 -0700 (PDT)
+Received: from ASHA ([2001:630:3c1:164:1a66:daff:fe85:4026])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359f3e00asm147825395e9.0.2026.10.24.14.23.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 14:20:01 -0700 (PDT)
-Date: Sun, 25 Oct 2026 00:19:57 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: John Stultz <jstultz@google.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, 
-	"zhidao su (Xiaomi)" <soolaugust@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Valentin Schneider <vschneid@redhat.com>, 
-	Suleiman Souhlal <suleiman@google.com>, Andrea Righi <arighi@nvidia.com>, 
-	Metin Kaya <Metin.Kaya@arm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Zimuzo Ezeozue <zezeozue@google.com>, 
-	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Qais Yousef <qyousef@layalina.io>, Xuewen Yan <xuewen.yan94@gmail.com>, 
-	kuyo chang <kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
-	Hui Su <sh_def@163.com>, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>, 
-	kernel-team@android.com
-Subject: Re: [PATCH v33 5/7] sched/proxy: Break cyclic proxy chains by
- deactivating blocked tasks
-Message-ID: <at0fFKw8Vv1br_PZ@scheduler.schedules>
-References: <20261023220431.1106611-1-jstultz@google.com>
- <20261023220431.1106611-6-jstultz@google.com>
+        Sat, 24 Oct 2026 14:23:11 -0700 (PDT)
+From: Amir Noohi <amirmnoohi@gmail.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Igor Velkov <iav@iav.lv>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] genirq, KVM: arm64: Avoid the irq descriptor lock on vCPU load
+Date: Sat, 24 Oct 2026 21:23:04 +0000
+Message-ID: <20261024212304.2620845-1-amirmnoohi@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <87tsmb8gdv.wl-maz@kernel.org>
+References: <20261024022450.629980-1-amirmnoohi@gmail.com> <87tsmb8gdv.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,63 +110,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261023220431.1106611-6-jstultz@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 10:04:16PM +0000, John Stultz wrote:
-> From: "zhidao su (Xiaomi)" <soolaugust@gmail.com>
-> 
-> find_proxy_task() follows the blocked_on/owner chain for a
-> blocked donor. If the chain forms a cycle, __schedule() can keep
-> walking the same chain while holding rq->lock.
-> Signed-off-by: zhidao su (Xiaomi) <soolaugust@gmail.com>
-> [jstultz: Simplified slightly, dropping WARN_ON and owner == donor
->  check, slightly reworked commit message]
-> Signed-off-by: John Stultz <jstultz@google.com>
-> ---
->  kernel/sched/core.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 43ba76b5a3464..12a42252bf474 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -6984,6 +6984,8 @@ static void proxy_migrate_task(struct rq *rq, struct rq_flags *rf,
->  	proxy_reacquire_rq_lock(rq, rf);
->  }
->  
-> +#define MAX_PROXY_CHAIN_DEPTH 1024
-> +
->  /*
->   * Find runnable lock owner to proxy for mutex blocked donor
->   *
-> @@ -7019,6 +7021,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
->  	int this_cpu = cpu_of(rq);
->  	struct task_struct *p;
->  	int owner_cpu;
-> +	int chain_depth = 0;
->  
->  	/* Follow blocked_on chain. */
->  	for (p = donor; p->is_blocked; p = owner) {
-> @@ -7139,6 +7142,13 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
->  			 */
->  			goto resched_idle;
->  		}
-> +
-> +		/* Limit the depth we'll proxy to avoid cyclic deadlocks */
-> +		if (++chain_depth > MAX_PROXY_CHAIN_DEPTH) {
-> +			__clear_task_blocked_on(p, NULL);
-> +			goto deactivate;
-> +		}
-> +
->  		/*
->  		 * OK, now we're absolutely sure @owner is on this
->  		 * rq, therefore holding @rq->lock is sufficient to
-> -- 
-> 2.56.0.257.gf7497c7d27-goog
-> 
+Hi Marc,
 
-This needs a Fixes tag, no?
+On Sat, 24 Oct 2026 12:52:44 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> Looking at the test case, this really isn't a representative or
+> realistic workload.  This is a contrived setup that has trapping to
+> userspace as its only purpose.
+>
+> I'm not saying that this is useless observation. But it is not
+> something that represents something exacerbated by "real" VMs.
 
-Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Fair enough. I checked with real Linux guests running hackbench on the
+same Altra (kvmtool, in-kernel GICv3). With one vCPU per CPU, and in
+lighter hackbench runs, it makes no measurable difference, but it does
+once busy vCPUs share CPUs.
+
+With four 31-vCPU VMs on 31 CPUs (124 vCPUs), all running
+"hackbench -g 31 -f 20 -l 2000", each VM takes 76.5s on mainline and
+60.4s with the series, so 21% less time (8 runs per kernel, no
+overlap). In a profiled run irq_set_irqchip_state() was called ~2.4M
+times/s and 47% of those calls hit contention. With the series the
+contention on that path drops to ~7 per second.
+
+So the case that matters is overcommitted hosts with busy vCPUs. I'll
+make that the main justification in v2 instead of the exit-to-userspace
+test.
+
+Thanks,
+Amir
