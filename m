@@ -1,89 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806120;
-	b=cAj6ffEHkGAynkZQzNELrvx4K8cXed7WWTJemqwn0QWOysD2DSbnjNx4Wqt0PYO2s7ae
-	 MH6BwyOSFDHpnOkqbdDFqdi9lJmjYQGhsyjrirQxSpwmOrvwldSL94GFIR9c22lodaoqo
-	 l91uz+4tk7EacHjb6nGecj6R+l1MuHA8+zPoyFVGHEk9ZstVx0VEizv33eyr+3zb7ckCN
-	 NDcSmtcXazcKsUVRvOXS9KoJt95AlcpRhiyq57ZN5WY6DlN2ZtdcMHIO84UHSOIUnkI8i
-	 TwTXqkLDPtQedogaTXTXqGaPgk2mLBSx4c4m9tjhQBOkBt+Z4LioNsfZfzm7txLNZgA==
+	t=1792806234;
+	b=beJX3B26wRHJxaFQDGJPpQ/OFGU4LFqMUXua5zgl0F1Zd2q3RHula7a2Wg3sIRIQuKtt
+	 0zMNcjKdbJTCUvfsMs17i3nkfJT8S2Q0iVMfSi2EBQXdYMyMuItiuWVxNv2KuwI75Q6D/
+	 xv/Xl8mIu23vl/4+id0e5JE9LDmsLEMeEQfhr0tOuR2hMEcWp2N0AR3Uj4W9p9C/PsN4q
+	 yn/Jgdc+C9fGx9xGh05L8ShU3LCcM44nSroshH7x6cbB6CC+/goyfOM4Wnoqk4L2OWxAt
+	 xfqmOW4S5zXIusCfOERZk3KmrGAU7Wg01iFxl2mC3isnd/sxRvqUdwbewXfFMxpGdUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806120;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=qeH1FHgicGjvAz+02O19qqIqMgAUZ46ecfWddEW2Mak=;
-	b=AGBnMZloW2GKwFV7YC3GwA317JA6J7bHggy6YJ9hhlKlUJPv6jiJQxQoB0RLr6MNfcjI
-	 EPJt5homTIs6E8SBF6Pcs/srWfM2DdR7ZF3j8GuDM6Xx0OZ3J1ynzzTpSGD3ONK28u14H
-	 AGxaBgFhgZ/hL39cZ0q89adt1ta12FrvTtoRnOhXmt24eqh/EAMLA4e22og2qHW/T23PZ
-	 /NcS/0kpZZ9TJkGLc25BU7Afp1qKLtEHgBtCInywcGJVKOU+qnZHUInk3oxMaIhMtFXUA
-	 MxLcjtXPUxBadMYZnBmEZwJIIq4mxPaI1mCRXDF0ZU5lfC/DnPUryl0uh2YT2M6cYZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806234;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wyVREYXOxjrzUhwVsdrv5z52bG4LokTjT1gazbHkJ+o=;
+	b=AuFGneTT1baedeHDGOUVrcTo2evNsQEInZU5UKdVw5afKnSfbRyayNcJ7Usg57ajWOJd
+	 azY5V3ar7CQLFAPLbkyLua8MjtjXOl2YlK8unhE4du4yfPRjCRyMf98o3vcMw1F9SLOPm
+	 s4etPxByiyGgivPYx92F6eHi7bwpTt2YYhRyoKI99BSHYPk6xSy1+d9GpnyNAkMr1ScIV
+	 Q3hlDcaA2ZoquTYuO5R1EUa/+WBk6Gmv2lx0dxBT14LpCr9JmDwugP0s18wkZ8AhAL5nP
+	 0U1kSAHVolXRu0TC1s7aXUW+3Lpd/HjQuIQZIH2YhmrTBBZ6H2KUb3+aNPx1EFEtoAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=AL6KnPUi;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDA3606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BDA3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=AL6KnPUi
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40e30c26a4so361471466b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1792806117; x=1793410917; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qeH1FHgicGjvAz+02O19qqIqMgAUZ46ecfWddEW2Mak=;
-        b=AL6KnPUieL29OD851tZPuMhJSfajXpP8zoH0sEeBU4uYmBjvXIRPi8CftEMiRVaDgj
-         3qdw3NzKLO3X1lHWiTgwtohwDdjlsRsRt21Wu1ArJ0HX90gHtOwlEojZyR+mZKf+gNyt
-         Fa1yJN7UVDi/X/SouMYdK+sXdujBY3d9FvifU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792806117; x=1793410917;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qeH1FHgicGjvAz+02O19qqIqMgAUZ46ecfWddEW2Mak=;
-        b=vcSTFOs/hi5BFJtJXTkKzxZrpWkyB5khFLr6pZilGRlsqtTPIVM3bsDeZR2B0a94Dq
-         fwVm2KKaBAZOca8+/RqA94R5CF59ocOB6G8TdXchvBR0g2iKBIIHY1v7IzDRFzZ0WaRG
-         zT4vWm7TBWmI8vALIBz+zLtE9OG/W8FBbNDVrrm9LKpVD60xJk/E5qChs8KD4wA6xEiE
-         eyoiIwaTmH5pWHvgiVp3ROHJfgVhLmR1GWZMbY0C9iezsIW16S75FdYz0HIffC4aV1nd
-         idkXvLd+WZjzquqiIj/kkpQOGUdpAqTs2Xlw6vLjQiZ6wvu7toV4ZiBpMTXCLjzRLhL4
-         UZsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBjZzDD4hGVRgk735h4M1hH/uCpmcUO+dA/ehxg5Rf9ye+UCzBj7SVSaWHxKWneJyy/YdKXVhUm3kYxww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItHFUV7yKw+0DkEnFQN26OXbGkT8jJBcJz2fZT5zyNRk+w+WRX
-	7sR7zX5aYiT0Ki2GEEclW/o65xoerZZmPzZO5sl2jJXkVaY/NoPlAgtezPJ7/s/VlamZ9FFzGs3
-	dG6Vj9m0=
-X-Gm-Gg: AYBFou0cremevp5yR9yLr2VhCMW23ZQmmdM3mN1aUv2y42f/ORUPjt0bzqqJf7rZsqM
-	IKPCup06JKn4Cg2TKtDPEeHwgvg0yL9VKgQjCw5qKwtw+Dh76nWjhF6rqQMdpl10BPk+MExAlV8
-	9yDsmdy2GUhRkKvkTCbTu3HEWrh77fAtA8xfEClpfuJqvw6Na2RV2IZmaMIS7/vLEki7swjbEjY
-	fb5ffSyzE68ej5aa/DKbuaUdkb7KZj2CSUk5vZ8bzQWsKz88F6InsaGQuM9y8IwZpGZAmP4LD6C
-	FcNypNVSeo3U+Q+vnIjc9jpZr5IV+XV0Tp8lDKYx3+y/aoc75sMfEteoT4SBLh5z65+rvf8usXt
-	MlSToAsNY+Ur5HxSHsWJTLa48WvazEBAr8N+YOS1hGGg3wGqc2EEW0ToJDbVQG7VIOSxvMZNLvW
-	Gf2jaKqpcXv40rXyK8WmCrsM1Qqzdc0OcSVfs9w+xu2mCQVaYJBXi9HhltD7EbHjrO4zCgIfZ+A
-	mntyTaX42hgBN9k5N4TuSoyMvu6Mx42pZ11Eya/SBA8IyJXCdjLsO9r4d3XXF6wqZPMIO3Y/0AB
-	/gmvUHdRaOQcm72chdkgs5HJv+QOiA==
-X-Received: by 2002:a17:907:e1c1:20b0:c2d:d4dd:8b5 with SMTP id a640c23a62f3a-c46be5cfed0mr40988666b.19.1792806117429;
-        Fri, 23 Oct 2026 18:41:57 -0700 (PDT)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd6573dfsm30148566b.52.2026.10.23.18.41.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 18:41:56 -0700 (PDT)
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c434376dbebso267293266b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:41:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwQgcTJ/o+5YYTY+IUce6IcScuTQGVI88/vBUiareDr9nZBo0f8h1Th17RJ4UMB0KRRmTnFXOlNPkLSdzY=@vger.kernel.org
-X-Received: by 2002:a17:907:808:b0:c2a:4847:231b with SMTP id
- a640c23a62f3a-c46be5efdccmr59745466b.24.1792806116362; Fri, 23 Oct 2026
- 18:41:56 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1813B606A31A;
+	Sat, 24 Oct 2026 01:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1813B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xKQnR-00DwZT-3H;
+	Fri, 23 Oct 2026 21:43:45 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Baoli Zhang <baoli.zhang@intel.com>,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2] xarray: initialise the offset of a new root node
+Date: Fri, 23 Oct 2026 21:43:44 -0400
+Message-ID: <20261024014344.830116-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261012181107.772545-1-nickolai@csail.mit.edu>
+References: <20261012181107.772545-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,26 +57,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021224355.GA2571577@bhelgaas>
-In-Reply-To: <20261021224355.GA2571577@bhelgaas>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 23 Oct 2026 15:41:39 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wioEin24Sm4DM9TFgYw=kH+PR7NHQ_Z5pzk2=AfpQd0qg@mail.gmail.com>
-X-Gm-Features: AclHuK8B3O46Wh0EulZdlUpt8bUfci3dIeRGqlrWK7Dq47jxll3Yo4YSYc2JBho
-Message-ID: <CAHk-=wioEin24Sm4DM9TFgYw=kH+PR7NHQ_Z5pzk2=AfpQd0qg@mail.gmail.com>
-Subject: Re: [GIT PULL] PCI changes for v7.4
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 at 12:44, Bjorn Helgaas <helgaas@kernel.org> wrote:
->
->   - Fix leaks when ACPI APEI/GHES error events overflow the kfifo or
->     mention a device that no longer exists (Priyank Rathod)
+An RCU walker such as xas_find() that climbs out of the root while
+xas_expand() adds a level above it can resume in the new root at the
+wrong slot and return an entry with the wrong index.
 
-There were conflicts in this area that I resolved differently from
-linux-next. Somebody should double-check.
+xas_alloc() sets node->offset only for a node with a parent, so a new
+root keeps the offset its slab object had before.  xas_expand() stores
+0 to the old root's offset just before linking it below the new root,
+and a walker can load the stale offset before that store and the new
+parent pointer after it.
 
-                 Linus
+Set the offset of a node allocated without a parent to 0.  The store in
+xas_expand() then writes the value the old root already has, so remove
+it.
+
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Reported-by: syzbot+73641b60a3bc11dfca8c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=73641b60a3bc11dfca8c
+Tested-by: Baoli Zhang <baoli.zhang@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    Changes in v2:
+    - The test uses XA_BUG_ON() instead of a new XA_WARN_ON() (Matthew Wilcox).
+    - Remove the store to the old root's offset in xas_expand(), which now
+      writes the value already there (Baoli Zhang).
+    - The first root in the test now comes from xas_create(); in v1 both
+      came from xas_expand().
+    v1: https://lore.kernel.org/all/20261012181107.772545-1-nickolai@csail.mit.edu/
+    
+    Setting node->offset = xas->xa_offset for a root too does not work:
+    xas_set() keeps xa_offset, so a loop like the one in check_xas_erase()
+    (xas_set(&xas, j); xas_store(&xas, ...)) grows the tree with the offset
+    of the previous index.  In the XArray tests 2929 of 104963 allocations
+    without a parent see a non-zero xa_offset, and with that variant
+    check_xas_erase() fails.
+    
+    The syzbot report is this race seen by KCSAN: xas_expand() changes the
+    old root's offset from 3 to 0 while xas_find() reads it.  After this
+    patch xas_expand() no longer writes it.
+    
+    Reproducer (tools/testing/radix-tree with a hook in xas_find() between
+    "xas->xa_offset = xas->xa_node->offset + 1;" and the xa_parent() load:
+    "if (xa_climb_hook) xa_climb_hook();"; add "rootoff: rootoff.o
+    $(CORE_OFILES)" to the Makefile):
+    
+    #include <stdio.h>
+    #include <linux/xarray.h>
+    #include "test.h"
+    
+    extern void (*xa_climb_hook)(void);
+    static DEFINE_XARRAY(tmp);
+    static DEFINE_XARRAY(xa);
+    
+    static void expand(void)
+    {
+    	xa_climb_hook = NULL;
+    	xa_store(&xa, 6UL << XA_CHUNK_SHIFT, xa_mk_value(48), GFP_KERNEL);
+    }
+    
+    int main(void)
+    {
+    	unsigned long index;
+    	void *entry;
+    
+    	rcu_register_thread();
+    	radix_tree_init();
+    
+    	/* free a leaf that sat in slot 5 of its parent */
+    	xa_store(&tmp, 0, xa_mk_value(0), GFP_KERNEL);
+    	xa_store(&tmp, 5UL << XA_CHUNK_SHIFT, xa_mk_value(0), GFP_KERNEL);
+    	xa_store(&tmp, 7UL << XA_CHUNK_SHIFT, xa_mk_value(0), GFP_KERNEL);
+    	xa_erase(&tmp, 5UL << XA_CHUNK_SHIFT);
+    	rcu_barrier();
+    
+    	/* the new root of xa reuses it */
+    	xa_store(&xa, 1, xa_mk_value(1), GFP_KERNEL);
+    	printf("root offset %u\n", xa_to_node(xa.xa_head)->offset);
+    
+    	xa_climb_hook = expand;
+    	xa_for_each(&xa, index, entry)
+    		printf("index %lu entry %lu\n", index, xa_to_value(entry));
+    	return 0;
+    }
+    
+    $ make rootoff && ./rootoff
+    Without this patch:       With it:
+    root offset 5             root offset 0
+    index 1 entry 1           index 1 entry 1
+    index 8 entry 48          index 48 entry 48
+    index 48 entry 48
+    
+    Tested with tools/testing/radix-tree and with test_xarray built in on
+    x86_64 and riscv64 under QEMU; without the lib/xarray.c change both new
+    checks fail.
+    
+    The analysis, the patch and the tests were done with the help of an AI
+    coding assistant.
+
+ lib/test_xarray.c | 33 +++++++++++++++++++++++++++++++++
+ lib/xarray.c      |  6 +++---
+ 2 files changed, 36 insertions(+), 3 deletions(-)
+
+diff --git a/lib/test_xarray.c b/lib/test_xarray.c
+index 5ca0aefee9aa5..046abad609648 100644
+--- a/lib/test_xarray.c
++++ b/lib/test_xarray.c
+@@ -370,6 +370,38 @@ static noinline void check_xa_shrink(struct xarray *xa)
+ 	}
+ }
+ 
++static noinline void check_xa_root_offset(struct xarray *xa)
++{
++	DEFINE_XARRAY(tmp);
++	struct xa_node *node;
++
++	/* Free two nodes with non-zero offsets so the slab can reuse them */
++	xa_store_index(&tmp, 0, GFP_KERNEL);
++	xa_store_index(&tmp, 5UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_store_index(&tmp, 6UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_store_index(&tmp, 7UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_erase_index(&tmp, 5UL << XA_CHUNK_SHIFT);
++	xa_erase_index(&tmp, 6UL << XA_CHUNK_SHIFT);
++	rcu_barrier();
++
++	/* A root created by xas_create() must have offset 0 */
++	XA_BUG_ON(xa, xa_store_index(xa, 1, GFP_KERNEL));
++	rcu_read_lock();
++	node = xa_to_node(xa_head(xa));
++	XA_BUG_ON(xa, node->offset != 0);
++	rcu_read_unlock();
++
++	/* And so must a root created by xas_expand() */
++	XA_BUG_ON(xa, xa_store_index(xa, XA_CHUNK_SIZE, GFP_KERNEL));
++	rcu_read_lock();
++	node = xa_to_node(xa_head(xa));
++	XA_BUG_ON(xa, node->offset != 0);
++	rcu_read_unlock();
++
++	xa_destroy(xa);
++	xa_destroy(&tmp);
++}
++
+ static noinline void check_insert(struct xarray *xa)
+ {
+ 	unsigned long i;
+@@ -2235,6 +2267,7 @@ static int xarray_checks(void)
+ 	check_xa_load(&array);
+ 	check_xa_mark(&array);
+ 	check_xa_shrink(&array);
++	check_xa_root_offset(&array);
+ 	check_xas_erase(&array);
+ 	check_insert(&array);
+ 	check_cmpxchg(&array);
+diff --git a/lib/xarray.c b/lib/xarray.c
+index bfe7bef80f34e..1e2380e3194d6 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -387,6 +387,8 @@ static void *xas_alloc(struct xa_state *xas, unsigned int shift)
+ 		parent->count++;
+ 		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
+ 		xas_update(xas, parent);
++	} else {
++		node->offset = 0;
+ 	}
+ 	XA_NODE_BUG_ON(node, shift > BITS_PER_LONG);
+ 	XA_NODE_BUG_ON(node, !list_empty(&node->private_list));
+@@ -616,10 +618,8 @@ static int xas_expand(struct xa_state *xas, void *head)
+ 		 * Now that the new node is fully initialised, we can add
+ 		 * it to the tree
+ 		 */
+-		if (xa_is_node(head)) {
+-			xa_to_node(head)->offset = 0;
++		if (xa_is_node(head))
+ 			rcu_assign_pointer(xa_to_node(head)->parent, node);
+-		}
+ 		head = xa_mk_node(node);
+ 		rcu_assign_pointer(xa->xa_head, head);
+ 		xas_update(xas, node);
+
+base-commit: 26344c0dd32af8790d8474d233619db825441138
+-- 
+2.53.0
+
