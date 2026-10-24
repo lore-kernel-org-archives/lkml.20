@@ -1,72 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792863591;
-	b=JW+k3TYNrwGjNv2hjDolOkJjJ8P7Fx7hSkJk955SUcMTSEqjoFqAZd0JBV8GulyElGjg
-	 vkVTu1rpBYlMRuUoBUB5W5HRrfF42qcMAZNbz/QEKorKw2bjkYggu3rX7YvPswkiOm9a1
-	 rnEymSSycPHCmcAmZCWV8PzLr5JP0BTXH6D+jBDDjE5QM43aikvJy7lC1ycCnNr1E52A/
-	 hnMDJYywoR+X5xV3S5BQj9+Zki7n5jPPjAdsOCSxsoKEViYM3JaWfQdbopldFNRz/xCng
-	 01oYrpMAI5aeAFsOaNpq6iwUiHEqcj6Cpkk2QCb0eVrGdMNEl4IzLdq8oDoSVRBgiPQ==
+	t=1792863755;
+	b=XMud8cil9/BB8bO3drIwuW9pwd5JWs1YZz6yslck+be6YMJRk0hdW1alLetb7oKufUcm
+	 E5V+nETFbKbiOXSNYSLjK9BdmXdVuf7swo8E331cGi8FEdVnudOc51+OLTA5kAAViXkkF
+	 es8Xm4gGLEF0TMHSUP1BGjAjHKLhML35OLDQloEKRo5hvaZptur7cuDeyyMXMxHOT+fjS
+	 wNOQMyKjPoWX7w9Pvvgyuy3z3zn2FIvoLiYRaNgH5aJQd+gnX+7o1Aj0f62CfNX9quJLG
+	 Y+Kobu2VotHCWNfVoLjlg+84By7NuWusziw2+BOl3ElqocaDmFRnEq8riG3cE2ijFlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792863591;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=Kijzy9EdMhpT7YhrRfRAvZoCaEVnAEPrNMBnKqo82nY=;
-	b=t3T+DNvhDiEAlO2foc4uaQt3SyZdCw/4sDKoU1gYCVfn5H06FVKJp86x21sLOZGqUZdH
-	 G8E7uDClUC+Ob6VE3bG+SbgFSUKl09JOdUEnKUVZqXLlNumaTaPMyAiBJCGJ+d/e0FwjT
-	 cRy1ddtEy8CoEueUS3PqXuIDdxSPEy4+DSg8O/4Ee+i3TGbRKugY6LAMLd2JGR5TaBns8
-	 YWHz2110VfJwQodRxpAv6ZF5GNKNjIK5g1p8XjmOz5KHfLixajwI5mJnGk6Hgs3bcj8In
-	 PpGihm+Y1o/Fii3Wgm5eaPSusvu7c4N7gI7ju+CEuaqOkfuyjrUfCQ4sChx2BW1hVqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792863755;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BuZ1t5C7X+sSlJUKEoZNCJc0nbbvghvhuZ0zbUxxORM=;
+	b=JzhWeqhCTF62Q0S80bs/R0DIkMo4STV8L0FwOPfRvSLS60P9PTRbRSAmitqqbvVJ9U/E
+	 3yVvVqxQDSws0mTBH7X4N6ABGKh4qT0WcOJ4XSNrGHFC0MBef4GBuQbme1c871KKyi2F/
+	 HdLIMaNWpSFl7+rbjx4cxRoIHCoxOLdjtGnFhwEeiF+vsyJgMidK4seYyKjsTas7X989p
+	 WPs7bQYUvXK/G+V3titc5m4jytB7t8gNol9B75M1G5Gs5mdCS8Qqyfq7RWv0SV37hshJt
+	 +2OJOpZxzmfagP+kJTxEfp6Vr7KNLyuzVrGbDs+OZLCCQh0mBpLdrvD+usq/efXkIbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PZARaFnR;
-	arc=none smtp.remote-ip=91.218.175.188
-Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fyJ0Oph1;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D275606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D275606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF57606A31B;
+	Sat, 24 Oct 2026 17:42:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AF57606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PZARaFnR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZfEMLtaMNfEqeXSdp7dnPs3+qMD4QqvgJKLt9hUIpWQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792863588; v=1; x=1793468388;
- b=PZARaFnREmGjoUbKSjZ1tyTHw9KlCcTo9q11SHFQ5YuA3LhEkwPY1+6RaA1hx3KjiKtS8in+
- X+2xcSTg4npo5N3HCKteRdiJss8lslX/LTL05pidb0zDQKtqLUdxNbMTPAW9MNWTGbvMe5u11u/
- 0t8Gg/o2pS2s4HHFGyHO67PE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bd748e8ee187c88c;
-	Sat, 24 Oct 2026 17:39:48 +0000
-X-Mizu-Trace-ID: bd748e8ee187c88c
-X-Migadu-Flow: FLOW_OUT
-From: Igor Korotin <igor.korotin@linux.dev>
-To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>,
- Brandon StJohn <branstj@gmail.com>, linux-iio@vger.kernel.org,
- linux-i2c@vger.kernel.org, rust-for-linux@vger.kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
-Date: Sat, 24 Oct 2026 18:39:46 +0100
-Message-ID: <179286358623.55649.5397316745104390556@linux.dev>
-In-Reply-To:
- <CAO26r3QK+Q5=JR5TeMzEX-WiLpgYWd8Zn0O1qx11LxTgN96BPg@mail.gmail.com>
-References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
- <179260197668.3127.18219777718091081046@linux.dev>
- <CAO26r3QK+Q5=JR5TeMzEX-WiLpgYWd8Zn0O1qx11LxTgN96BPg@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fyJ0Oph1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792863754; x=1824399754;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8vNrTE29DnPOhUoUbcQAhuV/RJaOFG+RLJlehh9FQn4=;
+  b=fyJ0Oph1du/s8g1KSUDFOKoY88kjZE+pJLWEL2dRto838761xsywg67B
+   3twdNjPcJZe5i8gTgPICv8CO5lLrOt0Y3JHsfjLuRsqcMjX7d9HpSpZd/
+   5l1pThimy5+dbiwTmHgzFT5Jg34e/9VB7C7ByBBEVRSgvWECBNw0b1NNx
+   Nfm0q8ZGu7RRGN9LuQAIRnOsOOp+RRPlAywA6uE4b501aJCwEiT0XNqQz
+   sVRVf4MJAUjSLnI3q7pxG6Sq2DjFdwIlaAnTsLfmA/oqchG9bouv7bsDV
+   oBvskF5plW5dbFWUEhdUdWFPo9V0KmKQCskfHeX2bNyLjGWzQPRpwno16
+   Q==;
+X-CSE-ConnectionGUID: ystu15h1Q5WaO4CnXeNfRw==
+X-CSE-MsgGUID: exDBMffOSu2tp9z3aq/oNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1468463"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1468463"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 10:42:34 -0700
+X-CSE-ConnectionGUID: eJZY8DdJSTC/QSpw94f05w==
+X-CSE-MsgGUID: 3ONycMUWSKq+6Lkg09qGPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="4013537"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 24 Oct 2026 10:42:30 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKflD-00000000U6o-1dkn;
+	Sat, 24 Oct 2026 17:42:27 +0000
+Date: Sun, 25 Oct 2026 01:42:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: ChunAn Wu <an.wu@canonical.com>, linux-serial@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, markus.probst@posteo.de,
+	gregkh@linuxfoundation.org, jirislaby@kernel.org, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com, mpearson-lenovo@squebb.ca,
+	derekjohn.clark@gmail.com
+Subject: Re: [PATCH v4] platform/x86: dell-uart-backlight: Bind through
+ normal serdev matching
+Message-ID: <202610250118.t0UAW41j-lkp@intel.com>
+References: <20261024022930.2704030-3-an.wu@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,277 +87,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024022930.2704030-3-an.wu@canonical.com>
 
-Hi Coirul,
+Hi ChunAn,
 
-Here's the full diff, applied on top of your v6 patches 3 and 4.
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/iio/position/as5600.rs b/drivers/iio/position/as5600.rs
-index b72775241e81..f2897fbf8aa2 100644
---- a/drivers/iio/position/as5600.rs
-+++ b/drivers/iio/position/as5600.rs
-@@ -36,7 +36,8 @@
-         Device,
-         IioChanInfo,
-         IioDriver,
--        IioVal, //
-+        IioVal,
-+        Registered, //
-     },
-     io::Io,
-     module_i2c_driver,
-@@ -65,14 +66,12 @@
+[auto build test ERROR on driver-core/driver-core-testing]
+[also build test ERROR on driver-core/driver-core-next driver-core/driver-core-linus linus/master v7.3 next-20261023]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
- i2c_device_table!(
-     I2C_TABLE,
--    MODULE_I2C_TABLE,
-     <As5600 as Driver>::IdInfo,
-     [(DeviceId::new(c"as5600"), ())]
- );
+url:    https://github.com/intel-lab-lkp/linux/commits/ChunAn-Wu/platform-x86-dell-uart-backlight-Bind-through-normal-serdev-matching/20261024-102929
+base:   driver-core/driver-core-testing
+patch link:    https://lore.kernel.org/r/20261024022930.2704030-3-an.wu%40canonical.com
+patch subject: [PATCH v4] platform/x86: dell-uart-backlight: Bind through normal serdev matching
+config: x86_64-randconfig-1014-20261024 (https://download.01.org/0day-ci/archive/20261025/202610250118.t0UAW41j-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610250118.t0UAW41j-lkp@intel.com/reproduce)
 
- of_device_table!(
-     OF_TABLE,
--    MODULE_OF_TABLE,
-     <As5600 as Driver>::IdInfo,
-     [(of::DeviceId::new(c"ams,as5600"), ())]
- );
-@@ -97,25 +96,29 @@ unsafe impl Sync for As5600Channels {}
- });
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610250118.t0UAW41j-lkp@intel.com/
 
- #[pin_data]
--struct As5600Priv {
-+struct As5600Priv<'a> {
-+    client: &'a I2cClient<Bound>,
-     #[pin]
-     io_lock: Mutex<()>,
- }
+All errors (new ones prefixed by >>):
 
-+// SAFETY: `I2cClient<Bound>` methods go through kernel I2C core functions
-+// that provide their own synchronization (bus locking); no `&self` method
-+// exposes interior mutability. The borrowed `client` field can therefore be
-+// safely accessed and shared across threads like the rest of `As5600Priv`.
-+unsafe impl Send for As5600Priv<'_> {}
-+// SAFETY: See above.
-+unsafe impl Sync for As5600Priv<'_> {}
-+
- // SAFETY: AS5600_CHANNELS contains one valid, immutable IIO_ANGL channel
- // exposing only RAW and SCALE. It has no event or extension callbacks,
- // and all optional pointer fields are null.
--unsafe impl IioDriver for As5600Priv {
--    fn read_raw(
--        &self,
--        parent: &kernel::device::Device<Bound>,
--        _chan: *const iio_chan_spec,
--        info: IioChanInfo,
--    ) -> Result<IioVal> {
-+unsafe impl IioDriver for As5600Priv<'_> {
-+    fn read_raw(&self, _chan: *const iio_chan_spec, info: IioChanInfo) -> Re=
-sult<IioVal> {
-         match info {
-             IioChanInfo::Raw =3D> {
-                 let _guard =3D self.io_lock.lock();
--                let client: &I2cClient<Bound> =3D parent.try_into()?;
-+                let client =3D self.client;
+>> drivers/platform/x86/dell/dell-uart-backlight.c:328:60: error: array has incomplete element type 'const struct serdev_device_id'
+     328 | static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
+         |                                                            ^
+   drivers/platform/x86/dell/dell-uart-backlight.c:328:21: note: forward declaration of 'struct serdev_device_id'
+     328 | static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
+         |                     ^
+>> drivers/platform/x86/dell/dell-uart-backlight.c:363:34: error: too many arguments to function call, expected 1, have 2
+     363 |         ret = serdev_device_add(serdev, KBUILD_MODNAME);
+         |               ~~~~~~~~~~~~~~~~~         ^~~~~~~~~~~~~~
+   <command line>:8:24: note: expanded from macro 'KBUILD_MODNAME'
+       8 | #define KBUILD_MODNAME "dell_uart_backlight"
+         |                        ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/serdev.h:161:5: note: 'serdev_device_add' declared here
+     161 | int serdev_device_add(struct serdev_device *);
+         |     ^                 ~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
 
-                 let io =3D client.smbus_io();
-                 // Read status register to verify magnet presence before
-@@ -142,14 +145,17 @@ fn channels(&self) -> &'static [iio_chan_spec] {
-     }
- }
 
-+struct As5600;
-+
- #[pin_data]
--struct As5600 {
--    _registration: (),
-+struct As5600Data<'bound> {
-+    #[pin]
-+    _iio_dev: Device<As5600Priv<'bound>, Registered>,
- }
+vim +328 drivers/platform/x86/dell/dell-uart-backlight.c
 
- impl Driver for As5600 {
-     type IdInfo =3D ();
--    type Data<'bound> =3D As5600;
-+    type Data<'bound> =3D As5600Data<'bound>;
+   327	
+ > 328	static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
+   329		{ KBUILD_MODNAME },
+   330		{ }
+   331	};
+   332	
+   333	static struct serdev_device_driver dell_uart_bl_serdev_driver = {
+   334		.probe = dell_uart_bl_serdev_probe,
+   335		.driver = {
+   336			.name = KBUILD_MODNAME,
+   337		},
+   338		.id_table = dell_uart_bl_serdev_id,
+   339	};
+   340	
+   341	static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
+   342	{
+   343		enum acpi_backlight_type bl_type;
+   344		struct serdev_device *serdev;
+   345		struct device *ctrl_dev;
+   346		int ret;
+   347	
+   348		bl_type = acpi_video_get_backlight_type();
+   349		if (bl_type != acpi_backlight_dell_uart) {
+   350			dev_dbg(&pdev->dev, "Not loading (ACPI backlight type = %d)\n", bl_type);
+   351			return -ENODEV;
+   352		}
+   353	
+   354		ctrl_dev = get_serdev_controller("DELL0501", NULL, 0, "serial0");
+   355		if (IS_ERR(ctrl_dev))
+   356			return PTR_ERR(ctrl_dev);
+   357	
+   358		serdev = serdev_device_alloc(to_serdev_controller(ctrl_dev));
+   359		put_device(ctrl_dev);
+   360		if (!serdev)
+   361			return -ENOMEM;
+   362	
+ > 363		ret = serdev_device_add(serdev, KBUILD_MODNAME);
+   364		if (ret) {
+   365			dev_err(&pdev->dev, "error %d adding serdev\n", ret);
+   366			serdev_device_put(serdev);
+   367			return ret;
+   368		}
+   369	
+   370		ret = serdev_device_driver_register(&dell_uart_bl_serdev_driver);
+   371		if (ret)
+   372			goto err_remove_serdev;
+   373	
+   374		/* So that dell_uart_bl_pdev_remove() can remove the serdev */
+   375		platform_set_drvdata(pdev, serdev);
+   376		return 0;
+   377	
+   378	err_remove_serdev:
+   379		serdev_device_remove(serdev);
+   380		return ret;
+   381	}
+   382	
 
-     const I2C_ID_TABLE: Option<IdTable<Self::IdInfo>> =3D Some(&I2C_TABLE);
-     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&OF_TABLE);
-@@ -162,15 +168,22 @@ fn probe<'bound>(
-         dev: &'bound I2cClient<Core<'_>>,
-         _id_info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        try_pin_init!(As5600 {
--            _registration: {
-+        try_pin_init!(As5600Data {
-+            _iio_dev: {
-+                // Deref coercion: I2cClient<Core<'_>> -> I2cClient<Bound>.
-+                let client: &'bound I2cClient<Bound> =3D dev;
-+
-                 let priv_init =3D pin_init!(As5600Priv {
-+                    client,
-                     io_lock <- new_mutex!(()),
-                 });
-
--                Device::build_device(dev.as_ref(), c"as5600", INDIO_DIRECT_M=
-ODE, priv_init)?
--                    .register(&crate::THIS_MODULE)?;
-+                let unregistered =3D
-+                    Device::build_device(dev.as_ref(), c"as5600", INDIO_DIRE=
-CT_MODE, priv_init)?;
-+                let registered =3D
-+                    unregistered.register(kernel::module::this_module::<crat=
-e::LocalModule>())?;
-                 dev_dbg!(dev.as_ref(), "AS5600 magnetic position sensor read=
-y\n");
-+                registered
-             }
-         })
-     }
-diff --git a/rust/kernel/iio.rs b/rust/kernel/iio.rs
-index 9ad2f50948de..4648424c7600 100644
---- a/rust/kernel/iio.rs
-+++ b/rust/kernel/iio.rs
-@@ -21,7 +21,6 @@
-         self,
-         Bound, //
-     },
--    devres,
-     error::{
-         code::*,
-         to_result,
-@@ -159,15 +158,12 @@ pub enum IioVal {
- pub unsafe trait IioDriver: Send + Sync {
-     /// Called by the IIO core to read channel information.
-     ///
--    /// `parent` is the parent device supplied to [`Device::build_device`].
-     /// `chan` identifies the channel, and `info` selects the requested
--    /// information, such as its raw value or scale.
--    fn read_raw(
--        &self,
--        parent: &device::Device<Bound>,
--        chan: *const iio_chan_spec,
--        info: IioChanInfo,
--    ) -> Result<IioVal>;
-+    /// information, such as its raw value or scale. Implementors must
-+    /// capture whatever bus-specific resources they need at registration
-+    /// time (see [`Device::build_device`]) rather than re-deriving them
-+    /// from a generic parent reference here.
-+    fn read_raw(&self, chan: *const iio_chan_spec, info: IioChanInfo) -> Res=
-ult<IioVal>;
-
-     /// Returns the channel specifications for this driver.
-     ///
-@@ -204,16 +200,6 @@ fn channels(&self) -> &'static [iio_chan_spec] {
-     // initialized `T` that remains valid for the duration of this callback.
-     let driver =3D unsafe { &*priv_ptr };
-
--    // SAFETY: `indio_dev` is valid by the callback contract. Its parent
--    // was supplied as a bound device to `build_device`.
--    //
--    // During registration, the builder holds that bound parent borrow.
--    // After ownership is transferred, parent devres runs the registered
--    // device's destructor, which unregisters the IIO device and drains
--    // the supported read_raw paths before destroying the private data.
--    // The parent therefore remains bound throughout this callback.
--    let parent =3D unsafe { device::Device::<Bound>::from_raw((*indio_dev).d=
-ev.parent) };
--
-     // `info` is `long` from C. Negative values and values > u32::MAX
-     // are unsupported iio_chan_info variants; both map to EINVAL.
-     let info_enum =3D match u32::try_from(info)
-@@ -224,7 +210,7 @@ fn channels(&self) -> &'static [iio_chan_spec] {
-         None =3D> return EINVAL.to_errno(),
-     };
-
--    match driver.read_raw(parent, chan, info_enum) {
-+    match driver.read_raw(chan, info_enum) {
-         Ok(IioVal::Int(v)) =3D> {
-             // SAFETY: `val` is valid per the function's Safety contract abo=
-ve.
-             // `val2` is not written; `IIO_VAL_INT` signals to the IIO core
-@@ -271,11 +257,8 @@ fn channels(&self) -> &'static [iio_chan_spec] {
- pub struct Registered;
-
- /// An initialized IIO device awaiting registration.
--///
--/// The parent remains bound until this builder is consumed or dropped.
--pub struct UnregisteredDevice<'a, T: IioDriver> {
-+pub struct UnregisteredDevice<T: IioDriver> {
-     device: Device<T>,
--    parent: &'a device::Device<Bound>,
- }
-
- /// An owned IIO device with in-place initialized driver data.
-@@ -363,12 +346,12 @@ impl<T: IioDriver> Device<T> {
-     /// Allocation and initialization errors are propagated.
-     ///
-     /// Call [`UnregisteredDevice::register`] to register the device.
--    pub fn build_device<'a, E>(
--        parent: &'a device::Device<Bound>,
-+    pub fn build_device<E>(
-+        parent: &device::Device<Bound>,
-         name: &'static CStr,
-         modes: u32,
-         init: impl PinInit<T, E>,
--    ) -> Result<UnregisteredDevice<'a, T>>
-+    ) -> Result<UnregisteredDevice<T>>
-     where
-         Error: From<E>,
-     {
-@@ -406,7 +389,7 @@ pub fn build_device<'a, E>(
-         // large enough for `T`. The private data remains at a fixed address=
- in
-         // the separate IIO allocation until it is dropped. On initialization
-         // failure, the error path only frees the allocation.
--        let init_result =3D unsafe { init.__pinned_init(priv_ptr) };
-+        let init_result =3D unsafe { pin_init::raw_try_init(priv_ptr, init) =
-};
-         if let Err(e) =3D init_result {
-             // SAFETY: `pin_init` guarantees partial-init rollback internall=
-y.
-             // `priv_` memory was not fully initialized, so we only free the
-@@ -446,21 +429,23 @@ pub fn build_device<'a, E>(
-             (*indio_dev).modes =3D modes;
-         }
-
--        Ok(UnregisteredDevice { device, parent })
-+        Ok(UnregisteredDevice { device })
-     }
- }
-
--impl<T: IioDriver + 'static> UnregisteredDevice<'_, T> {
--    /// Registers the IIO device and transfers ownership to parent devres.
-+impl<T: IioDriver> UnregisteredDevice<T> {
-+    /// Registers the IIO device.
-     ///
--    /// Parent resource teardown unregisters the device and completes its
--    /// supported `read_raw` callbacks before destroying the private data.
-+    /// The caller owns the returned, pinned [`Device<T, Registered>`] and is
-+    /// responsible for keeping it alive for as long as the registration
-+    /// should remain visible to userspace; dropping it unregisters the
-+    /// device and tears down the private data.
-     ///
-     /// On failure, the device is released and any successful registration is
-     /// undone.
-     #[inline]
--    pub fn register(self, module: &'static ThisModule) -> Result {
--        let Self { device, parent } =3D self;
-+    pub fn register(self, module: &'static ThisModule) -> Result<Device<T, R=
-egistered>> {
-+        let Self { device } =3D self;
-
-         // SAFETY: `device.indio_dev` is a valid, fully-initialized `iio_dev`
-         // allocated by `iio_device_alloc` with its name, info vtable, chann=
-els,
-@@ -475,6 +460,6 @@ pub fn register(self, module: &'static ThisModule) -> Res=
-ult {
-         };
-         forget(device);
-
--        devres::register(parent, registered, GFP_KERNEL)
-+        Ok(registered)
-     }
- }
-
-Cheers
-Igor
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
