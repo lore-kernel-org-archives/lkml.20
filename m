@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792809755;
-	b=OqPzMYprmokc8JiAg6aM+pGPY8XCKiw2GGAjiSB8lr1I4rOc4tgsgGrFrNA5pSD2qoRo
-	 WIc135cARJe+mnrCTC3Wi6H8MUDSClFZRk63CH8A8gKS49p+UFijgw3s3JEiybAeXqQdo
-	 f73uqjWeENlvMcNs2Jx88p38lgsX3keWChAcj6nSRiUYtCqh6HnKBS4Tkuo7j8w7B9+B0
-	 IZlc3NqQBJPDZwdAQK5sToe2FffAshv8K3bB3y7nmzN7MEBfYs5lNCdc8XhkjEpOniR93
-	 qwgarFiPWafIE3FXDhEwe4CgptGV30QwwyvgL3fULaJME9/SYQg4doU5N3QCDSNVw5Q==
+	t=1792809839;
+	b=uhR/f73zFycHDm2mzcEHwbAt/7hzaTzpkcgtMjhNKYzHSduIn4GPKoG+ZjELSSX1f81I
+	 8KqLVNV3plgX65mOX1kz/cgJzFjZTD7HHekhJtVOYj2Mqmpf+1iCoAJQgcqGrsqej8upx
+	 QbrMXl/0wcDtG+i4aNxL7Yjg4ytZX0+aKHTaAroDGq9oL/46GZhuvu685To2YNw29dtLR
+	 iNz+fCRv7k6bNAALMPKOa08Jx2bjpvgZzdxmWcmomtix4VncQUPwjXOv4i0PPCKgDGNWQ
+	 MP3q8jtReEVScw6+1B7J+bu3HabnAgcmM6B8JN/xx23x0nR9b2UXSV6t2pCJdtvL57Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792809755;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=Vf45xBiVED2G/Oc0EkV8Bsna4r0DeZpLW4RTQFvxpdI=;
-	b=kU3SWT8MWr1hCxXnI8ks/lI7ZD2XXmwnBAMd8YGuI2ckSeHB9ZlzcabaRIQxhtnjGSIV
-	 IUfwdtf5i4zB2x0b18Dasb/spzz8xxKv6aZBRE2oT+2gHNn0s1wSAWBASXa75JL62k/Ap
-	 dvEgm2gOU5RZqKsEFEYR8OfMWlhp57ouCf+JgFTovBctFcTEu0HmuZ9SmrXICZ6jidDP+
-	 6yimlIKs0jv9/GmuX6lRRwQvwnz4Wd3hPqOTD0v8ycct6rt7kwcwe2yoVwkojgdMeDa/r
-	 EIRSPn0abIlR2oytuyti5C4oOsPXLSO8q/wHui/jQ7/p9hu7RWh4Czwzqz0INOYpjHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792809839;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=q5oNvwlrSmzVl4Pfa+U6fXz0MufSP4EYM6gckAHNebg=;
+	b=CqmGrdgYVoGJ2RuydsZE8+iKvN5EtXXT6/SaDBiIIcT88OD+wh5yjaKOQSzcuVrGSEyd
+	 Uu6PUmqx2S1thL7nNadWcp4jAiiS7EwIOKTCBRoFrNBuX0C+J2HlsF518DrK+tiQ4IcoB
+	 mt33p4lGBpdqJOtkQhl798MZ3ZUWj45jnxbZ5cs92JgDNgNtbzrhS4VeXoRdbt39wFOAq
+	 aazX2yapLFHzm4VMZ8kRdjOcXIJgV58301Fw++KH/TUx/hC2JrdA09+NilSA5m78Ex5me
+	 5FT3v5FEXj/s41ib7ICYiBhLhLr2wx8f8cWkIeB0iS+GgR/zF0MMwbjUjiyOyMmWSJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/TUyXGA";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9PkSNUE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17AE606A31A;
-	Sat, 24 Oct 2026 02:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2518606A31A;
+	Sat, 24 Oct 2026 02:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/TUyXGA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21201F01825;
-	Sat, 24 Oct 2026 02:42:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9PkSNUE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8D21F01825;
+	Sat, 24 Oct 2026 02:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792809754;
-	bh=Vf45xBiVED2G/Oc0EkV8Bsna4r0DeZpLW4RTQFvxpdI=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=m/TUyXGAAL36CHYzwH4zcdnSQkX7GfYhptvFpHc566t5b83EoztiHJavrWE53m8Q5
-	 aZw7sZfWYec5KPRVScRpWB4g4N4LlqSPd07uXwUMo9V0ua1JlOeipVw4ashX46xwk5
-	 id1ByvfpOUSeQDMu1TWQpp/7Cg8bW0HxzfmTktuHRY6xPNhIV6pT+lwlur4NsUTqRz
-	 S3e6vpc/fDX7rLZO5eDLJ3Pb/SNfn3PLTBF3nHBSGOlVuebYrokjuTHpf8Ynf4ZitY
-	 8vLS+8EOjFQBVt+gELBVslws9QF8IpY5Or2T2glIsI6YwWS/US5l3F3+ezYCvu/jds
-	 sXDOJ4i9lX6ow==
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: James.Bottomley@HansenPartnership.com,  mkp@kernel.org,
-  alim.akhtar@samsung.com,  bvanassche@acm.org,  beanhuo@micron.com,
-  stanleyjhu@google.com,  peter.wang@mediatek.com,
-  can.guo@oss.qualcomm.com,  mani@kernel.org,  linux-scsi@vger.kernel.org,
-  linux-arm-msm@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: ufs: core: Fix a deadlock between clock scaling
- and device commands
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261016124608.46-1-26rote@gmail.com>
-Message-ID: <yq17bj7akfk.fsf@mail.kernel.org>
-References: <20261016124608.46-1-26rote@gmail.com>
-Date: Fri, 23 Oct 2026 22:42:32 -0400
+	s=k20260515; t=1792809838;
+	bh=q5oNvwlrSmzVl4Pfa+U6fXz0MufSP4EYM6gckAHNebg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b9PkSNUE2rl/bH6NaOpJ7jnXySnsLvcnPC9tmFk1kUOMrl6ThsKV0RB8gkQHAXn9a
+	 psgiWRk6BJcZ4wFEXDx7cI5KOBX08tY/oa4QhB9iA770C0X0EvXgO4sbmJIsyFI96O
+	 T07G9G1j7uwGJNKW9XQxRy8cTBuuMcNWlAaliDGOFOf5HWw5ffZ2b1CM07BUDZObe2
+	 U0pH3aKlwoNvnCbjzMlkpfv+zxedsjdStCe12AlZcQ+Huq2FvOh7+ac2S+GBNhtWIR
+	 v2PVh65G9kmy8CNMX58bRRrIUvRdU7jda1uwn6qEq/oYTV/pWYBQIzucb7dOB1LX2a
+	 kcELLEyFAH0Vw==
+Date: Sat, 24 Oct 2026 03:43:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Iron Berrington <berringtoni36@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 RESEND] iio: accel: adxl345: update period cache
+ after successful write
+Message-ID: <20261024034351.5d1be9c6@jic23-hlaptop>
+In-Reply-To: <CAF2O-sPB3ggqwEA1LXsrA=tCpZGJMdx8KAXLXrW7RcaEk9y1iA@mail.gmail.com>
+References: <20261018-adxl345-period-cache-v2-resend-1@gmail.com>
+	<atXvOA40_3qE2HA-@ashevche-desk.local>
+	<CAF2O-sPB3ggqwEA1LXsrA=tCpZGJMdx8KAXLXrW7RcaEk9y1iA@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,18 +64,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 19 Oct 2026 07:53:28 -0500
+Iron Berrington <berringtoni36@gmail.com> wrote:
 
-Joonhoe,
+> Hi Andy,
+> 
+> Thanks for the review and the Reviewed-by tag. I'll address the
+> time-unit constants in a separate cleanup patch, keeping this fix
+> focused on updating the cache after successful writes.
+> 
+Applied.
+> Best regards,
+> Wenqiang
+> 
+> 
+> On Mon, 19 Oct 2026 13:21:44 +0300, Andy Shevchenko
+> <andriy.shevchenko@intel.com> wrote:
+> > On Sun, Oct 18, 2026 at 09:42:00PM +0800, Wenqiang Zhao via B4 Relay wrote:
+> >  
+> > > The ADXL345 event-period read path returns st->inact_time_ms. The setters
+> > > for inactivity, free-fall and the ODR-derived default currently update
+> > > this cache before writing TIME_INACT or TIME_FF. If the regmap write
+> > > fails, the sysfs write reports an error but a subsequent read returns
+> > > the requested period even though it was not programmed.
+> > >
+> > > Update the cached period only after the corresponding regmap write
+> > > succeeds.  
+> >
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > Assuming that my comments may lead to a separate cleanup patch later on.
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko  
 
-> Since commit 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()"), device management commands go through
-> blk_execute_rq() on the pseudo SCSI device, which shares the tagset
-> with the logical units, while ufshcd_dev_man_lock() holds
-> clk_scaling_lock for reading.
-
-Applied to 7.4/scsi-staging, thanks!
-
--- 
-Martin K. Petersen
