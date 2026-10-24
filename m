@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858742;
-	b=GGI740PEHqkJvGrClkN7lhhznoVFiom3dEfdUNsRLOrduFHO6wbNhFTiC9ewWElm/e+j
-	 YSasL8g9U7YoVklQ2oGGbqzmsKFZi1eQSfJ2kNsXmuwU+kqortUvFs+AICfbPR7ptAl+T
-	 q7K2e3sNlBUB2dWv+bt4Eux0aLThhOtNSII4oduN73l+BBXH9q4y8gWWZbg5S5HGJQeQ3
-	 KWjY1Df3BWPwcNcF77vi/SNC5N41zs4q4iNh7Qun7ZbJMylyE54gutjKXIdCEV0GS3ERg
-	 8b3f4h2HoEUaHwHL/jAslSyRK5HFOPYXM+9LlEDHRfIQBo1+ybyYzZdXg4aJ2zK0Fvw==
+	t=1792858809;
+	b=fe5fM6Czib0ddhbiBPSP1oZrRjCFX6t/T9OsRHCbmXm0zxPWz6AyZkY8PM4ezPway8CY
+	 4gJ5Bd0iX5OMC5KbsdaiXoZjF/lbVDkga+mfJReNH85T2agZkEIZzutvOOxj5Vbw+0BBc
+	 nRbD5MLGq/pd3iYZdRmDDtAf3/hNtw0Sjs/GcBO4hahoyqQL2ipwI4apdNrxsu0Sdn/Na
+	 cDQ5YAmIvUWNwnVadZIYowm5CAnCSaXzzy281sbMnjydSmrCqdspWbGA/LcllovcYd1DP
+	 pJqg4EtEFlpP1qSriT1uhrlGUZG9bGo+ZwAShxDi3tNoXk0i1YsPFRzsErOyN86+KTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
-	b=GZomRNt0KLbBPZH7Kyy75n7eriq7By15+R0HNI4/QXGICS0kxb69a2Lya4g6zM/gVdJD
-	 KMwNZJjCGLAWXC47uKKCOaf1o2XWxEqEUNZKbgA5AIwgR/n0JJjYfAhA951J4RJiAdJmT
-	 XXgH7oxCiccHcEBCT3+eiY4Fk2MKSRL8bgIA5gf87IcjCh9eoPnQH79ZkpI/4a010BixY
-	 P0FjZCpxUdAGO7XpOmim/FgwkuKPRtSb+sKCxadvDmjBH6FZy4R3DKKukrgp2Za5ms6kv
-	 egMdBkkVLXDS1Mnicw8Cl3y7hfqeXayCCAjDr4yxHoK0lun3Uku6kVRqIG3tT+4AyUA==
+	bh=xwmLnAa6b4VIfgYdyaQibjdMJAMiidZmgGGch02/UIc=;
+	b=QoDiGr4x17I3zIowTTZAzlE1Ln8vpWMn4XZsRsDCgMbC2sKUoEoq4lpiKiEIzqXbtk7f
+	 v16pAY3YP0D+qulVa1Pj55Q95Yp+RuswwARWpwCaEPRmloYgLrRg2KnE805LnWiA/6Quc
+	 54u1U4TmLMiYwQhKf+JQKgYki3Bat/1e8u4/3vxmbl4ItojCbyqjpYAAlCdeoqlon//Ua
+	 9RGgKQah+meDMyuncGQ6QIIlgn4ApcQrrXA4KmbKj8A+7K5zuDOPoXRnJDqUEcn+YFPIE
+	 c3Iih4+59ytbeyLgpI8kuUBoWUqdRiWSMPwO7Wu9aEjjf4tyhNZ/AyUfZ/nA49fSrEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg6iKvr4;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=grHHy9fn;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79935606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79935606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A2606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:20:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073A2606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg6iKvr4
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a06210b29fso666862b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:19:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=grHHy9fn
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd69954c755so1237611a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:20:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858741; x=1793463541; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792858807; x=1793463607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
-        b=pg6iKvr45QnZs77ME+ktsykS0Rjq8w/TTX6bJd78Pc7NSZPbhGCmZPnHW8+ahI1pMd
-         oA3fzpmjyhU+2lfSqsIQgQM1xd5mKAmXzh8yUEVKu1FvOHEYN0bACs5E/i8WekUQdoMP
-         N9ZrF1b9E8M4ws1EnXsv9cCSVPTifaC9t0WyfM8X5zzoFzZOuC4IqwLS0U3wFj2FsFgF
-         1Rs6mOy4iLWyf3RgQs7ZZ8lvquLywSsH/zgyOBttnXrwaAcXiQtNhU2mG8gQ3SZW3pEB
-         V7lrTcgD4FW14YTkmNHHBg3/ZF0ByD2RYTHvTxn7XO/1V2FKv/psEaCQSNYxg3Lgoaud
-         dNJQ==
+        bh=xwmLnAa6b4VIfgYdyaQibjdMJAMiidZmgGGch02/UIc=;
+        b=grHHy9fnVHuY1405Ef2orje57iOKu31LW3gCJQfMRR37YW2XFisFHAz89/1atQFlQf
+         rJJpHMfaqScvwbEJ1AVGvoUs0loPiS4et2nYDmtYZDRkifwBCN7ebptGLZmrWKDGGY1r
+         QzLaifCkRDHXAx77Lq2G5xI7WRjbvAoHQ7S325lPufCq/Ev4qDe8BxK+O1/K6hO5ZAYY
+         blieZqe7NZt/qJvea+8EcUmtBxhFy4Swkdd41XGccPXG7TwUAP2T2QRW0JXuAlMIyO6K
+         DiTYDg9NsBHkuTbgi4LWiLF0gCJJ5Tlg6jCwTdjKoSCtv0b5pqZifPiRRLJ507mlTvan
+         KpRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858741; x=1793463541;
+        d=1e100.net; s=20260707; t=1792858807; x=1793463607;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8r9P2BRUvECePOCE6djEb8AjTdKvE4CnRAvqJn8oeU0=;
-        b=fG3vB/AMZBPY0WFowNn6UekGh0IFohcx67Z2CJWwUPh49N3Jc9lemr76m1pW4rJHIx
-         sDEd7g0Ti+i2ruaO5lPZJKShy1tkxQq0vI7+Xz0OXK4gsHTc4F02zX12Cxzs8QQvH2Ii
-         1a6GE7iHLAIgdqbVKhEaHiu1PTViJGyuPj+lXsAFi7v+rUNMREuFR+R7+ocq0u035xF6
-         zf/3SkiUuT++J8yXs8AC805hmrVVyehSMQj/GmJ4mKy8jBJBW1H6xE33h2vpgKoDylMK
-         p7DLjvjQ996IxGHSsMGertIcZvIqoXOgoxYrE9OIv/VJs9yqbKW9UVGmOePdMjn1LncB
-         dCMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCSwXkk1VCebyJqUybJScCzjR3uhYU4OxSQ4mZTlJ2mA7Eh8M2Fl5LirGW4QC4EjGsftkldmz8kd8ooSw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFWknimrn91ssbdCB2KVDT0rIEjGnZCtyDwOA9O6YoYMkY870L
-	fPCd3AJSLuY3DxbxcwEZ+IzKMfkMaD2ip6X0rgLBpxd8tzSVe3ZUlNdQ
-X-Gm-Gg: AYBFou0Bu8f2oZTZfF8VePzFneUrWbI57oAxyiR6V7d0hnN/GkF59yO2252E+uFVHNa
-	1+9ap4GZzRMHYxJmqMjDDPZyd4cRXYSL9cLj9wEMUxrSZIZ67YNeDmAFSs/BJb8tL7pJLeXMVJK
-	jPgitFHTuIsZlXbmiseJI+4jqPLtYHdMOUVqHoU0FuuYbUPJq3O1229zG4r/JbPdoGiLP3e4RyK
-	EyT6b6JJbxn57xMauQMSCrITrboh2bcc7fjBPCz3CWIdtXIF91dfQZNscc3augfWbXEMlCD3A4U
-	IJr32f1yZKvmG7+UZ/K7g/HDtKKRQjOwtZHXP9zJfGsRre3qkRVi8UNConGbV8v56LjugDgp2kM
-	4Q/lndV7VVumlvzw4oAmbldZ8oRtNCV5uzNo178RE/IJfQBm9o6rrlowZ7ecyxk0H806HSqOe58
-	zoJTDbIIsy3h+oA+/Jy0c4o5k0M41LqWSSo51+Vbn0EJSID+gooY7BXEYZAO8Zi2+vvgTdQD/Ul
-	faXqBZ8lKJH69RX58Q0RSi6+rxtcLoEYNdL56lKuS+eGMikq38=
-X-Received: by 2002:a05:6a20:160e:b0:3de:46cc:b641 with SMTP id adf61e73a8af0-3e7af7fc650mr2055741637.8.1792858740708;
-        Sat, 24 Oct 2026 09:19:00 -0700 (PDT)
+        bh=xwmLnAa6b4VIfgYdyaQibjdMJAMiidZmgGGch02/UIc=;
+        b=Qq879QTShjUAeJA0MTZutoUdAhjl0YxU0ALUiUplmwC/pQ1+Fq+ZTB/xriaYcqdnou
+         AbPFIBjkqzQEga3vPJQIxlnJwi5wyD6Y45XeJQUi7iWdpcz1Qe/m87vQGX8XpFIdn76S
+         Qx/Sd9Cg0xCUIIjxFCrNdmwvdPBgjgxjUs9UMd1wLgr+ufG6FOeci7AbJJ0b3hI/NXbi
+         lRdt/MLIJPBn0Vc1pIFEP5O7Ed6cSI5tNxylMHAW7NuYRKNTdp89cj43uchaXysG2x9J
+         hcJnTydqanEBdSxrq3h3ONEUC7FUKi/UTir5HpRMhzfZu/bb1FQNVzYZ9HUwhww8JTZK
+         RQtg==
+X-Forwarded-Encrypted: i=1; AKwUvBzYFa0LNhtaBNRiq1Z72Ii51TTqyNc+LJPPAhDthcMTfEiP6BZKUuaRdxU2ewPczrhl72f7Kf3Fma3qfzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcaE/TIQFQTxRmKItTuB61AuHYyQnEWzYhu2kGq67c+TTd1YOh
+	ER954+q02vLj+fjHO3id6YgAwl9sdpTXj5z5e8jwBnEtbb8lTsFKCnrn
+X-Gm-Gg: AYBFou28SGobVhm2OyFBPmt4iAq8H+G8jHqVLCce6gpXCnhJLRfN8pREDVa2uDqXhrN
+	jGQiIeNQ/Vl6SmcZvo8VInIEVCGtBiqPE4oNk2UI0Uo0bDTX4WTqO48DLfztI7vMSOnO4Mawqnh
+	J4uvD4/726/AqpEJyOvzR/mFneRvuWLXC7Apsk0Jx6nJIjsteCdScEYH+jtnFJwjo5POvypC9N2
+	wSmkEXCzXPwNXQkHNq9GzRzZhTgqbh+zDaX4cIqL7QPWADWLU8DvStKPQBNSg53zBes0OZu/gfK
+	Q0DUlIEzjerTs26IKHRw4jTLnCFfhsNAYGeJbeUd9zwoFn+8eyvM4mwHlYX44vhOADSc0urKlpe
+	oy8ZOkGbRZu1bHuPKUB9q5f8EbylnCmNmcmvyGHR3+FLrRR2P2z0lS3FKj3eMQKPexvROWcrmu3
+	XhjY0n9ViqVA12vp+hQN/h5nB2CQnEyQwbCpawL7QESL6KPJ3Lt+GgN28Gqrwqht6SIR+WQ2aV8
+	XmmRWdJquvADF2AcJD58Hc0n3VXKiGHuKfiGfdDmA+BQ438Fq0=
+X-Received: by 2002:a17:90b:1645:b0:3ac:9c37:9418 with SMTP id 98e67ed59e1d1-3adead50acfmr2166488a91.19.1792858807236;
+        Sat, 24 Oct 2026 09:20:07 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a37233d293sm454265b3a.16.2026.10.24.09.18.56
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb8240b5sm2180033a91.0.2026.10.24.09.20.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:18:59 -0700 (PDT)
+        Sat, 24 Oct 2026 09:20:06 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: mark@fasheh.com,
 	jlbec@evilplan.org,
@@ -87,9 +87,9 @@ Cc: heming.zhao@suse.com,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: wait for filecheck kobject release after a failed add
-Date: Sun, 25 Oct 2026 00:18:52 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
+Subject: [PATCH v2] ocfs2: validate move extents against a stable EOF
+Date: Sun, 25 Oct 2026 00:20:00 +0800
+Message-Id: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,216 +102,164 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The filecheck kobject and its release completion are embedded in
-ocfs2_super, so the osb must outlive the kobject. On a failed
-kobject_init_and_add(), creation clears fs_fcheck and calls
-kobject_put(), but returns without waiting for the release callback.
+The move-extents range must be bounded by the inode size used for extent
+movement. ocfs2_ioctl_move_extents() checks and clamps the request before
+taking the local inode and cluster locks in ocfs2_move_extents(). It also
+uses separate i_size_read() calls for the range check and subtraction.
 
-With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
-Mount failure can then free the containing osb before the embedded
-release timer expires:
+A concurrent truncate can invalidate the first check and make the later
+unsigned subtraction underflow:
 
-  Mount failure                     Delayed cleanup
-  -------------                     ---------------
-  ocfs2_filecheck_create_sysfs()
-    kobject_init_and_add() fails
-    fs_fcheck = NULL
-    kobject_put()
-      queue delayed release
-  return to mount error cleanup
-  ocfs2_dismount_volume()
-    remove_sysfs() skips the wait
-    kfree(osb)
-                                    expire embedded release timer
-                                      access freed osb
+  Move-extents ioctl                  Truncate
+  ------------------                  --------
+  check me_start <= i_size
+                                      take inode and cluster locks
+                                      shrink EOF below me_start
+                                      release locks
+  compare me_start + me_len with EOF
+  set me_len = EOF - me_start
+    [unsigned underflow]
+  acquire inode and cluster locks
+  select extents using the bad range
 
-The normal removal path waits for fs_kobj_unregister, but it returns
-early when fs_fcheck is NULL. The failed-add path therefore leaves the
-delayed work and its completion in freed storage.
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired. Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
 
-Wait for the existing release completion after the failed-add
-kobject_put(), before returning to mount error cleanup. This keeps the
-enclosing osb alive until the kobject has finished releasing, matching
-the normal teardown path.
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
+the size. Read EOF once, reject a start beyond it, and bound the length
+by EOF minus start. Normalize the threshold using the same EOF snapshot.
+This keeps zero as the default-threshold sentinel until validation uses
+the size that will govern extent movement.
 
-KASAN report as below:
+Move goal validation after range adjustment as well. Its allocation-group
+capacity check uses me_len and must see the EOF-clamped length. Both
+validation failures use the existing inode-lock unwind path before any
+extent movement or transaction starts.
 
-    BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
-    Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
-    
-    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <IRQ>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? __run_timers+0xa6d/0xa90
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? __run_timers+0xa6d/0xa90
-     kasan_report+0xe0/0x110
-     ? __run_timers+0xa6d/0xa90
-     __run_timers+0xa6d/0xa90
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx___run_timers+0x10/0x10
-     ? __lock_acquire+0x5a3/0x2140
-     ? __pfx_do_raw_spin_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     timer_expire_remote+0xfa/0x160
-     ? __pfx_timer_expire_remote+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on+0x18/0x160
-     tmigr_handle_remote_up+0x4ba/0x9d0
-     ? __pfx_tmigr_handle_remote_up+0x10/0x10
-     ? tmigr_handle_remote+0x21a/0x340
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_tmigr_handle_remote_up+0x10/0x10
-     __walk_groups_from+0x5a/0x160
-     tmigr_handle_remote+0x24f/0x340
-     ? __pfx_tmigr_handle_remote+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     run_timer_softirq+0x222/0x270
-     ? __pfx_run_timer_softirq+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     handle_softirqs+0x1fa/0x8d0
-     ? __pfx_handle_softirqs+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? _raw_spin_unlock+0x23/0x40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __hrtimer_rearm_deferred+0x1fb/0x5d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     </IRQ>
-     <TASK>
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-    RIP: 0010:pv_native_safe_halt+0xf/0x20
-    Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-    RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
-    RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
-    RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
-    RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
-    R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
-    R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
-     ? ct_kernel_exit.constprop.0+0xc5/0xf0
-     ? do_idle+0x3ae/0x650
-     default_idle+0x9/0x10
-     default_idle_call+0x6c/0xb0
-     do_idle+0x3ae/0x650
-     ? __pfx___schedule+0x10/0x10
-     ? __pfx_do_idle+0x10/0x10
-     ? rest_init+0x1cd/0x330
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     cpu_startup_entry+0x54/0x60
-     rest_init+0x1e1/0x330
-     ? __pfx_acpi_read_bit_register+0x10/0x10
-     ? __pfx_rest_init+0x10/0x10
-     ? acpi_os_write_port+0x23/0xb0
-     ? __pfx_kernel_init+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_ut_status_exit+0xd6/0x180
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_ut_status_exit+0xd6/0x180
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_enable_subsystem+0x2b0/0x4e0
-     ? __pfx_x86_late_time_init+0x10/0x10
-     start_kernel+0x417/0x4b0
-     x86_64_start_reservations+0x18/0x30
-     x86_64_start_kernel+0x111/0x120
-     common_startup_64+0x13e/0x158
-     </TASK>
-    
-    Allocated by task 494:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_initialize_super.isra.0+0xab/0x3070
-     ocfs2_fill_super+0x801/0x3920
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 494:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_dismount_volume+0x43c/0x9b0
-     ocfs2_fill_super+0x258f/0x3920
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff8881178a4000
-     which belongs to the cache kmalloc-8k of size 8192
-    The buggy address is located 5720 bytes inside of
-     freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
-    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
-    raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
-    head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                        ^
-     ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
-
-Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
-
 ---
 Changes in v2:
-- Name ocfs2_super explicitly in the lifetime comment and describe kobject
-  release without assuming CONFIG_DEBUG_KOBJECT_RELEASE.
+- Validate and normalize the original range only once, after inode and
+  cluster locking have stabilized and refreshed EOF.
+- Move goal validation after range adjustment because its allocation-group
+  capacity check depends on me_len.
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com
 
- fs/ocfs2/filecheck.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/ocfs2/move_extents.c | 68 ++++++++++++++++++++++-------------------
+ 1 file changed, 37 insertions(+), 31 deletions(-)
 
-diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-index 75334e4bd082..e3b79bc749f5 100644
---- a/fs/ocfs2/filecheck.c
-+++ b/fs/ocfs2/filecheck.c
-@@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
- 		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
- 		entry->fs_fcheck = NULL;
- 		kobject_put(&entry->fs_kobj);
-+		/* Keep ocfs2_super alive until the kobject is released. */
-+		wait_for_completion(&entry->fs_kobj_unregister);
- 		kfree(fcheck);
- 		return ret;
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index ad1678ee7cc4..f2682ef6bf2b 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -907,6 +907,30 @@ out:
+ 	return ret;
+ }
+ 
++static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
++						struct ocfs2_move_extents *range)
++{
++	u64 i_size = i_size_read(inode);
++
++	if (range->me_start > i_size)
++		return -EINVAL;
++
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	return 0;
++}
++
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
+@@ -936,6 +960,19 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
  	}
+ 
++	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
++	if (status) {
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
++	/* The goal check depends on the adjusted range length. */
++	if (!context->auto_defrag) {
++		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
++		if (status)
++			goto out_inode_unlock;
++	}
++
+ 	/*
+ 	 * remember ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1028,27 +1065,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
+ 
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
+-		goto out_free;
+-	}
+-
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+-
+ 	context->range = &range;
+ 
+-	/*
+-	 * ok, the default threshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
+ 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
+ 		status = -EINVAL;
+@@ -1060,23 +1078,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 
+ 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+ 			context->partial = 1;
+-	} else {
+-		/*
+-		 * first best-effort attempt to validate and adjust the goal
+-		 * (physical address in block), while it can't guarantee later
+-		 * operation can succeed all the time since global_bitmap may
+-		 * change a bit over time.
+-		 */
+-
+-		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+-		if (status)
+-			goto out_copy;
+ 	}
+ 
+ 	status = ocfs2_move_extents(context);
+ 	if (status)
+ 		mlog_errno(status);
+-out_copy:
+ 	/*
+ 	 * movement/defragmentation may end up being partially completed,
+ 	 * that's the reason why we need to return userspace the finished
