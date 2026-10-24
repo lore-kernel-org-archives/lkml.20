@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792848651;
-	b=iyLNhTU/VqUkXpekeK3ARE8KgFVDTJH1qaQric21Dk3eywCCGPvYIQI6AhgPrOANOH1I
-	 dM4hyw/iPmB5XxPfQuWGwaVjr3RE6XuCs5UcGym7sCqKXYDSgIh3aXAZdBvCw7sG3Kfxk
-	 xD7UvLJfXA3+lHvc4OjMYZHiZqyKrsn9BMRT4Bb1L0BXGyE4vzzN+Wddx4YP/BmhtDCkF
-	 TMqrEvYK02msn60HEQU8zBkuBT2ovCJyKQySFyo2qp92c4vchB/qd2dnm0W+i6u62zjzI
-	 dJZVKeRL1lOumC3oJRhOjD8s9B96UguNNlk8Obn0oQRTZHEiOADv9vyECIm+rqXPbeg==
+	t=1792848832;
+	b=axGFZ0Ve1TbqFJUMRPzVpi4x1tE/JUUcBefP4dWMDO6u2c4EcgBzaRRprRa8DHiSZb73
+	 88YzAenHGMAKeiHEVLXOu/AY5y6u0e9qdkBvxONmTc9n7xQpi3vXxR6L60sN+GtHj27bo
+	 tquPTQaaUEjlP8OMU9adQWCL+QxzvOgfPbbtwWR8w2uX9sAGg/TFSLG+gwt4jQuxHPgZU
+	 OwnibJMxz52XiURDyFBnfPAbv7lzXCYAi67pJC0r3/7X9Q0ODT93nopcXdZOFdHIpMTi+
+	 hvW8dDBXeAf1MB0ON+W7MyWvrQ6c56ZuGTlG6kTeGPBCh24l46xMqJ1OLuv1EZjxxKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792848651;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4DbzmzBdqMsmHhWCEehq33/otLa9/Nzdgb28dQA0Wv4=;
-	b=A7l2yd9/IoOYZXVUFWjxpChyH9KHpRqlyX1aPW6xMqVzQzJ/q/fkK/R0ltPQ+Aa6pqtK
-	 DLUPu2zpVB8SHLHnC4tlvKhMJW8VNHvXGtf+w32HdaKLdw6Ym4RCkT4GPRNH3RtlW3J7I
-	 nZ1LF15F6fAkkFV1VvTr+KepAsjLy1NjvHohCW80oDDwohV+93FEb6Op/AjqbXS16UNNH
-	 OFPuJ4PRkAL8iBdYqm4Jb3YtimxQbUiHjAVj5z00FOUlGkKyIVKwWYG1va5eK3goS4ewl
-	 kgIP42WPZOicrtKjknwHU8uvvh8ZFRJ9oal4U9J09AQ/AvX3a6htPf11GLG6siolXQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792848832;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=lTPGxZ69LJ2b6gKb3IoJdEZhnVCERWAiNgQIhAFFu9M=;
+	b=4fKLqpW1SxwvejYKu3tlIlMxoqK36ehkkDG+Z4p/7lNeSY1+UFRTkEcx7n6qzHEL3C3P
+	 lmN0M99bK8C27ir5moKSmWlNhv4l1gKQbjGZkEaAqiurWInh8G3aXIkYvn7bSd6kBwQ69
+	 hENFcmtx5aEEg9o3XfYBow6FX7k8Kx31vD46CnXFchaKO6W16hDBLJhS1pQTWMKRqlWwz
+	 UEGuqiwjhdDtN3xiDXtExPyvCIlVqNB02KogM5Opvv9T+gqLiwiHa9HuFkavNQX55/m79
+	 ubLmfWuigZAdtDDBVqtTPOcpcovQR4aROOKX2lWNQfPLFE0pZc9Ri8KsZaidHqQnTyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fKCW3TaU;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.70
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17412606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17412606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fKCW3TaU
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f33df08eso5408eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:30:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792848650; x=1793453450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4DbzmzBdqMsmHhWCEehq33/otLa9/Nzdgb28dQA0Wv4=;
-        b=fKCW3TaUkLtvJNnt7o3RLXMA1pInnCCBv6ficgwjY+pANp4QZ7vEmbo0Zrhjj9PJL0
-         IAXD9rJYAyVr8+DmgFPvjpzPDtNRh7RDtGkA5Gj1WxQeqopavUcLV3VhXTxDzJHpFNB8
-         M6s1kC5YCwT8UlN4NCUzalOYbPbfJKSc+sdjcpIWb9CenisaYAYgQ4/IpYhFvU+WFvYZ
-         af9Bq3tBxXpzLLmVIE1sWMTh9hduqDgm9fAQSK/bBvNoGaP4Ms94PI17QSJl4HQUtLr0
-         AhshiD8gbaheK7kxXtnnTmaZS8r2lEvvSXqnnhP1L9hxXdnY2k+cjqHyQVNIHlnpY95X
-         pwHA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC740606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC740606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-47b7f5b898aso836978fac.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:33:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792848650; x=1793453450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4DbzmzBdqMsmHhWCEehq33/otLa9/Nzdgb28dQA0Wv4=;
-        b=Q01JDJ9YWB61G0JqxpobQygzZqFrt5Cor3iDeTxsibyaWIMxLcZBH/XntjIvbuqPbQ
-         EfbHnUTnaO/TgqMlZaoK4ULTVToZ4JvHH8kgcwhyZH2f6YUSDmnXNW9SxQtskwk+AiGs
-         TSttpR5cg2aqGB4iz+QBPH0FsGYWGVpDgn6PoxXi/klJst58aCZNRC9B/A77LiFtQPD2
-         bkyt2BO0VOLiyh0Qoppt1OvOTZ4gCbpmjNDLAzR1gjFqp+6tQaSzsrd2oH002rog0JGJ
-         wCci9d3crVj+tRvg3RXZVH14gnVe2uPveRaFfIgK1XCz5nO9rGVlF9TktY/v70IQ7en+
-         qA6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzcUxb2iEJRgyc+mb1B/40eZ9c96mkPwai/IwjFpgTDJWgrEoT4WowQec/8HoJS63b9VLGfTlAnFUROLBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKN5esT2Tqjj7z4Dtw9RZ76DEurAwmKaaTOFb03XNl9DJaEXLp4
-	bPFIsqZ1XBG2c+k/XQO2tNOD1M8JXqt8f44yU0Omul0NFQbeaUzxEJVY
-X-Gm-Gg: AYBFou2gDJ3LHRhCSitsixnZdYhDjpEQKGp1rbn/iMbbzmdoR8StFOnmg7aLYVi2Njh
-	nKOI182rC/+hm5mu2/ZmHBRsf/KQ/tYeeP1vmsdVQkWcbcFCBp/LLSL1CKOLBJkDZW8NnZM05I2
-	guMlRby9VJFCS5uiD+UKRoDI/TzONnvqebfLR4cDE6ywYBNFokbs9SDKFlA/dW9qjSZtZOFu61i
-	psdqW7eYJP9vgG4z4RfifF9gP5+yZpA7V9ni34qS/BIX3/a2yOH+5gZg0ulBBMursovZffjhH6p
-	oEhk4dadPnPsDggxzGeTDsRAzigzYG1Lct2AWOmF8ACh++l7KdG5ZlxQkBqVbvkhDK+A9AXq2ga
-	QX5b6aI7OvEzuzmEoZyrCdV1d/kF6b+2Dbv5A9LUlvlUZPBHGZfLJQrx0gwY7tjgnyjMEY6GjtI
-	aFzyP8w5bA9R1/4LtvbKzxaPiEfAslB3zHxE3MaAuCH3pnM+LTplk7hBixg6h03VvpyBDi1Pveb
-	uRpVu6OCyarMOIHb7mBdIs/5eIaggUxj74y7FtC7SkJ3JBXoC523a0=
-X-Received: by 2002:a05:7300:1c1e:b0:360:1637:404 with SMTP id 5a478bee46e88-369e8660d3cmr3083001eec.33.1792848649998;
-        Sat, 24 Oct 2026 06:30:49 -0700 (PDT)
-Received: from myarch ([49.36.79.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec50bcsm15908129eec.23.2026.10.24.06.30.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 06:30:47 -0700 (PDT)
-From: Aditya Nagar <dev.adityanagar@gmail.com>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Teddy Wang <teddy.wang@siliconmotion.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Aditya Nagar <dev.adityanagar@gmail.com>
-Subject: [PATCH] staging: sm750fb: constify the pointer array g_fbmode
-Date: Sat, 24 Oct 2026 19:00:37 +0530
-Message-ID: <20261024133037.160112-1-dev.adityanagar@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792848830; x=1793453630;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lTPGxZ69LJ2b6gKb3IoJdEZhnVCERWAiNgQIhAFFu9M=;
+        b=OiCq5CLkyNdcMqMQCBTnFVhZswZpqOy3YxH958wKUaihtH+QHzguqG+CFqi6wYETI6
+         fBWXiUAyT3lbV3ONP321CObR8nVmWpwxT/Q7PQzMMneEhU/370kyYamLATMuKb/MnUdb
+         1suGVERkajtNGlnmYsn1eXEgH9340mc0k/k/oejp41uFHWGZloBBIvp1i6lmkBsF71/Z
+         3ZtbmvAem0ohuKuamVSN2ER8+5M4ROlaCl/V9s0uM1ktITg019VX/4ywZFED052EyHwT
+         GlQCmJH5yUHn59n5Vt2D9qoG+Uh5E2CMoQ5aQCwVpXMiztre44IRg0ip5ueYQqm9CXlL
+         J2Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNZarmpwHnnr/EfmHqRxrKJNmJ1kOIVkT0bYdFR+RJvKNT6RKU7kolLy7Q0FKj/inGikT/743Kq3Sfdc0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMpezKG8zwjoEq/3UhGw01rZOsKmJKWsgAC//I4WNonbeyYQtV
+	YaACR7QAmCf+HtcMcuFRPfGDceJXlIx/iout4AVPsiyPDLrJdfKt5aEV7HmcVH94dWslJy+kVJ1
+	7p3wCCTzdDwEkKZ2fWcIQwwSr4Yy7nw4J2KnZNqC2BYeAWSHkpe6XyRGteg4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,32 +58,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:e8d1:10b0:50a:7162:87df with SMTP id
+ 5614622812f47-55bfffdd86cmr829522b6e.2.1792848830805; Sat, 24 Oct 2026
+ 06:33:50 -0700 (PDT)
+Date: Sat, 24 Oct 2026 06:33:50 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adcb3be.4ce6c07b.2dfc0c.0005.GAE@google.com>
+Subject: [syzbot] [btrfs?] possible deadlock in set_blocksize
+From: syzbot <syzbot+5c01398781fb51df783a@syzkaller.appspotmail.com>
+To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Make g_fbmode a const array of const pointers since the pointers
-are never reassigned after initialization.
+Hello,
 
-This fixes the following checkpatch warning:
-  static const char * array should probably be static const char * const
+syzbot found the following issue on:
 
-Signed-off-by: Aditya Nagar <dev.adityanagar@gmail.com>
+HEAD commit:    4169c9c90532 powerpc/irq: Fix build with CONFIG_PROC_FS=n
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14fdcbcd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e397d1e24d3cb03
+dashboard link: https://syzkaller.appspot.com/bug?extid=5c01398781fb51df783a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=132c1a31580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+5c01398781fb51df783a@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor324/6058 is trying to acquire lock:
+ffff888024d4e3e8 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ffff888024d4e3e8 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: set_blocksize+0x1e6/0x440 block/bdev.c:202
+
+but task is already holding lock:
+ffff888027eb26a8 (btrfs_trans_num_extwriters){.+.+}-{0:0}, at: join_transaction+0x6b2/0xd40 fs/btrfs/transaction.c:331
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #3 (btrfs_trans_num_extwriters){.+.+}-{0:0}:
+       join_transaction+0x18a/0xd40 fs/btrfs/transaction.c:356
+       start_transaction+0x731/0x1830 fs/btrfs/transaction.c:770
+       btrfs_create_common+0x15c/0x310 fs/btrfs/inode.c:6991
+       lookup_open+0xedc/0x1970 fs/namei.c:4569
+       open_last_lookups fs/namei.c:4768 [inline]
+       path_openat+0x70c/0x20f0 fs/namei.c:5007
+       do_file_open+0x23e/0x4a0 fs/namei.c:5039
+       do_sys_openat2+0x115/0x200 fs/open.c:1442
+       do_sys_open fs/open.c:1448 [inline]
+       __do_sys_openat fs/open.c:1464 [inline]
+       __se_sys_openat fs/open.c:1459 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1459
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (btrfs_trans_num_writers){.+.+}-{0:0}:
+       __lock_release kernel/locking/lockdep.c:5627 [inline]
+       lock_release+0x1a3/0x3c0 kernel/locking/lockdep.c:5964
+       percpu_up_read include/linux/percpu-rwsem.h:114 [inline]
+       __sb_end_write include/linux/fs/super.h:14 [inline]
+       sb_end_intwrite+0x26/0x190 include/linux/fs/super.h:101
+       __btrfs_end_transaction+0x237/0x640 fs/btrfs/transaction.c:1147
+       btrfs_dirty_inode+0x14c/0x190 fs/btrfs/inode.c:6444
+       touch_atime+0x2f8/0x670 fs/inode.c:2325
+       file_accessed include/linux/fs.h:2279 [inline]
+       btrfs_file_mmap_prepare+0x172/0x1f0 fs/btrfs/file.c:2003
+       vfs_mmap_prepare include/linux/fs.h:2071 [inline]
+       call_mmap_prepare mm/vma.c:2815 [inline]
+       __mmap_region mm/vma.c:2913 [inline]
+       mmap_region+0xe88/0x23c0 mm/vma.c:3014
+       do_mmap+0xe0a/0x1300 mm/mmap.c:573
+       vm_mmap_pgoff+0x272/0x4e0 mm/util.c:581
+       ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&mm->mmap_lock){++++}-{4:4}:
+       __might_fault+0xcb/0x130 mm/memory.c:7419
+       _copy_to_iter+0xf9/0x1810 lib/iov_iter.c:196
+       copy_page_to_iter+0x23f/0x330 lib/iov_iter.c:374
+       copy_folio_to_iter include/linux/uio.h:204 [inline]
+       filemap_read+0x7af/0x11e0 mm/filemap.c:2893
+       blkdev_read_iter+0x2f1/0x420 block/fops.c:838
+       new_sync_read fs/read_write.c:493 [inline]
+       vfs_read+0x595/0xa80 fs/read_write.c:574
+       ksys_read+0x150/0x270 fs/read_write.c:716
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&sb->s_type->i_mutex_key#10){++++}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       down_write+0x91/0x200 kernel/locking/rwsem.c:1631
+       inode_lock include/linux/fs.h:1024 [inline]
+       set_blocksize+0x1e6/0x440 block/bdev.c:202
+       btrfs_init_new_device+0xa4e/0x1cf0 fs/btrfs/volumes.c:3046
+       btrfs_ioctl_add_dev+0x1ad/0x640 fs/btrfs/ioctl.c:2571
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &sb->s_type->i_mutex_key#10 --> btrfs_trans_num_writers --> btrfs_trans_num_extwriters
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  rlock(btrfs_trans_num_extwriters);
+                               lock(btrfs_trans_num_writers);
+                               lock(btrfs_trans_num_extwriters);
+  lock(&sb->s_type->i_mutex_key#10);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor324/6058: 3, last CPU#0:
+ #0: ffff8880139a2650 (sb_internal#2){.+.+}-{0:0}, at: btrfs_init_new_device+0x7f3/0x1cf0 fs/btrfs/volumes.c:3022
+ #1: ffff888027eb2680 (btrfs_trans_num_writers){.+.+}-{0:0}, at: join_transaction+0x6b2/0xd40 fs/btrfs/transaction.c:331
+ #2: ffff888027eb26a8 (btrfs_trans_num_extwriters){.+.+}-{0:0}, at: join_transaction+0x6b2/0xd40 fs/btrfs/transaction.c:331
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 6058 Comm: syz-executor324 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ down_write+0x91/0x200 kernel/locking/rwsem.c:1631
+ inode_lock include/linux/fs.h:1024 [inline]
+ set_blocksize+0x1e6/0x440 block/bdev.c:202
+ btrfs_init_new_device+0xa4e/0x1cf0 fs/btrfs/volumes.c:3046
+ btrfs_ioctl_add_dev+0x1ad/0x640 fs/btrfs/ioctl.c:2571
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8612ea2ebb
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007ffe693cf9a0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f8612ea2ebb
+RDX: 00007ffe693d2bf0 RSI: 000000005000940a RDI: 0000000000000003
+RBP: 00007ffe693d2bf0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe693cfb20
+R13: 0000000000000000 R14: 00007f8612e71000 R15: 00007ffe693cff70
+ </TASK>
+
+
 ---
- drivers/staging/sm750fb/sm750.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 8b93bfeb2..c3f391cdd 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -12,7 +12,7 @@
- static int g_hwcursor = 1;
- static int g_noaccel __ro_after_init;
- static int g_nomtrr __ro_after_init;
--static const char *g_fbmode[] = {NULL, NULL};
-+static const char * const g_fbmode[] = {NULL, NULL};
- static const char *g_def_fbmode = "1024x768-32@60";
- static char *g_settings;
- static int g_dualview __ro_after_init;
--- 
-2.56.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
