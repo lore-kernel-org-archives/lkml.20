@@ -1,80 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806765;
-	b=xZBI6NqMGTlNf7xeWWzVYUCa+GhQlmEcmmvgac70UfneZZrjTr+EJBTzkL4FjNr1q0Oz
-	 DOSzwzn/NjRJwfeN5r9xZROUU0Vu7h18qu5f00+pU+W+LWkg1cDBxf8D6Cno810tqZX/J
-	 cfl2YWkmuJL7MgGNlzztqWrRFf8Rr7kKeFVA5ouzl9BAIxyUFW9MOFyndWns4878OBhvf
-	 69MHTkxRD/tgyEpgsTCP3PEnksl6FTje2djKBateDeGVC7FIiDYG1tnPLqMq8bUXv74Jn
-	 DhIjkpQ5hISbp9kaYOtv4natDxG7lc+43V4Ku1gDiw1vXDiVsHnC7nsvnLmYGsuVpaw==
+	t=1792806792;
+	b=UF1dhYbJ1LHg0nDUMO7JyFIaF6HGk/RP6Lqz/fbfrFXKC3L11FhJOJ89MRRVu1DzZ5k8
+	 yhe3s4bHSA0GOfcQu/3A2LksmYfqdZzt22F+IckryY7Hw3sNgMF+SiUTaU4sUROBOQXop
+	 s3WLDjdDZHYqhbsudmUPKMBZ+rExxjtVETbiSOUKKUuOpCZEkfFz4ABcvBLG3rc6b6RC/
+	 9I7WjFFaYfHvikPQA1Vzibhc3pSpGGBV5hw0Ebnu9sDnUUYrGpZYcEF/EJ1PeXNcbYRyg
+	 S0gnYrYgWnLtwV2ohFFBFbsOiH1zM3t7TEIe3BVD/Xzkn2NFkvDyikjLaYumRiEmSGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806765;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=wjuto3d/KuK0tBjAezBeTt5tVciNNcThbLMT4S20fd0=;
-	b=Fgo1lfoa53MI5nsZzs93hZjIIa0LnvILgojddhGDb8H1BJwXviW5BX3RJpjt3TGAegNh
-	 PUz+9XAIl2b4tYhNogocPSvXqCAE5icgXx9f89keAuvjiIzhOBluS6o1++cyBSJtLGWuz
-	 jGHfCXllQvAgSoe4fyda8vl09KHwtCUGJgKRxYC/1HFW+Xi5aoqI5Tl32p3KKx1mL/Hwv
-	 Bz1M/GVjKerG99sPz9OAW3inMgXK+B85KJd3gTC71NxVjzWL/gE0dziaiUQBK49ZWGOpT
-	 gVibuVOanhOGJbq9avn9tLkpOE7ZHMpJZBuw75amL88r7+9pHGt12pwS3Tpgi/T6uMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806792;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+	b=wwn+KoHQkDYreBGucsXSKMTXPlfDOEx2Z1U0ujqDq06MSqHEoF5QqnPP98rE061QIEfB
+	 e77VLv/e1TVGv5GQWgVJET2nZvE2SU//Zz6Emi2B/7+FgOLVSLq8Dq1qTk48cx0C2AR7v
+	 OhnPoS7pel7FdzJS5bC2+dRq1M8k7I2nm0FgyyBg671NBXysIL/D+YQ8j1PBxjYKrheRR
+	 JGBxPC3iM0e/JaCb7LBD6npt/NaQJeJJ+YKGWQv+NKlbIn1g2Au3MzD0zbHdSV5d1ru5c
+	 OjRho7koR6Nj1csenMjiHVSjqON0Zum4J2S9i0Isypp1OE/EqdSAe9Kw0Q5RO46boaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GBgNuVrq;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59964606A31B;
-	Sat, 24 Oct 2026 01:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59964606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD3F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD3F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GBgNuVrq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792806765; x=1824342765;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UFya1hKym3VDaS8cNunTQezFRotwyKjbplRcLEVURx4=;
-  b=GBgNuVrqVAWhMd97SYjvNHWES98PfyJ12V/zPpXCbm9vVD69UwnxzG+O
-   OW7/Lc+IV22hZ5/kZ6P7poLEP4N819k7wGXZZ46TPQdRfOQJrqSHr4DOw
-   5UIRxBzb+HQpTSh1mosmiqCJSRCfIb4GRdFsQK+ihdqbmnNc9vw5N2Thu
-   5t04mQ9rv+FNkDexwm1+SMGkznVWzErpyj8NsRRw1xnRxwGkYA7KNUKRZ
-   j7+GYBIbhzAm3UL4qM1pR0mpAz8ZIvYVaNFBBZuLxTcJqYXxksd+ncljV
-   eyTHJ4C2z7LFKm6E5RFzgLMIyfLHJi1VG7oc1PYEX4LcyEXfF1UfmefaX
-   A==;
-X-CSE-ConnectionGUID: qPvXYqmARg6kSTuIAdgbpQ==
-X-CSE-MsgGUID: FowA/CELTRWdziYy3vyWIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1463008"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1463008"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 18:52:44 -0700
-X-CSE-ConnectionGUID: /QmVDlBGS0apAzWg7GkJCg==
-X-CSE-MsgGUID: MPhhLiUuRzaMRhbSLdoLvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="3846771"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 23 Oct 2026 18:52:42 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKQw3-00000000TUs-2xmk;
-	Sat, 24 Oct 2026 01:52:39 +0000
-Date: Sat, 24 Oct 2026 09:52:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Liang Hao <haohlliang@gmail.com>, linux-gpio@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Liang Hao <haohlliang@gmail.com>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpiolib: Add irq_set_affinity helper for GPIO line
- IRQs
-Message-ID: <202610240908.4J3PwdPn-lkp@intel.com>
-References: <20261023151209.58772-2-haohlliang@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f36c18b75so74406885a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792806786; x=1793411586; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+        b=qJuEGuiiTo4qSSJz7+E1oluEgXCF5Q7bIkPpU+mVQJxKqdJQl0qn99fQARIHEz0SLf
+         7Zq/R5fGJcEoYsDfI4rKiSj6X2gKELccAr9cvephMMb6R69nQL5BERqC1sdoe72MomTI
+         nfJ1+BFPu8ya8iOaDBmS1HPMjKmwWP2cYv7U3FUlsTJBHFsyo/cnHwyxD57v1QJAf1uF
+         EL9xd+P4nRtom4L07elrIoZWOPmB5+/hTi9vtr8wIVbw5rafwGWXAek60zJP3O4vNzkR
+         w+j52awfLN3pFwyE80YIl7wuJOP4FQqA6jyPp/b4f+bgLReMowERYR/DpctJgX5Jj/lp
+         Vi6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806786; x=1793411586;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+        b=ca9WAjwZYuvpUi8v21vM5SralR4aGxKFJVkqkp8p7+PBFLkGZ2Pjl6V0gPrhhfHN6k
+         qsl+9N3mJLjVNti+PpiwrM1UvDXAeBQ1xk4j/eaU9p9ymUPWOaFVKEpTuAxxj1vYO5ph
+         Tz3omqQiIVQTbX/eEaROspIbA0AADxx0lk2fxfmLRZOY74fcmnizBoaXEUTwtpBv6D+9
+         UDqp7TJZyqa3J3UQo1iq1fg4VvzNkG2ycQjF+X7lRJqa/YuBkTjaZhQRaVszTKnDcxdP
+         7/tSRMZANnmaqhQD87MNWuqtSp6DYFtuw9EbhalTif5kO6Sx4jom4KVkV6+/VplnYiMu
+         ESeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylTM2oM/a2OdwHFO8v71FFm7BY8gPY5faVYQUxIRFwaqtkPBcLT56o/NRjAXYw428Ip6Vfg3GkDj3WeBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkcCsnpUTemLaHvqDV2LNu9ZXmz9HsCIlBhX7d/CF4PaZx5ZkB
+	eMmCbH9OrO7aQz1Fpq15Ozxq9HkvpeYxg160CKYsZjLBU3nZ9YzN/9mClgIWi8l9TA==
+X-Gm-Gg: AYBFou19unnES3lglV1pCX7h2f6YEf98r9HITQpf4NyAsM0HUvk7ZewQQs8j6eOv/jp
+	6YasGAFKAqAPmdDvlpYyT9xW90E2xZV/hjQndINN5WJVThPAXBQHnhZ4/94Yw2g/rzT5TJqKM0G
+	VPMSmG5io6iXTsRIg5Kl38BoITcYuLy9jXwNc+Bp8ZJInLuOI9veBeslidz6YCZTVP/NNwlYnGf
+	4pWO4rW43TXJBce0QozHv2ftkcYPyy3wHXW5V7ZL5Cy7Po6IwLidNiThyNM9yh1Q8HgXNk0LdR5
+	aQXdUWzUhoia7TzwDObFOmwyqE75zwuNIjDqHBZCuV2dSegY8F/bR3ODA2iv14h4Nn/Q6Iy5TKk
+	Maa/FyzNXi5rsF3BjY6kG3p3vZO1CjsiJUTqzQJeijRFpWinJF+NYman1OzCSiobYL92CPLI1z8
+	ZJ8I5fYhuAqOvpOz5Z/YpfQgyEKmavNjhGTo0rNb7XAZpjBBzz4pfVpnLIRA2sSIb3L4KZ9e3qG
+	5qErRmVoJwHMhR3x21WMXbF1PYpNTNyqhxnBxd707rZhqlWMFmva49cxKCWf9R7OYOnjF2xnMUa
+	tw==
+X-Received: by 2002:a05:620a:271d:b0:93e:ad16:9590 with SMTP id af79cd13be357-940ef94e80fmr107135785a.36.1792806786139;
+        Fri, 23 Oct 2026 18:53:06 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f06672d6sm62365285a.12.2026.10.23.18.53.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 18:53:05 -0700 (PDT)
+Date: Fri, 23 Oct 2026 21:53:02 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: IgorpetinDev <igorpetindev@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on
+ stop
+Message-ID: <d95ba108-30f2-4c86-a47a-2b842b8cb25a@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
+ <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,100 +104,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023151209.58772-2-haohlliang@gmail.com>
+In-Reply-To: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
 
-Hi Liang,
+On Fri, Oct 23, 2026 at 10:31:27PM +0300, IgorpetinDev wrote:
+> Hi Alan,
+> 
+> Thanks for looking at the patch.
+> 
+> I think the bot caused some confusion by talking about stranded URBs.
+> There are actually no pending URBs left on the list at all. The driver
+> properly killed all of them.
+> The issue is a race inside usb_giveback_urb_bh itself. The function
+> usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
+> use_count and wakes the waitqueue. The caller immediately wakes up,
+> finishes removal, and frees struct usb_hcd via usb_put_hcd().
+> 
+> Meanwhile, the worker thread on the other CPU is still running the
+> tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
+> returns, it tries to access bh->completing_ep, bh->lock, and
+> bh->running. Because bh is embedded directly inside struct usb_hcd,
+> this access hits already freed memory.
 
-kernel test robot noticed the following build errors:
+Okay, now I understand your concern.
 
-[auto build test ERROR on brgl/gpio/for-next]
-[also build test ERROR on linus/master v7.3 next-20261022]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> So all URBs are already completed and bh->head is empty, but the
+> teardown path still needs to wait for the worker thread to fully exit
+> before the HCD structure gets freed.
+> Would calling flush_work() on both BH work items be the better way to
+> synchronize this without the concern raised by the bot?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Liang-Hao/gpiolib-Add-irq_set_affinity-helper-for-GPIO-line-IRQs/20261023-231104
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio/for-next
-patch link:    https://lore.kernel.org/r/20261023151209.58772-2-haohlliang%40gmail.com
-patch subject: [PATCH 1/2] gpiolib: Add irq_set_affinity helper for GPIO line IRQs
-config: mips-ci20_defconfig (https://download.01.org/0day-ci/archive/20261024/202610240908.4J3PwdPn-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261024/202610240908.4J3PwdPn-lkp@intel.com/reproduce)
+Yes, I think it would.  After all, it's just good form to flush or 
+cancel a work item before deallocating it, if you can't prove that it 
+must already be idle.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610240908.4J3PwdPn-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpio/gpiolib.c:2154:9: error: no member named 'parent_data' in 'struct irq_data'
-    2154 |         if (d->parent_data)
-         |             ~  ^
->> drivers/gpio/gpiolib.c:2155:10: error: call to undeclared function 'irq_chip_set_affinity_parent'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2155 |                 return irq_chip_set_affinity_parent(d, dest, force);
-         |                        ^
-   drivers/gpio/gpiolib.c:2155:10: note: did you mean 'irq_set_affinity_hint'?
-   include/linux/interrupt.h:407:19: note: 'irq_set_affinity_hint' declared here
-     407 | static inline int irq_set_affinity_hint(unsigned int irq,
-         |                   ^
-   2 errors generated.
-
-
-vim +2154 drivers/gpio/gpiolib.c
-
-  2128	
-  2129	/**
-  2130	 * gpiochip_irq_set_affinity() - irq_chip set_affinity helper for GPIO lines
-  2131	 * @d: Pointer to the GPIO line irq_data
-  2132	 * @dest: Affinity mask to set
-  2133	 * @force: True to enforce the mask without online CPU checks
-  2134	 *
-  2135	 * Hierarchical irqdomains with parent_data delegate through
-  2136	 * irq_chip_set_affinity_parent(). GPIO irqchips that use a chained parent
-  2137	 * handler resolve the parent virq and apply the mask through the parent
-  2138	 * irq_chip as described in gpiochip_chained_parent_virq().
-  2139	 *
-  2140	 * Affinity is programmed on the parent irq, not independently per line. GPIO
-  2141	 * lines that share one parent irq also share its affinity; updating one line
-  2142	 * replaces the mask for all lines on that parent.
-  2143	 *
-  2144	 * Return: IRQ_SET_MASK_* on success, or a negative errno on error.
-  2145	 */
-  2146	int gpiochip_irq_set_affinity(struct irq_data *d,
-  2147				      const struct cpumask *dest, bool force)
-  2148	{
-  2149		struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-  2150		struct irq_data *pdata;
-  2151		unsigned int parent;
-  2152		int ret;
-  2153	
-> 2154		if (d->parent_data)
-> 2155			return irq_chip_set_affinity_parent(d, dest, force);
-  2156	
-  2157		parent = gpiochip_chained_parent_virq(gc, d);
-  2158		if (!parent)
-  2159			return -EINVAL;
-  2160	
-  2161		pdata = irq_get_irq_data(parent);
-  2162		if (!pdata || !pdata->chip || !pdata->chip->irq_set_affinity)
-  2163			return -EINVAL;
-  2164	
-  2165		ret = pdata->chip->irq_set_affinity(pdata, dest, force);
-  2166		switch (ret) {
-  2167		case IRQ_SET_MASK_OK:
-  2168		case IRQ_SET_MASK_OK_NOCOPY:
-  2169		case IRQ_SET_MASK_OK_DONE:
-  2170			irq_data_update_effective_affinity(d,
-  2171				irq_data_get_effective_affinity_mask(pdata));
-  2172			return IRQ_SET_MASK_OK;
-  2173		default:
-  2174			return ret;
-  2175		}
-  2176	}
-  2177	EXPORT_SYMBOL_GPL(gpiochip_irq_set_affinity);
-  2178	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Alan Stern
