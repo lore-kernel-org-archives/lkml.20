@@ -1,82 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792827044;
-	b=AtU5iSufAmjbt5mkLDf+zdPGnve5nA4IGh49JPFa4+TpiRTOzSv/qZtGdQ6zF7QkNrrR
-	 1LJ5gwp/ijeNp3YB0kBlDCeiwZIYZywzhmG97s1+Cj9sw8PH2T3KX5xzAfQ4sKkD4S1kp
-	 OZQtMoaruwCDHjptPbwLJKlpOVTMFI1lpZHrsP5JXSerA0fQCSqAseidviJEzXLO45BXy
-	 +x1+c2pnpb0aKhUdf95oUK5V/zHHxyNtqnL+c4BnyCUIa5LRH2nmjdw4nRBgA9lF61zuG
-	 HyG4OPaVl44hQv3yY7gHhz5J9l6UWg45ap3eaDmTI1ueXki7i4oCdTPadfhmJl805Qg==
+	t=1792827177;
+	b=OYv8gvqATibCxX7dP5vrZOGALQ2fuw6OBTZaTR8QI2jFankCAFxw7utFM103P5HSpkZn
+	 ntng4Lz3oJ0Rki/fdj8QiCrtccJeHgzFTZYVCHBX2i3hOJ6fEmGrP4XQn10ULGz6ZX4tV
+	 gmcDBOY95OMIVp8HiVH6apgTcOHCUoVbLmP2cmubtmBNxLUg4HwGJb7ytohpZ1QbO3z5h
+	 cNBDfsJF+jnZYza9airS0N6JkbfSyqcr/fVCe7FxBgb4/x7nBCuqou7Oq94swUIeyowT7
+	 UDgykSDg5g+yNEPOlulQQCnDYqLvDgVWFdhMIGvvGNccwezbtrkfqdTkOR0J58lFy7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792827044;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=uI7aiYQ48Fid8WtjKOPYCepGlYl0QFiKvAR9UraaOj0=;
-	b=VyYIaNAXV/9NRtV2QcL7Ia74TthqHWgK5OBiC3va4kT5Y6OfWmLNElrxlQA7nlnLKGc4
-	 agB9xl5K6C5et7MEQ1yerfyhnIM5GWHzOIWxizcLuTMFnOkBazAGPl3emnT4oNna1ckWx
-	 Lutjlz9/HilQSYYgqMpUNUcDoBlwz3kZla3ogKcx+2ue958J891mABc+8/DMbR8YaPLaI
-	 dPekloC/OMSjTRLqzxrzO6mZC5EY+AoEcQbwyf5uwThEso2BebLpG7eyMjIJos0jBr2XD
-	 GrJbEiBi7MHT0x8std0dJVizX0CXwN5ZPGV1g0Fdjqw2FmQ+kZz56rJm7Ntyz5uAxRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792827177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
+	b=1T/ioFYBlr0S1SJh6Aopu+efxwNCqIeonT8E6t/8xrgcLypuAKQrgPDkBhIZltfjZt5s
+	 waBae78PrYF+4PA5PG+Kgwl54Y0n5Ft69PMFvBIzC/XPkWEQfitLg+g0XLzOjBsjayRX5
+	 TeVzwzrXbXRq09bzM/yeeb6QOVYZuKgwU2lsjO9mkDTJbEHFvi6lazbxOBHw4LgT3dNT9
+	 25o0cQKjp+iXgZ3mB/JbrCU9DMuC4yv6qMN6Yjq+fCXeROxuVXBwVlrbhte4YKd4zc3ml
+	 tHHe7PotHKefZCp7Jmlc3Sf0hYog8WRnK9RD6TRNWNdqBVEgRE4f8NNHTqlOz0SD0Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Jgorg7FU;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bIDYtbOn;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3D4606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F3D4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE5A606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:32:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE5A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Jgorg7FU
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69O31mHd627908;
-	Sat, 24 Oct 2026 07:30:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=uI7aiY
-	Q48Fid8WtjKOPYCepGlYl0QFiKvAR9UraaOj0=; b=Jgorg7FU3BwW41Cxqsfoxu
-	PKAENVtHlWcAXORCF7Mjs2xbppP7+XerACtFgP865CF9LSgC/dzwAFl+ZJI5LavB
-	W6qoKUMzgwahLdW8skllkseFLBh+TbT1rU/GmeHn/zv1V2Hw75rMI4fIZnm7iGOU
-	2mZRR+MsQ3B97pXQFdQ/ewkdCk0bG1I3Wb42edFbNrQt0VrhcLSqMGJ9j2L4hFtv
-	mWdLYuYdymHru72MqL6IfX04RWL2zLRrwlGevWUDLAhw79DjAlqKBzrY4igZuW3I
-	JMVEZBeAQy0xlh+Bjo7J6WXBgk2l3/htGigljKmSJK5yVOZJTod/PtSGPw1HRx6w
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd6gnfe-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 24 Oct 2026 07:30:28 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69O24tYm2956305;
-	Sat, 24 Oct 2026 07:30:27 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hfkg287av-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 24 Oct 2026 07:30:27 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69O7UPFb50594204
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 24 Oct 2026 07:30:25 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5EBBC2004B;
-	Sat, 24 Oct 2026 07:30:25 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 327F120040;
-	Sat, 24 Oct 2026 07:30:22 +0000 (GMT)
-Received: from [9.124.220.45] (unknown [9.124.220.45])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 24 Oct 2026 07:30:21 +0000 (GMT)
-Message-ID: <4bb9ab68-bb2b-49a0-a066-4de1405971a1@linux.ibm.com>
-Date: Sat, 24 Oct 2026 13:00:20 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bIDYtbOn
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b060ec084so956500f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:32:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792827174; x=1793431974; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
+        b=bIDYtbOnPGADlrjGilR6HlFVpF/eIp31wIxr3wVKS/McxWVagsZZJcNMwIGOaDkaGh
+         jPydXHn40ca3LBrlABACC/cWWoUxiiNQ6K37TuAZ9OwdOWByTtGVMcTPttbPs/rrEPpo
+         lJ60v1+90zWJIUQbjPMADewT4OKMmnJWfpxYytolFHNH7DWkKldRUsZyWrhDofT7/PhB
+         hnOIsKB4wTNr035cZj+SICgnq++LdGkxL98N7LJaydych2gY8QLXItAv1k93WeYHehTv
+         Ds3pnjJrMgM8GsA9BuPW6XaI9nQwpsSBGPGmFcNOQnnUl7tbCIZ3e6bA8AfUd7KMXs7D
+         IkNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792827174; x=1793431974;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=li2QB09lPsjXluSnSfXMvObkOrNnmZZOmi28fPXekeo=;
+        b=RDKd4iIazb6WWL3VwMOIE4nPFv/leGUIm2M9xSc2vhBAJhymEFcBHLw8Cfkwp0Acgy
+         Vh3xpiPK4zxDXEfoq1aylDSpdcZJMlqrUuoFFiWEsetANv5IVo6xYuy1ZVHSCvlWb8bC
+         6scUmzRjQ3HfuX3gMDCSSTdk+xGUO97b/mGe7O0LrOU7Ko8FWj4qMl1ObXfOlf+94Mgl
+         h9rztXukoj1tuUTl+RgZyV3nW1TeHm6EH3pGc04PwHiLVPzwd5cvJj4mkwR29rjMvSqV
+         wNnnWu0HznFKBbK6TES8dwr/vS00AJwAAW8McztjWGjapU5tFQ2d+rD8XCUlaZQCMHhL
+         OI3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByvozXxDfxCApfr1zFOXb3NpJSuO47ymfjNF0r6SH3FSBuEULfNzk9qSZgT5Ms1IFtdorjzXS5cGzeHw0s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGU+BffU+r8l1v7VFDy0lLuZLC0a7PmO/pDt2Yi92hZbGKOd6l
+	nID69NJP23YjXbFnL4P9qSayamY/LQTTj1GvH9Yxzp6L6R/ySlld0VgPvF6r6BaWYss=
+X-Gm-Gg: AYBFou1OF22888y2RdNYP1fvPl65Jjv+r1zvAHOj+hjcQKgpJZm4Cl91Dz4ZAE+tO/Y
+	UGot3q0Te1A6Q/Kx4O6vwO37vvDyZcxZazLtfOdXe1XmrLboHIeSzJS+Thtn/NdDZbcIyxpomSX
+	qNlv2DDS+ndBtcC35sKkQOuLaY35BmHmdcaLgiuvJb9C70cKEqCBv99yzZX15hMxEeNVQWST+gu
+	uck5vCJGS1kEcIMRXfAPQML02FolyasHp5cZvfnXRYEJb1rHVkF7S5zLWXPlvPCgyTecdZZ7Un5
+	K8Sf0V8phMrwL0mc/mVkKjXOzpT/p1smBp3qUr+tegpiK7IUc85N2c7Wi8iNcQDhZ4yX930mnYa
+	15ZZErGxrbGmhA9mf6abiw7Cv3EtefP3WD4q0V0VoUxFuqnDSWinvj/P226e2zFJ4X5vuQLo8Ce
+	FxJInA1keSJvFD3NBeZvXqY5mfyvhKEjANFP1OtZyPEd3gzCz9JJp5IAoYUm5vHydDHmnRDwax/
+	VZzK5Sa3+zQk5rv5cFGLy3uf+y+nJ8SiqsCaZdt68o53XUTq88F4Uimr3dxoO9Mdb3MOco5wuAp
+	skCB8Qrm8/Bq5h47phOHnVXwWDhVhIWZ4xs=
+X-Received: by 2002:a05:6000:40e1:b0:48e:932:aefa with SMTP id ffacd0b85a97d-48e3eb9263fmr1987532f8f.26.1792827174053;
+        Sat, 24 Oct 2026 00:32:54 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ecd35c2sm2752126f8f.39.2026.10.24.00.32.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 00:32:53 -0700 (PDT)
+Date: Sat, 24 Oct 2026 09:32:51 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alex Williamson <alex@shazbot.org>, Armin Wolf <W_Armin@gmx.de>, 
+	David Lechner <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+	Johan Hovold <johan@kernel.org>, Richard Weinberger <richard@nod.at>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <atxdQ4vfh-b6GD0B@monoceros>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <2026102437-vista-unsoiled-b089@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,79 +117,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/irq: Fix build with CONFIG_PROC_FS=n
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Sasha Levin <sashal@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        kernel test robot <lkp@intel.com>
-References: <2331292e-1a40-44ef-8776-9155e8e41f03@linux.ibm.com>
- <20261023211503.3764302-1-sashal@kernel.org> <ecdg558l.ritesh.list@gmail.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <ecdg558l.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6adc5e95 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=VnNF1IyMAAAA:8 a=ZiliM2NqM_YteYZ0dKkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDAyOCBTYWx0ZWRfX6QM9tRz1XmsO
- rek0Uh97ISlYub/Ogi4BJAJhzQYaTYvq1kML++2lzSBQtOpa1yOXf48iAZzp2IHbrsdcXeTg55K
- 7tljTmVtL2kHgoMnSMI6vjET3YmuMSgvvFJON9YNaBR+FUKrrRsheOZw+Sc3UIxfhliz6mPieCv
- Nm6LUBOfuBbMBc25YtA0kddMFGUwHVVGQRFu2R/7H94+A9GLx72sxB6FR4fnfgzK5wk0DC4aEL2
- oiBqFeppgcng0j/0Hbeqt6+3rclpJWFDhu+y5qxcmVUEkuZX0KiMYC37SFy0TzmlSvPTWL6oZqX
- bbFfBa4NtEX1aG4A6dwLL/H0gkz1YQGFwPx4vpF9ptBsQOynutPuE+7rhstKtLuTos4hDZrd8vl
- L8x5gEDOqG6AjyeX7p3azbft4irGJ+/+52a2+UliUl7lVtk/eTRpkoR82QKVUXNmt0zLemBj2gq
- 7t+c5EeUxWDlpDhlf+w==
-X-Proofpoint-GUID: 7P7jaioRhXgNMr6Z24JqAYEJDaz1v0Ul
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDAyOCBTYWx0ZWRfX+n0kkxAlhgm7
- brew0AybCbrhPw86QXXMR377tWjLmutpJ/0u9G1oJKqX91iRg7eLLkvlOvDQAHFPhvWtVKHRWIY
- 5Fzfwqp6vPSzPltMleEA4pJQjTODSCo=
-X-Proofpoint-ORIG-GUID: iLMvGNDTpMGUTszTaDwDKrcp5-cYcA20
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011
- bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240028
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="snd5d5o342ief275"
+Content-Disposition: inline
+In-Reply-To: <2026102437-vista-unsoiled-b089@gregkh>
 
 
+--snd5d5o342ief275
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+MIME-Version: 1.0
 
-On 10/24/26 5:39 AM, Ritesh Harjani (IBM) wrote:
-> Sasha Levin <sashal@kernel.org> writes:
-> 
->> Commit fbb22ceaaf8f ("powerpc/irq: Make irqstats array based") made
->> arch_show_interrupts() call irq_proc_emit_counts(). That function lives
->> in kernel/irq/proc.c, which is only built with CONFIG_PROC_FS, so
->> kernels without procfs no longer link:
->>
->>    powerpc64-linux-ld: arch/powerpc/kernel/irq.o: in function `arch_show_interrupts':
->>    arch/powerpc/kernel/irq.c:134:(.text+0x4b8c): undefined reference to `irq_proc_emit_counts'
->>
->> arch_show_interrupts() is only called from irq_seq_show(), which is in
->> kernel/irq/proc.c as well, so build it only with CONFIG_PROC_FS, as x86
->> already does.
->>
->> Fixes: fbb22ceaaf8f ("powerpc/irq: Make irqstats array based")
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202609271531.8kf2NTjK-lkp@intel.com/
-> 
-> Looks like it still slipped through.
-> 
-well, fix was posted a day after the report but was never picked up.
+Hello Greg,
 
-See the fix posted here.
-https://lore.kernel.org/all/20260930072329.1110379-1-sshegde@linux.ibm.com/
+On Sat, Oct 24, 2026 at 06:56:34AM +0200, Greg Kroah-Hartman wrote:
+> We have real problems with random "bind/unbind" attempts that this taint
+> is here to help resolve as it was creating hundreds of false-positive
+> bug reports on developers all across the tree now that the fuzzers
+> decided to think this was a valid action to take.  Without this taint,
+> people were being forced to add hacks to all drivers for this which is
+> not an acceptable solution.
 
-Diff is same. Since it made into linus tree already, all is well.
+Why is it false positive? IMHO unless it involves a driver_override it
+is a bug to fix. So have you considered tainting on driver_override
+instead of bind/unbind? You did, I'm sure because several peoplel voiced
+that approach already, but unless I missed something, you didn't share
+your thoughts about it yet.
+
+https://lore.kernel.org/all/cover.1790612298.git.u.kleine-koenig@baylibre.com/
+would be a suitable thread to share your opinion.
+
+Best regards
+Uwe
+
+--snd5d5o342ief275
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrcXyAACgkQj4D7WH0S
+/k6DIAf8DAU1k1OUjt0oOb7bxXYD1+h/zw0y3dtkGS8G+zRTS/qzzPPjfmqRP0h9
+J5L7m6Y88ojmkEkaTuZykFHJjTD0oRB1HPOJTgCW6xGNMm2ZWeh0nTUKgD9H5GY7
+w2HgqDafsFSbrwjrivGi8AGwp3WErwD0r+kOCr0MrPDA9d4RxztnKRXgDPP79VFz
+52dVyEVot3hTvhqxMfO0yLVcwGhQaO5VnfAGO3zqb7oOJoL3MzMUVk3Qo8NuSz6R
+zP04L1Pg9uTjUgCUKeKGGkzd/2+nMfGXjUGnId1rwsRI7WfBXP4t0r6JIOZsSNIY
+RuU/lvGyyvYfTEwZjc1S5kWfcRrIdw==
+=5xdK
+-----END PGP SIGNATURE-----
+
+--snd5d5o342ief275--
