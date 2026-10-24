@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792817897;
-	b=Ryn77VQhrT2+vM2a+RJhQuOoGhQJVmZGB3iMLyEyhgP+oE/PFv6rTH98hHsN5eYGzAiQ
-	 UCAhoMaRSk5vEoMXRVFodHkbLaRzDEPtV3AhCe9EkqBzZj4Z9DNl4bw5iidwhWgs1sG6Q
-	 j+Hyz7aGHP9XzboGCLgwURpCGv8FUFi/SakedOjBpIFFLOrpi8660CUMDHpjFtZEPFPFi
-	 EhtJFQF03qpvKtYUzlSRPNfhWanfZxR2Eh93/6UsEvju5KtwLL6cMj602j3Tx8K65amL2
-	 Tv+2XjtglQ1ZAWa4/6hgXCqCGbJ7fCz8o0Rur12bSDvan02tr2iFkqdIaIunOuCm4NA==
+	t=1792818110;
+	b=ZdFd+kVfh3Ks/ZDCR18yMFi2ohQDRxG97t291LwAtMBz3PJClPqYbJLad6Dx74af0TJZ
+	 RzVcbT+ulWh8kpfKXW3DioGdw3Wxzes2gJrzxB+F2MFWRe7IrwvctvbZdBRyf2rDWcxRI
+	 /G2L83aNn8PZvVIIqen/C5LX5jDfkIaqr0Dxr1RvteCLwAxbXX34VLc2S/zCd2rgBp0HO
+	 y6+E9VpHREEOv5PpFMRM9O+acnoTfEdZaDH8pM22gcwXmrDQpSBd+ZLfIvlaW+EkHFwnx
+	 MgzQTLV3OrKm2hko4+zyP1CfDbldX11LilofbK8qJ9iLHhxz6lsa1HlSUybT25MNIZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792817897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792818110;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uQmfOxNvc9iIeOJDbEHBzdrsJihOFNqCRHmYsABg43o=;
-	b=ZXgR+nnkv2KkSWR2d68CQsSo9DfeafJWKeu/JMQrwQhIbOuYVOiDrp3QrlfAfZxQcgsm
-	 8dtQtN64fskwkC2sYGpeXwtTxVnHH5WjNwufGoP4K70klPyfz64dqLy1DsTZix884GwCa
-	 Y2QUE6kqadlRNXUMY3tN4zgmvPoH6GI1KJ/dGiNXMaC5UWdqvoDGeIykuAj0fYAt52SVM
-	 XxW+M0v/o8NfJi5OXCWEAV9VzlJh/OlKnJ0ve80jprH0GuvjaXZYvZReniFe+b9XPLhfB
-	 IhIy5Y+DUkZIzyx+p8A879cmqGzZCI5Q0KR8XhceOc9zVTjwFyubIQFU+lfQEVP482w==
+	bh=QjdAauPyNyPBOjCjK8ggMh8fHWrHZ3D6H489h6NAddk=;
+	b=TgGwGVsMtD6G04PxP6Zf/Ea12IfnEtFn52T6PRyARcfYZMOklb03yQbID2oTnfI3ELgF
+	 2wWKH9jCUA7EJqWaQLDd9HNyWrC6uEO2qvyxkd4ul7o76F05ZxQJX6bXwKQL6Ac/AWciR
+	 IlcnSgthylaA667NkAHyCNSKcoKdcpboSa364paYve9Khz672j5d9kWheTQ6kKYcPHd6I
+	 7+5Wnd0rsHn9tcnvQbayXJDTVx5a2rYhePoTO2JLk0zbOt3uWxUSGQo/zzt4dYh8KO5tq
+	 WwdI8USgJOpw8pWuQN7rY9xxfK53stOeGQ9FiyTLbvExT+2oxabQ8RLmTXrBcLIivxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVup365A;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TKQuzlH6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 97501606A31A;
-	Sat, 24 Oct 2026 04:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB28D606A31B;
+	Sat, 24 Oct 2026 05:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVup365A
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9302E1F01825;
-	Sat, 24 Oct 2026 04:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792817897;
-	bh=uQmfOxNvc9iIeOJDbEHBzdrsJihOFNqCRHmYsABg43o=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TKQuzlH6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DC61F01825;
+	Sat, 24 Oct 2026 05:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792818109;
+	bh=QjdAauPyNyPBOjCjK8ggMh8fHWrHZ3D6H489h6NAddk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aVup365AqJh+oAlm24iBEBkK1C+xYqVGJX7udxhoFJbdR/6Hwm6f0dwaBmo8di454
-	 cHDO7c/zz+fF/XFthNcf/eZIAu0OhY7EJeWxQWMAkAMgSU49XNYhjjS358pK2DRScW
-	 QgC94uRFbNSp1pBOMSYMWNHDC5dvTpIe2m6Huuy3POoQUNqhKLbytO1luz06EFmBrd
-	 FS/dXRomtv8oqn2fOXwS6xmm6+8uq5VXoZQLpXzlk51vg1D1RIKnBeQom8vMKPyogn
-	 7QPQHXm1wHTJbhFQWNUbjCbN02DtSuFd8O6hgBMucOr3YHdn7Ox+aEfuULQ8DyfkVY
-	 ZWxKc2MG/zalQ==
-Date: Sat, 24 Oct 2026 07:58:13 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v2 5/6] KEYS: Replace assoc_array with rhashtable
-Message-ID: <atw65V6xfUJpUsN8@kernel.org>
-References: <20261023120953.1206778-1-jarkko@kernel.org>
- <20261023120953.1206778-6-jarkko@kernel.org>
+	b=TKQuzlH6yJquisNkTupWu6dg4NhBRFh3mtF2EtlFlSStJgYOILdwQGF1uLU101/Gn
+	 /TYfTjZQSbGb2QjJxz+/FKXpiSl1vLqhQkc1HI3NUd0T+nkLH+gTIWmKYoy4KIb8db
+	 8pRTUtDLD1aT9d82JgBsiMvA01cLDTE2LDKGntmU=
+Date: Sat, 24 Oct 2026 06:48:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: lyude@redhat.com
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	A1RM4X <dev@a1rm4x.com>, Alan Stern <stern@rowland.harvard.edu>,
+	Christoffer Sandberg <cs@tuxedo.de>, Kees Cook <kees@kernel.org>,
+	Rodrigo Lugathe da =?iso-8859-1?B?Q29uY2Vp5+Nv?= Alves <lugathe2@gmail.com>,
+	Jie Deng <dengjie03@kylinos.cn>,
+	Werner Sembach <wse@tuxedocomputers.com>,
+	"Stephen J. Fuhry" <fuhrysteve@gmail.com>,
+	Nikhil Solanke <nikhilsolanke5@gmail.com>,
+	Vyacheslav Vahnenko <vahnenko2003@gmail.com>
+Subject: Re: [PATCH v2] usb: core: Add quirk for Gigabyte Aorus Waterforce X
+ II AIO coolers
+Message-ID: <2026102448-bust-thinness-a63f@gregkh>
+References: <20260824195419.234898-1-lyude@redhat.com>
+ <8b131d2c06adfaf9ce1d6e8cf6c09c749d0e4d1c.camel@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,60 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023120953.1206778-6-jarkko@kernel.org>
+In-Reply-To: <8b131d2c06adfaf9ce1d6e8cf6c09c749d0e4d1c.camel@redhat.com>
 
-I'll just run through three issues that I forgot to update for this
-patch set version. I think it was good because probably these could
-use some feedback.
+On Fri, Oct 23, 2026 at 03:31:45PM -0400, lyude@redhat.com wrote:
+> Friendly poke
 
-On Fri, Oct 23, 2026 at 03:09:25PM +0300, Jarkko Sakkinen wrote:
-> +	WARN_ON(rhashtable_remove_fast(&links->ht, &link->node,
-> +				       keyring_link_params));
-> +	list_del_rcu(&link->list);
-> +	WRITE_ONCE(links->nr, links->nr - 1);
-> +	call_rcu(&link->rcu, keyring_link_free_rcu);
+It's in the "to review" queue, sorry for the delay.
 
-keyring_remove_link() is called by __key_unlink() and keyring_gc(),
-which are infallible operations.
-
-At minimum this should be changed as:
-
-	if (WARN_ON(rhashtable_remove_fast(/* ... */))
-		return;
-	
-	/* ... */
-
-Alternatively, keyring_remove_link() could be fallible operation,
-and leave that decision up to the callers.
-
-> +		WARN_ON(rhashtable_replace_fast(&links->ht, &old->node,
-> +						&link->node,
-> +						keyring_link_params));
-> +		list_replace_rcu(&old->list, &link->list);
-> +		call_rcu(&old->rcu, keyring_link_free_rcu);
-
-__key_link() is called by __key_instantiate_and_link(), key_link(),
-key_move(), construct_alloc_key() and key_reject_and_link() i.e.,
-by majority fallible functions.
-
-Are all of these call sites such that if __key_link() was a fallible
-operation it would be impossible roll back, or is this something that
-could be addressed better?
-
-> +			WARN_ON(rhashtable_remove_fast(&keyring_index_locked(keyring)->ht,
-> +						       &link->node,
-> +						       keyring_link_params));
-> +			call_rcu(&link->rcu, keyring_link_free_rcu);
-
-__key_link_end() goes along the lines of keyring_link_remove().
-
-However these are decided I will remove keyring_link_remove(). There's
-enough symbols to get confused already, it has only two call sites and
-frankly I'd just want to see its contents open-coded in those sites.
-And it makes the level symmetric with __key_link_end().
-
-keyring_link_remove() is type of slop that needs to be wiped away
-constantly from any LLM sourced code, at least in my experience as models
-tend to build on top of that design, and soon you have a nest.
-
-Br, Jarkko
+greg k-h
