@@ -1,71 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792851036;
-	b=SaSjL052UxX2wUDfDADfaJgpuEJ18QxROfVcSkZlR1fDYh/3+6Yv8xNaVMpHjQWtj6w2
-	 +6MumPupP6n0QMonfZOsTw5c6KBTfAVfti0DVqHPOC1ARWQzDRkTCA4TWIzO6aj0KMST6
-	 U4DSds2r1XpyN1UFo1D17Gmj78rBkJ+uHvO7sAcvAfrJobMBYMBZwA46Y5tSC1Vx1Q8Zv
-	 vsT7IuYNjJPH03anamCe6LQSE/SNF9rARbE4mG24VVqQBTYQvSJiWr81NFLi2zlOEkpsz
-	 h053ns/KlYtpBBbqpOoG2wmvwm5uH/K3BEEi2FfmRaSjbrUxRAIKGvK4N0dGWjaZYcA==
+	t=1792851054;
+	b=3t1pCvNXNn5yN0WnugOfhSYgEKyW3x8rJ6QmWTt7AgeBKysK5zmBZH+PJbwvIwVnXJZB
+	 86UltWqGJfWfz0YufnrmdG6rHuJkZWD/O5YitPREsSguoIe5d50wpOPVj39pzF08u+/G5
+	 yBgpIZu/eDlcxi0niXCcaFPMAZYXCP4CXFGweRoOWbzMVtiqTiLVzXYkk51fX/44WfSZu
+	 XSRNzH/w39iVFZoc32dUltIe7mc+0AJtC80/tzPePUJfzkVlLbmdTSnmP+yTMGuA3Wsix
+	 RZtpRUU3h6BsgvZt9jVUQ8Rw5W/ra9uat88NI7tP6fcbhFECYhNAg+ymztLnbWigu8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792851036;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1cyOmveFG88rblFA1+YPp569uX+2Rs8Ra++X7bjgTx4=;
-	b=zPYJAWroWqvemvV5Qr0dMRsKgxE341bzeugo1a74tscllTC4P4RButjVDazaL2K5DGIr
-	 BTRIXqRRs1QyVAch3+TQIZAtfNvolsIE2D3ANheAZdh/GDaX0225eiiFYqkzVqNXga2Iv
-	 dWqCbrm8UhyAPVjbCmdiOrLVCLcYiiHscRlv1RjziVcp70Fm+MuBF7Yr1qW8p5932tR8S
-	 WX3qDItecPcNtljy+kJ9l54AdskeSC8lVVUHQT3+4s1uJaQB7reEfRnv37bB3r691xkN0
-	 URutR4NUT0ga3PHAZ5O49J6f3juenviHLV6Svu9a6awczEzpKj2/rUku42U7DOg5W5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792851054;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rooLqVXyeooPFB49xJl5CZBUAzmbO1HTbYDkbc4qOtA=;
+	b=XlIqUADlxEHSAp+t6Q87lj5m5TrdUlVMdIfc/Uavl9JAwPxvYhI4uGeyD83iIrP0Nff+
+	 d+HwStjqfY5g9VI6qzlTwDXJtg41uMLwI7tI3BCzTmrpQUBbAQkQnsoy367lmYNPrt22T
+	 LQtBuk2vIGTSajv6S3t094BjUcLJ2giGG7oW7vhoopcNcbKIvpPS1m4W85RbqvEQnt7OP
+	 /mwdn6iTIZ+RByTdHLYS9myqQQCa5ykQ0SpN8247Fa1hHOlSQOSpDsuYQup/6yFIdhsej
+	 fyqTzYTFhQoQVUiCjRG9YInDD7IsCPXirc+wp3LjvDHqooI09+Ybsr2yO+FkaeN65qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfMqMdBE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wBpbDCsE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2391606A31B;
-	Sat, 24 Oct 2026 14:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABDC606A31A;
+	Sat, 24 Oct 2026 14:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfMqMdBE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31091F01825;
-	Sat, 24 Oct 2026 14:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792851035;
-	bh=1cyOmveFG88rblFA1+YPp569uX+2Rs8Ra++X7bjgTx4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MfMqMdBExn4Nwx9C+EG10zQKRFkA2fZEkLTHwckqGgfXMc8rQnE3zADGm0PGam9m0
-	 oh3l+lXti5J6FhA3ZDxXtrZFbpar5zYW9Oejza32Xb1sC8oZKisdg7ouUgahG9LOMh
-	 ZZqji/S7HVMAIViDY+3swCMjeW0Y04dOiA2RSwwgbtMrAEqezwkxCkotrGEXrxggqI
-	 s4CmZBENVtr2OjS+7d+u1vIg+UOlOvxu9GRdHU4W39ujPqt7kwWYrbKnzdhNpBeREf
-	 UspXn/FGtvcmGmW9OvceJv1gfG2/NMlHzk17icjkBL5kk+yVXytrCay46mZpSxn2dW
-	 g2/0/SO99Iwcw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
-Date: Sat, 24 Oct 2026 16:10:25 +0200
-Message-ID: <20261024141025.154295-1-ojeda@kernel.org>
-In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
-References: <20261024064731.125251200@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wBpbDCsE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6512E1F01825;
+	Sat, 24 Oct 2026 14:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792851052;
+	bh=rooLqVXyeooPFB49xJl5CZBUAzmbO1HTbYDkbc4qOtA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wBpbDCsELpqdzwz6j+5kit4so09j2vuscgqDddx4L8xEIJRDoHbWpdN3b1wCm5jKk
+	 RHu5C7RBiT/2nAWDwsRFzXPUGY0WPDyO4qlgpIoXbnt2DO/XeIikjSsh5U2HPuNZZs
+	 Io1PKSfcacaMLxIBXeYG3gBZD1rDEsVNYg51BuwI=
+Date: Sat, 24 Oct 2026 16:10:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: clean up PLL calculation code
+Message-ID: <2026102447-exhale-overarch-8ce7@gregkh>
+References: <20261024073549.29531-1-himanshu.bakshi478@gmail.com>
+ <2026102448-tackle-footnote-9ca0@gregkh>
+ <CAGLmz9+J-s98cT_ZFHF5EU7t=beK8m82fjq20+n5dmncdrMSEQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,24 +56,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGLmz9+J-s98cT_ZFHF5EU7t=beK8m82fjq20+n5dmncdrMSEQ@mail.gmail.com>
 
-On Sat, 24 Oct 2026 08:59:39 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 243 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Sat, Oct 24, 2026 at 05:20:41PM +0530, Himanshu Bakshi wrote:
+> Hi Greg,
+
+Please do not top-post or send html email, the list rejects that.
+
+> I found this while reviewing sm750_calc_pll_value() and looking for a
+> cleaner way to handle the PLL candidate calculation.
+
+But why does it need to be "cleaner"?
+
+> I tested the change as follows:
 > 
-> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
-> Anything received after that time might be too late.
+> Built the sm750fb driver successfully using make -j2
+> M=drivers/staging/sm750fb W=1.
+> 
+> Ran a standalone C differential regression test comparing the original
+> and modified algorithms across 2,010,084 test cases, including
+> frequency sweeps, boundary values, and randomized requests.
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Ah, you used a LLM.  You have read:
+	https://lore.kernel.org/r/2026080354-skater-urgent-31b2@gregkh
+right?
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Sorry,
 
-Thanks!
-
-Cheers,
-Miguel
+greg k-h
