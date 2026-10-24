@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792801962;
-	b=RjZagJ4jekMTWpqTwORYFn+0TsnKau2aN8IgOUkgpUDOe7wISvRotJkgU80tQPCaKVjJ
-	 kZZg09QZR9LlzQt1zdAAZ+dIWd0otAyaFDWrwxo/RzC1mej1ItQztiJjRbqBUKxBlYoY/
-	 xQ6ud9Bz6MBuS81WoAEIJW3c+SI4bwMq8mvCdysly7G4LFMObRu+HWI6kX0pEdEgnulEm
-	 NittyjW8GmP29hw78tG+AxmO5P20n4/aZvC7CK1V+esaj91YM4U5butyTlepibb0jJ5Yv
-	 I3gu9yHWEZfuqZveskxtgnonDf1hT4mNFSDgmRg3vm5VAFCtk1LPaPbnRorVPXGRVMA==
+	t=1792802111;
+	b=AYfQC1nUyoWaBJiWnwmNXMqBGiT0RnTLVDKrVwe47GuhbH8P8na4xb0VwGYSkg6gJf+Z
+	 TuMrf04+7kwgsJDLsQNlNdRy/Qlggbl/NdM86W2HskHV5yrw/gqrmzCBZLX8fAI7/U8et
+	 1V0dfKDbvyrV1eahVPEhQoEYV2y7wzAI79aNidOQE7Z50Q+sp6xGSq6hcFahXFOuJaz1z
+	 OUkTC49cJvs89jHl3Sd0+5E/rhB7+dlkNHoFH7Cq8Ste9DINQAKTmqyubUI52qiqIz011
+	 0mMQaCnm6vI0o5pMmwxku8trKziae2TAusy8XzyJiRYNcIjhbvu6fntPLcRkiS2GjRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792801962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792802111;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XyvT2RE/oWa975FzIOJtY2uQYaJ6b76CZmdE3rvCcGg=;
-	b=T0ypCAReKSd/7aoyoX/NrNhz+J4wxLJJgaP8VIIdWEjg9z1Gv2i5QIN0WiuAQ6dTdlqW
-	 EMT7zrkA3KaaonDzVqZ/Wris4E1RqZrx2OCtnAt7x4NdXSkxLKoFK3DVUSrhGJupdx1bS
-	 lDjQietNgb/K4WvytId3/DikFEHhJG+KqfuRRvhHLLd4zyYgFKzky5PPiVhnAMUiPw76v
-	 ksUdZJqH/IJndvncJVkb+m5FICzdnSXckdornuwenGXphj6J0wQEY9CgTBeA6MSE9VkNj
-	 AOvMUZPy5u1rv9lsE4/vHMdh8jKueUeERAMx6GjRtsVIFE+oLYvGYWpMQUkT3muteww==
+	bh=d+HNJ4xMxnEgTTUQcyEb0YV9rSrW2aczwrTwMqYQtlI=;
+	b=iz4Bn0RTSBCl4OLjnCiEP9qKc5Zx25EWfBVBzW6/vacoIF5/JnIh6K4Zxe4vcXnUsRaW
+	 u+IqCASysJYEUY1zd/hShOxEd8oKUyOnQmrNadqwulX2js8wKc33hxNvlnixxGZE462js
+	 OaS9pmegFTFw0vPmjR8leXwsZYyBe9y9JAsv9gGMJR3gmKGW9+8qMXewx5doP+MmIA8jS
+	 QNVNEBjMxEt1O2rkH3R5EUABkak1PPqvbztaqc3ACX16IdUv1rlcpPNLr9ljVkPhebTVd
+	 epaXQZw7HNaW95C32idqe83eqY+PiEaLts7zm1Bs7Ed+0LaX4LkjYJ0ilaDL93AqpuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FxGxOuh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmvIrT1u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8B5606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74C1606A31A;
+	Sat, 24 Oct 2026 00:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FxGxOuh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5D71F01825;
-	Sat, 24 Oct 2026 00:32:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmvIrT1u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0A11F01825;
+	Sat, 24 Oct 2026 00:35:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792801961;
-	bh=XyvT2RE/oWa975FzIOJtY2uQYaJ6b76CZmdE3rvCcGg=;
+	s=k20260515; t=1792802110;
+	bh=d+HNJ4xMxnEgTTUQcyEb0YV9rSrW2aczwrTwMqYQtlI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FxGxOuh/qmzaizPy8znUs4Ovs8LBRfCG0WpOIEBXvPML2LdenQK9hFoIwWZ1NSmNt
-	 MuJef1AXNcPkYkL3YYRD7q5xpnIfJhxgmEsrJ9GmGbpP3Z2k/yUbwKsNdf2tjkPohV
-	 b1V/68EyIIlXe80UExpffL2TLPJuVj17/6j5kXRYw6LPyPjEw4ZYJOmlNsys2cfGG1
-	 d6OU06zSF9WH3QUWKdMFkmYwmCtNfOdsoJ5tS+YlMlZyFhwAO3+pJubyBTJqxKRCnC
-	 4QAyZ5L0SjDspHzDsmmFunBu+l/sQTW1Eat9cPBaRwCTeHMPkvZ0SQtxXcF25iQV/c
-	 XS6vIg+7xTBNw==
+	b=cmvIrT1uP+vfGt8oq5aXJwbRrrFCuvn1u7jXRvf2Xs8Sc6u9/gmtT/Bcj/TfYtn5O
+	 CY6U/hnLuxanrG+c9GuWxDUsPjV2zXa/pJ157TIqANKa3zghRvz7M2G5kebTppX5Eu
+	 wSkl22zIrfwMZWQaGeWHmRIzUgWcVINsPkgkVQTV/xyWkU3e+tgiq73U9yb0GehyaL
+	 D3ObsRXnx3LttwY8jM2zga/a51ExMomg7jX4f01G683b38e4erPEQuDDeIb1pcD509
+	 Zpta62Qd8fE1/ny00/C/w2iLsP0+yIJVTQBQumGyHmNsPOaCEDAIwSXsZ8LhsfpOQc
+	 3tHloDDnDBhbw==
 From: SJ Park <sj@kernel.org>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Gregory Price <gourry@gourry.net>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Zi Yan <ziy@nvidia.com>
-Subject: Re: [PATCH] mm/mempolicy: remove unused mpol_is_preferred_many()
-Date: Fri, 23 Oct 2026 17:32:33 -0700
-Message-ID: <20261024003234.86981-1-sj@kernel.org>
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] uaccess: fix some erroneous kerneldoc comments
+Date: Fri, 23 Oct 2026 17:35:02 -0700
+Message-ID: <20261024003503.87171-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261023161003.59086-1-ekffu200098@gmail.com>
+In-Reply-To: <87se1ww4ld.fsf@trenco.lwn.net>
 References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,19 +63,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 01:10:01 +0900 Sang-Heon Jeon <ekffu200098@gmail.com> wrote:
+On Fri, 23 Oct 2026 14:21:18 -0600 Jonathan Corbet <corbet@lwn.net> wrote:
 
-> Since commit a492abe28bec ("mm: hugetlb: move mpol interpretation out of
-> dequeue_hugetlb_folio_vma()"), mpol_is_preferred_many() has no callers.
+> Several of the comments in include/linux/uaccess.h generate kerneldoc
+> warnings due to the use of "/**" markers on non-kerneldoc comments and
+> unmarked literal blocks.  Bring these digressions into form and eliminate a
+> number of docs-build warnings.  No changes to code or documentation
+> content.
 
-Looks correct to me.
+All look good to me.
 
 > 
-> So remove it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> Signed-off-by: Jonathan Corbet <corbet@lwn.net>
 
 Reviewed-by: SJ Park <sj@kernel.org>
 
