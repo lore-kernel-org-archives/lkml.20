@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792831662;
-	b=k3cJw4IiVI81oCi1hDasfqf8ZRQdga9dd4CgXAhLOJmOAIRs8iZMJ37/0BWh4sucj+Bl
-	 39gkj5Fi1a53efZViQ3obf5yik4Ppisd2R0q7R6RcY3B6dPyLpC9AY6P5Lc1foCnDN6HU
-	 9cDyBPT4V21BIC36Q4JmvjxVuzrIs8bBksQATCJkZA5TMSTnxVy1zhxQr1T481+9db6DX
-	 FJgNnspjUItb2/UC+i/qIKYiNqs3mOxrw/7UFsH7I6r6J56/atXPbxjfl3rhzSeRIHIr/
-	 +oaXh/WWZJVtUPM3FbDh+aHovpKIVjUVpn5GtvCyf5ua1C5+5QAf14O42tWNixJ+NbQ==
+	t=1792831719;
+	b=EhmnHy3GOP+0xQQBPERSwwy+DXN5/OGhQ3WQTI0Se8CBHS5QBp5BE7kQEg4yEhynyaKj
+	 AV3019fL6kOvhPClAfXUwD+ad0zxdL4kDKF8/WpTS1La7Un7ytL1fKGLtCCYe/Cu+N5P3
+	 NOFfWmGYWIzDsoVsJhek4M1PDqLgpgpoor5g+ipPVIUhItv3v4dasGUe9fMWnzBqCFcez
+	 zFtGuhVCaoSNa2miDN3/4F/mQlStTcIwPCHCVdQKebitNDshtrNqaAyg/ERujM4/0CFHu
+	 YkiKWKpkYTsArfxXmh9u/OLDhI7pWRJLxAWFR8lgmKFMVzmBNVHWqlmHCEAewrNDGcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831662;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8pjWJ7MxhiXzcGQKA8H10bDbnfInh/RbZKPKduHuA1U=;
-	b=w+Jg6ZPryR0GzrTsR0z/Zv0OAvs5/M329uhD8cy1wEKJxbmZL8pkpxzVGU4+brxLhdlA
-	 mFGubkD/NqUSYdo5DKkkI/rdFSX0RxnjNFJ/zcRePV+o71hoinCfEacZ/IOh43U3zqaUZ
-	 s3TsVNny223hhnKH7APEHv25e/Tr2Zylx8p5vKucsKsdG0Spm2dIXqZO6HVxc518JvPDs
-	 WNcAaUx+WYXerV4vRSu7Ri2TPsWAmvwRkVjyl7q/kLpZt8z+LK7GW2ShBLMV39s26Fe/8
-	 c2lJCJfZS1xeVuB0YYCqPljR9pRAQLlq8FGTvC3mcq5dTmitPpEcXkYy9WN/5kIu93w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831719;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=9AgtTST0Z1+lZzItDh6NHPXLbM/PZEmotJfB+llmyrU=;
+	b=zuAf5Qag8vp7OmT3QDJr0yGOw9Olln42FbDCzVF3YYMeE17/pc8g8p0Ta0/dn2WVn1Yp
+	 bFqSu/DIIpDAcot6dzV5528urrq23x+hFD7OE3zsEZ114I0Ym/IfVtU/LzwDC0Bezv2cA
+	 ymgZdTx3FT1Pd20ZZTxZEvNSuOYPet32L0/IAxCglJGj7/nuknX2j19pYj6cFeSy9+e5v
+	 Y4f+0gGgINOBcG/bqblp0uGcSisFAU32s2dIMqHMyTgRZ9u8l+ISRHPn1q6jZ29ElGM25
+	 x0q2oASAZP1BxvXD49sRwryEqBwvK8X6sCiF1CDFrFnzO+XscP+UUUGhW1WQXuuf7lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FPHYZ1s4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TaHMi9pO;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9FC606A31A;
-	Sat, 24 Oct 2026 08:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B61E606A31A;
+	Sat, 24 Oct 2026 08:48:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B61E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FPHYZ1s4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BD81F01825;
-	Sat, 24 Oct 2026 08:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792831661;
-	bh=8pjWJ7MxhiXzcGQKA8H10bDbnfInh/RbZKPKduHuA1U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FPHYZ1s4QJbr4v6RAqXkTXmwMQiSPFtAjF9pjrNkcDrPPN8LyCM3RLzoLK0FsGhmr
-	 w8I82K+xvP+2Vm2dhqd3gY1PrMSWZyPfDFBT4eNqfaPzlEHQisKNsBz3v2yHeM31fm
-	 OO/QaLHwTgdFKycOATf+R7lUkTzWcohv6z8KaBAw=
-Date: Sat, 24 Oct 2026 01:47:40 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: <tglx@kernel.org>, <linux-kernel@vger.kernel.org>, <bp@alien8.de>,
- <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
- <tim.c.chen@linux.intel.com>, <dan.liang@intel.com>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v4] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-Message-Id: <20261024014740.3701054aa2f412748b985de2@linux-foundation.org>
-In-Reply-To: <20260826171537.4167367-1-Vishal.Badole@amd.com>
-References: <20260826171537.4167367-1-Vishal.Badole@amd.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TaHMi9pO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=9AgtTST0Z1+lZzItDh6NHPXLbM/PZEmotJfB+llmyrU=;
+	b=TaHMi9pO37EKQ+3z2f+xaCd6Np7e2YIPiaPETy17/9ELx/P7Km0nKgC+O+H5J2
+	eEEdjxEZAy3JrYdwCFAeADiPkuyUYQQnIboPYAm1xjd0PYwEh8WgAHI6wnKW+c3U
+	Riav4wJ/uFu9Wo69uN2TnhItT/R0W3jKrE/UX5sdHeHz4=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_XDcNxqoEbyCA--.11666S3;
+	Sat, 24 Oct 2026 16:48:04 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Date: Sat, 24 Oct 2026 16:47:23 +0800
+Subject: [PATCH 1/2] ASoC: es8328: describe the power-on register values in
+ the regmap
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,81 +55,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-es8328-vol-init-v1-1-efbd24de9639@163.com>
+References: <20261024-es8328-vol-init-v1-0-efbd24de9639@163.com>
+In-Reply-To: <20261024-es8328-vol-init-v1-0-efbd24de9639@163.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wD31_XDcNxqoEbyCA--.11666S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr18GF4rGrW3CrWUWry8Krg_yoW5ZFyUpr
+	n0qFySkF1rtw47Zr93GFyrAF1rArWaqFyDCa1xKr13tayUZrykKws0kryqqrySqwnxWr43
+	tw15Aa17WF48ZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKQ6JbUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+gUfjGrccMU5vAAA3q
 
-On Wed, 26 Aug 2026 22:45:37 +0530 Vishal Badole <Vishal.Badole@amd.com> wrote:
+The driver uses REGCACHE_MAPLE but does not provide reg_defaults, so the
+cache starts out empty: a register that has not been written yet is read
+back from the hardware and cached at that point. The two then drift
+apart whenever something else, such as the bootloader or a previous
+kernel, has left the codec in a non-default state, and the control
+values reported to userspace no longer describe the chip.
 
-> group_cpus_evenly() builds the managed-IRQ affinity spread used by
-> multi-queue devices such as NVMe. That spread is meant to be a property
-> of the static CPU topology: it walks cpu_present_mask and then
-> cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-> including CPUs that are offline at the time. A driver depends on that
-> partition staying stable across re-computation - the CPUs a queue is
-> given at probe must still describe the same queue after the device is
-> later reset and its affinity recomputed.
-> 
-> On an AMD system that stability breaks across an s2idle cycle. With CPUs
-> 3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-> s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-> resume fully re-initialises it and recomputes the affinity spread. The
-> system then hangs for roughly two minutes and stays sluggish afterwards,
-> the controller only making progress through its command-timeout poll:
-> 
->   nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
->   nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
-> 
-> QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-> was recomputed. "completion polled" means the commands did finish in
-> hardware, but their interrupts were never delivered to a CPU that was
-> watching the queue, so nothing reaped them until the timeout fired.
-> 
-> It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-> cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-> which lists only the cluster siblings that are online when it is called.
-> The resulting partition therefore depends on the transient online mask
-> rather than on the topology alone. Recomputed on resume while the non-boot
-> CPUs are still offline, it no longer matches the boot-time partition, and a
-> queue is left with an affinity that does not cover the CPU it is meant to
-> serve once that CPU comes back online. The dependence is on the online
-> mask, not on any AMD-specific behaviour, so the same stall is reproducible
-> on Intel platforms as well.
-> 
-> Make the cluster grouping depend on the complete cluster topology rather
-> than on whichever CPUs happen to be online. Snapshot the cluster masks
-> once while every present CPU is online and reuse that view for every
-> later spread. Every spread then groups from the same masks, so the
-> partition computed when the controller is reset matches the one computed
-> at probe and each queue's IRQ still covers the CPUs it serves. If the
-> snapshot was never taken, the cluster path is skipped and the plain
-> present/possible spread is used.
+Fill in the reset values from the ES8328 datasheet (Revision 1.0, the
+per-register sections 6.1.1 to 6.3.30) so the cache matches what the
+codec comes up with on power-up.
 
-I fed this into my evolving AI reviewbot and it had a few things to
-say:
+Assisted-by: Hermes:deepseek-v4-flash
+Signed-off-by: Bob Hui <bg9oxa@163.com>
+---
+ sound/soc/codecs/es8328.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index aaa6646ad4c5e..d7f93de82f69a 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -856,11 +856,69 @@ static void es8328_remove(struct snd_soc_component *component)
+ 			       es8328->supplies);
+ }
+ 
++static const struct reg_default es8328_reg_defaults[] = {
++	{ ES8328_CONTROL1,	0x06 },
++	{ ES8328_CONTROL2,	0x1c },
++	{ ES8328_CHIPPOWER,	0xc3 },
++	{ ES8328_ADCPOWER,	0xfc },
++	{ ES8328_DACPOWER,	0xc0 },
++	{ ES8328_CHIPLOPOW1,	0x00 },
++	{ ES8328_CHIPLOPOW2,	0x00 },
++	{ ES8328_ANAVOLMANAG,	0x7c },
++	{ ES8328_MASTERMODE,	0x80 },
++	{ ES8328_ADCCONTROL1,	0x00 },
++	{ ES8328_ADCCONTROL2,	0x00 },
++	{ ES8328_ADCCONTROL3,	0x06 },
++	{ ES8328_ADCCONTROL4,	0x00 },
++	{ ES8328_ADCCONTROL5,	0x06 },
++	{ ES8328_ADCCONTROL6,	0x30 },
++	{ ES8328_ADCCONTROL7,	0x30 },
++	{ ES8328_ADCCONTROL8,	0xc0 },
++	{ ES8328_ADCCONTROL9,	0xc0 },
++	{ ES8328_ADCCONTROL10,	0x38 },
++	{ ES8328_ADCCONTROL11,	0xb0 },
++	{ ES8328_ADCCONTROL12,	0x32 },
++	{ ES8328_ADCCONTROL13,	0x06 },
++	{ ES8328_ADCCONTROL14,	0x00 },
++	{ ES8328_DACCONTROL1,	0x00 },
++	{ ES8328_DACCONTROL2,	0x06 },
++	{ ES8328_DACCONTROL3,	0x32 },
++	{ ES8328_DACCONTROL4,	0xc0 },
++	{ ES8328_DACCONTROL5,	0xc0 },
++	{ ES8328_DACCONTROL6,	0x08 },
++	{ ES8328_DACCONTROL7,	0x06 },
++	{ ES8328_DACCONTROL8,	0x1f },
++	{ ES8328_DACCONTROL9,	0xf7 },
++	{ ES8328_DACCONTROL10,	0xfd },
++	{ ES8328_DACCONTROL11,	0xff },
++	{ ES8328_DACCONTROL12,	0x1f },
++	{ ES8328_DACCONTROL13,	0xf7 },
++	{ ES8328_DACCONTROL14,	0xfd },
++	{ ES8328_DACCONTROL15,	0xff },
++	{ ES8328_DACCONTROL16,	0x00 },
++	{ ES8328_DACCONTROL17,	0x38 },
++	{ ES8328_DACCONTROL18,	0x38 },
++	{ ES8328_DACCONTROL19,	0x38 },
++	{ ES8328_DACCONTROL20,	0x38 },
++	{ ES8328_DACCONTROL21,	0x38 },
++	{ ES8328_DACCONTROL22,	0x38 },
++	{ ES8328_DACCONTROL23,	0x00 },
++	{ ES8328_LOUT1VOL,	0x00 },
++	{ ES8328_ROUT1VOL,	0x00 },
++	{ ES8328_LOUT2VOL,	0x00 },
++	{ ES8328_ROUT2VOL,	0x00 },
++	{ ES8328_MONOOUTVOL,	0x00 },
++	{ ES8328_DACCONTROL29,	0x00 },
++	{ ES8328_DACCONTROL30,	0x00 },
++};
++
+ const struct regmap_config es8328_regmap_config = {
+ 	.reg_bits	= 8,
+ 	.val_bits	= 8,
+ 	.max_register	= ES8328_REG_MAX,
+ 	.cache_type	= REGCACHE_MAPLE,
++	.reg_defaults		= es8328_reg_defaults,
++	.num_reg_defaults	= ARRAY_SIZE(es8328_reg_defaults),
+ 	.use_single_read = true,
+ 	.use_single_write = true,
+ };
 
-The snapshot helps when the first affinity spread is computed with all
-present CPUs online, but I don't think it guarantees the invariant
-claimed in the changelog.
+-- 
+2.34.1
 
-If the first spread happens while some present CPUs are offline,
-capture_cluster_snapshot() declines to run and we use plain grouping.
-When those CPUs come online a later spread captures the clusters and
-changes the grouping algorithm. For clusters {0,2} and {1,3}, two IRQ
-groups can change from {0,1}/{2,3} to {0,2}/{1,3}.
-
-Also, even after the snapshot, grp_spread_init_one() still consults
-live topology_sibling_cpumask(). x86 CPU offlining changes these masks.
-On an L2 cluster containing multiple SMT cores, assigning multiple
-IRQ groups inside that cluster can therefore change across hotplug.
-
-There's also a new failure mode: if the first snapshot allocation or
-cpus_read_trylock() fails, we use plain grouping, then switch to
-cluster grouping after a subsequent successful capture. I can produce
-different masks this way with all CPUs remaining online.
-
-I've verified the mask differences in reduced GCC and Clang models,
-not in a kernel/NVMe reproducer. Can we make the entire assignment
-independent of online sibling masks and avoid switching algorithms
-after an affinity spread has already been handed to a device?
