@@ -1,94 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792859729;
-	b=ElqC5l4XC16W6lxRPbEDC6QAOPgE7QpK9FRCKCr5MB5IJs+wB97/hIKQDmsMB6eHB7lk
-	 2ysHZvhY7qD9VnnBTJT2YdoiWsTZkp5JYSBTSoc44FwVzPqhniwiWfrMd3nrc03eWqdgF
-	 UB3HHkhDCWE043S/0WVMGvP4/29T528pVY0aAlcIQPBHvrFbQB8hl5TGl17IrlwP4UC1T
-	 hsMGCJ9EhEp+j+QvhLc4mVAwEe6vdJ7+Qq3PIs8FSeVLBUHe/r1r0YwAbUg8X+JT+SNfS
-	 WuoktHvf8aD6hxdWeoRN+5ncIHMZ3Fjapc2752gBzeEAafpedD57+GD891FVAjD1oNw==
+	t=1792859735;
+	b=N/2NUB+pJ9+YftkkUgfuIDBNKsR0UYwPEeVi7opDTTnci4VdfCH+PtAumpyikK8CX3mo
+	 fza8w91mKz0sZd32eKyn6AZz+LJcIfLPh6ath66BMLsuUJPpP9ABG43m5DHrSarHB1WTZ
+	 pH8+/1w+VyhLnUZ3NUP0AV+Lyq4Esv5WEPNtpWBQce5hjP+W4xgrFyNfL0+czU+Dri353
+	 BdORsM2clzY6RyJqR1S8a+YJcsZMB3T7smCT7kWxuQnfFdfPqmBOHpKrk4njhvFkXk7Kg
+	 2RpyzaftVnPhna8hxi6KmslVTWQ2prCQkheVUxEMT2RHpEwqyJAQAOBWo4x7sgWyrTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792859729;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859735;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
-	b=lJSzqnyiM2pX7nRa+akvI7Ootdi4XfPk8m9R4kEiUWwrLsDSAOtVH4GRVPBPETs2zZ/o
-	 1DECdw/N8j0XSn/1I9xcaTjc9LOpSu3Isl5q8CjPKq/0SxsoZgs19EtBJrO9ORt1CeQUc
-	 UtjJAMIGpno60IHsmRtwICfuES2dM4sDcO+sSHhPemJjHFnqbwueawW7XZCq95L4LvmCD
-	 p9P+hCiBImGojv87foBeUeMTrqy40/Kz7VPNUimSqE1QXCuCNa/A6E7MG6x1NLwLFsD4e
-	 pW35mUBjCLaMkpv0g1wBrQiaMxjuzwQOT3Bqa5+u3VciS+1KCuLZcXuS90HEoRdq3WQ==
+	bh=MQRcY6gEkOWv6JkX7ccMW9dbIba5qzHy/u5c+DannKk=;
+	b=Fk7e7ol5ca3HWuzbVHpeLrWP15b6hcprlWKZ4o+WZ/OXE84THrBBjcqk7o5jb7FWWmCZ
+	 AjcVD+b/HwSMeYlWcusgGaOqQknd4PzPrdfmAF9JQEhw3Ck5yt5E/+OWaj8YcpoTGEYYN
+	 U3e8w2hqaNWQUOLW37HNe6knexS0+AYfKp4wBXMFr/Ww5p9uDJtj/31IBJlkWyIkKVNxM
+	 Rt+mzMKja9nzct8kk7d3mevj450xXog0Nvg6hbkm1rSr6O4MF3Lu6/wJHIbGzqe2pe0yt
+	 Ox1NNfXHhgxhp9MI5CV4U/sRqseOhOmyHroDo54Fv4KMn1GKdrsoZem+KjmXlzkiXmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cj0IM7MX;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=GwE5+yBf;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF00606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:35:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF00606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E611606A31B;
+	Sat, 24 Oct 2026 16:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E611606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cj0IM7MX
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso8875115ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:35:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792859728; x=1793464528; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
-        b=cj0IM7MXu4d+VrnTPUtOdeDHOVplQNaTd6KJFLS2ksUTk/tneXL2xjceiGG/Q5jcFt
-         uqisNf7l+ieEWxW+pzp/VzV4tCZaQZgi8PoqL7iKI1XQ2ZiM/g9V8LHDTYxPOKCMZ6PS
-         846kxjdVokVw3uEw9K1VyN0RbGIYuNjTFNNdvVuzqE6YS5MWjJttPtDDR7oR/Tzf12jz
-         zexoarhQsRR0GhYPMeaZcPWMETbn9FQYNmnpJU6dZckuHruvICQLV/SEPiNptz/QYu2R
-         z5sIEGZnZLin+R7b2M1KuoM7E1OF2bMHPKLuVO/m7na7fCOKeFugsQQtDlfrj2kEOkTV
-         IcuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792859728; x=1793464528;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v9lh+B773rf6GuP384kOjwQkq/y2KVRRLu2l/d+TdUw=;
-        b=YibQN+X9yzSMupfpFop3bCKZ55XoSmg/gIKmxtPX9uootfsDhQ/j4jZr/Khaqo7U3r
-         kK/NM+ljwLgYKG1G/53aswoh3E9NXj0SP0tTfDz1ue4Yh5AhLT2qM4dWnRTr5s5o2P8q
-         o62YlH5Zt0mS1WRTYTM5KVmLCiXotQnvyZf5vsHTsjZ0k/Z7pM8V6+n1ZyhTavOx6vAn
-         UQHOWTXBxsOsEFXCr8JcPjIadcjQoh+3VDoCY3k09GmwbbvQYSJbccUnunMiPQtRTiPu
-         lC2hsAGzKiHWOp9P9JyoZcs12UeK0tYL2Pyb5qXIzbatM6y34x7QlGdAjezpA9IKzAkN
-         p2Fg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfKFotLRJx+ozYe6zG2fv3++ep/lkCigHgsou1BXnDXHdDXj54k7UC85/P6CVsflsvnyhdM0hMOt8Vn80=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLx4YB+rJo9Cw2qEgZW+X14qyU5u7ZARNijImGLgcWwHetnbesq
-	mwxRxSPc+45/ByXfo96InK2hGTYDlwX0XbskOPBXfqSY3fVlV3TBoOMY
-X-Gm-Gg: AYBFou38fomu2eWGpnbT5qHbCekUtOLong48ORQfIti9LdtUPFK4No0QnzOu/SzfaQ2
-	VyROiv7D4TWDM2YSn1jgWzjkY9n4M1IIOQwrPCtgdGZeYAvOm34Esc1IDn0gb1ttuCjZNwCx2xa
-	vDf3L0Ug23x4oEt0V9ooDHl6nLbiE7k1Gxc1BzHsK9i3aJn5xcrUh77tAJOCzXTj+EapM4I6OTv
-	3kj/m3Av0cgdqp0AnbHHQMJrLNNmgVfCxGQakar6tSuYH4oEsJqqXECKPUQnB0Zy+nKHaBhSvad
-	etR5Z9zCL+cBaTma68TbcugmVDEJLOCKsd5BW0ZPZ+qrBl0p16QFS3NjlkgTcluSJkaQSsMxR2w
-	POBNTBE6tVPpmHn8BxHFQBGTi4YUZGdwXayKCVKEleT0S23oIfrtfZJyIHcm2KXmYjpNjYjNAoi
-	uxj60MTJb5KkAJMqVsARrmItouRMW3wGJKOWy5IT5nlSkgGrcdDjBXMFTkDVd0RIE5fhU2jyoRs
-	ESk8MpHYe2YRTdz0LuM/SgFQQsO926U4mN7oUPoEjcms2Gk1AQ=
-X-Received: by 2002:a17:902:e946:b0:2e9:a090:dd69 with SMTP id d9443c01a7336-2ea9c80170dmr18935915ad.39.1792859728209;
-        Sat, 24 Oct 2026 09:35:28 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a1c63sm6159575ad.47.2026.10.24.09.35.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:35:27 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=GwE5+yBf
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id C780D80D19;
+	Sat, 24 Oct 2026 18:35:33 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id cKwbHi7kwV0d; Sat, 24 Oct 2026 18:35:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792859733; bh=mkcvTKsJ2IngJgJ+jkc7uJV1xbmJPioj6YWPmioFAXU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GwE5+yBfjeRZOH1DX5U7rjNPPmlVMJIdGQywS7Ka/qJJ+8T5e7VbFdyoWvUOcZgXd
+	 7tuKSrXClBpYWpgPLH3AlFjfznXzHBlIKw06ov/RAzovE80+zKHzJ6o8JfFfguFteY
+	 ALrFlvD2HfQI08SK4EDHt+JMqVeaPd7PbrmC+P0JTpEZ3Z9uWAfcefKVO5yYUlOVpv
+	 4jGrKgHWrvMpQUmk3Kck6vBAxnw62YTMIfR+O3nQWH+gBuQn+PH2UuSZpguss+gW3t
+	 P2eMKNUYIy8efVM0Y0EtuWqjXijwRHL1GoEXXqlWb61Oij/XONPxfCsMYlpO9uoMgP
+	 Adr88TQ/hS7GQ==
+From: agxr <agxr@disroot.org>
+To: Jens Axboe <axboe@kernel.dk>,
+	io-uring@vger.kernel.org
+Cc: agxr <agxr@disroot.org>,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] Bluetooth: L2CAP: Protect the receive reject-list lookup
-Date: Sun, 25 Oct 2026 00:35:21 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0157-v8-a3b1b1bb30aa6b263b32@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH 1/2] io_uring/cancel: count all canceled futex and waitid requests on CANCEL_ALL
+Date: Sat, 24 Oct 2026 21:31:24 +0500
+Message-ID: <20261024163259.19372-2-agxr@disroot.org>
+In-Reply-To: <20261024163259.19372-1-agxr@disroot.org>
+References: <20261024163259.19372-1-agxr@disroot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,348 +69,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Reject-list entries must remain alive throughout a lookup. Management
-updates the list under hdev->lock, but l2cap_recv_frame() traverses it
-under conn->lock after l2cap_recv_acldata() has released hdev->lock.
+With IORING_ASYNC_CANCEL_ALL, __io_async_cancel() calls io_try_cancel()
+until it finds nothing more and adds 1 to the count for each call that
+found something, which is correct for poll, io-wq and timeouts, which
+cancel one request per call. io_futex_cancel() and io_waitid_cancel()
+cancel all matches in a single call and return how many they canceled.
+Three futex waits with the same user_data are all canceled by the first
+call, which counts as one, and the cancel completes with 1, not 3.
 
-An established LE connection can still receive ACL data after its peer
-has been added to the reject list. If a management socket unblocks that
-peer during the receive-side lookup, the following ordering is possible:
+Sum the return values of io_try_cancel() instead, so that the count is
+the number of canceled requests, as io_uring_prep_cancel(3) documents.
 
-  HCI receive                        Management
-  l2cap_recv_acldata()
-    release hdev->lock
-    acquire conn->lock
-  l2cap_recv_frame()
-    lookup selects entry
-                                     unblock_device()
-                                       acquire hdev->lock
-                                       hci_bdaddr_list_del()
-                                         unlink and kfree(entry)
-    read entry->bdaddr_type
-
-Management does not take conn->lock, so deletion can free the selected
-entry before the lookup reads its fields. This causes a use-after-free
-read in hci_bdaddr_list_lookup().
-
-Compute the reject decision under the existing device lock in
-l2cap_recv_acldata() and pass only the boolean to l2cap_recv_frame().
-For pending receive data, take the snapshot in l2cap_conn_ready() and
-l2cap_security_cfm(), which already hold hdev->lock. Publish it under
-conn->lock before queuing the worker on the existing device workqueue:
-
-  HCI callback                       Pending RX worker
-    hold hdev->lock
-    acquire conn->lock
-    lookup reject list
-    save boolean; queue work
-    release conn->lock
-                                       acquire conn->lock
-                                       consume boolean
-                                       drain pending frames
-
-The snapshot belongs to the scheduled batch. A subsequent scheduling
-callback refreshes it under both locks, including when queue_work()
-coalesces with already pending work. No reject-list pointer survives the
-lookup, and the worker reads the boolean under conn->lock.
-
-Taking the device lock in the worker would deadlock against
-l2cap_conn_del(), which holds it while cancelling the work synchronously.
-A failed trylock followed by immediate self-requeue would instead keep
-retrying without a delay and extend a concurrent workqueue drain. Keep
-the lookup in the scheduling callbacks so the worker needs neither the
-device lock nor a retry. Skip scheduling when pending_rx is empty.
-
-KASAN report as below:
-
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in hci_bdaddr_list_lookup+0x145/0x160
-    Read of size 1 at addr ffff88810cba64d6 by task kworker/u17:0/493
-
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_bdaddr_list_lookup+0x145/0x160
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_bdaddr_list_lookup+0x145/0x160
-     kasan_report+0xe0/0x110
-     ? hci_bdaddr_list_lookup+0x145/0x160
-     hci_bdaddr_list_lookup+0x145/0x160
-     l2cap_recv_frame+0x865/0x8830
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? __pfx_l2cap_recv_frame+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? l2cap_recv_acldata+0x1eb/0x10e0
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_unlock_slowpath+0x147/0x920
-     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
-     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
-     ? l2cap_recv_acldata+0x13d/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     l2cap_recv_acldata+0xe9f/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x5a6/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 604:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_bdaddr_list_add+0xdf/0x2c0
-     block_device+0x112/0x260
-     hci_sock_sendmsg+0x128b/0x22e0
-     sock_write_iter+0x4c0/0x550
-     do_iter_readv_writev+0x59c/0x860
-     vfs_writev+0x30e/0xc10
-     do_writev+0x241/0x2f0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 606:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     hci_bdaddr_list_del+0x1a9/0x2a0
-     unblock_device+0x112/0x260
-     hci_sock_sendmsg+0x128b/0x22e0
-     sock_write_iter+0x4c0/0x550
-     do_iter_readv_writev+0x59c/0x860
-     vfs_writev+0x30e/0xc10
-     do_writev+0x241/0x2f0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff88810cba64c0
-                                                                which
-                                belongs to the cache kmalloc-32 of size 32
-    The buggy address is located 22 bytes inside of
-                                                                freed
-                                32-byte region [ffff88810cba64c0,
-                                ffff88810cba64e0)
-
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x10cba6
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff888100042780 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000400040 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff88810cba6380: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff88810cba6400: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    >ffff88810cba6480: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-                                                     ^
-     ffff88810cba6500: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff88810cba6580: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    ==================================================================
-
-Fixes: cc8dba2bc302 ("Bluetooth: Block ATT connection on LE when device is blocked")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Fixes: 194bb58c6090 ("io_uring: add support for futex wake and wait")
+Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
+Signed-off-by: agxr <agxr@disroot.org>
 ---
-Changes in v2:
-- Address the immediate self-requeue concern raised by Sashiko:
-  https://sashiko.dev/#/patchset/95508
-- Snapshot reject-list membership under hdev->lock in the connection and
-  security callbacks, and pass the decision to pending RX under conn->lock.
-- Remove the worker trylock and self-requeue, and avoid scheduling an empty
-  pending RX queue.
+ io_uring/cancel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0157-v7-408aa9db5365c34b5f8b@gmail.com
+diff --git a/io_uring/cancel.c b/io_uring/cancel.c
+index 6f7a6cf356c2..e4b27b79b05c 100644
+--- a/io_uring/cancel.c
++++ b/io_uring/cancel.c
+@@ -198,7 +198,7 @@ static int __io_async_cancel(struct io_cancel_data *cd,
+ 			break;
+ 		if (!all)
+ 			return ret;
+-		nr++;
++		nr += ret > 0 ? ret : 1;
+ 	} while (1);
+ 
+ 	/* slow path, try all io-wq's */
+-- 
+2.56.0
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 54eddcdd341f9..bca4a16c99b54 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -636,6 +636,7 @@ struct l2cap_conn {
- 
- 	struct sk_buff_head	pending_rx;
- 	struct work_struct	pending_rx_work;
-+	bool			pending_rx_blocked __guarded_by(&lock);
- 
- 	struct delayed_work	id_addr_timer;
- 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 83b622a428118..fda25fe726c26 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -1759,10 +1759,40 @@ static void l2cap_le_conn_ready(struct l2cap_conn *conn)
- 	}
- }
- 
--static void l2cap_conn_ready(struct l2cap_conn *conn)
-+static bool l2cap_is_blocked(struct hci_conn *hcon)
-+	__must_hold(&hcon->hdev->lock)
-+{
-+	/* Since we can't actively block incoming LE connections we must
-+	 * at least ensure that we ignore incoming data from them.
-+	 */
-+	return hcon->type == LE_LINK &&
-+	       hci_bdaddr_list_lookup(&hcon->hdev->reject_list, &hcon->dst,
-+				      bdaddr_dst_type(hcon));
-+}
-+
-+static void l2cap_queue_pending_rx(struct hci_conn *hcon)
-+	__must_hold(&hcon->hdev->lock)
- {
-+	struct l2cap_conn *conn = hcon->l2cap_data;
-+
-+	mutex_lock(&conn->lock);
-+
-+	if (!skb_queue_empty(&conn->pending_rx)) {
-+		/* Teardown holds hdev->lock while cancelling the worker.
-+		 * Pass the decision under conn->lock to avoid that lock.
-+		 */
-+		conn->pending_rx_blocked = l2cap_is_blocked(hcon);
-+		queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
-+	}
-+
-+	mutex_unlock(&conn->lock);
-+}
-+
-+static void l2cap_conn_ready(struct hci_conn *hcon)
-+	__must_hold(&hcon->hdev->lock)
-+{
-+	struct l2cap_conn *conn = hcon->l2cap_data;
- 	struct l2cap_chan *chan;
--	struct hci_conn *hcon = conn->hcon;
- 
- 	BT_DBG("conn %p", conn);
- 
-@@ -1794,7 +1824,7 @@ static void l2cap_conn_ready(struct l2cap_conn *conn)
- 	if (hcon->type == LE_LINK)
- 		l2cap_le_conn_ready(conn);
- 
--	queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
-+	l2cap_queue_pending_rx(hcon);
- }
- 
- /* Notify sockets that we cannot guaranty reliability anymore */
-@@ -7381,7 +7411,8 @@ static void l2cap_conless_channel(struct l2cap_conn *conn, __le16 psm,
- 	kfree_skb(skb);
- }
- 
--static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
-+static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb,
-+			     bool blocked)
- 	__must_hold(&conn->lock)
- {
- 	struct l2cap_hdr *lh = (void *) skb->data;
-@@ -7408,12 +7439,7 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
- 		return;
- 	}
- 
--	/* Since we can't actively block incoming LE connections we must
--	 * at least ensure that we ignore incoming data from them.
--	 */
--	if (hcon->type == LE_LINK &&
--	    hci_bdaddr_list_lookup(&hcon->hdev->reject_list, &hcon->dst,
--				   bdaddr_dst_type(hcon))) {
-+	if (blocked) {
- 		kfree_skb(skb);
- 		return;
- 	}
-@@ -7461,7 +7487,7 @@ static void process_pending_rx(struct work_struct *work)
- 	 */
- 	while (!test_bit(HCI_CONN_ENC_KEY_SIZE_PEND, conn->hcon->flags) &&
- 	       (skb = skb_dequeue(&conn->pending_rx)))
--		l2cap_recv_frame(conn, skb);
-+		l2cap_recv_frame(conn, skb, conn->pending_rx_blocked);
- 
- 	mutex_unlock(&conn->lock);
- }
-@@ -7912,7 +7938,7 @@ static void l2cap_connect_cfm(struct hci_conn *hcon, u8 status)
- 
- 	mutex_unlock(&conn->lock);
- 
--	l2cap_conn_ready(conn);
-+	l2cap_conn_ready(hcon);
- }
- 
- int l2cap_disconn_ind(struct hci_conn *hcon)
-@@ -8051,8 +8077,7 @@ static void l2cap_security_cfm(struct hci_conn *hcon, u8 status, u8 encrypt)
- 	mutex_unlock(&conn->lock);
- 
- 	/* Process data held back while the encryption key size was read */
--	if (!skb_queue_empty(&conn->pending_rx))
--		queue_work(hcon->hdev->workqueue, &conn->pending_rx_work);
-+	l2cap_queue_pending_rx(hcon);
- }
- 
- /* Append fragment into frame respecting the maximum len of rx_skb */
-@@ -8141,6 +8166,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
- {
- 	struct hci_conn *hcon;
- 	struct l2cap_conn *conn;
-+	bool blocked;
- 	int len;
- 
- 	/* Lock hdev for hci_conn, and race on l2cap_data vs. l2cap_conn_del */
-@@ -8163,6 +8189,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
- 		conn = l2cap_conn_add(hcon);
- 
- 	conn = l2cap_conn_hold_unless_zero(conn);
-+	blocked = l2cap_is_blocked(hcon);
- 	hcon = NULL;
- 
- 	hci_dev_unlock(hdev);
-@@ -8199,7 +8226,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
- 
- 		if (len == skb->len) {
- 			/* Complete frame received */
--			l2cap_recv_frame(conn, skb);
-+			l2cap_recv_frame(conn, skb, blocked);
- 			goto unlock;
- 		}
- 
-@@ -8223,7 +8250,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
- 			 * setting the socket unreliable.
- 			 */
- 			skb->len = len;
--			l2cap_recv_frame(conn, skb);
-+			l2cap_recv_frame(conn, skb, blocked);
- 			l2cap_conn_unreliable(conn, ECOMM);
- 			goto unlock;
- 		}
-@@ -8273,7 +8300,7 @@ int l2cap_recv_acldata(struct hci_dev *hdev, u16 handle,
- 			 */
- 			struct sk_buff *rx_skb = conn->rx_skb;
- 			conn->rx_skb = NULL;
--			l2cap_recv_frame(conn, rx_skb);
-+			l2cap_recv_frame(conn, rx_skb, blocked);
- 		}
- 		break;
- 	}
