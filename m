@@ -1,83 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792863755;
-	b=XMud8cil9/BB8bO3drIwuW9pwd5JWs1YZz6yslck+be6YMJRk0hdW1alLetb7oKufUcm
-	 E5V+nETFbKbiOXSNYSLjK9BdmXdVuf7swo8E331cGi8FEdVnudOc51+OLTA5kAAViXkkF
-	 es8Xm4gGLEF0TMHSUP1BGjAjHKLhML35OLDQloEKRo5hvaZptur7cuDeyyMXMxHOT+fjS
-	 wNOQMyKjPoWX7w9Pvvgyuy3z3zn2FIvoLiYRaNgH5aJQd+gnX+7o1Aj0f62CfNX9quJLG
-	 Y+Kobu2VotHCWNfVoLjlg+84By7NuWusziw2+BOl3ElqocaDmFRnEq8riG3cE2ijFlA==
+	t=1792863895;
+	b=0mZVSU78ztfaN+QwLH85CDJ4WNgZfpjVX1LapifCk56vU2+T7eSLlc39wgBw0r75b8hM
+	 lUPEdC6ePGKGoXhZ60HM4KK419ILBHIfkyvh3lwqXWeqvUMVGuH/AsrIG6GuUFeTT/iou
+	 UJoH6MYj0eEo5ESIxfVNwBHgB2cKXC2OGOA9zMce4gEaFusaemeaHSsfnk8TJ5h311kzQ
+	 D8n+i9MNddPhlEWfvQEeBIydYVqlnsarqhahlVUkkhRi+O/kTkoy0hQVTCrOVBpbUWxG2
+	 NEgeVBitr98xHjarbgEYth/mdErDSjdDP5tYr4nFVbCPiJMW9Fg4pYsS/iGj2CGL8wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792863755;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=BuZ1t5C7X+sSlJUKEoZNCJc0nbbvghvhuZ0zbUxxORM=;
-	b=JzhWeqhCTF62Q0S80bs/R0DIkMo4STV8L0FwOPfRvSLS60P9PTRbRSAmitqqbvVJ9U/E
-	 3yVvVqxQDSws0mTBH7X4N6ABGKh4qT0WcOJ4XSNrGHFC0MBef4GBuQbme1c871KKyi2F/
-	 HdLIMaNWpSFl7+rbjx4cxRoIHCoxOLdjtGnFhwEeiF+vsyJgMidK4seYyKjsTas7X989p
-	 WPs7bQYUvXK/G+V3titc5m4jytB7t8gNol9B75M1G5Gs5mdCS8Qqyfq7RWv0SV37hshJt
-	 +2OJOpZxzmfagP+kJTxEfp6Vr7KNLyuzVrGbDs+OZLCCQh0mBpLdrvD+usq/efXkIbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792863895;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kmCe/XnoE3pu2z1aH564eD1m2h5eGZXwVLnoGm1bjiU=;
+	b=Y95lW7nOfSPvieHpz3R1cd8NmOmxpoENbZx3ilWGNvaK1YF7DujGtlJ3lyTKg4Qgqkeh
+	 KfVs0aeiWQvBj8Smro/L2GupJ/Yt/kGIuLkcsXwWDEMCZbyGgK7SErclkL57f5DV/7ISB
+	 xsnfef4yuWyWWQa73rjVFoVR/4YISMoNBWhuW8gPoKFJbfo6cegnoSsCfhMuIALzYac8o
+	 D2ngDHGoJHKQnsl/Pc9lsMe+mHBkmVfrtS6Q+JZu9mljpiRC3oaeU/WVdbvNpTqM6FOJM
+	 8Bbmu2FC1C8hMeOT5Yz1sgVf+JkmJU3mvQsQ3rOfx5KBlvJqZAKno4X5doYj0nwE99Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fyJ0Oph1;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=c6grM+cc;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF57606A31B;
-	Sat, 24 Oct 2026 17:42:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AF57606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D3A606A31A;
+	Sat, 24 Oct 2026 17:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D3A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fyJ0Oph1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792863754; x=1824399754;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8vNrTE29DnPOhUoUbcQAhuV/RJaOFG+RLJlehh9FQn4=;
-  b=fyJ0Oph1du/s8g1KSUDFOKoY88kjZE+pJLWEL2dRto838761xsywg67B
-   3twdNjPcJZe5i8gTgPICv8CO5lLrOt0Y3JHsfjLuRsqcMjX7d9HpSpZd/
-   5l1pThimy5+dbiwTmHgzFT5Jg34e/9VB7C7ByBBEVRSgvWECBNw0b1NNx
-   Nfm0q8ZGu7RRGN9LuQAIRnOsOOp+RRPlAywA6uE4b501aJCwEiT0XNqQz
-   sVRVf4MJAUjSLnI3q7pxG6Sq2DjFdwIlaAnTsLfmA/oqchG9bouv7bsDV
-   oBvskF5plW5dbFWUEhdUdWFPo9V0KmKQCskfHeX2bNyLjGWzQPRpwno16
-   Q==;
-X-CSE-ConnectionGUID: ystu15h1Q5WaO4CnXeNfRw==
-X-CSE-MsgGUID: exDBMffOSu2tp9z3aq/oNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1468463"
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="1468463"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 10:42:34 -0700
-X-CSE-ConnectionGUID: eJZY8DdJSTC/QSpw94f05w==
-X-CSE-MsgGUID: 3ONycMUWSKq+6Lkg09qGPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="4013537"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 24 Oct 2026 10:42:30 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKflD-00000000U6o-1dkn;
-	Sat, 24 Oct 2026 17:42:27 +0000
-Date: Sun, 25 Oct 2026 01:42:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: ChunAn Wu <an.wu@canonical.com>, linux-serial@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-kernel@vger.kernel.org, markus.probst@posteo.de,
-	gregkh@linuxfoundation.org, jirislaby@kernel.org, hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com, mpearson-lenovo@squebb.ca,
-	derekjohn.clark@gmail.com
-Subject: Re: [PATCH v4] platform/x86: dell-uart-backlight: Bind through
- normal serdev matching
-Message-ID: <202610250118.t0UAW41j-lkp@intel.com>
-References: <20261024022930.2704030-3-an.wu@canonical.com>
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=c6grM+cc
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id E1DDC82D72;
+	Sat, 24 Oct 2026 19:44:51 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id vZYvhrl8N3ih; Sat, 24 Oct 2026 19:44:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792863890; bh=TWpn0eYogFmWMxnVSfEWtxcM+k1PFX9Bh/lBHXLOBWQ=;
+	h=From:To:Cc:Subject:Date;
+	b=c6grM+cceItwpi9pxQaNk9PxkOUarXttWRmcUhn5GNotjDSlKCJ9dt46AVUINCK+C
+	 n50Czr8CtnKKCdwcA1k7B4Fm7pRbgouKt3ONp0pXCWODL1lttZKEUuhdzDksbDuglv
+	 YliTMYVkBNBKsKHUx1tP64cRTFy4XBz9BKMaRc4B1fOsqm57Z5fcyNZL0JcWheO781
+	 7PA+8Sw3Xrb6aGEba2q66DIGyH8Alh56Nbci4qNtT4in+u6T7X66eXMEQnt/sCNuRk
+	 koAkajV6FS/Xxltx6DpJ1jPAaU1LaBbhy7EypA5PTgynn/o4kHi6KvArCUS92ax4qQ
+	 7NTJbJ17i6+VQ==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Madhu M <madhu.m@intel.com>,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: debugfs: Fix GET commands on UCSI < 2.0
+Date: Sat, 24 Oct 2026 20:44:41 +0300
+Message-ID: <20261024174441.878903-1-aliamemis@disroot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,112 +68,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024022930.2704030-3-an.wu@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi ChunAn,
+Since the debugfs response buffer grew to 24 bytes, every GET command
+fails with -EINVAL on UCSI < 2.0, where the data length is limited to 16
+bytes. Clamp the length to UCSI_MAX_DATA_LENGTH().
 
-kernel test robot noticed the following build errors:
+Fixes: d9dc19910321 ("usb: typec: ucsi: Fix debugfs response truncation beyond 16 bytes")
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+---
+ drivers/usb/typec/ucsi/debugfs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[auto build test ERROR on driver-core/driver-core-testing]
-[also build test ERROR on driver-core/driver-core-next driver-core/driver-core-linus linus/master v7.3 next-20261023]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+diff --git a/drivers/usb/typec/ucsi/debugfs.c b/drivers/usb/typec/ucsi/debugfs.c
+index 77a0dd75edd3..3cffd3778c67 100644
+--- a/drivers/usb/typec/ucsi/debugfs.c
++++ b/drivers/usb/typec/ucsi/debugfs.c
+@@ -60,7 +60,8 @@ static int ucsi_cmd(void *data, u64 val)
+ 	case UCSI_GET_LPM_PPM_INFO:
+ 		ret = ucsi_send_command(ucsi, val,
+ 					&ucsi->debugfs->response,
+-					sizeof(ucsi->debugfs->response));
++					min(sizeof(ucsi->debugfs->response),
++					    UCSI_MAX_DATA_LENGTH(ucsi)));
+ 		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+-- 
+2.55.0
 
-url:    https://github.com/intel-lab-lkp/linux/commits/ChunAn-Wu/platform-x86-dell-uart-backlight-Bind-through-normal-serdev-matching/20261024-102929
-base:   driver-core/driver-core-testing
-patch link:    https://lore.kernel.org/r/20261024022930.2704030-3-an.wu%40canonical.com
-patch subject: [PATCH v4] platform/x86: dell-uart-backlight: Bind through normal serdev matching
-config: x86_64-randconfig-1014-20261024 (https://download.01.org/0day-ci/archive/20261025/202610250118.t0UAW41j-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610250118.t0UAW41j-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610250118.t0UAW41j-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/platform/x86/dell/dell-uart-backlight.c:328:60: error: array has incomplete element type 'const struct serdev_device_id'
-     328 | static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
-         |                                                            ^
-   drivers/platform/x86/dell/dell-uart-backlight.c:328:21: note: forward declaration of 'struct serdev_device_id'
-     328 | static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
-         |                     ^
->> drivers/platform/x86/dell/dell-uart-backlight.c:363:34: error: too many arguments to function call, expected 1, have 2
-     363 |         ret = serdev_device_add(serdev, KBUILD_MODNAME);
-         |               ~~~~~~~~~~~~~~~~~         ^~~~~~~~~~~~~~
-   <command line>:8:24: note: expanded from macro 'KBUILD_MODNAME'
-       8 | #define KBUILD_MODNAME "dell_uart_backlight"
-         |                        ^~~~~~~~~~~~~~~~~~~~~
-   include/linux/serdev.h:161:5: note: 'serdev_device_add' declared here
-     161 | int serdev_device_add(struct serdev_device *);
-         |     ^                 ~~~~~~~~~~~~~~~~~~~~~~
-   2 errors generated.
-
-
-vim +328 drivers/platform/x86/dell/dell-uart-backlight.c
-
-   327	
- > 328	static const struct serdev_device_id dell_uart_bl_serdev_id[] = {
-   329		{ KBUILD_MODNAME },
-   330		{ }
-   331	};
-   332	
-   333	static struct serdev_device_driver dell_uart_bl_serdev_driver = {
-   334		.probe = dell_uart_bl_serdev_probe,
-   335		.driver = {
-   336			.name = KBUILD_MODNAME,
-   337		},
-   338		.id_table = dell_uart_bl_serdev_id,
-   339	};
-   340	
-   341	static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
-   342	{
-   343		enum acpi_backlight_type bl_type;
-   344		struct serdev_device *serdev;
-   345		struct device *ctrl_dev;
-   346		int ret;
-   347	
-   348		bl_type = acpi_video_get_backlight_type();
-   349		if (bl_type != acpi_backlight_dell_uart) {
-   350			dev_dbg(&pdev->dev, "Not loading (ACPI backlight type = %d)\n", bl_type);
-   351			return -ENODEV;
-   352		}
-   353	
-   354		ctrl_dev = get_serdev_controller("DELL0501", NULL, 0, "serial0");
-   355		if (IS_ERR(ctrl_dev))
-   356			return PTR_ERR(ctrl_dev);
-   357	
-   358		serdev = serdev_device_alloc(to_serdev_controller(ctrl_dev));
-   359		put_device(ctrl_dev);
-   360		if (!serdev)
-   361			return -ENOMEM;
-   362	
- > 363		ret = serdev_device_add(serdev, KBUILD_MODNAME);
-   364		if (ret) {
-   365			dev_err(&pdev->dev, "error %d adding serdev\n", ret);
-   366			serdev_device_put(serdev);
-   367			return ret;
-   368		}
-   369	
-   370		ret = serdev_device_driver_register(&dell_uart_bl_serdev_driver);
-   371		if (ret)
-   372			goto err_remove_serdev;
-   373	
-   374		/* So that dell_uart_bl_pdev_remove() can remove the serdev */
-   375		platform_set_drvdata(pdev, serdev);
-   376		return 0;
-   377	
-   378	err_remove_serdev:
-   379		serdev_device_remove(serdev);
-   380		return ret;
-   381	}
-   382	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
