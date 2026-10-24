@@ -1,79 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792877456;
-	b=pS2m17YnbwoZLdEFgm8NaCaHiEi2Gjjp/vjunBdOPFU14ShAIl9bk31cr4x70qPU/TCQ
-	 PSnvzuVtWFQo3bIuT53bzMMBlnGKBYvpZvd6CSux2Ms+WBPWlftNapUxSRLl5699IWD7E
-	 8FnpYixtJC2l1EU0RxkjyziddSrt7D/gC28fwWIxhopcPNXLfDyljrf4R7QbYLsg+TxfF
-	 hkl6ww1b6/xNf0FpyD2spndYEHQg6z9CXCBin2dN/++XXpXScboS/ktcTRFx3CsKSEwBF
-	 GIeDSoc2FJJwn/NrKjihawdbZ0b6f3B7OIZucS8+v4NapXHGMneQEu7dldCrBEz7EnQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877456;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=V/wNu+oldJDtoA2LpsIfGgrCD+VIaBcOKfcDLEv7Hk8=;
-	b=A2DUlj17A1vqbs8cToaY1b7ZrY55yACJPfW/QBUDX1fE28rxx9cQD7HRTY5HyWfLS2mH
-	 OdUqwqUr7ZaspUx4ggiTTO0SvbpjT/68kv+PtoKQLV90t5HnaxMgL96cKlyuysFNj0FWi
-	 EnQcTvwoHKbwXt+PficRUFdyKk/DryD/Qq1lljTlDGlSAjTANIxJjjFLMk8CBZ8UFCJ9G
-	 o2A9YkKKSGxy92vfkgFt2Dy7yZqie1tf34DJuPi6NPua/UlMS+0bfncA+BQvg26VhV49d
-	 QaevK8kLuhKFBUoBVfbhwa6ivLyHY3eC7m7UfLkPwZS8Jdo3N14CCsk8AdW/aWs6MhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d40CXIw9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F94606A320;
-	Sat, 24 Oct 2026 21:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d40CXIw9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792877455;
-	b=ohjiOn1QXoTKy+uV5Ac4kjG+H1zh/BWJ2JOz1wb3JZvtUSAXj2JKyWGv1tIPBvbh6x5y
-	 wBsF9Pwi7B0/uQF4Q01G6rw2mjY7vgkOHSEqhLXc6lXqbNDoiOKc5PFMx6vvs432P6L9f
-	 03t7vblv9TdjZCiFXAB5VfEPiZ93TcAmjGkobzOW73HSWHkkD/ZCL7nW4vGN9TfRileZ/
-	 F8aay/QEPOEOCiVqu613XipNL/M5zkws2AtiqC6Eldq7HadWiGZxiueXhFRzgsfWaKeld
-	 Zs3jbLDbcoqdVm+OU3H8G3/iPjwbsSqQmnRdsUgxKFGO5aHcc//dCqjFZFmgx0GHSqg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792877455;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=V/wNu+oldJDtoA2LpsIfGgrCD+VIaBcOKfcDLEv7Hk8=;
-	b=hauyiZsFC4TNeF+ZlnbOR/eMHgyOYlzMRWwxQNXM19MjHUvPKOw6TOFms4Kz3bS9Fmp6
-	 8i57YVsejaCBRaxCz6c0Tl7sAbivML/8pyd41C1I/tP65J+KD82uc75HjFTaUvF7UTMg+
-	 VQfhsilt0wLFuxXP7PxqzDizjZ4kWw/VUgaUY2yYhlcEUE3RZUgBvfa7KTudUNRb7BTNl
-	 RmC9qCb8E+E/d7vKCPUuQ7g8wbpxmde5zNJY82HYFxLgBcxzLBsj/OhAAK5gR3HvQD/rP
-	 ejelDf2Dw2EPppxhMCd8cO/bsFB3H+gf7g521VeHRfcEO51GD8KTTviRbRqYK7bO4pQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.186
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792877666;
+	b=gc4QtgzbtwfsKCxfnXCwbfl9SSKE5imvz4jkPEsO0HUWWzZg2ici49TNGpIdnCVe3VSH
+	 SeDA/1/AuBRGwlVovyMPRJMFSc5VLAg1QG3Y5a+9hM06xtDCQaM3yJ1sDea1jyDRRYt+R
+	 kY40UVQihRYAG544AqDa2ftwfZWWzK4JqshNeozKt0AC4IP124OZyo+Yc+kyJVe2+3x17
+	 XDPXDZDtrrDk4+4gXlHVmhkbCZzT+OWr6rVhGb/9i1xEgHeFIy4rmw5t44daurB4hC3Sh
+	 r5CZgFdL+3mlutTjoUM2kzMrz+JrG170wHgMeDCf2OR1vZfly7trdH2yXpzERswSCfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792877666;
+	h=DMARC-Filter:X-KPN-MessageId:Received:DKIM-Signature:X-KPN-MID:
+	 X-KPN-VerifiedSender:X-CMASSUN:X-Originating-IP:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qu19ttKoFm8YEIfP2PLvpChIRrU1lR+re7nUflZOGdM=;
+	b=rxkK1zCTeg2K/T8HCu+W+pSsv1aI8H8SoJWBS7+R/Q5yqgsZU0SCMwPSu9KwKBNLj6qT
+	 DEo8i4Wn8RwgoAZCDvDPEL62vZqDtk+aUc3kiyOKHKcHAo2tAMbcC1gg3RqImJnuzNFfc
+	 1p1r7Yt8sq8iNtFYZ/cwHzQrH7xxQkiRhujnoEy3myP+z0NpM+reQOxOdD0xsdNRk+2GB
+	 GbuAcNkqntCcyxXRZzg3R3Jp39R3zE+y11qyrYVY2NPBMbRh4iYsZk7CqzpOlOq5ChKgt
+	 h5UKdqpApZKrUdik4epN1bSoMNuCufiKDG4EGgndKsrhsXw0rbOWdmcaotrihxS5bfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=xs4all.nl;
+	spf=pass smtp.mailfrom=xs4all.nl;
+	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=vZhT1EIA;
+	arc=none smtp.remote-ip=195.121.94.186
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EB3311F01825;
-	Sat, 24 Oct 2026 21:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792877455;
-	bh=V/wNu+oldJDtoA2LpsIfGgrCD+VIaBcOKfcDLEv7Hk8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=d40CXIw9LvL7rwca4XiGXDPl11PZSr+DxEZ/jEJ56+F8PzZYBbGTPyN7rkIj7G7b/
-	 NmYdZOcF3C7aGfCEoGg2EN+Z5ECKdUU6yMsHkXbxbpSmadYvNVvFixV3tWPQCST/z3
-	 cueQYRt53w2h+v2hKdhgX1tx5hJaPzsMUXn1kMRqOpcc6c1qqb0q6pzicrbrxw0Xjm
-	 2WZeYuBKX+Ksr193gZ3fpbmOpa8dgWOPSZzN4HwX2OshJpc08xYPV8zXqKBwBG+9nr
-	 lWYN3UEe8yl3ImZOfJBh3+2MPg4mnzRf1mqtvduQdjYzUhRQlgA1JDxtnNM/2wRWGP
-	 d0mz51bTRqT4g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 57259448AA;
-	Sat, 24 Oct 2026 21:30:54 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 16:30:54 -0500
-Subject: [PATCH ath-next 1/2] wifi: ath11k: don't free a monitor buffer the
- device still holds
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B66606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:34:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B66606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=vZhT1EIA
+X-KPN-MessageId: acb905b2-cff2-11f1-87e5-00505699b430
+Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id acb905b2-cff2-11f1-87e5-00505699b430;
+	Sat, 24 Oct 2026 23:34:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=mime-version:message-id:date:subject:to:from;
+	bh=qu19ttKoFm8YEIfP2PLvpChIRrU1lR+re7nUflZOGdM=;
+	b=vZhT1EIAndUYNmiLUmL9gpD36g7nMthZ3Nhk2fTE6CnHgIiw6TSzNP6HARWCfKOCmCtgs0KxYXWyJ
+	 Wmbw5qpkbdzRx4EzPOXcbs/oEzIxrIGKBG9eUfqMIBd28RHOXLnKA0aY+6BUgAoA7JtW8R+R14lJmB
+	 U21js6gnZrnjwRzJdr197uCjXq87sCRQg7x1qakaU5nLSA89TMPHrFd5eHeWDsMUcdVwkMj7kvChew
+	 GpBumLzQ78s0vZgiHr1SMhxxLXoNvIIrFpvkKBx+lVAK+5A6PxAztTGGy6Yde3PQ1SNHgmcA+xa7bW
+	 5w4NO0wuhS7uOtsuZvJZTtXPK3vKdbw==
+X-KPN-MID: 33|GB8kk1C5gM3lD3CSPXcxj+vt9flM+urEatqRXcdhNE7xIixQrNj+QzlZ2mIYTDV
+ 4Mze87XXlhrhmH1DsCP2nsw==
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|hhZ4ehZ1bU02j2B9yyTSqXe1xj951aE5Ci8ZpqhrMm09yi2d/TmtWF7z1/sC0mR
+ Mx7a6nLZxAa9Vpq1IEzSRfA==
+Received: from daedalus.home (unknown [178.227.247.81])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id ac5a0424-cff2-11f1-8686-00505699b758;
+	Sat, 24 Oct 2026 23:34:21 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	neil@brown.name,
+	cyphar@cyphar.com,
+	jlayton@kernel.org,
+	amir73il@gmail.com,
+	shakeel.butt@linux.dev,
+	gregkh@linuxfoundation.org,
+	tj@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jori Koolstra <jkoolstra@xs4all.nl>
+Subject: [PATCH v8 02/12] vfs: prepare vfs_creat|mkdir_no_perm for reuse in lookup_open()
+Date: Sat, 24 Oct 2026 23:35:29 +0200
+Message-ID: <20261024213539.1307600-3-jkoolstra@xs4all.nl>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261024213539.1307600-1-jkoolstra@xs4all.nl>
+References: <20261024213539.1307600-1-jkoolstra@xs4all.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,126 +86,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-ath11k-monitor-buffers-v1-1-ff155feca2f6@gmail.com>
-References: <20261024-ath11k-monitor-buffers-v1-0-ff155feca2f6@gmail.com>
-In-Reply-To: <20261024-ath11k-monitor-buffers-v1-0-ff155feca2f6@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792877453; l=4316;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=s35q2CYjVXwogmYo/l8p7P0e8hgpBmv0wenKY9afIwc=;
- b=m/g1ePTlaKTN3CaC8EoZsl78Yf6EniWFcrbtvrnF/exChSy+GKEBp7vM2VwDfpAfrNuOJ0/pI
- gVMunv7in9WD5Zq/3gHdw63h+2orEEYU50DN62Qbzj7tbU5PxDdn7tn
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+To implement O_CREAT|O_DIRECTORY we will have to repeat some of the
+logic that is now in vfs_mkdir() (e.g. do error checks in the same
+order). Separate this out in vfs_mkdir_no_perm(), which does all the
+non-permission related work of vfs_mkdir(). Permission checking for the
+lookup_open() path is timed differently because we may just be doing an
+open and no create. Similar considerations give rise to
+vfs_create_no_perm().
 
-ath11k_dp_rx_mon_mpdu_pop() finds each MSDU's buffer by the buf_id in
-the cookie of the MSDU link descriptor, and never looks at the buffer
-address beside it. The device sometimes lists a buffer that it handed
-back a few milliseconds earlier. By then the driver has replenished the
-ring, and idr_alloc() has given that buf_id to a new buffer, still
-posted to the device. The driver unmaps and frees that buffer, and the
-device writes a received frame into it later, into memory that belongs
-to something else by then. The duplicate check in
-ath11k_dp_rx_mon_mpdu_pop() only catches the same cookie twice in a row.
-
-On an IPQ8074 with a monitor interface on each radio, such stale cookies
-came about twice a minute at first, e.g.:
-
-  device wrote 0x6ac8d040: back 0 ms (3 buffers) earlier as buf_id 1002
-  buf_id 1002 now names 0x709d6e40, still posted to the device
-
-Each buffer freed that way comes back later under a buf_id given out
-again, so they cascade: 782 in 32 minutes (1.75 million monitor
-buffers). The buffers wrongly freed are also handed up unwritten, which
-trips mac80211's WARN_ON(!sband) in ieee80211_rx_list() (24 times in
-those 32 minutes). Left running, the AP crashed every few hours on
-corrupted skb shared info and Ethernet receive buffers, e.g. on an
-Ethernet receive buffer whose shared info held 0x80 bytes:
-
-  pc : skb_release_data+0xdc/0x1a4
-  Call trace:
-   skb_release_data+0xdc/0x1a4
-   sk_skb_reason_drop+0x44/0xa0
-   udp_queue_rcv_skb+0x24c/0x280
-
-Take the buffer address from the link descriptor too, and when the
-buffer the cookie names is not at that address, leave it to the device
-and drop the MPDU. With this, 7 hours at the same load gave no
-WARN_ON(!sband) and no crash.
-
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
 ---
- drivers/net/wireless/ath/ath11k/dp_rx.c  | 20 ++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/hal_rx.h |  1 +
- 2 files changed, 21 insertions(+)
+ fs/namei.c | 77 +++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 53 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
-index 6d95f7b34..f0bff6c16 100644
---- a/drivers/net/wireless/ath/ath11k/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
-@@ -4644,6 +4644,11 @@ static void ath11k_hal_rx_msdu_list_get(struct ath11k *ar,
- 		msdu_list->sw_cookie[i] =
- 			FIELD_GET(BUFFER_ADDR_INFO1_SW_COOKIE,
- 				  msdu_details[i].buf_addr_info.info1);
-+		msdu_list->paddr[i] =
-+			((u64)FIELD_GET(BUFFER_ADDR_INFO1_ADDR,
-+					msdu_details[i].buf_addr_info.info1) << 32) |
-+			FIELD_GET(BUFFER_ADDR_INFO0_ADDR,
-+				  msdu_details[i].buf_addr_info.info0);
- 		tmp = FIELD_GET(BUFFER_ADDR_INFO1_RET_BUF_MGR,
- 				msdu_details[i].buf_addr_info.info1);
- 		msdu_list->rbm[i] = tmp;
-@@ -4790,6 +4795,21 @@ u32 ath11k_dp_rx_mon_mpdu_pop(struct ath11k *ar, int mac_id,
- 				goto next_msdu;
- 			}
- 			rxcb = ATH11K_SKB_RXCB(msdu);
-+			if (unlikely(rxcb->paddr != msdu_list.paddr[i])) {
-+				/* The cookie names a buffer other than the one
-+				 * the device wrote, one it still holds: the
-+				 * report is stale and the buf_id has been given
-+				 * to a new buffer since. Leave that buffer to the
-+				 * device and drop the MPDU.
-+				 */
-+				ath11k_dbg(ar->ab, ATH11K_DBG_DATA,
-+					   "msdu_pop: buf_id %d is at %pad, not %pad\n",
-+					   buf_id, &rxcb->paddr, &msdu_list.paddr[i]);
-+				pmon->rx_mon_stats.dup_mon_buf_cnt++;
-+				pmon->mon_last_buf_cookie = msdu_list.sw_cookie[i];
-+				drop_mpdu = true;
-+				continue;
-+			}
- 			if (!rxcb->unmapped) {
- 				dma_unmap_single(ar->ab->dev, rxcb->paddr,
- 						 msdu->len +
-diff --git a/drivers/net/wireless/ath/ath11k/hal_rx.h b/drivers/net/wireless/ath/ath11k/hal_rx.h
-index 475807b89..11e367bcb 100644
---- a/drivers/net/wireless/ath/ath11k/hal_rx.h
-+++ b/drivers/net/wireless/ath/ath11k/hal_rx.h
-@@ -463,6 +463,7 @@ struct hal_rx_msdu_list {
- 	struct hal_rx_msdu_desc_info msdu_info[HAL_RX_NUM_MSDU_DESC];
- 	u32 sw_cookie[HAL_RX_NUM_MSDU_DESC];
- 	u8 rbm[HAL_RX_NUM_MSDU_DESC];
-+	dma_addr_t paddr[HAL_RX_NUM_MSDU_DESC];
- };
+diff --git a/fs/namei.c b/fs/namei.c
+index b90263a07e4e..9fa94e8079db 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -4166,6 +4166,24 @@ static inline umode_t vfs_prepare_mode(const struct mnt_idmap *idmap,
+ 	return mode;
+ }
  
- void ath11k_hal_reo_status_queue_stats(struct ath11k_base *ab, u32 *reo_desc,
-
++static inline
++int vfs_create_no_perm(struct mnt_idmap *idmap, struct dentry *dentry,
++		       umode_t mode, struct delegated_inode *di)
++{
++	struct inode *dir = d_inode(dentry->d_parent);
++	int error;
++
++	error = try_break_deleg(dir, LEASE_BREAK_DIR_CREATE, di);
++	if (error)
++		return error;
++
++	error = dir->i_op->create(idmap, dir, dentry, mode);
++	if (!error)
++		fsnotify_create(dir, dentry);
++
++	return error;
++}
++
+ /**
+  * vfs_create - create new file
+  * @idmap:	idmap of the mount the inode was found from
+@@ -4198,13 +4216,8 @@ int vfs_create(const struct mnt_idmap *idmap, struct dentry *dentry, umode_t mod
+ 	error = security_inode_create(idmap, dir, dentry, mode);
+ 	if (error)
+ 		return error;
+-	error = try_break_deleg(dir, LEASE_BREAK_DIR_CREATE, di);
+-	if (error)
+-		return error;
+-	error = dir->i_op->create(idmap, dir, dentry, mode);
+-	if (!error)
+-		fsnotify_create(dir, dentry);
+-	return error;
++
++	return vfs_create_no_perm(idmap, dentry, mode, di);
+ }
+ EXPORT_SYMBOL(vfs_create);
+ 
+@@ -4418,6 +4431,7 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
+ 		dput(dentry);
+ 		dentry = ERR_PTR(error);
+ 	}
++
+ 	return dentry;
+ }
+ 
+@@ -4546,6 +4560,7 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+ 			dentry = res;
+ 		}
+ 	}
++
+ 	if (dentry->d_inode || !(op->open_flag & O_CREAT)) {
+ 		/*
+ 		 * No need to create a file.  If lookup returned a positive
+@@ -5368,6 +5383,33 @@ SYSCALL_DEFINE3(mknod, const char __user *, filename, umode_t, mode, unsigned, d
+ 	return filename_mknodat(AT_FDCWD, name, mode, dev);
+ }
+ 
++static inline
++struct dentry *vfs_mkdir_no_perm(struct mnt_idmap *idmap, struct inode *dir,
++				 struct dentry *dentry, umode_t mode,
++				 struct delegated_inode *di)
++{
++	unsigned max_links = dir->i_sb->s_max_links;
++	struct dentry *de;
++	int error;
++
++	if (max_links && dir->i_nlink >= max_links)
++		return ERR_PTR(-EMLINK);
++
++	error = try_break_deleg(dir, LEASE_BREAK_DIR_CREATE, di);
++	if (error)
++		return ERR_PTR(error);
++
++	de = dir->i_op->mkdir(idmap, dir, dentry, mode);
++	if (IS_ERR(de))
++		return de;
++	if (de) {
++		dput(dentry);
++		dentry = de;
++	}
++	fsnotify_mkdir(dir, dentry);
++	return dentry;
++}
++
+ /**
+  * vfs_mkdir - create directory returning correct dentry if possible
+  * @idmap:		idmap of the mount the inode was found from
+@@ -5395,7 +5437,6 @@ struct dentry *vfs_mkdir(const struct mnt_idmap *idmap, struct inode *dir,
+ 			 struct delegated_inode *delegated_inode)
+ {
+ 	int error;
+-	unsigned max_links = dir->i_sb->s_max_links;
+ 	struct dentry *de;
+ 
+ 	error = may_create_dentry(idmap, dir, dentry);
+@@ -5411,24 +5452,12 @@ struct dentry *vfs_mkdir(const struct mnt_idmap *idmap, struct inode *dir,
+ 	if (error)
+ 		goto err;
+ 
+-	error = -EMLINK;
+-	if (max_links && dir->i_nlink >= max_links)
+-		goto err;
+-
+-	error = try_break_deleg(dir, LEASE_BREAK_DIR_CREATE, delegated_inode);
+-	if (error)
++	de = vfs_mkdir_no_perm(idmap, dir, dentry, mode, delegated_inode);
++	if (IS_ERR(de)) {
++		error = PTR_ERR(de);
+ 		goto err;
+-
+-	de = dir->i_op->mkdir(idmap, dir, dentry, mode);
+-	error = PTR_ERR(de);
+-	if (IS_ERR(de))
+-		goto err;
+-	if (de) {
+-		dput(dentry);
+-		dentry = de;
+ 	}
+-	fsnotify_mkdir(dir, dentry);
+-	return dentry;
++	return de;
+ 
+ err:
+ 	end_creating(dentry);
 -- 
-2.43.0
-
+2.56.0
 
