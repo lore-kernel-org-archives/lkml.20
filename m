@@ -1,110 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.143
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792845052;
-	b=OzQ8M3RF7WHgzNw6KptbAJKymur1eRfQi5J/vAMNdiyLAQ7gzPLdmmXqAFQPq6ILIPtJ
-	 ADcP4egOr/4s+0E+Q7R97PyTXnGDyVMaSaErS8JhDmAvxKyR0RnUKxOGx/op5+kSEwu/Q
-	 lRo2uzI5aQfzgDrDPc32qwMce1wMoDtzMVbVOmDWpuxEG/bkVtMvX8Svq00VhauSSZY8s
-	 hVx8f/uM5aZvKY7MQ6ag5tdIkRvn9Hzww+M9gsb1m/SAGFKd0tEkNEbi8ivnAxAhp7EAY
-	 IZnltGj+cwfqmZV0chAXHekLYsLRLZGLQHawei8SwmgVyUZ37m1tzc2b6cklGhoa/vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792845052;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BX3h784nlZkKHs1VaapVIBduZWJ0fvF929JAJjAxBps=;
-	b=Y040gIPrczwToVGwv+fPClez5FLz54XgZ0tWTam5PVFXTrM+cEhwcFigF71Xhh2u79ZM
-	 0GZflX+j6X/cD0/ETiwOrB3IhEfYySO5omgH1KslBFPMkzvMpFHGPXWZEm7qVZ7ZkvTvl
-	 2A9h4aBuUzEBvZGprOmTO2LexTGzH1bI2LhnAO7PHaXasQGkOu3cVJxB59fRUOFl0K6bT
-	 A1dAiqy7EvCZgDE08ADYIW592x/l9RRGtaTfgO0o14/Mjc//4Qt4PMFzEUepousQqZMtA
-	 ooZRBW72Loci0zrGmnE5tksmqJ+tEbVXECNcY/PE5K/vapIfOGcQFEkkTaWK8zZLThg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alepacheco.dev;
-	spf=pass smtp.mailfrom=alepacheco.dev;
-	dkim=pass header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=hqvobs24;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IcforvgU;
-	arc=none smtp.remote-ip=202.12.124.143
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792845113;
+	b=iKP+6LZNQ11aCzdqZmv3n4brp8qu0uxJywDU3uMsnP9c041vG6uGxjb9MllHsB5pAMpF
+	 zS7JYSTodbdnOob265vNlRZE6j5HmcqlZhNVohKktI8UHQLNLrgST5lf0quPIq0NkPcC5
+	 yM6QulCOzEN4VVJyzYau+xlBErANo/HeFy/DJpd032yL7/uV6hU6hSblT7AxhNEKndi1i
+	 GE+N4l1btQkGcz9CWf3Sod6xa6/3cAIMWVXYSp+OWUIJ7OapnjoYobCF0Zmrg2QEtbE4q
+	 HxM6150Z42Xzqb6onWv67H/DzuEp+6iDZg3VFs2zWJ2OYngr5fhNVhWtXcHuQglxabA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792845113;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=REqOeJQ3a+44gOCJjCINozK9snB9Y4U/VRc74h6CImw=;
+	b=k7dj1N6BgGAEp8OO/nmp9q+PDh9kkGCUUJJ/Aq3nwVm6iCcJ0vG5oPwg84IOSxHTy0qq
+	 JgmwLF8CNlE6dvhEBQH//jTEQGR8fJrqbFj9Fan1cNpyV+5fw3+dQc7rBfqeiCScE/xxX
+	 aNikjiVD9WUwOA0+ply7jyxUePeIXv7nTCW9N9dxDY6eMnq1TZ6JDyZU6qLdSX1pc37VP
+	 QHKDSY5Kck7g+5oMz8djjOy+qned1enR1Z6EzUyFrzStTPWAIYP7utxNfThQ4hDbH3GNk
+	 b0VRWG5nHW4/gRE4uTDW7LmLP7xCSEdpHXR3fb2dEm5hdZjq0tsvOMdRkV6F6ZEXrTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fjxMq268;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.30
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDF5606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECDF5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alepacheco.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alepacheco.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221BC606A31A;
+	Sat, 24 Oct 2026 12:31:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221BC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alepacheco.dev header.i=@alepacheco.dev header.a=rsa-sha256 header.s=fm1 header.b=hqvobs24;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IcforvgU
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id 18F351301053
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:30:50 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-05.internal (MEProxy); Sat, 24 Oct 2026 08:30:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alepacheco.dev;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:message-id:mime-version
-	:reply-to:subject:subject:to:to; s=fm1; t=1792845049; x=
-	1792848649; bh=BX3h784nlZkKHs1VaapVIBduZWJ0fvF929JAJjAxBps=; b=h
-	qvobs24uO3iyDRoiO2Z6efnraD8aloU0NKQtwRvhiXSWlJtVjnZB0f1FNNmNGGkz
-	Jqj6vKAYT6daHW3gei/vedOg+YoMjwR31AXUJwg+O2Mgazwb0Vjx62e3Q9wWK34+
-	W15S4UZdXjUDomf7niTABNp0v88jIfP8QoCuizRHciYrSQdj3xpAgTg7jFdRjKvv
-	loItxuVizpH9rX+I3AvePVoo1AC+xMZsI3flbJbQRbpC+nkm5UQWV1fEQvjobAq+
-	DZqRVYgtI66+hwnRm+Cftq2FdJdb2s6gv8Y5LCQRd2iQXOPSBT9XW2l7MjiGiLDU
-	oevesaV4q8g10J2SYf4Uw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792845049; x=1792848649; bh=BX3h784nlZkKHs1VaapVIBduZWJ0
-	fvF929JAJjAxBps=; b=IcforvgUVVWRynpVTdKsDSbW3i8lC3qJfWLPASz/7LMq
-	vTCKCR/w9QnjVli6KNiDMmPj2nFKX1ZXsL6QAneQjOBRQW52K5CsIYd+vHvA3Jof
-	OtChDz+oYg+0cbo3BlAtEU6w53mPqQPZrCYDjbWhE9ukewdsMirdhn2fCXsMDxtB
-	yZ9KgLs3cf2xJ368pVP2f7JDFzgichHCUtaT6x+mPqc93Y04iUl3X62aFg/VyXla
-	uYQEcVifTyCHBzr5gY3KhwqH4hPmyxZA7GoFD3bcicAshauQdL1OAhMc/2VugPJt
-	9RZOwLkyysbEo8ykIQrmsgSS38fbxdHFYCW7HKhS/w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=alepacheco.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792845049; d=alepacheco.dev;
-	mf=PGFsZUBhbGVwYWNoZWNvLmRldj4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:psBjHX431xoeb69YfeoX/bHVTeLkW4DCu+ebbCbiv+nB3e2
-	AQzvHbGck0wQMb6I9ilHIQ6Al+HYIePFxNri3tbbTgjs9Q8muV4jy4RszoaI/3Zs
-	1wFg9bbvllNnn5XEAvzCVftkPDMJPxL+S6MP/pQO1BXxPU6bpKgQyJZ9bDdlRrea
-	FgL1aT+VIzmazQjVjb0kFhJ7EnQS3Dv26GMmPSDP4cCOK8W/2249ufQmkc8j/4ha
-	QGRz3rv5bJR8GPyEAAh/2poUps79CtfkzClLJwzJQ0Tb3Wggp+ocyeMZp1pcyARi
-	YyNquuUSiUsAJy0p3LCRbkyCvwkmaelhL66p8hg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:JJVHwqiG2o/5SOEde/EvMV/8qaikxQTbXPnsZdW0M+c=:X4ij2PMFNMvkaGRSojAN61Pyua1WINB8JZzqqoI/IOs=;
-X-ME-Sender: <xms:-KTcapE0_UhGBthy9Lqkwbh6pT_pSLUAzKSy2n0P-t7KI2QvwZ-jmA>
-    <xme:-KTcapJ7RKDmRwBUCL7nvgr4H57PUTyy0RZMl8V3LcK6SN9x52FvQcAx5_Zfy2P1X
-    HwT4ypghNPHQ78TPSs693qCIG-GCEZxo9z3N6w8LvU1Z3NfOX7sHlUB>
-X-ME-Proxy-Cause: dmFkZTFcNf/WwB4t+u7TH6ItGsJLBDHJLERUFO7AXn82czZYhKxTF1w5cdpp8KbgcTzKyC
-    LeWWHg6SZN6idvVfOy5JA+DlPD99+/8FgEIu3lE9IpdPrsx3NT5wN2dpe/6hJEt79l8opH
-    kXYRAvZ+jAj7ZtceJoTSJVSsvbLVG7yj7BiLWUJKUiojC4Fk0rBBIhfD1KThZ6fQGx2iql
-    GGowOWPZ4MY3Trw6qG+xfS5Kd6YF2ybZAGaiHjVWB7YtVZs4XjdOKNFLhZBRFYq02vXVkm
-    k6UvYBBFhYdCQ/anBmz4lDK2Lwd4kuGKkHVyGvp+LOoP3dggoaokoRD7bT/9+dY2slAKa4
-    JDmd2A7UTxuleEKwBZqbaS8PFNTgsr5RlK5xLE1iY/y7FUP9BUMcaq+eU6z5qRRB3EiaVo
-    v41ZaJ6JyWJk9KMCsbKEH113z8ljwd2oqm/pj8AKU3i+Xj4An2mJrbJL7ele3oPIklDdS1
-    s4dWIopewnmA/v8MZnKlQmA6KjOCMDiqrtiCAEzPgZx2f3GpIyEyA9oL3ALJ6pvGLk/gYo
-    nr+vlKLJu5UmDCotA9CcbgGAWMI5KGQ08mxWvs53X7xtYPMskf7buKK8j6cUyzA2e9uORu
-    4CZt/ETUPZiNdX2OmljMP9YIFm2SOjaomjlxDwyW2Zu2+RDxHXTv8kCOkytA
-X-ME-Proxy: <xmx:-KTcagOfTE36BmkJ7KztekqtJJlqGX4NhP8K5mVIuwHNHRe12vL7vA>
-    <xmx:-KTcaia01j8ELf_Ir-WoT9HajdkaGe8A1Z6qUkVRgr0kGRP2wLJ9Yw>
-    <xmx:-KTcaqzrN6PqvrZLRsecL-OVdyjBqkcXPXm_qhp9jXbf-nMft-ENxw>
-    <xmx:-KTcatLGSEK26ps_z5sAlaPx2kv23FoyI5GGawIatDNk9ALZlyXLlg>
-    <xmx:-aTcair2QvaYQWLGL22MB1pJw1uPvYOZ7W48QLqHmdZSt8qRF_rroFWk>
-Feedback-ID: if58e4a8f:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id C819E700069; Sat, 24 Oct 2026 08:30:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fjxMq268
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=at3usBKs6kbrRI45Qq3WWIbPHuMTjb7RBjcggMJw2oi0CiI9DCYfSouBYCX8S+k5hSC3ZgRl5/rxB2ENsnka/9kGeANtzIxX6iw8/AE9fqGCJxSGWARUBfkLRb3KPNaXCXl1MKiypI2s5hnxufw1NGEU2n1bgUEFmJI5r/QhDb42ijsSHJye7AW1tHLn1q+nNWCUhpzKCSdHbCX37YhhAZJ/XEOQ7iHt2S2dr2bdKIgTDCT583LT80f50cNL9ut845Xv9Hf0XsNKi+5GWDNA0GpbzwZquYjSO9apXVS+gUunsiKIRDwJUftuigEI1BCYMJuQ3CG+bi2VCjerN9Vllg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=REqOeJQ3a+44gOCJjCINozK9snB9Y4U/VRc74h6CImw=;
+ b=NmsaYC2al+jcM2IeownjD3BFTkFutTSOM8pf62dwSiiKqIMNDDxV8M6VThYxkZSBbbdqb4kOTUNnwFdg/vNvjm7aZ483wuh4Q7RxLwIK/mA0JT17yuZ65K8fS1CXKbMFrvbfk/0K1aBwrp4P9e9zCICi6rpXzMpK04fL/Qs/R4D06BL8mkNLtrSE8p5uBhOnRwpzUcaZtWIeBj9Y7Ev+9h0O5+P5JuTpD2aPT5AGtiafHOGQf4vLiivCZMbZbRKPeKpd9B5wyd3UoQkk6CACpirP93TssZXWiO63jSsPdX4jbJm6uAAzlu5fVI2/Avip/W0fO6o1H0auFk9huE5tDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=REqOeJQ3a+44gOCJjCINozK9snB9Y4U/VRc74h6CImw=;
+ b=fjxMq268ORT3QG5RsrMKqvPkIQv1bEMt0YV+C3p8M1PZq1DK8OM5vuICuw/hL08ICjH+Lkmt4AKcB2rt7dY+resZvoprqhWRXHtU1oBypm99bUAjw2F35ZMqM2lMvsF7Ri8+Cjh5s+vn7VwusvYnzBGmX1Ce7gw8JhhC+SN0iJY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9559.namprd12.prod.outlook.com (2603:10b6:930:fd::14)
+ by SN7PR12MB8003.namprd12.prod.outlook.com (2603:10b6:806:32a::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Sat, 24 Oct
+ 2026 12:31:48 +0000
+Received: from CY1PR12MB9559.namprd12.prod.outlook.com
+ ([fe80::1761:23a3:6ab5:fbb8]) by CY1PR12MB9559.namprd12.prod.outlook.com
+ ([fe80::1761:23a3:6ab5:fbb8%6]) with mapi id 15.21.0546.012; Sat, 24 Oct 2026
+ 12:31:48 +0000
+Message-ID: <a90324cc-6d37-4cd2-b910-32a286e89d36@amd.com>
+Date: Sat, 24 Oct 2026 18:01:42 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 15/15] iio: adc: xilinx-xadc: Add I2C interface support
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, Conall O'Griofa
+ <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
+ <20261005094205.1045874-16-dileepkumar.nagavarapu@amd.com>
+ <20261019003537.617423a8@jic23-hlaptop>
+Content-Language: en-US
+From: "Nagavarapu, Dileep Kumar" <dnagavar@amd.com>
+In-Reply-To: <20261019003537.617423a8@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0239.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b1::15) To CY1PR12MB9559.namprd12.prod.outlook.com
+ (2603:10b6:930:fd::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,108 +103,326 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 24 Oct 2026 08:30:48 -0400
-From: "Alejandro Pacheco" <ale@alepacheco.dev>
-To: "Richard Weinberger" <richard@nod.at>
-Cc: "Zhihao Cheng" <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Message-Id: <82903e1b-56b0-4947-b0ed-5c24a536491a@alepacheco.dev>
-Subject: [PATCH] ubifs: check the length of index branches before reading them
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9559:EE_|SN7PR12MB8003:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc905872-dd0d-41e6-a8dc-08df31cac5c3
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|261022075727099003|261022105027099003|261021121427099003|261009223027099003|56012099006|4143699003|3023799007|10067099003|6133799003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	PhCDLISTOiARjltQ26w9/h4nJ2P5pWzwXODvAarmdt+8jbSG2E/PKMeW5Iyd6D2NU3f+BtQUSCdkdmeuUk0oECBGxxeqb59BzRMJRoFehS3yXan6v36lLmXMtWKueMhQkyykuUmBxpwAGOHD3PGPr66Jh/YYIIBaZmSOuJW3nsK6k4lFHkvc7L57aRcQXKS7kKGrwVYpFBjFm9kWkEMmK8J8A0d53vhnfd5mc+lcmLa+rbU/m57ndvN7JwqNSygoWjJE6AsbtDICzthfrjqtljX1WD6ofUftJo/N3BT3j82UBDFUcp79GAzSM5ZqHdRIXPxqEYTzqsua50GxQ4zTyCHzZdRLt5nyeKIXAr5QI8tbLpdn8dBN+NP/uPFR1djjuLw9ZS4HvHcCVqUDpl5wUaWmiuLBNg7OVqjUg0O5EV+TETHKxXlQtgFplRzsG0zx9rEhVU9mrLzIBXjgNHK9FGK88PuHcTxVZEPOwuJv/BPOVVlVJCRs/5GLiT+b7vRNLcTrprEYq0YftV78CwLLHkgG8eadUWrs2g41bprvaPPUfLm427mbnd5VKdu59qoG2xFcFSMNYvDMYKRCDEz9Xgl7++/8Qxksrp/evCms8kxk+/y2+yji2MMO2lxK15Erq6Gd1ln6m6ajaGiR71UX6GO17lDvRbv547FKuedlwak=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9559.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(56012099006)(4143699003)(3023799007)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXEreWhjeW9vbGR0eU54bk5CeW9qdk5ER0hzeDhvUHlZUnI1VE9RNHdGMWc2?=
+ =?utf-8?B?NUpUOG83d3NGVmZOblhWWjBvL1ZqdUV5YUYybkpnd20zRDBubGdkZEhOaEhY?=
+ =?utf-8?B?NE5wQ0JPN1lXOHpSMThGeXgvb2ZUdmFESmx4dGo1OXFkTEhsbFBCQkdJVmZQ?=
+ =?utf-8?B?MmxpMU5oWERrRVd3OVluUTQ4eXBPQU5XcHJDZUd1ZXRHUE5QNkFTRXMzMXRX?=
+ =?utf-8?B?Zk8xL3E5N1VJbm1NTVlMejVQejMyT0F1bGsvdndsdjZmNlVsc1R0VVFnaVR2?=
+ =?utf-8?B?Zzg2OWpscXl5ZWNuTGs5QlRTc3lVcllYeitCcDJGODZweUN1cFJkSUFSTGdZ?=
+ =?utf-8?B?YTFxTzhUdHJ6MkZYQzR6MFRqQXV2dEduMmx4YUovS0JTdHgvSTF6cHVsZlBu?=
+ =?utf-8?B?YUZhUmI5YW5MSlZubnpkTEdIenB6RlFVbGlNYmtLUnFBb2Z1N21nNWZpeDhU?=
+ =?utf-8?B?RS9CTjZGTVdGQzRRSUkya3pYdnFTMXFhcmdRL29TKy9LUm9qU0hPVFQrRzFt?=
+ =?utf-8?B?VmZrUzhtRnNweW4xcDgwejZWSE03TkNlY1NNWTdsUExQTkFYY3U4cUgvMjFS?=
+ =?utf-8?B?WWZZbmFRVXV0NDAvRnBNYldpdG1XbFZycjF2M2FXS1c4MEowL2lZNmMvU3pp?=
+ =?utf-8?B?VjdtT294V3FicmcxekZXUTlzS1NaOHNXMDA2WkhGOHJzbFlPbERrVXI2NmtP?=
+ =?utf-8?B?WTJ1Si8ySGtFY0F0TjVCYlltelhSR3EwcGxLZDNub2lQbU5Ra1hKUGRNOEdK?=
+ =?utf-8?B?S2gvbGlvK0FkUzNzbVBGZDgzRXZsbXFGZGEySVBZTFc3TDlIYU1pSm01YUFo?=
+ =?utf-8?B?dWFHdHZIa2paQlY1TXJsLzZyL0xpVmNTMTlaVGFYZ2lSK0hCNm5NdG5OdHI3?=
+ =?utf-8?B?VjIzTUdrOUtqZ3dIRkRWQ0c2NGJsK2hJMkZxbnJPUVlDdWlKbnRmcmpzbW4y?=
+ =?utf-8?B?YnhHT0phYU9rTk5jZ2xBbGhraHpJcWxYMUdJL0E5T3BqT3pEbWF4TnRreno4?=
+ =?utf-8?B?dVhlZklhbXVuS1BRcnNWNlFsYnd5ekc2c1RvMWhuWDhNV2JGUjd4NWVjdVlQ?=
+ =?utf-8?B?bjVMYXR1bmFmOWVDWG1ha2NUNkRqTkV3SGJSNnpNNW1xazBSWXJ4OTdPUXNw?=
+ =?utf-8?B?Ym9Da20xSTN1NFk5a2thWGcwSTQvMGhKL3p2c1dzaXZiSkhyRmpXNjFtb28z?=
+ =?utf-8?B?SnlyU3QwaU5XTG1KU1krSU1WL3k1TVA4R25QYW9udlJ1MFVzaEk3MlZKVWNn?=
+ =?utf-8?B?MjQra1dmSk9Ldm5RWHdJSEtTVXpHTHZ5Z1dzeEZ6RnpMVjFUQitiejBEOEk3?=
+ =?utf-8?B?Z3ZjWUtpc2QxemNTU09oMkxwa0czUE13c2ZSdThHU3dBUHRCM29DeloyYjZH?=
+ =?utf-8?B?UHk0YkpyNndzSVVTS0hxN0hJT3ozQlpKZUwzTi9IeHJiem9QUjRPcFEyN1pE?=
+ =?utf-8?B?SVJtV2N6WDZQeFpnb2lpd2dFZVhyOVZVVFNnZGFMR28yK2UxUURBeTkxL3lh?=
+ =?utf-8?B?amVHRmJackE1ZmZueXI4cmQ3NjhtYUtLZkFUelRvSlhXSE1YdmpoWE1hTXY5?=
+ =?utf-8?B?eWZET2J1SGpMMjRlQVRXanN3YzNxZm5NTnVBUytnQlk0WnF2QmhhOGsvaEVU?=
+ =?utf-8?B?N2FXeWo2dXJQdGpETEJGazR1WlZWQUhGczhjTlN1UUtJMnZjb2hWK1lxNGdB?=
+ =?utf-8?B?T0RUQUhUQjY2Wi9TWFJqamVaTlJ4QWI5YUNqbjBkSERIWGZTNkxzMk5TYjgv?=
+ =?utf-8?B?cFh3b1lFZW9wckJtVk1vS1NkWXFJRFhDa29aMUM0cE1CK1FQZ1lvM2ZNT3du?=
+ =?utf-8?B?R0NKcWZXRnBxblEyUjJwalRKdjZVZ1FhVGhFa1JpQ3N3Q1FYV2xmVkZZQXdL?=
+ =?utf-8?B?ZlVWa0NNQ1VDMHVkWElYUzAwRGxsOGJtZlVLTitod2laZlo4aUVDcklrU05q?=
+ =?utf-8?B?c3p3Q0xBcEs4c2pBYlZRdU1WNFgyczM5TDFZUUFaRWNzV0p0VkxHYzVSc1ZN?=
+ =?utf-8?B?OURmY0dxV1hOOEtkcWE5Q2dYdzlTVnJxdmljQnllVkNVcXpUaFBtZTZjbjFn?=
+ =?utf-8?B?MFdvRmVDL2E1QkdQRjBGV3JZK2drN3o1TWtUS0NwMHNINjFnZTZ2bGlnTFgr?=
+ =?utf-8?B?d2kwblVoczZBL3pMUXNPQW1saE5pUW1HbWxGY1A0b0x0UzNpZ0NTQzVLbzI5?=
+ =?utf-8?B?TUI4ZitLUWJYeWhtaDVXYUplUkJZZ2RURXhkclQyTzl1eDliSVNwclU0QXkv?=
+ =?utf-8?B?czlWb0FwKzZDTnNlYmQyVzJva0Zxcm1tamRyRUFQRlN6NGRwcjdjYWJYcEg4?=
+ =?utf-8?B?Y0NYOVlUNFp2WWRZblRkM205NFRySUl2bUhHUFRyVjNrYW1tbkFVQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc905872-dd0d-41e6-a8dc-08df31cac5c3
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9559.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2026 12:31:48.2131
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2DTU7Qo1grPneSZ+uHX88Mnon6sM0Lphxn/v5bDyfl+J9CS3QSxYFOgQaYMiexkGL60vJPoWEwJYyajv3bbZXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8003
 
-From: Alejandro Pacheco <ale@alepacheco.dev>
 
-read_znode() validates each branch of the index node it reads: the LEB
-number and offset of every branch and, in a level 0 znode, the length of
-the leaf node the branch points to, against c->ranges[]. In a znode above
-level 0, where each branch points to another index node, the length is
-not checked:
 
-	if (znode->level)
-		continue;
+On 10/19/2026 5:05 AM, Jonathan Cameron wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> 
+> 
+> On Mon, 5 Oct 2026 15:12:05 +0530
+> Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
+> 
+>> Add I2C interface support for Xilinx System Management Wizard IP along
+>> with the existing AXI memory-mapped interface. This support enables
+>> monitoring the voltage and temperature on UltraScale+ devices where the
+>> System Management Wizard is connected via I2C.
+>>
+>> Key changes:
+>> - Implement 32-bit DRP (Dynamic Reconfiguration Port) packet format
+>>    as per Xilinx PG185 specification.
+>> - Add separate I2C probe with xadc_i2c_of_match_table to handle same
+>>    compatible string ("xlnx,system-management-wiz-1.3") on I2C bus.
+>> - Add NULL checks for get_dclk_rate callback function in sampling rate
+>>    functions to support interfaces without clock control
+>> - Create separate iio_info structure(xadc_i2c_info) without event
+>>    callbacks for I2C devices
+>> - Add xadc_i2c_transaction() function to handle I2C read/write operations
+>> - Add XADC_TYPE_US_I2C type to distinguish I2C interface from AXI
+>> - Defer XADC hardware initialization until first device access, since the
+>>    I2C path reaches the PL SysMon indirectly through a platform controller
+>>    DRP bridge that may not yet be operational at probe() time. Initializing
+>>    on first read/write instead avoids probe failures caused by transient
+>>    unavailability of that downstream path.
+>>
+>> Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+>> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+>> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+> Hi Dileep,
+> 
+> Various comments inline - mostly stuff where we can make things
+> a little more readable or extensible.
+> 
+> Jonathan
+> 
+>> diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
+>> index 2addb61cf5b1..80199c4ddf69 100644
+>> --- a/drivers/iio/adc/xilinx-xadc-core.c
+>> +++ b/drivers/iio/adc/xilinx-xadc-core.c
+>> @@ -227,7 +227,7 @@ static int xadc_power_adc_b(struct xadc *xadc, unsigned int seq_mode)
+>>         * non-existing ADC-B powers down the main ADC, so just return and don't
+>>         * do anything.
+>>         */
+>> -     if (xadc->ops->type == XADC_TYPE_US)
+>> +     if (xadc->ops->type == XADC_TYPE_US || xadc->ops->type == XADC_TYPE_US_I2C)
+>>                return 0;
+> Maybe add what ever this is similar to below. If it's in the ops structure
+> we avoid having to add new types like this.
+> 
+>>
+>>        /* Powerdown the ADC-B when it is not needed. */
+>> @@ -249,7 +249,7 @@ static int xadc_get_seq_mode(struct xadc *xadc, unsigned long scan_mode)
+>>        unsigned int aux_scan_mode = scan_mode >> 16;
+>>
+>>        /* UltraScale has only one ADC and supports only continuous mode */
+>> -     if (xadc->ops->type == XADC_TYPE_US)
+>> +     if (xadc->ops->type == XADC_TYPE_US || xadc->ops->type == XADC_TYPE_US_I2C)
+>>                return XADC_CONF1_SEQ_CONTINUOUS;
+> 
+> Perhaps add this to the ops structure as well as a field called something like
+> bool continuous_only;
+> 
+>>
+>>        if (xadc->external_mux_mode == XADC_EXTERNAL_MUX_DUAL)
+> 
+>>
+>>   struct iio_dev *xadc_device_setup(struct device *dev, int size, const struct xadc_ops **ops)
+>> @@ -784,7 +797,11 @@ struct iio_dev *xadc_device_setup(struct device *dev, int size, const struct xad
+>>                return ERR_PTR(-ENOMEM);
+>>
+>>        indio_dev->name = xadc_type_names[(*ops)->type];
+>> -     indio_dev->info = &xadc_info;
+>> +     if ((*ops)->type == XADC_TYPE_US_I2C)
+> 
+> Why not put the info in the ops structure?  Then you can set it
+> unconditionally here.  Generally matching a 'type' ends up
+> messier than just adding more stuff to the type specific structure.
+> 
+>> +             indio_dev->info = &xadc_i2c_info;
+>> +     else
+>> +             indio_dev->info = &xadc_info;
+> 
+>> diff --git a/drivers/iio/adc/xilinx-xadc-i2c.c b/drivers/iio/adc/xilinx-xadc-i2c.c
+>> new file mode 100644
+>> index 000000000000..cee2f7b3f9bd
+>> --- /dev/null
+>> +++ b/drivers/iio/adc/xilinx-xadc-i2c.c
+> 
+>> +
+>> +#include <linux/iio/iio.h>
+>> +
+>> +#include "xilinx-xadc.h"
+>> +
+>> +#define XADC_I2C_READ_DATA_SIZE              2
+>> +#define XADC_I2C_WRITE_DATA_SIZE     4       /* 32-bit DRP packet */
+> Hmm. Put this as a terminating entry in an enum with the DRP elements
+> below. The it becomes clear how they are associated with each other.
+> 
+>> +#define XADC_I2C_INSTR_READ          BIT(2)
+>> +#define XADC_I2C_INSTR_WRITE         BIT(3)
+>> +
+>> +#define XADC_I2C_DRP_DATA0_MASK              GENMASK(7, 0)
+>> +#define XADC_I2C_DRP_DATA1_MASK              GENMASK(15, 8)
+>> +#define XADC_I2C_DRP_ADDR_MASK               GENMASK(7, 0)
+> All of these seem unnecessary. See below
+>> +
+>> +/* Byte offsets within the 32-bit DRP packet, per Xilinx PG185 */
+>> +#define XADC_I2C_DRP_DATA_LOW                0
+>> +#define XADC_I2C_DRP_DATA_HIGH               1
+>> +#define XADC_I2C_DRP_ADDR            2
+>> +#define XADC_I2C_DRP_INSTR           3
+> 
+>> +
+>> +static int xadc_i2c_read_transaction(struct xadc *xadc, unsigned int reg, u16 *val)
+>> +{
+>> +     struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
+>> +     u8 write_buffer[XADC_I2C_WRITE_DATA_SIZE] = { 0 };
+> 
+> Might as well set the values you have below here rather than init to 0 and then
+> override.
+> 
+>> +     struct i2c_client *client = xadc_i2c->client;
+>> +     u8 read_buffer[XADC_I2C_READ_DATA_SIZE];
+>> +     int ret;
+>> +
+>> +     write_buffer[XADC_I2C_DRP_ADDR] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
+> As below. Not seeing much value in this FIELD_PREP as the reg should always fit
+> 
+> I think?
+> 
+>> +     write_buffer[XADC_I2C_DRP_INSTR] = XADC_I2C_INSTR_READ;
+>> +
+>> +     ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     ret = i2c_master_recv(client, read_buffer, XADC_I2C_READ_DATA_SIZE);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     *val = FIELD_PREP(XADC_I2C_DRP_DATA0_MASK, read_buffer[XADC_I2C_DRP_DATA_LOW]) |
+>> +            FIELD_PREP(XADC_I2C_DRP_DATA1_MASK, read_buffer[XADC_I2C_DRP_DATA_HIGH]);
+>          *val = get_unaligned_le16(&read_buffer[XADC_I2C_DRP_DATA_LOW]);
+> 
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int xadc_i2c_write_transaction(struct xadc *xadc, unsigned int reg, u16 val)
+>> +{
+>> +     struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
+>> +     struct i2c_client *client = xadc_i2c->client;
+>> +     u8 write_buffer[XADC_I2C_WRITE_DATA_SIZE];
+>> +     int ret;
+>> +
+>> +     /* low byte of the 16-bit DRP data value */
+>> +     write_buffer[XADC_I2C_DRP_DATA_LOW] = FIELD_GET(XADC_I2C_DRP_DATA0_MASK, val);
+>> +     /* high byte of the 16-bit DRP data value */
+>> +     write_buffer[XADC_I2C_DRP_DATA_HIGH] = FIELD_GET(XADC_I2C_DRP_DATA1_MASK, val);
+> 
+>          put_unaligned_le16(val, &write_buffer[XADC_I2C_DRP_DATA_LOW]);
+> and no comments needed.
+> 
+>> +     write_buffer[XADC_I2C_DRP_ADDR] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
+> 
+> Given this is just a clamp to size of something that I assume always fits,
+> I'd drop the FIELD_PREP as providing no value.
+> 
+>> +     write_buffer[XADC_I2C_DRP_INSTR] = XADC_I2C_INSTR_WRITE;
+>> +
+>> +     ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
+> 
+> I guess in this particular case we know what the i2c master is so can assume
+> this never runs short?  (in practice they never do but I think the interface
+> allows for that case).
+> 
 
-When such a child is loaded, ubifs_load_znode() calls read_znode() for
-it, which allocates c->max_idx_node_sz bytes and has ubifs_read_node()
-read zbr->len bytes into them. Before the read, that length is bounded
-by the space left in the LEB but not by the size of the buffer; the
-length in the node header is compared with it and with c->ranges[] only
-after the read. So an image with a branch length larger than
-c->max_idx_node_sz, but within the LEB, can cause a heap buffer overflow.
+Yes, I'll add a check for ret != XADC_I2C_WRITE_DATA_SIZE and return 
+-EIO for a short write
 
-dbg_check_old_index(), which walks the old index on the media when the
-chk_index debugging check is enabled, reads each child index node by its
-branch length the same way, into a buffer sized for an index node of
-c->fanout branches, without checking the length.
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     return 0;
+>> +}
+> 
+> 
+> 
+>> +
+>> +static int xadc_i2c_probe(struct i2c_client *client)
+>> +{
+>> +     struct device *dev = &client->dev;
+>> +     unsigned int conf0, bipolar_mask;
+>> +     const struct xadc_ops *ops;
+>> +     struct iio_dev *indio_dev;
+>> +     struct xadc_i2c *xadc_i2c;
+>> +     struct xadc *xadc;
+>> +     int ret;
+>> +
+>> +     indio_dev = xadc_device_setup(dev, sizeof(*xadc_i2c), &ops);
+>> +     if (IS_ERR(indio_dev))
+>> +             return PTR_ERR(indio_dev);
+>> +
+>> +     xadc_i2c = iio_priv(indio_dev);
+>> +     xadc_i2c->client = client;
+>> +     xadc = &xadc_i2c->xadc;
+> 
+> It might be worth a little helper for here...
+> 
+>> +     xadc->ops = ops;
+>> +
+>> +     ret = devm_mutex_init(dev, &xadc->mutex);
+>> +     if (ret)
+>> +             return ret;
+>> +
+>> +     spin_lock_init(&xadc->lock);
+> 
+> to here to initialize the xadc structure as I don't think
+> the individual drivers should really know about xadc->lock etc.
+> 
+> 
+>> +
+>> +     ret = xadc_device_configure(indio_dev, 0, &conf0, &bipolar_mask);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "Failed to setup the device\n");
+>> +
+>> +     xadc_i2c->conf0 = conf0;
+>> +     xadc_i2c->bipolar_mask = bipolar_mask;
+>> +     xadc_i2c->hw_initialized = false;
+>> +
+>> +     return devm_iio_device_register(dev, indio_dev);
+>> +}
+>> +
+>> +static const struct of_device_id xadc_i2c_of_match_table[] = {
+>> +     {
+>> +             .compatible = "xlnx,system-management-wiz-1.3",
+>> +             .data = &xadc_system_mgmt_wiz_i2c_ops,
+>> +     },
+>> +     {}
+> Trivial but local IIO preference is
+>          { }
+> 
+> I wanted to standardise these on something, and happened to pick
+> that a few years back.
+> 
+>> +};
+>> +MODULE_DEVICE_TABLE(of, xadc_i2c_of_match_table);
+> 
 
-validate_master() already checks the root index node's length,
-c->zroot.len, against c->ranges[UBIFS_IDX_NODE]. Give every other index
-branch the same check before it is used for a read: in read_znode(), by
-running the length check level 0 branches get with type UBIFS_IDX_NODE,
-and in dbg_check_old_index(). Images written by UBIFS or mkfs.ubifs are
-not affected: an index node is ubifs_idx_node_sz() of its 1 to fanout
-branches long, which is the range in c->ranges[UBIFS_IDX_NODE], and
-ubifs_read_node() already rejects a length outside it, though only after
-the read.
+Thanks
+Dileep
 
-This needs a crafted image (the CRC of the index node holding the branch
-catches random corruption), and mounting UBIFS needs CAP_SYS_ADMIN in
-the initial user namespace.
-
-It was tested on a KASAN UML kernel built from this tree, with UBI on a
-64 MiB mtdram device and the chk_index debugging check enabled. A tree of
-1,830 files in 30 directories was copied to a freshly formatted volume,
-read back after a remount, partly deleted and copied again, and read
-back after another remount; the same tree was read back from a second
-volume written by mkfs.ubifs. Across the remounts, read_znode() read 909
-index nodes above level 0, and dbg_check_old_index() walked the old
-index at 20 commits, the whole index of each volume as it was on the
-media among them, with no KASAN report, warning or UBIFS error. This only
-runs the new checks on valid index nodes: no image with a bad branch
-length was made. It builds with no new warnings (W=1, x86_64 defconfig
-with UBIFS and KASAN), and checkpatch.pl --strict reports nothing.
-
-An LLM coding assistant was used to find this bug and to write this
-patch and its changelog.
-
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alejandro Pacheco <ale@alepacheco.dev>
----
- fs/ubifs/commit.c   | 5 +++++
- fs/ubifs/tnc_misc.c | 6 +++---
- 2 files changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ubifs/commit.c b/fs/ubifs/commit.c
-index 5b3a840098b..0e50b584248 100644
---- a/fs/ubifs/commit.c
-+++ b/fs/ubifs/commit.c
-@@ -696,6 +696,11 @@ int dbg_check_old_index(struct ubifs_info *c, struct ubifs_zbranch *zroot)
- 		lnum = le32_to_cpu(br->lnum);
- 		offs = le32_to_cpu(br->offs);
- 		len = le32_to_cpu(br->len);
-+		if (len < c->ranges[UBIFS_IDX_NODE].min_len ||
-+		    len > c->ranges[UBIFS_IDX_NODE].max_len) {
-+			err = 8;
-+			goto out_dump;
-+		}
- 		key_read(c, &br->key, &lower_key);
- 		if (iip + 1 < le16_to_cpu(idx->child_cnt)) {
- 			br = ubifs_idx_branch(c, idx, iip + 1);
-diff --git a/fs/ubifs/tnc_misc.c b/fs/ubifs/tnc_misc.c
-index 10b222dc6a5..e3ae17977c9 100644
---- a/fs/ubifs/tnc_misc.c
-+++ b/fs/ubifs/tnc_misc.c
-@@ -357,9 +357,9 @@ static int read_znode(struct ubifs_info *c, struct ubifs_zbranch *zzbr,
- 		}
- 
- 		if (znode->level)
--			continue;
--
--		type = key_type(c, &zbr->key);
-+			type = UBIFS_IDX_NODE;
-+		else
-+			type = key_type(c, &zbr->key);
- 		if (c->ranges[type].max_len == 0) {
- 			if (zbr->len != c->ranges[type].len) {
- 				ubifs_err(c, "bad target node (type %d) length (%d)",
