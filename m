@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792805634;
-	b=daHhe7jusDPLMOxvD0Oh6OR3dpyRpL2zDt5RtlJ/dH5fxEFBqqX16sFxNPCcSmClL/kb
-	 WAr2H3PLF2VkPmilJocC2uq7pyFcsPSkGYZ7QmjkNjIFJ9anZP/1vLyuzE96XYHo5DEgA
-	 k1AjRlQwZVJCIBVcWW6TsjtxCBasClrMCftlZmmhxbWV9w5EGgK+Yn02ukw/7ysX0i3zn
-	 WY2E9dVpSIWmq3boHI/gt6uBozaOcO1JmJ86UWybKf3AIuP/QN2j2hiutVq9MsrrMwviV
-	 fYcEgIgwYkcKUe0LmA5sPBEc1Y3wqhkeGT2mZkL4qclVokftiXeQYbSFabfwvtK6luw==
+	t=1792805904;
+	b=SwbXCw1BJH4Un2URRcomgD/wfVxGZSz0Jed2FKZmI47eepiffq+goUUMc3TDWQOhgVPm
+	 1pdoaKbmzb8a/bv0YOxBpkloW3+sdO5yQXks2OZOO/OnAtU7k4dcpkIQOwEb8csui5Hew
+	 fd7k+Rf7ZAvK91NSi97iyOoH7EdgGcQZXRr2G+jHkAs4VET/ccTp1EmeODG0J5De33tOM
+	 nNHzNw++jMrDVpX4O2L/vY28Oj0SkDgU1g4SA405Lk3qQUUrZQIgBadr93/xgicP9BBMP
+	 avwhE6pURVrLsbPunfuf64LmodATHIbl+Qn55O+BpCF2rg7GB8Ho8iM2FwR+u1jfDVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792805634;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792805904;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=c5DHhzFtVYI0VDNuw0PcYgMp0bx+/sbaWrxAWif8Ntg=;
-	b=1JCNGfRrdcXNnta34jw2mUok9clZlivIo9MogsWkmBtsrfKEvqeOE/ZqkLhIlA8BmOm2
-	 cbds+f/2N0vU/9AwZ2gJ7ePrb04H4q34AF4VyHH6FiMDny8khhqIMd9gkd5QitmyBB0Dh
-	 YvDshDSMfaALSLpPU6LmhE03VWwGwdOF2T9alKZ8gWrHq39VJ7UTsP5ekuAsLFOTBtufE
-	 doFM8BBGydr+ws/0ygWVGa+mjVtJCkR6xa5f5PXAH9+J1n1RLIqlgsqfTlWfNp2VDH1Gw
-	 LOFhTIB4U2GX65+2YGhkCG2pfPdc8ONaVAQRhtjflH9oiLkT/itj1Awk7GNiDY3UdaQ==
+	bh=GE6+U0BYl/gxLk+WhH0myEBpK899UvVfGxeXSmRPFeE=;
+	b=DsWcVNRYsZ3dnsqJ3nXpSgYOp+Ir8XSy4tpEO1bceOay557gG9Pfeo9GDpG3xVUKzITz
+	 kZt00KHiCLue6bdVRLC4XhEK83OiPN7PsXiBs21M/ARvvKgau02ES5bOCeH2qk9sdjGIG
+	 95VAThqE8RacUK5Xqa0E+ogW0k466I3vrZdPNFrKLwZ1BLZxoAQLPkTJrOMomxWjDUd3H
+	 3jx1xWl5liuRIh1G+Qw73DB5cTsRcsISvYHv73jNTHSR/nqUdJJizhn1rGHbEOqbsTWWT
+	 do/ho5KH4N4Y4XJGJ+g20aGfe47lMY5BVrLP0nsRgSozif7nTV0nBliG3hFpJOhB4Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=empyreal.works;
-	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=rYBo8cla;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=AIKpU5dv;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72142606A333
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72142606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B1606A31A;
+	Sat, 24 Oct 2026 01:38:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2B1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=rYBo8cla
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1792805632; x=1793064832;
-	bh=c5DHhzFtVYI0VDNuw0PcYgMp0bx+/sbaWrxAWif8Ntg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=rYBo8claf2lmAiAOKKYb3wwrphQAj21ecsxqNsFw8hDZiCJbEUTaxQzmG+o/Q2od6
-	 lEG1RcXdjAyXYcrni9I+9PjpWz3qqKqfXo+ydM7hIaIvm6VqjxrP42m4BhW7oppv9i
-	 ogrfpUvkW8TensYGHheGwAh8zcCcTXyDqF+Ve/1aBjx39NvsltI4w6oZysdc7LYUQ1
-	 3RK1w3RyoAsSbR4/T+ae68Rm2naHqrFflW4mEWdJGQketGW1hST/h2MLBcQzAGBsrL
-	 mZO0rzObO8/O1uMQhdTG1DW0VU42El4KBmLcdNFiSWgFEEjcZTtUe7m7wYO0pQBoXe
-	 WAROg+8syCl7Q==
-Date: Sat, 24 Oct 2026 01:33:49 +0000
-To: Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: Re: [PATCH v2 1/4] drm/amd/display: keep custom brightness curve in userspace domain
-Message-ID: <179280560760.1179989.11396695208074498725@empyreal.works>
-In-Reply-To: <797bb933-adf3-41c6-8421-ffc3bd6948f9@amd.com>
-References: <20260902-brightness-cover-abf809f2@empyreal.works> <cover.1788388049.git.arc@empyreal.works> <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works> <797bb933-adf3-41c6-8421-ffc3bd6948f9@amd.com>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 127baa2e3b59a63e08b1254d5c5e4b051f4d8519
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=AIKpU5dv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=GE6+U0BYl/gxLk+WhH0myEBpK899UvVfGxeXSmRPFeE=; b=AIKpU5dvniKr+gypfihPgMduE6
+	Om1oE2fGwFAIpMss8ydzwLlHqa71TuDNbq18vehkMcX2FDxOhkpY5AfhtsHWOgLGBDlsAWOWxK82x
+	9FQ38pI8Z1I93H1Pk+tMqe+4gMHQWuxQuLRxH4alFABrDUe+HTCIm952EEtFuU9VrY+kwDIHc6Hh7
+	GQDtWWKz6tAi6YTlbxjT4OD/bplhN8niHtIo8pb41QfMS6WORtMNLbtV4sVJ8h6qs96erCPsqB2sX
+	t///ifBCNG29TDhwjgmEF4UhSw55bKOx3eJNCCV3gxjz7/7yOxIfdUJkuKWqHCTop6+1E+sNjXjuq
+	DmOapaJg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xKQi9-0000000HJtS-0EiF;
+	Sat, 24 Oct 2026 01:38:17 +0000
+Message-ID: <40c69814-f9eb-40d6-b735-98eec67898a0@infradead.org>
+Date: Fri, 23 Oct 2026 18:38:15 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,56 +58,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] loadpin: allow untoggleable enforcement on
+ filesystems which don't appear to be read-only
+To: Amelia Crate <acrate@waldn.net>, Kees Cook <kees@kernel.org>,
+ linux-security-module@vger.kernel.org
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E . Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023171508.3460300-1-acrate@waldn.net>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261023171508.3460300-1-acrate@waldn.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/12/26 22:06, Mario Limonciello wrote:
-> There has already been some competing changes for how the power module
-> integration handling works in amd-staging-drm-next.
->
-> I wanted to see how your series was on top of it, but it doesn't apply
-> anymore. [1]  Can you please rebase your series and re-evaluate?
->
-> If it still makes sense (in your view); please send out a v3.
+Hi,
 
-Thanks for trying it. I rebased onto amd-staging-drm-next (77f548b12).
+On 10/23/26 10:15 AM, Amelia Crate wrote:
+> Some filesystems, such as composefs created from layers which are entirely
+> read-only, can't be easily detected as a read-only file system. In addition to
+> filesystems which are read-only without having a backing read-only block device
+> I believe this is also useful for cases where immutability of the filesystem is
+> enforced by the hypervisor or the host, such as 9p shares or virtiofs.
+> 
+> It is still desirable to enforce LoadPin and disallow toggling enforcement in these cases.
+> This patch gives system administrators a way to disallow toggling LoadPin enforcement even
+> when the immutability of a filesystem is unclear.
+> 
+> Signed-off-by: Amelia Crate <acrate@waldn.net>
+> Assisted-by: Codex:gpt-6
+> ---
+>  Documentation/admin-guide/LSM/LoadPin.rst     |  8 +++++++-
+>  .../admin-guide/kernel-parameters.txt         |  7 +++++++
+>  security/loadpin/loadpin.c                    | 20 ++++++++++++++++++-
+>  3 files changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/LSM/LoadPin.rst b/Documentation/admin-guide/LSM/LoadPin.rst
+> index a90fd9dac960..f1e8825d0fe8 100644
+> --- a/Documentation/admin-guide/LSM/LoadPin.rst
+> +++ b/Documentation/admin-guide/LSM/LoadPin.rst
+> @@ -16,10 +16,16 @@ boot ("``loadpin.enforce=0``").
+>  
+>  LoadPin starts pinning when it sees the first file loaded. If the
+>  block device backing the filesystem is not read-only, a sysctl is
+> -created to toggle pinning: ``/proc/sys/kernel/loadpin/enabled``. (Having
+> +created to toggle pinning: ``/proc/sys/kernel/loadpin/enforce``. (Having
 
-Patch 1 is still needed: convert_custom_brightness() still adds the
-firmware minimum before convert_brightness_from_user() adds it again.
-Since Ray's "drm/amd/display: map PWM brightness through custom
-backlight curve" that only reaches AUX panels with a custom curve on
-staging, plus PWM panels on stable kernels before the power module.
-v3 has patches 1 and 2 only:
-https://lore.kernel.org/r/cover.1792805565.git.arc@empyreal.works
+Ah. The sysctl documentation had the incorrect name there.
 
-Patches 3 and 4 overlap with Ray's change, so I'm dropping them. Two
-things in the new PWM path look unintended, though. Numbers below are
-from a ROG Flow Z13 (GZ302EA, Strix Halo) on 7.3.0, writing amdgpu_bl1
-and reading amdgpu_target_backlight_pwm. ATIF reports min 12, max 255
-and a 49-point curve (50% luminance at signal 98, 62% at 129).
+Would it be possible to put all of these command line parameters / sysctls
+in the same place instead of having one of them in LoadPin.rst and
+another one in kernel-parameters.txt ?
 
-- convert_brightness_to_millipercent() clamps the request to
-  [min..max] before scaling it as [0..max]. Every request from 0 to
-  3598, the bottom 5.5% of the range, gives PWM 3598, and the panel
-  minimum of 3084 is never used.
+Thanks.
 
-- The request is mapped through the ATIF curve to a luminance
-  percentage, and the power module maps that back to PWM through its
-  LUT, built from the same points. The two steps cancel, so PWM follows
-  the request one to one: 25% gives 16576, 50% gives 33153, 80% gives
-  52428. By the panel's own curve that is 35%, 62% and 86% luminance.
-  Passing the request straight through as millipercent would give 25%,
-  50% and 80%. If sysfs values are meant to stay signal levels this is
-  fine, but then the custom curve no longer shapes the response on
-  these panels.
+>  a mutable filesystem means pinning is mutable too, but having the
+>  sysctl allows for easy testing on systems with a mutable filesystem.)
+>  
+> +Some filesystems may appear to be mutable, but are in fact read-only.
+> +In this case, ``loadpin.force_enforce=1`` can be set to require enforcement
+> +of LoadPin on all filesystems. When LoadPin is enabled,
+> +``/proc/sys/kernel/loadpin/force_enforce`` reports the state of this option.
+> +This option is independent of whether LoadPin is enabled.
+> +
+>  It's also possible to exclude specific file types from LoadPin using kernel
+>  command line option "``loadpin.exclude``". By default, all files are
+>  included, but they can be excluded using kernel command line option such
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 1b2ae71def21..df8c145cc63d 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -3540,6 +3540,13 @@ Kernel parameters
+>  			Enable Live Update Orchestrator (LUO).
+>  			Default: off.
+>  
+> +	loadpin.force_enforce= [SECURITY]
+> +			Format: <bool>
+> +			Force LoadPin enforcement until reboot, even when the
+> +			pinned filesystem is not backed by a read-only block
+> +			device. Requires LoadPin to be enabled in the active LSM list.
+> +			Default: off.
+> +
+>  	lockd.nlm_grace_period=P  [NFS] Assign grace period.
+>  			Format: <integer>
+>  
+> diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+> index f71861f98e1a..b260ad299a2c 100644
+> --- a/security/loadpin/loadpin.c
+> +++ b/security/loadpin/loadpin.c
+> @@ -45,6 +45,7 @@ static void report_load(const char *origin, struct file *file, char *operation)
+>  }
+>  
+>  static int enforce = IS_ENABLED(CONFIG_SECURITY_LOADPIN_ENFORCE);
+> +static bool force_enforce __ro_after_init;
+>  static char *exclude_read_files[READING_MAX_ID];
+>  static int ignore_read_file_id[READING_MAX_ID] __ro_after_init;
+>  static struct super_block *pinned_root;
+> @@ -60,11 +61,19 @@ static bool loadpin_root_writable;
+>  static int proc_handler_loadpin(const struct ctl_table *table, int dir,
+>  				void *buffer, size_t *lenp, loff_t *ppos)
+>  {
+> -	if (!loadpin_root_writable && SYSCTL_USER_TO_KERN(dir))
+> +	if ((force_enforce || !loadpin_root_writable) && SYSCTL_USER_TO_KERN(dir))
+>  		return -EINVAL;
+>  	return proc_dointvec_minmax(table, dir, buffer, lenp, ppos);
+>  }
+>  
+> +static int proc_handler_force_enforce(const struct ctl_table *table, int dir,
+> +				      void *buffer, size_t *lenp, loff_t *ppos)
+> +{
+> +	if (SYSCTL_USER_TO_KERN(dir))
+> +		return -EPERM;
+> +	return proc_dobool(table, dir, buffer, lenp, ppos);
+> +}
+> +
+>  static const struct ctl_table loadpin_sysctl_table[] = {
+>  	{
+>  		.procname       = "enforce",
+> @@ -75,6 +84,13 @@ static const struct ctl_table loadpin_sysctl_table[] = {
+>  		.extra1         = SYSCTL_ZERO,
+>  		.extra2         = SYSCTL_ONE,
+>  	},
+> +	{
+> +		.procname       = "force_enforce",
+> +		.data           = &force_enforce,
+> +		.maxlen         = sizeof(force_enforce),
+> +		.mode           = 0444,
+> +		.proc_handler   = proc_handler_force_enforce,
+> +	},
+>  };
+>  #endif
+>  
+> @@ -436,6 +452,8 @@ DEFINE_LSM(loadpin) = {
+>  };
+>  
+>  /* Should not be mutable after boot, so not listed in sysfs (perm == 0). */
+> +module_param(force_enforce, bool, 0);
+> +MODULE_PARM_DESC(force_enforce, "Always enforce module/firmware pinning");
+>  module_param(enforce, int, 0);
+>  MODULE_PARM_DESC(enforce, "Enforce module/firmware pinning");
+>  module_param_array_named(exclude, exclude_read_files, charp, NULL, 0);
 
-On AUX, brightness_mask is still ORed into the millinit value before
-mod_power_set_backlight_nits(), which is an intermediate unit (the
-Sashiko finding from v2).
-
-If these aren't intended I can send a follow-up on top of Ray's patch,
-or leave it to him if he prefers.
-
-Thanks,
-Andrei
+-- 
+~Randy
 
