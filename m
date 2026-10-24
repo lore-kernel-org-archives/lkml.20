@@ -1,72 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792837950;
-	b=RSqH/Ms37BHXZex/GdOlltYxw+qcEy7LSeudbf6nH7OC+fSz0WQQuSYy/CowJ5X+5Pyy
-	 IlFRvKotQT9D/SzIs13TkXi50Bqu7TBhng6oIApi+JY4/mOqX6ZNYGgr4ur4ssy4uoX6v
-	 cvnzg2UUS27/Awn94eusAq6LSe5s/iRD9PbbdoQglGPsBjiFDHDpxQIQFW0qnshPdc2Lu
-	 0/yP0NCtGQjaSdMD9hXyfaKgONg+4jKAyQbSqUF3qt4E9VVe5py7VNPRQNqHaM8YKVw8O
-	 xmbZR7tQ6YaI3ihDYlOu5XzKYXVkCpYKLhKfZPg+5JUeFYjxYKCy5AeQotyk+2Z88ag==
+	t=1792838054;
+	b=JSrX4qnuwe+fytx/x3B98tCVSxI3qr73oK1hveXjN78uJ7/G/CtigaRsf1NgDoHGPVEU
+	 tzxOSQDGzZyDERbpJ1gHQMm+qiMf8IX2irwFdvtSuSs4Juvgov9cVmZ7zPwVjkHAQUHD3
+	 qMwvzwdWvMt5IR90vLZ2KDMPRm0Sox71wXlzPMD3vKlqypZiGI7L3gN3TrzyGZCITcqm+
+	 UBPVKCMyiL7qtLLBQYHEtkp/iQosdeZYVFOODbjg9CbfB01H7ivy4y7c9NMPldvVnFhea
+	 Gcbk41vLOJi1eFbdNtd2kY+US7x7tCH16CuJZokprSIeLeUaHB7sHwNtMakEuVMIflw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792837950;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=by5k9Rwpd3Lb929kxnzIlO4/xIraDNSa5LNfIcf1c7w=;
-	b=yBHdIkuU3G+Coc6Qf7NnPzLuOvYZ8wgsHcgYVhXdOTKo+5csRYHqQesl0E7k+Muu2kK+
-	 U0lBBMQ5NgHiqCwlN8DyNO/uQ+1WaXVIGfylhcyXK9/qT+Ll0WnmFOlsfvB/BYO1Q9ljd
-	 v11N7O3N+4AnWqRkzSFKypuwyNCt2HFG3Mtq653hToQdXsiZKSzd3YHB8BN5XW7KeKQmH
-	 YyfVn0sB/SV5/K621TWM3uemyB3UGgKxmED24RSmmbwZ9UxCvEkahT5AkyMUYxGoATqMf
-	 IRa2GdISISBrQMMft2I6p3Hj/IB8+K4A5pNfjwd+8zWaRRu5oZyHKj7qOeSf46fXtmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838054;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+	b=kpruBAzJA3Q7ohUk6eBMX9yd5OCnh45MIR+Wscu4pSo5/ZtF6sssEXjJViDAgIXyWeZD
+	 sQJK2XNH+rTFz/sf/MBfu1ijZkRKRH5Ux1Xa3DsfwYWaEDI5eAnwvu8DHIRlr1PCng5l5
+	 HG/YmgNWqZLjo9BDD7Cw6B1HtsgDGjA5L6GCyWz3i3Td9MVNAH+fqktofxci4/Ob14x/d
+	 mwDVohEtOkQw/Gvbu6CldJMP6rT1MrcG73kyk7pkFdg1QxGhotbXK13x2dEKqag0wYMXO
+	 syAcp1iSTYhjJBePOcwYtVmMgUBx1FU6VaUmmeZgzOLRvhsgMZ+GILMrdFWfH1e9KHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mmiELwFI;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdKX24K5;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EDE606A31B;
-	Sat, 24 Oct 2026 10:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89EDE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F04E606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F04E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mmiELwFI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792837943; bh=by5k9Rwpd3Lb929kxnzIlO4/xIraDNSa5LNfIcf1c7w=;
-	h=From:To:Cc:Subject:Date;
-	b=mmiELwFIw3xoTp4Hjx8+WOk24cx7HjEDZuMMWZOgKfIHidvGPgTWtTsJ1T/5ecGBR
-	 raDceycgdomxjVPsh2WJvSBqMjwqBv1+eDUkg1SzP+EA1OoE4gRh7i7mkmDuhJXUx4
-	 HDuZc3WrYftC7sx0AqRBImC2bXQUaib4tEIthNuA=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 81485A0D; Sat, 24 Oct 2026 18:32:20 +0800
-X-QQ-mid: xmsmtpt1792837940ted38oxsm
-Message-ID: <tencent_43A65D51143E18518EA968DF9323694EFD08@qq.com>
-X-QQ-XMAILINFO: OOO9dHjlsLs7JqcpGfDwOyvxM76Y4MtmMEynPxk+fpDtCR8etUzE/RdOL7ZFdT
-	 /b2p+++hyIaWTXP2wczGr37txuTP+GGs8P6zeUU9OG6d5B/U+EiyjQ0hgqwRfyN+Wbc87VTpMjFZ
-	 uuFKwPtYdehH8lOPG5v7rL3O5V3ipvW2Ma1Z5TFzpyrF5LCoWZWzAKA8FoM9QtSG+DufATpQs9iw
-	 OudJeldYG9EAWfjg2/IAjLa6Pyoe2rFNybQsQlS1Xs6RqHOCBHvZzJwFMHBRmVCturSF5sNT8sXl
-	 txvfgA6fRJB12OSsnD6GXm32Lv3FuIyObI8plHv2lfwRLGI2yG0eneg+yGt98fCUqSnEFRqFeuDZ
-	 einR9OQUFkWNDT1JVihCSdfiTQmpHH18LdsYIKxyBprDCFO7pPVVaUIYVwtsSpar4gl6OyazwA4I
-	 16VSlUnrZKi4kQQEz39QFw/YJa/fKjQAIt2bxA7hXTqt2LLPChEMiDa+iKc128dyJOwExXtJAY55
-	 RONJZVep3moxXmgaOxVZtt4cNLXDATwZ/xA5omNyKQrnGBd7EfEGiYmvk9R9k98Mhts6A2DDVKQi
-	 SHTSFTeXVPWebV9S39UALBq9QWwnSfaDIQq6VoYB8Pfm2Lfh80KUZbq7qymCyKS9tzQrAhI1fOf/
-	 lDUguPEPkK8J5izTX9OHuSdFD7QLxDUCzrPFXJVydCP34JowSMzA1G86usZyiUj2I+FlVIv7eeWi
-	 JhOpIPlmCHOiKkJrzJorZvItpTzMrk1e36mMXFxFEi66pOPhM3IkUrvpjotZXZCcmuxUDNnAWOux
-	 Ny0c8lyICbfSZSn99gaWhgAEpBdafsdpmB9OQwMtTPFPRW4pvWHR51gSPCM/oD2fZY7D/86X6ykN
-	 wiv1jBu0t4CzfNZ/iIVBiN1zVOtWrmCtczHvQMkQPjoJNqOZMQ5q/5w9TIlUCepKp+rH92NjIDIT
-	 UBoLMUoap4tmpDHNoOKaSdEuleVh3tHfhBBbGLsW7X7mMQ3hFaiJeD01SCwUApe9H0XJ7dSKoDOg
-	 tfJjScWMDa/ZA+nwSFrqpxz/c2EoM2LAq9ZFyN+IWcHPKjxFBdcnMiWrXe+qWP8xcesQSUnh9lZF
-	 qySFz2qMHTK5/Bc4g=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>,
- Matt Johnston <matt@codeconstruct.com.au>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG net] mctp: sk_buff leak in mctp_dst_input() when mctp_key_add() fails
-Date: Sat, 24 Oct 2026 18:32:20 +0800
-X-OQ-MSGID: <20261024183220.64968-mctp-yangguikun19@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdKX24K5
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so1434945e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:34:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792838052; x=1793442852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+        b=YdKX24K5TOlpcFJ0JFIKaPqeZd4jYWqUjIEwLJZQlXOYeeUNYiMecPrIjGLx4Z4fnx
+         m7HvkLbn/xgQWV/9JK9FzWU81MbsnAt89fyh5SOPZcPW7LTgeEEex2KX6oFkYxrL87Gr
+         5Fh6FS/GSOTMoj4WtGxvocaACDei6U2u6mXZaoqJ+zP9ZwJyg1YPYl2l/Xx8QAZMbIWc
+         eafGUH0BG9+0f4o77CCKZS0eTQYVuIuC3270RWyV+W86puo4d2xYSl8OQe2QWUJ4ffom
+         tkNmTSe6kHB09Dm23ZQmSm4Unn66KFGafc7CF93cE8MMb3By5rX8S+0REEDh0s95Uqyp
+         bfXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792838052; x=1793442852;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+        b=s7XavpuFnMJSKdCpJ/bNZcj87NrHrASYfiu6hxUzuIE7ke5gOe71+5uL0AJrtre0eC
+         C1WDbIsKlW7eUGmjbneQ9tcw403B9d8Pw2YGGLMiF7Lf+wiVaXc5seTSqrfOFHvKykVc
+         kQXpl7GU3WBlS61WP5meSxAjYUez3SZPRGMU+2U1DUxFB2l/H8apCo5RONSATsNkBuyK
+         P23uEq7Tf8x1ZtdIvQI1Fy8IxBHIKwhUq+KihBJwBTvHDlK05Jel9skiAcBJVgjat8vf
+         UOI1EAbkfI0MQIwS+VapZIrgmwrLihMlD+ztssiOdyZFWmg/Vzn8QeUfsUanDq7KI3vj
+         5GiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmGf/4lrsPoreVfrZKQ0haJU/KV/wI3w/LglDxkRU0B8bUPGL7BsPtjdud7OWy1exkG72oPsEXfs30t4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqsamhnym8sj5T2D7Dt5PgO62UCNT6OUqFd5XOpIpw6xKRaurC
+	zd2+EBQ+GGwcg9aAI4I0knLYgkMst4ns+7bg8rplxveP5DfI0PwTxwEj
+X-Gm-Gg: AYBFou2qlGMqB4L5McCK0CX//5NUqi7vamWhkkk51jbkCFpl3UdEwBy8cvV54V6nvy/
+	9zDkHeMpyj5JhqhuQKAuo2+TCwQ2B3JtHYQQBRX1D1K2qWsnuaIM6xZ8JoWSXibpqe5g9Xe34Yw
+	A/LDeTCwMU5e9YfzX5oEjx6HQ4MlrqCv+GFd2ij2R2LQEgvvrr4y+O7Tn/HE7wJ9kp8LhvUubt6
+	HsgYyHCHuQnetl5eAJxU4bWaXg6EXFnwiCIBAO/2jmC23bsdUmn0bGwl8M4OlMFlvtSZyArefr5
+	1lhZcus3qx9sOkY3kjMiT2Ot3otxnTB3wm+asYUhG0v6yIaQtzLei04JI8tnu24efDZzmJjoaXp
+	Rd1mLHFAWLayfboW/W1Oq3yn2GKZ7cuhXhEa9CsUAoElQx6UyJJmngK5Y509tWxj6t73/HiTJYr
+	T4hXTz2V9T+kzYAQxIUhXddfiv4BGBeoEqcHB2rn7l77cDEUoqsyN/csamSGO6VGAmJ1wNY5+jw
+	F2KphRETviHVZPvcNZdCBUxvcCBUUehJ34LNg+txrUnfcQAX+G/rDVvZsYvclPolbUgWqTtJU2C
+	XAc8WOkUf7fUc7UBi/P6rj+gHzqKXYmnxzdXvRv30Bmc1qEgJvrO+EqQkYcknCDzaLYMYU1MQth
+	f4NWyapA=
+X-Received: by 2002:a05:600c:83c7:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4a35ac3f293mr26033995e9.1.1792838052522;
+        Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
+Received: from threadripper-fedora-workstation (d-zg2-024.globalnet.hr. [213.149.37.24])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm3544825f8f.39.2026.10.24.03.34.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
+From: Robert Marko <robimarko@gmail.com>
+To: andersson@kernel.org,
+	abelvesa@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	konradybcio@kernel.org,
+	taniya.das@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Robert Marko <robimarko@gmail.com>
+Subject: [PATCH 2/2] arm64: dts: qcom: ipq8074: Add CMN PLL
+Date: Sat, 24 Oct 2026 12:33:10 +0200
+Message-ID: <20261024103401.761125-2-robimarko@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261024103401.761125-1-robimarko@gmail.com>
+References: <20261024103401.761125-1-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,87 +110,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Hi Jeremy, Matt,
+Add the CMN PLL node, it will be used to feed the required fixed clocks
+to networking subsystem.
 
-In mctp_dst_input() (net/mctp/route.c), the SOM (start-of-message)
-branch allocates a reassembly key, queues the packet into it, and only
-afterwards publishes the key:
+CMN PLL provides bias_pll_cc_clk and bias_pll_nss_noc_clk to GCC.
 
-		if (!key) {
-			key = mctp_key_alloc(msk, netid, mh->dest, mh->src,
-					     tag, GFP_ATOMIC);
-			if (!key) {
-				rc = -ENOMEM;
-				goto out_unlock;
-			}
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/ipq8074.dtsi | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-			/* we can queue without the key lock here, as the
-			 * key isn't observable yet
-			 */
-			mctp_frag_queue(key, skb);
-			skb = NULL;
-
-			rc = mctp_key_add(key, msk);
-			if (!rc)
-				trace_mctp_key_acquire(key);
-
-			mctp_key_unref(key);
-			key = NULL;
-
-If mctp_key_add() fails, the packet has already been consumed by
-mctp_frag_queue(): for the first packet of a message it takes ownership
-of the skb via skb_unshare() and stores it in key->reasm_head, and the
-local variable is set to NULL.  The failure path then drops the only
-key reference (mctp_key_unref() -> refcount 0 -> kfree(key)) without
-freeing key->reasm_head, so the sk_buff is leaked: neither the caller's
-out: kfree_skb(skb) (skb is NULL) nor anything else ever releases it.
-
-mctp_key_add() can fail in two ways:
-
-  1. -EEXIST: a concurrent packet with the same (net, src, dst, tag)
-     won the race in mctp_key_add()'s duplicate check.  The frag_queue()
-     call happens outside net->mctp.keys_lock, so two CPUs processing
-     two identical SOM packets can each allocate a key; the loser fails
-     here and leaks its skb.
-
-  2. -EINVAL: the socket went away (SOCK_DEAD) between the bind lookup
-     and key_add -- e.g. the fd is closed while the packet is in flight.
-     This window is much wider than the double-SOM race and does not
-     need any attacker-side timing.
-
-Either way, each failure leaks one sk_buff (the reassembly head,
-including whatever frags it has).  Repeated SOM packets racing a close,
-or hammering the double-SOM window on an SMP system, leak memory until
-exhaustion.  The packets only need to reach a bound AF_MCTP socket on
-the local machine, so anyone on the MCTP bus can trigger this against
-an mctp-i2c/serial/netdev interface.
-
-The same shape is handled correctly elsewhere: the !SOM duplicate path
-uses __mctp_key_done_in(), which takes key->reasm_head and kfree_skb()s
-it.  The fix is to do the same on the key_add failure path -- free
-key->reasm_head (and tail fragments, of which the first packet has
-none) before dropping the reference, e.g.:
-
-			rc = mctp_key_add(key, msk);
-			if (!rc)
-				trace_mctp_key_acquire(key);
-			else {
-				kfree_skb(key->reasm_head);
-				key->reasm_head = NULL;
-			}
-
-			mctp_key_unref(key);
-			key = NULL;
-
-Checked against linux-next (2026-10-24, net/mctp/route.c): the failure
-path is unchanged.  syzbot has no MCTP report matching this; marc shows
-no prior report (the usblib series is unrelated).
-
-Found by code inspection.
-
-Best,
-Guikun Yang
+diff --git a/arch/arm64/boot/dts/qcom/ipq8074.dtsi b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+index 75a5ae30d966..8afc63a72144 100644
+--- a/arch/arm64/boot/dts/qcom/ipq8074.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+@@ -5,6 +5,7 @@
+ 
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/clock/qcom,gcc-ipq8074.h>
++#include <dt-bindings/clock/qcom,ipq8074-cmn-pll.h>
+ 
+ / {
+ 	#address-cells = <2>;
+@@ -15,6 +16,12 @@ / {
+ 	interrupt-parent = <&intc>;
+ 
+ 	clocks {
++		ref_48mhz_clk: ref-48mhz-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <48000000>;
++			#clock-cells = <0>;
++		};
++
+ 		sleep_clk: sleep_clk {
+ 			compatible = "fixed-clock";
+ 			clock-frequency = <32768>;
+@@ -257,6 +264,18 @@ mdio: mdio@90000 {
+ 			status = "disabled";
+ 		};
+ 
++		cmn_pll: clock-controller@9b000 {
++			compatible = "qcom,ipq8074-cmn-pll";
++			reg = <0x0009b000 0x800>;
++			clocks = <&ref_48mhz_clk>,
++				 <&gcc GCC_CMN_12GPLL_AHB_CLK>,
++				 <&gcc GCC_CMN_12GPLL_SYS_CLK>;
++			clock-names = "ref", "ahb", "sys";
++			#clock-cells = <1>;
++			assigned-clocks = <&cmn_pll IPQ8074_CMN_PLL_CLK>;
++			assigned-clock-rates-u64 = /bits/ 64 <12000000000>;
++		};
++
+ 		qfprom: efuse@a4000 {
+ 			compatible = "qcom,ipq8074-qfprom", "qcom,qfprom";
+ 			reg = <0x000a4000 0x2000>;
+@@ -369,11 +388,15 @@ gcc: clock-controller@1800000 {
+ 			clocks = <&xo>,
+ 				 <&sleep_clk>,
+ 				 <&pcie_qmp0>,
+-				 <&pcie_qmp1>;
++				 <&pcie_qmp1>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_CC_CLK>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_NSS_NOC_CLK>;
+ 			clock-names = "xo",
+ 				      "sleep_clk",
+ 				      "pcie0_pipe",
+-				      "pcie1_pipe";
++				      "pcie1_pipe",
++				      "bias_pll_cc_clk",
++				      "bias_pll_nss_noc_clk";
+ 			#clock-cells = <1>;
+ 			#power-domain-cells = <1>;
+ 			#reset-cells = <1>;
+-- 
+2.56.0
 
