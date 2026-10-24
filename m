@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792812632;
-	b=jPMTwA3d8Vn1IwaElpRzHFl8lXaFlMoos4HZCg76DQARpV90dAtXTPtLlJJA5Fm0j96B
-	 /aKC6CMRop6/vf4KVJkjYP1ft8m57L3qeEGOcwtuN8tvNEimy+Ilw7G1B/z4//vTkAxkT
-	 UPwqOBRzqCKISuHzyL1KzOwQh9Gz7obi77B/QWeiRrVd83rwcktj4tsYnFghjQFXXa/MO
-	 qSfbLSnLB61TITdn8OcMeFaV2TTHOYIuHsJw4aVRwVCNgVeFIx+Bych9KD8iPX/mmGIe6
-	 Nxqv96xoPcAwOjMj+qjd1TJcQuSJwrK4O0L18ohNZ+O/ynkX6vF9Nl4FdzbwWoMOYNw==
+	t=1792812650;
+	b=sr+/mAVw2+XSDxJi15vWzCrurCqcrlzT9ENw6QUefOg+R73qxpzeTUCYDJ+yYaxCoe3b
+	 ZX3JTccKbmmkZfPiBzdYs715UsK7gmEPw/kXdDQiBNC2MydgMuegOqu303nU1qUXANlHm
+	 U5HwjNJWMbIhc9+2lwWIYWYuVsVs6A3kln2H/FcsUcGDEjiJrqRM7mYvY0rFDP4noffhD
+	 iMuGj1kjMR2pFNZhH3HfrM9BNmDr6SKwgOIS1jL/YNCkCFm9eyH4Ydb5qgpL9+YnwfI+B
+	 gt7z2K0qRfl6StbfnqjNCw4SM5jdIHTu+TF92u4X6kyojtUj+wutBWI8ojPQna5lKZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792812632;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DxREnxXFL74zEXnlXFVXWPlkVOMBFqhGQRo3iyJ0jLE=;
-	b=CA16Qu5I8MOQfsDH/8IzuqUe7ea0BpnPZTa26j+8SCSRTaFOIxABZ1ucMQY5oqnT+eXS
-	 bvxNqZEaHOr7L89HZKBq7QYfN++Bxsk9LwGQ5sHxR+TI6OrAHLgzQ4b6cVqcjb5kd7ljZ
-	 K0L+9lrRlJ/OXsNMsDBIlAsr80nx+S/1z7pNWv/XumlRirxU9ULFiWFO5CdCYTjUAPqmj
-	 ZZyj7GNi3zgKcCcWhbGC4Q4JcORfd4EIuLdStS2agXk4qVSidbhjzldp+eKSaspOUgGdB
-	 oWMMhJhVa+ld6bzcxQE2p5Lg6FNYrjcjrbBb8Tu/HrdxbTD86BvDvyZpfGqr/mFtP2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792812650;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZVc6a37ymo5cyc7MbRfnER++to5FQn61dzC2ih17HV0=;
+	b=0/gr4imhgz+CF/AFxGYUVkoPzwurR32LXuoNrQGGoaxZ/ZVb/fZWvHTwv9yayJMIddof
+	 uItQhZCRZTCgToEtwgMdODWMAPbDozoGASucI7b138JL0oHPSgyPuFp+USSbuq66Nw60V
+	 wU2l4O1MNWdZv8M+E24hcIHU0UXbMVPVwFIjcY6vFZxW0/jtGqXNOGcj80wbSFGpjknXH
+	 we+F6Ix64yCtAbkRAzqnznxf3takWZqoUBDhUI8oVcZnnyxEGwl9z25N8/VBnvrjKmMWt
+	 q5ck06qrgckHDUukDnbHNDxBKXx51/f90kizANlJf2P+rZ8D/6SmGsuTfZkEUBEloXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=XlupHKHL;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="AV5Y/H6z";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8018A606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:30:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8018A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D698606A326
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D698606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=XlupHKHL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DxREnxXFL74zEXnlXFVXWPlkVOMBFqhGQRo3iyJ0jLE=; t=1792812631; x=1793676631; 
-	b=XlupHKHLpRFmdluWHfjziaHaQxpnzyIc15B0KGp+IoxQJED0J9Erd/yDzNGAseaEJ0Wx8wo0OSg
-	aNRoZl8uJx2PbB7LvwxFu/uHmfJWiUqKW1GrJaBcXbc5s9OzwOONJL51e71f75Sgw/gq88eo1qU3k
-	+MiB7VDXOgoA74MXJ0EkGeKZW6amuAR9M2LkN8/QdY2y1XkA1ApHnpYf7PD9KNLjQsvcbQJvPvwCU
-	x5T//BAry6XuMSJtevZaCST60tpwg8Z29ZAdcVj/4Q2NVRiv9gZj1h8nvilpyEuiBm40RPJd1Ej0j
-	+px0EfzXuA4PHi1AVAU/RxYa9zX/0qCUCdug==;
-Received: from mail-dl1-f48.google.com ([74.125.82.48])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xKSSk-00EHef-CU
-	for linux-kernel@vger.kernel.org;
-	Fri, 23 Oct 2026 23:30:30 -0400
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15943c9c005so1931578c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:30:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByYO9lqapr3I4ZwSlVA52ETPk+G48s+bYXb+by3KOxaEEJzHv9VM63RQTW1KdRxE9TOOU/pTfEbmNlufX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkpxOIr450TpOvgkX3EKcdS+Cuz37AuQKpmu7R6B1dT0V+jzHb
-	1Vkz7dviU/J+99yyozivjhIf1twk51NGBNChMqzzEI1F8WfSpAKZnmuZXPdA1RlHBXe+4xDif/e
-	s32kat01i7gR4E4sdAcq4LUiUvVjrtlM=
-X-Received: by 2002:a05:701b:2915:b0:196:e254:db24 with SMTP id
- a92af1059eb24-199375eb26amr1030037c88.21.1792812629421; Fri, 23 Oct 2026
- 20:30:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AV5Y/H6z
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35f1f76ea84so2427521eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:30:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792812649; x=1793417449; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZVc6a37ymo5cyc7MbRfnER++to5FQn61dzC2ih17HV0=;
+        b=AV5Y/H6zdr41aHo0YPq4T9T5ypgyuVSX6pp4Yu09Y2B5L51c9JJm7hVn8k99X1SrW5
+         udT2Ba2CwHecNCErVzXowi8FD1zKk6aHr87v1TPfalaiWtvB4zIJS0wQAvBYgzguerTJ
+         BMQTDXEpCd/NrHxhRsLkGHP7N95aZ9nsYVPUSR+SSWWiwTmF53MifHCUPfk58+UXEsWD
+         62TzwGi1VH02xbL6Wiv0ulI6YaErYKbSXdF935NFb89QcWFI/e6WxI/Ecl+FuZukg7FH
+         daY96fB07xpdAb3mwdLOiZzzGXQlPwIOHiHdYZIYSF3JU0vPEYmn245yS3UeqoUsYHVu
+         xCpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792812649; x=1793417449;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZVc6a37ymo5cyc7MbRfnER++to5FQn61dzC2ih17HV0=;
+        b=tG4ZAkr13BV50GoAwDfSqw+xY2je3SM7sK8/Z2E2/sy84CNYTOk6RdfaFBmUwLqz2c
+         H4kGOz//pKHhLu6H4N0QTCDoP3yJPVx+37xV+bmaxHDdHLQ1sGhXPf2jCpPwax0B8KFI
+         JrtLD2n3Lqbznk1VoVX1t6DJSmsvzjeiwTyHBcCxRw8oGgP5JYs/v4vKLQsQwdMRGOPJ
+         Yu8eGa8FnRI2YyzF/4DehKjE0kziu7mgEiTlqbseHWqbglU5sGLimTPxCi4XSiK3eNkr
+         SXSIK4q57CQ1GZGj4t3jfmPWEMTgWrnFyxIvS7OGmetTmduad0jFOJAiR/sTJBvblamH
+         Yj0A==
+X-Forwarded-Encrypted: i=1; AKwUvBy2T8f5JPXr8hGeGmsN04W82T4Y3NtMBTB2/RbmH8QD/zTtE0WHWBMhUnmRiroPCbaBUfdzEKJxds7wclA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBbNL2oupvTsBNiWg9b0QqZqmGQAitjqTkrKcO8Qe5mL3che+z
+	wULlhjf8JfqASw7GCcxleFtnq/4wDIgi53GIcqGz5fvhwafla1h6TdBU
+X-Gm-Gg: AYBFou0LT0SLcIfsclBOXzC6lC6loQOVLX94WL+YbqaWXVtq9mUSUgAKxxsnCJ5lpw2
+	b1OlE1ve7RSbPzhDDMNXGyi0S1YM1nqo46aY2W+m2wls9Sf2Ovma3yDWcHgI2BqAiA0M/YbIQ2C
+	CefvrD+G2iMtrPEODFZ/FCwj97rJdu4hxP05AAWl3tIwC6F9Pl2bcVjs3h4OUgJUYQffZ2iYWmg
+	vQ/S8aSd8N429AgWihpe8+V3DYAnkdbR4aCYv/sCs+rTOmwEpKIjn8qSopfACd3pzFdw3QFgU5U
+	X4n3rnbTqYTgDFdbb5R60ZStovI7JdsLljIVzG2YwH4Oo5UwyIm+Rp/F1ZLQBMCY363AJ9u4uM0
+	RgPg/0lTTZRr01O7Noh3xT923i9vhFukVqkbN3b+jdXh+EtYlnPhFb+Ea+6uEHSQrhP7JAu/teS
+	UQXaFzvAdu6Lqf0Dkht7xj0b2AyoqE7OJpXQ2VEjMPpjAZo7KZZbat7yU4qktYLi3xtplBHVw8R
+	JFGGkutJ5JtDkFgDDBVsJqQXer0CbywDeUBHfRFtIkp/1OL3b8eofdieGpgXrHFspHabvvPkPJP
+	b9eCunaMbVxHhOht+vmzF4MpbjvcJzEyoh0cfYeKxAn0R2lIJw==
+X-Received: by 2002:a05:7300:ce87:b0:35d:ddf2:e986 with SMTP id 5a478bee46e88-369e84dc40fmr1604956eec.11.1792812648537;
+        Fri, 23 Oct 2026 20:30:48 -0700 (PDT)
+Received: from jmoon.tail8e743c.ts.net ([118.220.156.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ecf087sm2827283eec.27.2026.10.23.20.30.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 20:30:48 -0700 (PDT)
+From: Jinmo Yang <jinmo44.yang@gmail.com>
+To: ping.cheng@wacom.com,
+	jason.gerecke@wacom.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jinmo Yang <jinmo44.yang@gmail.com>
+Subject: [PATCH v4 1/6] HID: wacom: check the input device in the shared report helpers
+Date: Sat, 24 Oct 2026 12:30:35 +0900
+Message-ID: <20261024033040.316652-2-jinmo44.yang@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024033040.316652-1-jinmo44.yang@gmail.com>
+References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
+ <20261024033040.316652-1-jinmo44.yang@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,55 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016222721.791785-1-nickolai@csail.mit.edu>
- <atZw_gtMIIKXgc1q@bfoster> <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
- <atdHhW7JU8j5pozl@bfoster>
-In-Reply-To: <atdHhW7JU8j5pozl@bfoster>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Fri, 23 Oct 2026 23:30:17 -0400
-X-Gmail-Original-Message-ID: <CADGQE7Gaw9t14nOr_FYcT4d5y+VEjX+oSgkQoNWiNtomCfkVRQ@mail.gmail.com>
-X-Gm-Features: AclHuK8U-00Ea83CZV1_hG7vFrciQgbpxapAyoOn_d2XFtjDVI9f8nU_G2FcSqA
-Message-ID: <CADGQE7Gaw9t14nOr_FYcT4d5y+VEjX+oSgkQoNWiNtomCfkVRQ@mail.gmail.com>
-Subject: Re: [PATCH v1] mm/truncate: fix the zeroing end of pagecache_isize_extended()
-To: Brian Foster <bfoster@redhat.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Theodore Ts'o" <tytso@mit.edu>, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 6:51=E2=80=AFAM Brian Foster <bfoster@redhat.com> w=
-rote:
-> On Mon, Oct 19, 2026 at 03:54:14PM -0400, Nickolai Zeldovich wrote:
-> > On Mon, Oct 19, 2026 at 3:35=E2=80=AFPM Brian Foster <bfoster@redhat.co=
-m> wrote:
-> > > > --- a/mm/truncate.c
-> > > > +++ b/mm/truncate.c
-> > > > @@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *ino=
-de, loff_t from, loff_t to)
-> > > >               unsigned int offset, end;
-> > > >
-> > > >               offset =3D from - folio_pos(folio);
-> > > > -             end =3D min_t(unsigned int, to - folio_pos(folio),
-> > > > -                         folio_size(folio));
-> > > > +             end =3D min_t(loff_t, to - folio_pos(folio), folio_si=
-ze(folio));
-> > >
-> > > Good catch...
-> > >
-> > > folio_size() returns size_t and folio_zero_segment() expects size_t f=
-or
-> > > the offset params. Perhaps we should that instead of loff_t?
-> >
-> > size_t is (unsigned int) on 32-bit machines, like i386, which has the
-> > same issue (reproducer from the patch).
-> >
->
-> Ah, Ok. So loff_t makes sense for the min_t(). I do still wonder if it
-> makes sense to switch offset and end to size_t while we're here though.
+wacom_report_numbered_buttons() and wacom_wac_finger_count_touches() are
+reached from several report handlers and use the input device they are
+given without checking it.
 
-I believe they're always pretty small (bounded by folio_size, which is
-bounded by 2^MAX_PAGECACHE_ORDER), so size_t isn't going to make a
-difference here.
+Both can see a NULL input device on a fully successful probe. The report
+handler is selected by features.type from the id table, while the three
+input devices are allocated from what the report descriptor declares.
+When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
+wacom_setup_inputs() frees that input device, sets the pointer to NULL
+and still returns 0 - the "no pen in use on this interface" case.
+wacom_wac_irq() then still routes reports to a handler that passes the
+NULL pointer down.
 
-Nickolai.
+Reproduced on linux-next 20260925 (x86_64, KASAN) from one /dev/uhid
+device plus a single UHID_INPUT2 write:
+
+  BUG: KASAN: null-ptr-deref in range [0x290-0x297]
+  RIP: 0010:wacom_report_numbered_buttons+0x37/0x210
+   wacom_intuos_irq+0x29e/0x3300
+   wacom_wac_irq+0x1b59/0xb3f0
+   wacom_raw_event+0x68f/0xb60
+   __hid_input_report+0x398/0x4d0
+   uhid_char_write+0xa99/0xfc0
+
+Check the pointer in both helpers, following the convention the driver
+already uses in wacom_tpc_irq() and wacom_wac_pad_event(). Log a
+warning on the first occurrence so the condition is not silently
+swallowed.
+
+Fixes: 10059cdc0ad0 ("Input: wacom - split out the pad device for Intuos/Cintiq")
+Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+---
+ drivers/hid/wacom_wac.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index c4cd87b781c4..567b01882eb1 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -1263,6 +1263,12 @@ static int wacom_wac_finger_count_touches(struct wacom_wac *wacom)
+ 	int count = 0;
+ 	int i;
+ 
++	if (!input) {
++		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
++			      "%s: touch_input is NULL\n", __func__);
++		return 0;
++	}
++
+ 	if (!touch_max)
+ 		return 0;
+ 
+@@ -4226,9 +4232,16 @@ static void wacom_update_led(struct wacom *wacom, int button_count, int mask,
+ static void wacom_report_numbered_buttons(struct input_dev *input_dev,
+ 				int button_count, int mask)
+ {
+-	struct wacom *wacom = input_get_drvdata(input_dev);
++	struct wacom *wacom;
+ 	int i;
+ 
++	if (!input_dev) {
++		pr_warn_once("%s: input_dev is NULL\n", __func__);
++		return;
++	}
++
++	wacom = input_get_drvdata(input_dev);
++
+ 	for (i = 0; i < wacom->led.count; i++)
+ 		wacom_update_led(wacom,  button_count, mask, i);
+ 
+-- 
+2.53.0
+
