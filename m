@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792852128;
-	b=sfp7Dhwc4922lArQTNKle9/09OP9K7uWtbBs5MSsD2gFsU/VxE8+BjhIt1sETFkK41ob
-	 +vQ4m0NktBcteBG9qmzDB0v3PMhVsg+rEwLiQ72x7AUtjyOxofWyjAcWLclX9TdiCQphx
-	 wBoUuj0lAX9eFqkIVdgj06dqpdzu07/giAdu17jlaKkeunanHqyH2uSg3X9g3AoyBr/N0
-	 HdT34120BGAw/w2I5VHX37PVbzzZHgBid/r7ysQP2tQ1uNLfN6TN7hwFpFr+li3DyE9HC
-	 XsMLF/cAM7BdTAtrDs9hHpvzfj6Pdx8nXMYAZQ31iNmLeif5LnEv5Dv1GpMSp566byg==
+	t=1792852130;
+	b=aI+lRLUpx79TEu7JJDoos83Z3gUXQFay+mm1NUx8wE1Uvw6AXB8kSCRzGq2elqN/uDnC
+	 RZj64wWb46uNLRpDlnbk0V3+j1ZWD8oYcKOGRHOE88W2nCL2+gI4xS0yfhooM48YFNg1s
+	 cPRV/CBgw8Xby3C8wybN+QDJ0mehnt3pbXW8nT02uBc+JfIm1biIRWJ+M6uUyp80Opbnt
+	 itSwy+MCl/tAha+qIjbUw2PVJ3KyqcXOi/Dc6qTbZGyo6C0t5Z1ciMZsZz2duH2uJy2Aw
+	 yTgpe7nOsWpN4DOLZOpwCQlyn04p5iRLSHCnqSirlqXe43Uuf5Gi9XnbPgDPhm0UFsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792852128;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792852130;
 	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
 	 Subject:Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=zh9RMhEB4nxkzrKhtN4Kf6FgQMlP7iI79irVGvGVleY=;
-	b=epYnW63LMN6GNjbKkKw2j7g2hmK/S4bJAZ9HyntzoLvkee2yR74N2sXuB021zmWw5Th3
-	 XtDXJu32AETVO/xOy/7g8iTGXnR1j5fqX2REdG+S69Xiy3sbKYdTnUO8a+I5B3DFFBRaB
-	 sd/Cq6oRANi0lE/H3WQHIefhrbnzH8tO4XLWYZAZCjCU+3ZNlDSBBS86YM7cZMoNU7fnH
-	 GcUEt0BTXwQm54SnNfpmbtPVvDjl7E4gANDWetOkX0QjqvNjzoYOG8nYmy2URkj03mstY
-	 B55ci/giFyQgqxLQrv51HmhxKSNeQ7bsQRCu20sUJTzYEchIvVaTbmFnzAjmE0y33Cw==
+	bh=eeV3+U5/yrctaUKSJ/PKpGOtHdLYEHHC9dwLeVDP3lg=;
+	b=EksGWwR37599sGRLeLulJnGcDf13WqlZOqvgL61bjU69JVUpi/UdLSReRFCmzEKd5c7l
+	 XmPkH3LG3Lxbfi7RvcNUXpCWVINkGZwYRxfsHEBQRcwYBvnQRWaFd65ThXoN8uVkNY72D
+	 yVB/3y8HDVG7kV4947EIH3xsrGO1y0bzcUYkCNtewpiwVQjhpIT0kA9729lYt3yk1qqvV
+	 HwLEoUuT33zrojjERT0M9LdfjOMbcp43gPbfl+bccafLiFwuYHyLaQctTLRN1NDvSS333
+	 nKKwQRUr7ub951qOwgoi6ryRZrDF1aT7+9mJwo9Ohf+m/flUbksF/4/4duNY9FOKa/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=michaelmcallister.org;
 	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=aeDj+9yR;
-	arc=none smtp.remote-ip=79.135.106.111
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Poz2aMRi;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C632606A325;
-	Sat, 24 Oct 2026 14:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C632606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0927606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:28:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0927606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=aeDj+9yR
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Poz2aMRi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1792852125; x=1793111325;
-	bh=zh9RMhEB4nxkzrKhtN4Kf6FgQMlP7iI79irVGvGVleY=;
+	d=michaelmcallister.org; s=protonmail2; t=1792852127; x=1793111327;
+	bh=eeV3+U5/yrctaUKSJ/PKpGOtHdLYEHHC9dwLeVDP3lg=;
 	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=aeDj+9yR9fw1b2/ES2myr5vsyqdBEy7wvcystlGt2MW1yBKufj6Ubtrw/1JzuatyM
-	 M9iNy09iuy6G7aUM8/vn7dkwhbXE/b2Gss8d962+nCZrnJQUrj9p/TcqUENfLZpavc
-	 IyHA0qi8bgdVVer4cCJ8WdMtKTjSIvKcyj1uqV+w1GRVe3U/stI06adYN060HedwHJ
-	 Yje1p9vhf7tv1pJtE7NMPAlCkQkDR0kZRDpXLoI5m+WPm88Bns3Ef4eZvazLMSar1y
-	 v1+j4XdCyaXlDKwhoPQDeowkHrKaN4FxdjzHe90nOKZma9E+mbVRNORB1Q8v1gk+SS
-	 Ku0ItHe37Qvyw==
-X-Pm-Submission-Id: 4jBj1P5CVNz1DDnZ
+	b=Poz2aMRiybGqje6dJX61E0vcxeWB4RF/bD6ruBGZuGc/6/PrXUfIejQfTT+M4CxIO
+	 wfbgs21HnYhwgpnS2rTLDXWay7xXop0WiV4FAbunpoUnHPj/V4uwnBytOGOpw1kbmQ
+	 c6M3AaaO2I/W2/+xrXQHxTsfHxYWhOxrdUi4yyqaNLYJgIpLazzSTwPCPHNYQ9l1RL
+	 gIdALN8BSHcSYT8pXr/Jb+lz/NbgCPWn/JYmqts5VONNdXlD9sn6HGK++YFXtY1EH3
+	 TZrofNj0ux1YiQrxceOKFlcZPybyqNm/vj+3k7HBPS5fNxsCrX0VGknOdQtVEc2RMe
+	 cpVf1JmY3qctQ==
+X-Pm-Submission-Id: 4jBj1T284sz1DDnW
 From: Michael McAllister <me@michaelmcallister.org>
 To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
@@ -57,9 +57,8 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Date: Sat, 24 Oct 2026 15:27:59 +0100
-Subject:
- [PATCH 1/2] dt-bindings: display: msm: sm6115-mdss: Add missing AHB clock
-Message-ID: <5326d23102e89b492767862fc7ae027f3eec2205.1792852079.git.me@michaelmcallister.org>
+Subject: [PATCH 2/2] arm64: dts: qcom: sm6115: Add missing MDSS AHB clock
+Message-ID: <7f99fda6f99d6053db240f2f1ba4d7b71da72261.1792852079.git.me@michaelmcallister.org>
 In-Reply-To: <cover.1792852079.git.me@michaelmcallister.org>
 References: <cover.1792852079.git.me@michaelmcallister.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -74,46 +73,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-MDSS register access requires the AHB clock supplied by DISPCC, in
-addition to the GCC bus clocks and the MDP core clock already listed.
-The DPU child also uses this clock, but MDSS needs it before the child
-resumes so that it can access its own registers.
+The MDSS node is missing DISP_CC_MDSS_AHB_CLK. Although the DPU child
+already requests this clock, MDSS resumes before the child enables it.
+The MDSS hardware-version register can then read as zero, causing
+msm_mdss_enable() to skip UBWC configuration.
 
-Add the missing clock to the end of the list and update the example.
-Keep the existing three-clock descriptions valid for compatibility with
-older device trees.
+On the Motorola Moto G10 (SM4250), this results in garbled compressed
+scanout after display power cycling. Adding the clock restores the
+UBWC configuration and makes compressed and linear scanout agree.
 
-Fixes: b93bdff44a85 ("dt-bindings: display/msm: add support for SM6115")
+Include the DISPCC AHB clock in the MDSS clock list so that its existing
+bulk clock handling enables it before accessing the MDSS registers.
+
+Fixes: 705e50427d81 ("arm64: dts: qcom: sm6115: Add mdss/dpu node")
+Cc: stable@vger.kernel.org
 
 Signed-off-by: Michael McAllister <me@michaelmcallister.org>
 ---
- .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml    | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sm6115.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-index 309de1953..d4fac93d9 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-@@ -21,10 +21,12 @@ properties:
-     const: qcom,sm6115-mdss
+diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+index 0f2af8aba..f7002b9eb 100644
+--- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+@@ -1927,7 +1927,8 @@ mdss: display-subsystem@5e00000 {
  
-   clocks:
-+    minItems: 3
-     items:
-       - description: Display AHB clock from gcc
-       - description: Display AXI clock
-       - description: Display core clock
-+      - description: Display AHB clock from dispcc
+ 			clocks = <&gcc GCC_DISP_AHB_CLK>,
+ 				 <&gcc GCC_DISP_HF_AXI_CLK>,
+-				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
++				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++				 <&dispcc DISP_CC_MDSS_AHB_CLK>;
  
-   iommus:
-     maxItems: 2
-@@ -92,7 +94,8 @@ examples:
-         power-domains = <&dispcc MDSS_GDSC>;
-         clocks = <&gcc GCC_DISP_AHB_CLK>,
-                  <&gcc GCC_DISP_HF_AXI_CLK>,
--                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
+ 			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
  
-         interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>;
-         interrupt-controller;
