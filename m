@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.185
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.186
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792877668;
-	b=XI6wPo9Rx5ilyZF1vZD0TWQRX9DkvoqVWtdSPXrhtGUSkW1PpqkhUjH3Hf1VZFLa6V1g
-	 aKlSv2oU9ZOFTardszl67HuIwtS6ttzAXAh7Z+rOoveqYP9eNP2MEmOLNshY40rdLtLVv
-	 3Qzi5yA9t9gyAN1oYY8JF3jkpmYWjqlzTzdo7boNPHnNZS1T3LiAU8nyvPQcY1LvsHKss
-	 UNKxwCf5taQ4+5S+9LewdNzIjzr1imA9ojlmvNgvVhsYbvpbUzex2fy/HRi8Agq0ZCM+E
-	 G7QI9L5s0/u2Y8qN5lnxgjxtQB1RyxK82t20aa1OrpesdxNVXdk2OkB+VJKe1DWxQ0w==
+	t=1792877669;
+	b=dpdoboAKG4/Jt0GPnetqnUCTFU5e/23iN4NTr43SMO96qHkJSXicRgfrBwiEJwNPnhbe
+	 mBr6ENB9qaWZAmYT9WgmAm4ZOlUQxJndg9U/lNr7nJn4pStADp3eiDMhybZEIeLZAP7+Q
+	 j3UPtyo+20jdlQ3EWw7pPdMyuMnB4a+gXqHEJ5PE8T5iRTBqpGhVC0DyzOHZdvDVUW37s
+	 1LVH8GQ4dvwcGPaDg53eWRTCqzHv91nilJk06KF0txeMISI0e+kUxR8q4IkWTDea5LLyg
+	 R1wyWRUBA7BZ2jkgCii+ORco8ZQRnDxaP4NpJyqnEK3Q6A1OpbCV91LncfFxaPaROAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792877669;
 	h=DMARC-Filter:X-KPN-MessageId:Received:DKIM-Signature:X-KPN-MID:
 	 X-KPN-VerifiedSender:X-CMASSUN:X-Originating-IP:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4rq6SNd3qgJAF7LHCk9l0O7pVqpDieM+QwGPe5DTXZw=;
-	b=YCBRSfcCxoW4Shfnxj3FcIZBrX5qdaLqEokIdPXZ/RlLwhEubaBKNcXXOeKUYe1mrKuL
-	 xEOOXqU1mXcJfe67iBw9rJzPietNJ+/6tO+HkQtpiSWCgBjOJBxgwYvs4l9R+fse9I5GG
-	 eaYZdttePCmOFHY/fhO8NoDTsCcG0sUePmBC9l3FDsPFqGqzKAjO0GtnMBMfgU75q9sMG
-	 M7RFq4D5+N7Ofuv/pN5jLRoscPVNK6a5/mT0kg8OmpahFGE99kJfe54bwLpgjko/fbsLv
-	 VUpiFevuPMyyOtf5UCC/VfIUyq8go8boraZ4S/gZkkWKebu2tf8tRogp09xgIKxYNXA==
+	bh=rW+kv+6vYJyaP/hD4IHRUviYRyfuSjLEi3DTzV1Xzx4=;
+	b=0080MM2HzobBmsUAzmNHgyqetCgVqoSEUD0pGslNcAOI4wpuHTyt5JSQIPU2d5ROZ8Ai
+	 krYZlZjBFp/mlLBISKrlt5Mb6nqIOzoa1a0r7VQ5lsn1T06iAm3ym0uJC+47DnTgAzKR9
+	 HHXgcQ/Q+cjT+/j/FRM5vZe/9hwRZUwszrm4VsFUk8tPPwYi7BHq/na8RbARbYKohjX/a
+	 3bM4ShDAfDUyokNKz1gYThOzzUgdYfSywxYToAX55hnzL2J7ohfr1nJlNNzMFTUVkjPOv
+	 7J6RhyX6UD1g79+TB4aEFZ8VIqmkbd04JSh1NkZpEt+ZlnVmGDdxJSRT46THWKfivhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=xs4all.nl;
 	spf=pass smtp.mailfrom=xs4all.nl;
-	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=DyHGawhM;
-	arc=none smtp.remote-ip=195.121.94.185
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
+	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=oz4qxVlu;
+	arc=none smtp.remote-ip=195.121.94.186
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C9D606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24C9D606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890A7606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890A7606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=DyHGawhM
-X-KPN-MessageId: aa069e97-cff2-11f1-9136-005056999439
+	dkim=pass (2048-bit key, unprotected) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=oz4qxVlu
+X-KPN-MessageId: ae950a77-cff2-11f1-87e5-00505699b430
 Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
 	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id aa069e97-cff2-11f1-9136-005056999439;
-	Sat, 24 Oct 2026 23:34:16 +0200 (CEST)
+	id ae950a77-cff2-11f1-87e5-00505699b430;
+	Sat, 24 Oct 2026 23:34:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xs4all.nl; s=xs4all01;
 	h=mime-version:message-id:date:subject:to:from;
-	bh=4rq6SNd3qgJAF7LHCk9l0O7pVqpDieM+QwGPe5DTXZw=;
-	b=DyHGawhMsxSOFSDzydXxUzU8ujN3tgJkKAKuAKnj0t5GXcyZ/AQRiQ6y2AQLV5Ahr/Fe7SpxeQjae
-	 igIB1N60WyjTHwwZ3v7zPLtcGwkQbh7WoxrENzb9DzxG+CW1QZzwkQXPPRhuN719qj4D7diwj+prYn
-	 BYHzwgB2Pz64oqcYX7VO1GjjAx1LEUELgIYLOwf7eiyB0XcGSEUpudAUvnMd7CxnLJERnpErTeDtvF
-	 WQjH0kELGQlZRT0KAFOOJW/L3idshFzqRUrWfHby+Q2Wu5NM58IiDiJppggD+q+OKB81i1RpaNo5Co
-	 /XqORKZtTXFFUc0+ZSvaLEPUDEUNhPQ==
-X-KPN-MID: 33|YdICPgyF075u80d9SmzFn2/DvwaVx1dTlFexsJA0fjVv7RVZjDu9PFx7EqD66G5
- ezgS1qFlZ8ngxtmvj8k/X6XhKAYXZExckAJ1yp5r224Y=
+	bh=rW+kv+6vYJyaP/hD4IHRUviYRyfuSjLEi3DTzV1Xzx4=;
+	b=oz4qxVluCtLNWMhDWnQGHHjpZB4WMhWZY4HesTZMOOppvpKhzkHY2KAzJEDD3Tlr/jUm3TSwWwPoX
+	 s1elxRHLXtdesmHSGicnUG1t685OS7i2QIfZrpbQeWJ0QZNvhitittYXh11xbN3U8VNrTQLJVtxL5H
+	 JHEXS1es4IQ9OAE8eWWS9bBcuAd10dWQuvWVYKw7CpdR6GI5NsYZMcPxgtxz+B6IcqABptTaJ26OtJ
+	 uz+ZXXtsDsAmqIWdRTAaeQuvHHYYhvZ+bC2FfUsMJfn6JkLZZnMQ8KZiQrbx03ppw2Q11p/6P57XoW
+	 gVgzTyXYQLKVJAJOlDO8O3DjPW+nghw==
+X-KPN-MID: 33|6WWWsZSe1oDbOrEw8rRGNxVbOXmdDBSibAkQVrFHg47BPIZPtyeGsHpZN9hltw2
+ dWT4z9yHgvOqBRDz6U35E0vqWMwLbsXkE5isNvLmtu/A=
 X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|gj2cmCZew2x5bTEp/moicMlZGw5ATxqWXOek1ANYA8bNTgcDIXHosRK4uJPtePH
- Xkm/M4yP/1uoetxM/lwRvBA==
+X-CMASSUN: 33|hD/e1Fha0ibWkig3+/AwCiF8wgcpVwO8WnDY/yc9cKu64KW1ZNY/YRh0kjDkRTP
+ GesfIopYCnwX2EtmYoszlQA==
 Received: from daedalus.home (unknown [178.227.247.81])
 	by smtp.xs4all.nl (Halon) with ESMTPSA
-	id a9cb24ec-cff2-11f1-8686-00505699b758;
-	Sat, 24 Oct 2026 23:34:16 +0200 (CEST)
+	id ae5ab32f-cff2-11f1-8686-00505699b758;
+	Sat, 24 Oct 2026 23:34:24 +0200 (CEST)
 From: Jori Koolstra <jkoolstra@xs4all.nl>
 To: viro@zeniv.linux.org.uk,
 	brauner@kernel.org
@@ -71,9 +71,9 @@ Cc: jack@suse.cz,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jori Koolstra <jkoolstra@xs4all.nl>
-Subject: [PATCH v8 01/12] fs/namei.c: use trailing_slashes()
-Date: Sat, 24 Oct 2026 23:35:28 +0200
-Message-ID: <20261024213539.1307600-2-jkoolstra@xs4all.nl>
+Subject: [PATCH v8 03/12] vfs: lookup_open(): move setting FMODE_CREATED down
+Date: Sat, 24 Oct 2026 23:35:30 +0200
+Message-ID: <20261024213539.1307600-4-jkoolstra@xs4all.nl>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261024213539.1307600-1-jkoolstra@xs4all.nl>
 References: <20261024213539.1307600-1-jkoolstra@xs4all.nl>
@@ -88,105 +88,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There are several places in fs/namei.c that can use the
-trailing_slashes() function to improve context. To allow this broader
-use its signature is changed to take a struct qstr instead of a struct
-nameidata.
+In preparation for using vfs_create_no_perm() in lookup_open() we need
+to move setting FMODE_CREATED on the file mode to either before or after
+that call, as currently it is in the middle. If try_break_deleg() fails
+it is currently not set, but vfs_create_no_perm() includes a
+try_break_deleg().
+
+Going up the call chain of lookup_open() we see that it is only used in
+open_last_lookups() if no error is returned from lookup_open(), so we
+can safely move it to after the filesystem create() call. This also
+makes more sense when reading the code as you don't have to wonder what
+the implications are of setting FMODE_CREATED before the create() call.
 
 Reviewed-by: NeilBrown <neil@brown.name>
 Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
 ---
- fs/namei.c | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ fs/namei.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namei.c b/fs/namei.c
-index 22c4f328b8a9..b90263a07e4e 100644
+index 9fa94e8079db..94958b77b371 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -2781,9 +2781,16 @@ static const char *path_init(struct nameidata *nd, unsigned flags)
- 	return s;
- }
+@@ -4582,7 +4582,6 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+ 	if (error)
+ 		goto out_dput;
  
-+static inline bool trailing_slashes(const struct qstr *last)
-+{
-+	/* last->len is set by hash_name() to the length of the current
-+	 * component ->name, terminating with '/' or a NUL character. */
-+	return (bool)last->name[last->len];
-+}
+-	file->f_mode |= FMODE_CREATED;
+ 	if (!dir_inode->i_op->create) {
+ 		error = -EACCES;
+ 		goto out_dput;
+@@ -4591,6 +4590,8 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+ 	error = dir_inode->i_op->create(idmap, dir_inode, dentry, mode);
+ 	if (error)
+ 		goto out_dput;
 +
- static inline const char *lookup_last(struct nameidata *nd)
- {
--	if (nd->last_type == LAST_NORM && nd->last.name[nd->last.len])
-+	if (nd->last_type == LAST_NORM && trailing_slashes(&nd->last))
- 		nd->flags |= LOOKUP_FOLLOW | LOOKUP_DIRECTORY;
- 
- 	return walk_component(nd, WALK_TRAILING);
-@@ -4697,17 +4704,12 @@ struct file *vfs_lookup_open(struct path *parent, struct qstr *last,
- }
- EXPORT_SYMBOL_FOR_MODULES(vfs_lookup_open, "nfsd");
- 
--static inline bool trailing_slashes(struct nameidata *nd)
--{
--	return (bool)nd->last.name[nd->last.len];
--}
--
- static struct dentry *lookup_fast_for_open(struct nameidata *nd, int open_flag)
- {
- 	struct dentry *dentry;
- 
- 	if (open_flag & O_CREAT) {
--		if (trailing_slashes(nd))
-+		if (trailing_slashes(&nd->last))
- 			return ERR_PTR(-EISDIR);
- 
- 		/* Don't bother on an O_EXCL create */
-@@ -4715,7 +4717,7 @@ static struct dentry *lookup_fast_for_open(struct nameidata *nd, int open_flag)
- 			return NULL;
- 	}
- 
--	if (trailing_slashes(nd))
-+	if (trailing_slashes(&nd->last))
- 		nd->flags |= LOOKUP_FOLLOW | LOOKUP_DIRECTORY;
- 
- 	dentry = lookup_fast(nd);
-@@ -5097,7 +5099,7 @@ static struct dentry *filename_create(int dfd, struct filename *name,
- 	 * Do the final lookup.  Suppress 'create' if there is a trailing
- 	 * '/', and a directory wasn't requested.
- 	 */
--	if (last.name[last.len] && !want_dir)
-+	if (trailing_slashes(&last) && !want_dir)
- 		create_flags &= ~LOOKUP_CREATE;
- 	dentry = start_dirop(path->dentry, &last, reval_flag | create_flags);
- 	if (IS_ERR(dentry))
-@@ -5713,7 +5715,7 @@ int filename_unlinkat(int dfd, struct filename *name)
- 		goto exit_drop_write;
- 
- 	/* Why not before? Because we want correct error value */
--	if (unlikely(last.name[last.len])) {
-+	if (unlikely(trailing_slashes(&last))) {
- 		if (d_is_dir(dentry))
- 			error = -EISDIR;
- 		else
-@@ -6315,16 +6317,16 @@ int filename_renameat2(int olddfd, struct filename *from,
- 	if (flags & RENAME_EXCHANGE) {
- 		if (!d_is_dir(rd.new_dentry)) {
- 			error = -ENOTDIR;
--			if (new_last.name[new_last.len])
-+			if (trailing_slashes(&new_last))
- 				goto exit_unlock;
- 		}
- 	}
- 	/* unless the source is a directory trailing slashes give -ENOTDIR */
- 	if (!d_is_dir(rd.old_dentry)) {
- 		error = -ENOTDIR;
--		if (old_last.name[old_last.len])
-+		if (trailing_slashes(&old_last))
- 			goto exit_unlock;
--		if (!(flags & RENAME_EXCHANGE) && new_last.name[new_last.len])
-+		if (!(flags & RENAME_EXCHANGE) && trailing_slashes(&new_last))
- 			goto exit_unlock;
- 	}
- 
++	file->f_mode |= FMODE_CREATED;
+ out:
+ 	if (!IS_ERR(dentry)) {
+ 		if (file->f_mode & FMODE_CREATED)
 -- 
 2.56.0
 
