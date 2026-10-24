@@ -1,45 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792836954;
-	b=TlmtRHw7M3MDLuLyx8A29xI5zetuBbmW6KplhvGMWJpY5aUHENlhDVAcJ68PAwDYT3/5
-	 yf5JmLT1nbV9SdmJBOF30GPl0jaW3b6pBMM6dcOIuUevqXQ1dtBs06SacWRcSWwWGzy9X
-	 HtcJIjm3kT2IE6TDqNSTioqxYKNFNzMfye1Kh25+75A3LsIv2M+zQnolvV8Xg6AUOGXTM
-	 E5tZ7f1Ha3lBbCpl8b2n/DcDd+Qhi1vWAqCnRNH32n1+zCoDGqmpzVYJ8pZdfOU44Yxay
-	 7F36sKZI9okDCUw6jKoBT2EUb97tv6sJnZYRiXnKBaLsPWiO+UnXdulrfLWSKjbM69Q==
+	t=1792837162;
+	b=KyiVFGf7EkoYeOxw4h6KP5ibDNqHxws1K8DK6mfDNAJf32iGZKFZbf6y013tJG5BFxkm
+	 CjLONhCxa5XORwXlVgSjwXk9H+IoO9W3gLDj15n5gmR78vD+KFMz4GTz3fZVQOgVgIhtc
+	 41KQBNf/vsp/nfUdVwJnz62T+JZEU7SHnRvLO3BMfZX7VhN9nXk8Fek7TKUwXel1zkpZN
+	 qsLD1L3gtES6sSLCfGtxUyBd9wBvbQur/TK3qvmEa5tkfMfb6hYPeGbYkipo84BF0Xgd8
+	 LPIQ40m2znaDkHwuonKTUb1lUn/C2rsOWRAUW096jQ5QpHz/UUqUy7M5NavoCniUL/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792836954;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JG3yz9TGL/T/zJk3WMhjx5ozEDaVJ/cW1kf3LazKGDU=;
-	b=KCMEaiLMhnKWql2zg1ti6p2qBNQHI9qDjbx53aRtzy9Hjkr5XqioF9KAz4NDvPSFI+le
-	 ilZBJTV1X5zRbhJq1xkB9x9J+xwFB7UzXPNvj1XYg6OhcOZ4IEi8kKEsv2sp5raDb56J0
-	 pe6arYp9MHQ1i1yadd54mRwlK48zsPK9AjZJr/as6LG6zSH4gICVnQMW1TD5hsx7iHs2d
-	 GC/d5ptrvMrF/zS0zNRGg2UfoNJLpX6MpQoFVrdWDZJXAfBScG4xpKX2/tA1wdeo6N7wU
-	 PiUurlbff043mIB8HartCwjuwhVf7A+gLYrz9d6sOP8qW3KVbBTqUsjamw1rgrB/uOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792837162;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=2RqYQbiVXaLqevGAiQkYMGaiRL+FuWRkjF4rLiMSOX8=;
+	b=wZQdpriiRHgZ6ZasdzwaNOH27LjtEy08bD4KnHO+Vbz+9PUGAqx/7J65LEWZCFE1ak3B
+	 2Xxsh18ny/8QpkGDjzqmWxIKHEt10pLHVFAMmw09n70K59pdMdz6yI0kHugvxSchxgEU2
+	 ABn/usDlO6I2Av3xqba0sraC2R+xMG+iEKjde8UmlH8lX7dr0oQBLPW7d//AaI5wSHrUN
+	 jtnJVgL20jeRJVwWeDpCCsm2DpK/lackXJNtG0f/bZgOvqDxdpXTyDZXEFHwrocRUllZ9
+	 klnJKeaV9i+cy05LLVUaKVEp/HX+aqdr5oIexl/dhmBuBIWcvFGypbgeLEwDwR1qGlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alpha.franken.de;
-	spf=pass smtp.mailfrom=alpha.franken.de;
-	arc=none smtp.remote-ip=193.175.24.41
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85112606A31B;
-	Sat, 24 Oct 2026 10:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85112606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xKYn1-0005ZL-00; Sat, 24 Oct 2026 12:15:51 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id CE4A0C0423; Sat, 24 Oct 2026 12:12:17 +0200 (CEST)
-Date: Sat, 24 Oct 2026 12:12:17 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>
-Subject: Re: [PATCH v2 23/53] MIPS: SGI-IP27: xbow_probe(): recognize
- KLTYPE_PBRICK_XBOW
-Message-ID: <atyEgXoWLanAHb5V@alpha.franken.de>
-References: <cover.1791890466.git.kaloz@kernel.org>
- <052c08ad27b1b882b27b3ced51f56194ed670637.1791890466.git.kaloz@kernel.org>
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FEm5pI8J;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5D9606A31E;
+	Sat, 24 Oct 2026 10:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B5D9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FEm5pI8J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792837161; x=1824373161;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=i7LaPFFFZGfnWqlBHlzl2Ego247wZQim5a3/1TmWPzQ=;
+  b=FEm5pI8JyNmqsbcSUn8ZqU3JGF85mbQxgFHswIJPt823VJtHVhfrx0LK
+   ZU7orkRM0zlBc0RoWAhJPStIxmbxtqX4Be7DF7BJXNsyyaoGpirOKYFRo
+   RbamXRITUoCVJ8TthifTpA8kQsTVThI2ahXLtHVr9dhHWvGmtRUcYDbWM
+   8HZ5OMsSkckkRXlwjtxkhYxfvAhsmoxmwdx2Lsah2d0oZ8DqwdPOCpyvs
+   7D87+E9lIgMsr4Z95XnhKN+YSIH8QSwmd8m5O/M8zGqVhf3kLYbn1KenM
+   nYITaI30m9YbpSxbCGn5ZK/FwU+r5yMuv1btihKs/c+qfM3KUY9OgjSdh
+   Q==;
+X-CSE-ConnectionGUID: 0N4ZX62MRSqeZVJzulauOQ==
+X-CSE-MsgGUID: jwM4KO47SrWwND9vmHjJUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1475355"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1475355"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:19:21 -0700
+X-CSE-ConnectionGUID: ajIG8aHzSy2yqEJSQGvVew==
+X-CSE-MsgGUID: KR6SwqXTSRaOVrnx54AaDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="3726531"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:19:19 -0700
+Date: Sat, 24 Oct 2026 13:19:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <atyGJD4ebU6Sq8MW@ashevche-desk.local>
+References: <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <SN1PR12MB25288BF227D6555AEE60DF73A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <20261023040143.2e7043bc@jic23-hlaptop>
+ <SN1PR12MB25283EB260FD897BFE29C603A5632@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,37 +87,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <052c08ad27b1b882b27b3ced51f56194ed670637.1791890466.git.kaloz@kernel.org>
+In-Reply-To: <SN1PR12MB25283EB260FD897BFE29C603A5632@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 13, 2026 at 03:16:43PM +0200, Imre Kaloz wrote:
-> An IP35-family chassis records its crossbar board as KLTYPE_PBRICK_XBOW
-> rather than the KLTYPE_MIDPLANE8 an Origin 200/2000 midplane carries, so
-> xbow_probe() found no board record and never set up the crossbar. Fall
-> back to the brick type when the midplane lookup misses, and warn when
-> neither matches.
+On Sat, Oct 24, 2026 at 12:13:08AM +0000, Victor Chernyakin wrote:
+
+> > I'd look at using regmap even though you only have a single bus. It provides
+> > a rich set of helpers and the caching functionality that will save a bunch
+> > of bus traffic.
 > 
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  arch/mips/sgi-ip27/ip27-xtalk.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/mips/sgi-ip27/ip27-xtalk.c b/arch/mips/sgi-ip27/ip27-xtalk.c
-> index 10834880c261..baa937b474a8 100644
-> --- a/arch/mips/sgi-ip27/ip27-xtalk.c
-> +++ b/arch/mips/sgi-ip27/ip27-xtalk.c
-> @@ -159,8 +159,19 @@ static int xbow_probe(nasid_t nasid)
->  	 * need to probe xbow
->  	 */
->  	brd = find_lboard((lboard_t *)KL_CONFIG_INFO(nasid), KLTYPE_MIDPLANE8);
+> Ah... is that a strong preference in new drivers? That would be quite
+> a bit of rewrite work...
 
-use
-
-	brd = find_lboard_class(KL_CONFIG_INFO(nasid), KLCLASS_MIDPLANE);
-
-instead, which looks for all midplane types.
-
-Thomas.
+Yes, usually drivers start being looked cleaner. On top you got a few benefits
+of regmap for free (cache, debugfs, tracing, maybe even more).
 
 -- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+With Best Regards,
+Andy Shevchenko
+
+
