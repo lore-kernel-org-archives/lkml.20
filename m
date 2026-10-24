@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792803773;
-	b=15PeJ9jUmlsSUjB/PJFOl843k55KgE78MpcyRkHoABsIyXD77Po5sKq4mE6HND+TTO8A
-	 r5tNmTBvj3FPa5tSh1U/ceg1em/CxpMWPi412umBN2kbx/cnNOm2XE1yKE+EPDn25UpEE
-	 FnmGqSSipGSfIZEBU4OlXYOXdb501pYoU4VRsVgUu5qSOFzJXVcnSdwEUfoI/KfjRdVYz
-	 PRqHBUDyhVw4LV6xdi6wcHuu2ebwr+9qwgniL1qKB+S+laUoNvnWJlxmzTd7OoivMeAn6
-	 uMJ50lJMTQP1jBsfEdJ5T42p93MHHuSCCXRbMJJt4eVnb096f/shNP6CnG/F7+gfuOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792803773;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2Kz84VQKPAzFz/tBV0w0WG9msa96nepEBazejBtRhIs=;
-	b=wJPb1FwlfJ97WdF/nOkqJ3oXo5QatAhOatUh5jYcORIzItq+Zevwu+nW1CMMMXP0NHop
-	 +hlAhoMVe2lThGE7YkqtNXYMsDGfUAPvtDj6xA/zlxpbSKHCKcpKbKdTo/EwAzLCof49e
-	 tLgdI1ADBEE0o9CD4OBPXItwl34OFAnOVY1s9r/5YetzVZxAk2cDmGuWzHYNoiKoxWQ34
-	 sLCBN2FM6c4Z+MD8GmVBZCJSpZT7ZKWQ+ZgRqfmSdd4uu3yd8PHC9Tk/O0NgLcHcrg5WR
-	 EFgfQxUa482PwE0dRocYE4HFrVFciYgOzfrGG38cR5WR6ONat3dsLXATn+EnRmxQKXA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfX7pgBQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33080606A31F;
-	Sat, 24 Oct 2026 01:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfX7pgBQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792803767;
-	b=lqIuOAsIuXPKu5N+OECHGy8vKtTmeejgrIubbY3tXR6IqZ63w74hjQ/zM5kLtId83fQj
-	 W3emMCG7c2fxQhdGzdIZpRUp0OBYPSdRZsKjPR6jUYJNCatzOU+WrJ9iALem7nbM0P3F0
-	 hQOtiRdENLuoxRpx5hQQxRzEXzRJoC7/8HCd1YKyrhMu4MnQhzEPeGp/Xz3CTaPgJwrhS
-	 0rWAXVa21CaIkW9XnkiVQGb797FvtjJmtqdKaBBhNjH64zlxAgQO/Nvevisl8ngA/nWFx
-	 2hoGnTs4vRHj4BV1qK9WsQHeiHpzV4rZ+R3r8nUpvI/DzC+re+nwSH9/MeqJqaT21jw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792803767;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2Kz84VQKPAzFz/tBV0w0WG9msa96nepEBazejBtRhIs=;
-	b=bQDDwAxgtZ2Lq16mHqGbvBYJEH2JdTIGgVLqiRY+zenI6MnDBtbBtStToliejpr/pkbP
-	 b/LLvPC7+N70NFf3odQpSSRCdKtBdOXWWPnHR81+S7nGpJvxxzCcLtGkKyhKWRRKe6Cf2
-	 vg4bp6rieqgpAdFUjqA5IrzlevYKcHvRdkWcAecn3M0YI2/xIfET2K43QsaK3TSwrunoW
-	 BAYL4aQAEYb6X6JlJ28W/FG4N3ovjDM0ZhpWHWoli71MOFge41KJSHnt/oBS+lyH21VlK
-	 L174ByVTWBR0c9IRUwGVLF4ifiK+j/J2ln/rvfiJOb0vVYt9wdhzrR2U8x5YRIAOHyA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792804178;
+	b=d3JYMuyIr+tNHsz0ktW/XvBs2eHmci7br4KWVwOK0iNS9hYG+i2yzi8JUzoANWxpcrnL
+	 K9k5TwSSR1hdvJ4U3et1JDUBIYYCl1iulmTP7Vp2YSEbFZsazuPSysxeR9RyHBMC02+vG
+	 uujn+O+fIDsMfpBqGrKyeq7gP7SAj3TSIaqMnZMUWv4Mq6wltFGmfRwjA6jkUvxfx5nnA
+	 qYAYaLk7/GhmQGdEktrQg787j947SX0RM87Wz+y9Mlw6tmhDW7EtS8+5dgd8cIfVbaOiu
+	 8OtjFuC15OSsol9Bk8ktgXbBS4QfiAOvejXin8yIA+ncOgAm860DA8TfvDvJ3N0v1jw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792804178;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Stat-Signature:X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=eBCjNIKUfqjaGDt0no5q2XrPUjAYAzsKAq+9d/UK+Go=;
+	b=2vnWgQZ+t2Z0wJ8n6z4ImgtYOqpjeayyPAmR9lfX7k8UvopDO7o18bgAkWpS0ZaZKgH3
+	 RO5dFaOVu90yPBtzvojviXJhWVJ/APs7+ONsa3XctflOUAlPka9oJplpcycHSFcGQtgmE
+	 a9Wr/rj5zCN1EED7VzCa3Ltfzu93cPQy22YbItDawCkvnO61n0TwDmOxPfx+MbWv2vq9Z
+	 3QLFlsNWXPELpI6Hls5rARxf7ZXxqfDKxkhcXJ0Qe+cMrop66qhKAquoSqUaQIbp02K3h
+	 dVtCQ6Nm0Yn/QiBWO7OFJFZzz5Ai0ri/rcObX86qesCOaY2e1YSQVRu8H25X5JcuHQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=lQPvAeUM;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CADB91F01829;
-	Sat, 24 Oct 2026 01:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792803767;
-	bh=2Kz84VQKPAzFz/tBV0w0WG9msa96nepEBazejBtRhIs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NfX7pgBQs5nmw5RohQOPaTQs2tdZhcWQezAEW6SBjI+0EnqjkuIa26+QpMqU+f608
-	 w6M+gB2yr4U1oe9CS4RpChvATXRb4+bqDWrmJWBJUqr9r9FEk8Fx8UrL3opXCarPNa
-	 ndM2JnTnC9Vbb/TVelSNCNeYkO2q636SfuxSDN26a4xfrB6CaR4toxhiH8WRyyuXPk
-	 hmFWgHZIkTxSsYfDTS15uXHykUcHvteZA8XPMqKgXqOQLaROiw1djCPlTcTc+G6pnr
-	 WQTc/krns6U4SU11Ius8yiu6bMg/eRxCXhtueH9iOPLYnxatwjbvnRy7s+CTkldSEN
-	 1sh+l8SvTAdFA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 52117446BE;
-	Sat, 24 Oct 2026 01:02:46 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sat, 24 Oct 2026 04:02:44 +0300
-Subject: [PATCH RFC 2/2] PCI: rockchip-host: Hot-reset the endpoint before
- using the link
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC60606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC60606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=lQPvAeUM
+Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id EA8DA4024E;
+	Sat, 24 Oct 2026 01:09:28 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 574E120028;
+	Sat, 24 Oct 2026 01:09:26 +0000 (UTC)
+Date: Fri, 23 Oct 2026 21:09:25 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ =?UTF-8?B?QWRyacOhbiBHYXJjw61h?= Casado <adriangarciacasado42@gmail.com>,
+ Chen Jun <chenjun102@huawei.com>, David Carlier <devnexen@gmail.com>,
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Haoran Wang
+ <haoranwangsec@gmail.com>, Kyle Zeng <kylebot@openai.com>, Lee Jones
+ <lee@kernel.org>, Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?=
+ <thomas.weissschuh@linutronix.de>, Vincent Donnefort
+ <vdonnefort@google.com>
+Subject: [GIT PULL] tracing: Updates for v7.4
+Message-ID: <20261023210925.3dddff9e@fedora>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,177 +63,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-rockchip-pcie-resume-v1-2-58e54a5cf5f1@iav.lv>
-References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
-In-Reply-To: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv>
-To: Shawn Lin <shawn.lin@rock-chips.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5422; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=JqNmsQpPl/FYQLmd44QeXU02W9GHIDITxGbAly7lXUc=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl3mLcK7pkcGBx9dmEJ+/NnLWdW/bvpvvmnb77qE01vc
- a7zl+4rdpSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJXDBk+KdsOV9s7n9jlwtR
- b1Yd7HQ/O81Q02BlQXXb3DWyJxlVvj9mZNjcFXfszLJj3Es7Os3d/vwz/L7plk7yyZ9nQhK2PDx
- 3r4UdAA==
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
-
-From: Igor Velkov <iav@iav.lv>
-
-On a Kobol Helios64 the JMB585 sometimes trains the link but does not
-answer config reads. On resume, a read in rockchip_pcie_rd_conf(),
-called from pci_power_up(), ends in a synchronous external abort and
-the kernel oopses. At probe, a config read during the bus scan ended in
-an SError on 1 of 4 boots of v7.3-rc7.
-
-After training, hot-reset the endpoint, hold the reset at least 2 ms as
-pci_reset_secondary_bus() does, and wait for the link. Clear the AXI
-link-down status (CDNS_PCIE_AT_LINKDOWN in the Cadence host driver),
-then wait the 100 ms required after a Conventional Reset. Fail probe
-and resume if the hot reset fails.
-
-s2idle on v7.3-rc7 with the mainline DT and patch 1:
-
-  sleep    without this patch    with it
-  ~40 s    2 aborts / 30         0 / 100
-  ~25 s    1 abort / 11          0 / 40, then 2 aborts in the next 3
-
-After the hot reset the link came back in 2.8-2.9 ms in the good
-cycles. In the last abort it came back in 25 ms, and the next config
-read aborted. The other abort left no timing. Boots with the patch were
-not counted.
-
-Print how long the link took to come back. This explains the data
-above and helps anyone who runs the code.
-
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
- drivers/pci/controller/pcie-rockchip-host.c | 59 +++++++++++++++++++++++++++++
- drivers/pci/controller/pcie-rockchip.h      |  4 ++
- 2 files changed, 63 insertions(+)
-
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index b4499fc3f90b..f75c2c8358f5 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -400,6 +400,57 @@ static int rockchip_pcie_init_port_retry(struct rockchip_pcie *rockchip)
- 	return err;
- }
- 
-+/* Hot-reset the endpoint; *link_us: time until the link came back, 0 if not reset */
-+static int rockchip_pcie_hot_reset(struct rockchip_pcie *rockchip, s64 *link_us)
-+{
-+	u32 status;
-+	ktime_t start;
-+	int err;
-+
-+	*link_us = 0;
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_HOT_RESET_ASSERT,
-+			    PCIE_CLIENT_HOT_RESET_CTRL);
-+	err = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_INT_STATUS,
-+				 status, status & PCIE_CLIENT_INT_HOT_RST,
-+				 100, 100 * USEC_PER_MSEC);
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_INT_HOT_RST,
-+			    PCIE_CLIENT_INT_STATUS);
-+	/* Hold the reset at least 2 ms, as pci_reset_secondary_bus() does */
-+	if (!err)
-+		usleep_range(2000, 3000);
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_HOT_RESET_DEASSERT,
-+			    PCIE_CLIENT_HOT_RESET_CTRL);
-+	if (err)
-+		return err;
-+
-+	start = ktime_get();
-+	err = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_BASIC_STATUS1,
-+				 status, PCIE_LINK_UP(status), 20,
-+				 LINK_TRAIN_TIMEOUT);
-+	*link_us = ktime_us_delta(ktime_get(), start);
-+
-+	/* Clear the AXI link-down status before config traffic, as the Cadence host driver does */
-+	rockchip_pcie_write(rockchip, 0, PCIE_CORE_AXI_LINK_DOWN);
-+
-+	return err;
-+}
-+
-+/* A JMB585 sometimes comes out of reset unable to answer config requests */
-+static int rockchip_pcie_reset_endpoint(struct rockchip_pcie *rockchip)
-+{
-+	struct device *dev = rockchip->dev;
-+	s64 link_us;
-+	int err;
-+
-+	err = rockchip_pcie_hot_reset(rockchip, &link_us);
-+	dev_info(dev, "hot reset: link back in %lld us, err %d\n", link_us, err);
-+	if (err)
-+		return err;
-+
-+	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-+	return 0;
-+}
-+
- static irqreturn_t rockchip_pcie_subsys_irq_handler(int irq, void *arg)
- {
- 	struct rockchip_pcie *rockchip = arg;
-@@ -908,6 +959,10 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
- 	if (err)
- 		goto err_pcie_resume;
- 
-+	err = rockchip_pcie_reset_endpoint(rockchip);
-+	if (err)
-+		goto err_err_deinit_port;
-+
- 	err = rockchip_pcie_cfg_atu(rockchip);
- 	if (err)
- 		goto err_err_deinit_port;
-@@ -965,6 +1020,10 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
- 	if (err)
- 		goto err_vpcie;
- 
-+	err = rockchip_pcie_reset_endpoint(rockchip);
-+	if (err)
-+		goto err_deinit_port;
-+
- 	err = rockchip_pcie_init_irq_domain(rockchip);
- 	if (err < 0)
- 		goto err_deinit_port;
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index b5da15601b58..4509e044862b 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -47,6 +47,9 @@
- #define   PCIE_CLIENT_INT_IN_DEASSERT		HWORD_CLR_BIT(0x0002)
- #define   PCIE_CLIENT_INT_PEND_ST_PEND		HWORD_SET_BIT(0x0001)
- #define   PCIE_CLIENT_INT_PEND_ST_NORMAL	HWORD_CLR_BIT(0x0001)
-+#define PCIE_CLIENT_HOT_RESET_CTRL	(PCIE_CLIENT_BASE + 0x18)
-+#define   PCIE_CLIENT_HOT_RESET_ASSERT		HWORD_SET_BIT(0x0001)
-+#define   PCIE_CLIENT_HOT_RESET_DEASSERT	HWORD_CLR_BIT(0x0001)
- #define PCIE_CLIENT_SIDE_BAND_STATUS	(PCIE_CLIENT_BASE + 0x20)
- #define   PCIE_CLIENT_PHY_ST			BIT(12)
- #define PCIE_CLIENT_DEBUG_OUT_0		(PCIE_CLIENT_BASE + 0x3c)
-@@ -170,6 +173,7 @@
- #define PCIE_CORE_OB_REGION_ADDR1	(PCIE_CORE_AXI_CONF_BASE + 0x4)
- #define PCIE_CORE_OB_REGION_DESC0	(PCIE_CORE_AXI_CONF_BASE + 0x8)
- #define PCIE_CORE_OB_REGION_DESC1	(PCIE_CORE_AXI_CONF_BASE + 0xc)
-+#define PCIE_CORE_AXI_LINK_DOWN		(PCIE_CORE_AXI_CONF_BASE + 0x824)
- 
- #define PCIE_CORE_AXI_INBOUND_BASE	0xc00800
- #define PCIE_RP_IB_ADDR0		(PCIE_CORE_AXI_INBOUND_BASE + 0x0)
-
--- 
-2.43.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Stat-Signature: 3akdyjsxbtu167eg6my335qg7mz3dptg
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 574E120028
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19s9ynh/NHPDcmAJWjMQbDUIHi0HFMGvdo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=eBCjNIKUfqjaGDt0no5q2XrPUjAYAzsKAq+9d/UK+Go=; b=lQPvAeUM7ppyjOsRL5CTHiKxwRfBu79+ByN0kSEQZAyQKFDE2SrM1mDFoBX2Bf6JNVk+6QoTqAUbf6D7dbpQu9p/nJfUqpSVuA6icAsbCVU0HsOmykaar7YPTyHZ3UqjwzLx7VRUqvtMm8r0Uv5SvUD8M1jU78SYGC/OVNPj1EA=
+X-HE-Tag: 1792804166-847795
+X-HE-Meta: U2FsdGVkX1+piJXsRIhj1ln7eGg1e8ZCXuZ/pE1clPqlXFczKmDKiSiTrOiCZLA/RVh6EPAzIViJIdGf8kAba7744bhEeSasXX/4Bw35KUDX09vLc1vqA3AuTnfM81pnDI5XR1YQkjl3r+JTcg6bc7BHQoWTbGb2wQ+zNLs2I/dzC3Ecqx6MpWuUW+wU7hPf9dVQmoF79/W241X+h9pD5QKTLWC/M7ZnS0xA0y7JfQG/tG/bVW/HbZ1/dOXcxHa/MsTMF1cR/4Djgg7TdBgKxnRz2v22tqSzvID0UFTf0+J3o/d/wfeywK9uaNWfNT1mTVMdcPfIOfqNoB7lRaVgHHL9ysyV8IX2
 
 
+Linus,
+
+[ Sorry for the late pull request, I was waiting for some last minute fixes=
+ ]
+
+tracing updates for v7.4:
+
+- Add "within" to filter logic
+
+  Add a way to trace events by what function they fall in.
+
+  echo 'within =3D=3D "vfs_read" > events/sched/sched_switch/filter
+
+  Will only trigger sched_switch events that happen within the vfs_read
+  function. It uses a stacktrace at the event and checks if any entry is
+  within the specified function and if so, it prints the event.
+
+- Remove a duplicate definition of ftrace_set_clr_event() from the header
+
+- Do not have ftrace_set_clr_event() modify its input buffer
+
+  Have the buffer passed into ftrace_set_clr_event() to be const char * and
+  not allow modifications to it that might cause side effects.
+
+- Add kunit tests for ftrace_parse_event_string()
+
+- Add filter argument to __ftrace_set_clr_event()
+
+  Make it possible to set a filter on an event at the same time it is
+  enabled.
+
+- Add event filtering logic to the kernel command line
+
+  To allow filtering events on boot, allow filtering to be specified on the
+  kernel command line when enabling events.
+
+- Rename "ring_buffer_size()" to "ring_buffer_capacity()"
+
+  "size" refers to how much is allocated whereas the actual return value is
+  the amount of available data in the ring buffer minus its meta data.
+
+- Rename "trace_array_entries" to "trace_array_capacity"
+
+  There's several functions that use "entries" and returns the amount of
+  data that that is usable. "entries" should be only for the number of
+  events, not the amount of data.
+
+- Print the histogram "bucket" size as unsigned.
+
+  If a bucket size is LONG_MAX, then it shows up as a negative number.
+
+- Show bucket size in output of histograms
+
+  The output of what the histogram is shown doesn't show the size of the
+  buckets when buckets are used. The output should be the same as the input
+  and since specifying buckets without a size is an invalid command, the
+  output to display what was entered should also show the size.
+
+- Fix stacktrace modifier output
+
+  Only show the stacktrace modifier when it was specified in creation.
+
+- Unregister filed variable histograms when the command fails
+
+  If one histogram references a variable of another histogram it registers
+  that other histogram. But if the first histogram fails in setup after it
+  registered the other histogram it doesn't unregister it. Have the first
+  histogram add the reference to the other histogram so the failure clean up
+  will unregister the second histogram too.
+
+- Fix 64-bit signed histogram fields on 32-bit kernels
+
+  A fix to convert char * to u64 with added casting also incorrectly added
+  an intermediate cast to convert a long value to u64 which ended up
+  truncating the upper 32 bits for 32-bit kernels. Remove the intermediate
+  typecast.
+
+- Print signed histogram keys as signed
+
+  Histogram keys were being printed as unsigned and with signed keys it was
+  giving the wrong output.
+
+- Use copy_from_user() and not __copy_from_user() in syscall tracing
+
+  The syscall tracing incorrectly was using __copy_from_user() which could
+  be an issue if the system trusts perf doing the trace.
+
+- Take trace_types_lock when recording a new module in persistent buffer
+
+  When a new module is loaded, the persistent ring buffer saves it in its
+  persistent memory. All the trace_arrays are iterated looking for any
+  persistent buffer to add the module to. But it did not hold the
+  trace_types_lock meaning a trace_array could be added or removed while
+  iterating the list.
+
+- Only create tracepoint guest_halt_poll_ns when it is used
+
+  The tracepoint guest_halt_poll_ns is defined in the power management code
+  but it is only used when CONFIG_CPU_IDLE_GOV_HALTPOLL is enabled. This
+  wastes memory when that config isn't enabled so wrap the tracepoint around
+  that as well.
+
+- Handle empty fields for events in trace_event_get_offsets()
+
+  The user events could have empty fields and this causes
+  trace_event_get_offsets() to crash as it expects events to always have
+  fields. Make the function handle events with no fields.
+
+- Reject incomplete event filter expressions
+
+  If a filter has an incomplete expression (common_pid =3D=3D 1111 || ), it=
+ will
+  cause a out-of-bounds bug. Have the predicate_parse() only process the
+  expression if it is complete.
+
+
+Please pull the latest trace-v7.4 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace-v7.4
+
+Tag SHA1: 528d55aeb09e34f35cc716fe770fdda13a3014a9
+Head SHA1: 1fdc4164e488916402badddbb1f51e9380dabb91
+
+
+Adri=C3=A1n Garc=C3=ADa Casado (1):
+      tracing/osnoise: Add __printf attribute to osnoise_print()
+
+Chen Jun (1):
+      tracing: Add "within" filter for call-stack-based event filtering
+
+David Carlier (2):
+      tracing: Hold trace_types_lock when updating modules in persistent in=
+stances
+      tracing: Hold trace_types_lock when resetting last boot data from rea=
+ders
+
+Donggeun Yoo (8):
+      tracing: Print the bucket size as unsigned
+      tracing: Add the bucket size to expr_field_str()
+      tracing: Only report the stacktrace modifier on a real field
+      tracing: Unregister field variable histograms when the command fails
+      tracing: Clamp the printed end of a histogram bucket at U64_MAX
+      tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
+      tracing: Print a signed histogram key as signed
+      tracing: Save the event file instead of the compatible histogram
+
+Haoran Wang (2):
+      tracing/syscalls: Use copy_from_user for the faultable syscall buffer
+      tracing: Guard trace_event_get_offsets() against an empty fields list
+
+Kyle Zeng (1):
+      tracing: Reject incomplete event filter expressions
+
+Lee Jones (1):
+      tracing/histograms: Verify event_call identity when updating synth_ev=
+ent refcount
+
+Steven Rostedt (2):
+      tracnig: Add proper error message for glob use with "within" filter
+      cpuidle: haltpoll: Only define guest_halt_poll_ns tracepoint when used
+
+Thomas Wei=C3=9Fschuh (6):
+      tracing: Remove duplicate declaration of ftrace_set_clr_event()
+      tracing: Stop modifying the input buffer in ftrace_set_clr_event()
+      tracing: Split the event string parsing logic into a dedicated functi=
+on
+      tracing: Add a test for ftrace_parse_event_string()
+      tracing: Add a filter argument to __ftrace_set_clr_event()
+      tracing: Parse filter from boot event string
+
+Vincent Donnefort (3):
+      ring-buffer: Rename ring_buffer_size() to ring_buffer_capacity()
+      tracing: Rename trace_array::entries to capacity
+      tracing: Rename tracing_entries_fops to tracing_capacity_fops
+
+----
+ Documentation/admin-guide/kernel-parameters.txt    |   9 +-
+ Documentation/trace/events.rst                     |  17 +++
+ Documentation/trace/histogram.rst                  |   3 +
+ include/linux/ring_buffer.h                        |   2 +-
+ include/linux/trace_events.h                       |   3 +-
+ include/trace/events/power.h                       |   3 +
+ kernel/trace/Kconfig                               |   8 ++
+ kernel/trace/Makefile                              |   1 +
+ kernel/trace/ring_buffer.c                         |  13 +-
+ kernel/trace/trace.c                               |  72 ++++++-----
+ kernel/trace/trace.h                               |  13 +-
+ kernel/trace/trace_boot.c                          |   2 +-
+ kernel/trace/trace_events.c                        | 132 +++++++++++++----=
+----
+ kernel/trace/trace_events_filter.c                 |  50 +++++++-
+ kernel/trace/trace_events_hist.c                   |  61 ++++++----
+ kernel/trace/trace_events_synth.c                  |  10 ++
+ kernel/trace/trace_events_test.c                   | 122 +++++++++++++++++=
+++
+ kernel/trace/trace_osnoise.c                       |   1 +
+ kernel/trace/trace_snapshot.c                      |  14 +--
+ kernel/trace/trace_synth.h                         |   1 +
+ kernel/trace/trace_syscalls.c                      |   2 +-
+ .../test.d/filter/event-filter-incomplete.tc       |  24 ++++
+ 22 files changed, 440 insertions(+), 123 deletions(-)
+ create mode 100644 kernel/trace/trace_events_test.c
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filt=
+er-incomplete.tc
+---------------------------
