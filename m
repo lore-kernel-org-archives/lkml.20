@@ -1,82 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792842093;
-	b=XVvhNY4Ce3iQ/wSOQe5feHHRoJAm3+FuCinfq2g1BKmBfNTiurbprnNddpTHOjrRMVz9
-	 0IcQGtOm4HZ4ajia81V1NZovnsj2xhKbVu1BGEnSkoHmbd1AmcbTFCFPimwirp+mlVPKX
-	 Srj5LrHy170YNGVA81yw/ORdhPx9rJGTneQQ9exdGs+o4//SB5/THIcWTCVhOMVmXesKy
-	 mFE0KSfdrReQmylZvEiuEqf6hyZf9zLpton6Raiebe+BcGr7veLo+NYKoFo+xwFChWUHk
-	 U2krwMfJkAlIbrR2tTY3otSB1iXUOyHCkfImvvI6eL6bPiu9w2cpP/AVvjZOX9Hm3PA==
+	t=1792842084;
+	b=ro3+PmAJpUYS7vfvYPICYSDnG9Xp8fYBcMDQ5TZMe+OSlbwpM4PiyQG+UgHLC14s5yHB
+	 0McAA3MrDnPL5qtR0ZgJZC/5fnPtctPw3TeBKHtcA9jDH5MPmJOcBUQ7XtRvjjzb03BHQ
+	 YEsmduHv3byGGmUIeMelf6/khfG0EpoNC1TMTdwFrvcWgNyUA5Pc+zO2R56N1MHKHbT2B
+	 1+z5dn3c4U/v19i2+IcS6RwnBnQhupoRGcUEtxSUlSlzLcOVa4PX3eCpH/645iW1X4m2D
+	 LXIfvOUTjUQBcTGWVzwoa91IZxkGBfJ6HiBKGwXX2H8G51oDgaL2RnMK04hSh7hoL5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792842093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792842084;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
-	b=UWIKCqzK2YWLOqIMzpse3wG3lsB8oAz/rv6OQxe+Dcf4yH6lE2rtQ3KLP5uy2srQYlmy
-	 JoNIqDSTKSCcceFDFus/Uqa2fEWMuGjIYHbzIQyabQe/1kUrRZ//O8QG+OIfiLKdXwb5e
-	 1mPx+lSwg540+27RZHzR2PjCYg9AUCUmEFlueCaF2oe2999yayZrkiL4yC/uvdjQZZMFh
-	 UPtfKKWz3OkutU4MBDS5k3cfhLwSdRRrAI8BCcH1uq72chVwppmfd+qsTcaCAzasHKcb5
-	 Tp0qKlC10ZIYxiJjTGa1cF56V6i5g1w/Jp4NrWA1Yd1QDgMIYylBrj9bQkGDr6MtdyA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nUL6W0Nan8tO+oDd4RvDtN/T8g9yBmsnWSek2hObBhw=;
+	b=wQ1zGPK7afoJVvcONMhjIWq68U9xh1djU0qqoaqK1JxeTZw/lXAibtagaDD2hGakwKuR
+	 9+MYxuKonN1pigN5L7tmzyIGaantFzqhWx9IvCgxOqHfRM6MK0LxsChPzsmKPg1ImstC8
+	 L+i6RLA8pVNwx5JRrtiaazRdDjIHwOGoYxu7XXWYOCK4elltscwfPpJNbVqAi/Be075Cv
+	 Kw2UXJzcWAXHsg+KRW8Q+slqejqS3nJ9ZgjGAYGt9StL623dRRFcJANP6bXwthLPM4toZ
+	 tfOuApPJfjCTQb8LunwFAK4Rtwnodlwjg/X+so0rNAhP5vvjtkwW5ApzToe5j9Rp1Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Q6k/zVM6";
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ul7mAQjR;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26DA606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:41:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F26DA606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54288606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:41:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54288606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Q6k/zVM6
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e9d7791b00so8469155ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:41:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ul7mAQjR
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9d1114320so12391755ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:41:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792842092; x=1793446892; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
-        b=Q6k/zVM6D66RE3FA0X3wcrNy57oxJpYmiLfOnkAJZdBPr2D1O12m/JQH+JfX35zQgV
-         LnkGSRF6CHEsSwixLaQNk8DDNEic/f/vJN8SMj0QaX9wMhLfpbl2aadQlnjL6fyeEcyv
-         TM/1c7TpCX27axPwdH1eSbi0kNsiCPMDIp0hrk2zQF8dkPGcbrEk2AU4ENxJ8i3NNJXO
-         uARRcnhBXnhe5WQ0RTXs9YGHucvBWZMTcR4j5N3qCcZznZ2y6hXC6d30PSCtYv3kXeRD
-         NMye9B4woEzJAwbLdiK84cUPN53YsPzm7XWrQx9OW9RJwjsllrZPrztxwR2HfAF/4h2T
-         2FBg==
+        d=gmail.com; s=20251104; t=1792842084; x=1793446884; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nUL6W0Nan8tO+oDd4RvDtN/T8g9yBmsnWSek2hObBhw=;
+        b=Ul7mAQjR/aGU9E+NkyyFecLFKA7/Laz7UuE1FiMSJFvx4gkI00/WS0f6IgkKUr7orG
+         4ISiqwF2rDLYwVvDl68T4u3Qdwi8dQTWXlhd2AONAKMS72qeSp45RsXvU7s8WvftUWEz
+         UKsFaR7PGVyttoarVnZUBQidAFPiRThmSOz9ou+Mf0UsYDKj/BrRJwa6CJxMjDWlAr9H
+         pToY1Po3jMAq5f5nqFGOHj4JLQALVfdBoX+rQr3mRJOfHH7GDTV3gHT4SE7UZUYYOZ+a
+         H+xYUd+926+LRbT/jXqefi3+0EWrfedyl3zWibh7LUx+f2w24Sr0HLhkOqUIALk2Iq9m
+         MwbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792842092; x=1793446892;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tnedoe/gFzpi2ROqHZcGBD/7JdKGXf+n+5ulPMXSXwk=;
-        b=dLBkfOSwxsJZsj+Xtm5rACIeTIR3oSuVIvHK7mBTPskYaYTlHTw9lSu7Zebfy8iNO/
-         XNL/xDx3jkbhkXTkzmZ2FinLjpq7J20/JlQvWtWCerBCpeyq159N7JbjKAf3Tp/Y3G2h
-         bMilS5s22IxuatRaqCdMinclRjuQ1No44JmGyq11bdvgNnlvg/IZEvT/et5vxTrYEPY+
-         Xd9XqleLzv5lZy1wnjQfqmOQqd8LYwIxh6lSwYRCD31XFCDV8689FDvq3qzCq0h+F36q
-         y81YnJlQVFN5hFK5SYZBjHPA2qPf4DYfyyXqRvdwvsYtwJMZOWNFJQ0IW3ISPYCpkibC
-         9EuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEyePfGAUPQco2BXG/dRM9KmpkRgrwmxfJGLv4w1qgp6Yn4x9jMNVXBS6ZjSHUIei20aqhFrejc92uIlk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLr6CZ+4bmNnSBiUx0yJAIY/ROqYzdCK3fiz1PqmfGGIVIqQiXl
-	pMO7HVRsBhz97/qPvgQ2FnuhxZKeFZWQ1vwAcp4x3HpqpSxax+KVJAE7
-X-Gm-Gg: AYBFou2H7+GF12c45tXSnkpoxSFLAItS61lAfvI9/n/2VIaIRmmicRyONOB8x2wKUJN
-	jXsjDdc+CwU38/yKv8Xx6nr0FNEXNruNqpr+zOwl+q5IoGEDJLqTiA1j8BMAxvIqBdIvmPWONL2
-	ikCGhzQ2paM4Wm0rJYTLKRaycCpdtKeJES2FOeqt1o3HcEk5l8CSMEfA+pra94/KYRmigMXN9xD
-	0wtVM/3KA5BcClLPdffOELSSiuABMhOCRL9eLRXjuWjVZ47dzImmlgtBIboQg+HjLlE0d3a5ccx
-	fIp4KM9X+Hhoxy009+fdY7zfWFpSQHXNHx0vujA4cnnM6Qf5e7ooLQkhW1U8+Dvk6pPnAdEOyE5
-	14mFjAi20sNGpw8BPJRKjjMNmTqMIPpPsTv8XjZe8ECY62lLDu5MqR+KnFG/z17eQcbqpgvDXCh
-	bAbZhmJqjpX+PThe6D4AIMGugBeIdo61AZ/mf51A7+yC2DEPb8mfsuL1Vp9DDZ7SNMWGkvuHujB
-	6TJihJIh6neQJ/gY5tIg6VUN5h/tQzPK6ObCHRMpW179SID+Ys=
-X-Received: by 2002:a17:902:e948:b0:2e9:6972:54d7 with SMTP id d9443c01a7336-2ea9c7c9d0amr13791805ad.52.1792842092272;
-        Sat, 24 Oct 2026 04:41:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792842084; x=1793446884;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nUL6W0Nan8tO+oDd4RvDtN/T8g9yBmsnWSek2hObBhw=;
+        b=afJSZi5FXaUKzKqNMghSngCiAMOIDkooSuA+Um1icMBJbpYQnst0KR979OSd+Zybqa
+         u9pzUiGi+8WDzXCperCKUKVCOQKvHACnS7dsrrB6shKzJqD0swdBGuFZPWBg4+9cvt0w
+         AGRnPAioU3aifK4BX345PvIO5iIxdCto+VI8Rjgd48q/2GB7Fn4v0AQLUXQZ/90aP1n/
+         FKWCLpMzu3gDN0DyFiXz4fnPD0ZHQudYaiDTtxsaYjpMB6ffmSMIQweoNiv1kJ+rKkMd
+         Rm+6xB+APdEeZjXZ5bJ5dHtmdaTj1Ispap6C/By/B7PXJ5VKcVSQZZIOOl6y6xvax7ve
+         UA4A==
+X-Forwarded-Encrypted: i=1; AKwUvBxbq1GFo6xnNQ+lovbRqn5CVX4TksWkY1r1eqyXpssSLny8rNKERitpvdx3bIZ4S4uOrhY0ln/x993QS9A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeUrtXqNZvxH4ej5tzOEi9mOxPQvjz16BdNSNuHn/IFyaf6N4Y
+	Ya8NcnUEZFAVSD5RXCM3gN0KxWDbHXhmuI9WOfhFDg/Wf2p7oDKzQ1vE
+X-Gm-Gg: AYBFou3a+uFvcDnzt4mi1GfIs4eNLcvggE7RPLGxyUwIpNaMeFXhS+K4SlSChcOhGib
+	LkCKOZbDpzDe1TtZ/54EVzcdPxxEKvFvkjsLXPgl4/BwEgAa89VMX+FHzaBM600kOjn7VbCsjMu
+	yv9B+KckioHyIMBQfcX3GcOSflyjuvIYHCG4+nC3VtDkFRNFMbSmmF7450mYYrU4YUmINR79TMd
+	Bl17tkyFZOYb2jg5H/6t3UURI07DHG9MPOxOAa+xIDX9wfH9Ok3vIj4mBHi63Y07MqqvisRy0jL
+	t+DwUmM9O3XT6mVl98M9nVHSNXkbW2ZB4xWkEZtP6UHRQzJZDFv4D177MzE6fH7JSCxlmcVLWSp
+	B5WYwY/78fVwLgrRJtxOX0uOj4m05kiieXSMRuy1+FULR6sAIRYQ6ob3Qxg3ScpjnyEFviCjUp4
+	sOGSys3BYQwJQ8zvuNMlZRHEUgmKf5jMYjXtEJ3ai96DuxnOLqLvTBMWGDlf6uohyEQLs1HxTNE
+	3RKV7C0YbubBkcXgo64LPEB91ZmIVlACpBVRKTybACr3x2GF5Q=
+X-Received: by 2002:a17:903:3c50:b0:2e9:5b20:1c22 with SMTP id d9443c01a7336-2ea9c0fc9f4mr14713555ad.8.1792842083551;
+        Sat, 24 Oct 2026 04:41:23 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b14c774sm4738515ad.38.2026.10.24.04.41.28
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b14c774sm4738515ad.38.2026.10.24.04.41.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 04:41:31 -0700 (PDT)
+        Sat, 24 Oct 2026 04:41:23 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com
@@ -86,12 +85,10 @@ Cc: linux-sound@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v2 2/3] ALSA: pcm: oss: Retain the PCM from minor lookup through release
-Date: Sat, 24 Oct 2026 19:41:15 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-2@gmail.com>
+Subject: [PATCH v2 0/3] ALSA: pcm: Retain components across codec teardown
+Date: Sat, 24 Oct 2026 19:41:13 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com>
-References: <pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,147 +100,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An OSS open uses the PCM before acquiring open_mutex and before the HDA
-driver's open callback takes a codec PCM reference. In particular,
-snd_pcm_oss_look_for_setup() walks the stream's setup list during this
-interval. The lookup's card reference does not retain a PCM component
-removed by codec-only unbind on a registered card:
+A pending PCM opener can retain the card without retaining a PCM removed
+by codec-only unbind. A late codec probe can also publish PCM devices
+before a subsequent registration failure starts cleanup.
 
-  OSS open                             HDA codec unbind
-  --------                             ----------------
-  lookup OSS minor
-  retain card reference
-  snd_pcm_oss_look_for_setup()
-                                       disconnect PCM
-                                       wait for codec PCM references
-                                       snd_device_free()
-                                         snd_pcm_free()
-  use setup list or PCM in open
+Retain native and OSS PCM lookups through file release, close admission
+at component disconnect, and drain codec users before probe-error cleanup.
+Keep the existing proc rundown outside open_mutex at disconnect, and wait
+for PCM references in final cleanup after the lookup gate is closed.
 
-The OSS module pin retains its code, and proc disconnect drains proc
-callbacks; neither retains the PCM for this early OSS open.
-
-Use the PCM core's lookup-and-retain helper for the OSS minor. Hold the
-PCM reference through the early setup lookup and transfer it to the file
-on success. Drop it on every open failure or after substream release,
-before the last card reference can invoke final card destruction.
-
-The final PCM free now waits for that early opener before removing OSS
-setup lists. A pending opener which resumes after disconnect is rejected
-before entering the driver, and a waiting OSS opener observes the PCM's
-component disconnection as well as whole-card shutdown.
-
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- include/sound/pcm.h      |  2 ++
- sound/core/oss/pcm_oss.c | 20 +++++++++++++-------
- sound/core/pcm.c         | 15 +++++++++++++++
- 3 files changed, 30 insertions(+), 7 deletions(-)
+Cen Zhang (3):
+  ALSA: pcm: Retain components across native minor lookups
+  ALSA: pcm: oss: Retain the PCM from minor lookup through release
+  ALSA: hda: Drain PCM users before cleaning up a failed codec probe
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 8fdb07f2f542..12559c2144cf 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -577,6 +577,8 @@ int snd_pcm_new_internal(struct snd_card *card, const char *id, int device,
- int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count);
- 
- #if IS_ENABLED(CONFIG_SND_PCM_OSS)
-+struct snd_pcm *snd_pcm_get_by_oss_minor(unsigned int minor);
-+
- struct snd_pcm_notify {
- 	int (*n_register) (struct snd_pcm * pcm);
- 	int (*n_disconnect) (struct snd_pcm * pcm);
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index e8df27d09b97..9f0dae051ecf 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -2497,8 +2497,7 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
- 
- 	nonseekable_open(inode, file);
- 
--	pcm = snd_lookup_oss_minor_data(iminor(inode),
--					SNDRV_OSS_DEVICE_TYPE_PCM);
-+	pcm = snd_pcm_get_by_oss_minor(iminor(inode));
- 	if (pcm == NULL) {
- 		err = -ENODEV;
- 		goto __error1;
-@@ -2545,7 +2544,7 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
- 		mutex_unlock(&pcm->open_mutex);
- 		schedule();
- 		mutex_lock(&pcm->open_mutex);
--		if (pcm->card->shutdown) {
-+		if (pcm->card->shutdown || pcm->disconnected) {
- 			err = -ENODEV;
- 			break;
- 		}
-@@ -2566,14 +2565,19 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
-       __error2:
-       	snd_card_file_remove(pcm->card, file);
-       __error1:
--	if (pcm)
--		snd_card_unref(pcm->card);
-+	if (pcm) {
-+		struct snd_card *card = pcm->card;
-+
-+		snd_pcm_put(pcm);
-+		snd_card_unref(card);
-+	}
- 	return err;
- }
- 
- static int snd_pcm_oss_release(struct inode *inode, struct file *file)
- {
- 	struct snd_pcm *pcm;
-+	struct snd_card *card;
- 	struct snd_pcm_substream *substream;
- 	struct snd_pcm_oss_file *pcm_oss_file;
- 
-@@ -2584,14 +2588,16 @@ static int snd_pcm_oss_release(struct inode *inode, struct file *file)
- 	if (snd_BUG_ON(!substream))
- 		return -ENXIO;
- 	pcm = substream->pcm;
-+	card = pcm->card;
- 	if (!pcm->card->shutdown)
- 		snd_pcm_oss_sync(pcm_oss_file);
- 	mutex_lock(&pcm->open_mutex);
- 	snd_pcm_oss_release_file(pcm_oss_file);
- 	mutex_unlock(&pcm->open_mutex);
- 	wake_up(&pcm->open_wait);
--	module_put(pcm->card->module);
--	snd_card_file_remove(pcm->card, file);
-+	module_put(card->module);
-+	snd_pcm_put(pcm);
-+	snd_card_file_remove(card, file);
- 	return 0;
- }
- 
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 17cd60e8825d..380ce0781342 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -1064,6 +1064,21 @@ struct snd_pcm *snd_pcm_get_by_minor(unsigned int minor, int type)
- }
- EXPORT_SYMBOL_GPL(snd_pcm_get_by_minor);
- 
-+#if IS_ENABLED(CONFIG_SND_PCM_OSS)
-+/**
-+ * snd_pcm_get_by_oss_minor - look up and retain an OSS PCM component
-+ * @minor: OSS minor number
-+ *
-+ * Returns the same PCM and card references as snd_pcm_get_by_minor().
-+ */
-+struct snd_pcm *snd_pcm_get_by_oss_minor(unsigned int minor)
-+{
-+	return pcm_get_from_minor(minor, SNDRV_OSS_DEVICE_TYPE_PCM,
-+				  snd_lookup_oss_minor_data);
-+}
-+EXPORT_SYMBOL_GPL(snd_pcm_get_by_oss_minor);
-+#endif
-+
- static ssize_t pcm_class_show(struct device *dev,
- 			      struct device_attribute *attr, char *buf)
- {
--- 
-2.43.0
+ include/sound/pcm.h      | 11 ++++++
+ sound/core/oss/pcm_oss.c | 20 +++++++----
+ sound/core/pcm.c         | 74 ++++++++++++++++++++++++++++++++++++++--
+ sound/core/pcm_native.c  | 44 ++++++++++++++++--------
+ sound/hda/common/bind.c  |  3 ++
+ 5 files changed, 128 insertions(+), 24 deletions(-)
 
+Changes in v2:
+- Replace the setup-list-only fix with separate native PCM, OSS PCM and HDA
+  probe-error lifetime fixes.
+- Retain PCM references from minor lookup through file release and roll back
+  partially registered minors.
+- Rebase onto current for-next while preserving proc rundown outside
+  open_mutex at device disconnect.
+- Drain codec PCM users before probe-error cleanup removes driver state.
+- Describe the native HDA codec sysfs-unbind and PCM cleanup sequence
+  explicitly in the core patch.
+
+Link to v1: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v6-680f350d78e44f9de7a7@gmail.com
