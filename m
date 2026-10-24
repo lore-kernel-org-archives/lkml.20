@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858894;
-	b=Z4NSyYOaL4tmyxOfthXxJZSvYiyzi1EZwRAQ1PrsgV1axfe9fvJ6aJMybJVTaSEIlOwF
-	 m/vGC9U6KuSNjsJfQauLj6F1vGNWpcCMwc6tsZ+Dw5hwWp8gNF41CatPH84kbFL+ESThB
-	 Eo/Lbwt76jh6mT7A3Mu/lHtz0x0ShawB9jKPrd3sS6lqEJPoKUL5MCvxygF2pjJOewzrO
-	 yRIqDj33Sqwni5XCNLH7b4yPVHvQqoFOkC0IWBoCsm1i6tD0QGf1qvqNHSiJWSevXcleN
-	 pFusrfZSgkL880as2jgRBXO4z+T9sUtfwqo+vy6h+zivr2UND8Z5wPFOUiA+v5DTw1Q==
+	t=1792859128;
+	b=sXWhCiUbZVE9BXwY/xbhmUf8O2TkLg2+dAsnPk/fJ++s4aC+W/dmb9QdEIt+jK64G4fu
+	 7fndN5ydftGndiRVUWl5iuneClhmmfKo1RMs8D2H43dbyXVMgVJq8fQ3bPVURT/9lZbtH
+	 8/BHqdXwz7BScF2nA418E06MCbW627XH+77igsTnfpnutws30cf1cuWpR1ro+gzJRsqwz
+	 yzQ+6wKsV+YRnZJYvY/LOGvqZ5qiOpmvgIbOI6v93EPy5ejESMtWu/KwOYwH97n+wJF6C
+	 1fXOyFiHfb7bV5f350plhCqXCpvmMBTPIu5zA5ss+0SP5G8ja054SDyo4OcEpZ28SvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858894;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=F6yz0j17ZlA2N3jpWRgDpMHKo6hhIh1hOz7KuS7dRpI=;
-	b=IT5FbpulWAujPW3rcm5/cGiWafZhaofcNySj4/D+3T/1300Y74wToq+2WArK9fkRn4zj
-	 V7qWoantZ4rweKQ4DWaJpKtQxPIgcNMeBGAkXGWaYOJbrm0/FM7F9/C7wrgcCMQnjjjiA
-	 WbqSY7EeaWCY3pliT3B1tS5OoA1psjZKh/FKQqI/n87BNVPxx5moZH3cXm40Goi5XMFr/
-	 see/jDUAdL6/cy66rHw4f9HrMLRaS6f7Es1qxBlpWtdSm4TNyvQuI5CxLyNeD+u8Z5uTz
-	 vcvTPHExCJRPJnlho/itaJxsS80tf/2lRzjq/+UZ2OJHsQPabvQfGynykmDIUv/tMKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792859128;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 User-Agent:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=G68ur1SMj/NNYuw3zI3yHnD0eHSAvGW7RPf8rjvKBXA=;
+	b=Ki4XsCq9xRGEcisl9ohwpBieYye2QHedB8B2cnLYjkUGSkFu4nHspCuaynvtGnfKgq6L
+	 iYYQpig5wGIMmYvKER/kbs5HghSer+kbF/5jzvvd/6V8VvBvwLJ38jCzdaKolYvxZ6rck
+	 q4rX7Vke5m3axGifAEwbrxdjWLw0SE63NDSif7kTkVYLNf5VctWVoFFo4N+vwDyWP1+Bx
+	 XLx/pRJRdystab6rE96867HDcff0rgnZTesbFb29Vco/4Rz/piXVBHM1KGy5izxy5hqvK
+	 mcLNHN3zt7gHLZfP7iWQzDFpLP7BFg/4CcmHcuLOTZD1B7a0D5YSJI4rTgT1a3mPl9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BXiZ4od0;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ko6qO15Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C124D606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 16:21:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C124D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9AE606A320;
+	Sat, 24 Oct 2026 16:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BXiZ4od0
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35829219da8so3337620eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858893; x=1793463693; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F6yz0j17ZlA2N3jpWRgDpMHKo6hhIh1hOz7KuS7dRpI=;
-        b=BXiZ4od0QPRwbJ1HEHXEZYLtBvs7l27b1YDBlLvDljIyAU63OB2ocpUGaqbitr2UE8
-         U9e0mn5TdgBq7v01NRToS0bUYeZ3PR3hro5KVsLTqXLkuMfKNDMLsfC5VCIXUVxpacZE
-         9PzBO2uJItxIj8DK0OUoHfDnoCp6yABJB9gzY+MA0D+HUlLt1hHSk9AafZcJYU3oRQGo
-         YMaDEe7nTEcdJ7kVLy6iwzRB5F/wq+tlPyySqeVVfjk3SK72yGCggtnuaG7vlqNCkwd2
-         31YuO5ewL3hZuVXK8W+asKZG8KXhBVQETyfuXpXib73rIXukDf7u3E3lCfBWljhb6hfG
-         kRBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858893; x=1793463693;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F6yz0j17ZlA2N3jpWRgDpMHKo6hhIh1hOz7KuS7dRpI=;
-        b=XsxzxRlFLFxfJ/SzYHiPuKmPMN4TQnYFPDHcIQG9DEkyXuEpWy7jOhs9ZsJiWUCmkC
-         g4LSpnOofe81iqyVZcHQxmm/0cYNjSmjwhOha6FJ4qon7ezhbkIK6QOEymLklyj7gAJP
-         XLgmBfL6KHCKQaWxdvjbJAvOslZET3+ITl3hDfSUzVaTdNl6JV3bQkx+/XvMjk9NKkTb
-         Rgi0HjZam2bxPWq7KKOw4/zcW0DMTeXh+jq1zaeeDWkFWU+re6NqefogYyXBqaSEaT8Z
-         /PBbWqecQNKRGYPcfPr06Aqh7clKGvOGipEqkOs2yMIRjy4rD/qmSDPaBXnGqkqor6c5
-         HTnw==
-X-Forwarded-Encrypted: i=1; AKwUvByvDzz30xgY/OS3+3IRLDzZX19rvP7bndskwKQqVnAlGq0H3KyIdCL+WgJN7Jxn8cc2LTchhldzXv4nmjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDH0LXLWNMHF1dBRge4yOPYeRhc+wvJQZZwpci4biwtvVITKX6
-	EEqSXVujGmArKjHVhYneiESvsjanllNNbLOyMpj2OeZEl3XLDhi5YQsO
-X-Gm-Gg: AYBFou2b8TfSy3ukat7gLUwi5/HE5Kg/MAayAMJQ24WYlFlY7djtDEEwpb7tjPLJ+hW
-	bFZI5iLHdt4On9fTzGBVbJi6gqBG5l6h0ZvmfgoitR40UadEG+F7pUyYaPzhCS+hZ/QNyhC5Htd
-	hMK3Yc+4d2+9ZOmmL9/LXG4MaRTF72B740/K2lcrwZIKqoMgj/XzVLoezAAkIPssS1S0IR4C6LW
-	5cXuy9rZ8HuzvsHln94D5fK3qbMPNP87XLWkztFbJileFvdllZG//+NeFyDMIOGgQlhe8gIkmIa
-	pj3vAzKYQyA2k7DwR9RykE8jggxg4zXyAPq/Uj/mQMoQDQfMPbadHtYlv0fkytq4X6G419nfuqh
-	YzrXDCDQlGwfNI0pbKrer4Svdw8ad34bJeevdB0axcEXPdvoKtAUjlcPYW72HB8ox1RJxeqRjKB
-	O7r0G4mZeuBahKLyRdd10HitB6xjcz1pdes/cOwvY/Et1Z6gB4feDxvhylZNgyZJmS/+QSom2OS
-	mcf/65uif2hXtLLN2a9Il3hAuJT69QWhMi0smbCb6otYyNq2xMHpy0Rk69zzjy0XtVueG7USb7f
-	8sML9SARuDpARrr1b9u+8CksqB2XWPqFLUPWhlnnvdvUe1Qd7nO2OfRtX/FryfhNMMkk3fHS63G
-	wWf6YUhBIQBXuGqZzYm8kecwYgde4Ik3NE7nW1Zu7RQ==
-X-Received: by 2002:a05:693c:6395:10b0:359:3991:ce1a with SMTP id 5a478bee46e88-369e84dd2demr3177495eec.16.1792858892703;
-        Sat, 24 Oct 2026 09:21:32 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2804:7f0:b101:277b:c08d:c9f9:7c08:79c4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec4d73sm11664942eec.22.2026.10.24.09.21.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:21:32 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>
-Cc: Boris Pismenny <borisp@nvidia.com>, Sabrina Dubroca <sd@queasysnail.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net] net/mlx5e: macsec: free SC lookup entries after an RCU
- grace period
-Date: Sat, 24 Oct 2026 13:21:28 -0300
-Message-ID: <179285888829.90275.17386097105525068016@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ko6qO15Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318631F01825;
+	Sat, 24 Oct 2026 16:25:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792859128;
+	bh=G68ur1SMj/NNYuw3zI3yHnD0eHSAvGW7RPf8rjvKBXA=;
+	h=From:To:Cc:Subject:Date;
+	b=Ko6qO15ZhI53ksQ2tGBDI4oWQAk3Tp3FE5c4q5mAolXBAskEJG4qP/BI4q3H0YR1g
+	 qW4DMFW4dNFrJi3DD7zlM3jnwYNWcz/eqeHvNVJcSMFr51iDMOU4SX3xoAGaqydtHD
+	 D/RoNUDlMn31/la346mRE9d7KUGv0OxiCOIjh8FM5NFcJ9M04zghNQEtNe0R1yrJN6
+	 zu39WUOfw0eXF9RENzSrX7ofJN7msR3HJg1XymryS9kQy22iXZ6OJapFL3jUJ94nh1
+	 j3pkZcnZao/+Z2XqdKdgao4FwxvzgXLaEeF3M9pQWK1KGmlkIt50Z7iLGCIyv2KnPV
+	 1i8hCBH0pkm+g==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 00/10] tracing/filters: Fix event filter parsing and matching bugs
+Date: Sun, 25 Oct 2026 01:25:23 +0900
+Message-ID: <179285912318.466249.7425922682086130057.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,67 +61,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-macsec_del_rxsc_ctx() removes rx_sc->sc_xarray_element from
-macsec->sc_xarray with xa_erase() and frees it with kfree() right away.
-mlx5e_macsec_offload_handle_rx_skb() looks the element up with
-xa_load() under rcu_read_lock() and then dereferences ->rx_sc, so an RX
-completion that loaded the element just before xa_erase() reads freed
-memory. rx_sc itself is already freed with kfree_rcu_mightsleep(); only
-the element pointing to it was missed.
+Hi,
 
-macsec_fs_id_del() has the same problem on the TX side: it removes
-fs_id_found from the SCI rhashtable and frees it with kfree(), while
-mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() read it
-through mlx5_macsec_fs_get_fs_id_from_hashtable(), which uses
-rhashtable_lookup() under rcu_read_lock().
+Here is a series of fixes for various bugs in the trace event filter
+parser and predicate evaluation in kernel/trace/trace_events_filter.c,
+along with a new ftracetest test case covering filter syntax checks.
 
-Free both with kvfree_rcu_mightsleep(). Both run in process context
-from the macsec offload ops, outside any spinlock, so sleeping is fine.
+Summary of the patches:
 
-The sc_xarray_element issue was pointed out during review of
-"net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete"
-and left for a follow-up; this is that follow-up.
+- [01/10] Compute the actual string length with strnlen()/strlen() in
+  regex_match_end() so suffix matching ("*pattern") works on fixed-size
+  string fields (such as comm) and dynamic strings.
+- [02/10] Fix process_system_preds() so that "fail" is only cleared when
+  at least one event in the subsystem succeeds, and use
+  delay_free_filter() when freeing replaced filters on error paths.
+- [03/10] Check "cpu >= nr_cpu_ids" before calling cpumask_test_cpu() in
+  do_filter_cpumask_scalar() to avoid out-of-bounds bit tests when
+  NR_CPUS > nr_cpu_ids.
+- [04/10] Return "pred->op == OP_NE" when "cpu >= nr_cpu_ids" in
+  DEFINE_CPUMASK_COMPARISON_PRED so "!=" against a cpumask evaluates to
+  true for out-of-range CPU numbers.
+- [05/10] Ensure parse_error() is called on all -EINVAL error paths in
+  parse_pred(), predicate_parse(), and process_preds() instead of
+  leaving lasterr as 0 ("Error: (0)").
+- [06/10] Fix function event ("ip") operand parsing in parse_pred() to
+  avoid reading past the NUL terminator on empty operands, check for
+  missing closing quotes, advance past closing quotes, and reject empty
+  operands or stray quotes/'(' in unquoted operands.
+- [07/10] Advance past the second character of "&&" and "||" in
+  calc_stack() so the second operator character is not miscounted as a
+  new predicate.
+- [08/10] Reject unsupported field sizes in parse_pred() when
+  select_comparison_fn() or CPUS{} size matching leaves pred->fn_num as
+  FILTER_PRED_FN_NOP, avoiding a kernel warning in update_pred_fn().
+- [09/10] Terminate the input filter string at the first newline ('\n')
+  in create_filter_start(), apply_event_filter(), and
+  apply_subsystem_event_filter() so multi-line input cannot desynchronize
+  cpulist_parse()/parse_pred() from calc_stack() or misalign error_log
+  caret placement.
+- [10/10] Add filter-syntax-check.tc to ftrace selftests to test valid
+  filters, syntax error diagnostics and caret positions, multi-line
+  input truncation, and subsystem filter error returns.
 
-Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+Note: These bugs were identified and the fixes and cover letter were
+prepared with the assistance of an LLM coding assistant.
+
+Also, note that [09/10] may need more discussion because it can break
+user space tool which attempts to use line-break characters as a filter
+for reasons that are not entirely clear. But as far as I can see, the
+error_log does not support such multi-line filter input. So I think
+we still need it. (But not sure we should backport it, maybe as an
+improvement.)
+
+Thank you,
+
 ---
-Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no new
-warnings). I do not have MACsec-capable ConnectX hardware, so this was
-not run on a real device and I have no reproducer against the driver
-itself. The free-while-reader-holds-RCU pattern was reproduced with a
-standalone test module under KASAN (slab-use-after-free on kmalloc-16),
-and the same module showed no reports after switching to
-kvfree_rcu_mightsleep().
+base-commit: 1fdc4164e488916402badddbb1f51e9380dabb91
 
- drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c | 2 +-
- drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Masami Hiramatsu (Google) (10):
+      tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
+      tracing/filters: Fix false success return in process_system_preds()
+      tracing/filters: Check CPU bounds before cpumask_test_cpu() in do_filter_cpumask_scalar()
+      tracing/filters: Handle out-of-range CPU for OP_NE in cpumask comparison
+      tracing/filters: Report parse error on all -EINVAL paths in filter parsing
+      tracing/filters: Fix function event operand parsing in parse_pred()
+      tracing/filters: Skip second character of '&&' and '||' in calc_stack()
+      tracing/filters: Reject unsupported field sizes in parse_pred()
+      tracing/filters: Terminate filter string at first newline
+      selftests/ftrace: Add event filter syntax check test case
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-index 38a3415ac..fb9126f6b 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-@@ -839,7 +839,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
- 	list_del_rcu(&rx_sc->rx_sc_list_element);
- 	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
- 	dst_release(&rx_sc->md_dst->dst);
--	kfree(rx_sc->sc_xarray_element);
-+	kvfree_rcu_mightsleep(rx_sc->sc_xarray_element);
- 	kfree_rcu_mightsleep(rx_sc);
- }
- 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-index efc516749..910fafe40 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-@@ -684,7 +684,7 @@ static void macsec_fs_id_del(struct list_head *macsec_devices_list, u32 fs_id,
- 
- 	xa_erase(fs_id_xa, fs_id);
- 
--	kfree(fs_id_found);
-+	kvfree_rcu_mightsleep(fs_id_found);
- 
- 	if (macsec_fs_is_macsec_device_empty(macsec_device)) {
- 		list_del(&macsec_device->macsec_devices_list_entry);
+
+ kernel/trace/trace_events_filter.c                 |  100 +++++++++++++++-----
+ .../ftrace/test.d/filter/filter-syntax-check.tc    |   52 ++++++++++
+ 2 files changed, 129 insertions(+), 23 deletions(-)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
