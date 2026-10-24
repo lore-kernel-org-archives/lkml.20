@@ -1,77 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792870027;
-	b=RtVWL3PdF3eIpSCXtrF29qRxRewpyZPbUNyVBhLvB+i6664koL+oqDKm8zGXAJfnJZRQ
-	 Bgdo3vKg0FSciP+clnfAMiv7BCiL24xX5D8XzSFFCmwvQgOMRJrOmNbRqn9xgnitUh6Mi
-	 mmp9a571/0B1diX9RqfcemDpHfKeuPX1n+s0v+8Oi8HRZKE59OQhYxjjS5pi8ndJg1riz
-	 iGLVzy5QOSlAEPNUzYGCcL4oaC1T9klhoJZbuT4mP4LKcfhPHfyLEXJc4+KNrUod3DNfZ
-	 cZjdd9a+rOTgKpbajelM6Z2wdrCxT/jT02xsMC0ToLTsQlO+coaSX/ES113T2IgJZ+A==
+	t=1792870186;
+	b=ST1/2C4kzns7sbWOn8J88WLbSscM8/zZfYAq0hI+ZBpP6UCUF5zcr75Hi+/OnpxjhhfC
+	 +0ihNhyJWGGhyCYntLms1X0ghpr6hwYe43P+UvvX57Qje9by2y05AA9bzcU5bHMnotm1f
+	 Vc6MdDe6QLGZ3KrP3NyXxm8/ut4nD2bbOWQUgUkHi3e8fybSF+e9p0Nm+tpNCJXW9ent2
+	 GTLEVAUyOvQexinFN+OdUfmYb9FFxVA2MGeBWDxDqV/4t4gUeU/40wyiJgItTtbTmDlbJ
+	 8xsoKxmotB2smxTJwq7DUtWnhOfq7s5II/XeW0XS4qFyRvcwN9tGfAXj8Lt5HoA3mig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792870027;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=IoudTpnQUTJwPoVFKl0N7MQn0fubXyU9972/M5yWtg0=;
-	b=WPwRtVM5UyJogBNdAxcCbtIQSuOa95gr3g/n23gfApIMc4nW/1gRRvpypFFT1Rb6VvOe
-	 I9klw6lIYOGau6498JF8i5FZ1LBjoi0hCjTOO2Ipo70U2UW7aQvrDXS5DIZB8JbkLHGBc
-	 dBB0aI1Pd0TqeYgD16VhMQOeoLrwuthUB+j+5xbUVoy5tNCAW+24mHz5phKZebMOYGXCQ
-	 VkXFtfrefeGvbHELem+0RYm3JAaFnMaXf1p9k9JuEYQI/HO/rEBQPFRK5WEtLZkJnYwwb
-	 tmUl7D1zebEdqXm3vDgFtsbcPv/z9AigajX6fTYG+nlHkEUoxXx8ZVzNbn9RVG89HPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792870186;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wf7Ik254Hs1LnPHVTqliKwyaBvyUYHDcoNqQBpCGZmw=;
+	b=OMFdszG84vjGtYJIte7vV/1Vola8S62qYKqzKjY4iauHGAPwDI9rerpVTKhNsl4l2qrK
+	 4wGZoSl6tHxy7sSbYWQN7f0rQvUPfu38vafE5bIUNr1RLLejIt3RHFZ9zHdk21CRjU/Z4
+	 4hiBubyXLxMNuLeJzkmkieaY1jxZZ5bIpTw07Ve2nTEneyayp1wIvySAxxsD8/nSrHt7D
+	 7b6jWc3jiotUrg7b0R/qhrCI8a6MUSIgP5XQlVyhRiv3+xnk+udJknZTW+SzuBiIJStcz
+	 freXfaovLdbUfD0leSANx4jRJ8S5NzUzJkfYcDfBJmOsu1SuEFgmSevhE/XopDzDQDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=YTH9swQF;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OjDgjSWT;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eYakE5HI;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4B8606A31B;
-	Sat, 24 Oct 2026 19:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C4B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEF1606A31B;
+	Sat, 24 Oct 2026 19:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEF1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=YTH9swQF;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OjDgjSWT
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 9AC8826F768C;
-	Sun, 25 Oct 2026 04:27:04 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1792870024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IoudTpnQUTJwPoVFKl0N7MQn0fubXyU9972/M5yWtg0=;
-	b=YTH9swQFWeDZEKvY/dB7HIUmqY41YtlQ0sDMgaMOYaXmxYBlW9sMTaA3wZmRraAmkP7QFQ
-	6CT0+q1brjU6KjvVQEWdcjy5hizVQIi4dJG22WnAf/Ry6BPC3Iw/2U27096XcyOt0lUGSG
-	lB0sIQ0lKNK7u01HUMPHyS3ZxQtqICkvlwga+c6qQrvdSd+tEbvvVTVVxc9ZomjsdAS7vV
-	2r98PM4stmpPQK3A3Rp3c+MI7sQOIqLbRgjuskoUCjclir3xWVs/QRqQEecbmeX3WSR+J0
-	o3HLduuQBTZWjtIPlEx7oJrw8dI01BJ3GE05d+TTTduawLWz4Fs5tX8HE50o4Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1792870024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IoudTpnQUTJwPoVFKl0N7MQn0fubXyU9972/M5yWtg0=;
-	b=OjDgjSWTLtyMdY5r0vR0yi8F6wWO5b7jDn6tencEdNXRHdhpkomD3+3UixGFEfjagN3m7d
-	RQd1njq2ui/6cGCw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 2FA7EE0008F;
-	Sun, 25 Oct 2026 04:27:04 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 2361B22000A4; Sun, 25 Oct 2026 04:27:04 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
- linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] fat: preallocate space before expanding in
- fat_cont_expand()
-In-Reply-To: <20261024013021.251898-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261024013021.251898-1-matheus.aalmeida@inf.ufrgs.br>
-Date: Sun, 25 Oct 2026 04:27:04 +0900
-Message-ID: <875wyqdhmf.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eYakE5HI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792870185; x=1824406185;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LhhCKSsi5TJmK4KnvzjxZP/PcsPAwBm1SWTrA8Wsbp0=;
+  b=eYakE5HI83jspUpW75HuH/XrWl1EAeNCXS8k259jwgbTS6LOK6puI/oO
+   TKk/5dAWKixkAO8njRr+VjDBQfPdLCAqpUnalHb7B77TK6bOBzyv33yv6
+   ZS+F5Meb3JY89N34Vo7n4qMl8oZyy/EBJYLBMqVHiWiEI4vlI9cnNRcMQ
+   dEqJJYfGi2V+oIA0WnXEyoDTXvocuiTWAeN7w7nVIO07A6OuzmI9SfVvy
+   v2Sa6ngR4gsPr/xDN7B5feX88Gh8oX5AIUVjeyvLdCLU40I9VJ8HdV8tg
+   Wb1ejjKCzV6P4udpgtcZh2xwXSrToEpUhhtqhdJJfV+oxgXf04eCseGKO
+   g==;
+X-CSE-ConnectionGUID: P0qprq2FS7meschx2cyihQ==
+X-CSE-MsgGUID: 7N1hSnxBSIekPWrhOjKLSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1485906"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1485906"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 12:29:44 -0700
+X-CSE-ConnectionGUID: 9SEKm4miRUSOFkMvE9pqKw==
+X-CSE-MsgGUID: OJEVBD3DTOSKtnh5MNoZyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="3843058"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 24 Oct 2026 12:29:41 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKhQv-00000000UBK-1jMj;
+	Sat, 24 Oct 2026 19:29:37 +0000
+Date: Sun, 25 Oct 2026 03:28:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paul Louvel <paul.louvel@bootlin.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Paul Louvel <paul.louvel@bootlin.com>
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+Message-ID: <202610250312.7jcnCxbw-lkp@intel.com>
+References: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,178 +90,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+Hi Paul,
 
-> The fat_cont_expand() implementation leaves allocation of new clusters
-> to generic_cont_expand_simple(). This path does many small cluster
-> allocations, harming performance.
->
-> Preallocate cluster space in fat_cont_expand(). Move preallocation to
-> a new fat_preallocate() helper used by both fat_cont_expand() and
-> fat_fallocate(FALLOC_FL_KEEP_SIZE). Use a FAT-specific
-> fat_cont_expand_simple() instead of generic_cont_expand_simple() to
-> avoid rechecking the new size after clusters have been allocated.
->
-> Benchmarking was done under QEMU/KVM with a virtio-blk device using
-> cache=none. Each result is the arithmetic mean of the listed samples.
->
-> start = now_ns();
-> for (unsigned i = 0; i < count; i++) {
->     if (truncate_mode)
->         ftruncate(fds[i], bytes);
->     else
->         fallocate(fds[i], 0, 0, bytes);
-> }
-> elapsed = now_ns() - start;
->
-> 16 files, 512-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 256MiB    ftruncate no       9.576s    5.345s   1.79x          10
-> 256MiB    fallocate no       9.634s    5.640s   1.71x          10
-> 1MiB      ftruncate yes      58.66s    0.362s   162.15x        5
-> 1MiB      fallocate yes      61.36s    0.390s   157.15x        5
->
-> 128 files, 512-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 512KiB    ftruncate no       0.433s    0.352s   1.23x          10
-> 512KiB    fallocate no       0.446s    0.393s   1.13x          10
-> 64KiB     ftruncate yes      31.32s    0.429s   73.00x         10
-> 64KiB     fallocate yes      29.59s    0.410s   72.42x         10
->
-> 16 files, 4096-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 256MiB    ftruncate no       5.181s    4.417s   1.17x          10
-> 256MiB    fallocate no       5.166s    4.442s   1.16x          10
-> 1MiB      ftruncate yes      9.294s    0.111s   84.06x         10
-> 1MiB      fallocate yes      8.710s    0.110s   79.36x         10
->
-> The biggest improvement is on filesystems with a small cluster size and
-> on synchronous mounts.
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+kernel test robot noticed the following build errors:
 
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+[auto build test ERROR on 0785f7172040512cba759838b27286646773c735]
 
-> ---
-> Changes in v2:
-> - fat_cont_expand(): Hold truncate_lock around fat_truncate_blocks().
->
-> Changes in v3:
-> - Add a new fat_cont_expand_simple() helper that does the same as
->   generic_cont_expand_simple() but without the inode_newsize_ok() check.
-> - Use the new helper in fat_cont_expand() instead of
->   generic_cont_expand_simple(), removing the now-unnecessary cleanup.
->
-> This patch depends on:
-> https://lore.kernel.org/linux-fsdevel/20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br/T/#t
->
->  fs/fat/file.c | 70 +++++++++++++++++++++++++++++++++++++--------------
->  1 file changed, 51 insertions(+), 19 deletions(-)
->
-> diff --git a/fs/fat/file.c b/fs/fat/file.c
-> index 3aa541c6b127..a25531d9451e 100644
-> --- a/fs/fat/file.c
-> +++ b/fs/fat/file.c
-> @@ -217,13 +217,62 @@ const struct file_operations fat_file_operations = {
->  	.setlease	= generic_setlease,
->  };
->  
-> +static int fat_preallocate(struct inode *inode, loff_t new_size)
-> +{
-> +	int nr_cluster; /* Number of clusters to be allocated */
-> +	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-> +	loff_t ondisksize; /* block aligned on-disk size in bytes*/
-> +	struct super_block *sb = inode->i_sb;
-> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-> +
-> +	ondisksize = inode->i_blocks << 9;
-> +	if (new_size <= ondisksize)
-> +		return 0;
-> +
-> +	/* First compute the number of clusters to be allocated */
-> +	mm_bytes = new_size - ondisksize;
-> +	nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
-> +		     sbi->cluster_bits;
-> +
-> +	/* Allocate the clusters. We are not zeroing them out */
-> +	return fat_add_clusters(inode, nr_cluster);
-> +}
-> +
-> +static int fat_cont_expand_simple(struct inode *inode, loff_t size)
-> +{
-> +	struct address_space *mapping = inode->i_mapping;
-> +	const struct address_space_operations *aops = mapping->a_ops;
-> +	struct folio *folio;
-> +	void *fsdata = NULL;
-> +	int err;
-> +
-> +	err = aops->write_begin(NULL, mapping, size, 0, &folio, &fsdata);
-> +	if (err)
-> +		goto out;
-> +
-> +	err = aops->write_end(NULL, mapping, size, 0, 0, folio, fsdata);
-> +
-> +out:
-> +	return err;
-> +}
-> +
->  static int fat_cont_expand(struct inode *inode, loff_t size)
->  {
->  	struct address_space *mapping = inode->i_mapping;
->  	loff_t start = inode->i_size, count = size - inode->i_size;
->  	int err;
->  
-> -	err = generic_cont_expand_simple(inode, size);
-> +	/*
-> +	 * Preallocating space here is more efficient than during
-> +	 * fat_cont_expand_simple() because of batching.
-> +	 */
-> +	err = inode_newsize_ok(inode, size);
-> +	if (err)
-> +		goto out;
-> +	err = fat_preallocate(inode, size);
-> +	if (err)
-> +		goto out;
-> +	err = fat_cont_expand_simple(inode, size);
->  	if (err)
->  		goto out;
->  
-> @@ -263,12 +312,7 @@ static int fat_cont_expand(struct inode *inode, loff_t size)
->  static long fat_fallocate(struct file *file, int mode,
->  			  loff_t offset, loff_t len)
->  {
-> -	int nr_cluster; /* Number of clusters to be allocated */
-> -	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-> -	loff_t ondisksize; /* block aligned on-disk size in bytes*/
->  	struct inode *inode = file->f_mapping->host;
-> -	struct super_block *sb = inode->i_sb;
-> -	struct msdos_sb_info *sbi = MSDOS_SB(sb);
->  	int err = 0;
->  
->  	/* No support for hole punch or other fallocate flags. */
-> @@ -281,19 +325,7 @@ static long fat_fallocate(struct file *file, int mode,
->  
->  	inode_lock(inode);
->  	if (mode & FALLOC_FL_KEEP_SIZE) {
-> -		ondisksize = inode->i_blocks << 9;
-> -		if ((offset + len) <= ondisksize)
-> -			goto error;
-> -
-> -		/* First compute the number of clusters to be allocated */
-> -		mm_bytes = offset + len - ondisksize;
-> -		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
-> -			sbi->cluster_bits;
-> -
-> -		/* Allocate the clusters. We are not zeroing them out */
-> -		err = fat_add_clusters(inode, nr_cluster);
-> -		if (err)
-> -			goto error;
-> +		err = fat_preallocate(inode, offset + len);
->  	} else {
->  		if ((offset + len) <= i_size_read(inode))
->  			goto error;
+url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Louvel/regulator-dt-bindings-Add-regulator-boot-force-off-property/20261021-122742
+base:   0785f7172040512cba759838b27286646773c735
+patch link:    https://lore.kernel.org/r/20261021-paul-lm51772-v1-5-25f0ffbffa8d%40bootlin.com
+patch subject: [PATCH 5/5] regulator: Add TI LM51772 support
+config: xtensa-randconfig-1000-20261024 (https://download.01.org/0day-ci/archive/20261025/202610250312.7jcnCxbw-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610250312.7jcnCxbw-lkp@intel.com/reproduce)
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610250312.7jcnCxbw-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+WARNING: modpost: vmlinux: section mismatch in reference: strcpy.isra.0+0x28 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+WARNING: modpost: vmlinux: section mismatch in reference: init_tracefs.isra.0+0x218 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+>> ERROR: modpost: drivers/regulator/lm51772-regulator.ko: symbol '__udivdi3' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
