@@ -1,65 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.236.72.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792841750;
-	b=x38rdooM8TFMnn5s+NOiFQtJHxWBx0jlScltK2LugkrafcUNgcZtShOylp+09Fv3GJV2
-	 yvDIxSppcOh6HOeVgkFT5PFPZGKtnn2s8+7P4EwjYOHHEIVzJiwHHVs6zWWW/UiixjI52
-	 pIPGelz74ruf2PiYSoEWM5iqFJFjEs2e3nyo26rTeNYnMYYAt+kD8wW/Zwd/0GtMSemAX
-	 LAiiwQGjamdR4kB80IX4n5/nWd94MYZ1U95KZsswG1q+Rx/KIc4fIQ5+U0CAowo8GJ0ZU
-	 T4PRKdp4HWNaIkDDBXn8EJHLZEwIX+wt1ZuInvC7SbXrCgrLbini1kZCzDrAhAyUY9A==
+	t=1792841766;
+	b=DP8Od/SudFRnMd94X5RQeAhIrXiWavmxLfkNzb5V9LUeWvOyoO1tr3osVZ9CN9ViQN5J
+	 5IFNIWxYJdv5JO0x7R+RtzaUQqLJAejUSnZg8EX1hGKIYronLDT9TbbFeSolet27ka8Dc
+	 ZSjGpPqG9+2RNahUBue9iJAlx/Y2DFEVM8OSjhcM11jJEV85kn/pq2UhNe8O6SSDozuOB
+	 9Nj12NfP9SsWdbdCpaCi/ZEGcnjrW9bwwMezQBReV/WZVBvPzLgOhkmSqaGI8EP2kcsi4
+	 MfjDnxTtevRU+YchtQ86/jhbaaqzzGjLfkFUP8okvWzezxtQOiP3S1XbvLKB9dTqu+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792841750;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=JGL3qTPNqshUoFon3YlDWfF5+DJcyIa46YLyW1IYigk=;
-	b=aZ/9ktMUSQrehFf4LztxjvC1B+hSafRfuh7lEWTVCJC0aGdwyIE7fKMloRcx69YEFjQh
-	 6u05RpyelFk4xZZ14BamjlwcqY81b34I5mjoIqvYiF7qt2RqfzR/Mm3wGg4/abhpDB2CE
-	 lmfRza0JAm78j7mxPx9dqUWG6qlb2IiaAi3IxFQ154sEg/mgOAwnMTeakrqaCMKAx+xYW
-	 TeY/FWODiue/8yxrwQ4cFrTdr9F2sYJCxpKHbPXKu0LjRGBNOkMEmYrE1qBdTbMSlrzB/
-	 Vj/yxOs1dLyg+UZe9g1Gu7qVS3FbMPf8ewDDfms8rMRyxlLw7nD2fQj3t9HJ+R4RknQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792841766;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=j5d8On782HfoO/9+wDcAK56o/QoENDdGAy0pdb+WDBw=;
+	b=x36kgNF8bKUhLDi8s1azDkXDDkxEuQWWyQcGWm5wpWd3HCUes+rIKWMeW4yQ/pKvFkZ6
+	 7KWYox5oyKNGnF6Gsvzt1jCdrdXm1dpKQdA9shlHofxi0uPqb7+Rt759hDcjZgETBqik5
+	 xblwOVICH1/k6vFzYxRqc+eOM/g35GEri1C7MHxD8AtaYbvXWhBEEjSEoZCM5AF33uMBH
+	 Nij7sNT5b48hwCiE2OAo2hVvyAGcwwaJeUDa36UDkg6irIxKvTZUupO4GEnMKpcjYRdc8
+	 TF10AtEdjyu7M2HwO3g/qZHO53xhaGUGijNlR9qyh53xwaRnKdHDGO155yMXdBxqUZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alMJRejs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tpz.ru;
+	spf=pass smtp.mailfrom=tpz.ru;
+	arc=none smtp.remote-ip=109.236.72.118
+Received: from mx1.tpz.ru (mx1.tpz.ru [109.236.72.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0055606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alMJRejs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA9F1F01825;
-	Sat, 24 Oct 2026 11:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792841749;
-	bh=JGL3qTPNqshUoFon3YlDWfF5+DJcyIa46YLyW1IYigk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=alMJRejsFi9d108NFZiCBV/ZjD+QtbOYf6AFtksgqO7m4ZPfNoc2lLWXgUJsK02Mm
-	 dVtsxVCOCg9LtAPWHhyhbYJugKNIOC41oCcP+ndiJdDqk1NC2QBhk6CiK90gz6RV75
-	 0Rf7aQxI3zlAQk4JnwbIM+XIoISdMm93OwiGyqAXdC2/w+RMGpBS8cKvu6PZs3GvSu
-	 7ZwyvgAyhuE8xL0f/3ztTEjWPw3ASoeqZCEW5RUUMSTLSIx3PARIHuw/TNIbpK2ayV
-	 tAEtyXvvRb3gl7OhtKWFHC6La5U2M3MDcd3TrdgPW0vWp8otNapSqI0E8jVQ7dn6Hc
-	 pqHuk+XqN55WA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xKa2M-00000006k7u-3Fum;
-	Sat, 24 Oct 2026 11:35:46 +0000
-Date: Sat, 24 Oct 2026 12:39:03 +0100
-Message-ID: <87v76r8h0o.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] irqchip/gic-v3-its: Claim LPI tables inherited across kexec on DT
-In-Reply-To: <20261024075856.835932-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261024075856.835932-1-xiaqinghuan@mail.ustc.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99549606A31A;
+	Sat, 24 Oct 2026 11:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99549606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
+Received: from lvc.d-systems.local (unknown [109.236.68.122])
+	by mx1.tpz.ru (Postfix) with ESMTPSA id 4jBdB11Vpnz10VFG;
+	Sat, 24 Oct 2026 14:35:53 +0300 (MSK)
+From: Ilya Krutskih <devsec@tpz.ru>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Ilya Krutskih <devsec@tpz.ru>,
+	lvc-project@linuxtesting.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dib8000: validate SNR exponent before shifting
+Date: Sat, 24 Oct 2026 11:35:48 +0000
+Message-ID: <20261024113550.542776-1-devsec@tpz.ru>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,64 +51,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: xiaqinghuan@mail.ustc.edu.cn, tglx@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 08:58:56 +0100,
-Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn> wrote:
-> 
-> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-> 
-> When a kernel is kexec'd into while LPIs are enabled, the incoming kernel
-> finds GICR_CTLR.EnableLPIs set and tries to re-initialise the LPI tables
-> from scratch.  That requires disabling LPIs first, which is not always
-> possible: on some implementations (e.g. Qualcomm SM8750) the EnableLPIs
-> bit is RES1 once set, the write to clear it is ignored, and
-> redist_disable_lpis() returns -EBUSY.  its_cpu_init() then bails out
-> early, LPIs are never reprogrammed, and every MSI command queued against
-> the ITS waits for its completion timeout: measured 99 timeouts of about
-> 1.25 s each, pushing /init out from 1.3 s to 126 s.
+The exponent extracted from the hardware register can produce a shift
+count outside the valid range for u32.
 
-But you're missing the point. *nothing* works at all, and this has
-nothing to do with the command queue. Everything is dead.
+Keep the signal and noise mantissas unsigned, as they are used in
+unsigned fixed-point arithmetic. Check exponent values before
+shifting by check_shl_overflow().
 
-> 
-> The tables themselves are still intact and usable, and the driver already
-> has a path for that (RDIST_FLAGS_RD_TABLES_PREALLOCATED), but it is gated
-> on the tables being reserved memory.  On an EFI boot the outgoing kernel
-> records a persistent reservation; on a DT boot nothing does.  Adding a
+Return the existing invalid SNR value when the exponent cannot be
+represented safely.
 
-What makes you think that EFI and DT are incompatible? 90% of my
-machines are DT based and yet boot with EFI.
+Fixes: 77e2c0f5d471 ("V4L/DVB (12900): DiB8000: added support for DiBcom ISDB-T/ISDB-Tsb demodulator DiB8000")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
+---
+v1->v2: fix unsigned value checked against zero warning
 
-> memreserve entry is not an option either: the flattened DTB handed over by
-> the bootloader has no space left for a new one (-FDT_ERR_NOSPACE), and
-> kexec clones that blob when the image is loaded, long before the jump.
-> 
-> So claim the inherited tables in the incoming kernel instead: reserve the
-> property table while LPIs are being probed (memblock still owns the pages,
-> well before memblock_free_all()), and the per-CPU pending tables when the
-> preallocated path is taken.  The preallocated path is then selected
-> normally and the ITS keeps working across the handoff.
+ drivers/media/dvb-frontends/dib8000.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-No. This is way too late, and nothing guarantees that these are not
-already used for other purposes by the new kernel. I'm not interested
-in something that only has a statistical chance of working. Either it
-works always, or it doesn't at all.
-
-The only sane ways to do this is to either use EFI, or to configure
-the LPI tables from the bootloader, reserving them at boot time by
-sticking the reservation in the DT. They are then preserved along the
-whole of the kexec chain. That's what sane platforms do, and this is a
-long enough established practice.
-
-Thanks,
-
-	M.
-
+diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
+index d291113291e0..c9873659d5f5 100644
+--- a/drivers/media/dvb-frontends/dib8000.c
++++ b/drivers/media/dvb-frontends/dib8000.c
+@@ -11,6 +11,7 @@
+ #include <linux/slab.h>
+ #include <linux/i2c.h>
+ #include <linux/mutex.h>
++#include <linux/overflow.h>
+ #include <asm/div64.h>
+ 
+ #include <linux/int_log.h>
+@@ -3869,21 +3870,23 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+ 		val = dib8000_read_word(state, 542);
+ 	else
+ 		val = dib8000_read_word(state, 544);
+-	n = (val >> 6) & 0xff;
++	n = (val >> 6) & 0xffU;
+ 	exp = (val & 0x3f);
+ 	if ((exp & 0x20) != 0)
+ 		exp -= 0x40;
+-	n <<= exp+16;
++	if (check_shl_overflow(n, exp + 16, &n))
++		return 0xffffffff;
+ 
+ 	if (state->revision != 0x8090)
+ 		val = dib8000_read_word(state, 543);
+ 	else
+ 		val = dib8000_read_word(state, 545);
+-	s = (val >> 6) & 0xff;
++	s = (val >> 6) & 0xffU;
+ 	exp = (val & 0x3f);
+ 	if ((exp & 0x20) != 0)
+ 		exp -= 0x40;
+-	s <<= exp+16;
++	if (check_shl_overflow(s, exp + 16, &s))
++		return 0xffffffff;
+ 
+ 	if (n > 0) {
+ 		u32 t = (s/n) << 16;
 -- 
-Jazz isn't dead. It just smells funny.
+2.43.0
+
