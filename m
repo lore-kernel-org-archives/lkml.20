@@ -1,108 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792808698;
-	b=qzpEWlxmVwiOdBHL6ka/aEsgF95PSCbNwF+q243MlBjTJnD1K/NR4JuWJQPok/56UwSh
-	 PCQQB82K/Dg2cBqKNhEIe56jDUgJW7Jx7Z45wUG7mSJClwJHS2R2XOsPRzLynZHoASrIP
-	 qAfCi/yCmG1qCfUd7qnfMnSJIHz0XvPeW7Z5f5b0ulrET6kXMuKMR5sKZwBbLSZ7Vmj+q
-	 f9d/vxQgNIX3MWYTU9Krpxacj5amMltWJlKRAnq5HkJUV2u5wd6o2iBcTlL760bmXnQxF
-	 suWTm1JdbUrtiroS5mJ/xNX5hvVl7QjBRT2IfbvsVVe6Fm8A+Xt+FQVQANtd/M6+Jmw==
+	t=1792808681;
+	b=VaAPK+vEf+9r+SBTwkJTRDNirqOgy28sLPkR5rRzCP0HCGxspb4jsCOk+xxmgQw4bghU
+	 oWnYj3rCM1JHTF5OB8SY2nm7V6JbDngU3mAfdJWsXOD3BW9b+6dDGz37JWHdK+j6AORNr
+	 PQZEJ3cDHXN6cYf+lr07xWJ/oAFVHbOu9Gj7bUSHhGR6/yvXYX3uZRh8QB9pPve+51WtK
+	 OxDeorePPGUtylo4zt+xfS49OhHdgK++8eCJP53nqfmaAvrW7ON08hb2T18Au7aUmOQNY
+	 ItgtV2xmMBuK9ubAScfey/3Wd9NPLUEl0/Uq+1bAW/h6zYMH1CYRw7SdZ2oFtSnQ83g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792808698;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
-	b=PI8IwzXgfvRem2kNJEoRdYDA9DZW3g1CTLA5AHc3W4wVkAqdNHdG7Gcva3XzgQWTdtgM
-	 C2uLxXjsQ03VXiaX5E1+Y0aNRYipimROwyV5c6rhK+eK+LlzizrCdCtDYpTFN4ekmT/pB
-	 O/G3revuE2mPocFmCaL3GfyIwZyMSlymvPYVewZ2u9RCRKyTgq5sLL2usPwLtlQZCwlFR
-	 DMj6mY2slBWi0Sy72SkcDsJHlX7oFG7IfvGvNFa04Z4TH0m0zhpksyIt6MWOLn77tUCPw
-	 KrlK9vD0nkz0tXTUW41A622EaxfnwD7bYfB5Y6MQULP4fJbM/iD39F5uNKEaJlxaoZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792808681;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=LjLEPNvenb7YjElma6kPzXf+v9Ogk6cyjnBoKhglyPY=;
+	b=Kmzh+zEjOVt8HuBbKOVacVZf5/FntzfEnFiTgZD0I77ZkG/4aBECgt1ZYdUf2kSWdKcD
+	 d8GDF4jUKjyOVwePrsQUTDoVyUm8/z8wRBkRg7Wbr3Mrs1HHKjeDpFTK726lBHlR2fEKL
+	 SfXW3pzfk5AC3kYGXVsUoucsJBYbpQ2qz7pdJ0ROv39ESZKprvb56wWu7BTW710mmdtnt
+	 uNzwqnJu2iMUK2Bip6OVFLKa2K2hi1jIAokL5zjBiP6zUdWXDsnueFtfxChXjr5aU2m/5
+	 RZqVH64KN4rm5RnpIiuVF6WWcgugDcwLVwsMiFOaGjzkLyoSBnavlEjp+ApMMHKIjHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xv+SqMwV;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=fi2BxbuM;
+	arc=none smtp.remote-ip=154.81.10.178
+Received: from mail-m10178.netease.com (mail-m10178.netease.com [154.81.10.178])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2AB606A321
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:24:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D2AB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F57606A31A;
+	Sat, 24 Oct 2026 02:24:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F57606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xv+SqMwV
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso9280475e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:24:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792808697; x=1793413497; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
-        b=Xv+SqMwVYc9+NVdMEsS1SvMETvulAbGhuDxXzf13ILbhirQSDI98CTRFyPEC01+zmw
-         qHv68OBlDO1eEDR0AwmO7uNjnJgERVaDcOVKZc/Q0aT6wXzsvcv9x5xx3SaGw67fxdvg
-         dHAg0xfK7hAQP7BLKvfbAjXPoMmczohK2lPfLnHklHMbdamJ9wrrSNV+3xKt6tmKs8dZ
-         zduiPNfG0IN5GQj2+YShvgAwUwJsX49zOoLWGxfRHvJW6DIm3ddntFqumyuOARUrSfr9
-         7E70k8J+VY32HwSCdaY51vVIjkxDJlnT2TOYTghPQXMmMozDREzcsv5KW5kFnB2qVV7w
-         EkIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792808697; x=1793413497;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
-        b=dmkkv6ptSrBphcDArRyWi1aDdAI/xfiYjcepNlPn5WP6/UBkAIaCNXS7wjhcTBK6iS
-         ccQZ3FrS0m+4I9kJBdH0gGJAogwicx5lhVFljOHlnSHyZf7g1qRra92rt4L8G2IJ/xbr
-         BonjgaokG2SEAC3ZyWZl+T/V0C9erZ62I9JZiQJzls5T4WXYO+CVONx7rMSNdW3eBuVL
-         1f6H3nRvp5wqHXeLAG5wPDZdX1InRJnKRxgC8mwT3lBE9yrfBLIR2AAwTGYKhMvXao0M
-         t6zhypKihGVbZtZBjyJYA+4Gfxj8EqCwRpBCeIhfKOfY4oE+UJJpVarKhaLBffeKPfmL
-         uSGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkf6WRCvt1/UMngGg+RB+XDOvASRu3om/E71kkDgO3TVrWjcrM67OTP6TVUncOMYzIWpv4vinCAdetejs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6JmlyaeZTRU3T8Jx8O1ZpNBzc7pF6JL3xsBR9sj1c7Sg0nciA
-	Kk3JsVgQwuvTmSi27I/hwvFoWl6+anyh/gEs0Jeso8UVvKeNUrUvqqwV
-X-Gm-Gg: AYBFou1VUq5x31l0uLt1aB5mW0Nvi83IQ3bgHtKtf6QlPvcKzTiiv/JSAprVbgPd20C
-	+9hHwnyIXZsr4IHRAkHpYgvsfzo9zgtw6svLWBWsV8H8XDcz4Bie3vFu5Yr6HvsMwyaVESyjdTM
-	V5AvH7phVwY42gcgYtelmOi+Hl1SL29EGGcwS2xQxQ16Nv26Yo4QLqrat+cftgIUxf9ri6h5thB
-	U2IZNKiXe8h3viOc/o3aDKzHAdoXBvOj/p6vhvF77JyKbUsMRglFdVoAiPTUt6uIUj2VFFwvS6R
-	gV3/nqldxtlpRWKyK1ahh3UsJDdU0plLf+Yl+9ezW+HNV4ZuNeANNZSle1XVKEZnB4iD4tkw8WR
-	qfTd2ayo3KY/54x3BSHSjB8FPCMcpRj27EwRuz6MnNo2r/UR/9aY9mhmdgfN1w62jaueBQNi57x
-	7y8s/NBxcAcJ5+kMP/ROF7FcUeGUzkRYwyvBCaoTTlgTSPp3ZhHd2wQ51YK/6fE0PTJGGFavYd9
-	yeccVqiFBV26GB0Am6iLzXFaCCADRdXT3sRVT2FQ3By2WoPwjJyRIZ7zY3H3gwPuOpzaOPuXO9Z
-	Da+XQxnRsp3T75jKb0KYuDOBTQ==
-X-Received: by 2002:a05:600c:6384:b0:4a2:526b:d410 with SMTP id 5b1f17b1804b1-4a35aca72e2mr9122565e9.13.1792808696426;
-        Fri, 23 Oct 2026 19:24:56 -0700 (PDT)
-Received: from ASHA ([2001:630:3c1:164:1a66:daff:fe85:4026])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm21088415e9.8.2026.10.23.19.24.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 19:24:54 -0700 (PDT)
-From: Amir Noohi <amirmnoohi@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	Igor Velkov <iav@iav.lv>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <cdall@linaro.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Amir Noohi <amirmnoohi@gmail.com>
-Subject: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
-Date: Sat, 24 Oct 2026 02:24:49 +0000
-Message-ID: <20261024022450.629980-2-amirmnoohi@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024022450.629980-1-amirmnoohi@gmail.com>
-References: <20261024022450.629980-1-amirmnoohi@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=fi2BxbuM
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 523106e85;
+	Sat, 24 Oct 2026 10:24:28 +0800 (GMT+08:00)
+Message-ID: <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com>
+Date: Sat, 24 Oct 2026 10:24:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,102 +48,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jensen Huang <jensenhuang@friendlyarm.com>
+Subject: Re: [PATCH 2/2] mmc: core: sdio: skip CMD11 if signalling is already
+ 1.8V
+To: Deomid rojer Ryabkov <rojer@rojer.me>, Ulf Hansson <ulfh@kernel.org>
+References: <20261023232813.2983368-1-rojer@rojer.me>
+ <20261023232813.2983368-3-rojer@rojer.me>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261023232813.2983368-3-rojer@rojer.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa16bb94d4503a4kunm11e1daa02bc0ba
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUIfHVYYSx4dGhoYSU
+	8YTUhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=fi2BxbuMCjV5r74pZJtw87Ozx44iBr51BNowyxP0/A22l6/QpOPSSjqzUBzEl/jciHdeTESkWJ+reAMoqG0IF6XgTYw9cek/p5f5lr1kb15VaEQSv6WqMBd0itGz8C4G+JLx0FQW3R2Kxh6HzzW712LNjoGKd4tarH6OXR0730k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=LjLEPNvenb7YjElma6kPzXf+v9Ogk6cyjnBoKhglyPY=;
+	h=date:mime-version:subject:message-id:from;
 
-irq_set_irqchip_state() acquires the bus lock and the descriptor lock of
-the interrupt. A per CPU devid interrupt has a single descriptor for all
-CPUs, while its irqchip state is per CPU, e.g. each GICv3 redistributor
-holds the active and pending state of the PPIs of its own CPU and GICv5
-keeps that state in per CPU system registers. Callers which modify that
-state have to be pinned to the CPU anyway, so the descriptor lock only
-serializes CPUs which update their own private state.
 
-KVM on arm64 sets the active state of the host timer interrupts on every
-vCPU load, i.e. on every KVM_RUN ioctl and every time a vCPU thread is
-scheduled in. When many CPUs load vCPUs at the same time, they all spin
-on the descriptor lock of the same interrupt, even when every vCPU has
-a physical CPU of its own. A global serialization point on the same path
-was removed before in commit 64b6d1d7a845 ("genirq: Get rid of global
-lock in irq_do_set_affinity()").
 
-Provide irq_set_percpu_irqchip_state(), which sets the irqchip state of
-a per CPU devid interrupt on the calling CPU without acquiring the
-descriptor lock. The irqchip callback is still invoked with interrupts
-disabled. The caller has to have preemption disabled and has to ensure
-that the interrupt is neither freed nor reconfigured concurrently, which
-is the case for an interrupt it has requested. Interrupt chips which
-require a bus lock are rejected, as the bus lock may sleep and cannot be
-taken with preemption disabled.
+在 2026/10/24 星期六 7:28, Deomid rojer Ryabkov 写道:
+> Per the SDIO Simplified Specification Version 3.00, section 3.1.2, a card
+> whose signalling is already at 1.8V must report S18A = 0 in the R4
+> response, and the core relies on that: it only sends CMD11
+> (SD_SWITCH_VOLTAGE) when S18A is set.
+> 
+> Some cards don't follow this. The Realtek RTL8822CS (as fitted on the
+> FriendlyElec NanoPi R2S Plus, where the M.2 SDIO bus is wired to a fixed
+> 1.8V vqmmc) answers CMD5 with S18A = 1 even though the bus is already at
+> 1.8V. CMD11 then times out:
+> 
+>    dwmmc_rockchip ff5f0000.mmc: Unexpected CMD11 timeout
+>    mmc_host mmc2: Timeout sending command (cmd 0x10202000 arg 0x0 status 0x90202000)
+>    mmc2: new high speed SDIO card at address 0001
+> 
+> and the card ends up in 50 MHz high-speed mode instead of SDR104.
+> 
+> When vqmmc can't do 3.3V, mmc_set_initial_signal_voltage() has already
+> fallen back to 1.8V by the time CMD5 is sent, so the host knows there is
+> nothing to switch. Skip CMD11 in that case. ocr keeps R4_18V_PRESENT, so
+> mmc_sdio_init_uhs_card() still runs and the card is tuned to SDR104:
+> 
+>    dwmmc_rockchip ff5f0000.mmc: Successfully tuned phase to 64
+>    mmc2: new ultra high speed SDR104 SDIO card at address 0001
+> 
+> Hosts that start at 3.3V are not affected, nor are compliant cards that
+> report S18A = 0 at 1.8V. A non-compliant card that does need CMD11
+> before entering UHS at 1.8V would now fail UHS init; with the previous
+> patch it falls back to high-speed mode and keeps working.
+> 
+> FriendlyElec's BSP for this board works around this with a card
+> quirk, MMC_QUIRK_BROKEN_ROCR_S18A[1], matched on the "realtek,rtl8822cs"
+> compatible, which drops the switch request whenever this chip is
 
-The function is not exported as its only user, KVM on arm64, cannot be
-built as a module.
 
-Signed-off-by: Amir Noohi <amirmnoohi@gmail.com>
----
- include/linux/interrupt.h |  2 ++
- kernel/irq/manage.c       | 36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
+Thanks for this series.
 
-diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-index 3bf969ad8fe0..ab20129615d4 100644
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -507,6 +507,8 @@ extern int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
- 				 bool *state);
- extern int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
- 				 bool state);
-+int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
-+				 bool state);
- 
- #ifdef CONFIG_IRQ_FORCED_THREADING
- # ifdef CONFIG_PREEMPT_RT
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index bdb47837c66f..e76fe1cec9fb 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -2777,6 +2777,42 @@ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool v
- }
- EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
- 
-+/**
-+ * irq_set_percpu_irqchip_state - Set the irqchip state of a per CPU interrupt
-+ * @irq:	Linux interrupt number of a per CPU devid interrupt
-+ * @which:	State to be set (one of IRQCHIP_STATE_*)
-+ * @val:	Value corresponding to @which
-+ *
-+ * Variant of irq_set_irqchip_state() which sets the state of the calling
-+ * CPU's instance of a per CPU devid interrupt without acquiring the
-+ * interrupt descriptor lock. The descriptor and its lock are shared by all
-+ * CPUs while the state is not, so acquiring the lock only serializes CPUs
-+ * which modify their own state.
-+ *
-+ * Must be called with preemption disabled on an interrupt which has been
-+ * requested, so that the interrupt chip hierarchy cannot change
-+ * concurrently. Interrupt chips which require a bus lock are not supported.
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
-+{
-+	struct irq_desc *desc = irq_to_desc(irq);
-+	struct irq_chip *chip;
-+
-+	lockdep_assert_preemption_disabled();
-+
-+	if (WARN_ON_ONCE(!desc || !irq_settings_is_per_cpu_devid(desc)))
-+		return -EINVAL;
-+
-+	chip = irq_desc_get_chip(desc);
-+	if (WARN_ON_ONCE(chip->irq_bus_lock || chip->irq_bus_sync_unlock))
-+		return -EINVAL;
-+
-+	guard(irqsave)();
-+	return __irq_set_irqchip_state(desc, which, val);
-+}
-+
- /**
-  * irq_has_action - Check whether an interrupt is requested
-  * @irq:	The linux irq number
--- 
-2.53.0
+I knew some vendor's SDIO cards misbehave it on Rockchip's bug trace
+system, including this one. This patch matches what I suggested there
+instead of the alternative one. FWIW,
+
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> present. The misreported S18A is the card's fault, but ignoring it is
+> only correct when the bus is already at 1.8V: on a board with a
+> switchable vqmmc the same chip would then be run in UHS at 3.3V. A card
+> quirk would need knowledge of the board's supply that it doesn't have.
+> The core does know the current signal voltage, so handle it there, which
+> also takes care of any other card that turns out to behave the same way.
+> 
+> [1] https://github.com/friendlyarm/kernel-rockchip/commit/aee62cf7ae16b5ede6c6d92a8ee20e796482754e
+> Cc: Jensen Huang <jensenhuang@friendlyarm.com>
+> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+> ---
+>   drivers/mmc/core/sdio.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
+> index 6787fdf1c5..a986ee04ba 100644
+> --- a/drivers/mmc/core/sdio.c
+> +++ b/drivers/mmc/core/sdio.c
+> @@ -737,9 +737,11 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
+>   	 * 1.8v, the card sets S18A to 0 in the R4 response. So it will
+>   	 * fails to check rocr & R4_18V_PRESENT,  but we still need to
+>   	 * try to init uhs card. sdio_read_cccr will take over this task
+> -	 * to make sure which speed mode should work.
+> +	 * to make sure which speed mode should work. Some cards (RTL8822CS)
+> +	 * set S18A regardless, so don't send CMD11 if we are already at 1.8V.
+>   	 */
+> -	if (rocr & ocr & R4_18V_PRESENT) {
+> +	if ((rocr & ocr & R4_18V_PRESENT) &&
+> +	    host->ios.signal_voltage != MMC_SIGNAL_VOLTAGE_180) {
+>   		err = mmc_set_uhs_voltage(host, ocr_card);
+>   		if (err == -EAGAIN) {
+>   			mmc_sdio_pre_init(host, ocr_card, card);
 
