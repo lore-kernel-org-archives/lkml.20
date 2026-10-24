@@ -1,86 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792874379;
-	b=SiMWf54DX44pQeHsI0z1K2TCKNQ+G+whUtD+RypBMjwcCB4W/znUagW4uzARIxadTc0b
-	 2NXXH7glQ+bLPgaL28UTeEMoEhf9nafeOezldaWVAgVKWlFhCoq+MsPosISrpwsHpI18j
-	 Oi6nQ6L2BL52bWeap6v9HEI8YOyqnVmV5JXVRjIenaJ+Ev/x7/eVaKE/us6as0Bnquhz6
-	 a3dYsf8fUm3OTLpTyUDggvQCI2GOyqTMGWT2QjCHw7RHh2DZnaLkyhG4EExczmTmrPUvs
-	 3ei14QQSgO7aw3jbuDmEZrs1EAoG5nYESHJJRJrOviEB1CDpsGyaeW/VjoIqh5y4udw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792874379;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=IjSiHGQjMHBvlnVEepWUCcgABELupa+mQr5lHVGi+/M=;
-	b=yxOf6/L1FHK2N/bQY/7QukMCzlre7XSgbYgKR3yaejn7yTsHqwwHAnfaq/5FUCUom0e3
-	 HNYT1r5X2vc95FtS4H5ydx5E5kCQXMvhGYw6Cv7CcBFWWHT4kw5t8ogmOyycCC1W9J8jM
-	 S2eyLtSDF5fQ/hnMKVbbczGFDF8Vcc9AYtkI7OMFG/yrbua2DzZEiTxjsmvkklq+UVtgV
-	 2CK+XCzluDvdFg78wqKTeMxsA3V0YlQAOtewKE4coSUyrQvdEVF+Szj6tF7TBM6EwysGO
-	 KOO5gT74VFcOTSZoHAa9N8UMGFTos/LXZ3DO3RQZIwNUNrdQPjGsxUP24DpurTIRhyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="ghOihAI/";
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792874369;
+	b=TsravUy2Xo2Bjb2IABu2p6YYnXY8JVRIQuWWWd5rBIvhYYlQpZ4B/wLDWmf4YG4imhGj
+	 rJ5UZ5hretSwzk5lEtZy0NE5eJWrQVG5sbBiaKRnAuBB2SEkinJZSVFGIagzquFlwqFhS
+	 wxXZtWSA/V6nQ5oDVGqGQRlyyGLEhRHEzir780tCl6qmR0alLelj9Ds2pG9PTqSrXIdSU
+	 awh7f14aPaEfAB98WqEG4OQ9SYQ8BW6LjL/9xeIFrwlJRDfzJZaqV3lo9etiurHIDlFoI
+	 EhyApMd811io2lLFGai+o15CTXTe941HAQzsNi1Ml0ycmM1RTqj4XoO8CbUYuWXjcKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792874369;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
+	b=iOxyboMKTkus91Z2QDBjq+pIZH6PLAvlgKCwDQ6BsCHaFdp/GrKyVmIHmae5zeES5rp7
+	 EUAJ5wRjeaFN3skXFTECGzD/kYM5tsJY7eLdMraGZZGVZACBEa7hIHqfcKSSAoqzhmB8x
+	 ZEg2kEhfjmHseONZwvUjrFvf57WItqHpL6G+rIt3n3xy3EFp67cBPF6Ck5MKARFPftuBy
+	 8zY2rcUbzgc+h7UX7OLS0HVDkC/kHrlfc1qdQBKb+xPUVDHUMWmoR8OYS6d7hPsbrallC
+	 fL2ZYrs4IFSps15se0QF2jXYcmgyHhs90yk1TDdnreYTIMJKIyaxN5rel42itqMqh7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RP3XUeYq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924A9606A31B;
+	Sat, 24 Oct 2026 20:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RP3XUeYq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792874369;
+	b=hTrovD3UifkayUAaVXI0vUfwFl7XXbYhVGElDWK3GULwREiGx2vWSf4fiZvtZYeqJs0O
+	 vpXPL5wxUkxjSOVXmyUlUGtGrEuAxKSujXl2hStXQPZ/GFs69dTnfbqdurCr+mq56aIM5
+	 bEau96+KOtXoPyLV/2CZOW24jVsJsZvjYm36+aO2Ai6O82RyBfjcdA2uJfSwDrpcDYrnr
+	 YXsVyR8MDYfefwj8FH3oFIpMuJuxqDX7xQwjb/5kLMj+lmiYcIG4utp5+vlolBvjz7/n9
+	 KMt3PUj2mXoCwT+IFJkHOwkYn6UcugUKxiCjzEzWN/v7/TDQ5KTG60xJKtXAw/sWzSg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792874369;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
+	b=oO9IkskXi6dET/t50PxnKj9hFN7ncuM5raRfxzlS+NqM+7l00IKh0j9q13xbGvO83J2i
+	 gAHMPDdNlEEQZaUlGGiWWECmB+ASjfKNWb4FvcFdXkdfWYBMUWlLQyahYqqf9gyyhm6mZ
+	 HYqLOGjEUoNmzficPqUBDCUXUM0zJMV67uS8a2DWSFHzFETAQ8fnt8GCrtGDsa+ISFoeP
+	 E2awDCPbTUZ29X/m4fFRQTbdxySNe77DvOsoNsldtMbVtc3TaeKp1uRaYlI9CC/fkMQMr
+	 EuLbdKrtN1evsv1+V7KbPaUkXIh8BRLSEMaXSR0Tl0P/k9SFn8fwqOUO40R9JJU5zyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F8A606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:39:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28F8A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ghOihAI/
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-354ba08cfd1so3357794eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:39:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792874377; x=1793479177; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IjSiHGQjMHBvlnVEepWUCcgABELupa+mQr5lHVGi+/M=;
-        b=ghOihAI/niEfFdudfKnMpvmID9ulFb6KCy4bYzxqTPKhOY6+TDy1gKg4KftkTONQMx
-         Y1254Et39lk13UtL+3kitY1qFdspTFyxgLZVtK2d3uRChUEw5ulzFu0ZFuDHpxH/mPe+
-         BWHKiPH/WFDBYCjzlfjcnocAOPagWdFGx9g8BXcbuP61yXMKRND2Is1JJ2vfEdREuUQ6
-         Ocbtrf6+W/Ia+RiFMoti45zjKWuEMXMyQXiAHgUodpZ8Waa2KDdULug6HP3ZHOqvXMg+
-         iyYqcBAvlZfIWE7u/4oZeSnmG3Ebgrb1zJVB7zhnebeVx9+97RoV/0t2uICfuI1ilUu3
-         2+5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792874377; x=1793479177;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IjSiHGQjMHBvlnVEepWUCcgABELupa+mQr5lHVGi+/M=;
-        b=wSXNPQXIoOoJkEDlcxrb9gipIawOvus9x+pS6vMC6GmpNpAIEoMgvPci1SHAIz/cPK
-         Dr55QzQVxRYjd9e5msTnaEBTOKEjFpbUx9MC+ffiwKKKcUI9+/cngln2iM3+vp7jhtnb
-         mOETlfSwxCBYlbQQn+WJ0ttAZg6jJAiuu5WvMxgP4vvI1XKPSg8pXhRmElb1Zy/j7TEH
-         hX2Ahui7KjGmaf4ST3A2cVw6KCkw3tOPGvP4iVcOUYFz/C54Ge5RFkleV8bNY0louD0F
-         juG2ahXYl2Zq82LgVAmL3CK036GQzdVLh43P7DTDnWLOeDQUFaYAnx8fLhdYHFUrGwDH
-         0/8g==
-X-Forwarded-Encrypted: i=1; AKwUvBz0BVYhaaHBlRNA0s6MMj56I0SazZc+ulCW0ioPjPbodDXgtFN7e1XRWc+Kl/D1Fcc4npro3YN+8i8Bs2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkBC2OHtbNNyXANXgjds7uBZCMDkL/jjNELYicDJK5yktLSRdO
-	6mLe6fesx+K6qsAQXYtuscPhpExaotuYG/wMoOwyzO71jqF60AAkRPDBBSsG8Wda1EI=
-X-Gm-Gg: AYBFou0EXXJf4kpUOGvBah0FqU4nxlMzwpsAJUzyHmxn41uxB6jGDm6bcRwvkFDWtar
-	vzaMFnEtDAsJ8DO8SWTbyXZZfH2BldI9FtDC0h4JsIPW35cTCYyqBjs7RKjwKNcOCLw9/YeHy7a
-	9z0E30vqpPJOQ6M8MU5GzrKUusxvURHld9uvgjxExKtz9pj5eqsnicCTOzO8RU0fs/L4G66nvGV
-	td5JFCSBu8LAhmkFthtnbOOC14M1te23F3gedHydOkwmo1Mxsfcdfg2FaZjootFf3WKrRGbpOJc
-	D8iyZG5IIWbm5wBYdag59s3kgqXEelf67iIOGhdkOjbXs9AZopchmtnDseM9EFBD8G2/vahh3Uu
-	aa8Ez6xUw2VJpbio61SfZGzQmSsQZUfQSO37JKeWXdnhFSw4YxVDMa6CfbZuZ4R78XmDDtvyhcs
-	RY0cgbdoIFSeHOoEXNOGTUsvX+wXyA/QpqapcbV2pXbIFMwn8WPlpaChD+m2bP5B1jVuKw1LfJs
-	l+01kMffqeTe17EcDOE9JXEscwPAGHPY5BX6WKG0fxLkT3/5VDSzEfr9K0KTQ==
-X-Received: by 2002:a05:7023:881:b0:168:fe32:35a with SMTP id a92af1059eb24-19935be806fmr4264812c88.20.1792874377042;
-        Sat, 24 Oct 2026 13:39:37 -0700 (PDT)
-Received: from [127.0.0.2] ([73.222.46.22])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm9764737c88.14.2026.10.24.13.39.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:39:36 -0700 (PDT)
-From: Farid Zakaria <farid.m.zakaria@gmail.com>
-Subject: [PATCH RFC 0/3] landlock: Add access rights on created files
-Date: Sat, 24 Oct 2026 13:39:16 -0700
-Message-Id: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id F3D9F1F01825;
+	Sat, 24 Oct 2026 20:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792874369;
+	bh=U4b+nwtXr4voFRpf9I3hjJM8GUi5L7qiQMuLEqz0rew=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=RP3XUeYqtTYGYiNw8pO+tal3q/uQpyF2B9xqicCHNQFbT0m2KE42K2JOdPpt/SmPk
+	 8ezOYb1nyOHvRetRiJdqSWpWwEOU2dhfH0aopBOyUQhtGuN/yaah9VnZf2DckICNoo
+	 z34R+iCql93u6F2h2hKAsOXl22TwkicgUiqCz1Cqr1dVSg/VNtY6jo5aLFy34C2IBH
+	 HfYxEl6imp0QPVBW4jc0Bj6O9fsalP2LBcXUFSYexrXuSLN9s02Ekec2Ckqd1nlIpv
+	 SeQGdu1pLIrp7EfOjKDywplhDOfm2cdJdZPVx9JqZyitbxZxLts0A5aNVUcXOIPkx0
+	 i7LPiMQkEZ4vA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 84C9F4489F;
+	Sat, 24 Oct 2026 20:39:28 +0000 (UTC)
+From: Arnaud Ungaro via B4 Relay <devnull+contact.arnaud-ungaro.fr@kernel.org>
+Date: Sat, 24 Oct 2026 22:39:28 +0200
+Subject: [PATCH] platform/x86: hp-wmi: Handle cTGP left enabled after the
+ EC timer expires
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,138 +84,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-hp-wmi-rechargement-v1-1-45d9f8447f41@arnaud-ungaro.fr>
+X-B4-Tracking: v=1; b=H4sIAIAX3WoC/x2MSQqAMAwAvyI5G2iDC/Ur4sElag6tkooK4t8tH
+ odh5oHIKhyhyR5QPiXKFhLYPINx7cPCKFNiIEOVNVTguuPlBZWT1oU9hwOdKa2leaodDZDKXXm
+ W+7+23ft+KYUVYWUAAAA=
+X-Change-ID: 20261024-hp-wmi-rechargement-905112fd792b
+To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>
+Cc: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ Krishna Chomal <krishna.chomal108@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792874368; l=2857;
+ i=contact@arnaud-ungaro.fr; s=20261024; h=from:subject:message-id;
+ bh=WHIOpMJQcoqQDNURmL6QodtJb2QRPTimKwNCf0bbr9Y=;
+ b=jzG7e2xlatCWljfyicjvPSKBNNYWStHl0T3eT+3A+N33CDoLr4io5myHUsV1ZU1TIOQc7hVQ1
+ E98jQfhfZGsCd1GsRJJG87w2Zn5whxyljqrOoE+ypZTY3M61wRHaDbr
+X-Developer-Key: i=contact@arnaud-ungaro.fr; a=ed25519;
+ pk=E36DBHlmRhVNV3rriuNdMXwzVy3fGJ5rWE/saD1H0XU=
+X-Endpoint-Received: by B4 Relay for contact@arnaud-ungaro.fr/20261024 with
+ auth_id=1313
+X-Original-From: Arnaud Ungaro <contact@arnaud-ungaro.fr>
+Reply-To: contact@arnaud-ungaro.fr
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27MI2BlGvgg/wKh7SZG1XSyq7U
- YTSvxv1OAMzMxirsMG+mUH5JSZTrtCuGohDyD2jpMrgyG1ach7HkNM4xTtG5VA4oUo/FMPd2lN
- HFLbRJ6j1Q/kq79/5DKfjAS5/ac/uxrF8n7AsH5qqeoaAAAAA
-X-Change-ID: 20261024-landlock-created-rights-9340b00a8c4d
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, John Ericson <mail@johnericson.me>, 
- linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Farid Zakaria <farid.m.zakaria@gmail.com>
-X-Mailer: b4 0.15.2
 
-This is a proposal for an idea to add support for landlock to work
-better with build systems such as Nix where they want to apply
-restrictions but the paths may not yet exist.
+From: Arnaud Ungaro <contact@arnaud-ungaro.fr>
 
-TL;DR;
-========
+Board 8A4C uses omen_v1_legacy_board_params. About two minutes after
+switching to performance the EC moves the thermal profile in register
+0x95 back to its default value while cTGP and PPAB stay enabled. The
+same fallback is reported on 8A4D in the bugzilla entry linked below.
 
-Landlock rules attach to inodes that exist when a ruleset is built.
-That makes a directory shared between trusted and sandboxed tasks hard
-to confine: the sandbox may create entries there with
-LANDLOCK_ACCESS_FS_MAKE_*, but no rule can name those entries ahead of
-time, and granting read access on the directory to cover them exposes
-every other entry as well. This series adds a rule flag that grants
-access rights on the entries a domain creates in a directory, instead
-of on the directory.
+platform_profile_victus_s_get_ec() returns -EINVAL for this state
+because it only accepts the default thermal profile with cTGP disabled.
+If hp-wmi is loaded again at that point thermal_profile_setup() fails
+and no platform profile is registered. The power source event handler
+also fails to read the profile in that state.
 
-Motivation
-==========
+Read this state as balanced since this is what the EC thermal profile
+says. thermal_profile_setup() then sets balanced again and this
+disables cTGP to match.
 
-The motivating user is the Nix build sandbox. Every Nix build runs in
-its own sandbox, and a build may only read its declared inputs in
-/nix/store and must be able to write and read back the outputs it
-creates there. Nix enforces this with a private mount namespace: it
-creates an empty store directory and bind-mounts each input path into
-it, one mount per input. Nix has paid this per-input cost since the
-sandbox was introduced [1].
+Tested on an OMEN 16-k0001nf (board 8A4C, BIOS F.21) with kernel 7.2.9.
+Unloading and loading hp-wmi after the EC timer expired registered the
+platform profile again. Without this change
+/sys/firmware/acpi/platform_profile was missing and in my test it only
+came back after a reboot.
 
-The cost is paid per build and grows with the size of the input
-closure. Nix is moving towards much finer-grained builds (many small
-derivations instead of a few large ones), so the number of sandboxes
-grows while each build's own work shrinks, and the sandbox setup is
-becoming the bottleneck. A typical build has hundreds of inputs; large
-ones have thousands.
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221680
+Fixes: eeeb4c9874bb ("platform/x86: hp-wmi: Add EC offsets to read Victus S thermal profile")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arnaud Ungaro <contact@arnaud-ungaro.fr>
+---
+Found while adding board 8A4C (OMEN 16-k0001nf). That patch is sent
+separately.
 
-A microbenchmark sets up and tears down a Nix-like sandbox (user,
-mount, PID, IPC, UTS and network namespaces, pivot_root into a chroot,
-removing the chroot afterwards). It compares one bind mount per input
-with a single bind mount of the whole store plus one Landlock rule per
-input. Median latency per sandbox, one sandbox at a time, Linux 7.1,
-ext4, 16 cores:
+Tested on the laptop with 7.2.9. The change also applies to 7.0.14,
+7.1.13, 7.2.12 and 7.3. They all have the code from the Fixes commit.
+---
+ drivers/platform/x86/hp/hp-wmi.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-  inputs   bind mount per input   one bind mount + Landlock   speedup
-      10         3.2 ms                    2.3 ms               1.4x
-     100        11.6 ms                    2.8 ms               4.1x
-    1000        79.3 ms                    6.4 ms              12.4x
-    5000       400.1 ms                   24.4 ms              16.4x
-
-With Landlock, an input costs an O_PATH open and a landlock_add_rule()
-call: there is a single mount, and no mountpoint directory to create
-before the build and remove after it (removing the 1000 empty
-mountpoints alone took 17 ms).
-
-The single bind mount is only sound if the store listing and the
-undeclared store paths stay unreadable while the build can still use
-its outputs. Without this series, covering the outputs requires a rule
-on /nix/store itself, which makes every store path readable again.
-
-[1] https://github.com/NixOS/nix/issues/179
-
-Series
-======
-
-Patch 1 lets an LSM observe inode creation through the
-inode_init_security hook when no LSM provides an xattr. Patch 2 adds
-the LANDLOCK_ADD_RULE_CREATED flag for path-beneath rules and bumps the
-ABI to 13. Patch 3 adds selftests.
-
-Testing
-=======
-
-The series applies to the Landlock next branch (3e271a27c46f) and was
-tested on Linux 7.3 with that branch applied.
-
-Without patch 2, the five new tests and the ABI version check fail.
-
-Open questions
-==============
-
-- A created inode stays pinned until the layer's hierarchy is freed, so a
-  sandbox that creates many entries in such a directory keeps them all in
-  memory. Should this be bounded?
-
-- Creation is detected in inode_init_security, so on filesystems that do
-  not call security_inode_init_security() created entries get no rights.
-  Is there a better hook?
-
-- Through overlayfs, created entries get no rights either, because the
-  upper inode is created with the mounter's credentials. Should overlayfs
-  be handled, e.g. via security_dentry_create_files_as()?
-
-- A file renamed or linked in keeps only the rights it had at its source.
-  Should it get none instead?
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 52077833ac89d3f4bd9b99fbbc1812c4f09d16c7..699531157b5e8b002b28a3669acb33b7223cee75 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -2414,12 +2414,18 @@ static int platform_profile_victus_s_get_ec(enum platform_profile_option *profil
+ 						       &current_gpu_slowdown_temp);
+ 		if (ret < 0)
+ 			return ret;
+-		if (current_ctgp_state == 0 && current_ppab_state == 0)
++		if (current_ctgp_state == 0 && current_ppab_state == 0) {
+ 			*profile = PLATFORM_PROFILE_LOW_POWER;
+-		else if (current_ctgp_state == 0 && current_ppab_state == 1)
++		} else if (current_ppab_state == 1) {
++			/*
++			 * cTGP stays enabled when the EC thermal profile timer
++			 * drops performance back to default, so treat it as
++			 * balanced, which the caller can set again.
++			 */
+ 			*profile = PLATFORM_PROFILE_BALANCED;
+-		else
++		} else {
+ 			return -EINVAL;
++		}
+ 	} else {
+ 		return -EINVAL;
+ 	}
 
 ---
-Farid Zakaria (3):
-      lsm: Call inode_init_security hooks without xattrs
-      landlock: Add access rights on created files
-      selftests/landlock: Test LANDLOCK_ADD_RULE_CREATED
-
- Documentation/userspace-api/landlock.rst     |  42 +++++
- include/uapi/linux/landlock.h                |  18 +++
- security/landlock/domain.c                   | 182 ++++++++++++++++++++-
- security/landlock/domain.h                   |  28 ++++
- security/landlock/fs.c                       | 176 +++++++++++++++++++--
- security/landlock/object.h                   |   6 +
- security/landlock/ruleset.c                  |   6 +
- security/landlock/ruleset.h                  |  14 ++
- security/landlock/syscalls.c                 |  20 ++-
- security/security.c                          |   9 +-
- tools/testing/selftests/landlock/base_test.c |   2 +-
- tools/testing/selftests/landlock/fs_test.c   | 227 +++++++++++++++++++++++++++
- 12 files changed, 703 insertions(+), 27 deletions(-)
----
-base-commit: 3e271a27c46fd591d1011c7de5a644a41e2010f1
-change-id: 20261024-landlock-created-rights-9340b00a8c4d
+base-commit: 9d3475065167197742b0882aff21cf8e78393277
+change-id: 20261024-hp-wmi-rechargement-905112fd792b
 
 Best regards,
---  
-Farid Zakaria <farid.m.zakaria@gmail.com>
+-- 
+Arnaud Ungaro <contact@arnaud-ungaro.fr>
+
 
