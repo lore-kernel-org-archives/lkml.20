@@ -1,79 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792834092;
-	b=QDnrYdyynhXCPapYduEttGisW2A6xAYTg+GckmLaV4jodp7zcvc9K+MeyZHtMK3u1CR4
-	 /ewQ76VUiZY/ZP8zfnLoUL5yJreXGItKfi8jklXaGm2lt1QhAAaMOQHTS9au1RAlGek6J
-	 iuJJ8SmIF6cv5+jHKlx9taFHNpDereuF15h0bAI7m2d11uNLI+4cHdP2BES/mPuaFpamw
-	 YFrqSG36LClHCHvgMAe6EEzYgdfe5pC2WeZA1vXZjzGfmfzcZ+6otIY/WJObmzyopztL+
-	 btwDBO2+XyW5RW9FB3lm5cNnJUuIdAvltsep4k/92Nnvn+tu8iN8mr55mgTRJwnoDcA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834092;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
-	b=UscByv11YQUjaHLxeLYEHGqKqpZlYmiHpXADSJ5eUqOg0t4XRefmgkoGFLDEc8ieAcW2
-	 Fff7GdbhWfkBWuIVjFc45/LuRIGltuXz4Ck1IBP/eqr6ZzAMfB5lSYsOH4JbkFZXWxfxS
-	 TdCUZargjEdlR3YJBsXQ1f+mGv1i1h01CJUzwImpRUIKx7zJt1vdT9132A1qaiQIQDpUl
-	 LqxgxHrISqosBTa8a/EegUDc/VlGC8gW4GUF3S1m6gluGjU5DthFFquGpUpoQxoMtVKMK
-	 NvVgif5dHd34RaN5jxm+j0tGviIq1kk83Kmpm/Ulcw0NewkLlZ9wNP9/bTbXAYnMjsA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JltHSxQ9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77993606AC00;
-	Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JltHSxQ9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792834092;
-	b=2KVpyr02x/W158F15mdBA4wr281ITHMWC2kLAbk0UILiaoEV3yGFS52Ep43JMdBbxV1i
-	 IfI2ZmiMbIvn3+OAYC034rmaHj+bkO/Qc/OgTj/+lAZQNYZXtx1RKUv08Zc6FHuJzfrUL
-	 /cYudmQls9PDZSaRuth3VZ6lEUV9Rx4IuqNdXztGhp/gnK9NANP0bQSqXu5Pweb4T6gl7
-	 ovPPWILwzH6JtRZ0ooCddqdunahwnuOj8ozF/1XI5bcgDgHkJFLz4kOc65HBn2IBYWL6K
-	 cIVONryVC4aTeDK1hWlM+iT+BgpuBMFswTnu89ZLSJaK3GC7S2tkUKKPUBXZrc9tpZA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792834092;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
-	b=xuMhiECpzs3KQ5BslsGUWYYLwEvZFGkaD/kg1nRvoHSnP9JULHCCsJZnvNwVrTexK3HJ
-	 hJBF/m+H/xnWL4kpZ6VlDPE/v4PmPYR0SHpfcfPxrQvNMuwD7nVNLoRcl9O6guTjgJ9Ha
-	 86nDkFhzh0JHU2opsK3E7Aaj7FUJk/lLeFm9HcXsA1eXJtaea2hFc/k+YsLDB6VKKPCYE
-	 1LKVfILOlAo8clU7A8jnQlklNI7PVB6aE2zqCbG+5GyaXbfdsb5GMZQ8SVlLSPnad3HPV
-	 MuUUDsWGBzd/odV8lL/Ok+eVQIN2Bbu6UHi6i0yirL/bsY5jX2bXE8HrRhxtBMcSmhQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792834259;
+	b=GpMidGBon9rcUMONNmN43D7LEt5VhBhvkbZp4ZCE1Vxb7kQtQLMThynA27qwokeRyBKt
+	 2Kej0e2W7JYQHJAz714G2NOGg7ASVFqy+5nKfSv+tRtHLGr1Oc/fuvL+l9itZp7RjW8ly
+	 gaDxBdBKlPgcf8Gp529sgVcTPI0XLjMVMM7qHyzW4Yo1hIahaGhjN1so/ELgsJZy2r56c
+	 +0DjXDLX5XgeO2XHnh20WBZwxGzRhaqimAV7d9vAEEb64lONTx9rit6+blKniL6e8b2wq
+	 2eKVIdnB3M6Qc072JkiiwfizFToLIKZ36VPMsrpu68hzntkzjTtoFs9VG0vPpMzQd0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834259;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=9QuznG4j1jiezSApa3ebKCoXkxisoyFoxDweWi31QAY=;
+	b=f5jwLUVVWfTCUJJWlySxKIateQmJshqPVhPWmMIdPM3GlmxT0P1P9KkWdNVBlLhZiW49
+	 0GdKiUMCDx3vCdexO3IffA5BOfGy+jELsgaqx784y3r4zrCrfsocbIDnzFKSmL190saVn
+	 PjorROB91EqMulR8cQu90vjgI7B7kRAE4Blte1JgSj0A0HQEBtaXz00vmYEix2tpRTr4z
+	 Keuwi6Rii6ax48PjLqalSTelQqp2zQ0UGSXV5CbqXXNY3roz9j4zDUVLsQ43XBDUamMPg
+	 aam33VeaKepGq0JquSrTfE6BaagPrhVco+H/lO6j+bV337bLh84ZDQ9pjniR0e1WefQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MVzOmlbn;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3CDA71F031E0;
-	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792834092;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JltHSxQ94iLY+3c9j+zq3YoDlMboEoijoQ7MhCxCsPRR3PbpSSQGMu/aFDW6fqao8
-	 7bdrFTHwtVRKnL2Dvlz+3FqFuuIEH+yX3mK0q4zdN+VeP/2UzM/arsu0a37O2PZLjQ
-	 ciwQjCjh+1nsv6YXVlZxxMFN6QJXHL+4QRtwHUHK2jbnmE9NXzeYvN2tKUwF/A6M31
-	 osK9KkBjhKiqGA637KLXVicxTnQGtyNoBDT+fQIQisQHwORVewPg0Y/21nbkJikhwy
-	 JPGNP9gqNOZMkAiEaYhuMH2/3LotE/hFN183GE3ZRyl709WrWCVDQkzhyVFATYWk2S
-	 cqBbDemCY86FQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B93E744783;
-	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
-From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Sat, 24 Oct 2026 17:27:53 +0800
-Subject: [PATCH v6 3/7] dt-bindings: riscv: Add UltraRISC DP1000 board
- compatibles
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252CE606A31A;
+	Sat, 24 Oct 2026 09:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 252CE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MVzOmlbn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9Q
+	uznG4j1jiezSApa3ebKCoXkxisoyFoxDweWi31QAY=; b=MVzOmlbnxp6q8ynN5m
+	ZCGh0IOesHEHhu233NiMByrZtXrqv9MtgwnAsjJvPqJDO8Th/rArImJN3sxJ8H5l
+	2i50RcfOGl0lXzGX0FvIiZhStk6TBHFU7rZOP0Y06d/1ysuCxaMh8Ge5pSS7w++C
+	VAJAksHNqkdr28GuYHF8LZmhU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX35eretxqoPpsCg--.62139S3;
+	Sat, 24 Oct 2026 17:30:22 +0800 (CST)
+From: Xia Yan <yana06070@163.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	hangbin.liu@linux.dev,
+	yana06070@163.com
+Subject: [PATCH net v4 2/2] selftests: net: check veth carrier after changing channel counts
+Date: Sat, 24 Oct 2026 17:30:07 +0800
+Message-Id: <20261024093007.12981-2-yana06070@163.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261024093007.12981-1-yana06070@163.com>
+References: <20261024093007.12981-1-yana06070@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,102 +71,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-ultrarisc-dts-v6-3-c62994d8a114@ultrarisc.com>
-References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
- Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=1942;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=F931PJB7CYQDP8Qv71XY2lbmZu4qGdN+Fjh5HxV88EU=;
- b=qylgVpcm/tbVtTwXGgCOUg8qEx/VsL85U0LpgxsTnupQO8ZDVZN6wCOZZ3KmXtj2xL9RNVC8d
- +mp0KYKPWvpAWb7GEEYK73PpfG1FQEgbk8BB7vgcYEOAcnW1wLCefJ2
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
- auth_id=1046
-X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Reply-To: jixincheng@ultrarisc.com
+X-CM-TRANSID:_____wDX35eretxqoPpsCg--.62139S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF4xXrW7Kr4UuF45Jw4fXwb_yoWrtrW8pF
+	Z3Cry3Gr48WFyfGw1Ikr1jyr45uw1kXw17Jr97tr4jvFy5G3sIvr1ft3yjyF4DKrZagw1r
+	Zayvvr1kCan0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEw0eJUUUUU=
+X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC-A6bImrceq700AAA3N
 
-From: Jia Wang <wangjia@ultrarisc.com>
+Extend veth.sh to check that changing channel counts preserves carrier
+state. When only one end is up, the running end must not report LOWER_UP.
 
-Document the compatibles for the Shenzhen Rongda M0 and Milk-V Titan
-boards, both based on the UltraRISC DP1000 SoC.
+Cover up/up and both mixed up/down combinations. Resize RX and TX queues
+in both directions on each endpoint, and check carrier after a rejected
+out-of-range request as well. Create the pair with two queues explicitly
+so the carrier cases also run on single-CPU systems.
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reuse the existing namespace setup and cleanup. Run each carrier case
+in a subshell to keep its variables separate from the other tests, and
+accumulate failures in the caller. Only check LOWER_UP on running
+interfaces, where the flag exposes carrier state.
+
+Assisted-by: LLM
+Signed-off-by: Xia Yan <yana06070@163.com>
 ---
- .../devicetree/bindings/riscv/ultrarisc.yaml       | 27 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++++++
- 2 files changed, 34 insertions(+)
+Changes in v4:
+- Drop the extra GRO on/off runs, as discussed with Hangbin.
+  Keep up/up and both mixed up/down states.
+- Use subshells for the new helpers and accumulate failures in the
+  caller. Quote single-value arguments and wrap long lines.
+- Driver code is unchanged.
 
-diff --git a/Documentation/devicetree/bindings/riscv/ultrarisc.yaml b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-new file mode 100644
-index 000000000000..a51e63dbeca3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-@@ -0,0 +1,27 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/riscv/ultrarisc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UltraRISC SoC-based boards
-+
-+maintainers:
-+  - Jia Wang <wangjia@ultrarisc.com>
-+
-+description:
-+  UltraRISC DP1000 SoC-based boards
-+
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - shenrongda,m0
-+              - milkv,titan
-+          - const: ultrarisc,dp1000
-+
-+additionalProperties: true
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ff1c1aea9a98..7eb1b2971bea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23639,6 +23639,13 @@ F:	include/dt-bindings/power/thead,th1520-power.h
- F:	include/dt-bindings/reset/thead,th1520-reset.h
- F:	include/linux/firmware/thead/thead,th1520-aon.h
+v3: https://lore.kernel.org/netdev/20261022085842.2527-1-yana06070@163.com/
+
+Testing on 513444cc62e2, x86_64 QEMU/KVM with three vCPUs:
+- Complete default veth.sh:
+  before: 56 checks pass, two mixed up/down carrier checks fail;
+  after: all 58 checks pass. The 55 existing checks pass on both.
+- Script exit status: 1 before, 0 after. No checks were skipped.
+- Both guests powered down normally.
+- bash -n and git diff --check pass.
+
+ tools/testing/selftests/net/veth.sh | 81 ++++++++++++++++++++++++++++-
+ 1 file changed, 80 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/net/veth.sh b/tools/testing/selftests/net/veth.sh
+index 8b867e0675a7c1eea300468c26f2a9528ddc1194..e438e9ee7b33b151099d8ce779a9c9b47b0cc0af 100755
+--- a/tools/testing/selftests/net/veth.sh
++++ b/tools/testing/selftests/net/veth.sh
+@@ -41,13 +41,16 @@ create_ns() {
+ 		ip -n $ns link set dev lo up
+ 	done
  
-+RISC-V ULTRARISC SoC SUPPORT
-+M:	Jia Wang <wangjia@ultrarisc.com>
-+L:	linux-riscv@lists.infradead.org
-+S:	Supported
-+T:	git https://github.com/ultrarisc/linux.git
-+F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
+-	ip link add name veth$SRC type veth peer name veth$DST
++	ip link add name "veth$SRC" "$@" type veth \
++		peer name "veth$DST" "$@" || return 1
+ 
+ 	for ns in $SRC $DST; do
+ 		ip link set dev veth$ns netns $BASE$ns up
+ 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V4$ns/24
+ 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V6$ns/64 nodad
+ 	done
 +
- RNBD BLOCK DRIVERS
- M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
- M:	Jack Wang <jinpu.wang@ionos.com>
++	return 0
+ }
+ 
+ __chk_flag() {
+@@ -130,6 +133,78 @@ chk_channels() {
+ 	fi
+ }
+ 
++chk_carrier() (
++	target=$1
++	state=$2
++	expected=$3
++	carrier=0
++
++	# IFF_LOWER_UP is reported only for running interfaces.
++	[ "$state" = up ] || return 0
++
++	if ! link=$(ip -n "$BASE$target" -o link show dev "veth$target"); then
++		echo " fail - cannot read veth$target link state"
++		return 1
++	fi
++	case "$link" in
++		*LOWER_UP*) carrier=1 ;;
++	esac
++	if [ "$carrier" -ne "$expected" ]; then
++		printf ' fail - veth%s carrier is %s, expected %s\n' \
++			"$target" "$carrier" "$expected"
++		return 1
++	fi
++)
++
++# Keep per-case variables separate from the other tests.
++chk_channels_carrier() (
++	src_state=$1
++	dst_state=$2
++	expected=0
++	err=0
++	msg="carrier after channel change ($src_state/$dst_state)"
++
++	if ! create_ns numtxqueues 2 numrxqueues 2; then
++		printf "%-60s" "$msg"
++		echo " skip - cannot create veth pair"
++		cleanup
++		return 0
++	fi
++
++	ip -n "$NS_SRC" link set dev "veth$SRC" "$src_state" || err=1
++	ip -n "$NS_DST" link set dev "veth$DST" "$dst_state" || err=1
++	[ "$src_state" = up ] && [ "$dst_state" = up ] && expected=1
++	chk_carrier "$SRC" "$src_state" "$expected" || err=1
++	chk_carrier "$DST" "$dst_state" "$expected" || err=1
++
++	for target in "$SRC" "$DST"; do
++		for count in 1 2; do
++			ip netns exec "$BASE$target" ethtool -L "veth$target" \
++				rx "$count" tx "$count" || err=1
++			chk_carrier "$SRC" "$src_state" "$expected" || err=1
++			chk_carrier "$DST" "$dst_state" "$expected" || err=1
++		done
++
++		if ip netns exec "$BASE$target" ethtool -L "veth$target" \
++			rx 3 tx 3 \
++			>/dev/null 2>&1; then
++			echo " fail - out-of-range channel counts were accepted"
++			err=1
++		fi
++		chk_carrier "$SRC" "$src_state" "$expected" || err=1
++		chk_carrier "$DST" "$dst_state" "$expected" || err=1
++	done
++
++	cleanup
++	printf "%-60s" "$msg"
++	if [ "$err" -eq 0 ]; then
++		echo " ok "
++	else
++		echo " fail "
++	fi
++	return "$err"
++)
++
+ chk_gro() {
+ 	local msg="$1"
+ 	local expected=$2
+@@ -257,6 +332,10 @@ fi
+ [ $STRESS -gt 0 -a $CPUS -lt 3 ] && echo " stress test will be skipped, too"
+ [ ! -f "$YNL" ] && echo "ynl cli not found, ndo-xmit tests will be skipped"
+ 
++chk_channels_carrier up "up" || ret=1
++chk_channels_carrier up down || ret=1
++chk_channels_carrier down up || ret=1
++
+ create_ns
+ chk_gro_flag "default - gro flag" $SRC off
+ chk_gro_flag "        - peer gro flag" $DST off
 
 -- 
-2.34.1
-
+2.39.0.windows.2
 
