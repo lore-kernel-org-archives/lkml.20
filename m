@@ -1,101 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844079;
-	b=rGNWQ6t8Yew9RD0VfwX64AAlr+DQR1X5fouRuB4rU+RGJOj922iognv24eBBOL3iSQg5
-	 JKzYpjP3qyt4Kg/MK+MTFhpD5AXFhjkBW/V1fN7HBi+XEN58HRHURHaInxfLI9erNUzKC
-	 dpgEBUqvg8c6Ob7UDos1ThZRKyWk6rQEYv6WOPERSx8qUYZ5XUNUpBHzjI/tgKI/J0WLf
-	 iCF5xIgxAbEfl8/zqoK6C+VDzwGhIjQhrHJxXR/93jrUYlHaqHvWqUfoQG9Ncp1qwLLOg
-	 gigMyn4YlLgbMYMaASK+KMa8lYkG1Q81HxYqa9YPCJ5PpHmDku6CtooUlF2OnesvDCQ==
+	t=1792844090;
+	b=lmViei1S6j18Czd/HQlDFLC4WNOIU8PfoAsQsJutx4kZLZXcjz0w6w9kqXzVW5pG166c
+	 OejL4HL1KPuroXT4fnPMUO6n53RfMp6+QN++eLzck/m3TzIaLVfamZwlYRhsGJyWh1CrK
+	 0Z9pd0fM4Y4dxu/IDwPotctZAn297OJT+0hkrv6avNH/dDbZMm/XmqPrHooG/SkfqNco2
+	 hHpfRZWPGN4QOhcFdp8m6ASvya6bzWaM5rGCklTd7IALcH3kviTc564kvNuuhZlmVdQhr
+	 mU5ziEy+DOPqx1GxmmPn/ZjaXfwLWFuCRWPIX4zuvgs1oR57PAWqyFjcHYiN41bUUaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
-	b=O1BixBkKDoTon08uyAssifCwgIGWqkTzS0X3jJWefLw0DzvHBQ9z+2gXhjTEEC7Qm11Y
-	 y8GforOe3WwljUsSkm4N+vuxMCMKPzUOTpGwtUWi4qPCDVhhC9FGF/huEMqTe/a8QKxGi
-	 dC9wMt+swlKdmCEn8AXSByDI7iesNJ/Lbu3U8vq3Le69eb3nsdS8gMFFR5/d4RXUU2w5q
-	 pP5l89tlEPXh4g7MBH84RzLTIa5++vK4P57tsGAepgZTmiWzruh3tJEyW+PcCHxid4W2N
-	 OADNpGU2B5z6bKUI1DINnbscCo/GRx9I0j/Wbcia+mbKjUU+anaccICs+Mp/Vrvz5Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844090;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=l9drRP4ogNwZY1fXyOU8/7fqkPyOhsgQe3h8/QvqHUk=;
+	b=mWxMCdT9nrzY5oh3Ujq1UyxxUDlJ5syIYo6i4zqBC2bAUOkjaIXudjSB0LJz7fonoS8b
+	 JhshfepmplTPbqHaA1cT4YBf7eGBt016Gh2HV51v+kMMR+lMoiHT8C+tOrgMVfROmZF5/
+	 oI9PYXnaTZ2g8Yq3r4hM1v/hlnUflgKdUC3ttoP1+gfg/M83ieqEawk230jXGjwPnq4D6
+	 kTheTR+9D4KGs+QZ7U9Xb8co7JajQrJWDNwgZpDPaMp3uJp0x/+VuXe0ggZpr7cuhUBai
+	 FgCJFV7CeJVAf44SX7jadCKA9vrYEDZx12p4MZVG1t0PKcoINjwemzYSMcTGHcfnwZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kk9QGqNq;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fh9SYveK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853A7606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853A7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399B2606A32E;
+	Sat, 24 Oct 2026 12:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kk9QGqNq
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso932567f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:14:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792844078; x=1793448878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
-        b=kk9QGqNqPm0wSvRaXOTRIxpQRw2ERMl1qZCUO1hO1D+r1xDHcZc2tncdiKL0G8a9G9
-         pOG4h3w37r6iZfPL2AbgLa03L1aO3NeHF2MxT2VGkzme1TIqteUykHCx201tydvmr0js
-         5I2cWOVMqxg97ks2kG4FDJvHY5RDgM/H3I+7Ws7ywsMSPGgFmMlwaJ6cIRfBWxcYT/Sk
-         HqMXi7lZUVOeVJor4jBX6tV1IrtYCS1kKxVlOzHsb1gZ6vB8sRQ21Y9QzvIME9JrNNdx
-         WIp6N1mUwBdNyqJzgurUpZtdapDi9wF/qSeD+fhAiGpp1aggcaYmxG6HRTbmuNkuNVRg
-         IDow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792844078; x=1793448878;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H5L2oywAexEgARcVCe03Pw/60ikOC7LjYePVBuVC6U4=;
-        b=IjKxYrz+MEwP56rmTZqqglAVKhiDpuUBxVqkk2QFQ+wnsdbPV6zs7/ZDxsbzyvLhMo
-         P8VYDOYrjK0NxbEVqf3TI34KpGFCA/ho8keshsMUlfbqqtXPPeZNcNNgnUbPrT2F6dN5
-         m9DNqxn8aG1t9dNXKtlSyIZwGoZH3OrzmR7mUJlQ/Piw2wV56jNwb8rH2mfka24Imy2h
-         MTxYat7kl94TUjEQxF5CiPiO2GnSuE4MRIp7I9Q54D2CJIZNzysIey6D9lacWdh5z+BR
-         26LZkvjg7P8RBGP5C0eBnk+MLHBg+oau4N0iV9NO0ltMJKEEKHtAr6WFflaYLG2rdpMD
-         LFFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsgV4MMk0fUWmi370UKetwABAdYpqdSLT6/gtWyy82rwIvDAVrkUIZ57DHv6xHGg20Tl8BBb/grFI8Eng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDsdd7CHeSSVmmHxPw4WY0rvrwPpG4T9/9Jzq1UoV+tUojKJM8
-	Ulqwf7p5DZqXZZAk70FORn32orQFlMjfOtEyvOLGnIqi2p5TzOw8M3pM
-X-Gm-Gg: AYBFou2g7DSNmlUcoAyX7I377BiTo9rjTgd5Qd2+YaJI+YKMdm3vm6nvjSdN4nYNVS4
-	2x/mNGirNDgeaDRAd/QHL7otwVealt8oMXqn7rB+guqdzlCJ3mB1Dkf8kAtrhSI2Y9c+fSQgeOM
-	Wjt4NasgYpnNeZKyAm+I0tRYz+pPojaCW26tOOGvFcevadduXM2Epe0yOsQngERpbphsmbXFqoG
-	9WPP5rtfwYRwzTGGR1PfKob8e/YI1ythj4OnagEV9tVQojuO55/+uGaPW9qRGNepimOqD1eqRIv
-	4cR/368TcNlHrm5aUh5Ey52C6Ajdgt+ZKkUZN1OwOkqs7PosNUSBCXy3Rw7nzEsdKo9A58qQo/g
-	S+7kHkpkDtATAg6JJuwXUSmybo7SFz7frObYr3ECMl2vCDBoeDlCPPAtdMOqk0tGVT6H1DH62fI
-	/beFMGvCb0nkY1JnP/+n0o0d1YU6oMuVysM9kieGBd1FgtZIbp/GGglcpipAeQEUgpKZLi7QF5N
-	Fr+rpOQZVguqNG3eQqU/dRe7EyHJVtfFUJVYG6wpRIwypF+39RzPvo=
-X-Received: by 2002:adf:f5ce:0:b0:487:930:8acc with SMTP id ffacd0b85a97d-48e3eb83fb7mr2248305f8f.16.1792844077924;
-        Sat, 24 Oct 2026 05:14:37 -0700 (PDT)
-Received: from NB-6746.. ([178.66.130.53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm3860411f8f.59.2026.10.24.05.14.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:14:37 -0700 (PDT)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: tzungbi@kernel.org,
-	linux@roeck-us.net,
-	p.zabel@pengutronix.de,
-	Sergey.Semin@baikalelectronics.ru,
-	mika.westerberg@linux.intel.com,
-	andi.shyti@kernel.org,
-	iav@iav.lv
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	wim@linux-watchdog.org,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] watchdog: dw_wdt: manage reset line during system suspend/resume
-Date: Sat, 24 Oct 2026 15:14:24 +0300
-Message-ID: <20261024121428.18862-3-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024121428.18862-1-a.shimko.dev@gmail.com>
-References: <y>
- <20261024121428.18862-1-a.shimko.dev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fh9SYveK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1408B1F01825;
+	Sat, 24 Oct 2026 12:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792844089;
+	bh=l9drRP4ogNwZY1fXyOU8/7fqkPyOhsgQe3h8/QvqHUk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fh9SYveKEkrqvV5IwkB9ez7/JZbcSuuaAMQvapL173tqbXoWLhojnl/eqdLptZ5IW
+	 e2Q1s4FlUQME4ME7hwIS9c5/1qBahgf/CsUJBHpqAEMADXErnx9lh2Y8mnbJtZWSZI
+	 HK7oPcIujNG+JXFPDPE4xqCsBMA+Hp58cDRTCMNuWNhP1Yiele2KyXsPsj7mLH0S5n
+	 7m1j21xkBN+uHyi/RJbwepaYTY0PFvk5gHRjJRw9tLjqB6a2mPI85NnPWN3d0vNWVr
+	 lAiO5Bep+R2Ko8J3eZKPvdxdZ7kDK6mVLYLbbCtmKH+Q1lEdRoC6p7xo2dJbPShEzY
+	 yxuiX50+w/ExA==
+Subject:
+ Re: [PATCH net-next v4 3/7] net: ftgmac100: Add AST2700 compatible support
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew@lunn.ch
+Date: Sat, 24 Oct 2026 12:14:48 +0000
+Message-ID: <179284408866.3134.6034101775210393444@kernel.org>
+In-Reply-To: <20261020-support_ast2700-v4-3-4d36b40939b3@aspeedtech.com>
+References: <20261020-support_ast2700-v4-3-4d36b40939b3@aspeedtech.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,82 +65,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The watchdog controller reset line is not currently managed during system
-suspend/resume. This can lead to an inconsistent hardware state when
-resuming from suspend, as the controller may not be properly reinitialized.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Assert the reset line before disabling clocks during suspend to ensure
-the controller is held in reset while power is gated. During resume,
-deassert the reset after clocks are enabled and before restoring register
-state to guarantee the controller is properly initialized.
+Low priority / nit picks for your consideration:
 
-Tested-by: Igor Velkov <iav@iav.lv>
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
----
- drivers/watchdog/dw_wdt.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+- [Low] (Baseline decision: false positive.
 
-diff --git a/drivers/watchdog/dw_wdt.c b/drivers/watchdog/dw_wdt.c
-index 2cffe337b4ea..844a5f7738b6 100644
---- a/drivers/watchdog/dw_wdt.c
-+++ b/drivers/watchdog/dw_wdt.c
-@@ -378,10 +378,15 @@ static irqreturn_t dw_wdt_irq(int irq, void *devid)
- static int dw_wdt_suspend(struct device *dev)
- {
- 	struct dw_wdt *dw_wdt = dev_get_drvdata(dev);
-+	int err;
- 
- 	dw_wdt->control = readl(dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
- 	dw_wdt->timeout = readl(dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
- 
-+	err = reset_control_assert(dw_wdt->rst);
-+	if (err)
-+		return err;
-+
- 	clk_disable_unprepare(dw_wdt->pclk);
- 	clk_disable_unprepare(dw_wdt->clk);
- 
-@@ -391,16 +396,19 @@ static int dw_wdt_suspend(struct device *dev)
- static int dw_wdt_resume(struct device *dev)
- {
- 	struct dw_wdt *dw_wdt = dev_get_drvdata(dev);
--	int err = clk_prepare_enable(dw_wdt->clk);
-+	int err;
- 
-+	err = clk_prepare_enable(dw_wdt->clk);
- 	if (err)
- 		return err;
- 
- 	err = clk_prepare_enable(dw_wdt->pclk);
--	if (err) {
--		clk_disable_unprepare(dw_wdt->clk);
--		return err;
--	}
-+	if (err)
-+		goto unprepare_clk;
-+
-+	err = reset_control_deassert(dw_wdt->rst);
-+	if (err)
-+		goto unprepare_pclk;
- 
- 	writel(dw_wdt->timeout, dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
- 	writel(dw_wdt->control, dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
-@@ -408,6 +416,13 @@ static int dw_wdt_resume(struct device *dev)
- 	dw_wdt_ping(&dw_wdt->wdd);
- 
- 	return 0;
-+
-+unprepare_pclk:
-+	clk_disable_unprepare(dw_wdt->pclk);
-+unprepare_clk:
-+	clk_disable_unprepare(dw_wdt->clk);
-+
-+	return err;
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(dw_wdt_pm_ops, dw_wdt_suspend, dw_wdt_resume);
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  exposes it on AST2700.
+
+--
+
+net: ftgmac100: Add AST2700 compatible support
+
+This patch adds an FTGMAC100_AST2700 mac_id, match data for it, and an
+"aspeed,ast2700-mac" entry in ftgmac100_of_match. In ftgmac100_probe(),
+AST2700 is handled like the other Aspeed variants: is_aspeed is set and the
+BIT(30) end-of-ring masks are used.
+
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 6d2fe5c2f3903..67b1fa464a421 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+
+[ ... ]
+
+> @@ -2017,7 +2018,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>  
+>  	if (priv->mac_id == FTGMAC100_AST2400 ||
+>  	    priv->mac_id == FTGMAC100_AST2500 ||
+> -	    priv->mac_id == FTGMAC100_AST2600) {
+> +	    priv->mac_id == FTGMAC100_AST2600 ||
+> +	    priv->mac_id == FTGMAC100_AST2700) {
+>  		priv->rxdes0_edorr_mask = BIT(30);
+>  		priv->txdes0_edotr_mask = BIT(30);
+>  		priv->is_aspeed = true;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but setting is_aspeed for
+AST2700 exposes an existing NULL phydev dereference on this variant.
+
+Suppose an aspeed,ast2700-mac node has an mdio child but no phy-handle,
+fixed-link or use-ncsi. In that case ftgmac100_probe_dt() skips both PHY
+paths and returns success with netdev->phydev still NULL:
+
+drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_probe_dt() {
+    ...
+	if (!ftgmac100_has_child_node(np, "mdio")) {
+		...
+		err = ftgmac100_mii_probe(netdev);
+		...
+	}
+
+	return 0;
+}
+
+ftgmac100_probe() only calls ftgmac100_setup_mdio() for FARADAY, AST2400
+and AST2500, so on AST2700 the mdio child is ignored entirely.
+
+register_netdev() then succeeds. When the interface comes up,
+ftgmac100_open() calls ftgmac100_reset_and_config_mac() before it checks
+phydev:
+
+drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_reset_and_config_mac() {
+	...
+	if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+	...
+}
+
+Can this oops in ndo_open with RTNL held? The binding only requires
+phy-mode for ast2700-mac and doesn't restrict mdio, so a DT like this
+passes dt_binding_check. The same path already exists for AST2600.
+
+The later patch "net: ftgmac100: Enable AST2700 RMII support" makes the
+same assumption in ftgmac100_start_hw(). Its commit message says
+"ftgmac100_probe_dt() always attaches a phy_device before register_netdev()
+can succeed", but that does not hold for this configuration.
+
+Could ftgmac100_probe_dt() reject the case with no PHY and no NC-SI before
+register_netdev()? Alternatively, or in addition, the binding could forbid
+mdio and require a PHY source for ast2600/ast2700.
+
+[ ... ]
+
+> @@ -2131,6 +2133,10 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
+>  	.mac_id = FTGMAC100_AST2600
+>  };
+>  
+> +static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
+> +	.mac_id = FTGMAC100_AST2700
+> +};
+> +
+
+[Severity: Low]
+Once aspeed,ast2700-mac binds here, AST2700 uses a datapath that only
+handles 32-bit DMA addresses.
+
+ftgmac100_match_data_ast2700 has no FTGMAC100_QUIRK_DMA_35BIT, so
+ftgmac100_probe() never widens the DMA mask. ftgmac100_init_hw() also
+writes only the low 32 bits of the ring bases:
+
+	iowrite32(priv->rxdes_dma, priv->base + FTGMAC100_OFFSET_RXR_BADR);
+	...
+	iowrite32(priv->txdes_dma, priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
+
+Buffer addresses are likewise written into the descriptors with
+cpu_to_le32(map).
+
+As far as I can tell, this can't be reached at this commit. The FTGMAC100
+Kconfig entry still has "depends on ARM || COMPILE_TEST" and "depends on
+!64BIT || BROKEN", so the driver can't be built for the arm64 AST2700.
+
+Later in the series, "net: ftgmac100: Add AST2700 upper DMA address
+support" adds the 35-bit quirk, programs the RXR/TXR BADDR_HIGH registers
+and fills in the upper descriptor bits. "net: ftgmac100: Allow building on
+ARM64" enables arm64 only after that, so the final state of the series
+looks fine.
+
+Is it intended that AST2700 binds to the driver before the upper DMA
+address support is in place?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-support_ast2700-v4-0-4d36b40939b3%40aspeedtech.com
