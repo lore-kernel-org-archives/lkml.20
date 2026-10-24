@@ -1,132 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792800140;
-	b=gpQld8ZHM8/sSgTmqhMmO//oxthnbO4f2ScR0/ZX0cvlHVKqqf4c7TIkzxQZMa8wKUhR
-	 LvDLm6PB3bJcJNr+TZ/JWD4ydzuGq24guY0Eh3apXNODAAKwXyX/TKwEBDkqobkIJthrd
-	 w7N3o9V/mFoLvi/tbqGDxnI2hDFc58Hi1TLeECNZc0YTdLoJF+s4BCnFncsEyHlYxjOXX
-	 ybonMrkKjlkc38RaBKlV7bP4X9mZ6bgt6U3AEgO7BaMiQ+UhvjJNaG6u82CIv0p5jPvqZ
-	 UUkC8et95cnG8H5IXuajv+pLy8ItPc2mcAqD71flt88/iPvNs0EZI4Izus1/ZOYO1MQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792800140;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=bxpL8C3aPN6IJDGGUJqKxuXGR9KWeOz8FZFAS1z0RHc=;
-	b=Rzrb3WzjXz49zGtEYfYuuuSAZP0REui0BqwAYrM+8aHh8j6k1kaTPF6BCUeGMmF46h8u
-	 nTBjX0FPIU8C1ouydl22ctep6pgd+NTdbbQK9fvY3wCelyOsNbwGeawpvJ9IcHlpnON+j
-	 xQgUADe/nby26ptqMbWR0bpqz1sispS2G/N9FDnDQyJJGLa53/zbOWh49gIinBF/wLhxv
-	 7sMzbSJGRfYO3U2BJmgiPhfXfUUepJnUECPg7iHwFZit4rTMx/ehh1TqmcxWu4inRqFJP
-	 ZtExAzKTHfJT/QXtibyguYC7PXQObobp9IAZTGmI6L9qT67qYgsNitSj1kxDcvyA0Sg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XBWzwJm2;
-	arc=fail smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792800258;
+	b=xwDIf/k/D2JT+cFRSMPi/6iV6TZc59Q1w27ySlb05riVRcIvo4K0HDcqwD/r7anmGRyy
+	 9EvNYZ1MGEt2TNB97zUV9eHY0Xwmj3aM4X+bujrcC5E1v7ALRAY1wxw0Po0GpqWSevDO2
+	 k/aURZzZewoH5bLXUhc77G0YUXekyafq3zPF6l2yuoPhoxsGIUe6VQPyENO/Q2gbFHl/9
+	 xCxWfTeQ7w0Us2v8RJ4MaoXsQ5XJmJ72hKS9RV8o6RG6zu/oYPf3m62wqNF9qnO5KGRDK
+	 Ki7kAQx2QBgD+kxGA0ZDos66k2ccLLoghE6sQNmrOy7WZQYziCK5E9G2pqSsWyrEzuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792800258;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=I3wuHmWmGvXCtEnDUsJhkbmfuPnqQvs8DG+95QVzPvo=;
+	b=hlLTCd6kVo64f/e41s+wPIM94GKB+/G7bpC+YwMES6OOQ+UdkMPrj/10RsOovJgkl49E
+	 hzZF0g4jvK/0xKQRxxXZuIxUcQ7ImQyiaoStQwTGSgpIbtv0DBAsNi3svDw/ccPk6WP6/
+	 tGs6DKjVoqrJA7oFZtJ1Fia2JjQexJxIzLGNwXULFceBRtCHeH+u5Kha+7NmPFnHDZMaE
+	 sZLm1jh/BKc4fdi3Xny1Bl0SEtKIGDGFlb+TUzW9LsGdgbZ1c8SKVb2qd9UjenZKykqJw
+	 kRNRd/AjmXnIkQ8E7w8BcmCCvpE1kAejzBFVjSz3qRNm7Kd1nJh62e/t7bUKTfzQ6gg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jNkuuk4I;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XpdGgF8o;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C83606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C83606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB23E606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB23E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XBWzwJm2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792800140; x=1824336140;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=lmWv8N1JqRHhKPuEM49wRm7BHBVHGJwtlggFrByfeec=;
-  b=XBWzwJm2s1k2Lo8Q/sIBUnWistl3YmlEJVVAQEOmYHu8PpLz7dG3aqwo
-   /DFvbMB76IpytXb/xj7FP0FQIdgSxEOfNWM+auJgeNZHd0yS6vKViP0zd
-   /Jvj5++bgOc+VmOPaJfkNjm0zDwcc6tuXZftUsh2Z+sTL0NIQNKR0piBG
-   yqB4V25GbLdBo9v65vo5bA8Y670Ceg3Y56o5Z8oFqua168K3SI8D9R698
-   /WhJb8xZZPIJkmA5lOnP09YCkRk49ukIpQ+AJYHKjcbNmBXHZBxzTphnX
-   Kk3EVPXLRsCT2uqD8DnjRTZpNQcurvUeScBhHQxtQfwYvI7gKvCy2nPs+
-   Q==;
-X-CSE-ConnectionGUID: P8DyVng2SGCvYl4gc0ilcQ==
-X-CSE-MsgGUID: 5OYEIOawSKmF2CRbpyVDVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1551315"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1551315"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 17:02:11 -0700
-X-CSE-ConnectionGUID: FyZ4a5UZShyKa8+jl4+e8g==
-X-CSE-MsgGUID: tku6K4IXTF6qUDrNj35LEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="3833179"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 17:02:10 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 23 Oct 2026 17:02:09 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 23 Oct 2026 17:02:09 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.62) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 23 Oct 2026 17:02:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kLZIpeOlTLU8odHv/cxhF4UwJpO/I4nRhphSbHBe2CvAvTFsX/3T6+9xWqf0Dri5LpJPLZ771fB0siOJMy4SPD1HXa/hd6LOLA+iQGpyIepadbmpKQ7akEzWYOHc9UuyeZ///qT3QsQuCiCg9l48GLtmb8knVGRfY8Az/NfCik6K+onZ89XQWwWj+CGQ/Q9Rs+Qof2utrEH1VPSh0TPWOYXrYkr9Z9vseQcCookbeM4NlCXAExTGtgc446Rl7NNPq+Mqtji/Y6cQrXB1dfIPa0ypgBQFc53k9giPIxUjAFuKFNlnJwMZUIYO+HspG/kuuVNOQa7cENyBpRaUGJb8jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bxpL8C3aPN6IJDGGUJqKxuXGR9KWeOz8FZFAS1z0RHc=;
- b=MMmWY8UZSX50aVFXIR7KmhiK12airBV/rXEYw2SrkZ8VISAzAfuLXTTuDwtzZxaMc0UAbExv9SaJ44ZEogJuUvhl323Bor6/0oNoBe3Tca2/AxOYO0OHYntI0NDBxaZfRcCI4t0UajEw/dM9+g3W+6S+k+faa5wGgPjUTcd0fUcVWv2XNsZkTX5x+hY+SiNzMYJRmRK70/bjvez4LdAiFx8lY/Zxv21teo2NsJbAI93rbIdYHDsg2HGdPUKF7iAVYFpgcQEZuipvmOMmdoDNyEESKjaCVGVugd14fAFb2al2oMTO7NwTFdOBhXu1hMtwLzmZzKSvfwGrQpnDJmv14w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by CH3PR11MB825148.namprd11.prod.outlook.com (2603:10b6:610:39e::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Sat, 24 Oct
- 2026 00:02:07 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Sat, 24 Oct 2026
- 00:02:07 +0000
-Message-ID: <4e594656-b883-47c3-975c-087d10b98c74@intel.com>
-Date: Fri, 23 Oct 2026 17:02:05 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 07/12] x86/resctrl: Add a global ERDT monitor scale
-To: Chen Yu <yu.c.chen@intel.com>, <tony.luck@intel.com>
-CC: <tglx@kernel.org>, <bp@alien8.de>, <mingo@redhat.com>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
-	<babu.moger@amd.com>, <hongyu.ning@intel.com>, <chen.yu@linux.dev>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-References: <cover.1791933001.git.yu.c.chen@intel.com>
- <ec2671aec51023ffacc8bd265a57f7aa09195d23.1791933001.git.yu.c.chen@intel.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <ec2671aec51023ffacc8bd265a57f7aa09195d23.1791933001.git.yu.c.chen@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0375.namprd04.prod.outlook.com
- (2603:10b6:303:81::20) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jNkuuk4I;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XpdGgF8o
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NLvBcg297028
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:04:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I3wuHmWmGvXCtEnDUsJhkbmfuPnqQvs8DG+95QVzPvo=; b=jNkuuk4IgwSv7LIN
+	QjlEVqboix2Uhx3LX0GdsDVcM6gUaaZs9kfYdLK/tTA6awMBcp8eeSDtJ5/Fh7ft
+	kUFgaIP7onQ7cW15aR+Nl/e9uLd/67A3y2pLZ7t43M+OfhmpVdcoEA8eyRaHULwr
+	eQxDVRmG3yH/yXhN+QXkXwvgaWxhzbZ3Z/10JKKeG+3WRlKz3fH36pSSgsyOOasj
+	t54pvJx3PEso5l0PZYq4Uh5mddeqLRlSFwMkbREj959unA+uLDqpuZ0J6LnLHV+x
+	vY5Aq7hxo41J7IjIZOEeArheZjJPw1Qu6/KEdjFDbgbvnqPPtTZ6UE8ukXlBmLB8
+	4BNO7A==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgaruhf92-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 00:04:11 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so4841645c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:04:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792800251; x=1793405051; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=I3wuHmWmGvXCtEnDUsJhkbmfuPnqQvs8DG+95QVzPvo=;
+        b=XpdGgF8oJKomOqDi6fHoNN/xUmBCGsC4QQeoFCk9eDAtRsvl4Sh8rQ3flhFYrRgQIJ
+         7pVk2gl9iyWX0s26gwcr4XZOteVmIZboA/QzBfVDlQPAvZ+zHx9yiWFwjylMVbfgEiFZ
+         2+Q73IuYRNMWbpmmbJLUdlKa6P8AhBTVfzRtnTVhIzJQDKAWnuf8V/r7fC2nPnVUI5PJ
+         w33tzH/lntSn82YzIQq1uYuaL0bjppH2P4yp9xoLaQqL7p15PfQLIFTnw6oFhR4+RXut
+         u51NEKF7rh0EWN6PHeBDW4p4V3m7IZead7+qHJmDQvBlNGXsyK2LQRPmJiadVm/C6bPw
+         /JaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792800251; x=1793405051;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I3wuHmWmGvXCtEnDUsJhkbmfuPnqQvs8DG+95QVzPvo=;
+        b=Nu6UOjJ+aWMhfmef0yIF1AUU0dKjSY2nH4OQ7zPEL4YKb/KONY5oNrA0SpC50g1Pw4
+         xUqR9G6WdmxwBwHvZA74m0He8wJvrmHQf/XPCOhs1XEGvr0m3wR2XpAZPCmXwMB3E41y
+         k3rvaWIeNlLr5IJYMBpdKbRYj3fJmVjFAI6pzZTJsyI1uWzrZjKcNL9+oo6g2+w+YJB4
+         bM2gSN+Qi0qqnM/Aka7lvcSzJ0/IK8OYF3tJnfVqiLxUi2qQyVSt+1NUtRMXJcZ/P/wC
+         iYMOwA1pqlJnYMFk59kMafpWLKL7ai4J/UZI4vOzoJJJzzTrvlSVU15aDPb+ad24sm5p
+         AWmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxVm4OD55OK8gZaDP0T2utoAuqh4Bpe3WL2M8brWEgEPFRK12Rv6VHZ4rd9uN/fVRqcLD+Yu11rRov+04=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6keQT+0yCW7CSdGpAoh+ifwoAj0+3+5uSubwW6AdhqXn38bqE
+	MZdo23ibWICmhVedqSTdCiQLyYps+eVV6WaLl4V1f/TeVFGt4TAdHiUFF25WNsDYaBPIwe4lZjj
+	JXoKp+TLeptD9vyyLljfJMnPA1B1TVr2M8IIRIlQ5hK8S+MRWK6syn3yy+lAfRyPoqEQ=
+X-Gm-Gg: AYBFou09O4rjFrUxHsS4I623eWCvJXpxqj9Ehehztu/S2sPBU6ra9F9yPIub2RV1cPl
+	XrUQItwyWJNhY2BJ6LCBAIlB0dEvWfX/mHwNdRdAwEnIkyIz87Ezgp+eg3wfoLuLWb/Y0uTGjhg
+	wZ/4yHMlTCsGq2LQGdG1DPsDFWRSiRshpoE5jLtLME6/ycxVNNTKmpDm5RkLhx1uRxoqIJQ48nr
+	+KwmLaoJbvWIIZSMbfgUW61rnMCAK9wQLBiwi33rwwefdOop3klzFnYb/vcG5grt+cxAb4C1waG
+	ADJGQKQeqOU5wq+FYd6iKwHoRwUZAlcqQro3p5XfdEhuMICJlS8L+ekU3a+2O/FIKmxW77Cz8Rr
+	/uEkpDpkZdbN0DdA/Yt/LjdgPQz9Q2gbgk4IqCXOkWmh8DBskgp9iiQ==
+X-Received: by 2002:a05:701b:280b:b0:192:e5a8:6bae with SMTP id a92af1059eb24-1993fe812c8mr601073c88.40.1792800250468;
+        Fri, 23 Oct 2026 17:04:10 -0700 (PDT)
+X-Received: by 2002:a05:701b:280b:b0:192:e5a8:6bae with SMTP id a92af1059eb24-1993fe812c8mr601041c88.40.1792800249918;
+        Fri, 23 Oct 2026 17:04:09 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0d98660sm1757914c88.9.2026.10.23.17.04.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 17:04:09 -0700 (PDT)
+Date: Fri, 23 Oct 2026 17:04:05 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Pierre Gondois <pierre.gondois@arm.com>, Tony Luck
+ <tony.luck@intel.com>,
+        Borislav Petkov <bp@alien8.de>, linux-kernel@vger.kernel.org,
+        James Morse <james.morse@arm.com>, Mark Brown
+ <broonie@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
+ <lenb@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Shuai Xue
+ <xueshuai@linux.alibaba.com>,
+        Maciej Wieczor-Retman
+ <maciej.wieczor-retman@intel.com>,
+        Pawel Chmielewski
+ <pawel.chmielewski@intel.com>,
+        Dave Jiang <dave.jiang@intel.com>,
+        "Fabio M.
+ De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+        Breno Leitao
+ <leitao@debian.org>, Dan Williams <djbw@kernel.org>,
+        Terry Bowman
+ <terry.bowman@amd.com>, Ard Biesheuvel <ardb@kernel.org>,
+        Morduan Zang
+ <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
+        linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev,
+        Ashok Raj
+ <ashok.raj@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/6] CPER: Add Memory Error Section 2 support
+Message-ID: <20261023170405.000060b8@oss.qualcomm.com>
+In-Reply-To: <20261024003917.283b890d@foz.lan>
+References: <20261019203915.2019037-1-pierre.gondois@arm.com>
+	<20261020101048.00000186@oss.qualcomm.com>
+	<0817615d-5e96-4a3a-b39e-3e5d1b88e716@arm.com>
+	<20261023142621.00007051@oss.qualcomm.com>
+	<20261024003917.283b890d@foz.lan>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,201 +150,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|CH3PR11MB825148:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20d685f1-8777-446c-b05e-08df31620ae3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|261022075727099003|4143699003|5023799004|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|22082099003|6133799003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: R4U8cdnCEDriS0oa8IOz1e6b4JoHRiGoGNqqmhk0TLgXZQQqGkCk3xDHChW2z0OvUf01Y0Thf6a7NOawWfymkWj5tHQlXx5OSVP3+Zfx1SFqL7K0TAKPRsB4HkWbshK5dNJVex6ZQGRj+IF0pxM/K4bMBBG/U9W2MOHu2UsAV0wKumG/CF2xH6dyCmDOTD1URXtkc9UdVjRAldb0MbbJX7EsZeKdaNy9Nw3xqBPgn6wT4CTHAddnXyqI8n8UbSJGGgPFtNkgQty8MqYVAG8pwrRk4zhzKEHkoH4bgUKR3+F+oIuc5y2w0LNptVmi9UKvQFxWVfO0dnenIx2iuujdgKr0PkBmv4+iEMPmLv+6sLpeOL/6j2MNTlMLOt+8IUw7kyhz3jn9ueJV/BV/Ww/ssIQve+MQ8EBTasuZ7JSutXip+q6lENJlAHn7lLB06MyaL/dpp6rH7JdVhzWfW0XQaRW4Gd2jpMgXMNtGFNBHa8+q6Aa4ruBofqfJdnZUlwWFc2Dl8FUwwD/sqjQ68WUbq9jV6CxAA3q6El6J4Fa+RNP9Ur30s7Zqcpwh350+xgASrF93fNNhJfWhdZDtFgvnfqf1Syve/GJDVMzAdEs6GZ/uZEaGvE55VJ2f8BUqVXzCiFrPcLvt3Q+I9/mN4IjZuKsfx1rPUVX2PwpWWNbna+w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(261022075727099003)(4143699003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(22082099003)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3QrejRqeUtYekhBTVBEVnZQSllhZDJWcUwrbVNpaWNFREVMclREN3UvUDRM?=
- =?utf-8?B?OEFCcHVQWndZQXNoeHZRT2FNcUFteCtta2FvUTU4TjJSWXczY1orTmZ0WGE4?=
- =?utf-8?B?WS9ESXBVSkMxdFJsL1pnQ1NzMXVzOE1NbDF4bUJmWllSbXBwU1lBUm9NZERK?=
- =?utf-8?B?TDF2bXRJTEZJM0wrcjEwb29pSGt2cGN6VkdIbzJvbTYyQk9xVUVmRHRkQ2ZY?=
- =?utf-8?B?NktsMTNaeGJFM2ZuLytyNmM2QWdEcitrL1pua2tOWmFkellBSnd3QzRPanF5?=
- =?utf-8?B?Q1NCMm90bFo0SlprRFhpUU4wT3lFMlVzdW9JUEZieExFTFRnS0FuTXlaa1pp?=
- =?utf-8?B?ZERSTDAyVkRFS1BERXBQRTZUbzVvZzNkd0JJTytsZ1poMThKUUxYbXUxdFV2?=
- =?utf-8?B?SFp5bXBSR2VoRDFibE05eVFQbDQ1cVFaSjYxUmZYd3REQ3dxaUg2a0JjSm95?=
- =?utf-8?B?Z0o2SUhGNXRYR1U3djdJUEFvc1MxQWhpR3dwV0xTbUZ3SGNOSWdBSjdweDZ2?=
- =?utf-8?B?QnJXc1NxY0lvOXJveCtYbmFBckwyenB3d3RjYS94dTZ2cExSdUplclJMNHhW?=
- =?utf-8?B?UVpaM0I2RGZ1L0RyRWhyWlR3MDNTNXZ3TE5NV2t4MXZDSWxnb0k4UHh1bHFJ?=
- =?utf-8?B?UmZqWG94bWs4Z0dLSUNJQjdDU2ZsSTV1WUd6TmtYQTFPcjJ3cU5wbUdmUVov?=
- =?utf-8?B?Rno4TUI4ck00OVRFWmJGeGsyZnlFMVNCN3c0UU1XcHlSSDluWnZndVBod21j?=
- =?utf-8?B?Sk80bGRMVnVyT2NuY0JEWEJDTnp1WDYwNXd2bjhTMHVVaFZHenpPejlta29N?=
- =?utf-8?B?ZWRWTkNTbk91Q1JEY2VFOWM2YVNZOHdVbDRuYkVLeG9zTytlb09wWnlYSkRV?=
- =?utf-8?B?S21pcXF1QS9SU0ZmL1hmMlg3QXBMWGN5NTdyOXgvakpHSStqTG90VnFaUmNn?=
- =?utf-8?B?c0o5OUdGOHU1eU42aldsVkt5VGpFVWMzbHc0OS81TFJSREp3elVucmlHM0xl?=
- =?utf-8?B?RFRxYlhvVU9VK2pTMFpab0ZxUWt5c2M4WTdobExxQndZc0tCKzRuTHNjRFBL?=
- =?utf-8?B?WFBLTXY4R3dmK3NYbmRIVlBINVJ1Zys5N2oyUjFRenYyWG1GTlFxcHI1cmJ2?=
- =?utf-8?B?U3JQNUFtTGxMVktLa0Nud0NoTnVxNkRQUHhRdFZOeEcvRjJmTVBnQUZmR0N0?=
- =?utf-8?B?cFppdDY4WTMzSktVa0YxSE4zRWIzK0hQNDJ5R09XeG9Md1hseHZrbFlJd1Ew?=
- =?utf-8?B?bW1CWFkvQXRzdXRiU2FIRVJsY2c0NXpQenhBMUI0c2h3WE1YS1JmT1doV2xm?=
- =?utf-8?B?azVaT1FzU3JzRkhyMlZ1azJPY0dnNVVjYkxNeHppeHNiWDN3RGIwOUZXaW55?=
- =?utf-8?B?ME1SVzRFMVhJQjNVM09ZRExFYStSeU54OGN5S3J1dExZcXU4c0tPYXJGMHQw?=
- =?utf-8?B?dm1YRkhoR3NWK2dhUjlTOVdHdHVUNFF1ZHJuekpQOW9TTjk0VmNEK295OWg2?=
- =?utf-8?B?NkdFTUIzeUtMc3FhRjVXZ3YvY3FCK05JakErUGtUbUptWDNBYzN6dGZXSVVM?=
- =?utf-8?B?UWtFVVY5MlExTDRzMVg5dmdLOXcydkhrRnNIdGhZcHp3OFlINHEzT3prZWMv?=
- =?utf-8?B?YjZFejVFc1BFd0N1UzZNd0QwT0ZobTFuNGUvSXZ0b0JhK0JCN2paT1VIZFhq?=
- =?utf-8?B?MHozR0Fra2Q4V2tDM1JPRy9KNXppMjYza0swZjZjRkN0b2xqNUNKNkpaWW5O?=
- =?utf-8?B?VGpXblp1Q2JQdEVoTnlpclFzZDlnc2liT2tqWFBwUTU1VlZ4VlhYWTJ6dWNw?=
- =?utf-8?B?YlZkQlFBNElkeU94bFQ1K0JCQVM0WXJubHpoODFlTzVxMkJMUXZQNzlsczlp?=
- =?utf-8?B?Ujh4bURncTB1NU03ZGhRa2JMK0FBdXF4Q0Q0WFpXbWZyN3pjc0o2WVEzTUdS?=
- =?utf-8?B?blQvR0dtZ1dJUWRScFdSYTBUK0s2U2g5VXNFaG5OSzJLZm1LN3RFdExnOU1I?=
- =?utf-8?B?enU0SXh2d1ZJNTJSbUpBUE4xcVB3NDBadjRWRFkzdnpQQjZsTWlHOTRLYTNE?=
- =?utf-8?B?TENtYWFVL29YWWc0ZGJCQmlzRVdkWWVuczl3OEJINHVodEdDdFkyeGRVTnJx?=
- =?utf-8?B?bGEyNnBUQVo4RnEwWUxscWE2NzROS0MvWnZQR0JWYzUzdzV4WnRHbk9IQmpn?=
- =?utf-8?B?OUtuenJ6d1lBdkZEV2Q2N3c2eHBIUloxaW1HVWZFcmZtdWpEZ2lpSjZhdTN3?=
- =?utf-8?B?RGxyZkkxc1h0N1ZBYUJmSXZvcWpWOEprb05uRXpFbnpqTFUrSTQ1U1lpTWtL?=
- =?utf-8?B?U3dCajVRQWlEK3pQTzFYeDAyb3FzcWdxVWdtNjgwUWtScXpVajdpeVE1ZC91?=
- =?utf-8?Q?nyvyrfn34uyFGhLE=3D?=
-X-Exchange-RoutingPolicyChecked: iar6BX3qfaq/OySmzoiogoPDqytit25lc/GjeL/3g6RUjwgyJL895e23lVLTfs9hI3RgYte4XMLPsDfMlijAUFAcBh0icSOL+lyzhxVDvDgtTGXyRAoJkUSUjnQDdgIjRwf9pXzcCTfjZod2J7LOib3kW6yaAJszMlj8OsveBroVOJDjKlj7ufj45E8f2T4pflXfhhBfdzgbwcweL4+R11VU5GDAVG/wC8M/ebpgQjcebb4gMeWB8cIvT+3OU2nygH4wUlJXleZDnb91XmIr3tIA0i1EQc4U1JFJX3rBQG5tsGfkVXZp8jwGIHfqbSgENQu8pNARZJv0tYFYVtUl8A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20d685f1-8777-446c-b05e-08df31620ae3
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2026 00:02:07.0617
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6u96Cnt1uaSfED/HhleVBs0vYFxwdJ7iLfOWp7YDjUxRrOQXFXDa3VRW7wrBfPZynrUFOz0+6C3EgncQKJ7PU9ohPU0FiNwzwa2Rhsu4/WQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB825148
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA5NCBTYWx0ZWRfX0b2X6qZ5Kf47
+ 3Euv2bNLq3Zp1QhoVrCJn6qieKj3Zzb28wXe4vufo57lL0bBG7EDOIxCDqzKVkfLSGnzia7hpAd
+ Tv2AR7fS3kvZcmAQGqpB1tnkxR5zBos=
+X-Proofpoint-GUID: A_nKCb3WF0mI7XSLnwPEGH001Bw8BX-f
+X-Authority-Analysis: v=2.4 cv=SK7Xx+vH c=1 sm=1 tr=0 ts=6adbf5fb cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=x053eCT7BGEYFa6Myv8A:9
+ a=CjuIK1q_8ugA:10 a=vr4QvYf-bLy2KjpDp97w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: A_nKCb3WF0mI7XSLnwPEGH001Bw8BX-f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA5NCBTYWx0ZWRfX2cbj+OMX8k/v
+ Lr8J1WOtXbc/MhD6PXg5hKqk+sFNE/6P/AyeQYLvjBVzSexjJug52IPzBoOYY3wW7cApT0zOPye
+ +FVjOD2O/Cr7dPUPz1ePeSpJg19+LiNySNoHotMnhtV2gQBZZp4qsGKnZ+TScBVY0qey2PTMWpn
+ 6+SZgj9OjOQ7q878GtvPNdnV1BjCHh9ORjKPppAVSYlXlZcJtI1Wysp6yfFtQZSPlydVrHA+mtE
+ X6uGo3WoImlIdn0rY/KCRL+cQXyazlmBqXzUdy/ATF0dl/VoJsjB3gJJTG36o5jDvH3X72lx2CI
+ o0bfRIaxq+A5b1in8wR9u+uGDp22HGMdX36bHq4FQrXJsRQfBHgoVcoh7fy+CZTwRssbkZ8ZQ6p
+ GzS388GNUDXiFKWTOSQhiwz1ruFiLrBZWcoQgORACVHEvBgtNgORprohqOVLlQy0vGql7JCmfu9
+ PANWp9LZB0g4VGD+PRg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230094
 
-Hi Chenyu,
+On Sat, 24 Oct 2026 00:40:33 +0200
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-On 10/13/26 7:59 PM, Chen Yu wrote:
-> The limbo handler polls the LLC occupancy of stale RMIDs and frees an RMID
-
-"stale RMIDs"? This is a new concept unfamiliar to resctrl.
-
-> once its occupancy drops below max_threshold_occupancy. User space writes
-
-Please do not interchangeably use the name of the resctrl file and the variable
-that backs it because the variable that backs the file may not have the value
-that user space wrote to the file.
-
-> that threshold in bytes, but the hardware counts occupancy in units of the
-> occupancy scale, so the threshold is rounded down to a multiple of that
-> scale. The scale is the number of bytes one counter unit represents, i.e.
-
-This does not sound right, the threshold is explicitly noted as:
- 	"This is the threshold cache occupancy in *bytes* ..."
-
-> the granularity of the occupancy counter.
+> On Fri, 23 Oct 2026 14:26:21 -0700
+> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
 > 
-> ERDT may provide per-domain monitoring scale factors, but resctrl rounds
-> max_threshold_occupancy through a single global
-> resctrl_rmid_realloc_threshold value that is visible to user space.
+> > On Thu, 22 Oct 2026 09:07:25 +0200
+> > Pierre Gondois <pierre.gondois@arm.com> wrote:
+> >   
+> > > On 10/20/26 19:10, Jonathan Cameron wrote:    
+> > > > On Mon, 19 Oct 2026 22:38:39 +0200
+> > > > Pierre Gondois <pierre.gondois@arm.com> wrote:
+> > > >      
+> > > >> The support is mostly duplicated from Memory Error Section handling.
+> > > >> Other than differences coming from the content of  Memory Error
+> > > >> Section 1 and 2, differences in the support are:
+> > > >>
+> > > >> - v2 do not rely on a compact "struct cper_mem_err_compact" struct.
+> > > >> This structure was used to support older versions of the Memory
+> > > >> Error Section (1). This is not needed for the new structure.
+> > > >>
+> > > >> - The compact version is also used by the tracing framework.
+> > > >> To avoid relying and propagating a non-standard record format,
+> > > >> through trace event (cf. extlog_mem event) the new trace event
+> > > >> prints each field individually.
+> > > >>
+> > > >> The last patch of the serie was only build-tested due to the
+> > > >> absence of relevant hardware. apei_mce_report_mem_error() and
+> > > >> arch_apei_report_mem_error() implementations were also removed since
+> > > >> last version.
+> > > >>
+> > > >> It will also require a proper handling from the rasdaemon. Applying
+> > > >> this last patch without rasdaemon support will silent the reports of
+> > > >> Memory Error Section 2 error, cf. ras_userspace_consumers() check.      
+> > > > Hi Pierre,
+> > > >
+> > > > I'd slow down a bit.  We are mid merge window and convention is normally
+> > > > one version a week or so anyway.  Better to gather up feedback from
+> > > > a number of folk and spin only one revision to cover it all.
+> > > >      
+> > > Hello Jonathan,
+> > > 
+> > > Ok sure, as the v1 was reviewed quickly I thought there was a chance
+> > > of having the serie accepted quickly aswell. I ll wait a bit more.
+> > > 
+> > > Thanks for the review,
+> > > 
+> > > Pierre
+> > >     
+> > 
+> > A general question that came up in a related thread with one of
+> > our RAS architects. How does firmware decide what to send?  As far as
+> > I can tell firwmare has no way to know whether the OS understands the CPER
+> > Memory Section 2. 
+> > 
+> > So options that come to mind.
+> > 1. Firmware must send a CPER with both Memory Section and Memory Section 2.  
 > 
-> Prepare for that by adding erdt_scale/erdt_get_scale() and teaching
+> Please don't do this: this would require either Kernespace or userspace to
+> discard one of the reports, only if the other one is there, which can be
+> tricky. Could be done more easily at userspace, but only if some database 
+> support is enabled, but, at least on rasdaemon, this is an optional module.
 
-"Prepare for that" - Prepare for what?
-
-> resctrl_arch_round_mon_val() to consult the ERDT scale when firmware has
-> populated one.
-> 
-> When CMRC parsing provides per-domain up_scale values, erdt_scale will be
-> updated with max(). The reason to use max is because rounding is a floor:
-> a larger scale yields a slightly lower threshold, i.e. an RMID has to
-> drop to a slightly lower occupancy before it is reused.
-> 
-> For now erdt_scale is intentionally left at its default value of 0.
-
-This is a clear signal that the patch ordering needs to change.
+Good. That confirms my view that is horrible.
 
 > 
-> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
-> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-> ---
-> Changes since v8:
-> - New patch. erdt_scale and erdt_get_scale() were introduced inside
->   "x86/resctrl: Parse ACPI CMRC table" without any mention in its
->   changelog. Split them out and describe why a single global scale is
->   used. (Reinette Chatre)
-> - Reword the erdt_scale comment: it is not used by the limbo handler.
->   (Reinette Chatre)
+> > 2. For whatever other reason a platform knows it doesn't work with old kernel
+> >    so can assume support in kernel and hopefully userspace got updated too.
+> > 
+> > 3. We propose some additional discoverability (quickly - code first) to ACPI
+> >    so that it can be a negotiated contract between OS and firmware.
+> >    Until the OS confirms it understands Memory Section 2, firmware has to send
+> >    the older one (or risk the record not being understood).  After that
+> >    negotiation it can do what it likes - probably send the Memory Section 2 form.
+> > 
+> > Option 1 and 2 are ugly at best.
+> > 
+> > Obvious path to me for option 3 is an _OSC like the one for generic initiators
+> > that we discovered a need for whilst implementing that years ago.
+> > 
+> > Anyhow have a better idea?  The above doesn't solve the end to end problem as
+> > maybe userspace still has no idea what this new tracepoint is, but at least gets
+> > us past hop 1 (so through the kernel). 
+> > 
+> > If we conclude _OSC plan works I'll draft a code first proposal.
+> > 
+> > Jonathan  
+
+On another note, Pierre, any plans to actually enable a path to the tracepoints
+on arm64?  Today they only emerge from acpi_extlog which is x86 only.
+
+We definitely want the richer data for PFA and obviously for userspace nice
+to share tracepoints with extlog.  
+
+Jonathan
+
+
 > 
->  arch/x86/kernel/cpu/resctrl/erdt.c     | 16 ++++++++++++++++
->  arch/x86/kernel/cpu/resctrl/internal.h |  1 +
->  arch/x86/kernel/cpu/resctrl/monitor.c  |  5 ++++-
->  3 files changed, 21 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
-> index d4b630358d6d..09072e478bde 100644
-> --- a/arch/x86/kernel/cpu/resctrl/erdt.c
-> +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
-> @@ -38,6 +38,22 @@ static u16 first_rmdd_domain_id;
->   */
->  static unsigned int erdt_max_rmid;
->  
-> +/*
-> + * Used only to round the global resctrl_rmid_realloc_threshold for the limbo
-> + * handler. resctrl_rmid_realloc_threshold is exposed to user space as a single
-> + * global value, so ERDT uses one scale derived from the per-domain
-> + * cmrc->up_scale values. max() keeps this single threshold conservative across
-> + * domains because the rounding is a floor: a larger scale yields a slightly
-> + * lower threshold, i.e. an RMID has to drop to a slightly lower occupancy
-> + * before it is reused.
-
-This documents changes that do not exist at this point in series. Please reorder
-this patch to ensure its dependencies land first.
-
-> + */
-> +static unsigned int erdt_scale;
-> +
-> +unsigned int erdt_get_scale(void)
-> +{
-> +	return erdt_scale;
-
-The name and usage implies that this is a global scale. This will become more confusing
-when trying to land the memory bandwidth monitoring changes that have separate scale values.
-
-Having this change pretend it is a global change and then add a snippet to final
-patch to constrain it with a "if (!erdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC))" just makes
-this work difficult to consume. 
-
-If this is specific to the CMT scale only then let the global variable and its accessor
-make that obvious. Let this change land after the CMRC parsing and erdt_cpu_has()
-introduction so that it can be introduced as one coherent change.
-
-> +}
-> +
->  static void __iomem *erdt_ioremap(resource_size_t base, u32 num_pages, const char *desc)
->  {
->  	void __iomem *addr;
-> diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-> index 48aa64c1ff96..75dd4736937d 100644
-> --- a/arch/x86/kernel/cpu/resctrl/internal.h
-> +++ b/arch/x86/kernel/cpu/resctrl/internal.h
-> @@ -284,6 +284,7 @@ static inline void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resour
->  static inline bool intel_handle_aet_option(bool force_off, char *tok) { return false; }
->  #endif
->  
-> +unsigned int erdt_get_scale(void);
->  void erdt_init(void);
->  void erdt_exit(void);
->  bool erdt_try_bind_cpu(int cpu);
-> diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-> index e42ee2769a39..f1a28a3c81bc 100644
-> --- a/arch/x86/kernel/cpu/resctrl/monitor.c
-> +++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-> @@ -423,7 +423,10 @@ __init void resctrl_arch_update_snc(void)
->  
->  unsigned int resctrl_arch_round_mon_val(unsigned int val)
->  {
-> -	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
-> +	unsigned int scale = erdt_get_scale();
-> +
-> +	if (!scale)
-> +		scale = boot_cpu_data.x86_cache_occ_scale;
->  
->  	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
-
-The fixup of this comment found in patch #12 needs to be squashed here.
-
-Reinette
-
-
+> Regards,
+> Mauro
 
