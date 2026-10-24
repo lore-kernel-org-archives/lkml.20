@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792812306;
-	b=Tn9s679oAZ11auCIk26IhefbV1ah5GtKlnXwdwFMn+e3X7NjCyB4tCHoMZtdMmtKEpkj
-	 uhdj7cRHuhv8Fnkc5Ig5mCGzcZT+Vg+DpW7e7je/6XwF8rDddYVqcGcEc07IBsST/e0dN
-	 3Hqxcqi729w2MlQGcCS3nku7bRChS0h3kPLrocc98VJ+UpfuhQ1oDQTpUPGitrfBl04Gh
-	 KUDwk50CE40JWTZaQhN/ERPihygdAjkk9b0gGWAvgnSwPj9OOZnrlBb4V02QZK6X7TjL8
-	 Vs9ThO4ULsb1mGLhg5bjhE6sbT6CS1v7KbzJDOIU1Y8dz62Wx1zi+Y6eZKIaJ0l+VzQ==
+	t=1792812314;
+	b=tZ2PFjiz/SAbHzGc0c0TSgxu8TZKw4ktlAeDPdOwX0nE/tye4ovLgQaO7swTANxMpRxm
+	 1bd/aaIuYaB0JL/bBt413fGn+xF0m0EZZF7qnlh1VbLHXgXUQzg6DH6oMJ4ogoIx7XJql
+	 2mdcmlT8wMD65GvfR1sdHY0g0VNof1O5X9LrwL5eZx2SMIt53myxMD9hRiia97L6pgk49
+	 W4QWlW1RADzWiRQU8srizovM2QgQoeznF2BzT22/HDkcD0IPxzDNVEHFSWOChZCYLrvHj
+	 PfIFCrnXL/Ms17ATupUXc2o3LH86qBNFXQbwfq1zDNAoi4YGQVCz5WFQx5W8kiWdAUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792812306;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792812314;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=I1+D8Xn1GxoNpJnTs1lnFP6TD5MdBz3XzG74ZRNUKJc=;
-	b=CoeoKl28k+6VpqJdvBeN3+pOH4pPEML8X/kA9ryrLcsYtL5FCy9ll/o+8ax49yu70cP+
-	 smTZihnXeASEzWfS2qJq8If+G3uEUTlLxuC79YICVbgQaQ5hXVX5pxQU/sO56wK0Dz/gJ
-	 prEHp+CalWfpimWLtQoW7E+msZUbVuyD/NIZddLPVyUHut/S6fk+GnwAnI+SrCUDEPQ3M
-	 GPdC7vNuLX+KfvyukFdGW0cP9f+pW8d14w66gjNKJlXKdeZI1FADH2hsTyONusgsBnK7y
-	 HTTD02VCi0e0AiFxZJbdVPvqryT9mklf5F2/cUFRGM4fF5gOmzLKdsARBB7eeJnnulw==
+	bh=hymg9CDIE1USMh8o3D//XzmzBFkdoHnA2hg7kgpiXhw=;
+	b=hMqBtNlkRSPVHFEOe3r//JuihRiFx6p2OtIimFplnFlKuw2uAt34f4vjRW8QhEg/aF4G
+	 isYqN5W5DfyN1ZquKPZBrYKZfaa/ZBu922gDG+uUsYIVRYcSLme2zuTCYgjfSmqr5ZNBi
+	 RPsf2uCB/69FoRanZEAa7RuTPcV3BWIzoHER2tYXHYGxM92j7+NNi8pRwZ1+29TMSfj7C
+	 wj2bofFx4myHcbtyYmBsS6qMlxqSLePW7ip3rQ2sbzUAaJbkV4TckHwiXT+B6WhYdasVt
+	 bC66f3zxP4ID8AnhD3R2ssKbiNNwEZPB/2OzzQeNbZdT3HDpFu7AKrhWDT8NgRtEOYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iERf0Mb7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsrqjSzN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A514606A327;
-	Sat, 24 Oct 2026 03:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2636F606A31E;
+	Sat, 24 Oct 2026 03:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iERf0Mb7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269781F031E1;
-	Sat, 24 Oct 2026 03:25:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsrqjSzN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC711F031E0;
+	Sat, 24 Oct 2026 03:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792812306;
-	bh=I1+D8Xn1GxoNpJnTs1lnFP6TD5MdBz3XzG74ZRNUKJc=;
+	s=k20260515; t=1792812308;
+	bh=hymg9CDIE1USMh8o3D//XzmzBFkdoHnA2hg7kgpiXhw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iERf0Mb7C05MjTgdEtSJyQGQU8lyedubW+8xduFCmDiOOrYw+EcGX+enwvrEmGPlr
-	 Uvk9bbAglbb7g6/f2fhAblTGlec1qq8Zp1WMGB68vNHxSEjq7v4rk7QBVbLCIpSPd5
-	 W6EJseuNu8/h5zZgP2rk8p4AvgUI9HjSNK1K9BaomkePkiiEYAqrZndQ641GD7p2Nv
-	 ebHQnFqDGcdyIMRow+rxouyjP/gdwqJVDZ015p/B0LgS/KRDj8qslET7bqW/yW4tH6
-	 69Z3C2ocS0DdKBGdz0tYarJyAVRE5Ic1O5ueNQ3rF58Gd1m3vlRh8xsr08Z2f1fgWX
-	 k1NLceaNl0puQ==
+	b=lsrqjSzNHs5XhWvGFVXcdZ+lPcE9io5CYZk2IVTUbbTpnd5ISM/MTkqSS/xSNKJGU
+	 Qoowu1jCb3gKChBV94GOJn61fl5hs98ZGZi1TPcX9ZW2NL3OVwt4kePt1JwNCBeEm9
+	 aZf7QdjxUIioYjUuJaBMPzB9kIgEzKKCxeikzVu4zZda0DH1T/6HA7nfg8skRO2VOM
+	 moUTUYi9JlLHrnzrTvqsRa0FrGWmlEwXBo4tECeOh9uIP377qGecV8Vad/PbgeyA+1
+	 TOIqlCXXAO5/34hz/HxqYuAFMtOKbKDGXd809tG0pIkFXMSZ3N6mRAvZxiEtEwxYGu
+	 OjbyWmNI9aPIA==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Stanley Jhu <stanleyjhu@google.com>
 Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Disseldorp <ddiss@suse.de>,
-	Lee Duncan <lduncan@suse.com>,
-	Alexandru Hossu <hossu.alexandru@gmail.com>
-Subject: Re: [PATCH] scsi: target: iscsi: Use crypto library API
-Date: Fri, 23 Oct 2026 23:24:54 -0400
-Message-ID: <179280384859.3823844.8121472859000206793.b4-ty@b4>
+	Bart Van Assche <bvanassche@acm.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jeuk Kim <jeuk20.kim@samsung.com>,
+	Bean Huo <beanhuo@iokpp.de>,
+	linux-scsi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] scsi: ufs: docs: Describe how to test with QEMU
+Date: Fri, 23 Oct 2026 23:24:56 -0400
+Message-ID: <179280384853.3823844.11941771751755362972.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001044857.169487-1-ebiggers@kernel.org>
-References: <20261001044857.169487-1-ebiggers@kernel.org>
+In-Reply-To: <20261012120059.1371653-1-stanleyjhu@google.com>
+References: <20261012120059.1371653-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,24 +72,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sep 2026 21:48:57 -0700, Eric Biggers wrote:
+On Mon, 12 Oct 2026 20:00:59 +0800, Stanley Jhu wrote:
 
-> Make iscsi_target_auth.c call into the crypto library directly instead
-> of going through crypto_shash.  This is simpler and much more efficient,
-> as it avoids overhead of the crypto_shash layer.  The hash computation
-> itself also no longer has error codes that need to be checked.
+> QEMU emulates a UFS host controller and logical units, but the kernel
+> tree does not mention it, so developers without UFS hardware have no
+> documented way to exercise the UFS core.
 > 
-> For simplicity, still do a memory allocation per operation to buffer the
-> data (which is typically less than 50 bytes here) so that the one-shot
-> digest functions can be used.  It's still much more efficient than doing
-> the super slow crypto_alloc_shash().
+> Add a short section with the required kernel options, an example QEMU
+> command line, and what the emulation does not cover.
 > 
 > [...]
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: target: iscsi: Use crypto library API
-      https://git.kernel.org/mkp/scsi/c/b633249f5883
+[1/1] scsi: ufs: docs: Describe how to test with QEMU
+      https://git.kernel.org/mkp/scsi/c/beba4caa4550
 
 -- 
 Martin K. Petersen
