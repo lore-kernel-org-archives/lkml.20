@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792857415;
-	b=AS9g8YiNoPaSA/DZ3zIxOBOCNyDlDc5b80Wmqp2neQK/mxD/ALuIGW864TuJy+N+yrm4
-	 oPwyHp4NhChd+8BVv6WrR5CP5Q/cBjXS1MhIvUeRW23R79zcEjbO01cGsN4T6irDYV4aT
-	 9ppHZmDxN1D2hb8ofgKjbfbVMODXHhApaoVXPhcXmga1tY94lABiMoblaztTGMDBXgu3W
-	 7qsJKz3rDCvudlFoTDiPhTLU+/kI7/qYgzTo074+PVMOzFV8hUyU55OevuHfHQPuhtqci
-	 sp7ydM2XGYfbxV+dzbn1y/KgZTpGAsJJY1wjsD9CSnuPiw/4BEOdUUiLpH42hRAHNnw==
+	t=1792857500;
+	b=UCCRf75rg3kQNXuoJT+D0nmzNMPQjwlxFYvUzIfJdGg3lHZyZgS9+a19BHvIdo0spuEQ
+	 lUHUx3w6XpIzEJnj9Bma3aTgHQtrAfAqQioIvOkiJSgSYH5tc+qsJJGRdqZHEHPHNwPCp
+	 M1QnbY+HwlyxNbKRrjbEdc/G6QuD1SyX6LQH0qghyiz9oTfFfMpQUicpsu1038PTNpf6W
+	 wubDRZ5GidMAwTvD76uF3KUzt5McpMfzj7exX4E+KkSCo+ynm38vGtcLO63D0El96HdRz
+	 trPPU7X3Jx3/nbPnrtpVGhBUXZcmk76I7MBBvcRtpsyIsGUBP9VN2XpTvDCqZbKam4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792857415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4IGEtUDUP8hIGn1B6H6glwiRUGb2LO/zEIMANk76MHE=;
-	b=xP8fKZovMzEptpHqKvdi/x82P9QJdwVTfYprJ6IJBNF0HvC2/hyNZPZ6c+0KpbmtqeAq
-	 RVvYPUT+k22ODuBd0whiof8LeWMf2YlCsLfWdYwvUL9uCcOKUQns54WRgnJaB2nftyf6R
-	 s8KuuWuYVSrIAUYdrLZCXWHSk94AGplYxfL8+HYebWFGXZlwqfE5Wk87vG9cWnq8lVuoy
-	 rxfTWXFxCx4IlUXHqv7irjNY7MgZgCyr5VRSfFWuKgtSNaTCOnR0o11Gkh6L9k8k9nLXs
-	 p5HROIgesbrGsgn/jnZ1Lcdc4/bOgX2kUl9z/1daNftfhPG1NXObtOeWuo7K17ZUBsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792857500;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=0XCAGx2bOriDMKFK6WECtFhwum72Skqwv36T60Mx0gk=;
+	b=j+Pz1/YGJZEZdsBZ206a8jrAn/Ev3B9WKDG3zMIcQsYk1TxFVFrWzQrMCU28BA0RbKr6
+	 /jznwPadz714N52irAKus5aUFMBsK0pwf5hvA/8n1fdy/vBabil51WBt1iYTS8m+L2563
+	 kdCiNyNc+fRBD03zYCqBMZ62yyQiOeBR2E7A7Q5fL9YQjbXz0u7niFCNiWH2xLy3crZly
+	 XBLkeWY9I5yl4MqMKolR/IDqdgioJi8wW2IoQWoO6NL3BvO7cQbwMOPf+JpH8WdU8OEZD
+	 Y2RKa2BA1Mvib7IZZZo6iEybpwDcotSZ5zERAboXyaMpbk8zvRAVH+An/Cq/+IuMAkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="cJ/chxiA";
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LSNXuIjM;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4B3606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4B3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE5D606A31A;
+	Sat, 24 Oct 2026 15:58:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE5D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cJ/chxiA
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1690113e87.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:56:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792857413; x=1793462213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4IGEtUDUP8hIGn1B6H6glwiRUGb2LO/zEIMANk76MHE=;
-        b=cJ/chxiAGQdCLJ7qIgX4jKU3DfB4TEGMxUrjXMK3Cpc23TyIwLB+pczz6G6eNaItEE
-         4IopNSI8HH2LZSX1BPlG+NShrscu+D+4Tdupw7beFLq3wBIIS3BRvi+orn2WW9gUpnuC
-         jDyHVIvW3SYt4sb6iOW3Mh8DpFq/T0WVoavGq5sGELjnu3mZsfoDcZrB4XO72nHAO7aT
-         0ifhjkq8x/Rtcu7FFdZfpFMXABvAgkTufOTaE6YL8UkY3mpWnx6/gj1GTgl3T1g4t+Fb
-         eQSHldZTJGVlABideEsHp/GYLYmMFU3hXzIXGQFkFRLXSpTK0TG6dOCqRLA9YvJMqUeJ
-         yyCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792857413; x=1793462213;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4IGEtUDUP8hIGn1B6H6glwiRUGb2LO/zEIMANk76MHE=;
-        b=UYT52OzoZB7YscQmY6MmUcbtzpMf5yuYbUVAf528kvf2gREZrlB6qkXmoYzkVtTyNn
-         iCM7Jr5/YyvP2y1vmcEmfxu7H5sDj+C8UHZ1OBAPLvj+r8b+Ylc8f4QronwdVV9EQ9uS
-         fvmy05c5k2smJLVJgu6FOLvZ7nWLMa0TLJrN7SuN5C6+K9GZyoPdaev9ZpgbtSR9VRtz
-         DsHyFnFKkpPZUsyh1hMY9NfcDIghuh9O062CpW3AobsTh4GSAqwJPvXQGIocAahVlnDl
-         fXFrrl6S40w0tFqVyBcPeB4ieF5Wcv7AoEDqqW1yJH3G+gtVDjDRI1+079SKiN4iE7oe
-         kL2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzQV1TNyerBqTdeRDcRXNgFZRvOjqZhbZRkRx7z9lW45OO+NgPaMu/gszSHFLeVZBQ5U684tD2k70cUGDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtale2i280rWkYzc94app+45UNrUBWZKARA7NAkPu9KGjgflMC
-	RqTeqi/0EbuqRkyU5n308B21Mc+bXUouwcN9NQuLQ1RnoXn6gI7idtKr
-X-Gm-Gg: AYBFou2BS6YGEizhWEaNIhWCeXWOQ1S+d4l1roq1p+v99W8O35ASuxjChEMeHCIlQ6S
-	jO0oByXDAUBwG5FF0fG22Fl3rH05XJ6Ddk3f8PASXHq7VUkrP1XRemHUSLeE/Th16WLt4zcTU3W
-	fDWFtNwEeeQvU4/orVOzNJYzgD9vCUd2yEdxn/kEIZdz6Kshv9yVnjjnVe8Gh/sxboC29prDEWg
-	SAQZUnMq0izTBRMAOPbpRzNnB25UR2b8eSBvJIGpNnzsb6vC/vpyR8HX1R47aOUAcakeZloAFyR
-	7Edbg5Op6BaZ7czW8+UU8LBEuln451DYTL34hLKg1UVOWUoXNDwmn/aNLo29NoF0XHT0AiDhML6
-	atae2s50M3V7MiZDdxnRulqmyNmpdHD+sOy6AjI2SwoxbAmsAe73+IQWuS0iNRkHanH4ycoPt62
-	1uG2c12E2br7OrjCHXBOamhrz0b/j9kWo7Kv4sDClVMRIV3BC0wvvdhAzsGTEYQFWtutWENOFXS
-	JnYjb/2KGa2hY0JvOMV/qkLFSwMoiBrwRnKhFqZw9h4Ssdz9dS1WCdYoNFBlU57JYndyH8rG7LC
-	0WmY0lvJjL/ocy3sNy+wo1tXLqv0ACrAJZdUfBPV7jAiLUiBgz7TCdWkYo3FFHouuc98YVRR7dq
-	s3FvaTQ==
-X-Received: by 2002:a05:6512:128d:b0:5be:51d0:e355 with SMTP id 2adb3069b0e04-5bfb719e481mr754446e87.11.1792857412423;
-        Sat, 24 Oct 2026 08:56:52 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7d7d6fcsm459298e87.20.2026.10.24.08.56.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:56:52 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Tejun Heo <tj@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com,
-	Igor Putko <igorpetindev@gmail.com>
-Subject: [PATCH v3] usb: core: hcd: flush giveback work on stop
-Date: Sat, 24 Oct 2026 18:56:14 +0300
-Message-ID: <20261024155614.2732-1-igorpetindev@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261023174015.54793-1-igorpetindev@gmail.com>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LSNXuIjM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792857488; bh=0XCAGx2bOriDMKFK6WECtFhwum72Skqwv36T60Mx0gk=;
+	h=From:To:Cc:Subject:Date;
+	b=LSNXuIjMhPowfMjNkjBAjVhjvS9ZhiMf0LznNdG0UW7DluRJiddz+0hb3xDvbdsZ0
+	 u0vfdcVoyQv/L85TuEjtWdfeZkqH5Fg3XzuRDRRNpIels9RZGCJQi/INDxY4LwIL33
+	 34A0qbqvfu4xx1X326tY9pKNWUvpyHTQTgub9tXk=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id E853664D; Sat, 24 Oct 2026 23:58:05 +0800
+X-QQ-mid: xmsmtpt1792857485trpohvm9g
+Message-ID: <tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com>
+X-QQ-XMAILINFO: NAuAIaytDrXpfqeAdLB9n2hUhmH5B/9HqduOKjQk+sum2Wqd3rwHYYe2bwY0uD
+	 tjjWgZu474s1QaDQV1AiM4gq/cge6F+XAnezTOm7F5mmsKO+vZ81XIeDrIU9w0hrO0MNwO3jryK1
+	 8/WEoafeFsaWP9rAa0bC7n5Td1jjxauZw2uK0OvZET1fOt5TuTEdGHb/a12UCfc+iP8W+QQHJWdi
+	 QETtN8AXJr1hl1fzl/mtDaG6ibn03jsWYAVAKPagiCUzZawEHsKZhXlT0loAz0wTCZ9P3cmG5twP
+	 FBX6e0nttwJu7WCOBMSxMdaxbBOYMd/8io/QTJMk0IYkeLlL/K6c4rOWE4WEZSTLjMPNHiEu7WqJ
+	 gzAcNCyM2nH+7BsF8WtLhG6bWVCxYhIRgja0qlNCQzpXmjID6xRfL7FLsABDbRl2rYEaRrNXiiPh
+	 jStIdBec/8UvnDcUmIH8wOF1fFh+BWxdv7yhN7O3pcsOCbfsmwMCa1iPe7i/iuu0oQQvIfzxQoYr
+	 la9+3BuH9vpqVHYddTQ4igHhRdJ8WmvhnrHH/j7IVLoHM2hsNG1Prvewy7+yDJr3eptDsh/3yPH6
+	 6+cn6sSyS1wPfgDhhQGmkvc5rRt5d7sxnOWVd9AJnF52603SMbtX8rd9FI+5PH/2I5RavdFB22Vt
+	 eYH2FxTGLzsfHdL/dLSAlZRSG8+za5+yrFU0ExT4JP3C11gpHzAlr8F13zt2mTU4ywIgJkFKFTMA
+	 jByS1ZNqV0elhg74IceCAOyGSUVLrkCaxKRBva24JHyldBQhvi6U2OLmiA0MX/m7u5jJHL1sP2ms
+	 ClLAXo+Z74sx8xJKtI30xGq5ND9VQPaZHvcvDNutY5OyVPVGkVUtO2FSYahX8+69LCzS5Ttq17Gb
+	 Mt1UBDB37rF6pqkH0xRyiDl5KyXidf0TnqWjc1CqdI5v6bBaC9qXCuKEMmMbhhXWzQIY4V1z80jr
+	 l11kGlI22aPhvUuizZhKNuNHrsumJ4mAwT9fFnzKiL2DU6TtA0ACjxIBu0Et+iYjMmybNO/cUJwK
+	 75htEr4uxmz3u4rIzvHtI0jSAFw0dKI1J3V0J19jwrWvISyIcm0lC96oMyBEI=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] nfc: llcp: u16 size truncation in nfc_llcp_allocate_snl() leads
+ to skb_over_panic
+Date: Sat, 24 Oct 2026 23:58:04 +0800
+X-OQ-MSGID: <20261024224500.73652-nfc-llcp-yangguikun19@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,87 +80,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When an HCD is stopped/removed (either during module unload, driver
-unbind, or an error path in probe), pending URBs are unlinked and
-completed. However, for root hubs or HCDs with giveback done in BH
-context, the work function usb_giveback_urb_bh() may still be executing
-on another CPU after __usb_hcd_giveback_urb() drops the URB use_count
-and wakes up waiters in usb_kill_urb().
+Hi David,
 
-Since the caller may immediately free the struct usb_hcd via usb_put_hcd()
-after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
-the embedded giveback_urb_bh structure in its epilogue (e.g. clearing
-completing_ep or clearing the running flag) after the memory has been
-freed, triggering a slab-use-after-free write detected by KASAN.
+nfc_llcp_allocate_snl() computes the SNL skb size in a u16 while taking
+the TLV payload length as size_t:
 
-Ensure all giveback work has fully completed in usb_stop_hcd() by calling
-flush_work() on both high and low priority BHs before deallocating.
-Also remove the misleading comment in usb_remove_hcd() claiming
-flush_work() is unneeded, and document the queue emptiness in the
-usb_stop_hcd() kerneldoc.
+	static struct sk_buff *nfc_llcp_allocate_snl(struct nfc_llcp_local *local,
+						     size_t tlv_length)
+	{
+		struct sk_buff *skb;
+		struct nfc_dev *dev;
+		u16 size = 0;
+		...
+		size += LLCP_HEADER_SIZE;
+		size += dev->tx_headroom + dev->tx_tailroom + NFC_HEADER_SIZE;
+		size += tlv_length;
 
-Fixes: 8fea0c8fda30 ("usb: core: hcd: Convert from tasklet to BH workqueue")
-Reported-by: syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspotmail.com/bug?extid=a5b220cacb0618384d5a
-Suggested-by: Alan Stern <stern@rowland.harvard.edu>
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
----
-v2 -> v3:
-- Remove obsolete comment in usb_remove_hcd() regarding flush_work().
-- Add comment in usb_stop_hcd() explaining why flush_work() is needed.
-- Update kerneldoc for usb_stop_hcd() to state giveback queues are empty.
-v1 -> v2:
-- Use flush_work() instead of cancel_work_sync() as suggested by Alan Stern.
+		skb = alloc_skb(size, GFP_KERNEL);
 
- drivers/usb/core/hcd.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+The addition silently wraps when tlv_length + the constant part exceeds
+65535.  The caller then writes the full tlv_length bytes into the
+undersized skb:
 
-diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
-index 8e8a5f59b319..f403795b17ba 100644
---- a/drivers/usb/core/hcd.c
-+++ b/drivers/usb/core/hcd.c
-@@ -2773,6 +2773,8 @@ static void usb_put_invalidate_rhdev(struct usb_hcd *hcd)
-  * usb_stop_hcd - Halt the HCD
-  * @hcd: the usb_hcd that has to be halted
-  *
-+ * The two giveback queues should be entirely empty when this runs.
-+ *
-  * Stop the root-hub polling timer and invoke the HCD's ->stop callback.
-  */
- static void usb_stop_hcd(struct usb_hcd *hcd)
-@@ -2787,6 +2789,13 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
- 	/* In case the HCD restarted the timer, stop it again. */
- 	clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
- 	timer_delete_sync(&hcd->rh_timer);
-+
-+	/*
-+	 * Even though all URBs have been given back, the work routine itself
-+	 * may still be finishing up and accessing the usb_hcd structure.
-+	 */
-+	flush_work(&hcd->high_prio_bh.bh);
-+	flush_work(&hcd->low_prio_bh.bh);
- }
- 
- /**
-@@ -3059,16 +3068,6 @@ void usb_remove_hcd(struct usb_hcd *hcd)
- 		usb_disconnect(&rhdev);		/* Sets rhdev to NULL */
- 	mutex_unlock(&usb_bus_idr_lock);
- 
--	/*
--	 * flush_work() isn't needed here because:
--	 * - driver's disconnect() called from usb_disconnect() should
--	 *   make sure its URBs are completed during the disconnect()
--	 *   callback
--	 *
--	 * - it is too late to run complete() here since driver may have
--	 *   been removed already now
--	 */
--
- 	/* Prevent any more root-hub status calls from the timer.
- 	 * The HCD might still restart the timer (if a port status change
- 	 * interrupt occurs), but usb_hcd_poll_rh_status() won't invoke
--- 
-2.47.3
+	hlist_for_each_entry_safe(sdreq, n, tlv_list, node) {
+		skb_put_data(skb, sdreq->tlv, sdreq->tlv_len);
+		...
+	}
+
+skb_put() detects the overrun and calls skb_over_panic(), i.e. BUG().
+
+tlv_length originates from a control-plane request and is not bounded
+anywhere on this path:
+
+nfc_genl_llc_sdreq() walks every NFC_SDP_ATTR_URI sub-attribute of the
+NFC_ATTR_LLC_SDP nest, builds one TLV per URI and accumulates its length:
+
+		uri_len = nla_len(sdp_attrs[NFC_SDP_ATTR_URI]);
+		...
+		sdreq = nfc_llcp_build_sdreq_tlv(tid, uri, uri_len);
+		...
+		tlvs_len += sdreq->tlv_len;
+
+	tlvs_len is a size_t, so the accumulation itself is fine; only the
+conversion to u16 in nfc_llcp_allocate_snl() truncates.
+
+Reachability: nfc_llcp_build_sdreq_tlv() caps a single TLV at 254 bytes
+(uri_len <= U8_MAX - 4 = 251, plus 3 bytes of TLV header).  The only
+limit on the number of TLVs is the netlink message size, which
+netlink_sendmsg() bounds by sk_sndbuf - 32 (212992 - 32 by default), so
+a message of roughly 66 KB is accepted.  With N SDP attributes carrying
+251-byte URIs (256 bytes each on the wire), N = 259 yields
+
+	tlvs_len = 259 * 254 = 65786
+	size = 12 + 65786 = 65798, which truncates to 294
+
+alloc_skb(294) succeeds, and the second skb_put_data() already walks past
+skb->end.
+
+NFC_CMD_LLC_SDREQ is GENL_ADMIN_PERM, so this needs CAP_NET_ADMIN in the
+netns where the request is issued, plus an NFC device with an activated
+LLCP link (dev->dep_link_up must be set).  nfcsim provides such a device
+from software, with tx_headroom = DIGITAL_MAX_HEADER_LEN (7) and
+tx_tailroom = DIGITAL_CRC_LEN (2), which is exactly the constant part
+used above.
+
+Suggested fix: declare the accumulator as size_t (or unsigned int) and
+let alloc_skb() fail cleanly for absurd sizes, e.g.
+
+	-	u16 size = 0;
+	+	size_t size = 0;
+
+The same u16 pattern exists in nfc_llcp_send_symm() and
+nfc_llcp_send_dm(), but there the payload is a fixed 0 or 1 bytes, so
+only nfc_llcp_allocate_snl() is affected by a large tlv_length.
+
+Checked against 7.3.0-rc7 and linux-next (2026-10-24); both are
+unchanged.  syzbot has no matching report (its NFC coverage shows no
+llcp entries), and I found no prior report of this particular overflow
+on lore/marc.  The earlier SNL TLV work (27256cdb290e, and the follow-up
+"bound the remaining LLCP TLV parsers to their buffers") addresses
+out-of-bounds reads while parsing received TLV lists and does not touch
+the size computation here.
+
+Best,
+Guikun Yang
 
