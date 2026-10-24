@@ -1,98 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806792;
-	b=UF1dhYbJ1LHg0nDUMO7JyFIaF6HGk/RP6Lqz/fbfrFXKC3L11FhJOJ89MRRVu1DzZ5k8
-	 yhe3s4bHSA0GOfcQu/3A2LksmYfqdZzt22F+IckryY7Hw3sNgMF+SiUTaU4sUROBOQXop
-	 s3WLDjdDZHYqhbsudmUPKMBZ+rExxjtVETbiSOUKKUuOpCZEkfFz4ABcvBLG3rc6b6RC/
-	 9I7WjFFaYfHvikPQA1Vzibhc3pSpGGBV5hw0Ebnu9sDnUUYrGpZYcEF/EJ1PeXNcbYRyg
-	 S0gnYrYgWnLtwV2ohFFBFbsOiH1zM3t7TEIe3BVD/Xzkn2NFkvDyikjLaYumRiEmSGw==
+	t=1792806791;
+	b=Av3pewgOqpB+Sm7MMF6erHNefRdKB8U61pb4o0W1/vs1f4XpVk/sFy7cuK0B1zP9JI51
+	 nQudicwctNgJH2B+UrsYJwGKr9U7Z3sU5V7XgZY2uWWREw4LO58eUp3yf021X6/+MDtfU
+	 1mKEHYWHRDSi3gMCV+hTJAyKMcJyEPur0egOvW7RnVonmXg7VGNggpgNo7s4rta9l1rJa
+	 pEqkgKKCgUVFGdPRyWVAvff66c816YD4UTyQr8rLs6QMBf6Ar+bFLJf2a6SkItgLKOvD4
+	 WvnSqoQjP2m2ITbLE0r+6PaXg6W8rRBfPk11yVGf1A1Jg2ymLjfJuJf7L/PHNTeibmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806791;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-	b=wwn+KoHQkDYreBGucsXSKMTXPlfDOEx2Z1U0ujqDq06MSqHEoF5QqnPP98rE061QIEfB
-	 e77VLv/e1TVGv5GQWgVJET2nZvE2SU//Zz6Emi2B/7+FgOLVSLq8Dq1qTk48cx0C2AR7v
-	 OhnPoS7pel7FdzJS5bC2+dRq1M8k7I2nm0FgyyBg671NBXysIL/D+YQ8j1PBxjYKrheRR
-	 JGBxPC3iM0e/JaCb7LBD6npt/NaQJeJJ+YKGWQv+NKlbIn1g2Au3MzD0zbHdSV5d1ru5c
-	 OjRho7koR6Nj1csenMjiHVSjqON0Zum4J2S9i0Isypp1OE/EqdSAe9Kw0Q5RO46boaA==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LjWoAWdpEMOSOVmikYJXtdPPuJN6QLrm0MKN423NGus=;
+	b=0+/oKw33xgT0d29pjRKqtI/utEIqp1lpOIga1RxTlwE81iuZ77ALzvNLWjDB9lHcvFad
+	 c20s2vWzqEPlYPCbApgihvv82+N04LAS67kGkyR1lAqTDcO2jaqzk5jMAiFDAj8j4aoZN
+	 tcj8eJdakln3lT3t2qkxcmB4GG63f2G912WLMmBUv7IBn5rOoixMYZEiolvn8/LU1kxxq
+	 VcYNAjqc8SJNWouLv5W+UGsMju/a0CEijXZ724f5XiKWf9tEU0txOr19oICFeodINPi1o
+	 YXYx2hHGv0IKEnJrDU5nuYYiegQaZIY0svorgYLT7N2cJQm0eFk3lfRKMXmp/1FQCtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YPpkhyyv;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD3F606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD3F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91B4606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A91B4606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f36c18b75so74406885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:53:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YPpkhyyv
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35f036b17easo2593921eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792806786; x=1793411586; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-        b=qJuEGuiiTo4qSSJz7+E1oluEgXCF5Q7bIkPpU+mVQJxKqdJQl0qn99fQARIHEz0SLf
-         7Zq/R5fGJcEoYsDfI4rKiSj6X2gKELccAr9cvephMMb6R69nQL5BERqC1sdoe72MomTI
-         nfJ1+BFPu8ya8iOaDBmS1HPMjKmwWP2cYv7U3FUlsTJBHFsyo/cnHwyxD57v1QJAf1uF
-         EL9xd+P4nRtom4L07elrIoZWOPmB5+/hTi9vtr8wIVbw5rafwGWXAek60zJP3O4vNzkR
-         w+j52awfLN3pFwyE80YIl7wuJOP4FQqA6jyPp/b4f+bgLReMowERYR/DpctJgX5Jj/lp
-         Vi6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792806786; x=1793411586;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792806790; x=1793411590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-        b=ca9WAjwZYuvpUi8v21vM5SralR4aGxKFJVkqkp8p7+PBFLkGZ2Pjl6V0gPrhhfHN6k
-         qsl+9N3mJLjVNti+PpiwrM1UvDXAeBQ1xk4j/eaU9p9ymUPWOaFVKEpTuAxxj1vYO5ph
-         Tz3omqQiIVQTbX/eEaROspIbA0AADxx0lk2fxfmLRZOY74fcmnizBoaXEUTwtpBv6D+9
-         UDqp7TJZyqa3J3UQo1iq1fg4VvzNkG2ycQjF+X7lRJqa/YuBkTjaZhQRaVszTKnDcxdP
-         7/tSRMZANnmaqhQD87MNWuqtSp6DYFtuw9EbhalTif5kO6Sx4jom4KVkV6+/VplnYiMu
-         ESeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylTM2oM/a2OdwHFO8v71FFm7BY8gPY5faVYQUxIRFwaqtkPBcLT56o/NRjAXYw428Ip6Vfg3GkDj3WeBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkcCsnpUTemLaHvqDV2LNu9ZXmz9HsCIlBhX7d/CF4PaZx5ZkB
-	eMmCbH9OrO7aQz1Fpq15Ozxq9HkvpeYxg160CKYsZjLBU3nZ9YzN/9mClgIWi8l9TA==
-X-Gm-Gg: AYBFou19unnES3lglV1pCX7h2f6YEf98r9HITQpf4NyAsM0HUvk7ZewQQs8j6eOv/jp
-	6YasGAFKAqAPmdDvlpYyT9xW90E2xZV/hjQndINN5WJVThPAXBQHnhZ4/94Yw2g/rzT5TJqKM0G
-	VPMSmG5io6iXTsRIg5Kl38BoITcYuLy9jXwNc+Bp8ZJInLuOI9veBeslidz6YCZTVP/NNwlYnGf
-	4pWO4rW43TXJBce0QozHv2ftkcYPyy3wHXW5V7ZL5Cy7Po6IwLidNiThyNM9yh1Q8HgXNk0LdR5
-	aQXdUWzUhoia7TzwDObFOmwyqE75zwuNIjDqHBZCuV2dSegY8F/bR3ODA2iv14h4Nn/Q6Iy5TKk
-	Maa/FyzNXi5rsF3BjY6kG3p3vZO1CjsiJUTqzQJeijRFpWinJF+NYman1OzCSiobYL92CPLI1z8
-	ZJ8I5fYhuAqOvpOz5Z/YpfQgyEKmavNjhGTo0rNb7XAZpjBBzz4pfVpnLIRA2sSIb3L4KZ9e3qG
-	5qErRmVoJwHMhR3x21WMXbF1PYpNTNyqhxnBxd707rZhqlWMFmva49cxKCWf9R7OYOnjF2xnMUa
-	tw==
-X-Received: by 2002:a05:620a:271d:b0:93e:ad16:9590 with SMTP id af79cd13be357-940ef94e80fmr107135785a.36.1792806786139;
-        Fri, 23 Oct 2026 18:53:06 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f06672d6sm62365285a.12.2026.10.23.18.53.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 18:53:05 -0700 (PDT)
-Date: Fri, 23 Oct 2026 21:53:02 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: IgorpetinDev <igorpetindev@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on
- stop
-Message-ID: <d95ba108-30f2-4c86-a47a-2b842b8cb25a@rowland.harvard.edu>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
- <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
- <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
+        bh=LjWoAWdpEMOSOVmikYJXtdPPuJN6QLrm0MKN423NGus=;
+        b=YPpkhyyv5hzFxNx4hYdWsiT+HV814azrCr67V+G+wP4mksFY+TstfA6X5nbFJvobdp
+         DaIZbD9BpidwuMYdiIEMFjDT/1oZwf6Sl9UWdQJAEakU3FOE3pQ0I7k5sYIHQZwa6bZb
+         CmKFjmDitTn0FioaO5sOnmxhRyktRt7BIxmQ8RmiHLgUY+Afe06x0+srbWIDJTDKOSm3
+         0Hnpx5CRc9yg2+Q+7WVltFvoxG+yH4OZBhBRoB6yDiKDnf9dRSGhjQie5zq8wTn9uuLa
+         QmqVm419VGHeLN7ikaqfiQxQ1D/M7NaS3eVY4d3/8vGGmgPFUtInWjiEW3XtGrjFqxt7
+         s1SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806790; x=1793411590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LjWoAWdpEMOSOVmikYJXtdPPuJN6QLrm0MKN423NGus=;
+        b=IXCRMcbNDvFajjQ70IKLXtvfujDg3y4rhhIYkg5gDtpgJRd77+GrkPrNVxQuTfwNsA
+         kFLoDsF0+wz35lzCV/joJ/kWeFzw7U0UM5Jg9aeSh7PWZ/lwcIqWQhUwYDcU0wWKBwzS
+         Llg72cJw+XWkDhRyYxKyDTr1APlgyNG5vW+rJaJvs7T1N9qz+aqHysXSTOpDkGPUgJxS
+         RonyZN7sBH4CRI1UStxYNubuX3yPhGiiLFkcTV730FHk6YjeB1JeGM4t+WKEkuTjBTHe
+         JUHUnBnocdZBbdqNbmVAIyIgEi6FV7VqFQaSq3d7bKbctFlcD+E7vC/HM2CAE5h9npzI
+         WOtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybPzS6m8T+ej6//R7LDWEVjy4fxTHwSxZ8Q/Mrcbko6U3CDIWR2Jj3IHaWJhioN3Onb/gd42+8p+jUna8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlaazv6dsutGRM8w+RAjcZy07Y8/ok5HRYPabwTnmquTbGRWic
+	E97QoKI5ysxLDD8y1Puup3Ci5Sei7B41KZKVtztCmMb2HJLVCz1A2WQPDg+Ymcjn4Ow=
+X-Gm-Gg: AYBFou2st/jObFZ4+JwGKHpYpc9qqBKAi/2YGc2vLytR1/21plOVq42MrTdaUpFx8aW
+	bN1LDzWA9ODrwI4fUoIn0MBsIYBX29cWXJeazZjGHKOZCQ457RMUAvPU5kyg8oSzj887177BPVd
+	jK2xYV1N2H0IrhrGWG4qsc1tf8b7xNegdSb/YckhWp7/9iC4DS19GmF4VAwGv0MKQvrqrVCpZKw
+	0thZDmb6OvAiufblv55czYp3J3/w7F1vvfbyAtOS82pl80laJa6c+o+WQ4KGs24b+hgOEKEatM7
+	T8eKqqPzt8wdSnbRlnXKad/SEZw64xTbg7dMoTvJ0gcyMSdx92lc/HsEULVx3GeMY9hxOkUwTyE
+	fcl7Ek43CQco24FnoNI8oqzoeTkWdvmTjJjXcjoyKvzfpcLUZo3Nle6CCD6bLSiS3FRA8pZh+5I
+	7NBJMhCbBTPIxAC1Ty5UM9oRTRcX/R6BUYlEcTYTvcWJGkFxBuUVLQRfYCeb9f8XIo8XgzoHT/c
+	BPvavSleiT9rP2lluW9QP/MxNZCbydFyheYOfJH7UcheG56TNd41EIIHcRBUSikA1E9+UUximgl
+X-Received: by 2002:a05:7300:ae18:b0:366:f9c2:9b16 with SMTP id 5a478bee46e88-369e8502798mr1345628eec.31.1792806789656;
+        Fri, 23 Oct 2026 18:53:09 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d95e91sm2474651eec.15.2026.10.23.18.53.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 18:53:09 -0700 (PDT)
+Message-ID: <02b542c0-8b25-41b3-b271-fb6fde641544@gmail.com>
+Date: Sat, 24 Oct 2026 09:52:40 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +91,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ext4: return -EINVAL on hole in
+ ext4_convert_unwritten_extents_atomic()
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>
+References: <20261023-ext4-atomic-endio-fix-b4-v1-1-f91feb0b9613@linux.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <20261023-ext4-atomic-endio-fix-b4-v1-1-f91feb0b9613@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 10:31:27PM +0300, IgorpetinDev wrote:
-> Hi Alan,
+On 10/23/2026 6:23 PM, Ojaswin Mujoo wrote:
+> We should ideally never encounter a hole during the endio conversion as
+> that indicates something is wrong with our extent handling. Still if we do
+> find a hole at atomic write endio, ext4_map_blocks() returns 0 which would
+> be returned back to callers by ext4_convert_unwritten_extents_atomic().
+> This can be wrongly interpreted as a success. Fix this by bailing out with
+> -EINVAL instead.
 > 
-> Thanks for looking at the patch.
+> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+
+Ha, this looks good to me, thanks!
+
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+
+> ---
+>   fs/ext4/extents.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
 > 
-> I think the bot caused some confusion by talking about stranded URBs.
-> There are actually no pending URBs left on the list at all. The driver
-> properly killed all of them.
-> The issue is a race inside usb_giveback_urb_bh itself. The function
-> usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
-> use_count and wakes the waitqueue. The caller immediately wakes up,
-> finishes removal, and frees struct usb_hcd via usb_put_hcd().
+> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+> index 7193429a05e1..b54d8227786b 100644
+> --- a/fs/ext4/extents.c
+> +++ b/fs/ext4/extents.c
+> @@ -5107,6 +5107,14 @@ int ext4_convert_unwritten_extents_atomic(handle_t *handle, struct inode *inode,
+>   		map.m_lblk += ret;
+>   		map.m_len = (max_blocks -= ret);
+>   		ret = ext4_map_blocks(handle, inode, &map, flags);
+> +		if (ret == 0) {
+> +			ext4_msg(inode->i_sb, KERN_ERR,
+> +				 "inode #%llu: block %u: len %u: "
+> +				 "hole found while converting extents for atomic write",
+> +				 inode->i_ino, map.m_lblk, map.m_len);
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+>   		if (ret != max_blocks)
+>   			ext4_msg(inode->i_sb, KERN_INFO,
+>   				     "inode #%llu: block %u: len %u: "
 > 
-> Meanwhile, the worker thread on the other CPU is still running the
-> tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
-> returns, it tries to access bh->completing_ep, bh->lock, and
-> bh->running. Because bh is embedded directly inside struct usb_hcd,
-> this access hits already freed memory.
+> ---
+> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+> change-id: 20261023-ext4-atomic-endio-fix-b4-9e1ead9e1aca
+> 
+> Best regards,
 
-Okay, now I understand your concern.
-
-> So all URBs are already completed and bh->head is empty, but the
-> teardown path still needs to wait for the worker thread to fully exit
-> before the HCD structure gets freed.
-> Would calling flush_work() on both BH work items be the better way to
-> synchronize this without the concern raised by the bot?
-
-Yes, I think it would.  After all, it's just good form to flush or 
-cancel a work item before deallocating it, if you can't prove that it 
-must already be idle.
-
-Alan Stern
