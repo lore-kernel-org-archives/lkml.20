@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792853262;
-	b=v8rF4Acc9klxk/FT3EvVMCH4Zn79M8jOlPFn0GVcFMol1dgWOI6cNjbxE0ewtRCTFWhK
-	 v3eAiP/wSqGo5SIDNkEpGvRzo29c0j6hWTqlbA1kr0RtIMpkRdPmHbewSe3cvNPkCaOaR
-	 Ymx4YCOJi9gYUJhH8cPjrG8g+rtJ90X9d7wxu0S880rAzL8z+KwS4+JX9sHNqWJalYohv
-	 FB5l6mKYfVMi/Sp+O1VpwWc9wecamnE9w1NAKePz9wPcXf26sLgUTWz4iING7L5Lu1vYi
-	 9328bfPsDnQMJJ6+xrqd3IP9W8ryFpw5IVZ4BUmR3hH/+PHeEBF4Xlz5OTeDwWy8DFg==
+	t=1792853305;
+	b=35V6WGvxQv6fgzZAv/S9rELXq8mlYQGdlfan3FRvBUHrH3uG1+FwsumBTyMgzRG/0oBK
+	 eKrRP6auxg/iQsyIPE5wSG1mfp/NOgg+6/i3S/Mbpjy5T1qjaz7HpnAKfbWBtuQLl0LEN
+	 sZKTVTp+KztczbQ6EpSeqxJy9nw7UjmkgvIvoLVgEc1J1kXeXBiWM1iToerPXnLtr/IcI
+	 2lch3CIengjxRIYW+iYgNw3aU08GnZH+5yQrj6K5kTQ18GjOZJu4SycHECdqBBCJvHUC0
+	 NZasSON8pN7MYCwWFadUveo/Eewpg9lGr3zhdOR+C2Bx4woDPvuKx/xSPrAogHaX8zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792853262;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=Hpn8vhaALP5mXUzJnn7dmewFxHKudOANi4WIthOjoCA=;
-	b=XsgpQtnvY2xbHxOai73EhR+YnVM/c/0RA5yNAHXk36swuAOYmpqWIbSgJoMVAYgqtNtR
-	 Xq2+f9u4iNET3MknywjE4D/XZx7yf8m2/vTzMzYxF7zQOmKshC5X2rCgMPG0/NJd/ymOa
-	 KLuPfzAAxbgRn/qzSb590wnni91O4rC7wxpo7HQruA3idoNsTCLxn2+D7ZeVOZbemQDpr
-	 YlqzWDOXMze2ZSQfo4gSv2O06jOScydXwgD4zs15wQ18iJ+XF0CI6XHOLmkNFXQaTT6tm
-	 enc1QQjbZ27X/bGevQ/P5HFmSFT+jV7KeFmqSAzmtvm1cvOVq9LLWQ4qxRe6N60z5MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792853305;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=ABDMRmX2qjUWTye2+cWKlCKH3jB8QfXq511EgObbU6Q=;
+	b=zJw1FrgOaojdgoFkZmkK44zQdvNnIQAZnr8OCK+b1E88Ovn+g1qX+fgJJmuskY97P34N
+	 sipu0Z3uUGP+sQJKe65RLYa194G6Y1t8aM8VjHxAe4JjMp/syfModTtXE7f8adFMD/mvB
+	 MR2Aq6mNVSF93jAQ5nnT6HPgJgIHrXT1wA81cqaEsme1CDblX8RE6IIX8gT6kv1klCb7u
+	 Oi3GtJmM0/QoMn3Zx0m4VYpKQ7KBo7VhJAqJUSiQlhR2w+kd8dhru35mWoQk+QGllQY+j
+	 IUfmt2Tol1kVfJi9rVTFhojeEFCOJQERg1dm+H/QKrTEWBmvetteVbp7WN69fSBe3mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phytium.com.cn;
-	spf=pass smtp.mailfrom=phytium.com.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B750606A324;
-	Sat, 24 Oct 2026 14:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B750606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwDHHd0Lxdxqt2ZrAQ--.7367S2;
-	Sat, 24 Oct 2026 22:47:39 +0800 (CST)
-Received: from WIN-B62RPRBL2BM.localdomain (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8DwanUExdxqpOjwAA--.14665S4;
-	Sat, 24 Oct 2026 22:47:38 +0800 (CST)
-From: Zhu Ling <zhuling2709@phytium.com.cn>
-To: maz@kernel.org
-Cc: Zhu Ling <zhuling2709@phytium.com.cn>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] irqchip/gic-v3: Preserve SPI configuration across hibernation
-Date: Sat, 24 Oct 2026 22:47:13 +0800
-Message-ID: <20261024144720.113165-2-zhuling2709@phytium.com.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024144720.113165-1-zhuling2709@phytium.com.cn>
-References: <20261024144720.113165-1-zhuling2709@phytium.com.cn>
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vQTLFVbz;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CEE606A31A;
+	Sat, 24 Oct 2026 14:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51CEE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vQTLFVbz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792853299; bh=ABDMRmX2qjUWTye2+cWKlCKH3jB8QfXq511EgObbU6Q=;
+	h=From:To:Cc:Subject:Date;
+	b=vQTLFVbzAd5lN3pTBd2zjr9yL2XUkqlgxaF5ulPV57hnsLjYZxdNVSDWfNSixpEBX
+	 TQW35VmBi8VxcfoGJLvdX2y5IrCRPe7TAIXcW8axorfDaHAttMaxEKLbagnpOgO805
+	 CL+TH6WEyWunL42S/Jyfgoi5404/CH87dYbwGZKw=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id C113044A; Sat, 24 Oct 2026 22:48:17 +0800
+X-QQ-mid: xmsmtpt1792853297tyw74ycl9
+Message-ID: <tencent_51CD3420AAC8A722EA2FD5FEFB6524D4A905@qq.com>
+X-QQ-XMAILINFO: NCmjBvJFq6XNAbEtx0Z7xNxzzqc47/GroJE9x+wPdFR8MfzfNmjq7PMNCVFM/C
+	 ePrbLqSWa7gNqYk/HWN/0Izh3JJcVYcWHZIksej7JjTit30IeCzAKVHq87NHLWeib5SWBuQdAR9e
+	 +ALM8h5RZy1FW8dVMTJXU1jOiztsVGi9izvfaiwJPMiGIrGA2fgxrtTkJT10vQ7FbU1xvrPJ9rEf
+	 mPSQEyjI1F2jUAziAyaAm39WaRvsafCBz7FSSKe8HD5GxWMwIfmfQ20ezO1eCVpzcA0kCq8gCpm8
+	 wMvB0qYQ6hEsApf0dGTFVPzTBTX09/LPgw6MGJp4CBqVhYAke+ELq6etktV7+SE/kSoee/+NCGAl
+	 Fv9GT6Btvc8RZEhxiPNhBUWLooISO65uKei4YDj47ht5uz2j/tXUAgUkjXBIg4+hkyHBk9cjKF5m
+	 0YzXvTfPCkR3J6eMtCJzgvPD8KYmTtCFyAsjyMi+UVVi9vcDbe7myUlUVq3wHI0jsX7geE+UBP0k
+	 J86n40WmiZmR+EIAiMNAL0sdhXREvE00LamMdcHXuZh1xnezi446yIquvZJCnSQ+w6aZw4dljXua
+	 4qAwdETStyZfbgRiGKf6hmg2wqDlyUSdMz5yNcmP1ztyJBil8Da7R7Dmk3LWAxxuG7jI7qVNqKwO
+	 cZHrQXhhtq9QXSEDKMAkfbTsQpIUYhv9KNCSgtG/jXRI8TPVZGjBSFVrb4219/AmNF2EI9h5844C
+	 uFIN3sIcdaN/lg1Q01QovMYqrxVf9ptTNjv6bBXbOFUbfoxYlu+cJp3LDxYM+6tsl74X2v2JkLde
+	 Flxpli8ycrhYOcD/q2w56PaUE9rVXDbw9b4GawGDgOsMkhQUUTVY4bIlFeh2KyddZo3Ac2twL82s
+	 e3GXEoeZ7Yq79+8/winzCJ1Kr49jyA2Co9YgzUqkQpkk2SuQxkkEw+C3pENPih1bWjqYOKkVuWt2
+	 pb0gnMlDUjHKZ12epFOqLwY0FjG5Qvfb3UwNOXoQ9LdiYBwMa/9OncRpltE4AzB8JW3x50RHqFgp
+	 H2WFEvJlW7GfFYSvXjUkZADYBPTd4kemTEWFTMVerCmBE3iOYs70ttdp88Ug5i93CL6LxPL0q6uH
+	 LmwbTFBnpoiBX/GSQ=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Guikun Yang <yangguikun19@qq.com>
+To:
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] tracing: trigger filter use-after-free in set_trigger_filter()
+ ENOMEM path
+Date: Sat, 24 Oct 2026 22:48:16 +0800
+X-OQ-MSGID: <20261024213000.91820-trigger-yangguikun19@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,255 +80,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8DwanUExdxqpOjwAA--.14665S4
-X-CM-SenderInfo: x2kxzxlqjsliuz6sx5pwlxzhxfrphubq/1tbiAQAPAWrXwUoEpgAqsx
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=zhuling270
-	9@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoW3Jry8uF4kuFWfKr1xWr1UAwb_yoW3Zw1kpF
-	WDKFyFyF47JF1xGrZFqF1jvF95W3s7u3yUJr95Gasxu342kryvqa1vvF9YqFyUArZ7ua47
-	XF45XFy7Cr48Jr7anT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
 
-A module-installed chained SPI can remain disabled after restoring a
-hibernation image. The boot kernel initializes the distributor but
-need not load that module. The restored IRQ descriptor still records
-the interrupt as started, enabled and unmasked. Chained interrupts
-are skipped by suspend_device_irqs(), so resume_device_irqs() does
-not re-enable them.
+Hi Steve, Masami,
 
-On the Phytium E2000Q platform, an independent module reproduces this
-on SPI 189 with GPIOLIB disabled and no vendor GPIO driver. Ordinary
-IRQ mode delivers both pending-state injections, before and after
-real S4. Chained mode delivers only the first and leaves the second
-pending with the hardware enable bit clear. Unmasking alone delivers
-that queued interrupt without rebinding the handler.
+set_trigger_filter() (kernel/trace/trace_events_trigger.c) violates RCU
+publishing rules in its ENOMEM path, leading to a possible
+use-after-free of struct event_filter.
 
-Preserve SPI/ESPI enables, trigger configuration, priorities and routing
-in the GICv3 driver. Allocate the context on PM_HIBERNATION_PREPARE and
-capture it in syscore suspend, after device IRQ suspension. Restore
-configuration with the SPIs disabled, then restore the saved enables.
-This preserves the snapshot mask state without changing generic IRQ
-PM policy or reinstalling handlers.
+The normal path is careful:
 
-Paired thaw and rollback also restore the saved context. No context is
-allocated for S3 or PM_RESTORE_PREPARE in the boot kernel; free it on
-PM_POST_HIBERNATION. Leave pending/active state, SGIs/PPIs and ITS/LPI
-tables untouched. This addresses distributor SPI configuration, not
-complete GICv3 hibernation support.
+	tmp = rcu_access_pointer(data->filter);
+	rcu_assign_pointer(data->filter, filter);
+	if (tmp) {
+		/*
+		 * Make sure the call is done with the filter.
+		 * ...
+		 */
+		if (system_state != SYSTEM_BOOTING)
+			tracepoint_synchronize_unregister();
+		free_event_filter(tmp);
+	}
 
-With this change, both modes deliver the second injection after real
-S4 without manual recovery. Each was tested for one cycle on a fresh
-boot, using a level-high SPI, CPU0, disk=shutdown and pm_test=none.
-Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
+The old filter is freed only after tracepoint_synchronize_unregister(),
+because trigger handlers read it under rcu_read_lock_sched() via
+rcu_dereference_sched(data->filter) in event_triggers_call().
 
----
-Changes since v1:
- - Replace the genirq force-resume proposal with GICv3 SPI context
-   save/restore; leave generic IRQ PM policy and interfaces unchanged.
- - Add physical-board reproduction and patched-kernel S4 results for
-   both ordinary and chained registration modes.
+But the tail of the same function is not:
 
-Previous review:
-https://lists.openwall.net/linux-kernel/2026/09/08/2938
+	kfree(data->filter_str);
+	data->filter_str = NULL;
 
- drivers/irqchip/irq-gic-v3.c | 161 +++++++++++++++++++++++++++++++++++
- 1 file changed, 161 insertions(+)
+	if (filter_str) {
+		data->filter_str = kstrdup(filter_str, GFP_KERNEL);
+		if (!data->filter_str) {
+			free_event_filter(rcu_access_pointer(data->filter));
+			data->filter = NULL;
+			ret = -ENOMEM;
+		}
+	}
 
-diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 94873646d46fb..b968b428d0bfd 100644
---- a/drivers/irqchip/irq-gic-v3.c
-+++ b/drivers/irqchip/irq-gic-v3.c
-@@ -11,15 +11,19 @@
- #include <linux/cpu_pm.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
-+#include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/irqdomain.h>
- #include <linux/kernel.h>
- #include <linux/kstrtox.h>
-+#include <linux/notifier.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_irq.h>
- #include <linux/percpu.h>
- #include <linux/refcount.h>
- #include <linux/slab.h>
-+#include <linux/suspend.h>
-+#include <linux/syscore_ops.h>
- #include <linux/iopoll.h>
- 
- #include <linux/irqchip.h>
-@@ -1506,6 +1510,162 @@ static void gic_cpu_pm_init(void)
- static inline void gic_cpu_pm_init(void) { }
- #endif /* CONFIG_CPU_PM */
- 
-+#ifdef CONFIG_HIBERNATION
-+/* The SPI and ESPI register banks each cover at most 1024 INTIDs. */
-+struct gic_dist_context {
-+	u32 enabled[1024 / 32];
-+	u32 config[1024 / 16];
-+	u32 priority[1024 / 4];
-+	u64 router[1024];
-+};
-+
-+static struct gic_dist_context *gic_saved_dist;
-+static bool gic_dist_saved;
-+
-+static void gic_save_spis(struct gic_dist_context *ctx, u32 first, u32 nr)
-+{
-+	struct irq_data d = { };
-+	void __iomem *base;
-+	u32 i, index, offset;
-+
-+	for (i = 0; i < nr; i++) {
-+		d.hwirq = first + i;
-+		base = gic_dist_base_alias(&d);
-+
-+		offset = convert_offset_index(&d, GICD_IROUTER, &index);
-+		ctx->router[index] = readq_relaxed(base + offset + index * 8);
-+
-+		if (IS_ALIGNED(index, 32)) {
-+			offset = convert_offset_index(&d, GICD_ISENABLER, &index);
-+			ctx->enabled[index / 32] =
-+				readl_relaxed(base + offset + index / 32 * 4);
-+		}
-+		if (IS_ALIGNED(index, 16)) {
-+			offset = convert_offset_index(&d, GICD_ICFGR, &index);
-+			ctx->config[index / 16] =
-+				readl_relaxed(base + offset + index / 16 * 4);
-+		}
-+		if (IS_ALIGNED(index, 4)) {
-+			offset = convert_offset_index(&d, GICD_IPRIORITYR, &index);
-+			ctx->priority[index / 4] =
-+				readl_relaxed(base + offset + index / 4 * 4);
-+		}
-+	}
-+}
-+
-+static void gic_restore_spis(struct gic_dist_context *ctx, u32 first, u32 nr)
-+{
-+	void __iomem *base = gic_data.dist_base;
-+	struct irq_data d = { };
-+	u32 i, index, offset;
-+
-+	/* Configuration and routing must be restored with the SPIs disabled. */
-+	for (i = 0; i < nr; i += 32) {
-+		d.hwirq = first + i;
-+		offset = convert_offset_index(&d, GICD_ICENABLER, &index);
-+		writel_relaxed(~0U, base + offset + index / 32 * 4);
-+	}
-+	gic_dist_wait_for_rwp();
-+
-+	for (i = 0; i < nr; i++) {
-+		d.hwirq = first + i;
-+		offset = convert_offset_index(&d, GICD_IROUTER, &index);
-+		gic_write_irouter(ctx->router[index], base + offset + index * 8);
-+
-+		if (IS_ALIGNED(index, 16)) {
-+			offset = convert_offset_index(&d, GICD_ICFGR, &index);
-+			writel_relaxed(ctx->config[index / 16],
-+				       base + offset + index / 16 * 4);
-+		}
-+		if (IS_ALIGNED(index, 4)) {
-+			offset = convert_offset_index(&d, GICD_IPRIORITYR, &index);
-+			writel_relaxed(ctx->priority[index / 4],
-+				       base + offset + index / 4 * 4);
-+		}
-+	}
-+
-+	/* Order configuration writes before restoring interrupt enables. */
-+	wmb();
-+	for (i = 0; i < nr; i += 32) {
-+		d.hwirq = first + i;
-+		offset = convert_offset_index(&d, GICD_ISENABLER, &index);
-+		writel_relaxed(ctx->enabled[index / 32],
-+			       base + offset + index / 32 * 4);
-+	}
-+}
-+
-+/*
-+ * Capture the distributor after device IRQs have been suspended. The image
-+ * retains this context and gic_dist_saved, even though the initial thaw clears
-+ * the latter. PM_RESTORE_PREPARE in the boot kernel does not allocate a context.
-+ * Paired thaw and rollback also restore the saved configuration; S3 is untouched.
-+ */
-+static int gic_hibernate_suspend(void *data)
-+{
-+	if (!gic_saved_dist)
-+		return 0;
-+
-+	gic_save_spis(gic_saved_dist, 32, GIC_LINE_NR - 32);
-+	if (GIC_ESPI_NR)
-+		gic_save_spis(gic_saved_dist + 1, ESPI_BASE_INTID, GIC_ESPI_NR);
-+	gic_dist_saved = true;
-+	return 0;
-+}
-+
-+static void gic_hibernate_resume(void *data)
-+{
-+	if (!gic_dist_saved)
-+		return;
-+
-+	gic_restore_spis(gic_saved_dist, 32, GIC_LINE_NR - 32);
-+	if (GIC_ESPI_NR)
-+		gic_restore_spis(gic_saved_dist + 1, ESPI_BASE_INTID, GIC_ESPI_NR);
-+	gic_dist_saved = false;
-+}
-+
-+static const struct syscore_ops gic_hibernate_syscore_ops = {
-+	.suspend = gic_hibernate_suspend,
-+	.resume = gic_hibernate_resume,
-+};
-+
-+static struct syscore gic_hibernate_syscore = {
-+	.ops = &gic_hibernate_syscore_ops,
-+};
-+
-+static int gic_hibernate_notify(struct notifier_block *nb,
-+				unsigned long event, void *unused)
-+{
-+	switch (event) {
-+	case PM_HIBERNATION_PREPARE:
-+		gic_saved_dist = kmalloc_objs(*gic_saved_dist, 1 + !!GIC_ESPI_NR);
-+		if (!gic_saved_dist)
-+			return notifier_from_errno(-ENOMEM);
-+		break;
-+	case PM_POST_HIBERNATION:
-+		kfree(gic_saved_dist);
-+		gic_saved_dist = NULL;
-+		gic_dist_saved = false;
-+		break;
-+	}
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block gic_hibernate_notifier = {
-+	.notifier_call = gic_hibernate_notify,
-+};
-+
-+static void __init gic_hibernate_init(void)
-+{
-+	if (register_pm_notifier(&gic_hibernate_notifier)) {
-+		pr_warn("Failed to register hibernation notifier\n");
-+		return;
-+	}
-+	register_syscore(&gic_hibernate_syscore);
-+}
-+#else
-+static inline void gic_hibernate_init(void) { }
-+#endif /* CONFIG_HIBERNATION */
-+
- static struct irq_chip gic_chip = {
- 	.name			= "GICv3",
- 	.irq_mask		= gic_mask_irq,
-@@ -2053,6 +2213,7 @@ static int __init gic_init_bases(phys_addr_t dist_phys_base,
- 	gic_enable_nmi_support();
- 	gic_smp_init();
- 	gic_cpu_pm_init();
-+	gic_hibernate_init();
- 
- 	if (gic_dist_supports_lpis()) {
- 		its_init(handle, &gic_data.rdists, gic_data.domain, dist_prio_irq);
+At this point data->filter is the freshly published "filter" (from the
+rcu_assign_pointer above).  When the kstrdup of the filter string fails
+under memory pressure, the just-published filter is freed immediately,
+without any grace period.  A concurrent event_triggers_call() on
+another CPU can have already dereferenced data->filter (this filter)
+under rcu_read_lock_sched() and be walking the preds when the kfree
+lands — a use-after-free.
+
+Sequence:
+
+    T1 (tracefs write, holds event_mutex)      T2 (tracepoint fires)
+    -----------------------------------------  -------------------------------
+    create_event_filter(...) -> F_new
+    rcu_assign_pointer(data->filter, F_new)
+                                               data->filter deref -> F_new
+                                               filter_match_preds(F_new)...
+    kstrdup(filter_str) fails
+    free_event_filter(F_new)   /* no sync! */  ... still using F_new
+
+The write side holds event_mutex, but the trigger execution side does
+not take that mutex; the only protection for the filter lifetime is the
+RCU grace period, which this path skips.
+
+Trigger conditions: an admin writes a trigger with an "if" filter
+while the target event fires at high rate (e.g. sched_switch,
+irq handlers), and the kstrdup fails (GFP_KERNEL allocation under
+memory pressure).  The failing allocation is easy to hit repeatedly
+via a memory-hungry cgroup.  The freed filter's preds array is
+then read by filter_match_preds().
+
+Fix: either free the new filter before publishing (i.e., don't
+rcu_assign_pointer until the filter_str copy succeeded), or perform
+tracepoint_synchronize_unregister() before free_event_filter() in the
+ENOMEM path, mirroring the normal path.  The first variant is
+cheaper: move the kstrdup above the "assign:" label and release the
+pointer only after the string copy succeeded.
+
+I found this by code inspection.  Checked against 7.3.0-rc7 and
+linux-next (2026-10-24): both are unchanged.  syzbot has no matching
+report (its trigger coverage focuses on counting/snapshot triggers,
+not on the ENOMEM path of filter assignment), and I found no prior
+report on lore/marc.
+
+Best,
+Guikun Yang
 
