@@ -1,105 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792810950;
-	b=2TEwoaQcBTH8gSrzvXweSQuQejAWShOzMITLa0U9kEAZ7DLVuzZ+nZVOQ4w6lwu34meM
-	 Lu+97jx94acKoLGVynNMiUAM3UB2nOk8egAe9yH1pYYz2mCNO3AcFSizKbG3N63nD5bSU
-	 G2xnnjDQcaQ/1dWvWzs7eEpmzL8cF2O62IkfDnp7ylqc1BJ/BU9kB5R9zFn1lM3CJiaGx
-	 +hO81PWQG9ebP27G5hnjyJPdf9XA/llSIVuQ5PXTiMitu8wIrxYotMCal6ayjHInJdnnJ
-	 4QMkPkGNBB3v+jl5SX6gM3YzeUxaGzlNjV9jpzNauORYDt8SKvSh4pyPf+cIc4t4F+A==
+	t=1792811034;
+	b=QJafFtfTDqbLMzhGhVV56dWq+H/Pn1aaxFUzyX3zsrmEYcbibgfvRzSxzIksWx1/I97x
+	 ruRCSsFaOpdyZJVqua2uzrI7i+dKCfsm2E6DKTVg8Z+cQu8NmgIseY/mpCKx6VeFBdQQP
+	 ARGVvc063yaJSiIPUNdYobaxugkqkHXpinXQxJ9WwvG2sy+2QUz4TdpAmXMOuB1tFnYxb
+	 Sji6bcvtatuSs7kIWuql50vyeOll0c1pzLOjmkWwqgRJM/g6aGGwzgEEl8yZ5slNyOuYK
+	 2HFdV6sHOxTGwGJc7siXGe+zPRPZD7wooq85jFRwJ6dbPwn1fT8ZtQKwPiMMLhzBvkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792810950;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sP4ZKsXWKOirRhbwpXuRq25+zM6aYIHZ5krwTSsRttc=;
-	b=mp0/dtzikqY9hjgGYz+b8FeChok9dW/asWZ7quJXM3rD+8f0iERWXm0ZrTZhqXsx3hZY
-	 C0Xik35qNSEIuY34D3KTx7umv/CKqkHBYFmfFYzYuactrw/VKE7GbR7/8xOj1s0XBmf+/
-	 mEIu9nmZx1F5DAGazzdv66mwXM/lC0NclD7fO0tWCFx05EWckOuOk8XPaC5SFQtuUZLJv
-	 tNjmi7mQgKlnbg+qIKcqS0xfqf7a5uioRx6xO7R0RSW2gOrQyfp4JKUzGUITKhcFXneeP
-	 PtqNM8ODh8BLKawdeNafxOunFNIbjTQ9jPkhIq/LC1fB4FwnMzRyWSImYMSHybQ4Iaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792811034;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JgNtmgCu9nLRngDA9LIF/6Je3yHIdY2z9nmBR/y8Sn0=;
+	b=xxdDsfavv6rcFyB4X9qKRFcj2cjKGeco0V8woKV/GTDIK2jDRtHXkc4TbyJON6Q+1X4C
+	 QNZ9qEC56ygQYVylN5gJFROR66gaLhyp95AescQ9SEVBAlJAFvEIEMCsZ8GS/PgJ7zqQU
+	 CqMDq0v3QJ2Sni+Batv6jMp0lRQxItFpfbizId3cWHbIXeIuAvr+lk+L+Ogzjru3mD9n7
+	 tidGYw7zqh6x0lbrIwHxSxc6TD4MLY7zp3tiyddInpFn1D9Dw9COYclZqNkP6lWZZ3ed4
+	 QNIAwCpAK2Gcy7dGooSw9d/GSLtYqCd4HGk8q//nKB+1pbxQarCF1uRgidhA+zDZbMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l60hOHWC;
-	arc=none smtp.remote-ip=209.85.161.43
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtZCUODf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E708060A260D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 03:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E708060A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E64606A31B;
+	Sat, 24 Oct 2026 03:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l60hOHWC
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6d290b10a35so642675eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792810949; x=1793415749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sP4ZKsXWKOirRhbwpXuRq25+zM6aYIHZ5krwTSsRttc=;
-        b=l60hOHWCpd8Y3qAoRl0a1aV6WSFA5+FqXW9kPHrnLLoXB2fKIOrLaf0+/+btreYayT
-         NDkkL16JETWWDXu9QwGFZ2RvYXyO79jPnBgzhC2t2CeHBMuCb4cdMUHecxpQ8udxby/G
-         1LKFKT2WQjrfvBdPZxfGhguGLlPYu0TU+bO1DLPY5VPH3NGwexkVEoa/qU4A/1D0t7Km
-         GnAslrEEbjydG6ceVu4yQpp4UNOMzIY4KmZBPIonOsPw9reAKPFHL6oZfU1YOjv1OwbR
-         GZeWKwKc9mO8Nm2K57wZlngkOUg7AkEDK6NV2Re+OWBjEW3nKj65XrIXFRW1fj2yVrBW
-         SN+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792810949; x=1793415749;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sP4ZKsXWKOirRhbwpXuRq25+zM6aYIHZ5krwTSsRttc=;
-        b=XEDyJazlew43RWesmLEhgeN094YP8jVE6IkfYRpRTxS+qr0b1aYLNRGKtTablYwALS
-         tJXfTPNfDPyUOmt0Vs3MzAJaEs/XQpqO6CwNaP7UAx4WKtP7vfKodhOQOqAkDd2VybW3
-         GBez7jTcvTVb9WpSgwON54AbNE9RIQlLIfInC3JFyq+lkluRFnlSrwEFxdo8LyovW6HV
-         g57PGDNlPX28h7foEDTOtr5I8YdR/LQGvoLgOOrfHgmZMKT5/uzTQqGh6jKUtG4FjCO+
-         dTrJ8jfY6Kk06WYMo1JSMhivzW8CgCJEWW5ZOHJwkukoZiWU1oG6Rh3uAA7uIuOnv7Sd
-         l39Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzgsK9Wvu7PPaldCAeaUJGpCpFPFkgw/1tbL/aztsIGmG/GfbqBMuk78eVcP2XC+Yn3TyGEzrXjWJq43YA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHdnkTBLL8ElXLDQjOAujoNKwaq6uH0X77eWA2DLoOAjowUhqM
-	BXwRKIjPBpmchdYc9G9hGc0b3+00hRSjpjvEWXBzCr8cnCJS2nZpyNf8
-X-Gm-Gg: AYBFou0PI7hsbEpXnndd3xQR+DTiBd+JQC4wmXLiWh6df3uxil+NSPfMBbQIr1oHiuD
-	atqDHcuaJfJljmjHG8UhW15wSIyu41KiklbiJsfwxJ/OUKswY9eL0KE+Vd7qHeXoSpoGlmiGFR6
-	zQGJSfa+SXrHxHYyfgDtEjVB+NvsoR4k3W8HA00wM+f+hOkFRgCAJcwPJiQMq3G5mYPfgO+LCtW
-	l/j8vdbLqm9BOxERIeMP1wak28/sKEo9+D1PECZDYCkn/YldyoGfFmNe7Eu7zUNwp/FZfKRtKo/
-	tEDf3QHtqSNNWc/yGATQiTngg88jUzO1nIVeMS9fbJl/gzeBsrZDaXbUPxd0H/cJSD9TcD6JnFw
-	HM9dmwrY4jeQpE7vtu45IzJRVYMTu9hN3cQIIUAvz/JXHARgtQlBLioFyUXcXvQQyxcxG0sK4dO
-	e1E1jYgcqf7Zxv5kF2wRbr3xPvGobWt3tLAr3Lx85mRYgENo/5UjoCvcico2KbA3kcQ60Ar1Fr2
-	+8uxoaYrCUbY5iS5x7j6xIlBoYT2wdTNWHVFT7f89gZdC5XDfBg5QOKl8T6A1Xoal4B5hWUSHc6
-	ZLmxiA==
-X-Received: by 2002:a05:6820:c2c3:20b0:70b:8916:547a with SMTP id 006d021491bc7-70ba0f090f6mr264783eaf.65.1792810948906;
-        Fri, 23 Oct 2026 20:02:28 -0700 (PDT)
-Received: from jeffmr (63-152-17-145.cdrr.qwest.net. [63.152.17.145])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9e1fa334sm824552eaf.9.2026.10.23.20.02.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 20:02:28 -0700 (PDT)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-	Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v5 06/11] phy: qualcomm: qmp-combo: Add v8 PCS-level drive level tables for Glymur
-Date: Fri, 23 Oct 2026 22:01:31 -0500
-Message-ID: <20261024030142.13643-8-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-glymur-phy-v3-v5-6-3848c2615d5a@oss.qualcomm.com>
-References: <20261001-glymur-phy-v3-v5-6-3848c2615d5a@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtZCUODf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244031F01828;
+	Sat, 24 Oct 2026 03:03:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792811033;
+	bh=JgNtmgCu9nLRngDA9LIF/6Je3yHIdY2z9nmBR/y8Sn0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RtZCUODfdkUQj5JBthRPlWg7Ob0q4cKZayVVsbGKoogjaik/BW+/nVwocXNDr/ILw
+	 QDkviisJR/u4m9Z5KOX0hg1KhrW9QTabOd1oObef7PU+FRnQcGtp2Jubu6261sV7GU
+	 cO8Mtig0rkMB9sgXcmcbeIC66SQS2YnIgAjrOsoUg7E92moExiZoKF42xXhOKzJjA9
+	 0BP2NDJTj8CDxRkruJ68aYy5OWtt9ChLfiPNJTTmdiUS3pf693c5df+3QfmOzyWISE
+	 XDWZYx0zYz/da9ITrz/Wo2b56wvI/JbOxgorQgjpvNjkBlikIZ1UciDzRWh16j8LzN
+	 hQmQnkBMLK4Sw==
+Date: Sat, 24 Oct 2026 04:03:45 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Christoph Rudorff <chris@rudorff.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
+ Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] iio: light: gp2ap002: add led power supply
+Message-ID: <20261024040345.1fc6b6ff@jic23-hlaptop>
+In-Reply-To: <CAD++jLmCo8tnG5vp4Qv=6rDG3nob25LHELretdu7t3_SLxQASQ@mail.gmail.com>
+References: <20261020-iio-light-gp2ap002-v3-0-b7e0946c9e79@rudorff.com>
+	<20261020-iio-light-gp2ap002-v3-2-b7e0946c9e79@rudorff.com>
+	<CAD++jLmCo8tnG5vp4Qv=6rDG3nob25LHELretdu7t3_SLxQASQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,14 +66,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 01 Oct 2026 15:04:23 +0530, Nabige Aala wrote:
-> Add PCS-level drive level tables for the Glymur (V8) DP PHY:
-> - qmp_dp_v8_ln_drv_lvl_hbr3_hbr2: LN0/LN1_DRV_LVL settings for HBR3/HBR2
-> - qmp_dp_v8_ln_drv_lvl_hbr_rbr: LN0/LN1_DRV_LVL settings for HBR/RBR
-> - qmp_dp_v8_pre_emphasis_hbr_rbr: updated TX_EMP_POST1_LVL values for
->  HBR/RBR
-> [...]
+On Tue, 20 Oct 2026 19:15:53 +0200
+Linus Walleij <linusw@kernel.org> wrote:
 
-Tested-by: Jeff Roach <jeff.roach0@gmail.com> # HP OmniBook X 16 (Mahua)
+> On Tue, Oct 20, 2026 at 1:36=E2=80=AFPM Christoph Rudorff <chris@rudorff.=
+com> wrote:
+>=20
+> > tested on samsung-j5
+> >
+> > v2: Use regulator bulk api.
+> > v3: pretty up, rename vled to leda
+Change log goes after ---
+
+> >
+> > Signed-off-by: Christoph Rudorff <chris@rudorff.com> =20
+>=20
+> I think that commit message needs a bit of elaboration ;)
+>=20
+> With that fixed:
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>=20
+> Yours,
+> Linus Walleij
+
