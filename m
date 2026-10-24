@@ -1,106 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792814825;
-	b=DrPTCLarJMRhCMLJbANW687fB2iuTMjJyV1vULfxvOee2L+DW5akTgULxvs2yvIqAB74
-	 7rOjhLTjam3oIRxH3IbStt3W3Cd5BqUXdaM+VXX0mTEGeSXs5IcLYmx8t+gl0HxZtyO/T
-	 EuTXgkZxlOtBDx7dpZ3UXjG9JSBiR6C3EvbL5DspZIyqt+4oko6qf3ItpSvzqWElnsINr
-	 0IlhEUge1VNfW+DNiltFKnqZPBwcdBUzCZ0IgOZ2q6LUYc++8zfMEzS4wjqlP39YQvAaX
-	 sL5alzVv9UMC8TtI4vpFk8TyjgS7ofag4gzSz1lyoIKYEwrLz7s8aFlqFDUkcdtsFtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792814825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:From:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yxq3k5lb/PIhkkeUn/DDn0j2OBlo64L70mfCLiiYuig=;
-	b=RD1GroTANrebIihyZk9A2Lbhh3i4DFeVu0CJS+I1W9Y1zi8Hv4fol1wbYHMT2f1IDEgf
-	 SIaunRyVj/WvpECKpQT7dCP9dxpCQHp7pq9FG0h3yPp0FuE7oLvTe80Bx4LVCyxGgZy2f
-	 fXt6s34Cvz8rJfEs7MhC0s//Yf5DkzsGALVu2h8Ta8nW7PkNPwXilraX8ERMTZOBL313Y
-	 U8+VdOJv3hljDnGhQaZEC+rxT0dz9oyNpvGnG5zgrIB9ijklJPo0BzxsBnOIweL81S4jQ
-	 pzLR0qujxaeKDa8LSQy2ODbcYdzQ1J8EqY6v80wGjN4AE3r1uyk5UhDQOhVPKFNQDFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qjQa7O3z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792815225;
+	b=hwXu/5KmA0cp1PqLU41rdszW7bPZiR6C/mKf6k+27uNb1Vt11mej67jlICsZIYy7VQSH
+	 oLHiVVGfCEZ5OTiWVWWHaTFHtz3uCjEpQHBKvMKTMUPi4Ft/ktBcS28l4b8Tgo7LcObpC
+	 FLghqxh1eI7/XPtAhCIEKemlIKhYYU1I+CPgQZ2bisNFBAMPqUZIgYRgOYe2iXTqo21gY
+	 b5eXCG0GBIVmUOXTYhRY1IsDYYaXCym8Op1XmhBX6OPd5hzeFvZOCJpAES870I7NPxF1V
+	 Q7XdjG9hiL/RicMGCeEtHTFZD457N/i4M3viMegCjHfi6ZY797wQDZvPqcO496/kzNg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792815225;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=VTbLNMP+UpXniIrujxXe7sYDHvjBTEb8cMy7ABMULcc=;
+	b=mRPOG9ZLzWypheFaSZDAaxC+G9ICu1ZXbWrcSrzTuq24t2hdaxkcMT/k+hMi/24deHo5
+	 bAkrcv4SmLf3ygeBQYHLPd8jmVH+BdaIhVgqLNHv/+HKTfnHrxMKTKszWVGIOPArhrzS3
+	 eX0KgID3c2EKfiQYGQDpZoxvtybcWVCFHkFZts0irwi6TBXuEg5acWhJ/S635Drk5r+rJ
+	 kKz7nmWuNeIK/1ijCTf/nItpUmCucpdNGXaM/bUuIrUkzZcJzq9L8f7Ldx8IxpR3lmqam
+	 CtAVj2EXWyDIAzSJOg0giZxK5563paxLlQmwTl71HsiQqP/6Jyj3Icv/f9u2O1fERaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05128606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05128606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qjQa7O3z
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8ac525c1f05so13160087b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:07:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792814824; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ha0ujIjRiQK1G2g1xKCw5NdKX7Ymg3KvKAp7Gl7MmBk959oHid4Qvlgqi4HS4n1stJ
-         mVK231h8q6z958eThP0cnzTqdDT2z0XE0qRNYrMNZOwG7prC2DT4fu2XFxzjORfVwxzO
-         4JYO+B+BUpeHjy5Jd8E3KPx/mxJQ9bdjcrow5JcYjrvxsLLEUgULsBLrUHDoMIFkbUiM
-         GCIt5hF/FJM5FPoW6aLAQpbRQF+L6HuAuafQZFy2SgT2/9wzVdxS+qNqhpsYkNd4+flW
-         maWwABamtnBPP2r7pBG8gircUp/eNSZ8vlv4XreqZZ4i/YkkKOBDQSRSG4O8u4EjAF2G
-         B+YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:references
-         :in-reply-to:from:mime-version:dkim-signature;
-        bh=yxq3k5lb/PIhkkeUn/DDn0j2OBlo64L70mfCLiiYuig=;
-        fh=XuQodlwkl+hkhEzaz3AZbDgpw70/t5dMX4YC1AU2xKQ=;
-        b=DOz/QWWM75C2X35feNj2ReNYpE7Y+D/HX861m25gLCdr2xcLDqRDXu/Kgp6kM3ztW0
-         AF+YbPL6I6dEBxAxhVVXAbPTrR1qMeL64QXES2CDZqcSaJAvTV9nVV1iqigW5hIMQiPj
-         BoUn1FmBovceKqSewcNHwtOCoBYdRCYLbT0PJQUokCyEB6jnycHDKzRQCVFlfaFySFWy
-         6FLl0LCSlYHKk2U1jolbb4qLi75+sQb4ywTL7praKDYLQWgkoJHPQ/RLtdR+TbnAhy0a
-         wK0vd17i8ryp5ZWIEXgIJehZWK2dxKhc2+6oS6ijGIdT4XwpTlVPpIbtjTfb/Ciuq698
-         O3kA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792814824; x=1793419624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yxq3k5lb/PIhkkeUn/DDn0j2OBlo64L70mfCLiiYuig=;
-        b=qjQa7O3zaWF+PEls/J63S6iEfyVsKgZoceKakxi9G9TaCXEjiex3QBzjE0PMbRy02S
-         zn6J2833JO2BGz+tPrtkBIs4wJvbYPh6GYBYNYHJNuXSA/T6QaVjAMMbk4FzkKzTg9tL
-         Mvai+cgKg7JjmJSSYxygafZhbm2KglXy3Xsz+hGeocoGb2mCcj5S4+cBAofjf6ORtifG
-         CVmmh/jBuU7YEuEe0/7Nk+DErsSMhT3vRkfi/bFfHcUtotLtHaIXi4PB44CNLmjKYE3M
-         mnswZzpOFf+F59I77hrEoln3L63Hx2h1NVr4YqT0ySTyFiZ3hTOtJrO6/v5rXjlsACKY
-         SSvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792814824; x=1793419624;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yxq3k5lb/PIhkkeUn/DDn0j2OBlo64L70mfCLiiYuig=;
-        b=mED83zlKftWCjHEHA+9ayW/yqKABP6/3WZMIGoOgaeXC290swu2gWI1yP17Wux97UB
-         n6oTn4aGy4RKhEyW7L8q7hRTS8b6qJiJqSe8sLRlZOUceJnP/2LA/VkbpmmWLBjeGVQ9
-         JgXw/fWMASbab6DieSc1Sm+BPreIC/QVRPy8GQkQsjqbTW7xSG7/QkqS1jQYD5opRiTj
-         yDiPNuwUVPNh6yg8NdJ6l+d+13xqpKrxG7CY9wjFWkSjJH3ewYfoHk29QAXynfRG/hKk
-         8fRMqWvPi72syXL8PJ4nRiIUW2/J8rnWzZYj43+CXLro5D++XIiW+27/fQok92f9HNzD
-         LKPg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9GTlHz6CVtRQNaE6GHNJT6Zg8+zgoLA7X49btcbwv67z8HE/wW2pKzMM5l3eeyvQKxAe8Mjw8WSzqATQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJky+qBJ++Hj/vmwG5QJEGZ8FmiGfd6jIkvlMd4uA1HFiw/cZIQ
-	PLXlVfNv8qIIvyxsBoECX80+fMYGb6GrFwPi80hEcK86qqmori4kH8zsZlVNrmYG4c/ALsK7DmF
-	vcRqQqibOiy1Mz7MOxJ4i1WV5SD4UfKY=
-X-Gm-Gg: AYBFou0ZVEFV3xwwlbhoRoy7bYG4P5eKs1gX3mM9cyQrZVeqXi+gNmBxQXr6mL/minX
-	MbBPz/XNgOl6bHXat7OPA3ohGo9qcnyV5U+nO5OQ9K2mNa/DmIBks5xFUIq6FGrm48nOuix7Mmh
-	h5Ojav+tBrZRb8NWQ+zGA/qPjCLQJoSHw8iVrkW/2IFNrunPjJzRYEiJ3KP5vMgKYCQxWhVCLyJ
-	s/sx1xalm9EOC3wv3h5RYiL0+PdZjuWZNwvRbGPvyiBb+US7Xwm7sHKurJyAHzvtWmEk5cutsjz
-	TscMb3se15zgTmKkMsbCEKPKcr9uPSn3wLWzVww4KuXeXuu3zhII6OCwABLggJlQ9HHV4llgMYH
-	05G68XMmBNBOAb45ORBqOLmhV6/fjR62ovZlXOrmXEHRffYrNqI+3mV+81m4RRCPOUqndKG7KsN
-	fI4TnWJOLYDlnp1Vx5hqo3doS3xSfACHt3PFoAKGr+CA+4okijfMXcIE+dzpBURuoQ0HotFYpIo
-	rR60vhgw3XHu7IX4ujbCs6wDSZv/yZKCTFzWy/sEHMBU2PBlUUm0NBY2kI=
-X-Received: by 2002:a05:690c:d86:b0:8b1:46a1:2893 with SMTP id
- 00721157ae682-8b1669cde2bmr10334037b3.6.1792814823786; Fri, 23 Oct 2026
- 21:07:03 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 23 Oct 2026 21:07:03 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 23 Oct 2026 21:07:03 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BE2606A31A;
+	Sat, 24 Oct 2026 04:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BE2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xKT8Q-00EPeW-TB;
+	Sat, 24 Oct 2026 00:13:34 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Shuah Khan <shuah@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2 2/2] selftests/pidfd: test that fields beyond the struct size are not reported
+Date: Sat, 24 Oct 2026 00:13:34 -0400
+Message-ID: <20261024041334.831273-3-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024041334.831273-1-nickolai@csail.mit.edu>
+References: <20261017020634.792390-1-nickolai@csail.mit.edu>
+ <20261024041334.831273-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,130 +62,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: jasoncola1@gmail.com
-In-Reply-To: <CA+Z0x2J9iCWO8aaGaLBOf-pK6vaCpatQH-GORPRaJMn6NgZJeA@mail.gmail.com>
-References: <CA+Z0x2JTGOsnu7gNPWBfxCZD0vesbezJ7-yhT1sOOuUdmdcQRQ@mail.gmail.com>
- <CA+Z0x2+wLqeT84WGYsWQ1bPu1mz_A72_Ka3vv9u6RHdtQvc_Xg@mail.gmail.com>
- <96eedd54-7d2d-49a8-97a4-44342460c9fc@linuxfoundation.org>
- <CA+Z0x2KoEghFkYKmXckq3ezLo5bvgHJ7yG=JqjHu6Ga3t1wuew@mail.gmail.com>
- <1557ed70-d2da-424c-8ba6-10c898bbb81c@linuxfoundation.org>
- <05047d41-499a-4e96-ac64-bebdc0b330c9@linuxfoundation.org> <CA+Z0x2J9iCWO8aaGaLBOf-pK6vaCpatQH-GORPRaJMn6NgZJeA@mail.gmail.com>
-Date: Fri, 23 Oct 2026 21:07:03 -0700
-X-Gm-Features: AclHuK_u9nLDrXqdUG8b22Wwv09sxpX3QDfcMlGG6_4cdfkBzkbb2TlmQNzB-as
-Message-ID: <CA+Z0x2J7S+0d=ceG3tnpkcB5nfEtNNzUcNkhVvJmzy=yHPb06w@mail.gmail.com>
-Subject: Re: [PATCH v7] usbip: make remote list honor parsable output
-To: skhan@linuxfoundation.org, shuah@kernel.org, valentina.manea.m@gmail.com
-Cc: greg@kroah.com, i@zenithal.me, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Shuah and all,
+PIDFD_GET_INFO must not set the mask bit of a field that lies beyond
+the struct size encoded in the ioctl command. Add a test that requests
+the coredump fields and the supported mask with PIDFD_INFO_SIZE_VER0
+over a full-size, poisoned struct, and checks that the mask names none
+of those fields and that the poison behind the first 64 bytes is
+intact.
 
-Following up on the October 1 test report for v7. The host and client
-ran in two separate x86_64 QEMU VMs on Linux 7.3-rc5, on one physical
-host. The report includes before/after remote-list output, unchanged
-human-readable output, attach/detach checks, and matching transfer
-checksums.
+Add fallback definitions of PIDFD_INFO_SIZE_VER0 to VER3 to pidfd.h,
+like the other uapi constants there.
 
-Could you let me know whether that addresses the requested validation,
-or whether you need a different test setup before review can proceed?
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-Thanks,
-Jason
+Notes:
+    Result in a QEMU x86_64 guest on mainline 17bb0e2f6c80, without
+    patch 1:
+    
+      # pidfd_info_test.c:801:info_size_ver0_mask:Expected 0 (0) == !!(info.mask & (PIDFD_INFO_COREDUMP | ...)) (1)
+      not ok 3 global.info_size_ver0_mask
+    
+    With patch 1:
+    
+      ok 3 global.info_size_ver0_mask
 
-On Thu, 01 Oct 2026 09:13:21 -0700, jasoncola1@gmail.com wrote:
-> Hi Shuah and all,
->
-> I tested the exact v7 patch with the host and client on two separate
-> x86_64 QEMU VMs, both running Linux 7.3.0-rc5, built from the official
-> v7.3-rc5 tag (72d3fcf802c45d00b300f25b848a93c3a2bd7c7e).
->
-> The host was 192.0.2.1 and the client 192.0.2.2. A QEMU USB mass-storage
-> device (46f4:0001, busid 2-1) was bound to usbip-host and exported by
-> the real usbipd on port 3240. Both client binaries were built from the
-> same 7.3-rc5 usbip-utils 2.0 sources; only the v7 change differs.
->
-> Before, on the client:
-> $ /opt/usbip-before/usbip list -p -r 192.0.2.1
-> Exportable USB devices
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->  - 192.0.2.1
->         2-1: QEMU : QEMU USB mass storage (46f4:0001)
->            : /sys/devices/pci0000:00/0000:00:03.0/usb2/2-1
->            : (Defined at Interface level) (00/00/00)
-> exit=3D0
->
-> After, on the same client against the same host:
-> $ /opt/usbip-after/usbip list -p -r 192.0.2.1
-> busid=3D2-1#usbid=3D46f4:0001#
-> exit=3D0
->
-> The output without -p was byte-identical before and after. The v7
-> client also attached the device at VHCI port 08, enumerated it as
-> /dev/sda, and read the full 1 MiB disk. Its SHA-256 matched the source:
-> 87b755d14716cb3fd1622fae9c5dc5f7e2b758fb1b4c2575234839ba2f7d6b03
-> Detach succeeded and left no imported port. Unbinding on the host made
-> the parsable list exit 0 with zero bytes on stdout; rebinding restored
-> the record. All commands passed. The attached report records exact
-> commands, output, exit codes, source identifiers, and test limitations.
->
-> These were two VMs on one physical host, with emulated USB hardware,
-> not two physical machines. No code changes were made to v7; -p still
-> precedes -r. Codex assisted with test orchestration and this report.
->
-> Thanks,
-> Jason
->
->
-> On Thu, 01 Oct 2026 06:53:52 -0600, Shuah Khan <skhan@linuxfoundation.org=
-> wrote:
-> > On 10/1/26 06:49, Shuah Khan wrote:
-> > > On 9/26/26 22:00, Jason Colapietro wrote:
-> > >> Hi Shuah and all,
-> > >>
-> > >> The exact v7 patch has now been built and tested with a native Linux
-> > >> USB/IP stack.
-> > >>
-> > >> Test setup: Alpine Linux 3.23.4 on aarch64, kernel 6.18.53-0-lts,
-> > >> usbip-utils 2.0. A QEMU USB mass-storage device (46f4:0001, busid 2-=
-1)
-> > >> was bound to usbip-host and exported by usbipd. The client connected
-> > >> to 127.0.0.1:3240.
-> > >>
-> > >> With the unpatched client, "usbip list -p -r 127.0.0.1" still printe=
-d
-> > >> the human-readable "Exportable USB devices" report, reproducing the
-> > >> bug. With the v7 client, the same command returned:
-> > >>
-> > >> =C2=A0=C2=A0=C2=A0=C2=A0 busid=3D2-1#usbid=3D46f4:0001#
-> > >>
-> > >> "usbip list -r 127.0.0.1" retained its human-readable output,
-> > >> including the device path and interface details. After unbinding the
-> > >> device, the parsable command exited successfully with zero bytes on
-> > >> stdout; rebinding restored the record.
-> > >>
-> > >> I also attached busid 2-1 through the v7 client. "usbip port" showed
-> > >> it imported through vhci_hcd at port 08, and lsusb showed the device
-> > >> on both the original and virtual host buses. Detach succeeded, leavi=
-ng
-> > >> no imported port. The build, list, attach, and detach commands all
-> > >> exited successfully.
-> > >>
-> > >> This was one Linux VM with an emulated USB device and TCP loopback. =
-I
-> > >> have not tested physical USB hardware or two separate machines. The
-> > >> existing option-order behavior is unchanged: -p must precede -r.
-> > >
-> > > Please test this with two systems hots running on one and client on t=
-he
-> > > other. Send me before and after output that shows the bug and that it=
- is
-> > > fixed by your change.
-> >
-> > Another thing. This needs to be reproduced and tested on the latest ken=
-el,
-> > Linux 7.3-rc5
-> >
-> > thanks,
-> > -- Shuah
+ tools/testing/selftests/pidfd/pidfd.h         | 16 +++++++
+ .../testing/selftests/pidfd/pidfd_info_test.c | 48 +++++++++++++++++++
+ 2 files changed, 64 insertions(+)
+
+diff --git a/tools/testing/selftests/pidfd/pidfd.h b/tools/testing/selftests/pidfd/pidfd.h
+index 5a4e78c10f434..cf146d3273348 100644
+--- a/tools/testing/selftests/pidfd/pidfd.h
++++ b/tools/testing/selftests/pidfd/pidfd.h
+@@ -160,6 +160,22 @@
+ #define PIDFD_INFO_COREDUMP_CODE	(1UL << 7)
+ #endif
+ 
++#ifndef PIDFD_INFO_SIZE_VER0
++#define PIDFD_INFO_SIZE_VER0		64 /* sizeof first published struct */
++#endif
++
++#ifndef PIDFD_INFO_SIZE_VER1
++#define PIDFD_INFO_SIZE_VER1		72 /* sizeof second published struct */
++#endif
++
++#ifndef PIDFD_INFO_SIZE_VER2
++#define PIDFD_INFO_SIZE_VER2		80 /* sizeof third published struct */
++#endif
++
++#ifndef PIDFD_INFO_SIZE_VER3
++#define PIDFD_INFO_SIZE_VER3		88 /* sizeof fourth published struct */
++#endif
++
+ #ifndef PIDFD_COREDUMPED
+ #define PIDFD_COREDUMPED	(1U << 0) /* Did crash and... */
+ #endif
+diff --git a/tools/testing/selftests/pidfd/pidfd_info_test.c b/tools/testing/selftests/pidfd/pidfd_info_test.c
+index 597012ed195f0..ee08df3dc3d2b 100644
+--- a/tools/testing/selftests/pidfd/pidfd_info_test.c
++++ b/tools/testing/selftests/pidfd/pidfd_info_test.c
+@@ -764,4 +764,52 @@ TEST(supported_mask_with_other_fields)
+ 	close(pidfd);
+ }
+ 
++/*
++ * Test: fields beyond the caller's struct size are not reported
++ *
++ * Request the coredump and supported_mask fields with a struct of the
++ * first published size. None of those fields fit, so the returned mask
++ * must not name them and the memory behind the struct must be untouched.
++ */
++TEST(info_size_ver0_mask)
++{
++	struct pidfd_info info = {
++		.mask = PIDFD_INFO_COREDUMP | PIDFD_INFO_SUPPORTED_MASK,
++		.coredump_mask = 0xdeadbeef,
++		.coredump_signal = 0xdeadbeef,
++		.coredump_code = 0xdeadbeef,
++		.supported_mask = 0xdeadbeefdeadbeefULL,
++	};
++	unsigned int cmd = _IOC(_IOC_READ | _IOC_WRITE, PIDFS_IOCTL_MAGIC, 11,
++				PIDFD_INFO_SIZE_VER0);
++	int pidfd;
++	pid_t pid;
++
++	pid = create_child(&pidfd, 0);
++	ASSERT_GE(pid, 0);
++
++	if (pid == 0)
++		pause();
++
++	ASSERT_EQ(ioctl(pidfd, cmd, &info), 0);
++
++	/* The fields that fit are reported as usual. */
++	ASSERT_TRUE(!!(info.mask & PIDFD_INFO_PID));
++	ASSERT_TRUE(!!(info.mask & PIDFD_INFO_CREDS));
++
++	/* The fields that do not fit are neither reported nor written. */
++	ASSERT_FALSE(!!(info.mask & (PIDFD_INFO_COREDUMP |
++				     PIDFD_INFO_COREDUMP_SIGNAL |
++				     PIDFD_INFO_COREDUMP_CODE |
++				     PIDFD_INFO_SUPPORTED_MASK)));
++	ASSERT_EQ(info.coredump_mask, 0xdeadbeef);
++	ASSERT_EQ(info.coredump_signal, 0xdeadbeef);
++	ASSERT_EQ(info.coredump_code, 0xdeadbeef);
++	ASSERT_EQ(info.supported_mask, 0xdeadbeefdeadbeefULL);
++
++	sys_pidfd_send_signal(pidfd, SIGKILL, NULL, 0);
++	sys_waitid(P_PIDFD, pidfd, NULL, WEXITED);
++	close(pidfd);
++}
++
+ TEST_HARNESS_MAIN
+-- 
+2.53.0
+
