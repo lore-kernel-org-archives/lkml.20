@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792819255;
-	b=RrZ3uBpdXZxD7AmZteQg79rv1n6T6mOzb/fqX4QVFB8CHGLkyRaaYFdEB/OmSwIH7FhH
-	 rvmHL0WN6VR3IPbFCm1OuFkX5xasoEvofD+P2KSwMlA2anYGFjiSbl+62pqiSXUhuFap1
-	 Mq4UDN8DUSk0+sEpF+udO1FGYCuAP3iS3gd14y3Wg9G9tFkbpqBR4jaGwvvLoBRoOAuLU
-	 UKXwNVcnjFAI8TMOGz8eqcQQEQZl4PHE0Sjy3slOQDdKlDesm9g11q56iQ+KoeUV2Ydme
-	 ATyAGmduJ/LM74jDOCTlxOaZJR3CfajDFpiW5KpA/CE7W8Sv2rqFeSV30c6Q1L6z5Ow==
+	t=1792819634;
+	b=t7jx945vn2rJOnclCOKck2KxxsUAsLDjARR3aJx2gmNf0A20TdD3MlRUxO/gv3SMHLRO
+	 rgfdxBsFsobyVs3f1Lb8Bjt7xlpqsK1y5VXp1sT/T0cWJy9CjJB1DuHQ2gB/Shmm1PulG
+	 +YCT2YSOZLbwzwStnKjfCbS8k+35dOJe15vViOOGsxE5xz9ZhpGSBQV8ygZA+Q0PysUS+
+	 A5WeyrHzXzNrCtqzpBlYEBgUu37XeNGwf67F53NqFoiUQ5Lum7A07MqDGrkeRs3tSnZcf
+	 R9O1DvrmIiqkqJvkafTVQ22fyBz9tdcpP9c1mhGc8Kh/sFGk2mjIsAVJb1Fhe2ReaDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792819255;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xYHh2t4gmp4t/9L9LEjBajU/Uf/iAUb9KqQnGwg7gN4=;
-	b=zhrjrsR/vdGG4CUAtzM9ACJDeaUGwTaLclXOgNYZB83ulnj4ZXepQ/X+eZheCDrq8t0L
-	 Oyv3u1jUTcvnpmPNHdxMUd4xpgmKMssUa29xMbJ3NARoeWHsylfslz6Vb2uDIhhfHOhMO
-	 ruk7wapJAElRDjBUzpZAcldN/nOnGc9Y+o5F3nZSUQTEZrQKSzkiutFJckWrLrZn3zc4s
-	 WFuvAyLzo9O22lFfvq4JbSb0SRq3dAhv0+z01o+mz7uPfiaomaRRxiv4v5friY8VDhHfw
-	 yWJu8TobAY6BjOm6aNMglm/Flh5HPNRKYwVEwfLpLLvkajl4FQRUJx4rt/ft+zwtNfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792819634;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=zeB7Ey/qbrJR+OHigTHJh4vHbV7H095IbRUGb1BIXX8=;
+	b=wjT3/l4n7/HQ4SaHibX5F3hvT7jR7Hl+/kxS8IXIarb4hZ+2byV6jvt7hWCa4AKnBf3O
+	 99XAAe5+LePvfkKs7Wj3/xotd913pSbLQC4JGN+eRFZx1Pa+DbBzcEo0mnwn17CBseWWb
+	 2c9jKMmGvXAxbSPJwm8JR3TTxpF8xMCZNz4Z3wpHE+SQ5LJP5p7oqN7kPwZU6cta6mudM
+	 25bRw8vVBYPQG4dr+thkUmp9+j2SA3dwnDSmPDuxZOQUyj3klpwD+8xF2zE1xC6IHL0Lr
+	 P1lY9j1X3lUC+u9dLLmrimsQz2LMSFbmoW7MrINuXbrCc2xrPF0FYGPJ4m2dUzdNhZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I94jBxwW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1wt.eu;
+	spf=pass smtp.mailfrom=1wt.eu;
+	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=gjpHxwjL;
+	arc=none smtp.remote-ip=51.159.59.229
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB595606A31A;
-	Sat, 24 Oct 2026 05:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89B8606A31D;
+	Sat, 24 Oct 2026 05:27:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E89B8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I94jBxwW
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 417001F01825;
-	Sat, 24 Oct 2026 05:20:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792819254;
-	bh=xYHh2t4gmp4t/9L9LEjBajU/Uf/iAUb9KqQnGwg7gN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I94jBxwWaulFurt//1CDuYBXQGofSkrns9upf5ezh7ntuhY4GUZKtwyndfTSJXbCT
-	 QC49t6deoWqAYzRR7ilWZqKQsOmbRvIPc13yyEKDOE9I/4zZrIroAq6cNaPkXvKqYO
-	 Ft/YlTQ5WWjzltKiudnPhUN3CCYVEFII6P+u+1sTG8nDTdkboF2rm4k1ICOIONGKk1
-	 B0KdWFoXLgVywy9wGYJxjIPUyG+zMknRxHluYYiX31EbFxuX7geONEUL0tMNRUw8+5
-	 3TSqDHidMlnlx5UFzUwGIlSSSm9sQqlWrEa19aDy71DnhqlVYkA5wgBiVMKSAxsE3X
-	 K8mOgkksYbw5A==
-Date: Sat, 24 Oct 2026 08:20:51 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] keys: use long workqueue for garbage collection
-Message-ID: <atxAM9JW6oi2MEeT@kernel.org>
-References: <20261024042944.52493-1-hackerowskiy@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=gjpHxwjL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1792819630; bh=zeB7Ey/qbrJR+OHigTHJh4vHbV7H095IbRUGb1BIXX8=;
+	h=From:Message-ID:From;
+	b=gjpHxwjLN7G4UO2LI2zbqgjlm46bJvuB/Y9dXGuoOoIgZA1YBhRUpL3/OHQBWusl5
+	 9jn6tdTzRHvqfQ30WRhPHNEVTfcRei7VhEON0TAerTwfA26vs6GA2BJnyue8el4Ici
+	 /OhsRdbDPWVgva6vKH4aJSsAoQXCyrUvm9R9HOnM=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id CC340C0944;
+	Sat, 24 Oct 2026 07:27:10 +0200 (CEST)
+Date: Sat, 24 Oct 2026 07:27:10 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Daniel Palmer <daniel@0x0f.com>
+Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+        linux-kernel@vger.kernel.org, linux-sh@vger.kernel.org
+Subject: Re: [PATCH] tools/nolibc: sh: enter _start_c with jsr instead of bsr
+Message-ID: <atxBrgD1Xfcvw7pL@1wt.eu>
+References: <20261022100159.525910-1-daniel@0x0f.com>
+ <cd8fcccd-aa70-46f9-b497-ec3070b5f8db@t-8ch.de>
+ <atrsI4aaq9t4BVra@1wt.eu>
+ <81607eb0-596c-4943-a8fe-d272fcd258c4@t-8ch.de>
+ <atuJZwT7LIzceQ2c@1wt.eu>
+ <5a82da39-1f60-41b6-9359-f08e6fefdb6d@t-8ch.de>
+ <atuo-ZOI7koEs8RV@1wt.eu>
+ <CAFr9PXnggcsL5JSV0ASXSfvcbkt30-g1kpTrsa0PDWqgdhcsOg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,74 +68,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261024042944.52493-1-hackerowskiy@gmail.com>
+In-Reply-To: <CAFr9PXnggcsL5JSV0ASXSfvcbkt30-g1kpTrsa0PDWqgdhcsOg@mail.gmail.com>
 
-On Sat, Oct 24, 2026 at 06:29:44AM +0200, Eduard Zateev wrote:
-> The key garbage collector can wait for RCU grace periods. This can occupy a
-> normal events worker for a long time and contribute to workqueue lockups.
-> 
-> Queue key GC on system_long_wq because its work may wait for long periods.
-> 
-> Reported-by: syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=c15de43f1e7fffbb7b9b
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+Hi Daniel,
 
-This commit message is not huge selling point for any possible argument.
-
-> ---
->  security/keys/gc.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+On Sat, Oct 24, 2026 at 02:16:10PM +0900, Daniel Palmer wrote:
+> Hi Willy, Thomas
 > 
-> diff --git a/security/keys/gc.c b/security/keys/gc.c
-> index eda445f815d..b174b8c511b 100644
-> --- a/security/keys/gc.c
-> +++ b/security/keys/gc.c
-> @@ -19,6 +19,7 @@ unsigned key_gc_delay = 5 * 60;
->   * Reaper for unused keys.
->   */
->  static void key_garbage_collector(struct work_struct *work);
-> +/* Key GC may wait for RCU grace periods, so queue it on system_long_wq. */
->  DECLARE_WORK(key_gc_work, key_garbage_collector);
->  
->  /*
-> @@ -57,7 +58,7 @@ void key_schedule_gc(time64_t gc_at)
->  
->  	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
->  		kdebug("IMMEDIATE");
-> -		schedule_work(&key_gc_work);
-> +		queue_work(system_long_wq, &key_gc_work);
->  	} else if (gc_at < key_gc_next_run) {
->  		kdebug("DEFERRED");
->  		key_gc_next_run = gc_at;
-> @@ -85,7 +86,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
->  void key_schedule_gc_links(void)
->  {
->  	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
-> -	schedule_work(&key_gc_work);
-> +	queue_work(system_long_wq, &key_gc_work);
->  }
->  
->  /*
-> @@ -119,7 +120,7 @@ void key_gc_keytype(struct key_type *ktype)
->  	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
->  
->  	kdebug("schedule");
-> -	schedule_work(&key_gc_work);
-> +	queue_work(system_long_wq, &key_gc_work);
->  
->  	kdebug("sleep");
->  	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
-> @@ -322,7 +323,7 @@ static void key_garbage_collector(struct work_struct *work)
->  	}
->  
->  	if (gc_state & KEY_GC_REAP_AGAIN)
-> -		schedule_work(&key_gc_work);
-> +		queue_work(system_long_wq, &key_gc_work);
->  	kleave(" [end %x]", gc_state);
->  	return;
->  
-> -- 
-> 2.55.0
+> On Sat, 24 Oct 2026 at 03:35, Willy Tarreau <w@1wt.eu> wrote:
+> > > Maybe we let Daniel break the tie? :-)
 > 
+> mmm I have the same big binary (Quake using nolibc + a thin DRM/KMS +
+> ALSA layer, some libm bits from musl) on 32 bit ARM and x86-64 and
+> they were fine so my gut feeling would be that this is an SH issue and
+> a few extra bytes is fine for such a niche arch.
 
-Br, Jarkko
+x86 can call 32-bit displacements, so you have some margin there ;-)
+
+> On SH this also seems to happen for much more normal binaries if you
+> enable LTO and get unlucky which points me towards letting the SH
+> entry code deal with it.
+> 
+> But also I'm still working on the static PIE thing so nolibc can
+> create binaries that nommu can run and in that case it would probably
+> be helpful for all of the code that runs before relocation to be close
+> together.
+> 
+> I'll have a go at the ld solution and see what happens.
+
+OK!
+
+> Slightly different topic but related: Another thing on my pile of
+> patches is some stuff to extend memcpy() slightly so it generates
+> word-by-word copies where possible without passing -O3. This helps
+> m68k and SH a lot but everyone would end up with the extra bytes for
+> the word-by-word copy loop and the check if fallback to byte-by-byte
+> is needed. Would wrapping that in something like "#if
+> NOLIBC_FAST_MEMCPY" be acceptable?
+
+I've been thinking about similar things a few times, and I think that
+for such cases where we implementa naive function for size purposes, we
+could also rely on #ifdef __OPTIMIZE_SIZE__ to keep the small one and
+switch to the faster one otherwise. That way we can respect each user's
+expectations.
+
+Willy
