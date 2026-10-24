@@ -1,98 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.46.171.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833746;
-	b=iG3HDcXavuwY3cBDWKSUk3C6zc7g7Btm+jlQlEnfPE6nC3xNhal2l5zk26Zlg2jziPtY
-	 MpFpQ+yneiG8/uriDTANdzCP/EygDSuJPPhZ6s1aXdM9CdzpewReSi46TUDShMvqRdgbD
-	 Q7eTi/SwZ6jeeeUEf6JyAJESzoGFCy7quj9f1cKLUeWxms68Qpd7xphOiX+vCGLlbZU3o
-	 4INpzXxe4S3fJmFUzpFnIoR8koGmqmvBUthKJ/spJ1ESr5nep98LA0MKrvCin1nDwlHmZ
-	 vff74sSQ4odbceAzAZMMX6Tb+nKH66VHRw05yKAndZho9NIIAjPMgGfuPxoRO1GB8GA==
+	t=1792833889;
+	b=3Mt/nCtuyVuSZm5jGO1KRBQY0O1xaVf8zAVqEZYGV3yhbSLVdrCEHDcEInoGd3ur9Zhn
+	 UVoxVxKqZsVXzbHDakyu8bTo7GJEVTDpyFbQXpJtUzcmkXTCZm0JOvHybAgQsaIamOdxc
+	 b62P9AyXhM9AB/LjecBKee6LhMFSvDBAyiccXopAQARpBaMCJ7slmbDst1b75bXSQbdg4
+	 WrWYucgTIJ3CKUzYDYagAY+GAYoztiXtGRkeQHPAioKgwUAsN9NXyIYEvsHEytM891fvA
+	 ycV/8zdx2xKchUjvpdTceo61fuu1lryoqzXxe3Xhmm9FLrYgFcocjcSgd1U3O5/4Lrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833746;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=btz/2vSJcEYUBSOnVcWOhmgZ9TgiUEWaYHmTTBOv25c=;
-	b=rOw3vaXNEi8ggbG8s9jq6C9bJd/zMP451oV+r2jZwZ6j8+znPMpiwfIut2QZbaeHgnYl
-	 fNWgdBS5sOMrhGWUadP4ahzdhLBaE1pvT7wzV17ABc8URS+NlogxGOLudxxw0oikobIDr
-	 JyusKANOsZM4o3OevLYme/DqYHhTBGg1LSkjqoRtPpp8WY8BtYjYkhGZGpxd0hs0WSfk9
-	 p+KZO9aFt87iiIM2VxiZvC4eYXYDEKWXopSiQqDAJd4S6n/SLPPgcrCGp720wDz6wVreC
-	 5kRL2ZeaK3KmiXwAdhJaPYx1DKyY+cdzD/ryS+/qXbOVZGdvLDU7Ax95LVnk0iW4mNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792833889;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
+	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost:
+	 X-Virus-Scanned:X-Virus-Status;
+	bh=UlFh2m38NvlbmdwBn9Ovqim+aU2KYkaeGxqpK8ckbcY=;
+	b=DefuQIlio0kqe3u6RZykqjCoXt3wQWj/sSNgSqKLh+xOp5VLf5uNcGIFa8HZ+BAXyktD
+	 qbvuruEtApXneTlVEXD6lwls8vOk1KkZMKCQ2dzUpZunL23KhJygxZU2t7DKIwarovB/Y
+	 rRVIQhJcb3YH8BP+R1uelrAqQ2AFNB/Gt1SdTyt/VN/imX+io3C5OC5YtWjyc0KjATI8a
+	 ip7NH4paDKfloaFYFBVwEBK47iZZ60eZqtFZwEpt0Hu8hHs0zkTCXo7+sDFcvWXP1i52i
+	 cewhRPfFbImi5s3+cJeJgTiXTcICSFb44JjGuPKLhQ3TRkqd8hXxbVCK3Rtgf3uK5EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BOO3nsPS;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=antheas.dev;
+	spf=pass smtp.mailfrom=antheas.dev;
+	arc=none smtp.remote-ip=78.46.171.57
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C16C606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:22:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C16C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BOO3nsPS
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35829219da8so3119467eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792833746; x=1793438546; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=btz/2vSJcEYUBSOnVcWOhmgZ9TgiUEWaYHmTTBOv25c=;
-        b=BOO3nsPSjczx7PvIgSJ2PG3b5MYwHU2bR8njZG5+fVgKFPdnsyS2GLs7w31rQH23DL
-         AlCwg3rd2knxDh02bjvDZE1jLlRar9rk5zPqyCbsU9B9XRhm8JiuL+m8C09JRDf8LJeS
-         5vhfxrWqjLqMcvjnNi9V/kWb8ydacPdWhqv6emEceC4+jGq+T5KAHQJCDESonaN/p6d1
-         uyC9Np94KQNvIWTu14eEzpcJDXhA6td5Bzo/0GOnknrgyLIoh6SiKAfNrizo6K7VbhH7
-         XvaG0LMWS9DfXsIJD92UGacUH48fIREnZ1ILvfGY+3d5MGVkQNqHZWzqIZznIyl7kNUg
-         dAdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792833746; x=1793438546;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=btz/2vSJcEYUBSOnVcWOhmgZ9TgiUEWaYHmTTBOv25c=;
-        b=WZIxS+dcEM3fj2pJyDJGHGKdh9VjHcSHfy49x3rGcD80+5qPTCW3+QC0GOyCkEFQnw
-         cx5v0uiLwcbKoiAzhe4xygYJCG+s4fflJCo69J3kHm+5c/iWUgkb4wNgIkoIZ+Jw0cL0
-         cy11xDLyjQDf3DLptFilRz8yGaYCyYeBKBldyDF1d3ZUdBqYQs/V78TacbHGlyj8RcS5
-         M4hlOFVZ7n4vlUOkcpU2rwjJGLeA/JM00N7//hywSXQRMRGSdR9XYLKMKiIxIygd2Per
-         zmizaV3w2A6YVGW6ouFRTgA4CeKopY1vQuzXuwSkuHigk6mkZUy0gAc8LAHylNy1THHk
-         XOAA==
-X-Forwarded-Encrypted: i=1; AKwUvByMMvBiZXDB0CELgzdogLjjpHb4ohKGPve962KPja9Cbx7hjLpVT6CcdKsLnYyq755qcHR4MfD7VdS1bJI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkczz2gG0pFyFYH65Q7rs50ngdhbQJ7/Yx9zllliS1imqLXj9u
-	GsEiTY6GqSsuWwN5Ti8lHIsi10m9itDBOPQRjLXJm24PWGgdLes1dtVy
-X-Gm-Gg: AYBFou0RIQa0XxDK3zxkdAHhmSHCkZOnW/eTA0GvD0L2CMvB1RrQbpHoPQsOQ6uDiAe
-	HqZsMn+5hXXeamg3vRxOsTyuFg9pQdecayMiEeniFGW3ZLZIptp9vnPzcUYZh8LMhRFMtrpbcbY
-	YGvtuteeFYUkBh1AzOmJldFKxYRcEJB/+8utZMi9fMojxS1Xrw/AhyQELp25ZuE6OxOYHi+0zq7
-	tgHPLIInsDObL8THt1uHn8yv9d8lHnbcfotPtF79A5dWT5XnnXY4CAdAlTioOTEgcJUEXVpnE00
-	NPUA5ONWF8743gDsLt2gf5Fgw6iFtmFNysgY2GTQwkg2nHScq4nfPv1hxOaUGaSP9SoeDWuqNWK
-	B7fWhHNrYmfgtageuEdu4XBV3VgO8LQOs6WDYHCPUdeqZGGWuzyX6jItFAPSgOkjgOFdHwHh9vv
-	NV9g62/R8lm/NLA0rqRM9HhaFI3DDCJenhH04H1KzlE1mC8lokLruiUrzx5v50ugJZsfvs7XHGs
-	awAP2GMeciEHRjfduv7ClsvhkoIOei8CRTwdKQwxVApFzjOEvYx7Cl7+Q/NDxDZg3ISVZ7KYIw9
-	uya1KX20LWTHdavtPTdvzRsXNKbb8oPvOuxtTH0Qct/Hx9Bk6l6TCKjYX5ILiZwbpMjv8SG2KaK
-	403e2Hs2+lkYZ1MpP+MI1DyVzPg==
-X-Received: by 2002:a05:7300:7aa0:b0:343:5f5f:eef0 with SMTP id 5a478bee46e88-369e84f9962mr2354642eec.21.1792833745636;
-        Sat, 24 Oct 2026 02:22:25 -0700 (PDT)
-Received: from LAPTOP-VN8JNK11 ([111.223.26.246])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db450bsm5108584eec.17.2026.10.24.02.22.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:22:25 -0700 (PDT)
-From: Ankit Thakur <codeankit.thakur@gmail.com>
-To: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>
-Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
-	v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Ankit Thakur <codeankit.thakur@gmail.com>
-Subject: [PATCH 4/4] 9p: fix typo in file header comments
-Date: Sat, 24 Oct 2026 14:51:54 +0530
-Message-ID: <20261024092154.1844-4-codeankit.thakur@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20261024092154.1844-1-codeankit.thakur@gmail.com>
-References: <20261024092154.1844-1-codeankit.thakur@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6064B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6064B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+	by relay11.grserver.gr (Proxmox) with ESMTP id 8C987BDB66
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:39 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay11.grserver.gr (Proxmox) with ESMTPS id 8AC91BDB37
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:38 +0300 (EEST)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id DAD911FEB2D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:36 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1792833878;
+	bh=UlFh2m38NvlbmdwBn9Ovqim+aU2KYkaeGxqpK8ckbcY=;
+	h=Received:From:Subject:To;
+	b=CVQQHxTAKB/x6+gx+86LtqwB/5DNCif7JqgISY/M0DoXrexHIE2t37if0FFWxpczy
+	 n+akOewxq/fS8ZKuUPzMq9NlqKrHDYw0QJuR0tJFcfEHoXgLJ7IsGMuA3JnErf9mcs
+	 TPWQOcDahslbyXSenNdMScfX68SyChj0eqWv3Bd3sqIGZgGTnDaQcQ0YkWD/Ud57Hy
+	 L0JfYFEZVKHj2MqddN51JhzQBaBl+FRaadz7wiwYzmxz5kBs/n5cHqb6ibBQu2wucB
+	 +OKbKfNKTXYRNi/kPnjnGOvABpezmG6jv4/AkmH6LVtnKVUxtW2ByJ73MMP2luN4u0
+	 UQM0vwQr+7KDQ==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.215.173) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pg1-f173.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-cc4aa18f9afso701481a12.3
+        for <linux-kernel@vger.kernel.org>;
+ Sat, 24 Oct 2026 02:24:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBznPEOZPqY+4bhz46emwzlWF3psW7eWiwaRdOG0jy2rSWClHkNVMzOvcr81bDtdMvZTHn+XGnECvtzHQD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTRMONNW/cJJJeseDGqrB7lKhBqaXYeSiy4PC3NfeqmCRQbnjz
+	C0COCNXVCNw5snLOxQtYNKo9upd9lEavmODPTCdB9jIkGrlF2y+CclK8CCaVe3rR6H2YGjMvefi
+	7C4OvzFs02QnCx6E0cAii2dAjWqebdUU=
+X-Received: by 2002:a05:6a21:e587:b0:3e2:117a:62ff with SMTP id
+ adf61e73a8af0-3e7cd5242b8mr1238652637.61.1792833873675; Sat, 24 Oct 2026
+ 02:24:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,54 +79,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250511204427.327558-1-lkml@antheas.dev>
+ <20260803221614.59324-1-derekjohn.clark@gmail.com>
+ <20260803221614.59324-2-derekjohn.clark@gmail.com>
+ <f8b2c85a-2800-c9a3-4e56-7af4c53823e5@linux.intel.com>
+ <58a9c644-98c2-47ee-b083-0d5b19fa5053@roeck-us.net>
+ <CAGwozwGdwhE6Sm6oa2uxx_sHfFNQ6fHYnAhYHkEPQcp_Yb=Z6w@mail.gmail.com>
+ <CAGwozwFUTagam+dr0SXyziAMz1MJKcYMYUgrogFcmvEaE1X0UQ@mail.gmail.com>
+ <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
+In-Reply-To: 
+ <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sat, 24 Oct 2026 11:24:21 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
+X-Gm-Features: AclHuK_o5mK-ACNcsN3U3drXfMaNHe5y3JLkY05P_22D7Mibo_FAmTuZvNSEA6Q
+Message-ID: 
+ <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] platform/x86: msi-wmi-platform: Move guard out of
+ switch in platform_write()
+To: Derek John Clark <derekjohn.clark@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	W_Armin@gmx.de, corbet@lwn.net, jdelvare@suse.com, kuurtb@gmail.com,
+	linux-doc@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
+	"Limonciello, Mario" <Mario.Limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-PPP-Message-ID: 
+ <179283387796.2255829.2985164533261886120@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-Fix the spelling mistake contians -> contains in the header comments
-of vfs_addr.c, vfs_dentry.c and vfs_file.c.
+On Wed, 21 Oct 2026 at 05:26, Derek John Clark
+<derekjohn.clark@gmail.com> wrote:
+>
+> On Tue, Oct 20, 2026 at 2:53=E2=80=AFPM Antheas Kapenekakis <lkml@antheas=
+.dev> wrote:
+> >
+> > On Tue, 18 Aug 2026 at 17:26, Antheas Kapenekakis <lkml@antheas.dev> wr=
+ote:
+> > >
+> > > On Tue, 18 Aug 2026 at 16:42, Guenter Roeck <linux@roeck-us.net> wrot=
+e:
+> > > >
+> > > > On 8/18/26 07:12, Ilpo J=C3=A4rvinen wrote:
+> > > > > On Mon, 3 Aug 2026, Derek J. Clark wrote:
+> > > > >
+> > > > >> The ML patch set uses a guard within a switch case that violates=
+ cleanup
+> > > > >> rules. Move the guard outside the switch so all return paths are=
+ covered.
+> > > > >>
+> > > > >> Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> > > > >> ---
+> > > > >>   drivers/platform/x86/msi-wmi-platform.c | 2 +-
+> > > > >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >>
+> > > > >> diff --git a/drivers/platform/x86/msi-wmi-platform.c b/drivers/p=
+latform/x86/msi-wmi-platform.c
+> > > > >> index dfb65ac8fbf6..33acd448f674 100644
+> > > > >> --- a/drivers/platform/x86/msi-wmi-platform.c
+> > > > >> +++ b/drivers/platform/x86/msi-wmi-platform.c
+> > > > >> @@ -675,11 +675,11 @@ static int msi_wmi_platform_write(struct d=
+evice *dev, enum hwmon_sensor_types ty
+> > > > >>      u8 buffer[32] =3D { };
+> > > > >>      int ret;
+> > > > >>
+> > > > >> +    guard(mutex)(&data->wmi_lock);
+> > > > >>      switch (type) {
+> > > > >>      case hwmon_pwm:
+> > > > >>              switch (attr) {
+> > > > >>              case hwmon_pwm_enable:
+> > > > >> -                    guard(mutex)(&data->wmi_lock);
+> > > > >
+> > > > > While I cannot see the code easily, one could also add braces to =
+inside
+> > > > > the case to avoid this problem.
+> > > > >
+> > > >
+> > > > I don't see the code either, but wouldn't this be a use case for
+> > > > scoped_guard() ?
+> > >
+> > > Hi, not explicitly stated in the cover letter, but this is essentiall=
+y
+> > > a series on top of the series I sent last year but I did not clean up
+> > > due to a variety of issues with MSI firmware that would have made the
+> > > driver unsuitable for upstreaming (to my standards at least). These
+> > > issues span Intel driver problems, HID controller instability, and
+> > > varying WMI implementations esp. in regards to PLx setting between AM=
+D
+> > > / Intel variants, shift mode behavior not acting correctly, and fan
+> > > curve application / resetting being weird (the fan curve on off bit
+> > > does not seem to change whether an automatic curve is used but how
+> > > close the device alings to the set curve? requiring us to back up and
+> > > restore the original curve? half of the devices keep the curve during
+> > > sleep and half don't? but if the fan curve is so finicky do we really
+> > > want a resume handler for it? Perhaps we can kick the timing quirks t=
+o
+> > > userspace)
+> > >
+> > > For this reason, I focused on other manufacturers such as Ayaneo and
+> > > OneXPlayer. I will revisit this series per request from Derek as he
+> > > seems to want this for steamos and hid-msi is already queued for 7.3?
+> > > Although, to be honest, compared to the controller firmware issues,
+> > > the WMI implementation is pristine.
+> > >
+> > > So I will need to go through these issues 1 by 1 and see which can be
+> > > fixed and either drop certain features in the beginning.
+> > >
+> > > Particularly for the fan curves, if we say that resume handlers are
+> > > required to be in the kernel moving forward, I do not know how
+> > > realistic it is to make those reliable for this WMI device family.
+> >
+> > This driver still needs work. I am getting bug reports about
+> > inconsistent TDP application on the EX. A8 is broken as well. Even
+> > with your patches Derek. I need to grab a new version of center M and
+> > see what they are doing.
+> >
+> > Does this driver work in your experience? What is that SMT toggle you a=
+dded
+>
+> I've got a few reports of some issues, but nothing with much detail. I
+> have the 8 AI+, 8 EX AI+, and A8 in hand and all three had effective
+> TDP changes in SteamOS with these patches applied and SteamOS Manager.
+> I haven't done extensive testing over multiple suspends or longer
+> sessions myself. I'm also not aware if there have been BIOS updates
+> since my testing.
+>
+> By SMT toggle i think you mean the STAPM toggle for the A8? It was
+> referenced in API_UserScenario.dll (setPowerLimit_AMDSTAMP) which I
+> reviewed using ILSpy. After toggling that TDP started reporting
+> correctly and being settable.
+>
+> Hope this helps. LMK if you need anything tested or additional info.
 
-Signed-off-by: Ankit Thakur <codeankit.thakur@gmail.com>
----
- fs/9p/vfs_addr.c   | 2 +-
- fs/9p/vfs_dentry.c | 2 +-
- fs/9p/vfs_file.c   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Ok, I asked for more feedback. Yes, TDP changes do work, but they are
+not correct. Users AB testing with a Decky plugin called
+SimpleDeckyTDP report major divergence.
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index 170a2b91c..3723c827c 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * This file contians vfs address (mmap) ops for 9P2000.
-+ * This file contains vfs address (mmap) ops for 9P2000.
-  *
-  *  Copyright (C) 2005 by Eric Van Hensbergen <ericvh@gmail.com>
-  *  Copyright (C) 2002 by Ron Minnich <rminnich@lanl.gov>
-diff --git a/fs/9p/vfs_dentry.c b/fs/9p/vfs_dentry.c
-index fa6b7143d..5b05fa7bb 100644
---- a/fs/9p/vfs_dentry.c
-+++ b/fs/9p/vfs_dentry.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * This file contians vfs dentry ops for the 9P2000 protocol.
-+ * This file contains vfs dentry ops for the 9P2000 protocol.
-  *
-  *  Copyright (C) 2004 by Eric Van Hensbergen <ericvh@gmail.com>
-  *  Copyright (C) 2002 by Ron Minnich <rminnich@lanl.gov>
-diff --git a/fs/9p/vfs_file.c b/fs/9p/vfs_file.c
-index cddfb4b7c..a983ef866 100644
---- a/fs/9p/vfs_file.c
-+++ b/fs/9p/vfs_file.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * This file contians vfs file ops for 9P2000.
-+ * This file contains vfs file ops for 9P2000.
-  *
-  *  Copyright (C) 2004 by Eric Van Hensbergen <ericvh@gmail.com>
-  *  Copyright (C) 2002 by Ron Minnich <rminnich@lanl.gov>
--- 
-2.55.0.windows.3
+SimpleDeckyTDP uses a combination of RyzenAdj for AMD and RAPL for
+Intel. When set to 7W, users report 25W power consumption when using
+the kernel driver and 15W when using simpledeckytdp on A8. 15W is the
+correct value for a 7W envelope on an X840u APU.
+
+STAPM should not be required to use or deviate from STT. Both of them
+should have equivalent behavior and match ryzenadj as the underlying
+DPTC hooks are the same, ryzenadj just accesses the mailbox directly.
+Using STAPM is a workaround for buggy vendor firmware that does not
+control boost values correctly (SPPT/FPPT) and is what the first
+generation Lenovo Legion Go did as well before they fixed it.
+
+STAPM as a workaround works because it uses timers to control boost
+values, so they decay after 2-3 minutes to the steady state TDP set by
+the firmware. STT boosts for as long as the device thermal envelope
+allows. STAPM is deprecated by AMD, only STT should be used going
+forward. +CC Mario
+
+This points to a BIOS firmware issue. You should consider getting in
+touch with your MSI contact for feedback and to plan a fix. I do not
+have an MSI contact. And yes, I am not happy my users have to rely on
+third party unvetted plugins for basic power controls.
+
+But we cannot revisit this driver while basic behavior. does not work.
+If MSI does not fix this or there isn't a bug in this driver we can
+fix, the only viable way forward from our side is to move power
+controls to the DPTC RFC driver/RAPL for affected models and only
+retain fan curves on this driver. I do not want to do this, I have
+userspace integration for this driver already, but it is not
+functional to the standard expected by users.
+
+I checked the ACPI firmware and unlike other manufacturers, there is
+no EC independent control of the power envelope. We would still need
+to check a low battery hook in firmware but other than that it is a
+straight translation.
+
+Antheas
 
