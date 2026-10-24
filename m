@@ -1,66 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792866105;
-	b=emK59stai73z4Pf8rJycO/YuQtOH1oLM5qvsz3F09/3hL33Av35sIUukDNKX2KgDGpNz
-	 FEaLWxkr3LOiGARtNJSAU5jw7jgT3b5ALOe2y3Gekpi3XcePOL0hPjgwjK0naZMuDX1Un
-	 XDw1lkNPT+ac8zjqttFeZz3WlZfvgjzOIIjbHBK6gw6D/Ew6DOBoG9fApXgarfcClO4lA
-	 3uTvUKGTWP2NSoBNeOGO6nEBHPH1f6vXNIMSDdJdGPJwkQbKW6/DMLto/QKuDsgZ7D/pg
-	 BE3MYf1ubrTtpjvAxE+dSJq7PJRfggT32xZc/UZYd6V4Y+IGWgtTwbP0H3gEmxXeodA==
+	t=1792866091;
+	b=OssllCjwGc1tkXVRbIpXzh/g6kkKyi8h5q4Jhhw48fLy0egQVkGKOORYJOh2UMOvV89J
+	 zIOPRcinGzPG8Lc4fQcVe7iOBDulTom0igE3aO2fAlRKTS7/idR/6lVJg5/dOs9MoIpm2
+	 31D6vc5rSzIBFMVk4d8jDHAJHNMLSAtgaxgb8R+hgbeTLRFTdlfcJP5v84XUUVVEfJPJl
+	 NYD2Ny7vy5CKPhWey1AeVei0p5xc9IJpBMyZp3OqelRrCi5rY1US39jW+Kkc471NJP4Y4
+	 DJXhI7bBxMeRNiN0YW9BAhHAudsUt5jHHqAWl0sKe+4roUdJc0HgMH6JF8gVqgBN9Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792866105;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=oh6C1/O5rxMMHP4wiGW+MPKKTijulKksxlsF5+eFQm4=;
-	b=0OAJGobvtKTbICwHXT4OWJ+MT3KHXfF+Ww98eAAHMtStp3f8CpUMqbAmpVAnamHqDa38
-	 QTsLw4gCdxEIDoVOccyKGpJmQ8UxUFcMTkwHnDq9EUmFF7WYAVy6E0ciUqHgjJint4kgP
-	 0ztjtjd43gzVGjTuA+UxXcI8ZSI1+waEIZu/+TVaMDa5jzyeXwcjT8+RjqVyD3mBGGLPI
-	 LA4RFDRSgDAGkBPURdMPRSDWp5DGNF7Dzf7C8Z6Eu66ys2IKPJ25g1DM7/0y6sDFJr4UU
-	 BFspnFIBKLhWiwcm+k0Fvaiqsfy5ebTIUlK9HFA51AT01BMrlQn1gqmHBOLLV31MhRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792866091;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sE9T+23rqSR/uL0cEE3JGokRaJALUOJfvl8GLVOXXYw=;
+	b=Wag+AIMTavpQixS+NxIgJ2Kuyq77kleWDUgXJtheb7K2+cJZ10oRFTUpxBHc7LZuX9kK
+	 iPyfoloWnUD+YvKrs97VBnraXumHL21bRvCtTUTi603ZaTtZ1g/t2PVUTt1KgF13xmWpj
+	 d4wD41lTNGUCj8DdOHxuhvXUQGWMBQUA7Oe6O6JQ9vdmlrpxhDT/VYf4E3Dp453QNWFLR
+	 cRkuzRsJyXTZwc5acXHYZKX7+UjkEukHmfOBpklbk1i3d3LX1HopEXzFFmwv2EmSZIaK7
+	 chrGJL+zZl5wcCnx1RLcgKqJsK+dIz7iD4mYjDNVKi2pQeqhtb3rIN8fhKGRLHHNHXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=0XNQpWoH;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRKIBgID;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578F8606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:21:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD59606A325
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FD59606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=0XNQpWoH
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 67538D312F;
-	Sat, 24 Oct 2026 21:21:42 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 67538D312F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1792866103;
-	bh=oh6C1/O5rxMMHP4wiGW+MPKKTijulKksxlsF5+eFQm4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=0XNQpWoH+Z1V7u3r5AmTmoW7IAQsVwScshRDYjQAb/vYovvkSQUcQBauCxyAodhTz
-	 /Qg6U1W8kqG7iU5HPR+8xgo3My/7MttpJ6AK1U2M7F7cZSvpNKf4CMU4E1D2uLCksh
-	 9LCd9yeNO7dcMLx8I/Nn1IVrJTFZSj3Ape/89S19+tXqgolCiuQ5dKIvqUdMIvaYsf
-	 BWG+EE692W9stUxlzYT6hcOZTTI7IJDHtNoACxzw3jhLFYmgj3GlXeX5NvfhSui0Xu
-	 2vb6T+cgoexsgzFYknBNZAugAAziIMH0xKbrmbQel2DB1TlhtOjVX3rRLGgirfbiPR
-	 FUx/RMgGuN1Ig==
-Message-ID: <58dc82246c85146bba0967df1177c87ede7eabb7.camel@rendec.net>
-Subject: Re: [PATCH 3/4] irqchip/alpine-msi: Add missing space after comma
- in GENMASK_ULL
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Antoine Tenart <atenart@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 24 Oct 2026 14:21:41 -0400
-In-Reply-To: <20260923083703.38974-4-farbere@amazon.com>
-References: <20260923083703.38974-1-farbere@amazon.com>
-	 <20260923083703.38974-4-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRKIBgID
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-18cdcfc05ffso2202949c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792866090; x=1793470890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sE9T+23rqSR/uL0cEE3JGokRaJALUOJfvl8GLVOXXYw=;
+        b=pRKIBgIDrstUhL2irTAdk1XZ5sW3G/0L1k8cyVk1GlrZC3Z4nxj6eQoSmc5ZQEaeK9
+         TnY8VMIcqWFwyyCdLo85K/Em3hr0oje8RwiWImT2jOB2szuJoNl3n/stfbd4SE071sQJ
+         xBUYdcH3dUSv+U2t92V7EejJeMsXT86D+5jFY1T6GtmxTmpq3SXq/tA5IJhuYqXW5Mev
+         wOBzuMT3i2kKdeX8IJIxno7IJl3KE5uUilD+Eue10XRVA6BcwoaBUlZ17cxNgr3r2CD8
+         ei/IMt4+P9CoR+qniSjvDOmmcrWVp2SDIsoq5038BjLdjZNa2Cm4VmbY5XDrQ/w9LDwE
+         53rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792866090; x=1793470890;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sE9T+23rqSR/uL0cEE3JGokRaJALUOJfvl8GLVOXXYw=;
+        b=vSO7ACjh4yF97JmwV46IRNyR0p2ljqy/gN4Oh97hBQV3WVXa2XhI9jIgGcsMbzFsgI
+         z2muFPYZUgyNKJRYsU/Jk0JaGwhlIuyDG83QXrduM6SS9nOv3a9geZtrFc5BjC2WJsA8
+         uOp92o6+vz9AmHaK4R4PwgT2ho+lv04Pj8yS+reZc+3ZP+//zL4/u1avP6qH4CekI7Fw
+         htAnG7EX5gVOv7lE0VD/4pi5p/U7uXjAf1VRlMSHQFOKyFbeEipy8dYdMyBMbjnY6J6q
+         QXZ3wGCsD+A9scY8U2k/nKL6kqHNUFmfyzDTpaldtCYnpHsBB538ittaWx3Gru9BZ9Fa
+         0fkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaYEP5cHcOuXzPpDCZ6/lfs8rLHkQnQxufhTWs5NlOMmvoziZNO/hXhfdjDI/gf/CgvtQn1QckbD9sCU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZXIl4cURFMKP6ck2et75BMQdEMIFIE2en+2V0YJfAYluZCw9o
+	iOlytN6qGA+tz6Y8Z6ORhBQtsqUQWRVyU6Dx92G+4pE/w2K2LcPajia0
+X-Gm-Gg: AYBFou0TXwfO0Mt3xfT5OLlsAYyvSOQqOv3mnGJmkDDyeMlczvsB5p0bitaHNrPOmu+
+	joNHHnTVRUxCFEidqhL8hvR88yRWXud6Uskdb16guNDDAGnolNC6UNCSzKcNkCAN2eLGSOiqOlx
+	CCr4p3BBJgVXPEfVBf517VgT+Xa3LSla1ua9U8M6fDtwhW4DQ9KUOzbexgm5g33mxyR74KQXsMn
+	t9siMEXgvyKA47aOl2rMAmXXx9i6zR4jHv9FK0GI1n4xTF4ieWBXj4ZjvpDoXsocUIaDWHl89nP
+	OEO3laO6Z9iKcToi7cGCThcarlfZaX6WJ0MeufDEJRHh6XzbDN0m4N5Vogu/0Fc3l2Kn9i8PyZj
+	TEOOrf6LiMxnaaxjIlafE0JzOrRdrVvmfwb+TOqGPTsVmNYLVqYWNo7OQSmoAke43TVPjLM8/kS
+	nklEOTcsT9Ixs9v7Bgaow9VWYLbTsXFMiVZF1oSICB29vbPMbA/uDvpKwLeo1nOFsinerBgDMXv
+	VOsG1JhCyll8g569ERIpOV+oi+UtGQ8ksWTALmKmRrtc0jilJwrx7ZQfVWT5ryTH2pTxWgI32z8
+	vvA9mg==
+X-Received: by 2002:a05:7022:ea45:b0:19b:7b7a:a61e with SMTP id a92af1059eb24-19b7b7aa68emr1432682c88.26.1792866090404;
+        Sat, 24 Oct 2026 11:21:30 -0700 (PDT)
+Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm8174893c88.21.2026.10.24.11.21.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 11:21:29 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net 2/2] net: dsa: mv88e6xxx: fix 88E6171 statistics type
+Date: Sat, 24 Oct 2026 11:21:24 -0700
+Message-ID: <20261024182124.296988-3-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024182124.296988-1-f.fainelli@gmail.com>
+References: <20261024182124.296988-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,35 +104,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
-> Fix the coding-style issue reported by checkpatch:
->=20
-> =C2=A0 ERROR: space required after that ',' (ctx:VxV)
->=20
-> No functional change.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> =C2=A0drivers/irqchip/irq-alpine-msi.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpin=
-e-msi.c
-> index 20f1f7f7612b..8155f63cfd29 100644
-> --- a/drivers/irqchip/irq-alpine-msi.c
-> +++ b/drivers/irqchip/irq-alpine-msi.c
-> @@ -210,7 +210,7 @@ static int alpine_msix_init(struct device_node *node,=
- struct device_node *parent
-> =C2=A0	 * To select the primary GIC as the target GIC, bits [18:17] must =
-be set
-> =C2=A0	 * to 0x0. In this case, bit 16 (SPI_TARGET_CLUSTER0) must be set.
-> =C2=A0	 */
-> -	priv->addr =3D res.start & GENMASK_ULL(63,20);
-> +	priv->addr =3D res.start & GENMASK_ULL(63, 20);
-> =C2=A0	priv->addr |=3D ALPINE_MSIX_SPI_TARGET_CLUSTER0;
-> =C2=A0
-> =C2=A0	if (of_property_read_u32(node, "al,msi-base-spi", &priv->spi_first=
-)) {
+The 88E6171 uses the 6095 statistics operations, which advertise and name
+BANK0 and PORT counters. Its stats_type bitmap instead selects BANK0 and
+BANK1. Since statistics collection started using that bitmap, it has
+written a different set of counters from the one advertised to ethtool.
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+For this chip, get_sset_count() accounts for 30 BANK0 counters, three
+PORT counters and five ATU/VTU counters. Collection instead writes 30
+BANK0 counters, 26 BANK1 counters and five ATU/VTU counters: 61 entries
+rather than the advertised 38. This mislabels the tail of the returned
+statistics and writes past the advertised statistics buffer.
+
+Select BANK0 and PORT counters to match the chip's statistics operations
+and restore the filter used before the bitmap was introduced. Tested on
+an EA4500, where the two-bridge forwarding and multicast snooping tests
+now pass their hardware counter checks.
+
+Fixes: 5595e3613ea7 ("dsa: mv88e6xxx: Move available stats into info structure")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/net/dsa/mv88e6xxx/chip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 67daf3b9cb48..ebd9f69a7ed7 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -5960,7 +5960,7 @@ static const struct mv88e6xxx_info mv88e6xxx_table[] = {
+ 		.age_time_coeff = 15000,
+ 		.g1_irqs = 9,
+ 		.g2_irqs = 10,
+-		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_BANK1,
++		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_PORT,
+ 		.atu_move_port_mask = 0xf,
+ 		.pvt = true,
+ 		.multi_chip = true,
+-- 
+2.53.0
+
