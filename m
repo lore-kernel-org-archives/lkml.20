@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792855678;
-	b=XNFETwy1nGTzPH+HwbrlUn4R59EHdUPhgA8NwxD9sEbV9gUxMjmUBNoR0rMzML3RfHFK
-	 LMAj5DAWJrvJW4FofkoNGR+M7xVrObBwxlmzL4Yp8mIzOffbpI7/htRAlb35/rDHY91jd
-	 x8wtTaR+8AA4CtXd86cKop57X6s2odlf2bJsTRL60XbMID2bpQUlNJN2mGGJecEOAvIGc
-	 EVFO3yX6aTv456kd9XBJJsFYKwoW6zYi2c0lbf+4nH49OTKZk34k86JO3kCFI+8n62IgO
-	 YbasvdG3FTj8/siLQw9xypw1w6WKmZIfP24CmlV1ytVjJt2BuiwEpGfcDr8R/RbU1KA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792855678;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792855684;
+	b=2BAuCvNlei2o5PYqQAfcewCPPTFNvXLkZQ8GWV2tkSSnm4Ip0cfJNIwZrAi2EnAkAshD
+	 wNa04PF0OsYSOC1ruIqHOs+nWJLGDSWhsipaCKRypPtnp0yzj7s8IUw5mSBsdEGT0l/1a
+	 GopdZtO7AwSokAQ3XiXZl4xhvK7a5+rSH5bBUvEEy4ZvRUXXnkfa3hyuj333iAZd2e10R
+	 atshbPq9kaDtAIbqsVsF0rJFuPLFNCBvb8Tt7g3CK/CR2g6FmOTnBME2aquNHMyN7Tnsc
+	 krTBDAFsZj9pwGG3dMK3ecot5fMroh4d32436Y3IDpWL6M8rMS2pUiaW3UuHAAgQKfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792855684;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tTIUmz2BTP5uc3b5w49W9FJPP6OWT1/KRAW3W14kXZE=;
-	b=Sw9PUF/0/IzoYupOZnW4NLBUjHhTz3g6wk8Zc6s9yG7a79kf/0XqaZn1gI4M2VUsCRIk
-	 AtNoAozHEDjDPvIHgtkI1ahXHMoExp7z25DtUaUVDVyNHsvNHNeGHL2CA6emyOEPvdTvT
-	 BLzpKqpFkpGtheVKFVOTHbYzuZZVb+T2RHokaHj+rISjtDbMRQB4Iak890l2AKalJWilZ
-	 FaVvm2YBM6uWpDnITCiXVdSnxFS21zD26g50jp3JuI4N/jThbf77K/saCpl2QBKJl+V54
-	 INsXt+MifehFMzuyhuWtc5oXYfoGqasqQELslXis0XP+eABzBhz6nNMCz5iqVhhsL+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
+	b=PoduxeWAUmt+FK1g3hjwRfnSe9L62IokTk/QS22V8NGhbXI13zJJL9M2Lns7ZqfIzQlz
+	 2+8+CNVXScJO8NEo+y4HmasbrIFmjIl8ntbb1xTjV6CJQggsmUrhEbeH7i9GdxaLq3IVY
+	 jeOQac8bXugrf3BSDXlvkrdM7i4lG3atOP7reyYwNNBeyb7x5NCVdRTpT5MDJiHstT3Ix
+	 XmOLblkduawmvmRCQiJBkI7J1uMfsCIRYVh+T98FYmy++sd7SACtrQTO2QzshwfnBpIWd
+	 yilBXQwfQpL5Jle7ZRq9QIE84O2ysrpFiC/iXZY4hLMFO81OlIcFk7M5Ts+OqRDEqwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TIWS2bWd;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE2C606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:27:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AE2C606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E2E606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E2E606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TIWS2bWd
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so779618a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:27:57 -0700 (PDT)
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3ab28382b92so9748621fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:27:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792855672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gydQV/mpZeG9YjUmyTAlzN0nq3HIpdS5u3BCtpZUA9PAptKM8X+sT1NXzzR6sJVAj0
+         oNyTlP1rKgdlAejoy5OT4BgXTLEqmI8dvp+dDcoStLHQ/BkRqwgjGWlp0IPV3LwHSVGV
+         YBgtrL+0Iyqbvs9l7nrwpsaWM7bp68eRTFSpG0I4ZJ6hY2+2BbiVAm30S0VJBUrkGVdT
+         SZJVYpnoDObQZh6mzGhczrNDNc6aC8e4Y0IJ8ch78KF2uDOKwlcekbmVLRF6caQFQnYK
+         VBAZkvJFfB/dpEVgCOZUBcsbzjyqlog9pokrZzSus7+5yTVa6RrB5ejtc4+8j+PACdZI
+         0G0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
+        fh=Oahqz20/yqq+Kyh91Q3gfAGMe0XiXwWwBL2kkWWx6mQ=;
+        b=eCgg/pP82bZSflhee+wr7ua9CVmZY4Lp1p/iOYfxUIgWCmRPQL8Ibz3ZIGDTISGOnL
+         iK9+UKfNll63+CAQ7wIU0hEDda7UXbnWaZDc5C95+UhHXkn0jD0yQChBcNBY5DP71PWS
+         j9fDRmi4433HBSTHG5EZTN0LMxn8+rZUrrl0+1MV57E/iZkVAr/3N0jY72klqDKrCHdL
+         IH2QF8TwF7vOIAsQwtLXMj/6q1KXWUTGEy0QSl1f+LV2edLFp7FK1sgZZzmoiFfg/tt+
+         9vLz6qIjTBTNhyV1omlqV+hloKUYq/4fb3SAy5xmF8awWSEaZyzro0xRiPZSJ9v/sFBV
+         yVkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792855677; x=1793460477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tTIUmz2BTP5uc3b5w49W9FJPP6OWT1/KRAW3W14kXZE=;
-        b=TIWS2bWdy4DR+B7HV1LqcmCNcinwE3a+CnKriUlRgLtg6PXe/bZc1pfQo6+ugzDaAf
-         UsWOHRCmlzHHh9iZQHb0m8h+oiCgy0qpJZ24LKxHQcOyeUcG1Y93wO+CcWxnT7Oe0D7r
-         KOA3q3FbkfyL0IQ+6aSYZc6G7MAILbbF6sX0weDNu12pLz+eG+UceQfrt8TGikAQbGfS
-         8aVoXPSbWxTwnuKeGLat+2A577bNzhh/TYk/kBKlcyRp5i0IK42M/6EdPR5wDyc0Reh6
-         Av5BdGT72ESh29cQv0+iBSoJXvY0/J/ZGEtUAC3y8P1voQYXXcbBVBE5BxkjIRX6taAE
-         Lj8Q==
+        d=gmail.com; s=20251104; t=1792855672; x=1793460472; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
+        b=pVR7sNZ9N6WDehhguAyrK91c2UB0tKytAYwmpy7MfNAUKA2sOxyBdPWo1PxpSrRutB
+         uyRaKD1XMcEhoVWuw78Zw8C9LzxsoFGfONR6nDUPwGjj6LJLCj/2ZdjFFGvlhtBvrWUU
+         PIyNw2a46gPfGRQA0zWK6vA2YtJD5szoqp178MUzCwzgv/N61rc6Sde3r64tx/OdgjE6
+         k6O37GSOeVA4tyghAOnafFZy4atT8B+/E0/EbQi9plDA3ceOTUU8lDka7avKJ7KRotgG
+         tiDZWx5uKjUGNX0vmhnURmRdiXMPc32LkWRUpvJf60xn11RQ0j76QXgorsno1EAMFC/y
+         VAQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792855677; x=1793460477;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tTIUmz2BTP5uc3b5w49W9FJPP6OWT1/KRAW3W14kXZE=;
-        b=dT3qQCbfUpocJUR34uIUWbrb2VMrlZIx+pXm9Y08DqzrTAfEu8kMP2kJHCjkWXo5LS
-         R4B7zmZeyeb3+Op5tra3SpfeAOuEqxy07TL4Qd9wl/P65xs+V3+drF/cI6lmXqen0357
-         BMF6N4sTAwo8iGqWKaHrBw7yDOZlVbIQeN+U/rxMvugYa1n5LhrEXgMa7VO+OlXmKoUs
-         LRSkVZnhyBM1Fmh7IA5f3k3wg6TXxIwWAAyYYsGf800pFhHSWPdVFVnwdtiHUrposmsl
-         RpGY146i9N9AQM56tGFfbqxvQqQkd4awNVfaI9r6FLLe2Fqw17wxAN+5MEBvawtcdl/e
-         bkHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoE2F5xoSp1hBK8mFfsgdSuXAQMbaeQ226/Xv+KgkOyuAVYb6wJpNYVvk0CobKnm9kkmj3yhrGlGmYffc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQwMmqP5hScHGaHe3oPPYWDzYAu142ObAxhrEncQLwEVWPVJqv
-	ywnQ/nnUcG9vd/20nMZPuuZm0M/P35eFGOYPpuYB5V93jyN+hNu3UKrz
-X-Gm-Gg: AYBFou2cvMaYvgrQ27VG28zi0ifIPg1rYQMdBS7jnfT4Ej5fP735ahwIpGDBeqo5C7S
-	KMGmH0Xg0prederTwfk3FT311jUiRWeFKLppxvZpyBUTU/WEtLJsP9u4xYeBFflW5Y7Fgglw3vR
-	HXBu3Iw84ulhxt5pBJ8x0cEd6BPd7uWdPtlWqAUxx2vO+PKzQbKkstJAk/Uv5XcAnOkcA32pMYf
-	+K20AWmA6yBcXKRb/PweUk97wgwFWtcPGp9quXws1wt8RmFtNz2SynkF65LQs0tsJTRLLL6DLwO
-	elP0dVnGjBsFLQu72aDiMASl20K8kN9szZLhIxR++fgpjqRgD0J0nJD8SHXFEDvIeAlqIF0Aiq1
-	kU5QJQBeMW1oArR6Jp2tQOdWBVnUAft2Ar7hjW8BKQmYZIoM8fEdGfrNYbl2grEeTzyJAVRoUxU
-	Mhrh/6DA4IhsTQUOcCXEYfeVtdg0iqG5EhmkeW8S+iHrhbcd9wub+5QiMiaVmIKQID/gPPsfQqn
-	8/8z1Rgw8WtsLI7cISlVLk2PmVmhfSoFv/c0L1b7LK/PJeZ4lM=
-X-Received: by 2002:a17:90b:3a44:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3adeb5e4527mr1243250a91.25.1792855677197;
-        Sat, 24 Oct 2026 08:27:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa96sm3277694a91.7.2026.10.24.08.27.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:27:56 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_conn: Initialize the device before hash insertion
-Date: Sat, 24 Oct 2026 23:27:49 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0086-v6-dcaf08c3bc9952d7022d@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1792855672; x=1793460472;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
+        b=tVp/2BBQ9xxb70eKJnKmJ2SKmUST7a5pqXOYC4McV8yxaNgllFcDIwWWqruhJruRga
+         59NVNLA1HgUfBauWzcDUYuTpz9yvxdKQNX1ej0bCAhQeHxCXoLmJhooWJ1pW9foIHhOG
+         P+HLGdQXrx3MWZjhSnUY8Luq9vQOREtDz05LfLAWW/wFeGqWJiiSCKJVeOZ6zioUinyz
+         ftmBVMsK6UtmCaKFRuuATnd3MjXxIKDFW3tPfkF5b6q3qMU53YZGXj9WK5Ei3WtDDjni
+         hbwuLSTl9ifwgai99F+klXGXY9yZqqwqqhH49UeVJF96g2FzT1Y9n5mnKqiKB1MHZ+yc
+         q5qw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFOsna/A/5XqzOzyeis0ocV06kMZhcNi/bw8uGyuRveU92LfIFMjmnI/aTrrcb5UxcARY78pANi/lgov8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8a9A+xhDSD756GeIWjCJdjxT0IPGo4W8A4atWExd38uw18HFr
+	ZWG0FyhoAKI5jyH9CV68gNLvyiFAOzU7/LUoX27p3DKELtcd2WPehWONMIw8MOB2zaT31miHmgZ
+	5ZbNfzXoa8cfAz9ox8Tj2KZce9iNdong=
+X-Gm-Gg: AYBFou3h1ku3N4U57NxlD2acZdiEwZxHAl2z2WWK3jljxP2RmcTZjKqPP3X6aVczDKP
+	OzE8WrQiMbNjwD2OuCr8W870qHwaMuUijGMgth1pJKOEVcJwjUr9dG9B5Uvac5VBQIK+2p/sbYv
+	WO4jwDK+gi/D0SFSQ1132V+bdCqfNPtfMUxcdZpw7kP9TE8abn8oLsuisI1y55u4MP6tSjcqiop
+	clzZcCBC7uxgk9zDJpkUw3k/gquJV5/4eHJZ5e3uDbQ5OhAvyicPLx4bj8++cHCqUQus9pUSpCy
+	UZh88kVB+eTJKfvYKemB2NRP9XTxsmviTiYh+CX6PgrcjXr1TQ+LFsuqtyWQafG7K0qEH+AphWX
+	SD3hVJiTvQFyTrd+xrJ6RNyPDg2iEorgM/nAJVQ==
+X-Received: by 2002:a2e:be84:0:b0:3a6:772c:2757 with SMTP id
+ 38308e7fff4ca-3ac6fcf0290mr4860011fa.12.1792855671222; Sat, 24 Oct 2026
+ 08:27:51 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,195 +98,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Sat, 24 Oct 2026 23:27:38 +0800
+X-Gm-Features: AclHuK_qYRdkUyULxjKJ3869VkCLl0Q0CBw_2CQv5y2-OinBDduVJe0yO0lVoy0
+Message-ID: <CAO-4RZ28RXpMv-o0R9uxiuoSR7mB5OtFCc-_JjBK2UZLYZVWDA@mail.gmail.com>
+Subject: [BUG] HID: uhid: general protection fault in synchronize_srcu on
+ device-creation failure
+To: jikos@kernel.org, bentiss@kernel.org
+Cc: linux-input@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-An hci_conn must have an initialized embedded device before an RCU
-reader can acquire a reference to it. __hci_conn_add() instead adds
-the connection to conn_hash before hci_conn_init_sysfs() calls
-device_initialize(). Holding hdev->lock during creation does not
-exclude hci_disconnect_all_sync(), which looks up the connection and
-calls hci_conn_get() under RCU without that lock.
+Hi Jiri and Benjamin,
 
-When a new incoming ACL request overlaps controller poweroff before
-the connection is registered in sysfs, the separate event and request
-workqueues can execute this sequence:
+I observed a general protection fault (KASAN null-ptr-deref) in
+synchronize_srcu() while fuzzing HID/uhid with syzkaller. I reproduced it on
+Linux 7.1.3 and on Linux 7.3.0.
 
-1. The event worker holds hdev->lock and publishes a new connection
-   in __hci_conn_add(), before device_initialize().
-2. The request worker finds that connection under RCU, calls
-   hci_conn_get() and leaves its RCU read-side critical section.
-3. The event worker runs hci_conn_init_sysfs(), sets BT_CONNECT in
-   hci_conn_request_evt() and releases hdev->lock.
-4. The request worker calls hci_abort_conn_sync(), which acquires
-   hdev->lock and reaches hci_conn_failed(), hci_conn_del() and
-   hci_conn_del_sysfs() to delete the pending connection.
-5. After abort returns, the request worker calls hci_conn_put().
+The fault happens on the error path of hid_allocate_device(). With fault
+injection making hid_bpf_device_init() fail (init_srcu_struct() allocation
+failure, failslab), hid_allocate_device() jumps to out_err and calls
+hid_destroy_device() -> hid_bpf_destroy_device(), which unconditionally calls
+synchronize_srcu(&hdev->bpf.srcu) and cleanup_srcu_struct(). SRCU
+initialization failed, but the error path still invokes synchronize_srcu() on
+the unsuccessfully initialized SRCU structure; check_init_srcu_struct() then
+dereferences it and the kernel takes a GPF:
 
-device_initialize() resets the kobject reference count to one,
-discarding the walker's premature get. If no other device references
-exist, deletion of the unregistered device drops that one reference
-and bt_link_release() frees the hci_conn. The walker's trailing put
-then accesses the freed kobject, as shown by the KASAN report below.
-The RCU grace period in hci_conn_hash_del() cannot preserve the walker
-after it has left its read-side critical section.
+  hid_bpf_destroy_device drivers/hid/bpf/hid_bpf_dispatch.c:632
+  hid_destroy_device     drivers/hid/hid-core.c:3085
+  hid_allocate_device    drivers/hid/hid-core.c:3056   (out_err path)
+  uhid_dev_create2       drivers/hid/uhid.c:511
 
-Initialize the device before hci_conn_hash_add() publishes the
-connection. The existing RCU publication then makes the initialized
-device visible to readers, so the walker takes a valid reference that
-survives deletion until its matching put.
+Related patch
+-------------
+The following posted patch appears to address this error path:
 
-KASAN report as below:
+  "[PATCH] HID: core: fix device cleanup on allocation failure"
+  by Tristan Madani (2026-09-04)
+  https://lkml.iu.edu/2609.0/09658.html
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in kobject_put+0x4f3/0x610
-    Read of size 1 at addr ffff88811e6fcd2c by task kworker/u17:0/559
+The patch replaces hid_destroy_device() with put_device() in the
+hid_allocate_device() error path; it also carries
+Fixes: 6cd735f0e57a ("HID: bpf: protect HID-BPF prog_list access by a SRCU")
+and Cc: stable.
 
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? kobject_put+0x4f3/0x610
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? kobject_put+0x4f3/0x610
-     kasan_report+0xe0/0x110
-     ? kobject_put+0x4f3/0x610
-     ? hci_disconnect_all_sync.constprop.0+0xd8/0x520
-     kobject_put+0x4f3/0x610
-     ? hci_disconnect_all_sync.constprop.0+0xd8/0x520
-     put_device+0x24/0x30
-     hci_disconnect_all_sync.constprop.0+0x176/0x520
-     ? hci_disconnect_all_sync.constprop.0+0xcd/0x520
-     ? __pfx_hci_disconnect_all_sync.constprop.0+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_set_powered_sync+0x48f/0x680
-     ? __pfx_hci_set_powered_sync+0x10/0x10
-     ? __pfx___mutex_unlock_slowpath+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     set_powered_sync+0xaa/0x150
-     hci_cmd_sync_work+0x1b3/0x450
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+The kernels I tested (7.1.3 and 7.3.0) do not include that fix:
+hid_allocate_device() still calls hid_destroy_device() on the
+hid_bpf_device_init() failure path, and the crash reproduces there. Please
+confirm whether the patch has been queued for stable/backporting; I can test
+the backport if useful.
 
-    Allocated by task 561:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     __hci_conn_add+0x10c/0x1f70
-     hci_conn_add_unset+0x72/0x120
-     hci_conn_request_evt+0xb2b/0xd40
-     hci_event_packet+0x894/0xc70
-     hci_rx_work+0x367/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+Environment
+-----------
+- Kernel A (found and reproduced): 7.1.3-kernsight-kasan #13 SMP
+  PREEMPT_DYNAMIC (2026-10-13), x86_64, KASAN/KCOV,
+  CONFIG_FAULT_INJECTION=y, failslab enabled. No HID source changes.
+- Kernel B (reproduced 2026-10-24): 7.3.0-kernsight-kasan #1 SMP
+  PREEMPT_DYNAMIC (2026-10-20), x86_64. Vanilla 7.3.0 tarball
+  (sha256 87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953),
+  built with KASAN/KCOV and fault injection. No HID source changes.
+- Guest: QEMU 6.2.0, 4 vCPU, 6 GiB, KVM, x86_64. A fresh VM per run.
+- Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+ (2026-09-18).
+  The "+" denotes local KernSight integration changes (seed ordering/state
+  feedback: pkg/kernsight, prog/kernsight_*, syz-manager/kernsight_*,
+  pkg/execbackend, snapshot support in vm/qemu). The executor used is the one
+  built from this tree.
+- Reproduction rate: 7.1.3: syz reproducer verified (no C reproducer was
+  produced). 7.3.0: 1/1 with the stored 68-program sequence; the standalone
+  two-call program did not reproduce in 2 runs. (1/1 does not establish
+  stability.)
+- Kernel command line (7.1.3; 7.3.0 is identical, see repository):
+  root=/dev/sda console=ttyS0 fstab=no rw earlyprintk=serial
+net.ifnames=0 oops=panic panic_on_warn=1 panic=86400 hung_task_panic=1
+softlockup_panic=1 nmi_watchdog=panic
+sysctl.kernel.hung_task_all_cpu_backtrace=1
+sysctl.kernel.panic_on_rcu_stall=1
+sysctl.kernel.max_rcu_stall_to_panic=1 rcupdate.rcu_expedited=1
+rcupdate.rcu_cpu_stall_cputime=1 no_hash_pointers page_owner=on
+sysctl.vm.nr_hugepages=4 sysctl.vm.nr_overcommit_hugepages=4
+secretmem.enable=1 msr.allow_writes=off coredump_filter=0xffff
+vsyscall=native kvm-intel.nested=1 spec_store_bypass_disable=prctl
+nopcid vivid.n_devs=64
+vivid.multiplanar=1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2
+netrom.nr_ndevs=32 rose.rose_ndevs=32 smp.csd_lock_timeout=100000
+watchdog_thresh=55 workqueue.watchdog_thresh=140
+sysctl.net.core.netdev_unregister_timeout_secs=140 dummy_hcd.num=16
+max_loop=32 nbd.nbds_max=32 comedi.comedi_num_legacy_minors=4
+kunit.autorun=0 vcan.echo=1
 
-    Freed by task 559:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     bt_link_release+0x4a/0xb0
-     device_release+0xd7/0x280
-     kobject_put+0x1ad/0x610
-     put_device+0x24/0x30
-     hci_conn_del_sysfs+0x15d/0x190
-     hci_conn_del+0x684/0x1100
-     hci_abort_conn_sync+0x7d6/0xae0
-     hci_disconnect_all_sync.constprop.0+0x164/0x520
-     hci_set_powered_sync+0x48f/0x680
-     set_powered_sync+0xaa/0x150
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+Reproduction on 7.1.3
+---------------------
+Fresh KVM guest, kernel as above, from the guest's /tmp:
 
-    The buggy address belongs to the object at ffff88811e6fc000
-                                                                which
-                                belongs to the cache kmalloc-8k of size
-                                8192
-    The buggy address is located 3372 bytes inside of
-                                                                freed
-                                8192-byte region [ffff88811e6fc000,
-                                ffff88811e6fe000)
+  scp syz-execprog syz-executor repro.prog root@guest:/tmp/
+  ssh root@guest
+  cd /tmp && chmod +x syz-execprog syz-executor
+  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
+./syz-executor ./repro.prog
 
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x11e6f8
-    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000040 ffff888100043180 dead000000000122
-    0000000000000000
-        raw: 0000000000000000 0000000000020002 00000000f5000000
-    0000000000000000
-        head: 0200000000000040 ffff888100043180 dead000000000122
-    0000000000000000
-        head: 0000000000000000 0000000000020002 00000000f5000000
-    0000000000000000
-        head: 0200000000000003 fffffffffffffe01 00000000ffffffff
-    00000000ffffffff
-        head: 0000000000000000 0000000000000000 00000000ffffffff
-    0000000000000000
-    page dumped because: kasan: bad access detected
+Settings: sandbox=none, threaded executor, procs=1, repeat=1, no additional
+syzkaller features; a single program.
 
-    Memory state around the buggy address:
-     ffff88811e6fcc00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88811e6fcc80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff88811e6fcd00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                      ^
-     ffff88811e6fcd80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88811e6fce00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
+The program (2 calls; fail_nth: 5 on the UHID write):
 
-Fixes: 94d9ba9f9888 ("Bluetooth: hci_sync: Fix UAF in hci_disconnect_all_sync")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index b007f623b2ecc..439ecde8f4d71 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1160,6 +1160,9 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type,
- 
- 	hci_dev_hold(hdev);
- 
-+	/* Initialize the device before publishing it to RCU readers. */
-+	hci_conn_init_sysfs(conn);
-+
- 	hci_conn_hash_add(hdev, conn);
- 
- 	/* The SCO and eSCO connections will only be notified when their
-@@ -1171,7 +1174,6 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type,
- 			hdev->notify(hdev, HCI_NOTIFY_CONN_ADD);
- 	}
- 
--	hci_conn_init_sysfs(conn);
- 	return conn;
- }
- 
+  r0 = openat$uhid(0xffffffffffffff9c, &(0x7f0000000000), 0x2, 0x0)
+  write$UHID_CREATE(r0, &(0x7f0000000140)={0x0, {'syz1\x00',
+'syz0\x00', 'syz0\x00', &(0x7f0000001300)=""/191, 0xbf, 0x24, 0x2,
+0x160e, 0x3, 0xffff8000}}, 0x120) (fail_nth: 5)
+
+No C reproducer was produced for this report.
+
+Reproduction on 7.3.0
+---------------------
+Same procedure with the 7.3.0 kernel and the stored execution sequence:
+
+  scp syz-execprog syz-executor repro.kernsight.prog root@guest:/tmp/
+  ssh root@guest
+  cd /tmp && chmod +x syz-execprog syz-executor
+  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
+./syz-executor ./repro.kernsight.prog
+
+The sequence contains 68 programs replayed by a single executor process
+(procs=1), one at a time in file order (repeat=1, sandbox=none, threaded
+executor). Note that repro.prog retains the original syzkaller repro options in
+its first line (Threaded:true Repeat:true Procs:6 ...); the manual replays used
+the command above. The host/guest commands and console outputs of all three
+runs are in RUNS.md in the repository. The UHID trigger is program #64
+and appears again inside the final
+program #67. There is no parallel replay, but earlier programs can leave
+kernel-side asynchronous work behind, so their effects may persist.
+
+Materials (programs, full logs, reports, kernel configs, command lines,
+sha256 manifest, and a verify.sh that re-checks the numbers quoted here):
+  https://github.com/Zheng-zheng-codes/hid-uhid-synchronize-srcu-repro
+
+In our runs the sequence log contains exactly one GPF report, first printed at
+t=276.2 s. In the two standalone 7.3.0 runs, syz-execprog exited with status 0
+and neither serial log contains the GPF; the captured output does not include a
+final executed-program count.
+
+Fault injection was enabled for this reproduction
+-------------------------------------------------
+The write$UHID_CREATE() call is annotated with fail_nth: 5. During this
+execution the kernel logged:
+
+  FAULT_INJECTION: forcing a failure.
+  name failslab, interval 1, probability 0, space 0, times 0
+
+followed by the GPF report.
+
+GPF report (7.3.0, latest verification)
+---------------------------------------
+Oops: general protection fault, probably for non-canonical address
+0xdffffc000000002f: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000178-0x000000000000017f]
+CPU: 3 UID: 0 PID: 12655 Comm: syz.4.84 Not tainted
+7.3.0-kernsight-kasan #1 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+RIP: 0010:synchronize_srcu+0x53/0x3b0
+Code: 48 83 ec 08 80 3c 02 00 0f 85 f1 02 00 00 48 b8 00 00 00 00 00
+fc ff df 48 8b 5d 40 48 8d bb 78 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c
+02 00 0f 85 c1 02 00 00 48 8b 83 78 01 00 00 a8 03 74 08 48
+RSP: 0018:ffa000000519fa20 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 000000000000002f RSI: ffffffff88fa6f1c RDI: 0000000000000178
+RBP: ff110001208be198 R08: 0000000000000000 R09: fffffbfff251b453
+R10: ffffffff928da29f R11: 0000000000000001 R12: ff110001208be1d8
+R13: ff110001208bdeb0 R14: ff11000110774098 R15: ff110001107740a0
+FS:  00007fb68b6b0640(0000) GS:ff110001ef83e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000001300 CR3: 000000011c3bd000 CR4: 0000000000753ef0
+PKRU: 00000000
+Call Trace:
+ <TASK>
+ hid_bpf_destroy_device+0x64/0x80
+ hid_destroy_device+0x28/0x240
+ hid_allocate_device+0x453/0x520
+ uhid_dev_create2+0x16a/0x910
+ uhid_dev_create+0x448/0x560
+ ? __pfx_uhid_dev_create+0x10/0x10
+ ? __might_fault+0xe5/0x190
+ uhid_char_write+0xe06/0x1040
+ vfs_write+0x2b6/0x1160
+ ? __pfx_uhid_char_write+0x10/0x10
+ ? __pfx_vfs_write+0x10/0x10
+ ? __fget_files+0x1f6/0x3b0
+ ? __fget_files+0x200/0x3b0
+ ksys_write+0x1f4/0x240
+ ? __pfx_ksys_write+0x10/0x10
+ do_syscall_64+0x12e/0x7a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb68a7b2b7d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
+89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fb68b6aff98 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fb68aa45fa0 RCX: 00007fb68a7b2b7d
+RDX: 0000000000000120 RSI: 0000200000000140 RDI: 0000000000000003
+RBP: 00007fb68b6b0010 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+R13: 00007fb68aa46038 R14: 00007fb68aa45fa0 R15: 00007fb68b690000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:synchronize_srcu+0x53/0x3b0
+Code: 48 83 ec 08 80 3c 02 00 0f 85 f1 02 00 00 48 b8 00 00 00 00 00
+fc ff df 48 8b 5d 40 48 8d bb 78 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c
+02 00 0f 85 c1 02 00 00 48 8b 83 78 01 00 00 a8 03 74 08 48
+RSP: 0018:ffa000000519fa20 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 000000000000002f RSI: ffffffff88fa6f1c RDI: 0000000000000178
+RBP: ff110001208be198 R08: 0000000000000000 R09: fffffbfff251b453
+R10: ffffffff928da29f R11: 0000000000000001 R12: ff110001208be1d8
+R13: ff110001208bdeb0 R14: ff11000110774098 R15: ff110001107740a0
+FS:  00007fb68b6b0640(0000) GS:ff110001ef83e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000001300 CR3: 000000011c3bd000 CR4: 0000000000753ef0
+PKRU: 00000000
+Kernel panic - not syncing: Fatal exception
+Kernel Offset: disabled
+Rebooting in 86400 seconds..
+
+The 7.1.3 report is included in the repository (logs/report-7.1.3.txt) and has
+the same path:
+
+  RIP: synchronize_srcu+0x53/0x3b0 kernel/rcu/srcutree.c:1576
+  check_init_srcu_struct ... srcutree.c:441 [inline]
+  hid_bpf_destroy_device+0x64/0x80 drivers/hid/bpf/hid_bpf_dispatch.c:632
+  hid_destroy_device+0x28/0x240 drivers/hid/hid-core.c:3085
+  hid_allocate_device+0x453/0x520 drivers/hid/hid-core.c:3056
+  uhid_dev_create2+0x16a/0x910 drivers/hid/uhid.c:511
+
+Analysis
+--------
+hid_allocate_device() initializes the HID-BPF SRCU via hid_bpf_device_init();
+when that fails, the error path calls hid_destroy_device(), whose BPF teardown
+runs synchronize_srcu()/cleanup_srcu_struct() on the unsuccessfully initialized
+SRCU structure. The posted patch proposes to address this by releasing
+the device directly
+with put_device() on the error path, which matches this analysis.
+
+Could you confirm whether this is the issue addressed by the patch above, or
+whether a separate fix is needed for the hid_allocate_device() error path? I am
+happy to test proposed patches.
+
+Attachments / repository contents
+---------------------------------
+  repro/repro.prog               syz program, includes fail_nth: 5 (7.1.3)
+  repro/repro.kernsight.prog     68-program execution sequence (7.3.0)
+  logs/report-7.1.3.txt          original 7.1.3 report
+  logs/repro-report-7.1.3.log    7.1.3 reproduction report
+  logs/gpf-7.3.txt               7.3.0 GPF report (also inline)
+  logs/serial-7.3.log            full 7.3.0 console (sequence replay)
+  logs/serial-7.3-minimal1.log   7.3.0 standalone run 1 (no trigger)
+  logs/serial-7.3-minimal2.log   7.3.0 standalone run 2 (no trigger)
+  kernel/kernel-7.1.3.config, kernel/kernel-7.3.config
+  cmdline/cmdline-7.1.3.txt, cmdline/cmdline-7.3.0.txt
+  verify.sh                      re-checks the numbers quoted in this mail
+  scripts/replay-kernsight-prog.sh   the exact run script used for the replays
+  MANIFEST.sha256                sha256 of every file
+
+Best regards,
+Zheng Zheng
