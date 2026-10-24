@@ -1,57 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792825437;
-	b=QDxL+xrKdri+8S4Q2zRgJBhvEZVtdhm3tFBJWQa8zDnPl9FZnLh4cCpKKHCzlxPIGtqI
-	 DiziOLcjab/+4YW5jKlA4g7ZXyiOQyMi3BSy8+kmuKtL9WJScmSmvRUZjcNmFJVavm5KT
-	 Sv5J8aonpbQOQhIg5UcWGsesL4FtNruzj60Q7wQOUP6T3t03w/qqqav3NCb4YWexrSs4G
-	 /1S7n9y58q0BR7aVJtcsI8jZik/a1zlId3MdTG5G/qj3pl9lVDo3AqrRHvU7RIQCOuXua
-	 Z56ueQ1XjvhwyFofYZR4sf1QdikoWY4/CaKFtpqxWLYN+TO5wLX4UOqmkHH6DvzVfDQ==
+	t=1792825528;
+	b=USv6k8/JDkKBhkDicoWJEpmEDeuBeFXyLHGcpvkEbqpfRyGlUkiy81mnroMFuq+vgJcj
+	 CumBiwe9LFvwUtWkl2LusH60wtLKgswD8dwVV9Liheiwu/Fx1Og7EX7U/Q4EyhuG5Ipeq
+	 O7bHTx/jsvFohmnnRAtgDO1hjREWNBylQxOgt5IiUq1hOES57bti6jss1LVTKCx6/O+Dw
+	 IoIzdfxtlLj4FkdfetIfOTnQzNsQ29jaEyiSJSPJSm+fdZA/hm655U9jxXnYaRC48TKlM
+	 VYauXHb4OQQK5l+AJcW2cXHtP6sQA8Xe59cyJ5cqI1pV+Ap7bVKFdiNHnh+Sjm82doQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825437;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2FdeqYZg0t+ii5NnwM8v7ZVFrQHVdVZTti3YtFSfjtk=;
-	b=bW+OfQZyaEGJ/aa+XATF4cO68kV7NEo4I1w+DhP29wXYymMpmXi+Diamsr9/ZoXvysCQ
-	 BCH9sCutg77BvjQ7Me0XjKtLdCAlTMG0bmiUw/uXHHM67guhBF26rF/tnSLF5flhILc66
-	 tCesivNx6dAANwNzP4SO0i4FPAynuoKVd9Vro9q6IqjdcmrkY3XgaGiD0YBPzV553sCHZ
-	 yVfPo0cQLUjE+BgikbfpFvAsDftosedYAK4IfbFL5ndLorW4gojrAap13IcTisJas9QI0
-	 ld4sUcqFLZQ4g5VbSW3njijQcC25Djpui7TRor9aL6zSTkmnA7rRS2HXb/6l/U2FjPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792825528;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=rAuzurPfsLQhSEiLbgaU/pfbgL67ZN11Nrab8/1fyE8=;
+	b=QoRJr7UyZE8mxACpwr8hPEv1maDdXFR7fCkYQ3YaG6sjrTTGic73rvpe4H60ZSE+EtDe
+	 Zk8tIfyHxI98YjRRMW4iDe63Yu2htK2w3cA7cvC/4749twr4HfoQK2UOy5frmMMOxy03i
+	 FHJbprrIgKu/qIVKlmiiIwYQDp5eLhkvp9EvMei51/wofuvtj+sZq59e94PAoIW0HORYa
+	 gYPEERlGq64fZdODdG7GMExuax1kOLwutJt+UJX9nPqfpQFzVm0+84KrcqhJZnluEOLpY
+	 aCNbD7SeBFQb9tL4Zpzxm6sl2aIMjcUOq2DKJ4sIK4igOr+49nv63NgRPadF3rBn5UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/F0XP2O";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbR7RRDy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA362606A31E;
-	Sat, 24 Oct 2026 07:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FDD606A31A;
+	Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/F0XP2O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F721F01828;
-	Sat, 24 Oct 2026 07:03:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbR7RRDy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637B61F01825;
+	Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792825436;
-	bh=2FdeqYZg0t+ii5NnwM8v7ZVFrQHVdVZTti3YtFSfjtk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O/F0XP2OBz8PlHx4SnKE8Fle2Ln5XX4kiHYoqARouBvRnRM+OuKBUEc1a8rjrF+dt
-	 irb2gsI/FFu6eylkgB0iIWe6UsDHlPZ3N52/FqS1f+TANdEbnTVFZIpJKsmaI2XAS9
-	 GvFginHrMCqXt3km2uSnJTf4jpgACer1BLxA/+kM9HPYkf85kPhl7uR39NbXBuodDI
-	 jiL+hw5v5pQWXzzQQGXHtM1x8do5cs9ACQMXfAicGIkfD7mRkoMU3xkCQXviSuiDzX
-	 VNNSZxFd6fx76ClMP/Le4e/rgrO90f+j4JkdxF9uTd/yF81kKyPZU5gPr5EHiL8fBE
-	 VNq3Ni7fW0/Sg==
-Message-ID: <sashiko-outbox-183581@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH iwl-net v2 5/5] ice: do not block on the aux device lock
- in ndo_setup_tc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petr Oros" <poros@redhat.com>
-Cc: intel-wired-lan@lists.osuosl.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261023070258.730168-6-poros@redhat.com>
-References: <20261023070258.730168-1-poros@redhat.com>
- <20261023070258.730168-6-poros@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 07:03:56 +0000
+	s=k20260515; t=1792825527;
+	bh=rAuzurPfsLQhSEiLbgaU/pfbgL67ZN11Nrab8/1fyE8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=TbR7RRDyKk7k20qZjfNpSBmbfuECJu/WQfwP2rVMhAoTTHCsnaQyaNGie8bCVqgtH
+	 DIkrKoG3DwOIQBfRuLcMFtBEBQ61RJkcmcGhnzKtp+2Qt01XORo0sp9aqXBqLrxSph
+	 tiajVXiLwzrToRWyWWaWyDI9ohjyL/ikt+pHdV60pD+oKKT+xaf+8ThtA3UaMnpGGH
+	 g/9HfLMP2CEsV8Pp+Oan0z8HJiNbESeAcULccpn26NlOBTou1JYq8ClHB/zsO182NM
+	 UoG3VG9KW4rRTh8Jbvc3nfn7IIpxEMbEfU4vMMsW2B87XZvsRLlhq3h7aj6bf8YVcN
+	 6Hf1qEZiU9pnw==
+Content-Type: multipart/mixed; boundary="===============2269967893526965054=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,103 +48,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Message-Id: <4fc72796a6ccf2acff87fc27a0f73bb64b74199cad21829b1c6a59fbf0b474d4@mail.kernel.org>
+In-Reply-To: <20261024062329.264086-1-hackerowskiy@gmail.com>
+References: <20261024062329.264086-1-hackerowskiy@gmail.com>
+Subject: Re: [PATCH] bpftool: fix line info in multi-function CFG dumps
+From: bot+bpf-ci@kernel.org
+To: hackerowskiy@gmail.com,bpf@vger.kernel.org
+Cc: qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,hackerowskiy@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat, 24 Oct 2026 07:05:27 +0000 (UTC)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] ice: orphaned channel VSIs and memory leak when ice_setup_tc() fai=
-ls teardown
---
+--===============2269967893526965054==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 58934f25b30092ac8064d34365ba48edb6a32a06
-Author: Petr Oros <poros@redhat.com>
+> bpftool: fix line info in multi-function CFG dumps
 
-ice: do not block on the aux device lock in ndo_setup_tc
+TL;DR:
+- Selftest's expected string likely never matches: it doesn't escape '>' in
+  "skb->len", unlike the DOT output
+- Even if fixed, the check may not distinguish fixed from old code
 
-This commit replaces device_lock() with device_trylock() on the RDMA
-auxiliary device in the TC_SETUP_QDISC_MQPRIO path of ice_setup_tc() to
-avoid a lock dependency cycle with the RTNL lock, returning -EBUSY when
-the lock is contended.
+> diff --git a/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
+> new file mode 100644
+> index 000000000000..7d5b80927b65
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/prog_tests/bpftool_cfg.c
+> @@ -0,0 +1,41 @@
 
-> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethe=
-rnet/intel/ice/ice_main.c
-> index 9de375f5c4deb..7eb653a7ebacd 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_main.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-> @@ -9451,7 +9451,12 @@ ice_setup_tc(struct net_device *netdev, enum tc_se=
-tup_type type,
->  			mutex_lock(&pf->adev_mutex);
->  			adev =3D cdev->adev;
->  			if (adev) {
-> -				device_lock(&adev->dev);
-> +				if (!device_trylock(&adev->dev)) {
-> +					mutex_unlock(&pf->adev_mutex);
-> +					netdev_warn(netdev, "RDMA auxiliary device is busy, qdisc not chang=
-ed\n");
-> +					err =3D -EBUSY;
-> +					goto tc_unlock;
-> +				}
+[ ... ]
 
-[Severity: High]
-Can failing with -EBUSY during qdisc removal permanently leak the
-struct ice_channel entries on vsi->ch_list and leave channel VSI state
-orphaned?
+> +void test_bpftool_cfg(void)
+> +{
+> +	struct bpftool_cfg *skel = NULL;
+> +	struct bpf_prog_info info = {};
+> +	__u32 info_len = sizeof(info);
+> +	char output[MAX_BPFTOOL_OUTPUT_LEN];
+> +	char cmd[MAX_BPFTOOL_CMD_LEN];
+> +	const char *expected = "return\\ bpf_ktime_get_ns()\\ ?\\ skb->len\\ :\\ 0;";
+> +	int err;
 
-The commit message notes that when the qdisc is deleted,
-mqprio_disable_offload() ignores the return value so the hardware traffic
-classes and channel VSIs stay in place until a later qdisc teardown gets
-through.
+Can this expected string ever match the bpftool output?
 
-However, in net/sched/sch_mqprio.c, mqprio_destroy() calls
-mqprio_disable_offload() once while destroying the Qdisc:
+The DOT output prints source lines through btf_dump_linfo_dotlabel() ->
+dotlabel_puts(), which escapes '>' as well as ' ':
 
-net/sched/sch_mqprio.c:mqprio_destroy() {
-	...
-	if (priv->hw_offload && dev->netdev_ops->ndo_setup_tc)
-		mqprio_disable_offload(sch);
-	else
-		netdev_set_num_tc(dev, 0);
-}
+    static void dotlabel_puts(const char *s)
+    {
+        for (; *s; ++s) {
+            switch (*s) {
+            ...
+            case '<':
+            case '>':
+            case '|':
+            case ' ':
+                putchar('\\');
 
-Once mqprio_destroy() finishes, the Qdisc object is freed and no mqprio
-Qdisc remains attached to the net_device, so no subsequent teardown call
-will happen for it (including on unregister_netdev()).
+So the line "return bpf_ktime_get_ns() ? skb->len : 0;" is printed as:
 
-During driver unload (ice_remove() -> ice_unload() -> ice_deinit() ->
-ice_vsi_release_all()), ice_deinit_pf_sw() releases the main VSI without
-calling ice_remove_q_channels(), and ice_vsi_release_all() skips
-ICE_VSI_CHNL VSIs:
+    return\ bpf_ktime_get_ns()\ ?\ skb-\>len\ :\ 0;
 
-drivers/net/ethernet/intel/ice/ice_main.c:ice_vsi_release_all() {
-	...
-		if (pf->vsi[i]->type =3D=3D ICE_VSI_CHNL)
-			continue;
+The expected string escapes the spaces but not the '>', so it contains
+"skb->len" where the output has "skb-\>len".  Would the string need to be
+"skb-\\>len" for the strstr() in ASSERT_HAS_SUBSTR() to find it?
 
-		err =3D ice_vsi_release(pf->vsi[i]);
-	...
-}
+As far as I can tell, no other part of the visual output contains this source
+text unescaped, since print_insn_for_graph() escapes '>' as well.
 
-Moreover, if a user later adds a new offloaded mqprio qdisc (hw !=3D 0) to
-attempt another teardown, ice_setup_tc_mqprio_qdisc() only removes existing
-channels when disabling offload:
+[ ... ]
 
-drivers/net/ethernet/intel/ice/ice_main.c:ice_setup_tc_mqprio_qdisc() {
-	...
-	if (!hw && !test_bit(ICE_FLAG_TC_MQPRIO, pf->flags))
-		ice_remove_q_channels(vsi, true);
-	...
-	if (hw) {
-		...
-		ret =3D ice_create_q_channels(vsi);
-		...
-	}
-}
+> +	err = get_bpftool_command_output(cmd, output, sizeof(output));
+> +	if (ASSERT_OK(err, "dump program CFG")) {
+> +		ASSERT_HAS_SUBSTR(output, "cluster_1", "second function in CFG");
+> +		ASSERT_HAS_SUBSTR(output, expected, "second function line info");
 
-Wouldn't adding a new offloaded mqprio qdisc leave the old struct
-ice_channel entries on vsi->ch_list, rebuild the main VSI rings, and append
-duplicate channels via ice_create_q_channels(), potentially indexing past
-vsi->tx_rings[] and vsi->rx_rings[] in ice_remove_q_channels() if the new
-qdisc configures fewer queues?
+Even with the escaping corrected, can this check tell the fixed code from the
+old code?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023070258.7301=
-68-1-poros@redhat.com?part=3D5
+In this program the main function is only two instructions (call; exit) and
+helper() is longer.  With the old function-relative lookup, the basic blocks
+of helper() at relative index 2 or higher already resolve to helper()'s own
+line info records, because their global insn_off is also 2 or higher, and
+those records all point at this same source line:
+
+    return bpf_ktime_get_ns() ? skb->len : 0;
+
+So that line probably appears in cluster_1 before the fix as well.
+
+The commit message says the selftest "checks the second function source line
+in visual output".  Would it discriminate better to check that the main
+function's line, "return\ helper(skb);", does not appear in cluster_1, or that
+the helper() line comes right before the first instruction of the cluster?
+
+> +	}
+> +
+> +cleanup:
+> +	bpftool_cfg__destroy(skel);
+> +}
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40071369261
+--===============2269967893526965054==--
