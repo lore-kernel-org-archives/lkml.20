@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792874799;
-	b=J4JLKHGWy12TZKwS58t1xqYLxnwDOaex5KfTR2xMEhnUi2ksypedxIbX6/aE3hi4jW+F
-	 uPHabsytai2iJRaIecYm4LyK6ML87w/Bjnkb0xgoMhcim9Gv9Eh2Rw8PLayoS3RIqioci
-	 QbyuLYEcrQlRii0P3QjQpWdbwCmJCt4DzPEbtCIUkOx91LiF8V0fEOgpJuaG2DWymK45m
-	 W03FqAuY+a10xuzoX07l8I2Zw+HTf1GHHh1SPsRV5ZND4sigS/J7WInPqvAViyoyi3oN6
-	 Llvpnl7nhs0dIaknzuAdlRtWG0+CFTh+f6ERm6yD62fASoxJ0Ykn7MGYJDQNgkLM20Q==
+	t=1792874895;
+	b=sVrIB8g7kCvVD8yNEpQ6Xyrz75R+5DzvphPhBoNFKVemUPUNj+c6qIGrdlVBJ0Fk8Erd
+	 eS5ss+DURQHitCjya3m/LnmZYTy83JKcxaNhIUC1HnfzNQf8ERBvI6NzosQ+szyLjn+Lq
+	 +hR00EYpPavh+ohT9sna1BCHNsbHhBEWwoZuTuoHW6zzFq69N5myocSBvw7NW1lPwkx8L
+	 HxpJ5NcIA5z9VADYfttT9U/iFCWt1ivIRtIC/woY+1VThlBL496d2W8xn9rJVEOWWZEsd
+	 SwV8f6GBcq/0YpeCMqTMNSNJ2qehLZRQyl5XquqexdRXic7NPms4BH8MLNbO0LnwvSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792874799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792874895;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UnXi3eekXKl70zsvSefuWRY6oQJRxJ2VpezoTiQGsog=;
-	b=q/Ozav0owshCUgmYclgvM9E0j2rxJeyFmyZdKR+NL2ArvEZjgcpasa5M0DGp0TrBOe71
-	 CsSQV1j7vN9uCyt9rgTCDt0IubnGA5MxT407J/95KoQ+3nENY13Pkfn5SbbsKjISKRAq8
-	 MTOOCoHkKrR+8ucg8iRTz5S1m6dr2ob1aEzdWDJl7wZYPuZ1eTDFUzFSQqoyJA2Z0cv6y
-	 0hCxImC5f5NNo55XxZX3EFvwkHYp7QYs04lYykJa1e+WenlyVkoWS73sgrVvMBJ0bdBNX
-	 kb3NTwZ9TG8H9kEiRgiJBKpBYYX6Jm42+0Cg/+2MI3vxR9LnpX9KHKw7oM4taVFaHKw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=jHvev2DHjFHkJ3V6zZIDP3Luuvx+DUDiyJHl84mF21M=;
+	b=PY6wavuWEjbjkmDdQErSX80YoT9AGGATcHScjjtc6aKmkmHRIqBGe0OyuvOGE2s3A4mV
+	 u2OAVa+spQjVOZEJWXqEtSQU8jazow2xmfuqmGkn+pHZGiXqdO8dD1oO0OHQO6GPxXVGL
+	 +N0PFxmCo0Qgyjo4dLPUee9vO95ccUprMAObZOrtvmv7hD1hY8HOYrzTW+LIv4R2cMj3T
+	 Ix0j08IqUeBZrzRBkAREvmhtuLiAu2DbQ5X0NfGNm0Tp0Ayu8LsEZo2Dq0JghNRKJb/cg
+	 j9WTUTX3HBoXXPANTXJ+JjPvTiJesVZSyUqxkMnb3tRe8s+JVlOXSaVZQyloj9gdyYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mRvlV0yf;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kff1vHAP;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C099606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C099606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0811606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0811606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mRvlV0yf
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so971969a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:46:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kff1vHAP
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso4706995e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:48:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792874799; x=1793479599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UnXi3eekXKl70zsvSefuWRY6oQJRxJ2VpezoTiQGsog=;
-        b=mRvlV0yfNwiBWAaIWq2wzbaMgYG3NSLiKYGgN0HRPopk0eToj4UIb/jwCUlVfh34pA
-         L847ORl9vlv8Rw23L3FdZFlk5362vhDyMz2Dl2BGl7Drz8WIY9S8dP2+QEVHqmlSF2lN
-         BlXI26pO8J+v3dxJOvls18hF3L/GdS7bcRlX/WtRGr+TOVd2Bkd5otl44/Qu0HIsT7qO
-         UnmzmFBC6uNSeCgOcdoS9WsIZo3+WonpSpC5bQEUu0o0t00cnj7LJpp/G7r7LnCgAoPI
-         rdyy+GN/6fWrLkDZs/VtXxIOOsGBvreW1bNFu4lOKvg7V5gHAtybk8jhE2zG/tIRPWLc
-         nwGQ==
+        d=gmail.com; s=20251104; t=1792874892; x=1793479692; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jHvev2DHjFHkJ3V6zZIDP3Luuvx+DUDiyJHl84mF21M=;
+        b=kff1vHAP2Nu0zIpudBmNBHn5KX0VBdzJXu4jvP58vSoo/pHneUWZCK+nIdNMuxPvmd
+         MMKZ9fKFKJ598ZVVeOJxR2XhwwlrIi+xTcPZLuLSYi9hw+QWQaRrGxZJX4Jd2/9vvNJ8
+         HRnEH0V5yPdn7Bw1r11dowTzcM5iZmlnh2ripLAHidxKlyxKokb6G2qRHcQfDDtnJXcK
+         kuA9zRcem1KIObpVQ6cqQJoDckpwyFj/Qxa1oC9rPRaYv5Cr4HjZMdUvWSNdXnWbSkPT
+         iw9YPGRPKMg1b/5GtNxGrHqmt+j9A+kbxt69Px7C1m49FxTKJLe6p3aTq+JcNmEIACw8
+         qQ1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792874799; x=1793479599;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UnXi3eekXKl70zsvSefuWRY6oQJRxJ2VpezoTiQGsog=;
-        b=efKvpAGTToLNsinjoijsU/pRjrj3UaK0A+HAzpHKFUuHA1ZSNREm3fTOSlaSYWXZKI
-         F2hYgszBJHLZsCdBwXRCXqjHQhToQtiIjJHTYmJf6wxqo1iJXWrtLrBTGd2LboPhy+WN
-         8Okg6HrDmK/UuqlFL22ZMC57W5B9no3MdclpL3bWsH8Y3Bzel+tFfqclNnd+fCOemc3M
-         RXXALTg9H8XFj24WNWhECLYeEdaxcEOMskfLBTlEOs/mou9kEV18iE51v88ahfZdmWpw
-         7FOhQSQFFWM/fQ7DRFJat5+TIT1PPuVoGRMFtGMw/bZteKmmP2XN7xXo9V0v9pdo3Hod
-         QLBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQac6gn7dzMcBz7cyObMVufEsWySCjCuBscNktyvkcvFxn/F4RAqL1DyFC+yZI1pRTDIzqcTl8dLRfrkM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUA2+uQGJWJs8ih9Y64houhuhwXdfDqngLRZ9SdhpoaMXNqLx5
-	biMd9c4SwsQTZlaEZSLE2haZn0nwNOzFIovbRoBfppRmUi5ZLEzdlbyf
-X-Gm-Gg: AYBFou2nmiPUj30YZeNfgl3er5vouLHJGjtSPDsTGlFPgxpw1gemvsv6pggNyeUqBKC
-	HgW3CRpR3B/ssevcbin7JJlJfP6b/coHCIcm9eH6LU7BzckAbaTOQia3gKdMwhItN6E1QG1HfD1
-	1nUyUd3gHsNUmVAe7VuKmqPLj6NGmK2Y31eaiJMv9s+i2M48zLv7Yg/aBCWlRpiIEB8MvNbeGD5
-	hGXO7N3VV4GNQJPToMUfKJ08HPw0UgCe8Et7D1PqUiccPuykUwyNI67ZYI4dvY5CKiouFSd6Qoi
-	k541agKBamv43Di3epgFz5YMdh+6Nfqeu3ORNo4rI2YYYA9IfjdJ8euBFuevZCIUhS6HDFu7D+9
-	9jcFc1vHz02cztkGr5rwfnGegmalKFIa3G09V65Eu86wXg94YOho2K24gqzIFYERehfRQeeCy7O
-	Y/Ew41AVXER54WT2gBUCRNOI4WN2Ji0z4TB+C5GoWnxTrGVJ6AzQhq2faBP7+9e2P/kTlNpmLi4
-	RVXPPUvaUmNbT4J0TG60dKSEp4FJ++idCE/lZRiAKgfLCZml2l/hJDkr93YIKI/faASqyOJkDDd
-	0Gx+nJKQmaLA+T9XkNK22YrvhgVwuq7aV7UEe1gwNHE5kKUROqdPHKxOqJm5SJHoBtU7wabGSGy
-	m9P1BCpq+j91/gkKSNT3YO8CRdGbf
-X-Received: by 2002:a17:90b:3143:b0:3ac:9e76:aa76 with SMTP id 98e67ed59e1d1-3adea9dca65mr2434190a91.13.1792874798834;
-        Sat, 24 Oct 2026 13:46:38 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe8f0a7sm3793963a91.9.2026.10.24.13.46.37
+        d=1e100.net; s=20260707; t=1792874892; x=1793479692;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=jHvev2DHjFHkJ3V6zZIDP3Luuvx+DUDiyJHl84mF21M=;
+        b=w0uXDKcL07V/xsbTSlKV67SbWdcYa41aACRu2/AGhCIbHdwEbv5aZK8ymW85S0IcXL
+         8KU24lT6u/3OWWIQ8362pcBzBUTp8K6dbuVgQkj/j+/K4ruir9OqmlALpZEF/ZI9FTPE
+         CxsjO2suCAqVovCWgL+pSl0ALRKe3vlLqkmE2oTomVyk720o3P72d8SQH8ZavDqA97CH
+         jQSP+9XXq+bLtsCpkS6mOJy2fQIX5EnN71oH4Rqry1TJz85Y9KLSKPvEQFZlNyXLPaS5
+         RL9bHLmT/z6Sq0Zx95DHWpig1jfXrFymktACrDvId8BDtKs+9Rf6nCEWkTP8XmORm3kb
+         XvtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcwhCl5ahCkO7GD87Krq5pBuJ548lexwz59UkDMX1MfDb5sDuBB0yU1olGx9KpgB5ulGlkKlVavw9wP1A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOWVqsgVUJEe2r9iZKRWlxNCRhJKrYD8p8qaS0YyZEYUsdWA/K
+	2Ip+H3vpxWQONRaJNks9QxRUqGQ10pQRAaR6vxGHOFctJIU3odF6NFJk
+X-Gm-Gg: AYBFou2vo1/UzRR4msTA9k0tzW8QG/buT2+wxT9TdfJn+GjSaGziyVihdbDmnxdpI2Q
+	fg9eBUREiJUGJvuA5cXwspBKZ+7AbgUK0Cp6PnonLAjOFOc/5eLnP8774vpvJ7UMhPQc8DtSo/q
+	YZWfGdhKoK6cLtZmrwQBzLRvbYAurxWWuHKUACP+V8I/MXnu7zUroDb6Po2wz4t9VFryV/0UuOI
+	Xxr/XNUUxuAJGuhLMckc8jeIJEw1adonjCz1lQp1wLlKNYoT+Z6uNUOw8ShLQjO/utfLjW1fabE
+	+H6507c5oLuzQwGGFdWF/11T6QVYUweDtvcp42OpIo29lHiuOjZBIMogf+2GzkTUterK/5BjRya
+	KV6KUyJ068TMF7nuW4W4MygqMzCVK3iQIz19HD4Bw4wbmKqUopSP5k/pX81FOiPz5W1KqJwGk26
+	Z86hQAXjnKs2csSXWWhkZTKxzVP4keTe/EKiutboAGUirIt4aA+7bUug3Y0C9CSMnrIhfNg77km
+	QJkJ/Je+eel16gUgF1129NydcGWLGtfgd5Oi8e+zRtRzDXyC13owBAJyLXhV6fu0ekfevJlag4t
+	wxte7Nfq
+X-Received: by 2002:a05:600c:5397:b0:4a2:a9:ed56 with SMTP id 5b1f17b1804b1-4a35ac99b8fmr44041955e9.8.1792874892206;
+        Sat, 24 Oct 2026 13:48:12 -0700 (PDT)
+Received: from theSameSurfase.localdomain ([193.222.98.188])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd49afsm6221793f8f.35.2026.10.24.13.48.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:46:38 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
-	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
-Subject: [PATCH wireless] wifi: mt76: mt76x2u: limit TX A-MSDUs to 3 kB at SuperSpeed
-Date: Sat, 24 Oct 2026 13:46:36 -0700
-Message-ID: <20261024204636.23484-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sat, 24 Oct 2026 13:48:11 -0700 (PDT)
+From: thesame-personal <thesame.personal@gmail.com>
+Date: Sat, 24 Oct 2026 22:48:04 +0200
+Subject: [PATCH] ARM: dts: samsung: exynos4412-p4note: allow powering off
+ the wifi card
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,74 +91,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIMZ3WoC/x3MSw5AMBAA0KvIrE2iNT5xFbGgpsxCK60IEXfXW
+ L7NeyByEI7QZQ8EPiWKdwkqz8Cso1sYZU4GXehaFZqQr9v5SKQ07uT8wTgFs9ltNFi33BhVlhV
+ NFlKwB7Zy/Xk/vO8HJtVRYGwAAAA=
+X-Change-ID: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
+To: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Artem Utkin <thesame.personal@gmail.com>
+X-Mailer: b4 0.16.0
 
-At SuperSpeed the MT7612U stops accepting bulk OUT data after it was
-sent a TX frame longer than 3072 bytes (TXWI and 802.11 frame, the
-TXINFO length). The TX URBs never complete, MCU commands time out
-("mt76x02u_mcu_wait_resp failed with -110") and only a power cycle
-brings the device back; neither a USB reset nor a host reboot with the
-port powered recovers it. Single frames never get that long, but
-A-MSDUs of two full-size subframes are 3096 bytes.
+sdhci_3 serving BCM4334 was missing cap-power-off-card.
+On my N8000 this resulted in the following messages after sleeping:
+[305.759883] PM: suspend entry (deep)
+[306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
+[306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
+[307.127267] PM: suspend exit
 
-Behind a USB 3 hub this happens within seconds of continuous traffic,
-plugged in directly within minutes. Frames of up to 3072 bytes, at
-MTU 1488, ran for minutes behind the hub, frames of 3080 bytes, at
-MTU 1492, wedged the device. At high speed the same A-MSDUs work.
+The regression was triggered by commit 8c3170628a9c
+("wifi: brcmfmac: keep power during suspend if board requires it").
+Midas already has a fix in commit 2ff147fdfa99
+("ARM: dts: samsung: exynos4412-midas:
+turn off SDIO WLAN chip during system suspend").
+exynos4412-p4note.dtsi does not include exynos4412-midas.dtsi,
+so p4note did not automatically inherit the Midas fix.
 
-Cap the A-MSDU length for all TIDs when the device runs at SuperSpeed.
-This keeps A-MSDUs of smaller frames.
+Another affected board was fixed in commit 863d69923bdb ("ARM: dts:
+samsung: exynos4210-i9100: turn off SDIO WLAN chip during system
+suspend").
 
-Fixes: ee676cd5017c ("mt76: add driver code for MT76x2u based devices")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Artem Utkin <thesame.personal@gmail.com>
 ---
- .../net/wireless/mediatek/mt76/mt76x2/usb.c   | 26 ++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x2/usb.c b/drivers/net/wireless/mediatek/mt76/mt76x2/usb.c
-index ade15bddefc5..3e53b357858c 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x2/usb.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x2/usb.c
-@@ -29,6 +29,30 @@ static const struct usb_device_id mt76x2u_device_table[] = {
- 	{ },
- };
+diff --git a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
+index 8d52aa13b8..03b514a82b 100644
+--- a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
++++ b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
+@@ -1232,6 +1232,7 @@ &sdhci_3 {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+ 	non-removable;
++	cap-power-off-card;
+ 	bus-width = <4>;
+ 	mmc-pwrseq = <&wlan_pwrseq>;
  
-+/* At SuperSpeed the MT7612U wedges its bulk OUT path on TX frames longer
-+ * than 3072 bytes (TXWI and 802.11 frame), which only A-MSDUs reach. mt76
-+ * adds 22 bytes (TXWI, header padding) to the MPDU, and mac80211 counts
-+ * each new subframe up to 11 bytes (LLC header, padding) short, plus the
-+ * 14-byte subframe header it adds to the first subframe after the check.
-+ */
-+#define MT76X2U_SS_MAX_AMSDU_LEN	(3072 - 22 - 11 - 14)
-+
-+static int mt76x2u_sta_add(struct mt76_dev *mdev, struct ieee80211_vif *vif,
-+			   struct ieee80211_sta *sta)
-+{
-+	struct usb_device *udev = interface_to_usbdev(to_usb_interface(mdev->dev));
-+	int i;
-+
-+	if (udev->speed >= USB_SPEED_SUPER) {
-+		for (i = 0; i < ARRAY_SIZE(sta->deflink.agg.max_tid_amsdu_len); i++)
-+			sta->deflink.agg.max_tid_amsdu_len[i] =
-+				MT76X2U_SS_MAX_AMSDU_LEN;
-+		ieee80211_sta_recalc_aggregates(sta);
-+	}
-+
-+	return mt76x02_sta_add(mdev, vif, sta);
-+}
-+
- static int mt76x2u_probe(struct usb_interface *intf,
- 			 const struct usb_device_id *id)
- {
-@@ -43,7 +67,7 @@ static int mt76x2u_probe(struct usb_interface *intf,
- 		.tx_status_data = mt76x02_tx_status_data,
- 		.rx_skb = mt76x02_queue_rx_skb,
- 		.sta_ps = mt76x02_sta_ps,
--		.sta_add = mt76x02_sta_add,
-+		.sta_add = mt76x2u_sta_add,
- 		.sta_remove = mt76x02_sta_remove,
- 	};
- 	struct usb_device *udev = interface_to_usbdev(intf);
--- 
-2.56.0
+
+---
+base-commit: b47faa6004d86ade16b90d24fa1e1f179e6f7230
+change-id: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
+
+Best regards,
+--  
+Artem Utkin <thesame.personal@gmail.com>
 
