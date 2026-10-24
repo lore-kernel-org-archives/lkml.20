@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792808696;
-	b=z4EjlxJrEZUS30eLfpMS4KVBsCmOmiF7PWppaAsWKptTM6TDAya5ZjriH/BMgd5llujt
-	 bgSDNpenSZ3VyqQK9/YW+YSVz3vR7ahWgasWfkqsLFfEcb1wti6zRqJ6A5aFJi+VhLDEA
-	 RoUVyjIlH2gThMguMeQyXKRyqZUOOzmhqIApkfqyvH4Uka5bOn6HSoRov4gcBG17SNgBl
-	 ygYuzwzAvRvWgXlKUGErDw3diwSRXUlM7sYOKJ0d/2CCI6UHbstFJ43eixrp/2ED8lLFH
-	 pYehs6CLHFZoW7LSMXE1ydmictLIsmUedq5iZN6XZPMXU/WjEWpQ3MfSlSn3VSB62fQ==
+	t=1792808698;
+	b=qzpEWlxmVwiOdBHL6ka/aEsgF95PSCbNwF+q243MlBjTJnD1K/NR4JuWJQPok/56UwSh
+	 PCQQB82K/Dg2cBqKNhEIe56jDUgJW7Jx7Z45wUG7mSJClwJHS2R2XOsPRzLynZHoASrIP
+	 qAfCi/yCmG1qCfUd7qnfMnSJIHz0XvPeW7Z5f5b0ulrET6kXMuKMR5sKZwBbLSZ7Vmj+q
+	 f9d/vxQgNIX3MWYTU9Krpxacj5amMltWJlKRAnq5HkJUV2u5wd6o2iBcTlL760bmXnQxF
+	 suWTm1JdbUrtiroS5mJ/xNX5hvVl7QjBRT2IfbvsVVe6Fm8A+Xt+FQVQANtd/M6+Jmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792808696;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792808698;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IVlkwGJQd53FilqK8CCX7q0KQcQC9PlRvrNFImbfNek=;
-	b=agdiw4H+V5D19pG20RqL+7cnUgP4NEPGexPPDgwfTOyo/jA7tU7ukVwdxxJI/2UZEtfM
-	 WrLeXWCo2XLUrhNP7GXVEmDFpKVAfAMSy3ozg+lbuuUjXG8z8fN3NLVrMP750ucN/hfte
-	 d+86Q9ta9/TOHNgVqXOHO4r61XAzqOaazf7jG0YjSp0/JBGZMzAglBMlFZ/kKuqiYiHUw
-	 mymAZ9C69jeO0U+wqY+sCfd59RzA+gXbnMbU9PXZ0pPFfsFn/2u7lZnNuFRnpt1d6QePa
-	 gtiNS0VrDeo+qaxuBxfk8j9JYVPxfgczMmdpdWhrYwyzt+c2FUfbBfi5fqWhzgBxhYg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
+	b=PI8IwzXgfvRem2kNJEoRdYDA9DZW3g1CTLA5AHc3W4wVkAqdNHdG7Gcva3XzgQWTdtgM
+	 C2uLxXjsQ03VXiaX5E1+Y0aNRYipimROwyV5c6rhK+eK+LlzizrCdCtDYpTFN4ekmT/pB
+	 O/G3revuE2mPocFmCaL3GfyIwZyMSlymvPYVewZ2u9RCRKyTgq5sLL2usPwLtlQZCwlFR
+	 DMj6mY2slBWi0Sy72SkcDsJHlX7oFG7IfvGvNFa04Z4TH0m0zhpksyIt6MWOLn77tUCPw
+	 KrlK9vD0nkz0tXTUW41A622EaxfnwD7bYfB5Y6MQULP4fJbM/iD39F5uNKEaJlxaoZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l1+Ws8MC;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xv+SqMwV;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD84606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:24:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD84606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2AB606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D2AB606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l1+Ws8MC
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso10681185e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:24:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xv+SqMwV
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso9280475e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:24:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792808694; x=1793413494; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IVlkwGJQd53FilqK8CCX7q0KQcQC9PlRvrNFImbfNek=;
-        b=l1+Ws8MC4/jkqoS8+aTeyyiyus1k2nPwNgRI2GlZFbxS3sBNZzlKwO7c7nD/pDJV6S
-         p+9oViIqtgbFrbKF76VIdG4yQDkrm1mZmmIElL4N9wN3ADCPLcjkE7aMXk3VaxW88Z6A
-         5qBbDBNrgn1IOqZ2Yp74nuG/fZACt7N9z2ATlw2hdWzhQTxcPBg5JytDHAg42j+eBOvW
-         phrfkaQnLsobYxv6R3Ojt2gkfwFwVgoRkVrgUXcgENEQGX3fPGzung611v8ZXojeEO4V
-         6G/pZ67PSiz+x0+87fCB8ndfb6+ytPgTM7YC4jRYI7wntHRwM0ldQGVr3+enPCaAU3w9
-         /R/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792808694; x=1793413494;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792808697; x=1793413497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IVlkwGJQd53FilqK8CCX7q0KQcQC9PlRvrNFImbfNek=;
-        b=gDDyd+kTNEqfbist1Zvjpdl+ff7raRRbvE+Vl6SZhnnhkLbJXUlesfXYDq4d3JQ1Md
-         lqRIXhQ7qzaTS2wd5sZ/x8/1WH9uwqRJIkocWi3SflU8EBZrTl1tg2ewht27fQbJ/fRl
-         V+Mpk3eLaFZb0Q5NQ1/5j06b8bh7bcXJvG/3T3fYrPpE48EXSlgPTPxV7fotRWwtDyrh
-         K8nGlbNtVsrl6nmWhSdDFv5BfmM4FEBuNQEy85jIr35/AlnK516WjyFcDTFrKIduM+ZP
-         At4O/PaU9hHiAxlPmDyucstBd+Un+xvjaY77+awLpPJnYJVQiVSLMRgTM6LY8gvx/xXM
-         DtxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4eYkFHNtpuaa2zkyNR7BeJDHOYwwXUKLQ2Bvn/5gSNcTL37OxZtyIvinj9kH0UW+511vD7Pb+NaOqGVs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIMxrw/yrmQKxtZMJ2xEYidEotrNtxYUdpwRL+lirvD0fQuagm
-	R/10WX/C/qeMBmAi5JkPlFcC3Y6sxYNUTUFOdFPEESvgYbRrCkwA5/hM
-X-Gm-Gg: AYBFou27ZoaxOBFCaOlBDC6YHNaJ5E/nTTT8oP7wsASZMvDQng5soq+LUfIKiapgv4W
-	O+ywl0UQJkO29uzhKcaDvb1gs5+c92FBvgWLb5C7wHEAZX4Pu433B2fRqf7OTjay/vQWcU5s/LW
-	CCZhC5TYlZxKezZ9tzIstTjsdkeMVQXsjVnQaPUYduYT7wtzLr+9HEAgy6DXjAmPsv/5fRihCz9
-	M3eRTFpKJgTw/F4kW8FwgRRla6B/L8hBSlh9MHI7C2x2fNqBiNA29P2/AX3o5LAtE9QqkmFLywV
-	gpWa7DdB8lUVlXwl65Hr9i3pJGScQeUWAoDXsT/knKxCP+Fh/2gQO9EEtNJQhnNDxE4BKgiRQ8Q
-	uQjwv7y9zL3dYxeZT+tuP9sK55iROueRnK0ZBK540bWMSt24G/ROSP2Albiqch1uxWNPNsspMbt
-	Vj3z0BJQc+FdlW6sQtvksKjceusqGKQwFAYsi4M3cIyzes+ChDzUjSUR9fxEPltXNLm7EiCGZ5z
-	jU18uZksHzumWnV2qLdy8SaKm4I1cmaIhebEDpgm8U1jHSsXNeEoqF1tAciNYZhbHYGXbDDh9Bt
-	DgGl
-X-Received: by 2002:a05:600c:4746:b0:4a3:59c9:a744 with SMTP id 5b1f17b1804b1-4a35ac8bb3fmr10452595e9.7.1792808694219;
-        Fri, 23 Oct 2026 19:24:54 -0700 (PDT)
+        bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
+        b=Xv+SqMwVYc9+NVdMEsS1SvMETvulAbGhuDxXzf13ILbhirQSDI98CTRFyPEC01+zmw
+         qHv68OBlDO1eEDR0AwmO7uNjnJgERVaDcOVKZc/Q0aT6wXzsvcv9x5xx3SaGw67fxdvg
+         dHAg0xfK7hAQP7BLKvfbAjXPoMmczohK2lPfLnHklHMbdamJ9wrrSNV+3xKt6tmKs8dZ
+         zduiPNfG0IN5GQj2+YShvgAwUwJsX49zOoLWGxfRHvJW6DIm3ddntFqumyuOARUrSfr9
+         7E70k8J+VY32HwSCdaY51vVIjkxDJlnT2TOYTghPQXMmMozDREzcsv5KW5kFnB2qVV7w
+         EkIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792808697; x=1793413497;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=An84VwlzMp3GuZLx6HMKZAlMwrBtzJQu2yyoAEx9ZZk=;
+        b=dmkkv6ptSrBphcDArRyWi1aDdAI/xfiYjcepNlPn5WP6/UBkAIaCNXS7wjhcTBK6iS
+         ccQZ3FrS0m+4I9kJBdH0gGJAogwicx5lhVFljOHlnSHyZf7g1qRra92rt4L8G2IJ/xbr
+         BonjgaokG2SEAC3ZyWZl+T/V0C9erZ62I9JZiQJzls5T4WXYO+CVONx7rMSNdW3eBuVL
+         1f6H3nRvp5wqHXeLAG5wPDZdX1InRJnKRxgC8mwT3lBE9yrfBLIR2AAwTGYKhMvXao0M
+         t6zhypKihGVbZtZBjyJYA+4Gfxj8EqCwRpBCeIhfKOfY4oE+UJJpVarKhaLBffeKPfmL
+         uSGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkf6WRCvt1/UMngGg+RB+XDOvASRu3om/E71kkDgO3TVrWjcrM67OTP6TVUncOMYzIWpv4vinCAdetejs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6JmlyaeZTRU3T8Jx8O1ZpNBzc7pF6JL3xsBR9sj1c7Sg0nciA
+	Kk3JsVgQwuvTmSi27I/hwvFoWl6+anyh/gEs0Jeso8UVvKeNUrUvqqwV
+X-Gm-Gg: AYBFou1VUq5x31l0uLt1aB5mW0Nvi83IQ3bgHtKtf6QlPvcKzTiiv/JSAprVbgPd20C
+	+9hHwnyIXZsr4IHRAkHpYgvsfzo9zgtw6svLWBWsV8H8XDcz4Bie3vFu5Yr6HvsMwyaVESyjdTM
+	V5AvH7phVwY42gcgYtelmOi+Hl1SL29EGGcwS2xQxQ16Nv26Yo4QLqrat+cftgIUxf9ri6h5thB
+	U2IZNKiXe8h3viOc/o3aDKzHAdoXBvOj/p6vhvF77JyKbUsMRglFdVoAiPTUt6uIUj2VFFwvS6R
+	gV3/nqldxtlpRWKyK1ahh3UsJDdU0plLf+Yl+9ezW+HNV4ZuNeANNZSle1XVKEZnB4iD4tkw8WR
+	qfTd2ayo3KY/54x3BSHSjB8FPCMcpRj27EwRuz6MnNo2r/UR/9aY9mhmdgfN1w62jaueBQNi57x
+	7y8s/NBxcAcJ5+kMP/ROF7FcUeGUzkRYwyvBCaoTTlgTSPp3ZhHd2wQ51YK/6fE0PTJGGFavYd9
+	yeccVqiFBV26GB0Am6iLzXFaCCADRdXT3sRVT2FQ3By2WoPwjJyRIZ7zY3H3gwPuOpzaOPuXO9Z
+	Da+XQxnRsp3T75jKb0KYuDOBTQ==
+X-Received: by 2002:a05:600c:6384:b0:4a2:526b:d410 with SMTP id 5b1f17b1804b1-4a35aca72e2mr9122565e9.13.1792808696426;
+        Fri, 23 Oct 2026 19:24:56 -0700 (PDT)
 Received: from ASHA ([2001:630:3c1:164:1a66:daff:fe85:4026])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm21088415e9.8.2026.10.23.19.24.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm21088415e9.8.2026.10.23.19.24.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 19:24:52 -0700 (PDT)
+        Fri, 23 Oct 2026 19:24:54 -0700 (PDT)
 From: Amir Noohi <amirmnoohi@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Marc Zyngier <maz@kernel.org>,
@@ -96,10 +97,12 @@ Cc: Radu Rendec <radu@rendec.net>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Amir Noohi <amirmnoohi@gmail.com>
-Subject: [PATCH 0/2] genirq, KVM: arm64: Avoid the irq descriptor lock on vCPU load
-Date: Sat, 24 Oct 2026 02:24:48 +0000
-Message-ID: <20261024022450.629980-1-amirmnoohi@gmail.com>
+Subject: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
+Date: Sat, 24 Oct 2026 02:24:49 +0000
+Message-ID: <20261024022450.629980-2-amirmnoohi@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024022450.629980-1-amirmnoohi@gmail.com>
+References: <20261024022450.629980-1-amirmnoohi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,138 +114,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM/arm64 vCPUs slow each other down even when every vCPU has a physical
-CPU to itself. On a 32 CPU Ampere Altra (GICv3, VHE) running mainline,
-with an in-kernel GICv3 and each vCPU thread pinned to its own otherwise
-idle CPU, a vCPU which exits to userspace in a loop manages 320k exits/s
-on its own, 120k when 16 vCPUs do the same and 59k with 31. The aggregate
-rate stops growing at 8 vCPUs. No two vCPUs share a CPU and nothing is
-over-subscribed.
+irq_set_irqchip_state() acquires the bus lock and the descriptor lock of
+the interrupt. A per CPU devid interrupt has a single descriptor for all
+CPUs, while its irqchip state is per CPU, e.g. each GICv3 redistributor
+holds the active and pending state of the PPIs of its own CPU and GICv5
+keeps that state in per CPU system registers. Callers which modify that
+state have to be pinned to the CPU anyway, so the descriptor lock only
+serializes CPUs which update their own private state.
 
-The cause is the interrupt descriptor lock of the host timer interrupts.
-Every vCPU load sets their active state with irq_set_irqchip_state()
-(twice on VHE: virtual and physical timer). The timer interrupts are per
-CPU interrupts, so all CPUs share one descriptor and its lock, while the
-state being written is per CPU (a redistributor register on GICv3, a
-system register on GICv5). The lock serializes nothing but CPUs updating
-their own state. At 8 vCPUs, 99.9% of all lock contention events during
-the test have __irq_get_desc_lock() or irq_set_irqchip_state() on the
-stack.
+KVM on arm64 sets the active state of the host timer interrupts on every
+vCPU load, i.e. on every KVM_RUN ioctl and every time a vCPU thread is
+scheduled in. When many CPUs load vCPUs at the same time, they all spin
+on the descriptor lock of the same interrupt, even when every vCPU has
+a physical CPU of its own. A global serialization point on the same path
+was removed before in commit 64b6d1d7a845 ("genirq: Get rid of global
+lock in irq_do_set_affinity()").
 
-Patch 1 adds irq_set_percpu_irqchip_state(), which sets the state of the
-calling CPU's instance of a per CPU devid interrupt without taking the
-descriptor lock. Patch 2 makes the KVM timer use it. With the series the
-same test gets 326k exits/s per vCPU at 31 vCPUs (5.6x), the per vCPU
-rate no longer depends on the number of vCPUs, the aggregate rate goes
-from 1.8M to 10.1M exits/s, and at 8 vCPUs no lock contention event has
-either function on the stack.
+Provide irq_set_percpu_irqchip_state(), which sets the irqchip state of
+a per CPU devid interrupt on the calling CPU without acquiring the
+descriptor lock. The irqchip callback is still invoked with interrupts
+disabled. The caller has to have preemption disabled and has to ensure
+that the interrupt is neither freed nor reconfigured concurrently, which
+is the case for an interrupt it has requested. Interrupt chips which
+require a bus lock are rejected, as the bus lock may sleep and cannot be
+taken with preemption disabled.
 
-The series is based on tip/irq/urgent, as it builds on
-__irq_set_irqchip_state() from Igor Velkov's patch 717862eac6ef
-("genirq/kexec: Do not take the bus lock of an interrupt chip on the
-crash path") [1]. It also applies cleanly to v7.3, current mainline and
-kvmarm/next on top of that patch.
+The function is not exported as its only user, KVM on arm64, cannot be
+built as a module.
 
-I'm aware this arrives during the merge window. There is no urgency on
-my side; I'm posting it now so it can be looked at after -rc1, and I'm
-happy to rebase and resend then.
+Signed-off-by: Amir Noohi <amirmnoohi@gmail.com>
+---
+ include/linux/interrupt.h |  2 ++
+ kernel/irq/manage.c       | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
-Results
--------
-
-Reproducer: a /dev/kvm program (no guest OS) which makes N vCPUs exit to
-userspace in a loop, each KVM_RUN being one vCPU load/put, each vCPU
-thread pinned to its own otherwise idle CPU and running from its own
-guest page, with an in-kernel GICv3 or a userspace irqchip.
-The test program is at
-https://gist.github.com/amirmnoohi/91560854a63cd3e5fc7a359eb5e17302
-
-32 CPU Ampere Altra (Neoverse-N1, GICv3, VHE), mainline 864c07de0c7d
-(v7.4 merge window) with and without the series, same kernel config,
-exits/s per vCPU, mean of three 5 second runs:
-
-                in-kernel GICv3           userspace irqchip
-  vCPUs       before      after          before      after
-      1       319694     324584          319670     345088
-      2       298808     326063          289274     343884
-      4       294895     328420          284269     343528
-      8       278579     328736          112423     343984
-     16       119943     328887           56120     282905
-     24        77267     327478           36948     253529
-     31        58722     326056           28114     250586
-
-Aggregate with the in-kernel GICv3: 2.23M exits/s at 8 vCPUs and 1.82M
-at 31 before the series, 2.63M and 10.1M with it. With a userspace
-irqchip, which also clears the active state after every exit, the rate
-with the series still drops to 251k per vCPU at 31 vCPUs (runs varied by
-about 8% there); I have not investigated that.
-
-Lock contention events within 5 seconds at 8 vCPUs with
-__irq_get_desc_lock() or irq_set_irqchip_state() on the stack: 122800 of
-122847 (in-kernel GICv3) and 7865871 of 7865907 (userspace irqchip)
-before, none of 49 and 24 with the series.
-
-If all vCPUs instead run from one shared guest page, the aggregate rate
-with the series stops at about 3.6M exits/s from 16 vCPUs on this
-machine (also with the timer's GIC writes removed altogether, as an
-experiment), and the extra time goes to guest context (front-end
-stalls) rather than to the host. Measured that way, the series gains
-2.0x at 31 vCPUs instead of 5.6x.
-
-A second machine shows the same: on a 384 CPU HiSilicon Kunpeng 950
-(GICv3, VHE, 6.6 based distribution kernel, userspace irqchip), 8 vCPUs
-on 8 idle CPUs ran 2.4x slower each than a single vCPU, and 69% of the
-time spent in irq_set_irqchip_state() was spent waiting for the lock.
-
-Under QEMU TCG (virt, -cpu max), 8 vCPUs, the series removes every
-acquisition of the descriptor lock on this path (LOCK_STAT, 10 seconds):
-
-  host             irqchip     irq_desc_lock_class before      after
-                               acquisitions  contentions
-  GICv3, VHE       in-kernel        393878        36682        none
-  GICv3, nVHE      in-kernel        199654        32080        none
-  GICv3, nVHE      userspace        429928       122152        none
-  GICv2, VHE       userspace        321430        59542        none
-
-Throughput under TCG does not change, so the real hardware numbers
-above are the ones that matter.
-
-Testing
--------
-
-- Built for arm64 (defconfig, debug config), x86_64 (defconfig,
-  allnoconfig) and i386 (defconfig) without new warnings, no new W=1 or
-  sparse warnings (arch_timer.c has two pre-existing sparse warnings),
-  checkpatch clean, bisectable.
-- On the Ampere Altra, with and without the series: KVM selftests
-  arch_timer (8 and 31 vCPUs migrating every 2ms), arch_timer_edge_cases,
-  vgic_irq and vgic_init pass.
-- Under QEMU with PROVE_LOCKING, DEBUG_PREEMPT and DEBUG_ATOMIC_SLEEP:
-  arch_timer, vgic_irq, vgic_init, vgic_lpi_stress, kvm_create_max_vcpus
-  and steal_time pass on GICv3 VHE and GICv3 nVHE hosts (on a GICv2 host
-  the vGICv3 based tests skip, the others pass), without warnings or
-  lockdep splats.
-- Not tested: GICv5 (no hardware), hosts with no_hw_deactivation
-  (Apple), protected mode.
-- Not changed: on hosts without a vGIC (e.g. Raspberry Pi 3), KVM
-  toggles the timer interrupt with enable/disable_percpu_irq(), which
-  take the same descriptor lock. Those hosts have few CPUs and their
-  interrupt controllers do not implement irq_set_irqchip_state(), so
-  the series leaves that path alone.
-
-[1] https://lore.kernel.org/r/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
-
-Amir Noohi (2):
-  genirq/manage: Provide irq_set_percpu_irqchip_state()
-  KVM: arm64: timer: Avoid the irq descriptor lock on vCPU load
-
- arch/arm64/kvm/arch_timer.c |  2 +-
- include/linux/interrupt.h   |  2 ++
- kernel/irq/manage.c         | 36 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 39 insertions(+), 1 deletion(-)
-
-
-base-commit: 717862eac6eff0eea8ac30a0c0de0bed84922aab
+diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+index 3bf969ad8fe0..ab20129615d4 100644
+--- a/include/linux/interrupt.h
++++ b/include/linux/interrupt.h
+@@ -507,6 +507,8 @@ extern int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
+ 				 bool *state);
+ extern int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
+ 				 bool state);
++int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
++				 bool state);
+ 
+ #ifdef CONFIG_IRQ_FORCED_THREADING
+ # ifdef CONFIG_PREEMPT_RT
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index bdb47837c66f..e76fe1cec9fb 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -2777,6 +2777,42 @@ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool v
+ }
+ EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
+ 
++/**
++ * irq_set_percpu_irqchip_state - Set the irqchip state of a per CPU interrupt
++ * @irq:	Linux interrupt number of a per CPU devid interrupt
++ * @which:	State to be set (one of IRQCHIP_STATE_*)
++ * @val:	Value corresponding to @which
++ *
++ * Variant of irq_set_irqchip_state() which sets the state of the calling
++ * CPU's instance of a per CPU devid interrupt without acquiring the
++ * interrupt descriptor lock. The descriptor and its lock are shared by all
++ * CPUs while the state is not, so acquiring the lock only serializes CPUs
++ * which modify their own state.
++ *
++ * Must be called with preemption disabled on an interrupt which has been
++ * requested, so that the interrupt chip hierarchy cannot change
++ * concurrently. Interrupt chips which require a bus lock are not supported.
++ *
++ * Return: 0 on success, a negative error code otherwise.
++ */
++int irq_set_percpu_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
++{
++	struct irq_desc *desc = irq_to_desc(irq);
++	struct irq_chip *chip;
++
++	lockdep_assert_preemption_disabled();
++
++	if (WARN_ON_ONCE(!desc || !irq_settings_is_per_cpu_devid(desc)))
++		return -EINVAL;
++
++	chip = irq_desc_get_chip(desc);
++	if (WARN_ON_ONCE(chip->irq_bus_lock || chip->irq_bus_sync_unlock))
++		return -EINVAL;
++
++	guard(irqsave)();
++	return __irq_set_irqchip_state(desc, which, val);
++}
++
+ /**
+  * irq_has_action - Check whether an interrupt is requested
+  * @irq:	The linux irq number
 -- 
 2.53.0
 
