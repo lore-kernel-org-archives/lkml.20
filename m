@@ -1,81 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792870630;
-	b=hbA0kSuBdVvmHoZ4lk+PUy2DwPH+iWTBgEK9HlyivXQGXy5HXXMgx3jifu7RY6A9DqRd
-	 8ZTEU/YFanJUOSwswexXpNhSkZqiSnOOYPJsNF0sgJVvBYJ8PlL6L5JRSOzxHKcPU8C8y
-	 pkgp90ocdPjXJElPwyyZkzamyO5UAst7eyUVMaZPhlZevqGeea8f18n3NF9vuatJQnpvx
-	 VZVsDOt3vlIV+ZbQTrBtJB/b9f0/byOhQV8giTuFGDZTP0YUzfxH6KYXhRwct+lFs+Omq
-	 NvX4aQiLczR9cZPrGBpSPh3WN0m1u261MQs4RubPf7kAaYRACCPR+d9RFy2pzj55R1Q==
+	t=1792871359;
+	b=KfHlcFkinkb75C9c2ZO//4Za3z7HGcJctXkVWKaMPCmrMPtESOYweH8862deR+kRObcW
+	 6+Dwfy1zyBg0JwxUOXiD1zszuXkWgBoNz6lc4Zk7hkpmC2QV+NLJLeDt4kX07xpisPjGi
+	 3lqYJkYQSu0XQAKq/cNlAwXDaJuPqcS9ykoWIJvtlLf72Gy4P6lbDdcZ/3E0PcgK6g0dM
+	 GDLwjNTXbxGdgoDxSIKUpa3UFG2a8j8XzhjrT/yOEAzWAcxLlMVtSgSQOZ0u2psAMkS5r
+	 MEDK2GqJIhAncBKEy6ExTx0JLO78ZMa7u0Z6JTn7N9EBHvhhGcN/DeGleqmPi9cC39w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792870630;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=yMu0dYJrCWSiOfaDMHw/hzzu7wk/SUoyHAnzJkBIeJs=;
-	b=XcH0tA8YplbfExEzHmUWT6SDOy7PRdNJo7A+xr3+R3Zm0EkYbN8np4rsL4MWTXRd2gjs
-	 3y3Kk2sZc6FHsNIO5wYvRtrxMFgLku59wgwEmRNc79/h/icCFp6mzVZqts64D08GPNbMm
-	 zPKpZtXkCsgS4qa7zH0C+Llx95EwOG8d6O8WboWOWGKM2cuya8MugLBMrjBt8xt0SsRT8
-	 4IqdyD5zv+uN8T3ap1jKbSN2gYRcL5haO5sI76rtTKrbp7EAS+EojahvHpXkbC64A6h24
-	 RwFG3x6tCezL4WQIfuTdci/QzHFlEDn0+LTf1ReH+5pFUD5ggnyNicGNBrSV6FqGmNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792871359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Lolb73ZzkNeVgvmRmzP6aoaOobLavyPT6W9rKgYFA2k=;
+	b=OvZ1pUoCoLd6q1iniuOofYz0lgCD2HqIQryqC5Lzg7R97MbqwFQ3AYgMpm0kdMk9LWWy
+	 bdVabcDYLk6RYpjvtx6Sh4gg99e2NYY87ovE2gyD3OVAzKmWXjpGX61pNeXrDmGJokTET
+	 CE0fG5OAJoweA3w/sCR7YqGMz/680GfHAM9xEbj6kWOfjPLZg+BjLluNwnmLPwFUpwdhD
+	 WpnjIR57p3rbnJ4Mik1QkEzBJoq8hcg/6URJgpYW7yHKSjhT6keRJQHCny9f+W1bsnlX5
+	 zixQ84nc3v8o7wKnX3piz2wNci/of9kJEjSQV4IErd5IAbOmT8LTKLTYiDR1OJqEjEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=dTrKrXZM;
-	arc=none smtp.remote-ip=50.112.246.219
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTPJQGRD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32D2606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B32D2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB91606A31A;
+	Sat, 24 Oct 2026 19:49:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=dTrKrXZM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792870629; x=1824406629;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yMu0dYJrCWSiOfaDMHw/hzzu7wk/SUoyHAnzJkBIeJs=;
-  b=dTrKrXZMLED8C+tG5okw6dhFV0XG08l9FmM7eNh8A9IZKcr1gEkAGbFp
-   aQm+06ua8WJNqjrdslA+4VDIgaKnMWdB+8BD5EYDaBTj8RLerBYuzewOp
-   53rF2V5as6PcWXGND6y9lzKOhEFkI1S7Iqd5ZKbs/brBR9JW+5TvwW5/P
-   5V0E+9A97XBbvaHjWGrwWI5jAUu9xLjw6QOo2TA7IC1o4Aj0xO44eBCwp
-   5VKrpPi3jyh5iGGt/igWFW5QWRpG8KwZLFWhGOAo3E26MPi7AkyScBigM
-   jGG/tBP/gh3aovR8BUB9JrbJABcVy8p/LYYzJBJJ9H5nMxq7N6gcY2Fx4
-   Q==;
-X-CSE-ConnectionGUID: 33Vujdh8R+aHpA/YdbLOhQ==
-X-CSE-MsgGUID: GTTrso5XSXu6LCk6brR0KA==
-X-IronPort-AV: E=Sophos;i="6.27,176,1787011200"; 
-   d="scan'208";a="31923595"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 19:37:07 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:24348]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.47.193:2525] with esmtp (Farcaster)
- id 0659cbb4-d2aa-4aff-9f15-f722995b7d39; Sat, 24 Oct 2026 19:37:06 +0000 (UTC)
-X-Farcaster-Flow-ID: 0659cbb4-d2aa-4aff-9f15-f722995b7d39
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sat, 24 Oct 2026 19:37:06 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Sat, 24 Oct 2026
- 19:37:05 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Thomas Gleixner <tglx@kernel.org>, Antoine Tenart <atenart@kernel.org>
-CC: Radu Rendec <radu@rendec.net>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Eliav Farber <farbere@amazon.com>
-Subject: [PATCH v2 5/5] irqchip/alpine-msi: Add debug logging for MSI allocation
-Date: Sat, 24 Oct 2026 19:36:20 +0000
-Message-ID: <20261024193620.39999-6-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024193620.39999-1-farbere@amazon.com>
-References: <20261024193620.39999-1-farbere@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTPJQGRD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD24E1F01825;
+	Sat, 24 Oct 2026 19:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792871359;
+	bh=Lolb73ZzkNeVgvmRmzP6aoaOobLavyPT6W9rKgYFA2k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FTPJQGRDTq/Damy+nZIDwbaBi5mKEikg6ZiCXnHVxB4mlVRQGnCR9ffg1/1jfk1Tr
+	 9HhOxXIMp2I9res7so/5oAS/TK0KBEtNKaA5IXLFM3dcjsOyLFerixtLr9aX3coHc9
+	 rFfyT/sgchtEh+Jbr/0HJpv76tAhkipoY+GKcDhsU7r/T+BtznLXwf8jCy+a0eiCTP
+	 JQ7RwCT0kBt4ZQynGpn0bi+sdERq+5aHRd6DK5H9hjps5LrIqzWdogvvD+NILMc097
+	 +gbIjG98PApTqTlUYyJ/lnDy1dRKDS2LCXyEvolD48WMIunNXR5liA0ba0iseRT0Ng
+	 La0jb+VXxo7DA==
+Date: Sat, 24 Oct 2026 21:49:09 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] erofs: fix metadata reads at the end of file-backed
+ images
+Message-ID: <at0LtfBEoQpV4VDn@MacBookPro>
+Mail-Followup-To: Hengyu Liang <hengyul@cs.unc.edu>, xiang@kernel.org,
+	chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+References: <20261023190051.3457491-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,66 +65,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023190051.3457491-1-hengyul@cs.unc.edu>
 
-Add log messages to help follow the driver flow when debugging: an
-info message on successful initialisation, and debug messages on the
-MSI interrupt allocation and free paths.
+On Fri, Oct 23, 2026 at 03:00:51PM -0400, Hengyu Liang wrote:
+> Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+> mounts") made erofs_read_meta_folio() read the metadata of a
+> file-backed mount one whole folio at a time.
+> 
+> However, an image only has to be a multiple of its block size. With a
+> block size below the page size, it can end in the middle of a page. The
+> read of that last page is then short, and erofs_fileio_ki_complete()
+> fails it with -EIO. As of now, inodes in the last page of such an image
+> cannot be read, and an image smaller than a page cannot be mounted.
+> 
+> The issue can be reproduced with util-linux 2.41, whose mount uses the
+> image file directly:
+> 
+>     mkdir src
+>     for i in $(seq 50); do echo $i > src/$i; done
+>     mkfs.erofs -b512 test.erofs src
+>     mount -t erofs test.erofs /mnt
+>     ls -l /mnt
+> 
+> Before that commit, ls -l lists all 50 files. After it, ls -l reports
+> "Input/output error" for 24 of them.
+> 
+> This patch reads the folio only up to the end of the backing file and
+> zeroes the rest, as the page cache of the backing file did before. A
+> folio that lies wholly past the end is zeroed without a read.
+> 
+> Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Changes in v2:
+> - Also zero a folio that lies wholly past the end of the backing file,
+>   without a read, as suggested by Gao Xiang.
+> - v1: https://lore.kernel.org/r/20261023174232.3282900-1-hengyul@cs.unc.edu
+> 
+> Tested in KVM with KASAN on 734bef548a96: the images used for v1, plus
+> three images cut so that whole folios lie past the end. With this
+> patch every complete image reads back correctly, and the cut images
+> give the same results as v7.2 (EFSCORRUPTED instead of EIO for the
+> inodes past the end).
+> 
+>  fs/erofs/fileio.c | 19 ++++++++++++++++---
+>  1 file changed, 16 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+> index c36a90a1a4cb..a77af604479f 100644
+> --- a/fs/erofs/fileio.c
+> +++ b/fs/erofs/fileio.c
+> @@ -142,17 +142,30 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+>  		.dev = { .m_pa = folio_pos(folio), },
+>  	};
+>  	struct inode *inode = folio_inode(folio);
+> +	size_t len = folio_size(folio);
+> +	loff_t pos, isize;
+>  	int err;
+>  
+>  	err = erofs_map_dev(inode->i_sb, &io.dev);
+>  	if (err)
+>  		return err;
+>  
+> +	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
+> +	isize = i_size_read(file_inode(io.dev.m_dif->file));
+> +	/* the image may end before the end of the folio, zero the rest */
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-v2:
-- Use %u for unsigned values (Radu).
-- Write MSI/SPI in upper case, to match patch 4.
+I dropped this obvious comment, otherwise it looks good to me:
 
- drivers/irqchip/irq-alpine-msi.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 
-diff --git a/drivers/irqchip/irq-alpine-msi.c b/drivers/irqchip/irq-alpine-msi.c
-index fb84b6046193..c13646c763d3 100644
---- a/drivers/irqchip/irq-alpine-msi.c
-+++ b/drivers/irqchip/irq-alpine-msi.c
-@@ -104,6 +104,8 @@ static int alpine_msix_middle_domain_alloc(struct irq_domain *domain, unsigned i
- 	struct alpine_msix_data *priv = domain->host_data;
- 	int sgi, err, i;
- 
-+	pr_debug("trying to allocate %u MSIs starting from %u\n", nr_irqs, virq);
-+
- 	sgi = alpine_msix_allocate_sgi(priv, nr_irqs);
- 	if (sgi < 0)
- 		return sgi;
-@@ -116,6 +118,9 @@ static int alpine_msix_middle_domain_alloc(struct irq_domain *domain, unsigned i
- 		irq_domain_set_hwirq_and_chip(domain, virq + i, sgi + i,
- 					      &middle_irq_chip, priv);
- 	}
-+
-+	pr_debug("allocated %u MSIs starting from %u\n", nr_irqs, virq);
-+
- 	return 0;
- 
- err_sgi:
-@@ -132,6 +137,8 @@ static void alpine_msix_middle_domain_free(struct irq_domain *domain, unsigned i
- 
- 	irq_domain_free_irqs_parent(domain, virq, nr_irqs);
- 	alpine_msix_free_sgi(priv, d->hwirq, nr_irqs);
-+
-+	pr_debug("freed %u MSIs starting from %u\n", nr_irqs, virq);
- }
- 
- static const struct irq_domain_ops alpine_msix_middle_domain_ops = {
-@@ -235,6 +242,9 @@ static int alpine_msix_init(struct device_node *node, struct device_node *parent
- 	if (ret)
- 		return ret;
- 
-+	pr_info("initialized successfully, SPI %u to %u\n",
-+		priv->spi_first, priv->spi_first + priv->num_spis - 1);
-+
- 	retain_and_null_ptr(priv);
- 	retain_and_null_ptr(msi_map);
- 	return 0;
--- 
-2.47.3
-
+Thanks,
+Gao Xiang
