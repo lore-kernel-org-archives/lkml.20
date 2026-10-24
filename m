@@ -1,114 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792847027;
-	b=c1SP2PK7cuMHw9TmrbksdLssQPScM41d0zUyppmGuk6YmMKQ1RwT8ikmxBEuWX35ft/B
-	 iWHeaqrNDMOad9Gn7bLG2zGAnUAovZ9cj0QpgOmLskaHjoJE2AnGELKBa51D4BorJ5aYA
-	 cr7dBGPHdwSz+mUym+3HsfdjGP9wKOBL51PzK0UR5JtlU6oDmsi4HSCm3ugtaiYN/vpXX
-	 dS79ly91AByaCYZ5fBRl6yyA91ZqXHcSXI5qKuHP7lgY8LbQur18bgCGEtBJ2uFsUz8a+
-	 ecqkgEmh1ElAF/t6y2f1Fh/EJCDKgAzEJSn+UUDgdbo+LI7x4J4jGQ4CbKTzCL+aDOA==
+	t=1792847030;
+	b=a/XilW0Fck1gm51lwjA0GTdNyaE3pA/jWDHU2Wbu8H90cmIrqqVFXVjERSZoPLF6cLOI
+	 SGRefXXt0GwGdSNCBP+hPHVZ8mODAmPirZcFodglMOyThc9ZqDHC5WK6JytYqB/Z6iuY5
+	 VpqoY6Nc44w1+xc0M25zPRkG8lRizZKrnSRSx2AMTK36MTVUi+hwiaTTHelGjA/b0m3tG
+	 R71MhvElw0AdOiHGez203ZYbpbgWDcfTBhXM9tgW+6/bVLbAty92DNLp6lMChZgVPnibk
+	 uBJeau6oM3zvgIqGnyMr/bUrmUmWEKWWa2yQ/haOH1ZKwdwOUlLC3sZWJkK9goh4u6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792847027;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP;
-	bh=wV+mwirPcuzcvcwXaHVyYF02GmspO+0jpiSa+0m0aKM=;
-	b=zy8tHe+Da/ooShQ0cXzSDFhf1vcaYBZEuYO169s04lFF0+E2GIcE717Vr1/h4kKo8FU2
-	 7r2Grhrz1AE7kPCi/mGkOo9HmXGJrbtB560VfOl341y17YzRipfVgSxiAeTq4W2I2/btc
-	 I5RokvfbVTllKHhY47fxAtFawEPidamRy0SHN3GZA8uJWm5nINYPREIxMI3KSIupZ4XGC
-	 P+T4brUKq+M+eENB62OKfTBy9x+SkkbkkJRtCeEkTyT472+BUkvnYywRSYMlhrMY9eM/I
-	 xv3/ArbKG+WIRyysZMSeyUCNjjNLnpUQ/tsaLzZU2AsXZGE11nAFGxeTfmaFoZb7h/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792847030;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Ayzc6AUF0Ny/PBxFeJGZX94lictOJUIVWgf9XlatXYo=;
+	b=rBPvLU0nRTUKCiqDVqqS7xwG18CNYIczVI8pCuyhHinxkkZRhfDWipL23vMk8eNs0iPx
+	 tir34y1iyUC35bfmq7KOAvyEULS9S1MFh+AfWZnXticSS7vtpR4kpKNvlOU+TtXGbhUXT
+	 HL7RT27sMTPSkcBRDbRSKP7VBhPy+MXrwAL65ruw42ey8e3DVMWHuPJUZQ2BgZwoXyWUP
+	 k+ufv4bf3erLBEyHYc7LHqgCfYqQY2ZcLJxxXafB12jPMI/KFrCIwSGJC+d3Adz3qH+dz
+	 B94K5wyYyL7snGwQbSc34HLG5znH/ggEh1eyJmg8uSMIFrqEJPj4+hOE3OcUtyRa5kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=faJrWtcu;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b="hj9k/ppH";
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B2A606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41B2A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5185606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5185606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=faJrWtcu
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 91F78240103
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:03:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1792847019;
-	bh=wV+mwirPcuzcvcwXaHVyYF02GmspO+0jpiSa+0m0aKM=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=faJrWtcuftWi+ec5abTHS/c386XVWssy9hQa+9RDuS4Bpy2U/r+kVRLLb6gyQR97g
-	 BYkBpcwlQuGj4BrWU3ok/1VyawwfJVci/7+wG/GFnghxMWu02ETWHaeJAR1ZXJW6dY
-	 LvTElllgeK9GiSWI37q/r8nt3Igz94shJCdBklt+on9rgvab8GN8h/SdJC8azJAttT
-	 EJx8YoPiyqCW1vG42C10WGFlMqAXDgOTGdUeDGd56KT3oppq7hJVtyuFRicXu0R1Kk
-	 faYIyay6tZThJhjgXyAZVuv82bivYOiDWoiA+BcZO8F4nVimaD5gGsk2QswflRdJhY
-	 aIajKEqi8N+5w==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jBg7F6X5Cz9rxS;
-	Sat, 24 Oct 2026 15:03:37 +0200 (CEST)
-Message-ID: <12665f80375091ced5d7586f4d63c91f5b07bf2a.camel@posteo.de>
-Subject: Re: [PATCH v5 2/3] platform/x86: dell-uart-backlight: Bind through
- normal serdev matching
-From: Markus Probst <markus.probst@posteo.de>
-To: ChunAn Wu <an.wu@canonical.com>, linux-serial@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
-	jirislaby@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
-	mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com
-Date: Sat, 24 Oct 2026 13:03:38 +0000
-In-Reply-To: <4ac249174a529766e8fd69c39fc08dfa1572a650.1792831564.git.an.wu@canonical.com>
-References: <cover.1792831564.git.an.wu@canonical.com>
-	 <4ac249174a529766e8fd69c39fc08dfa1572a650.1792831564.git.an.wu@canonical.com>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Z+RMlSZaBmgBKhLiJ1gT"
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hj9k/ppH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=Ayzc6AUF0Ny/PBxFeJGZX94lictOJUIVWgf9XlatXYo=; b=hj9k/ppHWyk/18xrL6GGsM86ec
+	EOErfO/Fb7+YuHbFoexifhjPBAXCcVrdCyzzpSDxv7BxweOJsCbNAFJCxz61GxibukM/pFQXofEdj
+	eXAJy/8KmK2KXJ82/g4E3/RrBkJU9+YThEyeg2U41RGKCRktgcBjKCHHCq+7wd2sbLvaS4OJWjMrQ
+	NGwjgYF4a7zbJUrnCy7QIVZ7S/Wo/tSuI8R4+Y7eKwjIw+M3hWnPYup+d+bFSch/GpIKXtDoWrRXO
+	/+Jr8r+hlSNmcNVm4nkQ7ILxpeoZ0BJHPaZUwM0w5uiW1PVhLuuN39E1U8kjePRYTh824WuCEJ/o+
+	YenSEYsQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xKbPL-008saA-Or; Sat, 24 Oct 2026 15:03:36 +0200
+Message-ID: <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
+Date: Sat, 24 Oct 2026 10:03:31 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,114 +57,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] drm/vc4: dpi: inline vc4_dpi_init_bridge() into
+ vc4_dpi_bind()
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
+ <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi Luca,
 
---=-Z+RMlSZaBmgBKhLiJ1gT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+If you go ahead with this patch, could you merge it with [1/3]
+Personally, I prefer to keep it as a separate function. vc4_dpi_bind()
+is already a big function, with several initializations. I have the
+impression that vc4_dpi_init_bridge() makes the error handling more
+clear.
 
-On Sat, 2026-10-24 at 20:04 +0800, ChunAn Wu wrote:
-> The driver creates a serdev client without firmware metadata and
-> force-attaches its driver to it.
->=20
-> Pass the modalias to serdev_device_add() and give the serdev driver a
-> matching id_table, so that the serdev core binds the two through normal
-> matching, then drop the manual attachment.
->=20
-> The client now also reports a "serial:dell_uart_backlight" modalias to
-> userspace instead of failing with -ENODEV. A failing serdev probe no
-> longer propagates out of the platform probe; as for any other bus, the
-> client is simply left unbound.
->=20
-> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+But that's bikeshed territory...
+
+Best regards,
+- Maíra
+
+On 13/10/26 12:23, Luca Ceresoli wrote:
+> There isn't much benefit in this small static function. Inline it in the
+> caller.
+> 
+> Link: https://lore.kernel.org/lkml/accaa9f4ad05ef73071e5cfb5368fcbdd394d3ab.camel@bootlin.com/
+> Suggested-by: Paul Cercueil <paul.cercueil@bootlin.com>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
 > ---
->  .../platform/x86/dell/dell-uart-backlight.c    | 18 +++++++-----------
->  1 file changed, 7 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/pl=
-atform/x86/dell/dell-uart-backlight.c
-> index f323a667dc2d..9b8ef91bb0a2 100644
-> --- a/drivers/platform/x86/dell/dell-uart-backlight.c
-> +++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-> @@ -325,11 +325,17 @@ static int dell_uart_bl_serdev_probe(struct serdev_=
-device *serdev)
->  	return PTR_ERR_OR_ZERO(dell_bl->bl);
->  }
-> =20
-> +static const struct serdev_device_id dell_uart_bl_serdev_id[] =3D {
-> +	{ KBUILD_MODNAME },
-> +	{ }
-> +};
-> +
->  static struct serdev_device_driver dell_uart_bl_serdev_driver =3D {
->  	.probe =3D dell_uart_bl_serdev_probe,
->  	.driver =3D {
->  		.name =3D KBUILD_MODNAME,
->  	},
-> +	.id_table =3D dell_uart_bl_serdev_id,
->  };
-> =20
->  static int dell_uart_bl_pdev_probe(struct platform_device *pdev)
-> @@ -354,7 +360,7 @@ static int dell_uart_bl_pdev_probe(struct platform_de=
-vice *pdev)
->  	if (!serdev)
->  		return -ENOMEM;
-> =20
-> -	ret =3D serdev_device_add(serdev);
-> +	ret =3D serdev_device_add(serdev, KBUILD_MODNAME);
->  	if (ret) {
->  		dev_err(&pdev->dev, "error %d adding serdev\n", ret);
->  		serdev_device_put(serdev);
-> @@ -365,20 +371,10 @@ static int dell_uart_bl_pdev_probe(struct platform_=
-device *pdev)
->  	if (ret)
->  		goto err_remove_serdev;
-> =20
-> -	/*
-> -	 * serdev device <-> driver matching relies on OF or ACPI matches and
-> -	 * neither is available here, manually bind the driver.
-> -	 */
-> -	ret =3D device_driver_attach(&dell_uart_bl_serdev_driver.driver, &serde=
-v->dev);
-> -	if (ret)
-> -		goto err_unregister_serdev_driver;
+> 
+> New patch in v3
+> ---
+>   drivers/gpu/drm/vc4/vc4_dpi.c | 37 ++++++++++++++-----------------------
+>   1 file changed, 14 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
+> index feefefcf3ad7..5439e73da0d4 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dpi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dpi.c
+> @@ -278,26 +278,6 @@ static const struct of_device_id vc4_dpi_dt_match[] = {
+>   	{}
+>   };
+>   
+> -/* Sets up the next link in the display chain */
+> -static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
+> -{
+> -	struct device *dev = &dpi->pdev->dev;
 > -
->  	/* So that dell_uart_bl_pdev_remove() can remove the serdev */
->  	platform_set_drvdata(pdev, serdev);
->  	return 0;
-> =20
-> -err_unregister_serdev_driver:
-> -	serdev_device_driver_unregister(&dell_uart_bl_serdev_driver);
->  err_remove_serdev:
->  	serdev_device_remove(serdev);
->  	return ret;
+> -	struct drm_bridge *bridge __free(drm_bridge_put) =
+> -		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+> -	if (IS_ERR(bridge)) {
+> -		/* If nothing was connected in the DT, that's not an
+> -		 * error.
+> -		 */
+> -		if (PTR_ERR(bridge) == -ENODEV)
+> -			return 0;
+> -		else
+> -			return PTR_ERR(bridge);
+> -	}
+> -
+> -	return drm_bridge_attach(&dpi->encoder.base, bridge, NULL, 0);
+> -}
+> -
+>   static void vc4_dpi_disable_clock(void *ptr)
+>   {
+>   	struct vc4_dpi *dpi = ptr;
+> @@ -366,9 +346,20 @@ static int vc4_dpi_bind(struct device *dev, struct device *master, void *data)
+>   
+>   	drm_encoder_helper_add(&dpi->encoder.base, &vc4_dpi_encoder_helper_funcs);
+>   
+> -	ret = vc4_dpi_init_bridge(dpi);
+> -	if (ret)
+> -		return ret;
+> +	/* Set up the next link in the display chain */
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =
+> +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+> +	if (IS_ERR(bridge)) {
+> +		/* If nothing was connected in the DT (-ENODEV), that's not
+> +		 * an error.
+> +		 */
+> +		if (PTR_ERR(bridge) != -ENODEV)
+> +			return PTR_ERR(bridge);
+> +	} else {
+> +		ret = drm_bridge_attach(&dpi->encoder.base, bridge, NULL, 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+>   
+>   	dev_set_drvdata(dev, dpi);
+>   
+> 
 
-Reviewed-by: Markus Probst <markus.probst@posteo.de>
-
-Thanks
-- Markus Probst
-
---=-Z+RMlSZaBmgBKhLiJ1gT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrcrKkbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSsBYQAJoLYH06WoE+InUgXPCk
-8lG1jm+bANEsbuwJraT7Alwwk2qJVUd6JB18OqKWk3jECEwqHTWSHLz9csGqaRzz
-VNzBmO2+QqNf1O8C9SFMihhj3juJu/U0GLk0IwPeXIK3Yp3VeRrpjBAISbBGJGcb
-06L9WqmKeJ4iZmO8Hulg6CWeI6oSryY0ad6XTKXhXWC3kEmF1tdjrsJqkXTtHdNF
-Qgl7GA05ZTRYbkqm7AnBAvOJ0fYdNsm79JR7G0YzkL9IMvXWR3zv/9KAC1Lfj81h
-2Vw/I11U3BvgnvIv4rCnQY9dmNXVr0DVRLx7XajBDTfHZkb5Xk8jOeovUmEXd1K7
-kz493BPxo0X5YyvIKqnAGiC/5QiCIiDUlChztoHYHuqDkJ+MToCEYSr4RkL/V8Ea
-Yu0+uG8DB1NlF5gSOlHAxDs8Rd3DpA+KPOG3/RtXZYfdud1tzoAb9ZRvZ+/ACV+2
-YiJLqVYNyotFPdzqundWnCyinb1Lx+RvRt0sZ3tCIYBF0LJN6DooB4bsz/01kh+K
-XsuXBNiGM0auD+D+tnCuM2v3VX0/aivaCeLtP2qAZqFdy6v1XO514GstzWL1ioqD
-x9wnkHINrQFPIVb+8m9HvjAM+ykQPbkeVHAbMIfh2xh2Ps904X9W2u2R02ZL7osU
-tna6I5TA1RefSlnRXz/PD1mT
-=nWDx
------END PGP SIGNATURE-----
-
---=-Z+RMlSZaBmgBKhLiJ1gT--
