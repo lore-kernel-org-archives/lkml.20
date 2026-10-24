@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.229.138
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792841735;
-	b=EK09oQ9qoVXpwS/5aXcgVedrnIG185wafjWP0kpc0Gk7xEZ70g6Oi6wzAAa8IrPuX7OB
-	 g13jYMKEIfrkO4G9u6HAusy51ClVfosY184zDstmCU7EMuJN812qIA7/Tk4sUBlTO7nfh
-	 v3SH3ZcP/TBCmBcC7GSdFASxUv/LdjkHfZ5Q3WQ0qIKwYuHd7qst6boIx623w8MTsNDYx
-	 Kn48pZO+sq5gbeSZ/tM+v16QsSpraGxHOpzrJBjppOvtDdfxwbzGkzrYmu26E2ut1rEvj
-	 V9g1FP4p0vIXhTIVlD4+dZh4Cza0xdIws/3FzjRSwIoatCoAHCbEoZrxdaKPW6ab0VA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792841735;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4Sv2Ckx2zgnf0FNK273cchWmqdaiROeR0BuSXmJ+PR0=;
-	b=y0dc4zr8JsoS/JHK9XnFlK/LGof6k3fEvzW7Q/hSzVMjpSSnlMehbLh7E1CPFQuVvpkj
-	 kKAso3pJOLhs9P/oQNxdGbRwIVwByRT9ZqfiZR1CbfuoohLoSWREI08+pw/d2zZTYAx9j
-	 9JUole9mdBuDP/W8bbjHyftQ3maXLUATUPIRjlQOUFYcLRt5kT32f/izDSNsbdNDvdnXQ
-	 NlBz4UY5TfeBj5xJaXNmfausL3mJGMeDRJNVwqCr0nzbunR7osR4tGl537WH2LqxVs3WB
-	 ObVD8iyJK7I1NQZNNbBnLPuAotGf6QUIzmyA8zBMS92L2/a4/6rhMNsUmF6jX83Xc9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UDpQHhjO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.229.138
-Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792841750;
+	b=x38rdooM8TFMnn5s+NOiFQtJHxWBx0jlScltK2LugkrafcUNgcZtShOylp+09Fv3GJV2
+	 yvDIxSppcOh6HOeVgkFT5PFPZGKtnn2s8+7P4EwjYOHHEIVzJiwHHVs6zWWW/UiixjI52
+	 pIPGelz74ruf2PiYSoEWM5iqFJFjEs2e3nyo26rTeNYnMYYAt+kD8wW/Zwd/0GtMSemAX
+	 LAiiwQGjamdR4kB80IX4n5/nWd94MYZ1U95KZsswG1q+Rx/KIc4fIQ5+U0CAowo8GJ0ZU
+	 T4PRKdp4HWNaIkDDBXn8EJHLZEwIX+wt1ZuInvC7SbXrCgrLbini1kZCzDrAhAyUY9A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792841750;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=JGL3qTPNqshUoFon3YlDWfF5+DJcyIa46YLyW1IYigk=;
+	b=aZ/9ktMUSQrehFf4LztxjvC1B+hSafRfuh7lEWTVCJC0aGdwyIE7fKMloRcx69YEFjQh
+	 6u05RpyelFk4xZZ14BamjlwcqY81b34I5mjoIqvYiF7qt2RqfzR/Mm3wGg4/abhpDB2CE
+	 lmfRza0JAm78j7mxPx9dqUWG6qlb2IiaAi3IxFQ154sEg/mgOAwnMTeakrqaCMKAx+xYW
+	 TeY/FWODiue/8yxrwQ4cFrTdr9F2sYJCxpKHbPXKu0LjRGBNOkMEmYrE1qBdTbMSlrzB/
+	 Vj/yxOs1dLyg+UZe9g1Gu7qVS3FbMPf8ewDDfms8rMRyxlLw7nD2fQj3t9HJ+R4RknQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alMJRejs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3C8606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B3C8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0055606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 11:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UDpQHhjO
-Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-14e61bbf1e0so17766c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:35:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792841734; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TmAzWyHV7hMv8LHT1V9O5GPz2jjqx6oM5PLhTbFYRliWUTZZSjC8xs1EZmV/nhhB/+
-         mwA0IdzV7Tt4SgkyTv3dn+F1hGINjTUePPxfnFGFzXDo/UHTaDafqz9PxfSo9+C22ZhN
-         NttZREGOCvErG/JxVyeCaB2M+m9D6DDiu6mDWa20GqK115ovswoKBc0jTlLAbNL/pCLR
-         BHzA4Y7nlamBh0bDGniJY/9h6sna54kykLpdJ9Yv8ZXnXDF/FYbmsM3y5R3sw9Cseqg9
-         GwGjn4ca1WFb9JLt8MzmtoWIAqTCsLap03t2bMzz5K27ZNRUxdm0Qx4eyWXUQ+9EjMlO
-         5Qew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Sv2Ckx2zgnf0FNK273cchWmqdaiROeR0BuSXmJ+PR0=;
-        fh=OrRSgAP1pnuWWDgUwfOkAfGGJ4u+/j0e8W0lW1Yw6Ow=;
-        b=s8yIX08ciFVQAQ9JFiDJQDj7PMH5Q22chntVDkXFvlCzV/9W8Tw4ORYfasmzBWj/QW
-         PbDuf15SOQXQAYjDB4UmJmaNgrgwLMS3GRaYGget/Wdc9abSuif+l22iya/phu93Qwfz
-         x82Vz2kFtL9HJW5nqj8TpF/gtqQn8QAOkStbu/sD9uLQ87PDgAhAqPO2L/8k+4zuRi8o
-         MpVQh8T657bdBGmrRWlirYyVMfSfdv0Ur5dTieUdKKGeVaCCqShDB0hmwPf3foQbckfO
-         Ipf40/jUQhi6Tg/jbhSnE8Ev38BThctMdTO17Z8yx5v693INwXHrla+mvMJBwWKiaeAc
-         QizA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792841734; x=1793446534; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4Sv2Ckx2zgnf0FNK273cchWmqdaiROeR0BuSXmJ+PR0=;
-        b=UDpQHhjOOpLeAQ+UqfGehYdrCjlB46HMjQ/EW8qK/18tiEejR8MvCMHJZhZB+Dbz/R
-         dlwWzTaBw3JbXtV9nAmMH4d5UVrTFgJjvvWCWj7LbKp1N3xectQvJaecfiHJLA21W20l
-         7w/xMA/SQT8Gal2+9D+D+DseL0QDgJV7lt7CumiG/qpIqXC+iBRyhwCNtB6BUNvK1sr1
-         LwwNEEA6NFQCQ3XVX3bwmopi/vLJ5SGeDu29X3N1Voy4LUcY5wdbaHfgJLuT/xnLpz5U
-         ShjTjQbba90lUXadzxqleOieNVGfH3S0VWRDy20FCfKTz+Q2OA2QKNQEDOiXChyGYpRM
-         uOnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792841734; x=1793446534;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Sv2Ckx2zgnf0FNK273cchWmqdaiROeR0BuSXmJ+PR0=;
-        b=0/0zGtWbQ2S7ltYb4Jo6JpDMpZ9DDVfrq1I5m/y2h+vGt3e/zx2LhCOuCMppzXQQxn
-         yjaU2rZvdLqqWsCmARcprKSHuXrYsJsPBTAKBFXf7LccHDFGE8eKrYRRC3hxFIz1kWCv
-         P32M2vWRvzlozlT0AFAaWtkz5TPq2KJKhxDAN3U3QNBWYBR3srMJHpqKtz3Mdirx4mEX
-         BdhwycHhqIX0nVUIiwExCaBlxIVWL6Fuqs76o2RBGvP8ppqNxlMwXF6uEQJDijH8GGee
-         7dtY+ImOu3ZOTt6n5Lt+zDsLe0pt1Y98eTrrWFBy4KUs0JBnsnPzutz+b6lrwe0AX6Qy
-         70Ew==
-X-Forwarded-Encrypted: i=1; AKwUvBxwCjzCFJODdANMn1OPOsbLlkfo9sVZGtgaofAnwAJC2c0D2/75t1KTq6GV5EN4Wf+WrVyFp28HiKVTcvs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWp55lQyAW6Tj4FpvgxEzNoQhnVfjQnbLA1VUi+kl803KQXMbx
-	Ld6+sfv7mM99uLzxlx/h2UviMTcQvXR/qajuc+miZPL6KtiJ/k8bEGdvw3mMdy7N2mAGtSORv06
-	lHp4+4IDK30qOFcfNWR2y96/hJjagIMc=
-X-Gm-Gg: AYBFou3vmY2n4WcU8JcBsa/g4xecfq+w3yXf8+y+IGwGogv66wXFKuF8K+SQbqSqeST
-	YjHokrAeyTwTc9oOjSaPbKLxIf8PjePKGBPXECgpZZRzrfmdMXs5PIluHSUNl8H0wp7wMYHyrZH
-	vBuSqxc52OjU6jv9Zx8wPlH+RcpPpSfYbx6k0bjjXoWBqIvF94ugptYUG5JSJuGMXklQwrgAMAc
-	s7LLTPeFd/8GLicBxrsN3yfZm/+LWa/XVc5LlDL41NScpZeNd8fSy/pEB39J2l16T/x2OUhHGhw
-	kQbo1WsivsVNOV9CKSbRMpn74dLgcdfp+Lmyo1dpVGMqr2U2uZEw0Yj9qgu4tCXwut9LkeJe5Mq
-	GXTm95oyT4N8OicKkzjJO6l1NAvJIYkGY87E=
-X-Received: by 2002:a05:7023:906:b0:192:a481:361 with SMTP id
- a92af1059eb24-1994d8b9822mr2570217c88.7.1792841734448; Sat, 24 Oct 2026
- 04:35:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alMJRejs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA9F1F01825;
+	Sat, 24 Oct 2026 11:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792841749;
+	bh=JGL3qTPNqshUoFon3YlDWfF5+DJcyIa46YLyW1IYigk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=alMJRejsFi9d108NFZiCBV/ZjD+QtbOYf6AFtksgqO7m4ZPfNoc2lLWXgUJsK02Mm
+	 dVtsxVCOCg9LtAPWHhyhbYJugKNIOC41oCcP+ndiJdDqk1NC2QBhk6CiK90gz6RV75
+	 0Rf7aQxI3zlAQk4JnwbIM+XIoISdMm93OwiGyqAXdC2/w+RMGpBS8cKvu6PZs3GvSu
+	 7ZwyvgAyhuE8xL0f/3ztTEjWPw3ASoeqZCEW5RUUMSTLSIx3PARIHuw/TNIbpK2ayV
+	 tAEtyXvvRb3gl7OhtKWFHC6La5U2M3MDcd3TrdgPW0vWp8otNapSqI0E8jVQ7dn6Hc
+	 pqHuk+XqN55WA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xKa2M-00000006k7u-3Fum;
+	Sat, 24 Oct 2026 11:35:46 +0000
+Date: Sat, 24 Oct 2026 12:39:03 +0100
+Message-ID: <87v76r8h0o.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] irqchip/gic-v3-its: Claim LPI tables inherited across kexec on DT
+In-Reply-To: <20261024075856.835932-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261024075856.835932-1-xiaqinghuan@mail.ustc.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,60 +68,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261024091256.17918-1-testwrzwrz@gmail.com> <179283334099.3327.11706883238489839470@kernel.org>
-In-Reply-To: <179283334099.3327.11706883238489839470@kernel.org>
-From: =?UTF-8?B?546L6I2j5bOl?= <testwrzwrz@gmail.com>
-Date: Sat, 24 Oct 2026 19:35:22 +0800
-X-Gm-Features: AclHuK9pxstbMYf0EyqcMH-TBmz-g6K5xQuClbbepH1SlLVllcKyJtSHElNXP04
-Message-ID: <CAKg18mkvJVPgYTr8ie2K6_q+rBAHfvCnxgbb9i+3Wh_v-cBXow@mail.gmail.com>
-Subject: Re: [PATCH net] xsk: defer software checksum until the skb is complete
-To: netdev-bot+sinfo@kernel.org
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, netdev@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: xiaqinghuan@mail.ustc.edu.cn, tglx@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi,
+On Sat, 24 Oct 2026 08:58:56 +0100,
+Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn> wrote:
+> 
+> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+> 
+> When a kernel is kexec'd into while LPIs are enabled, the incoming kernel
+> finds GICR_CTLR.EnableLPIs set and tries to re-initialise the LPI tables
+> from scratch.  That requires disabling LPIs first, which is not always
+> possible: on some implementations (e.g. Qualcomm SM8750) the EnableLPIs
+> bit is RES1 once set, the write to clear it is ignored, and
+> redist_disable_lpis() returns -EBUSY.  its_cpu_init() then bails out
+> early, LPIs are never reprogrammed, and every MSI command queued against
+> the ITS waits for its completion timeout: measured 99 timeouts of about
+> 1.25 s each, pushing /init out from 1.3 s to 126 s.
 
-I found this while studying the AF_XDP kernel implementation and running my
-own multi-buffer TX tests. When I enabled XDP_UMEM_TX_SW_CSUM and sent a UD=
-P
-packet as two descriptors, the checksum on the wire did not match the
-expected value; the same packet as a single descriptor was correct. I then
-traced it to xsk_skb_metadata() calling skb_checksum_help() before the
-remaining fragments were added.
+But you're missing the point. *nothing* works at all, and this has
+nothing to do with the command queue. Everything is dead.
 
-This was not a production or syzbot report. I reproduced it with a standalo=
-ne
-AF_XDP TAP test and extended the kernel selftest: the unpatched kernel give=
-s
-actual 8817 vs expected 52507, while the patched kernel gives the same
-correct checksum for both single- and multi-buffer TX.
+> 
+> The tables themselves are still intact and usable, and the driver already
+> has a path for that (RDIST_FLAGS_RD_TABLES_PREALLOCATED), but it is gated
+> on the tables being reserved memory.  On an EFI boot the outgoing kernel
+> records a persistent reservation; on a DT boot nothing does.  Adding a
+
+What makes you think that EFI and DT are incompatible? 90% of my
+machines are DT based and yet boot with EFI.
+
+> memreserve entry is not an option either: the flattened DTB handed over by
+> the bootloader has no space left for a new one (-FDT_ERR_NOSPACE), and
+> kexec clones that blob when the image is loaded, long before the jump.
+> 
+> So claim the inherited tables in the incoming kernel instead: reserve the
+> property table while LPIs are being probed (memblock still owns the pages,
+> well before memblock_free_all()), and the per-CPU pending tables when the
+> preallocated path is taken.  The preallocated path is then selected
+> normally and the ITS keeps working across the handoff.
+
+No. This is way too late, and nothing guarantees that these are not
+already used for other purposes by the new kernel. I'm not interested
+in something that only has a statistical chance of working. Either it
+works always, or it doesn't at all.
+
+The only sane ways to do this is to either use EFI, or to configure
+the LPI tables from the bootloader, reserving them at boot time by
+sticking the reservation in the DT. They are then preserved along the
+whole of the kexec chain. That's what sane platforms do, and this is a
+long enough established practice.
 
 Thanks,
-Rongzheng
 
+	M.
 
-<netdev-bot+sinfo@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8824=E6=97=A5=
-=E5=91=A8=E5=85=AD 17:15=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+-- 
+Jazz isn't dead. It just smells funny.
