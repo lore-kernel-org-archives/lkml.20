@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792855684;
-	b=2BAuCvNlei2o5PYqQAfcewCPPTFNvXLkZQ8GWV2tkSSnm4Ip0cfJNIwZrAi2EnAkAshD
-	 wNa04PF0OsYSOC1ruIqHOs+nWJLGDSWhsipaCKRypPtnp0yzj7s8IUw5mSBsdEGT0l/1a
-	 GopdZtO7AwSokAQ3XiXZl4xhvK7a5+rSH5bBUvEEy4ZvRUXXnkfa3hyuj333iAZd2e10R
-	 atshbPq9kaDtAIbqsVsF0rJFuPLFNCBvb8Tt7g3CK/CR2g6FmOTnBME2aquNHMyN7Tnsc
-	 krTBDAFsZj9pwGG3dMK3ecot5fMroh4d32436Y3IDpWL6M8rMS2pUiaW3UuHAAgQKfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=eUGvK9YjfR/78iperJ0B5mJscFx8iM1qmhgb0dXb36lQtYMe4hHcqp0FMAi6M/KSqcPq
+	 yErp/0OF0Gd0zk0qgJVyVhWNzgNopdKa0jP+p7jZl+7N8HxdaSzCmeIfDuGjpN2T68u82
+	 eLvUCVrw2gcf2N6sDp2yAOjsWLvwih8h7XTZhiGC9py42lqSqv1B4e2ExiFgwtcJrngrs
+	 UfUMJ0MMGMWWJS6dXcPtif5TpHCywO0qJYdRM9xXXbjtmRhQlg6acTHQT1GErKD0+nWqR
+	 1WwfhcfTVwKzwX/5ZBM/UvCHSul2AkboT7IbApMWBrfGeh/KzlartZDBRFvTPPlOxdQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792855684;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
-	b=PoduxeWAUmt+FK1g3hjwRfnSe9L62IokTk/QS22V8NGhbXI13zJJL9M2Lns7ZqfIzQlz
-	 2+8+CNVXScJO8NEo+y4HmasbrIFmjIl8ntbb1xTjV6CJQggsmUrhEbeH7i9GdxaLq3IVY
-	 jeOQac8bXugrf3BSDXlvkrdM7i4lG3atOP7reyYwNNBeyb7x5NCVdRTpT5MDJiHstT3Ix
-	 XmOLblkduawmvmRCQiJBkI7J1uMfsCIRYVh+T98FYmy++sd7SACtrQTO2QzshwfnBpIWd
-	 yilBXQwfQpL5Jle7ZRq9QIE84O2ysrpFiC/iXZY4hLMFO81OlIcFk7M5Ts+OqRDEqwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
-Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uKJ4KOECymSbQFCzAxwhODQQk3xEPDqheddn974Jz9Y=;
+	b=IvGoipCyo2A16U6DfggjY9wMhrDXSI6ccYPJ5NHI8qQ4Xc47BdHgGlJkpIBnWtKhe4Sl
+	 zTRSCuUBN77wdJlgUUvB8UlJaKBtE07kZv1PYBJThQ+Ih6RTTjW9grvWRHlZPM7hjwzul
+	 3YI31iWFBhKN1rK5qBFHufxWKJumokQd/iYBbrgwdW6l1obc7yCSvmMbFYZYn+v3ousOD
+	 Xt3Aa325xnrJPOGVmzLUP+PJqB9sTJyJ58p4qyRpWZIOgDBZDKUvw20KHBQ3XcVhedGrd
+	 qXtd5Gsb0PWRPWHtv1K4MVOM3ZUvbvgLWqFaoD08Ck5gyYvTd1IcCwESAXz4btY4YnA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=njDF0ZwQ;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E2E606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E2E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3ab28382b92so9748621fa.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:27:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792855672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gydQV/mpZeG9YjUmyTAlzN0nq3HIpdS5u3BCtpZUA9PAptKM8X+sT1NXzzR6sJVAj0
-         oNyTlP1rKgdlAejoy5OT4BgXTLEqmI8dvp+dDcoStLHQ/BkRqwgjGWlp0IPV3LwHSVGV
-         YBgtrL+0Iyqbvs9l7nrwpsaWM7bp68eRTFSpG0I4ZJ6hY2+2BbiVAm30S0VJBUrkGVdT
-         SZJVYpnoDObQZh6mzGhczrNDNc6aC8e4Y0IJ8ch78KF2uDOKwlcekbmVLRF6caQFQnYK
-         VBAZkvJFfB/dpEVgCOZUBcsbzjyqlog9pokrZzSus7+5yTVa6RrB5ejtc4+8j+PACdZI
-         0G0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
-        fh=Oahqz20/yqq+Kyh91Q3gfAGMe0XiXwWwBL2kkWWx6mQ=;
-        b=eCgg/pP82bZSflhee+wr7ua9CVmZY4Lp1p/iOYfxUIgWCmRPQL8Ibz3ZIGDTISGOnL
-         iK9+UKfNll63+CAQ7wIU0hEDda7UXbnWaZDc5C95+UhHXkn0jD0yQChBcNBY5DP71PWS
-         j9fDRmi4433HBSTHG5EZTN0LMxn8+rZUrrl0+1MV57E/iZkVAr/3N0jY72klqDKrCHdL
-         IH2QF8TwF7vOIAsQwtLXMj/6q1KXWUTGEy0QSl1f+LV2edLFp7FK1sgZZzmoiFfg/tt+
-         9vLz6qIjTBTNhyV1omlqV+hloKUYq/4fb3SAy5xmF8awWSEaZyzro0xRiPZSJ9v/sFBV
-         yVkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792855672; x=1793460472; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
-        b=pVR7sNZ9N6WDehhguAyrK91c2UB0tKytAYwmpy7MfNAUKA2sOxyBdPWo1PxpSrRutB
-         uyRaKD1XMcEhoVWuw78Zw8C9LzxsoFGfONR6nDUPwGjj6LJLCj/2ZdjFFGvlhtBvrWUU
-         PIyNw2a46gPfGRQA0zWK6vA2YtJD5szoqp178MUzCwzgv/N61rc6Sde3r64tx/OdgjE6
-         k6O37GSOeVA4tyghAOnafFZy4atT8B+/E0/EbQi9plDA3ceOTUU8lDka7avKJ7KRotgG
-         tiDZWx5uKjUGNX0vmhnURmRdiXMPc32LkWRUpvJf60xn11RQ0j76QXgorsno1EAMFC/y
-         VAQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792855672; x=1793460472;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iS5Zhc+sE4ByxA9kwUHmzNU0QIBxCDiMbckbwoc+qx0=;
-        b=tVp/2BBQ9xxb70eKJnKmJ2SKmUST7a5pqXOYC4McV8yxaNgllFcDIwWWqruhJruRga
-         59NVNLA1HgUfBauWzcDUYuTpz9yvxdKQNX1ej0bCAhQeHxCXoLmJhooWJ1pW9foIHhOG
-         P+HLGdQXrx3MWZjhSnUY8Luq9vQOREtDz05LfLAWW/wFeGqWJiiSCKJVeOZ6zioUinyz
-         ftmBVMsK6UtmCaKFRuuATnd3MjXxIKDFW3tPfkF5b6q3qMU53YZGXj9WK5Ei3WtDDjni
-         hbwuLSTl9ifwgai99F+klXGXY9yZqqwqqhH49UeVJF96g2FzT1Y9n5mnKqiKB1MHZ+yc
-         q5qw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFOsna/A/5XqzOzyeis0ocV06kMZhcNi/bw8uGyuRveU92LfIFMjmnI/aTrrcb5UxcARY78pANi/lgov8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8a9A+xhDSD756GeIWjCJdjxT0IPGo4W8A4atWExd38uw18HFr
-	ZWG0FyhoAKI5jyH9CV68gNLvyiFAOzU7/LUoX27p3DKELtcd2WPehWONMIw8MOB2zaT31miHmgZ
-	5ZbNfzXoa8cfAz9ox8Tj2KZce9iNdong=
-X-Gm-Gg: AYBFou3h1ku3N4U57NxlD2acZdiEwZxHAl2z2WWK3jljxP2RmcTZjKqPP3X6aVczDKP
-	OzE8WrQiMbNjwD2OuCr8W870qHwaMuUijGMgth1pJKOEVcJwjUr9dG9B5Uvac5VBQIK+2p/sbYv
-	WO4jwDK+gi/D0SFSQ1132V+bdCqfNPtfMUxcdZpw7kP9TE8abn8oLsuisI1y55u4MP6tSjcqiop
-	clzZcCBC7uxgk9zDJpkUw3k/gquJV5/4eHJZ5e3uDbQ5OhAvyicPLx4bj8++cHCqUQus9pUSpCy
-	UZh88kVB+eTJKfvYKemB2NRP9XTxsmviTiYh+CX6PgrcjXr1TQ+LFsuqtyWQafG7K0qEH+AphWX
-	SD3hVJiTvQFyTrd+xrJ6RNyPDg2iEorgM/nAJVQ==
-X-Received: by 2002:a2e:be84:0:b0:3a6:772c:2757 with SMTP id
- 38308e7fff4ca-3ac6fcf0290mr4860011fa.12.1792855671222; Sat, 24 Oct 2026
- 08:27:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDCD606A31D;
+	Sat, 24 Oct 2026 15:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDCD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=njDF0ZwQ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792855677; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=uKJ4KOECymSbQFCzAxwhODQQk3xEPDqheddn974Jz9Y=;
+	b=njDF0ZwQRYn6yhwb3q20cv3MT2bWDrg1DZQ4sCB7NCu+T/LyDUxXC9F75gHhzUYUmCW+ZhONCZUBWmQsO+Z+X9hWMN2YJJxaBbvF0i74mm3tkOf/suAEx36l2F0n8r2hAxYmNal7r3pTKtDACxam6pHnEn93APWf1M65h3+UmQI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XDOTpQI_1792855675;
+Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDOTpQI_1792855675 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 24 Oct 2026 23:27:56 +0800
+Message-ID: <5b2e0676-da77-49b6-8015-8613d4fcd6cd@linux.alibaba.com>
+Date: Sat, 24 Oct 2026 23:27:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,265 +53,214 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
-Date: Sat, 24 Oct 2026 23:27:38 +0800
-X-Gm-Features: AclHuK_qYRdkUyULxjKJ3869VkCLl0Q0CBw_2CQv5y2-OinBDduVJe0yO0lVoy0
-Message-ID: <CAO-4RZ28RXpMv-o0R9uxiuoSR7mB5OtFCc-_JjBK2UZLYZVWDA@mail.gmail.com>
-Subject: [BUG] HID: uhid: general protection fault in synchronize_srcu on
- device-creation failure
-To: jikos@kernel.org, bentiss@kernel.org
-Cc: linux-input@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ocfs2/heartbeat: serialize concurrent writes to a
+ region's dev attribute
+To: Eklavya Singh <eklavyasingh2106@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Heming Zhao <heming.zhao@suse.com>,
+ Deepanshu Kartikey <kartikey406@gmail.com>, Cen Zhang <zzzccc427@gmail.com>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+ <20261020212339.46591-1-eklavyasingh2106@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261020212339.46591-1-eklavyasingh2106@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jiri and Benjamin,
 
-I observed a general protection fault (KASAN null-ptr-deref) in
-synchronize_srcu() while fuzzing HID/uhid with syzkaller. I reproduced it on
-Linux 7.1.3 and on Linux 7.3.0.
 
-The fault happens on the error path of hid_allocate_device(). With fault
-injection making hid_bpf_device_init() fail (init_srcu_struct() allocation
-failure, failslab), hid_allocate_device() jumps to out_err and calls
-hid_destroy_device() -> hid_bpf_destroy_device(), which unconditionally calls
-synchronize_srcu(&hdev->bpf.srcu) and cleanup_srcu_struct(). SRCU
-initialization failed, but the error path still invokes synchronize_srcu() on
-the unsuccessfully initialized SRCU structure; check_init_srcu_struct() then
-dereferences it and the kernel takes a GPF:
+On 10/21/26 5:23 AM, Eklavya Singh wrote:
+> o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+> is already started, but nothing stops two writers from doing that at
+> the same time. configfs only serializes writes through the same open
+> file, so two processes that each open the dev attribute can both get
+> past the check:
+> 
+>   A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+>   B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+>   A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+>   B: start fails, fput(NULL)
+> 
+> Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+> so the error paths can free the slot data twice.
+> 
+> syzbot hit the fput(NULL) with an unbound loop device, where every
+> start fails with -EIO. With four threads doing the same thing on a
+> KASAN kernel I get both crashes within a second:
+> 
+>   BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+>   BUG: kernel NULL pointer dereference, address: 0000000000000158
+> 
+> Add a mutex to the region and hold it in dev_store(), in the
+> block_bytes, start_block and blocks stores, and in dev_show(), since
+> they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+> takes the mutex in a small wrapper rather than with guard(). The mutex
+> is dropped while dev_store() waits for the heartbeat to become steady,
+> which takes seconds, so a read of dev doesn't stall behind a start.
+> hr_bdev_file is already set at that point, so other writers still get
+> -EINVAL, and the cleanup after the wait retakes the mutex.
+> 
+> With the patch the same test ran for 10 minutes with lockdep on and
+> nothing was reported. So did a second one, with a working loop device,
+> that interrupts starts during the wait while other threads read and
+> write the attributes.
+> 
+> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
 
-  hid_bpf_destroy_device drivers/hid/bpf/hid_bpf_dispatch.c:632
-  hid_destroy_device     drivers/hid/hid-core.c:3085
-  hid_allocate_device    drivers/hid/hid-core.c:3056   (out_err path)
-  uhid_dev_create2       drivers/hid/uhid.c:511
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Related patch
--------------
-The following posted patch appears to address this error path:
+> ---
+> Changes in v3:
+> - rebase onto linux-next
+> - drop hr_dev_mutex while waiting for the heartbeat to become steady,
+>   so a read of dev that races a start no longer blocks (Joseph)
+> - name the four attributes in the hr_dev_mutex comment and assert the
+>   mutex is held in __o2hb_region_dev_store() (Joseph)
+> 
+> Changes in v2:
+> - take the mutex in a wrapper around dev_store() instead of with
+>   guard(), since dev_store() uses goto for its cleanup
+> 
+> Deepanshu Kartikey [1] and Cen Zhang [2] have posted patches for the
+> same race, and they conflict with this one. This version also takes
+> the mutex in dev_show(), which otherwise can read hr_bdev_file while a
+> failed start is dropping it.
+> 
+> [1] https://lore.kernel.org/all/20261020085100.8819-1-kartikey406@gmail.com/
+> [2] https://lore.kernel.org/all/pm-ocfs2-objects-candidate-0077-v7-34980443ec254b2a1ffc@gmail.com/
+> 
+> v2: https://lore.kernel.org/all/20261019072936.2279-1-eklavyasingh2106@gmail.com/
+> v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+> 
+>  fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
+>  1 file changed, 34 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index b45adc3..7a18e71 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -269,6 +269,8 @@ struct o2hb_region {
+>  	struct list_head	hr_handler_list;
+>  	/* Serializes timeout arming against failed-start and teardown. */
+>  	struct mutex		hr_arming_mutex;
+> +	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
+> +	struct mutex		hr_dev_mutex;
+>  	bool			hr_stopping;
+>  
+>  	/* last hb status, 0 for success, other value for error. */
+> @@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+>  	unsigned long block_bytes;
+>  	unsigned int block_bits;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	ssize_t ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	int ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  
+>  static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+>  {
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+>  	unsigned int ret = 0;
+>  
+> -	if (to_o2hb_region(item)->hr_bdev_file)
+> -		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
+> +	guard(mutex)(&reg->hr_dev_mutex);
+> +	if (reg->hr_bdev_file)
+> +		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+>  
+>  	return ret;
+>  }
+> @@ -1872,11 +1879,9 @@ out:
+>   * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+>   * nothing
+>   */
+> -static ssize_t o2hb_region_dev_store(struct config_item *item,
+> -				     const char *page,
+> -				     size_t count)
+> +static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
+> +				       const char *page, size_t count)
+>  {
+> -	struct o2hb_region *reg = to_o2hb_region(item);
+>  	struct task_struct *hb_task;
+>  	long fd;
+>  	int sectsize;
+> @@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+>  	ssize_t ret = -EINVAL;
+>  	int live_threshold;
+>  
+> +	lockdep_assert_held(&reg->hr_dev_mutex);
+> +
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+>  
+>  	wake_up_process(hb_task);
+>  
+> +	/*
+> +	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
+> +	 * hr_bdev_file is already set, so other writers still get -EINVAL.
+> +	 */
+> +	mutex_unlock(&reg->hr_dev_mutex);
+>  	ret = wait_event_interruptible(o2hb_steady_queue,
+>  				atomic_read(&reg->hr_steady_iterations) == 0 ||
+>  				reg->hr_node_deleted);
+> +	mutex_lock(&reg->hr_dev_mutex);
+>  	if (ret) {
+>  		atomic_set(&reg->hr_steady_iterations, 0);
+>  		reg->hr_aborted_start = 1;
+> @@ -2041,6 +2054,20 @@ out:
+>  	return ret;
+>  }
+>  
+> +static ssize_t o2hb_region_dev_store(struct config_item *item,
+> +				     const char *page,
+> +				     size_t count)
+> +{
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+> +	ssize_t ret;
+> +
+> +	mutex_lock(&reg->hr_dev_mutex);
+> +	ret = __o2hb_region_dev_store(reg, page, count);
+> +	mutex_unlock(&reg->hr_dev_mutex);
+> +
+> +	return ret;
+> +}
+> +
+>  static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+>  {
+>  	struct o2hb_region *reg = to_o2hb_region(item);
+> @@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+>  
+>  	INIT_LIST_HEAD(&reg->hr_all_item);
+>  	mutex_init(&reg->hr_arming_mutex);
+> +	mutex_init(&reg->hr_dev_mutex);
+>  	reg->hr_stopping = true;
+>  	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+>  	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 
-  "[PATCH] HID: core: fix device cleanup on allocation failure"
-  by Tristan Madani (2026-09-04)
-  https://lkml.iu.edu/2609.0/09658.html
-
-The patch replaces hid_destroy_device() with put_device() in the
-hid_allocate_device() error path; it also carries
-Fixes: 6cd735f0e57a ("HID: bpf: protect HID-BPF prog_list access by a SRCU")
-and Cc: stable.
-
-The kernels I tested (7.1.3 and 7.3.0) do not include that fix:
-hid_allocate_device() still calls hid_destroy_device() on the
-hid_bpf_device_init() failure path, and the crash reproduces there. Please
-confirm whether the patch has been queued for stable/backporting; I can test
-the backport if useful.
-
-Environment
------------
-- Kernel A (found and reproduced): 7.1.3-kernsight-kasan #13 SMP
-  PREEMPT_DYNAMIC (2026-10-13), x86_64, KASAN/KCOV,
-  CONFIG_FAULT_INJECTION=y, failslab enabled. No HID source changes.
-- Kernel B (reproduced 2026-10-24): 7.3.0-kernsight-kasan #1 SMP
-  PREEMPT_DYNAMIC (2026-10-20), x86_64. Vanilla 7.3.0 tarball
-  (sha256 87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953),
-  built with KASAN/KCOV and fault injection. No HID source changes.
-- Guest: QEMU 6.2.0, 4 vCPU, 6 GiB, KVM, x86_64. A fresh VM per run.
-- Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+ (2026-09-18).
-  The "+" denotes local KernSight integration changes (seed ordering/state
-  feedback: pkg/kernsight, prog/kernsight_*, syz-manager/kernsight_*,
-  pkg/execbackend, snapshot support in vm/qemu). The executor used is the one
-  built from this tree.
-- Reproduction rate: 7.1.3: syz reproducer verified (no C reproducer was
-  produced). 7.3.0: 1/1 with the stored 68-program sequence; the standalone
-  two-call program did not reproduce in 2 runs. (1/1 does not establish
-  stability.)
-- Kernel command line (7.1.3; 7.3.0 is identical, see repository):
-  root=/dev/sda console=ttyS0 fstab=no rw earlyprintk=serial
-net.ifnames=0 oops=panic panic_on_warn=1 panic=86400 hung_task_panic=1
-softlockup_panic=1 nmi_watchdog=panic
-sysctl.kernel.hung_task_all_cpu_backtrace=1
-sysctl.kernel.panic_on_rcu_stall=1
-sysctl.kernel.max_rcu_stall_to_panic=1 rcupdate.rcu_expedited=1
-rcupdate.rcu_cpu_stall_cputime=1 no_hash_pointers page_owner=on
-sysctl.vm.nr_hugepages=4 sysctl.vm.nr_overcommit_hugepages=4
-secretmem.enable=1 msr.allow_writes=off coredump_filter=0xffff
-vsyscall=native kvm-intel.nested=1 spec_store_bypass_disable=prctl
-nopcid vivid.n_devs=64
-vivid.multiplanar=1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2
-netrom.nr_ndevs=32 rose.rose_ndevs=32 smp.csd_lock_timeout=100000
-watchdog_thresh=55 workqueue.watchdog_thresh=140
-sysctl.net.core.netdev_unregister_timeout_secs=140 dummy_hcd.num=16
-max_loop=32 nbd.nbds_max=32 comedi.comedi_num_legacy_minors=4
-kunit.autorun=0 vcan.echo=1
-
-Reproduction on 7.1.3
----------------------
-Fresh KVM guest, kernel as above, from the guest's /tmp:
-
-  scp syz-execprog syz-executor repro.prog root@guest:/tmp/
-  ssh root@guest
-  cd /tmp && chmod +x syz-execprog syz-executor
-  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
-./syz-executor ./repro.prog
-
-Settings: sandbox=none, threaded executor, procs=1, repeat=1, no additional
-syzkaller features; a single program.
-
-The program (2 calls; fail_nth: 5 on the UHID write):
-
-  r0 = openat$uhid(0xffffffffffffff9c, &(0x7f0000000000), 0x2, 0x0)
-  write$UHID_CREATE(r0, &(0x7f0000000140)={0x0, {'syz1\x00',
-'syz0\x00', 'syz0\x00', &(0x7f0000001300)=""/191, 0xbf, 0x24, 0x2,
-0x160e, 0x3, 0xffff8000}}, 0x120) (fail_nth: 5)
-
-No C reproducer was produced for this report.
-
-Reproduction on 7.3.0
----------------------
-Same procedure with the 7.3.0 kernel and the stored execution sequence:
-
-  scp syz-execprog syz-executor repro.kernsight.prog root@guest:/tmp/
-  ssh root@guest
-  cd /tmp && chmod +x syz-execprog syz-executor
-  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
-./syz-executor ./repro.kernsight.prog
-
-The sequence contains 68 programs replayed by a single executor process
-(procs=1), one at a time in file order (repeat=1, sandbox=none, threaded
-executor). Note that repro.prog retains the original syzkaller repro options in
-its first line (Threaded:true Repeat:true Procs:6 ...); the manual replays used
-the command above. The host/guest commands and console outputs of all three
-runs are in RUNS.md in the repository. The UHID trigger is program #64
-and appears again inside the final
-program #67. There is no parallel replay, but earlier programs can leave
-kernel-side asynchronous work behind, so their effects may persist.
-
-Materials (programs, full logs, reports, kernel configs, command lines,
-sha256 manifest, and a verify.sh that re-checks the numbers quoted here):
-  https://github.com/Zheng-zheng-codes/hid-uhid-synchronize-srcu-repro
-
-In our runs the sequence log contains exactly one GPF report, first printed at
-t=276.2 s. In the two standalone 7.3.0 runs, syz-execprog exited with status 0
-and neither serial log contains the GPF; the captured output does not include a
-final executed-program count.
-
-Fault injection was enabled for this reproduction
--------------------------------------------------
-The write$UHID_CREATE() call is annotated with fail_nth: 5. During this
-execution the kernel logged:
-
-  FAULT_INJECTION: forcing a failure.
-  name failslab, interval 1, probability 0, space 0, times 0
-
-followed by the GPF report.
-
-GPF report (7.3.0, latest verification)
----------------------------------------
-Oops: general protection fault, probably for non-canonical address
-0xdffffc000000002f: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000178-0x000000000000017f]
-CPU: 3 UID: 0 PID: 12655 Comm: syz.4.84 Not tainted
-7.3.0-kernsight-kasan #1 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:synchronize_srcu+0x53/0x3b0
-Code: 48 83 ec 08 80 3c 02 00 0f 85 f1 02 00 00 48 b8 00 00 00 00 00
-fc ff df 48 8b 5d 40 48 8d bb 78 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c
-02 00 0f 85 c1 02 00 00 48 8b 83 78 01 00 00 a8 03 74 08 48
-RSP: 0018:ffa000000519fa20 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 000000000000002f RSI: ffffffff88fa6f1c RDI: 0000000000000178
-RBP: ff110001208be198 R08: 0000000000000000 R09: fffffbfff251b453
-R10: ffffffff928da29f R11: 0000000000000001 R12: ff110001208be1d8
-R13: ff110001208bdeb0 R14: ff11000110774098 R15: ff110001107740a0
-FS:  00007fb68b6b0640(0000) GS:ff110001ef83e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000001300 CR3: 000000011c3bd000 CR4: 0000000000753ef0
-PKRU: 00000000
-Call Trace:
- <TASK>
- hid_bpf_destroy_device+0x64/0x80
- hid_destroy_device+0x28/0x240
- hid_allocate_device+0x453/0x520
- uhid_dev_create2+0x16a/0x910
- uhid_dev_create+0x448/0x560
- ? __pfx_uhid_dev_create+0x10/0x10
- ? __might_fault+0xe5/0x190
- uhid_char_write+0xe06/0x1040
- vfs_write+0x2b6/0x1160
- ? __pfx_uhid_char_write+0x10/0x10
- ? __pfx_vfs_write+0x10/0x10
- ? __fget_files+0x1f6/0x3b0
- ? __fget_files+0x200/0x3b0
- ksys_write+0x1f4/0x240
- ? __pfx_ksys_write+0x10/0x10
- do_syscall_64+0x12e/0x7a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb68a7b2b7d
-Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fb68b6aff98 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fb68aa45fa0 RCX: 00007fb68a7b2b7d
-RDX: 0000000000000120 RSI: 0000200000000140 RDI: 0000000000000003
-RBP: 00007fb68b6b0010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-R13: 00007fb68aa46038 R14: 00007fb68aa45fa0 R15: 00007fb68b690000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:synchronize_srcu+0x53/0x3b0
-Code: 48 83 ec 08 80 3c 02 00 0f 85 f1 02 00 00 48 b8 00 00 00 00 00
-fc ff df 48 8b 5d 40 48 8d bb 78 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c
-02 00 0f 85 c1 02 00 00 48 8b 83 78 01 00 00 a8 03 74 08 48
-RSP: 0018:ffa000000519fa20 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 000000000000002f RSI: ffffffff88fa6f1c RDI: 0000000000000178
-RBP: ff110001208be198 R08: 0000000000000000 R09: fffffbfff251b453
-R10: ffffffff928da29f R11: 0000000000000001 R12: ff110001208be1d8
-R13: ff110001208bdeb0 R14: ff11000110774098 R15: ff110001107740a0
-FS:  00007fb68b6b0640(0000) GS:ff110001ef83e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000001300 CR3: 000000011c3bd000 CR4: 0000000000753ef0
-PKRU: 00000000
-Kernel panic - not syncing: Fatal exception
-Kernel Offset: disabled
-Rebooting in 86400 seconds..
-
-The 7.1.3 report is included in the repository (logs/report-7.1.3.txt) and has
-the same path:
-
-  RIP: synchronize_srcu+0x53/0x3b0 kernel/rcu/srcutree.c:1576
-  check_init_srcu_struct ... srcutree.c:441 [inline]
-  hid_bpf_destroy_device+0x64/0x80 drivers/hid/bpf/hid_bpf_dispatch.c:632
-  hid_destroy_device+0x28/0x240 drivers/hid/hid-core.c:3085
-  hid_allocate_device+0x453/0x520 drivers/hid/hid-core.c:3056
-  uhid_dev_create2+0x16a/0x910 drivers/hid/uhid.c:511
-
-Analysis
---------
-hid_allocate_device() initializes the HID-BPF SRCU via hid_bpf_device_init();
-when that fails, the error path calls hid_destroy_device(), whose BPF teardown
-runs synchronize_srcu()/cleanup_srcu_struct() on the unsuccessfully initialized
-SRCU structure. The posted patch proposes to address this by releasing
-the device directly
-with put_device() on the error path, which matches this analysis.
-
-Could you confirm whether this is the issue addressed by the patch above, or
-whether a separate fix is needed for the hid_allocate_device() error path? I am
-happy to test proposed patches.
-
-Attachments / repository contents
----------------------------------
-  repro/repro.prog               syz program, includes fail_nth: 5 (7.1.3)
-  repro/repro.kernsight.prog     68-program execution sequence (7.3.0)
-  logs/report-7.1.3.txt          original 7.1.3 report
-  logs/repro-report-7.1.3.log    7.1.3 reproduction report
-  logs/gpf-7.3.txt               7.3.0 GPF report (also inline)
-  logs/serial-7.3.log            full 7.3.0 console (sequence replay)
-  logs/serial-7.3-minimal1.log   7.3.0 standalone run 1 (no trigger)
-  logs/serial-7.3-minimal2.log   7.3.0 standalone run 2 (no trigger)
-  kernel/kernel-7.1.3.config, kernel/kernel-7.3.config
-  cmdline/cmdline-7.1.3.txt, cmdline/cmdline-7.3.0.txt
-  verify.sh                      re-checks the numbers quoted in this mail
-  scripts/replay-kernsight-prog.sh   the exact run script used for the replays
-  MANIFEST.sha256                sha256 of every file
-
-Best regards,
-Zheng Zheng
