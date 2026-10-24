@@ -1,113 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792851233;
-	b=IYWztQeGK7CKB55pk/PcJ+OX6b/AzcmrXJFsAm9COh99XHn5Zn6qOcwzo5SkRlcfsT1B
-	 3wb9chr0ixVb9H1DqbUsxYKbnHRCEyqUxeq93VeGRmr0JZy+nSwF6ZSWVT56BAN1HKYAc
-	 1GmMJKubIfTr019nPhV/CKrDoFzJ0lE073j4iwUKAJy5bGPx6jy7o6O2Ne0CrESf1Gp3u
-	 gIcflgTRDoivarH4tXSl7mWp78nYi364dXnoHb+EDZecH0lmIP4Wy4lxwBp9fKDU2Kf8H
-	 IXH333ztyuCLhoAi/EysWR5IeinGSwQEEBTl3pxbYt/v0GpvBroUNWaoPOm8RhfScgA==
+	t=1792851245;
+	b=scVNKp+Et1mplGA6batXIXeWVV9L49IrM+r80f9TR0bmyemGSRUNIlEZ0F7GTCZNCis5
+	 OIXppu8HVc2tKfF4+OISPKq1vUsCsKzQHlsaj0dP9J+qNIW3BI6VzYwsPKRl/+zmzzdoU
+	 5fgG+2Ap5Gt7sN/hZZGCdeO0JiOZjgXVyeNCLm5JGdKnERb6SP2AW35/zLuaKnDY1bQjn
+	 KW13ms32Oprq/0vn6Ic7ypabfl1ST47xa8ht4qH4gvnWiCJHxpDH6Usk6I0lmknO0wDLR
+	 Uj+0IhkrKkINPMs/Wm93m5ek10LmeaBeOgzvQAJr14KwOG5y6w5LIIBnpieToEbdggw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792851233;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792851245;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NinjwXEZqsyLzVMLGtZx22X19MLQYYpk0oH7D7uxDoY=;
-	b=ALCv4/kxkKC4RVYnaGdfu8WHZ1guqx0X3DXgKvh88HoenVr0P+gIo8SMJ/oL1ils9pkg
-	 ZeWDYZk2kUbUiLETJ6UrfNz6WSSpFAmlokXdSWWrwKm1CI2Habz5y85kGbeIh6OK1zyra
-	 jvOAvWHZGiMSEyQ0NMoAXRtYgr6kilXmZWBCL9WopYaQV0vHHB7QEE0GPBHcgxpOpGfF9
-	 s5wWYvsrq+HaNmwg7sF9HlR5e5lTDrQtoTaoaUfHajcNgxu2BQ07D1Sja15ogMt99hHAr
-	 DF7XhlVdrtyh5F9Tyu/ff1irciQ7zC2YVJNTEKnWQU11nBXxW5RTCPg6WW5exflvKuA==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
+	b=jDndlZTisetkWMIhVAdldsugkw2ky6XetO0OiKvhVt6dCnqJmKZ7oMpq/ZRnbgFcFZju
+	 +ck1O9XPYo/kVNRLDUlzdlNI3zIKVnJLRnUTqktLmXVrNKT4beJHIL+bEnru5P1JjVLCJ
+	 T/y68J/Vc84latYz8P4Y3jMMCfXyRtreIvQKuf48OVgJlIJb+EI0CYr0ltSLMddPOD00f
+	 t3F53hrjVbjOO8xQDEuH4dUDKelBZd2jfx31WP5VnoTkvkR3Ngu38L09onkaRs+9W+LE4
+	 gIrG7Ijlf593B/YPqKyp6nETes57cdEJ0J9bX3yq+ScnFDciFUKK+vxRRHpLj7t4J8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bairaktaris.de;
-	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=kBUV5rEj;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dmarc=pass header.from=ieee.org;
+	spf=pass smtp.mailfrom=ieee.org;
+	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=PCDf4AFU;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F6D606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:13:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82F6D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A19606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A19606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=kBUV5rEj
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so247034766b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:13:53 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=PCDf4AFU
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-70094949641so1563418eaf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792851232; x=1793456032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NinjwXEZqsyLzVMLGtZx22X19MLQYYpk0oH7D7uxDoY=;
-        b=kBUV5rEjp0fRCUpZgbFLngnN3udOkzuiE/cPfVhL7V9Mk0Yads2TUBl6eUFj+1LgC6
-         vNouoW2H2tzekvc9PxQdtfpjFEX3jbdTMmwd4AE1emaJ1tG5z7aSKT0KTqoZXHSbA4yT
-         y9pjERZW2GfpFS0TI7mh4aNeJfm2Y/NpYJQWPS8Fx5FprSX5mLr3kTrYdY2jzS3dE5gh
-         ZclwHudEDohfCXwNmd8Vnn+MPKDd2Jw/VGrQ4481B7T6hOCExmh4Q5m02PDlvWau+VzB
-         QuerrrrB/0kgHyExwFoEGOk+ar5xKZMO6N6H4/z9cBVNrLJpdDKlMvgVxzM3o+/aDINE
-         OaYw==
+        d=ieee.org; s=google; t=1792851243; x=1793456043; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
+        b=PCDf4AFUPcoMwJEsPToZlvA0AbfeIIch7rSzbwffG46to0WMd5aPQAoV4AKVNTqT5i
+         pdwxW94j3PfUDqtRzzR6pgvgpreJ71Qh8ix9Ah1NCTMbOxHxT3kY5Hu6DWStWF2DCdl/
+         hGtbwhtwjIk5RWHJ1M6qR6gi2NXh9raPgLaMo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792851232; x=1793456032;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NinjwXEZqsyLzVMLGtZx22X19MLQYYpk0oH7D7uxDoY=;
-        b=qLCLUhYoJuMlrJoCGoMz3NBFQsn3+0c/AMgHBmdePtepZDmNS5hpsTKQXIAOwkRHsx
-         G1ku59zvh0NDQ7iQEvC4sas/039jyPW3tDqw3nMFqSS0IU7gYWOPwc6Uo96HYIPHPF/+
-         H1NtKifIQJ6yYv3l6FMfHVRNkB4riobggvfWKq8trdxeJX3siZSvs4BYpS4Ug1w+xYVW
-         QALzaqNlZax4BIzCmZS7xXCoxyYwtRWeamF4KD3FRlkOaKB1hVBlxIgsg+NP3WPcCoI0
-         4c3LUOgCedDvA7Vqk3664K6Dfy7ox4e52mLGqv79PQnnU13D9S5UYItJyHLEWGL0jtfz
-         PKuA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ5PIkwQ5sE+tw+PmOHZjcp7rOuelaplkCb1ooV+fSQE6c8Pqq/fP+VKWjk5KaTeP8f5XGTZ6H1DdYqvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2AMcVWC0KkRTSG6l+uTeBa+D3s8Ck8PtbZraKlGIF9zjGhAVp
-	OQrA2kC+TpA5f1Fp0kD+76gienvN+1cFLxKxrP7uGoKZlEFf9G3b/Q8wwHN1ZgHm+g==
-X-Gm-Gg: AYBFou1+zVx1l8lUcUE27Nwc6oftgmXIcoYXUdDxIheBdS47/ZAvYgcefrRPUaE0KhT
-	bluyVlBWM/j4RAPs2Niz6vlW/Q/B1Iytw5sH3jodqW5mAaE8Q6K6/mZzj6H+lWcjkC4Iv8Tnjor
-	ao/GDzWYbELSL6L7X6uLoogdZz+vU9Ghz0ddxVg5BcRPkiWCMzvs36ZthuqMrXglyfBiwZBGTVM
-	25BUTM341HQ9y49C4QmA9DO4lZxKMrH9zzr2X0vIu4GagmOWpKDVVQZ3tZfhBS3ObKlaoPUuehs
-	XPv71qEs0QivVQCK//2CnR7HZJNnDe3c/yUy/pyUu3OOjkrR9mVziOpUqtUve4nMejGAaoVIILU
-	z1Gl5maVjXnD4JjB6LSIpJAiSnUDX5LGxumx4yz/kxFDu1n961m/cSdgAesyuZgBpQ3JHlCEK/l
-	cL7v1JMHyvnmtdt/PPGlGLHuiJ0YhjYdVJDcToj3dGzgOi40IrHeBYoifIYd25twultGQGak0qC
-	z3LoqTVr9bxTGu27kIR1vUzTPSpkq0G4ZnrPqpyqnonrsVIHvzatQpgNuXnFc+FPTCvgk8jHkvG
-	e1t1I5nDCZi+srz3yjJxR4MmghYowBzxHKzbtEwFPSW9mT//xtPhG3GAQtvnFBgAhptLPQGpBmw
-	3AJ7IfuV4NdwTG66nuQZOJbAI2QNq/4hKHLDjGmYSz8R/Zp8zGmRVYBD4EFuFdyA+idHwUnLJta
-	Q2DatVBEcs4F0w7nexWrGDVa551rkwx+iSGn5YoILMyB/qVg6LCKr96bKJU2jSoaeFzyyCRxLaq
-	jhGoIA/4/Plju+DOYW0hP2YkXA9mw==
-X-Received: by 2002:a17:907:6e86:b0:c3f:c878:7c1d with SMTP id a640c23a62f3a-c46bddb3308mr236179666b.9.1792851231288;
-        Sat, 24 Oct 2026 07:13:51 -0700 (PDT)
-Received: from Desktop (p54afff47.dip0.t-ipconnect.de. [84.175.255.71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34fbe6sm95461066b.10.2026.10.24.07.13.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 07:13:50 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: netfilter-devel@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	kadlec@netfilter.org,
-	phil@nwl.cc,
-	horms@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	idosch@nvidia.com,
-	Eric Woudstra <ericwouds@gmail.com>,
-	dqfext@gmail.com,
-	netdev@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kselftest@vger.kernel.org,
-	bridge@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf-next v8 1/2] netfilter: flowtable: tear down direct xmit flows when the fdb entry moves
-Date: Sat, 24 Oct 2026 16:13:49 +0200
-Message-ID: <20261024141349.2145994-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017235849.1066624-2-julius@bairaktaris.de>
-References: <20261017235849.1066624-1-julius@bairaktaris.de> <20261017235849.1066624-2-julius@bairaktaris.de>
+        d=1e100.net; s=20260707; t=1792851243; x=1793456043;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RurSR5QCrb3dOlmzaugDAkyS4iQBb3WW248QweZw5e8=;
+        b=uNdhOZO+xm30JCAR0WFaq7fA//ygQm7oEcqk4GhVm9PRFOcEEOdUxlc/9Q8uI9b6mP
+         nSkVWU27VxjbgiHF506UuJVEOjAyicAnzBCdYEP12vNjnGmnfBi6zBaeA8VbWhtT5Om2
+         4CnNkEenV3yuuJmTgBSp7sO2APsuqeqtyzrZN69N+TE6LqcJ/OHoL76FJgK67UF2MVOD
+         XPAA2hh0xDFg9T3WTO+aRL4V1f1rSJpUBIxom7N0XG5+caKHgU6UHaftYnD4mTdSqGjk
+         jf+KCG2t6wdPnoqpYIM1ZCbbTPPLHhFxoMHREolMZivDno8PjpCB1xBMSsJu1N3uzFzA
+         FObQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwua6/UQfhHcEsHdxRDoJpP0tNpTDLlIdAhZRTG6mUxKyAXwfU7FDHMdgJhi61/3LPweTWhQvyRJTDyXuw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbUEiLnd0ycWhftIF6eSBLT5MEYaSOfP8n0D0SjbyxB8deZbGL
+	c5MwgoZGLTxrrOgLQY1Ze2wzw0/miS6CVp0VH8GuEA4kOV0v7ZoebS23Vp8us0dgaQ==
+X-Gm-Gg: AYBFou2qXHfF2st7Og62ba8GQ2QWdKVO1IiIGQWOD/josIq80o7FKRTiKooEKsoc80Z
+	MV6a+B50JDNNr6ofaig3ESR/BFCrvAw3axVTRsbRuHu85ExUW+LvrhWRpZ5rQ7lbBVgk0vRItXw
+	lq2IeG2W4VDCMWWV15tDqxCa450eu7lnsKT9m8dBBmjz7NGR9i51Z/uKaXH4jdzy1CZaSpO93DF
+	PZTywTSnjuwauDrTW98tHs5oRFlIGMCIousQYVBkz2VM+QXU+CC450Fgx6VGnvYbO2eDUfUQseV
+	j+rxDiau6oDJzeds3XxMPvAGmFUtwWDUnN/E2IqTTJ3p+FAk6aLrHCrQ3jyin6skeqn2BUi8Dlf
+	jVL9GJKSW5aZZZ7gTKssZc/YvXr1vBeVoJvmViuKwVtxDIGdiYdwxC/hDosEDGXmo1Z+tIMNGWJ
+	euAAoAIA9Z5OzoEuFxX9Y6Y81wHvRHXjwMFWWOLyPgmObhELl/Sa3NWglbVWG7RTphhJ1sks0a1
+	aHePVAsMMBJPpRaunEUz/prorCjWwqplZArrNEUaJr2LJnR4mFICG+8mE+/SUANaSk6SBIn/pyD
+	eBS5PA==
+X-Received: by 2002:a4a:e907:0:b0:6f4:e301:cc28 with SMTP id 006d021491bc7-70ba0e91903mr844092eaf.24.1792851242978;
+        Sat, 24 Oct 2026 07:14:02 -0700 (PDT)
+Received: from [10.211.55.5] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-850fc0fc7a1sm2509401a34.25.2026.10.24.07.14.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 07:14:01 -0700 (PDT)
+Message-ID: <3d919bc5-0fe0-4afc-a5fe-12c0ef1989dd@ieee.org>
+Date: Sat, 24 Oct 2026 09:14:00 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,20 +89,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: greybus: Replace format specifiers
+To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>
+Cc: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+ outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org,
+ gregkh@linuxfoundation.org, vaibhav.sr@gmail.com, mgreer@animalcreek.com,
+ vireshk@kernel.org, rmfrfs@gmail.com, dtwlin@gmail.com,
+ pure.logic@nexus-software.ie, linux-kernel@vger.kernel.org
+References: <20261021163437.280930-1-pavankumaryalagada@gmail.com>
+ <3433f922-bffb-4f1c-8e06-a7a87f5dbcaf@ieee.org>
+ <77adf02-43a9-7621-a94-9da41f8c5a56@inria.fr> <atuYWuWeqvEG6j4B@user>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <atuYWuWeqvEG6j4B@user>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Pablo,
+On 10/23/26 12:24 PM, Yalagada Pavan Kumar wrote:
+> On Thu, Oct 22, 2026 at 09:30:26AM -0400, Julia Lawall wrote:
+>>
+>> On Thu, 22 Oct 2026, Alex Elder wrote:
+>>
+>>> On 10/21/26 11:34 AM,pavankumaryalagada@gmail.com wrote:
+>>>> From: Yalagada Pavan Kumar<pavankumaryalagada@gmail.com>
+>>>>
+>>>> Unsigned variables are printed using %d.
+>>>> Replace them with %u to match their types.
+>>>>
+>>>> Signed-off-by: Yalagada Pavan Kumar<pavankumaryalagada@gmail.com>
+>>> I have reviewed every one of these and they look good.  Quite a few
+>>> of them--because the size of the value being formatted is less than
+>>> 32 bits--would print correctly no matter what their value.  But I
+>>> think it at least does no harm to convert the format specifier to
+>>> unsigned in all of these cases.
+>> I was suprised the compiler doesn't complain about this.  It seems to
+>> complain a lot about type-related format specifiers.  Yalagada maybe it
+>> could be worth adding something clearly invalid in one of the argument
+>> lists to see if the code is actually getting compiled, or if you need to
+>> set some config option to make that happen.
+> The files compiled sucessfully with the normal build settings. I also
+> enabled -Wformat-signedness to check for format mismatchse, as this check
+> is not enabled by default. It revealed a few more issues, which i'll look
+> into as well.
 
-Please do not apply v8. Sashiko found an out-of-bounds read in it: with
-a vlan device of one bridge enslaved to another bridge, port_vlans counts
-the vlans below both bridges, so the gc looks up the bridge port from the
-wrong device and reads past encap[]. Resetting port_vlans at each bridge
-fixes it, and a selftest case covers it.
+I think you might find that "sparse" complains.  Run your build
+with "C=1" to run (by default) sparse, and see if it says something.
 
-v9 has that fix, credits your patch as its author with your sign-off
-and a note of my changes instead of Co-developed-by, and is rebased
-onto nf-next. I will post it once nf-next reopens.
+					-Alex
 
-pw-bot: changes-requested
+> 
+> Pavan
+> 
+>> julia
 
-Julius
