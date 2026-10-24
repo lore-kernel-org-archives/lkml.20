@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792815250;
-	b=pEK2BMgonQeEcZ/HfSmWD6tlKAjkdclzTseDyY1Ph29KNA/BMtt4KgkApUbjGuB/znf9
-	 a8GWND+7kIS4fTgGRTdUzNSWjovDroO/6Gj9PlSJHNSFWzMD44dhabZQJ+IdMRrYht+mM
-	 bd8qPMnAir4YW+7qDACz05TgnIh8osTrf6wSuXOto14in0txGacj6+xowqQPMI/m0dDvY
-	 uNtCNkHLyRBLYN+vJv+1rZwvyrpimJ0w6nLYjEBhAsI/p8plaD1PbmgrM8J9dVNrXVcpQ
-	 aSANRoqdHZvE4MZ1y1Hdc2CR0FNsPRYcqsrjLOB+C3K/VfZDPHa5ksBg8U2oxaaRjCg==
+	t=1792815225;
+	b=Bl3Vb3kXa/R4UZEW2RhsRabq8sVcYDvoN2ZYfGD+7hKozCKWIq1DpV/jd009R5v9pfMv
+	 c3zbcC8zJWVY6Rng44jSy7TEIUU3X7xyt/kjtu7zyp1jX65bU7gmK+9Z/bmy4vQq8xMI5
+	 krBdaz2Oh3Xp6SXdDYi70e4HLevV6CaKpwO4bOhT5f+pAAc029tjbYW0ouDzDFpySItml
+	 yY7RXduUQU04k0Y4cNvysIbfsjs0i9PyHTNvQlLaG4U2Ukhm6tE3kJ1rgoysytK+zSIp4
+	 xKjC/g0apPAm3mtRTZ19l3XefU2rZRT15x1W5ACQdbMJ5X8CaBCA7/2j6KTMNxkJjOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792815250;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2Wi9nFKnE/c4EPmrilG/KSDGcYcdbtVNJ4lOGd9J52s=;
-	b=FbY1PcbruXFaKsvdllDW3jxybVslf9Z94d3FbMM9VEGfoD6uFEXbEX/MQvl1jYG+eMFV
-	 gDW+CRjlcyFtge9c8CiN0wBtJ/HJvYNpOEBDcjYrBwBqYdIBJqjWVJL5THUNcRL0Jjboj
-	 JFWmBD/WzBdzotv41+jCbzXJpyv/n9KneCFLUZcX8tJxKifDw3wXpq93xo2lCwxA0S8ty
-	 Qq/mUfan5YgTj4E/Yww1deLyJCBGEJknxNPATSf3abapVpwIwJ7niyvG+8+JLOlRtLcdz
-	 LquzCdtMx06YECChrjqrPnbpQCoLTU9xdqxfG+kMcWzN/LvKm8fFgPQp9x1BxBRDrQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792815225;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=QS+RFzYYs6EY3mLVW/oXk1QJzBbByUuQ69LxvNIG7j0=;
+	b=rtK+qxtQG5KeK5KdcghndTBwb/BeQFMJxGbtiIkJjS/E+NPzZcHumzdN6o9M2zMB539M
+	 hkfI/ezftSfCj27DzFiUMgpQCyndfEaRG6lX6mPP2rdBUp3XlnPWFbjIj3tGQf3w46VmR
+	 mcwOyv5QFlL8ug4Jsnu7dgeTcIqBcI+pDFgDHdawEgxmXZ+JbFxJmPYy5pjWFa7F9lIy5
+	 HIIRR0a+9kgM6GRTyYBC4V5mDlnxNHM+o2pLMHghvLtDOXh6MbH1ajnrhIuOHEBmbpO6K
+	 Diyjabtoc1xvrh2PTu7Gp2iWqS5PKe/4mH7nA7pYIOZDIIka78lvyqKr8NfOysp0lRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Os21mwMz;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD187606A328
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 04:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD187606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Os21mwMz
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so14879655e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:14:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792815240; x=1793420040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Wi9nFKnE/c4EPmrilG/KSDGcYcdbtVNJ4lOGd9J52s=;
-        b=Os21mwMzsXCBmyGzcSB//pxKjuPPNQtlMHyV5HZEUycbuYFqplMtYiil/yIIRDD4pG
-         ZMktH1avkIIZQbOBscNlCJXS3t5TwzwSKx0D0Vuf/RFdmXjn/UDizoPF8yIA5X2mayuI
-         tIqo7OKFrmQ7wEzGip7I2QEQfMgwmGKZYMuzp0ktOkKyz8lL38MwKqAV6N7bwMpyh11u
-         MCclCuNeyrPpw82x/LYLrCenNArl2/8gGzvUa5sz3eb/lU450+Dde5i12jvnMAOKKSms
-         brtJ54qv3K27dCno6dJLsRGhttNn84om/r0VBYapQ5TZObqGQvPMnJ/c7AOAmE43axe9
-         SdIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792815240; x=1793420040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2Wi9nFKnE/c4EPmrilG/KSDGcYcdbtVNJ4lOGd9J52s=;
-        b=uvdJCx9Bk8/7YoKFvC7gmbVtspcfQHWFA9KIhgqwaSXzFZbV73buH9Hj6rP6de/LTv
-         CNQehoF84lGlWG0OsHBVe1xQIzPtmMDIqd7JH0157zjv0jJZxeLafLjNDSsh5PJ/qFIb
-         TVoFUi/nw8dTG22iCHU4hJUiT3IDXLyCUFrIkSxRvoNrJa/QxaLrk4S51xYt6bBEdlZ0
-         d7RQcPHoJg11QRCV8IWW5Hm7x8Mx39j9kQS4anffQo2LShNJe9fXkY3hiQmBuK3ZVjwV
-         cYGVngFA+pZnUgf08BBit+VaGA9iSVGM5IspsR3/dmqXtF+aYYwxdzwpDu0iUyB+wtnA
-         FIIw==
-X-Forwarded-Encrypted: i=1; AKwUvBzj+KrXGg88OFGF8adJxDZJoYIMCnwsz/W19ZEMCCpS01+9MsrBmqvhXYqWzVCjXzq4ow+JKK3vY8fM0dQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWIA3bz/j4SmxaUDzXLAS1zOFemeNpcrbDbdfQIPvxGta35zmg
-	5s6NRfTQVWpq9GYaW0kbchunAG4cvrqcdVVDhkHjIZHzZcx98wTt2mv6cL0W2D9kocc=
-X-Gm-Gg: AYBFou0c0kXRI1tsli6l0wrelTaVGJE6NVpBe0r1slW2+6z76JsbVQ3jtdlYxl7iJR7
-	EOt5AsA1L1bFLASShD9Gg2TePMWiiIE70IAXv8fkOKeRosGgmXuvH9X9GtHeuEj2l4dqGNsBwp0
-	h9ERnPO/LgkFNrrUbKtX9vWRdFJaqekPyvdsV6YccjInWzM9CMLVfdbMevQmzA7HQwk8pLDAo5L
-	6P/rdX4YL9HrR1Ya9W3OlnyTik8C7E3OnMEivKa2I24XRrkDY9KDiHNeidM2QdsKkL1zEJGWtiB
-	s+4GYdqPZ8t5S8PW+ZCy6aOymQ+NPGsoTPIzWwz8keuXEGvHj+Mi1o4rhqKrazU+TUZKt+rLEDV
-	cAR+NRSVHPKsu4MWGuuZg4ZMWX4fvTJoqDSHYgN/ofo0zRLq4Zl1w8ESfjgpISxbblJAtQq9J/t
-	E6LUwkLqcPI54c9k4tVNyKjii7ZDj6L2l9u/81K3BF8t15gewjfsykpnJVMmmx/0lKyeVwKnBs2
-	re2+2wUnBXTUJFyVcaZwsqr3ZD2qHrfZ8z0txO6Nt079NwcjMhJW1LBz5Onvw7pKSg+Zq0/YA7e
-	WYDYlQ474tw=
-X-Received: by 2002:a05:600c:8581:b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4a35da23c55mr463285e9.14.1792815239806;
-        Fri, 23 Oct 2026 21:13:59 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9c3:9990:89bb:701c:1852:56c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2c0458sm26332265e9.11.2026.10.23.21.13.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 21:13:59 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F35606A31D;
+	Sat, 24 Oct 2026 04:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F35606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xKT8Q-00EPeW-QM;
+	Sat, 24 Oct 2026 00:13:34 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Shuah Khan <shuah@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-Date: Sat, 24 Oct 2026 06:13:56 +0200
-Message-ID: <20261024041357.34346-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2 1/2] pidfs: do not report fields that do not fit into the caller's struct
+Date: Sat, 24 Oct 2026 00:13:33 -0400
+Message-ID: <20261024041334.831273-2-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024041334.831273-1-nickolai@csail.mit.edu>
+References: <20261017020634.792390-1-nickolai@csail.mit.edu>
+ <20261024041334.831273-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,86 +64,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X1600's SAR ADC has four auxiliary channels and none of the
-touchscreen or battery engines of the JZ47xx ADCs in
-ingenic,adc.yaml, so it gets a binding of its own.
+The documentation of struct pidfd_info promises that "If the structure
+size is too small to contain a field (requested or not), to avoid
+confusion the mask will not contain a bit for that field", and asks
+userspace to trust the returned mask when deciding which fields hold
+valid data.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+pidfd_info() does not keep that promise. It builds kinfo.mask without
+looking at the size encoded in the ioctl command, and
+copy_struct_to_user() then truncates the copy to that size. A caller
+that passes a 64-byte struct (PIDFD_INFO_SIZE_VER0) and requests
+PIDFD_INFO_COREDUMP or PIDFD_INFO_SUPPORTED_MASK gets a mask with
+PIDFD_INFO_COREDUMP, PIDFD_INFO_COREDUMP_SIGNAL, PIDFD_INFO_COREDUMP_CODE
+and PIDFD_INFO_SUPPORTED_MASK set, while the coredump_* and
+supported_mask fields behind the 64 bytes were never written. Trusting
+the mask as documented, userspace then reads whatever its own buffer
+held at those offsets. The same happens for a 72- or 80-byte struct
+and the fields added after it.
+
+Clear the bits of the fields that lie beyond the caller's size before
+the copy, in the one place that knows both the final mask and the size.
+A request for a field that cannot be returned is thereby answered the
+way the header describes: the field is simply absent from the mask.
+
+Fixes: 1d8db6fd698d ("pidfs, coredump: add PIDFD_INFO_COREDUMP")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
-Changes in v2: none, resent with 2/2.
 
- .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+Notes:
+    The three size thresholds follow the field layout: coredump_mask and
+    coredump_signal end at PIDFD_INFO_SIZE_VER1 (72), coredump_code at
+    PIDFD_INFO_SIZE_VER2 (80), supported_mask at PIDFD_INFO_SIZE_VER3 (88).
+    Masking the request bits early instead (before the coredump and
+    supported_mask blocks run) would save a little work for such callers
+    but leaves PIDFD_INFO_COREDUMP set by the dumpable-state fallback for a
+    live task; clearing the result once before copy_struct_to_user() covers
+    every way a bit can be set.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-new file mode 100644
-index 000000000000..7886836b10c6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ingenic X1600 ADC
-+
-+maintainers:
-+  - Olivier Louvignes <olivier@mgcrea.io>
-+
-+description:
-+  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input channels
-+  measured against a 3.3 V reference. Its clients select a channel by index
-+  through "io-channels".
-+
-+properties:
-+  compatible:
-+    const: ingenic,x1600-adc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: adc
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  '#io-channel-cells':
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - '#io-channel-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    adc@10070000 {
-+        compatible = "ingenic,x1600-adc";
-+        reg = <0x10070000 0x30>;
-+
-+        clocks = <&cgu 28>;
-+        clock-names = "adc";
-+
-+        interrupt-parent = <&intc>;
-+        interrupts = <11>;
-+
-+        #io-channel-cells = <1>;
-+    };
+ fs/pidfs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+diff --git a/fs/pidfs.c b/fs/pidfs.c
+index 7f8c323ce6cb8..cdb0916eae71b 100644
+--- a/fs/pidfs.c
++++ b/fs/pidfs.c
+@@ -485,6 +485,14 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
+ 		kinfo.supported_mask = PIDFD_INFO_SUPPORTED;
+ 	}
+ 
++	/* Only report fields that fit into the caller's struct. */
++	if (usize < PIDFD_INFO_SIZE_VER1)
++		kinfo.mask &= ~(PIDFD_INFO_COREDUMP | PIDFD_INFO_COREDUMP_SIGNAL);
++	if (usize < PIDFD_INFO_SIZE_VER2)
++		kinfo.mask &= ~PIDFD_INFO_COREDUMP_CODE;
++	if (usize < PIDFD_INFO_SIZE_VER3)
++		kinfo.mask &= ~PIDFD_INFO_SUPPORTED_MASK;
++
+ 	/* Are there bits in the return mask not present in PIDFD_INFO_SUPPORTED? */
+ 	WARN_ON_ONCE(~PIDFD_INFO_SUPPORTED & kinfo.mask);
+ 	/*
 -- 
-2.39.5
+2.53.0
 
