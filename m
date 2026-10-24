@@ -1,102 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792830533;
-	b=rhZBixjRAYC1hZ1BvJNCxhMs4jAhBknsheSIySEppI1V+Pb5txYJ0l37dIV5QHbCIP2S
-	 PX6wuJxZ713ZIGr/Tke/wyu/6AcRO0o/wrUSR0RAr3S2WnrvmJlFW62JEmIA78QsXZ81h
-	 Vs5ApQTzAk/IAfrvH5hG9o4lVmyWYG5RjehLsxdrC1zfEZaGi5U4O+4WXSc/tvHxYKrZq
-	 8MqRBm8imsBrz1UxLlRQho/3EEhe3cnmdfdqGdhkN4+CqYMBJdSpD2rSA3+j5gwg4TsZF
-	 sOxKlmL2vTl1TqqX+U/Jux5Zl9XyKWyKS152dtnMuaApJi0hHK6ZJZjpp6WlO64xFnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830533;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792830733;
+	b=0OCA2UQoYgC5/RzyRDXk4HDsbXErRkU1O1N8CWiM2raGuUfnPqAFPMvMVxHA9jepqX1Q
+	 k+rzhaAdqEYuEqAUbzbQUkRHkJiPcQU8S3OKS75LFTNkz61UgoiLzWe7eJdZ7vJqk6R8O
+	 A2oCY/MKwmNR7fOEPDK/vXt6aB4gGxeutAJpHLFjdCwbuR+6jQzU7khIglGLqTIvzWdr1
+	 ZLNT0wcPja6ycMvWfnHhenIWlIUJnsY/M/L6WRMfVnbwPkXr2Rz/XU4VNieuEC5xY+7EM
+	 9z1gUKn7VAA62PEHij2xBTIyDsYzIYh+8ncjReHTtXFHREghawUn2I7qoXpcPN9Lahg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
-	b=ebCcpkPwVwzyFACai/ZbDb6Gvy8COsmcFvHZfpl4qIzB/4Y/OjfrJ9unWv6cvMo9LPwD
-	 tDZdL5PwCH3Zbx47VZTTXJWzWgtFvJ2We3bB1ZzPQOtwVbhFFH2tA74ZuOZwvaHtfQHS7
-	 1ouOvkwRgnaFpEzOQgp/dTzXgw9JsUXUxndmRMSXB0VvNHTRyHmhHoWKGMxfsH+mjEhcK
-	 mx9j1D/vXvucz2GALInEe7QPQyPp5Qqco4KHNe5CreJK2c4Fr/obt5WDJ6jVAFnnu3wAH
-	 qdurDvHm4vXxT73SPd5H3iBNmDrB7NkuCIp6Y7rA/kPzYeysnLbKJC4uhumFJoos/Vw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3e5wTqyNG5gGl5g2NVZElqeHpfWUg2RSrI9yhZqK4mQ=;
+	b=0IEqLI+SLBqth1qzQ8rH+ZJpjg0jk7AGX+kJLSNpVC2avNfv8DK0QQt0d4+8KVrq+IO6
+	 lVqV8j4bWWcjFrII3fbQnxswzRGzRKQN/lbmLohUXi4wYVVRqzPQteFWL+1g86RES9OJo
+	 MtTXfBx2YrCuDyGMSPCpekhvic9RdOtwGlSaE9EKTnWyNqaBGAIYsjNVe8p6mE9crDZd4
+	 i/4hHMUn89hlJCipkj0cRobsCGXscHECCSGSHmdTN42r0W8H26PJdwgmBnrvyrdtby6le
+	 jDae4L1/I54wnCzXG9SJgLIgEqkdRwPSvy1KVZTPjDfMSVEqqLqw9JDYjZOJSfVstmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRpSXZU1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lw0aWJJp;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F85B606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F85B606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A88A606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A88A606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRpSXZU1
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f20b304c0so147612585a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:28:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792830527; cv=none;
-        d=google.com; s=arc-20260327;
-        b=frGwIS+jFnV45wkEhrp7y8FQKPOKbu0iTear8hOqW8lMBK+Z0KDns+vdC7tXCNkYwf
-         Ti9mRGCKGxJkEA5m90vdey8WjYbQKB3vQcc02p1UiCC7oMBzX9F9V7ws8IW3rOxP10A4
-         dFdvs60jvOuMeJuSBAXe6AU92u5OpeRt3TYG/3J4ROQWE2lwN4uPznR86Yi7CCZUlect
-         vei/+1tIKgUQyQRMnQwH7Izkc2mqrhmlr/pMJ7cSXeeVuoOFBYD8wRxrGU4K7/nq9C8C
-         Fdug1d/qRBALYLCNPXdu5OsUAdG5dSumLREWy592jkClFtFsOFIqZxj6LoK6upkOTX21
-         PAdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
-        fh=e9SPQEY7nBYRJgut+gayORKGHDEW2vsJI4AzorfCsbk=;
-        b=Mljr9FCt6UPWamK8EtEhmMVNiCv3ur6VRhyOw+6CYXCsGl9ZbUDfrQFP4ubXNW23aT
-         5pZvIpDKGKt9EiWUxy3WsV0O3ST2ZxD9u2jC8SMipn91eZwKVJx/cEw0sc6tUdSt0RA3
-         KfLwKrQ/kwLdFFFmu5jJLz/UHGe1Nrtw2h3MX98TlthBGO/SB0iwh6enHto+cq+lWur4
-         2IkEYn3eknD5W/VSRlkJAp1TEnh8v6hX3CVfzWgGpdTuYpiVQVb3toAtPe5t0u+8d3zI
-         B9OZuFDSfgGQBYNkhGlNtk3+fqfx5GcEZVROjiqPvS+5XMQSwerdk655DobryLxJePjX
-         NrWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lw0aWJJp
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so10703985e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:32:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792830527; x=1793435327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792830732; x=1793435532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
-        b=pRpSXZU1yQT1y44daKHD3tUj3rHLXFVwuW/CQz8RSUdaCT6N4yQKBiyjJydRsWD0pW
-         g28B1qLz2bwONEtegXVtN3jQk8kTIBJnXEvdb61iXJ6GOmdcdJzzfWoGPXJ8Zc3AAkIs
-         WFhFWHFXD3GvhhjyB6SZ+UEZsDPVeUQXyFq7orv9RYQ4Ddy4yyleAD4+BKuksm118uF/
-         0FReZdmVzFujp+6kBucxhZu4Ep8MI33EAFpewip65G9SfZGmv5piy6+j36vFaM/mAdIu
-         19DXBjsISyvcXO6q06teRbNMfwFkw+dnbAyHZsBMvLQnln/PFxgnGeCCEnOQ1fHE+nej
-         2bPw==
+        bh=3e5wTqyNG5gGl5g2NVZElqeHpfWUg2RSrI9yhZqK4mQ=;
+        b=lw0aWJJpSAJSY2oELoukBHAw2g2gatPo64HcfcUqKO7PbG+KMOgojcMq8afebUsvqY
+         +9ODGEf806WV6Tis3ceRZ0AGjFv2ugme0nS95nl0/R87/Y1JW4qq3QSefJ61q+4mJ03s
+         dG5aShYRfWwA1dYorGlpmItOIfLTF0ceqbnOBCET+bx/qLJGrlzp7xSQdkoVURYj9IoW
+         d0SNuEihEerPo3pRZhoqzNJGftO0F0mKAQgitQkHF16mNwTjHzLQz9pghHzru4PiuNFw
+         yebEoObMmank+6g7dxyeyWyn797Ho0j/Y75b/I9jNEp9x/ApWkh+dazWIiNChchpHR9V
+         94Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792830527; x=1793435327;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792830732; x=1793435532;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TV8aougv0HFFxEZHCD307mI1j0UTUQCx1/QXIS2xyiY=;
-        b=a7YriSY1M/Ia89siIW7iCQYhYXtiwFSjqqjG57o0oM1TU2FKw+I62DuR+ugiJa6M1i
-         sTmxVAw8vnGQkyIq/9AaHwoHbzLxRJFj6qCCRYBX+MuP46isPUrdYM2Tv+XLho2W6HZZ
-         4EPP7sVQZB1QO4s+95KRrn0mwbYuYIEu/2EL+gAjsn2xbqUNH2JAzXM80EUFN58nmD78
-         FFt5Db0w83BPWZp9S3QbX7Oscues4MmDZ52appX9UXIweuCNoQ5T1MiQdCg1V41fD4Rz
-         4PbXd4hRlJrsFNo7b86IcFvtVYcHQ3jM1Y+3poDPsMUGmg+/GQjrIvr2IPPLhgPn/GBL
-         i2Tw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5o5CUCA04aQZW/spXuzdxIwN53b3P+nEXX2ziKYq16T2Db5UiQMd4AyiD4rUhC8KauJadaCyc8KIZ9Cs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSvMlCvbFsyLo5sLanYcsEL6SqJrPGDacwA/jZM6AkKyUzZW08
-	wWeok/VGcBecyMWYSVxYAMqmGSLS2ky/617sscXTcOM3bDYgK0Aprf88CA30dJU9x/uH4v8KqLA
-	PCi+/4sbq88Ckk31JIrODJFvf1RYUSfA=
-X-Gm-Gg: AYBFou1CNw1DJnUKA3LmmLSg14UojC+jLeSSlFvIwcb/HDMHCPs18juFJdQHyKcK8tD
-	37urjNvDgEEkbUDRhPkAkYRodeJ6r4N8zfL18Klij/TFMZIx5/cerzxViIPAQgAyaiWiCwesFXj
-	KdlxFrvT/UmM25GiUtfp9hwXgyheuNhgmaidstj3QMJ4YTDF00XaVjPF7opFw9earknmc/EZrJo
-	yJwZGnIXnSYzT1iYRBsKuEXf66y++oCm/w96iuCQn5tyZ7jEtQPMux1n4XD/TVVkBlJf2WcehUP
-	xZzZ4AZ1l+4tjr22T9+rZdgP1wDTLUr8N7LzYsYEP1K8WEIs65fJgNsvDCRDTg5hrAXNuGa2gDO
-	N5s/kEVhhv3U1JdWFZ9X/YY9oXLoajSPqZ40PJ7PsZbO1f6BlHXpGVukcLj7jAJfcNmLCXHnvll
-	W74+YqPyN1u+WHkr6ZvoZrwBs83es+5VgHiZmLPoXdBYFYSitHF8yb56J8zZi4M7IpTx910Lh9V
-	xou5yMrp3KfDHWkf9c=
-X-Received: by 2002:a05:620a:2a03:b0:93e:c12c:9dc6 with SMTP id
- af79cd13be357-940ef9c39f3mr186553985a.70.1792830527402; Sat, 24 Oct 2026
- 01:28:47 -0700 (PDT)
+        bh=3e5wTqyNG5gGl5g2NVZElqeHpfWUg2RSrI9yhZqK4mQ=;
+        b=QwkN9KBldxDJp0ilEssrViAYjGmFNlJma1DadL00oNR04rlCzpwMhL4tZ1/OxlDaCJ
+         Lo7NWhaWhZt8fCgLjoIvfxWLFPbOG/Dvm+a0kp40jdUeoQtynCrSr4ebr+9iOAWq9tqk
+         5CVZAu6SQPLdDufrDCvwfiOjbXtmMLk78iprYdFhsrXARNzQg/aXxTZC6MmvmoiFyHTR
+         vEn+UApQ5wUI8/zgG6DLt2RZvgKKcWDTWrpybE3st8LOT3vhwQ3oQ7yHVSmg1Iwni015
+         nQAhvvzv/tR4MwZIGm9Lqe9CLPwIXlYV7oyi8KfjDbjbnJRiGjSC6Jt0aVl74V4GBH1r
+         i2NA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUAXwms5yT5Con4fydwkVfnScVnEROkdxNq9p8AggiDgxV/0zGY/FXvPUGfyXTgwXgIVhtNlx+DgnyOjU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKC6QK/ACeWEiYJDvDodHpparJjxyjKQ46Wd4Pnk7vl3WAoqP/z
+	umTDuFb2l8uXGC3GW34g1VO+eTnVhNMDrrsuyzqRJ1+aKWVJGhWNS6m6HQid/Rlv
+X-Gm-Gg: AYBFou3otZZ6a5WvKOBgy6tbjPS4Wjd5otcGWGSdgQHI3owgTwIQYadEzZqYlf6bKRQ
+	3JBE3pNWOmx29W2Jcosbd44Dx6zzFJWpiM3JW+PLlRoj2cdPEi3N4V6juCLl81Y0PrKajuV3GfE
+	BHC+NQqAWtfiTpwj3kmj1o4r1wfrjjE2pUZ65tqRIlEs7LlCrCQrUdJ6n0PcEAWjSX/KcgXb/Fr
+	KRZKE06Ghy9/HrxK83cXJpn9XkbLS2Zs7m0aFI5TaPpivdSO05iqepWPrzZlru9cOr2hQAqaAq6
+	Io0L6RZUgD85OBx6Bz4kA4uAJSgXRznCuF9x/8XjDolLG2NQzsd3blnev4CnO0aue207KxJNnxk
+	M8Riu/rX+vWl7izWfyGkJO7BZXfvb/zdpDOOXItYA8wP0tf5OvtYWxlP+V9Objs5yFHiQMjjDQj
+	1B9+ZfT3v13sgmNk0Ny/AVxDurIVaJ0BqswEwf3pB6ECf1bZfJhiozNvvPq+X00fV9SiVAzqz/z
+	eO8wuIjSVnvt/RKsejTuyMgpodjCoYqxjCijuYL0iE5FRMBjEqWhwu3WBc+dJXD0qGCprbWM5nX
+	ULtckxVHo/YWVG+RGqCFMUMrSCsIHipq6HJAuQ==
+X-Received: by 2002:a05:600c:3b93:b0:4a2:397:73fd with SMTP id 5b1f17b1804b1-4a35ac96004mr19809545e9.12.1792830731571;
+        Sat, 24 Oct 2026 01:32:11 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm2309302f8f.7.2026.10.24.01.32.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 01:32:10 -0700 (PDT)
+Date: Sat, 24 Oct 2026 09:32:09 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Ian Rogers" <irogers@google.com>, "Andy Lutomirski" <luto@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Vincenzo Frascino"
+ <vincenzo.frascino@arm.com>, "Arnaldo Carvalho de Melo" <acme@redhat.com>,
+ "Stefan Kerkmann" <s.kerkmann@pengutronix.de>, "Marc Kleine-Budde"
+ <mkl@pengutronix.de>, "Christophe Leroy" <chleroy@kernel.org>, "Helge
+ Deller" <deller@gmx.de>, "James E . J . Bottomley"
+ <James.Bottomley@hansenpartnership.com>, "Jason A . Donenfeld"
+ <Jason@zx2c4.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>, "Eric
+ Biggers" <ebiggers@google.com>, linux-kernel@vger.kernel.org,
+ linux-parisc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option
+Message-ID: <20261024093209.09367c73@pumpkin>
+In-Reply-To: <9ad54286-4337-4022-8657-65e1ed86b6df@app.fastmail.com>
+References: <20261020163210.742728-1-irogers@google.com>
+	<20261020190718.6cba898b@pumpkin>
+	<9ad54286-4337-4022-8657-65e1ed86b6df@app.fastmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,63 +108,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017065012.3063980-1-austin.linux@gmail.com> <n59f1S6wQICe5ZxgcNxb3w@nvidia.com>
-In-Reply-To: <n59f1S6wQICe5ZxgcNxb3w@nvidia.com>
-From: Austin Schuh <austin.linux@gmail.com>
-Date: Sat, 24 Oct 2026 01:28:36 -0700
-X-Gm-Features: AclHuK_tinEg57N73i4__wGq3AIgvdQZH-j58Q4vGTYODbuD3w6t9rMnKMeodvE
-Message-ID: <CABsbf=Gvd8NGG=yafF5La-pW77QOMAXYkoyWU9y4-B8S2_0Ong@mail.gmail.com>
-Subject: Re: [PATCH] firmware: tegra: bpmp: populate debugfs in the background
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, anrao@nvidia.com, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 1:16=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia.=
-com> wrote:
-> Sashiko reports some hard to trigger but worth checking concurrency
-> issues.
+On Fri, 23 Oct 2026 23:49:50 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-I couldn't find Sashiko's report, so I went looking myself and found
-two, both fixed in v2:
+> On Tue, Oct 20, 2026, at 20:07, David Laight wrote:
+> > On Tue, 20 Oct 2026 09:32:09 -0700 Ian Rogers <irogers@google.com> wrote:  
+> 
+> >>  
+> >>  #include <linux/compiler_types.h>
+> >>  
+> >> +#ifdef CONFIG_VDSO_UNALIGNED_PACKED
+> >> +
+> >> +#define __get_unaligned_t(type, ptr) ({							\
+> >> +	const struct { type x; } __packed * __get_pptr = (typeof(__get_pptr))(ptr);	\
+> >> +	__get_pptr->x;									\
+> >> +})
+> >> +
+> >> +#define __put_unaligned_t(type, val, ptr) do {						\
+> >> +	struct { type x; } __packed * __put_pptr = (typeof(__put_pptr))(ptr);		\
+> >> +	__put_pptr->x = (val);								\
+> >> +} while (0)  
+> >
+> > I'm confused (easily done).
+> > That code relies on strict alignment being disabled regardless of whether
+> > misaligned accesses fault or not.
+> >
+> > So it is either always valid or always wrong.
+> >
+> > Additionally I think the compiler can sometimes track the alignment through
+> > casts (although it didn't for a quick check I did earlier).  
+> 
+> This is the traditional way we have been doing the unaligned access
+> in the kernel before the change. By annotating the structure as
+> __packed, we tell the compiler that it cannot rely on alignment here,
+> so it uses whatever method it knows to access unaligned data depending
+> on the architecture and flags.
 
- - The work could run across a system suspend.  Once suspend_noirq sets
-   bpmp->suspended, its requests fail with -EAGAIN, and the error path
-   removes the whole mirror.  v2 queues it on system_freezable_wq, so
-   suspend waits for it.
+That relies on the compiler not tracking the alignment through the casts.
+The only way the C language lets you get a 'foo *' pointer is taking the
+address of a 'foo' data item so it must be aligned.
+So even if you cast it to another type that alignment can be assumed.
+I've seen crashes from memcpy() using word accesses when trying to
+copy from a misaligned pointer into an aligned copy of the structure.
+Now the current code must be avoiding that - but I think the compiler
+can do it.
 
- - With more than one BPMP, the populations used to run one after the
-   other in their probes, and now run at once.  One failing could remove
-   the shared root while the other was creating its directory in it.  v2
-   holds bpmp_debugfs_root_lock across the whole population.
+> The reason we need the struct here is that you cannot use __packed
+> as a qualifier on a variable, only on a type or struct member.
 
-If you've got a link to Sashiko's report, that would be wonderful.
+I know all about that.
+Somewhere it also says that you can only increase the alignment (I think
+of a type), but you can definitely have a type for 'u64 with 32bit
+alignment' and use it in a structure.
 
-> This does seem a good idea, but I am a bit concerned about the change to
-> what userspace sees. Ideally we'd be able to have userspace stall if the
-> debugfs population was still in progress. If that's not possible, at the
-> very least userspace should have a way to voluntarily wait for the full
-> debugfs to be available.
+> 
+> > Since having misaligned non-packed structures really doesn't work, the only
+> > places these functions should be used is on u8[] buffers.
+> > Pointers into those can (probably) be cast to packed structure types
+> > without causing issues if strict aliasing is enabled.  
+> 
+> strict aliasing is thankfully never enabled in the kernel.
+> 
+> The cast is from a higher alignment to byte alignment, and that
+> is always allowed unlike the reverse. Technically the only
+> reason we ever need the get_unaligned() helpers is to work
+> around pointers to objects that should exist because the
+> ABI requires them to be aligned but the pointer instead
+> came out of some byte stream or from taking a (non-__packed)
+> pointer of a __packed struct member.
 
-debugfs has no way to stall a lookup, so v2 fills the mirror in as
-.debug-populating and renames it to debug once it is complete.
-Userspace either finds no debug directory or a complete one, and can
-wait for it by waiting for debug to appear: polling, or inotify on the
-parent, since the rename sends IN_MOVED_TO.  On the Orin Nano the rename
-lands about 1.3 seconds after the initramfs starts, and before systemd
-starts on the root filesystem.
+I think those ought to be found and marked packed.
+I doubt any of them get used other than part of the byte stream.
+That leaves the explicit get_unaligned_le32() used to pull 32bit
+values from a byte stream (that isn't defined by a structure).
 
-If you'd rather have something explicit as well, I can add a file in
-bpmp/ whose read blocks until population is done and returns its result.
+But we're probably arguing in basic agreement.  
 
-> Just inline the work_struct inside tegra_bpmp. In any case the work
-> should be synchronously cancelled if the bpmp driver instance is going
-> to go away (not that that will happen, but good practice).
+> 
+>      Arnd
 
-Done in v2: the work_struct is in struct tegra_bpmp, and a devm action
-calls cancel_work_sync().
-
-Thanks for the review!
-
-Austin
