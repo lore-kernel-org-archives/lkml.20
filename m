@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806234;
-	b=beJX3B26wRHJxaFQDGJPpQ/OFGU4LFqMUXua5zgl0F1Zd2q3RHula7a2Wg3sIRIQuKtt
-	 0zMNcjKdbJTCUvfsMs17i3nkfJT8S2Q0iVMfSi2EBQXdYMyMuItiuWVxNv2KuwI75Q6D/
-	 xv/Xl8mIu23vl/4+id0e5JE9LDmsLEMeEQfhr0tOuR2hMEcWp2N0AR3Uj4W9p9C/PsN4q
-	 yn/Jgdc+C9fGx9xGh05L8ShU3LCcM44nSroshH7x6cbB6CC+/goyfOM4Wnoqk4L2OWxAt
-	 xfqmOW4S5zXIusCfOERZk3KmrGAU7Wg01iFxl2mC3isnd/sxRvqUdwbewXfFMxpGdUA==
+	t=1792806260;
+	b=Nsyq5MJbZwF3y37+FuDGJrGfXvc085YsZF6eo/Zp3zE3VcTa0udqSuyCY3iObv3win7s
+	 ghEcz3RWTSIki2G5temGMa6OqTvl+Wj6BKudLIWxTtnwCP+37Yii2jfOOZXb8mWsjNCo8
+	 p6+Qs+mMRqM3rrl8CFnZGMS1jgsh+vz7iRxx9bTMGeUkZ6mr9CWUOxtYniPb4cuei4I/y
+	 w7PtNUpn+Zo99n/QBDBTP1Qv+zfHtx4QJ3VzAs6rIUOwNjdI7uvZc00oe8oFz9VkIGSVe
+	 1J1Bzt/FbiUVXs3uenXOkMlNVJyNX326tbWamyk6sPDZHI1tfTHWaFXztUNmDOZV9JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806234;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wyVREYXOxjrzUhwVsdrv5z52bG4LokTjT1gazbHkJ+o=;
-	b=AuFGneTT1baedeHDGOUVrcTo2evNsQEInZU5UKdVw5afKnSfbRyayNcJ7Usg57ajWOJd
-	 azY5V3ar7CQLFAPLbkyLua8MjtjXOl2YlK8unhE4du4yfPRjCRyMf98o3vcMw1F9SLOPm
-	 s4etPxByiyGgivPYx92F6eHi7bwpTt2YYhRyoKI99BSHYPk6xSy1+d9GpnyNAkMr1ScIV
-	 Q3hlDcaA2ZoquTYuO5R1EUa/+WBk6Gmv2lx0dxBT14LpCr9JmDwugP0s18wkZ8AhAL5nP
-	 0U1kSAHVolXRu0TC1s7aXUW+3Lpd/HjQuIQZIH2YhmrTBBZ6H2KUb3+aNPx1EFEtoAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806260;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
+	b=A2y/aYvSF6HT+KmHibxP7kjPwwKYFtv8K2SIPDeIscZ48BXaqdSJHKTigCQnT5xa/rXa
+	 baPtJXqnmA2UMbnYaj97g7KDeoEpaejsRF31Cjt6WenOwkMiQvT0D64HidkJGZBsBa5ov
+	 TQDYL45J2HV3SK/Snn/pQxObFED4yH3lsgM7WPqGZvg+r4BL+52Gm2r8O/2FlcjfWoI/w
+	 P3bFw9UDtXPNp5HcircZhPpUhd6uduiE8H3FAKsL6VONGgHrZoOWToEGbROCLZ2VS24k6
+	 nxF0OwdKDe5yPx+oh4jthAmWEcQdVYPVFFZZYnbzSkX21WdpikZO0qGY5mNtBskIYjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1813B606A31A;
-	Sat, 24 Oct 2026 01:43:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1813B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xKQnR-00DwZT-3H;
-	Fri, 23 Oct 2026 21:43:45 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Baoli Zhang <baoli.zhang@intel.com>,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v2] xarray: initialise the offset of a new root node
-Date: Fri, 23 Oct 2026 21:43:44 -0400
-Message-ID: <20261024014344.830116-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012181107.772545-1-nickolai@csail.mit.edu>
-References: <20261012181107.772545-1-nickolai@csail.mit.edu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205E606A31B;
+	Sat, 24 Oct 2026 01:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09811F01825;
+	Sat, 24 Oct 2026 01:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792806260;
+	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AeDgx7pC74sQPUM3WGP4IayUX+OTFLBRFSjVjknZAHSNOCRAWTeHJVmJYR8sKUSVJ
+	 2Tb/dqrjJYjQII/XA3V0FQMO7VwIFEew1b6TeW638tuGqKfPODFW3kl0wMH3Aj1u7M
+	 oKYqLrfiYaw51fJtmGnzsbSQS/ec7sBjid0l0RJbidtnFflad2TGDs2fQhFHTnRzKA
+	 ywv0aHOe6LP+22ph93h0ql4Ljdh1QbO0ZuyXkQOGcv2BwNKXTRhFPrRTy5Q8XvemFq
+	 mifdyXfwIr8wwRKuZRIJO3q2GuUT11JlFEFtLeL882j656fMzz3U83+ShxJomlob+6
+	 pDOrj/EWq8hSg==
+Date: Sat, 24 Oct 2026 02:44:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <20261024024412.2fa37c17@jic23-hlaptop>
+In-Reply-To: <20261023204209.48556-2-olivier@mgcrea.io>
+References: <20261023204209.48556-1-olivier@mgcrea.io>
+	<20261023204209.48556-2-olivier@mgcrea.io>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,190 +64,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-An RCU walker such as xas_find() that climbs out of the root while
-xas_expand() adds a level above it can resume in the new root at the
-wrong slot and return an entry with the wrong index.
+On Fri, 23 Oct 2026 22:42:09 +0200
+Olivier Louvignes <olivier@mgcrea.io> wrote:
 
-xas_alloc() sets node->offset only for a node with a parent, so a new
-root keeps the offset its slab object had before.  xas_expand() stores
-0 to the old root's offset just before linking it below the new root,
-and a walker can load the stale offset before that store and the new
-parent pointer after it.
+> The X1600's SAR ADC has four auxiliary channels, each with its own start
+> bit, interrupt flag and 12-bit result, and none of the touchscreen or
+> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
+> driver that exposes the four channels as voltages against the 3.3 V
+> reference.
+> 
+> There is no datasheet here: the register layout and the clock dividers
+> come from the X1600 driver of the vendor's 4.4 kernel.
+> 
+> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
+> behind adc-keys: all three read and report correctly.
+> 
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Hi Olivier.
 
-Set the offset of a node allocated without a parent to 0.  The store in
-xas_expand() then writes the value the old root already has, so remove
-it.
+Very clean driver. Just a few really small things inline.
 
-Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
-Reported-by: syzbot+73641b60a3bc11dfca8c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=73641b60a3bc11dfca8c
-Tested-by: Baoli Zhang <baoli.zhang@intel.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+Thanks,
 
-Notes:
-    Changes in v2:
-    - The test uses XA_BUG_ON() instead of a new XA_WARN_ON() (Matthew Wilcox).
-    - Remove the store to the old root's offset in xas_expand(), which now
-      writes the value already there (Baoli Zhang).
-    - The first root in the test now comes from xas_create(); in v1 both
-      came from xas_expand().
-    v1: https://lore.kernel.org/all/20261012181107.772545-1-nickolai@csail.mit.edu/
-    
-    Setting node->offset = xas->xa_offset for a root too does not work:
-    xas_set() keeps xa_offset, so a loop like the one in check_xas_erase()
-    (xas_set(&xas, j); xas_store(&xas, ...)) grows the tree with the offset
-    of the previous index.  In the XArray tests 2929 of 104963 allocations
-    without a parent see a non-zero xa_offset, and with that variant
-    check_xas_erase() fails.
-    
-    The syzbot report is this race seen by KCSAN: xas_expand() changes the
-    old root's offset from 3 to 0 while xas_find() reads it.  After this
-    patch xas_expand() no longer writes it.
-    
-    Reproducer (tools/testing/radix-tree with a hook in xas_find() between
-    "xas->xa_offset = xas->xa_node->offset + 1;" and the xa_parent() load:
-    "if (xa_climb_hook) xa_climb_hook();"; add "rootoff: rootoff.o
-    $(CORE_OFILES)" to the Makefile):
-    
-    #include <stdio.h>
-    #include <linux/xarray.h>
-    #include "test.h"
-    
-    extern void (*xa_climb_hook)(void);
-    static DEFINE_XARRAY(tmp);
-    static DEFINE_XARRAY(xa);
-    
-    static void expand(void)
-    {
-    	xa_climb_hook = NULL;
-    	xa_store(&xa, 6UL << XA_CHUNK_SHIFT, xa_mk_value(48), GFP_KERNEL);
-    }
-    
-    int main(void)
-    {
-    	unsigned long index;
-    	void *entry;
-    
-    	rcu_register_thread();
-    	radix_tree_init();
-    
-    	/* free a leaf that sat in slot 5 of its parent */
-    	xa_store(&tmp, 0, xa_mk_value(0), GFP_KERNEL);
-    	xa_store(&tmp, 5UL << XA_CHUNK_SHIFT, xa_mk_value(0), GFP_KERNEL);
-    	xa_store(&tmp, 7UL << XA_CHUNK_SHIFT, xa_mk_value(0), GFP_KERNEL);
-    	xa_erase(&tmp, 5UL << XA_CHUNK_SHIFT);
-    	rcu_barrier();
-    
-    	/* the new root of xa reuses it */
-    	xa_store(&xa, 1, xa_mk_value(1), GFP_KERNEL);
-    	printf("root offset %u\n", xa_to_node(xa.xa_head)->offset);
-    
-    	xa_climb_hook = expand;
-    	xa_for_each(&xa, index, entry)
-    		printf("index %lu entry %lu\n", index, xa_to_value(entry));
-    	return 0;
-    }
-    
-    $ make rootoff && ./rootoff
-    Without this patch:       With it:
-    root offset 5             root offset 0
-    index 1 entry 1           index 1 entry 1
-    index 8 entry 48          index 48 entry 48
-    index 48 entry 48
-    
-    Tested with tools/testing/radix-tree and with test_xarray built in on
-    x86_64 and riscv64 under QEMU; without the lib/xarray.c change both new
-    checks fail.
-    
-    The analysis, the patch and the tests were done with the help of an AI
-    coding assistant.
+Jonathan.
 
- lib/test_xarray.c | 33 +++++++++++++++++++++++++++++++++
- lib/xarray.c      |  6 +++---
- 2 files changed, 36 insertions(+), 3 deletions(-)
+> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
+> new file mode 100644
+> index 000000000000..d54f6d7989b6
+> --- /dev/null
+> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
+> @@ -0,0 +1,227 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * ADC driver for the Ingenic X1600 SoC
+> + *
+> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
+> + * bit, interrupt and 12-bit result, and none of the touchscreen or battery
+> + * engines of the JZ47xx ADCs that ingenic-adc drives. The register layout
+> + * and the clock set-up were read from the vendor 4.4 kernel's driver.
 
-diff --git a/lib/test_xarray.c b/lib/test_xarray.c
-index 5ca0aefee9aa5..046abad609648 100644
---- a/lib/test_xarray.c
-+++ b/lib/test_xarray.c
-@@ -370,6 +370,38 @@ static noinline void check_xa_shrink(struct xarray *xa)
- 	}
- }
- 
-+static noinline void check_xa_root_offset(struct xarray *xa)
-+{
-+	DEFINE_XARRAY(tmp);
-+	struct xa_node *node;
-+
-+	/* Free two nodes with non-zero offsets so the slab can reuse them */
-+	xa_store_index(&tmp, 0, GFP_KERNEL);
-+	xa_store_index(&tmp, 5UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-+	xa_store_index(&tmp, 6UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-+	xa_store_index(&tmp, 7UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-+	xa_erase_index(&tmp, 5UL << XA_CHUNK_SHIFT);
-+	xa_erase_index(&tmp, 6UL << XA_CHUNK_SHIFT);
-+	rcu_barrier();
-+
-+	/* A root created by xas_create() must have offset 0 */
-+	XA_BUG_ON(xa, xa_store_index(xa, 1, GFP_KERNEL));
-+	rcu_read_lock();
-+	node = xa_to_node(xa_head(xa));
-+	XA_BUG_ON(xa, node->offset != 0);
-+	rcu_read_unlock();
-+
-+	/* And so must a root created by xas_expand() */
-+	XA_BUG_ON(xa, xa_store_index(xa, XA_CHUNK_SIZE, GFP_KERNEL));
-+	rcu_read_lock();
-+	node = xa_to_node(xa_head(xa));
-+	XA_BUG_ON(xa, node->offset != 0);
-+	rcu_read_unlock();
-+
-+	xa_destroy(xa);
-+	xa_destroy(&tmp);
-+}
-+
- static noinline void check_insert(struct xarray *xa)
- {
- 	unsigned long i;
-@@ -2235,6 +2267,7 @@ static int xarray_checks(void)
- 	check_xa_load(&array);
- 	check_xa_mark(&array);
- 	check_xa_shrink(&array);
-+	check_xa_root_offset(&array);
- 	check_xas_erase(&array);
- 	check_insert(&array);
- 	check_cmpxchg(&array);
-diff --git a/lib/xarray.c b/lib/xarray.c
-index bfe7bef80f34e..1e2380e3194d6 100644
---- a/lib/xarray.c
-+++ b/lib/xarray.c
-@@ -387,6 +387,8 @@ static void *xas_alloc(struct xa_state *xas, unsigned int shift)
- 		parent->count++;
- 		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
- 		xas_update(xas, parent);
-+	} else {
-+		node->offset = 0;
- 	}
- 	XA_NODE_BUG_ON(node, shift > BITS_PER_LONG);
- 	XA_NODE_BUG_ON(node, !list_empty(&node->private_list));
-@@ -616,10 +618,8 @@ static int xas_expand(struct xa_state *xas, void *head)
- 		 * Now that the new node is fully initialised, we can add
- 		 * it to the tree
- 		 */
--		if (xa_is_node(head)) {
--			xa_to_node(head)->offset = 0;
-+		if (xa_is_node(head))
- 			rcu_assign_pointer(xa_to_node(head)->parent, node);
--		}
- 		head = xa_mk_node(node);
- 		rcu_assign_pointer(xa->xa_head, head);
- 		xas_update(xas, node);
+I'm not sure we need the comparison with the JZ47xx ADCs here.
+Keep that for the patch description / cover letter.
 
-base-commit: 26344c0dd32af8790d8474d233619db825441138
--- 
-2.53.0
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/mod_devicetable.h>
+
+Drop this. Now assumed to be coming via platform_device.h
+after that header got broken down into bus specific ones recently.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +
+> +#define X1600_ADC_REG_ENABLE		0x00
+> +#define X1600_ADC_REG_CTRL		0x08
+> +#define X1600_ADC_REG_STATUS		0x0c
+> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
+> +#define X1600_ADC_REG_CLKDIV		0x20
+> +#define X1600_ADC_REG_STABLE		0x24
+> +
+> +/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
+> +#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
+> +/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
+> +#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
+> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
+> +#define X1600_ADC_CLKDIV_DIV0		GENMASK(7, 0)
+> +#define X1600_ADC_CLKDIV_DIV1		GENMASK(15, 8)
+> +#define X1600_ADC_CLKDIV_DIV2		GENMASK(31, 16)
+> +#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
+> +
+> +#define X1600_ADC_NUM_CHANNELS		4
+> +#define X1600_ADC_VREF_MV		3300
+
+Use _mV . Fine to use case for units in IIO at least.  Avoids
+us maybe thinking it's Mega Volts :)
+
+> +#define X1600_ADC_BITS			12
+> +/* The vendor kernel brings its 140 MHz APB clock down to about this. */
+> +#define X1600_ADC_CLK_RATE		1166667
+> +#define X1600_ADC_TIMEOUT_MS		20
+
+> +static irqreturn_t x1600_adc_irq(int irq, void *data)
+> +{
+> +	struct x1600_adc *adc = data;
+> +	u32 status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
+> +
+
+Split declaration and assignment given error check should be right next to assignment
+	status = readl();
+	if (!status)
+
+> +	if (!status)
+> +		return IRQ_NONE;
+> +
+> +	writel(status, adc->base + X1600_ADC_REG_STATUS);
+> +	complete(&adc->done);
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
+> +{
+> +	u32 data;
+> +	int ret = 0;
+> +
+> +	guard(mutex)(&adc->lock);
+> +
+> +	reinit_completion(&adc->done);
+> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +
+> +	if (!wait_for_completion_timeout(&adc->done,
+> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
+> +		ret = -ETIMEDOUT;
+> +
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
+> +	*val = (data & X1600_ADC_DATA_MASK(ch)) >> (ch % 2 * 16);
+
+Can that be field_get()?
+
+> +	return 0;
+> +}
+
+> +
+> +static int x1600_adc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct iio_dev *iio_dev;
+> +	struct x1600_adc *adc;
+> +	unsigned long rate;
+> +	u32 div0, reg;
+> +	int irq, ret;
+> +
+> +	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
+> +	if (!iio_dev)
+> +		return -ENOMEM;
+> +
+> +	adc = iio_priv(iio_dev);
+> +	init_completion(&adc->done);
+> +	ret = devm_mutex_init(dev, &adc->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	adc->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(adc->base))
+> +		return PTR_ERR(adc->base);
+> +
+> +	adc->clk = devm_clk_get_enabled(dev, "adc");
+> +	if (IS_ERR(adc->clk))
+> +		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
+> +
+> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
+> +	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
+> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
+> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
+> +
+> +	rate = clk_get_rate(adc->clk);
+> +	div0 = clamp(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 1UL, 256UL) - 1;
+> +	/* DIV1 and DIV2 as the vendor kernel sets them. */
+> +	writel(FIELD_PREP(X1600_ADC_CLKDIV_DIV0, div0) |
+> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV1, 1) |
+> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV2, 99),
+> +	       adc->base + X1600_ADC_REG_CLKDIV);
+> +	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
+> +	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
+> +	       adc->base + X1600_ADC_REG_STABLE);
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
+> +
+> +	/*
+> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
+> +	 * and powering up takes 2 ms.
+> +	 */
+> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
+> +	usleep_range(2000, 3000);
+
+fsleep(2000);
+
+Lets us be lazy when thinking about what slack we
+should allow by standardizing it for us.
+
+
+> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
+> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	iio_dev->name = "x1600-adc";
+> +	iio_dev->modes = INDIO_DIRECT_MODE;
+> +	iio_dev->channels = x1600_adc_channels;
+> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
+> +	iio_dev->info = &x1600_adc_info;
+> +
+> +	return devm_iio_device_register(dev, iio_dev);
+> +}
 
