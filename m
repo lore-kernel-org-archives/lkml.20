@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792830216;
-	b=2HRcTNcAejIqbK06j7fUcaAtp+wExulhQKj8/3oil49IGWWWeiYjjAoaZ1wAvzjOicyE
-	 jV6JFzNX8k+jtsyRq+NHlt+CunLBjSQN9KTkZ80hqBwXG5GTe7LSCSh6ZM87ugis5AVIQ
-	 2TL+av9jKA4jq+xZTZN643CWXJGInfYiqBi0Ss5w/yCK6Cay5nVrIkm3yoA8QXfP80qR3
-	 FJkXbYc81sjUuHJ/cFKTS5jXpxxe15HUiwxIK1wW4v7jPEL1UZNkQ16WWlYN3qezcaTBt
-	 rEE+BEOUCDBHRoTmeaUbklb5NZAHUXXTvrook138PZ51V3KTrGdNSLXqTJYLDTAjZQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kSRzElctNHyI0XiZ0NDOXLehvOcZI5DDhxoVLhJJnNg=;
-	b=1JlA/25khkPD6Wbw7D+0Jo/mWn7eRYGBvjtQa7arTytdLUXY4ECgaVnVFYN8XNB3YSDC
-	 jcGZLyppW+Tuvd6Ppd7JuLfHz7+2fQoEO0B/2Xlo3BBZsnwU3llPzd7mUJGY5s1p1rXW/
-	 A2jnwrVEGV6Mf6yr2xohOqRARZlh+tmkrXzM1IGqzljvW5e0CL1OEu2+B4q9ffD5KLGCP
-	 YgCOUzrpaVt4CCjnEYNe3tceCrqzeSSgEhtQqeKqnbOwpeOkheIz+cni1TTwfkmPGW4zo
-	 jmzYpEmi+NGORFIV/tZwdE7lulaX6diFl+URJhbpnacV6c/APtcypt/E2TswonvFgIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsFeGOzW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9F3606A31E;
-	Sat, 24 Oct 2026 08:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsFeGOzW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792830215;
-	b=bsJmvmuOR0RkfgIpo6ZU1pBvvF65eCHVbe+ZmYkjpUcKhSdEjU0fZPVET4egJErFmGSB
-	 SM4bHQs3DXFezRqgrCncspMwVlHZ+QAdaG44aaRo7RQi/wdKuUaUbhbai/q+74C+0U+U2
-	 KX6p+pf+pkgGM3p9VSKkVGxmKWt1gQOMzhKusKbVN/Z2fl1gp8RsjhHdDrjobkD2ep0Fo
-	 kQiC7HdG+lgVLl83PjvPX6lwyrthuwl/wo3+M0hWpssL6bjisRNWE9UJZWkpiP9TpPHMA
-	 3xPWUnadIUVTzNqfTwXVP/QlSz4/htpRTni3ZTl6B4v2HcF+B2wjRFQ1oekwwryMHvg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792830215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kSRzElctNHyI0XiZ0NDOXLehvOcZI5DDhxoVLhJJnNg=;
-	b=01usPwdQTSWi8idQq75g6HuZ/0eWqWc5wx+AP+4dxodU1KRAuick653TGgod65xKBsqg
-	 miEpxFCf8Ulh1pvtooKIWcPrbDwQa/aTsKiraAxkO9yX3HI10kGbpjz/ixB68JagZPCfW
-	 3YT3PnA8zusb+o6tsqQnPJA2Ew1StO3tI0FsHdWrqzas8anosTKFHAt5+1fnT0/UWDBPa
-	 xODZ2vzSN+zv8d6QGIqlf1ihji/xnSQf+T1I8t6o3glzAoG97uVegQhak+zqU3vhr5Fjq
-	 HP3lPfhfgdet8lQqswZ0c4+NvuZhg9ZfabNWOV9YS0na6rHkk+MBPC/Jn+EFAgZLqrQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792830400;
+	b=zeLSmlHwol0OWcbMfwgQqGu2HNoUFatBUTsa7oRO9z+Q83vze+c5Bu2rN+VUsThgeltB
+	 odH9HV+SI30KHoimCKqxzIz15otqMASd0h5i8ATp+3Z3ZRGSWi7cUP2M4kBNZ0H7WwpCv
+	 UzZTamgAuPbFwOIPS8QynYYkUvF2WnCTMnwjSmXKrFtJzb3YsK37kpdaIp5yaQHire81n
+	 hquS93uOjhwlKjLDyHF6GjOfdc/HkIflrDkW64YUWa7IC5RnMP/FisEwFVLYFye89lRAr
+	 Cgld5fgtyp4vVk8FBWgc8zmDixNeTwHh9gCuVtVILlappGjJKhOqbqoK9VxKGJcR7Ig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
+	b=Pnl1xQmYwNjLq9bbcHUSKALJ3Myg2EInek9WeNkraxzDT9vL37CFcqLEb9CixJfo2V1Q
+	 15paNy/LQ7zCC7KYls0Jq4erG+KWI/4VzEd7E9GhxgGCG2z9VwGaTMwdE8Rmky2+pDKRY
+	 GSQmFD2BkDGP57JvNO8zprvyA8B+CU9iV2h8JhvO+P+dVa4umosCDpTefzoCWSsBaOis1
+	 fADIBcvrLTR5p8CDQXIKo0xiEZ8HG+Kud7EHmq83b+Yfzz8webvmw6nhBSBaRy4HYogP3
+	 uEzRRQUwB9MMiJrbOY0CtiHN4jV6FuuaLPLWqCMldbUickNqpyv2HsCObaW75vSMMcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nmzVZfCr;
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 198BC1F01825;
-	Sat, 24 Oct 2026 08:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792830215;
-	bh=kSRzElctNHyI0XiZ0NDOXLehvOcZI5DDhxoVLhJJnNg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=NsFeGOzW+mI15bZlmeUHSArbpfvQeSs5P+iC3M81iskY82TLW2ioBJYuqM7FlSMhE
-	 vYEQXyLIiGl2OVhV6jHQtSiCvirFLyO1qUf/c91YZQn91sjO2PcVTmo7XEqLJh/pI5
-	 vylRTzptoCD5a2nBt3t1sC47WcyM1ZYQhFELqpXYrsFXxyn4R6TGVPeKo/gOE4hEWt
-	 Bx7oKCIrgMjJvY9HTf6li4c9p9ADtp48Xq2JT0Hmxc51WA/8GEaDj/0Ifgeh3/j+uk
-	 CSYYKgkiUHc2GC36jG/XGyYUNENiDQdwJSvUVm6ZigKTazO2WzwpF8YijFH9MC7t8f
-	 VTOrCJATz5kOA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8D5F644753;
-	Sat, 24 Oct 2026 08:23:34 +0000 (UTC)
-From: Atanas Kunchev via B4 Relay <devnull+atanaskunchev.proton.me@kernel.org>
-Date: Sat, 24 Oct 2026 11:23:38 +0300
-Subject: [PATCH] driver core: attribute_container: document return values
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BA6606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BA6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nmzVZfCr
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91befbcad6dso26867926d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:26:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792830399; x=1793435199; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
+        b=nmzVZfCr2pXrL+EtREBKGcClpv1x2lS2Y/rofm90hyR/z7evX5Psds1zLlopJfUz4p
+         tjlvx3T3Rne8z2YtCs2lJCzhvtGbHZMxub50xoYEH4e5S6xHMAw1ZBgnjsxn9HeImhH4
+         PD/26m5I6Pu+g+Ga59CvKGWu2wvgOL16rc0F3Pwe9a2NHKel5LHhxUCENkkXc2s0iEAq
+         CxjbzbiwVtQrlL9RBX+Jq16TrCl+pYRWf0Uo+u++H0gMb411Rz5xymm7MY8Qmf0lXvtp
+         jOvz5pOX7m0sNIWI3XSaRPeT1B3ij17oGJcmaBEcuxhNpOaxn39K7aezx3MVzbWW5ag1
+         CBpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792830399; x=1793435199;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5QImqI83e36mT/dw/kA/7//9dXkKQdA3avebzT1aW5E=;
+        b=CKO6W/emFIEJnhncYErfV/k6b/DThIgjmhcjOmZuIAjQwTA9j0p5LWITu6KjqOgFuA
+         uP9VdbUKw+BjRUu1gWhiLdgGdzmQZjIIQHZqJTqPPP+09xET+fuhp2kaITMVlaTdWTSu
+         xnwOIVKduZnLD0wi4TR3giN2vQ1sWigM2OIqwsYeJU/sk1S/kJQvf8ZaT+WKXFSvmrQY
+         DAjgwnu8SU2wcLaAqLFPEm+uGZWGLbmfgVIg4XKSSXlugW94pSc8fxW0nYG1AucqCHgG
+         bR6twz3sCKAwFYL5rEoWl6NiD7FD4kamHWsGa3IUjqjUD8wp62FjP+M7qNMiQHgPzRpu
+         WAaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkCLF8n1YAYiRNe1DHBZ6uPpFwS/Y3eGEnMMz1YV3EUJvULl7ElUJ0zn9SgEyVPiXhn4NYVI3rmqStFWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQAj6RToQFgmgrlOqbU/jpTP4xwIQdrmJXDN8ICmim+YZORYoi
+	5L0NOmvY4qiCT/k3pB/l/B26EadOgJUQZeLn1rliQAaOnwJEX8tqxBJpSQ/TfUS0GSU=
+X-Gm-Gg: AYBFou2MR+ZTjsqRnmcIF5uyjMe12d1tHK7nsYathGGV79OaijRNoNVgItyJtWwJmYq
+	RjWGeH0ddUwRgRLiFu40bdYAPxE8xL49/M5TJzZMsj+IZP4f8syVNW35bqCsfnyWLR0nOraqzUZ
+	VyS5TVk5DvIFHi2FIvQWk1Qqr0Yjx9grNho6bzI9MIvbNsYJIOksnrUJVfKSh3EhAJ0rWMMBeBg
+	o3+xqkBhMCRDJz5DoIGy1zGpINLYQbdm28mnKS7bj42ii3pSopQ0Tdh5YXF9kP61ScF+xBEY0Ym
+	iUoxFncOD+IS5TK0PnkzL5gz68OSwZtJbHzb2sy1scCJoBWSAtkA/kkQzeo88klYHuS3T7ilpJx
+	EV1rK2nCKvKmnooRisYLC8QcXlFCBqv/1Cq7lMS9THmNExGXzUXvi/4jFhmgw70EXlImDAkw29L
+	iKbC1GdMiYmZOL+ZiFWEmNH0mOspmlAYfwStVy0z1uUXbhzIE7US0454Mwc6POYRgxMkZsePf48
+	Q/e+3LtBasbj2OTS0ljj88Oc7+1DhJiV7q5bt2fmgdih9jt4xKLs05cTic78JXnmjq6i1/OqcQO
+	pwXyRg6VS/iOHweF81fRKXd81pDQWWgFxn/xEA==
+X-Received: by 2002:a05:6214:19c8:b0:91b:5d3b:7ab9 with SMTP id 6a1803df08f44-91c48ebcc1dmr22164846d6.53.1792830398964;
+        Sat, 24 Oct 2026 01:26:38 -0700 (PDT)
+Received: from [192.168.1.216] (static-acs-24-154-158-10.zoominternet.net. [24.154.158.10])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd5b65sm16066826d6.10.2026.10.24.01.26.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 01:26:38 -0700 (PDT)
+Message-ID: <2bcdce5d-aa6c-4789-ab50-68dad16127b1@gmail.com>
+Date: Sat, 24 Oct 2026 04:26:37 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,115 +92,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-kdoc-attrcont-v1-1-b18627a05e97@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyMT3eyU/GTdxJKSouT8vBLdFPMUU/MkCzMTA2MjJaCegqLUtMwKsHn
- RsbW1AOHxB+1fAAAA
-X-Change-ID: 20261024-kdoc-attrcont-d7d57b864032
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Atanas Kunchev <atanaskunchev@proton.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792830221; l=3346;
- i=atanaskunchev@proton.me; h=from:subject:message-id;
- bh=LIsbRaaKztkyCnOK3iDcNAWRh1j3Q2eW+S5qjF582+M=;
- b=4w9Omiw0e+55w72tL01eC17sNjj91rSv3A0ue5icOC4YpctjQQD2wbQtfhH9nqBh10pxcfuXS
- JRDMh7gQGV0DKL7RfwjU2HYQjfoK8gc5pgU6cFyJghzKkmAcymL9HYE
-X-Developer-Key: i=atanaskunchev@proton.me; a=ed25519;
- pk=UZOV7XzSdjoak/BahXi4m/UsbdgtIb1vQI3+u1lAHOc=
-X-Endpoint-Received: by B4 Relay for atanaskunchev@proton.me/default with
- auth_id=1293
-X-Original-From: Atanas Kunchev <atanaskunchev@proton.me>
-Reply-To: atanaskunchev@proton.me
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix speaker dropouts on MSI GE66
+ Raider 11UE
+To: Andrew Udvare <audvare@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909193104.26508-1-audvare@gmail.com>
+Content-Language: en-US
+From: Benjamin Pryor <programmer2514@gmail.com>
+In-Reply-To: <20260909193104.26508-1-audvare@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Atanas Kunchev <atanaskunchev@proton.me>
+> Add a fixup that programs the amplifier's initialisation sequence at codec
+> init, which turns silence detection off.
 
-Add the missing "Return:" descriptions to the kernel-doc comments of
-the attribute_container functions.
+This fixup should apply to device ID 1462:1305 as well, since it uses
+the exact same coefficients as 1462:12fb and suffers from the same
+silence detection cutoffs.
 
-Signed-off-by: Atanas Kunchev <atanaskunchev@proton.me>
----
-Fix the missing return value descriptions reported by kernel-doc -Wall.
----
- drivers/base/attribute_container.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+See: https://github.com/thesofproject/sof/issues/10475#issuecomment-6380540623
 
-diff --git a/drivers/base/attribute_container.c b/drivers/base/attribute_container.c
-index 3c456374247b..d2ce3a2abcab 100644
---- a/drivers/base/attribute_container.c
-+++ b/drivers/base/attribute_container.c
-@@ -48,7 +48,7 @@ static void internal_container_klist_put(struct klist_node *n)
-  *
-  * @classdev: the class device created by attribute_container_add_device.
-  *
-- * Returns the container associated with this classdev.
-+ * Return: the container associated with this classdev.
-  */
- struct attribute_container *
- attribute_container_classdev_to_container(struct device *classdev)
-@@ -86,6 +86,9 @@ EXPORT_SYMBOL_GPL(attribute_container_register);
-  * attribute_container_unregister - remove a container registration
-  *
-  * @cont: previously registered container to remove
-+ *
-+ * Return: 0 on success, or -EBUSY if the container still has class
-+ * devices registered.
-  */
- int
- attribute_container_unregister(struct attribute_container *cont)
-@@ -290,6 +293,10 @@ do_attribute_container_device_trigger_safe(struct device *dev,
-  * undo the partial work that has been done, on previous classdev.  It
-  * is guaranteed that either they all succeeded, or none of them
-  * succeeded.
-+ *
-+ * Return: 0 if @fn succeeded for every matching classdev, or the first
-+ * error returned by @fn. In that case @undo, if given, has been run on
-+ * the classdevs already processed.
-  */
- int
- attribute_container_device_trigger_safe(struct device *dev,
-@@ -382,6 +389,9 @@ attribute_container_device_trigger(struct device *dev,
-  *
-  * This simply creates all the class device sysfs files from the
-  * attributes listed in the container
-+ *
-+ * Return: 0 on success (including when the container has no attributes),
-+ * or a negative error code if creating the sysfs files failed.
-  */
- int
- attribute_container_add_attrs(struct device *classdev)
-@@ -417,6 +427,10 @@ attribute_container_add_attrs(struct device *classdev)
-  * This performs essentially the same function as device_add except for
-  * attribute containers, namely add the classdev to the system and then
-  * create the attribute files
-+ *
-+ * Return: 0 on success, or a negative error code from device_add() or
-+ * from creating the attribute files. In the latter case the class device
-+ * is removed again with device_del().
-  */
- int
- attribute_container_add_class_device(struct device *classdev)
-@@ -482,6 +496,9 @@ attribute_container_class_device_del(struct device *classdev)
-  *
-  * Looks up the device in the container's list of class devices and returns
-  * the corresponding class_device.
-+ *
-+ * Return: the matching class device, or NULL if the container has none
-+ * for @dev.
-  */
- struct device *
- attribute_container_find_class_device(struct attribute_container *cont,
+Best,
+Ben Pryor
 
 ---
-base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
-change-id: 20261024-kdoc-attrcont-d7d57b864032
+diff -u alc269-old.c alc269.c
 
-Best regards,
--- 
-Atanas Kunchev <atanaskunchev@proton.me>
-
+--- alc269-old.c	2026-10-24 04:14:40.174188675 -0400
++++ alc269.c	2026-10-24 04:14:28.725047392 -0400
+@@ -7593,6 +7593,7 @@
+  	SND_PCI_QUIRK(0x1458, 0x900e, "Gigabyte G5 KF5 (2023)", ALC2XX_FIXUP_HEADSET_MIC),
+  	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
+  	SND_PCI_QUIRK(0x1462, 0x12fb, "MSI GE66 Raider 11UE", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
++	SND_PCI_QUIRK(0x1462, 0x1305, "MSI GE76 Raider 11UG", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
+  	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
+  	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
+  	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
+---
 
