@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838671;
-	b=ZBN0KMMiu4+J1CO1uDIDrgi5vtK0TZnKINKgu0zfC/TXn+HrLo4UlGvC7djRyJskAocY
-	 lqHd6PjjkHMvZiuknaGrmJZsTHEE3AqudOEMSCNBbk2JoxQ6FYfBmVlMKGg4JpIn4Zx7i
-	 AfdCYJxMMo4FqdPEp6OLSLuCVTuyerGv9ArkXDmcd/W7DA+v8/G8W9d1SUvgaDEQ5sdlp
-	 6xLjvbfB2p99vl2SyR4Ch6w17rMI22Ltf2v+lZm0C6WLrFK48k3gf8ml3wgz/bP19FhRW
-	 xovRY7JGARGDDuPWxtXQyYOmA40RZQDEgwNglTCrgSxBJWpNMxB9tDHZ2974VvGEZ6g==
+	t=1792838710;
+	b=WLnVmSfgIi/YgnkQrkEdKmg2g4h10/zDJQhCcuCncc5UEaxSN3E8zVtTOk2+dlY+BzaN
+	 NTXrMYBqugieTYtp0CK4hZ2FdrwZhDta+xi8yCIWdqV4ondjs9QgCcGsIRar1YEsuNrHd
+	 a6xuExxnvepmOYSg86hfIg4KeaPvWtToN5eyAQlaRSXFq0Xpp6w3voN8DRk5jICTBwp5d
+	 sBXu/soOwUXlkK/bJ3x3cQxZhdNLxoIcPCppnZJ3CogmsNX5mZvsQhop/ApPaMkt3S8H9
+	 vgwFjwg0/VIFLE1MHvkar4PrsceGFxyhfKRW0SvHbQZYufazm9mX2u22MAd2ljffPFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838671;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=cP4QIQsJrDFe00ukZI5ghLcu5/zmP+CrOQ2Y1+X9TAI=;
-	b=fzlU+1AQuVFfAb7UfvL4kFcVSGA6XTaeU3WKsn94TZo0m9vcvrqeHXI/xUIvYH89umxL
-	 hnpCCv26U/B94xwUiDd1ikR5swiWnzSEvB/6GIBEq1STy/Yulj5rFireC/7tlC6OqKz5y
-	 N3cx6LM1bPnSejsrgZmSxLumspyVfxBjr+GAn10YKEa+f+8A5Pke9k5d3lu6n0gdp/5Kw
-	 gXZT2gp754Vt49y4WrXZYlkNhMB34D92wqv96060zK7KpvgGEGe6BY6cmoGp8Yv4qcBjD
-	 5WtK47BD0Bn+xNXyn5IBovZ+0vG8irgGHd4VLM+Yyyz1HyChNiQKD6tCZA0raxbldbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838710;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=oJpKvP6ghRQJBW6KOWHNtJuyCIajPUo3Zb1hp+b2HMc=;
+	b=x2iSNbvBv2GxA1uvT7bidQLcVhXRxDtyy7K7v5Vyo+/yfJKuEQe9RcW0Z1Gk1mC0lBaG
+	 B0scL5txH2YJkkyjxbKhx4QEC1T6s4FJBgCfLQlT71L06d4+WRleY560NeWExoUApBJ0z
+	 0o1wIAmtVKeTocarTu5wEQyyqZjwv5Jp2ezdKq5+SVMfdxf4jIuU3dt+yVpRtusIVxHcz
+	 1PUjYW/JzLaidXq7JezvNh/QRD8dJS+1sxIUHBGzVX/e63H55ujrYBg8+tBm0qT+/jJUz
+	 f+B0yjTfLfm1JXA6piYTP3teYSaRRU1Zqb5mGty50zzfqhYuKM01v3hwp/MYSOV3okA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+DJkps9;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6ZagRG0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4CF606A31A;
-	Sat, 24 Oct 2026 10:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C4CF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE36606A31E;
+	Sat, 24 Oct 2026 10:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+DJkps9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792838670; x=1824374670;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TE+an+keRkU9QPvmaNWoK8GFR78TtYIwI4t/FxzwmYo=;
-  b=L+DJkps9Pyz8W20fZ4pyj5aUu7rc9788FI5gKZFLK/rTyLACOgTkIltW
-   LgWPr6Mi2ACk8CWHubQDkPQoDbr0OhWbUYWvb6gRQvPvMhrqBFj/ecOp4
-   m3I1+Dh/35t+z3S2P53pXm/ovg9ClYSIvySs5C+RsFQkFygcD+saxgJ1Z
-   uIHNNcgGXMr06+lWaplb41ZQ2va0S2ptST6xsfesMbzZ+JgH7PZvGnqlf
-   grfdkE3GETZ6zCxwciCRIqIYO5t+mPmszj+umRQwuw1ZQJCDyYNyQDDCl
-   g1ylcf2RUv9kyXU8Bfu/SXDZVRueRvgTrlDNk+2/bitsH1SFfWTk2S8RF
-   g==;
-X-CSE-ConnectionGUID: iEMTucg1Saa0uMeri+PXew==
-X-CSE-MsgGUID: azLjltajSCK4q3jWmVFdiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1453841"
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="1453841"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:44:30 -0700
-X-CSE-ConnectionGUID: u5rblvWGQjiDufgMHdjsgA==
-X-CSE-MsgGUID: UYPyOwUbR4G2HOZsvvcXLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
-   d="scan'208";a="5600527"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:44:27 -0700
-Date: Sat, 24 Oct 2026 13:44:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, stable@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: proximity: sx9324: fix out-of-bounds read of
- scan period table
-Message-ID: <atyMCCJsBDPdgl2Q@ashevche-desk.local>
-References: <20261023192700.221344-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6ZagRG0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B4B1F01828;
+	Sat, 24 Oct 2026 10:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792838710;
+	bh=oJpKvP6ghRQJBW6KOWHNtJuyCIajPUo3Zb1hp+b2HMc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T6ZagRG0UX9LA7Y5RMPfwvUP2ap7qRSiVaBqLVfRLms6nB5ztxSk/oKtu3h6QvpAp
+	 Zt/b09XQkcVumoF88ah1qKVHxH/iWjQiuXPcquEXpq/xc4Bm65vGRkm0f4SG7iGMKN
+	 6dotdoOVMmaAT481Fhz8PLE/UrwqohRe1W2R0+6+g0zcJcV+2aGyEWdHoFzsoVpHrF
+	 q/cItUfs0VAnB3HVGVoDMdCVnQY9omtwCPOiBYhZ2GJK1IxT6CvpI//XLyP482Msax
+	 cOMiSmpTL0OCMhE6PbAxKTuHoB53arsfPTEHpPdmh0r87d5pX8RfT85JVJHTG4Ieby
+	 oSOW8qPOEBMmQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL for v7.4] vfs keyring
+Date: Sat, 24 Oct 2026 12:44:48 +0200
+Message-ID: <20261024-vfs-7.4-rc1.keyring-db88a8f3b5b1@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,56 +60,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023192700.221344-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2345; i=brauner@kernel.org; h=from:subject:message-id; bh=W9C/RRsg3K50LLKD2tQBv4j+TOvch76wT6isqYzlBGU=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6VH/aqfDP/H39ymJmb9+3KnsU+18pKB/S3niQ9MFg gI2T2wDO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbCXsrIsOhSZW9YX1vG1vsR 7/fwu2pf+5d1LkbFeMmyPQmLzrxoSGT4w9V0345p7a5d57rm+Haram7Zreryaf5NEdN994wMvuz h5gMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 12:56:51AM +0530, Arnav Kapoor wrote:
-> The scan period of the SX9324 is selected by the 5 bit wide
-> SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
-> sx9324_scan_period_table[] however only has 16 entries, it was copied
-> over from the SX9310 driver where the field is only 4 bits wide.
-> 
-> sx9324_wait_for_sample() indexes the table with the raw field value, so
-> all the codes from 16 to 31 read past the end of the array. The default
-> value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
-> i.e. 22), so the out-of-bounds read happens with the default
-> configuration of the device. It is only avoided when the device has an
-> interrupt line, as the wait is only done in the polling case.
-> 
-> The value read is then used as the duration of an msleep() call, so the
-> sensor is polled with a completely random delay.
-> 
-> Fill the table with the scan periods of all 32 codes, which are the
-> periods documented for the corresponding sx9324_samp_freq_table[]
-> entries, and add a static assertion to keep both tables in sync.
+Hey Linus,
 
-...
+This is a delayed pull request which was waiting for the bpf merge.
+This used a shared branch.
 
-> +/*
-> + * The scan period of the SX9324 is selected by the 5 bit wide
+/* Summary */
+This adds well-known key ids for the .dm-verity and .fs-verity
+keyrings.
 
-5-bit
+Neither keyring is linked into any other keyring so request_key() and
+KEYCTL_SEARCH can't find them. Userspace has to scrape the serial out
+of /proc/keys before it can add a key to either of them. That's not
+great as any user can add a key with a newline in its description and
+make /proc/keys show a fake .dm-verity keyring line with whatever
+serial they like.
 
-> + * SX9324_REG_GNRL_CTRL0_SCANPERIOD field. The values below are the scan
-> + * periods in ms of the corresponding sx9324_samp_freq_table[] entries.
-> + */
->  static const unsigned int sx9324_scan_period_table[] = {
-> -	2,   15,  30,  45,   60,   90,	 120,  200,
-> -	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
-> +	1, 2, 4, 6, 8, 10, 14, 18,			/* 0x00 - 0x07 */
-> +	22, 26, 30, 34, 38, 42, 46, 50,			/* 0x08 - 0x0f */
-> +	56, 62, 68, 74, 80, 90, 100, 200,		/* 0x10 - 0x17 */
-> +	300, 400, 600, 800, 1000, 2000, 3000, 4000,	/* 0x18 - 0x1f */
->  };
+/* Testing */
 
-Haven't checked if this is part of any ABI. Otherwise LGTM,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+No build failures or warnings were observed.
 
--- 
-With Best Regards,
-Andy Shevchenko
+/* Conflicts */
 
+Merge conflicts with mainline
+=============================
 
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit 1b7415bf70be95b9a1e7e87d544867881065613f:
+
+  Merge git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf 7.3-rc2 (2026-09-06 16:17:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.keyring
+
+for you to fetch changes up to 503b65da9a7e5447d91222f62399522f2f62a0fa:
+
+  Merge patch series "keys: Add well known IDs for fs-verity/dm-verity keys" (2026-10-12 23:37:42 +0200)
+
+----------------------------------------------------------------
+vfs-7.4-rc1.keyring
+
+Please consider pulling these changes from the signed vfs-7.4-rc1.keyring tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Andrew Halaney (3):
+      keys: add KEY_SPEC_DM_VERITY_KEYRING
+      keys: add KEY_SPEC_FS_VERITY_KEYRING
+      Documentation: keys: document IDs added since KEY_SPEC_REQKEY_AUTH_KEY
+
+Christian Brauner (2):
+      Merge bpf keyring work from of git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next
+      Merge patch series "keys: Add well known IDs for fs-verity/dm-verity keys"
+
+ Documentation/security/keys/core.rst | 13 ++++++++
+ drivers/md/dm-verity-verify-sig.c    |  3 ++
+ fs/verity/signature.c                |  2 ++
+ include/linux/key.h                  |  2 ++
+ include/uapi/linux/keyctl.h          |  2 ++
+ security/keys/process_keys.c         | 58 ++++++++++++++++++++++++++++++++++++
+ 6 files changed, 80 insertions(+)
