@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792856986;
-	b=xRZ89aUtiqwiE6XDo2L3tgsRP8dmBCY4heMlOLHOa+nCibeu+0W8udOYOoCM1YYn1zZG
-	 2Koao+I1jSI395KsOqeQQOxedDLa8fiAhop/M0XWlDnKsIAlc6Gr07kGK5u3iRkbDm7r6
-	 9yZRVM5s4SxoraS7vU9LZfqDA/hiXlfctFADYqitM9sY07biEU4twc2TqGKW3o8hNM0nz
-	 Y/YMrvCLaciaM0ss35/w3wxdtitiNsQg7JDayiIubhh2NdFNty4cO7zu4echkUCFG5XQ1
-	 /Gos5N/u5uZlUf7T88eBavZVre6hDp6veRMErAns7s85ZNOkLkeqFR3Ukdy25i9kwyw==
+	t=1792857048;
+	b=SId/GAgxwMOUSZ1hkPQc53P2l1LR7eS6oooyFxPr8CoI/Bwzp82STtEMX3XYYQzrEyrR
+	 Yt4Jg4CU9xOvWWBRobA9O85M4hiVtt2EwXQS1/6vF4rBDZMFrUG7vYEDzmuSp3W6btEpN
+	 tmo+ANYT/oEbuq+MC2hofU7dH+NLCfoP9/THHUkj01BQF45dn/svwQ06sVEN5vRz3e+fd
+	 6xmaTeL69rljtjdY/7vWoLJvgVWnwZFRFVYhIYqGvx4Xz6yIQ1xF1vA+QLAf/YMFg6reN
+	 ikSSI4P09cwaTfmuJ9Zs2DAkB4f5WkubD/Osrxq5knPANMLZ8ClApUEwu7l43BNN1pw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792857048;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
-	b=ztY+S5fqe72KdmcREeIhyIg4swVzAPnmRbyafYi3G8iNh+BsM1DPpqwvieGL4PDqxycT
-	 76Ycb7SvO6Xh8mi5Cp2lBK5C/5bgssWA43igwwmXAVJrnehWQXQAR3qcunEhT4Ek6E0d3
-	 Pzzcybnlvc65SaXKyxTGdZAQ61/UPsI+zdw1r+3eIpAnq4GsZiF3jkgDq7JdFPIQ/RAjn
-	 ilL6Uty4sMM8b4uJxBPoRbm9/mKIEMtCiYOdUdmFl6sRDIpvPJ325InKrE6LV4/e1MzjN
-	 q1plLIDLhBiWVMzNx0T3lWJb0O4ksRzhNVioTW+lCOvcbaTuYUucBYGnQARBkWvpDlQ==
+	bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
+	b=IzTYFTOduMG+m8ZxeM4avwWl7sBOVVIxl30i2xDC5ng5m61G4LGZaI4k7ko0JDquAqLN
+	 xfEQpt5trZiKBOzN9iBX3Kda7nFPxIoC5p4dIuGD2CgPZ7xqKAupF69jQKHqKQtrXMSyl
+	 lzb+t3mBXgCZH/ZFxqjwnCofYok52QqtFYLDwbelIbMRxvDgMOE8R966MV2XA3S3GtLV/
+	 BzvsgFbMarWaWjfBdr77Fel1XrWkneBspaRDqio1mYOrYh/3Q+F0FZ/7FiQzAd9p+OFGY
+	 /uLSnDyFYW8X6UXNoFUjGYmi6ansP+Ln4Rp6RbL75+t6W3DwF2wXwb5GBy5NlN9ijDg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=hU41R2zB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vox89apY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB07606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BB07606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205E3606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 205E3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=hU41R2zB
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e20edd106so1522518f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:49:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792856984; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vox89apY
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c414e5d282eso198635066b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:50:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792857046; cv=none;
         d=google.com; s=arc-20260327;
-        b=crqbtvhM+X/UKJpSOIjq0XY94+kTLE9S0vo/MoqNunEqvV4OspzDzV6LLuJyXK1Wvu
-         EPgSbUtTlyr3iBb0tsKYpOnGld+/lAoln2HvHoOknM7dAMhStRuUIaCMI1KzP0z4kESD
-         SFpH/fPGncEB0IrJ3zHop90jdj5F1viMyt/oAyFOr/oWg7bbhJ5zkeHJdzqZEw6Xy0v9
-         9ZACo2AKIA6hovI+GZ4brsNVb3bBOt1XVFPVWuNw7Ppk+plvfQFB1MWnpy6+JUg6PeP9
-         p62tCV2CHsivGCTBhXTzukJG84xbAqoAqwP8qCizdHdZbnlDMLvfgtkPAYfi4GTw7PH1
-         mf9Q==
+        b=TWEolK2GkTnjNOJr2qNXuEKKH2d5Hs8mwUFmGysIMONOvT8t1CYd09qmy7kPz+L2wg
+         YbSvUjRHtyGv10/Ed3kTxvjezi9Gtd5elsfDbJdb8b7WKWDakYzE7w6B/GLfywyTR9BP
+         bO1PBdMN30P0vemKM18VXmWYUrEBQzH7CRdbw8ew/K9rJWLhH18n03U6y4zZABHcRGSz
+         XF9EGRxfe7IGalKYTUj0Hh651BSHK68l6khjkaWZUKXLcIdgIV6hoE4fpv4AQIeoXmKg
+         7LCPv5KtsElpPuuwxMbDbbDspMiaUGLWZPMClHupgwQPg6ryMO8T5Bizs3zQyn7zsHSW
+         +25A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
-        fh=22o5hvW+jEf6ULJGBgJctVxfdqGQWww0EuVna5JRe3o=;
-        b=KTpUPKzlyTNonyUw0jYnmCKV97JP4uivEiMlxaU1lMCJd1Hyf4ANvX1/pGs3Tj6bk2
-         VYK6G8g3PjAoVFtj5kIgBgiyB8YUeVyN1A81C5Lvi7FiWcYJlLPTnBFSRZr3/gWCDj4j
-         7RCcS/EK2jOewJqDEx1DbfsZu7o08rnoqAt8+4NRlBF5i4Q9mRd9prRiD1J5zwU8P51X
-         4KLwI7hbiTTNKJylBDRlaeUgbLcl61Uf8ZYegfUraZBbI5xds4TvM91YCXSASZ/7/T7/
-         mLnuNogcJc5XtSZFgiNZO2v9CoD/aWO8J1CUB2DOz0TdO6+lM0p8S7jM/FroPh9UlW7w
-         /O6w==;
+        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
+        fh=md6ON9+uA25Ktu4PpPPy/jHV4ZJUVSdrnUHtR0h+sYo=;
+        b=C8hOGCMpcSZpMCn8eS0LxZ1YcZN+yAY6AoiGHEy1HpG0K2Bp3SZSrdvZK6Ii2nt8I7
+         tTWdawCGwZZcfqbBgmmfYMIJy2FewcC2YV9nG7xon7B7WRy9z2Cbf2yvBF4iza/HeFSP
+         EOaBSfnvY3XQ0v1L2hInjIVwGpcSbUWxL1465pRpAVJsYmr23Ue3ZEOLp1HUjfg/KDIb
+         T1OHgZeIg1FU32YC+K8CRHBHzO0Pdjxp5l+P4esWkoIsdzLyenhbEAXRwiXmWvhzrzQL
+         9rvkXbyu9c6kuWDREdYuxIWLE9nDb0/DBnJ1mDhqBoiw7GRlamBnVhT3yPTzt9OD7ALP
+         IaGg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1792856984; x=1793461784; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792857046; x=1793461846; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
-        b=hU41R2zBZM4iCQu4aSRvGSrij/rzZmnywMtg7VcpxGUNWODNVANWCGPTSHMoUb+qty
-         4xlGXquygG60IwtefYL2jQfitTB8e5XMuD8dNjb75vs//vSFGrGWyYZswyVi5NljWVel
-         D2dtX0NBTSF3D5oFx63yS6RhEdroEOik6ppCNS/piAHfEwJEMLBeg9aq8QIjgXNzL2BG
-         ehQGWoX/pL3Absq8/uiMOA9nRUkhr1Mqh+omwzf2f9SSL2OiN19BzAG4W2ovnJs6I+Fy
-         aWs4Hp416sJBpLFFK64+hPQbkcVkTHMQ8UQ5Rosdp0dqB0MAgrxPFwMfum7vCer28Xkz
-         tnug==
+        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
+        b=Vox89apYKkxzNP74T2aNak5u22twqgjwpHPx+TqfYVI0UJWK006HQLjZkZctsylKGW
+         OdyR809srohJ5Y3qGxuK2W8T/C2JGVFF353PRQN8LnBXRXizIFOonARk9qtHVMvZAL5Y
+         907gpDI0XshwymoUI4HpatxHpTmFpZFhnzlNOtKKaW8hh6T5743QXiv+E2sAh2Shrv6C
+         lov+NAcVRKcR1cDfGudqJQcrkBkoELFFnrj/qGBSSCxAicpRfuMbh9dHP6x881FjA0rg
+         5IQcjVKVNaHZPgBEDGmaSbyODaFxyys81Djm4kb1xFPSiNjkAE2s+VWYDsJ1qyCJ4wCe
+         E1XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792856984; x=1793461784;
+        d=1e100.net; s=20260707; t=1792857046; x=1793461846;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MpLw8ffwGE5r6iP7GkLZl5t1aG7oKBWl7zUDcI7ixbU=;
-        b=LEFez092ZR9NHm15aWp/Pq3jcAfwVmNB723XvHNVjf4I1u7073c0/vjayIBuz9Lm5r
-         SB5ScySr/9WeGCvfpo0MfQOXoc6Kia6QgXzoVc5YH9vsVMCqISuHRQ0D5TaaFkHAmWOg
-         EC6yrftrT5l/xpPVeT6ilWVqvVrkIPIRZ6T0nT+pKZyPLowUaCnge7rRor4UKRMoTdKc
-         FFgr1UkCJbkKbIMAAW50w2LaFNWRfVUN0vO/hNmVi+CdKE/Dfd+9Io0KSLWxJTE/bG8l
-         MvPQ8kJEJf+zgIrZ8DDYq3Lbg0PQOIL8fghuU2ZNIKq0nasx1Ps3P5IULWN7YacZMQ+n
-         AvXw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzgcep7ycsAtJU61vaHkwO392jno1wlS/bnhXrnLaDthl0FaBQLa1/UnSni397ZVfFn6rB0yPmb5varTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsUXfCTPPqpdbtmO5e1EL3mHMtxvNcACG2LLpDloX3Jd2NAWJ/
-	Tcc0kmpTTTuPar4XRRkzf4DA0nZgPse9EC/TCfulwn44inT1nX/KR5ueX1q7DJlbRRV7+rnsxaI
-	lOOV+Gw4wEDKY/6ARZsm3kVLzlWjtd3XEnu3uCe5ihA==
-X-Gm-Gg: AYBFou3NFQ0Jz9xIk7jpFRs+vmMNKFig5Tzfd+Z1eY1SDPRy5DC6dsXF1bplp6EtwwG
-	/dihEYZbkFS0FjQGe8HO5jXvKn/Ct9QrhKYU1TvSox+HIuKIRGiGFGisM4H8eJCLPRpN1YLdDxY
-	UpCKyeRphF8er4QsJ327whrXM6lB0Iq6dn4zEhmLrR45lFVtQWG597d0+ArupUoSTOuuR/7BNfZ
-	iik7ZlTjBIJE5KNnhEBL8fcEWc7nT3c/EWKYUyeWCfGrs1+9ASkXYuW9MQuZI9cmBmVtURIQR0N
-	UHz/qE2RLfvqfdXLVjq0s7MROQdXg7zCBmUgnLwe0tw82r9h4XEX9TZwy4FhnYnVuJtmzGrtmcy
-	4kcKvBr34RgzQqpY5Q3OOovbodcwOlcpOx5IYzZPXHRx+ME6BciUoXSaQpGD0HIoRrKauhoNrkS
-	Kuil/6QAsnjhspYMOdAsfzVmoYNHxGg3O51NXYZ0yVjtursjS0Vmus5wc=
-X-Received: by 2002:a05:6000:2905:b0:48e:2a6c:153b with SMTP id
- ffacd0b85a97d-48e3eb912e7mr4110791f8f.35.1792856983094; Sat, 24 Oct 2026
- 08:49:43 -0700 (PDT)
+        bh=oFWGrkgth1iIJh7Anrwf3nuRUssZtgX5R4ZSgIf/0Qw=;
+        b=Dd4FdhsmJWD3gLyEr1TtvxdJdmEPRXb6wYftsKmmwSTgnVMOkVdL6+6LdjfOFKpwLz
+         9lBDNbkd26m3s9//ArchNHRXl0B9FQiKESU6yX1++foS+3Ys/oc1YTXhsUa4GG+eyW9F
+         BkkKp3vBOLYdD6OV//8P1Elelsg+1yR8RXPj7jqiYtHkSXtK43psKrave1eToQWYd5Me
+         ysYiJVTmpt8PYWvMFMYjJvCl9ovhDHdFjPLnW0XDKDlWbx+1H4dhLmMO27eDEwjjHeZy
+         em4de8+J30q8kpZRMsnxWyORMwYfzcPQ03GCzpJ3WSAWthx/bZHOaqxIqDST1ywJQxcn
+         q3gw==
+X-Forwarded-Encrypted: i=1; AKwUvBzuvC2I2lEX6uZc1d6PhoNP7P6k/WsL3oo6VpO8b0yYXqw5YfNu8/S+tcX+VuIRkQAAtq7Z4qiK061cJ3c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZxB99ropReHhqDF7lHlHYUzEhDUxxZ0F9WM2O1r5jSErk74S5
+	sPBYzLqmaX3H+/bKxJ+eTITi4KJKEGASiQ+kxj2uQo3iAsx5NxFV6jyLcDbbbSALlz4TDYxJxMN
+	GTG2n3CKpLwnl+XrtRcitcni7sEVbEoU=
+X-Gm-Gg: AYBFou1qr2HwrmC2Oa+Rje8Th0ID4gGgvCCBICpgwaruoCKC+JQDCSQFtq8U4NL/3bH
+	/6i6w0z/oE/CUYCwzd+QQV4QMk9Ibxxkz4InDSeRlJ0Rc7ODQMiB0drjiwlh6/r0js/G9nXi8xJ
+	25/cCa6/a+owRc58pPVxbR9/vk0a97PqhSYik1X4JEesxLlwxBbybSVrFbrZfFDUs4Pk51aySA6
+	Xckkhf9WxlZc5PH/LZHZCeLO66LRPGI5VeDV9haC2+uOQ2SYgXJQuxRibcji4bMWueVm4oIsQJR
+	NpTfIp6dgRS+Av2y8xSgA6IKB/O6P668ALGbhzFDZ8T+/7baQCFl4FL4K31CxaUNTJzE11WmtlK
+	zBDIurT3/5mwMrNUO9LNqvjBS2dxp4Gu9l/dnH2qA/TGVC0QMy/MFNxc0S7Wkj+e6zlWtYwvqiA
+	n/Eh7h90Yb8qeHl2c=
+X-Received: by 2002:a17:907:3f1e:b0:c41:26b8:c49c with SMTP id
+ a640c23a62f3a-c46bdd97c19mr234177866b.10.1792857046023; Sat, 24 Oct 2026
+ 08:50:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,273 +105,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260817102447.40259-1-guoyaxing@bosc.ac.cn> <CAAhSdy2qwdHE7SB2gRK3_PQ6m_bMSfWpvcuSG-31W2yd3-UTKg@mail.gmail.com>
- <285419e5-c4fc-4c75-a765-436165bdc8b9@bosc.ac.cn> <CAAhSdy1Q7a+54qn0xNBQBd1eV2ve+Nzqz9uRsWrGSmTn35z8=A@mail.gmail.com>
- <c050c85c-482a-4351-b627-ac074f7f7952@bosc.ac.cn>
-In-Reply-To: <c050c85c-482a-4351-b627-ac074f7f7952@bosc.ac.cn>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 24 Oct 2026 21:19:31 +0530
-X-Gm-Features: AclHuK8dPnhV5N0WLUCo7WCIcHQkxUlghpct-iOYcXADe2akSebbMvp9jc0Ck00
-Message-ID: <CAAhSdy3XDEGfFJJnHfx2Q0w+dG4FombF3Lj5O_V4wBpkyAYTNg@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Flush VS-stage TLB before reusing a host CPU
-To: guoyaxing <guoyaxing@bosc.ac.cn>
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	majiuyue@bosc.ac.cn, anzoso@outlook.com
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
+ <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
+ <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
+ <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com> <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
+In-Reply-To: <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sat, 24 Oct 2026 23:50:09 +0800
+X-Gm-Features: AclHuK8EdrvPlNQOkv86BcPqxKsSvjXgFWnjUR3jEYoufbz3bHhkuKrZQsexIF0
+Message-ID: <CAMgjq7CN7qTes+OXvCfsgPOnbtyY7YPytTEP3zZJTBxrGZ5JnA@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Rik van Riel <riel@surriel.com>
+Cc: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 2:36=E2=80=AFPM guoyaxing <guoyaxing@bosc.ac.cn> wr=
-ote:
+On Sat, Oct 24, 2026 at 4:03=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
+te:
 >
->
->
-> =E5=9C=A8 2026/10/10 15:50, Anup Patel =E5=86=99=E9=81=93:
-> > On Sat, Oct 10, 2026 at 4:12=E2=80=AFAM guoyaxing <guoyaxing@bosc.ac.cn=
-> wrote:
-> >>
-> >>
-> >>
-> >> =E5=9C=A8 2026/10/10 02:51, Anup Patel =E5=86=99=E9=81=93:
-> >>> On Mon, Aug 17, 2026 at 12:25=E2=80=AFPM Yaxing Guo <guoyaxing@bosc.a=
-c.cn> wrote:
-> >>>>
-> >>>> Guest Linux uses mm_cpumask to decide whether an sfence.vma needs to=
- be
-> >>>> local or remote. Under KVM that mask tracks guest CPUs, not the host=
- CPUs
-> >>>> that previously backed a vCPU.
-> >>>>
-> >>>> This can miss stale VS-stage TLB entries when a vCPU migrates across=
- host
-> >>>> CPUs. For example:
-> >>>>
-> >>>>     - vcpu0 runs on host CPU1 and fills a VS-stage TLB entry.
-> >>>>     - vcpu0 migrates to host CPU0.
-> >>>>     - the guest updates the mapping on vcpu0 and issues a local sfen=
-ce.vma.
-> >>>>     - later, the guest task runs on vcpu1 while vcpu1 is backed by h=
-ost CPU1.
-> >>>
-> >>> When the vcpu0 is brought back to host CPU1, the kvm_riscv_local_tlb_=
-sanitize()
-> >>> will ensure TLB entries associated with Guest/VM are nuked.
-> >>>
-> >>> By default, kvm_riscv_local_hfence_gvma_vmid_all() will only do HFENC=
-E.GVMA
-> >>> for the associated VMID because most RISC-V H-extension implemenation=
- will
-> >>> tag VS-stage TLB entries with VMID and HFENCE.GVMA must remove both
-> >>> G-stage and VS-stage TLB entries for given VMID.
-> >>>
-> >>> If your HW does not tag VS-stage TLB enteries with VMID then it buggy
-> >>> / inefficient
-> >>> so you have to set kvm_riscv_vsstage_tlb_no_gpa in
-> >>> kvm_riscv_setup_vendor_features()
-> >>> as work-around.
-> >>>
-> >>> NACK to this patch from myside.
-> >>>
-> >>> Regards,
-> >>> Anup
-> >>>
-> >> Hi Anup,
-> >>     Thanks for the review and clarification.
-> >>
-> >>     Regarding =E2=80=9CWhen the vcpu0 is brought back to host CPU1=E2=
-=80=9D: the failure
-> >> we hit is not caused by vcpu0 being brought back onto host CPU1. In ou=
-r
-> >> case, after vcpu0 has already migrated away, neither vCPU migrates
-> >> again. The guest process is later scheduled inside the multi-vCPU gues=
-t
-> >> onto vcpu1, which is still running on host CPU1. So the stale TLB is
-> >> re-hit without any further KVM vCPU migration, and
-> >> kvm_riscv_local_tlb_sanitize() is not involved on that path.
-> >>
-> >>     My commit message was a bit too terse on this point. The concrete
-> >> sequence we observed was described earlier in the RFC discussion:
-> >>
-> >>
-> >> https://lore.kernel.org/kvm/0d15b098-b8f7-4080-9f33-e8c49c2331e1@bosc.=
-ac.cn/
-> >>
-> >>     In short, the issue is: because vcpu0 migrated away, cpu1 still ha=
-s
-> >> stale TLB entries while cpu0 has the new mapping. After that, neither
-> >> vcpu migrated again, but the process was scheduled from vcpu0 to vcpu1
-> >> (which is on cpu1), causing it to hit the stale TLB. Consider the
-> >> following scenario:
-> >>
-> >>     1. vcpu0 and vcpu1 are both running on cpu1. At this point, vcpu0 =
-is
-> >> on cpu1, and a process on it reads a page, which gets cached in the TL=
-B
-> >> (let's call this the "stale TLB entry").
-> >>
-> >>     2. vcpu0 migrates to cpu0, and then the process (on vcpu0, now on
-> >> cpu0) does a CoW (copy-on-write) and establishes a new mapping.
-> >>
-> >>     3. Neither vcpu0 nor vcpu1 migrates again. At this point, the proc=
-ess
-> >> gets scheduled inside the VM onto vcpu1 (which is on cpu1), reads the
-> >> same page, and hits the stale TLB entry.
+> On Fri, 2026-10-23 at 10:24 -0700, Nhat Pham wrote:
 > >
-> > This cannot happen because in step#2 when mapping was updated the
-> > Guest OS will do TLB flush for all its VCPUs which means vcpu1 on cpu0
-> > will also receive TLB flush and the stale TLB will be removed. This mea=
-ns
-> > when process is moved back to vcpu1 on cpu0, HW will fetch updated
-> > PTE and new TLB entry will be populated.
-> >
+> > * Swapoff: this was brought up as a request, but we ran out of time
+> > before we could discuss the motivations and use cases behind them.
+> > Folks interested, could you explain as a follow-up?
 >
-> Hi Anup,
+> This is one that I really don't understand.
 >
-> Thanks for the follow-up. I may be missing something, so I wanted to
-> double-check this against the guest TLB shootdown path.
+> In my mind, we have vswap sitting as kind
+> of a swap VFS between the rest of the system
+> and the swap devices:
 >
-> If I follow the Linux guest CoW path correctly, when the mapping is
-> updated in step#2 it goes through:
+> +-------+     +------------+
+> | vswap |-----| swap cache |
+> +---+---+     +------------+
+>     |
+>     +----------+-----------+
+>     |          |           |
+> +---+---+  +---+---+   +---+---+
+> | swap  |  | zswap |   | zram  |
+> | file  |  |       |   |       |
+> +-------+  +-------+   +-------+
 >
->    wp_page_copy()
->      -> ptep_clear_flush()
->        -> flush_tlb_page()
->          -> __flush_tlb_range(mm, mm_cpumask(mm), ...)
+> When a page is unmapped from userspace by the
+> reclaim code, it goes into the swap cache.
 >
-> So the remote SFENCE.VMA appears to be targeted only at CPUs in
-> mm_cpumask(mm), rather than at all VCPUs of the guest. mm_cpumask is
-> updated in switch_mm()/set_mm() for guest CPUs that have actually run
-> that mm.
+> The vswap layer then decides where to store it
+> at eviction time. This is configurable by userspace.
 >
-> In our case, before the CoW the process had only ever run on vcpu0. From
-> the guest's point of view it did not migrate: the host migration of
-> vcpu0 from cpu1 to cpu0 is not visible to guest Linux, which only sees
-> vCPUs. So at CoW time mm_cpumask still contains only vcpu0 (or at least
-> does not contain vcpu1), and __flush_tlb_range() would not IPI vcpu1.
-> The local SFENCE on vcpu0 would only cover host cpu0, where vcpu0 is
-> currently running. The stale VS-stage TLB entry left on host cpu1 from
-> when vcpu0 previously ran there would then remain.
+> If the zswap pool is shrunk, the vswap layer knows
+> where to put the data next. There is no need to
+> change page table entries to indicate that the
+> data was moved from zswap to a swap file.
 >
-> Later, still without any further vCPU migration, the process is
-> scheduled inside the guest onto vcpu1, which remains on host cpu1, and
-> can hit that stale entry.
+> If we decide to disable one of the backing swap
+> devices, the vswap layer can just move the data
+> into the swap cache, and the page reclaim code
+> can evict it into a different backing store, if
+> needed.
+
+And in this case we want to disable vswap itself.
+
+> Using vswap as a swap VFS would also allow us to
+> get rid of the page table and tmpfs scanning
+> code we have in swapoff today.
 >
-> This also seems more likely when the ASID allocator is enabled, because
-> set_mm_asid() does not always local_flush_tlb_all() on switch_mm(). So
-> even the first time the process lands on vcpu1, a stale ASID-tagged
-> entry on host cpu1 may still be present.
->
-> In other words, I am not sure this case is covered by a full guest TLB
-> flush to all VCPUs on the mapping update. Guest shootdown looks
-> mm_cpumask-based, and host pCPU migration of a vCPU does not by itself
-> add other vCPUs that never ran the mm into that mask.
+> In that model, I really do not understand what
+> "swapoff vswap" means.
 
-This makes sense now considering ASID allocator in Guest Linux is global
-and not local. In any case, KVM RISC-V must not assume that the Guest OS
-has local ASID allocator hence the kvm_riscv_local_tlb_sanitize() must also
-santize TLB for other VCPUs of the same Guest which can potentially run
-on the previous host CPU where current VCPU ran.
+...
 
-Having said the above, there are multiple issues with the current patch:
-1) The kvm_riscv_local_hfence_gvma_vmid_all() is sufficient for most
-implementations to sanitize both G-stage and VS-stage TLB entries
-because both G-stage and VS-stage TLB entries are generally tagged
-with VMID. The kvm_riscv_vsstage_tlb_no_gpa work-around is for
-implmentations which do not tag VS-stage TLB entries with VMID
-and this patch remove this work-around.
-2) The other VCPUs on the previous host CPU may be already running
-and may still hit stale TLB entry before kvm_riscv_local_tlb_sanitize()
-gets a chance to sanitize TLB on previous host CPU.
-3) The per-CPU pointer in struct kvm_arch is racy because we
-may have two VCPUs on same host CPU which are migrated to
-other host CPUs. Instead, it is much simpler to have an atomic
-cpumask in each VCPU where any part of KVM can mark a host
-CPU in the cpumask of the VCPU to force TLB sanitization whenever
-the VCPU runs on that particular host CPU.
+> What exactly do people want to accomplish here?
 
-How about the following change ?
+One thing is, to prevent page fault (minor), not sure if everyone is
+aware, but a page fault itself is sometimes slower than swap IO /
+compression (especially for compressed swap backend).
 
-diff --git a/arch/riscv/include/asm/kvm_host.h
-b/arch/riscv/include/asm/kvm_host.h
-index a30600579231..c975eee7240c 100644
---- a/arch/riscv/include/asm/kvm_host.h
-+++ b/arch/riscv/include/asm/kvm_host.h
-@@ -9,6 +9,7 @@
- #ifndef __RISCV_KVM_HOST_H__
- #define __RISCV_KVM_HOST_H__
+There are suggestions to use MADV from userspace, which is not really
+maintainable when you have thousands of different, opaque and dynamic
+workload, and that is very common for cloud providers.
 
-+#include <linux/cpumask.h>
- #include <linux/types.h>
- #include <linux/kvm.h>
- #include <linux/kvm_types.h>
-@@ -184,6 +185,9 @@ struct kvm_vcpu_arch {
-     /* ISA feature bits (similar to MISA) */
-     DECLARE_BITMAP(isa, RISCV_ISA_EXT_MAX);
-
-+    /* Sanitize TLB host CPU mask */
-+    cpumask_t tlb_sanitize_mask;
-+
-     /* Vendor, Arch, and Implementation details */
-     unsigned long mvendorid;
-     unsigned long marchid;
-diff --git a/arch/riscv/kvm/tlb.c b/arch/riscv/kvm/tlb.c
-index 2ae34632cdcb..b1387a00c8b0 100644
---- a/arch/riscv/kvm/tlb.c
-+++ b/arch/riscv/kvm/tlb.c
-@@ -207,11 +207,31 @@ void kvm_riscv_local_hfence_vvma_all(unsigned long vm=
-id)
-
- void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *vcpu)
- {
--    unsigned long vmid;
-+    struct kvm_vcpu *tvcpu;
-+    unsigned long i, vmid;
-
--    if (!kvm_riscv_gstage_vmid_bits() ||
--        vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
--        return;
-+    if (!cpumask_test_cpu(vcpu->cpu, &vcpu->arch.tlb_sanitize_mask)) {
-+        if (!kvm_riscv_gstage_vmid_bits() ||
-+            vcpu->arch.last_exit_cpu =3D=3D vcpu->cpu)
-+            return;
-+    }
-+
-+    /*
-+     * The VCPU might have left stale TLBs on the previous host CPU so
-+     * mark previous host CPU in the tlb_sanitize_mask of other VCPUs.
-+     */
-+    if (vcpu->arch.last_exit_cpu > -1 && vcpu->arch.last_exit_cpu !=3D
-vcpu->cpu) {
-+        kvm_for_each_vcpu(i, tvcpu, vcpu->kvm) {
-+            if (tvcpu =3D=3D vcpu)
-+                continue;
-+            cpumask_set_cpu(vcpu->arch.last_exit_cpu,
-+                    &tvcpu->arch.tlb_sanitize_mask);
-+            kvm_vcpu_kick(tvcpu);
-+        }
-+    }
-+
-+    /* Clear current host CPU from the tlb_sanitize_mask */
-+    cpumask_clear_cpu(vcpu->cpu, &vcpu->arch.tlb_sanitize_mask);
-
-     /*
-      * On RISC-V platforms with hardware VMID support, we share same
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index dd786f758eb7..c00dc0b191dc 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -107,6 +107,8 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu
-*vcpu, bool kvm_sbi_reset)
-
-     vcpu->arch.last_exit_cpu =3D -1;
-
-+    cpumask_clear(&vcpu->arch.tlb_sanitize_mask);
-+
-     kvm_riscv_vcpu_context_reset(vcpu, kvm_sbi_reset);
-
-     kvm_riscv_vcpu_fp_reset(vcpu);
-
-Regards,
-Anup
+I also hope there is a way to release swap metadata completely too.
+e.g. for fs, you at least have umount, and can rmmod the fs itself
+afterwards. We also have many ways to bypass the page cache. In cases
+where a virtual layer is just a burden, we want raw physical swap, and
+the ability to swap off that too.
