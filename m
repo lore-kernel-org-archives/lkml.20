@@ -1,53 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792847030;
-	b=a/XilW0Fck1gm51lwjA0GTdNyaE3pA/jWDHU2Wbu8H90cmIrqqVFXVjERSZoPLF6cLOI
-	 SGRefXXt0GwGdSNCBP+hPHVZ8mODAmPirZcFodglMOyThc9ZqDHC5WK6JytYqB/Z6iuY5
-	 VpqoY6Nc44w1+xc0M25zPRkG8lRizZKrnSRSx2AMTK36MTVUi+hwiaTTHelGjA/b0m3tG
-	 R71MhvElw0AdOiHGez203ZYbpbgWDcfTBhXM9tgW+6/bVLbAty92DNLp6lMChZgVPnibk
-	 uBJeau6oM3zvgIqGnyMr/bUrmUmWEKWWa2yQ/haOH1ZKwdwOUlLC3sZWJkK9goh4u6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792847030;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Ayzc6AUF0Ny/PBxFeJGZX94lictOJUIVWgf9XlatXYo=;
-	b=rBPvLU0nRTUKCiqDVqqS7xwG18CNYIczVI8pCuyhHinxkkZRhfDWipL23vMk8eNs0iPx
-	 tir34y1iyUC35bfmq7KOAvyEULS9S1MFh+AfWZnXticSS7vtpR4kpKNvlOU+TtXGbhUXT
-	 HL7RT27sMTPSkcBRDbRSKP7VBhPy+MXrwAL65ruw42ey8e3DVMWHuPJUZQ2BgZwoXyWUP
-	 k+ufv4bf3erLBEyHYc7LHqgCfYqQY2ZcLJxxXafB12jPMI/KFrCIwSGJC+d3Adz3qH+dz
-	 B94K5wyYyL7snGwQbSc34HLG5znH/ggEh1eyJmg8uSMIFrqEJPj4+hOE3OcUtyRa5kQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b="hj9k/ppH";
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792847049;
+	b=mp3f0RsODu/m15ckUY0H8BzArpvAr7eJjJYxvzPSHRkmvV9vc17Eq2q110N7BLo3r5VT
+	 quEB0zcZ1UUKsGPABsr+nwPZo8UNPB4oJNGBJz/XzanEstgEaWDElXqusJhpHJ/gwkPc1
+	 TXfmOzlraiHAzonqYSCYAhQmsorTfPcCy4w6PZGKCWmxC8CKE/uZPUsRWuuR0/7ZNfeqD
+	 Inzc1kp4lNBCUMa8/HQ5pmMwy61Dre4ka9ZT5gsYIHhy+PCHdYHKa0eJGRinIlv4KjWpd
+	 Hih345GO+AjWIq9DYeyD7Jfu2FNI2OyIoq0QLZL93JZYe+cx+6MZKPHLOaVjK8jJQuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792847049;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jweyIax9MrNM41Fr612IpxPDanPG1QtsYbhddNSLtBI=;
+	b=L/J/saM/Kedj26VUuoLARoWnQyb4m8gKjj3a08lnVSq5AbT2IMHkFdj0+VhnYiMuCBBI
+	 Ic48vv8Evoel5vz7yMsu4LMJmG6y0IybM5kfBOL9VYxMfjxZwJb0shadJa8fNXFuWmr8K
+	 5fV9yCPlAB1iXHoF9N4soKrXT9DFeEA2UjovooI9gSnuR4AOLr40+1lzP8IttpAwP6pJw
+	 V5Xxon63Rz9rn47a+/1qiws8by7Lx8Qckh1czsT83Ei7gcd8YrjAiDYYh2m4U8FT822wd
+	 ljG0w5J1AN0iMBdW5JsGt4WaGDosxjR2AeuW+gHswx/hBklHxQWWYQzF/6ykjnO0OKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=J081P02C;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5185606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:03:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5185606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BDD606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BDD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hj9k/ppH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=Ayzc6AUF0Ny/PBxFeJGZX94lictOJUIVWgf9XlatXYo=; b=hj9k/ppHWyk/18xrL6GGsM86ec
-	EOErfO/Fb7+YuHbFoexifhjPBAXCcVrdCyzzpSDxv7BxweOJsCbNAFJCxz61GxibukM/pFQXofEdj
-	eXAJy/8KmK2KXJ82/g4E3/RrBkJU9+YThEyeg2U41RGKCRktgcBjKCHHCq+7wd2sbLvaS4OJWjMrQ
-	NGwjgYF4a7zbJUrnCy7QIVZ7S/Wo/tSuI8R4+Y7eKwjIw+M3hWnPYup+d+bFSch/GpIKXtDoWrRXO
-	/+Jr8r+hlSNmcNVm4nkQ7ILxpeoZ0BJHPaZUwM0w5uiW1PVhLuuN39E1U8kjePRYTh824WuCEJ/o+
-	YenSEYsQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xKbPL-008saA-Or; Sat, 24 Oct 2026 15:03:36 +0200
-Message-ID: <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
-Date: Sat, 24 Oct 2026 10:03:31 -0300
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=J081P02C
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6B0F5402DB
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792847041;
+	bh=jweyIax9MrNM41Fr612IpxPDanPG1QtsYbhddNSLtBI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=J081P02CAlTCiGfWPnPfcDM1cIpzn1i0Cpju0qGwil8Zkw7kBT9u7sOdT06rcw4Vz
+	 amBjQ2YzLt5/s3ZTwKv+rtlfW9IjfXKS/z/FIsZkwfOfsTvzy7jAtDdUBzTinWnI0H
+	 tiNHYF5cgk1nB+PhpV1RsmKKaIbzx/GfIx7PWFoJ9d26mTNnVmEpnRp7TGl96oJIHD
+	 3ZJRRBnsTx89x05294tCzQfZzVxQQSzG+KqBZujLPlX7CDUmACkwbFnKr8CQ9/spZ7
+	 gfipDEcx0Ha+Qrt6cWKT5jmV+3szXhaAnZ9I5X0gA1dJi1FLrPxAPgCaS8UGY0NMio
+	 gjaAQLXer5qZEzOrc1KTGLv/0PgdIwkOgKaKB3KSi6hrcHWevw131PfquPo646N5Pt
+	 hIStF4ff9Is2K9k1ATtBPO3fiFhlKCxnOetVXyXIADciwNQ6GYxSs92NC/FUAj3Jc6
+	 RBvH64wzaBsxnYSEP+XxFLf831vVpmz8za+xv/o7fO6OY+peOot2ydHwXAfKu0Kis8
+	 kGCov2R0oyzImlYw0t7dhk7akDLdeTKotKX8ZPXAnQ1FTDRX6wHq/uFP5rjFzteU9h
+	 6WF5hHizgXzmS5T8P3Gre1JUa6wZK1zhNKtqP4ww/ToanF/ZIabONCSOD2SBj0HKpE
+	 Krz2Rt6uCL1kwasQ++N+KWl4=
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8003169e5c5so990216a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:04:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792847040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=igR1zvUXDnZYvKSKpleP/qIjwtyLZcpI8iuB6wrF2hLL00pAsX/NAuY8M8nAjSKthn
+         N0RnxUt2teJMzvvYYNJiFPM+bTD2W17tFSTAgiEHyolF+Txkukj3xMBCAdKCFVTRrN1a
+         iQy1F0M86s7RwLMd/D+eii5IobPJ/xgd8CJPcoN4FytB89bamoc2cqNSC5uJGbd93qqW
+         fItfrj/kHKE1dw6VRfxN+bE39K8kypnOPZG3eaYmkX49/8xSKifSrCriXJkGZaXeuboa
+         QUW4dTbmmoKjzPX8xFe4nNwO9v1wEosr8bG7PeNgPNaRP5nQp/tLpKyl9diwKfRkNWpU
+         FWKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=jweyIax9MrNM41Fr612IpxPDanPG1QtsYbhddNSLtBI=;
+        fh=FO7jahV5SU5R623ELW0LFM6/u+P8fd7E5N464QVBBmw=;
+        b=Rwig/FrECiAD2Dxf7KvTG8vhK5wwfPzxSUV5evZi0KQlL54tTSj+VFOtBhjaIUM7TG
+         XPBwjfyUNcKjh4gAxj4xL6xa3urICnbjLsyWiymrfTsZ8R53BDK8fkxstpOoDAj06/cl
+         LTBOclGeLi+0cUV2G3kF41aOvyJtvSzpyA5mONkpGS7eG4trGCMTW/mtxB+mr2PChCm0
+         Lhb+Z3OwAtEifmR7iCPmDhOGyYyw90W6DtcHBVf6KDOYfZ1Q+ruqyI3bjl1loTdF663f
+         tuA77k1t1/x1hC9wAidDtzY89bGI64C9/S8eV21WVVQLhNKhYN3S91vzkLjnrSLUPFV3
+         OsUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792847040; x=1793451840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jweyIax9MrNM41Fr612IpxPDanPG1QtsYbhddNSLtBI=;
+        b=XfAqIA0TMvKKEg9u58ZB2eW5KZKMVChBLjn+sZcoojzl/zRxl8km940J7zd0Bh2JAe
+         zMnqBr5CaR70jZeXALwjL2+i5BvJL02o8yzZJPiTbc+A4GANR3/4CrwohrugaH7QPaRq
+         ly1SJh6EBxIZ55YZCH6u3UfMbEu185xyv0y6wQ5o3xTO7ueO46Zm1kA0xqzgUmEo9Zz2
+         f+LvOY9NUQoz/bTGlA0Iw0ZboKoKkALvhXrioZmxnJOL/vw9yqO+Lehw83hpbHXywJZw
+         e3XExNav43r7UkhWpzYKZDBUSClIgvxO004eSzpnVz9X0fdwvM/IkB+KbQKmU5gGYBSl
+         d8LA==
+X-Forwarded-Encrypted: i=1; AKwUvBwWGiMB+EG1kheeHcH1og7OxAG2XAV5hraxy0enZDXCFqXcPPz3426ZTRX2vk2+JyjmIcLqpKPBZrA3g24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrh3ZNmye8nEjdvMcp1QQHYSNFu4dmR22T2RU+Wg7emA12pMto
+	Y10HOrfze/CeGv2BVaE829rvekZLz97rGXG4Bw/yJ2owfs651aCDUORz66J2BKMkbr4pfBq415T
+	91gXzXYrUlcuHkO0er/wFwQLNp1eATUNzDfVJE9H6ZVSzlo7kdChUoAQ6islhJdbM6r9vEvdK1I
+	fKsZFiin89HTGM67XQH2MITJiZaQl+oFE7fVDqZKaYx7uVYGFcKxtk8cf+
+X-Gm-Gg: AYBFou2U512SOaje36MqIow8I4gyk+ocAQKFuY+3EQd5NNXh6JE/AtQsbwnLHebL1Yv
+	Cs10xttB8dJnaN5fJ8CgI3ogN50myTux9dtFQ7THRxJ/dHGpr6i0DLFaL4+VCvRa1hn1Q9egLxf
+	P6C9LZUf7J8RRs+gkjj6Vircc55QXAhyzwzPAO/+XBWwc5cdiyRSWKwaqEKsEXYzSFkKDcY/3tk
+	C2vtimKjeOxjxA9EK/tfmBD20+PqLGw5EsQ7QOnJs80LS3vyvIYrh8qgQe6cTN9sLS2OLPeHXKe
+	umplvc3rx7zBAjk=
+X-Received: by 2002:a05:6808:1b10:b0:4c5:90f1:b9c3 with SMTP id 5614622812f47-55bffffe000mr1773839b6e.2.1792847039683;
+        Sat, 24 Oct 2026 06:03:59 -0700 (PDT)
+X-Received: by 2002:a05:6808:1b10:b0:4c5:90f1:b9c3 with SMTP id
+ 5614622812f47-55bffffe000mr1773809b6e.2.1792847039227; Sat, 24 Oct 2026
+ 06:03:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,134 +117,358 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/vc4: dpi: inline vc4_dpi_init_bridge() into
- vc4_dpi_bind()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
- <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1792831564.git.an.wu@canonical.com> <f3ec60d4e68819c994a0d4c6d44eb5cf8d511ddb.1792831564.git.an.wu@canonical.com>
+ <b66d47a456bddb23deaf1c4c625b0029dde0e9a5.camel@posteo.de>
+In-Reply-To: <b66d47a456bddb23deaf1c4c625b0029dde0e9a5.camel@posteo.de>
+From: An Wu <an.wu@canonical.com>
+Date: Sat, 24 Oct 2026 21:03:46 +0800
+X-Gm-Features: AclHuK-sOOwDGwCHCZV4lIH3ZMIPSiDEfECwrddSaz0IwKRR3_H4sc8awgXIGFc
+Message-ID: <CAO4Mv0aE5MeoKGcWpvWvWis-A8pD6UpE8m_-VFF2EK+VP0uoYg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] serdev: handle devices without an ACPI or device
+ tree node
+To: Markus Probst <markus.probst@posteo.de>
+Cc: linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
+	jirislaby@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
+	mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Luca,
+Hi Markus
+    Working on it,
+Thank you~
 
-If you go ahead with this patch, could you merge it with [1/3]
-Personally, I prefer to keep it as a separate function. vc4_dpi_bind()
-is already a big function, with several initializations. I have the
-impression that vc4_dpi_init_bridge() makes the error handling more
-clear.
+BR
+    An
 
-But that's bikeshed territory...
-
-Best regards,
-- Maíra
-
-On 13/10/26 12:23, Luca Ceresoli wrote:
-> There isn't much benefit in this small static function. Inline it in the
-> caller.
-> 
-> Link: https://lore.kernel.org/lkml/accaa9f4ad05ef73071e5cfb5368fcbdd394d3ab.camel@bootlin.com/
-> Suggested-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> 
-> ---
-> 
-> New patch in v3
-> ---
->   drivers/gpu/drm/vc4/vc4_dpi.c | 37 ++++++++++++++-----------------------
->   1 file changed, 14 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
-> index feefefcf3ad7..5439e73da0d4 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dpi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dpi.c
-> @@ -278,26 +278,6 @@ static const struct of_device_id vc4_dpi_dt_match[] = {
->   	{}
->   };
->   
-> -/* Sets up the next link in the display chain */
-> -static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
-> -{
-> -	struct device *dev = &dpi->pdev->dev;
-> -
-> -	struct drm_bridge *bridge __free(drm_bridge_put) =
-> -		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
-> -	if (IS_ERR(bridge)) {
-> -		/* If nothing was connected in the DT, that's not an
-> -		 * error.
-> -		 */
-> -		if (PTR_ERR(bridge) == -ENODEV)
-> -			return 0;
-> -		else
-> -			return PTR_ERR(bridge);
-> -	}
-> -
-> -	return drm_bridge_attach(&dpi->encoder.base, bridge, NULL, 0);
-> -}
-> -
->   static void vc4_dpi_disable_clock(void *ptr)
->   {
->   	struct vc4_dpi *dpi = ptr;
-> @@ -366,9 +346,20 @@ static int vc4_dpi_bind(struct device *dev, struct device *master, void *data)
->   
->   	drm_encoder_helper_add(&dpi->encoder.base, &vc4_dpi_encoder_helper_funcs);
->   
-> -	ret = vc4_dpi_init_bridge(dpi);
-> -	if (ret)
-> -		return ret;
-> +	/* Set up the next link in the display chain */
-> +	struct drm_bridge *bridge __free(drm_bridge_put) =
-> +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
-> +	if (IS_ERR(bridge)) {
-> +		/* If nothing was connected in the DT (-ENODEV), that's not
-> +		 * an error.
-> +		 */
-> +		if (PTR_ERR(bridge) != -ENODEV)
-> +			return PTR_ERR(bridge);
-> +	} else {
-> +		ret = drm_bridge_attach(&dpi->encoder.base, bridge, NULL, 0);
-> +		if (ret)
-> +			return ret;
-> +	}
->   
->   	dev_set_drvdata(dev, dpi);
->   
-> 
-
+On Sat, Oct 24, 2026 at 8:58=E2=80=AFPM Markus Probst <markus.probst@posteo=
+.de> wrote:
+>
+> On Sat, 2026-10-24 at 20:04 +0800, ChunAn Wu wrote:
+> > Serdev clients instantiated by a driver have no ACPI companion and no
+> > device tree node. Their modalias read returns -ENODEV, their add uevent
+> > is suppressed, and they cannot be driver-matched, so creators force a
+> > bind with device_driver_attach().
+> >
+> > Resolve both TODOs in the serdev core by modelling matching on the SPI
+> > bus: let the creator pass a modalias to serdev_device_add() and give
+> > struct serdev_device_driver an id_table. ACPI and OF are still tried
+> > first; clients without their own modalias keep returning -ENODEV. The
+> > device name, derived from the controller, is unchanged.
+> >
+> > Split struct serdev_device_id and its defines into a new
+> > include/linux/device-id/serdev.h, following the pattern already used by
+> > the SPI and I2C buses.
+> >
+> > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+> > ---
+> >  MAINTAINERS                                   |  1 +
+> >  .../platform/x86/x86-android-tablets/core.c   |  2 +-
+> >  drivers/power/sequencing/pwrseq-pcie-m2.c     |  2 +-
+> >  drivers/tty/serdev/core.c                     | 62 ++++++++++++++++---
+> >  include/linux/device-id/serdev.h              | 19 ++++++
+> >  include/linux/serdev.h                        | 12 +++-
+> >  6 files changed, 86 insertions(+), 12 deletions(-)
+> >  create mode 100644 include/linux/device-id/serdev.h
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 917f3f72e31b..06e67aa5d9b0 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -24905,6 +24905,7 @@ L:    linux-serial@vger.kernel.org
+> >  S:   Maintained
+> >  F:   Documentation/devicetree/bindings/serial/serial.yaml
+> >  F:   drivers/tty/serdev/
+> > +F:   include/linux/device-id/serdev.h
+> >  F:   include/linux/serdev.h
+> >  F:   rust/helpers/serdev.c
+> >  F:   rust/kernel/serdev.rs
+> > diff --git a/drivers/platform/x86/x86-android-tablets/core.c b/drivers/=
+platform/x86/x86-android-tablets/core.c
+> > index cfff7f5eac5d..853aa6ff5d50 100644
+> > --- a/drivers/platform/x86/x86-android-tablets/core.c
+> > +++ b/drivers/platform/x86/x86-android-tablets/core.c
+> > @@ -317,7 +317,7 @@ static __init int x86_instantiate_serdev(const stru=
+ct x86_dev_info *dev_info, in
+> >       ACPI_COMPANION_SET(&serdev->dev, serdev_adev);
+> >       acpi_device_set_enumerated(serdev_adev);
+> >
+> > -     ret =3D serdev_device_add(serdev);
+> > +     ret =3D serdev_device_add(serdev, NULL);
+> >       if (ret) {
+> >               dev_err(&serdev->dev, "error %d adding serdev\n", ret);
+> >               serdev_device_put(serdev);
+> > diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/=
+sequencing/pwrseq-pcie-m2.c
+> > index e42e85f47629..e0482f2ef39f 100644
+> > --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
+> > +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> > @@ -309,7 +309,7 @@ static int pwrseq_pcie_m2_create_serdev_one(struct =
+pwrseq_pcie_m2_ctx *ctx,
+> >       if (ret)
+> >               goto err_free_serdev;
+> >
+> > -     ret =3D serdev_device_add(pci_dev->serdev);
+> > +     ret =3D serdev_device_add(pci_dev->serdev, NULL);
+> >       if (ret) {
+> >               dev_err(dev, "Failed to add serdev for PCI device (%s): %=
+d\n",
+> >                       pci_name(pdev), ret);
+> > diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+> > index 7500efcdfc21..e0517d5a48da 100644
+> > --- a/drivers/tty/serdev/core.c
+> > +++ b/drivers/tty/serdev/core.c
+> > @@ -29,13 +29,21 @@ static DEFINE_IDA(ctrl_ida);
+> >  static ssize_t modalias_show(struct device *dev,
+> >                            struct device_attribute *attr, char *buf)
+> >  {
+> > +     const struct serdev_device *serdev =3D to_serdev_device(dev);
+> >       int len;
+> >
+> >       len =3D acpi_device_modalias(dev, buf, PAGE_SIZE - 1);
+> >       if (len !=3D -ENODEV)
+> >               return len;
+> >
+> > -     return of_device_modalias(dev, buf, PAGE_SIZE);
+> > +     len =3D of_device_modalias(dev, buf, PAGE_SIZE);
+> > +     if (len !=3D -ENODEV)
+> > +             return len;
+> > +
+> > +     if (!serdev->modalias[0])
+> > +             return -ENODEV;
+> > +
+> > +     return sysfs_emit(buf, "%s%s\n", SERDEV_MODULE_PREFIX, serdev->mo=
+dalias);
+> >  }
+> >  static DEVICE_ATTR_RO(modalias);
+> >
+> > @@ -47,15 +55,22 @@ ATTRIBUTE_GROUPS(serdev_device);
+> >
+> >  static int serdev_device_uevent(const struct device *dev, struct kobj_=
+uevent_env *env)
+> >  {
+> > +     const struct serdev_device *serdev =3D to_serdev_device(dev);
+> >       int rc;
+> >
+> > -     /* TODO: platform modalias */
+> > -
+> >       rc =3D acpi_device_uevent_modalias(dev, env);
+> >       if (rc !=3D -ENODEV)
+> >               return rc;
+> >
+> > -     return of_device_uevent_modalias(dev, env);
+> > +     rc =3D of_device_uevent_modalias(dev, env);
+> > +     if (rc !=3D -ENODEV)
+> > +             return rc;
+> > +
+> > +     if (!serdev->modalias[0])
+> > +             return -ENODEV;
+> > +
+> > +     return add_uevent_var(env, "MODALIAS=3D%s%s", SERDEV_MODULE_PREFI=
+X,
+> > +                           serdev->modalias);
+> >  }
+> >
+> >  static void serdev_device_release(struct device *dev)
+> > @@ -86,28 +101,57 @@ static const struct device_type serdev_ctrl_type =
+=3D {
+> >       .release        =3D serdev_ctrl_release,
+> >  };
+> >
+> > +static const struct serdev_device_id *serdev_match_id(const struct ser=
+dev_device_id *id,
+> > +                                                   const char *modalia=
+s)
+> > +{
+> > +     if (!id || !modalias[0])
+> > +             return NULL;
+> > +
+> > +     while (id->name[0]) {
+> > +             if (!strcmp(modalias, id->name))
+> > +                     return id;
+> > +             id++;
+> > +     }
+> > +
+> > +     return NULL;
+> > +}
+> > +
+> >  static int serdev_device_match(struct device *dev, const struct device=
+_driver *drv)
+> >  {
+> > +     const struct serdev_device *serdev;
+> > +     const struct serdev_device_driver *sdrv;
+> > +
+> >       if (!is_serdev_device(dev))
+> >               return 0;
+> >
+> > -     /* TODO: platform matching */
+> > +     serdev =3D to_serdev_device(dev);
+> > +     sdrv =3D to_serdev_device_driver(drv);
+> > +
+> >       if (acpi_driver_match_device(dev, drv))
+> >               return 1;
+> >
+> > -     return of_driver_match_device(dev, drv);
+> > +     if (of_driver_match_device(dev, drv))
+> > +             return 1;
+> > +
+> > +     return !!serdev_match_id(sdrv->id_table, serdev->modalias);
+> >  }
+> >
+> >  /**
+> >   * serdev_device_add() - add a device previously constructed via serde=
+v_device_alloc()
+> >   * @serdev:  serdev_device to be added
+> > + * @modalias:        Driver name or alias, used to match devices which=
+ have neither
+> > + *           an ACPI companion nor a device tree node. NULL for device=
+s
+> > + *           enumerated from firmware.
+> >   */
+> > -int serdev_device_add(struct serdev_device *serdev)
+> > +int serdev_device_add(struct serdev_device *serdev, const char *modali=
+as)
+> >  {
+> >       struct serdev_controller *ctrl =3D serdev->ctrl;
+> >       struct device *parent =3D serdev->dev.parent;
+> >       int err;
+> >
+> > +     if (modalias)
+> > +             strscpy(serdev->modalias, modalias);
+> > +
+> >       dev_set_name(&serdev->dev, "%s-%d", dev_name(parent), serdev->nr)=
+;
+> >
+> >       /* Only a single slave device is currently supported. */
+> > @@ -553,7 +597,7 @@ static int of_serdev_register_devices(struct serdev=
+_controller *ctrl)
+> >
+> >               device_set_node(&serdev->dev, of_fwnode_handle(node));
+> >
+> > -             err =3D serdev_device_add(serdev);
+> > +             err =3D serdev_device_add(serdev, NULL);
+> >               if (err) {
+> >                       dev_err(&serdev->dev,
+> >                               "failure adding device. status %pe\n",
+> > @@ -707,7 +751,7 @@ static acpi_status acpi_serdev_register_device(stru=
+ct serdev_controller *ctrl,
+> >       ACPI_COMPANION_SET(&serdev->dev, adev);
+> >       acpi_device_set_enumerated(adev);
+> >
+> > -     err =3D serdev_device_add(serdev);
+> > +     err =3D serdev_device_add(serdev, NULL);
+> >       if (err) {
+> >               dev_err(&serdev->dev,
+> >                       "failure adding ACPI serdev device. status %pe\n"=
+,
+> > diff --git a/include/linux/device-id/serdev.h b/include/linux/device-id=
+/serdev.h
+> > new file mode 100644
+> > index 000000000000..96644953cece
+> > --- /dev/null
+> > +++ b/include/linux/device-id/serdev.h
+> > @@ -0,0 +1,19 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +#ifndef LINUX_DEVICE_ID_SERDEV_H
+> > +#define LINUX_DEVICE_ID_SERDEV_H
+> > +
+> > +#ifdef __KERNEL__
+> > +typedef unsigned long kernel_ulong_t;
+> > +#endif
+> > +
+> > +/* serdev */
+> > +
+> > +#define SERDEV_NAME_SIZE     40
+> > +#define SERDEV_MODULE_PREFIX "serial:"
+> > +
+> > +struct serdev_device_id {
+> > +     char name[SERDEV_NAME_SIZE];
+> > +     kernel_ulong_t driver_data;     /* Data private to the driver */
+> > +};
+> > +
+> > +#endif /* ifndef LINUX_DEVICE_ID_SERDEV_H */
+> > diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+> > index b6c3d957ec15..96a441abc1ac 100644
+> > --- a/include/linux/serdev.h
+> > +++ b/include/linux/serdev.h
+> > @@ -7,7 +7,9 @@
+> >
+> >  #include <linux/types.h>
+> >  #include <linux/device.h>
+> > +#include <linux/device-id/serdev.h>
+> >  #include <linux/iopoll.h>
+> > +#include <linux/string.h>
+> Unused include.
+>
+> >  #include <linux/uaccess.h>
+> >  #include <linux/termios.h>
+> >  #include <linux/delay.h>
+> > @@ -35,6 +37,10 @@ struct serdev_device_ops {
+> >   * struct serdev_device - Basic representation of an serdev device
+> >   * @dev:     Driver model representation of the device.
+> >   * @nr:              Device number on serdev bus.
+> > + * @modalias:        Name of the driver to use with this device, or th=
+e alias
+> > + *           for it. Empty for devices enumerated from firmware, which
+> > + *           are identified through their ACPI companion or their devi=
+ce
+> > + *           tree node instead. See serdev_device_add().
+> >   * @ctrl:    serdev controller managing this device.
+> >   * @ops:     Device operations.
+> >   * @write_comp:      Completion used by serdev_device_write() internal=
+ly
+> > @@ -43,6 +49,7 @@ struct serdev_device_ops {
+> >  struct serdev_device {
+> >       struct device dev;
+> >       int nr;
+> > +     char modalias[SERDEV_NAME_SIZE];
+> >       struct serdev_controller *ctrl;
+> >       const struct serdev_device_ops *ops;
+> >       struct completion write_comp;
+> > @@ -55,12 +62,15 @@ struct serdev_device {
+> >   * struct serdev_device_driver - serdev slave device driver
+> >   * @driver:  serdev device drivers should initialize name field of thi=
+s
+> >   *           structure.
+> > + * @id_table:        List of serdev devices supported by this driver, =
+used to
+> > + *           match devices which are not enumerated from firmware.
+> >   * @probe:   binds this driver to a serdev device.
+> >   * @remove:  unbinds this driver from the serdev device.
+> >   * @shutdown:        shut down this serdev device.
+> >   */
+> >  struct serdev_device_driver {
+> >       struct device_driver driver;
+> > +     const struct serdev_device_id *id_table;
+> >       int     (*probe)(struct serdev_device *);
+> >       void    (*remove)(struct serdev_device *);
+> >       void    (*shutdown)(struct serdev_device *);
+> > @@ -158,7 +168,7 @@ static inline void serdev_controller_put(struct ser=
+dev_controller *ctrl)
+> >  }
+> >
+> >  struct serdev_device *serdev_device_alloc(struct serdev_controller *);
+> > -int serdev_device_add(struct serdev_device *);
+> > +int serdev_device_add(struct serdev_device *serdev, const char *modali=
+as);
+> >  void serdev_device_remove(struct serdev_device *);
+> >
+> >  struct serdev_controller *serdev_controller_alloc(struct device *host,
+>
+> You will need to address the sashiko report (both are true positives).
+>
+> In the scripts/mod/file2alias.c file, you can copy the spi entry.
+> scripts/mod/devicetable-offsets.{h,c,s} and
+> include/linux/mod_devicetable.h are also relevant for this.
+> (Didn't know myself those files existed, so thx Sashiko)
+>
+> Also add serdev_device_id to scripts/coccinelle/misc/of_table.cocci .
+>
+>
+> With that fixed,
+>
+> Reviewed-by: Markus Probst <markus.probst@posteo.de>
+>
+>
+> Thanks
+> - Markus Probst
