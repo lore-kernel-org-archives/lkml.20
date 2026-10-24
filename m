@@ -1,97 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792853551;
-	b=tJZvvzlmPsDT+3PhmQbQuU7VcZvWw1QB1GgKYUlTTxwN9axsn4NJylDfFZ0WA4uVYlmS
-	 eIJBGYGkDi+DEb/YjwrOtpZCezoHW2Eco1gz7iM9N3c7p2VuWnuhL5cYDHxNCZ+84IiCz
-	 Q1iXJk5H83D1Db/FvG/jPfIL5z2pGtEmzYA5t0hELUvQg9ODYIEoYxFtTZupPjD5hVb9d
-	 qvpq5XY9DtWHw46NKXzmc9W29J3lz6vLnqXYsTA9bM4HqTQqFPs3UFAyOJM+mhQjLCJHz
-	 R+C5p0sTS/Wb1N+AZdjhc5AW1lSI8rUxK6M15HABuTS/YrEpIkkKxQ81xYGtD577Uew==
+	t=1792853880;
+	b=v03+5IyxepkPlCyzcd0iD8LUjH77njv2V5bLOGcMNrLhqWR0rIqtUsBkadxFUYffJ7sj
+	 lyEsykiET5EMPSKu38/JUB0WNuonlRa7+dIOMpMpJaXqQI+0AFOq5IWMJAtCMCJdIx6SO
+	 +/nt9PfhnLHvZ2iND7ygBj30SIcy+kg0qI7fNY1EQGo9Q2gVXMUjDjDHnaxOhsEV0DL5O
+	 05wxGw1obsQgfjzqo4Yiq7393/7nqe40fuyam9W5VL13D0x8QjKJOzRjDlHLK53Caxbxo
+	 UFi2x5zImcIUyTVYssAKjZJK7j9l9JesspGMkQu8hnSdbE+y/3yH0oDSTwvDIMK1AnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792853551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792853880;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=57cgpKzuG8iviQVEnNlM9P5mTIL8ivtwm96zaTpUOVU=;
-	b=ekdm6M0QIrQV7CH19zrSQfPcZCYPSlvdPGJzX5Q9zbxJC0r4oU6u4eGBc+opw9l3KbQe
-	 C5tu9/8QwEgiwk4eizq79qJv1A1LEqEMDZ7/41clfzJCIEbnEMF6ttJA7glXJwGJoOmWx
-	 jRh4MqU3km7jB5aVY+p5kqoCkK95YsE5ngkGi9GHIW5X+/lBzKNaZWwRHJRMFOvQcit9W
-	 sZyyGNo2mfjVlvhR7JqBvv6F23BwAJlzTAyj2EP8AaHlcT0vKlJXPt8ozUfWwjrFPwcH4
-	 hTsjZOltssxYnu9AcjBFk5CUvFdRJITD6+90cF3+TewZxx6n7BlHZ7VCfXVsOyuKluQ==
+	bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+	b=n3r1gAa2tBizkjtzplOXcEXs2CQIRQHFhk6gHH2nBuIePUNlsZZ90haHMqjN+2BW0dDk
+	 PczWGIuQpNVkOJeEybKntgxEd3vcTFQ7YySh+sK23D7/QV5GIUp4SN6hiwO7LVMGAimC/
+	 1dZ6amQt/9civBZgyPAwmZuJ3s2mxtRIv0PZKhFPWREaNrNjp0pd7v6C+FlqyD01ymUI7
+	 UmIOx5/Ed/1U7Ml1+1jMAoUB/lgdPyjbc5+j5ACjT/OBoC/yqvC8x3XKOWirAeC4vaWz2
+	 mmQTE7ceT3VliUJg9DgqvHNNsgPfj+6wMvTneMB3PwN8LYYUkAq/aFci3OonwnQuRYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jgcdehew;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nMxrjfJN;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF4F606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:52:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CF4F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE446606A31B
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 14:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE446606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jgcdehew
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so1356843f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nMxrjfJN
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b042c0759so1120676f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 07:57:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792853550; x=1793458350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792853878; x=1793458678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=57cgpKzuG8iviQVEnNlM9P5mTIL8ivtwm96zaTpUOVU=;
-        b=jgcdehew+sr/+8V1Btu38dbiwFtLdTNE9TZ3tmU+N44ZSZTi1BxT8br4h6ahD8PhHU
-         /QL/nEdevW0b4FCzIt9oIDWJOwnMg1pya4GMg/Zvx52SJ29vYNZS9RJ+l08+nHypgEVI
-         fZjKxC4zrmhK5N5xwiPTtrMSBoUUYeIBC4ED6UlGypYopXyArmamPNgxZdJ51mylvYio
-         j4LjHdMt5Z6ZDJSFXtZDUhiHXYDzcfzGyablfEdcIUnuAmqjAEjTZlZKSIJWcDdWxNBR
-         VZ7D0JLH4E+vfSJ8ADHXT6EL1yzOZseuRuIwPzXHzFmDjcvwNxzGsXr8xOcNj6QwpLdU
-         fteg==
+        bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+        b=nMxrjfJNFph/Sn/t1gDc23RmnPkpjH+f+gr0HSGObz4xkS4q0QihM+B/1cDxlUhIc4
+         sDnXXIVtwJjBhP1yY8aNpREl5r+B7A4jWr2NCudhe+0CNu17U9Gk6VfIx/grCZUKKtKc
+         /dzpm80Vot/uFLoyRD6Jn9h8f2/vRSrUL9uPREc4Egg1f3vhEnSRZTxWYqVUlwJ2sv0H
+         5LkZ1zS21msqH3aYZ8/ehsgHVCRF1e+PsododjaTmJrBRtBk836CgY4/Jym1DGWzVowO
+         9AFPAoXjhH0iRMvv3u6TzGC2IERxaRuJTCl+zZF0NMjyleTjpdGU33dQzkTIHKFTNmy2
+         OkQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792853550; x=1793458350;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=57cgpKzuG8iviQVEnNlM9P5mTIL8ivtwm96zaTpUOVU=;
-        b=wXeRi4isauVh4zvTrU67ZaybpwIU4x1+PZ0TASBhvzkTln38dR6S4bMXuzXtHs9AGE
-         zPtK2e9KcCfyegpoCaCKATmdDZM5l4aFB4L/dDTIP7FvIEcKqQaWiXCSrHfyh+Q4RxcX
-         w9EYGzDa7bI3OpB6bT+ny+9GdqXt9er6bBqE7evjy1MZUafSmilm+dcK2h+r5tEjG7R0
-         ndyMBRzYuQ0d4W9iVfoSeSOYNzWkeb57cDsAWqwUf3i69tM1j/TLR+Ks6VPO2e30x+tf
-         Hcu9IGedaaT+sqEkYRJHeKQv16ZziU+oi04P4kBmcl96vNA54XeMXGIkXrM+dZyLVGFV
-         VRUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwY7E1fKbXU8C93bUJRB6UcqdjdQ6Re4n1vbqtbx3dxP3CV0gpU4CzE/vPgdI+nkuvIqFnUZk2o95+l1Tw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTQIcsCL3Geme2c1axRfwGiFP2txHGS71nEwXtM6cNj9V8aZeY
-	CZetgw6CgiFvJe1cfSsTl36DdY57jPrWJyattjU1hpLXUUTon3M4RZ59
-X-Gm-Gg: AYBFou1L99adfxnO5bd0g3nr/uPicGCUjfgUwSy0crlyOwCCoExNffWAnj6n45CFUnW
-	238MFbzvy74EUu5X9TD24NHOPdClwbx4hXycJyo3FugHafDceg+MjPp1ej/5QwsMucqbTQJPK6T
-	cfHc/mjYJ7hwkoZtZNSuID5IrCDbm+4efPPfx7suvgL5UM2crxybiyVL5EPV7Lx/t+A1ypObk+5
-	kN5h5/HVV4OPUlwMNHGqd5vzBzXV6jQqh2uxjOoydzYELYfYfgYuo434nSwGk5mgkQCEB/fj3em
-	Mew7NH0rCDdASu6GMOguLAFsOAmig4z4R0PWMea10glpvQau+zOQA539BeYdhrnttJJyx6zx3qn
-	KfaeDMMSZ4Aap/girbenhP4rOdTN+WhqLUH3FyLdSzhtKM7AT9NgiAHfhGv3efHxW/2765zBrhz
-	ugYwd0MCvgFmD1rBnIjPvcMQ/bvzJKzOyPDrBjBa+IwLdAtLzcRBvuu55pDcGpaxD58+a76RqJD
-	VhBun3I2th0gh7kViuQmCmzdFPm7O9IjiutM2hFPCrhd0CsKtlqkQ==
-X-Received: by 2002:a05:6000:41cd:b0:48d:f36e:ccc0 with SMTP id ffacd0b85a97d-48e3eab5794mr3799228f8f.0.1792853549728;
-        Sat, 24 Oct 2026 07:52:29 -0700 (PDT)
-Received: from localhost ([5.83.201.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm4620940f8f.6.2026.10.24.07.52.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 07:52:29 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Alain Volmat <alain.volmat@foss.st.com>,
-	Raphael Gallais-Pou <rgallaispou@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/sti: hdmi: make char * const array en_di static const
-Date: Sat, 24 Oct 2026 15:52:27 +0100
-Message-ID: <20261024145227.1193775-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1792853878; x=1793458678;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+        b=crA0psNjWc/iCPsuVd+zIToNkazzB2Y9CzMBBJYe8JNVj6scuI7VqBCEyNclS454V+
+         gf28GnjW8K0wXn0eiLBca5AsDHQNKH3C+JgM4UPV7s5txbOGwepVTOBcNdusx1Rtdm1u
+         oOChVKDuyAOYo+ic2NGcwlNCCIPJIwMm1LwblF2aoexrxqj7b9BIh33vfW31pFe7Mfwu
+         /9Sxgona9/mWnP47qgnunY8tFUPd2cXAmXDdZj7Qw3YDIOHylw1IplkqfTEzS2yxFFFp
+         nRySoy90R05iJaFGPJpJOwQaA40NSFAs1vE9UuphqlyMWWujy2D/pECyIZ9xRw34Q7mU
+         4Oog==
+X-Forwarded-Encrypted: i=1; AKwUvBzqE5YczY73/6YzfdMbEMY6rJYzB31nWii5JKn1y9N68YaxrOKxfnEYO7shDwwSO1g8DDpN6lykcke58lc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtFrQYj7f+dRiQf6jvUg5n/+gWCED5yJuyvd7Kv/0dMYcmMaIV
+	V50ghBSN+oQzcBaE7rMVZlkccQ9fzCV9qJ25CqweX5iOTccb55CnwTM=
+X-Gm-Gg: AYBFou2DRxUkk1N958IyweVBHca82McPIZdLj57GYIaBeRuncbo9qK9rBJEaM9/iyLs
+	/80GkID5CxTziyRfI/vxs1eHeiNdBUDpZ6tX/B50XIrZnVW0zVJJBeBg1S0fa8Oi1rLEm1nEWua
+	EZsvOqCb1NMEDlxDA2Kj6JgZCgm6LyxAILWXWX+yQ/Gwmhzv51Hd/3B0MQCVOcj59/GOrUFzbOi
+	3VqHBL6z2AKluVDN7ou+1Y/LKkrXcQub1jjgQ6NCnlDjiBhArTaWWYQaDS7OTxUngxdVQkqJjP1
+	kCIX5UZhtVX1Y5bZXY26LxgGukWQm9OKSOjgTdBSBZhS2VeLWd4JzUM9A1AyhBsPK9NzSZXIgx8
+	1Zmkl4q57xw8Ua3J99RI5L953RytbCWl+H4AokOQcYoiWbBD7swnuKxoeXu96zO818euKaVB/pH
+	PqcDumo2viREV2HCnAia1QGhIca4zYfDYrgQ+IeRbbORsiLe3h4uOkqG+wZdRdIAqF0pyXs+Dnf
+	/E3thnIavzZN/0L057aZQ9mLv5To/IM+XicZ6D8QH2LasDrDZtan7h1+gt0Q8MF+ug2jQy/dB9/
+	0LvG8vOj/O/PGFPLTPysgLvVpFpGz0QTtXaeNSqrzmE5X6W96tnuul2QEA==
+X-Received: by 2002:a05:600c:198e:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4a35acafde7mr31200265e9.30.1792853878070;
+        Sat, 24 Oct 2026 07:57:58 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbc718sm50327315e9.2.2026.10.24.07.57.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 07:57:57 -0700 (PDT)
+Message-ID: <7d35f41a-c72b-4743-b8a4-0ba715be6756@gmail.com>
+Date: Sat, 24 Oct 2026 16:57:55 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,38 +92,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+ <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
+ <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+ <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
+ <o2zmplbtmoueumw3iqejfsdmucp5f66woa5hmw3vodbe66reab@syn2ashugzyg>
+Content-Language: en-US
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+In-Reply-To: <o2zmplbtmoueumw3iqejfsdmucp5f66woa5hmw3vodbe66reab@syn2ashugzyg>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Don't populate the read-only const array en_di on the stack at run
-time, instead make it static const.
+On 10/24/26 1:36 AM, Dmitry Baryshkov wrote:
+> On Fri, Oct 23, 2026 at 03:16:27AM +0530, Akhil P Oommen wrote:
+>>
+>> On 10/22/2026 6:24 PM, Anna Maniscalco wrote:
+>>> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
+>>>> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
+>>>>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+>>>>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+>>>>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+>>>>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+>>>>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+>>>>>>>>>> In order to associate the SID used by LPAC to it's own domain and
+>>>>>>>>>> context bank we need a separate node on the DTS.
+>>>>>>>>> Can we use iommu-map instead of adding a new device using the same
+>>>>>>>>> addresses? You provide zero explanations, but it seems like you are
+>>>>>>>>> trying to separate a part of the GPU into a separate device, but it's
+>>>>>>>>> unnecessary.
+>>>>>>>> What I was trying to say is that we need to map sid0 and sid1 to different
+>>>>>>>> context banks.
+>>>>>>>>
+>>>>>>>>   From what I recall, so long as we use the same dt node, the iommu drivert
+>>>>>>>> provides no way of doing this.
+>>>>>>>>
+>>>>>>>> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
+>>>>>>>> and secure.
+>>>>>>>>
+>>>>>>>> The address on the lpac device doesn't really matter. I have very limted
+>>>>>>>> knowledge of DTSs but I think we could just leave it out altogether?
+>>>>>>> I think, you were poined to the Glymur Iris patches. Another option is
+>>>>>>> the QDA driver being submitted too. Both ot them use iommu-map to
+>>>>>>> describe the same usecase - a set of SIDs which are used by the device
+>>>>>>> but which should not be a part of the defaut set. With it in place you
+>>>>>>> don't need to have separate qcom,lpac devices, no additional properties,
+>>>>>>> etc.
+>>>>>>>
+>>>>>>> I'd recommend following the same approach.
+>>>>>> iiuc, the conclusion in this recent thread is to use child nodes for a
+>>>>>> similar case:
+>>>>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+>>>>> Let me check internally.
+>>>> After a brief discussion: it can be either, depending on what suites
+>>>> better (and if you can persuade DMA / IOMMU maintainers to let one extra
+>>>> bus or not).
+>>>>
+>>> One thing sashiko is pointing out is that new dt should work with hold kernel so, in general moving sid1 from there would break it since old kernels don't know how to handle them separately.
+> The rule is the opposite: new kernels must continue to work with the old
+> DTs. If the new DT breaks with the older kernel, just specify it in the
+> cover letter so that Bjorn doesn't merge DT changes before the driver
+> changes find the way into his tree.
+Ah ok thanks for clarifying that.
+>
+>> + Bjorn/Konrad
+>>
+>> Not sure how strict is the requirement for compatibility with older kernel version. An
+>> option in your case could be just do an override in the board dts file of the
+>> Steam Frame.
+> Anyway, would it be a problem? Does GPU normally use SID 1? Or is it
+> only used by the LPAC?
+It is a problem because, even if nothing touches the LPAC ring, it's 
+firmware
+will still initialize and that will cause page faults if sid1 isn't setup.
+>
+>> -Akhil.
+>>
+>>> Not sure how to address this.
+>>>
+>>> Best regards,
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/sti/sti_hdmi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index 7ba9e0b7ba6c..63418732daaa 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -647,10 +647,12 @@ static void hdmi_dbg_sta(struct seq_file *s, int val)
- static void hdmi_dbg_sw_di_cfg(struct seq_file *s, int val)
- {
- 	int tmp;
--	char *const en_di[] = {"no transmission",
--			       "single transmission",
--			       "once every field",
--			       "once every frame"};
-+	static const char *const en_di[] = {
-+		"no transmission",
-+		"single transmission",
-+		"once every field",
-+		"once every frame"
-+	};
- 
- 	seq_putc(s, '\t');
- 	tmp = (val & HDMI_IFRAME_CFG_DI_N(HDMI_IFRAME_MASK, 1));
+Best regards,
 -- 
-2.55.0
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
