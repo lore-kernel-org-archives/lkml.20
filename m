@@ -1,78 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792861573;
-	b=yeCrSG3nbv3klf834OHOkHLlnhdnsAFyy264tg98lxAPySZcz0yZY0ctq1djRumfDmVZ
-	 MxEbw0fuRiJyM1G4NSexBjHcNodJS4mCZETpTPbojLYY/3FeDYvrsbdp2N1o7UrihanfY
-	 +vgnduT+KCB4raddZC4Eac3eFedAwJC+H/JRI4oWDHkrZYsVpt38ir+bDmvAGw3lfLxqR
-	 XE+31UEkDxq+YehJshNAULrALBk6mwUMTkcDR8Wdna1B/xI75x9fazF8+g3C+iYyMA5cF
-	 C0EI4UcIpFBSAR0viqv7sIbo2TKiMUolcm0PvMzKJhheA1bcx9+UFVO0vfWE1h72FFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792861573;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VD0DJQifxWqmFqvxgKLhw5iI9/XvTtH/bBB6CwZQaeQ=;
-	b=QPQx13zS3rdgla62KVa1LNfMC3qzRdHiLWfQjbn4nvX3z5H3Itp63GsBRZf+W6YODYAd
-	 10xWTybRo38Hj+rlm8A+OQV4A6dNXeyLKu2dw6bH3lKu5pYe/eXa2Gu8XwSbSKAMB7MM7
-	 wO7T15cmfG5au9/v2TqHlqJb74vT1im3pd5ELIqbyLsW/CzIUYljStstd+cHFi714j+KD
-	 Xs46eUvKskezvwr7SvAon50yCuudYE8qwUoybl625WUF5P/X9zdMi7bGTOQeFgQBVq6c4
-	 waneK2L7i/FjekeahjfWmE2+hhfc+WHZx6/IfIPVMgMsQfDWMaI/NMP8NKQ65gqNCBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hackers.camp;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.84
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792862278;
+	b=aPdYXm6HYvA9JqlwRgx2AyJ1iNsmEjRZOZaBrk4dfInBY29AxGybGmWnHu9taoxwxjxf
+	 4kHpmm15Zj0Hw5j8ReIPFNc7Pjxf5ayAtylq2uXnQFassH1QEeaBxM/4qLK/3S9hU0JGa
+	 SBTm63Eg+o1aAsp2qsh6h5ontv6+zvdiSdTlEidSJTRZQZxnTmbTgyIO+8S+56v6htCg2
+	 xzicRA1EKDo0D81kOALJVpip6O4uUQ2GzfjAki56oXZ/pEDqLUmudZWp2xbE3obh7p57Y
+	 I0xjX8YwRuoOueHX8zjYXSHuPAM6P5TMh3fHa1wnoq4FKAiDJysmEMWKTpOENmd8kcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862278;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=/QR3du3ZR7TxGnSlzBaOHpre8JHaWwlpkdHwAjzsG0E=;
+	b=FVp7QKTLQVTReQ2DanX8aNchQ7ifG23f28BzGBa+k0wB94mTfXMQlu1apYPSmizOL9e3
+	 C08EhlFj31pWAf1Qbrgv6jpBgHW74mmAbYSQRvoe7jo8imxUfxqImL0cmXN0CiVtWB9a7
+	 rbEWG7O6PWiEf5LsUcTgT8pDVSkBgoZCMcmrIwLKBVDnFMYo28FTxz0/nNFqSuOq5G31+
+	 HVCX5anf9iWkde98MMKCTbRRMODIW+rE5O7js9u+/NCN48E5YjmYRPqUJrz/rZRJNd9rf
+	 v30XnxaaC3lJyL6Q1PQCtTNlzHiYBV66wyrIXEU0T3ivZi1Yg6shWIvwcgqSz+dW9sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=VV3BUSos;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=9w+QXjID;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.84
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FA8606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FA8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a005aa0838so2183565e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 10:06:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792861571; x=1793466371;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VD0DJQifxWqmFqvxgKLhw5iI9/XvTtH/bBB6CwZQaeQ=;
-        b=fOGPy4K+vJ8gA5HWo/VtDS77yOXiv77GbEh9l6bpcLe2yy1OeV1yY4qPoXthQjud+T
-         gf0f4pZvNC0GCdCQNjYOI0iUpavZFubo39eOndAtwvv7Cg+hD/qXY60awBgYCspmC141
-         97IsQiXjTkLOwh3QbQO3fPoUxS35N6HMH/aRmWTIKC4mTHjSh5/e+9P5IUk4yFI7BnQN
-         yCAD78qrIRto1dxpXBE+JLwbpxuOcgUYt+YKwubeCYHFOsbQaOQaWQntDWtXgxlQ7cA0
-         4gJfBTCnrN8UC4XrNSGDXN68vKM/b7Olln3CIFiWz5ddt9Z0P73jYmm/XQxdsxdvzZ2j
-         7xGw==
-X-Forwarded-Encrypted: i=1; AKwUvByIlaTG4isIL9b2WKGgbnxjjLaHwyozkhB6i2QrvlRAQj35bia7eDEH5ycdpEfkIonUXo96NDTVG0/xTig=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLH5WawErIZWz/ilHcHBfuXdHGh0YNNoeg3yJbB4YES1hY2Vldp
-	5X0x7e3tgfPaKKSkmCNWcDSKRS76TgEifZ3ExfMErUL415xtbU76aYXi
-X-Gm-Gg: AYBFou2Lf/TCWLK7DJfoGIg/QBPxpyhsM4NEr6PIAe4+pWLHBSinpFPh2AHIiIQisse
-	tSbHgPHw+f263zyl77A6wE5BpQw1l1+cz/N2ZZkiZPI4wb9kgYLdogxyQFVGEGlgbIt017oXJp8
-	9iVuvUvMRcKZhtAJGpqZdQO8oRYI38g+nMc6J02X/PXkWdbnrFAJMLGX1uWroptAVa3BP/Qi6rG
-	TaFiiWOBGj79a+rqb5V0t/GkPyokia2LlC6PxeLyguXoxzthGNtTjTjInxY27/F+GBj2CZdNV0O
-	eHnGDOqqtNZF6NjFasPgCevGqqNy+o/QiJkzwM0v0PqPQETmDmGj4iTO58T2+pPYQsx6xOYjTn2
-	9RIchRwmm7jG4KNSS0/35ajuS5hKS4TLWuAky0VlITn2sOMrtFtiBJLxqPyHMoP+nO+GrkFTNyd
-	eqp/xAmGCI+ZEcJymLz2EhfP9ZhxUWms9Fo1gC1j/XDYcVa2ZH0PbYM5hMTZRlpgFzpnVq7JZQv
-	nRiVcb9iV4yMFB6QtM8YlirCLHJKOv7jijW0BlTbqmPQ6LAUABASA5x7dX6SpTV5xZEozvB0u8J
-	JIT9EZBXVL6NcAKYaA==
-X-Received: by 2002:a05:6000:2905:b0:48d:f14a:9186 with SMTP id ffacd0b85a97d-48e3eb97829mr4555971f8f.6.1792861571101;
-        Sat, 24 Oct 2026 10:06:11 -0700 (PDT)
-Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb40733sm4164240f8f.0.2026.10.24.10.06.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 10:06:10 -0700 (PDT)
-From: Aurelien DESBRIERES <aurelien@hackers.camp>
-To: jack@suse.cz
-Cc: brauner@kernel.org,
-	willy@infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	aurelien.desbrieres@gmail.com
-Subject: mmb_sync: b_mmb NULL window races mmb_mark_buffer_dirty
-Date: Sat, 24 Oct 2026 19:06:09 +0200
-Message-ID: <20261024170609.125348-1-aurelien@hackers.camp>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D876D606A31A;
+	Sat, 24 Oct 2026 17:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D876D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=VV3BUSos;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=9w+QXjID
+ARC-Seal: i=1; a=rsa-sha256; t=1792862257; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=UpSOIFOuxxGSTuyq2/HHSepdOQXpQIdcCTw9aH6aChtN4C5AnbXAohQstrSpRxBnAr
+    4mn/wEwWUQaPIbazOTwlk+AKpU8TI1HoAiemJNRzNMFxxgginBzS7BP9gvToBwTg0Hzv
+    tocFd5e+zLFQmd/7BjgX9zh0wZ9gjm+vgtzpvE/vZqBIhpTSYO/2qaQ0EGNKxk3YfJFn
+    l33R2Af2C16PokJ3jMqgpEgMYMaeHIMcq6iBvMpXpzFnJtXRbW5gOdN4S3Tx5uwMihb1
+    R7vpZPZUVMPLDQ6tYY8Gl9AW9r6Nq9ziekX9sWBsJd7LkGqLxs/cF6B2Ul+PrQEkgYby
+    udpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862257;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=/QR3du3ZR7TxGnSlzBaOHpre8JHaWwlpkdHwAjzsG0E=;
+    b=ZEWXGFrLNUN/s+PNjo2ZbhUe1KPCORZ1Dj7n0GocL/zmsIlgRv5UGyAQa+Gr30Yw7v
+    mD0OsIUtY2CH5ramvrmL8K+92co+RmgZ8TJXcqiw4kk6hzXapbHQhglFCw5j5ZAuAbEQ
+    uAQJb3nAih2grlFcbg3kyxoyHCw0VEVUSMCgv4jkMH33CnvGawYVw1LX1UjQKHzgEs7n
+    IfYUzpTxPqz46GwvY0xDBt8D0d7KrzC8zcc6uDaT+lh5B05JInkRkSdOyoigjxA+cGf+
+    vYtZznIpE+a9ijkWJft2c4YPZF6hgydEpEC4dp8RhIpHSAUP4rHKeeXXbJrReApLrrsq
+    zhkQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862257;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=/QR3du3ZR7TxGnSlzBaOHpre8JHaWwlpkdHwAjzsG0E=;
+    b=VV3BUSosD9xeDwCmwJgmrIpUdpc4TFkNnBYcv9H0vDvYGgIi5EhzEW9gq+zh6X+gVh
+    WvXsnyjB+KB4XKQg7g/FxK4e4wRrZdQ3fIUdVyQDTDjj0XrEc6W4NKlkeORpZA5Ot+2K
+    sHzZuOh0OPDV+oRVcEliOMiTHV73mMh0FvoVW+kWFQt6g4Es9DiNcYhz3NKX2ymSUGbm
+    bOQWx5XfhOgwp/L8LHS1gGLui2Yg2n6Uac/Z3HZZV0CtSveGbOoMX0WNGj1cso1v1zAr
+    Z3nF9j2oCugE/eZF4/bjadO5xno8kc/gVPUUR6QsNDVq4kYrQ8PXZ9AMjaTW+voxgA/6
+    Qiaw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792862257;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=/QR3du3ZR7TxGnSlzBaOHpre8JHaWwlpkdHwAjzsG0E=;
+    b=9w+QXjIDX9jonH63ES/LXLFQ5VZBz9i0tdYw7MSrvIN/8ehBsVHr20OqeP6hlAXvp+
+    +RCLQBtQqmXmJhMSvxCw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzptYNlV1C1yk7253raiyx+O3Hxli"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229OHHbwpq
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sat, 24 Oct 2026 19:17:37 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,95 +93,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261023204209.48556-1-olivier@mgcrea.io>
+Date: Sat, 24 Oct 2026 19:17:07 +0200
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Andreas Kemnade <akemnade@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <998458A1-5304-40B1-947D-C268AA8C067A@goldelico.com>
+References: <20261023204209.48556-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Hi Jan,
+HI,
 
-While measuring beamfs on vfs.all (2c3ba1f1cb41, on v7.3-rc7) we hit a
-list corruption in fs/buffer.c that I think is a window in mmb_sync()
-rather than anything specific to our filesystem, so here it is with
-the trace. beamfs was attaching buffers that several inodes share
-(bitmap blocks, parity regions) to the allocating inode's
-i_metadata_bhs, so the same buffer_head moved from one inode's list to
-another's. We have since given those buffers a list of their own and
-the problem is gone on our side; the window remains.
+> Am 23.10.2026 um 22:42 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>=20
+> The X1600's SAR ADC has four auxiliary channels and none of the
+> touchscreen or battery engines of the JZ47xx ADCs in
+> ingenic,adc.yaml, so it gets a binding of its own.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 60 +++++++++++++++++++
+> 1 file changed, 60 insertions(+)
+> create mode 100644 =
+Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>=20
+> diff --git =
+a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> new file mode 100644
+> index 000000000000..7886836b10c6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> @@ -0,0 +1,60 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Ingenic X1600 ADC
+> +
+> +maintainers:
+> +  - Olivier Louvignes <olivier@mgcrea.io>
+> +
+> +description:
+> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
+channels
+> +  measured against a 3.3 V reference. Its clients select a channel by =
+index
+> +  through "io-channels".
+> +
+> +properties:
+> +  compatible:
+> +    const: ingenic,x1600-adc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: adc
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  '#io-channel-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - '#io-channel-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc@10070000 {
+> +        compatible =3D "ingenic,x1600-adc";
+> +        reg =3D <0x10070000 0x30>;
+> +
+> +        clocks =3D <&cgu 28>;
+> +        clock-names =3D "adc";
+> +
+> +        interrupt-parent =3D <&intc>;
+> +        interrupts =3D <11>;
+> +
+> +        #io-channel-cells =3D <1>;
+> +    };
+>=20
+> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+> --=20
+> 2.39.5
+>=20
+>=20
 
-The window
+Good to get such a driver. Thanks.
 
-mmb_sync() does, under mmb_A->lock:
+BR, H. Nikolaus Schaller <hns@goldelico.com>
 
-	__remove_assoc_queue(mmb, bh);	/* list_del_init, b_mmb = NULL */
-	smp_mb();
-	if (buffer_dirty(bh) || buffer_locked(bh)) {
-		list_add(&bh->b_assoc_buffers, &tmp);
-		bh->b_mmb = mmb;
 
-Between the NULL store and the restore, mmb_mark_buffer_dirty(bh, mmb_B)
-on another CPU sees !bh->b_mmb, takes mmb_B->lock (a different lock),
-its cmpxchg(&bh->b_mmb, NULL, mmb_B) succeeds, and list_move_tail()
-writes bh->b_assoc_buffers while CPU A's list_add() does the same.
-The second loop of mmb_sync() has the same shape (remove, then
-list_add back to mmb->list when still dirty).
-
-The old mark_buffer_dirty_inode() took the bdev mapping's
-i_private_lock, shared by every inode of the device, so the two
-writers could not overlap. A per-mmb lock protects a buffer that
-belongs to one mmb for life; it does not protect the moment a buffer
-changes hands. The comment above the cmpxchg says it is there for a
-corrupted filesystem with multiply claimed blocks, and the kernel-doc
-says the buffer is added "if it is not already on a list": that is
-exactly the case the window lets through, so a corrupted ext2, fat,
-minix or udf volume in which two inodes claim one indirect block
-should be able to reach it as well, given an fsync on one inode while
-the other dirties the buffer.
-
-What it does when it hits
-
-With CONFIG_DEBUG_LIST, __list_del_entry_valid_or_report() refuses the
-del, list_del_init() does nothing, and the first loop of mmb_sync()
-is `while (!list_empty(&mmb->list))` on a list whose head never
-leaves: the CPU spins holding mmb->lock. We lost the node to it
-(soft lockup from 48 s up, then kmemleak and the OOM killer).
-
-  list_del corruption. next->prev should be ffffa26a6e8d4820, but was ffffa26a63804190. (next=ffffa26a432e1238)
-  WARNING: /lib/list_debug.c:65 at __list_del_entry_valid_or_report+0xf6/0x110, CPU#0: dbench/16440
-  CPU: 0 UID: 0 PID: 16440 Comm: dbench Not tainted 7.3.0-rc7 #1 PREEMPT(lazy)
-  Call Trace:
-   __remove_assoc_queue+0x20/0x80
-   mmb_sync+0xba/0x300
-   beamfs_write_inode+0x45/0x190
-   __writeback_single_inode+0x480/0x630
-   writeback_single_inode+0x11d/0x4d0
-   sync_inode_metadata+0x46/0x70
-   simple_fsync_noflush+0x55/0x90
-   simple_fsync+0x16/0x40
-   do_fsync+0x50/0xc0
-   __x64_sys_fsync+0x13/0x20
-  [...]
-  rcu: INFO: rcu_preempt self-detected stall on CPU
-  RIP: 0010:mmb_sync+0xc0/0x300
-  [...]
-  watchdog: BUG: soft lockup - CPU#0 stuck for 48s! [dbench:16440]
-  watchdog: BUG: soft lockup - CPU#0 stuck for 413s! [dbench:16440]
-
-xfstests generic/241 (dbench) on a 4-CPU x86_64 guest, kernel vfs.all
-at 2c3ba1f1cb41 with CONFIG_DEBUG_LIST, PROVE_LOCKING and kmemleak.
-
-A thought, not a patch
-
-The NULL is observable only because the buffer is unlinked and then
-relinked. Keeping b_mmb set while the buffer merely moves between
-mmb->list and tmp (list_move() instead of __remove_assoc_queue() plus
-list_add(), clearing b_mmb only when the buffer is actually dropped as
-clean and unlocked) would leave mmb_mark_buffer_dirty() nothing to
-race with inside mmb_sync(); the lockless check would then see either
-the old mmb or none, never a transient NULL on a buffer that is about
-to come back. I have not written or tested that, and you know what
-else looks at b_mmb.
-
-If a fix is wanted, we can run it against the module as it was before
-our change, on the same guest: that is where the race showed, and the
-same test passes 24 of 24 trials with the shared buffers on one list.
-
-Aurelien
