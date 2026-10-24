@@ -1,115 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792834093;
+	b=zJNO59/c7MpnXwzu3M6CUR+SPv7jWspT0IICwOflkW5HDoOKrzCKuTDr+jex1B3d4dF7
+	 j1JagKSQNt8Xf9wcY1b0EROcLdykfO0IthA/P5ZjYgaBvPUO86uOhtFywojIyK9rCDLC2
+	 h7NpwjH6Ne58G+WRHojcJvdMqbqleCJV9bo/ttc9MLpkeuX/XNsRtIDjyWqm+EnLzNf6T
+	 CQ+XMmqRvbVMZzPm+JLOnymU5BYLRTsBcrh3SVdE+/5YXE21eG5uOicZjq+6CoHUSo/Te
+	 abOkIAsoA03OQFZrtSGEmWo5oghPkG65CbaDOMWwhlevZjINORXLvGPSZVVM6DTD6cQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834093;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
+	b=5Rp8LUeTx7hE9/smXBjT0rHtVjy0wi9qacLOqG4lTnuBq0wQgDaXHkvkcjRgHBmzanq6
+	 NlwpSK4Rxy6I+Jwogl6jLjUz+pU7gsyJfGtr6JnJ+A2wDnnyOx9KX8CQJZw5XFjLxdmqz
+	 Mv04rqb3ANIgOTFD2fsO4uj4VWoH/T1l5W8OBrJQR4lDvBuqScSN+XqZa3PFyDX/AzdEt
+	 /YM5OqLvg+K/l0rJPeoZheMwK2T8DrjjCDOR/cMBsOm+4qIsnfcNP9tBzCiwNtzG1pvkM
+	 CJqjLD2u+ifp+WIUimCWqCzAsgdYbJDdvLJJSFs7aUUwdVVxtMBNja8lXDo2Ps/Fkzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZj7Qg+F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD922606A32F;
+	Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZj7Qg+F
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792834092;
-	b=xXPP+1IZlNff90+uHhtjgNuJZfwEv/FZr4MbH8vIlCiHhkqCGbHzBOAesnlIA6OGg61T
-	 ZrSq39+I9Yh3iM4DkNlc0rdxpHz+0a4f1dY06kcLC9ln73UDLo43T17nPz0HsIovWWK/d
-	 z/8fK1PXS8GBhiXOCjAoT56a4M5jV9AYKLNRCCghrZGR98BL+jgElUEdSMD32W/14dC/h
-	 qUPXHtCfCAX4fXN0IGeIezpeYbw2l8s3CuJasinTx85O9Wisp+blF1JRHCCiaxCrqk/Hv
-	 k5SGZj4hDPYmG+4Uak0BM4iRCxgg/8AP5/y7jssDYkhPEiQQn9OvA7vroYl8mb7t6jA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834092;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
-	b=KLx+u+EahV5m39RBNM1IUr8Tq+HSek/0cSe29jqHb67zSmmbrYEfNG9Y3y6JtcfJkB6R
-	 h/r0fFTpLU2sT6b47HNQIVUn4AolXQrsH2G686HgwUoTCy+IdbloJb5WwUgQEopxlfkBn
-	 Toos0x4zbp9SbEZYVki4ROnjNv1ubTVOtQpFzGUPguwOvI8lVYiugIfnjtbLjIkdNBCTj
-	 jlVHxCJLap9R+i7GUkE5tfcE+74ne4J2JQ6DcBp+Vlv+vAHf5GoUWq51Pj7UuREUMm0gJ
-	 4pvJoXlZal2dbDPv1GjxVdm9EgcCkcSwj+n2w45kLOLV5BW2SI8LATrIg0vIwmAMbAA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ih3d3dCX;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	b=csLVj7vy834liiz578zpST847mYfLfJMjTzRodGGWu1+igr2q4wLPXH9dm93EkNNKCLK
+	 t2tkweHqs4ey2jPnpJmWwUzFvOdXQ97+h4a0sYNKhdiu+HLLc6F4+7nUwpfUBJpEZmVVZ
+	 djMu3YcXQs/x2A35CqNjQ8jVqKO1LjCY+cC+PVIYoTP6gIbjru0JyRphZ9NXXS6DzTsos
+	 GFXilpkUvOXiz5wyfdMF0OnnqVsayQmWhkbFtkvBQqK+eJ4gZrOYeNqBWc7ybyQv8zMyD
+	 U2dwWgVgq+jLq03EKF0T4qttkrPVyDDcj10lNP5BNtir0nuyGSx8jJOv4TN3RDlAjgw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792834092;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
+	b=TdIwwdCCjTVWTgR9A5L+/Mip3yiYQKEekJ8+7MWn/hIoTq8p1tXyHyHJN2uB5scydeg8
+	 6t8PzMcz6B8FlVh66IP9SmLlO8kUWhJdqa+O15eIfL0F8fZ5A1KGvQSdSZTu13lsrzXcP
+	 jHDLSlMa0pUiYcsFDHXQrvWt4cn7D6xJz5UZPgbzKYPWh1Kv5fixOzzmyUX+XhbTHRuso
+	 YoqKmLOKSqKARh44aUDNYIxZoMFdq2o1d9p4dib2BY5bbf8/MSRRuBm55/WqP7CJqQyiq
+	 k+5CjDHSQSwHAbVDppAK/uiRnqchbnp0qURqp8lDyhZk7jWdkBxYYthO9/okSvisnKA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CC3606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CC3606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ih3d3dCX
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so3747313eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792834091; x=1793438891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
-        b=Ih3d3dCXpGqvS9/JJ4lYikN4QpmLu1PHRnhCRHuvEi62AWi848YXltabub4vDjBU1E
-         JtDL930znVfowUOp6RB9+HmoPkyJM46GRlA10xLfnkFN30ieRG4lfFEbWv54o51rWYUQ
-         i29qLpdRhgIc4ur0vsEgdQ6g0kDqJOdBBmDHLGmGr3gyw/OC58By44Oycw+eHlUqygWJ
-         r0GX0Ksb0i+jg+8I8I2l7ItArZGa6c58C4V4k46DRSYmNmsHBJCWsyzDXq/pGN3mp1ue
-         Zim2O4BFF0OALDRJbFyWjze43upH3X1UJFG5lhdA++z3T+NZaprJSC32s7+slIRjFadc
-         mkgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792834091; x=1793438891;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ZQqce/S1eB1i9MDN2IQNzzVH6+hd+DA5CuuLvX3npA=;
-        b=Lz4TbKpMLKTzbkTk155jFQhkdTKlqugAXfiiRmgo8r7x0mSf8gc7maiRKMCKNmmVy7
-         +8qTQSWQrLwvkmV1zpS+fqqL2vTMzLkiTZp4ru+i1DbxspAyHOaYkn5iraZxn1tGCT/P
-         cYm/l9VyU5tT0+Bu8I4YV1MeWe5c7brWCxy0GIE1fa3y1xttuRp8KaHNyER3U7kXmdq9
-         0UGa00c2ZrTiM4aThP55A9uMYSzyTh7+QjgQNUB8Xzoo8h+7H6T7Cds41GruSheuBGJd
-         +F4bFkPLmcYT84UJzP6GxkJbvahMtego2Z4XY/RX6YSUcB093mtWCiG2ad9emCjViokS
-         uyEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwc79O95XDsjTP67SEV99EfyPulAjacIs7itV1qeZguFuEiucmlnvvhPD66xQ4APNGlc8bWSoJGtO1ad+Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj73pDWX47Ga6riBTtRWtLq8XgFpvfenXPL8eAfSzTEOUanxCI
-	mDnFfxW5Bl5r9anQzlzrGmqEdkioYwUWnKhUkb0NbyiSA/zCUhV0BDK+
-X-Gm-Gg: AYBFou3RUBrYYfRTHhkfMLmOo2TmaylhDIRaRbysDwcvLnrejYsfzhADqELLxdsFZmp
-	YJ7WavDdpPzuyKNSP6NnaviDBtI4bzf8RddN8jyhG7zQXz7kYUJ58GEDGf5Yei7BpqrDC33Wm2f
-	eXrxzVWh1vc7cgjp7/Gq6VQrduvKMW2WyihnAKWPlMPDQ1LuTb6ej78Sm67MuuU5KcpdapUD4vl
-	1bCsJznLts2EJvnrm8H0od6mlqwNMFTxMiCzFUGqpRVgtAH1hkt7o8ou88utJ6Btf9fOpx2vuwX
-	ircfn6zqsR9DHeoiid2BByXQlYAlQZsiPzMXCbN0pVIhX5sO3FFkqhEvgdcLWbYtxJWsw2c49zc
-	Lde6AWVYH9dgbT1obXagv2dJGmHJwG4VleXmXKgJPbV4WLHvQpv5w+SOZM35x3qPxxjcj9Kaax+
-	6SVnAsd02tRCBr7CchKtejGa6WFO1mjumW1CnX1JgrCGTcyETbZHY/BtSfAL/X/Ifq10CslmWcm
-	uzd3yXB3oZ6PilLJy/i59S+kxyS+NzF2HjxPhniznfOukGXOA4cnYXO0+FU9c6dGIGJ3E1HYTy2
-	kIS2FrBd25l66dQtfTQXIR3WLsIQjJZRWX76jRaSyitfDH1mKXxvNP9bnxpY+9bbyX2khHR1aA=
-	=
-X-Received: by 2002:a05:693c:69c3:b0:351:29c8:643 with SMTP id 5a478bee46e88-369e8486ee8mr2014862eec.18.1792834091341;
-        Sat, 24 Oct 2026 02:28:11 -0700 (PDT)
-Received: from nixos ([2405:201:c40d:9039:e1f8:b9bb:b037:3cab])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm5236604eec.18.2026.10.24.02.28.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:28:10 -0700 (PDT)
-From: Ayushman Rout <ayushmanrout27@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	Ayushman Rout <ayushmanrout27@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Daniel Rosenberg <drosen@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf 1/3] bpf: Fix bpf_xdp_copy_buf() when the buffer overlaps the packet
-Date: Sat, 24 Oct 2026 14:56:56 +0530
-Message-ID: <20261024092659.76422-2-ayushmanrout27@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261024092659.76422-1-ayushmanrout27@gmail.com>
-References: <20261024092659.76422-1-ayushmanrout27@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B7AB1F01829;
+	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792834092;
+	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EZj7Qg+FgRFS7s2UnGsI/wMIPWpjswUsGDzZB/X+bQL4oivL/30mrq4sxkVYZjv61
+	 PtFO6/wNGP7Nz1eBaCAkRRhBTogzFlLfd3IwLUKBaVBUZCB1X5IPdFHQzS1xFTUy2y
+	 JM3ooShXvTYnhsIErkjRCZ2X6h/KLZfIYXnxqZFgelaJJJVqyNQxQ1x6aKGFW3lrnm
+	 Bd9kEPNt/CdE0QhMlIdo5aVc7YcZb9zInH16tfgWwDJIspw5SIXAH2Q2SJpT1cKs3z
+	 gLToJUWfzqwUu4b7eAiKzMnsLgoJVe7jF7gOwNHKFz5F5kdATWV7eqUlfAegHmTzdK
+	 MfZBKZMBVaPfA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A93034475B;
+	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Sat, 24 Oct 2026 17:27:51 +0800
+Subject: [PATCH v6 1/7] dt-bindings: vendor-prefixes: Add shenrongda
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,128 +82,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-ultrarisc-dts-v6-1-c62994d8a114@ultrarisc.com>
+References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=887;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=e/Kow+cCHmWBpSOP+t1oxwgy4BH4snNIyYRmuufij+E=;
+ b=M1oCnUDesQ4ns+QHD9orP0jx0k6sRE8c2K/0IkZA2Cg2wCtFOnD3jpfDn96WVdumd7S4nbKj9
+ pJQ/MT1WNLvDXOzs1RgvypKNuQwba+PuY1c1ik/jvT1SV5Rnl0Pj5Mz
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-bpf_xdp_copy_buf() moves data between a caller buffer and an xdp_buff
-one segment at a time (the linear part, then each frag) with memcpy().
-bpf_xdp_load_bytes(), bpf_xdp_store_bytes() and bpf_dynptr_slice() with
-a buffer all use it.
+From: Jia Wang <wangjia@ultrarisc.com>
 
-The buffer does not have to be outside the packet. A program can pass a
-slice of the same packet, for example one from bpf_dynptr_slice_rdwr().
-Then a piece that is copied early can overwrite bytes that a later piece
-still has to read. memcpy() is also not valid for overlapping memory.
+Add Shenzhen Rongda Computer Co., Ltd. to the vendor prefixes.
 
-Example: a 100 byte linear part, a 4096 byte frag0, a buffer at
-frag0 + 10 and a 64 byte load from offset 90. The first piece copies
-linear[90..100) to frag0[10..20), which destroys data that the second
-piece needs from frag0[0..54). A store fails in the same way.
-
-Commit ab08863c58b1 ("bpf: Use memmove() to store bytes in an
-xdp_buff") fixed the case where the range is inside one segment. A
-range that crosses from the linear part into a frag still goes through
-here and is not covered.
-
-Use memmove() for every piece. For a load, copy the piece that is in the
-same segment as the buffer first. For a store, copy it last. This
-assumes that the frags do not overlap each other.
-
-The selftests added later in this series fail without this patch.
-
-Fixes: 2012c867c800 ("bpf: verifier: Accept dynptr mem as mem in helpers")
-Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
-Assisted-by: LLM
+Link: http://www.shenrongda.com/
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- net/core/filter.c | 59 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 35 insertions(+), 24 deletions(-)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 09c60a58c82a..716efafe7e0a 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -4210,47 +4210,58 @@ static const struct bpf_func_proto bpf_xdp_adjust_head_proto = {
- void bpf_xdp_copy_buf(struct xdp_buff *xdp, unsigned long off,
- 		      void *buf, unsigned long len, bool flush)
- {
--	unsigned long ptr_len, ptr_off = 0;
-+	unsigned long ptr_len, ptr_off, o, l;
- 	skb_frag_t *next_frag, *end_frag;
- 	struct skb_shared_info *sinfo;
-+	u8 *ptr_buf, *b, *orig = buf;
- 	void *src, *dst;
--	u8 *ptr_buf;
-+	int pass;
- 
- 	if (likely(xdp->data_end - xdp->data >= off + len)) {
- 		src = flush ? buf : xdp->data + off;
- 		dst = flush ? xdp->data + off : buf;
--		memcpy(dst, src, len);
-+		memmove(dst, src, len);
- 		return;
- 	}
- 
- 	sinfo = xdp_get_shared_info_from_buff(xdp);
- 	end_frag = &sinfo->frags[sinfo->nr_frags];
--	next_frag = &sinfo->frags[0];
- 
--	ptr_len = xdp->data_end - xdp->data;
--	ptr_buf = xdp->data;
-+	for (pass = 0; pass < 2; pass++) {
-+		o = off;
-+		l = len;
-+		b = buf;
-+		ptr_off = 0;
-+		ptr_len = xdp->data_end - xdp->data;
-+		ptr_buf = xdp->data;
-+		next_frag = &sinfo->frags[0];
-+
-+		while (true) {
-+			if (o < ptr_off + ptr_len) {
-+				unsigned long copy_off = o - ptr_off;
-+				unsigned long copy_len = min(l, ptr_len - copy_off);
-+				bool self = orig >= ptr_buf && orig < ptr_buf + ptr_len;
-+				bool turn = pass == flush;
-+
-+				if (self == turn) {
-+					src = flush ? b : ptr_buf + copy_off;
-+					dst = flush ? ptr_buf + copy_off : b;
-+					memmove(dst, src, copy_len);
-+				}
- 
--	while (true) {
--		if (off < ptr_off + ptr_len) {
--			unsigned long copy_off = off - ptr_off;
--			unsigned long copy_len = min(len, ptr_len - copy_off);
-+				o += copy_len;
-+				l -= copy_len;
-+				b += copy_len;
-+			}
- 
--			src = flush ? buf : ptr_buf + copy_off;
--			dst = flush ? ptr_buf + copy_off : buf;
--			memcpy(dst, src, copy_len);
-+			if (!l || next_frag == end_frag)
-+				break;
- 
--			off += copy_len;
--			len -= copy_len;
--			buf += copy_len;
-+			ptr_off += ptr_len;
-+			ptr_buf = skb_frag_address(next_frag);
-+			ptr_len = skb_frag_size(next_frag);
-+			next_frag++;
- 		}
--
--		if (!len || next_frag == end_frag)
--			break;
--
--		ptr_off += ptr_len;
--		ptr_buf = skb_frag_address(next_frag);
--		ptr_len = skb_frag_size(next_frag);
--		next_frag++;
- 	}
- }
- 
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..e100f3993e57 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1507,6 +1507,8 @@ patternProperties:
+     description: SGX Sensortech
+   "^sharp,.*":
+     description: Sharp Corporation
++  "^shenrongda,.*":
++    description: Shenzhen Rongda Computer Co., Ltd.
+   "^shift,.*":
+     description: SHIFT GmbH
+   "^shimafuji,.*":
+
 -- 
-2.54.0
+2.34.1
+
 
