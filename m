@@ -1,108 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856542;
-	b=cWa+8VpHL9cU0QYYZ7h6bbVyREwzy8+sFIXJOiSfxjQ0a6iG6Ty14SQVyXL0VlxSA3hw
-	 pVGVxrJUmOamdhi09akWq2AtfM5muAw4XgI4+TQnptUnd+cSP5KHJbmdMKxwmx3RyB6PK
-	 wNO0YUqiS8Bj0p9iX9F+RwvyR1RChXOhwafkBk8Ul8ABktS85H3sw7iCeZzcIEbdQV3Mb
-	 hDc9SdllNmkxXo145xJoE3eTMEFxkA/20Nby1Vw2yfCI6E48381l7zalzr6FQ1Y5s62hs
-	 7En6/gypeOIYq19MnD4gjgx7IAUm42VuvbXhwIK9Ysa7fOd0qi4Hj6E5O84aNP/7BZA==
+	t=1792856549;
+	b=kD9atKGL8gSrVWTR4jqGXuwCdhkUzC0M8eStiJyi/Poba4FHxCCqkWBxHQMJb3Yqkh3a
+	 BgymjClkgC5VnEozTvT+V5SIs0Le36UGTMbHiA1vw3VNbqYZcltQUKcbyZnmZ+xlSau+8
+	 ktaIvn5hRtRuqnv6VlAqRod4xDLKd8q8tUZ2jdxqJ3LupYqgEvV/bZFozmEoJvrT4vAqi
+	 IL4xP0iMTQWDYysH9mCnInHksGPDjBmoD3sFPv5zy/ADJ4Kg/Ra7pizO3wpDtQS77bFvC
+	 Xbd1qVpsB+/FmGe80uyUmodd9PvLuht8K79naRfeGfQQPPx5rthaClPO0+vMDXilmbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856542;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-	b=VH6tnwMan7c/xVnJ8yJmxu/RhYNuV9DNM7+x1zMKOmCLQV5IDBufDQexMkDPV6IhV82R
-	 OiBCt0tjzYFy0h99Ad0cbk9GHOaSDxF4xcSKGUGfpSLfrdWgaC4g0VonqN8EkL6QmHsQR
-	 QRHDHfh9Zj8U6smEc3RxfZ5oUn2uSxLWt7NUtLek5Z8CA/nbIHeDVR3sGUQZTH212OeXl
-	 07M31/Gj7wLrfmn6MGsREfqpp+fOBLdieoOYmn3jwbe/8YT5SyvuPVnkrgDTwgqm/QbRL
-	 WuAIO8PFWigF8A0XGeYs3XykoDD/1fbxnRclzSEn3QPNO/67+pMDYAkxy6+gy7/BhGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856549;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
+	b=LAy2Bn4p7Ik8mWVwXwgsuQ61G8xPIgNavgY0/+pqXguu+18NZRAPHrKpNe4hoe7e5zq5
+	 5RxcU0Tfj+8IS/NyASszF0TSYIPeZ5wToUdfxXt8LOiWAIPyN/l0xccDzl3e8ZkaHUso2
+	 1/G4F70yzh70I6Kw751ZtOo0Q/VPQa2Ij5YKb+AxBu0DFdRSdlrwVISQub4Oz+qd2/kX0
+	 lO+REBlsxP3T1etKvfecqawqPiB/PsRxbA+k4nTws8sIGb12hq3/QqEF9jX/QGEF5iSXN
+	 MfV2eI7GKeWj8CWzBZJkLEDsG03iv/FqYeoW8olK79o2/hiIeoyhzqjPy7VxWIjUCHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WBvYbDqG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fyVHr3Yd;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D928606A325
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:42:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D928606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C75606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 15:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5C75606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-18cdcfc05ffso2107212c88.1
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WBvYbDqG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fyVHr3Yd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792856547;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
+	b=WBvYbDqG+1mFq0XvcsAcy5kGqtI5WsHjPrVYdCSXzeugru14SLKOnWKzvTR7fpW21ke5+2
+	tDH4Izl9lKt22JywCwpSuoz+HNtNuAPEh1WKNFltcT68d6n752M/EZ0N5OIeD3yAxCTKuO
+	Wb7pd6DPip/31LjLlSchEAjNIlB9Q1Y=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-692-8f9iVrwENAC0VrCcvw38aA-1; Sat, 24 Oct 2026 11:42:21 -0400
+X-MC-Unique: 8f9iVrwENAC0VrCcvw38aA-1
+X-Mimecast-MFC-AGG-ID: 8f9iVrwENAC0VrCcvw38aA_1792856540
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a4654add56so1507605e9.2
         for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 08:42:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792856541; x=1793461341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-        b=ZtbZRwUPjVQiSvYWWtMu6dPTKilxoct/OWvipe27Jqf5G28IPqMi55WvuE+zmC1HFZ
-         OL/Ws1vcN1cxGJpO+Encb1YRO3M6m7ZNiBAmayVlAcdZyFeDyQhifsfVwo9SDu6hSTPA
-         TKIvnz8sRyd3ncvbREayOVyHYdssYPLAxON08pyahSkqyBOXzvbiavGi+fqdHUUdfod6
-         HK/1coQjD6/w6rz3XnPKbUW/ynFejEsN1OyZb91Df29ZCCPys5qab05Vv/Ob8HkX2P68
-         DHTLWYxdTt00EZ0Jh2N2krvQiRUSSrlNTmJwC0ujKCA3WmoSchFLq8pAwvMrKyQYRCSM
-         SCmw==
+        d=redhat.com; s=google; t=1792856540; x=1793461340; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
+        b=fyVHr3Yd5U6HTwhektAYa7Z2qxUP6o01ozDcwtjeUU7L2CFQS8DkTbjuIoGji2QpQW
+         DDuuiai93ttmjcBfbBqDpr256wEmCrfzR7wHFJUc/6ykcv+blXxav7/y+rmXnS3Zf0Rj
+         YXV4xDzJFb9s/EpspEBSpxhWxEql18P9yOfUmBZW0p/+FI7AFrjMDN/DoKR2Xdzh4qeX
+         ZWMNR2MB7dOHg6H3EDEs+JlNP9mlMIWzQhnLfbIcQkgEBJKV9KWcP2gqa7g37+AzYDUb
+         nitpc43a0w2nvqdYvWh9rDLeUTQuRVb2tEd5An0F0zjdLXw082843kX71kJql36xCBSh
+         ZjaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792856541; x=1793461341;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-        b=KPdNTEvcNks3s9ybwhNSZLu5pFVDWPU8jhd2dXjNv2LsM7R+4mC0aUI8vOj68eJGS1
-         6jeU7IrgfDwZyyfURDkUolOEdsR1JEfD+VWFtqZaqhDRqACRwKInE1fzuvwY1GgA3fc3
-         SujFNGluA7Lmk/3DtgOhlIQHljD3K1/7nIob1LKQdHnnkAc+9AFn0oGjcvkSj2ug9hon
-         TGiLH0BZrtCrCHFqKaD/5k0aK7txttssbgZ+O5gLwevBJ2J6uUmNbxqWi4uddF0gvYdp
-         qP5dmVXMTR0YNJWMNOPtIxRJiPpQXWJakfGm73TdIvzWgpwFRcxgpsvimOXidiXi2SE1
-         67Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfN61ilVxb/AnkQZBrNqctSKpdga3xBafXeJOo8MPWH9PegDz1QJuOpJtk0ZVopGwkWi1g08ePc+Rc+As=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxpIyFPB48R3wUPzhI+5kYRLhGUQCxANm2eC9SJqMSGgA9i0CP
-	VPYcVlE/kJizHHWdagE+mrzS8Fz70J53/z5SNj5ImRqTxpV+OMJuq6tN
-X-Gm-Gg: AYBFou3AmGFWQAmoJt4l9xmKK3WJiyNa3+RciK5JGwKw3TlIy+AsYy2/WDxajOMk4tZ
-	lVt6lY580Q4IWcfS/wbZqgRWqikWxp3gGkDkAlAb9P/D/P4ZRJBS3mDoSK4PDsy0GtPFUmrJqFt
-	t8clnzD5rk7lyBUTbmb7i75s3w/3vq3tv+TZU9oDbffJiLXBGv3Aj8EZpvLpI+HSnlg9Ts7gpGj
-	9CCwXywCqNkytixRvBb9f8y+5+wir/BFOOGCljsoAcjy8165JcwsUmbJEud2L50IW6U3Swzdaqz
-	5e3ttUA6NjEneE+unscS56Edtw+FE9PYMo7Yz3YeFHwt0/RFxkMptq+gSRimxHccnhETYuXWJEg
-	4uY57hL9hWECHQoSlIkkNpwmHBigJRsRU5ulAPl/FnIx8RkZ6Pk1jyET+zkwvZCqkUugpNiYnMx
-	Wj4iY26TCGCcS5eksUVEaHDM8EyEoFFEPNDGciMsDzJ3/rTMlKel2NDYJ+VLS240bGYjGSljbo+
-	PaGH0q7rNMgwjSdB++GEyxCX2nEUaG0dyApC9pXZh9URF3qNhrp3OE+pA==
-X-Received: by 2002:a05:7022:5f06:b0:151:2e62:fe8a with SMTP id a92af1059eb24-199379c8064mr3258864c88.40.1792856540859;
-        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
-Received: from plex ([2406:6d00:a27c:4200:aab8:e0ff:fe02:33c1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm7766450eec.18.2026.10.24.08.42.15
+        d=1e100.net; s=20260707; t=1792856540; x=1793461340;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ve5RdvSUQWrWJ7y3heJ0LDreEwIkfgbRRQ56HJPkuoI=;
+        b=chIZbFp3cZpt96Vr/SIdcKxkuYduv+ILPxpKJNFVdZ6kYZrb+ogtwuS3RYhhlMHcKX
+         b7v07PdoJw2LuC8wFyFmJ09q0ZbMtfYxn/3s3NnUF5ZrOVuEC9JeXT/jNeODRVk8mpUu
+         ch3WtaWyUHtxg52jq4xpg7gss38sNUrtQ9lCHJhMSq8D98mky6HIQf4M2RBUTJOyXxzF
+         +NGCDUt9Yr+hzdYy0zKTY5/q9G5bApvBOsjolcKy+IIpB5yJU5UQJOjWnzdm0wB0iVKH
+         1qWOUsfzx4B5Kk73WJaRDsGNY5J1HaBSYVG078iuTFeF2i4K3Fk6iaDADF8nHaXtJwNt
+         97nw==
+X-Gm-Message-State: AFq9FYLm9hdCq0/kNNWo2/LojK36u2I8TM6bkWRD0OKgCFxhjolEJ99b
+	nrWyDoNjColYcMFc4La9yfv6K2BJd4D0Pp4A54Wdqliu18Dt6Ww71wWGH0LVwp1MKhiVLfogzOM
+	uGNSNkTFCWBKiQq0RvDFI27coCL5I1ra5VL4pCfpuAqwbHOyaLaxi44364lo1mLjXOFmbDSb2x+
+	mE6yPBj+W9AhV0ATLMWsRIRDA2XfzMw9J9IftW4H0lQhQ=
+X-Gm-Gg: AYBFou2v6p70IFlUq9XTAKh3z4Ns9UxfFLOVMNbhXhZA/oTrVcBtILQZhN8+xDQnt9q
+	prYqWCgIGuGumzDnb/oXm5H8Rhy12rUWhNZP6lWfx/GMCZlb8jkxY0/YVT2jHw8ktJKHt/CnIlb
+	qiwq+5SKYu0upYMjsKLRo+uqu9GH85swH0U3Tv4iPQ42zB2ia0vzKABvYxeFvb7dbFXsoGn9A/r
+	XIUYtkOhdtBc+js3nw2qBrc9uYCNuQkTTUq5S48Jw0oAy1GTibT1quH03q89rfWuJOB6MoRzcZs
+	dP7TWicZTOhCYK0xxoovAGvDpHozAG7+zt8MDQoeknaDpOaSErMPoMwitHR3rjTlF+BooH0=
+X-Received: by 2002:a05:600c:46cd:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4a35ac39396mr36771005e9.4.1792856539769;
+        Sat, 24 Oct 2026 08:42:19 -0700 (PDT)
+X-Received: by 2002:a05:600c:46cd:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4a35ac39396mr36770405e9.4.1792856539078;
+        Sat, 24 Oct 2026 08:42:19 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm49273505e9.3.2026.10.24.08.42.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
-From: Chris Scott <gilroyscott1970@gmail.com>
-To: netdev@vger.kernel.org
-Cc: lorenzo@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	pawlik.dan@gmail.com,
-	zhengping.zhang@airoha.com,
-	Chris Scott <gilroyscott1970@gmail.com>
-Subject: [RFC net-next 3/3] net: airoha: npu: use coherent memory for mailbox messages
-Date: Sun, 25 Oct 2026 01:41:50 +1000
-Message-ID: <20261024154150.45733-4-gilroyscott1970@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024154150.45733-1-gilroyscott1970@gmail.com>
-References: <20261024154150.45733-1-gilroyscott1970@gmail.com>
+        Sat, 24 Oct 2026 08:42:18 -0700 (PDT)
+Date: Sat, 24 Oct 2026 11:42:15 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>
+Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
+Message-ID: <20261024113809-mutt-send-email-mst@kernel.org>
+References: <cover.1792768096.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,170 +125,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.1792768096.git.mst@redhat.com>
 
-From: Daniel Pawlik <pawlik.dan@gmail.com>
+On Fri, Oct 23, 2026 at 11:09:17AM -0400, Michael S. Tsirkin wrote:
+> 
+> Okay this seems to be converging.... But sashiko did find some issues I
+> thought are best fixed. Specifically I thought of a better way to handle
+> short gso in a tunnel - just clear tunnel gso! As a side effect we now
+> fix up the checksum for these dodgy packets like we did before, instead
+> of a drop. Good. And more false positives that prompted me to write a
+> bit more comments. So here goes.
+> 
+> Apologies for reposting so frequently, I know netdev bot will be unhappy
+> with that.  But Paulos's report made a lot of publicity, there is a lot
+> of people looking into this, so I feel there's value in defending
+> against all this class of issues sooner rather than later.
+> 
+> The issues were mostly found by code inspection, but all reproduced by
+> me in a VM.
 
-airoha_npu_send_msg() maps the caller's kzalloc() buffer with
-DMA_BIDIRECTIONAL. These buffers are small and not cacheline aligned,
-so on arm64 the mapping bounces through swiotlb. On a 2 GiB EN7581
-board the default swiotlb pool sits above 0xc0000000 (0xff6cf000 on
-W1700K), outside the 0x80000000-0xbfffffff window the NPU can address;
-higher addresses alias the lower 1 GiB. On W1700K + MT7996 this makes
-WLAN_FUNC_GET_WAIT_NPU_VERSION read back 0.0 and mt76 does not bind
-NPU offload.
+Ugh. I found another wrinkle( Firewalls that shape the payload.
+They are currently seem to simply be hoping most traffic is CHECKSUM_PARTIAL and
+only looking at that, and that will break.
 
-Allocate one coherent buffer per NPU core at probe and reuse it under
-the per-core mailbox lock. With the previous patch it comes from the
-NPU DMA pool, inside the window. airoha_npu_send_msg() is also called
-from PPE foe_commit under spin_lock_bh(), which rules out a per-message
-GFP_ATOMIC coherent allocation.
+I am not sure what to do yet. Extending the sysctl knob to control what
+happens if validation fails: pass/drop/complete - is the best I could
+come up with. Or ignore the issue. Or just forget the complete at input hack
+and drop if we can't figure it out.
 
-Add __airoha_npu_send_msg() with an optional reply buffer so GET
-callers copy only the trailing response payload; airoha_npu_send_msg()
-keeps copying the whole buffer back, like the bidirectional mapping.
-
-The original version of this patch was written with Cursor (composer-2);
-it was rebased onto net-next and its commit message rewritten with
-Claude (Anthropic).
-
-Link: https://lore.kernel.org/r/20260809152813.585797-1-pawlik.dan@gmail.com
-Link: https://lore.kernel.org/r/atCRsquzA1UxSpCc@mediatek.com
-Signed-off-by: Daniel Pawlik <pawlik.dan@gmail.com>
-Signed-off-by: Chris Scott <gilroyscott1970@gmail.com>
----
- drivers/net/ethernet/airoha/airoha_npu.c  | 65 +++++++++++++++++------
- include/linux/soc/airoha/airoha_offload.h |  3 ++
- 2 files changed, 51 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
-index 069fd60680..3d1aa63dd5 100644
---- a/drivers/net/ethernet/airoha/airoha_npu.c
-+++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -24,6 +24,12 @@
- #define NPU_EN7581_FIRMWARE_RV32_MAX_SIZE	0x200000
- #define NPU_EN7581_FIRMWARE_DATA_MAX_SIZE	0x10000
- #define NPU_DUMP_SIZE				512
-+/*
-+ * Mailbox DMA payload size. Covers sizeof(struct ppe_mbox_data) (28) and
-+ * WLAN TLV messages (header + payload); largest in-tree WLAN payload today
-+ * is 16 bytes (INODE_TXRX_REG_ADDR). Keep headroom for future commands.
-+ */
-+#define AIROHA_NPU_MBOX_SIZE			256
- 
- #define REG_NPU_LOCAL_SRAM		0x0
- 
-@@ -161,23 +167,32 @@ struct wlan_mbox_data {
- 	DECLARE_FLEX_ARRAY(u8, d);
- };
- 
--static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
--			       void *p, int size)
-+static int __airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
-+				 const void *data, int len, void *reply,
-+				 u16 reply_len)
- {
--	u16 core = 0; /* FIXME */
--	u32 val, offset = core << 4;
--	dma_addr_t dma_addr;
-+	struct airoha_npu_core *core = &npu->cores[0]; /* FIXME: core */
-+	u32 val, offset = 0;
- 	int ret;
- 
--	dma_addr = dma_map_single(npu->dev, p, size, DMA_BIDIRECTIONAL);
--	ret = dma_mapping_error(npu->dev, dma_addr);
--	if (ret)
--		return ret;
-+	if (len > AIROHA_NPU_MBOX_SIZE)
-+		return -EINVAL;
-+
-+	if (reply && reply_len > len)
-+		return -EINVAL;
-+
-+	/*
-+	 * The NPU only reaches DRAM at 0x80000000-0xbfffffff; a streaming
-+	 * mapping of the caller buffer may bounce through swiotlb outside
-+	 * that window. Use the probe-time coherent buffer, which comes from
-+	 * the NPU DMA pool when one is declared.
-+	 */
-+	spin_lock_bh(&core->lock);
- 
--	spin_lock_bh(&npu->cores[core].lock);
-+	memcpy(core->buf, data, len);
- 
--	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, dma_addr);
--	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, size);
-+	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, core->addr);
-+	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, len);
- 	regmap_read(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, &val);
- 	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, val + 1);
- 	val = FIELD_PREP(MBOX_MSG_FUNC_ID, func_id) | MBOX_MSG_WAIT_RSP;
-@@ -190,13 +205,21 @@ static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
- 	if (!ret && FIELD_GET(MBOX_MSG_STATUS, val) != NPU_MBOX_SUCCESS)
- 		ret = -EINVAL;
- 
--	spin_unlock_bh(&npu->cores[core].lock);
-+	/* Copy the trailing reply_len bytes of the response. */
-+	if (!ret && reply)
-+		memcpy(reply, core->buf + len - reply_len, reply_len);
- 
--	dma_unmap_single(npu->dev, dma_addr, size, DMA_BIDIRECTIONAL);
-+	spin_unlock_bh(&core->lock);
- 
- 	return ret;
- }
- 
-+static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
-+			       void *data, int len)
-+{
-+	return __airoha_npu_send_msg(npu, func_id, data, len, data, len);
-+}
-+
- static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
- 				    const char *fw_name, int fw_max_size)
- {
-@@ -500,9 +523,8 @@ static int airoha_npu_wlan_msg_get(struct airoha_npu *npu, int ifindex,
- 	wlan_data->func_type = NPU_OP_GET;
- 	wlan_data->func_id = func_id;
- 
--	err = airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len);
--	if (!err)
--		memcpy(data, wlan_data->d, data_len);
-+	err = __airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len,
-+				    data, data_len);
- 	kfree(wlan_data);
- 
- 	return err;
-@@ -794,6 +816,15 @@ static int airoha_npu_probe(struct platform_device *pdev)
- 			return err;
- 	}
- 
-+	for (i = 0; i < ARRAY_SIZE(npu->cores); i++) {
-+		struct airoha_npu_core *core = &npu->cores[i];
-+
-+		core->buf = dmam_alloc_coherent(dev, AIROHA_NPU_MBOX_SIZE,
-+						&core->addr, GFP_KERNEL);
-+		if (!core->buf)
-+			return -ENOMEM;
-+	}
-+
- 	err = airoha_npu_run_firmware(dev, base, &res);
- 	if (err)
- 		return err;
-diff --git a/include/linux/soc/airoha/airoha_offload.h b/include/linux/soc/airoha/airoha_offload.h
-index 7589fccfee..16a988ad74 100644
---- a/include/linux/soc/airoha/airoha_offload.h
-+++ b/include/linux/soc/airoha/airoha_offload.h
-@@ -173,6 +173,9 @@ struct airoha_npu {
- 		/* protect concurrent npu memory accesses */
- 		spinlock_t lock;
- 		struct work_struct wdt_work;
-+		/* Coherent bounce buffer for mailbox cmd/rsp */
-+		void *buf;
-+		dma_addr_t addr;
- 	} cores[NPU_NUM_CORES];
- 
- 	int irqs[NPU_NUM_IRQ];
--- 
-2.53.0
+> ------
+> 
+> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+> others, credited below, found more ways the bug can affect users):
+> 
+> allowing untrusted hardware to specify csum start/offset for
+> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+> outside the actual checksum, and depending on the setup, the networking
+> stack could be looking at the packet both before and after the edit, and
+> seeing different results.
+> 
+> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
+> completing checksum") validated all known instances where this
+> causes the most grief, but the real fix is to make sure
+> that either only actual checksum fields are ever edited,
+> or the checksum is completed before the net stack looks at it,
+> so it is always consistent.
+> 
+> 
+> This basically goes back to
+> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
+> except in a narrow list of specified known good cases.
+> 
+> 
+> Summary of the patchset:
+> 
+> These are probabably net material (and seem to be too big for stable,
+> or I would recommend backporting there, too):
+> 
+>   net: account for ingress-resolved virtio net hdr state
+> 	- accounting, not the fix itself, dependency of the fix
+>   um: vector: trim skbs before verifying the header
+> 	- fixes the um receive path: without it the checksum would be
+> 	  completed over the unreceived tail of the buffer
+>   virtio_net: parse tunnel csum_start little-endian
+> 	- bugfix, a dependency of validating the header
+>   net: resolve uncommon partial checksums at ingress
+> 	- fix itself
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+> 	- reducing risk of the fix by adding a sysctl to disable it
+> 
+> These are cleanups, can be deferred to net-next, too:
+> 
+>   net: add ip4_parse()
+> 
+> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> 
+> Changes since v1:
+> 	- reorder patches to fix bisectability, addressing
+> 	  a comment by Björn Töpel.
+> 	- code refactoring, different patch splitup,
+> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
+> 	- fix a bunch of minor issues spotted by LLMs
+> 
+> 
+> Changes since v2:
+> 
+> virtio_net: parse tunnel csum_start little-endian
+>   - new patch. correctly parsing the header is a dependency
+>     of validating it, otherwise i do not know what to validate
+> 
+> net: account for ingress-resolved virtio net hdr state
+>   - make rx_csum_sw counter 64 bit so it won't wrap
+>     (spotted by LLM review)
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - tunnel fixes to bugs noticed by Willem de Bruijn and
+>     Chris Arges
+>   - restore the csum_offset checks as suggested by Willem
+> 
+> net: add a sysctl to opt out of virtio net hdr checksum validation
+>   - the knob is no longer writable by root inside a user
+>     namespace: changing it now requires capable(CAP_NET_ADMIN)
+>     suggested by Willem de Bruijn
+> 
+> net: add ip4_parse()
+>   - comment converted to kernel-doc format (Willem de Bruijn)
+> 
+> um: vector: trim skbs before verifying the header
+>   - new patch, found by code review
+> 
+> 
+> Changes since v3:
+> 
+> net: account for ingress-resolved virtio net hdr state
+>   - um: vector: honor virtio net hdr conversion failures
+>     folded in (Björn Töpel)
+>   - count on tap and virtio_net, too (Willem de Bruijn)
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - walk the frame on loopback, too: loopback_xmit() runs
+>     eth_type_trans() on it (Willem de Bruijn)
+>   - return the mismatch handling directly, GSO is implied in
+>     the tunnel path so drop there outright, and fold the helper
+>     into its one remaining caller (Willem de Bruijn)
+>   - read the IP version through struct iphdr (Willem de Bruijn)
+>   - document the ipv6_find_hdr() flags choice
+> 
+> net: add a sysctl to opt out of virtio net hdr checksum validation
+>   - renamed to virtio_net_hdr_validate, in case more validation
+>     is gated by the same knob later (Willem de Bruijn)
+>   - point .data at the value like the neighboring entries,
+>     the per-netns registration rebases it, and the handler reads
+>     the value directly - no ctl_table copy (Björn Töpel,
+>     Willem de Bruijn)
+>   - check the opt-out before parsing: with the knob off, packets
+>     the parser cannot handle were still dropped (Willem de Bruijn)
+>   - include virtio_net.h in net/core/dev.c so the static key
+>     definition sees its declaration (build warning reported by
+>     Jakub Kicinski)
+> 
+> net: add ip4_parse()
+>   - add the missing kernel-doc Return: section
+>     (Jakub Kicinski)
+> 
+> 
+> Changes since v4:
+> 
+> net: account for ingress-resolved virtio net hdr state
+>   - count on tun only: dropped the tap, macvtap, ipvtap and
+>     virtio_net counters (Willem de Bruijn)
+>   - the driver side branches are in their final form here now,
+>     moved from "net: resolve uncommon partial checksums at
+>     ingress" (Willem de Bruijn)
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - no longer touches the drivers (Willem de Bruijn)
+>   - a packet too small to be GSO: ignore the tunnel GSO request,
+>     same as plain GSO ones, and complete wild metadata in place
+>     (sashiko)
+>   - document the zero copy interaction (sashiko)
+>   - honor a preset skb->protocol on ethernet: the stack uses it,
+>     except on loopback which re-parses the frame (sashiko)
+> 
+> net: add a sysctl to opt out of virtio net hdr checksum validation
+>   - document the netns lifetime requirement (sashiko)
+> 
+> net: add ip4_parse()
+>   - pull the whole header, options included, so that the
+>     transport header offset is within the linear data
+>     (Willem de Bruijn)
+> 
+> 
+> Changes since v5:
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - read both skb->protocol and the frame ethertype: do not
+>     validate when they disagree, instead of preferring the
+>     preset protocol; same check after the IP version inference
+>     where there is no L2 header (Willem de Bruijn)
+>   - pull the IPv4 options in the helper as introduced, with the
+>     transport header offset computed before the pull
+>     (Willem de Bruijn)
+>   - fold the trivial protocol calculation cleanup, formerly a
+>     separate patch, in (Willem de Bruijn)
+> 
+> net: add ip4_parse()
+>   - the options pull moved to the helper introduction in
+>     "net: resolve uncommon partial checksums at ingress"
+> 
+> Tested: full suite on the final tree, tunnel included.
+> um part compiled only.
+> 
+> 
+> Michael S. Tsirkin (5):
+>   net: account for ingress-resolved virtio net hdr state
+>   um: vector: trim skbs before verifying the header
+>   virtio_net: parse tunnel csum_start little-endian
+>   net: resolve uncommon partial checksums at ingress
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+> 
+>  Documentation/admin-guide/sysctl/net.rst |  19 ++
+>  arch/um/drivers/vector_kern.c            |   6 +-
+>  arch/um/drivers/vector_transports.c      |   4 +-
+>  drivers/net/tap.c                        |   4 +-
+>  drivers/net/tun.c                        |  41 ++-
+>  drivers/net/virtio_net.c                 |   2 +-
+>  include/linux/virtio_net.h               | 319 ++++++++++++++++++++++-
+>  include/net/netns/core.h                 |   1 +
+>  net/core/dev.c                           |   7 +
+>  net/core/net_namespace.c                 |   1 +
+>  net/core/sysctl_net_core.c               |  50 ++++
+>  net/packet/af_packet.c                   |   4 +-
+>  12 files changed, 441 insertions(+), 17 deletions(-)
+> 
+> -- 
+> MST
+> 
 
