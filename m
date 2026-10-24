@@ -1,75 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.46.171.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833889;
-	b=3Mt/nCtuyVuSZm5jGO1KRBQY0O1xaVf8zAVqEZYGV3yhbSLVdrCEHDcEInoGd3ur9Zhn
-	 UVoxVxKqZsVXzbHDakyu8bTo7GJEVTDpyFbQXpJtUzcmkXTCZm0JOvHybAgQsaIamOdxc
-	 b62P9AyXhM9AB/LjecBKee6LhMFSvDBAyiccXopAQARpBaMCJ7slmbDst1b75bXSQbdg4
-	 WrWYucgTIJ3CKUzYDYagAY+GAYoztiXtGRkeQHPAioKgwUAsN9NXyIYEvsHEytM891fvA
-	 ycV/8zdx2xKchUjvpdTceo61fuu1lryoqzXxe3Xhmm9FLrYgFcocjcSgd1U3O5/4Lrw==
+	t=1792833966;
+	b=2caXJOmfevUWuO60AdMfLK0yWG2N8fwgl3fa2bTJLsS1OyIPUQeAOxzmqjPpukCfoFCn
+	 eTU34sm0StCI2rIGbJnBidwdkgznt80UDZN3GzEbqzBnJdkyWtx5YbIsjyiTF6DU/Wf4g
+	 aesFvdNMEH7eGanAhOWKGzQpNhRMnqezZ4LqijAYmubzfgwPJIEUtRjbvW6JWdvVXjLDS
+	 a+HFz0b7CcgSeAbRRityvPCGGYWvBNggVsljTOMXi6CQv7nkuHtCQIjeNhChGfdmKbcLK
+	 4BFtXedHUuCZ36IRklde3kQxiuo87gGUgZReM3Yrt8IYcAhQvejcMG3UJEpY0o3PAJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833889;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost:
-	 X-Virus-Scanned:X-Virus-Status;
-	bh=UlFh2m38NvlbmdwBn9Ovqim+aU2KYkaeGxqpK8ckbcY=;
-	b=DefuQIlio0kqe3u6RZykqjCoXt3wQWj/sSNgSqKLh+xOp5VLf5uNcGIFa8HZ+BAXyktD
-	 qbvuruEtApXneTlVEXD6lwls8vOk1KkZMKCQ2dzUpZunL23KhJygxZU2t7DKIwarovB/Y
-	 rRVIQhJcb3YH8BP+R1uelrAqQ2AFNB/Gt1SdTyt/VN/imX+io3C5OC5YtWjyc0KjATI8a
-	 ip7NH4paDKfloaFYFBVwEBK47iZZ60eZqtFZwEpt0Hu8hHs0zkTCXo7+sDFcvWXP1i52i
-	 cewhRPfFbImi5s3+cJeJgTiXTcICSFb44JjGuPKLhQ3TRkqd8hXxbVCK3Rtgf3uK5EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792833966;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+	b=SKhD5Xgh5viAzt+q9dYMTSphGbkOcX38Pnavb6H2eaJHqxnmtBWtkU/mwm8j2AW9S3UG
+	 VlH1byWPkEAwpiSnoZtr7IFK4n5CzK5hrld3tUNAz0y1NlhImjU0zPKUGKu/71IMguKYQ
+	 5bn/dmtJgB0y79SN1+IXI/KzwxUjN1wOhWnzW1E0emc6cQyRO35cQDFPxhBVm+tH+Z54L
+	 V2SoyQNs3u1PhMbffR02ylnqYExbN+iKy2xLAmO9ATwBvRdFsdDzC0en3pF9x/KqChNqV
+	 bSfVEbV+LtyHnWnc6lcFVPQuU7Z7jjRetliQ5nVoxVcBaRVqUtQeA7NkYbLmpgWoj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	arc=none smtp.remote-ip=78.46.171.57
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K9k1Ywog;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6064B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:24:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6064B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id 8C987BDB66
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:39 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id 8AC91BDB37
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:38 +0300 (EEST)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id DAD911FEB2D
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 12:24:36 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1792833878;
-	bh=UlFh2m38NvlbmdwBn9Ovqim+aU2KYkaeGxqpK8ckbcY=;
-	h=Received:From:Subject:To;
-	b=CVQQHxTAKB/x6+gx+86LtqwB/5DNCif7JqgISY/M0DoXrexHIE2t37if0FFWxpczy
-	 n+akOewxq/fS8ZKuUPzMq9NlqKrHDYw0QJuR0tJFcfEHoXgLJ7IsGMuA3JnErf9mcs
-	 TPWQOcDahslbyXSenNdMScfX68SyChj0eqWv3Bd3sqIGZgGTnDaQcQ0YkWD/Ud57Hy
-	 L0JfYFEZVKHj2MqddN51JhzQBaBl+FRaadz7wiwYzmxz5kBs/n5cHqb6ibBQu2wucB
-	 +OKbKfNKTXYRNi/kPnjnGOvABpezmG6jv4/AkmH6LVtnKVUxtW2ByJ73MMP2luN4u0
-	 UQM0vwQr+7KDQ==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.215.173) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pg1-f173.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-cc4aa18f9afso701481a12.3
-        for <linux-kernel@vger.kernel.org>;
- Sat, 24 Oct 2026 02:24:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBznPEOZPqY+4bhz46emwzlWF3psW7eWiwaRdOG0jy2rSWClHkNVMzOvcr81bDtdMvZTHn+XGnECvtzHQD0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTRMONNW/cJJJeseDGqrB7lKhBqaXYeSiy4PC3NfeqmCRQbnjz
-	C0COCNXVCNw5snLOxQtYNKo9upd9lEavmODPTCdB9jIkGrlF2y+CclK8CCaVe3rR6H2YGjMvefi
-	7C4OvzFs02QnCx6E0cAii2dAjWqebdUU=
-X-Received: by 2002:a05:6a21:e587:b0:3e2:117a:62ff with SMTP id
- adf61e73a8af0-3e7cd5242b8mr1238652637.61.1792833873675; Sat, 24 Oct 2026
- 02:24:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37649606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37649606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K9k1Ywog
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso594316a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:26:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792833964; x=1793438764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+        b=K9k1YwogFvOOLanyVvhG+A0pGAz3/TOKZKGBKQbinaGMvITLnldoPfssMmSqBrKrzz
+         mJNBVSkJPpqAV0Svhw3lcV1eqXLYa0OLfhV/j9ANUwHanaIxz8a4+g86lfQXln8gz7Q+
+         oFuwAXLJy0jgzdf2U3jvzwUQ4XypEbwl+RisEOahJLlS/jfx+g6ZXSZX65qvAe10CeS2
+         hXq9CkoAkPBw6ZSosy8xiUKO1+qyi7JOAwdGfkhXNo+9gngD4L88Cj3yMrHrRnJ1MJ4Q
+         YlbvH1ADKI5TFTRJDGKIbjuTBaNW+uz9EWcCHl8epHeub9J9wslSMVS9TKiUBB0EjZ6f
+         JdPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792833964; x=1793438764;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+        b=xfsiNvWmKoqSObwIASJcopbKXRZ4B3ZiLgEdXhJhuwWcqbUoHhzw0bI9OPcDnV84NL
+         pdXD981BsPmPyEQLp+YPhFZm9CYYhktr97an+/9i9+0RU0jDJjHiF5owJav2n4koDtqy
+         D5TSlUL8c9zCwivBbi3swo3jOTKKCxwB1/bOcLDeowRdB1UGcSd1cCBlqPrHCScO+fN8
+         obFS1YDLyqCm97gDfsSZu22D2dyRNlS1nE5kMXfgZWvfkfR+8V9stt/qSqx3bkbiGeTt
+         tgdtnwvEAKOEYIRyOEbj2acHyHLcIdurb2Ke/HgZXaz1CgU+6TdY4JFdiby28SRCWPE3
+         n2/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzsIQ5XLWqS03j/p+K4A8C4lsMfkhN0naiAbjGNKRl0dR1un1U2nduCvhKCXAwIT73dJ07UgVu/UxsgYd4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKu/nG82QdRwB9F0oKAItHhnnLzr3W3YvRsM9s1tcOaeTbrjRaU
+	72rAJ3KdKQHOSwuR3EnlYfEepRm/uHO0LagZD2N6E37+E9D2MnLJxlMz
+X-Gm-Gg: AYBFou1G/MOJe+0H8rTA8VHSZPdWBHiqopmNfhZO6tR79PPboV225heWRO4A+3GwvWD
+	2j/NsiZs30Zw/LYohQii8EO+w3Zheop9DuwTqw+5q2a/hY8GOEinEejF/Vecvky64uLOi5l+rPL
+	7HUs/JDZqUs6ZW0cbZq3o+weKPXb1U7s0lHDNbSVuWpE9l4/+4N2xg4Tg8Ov5y6Q8a9AbVOsr5i
+	phDy8rn2qQ9961uEvNzIOa6bKidjQk4WfDHFywlKYrjo0yN6OebpfovBMQWYtqAExqSimG+LT37
+	NEj7BHekEhOL5Ov4V6rYAb70SPddEgY/y9rFPNAiF18O40j8txo42H08/qBrfxYxPH4MbKXWnMX
+	vcA7OsyNobzagpZsGErTRRzmV0Kw6R6L3E20sRSWzT6JQCwjplmWUGyWTA8gY5IHHqgE9yYjmoF
+	H34diA5EB6RsYGRWfrpDj08WXCYXeqylZNqO3wd2HL9an0HP1UvS5XsK9e1cJWpqg70FfetFdin
+	zcIsDY6/BFd3Bk51YyQ3QTaCEmdH06rLucuqYkQm//Z7VQGPWNhQNiExMYJ1CIkeKNnjh3RBqvu
+	NHuHUonXqP+iWe2Q+NBVW0YSc18TmiEXsmMpgYThqzmeud0JISKiV7bx58VcLTW4Z6A11r22Q4J
+	WKBTbCa87CdWdx47eTqCKKWnl9h9j06Z/cek=
+X-Received: by 2002:a17:90b:5823:b0:3ac:8897:7b98 with SMTP id 98e67ed59e1d1-3adeae7644emr1496748a91.32.1792833964552;
+        Sat, 24 Oct 2026 02:26:04 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm1392312a91.1.2026.10.24.02.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 02:26:03 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
+Date: Sat, 24 Oct 2026 17:25:56 +0800
+Message-ID: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,182 +105,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20250511204427.327558-1-lkml@antheas.dev>
- <20260803221614.59324-1-derekjohn.clark@gmail.com>
- <20260803221614.59324-2-derekjohn.clark@gmail.com>
- <f8b2c85a-2800-c9a3-4e56-7af4c53823e5@linux.intel.com>
- <58a9c644-98c2-47ee-b083-0d5b19fa5053@roeck-us.net>
- <CAGwozwGdwhE6Sm6oa2uxx_sHfFNQ6fHYnAhYHkEPQcp_Yb=Z6w@mail.gmail.com>
- <CAGwozwFUTagam+dr0SXyziAMz1MJKcYMYUgrogFcmvEaE1X0UQ@mail.gmail.com>
- <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
-In-Reply-To: 
- <CAFqHKTmQ2R-UAP9rAZzoxe=p-T1_JKPU1NaQ2ijrVg0RXZEHUA@mail.gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sat, 24 Oct 2026 11:24:21 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
-X-Gm-Features: AclHuK_o5mK-ACNcsN3U3drXfMaNHe5y3JLkY05P_22D7Mibo_FAmTuZvNSEA6Q
-Message-ID: 
- <CAGwozwGUAEb4Q9pfd_+aXMw2P3qY376F+usPHdUFO5Q6mV_ATQ@mail.gmail.com>
-Subject: Re: [PATCH 1/6] platform/x86: msi-wmi-platform: Move guard out of
- switch in platform_write()
-To: Derek John Clark <derekjohn.clark@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	W_Armin@gmx.de, corbet@lwn.net, jdelvare@suse.com, kuurtb@gmail.com,
-	linux-doc@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
-	"Limonciello, Mario" <Mario.Limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-PPP-Message-ID: 
- <179283387796.2255829.2985164533261886120@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 at 05:26, Derek John Clark
-<derekjohn.clark@gmail.com> wrote:
->
-> On Tue, Oct 20, 2026 at 2:53=E2=80=AFPM Antheas Kapenekakis <lkml@antheas=
-.dev> wrote:
-> >
-> > On Tue, 18 Aug 2026 at 17:26, Antheas Kapenekakis <lkml@antheas.dev> wr=
-ote:
-> > >
-> > > On Tue, 18 Aug 2026 at 16:42, Guenter Roeck <linux@roeck-us.net> wrot=
-e:
-> > > >
-> > > > On 8/18/26 07:12, Ilpo J=C3=A4rvinen wrote:
-> > > > > On Mon, 3 Aug 2026, Derek J. Clark wrote:
-> > > > >
-> > > > >> The ML patch set uses a guard within a switch case that violates=
- cleanup
-> > > > >> rules. Move the guard outside the switch so all return paths are=
- covered.
-> > > > >>
-> > > > >> Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> > > > >> ---
-> > > > >>   drivers/platform/x86/msi-wmi-platform.c | 2 +-
-> > > > >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > >>
-> > > > >> diff --git a/drivers/platform/x86/msi-wmi-platform.c b/drivers/p=
-latform/x86/msi-wmi-platform.c
-> > > > >> index dfb65ac8fbf6..33acd448f674 100644
-> > > > >> --- a/drivers/platform/x86/msi-wmi-platform.c
-> > > > >> +++ b/drivers/platform/x86/msi-wmi-platform.c
-> > > > >> @@ -675,11 +675,11 @@ static int msi_wmi_platform_write(struct d=
-evice *dev, enum hwmon_sensor_types ty
-> > > > >>      u8 buffer[32] =3D { };
-> > > > >>      int ret;
-> > > > >>
-> > > > >> +    guard(mutex)(&data->wmi_lock);
-> > > > >>      switch (type) {
-> > > > >>      case hwmon_pwm:
-> > > > >>              switch (attr) {
-> > > > >>              case hwmon_pwm_enable:
-> > > > >> -                    guard(mutex)(&data->wmi_lock);
-> > > > >
-> > > > > While I cannot see the code easily, one could also add braces to =
-inside
-> > > > > the case to avoid this problem.
-> > > > >
-> > > >
-> > > > I don't see the code either, but wouldn't this be a use case for
-> > > > scoped_guard() ?
-> > >
-> > > Hi, not explicitly stated in the cover letter, but this is essentiall=
-y
-> > > a series on top of the series I sent last year but I did not clean up
-> > > due to a variety of issues with MSI firmware that would have made the
-> > > driver unsuitable for upstreaming (to my standards at least). These
-> > > issues span Intel driver problems, HID controller instability, and
-> > > varying WMI implementations esp. in regards to PLx setting between AM=
-D
-> > > / Intel variants, shift mode behavior not acting correctly, and fan
-> > > curve application / resetting being weird (the fan curve on off bit
-> > > does not seem to change whether an automatic curve is used but how
-> > > close the device alings to the set curve? requiring us to back up and
-> > > restore the original curve? half of the devices keep the curve during
-> > > sleep and half don't? but if the fan curve is so finicky do we really
-> > > want a resume handler for it? Perhaps we can kick the timing quirks t=
-o
-> > > userspace)
-> > >
-> > > For this reason, I focused on other manufacturers such as Ayaneo and
-> > > OneXPlayer. I will revisit this series per request from Derek as he
-> > > seems to want this for steamos and hid-msi is already queued for 7.3?
-> > > Although, to be honest, compared to the controller firmware issues,
-> > > the WMI implementation is pristine.
-> > >
-> > > So I will need to go through these issues 1 by 1 and see which can be
-> > > fixed and either drop certain features in the beginning.
-> > >
-> > > Particularly for the fan curves, if we say that resume handlers are
-> > > required to be in the kernel moving forward, I do not know how
-> > > realistic it is to make those reliable for this WMI device family.
-> >
-> > This driver still needs work. I am getting bug reports about
-> > inconsistent TDP application on the EX. A8 is broken as well. Even
-> > with your patches Derek. I need to grab a new version of center M and
-> > see what they are doing.
-> >
-> > Does this driver work in your experience? What is that SMT toggle you a=
-dded
->
-> I've got a few reports of some issues, but nothing with much detail. I
-> have the 8 AI+, 8 EX AI+, and A8 in hand and all three had effective
-> TDP changes in SteamOS with these patches applied and SteamOS Manager.
-> I haven't done extensive testing over multiple suspends or longer
-> sessions myself. I'm also not aware if there have been BIOS updates
-> since my testing.
->
-> By SMT toggle i think you mean the STAPM toggle for the A8? It was
-> referenced in API_UserScenario.dll (setPowerLimit_AMDSTAMP) which I
-> reviewed using ILSpy. After toggling that TDP started reporting
-> correctly and being settable.
->
-> Hope this helps. LMK if you need anything tested or additional info.
+On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
+that stage sets up DRAM. This series marks the nodes it needs for that
+bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
+in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
+the PMIC rails and the SPI NOR in the board files.
 
-Ok, I asked for more feedback. Yes, TDP changes do work, but they are
-not correct. Users AB testing with a Decky plugin called
-SimpleDeckyTDP report major divergence.
+The vendor confirmed that the BootROM itself does not access the
+EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
+sets up SDRAM, and DRAM cannot be trained without it.
 
-SimpleDeckyTDP uses a combination of RyzenAdj for AMD and RAPL for
-Intel. When set to 7W, users report 25W power consumption when using
-the kernel driver and 15W when using simpledeckytdp on A8. 15W is the
-correct value for a 7W envelope on an X840u APU.
+Testing: all K1 DTBs build, and dtbs_check is clean for them with and
+without this series.
 
-STAPM should not be required to use or deviate from STT. Both of them
-should have equivalent behavior and match ryzenadj as the underlying
-DPTC hooks are the same, ryzenadj just accesses the mailbox directly.
-Using STAPM is a workaround for buggy vendor firmware that does not
-control boost values correctly (SPPT/FPPT) and is what the first
-generation Lenovo Legion Go did as well before they fixed it.
+I used Claude to help read the U-Boot SPL and the device trees. I
+checked the changes and ran dtbs_check myself.
 
-STAPM as a workaround works because it uses timers to control boost
-values, so they decay after 2-3 minutes to the steady state TDP set by
-the firmware. STT boosts for as long as the device thermal envelope
-allows. STAPM is deprecated by AMD, only STT should be used going
-forward. +CC Mario
+Changes in v3:
+- Reword both commit messages to describe the hardware instead of what
+  an SPL does, and drop the U-Boot paragraph from patch 1 (E)
+- Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
+- Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
+- Drop the Assisted-by tags, see commit 1e035297ffda
+- Keep E's Reviewed-by on both patches, as the changes are the ones
+  discussed on v2
+- Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
 
-This points to a BIOS firmware issue. You should consider getting in
-touch with your MSI contact for feedback and to plan a fix. I do not
-have an MSI contact. And yes, I am not happy my users have to rely on
-third party unvetted plugins for basic power controls.
+Changes in v2:
+- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
+- Rebase onto the spacemit dt-for-next branch
+- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
 
-But we cannot revisit this driver while basic behavior. does not work.
-If MSI does not fix this or there isn't a bug in this driver we can
-fix, the only viable way forward from our side is to move power
-controls to the DPTC RFC driver/RAPL for affected models and only
-retain fan curves on this driver. I do not want to do this, I have
-userspace integration for this driver already, but it is not
-functional to the standard expected by users.
+[1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
 
-I checked the ACPI firmware and unlike other manufacturers, there is
-no EC independent control of the power envelope. We would still need
-to check a low battery hook in firmware but other than that it is a
-straight translation.
+Hung-Chun Tseng (2):
+  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
 
-Antheas
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi              | 14 ++++++++++++++
+ 7 files changed, 47 insertions(+)
+
+
+base-commit: d05c6236496071916e19012cda7149465f15e66e
+-- 
+2.43.0
 
