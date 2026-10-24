@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792823465;
-	b=QKXzcbwwR3MfFYCbX6vDs5SvO1s9Yj3WKdulQZIa0Pa/TOsLJqSJqTBmTCHKIf+wA33T
-	 mWpqXJyT4IQAMXJ5GkrW+HlUCK0vW6Uf9lpRId0/1khtPuqqVzyJL6iUHUTBKMTIlEF5y
-	 86zvMQvwey3XMfXs7lr/LfhbnsZnG99OjVU+46K6x7xCPbX16OnhUaCMExULADWdomXUw
-	 +qOzF2rRhrmWZd79py/sqEEaPZ6ymNANIDh5XrfUZ2uoUxRB2EDA0uTSjGsRKm2cR57Fz
-	 G0hP3RqlzTqXUtkxOWXTRLKTK0G5RbNgPUVq6JZ80S2RSSFvKWVKKNG/fifqsuqd5Ng==
+	t=1792823591;
+	b=MX/1/tUuUMDvk4A6MVFbN1AGNFiOLddiE+OKUrNsIOyqXKDJo2zUu2FNS3ovxeSVglXe
+	 3fbnC7UUpg2JkQZUF3P5VmngnomajgiJny9gywuDDD/SUvCQAY8FlAxfoT/f02PPxRz7k
+	 oZwXwQSH5TN5UL7y3DP8p1fKez0OwcRD/+2mGgS3WHNcg4eA6FZSv827JnhPKqOZgIRa3
+	 ojY9/zboFuJopFPClERIZxDEIYsdO66Z1TqF891DKruK+U+fhQ4JvHcN8oA0Wz0DfIk0U
+	 P8A8SoyPT1q6RpsxKp/cnnWbFaSCQVEhDx8XJyRTbeUVm5UOqillxWWN7xTl0jk47ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792823465;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7TeuZv9pVyg5PpxXbUEbxc/gGTNfQLawZcWlzWojNhY=;
-	b=vcBBWf0EOwsUN6uD6abvL2SaRauxIpruW8I3HzZqCXGD+UZa/lQ/gBBGt6AF0k9ct4t0
-	 WoUEmhFu8TxtWM+CH1bT38CmVC2RZVbK06U5x1pjyWZgsR66j4Ko5xisLMeGL+zuDecos
-	 343xH5Ug9OWgu2SbMijY7oMBkuW5IVJc1fNtxr7P6Qxy+NuVMlv7/Qg49PJT545fnc+Du
-	 n1hT0VXExlyqkVkPZrEGIfeCXp2EZTvXrsmxnmnWdiXb9E3j8GNfGgrUqsd09HBU7aA/C
-	 r0byfKtb/iSnpvmt2mgHTnu1CxyuBYBilF01m8JLl/G5tKH/bik8wgWCf6chmH+zDnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792823591;
+	h=DMARC-Filter:DKIM-Signature:To:Cc:Received:X-Original-From:
+	 Content-Type:User-Agent:X-Lms-Return-Path:Subject:Date:Mime-Version:
+	 From:In-Reply-To:Reply-To:Message-Id:References:
+	 Content-Transfer-Encoding;
+	bh=NV8H7vMnU+tiimOuO5f71C2SIErBYloa4sE3LXq63Ck=;
+	b=lfPOEANIpJsrGQLH9oqoW109VDhZC5K/b7/OY9uPDn/4ZZhi0VWsFwzrjrF7JXrhNIYW
+	 BhBwcSkeKo6fnNWSsyhMPlOgaKRCxIrEo2ARrvNEv7Y2WQZYFERHsFYGifzus0xyzAu9a
+	 TgQAj+DtWmYZv7ODIrvG4K+OZiYjJbp56C3e2W2ojUQcKsq003/mspfxO1OtP2vLDXbig
+	 y8ZtdlWs0QGhnM6OaRaC7S5pe6fwAe7Oh7MFUqImfCYHXPZXODRWEo7nQQiTO95Pmv4rw
+	 IyhAcz6TrSydpm3LexO8lkBJg6kEAXJbr/Vs5HhJu786anDcgOUA+/5xzxeEABS/B8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DgRoTCau;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=a+VsqC0J;
+	arc=none smtp.remote-ip=209.127.231.45
+Received: from va-2-45.ptr.blmpb.com (va-2-45.ptr.blmpb.com [209.127.231.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8361606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8361606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9A0606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:33:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B9A0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DgRoTCau
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so851493a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:31:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792823464; x=1793428264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7TeuZv9pVyg5PpxXbUEbxc/gGTNfQLawZcWlzWojNhY=;
-        b=DgRoTCau56UkmUNgN5n7quLRHJIrsKVW0Lzbb1XnPNNZZT93hrO6alpj9Hxdy7zvgB
-         98X0Dik3iN/EqGbknZb9br9Znt631fk84IURtKpaVEQnGMG6D1Xbb49MyzyZ5RgBvYNS
-         Gbhb02TZ4jQUxOrZGsn1plCvRwwF72aRuel1UqQ/KpNKneWmSNFUnWKWVMOvtSMfm+/t
-         s6aTegbNtMLntxNw4GAiHx5uTFyvO4yGIv8plqQx7+SRWiigZxOUXU7fqjHdfD/TKvq9
-         5zOALrhqVKuUgyx9wwm627mlH3pTLnY7TiBvXmT9t1zl0TQrfxm7cb/1JGBCgJWvCdfb
-         0sQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792823464; x=1793428264;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7TeuZv9pVyg5PpxXbUEbxc/gGTNfQLawZcWlzWojNhY=;
-        b=u5Gp+RNqAjqv8VjzGPOgKL+Mi3omu2lOWnI6mYx8k7RrNsYXwlSfsn7bK+PqcdWNP8
-         vYtGKUC8N678tLqqvn3GAZnWFmey6z5a7WI82S5Ud0C2QNbmZMEW75HJMnU5O9t/Dmwg
-         nNkUHPZtE5G98QeVCXqVaiLMg7RCLVopyQpstxH6YdFe5tQ5KK+pu9CFCI/rK/WvqBRt
-         tPBnIr/aS312mTz9daEcNu5bbYfiL6RSwJHnXmNXzTtY0wlaas6ycd99FWpIFYeKheMM
-         vVugGriNYQQlUg3nBUzReKVsZzNUWp+EYH4Nbgs4o1uRNfqB97D8vIuW+dJ5pHy2A7wH
-         I2Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBxlM5nDMmKG1ebuqrzHOgLvsvgXVGp8TcnHnXaplow4mg8ASW0j8Lk+okrWjJxYzV6uaIllUs0YjScV948=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIn35FAIzkP3BqcdWemvOt8LDObrP6Awh/ko0yO8qI+7zPDHTn8
-	8x6GcVmlPOgMYPTJbqWDLNKmKPa3IbHDE5y933EZYdQrD2De4s+zFHVN
-X-Gm-Gg: AYBFou3Eko9dXILCi134nw9ib3YQrtnTj7vZ8eYh+HhkEhVdM2QWk04BIx3kbNLUzZt
-	Hx3Ej5ZMGY9g1yB1WgevvEyqf59J84yMWYZNMYh6wolt6YmzoIRVBBSGVGoZ+p4yooB63DC/0+c
-	GrLOLTmrCfVAQI76Zi+HV0qZdlNUbf+fmEHo7oJC9U/bC9iIGxHhclzBRBDkEExjqSMBz3rK1+E
-	t7L1ZNJyzjaoQohtalD38HEjMEQjCnKQX/juM7ItPaeLNzEkQz3R9lBLJ6qq4ByOs+GCQRkMpMW
-	m63QSwz/q7yBzDdxtjuwn8zQDo89OTh4bWPhk/xLF+nUdu9SJ3BTNUo6FXibytlxbq0CK9CAvdH
-	iMbQWm3ojoZXipjR8z9B/QsRKyGRr90rRrrJy/gKFa99uSHjSgs7IAKpUpsy6WKN3MZb6mj1CbT
-	EcYf/OPJxn5cWOWYcrSROg+bbQKKcaSCRAbASAIKjhTRH0EvZaIFLsBUlDXrIYDzHMP4TM2T4Q9
-	cxTvaml8gyiNhfYL9CxUDDGrPpWbYi94w+TTjFC8CFn4LhjVAQ=
-X-Received: by 2002:a17:90b:4403:b0:3ab:884b:65ab with SMTP id 98e67ed59e1d1-3adeae86b0emr1230023a91.55.1792823463996;
-        Fri, 23 Oct 2026 23:31:03 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebad6306sm1248371a91.2.2026.10.23.23.31.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 23:31:03 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tiwai@suse.de,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3 3/3] ALSA: opl3: Shut down the timer after draining sequencer ports
-Date: Sat, 24 Oct 2026 14:30:45 +0800
-Message-Id: <pm-pmb-4552c4e605507d8d9b16-v8-8b61497d9bd754defcda-3@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <pm-pmb-4552c4e605507d8d9b16-v8-8b61497d9bd754defcda-0@gmail.com>
-References: <pm-pmb-4552c4e605507d8d9b16-v8-8b61497d9bd754defcda-0@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=a+VsqC0J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1792823581;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=NV8H7vMnU+tiimOuO5f71C2SIErBYloa4sE3LXq63Ck=;
+ b=a+VsqC0Jt86t/2cdz1HhoFdDj4Y20xFhQCz6iyOmoVzvKwZZGzoMnKI3/ZWIvAElwVumB6
+ UcLAZKBQWCRMJGrAuc9lvvBley4Ir7FjXAI5CDnf2Q9e66J3c+Dz80NMEG6r3daAPUzkzK
+ qM5LrBz8Jp07PUsLsXqHNYl33hb1TszCUWbFOvo3wDzwkBCkE/ioNM6/MCVbYOFsjCGmDZ
+ tLdTAVh5xQNGPWauKX3XKMzcjsfKEw/WmRj8yewrdS9M1yU7PJzqppglTH1JpiY1sxqgM0
+ Wns19piUjsCEvXlTE9j4u9UUmG3kln/7jRPvdI1m/u+JsDQtRYp2v3tSwLVbNQ==
+To: "Doug V Johnson" <me@dougvj.me>, <linux-raid@vger.kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: <song@kernel.org>, <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<chencheng@fnnas.com>, <linux-kernel@vger.kernel.org>
+Received: from [192.168.1.104] ([39.182.0.21]) by smtp.larksuite.com with ESMTPS; Sat, 24 Oct 2026 06:32:59 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26adc511c+480ceb+vger.kernel.org+yukuai@fygo.io>
+Subject: Re: [PATCH v4 1/3] md/raid5: freeze and interrupt reshape when handling failed reshape
+Date: Sat, 24 Oct 2026 14:32:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,57 +63,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: "yu kuai" <yukuai@fygo.io>
+In-Reply-To: <010101a142f57e37-cd14b78d-54cd-447b-9888-87f166a937ab-000000@us-west-2.amazonses.com>
+Reply-To: yukuai@fygo.io
+Message-Id: <67302483-c3c3-47e1-9576-4d0a8e44c170@fygo.io>
+References: <20261016042537.277516-1-me@dougvj.me> <010101a142f57e37-cd14b78d-54cd-447b-9888-87f166a937ab-000000@us-west-2.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
 
-The delayed-note timer is independent of the sequencer ports' use-locks
-and runs code in snd-opl3-synth. Deleting the client drains the event
-callbacks but does not cancel this timer. A direct fixed-duration NOTEON
-without a subscription can arm it without any unuse callback to stop it.
+Hi,
 
-A shutdown in only the native port's private_free callback is too early
-to finish shared voice cleanup when the OSS port is enabled:
+=E5=9C=A8 2026/10/16 12:25, Doug V Johnson =E5=86=99=E9=81=93:
+> Set the reshape freeze flag to prevent automatic reshape resumption
+> and interrupt the current reshape with md_sync_error() so that a
+> reshape always stops no matter how the failed reshape is triggered.
+>
+> Previously, if there were no faulty or out of sync devices but there
+> was an unrecoverable read, the reshape continued and was not cancelled
+> after handle_failed_reshape(). This caused some data corruption as
+> block writes were cancelled but the reshape nonetheless continued.
+>
+> Prior to Chen's fix, the kernel would deadlock with a failed stripe
+> read.  That case also caused some data corruption, so Chen's patch
+> did not introduce corruption in this case.
+>
+> An example test case showing how this happened before this fix is
+> demonstrated by the following:
+>
+> Simplified example (schematic logical sector numbers):
+>
+>    1. Before reshape, destination D contains data for logical 20-27.
+>       The new geometry will use D for logical 100-107.
+>
+>    2. Inject bad-block metadata on enough members that the old source
+>       stripe cannot be reconstructed. Logical sector 100 now returns
+>       a read error; sectors 101-107 are still readable.
+>
+>    3. Reshape tries to read the source block for logical 100-107.
+>       The bad-block records prevent a successful read/reconstruction.
+>       Failure cleanup cancels the destination write:
+>
+>         Source: logical 100-107 --X--> destination D
+>                                       still contains data for 20-27
+>
+>    4. Without interruption, reshape continues and completes.
+>       The new mapping now sends reads of logical 100-107 to D.
+>
+>    5. Reading logical 100-107 succeeds, but returns data for 20-27.
+>       Previously readable sectors 101-107 now return wrong data.
+>
+> Code that injects bad blocks to demonstrate this problem before and
+> after Chen's fix as well as after this patch can be found here:
+>
+> Link: https://github.com/dougvj/md-raid-reshape-badblock-corruption-test
+>
+> Fixes: 788e4139463f ("md/raid5: fix reshape deadlock while failed devices=
+ more than max degraded")
+> Link: https://patch.msgid.link/20260624075824.2601110-1-chencheng@fnnas.c=
+om
+> Assisted-by: LLM
+> Signed-off-by: Doug V Johnson <me@dougvj.me>
+> ---
+>   drivers/md/raid5.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+> index b91545ce090d..86ea65559576 100644
+> --- a/drivers/md/raid5.c
+> +++ b/drivers/md/raid5.c
+> @@ -3773,6 +3773,10 @@ static void handle_failed_reshape(struct r5conf *c=
+onf, struct stripe_head *sh,
+>   	bool was_expanding =3D test_and_clear_bit(STRIPE_EXPANDING, &sh->state=
+);
+>   	bool was_ready =3D test_and_clear_bit(STRIPE_EXPAND_READY, &sh->state)=
+;
+>  =20
+> +	/* Freeze reshaping to prevent data loss */
+> +	set_bit(MD_RECOVERY_FROZEN, &conf->mddev->recovery);
+> +	md_sync_error(conf->mddev);
 
-  Sequencer client deletion          In-flight OSS NOTEON
-  -------------------------          -------------------
-  drain native port
-    clear native voice aliases
-                                     snd_opl3_oss_event_input()
-                                       refill shared voice array
-  drain OSS port
-    clear voice aliases again
-    free OSS channel set
-  client deletion returns
+On the one hand, MD_RECOVERY_FROZEN can be cleared in many ways, like reass=
+emble the array.
+On the other hand, reshape_offset is still set after md_sync_error(), the a=
+rray will still be
+considered as in the middle of reshape, we can't just leave the array like =
+this. For example,
+read/write to the reshape window will be blocked forever, check LOC_INSIDE_=
+RESHAPE for details.
 
-The per-port voice cleanup prevents the timer from dereferencing a freed
-channel during that sequence, but a queued or running timer can still
-outlive client deletion and the sequencer driver itself.
+Unfortunately, I don't have a clean solution for this situation for now. It=
+'s true we can't
+continue to reshape as data can be lost, and it seems complicated to revert=
+ the reshape.
 
-Shut the timer down synchronously after snd_seq_delete_kernel_client()
-has drained both ports. No event can then start it again, and shutdown
-waits for a callback already running and prevents callback self-rearming.
-Do this outside voice_lock and sys_timer_lock, which the callback takes.
-The probe initializes timer state before publishing ports on rebind.
+> +
+>   	if (was_expanding || was_ready) {
+>   		atomic_dec(&conf->reshape_stripes);
+>   		wake_up(&conf->wait_for_reshape);
 
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- sound/drivers/opl3/opl3_seq.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/drivers/opl3/opl3_seq.c b/sound/drivers/opl3/opl3_seq.c
-index e03c88377bb6..1004a7df1b8c 100644
---- a/sound/drivers/opl3/opl3_seq.c
-+++ b/sound/drivers/opl3/opl3_seq.c
-@@ -259,6 +259,8 @@ static void snd_opl3_seq_remove(struct snd_seq_device *dev)
- 		snd_seq_delete_kernel_client(opl3->seq_client);
- 		opl3->seq_client = -1;
- 	}
-+	/* Stop the shared timer after all event callbacks have been drained. */
-+	timer_shutdown_sync(&opl3->tlist);
- }
- 
- static struct snd_seq_driver opl3_seq_driver = {
--- 
-2.43.0
-
+--=20
+Thanks,
+Kuai
