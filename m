@@ -1,113 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792834108;
-	b=TuoSIbGeM/5VGzQJaqvDYTSVZCzddtfc+3WELgwCbjY9VQYLY7aRh+2ng2rkBf+SmgEr
-	 rYkYo1S+Eup+NbPQw0AeasqjJbh93cGoMaRHHZLQ9RTJdZdZt4kkBNnvrcOC6X8dUvPc6
-	 jmW7wcwTGjxLahxBOfyccYu/oq8iE+JTlYfZ4aqCREUj6s9ztseMmHRo7WAREOX2tJPW5
-	 p3AW1NyhWl23l0HSPjuc5AdopKHydSgYNbbg5p6ipvkBUQjv2VlPUZ01lCwEgnTHl5rkb
-	 mlTY7oEqJsZJTm37Xmja0uL7hkOXoY9dEwA/IG0qC9lUguD6FN6PJLKx8he6cWdf3eA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834108;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BlUUlyu0tLkS0StKgW3SUYx8agTboJGWzFSZtZkcXsU=;
-	b=MPOMF5/A0zTuWAte1xc4NA4HcEVnI/r0awSJUtb0oh7s3b67VLJaD6EfG1JcQ5CggZ00
-	 tjmXAt8qznSNU7aj2BrMYpP83BD/PuEwE05Hb5wbXIVDWJ7jws/YUlD0gCn2JcHtTFPR6
-	 lIv18/yQGamXbQqm/PAVlspQ9pRkyHHbUD230PgKzU6bE+BkckHKmEl4O/OprD/SfO374
-	 vWdOkGzJ3XrMaIfHwbTh0Be5fJfX20NYWIueE/u8DTMgf9iql+Tw+EbK6wftrurooimt0
-	 DErXQ8zi8vU6ugUvZcVxX8ipVH5LxIqM9qJMDoKoJ0MH6ZETaZAISC4pPj9yaBvpEhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b9nh1GtH;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792834094;
+	b=EJtF/6u7eRjnvBuGSzQH+gMkN1iI1mTrmsLVmE3EJJor1zPKgiSeHNO7W25R1fnuji0v
+	 jjtlyulm9RzWuFuaWqx2f9vzTZPQ3p/OQylPE5lZNjGhp05fQJGdyj1SE8eJAIO5qlP+t
+	 H5u6IC/UL3vukmx7+4j93tYoGWCkpyQmOLVrfd853N6Ot9aj1bnHCEdeeFVyy6NnGDFfd
+	 w0+ZLuC8wtOFqajf49vnCiFu7XlUqAEOsnr7K4I7KGoAo3eXGCSIDXzouCuwiehPReJlu
+	 aP3zfuJdesAVXTF/7imwmQanXkbwPIHawJn2WS3tp8bXoLj93mqtCJOb0iNmeilBEqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834094;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Dd1vbHCbHw9s/WeyYJ4AEMVcOoEpOXxcbL8u77wu9UE=;
+	b=FKi10GoOzNM7SvkrIdca81GohaLW/RTqh/tTNr/uRsSv6PUnSatnHsEmQGWTGGvDpY0r
+	 QCVq983sZB67uVpnCVJhuPxL0E1AMGOr1HqIt59+7oHyD0iSdnTMP+9DgHQ0E5cJStVck
+	 RLi1V5ZifDumATFGh3qB0FVxHctvdYJ07sO4OtablKSF2uxubEAIa8K73VzzLPVSd1iR8
+	 3MGgngf+e5jIgGugR0DEw4c/H3LI1qdW3lhnQYZTDhIIxKYKEN/3siWRUoBapcvyNFNV2
+	 S683w/BEGG0DB6ZyuzU+eBU2nkl4SX30LHkJbOy5RybXluGuftkiHntcbiPj83x/Z6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRBkIjOy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCFC606AC32;
+	Sat, 24 Oct 2026 09:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRBkIjOy
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792834094;
+	b=KdVgN5ei3TQLX38SZjX/eURPIptUYKHVYVv9xAGjnZJVc4O2v/WWaMyFAIfejYPSZjap
+	 DyOON4O2vgnjJ+YXgiY4/U3FQr1FwL56/e5YZu3QFz4xzsKB9GK/ixVY6dDQXoaITpa8x
+	 yL/+FwD3CI22tNBoSgCd7OF/mFijUIgFq18Q9mPT7FHWzW7HvJtEjQjlnf/rifeX/m79a
+	 kpEVxb4HR1gGpi6/EOgzLYY4pPr0lN0zDpC18n64WVRiUP3Dt3LAriSRjyTv58pR8BpC+
+	 71kglgaU4XzB3CmiFGi38HTsmgKPMMW6S7RGQbubypRjTmqv8ESrzmUZ4T7SSqf5TzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792834094;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Dd1vbHCbHw9s/WeyYJ4AEMVcOoEpOXxcbL8u77wu9UE=;
+	b=T4U01IXgWbm0b2N7CSpemJzpMwiHMYT0u206UarUCjiej0OI9dhJyjGC14/tdfq3T3/G
+	 cDIv7O8xcq+zPVWx/dPEkpdPEbHnSSAAzibxsQCw5w02B/AAZYeM9c2QNVxQNPglfd5/b
+	 vPEXLKXcZ5yLgVhAStQXXiVAO+tj9yGeCIxZQWLqtloWR/kVMcRvVE2d/EsoCU2wBuE7y
+	 1rv0evwtJLl9xl8ncEv6gRzGh9Pya2So69/5b5x+wVw2r3Uyat4oK0HcUVkAgWTWvsOEk
+	 fvT9/graCbImWrIGft4C0A5mA7+2A+6QAakhFkUkr+uDVW0sCUngfxCCejpwNJ8EGWQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D9B606AC08
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 09:28:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D9B606AC08
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b9nh1GtH
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35b2c599f43so135791eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 02:28:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792834107; x=1793438907; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BlUUlyu0tLkS0StKgW3SUYx8agTboJGWzFSZtZkcXsU=;
-        b=b9nh1GtH2+skTNF5DZP9gibDmo1B8XDJqOyw8/vQ6Hd74v9sFQ35s9Tesqt2FOb1pP
-         Qo+VkuBPh1UAfxNNdXvzZGy5dqQMvfL8wWV0KkiOjlsFAuZ0jB6LU7PN3kr0OA5okfZ1
-         dCa8a0oNrk/TJERvUoac8eX8GqwJLdaZZWx8w6Oy6xH8AeLiCbXskMox7qS6zJHcGA/U
-         Lba7qXFG+eJRjcwzpwWBJ3wKgSpWdlLk6fRDtV/K8AOowXnUzZknZB8RmFwwORREa4Eu
-         pmaYVLGyAojs5xhQUTZoEUiULZRwwY9pWKlF4nr5LKVBGz3/bIONFndeO7oDFWw+ILxa
-         2Ycg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792834107; x=1793438907;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BlUUlyu0tLkS0StKgW3SUYx8agTboJGWzFSZtZkcXsU=;
-        b=pxGICdPRSJcTN90DQjpPu9/Qql4Cmwm4JUNfaz8LSMxixZdky5VG1rk3zq1b5SABhK
-         R13JgEPO8k2pG2JuhartRt1Bi/OeRrJ9P559WO6qAQWU0Cz33wy7nHnYvl+gE0DJ9vxF
-         +yr/t2Mqf3p1dOd/m27BZxtAVyiqZzRP2vo18+y4FugLwMLpqm2sCwZJbPX8HQ80XPPk
-         7OmufDZZHaXOtnbVZFP3dS+L+u2Hr7jt9kKZ6fNogtu30PCWYyRmiWnyToJJ8aJ14OIe
-         m81clWNHbBIrzWBwnou7Ld4FkzQBE9qzEgF2MxEpprcK0XPAtrRCPRQwLmNVs40vlsAG
-         V/yw==
-X-Forwarded-Encrypted: i=1; AKwUvByU634GGhWAc3E89EnUt5EwUxgUI7itq2MDRMOvlFtpn1Xe7rsv9vR8oP7AIuHo3gufewfRolLICv/+R94=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKc5GX/Mwh9Wu1m7JpuShJqrCbwGZZD5TxqgTChaiTcgryPWyLl
-	jlBjs9mtJgC1k4RNEEh+WavA3A95ODI2x3lkq/6moJWrVgmfW19+K2o5
-X-Gm-Gg: AYBFou2elf1W+en+RykApRAO2uResXcPTb/hw+IyB7FvJRwUNXVzDi2qRJTIqv6usCj
-	sHzpIolFrTSSueNzKbhcW7RYOK18xPI0TNqrvObjMZnT8/VrpxngjFy/ECzf5HG+6rzRdY2rxif
-	R8e/vTiKwL5aTwLKOu8/V0ryqmRIuW/TPOQDMM4M+yIgOh94eomlGniost4EgxFTyl+fZscw1ey
-	jSLcQzGaMJQwYIe8Wfj7eTotde9+KA1nfh5J1T1qOSfKF1bHieldIrZfbM6S1GLTj6aHoowcOnC
-	k5/5BKptLrnpMD/O1Nb/D0vE7uYYdfM30f2u6G6vEJs2T3D3L75pb+d5tWpE/P+9wwlME/ufsfo
-	2fQVjtCWk6PbiOa5JNW9X95HPoIZUlEUoOrM/nOwGRZjTnBM7aLDgCFn0AVMU6+/diZWkKoixRk
-	urzvHDVQ2C8kX/Cmidslwe012LpIDA1IY9pylGFnNDNivY0Mb1eIWUVOQnIQMaNSo5s+t3dYrxh
-	pEQo75FoqedJdyuBUz9niD/jLSMon6Q4Cyh6afqmLVs7/ISju0z0bdtV69Bv3qfAM+mNpXnX56A
-	/sZBq3MXUA43T6I7qvqpGx96als8gatcJiIToExBmphnPXzbIvSMJFywYsso/1W6JTqw0NcqKA=
-	=
-X-Received: by 2002:a05:7300:d086:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-369e842df55mr2190770eec.9.1792834107430;
-        Sat, 24 Oct 2026 02:28:27 -0700 (PDT)
-Received: from nixos ([2405:201:c40d:9039:e1f8:b9bb:b037:3cab])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm5236604eec.18.2026.10.24.02.28.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:28:26 -0700 (PDT)
-From: Ayushman Rout <ayushmanrout27@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	Ayushman Rout <ayushmanrout27@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf 3/3] selftests/bpf: Test overlapping dynptr copies on xdp frags
-Date: Sat, 24 Oct 2026 14:56:58 +0530
-Message-ID: <20261024092659.76422-4-ayushmanrout27@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261024092659.76422-1-ayushmanrout27@gmail.com>
-References: <20261024092659.76422-1-ayushmanrout27@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B7971F01828;
+	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792834094;
+	bh=Dd1vbHCbHw9s/WeyYJ4AEMVcOoEpOXxcbL8u77wu9UE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=WRBkIjOy/gZoZVfkLTdnsaanVKwx0Ypkb6cHmq8Kf/kadpaJ3t3Z6B3HuVWw/iylh
+	 cNuLlMqKmxmVaEyyil6r91QV54uGgQ9JWv0y8B8i54Q3lccSGbMR6Yin4N6eXomsZy
+	 yqMvhuCNsIWRWz6EhfnBvzSsbX0pNSQ/wxl+jMW8Y5+pNJ1LQY9wabNcRQu8kF7vK+
+	 rlysIGoDk511l5j0V2ZV17VIWkMC4nR8kW6MB7uJqEZtJe1CmrYJ9kAjjsTKzVygIh
+	 GMyej+UL7UuraiL6MEMwKBgAkRiJoVjjTIjfzCVeYaqN4UIJqiwtZRlj6t+F16P7OH
+	 Jfl/6IsnrgWEA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8D9EA4477B;
+	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Subject: [PATCH v6 0/7] riscv: Add device tree support for UltraRISC DP1000
+Date: Sat, 24 Oct 2026 17:27:50 +0800
+Message-Id: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,189 +83,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABh63GoC/23Q3W7bMAwF4FcJfF0PEvVnBcOw9xh2QVJU46JpN
+ svxNhR598lq0aZuLgWJ3xHPc1dkGqV0+91zN8kylvH0VA/+btfxAZ/upR9TPXegwCsH0J8f5wm
+ nsXCf5tLHhGQQjPbkuzrza5I8/m3ej58v53KmB+F5RV5fTPL7XIPml2fdUUrBFrTffW05UYU+/
+ TkiX6Ut0Ks+oomUh0RGm+9vd1/4dPzWbJz50JzswCfjRaPFRN5FHDTkZLV1iRHER9LROvNxKiQ
+ nGtTgrK8ZaOyqRGUDeyDjQh6CzVHLOkVYpK/Bx3Gug8oaq7LmpBJLHiAKeciO7IASHQKLDpRyt
+ 3ZyGMt8mv61yhfdKmhbD2A37S667uw1UkAhieI+7ty0Bd6FtbeNsLbmhCzHYEPgm4J5E7TSZiu
+ YVcjZCBFgVOmWYK+FuBVsFUwM6w841fJvCe5KgE9/cFXAHGKi5JmFt8LlcvkPSf55tsoCAAA=
+X-Change-ID: 20260522-ultrarisc-dts-9dab3a2316b6
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=7609;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=Xf9HfLGGyX1dNdt7Zp8pflgTGhFNfF9oq5rvo2Q3qGs=;
+ b=QQqUIjGIxmsH3EhEUnCJhYesw819qKbECeJOlTPwTfu9wMG0GZVV/WavaThhZm/o/qd/2UdBN
+ eZpboXrfoyYB0Xayj+ZFE8lkcqGqQW2kNfqOlw3ZXYTqU7EuQIqSDvs
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-Add four dynptr tests. Three use an xdp packet with frags, and in each
-the range goes from the linear part into frag0:
+Add Devicetree support for the UltraRISC DP1000 RISC-V SoC and two
+DP1000-based motherboards: Shenzhen Rongda M0 and Milk-V Titan.
 
-- test_dynptr_copy_xdp_overlap: bpf_dynptr_copy() of 1200 bytes with
-  the destination 100 bytes above the source.
-- test_dynptr_read_xdp_overlap: bpf_dynptr_read() into a slice of the
-  same packet.
-- test_dynptr_write_xdp_overlap: bpf_dynptr_write() from a slice of the
-  same packet.
+DP1000 integrates eight UltraRISC CP100 CPU cores.  The SoC description
+includes the CPU and cache topology, CLINT, PLIC, clock controller,
+pinctrl, GPIO, four UARTs, two SPI controllers, four I2C controllers,
+three PCIe root complexes, GMAC, and the DMA controller.
 
-The fourth, test_dynptr_skb_load_overlap, reads a range that spans the
-head and the frags of an skb. It passes with and without the fixes and
-checks that skbs are not affected.
+The Shenzhen Rongda M0 and Milk-V Titan device trees add their
+board-specific pin multiplexing, RTC devices, and Ethernet PHY
+configuration.  Both boards enable the three PCIe root complexes and
+the GMAC described as disabled by default in the SoC DTS.  The Titan
+description also provides its GPIO wakeup keys.
 
-The new tests set err when the data is wrong. The existing
-test_dynptr_copy_xdp does not, so it can pass on corrupted data.
+The binding patches add the vendor, CPU, board, and peripheral compatible
+strings consumed by the new device trees.  The SPI, I2C, and AXI DMA nodes
+use their respective generic DesignWare compatible strings as fallbacks.
 
-Without the fixes to bpf_xdp_copy_buf() and bpf_dynptr_copy(), the three
-xdp tests fail. With them, all four tests pass.
+An earlier version of the DP1000 SoC and board Devicetree support was
+posted as part of a combined Devicetree and pinctrl series. The pinctrl
+binding and driver were subsequently split out and merged separately.
+This series carries the updated Devicetree portion.
 
-Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
-Assisted-by: LLM
+Link: https://lore.kernel.org/all/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com/
+
+The following prerequisites have been applied to their respective
+subsystem trees but are not yet included in the base:
+
+- net: stmmac: Add common internal RGMII delay handling and DP1000 support
+  https://lore.kernel.org/netdev/20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com/
+
+- dt-bindings: i2c: dw: Add compatible for UltraRISC DP1000 SoC
+  https://patch.msgid.link/20260907-ultrarisc-dts-v2-6-5eb4c97477c5@ultrarisc.com
+
+- dt-bindings: dma: snps,dw-axi-dmac: Add UltraRISC DP1000 compatible
+  https://patch.msgid.link/20260907-ultrarisc-dts-v2-7-5eb4c97477c5@ultrarisc.com
+
+Testing:
+- Built dp1000-shenrongda-m0.dtb and dp1000-milkv-titan.dtb with
+  ARCH=riscv and W=1.
+- Ran dt_binding_check for the modified and prerequisite bindings.
+- Validated both DTBs against the relevant Devicetree schemas with
+  CHECK_DTBS=y and all prerequisite changes applied.
+- Boot-tested both DTBs on Shenzhen Rongda M0 and Milk-V Titan. Verified
+  the CPU topology and CBO selftests, UART, SPI, I2C/RTC, system memory,
+  and all three PCIe root complexes. The expected PCIe endpoints were
+  enumerated on both boards.
+- With the prerequisite GMAC series applied, ultrarisc-dwmac established
+  1000 Mb/s full-duplex links with the YT8531S PHY on M0 and the RTL8211F
+  PHY on Titan.
+
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
 ---
- .../testing/selftests/bpf/prog_tests/dynptr.c |   4 +
- .../selftests/bpf/progs/dynptr_success.c      | 128 ++++++++++++++++++
- 2 files changed, 132 insertions(+)
+Changes in v6:
+- Rename the PLIC node to interrupt-controller@9000000 and the CLINT
+  node to timer@8000000 to follow generic node naming conventions.
+- Rename the PHY nodes to ethernet-phy@0 on both boards to match the
+  Ethernet PHY binding.
+- Link to v5: https://patch.msgid.link/20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/dynptr.c b/tools/testing/selftests/bpf/prog_tests/dynptr.c
-index 4396560365e8..08382ed076a2 100644
---- a/tools/testing/selftests/bpf/prog_tests/dynptr.c
-+++ b/tools/testing/selftests/bpf/prog_tests/dynptr.c
-@@ -22,6 +22,10 @@ static struct {
- 	{"test_dynptr_data", SETUP_SYSCALL_SLEEP},
- 	{"test_dynptr_copy", SETUP_SYSCALL_SLEEP},
- 	{"test_dynptr_copy_xdp", SETUP_XDP_PROG},
-+	{"test_dynptr_copy_xdp_overlap", SETUP_XDP_PROG},
-+	{"test_dynptr_read_xdp_overlap", SETUP_XDP_PROG},
-+	{"test_dynptr_write_xdp_overlap", SETUP_XDP_PROG},
-+	{"test_dynptr_skb_load_overlap", SETUP_SKB_PROG_NONLINEAR},
- 	{"test_dynptr_memset_zero", SETUP_SYSCALL_SLEEP},
- 	{"test_dynptr_memset_notzero", SETUP_SYSCALL_SLEEP},
- 	{"test_dynptr_memset_zero_offset", SETUP_SYSCALL_SLEEP},
-diff --git a/tools/testing/selftests/bpf/progs/dynptr_success.c b/tools/testing/selftests/bpf/progs/dynptr_success.c
-index b668ebd61fc7..b6c3abb66e4b 100644
---- a/tools/testing/selftests/bpf/progs/dynptr_success.c
-+++ b/tools/testing/selftests/bpf/progs/dynptr_success.c
-@@ -759,6 +759,134 @@ int test_dynptr_copy_xdp(struct xdp_md *xdp)
- 	return XDP_DROP;
- }
- 
-+static __always_inline int fill_xdp(struct bpf_dynptr *ptr, __u32 start, __u32 n)
-+{
-+	__u8 b;
-+	int i;
-+
-+	bpf_for(i, 0, n) {
-+		b = (start + i) % 251;
-+		if (bpf_dynptr_write(ptr, start + i, &b, 1, 0))
-+			return 1;
-+	}
-+	return 0;
-+}
-+
-+static __always_inline int check_xdp(struct bpf_dynptr *ptr, __u32 at, __u32 n, __u32 from)
-+{
-+	__u8 b;
-+	int i;
-+
-+	bpf_for(i, 0, n) {
-+		if (bpf_dynptr_read(&b, 1, ptr, at + i, 0))
-+			return 1;
-+		if (b != (__u8)((from + i) % 251))
-+			return 1;
-+	}
-+	return 0;
-+}
-+
-+SEC("?xdp")
-+int test_dynptr_copy_xdp_overlap(struct xdp_md *xdp)
-+{
-+	void *data_end = (void *)(long)xdp->data_end;
-+	void *data = (void *)(long)xdp->data;
-+	__u32 off = data_end - data - 1000;
-+	struct bpf_dynptr ptr;
-+
-+	bpf_dynptr_from_xdp(xdp, 0, &ptr);
-+	if (fill_xdp(&ptr, off, 1300)) {
-+		err = 1;
-+		return XDP_DROP;
-+	}
-+	err = bpf_dynptr_copy(&ptr, off + 100, &ptr, off, 1200);
-+	if (err)
-+		return XDP_DROP;
-+	if (check_xdp(&ptr, off + 100, 1200, off))
-+		err = 2;
-+	return XDP_DROP;
-+}
-+
-+SEC("?xdp")
-+int test_dynptr_read_xdp_overlap(struct xdp_md *xdp)
-+{
-+	void *data_end = (void *)(long)xdp->data_end;
-+	void *data = (void *)(long)xdp->data;
-+	__u32 lin = data_end - data;
-+	struct bpf_dynptr ptr;
-+	char *dst;
-+
-+	bpf_dynptr_from_xdp(xdp, 0, &ptr);
-+	if (fill_xdp(&ptr, lin - 10, 84)) {
-+		err = 1;
-+		return XDP_DROP;
-+	}
-+	dst = bpf_dynptr_slice_rdwr(&ptr, lin + 10, NULL, 64);
-+	if (!dst) {
-+		err = 2;
-+		return XDP_DROP;
-+	}
-+	err = bpf_dynptr_read(dst, 64, &ptr, lin - 10, 0);
-+	if (err)
-+		return XDP_DROP;
-+	if (check_xdp(&ptr, lin + 10, 64, lin - 10))
-+		err = 3;
-+	return XDP_DROP;
-+}
-+
-+SEC("?xdp")
-+int test_dynptr_write_xdp_overlap(struct xdp_md *xdp)
-+{
-+	void *data_end = (void *)(long)xdp->data_end;
-+	void *data = (void *)(long)xdp->data;
-+	__u32 lin = data_end - data;
-+	struct bpf_dynptr ptr;
-+	char *src;
-+
-+	bpf_dynptr_from_xdp(xdp, 0, &ptr);
-+	if (fill_xdp(&ptr, lin - 64, 118)) {
-+		err = 1;
-+		return XDP_DROP;
-+	}
-+	src = bpf_dynptr_slice_rdwr(&ptr, lin - 64, NULL, 64);
-+	if (!src) {
-+		err = 2;
-+		return XDP_DROP;
-+	}
-+	err = bpf_dynptr_write(&ptr, lin - 10, src, 64, 0);
-+	if (err)
-+		return XDP_DROP;
-+	if (check_xdp(&ptr, lin - 10, 64, lin - 64))
-+		err = 3;
-+	return XDP_DROP;
-+}
-+
-+SEC("?tc")
-+int test_dynptr_skb_load_overlap(struct __sk_buff *skb)
-+{
-+	struct bpf_dynptr ptr;
-+	char ref[24];
-+	char *dst;
-+
-+	bpf_dynptr_from_skb(skb, 0, &ptr);
-+	if (bpf_dynptr_read(ref, 24, &ptr, 20, 0)) {
-+		err = 1;
-+		return 0;
-+	}
-+	dst = bpf_dynptr_slice_rdwr(&ptr, 10, NULL, 24);
-+	if (!dst) {
-+		err = 2;
-+		return 0;
-+	}
-+	if (bpf_dynptr_read(dst, 24, &ptr, 20, 0)) {
-+		err = 3;
-+		return 0;
-+	}
-+	if (bpf_memcmp(dst, ref, 24))
-+		err = 4;
-+	return 0;
-+}
-+
- char memset_zero_data[] = "data to be zeroed";
- 
- SEC("?tp/syscalls/sys_enter_nanosleep")
--- 
-2.54.0
+Changes in v5:
+- Drop the deprecated label properties from the Milk-V Titan PHY LED
+  nodes so that LED names are composed from color and function
+- Replace the deprecated snps,nr-gpios property with ngpios for all four
+  DP1000 GPIO ports, preserving the existing GPIO counts.
+- Link to v4: https://patch.msgid.link/20261019-ultrarisc-dts-v4-0-3979747cda2e@ultrarisc.com
+
+Changes in v4:
+- Move L2 cache nodes out of the CPU nodes and reference them using
+  next-level-cache, following the standard Devicetree cache topology.
+- Link to v3: https://patch.msgid.link/20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com
+
+Changes in v3:
+- Drop the DP1000 SPI binding patch, which has been merged, and the I2C
+  and DMA binding patches, which have been applied.
+- Correct the reg property address ranges and sizes for DMA and I2C nodes in the DP1000 base device tree.
+- Link to v2: https://patch.msgid.link/20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com
+
+Changes in v2:
+- Remove the dependency on the DP1000 clock series, which has since
+  been merged.
+- Drop the generic DWMAC compatible patch; DP1000 GMAC support is handled
+  by a separate prerequisite series.
+- Drop the RISC-V CPU binding yamllint fix, which has been applied.
+- Add DP1000-specific resource constraints and hardware descriptions to
+  the SPI, I2C and DMA bindings.
+- Correct the native chip-select count of SPI1 from three to four.
+- Describe all eight per-channel DMA interrupts.
+- Update the DP1000 GMAC nodes for the separate GMAC support series:
+  remove the generic DWMAC fallback, use "rgmii-id" for both boards, and
+  clarify the fixed MAC-side RGMII delays.
+- Link to v1: https://patch.msgid.link/20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com
+
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Jia Wang <wangjia@ultrarisc.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Samuel Holland <samuel.holland@sifive.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: Palmer Dabbelt <palmer@sifive.com>
+Cc: Conor Dooley <conor@kernel.org>
+Cc: linux-riscv@lists.infradead.org
+
+---
+Jia Wang (7):
+      dt-bindings: vendor-prefixes: Add shenrongda
+      dt-bindings: riscv: cpus: Add UltraRISC CP100 compatible
+      dt-bindings: riscv: Add UltraRISC DP1000 board compatibles
+      dt-bindings: timer: Add UltraRISC DP1000 CLINT
+      riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
+      riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board device tree
+      riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+
+ Documentation/devicetree/bindings/riscv/cpus.yaml  |   1 +
+ .../devicetree/bindings/riscv/ultrarisc.yaml       |  27 +
+ .../devicetree/bindings/timer/sifive,clint.yaml    |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |   8 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/ultrarisc/Makefile             |   3 +
+ .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 108 +++
+ .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 201 +++++
+ arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h     |  63 ++
+ .../ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi    |  79 ++
+ .../boot/dts/ultrarisc/dp1000-shenrongda-m0.dts    | 113 +++
+ arch/riscv/boot/dts/ultrarisc/dp1000.dtsi          | 865 +++++++++++++++++++++
+ 13 files changed, 1472 insertions(+)
+---
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+change-id: 20260522-ultrarisc-dts-9dab3a2316b6
+prerequisite-message-id: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
+prerequisite-patch-id: 92e6cf1352d54e283d7721dc1542b580b8a41be1
+prerequisite-patch-id: 875c2058e9d8a983d785d7447374758f994dc847
+prerequisite-patch-id: 060a9b129c32c623a52ab1ba66f7a357e54575ff
+prerequisite-patch-id: 9aafbac6d2531a378b2057bf57787c814523f9d3
+prerequisite-patch-id: d75120a112276bd966d37441bd4d631e1539d0e8
+prerequisite-patch-id: f526d36e1a4adb659a812fd4145dca2e69b19453
+prerequisite-patch-id: 7d5e12085468dba34526d9047c62b357f874f91e
+
+Best regards,
+--  
+Xincheng Ji <jixincheng@ultrarisc.com>
+
 
