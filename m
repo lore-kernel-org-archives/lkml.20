@@ -1,70 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792821351;
-	b=EoDNBz3sCq/1C5kQ4BE7IkZ5+tXihN4ZXUgeYtoDK5fdwnkbOTrCTFg3p+QMpaTUE5RT
-	 6k3XFQo91IvHVi68m6lkViU1NwLVZ3X3Jere2B0aABo2Ws6RxSbq7GrgPiJNRa3im93r4
-	 +FUnr0ET0vpBHV7aPtTQbZEMCt6QINk0OwaKwkAaLdceGKk+822B0WP5LVjYGTE2yzdZo
-	 3D5oneUrGwm2T+olnhrn1pBxBpGrois2huD+Aj0/zgfWNyiOqC3nM9AOzwKpteOWyRWlF
-	 uRSuvy/n2cBDfFTMsmj9cVp4fd/bpJrxEdQLoRYVrNADoP9gosGjMCQ8O0p6qZJg19A==
+	t=1792821823;
+	b=ES5MYUfC+OkjmwlK1fWCTVNfRo9eiLoQxyGq2kD4eR8xCpygACy1IA+gaZHvpm5SjLgi
+	 /OSgSSgjc8xGzAU89eT4r50ADtJm3Yn1+EwtmqGj1Pe7gcC7cccedShcWc77bH6JWwWMl
+	 nrkTrL5SrYbvfn56iruBTz9lS4G2Btbv8IBU7tljnIlPnaDBS4OFYnaMgx86dcyKZSQ+v
+	 OBW+yg+lMhKRHj9bmcWrvx9R/k29PPvGI2lLoO5LmP66T0fD3inx5UHvIjoOZ7dM5x+2E
+	 9tDSry9LfB2wQQGKwSevuttM/i1MOOY8uMdePNKKPk0UZ/RifiyyQSNK4eRyodHSU0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792821351;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=P3RK9WXMHG0tuwk3Uog+befO1lx+KP55QEdWwZwY8Hk=;
-	b=BfyDbL0znrBuO34Rz8z9VKWaqsoFC3AOXztxhHqITlVa19Ui2Tlv9H/M2rx0OdUigotc
-	 u/qWRHgACo86EUIwKpU3Lbf9sQYPs4KsD4MAzMLrC6NDZsZgt6zwx5ohWvE6awB9taJ68
-	 GwhwZtBgJDgfzhCCeJFyrBe9TZhA+qMp9oX6p1Fttmg7rGRlJS9VOQzeOn9lka6pKf/eo
-	 MaE9ocX+7RHVeOkdcrpUTWq4sGytZQtnA0opGbvpcjNYETpmbWY9IskZ4UOKt2i6WhXat
-	 qcFcISI0uoaKvF0rzERTM3jJnRqBEavfkD+KsQHnX0cJCKgqMK1OfmOn8ncdDrngUAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792821823;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
+	b=c4qh/cH6KbU8CSUUHX8Ie3O6qq1yfETWlRKZUpd7LhwYkeRNMXa/Zeq6YCsrWfxgnQba
+	 tWEjebQjo3/lkmdLv7wQC+u+yPHdShfveKgSkS3VnZA5i+oAR10K6nFSR/lJBe6vd4HUE
+	 kueLGQL1boz30cJlw8wAqSyblGDNpsKtJ3e4KNcp5PKi05YeNK/76X/ZB9tOPbaPVaRTm
+	 /4tjMWwL8QArCRGyAIWOTbfRM642eTGBu5VO9gQ1freVX1tTb8UKPMFgKCNMm2bSVhMw5
+	 7gY1dd7tlYDRg3n/A77GDjFSuZBT4dKnML+9SmU1mHbtl6/M3VC2gOGb2IitOBRbr7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y11PTvEw;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NS9s0YHL;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF483606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 05:55:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF483606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6130606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6130606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y11PTvEw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792821325; bh=P3RK9WXMHG0tuwk3Uog+befO1lx+KP55QEdWwZwY8Hk=;
-	h=From:To:Cc:Subject:Date;
-	b=Y11PTvEw5m9/XAqe7Xi9bVHJZmOL7yDnxOB8+Y6PQEYNvJjZDvJVe3Z44LvejD4Aq
-	 PacEWVh9TZEibVvtBcKbyWiwSJkFh4E+jE1b2+V18nYMvCPlMsjbPGkDTd7+jtJRX8
-	 N1dAue72aWp01xu0zWeY3c+cI3mqHpMRf7IGir+s=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id DD789CDA; Sat, 24 Oct 2026 13:55:23 +0800
-X-QQ-mid: xmsmtpt1792821323t8hmf2ii3
-Message-ID: <tencent_850ACCC7270A3775F0BB75E4C3A9C2942205@qq.com>
-X-QQ-XMAILINFO: NnYhxYSyuBnLddEWiolZDN8rxMmjnyYA8AA3Ph4NL8HEvtIZH43P+f7QYJMCZh
-	 HusEN62fUX/ObDbfP+GY4i4bpYD+hnkh5169YZr/ix+9/bGYvGgJRFSUN6f/1A6BH5vR7VpnEbi1
-	 PGgGz9cK1gKuA52APicHpxsjrgB0Q/bSrgJZ6XQXFveK2mUcuz48zroLCaktfTTaWnjiOhZg6YVO
-	 337bfYWRBu+g1T8ImKAXzh1uZ5Gp/dlXVzL81vocYGkRtYvfW4Zy4/VGheiuDMLwgLeHgbT8XY4y
-	 YIWfX3LqQG8P/7JBVQHWzsDIbTD6m10kRAo+uBz0wnoy+NFzP/m47/UZ3Z0mO51NJfaeyC0A9AhR
-	 WaYAp+5UJ8XQqM3Q/JSj7HbfqTNCnqlLxzNXNPG3YXXxwYD5kTF7tqmrzwBKnEKTOIuSVjW8Q1fT
-	 xF5u8/fyIYilTGq06PHgT7ZlCl0pmbnrjKBztCr9HyFRKZufHVyXG2CrHhGNOIgz3cGRE6pR+UlO
-	 qkJoOwn3nIpV9I8jUGzvxlnRRHZxV80MtG0/m60q/BRZRKbbiROeq5MLLro6BZg7IIu/F1RuUvtq
-	 w6h8ZQ3WAtB5Jrz7SqAHSm0CWGm5a/ef9kqXAocuiVps8Zbmhm4mKIkoUuGnKPXSPCkmJn8ZwRyt
-	 t3ASYEl0BSC5Z61wfHPwvsdg43bU8xKC4JpylzLj9YMrI0KyXqe3Wf8H4Y6jH2ebqlC/vDDP+f9H
-	 j+44zUcYnmHiQMXp8NYBrtP8XjvWbrbm9Ug5+4f4rHJWeYOLlkAoXjVIO7wEQxHP2tDZcCgPGqZZ
-	 hXJS7m5ns7Ew/Vd3jRpjA8vwudn37wZzrKZa2YjtUGY+SYxQcuifABXI+IAke+M5fYnDaikvzw5t
-	 Mi+nCrkGzVk/gbZZGTVMVnUZzhO9a6G5RLhdhGfQhVwCrJsmbWnzlbi93PMPwS6aTN7YwribUuz3
-	 tHxcB2QRFUL8rwu+tGwCIkyAkr12RfZmB1SRw1+xTzmVkEDUD4WClsiVhqc7W/zpAUR+xJcLioPK
-	 NJ6ANCInZPIbG6svxX6+kSYzjiTPQQPaYB+ShdTwuH+v8cidnLKseyU56P/SkFZRrmlGKMqg==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [BUG] jfs: KASAN use-after-free in diRead() panics the kernel on mount
-Date: Sat, 24 Oct 2026 13:55:22 +0800
-X-OQ-MSGID: <20261024135522.65244-jfs-yangguikun19@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NS9s0YHL
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd633ef819bso629780a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792821822; x=1793426622; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
+        b=NS9s0YHLEKDzxHQNG8GHrW2G4rAOvB/28sje2wIMzZaZkOpOBIv/eWcH3e/chqKhyf
+         4KBQ4gdD3eo1JBwX2a5pLI7US07RUWHN1jkY/OJWd6gby7Nh2oLopKIR1kLhm93xAoD7
+         mCGYBckEahJiX8edFjwimSM9AdiASHdV+4yclpHRTQdTffrnKhsl57fBn2Lm7xO/sIYo
+         5imsdmYG3gp09rQYdC88AQX2dezzf6Ek126++SHEVFttBM0hKHq2HngVdFQTJZQ8u8Ni
+         4KDcQRbm28CGReSZpD0/i05TbTmPWyXRS1vCiMRIT0kAbZeVhOpmHwsUVl3OvjZtROkl
+         tqRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792821822; x=1793426622;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=synWqYbmp4TKDqP3tt+5+3H7Yv3rlDcxUAHgND7ZObE=;
+        b=je69UevIuhBKpDklK+82Gep+H7Zw2lzLAfcoyKrjQCwOkSQOY37wKCbBQli/tMbJ47
+         m95vwxGqz7Ea85M+ogoXNRIiGkv73g0LSMB9y8FKRGdaXPjrj0OBxI0D61S7sFoySE00
+         9VtqOj8WN2rPy9BD/uIf/oUZzmyY5k/NsEpYm5M6E/fGiSzphKGNqVVXThowdmtLSzEx
+         8ncoYO6vEzKMPAcnILCqd2u9K9lcEnV/uofMLc7Cg0GMND6z02OGSNh6+yeJmAnycSlM
+         VCNfHWRhtm3UvKXkvzsGKVpjEPF0myDSkEhw7GOrjlsT7SEsZSPn6Q6HrAXTWjCv63pX
+         y/pA==
+X-Forwarded-Encrypted: i=1; AKwUvBypoSH/exM4j9hTVhLxlu/lwQA0fuOd87XyRuXG6YLV15IIb90NSbvp4FHmz53RqlGaPrNTKUL7s/2C/14=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLY/ETvWiL/DNYetolO1fx1OIJNE/p4pTKmbQKurvL4YnQD1KUc
+	iBA3I8ax2z5zJhCQWVGbMtOEluiB8XSll8GoF3xFV7b4Fqy4crWpCvKw
+X-Gm-Gg: AYBFou060jydVzKmUafekAnE9Po4+5OEBRQJ73mxfYWDxZdrXxis8zfWh46yV4OlNT9
+	B5Hz7ygOetpivBx0JbHIEJlES54iRj6hADRRnnmEKVIH5eLUwchwPBv1AL8sCSCmEg+PmHaf0i/
+	hbBVbMa5aE9hk4GYGlmHXmJe7BjW0I+U6EG/tqu3vELIJEcK0DRUIdz88XpknVuQ0IXZ/2nD7Pw
+	ndkk/I/fUnwzPapF5js75U2hGNm/dRulc/z1c8Jf70CAuAbppk4xk5mCKpu6UxJY0xmdIGo6bbP
+	h69bcPxmG92d3zANs6Cw/vyLjRzLRIMuQXOHKbhT++BFupCIeJRqd6muLqW+rKJ0PKIzXc0WEqR
+	wKRi9DrXHY5OOsA9IN0dXM2fJBWI5RG7WMrpCZHt0BSYmHlKGs6KS2dUGSh68PIvnKIDaUtyfL/
+	0Wfs/gCgWB6M9VSgxJ+SQAZO/VEH5p2SdjNTjfaxWdmjF/A46H4H+OIWVNnDlRpqD0KT2sgGRl+
+	N+HGwcIqZS8EoHGdIYb2V6emp8Wt2KvliXpgAvwC832/fmw5Ww=
+X-Received: by 2002:a17:90b:2d45:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3adeae6d89dmr1071274a91.40.1792821822050;
+        Fri, 23 Oct 2026 23:03:42 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebae0094sm1664019a91.10.2026.10.23.23.03.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 23:03:41 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v3] Bluetooth: Create debugfs directory before running selftests
+Date: Sat, 24 Oct 2026 14:03:35 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0188-v11-36d2c5e734fec40a3363@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,56 +98,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+Selftest debugfs files must be removed before the module storage
+containing their file operations is freed. With CONFIG_BT=m, bt_init()
+calls bt_selftest() before creating bt_debugfs. test_ecdh() and
+run_selftests() therefore pass a NULL parent to debugfs_create_file(),
+publishing selftest_ecdh and selftest_smp at debugfs root. bt_exit()
+removes only the bluetooth directory, leaving these files behind.
 
-Found by syzkaller-style fuzzing of 7.2.0-rc5.  A crafted JFS image
-triggers a KASAN slab-use-after-free in diRead(), which panics the
-kernel when panic_on_warn is set.  The code is unchanged in current
-mainline (checked against 7.3.0-rc7 sources).
+Commit 64aabf94ecccb ("Bluetooth: selftest: Pin module for selftest debugfs
+file operations") already gives both tables a module owner in
+bluetooth-next. With debugfs and either selftest enabled, unloading
+Bluetooth without any open descriptors still leaves the root entries
+pointing at the old module. A later open permits the following ordering:
 
-The freed object is the dbMap descriptor allocated by dbMount() during
-jfs_fill_super().  diRead() later reads it after it has been freed,
-from the jfs_lookup() -> jfs_iget() -> diRead() path.
+    Module init/unload                Reader
+    bt_init()
+      bt_selftest()
+        publish selftest files at root
+      create bluetooth directory
+    bt_exit()
+      remove bluetooth directory
+    free_module()
+                                      open root selftest file
+                                        full_proxy_open_regular()
+                                          __debugfs_file_get()
+                                            read real_fops members
 
-Full KASAN report (7.2.0-rc5, PREEMPT full):
+Here free_module() completes before the reader opens the file. Debugfs
+active-user tracking still permits access because the root entry was
+never removed. The open reads freed file operations before it can acquire
+the owner reference, which can cause a kernel fault.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in diRead+0xa30/0xc40
-Read of size 4 at addr ff11000000144034 by task syz.7.6792/81626
+Create bt_debugfs before running the selftests so their result files are
+covered by the existing recursive cleanup on initialization failure and
+module exit. On selftest failure, jump directly to the directory cleanup
+without running cleanup for subsystems that have not been initialized.
+Removing the result files revokes new opens and drains active operations
+before module storage is freed.
 
-CPU: 0 UID: 0 PID: 81626 Comm: syz.7.6792 Tainted: G             L      7.2.0-rc5 #1 PREEMPT(full)
-Call Trace:
- <TASK>
- dump_stack_lvl+0x116/0x1b0
- kasan_report+0xca/0x100
- diRead+0xa30/0xc40
- jfs_iget+0x9b/0x5b0
- jfs_lookup+0x27a/0x340
- path_openat+0x293c/0x3dd0
- do_file_open+0x216/0x470
- __x64_sys_openat+0x13f/0x1f0
- </TASK>
+Before the selftest file operations gained module owners, reading a held
+root ECDH descriptor after unload produced the Oops below. The owner
+reference closes that held-descriptor window; removing the root entries
+also closes the remaining post-unload open window.
 
-Allocated by task 81617:
- __kasan_kmalloc+0xaa/0xb0
- dbMount+0x4f/0xc10
- jfs_mount+0x28d/0x8b0
- jfs_fill_super+0x891/0x1070
- get_tree_bdev_flags+0x389/0x620
+Oops report as below (preceding and following console output omitted):
 
-The buggy address belongs to the object at ff11000000144000
- which belongs to the cache kmalloc-2k of size 2048
+    BUG: unable to handle page fault for address: fffffbfff805758f
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
+    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+    CPU: 3 UID: 0 PID: 424 Comm: cat Not tainted
+    7.2.0-rc6-pmb-bt-functional-v1+ #2 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:full_proxy_read+0x103/0x180
+    Code: fc ff df 48 c1 e9 03 80 3c 01 00 0f 85 82 00 00 00 48 b8 00 00 00
+    00 00 fc ff df 49 8b 5d 00 48 8d 7b 18 48 89 fa 48 c1 ea 03 <80> 3c 02
+    00 75 70 48 8b 43 18 48 89 ef 48 8b 34 24 4c 89 f9 4c 89
+    RSP: 0018:ffff88810d95fcf0 EFLAGS: 00010212
+    RAX: dffffc0000000000 RBX: ffffffffc02bac60 RCX: 1ffff110220d5080
+    RDX: 1ffffffff805758f RSI: 0000000000000004 RDI: ffffffffc02bac78
+    RBP: ffff888116e98700 R08: 0000000000000001 R09: ffffed1021b2bf8f
+    R10: 0000000000000003 R11: ffff888110d59d00 R12: ffff8881085a82f0
+    R13: ffff8881106a8400 R14: 0000000000040000 R15: ffff88810d95fea8
+    FS:  00007fadb62ba780(0000) GS:ffff8881fdc22000(0000)
+    knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: fffffbfff805758f CR3: 0000000106a42001 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     ? __pfx_full_proxy_read+0x10/0x10
+     vfs_read+0x1a0/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7fadb634c687
+    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8
+    fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f
+    1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+    RSP: 002b:00007ffd26510c30 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
+    RAX: ffffffffffffffda RBX: 00007fadb62ba780 RCX: 00007fadb634c687
+    RDX: 0000000000040000 RSI: 00007fadb6214000 RDI: 0000000000000000
+    RBP: 0000000000040000 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000202 R12: 00007fadb6214000
+    R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000040000
+     </TASK>
+    Modules linked in: [last unloaded: bluetooth]
+    CR2: fffffbfff805758f
+    ---[ end trace 0000000000000000 ]---
 
-Kernel panic - not syncing: KASAN: panic_on_warn set ...
-==================================================================
+Set bt_debugfs to ERR_PTR(-ENODEV) after initialization cleanup. A NULL
+parent would make later built-in selftests and 6lowpan initialization
+publish files at debugfs root. An error parent makes those creations
+fail safely and is also rejected by existing IS_ERR_OR_NULL checks.
 
-(The same report was sent on 2026-10-16 but was rejected by the
-mailing list because the list addresses were missing from the To/Cc
-headers.  Resending with the correct addressing.)
+Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
+Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v3:
+- Address the NULL-parent cleanup issue raised by Sashiko:
+  https://sashiko.dev/#/patchset/94464
+- Store ERR_PTR(-ENODEV) after initialization cleanup so later debugfs
+  creation fails safely.
+- Clarify that the module-owner fix is already present in bluetooth-next.
 
-Thanks,
-Guikun Yang
+Changes in v2:
+- Address the stale bt_debugfs pointer concern raised by Sashiko:
+  https://sashiko.dev/#/patchset/87920
+- Clear bt_debugfs after initialization cleanup.
 
+Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0188-v7-e3c91e5159902df34c8c@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0188-v10-ad807db51e45722aae62@gmail.com
+
+Module-owner prerequisite: already merged in bluetooth-next
+  https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth-next.git/commit/?id=64aabf94ecccb1120a63b4ee5a6761871a181a41
+
+diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
+index 411d66f24393d..3b8c3ecb7cc52 100644
+--- a/net/bluetooth/af_bluetooth.c
++++ b/net/bluetooth/af_bluetooth.c
+@@ -935,11 +935,11 @@ static int __init bt_init(void)
+ 
+ 	BT_INFO("Core ver %s", VERSION);
+ 
++	bt_debugfs = debugfs_create_dir("bluetooth", NULL);
++
+ 	err = bt_selftest();
+ 	if (err < 0)
+-		return err;
+-
+-	bt_debugfs = debugfs_create_dir("bluetooth", NULL);
++		goto cleanup_debugfs;
+ 
+ 	bt_leds_init();
+ 
+@@ -983,7 +983,9 @@ static int __init bt_init(void)
+ 	bt_sysfs_cleanup();
+ cleanup_led:
+ 	bt_leds_cleanup();
++cleanup_debugfs:
+ 	debugfs_remove_recursive(bt_debugfs);
++	bt_debugfs = ERR_PTR(-ENODEV);
+ 	return err;
+ }
+ 
