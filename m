@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792805478;
-	b=tlh5CS6ydVrD4wR0Vu17P23SAQTZrevKB7357Xw+u3WUBlfkZEe/V2pidoXNWpk2y/+h
-	 lWoDlakQcTIV1dsEsyaWbbtTrwo1qILASbg/JesDXEWtgtsPq9E0SjJK/zRiURZKcINUd
-	 9/Gxw29R4VTSjaFWAj/TiIKdJEzs0Amzev1QScPz8cVWK8LBs7hGob7DxeSIvgoxECDKE
-	 1rdyhDJVjtKzkZ0pmQT8mtuRjcd36Tz0f+cTljdz6t4rqcm3jjP4Q77FT0l5pQWgMyyZR
-	 mC1/KI81ydzcV8QiyTg9ZoG21U+/ORY5mrisQ8d0cvS7z82YYCRnlSBj9jaQZx+H1Pg==
+	t=1792805622;
+	b=cYiLSW4M/wFi4TKZVHdSx2+HEfoJH5Bwj0tKMmE1UNNCGaRk81ahNdHa50SrmLIWihgS
+	 qR4O3Qc03KUYX0Db2c/Wak8Gc2XVU/q8eDBbu3dCPhCe3ic2HOqeBNFsY9MmHuyFRga0W
+	 C2uk+1asbrogPMcBw5GrIn3Ugtx0XRT5SjJp8VHvkOo44BBztcFgnVDj+raYYMrPp8uJJ
+	 x57KArQisB8avDEo8DgcbUwQGm8eHp5JroSQyLgEsZT2rWA3pWJrdss6tAYSDSP47n84o
+	 YHzp2wMIqAOkR0eXdXV6HWH8F9D5Qm9JZOfpGBPv9oloaxyuIdLaMelkOLqnZZB6KRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792805478;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=bIQNFRBEogEOnXf1jgKA1R9yJLIY80QynVCpComj5fs=;
-	b=KLziix6pltWLG5TfB4vdGYK4e33h2ic3yBz6vBHKaHv0NZKSuqRqnx8TQXCN9K2tPOJB
-	 Os2M4CXb9Rnkuqlly9C5q/duqAW9c1XWGPoS2gytFVXwU206cYeAWeOAAWiOs4C9LwYRn
-	 3w6+60fPQ4hd7hXYtKDLwrs/z44nXC7rbZJ0ve6CHkb2vbucAvrDUTLQdlfYOvlNQRwwA
-	 alV9JEIaMQdOm2B/2rldCpLuFz/74z6YHFqME8xKSy0w4Ny7XKE8w7QfiCGhCJxI+hzfh
-	 sPteUypoIekiAD4rBDJYOxnUMlR/67K3dXysnu/a0hMZwkmK917arB8ViLFtl1SF/Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792805622;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SfNKrYDUbhsFpG8WIg+D5PcDIxxVFiyLQ6Sahtn09yA=;
+	b=PTBXthNAlfCkyDJHscPke1xLUZq6/rTU7s/KwPRlSiv+z1NX58ewVJrzwxnvdYuJr1xN
+	 c86arbQ+JQuz9taG+EzZW3tXBiMZT8Tpy/4FtgJ9Dioghjvr09SMy87mgRPDEJcWJaTO4
+	 e7//xAd+Gk6YpTzykhGT1LdSdphkknG0/5BNkI+d276WctbAvWHvvqLHNrM8h8mUls2LP
+	 LdtkIV7wNgQxzSsa2IqoUvqf9oUE6oJj554G8H68+V5QLEOUSSpktxuGUi4yj5BMIJg74
+	 P4rXd2bXbVq9PJJTs2EGpyWM180v/EcmDDhgEO6yR3dQ/NqtsTouV3yIMx+Iq/yXHtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inf.ufrgs.br;
-	spf=pass smtp.mailfrom=inf.ufrgs.br;
-	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=GqegVoAJ;
-	arc=none smtp.remote-ip=143.54.11.23
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=empyreal.works;
+	spf=pass smtp.mailfrom=empyreal.works;
+	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=iPQViv3Z;
+	arc=none smtp.remote-ip=185.70.43.97
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710E3606A31A;
-	Sat, 24 Oct 2026 01:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 710E3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBECF606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 01:33:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBECF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=GqegVoAJ
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 4DBAF120357;
-	Fri, 23 Oct 2026 22:31:13 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1792805473;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bIQNFRBEogEOnXf1jgKA1R9yJLIY80QynVCpComj5fs=;
-	b=GqegVoAJskYTCeNk0UNUdJb+MG627nbsa5vh0CKG8ttBhb/8eciOViztY5aY9c5L86ZgN7
-	tgGZibjzfD+vCJwn5VrbboI44aVCjR13ifngmaQOVJ/6mU1hdptIEu0mRegp0h31bJQXDl
-	gmX2LXFXH/0K8U0z+LQkIHF+8qFqa6lXjfr/CQ2XsX6WSweNiR6pmz4sPB6OqxhjjBeKMO
-	TpYRuAlY1d12xCap8fdbKFN4xKRFXbGGiPIg5og2WqQxLCHnp/ZSQEOetL5YaVEfthX+J7
-	C9+/3NV3m+OcmupERI2SwOk8l+WxNz6c6kZWWtcgfiLoSlHYb7a5idx2fpBuPA==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH v3] fat: preallocate space before expanding in fat_cont_expand()
-Date: Fri, 23 Oct 2026 22:30:20 -0300
-Message-ID: <20261024013021.251898-1-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=iPQViv3Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+	s=protonmail2; t=1792805617; x=1793064817;
+	bh=SfNKrYDUbhsFpG8WIg+D5PcDIxxVFiyLQ6Sahtn09yA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=iPQViv3Z/WmMNdRwF4v9O7+u4RQHOKmjRDcObENmqcjHBSFnbzvrcxqzm5wjWxLYs
+	 o3WHTIjc3Z6fPWAHFysuiGk8VCJCPxHQpvPbGLHuWeUHk2AyPbgU3FnSVJAWFwbfxX
+	 2ifEQDHoXcr0/rtgco13KFCuNvLZX7b813v2wn9mjiI/khOPJbrSM3SKu4BWOoyYRm
+	 yN5WExltMa6YHyBGtPzDAHrlRUa3WhPUg4eeUIxlBCZGvynrYAqjwExpHKecbWUgdb
+	 xkv+5BOpBO65jR6kzYVHAIL5xDeL1O8jkvlljzv0nCvOklYijsO1vdk+bye492Kzom
+	 PJKwGMp9YH2Ug==
+Date: Sat, 24 Oct 2026 01:33:30 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH v3 0/2] drm/amd/display: keep custom brightness curve in userspace domain
+Message-ID: <cover.1792805565.git.arc@empyreal.works>
+In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works> <cover.1788388049.git.arc@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 80549977febd08307ff58ae2b25cb6300093e4c7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,173 +64,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The fat_cont_expand() implementation leaves allocation of new clusters
-to generic_cont_expand_simple(). This path does many small cluster
-allocations, harming performance.
-
-Preallocate cluster space in fat_cont_expand(). Move preallocation to
-a new fat_preallocate() helper used by both fat_cont_expand() and
-fat_fallocate(FALLOC_FL_KEEP_SIZE). Use a FAT-specific
-fat_cont_expand_simple() instead of generic_cont_expand_simple() to
-avoid rechecking the new size after clusters have been allocated.
-
-Benchmarking was done under QEMU/KVM with a virtio-blk device using
-cache=none. Each result is the arithmetic mean of the listed samples.
-
-start = now_ns();
-for (unsigned i = 0; i < count; i++) {
-    if (truncate_mode)
-        ftruncate(fds[i], bytes);
-    else
-        fallocate(fds[i], 0, 0, bytes);
-}
-elapsed = now_ns() - start;
-
-16 files, 512-byte clusters:
-length    mode      sync?    before    after    improvement    samples
-256MiB    ftruncate no       9.576s    5.345s   1.79x          10
-256MiB    fallocate no       9.634s    5.640s   1.71x          10
-1MiB      ftruncate yes      58.66s    0.362s   162.15x        5
-1MiB      fallocate yes      61.36s    0.390s   157.15x        5
-
-128 files, 512-byte clusters:
-length    mode      sync?    before    after    improvement    samples
-512KiB    ftruncate no       0.433s    0.352s   1.23x          10
-512KiB    fallocate no       0.446s    0.393s   1.13x          10
-64KiB     ftruncate yes      31.32s    0.429s   73.00x         10
-64KiB     fallocate yes      29.59s    0.410s   72.42x         10
-
-16 files, 4096-byte clusters:
-length    mode      sync?    before    after    improvement    samples
-256MiB    ftruncate no       5.181s    4.417s   1.17x          10
-256MiB    fallocate no       5.166s    4.442s   1.16x          10
-1MiB      ftruncate yes      9.294s    0.111s   84.06x         10
-1MiB      fallocate yes      8.710s    0.110s   79.36x         10
-
-The biggest improvement is on filesystems with a small cluster size and
-on synchronous mounts.
-
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
----
-Changes in v2:
-- fat_cont_expand(): Hold truncate_lock around fat_truncate_blocks().
+convert_custom_brightness() adds the firmware minimum before
+convert_brightness_from_user() applies it again, so a zero request
+through a custom curve never reaches the panel minimum. Patch 1 keeps
+the curve output in the userspace domain. Patch 2 adds KUnit coverage
+with a non-zero firmware minimum.
 
 Changes in v3:
-- Add a new fat_cont_expand_simple() helper that does the same as
-  generic_cont_expand_simple() but without the inode_newsize_ok() check.
-- Use the new helper in fat_cont_expand() instead of
-  generic_cont_expand_simple(), removing the now-unnecessary cleanup.
 
-This patch depends on:
-https://lore.kernel.org/linux-fsdevel/20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br/T/#t
+- rebase onto amd-staging-drm-next (77f548b12);
+- drop v2 patches 3 and 4, which changed the PWM path to the power
+  module; "drm/amd/display: map PWM brightness through custom backlight
+  curve" has since reworked that path;
+- describe which panels still reach the helper: AUX panels with a custom
+  curve, and PWM panels on stable kernels before the power module.
 
- fs/fat/file.c | 70 +++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 19 deletions(-)
+The amdgpu_dm KUnit suites were run under UML on this base with and
+without the series: 1897 and 1906 cases, all passing; the backlight
+suite goes from 70 to 79 cases. The rebase and the test runs were
+LLM-assisted.
 
-diff --git a/fs/fat/file.c b/fs/fat/file.c
-index 3aa541c6b127..a25531d9451e 100644
---- a/fs/fat/file.c
-+++ b/fs/fat/file.c
-@@ -217,13 +217,62 @@ const struct file_operations fat_file_operations = {
- 	.setlease	= generic_setlease,
- };
- 
-+static int fat_preallocate(struct inode *inode, loff_t new_size)
-+{
-+	int nr_cluster; /* Number of clusters to be allocated */
-+	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-+	loff_t ondisksize; /* block aligned on-disk size in bytes*/
-+	struct super_block *sb = inode->i_sb;
-+	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-+
-+	ondisksize = inode->i_blocks << 9;
-+	if (new_size <= ondisksize)
-+		return 0;
-+
-+	/* First compute the number of clusters to be allocated */
-+	mm_bytes = new_size - ondisksize;
-+	nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
-+		     sbi->cluster_bits;
-+
-+	/* Allocate the clusters. We are not zeroing them out */
-+	return fat_add_clusters(inode, nr_cluster);
-+}
-+
-+static int fat_cont_expand_simple(struct inode *inode, loff_t size)
-+{
-+	struct address_space *mapping = inode->i_mapping;
-+	const struct address_space_operations *aops = mapping->a_ops;
-+	struct folio *folio;
-+	void *fsdata = NULL;
-+	int err;
-+
-+	err = aops->write_begin(NULL, mapping, size, 0, &folio, &fsdata);
-+	if (err)
-+		goto out;
-+
-+	err = aops->write_end(NULL, mapping, size, 0, 0, folio, fsdata);
-+
-+out:
-+	return err;
-+}
-+
- static int fat_cont_expand(struct inode *inode, loff_t size)
- {
- 	struct address_space *mapping = inode->i_mapping;
- 	loff_t start = inode->i_size, count = size - inode->i_size;
- 	int err;
- 
--	err = generic_cont_expand_simple(inode, size);
-+	/*
-+	 * Preallocating space here is more efficient than during
-+	 * fat_cont_expand_simple() because of batching.
-+	 */
-+	err = inode_newsize_ok(inode, size);
-+	if (err)
-+		goto out;
-+	err = fat_preallocate(inode, size);
-+	if (err)
-+		goto out;
-+	err = fat_cont_expand_simple(inode, size);
- 	if (err)
- 		goto out;
- 
-@@ -263,12 +312,7 @@ static int fat_cont_expand(struct inode *inode, loff_t size)
- static long fat_fallocate(struct file *file, int mode,
- 			  loff_t offset, loff_t len)
- {
--	int nr_cluster; /* Number of clusters to be allocated */
--	loff_t mm_bytes; /* Number of bytes to be allocated for file */
--	loff_t ondisksize; /* block aligned on-disk size in bytes*/
- 	struct inode *inode = file->f_mapping->host;
--	struct super_block *sb = inode->i_sb;
--	struct msdos_sb_info *sbi = MSDOS_SB(sb);
- 	int err = 0;
- 
- 	/* No support for hole punch or other fallocate flags. */
-@@ -281,19 +325,7 @@ static long fat_fallocate(struct file *file, int mode,
- 
- 	inode_lock(inode);
- 	if (mode & FALLOC_FL_KEEP_SIZE) {
--		ondisksize = inode->i_blocks << 9;
--		if ((offset + len) <= ondisksize)
--			goto error;
--
--		/* First compute the number of clusters to be allocated */
--		mm_bytes = offset + len - ondisksize;
--		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
--			sbi->cluster_bits;
--
--		/* Allocate the clusters. We are not zeroing them out */
--		err = fat_add_clusters(inode, nr_cluster);
--		if (err)
--			goto error;
-+		err = fat_preallocate(inode, offset + len);
- 	} else {
- 		if ((offset + len) <= i_size_read(inode))
- 			goto error;
--- 
-2.43.0
+v2: https://lore.kernel.org/r/cover.1788388049.git.arc@empyreal.works
+
+Andrei Rusu de Castro (2):
+  drm/amd/display: keep custom brightness curve in userspace domain
+  drm/amd/display: test custom brightness with non-zero minimum
+
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  13 +-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 294 +++++++++++++++++-
+ 3 files changed, 286 insertions(+), 24 deletions(-)
+
+
+base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
+--=20
+2.56.0
+
 
