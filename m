@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792847672;
-	b=ibgsPwCkOZqEg4z3wbih5ObNxU73p2PplVLEEy5S763u6/tPpB/taVIsEjf9WLAxL5gc
-	 f454h82QcbROEJa33kUCbSHa0u8qyakMdohlNmFT0SjGi76BF5f94zdAT0tn8SFIhScr/
-	 iK9hXhPpTrpEI7B+Ktxluqqoj5SgPhR87gmqp/hguJNsEzOfVwMmhaLhL8bJmVwydNcs8
-	 1cETPMDcq4W5RfINRYU/u/IsQfjaryVETDXV6X9+pJH30Gx2ltH85oQUfzSOY+XfG/k+9
-	 GVT7USWQKFYV+ZFPHZh4hAX9fGZrjOoGztBg/v2Vm/IJ5xpp8LRTxND7cPRlC2TuFnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792847672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CMqMc3sz71Og6LxWQWCEwXYQNGi1cYjnt3qdjDLrC/k=;
-	b=OKUyt86QOVamr6bNarjwTzVkibTc8As1ZunnUnjVcLrWuJOpCAiZDrAuVrdCihKVhKKf
-	 Ta8rD9Y+rmPUWeDnGgSUNyLppDZgYy0iP92oRkVi/gNXk+mUt4s1tWYY1wjItLXH2AdUz
-	 Sy3ZybxFJ/oJ3TFyoVYGmRSy5YdwHUOlUyMuy5ssRrBGyT6A+tK7gc+Qgg1XNtNtbBmNY
-	 aK+CNI+9jOwJxEYINgXB48voD5gUUF9+OdlyPcT+aFxPI4VOfLq7QgOegbLD8BCXhr4q2
-	 JsLeIuHQ7D5FPyU40pN8VD0WcfmT7VFckruIKGWakJQbRlRd2v678MneErMJM4dsRwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aVgx4w0D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792847965;
+	b=w5dZoTvWu6wB08aVoMaqQG9O+recCfyW0rSj/JMGtpv1aiZRf1XwfD2gAS9aXvl3/58L
+	 lxFI1wz/kqt3EwQfmkNiCATndiNF6T4k2YZgJjY9moRZed7hHkxNQhQsnMokSG9Xj8T1y
+	 d8PtUFR/GaovP18RbyaqKP885I+kKEQELhqnyMxSdCw3UIRJRfj6UIy6K3Qnpey8nbqBS
+	 0M4wOyZMnwgRgR/BgC9xRzzukzkzH6Lv5M4K0xi4/nu8+5il7iorkH53t9RxZ5opn+ty+
+	 0diEbf42+3gW50EDAdFZvETI9e3jtlFWFqe9ZMgMY+o+Yn1vVG6nvImAv6b1kIk0mCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792847965;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=+eTq2RouSMP57iyX/xKgxw3blvHVYyiPPERedc75Hk0=;
+	b=X3XQBgsu9XyoH0f2SQ76cTULCLyVORs4R7/kSMWPZnzL7Zi4A+gJZITqqzpC7L8eS2Wa
+	 Vo9OxGbMKjwPCd4OCOEa6RLkGCAYNNaQ8gE9Rp/MmAZ8+jXjX/57ZEHKsBuWTeCNi3ZHp
+	 8BvADsxoTG+dxNBPnB6SgSxs3L0OSdhM5iEvCAoyyhZHtHuPi2aGv6C1GqVVaQR5c7dCN
+	 3tmJMDlxB4JxWuYA70pQ0NZfNUgBn78e3cpqsdwn8c4gOUwamU+oar0lDfL0/EthMg1Rr
+	 hRVedt2gf9fbwnij64k3Ndc8mMskZ/vdOKIHwR85uqeTNyIc4ufBLgkmscu8I6RVtzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9Z6kVe5;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE387606A31B
-	for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 13:14:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE387606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E05606A31B;
+	Sat, 24 Oct 2026 13:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E05606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aVgx4w0D
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b83459526so20841826d6.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 06:14:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792847670; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PQistdkP9pGUFFa6zAjKcbEmmwplOzmN+MHF3D68djIw3COEgZN/XuL9zvqZaKonV+
-         fA/Xw/2Kl/aaY8d7E3/9JOnfYxfxw4FTkpBQQOsX/RKq9uLCbPY9VNARWhKRzjOn7wIx
-         wh/7De6hcq+0fOT5dt952Ysto8uU0EGqmO1OyxbA3pAuVTc1DouX4McqdkGaV4ClKNQK
-         BohbFOFZnqUvMZ5ruhfVX6ThBWP3qqBBs+hY8vr+NLUfDnLO0aDtou3RwwcC22rfNWK1
-         a+SFFZoZBa4nLiu/9AqEfOtvpU1S4MxgGdU2F9V95yiQ/y5iz5Kd2lsfpPOmxCn6lIDg
-         tg5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CMqMc3sz71Og6LxWQWCEwXYQNGi1cYjnt3qdjDLrC/k=;
-        fh=tla31m/mG2RP6YVwWz6crYpjFchjb/ZWzTX4pe1SlbQ=;
-        b=K/hemPGBXYbzAE4F1vHZNZc9iGNpgHikI/OiNwWPJnsKb7GVoZSvrdMWYV1CFPjkiW
-         qT7e2ZkLIB1uXKkTP+895R/Dwe9vzOgk9SJCBvKRHI1MQKUj+J1lKRGEiMfzpXIpWURt
-         QS7a4PSeCQB2rUveflXtGH7wQKEBjs/BnradoC7MkED24Ss+9+9hYh08We0wdZkMXpEM
-         yCyhe6byq/dU7LUf+x0eNUucZkMWZMrlLlvhO8UihGzY6gwrtyY3UGkOTdXQrNBiXL3v
-         sS654j8D07YF2tPB0u2ArJJ1Llc+Ya6I+Ko+S5ioEUNK+fEDxWTM1GTRLKbi2nEb29Qr
-         GkXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792847670; x=1793452470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CMqMc3sz71Og6LxWQWCEwXYQNGi1cYjnt3qdjDLrC/k=;
-        b=aVgx4w0Dj968h5veWnRWkqClr120VgdjGw4ApqRW/rHX3gtUgqx+mczuyLZxOMB6ek
-         PHWZdaQwWRKSQOCvCGFQDcKmA5TCT4TqCQxhIVnldowJN/LxaLP0EoyyXv3FjHtCnNcV
-         DULIecl/rGFsem0HnH9H1yRm6VhaG2ldNyG4PWewN9hjcsWMfFNlDPPew1srQjDDqBMZ
-         qnn3L2gvPWLCaQ50jO9vBU5R3jZKuwUoI9iP5iCLi1Wa7T5ymqUdtWX5zroEgDPjDDBC
-         zltk+/h6pHOLEKfrChCop1Yz+zzjBBE7NkRC4e5T652YlYoWIK86mWh9T/CDJgt1XQmo
-         rNzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792847670; x=1793452470;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CMqMc3sz71Og6LxWQWCEwXYQNGi1cYjnt3qdjDLrC/k=;
-        b=jgnc8EJMHJQ48Nt7mzrCJuWfdXWUlgRSoonMm+09xOVfdZEqyyVSBtl+23sCvfmm4+
-         rzSoNEKvbvJcIDknEvnHO50NKcXYA3j4fwkBVwfoFq2veRB/X2KKeMEzxmGgTBSIMssm
-         EcPaCcelTPRItEVLheC0U7DUMuFG6u8lM57847ISRiDc9Huj4B50EKYBsMvi6nGCLQ2t
-         nJtfcFUzPDadyqTpF3J70uDggCng05XJ1LkLV3e6zW6+fmnMTpBypkgvvcQiJdbmYg8l
-         NaKGCRZDii1XqB15i9jifzzUASaHuhpiHau0BJ3hukSnHsmh1g5ZFMI6sQyCyR2rzoxl
-         vjcA==
-X-Forwarded-Encrypted: i=1; AKwUvByTrAlE4JiwCThkFnFruK0yhlSMV0W5lrvE0pP5JCl5fIvSXAjDPoiq7W1NZn9H4LDOMWOrPX9GOiMxz1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqDgJtWoQlMqV1RYom4SSohySrqHUUJVQBXPv/4+Hcw3XUAkGH
-	plHtv5d3lNuSfoQiA/b4ckbyz2jC8EIIHHrESolinKBnClR/lF2LKmcZ5sFFoB7ng6m3m2EmQU2
-	7H5tlQzqik3h6oQ91w502XuxFhxoo7xg=
-X-Gm-Gg: AYBFou2T26qgPJQwpQ/uHSI2/8D4s8uWCADkZPuQjojS3GqXybxerj68thrhXYbcotD
-	g9finGCeuKLNljcTARHhgyDsheHHR6+XwCv3XoOZLxbeGGK4uPcANYd4GlwNCvqqDNPPXC1QD94
-	c8A7zHKgNQVLABPclj7cI0wGN8e13kvX2e+c6IVcpJYtRSabXwgVkjhTGfD6q+7As9S+r1Az+gH
-	tOJuCxnOQYliLx+aYs0IEAUaP+Rmc4SLaDekDdcnpB0DMy3EfTSQp8e7KfEYWUdu2GP7iPg5Hmx
-	uoijemHfMYXXWjj5lWobJfIfZ5YMhBprBuhAUAbhX7mQ9lfHB7wHr6IiMbikVn8mwhdiP010H2J
-	1aBm6eakHzx8R5TJgH2yrOClCl8IAhCeWYVgthtAE9tkpHYBjO16jLWETmDl1M8BuPT8O11XeAc
-	X+/2xdBu9k48r2pknOvcGBSR3QMGhGGXe0fZvBTmgAq2pKLg687w==
-X-Received: by 2002:a05:6214:5001:b0:912:61e2:8817 with SMTP id
- 6a1803df08f44-91c48e5ad6emr28352346d6.28.1792847670316; Sat, 24 Oct 2026
- 06:14:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9Z6kVe5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792847965; x=1824383965;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=CYtQ0z2b8nAxy7Z61dsDKTufFY11coH1fY1mN0AgzEU=;
+  b=k9Z6kVe5v3fCaXp1PnEgbOYAlDnojYw1nphzXMVzl3i6lwwBcYsXpr2O
+   qziejhRpyIPau5jfJS4NDclJ15fM7pqcWYLcJSXql+Bhqx9AObp+aZBkZ
+   dUQrUg/9LNoxgT296OeuTBaFQQfNCt1wKSW1dMhRFDjGb8H8BORe6HmXf
+   X4imVQmkLMcoEP5tl1RWLILQaAu7buXHThm41H/WAs6QudveKYT0i6LNW
+   GfiFDtoKDFbBkVxLwBqzQl19lFIN5ErJLTGQeIHW6v3Gs44nJ2AA8ugd9
+   UftL5FdWwJZpQ11cbe/k0257DHZ5tlyVx5GDcyzlTup4Nag5EaCDKthPl
+   w==;
+X-CSE-ConnectionGUID: GUljCMOXRaqs6Hnaq35uSw==
+X-CSE-MsgGUID: aC+9M4V2Q+GqBC0itL+iTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1485033"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1485033"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 06:19:24 -0700
+X-CSE-ConnectionGUID: mClJgBpfQtCb9H9Y4xRoUg==
+X-CSE-MsgGUID: J3izvhnITo6KSugqa4/SpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="5714256"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 06:19:20 -0700
+Date: Sat, 24 Oct 2026 16:19:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: James Hilliard <james.hilliard1@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
+Message-ID: <atywVnHU5NsP_gOP@ashevche-desk.local>
+References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+ <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
+ <atseYvQUYvpMFEIM@ashevche-desk.local>
+ <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
+ <CAGb2v65LVm1GV2kV4bVO8YJd16tkubHOvXUtbJ3uuBw2O3TBsA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,160 +91,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022154840.119951-1-ic.gabrielribeiro@gmail.com>
-In-Reply-To: <20261022154840.119951-1-ic.gabrielribeiro@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Sat, 24 Oct 2026 10:14:18 -0300
-X-Gm-Features: AclHuK92MH7B0UMxhmSiWAciED7CjQbrPDzGUWd708h6k_j-i4lp2CNODivijc0
-Message-ID: <CAMAsx6f7qita5jZDdT7EXR8UOGxbUB8z8w-q7dNuZc2QN7vAvQ@mail.gmail.com>
-Subject: Re: [PATCH v2] docs: translations: pt_BR: translate programming-language.rst
-To: ic.gabrielribeiro@gmail.com
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGb2v65LVm1GV2kV4bVO8YJd16tkubHOvXUtbJ3uuBw2O3TBsA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 22, 2026 at 12:48 -0300, Gabriel Ribeiro wrote:
-> Translate the programming language guide and link it from the pt_BR
-> process index.
->
-> Signed-off-by: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-> ---
-> Changes in v2:
-> - Use translation-specific labels for the page and all citations.
-> - Drop the obsolete Assisted-by trailer.
+On Sat, Oct 24, 2026 at 10:10:33PM +0900, Chen-Yu Tsai wrote:
+> On Sat, Oct 24, 2026 at 12:12 AM James Hilliard
+> <james.hilliard1@gmail.com> wrote:
+> > On Fri, Oct 23, 2026 at 2:44 AM Andy Shevchenko
+> > <andriy.shevchenko@linux.intel.com> wrote:
+> > > On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrote:
 
-Thanks for the v2, Gabriel. Both comments from v1 are addressed, and
-it builds without new warnings.
+...
 
-Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+> > > >       /* Internal 8250 only */
+> > > >       UART_PORT_AIROHA                = 124,
+> > > >       UART_PORT_AIROHA_HS             = 125,
+> > > > +     UART_PORT_DW_APB_256    = 126,
+> > >
+> > > Why? Besides the poorly chosen name, what prevents us from modifying the
+> > > corresponding parameters at probe time by leaving the one of the existing
+> > > types?
+> >
+> > The new type was primarily a way to reuse the core's FIFO configuration
+> > table, including the RX trigger mapping. H616 uses thresholds of 1, 64,
+> > 128 and 254 bytes, whereas PORT_16550A maps the same FCR bits to 1, 4, 8
+> > and 14 bytes. Overriding only fifosize and tx_loadsz would leave
+> > rx_trig_bytes reporting and selecting the wrong thresholds.
+> >
+> > The core already has get_rxtrig/set_rxtrig callbacks, though. I'll rework
+> > this to retain PORT_16550A, supply the H616 FIFO parameters during setup,
+> > and use those callbacks for the correct trigger mapping.
+> 
+> Please consider just taking the FIFO size from the DT. On some chips
+> not every UART has the same size FIFO, so we already need to deal with
+> it.
+> 
+> Also, FIFO size is a standard UART DT property, though somehow not included
+> for dw-uart.
+
+FWIW, it supports all standard properties for UART.
+Check what uart_read_port_properties() does.
 
 
-Em qui., 22 de out. de 2026 =C3=A0s 12:49, Gabriel Ribeiro
-<ic.gabrielribeiro@gmail.com> escreveu:
->
-> Translate the programming language guide and link it from the pt_BR
-> process index.
->
-> Signed-off-by: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-> ---
-> Changes in v2:
-> - Use translation-specific labels for the page and all citations.
-> - Drop the obsolete Assisted-by trailer.
->
->  .../translations/pt_BR/process/index.rst      |  1 +
->  .../pt_BR/process/programming-language.rst    | 64 +++++++++++++++++++
->  2 files changed, 65 insertions(+)
->  create mode 100644 Documentation/translations/pt_BR/process/programming-=
-language.rst
->
-> diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documen=
-tation/translations/pt_BR/process/index.rst
-> index d072f7e46..ccfe86de2 100644
-> --- a/Documentation/translations/pt_BR/process/index.rst
-> +++ b/Documentation/translations/pt_BR/process/index.rst
-> @@ -39,6 +39,7 @@ devem estar familiarizados.
->     :maxdepth: 1
->
->     Requisitos m=C3=ADnimos <changes>
-> +   Linguagem de programa=C3=A7=C3=A3o <programming-language>
->     Estilo de codifica=C3=A7=C3=A3o do kernel Linux <coding-style>
->     Informa=C3=A7=C3=B5es sobre clientes de email para Linux <email-clien=
-ts>
->     Como aplicar patches <applying-patches>
-> diff --git a/Documentation/translations/pt_BR/process/programming-languag=
-e.rst b/Documentation/translations/pt_BR/process/programming-language.rst
-> new file mode 100644
-> index 000000000..91fc1a553
-> --- /dev/null
-> +++ b/Documentation/translations/pt_BR/process/programming-language.rst
-> @@ -0,0 +1,64 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +.. _pt_BR_programming_language:
-> +
-> +Linguagem de programa=C3=A7=C3=A3o
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +O kernel Linux =C3=A9 escrito na linguagem de programa=C3=A7=C3=A3o C [p=
-t-c-language]_.
-> +Mais precisamente, o kernel costuma ser compilado com ``gcc`` [pt-gcc]_
-> +usando ``-std=3Dgnu11`` [pt-gcc-c-dialect-options]_, que seleciona o dia=
-leto
-> +GNU do padr=C3=A3o ISO C11. ``clang`` [pt-clang]_ tamb=C3=A9m =C3=A9 sup=
-ortado; consulte
-> +a documenta=C3=A7=C3=A3o sobre
-> +:ref:`Compilando o Linux com Clang/LLVM <kbuild_llvm>`.
-> +
-> +Esse dialeto cont=C3=A9m muitas extens=C3=B5es =C3=A0 linguagem [pt-gnu-=
-extensions]_,
-> +muitas das quais s=C3=A3o usadas rotineiramente no kernel.
-> +
-> +Atributos
-> +----------
-> +
-> +Os atributos [pt-gcc-attribute-syntax]_ est=C3=A3o entre as extens=C3=B5=
-es mais
-> +comuns usadas em todo o kernel. Eles permitem introduzir sem=C3=A2ntica
-> +definida pela implementa=C3=A7=C3=A3o em entidades da linguagem (como va=
-ri=C3=A1veis,
-> +fun=C3=A7=C3=B5es ou tipos), sem exigir mudan=C3=A7as sint=C3=A1ticas si=
-gnificativas
-> +na linguagem (por exemplo, a adi=C3=A7=C3=A3o de uma nova palavra-chave)=
- [pt-n2049]_.
-> +
-> +Em alguns casos, os atributos s=C3=A3o opcionais (isto =C3=A9, um compil=
-ador que
-> +n=C3=A3o os suporte ainda deve gerar c=C3=B3digo correto, mesmo que o pr=
-ograma
-> +resultante seja mais lento ou o compilador realize menos verifica=C3=A7=
-=C3=B5es e
-> +diagn=C3=B3sticos em tempo de compila=C3=A7=C3=A3o).
-> +
-> +O kernel define pseudopalavras-chave (por exemplo, ``__pure``) em vez de
-> +usar diretamente a sintaxe de atributos do GNU (por exemplo,
-> +``__attribute__((__pure__))``), para detectar quais atributos s=C3=A3o
-> +suportados e/ou encurtar o c=C3=B3digo.
-> +
-> +Consulte ``include/linux/compiler_attributes.h`` para mais informa=C3=A7=
-=C3=B5es.
-> +
-> +Rust
-> +----
-> +
-> +O kernel oferece suporte =C3=A0 linguagem de programa=C3=A7=C3=A3o Rust =
-[pt-rust-language]_
-> +quando a op=C3=A7=C3=A3o ``CONFIG_RUST`` est=C3=A1 habilitada. O c=C3=B3=
-digo Rust =C3=A9 compilado
-> +com ``rustc`` [pt-rustc]_ usando ``--edition=3D2021`` [pt-rust-editions]=
-_. As
-> +edi=C3=A7=C3=B5es permitem introduzir pequenas mudan=C3=A7as na linguage=
-m que n=C3=A3o s=C3=A3o
-> +compat=C3=ADveis com vers=C3=B5es anteriores.
-> +
-> +Al=C3=A9m disso, alguns recursos inst=C3=A1veis [pt-rust-unstable-featur=
-es]_ s=C3=A3o usados
-> +no kernel. Esses recursos podem mudar no futuro; portanto, =C3=A9 import=
-ante
-> +chegar a um ponto em que apenas recursos est=C3=A1veis sejam usados.
-> +
-> +Consulte Documentation/rust/index.rst para mais informa=C3=A7=C3=B5es.
-> +
-> +.. [pt-c-language] http://www.open-std.org/jtc1/sc22/wg14/www/standards
-> +.. [pt-gcc] https://gcc.gnu.org
-> +.. [pt-clang] https://clang.llvm.org
-> +.. [pt-gcc-c-dialect-options] https://gcc.gnu.org/onlinedocs/gcc/C-Diale=
-ct-Options.html
-> +.. [pt-gnu-extensions] https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.h=
-tml
-> +.. [pt-gcc-attribute-syntax] https://gcc.gnu.org/onlinedocs/gcc/Attribut=
-e-Syntax.html
-> +.. [pt-n2049] http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2049.pdf
-> +.. [pt-rust-language] https://www.rust-lang.org
-> +.. [pt-rustc] https://doc.rust-lang.org/rustc/
-> +.. [pt-rust-editions] https://doc.rust-lang.org/edition-guide/editions/
-> +.. [pt-rust-unstable-features] https://github.com/Rust-for-Linux/linux/i=
-ssues/2
-> --
-> 2.56.0
->
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
