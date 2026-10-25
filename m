@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792919632;
-	b=xqFKjcc+5JAeWlpG3TuU7iFslSdAs1Jn8S0TianpK7AvMGS98KBF/oqIBO1HS1HISK+l
-	 J6Sl9vBZWHelBSYqsfuk5ouOBzIS5Bnl7JbV7yneLrm3Iy9NZ6N/6P7AiNsC+eSz7vmAB
-	 bItsZFldBzdGB64tvlLMN4D8/MZbwVGLCGTlxQUuVMvsykWa+q5c5YF1jQ6LOLBQbKnEi
-	 P6vChXRiOK43YVrkyoHndnXTvvZdCnarHPKdWG1Bo5iOORDm0dNoDVbOL/0OuinxKZqgD
-	 Ej/QmeB/JDJetExxjgDR9VScOwTb7ycMVV2Qn/DnKRklaLlLxA+1WwGeWAZLRRIz2fA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792919632;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oBabjhiD1rQ4tbEXY7drQjt+LTH2wSsXeFN2ti8cL7g=;
-	b=lJnfHbKDGy9pWNKG0Ml8b+lMesGH+fd2BIP6WaVguW67nu25iA0qAIuhKQ4ovqoJ5yIG
-	 X/HXGv8E4DNKFVUA8TxvVxqrMVtT3Ht7mfwNk5CvNNbbsXHNH+ZUMTPaelQBomRCzJtfp
-	 qht6YWeV5NkBMgkCklwZki3jlOmXmM1cNAwzSXNZoKgjciVmb9z9yV+JFlODiPgr5idY5
-	 FQ5sqHDoeSj8vEJjYXkq2gxBs9G7bwb8uMIf6OLDz2O9B4WK3n6mnofZR6pnd2t+x4htn
-	 qvEraMhHkJuatZp6ejacAJK1YMCeb5U10lydrKA4klvRWF/kymf3ASKqkzpMCr7j/CQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=Pa9whJpt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792920226;
+	b=IDTU/l5xLceD46djcb0ujjwGfmJrYlyyAu2y7pYPW+9nuAcefmKkf2C2ZYmUys93t+1W
+	 LtdbKwZsk620m9NeYl7YP8Z1KWj9wEZjQiEwtUHn5JJ8D8oSNhnHsLH8+ifo8xANYNJ4V
+	 NpcncJWHngS5P3OLzjgWlXU2BLnWPfbjGlqR7jh07nBpxpAs+mCpTYEiSsWSCm+EBeYgh
+	 Y45vwpR29lCHkvmg6Ei0CfSEpGlGVu8w2TvleJKQPW1KS/24NJm9sCwkEHoBExwZZFX2F
+	 LAsdm2TPH7YCx/+iJV4hliZQvTPKvCfJuMW4ST1sG4AHA/XVsfeqUFlJz+Zz5/krm9A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792920226;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Received:From:
+	 To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=IqKI4LM6XVwEFw5OcR4MCKFBHEzsLZL8E7gqK3/pUrI=;
+	b=kmyf63LXoMcD7aDGvInhZSS8jif9M4dPJ+SNcvXOuhSJGPoWoPWBttWGj9Rr+iXjynKc
+	 3ECCgBtkHwOsavwFNJM43EAKI+bdeYTINn/slzmdO4qiIxCwU295C0jNUPeqybs9zteM/
+	 WO51gnDEi2f9PEZzk27QisUIHx9xgXnGs1unGnK4THzYGlzuhyw4U8YiqXTfTEA97WV2h
+	 NzPm8T7xtIAtwYSpAh8wTOI5wPiTUTzgTotWJyGOd0AVlWvwKM6IrcYIO1JhSEDeQ944a
+	 FkyyoYwhXWfEnDf6+SLKRKGpkaEHpmYLi/+HusYSNLFwD5uLo0JckzGDIhEpgtbe7ig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hf9PQs5u;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CCF606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3CCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5342606A31A;
+	Sun, 25 Oct 2026 09:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5342606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=Pa9whJpt
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so1465989b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:13:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792919630; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SATdonWEkE42aA3mxTzvG9XbzfIg4Wqmvak9JVer7rt4MN9MFQB3iBiYALCwCtfhHN
-         6HMv4/bH/s3RNrgsba11lHS/drteaXf6f7wUmjZJ7H741RePw6bij+/UbOUR+UL+O6lN
-         VDRP9w1ausBWv1ITVLapWWFfKKqswE4jIsYnlMZmTQUd3gLyrLB7pYDzLwFQ+Nc6yzJc
-         GCXbuxupcdTYT6x3tDqueSxioxUQAw9eE9nwoZjERyt0/eZWr0Dh5DtCQCwI3w4RWyJp
-         udKXsDwlpkIePG6tfP+Ul6xRzbSPdP5or08uS9h2BssDbrvx4jPnG42EJMGMsitfdbHN
-         atQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oBabjhiD1rQ4tbEXY7drQjt+LTH2wSsXeFN2ti8cL7g=;
-        fh=GnNanPEDSTboYsK7VieqETkGlhEJwfZCsUUvWBl3Us4=;
-        b=KcYFpOtK6vvY8lm1Xqv5hDnosdiBU3Plie1K8F9o1+jl2MgvQTPAfAfk2HIxn/Fpf0
-         u5Vs0kieaR9YOpHuw+a6PTVlpLaBhMkT3iDzmXp5UfdcW+ZjZS/9w0V159sagUqS8Qs/
-         tQHUC88rwB0Wxid6teYOWgb0AXCkGd/LWaU1JaaLv9miDXp92KLIq/USmqsQ/H7LbEB1
-         UEKyKHgN7VHZ3DWkqE+FJ32AV7opaLaEd383Sm20K2YzGL7jvu7Sq6wq0wd4JuF9743B
-         /t4TQZt2TYkiDITV95CsxeIB1CVKdi0hvQ3vuxXRG8nOUpHvgsImOZhCvYe7rm96ZM5E
-         hpJA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792919630; x=1793524430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oBabjhiD1rQ4tbEXY7drQjt+LTH2wSsXeFN2ti8cL7g=;
-        b=Pa9whJpt2+pX2IKfUr0v3K+DhB34016JeiiJ14fdqzNSpDp/m4md5iSan+Cv+NaX6d
-         XYmbV6K+4LBRy2L4k+yS/9vpSnXBbt2ehXQPqGu6uL/Pbjnqf/OIslPWttavKidZJLha
-         ekZX7eQWbR9g8oX7anwaPJfoCMxm74s28d9Qs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792919630; x=1793524430;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oBabjhiD1rQ4tbEXY7drQjt+LTH2wSsXeFN2ti8cL7g=;
-        b=QYTjEXV2l02YxxP8kRII2w3LWt68HpOEiJ48FCCs5dEZZq0h3DId07Rwfn2TuutzhP
-         5vW/WRg1lwa3/pL4Y9DmYZzZoE37Qm7zIqehOhxm8EX0HrWZgTRHs4ypNtPM9K16EVsB
-         iTZ3zj94KKjktJH3BuwNPQJkl/GKfPEu71j9JLNlHOZjoB8UGIbf+7yDXyUZ5lfQfd10
-         vswbOCpiqhzDSOj6zt8OqbtCNXxE9b7vInUfUmzdLfRxMwdyLpSe1CQWy1yR7jsrzajN
-         6BFWdvpTvotTiOH/7KhGZ2b5xAnN8BSQjKOY1uLtWQ8TxI1ecu5jA5DVNxZkCaDqoelS
-         OwPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCL2EQkAklp2h0FfRjgyQzCGiLBfjDtacK+KqGkNY7G9a3Riphoi922B+SqjBxrbvXtMu+hlGXtXhdfks=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMFTMU5RPBrzNi6zwWPmVqvV9NuJTvVuL2jxaBhnzkWlDZ1OvR
-	IZaN7FcNEXulSIkNkALmnkrf739cBEbRUPt4p1sl704Wugw/4wHdjEqOYq23mg/eM3ymrwwscV+
-	z6D2fnewYDz2iFXeG03qpwFXbedXSKS9SZ1Mtqwxc
-X-Gm-Gg: AYBFou0yxCXpnGCj5rtY6csHE8O53EFeJyMu6v9KW++K6j5laEjImpL/JsR9kNwVy7r
-	3hjH9gXjlfNcAk6PlpbuzcMQP5ECgUqLcD3RLNtw3Zc1tPF33Y1BsgKB+Xn/McpwX005IE8xWki
-	y3FxBxYn+Yf8Sxi0kDjmrJ/Q/Eg8VlwAJJ5qIh6EfMHs9HXlQ28eFjEwBaOAWdQQ7SLw8MK0wqQ
-	qzlvlSCBx6cBxPxF9WkE4hNMKtOk/Oh5aTdbIS/RrN1ioy4A81nmaWkx4IFICfBaPzBub979rZP
-	90bLtKVUn8Mb8h+2Av0Pm/EiVke+a+A1oafhPV5uVATTDaSIOrl0vUUQsOrNvXEhweWbXYAzLPU
-	NTcLcMiVwEgeQblQh8OE/1yTN/qFeN4IlVoxPDaBNJ+iHsJGAxF/nw/5SQvXQgyWFkIyUmB967d
-	B1+rLwF97YftZRJzo=
-X-Received: by 2002:a05:6a00:a115:b0:876:194e:b8fe with SMTP id
- d2e1a72fcca58-8a366f660c1mr3180660b3a.26.1792919630278; Sun, 25 Oct 2026
- 02:13:50 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hf9PQs5u
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=IqKI4LM6XVwEFw5OcR4MCKFBHEzsLZL8E7gqK3/pUrI=;
+	b=hf9PQs5uTVJI34XIOJvVBBspkD8VpedxsNnj/tsSl+9WWD/04DxV4c8Pf3BUpl5p/NuGLlNPW
+	INVQ2g0L2nQ4kKS8cl7etHGk/L3NNimjwDnT/gpUsRgvubyI+nfROBMfrotd0Igl8Fni1ZThBT3
+	NXTVF+96M9GsrijX7TN31mI=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jCBBk4D47zpSt9;
+	Sun, 25 Oct 2026 17:23:26 +0800 (CST)
+Received: from kwepemf200008.china.huawei.com (unknown [7.202.181.234])
+	by mail.maildlp.com (Postfix) with ESMTPS id C3F2740538;
+	Sun, 25 Oct 2026 17:23:33 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (7.202.181.14) by
+ kwepemf200008.china.huawei.com (7.202.181.234) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 25 Oct 2026 17:23:33 +0800
+Received: from kwepemf100015.china.huawei.com ([7.202.181.14]) by
+ kwepemf100015.china.huawei.com ([7.202.181.14]) with mapi id 15.02.2562.045;
+ Sun, 25 Oct 2026 17:23:33 +0800
+From: "Liuwenliang (Abbott Liu)" <liuwenliang@huawei.com>
+To: "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "brauner@kernel.org"
+	<brauner@kernel.org>, "jack@suse.cz" <jack@suse.cz>, "pliard@google.com"
+	<pliard@google.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"phillip@squashfs.org.uk" <phillip@squashfs.org.uk>, "cem@kernel.org"
+	<cem@kernel.org>, "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"tytso@mit.edu" <tytso@mit.edu>, "adilger.kernel@dilger.ca"
+	<adilger.kernel@dilger.ca>, "libaokun@linux.alibaba.com"
+	<libaokun@linux.alibaba.com>, "ojaswin@linux.ibm.com"
+	<ojaswin@linux.ibm.com>, "ritesh.list@gmail.com" <ritesh.list@gmail.com>,
+	"zhangyi (F)" <yi.zhang@huawei.com>
+CC: "yangzhuohao (A)" <yangzhuohao1@huawei.com>, douzhaolei
+	<douzhaolei@huawei.com>, Wangbing <wangbing6@huawei.com>, Nixiaoming
+	<nixiaoming@huawei.com>, liaohua <liaohua4@huawei.com>, "Chenjie (K)"
+	<chenjie6@huawei.com>, chengzhihao <chengzhihao1@huawei.com>, heyuqiang
+	<heyuqiang1@huawei.com>
+Subject: Re: [PATCH] initrd: flush deferred fput() before mounting root
+Thread-Topic: [PATCH] initrd: flush deferred fput() before mounting root
+Thread-Index: Ad1kX9AjglmBfdg0QUm6eVPEjTE/+g==
+Date: Sun, 25 Oct 2026 09:23:33 +0000
+Message-ID: <3d64d109188e492da5939ebacc8631f4@huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,78 +92,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260731140533.566493-1-david.lee@trailofbits.com>
- <CAM0EoM=UDkGKLivsdDS5JaVMuefR4jLC2rAWJcOR8XD-4N_EgA@mail.gmail.com>
- <CAC_etQESLytW5rhp0GfZU-mJqJhwk202a5u_nTXZ7W6wJN=AJw@mail.gmail.com>
- <CAC_etQHv2EBYfAhfkYHKrasnJAyDS+u5+a4os4aD1eSmKrck_A@mail.gmail.com>
- <CAM0EoMm=KbZgcGqLHDFee3mM1GxuNCvAWObP_K4AxsGAoEAedg@mail.gmail.com> <CAM0EoMmxpVv4YRoQQ3jN+79OKjaT=ep3+6jff8CHoOBLJUej3w@mail.gmail.com>
-In-Reply-To: <CAM0EoMmxpVv4YRoQQ3jN+79OKjaT=ep3+6jff8CHoOBLJUej3w@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sun, 25 Oct 2026 05:13:39 -0400
-X-Gm-Features: AclHuK80D8qgJg44CQznpEWEuYQO3yP2tYU2BMNxj7xLNY98_DjMCZ-FphGgVQk
-Message-ID: <CAM0EoMkOj8zfwB8WuTEOxEzAoGONg=2ZODehVMBzbA5c+EebZA@mail.gmail.com>
-Subject: Re: [PATCH] net/sched: sch_qfq: prevent aggregate self-replacement
-To: David Lee <david.lee@trailofbits.com>
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>, 
-	"Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sven@narfation.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 25, 2026 at 5:03=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> On Thu, Oct 22, 2026 at 5:14=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.co=
-m> wrote:
-> >
-> > On Wed, Oct 21, 2026 at 10:56=E2=80=AFAM David Lee <david.lee@trailofbi=
-ts.com> wrote:
-> > >
-> > > Hi Jamal,
-> > >
-> > > Following up on this thread. Please let me know if you had a chance t=
-o review the attached reproducer or if you need any additional information.
-> > >
-> >
-> > Please resend to the list - I lost track.
-> > And if you follow up after like 2 months(!) you will really have to
-> > retest with the new kernel and likely look at the list to see if there
-> > are other fixes that cover this issue.
-> >
->
-> Before i try to reproduce (then proper review) please resend
-> addressing the issues raised by the sashikos. They are legit.
+On Wed, 30 Sep 2026 16:47 +0800 Abbott Liu <liuwenliang@huawei.com> wrote:
+> Booting an old-style initrd, i.e. a bare filesystem image rather than a
+> cpio archive, with "root=3D/dev/ram rootfstype=3Dsquashfs" can fail to
+> mount the root filesystem and panic:
+>=20
+>     RAMDISK: squashfs filesystem found at block 0
+>     RAMDISK: Loading 68449KiB [1 disk] into ram disk... done.
+>     No filesystem could mount root, tried:
+>      squashfs
+>     Kernel panic - not syncing: VFS: Unable to mount root fs on
+>     "/dev/ram" or unknown-block(1,0)
+>=20
+> The panic requires three conditions to hold simultaneously:
+>=20
+>  1. The initrd is a filesystem image, so initrd_load() copies it into
+>     /dev/ram with rd_load_image() instead of unpacking a cpio archive
+>     into rootfs.
+>  2. The root filesystem is mounted from that ramdisk and reads it with
+>     bios that bypass the block device page cache. Squashfs has done so
+>     for every read since commit 93e72b3c612a ("squashfs: migrate from
+>     ll_rw_block usage to BIO").
+>  3. The ramdisk's block size equals squashfs's device block size:
+>     inode->i_blkbits =3D=3D blksize_bits(SQUASHFS_DEVBLK_SIZE).  The firs=
+t
+>     open of /dev/ram computes i_blkbits in set_init_blocksize() from
+>     the queue's logical block size (512 for brd) and the ramdisk size,
+>     capped at 12 (blksize_bits(PAGE_SIZE)).  When the ramdisk size is
+>     aligned to PAGE_SIZE, inode->i_blkbits =3D blksize_bits(PAGE_SIZE).
+>     The ramdisk size comes from CONFIG_BLK_DEV_RAM_SIZE at build time
+>     and can be overridden on the kernel command line with ramdisk_size=3D
+>     (or the rd_size module parameter when brd is built as a module);
+>     all sizes are in kibibytes.
+>=20
+> When the conditions hold, the boot races as follows:
+>=20
+>  1. rd_load_image() opens /dev/ram for buffered writing; the first open
+>     fixes i_blkbits as described above.
+>  2. Its copy loop writes the image with kernel_write(), which leaves
+>     all of the data dirty in the block device page cache.  Nothing has
+>     reached the ramdisk's backing store yet.
+>  3. rd_load_image() then drops the ramdisk file with fput() and no
+>     explicit sync.  The final __fput() - and with it blkdev_put() ->
+>     blkdev_flush_mapping() -> sync_blockdev(), the writeback that would
+>     push the dirty pages into the ramdisk - is asynchronous.  While
+>     init was a kernel thread, __fput() ran as delayed fput work at
+>     least a jiffy later; since commit 343f4c49f243 ("kthread: Don't
+>     allocate kthread_struct for init and umh") init is a user mode
+>     task, so __fput() is deferred via task_work and only runs once init
+>     returns to user space, i.e. after mount_root().
+>  4. prepare_namespace() calls mount_root() right after initrd_load().
+>     squashfs_fill_super() starts with
+>     sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE), which ultimately calls
+>     set_blocksize().  That function reconfigures the device only when
+>     the requested block size differs from the device's current block
+>     size, and it calls sync_blockdev() and kill_bdev() first - a page
+>     cache geometry change that incidentally flushes the dirty pages.
+>     With both block sizes equal, this incidental rescue is skipped, and
+>     the mount path contains no other writeback point.
+>  5. squashfs reads the superblock via squashfs_bio_read(), which builds
+>     BIOs on its own pages and submits them with submit_bio_wait() -
+>     raw I/O that bypasses the block device page cache completely.  brd
+>     has no backing page for that range yet and zero-fills the result,
+>     so the "hsqs" magic check fails and the mount returns -EINVAL.
+>  6. mount_root_generic() calls init_flush_fput() only after the failed
+>     mount.  Since rootfstype=3D names a single filesystem type and the
+>     root device is read-only by default, no candidate is left to retry
+>     with.  It panics.
+>=20
+> The failure is intermittent because most geometries get the incidental
+> sync from step 4: the race only surfaces when both block sizes match.
+> Such a geometry arises when CONFIG_SQUASHFS_4K_DEVBLK_SIZE=3Dy.  The
+> ramdisk size is normally aligned to PAGE_SIZE, so on the first open of
+> /dev/ram the ramdisk block size equals PAGE_SIZE (4K on typical
+> systems).  Without CONFIG_SQUASHFS_4K_DEVBLK_SIZE,
+> SQUASHFS_DEVBLK_SIZE
+> is 1K and differs from the ramdisk block size, so set_blocksize()
+> calls sync_blockdev() and kill_bdev() and flushes the dirty pages.
+> With CONFIG_SQUASHFS_4K_DEVBLK_SIZE=3Dy, SQUASHFS_DEVBLK_SIZE is 4K
+> and
+> matches the ramdisk block size, the flush in set_blocksize() is
+> skipped, and the mount panics.
+>=20
+> Several ways to close this window were considered.
+>=20
+> Fixing the reader, e.g. by syncing in squashfs_fill_super(), addresses
+> the wrong end of the race.  Reading a block device with bios that
+> bypass the page cache is not a squashfs peculiarity: of the 28
+> block-backed filesystems in the tree, 26 do it in at least one read
+> stage.  squashfs, xfs, gfs2, zonefs, hfsplus and ntfs read their
+> superblock with raw bios; btrfs, f2fs and jfs read their metadata that
+> way; and the file data of ext4 and 20 more filesystems is read through
+> mpage, iomap or block_read_full_folio into the file's own address
+> space instead of the block device cache.  Only romfs and cramfs
+> consult bd_mapping at every stage.  A squashfs-only fix would leave
+> the same race in place everywhere else, where it usually does not even
+> fail loudly - the mount succeeds and file data silently reads back as
+> zeros - and repeating a sync in every filesystem would scatter the
+> same barrier across the tree.
+>=20
+> That leaves the producer, rd_load_image(), with two candidates:
+>=20
+>  1. Call vfs_fsync(out_file, 0) once the copy loop is done.  This
+>     pushes the ramdisk's dirty pages into the backing store and waits
+>     for them, costs a single batched writeback, and returns an error
+>     that can be checked.
+>=20
+>  2. Keep fput(out_file) and follow it with init_flush_fput(), which
+>     drains both deferral mechanisms - the delayed fput work and the
+>     task_work - so the final __fput() and its
+>     blkdev_put() -> blkdev_flush_mapping() -> sync_blockdev() run to
+>     completion before rd_load_image() returns.  The ramdisk then
+>     reaches the mount closed, synced and with its page cache dropped,
+>     i.e. in the state it would have in without the deferral.
+>=20
+> Both options complete the writeback before the mount and either one
+> fixes the race.  Take the second one, which matches the established
+> use of the helper in the boot path: mount_root_generic() already
+> calls init_flush_fput() before retrying the mount with another
+> filesystem type, and flush_delayed_fput() documents the boot as its
+> only user.  Draining the deferred closes here is also well contained,
+> as at this point in the boot they all belong to files the boot itself
+> created: the ramdisk file just written, the /initrd.image it was
+> copied from, and the files unpacked into rootfs.
+>=20
+> Flush the deferred __fput() right after dropping the last reference to
+> the ramdisk file, so the writeback completes before mount_root() runs.
+>=20
+> Verified on arm64 QEMU with an openEuler Embedded rootfs image packed
+> as squashfs: the boot panics as shown above without the fix and boots
+> to userspace with it.
+>=20
+> Fixes: 93e72b3c612a ("squashfs: migrate from ll_rw_block usage to BIO")
+> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+> ---
+>  init/do_mounts_rd.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/init/do_mounts_rd.c b/init/do_mounts_rd.c
+> index 48bfab2fc62f..24e57f30e167 100644
+> --- a/init/do_mounts_rd.c
+> +++ b/init/do_mounts_rd.c
+> @@ -258,6 +258,17 @@ int __init rd_load_image(void)
+>  	fput(in_file);
+>  noclose_input:
+>  	fput(out_file);
+> +	/*
+> +	 * The image data is still dirty in the ramdisk's block device page
+> +	 * cache and only reaches the ramdisk once the final __fput() of
+> +	 * out_file runs blkdev_put() -> blkdev_flush_mapping() ->
+> +	 * sync_blockdev().  That __fput() is deferred (delayed fput work,
+> +	 * or task_work that runs when init returns to user mode), while
+> +	 * mount_root() runs right after this and may read the ramdisk with
+> +	 * bios bypassing the page cache (e.g. squashfs).  Flush it now so
+> +	 * the ramdisk is up to date before it gets mounted.
+> +	 */
+> +	init_flush_fput();
+>  out:
+>  	kfree(buf);
+>  	init_unlink("/dev/ram");
+> --
+> 2.43.0
 
+Hi,
+Friendly ping on this patch.=20
 
-IOW, send a v2 with the following addressed; I may have missed some
-things Sven pointed out:
+Please let me know if there is anything inappropriate in the patch
+or if it is ready to be applied to the tree.
 
-1. Sign-off chain: the patch is From: you but only Kyle signs off.
-Read Documentation/process/submitting-patches.rst, add your own
-Signed-off-by: as well (and a From: Kyle Zeng / Co-developed-by: chain
-if he authored the fix). As sent, the DCO chain is broken and the DCO
-check will flag it.
-
-2. No blank lines in the trailer block, and replace the prose "Bug
-found and triaged by OpenAI Security Research and validated by Trail
-of Bits." with machine-parsable trailers (e.g. Reported-by: for the
-finder and a Link: to the report). The "Assisted-by:" trailer is not
-one of the standard tags - please drop it or convert it to a standard
-one.
-
-3. Add "Cc: stable@vger.kernel.org" - the Fixes commit is from the
-original QFQ Plus merge, and this UAF is reachable with CAP_NET_ADMIN
-in a user+net namespace, so the stable trees will want it.
-
-4. Use the [PATCH net] subject prefix in v2 (this is a fix for the
-current tree).
-
-The patch looks sane, as I said earlier, but there are just too many
-incoming and too many fixes over the last 2 months - so i just trigger
-our automated system to ensure it is reproducible first before I look
-at anything (and i would like to maintain that discipline/workflow).
-
-
-cheers,
-jamal
+Best regards,
+Abbott Liu
