@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792941519;
-	b=zVxhLaFf5cFLlnzGJO9GZwDpyDrAzXuEAFAQMr13gQKf8Ff0FmUkM+96r877jNWMrhzd
-	 +9TpD8mvf9opCtBmhJlMdH1B4n2j5tpBLqC/ODasvHsHGJxL6npTHwhCynxWSKklIqzDA
-	 0pmTfXcSuvAuxX3SRlYxEV1Ewat7SlbU28LR4ySFW9gT3P1ruWKxqPrXRKq5aJ05tLHLC
-	 II8e5pExpIUyimhKAxYhZtq7O4UgsKNRLpuV88r753jOmXvMRmzmss6h4ALFVCayXWSUV
-	 18G56N77XPUj2Bw6XmdZ58QR6TlRklb0XhPIHuOyWKwcq2G82Y9xM89BFRz7n6NufNw==
+	t=1792941663;
+	b=2N0QUH7RrM5SKRGJ5XmBqqrEy+RnzbBwbxxkwAmvkYQRplo0vlzpqj5+Xq4/UL6Af5mT
+	 tkjSLcYQrymI9NHV85Jc4Z/ygPiY9OGr5DyDtU7YmXc/dRDUkhSPcd1OZH5dtauxBNMqq
+	 /97pwP2TsUalFxRgP6IxhBH7e557mR9mbgC0kJ6HHi0jOHq8mdsH9zevv2yH9XtPl/7cH
+	 TK+Y5ItQfsYQqPBmYn1N5CkEY+6saiiC4hV8Wg07y3FbZVvnY4gHGNO7+/wIIqnlDtmqZ
+	 D5kGXWuUgSXqNucqqZaFuXDUcshHoccD866bP3698YUSCA55XkiuQJfqYWQ53F/fvRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792941519;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=eRTIY2QmE6ACq8H2nMlgUMbhu46IBSihGykRErDnDlA=;
-	b=mtTex6w1rzZhJWHwxOe+grjei6kyWfDbXouFu/gGpuIT7ET+aX+Bon/VBok+oi3VdoqA
-	 ZsgZMT8i29Bk2vpl7MjAJiZxs3hdH4NYpzPXPsY+Mjqk6XGTdSbzBYVA0Vpt3EsG2hxVs
-	 q3S2WeDWSoIf1StUTsY4rWkDFvqfO9umzxib1ydkgwrMlUIpsadzggedtd4CC26QMXhfJ
-	 cieZ9bhI0pv9r4wetTGpG6VwWa0q/sLNUZc7epjz2uPivwaCnp1SOoHYF2nSLs1+OWrAO
-	 vj9mOJ6NH+OPo4H/CgRnxDxwxCEGo7VVz9UpX7j8nZXoz1dAF1QXjGpHuIv7BKPx8tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792941663;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=m8ZWIa7M+p2n3dzL05DerEYidrwGqmOmSYbzKZgE3kU=;
+	b=BbrgT/ozbPBZ87kX+oGRpZBm8fUIlHYjk/C4ZwxUEtCmhBTn23IugGEl7+SI//KEToFu
+	 iYL34fzyJjhRGgUEAtmYBS/6Z6DBUScRyEt0Tdz13YshIc3OxI8NU59KPA4q519Fo80UR
+	 pJCQv1T4p0nHjynTWHvSNkuC5WlKIQqcjyKk7P4bQZDmpcTmT9niwCJgMVevm3K6nUmDS
+	 HYfuO/3BuR/p3wustCB4uPdIXro5j2T3I6sOEVFvGhmRhPJp5wHayHHmpAm7rsntfMjM5
+	 xzMDcfNRbnEnwmJ5i84VjC2Gvg3nkOYFbkRAPdZc8AC5FI+6olkNbJOJfWEpFxTcV5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ODpn1dJJ;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.70
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36DC606A31A;
-	Sun, 25 Oct 2026 15:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F36DC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ODpn1dJJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792941518; x=1824477518;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IRySX0dv0SSIuLXVhOjByfyPWsSteJjEmoJdxJX+ZFE=;
-  b=ODpn1dJJaWrJAsgGS/IM8WQn4erBVlcZ73/VrZPwRaJasfN/H+8V64PF
-   C8fFHLH15dI1DZn/xrONe5r24z33eXUbzvozN81zFLgXaLvEQRnYu6sjX
-   +ySOLJ5fLKLeBv7WYW2me4Vdc9rZOssi/eP2BfnwoMzTJx5/NpdzHAmqf
-   CU+h8u1jcxh+ooNwcovFcM7hQi5f/JCVRIr3c7jGD3+vQtqcJ/Ylg9T8f
-   NE5Uof4P8DtwD/j2bGNHldIQ0M1TQAIGQRtEJ2zKOvxAMR7umMyE77KaH
-   HJmwoyHdHg64U1cN9PhHKUT/j78NBm/DcGVXoE5a/AFktM1zRSZoxW35/
-   Q==;
-X-CSE-ConnectionGUID: f/wU9nlqRIeg6hpXrcvTyg==
-X-CSE-MsgGUID: FxY+iVOWQu6BdeeUPouUBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1623656"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1623656"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:18:38 -0700
-X-CSE-ConnectionGUID: 5y8bQpGCQnuqFxSlkmJJlQ==
-X-CSE-MsgGUID: ubjvbqYRRE2VRO1r6YQPWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4405461"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:18:36 -0700
-Date: Sun, 25 Oct 2026 17:18:33 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <at4dyW-XNABCF51c@ashevche-desk.local>
-References: <atyGxFmgv85JUTls@ashevche-desk.local>
- <SN1PR12MB2528B54E68524DC62C378CD7A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2947606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:21:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2947606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8486941f252so3416819a34.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:21:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792941661; x=1793546461;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m8ZWIa7M+p2n3dzL05DerEYidrwGqmOmSYbzKZgE3kU=;
+        b=RRbZ6teJwUHJJ5skpkJX1Ol/6cQWKWR5ys5P89+86/QHQFBz3DSl2wZcrqnrFcySy4
+         dC5MNV1nnm/8IcaS7YEO78dIrOSjuNx53k/yNOJSwgCo/RLgipN9JoHQ08f2pTcyJEFh
+         gPSbYCaJL+vxlLNDDSKO1W9jpBye6r9ZxvFDsNzAWLmB/OyPRIVjrC6yZqCkYNZvyjCn
+         /P2+qJgnkVo1PQ4Ti8CWg5LbVbqVKubapNjO2avhmQ8QYjfJLGdkcb+L++F8LztAXJsH
+         NRrlyYrhE63e3ieVpyT0uYuknYLp/6mbo5ckDosK4WDPDvGJkp+ZA4COj0i8mxxPTByM
+         UCRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYrzMJAeYz8nozl1l8Wa5JlQQGDyWtdp7bFACVIx064Cyfnp7uzlTQCcit0vxiwbgvObXel2vdpA/I0Kw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkJPmUN5HDLQzeX8IQVWChwP7cPL+FaW0tBgXKsQ1k4zCe8Om2
+	CZp0eJrO7KKsy39nQ90MgrCspV4h+eSohlnDpntJWboa2IYUGo3xx3csmJWQB3VgstJdrapZsA0
+	63PRVaS1+4bo0bWu1F6TovvQQ8pyTU7waUdjhXyMU4/XxCCtYiwX/am00n7g=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,41 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528B54E68524DC62C378CD7A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:244d:b0:4f8:4ec9:b170 with SMTP id
+ 5614622812f47-55bfff9736fmr2477582b6e.2.1792941661644; Sun, 25 Oct 2026
+ 08:21:01 -0700 (PDT)
+Date: Sun, 25 Oct 2026 08:21:01 -0700
+In-Reply-To: <CA+xk8n-TJsj3pTnyPXk462EqTwUVnZQECrDtcKS-YXoQsTU3cQ@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ade1e5d.6314cce4.30c5fd.05b8.GAE@google.com>
+Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in config_item_put
+From: syzbot <syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 25, 2026 at 12:55:25AM -0500, Victor Chernyakin wrote:
-> > > > I'd look at using regmap even though you only have a single bus. It provides
-> > > > a rich set of helpers and the caching functionality that will save a bunch
-> > > > of bus traffic.
-> > > 
-> > > Ah... is that a strong preference in new drivers? That would be quite
-> > > a bit of rewrite work...
-> > 
-> > Yes, usually drivers start being looked cleaner. On top you got a few benefits
-> > of regmap for free (cache, debugfs, tracing, maybe even more).
-> 
-> Alright, v2 is now regmap-based!
-> 
-> > > > Looking at these data types, can you check if linear_range.h APIs
-> > > > can be applied instead?
-> > > 
-> > > Doesn't look like they can, since they only work with unsigned int, but
-> > > these values are s64.
-> > 
-> > The types in the software is a result, but what is the cause? Do you have
-> > ranges with a sign?
-> 
-> Yes, fdc1004_calibbias needs a sign.
+Hello,
 
-Need a sign and having it in the data tables is different. Do you mean that min
-of some ranges in your case are negative?
+syzbot tried to test the proposed patch but the build/boot failed:
 
--- 
-With Best Regards,
-Andy Shevchenko
+failed to apply patch:
+error: corrupt patch at line 6
 
+
+
+Tested on:
+
+commit:         21a7f44f Merge tag 'devicetree-for-7.4' of git://git.k..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
+dashboard link: https://syzkaller.appspot.com/bug?extid=63336d70e1af377d7388
+compiler:       
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=15633469580000
 
