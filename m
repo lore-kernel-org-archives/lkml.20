@@ -1,84 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792969994;
-	b=qsGSsnfu4OWZxhbLjL3vpp3Iphr3nfR9ou9xQa5wTsF03AX/Q3Pi6L882jm626DILXwu
-	 taobsnK9d7gf38Lc1tEu+/G2FrJ527htnaDKkW09IOxwLTitciZPEzel8eQLDxhDO6Ljr
-	 /BC9dY+pTy3++8IgW1kocFuj/CfZFhJCV0Op0tjcZL8OIj1Fbdh1mUvHg1Y2zMv1Zn0oW
-	 nSCDcsOr8YZvkXhhTWszf4ixD0WskLWerPBJhOphFEYTGTgRDjtzXBaXuJbcLE7zxFwK4
-	 cpRA8GQrKbm7KnAprSdsjL+yLWt6mHX/tpJDfJqB4d1bUXXcukHltst1ZFS62RBB4Vw==
+	t=1792970078;
+	b=c4unc+1GiurKyc877wcp14rKIOtG2FIiQwMVveBJAeoS4ymd63V8DmjyLmsGKWfplo9s
+	 cFjNcNTVG5A2Z1Rb+mgqipAlqe6HGM9GFp+fBKdqwkP6BzKTIAIJbxKBzK2YGE5V37IxW
+	 EeWpBNGjpPx4wTWDiOhxA2ndlAOSj8dn5jxER81ZJnWkt/cEj7tGrWiIQNAA/V8sys/GA
+	 ZsOtB+yVUyzgLCTdGKwX8sXCN4yhutBkuGdSQnMIY1S35X3MI0Qa7k7tAJS9Df4MEdyIR
+	 ux1Mh2umvo+c2ZqscgRk47g1CMVsXWRydBQuVVhd1V0CAY+egWZzREabsyhhJwDpcTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792969994;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
-	b=JYc/QEXdOS9USZtpsz87WIhbOgs7aWsTrywd6clRjdD83gHBkNlDgBzFHNdtVvsBPrs3
-	 tgDMf0B/eqIFgEb7J6ctifUqLCCMqrAmhAbdpsDf7R6qTcXJy6eetvwVWchTutjTwyYlu
-	 rUMMVatGwUq5kkKvem+vo23c1qkOgoym/hr4rrasBr9+8LCvGPD8EtuqRF1hODOSl0rqt
-	 Sc1E/BXRoXQdhHGCOR956WyeLCE4l9GkmOp21oRbWqEMKw+AHhP5m66BUwFJDYCe249qX
-	 6FqW0TufZ48Dx6AwT9AV7gV0il+NNXNLmTFvekRjb4fjKea4/VvETRrq7scSo1nUKWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792970078;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=tQaes7bNYqS+ZJDcrEFv5Xvce1CpAz6+FFTd4+Au/aE=;
+	b=Y/daZ6EXsWeoUGgLzTisuiOLC78stqCzC7VWMsGvrdHf2l2v2tNC8fifi1M151MgVfSM
+	 XIjBuyH1zPbEkdu2BmwRYur4ua3kjqzk6AJGSrVkHC6tGt/1Ji8QinXQu5xVkZzMvdTV/
+	 GRYE220aNSkbKFRWBZqSWSbxy/8msR58JA3iuq2xS0mDd/MCMI2w1D6CETrFIY94yEeyi
+	 9S/+GRWJ0OD9GUx1NtaEVJiz2RIz/25H8URlXWzwQrmvS+oMfj5cYX7xHcjerZ8QerlzH
+	 Pv/dAR4XiUSx9cJXV9Lk+txO0YJwDdzDmo4MeMr5TQzBSzv/ky7hsKBmiArQDL3ZzBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=SyVKvHEs;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BPRr55t8;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F7F606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F7F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C602606A31A;
+	Sun, 25 Oct 2026 23:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C602606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=SyVKvHEs
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-157fe9d771bso2876468c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:13:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792969993; x=1793574793; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
-        b=SyVKvHEslJ/Z9K8YJ22TGO9uybiX03BNspUhbcdvAnGMGT3+QRPFAnZqIihcY+kCAH
-         InhNLrwJmZyuJAoIDWsbk5Q0AxkpQJdrD+7LU/P4SZcQftBiHoxcLdFPsz7E2Fyxaoqf
-         NUOHVCrjLyDSjN0iKLJJO4dLzwzVv7HRIxXRe9UWO2GoUlwvjgaVzFApn0zw2S5hizKe
-         iwoHJgRuRRP2j/IGWpGBDMj0cYNVyTNdeqIttxAmUwh9VbJCiIqB//0Jn1fCCd4btdZS
-         RdGG7lJgUJ8zSXJoWqLRSK7q3EXOQfO6oqzCDzaZ3KAJjL6O0NaFbZL92RNRsflze7Bs
-         irPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792969993; x=1793574793;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
-        b=qnqNH0miH83w6x3tk0ARFFdOVp3kFAOIE16jKNh48K7amJXuqeyrGdYSYbJ8siDle9
-         akmxEZxMGhn+PCYRkTvIk9lJIPbTKhs/2tVyCAgac/ZzD6gYxfcyxBgPfkUFTH4dkwlJ
-         3S9sen1hFLEIsu/QZDUEm0/cg+UuxBhpo6frFWN9B6kxHZ/ERapqtyrIVH56jdcyiVkq
-         uKuKl2R7SZuVswxsFsHqUvTW0ya1xQ63M0oRr1T/6eDQASJ73i040X06rMP/oi/X1Qdk
-         6/lZUDz0WXFMLgChqGoRxhO/lsOfXgKa0ABPPlPHZn/S9vkLEDmrv0vX152bI2QQoCvV
-         cmnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhxGcqm+Fx2IVnxbKxwFBYyOYMJnHJYbrVcTxED0Loh4Y4WZ05JpVEqrWnh56wkCf35DUXlyntmtIbjCA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDgkoH2slTw8v/jHzgXS6w/Kj56SvGNP3+DV5f2AuPZ7nwIl+h
-	ADckFbEizoboGFW9RjjY/0hw86MLJUwDNTMKjiRDjCfT70KKLUmTl51o/zWMQa/ef4o=
-X-Gm-Gg: AYBFou0zVHZppPezkLymn2t5akGazSty9/+wW9UVQGMV25UBXft23AqGxCVT68xW672
-	cRe9cLLNTmNgLWFG1W0ubmqSis9TAVNFAGJN/Jz7KZGIVf8ios/be97H29lHZ6zgW97h3wt3+/J
-	fT8W2oVyD6oc6MC9IcWLJ+SnVk83pG1/2bzqCBKEExB219qkzlSLfN1hWJSuC9TCcIpOCKYducx
-	xIjvNDX60ArXllcsP9DSKDjtfioaa7/8VuUboLD2vfZkQm3N52a2ejT39NL2tQwWQI7ll18w4jn
-	3u/RVxKrwb6WvtAU/HyeyFjvpnsYx5Y6JgWs69VL8A97cnX3/qR4L+CBuV8wshEfp7ODKV4TBu5
-	tL5DeZwDLmH+8a+KEAO6vcUWFvvSxelryzRoXzfKgIf6dcyq9usIZOn2THCR3GNcZnxlamiLC+2
-	cBb1ionSfmVvezp1pIrdGcjOC+T6Gmy1EIG6odes5MKSyS5MKXmOL1yUzsgXKiNybP6eHf+g1B6
-	Jbj7GfiKFhIj7G7B9xvJYmPVmGXQOfBCKQef77Ps+qUBAn7LM6KRUdor9NtjODFHj7WbNsmqD4P
-	Ww==
-X-Received: by 2002:a05:7022:7f12:b0:195:1a77:85cb with SMTP id a92af1059eb24-199290fe446mr7025882c88.1.1792969992473;
-        Sun, 25 Oct 2026 16:13:12 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d8a690sm19545470eec.12.2026.10.25.16.13.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 25 Oct 2026 16:13:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BPRr55t8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=tQaes7bNYqS+ZJDcrEFv5Xvce1CpAz6+FFTd4+Au/aE=; b=BPRr55t8hjrvM70KGh0K9OThhl
+	pgGVr5QQZ7GfJhItI3GSzZn8qJu3QopA1vSd8qqnmOF7k2iv+CWLjJ6xAnx9fQgd8vDoaFBX52k39
+	K4+HoQwpi+CjFbFHyNRkKsBpd3iYi9IbJam+uWeeFZCRSpP8X+6ethznfrLdBWzFsEio=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xL7Q3-00Cj0N-To; Mon, 26 Oct 2026 00:14:27 +0100
+Date: Mon, 26 Oct 2026 00:14:27 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 1/2] net: dsa: mv88e6xxx: fix 88E6171 statistics
+ snapshot
+Message-ID: <404d5f2d-24a5-4edc-897b-b1b3c54a20e1@lunn.ch>
+References: <20261024182124.296988-1-f.fainelli@gmail.com>
+ <20261024182124.296988-2-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,63 +66,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 25 Oct 2026 16:13:10 -0700
-Message-Id: <DMEATES0KH0K.3C7G7F2FELPOS@nexthop.ai>
-Cc: <linux-hwmon@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 10/31] hwmon: (pmbus/d1u74t) use 4-argument
- i2c_smbus_read_block_data()
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Guenter Roeck"
- <linux@roeck-us.net>, "Cosmo Chou" <cosmo.chou@quantatw.com>, "Andy Chung"
- <andy.chung@amd.com>, "Ninad Palsule" <ninad@linux.ibm.com>, "Abdurrahman
- Hussain" <abdurrahman@nexthop.ai>, "Robert Marko"
- <robert.marko@sartura.hr>, "Delphine CC Chiu"
- <Delphine_CC_Chiu@Wiwynn.com>, "Daniel Nilsson" <daniel.nilsson@flex.com>
-X-Mailer: aerc 0.22.0
-References: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com> <20261024-hwmon-i2c-smbus-read-block-data-v1-10-e81941ad0cd3@gmail.com>
-In-Reply-To: <20261024-hwmon-i2c-smbus-read-block-data-v1-10-e81941ad0cd3@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024182124.296988-2-f.fainelli@gmail.com>
 
-On Sat Oct 24, 2026 at 8:06 PM PDT, Dmitry Torokhov wrote:
-> Pass sizeof(buf) - 1 to i2c_smbus_read_block_data() and shrink the
-> temporary buffer to I2C_SMBUS_BLOCK_MAX + 1 since only a single NUL
-> terminator byte is needed.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+On Sat, Oct 24, 2026 at 11:21:23AM -0700, Florian Fainelli wrote:
+> The 88E6171 belongs to the 6351 family and takes the port number in the
+> low bits of the statistics operation register. The 6320 snapshot helper
+> instead encodes the port as (port + 1) << 5. On an EA4500, this causes
+> ethtool -S to return physical port 0's MIB counters for every user port.
+> Traffic on other ports does not update their reported hardware counters.
+> 
+> Before the snapshot operation was moved into the chip operations, only
+> the 6320 and 6352 families used the shifted encoding. The refactoring
+> incorrectly assigned that encoding to the 88E6171 as well.
+> 
+> Use the unshifted snapshot helper for the 88E6171. Tested on an EA4500:
+> pings through different switch ports now update only the corresponding
+> port's hardware counters.
+> 
+> Fixes: a605a0fe7115 ("net: dsa: mv88e6xxx: Abstract stats_snapshot into ops structure")
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 > ---
->  drivers/hwmon/pmbus/d1u74t.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
-> index 752df3af9c1a..758464a6362d 100644
-> --- a/drivers/hwmon/pmbus/d1u74t.c
-> +++ b/drivers/hwmon/pmbus/d1u74t.c
-> @@ -30,11 +30,12 @@ static struct pmbus_driver_info d1u74t_info =3D {
->
->  static int d1u74t_probe(struct i2c_client *client)
->  {
-> -	char buf[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
-> +	char buf[I2C_SMBUS_BLOCK_MAX + 1] =3D { 0 };
->  	struct device *dev =3D &client->dev;
->  	int rc;
->
-> -	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID,
-> +				       sizeof(buf) - 1, buf);
->  	if (rc < 0)
->  		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
->
-> @@ -45,7 +46,8 @@ static int d1u74t_probe(struct i2c_client *client)
->  				     buf);
->  	}
->
-> -	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL,
-> +				       sizeof(buf) - 1, buf);
->  	if (rc < 0)
->  		return dev_err_probe(dev, rc,
->  				     "Failed to read PMBUS_MFR_MODEL\n");
+>  drivers/net/dsa/mv88e6xxx/chip.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+> index 7f68a0c55802..67daf3b9cb48 100644
+> --- a/drivers/net/dsa/mv88e6xxx/chip.c
+> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
+> @@ -4610,7 +4610,7 @@ static const struct mv88e6xxx_ops mv88e6171_ops = {
+>  	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
+>  	.port_get_cmode = mv88e6352_port_get_cmode,
+>  	.port_setup_message_port = mv88e6xxx_setup_message_port,
+> -	.stats_snapshot = mv88e6320_g1_stats_snapshot,
+> +	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+>  	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
+>  	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
+>  	.stats_get_strings = mv88e6095_stats_get_strings,
 
-Reviewed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+static const struct mv88e6xxx_ops mv88e6171_ops = {
+        /* MV88E6XXX_FAMILY_6351 */
+...
+        .stats_snapshot = mv88e6320_g1_stats_snapshot,
+
+static const struct mv88e6xxx_ops mv88e6175_ops = {
+        /* MV88E6XXX_FAMILY_6351 */
+...
+        .stats_snapshot = mv88e6320_g1_stats_snapshot,
+
+static const struct mv88e6xxx_ops mv88e6350_ops = {
+        /* MV88E6XXX_FAMILY_6351 */
+...
+        .stats_snapshot = mv88e6320_g1_stats_snapshot,
+
+static const struct mv88e6xxx_ops mv88e6351_ops = {
+        /* MV88E6XXX_FAMILY_6351 */
+...
+       .stats_snapshot = mv88e6320_g1_stats_snapshot,
+
+Should these be changed as well?
+
+Looking at DSDT:
+
+static GT_STATUS statsCapture
+(
+    IN GT_QD_DEV            *dev,
+    IN GT_U8             port,
+    IN GT_U8             bank
+)
+...
+    if (IS_IN_DEV_GROUP(dev,DEV_RMON_PORT_BITS))
+    {
+        portNum = (port + 1) << 5;
+    }
+    else
+    {
+        portNum = (GT_U16)port;
+    }
+
+and
+
+#define DEV_RMON_PORT_BITS    \
+        ( DEV_88E6065 | DEV_88E6065 | DEV_88E6352_FAMILY )
+
+So your change looks correct, just not complete.
+
+       Andrew
