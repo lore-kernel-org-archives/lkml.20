@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792941256;
-	b=ST+otCWP2OwYQkG852IbqYJpB9XeKE+6taOWjJ2jNBctvn6hvxKkSKuxBgt43gyH7542
-	 vFVBnN7dqOo5u0UzvRFRPKAuEcgfIw1C9DeEmgtyAsrwBA6OluxLagBKr++jr9XAIsmQQ
-	 IfANlXVsaNKnp1PNV7DnM+hLHlezjRITy9AGzhb2CpbXvZVTxSxsG/dq2k2eqrPa+DCSf
-	 jdFEG8YYWAahVcGv103mT3tjRMiScro5p9CQbQt2d1le+ABTgUsg5thIE8tIfxxtlT/rM
-	 GPTCC13Uj6SuA17qxJw07bHZVPOdaaLgIXYUwx4cVzRiFKY6avcnjd3LxFbbKLLuAJA==
+	t=1792941429;
+	b=j1nE2qnYvKUGMb3u+eTTGtL8v2SIv5yH/EyqJaXLDXZcC35+xLkTFDRZa8jrCjRwXt6E
+	 cXM0xd/fp/cbyWs6UUAnklyJHwiEeklw+ss/Ms8ghXyzzRhItSd0gQ59/DZlMosMaK1Zw
+	 ybZWYg4qzJwZtRmxe9++F+pmtID+gbjBZVqj3z72L95cEm+WwjQdv9VAdqlKshcUJUUyq
+	 QAk5leRoA7jqRKOJoJ1Qy72+flb8ly6bIzVDvLHx78v0oel00kTlp0J8zCYRpe73ClcvY
+	 c+BbK/Jkja91voONYMkH0H7O0b0EFzTvLYMgewZVKNvxiKkGKrhG1vtx4Gz6SeVKmvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792941256;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=EanEzITabyL5hHZuLfjLX/O3m0p6a+JE+WfvVu35z0A=;
-	b=YBc8Zg0amInRkuKXIA5ReUCIy6/i4Q1A6nZ35Dtsd32yoVHAvkF4MkvvdgamCTtm4WPW
-	 1zwomCaeWuampVsxk6Rz6YCcw1lGMPGw/0fRby1+wB8FhBsGCeNn6Fz2PoZbGUhCEkOhI
-	 JALbZ+X650Tbk7/gMzarxlXHJGyup+Hqj0IFa2vE47hpo9OZGRy6M+4CdLluWMEqRig1p
-	 xNst2JhVEgZjGWmE9MEB1bVi985GC75GmKr5MG50DJnfNRRGekSr4VRZkSkv8o7T1S2mg
-	 38nRHSBRoiLEPH+jvtf6Hmt/8nY3FJYu/kVeCrtoeHhDLllh7fzC6xs+Qm5YwQI7gLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792941429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+	b=niiAWzMFeEixWRUA6mixKPXeSLDtDFNrbAgqbKlV/MsDbTGZBRFNvi9Ic2lckp8Uvguo
+	 ViC0puy/4Emh/RhZLS0lR5kO1xPciTIztQWjAXUo+zhXy6rwIAfU0Mh+fBYE1nRvu8fZR
+	 A0JO/U/tYgzXleiyBokZVWfc+xaGD1hp66WK5YhUBj7QK6K426c8a1SPYUZXVAG3Zq2JV
+	 eUcqR+4vRDhimYWpQWUShB2Y639JbjsaOzv4syJcFV6z1k78jAsJHJ4T65SRv4RdQutIj
+	 iiu9x8PcBHFnD6YNHddqCQ+OLEREeAnIEu7qCkg2pzijRxkOCkuCNKNQY+gHinIWDLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jli6RjVw;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=bkhX3K5F;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F561606A31B;
-	Sun, 25 Oct 2026 15:14:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F561606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4E3606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C4E3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jli6RjVw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792941256; x=1824477256;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nMuoICu3+/kegamQPU1fMK0Jut2zai+WN1izIEFxGgY=;
-  b=jli6RjVwxBfHfVzLeHvQlcXhkHfDc9zxsDXob9pSOVSJaBPFj3IkOxL8
-   9Cd2fEEXoax15GLgHP1OKWBe893y+MBDIxJcaveBu16J8BKXHWtX9L5hw
-   WW71dFlveddzeCqkLgtk4DIxSlgvzbOe2Rea1MAKQZp4FS1c4jw8sKAUw
-   RWvvEfTpH1HTs/cyYP7BxBYykph2TmOvXdNzioZlu4My1dN0BLhRgAjDK
-   3K4nonHQP8rl8T00X2wH5WTRqOMfiR+qK4cXEGfhlkDLZ2blJxYqRoSiG
-   QBR0t8Y3mDZE4fVylzxACsqV4ugwTl2qU9rHXPy19152kg79prijOnH3t
-   Q==;
-X-CSE-ConnectionGUID: o1eOZXpcQXav8z235jpA9Q==
-X-CSE-MsgGUID: GcE5vEX/RZucw46Bfre6Bg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1623520"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1623520"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:14:15 -0700
-X-CSE-ConnectionGUID: RDohAcVYTJKTr0jTExw2+A==
-X-CSE-MsgGUID: leqgv13GQjy/DN5fHtD87A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4188329"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:14:09 -0700
-Date: Sun, 25 Oct 2026 17:14:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v6 2/5] serial: serialize asynchronous write wakeups with
- the port lock
-Message-ID: <at4cvnsjHndzY5o3@ashevche-desk.local>
-References: <20261024-submit-serial-8250-dma-cancel-v1-v6-0-6f366591f566@gmail.com>
- <20261024-submit-serial-8250-dma-cancel-v1-v6-2-6f366591f566@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=bkhX3K5F
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-917c04630c2so25267396d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792941423; x=1793546223; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+        b=bkhX3K5FjsQrft3v3hXQxqYDsSuQznzyGasYeLiPw0fXaiqj12taMq35qXL7NI3cSN
+         hlUm/LZwUyjwX15zW7w1wiPTx/xepHFLqWLtyfKSkFVURXGjuSKFvD+X3/PFa2jDRbDt
+         50mBJi6EsGzn1/LladRetekFy9+VqpXAkcM5Qq9jHW/fPD3Q4BP0Gadx/TUvpolO+nKC
+         UDAF1qWTxf2i0dAymEkgXv1NCb7sboO4Te4RaWSatHa68p4ishuL2T4OlCQ/1554Tm8P
+         zGaFI1XMkYnTGilMixj1aDMxKxUv09uJwzo3/gL3OgH+ZHMU6x5NffvYICXeok2Bqyc3
+         vY4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792941423; x=1793546223;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+        b=nOG517UyVcL67t62MYh/4eQYFfccCGeV0KXHgBHgcVAL6fflzpKQh2roz7xmNLQPMs
+         LVGw+ZYjTqN+OylDAgICrBYVcWE70yIOXqdyU+IJxoJjpPEywpS3366KLpOwjRVRGg12
+         CLqjR8rieiKmz0uFPSXReK0hkyPTPJMHM6WiQQU+oGlGGmKI/eWXh6tVMUren29pko6j
+         S4bY0LQe9s7AkdofXki0Y2BqRrqgrYpFQqMhrI+2iZTwrp3cFLduue/qAZovJR7lOw0d
+         Lc9djXlzd807T0bpirxLsMz0uDaWBX0bOKreQTkN/oo5h/wKWJcnI5pxtLlJY4Z3aMLJ
+         u8Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAJASP5TSstlapJKcsff7FUsPsUqzy5JS31q+w4CeEyG8zPTdTilkIlU3PMyF6ssyQs60TZWy3KvLdMfo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQrcozKJRckrqWEe1hye4+RwgOHowxwRre7uQxsXA+K3LI8S2a
+	P7NT0RrGreZhuz5H36AgDTNtOlrAqON5ptgw9MoDouIdzsxfJyqxUPDc2AbO9+ztQ6Ebn/PIm0T
+	LVkEffg==
+X-Gm-Gg: AYBFou0+fzci1WkNGDDtE/2FaiVKXkPHLC2Riqs8nLSS0X/Oi0GunaKcFIxiRAfD5B0
+	h4TYYc3cI8BVbQWkFlRuqvf1X9kNNfd574N/8QdcfG9JJogKWuoC4wgOi7r7yIlbQ0iSG6T9Ahr
+	WuNPy8Cp5RBifAg+XriKbz3qwN/EGB8bhFicxAa0uyG9PshNlkt2GoN3dp/E1m58CTNByxqaBaZ
+	PuyYEgegkkSDD/W0xSK0865iwUl0qFxHIsqg/7EmMtiIKe5XTGZx4B3QB2aKB9IU9qtX9eR42NZ
+	Dw8ou2fclkZ3r2dWwRyUno+DPXxjBk6azrdHT8/rHyEfoom0F872pnmiOX60edLDgmsyiBDeyKp
+	YkfUYz8lwlwu88sUtwKNuNTZfGMEvzGc98HL59Sj810/WMAVQa4znU8mi70jVjxaaIsfP1N9sie
+	1GXPSAzqngb1mFaBZnzd5WAuwsqWHwdxebGHkJI66KNFDPJitk/nH3Dpzg3BQfbhJN6KNDuPXVy
+	ZC/nXgL4oNUbiE2aH2jlqH4rE5jXoIGoo4dNoB4/H6NQMl1zAsaFncq
+X-Received: by 2002:a05:620a:40d5:b0:93e:fd69:9a93 with SMTP id af79cd13be357-940ef8d837emr663389785a.31.1792941423007;
+        Sun, 25 Oct 2026 08:17:03 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cd9dcesm47203106d6.42.2026.10.25.08.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:17:02 -0700 (PDT)
+Date: Sun, 25 Oct 2026 11:16:59 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: IgorpetinDev <igorpetindev@gmail.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <20261024155614.2732-1-igorpetindev@gmail.com>
+ <20261025000643.425c57ca.michal.pecio@gmail.com>
+ <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,103 +105,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261024-submit-serial-8250-dma-cancel-v1-v6-2-6f366591f566@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
 
-On Sat, Oct 24, 2026 at 02:52:27PM -0600, James Hilliard wrote:
-> uart_write_wakeup() expects the UART port lock to be held. Several worker,
-> DMA completion and interrupt paths call it without that lock, including
-> indirect calls from uart_handle_cts_change() and the transmit helpers.
+On Sun, Oct 25, 2026 at 10:54:57AM +0300, IgorpetinDev wrote:
+> Regarding cancel_work_sync() vs. flush_work() and usb_remove_hcd() vs.
+> usb_stop_hcd(): these changes were specifically suggested by Alan Stern
+> during the review of v1 and v2, which is why v3 was shaped this way and
+> subsequently received his reviewed-by tag.
 > 
-> Take the port lock around these notifications or their transmit helper.
-> Keep sleeping SPI and regmap accesses outside the locked region, and keep
-> the FSL LPUART completion lock held through its wakeup. Acquire the port
-> lock after releasing private channel locks to preserve the ordering used
-> by UART callbacks. In the MUX timer, publish available FIFO space under
-> the port lock and keep the hardware FIFO-drain wait outside it.
-> 
-> Use IRQ-safe locking in the Atmel RX and TX tasklets and SB1250 termios
-> path, since their interrupt handlers now acquire the same port lock.
-> Preserve the caller's interrupt state when releasing those locks.
-> 
-> Serialize CLPS711x TX servicing and its interrupt-enable state with the
-> port lock. Disable TX interrupts without waiting in stop_tx(), since a
-> threaded handler may need that same lock. Have an already queued handler
-> leave stopped output untouched, and drain it outside the lock during
-> shutdown before the transmit FIFO can be released.
-> 
-> SCCNXP handles interrupts under a controller lock which its UART callbacks
-> acquire with the port lock already held. Collect the ports needing wakeups
-> while servicing the controller, then release that lock before taking each
-> port lock and rechecking the wakeup threshold. Removal drains the IRQ or
-> timer before unregistering the ports.
-> 
-> This serializes write notifications with port-locked serial-core state
-> changes, allowing readiness and transmit-storage reservations to gate the
-> notification without a check-versus-shutdown race.
+> I'll defer to Alan and Greg on how they wish to proceed and which
+> approach they prefer to take.
 
-...
+I don't much care whether the new calls go in usb_remove_hcd() or 
+usb_stop_hcd().  I suppose usb_remove_hcd() would make more sense, since 
+no URBs can be sent to the HCD until it is added.
 
-> -static void sccnxp_handle_events(struct sccnxp_port *s)
-> +static unsigned int sccnxp_handle_events(struct sccnxp_port *s)
->  {
-> +	unsigned int wakeup = 0;
+As for cancel_work_sync() vs. flush_work(), it doesn't really matter.  
+The situation we're in is that there are no more entries remaining in 
+the workqueue and no more will be added, but the final one may still be 
+executing.  In this setting, cancel_work_sync() and flush_work() do the 
+same thing.  However, the name "flush_work" does a better job of 
+expressing what we want to accomplish: wait for the final work item to 
+finish, not try to cancel it.
 
-unsigned long
+> > > @@ -2787,6 +2789,13 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
+> > >       /* In case the HCD restarted the timer, stop it again. */
+> > >       clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
+> > >       timer_delete_sync(&hcd->rh_timer);
+> > > +
+> > > +     /*
+> > > +      * Even though all URBs have been given back,
+> >
+> > but does anyone actually believe this here?
+> >
+> > Hundreds of drivers written over three decades, often
+> > without linux-usb review. I don't trust them at all.
 
->  	int i;
->  	u8 isr;
+If it's not true, there's likely to be trouble when the completion 
+handler is called.  We could forcibly remove any remaining URBs from the 
+lists before flushing the work item and just leak them (with a warning 
+of some sort -- ideally, one that prints out the names of the completion 
+handler routines for the leaked URBs, if at all possible).
 
-> @@ -491,20 +491,43 @@ static void sccnxp_handle_events(struct sccnxp_port *s)
->  		for (i = 0; i < s->uart.nr; i++) {
->  			if (s->opened[i] && (isr & ISR_RXRDY(i)))
->  				sccnxp_handle_rx(&s->port[i]);
-> -			if (s->opened[i] && (isr & ISR_TXRDY(i)))
-> -				sccnxp_handle_tx(&s->port[i]);
-> +			if (s->opened[i] && (isr & ISR_TXRDY(i)) &&
-> +			    sccnxp_handle_tx(&s->port[i]))
-> +				wakeup |= BIT(i);
->  		}
->  	} while (1);
-> +
-> +	return wakeup;
-> +}
-> +
-> +static void sccnxp_write_wakeup(struct sccnxp_port *s, unsigned int wakeup)
-
-unsigned long
-
-> +{
-
-> +	int i;
-
-Why is 'i' signed?
-
-> +	/* UART callbacks take s->lock with the port lock already held. */
-
-> +	for (i = 0; i < s->uart.nr; i++) {
-> +		struct uart_port *port = &s->port[i];
-> +
-> +		if (!(wakeup & BIT(i)))
-> +			continue;
-
-NIH [1] for_each_set_bit()
-
-> +		scoped_guard(uart_port_lock_irqsave, port) {
-> +			if (kfifo_len(&port->state->port.xmit_fifo) < WAKEUP_CHARS)
-> +				uart_write_wakeup(port);
-> +		}
-> +	}
->  }
-
-NIH syndrome is one of the weakest points of AI, please, read and study
-the code you are changing.
-
-[1]: https://en.wikipedia.org/wiki/Not_invented_here
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Alan Stern
