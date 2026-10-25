@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792960953;
-	b=YTEuEZmYqju744RII7oChgBdN2K/RURjHROZWYD2W7GfTpdjXIfHcaJaPhRMj8jsbh3Z
-	 QyuD3q5Lp9+a89C5lx26O7CwKJddGvhh0DLoxH065WLHQ4gkcUxKRCy/1cqC0wjffTZrU
-	 4ibvGnA9OnLVHPgPd/3WDm5EYKlNCXYwt52CmoguoGRFWxCTNI3Pgg41GqA4pDl6PpoXr
-	 fYwp0d6xd5RjspJsCEx/viFDn+VsQW/1GRVLx2EHoYfoRvromK77FOrwTXBJTC0je2v5t
-	 w2TfM9IjWkmtBV3D/sJnzRdsOfTxc6p+McqZzDACRgxfa3yyrW+/5ftbijP2x02X7og==
+	t=1792961074;
+	b=Blhj/Xl41kKatBxsxjSJx63GnnQWJiwni5dKtmvo/ZBMd75imJz/uGesN+iafp/R3qtE
+	 EnB9VjzWIaHXuruRvY1aVQmhvJ9/qEOtrvFyxMKo6VpYFyQ2UCZE/fQz3s7QXEz9zWm9N
+	 Y8CYgNHoBKXMwpIfFZy4vZOqlNw6qttZbcYWU6iNr/+B2zXH5oHz2VM1YRT6tKxYOjMVD
+	 gA06iOfIpj7nhEUpepW69xdUPSpeMMjEVhLVJcLSGOdkXElBpEXhohwPpbJbrv5LcYwnp
+	 0m4YeOWw8EXsnlbXoTjS5adaOKC+uGNQGdOedxtQHLEaggxCIaw5/aqjGc6mSpswR9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792960953;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1ZVwpDuEOvVP+5WMptjvGUaD4UnS5xmh0v3my59uo80=;
-	b=CvWHduTEFHXwK2zWTQHD021/CUhI4EYhs5i+8v5PRVflrgciqU4nx8y5ZUhOP3+xbbeb
-	 Eu4ZMdYoEK1wkguJIVPm0v3y8U6roF7de4oayHC83oNAtBJh4jM9aKw9F+T9UEVwkmdVc
-	 d63XO8ZkRV0noFjj0PEy3c53cIeTnGyijYrU1Lh9ISrtO3LhN7ok4MuRNWYVNJC2CiuK/
-	 tZxOZqQMMkU9XzzAvYslZML9RjsGte10CuxuUXIrZdIhAlcFf91xcDcN/qIBSRx6/+tQ0
-	 o1V9N7OOzUDw6kfJpRTTeheqIYyLjFhzVBNWGdrVAjFTL3+G2OvWvCQsxAgFo9+IYdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792961074;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Y1K0RTnG4l4ygM2F8GtIx4eTiSY/f4ozYtbSxngz744=;
+	b=Hy/q07MlCO9ijdqsLaqyqc+ufyi5wvIVznYxQFTZSoPREc0OyqM482aBB1Z3SFI2spMp
+	 3FS1usf3uFxBgTIG+ZeZLVJIHieGUEiBSrrK71xsix3seDoO3XJNr6Ll1476+KzovsTEg
+	 UhrUawzXRUgWDDfZuk99lqMtTiqrVUV34NMEr1N4nQhIOefgReAANtux8P4O5JVuDarce
+	 0vIjiXaqDKsfHy5Ju+kCO1vyjk/nErlimYi54mroBusjM671JBwNXRbM+ExTmt5WeH318
+	 NNa9NnS4wmxwpxTs9U0JjSWamJgop4lK4qyTe4tgRHp2YPw2BeZIwr11d0G6auIz7vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cw6wxqO8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPb6KUJE;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310B0606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFA6606A31D;
+	Sun, 25 Oct 2026 20:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFA6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cw6wxqO8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56551F01825
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792960952;
-	bh=1ZVwpDuEOvVP+5WMptjvGUaD4UnS5xmh0v3my59uo80=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cw6wxqO869ZZJ8vwwoDzLpFL7knGGLPUHbSAAQ1kpxEmlLRSoAcIyI+7nCNkPXtXC
-	 /sQV6Nvfef8NOsj/Vee6+JjdQSwsL8eGsx0BMC/21zb7xTzpc9lozSJ7N6zZWF79VG
-	 mhefi2f4xhIQUZOWJNQJMiZp57XOxhMYe7hXPq/QPwTT/ClZNZV7lCq/+2OFBWsxrw
-	 7Bbsquk/ryxVB+AxDl4L4wPHsfXS7lFVdaIMIGn6/3nH7z15C+TgtIieL9xFC7NZ5v
-	 Nf14VG1zxAGC+aQJ4EokIMh5+0zoWQO5PXt/cCcE/eP1BVl+c1l6nRpKjLzjRsrTav
-	 8ePHU+mvvPfrg==
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53cd0c8614eso925651cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:42:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwQJrKm4n6ZOX0bFg3A1ug9UxMLXVhhqtcTa4CWcPtraH7iSOUm/+zCQxxKdrcOKJWNucORk8wfKqwVUFQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjENHAndOA7R3RH0kPfrsnPhDoWafNRqCA8fqoALpIKYjGEB40
-	ib9Nz4eF9q60b3aIwO1JimWerXtbnDDNLiXYxQMu3vWlg8FhmCSy+Bmxnnp9K6iME1v8tEeCqgy
-	z7KMmjGKoodApvUqE8vxE8iBZBa+MUbs=
-X-Received: by 2002:a05:620a:400a:b0:93e:48fc:aa88 with SMTP id
- af79cd13be357-940ef95513emr790870385a.44.1792960952180; Sun, 25 Oct 2026
- 13:42:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPb6KUJE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792961074; x=1824497074;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=eXznDtSLHr+NGm3eF9RB5EGJ3G5yfhG0QIJwsysSxZw=;
+  b=OPb6KUJEBdQuGScpmMy8CLzQvqlGLvARkBtgndEb0HC93AYzLKMIo+CD
+   WNHnHV7rSS77wcNS95AGm+/HJY/fBw1tpnFfue840ymOfD6HihsF9MSWz
+   2FnqvAKHDkUhoXo4ouLxIMP5MLeD/LPSgZSwqM2lSfyv2VhmsGWtGr83+
+   /BOVZrSnXUF2FOLVclWPR41mE5mVRPZiyzZm4VHqG8Qmpz+U0g6cZa0GJ
+   /Kv2i//m2cnrm1Oprj0CjY5XPYYvM7bu1V1UXDLHQLYmd8AJXjVSOJtAT
+   /eSnq/EEA9i41LmONz87wBh2kAcHfaExFLE74FkJCQ4wMJnDFayLZkP4g
+   Q==;
+X-CSE-ConnectionGUID: aC5HBaBqSKK47cnC4uAgEw==
+X-CSE-MsgGUID: +7MeE1NdTtGHPybCIHhySw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1527856"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1527856"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:44:33 -0700
+X-CSE-ConnectionGUID: EMIh884NTLyiP+HifSGEoA==
+X-CSE-MsgGUID: K9IknHoWQhyv10Qz/UdTGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4080612"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:44:27 -0700
+Date: Sun, 25 Oct 2026 22:44:25 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v5 2/5] serial: serialize asynchronous write wakeups with
+ the port lock
+Message-ID: <at5qKehogAjTa-fA@ashevche-desk.local>
+References: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
+ <20261024-submit-serial-8250-dma-cancel-v1-v5-2-9e52968928d2@gmail.com>
+ <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
+ <at4bw-G8czG-G7Wl@ashevche-desk.local>
+ <CADvTj4psJcY2T1PG9H8_hJWjz62R7unj3PPgv3FrVquUMFVhGg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,37 +103,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025021839.1542805-1-senozhatsky@chromium.org> <20261025021839.1542805-4-senozhatsky@chromium.org>
-In-Reply-To: <20261025021839.1542805-4-senozhatsky@chromium.org>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 26 Oct 2026 04:42:21 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wF2YfHwyDSt=B_+duiHCXke8JJgqGJcaw31JunUbxxQw@mail.gmail.com>
-X-Gm-Features: AclHuK_u4ku4HYNTJ8RqUHQB0jHfvIpB2fBEVv08j0BZX4fWzV5XB72RUiMN54w
-Message-ID: <CAGsJ_4wF2YfHwyDSt=B_+duiHCXke8JJgqGJcaw31JunUbxxQw@mail.gmail.com>
-Subject: Re: [PATCH v7 03/15] zram: reset writeback state in zram_reset_device()
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Brian Geffon <bgeffon@google.com>, 
-	Bo Zhang <zhangbo0325@gmail.com>, Minchan Kim <minchan@kernel.org>, 
-	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADvTj4psJcY2T1PG9H8_hJWjz62R7unj3PPgv3FrVquUMFVhGg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Oct 25, 2026 at 10:18=E2=80=AFAM Sergey Senozhatsky
-<senozhatsky@chromium.org> wrote:
->
-> Reset all writeback state to its initial defaults on device reset.
-> We used to keep writeback related data in zram->stats, which
-> zram_reset_device() clears, but commit 1d69a3f8ae77 ("zram: idle
-> writeback fixes and cleanup") moved it (along with the newly added
-> wb_limit_enable) to struct zram, after which neither of them was
-> reset anymore.  wb_batch_size and compressed_wb, which were added
-> later, are not reset either.
->
-> The patch is more about just being pedantic.
->
-> Acked-by: Brian Geffon <bgeffon@google.com>
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> ---
+On Sun, Oct 25, 2026 at 02:25:46PM -0600, James Hilliard wrote:
+> On Sun, Oct 25, 2026 at 9:10 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Sun, Oct 25, 2026 at 05:10:03AM +0000, Maciej W. Rozycki wrote:
+> > > On Sat, 24 Oct 2026, James Hilliard wrote:
+> > >
+> > > > uart_write_wakeup() expects the UART port lock to be held. Several worker,
+> > > > DMA completion and interrupt paths call it without that lock, including
+> > > > indirect calls from uart_handle_cts_change() and the transmit helpers.
+> > >
+> > >  Fair enough, and thank you for the cleanup and spotting the issue in the
+> > > first place, however...
+> >
+> > He already issues a v6. I think the tactics against AI contributions should be
+> > to not answer for a week or so until there will be a quiescent week.
+> 
+> At least with the workflow I've been using, a good signal for quiescence is
+> simply whether or not the Sashiko reviewer found issues.
+> 
+> I am feeding the Sashiko prompts into my local agent but it seems to
+> sometimes miss issues that get flagged by the public Sashiko reviewer
+> still.
+> 
+> I've been attempting to peel off independently reviewable fixes where
+> feasible as well to minimize the amount of patches/code during respins
+> as well.
+> 
+> > At least that's what I learn from this patch storm.
+> 
+> Whenever my local branch accumulates significant refactoring/changes
+> due to Sashiko or manual reviews I generally try and send out the new
+> revision fairly quickly in an attempt to avoid reviewers wasting time
+> reviewing code that is obsoleted by the new fixes/changes in my local
+> branch.
+> 
+> Locally I actually have far more UART related patches in an integration
+> tree that I've held off on sending for now since they are dependent upon
+> the prerequisite fixes I have already sent. My unposted patches actually
+> have an even larger amount of code changes than all the UART related
+> patches that I've posted so far, at least when measured in terms of total
+> lines of code changed.
+> 
+> The large amount of patches I ended up with seems to have mostly come
+> about due to the AI agent identifying most of these bugs while iterating on
+> and debugging new features(most of which are still largely unsent so far).
+> 
+> The strategy I've been using is to send small isolated fixes separately and
+> then reference them as needed in the larger series that depend on them.
+> I figure this should make the changes easier to review than having them
+> all in a larger series. I contributed the changes[0] to make this compatible
+> with the Sashiko reviewer actually.
+> 
+> I also use a custom AI agent controlled hardware in the loop test harness
+> which makes iterating/testing changes much faster since the AI agent can
+> autonomously test and iterate on changes far faster than is possible to do
+> manually. This test setup also allows much more thorough testing as a lot
+> of error handling or uncommonly hit code paths can then be tested using
+> AI generated fault injection tests on real hardware tailored to the specific
+> fix being validated. I manually review the final changes before sending as
+> well of course.
+> 
+> I'm constantly refining these patch development/review workflows as well
+> so feel free to give me any suggestions for anything I should change to
+> make review easier.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+I already gave one: slow down. Better think than loop through AI and keep
+Sashiko busy. Your patches are valuable, no questions, but they are way
+too complicated to catch on withing an hours or a couple of days time frame.
+
+Some people might want to test the stuff. And sending too often you actually
+will get the opposite results, people will be tired to even start reviewing
+and/or testing your code as it's changed way too quickly. Settle down first
+with something, put on the cover letter the answer why not all Sashiko's
+comments are being addressed (for example, due to amount of patches or the
+series being focused on a certain issue).
+
+> [0] https://github.com/sashiko-dev/sashiko/pull/389
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
