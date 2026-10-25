@@ -1,118 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792950036;
-	b=21HY+nkCvYc5Bw8cRIxJ8sSgxeNkarAIzlRIBJ9+MrRyoZEXAROVJ370NR/GaAyl84+H
-	 O1Kzw5mEGZKN/Vz1aMbvCHtFVJSv0ZjXT2bB/JEf6C/O4H057p6RVAnHOw41VEWecnM1U
-	 rUrS0wrRyniLJo5Y6JQ2dwc4TDqW+9XSwbigmNBXDRmurGk2qLj7T58ZSiBE9fv6bey/S
-	 NVSCsto0dzscrhKWwSE8wdzHOH5TTeOe/KjUOgunmgYJlNcMQnQEsv6JkdL5gh+gToXnu
-	 RYplQltedbxMOf8luuClyHmjnPy9wt9QDmrUapwVMZwBN8PgsLcqxGT43Ht5jTkV+Pw==
+	t=1792950046;
+	b=Jhu4AGHfJkacyXW6gJd1ymHcBXqUi8kp+S0tAId6T0pxjjbPZE8kQgwNseY/D2hqHGAC
+	 GJLdzl4ke2NQpDltmpeiTM4pvNe5O5x4PexzOdGGLKSORJ4n6jXqigfpABWfPwg8h++mp
+	 8Eceq1+OeNUVwftd+VmSQFblI4SA1O5Gt5I2C6YEbUd+KkRK1KlMB4HG03RFx7URf4PIu
+	 QX7JhDf+2coAv6ufRGmcvHNozrdNnwOtivaoHEPTi/94o8Y5+9aE0AEHyU9ewW8BOWfDh
+	 CP4vSdooD94+rd/gEaHoaGQ7XlkG3n78Vtv4nAxqQE97YXALb6ajYOv9f6Zv8KqwGLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792950036;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QeCPVU+TT7xZWsohIOPLxgTp4DXEQmJIT8fXCzhydds=;
-	b=34aP7u7HqVuDYDWv2CyI9gj7X+I4SjdkSJAqfB88nLsbqrY/But+2NIdzRPvYcwZRnoR
-	 rKJQ0M/IpwmoBLTa0O8UIyN8ty3rg8LHkSM59Ti6+CcuihbXVKYiGd6WMXaDCV9xn/rHE
-	 voXx+jOJaca9CYRBvIxWgI83X7Evd14bLzHAIBN28cIZLVnsv60sSMaO2PWUhwCEV2tPN
-	 d1nI2I9ps3APTrg/p3k5fXU/keabM3M7O5rsmwhia+jqkDwr/8N+RqZseEOgxWuW0Ci31
-	 zo3xHDjdhhhbjD8qMdAN6FQCPYdxwxtY+zi1Dy9me7ueEatomUMs7DMxsCeS3q2lWNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792950046;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=wx7DtEnW/yiqV2jfL4jW638vppvg9yzl2vShHqhjnzQ=;
+	b=LTk0OFkWGliz6Csxv+1jwW1qV0zz05nGSg8lpZj0M83P92AV7Oj+GUlFWuZQVW/gh5Y5
+	 hdazO+dqswQHhdY0LIbUBQoricLQD1G1HP5P6zwMftVLtPAG/hJLNDop7QOHOAVPKfEq3
+	 g5fSNC09X4YCIzPbHL0dgHn+J/YgXtirOKOZDebMF9gtOmtt7HzWLfaC3GEoHXN25cHZ8
+	 DakVWq9SebdWtVzIhbZZIDwv3sMsPYiP4803rvzR3TYvqSIwmMjGx7kWKESkohi4AF1oF
+	 Jg5VyXEL3tkOnbLkY+lut8a6o9vZoxwUrKB9le2NDElxHooxxOEJWYh7hQUAWoKb1TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b="YM/+CkA9";
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gT796LRL;
+	arc=none smtp.remote-ip=91.218.175.202
+Received: from mta0.migadu.com (out-202.mta0.migadu.com [91.218.175.202])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30896606A32E
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:40:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30896606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C23606A32F
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:40:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C23606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YM/+CkA9
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5e948e56af3so1085512e0c.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:40:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792950030; x=1793554830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QeCPVU+TT7xZWsohIOPLxgTp4DXEQmJIT8fXCzhydds=;
-        b=YM/+CkA9ulfPVh7UdymLwZ58eoNdnyxqgcSrRcAKiZQIeRQkyzQnNFBUuFcqvCJqdh
-         vIL67wMfo7Oci4FwOxzpYlVf+vr/8Yf2/AwUWobHpzvCevQ5pfWtnty6NitJnBXNKX8w
-         cAwQC/Xl6uE/OajcqgrMWyIZ6CLl65q4pwfzbYI6KbQscchvScZBZrCCq4Atd6hOpGKb
-         BjgowFvFHSTFFyKCZLkdPgAe7w5f7WRAmwkhDVzcrVG3oZ/1aR9bbm8KzDgBDYlgulkh
-         GZiBMmsvS6LVNHluiqwaxi+yT++NCJSQdk8dTbB/24kW4IslEFVHmho8Y50hv9B7/NUt
-         cGpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792950030; x=1793554830;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QeCPVU+TT7xZWsohIOPLxgTp4DXEQmJIT8fXCzhydds=;
-        b=KHiQ9ucz899x7I40jwZi+/Mu8qos6lwuceJ4d+h41TUdCkawX4IcjnUoVTOE3tbC8e
-         3oNbQ/m20hmYTZYcDkhO+cHr8p44acOIY1tSPqBERhlOUBSHzwhrxw2LPOM6GmHTXbJS
-         isq8EMhBaSzWnAs6AkllCl9rkfnzDOyfGIOroQePFr2bVFmzTr586heybj/rxla1D6c+
-         m3eiqAu4AbXg6aiirqex7ovhzdhoVQ2WynwaEiplepS8y1yJoYVJLkAiArTxepvjhsjr
-         8nCEFnMYXjuwjq2W+e7pDK+t0+wnjpDKZURDhIEasas5IiEsmv4ICheck9yPWzd16ZF9
-         zWlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsdTpKqa3L0kbmUZ2U+q5UySb5iI3SfOOFpEECojPpkjiNH7NBsxzabdbnvnz0lkCrTjoM1K5sAljoZDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXnHvBMMwWEgLXedbHVzEUWsu/XIcVw5a8QAdNUIj1HO0rUIK0
-	EYNw0q1BBveMuNAnh7pfTYNM6SSxxV6DiWvIHoN58xyk1lEydczHS9J4GkWE9tBrM0s=
-X-Gm-Gg: AYBFou2xLE5PNOWa63m+ov+Y6aNzKthzuoAdqUksiHzj9MgbDPU74HGRMka/5vaYSN0
-	FOwC0dbVZHofNC2SCApcSheQGzXN4oS8nqISQGHftjLMuGhZVTeOPBSNgNQD8ZZpsX5gHCWeVu9
-	ynfvflA3lfhnSnRPIVmRWTNeCie9pouW1yrs3pipfYgiS2CMwNbPuV8Ty5a8ah3lMX2Gkf+92YR
-	WAD+2Y0X1OPEe10zocEtesjcM9spO1MacuOO30UVAuZvI3xGN/M6XHabbIZfm37pA+lL1V/ePjV
-	Hpe4JNyfZ7zCW4PqM4+vCp9s4YWeT+URmbWt6rZ17y3WvWhID0Zuz7hPX7W1kCGdQkRC6eDEBhs
-	T9rfRGb/VCsE6Xg8/luiOjDZSDhcm3YLXUUSPyzq29UkPowIUOn04uFz9kEGnogTstktqgEhLoA
-	7qg4QU9DjBAva4a/2JjJcX2haSg0XSPwKUVvWGyU7lcT1LnWCuRaftnLnAah32h4lwJF+n3gadv
-	AF25K8tj3lruMWEJVMxbgiEwVY5RPVNt70pAi8mkPLKQcUY0a8p4xpfLVh+jZH+/ps+70/6eupq
-	yNS6CmEjmKN18mrU1ZGS1gGnEuqExsHDIHi0uMOOoDEK7C6Pasles7kTml85cj6Z0xQbVrZGQG2
-	o
-X-Received: by 2002:a05:6122:3d06:b0:5ea:f1eb:b9e2 with SMTP id 71dfb90a1353d-5ec232a31a4mr1273841e0c.19.1792950030175;
-        Sun, 25 Oct 2026 10:40:30 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec234673ebsm5783333e0c.13.2026.10.25.10.40.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 10:40:29 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: linux-kselftest@vger.kernel.org,
-	rppt@kernel.org,
-	kuba@kernel.org,
-	enelsonmoore@gmail.com,
-	bp@alien8.de,
-	shuah@kernel.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org,
-	vbabka@kernel.org,
-	dapeng1.mi@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	surenb@google.com,
-	pasha.tatashin@soleen.com,
-	kexec@lists.infradead.org,
-	pratyush@kernel.org,
-	rdunlap@infradead.org,
-	elver@google.com,
-	graf@amazon.com,
-	lirongqing@baidu.com,
-	liam@infradead.org,
-	jlayton@kernel.org
-Subject: [PATCH v2 8/9] kho: test: support read-only KHO mode in test_kho
-Date: Sun, 25 Oct 2026 13:40:15 -0400
-Message-ID: <20261025174017.3870481-9-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-In-Reply-To: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
-References: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gT796LRL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OWOq7n51OZNlSYTiLRU59Gz0Q2na9qpH+zMvubZiDBc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792950042; v=1; x=1793554842;
+ b=gT796LRLwsqHeKK5Gm1O7PXv7PjYZqZnGEQMo1b1BHHXGFRMX8GbgNDe3JAvxpKb1GxwTyLb
+ kYgsYOtk/zUQWTCTpbRQnsMTzudDk4Qvmr7mfH71BESGSTl5FjvhQL4vGfWUspQw0BK1vrOoKCY
+ x+IthNE1nY9xE5RZ1bLust68=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 75892baac6524e44;
+	Sun, 25 Oct 2026 17:40:42 +0000
+X-Mizu-Trace-ID: 75892baac6524e44
+X-Migadu-Flow: FLOW_OUT
+From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
+Date: Sun, 25 Oct 2026 11:39:46 -0600
+Subject: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
+ underused THP shrinker is disabled
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,184 +60,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev>
+References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+In-Reply-To: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usamaarif642@gmail.com>, 
+ aarcange@redhat.com, "Nico Pache (Red Hat)" <nico.pache@linux.dev>
+X-Mailer: b4 0.17-dev
 
-test_kho currently depends on CONFIG_KEXEC_HANDOVER and restores
-preserved folios via phys_to_virt() and kho_restore_folio(), which
-prevents testing preserved KHO state when booted in read-only KHO mode.
+The zero-page remapping in __folio_split() was added to support the
+underused THP shrinker. When the shrinker is disabled via
+shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_thp
+to avoid scanning subpages for zero content unnecessarily.
 
-Allow CONFIG_TEST_KEXEC_HANDOVER to be enabled with
-CONFIG_KEXEC_HANDOVER_READONLY and update test_kho to verify preserved
-state when kho_is_ro() is active. In read-only mode, retrieve the test
-FDT subtree, map the FDT folio via kho_ro_map_folio(...,
-PAGE_KERNEL_RO), map the preserved vmalloc folio descriptor array via
-kho_ro_map_vmalloc(), verify each folio's preserved order in the KHO
-radix tree via kho_ro_lookup_folio_order(), map each folio via
-kho_ro_map_folio(), and verify the checksum over all preserved pages.
-Also guard kho_test_exit() when no outgoing test FDT was allocated.
-
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
+Signed-off-by: Nico Pache <nico.pache@linux.dev>
 ---
- lib/Kconfig.debug |  2 +-
- lib/test_kho.c    | 71 ++++++++++++++++++++++++++++++++++-------------
- 2 files changed, 53 insertions(+), 20 deletions(-)
+ mm/huge_memory.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..74223ef8bd1c 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3381,7 +3381,7 @@ config TEST_OBJPOOL
- config TEST_KEXEC_HANDOVER
- 	bool "Test for Kexec HandOver"
- 	default n
--	depends on KEXEC_HANDOVER
-+	depends on KEXEC_HANDOVER || KEXEC_HANDOVER_READONLY
- 	help
- 	  This option enables test for Kexec HandOver (KHO).
- 	  The test consists of two parts: saving kernel data before kexec and
-diff --git a/lib/test_kho.c b/lib/test_kho.c
-index aa6a0956bb8b..29029dcf5815 100644
---- a/lib/test_kho.c
-+++ b/lib/test_kho.c
-@@ -236,10 +236,10 @@ static int kho_test_restore_data(const void *fdt, int node)
- {
- 	const struct kho_vmalloc *folios_info_phys;
- 	const unsigned int *nr_folios;
--	phys_addr_t *folios_info;
-+	const phys_addr_t *folios_info;
- 	const __wsum *old_csum;
- 	__wsum csum = 0;
--	int len;
-+	int len, i;
- 
- 	node = fdt_path_offset(fdt, "/data");
- 
-@@ -255,15 +255,34 @@ static int kho_test_restore_data(const void *fdt, int node)
- 	if (!folios_info_phys || len != sizeof(*folios_info_phys))
- 		return -EINVAL;
- 
--	folios_info = kho_restore_vmalloc(folios_info_phys);
-+	if (kho_is_ro())
-+		folios_info = kho_ro_map_vmalloc(folios_info_phys);
-+	else
-+		folios_info = kho_restore_vmalloc(folios_info_phys);
- 	if (!folios_info)
- 		return -EINVAL;
- 
--	for (int i = 0; i < *nr_folios; i++) {
-+	for (i = 0; i < *nr_folios; i++) {
- 		unsigned int order = folios_info[i] & ~PAGE_MASK;
- 		phys_addr_t phys = folios_info[i] & PAGE_MASK;
--		unsigned int size = PAGE_SIZE << order;
- 		struct folio *folio;
-+		size_t size;
-+
-+		if (order > MAX_PAGE_ORDER)
-+			break;
-+		size = PAGE_SIZE << order;
-+
-+		if (kho_is_ro()) {
-+			void *addr;
-+
-+			if (kho_ro_lookup_folio_order(phys) != order)
-+				break;
-+			addr = kho_ro_map_folio(phys, PAGE_KERNEL_RO);
-+			if (!addr)
-+				break;
-+			csum = csum_partial(addr, size, csum);
-+			continue;
-+		}
- 
- 		folio = kho_restore_folio(phys);
- 		if (!folio)
-@@ -276,19 +295,33 @@ static int kho_test_restore_data(const void *fdt, int node)
- 		folio_put(folio);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e8684..2d56d1bff0ea 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4104,7 +4104,8 @@ static int __folio_freeze_split_anon(struct folio *folio,
+ out_no_split:
+ 	local_irq_enable();
+ 	if (anon_vma) {
+-		if (!ret && !folio_is_device_private(folio))
++		if (!ret && !folio_is_device_private(folio) &&
++		    split_underused_thp)
+ 			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+ 		remap_anon_folio(folio, 1 << old_order, ttu_flags);
  	}
- 
--	vfree(folios_info);
-+	if (!kho_is_ro())
-+		vfree(folios_info);
- 
--	if (csum != *old_csum)
-+	if (i != *nr_folios || csum != *old_csum)
- 		return -EINVAL;
- 
- 	return 0;
- }
- 
--static int kho_test_restore(phys_addr_t fdt_phys)
-+static int kho_test_restore(phys_addr_t fdt_phys, size_t fdt_size)
- {
--	void *fdt = phys_to_virt(fdt_phys);
- 	const unsigned int *magic;
--	int node, len, err;
-+	int node, len;
-+	void *fdt;
-+
-+	if (!fdt_size)
-+		return -EINVAL;
-+
-+	if (kho_is_ro()) {
-+		if (kho_ro_lookup_folio_order(fdt_phys) < get_order(fdt_size))
-+			return -EINVAL;
-+		fdt = kho_ro_map_folio(fdt_phys, PAGE_KERNEL_RO);
-+		if (!fdt)
-+			return -EINVAL;
-+	} else {
-+		fdt = phys_to_virt(fdt_phys);
-+	}
- 
- 	node = fdt_path_offset(fdt, "/");
- 	if (node < 0)
-@@ -304,24 +337,21 @@ static int kho_test_restore(phys_addr_t fdt_phys)
- 	if (*magic != KHO_TEST_MAGIC)
- 		return -EINVAL;
- 
--	err = kho_test_restore_data(fdt, node);
--	if (err)
--		return err;
--
--	return 0;
-+	return kho_test_restore_data(fdt, node);
- }
- 
- static int __init kho_test_init(void)
- {
- 	phys_addr_t fdt_phys;
-+	size_t fdt_size;
- 	int err;
- 
--	if (!kho_is_enabled())
-+	if (!kho_is_enabled() && !kho_is_ro())
- 		return 0;
- 
--	err = kho_retrieve_subtree(KHO_TEST_FDT, &fdt_phys, NULL);
-+	err = kho_retrieve_subtree(KHO_TEST_FDT, &fdt_phys, &fdt_size);
- 	if (!err) {
--		err = kho_test_restore(fdt_phys);
-+		err = kho_test_restore(fdt_phys, fdt_size);
- 		if (err)
- 			pr_err("KHO restore failed\n");
- 		else
-@@ -330,7 +360,7 @@ static int __init kho_test_init(void)
- 		return err;
- 	}
- 
--	if (err != -ENOENT) {
-+	if (err != -ENOENT || kho_is_ro()) {
- 		pr_warn("failed to retrieve %s FDT: %d\n", KHO_TEST_FDT, err);
- 		return err;
- 	}
-@@ -355,6 +385,9 @@ static void kho_test_cleanup(void)
- 
- static void __exit kho_test_exit(void)
- {
-+	if (!kho_test_state.fdt)
-+		return;
-+
- 	kho_remove_subtree(folio_address(kho_test_state.fdt));
- 	kho_test_cleanup();
- }
+
 -- 
-2.56.0.307.g5fe7bd680c-goog
+2.56.0
 
