@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964871;
-	b=nsvUbt4iJbxxPa1CrywvheFlxSy+HG/tdganZlPMPiQ8ITZ+KoxOJ0fQQxKUolq1VZue
-	 l2JCca/8mV73ssvMSL7zfFEjqTMbrVPwq0wHGwIODyb76iXNjQX8e+EDZ4hZMcDb4lmWS
-	 q6HsKJ7Sy/fxcfkpiu1hIVTyc4dpIZ1a+8+AA7gi/HA/v7TFD/aUaELGciTiAovorTl2B
-	 s2COidBtwtEIjEvvi0dx8kiFWXvfz3xew6M8Z23N1YPH7K/n7hSndKzxe4jdiqfMtUCfl
-	 LnU6qrTgAnd1hfLiSGaQuIyEeG+7D7lRrMhD9dOfA5PI1ADacA4n6TpyXTXE46uLcaQ==
+	t=1792964894;
+	b=0anK2rkhGGDR3KrbrwX2PSPoq42Ay5JeeCUkU6LCHLHhdo4P7HR+agEgaX46KL2xHC76
+	 GtCZYh75V8ZhFeKlwG/xmg/aVUJllDEz7eDYxRN/2lpQ9pPLGA61prKEOj/XkH+sZfvyb
+	 QbJvRcfEzMaYY673zp51gNTM2j1vflVE4Bi+LjLk89VidNmBMgZj3Y7gO+v5qGECtzpCH
+	 pheISbfl/UVoId5sfLzz/vNfn5cZXl5CY+9jqpDyWEPuFVMKODsvXaI1ieIKO2IJqndi1
+	 Y+zGCz3SG+YAbrHaqFf/yXcshkt1aLcc59fxriPD+MWTd5Mpw28c5N6Zr5kxE01FknQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964871;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=lK7VOsx+Vp8IVSGkK2SMNsDU/gs393bwgE4b+y6VKL8=;
-	b=wVqocHmPeUR5ym7cWAeMKrb/yeSr/m69ma1RWn5pC2Kxxci4JaeKBqQ0iKAuE3kC5DNu
-	 nT67hJR7RkirBKmm6YT96VLA84LyZEYe+hYe0to5OGuzbQRuYKeuf+kV2h6q45UmdozOG
-	 Jd7Q5vy9ybPDwPZvLtzTOo06vW2agI8A3MKvAL3Votv4XiXAZJPfRpD0bq95dH2rMCzjI
-	 UDmTiZCUfeinxFnVx6ZO/GGtwK+FgYCTGIDQBhAXJ0rke5oVHWDadJvyB7pNcTud8wl4Z
-	 gLHJagNhFX6o1HBu/laABvv+UrycRkEvUO1qx/ZOqySce5fOzVihrlBo90sphKaj67Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964894;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=hDiTTg5aqjPLEBuvxWemMxO8n0pna/rsjNCyQxTZjbA=;
+	b=GivsaRKAFiNMm7rQSc/fhDTeUrFXRWqySn7o5yHXHYttTpaKr3v1gs/BJKO/p4dKUJ6J
+	 mgkKcsPVxHz38Lp6RvOYBVIKCYOEMCUW9BA+ABeQSFBPU2gdAlXNnRN7RvEU0/R5LpEW9
+	 OQ+hgZXV95VDcjDKbGLZrkvMQHEa7bDwyrbGAAIJPvk33YKHJ8X7G46rfydFJkQpua84b
+	 l2ovAij2801Hye0s1b3HsvlLDGLppEQ21silkrinXsXOrJ/o+7lcaw/upXcDlvZPYqvMx
+	 NwI0v4IBwy4aFSRsUEYEvcnok3MY+timOYr9ECcbt4KaVThafbx/aFZCujLaX6MszJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GaUI7D5o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZlGFo4G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F98D606A325;
-	Sun, 25 Oct 2026 21:47:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF592606A31B;
+	Sun, 25 Oct 2026 21:48:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GaUI7D5o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B131F01829;
-	Sun, 25 Oct 2026 21:47:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZlGFo4G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A6A1F01825;
+	Sun, 25 Oct 2026 21:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792964870;
-	bh=lK7VOsx+Vp8IVSGkK2SMNsDU/gs393bwgE4b+y6VKL8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=GaUI7D5od9Sh/neziuU8fXdR+AJMSaT2EzfrOOD9kRIUAqJEBiADi28/hT3jS/Te/
-	 6ZJJds4G/jWJT8UYezV0GuV3HSI86RufleHJZx4C8IyAMxHQbmWwrdNwsdDvAqVe11
-	 BnbkzIkUi1s5AwuyB2c52yupVEeWtWEph6Fp9VT/sV1iNETpiMgBpcEdOWqWxvik+s
-	 s29aXDCQ3z2ofacA/Wks52V9VI8UtJ3Mu5U26XC5H+MRqcmJuaqrWuZYNw0nUKTc+F
-	 uRldwSEXkwmKf04ZsDhd7wwXc85IpW9HRpUABfcJz01r+jM5/72Jc4KwP7/KNpWVFM
-	 Lvt34rmUQ97AA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>,
- Miroslav Lichvar <mlichvar@redhat.com>, Jiri Wiesner <jwiesner@suse.de>,
- Daniel J Blueman <daniel@quora.org>, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] clocksource: delayed watchdog can mark TSC unstable
-In-Reply-To: <atmhdRzqx5t8PYrc@gmail.com>
-References: <20261010065509.72916-1-kmehltretter@gmail.com>
- <87a4oeerwm.ffs@fw13> <atmhdRzqx5t8PYrc@gmail.com>
-Date: Sun, 25 Oct 2026 22:47:47 +0100
-Message-ID: <874ie9zc3g.ffs@fw13>
+	s=k20260515; t=1792964893;
+	bh=hDiTTg5aqjPLEBuvxWemMxO8n0pna/rsjNCyQxTZjbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RZlGFo4GhsbFHSK9ofCYklD9mxJX6RDlW5nMeJqwBzaIhMeZVbyQhtm8Pht13aBUR
+	 N5H2XX+HWnWprbfYsWvw/J5cApSoeX2zzOYbqxy85tpfvD059F9v0grCwJsIOKAuQG
+	 kTzCQC7kDS9lO0NCB5/DVxrKb1zCkbbeEBVWgw7yeDF1GKd744CpAu/smx9T4lO4JK
+	 zZECt8Y5BWSUUEg8iIHeg2IXFbbpKvbj1NKR5HLhoyKkgqMvHlw+5tAhVjDSg47L2i
+	 SoEZuOciwHXr7s4WuKOlrUVnZZu3dqiEitjMl4fjy5wfjqifO/N8oQntht3VJIhPwc
+	 ANFnmObSBJj3w==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 8C8FE1AC5994; Sun, 25 Oct 2026 21:48:10 +0000 (GMT)
+Date: Sun, 25 Oct 2026 21:48:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: selftests: Skip ignored AArch32 ID regs in
+ the failed-run test
+Message-ID: <at55GhnsD67k2Xkg@sirena.co.uk>
+References: <20261024161118.1007472-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,43 +71,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XZ3wpwJ3w0pXiMRa"
+Content-Disposition: inline
+In-Reply-To: <20261024161118.1007472-1-sashal@kernel.org>
+X-Cookie: FEELINGS are cascading over me!!!
 
-On Thu, Oct 22 2026 at 07:43, Karl Mehltretter wrote:
-> On Thu, Oct 15, 2026 at 08:32:25PM +0100, Thomas Gleixner wrote:
->> I did not think about that scenario obvioulsy. The code is resilient
->> against long intervals between two measurements, so the easy and
->> straight forward fix is indeed what you (or the LLM) suggested.
->> 
->> Thanks,
->> 
->>         tglx
->> ---
->> --- a/kernel/time/clocksource.c
->> +++ b/kernel/time/clocksource.c
->> @@ -673,7 +673,7 @@ static void clocksource_watchdog(struct
->>  
->>  	/* Could have been rearmed by a stop/start cycle */
->>  	if (!timer_pending(&watchdog_timer)) {
->> -		watchdog_timer.expires += WATCHDOG_INTERVAL;
->> +		watchdog_timer.expires = jiffies + WATCHDOG_INTERVAL;
->>  		add_timer_local(&watchdog_timer);
->>  	}
->>  }
->
-> Yes, I tested this change on v7.3-rc5 (72d3fcf802c4)
->
->                               baseline   patched
-> TSC marked unstable           2/3 boots  0/3 boots
-> watchdog gaps below 250 ms    3/3 boots  0/3 boots
-> minimum traced gap            0.231 ms   505.484 ms
->
-> Each boot had four QEMU TCG vCPUs. I used PTRACE_ATTACH to
-> stop only the vCPU 0 TCG thread for 800 ms.
 
-Care to send a formal patch? After all you decoded the problem and
-suggested the fix. So you should get the credit for it not me.
+--XZ3wpwJ3w0pXiMRa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
+On Sat, Oct 24, 2026 at 12:11:18PM -0400, Sasha Levin wrote:
 
-        tglx
+> An ignored write leaves the register unchanged, so the ID registers are
+> still immutable and only the test's expectation is wrong. Skip the
+> AArch32 ID registers that KVM_ARM_GET_REG_WRITABLE_MASKS reports as not
+> writable for this VM, which is decided by the same
+> kvm_supports_32bit_el0() check as the write path. The aarch64_only flag
+
+Another approach if we're going to change the test would be to have the
+test support WI registers like the kernel does and also accept a
+successful write that does not change the value, as you say this is also
+maintaining immutability.  Doing that would handle anything else that
+gets made WI.
+
+> This does not change the AArch32 ID register readback issue under nested
+> virtualization that Itaru reported:
+> https://lore.kernel.org/all/as8x38o9taXgKZym@sm-arm-grace07/
+
+It's been reported by a bunch of people, including me with the test
+fixup that Itaru was mentioning.  It does seem like if we're going to
+fix this in the test we should fix all the instances rather than just
+one, or we should just fix the kernel like Marc previously requested
+(given that we've just stepped on the same landmine...).
+
+> +		/*
+> +		 * KVM ignores writes to the AArch32 ID registers when it can't
+> +		 * expose AArch32 EL0, and reports them as not writable.
+> +		 */
+> +		if (sys_reg_CRm(reg_id) < 4 && !masks[encoding_to_range_idx(reg_id)])
+> +			continue;
+> +
+> +		val = vcpu_get_reg(vcpu, reg);
+
+This is checking for AArch32 AFAICT because we're currently seeing
+issues due to the lack of AArch32 making the registers WI but one would
+expect the same issue to recur for any other ID registers which we end
+up doing the same thing for.  If we're going to do this shouldn't we
+just check for writability?  Adding the check for AAarch32 as well seems
+to have the same papering over the cracks concern that Marc raised.
+
+If writes are being accepted to things reported as unwritable at all
+that seems like a separate issue to the finalization, we should test for
+that separately.
+
+--XZ3wpwJ3w0pXiMRa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat55GgAKCRAv73Ows9A4
+iWvMAQCfmdP6zPYprHHX9YOoVU356Zhd4rFs5rfa4rIZuFFTJwEAm+X1RFxCBYQi
+PZV+kXkd55f3HK82Y3dOjL/RBH2InwA=
+=6dZ9
+-----END PGP SIGNATURE-----
+
+--XZ3wpwJ3w0pXiMRa--
