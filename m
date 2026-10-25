@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972648;
-	b=a83Hk+FZI5JH7dSQWGWFnFmuNsicCFu9sYX4CfcdQGwQfjTPblcLYSIg74W+ks96BCVh
-	 ZS7nM7kzs1oiwKRekB6xHZjU7OaGSrWKEHTx4m19ObVBv2Z5twSMTSIYKg7v0cmhRPytN
-	 JJ8OkLOxuxGPLz6H8GxBz44/7/HU555lfWDqNVB3co6QLsNbllI60q98SmbHTtHkyAZNP
-	 qiPo6i89BHtB/a/lIMcwgLb8FEDUilPp7eTlzzBdVzc9T4jQUbySmOlGa3dzrU7TpAl8y
-	 VcFn6ro1LznX+q++LElMJmUFfnU8dt3mBJpuSpVwA2WIGzpp8UAR//7tfrMhQMStVow==
+	t=1792972601;
+	b=KLeKNesmaA41b36rwIbLBq8jqP2frOFh2azhyDlKWHojMSGVtrYRWpcLo7nWiUHX1oe7
+	 IVvv1L2iq9CtwrdtgFBLlek9oLEVYwiC7YYondAeHQg9wl0+ZnemWBAJC2lh4K+nqMRe6
+	 AJaSRproQzr7LejP66BC/2WKhTd23cEpmr/hKP23xGu5++3I8bMgBv9JCrYsfSv46DuT6
+	 pSBDNFePtHOiucMX0xpWicTxcmnh/rqze3+WC5Fe2hqnenEhcpes2stzBZ3lfgmhPuP+D
+	 yG7ShpcSIVAV/vPUEONCXyxx/l9eN7jneWo/YI5UxmT2jgYV1Fo7Eia4VdFVBJ9ajXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972648;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=oPNnQJuAXpVjRJV3/dEa6LasHj8wpKSqCglF6Ora69k=;
-	b=GKrqljb2SdfWN0ty6oQmH7oPzpEjka7v2ezT90MdqJrxJfdVzhLOvMVJskptN+g4CqSi
-	 3uFr/d1VrAeqevgfPUaM4OpqPRpkpgE3Z3M5jU8XbL8l9cJUPalDh/Fr771OWZibMv20r
-	 UA4C9K2B2KrE5oF0sBNqElO7IoiXJUYnKmrZONp1eGAd6uic3y625VrThONXZgZjqv5/G
-	 Ek8yuAg54gA8j4x4EsY8qtDx36IHf+rDmw597V0TeJ+hR+GyhjRm5/E5rnbapa4qkjz76
-	 5VVvKRDxONwVLhqAIEAJRSSlwCWn2eUhSnUDzkw+uP1a6oWelMWwOPMInVvMEM8NXyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972601;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:gpg:gpg:gpg:gpg:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=AIndq0QBvBOMT4aQTC7iTxVdxRNMAQYJH+2zTStxf7s=;
+	b=1Eoj0+LMJHHjlojsyUqAwh2VvhhCq0mPLZSWuvcjq0zCl5XGrdPSoqD9VjnqiNBukohN
+	 5v8i4REsq5lzs7Gics+dUuKq5d7/JPlY1a8s9FpHX4iTiCWbyBX5hgNVIA38CLhOLwh8k
+	 wO+H4tbhZIaXU8aHXykAc2oECfL0jycY8IGPCq8sARL6IrknCGmVeYkEJwl8wpmdU069s
+	 k/5/JkloJ303NQQh/WDRXazyLD3yKZ0qQzoENbatP18JtZw28t0EoajRl69Jz9t3lTCIo
+	 dbfLwriQY5yDdznT9tXkoYg5FSFOVHL9YQzld7W5l1x7MjDDqDjUkQMIEt4LirwP2tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JYw3VHbt;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dmarc=pass header.from=vinarskis.com;
+	spf=pass smtp.mailfrom=vinarskis.com;
+	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=BOdBholy;
+	arc=none smtp.remote-ip=79.135.106.111
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC820606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC820606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9736B606A324;
+	Sun, 25 Oct 2026 23:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9736B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JYw3VHbt
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
-	by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69PNeM0V541501;
-	Sun, 25 Oct 2026 16:57:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=oPNnQJuAXpVjRJV3/dEa6LasHj8wpKSqCglF6
-	Ora69k=; b=JYw3VHbtjFoha8HdQAz7heeWHdWu4OhjjC9qUJs+bcA6pt5qcUFeU
-	nTGEuSMUoYzp3fjF+U2vQnVuMpTi6p2Ob2UmqSFoYXrOqzLK0ZZXLqUXQh6kHpPL
-	kKy/Y2htT4+3/3ajWDihgKtem8n1ldorUqSZdXJjXJlRMxlWoe595mdqRNbjUP//
-	nhgSoc7mqep22XzW+33VwuJgE8TdKDrGPgLe47XMVv4Pxv4GVlY0mo4qdJYqPaVU
-	j3Gqpc4FDrSVDfu2YdEHqjI6uW0P2pHfgPVZA32ilcjiypbmOshs88pJR1sSPH2X
-	n1N0hOuVbR1CzVkGch4u0Btbbn05jcylg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by m0001303.ppops.net (PPS) with ESMTPS id 4hgrbbx8vy-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Sun, 25 Oct 2026 16:57:08 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1c::11) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sun, 25 Oct
- 2026 23:56:52 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
-        Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-        Xuan Zhuo
-	<xuanzhuo@linux.alibaba.com>,
-        Alexander Duyck
-	<alexander.h.duyck@linux.intel.com>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-        <virtio-comment@lists.linux.dev>
-Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
-Date: Sun, 25 Oct 2026 16:56:41 -0700
-Message-ID: <20261025235641.601299-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023042737-mutt-send-email-mst@kernel.org>
-References: <20261023042737-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=BOdBholy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1792972598; x=1793231798;
+	bh=AIndq0QBvBOMT4aQTC7iTxVdxRNMAQYJH+2zTStxf7s=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BOdBholyd06SYb60P+E3Gd+QYiQWF2aplz/xf/iFtNw1yOlc8lBcFACq47V3nGvo8
+	 FhAiwBIirFP8TkzjqUHWbq7LBwq45AGo80TpKOSmL0I0hXvCc4BHua86579SV6lKQp
+	 Qd1+HcJfg4H7F7Dtmua0cOPaYPMu7BEssKV/70ITP5cPEPJFY6f2TtnlU3YxVlxYB7
+	 P4Zy1thwXwIfOnp+gLmOmv4lBMjgbY/OzWMjPEXNPmsRgvEU+BRKH9qO0B/cDs3A23
+	 H/ejNgsLzTmK/q6315Cg/lR+/4kFW6YFLDSHe635HFcijNWZskB/t2c4N6B1kE+jdH
+	 iqewaBrCYz/8Q==
+X-Pm-Submission-Id: 4jCYZB735xz1DFSk
+gpg: Signature made Sun 25 Oct 2026 11:52:52 PM CET
+gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
+gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
+ [ultimate]
+gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Date: Mon, 26 Oct 2026 00:56:23 +0100
+Subject: [PATCH v7 1/3] dt-bindings: platform: introduce EC for Dell XPS 13
+ 9345
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,130 +64,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: si-3CfBR3tWIpYQXQJjFx0lUmYqvGcdU
-X-Proofpoint-GUID: si-3CfBR3tWIpYQXQJjFx0lUmYqvGcdU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDA5NSBTYWx0ZWRfX+rc1q0HqoDQl
- dPsJqZkc/iIHyTx5oggwSKazeyC7OJWiEL64dCoRHBo7fDbU7M6OYkcVTPOmEqv+Y2AyamMpuGA
- JTCYCu1d4mfrOjbfy5pVOD4OulqDlYY=
-X-Authority-Analysis: v=2.4 cv=R6GWitRX c=1 sm=1 tr=0 ts=6ade9754 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_78whYxrdx1mplLwxq1U:22 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
- a=Ob1JMaaCdSkY7rSgWrAA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDA5NSBTYWx0ZWRfX4sU6XoJ2bQVN
- H/LRMV73sKGqkBsHJhCvZ476nJkoaOsVAmktIloPobykH7aIo545IEcIszXoEKvaxRbLfN11v57
- Aj5cHuiuWokDtxKDzyveOrnGwQUUA3Fa8r0PvH1KlA/+Y1VkUNubFHyQCs4J8GuwnttjhU/lWvm
- pgsFgTW5MsTKcRLv1pR7WsuSn3K5QNH0HfE8rI3mKNYumzeHjG54FKuXXt/bTnBv8auBcmI9E0T
- CHNMr71fXG9JdtztXJnWVR3NUQSaAyfCm9OtofITYJVEO8MpzxfOkX5KAhVhjVHp8brF/cuo/wz
- cK4lMhL2pjqUXeNFcJ3dXL29Gt6JlKU7djonD3gPPGqAzKIGkAMQ+bU02vBaZY3iB/ffe2HPwF5
- F5a4xXcb31nCdqDdzF3AgzsErkMgGxeHVrr++t0a18jQ0Q4/xL7Xx/h9R91CuTXoD0IOg21sEdj
- h15AycLtjnCj5yHZ+dA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-25_06,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-dell-xps-9345-ec-v7-1-828ce301b839@vinarskis.com>
+References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+In-Reply-To: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4342; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=dLLWTs/IeTVPq6lqhexxwVftq/rPlXDy4Flf9DCOHHA=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn3putLd+4K9Py958J0s66dlo4Ptp3ivXpBLX/F4iIR9
+ hlaPDPjO0pZGMS4GGTFFFm6/3xN61o0dy3DdY1vMHNYmUCGMHBxCsBEatcx/BVcMkHUcnUDV6Wp
+ 7vndK13Fo9b02xj/2uPsWq8o49zq48TwT6/l1NMD7NF+s11Xzk98N91M8mvUw9ZONsuq72U6h5Y
+ oMgIA
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-On Fri, Oct 23, 2026 at 11:04 AM Michael S. Tsirkin <mst@redhat.com> wrote:
->
-> Great patch, thanks!
->
-> On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
-> > The virtio_balloon driver reports a scatter-gather list of free pages
-> > to the VMM so it may discard unused pages.
-...
->
-> It's not just a question of convenient, is it?
-> Rust is buggy wrt to spec as it allows only U32_MAX.
-> So it is also to make it work.
-> So should we maybe fix Rust to be spec compliant and allow 2^32 too?
->
-> I think we should definitely recommend U32_MAX in the spec
-> because otherwise it can not fit in the used length.
->
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
 
-Thanks for the review!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+ .../embedded-controller/dell,xps13-9345-ec.yaml    | 90 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 95 insertions(+)
 
-Sounds good to me, I will CC virtio-comment@lists.linux.dev as
-per your recommendation.
+diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+new file mode 100644
+index 000000000000..29cbb837a31b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dell XPS 13 9345 Embedded Controller
++
++maintainers:
++  - Aleksandrs Vinarskis <alex@vinarskis.com>
++
++description:
++  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal
++  and power management. It is communicating with SoC over multiple i2c busses.
++  Among other things, it handles fan speed control, thermal shutdown, peripheral
++  power supply including trackpad, touch-row, display. For these functions, it
++  requires frequently updated thermal readings from onboard thermistors.
++
++properties:
++  compatible:
++    const: dell,xps13-9345-ec
++
++  reg:
++    const: 0x3b
++
++  interrupts:
++    maxItems: 1
++
++  io-channels:
++    description:
++      ADC channels connected to the 7 onboard thermistors on PMK8550.
++      EC requires frequent thermal readings of these channels to perform
++      automated fan speed control.
++    items:
++      - description: ADC channel for sys_therm1
++      - description: ADC channel for sys_therm2
++      - description: ADC channel for sys_therm3
++      - description: ADC channel for sys_therm4
++      - description: ADC channel for sys_therm5
++      - description: ADC channel for sys_therm6
++      - description: ADC channel for sys_therm7
++
++  io-channel-names:
++    items:
++      - const: sys_therm1
++      - const: sys_therm2
++      - const: sys_therm3
++      - const: sys_therm4
++      - const: sys_therm5
++      - const: sys_therm6
++      - const: sys_therm7
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - io-channels
++  - io-channel-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@3b {
++            compatible = "dell,xps13-9345-ec";
++            reg = <0x3b>;
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++            io-channels = <&pmk8550_vadc 0x14a>,
++                          <&pmk8550_vadc 0x14b>,
++                          <&pmk8550_vadc 0x144>,
++                          <&pmk8550_vadc 0x145>,
++                          <&pmk8550_vadc 0x146>,
++                          <&pmk8550_vadc 0x147>,
++                          <&pmk8550_vadc 0x148>,
++            io-channel-names = "sys_therm1",
++                               "sys_therm2",
++                               "sys_therm3",
++                               "sys_therm4",
++                               "sys_therm5",
++                               "sys_therm6",
++                               "sys_therm7";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1e0d90fe2220..f20bb171e5ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7537,6 +7537,11 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-class-firmware-attributes
+ F:	drivers/platform/x86/dell/dell-wmi-sysman/
+ 
++DELL XPS EMBEDDED CONTROLLER DRIVER
++M:	Aleksandrs Vinarskis <alex@vinarskis.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
++
+ DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+ M:	Zev Weiss <zev@bewilderbeest.net>
+ L:	linux-hwmon@vger.kernel.org
 
-Agreed that Rust-VMM should also be fixed in case 2^32 needs to
-stay the hard limit. I think here for the driver, we can be more
-conservative as long as we stay below 2^32.
-
-...
-
-> > ---
-> > The wording in the spec is a bit ambiguous because it uses "chain
-> > length" for both descriptor counts and the total size of the memory
-> > ranges referenced by the descriptors. My read is that the byte limit
-> > applies to the sum of descriptor lengths, which is also what rust-vmm
-> > checks.
->
->
-> quote what you are referring to please, also in the commit log
-> not after ---.
-
-I will update with quotes in v2, thanks.
-
->
-> I would also CC virtio-comment@lists.linux.dev - spec should recommend
-> U32_MAX.
->
-> >
-> > Another option I considered was to limit reporting capacity based
-> > on the largest possible block. E.g. for 64 KiB pages, the largest
-> > block is 512 MiB, so limit the reporting capacity to 7 to stay
-> > below 4GiB. Although simpler, I found that the time to reclaim
-> > was quite a bit longer.
->
->
->
-> So I was going to apply this actually:
->
-> https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
->
-> which makes the question completely moot.
->
-> Does this have any effect on performance?
->
-> Thanks!
-
-Thanks for sharing this. Yes, this would also make sure we stay below
-the limit. Regarding performance, I tested this on QEMU and it calls
-virtio_notify() after each completion. Using one chain per entry
-creates more chains, so QEMU can use more CPU time to reclaim the same
-amount of memory.
-
-If we go with this, I think a QEMU patch to batch notifications
-could reduce the overhead. Alternatively, I think we could create
-larger chains here but make sure they stay within the 2^32 limit,
-and keeping your approach of queuing them all before kicking.
-
-I am happy to share a patch with my thinking here.
-
-...
-
-> > -     if (WARN_ON_ONCE(err))
-> > -             return err;
-> > +             /*
-> > +              * Virtio spec 2.7.5.2
->
-> Please add spec version and chapter title, and quote the
-> spec text in question verbatim.
-
-Will update, thanks for the note.
-
->
-> > limits the total buffer length of a
-> > +              * descriptor chain to 2^32 bytes (4 GiB), so split larger
-> > +              * reports into batches no bigger than that size.
-> > +              */
-> > +             while (batch_nents < nents &&
-> > +                    sg->length <= U32_MAX - batch_len) {
->
-> here you actually limit to U32_MAX which is 2^32 - 1 as commit log says.
-
-I will update the comment above to be more explicit about this.
-...
+-- 
+2.54.0
 
