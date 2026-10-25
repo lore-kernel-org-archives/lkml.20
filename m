@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948769;
-	b=pmdGeXU7z6G8Raw/lI6ZVjr3LEgcgFlvmRrHvZ+2RRJzNYqVYQ7xG3Fx+6NybQz4Krhq
-	 tW7imJ2MKkZ4Ku7KhACn09WhhOBU09oLVuML9NIuSO5ARuz8l7cM2xrKYoUIhQyQdYJzn
-	 uPxlMJIxSSO2u+BlFewXLmhSKIrc4TsTFyRYLd6sl7yOZXNoJeepXDOTb5SkG+jQfWzM8
-	 WOgYkNMT1aFoffSQOB8kVaPdtc/uNcCjNwilK4wk3pGIzY5qKcy2jih8BGxW7w3sldNCL
-	 /sBJefk0g9XmFzSCRnlEq0mEo6CgA6RwUoUGMr5NmILJoEKZqRuM//wZeOQw4VyUxAw==
+	t=1792948994;
+	b=Pvaz5MhzAIfEWY4OguztngznfZUEaYie2hD16steZ9gFYRa7PDqyfISU+mdDavvzfMDm
+	 OMJ/hQIqlfFpScZsncNxBCjKowANrxT3ZhM/qTIjwTPakqYGvKVcT8RTN4BkfWQIfr1rb
+	 pQezQhuqIVo+Grt8z79nbArG+wUhVWsseBM8La+dLL5nBix+KoVl3aaoMNaWo3UeTdFAe
+	 V0lVk+gG/NkVJI5NeucJeWtW/tlwvBaLlashdt4FoVhayOKAN36miJ8XhA1MdGjROsd2M
+	 6iggZKQ6vI4YBrPt2EeK8BQgIZwrJShNYrWToDiAiW2+cUPBnmk2H94JxjJpNCfMfeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948769;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4apbpOD/RfD18CBpD+KC1y2A7pzzope/+sQEbeyorak=;
-	b=UU0Ia66h8VsLxJ7AUsBfyxLYuWWW+OAgqa5a7zOKm+UDu5XyxWOua6QFC2SgK7cytQn2
-	 c1c0vDs6BLqeafyCgXvWryHuvA6ttUQx8klCNzbs0UNUc+KxpmMPizE8gr1iy4EuspC7M
-	 y5TuuR4o4zHfhdE/1YHY0Ltm6YXeYhl55R49427mutc/r+sXDO0K5yjZFGV0+LeY6d6yX
-	 3RkcU6WQNQv429p7hM/2A+4qJT8pgs2cxmuS1A1u//i1e/DfLG3cuInv9SWfoTf3h5ond
-	 baOf+1zdhmiCDl62lDzVQa7+zxw0A+vqj1X7Q6+B41Irdpt9nonRhaWRJ/7RMj/SAwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792948994;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uwwuvl4E7y86duc7nGUiwAAKgoOLNRImE0wRbyu5zR4=;
+	b=Qs/7oGFq+FKScIiULYmWim+x6p2Y0QXMrtlIOLPH5uHlreK4YnHnHUznCOTRERywp+R2
+	 wToKZcvB26C2c85LS7hHqpmLdvuCcsRAzzTMKjlWzXJDqZh/qGjLk0ceQ271Vho0bCEdq
+	 2kEA+jBZmokeUkRFhgPL4pZmxiw6ap3bxPuLFFpap7cN62HP2uFTGD/FwZJ1Isx9XOMYa
+	 WsITTqlclwIoARvbeLYoUS4HqZ6By7n42SuQJ/EEhjb3qm2RhTDR6fjxKrJnsawh3d8B8
+	 W0l95xgvRFwmL0xxaJvBe8Bx3O5Blv0l1itBJi9DLhxzYdcg7uuy1a/hyClS+mgZ2Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkdiu9GV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=NoUcjeFc;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C61606A31A;
-	Sun, 25 Oct 2026 17:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394ED606A31B;
+	Sun, 25 Oct 2026 17:23:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 394ED606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkdiu9GV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC481F01825;
-	Sun, 25 Oct 2026 17:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792948768;
-	bh=4apbpOD/RfD18CBpD+KC1y2A7pzzope/+sQEbeyorak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jkdiu9GVtJznxpt/87GYKGTKken/6rU925XJDOhhM0BIKW9hczfucvL0/waKCrDK3
-	 FYeZ4gvo6HkrkYoN8dhYYohzz/+jStjIMxZr/NCd8viKUpQ9+jlAtLiEx9b+b/KdUZ
-	 tkIoWk67vmlX+ea1QzdARsjEehpj/biCrjk4iFt8en3zQKwM4/81UNLKFvg0GgtH7B
-	 WDDeE8wPkmH8Vc5unQsFkwi9NItOkfnsbOYngp6a9fi61UKoY3PauRROn4KId2VdDN
-	 AONemPFLbBmUhsqJDRTwBHJrUFwVSnNrY/fRNEAze54EBcOhQS9Glr4uwTaQIvAyLQ
-	 5OaDoZKBqbqyg==
-Date: Sun, 25 Oct 2026 10:19:03 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
-	Basant Kumar <basantk@qti.qualcomm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH 0/5] Add support for a TEE agnostic Inline Crypto Engine
- service
-Message-ID: <20261025171903.GA2212@quark>
-References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
- <20261024185602.GF2553@quark>
- <b5cc804e-0f73-4ec9-88bf-ef6dd04eea83@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=NoUcjeFc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792948990; x=1793208190;
+	bh=uwwuvl4E7y86duc7nGUiwAAKgoOLNRImE0wRbyu5zR4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=NoUcjeFccm/lhpEFXdimQ5+aawNrpECwnHHYRD6mbKjrQEuXBw5gnys5yWjjsCCTL
+	 ap226cByr3qPPRPwR8t2X7LPvwaQ177JpkhA0oqs2bFQSdJXPoRodJhyvVNtfTimT9
+	 0mmYoTqLDGerwkhjSwM6At/7QbEQ0rK3KT/xh3SzCUZ0jxheZKsxQjd3EZY2uSXgZf
+	 hBdcXF8jq9PtTGeeTTkLySPNua7uzbLKRwxwMDbWuViZ6pDwUlu2FhfYabHmS4k+qQ
+	 N6STpbQwp9IUY+FFF1D1OtdIlT2Dj3A6+qUhd8ukeKmfI7sZ+su8yFrKFQooJC4k26
+	 GiVD5q0S2Y4Yg==
+Date: Sun, 25 Oct 2026 17:23:03 +0000
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, "D . Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
+Message-ID: <20261025172251.19293-1-lsa.uz@pm.me>
+In-Reply-To: <20261025154743.39801-1-fernandorimoli11@gmail.com>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-5-lsa.uz@pm.me> <20261025154743.39801-1-fernandorimoli11@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 0a8ebfa1d6884147165f3aab5f7c82981bbe9062
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,35 +64,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b5cc804e-0f73-4ec9-88bf-ef6dd04eea83@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 25, 2026 at 10:16:49PM +0530, Harshal Dev wrote:
-> By moving the TEE call re-direction to a separate middleware we are ensuring
-> that we only touch the 9-10 lines in the driver which depend on the TEE firmware.
-> Merging this functionality in the ICE driver would substantially increases
-> the total file size.
+Hi Fernando,
 
-Again, it would be simpler to handle it directly in the existing
-qcom_ice module.  Yes, there will then be more code in that module, but
-then the new single-user middleware module wouldn't be needed.
+On 25/10/2026 15:47, Fernando Rimoli wrote:
+> The property entry keeps pointers to both its name and its values, and
+> here both point into the module image: the "st,leds" literal and the
+> static const surface_pro_11_ir_gpios[].
 
-> This is why probe always defers if this check fails:
-> https://elixir.bootlin.com/linux/v7.3/source/drivers/soc/qcom/ice.c#L568
+You are right, thank you. The only other name there that does not come
+from the per-sensor prop_names copy is "lens-focus", which D. Manresa's
+v4 moves as well. So v2 will do what your a20c843c9bc4 and his v4 do:
+"st,leds" goes into struct ipu_property_names, and the GPIO numbers are
+copied into struct ipu_sensor.
 
-Nope, it's:
+> Manresa's v4 1/2 changes this same line to use names->lens_focus, so
+> whichever of the two lands second will need a rebase.
 
-	if (!qcom_scm_is_available())
-		return ERR_PTR(-EPROBE_DEFER);
+Noted; v2 will say so below the ---.
 
-	if (!qcom_scm_ice_available()) {
-		dev_warn(dev, "ICE SCM interface not found\n");
-		return ERR_PTR(-EOPNOTSUPP);
-	}
+> The Surface Pro 9 needs an entry too. Its VD55G0 drives the illuminator
+> from GPIO 1, as on your machine.
 
-So if SCM is not available at all then the probe is deferred.  But if
-just the ICE interface is unavailable then UFS or eMMC comes up without
-ICE support.  This series regresses the latter fallback behavior.
+v2 will add it, matching the sys_vendor and product_name you give
+exactly, as for the Surface Pro 11. I will Cc you; a run of v2 as posted
+on the Surface Pro 9 would be welcome.
 
-- Eric
+Sergey
+
