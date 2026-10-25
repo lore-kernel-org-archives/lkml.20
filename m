@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792928617;
-	b=nDBi681XiDVOsFTSl21Vx9FE3mNdUO2HBckEVVuKM4KFVL7cmkhuvUXIEysdSinzBT+p
-	 b5BWXsybj9VoSI7ZRdu2kHPva36nWjrMCTSWbEKmzuNrY8lwqPVNkitWuzCohCFiNVADq
-	 y/yiKa1GrkPTUcUmcre0mGBSJe/7SGFL/eCAIQKqK4SFGrB0hJFhn9O4CeNBdwvCoRqQN
-	 6e9uTyjLrAuramqMPGmUyT9Y43HGdZvUW/MmodekGrVOLesOO9ZMK8X7ikaY8YTBJi/Ht
-	 46YEEGcDYvKO5ChaeXw8SJTWaKesDZuBtiRKWsa3HH2roiK/Ra+NQjkf99tc9zHUYdA==
+	t=1792928659;
+	b=5Tfd4ISFmHKs3nQA83h2SObw1CfK8CrWrE7ItGxbcQvvhyQpiZ7IxcYH2nM8EOc1kSpf
+	 sCSiIpMLPtpoVMyp5HhxuJsRL/BELkBGeISimfLwU66LSV3/L7UcmDg0cIoOg9Wm9yrxN
+	 5AwlPuUks0nDS/JdJxwQREEmBNYlq64I8t4U2IOvJgiQ1CtVeQmFUgwxn/IoCEKnRYuCo
+	 8IcYcUjUuQPmmwAgrlU1wO7vC8OrZmtWZOxogwZ67BvHJR7ukx9EJTtlHGqq+IQmppK0t
+	 ztI9+YOm1FGJ6zmDN3bYXovWJOqcAq8bktb+2q5nJ6clo79MWZHmMBgCP9p+ZN4alXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792928617;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3tU06HeQH713VNAukSgPmdsvYQlK2TSN1fZM8EM0G7s=;
-	b=5jh0BwcV7MaiwBloVwI0R6O5r0z+vkF/CcU6xu2pGiS9btdOnK/BEVa95C/iLE24Gwn8
-	 NDjbQxbrw3nlTCWQKNmuNg4n8Mht79K7WxQkJ8gXKO8la3WTGrE/tnZvoSRxixQY9tL/d
-	 6tYTmWGhUPZJ9tH/RKWf+DLiTwGsZZnwc/LdOuSqm8RY5dIvkIHHsQinxp2aP6l4Hsv6B
-	 GjgBT27uFW/vKeX8W8lb3DZwqzl7nVPIf4q/hkOtx0BkppaafOnr+HhDUrJy735UwTroI
-	 vPi0vEu4lro1WNHMYFa07/8Nuh+7ZRaCvKAnqfR6CJ4VBnZaNrRVDjcnmoFfAPJccOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792928659;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Content-Type:Content-Transfer-Encoding:From:
+	 Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:To:
+	 X-Mailer;
+	bh=Jg/8Kj9DkNTdKmct0x5zj+F53X4giDAM0aT8xJaymCM=;
+	b=xz6tV2r0cCyV/bKEsMqgQl15R2ATed40TvVpRKUK+OvuRCG92cSjn6rXld++kD9gUpAT
+	 Qm8l7+lElLBa9i7FBzjFnJ+3lMsaVt6VXlV5RClE7J+CDKIKz766xgNGM6vNf8qUAhEII
+	 yQU1QX6U7eEshWGkPt5QuNNyniUTb/OgKPgQQHrlrTdBxcP4cglCCEOkS7g3aTWIs2KcM
+	 BU+X3ddjUbQq+6W+px267WtQPcFoMmX70yHFIgGNgUtj1IN16chVmQ022ENRU1BNy0W2C
+	 3/p2Pj/N8Sak0QGAxVSsUsSKnIi3odmHu5MwC6BAv9QvCIy3fSzS/Tzn9dmlvf5DdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=lxW+44qi;
-	arc=none smtp.remote-ip=185.70.43.167
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=VAwmlmUm;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054EF606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 054EF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F01F606A31E;
+	Sun, 25 Oct 2026 11:44:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F01F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=lxW+44qi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1792928614; x=1793187814;
-	bh=3tU06HeQH713VNAukSgPmdsvYQlK2TSN1fZM8EM0G7s=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lxW+44qiVhk+AGNEb3glwYMiO3rDauroZl0d27H/Fu8wsaLPfIbKdLVBjy+1SOulw
-	 0WjsRcM2zhDOfH+cQQi29/RiOUpE3EMSnm9u9/6fVEWKEgXOxYrY4e5jVGh9SPvdEJ
-	 5tiFvvEnl094UPdiBfYYh0jULi//7PoW6x776fYrDN8CxodybHip8nkOrI+Bi8WIvn
-	 9BgVvCEYgsaUSWQTIWGEWRI76ZAAIVuk18W6sbXdccmWMXi2R0OwdOARk7U6cxvGNS
-	 +QIxbmCkxlgrxC4C8vXaCNafFmnju6tUD65L9DHgSk4aA+DSHX8yiGHOuSfjqdIvxr
-	 u+W6rf+h1ECuA==
-Date: Sun, 25 Oct 2026 11:43:26 +0000
-To: Miguel Ojeda <ojeda@kernel.org>
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Martin Rodriguez Reboredo <yakoyoku@gmail.com>, Tejun Heo <tj@kernel.org>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Sagar Taunk <sagartaunk@proton.me>
-Subject: [PATCH v3] rust: workqueue: fix SAFETY comment incorrectly referencing `Arc`
-Message-ID: <20261025114304.16730-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: 51809fdf32bafb28e4adca1eb74d3b14d000bc54
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=VAwmlmUm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=content-transfer-encoding:from:mime-version:subject:date:
+   message-id:references:cc:in-reply-to:to;
+  bh=Jg/8Kj9DkNTdKmct0x5zj+F53X4giDAM0aT8xJaymCM=;
+  b=VAwmlmUmn6V/4zmKz2r7ZXfnBPnhO/nQ6Ywzl0B0AeU+zQwFzyOmkhjY
+   XMWyIkJ5Ov7dr+IFffkOFFy3z5MJ+yFweFGutAjHtoamFpOnQiRbbfALh
+   iHhSzUQkbkRQfceRGg3F+Z2NCI/1Q5FrlbXw3ystfprHXo42co914MXt3
+   4=;
+X-CSE-ConnectionGUID: z20uJP5qQn2hUQeWNupoTA==
+X-CSE-MsgGUID: scDyENyaRXuTmfPR38Aqsw==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,177,1787004000"; 
+   d="scan'208";a="302212169"
+Received: from c-76-123-3-53.hsd1.va.comcast.net (HELO smtpclient.apple) ([76.123.3.53])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:44:13 +0100
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Julia Lawall <Julia.Lawall@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,59 +60,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] staging: fbtft: fb_ra8875: Replace mdelay() and udelay() with sleep alternatives
+Date: Sun, 25 Oct 2026 07:44:02 -0400
+Message-Id: <B79A7911-C3C4-4C96-B675-24802D053B76@inria.fr>
+References: <CAHxSwT8zGKHDLjAbkR=EZL7QVwzS_47TPB283YTHKEQsE0mvFA@mail.gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, outreachy@lists.linux.dev,
+ linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CAHxSwT8zGKHDLjAbkR=EZL7QVwzS_47TPB283YTHKEQsE0mvFA@mail.gmail.com>
+To: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+X-Mailer: iPhone Mail (23E261)
 
-The `WorkItemPointer` implementation for `Pin<KBox<T>>` incorrectly
-references `Arc::into_raw` when `KBox::into_raw` has been used.
+This has the same problems as the other patch.  Please wait to have positive=
+ feedback on one patch before sending another.
 
-Fixes: 47f0dbe8fdc2 ("rust: workqueue: implement `WorkItemPointer` for poin=
-ter types")
-Reported-by: Onur =C3=96zkan <work@onurozkan.dev>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1233
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
----
-I originally sent this patch in April but it was not merged because I messe=
-d up on=20
-the tags. I remembered that I failed to follow up on this while trying to r=
-ead this module.
-
-Changes in v3:=20
-Fix tags.=20
-Link to v2: https://lore.kernel.org/all/20260426175317.10171-1-sagartaunk2@=
-gmail.com/
-Link to v1: https://lore.kernel.org/all/20260425135701.34010-1-sagartaunk2@=
-gmail.com/
- rust/kernel/workqueue.rs | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
-index 7e253b6f299c..2c07785d446e 100644
---- a/rust/kernel/workqueue.rs
-+++ b/rust/kernel/workqueue.rs
-@@ -890,9 +890,9 @@ unsafe impl<T, const ID: u64> WorkItemPointer<ID> for P=
-in<KBox<T>>
-     unsafe extern "C" fn run(ptr: *mut bindings::work_struct) {
-         // The `__enqueue` method always uses a `work_struct` stored in a =
-`Work<T, ID>`.
-         let ptr =3D ptr.cast::<Work<T, ID>>();
--        // SAFETY: This computes the pointer that `__enqueue` got from `Ar=
-c::into_raw`.
-+        // SAFETY: This computes the pointer that `__enqueue` got from `KB=
-ox::into_raw`.
-         let ptr =3D unsafe { T::work_container_of(ptr) };
--        // SAFETY: This pointer comes from `Arc::into_raw` and we've been =
-given back ownership.
-+        // SAFETY: This pointer comes from `KBox::into_raw` and we've been=
- given back ownership.
-         let boxed =3D unsafe { KBox::from_raw(ptr) };
-         // SAFETY: The box was already pinned when it was enqueued.
-         let pinned =3D unsafe { Pin::new_unchecked(boxed) };
---=20
-2.56.0
-
+> On 25 Oct 2026, at 06:54, Abubakar Musa Samaila <abubakarmusasamaila@gmail=
+.com> wrote:
+>=20
+> =EF=BB=BF=46rom 474546adc013fab098dfda25e6503413fddb9929 Mon Sep 17 00:00:=
+00 2001
+> From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+> Date: Sun, 25 Oct 2026 11:38:17 +0100
+> Subject: [PATCH] staging: fbtft: fb_ra8875: Replace mdelay() and udelay() w=
+ith
+> sleep alternatives
+>=20
+> Signed-off-by: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+> ---
+> drivers/staging/fbtft/fb_ra8875.c | 24 ++++++++++++------------
+> 1 file changed, 12 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/staging/fbtft/fb_ra8875.c
+> b/drivers/staging/fbtft/fb_ra8875.c
+> index 0ab1de664..ded953636 100644
+> --- a/drivers/staging/fbtft/fb_ra8875.c
+> +++ b/drivers/staging/fbtft/fb_ra8875.c
+> @@ -47,12 +47,12 @@ static int init_display(struct fbtft_par *par)
+>                /* PLL clock frequency */
+>                write_reg(par, 0x88, 0x0A);
+>                write_reg(par, 0x89, 0x02);
+> -               mdelay(10);
+> +               usleep_range(10000, 11000);
+>                /* color deep / MCU Interface */
+>                write_reg(par, 0x10, 0x0C);
+>                /* pixel clock period  */
+>                write_reg(par, 0x04, 0x03);
+> -               mdelay(1);
+> +               usleep_range(1000, 2000);
+>                /* horizontal settings */
+>                write_reg(par, 0x14, 0x27);
+>                write_reg(par, 0x15, 0x00);
+> @@ -72,12 +72,12 @@ static int init_display(struct fbtft_par *par)
+>                /* PLL clock frequency  */
+>                write_reg(par, 0x88, 0x0A);
+>                write_reg(par, 0x89, 0x02);
+> -               mdelay(10);
+> +               usleep_range(10000, 11000);
+>                /* color deep / MCU Interface */
+>                write_reg(par, 0x10, 0x0C);
+>                /* pixel clock period  */
+>                write_reg(par, 0x04, 0x82);
+> -               mdelay(1);
+> +               usleep_range(1000, 2000);
+>                /* horizontal settings */
+>                write_reg(par, 0x14, 0x3B);
+>                write_reg(par, 0x15, 0x00);
+> @@ -97,12 +97,12 @@ static int init_display(struct fbtft_par *par)
+>                /* PLL clock frequency */
+>                write_reg(par, 0x88, 0x0B);
+>                write_reg(par, 0x89, 0x02);
+> -               mdelay(10);
+> +               usleep_range(10000, 11000);
+>                /* color deep / MCU Interface */
+>                write_reg(par, 0x10, 0x0C);
+>                /* pixel clock period */
+>                write_reg(par, 0x04, 0x01);
+> -               mdelay(1);
+> +               usleep_range(1000, 2000);
+>                /* horizontal settings */
+>                write_reg(par, 0x14, 0x4F);
+>                write_reg(par, 0x15, 0x05);
+> @@ -122,12 +122,12 @@ static int init_display(struct fbtft_par *par)
+>                /* PLL clock frequency */
+>                write_reg(par, 0x88, 0x0B);
+>                write_reg(par, 0x89, 0x02);
+> -               mdelay(10);
+> +               usleep_range(10000, 11000);
+>                /* color deep / MCU Interface */
+>                write_reg(par, 0x10, 0x0C);
+>                /* pixel clock period */
+>                write_reg(par, 0x04, 0x81);
+> -               mdelay(1);
+> +               usleep_range(1000, 2000);
+>                /* horizontal settings */
+>                write_reg(par, 0x14, 0x63);
+>                write_reg(par, 0x15, 0x03);
+> @@ -150,11 +150,11 @@ static int init_display(struct fbtft_par *par)
+>        /* PWM clock */
+>        write_reg(par, 0x8a, 0x81);
+>        write_reg(par, 0x8b, 0xFF);
+> -       mdelay(10);
+> +       usleep_range(10000, 11000);
+>=20
+>        /* Display ON */
+>        write_reg(par, 0x01, 0x80);
+> -       mdelay(10);
+> +       usleep_range(10000, 11000);
+>=20
+>        return 0;
+> }
+> @@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par,
+> int len, ...)
+>        }
+>        len--;
+>=20
+> -       udelay(100);
+> +       usleep_range(100, 150);
+>=20
+>        if (len) {
+>                buf =3D (u8 *)par->buf;
+> @@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par,
+> int len, ...)
+>=20
+>        /* restore user spi-speed */
+>        par->fbtftops.write =3D fbtft_write_spi;
+> -       udelay(100);
+> +       usleep_range(100, 150);
+> }
+>=20
+> static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t l=
+en)
+> --
+> 2.34.1
 
