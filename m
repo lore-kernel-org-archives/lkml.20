@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792917580;
-	b=JylBbDPSxlDjBRrPK/LxLT7p46S6D/1t2ylyJeYKZQ+XLH4Ddzz2khlFUpu2kbXNH1fn
-	 E25sz9M/wnhbKtIf2becc6r3D9ps1rlzgs4YIEyW6qBEamFgjf7K7GqSGgZge5Zuh2VvD
-	 z7eBND8V4Ex02tBG6s35Yd19Z3hCXe3u6iZG7ogXq1WVVzsu4nQYi6dSxM2KMc6R9yCB0
-	 zDOV7p87147FpdHj1zSN7jc5ZNharfTw3M3lWlHYNhWhEYAYzfHDciOxEQrQPNkoyfNKr
-	 tGhPKKpHsLj8gi6K/alAZNutwccy7d8kuZ4BSuxNPvTh7HYGR0/rQSmjw5u8+fb9vtg==
+	t=1792918003;
+	b=rx3eSzi+a4Fhzfsf+94BfeIo1b1A1NCd398dySksznfx88/iSAtLR/iQR662iIAdFIyR
+	 W1NNg/1LVmJ/sfVOM9yWNxt89S482Fz+LD2vxjwwaVpDmyW8H/qFkhsulf01Zx+A+SYRE
+	 KcwiyEHjvyBysOA3kiwvLEujf523W5ITX/m4PP/rREq10ZoyirzryC8dmEQUWb0XGS0Qm
+	 uc925PsqOXYiVO+J5jnYLbsCM4DPSr43xOdXEzSjPGUSmw/+K/mJxFQtBt9nY0apn9Cxt
+	 9ES6LlxNnBZlRNKKoCLopReqe3791SqLyqHiXXXBV/4A/5vs6Gv36lgj726DYyzD3zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792917580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792918003;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-	b=SdiV8qcGJJ6TyP+BpPK15qq4QFjwWWW6Q8ke7jRUmokbCefHHvJGgL02wK3ZGaAYFzf2
-	 WBE8GlriAcgX17/eh5sVuXmwH22VjryeG3q3bgAJHojMF3NOIZ3EnSpxxEZAG4Cw7Sbpu
-	 2wr/rw9MnG/T3PAJcAeS0UScRdTeZoAEBhJQUN4T0HYmjsAC5YrTrPlwk4W48cz71WkfE
-	 e59VbVxz4lFSvC78gZecyXVEkBhFJ3FnLh0tbzKQ9OfW3TuNJYWF96Nj96rSqmQDtB7Vt
-	 rJO9foCC4n01AN0r/we7VQrQOQih5zVE1mT96CfXYVf+aIQHnSLbBkLBkqeRNb4iegA==
+	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=L5HnUNLFXRQf/6dxLPFNXYLFL4knAlxUvl8n9LuSkpg=;
+	b=edlgm3Y2qmXFui43DShOFRejw7ClM0PW84hAYhMqDdS/TV8ZqE9fFUTHIbtXnFB0D55I
+	 U9MzBh3cQlKXNFDoSA96RV08blMBY9lAmksim81p29zwj6cWlvbYBvH/3fS7be6dFENkq
+	 DXMTY/b2Bju9AZfB2J2YwnZO5Qzzc88wA6DRmtD6CGstVBylmcJUu5Vjug73iAxSBSzle
+	 5je+VJB2x2DXF+VWNbVYhaRdDpd/576hsYPWq3jP9xKTOE1WadH2hc7jrt6NoUpaSHzua
+	 SjnQwfD+/Wy10/kO+324gPwCiwF5l0GDKhrB6L7daMYkM5K+D4Wc9zKszrOaZRkefow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVowlhw5;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="CE/EP0C/";
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB0D606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:39:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB0D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A223E606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A223E606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVowlhw5
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so1010322a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:39:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CE/EP0C/
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so926440eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:46:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792917579; x=1793522379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-        b=nVowlhw5w3749vHvseTxbox5D9wvDbWlmIxnJfFFAvn/eVTcQfk8k3Fxue/AN/xh6R
-         h4EU2FwFyNUZW1U8wWQKfiZERuGQujIelOXPRLIw4v4ee9vXMcrvvxEPyb5hHfa3l6T5
-         2L88KJ2NYZ4d739vkxgLtOki+EGyrjkqyza0rASP3m/WN83DnL0vK4Yxrfj55gUjav28
-         wMP/1dm0vTncLzEKWO7JVdT+YwrMcPSBy6E27Vi/eDDbLEmMoeQKJ3v+g2H3Ngq1qqqZ
-         qLr33BSEZgauVZ7CfdKsF13/JHZGlqd/AxHhV88Io5XOHMx7SSLbv9r3iOCO+oRk7ffN
-         Ce+w==
+        d=gmail.com; s=20251104; t=1792918002; x=1793522802; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=L5HnUNLFXRQf/6dxLPFNXYLFL4knAlxUvl8n9LuSkpg=;
+        b=CE/EP0C/9IpQBVCJ6taLKeH7aWnmy99LlpYvqDMGYLgGhGruyINltDQTUcY5NC8vwz
+         YFWJNVoEj0tYA16X34ifZKEqpC71JFev+8aBw4hkNb4/tDO7ynX8ahRm9JjGE2bHyDt8
+         KO1ScZMeEXoBM5NmTBVyM8QfewkDmOU0YJPAFSmSONK9RdcMAHchnT5kBm7ZF7dtsup8
+         Do73CIqa+/Ib3YV2dNvsqWgdZCRn5Tn6QTGXNl5tlI1J5Nb45uanC5OPERytQIU6TPMQ
+         qvUvJ2wxj9osjCxcDQjquJRRo2YFNqkg4mwKOfdkE2JJcwFb7TpzSPI993p51J+Bbim7
+         csmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792917579; x=1793522379;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-        b=Ib69FbXstqiXbbUdQsliRKqMtemVv76dVz2HU9bEOWMmoa7nXqTlXNDpHChQ0DjUrE
-         TcsjSKDkRhtQc6ErKIycmgJWJyeWN7EDg3zqgazvXH2ASegI2DoSSi9MTV1+YFDC/Zsa
-         S49+HVs5CHcFeUQhdiPuZ7cUkNOTkuM9aY8TpWyLeDtAHLiGfJHB5gjOlGcQpQ9ApbOQ
-         LHHhJH64y9yz3msXcvYmjnoR2x7S3m/11xVDLpOhEKksaUpykPJo8qbbQ3Li//CVtoVL
-         BCpM2yLxjqmygbEVWPcbUPPMRjoZfEbdyo65ztWockBfeR4L13EoPgVCSBT1oO1U1HHY
-         Uq5w==
-X-Forwarded-Encrypted: i=1; AKwUvByI7wAw9kYCy4W9N3fTo6QRBLV09YOJXBMxktFTLUnnF+aEsc76fsoIfPv3GFqRGhRD0c6eB/Hkb0J8fwA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2LIHfFXaam10YEIQNOEA30wE84J/dWiY+cNeuFUWiizuUmQl0
-	yuWSaJECsfdhzVioGBmAUnSDu7qeQ+w2A8cxXlv1Lyq41aU7+NiMs+Xa
-X-Gm-Gg: AYBFou3KkePv+e5nD6ZXD5U4Gxm+OSvY6zR5Y5cOFi4bSlZNy/QKgDkeTZY4HXEu/R8
-	j/km3Rho0RH/iXcoEobrJhmN0XhuGCpGSEwpc0f2Ycxy863koSUFvzQ1vKejycsnSf7vgTxHPYv
-	F1l0Q2uhWPOb1/ONkahkKL9d2k+bUCJW7zHv3DqGfy33bsnxcTOOVKg0a9Ib5M77a4YPmu4V0x3
-	byx0rXjjyoaRVZ+ZmMRbqzlWhY+1O7pWD8z/FkUqzlz0DPcuAqvRmM2AGg5Cw5tvCNx8dRc0ECf
-	fsYcjI5fNBRyRtJM1VLes4yLxAB+CNYF4hv4iKuUk3jagosdPeMCUolLO7OrAnEJcs/8a0gPpOb
-	BUU+nOc8F+WjHNLXdjhxVJvTCLVnD58QhTmE0V0McH/M+y2Ek4Sehh9uHdazWc4EYxQ0rkfXxqH
-	evJF9CZ4UjSHfsy8Q4dfGSdRzfziNg5TcU4dNbApcxDWeH/z9t3vQjG9DVQMk+vbLhN8nzcbnOc
-	WUi0tjkJdtOtCTXHGzF9cKeXobJbw4tS5KFatvm6UiLkwTzDHwTjkwKXqZyA/rfP2wz/tajhUXT
-	j9X+FpuB3u34MT2hlSq1hDtmpeymOIdGB7eynDKQIU+RAIgkpun/HLWdeT4KeG1+To8Tmv9wRIM
-	9x/aZBnhpKIQlzEXT4F853xJsjaxT6DZ8w94=
-X-Received: by 2002:a17:90b:5906:b0:3ad:1841:6f8b with SMTP id 98e67ed59e1d1-3adead0bdc7mr3144482a91.37.1792917578985;
-        Sun, 25 Oct 2026 01:39:38 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe69478sm4585051a91.3.2026.10.25.01.39.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 01:39:38 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
-Date: Sun, 25 Oct 2026 16:39:31 +0800
-Message-ID: <20261025083933.26066-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792918002; x=1793522802;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L5HnUNLFXRQf/6dxLPFNXYLFL4knAlxUvl8n9LuSkpg=;
+        b=a5lsn2MnqLaXlCyMSecE39vlrrGhjzHwtKI72dO09wpFW+xAgGlyDuLZCr8OVA4KOR
+         OgMR11eOfIYfmxhpS1ii0jnzTS7FsgZRY7hswdsVOgxgCi+IY7hLgbJ1XPcMLLUzPAE5
+         Wn7Qz61y0QZkA7RI3zpPsGnYMijodfq8qnE/EmnDBbiYxq9BvB/5fhIL/vHerjo/VB4h
+         5deTrKDWpnjzCTCylJKU7qErjh61Aod5WZ4O5BpVGxjQ0QshUuhp/viiADSqEqKbPjL5
+         q41ECmCgde3M+TIXPcZ0Qk7I/QQxegJl2fQsDAaoMeMqTY/vppIdNugvYrjHOV6eZiA1
+         xeKw==
+X-Forwarded-Encrypted: i=1; AKwUvBwt0mZSRhPHeTJp3Iuuu8YeHJvmHN4W4xgyBGxvoyV8UTQX6npHyXly7iy7VQItQXnd02APUBzomV9TCLk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeuRgYbVBXhhWD2P0tF64zU0HeNdSUW5KwlO1ZM2NQhz+29qbN
+	tNV41Flh3TJNY11puHnxxnGriNepgMPwsMeTE7jES5hhgYj71V2MT8lk
+X-Gm-Gg: AYBFou26pUW5lhRRSM2l2zoGi/2a1hD1Bm6TtwlGu86G29zoca8H8dLqzAYDQ2Tw1CG
+	jgi0+4qVS0I/vnC6o32faxbtvihfeuy2WHDEqnjk1RuxqCphHlNstzSDjSpQbwQR7ATPbijW3cz
+	dv6OpFOHQy5poiqIVE2YyRv1vQBZHkHjP7Ac8qd5mYVpoKAt2jg4vAZibWdW2nZXRV+xWKW9+bP
+	vf2LBiJgTmc2Ni2wyvi687ygtYGa/QSWxKGxenF+eOD83sCO5ZGu1mlflVO2TZEoWKBHBaWHAL0
+	nGZrIaWgRjRv9Bf6Dzva/NLAkeodVjpEfVDhAySTHTexG4qe7Vh1C/5eLZ3TsONb9So6B3l4zqt
+	J5JviV5okl0jL5vDQD8qMVQtNrdUL1kmcIdqf2a3GHu6ezY85vm8I7E5WVH6WZsTg8FhPzzBLQM
+	PL6K5clNE0kKtKoAWKJLPspLBfeygLCXcsF6chfzfRk47Vs9k3eQAiHNk8psYyR5u5N8LHp5aAf
+	G7e3bIdywux4sVVQcOOQzt8k6c+oNm8BRUETYZpP1zBh2X28e9CxRCQKqbEASKYcA==
+X-Received: by 2002:a05:7300:8aa3:b0:369:b82b:5fb0 with SMTP id 5a478bee46e88-369e84ac218mr5762198eec.23.1792918001511;
+        Sun, 25 Oct 2026 01:46:41 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm24418092eec.25.2026.10.25.01.46.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 01:46:40 -0700 (PDT)
+Date: Sun, 25 Oct 2026 16:06:39 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Markus Elfring <Markus.Elfring@web.de>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Angelo Gioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+CC: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Lu <roger.lu@mediatek.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_soc=3A_mediatek=3A_SVS=3A_fix_devic?=
+ =?US-ASCII?Q?e_reference_leak_in_svs=5Fadd=5Fdevice=5Flink=28=29?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <fa60e7c4-d8ca-4ff4-a56f-6a6e2bfbf3cf@web.de>
+References: <20261023082948.1854252-1-coiaprant@gmail.com> <fa60e7c4-d8ca-4ff4-a56f-6a6e2bfbf3cf@web.de>
+Message-ID: <9AE974CC-F342-42F0-84A3-D72C3A0326C2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,56 +101,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
-that stage sets up DRAM. This series marks the nodes it needs for that
-bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
-in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
-the PMIC rails and the SPI NOR in the board files.
+On October 25, 2026 3:58:06 PM GMT+08:00, Markus Elfring <Markus=2EElfring@=
+web=2Ede> wrote:
+>=E2=80=A6
+>> Drop the reference before returning on both paths=2E
+>=E2=80=A6
+>
+>How do you think about to increase the application of scope-based resourc=
+e management?
+>https://elixir=2Ebootlin=2Ecom/linux/v7=2E3/source/include/linux/device=
+=2Eh#L1363
+>
+>Regards,
+>Markus
 
-The vendor confirmed that the BootROM itself does not access the
-EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
-sets up SDRAM, and DRAM cannot be trained without it.
+Hi Markus,
 
-Testing: all K1 DTBs build, and dtbs_check is clean for them with and
-without this series.
+Thanks for the suggestion=2E To be upfront: I'm not the maintainer of this
+driver, I just ran into the leak while reading through the code and
+wanted to send a minimal fix=2E
 
-I used Claude to help read the U-Boot SPL and the device trees. I
-checked the changes and ran dtbs_check myself.
+__free(), DEFINE_FREE() and return_ptr() only appeared in v6=2E5, while
+this driver dates back to v5=2E19 and the fix is tagged for stable (first
+LTS is v6=2E1)=2E Converting to scope-based cleanup here would not compile
+on 6=2E1=2Ey and would force the stable team to rewrite the backport=2E
 
-Changes in v3:
-- Reword both commit messages to describe the hardware instead of what
-  an SPL does, and drop the U-Boot paragraph from patch 1 (E)
-- Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
-- Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
-- Drop the Assisted-by tags, see commit 1e035297ffda
-- Keep E's Reviewed-by on both patches, as the changes are the ones
-  discussed on v2
-- Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
+So I'd prefer to keep the explicit put_device() in this patch and leave
+the __free(put_device) conversion to whoever owns the driver, as a
+separate cleanup when the stable backport is no longer a concern=2E
 
-Changes in v2:
-- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
-- Rebase onto the spacemit dt-for-next branch
-- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
-
-[1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
-
-Hung-Chun Tseng (2):
-  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi              | 14 ++++++++++++++
- 7 files changed, 47 insertions(+)
-
-
-base-commit: d05c6236496071916e19012cda7149465f15e66e
--- 
-2.43.0
-
+Regards,
+Coia
