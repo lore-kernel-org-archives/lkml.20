@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792917049;
-	b=VztdsrhLdOQs9c9VeJPHXhfJEcwuZSRiHwpI3Fn6aAZR/GEdIN15gOwnC7uQ95cFE1My
-	 p4RCAIAj+6WUxv9BN5qR78iICJ1nOxux/Lyf/98qLwgdVrB8tBAHOhJV1HZmeTiBKVXC9
-	 fC5Nsn7ygIgc+U4kasHWZrw1vUO538EAlTzLis8+XLXMX/gFfOQsziUGLlr3jy16EQAB+
-	 41/3R1U9BiuULgK08NLbE9BozQn9oPd4J5Yem65E+dsY+l+FiK2txb8/t5CkTmhCbYSt1
-	 RNGUF/LUmS+bU8E3jbyUo6m1452xMieeO7RJQb3nLMF87HNYL5SIwbELli7XZVUPnBw==
+	t=1792917050;
+	b=m76dyQmQsDJVJEfUPFEzgBVB9wKpRadSYpnDE9UTS85SgD2eWizaYlHHtgERHUtxLbBQ
+	 KdN5X1Djl6nCkgpPMjHUQS0TKEEPYFAlSsaerz9qJY67C3UobKi1fg/c1SL6UXJ2btIRx
+	 VSKNJGAUpbkE0nu7ferGewZMQvcFzlM7B698GvL5Exg2JQgNxDU6GA26fTH/H47pJSReK
+	 eGBI0epVvF/E5ypCiTDKvvwjLJiCzcgPKK5W6e98Lx/khVpImCEICU19VcM21fYKgqtAT
+	 XYAhndJ8oGDyGBEy7TaOKd8eQ3r+BRZEsgL/Sq9CJjI1cMrAfrvfJX8kkBbHFrcXarA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792917049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792917050;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=0WK118/ERZBXhtRec53rvDOkL0U2G2NqsQCMpV8RWVA=;
-	b=BmvzN/p9OvJBomSoPD1XiG3z4wbM6ELpsfbBqsLz1azCFvfQivlmpMi0ODarEugrZBLd
-	 PU2ELYodaZsV7ZqFtC4Axhv9rI9tWLPj92sKwK8mljnNKPvRCGE8CLFZ1/iSdUS/8WSH6
-	 8eAMzhicbUeXg5Ik1W+dFKtjMYDGVKgEv+wVom/zXenVBF20z2m3MTfzu/a5oJwstsJjp
-	 yh1MDgpPBLlQaLfXCXD90IIUAD2rDOBEzyIabsCrs49XEFrwEEBbCrioLtbb61c9RKmY1
-	 iHnonTr6BgCKg2rEiA7NMDTM1Sc0ySzroZDosFdPpwmMQkkh2+dEaPRTbA+ixPQ+V0g==
+	bh=vu7S66eBR+BMI5j+SHqWsJvnm0TFqBKeL+mz8dKO+oo=;
+	b=Qm8F0vR2lGs+uO/BAbOaKpS4NqQ93Ie/hFSi7kU5lFGtxclwU1ssDCpiP7O5CsUelHaA
+	 wgiYf5z6iGXQGDaVC4iBnTCDZaW/o9UpTQA0TVoIjmmrhzeH2R23/yYcumxTi/BjYyP13
+	 ZZdOhGlgUEyZGLmCz8LD4PZvCUzALRbcP28W36qJ9kp9yNAeeBVI2sB9J2uoWpQTBzHNf
+	 GYK3FlQQV7/Myt8Y0/ByHC+3K/t4Vz8xi5e7rEeFbWafCSepr7JGfjpbeK1/qQx88QHrF
+	 bCZnrGggNMOZd8h/aRmuaHhZhZ1vGo8O42y8UURkt0KxseUboKo7+dCqh7RaWhEgg8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fPtbxR0+;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tv0TdIYs;
 	arc=none smtp.remote-ip=198.175.65.19
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0430A606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0430A606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E53606A320
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E53606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fPtbxR0+
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tv0TdIYs
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792917048; x=1824453048;
+  t=1792917050; x=1824453050;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=2SPM72OVgIiZbPxG8Ns2E3PVKC34lOWa7p8uiRZQ3AA=;
-  b=fPtbxR0+z4LalkRe6HYhV7waVthwnXwvgG9muCMC+XsWYmK3eQCdOoaC
-   FJ7+FiJfbSrM+hXmAA1YfbnKZqq7N3pNlHs22THicG3MtNJdWnyjUFb65
-   pNX77hE8tRMtRQej30Bp2IWKWYQ6V5w7GdC/2h3/M24ZrwavGj7A5waxj
-   KFhqzg8jg7m2iNjy7UamfNfGSA0JOo0QpQOVpbjNckXh1/yLRlDxw2mps
-   W7nyzWasRet7AM1HKAh31N6tRBLFdCmdTukUPiQyTybI9V4vPz4ayspOA
-   BLVHpDhz60ptOlKmsi+4qdkGO99vbg4rhfg9LW9v5ndGSoNbNNGJDhpwo
-   g==;
-X-CSE-ConnectionGUID: vDl1XY6NTxyT591uY/ciSQ==
-X-CSE-MsgGUID: 6AuuL/qgSYi1ok0Y68MIvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1635997"
+  bh=vilP+SpyKHNiKB9HI03pA9/WSQ1f6m5twXV5OVV+KFE=;
+  b=Tv0TdIYsUFVNlCdVa3ShyurdvAxvrPtVFOgQEy2bZbApJnAUAOp4JFor
+   4XOnFQ58Wfj7BrnCP6w1MfeWqXCQeyDfguOgANl935OmE6fNq7+aPuOJI
+   84yWhG84A5NlsbMBxzUpg+fvNeQE/BqBayKv5uk8cl7dLHEznse5bMLPJ
+   ow7Ex3izCdrNACrSa0IlQTdLFn4lFEUECaY5uDjK+hUU0k3yA83eaN/jo
+   6tH0kIbK64FU2Ng8giJ70nbTXcxFtbMHk6B/UYCFveO40/ibMXiI3b8Zn
+   UwSCwci4LdN9vy5BTbFH8wh94W38tsAb7lfaLCABBsjaiMbhOVLfI3H77
+   A==;
+X-CSE-ConnectionGUID: Z+j0dC0SRuem/iUXVXTDpw==
+X-CSE-MsgGUID: 7fFqYf4wS2C7a+BuQEEa/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1636005"
 X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
-   d="scan'208";a="1635997"
+   d="scan'208";a="1636005"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
   by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 01:30:47 -0700
-X-CSE-ConnectionGUID: gNGyz2D4RjunjEKhSdA8zw==
-X-CSE-MsgGUID: 9q2/t7SiR9qcQK0UFb17Hg==
+X-CSE-ConnectionGUID: okoY0pRNSZeT2pH5U3zXzg==
+X-CSE-MsgGUID: jjkiaTKeRKGWJ1Wiew2XjQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
-   d="scan'208";a="4361351"
+   d="scan'208";a="4361350"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
   by fmviesa007.fm.intel.com with ESMTP; 25 Oct 2026 01:30:44 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xKtcn-00000000Ug4-1JV0;
+	id 1xKtcn-00000000Ug2-0SFb;
 	Sun, 25 Oct 2026 08:30:41 +0000
-Date: Sun, 25 Oct 2026 16:29:55 +0800
+Date: Sun, 25 Oct 2026 16:29:54 +0800
 From: kernel test robot <lkp@intel.com>
 To: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: oe-kbuild-all@lists.linux.dev,
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
 	Christian Loehle <christian.loehle@arm.com>,
 	Dietmar Eggemann <dietmar.eggemann@arm.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
@@ -77,7 +77,7 @@ Cc: oe-kbuild-all@lists.linux.dev,
 	Qais Yousef <qyousef@layalina.io>, Wei Wang <wvw@google.com>
 Subject: Re: [PATCH] sched/uclamp: Fix race condition leading to imbalanced
  uclamp_rq
-Message-ID: <202610251831.6qMLJiPR-lkp@intel.com>
+Message-ID: <202610251644.6weWofAv-lkp@intel.com>
 References: <20261024233945.74794-1-qyousef@layalina.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -107,26 +107,36 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Qais-Yousef/sched-uclamp-
 base:   tip/sched/core
 patch link:    https://lore.kernel.org/r/20261024233945.74794-1-qyousef%40layalina.io
 patch subject: [PATCH] sched/uclamp: Fix race condition leading to imbalanced uclamp_rq
-config: arc-allnoconfig (https://download.01.org/0day-ci/archive/20261025/202610251831.6qMLJiPR-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610251831.6qMLJiPR-lkp@intel.com/reproduce)
+config: arm-allnoconfig (https://download.01.org/0day-ci/archive/20261025/202610251644.6weWofAv-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610251644.6weWofAv-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610251831.6qMLJiPR-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610251644.6weWofAv-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
    In file included from kernel/sched/rq-offsets.c:5:
->> kernel/sched/sched.h:3833:6: warning: no previous prototype for 'init_uclamp_rq' [-Wmissing-prototypes]
+>> kernel/sched/sched.h:3833:6: warning: no previous prototype for function 'init_uclamp_rq' [-Wmissing-prototypes]
     3833 | void init_uclamp_rq(struct rq *rq) {}
-         |      ^~~~~~~~~~~~~~
+         |      ^
+   kernel/sched/sched.h:3833:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+    3833 | void init_uclamp_rq(struct rq *rq) {}
+         | ^
+         | static 
+   1 warning generated.
 --
    In file included from kernel/sched/rq-offsets.c:5:
->> kernel/sched/sched.h:3833:6: warning: no previous prototype for 'init_uclamp_rq' [-Wmissing-prototypes]
+>> kernel/sched/sched.h:3833:6: warning: no previous prototype for function 'init_uclamp_rq' [-Wmissing-prototypes]
     3833 | void init_uclamp_rq(struct rq *rq) {}
-         |      ^~~~~~~~~~~~~~
+         |      ^
+   kernel/sched/sched.h:3833:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+    3833 | void init_uclamp_rq(struct rq *rq) {}
+         | ^
+         | static 
+   1 warning generated.
 
 
 vim +/init_uclamp_rq +3833 kernel/sched/sched.h
