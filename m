@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792932815;
-	b=gowwZQt9VuQSff9NBorhyp2HY6zNTBrugJtTIgZLzS2C/esog6lw8gX5iRuFyadKF43v
-	 s8A0bHY3A8HYW83xHV5bWVNobrtu2lJE5o4fRIGk0YJy7fZuAmVlv5n15dPm7ZC+4oM0Y
-	 hjcuYYxbPnfA0qLLTlITFOlOXiGQewpPkfa6TDEeebSXDwihwcJV5T/2BotAPV0KxcST3
-	 6lOW8tL5yYuiMK1FyBu0HR8m4iI5rq4yauTftZXv+qxK5K3aenGbjZk9CMLExsL3T9eQv
-	 7JsEAH0Slud1C1xXwRKYz7c6duEGBBpk5VyV5BieCj2TL6P9eUaGIGqVtM5okceJpFg==
+	t=1792933090;
+	b=XO6zX1xnKMld/XvCK/RCmYLr0hZg5MpIYncQDVkm0ezVwUZPhiL2Aq264j8Alc72g0hA
+	 mhmLpWUKHYc9zMzIzYnHlbR6l4A6lmHRV9yMPdlKwIyUN9wthftQZOYpfUGBJZ4BVURBR
+	 +lLp0668deFzEUu0hlMuj1ZGVn34pkERGUWyUV5h5yy8KxWxVCRNfTO7XlcnNozChqgG+
+	 oCFcOXjtjMVAPs1I2TcPGvVTRVGeo2YswJ1G7qALSkhueWGrdJ+lOI0B0pF0DZEVorwsg
+	 WuZ99zcUke+gzq+Vq/rMtU1+qg7r7cYBa7Dul2Bgom52b6NxXoAWwE95M+NsAVh1Dgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792932815;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JCFQvSVrmmm/rHmd8ywtZ5Tn+Fl2rKvZ1A5HZ1sQWb4=;
-	b=fYtCR+W8oRXYlpFPnBr4O0OhghXhpXg9L3o9R8u5mTKXtayQtUfanR2OMqF4X2OoL/2d
-	 eHldH8UbdhmZSblKUY548RWKBQ119M57bnT9oI/XFR8rz4ww8M4gxpkOb/YHqxa6zH0aN
-	 PkYEHKOdABEY/6k0losXiSS6F8xov1kR5kLMVkHuE2yZ7AfJmtmTfZXi48744ND8EBaX/
-	 88+nQtjsFTqjVvEhOGL1/4J/iGTyKS+bQP1HzqVShGedo0qi4po6NL+03zG8XK1A8L80p
-	 5VCPAk7a77r8xWAPjaSqi/3X8jOFTNkbrsKXs0RxAgTcImXFIv4M08cLm1QOEOweDxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792933090;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=GLSIPHQWl9F3PRzOpIFGBe0319Lzoq++2NVfjsq1w0s=;
+	b=SfPU2G0GY1u8F7GvfYRiRdEdlNbfhOQAuSFBfgb/J3Ng39R+y7lQIdTmcGRpZfDBhZaT
+	 MRJvNpz6ENCbaxhciiEj2eKuwbZfTonoUz/XvnEgzIy715vvkEALngCd0xUbhn9vOiYoO
+	 j87P18C4Y5IRkmVoOUZOOuruFvSJ1uoqHZywmz/Wrfqx7MVt1puj29DPrD0HAc2Ff+V+P
+	 giBSJ9yJ+/YB1HP17A0rDee99f/AUy4HkXsV6/JbtSC9HVThReTPAqwgf8KiAB3mCKlZy
+	 SEA8YMD4tqIZijGp8FCitQR2v0QjEuyd5z4PneDvG9iEMGKcsg1MpnUAd9v8qnDvbUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SZO6XcMp;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aJmsKukt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2E9606A328
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:53:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA2E9606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1377E606A31B;
+	Sun, 25 Oct 2026 12:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SZO6XcMp
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so13459735e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:53:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792932813; x=1793537613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JCFQvSVrmmm/rHmd8ywtZ5Tn+Fl2rKvZ1A5HZ1sQWb4=;
-        b=SZO6XcMpqObUDsLkUHMn05TO0jS40Ri2meMLtsJWCpB3xI7Mt+dtUpPDu9fak0Rtd1
-         PwpyEl5R9oFUDplBtyKAkI0Lf0zTgiDeJ5SvlKU7nf46epwoCigpNKKxTnKT7tR0tsD3
-         QVBHkfoq6TnBTFvmdhgjn25A05g4MkTxB8W0nu/AiOuBuD/TE7+5G96Z8XSw3pbnzp/a
-         7hsL/exfg+ZB1pyyFXNcx5Ug8GKbUcfsdWbz8JyHUAcHoxR9Yl6X0CZneQ3BdWQMtDxH
-         TlQzqpVTRrVeEvSdwOmV4SOG0wg7nvVyqnlKAIOX4g10+Vw0h2IGiun8tS2q1A7Whib6
-         GaHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792932813; x=1793537613;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JCFQvSVrmmm/rHmd8ywtZ5Tn+Fl2rKvZ1A5HZ1sQWb4=;
-        b=eNNJr/3YB7TV8PDadpFqooAfHs+Spxy4Q7Pex96c87SkQpWROD7xr2qtU+T0QcxHUY
-         sUd+6JFh3JaTvLwl0E5cSQochb3NjykhziWqbX8zCkHSRZPp6JxO29gxSZ/m6eU6Cd4N
-         JJnRvCtc6qd0JlM4s0JYmafZfYWu90+XranNPKD3jE3t268kz9ijf6spJhpbvMwiKciu
-         yx71kdlqKoGS15z9W/oDTt9muAyoPjPilRs5u1LCzcj1s+TtpImP2K/9y7upQWR9juCJ
-         1AeVhYXm9chD+s1jsYAevxnnRCSKJQgUSE3F1KgH5nZRnkH198L9/mzYubkbxDUgZtnH
-         +n5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx+gG6REiDrMZZM/craTnWUeDxMxfzVXh+C3UP/NB80T+NY2lp7QZl3P0dfRnG0VcqZOI2yOZwh9ODiyaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwr+1I75MWz4dVXDFcG1gDVHL3UQBQ9KCwyUyT5ZtTk5tWgz23
-	ocjh8kJJ+xjDGqDYHkzwiIMXvr+mL9eIQdLylJChj3bDJyh5R8xILzRK
-X-Gm-Gg: AYBFou1z7I6OslbiVIc9DgkhDZoP4iAPDIUh3yUbWnuvIZmwnLzbGZPgOZY3lyls6c/
-	LtqJJ6KQ5fTv8pM03Gxl9pymnu10hn6pRU5iEGxMLwUwZEjzz+sofOo58dne3Rpdt0Br9Y6LviY
-	18rvCV/j+49GZFlQsiJtz/GpkRo4H0ZwMsBqEgRYn3e4hQgC88gn/eLYs8a1mndtSTKzdM/cAlE
-	CjncBJe0EFLjk9LbkfA17J7vVEhmQ3G1Sd+vagKDNOfDjd8RKqtcaq5N6ajMJXrFCpGEE6ryjkn
-	W4JXD+447QreUsWLgtCJKLpJKgxT7wDnFxFeWBdOdEQ3+3SeZhj+pxmBifxQBfi2RM9mvcjgl/+
-	kLR7OiwHknAQwrgocVf/mN7Lh7yBPkPz7neUCsCAUEmreVAYK51ZksXnV7qRMxzPoEf2h48OXLv
-	guSF3whbgKOI/nlpC0F4lqA4KQW3oepU2NZ9Ji8k++umbUjymdYB1rlYh2EafKuDFC7VEMyhnF8
-	Em3FHPVhrKyFprb329spjOcCzXnKdTg/9W0aRrDYAzZyklEojHw5aphjr0icKOdfYsGOz4uOnPk
-	f0XOrACprAofY0N4vvRrpmC4ewNtKq430QusVu8+PWTebo79l+WnyjbvogNl2UMd+2XP
-X-Received: by 2002:a05:600c:6749:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4a35ad01261mr66247355e9.2.1792932813213;
-        Sun, 25 Oct 2026 05:53:33 -0700 (PDT)
-Received: from hermes-agent.lan (228.red-80-29-82.staticip.rima-tde.net. [80.29.82.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bac37sm128182175e9.6.2026.10.25.05.53.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 05:53:32 -0700 (PDT)
-From: =?UTF-8?q?Ram=C3=B3n=20Jes=C3=BAs=20Miranda?= <ramonjesusmiranda@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: andersson@kernel.org,
-	konradybcio@kernel.org,
-	krzk@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: icc-bwmon: drop the bandwidth vote across system suspend
-Date: Sun, 25 Oct 2026 12:53:31 +0000
-Message-ID: <20261025125331.208366-1-ramonjesusmiranda@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8a63e842-3b06-4eaa-95ae-4ba4ebe2ca1c@oss.qualcomm.com>
-References: <8a63e842-3b06-4eaa-95ae-4ba4ebe2ca1c@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aJmsKukt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D691F01825;
+	Sun, 25 Oct 2026 12:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792933089;
+	bh=GLSIPHQWl9F3PRzOpIFGBe0319Lzoq++2NVfjsq1w0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJmsKuktCl8do4ZM+X0KEpZIWVXAZuTyBlX+kW2PYmlnHIfBfGQfS/bsZramkOUu8
+	 KahUE9YvtPC6vNVYsawtj+e0RWQSQKVjqmWxY5srcARTremgbQu3TIy8PYz7nau91C
+	 cCjRazyhAXdSNWeBoIW3rLSfB4yIdav8zzWzPung=
+Date: Sun, 25 Oct 2026 13:58:09 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Barry K. Nathan" <barryn@pobox.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
+Message-ID: <2026102555-exponent-monogamy-5bc5@gregkh>
+References: <20261024064731.125251200@linuxfoundation.org>
+ <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
+ <c2227d20-c533-47ad-8446-aa0838f7c0be@pobox.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,13 +62,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <c2227d20-c533-47ad-8446-aa0838f7c0be@pobox.com>
 
-On 10/20/26 7:56 AM, Konrad Dybcio wrote:
-> No, this is conclusive enough that we can drop this patch.
+On Sat, Oct 24, 2026 at 11:08:02AM -0700, Barry K. Nathan wrote:
+> On 10/24/26 7:32 AM, Barry K. Nathan wrote:
+> > On 10/23/26 11:59 PM, Greg Kroah-Hartman wrote:
+> > > This is the start of the stable review cycle for the 7.2.13 release.
+> > > There are 243 patches in this series, all will be posted as a response
+> > > to this one.† If anyone has any issues with these being applied, please
+> > > let me know.
+> > > 
+> > > Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
+> > > Anything received after that time might be too late.
+> > > 
+> > > The whole patch series can be found in one patch at:
+> > > ††††https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc2.gz
+> > > or in the git tree and branch at:
+> > > ††††git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> > > and the diffstat can be found below.
+> > > 
+> > > thanks,
+> > > 
+> > > greg k-h
+> > 
+> > With 7.2.13-rc2, each time I go through a suspend/wake cycle on my Lenovo
+> > ThinkPad T14 Gen 1, the following line appears in dmesg:
+> > 
+> > (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
+> > 
+> > This is new and appears to be a regression, and it is 100% reproducible.
+> > It does not occur with 7.3.0, 7.2.12, or 6.18.59-rc1. I will start
+> > bisecting it shortly after I send this email.
+> > 
+> > In case it's relevant, my ThinkPad T14 Gen 1 has an Intel Core i5-10310U
+> > CPU (Comet Lake-U), and it's running an up-to-date Debian trixie.
+> 
+> It bisected down to these two patches:
+> 
+> fs-add-umh-argument-to-struct-kernel_clone_args.patch
+> fs-stop-sharing-fs_struct-between-init_task-and-pid-1.patch
+> 
+> That is, with all of the patches prior to fs-add-umh... the bug does not
+> reproduce. With fs-add-umh... the 7.2.13-rc1 boot problem happens, and
+> adding fs-stop-sharing... fixes the boot problem, but now I have the
+> new message when suspending.
+> 
+> dmesg context before and after the new message (should've included this
+> in my previous email, sorry):
+> 
+> [   55.793416] PM: suspend entry (deep)
+> [   55.825734] Filesystems sync: 0.032 seconds
+> [   55.825812] (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
+> [   55.826364] Freezing user space processes
+> [   55.827740] Freezing user space processes completed (elapsed 0.001 seconds)
+> [   55.827744] OOM killer disabled.
+> [   55.827745] Freezing remaining freezable tasks
+> [   55.828885] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+> [   55.828941] printk: Suspending console(s) (use no_console_suspend to debug)
+> 
+> Except for the new "(NULL device [...] error -2" message, all of the
+> others are the messages that normally appear when suspending.
 
-Agreed, please consider it withdrawn. I have dropped it from my tree as
-well. Thanks for looking at it.
+Ok, let me go drop all of these patches and push out a -rc3, thanks for
+testing and letting me know!
 
-Ram√≥n
+greg k-h
