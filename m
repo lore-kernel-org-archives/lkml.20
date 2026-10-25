@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.215.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792919033;
-	b=KRWEK24mmveZfFSZg7Alk5U56WrFpsTPERSaNWU8oU0kEYs9LzsMKLacU5O465cUYByI
-	 Zye2zeCljxbHMhcxZbaMpLZsi3HxNIKFIh/dWy93FWyglHgCjzs/C9DjCXS6Y+RBMceMd
-	 J01RameDyepVy+E5CeciafVmJz3ZsJ4UqoT0nSBeNSsuRrPa7RVOZj7NSR7kcuxhRuJ04
-	 DmD7G5AM1gUawtRFlTBcl5I5UXKCXjb8vMTsSc6umJeb/p3FJRHPZyzP2+jJKGpS1wsPR
-	 rvf1PpY0V/juu2X1tNChxj/f7xmA5F6Zw64Dvkd0fjrPcygSU/KPrKW1sSUTsX32IhQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792919033;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1BooYTXBqtdl0NuOlZpwBA6Ku6J/l86osVdkZCPC8Vc=;
-	b=fSVOUpSXrZUfdO81lriuPIdrr161Qu01T/3xckiOMwM2lD0GcLBGAEmpxW/jPriwOjUM
-	 A1V8IpQTKd+Y+E/k8EZUF8vDfud7VfrtPi14ow6VO9Ndx0I0xllBoRrFmRMTzZzVPQyuO
-	 y9ztlSuAHY3O6Vm/S2dnh6f6ynEnZrJrISHt1Q9nGf/G83aVVZ0YlETbHfNW5+V/FczIQ
-	 //IWht7RGT/HRqCL1Wi9s7BDV1fTKVmMDwFIgy22QyYDZvtgb0kCEkx3lam58DX+5agsA
-	 2qSriPt22dD83TedhIFPKYfQLkLlbbfKz9gPAGjWvuZh28XeFzQK+TyFARzMEfCR0/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ujJS6mMi;
-	arc=fail smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.71.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792919086;
+	b=rEPt0OhMyPtm4SuZ+pNO/7OJcTkursuCK8JwNYEHe7JaX4e8ei7n9VvurDcjj5omRo67
+	 WORL7rVTFyD8rbvxuMR3kRqsNbQdwP0h2NYnc9SJebtdFJoo/kACJ2FrYnQFXzL0O0ETa
+	 9MWcm2/1WV3ydIAhBkvr3okwueZzJhkwS3fTZuIsK+K9FyMuPRVKQD9TLtjYQ+b5b1HnB
+	 ooiCn/56ve3M4Gc0ewNmaeA4bMOC25GcF6/FlYdguMrgqqHJIkpUpAHct1+eCcwj9K16q
+	 v8fdmMVnvCCKNrbpcTY1ZTsPdnmaFtiTOAjt9fIXAS72qkeePocypbMSdVz9OO1jrYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792919086;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Info-Out:X-JNJ;
+	bh=tOi3xKFuD5aMiykE6n/is/ksMvy+vPNzfzFiKL8PDQ8=;
+	b=tOo1RudB88WeiFcmGYU93ZRsl7yefo7NIrhkRucvIQqUB9/G3xfgmu5UAPCBDjNli36j
+	 AZ/bvHZBoRLCnjMzgc/mDOKxtIXHgZz2DHn0zNA8iBHJhTlci843VYtBXFGRYYsMdMxvH
+	 rxfGgCYjtiLzHZ/+iqww1OvfvmsMJ5kfFX5hDszjhSenhsRg6sa2CwgibWazHHdFmo/X3
+	 DL+Qm2sJPYOnp3OFIWwn16dggryh+TLqF6gStEpsXi+5CLVA/Ir38EeOVUJMAV29P39qL
+	 vhkKrM3D/1eesUcjfa4hd0+MSve7tHFpfNS6zNXP6VW1l+DWNnsmOuG0UBOspPz/lfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=n8KPW91Y;
+	arc=none smtp.remote-ip=57.103.71.17
+Received: from outbound.mr.icloud.com (mr-2005l-snip4-4.eps.apple.com [57.103.71.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D58B606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:03:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D58B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F392606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F392606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ujJS6mMi
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1177133a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:03:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792919033; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZYEwhSGYbf2TGCn+ItYiyhRlu4h7OrSR/c3guDHVvAu+iVhK22ype5SO6E1yj1ROAj
-         19e55irQFMg/Mp0IBO8asrhQAi4p+cQCzqOVjbsAU5pISMFfFX63uKvFDM1uZfH42SLA
-         1HUnyUuW/K3ImxxIEyIX7fsxt4UlwMCMAnDhIicF1WrxJLfmMHsIiT5heYG6RNChvoC0
-         Vklgw8UPI8KXX6fA/37sxY/WGI8o7lQ0VogV7yovkq0EYi1xaTq9uvkXJ9bzMANoKsAp
-         1d+G7RmPCOtzGtpvHXPGck7iifSIBk7C1gqcZt5cmiebijljSteZxbd1a1CPpDirA/zL
-         pHog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1BooYTXBqtdl0NuOlZpwBA6Ku6J/l86osVdkZCPC8Vc=;
-        fh=RPkmE0hB9tcwfFuOh1/D5QNpxutzR9j8Onh+nGuUQmw=;
-        b=ZNnns6km1N3+Lph8nhumu9NcfLnyue5IL/O+3DGCElErqoxX6RIxe3T3JjXe5pbqrd
-         EWEbhQZAlDyTe0hzTd+DCkUY9JCu/jJ6Vx/Rp5Sm6hJwc71gU0MH005JdaMzvsmFRq/U
-         Op0EZcxFh/NXhe3yjDnwL/ttYVa9Rt6qAU83IDCzzS4vn1zRj6YrGIrDOC1kh4co2gHy
-         W7hgNRSF3Yn3CudqoSzU7KRkobt6xZyutDw6z+smYsh/9cURbTPv7T6BM74tAh1n/9dS
-         h7VuHCjZ/NNb8fTvnDAYIrEnceSFpwzlhfLBcKOHvXy0tXRYrgdo8PWmJsUT6bAxUR0m
-         Vokw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792919033; x=1793523833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1BooYTXBqtdl0NuOlZpwBA6Ku6J/l86osVdkZCPC8Vc=;
-        b=ujJS6mMi0vBZnl+BDCY0ZwxybPNMPiPzuhdFjhJhdpJo4Tx7T7CVEEyTDE8gFLb9Cr
-         SRA0nkHUuCJ+rbUDjwjRwkFsDjDachhOG8OFnog5uwWUbfbxsUqJCwTjMuLUpqRYsL09
-         k9/Y0+h8x3V7aZqiuiAOy2wRsSgAH8Rr9GzBE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792919033; x=1793523833;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1BooYTXBqtdl0NuOlZpwBA6Ku6J/l86osVdkZCPC8Vc=;
-        b=AAdpi+lXUoICYyiaeOgxc+DEgfGl2PKwr3ZQsYKqAOUndc0VNjHxLHs2QxwH7wCI/Y
-         Xa9NXuqMXfBOIyBLnOzxQ4JKYltNAj6o1tINwOWO+zZEztoWXSRUf4OTFHrQ/ew+WvAU
-         CopBnafgJZ+ObuaW/WJfk2+k/tzLiIg85QxZl28l/zSJcRYsvjh9QfRrNyyzyvOyPG2R
-         EvTnJ5FKM6Bd6GXUFTFIftdukQk+bfhU1PZS4AEx/cZtSgke3UbvGsENMlyNlQ8RmnuT
-         B9hy74q7uLP9el14FMSrwR3WsJL83rCCas7o7l/TcHIXM2cL64sO2dmTj/X/kgvA3OP5
-         Xi+g==
-X-Forwarded-Encrypted: i=1; AKwUvBznq27GO97jAeTjTGG2AbwUtBOlImuaHubn/LkLKl2gd1yy7n/XolFdDRg5IoLqbvcbp9A7PZS5WyKrnOE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvHRaDU3+sMEvI/pSt43H1xqpJ3LoeKDDRR7hZhCo1DF8SKv9R
-	18OkgEoTqEIsg/44blAdpAIQQ5BDhdJdTuVk6rEyaqePxYIuk2/548IvR2bBZ+bT16mO/gqaqoV
-	VypTQ1Mpvj+TgWPE1tk/vbXDkCCqZEJptEp7Ah6mT
-X-Gm-Gg: AYBFou2ZnTorGfVeNhz/lz6bBuqOC+FOLa/bop/m0TCDhMvLjpv/YZ1aLuKB8sknJOf
-	nP1B/Q80vDOW/gdEyeWI6dlgtaL7TllRwGPV/96/M7xvCEqeu/DG0k0xZ4xQa8NJBaamDwpZ/at
-	6lPaj9PeqHWMXVErQjvPV+Kc+EJmHca3AYE1eS/wWqir0NYNoPpVxFN8+qrLkXdnuTK3VW+GXwe
-	m2D41FBIqTwHv60vPGTyFdBDoJrjDkoZo4qLPGTeGVb4uus1ZTh6UIdLZ12iFAT70vqP+fTCA1A
-	O6ZsIpCZMJrTvuoArCAJruAGmH/gInpxO08mv30AnSrt0SW6z5NcsJFZ5B3IhR7XVQut9e/ZQSS
-	He23zVcfZcfni1WZrKrkWQ/RQdqz+kql6HULsQADjQcgajixLhITfDEuDVjINcX/VYo9NwOCNhL
-	LwelxoJH7ZXcJ8RAk=
-X-Received: by 2002:a05:6300:6bdc:b0:3e0:b937:883d with SMTP id
- adf61e73a8af0-3e7bfbdba5amr2952918637.25.1792919032623; Sun, 25 Oct 2026
- 02:03:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=n8KPW91Y
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-0 (Postfix) with ESMTPS id 708E118001AA;
+	Sun, 25 Oct 2026 09:04:42 +0000 (UTC)
+X-ICL-RepId: 01a1724e-158a-7570-8328-3c57c632e5f3
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQtJCkMGXwFeCEADQwZbC1BcHA4XXhtCFUsVXANcDkswUBtfAkIPHBNWFRMLU1ZbE1UXRgkZCF0dGQpQUAZTEhhcFFxQWB5GElYNXQkZBkBeUBtfAkIPHBNWFRMdQxkPKwhKBEMHRQJeCyUTCVNWWxNVF0YJGQhdHRkVWgkKV1MECj9xXX0/Hx9PSB5ecR5yMmstaTd/Knw3FDVwXAlLRglJHQ4EVAddBV0=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792919085; x=1824455085; bh=tOi3xKFuD5aMiykE6n/is/ksMvy+vPNzfzFiKL8PDQ8=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=n8KPW91YdrPL43/7QW+3LMqcJ10W7LFjD09kvgC+lUG3DVktJ0AbAofUPvfpO/jDPKulgwGac84lpL42JNT/FL+/0XyMuYMvQsavYg3qq5OIyeLT/t0E1taWWaume0k9xU7vOpymZBERMbVJWP4Kmp/V1cE8sMVFaHxxq2hg9D/LTiVRqNRQRo4qbEdHR/ct3E4Lxgt32nRGIms1031Q6jukpRyHX6VjDM/+mRlBwX0RpNI5f5kKfwXFNvvbLtl6drrCjmM3ry1hTHJl7gaYYebua7+D5TuXjvnNo5BboDwYBeN+JFFTSSWYyVX3UqE6A9DwcKdUzPP9pVmpfw0SaA==
+Received: from BRUZZHANG-MC1 (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-0 (Postfix) with ESMTPSA id 3EF1518001BA;
+	Sun, 25 Oct 2026 09:04:36 +0000 (UTC)
+Date: Sun, 25 Oct 2026 17:04:30 +0800
+From: Zhang Peng <zippermonkey@icloud.com>
+To: baohua@kernel.org
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, bruzzhang@tencent.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, weixugc@google.com, yuanchu@google.com, zippermonkey@icloud.com
+Subject: Re: [PATCH 0/4] mm/vmscan: refactor shrink_folio_list()
+Message-ID: <at3GB0JT-ov0-3Fu@BRUZZHANG-MC1>
+References: <20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com>
+ <CAGsJ_4yBqZVfrpbXsBJDHhitsHZEGWJhZsHG+uKC+QDxZp42HA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,45 +65,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260731140533.566493-1-david.lee@trailofbits.com>
- <CAM0EoM=UDkGKLivsdDS5JaVMuefR4jLC2rAWJcOR8XD-4N_EgA@mail.gmail.com>
- <CAC_etQESLytW5rhp0GfZU-mJqJhwk202a5u_nTXZ7W6wJN=AJw@mail.gmail.com>
- <CAC_etQHv2EBYfAhfkYHKrasnJAyDS+u5+a4os4aD1eSmKrck_A@mail.gmail.com> <CAM0EoMm=KbZgcGqLHDFee3mM1GxuNCvAWObP_K4AxsGAoEAedg@mail.gmail.com>
-In-Reply-To: <CAM0EoMm=KbZgcGqLHDFee3mM1GxuNCvAWObP_K4AxsGAoEAedg@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sun, 25 Oct 2026 05:03:41 -0400
-X-Gm-Features: AclHuK_jMLdQH3LqJfc2klawx0gf0RQlCgrLwXyrkJ9NArFRch-vM04NQdh0R90
-Message-ID: <CAM0EoMmxpVv4YRoQQ3jN+79OKjaT=ep3+6jff8CHoOBLJUej3w@mail.gmail.com>
-Subject: Re: [PATCH] net/sched: sch_qfq: prevent aggregate self-replacement
-To: David Lee <david.lee@trailofbits.com>
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>, 
-	"Dominik 'Disconnect3d' Czarnota" <dominik.czarnota@trailofbits.com>, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGsJ_4yBqZVfrpbXsBJDHhitsHZEGWJhZsHG+uKC+QDxZp42HA@mail.gmail.com>
+X-Proofpoint-GUID: J4ax-FlMMK39gxb3GUctmllKOJrnaAdo
+X-Proofpoint-ORIG-GUID: J4ax-FlMMK39gxb3GUctmllKOJrnaAdo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDAzNiBTYWx0ZWRfX7R7+nokb7lNa
+ T/q6Tk8GWxG5n43ok+XW/db6pcVC7RxE1QOJmD6k4HRMThuk/1nN0czPPCArBjCpZgCsiRYaPh9
+ HyV3HEsR+rW7o10w6qNYJRVGkzDMpJDmSxhhRAUuigi7K7Yx2rs827R/E0ywBcwPZUumhGziNHr
+ ewkiH9VwL+j09eCgprJwqV3yDbHD7W6iUnz0+q7TGxSaLZDst2XfvGHb1QYeczxNh5vh7yGKj9T
+ GYWeqdMxqUeAchOt7ZHPe9x8ax5wc+HFgoYbQDCYcy2FAVLTF8sWuB3L9bHGidxUbhC+Amw1AQI
+ Mmi6lWBOXoeA/T8Zx8Sn4yONbtUHzlRTfaCdkx3K7c0B8c2ahrw4s/kYiCniHc=
+X-Authority-Info-Out: v=2.4 cv=XNo9iAhE c=1 sm=1 tr=0 ts=6addc62c
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=Jl6AdROc3aInEt3dI9QA:9 a=CjuIK1q_8ugA:10
+X-JNJ: AAAAAAAB7lLXznPVkUscheJRJVg9F5pRpohOmOK0pxzqWp9w7xD8HljBKTcodAQUThZib/2VfRmKgYb/Ga4NyYaybJeHreEf/skGnG4m/n3EPFunCsNLFz7o5kvydYoOwqcs+Mn4/hKqTwwOtlAhpgzwP6rxCJXVbj7kz13K0V1Wogh+wQcHlhip0gjjzwe7shhj26aev3urv+ijaFNyd+aWdgAYyzT77n57x944QubWIe2OeWOjfiInZh6C7/BZ4nrpvHsnr8Qa7PIRkQiso0poPWzSJ1vjfldqlKFBpNIS8CTYzRaZzqXeaK2+3D2pddUBXIISDb+gxXqDJgNOrbir1l1yZE6sgdvI06hsmc4f+3PCo4CgghfVg2ZW1I6mfseOpDkyC8FZE+Fq5jedl8ljtP2FmR+uE2556CFlxGfiRkHe6dbqepykaKLJ8ll1Gx2OwNbUkI33O/vTQS9Sw8+rULlikoY7YAPMXTMmd8ZX848OPyrfRujHX8VRo5oPU9sa26mAIqaM3a/64DLo8N4g/MBdf7HeOxQ29Ksq0XCtHGHJzlzS6gRAmGjSko42/sfOH05cckktF61MUjyFIfHjLaIxt6u+O6bN0ygJhPib3qIrNQgCfP2iFFi/GLNPk15JtZ/lvZvt8epf/dGY7mFvzeK+4hSQTz67QmSESHg88VVyjw7vV3YLBVjImMFzXlWZz6yxQejbFh6C9z+TrNgEE51adigH4OIQjALgmJoowfRFzAgxWkK0+5hm17VQoxmtfPzf1ZZobE8fy+9IlLIs1wiqDcQsaZx2Im2FvE1tdwqQguYwxufOnKLSdkRKGOC41A8IWgW9AHOb04nTUVTirPy5V4qng7hk+3OrYuPKLuLMLbPRHoOYYaTm1lBIF07NNjAzdQyr22eF8Pa01HxV51U+DWdH72TrN2T+HdddlzROPgCagaLjbq9XuuNt5LfrfEMnnZFPFe73N+rv44Tm2c/PwWl
+ pHCikqwXkaFCc5gZXKclMwJplmIf/IfeSfjJ8D7+x/CX6KADw6xnnMVi58ytNhQRsbXbfzvXoIOd00FJDgeCclYZWz9GlUlp1XnfATlnPAypdOCReMcULnvHHTNqpH7J6Y1XEOP97cbzek/8okyEdJ0ukzBj9QBuGBTDeQXg988Wq7g66sLkaWPpSK51I5Waw0aCpJkv3IKEpXTyj9wy6TOe6LY/ja70oMkO6sbN/feqGIjX5yNRmGl3m3nknR+3KkQa2RHmM3lzfKA73pnu4EgNpHAcU3alNYMTdrBfMwgm6XJAT+bHUFiOqCbMh86bMWdO3LtIeue2uTcS8516Oi6Ma8w/amwrM+ibu7poBaS5u6y0MVoc9hrYou/XCZlg++ts8hHhvn5pOyGq8Eq7RYcceTUqzfStNaxTo0WPc/8MTe9j0GOO5wacnBNsSJJt8SjZuXFiVw7difvLRykaCt0yn+mjZWeiN1yQkeEbPLeKOThwNQk//vtc=
 
-On Thu, Oct 22, 2026 at 5:14=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
+On Thu, Oct 22, 2026 at 4:47 PM Barry Song <baohua@kernel.org> wrote:
 >
-> On Wed, Oct 21, 2026 at 10:56=E2=80=AFAM David Lee <david.lee@trailofbits=
-.com> wrote:
-> >
-> > Hi Jamal,
-> >
-> > Following up on this thread. Please let me know if you had a chance to =
-review the attached reproducer or if you need any additional information.
-> >
+> As suggested, I think it would be better to include patch 5
+> ("[PATCH v5 5/5] mm/vmscan: flush TLB for every 31 folios
+> evictions")[1] in the same series as patches 1-4, since
+> patches 1-4 don't really stand on their own without patch 5.
 >
-> Please resend to the list - I lost track.
-> And if you follow up after like 2 months(!) you will really have to
-> retest with the new kernel and likely look at the list to see if there
-> are other fixes that cover this issue.
->
+> The whole series is a really good idea.
+> Looking forward to the next version.
 
-Before i try to reproduce (then proper review) please resend
-addressing the issues raised by the sashikos. They are legit.
+Hi Barry,
 
+Sorry for the long silence on this - the series has been sitting
+longer than I intended, and I should have sent an update before
+now rather than letting the thread go quiet.
 
-cheers,
-jamal
+I agree with folding 5/5 back in: the cleanup only really makes
+sense as the groundwork for the batching patch, and keeping them
+in one series also makes the ordering self-evident. The next
+version will be a single series - patches 1-4 first, then the
+TLB batching on top, reworked against the explicit-outcome
+helpers.
+
+I'm finishing that up now and expect to post it within the next
+few days.
+
+Thanks
+Zhang Peng
