@@ -1,59 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792968006;
-	b=eg9JhcPuVv21phBUQQPzKid3sXmgjyM3+TGm4ULeUNQbBzFh5z8nxykrZmYk0cVqqNqc
-	 awjTzDWseubhUnrKotEDAxL/XE2fn4KtfqeprdMG5l0HwdFb2sagjJYO6Pk1EOSeiRCQ5
-	 nwOqmdB6AnmMFOVMR7beIdw8Lr3ufDxgeSs60iJ1VI0HNsVzH/1aPbrIPJ91bzEsSiVNr
-	 Y3YtqqhqezGHNT1CrxVvXbymd+iLF14lbRmdOQpiaXse5q5ghvFzrzrjM484RDcIOlbnM
-	 sYQ6OjaiGnTx6QOmafHwX0rUrKjKam8FKFzNE0BrL1gMD0A3v0isG1wUBMS7tRo7A0g==
+	t=1792968079;
+	b=VU90g64x+2mLmkFyMcLLAQoq0AI25c2/8PPMlaLV92rfmjoLgxHF45vKUggcqe3Ub4AP
+	 qb/BHOyiWGa9zWjFLg39J8ZCRO3I5tg/BsW0V+YZ5ZN8j9U3yHK0lP7aLV4VF+DYVYJ4+
+	 AWQqwkO1ieL4ijeSGjuhl9vkBE7JYT0mcnlzRowEIAmdOePnxxDUmDDIADUhl65tAZHLT
+	 Y6osg4IHrUU2V28l3Gx4PZ3hZEgm4TJOQsRs616HIXRZJC3Awrfr5SUH3vZ1TEKgDhPS2
+	 +R2ZzU63dSyMkx65k1HN97eNrtNMylDl6PLFdiLLj/5NcrXeEzkci2b8jcM7eR4SyfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792968006;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=BJFlHkjzZQkuZb2sYnE2Rmc5JG9Cgv9xdtkzLLy01dM=;
-	b=Bb7sSQDgXflGC4tBBxADBSJWNEvSz0Xm+YdNGA4DuVPdnkriezjPtZR+Xm3E/Cr27o7F
-	 r/yTOQXP//Qtc6fYWk+Am/7/eb9qNYkpc09jAjbBHwx8Dw8veKw7zF1KB0CZzIrgPMESB
-	 tz4TpA+1TxB5tMP8P1x6cBsPf0a35UiynICqLX1XgDF9EVTeJLwJzKIXmWOryCOrQHJ6i
-	 M4JPA1d7SEw0Bt5XCh56/khUKvyCi0Qjl81NNhoBuYgLnJOPuuSXSmp7OYbEBy0y9Bq3i
-	 LKEUqUt2WUti9sTLTxzm8ZnfsofU49fx634KoXwXqIHcivAh58UfFiT/zQ5C5iTvpkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792968079;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BYhwEPlk5ecLTu4XbRi6L+u2Q7cMf+48BjLiZm8/FDg=;
+	b=x8/f+ecJcXFRvF4oTrSN9arGbpG9MJwQKCPsL0xS8m55c8GhpgxkrcxB9Hi7e+nftue0
+	 zmoeXNkcRaOZwoXG2h+nM16QLtEQXUxY8OVUCIaIS3zVVOKRho5hPTA+W4W6zppRknESZ
+	 UlexmTD6lFOqbiWcAq5umjjRL/tA8FlPK47TFVbMzGlXUwyPXS7T5XI9W+Ihv99axRcx/
+	 amQFKjRWkoF+EPeT2WUkoNNBP5ShV7FW+5lL750a+Pu+5szpDB8jMStJqgXxbB4IPdLLf
+	 XPMCcJXcYmqAPvFTtDskhsVGWzZtNihDO9ijDgb1h61RZU40VL/NpvBwhi3zKlr1HFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1oBN3nm;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F09F606A31A;
-	Sun, 25 Oct 2026 22:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F09F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <d14f055275701e9ff4cb024a9d2389de4a0014ef.camel@crapouillou.net>
-Subject: Re: [PATCH] pinctrl: ingenic: Add the X1600's 32 kHz clock output
-From: Paul Cercueil <paul@crapouillou.net>
-To: Olivier Louvignes <olivier@mgcrea.io>, Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 23:39:59 +0100
-In-Reply-To: <20261024051639.67806-1-olivier@mgcrea.io>
-References: <20261024051639.67806-1-olivier@mgcrea.io>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB051606A31B;
+	Sun, 25 Oct 2026 22:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB051606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1oBN3nm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792968078; x=1824504078;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kvzwoR+8VNI8tNzfRJsQ8MOvQ6RSGD+e6l76DLCTh2s=;
+  b=E1oBN3nmDpGkZzzX+C83blUDNOZifLvqsh0p6RZ0Gl1XJn9v59GRO97W
+   jkP9jGtaS4DBlLcF4HQ2gG7X7lbB2ce1fUADT3ez1bno2OiZHN3VgGRuU
+   Ch6bHQbj8vo1UMnKi1fkZH8T57X3oXK/fl0YZvo9OKSJdGDia2qQ0wcyE
+   2VUCbyDhLADV9yvmx99DSRoo2FLQBrbLuP8G1uc9RcYzng/HD+IxUUCc6
+   4T11+Q3SXG3rFR1EzmM1j6knPWinxeo7hJYMDzv1ZaHm/aqXruTLoAxac
+   c9XfxMIu+k5oPZTkeAw2/LxSZ/emoCxXEhwCNb2CkPn1qsJITzSLE51cj
+   w==;
+X-CSE-ConnectionGUID: vl4LqYBJStO0gPX7mIiXTQ==
+X-CSE-MsgGUID: 4DxWcqiQQ+qy5HpYt+uF5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1516589"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1516589"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 15:41:17 -0700
+X-CSE-ConnectionGUID: sldzHzjYQtKokEHKL9G8+A==
+X-CSE-MsgGUID: iaNmNMiMS+mcTQoLjeiqZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4009937"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 25 Oct 2026 15:41:16 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xL6ts-00000000VDO-32qq;
+	Sun, 25 Oct 2026 22:41:12 +0000
+Date: Mon, 26 Oct 2026 06:41:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wang Zhaolong <wangzhaolong3@outlook.com>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ksmbd: fix named-pipe reply loss with small output
+ buffers
+Message-ID: <202610260610.5prVfJss-lkp@intel.com>
+References: <TYZPR02MB695916EEB5AC02FE8DBC31BCE6622@TYZPR02MB6959.apcprd02.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,81 +87,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYZPR02MB695916EEB5AC02FE8DBC31BCE6622@TYZPR02MB6959.apcprd02.prod.outlook.com>
 
-Hi Olivier,
+Hi Wang,
 
-Le samedi 24 octobre 2026 =C3=A0 07:16 +0200, Olivier Louvignes a =C3=A9cri=
-t=C2=A0:
-> PC26's function 0 puts out the RTC's 32 kHz clock. The vendor device
-> tree calls that pin setting "rtc32k-enable" (function 5 is its
-> "rtc32k-disable"). Add an "rtc32k" group and function for it.
->=20
-> Used on a HiBy R1, whose Bluetooth chip takes it as its sleep clock:
-> on
-> a cold boot without it the chip does not answer its reset, with it
-> the
-> chip comes up. The clock on the pin was not measured.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+kernel test robot noticed the following build warnings:
 
-You're making two patch series in parallel to the same driver, that
-both add pin groups for the JZ4760? Next time consider grouping them
-into the same series.
+[auto build test WARNING on f47d223627f80cb7a1eb14c585fe6cb35de5e984]
 
-Anyway, this patch looks OK.
+url:    https://github.com/intel-lab-lkp/linux/commits/Wang-Zhaolong/ksmbd-avoid-races-between-named-pipe-operations/20261025-173237
+base:   f47d223627f80cb7a1eb14c585fe6cb35de5e984
+patch link:    https://lore.kernel.org/r/TYZPR02MB695916EEB5AC02FE8DBC31BCE6622%40TYZPR02MB6959.apcprd02.prod.outlook.com
+patch subject: [PATCH 2/2] ksmbd: fix named-pipe reply loss with small output buffers
+config: powerpc64-randconfig-1001-20261026 (https://download.01.org/0day-ci/archive/20261026/202610260610.5prVfJss-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 14.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610260610.5prVfJss-lkp@intel.com/reproduce)
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610260610.5prVfJss-lkp@intel.com/
 
-Cheers,
--Paul
+All warnings (new ones prefixed by >>):
 
-> ---
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 4 ++++
-> =C2=A01 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c
-> b/drivers/pinctrl/pinctrl-ingenic.c
-> index 1aa6a6dc1209..ac6e2a152bdd 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -2452,6 +2452,7 @@ static int x1600_pwm_pwm6_b20_pins[] =3D { 0x34,
-> };
-> =C2=A0static int x1600_pwm_pwm7_b10_pins[] =3D { 0x2a, };
-> =C2=A0static int x1600_pwm_pwm7_b21_pins[] =3D { 0x35, };
-> =C2=A0
-> +static int x1600_rtc32k_pins[] =3D { 0x5a, };
-> =C2=A0static int x1600_mac_pins[] =3D {
-> =C2=A0	0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c,
-> =C2=A0};
-> @@ -2511,6 +2512,7 @@ static const struct group_desc x1600_groups[] =3D
-> {
-> =C2=A0	INGENIC_PIN_GROUP("pwm7-b10", x1600_pwm_pwm7_b10, 1),
-> =C2=A0	INGENIC_PIN_GROUP("pwm7-b21", x1600_pwm_pwm7_b21, 2),
-> =C2=A0	INGENIC_PIN_GROUP("mac", x1600_mac, 1),
-> +	INGENIC_PIN_GROUP("rtc32k", x1600_rtc32k, 0),
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const char * const x1600_uart0_groups[] =3D { "uart0-data",
-> "uart0-hwflow", };
-> @@ -2557,6 +2559,7 @@ static const char * const x1600_pwm6_groups[] =3D
-> { "pwm6-b9", "pwm6-b20", };
-> =C2=A0static const char * const x1600_pwm7_groups[] =3D { "pwm7-b10", "pw=
-m7-
-> b21", };
-> =C2=A0
-> =C2=A0static const char * const x1600_mac_groups[] =3D { "mac", };
-> +static const char * const x1600_rtc32k_groups[] =3D { "rtc32k", };
-> =C2=A0
-> =C2=A0static const struct pinfunction x1600_functions[] =3D {
-> =C2=A0	INGENIC_PIN_FUNCTION("uart0", x1600_uart0),
-> @@ -2581,6 +2584,7 @@ static const struct pinfunction
-> x1600_functions[] =3D {
-> =C2=A0	INGENIC_PIN_FUNCTION("pwm6", x1600_pwm6),
-> =C2=A0	INGENIC_PIN_FUNCTION("pwm7", x1600_pwm7),
-> =C2=A0	INGENIC_PIN_FUNCTION("mac", x1600_mac),
-> +	INGENIC_PIN_FUNCTION("rtc32k", x1600_rtc32k),
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const struct ingenic_chip_info x1600_chip_info =3D {
->=20
-> base-commit: f33a24cc012d34f25bb9942681bd478a1757b806
+>> Warning: fs/smb/server/smb2pdu.c:8670 function parameter 'rpc' not described in 'smb2_pipe_response_done'
+>> Warning: fs/smb/server/smb2pdu.c:8670 function parameter 'nbytes' not described in 'smb2_pipe_response_done'
+>> Warning: fs/smb/server/smb2pdu.c:8670 expecting prototype for smb2_read_pipe(). Prototype was for smb2_pipe_response_done() instead
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
