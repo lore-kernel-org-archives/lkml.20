@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792959560;
-	b=KDizZXacNqb+RVb92LK6QLXV7ogqZgI7xLUz9z1JUTls6LDxvUExUGCw8+FPBRVQI/sl
-	 ggmq5Nnny2ga2vHzk9hiikcVuDxoaq8a96hR4qrYOKKHAIeZKgRkiTwGLtIzEazhlJ+jT
-	 g/QFw2a/0OjpVpPhMY/AjCqlnG3Tz9btVqka99GhQGck3snABWxg0eLefzoz/FxeVLjwR
-	 zRKPbUUCvybzz5cf0XSlguMiDGLiX3Y6/B5AkYsnF4bV4EvPnDqrJn7izf6/NdzGukQOI
-	 ccJsv25W/dOissjn5Es4rPPfIyt+gr3uEZvK9n9xcRpDDG4DyFXS+Te2iDRbmxEO9Qg==
+	t=1792959563;
+	b=jfiizA94QOJpbD4ZODoxwses9fI4PLrYKc6kKovPBSbkowoi6OfJG1bBT/U3f51AmY0i
+	 QCxoL/EOHJttyO6+vBvnhS+ZProNhEHvCIa9nvTPQCxdcvRpadEOFr5d4v5Ll+OLuPcLm
+	 qMIThLhn8i6gtQbFFWhlsbZ36vLynEpPJTDSs8JftA7NfwUjZJVjojLQsinmkRsYVss3V
+	 mazL7XRganWawJlJE2HzpInV8Xb3fm9uuIm5JfOzoq/AOh8JJNnyhLssKruhZ2FiAiu6i
+	 RuuzGmE89UtjodbrfnU31PlV9gnwh6fELxmYLp/41ZLUwLi5p38dRa24zG261LHw0tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792959560;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959563;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CDCto1XEIuD8+bFpZYgUHlrlM57aJmVNdz64GvF6tOs=;
-	b=XRYbmuhVGzXFeGGcLSWmkwoTMmG4MSBZ2Yt5Q+vfUi22sBwmT+ITFUECnaWAM+Cfgbul
-	 4PC9/txL/SDVTD0HXYj1ps8+0MWRhM/IQvPJhcGfZ4CLlvcuRVjNBpLswyVsDGaJV10ti
-	 dMF/Jb4rEh2TYF8Mhj0efTqphkdYxAG32Pex0Mrr6XBsa4U5kL74R4KMWGV7x3AfJ1gG0
-	 TPkIk3ibSsTgTei0KBtdXssOM/SRl2r7GFkjkTM+0Aay3Hu1YWYXdLa7JrbDJSgebb+v7
-	 5aCi9Et+mGnGl3WyX+OzlS3woZYLRHyBLtSSmtxgd2JW485mYpns6X9F2BH9SxvgI5w==
+	bh=PHTlqtKxDAMI6itVE1f5RAsUNCQfPDsS9induU7HuBg=;
+	b=NeF99wIDBD1VNllv0RmOW20HsqeUylOEhzCaIXTBv2RMf61QH+hi4lXf4OYfTI6cJCau
+	 Sv6fg2youoXQhk8G6v1JHSWoEVIaL4Frx6eLCfWfZeyn/7Gbe4CJcenDosGpN+Ss2oA2K
+	 iSg+4vI0zczurqFX6nSCgKDQ1k8wVpdNx2wRAkTheASmIDaSVNp+ySe6ohvYyxe8Vsff1
+	 6l8KNUUf25lwkToxNuc8sG97cDbxD+Qv1qjQAS7iE2/VIflu/27E6u+EO9WNCbRjZFh6t
+	 KO2k2HQxSCRz9iOz7UQ1FXMq0nz4YPqlZ3PeNkSykM6/FU+imhfR78Ti3NZDXtoU0eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IUKEZdcE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=H0gdhLMm;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="i/8AOA0Z";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k7R+ooJS;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13963606A324
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13963606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6C0606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:19:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C6C0606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IUKEZdcE;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=H0gdhLMm
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=i/8AOA0Z;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k7R+ooJS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792959559;
+	s=mimecast20190719; t=1792959561;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CDCto1XEIuD8+bFpZYgUHlrlM57aJmVNdz64GvF6tOs=;
-	b=IUKEZdcEHvZRc6wMK9lK9Dl6czKa2d1RHiMARgqwWycTWdWeOGV5RAHhV311+vudIPBN1g
-	coSiZx2e2jBE+bZQdBWqZbBcUz8eQAefmsTnRm1bT4nwpRgM2KecTgunfvYNQeaycWBvzC
-	U7bto9R0lvSjXNe0vCkLUR22vU6aGSI=
+	bh=PHTlqtKxDAMI6itVE1f5RAsUNCQfPDsS9induU7HuBg=;
+	b=i/8AOA0ZmJckQvc6DnVuybgXaVcv3yLHKfJSJ9CPkNuxNNfXLRKlfqzm6SoXUsR00wnZtm
+	Xb5yn52wYNa2bJEDSVfwGKWRtKi8Nz+bf8ml0PO01AfPLtKglwSk9dbl2T6FGtW4/8HMct
+	0qBZsLsUsamv4/sIY1w/B0RqgqaUmfM=
 Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
  [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-371-kW0YbJXhPxOhTPqg38jenQ-1; Sun, 25 Oct 2026 16:19:17 -0400
-X-MC-Unique: kW0YbJXhPxOhTPqg38jenQ-1
-X-Mimecast-MFC-AGG-ID: kW0YbJXhPxOhTPqg38jenQ_1792959556
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so6895219eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:19:17 -0700 (PDT)
+ us-mta-290-1t8rUPDMORuTvKpqbWyTHw-1; Sun, 25 Oct 2026 16:19:14 -0400
+X-MC-Unique: 1t8rUPDMORuTvKpqbWyTHw-1
+X-Mimecast-MFC-AGG-ID: 1t8rUPDMORuTvKpqbWyTHw_1792959553
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c3c370b17so4290930eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792959556; x=1793564356; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792959553; x=1793564353; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CDCto1XEIuD8+bFpZYgUHlrlM57aJmVNdz64GvF6tOs=;
-        b=H0gdhLMmQBOr9uDMuExHMnwT+vi0N83BMRjp0D4COfCXkrZs9ZTJWr5AL3r2fh/Uf3
-         cgSmZnPsN8lAt8ENPwmn9HmCYzQ1vkuJzNw1PcDhhMm9B0xHv+PRlB2WoZ5lk+TEcywB
-         HHKI+02TEMir7vOQf06nSWKoy8rzCtvDJ/bS5wkv0qSTV46GDEi22u/xCZmn11k86MAh
-         Fj2lZLGfkrtmX//ypTj4TEjwfPE9w7xPTkh6eVBJ+r/zFSZ1uQqTUzGjWBtJ0nDcO9tA
-         OLzw8R8BAx/3+xxq2HgCBDG3Po1m9UlkPRo7BFXUICqHXHzdCWvzTaXN0IaqF+Hrtfeg
-         887A==
+        bh=PHTlqtKxDAMI6itVE1f5RAsUNCQfPDsS9induU7HuBg=;
+        b=k7R+ooJSIaRcMvb2WrGVZEKu+ShKic4QzYfmAQ0DHoKxUDgi0vMyFq9TJpErL/88PJ
+         f6U1MWT5DQ7oBcVb3Dda2ZvHgTa0HbF2UYzlNZxE73wVGpc6sSnubFTAYyF/kLZ6qzLA
+         AVu6Ms56Uc5QsIMyKOwICcNAq6fjYHvGcIjM36ILEs6xJ+NqlCOW4d/NBJ2LCrIh6qqW
+         OTQpq2Rym06ezGpHCD70FpkMoqOvu0DLffkNhopxZvJI9AlkTqiZ2VFnJel1yxI9VYYH
+         UNBgu3WpRCJ0AlquKa1bxyq5XFYvZlAn2wYr4Y+vav3j0l26reElqDI9uGDY68vGIb7R
+         STiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792959556; x=1793564356;
+        d=1e100.net; s=20260707; t=1792959553; x=1793564353;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CDCto1XEIuD8+bFpZYgUHlrlM57aJmVNdz64GvF6tOs=;
-        b=LRki3J14BUZe0K9KZnOq7qq8b7iCMxY0wcjUQ2vlKeJWCEhlVd8jZfKvXHcEu6iftc
-         GWXo41jnP0/xfCgLc+nG5xLrJiU0YZTGu56yMZCGg337+s/13cebeieaEe+ICU49qvP0
-         Cy6q+DUyx84f8kweeBT+jKAZvCdRrwIDHglnEnjwfoumiLBXqF0Ac+8ZiXiyqvDLra+J
-         eZtnm+rgSnL2CDGEJwC16lJq9N0fAQKEnSZSAbp9oqybO575jzmQGyMUVdCWPmI3xiYX
-         JfJuQobzXZLgJPxuYTXcCvVdRg6cjDUrxBdIZ5IA1AKDXg9t8+SE4ZXqcWJF7J0SvdTq
-         kgnw==
-X-Gm-Message-State: AFq9FYIwFoqA6lNsM98xx5fuoPlhnhPw1erS3EsC//fC7PCX7ocxA1CR
-	Y0sNsDaBab6igvu3n2lV2Rq+I8/7GBULcFDD2tRi+W0v7T9lEmx/O5q1TEiXAUBQtU9L4E37xU2
-	Stilp1fcrfruzUuIM4lF7zb/hgpASMTqlayQRxtpT1GoURRxGEXfvJnN5Egan/Z30/dAvH1NiZw
-	Jyq8/dPrtq4ygekh27EXJDQkDlQ0yAFqXMGnAFfjopVtqhtOWz
-X-Gm-Gg: AYBFou3oFZeI7qOjhw9aFZXpPg28MWc4ex7X+3cV2DYEeBEhMDLYo4N5xxFayykVq7k
-	rY2NHx8ZLSgUs8us6Bhhoj7evsHfpxda3vzK57iTL8fqfYMQp0m06Xayjv8updh75LxET3VEn1s
-	7e1ko52aYjXp2kqIP+BO2O8ktqCiNX3d3HikbSdJdD4B3GYtQfmvIwrwPk0lmDltZyIR/XSR3Uu
-	xGL9lVRq+ZbfDBnYlORK1vsOJ66CI+6SzJ72P8P+mDxxABn9KExjZhT/+vE7mmNBYoa9MwGdBmf
-	YGRfAcJAawiLE34/VWmR3VOK+rR5LP2dt3d1RQyjbQ6ZjmYo6ykEM/dZfZ4BiIRpBRDVu+QB8hD
-	8MFzucwAPr1Fz2EPwlbF46hEp+/xIQTr8yGIcX68L
-X-Received: by 2002:a05:701b:42c5:20b0:143:4450:e1e6 with SMTP id a92af1059eb24-19935fcae7cmr7287965c88.35.1792959556225;
-        Sun, 25 Oct 2026 13:19:16 -0700 (PDT)
-X-Received: by 2002:a05:701b:42c5:20b0:143:4450:e1e6 with SMTP id a92af1059eb24-19935fcae7cmr7287925c88.35.1792959555500;
-        Sun, 25 Oct 2026 13:19:15 -0700 (PDT)
+        bh=PHTlqtKxDAMI6itVE1f5RAsUNCQfPDsS9induU7HuBg=;
+        b=yPx6oqHxicQb+U4uFaNOqTbIQB2aqqfs9fnIUNXUIML2Mt6dFJyhyXs+bgM+lRfGKT
+         ttsXH6Xs1pZ0j6DqtToQIg4O7Ql7E21gqPEb6eXuXajoMWL5RdRSwZxMUvMgrKsguFTl
+         IbPuxQLuzCtFPHqDVtzjae+ZCLfupGbNV5NhrqSMq9A+uimyVZkz0RRDi7445H+ds3+R
+         iAG9h1MXk4+ZDAk+xpQYl1RvABMPuf/FwPtayT1VyGQELlZdnaMV7mO+xK6T3iQSdpxd
+         DkNcFt6fMMKXS+JyFXDhQiHXPoLMXkw7SuuMndYcrrBH9L4ozHUvx66ZZS9vBIMYTXcN
+         FsqA==
+X-Gm-Message-State: AFq9FYKTKL+rXu+UU51/7Hdfv36rn5A5VN9lzUNDIv43M7x5iZxyAZpz
+	4VRlf9hBIZ1EeCseYoXqiMHSB7hlHZj0h/uFqEasY5HFSoqUX9Pk2MtBRRW0ZfaX8iUyhbHfHEV
+	RGLvGrqR+rxPAfMW+40iaH2A8vrp8TMophIStRpZEe5kyJiQQwG+4JleDAPCVyyM8Ts1XJG/5A4
+	iJr1UO3jeA8xKeKHStyM6x9jkHE3pkZVQQiFcGPfYp34rHdBr0
+X-Gm-Gg: AYBFou1hR9ZO20jLOG7PRI7Ibe3wRkB2w0zS6xm6hBFXpEOv5usd9biW9yrW0zwV2oO
+	RTCW8Ctcrg6d6FnY1QglZ5ynM0kowWLJS1HWZa4mxLISYTiBEnG+eYYzOH94zIP76KTEcLVizVW
+	3oGUke9Pw+DnlBgRjf29bPLrQxiw5w4RMqxcHrlh1ilrm3yjz/dCIjFM7YKqaFOeCfemEsboCG4
+	QsEh41fYnoX05We6Ep+cxabAK2Rn1tWIXeOGLsi+iFRkgcTp60JftBRej8mH6UnIsA4V0rNLFiC
+	cCDHbja/4IvirY3TpAILjAIs7n1AI9DCiVd+i4nQnLo+WYuBk2LmGkdyo7Hc+vGKAikykeQQ0T0
+	NltVWk2pQ7b8snl2d820LnPtSnbhHQ7TMy4uQwyIP
+X-Received: by 2002:a05:7022:1702:b0:18d:5988:8d3 with SMTP id a92af1059eb24-199290fe35amr6864968c88.3.1792959552627;
+        Sun, 25 Oct 2026 13:19:12 -0700 (PDT)
+X-Received: by 2002:a05:7022:1702:b0:18d:5988:8d3 with SMTP id a92af1059eb24-199290fe35amr6864928c88.3.1792959551834;
+        Sun, 25 Oct 2026 13:19:11 -0700 (PDT)
 Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm17656169c88.3.2026.10.25.13.19.12
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm17656169c88.3.2026.10.25.13.19.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 13:19:14 -0700 (PDT)
+        Sun, 25 Oct 2026 13:19:11 -0700 (PDT)
 From: Arun Menon <armenon@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Jarkko Sakkinen <jarkko@kernel.org>,
@@ -104,9 +104,9 @@ Cc: Jarkko Sakkinen <jarkko@kernel.org>,
 	Peter Huewe <peterhuewe@gmx.de>,
 	Jason Gunthorpe <jgg@ziepe.ca>,
 	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v4 3/6] tpm_crb: Add start_cmd parameter to tpm_crb_start wrapper
-Date: Mon, 26 Oct 2026 01:48:55 +0530
-Message-ID: <20261025201859.221991-4-armenon@redhat.com>
+Subject: [PATCH v4 2/6] tpm_crb: Split start method into a separate header
+Date: Mon, 26 Oct 2026 01:48:54 +0530
+Message-ID: <20261025201859.221991-3-armenon@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261025201859.221991-1-armenon@redhat.com>
 References: <20261025201859.221991-1-armenon@redhat.com>
@@ -123,59 +123,82 @@ Content-Transfer-Encoding: 8bit
 
 From: Arun Menon <armenon@redhat.com>
 
-The current implementation of tpm_crb_start() is limited to triggering
-the CRB_START_INVOKE bit. To support command and response chunking, the
-driver must be able to send other control bits, like
-CRB_START_NEXT_CHUNK, using the same platform-specific paths.
-
-This commit adds the start_cmd parameter to tpm_crb_start() so the
-caller can specify which command to send.
+The current implementation handles different platform start methods
+(ACPI, ARM SMC, and ARM FFA) directly within crb_send().
+Move this logic into a new helper function, tpm_crb_start(). This is a
+pure refactor with no functional changes intended.
 
 Signed-off-by: Arun Menon <armenon@redhat.com>
 Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- drivers/char/tpm/tpm_crb.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++------------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index 9a2f512b4ae3..31f530744e90 100644
+index d76f9e30f036..9a2f512b4ae3 100644
 --- a/drivers/char/tpm/tpm_crb.c
 +++ b/drivers/char/tpm/tpm_crb.c
-@@ -446,7 +446,7 @@ static int tpm_crb_smc_start(struct device *dev, unsigned long func_id)
+@@ -446,6 +446,32 @@ static int tpm_crb_smc_start(struct device *dev, unsigned long func_id)
  }
  #endif
  
--static int tpm_crb_start(struct tpm_chip *chip)
-+static int tpm_crb_start(struct tpm_chip *chip, u32 start_cmd)
++static int tpm_crb_start(struct tpm_chip *chip)
++{
++	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
++	int rc = 0;
++	/* The reason for the extra quirk is that the PTT in 4th Gen Core CPUs
++	 * report only ACPI start but in practice seems to require both
++	 * CRB start, hence invoking CRB start method if hid == MSFT0101.
++	 */
++	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
++	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
++	    !strcmp(priv->hid, "MSFT0101"))
++		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
++	if (priv->sm == ACPI_TPM2_START_METHOD ||
++	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
++		rc = crb_do_acpi_start(chip);
++	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
++		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
++		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
++	}
++	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
++		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
++		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
++	}
++	return rc;
++}
++
+ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
  {
  	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
- 	int rc = 0;
-@@ -457,16 +457,16 @@ static int tpm_crb_start(struct tpm_chip *chip)
- 	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
- 	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
- 	    !strcmp(priv->hid, "MSFT0101"))
--		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-+		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
- 	if (priv->sm == ACPI_TPM2_START_METHOD ||
- 	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
- 		rc = crb_do_acpi_start(chip);
- 	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
--		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-+		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
- 		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
- 	}
- 	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
--		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
-+		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
- 	}
- 	return rc;
-@@ -497,7 +497,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
+@@ -471,29 +497,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
  	/* Make sure that cmd is populated before issuing start. */
  	wmb();
  
--	rc = tpm_crb_start(chip);
-+	rc = tpm_crb_start(chip, CRB_START_INVOKE);
+-	/* The reason for the extra quirk is that the PTT in 4th Gen Core CPUs
+-	 * report only ACPI start but in practice seems to require both
+-	 * CRB start, hence invoking CRB start method if hid == MSFT0101.
+-	 */
+-	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
+-	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
+-	    !strcmp(priv->hid, "MSFT0101"))
+-		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
+-
+-	if (priv->sm == ACPI_TPM2_START_METHOD ||
+-	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
+-		rc = crb_do_acpi_start(chip);
+-
+-	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
+-		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
+-		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
+-	}
+-
+-	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
+-		iowrite32(CRB_START_INVOKE, &priv->regs_t->ctrl_start);
+-		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
+-	}
+-
++	rc = tpm_crb_start(chip);
  	if (rc)
  		return rc;
  
