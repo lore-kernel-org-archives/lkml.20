@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792956087;
-	b=xo30URS4bYJUFY+HAsYYnOvBjwBR+LaWCZjDU5vS5u/ggZay05vjJkWPtkwc660cCpYT
-	 VuZllhI60GsX4NoawJqer0Jvf3u6n1tYxxMAgZiijiasCw2iV30e9wJ8EaEfo7iuPcSQ4
-	 XQXZTsCdJLi0DcDw5qgqtex361oRKsmZMDw13rJL2ZKr/y2cXiZYhFoV/y1SQV3VN9IAe
-	 p2xKqomp0MP54w3d4dTNPWfk5dPPy87hr8/e9BmT8jOvKpYX3u+MwcuiI8rMu1zH5EnNy
-	 2M/n87FoWP7aC8cEereSD0xWmUmSMuT1pdVi/Q2unX4BKSX7jRRRjlLz5/mATCMO/kA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792956086;
+	b=BZYACZC0IVzYNKx9f4UTCRsG0dbdc7MTXUfCezDWfTiU1/NnufmNf35j/iayE3n0zD2n
+	 Sge1KPsmopSQy7Z74ZkJDAVs/PYXOkBYLDREswsC9Oh9IkcjP3+lM8Mvght7/7XZSn6n7
+	 gI+RK9Refq0G3tw5Vtdj2ByPMafM0cjsi5TmN6a3MmFLEzhdCpYbCgFwJfUsK2SWUfAU5
+	 l2yFAqPwGdHdIaQCpLgFOdfPJDuAemCoQXRSlr4gOapeAsqbem+rAFQ7z6WIAcR2PyWmL
+	 RDa9C1EGZhZP6xI/2KOMIgT+w8yeMnJc5crqXC06mkvbSUApAg/pDQ2jHk5SAB6+icQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956086;
 	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=ym7amUkoj/eAf5VsuWgJQ/VsZPGXD2axd9AY1UjnIKU=;
-	b=yr0Uh8ZNO4v0Fu6uzEOZBGugpzwB88SQG0yw5CMHZqTjJutdCEou/Tu2zLQQENgbAaKq
-	 Bp1fnogS/s3E+FKGAbwBljd+PbzVUO+1Kg9jd8IJddUpk2CszV52ridTICXKlLhVkpks9
-	 uoEtgIePzTbVp60R8XMn6w7oZu5BKY4vr4VRComi4b5bGuXgfd4jJpQnsZABqCBr7lcy2
-	 9jdd7X+wwdSM2Z3QaYU7icEmeA2A0JKs4ptD7xTSX8s6is5ipWoo8+gnrD5Iwcfaywwi5
-	 KHnAGrdP6IY/K6FqgvgjPn1fb4YfHP1lvkN1igZBSnF5LkAx4Up8arb1mHNdZ1DKpRQ==
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=d2xIgSpkZCX5R4QkznOeUogq1Fb23myzFIqOzWal15g=;
+	b=Mm2isOkmgH8Jel4nJZaeeFS3w3sNNJMOjY7WXQSMSL48Ho7jkAhOzEHR24aHAZl08LrM
+	 /Oh7GWy+xi6WtB++rDogNtDXgJqTuAel6bVClXdhXTM8yI+BTFKD4qarcnqdy1+KvMEu9
+	 85TQWbYvHIc89BhW/bs8DAcdtC70+GAiwwgN0b6xu3CkiPTcy4a7Fz58zfn4RuoeWtI4M
+	 E5+lol52KDKKaC62kD8/QSKarji18K9w2EJUytBaMPnweumbwgOJfoi6kqXrxStfRjNbN
+	 tdmySLibQQiGeYkw1BMSLx8w5DtXSYQs9DAWttXzPcAR8jLKUaZytj9l9CHZbhnIciA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=goldelico.com;
 	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CebhXg11;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=yjxuj4LB;
-	arc=fail smtp.remote-ip=81.169.146.172
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.172])
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WQPMFEag;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=KTarybOe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C4E606A31F;
-	Sun, 25 Oct 2026 19:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4C4E606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5032606A323;
+	Sun, 25 Oct 2026 19:21:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5032606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CebhXg11;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=yjxuj4LB
-ARC-Seal: i=1; a=rsa-sha256; t=1792956064; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WQPMFEag;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=KTarybOe
+ARC-Seal: i=1; a=rsa-sha256; t=1792956063; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=jxVcrqdfeCM7hJ0A9EG1FFzWcw5dFzng3m7QYRBS+zQO3bphaeSLCzT0JJEP/2MoR+
-    Oi5jZ0AQyuNbsJtH3J8/3LmC/6o7Z2fszF8Axvn7Fso/luljokJdnI/QUmfZuGIac81w
-    AuKIDyGR1p2MW8u8wDJtOIHpl9bk0rK8oEQ2/odUhyt0EjkZOnGw6mYI/JAWOn6zruUD
-    6j1uigeXKwQ8KCJAomw68fed/oSY42ljbFBsakLEoGADOkHRyn59sM4qrlGSfgM4Lk6f
-    t4xQabrJPmexfs1HIOasrYS1Ih/TrDUvCAWFzyewF1sIl5ZfNjbEt9qzmDbLjFmGhzKk
-    OOyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956064;
+    b=swotxSIXpCoo25u6Gc18LK2wr/u+HjRVnWudj1ftqYJJija03u0hg029rCV3A05yCV
+    X7cSKoHi68p6OM2Q7vyqpEh6u570kqlyvLXIusQd2AusqBl5Wl2TjnzndYOZHwxdnG+o
+    RSn3X1X+IW1eXoF+hubyuc6Ao8NROpXvGlbSKLFeMeX9vZzuXT4876MYBkl2sndSCXP8
+    G/PtXnkHWYcrwl+4/uL9ZaUG1XV9U2vNBG6+4EnrHK4WtInTDBfm8teg8qqizl7DwfVy
+    DjH2R4h4/bLVaY/cnPSouAyiQKML5f+c6O23iUnHY54FGziL0U+HiGKw8BwSmHmwkhgC
+    h3Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956063;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ym7amUkoj/eAf5VsuWgJQ/VsZPGXD2axd9AY1UjnIKU=;
-    b=JPtne6/A49Y1lW5yyvfQktBq1iTENbW7i3uPaPHFonF2IRPx8sc7JXWqXLwDnWEJba
-    /axhJeEwWDIa9ydK2ItWbARe5gxYFkkvBc8HhMoy4gSkV92IE/onAvAvEoxO4KhZRw6l
-    D4QieNkf9tJus7FLqghqMyyFykO0VrJn7pq4SEvT9Jt5NVXIj3BY9YNC9v4XQLc9CbEK
-    IV2IzIvC3chAdim3glgSWJwsheEHWFPW8WlPlTG52K0HHWpR7ap/HbCVwax5KUzDbMu2
-    xWTP87J6Y876coKr56lfoKvIgFu5W3VrwDbBx0mppD0uYzI58I8IqWB/4RbRLp2OiiZn
-    PJlQ==
+    bh=d2xIgSpkZCX5R4QkznOeUogq1Fb23myzFIqOzWal15g=;
+    b=Cvn6zz7lLJeMvyENa+IJ1INWQp9ZE45AIv/xeP4Avlgl8O67oosTyydshI9zYa2AHg
+    SI9Z+Rz1qRRK28dTOd1OPr+DOag7u3o5RkSwKPQegSeGZefkTaiz547sju6HCZ1aXoyF
+    BQ4IP0HdjsBG9zcOEudB8cB5VjFYXNol312OZ4bD3b/o+TKKfE8VmGk6mw1NWHAupIZF
+    OlrXkgbbyAV1N/XbUYzXtVkjNILKmP1cDBhQpL8ptsh13U9OZtJXaj5wz6+FHgC0Makt
+    geU6jkztWuTVl+hiCiaUWkbjNoTwO9Z6GNlQtCgXUe0tptdi8sMpBxIwSgMfCiyYBXQN
+    Pe/w==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956064;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956063;
     s=strato-dkim-0002; d=goldelico.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ym7amUkoj/eAf5VsuWgJQ/VsZPGXD2axd9AY1UjnIKU=;
-    b=CebhXg11DYGq0X6FFdJ3W8cYOJRMw8dmDfTcf7DxwsUz0jzzDZgF7ZlqYh7rfeZ85a
-    GEfHZStSKxF+dIe8ty+Rb7pvDfOyB4GbTdeHGKHQqjBjzevmpBhLe71TzhQpuW2Eiq3E
-    68OCWjKwLeig8onF+hYmP/OKKoQQCBFDzFsx8IqW7mCXrZrXaUVAeWjYqktbFqEmnF1I
-    KYinisu6y51RjLR6ww+KgXrZ9ktH6YBYOaYWcHkovXLDrt1SZX2e2G2TKUIlR6nZ0blT
-    NNACr3hgx+VHv6NF75tl9xLzS8w+jlf81g0fiWQjrGGpjjlbBgDyckOYOoKJKOdCXBBm
-    z8+A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792956064;
+    bh=d2xIgSpkZCX5R4QkznOeUogq1Fb23myzFIqOzWal15g=;
+    b=WQPMFEagNbdySUKamlrTLGP/oOdp8tr3GdqfwjVt1fvySlrUvWdKPCJyotyk/ofjMX
+    HfAL0AWJHXt75mwQW4in0ezonVgelLyPmcEeWMfNPNO0mAs30KrB3Le4nX0zgc30Tve4
+    VG9vlC5BTXBU03QB7SfJsUgm9i4r31a8CoGUnb6xlVFuDp4+MdHZUwvIkLMb05bh4hhb
+    /+lYJsexrDbZLTE8hUZIEdRXykApHPDY7YUAv0zwkkCi+9D15dxNb1I+Oosbs+kOFfg2
+    ip8g0IxcD46xrdDHe5R+fFBgzQY6XNklSqYcmhlTAD1HmzGuy9Aw4KaQWpDXngHfBK10
+    V0fg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792956063;
     s=strato-dkim-0003; d=goldelico.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ym7amUkoj/eAf5VsuWgJQ/VsZPGXD2axd9AY1UjnIKU=;
-    b=yjxuj4LBWCmGSqQ6QSkcnGQh7jDX3E3HadAB96LLJ0+z+BnxmK7youB1fegcmf2sJx
-    KQKPDAYTRsI9yjOF4dCA==
+    bh=d2xIgSpkZCX5R4QkznOeUogq1Fb23myzFIqOzWal15g=;
+    b=KTarybOeAiZEDaumBa94PwRKbTBx5noEW2jyvw/G2pW/9hhhZGh8k38ot6NVOPcabI
+    t/SUhUIH5KEpYUGMC4CA==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poNy8iNoc+LWkugLIF0fnfvFgpgbBBt2w=="
 Received: from iMac.fritz.box
     by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229PJL3zRG
+    with ESMTPSA id Qb56a229PJL3zRF
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
     Sun, 25 Oct 2026 20:21:03 +0100 (CET)
@@ -93,9 +93,9 @@ Cc: linux-mips@vger.kernel.org,
 	letux-kernel@openphoenux.org,
 	kernel@pyra-handheld.com,
 	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH 4/6] MIPS: generic: Add MACH_INGENIC type and compatible for X1600
-Date: Sun, 25 Oct 2026 20:20:53 +0100
-Message-ID: <9bf853a84d24baf62d29049ad00f7bfe15e52ce1.1792956055.git.hns@goldelico.com>
+Subject: [PATCH 3/6] MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
+Date: Sun, 25 Oct 2026 20:20:52 +0100
+Message-ID: <1658997f198411f20bc5a489e9488800e4597e19.1792956055.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1792956055.git.hns@goldelico.com>
 References: <cover.1792956055.git.hns@goldelico.com>
@@ -108,55 +108,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-Add support for the Ingenic/Lumissil X1600 SoC by introducing the
-MACH_INGENIC_X1600 machine type.
+Add the missing cpu_probe_ingenic cases for PRID_IMP_XBURST and
+PRID_IMP_XBURST2_R2, which are used in Ingenic/Lumissil SoCs.
 
-Update the system type string mapping and add the "ingenic,x1600"
-compatible string to the DT match table in the generic Ingenic board
-support.
+This correctly initializes the CPU type, write-combine behavior,
+and CPU name string ("Ingenic XBurst" and "Ingenic XBurst II R2")
+based on the processor ID.
 
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- arch/mips/generic/board-ingenic.c | 3 +++
- arch/mips/include/asm/bootinfo.h  | 1 +
- 2 files changed, 4 insertions(+)
+ arch/mips/kernel/cpu-probe.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/mips/generic/board-ingenic.c b/arch/mips/generic/board-ingenic.c
-index 1f4906875e7bc..d6b0e2523a191 100644
---- a/arch/mips/generic/board-ingenic.c
-+++ b/arch/mips/generic/board-ingenic.c
-@@ -34,6 +34,8 @@ static __init char *ingenic_get_system_type(unsigned long machtype)
- 		return "X2000";
- 	case MACH_INGENIC_X1830:
- 		return "X1830";
-+	case MACH_INGENIC_X1600:
-+		return "X1600";
- 	case MACH_INGENIC_X1000E:
- 		return "X1000E";
- 	case MACH_INGENIC_X1000:
-@@ -146,6 +148,7 @@ static const struct of_device_id ingenic_of_match[] __initconst = {
- 	{ .compatible = "ingenic,jz4780", .data = (void *)MACH_INGENIC_JZ4780 },
- 	{ .compatible = "ingenic,x1000", .data = (void *)MACH_INGENIC_X1000 },
- 	{ .compatible = "ingenic,x1000e", .data = (void *)MACH_INGENIC_X1000E },
-+	{ .compatible = "ingenic,x1600", .data = (void *)MACH_INGENIC_X1600 },
- 	{ .compatible = "ingenic,x1830", .data = (void *)MACH_INGENIC_X1830 },
- 	{ .compatible = "ingenic,x2000", .data = (void *)MACH_INGENIC_X2000 },
- 	{ .compatible = "ingenic,x2000e", .data = (void *)MACH_INGENIC_X2000E },
-diff --git a/arch/mips/include/asm/bootinfo.h b/arch/mips/include/asm/bootinfo.h
-index 2128ba9033911..2e562aa1bb198 100644
---- a/arch/mips/include/asm/bootinfo.h
-+++ b/arch/mips/include/asm/bootinfo.h
-@@ -81,6 +81,7 @@ enum ingenic_machine_type {
- 	MACH_INGENIC_JZ4780,
- 	MACH_INGENIC_X1000,
- 	MACH_INGENIC_X1000E,
-+	MACH_INGENIC_X1600,
- 	MACH_INGENIC_X1830,
- 	MACH_INGENIC_X2000,
- 	MACH_INGENIC_X2000E,
+diff --git a/arch/mips/kernel/cpu-probe.c b/arch/mips/kernel/cpu-probe.c
+index 489612ed9d498..f4924c14bd735 100644
+--- a/arch/mips/kernel/cpu-probe.c
++++ b/arch/mips/kernel/cpu-probe.c
+@@ -1768,6 +1768,13 @@ static inline void cpu_probe_ingenic(struct cpuinfo_mips *c, unsigned int cpu)
+ 
+ 	switch (c->processor_id & PRID_IMP_MASK) {
+ 
++	/* XBurst®1 with ISA */
++	case PRID_IMP_XBURST:
++		c->cputype = CPU_XBURST;
++		c->writecombine = _CACHE_UNCACHED_ACCELERATED;
++		__cpu_name[cpu] = "Ingenic XBurst";
++		break;
++
+ 	/* XBurst®1 with MXU1.0/MXU1.1 SIMD ISA */
+ 	case PRID_IMP_XBURST_REV1:
+ 
+@@ -1828,6 +1835,13 @@ static inline void cpu_probe_ingenic(struct cpuinfo_mips *c, unsigned int cpu)
+ 		__cpu_name[cpu] = "Ingenic XBurst II";
+ 		break;
+ 
++	/* XBurst®2 with MXU3.0 SIMD ISA */
++	case PRID_IMP_XBURST2_R2:
++		c->cputype = CPU_XBURST2;
++		c->writecombine = _CACHE_UNCACHED_ACCELERATED;
++		__cpu_name[cpu] = "Ingenic XBurst II R2";
++		break;
++
+ 	default:
+ 		panic("Unknown Ingenic Processor ID!");
+ 		break;
 -- 
 2.56.0
 
