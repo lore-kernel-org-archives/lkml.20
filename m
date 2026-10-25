@@ -1,67 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792970305;
-	b=2FmERfM3RM7Fh/9urS4oTQXfz7LOfyd1Iz0IiBjdRHy3angKwOTD4Vgn87Gootprl61R
-	 8oOoz5lcezfOvh2PjYJ7dJErkJo6Q4XUJIqFlCOcKiyf/jjO4Nr0bE8RDqrm1CvdyzBBE
-	 BRnW3yY1Mb2rfgqhj4566qcDXcQmX02inPyKPN3/kVFjfuS1hE57CHPSSbCqipz1G4eb8
-	 vYHrY5A2/WzvNCX3etf+flH6bu6h3SWEiak6+YWMpFkieyxZ7o9DYMMxxn1kscO6zfK8L
-	 5425VUxSR2MLaj+7cWDQ2ykcgmoUHOlKk9oRgiS8XICrxmUH9uxo340Ho6bKDZXahbA==
+	t=1792970371;
+	b=uji4Nc3O8jpyp3SnAARTaDLlyI1E381z77jbBu7QJxe18wzDlmSzDSCSjcUm7mb4Kszt
+	 bWQC6vBr+DdeBDAYEf8GdoYsK+GWCC8mYpythkiLxcz6Waa3f7lSgkk/nGsl7u5U1IQsp
+	 eoR/Sfvk/BzFgodZ+1CLoR/9qaPOOI0J+DwhqHKRWwTCIDRlyPsNpElblDiMtztKQza4K
+	 RcuVt/gXqFX686YZzYMxxZnGMu6IdPZp9T4CYh58D07s0EAnIt729q4fd+gp6hG1hF39+
+	 DloN/FmivX6IjUI11QtairvhuTJ1gbfPuOhbxJUiL2VrKton2maYJzpsaSkVZa2zjxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792970305;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792970371;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ehMGySnrqaN0YWzDWec38aBOi7Rp4XTn6bNu22+y/ms=;
-	b=46ms+yJ+mdt0CodFvn7g89wvAwYFOSfgnovBZArmUakRw2rITIcWjgf1UVxxXcELZPXH
-	 twZ88iYaQ/g0O3yY6coe9yIohXq9uGUaLN2wCZ0QF1hnFhrAznfvYWBJzRtNS8K40J7pl
-	 UElTnp7BIjuxZn3B/9x9KxHGzwXYBih3wzS/TFPWfiXCXMFaPP9SFSn+XbtVZXBm2oU+J
-	 UVGq6KKJgroyGaD8cJQHuRKqKA5rMMSWpsDhg2IZ8mxJBBOY8bRF6/eOTEWaLt4oFdHQz
-	 92hOxDst1K2ldRW2xGtvoAHhu77EeWHpA7ZrydEumPPyeChnqFWno8/TNLT7PKZ6QBQ==
+	bh=98JX+qzH39LcxZEAoy/41LxAE7H0jhKnaaOevXX8J/0=;
+	b=njE0DJaV5gu6oVAAjM9pCC4Hr6if9hxKCWm5+eHABKCs1wYIg+N65sOqikCeRBDM0fnm
+	 61M9WpQs7TREcbK6kXLMq2598ScTuYyxLt0nhceLhJ/bOXWGhYY7YCtp7++zUNB+dzUiw
+	 XcObThvy620567rSyu5nXIEOb8CL3ydyuhy6ZWG/7DExh9PT/R8vx4Z3h3DgrZmSrCFDV
+	 vBKYP2m7JYa6+t1zFu/Q2vrdWJXoAF6YkQgIbOHIVHj+YB/a+heY3RhiSy8ty/+F6Zafm
+	 gRBEx8EGliaWapKgrKQj1s+SRSmwLNqwwvWASGEPpG333uVm2QBAul87SG9eCeKpWIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AiVfIe45;
-	arc=none smtp.remote-ip=95.215.58.147
-Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IRzWjBZ5;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC34606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AC34606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86680606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:19:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86680606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AiVfIe45
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=chKyVn8X74QzrmO8tV7hinMLk5vYZWfhs3dWy8GlRfo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792970302; v=1; x=1793575102;
- b=AiVfIe455Tajto/YTxkJMROq/5ftZS9pEw4Qqz5UzDQkPYouRyeO+T61IzwiNUxeust9tjET
- z2jUnZED1/78sDCNdGRlbA+7qQ9dOBxRdKdnWkyorYvPapCBkTNBf+50F3GUa/SdlpZIrc+uvzZ
- KWGC7Rwf6dFmR1mAT/b4cly0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 28900203f15348be;
-	Sun, 25 Oct 2026 23:18:22 +0000
-X-Mizu-Trace-ID: 28900203f15348be
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-pci@vger.kernel.org
-Cc: bhelgaas@google.com,
-	linux-wireless@vger.kernel.org,
-	miriam.rachel.korenblit@intel.com,
-	emmanuel.grumbach@intel.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IRzWjBZ5
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6acb57c2b88so2817627a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:19:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792970370; x=1793575170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=98JX+qzH39LcxZEAoy/41LxAE7H0jhKnaaOevXX8J/0=;
+        b=IRzWjBZ5kqOobrRYzabxpQCI/V/Ct+3DVmtvvjw2X3HjyY0s+ED2mlOkDUd2vzMHPg
+         7Nff35K58HafSFcFWtUAATLBbZ1NqhPyIb6AXlOjRZMaiadYo1c659eZ4bDUlOoppgs7
+         n3njsvu8bBLXJxkSN+9QV0sxVLyp8vh+dwHtHI7AJFPklMBjWjOHn222QdC4f0fiqMm6
+         Gj5hU++G6pRR+tQQOVE+xdiC2bq+l7Gu4K8VdFTWpOxCGqZZrpE4jQYs03iW8hB5MccZ
+         UiDUJkDYbP7N+g/3UiInbCtwwrD3AQrzNZ76Z7+urzzpo6Ctv4MrlRMbTpIwVDLmyggU
+         c/Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792970370; x=1793575170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=98JX+qzH39LcxZEAoy/41LxAE7H0jhKnaaOevXX8J/0=;
+        b=EsyO61RuBQ3c9Ic9hq92DQWKXxLe7uDWKoZ4OMyi1lvDJvcw2Rda4j8Mdfcb940Li3
+         jeBUOp23YC6Wc2PPbb503QBXoxK9KRRhmOgkcHqu22LL89q0aIt1dIzX0rLufbH/duFF
+         a5wIyibMazUstAeMCLi4I/xMNSoNcEromQdNLtfltueYCmYZ3lQJ2FRb8G32XdkusrC3
+         CoQvSKEHx/IOebO/7bFMFLcVWQOBl9J3YBJxDfvDy1p6pZz9wYoPQceNQFGfAp4WSodZ
+         1IPWOh627BphqVBKwb+OT6l4VVtMTByvMYYLFzMescQiQQRG/t2Ka1eMgBWZHqospO6P
+         teCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpD2VZlVAIXJ/j2FJSkQuBL7whHbfHhRjB9RAGrVUHHe0JChGr6nXvjOqvsBugMH1lS03Vp6/3YcYpfAc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3Dvd+KXazEhGjSf60jQbZZa/Cazhnn+YJ8ZFsw7q680iUr+Ha
+	ShTRSmgermtjRK7llpFWbhxV1HZ1FcxhZj6D03XNWNLCDGhNsdKK/W29
+X-Gm-Gg: AYBFou2BVego+zTWD6nSNv9l7nk77FpreDBql2mxQou36fGYVLIDoBkx+h1l+4vHQDW
+	AuzUoXS4I8H6EpE3UukyWG4iwIzxKgqkfPROHDzgR/ixCsn9SYH/SeCvjQToAlXs1HZk9jPcoPG
+	1FtbvihfmLCR2aCgyw/VfhvHpS8W4D2KbPQl63+9d6NazDg86uheBlfhgK6hyoe7Juxq+rHpUek
+	cRMUvP65hg2NSnbyXCNdFUg40myjZMz3K4EHkEHD3CcDA0mR5t78xOSxZUx3dTEn+ARrQclTxVZ
+	0ImvJ9lq0VJHJAllqVErvvKDxgtoXTd3R6SFaWkU3A7eOAojSParBnudX+K5gMCTprBS5Lx0d5O
+	wH+S4PVwu91PM0auUTIHr3wAHDlmI5AAUhNLMgX0EYu3oFHLZK4gi8HXTiDO9HeAuAXirUIwHzY
+	L8WI+ARCbhXiy22+LlAkAqGAH8Ucd0LZcRqc2LEK2rzMhNr/R0XNjKFVUlfLdqfSSoy5KouSbWt
+	rguU78cgH84Tnahv2Az3LTA1g6gHmSKwux4GyA4g9s7r6dWULptc3uH
+X-Received: by 2002:a05:6402:4405:b0:6b4:1629:b1aa with SMTP id 4fb4d7f45d1cf-6b442a87d34mr7302224a12.2.1792970369657;
+        Sun, 25 Oct 2026 16:19:29 -0700 (PDT)
+Received: from arch-pc.lan ([185.141.180.16])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44598480dsm2776514a12.24.2026.10.25.16.19.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 16:19:29 -0700 (PDT)
+From: Denis Kulikov <dar1knessx@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH 1/1] PCI: Disable D3cold for Killer BE200-family WiFi on MSI Claw A1M
-Date: Sun, 25 Oct 2026 23:18:13 +0000
-Message-ID: <20261025231813.128649-2-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261025231813.128649-1-denis.benato@linux.dev>
-References: <20261025231813.128649-1-denis.benato@linux.dev>
+	Denis Kulikov <dar1knessx@gmail.com>
+Subject: [PATCH] ALSA: usb-audio: Rate-limit URB submission error at stream start
+Date: Mon, 26 Oct 2026 02:18:49 +0300
+Message-ID: <20261025231849.148149-1-dar1knessx@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,58 +97,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-During s2idle the platform removes power from the WiFi slot (D3cold).
-The Killer BE1750 (Intel BE200, 8086:272b) installed in the MSI Claw A1M
-fails to resume from that state: the PCIe link does not retrain
-("pcieport 0000:00:1c.0: Data Link Layer Link Active not set in
-100 msec") and every device register reads back as 0xffffffff, so the
-card disappears from the bus and the machine must be power-cycled.
+When two USB audio devices share a USB 2.0 hub (here a headset and a
+microphone), there may not be enough isochronous bandwidth to start the
+second stream, and usb_submit_urb() fails with -ENOSPC. PipeWire keeps
+retrying to start the stream every ~20 ms, and every attempt logs
 
-Keeping the device in D3hot with the link in L1.2 during system sleep
-makes suspend and resume work reliably: the package still reaches >99%
-S0ix residency and the card survives every cycle (verified over multiple
-suspend/resume tests with an RTC-timed wake).
+  usb 2-1.1: cannot submit urb 0, error -28: not enough bandwidth
 
-Disable D3cold for the BE200-family device on this board. This mirrors
-the udev-level workaround distributions already ship for the AX200/AX210
-(8086:2725), which suffers from the same class of problem, and moves it
-into the kernel where it belongs.
+On my desktop this was printed up to 94 times per second and flooded
+the kernel log.
 
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220223
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Use usb_audio_err_ratelimited() for this message, as commit
+2db2be5607c4 ("ALSA: usb-audio: Rate limit usb_set_interface error
+reporting") already did for a neighbouring message in the same file.
+
+Tested on that desktop (X79, Linux 7.3) with the headset and the
+microphone on one hub, starting playback and capture on both for 20
+seconds: the stock snd-usb-audio module printed the message 580 times,
+the patched one printed it 50 times and suppressed the rest.
+
+Signed-off-by: Denis Kulikov <dar1knessx@gmail.com>
 ---
- drivers/pci/quirks.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ sound/usb/endpoint.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7572b358b50f..60156e6c3e49 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6593,3 +6593,24 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
- #endif
-+
-+/*
-+ * MSI Claw A1M: during s2idle the platform removes power from the WiFi slot
-+ * (D3cold). The Killer BE1750 (Intel BE200, 8086:272b) fails to resume from
-+ * that state: the PCIe link does not retrain ("Data Link Layer Link Active
-+ * not set in 100 msec") and every device register reads back as 0xffffffff,
-+ * so the card disappears from the bus and the machine must be power-cycled.
-+ *
-+ * Keeping the device in D3hot with the link in L1.2 during system sleep makes
-+ * suspend and resume work reliably: the package still reaches >99% S0ix
-+ * residency and the card survives.
-+ */
-+static void quirk_msi_claw_be200_d3cold(struct pci_dev *pdev)
-+{
-+	if (!dmi_match(DMI_BOARD_NAME, "MS-1T41"))
-+		return;
-+
-+	pci_d3cold_disable(pdev);
-+	pci_info(pdev, "disabling D3cold: slot power removal during s2idle prevents resume on this system");
-+}
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x272b, quirk_msi_claw_be200_d3cold);
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 9c844c55a..8dd0b3525 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1642,9 +1642,9 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
+ 			err = -ENODEV;
+ 		if (err < 0) {
+ 			if (!atomic_read(&ep->chip->shutdown))
+-				usb_audio_err(ep->chip,
+-					      "cannot submit urb %d, error %d: %s\n",
+-					      i, err, usb_error_string(err));
++				usb_audio_err_ratelimited(ep->chip,
++							  "cannot submit urb %d, error %d: %s\n",
++							  i, err, usb_error_string(err));
+ 			goto __error;
+ 		}
+ 		set_bit(i, &ep->active_mask);
 -- 
-2.55.0
+2.56.0
 
