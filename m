@@ -1,51 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792960743;
-	b=W1CE7ARYQXOZuR9d04qPnqCz7RUcL4nXSgMkrqIxP+5a6bZeca4Q6aocdsTYCzvJm3rG
-	 vSD4BqPsSNTdUsviYd6AkSqeaX618Qza14OakWyLtV0Ad6Y04p0Ekc+2XMF1x1rK5cOTq
-	 tHCI7dV3D5ouwIzOHF6wSvw85tdJA9CA+NDQ8WrU9xNfOttF63yWbii3ZC/LDE2TANTd6
-	 f5ueztPl2pmLq4CQNlh2iu+fqEqRhcv1jFvZFHo1vW9FNmQx8/38gM1hNown/GT4Y5JMu
-	 HnyDvc3IrEo8En//It2BdqNbz54fUF7l7HWKSQsVkr03fRkRc44a7x8Iph0xbUA6/Xg==
+	t=1792960821;
+	b=IRLrB1pxq+YEzKExRx117lb8vR42rbpabj0mDRGxS+if5S+1S2uxUy+e/1nJ1QbD8Okr
+	 PgFPwY5rDmBcH7/F55oo24MPvfoKPv7+r8vRISuWoR+3AoKkvE2e73VfoCh7SuKnxIOVj
+	 mvMuySGbyLNsZPsE4Xlv4e20ofhLJX1IEscvt/8lFPBt+LdeikJm8Lg25ng06wtuoGtFL
+	 m51dRwY0Abn0CX4If/qZSGlSxv1mCH/lZowd4PTeXu08CWuokgCC3XKI+Z9tk/57SDYu/
+	 NMwA2b7gk8temgexi5N/wW9PcxvZswBjDX7Rzv0V6YDKyFklLIyLngTVONoRiwdNoVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792960743;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=kvAbZ8POjyBo1albdL4gXt6R8mk+DEpx2PC9fIHpDgs=;
-	b=cj4pIXGM/4gbcAwMPWcFvPKo1kpSjoFDzAN63DXwUDr1sVqjhjVAZGxvBe0ypWjAeshF
-	 dEmduzwJK+r5asFwzmfAeNG8BCD0ppq+x2xgt+PMX8XGgpTzzKqKrCa83bv//71sFEQ3e
-	 dBGzv+O5qjyLCWV0YUY1PnuG7KmSZUd5pmEx6tEB0KHAqf5GY2cPsP7IULGSDmH2SDfE8
-	 RmgAr8ZHohxs3fWthjNDx8h7RBevjlVMm9PQ4d4MheDQEfiZ79hx/JvI6B3R68ChOvQVV
-	 9BO0KzY7ufCaDWA9e3diLoQyGECiIYAaAaBiKyG0pgXS02hM38gK3F48nul1mO1nr7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792960821;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=i42WgfRl7LGQCQH1OXiWlBOPWoM/ly087TnvtfgsA0s=;
+	b=oXTxHSEGAyuEOPiXuFsUq1lGXtZhNkmcjyY/fuFG+pZBqTmvovc78grJ0T5JU0DLhKtW
+	 nktSFalsQ4/cJTpjLmFnLFzarONOJriXviVG+Mta9IePY61jeguK//LoPSQML8cmQTK7d
+	 LoBjPaZtHDAIf5YUlLFiRHyawY11JSAvbrUSzDE/X4c4zFwUMfFXfznOis88/LbMkU+Cv
+	 QLy3n6/PFRAa7OJutBjzHFWCDKMG/7RFF4jqJI11avqp2lnoT372nD6B1abjMZ6eBy6bD
+	 Y4kJG6Jz+WRFVsCCb6OdSYXLEMi4BO1zFvRESJ2ywtPkJrPOaPbYmG447BOtshRxO8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=WVRp1t9x;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW30ylxa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB02606A323;
-	Sun, 25 Oct 2026 20:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB02606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8C2606A31A;
+	Sun, 25 Oct 2026 20:40:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=WVRp1t9x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792960736;
-	bh=vhDR9J/1JpeYTHTbWM1VhL+Zm3goy3X52PJv5ZSpPPk=;
-	h=From:Date:Subject:To:Cc:From;
-	b=WVRp1t9xRrndhvdlCSAImgkd0S/E4HCeU2OaxLp/w1gkyzF1Nh+GIXSGOawevAncy
-	 HnqG2jJ2k9oD41SdU9OBERegr/YaKDkOlRZUHdTKyXhXgqY+tvf7cBm7wRDdIzJ28N
-	 vsowPBBcTEw+SaDLGUONMeVAouslVZaDAjfZeSmo=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id DB13B4046E;
-	Sun, 25 Oct 2026 13:38:55 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Sun, 25 Oct 2026 13:38:50 -0700
-Subject: [PATCH] net/sched: sch_cake: skip redundant cake_mq rate updates
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW30ylxa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B8C1F01825;
+	Sun, 25 Oct 2026 20:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792960820;
+	bh=i42WgfRl7LGQCQH1OXiWlBOPWoM/ly087TnvtfgsA0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SW30ylxaETwB0mx3jeEqzZFR1gehcgpJtBPhXEPjHkk4ktBSQa4xzy1a5wjaUQZrt
+	 w0JOzi0/mBDR/FFbMliLtVbbbCI8b+eabQaBFKDF1DiP22abJaxRwXihJLCpzdp00T
+	 eDN7dWvQ4F9S9cPGnW6blvURlWhGMps9KugvAyU7TaaIsPWSf/z4DOkbSvVqKMRVLK
+	 RMGwG4Ch5QW9bmuQp9qm/baEPiVZs0qa7MaFFwmax1/E8MNXM/ZupXYRpyxgZFwtUv
+	 +2MGx2gD8zTuX/Mczd4WtUwvPGkzxu3ucvHvog5bp6SoGwp92B3WVknGNaY2msPahX
+	 9INkDongzNbJA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id A127B1AC5994; Sun, 25 Oct 2026 20:40:16 +0000 (GMT)
+Date: Sun, 25 Oct 2026 20:40:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: James Calligeros <jcalligeros99@gmail.com>, linux-sound@vger.kernel.org,
+	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+	Kevin Lu <kevin-lu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Sen Wang <sen@ti.com>, Shenghao Ding <shenghao-ding@ti.com>,
+	Takashi Iwai <tiwai@suse.com>, asahi@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ASoC: tas2770: Only treat negative return codes as
+ errors set_tdm_idle
+Message-ID: <at5pMAavzOl3loyg@sirena.co.uk>
+References: <20261024-tas2770-idle-fix-v1-1-07b02d46ec2e@gmail.com>
+ <33b90e9d-096f-4a85-8d17-2e43b0609140@web.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,97 +65,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-net_sched_sch_cake-v1-1-5165c924a590@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIANlo3moC/x2MQQqAIBQFrxJ/nVBKQl0lIkSf9QksNCKQ7p61G
- ZjFTKaEyEg0VJkiLk68hyJtXZFdTVgg2BUn2UjdNrITAeec7Ar3cbZmg4DWnfJO9cppKuER4fn
- +p+P0PC9z1JQ+ZAAAAA==
-X-Change-ID: 20261025-net_sched_sch_cake-e6653fd393d6
-To: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, 
- Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- =?utf-8?q?Jonas_K=C3=B6ppeler?= <j.koeppeler@tu-berlin.de>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christoph Lameter (Ampere)" <cl@gentwo.org>
-Cc: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>, 
- cake@lists.bufferbloat.net, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792960735; l=2650;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=vhDR9J/1JpeYTHTbWM1VhL+Zm3goy3X52PJv5ZSpPPk=;
- b=uGvwwimQkYJhYoblrQwkCkNTuJKn/PRjkmo/ldLdraUPoHaoz7KLu1GS2Hw/fqT3QIAlZC7Uh
- U0jV7P0cxmFCr8aaWcJtM9DeewaWfIQwobGo7r1HaUaUA+MK4tW+5J+
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IspwzvCNS3Gtk0AB"
+Content-Disposition: inline
+In-Reply-To: <33b90e9d-096f-4a85-8d17-2e43b0609140@web.de>
+X-Cookie: FEELINGS are cascading over me!!!
 
-cake_mq periodically counts active child qdiscs in cake_dequeue() and
-derives an effective per-child shaper rate. cake_dequeue() currently
-reconfigures every tin after each scan, even when that effective rate
-is unchanged.
 
-The dequeue-time call chain is:
+--IspwzvCNS3Gtk0AB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  cake_dequeue()
-    -> cake_configure_rates(..., true)
-      -> cake_config_*()
-        -> cake_set_rate()
+On Sat, Oct 24, 2026 at 01:30:12PM +0200, Markus Elfring wrote:
+> > snd_soc_component_update_bits returns 1 on a successful update, and
+> > we were returning from tas2770_set_dai_tdm_idle early on any nonzero
+> > return code. Change this so that only negative return codes are
+> > treated as errors.
+>=20
+> https://elixir.bootlin.com/linux/v7.3/source/sound/soc/codecs/tas2770.c#L=
+495-L567
+>=20
+> * How do you think about to refine the summary phrase another bit
+>   like =E2=80=9CFix error detection in tas2770_set_dai_tdm_idle()=E2=80=
+=9D?
 
-With rate_adjust=true, cake_set_rate() only refreshes rate-derived
-state. Tin 0 records the unscaled rate argument in every supported
-CAKE tin mode, so its installed rate identifies whether this call chain
-would change any state.
+Feel free to ignore Markus, he has a long history of sending
+unhelpful review comments and continues to ignore repeated requests
+to stop.
 
-Skip the reconfiguration when the effective rate is already installed,
-while continuing to update the activity-sampling timestamp and
-active-queue statistic.
+--IspwzvCNS3Gtk0AB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Fixes: 1bddd758bac2 ("net/sched: sch_cake: share shaper state across sub-instances of cake_mq")
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
----
-Tested on an 80-core SMP, non-SMT Ampere Altra system (aarch64)
-The test used a 32-TX-queue veth pair, with cake_mq
-bandwidth 2gbit on the transmit side and the peer in a network
-namespace. The workload was:
+-----BEGIN PGP SIGNATURE-----
 
-  iperf3 -c 198.18.0.2 -P 32 -t 30
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat5pKQAKCRAv73Ows9A4
+iSolAPsFI7cWLYgYUBUGYztbhbx/sXlcY8czW0t+b+QxPQb2SgD/f/DIFlcuRHXH
+vjroocCyY0pnFdP0QehZHeM8YG3yEQY=
+=QPV8
+-----END PGP SIGNATURE-----
 
-Validation against mainline commit a32e63a613aa80, the patched kernel
-reduced cake_configure_rates() calls by 99.99% (2,477,627 to 206) and
-aggregate helper time by 99.986% (3.477 s to 0.498 ms), while retaining
-approximately 1.91 Gbit/s aggregate throughput (baseline:
-1.91-1.92 Gbit/s). A separate per-child trace observed no
-same-effective-rate calls on the patched kernel (@unchanged: 0).
-Changing cake_mq bandwidth from 2Gbit to 1Gbit and back invoked
-cake_configure_rates() 64 times, matching all 32 child CAKE qdiscs
-updated for each of the two control-plane changes.
----
- net/sched/sch_cake.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
-index aa4043d662c1cc18858d3f9c80f9d9b281f26f72..dd2539cb472087af9a96b74f2ac571eb8b0a8a27 100644
---- a/net/sched/sch_cake.c
-+++ b/net/sched/sch_cake.c
-@@ -2052,7 +2052,8 @@ static struct sk_buff *cake_dequeue(struct Qdisc *sch)
- 		if (num_active_qs > 1)
- 			new_rate = div64_u64(new_rate, num_active_qs);
- 
--		cake_configure_rates(sch, new_rate, true);
-+		if (new_rate != READ_ONCE(q->tins[0].tin_rate_bps))
-+			cake_configure_rates(sch, new_rate, true);
- 		q->last_checked_active = now;
- 		WRITE_ONCE(q->active_queues, num_active_qs);
- 	}
-
----
-base-commit: a32e63a613aa80dfdb9acc0a09efab940e96054f
-change-id: 20261025-net_sched_sch_cake-e6653fd393d6
-
-Best regards,
--- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
-
+--IspwzvCNS3Gtk0AB--
