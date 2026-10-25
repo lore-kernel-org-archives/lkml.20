@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972605;
-	b=MCPtzEPkyU86LerTO/KdlV3TsxwxDUGSm48KYbSGyS2ahJU4HuOLBUQrrIengE3Tyu4S
-	 4zdqroA+7KRaojJStt3SepcBnehF+OjpH4sZguG0yjCg2XwS6Wj6nMzpKJM3HcJm53i+P
-	 jpGnUBY/wbXD8v/XSrlVDv2E1dOO4DCgBS8ZIZlqx/dEVE6khg/nVLM2Sf5EU5Ij5YBXG
-	 cKmJMoozhDdD7JaOclT1rxbOPITXaQEA9wA75WpgCwreJqQNHe2U7EWUfXr4OOpCmZV3o
-	 Vz1jeMxSil9qQUeUTO6asd7lL+LKWU/AQnGccRsUtGxEqafzzcRT78A0DbYDCTvLwQg==
+	t=1792972611;
+	b=F1PGN3RqnxiyOckIf1rT2YvIEsV4EcPxh0HsPCMoB62L+f5jdVd+h6dv/KNSFiiJWykU
+	 2HbkOGteW2XXIhxLUNP12w6kHbmMPEVMc+S9eRj+BlBUml2GdEpxmBZ1wptvBzcq9T9vx
+	 vr+gE0uqv2pdCNAhR4yaqkouZU/9xU9jRCaof4yGoQHrhJIXLSO+HX6nxlye8XeG6A+aQ
+	 iiPYleg9WWo7aFETcBIMy7nQg1C9h0nhAh7NccK7Bst5MHJgAQOstCL86+DiFcxdBef20
+	 9/mnSb2Mgh+B1C1vpfEMz9veVxBk52sw/Lj2+/FuXn8WomSLGCOsQQTSoIbr6KkS/EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972605;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:gpg:gpg:gpg:gpg:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=xJ6FY4Qdb47uak8OWZMc6ZVyTlTQEH16GVjCHyoaP2Q=;
-	b=D4Ar4Jn+BJi6nGsLH9SHfW3aAOy/u+n5aaePImkxCAB7LKkQRmWgw4t9wQ0zXzn84x/S
-	 1ytRzLOVVpf5b//+BpKwDfX46rteZIc78hbMAw1OEV0QLEbWFcMJakYgFSGVhAPRSBRsD
-	 KfIWbmEM1Fzs3UemTsorMpJzaSpiVwT0tFW1NsHKldMTrlBWLnOmGZ2DjZgsCKpOi0T0V
-	 FzNMevj74XSns70jxQ8sr6TjRqW5T0Tv0azKgn9QU/lUPLkNGdYKahTviHxF83fMX6TCe
-	 cTN0lx3wqdPcN9rtWIhOFsICdqies7rCHMo60/10pwY3fDm/GAUcNz09KdZUBus/lAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972611;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=DFOznfXUG/tUYx4L0OP/g1K7ukXiJVEh6dUQbh/Z5hA=;
+	b=25qolo2hU76cbvijYcJKat+gn8xihfCj26gbmL+iW/MfAgFkA9Ld1u587PZ9osQS8ZFA
+	 nzr+0Py1KQ3Drbo9PKS5SDg2R5avJ5q/KvJX0TbnFhJsBH4KaEhgUEnbrM0C9CC59Qaxe
+	 krzzuyW04OWCYMvg8g3+WR6W2zpyqzkIzR6nlkN6S7E2Rcjy1u6vGOhUSx5MlwggJBSEp
+	 Roj2JimzQ5nkRNW8ugISdVwwpopH0038GNiCtOKDi03AciVMgGBUXkvj+SssrqVjUzqQC
+	 epJ5i9m9xAxi5Iw0dyR4keJILHS7YibqfQHjZcKh+hvAYvwSpxKWeYPi+ERFj6j7uDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=KREiewty;
-	arc=none smtp.remote-ip=109.224.244.107
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UQwibZmp;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED4606A33F;
-	Sun, 25 Oct 2026 23:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80ED4606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670DE606A325
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 670DE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=KREiewty
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792972602; x=1793231802;
-	bh=xJ6FY4Qdb47uak8OWZMc6ZVyTlTQEH16GVjCHyoaP2Q=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=KREiewtyb3yU1FfB9LaBFEoi72Ov/e7Vf1Jfpn6Lrp6LGz4P2KN6/QqKtOhYq5stj
-	 KT/RSCkydGgcTs3ZYo2C6iVgoWFfIOGdLOsQMs2CIrLNN8xys2vxjCbhxDsw+XE/5s
-	 y/9me3WeEBPuRI/WEE60M07Ehd87KoT4aWMw+J30ouvzHLuxhUH5VQNPe5dY/KfAbM
-	 /aDpjM58mueojmW9v0vIwFBnpRaYCVy9GEtq2kGfaIA2bD316qY16HHsdcehA3nrXc
-	 AyV5pJfJfVR6BCADPjbxzE2tM6R6z1Z4c0OCtiTn9mjvgvjN9tslSneTO5CYDdQttj
-	 PLd0PxeliTUSA==
-X-Pm-Submission-Id: 4jCYZH5TL3z1DFDy
-gpg: Signature made Mon 26 Oct 2026 12:55:32 AM CET
-gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
-gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
- [ultimate]
-gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Date: Mon, 26 Oct 2026 00:56:25 +0100
-Subject: [PATCH v7 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
- introduce EC
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UQwibZmp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792972609;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DFOznfXUG/tUYx4L0OP/g1K7ukXiJVEh6dUQbh/Z5hA=;
+	b=UQwibZmpX5ImYjLB2f0H/rSMN538Lp+vUWJhGaoK5NyOjVehvjpPNH81EXEWTSt56c00HY
+	BlmFihsDIG7T90jLoWJn3OS3BPt4cy1++NExkn5VkCcKY5Y6hWwUVcO2K0drAVf9QxA6fM
+	SZBHqQs/1UKHJt7KRh0jtPYziug0X6o=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-435-IyalASxUMama3bNp9B6Dag-1; Sun,
+ 25 Oct 2026 19:56:43 -0400
+X-MC-Unique: IyalASxUMama3bNp9B6Dag-1
+X-Mimecast-MFC-AGG-ID: IyalASxUMama3bNp9B6Dag_1792972602
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B0A891956045;
+	Sun, 25 Oct 2026 23:56:41 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 16DCB30000E7;
+	Sun, 25 Oct 2026 23:56:39 +0000 (UTC)
+Message-ID: <2751eb89-c34c-449f-893c-2e1836e3a610@redhat.com>
+Date: Sun, 25 Oct 2026 19:56:39 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,140 +71,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v3 09/11] cgroup/cpuset: Release invalid isolated
+ CPUs with a shrunk root partition parent
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261025214449.310715-1-longman@redhat.com>
+ <20261025214449.310715-10-longman@redhat.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261025214449.310715-10-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-dell-xps-9345-ec-v7-3-828ce301b839@vinarskis.com>
-References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
-In-Reply-To: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- linux-hardening@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2697; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=TjL8tqeyObvnnmH2fSvubcRlGgOdAfNbx21FJciGlxM=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn3phvoiSy73cX7d+/trGtvpz/5/TrXaa0TS+v6aN2Oh
- 0t9N3y/2VHKwiDGxSArpsjS/edrWteiuWsZrmt8g5nDygQyhIGLUwAmwqDH8E9pre9hZqkflwK7
- qxRuyDavOnc6aarK60J1iRB3BtbL0wwYGRZ/s3r91D1uy9TOS8XB98M35m+0r3e4UG2b8+B9rsJ
- DF2YA
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Describe embedded controller, its interrupt and required thermal zones.
-Add user-friendly labels for know thermal zones.
+On 10/25/26 5:44 PM, Waiman Long wrote:
+> It is also reported by sashiko that there may be leakages of isolated
+> CPUs when a root partition parent shrinks its effective_xcpus with
+> isolated partition children. Leakage here means that isolated_cpus may
+> contain extra CPUs that are not in any isolated partitions and not boot
+> time isolated. Those CPUs cannot be used in any isolated partitions
+> anymore.
+>
+> There are 2 different cases here. The effective_xcpus becomes empty and
+> the isolated partition should be invalidated in this case. Alternatively
+> some of its effective_xcpus are not in parent's effective xcpus but
+> still have some valid effective_xcpus left. The isolated partition can
+> remain valid. In both cases, the invalid isolated CPUs will have to be
+> released from isolated_cpus if appropriate.
+>
+> Fix that by calling isolated_cpus_release() to release those isolated
+> CPUs from isolated_cpus.
+>
+> New test cases are added to test_cpuset_prs.sh to test this.
+>
+> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>   kernel/cgroup/cpuset.c                           | 16 +++++++++++++++-
+>   .../testing/selftests/cgroup/test_cpuset_prs.sh  |  6 ++++++
+>   2 files changed, 21 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 6d224e614e74..3daab2381f04 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2012,8 +2012,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   		 *
+>   		 * A partition error happens when parent has tasks and all
+>   		 * its effective CPUs will have to be distributed out.
+> +		 *
+> +		 * For an isolated partition with a shrunk root partition parent
+> +		 * we may need to return some or all of its isolated CPUs.
+>   		 */
+> -		if (nocpu || cpumask_empty(tmp->delmask)) {
+> +		nocpu |= cpumask_empty(tmp->delmask);
+> +		if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
+> +			cpumask_clear(tmp->addmask);
+> +			if (nocpu)
+> +				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+> +			else if (!cpumask_subset(cs->effective_xcpus, parent->effective_xcpus))
+> +				cpumask_andnot(tmp->addmask, cs->effective_cpus,
+> +							     parent->effective_xcpus);
+> +			if (!cpumask_empty(tmp->addmask))
+> +				isolated_cpus_release(cs, tmp->addmask);
+> +		}
+> +		if (nocpu) {
+>   			part_error = PERR_NOCPUS;
+>   			if (is_partition_valid(cs))
+>   				adding = cpumask_and(tmp->addmask,
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index d7d0bef0a17a..ceb1a3b4f94e 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -522,6 +522,12 @@ TEST_MATRIX=(
+>   	# its effective xcpus will be removed from isolated_cpus.
+>   	" C1-4:P1 C3-4:P2   .      .    T:C3-4   .      .      .     0 A1:3-4|A2:3-4 A1:P1|A2:P-2 ."
+>   
+> +	# When a root partition parent with an isolated partition child is shrunk
+> +	# so that its effective xcpus is no longer a superset of its child effective
+> +	# xcpus, the invalid isolated CPUs should be removed from cpuset.cpus.isolated.
+> +	" C1-4:P1 C3-4:P2   .      .    T:C4-6   .      .      .     0 A1:5-6|A2:4 A1:P1|A2:P2 4"
+> +	" C1-4:P1 C1-2:P2   .      .    T:C4-6   .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+> +
+>   	#
+>   	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+>   	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 65 +++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 2 deletions(-)
+I am sorry that there is a typo in this patch. I have send out a v3.1 
+version with the fixed code.
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index f48e6bc35006..3f0c17c845b3 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -759,8 +759,32 @@ retimer_ss0_con_sbu_out: endpoint {
- 
- &i2c5 {
- 	clock-frequency = <100000>;
--	status = "disabled";
--	/* EC @0x3b */
-+	status = "okay";
-+
-+	embedded-controller@3b {
-+		compatible = "dell,xps13-9345-ec";
-+		reg = <0x3b>;
-+
-+		interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&ec_int_n_default>;
-+		pinctrl-names = "default";
-+
-+		io-channels = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		io-channel-names = "sys_therm1",
-+				   "sys_therm2",
-+				   "sys_therm3",
-+				   "sys_therm4",
-+				   "sys_therm5",
-+				   "sys_therm6",
-+				   "sys_therm7";
-+	};
- };
- 
- &i2c7 {
-@@ -1025,6 +1049,37 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
- 	};
- };
- 
-+&pmk8550_vadc {
-+	channel@144 {
-+		label = "vph_pwr_therm";
-+	};
-+
-+	channel@145 {
-+		label = "usb_charger_right_therm";
-+	};
-+
-+	channel@146 {
-+		label = "ssd_conn_therm";
-+	};
-+
-+	channel@147 {
-+		label = "vreg_rtmr0_1p8_therm";
-+	};
-+
-+	channel@148 {
-+		label = "keyboard_therm";
-+	};
-+
-+	channel@14a {
-+		label = "lpddr5_therm";
-+	};
-+
-+	/* Between Left USB charging controller and SSD connector */
-+	channel@14b {
-+		label = "sys_therm2";
-+	};
-+};
-+
- &qupv3_0 {
- 	status = "okay";
- };
-@@ -1103,6 +1158,12 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	ec_int_n_default: ec-int-n-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	edp_bl_en: edp-bl-en-state {
- 		pins = "gpio74";
- 		function = "gpio";
-
--- 
-2.54.0
+Cheers,
+Longman
 
