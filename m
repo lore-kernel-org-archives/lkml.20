@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792971287;
-	b=tuiHN9+wkCW15SDuI7d3R/pIO8PqtdZjAc8cV0eTXJZ2dR4ECvdbVa5geByWp0obQYi0
-	 RaVka9T/mH/vBcvcyxB7paUuPU65LnS1owCGisFGBapIoxiT7/YzJRzwWdB4z5oJc8xkP
-	 3yO6yxR2oWMT3lsJ956VsfSChZP7w2t1hKxvTe6UOpUHZ4EP+fiu7mlG4TXcjfT/LKHtC
-	 7srePoEwlK/Xdo5tcluQ/SXKYriMlV6aXe9afbQPznCFLgceWh3xqwKXcH92UhcK7qPXV
-	 E6f+lXArqVKjTpX8tnEVDex0PyJZgR3PvKGWdBMzkGQ7O5BgR+WrCg5JTkmrdkXl4fw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971287;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rFWYZrVjrS/TFQfJR/4h0JKkNeZpD/BpXtbdF7kMWlw=;
-	b=zvc74dbIK688XIqxRmmjGJpmivJZheKTRfeE7RfHKBMj4blxe94FfaekFzieOIpf8eJc
-	 5EmjzYqpW3ErEhwKkDMs+w+axfzCCWoVppKEEWpvHeAtI2Bvgm6/jdKHpL+DNwj/zT/pe
-	 gHTGP/ysd+m7sVQ9uci0Me5N6Zz5NOYiOgRwHjC7CG5sKry4Re+lirMf8ry+cwqMQqoZv
-	 ICDk+Qqtzk0QdNT1ztsXm1EMe72Zfmu0cHn+x1J2EgCjGxTI78sgUw9X5tqlTWM2UQSQH
-	 mv49KlA6jVSHOfDlGrGIR0vXHYgCxHvfsyjzMB3aIL3+2p1eySp27PA3gBFDvTJa9Yw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iqlZybVj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A499A606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A499A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792971312;
+	b=p7vdnIr2/+MhLFiGt3moCjFwZfK+hIQp4/xnZYsCd9BG9T/EhWmj9xbAGFbfFp3eSUjS
+	 568hPyQhcfXfJ1+6jqHmZi1RDivkr1ht43/BcL6QUlKytIG2bNbK4Xl4cvkuMaNCEMxul
+	 CXREa2yIqF1LhgEM//9LIuBlF8Cymni9D8vfxnWfw5nlByfLYPKjeIRRTk1X08AApPdg5
+	 ROOw5mTB2q7uPa/lrPKvrbybbIAqdkCDbJIwBQddArCRj+CRWFBkyTkP20q1zGD8T4m+/
+	 zNgAPOy60DvEytKNVuIfoaxbBEOXDbehm1xCV1rCz+jkPFGuopYGWNicggJEtobaoEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971312;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
+	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=HS2Eyl9PVeBpwNJkRpIh4i48ioiL/wO+WYjW6saovWQ=;
+	b=ngKw3tE7HztwKqGTP4OaZGH0MfX7DWt14TaThF+SmZDrqRYAbAuQkEazGTSR+iqQchUx
+	 oU7h0QadCYeqd3U3068D9fGMZwkftEFRrW3FTjVVTS+Ozp+YXUGP98ZQMRjZl3hP3xsbm
+	 LmSqLyaX1htmscvL3T/afrIdarhnw7HMGPHS4qOC2XNTeoE1dpllKqtYDZjdtdRR2DrEO
+	 WJ6MbeSVGN0ePxmspQyTPPZEgJDRJIpNbhfi9Szrw1MAa1tDdQf2de4+ak7WIZwA6Ueg1
+	 EUch1dgWsvos2DiUw1bWfPKvX2NmdDsvlPrKw118O3s3DRB/+XBgqOLeFCLfVxtIK4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniroma2.it;
+	spf=pass smtp.mailfrom=uniroma2.it;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=W80BFNID;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=enJwGoEf;
+	arc=none smtp.remote-ip=160.80.4.37
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 940E1606A31B;
+	Sun, 25 Oct 2026 23:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 940E1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iqlZybVj
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5337c7b9937so279791cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:34:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792971286; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cq4huJpsT9JQJUh9+C0PtutFNAqnpbdO/niEBUfF8tpm1BHzQIlaIrk8BMO3LKsMcM
-         9kOiPg/EcJAy0vMtxNSV+suTARq/fGA913IEuSPAGhbK5noVVK3dGJPv3p/hPqTRNVGd
-         8HbMY6Omk4iVUoco8Ybe66gsc97TtHdQt2qJd/6joVy54zuAyEpRJTMSEjJQj36Oe+f3
-         IdcEmwze54VrwcaIFpE9pDS+P2jHBsxCQJkT/a19bk56mCXXoJuOgNZ2JwOmvw3ok9/P
-         XWc5BIb6sVkWfxMPSAMKVVGW4bukYIluDQTNslzHeKKbKEFPDeEYQ6p4N9ltutKhJqEq
-         MAIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rFWYZrVjrS/TFQfJR/4h0JKkNeZpD/BpXtbdF7kMWlw=;
-        fh=aGwqol3QAjaabpXUet9+o1QTv7FOMIem/umZMh2L3wc=;
-        b=NM8bdeC2/aCBPKaHwsF8cTGhkrvPYAd4NzBE8KTN8ZPt/F+3rsHyHAMFKC3qmEenFR
-         eRHwA6Mfrf3W8Z7qdc6di+06LbOqiBfWkH6wbHl6SY5OrY6YI373MRvqclZGUYEpScZF
-         s5Z95xtpkjc7LlpcBF8FOzDCrYfatYmZETtn8k/uPp5senRLam6NM90ZGDEUTY56vT/R
-         ewQ/1K6YIwCwiG078+0SO2c+5GAhLACNWuNNX/lLgT0lwm7QKxMCPNlrD7nzu04Y1dqN
-         UGgU6kKa8KcYYnwJmQyKmcIAluMNFtK1nP750ICM+BrBv5A+FZ3vy7bibBryPICHqWGL
-         X9JQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792971286; x=1793576086; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rFWYZrVjrS/TFQfJR/4h0JKkNeZpD/BpXtbdF7kMWlw=;
-        b=iqlZybVj+2vOlRgWpaIyyVOlo08A2IPhxmJKJh7+YA+8L895uSnHrmRV4nOlwiLHdo
-         8KPdjEsCa7evkRgSS6MNKyvQFR8Y3wO0CTyIYdojyb8AN9WjIa0mLwq69gWbZEq/R0NZ
-         pntL1n7ZPNri460X2BEnunsg4jz3Rj+CZLmD6cUdXFLHaMP4TS2qNoWYR8JT3jyrDFfJ
-         a3BGEtLCUZl3kMDoJajFO1xDzWXAYzAFfwS3QuN82hbgHrFMtV8zZ5fhm2ehdUqn63Og
-         Q8w6/AMvash+kG4jPAhdAi7HaB1m+K68WUbj2H6ExSU7p9T+aaWKPJroLtFo/S+ZH2BT
-         J7UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792971286; x=1793576086;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rFWYZrVjrS/TFQfJR/4h0JKkNeZpD/BpXtbdF7kMWlw=;
-        b=V/muAMp1GlUuSXJ1oOB1/2NP/9Ov5lY94a0OFV1IMzrp17K1XI+cl+5e2JfnFSLqAJ
-         gECEJUsqyaPzV4SG+8iI4IxXRdYi9Nu+/luX+hGfXgn23itltajLmkX6SZ4zMV9HurSA
-         3Ui7wFEnctn6bAda3xeJOChl7lWI3Xu7CQq+MjoqjxuYGUCyAAQVi5wBFkZ5GVM4eOPe
-         dTYOHBnWjtGu6fkkXj6cvZDgexGaPbY4sD/0IT+rSlZ95dXSkCOr8shrJV2JoBjk9WIt
-         uZwQhJnhdLZPOM6V3a6Nl2uZsifg6GH114snohyNrFyvbnXKmGO9F63VxNXXrChTJEuQ
-         ZmjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwL1gcw6gariktDNZU0IRwTqGeV3bMNGgABJKWmucgJZEQnv9EhXuemntKpHO+nwqR2seD59H5J6kg8PYg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKL6eNWJn+ByVvYeZaOEu261vx7lu58+GGJPmdOY2EhLBETOUVN
-	qeWxGJA4ZyDCRvuvXar3TYnIc7MjJtYmCNR8oziqR+eAYtvit2jEM1W/l+wx5zHvVQ90FofLuoC
-	yJ3hEY8ckdmGYNO5Gt53LXP1qmbvFQfcDlxeEnI8g
-X-Gm-Gg: AYBFou0ByKayMNARp5oKjhn7PfCWlACNrd6oboqMo5Ho3UR4rprTKmt+rcmrq/qtqT7
-	yTFNRFC3PIex5QHx63OSyWI5qc+FVGGMU80OL85eDpcpyUWeyuP9TqC220eFYQIRdqhkKV0vFNI
-	0gBmaHtjf4bhRrF93FL07KUJ4WwJ7QEWalmqYV1/xzdrpJUkyV/qrpfJ1r/LRqjZFgaz1zGibcg
-	5ulagcQgg0xDUCG0h65C1y0Zjb5t0Svf6p1cX/atTRF/h9yb6LxfJ01c+k4oqbXYHtFhmqUtzQp
-	0fcAExpRWZCxYvTp0S3qNCUlzQnyFLd4NZOLk1IIDETetEO1TQe77C8FRd1KJ/d6chUhvU0pR0t
-	BbRiZ+TDWsTLf7hUcyrs9Dx2iX4o8A50iNA==
-X-Received: by 2002:a05:622a:5806:b0:535:84ef:2e26 with SMTP id
- d75a77b69052e-5383b53f3afmr23124761cf.7.1792971285094; Sun, 25 Oct 2026
- 16:34:45 -0700 (PDT)
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=W80BFNID;
+	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=enJwGoEf
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69PNYLhG025990;
+	Mon, 26 Oct 2026 00:34:26 +0100
+Received: from lubuntu-18.04 (unknown [160.80.103.126])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id E160F120428;
+	Mon, 26 Oct 2026 00:34:16 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1792971257; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HS2Eyl9PVeBpwNJkRpIh4i48ioiL/wO+WYjW6saovWQ=;
+	b=W80BFNIDNu5PKDJoDWftpKbfMuzOiykKHygPtmdVmJb0E1+wXPQygFftQ/S3oki6LtuVeT
+	AJ9+1pO6SY7MmbDg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1792971257; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HS2Eyl9PVeBpwNJkRpIh4i48ioiL/wO+WYjW6saovWQ=;
+	b=enJwGoEfDnLa78zsaGjyw4xgwORUA9sUOhyqjbWjWYDamYpPWRa4TbNd/b24BY7yD3XrmJ
+	Jif/AU31R7VIq1mu76eAbd93gfQoeNptCz779AecO+X0FPBIyqL4kuZ2+gBTF96b632WlU
+	MiIqLTegaiysjJOQ9oOhXRht1JpTtUJxeEUggCLU8qR9YNx8MpTgKtatBZMhh+aowjGGf9
+	5COblEY2XN+z3G9fSksM2mBAox6Q4Hr3uGNuts8syGEwjbg6VHVm9wXca8vMdaKM9OBCCn
+	1aodFdqJuvcEJ08eyzb7KhGkuyiCjlpxGPTp1OdrDlZsgHNIH69rnoPedIHU0w==
+Date: Mon, 26 Oct 2026 00:34:15 +0100
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Boyan Liu <yymhvert@gmail.com>, David Ahern <dsahern@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>,
+        hangbin.liu@linux.dev, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, co+98d7de09cd94fec5@bugs.sh,
+        stefano.salsano@uniroma2.it, andrea@common-net.org,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net v3] seg6: Fix unset mac header in SRv6 End.DT VRF
+ decapsulation
+Message-Id: <20261026003415.f7c46fa5a495144c29c03a07@uniroma2.it>
+In-Reply-To: <20261021024738.17266-1-yymhvert@gmail.com>
+References: <20261021024738.17266-1-yymhvert@gmail.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,103 +88,147 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261004195027.227748-1-danielmentz@google.com> <20261016180521.GJ14213@ziepe.ca>
-In-Reply-To: <20261016180521.GJ14213@ziepe.ca>
-From: Daniel Mentz <danielmentz@google.com>
-Date: Sun, 25 Oct 2026 16:34:34 -0700
-X-Gm-Features: AclHuK9W-YhajRJtMqxwo_KiR_knxSPaf7RrqxDVchqoNSjrX0LK8PI-lTwz6Ks
-Message-ID: <CAE2F3rD3WPfJYBu-HPwppwjzdXB1v5gRwu6Dy7rCrgBAs1JBnQ@mail.gmail.com>
-Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: iommu@lists.linux.dev, will@kernel.org, robin.murphy@arm.com, 
-	joro@8bytes.org, nicolinc@nvidia.com, smostafa@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	dawei.li@linux.dev, praan@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-On Fri, Oct 16, 2026 at 11:05=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wro=
-te:
-> On Sun, Oct 04, 2026 at 07:50:27PM +0000, Daniel Mentz wrote:
-> > The SMMU specification defines several types of SMMU-originated memory
-> > accesses, including Stage 1 and Stage 2 translation table walks, stream
-> > table accesses (L1STD and STE fetches), CD table accesses (L1CD and CD
-> > fetches), and queue accesses (CMDQ fetch, EVENTQ write, PRIQ write).
-> >
-> > While the memory attributes used for Stage 1 and Stage 2 translation
-> > table walks are configured in io-pgtable-arm based on whether the SMMU
-> > is coherent (ARM_SMMU_FEAT_COHERENCY), the attributes for stream tables=
-,
-> > CD tables, and queues are currently hardcoded to Inner Shareable,
-> > Write-Back.
-> >
-> > On non-coherent systems, however, memory for stream tables, CD tables,
-> > and queues is allocated via dma_alloc_coherent() /
-> > dmam_alloc_coherent(), which provides CPU mappings with Normal
-> > Non-Cacheable attributes. Having a non-coherent SMMU access these
-> > buffers with Inner Shareable, Write-Back attributes results in
-> > mismatched memory attributes between the CPU and the SMMU.
-> >
-> > Configure the memory attributes for tables and queues in
-> > arm_smmu_device_reset() and arm_smmu_make_cdtable_ste() based on
-> > ARM_SMMU_FEAT_COHERENCY, matching the attributes used for translation
-> > table walks:
-> >
-> > - In SMMU_CR1, use Outer Shareable, Non-Cacheable for non-coherent
-> >   SMMUs, while retaining Inner Shareable, Write-Back for coherent SMMUs=
-.
-> >   This applies to stream table accesses as well as queue accesses (CMDQ
-> >   fetch, EVENTQ write, PRIQ write).
-> > - In STE.{S1CIR, S1COR, S1CSH}, use Outer Shareable, Non-Cacheable for
-> >   non-coherent SMMUs, while retaining Inner Shareable, Write-Back
-> >   Read-Allocate for coherent SMMUs. This applies to CD table accesses.
-> >
-> > Assisted-by: LLM
-> > Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> > Signed-off-by: Daniel Mentz <danielmentz@google.com>
-> > ---
-> > Changes in v2:
-> > - Rename local variables 'cache' and 'sh' to 'cr1_cache' and 'cr1_sh' i=
-n
-> >   arm_smmu_device_reset() (Nicolin, Will)
-> > - Collect Reviewed-by from Nicolin
-> > - Link to v1: https://lore.kernel.org/linux-iommu/20260929032229.353224=
-7-1-danielmentz@google.com/
-> >
-> >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 37 +++++++++++++++------
-> >  1 file changed, 27 insertions(+), 10 deletions(-)
+On Wed, 21 Oct 2026 10:47:38 +0800
+Boyan Liu <yymhvert@gmail.com> wrote:
+
+> SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
+> end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
+> sniffers. The VRF rx handler only performs the rebuild when a
+> sniffer is actually attached to the VRF device (ptype_all
+> non-empty); otherwise the packet continues up the stack with
+> mac_header == 0xffff.
+> 
+> Every other receive path delivers packets with a valid mac header:
+> NIC drivers set it in eth_type_trans(), and tunnels without an L2
+> header (ipip, sit, gre, tun) reset it to the network header after
+> decapsulation. skb_mac_header() even warns on the unset state with
+> DEBUG_NET_WARN_ON_ONCE().
+> 
+> If the decapsulated packet is an unexpected UDP GSO packet,
+> udp_queue_rcv_skb() re-segments it after restoring skb->data to the
+> mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
+> header unset, skb_mac_offset() returns a large positive value,
+> which the unsigned __skb_push() argument turns into a huge length:
+> skb->data moves far outside the buffer and skb->len is corrupted,
+> so segmentation reads out of bounds:
+> 
+>     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
+>     Read of size 1 at addr ffff88800da7ffff by task exploit/149
+>     Call Trace:
+>      inet_gso_segment (net/ipv4/af_inet.c:1383)
+>      skb_mac_gso_segment (net/core/gso.c:53)
+>      __skb_gso_segment (net/core/gso.c:124)
+>      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
+>      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
+>      ip_local_deliver (net/ipv4/ip_input.c:262)
+>      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
+>      lwtunnel_input (net/core/lwtunnel.c:465)
+>      ipv6_rcv (net/ipv6/ip6_input.c:351)
+> 
+> Restore a valid mac header once the VRF rx handler returns: point
+> it at the network header, and reset mac_len, which still holds the
+> ingress frame's L2 header length. The sniffer rebuild happens
+> inside the handler while the header is still unset, so tap behavior
+> is unchanged; when no rebuild happened, the packet now carries the
+> same mac header state as any packet received on an L3 device.
+> 
+> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+98d7de09cd94fec5@bugs.sh
+> Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+> ---
+> v3:
+> - Also reset skb->mac_len with skb_reset_mac_len(), as suggested by
+>   Andrea Mayer: it still held the ingress frame's L2 header length.
+> v2: https://lore.kernel.org/netdev/20261017120144.3059-1-yymhvert@gmail.com/
+> - Move the fix from the UDP GSO path to seg6local.
+> - Restore the mac header after the VRF rx handler returns, preserving
+>   the VRF sniffer behavior.
+> - Verify the original reproducer, datagram delivery, and VRF sniffer
+>   output under QEMU.
+> v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail.com/
 >
-> I think this looks OK
->
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->
-> Did you check the spec that this is every access? I remember there is
-> a table outlining every access and where the memory attribute lives?
+>  net/ipv6/seg6_local.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> [snip]
 
-Hi Jason,
+Thanks Boyan. I ran my tests on v3 with End.DT4, End.DT6 and End.DT46 in
+VRF mode, and I could not reproduce the UDP GSO KASAN report anymore.
+Setting the mac header at the network header with mac_len 0 looks fine.
 
-Thanks for the review!
+The NFQUEUE case in the Sashiko review also exists without this patch,
+because the PRE_ROUTING hook run by the VRF rx handler sees the mac header
+unset when no sniffer is attached to the VRF. In my tests the case needs a
+combination of the conditions listed in the review, among them the bridge
+netfilter extension of the outer frame, which the decapsulated packet still
+carries.
 
-I checked section 13.8 ("Attributes for SMMU-originated accesses") in
-the SMMUv3 spec (ARM IHI 0070), and all other accesses are already
-covered:
+end_dt_vrf_rcv() unsets the mac header to let the VRF rebuild it for a
+sniffer. Unlike ipip, End.DT has no tunnel device of its own. It is a
+seg6local lwtunnel behavior, and orig_dev is skb->dev of the outer packet,
+for example an Ethernet device. With a sniffer attached to the VRF,
+vrf_add_mac_header_if_unset() rebuilds the header only when the mac header
+is unset or orig_dev has no header_ops->create:
 
-- STE fetches (SMMU_CR1.TABLE_*) and Queue accesses
-  (SMMU_CR1.QUEUE_*): updated by this patch.
-- CD fetches (STE.{S1CIR, S1COR, S1CSH}): updated by this patch.
-- Stage 1 and Stage 2 translation table walks (CD.{IR0, OR0, SH0} and
-  STE.{S2IR0, S2OR0, S2SH0}): already handled by io-pgtable-arm
-- VMS fetches: governed by SMMU_CR1.TABLE_* (and not used by the
-  driver).
-- Event queue, PRI queue, and GERROR MSIs (*_IRQ_CFG2):
-  arm_smmu_write_msi_msg() already programs these to
-  Device-nGnRE since they target an interrupt controller.
-- CMD_SYNC MSIs (CMD_SYNC.{MSIAttr, MSH}): the driver only uses
-  CMD_SYNC MSIs (CS_IRQ) when ARM_SMMU_OPT_MSIPOLL is set, and
-  arm_smmu_device_hw_probe() only enables ARM_SMMU_OPT_MSIPOLL when
-  coherent is true. When non-coherent, CS_SEV (or CS_NONE) is used and
-  MSIAttr/MSH are ignored.
+  packet          create    mac header    rebuilt  tcpdump on the VRF
+  Ethernet        yes       set, len 14   no       Ethernet header
+  ipip            no        set, len 0    yes      header with VRF MAC
+  End.DT today    yes       unset         yes      header with VRF MAC
+  ---------------------------------------------------------------------
+  End.DT no unset yes       set, len 0    no       IP header as Ethernet
 
-Daniel
+If end_dt_vrf_rcv() set the mac header before calling l3mdev_l3_rcv(), the
+capture would change, as in the last row. It would stay as today if
+vrf_add_mac_header_if_unset() also rebuilt the header when mac_len is 0,
+that is when there is no L2 header to show, something like (just an
+example):
+
+ static int vrf_add_mac_header_if_unset(struct sk_buff *skb,
+ 				       struct net_device *vrf_dev,
+ 				       u16 proto, struct net_device *orig_dev)
+ {
+-	if (skb_mac_header_was_set(skb) && dev_has_header(orig_dev))
++	if (skb_mac_header_was_set(skb) && skb->mac_len &&
++	    dev_has_header(orig_dev))
+ 		return 0;
+
+Other devices with header_ops->create and mac_len 0, such as ip6gre without
+a remote address, would get the rebuilt header too, and tcpdump on the VRF
+would decode them instead of starting at the IP header. With a sniffer
+attached, this header would stay on the skb that continues up the stack, as
+it does today for End.DT and ipip.
+
+If the VRF could rebuild the header also when mac_len is 0, the reset added
+by this patch could move before l3mdev_l3_rcv(), in place of the
+skb_unset_mac_header(). This would remove the unset, the point Willem
+raised on v1, without the capture change Boyan pointed out. The PRE_ROUTING
+hook run by the VRF rx handler would then see the same mac header state as
+a packet received on an ipip device, and this would avoid the crash I see
+in the NFQUEUE case.
+
+
+David, since this touches the VRF, do you think it could rebuild the header
+also when mac_len is 0? I may be missing a case where it should not be
+done.
+
+If it can, I see two ways to go, and I am not sure which one is better.
+This patch could go in now, since the reported crash is gone with it in my
+tests, and the VRF change and the move of the reset could follow on top of
+it. Or this patch could go in together with the VRF change, with the reset
+already moved, so that the unset goes away in one step. In both cases I can
+work on the VRF change. If the VRF should not change, I will look for
+another way to cover the NFQUEUE case.
+
+Opinions from everyone are welcome, on which way is better and on the
+NFQUEUE case.
+
+Thanks!
+
+Ciao,
+Andrea
