@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792938982;
-	b=Oxr4H+daB99z1jawlfORx+ezBGDI8qxrdMUiJoYm30UAYC50QWds347jHLYwxt8jnVzT
-	 OkVsNIWBs6RIzFLuGia0E7Bg5Jynqzp9Add82wW7nUd+osIr4HwAfaw6LKsLLf2hPET6S
-	 YPydLtsAeZKWs3bVwKQ1Dzrv+/jXka781Vyzx8mVDO1W6IebwJx1fT2C0gz/CJvo6vU1H
-	 q3Y/0Ew8V7AFGaeTwwvkkdiVgeacSdZjDiXEMUFEf8WXv8DEuN5YahxzqS7nFh+j2DbPL
-	 DvkzFOC6bXd3utSHDkI/N9pwHmmIKPkqzllxplivM0wuZebBCkWa+Q90My0EyEukFzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792938982;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Po2NCbgcvrmtddNbEBL1t3twpXIAbb1P85qqX5tTEyk=;
-	b=1cDJMrlPW8bNX4LhZu3y+t6fpZaUT563JPm/MYEDoS0Udx5o3dKXlgRjGkwSufTsGOOm
-	 q1NcYQcl3g8JespvrPWuWePvqpdbtr9Pizo+aF4wAknjSOY3gmraPCwY3iuGsBWuNzAg7
-	 tgl9v9eO3e2Qk9RR/ldFcofXOgbB0EOm1Igxr6QCGESiv42vmQZqiekSac1Qp/cKqY5Da
-	 gzdfoU8U8yaiN12irZrKO+jqhWe9O7QNpeeHEam8cdWuySORlf+7wnNfonJrF7psb5sMA
-	 SHkHzYRG2anpwQNEJavfCRT16nZF+AhJI8x2ZNmwvXs/Rovey86lAhVem30COvXO59w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n2fIMKE8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=176.9.219.86
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792938988;
+	b=YeK0AKlRfoy6PaiHKAnWq1oES076iS7qtMVvIxUdK9AhzkYKNDkhtEXMWhvfxvJTZsVJ
+	 b4r7pleI6NWgq1GfOFjEFfZWwj/5RI6Xl1WRYaA/9fbp8jMuoqVPKKgwYGzfQv01bgwOC
+	 nFipKXJ7dt2ymZqhgEKQAgxyhDr+PcKq84DV8nIkYYZ/rV3mWPjxZfQysUpJKwIIm5PIM
+	 KjqN1C6D2ijtt50zvvQdkCHGUqFwH9Pw/WU093CkZ1SKApflZbyJF952+kOrKug+l/sY1
+	 K072+UexlhtUdGdC99YmhVs2gk9L27qfIB3CaxIhARjcN9V3S3UU3QXhF54MJfyWYJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792938988;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ml7KDYqtwo3kkAXwh7Yb37PT+M7VJ6pBs9QJcFJB/w4=;
+	b=CmY/b46oDAS5AZoKtsgUc+6znIwNbIH/4fBUGvgLfZIBA7X3VqEzRmt5ud3hXo1dcXl/
+	 UwW/GXPXhAxMYTWivD30l0HjogVyWHP21yMb7E7QJQASZYAwV6XD6RwVPXUYMasOdAfi4
+	 zIYmfICICs8bu8+UQSeCBU084KE8HXBxQoyehqriZaYrWO0TPd0nV/QghkfI4G2KRlnz+
+	 GGTK4Zi50NR/3mBkyMQES228SENMo/JDjj/MjOanYDH2abNghb9El8VKHdmF7M9Z+SOXC
+	 UX0WKpvH/gHUZKTqiuHqF6Q/U/eHmeEMG5FwIUi/7jQcfEQu/xOcSBnC/noVPZJGQHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=manuel-herrmann.de;
+	spf=pass smtp.mailfrom=manuel-herrmann.de;
+	dkim=pass header.d=manuel-herrmann.de header.i=@manuel-herrmann.de header.a=rsa-sha256 header.s=s20260706 header.b="HyYn3r/2";
+	arc=none smtp.remote-ip=176.9.219.86
+Received: from mail.0x17.de (mail.0x17.de [176.9.219.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F328E606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F328E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD2A606A31B;
+	Sun, 25 Oct 2026 14:36:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD2A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=manuel-herrmann.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manuel-herrmann.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n2fIMKE8
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c315869241fso265582966b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:36:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792938980; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gJWDBCDLYWaUPP59zhwCeJbiYfeQ12bDCYT/s1KgbM04JB5ZEg7R20gHncQ8oys+As
-         6q/2/OhLR5QxkI2xlCkdas/00xx0/GeP7NPF3teIIMHgV4tcGfacg0H59bEuTapSRVvs
-         05gFKZ82OmBA6LwTwFGj6jcyTdKai2hXY0C9lj5g0esN5sXqqS4KHLqYkXFuH7T/x/ms
-         +JKYFsF82pye4xIlH9UjXYGNp3QnuJWajdvngK/fxLCCssk5xilFsn/dP8QNeVqjeWUX
-         dUv60+q/uxemjfzYrZkPSegy0t6vgSvHyzjYk+vBLCtrJ/WK+Zed+FdScVaUdI1dDSxn
-         EBJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Po2NCbgcvrmtddNbEBL1t3twpXIAbb1P85qqX5tTEyk=;
-        fh=gOsqadcdMHm1ulqRB1fdLD6OkdwZ2D3GYRdL1SOb55s=;
-        b=HsOnIAtvU0WHAJKvyg/xHnogA8YOpB7WNfJwEr1USJ8IxapSEYVQQM0vSNwapKXOhf
-         4SKksqPH9HsjQrG4KFtZpib0Y4cTMymzOlc2/LE058XnP1SLD2IZeYoaDkd+cxk7S6w4
-         8UbaRgXWGLis/VJd7kom7eHkbJu7vTXJlRxhhxZQgDau9nyIcb0Ld1gVOov+6amQokdX
-         3Vnzyem3VQOIw+PSv308GH83sRq+NSKkgenLFhVVKh0XD3QHG+FZfqVR/Ssl7ZfWzKp/
-         b6HGaTgTg6XVL1V/oG7tCWwWVoAlot+hlEkbAqkmrkJb8Ub7A98zOYagbCyNDNPJm33U
-         l/Qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792938980; x=1793543780; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Po2NCbgcvrmtddNbEBL1t3twpXIAbb1P85qqX5tTEyk=;
-        b=n2fIMKE8bhvhzUF3n73ULQhb1N+A/1GLW0UOgdEcpGWlJ6+IaJ7KBsNlsWqFtfC4v2
-         Ae2GaG9SACGgD2rLglbw1s9w0T4Mb5RVgMVcYGSDQ1Z51YSFtbkLEyNcIVojtY/AVwlD
-         xhzWbxtMBxE2f8qHhgmgSVwCf5AI/vw9BJZrWQI44624v3fNZIw5PKsBMCsjnAI0eRCR
-         C+OR89H+cBnVH3/o5KTdgCIBi8vJPlucvjuMDX6e6wJob5U19VosB4JCAum5xpkEs6CN
-         h0R6ARTJTyExr6bGxPzLRaYmnSQ/xp3MdHRMm+pUT3ze+ub0b6dbBVifyvq4dy4sCctP
-         5Fvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792938980; x=1793543780;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Po2NCbgcvrmtddNbEBL1t3twpXIAbb1P85qqX5tTEyk=;
-        b=ZOQIwvGYj51grQQhjp6ga+MIFp+YKZK5WsD8o20tZiWQWLMrWyXd1mRBsBf02s9u0a
-         b5Ii/fz/eE5oEXa+pQTJbK/DsQWNNhqhgXv5QN2rGhAazCjNYUeT4AR/eBxoovYiVr9e
-         LkhzSU+Vqf6bijLHvvjcPA8wsjEx0DKJYFIbeIZw3dy5yha9CqG9DF/fVW++nYMfYW8k
-         L+qR9pqAjjQ3ou6vg2nEnPTxR6yrx9Xbx2kbFjBrMX2zZrci8idMSoDwY0H///1MBo7b
-         UAHCJLGj5WILeBk7pRZft5w6tTSNagPQMy3Ikzzxt+BWFPZ+8O6erPkngf0EnQC9UOwB
-         bBqw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2j8jezZbialcro2zl2B+RzhVazoRs7Fa+iCgSFZWnVvv1M3jWvRwCqjZIcLm97VeEHNCKIWkvgY0hbmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9IyINEN8itRn/M0fSzhqCPFPbC+tlLrs4HAJ6Zy/KXOiutzth
-	8C6hewT8TBukVnSc9vo3W/l1BcRFOMRLUiOdiylsyAMySaiubFAyIGb0JoFA+UdfsGZtw9cqtzI
-	ursJjupaBTNDdJFGPXvdjrWGtPGYRYE1Yr3R7
-X-Gm-Gg: AYBFou2AlyDQgSOYnyBaBo1AcgVBIc+ikvMDNnW1TCAXXnCuzVaUiq4tYMS4fZkTBZ3
-	sO4l6n0ogcTjm3MEz7pr8ssnFZnEThm9RPRu47/8RKIynVbgqWXy+Wh2iR6e4iUXeZvzO8wkTP4
-	wGjHXRNxf7R8enur+X+Ra9beJmI0mEZwKaqxyAP6M9qM6OrfMmfkoVSx3hCrTKlHj/r/jhVFrE1
-	v06XGTfy4OQWX9MdbDrAl/pc3xjtNTIceOU5zfa2uaoM+De9qGk+pdX3KPbKBEo9Jmyg+mZJbBq
-	A4TLhtuO3AferFZDaB/+1ilGxeBfyQdtepk9rMqKRKNiMJdlZ7xVVDrCuQrabMGr2n1aaHj6ZN6
-	zmBG0KmxYsBisIg11vOjQQeAjaML+75wCwNKznrrMKH5Xe3jsQbaQ1MWMbfCo
-X-Received: by 2002:a17:907:86a8:b0:c43:6fd8:922 with SMTP id
- a640c23a62f3a-c46bdaa7a52mr542836666b.1.1792938980213; Sun, 25 Oct 2026
- 07:36:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=manuel-herrmann.de header.i=@manuel-herrmann.de header.a=rsa-sha256 header.s=s20260706 header.b=HyYn3r/2
+Received: from itw.netbird.selfhosted (i5C74DFF6.versanet.de [92.116.223.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: mh)
+	by mail.0x17.de (Postfix) with ESMTPSA id 555158001B;
+	Sun, 25 Oct 2026 14:36:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manuel-herrmann.de;
+	s=s20260706; t=1792938977;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ml7KDYqtwo3kkAXwh7Yb37PT+M7VJ6pBs9QJcFJB/w4=;
+	b=HyYn3r/2W0X9bU9qt2mgMIloK8YCHiwyVYAAKFi0BvLxStulfxjUoLDgeVThfPZazVInsw
+	X+PnzpMamoeVit2iGBmBeWgRMUJ5F5FVfnoLey0PRBB22+AhI1WErbacRzmXbYCZ1z1Jzb
+	a9CQbQlmwowCXdbZpqN74ssuqe/k1khj/XxoMoRb/WJ5GaaKRGiu7EjFkw++iZztzbojbF
+	mkMMHu7/TfKKfkFmV+yy1cww12eYXOiRIjIRJixKbKmYb+k37c7mfUKUPpdK6jlERSfjfu
+	PXu8+Z2JLVoZ2a1C4EYNHBRl5xGmzAce8RAvWATgyGLAQqi8wI/ao9bQMURcGg==
+From: Manuel Herrmann <m@manuel-herrmann.de>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Manuel Herrmann <m@manuel-herrmann.de>
+Subject: [PATCH] media: uvcvideo: Add support for NV21 pixel format
+Date: Sun, 25 Oct 2026 15:35:22 +0100
+Message-ID: <20261025143522.327365-1-m@manuel-herrmann.de>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,70 +72,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024140854.25664-1-a.shimko.dev@gmail.com>
- <20261024140854.25664-3-a.shimko.dev@gmail.com> <20261024-dw-wdt-shimko-v4-resume-imbalance@iav.lv>
-In-Reply-To: <20261024-dw-wdt-shimko-v4-resume-imbalance@iav.lv>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Sun, 25 Oct 2026 17:36:09 +0300
-X-Gm-Features: AclHuK_290JbiBCCRDiz0hbJon1lNZeyrcj89Tr3YD7jXvELikUFKEPtExqBoIY
-Message-ID: <CAOPX747Y1pDm-3TMmnYiXgVpt_jr++cQakGQ=cLt96B-FxWWzQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] watchdog: dw_wdt: manage reset line during system suspend/resume
-To: Igor Velkov <iav@iav.lv>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, p.zabel@pengutronix.de, 
-	Sergey.Semin@baikalelectronics.ru, mika.westerberg@linux.intel.com, 
-	andi.shyti@kernel.org, Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Igor,
+Add support for the NV21 (Y/VU 4:2:0) pixel format to the uvcvideo
+driver. This format is exposed by the color camera of the Creality Pika
+3D scanner (2bc5:0c0b), next to YUYV and MJPEG. Without it, the driver
+skips the format as unknown.
 
+NV21 only differs from NV12 in the order of the chroma samples, so
+bytesperline is wWidth, as for NV12.
 
-On Sat, Oct 24, 2026 at 9:46=E2=80=AFPM Igor Velkov <iav@iav.lv> wrote:
->
-> On Sat, Oct 24, 2026 at 05:08:51PM +0300, Artem Shimko wrote:
-> >       err =3D clk_prepare_enable(dw_wdt->pclk);
-> > -     if (err) {
-> > -             clk_disable_unprepare(dw_wdt->clk);
-> > -             return err;
-> > -     }
-> > +     if (err)
-> > +             goto unprepare_clk;
-> > +
-> > +     err =3D reset_control_deassert(dw_wdt->rst);
-> > +     if (err)
-> > +             goto unprepare_pclk;
->
-> If clk_prepare_enable() fails in dw_wdt_resume(), we return with the rese=
-t
-> still asserted. The _deasserted devres then asserts it once more at unbin=
-d,
-> and on a shared control with deassert_count already at 0 that is a WARN_O=
-N
-> and -EINVAL; the next suspend hits the same. Deasserting before the clock=
-s
-> are enabled (or on the error paths) keeps every exit balanced.
-> Not tested on hardware: I can't make the clock enable fail.
+Signed-off-by: Manuel Herrmann <m@manuel-herrmann.de>
+---
+Tested on media next (d7e7bca71698) in a QEMU guest with the scanner passed
+through. Before the patch, the driver logs
 
-Agreed.
+  uvcvideo 2-1:1.3: Unknown video format 3132564e-0000-0010-8000-00aa00389b71
 
-I=E2=80=99ve examined several drivers [1][2], and it is indeed normal for t=
-he reset
-to be deasserted before the clocks are enabled during the resume.
+and the color node only offers YUYV and MJPG. With the patch, NV21 is
+listed, G_FMT reports a bytesperline of 1280 for 1280x960, and v4l2-ctl
+streams it at 30 fps. A frame captured in the guest has the right
+colors decoded as NV21, and red and blue swapped decoded as NV12.
 
-There is also no requirement that the reset be deasserted after the
-clocks for dw_wdt.
+ drivers/media/common/uvc.c       | 4 ++++
+ drivers/media/usb/uvc/uvc_v4l2.c | 1 +
+ include/linux/usb/uvc.h          | 3 +++
+ 3 files changed, 8 insertions(+)
 
-I think we can move the reset deassert before the clock enables.
+diff --git a/drivers/media/common/uvc.c b/drivers/media/common/uvc.c
+index 0107cedd0..7d918ba0e 100644
+--- a/drivers/media/common/uvc.c
++++ b/drivers/media/common/uvc.c
+@@ -24,6 +24,10 @@ static const struct uvc_format_desc uvc_fmts[] = {
+ 		.guid		= UVC_GUID_FORMAT_NV12,
+ 		.fcc		= V4L2_PIX_FMT_NV12,
+ 	},
++	{
++		.guid		= UVC_GUID_FORMAT_NV21,
++		.fcc		= V4L2_PIX_FMT_NV21,
++	},
+ 	{
+ 		.guid		= UVC_GUID_FORMAT_MJPEG,
+ 		.fcc		= V4L2_PIX_FMT_MJPEG,
+diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
+index 644c2f1cd..60732f5ac 100644
+--- a/drivers/media/usb/uvc/uvc_v4l2.c
++++ b/drivers/media/usb/uvc/uvc_v4l2.c
+@@ -232,6 +232,7 @@ static u32 uvc_v4l2_get_bytesperline(const struct uvc_format *format,
+ {
+ 	switch (format->fcc) {
+ 	case V4L2_PIX_FMT_NV12:
++	case V4L2_PIX_FMT_NV21:
+ 	case V4L2_PIX_FMT_YVU420:
+ 	case V4L2_PIX_FMT_YUV420:
+ 	case V4L2_PIX_FMT_M420:
+diff --git a/include/linux/usb/uvc.h b/include/linux/usb/uvc.h
+index 99b070ab8..48419a862 100644
+--- a/include/linux/usb/uvc.h
++++ b/include/linux/usb/uvc.h
+@@ -85,6 +85,9 @@
+ #define UVC_GUID_FORMAT_NV12 \
+ 	{ 'N',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
+ 	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
++#define UVC_GUID_FORMAT_NV21 \
++	{ 'N',  'V',  '2',  '1', 0x00, 0x00, 0x10, 0x00, \
++	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
+ #define UVC_GUID_FORMAT_YV12 \
+ 	{ 'Y',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
+ 	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
 
-Let's wait a couple of days to get comments from other folks before sending=
- v5.
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+-- 
+2.55.0
 
-[1] drivers/usb/dwc3/core.c
-[2] drivers/gpu/drm/panfrost/panfrost_device.c
-
-Thank you for testing and review =3D)
-
---
-Best regards,
-Artem
