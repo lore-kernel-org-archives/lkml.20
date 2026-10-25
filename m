@@ -1,76 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940662;
-	b=3zyd4qPsd1HzdQjNsqoejKEmrWhO+uCDLeL4Tez9I1gx9I1fjJmCjK1cU6vVKDow+OgM
-	 FPUQasGT0Ib6MerzmNcquxGt88wqvpB0DX/reSkb1Zw+IBGc/PJN2E1QYi0C7YNtpin1I
-	 kkRAZlKW7wVO4TKE5/lEnuwEPUrNDFhRxx4XEDSnSQ8RuJQrMpmKrEJb4pysiX3QXrC1T
-	 1cNub6dyzh210S+dS46w8YdlRUq3kCq/pK49zup+xKnn9W7KRGwvkpPnYzjU8hecyPoE2
-	 N4lP3N7MVzYQWvLX7bbLzHiKizm9NIHndILDJdeprnMo+WYykgHcEy7/AAQSmS40wyw==
+	t=1792940885;
+	b=fiM4a3Nad9UB/I6Ds2n8u8+GyTC6VXPb+IT67lcohgjw7yWQhk05zYRVm4c/7DBm1UhL
+	 IuUzguo90Q6F3KNrLEp9PHlvLrSr2oExkY0pBI8+wIvEzGY3lds8NvfoPMP+iADBmEiOu
+	 u0w8iGyjqjbyF4g1s5O1IPcmt9Qu6KJhu0LqXcgJwNVE1PnkGX56MN1yyxhZ4uy1xyYXe
+	 rVxFMA8LgVR1yOYAlvOxl3nVO0V+tywshgVedqGZFrAlbIc4tULiXLx2E+A/AKCMD6Hr7
+	 sM7Jo/y0QcZW6hA1JJ+uxs6qd5oaS75oKWdFpxfSXY1Rr2AkphlsK2X3howCA+AoZPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940662;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=rS3/wqoyUiFC/nwlEVyVdFa4VAmvnpE3Qb2WkVE+lSE=;
-	b=344R/nswe8DinE1bbZJaxP1J8e7r6Vrmw8slnnkRRCGxUh2fHb79UXKHPp/R54HZbEh3
-	 lWwattlyPLwqeHZ+ThO2A2AAP8E+O4nst2flpNOs7ITblyocbvJS/eGOi6zWAayPG460+
-	 83BBCyvVQBBYewgUaSkfstkyTlj0tHpTjus0lxC6ZhuOFt546BiVv22UosUY5fhBrTlig
-	 ExVIKpEK+3B3v97fvOsx0mhmZDOzqpNQ0QfdW0D3OwI1pkmw5PSIu5O3XlYReY3mQmwiS
-	 9ag777omlqL/7wRTRONBGrT+UZXOlzd3QIIobtcOqhyOLUNbFPN/HIioFKI81MCvP6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792940885;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1ye2GSFYgQJI6uzYdumiexWml4ugTi70eS2dKM6j8ho=;
+	b=1DhDb7Kqaip/vQ2OfurBLAlEVkKrVPxho+ShRg8CkBuSycaUV00j75S9UWo9X0ihEy8/
+	 2LyC5WaFRAYozViBp92QSRhMs59l3L1iqcxPJG/MLw+CIpXLIqPxX9J0PamxkqLUyUlzn
+	 ceq+kRcCaGDu8hKcTTNUuOP7eYWeYefjpwdSMkcp1SbF8RnRj0aAi/pBKG+Pneeuzrjqs
+	 pMX3lYbmip28B51TaID1QisCecYFDrJdsTyEkRdUITadSoO+lHyUA1g4EpAocv5AbbgaX
+	 Li0MxqxHj1zAkA4hlnYUZyXUNPustxJG+gIZa3RQC+fa/5fTA2uP+Af/oXeN0kf3O4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NT8kzVzT;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JMcqAKq5;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B98606A31B;
-	Sun, 25 Oct 2026 15:04:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B98606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CEC606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:08:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84CEC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NT8kzVzT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792940661; x=1824476661;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mbitdxTff249OBDqO5321R0i6ugZINRmq8qsd0e14/U=;
-  b=NT8kzVzTDbOLMSXUsBaCvB7A4KRSJGK2b+C4a4c+yZpz0qpdpUozKdWa
-   ML2W/d4UK9xQKJZe7baMbDdIpXEDLpIW8PZzWvWPM30QlhmkhoD3P5Ia1
-   vSGXgLg/TY7tr5zEorNxfA86Bkyqr+79NPkbXa3o0o3mO9n11Ya/3GuJ7
-   wxaRwu4TGXKrg+gXZ7Rc4VpFu3UnA57w4u9Eg2Y6PW0DwxlGK4V85pfY6
-   2vQzhJQ1kxGo7EHrcwA0ToCXJ13fLQwQOmS+heVfceuRp0CohQiS1Lfus
-   97Dq3rxGzemlHj/v7sgvoxgYyjbnoeYzp7IJ2oTzgpCn+LIaR8Rj14eBX
-   g==;
-X-CSE-ConnectionGUID: e6424VpLTsa44yc9Fd4Mnw==
-X-CSE-MsgGUID: swPqWkwWSaGqb7qNh9blIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1623171"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1623171"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:04:21 -0700
-X-CSE-ConnectionGUID: pobX85RvRdSp/PhX9BTmGw==
-X-CSE-MsgGUID: g5SvmkfrRiurS7nX9CyIDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4404121"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:04:18 -0700
-Date: Sun, 25 Oct 2026 17:04:16 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
-Cc: julia.lawall@inria.fr, gregkh@linuxfoundation.org, andy@kernel.org,
-	outreachy@lists.linux.dev, linux-staging@lists.linux.dev,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: fbtft: fb_upd161704: Replace udelay() with
- usleep_range()
-Message-ID: <at4acP_svOxU9_mP@ashevche-desk.local>
-References: <CAHxSwT_bdBdiwwXpGpr9+rGizZU3p+RsB18hPH5TxqMuMZOsQw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JMcqAKq5
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1438d9363fbso1699611c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:08:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792940884; x=1793545684; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1ye2GSFYgQJI6uzYdumiexWml4ugTi70eS2dKM6j8ho=;
+        b=JMcqAKq5tdN1skeMEUXr6VDUqt9E4RCyh59/xCx5JIJ9WEjXRKylf6Mz/pfLPzul5c
+         iY+QjMYPLgHdYnqEfUcxh7CM983rPSYy0jFZnKL5+0Q/qUS/ewaKbXL9hFk2aKFBNTDL
+         9kLN6q8JAjm/23g6ODgM73XqpwuCtYe+S870Hg++b3nlv7nXsx/C1s6QBttEAj4uGICQ
+         e+Niujd2qrKw98y61+V8fcW1j9CSxGDNg0UeAn3tEVHpcDY2fHb6ukKJ1CUirdg/V6LI
+         TYmFMcac54aVyWOZ5TZVDFMXUnysSllgpkpm0bEX9xU2WiyiArw4EdBrCWH0BFHztcWq
+         ibJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792940884; x=1793545684;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1ye2GSFYgQJI6uzYdumiexWml4ugTi70eS2dKM6j8ho=;
+        b=GtkJc0Zjrn3CE6ZlM/if0bC/MQ1MPBOFr9hVVR0fxEronkZ28ngtKJOqeTKoDECQPx
+         AIMG2JAoKhpboTvEXh2ejawhodzkkozwuA0L4d9XpUvekp9B7G/HrkXys1dxlEpNvZNo
+         tZBelHal77W1f0bO2Agm5h1bKOgi8GBXg39/3ogAGQf+h2zwjYpr9KnZ+WbCGuLlfq1g
+         M0R9bNr+zoGZIebCTuZA2WVw/skLt0VEFajP1BTKC1EZ3N0EnPl1hdIxjK2BHyrnGU4N
+         05n287V7t0edbMgMCcgv5d8ApPtomygBmVth4YKMFr2bc83+/6TCiy4ICJGoJpjwQ20H
+         PTpw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/bn85whHm28PHDVHUoAIpICe9eZdw0XzRWt0MX3YMoWmgUxTHO1Rm25lgY/OJnbbcEEm8DZ4047ByCSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaGs75asjZR04duhA/HEEn0jhSzoSsuv0jJqQsYypn/m9ly4+N
+	l8MUShehz3stwsnSaosjzeSoUOqrdDcmJ6g+qggCzFSjUK74HL6kEd6f
+X-Gm-Gg: AYBFou15Dhw5FQNumhbAfeoVQ9zp/cJtdM3/0q2w79Ht3T/TkaZVEYWDjgP+GKvhKmP
+	z7p5TrV1YuQmO3PYS96c+8OOSBmumbpsGeQyPD4+2uEsYdnm3Hd8Xc8qswl1lSDHvQ4Q5iIZtSi
+	rKgWYU5L2jAdNAYS+mWwwy8mupiIVT4ZSsveLdvn9zuMNDY3g1J3QDfbW8U8ZgjZOlDvHfQ2RFA
+	2sDZEaDOhS/rUzsV3XvMot9n36tPpKyK73KVso2FrBhonssI5EhrE+6nz0Zybdcwg5kvdhmaoC/
+	dnIr+ARmNSc+5eCbQC+tFMkn4wA6907k3r0jf/XALBH+44Pwd4Sq/D5K+hZaG7BP5F6DMBXDQA5
+	1GWwtzny/anGajfXuFnc/hXxqmnfB9eHoulu2ox69EE35/Po6TGyJHqnIuxp9+PdXmt+Jkvs4PT
+	Aun+wB86Zc8o80WTkEpjS2xKTCgAvh7MJaAGdHKew86h+YyCK7wIVsr7e9fZBra+7BsMTmMF8s2
+	BsOPnEArM9JeMp3jrkzfWPYiklg9VTS4KEfnXGyvwB1OXW+1ogNCzDdBPPj170IPKhgnXTp
+X-Received: by 2002:a05:7022:5f14:b0:146:5f73:d45b with SMTP id a92af1059eb24-1994cb430a1mr5812181c88.3.1792940883317;
+        Sun, 25 Oct 2026 08:08:03 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5937dsm16876956c88.20.2026.10.25.08.08.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:08:02 -0700 (PDT)
+From: pocj8ur4in <pocj8ur4in@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: (lm87) Propagate analog output write errors
+Date: Mon, 26 Oct 2026 00:08:00 +0900
+Message-ID: <20261025150800.49041-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,23 +94,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHxSwT_bdBdiwwXpGpr9+rGizZU3p+RsB18hPH5TxqMuMZOsQw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 03:22:30PM +0100, Abubakar Musa Samaila wrote:
-> Replace udelay() calls inside the init_display() initialization
-> sequence with usleep_range() to avoid CPU busy-waiting. Since
-> init_display() runs in a non-atomic context, sleeping allows the CPU
-> to yield, improving power efficiency and system responsiveness.
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
 
-Please, slow down. I have already answered on very beginning version.
-Don't waste time on this.
+The aout_output store path updates its cached value before writing the
+register and ignores the SMBus result. A rejected write therefore returns
+a successful byte count and reports the requested value until the cache
+expires. With a cached 980 mV, a rejected write of 1960 mV returned 5 and
+read back as 1960 mV although the register still held 980 mV.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Check the write result and update the cache only after success. Return the
+bus error to the sysfs caller.
 
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+---
+Tested on ARM64 QEMU/KVM through the lm87 and adm1024 sysfs paths,
+using an emulated SMBus adapter. With 980 mV cached, a pre-apply
+-EIO rejection of a 1960 mV write returned 5 and read back 1960 mV
+before the change; after the change, it returned -EIO and read back
+980 mV. The same behavior was checked with -EREMOTEIO. No physical
+chip or analog voltage was measured.
 
+ drivers/hwmon/lm87.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hwmon/lm87.c b/drivers/hwmon/lm87.c
+index c09074f44708..ea23206b3c81 100644
+--- a/drivers/hwmon/lm87.c
++++ b/drivers/hwmon/lm87.c
+@@ -640,6 +640,7 @@ static ssize_t aout_output_store(struct device *dev,
+ {
+ 	struct i2c_client *client = dev_get_drvdata(dev);
+ 	struct lm87_data *data = i2c_get_clientdata(client);
++	u8 reg;
+ 	long val;
+ 	int err;
+ 
+@@ -647,11 +648,14 @@ static ssize_t aout_output_store(struct device *dev,
+ 	if (err)
+ 		return err;
+ 
++	reg = AOUT_TO_REG(val);
++
+ 	mutex_lock(&data->update_lock);
+-	data->aout = AOUT_TO_REG(val);
+-	lm87_write_value(client, LM87_REG_AOUT, data->aout);
++	err = lm87_write_value(client, LM87_REG_AOUT, reg);
++	if (!err)
++		data->aout = reg;
+ 	mutex_unlock(&data->update_lock);
+-	return count;
++	return err < 0 ? err : count;
+ }
+ static DEVICE_ATTR_RW(aout_output);
+ 
