@@ -1,65 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792956145;
-	b=xlQlS0hlZwUbkBa11XFE8tpcTmrbPaSkRIzKiGW3EuRhbJdfaJwf6QYQi9uP+q2inYY9
-	 g+Nkm1q+djjJ3kRHJjzEWE97Sx+4W1y96/J2sFjQvTdOQT/9ATZm1T+S++CaoUd02Uvi3
-	 fmVSIKPXrwOELZIgL70RNG/K8ouUqycNNaW69sDbW3oOiLmDhfFS8i3etgC33t5eEFGup
-	 XyuASjkZ1ILRJWgIOtdUFRnepsI9Sbi/bulaRzdsO1aORPQjC9thRpRlhZYvvfVX6SrTv
-	 kD/sz4qg4E66rb+IeoOKbM6QjqC4mj8iefB8H/7ZkzLD5GlMgx/53P7/zLjFbKsItZg==
+	t=1792956164;
+	b=KKVm+e671FzXgOhwKMEOd2De7CRsBFPd5qvK+/WvB8KIBlgplPSzmApw6pOn7lrv7y1i
+	 QutAVheIF7/cEUJQp+TVww5gmniDpyQHfPoN0NV0dvQUuS0oXsRaXjOZLL9YA8/XqKZng
+	 axO8BjLsHIdy0oDAJuj6YBxKzn0/qNN5h1UGn7wqmnx2XNrdB7cXh+gTokIVUSwbDbaXB
+	 fQSNR5la7Eet5QqWHddIHHpTvQdaEiXoJ1zIDzvSZyvRVz3MRoIWoqo0XoB1CYwnpZeYd
+	 NB+Zi+8iEUFl/groIylpdqooG6NELNlvjcWIO7je5KT07XrT796G1cJPEnPyq2daJ9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956164;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=aavG+Y2s4PjGm/W+opxqBIodXCzZpQc9N4L8Umwz6mY=;
-	b=a8z6inGLHvXDv/Xo6yrqRCG6a2at4S6BhsviIXFxn4QEpmEc3Jogy2ID1f+8enYKqN+B
-	 oLrEPd2qFCvOVdlmdIcwOhRddnNX5DZvwf//YyUlCdiRmEZluLKbaL7D6d7ccJaF+fsvn
-	 DYiY5E06LvxG0ZYzhBOORQgSuLETnSourulOHrbefjsyfd1hpInuwU7n8FShzYbcpsptm
-	 sAEEFhz5kand1cAvC9EFH6Y2LdH7XD+OXpP9prpid+SO5yCwPjAFA36bAD+6J4u6ud8RL
-	 +8dJ1OSxlHqqhqsME88FWPJnELYg7s8+sltGg4tOat40qiekHmm6OScXrSLJ97q5UuQ==
+	bh=67zqypIqeW8ZVZEfVBlJG12FCXsLePvvX660ZE95YLc=;
+	b=HNzyVFlADu2DUfwjy6y9gJPu+Omhw8MFGsX753nibX1JxPNqcjq+sLx6Ak+BauVlD1Ft
+	 9RwqiRpA+p/BYoa1RBatgBGQxjWhcwcmwaptR+HYYNsy7aR6d9fz0wAjxw3SEplG4amyn
+	 PKhJ0wVggesN176pLMSguh6yobuN3bFtTPgY7nVDFpF5jFF0FLacO+jkGREcAD9oAtVBU
+	 unaLedqGMTwqSAfrm3iZDoy6O4ZiD5BlhX4Y93Taavu6Nw9yYFRL7LiB4K/w8bwkdjUqz
+	 Z/oaxPiwZlVdTgjfiGriSr1JhYWWHNLXQCchmuKpoHaDzUz96GxzZrlexJnytqbHKEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b="sJ/0pYiU";
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=ITNqoDhO;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31B7606A32F;
-	Sun, 25 Oct 2026 19:22:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F31B7606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44F3606A324;
+	Sun, 25 Oct 2026 19:22:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44F3606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=sJ/0pYiU
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=ITNqoDhO
 Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com [178.115.151.51])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJM3W6516897
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJMK13517096
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 25 Oct 2026 20:22:08 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJM3W6516897
+	Sun, 25 Oct 2026 20:22:29 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJMK13517096
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1792956129;
-	bh=aavG+Y2s4PjGm/W+opxqBIodXCzZpQc9N4L8Umwz6mY=;
+	s=prod24a; t=1792956149;
+	bh=67zqypIqeW8ZVZEfVBlJG12FCXsLePvvX660ZE95YLc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sJ/0pYiUBw0uLkc7tCSDkD5iKbY3WsGi/M/wEy1pQr+FBLHrcwWkgbv9M6qDUoU9I
-	 2Rid27tr7AC9U3bjYF1zXblJ1GdBZ35WlHykV7GRsL887tQl6V7Hkl+aeTnthA6RIj
-	 69/Jbo5aaDqEEHo1zgIaQbvTHmv14Mzl5eARd4Ck=
+	b=ITNqoDhOUAXftehRFmmWEEKsPEp1AUpYIsRdLzzpVvubibgqbLuLTZs9/q4DrjicR
+	 KLCGI5zrd8VOREbmRcQDaiAc2SqsY+gY8nL3zDS3WL/B3D2lkTGQkWawQFmNnzmVBw
+	 zsX6rpjfRENOYh824M4G7JeqeYz7YpWAVLuaxSV0=
 From: christian.koever-draxl@student.uibk.ac.at
-To: neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
-        martin.blumenstingl@googlemail.com, vkoul@kernel.org, mani@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
+To: neil.armstrong@linaro.org, jbrunet@baylibre.com, sboyd@kernel.org,
+        bmasney+clk@redhat.com, khilman@baylibre.com,
+        martin.blumenstingl@googlemail.com, rafael@kernel.org,
+        viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+        linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 1/2] dt-bindings: phy: amlogic,g12a-usb2-phy: add S4 compatible
-Date: Sun, 25 Oct 2026 20:22:01 +0100
-Message-ID: <20261025192202.209045-2-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 3/4] firmware: meson: sm: add the CPU speed bin call
+Date: Sun, 25 Oct 2026 20:22:18 +0100
+Message-ID: <20261025192219.209137-4-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261025192202.209045-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20261025192202.209045-1-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,26 +78,42 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-The S4 USB2 PHY is the G12A/A1 design with a few different analog
-settings, so it needs its own compatible.
+Amlogic SoCs are binned at manufacturing time and the bin selects the
+CPU voltage curve. On S4 it can only be read through the secure monitor
+(SMC 0x82000088, argument: cluster id), which returns the bin index.
+
+Add the command so that a cpufreq driver can pick the right curve.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
- Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/firmware/meson/meson_sm.c       | 1 +
+ include/linux/firmware/meson/meson_sm.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml b/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
-index 1a0c436b87a0..54058d2e6053 100644
---- a/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
-@@ -15,6 +15,7 @@ properties:
-     enum:
-       - amlogic,g12a-usb2-phy
-       - amlogic,a1-usb2-phy
-+      - amlogic,s4-usb2-phy
+diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
+index 5410386603c7..540773887fe5 100644
+--- a/drivers/firmware/meson/meson_sm.c
++++ b/drivers/firmware/meson/meson_sm.c
+@@ -51,6 +51,7 @@ static const struct meson_sm_chip gxbb_chip = {
+ 		CMD(SM_A1_PWRC_SET,		0x82000093),
+ 		CMD(SM_A1_PWRC_GET,		0x82000095),
+ 		CMD(SM_SET_POWEROFF_FLAG,	0x82000042),
++		CMD(SM_GET_CPU_SPEED_BIN,	0x82000088),
+ 		{ /* sentinel */ },
+ 	},
+ };
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 3f2fa160e32f..9d11832bf638 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -16,6 +16,7 @@ enum {
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
+ 	SM_SET_POWEROFF_FLAG,
++	SM_GET_CPU_SPEED_BIN,
+ };
  
-   reg:
-     maxItems: 1
+ struct meson_sm_firmware;
 -- 
 2.56.0
 
