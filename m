@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792956100;
-	b=WLOVDNNiK93degg4pvAKh40hy3XtdR0cZ1yOZSH0nP+c6whQJK2cnSUzA7ocj/6hs8Gp
-	 1uJpbTYI50M/SIc/Ged4VdDpla6AMfgT70OY7CJ7zLDkT6Hzgsdsjm21/GII8cyDXgY5Y
-	 y0Q1N01DWsGh1Ooi4CLzA9jaueNySrXLMREPXB9KlNj1XroP4jsRbR/uUSkSVgcBk24eg
-	 J16yqrp7jP4ohpPRK02paXnMFmZg6wZU6MKmprUptiK1aiRqbfZZzHGOtJOZSXDVqcVFS
-	 J3vO/mTsvf5m1OL2olm4SNEAzZ7gZNXg5EogWzDAkzdrcqti0HjheJ31yu2e5fbziZA==
+	t=1792956091;
+	b=w3F1d+Ox7kNRNgrP0KNXjo5rlVFhYPO6RPWVI94L7+KGzDPRQ1+3hbwNLdoDkoYLg1NK
+	 SOQ9cntNpi3MYW8a0rOfhz9FYVVY9XT0r7ETFrYqtyeGmxIakQsau59AHEZjaxRr+5nnr
+	 GJCh8DZzEQ0wI/JR3YEDS/P4iIYieO8k8AMUFf3teFadDgOISmF6I8AOLEHaumbAMmkVp
+	 x8ItVx64aw6O4CCJOVXyeBoIQmrIbrIpxKq9HPzNj7SLh16r5U+wapAoy8LUYYPU429I9
+	 Z2KXpRMRzK2eCGuyws1/WcITP0gEavSpaXWj4mG631/3Zw+IntArr+C8wnX6urhtX9g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956100;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OH1v0lTH3i5PVrd8YAnHucUCqAE9dOjJzTTBfZTDUMo=;
-	b=3WVetafJ28uxvadpzDOq6i97C/pg9vegf2YvOfo8OFe8XIYPSBp0yRx1FvRbT4GiRY/U
-	 +elX11YI8L4+aj1Ijcj5m4UZ1dk6J5NVIrF/TKLFCsi8Np4UMttUJtF+V1O95k7Bp/qH8
-	 FZaRZJGBou9rzudwW5jceY+UAuiBJjcjFFp5J+SjWbae172ztvIzXMWYOL8NuHaVTlQIu
-	 zQpr0bg4IB0ucrcsv8/jhDUVmouKcgy6jdrd7Qy85jmv/isQQXymMBzmLy2ZO2K749GuO
-	 HYn59fS4CpGzUs3DZCnF8WDkhKAuln1KwL6Pumugbvq4mdMBIH2vXiKi1VZpHQyPw1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956091;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
+	b=BgUt/ai7j3SreMElHjFFOImUX5LlRXM5cnr1SIxuGP/xXaWh5o6iP/MrvQ7Mq2M7stUe
+	 Qda6N2d2bvTmp9yVm79UvhJlHxt/4NNamHaa4fliGkkrKRGqKKheJmLHcJ+j6zaZK0Z5A
+	 FcWMqVGAidLD3WZm92qgkPdpGH06QGqF6eAYujyn9I7aQesfYdNlnJW6cBeTJm00xqSlG
+	 mg9Lr9P/0YctBuecZLWsJK4ZZ1F/JA0g2oH0PrAUqzGpxra8cEbuOm/6gYUqMhJBCUN0L
+	 OO1xp3mizLbVa85s0H6tiOpgj8q7xN3I1TLzNsjBBn4iI3gdzJgDZ6QOG9+/YBjmerA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M3KUq8wh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RP8xxFsr;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=M6D0qwra;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.173])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E0960A2608
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:21:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02E0960A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09E0606A31A;
+	Sun, 25 Oct 2026 19:21:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B09E0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M3KUq8wh
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so5640968eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:21:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792956099; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QqMNnYoQ/V0oeQvyYbh26TEMlGFVDm94jYNImbodTiAw/Vvxs0AQKwOjRzZ0PUvDbd
-         7GxpLs2L2ChCeLDaVUH9DSS766+JnMUFSdwSvkwM4K3Seo/wNmF29Rq0f/naaaZkhINq
-         FkQay3Lfpd0Xn4J6czKVOsIpy+YPaiw9HXMRnLXVtFa2iff0KSaEk2bNsBGYGBt+WMtp
-         aWzVdb2GwEhSN9ldIJRQKaQlILyw1AC35j36ofK4wDDqgepKDNuseH+jbK8L2ViWoa7E
-         wBHzEFJ+NEwS0aCVLmh0KuNsFjSKW2IVNnzjl1BlblrjJDU++1X9Rmq2ksvKc/i5Y8aC
-         4dXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OH1v0lTH3i5PVrd8YAnHucUCqAE9dOjJzTTBfZTDUMo=;
-        fh=3qtdBJDjM+DmFYodGF2GTAtJmZZuSMdmB1ImsdiW2cU=;
-        b=A94BolJ1WD8ARxzbQBzdHpUG2LTWS3zlG0sc/OAs90VYPOxhRpid0XO3VcM8EdjumT
-         pPRkNbo9PBUswosyzvIGyelTf+eOWDuM7Jk7+8k+Ql1ajG55xED7BUQdxdEbY3pUQ2kz
-         CFTC5Vtf5e8HuXOAgyF7oSWx+M0b9dKxuavlWgvcvVuBqoodycO2CjQ3JwYawYbfM8R8
-         PiH4ssu7/mgmHSn9kPl+P0FEwnG3m15+90Br0l8mnUjpvSU7u2vPfMnBwPvsAx6EWAp+
-         ijwaj2WLViNBj4G3A3ahRJ8Lzwsw33m36iI/GBFRYGv7ojxVn/cflF8OsWyVXw3jyzkS
-         uu8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792956099; x=1793560899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OH1v0lTH3i5PVrd8YAnHucUCqAE9dOjJzTTBfZTDUMo=;
-        b=M3KUq8whaTsLJ6plVgkBsYp7Udx+ghUM+jFVw6R5idi4BXD5awRFMvFS+EglrAC6Jz
-         559v5cbuPq/LvGTLvAo9XzWo4w16yiYx8BS/OU8BwS5LJ7U1spf8EP3frSZaB8JLLUpb
-         z+n/YLecOuCouGUToF4uSikzuQAKwJeNb7UpGhtwNBfpt2mwbj83uNgF5w6qL64LNS2j
-         xYCC+OneYqgSmBqSx1QEUyFHHUw0g4iikHrQBKZsf0UGY/oxH4hkzLTmJ+agS0oKxTEV
-         r7oB15D/4w4DILHo1m6pFZJDudN0kq5mKOvy97I0Ta2Z+IY/QaoxpD4acg1Ms5PGlruI
-         VWyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792956099; x=1793560899;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OH1v0lTH3i5PVrd8YAnHucUCqAE9dOjJzTTBfZTDUMo=;
-        b=tpGmRup8FfTFuHiJ2Ew6KwprfqyUUf2yOF1ZrRSN3t13xKBC5JPLaNGiV9WGlsW4xo
-         NbCL5M+QEMXaZGOzDHszC53IIoZtLv9iDCbNu6BQSIWKo67Q8MZM5Yw+EstAaAsn3QYP
-         2F1zLN+r+AAMJaNThTuPwoomMo6u9Xg4jCLFPEHb+xezzW4Fbouz79xVwMh/dRJAhjkC
-         N33t36vTTE046cA0YN208mp7cjV6pwMez+Y/b7BRK9+zgNWmNEXajxakMQx5BFLd0pOi
-         EvuhhkTN7c3Jzi71KaFfSNgTVGCTaQKoQQuS0fH3JnROL4i95ayc2nycy0Ma5RBxCKRp
-         j2dQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzte4ZPXou21xkG7qHhpqicu4NCn2Ru0k4C+DvbkPIiYNCvKtJNWfn8q3UOIZYk7FjCbXbQENvyuXVHC7w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi+rmig/XDEkkf8N1XLuTYp5AsnQe9D6NX3j9rlixs+13S8eOC
-	kol8584sP/piXXP2Kbbfw6RmQ6woINmCOEqn5d7TqAB6uiJ7tb8KSmBSfxasEpklcUUDC149ZfB
-	nEZPQfFnHdyE8h26/aV4tqU4EcBidBIs=
-X-Gm-Gg: AYBFou2IMwxlsocQTWhTgGinoNTO/chOhMKkczsVpMU3TBmxuXfpMVNI/RG79GCYQYt
-	ia8DqHc8GfZvlMGO+5u3X9RqkoSU7/1ojyUA4afUmFlW5vwQ6hNeSSEYdXWD2zf7bmNlS0tTNfI
-	B5T7k5MHgUJ4t+T+rUuGRRv05bvvtghHiQffFjkbS2S9nItAPbTZzJ9jn1z8GkXqAusgs1qd8bV
-	IUjh2OLnLhqum5iOL3k42jSLmXuWViL9q2u5nVITfLxrrT2cYSHo8cGZQlb9Qo41lm8meHkNiFU
-	5dt6Ake+fesnj7ocZYimGtAGFSfyZVdItFsOdf9UHRG8P2Er44BHwZmTnrsg8LAC3wNmpXkhrC0
-	mF8GRhWX5q62gCfAoDspVLEuq6hmz4aeoP9ujsKlF1rUiKptrixpfvpKxRgDVlWdo0E01e0TYQh
-	UJ7uHFOmE/6F4r3Jc=
-X-Received: by 2002:a05:7300:84:b0:35d:eb9c:fce with SMTP id
- 5a478bee46e88-369e84afdb2mr8666043eec.25.1792956098996; Sun, 25 Oct 2026
- 12:21:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RP8xxFsr;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=M6D0qwra
+ARC-Seal: i=1; a=rsa-sha256; t=1792956062; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=EIay1K7K2kJhCXIgoGwMn+Vnv6m/AJukRCh4ZDvdiCVD/WMOIT3Eu6MeNGNJ5Hymk3
+    OYDx5wktRVv1Th6YOaJZ68LNPgp3HiJwEhAXZ1SE5ft4K7iS9e7X0FcBumBNGrHa+jWR
+    2PVEBXpp9DSrCt1NIZVp1FsF8otMsYcS+yF3aC4fTrY99fTnQAJIXH5OIbQIeiForLlG
+    kXjmNRCZeD0ZBClkXsPxY+jdk0Hvo0/h+mqIES0kUNxN0S3om1UFwDLU9ebcayeyt27Y
+    rXUQOFvDj9zdw5CSfg0E1soyRn01bEChWgK4Kg9+qgJJYBM3AwRFYrWKAM04nvgDTjQW
+    bVyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956062;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
+    b=BnrXi8Wen9cZr2rpN1Mv8YuTIHobKM6negu9hg1c1h1pYmuMP0fTrFOjqqzd28MpgS
+    Kz9KzAZq32vwiOPXJcLrpK6HJXu42S1G20UDkcQfwQvtUPJFcM7BiJizuYRONzBj3C5Z
+    tOWOyzEhY/5Pq1Kr61PtchJtUnEjrCz8kGlYECtKG2AIY8K3AlzrEe+ztnriNSQItyMy
+    nyTric4TE08w0DVo7/hrTEgQs7YJEb/0gkyn8sszZM0c+nvTZVEYt18SePFMesKFv1z7
+    WxoJ/AAg1K5USrYW0v1XjoaH/LaLoWhWLkyc+Ufh8+1yjjjxz+tbphjw7bHndcgw59ug
+    6kwA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956062;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
+    b=RP8xxFsrCWaJ8btzcIl2AKmzxCvNJkkNH+2+yeKj5BB8RJPbKjhLFFO/zAhnhNcD0H
+    G8UJYgDbQg0N1dLmrbalk4Qxu0FFu7NXAmM4ph1G3fOd++7wmdsXuzI5S4b2yr8lkZA+
+    Cd853M4IChf0TvwIffZonHzih3z3cCA5SGBpbvmwaYIpiy/FN6fojFwyIrRn3XiMW7H1
+    6X8fXzBuXFBgD68CIfSl7gk+me3vcjvrpUtIi9GC8N+tDRqEBnjQ/lF3/awmvVs5tz4A
+    y+qr/dHXRKizVE0k7qQh5NocbKbTzZkHSXfjdRn4vd4O85/yL4qMX6he80sEzhO3btu5
+    gGSg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792956062;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
+    b=M6D0qwrarG8IfHxdNrxDNxJw+qV9CiHtU8ZX8CiQaGRm9Uob5su4vkT5s1eBAYKlQr
+    Uh/sKD4DL2emn8BIKRBw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poNy8iNoc+LWkugLIF0fnfvFgpgbBBt2w=="
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229PJL1zRB
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 25 Oct 2026 20:21:01 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Paul Burton <paulburton@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	kernel@pyra-handheld.com,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH 0/6] MIPS: Ingenic: Add XBurst / XBurst II infrastructure and SoC support
+Date: Sun, 25 Oct 2026 20:20:49 +0100
+Message-ID: <cover.1792956055.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,56 +103,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930-b4-dalmore-fixes-mipical-clk-v1-1-0518be6c7979@nvidia.com>
- <258d0c04-fbf9-4de4-b009-8feff88dc69d@tsv-stahl-riesa.de>
-In-Reply-To: <258d0c04-fbf9-4de4-b009-8feff88dc69d@tsv-stahl-riesa.de>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 25 Oct 2026 21:21:27 +0200
-X-Gm-Features: AclHuK-Zu-La3MBSX4NrGbqHTCl63lbPGopl2QWUuujCrh98e0xucb-_xaWX1wM
-Message-ID: <CAPVz0n2QpNfTfubqvZ2i9B_Z_gug4oKSmD0YMJ7Riymdh+guYg@mail.gmail.com>
-Subject: Re: [PATCH] clk: tegra: Fix Tegra114 MIPI calibration clock parent
-To: Mikko Perttunen <mperttunen@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: Patrick Fischer <admin@tsv-stahl-riesa.de>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-clk@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-=D0=BD=D0=B4, 25 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:5=
-7 Patrick Fischer <admin@tsv-stahl-riesa.de> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Sep 30, 2026 at 02:18:34PM +0900, Mikko Perttunen wrote:
-> > Register the gate with pll_p_out3 as its parent. Also drop
-> > CLK_SET_RATE_PARENT at the same time: the parent canonically runs at
-> > 72 MHz so we shouldn't change the rate.
->
-> I ran into the same problem on a Tegra Note 7 (P1640) and ended up with
-> the identical change. Before it, every DSI enable logged
->
->   tegra-dsi 54300000.dsi: MIPI calibration failed: -110
->
-> and enabling PLL_P_OUT3 by hand made it go away. With this patch there
-> is no timeout at boot or across DPMS off/on cycles.
->
-> Tested-by: Patrick Fischer <admin@tsv-stahl-riesa.de> # Tegra Note 7 (P16=
-40)
->
-> While testing I also found that tegra114_mipi_power_down() never drops
-> the clock enable it takes, so with this patch PLL_P_OUT3 stays on after
-> the first DPMS off. I sent a fix for that:
->
-> https://lore.kernel.org/all/20261025-upstream-host1x-mipi-clk-v1-1-6bc6e7=
-55b4cb@tsv-stahl-riesa.de/
->
-> Thanks,
-> Patrick
+PATCH V1 2026-10-25 20:20:55:
+The series updates the Ingenic platform support to allow clean transitions
+between bootloader-provided Device Trees and built-in fallbacks. It provides
+the foundational Kconfig, PRID, and CPU-probe blocks required for newer 
+Ingenic/Lumissil hardware generations (X1600, X2000, X2600).
 
-Thank you for cc-ing me Patrick.
+The first patch corrects an inverted Kconfig condition regarding appended 
+and built-in DTBs. This fix is necessary to allow configurations where 
+the kernel relies entirely on a Device Tree provided dynamically by the 
+bootloader instead of forcing a built-in fallback.
 
-Hello Mikko!
-I have observed calibration fail on my Tegra114 devices and your patch
-fixes it. Thank you!
+The remaining patches implement CPU-probe initialization, correct PRID 
+mappings (including vendor-kernel values for the Ingenic A1 SoC), 
+platform load addresses, Kconfig updates, and generic board match updates.
 
-Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # Tegratab (P1988)
-and ASUS TF701T
+Structure of the series:
+1. MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB logic in Kconfig
+2. MIPS: Ingenic: Add and update PRIDs for XBurst II R0 and R2
+3. MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
+4. MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
+5. MIPS: generic: Add MACH_INGENIC type and compatible for X1600
+6. MIPS: Ingenic: Add Platform makefile for X1600 and X2000
+
+Testing:
+The series has been compile-tested for generic Ingenic targets. PRID 
+values for jz4780, x1600, X2000, X2600 were verified on real hardware 
+(CI20, LX16, LX20 and LX26 boards respectively).
+
+Please review and consider for inclusion.
+
+
+H. Nikolaus Schaller (6):
+  MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB logic in Kconfig
+  MIPS: Ingenic: Add and update PRIDs for XBurst II R0 and R2
+  MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
+  MIPS: generic: Add MACH_INGENIC type and compatible for X1600
+  MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
+  MIPS: Ingenic: Add Platform makefile for X1600 and X2000
+
+ arch/mips/Kconfig                 |  2 +-
+ arch/mips/generic/board-ingenic.c |  3 +++
+ arch/mips/include/asm/bootinfo.h  |  1 +
+ arch/mips/include/asm/cpu.h       |  8 ++++---
+ arch/mips/ingenic/Kconfig         | 35 ++++++++++++++++++++++++++++++-
+ arch/mips/ingenic/Platform        |  2 ++
+ arch/mips/kernel/cpu-probe.c      | 14 +++++++++++++
+ 7 files changed, 60 insertions(+), 5 deletions(-)
+ create mode 100644 arch/mips/ingenic/Platform
+
+-- 
+2.56.0
+
