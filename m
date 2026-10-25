@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792894779;
-	b=VWz3SON8WusXyOBtKv94P1Aj057RSnYctCxAWnTtmhJXpZv58j5wJGNjB0aZpFiebaOV
-	 dZmlQdw/BXD0aHw9CnY7pcOEnT6/6UsFU/xxk9UvKHkl+qVqyjVN+qMwsdwNvWz3YOJ0B
-	 S00ww++1+M3x/QxH9t2FVSg/sY0VSUz1s3/8ko6zBVrMc2/X4iQms9dmssFGdUvCD3eLi
-	 qN8kTBxvuEU1vvNKQ/UsyUHRm4lrdG8Dub7KT2XX66m8IkW/loZoEmueUVecczDJmBJS7
-	 WW8kT2i6oHInnoFOLx7VZq6XiK+b0Y2Li3SptgzPfDFE3INhbz5s52toxrj1mmY1ZIA==
+	t=1792894776;
+	b=YPKgRTsZLp1OVK2LYesNaYKBpovvddifWvynIo9gRHtGL+sl4bhgIN4XV038xi9Cmu65
+	 FEKSaAloNjfiCdbUzf9HlAGqbjGvm2zXt2wW8Zib6a756SaU0BGI65nJW8rtG6AgKlUWk
+	 75c2KYKiZS7KAhuZzfBNiwlRoTQi5dNCQLbbTx5PKYFJGklNg8Ma1mRcbZ9bIGQkhijVu
+	 TEjNCpGJlIz4dIy4O5ZpfzLXgams/Mx5hvzOuxX/K6OgyOtyQnHdLG50yhobOdrhicUIx
+	 bKEIG5SA01MqsXsiFSpAlRNbGXtbvI81IrAbDdL/hQtqgkO6pVCDmhf8LohyTh+dO5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792894779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792894776;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=4tNPBuMcA871ilhSXZeeD0cmUC+Z67Q8xk9SGMtX3nE=;
-	b=KfGLF0cf0CWuLO4qZazaKtsb7RqruIQ9rkW52NgZoBvH9F0EmR3J69IKS1Ikbbdv19vZ
-	 7msupvmxzfvlpXtQaXLX8+yHDk3D6JrWdrH73kAODiK9knzD8q1SR51apC7c2MGZpwV+x
-	 el2/cQx0KLhpl4Slf+WNzlAtL9HZH14EsA+QHPUeKqIfHEW8T7TV/kBTJSDCaQ4/O4kAF
-	 h63EUw/JA4jbIBSq3q7XmeIClI/ul7n3ykOJnSLH7fo02A1Ifq8FzkTWxfz535trXEOXV
-	 TaIxoLWqABw8xTUsW6h+VDHlyBYSHCbgoD8QeN926dZykiSYjaIasCU+E8TpWUBLQtw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=1vMKXcWahSYmCNkIu3kbDZNXp2fJW15YMv5/ImSxqLs=;
+	b=uxqDKnLuungxj36GR0rbR5p7WtkzM0zyKCnAmtHN96ERis9ofKqQsOrm2RbGunK/831v
+	 AHS35vW+bbFuu38d+MGBxVWDttEMz3DrBJ/qgygQK6a5zsYqDy+l7TeHduU6PGqpu5c0d
+	 OwWSmlMSCeLkOfrhRtC7kH5T6x9oLi8XIAbsCF6pYCmywxIPDVh3b5TmSmebTdsqfk5co
+	 AxRXucbWm5DGowS/3M2z0vdG/IC+lZTlYjIzFXQ1cBmpDYPAgxHqkfio5coO17ityngQT
+	 F4au6WN/2Nj6Scbvtq2ukh6xde2Ra2KI92Pf8kiGsPjL6HCWpoK+Snm7K9CcJHr4uag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=UXpHr79s;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=D+67PpDz;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5E560A2639
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F5E560A2639
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2388F606A32E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:19:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2388F606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=UXpHr79s
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e93f67358eso20180185ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:19:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=D+67PpDz
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac7a4ba546so2173156a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:19:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792894779; x=1793499579; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4tNPBuMcA871ilhSXZeeD0cmUC+Z67Q8xk9SGMtX3nE=;
-        b=UXpHr79syOT95JBFaVbMBLfYVb7dfrWWZt3qGnzCF+kz6415F7rsc8PIh4+k6W9Yxt
-         APX29Rucy5n7BRSJPqJ2edbVQVZfDrmKMJiJ89HsILsDp1xG52LGfDnKtWBGh5e7QYok
-         voBFlHFbJuOOc7niLK+BH6Uu2wdu0B3/eLwm5laBHcAMKFJ1H4AF4w6TsQxvTaJoNJsT
-         toOc6aSdAKGe0DUdMoF/hPPFODFSCalUEict8SE49HQ3h1aBck4Hj0yG/w/EpoxwJRwg
-         DzHIO2fkAFT9fUoH0qWygmHQ7mfHUrjKKjbmGTmKBOf+7L6c3Iflt3TK9+U8XYLwMT65
-         lqYw==
+        d=google.com; s=20251104; t=1792894774; x=1793499574; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1vMKXcWahSYmCNkIu3kbDZNXp2fJW15YMv5/ImSxqLs=;
+        b=D+67PpDzvkf1vsNz+zW8C3/DyGpgjjAr94KylFFm5SaDTu/BHWCidKd3hd16fcXOfF
+         k5O/3NHzEoKA+uEFs2QshWeamrJoE0qAwOlaK33xXlpaJYF2JnRayBO+8DKGYTizibhO
+         nSR0tgAiiyXFIg2aqGs4fiF32KJckhrrlgRjGUEfoEVSGtS/ccmdfbGyKjkGe+lcd1oA
+         9je/1Ypa4e1qCljWNyS0zLFbDUUKxojKreWrWAoMa5xVEDTyMOPiXbvfjJTY6ZCAJZRG
+         Ynu5O4Zuo8UTAxeIrAllCFJoa4J0lM+tyjuRO9NoaQ2o7spFcp4E7swsHqtoG0EePa/5
+         fCmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792894779; x=1793499579;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4tNPBuMcA871ilhSXZeeD0cmUC+Z67Q8xk9SGMtX3nE=;
-        b=L0fx9vCNUMgA+8mO64B4wbKQP9RCIde/pWOi6F8ywU+vk3S/nrEK6/MpoUjAcAWg2r
-         GE7ujT/xOF4MekNuxLFKECZdBXfnqeyz7p6K9SudfOShtiUeZIBiPpDSOBlspz85+BAA
-         ziDMAdZjp+gYlOfO8jOXax8p48MnFtwwmN2tpYK2ZhpTuS8Qv3rwG7SxOjH6BbNTw7p0
-         avaqnatkltKY2+f9+9/FhCovohMbH7TQQS9LnruQH83bb82HpZQ9SMt+pJ2yekyI5iuB
-         k1kG+YfjMSmwvcUYXY2onZSQUrSJSvmr9+9gbUzMMZx+uIsu2G31VVT7iileIaCM+Zj9
-         NnqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKjicCUOsnaAREYb1RZPr/0H9iD3RBnLAoF48KowP30kI6zD2T6MLC98s8nDDCvVo8tjr4+xq1KR7LEsA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvJtqbPXv5PPQxq/GATXUzAo9EzseTBtNGiqKvaSzBf+fwmn2v
-	7gVyc44GUUeuIdp7vHn/tljVfKeKB1lDf/lrVUwSaBFj9H8QuqJYlvwRHv5kPGjxU43zKq4ynNg
-	vpikwqV7wXBdGpg==
-X-Received: from plka14.prod.google.com ([2002:a17:903:f8e:b0:2e2:f8c9:e138])
+        d=1e100.net; s=20260707; t=1792894774; x=1793499574;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1vMKXcWahSYmCNkIu3kbDZNXp2fJW15YMv5/ImSxqLs=;
+        b=sY0laGlf3yJ85LwpXBPSanYPdSfsIw+IVtJF6ssbVqplR7BES/ldyE+gusTFOy1fVP
+         j1aZpHl+OVDYHQbVZFo+E+BHe5+fvnsleHQR2jX/T4SrijHGlByQmtYnCrIfTrb46Gej
+         IO4wPolzuDAWyLWfr04ZPctyYiWCb1oaoNquuskSm+Sgij3Bi91JWW8W6FK3e5tFz7EM
+         DHN3ZXvvDMajYV1fINPs44mB8XiddYntnTMgZLjG9DiXAeJvkenXJXJmg9Et1W3zQHyk
+         p60qH7TdGdsiSh7MXGv9XNC4vdV4ZuSHssQAoYgBw4B4gokGDo3zPqDWW/WOaX3HSGz6
+         ak0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxwLwHEpPCtlq95aM+Exz0cHgPnS85e8f1hIZFCCzW1oF9uhoQ9z7Es5Sf4QsAGsQ+xJq8BJNCjCT5lvI0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAEWatBSNmVTbFiSbvng+L3tUykCZtCHljt0/yIerPhACQfLxN
+	pIFwpKXtAMx0TnRko+aX0tPDBI3MZVAhxp35NWQ3O2dBIKmzvfDAVwTR3qv3uZQwn0B29uwWiY/
+	9Ch5Ck7Q1fjiGRQ==
+X-Received: from pgby8-n2.prod.google.com ([2002:a05:6a02:6508:20b0:cc7:e9a5:4d0f])
  (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:dac4:b0:2e5:cf33:80ca with SMTP id d9443c01a7336-2ea9c96ded1mr25523625ad.52.1792894778208;
- Sat, 24 Oct 2026 19:19:38 -0700 (PDT)
-Date: Sun, 25 Oct 2026 02:19:14 +0000
-In-Reply-To: <20261025021930.674647-1-skhawaja@google.com>
+ 2002:a17:90b:3c05:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3adeb5e3aa7mr1730001a91.28.1792894774147;
+ Sat, 24 Oct 2026 19:19:34 -0700 (PDT)
+Date: Sun, 25 Oct 2026 02:19:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +76,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261025021930.674647-1-skhawaja@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261025021930.674647-4-skhawaja@google.com>
-Subject: [PATCH v6 03/18] iommupt: Implement preserve/unpreserve/restore callbacks
+Message-ID: <20261025021930.674647-1-skhawaja@google.com>
+Subject: [PATCH v6 00/18] iommu: Add live update state preservation
 From: Samiullah Khawaja <skhawaja@google.com>
 To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
 	Lu Baolu <baolu.lu@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
@@ -96,300 +92,472 @@ Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>
 	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
 Content-Type: text/plain; charset="UTF-8"
 
-Add iommupt ops for presevation, unpresevation and restoration of iommu
-page tables for liveupdate. Use the existing page walker to preserve the
-ioptdesc of the top_table and the lower tables.
+Hi,
 
-Preserve top_level, VASZ and FEAT Sign Extended to restore the domain in
-the next kernel. On restore, the domain has only the preserved features
-enabled and all the other features are zeroed. This is ok since the
-restored domain is made immutable and can only be freed. A kunit test is
-added to verify that the IOMMU domain free can be done with trimmed
-features.
+This patch series introduces a mechanism for IOMMU state preservation
+across live update, including the Intel VT-d driver support
+implementation.
 
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
----
- drivers/iommu/generic_pt/iommu_pt.h       | 155 ++++++++++++++++++++++
- drivers/iommu/generic_pt/kunit_iommu_pt.h |  30 +++++
- include/linux/generic_pt/iommu.h          |  30 +++++
- 3 files changed, 215 insertions(+)
+Please take a look at the following LWN article to learn about KHO and
+Live Update Orchestrator:
 
-diff --git a/drivers/iommu/generic_pt/iommu_pt.h b/drivers/iommu/generic_pt/iommu_pt.h
-index 07ec2b3ab986..716eca2c47e1 100644
---- a/drivers/iommu/generic_pt/iommu_pt.h
-+++ b/drivers/iommu/generic_pt/iommu_pt.h
-@@ -16,6 +16,7 @@
- #include "../iommu-pages.h"
- #include <linux/cleanup.h>
- #include <linux/dma-mapping.h>
-+#include <linux/iommu-liveupdate.h>
- 
- enum {
- 	SW_BIT_CACHE_FLUSH_DONE = 0,
-@@ -1005,6 +1006,155 @@ static int NS(map_range)(struct pt_iommu *iommu_table, dma_addr_t iova,
- 	return ret;
- }
- 
-+#ifdef CONFIG_IOMMU_LIVEUPDATE
-+static void NS(unpreserve)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser)
-+{
-+	struct pt_common *common = common_from_iommu(iommu_table);
-+	struct pt_range range = pt_all_range(common);
-+	struct pt_iommu_collect_args collect = {
-+		.pending.free_list = IOMMU_PAGES_LIST_INIT(
-+			collect.pending.free_list),
-+	};
-+
-+	iommu_pages_list_add(&collect.pending.free_list, range.top_table);
-+
-+	/*
-+	 * pt_walk_range() will never fail as check_mapped is not set in the
-+	 * collect args.
-+	 */
-+	pt_walk_range(&range, __collect_tables, &collect);
-+
-+	iommu_unpreserve_pages_list(&collect.pending.free_list);
-+}
-+
-+static int NS(preserve)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser)
-+{
-+	struct pt_common *common = common_from_iommu(iommu_table);
-+	struct pt_range range = pt_all_range(common);
-+	struct pt_iommu_collect_args collect = {
-+		.pending.free_list = IOMMU_PAGES_LIST_INIT(
-+			collect.pending.free_list),
-+	};
-+	int ret;
-+
-+	iommu_pages_list_add(&collect.pending.free_list, range.top_table);
-+
-+	/*
-+	 * pt_walk_range() will never fail as check_mapped is not set in the
-+	 * collect args.
-+	 */
-+	pt_walk_range(&range, __collect_tables, &collect);
-+
-+	ret = iommu_preserve_pages_list(&collect.pending.free_list);
-+	if (ret)
-+		return ret;
-+
-+	ser->top_table_phys = virt_to_phys(range.top_table);
-+	ser->top_level = range.top_level;
-+
-+	/*
-+	 * VASZ and SIGN_EXTEND will be needed in next kernel for collector page
-+	 * table walk to restore and free pages.
-+	 *
-+	 * Use the max_vasz_lg2 from range, as that is the current one if
-+	 * DYNAMIC_TOP is supported.
-+	 */
-+	ser->max_vasz_lg2 = range.max_vasz_lg2;
-+	ser->sign_extend = pt_feature(common, PT_FEAT_SIGN_EXTEND);
-+
-+	return 0;
-+}
-+
-+static int __restore_tables(struct pt_range *range, void *arg,
-+			    unsigned int level, struct pt_table_p *table)
-+{
-+	struct pt_state pts = pt_init(range, level, table);
-+	int ret;
-+
-+	if (!pt_can_have_table(&pts))
-+		return 0;
-+
-+	for_each_pt_level_entry(&pts) {
-+		if (pts.type == PT_ENTRY_TABLE) {
-+			iommu_restore_pages(virt_to_phys(pts.table_lower));
-+
-+			/*
-+			 * pt_descend can only fail if pts.table_lower is not
-+			 * init. So the if statement below is dead code.
-+			 */
-+			ret = pt_descend(&pts, arg, __restore_tables);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void NS(deinit)(struct pt_iommu *iommu_table);
-+static const struct pt_iommu_ops NS(ops_immutable) = {
-+	.deinit = NS(deinit),
-+};
-+
-+static int NS(restore)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser)
-+{
-+	struct pt_common *common = common_from_iommu(iommu_table);
-+	struct pt_range range;
-+
-+	if (ser->max_vasz_lg2 > common->max_vasz_lg2 ||
-+	    ser->top_level > PT_MAX_TOP_LEVEL)
-+		return -EINVAL;
-+
-+	/*
-+	 * Override the max_vasz_lg2 here to the one calculated using top_range
-+	 * in previous kernel. This makes sure that any later page walks use the
-+	 * clamped max_vasz_lg2 instead of using the full hardware maximum
-+	 * max_vasz_lg2.
-+	 */
-+	common->max_vasz_lg2 = ser->max_vasz_lg2;
-+
-+	/*
-+	 * Restored page tables are strictly transient and only permitted to be
-+	 * destroyed via deinit() op. Because we only preserve user-assigned
-+	 * devices utilizing pass-through frameworks (VFIO / IOMMUFD), any
-+	 * concurrent or subsequent map/unmap operations on a restored domain
-+	 * are explicitly blocked at the subsystem boundary (e.g., via IOAS
-+	 * immutability).
-+	 */
-+	iommu_table->ops = &NS(ops_immutable);
-+
-+	/*
-+	 * It is safe to override this here since this domain is immutable and
-+	 * can only be freed. This also means that for non-coherent pages DMA
-+	 * mappings will not be created using the DMA API.
-+	 *
-+	 * Note that the FMT specific bits are not cleared as they might be
-+	 * set/preserved/restored by the driver to handle special cases that are
-+	 * required for page walks.
-+	 */
-+	common->features &= ~GENMASK(PT_FEAT_FMT_START - 1, 0);
-+	if (ser->sign_extend)
-+		common->features |= BIT(PT_FEAT_SIGN_EXTEND);
-+
-+	range = pt_all_range(common);
-+	iommu_restore_pages(ser->top_table_phys);
-+
-+	/*
-+	 * The old top_table can be freed here as it is not used for any IOMMU
-+	 * mappings yet, because the restore happens during device probe.
-+	 */
-+	iommu_pages_free_incoherent(range.top_table,
-+				    iommu_table->iommu_device);
-+
-+	/* Set the restored top table */
-+	pt_top_set(common, phys_to_virt(ser->top_table_phys), ser->top_level);
-+
-+	/* Restore all pages*/
-+	range = pt_all_range(common);
-+	return pt_walk_range(&range, __restore_tables, NULL);
-+}
-+#endif
-+
- struct pt_unmap_args {
- 	struct iommupt_pending_gather pending;
- 	pt_vaddr_t unmapped;
-@@ -1188,6 +1338,11 @@ static const struct pt_iommu_ops NS(ops) = {
- #endif
- 	.get_info = NS(get_info),
- 	.deinit = NS(deinit),
-+#ifdef CONFIG_IOMMU_LIVEUPDATE
-+	.preserve = NS(preserve),
-+	.unpreserve = NS(unpreserve),
-+	.restore = NS(restore),
-+#endif
- };
- 
- static int pt_init_common(struct pt_common *common)
-diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-index 9fc71db74234..7306de44eb00 100644
---- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
-+++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-@@ -427,6 +427,35 @@ static void test_mixed(struct kunit *test)
- 	check_iova(test, start, oa, len);
- }
- 
-+static void test_restore_free(struct kunit *test)
-+{
-+	struct kunit_iommu_priv *priv = test->priv;
-+	struct pt_range top_range = pt_top_range(priv->common);
-+	u64 start = 0x3fe400ULL << 12;
-+	u64 end = 0x4c0600ULL << 12;
-+	pt_vaddr_t len = end - start;
-+
-+	if (top_range.last_va <= start || sizeof(unsigned long) == 4)
-+		kunit_skip(test, "range is too small");
-+	if ((priv->safe_pgsize_bitmap & GENMASK(30, 21)) != (BIT(30) | BIT(21)))
-+		kunit_skip(test, "incompatible psize");
-+
-+	/* Map a large mixed range to populate multiple levels of page tables */
-+	do_map(test, start, start, len);
-+
-+	/*
-+	 * Simulate a restored state by clearing all features except SIGN_EXTEND
-+	 * and DMA_INCOHERENT. This verifies that the generic page table free
-+	 * walker can correctly tear down a populated domain when other features
-+	 * are zeroed. Also set max_vasz_lg2 as done by the actual restore()
-+	 * function.
-+	 */
-+	priv->common->features &= (BIT(PT_FEAT_SIGN_EXTEND) | BIT(PT_FEAT_DMA_INCOHERENT));
-+	priv->common->max_vasz_lg2 = top_range.max_vasz_lg2;
-+
-+	/* The domain will be freed when the test exits. */
-+}
-+
- static struct kunit_case iommu_test_cases[] = {
- 	KUNIT_CASE_FMT(test_increase_level),
- 	KUNIT_CASE_FMT(test_map_simple),
-@@ -435,6 +464,7 @@ static struct kunit_case iommu_test_cases[] = {
- 	KUNIT_CASE_FMT(test_random_map),
- 	KUNIT_CASE_FMT(test_pgsize_boundary),
- 	KUNIT_CASE_FMT(test_mixed),
-+	KUNIT_CASE_FMT(test_restore_free),
- 	{},
- };
- 
-diff --git a/include/linux/generic_pt/iommu.h b/include/linux/generic_pt/iommu.h
-index 13ebb72a67de..617fb9af6bef 100644
---- a/include/linux/generic_pt/iommu.h
-+++ b/include/linux/generic_pt/iommu.h
-@@ -13,6 +13,7 @@ struct iommu_iotlb_gather;
- struct pt_iommu_ops;
- struct pt_iommu_driver_ops;
- struct iommu_dirty_bitmap;
-+struct iommu_domain_ser;
- 
- /**
-  * DOC: IOMMU Radix Page Table
-@@ -166,6 +167,35 @@ struct pt_iommu_ops {
- 	 * table from all HW access and all caches.
- 	 */
- 	void (*deinit)(struct pt_iommu *iommu_table);
-+
-+	/**
-+	 * @preserve: Preserve the iommu page table for liveupdate
-+	 * @iommu_table: Table to preserve
-+	 * @ser: Serialization struct to fill with preserved state
-+	 *
-+	 * Preserve iommu page table and the relevant state for liveupdate. The
-+	 * caller must make sure that the page table is not updated during and
-+	 * after preservation.
-+	 */
-+	int (*preserve)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser);
-+
-+	/**
-+	 * @unpreserve: Unpreserve the iommu page table
-+	 * @iommu_table: Table to unpreserve
-+	 * @ser: Serialization struct that contains preserved state
-+	 */
-+	void (*unpreserve)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser);
-+
-+	/**
-+	 * @restore: Restore the iommu page table after liveupdate
-+	 * @iommu_table: Table to restore the state into
-+	 * @ser: Serialization struct that contains preserved state
-+	 *
-+	 * The iommu_table is back filled with the restored state that was
-+	 * preserved in the serialization struct.
-+	 */
-+	int (*restore)(struct pt_iommu *iommu_table, struct iommu_domain_ser *ser);
-+
- };
- 
- /**
+https://lwn.net/Articles/1033364/
+
+This work depends on,
+
+- VFIO CDEV preservation series (v5):
+  https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
+- PCI base device preservation series (v10):
+  https://lore.kernel.org/all/20261013162529.1928093-1-dmatlack@google.com/
+- Patch adding LUO internal API to get incoming/outgoing files. This
+  patch is needed as this series is rebased on iommu/next.
+  https://lore.kernel.org/all/20260723202912.1467112-1-skhawaja@google.com/
+
+The kernel tree with all dependencies is uploaded to the following
+Github location:
+
+https://github.com/samikhawaja/linux/tree/iommu/phase1-v6
+
+The series is targeting IOMMU tree.
+
+Overall Goals:
+
+The goal of this effort is to preserve the IOMMU domains, managed by
+iommufd, attached to devices preserved through VFIO cdev. This allows
+DMA mappings and IOMMU context of a device assigned to a VM to be
+maintained across a kexec live update.
+
+This is achieved by preserving IOMMU page tables using Generic Page
+Table support, IOMMU root table and the relevant context entries across
+live update.
+
+The functionality in the previously sent RFC is split into two phases
+and this series implements the Phase 1. Phase 1 implements the following
+functionality:
+
+  - Foundational work in IOMMU core and VT-d driver to preserve and
+    restore IOMMU translation units, IOMMU domains and devices across
+    liveupdate kexec.
+  - The preservation is triggered by preserving vfio cdev FD and bound
+    iommufd FD into a live update session.
+  - An HWPT (and backing IOMMU domain) is only preserved if it contains
+    only file type DMA mappings. Also the memfd behind such a mapping
+    must have been preserved already.
+  - During live update boot, the state of preserved Intel VT-d, IOMMU
+    domain and devices is restored.
+  - The restored IOMMU domains are reattached to the preserved devices
+    during early boot.
+  - The DMA ownership of restored devices is also claimed during live
+    update boot. This means that any attempt to bind a non-vfio driver
+    with them or binding a new iommufd with them will fail.
+
+Architectural Overview:
+
+The target architecture for IOMMU state preservation across a live
+update involves coordination between the Live Update Orchestrator,
+iommufd, and the IOMMU drivers.
+
+The core design uses the Live Update Orchestrator's file descriptor
+preservation mechanism to preserve iommufd file descriptors. The user
+marks the iommufd HWPTs for preservation using a new ioctl added in this
+series. Once done, the preservation of iommufd inside an LUO session is
+triggered using LUO ioctls. During preservation, the LUO preserve
+callback for an iommufd walks through the HWPTs it manages to identify
+the ones that need to be preserved. Once identified, a new IOMMU core
+API is used to preserve the iommu domain. The IOMMU core uses Generic
+Page Table to preserve the page tables of these domains. The domains are
+then marked as preserved.
+
+When the user triggers the preservation of a VFIO cdev that is attached
+to an iommufd that is preserved, the device attachment state of that
+VFIO cdev is also preserved using an API exported by iommufd. IOMMUFD
+fetches all the information that needs to be preserved and calls the
+IOMMU core API to preserve the device state. The IOMMU core also
+preserves state of IOMMU that is associated with this device.
+
+The IOMMU core has LUO FLB registered with the iommufd LUO file handler
+so the preserved iommu domain and iommu hardware unit state is available
+during boot for early restore in the next kernel.
+
+During boot the driver fetches the preserved state from the IOMMU core
+and restores the state of preserved IOMMUs. Later when IOMMU core goes
+through the devices and probes them, the iommu domains of preserved
+devices are restored and the preserved devices are attached to them.
+During attachment, the DMA ownership of these devices is also claimed.
+
+Tested:
+
+The new iommufd_liveupdate_kexec_test selftest was used to verify the
+preservation logic. It was tested using QEMU with virtual IOMMU (VT-d)
+support with virtio pcie device bound to the vfio-pci driver.
+
+Also Tested on an Intel machine with DSA device bound to vfio-pci
+driver. Note that preservation is refused for devices where ATS is
+supported, so the machine must be booted with pci=noats.
+
+Following steps were followed for verification,
+
+- Bind the test device with vfio-pci driver
+- Run test on the machine by running
+
+  ./iommufd_liveupdate_kexec_test <vfio-cdev-path>
+
+- Trigger Kexec.
+- After reboot, try binding the device to a non-vfio pci driver,
+
+  echo <device bdf> > /sys/bus/pci/drivers/pci-pf-stub/bind
+
+- This should fail with "Device or resource busy".
+- Bind the device with vfio-pci driver and run the test again.
+
+  ./iommufd_liveupdate_kexec_test <vfio-cdev-path> -s 2
+
+- Test verifies that the device cannot be bound with a new iommufd and
+  the session cannot be finished.
+
+Future and in progress work:
+
+- Phase 2 with IOMMUFD restore to reclaim the preserved vfio cdev and
+  restore the preserved HWPTs.
+- Full support for PASID preservation, i.e. non-zero PASIDs.
+- Nested IOMMU preservation.
+- Extend support to other IOMMU architectures (e.g., AMD-Vi).
+- DMA Alloc preservation support, buddy allocator only.
+  https://lore.kernel.org/all/20260708234854.4044652-1-skhawaja@google.com/
+- Arm sMMUv3 preservation support
+  https://github.com/pran005/linux/tree/wip-arm-smmu-lu
+
+Roadmap:
+
+  The doc below gives a break down of the overall work into Patch series
+  needed to complete Liveupdate feature from IOMMU perspective:
+  https://docs.google.com/document/d/1enDn-uPE9U77U-xHEnzn6HHGKiePSAtMIP8EDU3NO0M
+
+High-Level Sequence Flow:
+
+The following diagrams illustrate the high-level interactions during the
+preservation phase. Note that function names in the diagram are kept
+abbreviated to save horizontal space.
+
+Preserve:
+
+Before live update the PREPARE event of Liveupdate Orchestrator invokes
+callbacks of the registered file and subsystem handlers.
+
+ Userspace (VMM) | LUO Core |    iommufd    |  IOMMU Core   | IOMMU Driver
+-----------------|----------|---------------|---------------|-------------
+                 |          |               |               |
+MARK_HWPT        |          |               |               |
+--------------------------->                |               |
+                 |          | Mark HWPT for |               |
+                 |          | preservation  |               |
+                 |          |               |               |
+PRESERVE         |          |               |               |
+ iommufd_fd      |          |               |               |
+----------------->          |               |               |
+                 | preserve |               |               |
+                 |---------->               |               |
+                 |          | For each HWPT |               |
+                 |          |-------------->                |
+                 |          |               | domain_presrv |
+                 |          |               |-------------->
+                 |          |               |               | gpt(preserve)
+                 |          |               |<--------------|
+                 |          |<--------------|               |
+                 |<---------|               |               |
+                 |          |               |               |
+...              |          |               |               |
+                 |          |               |               |
+PRESERVE,        |          |               |               |
+ vfio_cdev_fd    |          |               |               |
+----------------->          |               |               |
+                 | preserve |               |               |
+                 |---------->               |               |
+                 |          |               |               |
+                 |          | iommu_preserv |               |
+                 |          | _device()     |               |
+                 |          |-------------->                |
+                 |          |               | preserve      |
+                 |          |               | (iommu_hw)    |
+                 |          |               |-------------->
+                 |          |               |               | preserve(root)
+                 |          |               |<--------------|
+                 |          |               |               |
+                 |          |               | preserve      |
+                 |          |               | _device(dev)  |
+                 |          |               |-------------->
+                 |          |               |               | preserve(pasid)
+                 |          |               |<--------------|
+                 |          |<--------------|               |
+                 |<---------|               |               |
+
+Restore:
+
+After a live update, the preserved state is restored during boot.
+
+ Userspace (VMM) | LUO Core |    iommufd    |  IOMMU Core   | IOMMU Driver
+-----------------|----------|---------------|---------------|-------------
+                 |          |               |               |
+                 |          |               |               | Restore
+                 |          |               |               | Root, DIDs
+                 |          |               |               |
+                 |          |               |               | Register
+                 |          |               | probe devices |
+                 |          |               |               |
+                 |          |               | restore       |
+                 |          |               | domain        |
+                 |          |               |-------------->
+                 |          |               |               | restore
+                 |          |               | reattach      |
+                 |          |               | domain        |
+                 |          |               |-------------->
+                 |          |               |               |
+
+
+Looking forward to your feedback on this.
+
+Changelog:
+
+v6:
+  - Add size, features and reserved fields to the KHO ABI to manage
+    compatibility.
+  - Use KHO block for preservation of KHO data structures.
+  - Drop "memfd: export memfd_get_seals()" and the memfd seal
+    requirement as it is not reliable because memfd can still have holes
+    punched after sealing.
+  - Split the disable_dmar_iommu()/free_dmar_iommu() merge into a separate
+    patch.
+  - Move the PASID table preservation patch before the domain reattach
+    patch.
+  - Move iommu_phys from the device attachment into iommu_device_ser.
+  - Rename vasz to max_vasz_lg2, and IOMMU_INVALID/IOMMU_INTEL to
+    IOMMU_SER_TYPE_INVALID/IOMMU_SER_TYPE_INTEL.
+  - Check the FLB version in retrieve before restoring the serialized
+    objects.
+  - Use _ser suffix consistently for serialized objects.
+  - Rework iommu_for_each_dev() to remove redundant arguments.
+  - Sanity check scalable mode changes across kexec.
+  - Use context_tables_bitmap as the source of truth during restore.
+  - Reuse reserve_domain_id() to reclaim the preserved domain IDs.
+  - Drop the IOMMU restored flag and panic if DRHD unit restore fails.
+  - Rename intel_iommu_restore_device() to
+    intel_iommu_attach_restored_device(), and the domain reattach/detach
+    helpers to domain_attach_restored_iommu()/domain_detach_restored_iommu().
+  - Drop the cache tag and IOPF setup for the restored domain.
+  - Rename nr_preserved_domains, nr_hwpts and nr_liveupdate_preserved to
+    num_preserved_domains, num_hwpts and num_liveupdate_preserved.
+  - Update the selftest to use an unsealed memfd and verify that a
+    hole-punched mapping is rejected.
+
+v5:
+  - Rebased on top of PCI preservation v9 and VFIO preservation v5.
+  - Do not preserve devices that share iommu groups.
+  - Save the DMA owner (iommufd) token in the serialized device state.
+  - Use READ_ONCE/WRITE_ONCE for dev->iommu->device_ser.
+  - Refuse preservation of devices where ATS is supported. Also drop PRE
+    disable as it depends on ATS.
+  - Drop the fallback stubs for the preserve/unpreserve ops.
+  - Clear the present bit and flush before clearing the context entry.
+  - Add comments on global invalidation and why the IOMMU lock is not
+    needed during shutdown.
+  - Treat -ENODATA, -ENOENT and -EOPNOTSUPP as absent FLB during
+    retrieve and fail only on other errors.
+  - Reclaim DID by first checking if the DID is already reclaimed by
+    another preserved device.
+  - Handle release device by doing teardown and reattach of restored
+    domain to restored devices.
+  - Validate the domain physical address, the restored domain identity
+    and the IOMMU identity before reattaching.
+
+v4:
+  - Add kdocs.
+  - Add 64BIT Kconfig dependency.
+  - Add FLB version into the serialized state.
+  - Replace bitfield in KHO state with u8 and padding.
+  - Add fallback stub for intel_iommu_unpreserve_device.
+  - Reject real DMA subdevices with -EOPNOTSUPP.
+  - Add VTD_PRESERVED_BITMAP_LONGS macro for context tables.
+  - Disable PRE in preserved context entries during shutdown.
+  - Unify DMAR free and disable into release_dmar_iommu.
+  - Move Intel IOMMU domain reattach logic into separate function and
+    file.
+  - Rename intel_pasid_try_restore_table to intel_pasid_restore_table.
+  - Use __aligned_u64 for hwpt_token in UAPI struct.
+  - Reject PRI usage in HWPT preservation.
+  - Remove liveupdate_preserve bitfield from hwpt_paging.
+  - Convert liveupdate_preserved bitfield to bool.
+  - Replace group-level boolean with per-device flag and group refcount.
+  - Check device_array in pasid attachment before preserving.
+  - Collect reviews and acks.
+
+v3:
+  - Add Reviewed-by tags.
+  - Export memfd_get_seals for iommufd module usage.
+  - Move iommu_flb_obj to liveupdate.c.
+  - Replace bitfields with u32 flags.
+  - Move callbacks from iommu_domain_ops to pt_iommu_ops.
+  - Fix DYNAMIC_TOP support by saving range.max_vasz_lg2.
+  - Replace BUG_ON with iommu_restore_pages helper.
+  - Update to use IOMMU_SER_FLAG_INCOMING and IOMMU_SER_FLAG_DELETED.
+  - Split out shutdown context-entry clearing logic into separate patch.
+  - Add context_tables_bitmap to track and preserve only active tables.
+  - Skip iommu_set_root_entry if restored.
+  - Fix array iteration bug by splitting macros.
+  - Move restore logic into caller instead of iommu_alloc_root_entry.
+  - Add robust IS_ERR checks for iommu_ser.
+  - Add safety checks for array traversal and domain physical address.
+  - Remove pasid_cleanup_preserved_table.
+  - Update handle_pd to dynamically iterate over valid PDE entries.
+  - Link liveupdate.o into iommufd.o to resolve modpost errors.
+  - Refactor liveupdate_immutable into nr_preserved_domains counter.
+  - Save actual number of preserved HWPTs to TOCTOU.
+
+v2:
+  - Move IOMMU_LIVEUPDATE under IOMMU_SUPPORT dependencies.
+  - Update copyright year to 2026.
+  - Add Kernel-doc for FLB struct.
+  - Add an ASCII diagram for FLB memory layout.
+  - Change compatibility to iommu-liveupdate-v1.
+  - Rename structs to more reasonable names.
+  - Add comment explaining the rationale for BUG_ON during restoration.
+  - Rename 'did' to 'attachment_id'.
+  - Use phys_to_virt() and virt_to_phys() consistently.
+  - Create separate functions for FLB unpreserve and folio_put.
+  - Return the virtual address from the restore_array function.
+  - Free serialized state on finish without checking for NULL.
+  - Rename 'iommu-lu.h' to 'iommu-liveupdate.h'.
+  - Suffix max with _per_page (iommu_max_objs_per_page).
+  - Move unused helpers to the patches that actually need them.
+  - Rename reserve_obj_ser to alloc_object_ser.
+  - Only allow vfio drivers to use preserve_device APIs.
+  - Move ops declarations under CONFIG_IOMMU_LIVEUPDATE guards.
+  - Add lockdep_assert_held() validations in locked functions.
+  - Rename device_ser_match to match_device_ser.
+  - Create iommu_folio_update_stats(folio, nr_pages) helper.
+  - Explicitly set incoherent flag to false for restored pages.
+  - Do not use unpreserve_pages() function for error handling.
+  - Preserve vasz and sign_extend of a domain.
+  - Make the restored domain free-only.
+  - Ignore error of pt_descend() during restore as it should never fail (dead code).
+  - On domain restore, clear all features except the preserved.
+  - Add a KUnit test to verify that a restored domain can be freed with zeroed features.
+  - Bypass paging_domain_compatible() checks for restored domains.
+  - Use an explicit if-check for preserved state to clear the context entries.
+  - Rename clean_context to clear_unpreserved_context_entries.
+  - Use "DMAR:" in pr_fmt instead of "iommu:".
+  - Pass ROOT_ENTRY_NR directly into unpreserve functions.
+  - Remove IOMMU lock during preserve as not needed.
+  - Iterate all devices when clearing context entries instead of just PCIe devices.
+  - Do not populate empty unpreserve_device callbacks if not needed.
+  - Rename unpreserve_iommu_context to unpreserve_iommu_context_table.
+  - Check the associated IOMMU in _restore_used_domain_id.
+  - Add a comment that MMIO base is used as token for identifying IOMMU.
+  - Add a comment in _restore_used_domain_ids that IDA allocation can safely fail.
+  - Mark IOMMU state restored after restoring to prevent double restoration and UAF.
+  - Fix domain leak in iommu_restore_domain error path.
+  - Check DID start range before allocation.
+  - Add lockdep_assert_held in group domain restoration path.
+  - Add WARN_ON to catch unexpected group ownership during device probe.
+  - Add comment explaining group ownership setup and reclaim during device probe.
+  - Cleanup the full PASID directory instead of only 4K.
+  - Rename ioctl to IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE.
+  - Use XArray to save the HWPT liveupdate marks.
+  - Add the ioctl struct to ucmd_buffer.
+  - Make the ioctl 64-bit aligned (struct padding).
+  - Add UAPI documentation stating that HWPTs cannot be unmarked.
+  - Add UAPI documentation stating that only file-based mappings are allowed.
+  - Rename structs to use "liveupdate" instead of "lu".
+  - Rework HWPT preservation to prevent TOCTOU and mutex lock inside XA spin lock.
+  - Check preserved pages at the IOPT level, not the HWPT level.
+  - Return -EOPNOTSUPP if there are PASID attachments.
+  - Do not allow detach (or attach) once the device is preserved.
+  - Add MODULE_IMPORT_NS("IOMMUFD") in vfio_pci_liveupdate.c.
+  - Make token u64.
+  - Modify selftest to use live update kexec_test pattern.
+  - Use helper macros in test instead of repeating ksft_assert
+  - Rename setup_cdev to open_cdev.
+  - Define constants (tokens) as u64 to avoid ABI warnings.
+
+v5: https://lore.kernel.org/all/20260921004834.2601285-1-skhawaja@google.com/
+
+v4: https://lore.kernel.org/kvm/20260808022723.3893618-1-skhawaja@google.com/
+
+v3: https://lore.kernel.org/all/20260614233728.2212104-1-skhawaja@google.com/
+
+v2: https://lore.kernel.org/all/20260427175633.1978233-1-skhawaja@google.com/
+
+v1: https://lore.kernel.org/all/20260203220948.2176157-1-skhawaja@google.com/
+
+rfcv2: https://lore.kernel.org/all/20251202230303.1017519-1-skhawaja@google.com/
+
+rfcv1: https://lore.kernel.org/all/20250928190624.3735830-1-skhawaja@google.com/
+
+Samiullah Khawaja (16):
+  iommu: Implement IOMMU Live update FLB callbacks
+  iommu/pages: Add APIs to preserve/unpreserve/restore iommu pages
+  iommupt: Implement preserve/unpreserve/restore callbacks
+  iommu: Implement IOMMU domain preservation
+  iommu: Implement device and IOMMU HW preservation
+  iommu/vt-d: Implement device and iommu preserve/unpreserve ops
+  iommu/vt-d: Clear unpreserved context entries during shutdown
+  iommu: Add APIs to get iommu and device preserved state
+  iommu/vt-d: Combine disable_dmar_iommu() and free_dmar_iommu()
+  iommu/vt-d: Restore IOMMU state and reclaimed domain ids
+  iommu/vt-d: Preserve PASID table of preserved device
+  iommu: Restore and reattach preserved domains to devices
+  iommu/vt-d: Handle reattach of the restored domain
+  iommufd: Add APIs to preserve/unpreserve a vfio cdev
+  vfio/pci: Preserve the iommufd state of the vfio cdev
+  iommufd/selftest: Add test to verify iommufd preservation
+
+YiFei Zhu (2):
+  iommufd: Implement ioctl to mark HWPT for preservation
+  iommufd: Persist iommu hardware pagetables for live update
+
+ MAINTAINERS                                   |  19 +
+ drivers/iommu/Kconfig                         |  12 +
+ drivers/iommu/Makefile                        |   1 +
+ drivers/iommu/generic_pt/iommu_pt.h           | 155 ++++
+ drivers/iommu/generic_pt/kunit_iommu_pt.h     |  30 +
+ drivers/iommu/intel/Makefile                  |   1 +
+ drivers/iommu/intel/iommu.c                   | 162 ++--
+ drivers/iommu/intel/iommu.h                   |  46 ++
+ drivers/iommu/intel/liveupdate.c              | 766 ++++++++++++++++++
+ drivers/iommu/intel/pasid.c                   |  10 +-
+ drivers/iommu/intel/pasid.h                   |   8 +
+ drivers/iommu/iommu-pages.c                   | 109 ++-
+ drivers/iommu/iommu-pages.h                   |  30 +
+ drivers/iommu/iommu-priv.h                    |   2 +
+ drivers/iommu/iommu.c                         | 185 ++++-
+ drivers/iommu/iommufd/Makefile                |   1 +
+ drivers/iommu/iommufd/device.c                | 156 ++++
+ drivers/iommu/iommufd/io_pagetable.c          |  24 +
+ drivers/iommu/iommufd/iommufd_private.h       |  39 +
+ drivers/iommu/iommufd/liveupdate.c            | 399 +++++++++
+ drivers/iommu/iommufd/main.c                  |  19 +-
+ drivers/iommu/liveupdate.c                    | 743 +++++++++++++++++
+ drivers/vfio/device_cdev.c                    |  10 +
+ drivers/vfio/pci/vfio_pci_liveupdate.c        |  28 +-
+ include/linux/generic_pt/iommu.h              |  30 +
+ include/linux/iommu-liveupdate.h              | 224 +++++
+ include/linux/iommu.h                         |  38 +
+ include/linux/iommufd.h                       |  29 +
+ include/linux/kho/abi/iommu.h                 | 234 ++++++
+ include/linux/kho/abi/iommufd.h               |  56 ++
+ include/uapi/linux/iommufd.h                  |  27 +
+ tools/testing/selftests/iommu/Makefile        |  12 +
+ .../iommu/iommufd_liveupdate_kexec_test.c     | 262 ++++++
+ 33 files changed, 3797 insertions(+), 70 deletions(-)
+ create mode 100644 drivers/iommu/intel/liveupdate.c
+ create mode 100644 drivers/iommu/iommufd/liveupdate.c
+ create mode 100644 drivers/iommu/liveupdate.c
+ create mode 100644 include/linux/iommu-liveupdate.h
+ create mode 100644 include/linux/kho/abi/iommu.h
+ create mode 100644 include/linux/kho/abi/iommufd.h
+ create mode 100644 tools/testing/selftests/iommu/iommufd_liveupdate_kexec_test.c
+
+
+base-commit: 7b7429c28ac01c8a2952225a4b8a742eec7359c3
 -- 
 2.56.0.257.gf7497c7d27-goog
 
