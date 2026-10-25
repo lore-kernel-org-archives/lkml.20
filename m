@@ -1,66 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792959035;
-	b=LRb0TRMyhxPK9gM+pVshDi0p+VpLNWl1cPzgkfYodbSiOHjo31/LRV4sAdJATaHjx43K
-	 ObDjt5ac1r2YM92We5M+lgsiYXPBWPEsdKqg5x18lIJgyf2XAxGk1TwkaRPNiJMN/BTEg
-	 ZOo5Wq3LuBEb7wYVQx6ng3MQqGsIHvMLGpzf1wYcQjkv4dtih3drsQ9BRk/UQ6zTTmkxB
-	 YS1KwoJCV7vubN/r53jnqUiiLh3D3Cui5IZ/9dogKm06f1ylh4dUzB4K9MSqdS/FxtkWn
-	 ZEliulYDpb8BDo5Rb56c6KEHdWTn78Vv1oB4FlHOQKAp1l1TDTCsaRi1MBov6FSSP/A==
+	t=1792959146;
+	b=L8erfSgEwrR774c4XVYr2v/K/KrFAGrKeVQFC4PayONb9Ol03VopUWzRfNP7APj08SSE
+	 z/4IgH7B9cbp69D/VINfqWa+fwVLLvRouU+khTwgAeTUqdtv3k6qJ2Hfk7szalMlbSVaU
+	 Zb7kuBlUduMFPr29gzmfCuPlLidQivLNkYOg9on77g3lQ6reJ0sMRyHPS9RjWtlnvgYtq
+	 Z8e1IzIxLNb0GkjiS7iDAp8mpZNqs16Hh+j4DHctfoOSkAzMi2g8kwmKxHJ3cLMMjA8je
+	 ktpbs7mRDQJ6ni6Hrxc5IBET5LZJyw3AVjLLCu821+HaLu2yfcKUV1pMKJei15AzeUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792959035;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nfuxDUd17BdkkholAC0E5iZ6FczMfNtszUIXAcM/J/4=;
-	b=MtiuCWpXi9qCDthwaB1qUwatBNpobHAAl7IuUN7iLrVks8z1xC6pGVasSYa7Aah1Vqc2
-	 xr51UsWdnuisHqYRX0kAnzaBG5tQoj7LQjdeup+hOcksCkbtRldbIHDP8kZiDDa2kQq8j
-	 lN03cEw5eo7MtJKqJIr1pppYMEEhMphQaC1sx56qxDKMX6QivhLeyyAAhclQWDyxGbt5f
-	 3H4e4pwr3gV2CRWjpMXgOapEaLpwfH8TqQ26YfVDh1Qw8dN8hjwGU45hOUprHcUK2g2/x
-	 NoO0H0FPvKnd0UlTjw/RPKPgtCH/cllv9h15Oc+DeXPRuDxkWIClFlmImFjGb43Rzew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959146;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition;
+	bh=5cDVAr6+YQe/bNMuDfysPIaGdThTHbdxjIWpI91AGfg=;
+	b=PnAfOQHqoAoLspD6whL37q0v0l2eI6E/W3dGEY+zmZo3EL6e/NSOXbZcAGzBNWUl9/FB
+	 fSq4u/A+GH9kI3R+2eQRrSOjLTsHAwr8P0TY0aLnMZ3LhB+l9LbSeUpqDMCJ7F9m5oziM
+	 9m8d/VakCZSFwX+7loBYpg9x0faMDcnZDqGZXY0+uLtqtnlbD0FNZcbLspWhEBSfagDkd
+	 UglWRmRjoWXwPq7z8n/eYP4LvOKOrz03UfE7WHoMwELHgQy2UGmnZ+RAKPunIYioZmx0S
+	 /waoKBparuM2dw631d0uu2lxuB0Vy/67Ze1eflr3n9sBBnDDnujdqUxNDM25nhgVy+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=xIbPSHG9;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfRIz22I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB87606A31A;
-	Sun, 25 Oct 2026 20:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB87606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0C5606A31A;
+	Sun, 25 Oct 2026 20:12:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=xIbPSHG9
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCSYQ2rpdzlfvpM;
-	Sun, 25 Oct 2026 20:10:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792959029; x=1795551030; bh=nfuxDUd17BdkkholAC0E5iZ6
-	FczMfNtszUIXAcM/J/4=; b=xIbPSHG9E/ShBMSpMR7/MCIc5yF6CJvMRbZ+75QX
-	TJ7blH0H/jORRmw6sB1iF5m3Y8DQxQ9i6sDKhu/Mnywp4iPywwl/lsBZDO5F2oT9
-	jFRc/eLosbMCBNPd9aBhBjv8+zWi4iY7aJjGmG2QH6X+eI22nb1lQUzPk4rSraIA
-	2QazKqnF2itsHjqbDh4CxQ/3pdnX5t6obUXtAVdLy4Wxn3PPQ8Fc8dFHzn3vncyT
-	RnrLIo8wfXAzBXiljOyQwg178p+T7ofDCGfj/LtI265+MaSJgzYTMtBUCoC8dW7o
-	6LJC/Hg/0X84UO9Zga8qAoZLivGnK9LpUX+mzzGJWqDwNw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id EBJM-FDfAURl; Sun, 25 Oct 2026 20:10:29 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCSYK095DzlfvpK;
-	Sun, 25 Oct 2026 20:10:28 +0000 (UTC)
-Message-ID: <76bbebb4-7337-486d-8f21-a39bcb6dca93@acm.org>
-Date: Sun, 25 Oct 2026 13:10:26 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfRIz22I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2E71F01825;
+	Sun, 25 Oct 2026 20:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792959146;
+	bh=5cDVAr6+YQe/bNMuDfysPIaGdThTHbdxjIWpI91AGfg=;
+	h=Date:From:To:Subject;
+	b=MfRIz22IJwgyVKNt9FpVoINAQSpT99boSkbxqUAdKeDzyUv+JzPfFUB2RD0pLLECF
+	 fLISQTuU8XHk6xl2S66dUwkKrMtmoWbx7nI+f8IpV10U1quF2IXnc3b20A5eos1Pgx
+	 56oMWe/uaNi6hC5DhqYdc2rro569RmeXDVMaOcJ/yEMVUZ0iStENgt1zBFoCSChZTK
+	 dTA5odKWM3/u77A1Lbr1AnCJzTkUfYdWQJzh+P33Ei/6DflIbz7pYe3T8Z33cHv82p
+	 IKKogw9Ct9jWe++KC/2pYBZiluwiOQc0iML1eiDXvCMOa/KkW7w9M8A4oy1dtuxNW1
+	 r6CPld1PLL/2Q==
+Date: Sun, 25 Oct 2026 21:12:22 +0100
+From: Helge Deller <deller@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, linux-parisc@vger.kernel.org,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	John David Anglin <dave.anglin@bell.net>
+Subject: [GIT PULL] parisc architecture fixes and updates for v7.4-rc1
+Message-ID: <at5ipgQnz46TtVMC@p100>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,82 +56,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on
- mutex helpers
-To: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko <andy@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Marco Elver <elver@google.com>,
- Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-References: <20261025191510.22261-1-zoone.rupert@gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261025191510.22261-1-zoone.rupert@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 10/25/26 12:15 PM, Rupesh Majhi wrote:
-> Found by building with CONTEXT_ANALYSIS_qcom-spmi-adc5-gen3.o=y
+Hi Linus,
 
-Please include the CONTEXT_ANALYSIS_qcom-spmi-adc5-gen3.o=y change in
-your patch.
+please pull the fixes and updates for parisc for kernel 7.4-rc1.
 
-> diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> index c68c6c5f6aca..6a3cabedf4e8 100644
-> --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> @@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
->   }
->   
->   void adc5_gen3_mutex_lock(struct device *dev)
-> -	__acquires(&adc->lock)
-> +	__context_unsafe(/* returns with adc->lock held */)
->   {
->   	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
->   	struct adc5_chip *adc = iio_priv(indio_dev);
-> @@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
->   EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
->   
->   void adc5_gen3_mutex_unlock(struct device *dev)
-> -	__releases(&adc->lock)
-> +	__context_unsafe(/* releases adc->lock */)
->   {
->   	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
->   	struct adc5_chip *adc = iio_priv(indio_dev);
-> 
-> base-commit: c9dbe2a47f635465c9985b7af74d2ae310e98125
+One code fix and various code cleanups in the eisa_enumerator driver,
+and lots of typo fixes in header files.
 
-Please consider replacing the above with the patch below:
+Thanks!
+Helge
 
-diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c 
-b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-index c68c6c5f6aca..09013c6e44a0 100644
---- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-+++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-@@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct 
-adc5_chip *adc)
-  }
+----------------------------------------------------------------
+The following changes since commit 734bef548a96e8774d6eef5dfa2026c6edc4e80b:
 
-  void adc5_gen3_mutex_lock(struct device *dev)
--       __acquires(&adc->lock)
-+       __acquires(&((struct adc5_chip 
-*)iio_priv(dev_get_drvdata(dev->parent)))->lock)
-  {
-         struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
-         struct adc5_chip *adc = iio_priv(indio_dev);
-@@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
-  EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
+  Merge tag 'net-next-7.4' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next (2026-10-22 15:58:00 -1000)
 
-  void adc5_gen3_mutex_unlock(struct device *dev)
--       __releases(&adc->lock)
-+       __releases(&((struct adc5_chip 
-*)iio_priv(dev_get_drvdata(dev->parent)))->lock)
-  {
-         struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
-         struct adc5_chip *adc = iio_priv(indio_dev);
+are available in the Git repository at:
 
-Thanks,
+  git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux.git tags/parisc-for-7.4-rc1
 
-Bart.
+for you to fetch changes up to 6219ffcc60a5b4a896b95e717c4affd6dead1bde:
+
+  parisc: eisa_enumerator: Code and whitespace cleanups (2026-10-23 14:40:02 +0200)
+
+----------------------------------------------------------------
+parisc architecture fixes and updates for kernel v7.4-rc1:
+
+- fix out-of-bounds read in eisa_enumerator driver
+- drop redundant pte_xxx() macros and use common macros
+- code cleanup in eisa_enumerator driver
+- typo fixes in comments in various header files
+
+----------------------------------------------------------------
+Helge Deller (4):
+      parisc: Drop own implementations for ptep_get() and ptep_test_and_clear_young()
+      parisc: Drop redundant implementation of pte_same()
+      parisc: Drop redundant implementation of ptep_set_wrprotect()
+      parisc: eisa_enumerator: Code and whitespace cleanups
+
+Hemanth Selam (9):
+      parisc: fix typos in comments in pdcpat.h
+      parisc: fix typos in comments in special_insns.h
+      parisc: fix typos in comments in mman.h
+      parisc: fix typos in comments in memcpy.c
+      parisc: fix typos in comments in ccio-dma.c
+      parisc: fix typos in comments in dino.c
+      parisc: fix typos in comments in pdc_stable.c
+      parisc: fix typos in comments in sba_iommu.c
+      parisc: fix typos in comments in parport.c
+
+Jean Delu (1):
+      parisc: eisa_enumerator: Fix out-of-bounds reads of the EEPROM buffer
+
+ arch/parisc/include/asm/pdcpat.h        |   4 +-
+ arch/parisc/include/asm/pgtable.h       |  30 --
+ arch/parisc/include/asm/special_insns.h |   2 +-
+ arch/parisc/include/uapi/asm/mman.h     |   2 +-
+ arch/parisc/lib/memcpy.c                |   2 +-
+ drivers/parisc/ccio-dma.c               |   2 +-
+ drivers/parisc/dino.c                   |   2 +-
+ drivers/parisc/eisa_enumerator.c        | 481 ++++++++++++++------------------
+ drivers/parisc/pdc_stable.c             |   2 +-
+ drivers/parisc/sba_iommu.c              |   2 +-
+ drivers/parport/parport_gsc.c           |   2 +-
+ 11 files changed, 226 insertions(+), 305 deletions(-)
