@@ -1,81 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792964747;
-	b=qmZvBvaWgnNOO8Z4Wh010c6A7wBufG22yQQ/VzitMcEXyowBKUmHpVLay1NBXiHQUYh9
-	 MjRBo21lvCvYO17IuHCxP8Oz0TS6LWLwIM3ykHKRU0vuu/Dazq0F8EWJ9uT/j959+/FGt
-	 AC6CQi+J/Zc2LeSCBSK7GpVrcGcyt7nxUdZhoK43iA/J4NKUEAIeMFkRvFvzIBn4I++PV
-	 LpkvhwCWiHooupDmdvm5LbIJW7T3XyRU+VAIVZ+T/8hRCCVxZSi6SX8tueWXIFobKk6mf
-	 xlTbipTBtWDzv0FyNHqaypVPGN1UzM+LjCMIQk2O3W1tQMfcBd37mOFGU9+wMFlOhnQ==
+	b=3lkg3Pgva6vNuCRdPl/QQ81rdyBf1AIgTQUWS5fZkbews/A5nznal2ihruzuW88DOjjJ
+	 IpTcGRgsF/C6RdPF0qyRQJwkJeYf76g3CNJgYLOOJvOVlI3by4lMzW5hy0c6fqN+Ffzfz
+	 FzbrhZST9c+cqMEoy22NsAPmph4o0McbmS5Lv1BNlKCRoreCgqhzGli9sr5opaVPFqBiz
+	 McI6Tt3OZrJoQ1j7ytKQlDloKb4VZdv9mKQlAoa0OHUvsYt7+IeOONrbfy1v282ImYyDJ
+	 83odcp1GQhbgOX7fesr4B4M/Ig9NgH1BItLd5XKWCY/i2plqek8wdx5Lh0ilROh6y+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792964747;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=RmmiNxhQYzkoyzwzJ8ZlP6Znb5o4/dCzCPLyRTfCPp0=;
-	b=Rb3FQTKY4ZX9RZ47hMqhb6nEFpj7IBoS6HjVdIaNF4FeIiBFJzJtpM76Zja7w/oSyA/d
-	 Qyg62ZoTE8L/jJkqfhx7mXNEh199eXxJutFwtFKrNtllGJ2d7EDVYuYSWOdAR6WFviUUg
-	 y5A2TtZbQAoxHeGWrT8fOl4ELZBVgocCSDYxwlCendOCMvVjF+gmGEV+MSiGmJgjjpjrA
-	 3Mqa6wtwXY9ZRavQg+0bsiv4zLUQ0XOZjKxKznAY3BDguF5B7auf3scGcnPYcYqKe5WBP
-	 VcE0byTZdQLLZYxa4nKmGGYva3U1VkD1pinZ3j4PBHUQpBfj0NLOqxDwkIFwXB1g/Jg==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vCxzfrh3q0viOpjyPodt9wvLDl7OKyvDyHqlIZTolkw=;
+	b=0JDwXeVvjUjRQdUiJpVJQyL3+LyolmlCNf+70A5df7AS39JgoNvIkcW07Q9a4yi0xjr0
+	 ConVkLeNSp3AvyLIuOH628qLjvUKz5C/FfKV4bqM/dEK+qjREyXR6BdGxJFS0IOLqStdL
+	 9uV4HzIQZV/27HZ1UQnqOvomFbI0/Vif0uQ2jS3wfV3wMYjcjnLUBGD+COKGouYoXOyOx
+	 n8OIzfFFgLepDmAZYaf0V+/xmLtsdC7UGH3Dz04iAcqpFLXVtyeAME8LMwV3JbkiQq4hW
+	 xUpyds2OfYfNpwtCDFPGY/zk20QDchXb1D+3mVEa5md4c+27qharDJsSVmmvh+Db6tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=emrw1J0+;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXtMhkNY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D3E606A338
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18D3E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C72B606A33A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=emrw1J0+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792964735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RmmiNxhQYzkoyzwzJ8ZlP6Znb5o4/dCzCPLyRTfCPp0=;
-	b=emrw1J0+1DZNUF9SLZRVsNq5dluiX+HmlWtSLKTcAMMM5fBhdvhqrfKBhJ4KwWGA3fvI/S
-	ELFdry0ABoBzxvR43U4U56D6GJ8LAd6b2sGKaL3JTDZTez3B0Dowh3hqLo/iQ3IeEn8zU6
-	ZcWF4IuXvUxOWe6HZ50+7TLeD0RPMnU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-90-ja7uuJ1GO0qELHHIQOCwVg-1; Sun,
- 25 Oct 2026 17:45:31 -0400
-X-MC-Unique: ja7uuJ1GO0qELHHIQOCwVg-1
-X-Mimecast-MFC-AGG-ID: ja7uuJ1GO0qELHHIQOCwVg_1792964730
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 437F81955E76;
-	Sun, 25 Oct 2026 21:45:30 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A3BCD1956089;
-	Sun, 25 Oct 2026 21:45:28 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v3 10/11] cgroup/cpuset: Relocate compute_*effective_cpumask() and compute_effective_nodemask()
-Date: Sun, 25 Oct 2026 17:44:48 -0400
-Message-ID: <20261025214449.310715-11-longman@redhat.com>
-In-Reply-To: <20261025214449.310715-1-longman@redhat.com>
-References: <20261025214449.310715-1-longman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXtMhkNY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0401F01825;
+	Sun, 25 Oct 2026 21:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792964746;
+	bh=vCxzfrh3q0viOpjyPodt9wvLDl7OKyvDyHqlIZTolkw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KXtMhkNYnoehSxItXKKJV7yo/sxJfiyYez1Mfyvl+AFlOF79MTC6MfU7C8bwiv0sH
+	 rYM2Rb5Hgz5f/FU/DjHcssFjiqZFiV8/hotHGXQzOpPsFfBARTOEiEBgkbUquombbo
+	 JD0w72lphUjCqG1x1+duhx2Iq2ILToRzFlpkuatfzoDA18bRiC38mtrMEDdTN6kOCF
+	 bVnMEFKULFNsa361OukS9Ej9CArKPfuPnnGqyHLWf7ebr17+k4ksLW7s/y6raSxsOq
+	 +tf2PKbtUMa/bOXykFnqlv3hmBAoBJzOaiFJrhTqF84AFiUJ2QegwUGo0A1pVhoxy9
+	 A9b1BDH52JsHQ==
+Message-ID: <e96837cf-d874-413a-9936-572b4d425259@kernel.org>
+Date: Sun, 25 Oct 2026 22:45:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,256 +51,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] extcon: rtk-type-c, ptn5150: fix connector fwnode_handle
+ leaks
+To: Selby Mashiki <mashikiselby@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20261025203146.455051-1-mashikiselby@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261025203146.455051-1-mashikiselby@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Relocate compute_partition_effective_cpumask(),
-compute_effective_cpumask(), and compute_effective_nodemask() together so
-that compute_effective_cpumask() and compute_partition_effective_cpumask()
-can be further integrated together. There is no functional change.
+On 25/10/2026 21:31, Selby Mashiki wrote:
+> In extcon_rtk_type_c_init(), device_get_named_child_node(dev, "connector")
+> acquires a reference to the connector fwnode_handle that is never released
+> on any return path.
+> 
+> Similarly, in ptn5150_i2c_probe(), device_get_named_child_node(dev,
+> "connector") acquires a reference to connector that is passed to
+> fwnode_typec_switch_get() and fwnode_usb_role_switch_get() and then leaked
+> when the function returns.
+> 
+> Mark both variables with __free(fwnode_handle) so the references are
+> automatically released on scope exit.
+> 
+> Fixes: 8a590d7371f0 ("extcon: add Realtek DHC RTD SoC Type-C driver")
+> Fixes: 842546c56345 ("extcon: ptn5150: Add Type-C orientation switch support")
+> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+> ---
+>  drivers/extcon/extcon-ptn5150.c    |  2 +-
+>  drivers/extcon/extcon-rtk-type-c.c | 10 +++++-----
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/extcon/extcon-ptn5150.c b/drivers/extcon/extcon-ptn5150.c
+> index eca1b140a..b5e1a3f3d 100644
+> --- a/drivers/extcon/extcon-ptn5150.c
+> +++ b/drivers/extcon/extcon-ptn5150.c
+> @@ -256,7 +256,7 @@ static int ptn5150_i2c_probe(struct i2c_client *i2c)
+>  {
+>  	struct device *dev = &i2c->dev;
+>  	struct device_node *np = i2c->dev.of_node;
+> -	struct fwnode_handle *connector;
+> +	struct fwnode_handle *connector __free(fwnode_handle) = NULL;
 
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 212 ++++++++++++++++++++---------------------
- 1 file changed, 106 insertions(+), 106 deletions(-)
+Why is the constructor empty? I cannot find any multi-assignment, which
+would lead to exceptions. Did you read description of cleanup usage?
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 3daab2381f04..f37d929616a6 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1135,43 +1135,6 @@ void cpuset_update_tasks_cpumask(struct cpuset *cs, struct cpumask *new_cpus)
- 	css_task_iter_end(&it);
- }
- 
--/**
-- * compute_effective_cpumask - Compute the effective cpumask of the cpuset
-- * @new_cpus: the temp variable for the new effective_cpus mask
-- * @cs: the cpuset the need to recompute the new effective_cpus mask
-- * @parent: the parent cpuset
-- *
-- * For v2, the parent's effective_cpus is inherited if cpumask is empty.
-- * The result is valid only if the given cpuset isn't a partition root.
-- */
--static void compute_effective_cpumask(struct cpumask *new_cpus,
--				      struct cpuset *cs, struct cpuset *parent)
--{
--	bool has_cpus;
--
--	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
--	if (!has_cpus && is_in_v2_mode())
--		cpumask_copy(new_cpus, parent->effective_cpus);
--}
--
--/**
-- * compute_effective_nodemask - Compute the effective nodemask of the cpuset
-- * @new_mems: the temp variable for the new effective_mems mask
-- * @cs: the cpuset the need to recompute the new effective_mems mask
-- * @parent: the parent cpuset
-- *
-- * For v2, the parent's effective_mems is inherited if nodemask is empty.
-- */
--static void compute_effective_nodemask(nodemask_t *new_mems,
--				       struct cpuset *cs, struct cpuset *parent)
--{
--	bool has_mems;
--
--	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
--	if (!has_mems && is_in_v2_mode())
--		nodes_copy(*new_mems, parent->effective_mems);
--}
--
- /*
-  * Commands for update_parent_effective_cpumask
-  */
-@@ -1622,6 +1585,112 @@ static int compute_trialcs_excpus(struct cpuset *trialcs, struct cpuset *cs)
- 	return rm_siblings_excl_cpus(parent, cs, excpus);
- }
- 
-+/**
-+ * compute_partition_effective_cpumask - compute effective_cpus for partition
-+ * @cs: partition root cpuset
-+ * @new_ecpus: previously computed effective_cpus to be updated
-+ *
-+ * Compute the effective_cpus of a partition root by scanning effective_xcpus
-+ * of child partition roots and excluding their effective_xcpus.
-+ *
-+ * This has the side effect of invalidating valid child partition roots,
-+ * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
-+ * or update_cpumasks_hier() where parent and children are modified
-+ * successively, we don't need to call update_parent_effective_cpumask()
-+ * and the child's effective_cpus will be updated in later iterations.
-+ */
-+static void compute_partition_effective_cpumask(struct cpuset *cs,
-+						struct cpumask *new_ecpus)
-+{
-+	struct cgroup_subsys_state *css;
-+	struct cpuset *child;
-+	bool populated = partition_is_populated(cs, NULL);
-+
-+	WARN_ON_ONCE(!is_partition_valid(cs));
-+
-+	/*
-+	 * Check child partition roots to see if they should be invalidated
-+	 * when all the effective_cpus will be used up and cs is populated.
-+	 * It is better to sacrifice a child partition root than invalidating
-+	 * the whole subtree.
-+	 *
-+	 * Return early if the effective_cpus is already empty.
-+	 */
-+	compute_excpus(cs, new_ecpus);
-+	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
-+		return;
-+
-+	rcu_read_lock();
-+	cpuset_for_each_child(child, css, cs) {
-+		if (!is_partition_valid(child))
-+			continue;
-+
-+		/*
-+		 * There shouldn't be a remote partition underneath another
-+		 * partition root.
-+		 */
-+		WARN_ON_ONCE(is_remote_partition(child));
-+		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
-+			int old_prs = child->partition_root_state;
-+			int parent_prs = cs->partition_root_state;
-+
-+			/*
-+			 * Invalidate child partition and update isolated_cpus
-+			 * if necessary.
-+			 */
-+			spin_lock_irq(&callback_lock);
-+			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
-+			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
-+				isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
-+						     child->effective_xcpus);
-+			child->partition_root_state = -old_prs;
-+			spin_unlock_irq(&callback_lock);
-+			notify_partition_change(child, old_prs);
-+			continue;
-+		}
-+		cpumask_andnot(new_ecpus, new_ecpus,
-+			       child->effective_xcpus);
-+	}
-+	rcu_read_unlock();
-+}
-+
-+/**
-+ * compute_effective_cpumask - Compute the effective cpumask of the cpuset
-+ * @new_cpus: the temp variable for the new effective_cpus mask
-+ * @cs: the cpuset the need to recompute the new effective_cpus mask
-+ * @parent: the parent cpuset
-+ *
-+ * For v2, the parent's effective_cpus is inherited if cpumask is empty.
-+ * The result is valid only if the given cpuset isn't a partition root.
-+ */
-+static void compute_effective_cpumask(struct cpumask *new_cpus,
-+				      struct cpuset *cs, struct cpuset *parent)
-+{
-+	bool has_cpus;
-+
-+	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
-+	if (!has_cpus && is_in_v2_mode())
-+		cpumask_copy(new_cpus, parent->effective_cpus);
-+}
-+
-+/**
-+ * compute_effective_nodemask - Compute the effective nodemask of the cpuset
-+ * @new_mems: the temp variable for the new effective_mems mask
-+ * @cs: the cpuset the need to recompute the new effective_mems mask
-+ * @parent: the parent cpuset
-+ *
-+ * For v2, the parent's effective_mems is inherited if nodemask is empty.
-+ */
-+static void compute_effective_nodemask(nodemask_t *new_mems,
-+				       struct cpuset *cs, struct cpuset *parent)
-+{
-+	bool has_mems;
-+
-+	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
-+	if (!has_mems && is_in_v2_mode())
-+		nodes_copy(*new_mems, parent->effective_mems);
-+}
-+
- /*
-  * remote_partition_enable - Enable current cpuset as a remote partition root
-  * @cs: the cpuset to update
-@@ -2145,75 +2214,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	return 0;
- }
- 
--/**
-- * compute_partition_effective_cpumask - compute effective_cpus for partition
-- * @cs: partition root cpuset
-- * @new_ecpus: previously computed effective_cpus to be updated
-- *
-- * Compute the effective_cpus of a partition root by scanning effective_xcpus
-- * of child partition roots and excluding their effective_xcpus.
-- *
-- * This has the side effect of invalidating valid child partition roots,
-- * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
-- * or update_cpumasks_hier() where parent and children are modified
-- * successively, we don't need to call update_parent_effective_cpumask()
-- * and the child's effective_cpus will be updated in later iterations.
-- */
--static void compute_partition_effective_cpumask(struct cpuset *cs,
--						struct cpumask *new_ecpus)
--{
--	struct cgroup_subsys_state *css;
--	struct cpuset *child;
--	bool populated = partition_is_populated(cs, NULL);
--
--	WARN_ON_ONCE(!is_partition_valid(cs));
--
--	/*
--	 * Check child partition roots to see if they should be invalidated
--	 * when all the effective_cpus will be used up and cs is populated.
--	 * It is better to sacrifice a child partition root than invalidating
--	 * the whole subtree.
--	 *
--	 * Return early if the effective_cpus is already empty.
--	 */
--	compute_excpus(cs, new_ecpus);
--	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
--		return;
--
--	rcu_read_lock();
--	cpuset_for_each_child(child, css, cs) {
--		if (!is_partition_valid(child))
--			continue;
--
--		/*
--		 * There shouldn't be a remote partition underneath another
--		 * partition root.
--		 */
--		WARN_ON_ONCE(is_remote_partition(child));
--		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
--			int old_prs = child->partition_root_state;
--			int parent_prs = cs->partition_root_state;
--
--			/*
--			 * Invalidate child partition and update isolated_cpus
--			 * if necessary.
--			 */
--			spin_lock_irq(&callback_lock);
--			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
--			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
--				isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
--						     child->effective_xcpus);
--			child->partition_root_state = -old_prs;
--			spin_unlock_irq(&callback_lock);
--			notify_partition_change(child, old_prs);
--			continue;
--		}
--		cpumask_andnot(new_ecpus, new_ecpus,
--			       child->effective_xcpus);
--	}
--	rcu_read_unlock();
--}
--
- /*
-  * update_cpumasks_hier - Update effective cpumasks and tasks in the subtree
-  * @cs:  the cpuset to consider
--- 
-2.56.0
+>  	struct ptn5150_info *info;
+>  	int ret;
+>  
+> diff --git a/drivers/extcon/extcon-rtk-type-c.c b/drivers/extcon/extcon-rtk-type-c.c
+> index 82b60b927..4b1fc084f 100644
+> --- a/drivers/extcon/extcon-rtk-type-c.c
+> +++ b/drivers/extcon/extcon-rtk-type-c.c
+> @@ -1236,20 +1236,20 @@ static int extcon_rtk_type_c_init(struct type_c_data *type_c)
+>  	schedule_delayed_work(&type_c->delayed_work, msecs_to_jiffies(0));
+>  
+>  	if (!type_c->port) {
+> +		struct fwnode_handle *fwnode __free(fwnode_handle) =
+> +			device_get_named_child_node(dev, "connector");
 
+This is odd. Why do you move it to the top?
+
+>  		struct typec_capability typec_cap = { };
+> -		struct fwnode_handle *fwnode;
+>  		const char *buf;
+>  		int ret;
+>  
+> +		if (!fwnode)
+
+Here is the usage.
+
+> +			return -EINVAL;
+> +
+
+cleanup.h is not always making code readable, so please avoid it if you
+do not intend to read its description how it supposed to be used.
+
+Best regards,
+Krzysztof
