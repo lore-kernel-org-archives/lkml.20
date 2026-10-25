@@ -1,88 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792945468;
-	b=i41x2jGgp2ckAqWz8pYhZIngDq1WFUKPb0DbgVi+JNCgHkYhfWbZ+tVyijy2xnFTNY3i
-	 d+LMU73rIdKu277e2UKqlKcZIFdpLjyU3fXNO69c3RetKCGOaPn+RvSj+OgYOogmibYpp
-	 f8RpSkF/EUiMHB80dOufDS2QbYGDz0flqm/8eaDNuO8yK7upOTF0UxY5weOOrz43fypkW
-	 rSQpIQtlbBHGn6j5noGwWnoW86mqZxt8qyfGojpQi4vVcMnSoaEViwFFwBbJO7kmpBFFc
-	 U5UABe08NBiHpIrCVXO3Jsh43dZw4HNOWHtd2E7ZlHAVDBawyLbyUu//IYy8fJ18U/Q==
+	t=1792945475;
+	b=Hx5hjxfhuf1D7liztNqMGHPgjfrBayxHaJjY3zrBcPBhAiIXY8/ayGEuhg6KEQjU8F6m
+	 0nlQId/mHepjty2wYBxYfhZN5aEbv6Y8koojlJ5nwBp/ijAwF/lXrwnMMzo/mBzEx12cQ
+	 fIqNibjOTzHwYdJwe8R2xkisEjHa5pd94CLLkxd1dtpLxrOis1m5QVnk43SVqB3Bn6xnm
+	 5JtrFbUIVsoH5cM70hCN9zlbEg6l7x6cVoSx02ZMQgjKpOy8fPf6yTkBWt1grydyG/7uU
+	 a3uPqgHCkd5x4nyt4eCiiAZp6kUWYAeRNmtQ3AcK3VfiY1lM1cYlPXLX6cgE4H2dSXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792945468;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
-	b=T7qppMav1134pCF1qpjKaWqRh0PqZZNBoyiaxEBor4WkM/TDKqIgnV0UgE/D3/wyDvxF
-	 XKfQ3dl5/To++HONsPapiXHILEJtYZR2OZqIF7UDwSTPmmjAvMUhIx3jGlbXoc0K5NaC7
-	 D8M9yB6Fjfv2AYouU21UPIpvMWz97lvGfJ+vkR9YbSKcV5RExqGbU6sXWuFdjIBTpjzXu
-	 9uIkO4ssv9QbNOSxXUX2/5LLvQ7Tzw4aE/TpBeLftggeieL4h3tpfxiXom5VCHeqtsH12
-	 bJwQL6NpHUZG+V69z+/N/3dyPt7ECjQyWiRQxTwZocwWqmfZsyvEppzubBxXZUhddMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792945475;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=c2ZwSUvISahkObZiE8tNnKfQSgL0vnLyigfSBhzpSG8=;
+	b=z9OtoOiCGzTZPVeIt07AZNi7KtKXCW7Gz4tuMyJTcurHv2at51ghPg47Ha3Wv6gwir4X
+	 vUcdonlQeK4sJC6+ZZp3DuOMx7lx16iePqbx7P/+PxPIA70nvvJ5F6TXl+OWbLpdSGPds
+	 7anOnaJmLTdasijpOVv77ECjvjxSmRIruo7L2sXcRAs0oAD+ASSHfj8kpsAhQ1uNKO8iw
+	 Q4eKl8yJ2NQy4u1yKc/x3PpACfwYntVmQ/9q7AFOrmcX7+gogMehmOe+Aw9tP50gkkzaA
+	 g1Hd6Ym8WeDIOE9wOJZstpFu+YwFEgztJHId1n97snTYL4NFiQuvSxd0bFnfKDkhSeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxJV8umB;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7468606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7468606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XBTMmGeZ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95796606A31B;
+	Sun, 25 Oct 2026 16:24:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95796606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxJV8umB
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1931ff67a29so5053955c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:24:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792945467; x=1793550267; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
-        b=KxJV8umBld7rA2/LkiKiL2e0PFwkHHnUuSYo0m4TJPJ8/PRuR77A0ppY7FZQf3wRzg
-         y3iss9UbZTuiLvtHjruYR6iepIErOgbpxJEuVu9LUD+9zipTrVr1OwUXVv+hV0bCD69W
-         wWjY2sQdrQSvDjyQeSxONqjYPMd2kdzEn7MBo7eGvjr2iX2W3KjrVECpKTwQ7C9R25go
-         FAkkP9nPgzlesH/FL9jxVdj8wU3zVA/5angovv87/Yp1e/l1bLS1HHS8fvz5EjTNTdlH
-         be+13rF/4y46KnQtZ8TFox4kHg63KgyJQAQQycjQgIo4wPCU68bt9Ozx8n5eEm4xXbTH
-         tVYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792945467; x=1793550267;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
-        b=hTOeH/9hdqIqMaD3fq2jh90fOI2AwuNjjIiNk+iq2ZIklVvzGyf5Jpc6I77eMXBVhV
-         MtI60qxPRCMROvLfc/02tdjUAhJY8W67SgaxjtImSng3eCctUDfx9vAyjAsxTWADAep8
-         18/EPmnSF/xKZIW/GpscQKypze+ckJB0L7TakCU10W1nwQVx9V1nOwl7824U/Dj8qNbE
-         rhPjanVYfmuJEHnh07X9SqarkNUPRSFx31HoqgHI9t9MLftrHuMlr44HtZxYgmfh5mIc
-         3Pw/7fEYjZdnaRVe+0dNMODwVKTyGUHqS3tssD+W/+eDClcVOjAfX7OINGNAMTrnqTfc
-         vCQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxACh0oHsM28lEXhtUt1AU9fwr6pr11a9O0wP6w3B3xtP/DM+7CAeMO/ZTdCcnTYO7JwaE8DxPCKy7XgTY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIf0YuKd05gm4At/TcSKA0b7kGC0qqgbVtAPryRLCnG33qTclJG
-	r/6J4DYbRXNBasHYfd9Azhqfetxen4TURVAoz4Q2Ia0XDaFvGXlWulyQ
-X-Gm-Gg: AYBFou2hoZWopHdKrCgPq0FzHG+U4ywKUV5ihPlNyZt1rR7TGKL518BZEpGLHBbmksZ
-	KCp0rjo+J+wYDm2tjHI8MvHUetx0JAgLHt3BzsueLmB+8jSMsfeNSnQxX+0cUO5M2JyYhE0mIn2
-	MFr4Yq53aXodiWgOHQilPFYvwzYKkVQ/EykPal+xfJaDdF/EG2Pk1nwT3zvTzKscij4i6Nqr2zm
-	nB2qSlok11GEcbjIw+g4OrJrauqwHTSbMGzG5Z5pDjmgPP5axB+gFzawytPZrRjFXBgsB/ieVrU
-	U0xcHPr9Xq/a0Vh2pYQlFUogxnPLElvqHRjS9CZbBr5pkF7PGXvifPQ79Bs3GD7qkkWEZarEJ0U
-	Tn+8JjKiKkjln7b2lShiPMuIkwTG6QfhPjEUAZPDIBjV4qhK85D9hN2p36ZOFLwuKhsZQOK4oC4
-	rEaZvmNXFJujWSf4H1Cg92Yj6t+KmP2dZ4NBmfaU8KdKWxv2jPgKcVD0umiq+siSwBJ2NzoSdwj
-	IzwFZwfslTHIOCmJvF+N4RgEbsRTu017/P7BpHqbfv2Oq8i7LGAA4F3gW+fQ5sFv0wo/r5VeYtw
-	cFWNX6mHLEEAqlu7hwcpbdMyEJf0+KwaP3tyng==
-X-Received: by 2002:a05:7022:ea48:20b0:183:3140:3ac1 with SMTP id a92af1059eb24-1a0ca49ad43mr687113c88.24.1792945466814;
-        Sun, 25 Oct 2026 09:24:26 -0700 (PDT)
-Received: from [127.0.0.2] ([2401:4900:7b93:fac6:22d5:5a09:b572:da26])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19a3736d16fsm16385722c88.12.2026.10.25.09.24.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:24:26 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Subject: [PATCH v8 0/3] media: Add Himax HM1092 mono NIR sensor driver
-Date: Sun, 25 Oct 2026 21:54:16 +0530
-Message-Id: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XBTMmGeZ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A1851688;
+	Sun, 25 Oct 2026 09:24:23 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A74CD3F7B4;
+	Sun, 25 Oct 2026 09:24:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792945466; bh=Wa5FEiznotdGRjUAu7xhk4BKqfMZW4oKuBsX6e09kyk=;
+	h=From:Date:Subject:To:Cc:From;
+	b=XBTMmGeZHkjM+Wh27vgs0gx+Vryw2mbsdA/yVCIYwxazl6YoAfBBi8Mb3LvA0qgzY
+	 Pv/ZwP5lclzPec3iiK/GHFyLNI09lNZQc9yYtPIZDdg4qkMoM+9MwK6p6CvtPUW+3l
+	 F1XZdHTZirQFoLPkX5tDBXVfXIiobLOcoJHVDhXY=
+From: Leo Yan <leo.yan@arm.com>
+Date: Sun, 25 Oct 2026 16:24:06 +0000
+Subject: [PATCH] Revert "perf/aux: Allocate non-contiguous AUX pages by
+ default"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,201 +57,172 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Q3UrEMBAF4FdZcm0lM/n3yvcQL6ZNZhuxW2nXo
- ix9d9Nd0JIFLw/MdxLORcxpymkWT4eLmNKS5zyeSvAPB9H1dDqmJseSBUq00oJv+gFkwCZOeUl
- TQ5aRKEZGCaKYjylx/rr2vbze8vzZvqXuvJVsF32ez+P0fX1wge3u1u0kVN0LNLKJ0EYPCZVqz
- fNxoPz+2I2D2LoX3GusNRatObCyIVrSvtbqX62K9oaJHLPm1NVa77WptS5aEqjUodPRh1qbvQ6
- 1NkUTsGmpzJvk3c/tn/b3q9miTXCBEZXTnmrtfjVIULV22+YeKLRgkDnu9bquP40jb2MwAgAA
-X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jake Steinman <j@metarealtyinc.ca>, 
- Eduard Kulyk <kulikeduard89@gmail.com>, Ray Strode <halfline@gmail.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8367; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=bji53MivHxAGK3eudCZSs9Bh0L0QddkWESjSVc3a5JQ=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBq3i0yT5aqJd9an3FOhmhrEz/TRTsP0JWaN4HS7
- RzGTZlaVxqJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCat4tMgAKCRAVlYpeERwF
- 3m4ED/0bpdZg/tcTmSTCegXVpMOgFS+vLZ74PY6sX0Uh9RuAgtFOpFmyMPUrLhGuJsX8HC6x/g1
- cepx19hPBIuoaIWify/rhZzQotpxnHpsvoAZy//IpwfcTE/F9K3zWDIiTpHuYd8nDVCDiDb/g/A
- b1/fu1AqduLvF9L5ik9ALh+6ZeOZiDNBv8WjM+daR3GqxcobH8YeyZnPy5lm49Z2QPxTObvR6vB
- iLGoxh8T6Ry4AkHtGo9JQbr40VuhPweAiGXJVXlxd0eoZUfZKDPZkRTfaQlPHXdz8QzIGi8Iiei
- v7ZxBrEikSis1TleU0xKvttCN8IOk8clvbx7yAOBgokObzq3ZcInENG9Hn478L8l/RywxyIA+8X
- qp8w/ky6eu7yskDymArFYVqG5CNgDC3rKlRhMTMhXwXUKWsy+A6tq4iWGrF6AxSMGFG1oJ5rgFw
- KlnIZhfTbDnPgqgkqnn+DOsZVL1CqcoMrU8hshXCdV7ysdpCF0jsrf2Xx87ncA/P8UPmBybpZpI
- Ken8o8EbgK1vHFkaVG9VmYE4vdvetzv0eLboewGtDBtDD2OvQrQLc/epFFu0tRKvsC4qJsHHXRI
- 7xXFy5l2LjoQKq70hYxSDLU28az7n9mnqwqeuZhkxeaLO9OOpoXGiIcghhoXqKlIVN3HmR2C5+u
- GyT2tYYGXXuDLRA==
-X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
- fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-perf_revert_prefer_large_alloc-v1-1-5fb431bbd624@arm.com>
+X-B4-Tracking: v=1; b=H4sIACUt3moC/x2NUQqDMBAFryL7bSBJMaG9SpEQ9EUXgsqmlILk7
+ o1+DgwzJxUIo9CrO0nw5cL71sD0HU1r3BYonhuT1dYZbQd1QFJoJuQTDkGChBxlQYg575OK2ng
+ /u4d/Jkctcin8uwfvsdY/489yl3AAAAA=
+X-Change-ID: 20261025-perf_revert_prefer_large_alloc-a0177d6379f6
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Yabin Cui <yabinc@google.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
+ James Clark <james.clark@linaro.org>, 
+ Anshuman Khandual <anshuman.khandual@arm.com>, 
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>, 
+ Michiel van Tol <michiel.vantol@arm.com>, Dev Jain <dev.jain@arm.com>
+Cc: coresight@lists.linaro.org, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792945462; l=5825;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=Wa5FEiznotdGRjUAu7xhk4BKqfMZW4oKuBsX6e09kyk=;
+ b=enQwGhfr5sTaKC2BbDvEtznAEqp0JWMmf2YawrTgqEV0dISIAS4VEIfOxtnv3JwcGaaKD5rw4
+ ifrzWaa3r+hAyJXCQRp8T7Js7b/l4u/xuazoR7JLqZOcBeT5erRDYpN
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
-1 megapixel monochrome near-infrared image sensor. On laptops it sits
-behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
-data lane and outputs 10-bit RAW.
+This reverts commit 18049c8cff9cc89daadc4df6975f7d9069638926.
 
-The driver exposes one fixed mode, test patterns, exposure, analogue
-gain and digital gain controls, pixel-array selection targets and the
-standard fwnode properties. The mode is selected by the external clock
-rate, since each known platform pairs its clock with its own PLL setup
-and init sequence:
+The original commit claimed that contiguous AUX pages unnecessarily
+exacerbate fragmentation for SPE, TRBE and ETR. This is not generally
+valid: larger allocations can keep pages with the same lifetime
+together, while order-0 allocations can scatter them across large
+blocks and prevent free pages from coalescing [1]. The follow-up
+discussion [2] has not established how forcing order-0 allocations
+addresses the reported problem.
 
-  24 MHz EXTCLK (Qualcomm, devicetree): 560x360, 180 MHz link frequency
-  19.2 MHz EXTCLK (Intel IPU, ACPI HIMX1092): 648x368, 180.48 MHz
+TRBE and SPE write to virtually addressed buffers. The TRBE L1 TLB
+has one entry on Neoverse V2 [3] and two on Neoverse V3 [4]. Small
+mappings increase translation pressure, and TTW stalls can contribute
+to FIFO overflow and trace loss on TRBE.
 
-Both run the single lane at about 360 Mbit/s and deliver about 30 frames per
-second.
+Larger allocations provide contiguous, aligned chunks for PMD or
+contiguous-PTE mappings with the proposed vmap() support [5].
+With the proposed vmap() support already applied, the tests in [2]
+showed that preferring larger AUX allocations reduced L2 data TLB
+refills by 99.68% in the TRBE test and 34.74% in the SPE test.
 
-Patch 2 adds the driver with the 24 MHz configuration. It has been
-tested on an ASUS Zenbook A14: the sensor probes, streams, changes
-brightness across the full exposure and analogue gain ranges, accepts
-digital gain updates while streaming, and returns to runtime suspend
-after capture. Its register programming was extracted from
-com.qti.sensormodule.hm1092.bin in the Qualcomm camera stack shipped for
-that system. Jake Steinman independently identified the exposure,
-analogue gain, digital gain and group-hold registers from Dell's
-hm1092.sys. The available documentation does not identify the
-test-pattern modes, so their menu names are based on output observed
-during hardware testing.
+Restore the previous policy of trying higher-order allocations first.
+The allocator already uses __GFP_NORETRY and falls back to smaller
+orders, including order 0, when larger allocations fail.
 
-Patch 3, from Jake Steinman, adds ACPI enumeration and the 19.2 MHz
-configuration used on Intel IPU6/IPU7 laptops. It was posted on top of
-v6 and is carried here at his suggestion. It has been tested on a Dell
-XPS 16 (IPU 7.5, with the ipu6 driver) and a Dell Latitude 7350 (IPU6).
+Remove PERF_PMU_CAP_AUX_PREFER_LARGE, since the restored default
+provides that preference. Intel PT retains its existing allocation
+behaviour, with no functional change.
 
-The 19.2 MHz configuration reads out (0,0)/1294x734, which is what the
-vendor sequence programs and includes the dummy border. The crop bounds
-therefore cover the 1296x736 native array, while the default crop stays
-on the 1280x720 active array.
+[1] https://lore.kernel.org/all/aPjrRkjiIt6HmXmT@casper.infradead.org/
+[2] https://lore.kernel.org/linux-arm-kernel/20260810-perf_aux_trace_large_granule-v1-0-03306c9339e3@arm.com/
+[3] https://documentation-service.arm.com/static/633fe1ec4c59b30b517730b8#page=52
+[4] https://documentation-service.arm.com/static/67361bd2c7fc0d1f211da382#page=54
+[5] https://lore.kernel.org/linux-mm/20260715120813.3609949-1-jiangwen6@xiaomi.com/
 
-The ipu-bridge entry for HM1092 was applied separately to media/next as
-commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor").
-The board-level device tree and PHY work that wires this
-camera up on the ASUS Zenbook A14 will be sent as its own series.
-
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
-Changes in v8:
-- hm1092: report the 1296x736 native array as the crop bounds, keeping
-  the 1280x720 active array as the default crop, so that the 19.2 MHz
-  readout window lies within the bounds (suggested by Jake Steinman
-  and Ray Strode).
-- Cover: drop the staging/ipu7 format note; with the ipu6 driver in
-  media/next the sensor streams on IPU 7.5 without it (Jake Steinman).
-- Link to v7: https://patch.msgid.link/20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com
+ arch/x86/events/intel/pt.c  |  2 --
+ include/linux/perf_event.h  |  5 ++---
+ kernel/events/ring_buffer.c | 29 +++++++++--------------------
+ 3 files changed, 11 insertions(+), 25 deletions(-)
 
-Changes in v7:
-- Rebase onto next-20261012.
-- hm1092: follow the sub-device pad op API change that added a
-  struct v4l2_subdev_client_info argument: take it in get_selection,
-  and drop .set_fmt, which only mirrored v4l2_subdev_get_fmt(), as done
-  for the other fixed-format drivers.
-- hm1092: limit the digital gain control to 0x3ff. The register is a
-  10-bit 2.8 fixed-point value and the sensor ignores higher bits, so
-  1024 and above wrapped back to black frames (reported by Eduard Kulyk).
-- hm1092: handle negative pm_runtime_get_if_in_use() returns without
-  touching unpowered hardware or dropping an unacquired runtime PM
-  reference.
-- hm1092: credit Jake Steinman as a co-developer of the control support
-  and carry the requested coding-assistant disclosure.
-- New patch 3 from Jake Steinman: ACPI enumeration and the 19.2 MHz
-  configuration, with Eduard Kulyk's Tested-by. Drop its
-  <linux/mod_devicetable.h> include as requested by Uwe Kleine-König.
-- Cover: describe both configurations, document the separately applied
-  ipu-bridge entry and correct the v5 data-lanes history.
-- Link to v6: https://patch.msgid.link/20260801-hm1092-driver-v6-0-5979f223748a@gmail.com
-
-Changes in v6:
-- dt-bindings: update the example to the PLL-derived 180 MHz link
-  frequency.
-- hm1092: replace the inconsistent 400 MHz link frequency and derived
-  80 MHz pixel rate with 180 MHz and 36 MHz. The new values are derived
-  from the ASUS Windows configuration's 24 MHz external clock and the
-  sensor PLL dividers.
-- hm1092: report the 1296x736 native array, 1280x720 active array and
-  1150x718 mode crop as distinct selection targets.
-- hm1092: add exposure, analogue gain and digital gain controls using the
-  register map supplied by Jake Steinman. Keep multi-byte controls as
-  separate writes, use group hold, derive the exposure maximum from VTS,
-  and program the hardware-tested 500-line exposure default in both the
-  init table and control. Hardware-test the controls on the 560x360 mode.
-- hm1092: do not power the sensor on in probe(). There is no I2C access
-  during probe, so leave it suspended and let runtime PM power it for
-  streaming.
-- Link to v5: https://patch.msgid.link/20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com
-
-Changes in v5:
-- dt-bindings: drop the local data-lanes constraint and omit it from
-  the example. Keep the inherited video-interfaces.yaml property allowed,
-  even though it does not describe configurable hardware.
-- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
-  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
-  geometry, as required by libcamera.
-- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
-
-Changes in v4:
-- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
-  constrain explicit values to <1>, and omit it from the example.
-- hm1092: add the copyright notice.
-- hm1092: replace the private register representation and write helper
-  with CCI register sequences and direct CCI writes.
-- hm1092: use descriptive test-pattern names based on hardware captures;
-  the available documentation does not identify these modes.
-- hm1092: parse fwnode properties before creating controls and set
-  read-only flags after validating control creation.
-- hm1092: use the generic get_fmt callback for the fixed sensor mode.
-- hm1092: initialize endpoint parsing with the fixed one-lane default,
-  reject other lane configurations, and remove the redundant endpoint
-  presence check.
-- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
-  declaration, brace, return-value and error-path formatting cleanups.
-- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
-
-Changes in v3:
-- dt-bindings: add the Reviewed-by tag from Conor Dooley.
-- hm1092: initialize RAW colorimetry fields in the pad format helper so
-  userspace values cannot leak into subdevice state.
-- hm1092: return -ENXIO when the required firmware graph endpoint is
-  absent instead of deferring probe indefinitely.
-- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
-
-Changes in v2:
-- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
-  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
-  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
-  build.
-- hm1092: free the control handler on the error paths in
-  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
-  leaked the handler.
-- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
+diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
+index 49349afee6119fb6fad815c847cb3cd9daa97604..3782af40f0832a874a7f0b60961d6652513de241 100644
+--- a/arch/x86/events/intel/pt.c
++++ b/arch/x86/events/intel/pt.c
+@@ -1896,8 +1896,6 @@ static __init int pt_init(void)
+ 
+ 	if (!intel_pt_validate_hw_cap(PT_CAP_topa_multiple_entries))
+ 		pt_pmu.pmu.capabilities = PERF_PMU_CAP_AUX_NO_SG;
+-	else
+-		pt_pmu.pmu.capabilities = PERF_PMU_CAP_AUX_PREFER_LARGE;
+ 
+ 	pt_pmu.pmu.capabilities		|= PERF_PMU_CAP_EXCLUSIVE |
+ 					   PERF_PMU_CAP_ITRACE |
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index eb3f7bab498ca9bee9ce7193744943b24ab2e0c5..b8d8b005f5c8a7c1def7cad02230bf9ffb876bd6 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -304,9 +304,8 @@ struct perf_event_pmu_context;
+ #define PERF_PMU_CAP_AUX_OUTPUT		0x0080
+ #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
+ #define PERF_PMU_CAP_AUX_PAUSE		0x0200
+-#define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
+-#define PERF_PMU_CAP_MEDIATED_VPMU	0x0800
+-#define PERF_PMU_CAP_SIMD_REGS		0x1000
++#define PERF_PMU_CAP_MEDIATED_VPMU	0x0400
++#define PERF_PMU_CAP_SIMD_REGS		0x0800
+ 
+ /**
+  * pmu::scope
+diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
+index 64d4dbdc6c071b72b670dd044616f52981206ae8..95f4fbdfd2764de5b72d901d778c46302f525fad 100644
+--- a/kernel/events/ring_buffer.c
++++ b/kernel/events/ring_buffer.c
+@@ -684,15 +684,7 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
+ {
+ 	bool overwrite = !(flags & RING_BUFFER_WRITABLE);
+ 	int node = (event->cpu == -1) ? -1 : cpu_to_node(event->cpu);
+-	bool use_contiguous_pages = event->pmu->capabilities & (
+-		PERF_PMU_CAP_AUX_NO_SG | PERF_PMU_CAP_AUX_PREFER_LARGE);
+-	/*
+-	 * Initialize max_order to 0 for page allocation. This allocates single
+-	 * pages to minimize memory fragmentation. This is overridden if the
+-	 * PMU needs or prefers contiguous pages (use_contiguous_pages = true).
+-	 */
+-	int max_order = 0;
+-	int ret = -ENOMEM;
++	int ret = -ENOMEM, max_order;
+ 
+ 	if (!has_aux(event))
+ 		return -EOPNOTSUPP;
+@@ -702,8 +694,8 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
+ 
+ 	if (!overwrite) {
+ 		/*
+-		 * Watermark defaults to half the buffer, to aid PMU drivers
+-		 * in double buffering.
++		 * Watermark defaults to half the buffer, and so does the
++		 * max_order, to aid PMU drivers in double buffering.
+ 		 */
+ 		if (!watermark)
+ 			watermark = min_t(unsigned long,
+@@ -711,19 +703,16 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
+ 					  (unsigned long)nr_pages << (PAGE_SHIFT - 1));
+ 
+ 		/*
+-		 * If using contiguous pages, use aux_watermark as the basis
+-		 * for chunking to help PMU drivers honor the watermark.
++		 * Use aux_watermark as the basis for chunking to
++		 * help PMU drivers honor the watermark.
+ 		 */
+-		if (use_contiguous_pages)
+-			max_order = get_order(watermark);
++		max_order = get_order(watermark);
+ 	} else {
+ 		/*
+-		 * If using contiguous pages, we need to start with the
+-		 * max_order that fits in nr_pages, not the other way around,
+-		 * hence ilog2() and not get_order.
++		 * We need to start with the max_order that fits in nr_pages,
++		 * not the other way around, hence ilog2() and not get_order.
+ 		 */
+-		if (use_contiguous_pages)
+-			max_order = ilog2(nr_pages);
++		max_order = ilog2(nr_pages);
+ 		watermark = 0;
+ 	}
+ 
 
 ---
-Jake Steinman (1):
-      media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
-
-Ramshouriesh R (2):
-      media: dt-bindings: Add Himax HM1092 NIR sensor
-      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
-
- .../bindings/media/i2c/himax,hm1092.yaml           |  101 ++
- MAINTAINERS                                        |    7 +
- drivers/media/i2c/Kconfig                          |   11 +
- drivers/media/i2c/Makefile                         |    1 +
- drivers/media/i2c/hm1092.c                         | 1140 ++++++++++++++++++++
- 5 files changed, 1260 insertions(+)
----
-base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-change-id: 20260618-hm1092-driver-a6f2aaddf201
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+change-id: 20261025-perf_revert_prefer_large_alloc-a0177d6379f6
 
 Best regards,
---  
-Ramshouriesh R <rshouriesh@gmail.com>
+-- 
+Leo Yan <leo.yan@arm.com>
 
