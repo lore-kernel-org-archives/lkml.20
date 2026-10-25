@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.238
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792961659;
-	b=jkrlt5Mro8DYckkFm+GQ9oQ9tOFQkYjJad2NKaUKsWeCbUBO2g7guOzEi2iHHVYt5dCB
-	 oXmFfDbj+PP/wt/CUKaUQ2c+BW3WH++Aey74d7wXVb0hoHlyEOAtnk/nUS6ucRha69U61
-	 cEwHMD+WPrqQAflJeJ6uZZHg+XNjlAHQhcj2FePcwi3Kv6BuFenKSjgvbr2uy41s5O5dw
-	 prL5NBCfLhH3MG5fdhlaB6DNCYEThq3j9mcad4tRq4gqwUisrzm6WhXo6BIdgNVzrkTy0
-	 X3GhMHl6+nPRSZEd73v7ZlE+Vua+DgzYSm+vgO4BTyWzQJn1dlfU4EIATXBy8Zc/MGg==
+	t=1792961675;
+	b=RnQ32OUdgL2sRxPlWiq4Vndhpeg73dVNNUJ1TwWn66rJgv2nXDFfXg7qSVMmiKhYkDnw
+	 Ed743BZyvQ/i2Pf8tLfAQ2ebg5X6JyBAyPMfoiNrduBk/Fa2eJ0hF6RUJMXIHnQbwdF9z
+	 kirI5FKXX++QDInF2/x2Q+9vqNjAMIjyrpQ5FtIp5FnWBZexfgsv81lGMhpxwDgZTtBIC
+	 ccFoGhDlo6dGgvKz9LeCskZNeqf/Q+3ZXGS7NcBZPqhfHY5WDYUwV6jW4r0UTDfCguVy2
+	 KC2T+MzjzruElbFSLrk1j64B4Fs+aYCVaoX6ERJaeZ+TKJoCTy85j/pyrnQc/xapS3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792961659;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
-	bh=v5wUyzr+DyPRm9u7hQz3ABD0SUSnHt3iQOyUP/pLhMk=;
-	b=1/tUxxajwoDkL9LUHZ3CHFKSBk6qB74QVaVYzT3aVRsjFwYPZoABPflGugYEHDCy1sD3
-	 WJCKlzrQpDhhbwJR4p/tOCkG82xz+h9Tr6W4FLE1evobOHosoFiiRjBeRUfNTE9nD/ESG
-	 /mrxgGfObmCnwqI+79TpSQXv8/StX/6DlpFT5N+Rg6KLSRv8tSpp8MzBeUSdJFZezYs22
-	 uzJXZAGJMJsPUPHhums/tenQl++Rhb7JtPj2UxOoVY5HeODGFm2uPVeoZCqIpAChCkwed
-	 kRM5naz5aCuHfFfRtTQptFWwC49MT2CjKpzAR48HQ46h2vSiRYLic3ClKKQU3nC0vRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792961675;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aL/00IWBXdCdXkEF6EEPuYr8zZrJ9vyz7bkpiMRmEdM=;
+	b=v6mKiLTY81jrT/ZDk40slQQKmgvZ6YngtIPhVVpLpJaMzEPydQ1pnNF6u7PkW51lffxc
+	 gdCDIdAL1fDiq1QYqP3hBuXTtcO8rWxT+BBZH37Gr0Wmd3cS7kY7guoR5B8mSn0WyfLSQ
+	 2Ep7iP5LFrD/Ihew+kUtyDWCQGMULj2DK5vLNh6QHdjCNoR7fk2HBjEz0dIy+sB0OqxOO
+	 gmDQtH93CCUmA1euCPCOMkYOAuHvhve/Kiuy9QuuVLsbBdMvGd68RlYUBWeDZ7UaLEoVm
+	 DzAj1INzLR7Mr/I87WMQ5kzFpx4siS4JbBg73Bwk/PS/IaYPsYMfZKeGvP/uWxtxrCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b="ph6/xYnr";
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GU2R7FrF;
+	arc=none smtp.remote-ip=95.215.58.238
+Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1330B606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:54:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1330B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EB8606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44EB8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=ph6/xYnr
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 0D15B61054
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:54:09 +0100 (CET)
-Received: (qmail 25742 invoked by uid 990); 25 Oct 2026 20:54:08 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 25 Oct 2026 21:54:08 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Leonard Lausen <leonard@lausen.nl>
-Subject: [PATCH] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-Date: Sun, 25 Oct 2026 20:52:48 +0000
-Message-ID: <20261025205339.14539-2-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GU2R7FrF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ankf4XxHDxRfhnLCIDBCrrc3RBZoBSY/RGT1YJVkWcI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792961671; v=1; x=1793566471;
+ b=GU2R7FrFsdvUWGbn54CwHj7gxRkCgBWEUHdIpNGlMitBKsrAx8f+s5EdCmQpdRv+AAeNZXSW
+ mws1N5WvjwFiktH8bCyWMhB9ToQZNFBl46NWckyBLsc7aBAw36j8oU8w7O10M95LwB5rShkQBAY
+ 4oUY0LBWrXkfxkjWgYvAHpfY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 764fd78aebea3921;
+	Sun, 25 Oct 2026 20:54:30 +0000
+X-Mizu-Trace-ID: 764fd78aebea3921
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c04f287c-f4d9-4633-925c-1010e0b91b17@linux.dev>
+Date: Sun, 25 Oct 2026 21:54:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,106 +58,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: /
-X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-2.999799) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -0.099799
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=vZp7WOiFDniDGGPVB44BCfmjNLNKpcugqLlTg39BwmY=;
-	b=ph6/xYnrrUxOCAl6qoRBXpbH0JRaj0GL9p69gDqEDI9uZ2+N1Pk/Qp5rXwxKv75BLb+K+wUfHc
-	ttxdkc4ak71hq6vAdf1xp2R5T08BgrX0glv4CeV2jb0t2f1lm0I/4fmvP02wSc+OUdkucDW0gA6H
-	HeopSLDqOk+IAHX1IOT6ODedzzQ4dc3sjSIWHAjIbsgeoewnx41tbkTAICtBp2kNXM9zxBad2wxT
-	WV9Yvbpji2KSfrWcug4sTc65mEMra8Q7IunNLTpGfZ5UERBkqA05eGOYN6IPp3V16DFzc1x7uUtU
-	aknRUf8TkdpoowDJgmysVGbkJBIpKRCtFF7n8FHdRK7bg/tMKRa8wysHhJGRxKvLDo5cOYbwvXQM
-	kQUbewTE4MwAgvHSV2IVgfuhUAr5iOtq6T3TxJKAka1zVxb+sYkfaBhKbxL0yO43CNbkMk3vj6Kb
-	HAOnPJNwHwUjKTSoaHr2nhrNhoebOp2YQE1631GDhGgR96vLPLYlzEBPd0m6WB8pfcSQpWkxjUvf
-	duJcssmbBWWECTPTKSLqXikRAq02ksLD3LxW5eVbQmSTvJAqxY54rFBOXTGXzuMIYyh54sXk1owu
-	3Bz07OAOrwyK9ldMTmLyrCnmFB8XxbNkfsay/z6O4mxqN1P/SBifh5BVBPJU55SjjtEhobB1EtvB
-	k=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] ASoC: tas2783-sdw: keep the volume settings across
+ resets
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, broonie@kernel.org,
+ Niranjan H Y <niranjan.hy@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Sen Wang <sen@ti.com>,
+ Kevin Lu <kevin-lu@ti.com>
+Cc: Lee Mann <leepaulmann@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Andrey Golovko <andrey.golovko@gmail.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
+ <20261018200009.1493438-2-matthew.schwartz@linux.dev>
+ <bdc967fd-c056-492d-b970-db5630f21b95@linux.dev>
+ <4c1a8b04-d873-4395-badb-2762e6c40f59@linux.dev>
+ <caf02dc9-cd1a-4acb-b7eb-b65d46b89f9d@linux.dev>
+ <eef7a85e-4cde-4941-817a-cca48b230db0@linux.dev>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <eef7a85e-4cde-4941-817a-cca48b230db0@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
-RTL8822CS-based AC200. The SDIO controller is disabled and the module's
-power sequence is not described, preventing the card from enumerating.
+On 10/21/26 02:04, Matthew Schwartz wrote:
+> On 10/20/26 1:41 PM, Pierre-Louis Bossart wrote:
+>> On 10/19/26 19:53, Matthew Schwartz wrote:
+>>> On 10/19/26 8:56 AM, Pierre-Louis Bossart wrote:
+>>>> On 10/18/26 22:00, Matthew Schwartz wrote:
+>>>>> The register cache is dropped when the amp attaches uninitialized and
+>>>>> again after the firmware download, so the Amp Volume and Speaker Volume
+>>>>> registers are not cached while the amp is runtime suspended, and every
+>>>>> read or write of those controls fails with -EBUSY. On a platform that
+>>>>> powers the SoundWire link off when idle, such as the ASUS ROG Xbox Ally
+>>>>> X20, the amp is also reset and initialized again on every wake, so a
+>>>>> volume set while it was awake is lost the next time the link idles.
+>>>>>
+>>>>> Keep both settings in the driver, as the cache has to be dropped
+>>>>> whenever the reset and the firmware download change registers behind
+>>>>> it. Reads return the kept value, a write reaches the device only while
+>>>>> it is runtime active and initialized, and the settings are programmed
+>>>>> again after every init and resume. Until userspace sets a control, the
+>>>>> value the firmware leaves after each init is adopted instead, so its
+>>>>> tuning stays in effect. Waking the amp for a control access would
+>>>>> instead cost a full init of both X20 amps, about 0.2 s each.
+>>>>>
+>>>>> Fixes: b627da430357 ("ASoC: tas2783-sdw: drop stale regcache on uninitialized re-attach")
+>>>>
+>>>> Erm, not sure what to think about this fix of a fix.
+>>>>
+>>>> This commit b627da430357 introduced the regcache_drop_region() for all
+>>>> kinds of reasons, and now this new patch introduces a manual management
+>>>> of the volume registers - but why limit this management to volume
+>>>> settings only? Shouldn't other features such as e.g. bass boost or EQ
+>>>> also be restored?
+>>>>
+>>>> It really feels like the problem is that the regmap is not properly
+>>>> restored...at the end of the day, this driver is missing a
+>>>> regcache_sync(), no?
+>>>
+>>> The driver only has the two volume controls, there's no bass boost or
+>>> EQ control. The rest of the tuning comes from the firmware, which
+>>> tas_io_init() writes again on every init, apart from a retained PRAM.
+>>>
+>>> A regcache_sync() can't restore these two because the firmware
+>>> download writes registers with sdw_nwrite_no_pm(), behind the cache,
+>>> and that includes AMP_LEVEL. Of the 72 TAS2783 files in linux-firmware,
+>>> 44 set it to something other than the 0x28 in tas2783_reg_default[],
+>>> mostly levels 9 to 16, and two set DVC to 0x04 instead of 0x00.
+>>> Syncing the default values would replace that per-platform tuning with
+>>> full gain. So the driver has to know whether userspace set a value,
+>>> which needs restoring, or left it alone, in which case the firmware's
+>>> value should stay, and regmap doesn't track that per register.
+>>>
+>>> The volume was also lost before b627da430357, since the sync ran
+>>> before the reset wiped it. The Fixes tag is for the -EBUSY that commit
+>>> added when reading an uncached volume register while the amp is
+>>> runtime suspended.
+>>>
+>>> Certainly open to suggestions for improvement here if there's a simpler
+>>> way to fix this.
+>> I am afraid I don't fully grasp the intended design, with a regmap
+>> default, a firmware download that modifies volume settings but doesn't
+>> update the regmap value, and last a userspace-defined volume that can
+>> override a platform-specific tuned value. It's a recipe for inconsistent
+>> register settings...
+> 
+> Yeah, I certainly can't argue with you there... I think we need vendor input
+> to get a better understanding of how these are meant to work together.
+> 
+> This was broken on real hardware, so my patches were pretty focused on trying
+> to unbreak that specific device. Speaking candidly, I'm not sure I'm in a
+> position to take on all of the tech debt that's been surfacing here.
 
-Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
-and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
-200 ms power-on delay used by the vendor device tree, and the external
-32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
-suspend as required by the rtw88 SDIO driver.
+let's move all the TI folks in the To: list to ask for feedback...
 
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 34 +++++++++++++++++++
- 1 file changed, 34 insertions(+)
+My guess is that this inconsistency comes from the commit a3b0cd6 "ASoC:
+tas2783A: use custom firmware", which suggests the use of the same
+firmware as Windows - but guess what there's no regmap in Windows, is
+there? By allowing firmware to set volume levels by bypassing regmap,
+there's now an inconsistent state with what regmap and userspace think
+is the valid volume.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-index 3a305408fa16c..bfa18de1ae1af 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-@@ -23,6 +23,7 @@ aliases {
- 		ethernet0 = &gmac0;
- 		ethernet1 = &gmac1;
- 		mmc0 = &sdmmc;
-+		mmc1 = &sdio;
- 	};
- 
- 	chosen {
-@@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
- 		vin-supply = <&vcc_3v3_s3>;
- 	};
- 
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		clocks = <&hym8563>;
-+		clock-names = "ext_clock";
-+		pinctrl-0 = <&wifi_reg_on_h>;
-+		pinctrl-names = "default";
-+		post-power-on-delay-ms = <200>;
-+		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+
- 	sound {
- 		compatible = "simple-audio-card";
- 		pinctrl-names = "default";
-@@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
- 		};
- 	};
- 
-+	sdio-pwrseq {
-+		wifi_reg_on_h: wifi-reg-on-h {
-+			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	sdmmc {
- 		sdmmc0_pwren_h: sdmmc0-pwren-h {
- 			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -890,6 +907,23 @@ &saradc {
- 	status = "okay";
- };
- 
-+&sdio {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	disable-wp;
-+	keep-power-in-suspend;
-+	mmc-pwrseq = <&sdio_pwrseq>;
-+	no-mmc;
-+	no-sd;
-+	non-removable;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+
-+	status = "okay";
-+};
-+
- &sdmmc {
- 	bus-width = <4>;
- 	cap-sd-highspeed;
--- 
-2.47.3
+Possible fixes:
+- make all registers touched by firmware volatile.
+- use regmap_write instead of sdw_nwrite_no_pm for configuration
+registers managed by regmap.
+- add checks to make sure sdw_write_no_pm is only used for e.g. memories
+supposed to contain DSP firmware.
 
