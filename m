@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792896529;
-	b=SPmwafX8VNYbilC00Wn1V+UO4phxVru9vbvP3bVXipIAdTOSg77WiEu6ohZi6cQ2Db76
-	 I5N9eP+Xhdsn6mN2PINIdxozqhKN0eFauOKXwmPoV5a+yJ6NgIE1YXUckEa7ivQ/da4ui
-	 8oG+Mb6oTsCouEJMqw28sWO0unAHSGWXHbuPZYKieg9jrcO6SnzMlWTbI0SYhP/swpEEI
-	 n2GjscVC0ZnQ8B9IYcw0I2p1O7xJxzuK91HygyHEY6JIbCgzdfpUEHzNPQQK4s/5PSq2d
-	 aGC6Qit+6lHHmP7hEV2Po8akYGLFhFafglTk+cmSxo2L8jiMmefenKEF1qQYHl4wNDA==
+	t=1792896539;
+	b=rmgj3QY4cy1sM0wqNQFoNumpEdzq+Dho/CRY9yvGBwq+yanibUKTGax/hlsZ9Vh8rH/4
+	 LcykhgoNxPReKOOi0zZekHkpRvdqvfVYPHdcxIab2PX1qeJnDu99YHouc5Psu/US27t6/
+	 EqEcTVI2D9fYBjnurkWdX+VkFirLTmGRLxLRQ2M4qS4i/wHLjRcV7j4v+Rd00JGbrb8fF
+	 ppo4NdibbsQ0C6xnwuNPHjTdd4iKYIE+LSg4fvdT9q9Iv7PsqLMsY4ti+G9ZyWW+8Vfsq
+	 CLENvV96cQ/NEInKgdN08sHYZJEcAwtapQtCp7zJF5etNgIDNe0/4yPKTbv51Noz28Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792896529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792896539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=FRxwvjYywW2EDj8EBeP8mrgqVWNhsI+cL4nt5lpU7sA=;
-	b=q1+CSidik8JDtmP8fFflaRqzyg3V+3IZm9fAskPhBYj0T6spN8Yg+J7idlA/PHWF2+jy
-	 RYtwU3TfC4nbK3i/J9Po1wLBcKZGHtJ6wdVpC8RY4PQ9XVGHsvONbrx+fMaoKZ1LTzEZx
-	 F/TeyO9gktdmD+aEGLAg3MV5aIzCYCqZAXFIJCkoBAeuVUGUiOWUvIqQOWmlZmQgVSDzs
-	 zdmKqa1nefIuzgY4MK8YgWEjr4uNzVP1pirRsrHqGx4bR8+bFrREagIvMa6qGGf5J+X4f
-	 0WxS1RDN/hEVFgHAiEpwL7hnawID49e+WGRSrI47wkLs2TUiM7ShgnrO4U7ToZpjNiw==
+	bh=+D4LEQidpEa6OUGGXTLPtwOtKyE7/MIv6b0FECjwB4c=;
+	b=OAnTkkQmXdZgk/O3Wpd9O/rJPyCFmLvFVX5f+mmCEPrLX6cbEqvsMb4tLIt+id1yXrgF
+	 gFVFHiYa9LKXrFx8QS4a1n661OZ5kBjZXe70LX3ESFDgigpTWqQeN6MeStH96Rw/6vCh+
+	 2UE3wtPP9li+XnvrtpCcVJv6yVLGaLsXm56PL3tM+hotptdpt5QptExa2fjsmy4rW+gKb
+	 QE2XMUvPJnMy/qZ0IoVvXH0gn/SSBB1HNlreH2JPvxLy7FDDXmSyPe08rbJsi5cMcwRl2
+	 F/jca8UaPeYpPzGNmm+2yESK+HJcvIrTy4p3AjymxRwx2nLhxQeOuCmXwzdGzBku6CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TpxwA813;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KoY+mptH;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B3B606A32F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:48:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B3B606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA04606A33D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA04606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TpxwA813
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-156cbe59524so1130235c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:48:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KoY+mptH
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5337128eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:48:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792896528; x=1793501328; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792896538; x=1793501338; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FRxwvjYywW2EDj8EBeP8mrgqVWNhsI+cL4nt5lpU7sA=;
-        b=TpxwA813+P5znsifZUJ8deji2Cfy3YNYm07xUH+eLP83aZg54OT8spSktYMe6uqGRE
-         iQECHez5gjvBbx6xLGeVbfT8DSZ1k8Qt62vdK8EaDhI3b1+wztqIkJbaJlCtnuCA5esL
-         QRH/IaQA0IS4/4rwKKtRZShp/VJZY5B2CGAQ4+oQP9868SHQzHcsRMqbIUIJIrKAZ80n
-         lruFtXxmDd9FsV8X+PllJ668rF3ZZJTTNnl5/6dcw99NfAg8N0Yo5T4C0J1RuHQYX1ve
-         +cFbn2eSkjaZFV55MBT+LCMMz8FPEg4aiNN52QkcwWnlvHZrZ4/6zCg7MfQQ7POzh5gG
-         lE8w==
+        bh=+D4LEQidpEa6OUGGXTLPtwOtKyE7/MIv6b0FECjwB4c=;
+        b=KoY+mptHC0CdbSXyXRIQLOUk+sIQ2V8zR/H4vg66uM1mRxvr8C2tagJSF+7ZHnvhXb
+         mrm+QXgnkIMNQlrG+qcqoZpD2EjjNBgf7f9tWH1pbJYvt9qCPRW9+uC87jYr5Ky702+k
+         AnIyrs+SQfRs/p/9TcI61sYs1h+H/Fsfw++AkiPkMECbrp3cvdsYXqI2VnhX7hkgOGEj
+         mD+1RWZQm1044SZN0wrIX9xjwCRD/zU0pUFMP5Gs6Ypw/7ixhIsI0b0kGgurBXqbWMeO
+         eC+o04P9a2kRz69dA+KfBCr9OukmHDQDjvSOZdjBIcjV7OxjDDtIWYnbg+PLlF0D+H3m
+         4z/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792896528; x=1793501328;
+        d=1e100.net; s=20260707; t=1792896538; x=1793501338;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FRxwvjYywW2EDj8EBeP8mrgqVWNhsI+cL4nt5lpU7sA=;
-        b=K+z4ccl8QrqX2GBVXVR6MyR1GAxxv5yIJhehtXgijJu0J5ox3sY2AeaOf1dkE2xlAt
-         kBAcsTvfIMlwr2kARi0E3PBzdQ/gal7KAJ7gAN3muoUZ6/obgZWLcfuScnYZ9tK1SpxE
-         KBUwaBcIRu+AmoQjIkC+kjq7S2ZSqKhoWjsZmNvM6ivEPkX5uu3R5lglxj3QvY9biiOF
-         MSSCEFuXtUCQ2vXG1nsslGD5D/zSLaANFqbIhrOUDZRGzMUHMuqwUXE5gQ1HHsSG3k/G
-         YgBAdQA7EKQRZFP63w5e4E/cABLZE/r8E6f/WTUybTuT2h822f/c3ZEFQ2CnzDQ6G0Vn
-         IUFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw/rChaRTYiHG4IvSFrkc4RdKCzPAkXq42tZZ5PpnN5gNX5ZtsCC4M4riyJx6a4E3S3o9n9pTQCawHjaxk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy8sKMBbMie8n2+tg94XjV2BSpMQw0b2A0DoC0+uZL31A+5kIJ
-	kkJijtwggd2qWd0StZxo7zF9pTh5NIffOYzcDwDT/Io/Fv5Xk/o7GACu
-X-Gm-Gg: AYBFou3kfSW/jBZf6YsZdY9HbUw8Bc1Jv9X4guwx1ma5OZrblzi2MEQdfyAQF8JoYlj
-	sd9FPs1B0gkmbR3VeWkYIGCOImOQV3VDtWJKF4qecINWm3D+PdtH214o5TAvrC/h2Ho4RzGC2OU
-	wfDAHQy99kWa4Jl0fDQ5gAKgg8wKD1yLeZfj44WwdkTx+BcJXOAvnFc12UXKoMiafRpKSTqJdgu
-	oC8tnF+nI1fm1bYZMgSYt3/xq4FPvpJRUQuiW+ZLy5mf4OHzjgcluhXCJ957GJcTLeAMfI/pUFL
-	595gV7xM3nI840HC72ReLOy8w8SykGBdrVf9D5t5aAX5G4wG/b/dvh77+znn+UGraQgdfMfeZnT
-	4KzrT2eOb37mgPVOU2F7NLyFVgD5ulCTchPf25zjy0Yrwt6BqSxHCBRTLISTAX6a1v1TOlNDK8j
-	YuDP1Jk3sX4i7bbMh1xg5WXdDOq/qrzx3afAsRPzEZshcxSiaY83+r5AsaI44Is5UqS11TnAy6v
-	in1kj7Q2CkdaCPUwlFIhkU2GOfiBHqGzBMEfyqVcA62JFJQ5RFnOuRN3eIZ3sMrap+dG0rQSBZv
-	QYqkTASZZRY6fbeGiud9L5hmPDOUYI4Dg7dSZA2Em6I=
-X-Received: by 2002:a05:7022:1087:b0:17d:7b45:f905 with SMTP id a92af1059eb24-19937025befmr4633321c88.31.1792896528487;
-        Sat, 24 Oct 2026 19:48:48 -0700 (PDT)
+        bh=+D4LEQidpEa6OUGGXTLPtwOtKyE7/MIv6b0FECjwB4c=;
+        b=ypWgudL7wM+m432YGCor6/Vq874yk9NrISOouy0Zy7eDpACvsV4gsvGqcHpGw/AEAf
+         gTzU7+/Q28j9GA6uPFsyy3EZLCRGZUGaEBElRwa75TDZpIxDuuEmUqW/Q3pnT3qVCMfd
+         6suufMFcjUgB++JK/ACYpEF9jqc+NEw8gwih8vvSypOkJl6Q/bvfckh2WDupooQXKC3+
+         phWzukJXax/NeZkQxkQPctyTZ8VETILjl3+RAbrhodKNltsdeAU1E3ngZkU98Sg6z7KD
+         DnX4GMDOxcow62DRWtPyDgUzmzH9LdKkOTs9U6dBhDI30FHrvAp8WZKfOBAZkYY3Sgmb
+         LsNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRYQPKLN73bgdYPOLFrk4aQIXW0XWeTiz2ZoW4+syY/iRqwD3/0Pp0SyZ4xxNByTV2JxSTcA8C/cnY5Ws=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIS3uOUvq9dTBSHD3pcWBro0pJR1FIMUg9RbPofnkhQZiUTCNhT
+	Se2xY2H/y7V9N/OA5sMcT3aA1EC2dxW32pL7IzOvCOa9W4UrsrgAIc5s
+X-Gm-Gg: AYBFou1i+CREMEhFJQbcbRG4I9T3gT9ALf4BC7ooVznEJQViCG259zjkDcClXVjhxm4
+	ZRwI73u4+MH02n0Q3numfyrNjHcHnD/FoJCrn4soYVWQ+tyyG0N5cq/t5b2piJSExUatmhQHZHG
+	6yskqWR5fRN3NEvQRNmGGIFKMgs0uKB1FvKa1Y5KW09sdZlhUKHMP0gdK69b7hBb+fGuukaijIo
+	Xc/yBOwjUGnrj3GxSY61nMjtMawbd5/ZpCBFv+oG+WSfRaKspPEmPkh4J7EPB4w5EeDauvInRoU
+	tK3i2XxVunn3oJSJf4F1gXPCx+EGPCre8bIZfJcrFqsk0jKN4o1ZYoWp2wauhrB8C+aO/8c2CVt
+	RBWPOAnDLsvTc8m1uNlc0ogVFvPuwKvXLVtk4TonMkYnqvQU7Ai2xf7xp86M+/oLeznl2oUuxXf
+	u+IGmia353ePvzbaGKoruSWgOd/5UXjDkff8BbNxgrJ1zjdx9L6KCpDrZboIi+xVjwT35SywK0X
+	B7CK7irEH1D0Fw3lD/HFzuYnxQz6eo2RenwWajEdrHIo6G+lGT1qLDJmCJ3wfGoJS2SSre5yQHV
+	26WpFoxR/XB+xieAxY3cxZDENZB4einEx2krHG/YiLk=
+X-Received: by 2002:a05:701b:2714:b0:19c:dd9b:d09e with SMTP id a92af1059eb24-19cdd9bd124mr1585077c88.23.1792896537822;
+        Sat, 24 Oct 2026 19:48:57 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm10521272c88.21.2026.10.24.19.48.47
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm10521272c88.21.2026.10.24.19.48.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:48:47 -0700 (PDT)
+        Sat, 24 Oct 2026 19:48:57 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sat, 24 Oct 2026 19:48:41 -0700
-Subject: [PATCH 1/8] i2c: acpi: use 4-argument i2c_smbus_read_block_data()
+Date: Sat, 24 Oct 2026 19:48:47 -0700
+Subject: [PATCH 7/8] platform/x86: x86-android-tablets: use 4-argument
+ i2c_smbus_read_block_data()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-i2c-smbus-read-block-data-v1-1-19bb97467982@gmail.com>
+Message-Id: <20261024-i2c-smbus-read-block-data-v1-7-19bb97467982@gmail.com>
 References: <20261024-i2c-smbus-read-block-data-v1-0-19bb97467982@gmail.com>
 In-Reply-To: <20261024-i2c-smbus-read-block-data-v1-0-19bb97467982@gmail.com>
 To: Mika Westerberg <westeri@kernel.org>, 
@@ -107,27 +108,37 @@ Cc: linux-i2c@vger.kernel.org, linux-acpi@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-pm@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-Pass I2C_SMBUS_BLOCK_MAX to i2c_smbus_read_block_data() in
-i2c_acpi_space_handler().
+Pass the expected response length and destination buffer directly to
+i2c_smbus_read_block_data() in atla10_ec_cmd() instead of copying
+through an intermediate buffer.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/i2c/i2c-core-acpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/x86-android-tablets/vexia_atla10_ec.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-index 84841ed13487..4acce685457f 100644
---- a/drivers/i2c/i2c-core-acpi.c
-+++ b/drivers/i2c/i2c-core-acpi.c
-@@ -751,7 +751,7 @@ i2c_acpi_space_handler(u32 function, acpi_physical_address command,
- 	case ACPI_GSB_ACCESS_ATTRIB_BLOCK:
- 		if (action == ACPI_READ) {
- 			status = i2c_smbus_read_block_data(client, command,
--					gsb->data);
-+					I2C_SMBUS_BLOCK_MAX, gsb->data);
- 			if (status >= 0) {
- 				gsb->len = status;
- 				status = 0;
+diff --git a/drivers/platform/x86/x86-android-tablets/vexia_atla10_ec.c b/drivers/platform/x86/x86-android-tablets/vexia_atla10_ec.c
+index 67dba9aa51f6..bbfa040cd4ec 100644
+--- a/drivers/platform/x86/x86-android-tablets/vexia_atla10_ec.c
++++ b/drivers/platform/x86/x86-android-tablets/vexia_atla10_ec.c
+@@ -65,16 +65,14 @@ struct atla10_ec_data {
+ static int atla10_ec_cmd(struct atla10_ec_data *data, u8 cmd, u8 len, u8 *values)
+ {
+ 	struct device *dev = &data->client->dev;
+-	u8 buf[I2C_SMBUS_BLOCK_MAX];
+ 	int ret;
+ 
+-	ret = i2c_smbus_read_block_data(data->client, cmd, buf);
++	ret = i2c_smbus_read_block_data(data->client, cmd, len, values);
+ 	if (ret != len) {
+ 		dev_err(dev, "I2C command 0x%02x error: %d\n", cmd, ret);
+ 		return -EIO;
+ 	}
+ 
+-	memcpy(values, buf, len);
+ 	return 0;
+ }
+ 
 
 -- 
 2.56.0.257.gf7497c7d27-goog
