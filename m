@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792941010;
-	b=oO5wXSBIoCx+GYbuJ1SnK9Rh4YULdjJobISCFGUibQ1I6GP0O9tf7n/XMTiXFcx6XxaI
-	 x5W850cZE1mVwq0WvU3CRJmSxR28AdOpb+HMhYCYQ2I8bhp8LpGU9GWWtZpN9l3WwlayB
-	 mg1lPQ7r95dEqsk+0lIfqb5PGcQchbgZk6E91vWZ3G20Wl5RMm0a7VeVBL+D5F4ZVTugE
-	 VJbVosulBpSc4maTpd6fq0kdFgA6D3BWYzYODKu1m6TTQw//n0W0BDpAmPJkyjF58se9F
-	 jKMRTfptsWj1tpOpjitlJU2i1qNqM7/kqiwJs+CUSQ7LU2shZVu6cuIFaQT4/0H/T1A==
+	t=1792941243;
+	b=zDL+0jrZOh+7FlBRfZzZIJtsbMc5XaJPEma15m4v86d7tr6AIqzHhCVlXGMUbFu4Ov3u
+	 liOwKi4BHxkWxsIyMjmu7NT7qdYkpftq7XG4+hoDOa7fv0AAMr/jBcqUU50b3ZTNq49Ys
+	 8lWptvRjC/5WTOWXdehWFXo+y8BGufod7RtpXA559j9g56bwZSLwUA/YO/7HDU5tMepa7
+	 VkoIHcIVNfyjlzb93mDqqvMUAlzWdyD0Q0SnP7trUv2JCXFzoYNUDzq7vg80AD872f0rf
+	 ok+oCrwy84pWhszKjyPKsNI91GbmhSCXw23324EObz+6Ms3sQ5/UvnIPzAB0wOcjhfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792941010;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=g9Cjhr9HIGyxWaiefhej0MIXutOky0k6Ipx1aCyOOYw=;
-	b=kVhFM/Rsv08DSu8VL8YPfH+HS7wI2RmuEfaT5a+ljEcpl93uaF8+NVtWl8woJztccH+o
-	 CsU0eDbsyTmTH8SvifTwJO3g1GZhEfVE63b6pPg88sQe6x8OrG4ecOBwoVe5hiPxBZLlY
-	 lW9aeesrZwkOQldWcw+aYMCz3xD0FrPUACMRpciogR+5+/uH/lwEI3gUSSePIURyDJY0C
-	 kjC78R0yoWB8rWYaYugLbQEiyYmTrmTnDXYaRxTbGFP/yvjt1qo3mDH54GMru+yHnLNP5
-	 6SyyvD+jcsMQLl+rNzpdVIpR/20LZrr8EeS8/dwqAvL3rD3BJ2nJSLEkOKjOW7djNlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792941243;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=O8hK/Ym3kZBG/eBEO7me6+6KirPfgVeFu9ZCtwqeq2k=;
+	b=fA1d8ow+sVUVCeB6BiHL4jMQcirLdnDU6GBrHMPr9rWUVtv32SPGd535XMl57RICUF/p
+	 2uXmhVkicWCj2L632NgEdp7HjuWPdwc3RDpGQDqm7aKLrCzjyuEZTuM3+iQQDmGc74c7U
+	 uUcwJo6hOlVWb4pjeEt/JPKtG8XCaDV0/hxbLB6Mh3snzKyoMxZqws+az5iWIf7AtFWCD
+	 97kYT7knDDwXB2rV0FsBUzL1Gc/iJzPHY3V2a5LZHDW/JqZgOaZGwUmtmMqqvTv4g01aT
+	 ZzS8AeN7YZSHyToGbmitbCZncENYnj73kFoz7ASWXg5H9jhcqEi9YqLat/BkvjqpedA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L/X34Br4";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89660606A31A;
-	Sun, 25 Oct 2026 15:10:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89660606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L/X34Br4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792941005; x=1824477005;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sA5QKtn9sanR6lQV8toNGWBsgGwYIwudn1w2NIqY2pw=;
-  b=L/X34Br4RtJ9g88daUhCVMis2U/0g//FIMZ/h2VtkikoxoqaY8SGICED
-   FiLhh2ZYNg5/6TYjziAsn0npDxM22e3aZwpkG+N6AYwj7Y2Lk9H63lqAo
-   jTIEMAX1h3cEhh5KzdYllq+FzE7cqr208SK3J3E35G83Ou2eyXoKq32tK
-   I8QVASIS3z/mBsdIjTJhWwDiMHJc4enA7evYT6VKDrVMrmGUhbd8LhlsT
-   4A3lGmh77f1Y3purCXBqBhwZAhSCR93AqR3Bmk+koWMhLMiHVdC1ofGI9
-   xY4o9uZkUBt50Vpm8jweqzHCwA992Qlx6FjLQ5xiakH7HCjYYWSwlIh2g
-   A==;
-X-CSE-ConnectionGUID: UGPNZQlURE2qWzPMFj/cLg==
-X-CSE-MsgGUID: Ba+HitWRS92hfsBJoeV8ow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1514233"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1514233"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:10:04 -0700
-X-CSE-ConnectionGUID: m5yKUqx3Syu8lkGMnczCnA==
-X-CSE-MsgGUID: IKd3c9pGR1yxq5RGFZfCAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4150612"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:09:57 -0700
-Date: Sun, 25 Oct 2026 17:09:55 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: James Hilliard <james.hilliard1@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v5 2/5] serial: serialize asynchronous write wakeups with
- the port lock
-Message-ID: <at4bw-G8czG-G7Wl@ashevche-desk.local>
-References: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
- <20261024-submit-serial-8250-dma-cancel-v1-v5-2-9e52968928d2@gmail.com>
- <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE62E606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE62E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f4612a1a5cso4159824b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:14:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792941242; x=1793546042;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=O8hK/Ym3kZBG/eBEO7me6+6KirPfgVeFu9ZCtwqeq2k=;
+        b=P9bJJWpj7RT6uB9O37ToN4YRMtnLp4IaKSVmNW+ikY6GT/8X33+WsHVocuXDUEwtYr
+         OoyFWzlxgHaHMApBJKIZt7YbZ+u5eNri4l1cgyoqg8cTcu9/cvlJ1P4XLqOyFaHkeSXb
+         EiSs5RKlKz5UNI7IDwP2PM8xm/sCTIZyYtE2mV6rMptHAnXLFObbpoTVHEdVSZuIwbU+
+         K/EpMcQEZBQDPoBcA6bxwhh45BA9V3Tnns5mh1YADQAm71IP1IIqycg9BUu3aNmrsaCx
+         9nJF6AFiY/p+qdTfBBCnQ/iRO5+L86C1SCUj/oWObkTF7D6iLs1BbeMpP+PbyMgYWWY9
+         eIJw==
+X-Gm-Message-State: AFq9FYKDr+xi05UmMtnqxYec9Fn8BiZ9NexoSY17pj4Qb6+hHJoHE4kT
+	YRLalP0n4swyhGPMvMgQjRR4k5UnR8HjGk78qcm79uehETZNnv/P4B6sCwYQzWNzbReRhC4nYau
+	YBF3Y227tK63Z/rXImbfunC4P0eB8n+W6I3AbtyuXoNyql9TTcorQ1uXKJIw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,28 +57,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:e82:b0:4f5:1b84:8cd3 with SMTP id
+ 5614622812f47-55c0034a1ccmr1900697b6e.24.1792941242039; Sun, 25 Oct 2026
+ 08:14:02 -0700 (PDT)
+Date: Sun, 25 Oct 2026 08:14:02 -0700
+In-Reply-To: <6ad2a01a.6814cce4.34c49f.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ade1cba.a6443767.132891.002f.GAE@google.com>
+Subject: Forwarded: [PATCH v1] configfs: fix slab-UAF Write in config_item_put
+From: syzbot <syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 25, 2026 at 05:10:03AM +0000, Maciej W. Rozycki wrote:
-> On Sat, 24 Oct 2026, James Hilliard wrote:
-> 
-> > uart_write_wakeup() expects the UART port lock to be held. Several worker,
-> > DMA completion and interrupt paths call it without that lock, including
-> > indirect calls from uart_handle_cts_change() and the transmit helpers.
-> 
->  Fair enough, and thank you for the cleanup and spotting the issue in the 
-> first place, however...
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-He already issues a v6. I think the tactics against AI contributions should be
-to not answer for a week or so until there will be a quiescent week. At least
-that's what I learn from this patch storm.
+***
 
--- 
-With Best Regards,
-Andy Shevchenko
+Subject: [PATCH v1] configfs: fix slab-UAF Write in config_item_put
+Author: drifabdelmalekmohamedsaid@gmail.com
 
+#syz test
 
+diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
+index 89178f5d371a..7d746a10c369 100644
+--- a/fs/configfs/symlink.c
++++ b/fs/configfs/symlink.c
+@@ -196,11 +196,26 @@ int configfs_symlink(const struct mnt_idmap
+*idmap, struct inode *dir,
+         *
+         * AV, a thoroughly annoyed bastard.
+         */
++
++ /* Put the reference back, retake and check after relocking*/
++ config_item_put(parent_item);
++ parent_item = NULL;
+        inode_unlock(dir);
+        ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
+        inode_lock(dir);
+        if (ret)
+- goto out_put;
++ goto out_put; /* config_item_put on NULL, no problem */
++
++ parent_item = configfs_get_config_item(dentry->d_parent);
++ if (!parent_item) {
++ ret = -ENOENT;
++ goto out_put_target;
++ }
+
+        if (dentry->d_inode || d_unhashed(dentry))
+                ret = -EEXIST;
+@@ -218,6 +233,7 @@ int configfs_symlink(const struct mnt_idmap
+*idmap, struct inode *dir,
+                                                     target_item);
+        }
+
++out_put_target:
+        configfs_put(target_sd);
+        config_item_put(target_item);
