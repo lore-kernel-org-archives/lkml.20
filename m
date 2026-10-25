@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=24.134.29.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946820;
-	b=38IQJdAh34xWnjVjIpJxilnZ7Fp+JXlKT/XDPx3onAUc0aKv0wb9GFXRGVzLmkW5GgTY
-	 OC3GYpxbZeXQiwAU/UH1A0/zp0I6Q9ghpValKk+lmTxaISalMcWwXod95ec9he6Qd/htB
-	 xQ7AGQ2FddibvRWRpaVu6c4nOx5Nxo3z3VFLrc0mfw6R6GoKQFHdoKuU0UvYroOQsxUsK
-	 p5W7x2ZvEotbmkWiTwP54Vtr2oq0t5Fd+G4QCsl+bSqOzumaF3AzU8KpITCzT1Z08GsEC
-	 AXzW+p6l4AQjeA9bT6MyoBts3WDqrQV9xodc59M2BMwiUSya+Ei5BDleZVVUE3fJ3kg==
+	t=1792946825;
+	b=NkgBHT2+gtOestcYzdoeH1p6V3tYlv5gzoZ/dD+Dd8t8UbrAeqTIo9J+72qkxaeKV9PA
+	 9k6ykPzlrfQ4y/CVkawy2G5gB3Q1p/Dg1WxmXFscsMb6Blsu2ao6wwxC89UkO7iE7HRZP
+	 OuDZHeRbBMoXNzFo90SqJTUxkxve+Ws/e27Na/G7XXQaZcGq0q7iLHSDJA8UFirSr+lgz
+	 V2VOVi8Gs83svPNm2FUSWG6Ra53EE9AixDnATQLW+XERJqDrwrLXX5anAs9XDpM+7lWIL
+	 3Dwde0MKsK7dnsJBdPcDmfmlGmaJQpj/zEELet6BSpFhePOh5l3Z1acmyOkYBzIvqGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-	b=STODIBuRYHBiEybDKUvwbsM6TmU2kHWLpDuJ77dx4cKgE2gfWHLm9YcDwYmqCnziN4DN
-	 NYYcSanvLrYvwo9Df7yGygBhKEKPQGQUALOXFdkHWjTg3DYkdkE4OU1hVRHexp4s7rzFy
-	 a/dlPuSvDhdTKBfnuT2Ry8e+nvBmL71Sa/7YCsJYDr4KWA87JRJDLJ8YZqnq4/XVIsI5a
-	 aRXmP0tBSd6R2iw7wWCAXvxU5d956iplMi6+iClzXIr1YIG6f8TUGp7ssM5N9366uhd9L
-	 8160uvyeU1206h2uHH2beftBMbhAbI+4SAjdWN/ulB/QYT6b70aWHzOichiLt9exgKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946825;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=qZJpeVsoVc1R3QnR6MUnjtBvtCvjfP4BItTHungucAk=;
+	b=bTZJGUz2M8qrzlpT4OmOE1kj9SmSIK2V5i/zuRGkHBTCD8h67sRQGQT2QECGPVsZn66e
+	 Y0xeY/wQDqsMt2LZtXE6svW+J6B2WXAe2t9BvgZA6MSGfN+O+xRJMEKCjypB5cXbReRwO
+	 6jAR37pRSgCYp11s0U21w4eq00fBI1qmACkhV1UMHYXOGOD0eA6F1brJkkKx4sKTBYLjX
+	 wPywTcbA9S7nqTmFLSuoXaBiU7bzeWe78Z6EkuHcjJfWRqE8ks9rCBnBRziHOgp3V73VN
+	 LCSaqbKBnmEkczCEj73O6vex6LlQEMGBwR037vTQTmeLqkeJOxXXHh1EsurCnRwuCMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VCv791va;
-	arc=none smtp.remote-ip=74.125.82.194
-Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sigxcpu.org;
+	spf=pass smtp.mailfrom=sigxcpu.org;
+	dkim=pass header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=FWUMVz8a;
+	arc=none smtp.remote-ip=24.134.29.49
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0679606A324
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0679606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43952606A329;
+	Sun, 25 Oct 2026 16:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43952606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigxcpu.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VCv791va
-Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-35d0be18c71so3945446eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792946819; x=1793551619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-        b=VCv791va/DDx6T+0REGuHSoMALzbLBPo/HVx/Vrqkf7FavqhzQVkwz8+nFbWw36Tuf
-         wbxmpvQNqrAcylPxj5mODVndmgHb6OejeUqgQIsCfR/Co2uNij4Hy4dWhrCCgzU0uaBN
-         j+zLwqFzgAB/A74IVd7Kluoc+1/KT9SkaIMkAFhvc+wpIm7uNhLZXkSU1+iybMFgI+fD
-         DGAdV9InLzXxDFiOOY1zJeB5rCjMTIU0UGi0ORRyidPIeMxyTS5qGDqfFAb5uDHqb2Zh
-         gPjY8fwspN4TWKgEphlzFigXt2nsme8tjW3MtI3IKNAeKpdhMqJ2uAYtkKlbTSkKwc7W
-         aE7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792946819; x=1793551619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-        b=YjBxTLVcfcjUer5pgYiO/lCzEwboR/vsNup0ShhgVer4LPAvqN11IDAAFbi+ul9Dk2
-         2bYJjUNH6z2PMJMu4+qM4UZbujHRn6dhW3JBugtYO9HBG7y6hOEfbPosqv7wYrsZNIHu
-         PvfMPBeSk86BRv8P9vnuGIYWminIvys/ymDskTe190fqu83Z61Mwa4Iv93hmjZsW3+kt
-         Egha6Di7FRJNQ7WMP3axJR5hpmEEkiAMN1EchnMgzyElKmfvFBTqMw9Zwse2MkhBMLo/
-         H+FiDChIOCaSzXFVN/d/WS7lYE7aDaDsfDTEZyffYDnuSG/0bK812PDNXWF/lnO9MJ0B
-         nqfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzyZfBu2/fz8qIzzceEQSZ3l6/ikCW08GEg5fUL+KWEHuGGLRw8uRT2pX93FT/jgpDvgRIJqFk6tbOPkIs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyKiMqgcuwtplf5+Q0PyrSgWNm9/eKrtV/fD3mpF7DTFFTShe3
-	ssvkssu7aZKazbJ1WM+wKtKWqjx7TM9CxeJjAG6EXZElXOmZKT1a0Buw8gx1tcLc
-X-Gm-Gg: AYBFou3GmANPRx3uVckrF34weY2x0qwcatREZxaFsqJTPwhZzULWvJJClap3Gn/5EMB
-	UBtcK0U+zEldE6MLZtVkWFfceYN1HGSkm8JXtpXK1rZRy3n/QDSKEdCajAa9A1g4GHNLdXFzQau
-	xA8g7pWw+K3gdcvVAs8hFSFzvM9WmCUOmsps1e/mOUKukKgjCcDzxG0xkEfmyIhMU/DkLLWRu3m
-	zgl/qVDblTK3PZZiGWIWEBoir1weZVRYtRMa9FfAmz5PcPbKAk3HCk2qMYNgMRcYr4Yi8CvWsPs
-	LBYiTnG3aOe26FZssHf+UOn8+7BxFrmxJZhFUdnKyWvT2nVY+Giqv8W5aWNR4Tp88lDiKyq2BNK
-	JnUOt6D2lTeOeycG7UuxiSI7G7f1DTCk+k7kbRWqWeMEUyUBUkO6AaIHsrfnG7UX9s8I4dlfWbn
-	fr9mXtt7zhOMniqZ/rC5t7Lm8976FT1dshiBK925kXPWto/FWK4DjzQAnIryCdy1pZwf63RQVwt
-	/BmF3RERc2/NI/ftTkx2/wUuyAsiaKUaZrdpsvaZl7ykbIY0h+s+scJqk2Faks/V8/7MyyAC2re
-	UqhvAw8=
-X-Received: by 2002:a05:7022:439f:b0:155:734:9cc9 with SMTP id a92af1059eb24-19935be7f99mr9441348c88.16.1792946818717;
-        Sun, 25 Oct 2026 09:46:58 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0d98660sm18320531c88.9.2026.10.25.09.46.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:46:58 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: hughd@google.com
-Cc: baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	dave.hansen@linux.intel.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] shmem: do not extend i_size when no data was copied
-Date: Sun, 25 Oct 2026 16:46:19 +0000
-Message-ID: <20261025164619.89992-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=FWUMVz8a
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id 12293FB03;
+	Sun, 25 Oct 2026 17:46:57 +0100 (CET)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+ by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id QCs1BPmB2cjW; Sun, 25 Oct 2026 17:46:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
+	t=1792946812; bh=3nDEElbWW7mRqvIraI32WiLVtOfSNyfw7kBcEtdycuI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=FWUMVz8aOmHvfXmPT3Ivrj/qsWmFW8pyCDcM/ufCuZB/auCqVKDGBmf9QbdYsOtdn
+	 opbKwlwZoOeMzDWFf0hRx/wnru1/6vxSh/JxvA3ztDgsZ5loBzEuzw9xiMcyt+Pzve
+	 SW46TacC9Q6D3YfSzrwKnhc+ZHy1W2EoQJMI590ksfM300PDztqYMcOoIsynC9gOfH
+	 Dj7XZuSps8rVzdPlLg3BSHCWg6Hgiz1uKW9VPlPeLTTeJtdAK8WPV1UAjppetBCFwz
+	 kWxCtkdku5FL4H8yDyA7WyIQvxpGdPWT1M9jKOc3XM0UTzOP4yEnvvtZIWvqjk7qUE
+	 UjDSECxhJqf/Q==
+From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Sun, 25 Oct 2026 17:46:36 +0100
+Subject: [PATCH v2 2/2] kbuild: deb-pkg: allow to set package name version
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,42 +61,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261025-deb-pkg-v2-2-8c33a4ac18ad@sigxcpu.org>
+References: <20261025-deb-pkg-v2-0-8c33a4ac18ad@sigxcpu.org>
+In-Reply-To: <20261025-deb-pkg-v2-0-8c33a4ac18ad@sigxcpu.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1831; i=agx@sigxcpu.org;
+ h=from:subject:message-id; bh=3nDEElbWW7mRqvIraI32WiLVtOfSNyfw7kBcEtdycuI=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FJQVNXL2hsSksvT
+ UhqQWNzbVlnQnEzako2UUlpcmhjeExnVU0yWHhnN2hoZFU0eHI5CkxlZU1SOEtkaUw2NzhTZTJQ
+ WitKQWpNRUFBRUlBQjBXSVFSajlzemZsaUtkQ1NocktzTWx2NFpTU3Z6QjR3VUMKYXQ0eWVnQUt
+ DUkFsdjRaU1N2ekI0dzdqRUFDL2t1OUJVQ2kzRzVOU01hM2piZzV1aEFaZXJZajJ2UnZZZ0poRQ
+ o1aUI5WTdlZzdrekVqSk8yc3FwdUVxYTFGVnl1TUZxdlkzQ1h5dzZmNkl6ZzVkWjgweHlkN1Q2N
+ XlQc1A5c2VWCll6SEU2SUtvWVNzMENaZE1nR2Z3TG92c3orT28xYjFGempWd054cWtNQnRDZ2NR
+ WStPTlhmZXdzY24yblJSWHAKZit6OTFJZFc1L0xnc3ZWK1VHZ3RQNkFVQ0NvSFpsTWlIbmg3OGR
+ xdWRiaVJad2JsZ0hQZWtMUWtnZGtvck1lUAphZVd3MzB4dnFkeU5QR1ZtMWRPUUJ5d3VkTjFjVE
+ FIR2VQZnFERXlINk9oVm5EcUZOcC9VdDlQSjlWTDhyVEUwCkhkb0Nwa0VidnZINklMSDRVQ2lPZ
+ jR5TEc3ZTBQa2VMNWFrMWE4N3RSZTFITGFhSjh1STdiNUpDVkhHWmVINC8KUFBaTDR5WkdhT29V
+ cGFLNVlKd1h0ZnlGVExyTWwrNys4WStWTnlzQzdFNnpxNllYZDF5VWdzNXhrSU90OTFVUgpGRHg
+ yY0R6UnoxSjdXbHNET201ZXA2citqbXZYUFBwMmhlK3lDS0YrSWtYYkU1VE1JU3Uya1BJb29oeU
+ d5a2taCndidDNJbHZaR3Y3bXpUVGgyVFpDMHI1bzZiSWF5UTcrS2t5WEE0RGE1SGYyTlZOcmp0d
+ TV4ZEZ6NDZLekFXZ2QKWHY0Qkc4MElsZmpnMnRhMUNKSVB5dUtpRlduOHNqaXhkV3hzUmhjeHpp
+ UXFIVkxVQWE2YTJaUllCVGJqbkFvRwp3V2lLKzhRVkFFVXEzNjN1QmRSajYwTThZd0haazVncm1
+ GSTlsTC9TMDM3MHAwVTAxWFVJS3VXNmJTbXJBRFFkCjBnK2orZz09Cj1Ba3dtCi0tLS0tRU5EIF
+ BHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=agx@sigxcpu.org; a=openpgp;
+ fpr=0DB3932762F78E592F6522AFBB5A2C77584122D3
 
-shmem_write_end() advances i_size to pos + copied even when copied is
-zero. A buffered write past EOF can therefore extend a tmpfs file
-without writing any data.
+Instead of hardcoding ${KERNELRELEASE} in the package name allow
+the user to override this.
 
-Moving prefaulting to the slow write path makes this easy to reproduce:
-a one-byte pwrite() at offset 4096 into an empty memfd, with an unreadable
-source buffer, fails with EFAULT but leaves the file size at 4096.
-generic_perform_write() calls ->write_end() with copied == 0 before
-trying to fault in the source buffer.
+This can be useful if one doesn't want to accumulate different packages
+for every commit or micro version bump by setting
+KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
 
-Only extend i_size when data was copied. Leave the existing folio
-handling unchanged so successful writes, retries and preallocated
-pages retain their current behavior.
-
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
 ---
- mm/shmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ scripts/package/mkdebian | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index d97fc32e7c94..55287c370c73 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3487,7 +3487,7 @@ shmem_write_end(const struct kiocb *iocb, struct address_space *mapping,
- {
- 	struct inode *inode = mapping->host;
+diff --git a/scripts/package/mkdebian b/scripts/package/mkdebian
+index d4b007b38a475..44ca9991fd6f4 100755
+--- a/scripts/package/mkdebian
++++ b/scripts/package/mkdebian
+@@ -172,6 +172,12 @@ else
+ 	packagename=linux-image
+ fi
  
--	if (pos + copied > inode->i_size)
-+	if (copied && pos + copied > inode->i_size)
- 		i_size_write(inode, pos + copied);
++if [ "${KDEB_PKGNAMEVERSION:+set}" ]; then
++	packagenameversion=$KDEB_PKGNAMEVERSION
++else
++	packagenameversion=$KERNELRELEASE
++fi
++
+ debarch=
+ set_debarch
  
- 	if (!folio_test_uptodate(folio)) {
+@@ -215,7 +221,7 @@ Build-Depends-Arch: bc, bison, flex,
+  python3:native, rsync
+ Homepage: https://www.kernel.org/
+ 
+-Package: $packagename-${KERNELRELEASE}
++Package: $packagename-${packagenameversion}
+ Architecture: $debarch
+ Description: Linux kernel, version ${KERNELRELEASE}
+  This package contains the Linux kernel, modules and corresponding other
+@@ -238,7 +244,7 @@ EOF
+ if is_enabled CONFIG_MODULES; then
+ cat <<EOF >> debian/control
+ 
+-Package: linux-headers-${KERNELRELEASE}
++Package: linux-headers-${packagenameversion}
+ Architecture: $debarch
+ Build-Profiles: <!pkg.${sourcename}.nokernelheaders>
+ Description: Linux kernel headers for ${KERNELRELEASE} on $debarch
+@@ -252,7 +258,7 @@ fi
+ if is_enabled CONFIG_DEBUG_INFO; then
+ cat <<EOF >> debian/control
+ 
+-Package: linux-image-${KERNELRELEASE}-dbg
++Package: linux-image-${packagenameversion}-dbg
+ Section: debug
+ Architecture: $debarch
+ Build-Profiles: <!pkg.${sourcename}.nokerneldbg>
+
 -- 
-2.43.0
+2.53.0
 
