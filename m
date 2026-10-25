@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792955027;
-	b=D4dea1HAB5ShdurvEC/fCflP26VHV4cvrQTktPCHueVfV+LYBgkopb844Nmya/6dgLzS
-	 nMMTXrJQnp1aWYQKeZmv7AoVzIQHvrgR5QL83Sm8ay6db4PrY8Sds3vakZ/qgsfhLbRRz
-	 VceRDd+8wXFi1X5/fa4wSTuCmJOv4Tm/bNkXqCg9JA9SLE8M0dBv0qufwkhD6Ip+FrzLC
-	 eGhaICPj9ibcdC0pLCkMcvlLH5J5SVU8U7/eW89ePu9TMCQ/XrXKrGn1FySIBoDke1gV3
-	 1gHF85xXjnDxHdPa2tAdCpfJviB/thBRYVS0ZgT/NyVFb2obu2sFdECVItyjlCD6gCA==
+	t=1792955457;
+	b=IAR1pVtgm4CNNDoCKIlOCVILjpuV05o2p910L6Wpb9hhT7pASHqGIK8GdoptWnuKVJFb
+	 wku0LVhckVGj6HPaoVqCpD8wWUVKkE/KnzpHB6MbZMchka3GkQSSb2B2Lg5K7z8pe77un
+	 qLCLoSZfobUnRRqgJCxjVj/SwapzuCFf5cov8hcBWv6XbpocgV1QR45mzvgqjbT53262M
+	 Y2G7fJHqUFRfNzkwz3+h73vXQMa2q197cnlY1B9f44GWOWzPG5J6etxSEWnOI0LUXpTXr
+	 qXqgeX/aZkErVTukR3ZY+9r3xgDk4VRHGfY5O4ANZAsr+Bvkmm2iqwk7YxAKWKb2T4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792955027;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792955457;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=R9qaCbPxl/UFmTQFVY4bs9QcJuc49zcAUsVA+5r/co0=;
-	b=gkE6n/RpndrgTdUIcjOn4k1zRtjPAAT8p/EDNE+2u5yx9vns868f9a00d+zpabAiAprh
-	 N0qW6uYyUIsJAbpkYGk+AIjul6r49b6OlgcRv2DqccP4lGiwSifWHAJ9XV4UqOoWqPNkG
-	 CFODzAx0tNb7+Wcho0FOM8aHf3a57zYk/0lM42dyFssjGBi0KiacrpzFL7xrqmYYJpQWV
-	 +Jfxm2WrqULHT1FVhDNgXSigmXRZhRhv3EmcB9uKoYzpWZwfpR7SMWmfyW95xjfwsZemc
-	 S/PQrJYEOcsZmO7IiPDXk3VxZsgP6rq45dZzAhH7kNHUwoP62uaPwaVGaM0cf8vpKEA==
+	bh=InqFFuQ6wFnt/wZpSIQhYgtMjLwuMLny+bjXBvmNj9o=;
+	b=BQprJRvtUzMP2UElWHutXWKAmXjL2sKb3iI5h60+dnhVeuWkVQiswTVaD+BCMaIpAma7
+	 W/3VkcCkSenJ7wTG2x/KIwvDWc56F0Pn2g93dWf0+cMiqaDX5LWYXRC1v7plFoY59wNXk
+	 BYojnKlhpNFSvhqCjH8MXQy32xqN9Wd3biFD6xYDZ+ij7sjoW91hvVMIEyE282EJzzNhV
+	 MtxQX+qFIA3DAasgSpIonENNAaowE304Srz1tVAxblteVEwkerhScqIYCTBIk+TNHPGKe
+	 cc2v0ajXRo8sACLuDgeDWeFILIdxhVbKP6/97HOBh4TKqIpV6Mk+I9+qIa3j8rtVu3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WJgPkCja;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=3kw5IiUL;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE00606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:03:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DE00606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8F8606A325;
+	Sun, 25 Oct 2026 19:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD8F8606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WJgPkCja
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so3635258a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:03:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792955026; x=1793559826; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R9qaCbPxl/UFmTQFVY4bs9QcJuc49zcAUsVA+5r/co0=;
-        b=WJgPkCjaveAzr0VVPWHkhIvN7ysCwpJVuRE6e0O1PUkWj2RZQRy9RbHz4DSd6ofLfd
-         dR8XaKKd04Z7EwzgWXEboXeb3KWNIT9nu70gwD/k5OOqHIrSPbjeu3IxtvTlNakw9P1a
-         gaXTmTn9osslPJ5wEp8/b152E8Efd+zeKEquTmYS9Bt//LOcxMK/AJm1VPg6jzET4TiM
-         4baEZ2MW2hoTTtl5wNf5BDFNzhGLKKr0MegT8bUPLuD1BxouI8nSA8k1fThqSb5txHbZ
-         LrGoHKKhrgcABWd3tNgE2I/hyTcOGHBynq+9Q7QQnKK3LKjaZHI9CLITI3rxzLCBmDRR
-         slLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792955026; x=1793559826;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R9qaCbPxl/UFmTQFVY4bs9QcJuc49zcAUsVA+5r/co0=;
-        b=iTrS34al/twsP4SGNPLJpwEnlHIrPHNyEzyiJIzSM4pBHNLr8xOqHrp5/ELOZWCG0C
-         SGHaVvvbJk9AFjWMGNncQWVh3RpbeXVCzSd5hQgo02iffNGZ7RNvFhnPJacv8Gu3J86I
-         UME2/8g2li+1oek4GNOxSDaXkf1ly/6gFUzPs6vWZx/2Oh9y0rcxqI0KsC47uzqPDwpI
-         chiMpU6Su/RpFA2i17JC9p6RyRt3AAI22mPSZDDfNrZYuDSiRTKSihFx0eLLetAyNXUe
-         5kFEXrsCJiJbIRxQ/109m0g5flxLFS7pgWkJr2gzXzIwEJei8noULcEN1SJjxKzud09C
-         Qh5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxX82xvTb+IJfS2FKsNMjT3bopRh2M2jIBBNojWxwEKKhr4SuSR1tKhJC5yfannqe1WbUp5SiWksYdv8Uk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLULwNl2R3eln4YmQFxhC6/w1VWn6WtMBGE83w/CLFL3UCv+PUs
-	jUmTRlVQjE1bH/Gndv2cdoDzpr3SdSaOuOBWeGcSg9HODSFSdHwsito6
-X-Gm-Gg: AYBFou3TTRMFGLBXU75wOrC0IOu3oP4/uVEQNEvHrAV2MB+SCk/l7sVaWM7wfV42qpQ
-	mW/lH19yr8dQtjwVN3AcKaD2ZMi77Gey6ECIsc6Z7WEPuW20xCbY1SFfXVLDBcMlDg/S7dt0X4T
-	nlccNbhnHFITN6x8+fmcqldMT3hVS71jzL02kfj+zJlTJy2uET1eRo7LdY8aHb1OxX0BpcI58y7
-	jplpTbhU+hffBW33xudWBL4A4fN92SlNTkgm2ZNpyWFHk1mO2g7joK44NzW4OqHkQwVCqVC+3Wm
-	JFaQN5i3AmG9zlIZuXWHOG+QsZIlcirHXyUd9UL1oD4BsxT26nsvJBGt40++BUeC+yeH8X1ZhWL
-	Lg8n6Dh3ELCfseN96J1hAHW4YBM2PC6Dhw7sapQHUB7Kr1dVrpElK+1/2RPTjUXkxiGNXpmUzd8
-	902GVDJVzNvUxp3MeqWGtItKSGdfjJ6AAlojweTdtlCT7YrkZiytsQWHfycORisrxtkc/9D2hER
-	8Mhl8GZMWr42y39C+i/ZOlWlK6/pX1cFyRzuvgYFf0BXSKGiwirmeOOlES9IIw0AWWrS217tcOu
-	KSKIJ6LWRGJTf+3PhQSDlN3z4GkQTbQPr3sQ5xxKixcemr/9hxkBOn/BIe5KdT8W4PSmErZAuem
-	IqgcpiR87x3VHtAIU8JQfuQmzk3gyg4rxc48hVDswtVMN
-X-Received: by 2002:a05:6402:5024:b0:6b3:e575:f4da with SMTP id 4fb4d7f45d1cf-6b442a81523mr6769954a12.4.1792955025764;
-        Sun, 25 Oct 2026 12:03:45 -0700 (PDT)
-Received: from localhost ([2605:59c1:3500:c210:a19e:c679:44e8:e9a])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b45e167f4esm1231230a12.2.2026.10.25.12.03.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 12:03:45 -0700 (PDT)
-From: Selby Mashiki <mashikiselby@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=3kw5IiUL
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 4D1E11210B2;
+	Sun, 25 Oct 2026 16:10:40 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1792955440;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=InqFFuQ6wFnt/wZpSIQhYgtMjLwuMLny+bjXBvmNj9o=;
+	b=3kw5IiULgaDH2pzljqj/fQNIGcBhk1zOAeBGnsdvrLxERczTwYtJy7kB1SzyXtOcPx+FSM
+	nECSEaSnV6za4DQhAqcrHtcjNE1m5b4WfN5qsqTSaUkhhlHOQBefFS9gbISIGPCtXGaG0K
+	tDSMWBnS9mNPTq4hIieuiNXQgcjr1amEDEvE+t7FwyHWKQZIuCtb0z/ya0cI+bd3UbBq3X
+	a3ftK9H5tunFdR0wElGm7une46CRpuwATCW5DCoYlSqMJ4q9Y/KKuvZLn2+enFuLtwI3lK
+	JYhgqRtMnwwdz9wBWrwA3SBsyVA2OPPA415Ru2xaNvPPkXpjoQFnejJX9MKalg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Selby Mashiki <mashikiselby@gmail.com>
-Subject: [PATCH] ASoC: qcom: qdsp6: fix device_node leak when parsing "iommus" phandle
-Date: Sun, 25 Oct 2026 21:03:40 +0200
-Message-ID: <20261025190340.449613-1-mashikiselby@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH 2/2] fat: improve fat_sync_bhs() write submission
+Date: Sun, 25 Oct 2026 16:10:06 -0300
+Message-ID: <20261025191006.407209-3-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025191006.407209-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261025191006.407209-1-matheus.aalmeida@inf.ufrgs.br>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,78 +69,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-q6asm_dai_probe(), q6apm_dai_probe(), and q6usb_component_probe() call
-of_parse_phandle_with_fixed_args() to parse the "iommus" property and
-extract the stream ID from args.args[0], but never release the reference
-acquired on args.np.
+fat_sync_bhs() does many individual write_dirty_buffer() calls without
+plugging, making batching in the block layer more difficult. It also
+does not pass the REQ_SYNC hint for these synchronous writes.
 
-Call of_node_put(args.np) after reading args.args[0] in all three probe
-functions.
+Use a plug around the writes so the block layer can more easily batch
+them. Pass the REQ_SYNC hint to write_dirty_buffer().
 
-Fixes: 2a9e92d371db ("ASoC: qdsp6: q6asm: Add q6asm dai driver")
-Fixes: 9b4fe0f1cd79 ("ASoC: qdsp6: audioreach: add q6apm-dai support")
-Fixes: 72b0b8b29980 ("ASoC: qcom: qdsp6: Add USB backend ASoC driver for Q6")
-Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+Benchmarking was done under QEMU/KVM with a virtio-blk device using
+cache=directsync. Each result is the arithmetic mean of 10 samples.
+
+start = now_ns();
+for (unsigned i = 0; i < count; i++) {
+    fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
+}
+elapsed = now_ns() - start;
+
+Sync-mounted FAT32 using count=16 files:
+File size    Cluster size    Before    After    Improvement
+256MiB       512B            13.11s    11.87s   1.10x
+256MiB       4096B           1.657s    1.469s   1.13x
+
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 6 ++++--
- sound/soc/qcom/qdsp6/q6asm-dai.c | 6 ++++--
- sound/soc/qcom/qdsp6/q6usb.c     | 4 +++-
- 3 files changed, 11 insertions(+), 5 deletions(-)
+ fs/fat/misc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index bf1f872a0..49bd0582d 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -1030,10 +1030,12 @@ static int q6apm_dai_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+diff --git a/fs/fat/misc.c b/fs/fat/misc.c
+index f8f89b947baf..29ca983b917a 100644
+--- a/fs/fat/misc.c
++++ b/fs/fat/misc.c
+@@ -9,6 +9,7 @@
  
- 	rc = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
--	if (rc < 0)
-+	if (rc < 0) {
- 		pdata->sid = -1;
--	else
-+	} else {
- 		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
-+		of_node_put(args.np);
-+	}
+ #include "fat.h"
+ #include <linux/iversion.h>
++#include <linux/blk_plug.h>
  
- 	dev_set_drvdata(dev, pdata);
+ /*
+  * fat_fs_error reports a file system problem that might indicate fa data
+@@ -354,9 +355,14 @@ EXPORT_SYMBOL_GPL(fat_update_time);
+ int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs)
+ {
+ 	int i, err = 0;
++	struct blk_plug plug;
++
++	blk_start_plug(&plug);
  
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 4f09fdd40..f09856ee4 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -1309,10 +1309,12 @@ static int q6asm_dai_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+ 	for (i = 0; i < nr_bhs; i++)
+-		write_dirty_buffer(bhs[i], 0);
++		write_dirty_buffer(bhs[i], REQ_SYNC);
++
++	blk_finish_plug(&plug);
  
- 	rc = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
--	if (rc < 0)
-+	if (rc < 0) {
- 		pdata->sid = -1;
--	else
-+	} else {
- 		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
-+		of_node_put(args.np);
-+	}
- 
- 	dev_set_drvdata(dev, pdata);
- 
-diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
-index 6381b289c..5888bc41a 100644
---- a/sound/soc/qcom/qdsp6/q6usb.c
-+++ b/sound/soc/qcom/qdsp6/q6usb.c
-@@ -382,8 +382,10 @@ static int q6usb_dai_dev_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
--	if (!ret)
-+	if (!ret) {
- 		data->priv.sid = args.args[0] & Q6_USB_SID_MASK;
-+		of_node_put(args.np);
-+	}
- 
- 	ret = devm_mutex_init(dev, &data->mutex);
- 	if (ret < 0)
+ 	for (i = 0; i < nr_bhs; i++) {
+ 		wait_on_buffer(bhs[i]);
 -- 
-2.56.0
+2.43.0
 
