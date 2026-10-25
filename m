@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792896535;
-	b=0WaYDEEqkpv7/akGQzb+zmCbYQwKoq4XvthuPlTwD+KQbiTgYQqcpRPYH1BwLs3mlx4E
-	 ePGdscodLQ+2cp46KSxB9tEBsxiNMNAysmq+/VT4QRm2QfZosY748l5/cRuX6KBHbK9nx
-	 r1yTRcWP3vfVcvCagYFVL4+znxWnVVJ2gOn1EONZ1qN0RkT9AtK45pBkfFikuHB033kye
-	 K3O6U0JPkhnLjrhAVRXhHaizDHOVgF0B0O+t/X39QMUPuHAiW7CJKr7T0ceZIqmCeEGLx
-	 PEJfT1btrHlr2DsG7bMQJ8Ib2FjKxagTTK/EMlVtwuZRC99zwhbx1WsmFJv8VZKWAcQ==
+	t=1792896534;
+	b=Dv2sTjQHgQR6S+Qjpf9cxdTO8nHvgic4cdGPs2AAql2xZwzGJP/NFsxLRA5T8DGoOTED
+	 iDOj3Y8WwS7L+uqShn2IuvPy15L7vHXGewKyE0ltUo9YrFvv+khuyOr6ZWn2/2rjtL0Fy
+	 SZY5HusmgeoslTIORWMRixk3MfMN+Ndkeu1A3isFIjfmEKQuSoAy+mpAmZ8fLv9mptJyB
+	 d8kwZJoEmG9gH7cEbdSAtEEJYrlotwDNYHtDatRYOmy/eZqofdv0FjWzqtH5upzdSbL9d
+	 717NbXdEujLssAklXSOOUQqi0Y6WwR/YR6WigG7zJCv/JeHFTc17uIsPlJkgfzvdxMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792896535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792896534;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=2WNFFspM+rHRPvmlX/IdB/mvBFJYspViUI+mUu/7+EQ=;
-	b=tXeP/7A1hbu4UkAbT6wuoyEmvVwVw71ubOo5B0R8dUYLmSEUe32TD0Mk4omwZLeC3kJR
-	 2c3WDfYt5AYLQrn84Hzz3qQs4VK0CrLiJ2El1t86S7UV1hEEyt4JSLHFZklMZOgrby6tt
-	 tW34B6N8SgRdPbqKn2IrT8+d19gwSxdR7PR0HmMW4hyHt6MF2byKW9YhkXX3QLpNwGBwE
-	 +oIB2mLflNHsOEGEjwJjIs0cYZSMKiQ7XQ01zuSuCL5O+boXhkdDUiWRT51bfWQfG1Q2l
-	 UZvazJw/zb/YRXJ+Mkj1dGhjB+gTRfgII6aAwaIY0r3fSlYXqlmPpJmoIoY3Yxe67/g==
+	bh=bsCc8WogS7pv5G/7UNqDoKJ6Atze4+f+9ywZLQF5iks=;
+	b=omLOwB6wpylgD9wmvzzbApA39+RwubzgZXYb0BE72AzvvAo45ozAqsgbOZD9yFgBJK+p
+	 l0zJ0iRnTdrE9hLw+EdyCDd9RhR4TzRc86300Bfa2wj/c8xXPsw/qwe72j32mDFqQPy/M
+	 t3EZNdflRCrhN+NkfXd2YKBiiF630llaW+9f1Ka9kKTuUPX40h5IyvZj33awAsDx6a6+u
+	 LZ6/6U98N83JuKxVfFMV73wajqqt9RYWJTL79uxrpVe0k0iilqiVYqyPuRZ81ZRKA8t5o
+	 J8xQip3HsxeLtVGuwSp5W2vfQSonftShvIgSJ6E+azKT/S6kFkLFSKmvb1PTWdW16Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AogBztQa;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OYs8CzpH;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8284B60A2601
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8284B60A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469A1606A33B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 469A1606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AogBztQa
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-19305bcb72cso1160025c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:48:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OYs8CzpH
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so3391647c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:48:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792896532; x=1793501332; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792896533; x=1793501333; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2WNFFspM+rHRPvmlX/IdB/mvBFJYspViUI+mUu/7+EQ=;
-        b=AogBztQaefRHxqIf7r7yyiPJ32TbkKSI3EZbJyc0kM0DrFhuCiEAqIV7SisQG5g01m
-         lP8walfX9nQXhaXidqzuNwI6Liv8Yr7pKoxYww/l1I3zNqNPsE0AbTEz1Y9/wA1xXQ+u
-         pQ6Bjf0E790OrznGUopeKOQszZ9uwLfYdMH3COcZyZ4oSsC6QlaWXUQep2FG9atErDPJ
-         rLSXwIHURFU/vZ1FggsB7lHTTHi5Nztr+uIT7tAjeUcGHkirI6ugimoSrRGeOsGzaU7p
-         Ogm+9BojY6irQAwGPPBCC/Udjma2QscUnzmO2cmOitOQmo9ottCgL420ReMargrfLKyq
-         LgQw==
+        bh=bsCc8WogS7pv5G/7UNqDoKJ6Atze4+f+9ywZLQF5iks=;
+        b=OYs8CzpHYRXpUiTQk7OetNemLq7hcPXWzbi+UX+IVDlL+n9mS1RE9nN0ToXAStUZNF
+         KgMrHbbw8PMO/AeDA8aqcFbOfQKob4UrBUHIqw85KjPmAS8vrCjyX5RED5dKEovhcOm/
+         pmiQkfyN2J9Q6MtmbyDMQoees1AtkqOXlgrwlzf0XSwkSkuKxkrgorW+ySUth6MjUsyy
+         7sRYkXwJiux+dZJdfrZ+qNi0fRB44FTyljW/I2l9/thalqWaDqdAzMFFOSIkeJD+vxTY
+         2tx4iGVQP6RHhxIy2hNzKBvHOrvDvs4OTW5TvaHe3sybFKMpPUIgcEIctiZNAwKyl/PJ
+         1xEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792896532; x=1793501332;
+        d=1e100.net; s=20260707; t=1792896533; x=1793501333;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2WNFFspM+rHRPvmlX/IdB/mvBFJYspViUI+mUu/7+EQ=;
-        b=I47QTvSSfxN3v6fEgj45mt8DrT0h81JXjyP/eMYMH8dAY0GZmA2uHpJqUr48mhiWoH
-         tKFbZhMKH/MpOgBqg/1jNuNhAFRw0ie6tBxjCAYQlGaj+OPuRiZoufz8F8f6OuxRBNbY
-         0KoHzDphIvEVW/VYDU6AhrNsuZ5xgRkm2NwKj7BSbNgeWesykjBIK2UzvuhnWs0gOfji
-         ifp4lLst6o15W1XjkaXBVS35jdoe0eOIxPBXY6tgsElOHJDSrmI0pJGZJ+gBjdwFg+rH
-         naSHtWcFH2O1In4mMLQETt++M4YVMGfMgu8h6cLo4EplMtDWBF/gXXbadgUh0tOz4y1Y
-         a0FA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIHmC6ACgxePPksAv5/1iyNzJfs+A44nuBum9P3oMCEjV3mmQihgqOECnxest0cQqbmxjJk+G8S62z3xA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHVcJsMl57gjGGE4Xi8qd8ppKkheqbV/1PT1Zp9loF8QV0xydc
-	01aOZYYyTuu5SH2zcltehYXTt4vKwpxKZ/9bt5CR+vM5sz8HUcIcq2wt
-X-Gm-Gg: AYBFou2Nnrp0E5nQjKFBmjIASaLTDwZTi0lq8B2NeZdQ4MXkfcdwMm2UK6+ORBHZzCG
-	agOwPASr+iahE0GzDBd+O+isFuJKrfV9IP9je9DTN0NpXlGpA3RBdukcOH/XKzhpTjUkq7NODwl
-	fXBJ4bjK7Q8kTjfOBPaqMljyJX3KRawjXHYRUmPsw3gQ5kpPCJh/I2y0NUHAEgrDEYiw/PpWCak
-	z+xWQS8q5SRn6EnIJ71rIP7VtSJJX20jo1XWzfQi6PmR3Ht6xMHCksDbretqTH5X5RC558+MZPr
-	HTdcfmZjUs4MIH7NkqPQOZF++iH5tzNxwvHMfKerzgO698RlLfAtBijdkE3ZFKMdpr3mJeccO5V
-	I7ZB0EOPG/ua/WSxKmXNwPxsqZ2CuNBHpXC3Oj8LS/DZ0XHSJwn2OxIJRiQ4E/vl1idSDqABA9B
-	IaQBMuyybN6D2ojq8mocddKfCh67gX6HImrK7dkaG28dONRTF/UF78Run12ZlaEqtQNeEiRhsBF
-	Cgu0RdY5MopCNt0oe2+9jRScRjcBarLYjXrpPiCYmypPAx46KqxqgHzS5OpFMoUa499TQiWRJtm
-	BZRloR9yh3sbpkg91nM2OQEdPMFnK7sHT4r8FQiGiihBiWSsELOp7MM41kVzUzLk
-X-Received: by 2002:a05:7022:ea5b:b0:19e:1ad9:1c2 with SMTP id a92af1059eb24-19e1ad9061emr760295c88.38.1792896531619;
-        Sat, 24 Oct 2026 19:48:51 -0700 (PDT)
+        bh=bsCc8WogS7pv5G/7UNqDoKJ6Atze4+f+9ywZLQF5iks=;
+        b=m8i6nV9+A1Nw2E2/PibgQCAUuC2JM/D2aW6DybEzyK1VqkE+Loyokpmq1WrLO5FAwy
+         IZvNA8QlrkAv+8Dq49nJA8O1a7HEWt6YwT+A1gMKClXGyG/j3BkOC/syZLJw+50APz17
+         GkL1jamoTwictd+7VKl2ak/Th5rRCy+3DmmjPuH6IYELW48moR3ETmMy8jTaeSkjb/Ic
+         A5ck35Q7/cFLXdz9e79EX44gRJ34aRJyuXNnrP8Le/ZogBLmxNrX9gCt1qkkcmZZA+X0
+         F5HYr7MBb8+9Bm81MLOICpo6ABQe5d+m3o8mzmSqoFjGcImUGp3UZ60rTXJujDzwB9aH
+         5lpg==
+X-Forwarded-Encrypted: i=1; AKwUvBzO7o5ZKgpLXm2uOC/mxrUc0iBu11Dq+F3GTbo7NAPmjjpVtua/qiVP5btHjn75686EQacWeZ241M8Ovws=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1dcZpICyKD39IqKd9KEh+9gnksVR4j4issWUwr/vA28NCMXiw
+	OQByr1pXXOwoId17g8TregLt6rT6vEr/TH084jLLmPyxasy95juOEpYd
+X-Gm-Gg: AYBFou0bsbYYQHrRUl2PuK2jFO5yooNbDJPcmzjKcSP4ySqSa/cEnzX/2GJoYjX/HKH
+	oMnwVVpmnaCKvevrmKrnKksFQ5AKRqvhUldbkO/JNtLYq8hVVQiizWg3/luffg9bCLkXmJAYEi+
+	JwrpTx1U6izrfZ3zUpprjAiBy5BgO4edLXCodSQswJrBg/J3Ne74m4sALRJDwkzvOjZXMXpTnid
+	/yfcg9iK6lmbq4fAcAMs732eZb3DIfN3FD4iPjKOvoVrnwB9zRzOtXR5BJIC/MvtO7yrkad2xC/
+	OFSUZatdpfMnIYHQIwIzk3DyIzFVtZb/IB84uq5sOPslPGaxpzHWyXbWco5MSOiKC4o1Urc8RSl
+	2LBHqUWN+PbVIhAupE42nNeFT8dxUN4B2KdZZZsWfdp0b/LeSr+3up8+jHZvuCjzeHBbfKdZ4Wx
+	LWqkGfHKbV6Re4V50UjmNHqhUw190dQcpIt8mK4pXShOpc45lOPA0ckWlYoVzt/6XCgA3490VEM
+	r5fMDM44PS0fecJ5baDXxnSc475/+zXLoJalWgwg+icB3wsf6EGe1ZCRrEdusMdFLtPLxwSGToo
+	zax6UJol9rtGDmd7s0Vy1UCyanjvWwBORtbJ/H0//ws=
+X-Received: by 2002:a05:701b:42c5:20b0:143:4450:e1e6 with SMTP id a92af1059eb24-19935fcae7cmr4685115c88.35.1792896533217;
+        Sat, 24 Oct 2026 19:48:53 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm10521272c88.21.2026.10.24.19.48.50
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2e32479sm10521272c88.21.2026.10.24.19.48.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:48:51 -0700 (PDT)
+        Sat, 24 Oct 2026 19:48:52 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sat, 24 Oct 2026 19:48:43 -0700
-Subject: [PATCH 3/8] Input: cyapa - use 4-argument
+Date: Sat, 24 Oct 2026 19:48:44 -0700
+Subject: [PATCH 4/8] Input: elan_i2c - use 4-argument
  i2c_smbus_read_block_data()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-i2c-smbus-read-block-data-v1-3-19bb97467982@gmail.com>
+Message-Id: <20261024-i2c-smbus-read-block-data-v1-4-19bb97467982@gmail.com>
 References: <20261024-i2c-smbus-read-block-data-v1-0-19bb97467982@gmail.com>
 In-Reply-To: <20261024-i2c-smbus-read-block-data-v1-0-19bb97467982@gmail.com>
 To: Mika Westerberg <westeri@kernel.org>, 
@@ -108,40 +108,152 @@ Cc: linux-i2c@vger.kernel.org, linux-acpi@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-pm@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-Pass the transfer length to i2c_smbus_read_block_data() in
-cyapa_smbus_read_block(), accounting for the final chunk size.
+Convert callers of i2c_smbus_read_block_data() to the 4-argument
+variant, specifying the buffer size to avoid buffer overruns.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/mouse/cyapa_gen3.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/input/mouse/elan_i2c_smbus.c | 36 +++++++++++++++++++++++-------------
+ 1 file changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/input/mouse/cyapa_gen3.c b/drivers/input/mouse/cyapa_gen3.c
-index fc3fb954523b..0cdebf2c34e7 100644
---- a/drivers/input/mouse/cyapa_gen3.c
-+++ b/drivers/input/mouse/cyapa_gen3.c
-@@ -256,7 +256,7 @@ ssize_t cyapa_smbus_read_block(struct cyapa *cyapa, u8 cmd, size_t len,
- 	if (SMBUS_GROUP_BLOCK_CMD_MASK & cmd) {
- 		/* read specific block registers command. */
- 		smbus_cmd = SMBUS_ENCODE_RW(cmd, SMBUS_READ);
--		ret = i2c_smbus_read_block_data(client, smbus_cmd, values);
-+		ret = i2c_smbus_read_block_data(client, smbus_cmd, len, values);
- 		goto out;
- 	}
+diff --git a/drivers/input/mouse/elan_i2c_smbus.c b/drivers/input/mouse/elan_i2c_smbus.c
+index 0287441cda46..c5091601587a 100644
+--- a/drivers/input/mouse/elan_i2c_smbus.c
++++ b/drivers/input/mouse/elan_i2c_smbus.c
+@@ -59,7 +59,8 @@ static int elan_smbus_initialize(struct i2c_client *client)
  
-@@ -265,7 +265,11 @@ ssize_t cyapa_smbus_read_block(struct cyapa *cyapa, u8 cmd, size_t len,
- 		smbus_cmd = SMBUS_ENCODE_IDX(cmd, index);
- 		smbus_cmd = SMBUS_ENCODE_RW(smbus_cmd, SMBUS_READ);
- 		buf = values + I2C_SMBUS_BLOCK_MAX * index;
--		ret = i2c_smbus_read_block_data(client, smbus_cmd, buf);
-+		ret = i2c_smbus_read_block_data(client, smbus_cmd,
-+						min_t(size_t,
-+						      len - I2C_SMBUS_BLOCK_MAX * index,
-+						      I2C_SMBUS_BLOCK_MAX),
-+						buf);
- 		if (ret < 0)
- 			goto out;
- 	}
+ 	/* Get hello packet */
+ 	len = i2c_smbus_read_block_data(client,
+-					ETP_SMBUS_HELLOPACKET_CMD, values);
++					ETP_SMBUS_HELLOPACKET_CMD,
++					sizeof(values), values);
+ 	if (len != ETP_SMBUS_HELLOPACKET_LEN) {
+ 		dev_err(&client->dev, "hello packet length fail: %d\n", len);
+ 		error = len < 0 ? len : -EIO;
+@@ -120,7 +121,8 @@ static int elan_smbus_calibrate_result(struct i2c_client *client, u8 *val)
+ 	BUILD_BUG_ON(ETP_CALIBRATE_MAX_LEN > sizeof(buf));
+ 
+ 	error = i2c_smbus_read_block_data(client,
+-					  ETP_SMBUS_CALIBRATE_QUERY, buf);
++					  ETP_SMBUS_CALIBRATE_QUERY,
++					  sizeof(buf), buf);
+ 	if (error < 0)
+ 		return error;
+ 
+@@ -138,7 +140,7 @@ static int elan_smbus_get_baseline_data(struct i2c_client *client,
+ 					  max_baseline ?
+ 						ETP_SMBUS_MAX_BASELINE_CMD :
+ 						ETP_SMBUS_MIN_BASELINE_CMD,
+-					  val);
++					  sizeof(val), val);
+ 	if (error < 0)
+ 		return error;
+ 
+@@ -156,7 +158,7 @@ static int elan_smbus_get_version(struct i2c_client *client,
+ 	error = i2c_smbus_read_block_data(client,
+ 					  iap ? ETP_SMBUS_IAP_VERSION_CMD :
+ 						ETP_SMBUS_FW_VERSION_CMD,
+-					  val);
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(&client->dev, "failed to get %s version: %d\n",
+ 			iap ? "IAP" : "FW", error);
+@@ -174,7 +176,8 @@ static int elan_smbus_get_sm_version(struct i2c_client *client, u8 pattern,
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+ 	error = i2c_smbus_read_block_data(client,
+-					  ETP_SMBUS_SM_VERSION_CMD, val);
++					  ETP_SMBUS_SM_VERSION_CMD,
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(&client->dev, "failed to get SM version: %d\n", error);
+ 		return error;
+@@ -192,7 +195,8 @@ static int elan_smbus_get_product_id(struct i2c_client *client, u16 *id)
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+ 	error = i2c_smbus_read_block_data(client,
+-					  ETP_SMBUS_UNIQUEID_CMD, val);
++					  ETP_SMBUS_UNIQUEID_CMD,
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(&client->dev, "failed to get product ID: %d\n", error);
+ 		return error;
+@@ -211,7 +215,7 @@ static int elan_smbus_get_checksum(struct i2c_client *client,
+ 	error = i2c_smbus_read_block_data(client,
+ 					  iap ? ETP_SMBUS_FW_CHECKSUM_CMD :
+ 						ETP_SMBUS_IAP_CHECKSUM_CMD,
+-					  val);
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(&client->dev, "failed to get %s checksum: %d\n",
+ 			iap ? "IAP" : "FW", error);
+@@ -229,7 +233,8 @@ static int elan_smbus_get_max(struct i2c_client *client,
+ 	int error;
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+-	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_RANGE_CMD, val);
++	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_RANGE_CMD,
++					sizeof(val), val);
+ 	if (ret != 3) {
+ 		error = ret < 0 ? ret : -EIO;
+ 		dev_err(&client->dev, "failed to get dimensions: %d\n", error);
+@@ -249,7 +254,8 @@ static int elan_smbus_get_resolution(struct i2c_client *client,
+ 	int error;
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+-	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_RESOLUTION_CMD, val);
++	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_RESOLUTION_CMD,
++					sizeof(val), val);
+ 	if (ret != 3) {
+ 		error = ret < 0 ? ret : -EIO;
+ 		dev_err(&client->dev, "failed to get resolution: %d\n", error);
+@@ -270,7 +276,8 @@ static int elan_smbus_get_num_traces(struct i2c_client *client,
+ 	int error;
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+-	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_XY_TRACENUM_CMD, val);
++	ret = i2c_smbus_read_block_data(client, ETP_SMBUS_XY_TRACENUM_CMD,
++					sizeof(val), val);
+ 	if (ret != 3) {
+ 		error = ret < 0 ? ret : -EIO;
+ 		dev_err(&client->dev, "failed to get trace info: %d\n", error);
+@@ -297,7 +304,8 @@ static int elan_smbus_iap_get_mode(struct i2c_client *client,
+ 	u16 constant;
+ 	u8 val[I2C_SMBUS_BLOCK_MAX] = {0};
+ 
+-	error = i2c_smbus_read_block_data(client, ETP_SMBUS_IAP_CTRL_CMD, val);
++	error = i2c_smbus_read_block_data(client, ETP_SMBUS_IAP_CTRL_CMD,
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(&client->dev, "failed to read iap ctrol register: %d\n",
+ 			error);
+@@ -384,7 +392,7 @@ static int elan_smbus_prepare_fw_update(struct i2c_client *client, u16 ic_type,
+ 		 */
+ 		len = i2c_smbus_read_block_data(client,
+ 						ETP_SMBUS_IAP_PASSWORD_READ,
+-						val);
++						sizeof(val), val);
+ 		if (len < (int)sizeof(u16)) {
+ 			error = len < 0 ? len : -EIO;
+ 			dev_err(dev, "failed to read iap password: %d\n",
+@@ -454,7 +462,8 @@ static int elan_smbus_write_fw_block(struct i2c_client *client, u16 fw_page_size
+ 	usleep_range(8000, 10000);
+ 
+ 	error = i2c_smbus_read_block_data(client,
+-					  ETP_SMBUS_IAP_CTRL_CMD, val);
++					  ETP_SMBUS_IAP_CTRL_CMD,
++					  sizeof(val), val);
+ 	if (error < 0) {
+ 		dev_err(dev, "Failed to read IAP write result: %d\n",
+ 			error);
+@@ -493,6 +502,7 @@ static int elan_smbus_get_report(struct i2c_client *client,
+ 
+ 	len = i2c_smbus_read_block_data(client,
+ 					ETP_SMBUS_PACKET_QUERY,
++					ETP_SMBUS_REPORT_LEN,
+ 					&report[ETP_SMBUS_REPORT_OFFSET]);
+ 	if (len < 0) {
+ 		dev_err(&client->dev, "failed to read report data: %d\n", len);
 
 -- 
 2.56.0.257.gf7497c7d27-goog
