@@ -1,98 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792943102;
-	b=2YPLxXxQrE/B+c4uYDXanfSSkr9x5X1OLNvWg3CzphXDdg4RiuS6hChP6qErMq5ZyvjM
-	 YFpQKZgCiTehadWIDSQFcMo3AWg77o3QfojqfhWOLH4yEhBgChH5rbDS7X+YYhiLe++92
-	 EAzs5i48e4FLedDdtEaO8RAREogqZUR88xSkFWufhTILUJHNgXPlXb4DbJ84yxEr6u/P6
-	 O4q5PFm+tPf9Vxa6txo5ZSizNtBSm1xdOlV4+hhv2agWSzq0jedd33UmXvp1676GLFXCH
-	 sbk+88reMKyfFK8ctLGOHHun+Hz3GdqDWc9UQNdc073M+32M/yvLfqYF/9q9igDI2Nw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792943102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-	b=MCcSPcZKV99ywrEx5Q8Pb5twDsNeLU7e5C39zc7XZ4GEjIrfz1jpqvNzlWmb+sU3kkVg
-	 djVM/rqJAnFptGoj5+CSLVc3oLyOlhTR8BXdPFsm8Pyna1G64KHestcyjVLfGf7lBZj78
-	 kv5yg1e3Qr5lQ/Y0aQzjrkv8Tb1UM1O57mvXbr/My7F1a1wXQ9tAfqgrPVq5qeVOXCYab
-	 JOE5TKFg8ygFh8B3epiH4SgJ44tTPApQp7iLDm+VT3iw6VtErApvB+ytIjigE+kegxueL
-	 wYOiV1gVCUSuGWjwVaO7aA0qWR4QVyKNuAGbqylNutmCQJcqCZ/0EE8OtKEANsqO+Tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SWGW9WvI;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792943236;
+	b=pttL4uPF1v8g1Dq15yJUmcx4p/qI6+JEPNJ6aKY3JIRZWs5ovSLARC2WOAfRYmyh7dDl
+	 MP5FYnxzXsRGtcDExiE4ahstKvzp/Hl3rSxa2Dt+6Ai16JcPQEZa5DEL2JEjijM9p8/gG
+	 SLkjni+GWZzHK3tqoIR2eviMAO5sEuhrj2zOb5Urs2NC5x+LhuFGSSFS0GeSF6Lkcp3ei
+	 pR8mseBsTbLiz6efaCgH/zzEnyB7TtiTmG6oFEWA6wYbprH/mxs+Sf8JJhuvhblEyDaHy
+	 Y6naEGdbe3TE2xkorBOPX5pH3DXEtM5+39u9KloAbLPla0XV079ndiMt70TeDk8zo2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792943236;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cIMAxcDIDOWcpd06Lgkq331vUK9QS2aVLxY2Cf5i/bs=;
+	b=R2/dChv7ZXu90kCHR8y7d8L4wkP9fOddmKww/xoaIduKLu+Ueid4YYi/XM9HKvXke7Q2
+	 z0X9T7z9QRtoCxqe1+aEnfXLkKJKhlE8c5z59iTA9b8jNX3zrICxRvM6FoNBZDsVJUM4i
+	 H6ZPlss8v0JR/tk9jEfsk7BodKo3A6hgCsBdzXsHHGKSVRQJ6X/CYWwY/fr9fhjqceIZ4
+	 UQGc7+pLv7PEJJb7iEhTj0uXM/HtGi5LJcE9v8V9Y3WOTKY9uL02ofbNIOfkJthx9aXZB
+	 dHuJIaxXBtQaqHhiApueNpNZgezu1/Uw5gI2bYHQrKWbXCd1PG7aNDaXkjTQ4EREr9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=p74ewf91;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011003.outbound.protection.outlook.com [40.93.194.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB206606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB206606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD3F606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:47:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD3F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SWGW9WvI
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so4846595e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:45:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792943100; x=1793547900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-        b=SWGW9WvIKg2fivf5djPJlrcId8el4e90hbdb2siEaeMVDX4v8OexjV2Z45JrtvjaX0
-         r5uDHqvYAavBQzOyF/8jLVi0yIhpuxv2V4D04g6SccviZbairPg2ggxVpTjkESrn0LES
-         FcQaHshGGvdPV1XcdO8ENrVXD5yfZlxrDiFC/1w6Rquswu66nyEjjgN3Veeib3oYpDDx
-         bCBFy82Tb8oR2D56mJZtQVvPkHOT6RfqgnxWkncsjKA3XVIF7Fim0vp2rgPJwyvdyp6s
-         WX7AaGiFSYYxf+bKC4V0/Xa9W8xHbsRGqTtfiZLnRoSIbmAuZJCOJPnY6pn8A51q8kKM
-         Bz2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792943100; x=1793547900;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-        b=BTS8sISSHhN9u3gs094x3s+pP0shTg3G3GaVpmPM1r91oVQ2vVg7RJI5/FyieWbN0S
-         D4LoPKMlKm/RAjHqi/s4gRnm7rWGEK34WLtsBvHwYAmzU4C1uvaATRwuBmududAnmgpb
-         zwqMSY/28a+nk9inacASZKDo+WjApDXlWPNCUJAzuyGpNGRV5PCwfHMPgeqVZPAulXRZ
-         /XUXxk9kSvZmnEFRm3fxUT2x6jJbPTQxDSyOa4QBSBaiEOOHhlS8OszbFASyAVwPCtcx
-         2CS1dKqgLHRfJUfyRJm17v+io9SncjpAHILmCBe/tOcHPBlR2MwV5924uXgG1JJE1w51
-         cy6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzPvN6etSHZbjx2TGEB2T0taCbFbT4/nYwYcQEFy35fysSnrdTEw0GPlw9WQploPuO1ESxTfnBNyekG8m0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpPI/H0q64EFKABeOCkzBkVicVnxJeddyzSYIwjwbGrelCQy4H
-	dqXfwB7q156vJbzMeAcWjlJcDBB3GEuBV6J6x2vWZyOIfA8mHIMJDOpk
-X-Gm-Gg: AYBFou0XQgs5ihosCXeJAu/R6fNYmYbJbQYcjKuL4xSJb3AZzOYsMlFRJgBCGu1o3RS
-	Xw5rIdi/Op2wfXxRqlSYDUG312TaFjDQD4x1TNAb3ecQinIYD8q41L0jpi5uNzBg2kQJvNyVMWn
-	cgCFRvGjLceMXwUMxlairIA6Pf15CfFIHoNTiQ7lc58vIu4E5h2lME3pdVilF+0vaAb2UqO7xZH
-	9kB/XoXREYCcRy0q8D/3+CfaM2jp2QppyOAbuQKKjkCGzTadF2q/PMBrvBPbWXc15UJwgCTb34I
-	C1Ib/HBGPvYPfdtsNu1IkoKi53CZA9oZrBsqS2JH0gOldidJC2gXf2pc3EmLKp4Mag2RAJJpO2/
-	roLgpvvj0W9LDbhGBDF3aQAj/PH8YrjeCAbfeg75uQ2zLF1KHsHy623e+yEnFZf0TXcvPDWialf
-	QZe0O3eDkXtTWxgl8bAM0009IZ8UxxiiiiBkIm5PmI8s4xcTITf3KpD2YQhEnSHjfZeByBhFg7q
-	LcqhZWmV1nsT6jWoEmdJEASZpTeSv3nn6TtH4Q2DlSYwLS5oLEkntsgw8JMD8BhaHuteU8l9Fi+
-	5y3LFXQaK4BGCw==
-X-Received: by 2002:a05:600c:c173:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4a35ac9ea4amr71754855e9.22.1792943100278;
-        Sun, 25 Oct 2026 08:45:00 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm157355105e9.1.2026.10.25.08.44.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 08:44:59 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module image from software nodes
-Date: Sun, 25 Oct 2026 15:44:55 +0000
-Message-ID: <20261025154457.36770-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010155626.2766298-2-dmanresa@gmail.com>
-References: <20261010155626.2766298-1-dmanresa@gmail.com> <20261010155626.2766298-2-dmanresa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=p74ewf91
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kjTM6AkuVaFGCS/pWD41eRoR0ENiymnRRI5ky8v0i56oytTXUkIjpz8brg2jbVIRINvolFPqNjlEDLJyOxAQ1huQeWmsFxPnjKUF25cr/pgerBFbn4kWjl+HeJ4K4KRibcOJIQT1b4HpJWpBCRJ+w7Y2oQfhNThs8WqxrcsSb/fN8pIBtY2hTb4EeE1T/5tUQf8ePqbcdsKXvW53CSWVoiKNSdxp71Pe/7RBKBb+8w4Y59dj7W7omXFZzwRTpu4+gKojEixnDrDQ60GiI5ttAJ6/ova5BzUq2LLehi6qT6a9U+4uc3pODLDI+Rn4IItUlQ27kq6Kn9davDA/PlRp5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cIMAxcDIDOWcpd06Lgkq331vUK9QS2aVLxY2Cf5i/bs=;
+ b=AlPAzW7hp6uGxDMtFemqo/ugEVYD8uaYJNSv8PBdmjD3BHMZNuukhJHSBWausxRXbznkG5MFndkxE8tsIj1laQgiYuhP5LL+U8ZM773+bVVtnJIN4EItVS9vFOOg+fjgjlyJXrsG7Fur/bZbNUoBNhHA3WHERZCLmYxqnp8IAHaQf66naGNuQOr8R+gepAWcO+aHF2ErKxosPGyWJdrmwLdAE7gT7qcFUUjKR7v0gTlRMqxe5zzVitZe5dNbsJbb30FghaC835UZTSrLs9vuMslFxFrRyodxj1Xq15m/V3px0UbXOKLu0Qh5VibeXQLgL/axD04S0KSSCNFx3vxRgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cIMAxcDIDOWcpd06Lgkq331vUK9QS2aVLxY2Cf5i/bs=;
+ b=p74ewf9169i+Vmiu5/4zyJ4tXNAu9bY/pzTikwnToozCst9BcP/wPSPIOt4s5vuw8AJrVTeuDeDr47wgaDX+Dd8Iq+eWRYkUShgDnp9J8Es0lUgqIYYYXDHWaRVo1dEvZPy8aav85jUHTGDQ5ulRqlC+Txfok269lmGTHgsJ+7/lPp/mtcqP4sh5adM32yRbxwMfTLIK3uoEliiD8+kSa3V3y4st8dZ5VNaOLaN5+Mcg6Yqn2x2P7H4J37Ya3XDdna6eMDveuspl72S/YH+4LeaoZxxDkgC4UztiHlADYMQRipSzjm29YzgCIApTBB/RUtDeLDwP94kDiWi6ED5SkA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 25 Oct
+ 2026 15:47:11 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
+ 15:47:11 +0000
+Date: Sun, 25 Oct 2026 16:47:03 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 17/17] sched_ext: Fix queued bypassed tasks stalling when
+ the host loses SCX_CAP_BASE
+Message-ID: <at4kd-78BbpBX-_4@gpd4>
+References: <20261023175608.4120910-1-tj@kernel.org>
+ <20261023175608.4120910-18-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023175608.4120910-18-tj@kernel.org>
+X-ClientProxiedBy: MI1PEPF00000AE6.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4b8) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,53 +99,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43e514f9-e9d3-45f2-51d7-08df32af3b43
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|56012099006|4143699003|11063799006|261021121427099003|10067099003|261009223027099003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	XQfszIC3URpGW8cChgVJnjXBpPd9c0LVT9VnqiWmHnOTtPapLq4v3h7Qi+LeIEWS4rBM54jPKUXTKe7iYznUYe5RgrWJ2zZX7lun4+D1nlmwzFz14jf/u/x9IMXsKco9jMJBkWewSqu4UAHmAjpkpbwQUWFzCDGneHANEhfBmFrG7j4IaaEwfH17FvstsYplyBFKZ2e/1dfIvOqiu++j0GWnwFXnT7aA+v5DVpR/nf4FNlycH6+tdaAh1Kd0HsPcTEnbJ2EqdG4+BxH0DbFF60pZqlcqy4MEaZECNJPuiWDddo+HGsdxcmi3gJjeSmFbU+WiVJo/uB0RRGiCdRgSgEDUdaUdUBo9TeBI2jy1okw254gSs4jA1br6HBr/krns6GNQ1UYW51yuxVaRfOM1U9mfq01/LaTAXuak+u9W2xJX0g75vQ6BXH+4fTNwC/mF4DIi76ZAhbxkBucF29cFxBjkiaq2f0bdRgUibbuSHDhJMWourVaXGBMC4dpdec+jGeb47vuqghOAm6GbWnQwLALWVga3UVXf5kCwb1WKB92ccM8DfwAWMGhqZD8Djkb6URR6An0E1DwMyFm71JWgoF+QGspZSPQp4HXCokhxnYJGmeBdBDYvbw/6GNPHC4DKd6m2O17rlGRoaFQk6ywcizU4fiOhspcFeBnLETqqS9g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261021121427099003)(10067099003)(261009223027099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ubhlku5pGMlP/1CukSI95icFmNbrtE8CsxKU9u7eKpmbx+GMtrXHs9S/eEvG?=
+ =?us-ascii?Q?Yf2H9tbxNxCo/QVdKq4KnU4V1nSBOBIfM77r5QggCBRf/3tgi7XI3cm3YKeS?=
+ =?us-ascii?Q?AL324LURhycYQUXa3WZWjdy3pWT7RgQvGWF3oAF3Z6rWJr4UZFQ703Xtw+d3?=
+ =?us-ascii?Q?4B71WdIqYP3xZNtxVmmgvGlKqHmYSCAfbB5l3HdSTCSNT1q4z/puIwUL2swf?=
+ =?us-ascii?Q?Y8L3b7szH3VwWaEQ4QTkxnkY13YOsE8SO+RW/AY9IybkWcJxPKxMeH+qH7MG?=
+ =?us-ascii?Q?LdcO5nJCj2z61UANhRZtdt+c7D8ble3jyS3LH3PS3SAbNByvOTgJ0Z2+FqYA?=
+ =?us-ascii?Q?vkIfzm0IbAVFMxo3BN45PU35XsR2D3OdBDDq8zKkXKKO++zgFjf5R2xyPtL0?=
+ =?us-ascii?Q?wiLAZISorZcG77T/SnwvwpJSQ4wxuXt0D38LUKGvZsMvPU0e0ELov0TdLbgo?=
+ =?us-ascii?Q?cPTm4cdiF/0eImaqfdgfn+yZNn3OPKBJoRpIZ1OBJDJ2irrI9movIb8dNiv+?=
+ =?us-ascii?Q?JlLBh9X5N8Je6TznYewh4vZnHy9MOARZrbhJkNx5RQtPfUS5VqZLj3LEB0s8?=
+ =?us-ascii?Q?B1q6IFY2jxGj+z5awsMqRohecnPExbS3Mzt+mktY7qr0XPZJEQyobDozSDaO?=
+ =?us-ascii?Q?CdG0g3D7/7QDs0M4Ezr5jfMn8zj0uvJP9c7QX1g6jMa527h97pL+F+tYYr3m?=
+ =?us-ascii?Q?zEO8oGDBAExmMPbq7eV4ohoAfQlr45hC/WUMQyrE5IfASdZT1t1YMSUUqSO5?=
+ =?us-ascii?Q?fFinKH7UPhVJ185TB8r2Bc3EGx2QSEVJ6lfbz+KG3FC4ejlLv8QmYlUzWVwz?=
+ =?us-ascii?Q?GPsPIGo0eHx4CpIA8bmMZ73ItJEhzLSmWnGA/ROYxGPBcH8Hn0Fp2Y5USriJ?=
+ =?us-ascii?Q?Hqn+IBd2JSl0Bc45RgUD+lc/KayzEiPnBup1BViQHYPl98NWGn+8h6UmWh7u?=
+ =?us-ascii?Q?r5GHTOG90JVd7aTQXkOcQAg6tni2Eg96HNm9Bg1xPd6CEzeT5B2uv/ylKNkj?=
+ =?us-ascii?Q?xr5pagu6yf5vILCDo7siP4r7/HbFS7g0IgwEzUCaLNhg77a2FlgdRDiqgwCc?=
+ =?us-ascii?Q?JV5Slkg3tn78crv/zMyOSAfkndc136PBa6w8H5cXVhFNfvYltLSIRXFpInpA?=
+ =?us-ascii?Q?L6qjMwu7ssCHLlZYrzJgdEokwgKxTMBK49QXxeyvu/2Fb56tnbY8VjRfZFbg?=
+ =?us-ascii?Q?tPly0t61/A8sVGYuOh8TPp92DCoB5WgGPyKof/lGRNg0Q0zKNYdhrFfjlTD3?=
+ =?us-ascii?Q?xMefHKOTEzlX6r4aaf+KR3YQtHhEH/uuwzJunqNm4AHqouuzPlvMnF7uCYmq?=
+ =?us-ascii?Q?UIObd6ElHFDz8y+c4nkcWy4LwHORZxSK/7ANsdyA/iBsOHttvMLEqEVUxmex?=
+ =?us-ascii?Q?7cvU12FUdEhQhiHn9GaQLHBaf5xKkXAU9+I+pEkvfYjmya6j1k+A6bskakOx?=
+ =?us-ascii?Q?X7jLnda8Of7ICb0oJXfV7iHvIou6mTrK/dpUdeordM96RYXJEoYq2ywe3O6b?=
+ =?us-ascii?Q?qeW0hfY+d6a0D8DmxVKVgs/hcAAQxcW8QrIbqYNcUhYUEyhdG04U2popqRST?=
+ =?us-ascii?Q?CHui8cq3Gf96rMrDV46jz4kzwDLZccQyqpsOdkMfTTITuEewUnKuCwvihS67?=
+ =?us-ascii?Q?D7y7OXTvR3M6c2NP7613PMVSRcKTpxIHBXqeb8bp6t3Jul/Aa2W4PGNntnAk?=
+ =?us-ascii?Q?Z1Vvv4YbKhIQNc78nmyS3atvvhftTzicBZ5cbAdAVk3370Oe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43e514f9-e9d3-45f2-51d7-08df32af3b43
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 15:47:10.6245
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZPFadppBk9iRzd5AihRjjFyAKg7iE1yv9bFeu7KLAex5NqeqKV+/byusT0Z3znSVGHQ9G+q1pSWMwPfHhzvDnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 
-Hi,
+Hi Tejun,
 
-You said the Surface Pro 7+ is leaving your hands, so here is a run on
-other hardware: a Surface Pro 9, IPU6 Alder Lake-P (8086:465d), with
-three sensors on the bridge (OVTI5693, OVTID858, SMO55F0).
+On Fri, Oct 23, 2026 at 07:56:08AM -1000, Tejun Heo wrote:
+> A task already queued on a bypass DSQ stalls when the host loses
+> SCX_CAP_BASE on that cpu. The cpu's dispatch no longer consumes the DSQ, and
+> the task sits there until the host regains BASE or the bypass window ends.
+> Sending a bypassed task to rescue at enqueue time covers only a task
+> enqueued after the loss, and the balancer no longer donates to a capless
+> cpu.
+> 
+> Have the bypass load balancer drain such a DSQ: a cpu where the host lacks
+> BASE is a donor with a target of zero. The target already counts its tasks
+> against the cpus that hold BASE, so the donees take them under their
+> ordinary fill. The queued-duration threshold doesn't apply to a zero target.
+> 
+> The balancer reenqueues a task no donee can take at its home, under the home
+> rq lock the move holds there anyway. The enqueue sends the task to rescue
+> when the host lacks BASE at home and rescue is enabled, and to the home's
+> bypass DSQ otherwise. A task that must run at home, migration-disabled or
+> with a migration pending, is admitted to the home's local DSQ in either
+> case. Every donee refuses a migration-disabled task, so it always takes this
+> path.
+> 
+> The same reenqueue replaces the put-back for a task that can't run on the
+> donee the walk picked for it. That is a cold path: the donee went inactive
+> or the task is a proxy-migrated blocked donor. An affinity change while the
+> move is in flight dequeues the task and the balancer loses the claim
+> instead.
+> 
+> Without rescue, the reenqueue of a task homed on the drained cpu lands on
+> the DSQ it came from, apart from the admit above. A task stuck that way is
+> reenqueued once per pass and waits for the host to regain BASE or the bypass
+> to end, or for the stall watchdog to eject the host, which it blames for a
+> task stuck on its DSQ.
+> 
+> With a zero interval the stuck task is reenqueued once per BASE loss, and a
+> task that lands on the drained DSQ after that pass waits the same way. These
+> reenqueues, like those of a task refused pass after pass, are not counted
+> against the reenqueue limit, as the task's scheduler is bypassing.
+> 
+> On a BASE loss, scx_bypass_lb_kick() sets the balancer's timer to expire
+> now, so that the drain runs before the next interval, and runs at all when
+> the interval is zero. A donee can lose BASE while the balancer is moving
+> tasks onto it, and the kick from that loss covers it.
+> 
+> The balancer re-arms with timer_reduce(), which only brings the expiry
+> forward, so a loss during a run leaves the timer at now and the next run
+> sees it. The arming at bypass dispatch enable uses timer_reduce() too, so
+> that a kick landing there is kept.
+> 
+> v2: The description drops an in-flight affinity change from the causes of a
+> refused balancer move.
+> 
+> v3:
+> - The description says that a stuck task's reenqueues are not counted
+>   against the reenqueue limit (sashiko).
+> - The description names the stall watchdog as the way out for a task stuck
+>   without rescue, and the tasks a zero interval leaves on a drained DSQ.
+> - bypass_lb_reenq_home()'s kerneldoc and the description give the placement
+>   with rescue disabled and for a task that must run at home, and the other
+>   two comments on that placement point to the kerneldoc.
+> 
+> Fixes: 147d1885f390 ("sched_ext: Add the SCX_CAP_ENQ_IMMED cap")
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-To be clear, both of the failures you fixed need the IPU driver
-unloaded, by module unload or by PCI remove and rescan, and I cannot do
-that on this machine. A warm reload of intel-ipu6 leaves its CSE
-firmware refusing authentication, and the cameras stay dead until a cold
-boot. So this is a no-regression run of the normal paths, not a
-reproduction of the bug.
+...
 
-What I ran: your v4 1/2 and 2/2 on the 6.19-based tree this machine
-boots, on top of a20c843c9bc4 ("media: ipu-bridge: Keep the
-clock-noncontinuous property name out of rodata"), which your 1/2 builds
-on. Both applied with offsets only. 1/2 changes struct ipu_sensor, so I
-rebuilt intel-ipu6 against the new header as well. intel-ipu6-isys was
-not rebuilt, and all 24 symbols it imports still match.
+> @@ -6579,20 +6602,21 @@ static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
+>  	/*
+>  	 * @p's affinity is stable under its rq lock. A task whose donee is its
+>  	 * own cpu can always run there, and task_can_run_on_remote_rq() warns
+> -	 * when asked about a task's own cpu.
+> +	 * when asked about a task's own cpu. A @donee of -1 means none, so
+> +	 * don't pass it to cpu_rq().
+>  	 */
+> -	if (donee == task_cpu(p) || task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
+> -		dst_dsq = scx_bypass_dsq(sch, donee);
+> -		enq_flags = 0;
+> +	if (donee >= 0 && (donee == task_cpu(p) ||
+> +			   task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false))) {
+> +		scx_dispatch_enqueue(sch, rq, scx_bypass_dsq(sch, donee), p, 0, 0, 0);
+>  		ret = donee;
+>  	} else {
+> -		/* back where it was, at the head so that the walk skips it */
+> -		dst_dsq = donor_dsq;
+> -		enq_flags = SCX_ENQ_HEAD;
+> -		ret = -1;
+> +		/*
+> +		 * No donee, or @p can't run on it. Reenqueue @p at home
+> +		 * instead, see bypass_lb_reenq_home().
+> +		 */
+> +		bypass_lb_reenq_home(rq, p, cpu_of(donor_rq));
+> +		ret = cpu_of(rq);
 
-After a cold boot:
+Not a blocker, but I was wondering if we should preserve the old head or
+ordinary balancing when the donor still holds BASE?
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI5693:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTID858:00
-  intel-ipu6 0000:00:05.0: Found supported sensor SMO55F0:00
-  intel-ipu6 0000:00:05.0: Connected 3 cameras
+If a selected donee refuses a task homed on the donor, this can put it
+at the tail of the same DSQ. A proxy-migrated blocked donor is refused
+by remote CPUs, so repeated balancing passes could keep pushing it back.
 
-The two sensors whose drivers parse link-frequencies from the endpoint
-get it from the per-sensor copy:
-
-  ov5693   419200000
-  vd55g    396000000
-
-(ov13858 never parses the property; it reports its own menu, 540000000.)
-Unbinding and rebinding those two sensor drivers, three times in all,
-parses the same nodes again, and the values come back intact each time.
-The front sensor needs clock-noncontinuous on this machine (without it,
-it delivers no frames), and it streams at 28.63 fps, so the per-sensor
-property names reach it too. Rear 29.94 fps, unchanged. No warnings in
-the log from the bridge.
-
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6 (8086:465d); boot and sensor rebind, not unload or rescan
-
-I have not put a tag on 2/2. Its new path only runs when the IPU node is
-already registered at init, which never happens on a normal boot, so
-nothing I could run here reaches it.
-
-Fernando
+Thanks,
+-Andrea
