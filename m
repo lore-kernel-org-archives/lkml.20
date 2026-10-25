@@ -1,58 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971434;
-	b=SflCH5ki7QGTahWROOQIF6FTXuuGkk9OaZLmMY+jy8Zw7cnPPoNfX6RUaUzw06IVibFb
-	 zaAvNwu7z1gBXM/XPlIIAxm7jBHsmWA2vzKUyMJGeG1bzytlOPWS9F5WjU4eXxTGdKuL3
-	 oO/npL+0VXCxLpwAz7bq2CuPib6pbeen5irKpbSmSwIo/RabIxPG3nzY7gVcXtrh2fy/3
-	 cO2I+e1gM/x20nvYrzCi/cV/u15GDd0yeH1Es056xBBjiV4bf5JT+jTdnB7UoWM6PEvA6
-	 hGn5Xe54PBbMl7euEYvsWw4OVHk3TxQU2+IGEOiRX4Ue9dGrmGnhEmOmww3FsxmgRyA==
+	t=1792971556;
+	b=MnoZFbq4FEyNTjQK2HO5leg9KEl9LBKF+TuNLOctcFYGHgP8eocRfxrfusHTV3jJLRn6
+	 UkvwSqw6amhcsE7QDamesYfEUGFDfGLmdOTvtoEUyynhqFec9rL8MrWiLjDowYl06E1Ra
+	 vp5Wb4EbXwPZCAqu3vbcrt8wIJUhEF4V2i+HNZOvvKDmDgqax3D2tJZ0T6wK/5EpHmuAO
+	 Igw5CSz8CYtTCDPRJRL05XDflkIo5GSKF7fneg3oKDr7FKPIYI9HcFH4euLF0HxxzHjmP
+	 iLm6zSSdWWiNSaOiA5X7Pfu5V8omLQsJ8vKsnNvRv4tjYztKtAWI9vftXMYbV4YOYNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971434;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971556;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bma8jEVFJ3EBAuTvKkRvO0Vh8YQAvdn3JovJj1C7RzA=;
-	b=jGzcccgN40an4H6+xO8A7BEU9r8R/rS9u8LCvzVoBNSOuAbQPjTgi5fnCLUoQ0VRTjbO
-	 CQWe63Xli3epxB/9Fi1yhdMllBk1yOrPC4OtBZZuw+9nfTml0Vo8sFmjnlR/8QZvuDlmR
-	 SUtqazLAJhu/dQFh25gweIityypqgK2jYTUuObfTIPtqhATgTUb8IzRHkSUrzSiqrmRi3
-	 3oqFGv2UFZHz6dwLLDvsj7CenXuFARKr/ZWwFve4U6YW68CAJJ1gIfepTcuqz44qkB0Vp
-	 o88GyeoKszkOv82N5w3SjqCH4cb2l3QCDNANZx6Vx+gkucE43h0WCx8UNYdApe+Gr7g==
+	bh=hrxxPTtZzklJWr1I8RCcQH6APbY+mTeaGJ9MW6ThL0A=;
+	b=4KgBXlQqW5NUfzbBk3RM+smTUKcWMdcaKefZQXFY6KihfEpz7v8mxdx+Dj3lnSw3Z4TA
+	 TldwromYUjJ+vV+sPElbef0JYoqixhg5SvwBXm4dYWCxxDSqh6+K3WGeh3c4NgDs51up7
+	 f/FGl4CC5tHJreznJ2nPChYJ3VwT8RB3zlDHqsSmePIbS5cUccydAQJQKXDeTtDNnruJU
+	 iS1b7yXjIZcJqDZYVl+S3JYUDI/qkL5Hi57KJEsrR/4yEjSf/mi+GeufmrLB9eTNc7gf1
+	 nYIsqwz/u9ycD64wnsMAT+6ETPp7g1AgnymwW1jJhTW1nu0KhRUwmis8omuP1pFZlPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAQ4aJZj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="d0T/cp/8";
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80EC606A31A;
-	Sun, 25 Oct 2026 23:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7FC606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7FC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAQ4aJZj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CC71F01825;
-	Sun, 25 Oct 2026 23:37:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971433;
-	bh=bma8jEVFJ3EBAuTvKkRvO0Vh8YQAvdn3JovJj1C7RzA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OAQ4aJZjwRMCgZKlvqDXgV8bnUcW+avR2ulg7w8YRf58ymzPl3VGd2TzlGGHmFwKB
-	 id+POS9EArDmFwdVOkZMrzZz9PQ6xtR37uxIQbvL4+rvbU5EZCWnVC7it6nhczDbBc
-	 SDn/KM0vZvSQdZg/HINUuES87Bp6vpr/z5EM/8laLEv19hdeKJ3oK4tbyMe8LL1O9A
-	 sOwBMYPi0p6+FLaEv0h/jIdqIPpbCYrTaspOEK8AzOgLjpF+K1VsmnMvBzIjxFMGZg
-	 SahmRsgsPNjI1gQhFMUB8+NhWr7W+ugSVhTl07CbnCfolP0DSqYJScyUlhJipz++M3
-	 9jnyz798tWcoA==
-Date: Sun, 25 Oct 2026 23:37:07 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: sx9500: ignore event config writes that
- don't change state
-Message-ID: <20261025233707.3673d808@jic23-hlaptop>
-In-Reply-To: <20261024175658.130546-1-kapoorarnav43@gmail.com>
-References: <20261024175658.130546-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d0T/cp/8
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2509649f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792971554; x=1793576354; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrxxPTtZzklJWr1I8RCcQH6APbY+mTeaGJ9MW6ThL0A=;
+        b=d0T/cp/8+e869iqNfTNL2kpUbaKN8Ihr6W41M/w2HkFxdFMJMCVHnQVxCSp63fu1D4
+         KrzQJ1TO9cDDUTuKtGH0q61qjH9N1aRC9mYbwd7eDloZhcvHa8OxeMALxbqJfBccUwnK
+         2KSf2HiMUqdYxqorKokueXPuZp4d6K6YaDFRcdDjla5K5041ZnAq5ca12T5+4do2Xe2P
+         qJn/5HSVorPiZIhQSC3BQIERPjtnBxKkJPZCwi08TBCtTQ0aYriqjtwoa3KK9am2tmpk
+         8Eip9O0K7Lx3pkcLMR+ls6G6E7mWq9xjjPQnhDvIPOCZ9ADUFzy5R9Nk29cl7xK57XQx
+         bu5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792971554; x=1793576354;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrxxPTtZzklJWr1I8RCcQH6APbY+mTeaGJ9MW6ThL0A=;
+        b=MhTKRQCgRckd4ViL67BprH9EcmEEVM0IWmLIKGmwaCNvAvGS11zyvLIduhGR1XOmdU
+         T8G09UWNeO0pFekIksooxCZ9aMWg2JKNdAuahAunaysv6R1OC7Ux3SMItR/l+UnnwzNs
+         9UFnO2DsI3uzV1iU5bsDpH6gtOxJTHXufUH4EKLSsrhnVJpvFK2slF3P28AaH+j2EFa+
+         Ad7Aim0eKb42OER6zdCl6g5FFX1rY/KFzD2eZBtWH/MuPGCQhkPAkOnJwkOKPyrRUUJb
+         Od84q8VbkDlj+ZJmV5emDEzKFShEwLN0TL2VG9dd8MtB4Y/zz0a4XEYwNFufcA299ihU
+         0JmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7cjYzH08JYphCOvhOBA2XYxYxNw6h03bl3tvEW0latiwiYCnP/PeVhOs/1Eq87CZGrtBAK9/S2Hh2FC0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV2RxpT9LhuApQp17WcS6tM51mXJypVBE61eI3FAFe37dHg4xu
+	M8afs9hpmiPqHoUXMp3YIRA9+3dUBXYug0wjlBnnjxap572/FceTAtXDxLUEuXrV3ns=
+X-Gm-Gg: AYBFou1Pc8I/C8P4dkaw3wnggTp96QSJcU6Mqbjj2ONtPf4Q9pcWfkxN7DUXGfZbh0d
+	hVdiUqhkaPr5tNj+0lx3Nu7BqjjuhCjNlCLNlmB7NKvPIgYWcbxaz0punZ5FDiebbuGJG9LbzKV
+	zEIyisHn+wsuEdZq3GsA4wAWFbA2ZrhAMSJqMBas0wKHrd/2IzGubLwtvyZ33p/x3yxUfjjhnel
+	/cnXd3uMnDaFZAn6dgpDZVKuJu//uqmM6SChoEbdH+wIn4XE3MWyHQagpDmJQIDqmVHvCp4XKhz
+	hybOVDvTcjU1GTxG31svSG1n6wn7AV4Ads59MF5sawAYZfW01LAi2sZSxbmUkxhQD2dGy7gA7JJ
+	Cy+/nJA/0Cyd2OzA5wN9WZrFrhybqud09N7T6W0i6QXRCJPKzo1N8xUBq3kn8EysO4oVJ5CRqYm
+	Z21m1Jf4+zKobEBRiiSrjxQ1qxgPGSO28NNOgagltfB2IsIOWu//mTN8DpPVVIAhnyt1/BC6nuE
+	r37Upea5uQFNFhfhX6392c36IDx/qCjz+eWlaIaFLl0YcyVgjiwGdOIReoSrY3HNq1TsnSLm+t2
+	cWSDhfyma5xolT9tsG4PDAjrBPAkBROW3tHvz9XlBg==
+X-Received: by 2002:a05:6000:4b04:b0:48d:fbe1:bb17 with SMTP id ffacd0b85a97d-48e3eb7ca4emr9697468f8f.41.1792971553758;
+        Sun, 25 Oct 2026 16:39:13 -0700 (PDT)
+Received: from matebook.galaxus.box (adsl-84-226-215-1.adslplus.ch. [84.226.215.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb958sm12928801f8f.21.2026.10.25.16.39.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 16:39:13 -0700 (PDT)
+From: Cian Ruane <cian.ruane1@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cian Ruane <cian.ruane1@gmail.com>
+Subject: [PATCH] platform/x86: huawei-wmi: Add keyboard backlight support
+Date: Mon, 26 Oct 2026 00:39:10 +0100
+Message-ID: <20261025233910.9907-1-cian.ruane1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,27 +96,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 23:26:53 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+The HWMI interface of the HUAWEI MateBook X Pro 2020 (MACHC-WAX9)
+exposes the keyboard backlight through the \GLIV and \SLIV methods of
+the WMAA dispatcher (MFID 2, SFID 6/7), with the level in byte 2 of the
+buffer. The EC stores the level doubled, so the three levels off/low/
+high are represented as 0, 2 and 4.
 
-> sx9500_write_event_config() adjusts the channel and close/far user
-> counts on every write, even when the event is already in the requested
-> state. Writing 0 to a disabled event and then 1 leaves the counts at 0,
-> so the channel and its interrupts stay off while the event reads as
-> enabled. As channel_users[] is shared with raw reads, those can then
-> wait forever for a conversion. Writing 1 twice and then 0 has the
-> opposite effect.
-> 
-> Return early when the state doesn't change, as
-> sx_common_write_event_config() does.
-> 
-> Fixes: 4193c0f1d863 ("iio: driver for Semtech SX9500 proximity solution")
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-Applied and marked for stable.
+Register a "platform::kbd_backlight" LED class device with a maximum
+brightness of 2 so that userspace, e.g. UPower, can control it.
 
-thanks
+Changes made with the Fn+F3 hotkey are handled by the EC itself and
+are not reported to the OS on this model: no EC query or WMI event is
+generated. LED_BRIGHT_HW_CHANGED is therefore not set.
 
-Jonathan
+The level encoding has only been verified on this model, so enable the
+feature through a DMI quirk.
+
+Tested on: HUAWEI MACHC-WAX9 (MateBook X Pro 2020), BIOS 1.05 and 1.26,
+Ubuntu 24.04 (kernel 6.8.0-147-generic, with this patch backported).
+
+Signed-off-by: Cian Ruane <cian.ruane1@gmail.com>
+---
+ drivers/platform/x86/huawei-wmi.c | 64 +++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+diff --git a/drivers/platform/x86/huawei-wmi.c b/drivers/platform/x86/huawei-wmi.c
+index 96ee9a97c..8eafda8a1 100644
+--- a/drivers/platform/x86/huawei-wmi.c
++++ b/drivers/platform/x86/huawei-wmi.c
+@@ -39,8 +39,14 @@ enum {
+ 	FN_LOCK_GET			= 0x00000604, /* \GFRS */
+ 	FN_LOCK_SET			= 0x00000704, /* \SFRS */
+ 	MICMUTE_LED_SET			= 0x00000b04, /* \SMLS */
++	KBD_BACKLIGHT_GET		= 0x00000602, /* \GLIV */
++	KBD_BACKLIGHT_SET		= 0x00000702, /* \SLIV */
+ };
+ 
++/* The EC stores the keyboard backlight level doubled: off/low/high = 0/2/4. */
++#define KBD_BACKLIGHT_MAX		2
++#define KBD_BACKLIGHT_STEP		2
++
+ union hwmi_arg {
+ 	u64 cmd;
+ 	u8 args[8];
+@@ -50,6 +56,7 @@ struct quirk_entry {
+ 	bool battery_reset;
+ 	bool ec_micmute;
+ 	bool report_brightness;
++	bool kbd_backlight;
+ };
+ 
+ static struct quirk_entry *quirks;
+@@ -65,6 +72,7 @@ struct huawei_wmi {
+ 
+ 	struct huawei_wmi_debug debug;
+ 	struct led_classdev cdev;
++	struct led_classdev kbd_cdev;
+ 	struct device *dev;
+ 
+ 	struct mutex wmi_lock;
+@@ -126,6 +134,10 @@ static struct quirk_entry quirk_matebook_x = {
+ 	.report_brightness = true,
+ };
+ 
++static struct quirk_entry quirk_kbd_backlight = {
++	.kbd_backlight = true,
++};
++
+ static const struct dmi_system_id huawei_quirks[] = {
+ 	{
+ 		.callback = dmi_matched,
+@@ -145,6 +157,15 @@ static const struct dmi_system_id huawei_quirks[] = {
+ 		},
+ 		.driver_data = &quirk_matebook_x
+ 	},
++	{
++		.callback = dmi_matched,
++		.ident = "Huawei MACHC-WAX9",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "MACHC-WAX9"),
++		},
++		.driver_data = &quirk_kbd_backlight
++	},
+ 	{  }
+ };
+ 
+@@ -322,6 +343,48 @@ static void huawei_wmi_leds_setup(struct device *dev)
+ 	devm_led_classdev_register(dev, &huawei->cdev);
+ }
+ 
++/* Keyboard backlight */
++
++static enum led_brightness huawei_wmi_kbd_backlight_get(struct led_classdev *led_cdev)
++{
++	u8 ret[0x100];
++
++	if (huawei_wmi_cmd(KBD_BACKLIGHT_GET, ret, sizeof(ret)))
++		return 0;
++
++	/* byte[0] = STAT, byte[2] = level as stored by the EC */
++	return ret[2] / KBD_BACKLIGHT_STEP;
++}
++
++static int huawei_wmi_kbd_backlight_set(struct led_classdev *led_cdev,
++					enum led_brightness brightness)
++{
++	union hwmi_arg arg;
++
++	arg.cmd = KBD_BACKLIGHT_SET;
++	arg.args[2] = brightness * KBD_BACKLIGHT_STEP;
++
++	return huawei_wmi_cmd(arg.cmd, NULL, 0);
++}
++
++static void huawei_wmi_kbd_backlight_setup(struct device *dev)
++{
++	struct huawei_wmi *huawei = dev_get_drvdata(dev);
++
++	if (!quirks || !quirks->kbd_backlight)
++		return;
++
++	if (huawei_wmi_cmd(KBD_BACKLIGHT_GET, NULL, 0))
++		return;
++
++	huawei->kbd_cdev.name = "platform::kbd_backlight";
++	huawei->kbd_cdev.max_brightness = KBD_BACKLIGHT_MAX;
++	huawei->kbd_cdev.brightness_get = &huawei_wmi_kbd_backlight_get;
++	huawei->kbd_cdev.brightness_set_blocking = &huawei_wmi_kbd_backlight_set;
++
++	devm_led_classdev_register(dev, &huawei->kbd_cdev);
++}
++
+ /* Battery protection */
+ 
+ static int huawei_wmi_battery_get(int *start, int *end)
+@@ -915,6 +978,7 @@ static int huawei_wmi_probe(struct platform_device *pdev)
+ 		mutex_init(&huawei_wmi->wmi_lock);
+ 
+ 		huawei_wmi_leds_setup(&pdev->dev);
++		huawei_wmi_kbd_backlight_setup(&pdev->dev);
+ 		huawei_wmi_fn_lock_setup(&pdev->dev);
+ 		huawei_wmi_battery_setup(&pdev->dev);
+ 		huawei_wmi_debugfs_setup(&pdev->dev);
+
+base-commit: 9d3475065167197742b0882aff21cf8e78393277
+-- 
+2.43.0
+
