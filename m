@@ -1,63 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964717;
-	b=doZ1URVmZ8HmIyoffRihS1PpBDnIHRTg/QZU/34VyC2RYaz2gJeTpGO1PXThVVYGiXp4
-	 hDbefaxSjSLLt+OezmxCKhZ4Fn+/243/SVhqgVZ0jIcRc0q0iNgePjEg5sE4296uNYxHa
-	 PiL8dDoeIXBQEaul3rC/WK+ynMzbjFKSQJ19dcYcYs3/Ai8ble9Wd4r6ox2kcwUK02w9f
-	 ygTMSz2KYbR07BDvTUKPflkWnH2PNEBMgXdTGXQzk5dH+6bgZx+CybEGEpcJW4WBquZix
-	 yfKJJKVP2vZVDaYUj8/YtGz3tmRe3mfld8ZGyV8iscBvI8vxJNgLTgxFK3SBODBY+pQ==
+	t=1792964723;
+	b=KrnTG9NPIlrRvnPPQp7/BxPofBkhszAyJTSjxBq86sqBVXUwazeQjp/BzEoYuz3H1Oxu
+	 KYOkz6So5QBkEDmvWt3Tglw2/jAEmJTDmRtepxQFyN7yQqmAU3u/GSQfa0lu7WAdbf9Sb
+	 kdc82ud4gMPpwNnQX2W5I3vRZFaq0NAriFdsuVDQTKwCV2o+TJhcSVzMA39hBphGXz+n3
+	 z5TYHMBF0zIRXx4Qx197GxGGF91jSULFCsweFLXOzD3aQCXsJcEZOrjza4BaG2XZKJE+k
+	 Qu5QFlLnalB9LxPs4dafm3zwfI3M2sa83gSmov/Y7A43zzWY4narZGXES7HRY5vN1Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964723;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=pHj1zr5ZQvp+0WHwshSy5opjd1aOuZJRXDEaRaa1IWU=;
-	b=qzYJTOrlWjpU0umAfq3lHTidVJSUs8ow6lFZKdTCO6zEX7DnO6Ayf6P2WmDdavRynoQj
-	 uZOLTE4nMpxc0ysrtK9PsyT/ig337P+mlmJKKnzMEKps+rk/KGnXOd+H4DcwpSiVr/pDg
-	 ldIk3o9dJqTMfmP+ezr0AlmfkOBR9b2XUgUPzyanNG+N8nPOphaCtTMB3Ad0CfTg94Y+i
-	 pt5fWN14XAA97LQBy+nUOiCIXqlbXL051TpAokOTSYn618aIgTl1yEU7+9QU1QWisDwuj
-	 JOePxn1MJIRxm9XzLKhU7xTuXOQcb4n1UzoBwpmdP7zwV6q3maJ1Fqm9aSwlrcKGJkQ==
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=ubDrAenQf4+ZKXsshVW29PwK6olK0DN2uLiQ512u4aQ=;
+	b=p+j96whSHCQ0H9LnYLQj8AYMJjOZO+U6M8iRZ6qu9hsaVhc713di8LVcTTApqqYv/PfQ
+	 2A2x/Iwy9HCvtsMk49rgYS53aLPSdTcvslOjg3KIsCzBh6SrladYPIjZm0lh2qao2QrQc
+	 vJ+yAaLP42FoBCRKnhy7ZaeqkS2UGyUKiJ9ySDSkpjIqXIt6bZYN+Lv0Jc7EBqldzXlt+
+	 4ZG5ME4roicbnuT2Kvm7ZmeM2GxQ3B+V6Ff+MSNny7lYvemT+VhcYje8Za9jgp20CLS4t
+	 Hil3FHZO4sbbpUpEboicQgZLWrnmo3jGN4ePXu6hLlBlHgQcOI5iP2iBOIK7TBASOhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Un70kx4K;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FqFahG4c;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44404606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:45:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44404606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A98606A320
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88A98606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Un70kx4K
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FqFahG4c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792964716;
+	s=mimecast20190719; t=1792964721;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pHj1zr5ZQvp+0WHwshSy5opjd1aOuZJRXDEaRaa1IWU=;
-	b=Un70kx4KV1UHjvz1jN1UwaCiFj5193mSdB2lEkgrI4kqeCxxiQekre+c/qzQfg2kPIiVvp
-	vsm+/r6sr09oGtGRMs4q+G18Fjpzv865Ez6ynVx5JVg4qrjIag50M5sLB6sGe+s41w16u4
-	0uxUt1oe1JctuectwewwIgMNSlwa2BQ=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ubDrAenQf4+ZKXsshVW29PwK6olK0DN2uLiQ512u4aQ=;
+	b=FqFahG4cZ7Q6+Ni7S/vgTDuqjWlfwcUae4NgAey2bnR6qiiwI19yckhSNgdGKXLgk+TeOG
+	UXclNBZXIEJwqZrO1naplTlY3EMyGMt1qlzDyb49r+CoJVwR6PdGAMvqiv0LyQANFz+ydF
+	2rX32AX6pQWTHnmtHWAmQoufHhdYEd0=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-580-8Pt6mSaZMzOrFf98ql_ruQ-1; Sun,
- 25 Oct 2026 17:45:12 -0400
-X-MC-Unique: 8Pt6mSaZMzOrFf98ql_ruQ-1
-X-Mimecast-MFC-AGG-ID: 8Pt6mSaZMzOrFf98ql_ruQ_1792964711
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-336-PhlDGdYaOEaQgYEtH-yRTw-1; Sun,
+ 25 Oct 2026 17:45:18 -0400
+X-MC-Unique: PhlDGdYaOEaQgYEtH-yRTw-1
+X-Mimecast-MFC-AGG-ID: PhlDGdYaOEaQgYEtH-yRTw_1792964716
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C0ECA1801351;
-	Sun, 25 Oct 2026 21:45:10 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C8C1C1955DAE;
+	Sun, 25 Oct 2026 21:45:16 +0000 (UTC)
 Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A616A1956089;
-	Sun, 25 Oct 2026 21:45:08 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 29A011956089;
+	Sun, 25 Oct 2026 21:45:14 +0000 (UTC)
 From: Waiman Long <longman@redhat.com>
 To: Ridong Chen <ridong.chen@linux.dev>,
 	Tejun Heo <tj@kernel.org>,
@@ -69,9 +71,11 @@ Cc: cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Guopeng Zhang <guopeng.zhang@linux.dev>,
 	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v3 00/11] cgroup/cpuset: Miscellaneous bug fixes & cleanup
-Date: Sun, 25 Oct 2026 17:44:38 -0400
-Message-ID: <20261025214449.310715-1-longman@redhat.com>
+Subject: [PATCH-next v3 03/11] cgroup/cpuset: Fix incorrect effective_cpus bug in update_cpumasks_hier()
+Date: Sun, 25 Oct 2026 17:44:41 -0400
+Message-ID: <20261025214449.310715-4-longman@redhat.com>
+In-Reply-To: <20261025214449.310715-1-longman@redhat.com>
+References: <20261025214449.310715-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,57 +88,63 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
- v3:
-  - Update patch 1 to further encapsulate the code to release isolated
-    CPUs into a new isolated_cpus_release() helper to replace
-    furthest_isolated_ancestor(). Other than adding a remote partition
-    break, patch 1 should be functionally similar to the one in v2.
-  - Add more comment and some minor adjustment into patch 2 to make
-    the exclusivity rule apply only to invalid partition with empty
-    exclusive_cpus.
-  - Add a new fix patch "cgroup/cpuset: Release invalid isolated CPUs
-    with a shrunk root partition parent" to handle isolated CPUs release
-    in update_parent_effective_cpumask().
+With the introduction of cpuset.cpus.exclusive, the computation of
+effective_cpus differs depending on if a cpuset is a valid partition
+root or not.
 
- v2:
-   - https://lore.kernel.org/lkml/20261023200036.60560-1-longman@redhat.com
-   - Update patch 2 to resolve problem reported by sashiko and Guopeng.
-   - Add 2 more fix patches to resolve problem found by inspection and
-     sashiko.
-   - Add 2 more cleanup patches suggested by Ridong Chen.
+In update_cpumasks_hier(), effective_cpus is computed early
+to check if the current subtree can be skipped. Later on
+update_parent_effective_cpumask() may be called which can change the
+partition state from valid to invalid or vice versa. If the partition
+state changes, the previously computed effective_cpus may no longer be
+valid. Fix that by recomputing effective_cpus again when that happens.
 
-This patch series incorporates 9 fix patches for problems reported
-by sashiko, Guopenp Zhang and by inspection. The last 2 patches are
-cleanup patches suggested by Ridong Chen.
+Also add a new test case into test_cpuset_prs.sh to verify this change.
 
-Waiman Long (11):
-  cgroup/cpuset: Find furthest isolated ancestor for invalidated
-    isolated partition
-  cgroup/cpuset: Properly compute effective xcpus in
-    update_parent_effective_cpumask()
-  cgroup/cpuset: Fix incorrect effective_cpus bug in
-    update_cpumasks_hier()
-  cgroup/cpuset: Minor fixes to prstate_housekeeping_conflict()
-  selftests/cgroup: Check for a single range nohz_full CPUs before
-    running test matrix
-  cgroup/cpuset: Prevent recursive call of remote_cpus_update() via
-    update_cpumasks_hier()
-  cgroup/cpuset: Make sure compute_partition_effective_cpumask() is only
-    called for valid partition
-  cgroup/cpuset: Release invalid isolated CPUs in
-    compute_partition_effective_cpumask()
-  cgroup/cpuset: Release invalid isolated CPUs with a shrunk root
-    partition parent
-  cgroup/cpuset: Relocate compute_*effective_cpumask() and
-    compute_effective_nodemask()
-  cgroup/cpuset: Integrate compute_partition_effective_cpumask() into
-    compute_effective_cpumask()
+Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cgroup/cpuset.c                            | 10 ++++++++--
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh |  3 +++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
- kernel/cgroup/cpuset-internal.h               |   5 +
- kernel/cgroup/cpuset.c                        | 505 +++++++++---------
- .../selftests/cgroup/test_cpuset_prs.sh       |  33 +-
- 3 files changed, 298 insertions(+), 245 deletions(-)
-
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index b850aba4d907..37bc79d0c647 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2327,10 +2327,16 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+ 		if (update_parent) {
+ 			update_parent_effective_cpumask(cp, partcmd_update, NULL, tmp);
+ 			/*
+-			 * The cpuset partition_root_state may become
+-			 * invalid. Capture it.
++			 * Capture current partition_root_state as it may have
++			 * changed. Recompute effective cpumask if changed.
+ 			 */
+ 			new_prs = cp->partition_root_state;
++			if (new_prs != old_prs) {
++				if (new_prs > 0)
++					compute_partition_effective_cpumask(cp, tmp->new_cpus);
++				else
++					compute_effective_cpumask(tmp->new_cpus, cp, parent);
++			}
+ 		}
+ 
+ 		spin_lock_irq(&callback_lock);
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index 8bdda955b4a7..f4eb984752a0 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -364,6 +364,9 @@ TEST_MATRIX=(
+ 	" C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
+ 				   .      .      X5      .      .    0 A1:1-4|A2:2-4|A3:3-4 \
+ 								       A1:P0|A2:P-1|A3:P-2 ."
++	" C1-5:X3-5:P2 C3-5:X4-5:P2 C4-5:X5:P2 \
++				   .    X1-4     .       .      .    0 A1:1-3|A2:4|A3:4 \
++								       A1:P2|A2:P2|A3:P-2 1-4"
+ 	" C1-4:X2-4 C1-4:X3-4:P1 C3-4:X4:P2 \
+ 				   .      .      .      X1      .    0 A1:1-2|A2:3-4|A3:3-4 \
+ 								       A1:P0|A2:P1|A3:P-2 ."
 -- 
 2.56.0
 
