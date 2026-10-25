@@ -1,83 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792925395;
-	b=fcMP7L9zDsaTAxO+lrT3so5TyyAOV+VWbEOMNlpBVRa63moFZEeU7bxURd6+AI+l+OdI
-	 r0R8dkORImzdhzVg5HSBYNjzaIyv5KJgBUKmUs1nzHr8sj2kuY2oFTv4lG6ribJvJBnbn
-	 X5U/JfwKTo+DmxgF3xQVn1u7/LSNuGPcd2+7ptzLr2elpXlTGdVZeKEUtEUix5O7C+qAL
-	 eNDbGMi5/VV26B/7Xpev6iejJLWAOe2+zePXhJLZDEbF2fDKURXmCgr8oLLkSpUidhR80
-	 DsUwUIsQMZlt4je9jn1Q72y9T986H7KzNUcpEAFDepUL5F2Y+oRmo4A/X7YppoBgS/Q==
+	t=1792925615;
+	b=HJrFuZhAzaa15QQo6AN2JWUWnud64BjP+Mc33PQ7lOIiuVoUpJz+wyIdt7FbImqo3Q8f
+	 JDCl8YltsT96aoYx6bVIhmlMzv7BsOJnhcuVVy0dn56UQDwuxisrbsHF/aRXqv4FPq9nU
+	 vUMnL2txoFyklVNBbm+RR1rHYLR4FRZpYD/fGyv7XUe8fvLQkGKnQqIcJtfy+rQJ9Brro
+	 nRfNpn8oCTBLMt/zKUJ4FpSRZLu2oMhoLYwvjay2sdYIXEyEUzOoyp0YIyG3SEtcvvXCy
+	 mC4J0iXFqKqyp9ZH25OpbZ4WZzO+3O942ncssZSlxejZiJ99EDWI1dpbR3cXXkpcqbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792925395;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7JSyZw8IlAUawccxS8oDgVXImKxbTAY0ZCG5l352BOA=;
-	b=YHvgKN9p/QRzuI3RUOOKCgBnSXMIrsyzW/mipiRfYkSGaGTmaFliQZjetx5Dx5eG6+Uj
-	 8qtdDQhkQkDYX49LV+8eqbWwYSABM43P5xekC3DVp6VaffYiE5DrpiTn+BFkrg3W78m6L
-	 Q3DYco6fvmJSLXDQsyT8Ya/XXm5nMAqIHZDMiGLV/Aq9IOU4H7yopH5CFedgh60RRpW4j
-	 Bq1G8auPTXi2o/WpJn8Ysc0JBAtPO+RtDVWLqigjwmpvsOWTAejWIjlrJq2wtbqBWpGEc
-	 yjUcr00FJdQ9lawDgi3O2UTI8cey0C2MXNpMo5wZnXjlBWHV3aBIC8EXS4hk/MuDAfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792925615;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zVPVIevQ2+RA/xYQCl+WFJZrVw4+BqUD1pwMwn5wSlE=;
+	b=zyZXxP+1AS+3A9e0lZNHrH0iUw6v5sUL3lDSckpY1XHBW0w8riIPXiifrzQFQfWVMNdZ
+	 pKu4JzypmfPIA+VDI2XK78+vpCBbtSto3v/R/RBu7ECMrKCO0/hx8AgNlGNfCB3amiTAE
+	 bsy9CVb/RBwgAM5hJWbwJvMGJCJxJiXsIkzaSqxPiT/WYHO0hCL/36bBHokesHgbFW/zI
+	 sRa2lvw/ktFpHeX/Cky3/XUwxBP2XIawMXjG7gZRVgOpDx/PwtzhYuoJTsbJ9Vr9CbiE/
+	 rmNM5IKFbU/9Rz+/Lipf83KZ6M4QZWWpF4NvUB/ZMY6dJMhs45y2iG/mCE65mzvANeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="ft8/267K";
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=FOTGf9R8;
+	arc=none smtp.remote-ip=202.108.3.20
+Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D8E606A31B;
-	Sun, 25 Oct 2026 10:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6D8E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578D9606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:53:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578D9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ft8/267K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792925394; x=1824461394;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Rt5BEY7DwxcNCG/AAfpdZnZc2Khftj/I/zbWxZry5XY=;
-  b=ft8/267KabzBwRNH1iLUrT7DKqfUPTM0zm6oBudj+uoU/29XpNzws9R/
-   RiuHY8t9Xrrr+5HMhGPhNAe/1ZaHBBqNWBd75hk4uKDg+/7Pvq0a6ihoT
-   CYF0ImVdakUBi/OLz48to9ev1QAy2l3XgGs6m3vFQHehlBtYZM3eJenaQ
-   EozcrkWzit94MZ2IdXS2yBQbfv45tY11+2I5cMEGH7hnzIhuVpUEOOxXS
-   9Vok7LF2ghn3LJrFH4Vzhjf/gn3ZMQtxUtdCZ2Zzs+4x3TEYv4WKBBvy6
-   ugEmbz98MvMM3AVWsdVQIHmox9mMv1WqfXQiW26TNxWDVZLbtOOxD0o7F
-   A==;
-X-CSE-ConnectionGUID: dbCem85MT3yuhGf6FW1hNQ==
-X-CSE-MsgGUID: HtmCVHebRDCZ2/URso4QmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1501274"
-X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
-   d="scan'208";a="1501274"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 03:49:53 -0700
-X-CSE-ConnectionGUID: JYgqJlDmQu+LqbHMhBjFnA==
-X-CSE-MsgGUID: URc1XrjISym5V9UmBj1B9g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
-   d="scan'208";a="4005441"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 25 Oct 2026 03:49:51 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xKvnQ-00000000UjS-1aE7;
-	Sun, 25 Oct 2026 10:49:48 +0000
-Date: Sun, 25 Oct 2026 18:49:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tristan Madani <tristmd@gmail.com>, Even Xu <even.xu@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Xinpeng Sun <xinpeng.sun@intel.com>,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH] HID: intel-thc-hid: validate ACPI buffer length before
- use
-Message-ID: <202610251809.9IHSydrI-lkp@intel.com>
-References: <20261024205850.4051206-1-tristmd@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=FOTGf9R8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792925613;
+	bh=zVPVIevQ2+RA/xYQCl+WFJZrVw4+BqUD1pwMwn5wSlE=;
+	h=From:Subject:Date:Message-ID;
+	b=FOTGf9R8m3UMJq+fU1RLQsZuo3k2FQTBaBTxZKLA+4fIT/Lfr7tF1kNnWWy1qzWY3
+	 aPakDCQqVA3SZPnUwg5fcliya0kypOy+kxjATAsQ4b5IUYAVC4GM+AzNDp/uec5U/h
+	 T6BMLnvzUpyWaYPTXYWyYP3aSK1Qroq4J9mkhMis=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.246.238.232])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6ADDDFA0000062DE; Sun, 25 Oct 2026 18:53:23 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 2673924456912
+X-SMAIL-UIID: 340D044D953E496082DFDBC6D1EE664F-20261025-185323-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in snapshot_ctr
+Date: Sun, 25 Oct 2026 18:53:09 +0800
+Message-ID: <20261025105310.1134-1-hdanton@sina.com>
+In-Reply-To: <6adcd395.998fdb85.f0000.0011.GAE@google.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,43 +68,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024205850.4051206-1-tristmd@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Tristan,
+> Date: Sat, 24 Oct 2026 08:49:41 -0700	[thread overview]
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=127202a5580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=97e47414c855a3d8
+> dashboard link: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a47f71580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13edba35580000
 
-kernel test robot noticed the following build warnings:
+#syz test: upstream  f47d223627f8
 
-[auto build test WARNING on hid/for-next]
-[also build test WARNING on linus/master v7.3 next-20261023]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Tristan-Madani/HID-intel-thc-hid-validate-ACPI-buffer-length-before-use/20261024-205850
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20261024205850.4051206-1-tristmd%40gmail.com
-patch subject: [PATCH] HID: intel-thc-hid: validate ACPI buffer length before use
-config: x86_64-randconfig-1003-20261025 (https://download.01.org/0day-ci/archive/20261025/202610251809.9IHSydrI-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610251809.9IHSydrI-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610251809.9IHSydrI-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:66 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsm_property'
->> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:109 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsd_property'
->> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:66 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsm_property'
->> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:109 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsd_property'
+--- x/drivers/md/dm-table.c
++++ y/drivers/md/dm-table.c
+@@ -400,8 +400,8 @@ int dm_get_device(struct dm_target *ti,
+ 		if (r)
+ 			return r;
+ 	}
+-	refcount_inc(&dd->count);
+ out:
++	refcount_inc(&dd->count);
+ 	*result = dd->dm_dev;
+ 	return 0;
+ }
+--- x/drivers/md/dm-snap.c
++++ y/drivers/md/dm-snap.c
+@@ -1390,6 +1390,7 @@ static int snapshot_ctr(struct dm_target
+ 	if (r)
+ 		goto bad_read_metadata;
+ 
++	dm_put_device(ti, s->cow);
+ 	return 0;
+ 
+ bad_read_metadata:
+--- x/drivers/md/dm.c
++++ y/drivers/md/dm.c
+@@ -823,9 +823,8 @@ int dm_get_table_device(struct mapped_de
+ 			mutex_unlock(&md->table_devices_lock);
+ 			return PTR_ERR(td);
+ 		}
+-	} else {
+-		refcount_inc(&td->count);
+ 	}
++	refcount_inc(&td->count);
+ 	mutex_unlock(&md->table_devices_lock);
+ 
+ 	*result = &td->dm_dev;
 --
->> Warning: drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c:85 function parameter 'buf_size' not described in 'thc_acpi_get_property'
->> Warning: drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c:85 function parameter 'buf_size' not described in 'thc_acpi_get_property'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
