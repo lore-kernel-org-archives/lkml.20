@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792937944;
-	b=4giYksmnkUYuGgv2cvdaxlEAqnKK3ACSuhzLDOnH0btODDjt0eQgz33l2oBdocvouiRK
-	 5KFCrgzUmxnhiCEYdKUJ0jf3uS+odgeCWpbeJdSWmUvmV3IQHMLKMMxa6rbeJd89hA0kx
-	 79TzPs2kk6LJTTQTJ1DXhZUZPZuBPmVCNdNwxCkifpZb9jsSJTBt4AEzF2ST+TJVVSurS
-	 YHNryDfDh9rixH/pOIl78gKVYLskSP3vSdoMB/xakpSBmF3UNr6mZSXTon71iH+bXaupB
-	 B3IBprS1sMcP97+0ZK2FmGOEp8UTaFk/LXqUp2e7ONu9RkQ2rwAOvAhwLreuj0zyFjg==
+	t=1792937980;
+	b=Zyc95/PKa0hoBHdFz4T4X89ajX5lbW0rKleVX5A5Fou26ajvrzQ+N4UbLuLlfGxLXGju
+	 V2Fg+o1nUhgyLm7CZGjx1ZwgIpus8+KiYbgzI7mZWqXUvUViUOS+opj36JXK53dbeSrox
+	 OX/Nv51iGZHUHYRf4VlOnD1zQO0lrs5JkuDriqTP0vwxpJJ77Y66HBdvAmZ26Qtp+sBrQ
+	 NuSh/zC4HEUooB2Ppp1fdeHrAdQYqEvrWSKLsOWNCX9lYwBnbWg+GlVSbwbT0j8WsaGdU
+	 K9k0BOlD1nyLq0PcCRZkkTygY2WdvyHjCE5uiV5nqvAijMDa+yvoH7xSbJfBC24/O2Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792937944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792937980;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=e6eB5/+HfPV8iGsvdknKspHRvaocTX1S/a3F3L9xITg=;
-	b=WhfkttKQOMaHWsNPQxREV70+30ncLn3fLRAmC3IUE6tGSA5v/mhaAytGtgtIub7InK/2
-	 0s7c9OH2Nd1hkBCCU4Zt0i+4fRwukZ+XWXqaXA5QHVkQUxzw14tlEoEKXbw5SAlc4Vrth
-	 JQ3ip3X1Ql5uXf+mXXz4uw4woAEJLMYCQGtmkUCYvec9Z+2jChpXFDuohy3r7JuQmhjG9
-	 XriTgtgDT6lsxhOW0SCVlFmD/eDzPhIFs9FcHIxfMSAnGPtSdNAUgxPUkwFtEx5+9GMHF
-	 LTDMnRFKMqaVepkaDfI0YxlrsYAimcl4Es7ft2ZpnTzHnu6PNFXvs0uDs1rAmNSI72Q==
+	bh=afEw9oZKmLEt3nCw5DyljPgEXMVJGWyX00qdwnVO3iE=;
+	b=uhcLOWQyDNhgaRYZUGp9fgvwa7RlqQr/GH7JsylN8QOZRSsxAehzFZLxGL+P1/KuAzJy
+	 LRoQyV6IuOgVN1R+JjSZvPIiiGkkprACHRPSxBd+/KS2hFQMtxQgeszPm/D/I+t5+zjzh
+	 bSL1QsJ04RD2DUTgG0nSANlYNR8+r+U5+Imw5S5BGWplemya3PNRaxjh+0Iip6WuaspC9
+	 DMN9WiKIXMU9F6Y9NTEdjxJnOy95G3xbXzgPNRmojBZTnCv+T/r4OzFSEhFe1cAeFX8UZ
+	 gOrONgmXM+c8ogD7YpLaYnsz2tkZA+ZwzmpHyeDXJ/lBcovs/WwPVUFG3foJMmgHduQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="krKMF/a3";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rpwWsubX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB0B606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB0B606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FE3606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FE3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=krKMF/a3
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b55859245so13567566d6.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:19:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792937942; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rpwWsubX
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5365f9bef55so30494271cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:19:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792937979; cv=none;
         d=google.com; s=arc-20260327;
-        b=FY6b4dTWcik08apo8mrsCkEjTEteBf6AR8xRcdbZesBkmWz0fWr2JEfTM+y2PICO9Q
-         dt3DOKSrPNtX6iMV/gIf8y93uKjkhp+m5e68YrLYzWkNGFPvZOR2Y9N29wuNYCyKfNdy
-         GK/N7si7Fn/k8QumKvLa14Cx9GlYrPGYRZ6ec9Mrqb4FKt6jJ/Qk5Kf8kjoa3A+lQzy6
-         ly4FZZMvOVnN5O+zvSZEEmlPaa4r1IGx94pylgBEDNYtYcjwrjh31V54W5iM83AWW4hx
-         rjEcPGzAUMalF9QkaioT6SRw+16jGPHdzhBeoLAVIiw2ObJ6xxvODeOjQnGU4C1T6wcX
-         CNlA==
+        b=MCwXa3b4Po2j9MKaji7d9xlmEx2uaH475I7yCkNf29UCAdAIgMU2ZNHyyEW3Flif7k
+         iMnGJQftW2U6KUI3SPDhbSJO131fEdFkhgApjt6Q6kXHe0pGcceNFzgu8NhRhFpeuC0X
+         PdKPzKyy7WkYyBivYqVYTG3f912xiZnFypqqEvBAjrd3jClZOg2IQZKJG+W/b6pEVHbF
+         kdhoqnw3rIXMZwVBB569B9NZJMLHZ+XcHv1omM3qtsQploJ9zt6QLwiFRY4FEa3LOoJP
+         Runa2kKqH6oNGwS/vTyXxMyvgbr8xYXIE8Xs0FJ1rmb1viHPU0Z868UzuiO4i8Kx2gp7
+         RK5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=e6eB5/+HfPV8iGsvdknKspHRvaocTX1S/a3F3L9xITg=;
-        fh=UxrW7Qv8ueVaUwAw6R1XeFuq3txr4/wwz1krc3RUL64=;
-        b=IhcrZc4X5B8Odqkhp55LpQQudh8bh+bNvRxv6NUB04zY9YVcr5qxoppXaMPN/v6aRN
-         w8cFdodd4YAg98dr24WYmPkObEE50eIteZpydhbav6/Do13oFYcH23dASqB7g+dK3bRW
-         wB2D2BtXjlkFXswukxSuLaFZKlzvfeH20HkA3o8l3ckU7uaGwSCmP0GO7x7wjgdAecja
-         afpCnJ/VJpm734pbyBNkRrm/3Q9dPRFNAY5xYNlrfPLXqb04dhyz4XoRNxx5/ov//FjT
-         wuIoh0yRpMazVRBKssDGnBgY2bSjwroVu4a9kSQ0/AnwmdtfPnxTZbyqVGKx77zytOUJ
-         Mc0w==;
+        bh=afEw9oZKmLEt3nCw5DyljPgEXMVJGWyX00qdwnVO3iE=;
+        fh=LsM/H4y9dzXLnsQ4y6/G5vlIUsoxNXL3fA7LBL/l4eM=;
+        b=SWqcc7wmA4sApGU882KbPCK9YmKJv8SAHQu06geKdVpIImJ7iapZ4e03p0HB5PdP2K
+         iFu2wotFyZoGjkGwI9eLDOK6sKJwHrc7LUVhn/zxTivpmLzWcxDHpv73bDiSsrclDREo
+         nt2pAbq2q70/8XJ8Azu6/wLs+jDXgA71wbvrwp65tJBIzgDlcAOn6gcg6qFJwIw98gQ2
+         EShZdkRVtBIFgstKtt4Ywnfgs4WtVJtS52rfei5IxpDwO4NCzEiki1mIm3voH5K9yDi8
+         8z5KBmjhigmVHYY5FOi/EKGtJt7FOgjuqwp7FxxV4mBOBxJPEEQhTkVj+3y36KVHXbUW
+         AI3g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792937942; x=1793542742; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792937979; x=1793542779; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e6eB5/+HfPV8iGsvdknKspHRvaocTX1S/a3F3L9xITg=;
-        b=krKMF/a37dmQMGFgWjgS1lgoM6RJ0MCOZs2MWdstZSDiAD4I9yNYPYzczmFXh8SJsI
-         X28FSziCwuvSXswP4y7ixvKPZ7NchH6arExeiii8VSWMplzgyw/ORvp6ABWkIf0Enupb
-         yey4Zc7e1QS73OWCgkKQY9b1FSwPqpSs8rHkdyG4f2BS/0bTp+dptDnI3yMt6cykLruC
-         ZgGQijwsYWasLpv/rdXpNMNr3f54Drm3vbjXd04NrfbQRgpRLvocSFadd958IoRLup5l
-         p8QusmI21ASpHemoe7AeBJ7fGN0SkQaY2pkF2yAZXS4vztUb8ulLC30STQQLoNQnICz8
-         7How==
+        bh=afEw9oZKmLEt3nCw5DyljPgEXMVJGWyX00qdwnVO3iE=;
+        b=rpwWsubXievo0YLcf+Vs4oyL3gUbEkkg6C/OnQYw2QmkGoL1qKvYRJywg5ShhEZKOy
+         MisnyD6P198DHVaIT3z17H+r3SCXdXNuADpOlnmAUbMHDbljFh7euejz4u+2PeIJGXm2
+         j12GCrd6aQ5Gpp1MoNwrET16wv3oSBf2kipGQ69776/FBPtADAwSfOQDL680cq0s43BK
+         /9uMfVW0W10KZBZjigT/5ww3s+CfO4TlIAn+ErZAbnshbSf8Qc+dABZhxFWn11iXxoSZ
+         AJbi8CHNQkmbDv6KDkZkYhEMKwn9xLgzYHihgLdHZ7Ez9OJZ4z12mPgj9iIJDDLr/bjK
+         d4cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792937942; x=1793542742;
+        d=1e100.net; s=20260707; t=1792937979; x=1793542779;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=e6eB5/+HfPV8iGsvdknKspHRvaocTX1S/a3F3L9xITg=;
-        b=YQ3239pr7sQVE/C1zYj71qfxEOWUwdvFLqG5C6AzbP98g1o/kN09fiIjrgtx3fQalT
-         1yDS/L9VVvbs2h2fR/xIx4BpihByRg4elh9shgS/T420E/t7jWlFPWq53ZmmRBstCxiG
-         9H8Idb8TiwaYfIqkDckZQLNl+nDheWzgdh4cB6Fk3ZvZARlibOvd9uimBZFyyBl4YpeK
-         WAMPWk7OMzk6bAZEG/xOVNvTR4D9gKrMZ97B+ehwYpFrZN3ibqfUtB9gdVBXqEbLzEPV
-         /6iKknL0OiaEYUIyTH2xVScZxUO18TUSVeJKsVcOVx7ygJO8BpVbFvZg2gPTB3PghuG9
-         SZoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxF0XCKW7MwHL2qA55qnjRlUhANnRUmOa9ZFLIex9WBts6s8U5jMmrbzrIgaCLAyYxdv0wkySHyD2drVrU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLrxrfzHiJpmXe2AOpNBD/vjc8wYY6VfAJBXOPTMNaq0OgSlff
-	GxocRaas3JKjWZLu6zqdWh9Ek/dQngeonm85JeyrscD3p8fYGhnRkVkqg+zAK5qKDpzINitHU8/
-	/YkC/7UKyIeZsk/3ZnK/jQ/xkfK+WJlG1PTGLg3A=
-X-Gm-Gg: AYBFou1Qm6KFuoeHfqmMj2Spw0FeJkFFxdnNL0J994AXzOZfOOKIRkAtaSFW7aMad/E
-	EADPxW09Js37DOfcjwCV5wbmJ1iAWGFcx3Tda6UbkiwbNfVaqnd9P08wpTOdyTddr++Px0CKsb4
-	gjRySbeejqnpF9qCRkBWhaBKbwLwnem02f6Z3lWZj8b2jL7X+dIVs+zpvWOoARcfMz4EKrL7hTY
-	osq+eVFqHdzAm+1w3bCBPUz4NyTB84cl/VzYfixXf/jD6sSX8kWK+UtHXZSkvL/Hrkl550N/a+u
-	7tfyEIUSPzlDqlKdmJM2eQ4ga9BBiZfJj/l46tWgt49pay4FQwrWpB80PiS5i5tl1yo8NGYfK9n
-	jtXeAAUXDvEC+w2CiIP500XIWNwaaZMc31ZJ3k4QWxv4A4Lrvkkas9zy+QteHxCddYlhlmosb7y
-	Y4lJJQqvFAXOkRdZWf4gqNbUiyyV/Q3Id6IQDetNizYzeY7PnP04A=
-X-Received: by 2002:a05:6214:2b82:b0:91b:5d39:e140 with SMTP id
- 6a1803df08f44-91c48f143efmr72761506d6.53.1792937942225; Sun, 25 Oct 2026
- 07:19:02 -0700 (PDT)
+        bh=afEw9oZKmLEt3nCw5DyljPgEXMVJGWyX00qdwnVO3iE=;
+        b=m6ZavLK34XOxizudkGl3qYvlnFBcIzT1Y4hYJRNdaCvWdmwrG3F8cUvYfE7uqf/ksV
+         IH4nnhBSS+vDjlFZd/4LDa/YnsZk582O4wMrvGtusyevAhFX+CI09WvD8n2i5XGxIjPl
+         VPghM+g5QkLIgHxmONoJcwWGQ4MPZJeIXD+iImaDasH36w78zDX5BoRJLZ+IAxqlgiew
+         Vr3btHM9WWkoGS9oEe9tgphjpdiLwbdwXcTIqTy7hd4H61GgHS5x65F6jaFenRIMEcma
+         QqqD3+eV7lcJrjTBv8X/ZO/mEgveywYjTGeojHH3dmiUz+JrQcY2jNAwgYvg59IT0v/0
+         kSiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTIrr03jXs74d1qrLlw2ZQCZlofmCBIe7O95WTJhHxmPXhzvsJKDjINwj8LIvceWbMqDSH0ATUTiwjcEE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGVBXl+Y1PGvMi5tkOGCAWCGConYaV/7m9nTaOxhECb1S9Q42m
+	JdyZH9NTYD8N4iX/h4lm93JQPB+bpWOaLPfBKxw3BuUvw1Ur081iA8DaR9jsGGZi5njo4xnYv3d
+	ASxozMmaUsRU0gnkEAKvAbYs60VBfzOg=
+X-Gm-Gg: AYBFou0qRVezbAtr4u0itjywcPpWiwUD4QPy/ba5PjxkShjl43KcRR/S0lNTXt+JSdK
+	iOnAJWQF9kRhM7ErzGA4Befwlr/gbw9a10D9fy26zDgjSbPhB8h/H386zvF4DUGm7DHSXRVvxnW
+	UYgJiYwx/xW2CdXpOPF7N4oHtmY4PdcL3VwSBrAKJWGnWGDnUVwcUYH/39R6RfYiJZOcDxDD2wl
+	3z1JWs1FFB6vHHyRrMNzCXy7zZ1ygi80SsbMe2CUw9iPN0wmmlFtGwSqO8KElthr67myBdZmVVR
+	vbjCIeZvNyk/Ec76VYESIB/6/PcrIR6OY7U6yOomGsrBB1qo+8HnXD6NVj86S5n/j14oyEt7GEF
+	BnN9I8hk8sz1muz27jh310TvXvLTMUy0SRD9ZCe7Ju+eCtxIWDQ07Xi6WRFYQ8q2x6j+qlNosMQ
+	/OLyJi9XwXiaL9KUrPFJ6ZIcStSE/MFopOKWtEbYYA7xlI7vi4E3xwCrxfD129iFaxzLojRZpX
+X-Received: by 2002:a05:622a:44a:b0:537:548b:77ed with SMTP id
+ d75a77b69052e-5383b66676amr59161561cf.30.1792937979282; Sun, 25 Oct 2026
+ 07:19:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014162921.450235-1-steve@sk2.org>
-In-Reply-To: <20261014162921.450235-1-steve@sk2.org>
+References: <20261012-fix-aer-mask-override-v1-0-49a0d7aeaea0@google.com> <20261012-fix-aer-mask-override-v1-2-49a0d7aeaea0@google.com>
+In-Reply-To: <20261012-fix-aer-mask-override-v1-2-49a0d7aeaea0@google.com>
 From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Sun, 25 Oct 2026 11:18:50 -0300
-X-Gm-Features: AclHuK9O3SRqSOfWpY-PAriDEEl8Pmx9Mwub1R5Mhg0M9i69HhGFGrrSKFIMqcE
-Message-ID: <CAMAsx6ey3CMZrsMH9HfJdU9o+uGySAGvLWXAoAdfFSF3ZudoTg@mail.gmail.com>
-Subject: Re: [PATCH] docs: ext4 filesystems can be converted to 64-bit
-To: steve@sk2.org
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, corbet@lwn.net, 
-	linux-ext4@vger.kernel.org, linux-doc@vger.kernel.org, 
+Date: Sun, 25 Oct 2026 11:19:28 -0300
+X-Gm-Features: AclHuK8BBiPLOfqYYGvUYpW8KblsSf6Aue6WOkhnIkNSO4BT_qaP3xQuaMz486g
+Message-ID: <CAMAsx6dLGdqr+ZxG8FrwN-6r=5yVY8hk-c+7CVrAkS0zpKPmGg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Documentation: PCI: Document aer_inject's
+ aer_mask_override parameter
+To: rathodpriyank@google.com
+Cc: bhelgaas@google.com, lukas@wunner.de, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, ilpo.jarvinen@linux.intel.com, 
+	dave.jiang@intel.com, prarit@redhat.com, ying.huang@linux.alibaba.com, 
+	terry.bowman@amd.com, corbet@lwn.net, jic23@kernel.org, 
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 14, 2026, Stephen Kitt wrote:
-> Since commit fe12931 ("resize2fs: convert fs to and from 64bit mode")
-> in e2fsprogs, which shipped in version 1.43, resize2fs can convert
-> filesystems from 32-bit to 64-bit and back, so the mention in the
-> checksum documentation that this is impossible is obsolete.
+On Mon, Oct 12, 2026, Priyank Rathod wrote:
+> To exercise the handling of such errors anyway, e.g., of those that are
+> masked by default like Header Log Overflow or Poisoned TLP Egress
+> Blocked, load the module with::
 
-Hi Stephen,
+Hi Priyank,
 
-I checked the claims against the e2fsprogs sources: commit fe12931 is
-"resize2fs: convert fs to and from 64bit mode" (Darrick J. Wong), the
-v1.43 RELEASE-NOTES say that resize2fs can now convert file systems
-between 64-bit and 32-bit mode, and resize/main.c at v1.43 accepts -b
-(enable 64bit) and -s (disable 64bit), which v1.42.13 does not have. So
-the new text is accurate. This was also the only place in
-Documentation/filesystems/ext4/ that mentioned the old limitation.
+I read the text against patch 1/2 and the current tree, and it matches
+the implementation:
 
-I built the documentation with the patch applied and it adds no new
-warnings. checkpatch only complains about the unknown commit id, which
-is expected since it is an e2fsprogs commit.
+- the -EINVAL refusal for masked errors is the existing check in
+aer_inject() for both the Correctable and the Uncorrectable case;
+- 1/2 drops the writes to the hardware Mask registers, and
+aer_inj_read_config() clears the pending injected bits from the Mask
+values it returns;
+- the hidden bits are kept set in dword writes through
+uncor_mask_hidden/cor_mask_hidden until the module is unloaded;
+- PCIEAER_INJECT is a tristate, so the boot parameter form applies when
+it is built in.
 
-One optional suggestion, which does not change my review: in v1.43
-resize2fs refuses to change the 64bit feature while the filesystem is
-mounted ("Cannot change the 64bit feature while the filesystem is
-mounted."), and enabling it also requires the extents feature. Since
-the sentence replaces one that was about a limitation, it might be
-worth saying that the conversion is done on an unmounted filesystem,
-for example:
+The new section is also a proper subsection of "Software error
+injection", and the documentation builds with it without new warnings.
 
-``resize2fs`` in ``e2fsprogs`` 1.43 or later can be used to convert
-unmounted filesystems from 32-bit to 64-bit and back (using the
-``-b`` and ``-s`` options).
+There is one thing I could not reconcile, in case it is useful. The
+text gives Poisoned TLP Egress Blocked as an example of an error that
+is masked by default. In the sample session of the cover letter,
+PCI_ERR_UNCOR_MASK of the e1000e reads 02400000 before the test, which
+is PCI_ERR_UNC_INTN (0x00400000) plus PCI_ERR_UNC_TLPPRE (0x02000000),
+while PCI_ERR_UNC_POISON_BLK (0x04000000) is clear. The vendor register
+descriptions I found also list that bit with a reset value of 0. The
+Correctable side does match: 0000c000 has Corrected Internal and Header
+Log Overflow set. Internal errors match too, since
+pci_aer_unmask_internal_errors() is only used for CXL.
 
-Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+Perhaps the example could name only errors whose default is confirmed,
+for instance Header Log Overflow and the Internal Errors, or cite the
+spec section if it does say that Poisoned TLP Egress Blocked is masked
+by default. I may well be missing something in the spec.
 
 Thanks,
 Daniel
