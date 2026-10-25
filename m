@@ -1,115 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792900996;
-	b=C7Md8brTX+twBhL+jm86JBhYHS4XhJlAFBBQEg94ypVdhMkKIEQiybuFRAjHOVRPfRbu
-	 OMtsnJXR9iKSfzSZBxOJ1xKmEukHlu6zXNIb5dyO0n37sWhQtV+xvTbiUQa8/P0S4yQE8
-	 rXPNa97B0pdmtRNgbtgBtceNmi6oh53fziXZUk/M//vsbuLWFXGQvpjCt+tQkdnmjDKI8
-	 zS76ocwfygtWsDPgheCz89mRJiJFxetv6yU2ZGTdXAGFCTR5yzouxaABTG4p/S1NO+bFd
-	 iLzapMKfyFDfAU5kCmusqVFnfNRRGhRZ8DqC9haaL8ar67XRzPSEbp7Rk1x0ETv0yjw==
+	t=1792900993;
+	b=1WgjxiaNgfP0FHe7ptp78L7RAzC6k5BVjFbMEw7LBWhqpt2xlNBwf7ot7RmGIdTqqsoE
+	 BpKlJ/vHuhEpMMFR4zE9Ox0AH+jF4fOTfeidu6+6auGBsLINtubF9CkWbGk1u+pNcIVvp
+	 uq6jvA4/ISt62A8jJBPs+MITPaunW4vxZk0IKhr3XqHi4TzZuthztqXH4jtuJJf2czKO6
+	 KeAhU5o/x1HeCJsFKAQNm13W2tnS/xEvFcrQNG0QeMPKbaPp1Nfuf4TRG8H8ueOkIchEo
+	 Qt0wNFYhkGWFAQoNPnf/sRKs0yGZEwKosXrfzq9bM0Eb2hVGMKzv5jJ+SzpL8qPioiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792900996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792900993;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8otCCaRP0Tpt6gI7v9Cl/9PTuNgaCX14b6WSefLzu7E=;
-	b=Tk764U/v6RDAQJFmOZYwlX5jF7I2L6KLXkCw01W37QZTb1Ovv+YuAa4fFF1o/8SotVno
-	 IHks7yRzHPe7HMmvtvc9WOUJbkd57RxHEgfgjoVBqtUDAon4x7AKh/kbKqAEhdx9L58tn
-	 ZdTK2zlAGsspLEpTCBPUQlllPLzc/2l4+xBPDecB5CAsOd0WRPrH0v1wDodiTsm2Cx2ZX
-	 AeH2L5GMzRJUXxofmPUC++Dmk2N2o5FIlp1MUYZYgFvuWQNgyNt71rYSeCkjatyWYmjse
-	 zrX/jhsmsARsUA+gZ6L9/FTD01VOnw0Rkm8bYO7m7HxxCRDGhA9gvu14VrY7PXu4HvQ==
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bXXWN0U2LwSgs5yFSiYomIOkF6F+3ijFGiBpJE+lZgY=;
+	b=Dw52xbl2ND7huqgdC5RxKQE0vpepUuVUKCc2DjhN/6qzWxhHy46zxC4AM2XaA+nlSwTR
+	 n5EXRN+mtEBMAbWGM81WIH8kL/yskQEwbVW5/9UGdXAnH2JdvYAaO27d1FKWhmNT40QO2
+	 bvpE3ioEiUwuNfkF1t88VdmyeC/UeH638n9AaRFwSEBzLVAKBV9YE3SRbtSTsSSm0NgYu
+	 BwiRbuLrIB/Xtv8+nGK6vVNWF+8c/bVPfL1lE72J1mG1JSl0rxdutfiK74rWZPFz83BbR
+	 Nd/V2Eljh+umLHR7Wefpq4U9msSdoXM3ssF4xgVbtNmt/sdpM+9LVnWTz4agJj4ghbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EenkfJyi;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DNKNW9T7;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E951606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E951606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8072606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:03:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8072606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EenkfJyi
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-14fd9dafb0dso1649442c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:03:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DNKNW9T7
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac7a053626so250481a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:03:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792900995; x=1793505795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8otCCaRP0Tpt6gI7v9Cl/9PTuNgaCX14b6WSefLzu7E=;
-        b=EenkfJyiA3/VYe8HyQgDdOUHVOSNvWURr4ZBMWVcbQxClz1YEQgD9UiU5XUYDA2tKT
-         45lTtDdSuNDI98h9aBuzgrXcZfNiYFkrTMvq6ajLGJkUTxy9+I51Ll5FW4DrQwC28XCE
-         wyzFDNqjxnZCenhfS1ADboNBN8F5gflbHP74HY7jZh9+ZXf0F9ggpDi3w5pui0VfJkQ+
-         N1knlotoTJJ+8g6mlRaum/eiz6z49DYGn3LXkDn4YnqM1LM/FXYHo3GAZrDguQqt54JI
-         fIJK1YaJCW8PtVvjGMWufuV0/pQDdxNBBbwq0ob7lmEpomX8xUyweUqymMPr7WsvljTg
-         74kw==
+        d=gmail.com; s=20251104; t=1792900992; x=1793505792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bXXWN0U2LwSgs5yFSiYomIOkF6F+3ijFGiBpJE+lZgY=;
+        b=DNKNW9T7kGfS78TEh9BVgxXbbjDsK7FmBqAhYSl/KQ+eTH7raGVvtdvg1NUc98VoRU
+         K+t6Nc6VFF63JU0nm30Oaoo7PWDuZqaJa/VGdjf1oEl1vKQws6xUEHvpigr1aU8XJKW9
+         ARzBEbRowo/1PB62yadC/gAYjKkjUksvUtAWL5KNMcmW0it4u1TdjgS9IKYCVSUT/B4B
+         5LmSmhiSWh9nYee/Q8xH/mbjnKv05BsnHAXumcfsZ1MU10WIv7HErjsSADO0LjhEhqVG
+         kuOy2JsugMVzT+/xQMFxDhtCn1QSY8Ludbs8xew8apip8FeKjXp7edLasQnaxkyYNus2
+         mgQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792900995; x=1793505795;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8otCCaRP0Tpt6gI7v9Cl/9PTuNgaCX14b6WSefLzu7E=;
-        b=1k2urFdzV+Nb7s+xSX1d3zUNXBlV67Sd6eWfENmhOOU5AqssMw+XwFiFAEuFtiujC+
-         YhqakEQmIzgfAHkHCg+OaFG14pFGY9jy3YX4wnIc1aCpfxas36dLzSRCcoUL6MoM6ZZ+
-         U/5P4xnIuVrP6Cwnvs4czISSKc6W2B7LjUiYC3Srdcbm3FyWzncbSjKoyguprLjmRssR
-         5n6Ju+y0U1/Y1nFzwaYwXrqOeXegPD/l5jNq9meLtKySX4oT1mj1r2za1yhecdBQcOXr
-         LiNt36h/jTQ6TsXuZZIEvTx5RlLMfmkYS6+n2KIsskmVkNhGCw5MKJOz158km/m7SFYz
-         ikJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYek0Jos2ciWNG35lPFJVrY+La/91I2zE7nY/NXePTBcB36JAEcSD8lMutKkrN5XpkQMnoBYV0BwHKtXU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKzxq0IwReHG99TfBX770caJNiNHdkyOUSergRXuQbKZKJm3Zq
-	Zwh1JldpS12KLRCyzaKgrWwtpaqc2bQ6RvcrdyaJG7z2BQNj6bRu+CQ=
-X-Gm-Gg: AYBFou0I9LBX+rl6HXd5tHwtc5GnmgcNdFIMTD2XxHTMf1YMQ0eoWxjiIZTJqjP5Jsi
-	MM5ZruJ8I13o+rPxeT7Twx3mZqHtAkeTbO35+nNhHsMzVsiFM+gZ3SczCIS/oQ58dkuPq7BJ3gc
-	XX0RyP/knaY2a/KVLWHeY/db6ftUv06vksbiNO9doxJo9H/dppprawUndC0nSL/tvgl7IulcVEv
-	7qo5rM0swgJjuylCsQpxImPmuAvdYj2ggE0VZPuwbV5891BILaQeusEoAS5ZZbT+yobWGyopRXp
-	H+vgfKoXWcEfCohPWw4q/PSmNYl4IWpNG5I/Rn2p10tW12Xdwrqi18iQNrEh5RxcOkZDiHUDlLK
-	2yRXeuMHQSgV1ji9XAw6LIa0arRe/8Av6XlRxtrtdipqFTJLdIOiK/HWcOW4IciQwu78QtgfEzn
-	wRYXeUFbM0v6pNoaycMWoet1a5oS3ie6knTPxpQiNNu/rOMDUSq93B0gUHvXprccXAVI8nBU6mH
-	EfSdqp9TXtRGBqmEij+l6x78BOqtL+Dw87zd1WA3MPNo6+v9iheLyIDeHR7KbIMZN/Kj6Aasn9p
-	7b5e6r2ftccCuQ8=
-X-Received: by 2002:a05:7022:297:20b0:196:82a:b80f with SMTP id a92af1059eb24-199374f3409mr4222106c88.45.1792900994550;
-        Sat, 24 Oct 2026 21:03:14 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.05
+        d=1e100.net; s=20260707; t=1792900992; x=1793505792;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bXXWN0U2LwSgs5yFSiYomIOkF6F+3ijFGiBpJE+lZgY=;
+        b=LAtmRXa3itXGx7R8m0hsl1WYXEL3/4T1fVsbWpQRmMpc2QRj8bibLqKgSoxUvrPdAR
+         ugqGqcqUyPbAECuiImGwP49LhV8+c7sWM/lbm9Pf5lyPxq+n8BL85YCypHf/GvtFFz2F
+         EHKqnns58lP7tE75STy1JOqIh52nCdwt4RajJixsqtW/WRXhGwcoVC8hz0vjmtoqXTPh
+         GcLflsRqFbR5LQbu2EP2qGQSvIYPNzkX+sVTAtlKNmYTFE1OQCrvtL5JNmyqk2P2BhXa
+         R815rkgbQGa34aqAl+f2CPKaPOHrLpeJWvH1XIbYjwcn1DhJErF57l0y3rsPg2SztkFB
+         rukA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+cda3CxYvDb1beAsFcYGh8L65yBcHKR1LVMrlhCeISTEF4v/YZZ3lhEAiO35rvjPXyqL7A9eDIL2F35s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyD7K7jCnbZDtAJVglU/koiit+dqm0v49Yl+9WupKVvxPo0/J3
+	zhROnMF3GIpZZXNA5gJ5RmonWN3wW4zxC7NoutNUD2QaWeIu7IIgQYbh
+X-Gm-Gg: AYBFou2TydCosGWfkOXoOU2+vLSqRovcdmlkdzEyIBlR4+sWi/rfTJ9YgLkQGJI7iQ7
+	Tl3dBgAmKw+En+uqJ6J7YLV23rUJveXfYRb0AgPjGG0CepUAUO/oTVMFHEO4XqWDyUrTU1jMr+d
+	T579pvF9z8pEJddVKdTirbwSTwaLphLOHxMFPFMs/uYZlAL+2aMSiiN2AXRcszADzxHOZ5XAltu
+	NpIPU6hCo37Afe9VI1uy6Ql08bYFh0So0iY5zn46sESYMYB/1WggnTSGWYHyUv+Y9VhjRA6FuaJ
+	I15LXy8C5L8GGYRiB7/56b5uUEdQHr6Y6GdLGgfMJg/75q6BqHd/YD7daTDxnBEkm9GGTgiQjS4
+	Nv1yo93mufOiJO1vhRALpmOLkpQoM/3as1HQR/o3RSpwU/i3t9mbpEYjYuZY8EjIXgrsNOOpX4n
+	PwKVoFzl/Cubp/CvC6DIS+09FbVu4bLHUPiOci0NqHkuY75qvgAO+EZjmIENAq04nu+FtubTd/C
+	DtSqsxYNpD51oWgKFbzQFgJnmB5W3QiUn4vh3+TgSu/QlE7keVfMVoXkhRiHeWoYLQAOgdUmsg/
+	SQut
+X-Received: by 2002:a17:90b:3c0d:b0:3ac:a7ee:6785 with SMTP id 98e67ed59e1d1-3ade9b35f05mr4994498a91.1.1792900992309;
+        Sat, 24 Oct 2026 21:03:12 -0700 (PDT)
+Received: from melokc-laptop ([101.90.152.206])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb82761esm2921587a91.0.2026.10.24.21.03.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 21:03:14 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andre Eikmeyer <dev@deq.rocks>,
-	linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
-	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 08/13] platform/apple-gmux: Add documentation about iMacs
-Date: Sat, 24 Oct 2026 23:59:44 -0400
-Message-ID: <20261025040046.1602-9-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+        Sat, 24 Oct 2026 21:03:10 -0700 (PDT)
+From: Anfernee Cao <anferneemelokc5@gmail.com>
+To: D. Wythe <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] net/smc: fix possible recursive locking in
+ __smc_lgr_terminate()
+Date: Sun, 25 Oct 2026 11:53:35 +0800
+Message-ID: <179290097759.51540.15412712294727302463@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,31 +94,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
-Add documentation about iMacs
+syzbot reports a possible recursive locking in the SMC listen path:
 
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+  WARNING: possible recursive locking detected
+    kworker/0:2 is trying to acquire lock: sk_lock-AF_SMC
+      at __smc_lgr_terminate() (net/smc/smc_core.c:1580)
+    but task is already holding lock: sk_lock-AF_SMC
+      at smc_listen_work() (net/smc/af_smc.c:2463)
+
+smc_listen_work() holds new_smc->sk while calling
+smc_listen_decline() -> smc_conn_abort() -> smc_lgr_cleanup_early().
+smc_conn_free() unregisters new_smc from lgr->conns_all before the
+early cleanup, so __smc_lgr_terminate() walks the remaining
+connections and locks another socket, not the one already held.
+
+All sockets use the same sk_lock class, so lockdep cannot tell the
+two instances apart and reports a possible recursive acquisition.
+Annotate the per-connection lock as a nested acquisition, as
+smc_listen_out() already does for the listener socket.
+
+Reported-by: syzbot+7ea1f5efd5de7e24f1de@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7ea1f5efd5de7e24f1de
+Fixes: 2c7f14ed9c19 ("net/smc: fix LGR and link use-after-free issue")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/smc/smc_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index dda281f2f..9f0e9ecbf 100644
---- a/drivers/platform/x86/apple-gmux.c
-+++ b/drivers/platform/x86/apple-gmux.c
-@@ -453,6 +453,11 @@ static const struct backlight_ops gmux_bl_ops = {
-  * switch the panel and the external DP connector and allocates a framebuffer
-  * for the selected GPU.
-  *
-+ * There is iGPU present on iMac's aswell, and we can enable it using apple-set-os.
-+ * But there arent any display lines going from the iGPU to the display. iGPU is only
-+ * used for offloading then, it makes sense as iMac's display are massive (4K or 5K).
-+ * A integrated GPU won't be able to handle that.
-+ *
-  * .. _US 8,687,007 B2: https://pimg-fpiw.uspto.gov/fdd/07/870/086/0.pdf
-  * .. _NXP CBTL06141:   https://www.nxp.com/documents/data_sheet/CBTL06141.pdf
-  * .. _NXP CBTL06142:   https://www.nxp.com/documents/data_sheet/CBTL06141.pdf
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 9974149659c2..5911368ae520 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -1577,7 +1577,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 		smc = container_of(conn, struct smc_sock, conn);
+ 		sock_hold(&smc->sk); /* sock_put below */
+ 		read_unlock_bh(&lgr->conns_lock);
+-		lock_sock(&smc->sk);
++		lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING);
+ 		smc_conn_kill(conn, soft);
+ 		release_sock(&smc->sk);
+ 		sock_put(&smc->sk); /* sock_hold above */
 -- 
-2.55.0
+2.54.0.windows.1
+
 
