@@ -1,63 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792956233;
-	b=HZqm5B1DoS9ekh+yXtQulJELXhJpkp2V1H6TNBo9ClAM/EOSHAskqEZrx9Dys181JFHC
-	 dovG7P1YopsEGz2vytqfeomqHtXp539BgLTEdXxwq4SEZcgpnthyIrBi19LbQcmAfRagf
-	 +czFai69DaWptXCq0HVYXtK7TIxZKl9Hgx5daRoeV5xK3vdp6Y9ALRgSXR4J2EZ7SQ7YJ
-	 IeefUBt62Q7WR/xnkjVCJ9pkjzTMbzNeZ/nEpyrLKesqNqYK+oSm3FhwOn8+JUWRZ7Ise
-	 t8CiE/FJdKBQUCz5xQkT/kiJAZ3D6Zj4sMwG2/4zk3bSc8mrz5A1q07U2klA3sX9L8Q==
+	t=1792956234;
+	b=hn31BEdiysByelL+lNATzZYKjSin1/ouZAu9A/W5WZ5qKHqth8NZowIC5Unw5exym8AZ
+	 73GQU5Hqtm0ZKUn/qiox9KGl5dHfLhJ4gkVGNoFxwlEv2dbET7jErgvaXyvJ1bIvpMEjw
+	 KS2DEG7kVR1sRsEoIUxLw1k4KzcMoR1xw+KI278PYTs9hPW+MH98h6zH5b/z9/OpEPR5t
+	 50JbT9RKM3JEI5jMXTNiptJNJ0ufKesu8U90B0PP2aeN17vVAczZ+saN7xvSlFpfIidg4
+	 Ug+3buNB1J7CVzhoRBJJPbmS3V+nXoQwpdv/qqRb3bE3yYeeUHsAO1P6vFY2LtI3pow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956233;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956234;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=VIAOGyj5zSee2fheBf6+AbjLxYAPl3WFD1ZUhlbKULg=;
-	b=2e9JfSl2LnDBa5hM6on9ZQnxjRxSc1VUafDOgMW4oqSwKLUxY+iYTRyMRasDttxc6rlv
-	 EnDQh/88Q8uQBsm1Xe7ch2pvUVGKdBuJzs8cJ6oHkB2KOQ5Mf6Ythy5dxlUliBxCRaWqj
-	 w2MKea+SmJ0bhu5SUbtiDdN+rXTm/jT5zgZW+BefQUprEVHSaoxlks5BGg/odGm4B66ko
-	 31Hphf/LM4RYx1bkg+isuMvRr2/XO5q9dOLFRJnsrwe1U9Nf3fP3h2Yf9iPi4NHhf0YVu
-	 AYYi+BQUqQkLZewCUHc0f+MysELBqtydTLPw0uulAqOniNr+0zJD370mJoGOGiO0eiQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
+	bh=ra4/QRivTLSdriFBiUEkS7hbX4vjLYQ8M9nUGkUw3X8=;
+	b=PE6WRrILGFc2depolnWbemrFSiiHZ7eGSFyRYRpdVb9NT6yjG24sJtsv92p3Jz6OvN48
+	 jVIfYJu3VcSVtHDJGXGa4AHzF27stKH56+bwNrAp+Fr8gsOQt17c/NWHEn+COBxcYNnFr
+	 /JUi299BSQGLf197+JAxgLv18ZVtUiP2jIEOR2opBe2eYUZAgHts/0LdOEsYp+snAue6H
+	 oLnSD5soeC2C2OF5+74TwoJS21LrU7SK2c4Lq0dQBsn6NIEcF8qMbVrLYJmCENJxKo/WN
+	 wNqgY6Zb5RYs7MkvodYAFgm8URea8aU3ppbdWQ1qybk+s5fDyCQlhedjuVKHZFDVZ9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UbFBc43S;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=LgBqvykJ;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02935606A33E;
-	Sun, 25 Oct 2026 19:23:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02935606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EECF606A33D;
+	Sun, 25 Oct 2026 19:23:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EECF606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UbFBc43S
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=LgBqvykJ
 Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com [178.115.151.51])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJNdOu518064
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJNdOt518064
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 25 Oct 2026 20:23:43 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJNdOu518064
+	Sun, 25 Oct 2026 20:23:41 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJNdOt518064
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1792956223;
-	bh=VIAOGyj5zSee2fheBf6+AbjLxYAPl3WFD1ZUhlbKULg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UbFBc43S6JGOX6qXYxPYMGysML3SCFV53Mdq6L1qADFUuEE0iiqfbjw8qem8NUFc+
-	 QZ9z2JMiAYlzheTCuetAmbQkQIELRVFC4tronrD8j/6rgMS0rEBvkZlRQLQsRV8Aag
-	 dDBRCwN5a8qM1BI3xlLHbvIFHW74QOh0nvw+RVfA=
+	s=prod24a; t=1792956222;
+	bh=ra4/QRivTLSdriFBiUEkS7hbX4vjLYQ8M9nUGkUw3X8=;
+	h=From:To:Cc:Subject:Date;
+	b=LgBqvykJMKisqONMOJitgNVCboCT6KJf17sXnoQjMxEFd6UctWgaNPx7bMMJVaCSh
+	 7xei1CYRHmlauIk4CNjyRifh4Uc5aEw9n5irk8L9/HJyshJG1xKGV2zDa7wQ1BHlxq
+	 6K2mm51+G4qAazw/QmbfgwLDDbdD6p+mXw9hmdpM=
 From: christian.koever-draxl@student.uibk.ac.at
 To: yang.li@amlogic.com, marcel@holtmann.org, luiz.dentz@gmail.com,
         robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
 Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 1/7] Bluetooth: add a quirk for controllers that cannot enable Secure Connections
-Date: Sun, 25 Oct 2026 20:23:32 +0100
-Message-ID: <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 0/7] Bluetooth: make the Amlogic W1 (W155S2) usable
+Date: Sun, 25 Oct 2026 20:23:31 +0100
+Message-ID: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,97 +72,58 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-The Amlogic W1 (W155S2) lists BR/EDR Secure Connections among its
-extended features and then fails HCI_OP_WRITE_SC_SUPPORT with an error.
-That failure is fatal to hci_dev_open_sync(), so the adapter can never
-be powered on: every mgmt Set Powered returns Invalid Parameters and
-bluetoothd gives up on the controller.
+The W1 combo chip in an S905W2 TV box could not be powered on by
+bluetoothd and did not survive warm reboots. This series:
 
-Add HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT for controllers whose feature bit
-cannot be taken at face value, skip the command in both places it is
-issued, and set the quirk in hci_aml.
+ 1-2: adds two quirks, for controllers that advertise Secure Connections
+      but reject enabling it, and for controllers that hang on Write
+      Current IAC LAP (sent when the adapter becomes discoverable);
+ 3:   lets hci_aml cope with a controller that still runs firmware from
+      a previous boot (the enable line does not reset it), retries lost
+      firmware segments, waits long enough for the firmware to start,
+      and keeps the controller powered across down/up;
+ 4-5: takes a stable address from local-bd-address, as the controller
+      keeps none across a power cycle;
+ 6-7: adds amlogic,shared-antenna for boards with one antenna for Wi-Fi
+      and Bluetooth (about 15 dB better reception there).
 
-Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
----
- drivers/bluetooth/hci_aml.c |  5 +++++
- include/net/bluetooth/hci.h | 14 ++++++++++++++
- net/bluetooth/hci_sync.c    |  8 ++++++--
- 3 files changed, 25 insertions(+), 2 deletions(-)
+Tested: cold boot, warm reboot, rfkill and hciconfig down/up cycles,
+classic keyboard pairing and reconnects, LE central and peripheral.
 
-diff --git a/drivers/bluetooth/hci_aml.c b/drivers/bluetooth/hci_aml.c
-index 067fbf278b44..990e701da4be 100644
---- a/drivers/bluetooth/hci_aml.c
-+++ b/drivers/bluetooth/hci_aml.c
-@@ -598,6 +598,11 @@ static int aml_setup(struct hci_uart *hu)
- 	/* Setup bdaddr */
- 	hdev->set_bdaddr = aml_set_bdaddr;
- 
-+	/* The controller lists BR/EDR Secure Connections among its extended
-+	 * features and then rejects the command that turns host support on.
-+	 */
-+	hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT);
-+
- 	err = aml_power_on(amldev);
- 	if (err)
- 		return err;
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 1641d879dbda..bcbe76c84d1b 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -375,6 +375,20 @@ enum {
- 	 */
- 	HCI_QUIRK_BROKEN_READ_PAGE_SCAN_TYPE,
- 
-+	/*
-+	 * When this quirk is set, the HCI_OP_WRITE_SC_SUPPORT command is
-+	 * not supported.
-+	 *
-+	 * This quirk is intended for controllers that list BR/EDR Secure
-+	 * Connections among their extended features and then reject the
-+	 * command that turns host support on. Without it the failure takes
-+	 * the whole of hci_dev_open_sync() with it and the controller can
-+	 * never be powered on.
-+	 *
-+	 * This quirk must be set before hci_register_dev is called.
-+	 */
-+	HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
-+
- 	__HCI_NUM_QUIRKS,
- };
- 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index a92a81846e9d..f1dfef81ca96 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -3419,7 +3419,8 @@ int hci_write_sc_support_sync(struct hci_dev *hdev, u8 val)
- {
- 	int err;
- 
--	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev))
-+	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev) ||
-+	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
- 		return 0;
- 
- 	err = __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
-@@ -5040,7 +5041,8 @@ static int hci_write_sc_support_1_sync(struct hci_dev *hdev)
- 	u8 support = 0x01;
- 
- 	if (!hci_dev_test_flag(hdev, HCI_SSP_ENABLED) ||
--	    !bredr_sc_enabled(hdev))
-+	    !bredr_sc_enabled(hdev) ||
-+	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
- 		return 0;
- 
- 	return __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
-@@ -5254,6 +5256,8 @@ static const struct {
- 			 "HCI WRITE AUTH PAYLOAD TIMEOUT command leads "
- 			 "to unexpected SMP errors when pairing "
- 			 "and will not be used."),
-+	HCI_QUIRK_BROKEN(WRITE_SC_SUPPORT,
-+			 "HCI BR/EDR Secure Connections is advertised, but cannot be enabled."),
- 	HCI_QUIRK_BROKEN(LE_CODED,
- 			 "HCI LE Coded PHY feature bit is set, "
- 			 "but its usage is not supported.")
+Tool use (Documentation/process/generated-content.rst):
+This work was done with the help of an AI coding assistant, Claude
+(Anthropic), used through Claude Code over many sessions. It did a large
+part of the hands-on work: it read the vendor kernel and the firmware
+interfaces, probed registers on the board, drafted the code and the
+changelogs, and ran the builds, checkpatch, dt_binding_check and the
+tests on the hardware. I directed the work, reviewed every change and
+the final patches, and take responsibility for them. There is no single
+prompt to quote; the sessions were of the form "find out why X fails on
+this board, fix it, test it on the box".
+
+Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
+vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
+
+Christian Stefan Kövér-Draxl (7):
+  Bluetooth: add a quirk for controllers that cannot enable Secure
+    Connections
+  Bluetooth: add a quirk for controllers that hang on Write Current IAC
+    LAP
+  Bluetooth: hci_aml: cope with a controller that is already running
+  dt-bindings: net: bluetooth: amlogic,w155s2-bt: allow local-bd-address
+  Bluetooth: hci_aml: take the address from the firmware description
+  dt-bindings: net: bluetooth: amlogic,w155s2-bt: add
+    amlogic,shared-antenna
+  Bluetooth: hci_aml: configure the RF for a shared antenna
+
+ .../net/bluetooth/amlogic,w155s2-bt.yaml      |  11 +
+ drivers/bluetooth/hci_aml.c                   | 197 ++++++++++++++++--
+ include/net/bluetooth/hci.h                   |  32 +++
+ net/bluetooth/hci_sync.c                      |  16 +-
+ 4 files changed, 231 insertions(+), 25 deletions(-)
+
+
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 -- 
 2.56.0
 
