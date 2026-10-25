@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792936707;
-	b=ABtLvywCPpRQOL4SjUhQ7GtiU54cFZvra2h4sCVBjUAL3joyJ3vS1Tl1YpUJUyJPWLse
-	 xowYqtFrbyH7YKmhPvr2d+CYNodXPXwPEriashGkrlPodx8szGaGkBoA87SR1C7ZeGexP
-	 Ouk1wEjxPFJFpUQs13WTIqxiDZSucA0Zv0XBfimcCEf8eGharP16wAWSU+J5q3tgiE8J0
-	 T4GSD7ou9lYO3ttBvZ5aFONdZYmkutR39ROqulhd1KnSfpQk3ifiYW7aRpRd7n6sREHlv
-	 VA4qAwiZzwkbqDut4QnA1blg+DdoAblhr1Rttw+UFXhZBlyGYrmRxoCvoX7bRnj6xOA==
+	t=1792936709;
+	b=D4wV1Oyqo8IcfVilQYJHSu/W6o1G79sl65/P6/1qTAz3pweZ6Rr9BvgkrbuaUpCcT34p
+	 0gYukQ7DzRRSeqhgLj91oGL4O8V1wwci98b3vgkioZv2rG7EmpnXt/dh12LxJzSNzrwKV
+	 L6wvQ0Q+1HM4Ing6pmWprd3swizKs+u5FoqbFwv+vwEtkBq375p+wYDFgXTRbms/9K217
+	 iuLvqE/EsSM2aDybI/JP6EpMmr404MDkBM/w63j1a71WcBTYu1+x72/U/cbZLvIJxCRwv
+	 Is9QIcg7IlJZM7Z/cr8QCNtTPnwE+sIKGHPlUPPuVktT9ZSrweL+SsQsCFrjnFFshOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792936707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792936709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=75/x5gew/kL/KutTpGg3fvui7cvgM1uvPLVY0+jqTgg=;
-	b=JTd18PhJqn2GdTVHc3yKh8UPf11YjqCA8sBJ5pnCVkPsA1+omyNId1VA1hNlHM0MoqQA
-	 m1RCJvwMwBMfEv8T7kfcGo4eHD7l0zqiUdzFT1MUo3tENuwkPqCHC8eW6kn+mBltC8x1U
-	 dnP0QUeOY9PudnrVg3Qp0NZ8C0WWh8xM0g2CximBWlj+bKHUwCAq/Pzb6J8R1g68HQErP
-	 0+Tu1azOgRfDEex6fsGv3HKP5ptOtcw+AkgxtBUSFYiSGtOK/pR7ugJ8JhgF28ZllwtTT
-	 NCyWq9RGVFdPrfUKpSGBDaLv+OG+FhZBqco3WiTs2oom+q6XwM9P5FEcE0VeyVwxjYw==
+	bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
+	b=qzorJ8oFCYhC4+pz71KoRsLhmsDKIGc1OoqODcu3UUmp5HWIgNIy5aBfjI8yCzLU7Xj8
+	 8ZETlJ2IjtIaQ1fHWcjE1jPmhqNPDHxe4S78xY0AXrcMpGvv0zeEcEsMNfTDoHgcD8PA1
+	 HMuRjI0cChiSTJSEtTEsQodR0UvgE1xOj5spgEeudwVlL3cqrFUuWL79xQJx/R1ZrWKuf
+	 k1Onrf/Am0mUuPiOry6b3U9xygUHhWBrfejC6cA1VN1Ju0v3y6FNexEkuaVGqDFwAryE5
+	 +ZU4daukd7TmT8kaM9O5C+1wDZu/XJ5S9er8erR3I6uc+/Vb8opqBVNbpZMOR45tWRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oqLF6mqt;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5TfxP3r;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5438D606A325
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5438D606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D8C606A324
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:58:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0D8C606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oqLF6mqt
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1893816f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:58:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5TfxP3r
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1253027f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:58:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792936705; x=1793541505; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792936707; x=1793541507; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=75/x5gew/kL/KutTpGg3fvui7cvgM1uvPLVY0+jqTgg=;
-        b=oqLF6mqtZX/wLfOVtnb3bMuXtECCsqjc7qiCPIAXSOwGIBXO4XzwzWsJvbfPiC0PIb
-         Zg4wofMNHNcoS8FvRsG2haIgdsD/b+GaYZR6PcfyCRNRdkvDj0nIDOWwCD1PctuuNs0T
-         tmXq4HL+sIjEa8a+KdlW3jVhiYfbQtOlhT3NTFlKEiB0DIR/zpaEFYGigG0mSOpkHIyY
-         2Qo9nNSnPO0O+J3GdNi3bJw/R1m5wMLJmZroUkard/bEhK0RumpNKew8/kVXaa2WIMSh
-         T3nFkn2BqCElYS4d+N+cTRLjnt9kSqfaFlUQU0TkFNE597VOYf3DZSC4TPZFQF49TgNc
-         Arog==
+        bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
+        b=n5TfxP3reBlEm7ySHf8YpItTveboXcCRmuCtGf8xmaew8QkuZ2UFtwM6fcYztOPx2H
+         3NVw6eesIW57y3bKjvWP67ksHUSh3BckdE72GTKJ54r8DpIE+YycTcbO+D/mYKp6Pc+7
+         cNeVJvo4kBKTsOniQRbELTEV7j+OwWao0wVv9FuWwnUIgm+/BJp7vnTNaikmc/wRJfsV
+         mzDMErTSyGMJEdXZeOHi8RYihmE8RxdIUGU7OMg5rcZhkVAnpIsa1liJsHXcG9YJPo2M
+         i/q35LdXCUoKjCRSzsdHtimMxKL3yyEqzRt27jqxCT83j5777OuFb2GnLLeDMQj65b1N
+         9tMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792936705; x=1793541505;
+        d=1e100.net; s=20260707; t=1792936707; x=1793541507;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=75/x5gew/kL/KutTpGg3fvui7cvgM1uvPLVY0+jqTgg=;
-        b=vZOnJDgMNF01F/LoQnqdgcsquIHBg6OkIrdbFQThGQYsKhBSN9+9zOTuqlCunQ2XjQ
-         CnYAkvanIj268JjMgV9WH1p20nrU0gjBSNLeZsOFX/m+A8JGNtPgfTlZdMERTlqcu6Uc
-         OfSowu1VSy8h1vF3WH5RRI62140dTfHVZPkoy6MDpUc7QulRTHw7+0AyiGS/K3MDa6ZD
-         NKKYpF6gs3kSivAztR+rAwDQZg4VxdfDfO1vKXcGPmlzkk3M3ZuwEMhdqq9Jti8D9Kw3
-         US7yvcHl4wBy7nkiZhO3Y+dkhW45h5ggxNF8YUe+GJxYaMRbq/Cg1fj8F2pa951Wvygp
-         a3IQ==
-X-Forwarded-Encrypted: i=1; AKwUvByhdL8CArorvsg8imAFBX+Fvdnd0XEb9f5kdK/rTg8BTfpEcnTiREZFriWE4b4mjS2jBaStMJaLmuj9MTc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpsUO1NfgUOIuoA1MOTXXt5JjOTWIVwW6zmAe3vBNnRlljDCym
-	DlHowSUBlAT6qMX/egBvD8IfmKAo/UwCQ1cdx+J1ivGots+HV79S4ARK
-X-Gm-Gg: AYBFou2Ur6njQQT+ZGV0fuHzIaFl1lb9iOniERTgCKU8EgW1/G3ZRsCXldM3yw+o0uh
-	csCsqP5EbNP9poYgfhkb/BLshPck0ua51UXbXPMfN9+y1BT7952lexWoM6lmq/9xqr78r7Apgg0
-	rqHofk7Z19LdKV3+9PfndD9R0NdUevmPjkjbe/HnUT9qDM7Ks/R+0YHfBODb1LwY36KaIG2/7Lz
-	RCa3m2V10iV4301M9o1+krP2CtjJv8IgyiMy5wcvmBz8X+wsQ5tS9n5ZoRwTfvEot29nIe94pDJ
-	oFBRPU6gmVP4orQ5JbNg1lt+ckS5pLjHZJpWyPw6PUcf7cj48NvidT/ec2XNwDtUj04Pvb6tDZf
-	zknDISuB3bfRu/LpUPDDGChX8i9xauOlQD/M0OAVxCYZSqU49VRzXtqptdUIohC5Po+7S0YyAG7
-	SsZuzomIw8wJsVmJQToHk1mIAygECkClEsQwNY+RBr4Sp4Tx/o+yIEWB3V6dOi1FAC7KbNdjEkM
-	7IbFIaRmyQdJtB+A/Ga1V6FkiMjfNLytFTz2SA8iBE+/pvq4Z/8Lfv3xn1SKmpBQ/c02O4lMeGl
-	qGuISXsZxxmXfg==
-X-Received: by 2002:adf:e004:0:10b0:487:27f9:834 with SMTP id ffacd0b85a97d-48e3ebb1168mr4784693f8f.41.1792936704729;
-        Sun, 25 Oct 2026 06:58:24 -0700 (PDT)
+        bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
+        b=TTB9256qRHt0qIjFvEIzwpuBOEANYQ8Mh31+11AaId+y9p5Cbsz5Sl5B2IbuZe5Q19
+         EfBVpO3tpZnjre9XSHhQzvgcc/99gDo+uCqbnkBc/e4oATPIgf9Q503oLM5ZChBlpMhd
+         cu9gwWp3C/sfPsLGZW1zG2sjrq4pPoaAcXQw/swD0bRIetKXmGRmp5T9nGi0B7SMgb5E
+         rCkMogpyp60sFSXJCmiS2WUtKMzltZ82HXqNA5oWwJ/0YTXSeiH1wKJgh8qJtshbUZ+t
+         P+yBb0cCBYXRCXIxNs1NM/BBBXaoD3OeRzDSfYpKQ9JumtGhxQbU/ezCn9qw+bs07xqn
+         YBkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvuTJNxJfBPKSE3Kf9Tsf/KQUunok07MxiX5Z7CXohnK9DUsEymGfBJfR8hTCOoZcfmoW1AKk6FP52TEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/NrHdTN6l5zH/sQHgMNJEhB4AWzXfM6okKqnLq6HS86f3gWj4
+	RhGCfFta1hLqpqL1qwqP2F4jxgCKZCeQs7GO0770ZF7ZHlq5kGr8sSfj
+X-Gm-Gg: AYBFou25Zucy/7XnTrj647P/qatTo4WLhm2PP1rc1qskc5lZ0gW3vNgEj3pihZaRSDY
+	YNGBPVRO+57DhdKBNrxQr/rSzwPkdWAccZ/EFj2qbjaV/xmdTvtDAupjfPAAzD5L7SWW7Id8wAu
+	p1UVh+jO92kFpPzk3UITNwkmJfNjSFuSDG5aeXDjpfgaRNg1mnfyBoCXUd1WekF0SOwZL5V6ZHO
+	yyOiZXrkrY3HahNnZMA7t5/oGPWpc08k0rG7i2tP0/+LsiIOK3TaUUZ6EGJUwATDFvzJeNzLpUa
+	stjHrb8z6jYvvl+4gFo3o8EXz+Z5PjsSJZLRaEmbfHBvh+9L6lxk0bEErG1+x+iXzwmOvqFdRkG
+	OaKXmWxCXjHtj5Tp+JeSU1s1w3IwdDFEH9hYpNSXXfAgLZmi6A7r1Ntf/N6OSAkm+hxqu5RmWug
+	LBtUwFB3BI9YONVIGK0fPh2rcfYFYWSltQyL6M16bo5pK2H1wcWaLDwlXFBiHAet6VffePcWAiZ
+	blC4BTBnHPdjdZ+bod8PmzkrIUTP4ezB26lPod3LVems7+q+/TGIL7t+guWRqrJhFHHHp1oXcHD
+	JEjo0aHc/Jf2Yg==
+X-Received: by 2002:a05:6000:2501:b0:48d:f14a:9173 with SMTP id ffacd0b85a97d-48e3eb247a8mr7109194f8f.8.1792936707263;
+        Sun, 25 Oct 2026 06:58:27 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4806e208sm5663415f8f.40.2026.10.25.06.58.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4806e208sm5663415f8f.40.2026.10.25.06.58.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 06:58:24 -0700 (PDT)
+        Sun, 25 Oct 2026 06:58:26 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Chen-Yu Tsai <wens@kernel.org>,
@@ -90,12 +89,11 @@ Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	Andre Przywara <andre.przywara@arm.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-sunxi@lists.linux.dev
-Subject: [PATCH v2 2/3] dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
-Date: Sun, 25 Oct 2026 13:57:44 +0000
-Message-ID: <20261025135745.102970-3-pmazzini@gmail.com>
+Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: drop the PA GPIO interrupt
+Date: Sun, 25 Oct 2026 13:57:45 +0000
+Message-ID: <20261025135745.102970-4-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261025135745.102970-1-pmazzini@gmail.com>
 References: <20261025135745.102970-1-pmazzini@gmail.com>
@@ -110,51 +108,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The A523 and A733 have no PA pins, the A523's PA IRQ bank is not
-implemented, and the driver no longer counts it. Go back to one
-interrupt, and one debounce period, per implemented bank: 10 for both.
+The PA IRQ bank is not implemented, and the driver now numbers the IRQ
+banks from PB. Drop its interrupt.
 
-This reverts commit 11f25ac56372 ("dt-bindings: pinctrl: sun55i-a523:
-increase IRQ banks number").
+This reverts commit 6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add
+missing GPIO interrupt").
 
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 ---
- .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-index d7d0ba32ced4..c04b04acf6e4 100644
---- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-@@ -36,7 +36,7 @@ properties:
- 
-   interrupts:
-     minItems: 2
--    maxItems: 11
-+    maxItems: 10
-     description:
-       One interrupt per external interrupt bank supported on the
-       controller, sorted by bank number ascending order.
-@@ -63,7 +63,7 @@ properties:
-       bank found in the controller
-     $ref: /schemas/types.yaml#/definitions/uint32-array
-     minItems: 2
--    maxItems: 11
-+    maxItems: 10
- 
- patternProperties:
-   # It's pretty scary, but the basic idea is that:
-@@ -133,8 +133,8 @@ allOf:
-     then:
-       properties:
-         interrupts:
--          minItems: 11
--          maxItems: 11
-+          minItems: 10
-+          maxItems: 10
- 
-   - if:
-       properties:
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+index 85ef492ffeae..fc4d714a96ea 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+@@ -129,8 +129,7 @@ gpu: gpu@1800000 {
+ 		pio: pinctrl@2000000 {
+ 			compatible = "allwinner,sun55i-a523-pinctrl";
+ 			reg = <0x2000000 0x800>;
+-			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
 -- 
 2.52.0
 
