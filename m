@@ -1,74 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964843;
-	b=ceF+gSb78Y85o1b0SYKwWwKq18z8ZXRG1rk2g+sSbJqmb084TV4CE5cyauB6m5aE/Vy2
-	 CNve+psuk1QZZ7hAxY+2btG32N796/0KbPjWIeR4ftr/DXBWsZmI5HV5CnLE4NmEP9ASR
-	 mn5+3ZhB6eleDAE6Kcb4QfcD+CI6J2OTDbH4kCj1yitsJ4SC+VW0LhncG+KZpNmuqirD+
-	 HktUNsssj+b6uME8e3LK5pC+5a6OFb6pUsEOAtNrRLiPmpG5GjxVqDbOisoILWjuyZuxG
-	 0IGI9Iw3RRFC7WXQTmLBCDjH8Pqn/4CP/NXtVUoBbOzEdFv+NBmP1cBkKqZeqOOI7CQ==
+	t=1792964850;
+	b=2j6aqZp0asjPrHsV5nmpwaQmHCgWK9l8Qeov0QKpBB1zT8TCwZhG1APufat/lq7FhYG8
+	 BzzaGiEcRUPmxerTeThDyqVmIzjap0zSAr0/g2iv46OYHFcWBdcMOVHccFEkoYyjgsLhM
+	 hlAloHv3LbVNy1zHPWXLOhPg8YXw0ASeMmDWOFwpcU4OcdvUZrJMPAu4iYBL3/p48oNQE
+	 GR/3ipAQcoKTfA7SQGGDxg0Dr/bCWESin0wZs9qQ/zQHtlHYjL+YVb6v8bCiO4hpblKAd
+	 RAb4hhC/gRhgWWSGziB+JTtUvZPsR5A6vn6weiYBs6LTxAPKQIem+1jUVFMfB8tk4TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964850;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
-	b=UuJ1akCPXOYJcL9iH1HbAK8vtjHLViSXYk4rInuP/GEJMgGTpCVM6/tplDutn1vx573Z
-	 jIfMsJ/X4D/kb8oh8eEkkMn5vqc1jHvWMBsGZtPIS3rRrSUS817q5uy64w8Mh/P0y+Min
-	 ehoj0Hvh/SgatiTfFwkYHfuMOBQiuUnv7G7p5yXOBSOK271ZR3E5HpnzxRiDcNRKHAdkw
-	 SUHNtqbuD3RHdmAuwJQWwddxIOQX7WGpxB+PNERoW96kim1E1XyvcjOtDkGeXKnadVQp9
-	 UbLuBxQdLzCW4WgYh2fAitmrXqOj3haGpdAnzZ622KHrsHopAXkhH90iD1bRGOhHzeA==
+	bh=08vW3FTZYwDMNtsPfKQESDY4tlbZRGtg0oQTqytRxBw=;
+	b=nbdp026JjIwjzco2N4jW2+7KsUYxo6JLsG9WeKtjJ9U8kcjloAs7zSAuVB4fDQs5oPWU
+	 83gytU6UjuwmdUJhAxBkCXCm78FtjHtC55NpjMdpKxujCCJ3SeUYCjPuRbGi9u6EzdIlj
+	 cOLmX3J2WBfv4ePB0Yc6u3QO1tRYJv1XDGUgvx7zgWOYq2jw8O1ybDvmDEZXxwBteleOk
+	 yv9Mn68GK+vK/y/i8QnaUdc7PPxMOYNIESHeHCcli4YJyHvqi4pb0QaAg9dldWUK5d0MF
+	 BFWZvPoNEpnhcotKSZSDO/NBEj2Ww7U8uUp+GnqfxaQMzON377cb1cBMu3hOKxhKnLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HgFGxxou;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8+E1ZHZp;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Fx5DnOy5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5cPaGBGH;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65886606A336;
-	Sun, 25 Oct 2026 21:47:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65886606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C63606A32C;
+	Sun, 25 Oct 2026 21:47:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C63606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HgFGxxou;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8+E1ZHZp
-Date: Sun, 25 Oct 2026 21:47:18 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Fx5DnOy5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5cPaGBGH
+Date: Sun, 25 Oct 2026 21:47:21 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792964839;
+	s=2020; t=1792964842;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
-	b=HgFGxxouUocHuPzP3US//33HzqlqYwPeZPeh3OkKi30s5rZ+9GB73po2QNrL723dkRpd9Z
-	MO5z2NluhErzB/WBy01A0QSOMOSRkHMTk4ZozZJvWI6Q4KzOO3/dM3Uh6kHY5bqiMp6NOR
-	P9mzzT/zKIKPtsrtHK8r3h/0Xre5cviuvS/pzTk6w3IZqHh0Q6qUs5UQJgSpOs7PkiEXhD
-	h4UoLryuQVGwPuCA0XGTJbYT25i4//xer2tUztD62Z7htsPT1rhxWXJPJo9+rpcui6vGvU
-	oiSQSLC88wUryoMAb6cwSOiK9M3Dy/bTGUyV9BX9/310HdC7NwJb9RUAaCZ+cw==
+	bh=08vW3FTZYwDMNtsPfKQESDY4tlbZRGtg0oQTqytRxBw=;
+	b=Fx5DnOy5AM1Nmz8ILObj7FPc7fqUy/Nqqzeh9wJWsXgHYo379GdqXNHxET2gs77KKQkFjO
+	LKY5KMFfw3sIU9x3M5+LvokJBV2N2hZcrKetSDgNNPSKiJBeNtoDQEEME2toOHl6L5KALR
+	9YpaujLcCIlrS9otZ8dUxpmpqSgLqPorvPtnHe0QFpxxqROZfTjjVpsz3dOFN3PcQ6RSZt
+	XEI45+aJEWw3ySsvCY2AouMQpSwTGcKKML0ACxs9YLX07oEVeMMZBe75E6kk8sQUlcZLFQ
+	tL/+LJ87+BHc3FJgEbq9rj4lI3u4oJJ2Wau4EIyb+N60YVP3X+rOfQ3C5Lt/6Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792964839;
+	s=2020e; t=1792964842;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
-	b=8+E1ZHZpz1XTL3WmjusUBMgqVLHqmonayNBycAHg/RVwmF2l6Nfg3ZwPHg02Ss3t/hUvVu
-	3KLdDlBfk+uP84Bg==
-From: "tip-bot2 for Hungyu Lin" <tip-bot2@linutronix.de>
+	bh=08vW3FTZYwDMNtsPfKQESDY4tlbZRGtg0oQTqytRxBw=;
+	b=5cPaGBGHnIDOWM9ucjySw9YaQfw3CmI6eTlX8lH2u4M/MAYVLEMPM7r/iT7teHQCj18K0E
+	4tWckxZIqjT5jfCw==
+From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: timers/urgent] posix-timers: Accept NULL clock_getres() output in stubs
-Cc: Hungyu Lin <dennylin0707@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261020161121.85042-1-dennylin0707@gmail.com>
-References: <20261020161121.85042-1-dennylin0707@gmail.com>
+Subject: [tip: timers/urgent] hrtimer: Add cleanup class for on-stack timers
+Cc: Hui Su <sh_def@163.com>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To:
+ <5f48c32490d19f51035e4209174f9cfe44472c71.1792083743.git.sh_def@163.com>
+References:
+ <5f48c32490d19f51035e4209174f9cfe44472c71.1792083743.git.sh_def@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,7 +79,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179296483844.4109677.8357415934692809026.tip-bot2@tip-bot2>
+Message-ID: <179296484122.4109677.11797171675044468355.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -88,56 +89,98 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/urgent branch of tip:
 
-Commit-ID:     5b819071e4346256c4edbae5cc2095dff25694fc
-Gitweb:        https://git.kernel.org/tip/5b819071e4346256c4edbae5cc2095dff25=
-694fc
-Author:        Hungyu Lin <dennylin0707@gmail.com>
-AuthorDate:    Tue, 20 Oct 2026 16:11:21=20
+Commit-ID:     064bcd117e8a1a266bb92b840f63862999b7cb87
+Gitweb:        https://git.kernel.org/tip/064bcd117e8a1a266bb92b840f63862999b=
+7cb87
+Author:        Hui Su <sh_def@163.com>
+AuthorDate:    Fri, 16 Oct 2026 10:09:43 +09:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Sun, 25 Oct 2026 22:43:19 +01:00
 
-posix-timers: Accept NULL clock_getres() output in stubs
+hrtimer: Add cleanup class for on-stack timers
 
-With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
-supported clock when the result pointer is NULL. POSIX permits a NULL
-result pointer to suppress returning the clock resolution.
+hrtimer_setup_on_stack() requires callers to destroy the timer before its
+backing stack storage goes out of scope, but the setup interface does not
+encode the required teardown pairing.
 
-Only copy the result when a destination is provided, in both the native
-and time32 stubs. This matches the full POSIX timer implementation and
-preserves clock ID validation.
+Add an hrtimer_on_stack cleanup class that pairs on-stack setup with
+destroy_hrtimer_on_stack(). Document the existing setup API's lifetime
+requirement.
 
-Fixes: baa73d9e478f ("posix-timers: Make them configurable")
-Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/set=
-time/getres")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+The cleanup class provides debug-object teardown, not timer
+cancellation. Callers must ensure that no hrtimer operation can still
+access the timer before the scope ends; in particular, the timer must
+no longer be queued and any running callback must have completed.
+
+Signed-off-by: Hui Su <sh_def@163.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+Link: https://patch.msgid.link/5f48c32490d19f51035e4209174f9cfe44472c71.17920=
+83743.git.sh_def@163.com
 ---
- kernel/time/posix-stubs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/hrtimer.h | 24 ++++++++++++++++++++++++
+ kernel/time/hrtimer.c   |  8 ++++++--
+ 2 files changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
-index 9b6fcb8..5a27335 100644
---- a/kernel/time/posix-stubs.c
-+++ b/kernel/time/posix-stubs.c
-@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock,=
- struct __kernel_time
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_timespec64(&rtn_tp, tp))
-+		if (tp && put_timespec64(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
-@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clo=
-ck,
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_old_timespec32(&rtn_tp, tp))
-+		if (tp && put_old_timespec32(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
+diff --git a/include/linux/hrtimer.h b/include/linux/hrtimer.h
+index 29072d8..1877beb 100644
+--- a/include/linux/hrtimer.h
++++ b/include/linux/hrtimer.h
+@@ -12,6 +12,7 @@
+ #ifndef _LINUX_HRTIMER_H
+ #define _LINUX_HRTIMER_H
+=20
++#include <linux/cleanup.h>
+ #include <linux/hrtimer_rearm.h>
+ #include <linux/hrtimer_types.h>
+ #include <linux/init.h>
+@@ -201,6 +202,29 @@ extern void destroy_hrtimer_on_stack(struct hrtimer *tim=
+er);
+ static inline void destroy_hrtimer_on_stack(struct hrtimer *timer) { }
+ #endif
+=20
++/*
++ * The cleanup class pairs on-stack setup with debug-object teardown. Callers
++ * using it must not call destroy_hrtimer_on_stack() manually.
++ *
++ * This class provides debug-object teardown, not timer cancellation. Callers
++ * must ensure that no hrtimer operation can still access the timer before
++ * leaving the scope. In particular, the timer must no longer be queued and
++ * any running callback must have completed.
++ *
++ * Callers using hrtimer_setup_on_stack() without this class retain
++ * responsibility for destroying the timer before its backing storage leaves
++ * scope.
++ */
++DEFINE_CLASS(hrtimer_on_stack, struct hrtimer *,
++	     destroy_hrtimer_on_stack(_T),
++	     ({
++		hrtimer_setup_on_stack(timer, function, clock_id, mode);
++		timer;
++	     }),
++	     struct hrtimer *timer,
++	     enum hrtimer_restart (*function)(struct hrtimer *),
++	     clockid_t clock_id, enum hrtimer_mode mode)
++
+ /* Basic timer operations: */
+ extern void hrtimer_start_range_ns(struct hrtimer *timer, ktime_t tim,
+ 				   u64 range_ns, const enum hrtimer_mode mode);
+diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+index cbf1693..12e136d 100644
+--- a/kernel/time/hrtimer.c
++++ b/kernel/time/hrtimer.c
+@@ -1975,8 +1975,12 @@ EXPORT_SYMBOL_GPL(hrtimer_setup);
+  * @clock_id:	The clock to be used
+  * @mode:       The timer mode
+  *
+- * Similar to hrtimer_setup(), except that this one must be used if struct h=
+rtimer is in stack
+- * memory.
++ * Similar to hrtimer_setup(), except that this one must be used if struct
++ * hrtimer is in stack memory.
++ *
++ * Callers that do not use the hrtimer_on_stack cleanup class must call
++ * destroy_hrtimer_on_stack() before the stack storage goes out of scope. The
++ * cleanup class pairs setup and destruction automatically.
+  */
+ void hrtimer_setup_on_stack(struct hrtimer *timer,
+ 			    enum hrtimer_restart (*function)(struct hrtimer *),
