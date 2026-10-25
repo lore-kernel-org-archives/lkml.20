@@ -1,91 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946470;
-	b=dwf4Ly0TIMEg4GmTz2vGpWtWTkrFnCuXGSdoWEMXJci78JhpZEAF/fmGCqNb0vmbTkaE
-	 FQyVXhnJpFZoSDtDUndjFcr8uiP1lJnHjYPBHoZ91ocKDj9DztXHlSwlmsynHjQJfzKpY
-	 Z/rRcj2q6rfGMGBjjDjvQi4iCaSACjy8iw4dh4+EcjvhOPayT9ZkrzL39xxzBK/ivoyWG
-	 T9bgdVPSyMlZhaBV6kD9FYPTSqCH+q5x2xEeAsyb1oxIUsGshtO/gr1ypjUapq8/u/TyD
-	 i0mP2ujWn8IPR2NjF1I7CjcF2m5AMwxGrZxAerjU8HSSY8RqgHGnJXdmVLVf49O95MQ==
+	t=1792946780;
+	b=QYlBkUk8bw1naoira/EdYiX6Y2/tW1Zw0yGLvisfjm2tLr+LniRRwDv0U+nQh8nw630M
+	 6tiocXQCiJdFpz90Rqo+mvqu/GgdJ/yFErgFDa5OLDZvtBqUlVbLxeHOY894yTz3Ii1o4
+	 RD/1TkKIjPoIRVf5+9VyUFJB/gDBL2f5T7o7Je4eIkSwG2azx2vBirH7lfVUv0LyKfWUn
+	 pLLpfYcALkMwJOE79DnhMAUx+2RHPahciHyFSpGhbL9Y7+jHNfB8cjJMbjN8Z43J6HMoH
+	 A/S5OJYCM5ikFXJMIp6qtGICs2XoXPeGgQL0daGn0lfX3YnbIaCDk58lya8ktgCrFbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946780;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JmLdIeJLU5Zg8gQdXAkuqH4+EIySSj8cGqNAiNAR22I=;
-	b=KicDYRf2Jhl1w4ZotOUfBxEc6egMLrBBiWEYmWGnstdCZaG4hwHUbfL8GlIg1xA3ndL9
-	 /dDfVxAfILJPiQtmHu3RkAOIM11EDP2LLbzK6xxAV8sZX81KLlO8ZaScKLaZd0wofnG47
-	 X5rRCNIg6uz6y4CR/HIbDOgBZ/+jDR/D3hztZthv7VplFIFB0FXPp28eCgEFw07jvR9eu
-	 fbUirqDwZr7NDEBEc9IL8lDW1Tz6n9rfCwB8Pf5mmf+3bA02qps0RT+hRrPMQQaxK7xIe
-	 MmH18N9xYVgKG6+S+ue90zbh4UhMvOw0ye4NlFUIzCJThA+ORgHp0DSIgXm8Qi9NipQ==
+	bh=xG6MrCXFC7R3FF1J0tGLDByvgSJFyVyerh9PIkr8DcQ=;
+	b=PhnSDFgRBFCeHs6oDIUbyLHszYS2KaV8KOz21KdHzBDZA3VJWTCwvVDXd13AGxOqd5TP
+	 fIDLzXWjfkikhb1eQbtjBX6YMERm+xyx7tr5temxItCm8Pmw/dv/CnIZ1spq8kkMmOO0a
+	 cR9wm5aFLHccn9kakX1itikSbiShxyl4KxR/A99KKSZAG7JewjPaYjMomYMmmtj9SS3aj
+	 JXR5Sgzxurt2EbdzprXU5YU+rTfl1RZ7Pbgv8VIOZZTbrqmCZooQtkOqpldIeP9hSVkrx
+	 3r3sWjPBcWjy54PDaszVK3GHIdh9ngKue2manryrHYixDlVOPnL14PYZ9tlTV0A8+Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BbPfUDYD;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pDcw8uF4;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F436606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:41:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F436606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B2C606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97B2C606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BbPfUDYD
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so18208665e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:41:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pDcw8uF4
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1701383a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:46:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792946469; x=1793551269; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792946779; x=1793551579; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JmLdIeJLU5Zg8gQdXAkuqH4+EIySSj8cGqNAiNAR22I=;
-        b=BbPfUDYDtaTD74tV97IBv3KB6VSU27UVf0Dp7Hz+N6SYX1csLyVFz7ThweJFUJI8kG
-         aINOUaj+jPoMxHxW6VvR7oxTh9OurBAsokyaZiHdtyH0IIq9ObOuQMpC2AXMnosblmPI
-         kmPYpFpJF2IIrgkjsUpndEwdJlufdmcwwdiTGnX2AkCGX341WzfrFdNRUbDn6afr9rF2
-         tM603V4IpsO08b1k+BqLjTsjVG7SnI3tUtuOB0znuuKRlzEtp3S7S/wYeyN8Hw0NvBZ7
-         G6NGZ67qFTh08HyURJk4zNJofXLjJZsF+r/DiTSPQsSrvAM4aAvdtdg+FZWh0axVgPWy
-         uRlA==
+        bh=xG6MrCXFC7R3FF1J0tGLDByvgSJFyVyerh9PIkr8DcQ=;
+        b=pDcw8uF4GXPFER2LwaLozrGEMlbRBWKIeeQRXypzbGoXiU2il/EY4Jp8WMYpcRy9n7
+         X59rvLqfsIFCCLPxBMo85Scvjnr4hiaVWdq58uNUMRTmui43HzAWTmynNFKl5yPFr1D9
+         B7SRvcrdvY2dNLPOj+6zaWnbC68Jp7AoXyFvT9Qv+SB90I9jshGp+MneCKKlpmAwKOw5
+         vrh9okELyJboqZNLJ1t1REfejeqzpO+w0XFFfyahdcz7G32t5nqmNQkdedyabXxezkaF
+         HlLr+OPZecTXT4yZZSF80dfp2QzQbGu0lSKviqAEjmnTMOw+o/fsxZe/raIIPwalBIt6
+         1PTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792946469; x=1793551269;
+        d=1e100.net; s=20260707; t=1792946779; x=1793551579;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JmLdIeJLU5Zg8gQdXAkuqH4+EIySSj8cGqNAiNAR22I=;
-        b=WbsiptkTYVDEcTsd2vNxxxxFZOj0Ma1x805vMvgdfaCX+R0k9B+3zS7l73zvygQJEO
-         aTUn5Z73kvMAFSTcNZTfhrOWbZKJpVCzvzpnuGi5Nqoqa+gPkYqddsSPcugefCJLZrlY
-         TApGKotyrNr13reGfZb20yp7Ej9LQ1ktsNTnr4Em6yOkhfkuRkRRIu7C/gTEfitVL1n+
-         US31/eFlnFy8SVrhlqR7zH6cKL0OEmqjEmrArVIzi+edHOo7P5LLULbjTaA5SHErTAZS
-         XYLAAmc2o3B80CHEtLQ+NDthH4PjXbVSh2xTfjKFWLrLpfDaEIB9RH7nEKSv4ONPlVRE
-         ZTTA==
-X-Forwarded-Encrypted: i=1; AKwUvByGJXCrdDLV3U+CsMXViMr3fMav8LC8dAZtzMRaN1+O7pp/bT1wyIFtum+8ByRrussjgrvTIJwhURgQZW8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKV2eamDyYBkWElR6PZ60xUZKM3TTm48OOjicI2USDquQ1n+xug
-	tblcpd75WUKlIMzWjd3N+IwnAucFiI10NDqmfKmdh6C/BQwnHWV2ZV8B
-X-Gm-Gg: AYBFou023jlLVtRq6SbE8xGo/iYRcKo8vdl4rP+g0e7IHVHQpl1BPvR+EzOoXnF3lw0
-	0nV+wH1VAE8C2LfEGUd7PnA1iClsSRq/rbOJhumXN7m68Awh0eeJDeD45V0Nl4XBSQE1zEDXbl+
-	B0+LDuU3SRBrJdJ1rmd4tpbBywLH8PT2t1cH9hQr2vJa+BHN2whBQqfdrUt1ltIBLbIHtrpGRZQ
-	QF6Sb3QIQ62Xx00NvoX2HvZTJSN8ZC+XWOrgAilGcxVaq5H91RUMEg/Kn4w3RjH5RuSjUQFgxYi
-	3d8PYLaIyunXeVZ3/VDXFrvnV5Ofsw9qI82k6CERhA2sMI25i0ACtUOpwOImHT6MTvEOwvC8Lco
-	2ZgGKxh0nbUCx6dFHvswqJVBWCiaOrzukrqG3eodLiW9/n/8ilenPFfeHAjd77STEy8p5CQ+pe4
-	PHGPAfTsfWxdxZCzv0pQjpgD8j7iC988GPBueaR3gigR8Yepn6b0lWZz8h20ohpr//hpznIkx+W
-	iF+c+CwOhuQ04JtP75v6ab6xPJhxT37EDBu1ATvH/Svf35gvnr8uQS3FjinnenkLII0ihnvzO3i
-	EyM=
-X-Received: by 2002:a05:600c:34d5:b0:4a0:2391:6540 with SMTP id 5b1f17b1804b1-4a35aca2b53mr70429975e9.25.1792946468523;
-        Sun, 25 Oct 2026 09:41:08 -0700 (PDT)
-Received: from LAPTOP-AVI.taile24b5.ts.net ([213.137.79.28])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm158194305e9.1.2026.10.25.09.41.06
+        bh=xG6MrCXFC7R3FF1J0tGLDByvgSJFyVyerh9PIkr8DcQ=;
+        b=y/0gPSm9KPaKho+2Lqoufta4Es/wxmS+S5yJ4ZM+5P+D4kE1d+oPKUzoKlXZCBMAaf
+         li4tEY8bjnwQSknQz8TKlmtonA3D5CKypBlmNu4Gq8YTLCWFqIZ7ousVOE7BXDDy+Bb9
+         g5t2S7CuGi1Jp+i+Jz8kv0e3kGbAAy+AEyhMzgF2SUryJHuSep+eQ8ZfEX89Dbo++zaR
+         xmd/Cuij2UcMPKe4wJ2GjnWfwA2vBSTj3od9I0k7m9nH9ve4QZH24x+AYFaEWq2gfiNR
+         fwqSzVf/20YRhiO03Wuan9Wob/hVQNhArS9qGa3kU3xeHEIUG14DyHA9ETUKuhUtlGqL
+         Ddyg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPyd3pa1lvXnJcFCQtH/eFApbAJchpCFkwlcRWYafIk1zmB0Jsv6s6dtPI7weh0rUKPbcaHHLkXGXI5Bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIL21bcPwh9deCY+jMo3u2e8JCyGvk0Q2cMLVzeY+pjuCu77tSk
+	klSa3hdqNNfF0PXCe0WkdhYQVNpNy50N3j4fdnCYVaYFW8kgEvG7TKeI
+X-Gm-Gg: AYBFou08f0cP9a/tC9oCW4MVUin9HWhF15oxk8U2/JLyfSA36uVCwgSOWBi1nKLN2AU
+	Yf1mZ66hWqzjS33w26E+UkSpOJdN2X8CYk3xmPMADq20X58buTFzH1DKYyydWhk1bmw6yk9557q
+	lsimG+15gBOzSYT6IJQsxzBCSn3xwZumrxmtjcU3GhRNuwSGMAWYGrwQLg4tC8jUinKcVKgZCuu
+	IAPfNLEfzXomo2K325zsemuSqzGRyVfQRFe1Wln/4uB0IGmciGfylmevt4tWj/AyW7g4pC250mk
+	3E1R9BDzXPMFyFya89zrAbPPiYfYJArURzMgYnBpYZUyrT9niFMx7NvMV15PApVfq1KyZEkLEHg
+	1oTtp49QaOZIDbNxo+Kcht+5/N93A2q+5lepd5PXlHEyq2q/WkyLEZNzLHIWgVbbAbSg64yOWGX
+	bvpPl4YSt1Xgk7sa+jhNg+gMFpW1bqJlXMuUmMkk3uWX73sD5rcMcl/Cm1+wMicpYIat1hjl3cF
+	d1D+ws3oA9vjVEOL5aFO794dzbDZAPDlRNVYoEvi+7/bbS6ldN8I9wbLpNdt8K5UtlOxI2J1rsc
+	SFD1wKsIA3GOwa5+HX5FhC5g7NP6
+X-Received: by 2002:a17:90b:1c0b:b0:3aa:6b5d:a018 with SMTP id 98e67ed59e1d1-3adeb104d43mr3872406a91.67.1792946778932;
+        Sun, 25 Oct 2026 09:46:18 -0700 (PDT)
+Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6946dsm5285671a91.4.2026.10.25.09.46.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:41:08 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
+        Sun, 25 Oct 2026 09:46:17 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>
+Cc: linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] genirq/matrix: Update availability for offline managed IRQ changes
-Date: Sun, 25 Oct 2026 18:40:46 +0200
-Message-ID: <20261025164045.2513933-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Pavel Shilovsky <pshilov@microsoft.com>,
+	Steve French <stfrench@microsoft.com>,
+	co+3a967895833044fc@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: handle unmatched encrypted read responses
+Date: Sun, 25 Oct 2026 09:45:59 -0700
+Message-ID: <20261025164559.439328-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,58 +106,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IRQ matrix caches available vectors after a CPU's first online
-transition. Managed IRQ reservations can be added or removed while
-the CPU is offline, but irq_matrix_reserve_managed() and
-irq_matrix_remove_managed() only update cm->available for online CPUs.
+receive_encrypted_read() advertises one MID before decrypting a large
+response, but it does not populate the corresponding bufs entry.  When the
+response MessageId is not pending, smb2_find_mid() returns NULL.  The demux
+thread then passes the empty buffer slot to is_oplock_break(), causing a
+NULL pointer dereference.
 
-When the CPU comes back online, irq_matrix_online() adds the stale
-count to m->global_available, causing vector availability to be
-overestimated (or potentially underestimated).
+Initialize the output count to zero.  For an unmatched response, account
+the credit grant from the decrypted header and leave it unadvertised.
+Publish one entry only after finding a MID.  This avoids sending a partial
+linear response through generic unsolicited-message handling.
 
-Update cm->available whenever the CPU matrix has been initialized,
-regardless of its online state. Continue updating global availability
-only for online CPUs, leaving first-time initialization to account
-for existing reservations.
-
-Fixes: 651ca2c00405 ("genirq/matrix: Handle CPU offlining proper")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Cc: stable@vger.kernel.org
+Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
+Reported-by: <co+3a967895833044fc@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- kernel/irq/matrix.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/smb/client/cifsproto.h | 2 ++
+ fs/smb/client/connect.c   | 2 +-
+ fs/smb/client/smb2ops.c   | 4 +++-
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/irq/matrix.c b/kernel/irq/matrix.c
-index faafb43a4e611..5a6adf8844903 100644
---- a/kernel/irq/matrix.c
-+++ b/kernel/irq/matrix.c
-@@ -225,10 +225,10 @@ int irq_matrix_reserve_managed(struct irq_matrix *m, const struct cpumask *msk)
- 		if (bit >= m->alloc_end)
- 			goto cleanup;
- 		cm->managed++;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available--;
-+		if (cm->online)
- 			m->global_available--;
--		}
- 		trace_irq_matrix_reserve_managed(bit, cpu, m, cm);
- 	}
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index 00168839c..fb181e727 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -88,6 +88,8 @@ void cifs_wake_up_task(struct TCP_Server_Info *server,
+ 		       struct mid_q_entry *mid);
+ int cifs_handle_standard(struct TCP_Server_Info *server,
+ 			 struct mid_q_entry *mid);
++void smb2_add_credits_from_hdr(char *buffer,
++			       struct TCP_Server_Info *server);
+ char *smb3_fs_context_fullpath(const struct smb3_fs_context *ctx, char dirsep);
+ int smb3_parse_devname(const char *devname, struct smb3_fs_context *ctx);
+ int cifs_ipaddr_cmp(struct sockaddr *srcaddr, struct sockaddr *rhs);
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index b6e98eb31..d47f166e2 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1221,7 +1221,7 @@ cifs_handle_standard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
  	return 0;
-@@ -275,10 +275,10 @@ void irq_matrix_remove_managed(struct irq_matrix *m, const struct cpumask *msk)
- 		clear_bit(bit, cm->managed_map);
- 
- 		cm->managed--;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available++;
-+		if (cm->online)
- 			m->global_available++;
--		}
- 		trace_irq_matrix_remove_managed(bit, cpu, m, cm);
- 	}
  }
-
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+ 
+-static void
++void
+ smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server)
+ {
+ 	struct smb2_hdr *shdr = (struct smb2_hdr *)buffer;
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index cb4fd09f9..6f75e6620 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -5236,7 +5236,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	INIT_WORK(&dw->decrypt, smb2_decrypt_offload);
+ 	dw->server = server;
+ 
+-	*num_mids = 1;
++	*num_mids = 0;
+ 	len = min_t(unsigned int, buflen, server->vals->read_rsp_size +
+ 		sizeof(struct smb2_transform_hdr)) - HEADER_SIZE(server) + 1;
+ 
+@@ -5306,8 +5306,10 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	*mid = smb2_find_mid(server, buf);
+ 	if (*mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
++		smb2_add_credits_from_hdr(buf, server);
+ 	} else {
+ 		cifs_dbg(FYI, "mid found\n");
++		*num_mids = 1;
+ 		(*mid)->decrypted = true;
+ 		rc = handle_read_data(server, *mid, buf,
+ 				      server->vals->read_rsp_size,
 -- 
-2.43.0
+2.56.0
 
