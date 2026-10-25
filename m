@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.13.135.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966582;
-	b=HOAFIPj8oDjuOFwsagkJvmdiglCyEqtu/iav12Wy99pq0h0F3Fc6FAb4a7oDDhErJrFk
-	 5lGamujcctsKtmq3Eax0otCG15MaQHvKUXNJCndK0mtF1hAYDAP4d1h/4yn2dzDk8TyjL
-	 tjlgiTp6ptF5YnJkV0dIVm7yAuruO5luYNUagCm4/g1YllVmfxbf3wzRH899ySSosUniU
-	 wQMXZuq1IJt/CYe2av81qBIZmyp8Hv82/eA/P2ZwIN+MnScyexv2VT/i7mtEhK5CSqUbG
-	 rDdqnuzb8sSGDkdm1pwyxahh3VEN1Q5Zw0494kqsV5ogBHPaE22CczNTAKPNMrAeTLA==
+	t=1792966590;
+	b=PqId58wuZ5da7R/ibyaClcmc6QY1Nsz2Nt5ROcHFgqrCizSgQV9VrXwAAmNI/s20cTvC
+	 3ZHArZogHt96VL2z4BP3lIO2vRYKYjvLwH0uLUiUT60ibiZpacfnPtlIGpA/J/7r0gedD
+	 z6abQ+TfqOKwTYvG2FTHYLZZKUMJZWN9Tuf9QsZYScMMZxvv1kDgyYtdki9SiSciZXOyR
+	 G2WxSg67KuxkVLLkEdWOOfIJh8SxY0X+BNFNGZccI13BfRCdNsuTd0RA2ndULtti6+5H8
+	 rLZNv055phwXMxHgXOhmpklVny4yqcvK50wG90cXly53/GrrLGCb1hN3IZRUJzftYAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966582;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DMnV/6aSn1ZXSp1qQ4XFqAj3ot4W3oi4+OfSLRlndkc=;
-	b=Z382h/OiwUfcMcRusF915YoWl5udxiZJ4UV0YsJC9qEDSCkenkchGzmiYE+RH5PXa7I3
-	 XDOUVVctbjN/EOBOuTkvZz64N0ZEm+fEHK0tJQo2/DNFYfe8uWumFmrABr4owa4zhscwS
-	 ZpQaePD9fIhQKXw1Befv4rW6mVrcbiie3vA61Rmku6BwT0IBlnF1snUpaVNeEmJDQwMWg
-	 UZdz+TjtI55CQCZmTNAEZIjwyyiji4P9yezR9pjcYJNOcTQvs044F4F09HUoVBBLGF7ap
-	 9ixEEcd+BjV34ykjVh5+djl2gDyyzLxoJntygovt5cYJe9PvxD94iIbWQuecXC5gAFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792966590;
+	h=DMARC-Filter:DKIM-Signature:X-KAS-Sym:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Bar;
+	bh=ODRnPrsSh43Oc4mE8eGN57TH6Ko1bbZfQFSlWAEeeSM=;
+	b=3aq/RUTf5IRqDmzZlV0gPK0VemboevCf9fzAfS9gNz8h3+SOYCDqrJj66tZ2tVLMTHIk
+	 PYvDIn+z7pf9SirtZx/PUMxtH09jg+1T1Mw89vh7E916nL3aixdFpDk1o2A9pAbyR4OQ6
+	 DVPfLtKhXW0lph9Ltc1I9p3VF/PwLx/f70xGEWcoi8raP1tP8fDQzR6xwj6XVexOIt5Di
+	 31yX3zuWFNLJm32g/lpg1Oid14QMz37673hIItsIEvEbm2CG/ySe9Ao2JlHdjh54Vg6cF
+	 buymJD6j83fpE/Vo/dkRKXISWHLDW5G7NfHlwyeGFQ6+u+X9IkhIQ0nGGaesu2ZvnXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	arc=none smtp.remote-ip=109.224.244.118
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	dmarc=none header.from=tsv-stahl-riesa.de;
+	spf=pass smtp.mailfrom=tsv-stahl-riesa.de;
+	dkim=pass header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=SWptSH7l;
+	arc=none smtp.remote-ip=85.13.135.14
+Received: from dd13108.kasserver.com (dd13108.kasserver.com [85.13.135.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A180A606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A180A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792966573; x=1793225773;
-	bh=DMnV/6aSn1ZXSp1qQ4XFqAj3ot4W3oi4+OfSLRlndkc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FzFEwH163Kethc0JpXcJAw5b98NkdekC+gczB91jtDHhg4YCXncWSKMzoePU73eyk
-	 7xecNkYt7sny7Wex8uMGZbMIEREPOWh4XB/51TSqoWYyoNW91N1mjTKv3eXaASVoPN
-	 btMettP4GvM5nzts47lCEf28kyOCHfNWpkBTsObcGDbailPlkZ6Bod1Bwiabi4ZCkb
-	 lQz7LmGq9e42ZEMKa5IAwGvwuQTkuOVEQ11UW538sn6z5e3y2QSt1v7Q7q0h9rFKyf
-	 W0qbuB1uYzSZ2OCCXNy47a+YmNZcOI5n2s8YdxVVKPfIihltjF4QGTO4CLisPeWHij
-	 V+1N3Z+XvM3rA==
-Date: Sun, 25 Oct 2026 22:16:07 +0000
-To: Liviu Nicoara <lnicoara@thinkoid.org>
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Michael Burch <me@michaelburch.net>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, Neil Armstrong <neil.armstrong@linaro.org>, Stephan Gerhold <stephan.gerhold@linaro.org>, linux-hardening@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-Message-ID: <tgnlBNUOnW42EiLCz_akAzeeWkNknNtC0L6XgPu22x5snLwk-jvS8K8byxz0LVhf-i0Zi5deKpU5UuE0QqzqMOZHx6OqLcpSllgj6JyZAAM=@vinarskis.com>
-In-Reply-To: <20261022192709.12149-1-lnicoara@thinkoid.org>
-References: <NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com> <20261022192709.12149-1-lnicoara@thinkoid.org>
-Feedback-ID: 158356072:user:proton
-X-Pm-Message-ID: 18a3e30b6d997ba5a1b9c6346f460aaab43f928c
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE62F606A31A;
+	Sun, 25 Oct 2026 22:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE62F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tsv-stahl-riesa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tsv-stahl-riesa.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=SWptSH7l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tsv-stahl-riesa.de;
+	s=kas202608160020; t=1792966586;
+	bh=ODRnPrsSh43Oc4mE8eGN57TH6Ko1bbZfQFSlWAEeeSM=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:From;
+	b=SWptSH7legcR79UnQvmH8b0+TF6jzJpIIC2o38vTp0DnPx2ZFJaMRSmezKOFqhhh7
+	 EI43/9Eq2xtmURsiBFsR6xmguSXC7lF2wv8vyrBR57ohBij6CAM7QaK+Nm/hOfQM3I
+	 MWa4UCUIuPCKC4ULAwMCnI9Zoh1MD1lFlM6WJ3DOETwpisYxNYGMqhOCtS6btUbDFk
+	 KLy6yMVCZrJmFZDBY654HyavBgLtlP0MFAoh48VoSjI0X3tRCCxwv/IfrvUfFRpXGK
+	 s0LRnZgpU2WCG1q37OaqDcXnYApHIsO+k1v1j+Ohua9x1bHFh62fX7blOu4jmA4QJe
+	 wiZ43LJITxjQA==
+X-KAS-Sym: v3:f51bdf72230551df:ic0cwRf+uZi9e7OSVB9LLQ5din6XoyVS/0jbXGcna+8Pv
+	yWztFZ5DbW5u7MAlRptgwijped6wiQBYmXmW1zVmSXrx4lkAjNF2GfgfvJE8qE0BbtMt/u7qEbv
+	c6m79OCY8h6kALmFGKEoBodsTf82BZJsD6LinvqIE8yt3FPW/gQ0fVOsR5k5KIaas006uua92K4
+	BEK8OGLvRSLmDjt/zVgSv3QFyQptiQEB3SqnDtWDlKvQQ7QHrKlWtpZqEsy9lVh5NaL+QKsxEk+
+	jU5H3JiUVTnRtNuXL13aGZOwP8nwMxtCc/Q4fVNmpcK6/0Z0H5yM9b98GxCpxv9Ein0Vpobg==:
+	KRgxXdT0THj2zXUr1De0t+g6Q6KurI4ZPOiZyhpX3zH4eUGhebj+1YMEWN4D27O7Nu3IXfUZstL
+	wXSS/Ee3Kfu6bTwqAp3qbelBWP0/ZGkDaKPwO6j1E5paD71Lye/B2j4Q8ySi12klPwZD5wL0he7
+	pVFnKwgNEhot7vZzaMobankBCRWJwte6BEk8wryHtfXDUXooNNg5rjckHI5/L2UUrPtSiby4YBi
+	69jDmQmWkf+Ay5q4V1ChAikzEjJMvImA5ds8U3/ntrg8PDTskmVCHblrNh4+fjPD+TdlWHEEg5I
+	e7bMprIkWpuUQ6uWYXDbS6ywny6EI+AhrRIKY96EzWTsuRQclbHrzRaXd9gYSfrrULFD7W26tg6
+	+iocRsRSKIHHqvz14+5JTm4AuTYAdWc0ujxMFsiLpZu7mMHvooZmVx5rEtrkxjku0uJzxO31kDx
+	L0HCsrgXmtZwkKihihiCRYUo7JXpTIWVZeUy1vAgsHyab3U/LrBpYfEbB9EPNBtHCUizFwAEwEK
+	mRoiuPOc45Kx20287htFd7fTcXqll97hHHzzJlUxvjavg1ZgiqyRaH5Liql3lJGt6jKb+rHvXU3
+	vqKxl7ieAWyk2AjTyCD9N/tuXf21tA/aNA==
+Received: from [192.168.2.173] (dslb-188-098-190-192.188.098.pools.vodafone-ip.de [188.98.190.192])
+	by dd13108.kasserver.com (Postfix) with ESMTPSA id DFE38782A82B;
+	Sun, 25 Oct 2026 23:16:25 +0100 (CET)
+Message-ID: <510d6922-5aad-4b54-8085-9a769a1a934b@tsv-stahl-riesa.de>
+Date: Sun, 25 Oct 2026 23:16:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,127 +71,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk: tegra: Fix Tegra114 MIPI calibration clock parent
+To: Mikko Perttunen <mperttunen@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-clk@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, clamor95@gmail.com
+References: <20261025-b4-dalmore-fixes-mipical-clk-v2-1-0a2d1118f930@nvidia.com>
+Content-Language: en-US
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+In-Reply-To: <20261025-b4-dalmore-fixes-mipical-clk-v2-1-0a2d1118f930@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Bar: ---
 
+On Sun, Oct 25, 2026 at 10:45:41AM +0900, Mikko Perttunen wrote:
+> Fixes: 07314fc108e1 ("clk: tegra: Special-case mipi-cal parent on
+Tegra114")
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 
+Sorry, I replied to v1 earlier by mistake. Carrying the tag over to v2,
+the code is unchanged:
 
+Tested-by: Patrick Fischer <admin@tsv-stahl-riesa.de> # Tegra Note 7 (P1640)
 
-
-On Thursday, October 22nd, 2026 at 21:27, Liviu Nicoara <lnicoara@thinkoid.=
-org> wrote:
-
-> On Thu, 22 Oct 2026 17:07:25 +0000, Aleksandrs Vinarskis wrote:
-> > I do not think the left charger you identified is correct - how did
-> > you arrive to that conclusion? Curious to compare to my method.
->=20
-> I am afraid my method was simpler and coarser than yours: one run per
-> port, nineteen samples ten seconds apart, the charger feeding the
-> system only (battery at 96 % and not charging), on a 7.2.6 kernel
-> with all four GPIO channels in one DTB. The deltas over three minutes:
->=20
-> Channel                Left charger   Right charger
-> 0x14b  AMUX2_GPIO          +1.6           -0.9
-> 0x145  AMUX2_THM           +0.1           +3.4
-> 0x146  AMUX3_THM           +0.8           -0.1
-> 0x14a  AMUX1_GPIO          -0.2           +1.3
-> 0x144  AMUX1_THM           -0.1           +0.2
-> 0x148  AMUX5_THM           -0.2           +1.2
-> 0x147  AMUX4_THM           +0.1           +1.8
-> 0x14d  AMUX4_GPIO          +0.0           -0.0
->=20
-> The other channels fell or held while 0x14b rose, so it was not the
-> board warming as a whole. But 1.6 C in three minutes, against your
-> 2.3 C in ten seconds on the right, might mean that 0x14b is a sensor
-> somewhere on the left side of the board, not necessarily on the left
-> port's power path. Under SSD load it moved with 0x146 and fell with
-> it in cool-down, which puts it close to the SSD. "Left charger" was
-> my reading of the sign pattern. Your ten-second test is probably the
-> better discriminator for a sensor on a power path. If nothing answers
-> the left charger in ten seconds, the simpler reading is that the left
-> port has no thermistor of its own among these seven.
->=20
-> > pm8550_gpio_02 does NOT clearly follow. In your test you have
-> > waited multiple minutes, which is enough to heat up a larger
-> > area on the motherboard.
->=20
-> Agreed. In your left run it was the only channel with a positive
-> delta while the board drifted down, which is the same weak signal I
-> had, and no more than that.
->=20
-> On the two AMUX3/AMUX4 GPIO channels: neither carries a thermistor
-> on this unit, and your tables say the same for yours. 0x14c reads
-> 130.048 C on every sample, the last row of the conversion table,
-> where the driver clamps a voltage at or below the lowest it knows.
-> Its input sits near 0 V. Windows' ADC configuration sets up only
-> PM8550 GPIO3 and GPIO4 as analog inputs, for AMUX1 and AMUX2, so the
-> pin behind AMUX3 is in its digital default, and PM8550's low GPIOs
-> read back here as inputs with a 10 uA pull-down. 0x14d held 34.7 C
-> within 0.1 C through both chargers and two load runs on this unit,
-> and 35.8 to 36.0 C through every one of your tests, the hairdryer
-> included. That is a biased pin, not a sensor. Both nodes can go.
->=20
-> > ADC5_GEN3_AMUX1_GPIO_100K_PU - Likely "lpddr5_therm"
->=20
-> I cannot separate 0x14a from 0x144 and 0x148 by heating. Under a
-> one-core load reading a file from /dev/shm they rose 14.0, 14.4 and
-> 14.2 C in lockstep, while the SoC's mem TSENS zone rose 20 C. Your
-> RAM stress warmed every PMIC die by 1 to 4 C as well, so it does not
-> single out 0x14a either. The three sit with the SoC; which one is the
-> memory I cannot tell.
->=20
-> > Looks more like "sys_therm5" is the actual keyboard thermistor.
->=20
-> Consistent with what I see. 0x147 is the coolest of the seven, 29 C
-> at idle, and nearly indifferent to board loads: it gained 2.0 C where
-> 0x144 gained 9.2 under SSD I/O, and 2.5 C where 0x144 gained 14.4
-> under the CPU load. A sensor away from the board, on the skin side,
-> fits.
->=20
-> On 0x146: under four minutes of direct-I/O reads it rose 8.2 C
-> against 10.0 C on the NVMe's own sensor, the largest share of any
-> channel, and it fell at once when the load stopped while the
-> SoC-side channels kept rising. Under the CPU-only control its share
-> halved. I would keep "ssd_conn_therm" on it with partial confidence,
-> but I will not argue if it goes with the others.
->=20
-> > Alternatively, I am leaning to drop the labels for anything we are
-> > not sure about...
->=20
-> Or just give them pirate names. Jk.
->=20
-> Agreed. 0x145 as the right charger is what both of us measured.
-> Everything else is a guess until the teardown. Numbering sys_therm
-> from 1 matches Windows' SYS_THERM1 to 7, so that helps too.
->=20
-> One consequence on my side: the 9345 thermal-zones patch
-> (20261006185557.23016-1-lnicoara@thinkoid.org) names its zones
-> chg-left on 0x14b and ssd on 0x146. I will respin it with neutral
-> names for the zones that are not settled, so the two patches agree.
->=20
-> Happy to test a v7, including a lid close on the EC interrupt line,
-> which my v6 run did not cover.
->=20
-> I love this laptop, but I will not open it up just to pinpoint the
-> right thermistors' locations.
-
-I went ahead and tested thermistors against their potential names.
-Finding are available here:
-https://github.com/alexVinarskis/linux-x1e80100-dell-tributo/blob/master/de=
-ll-xps13-9345-ec.pdf
-
-TL;DR: with your correction of AMUX GPIOs to 1, 2 instead of 3, 4 most=20
-of the proposed labels are correct, except for left charging controller.
-This thermistor is quite far away such that IMO it cannot be associated
-with the charger. This perfectly explains the difference in heating up
-rate we both observed.
-
-I will adjust labels, address rest of the comments and respin series
-shortly.
-
-Regards,
-Alex
-
->=20
-> Liviu
-> 
+Thanks,
+Patrick
