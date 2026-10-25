@@ -1,84 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792960913;
-	b=QvHiB4lKxMefCmx+f+iC+tL6odI7VBILy87FzcACRNi+rXqPv6MOL8XXBUuBrrXsYt9X
-	 8FXfgmUAjYuApYUtJ+JxhmVRi9AY9sUPSgs/NQlj19RZiMscyPxrYORjhmRMUPgPnrUeE
-	 IKEEzfpXvqb3+0Tw/n11XQPw8jE0CeyL8zVDLKWbTItAjrV1ewPzGv8std7rBgYoudTuI
-	 A891p49uXY5W7s1NThKYLlmBtCtoqCH54kcbM0PLBtju/XZSRraMT7bEGe8lYQVa+EEHv
-	 wnTc2YghMIkMOv03iEoCpyPGzDHr0B8NNvwD/A2Gmwrslw1t2gYs2RvWs2j6jiLzEFA==
+	t=1792960953;
+	b=YTEuEZmYqju744RII7oChgBdN2K/RURjHROZWYD2W7GfTpdjXIfHcaJaPhRMj8jsbh3Z
+	 QyuD3q5Lp9+a89C5lx26O7CwKJddGvhh0DLoxH065WLHQ4gkcUxKRCy/1cqC0wjffTZrU
+	 4ibvGnA9OnLVHPgPd/3WDm5EYKlNCXYwt52CmoguoGRFWxCTNI3Pgg41GqA4pDl6PpoXr
+	 fYwp0d6xd5RjspJsCEx/viFDn+VsQW/1GRVLx2EHoYfoRvromK77FOrwTXBJTC0je2v5t
+	 w2TfM9IjWkmtBV3D/sJnzRdsOfTxc6p+McqZzDACRgxfa3yyrW+/5ftbijP2x02X7og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792960913;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3CcZDuPFATvQ2ExU1c9yUD5sEliMrlWJl5jzTcVoGa4=;
-	b=hcTH6KIDrG68ZrSqz6SAbMgVAa6wYqlvPYW5sTHp2lKlMRcWOZgQwnfT+gSF15z/j2JO
-	 Grt7g/lTf1p+TmI9+wdt8ad9g0SQAh1RQDgenSofJEL7XRh0pstg0YTUvqw/5kuMFdc9x
-	 /Gwc5ZUzf0kAefsgALI7b5PdYb3uQWbUEsjxFa2oLmvD6GdEOtg/d7LycHEhnuXsyF5ou
-	 L/JrUs6350vSOHDdfkieRO0DqmU8ZxsUGuSwI6vOoAhfrfUDWozo6t3p0+8stM+ofbw3T
-	 Rp3NHmsSrhRnq0jX/2Vz60ojgFEhSDcayNyvJotsx700SKaRvd7oGd5YiMPWVVaqEyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792960953;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1ZVwpDuEOvVP+5WMptjvGUaD4UnS5xmh0v3my59uo80=;
+	b=CvWHduTEFHXwK2zWTQHD021/CUhI4EYhs5i+8v5PRVflrgciqU4nx8y5ZUhOP3+xbbeb
+	 Eu4ZMdYoEK1wkguJIVPm0v3y8U6roF7de4oayHC83oNAtBJh4jM9aKw9F+T9UEVwkmdVc
+	 d63XO8ZkRV0noFjj0PEy3c53cIeTnGyijYrU1Lh9ISrtO3LhN7ok4MuRNWYVNJC2CiuK/
+	 tZxOZqQMMkU9XzzAvYslZML9RjsGte10CuxuUXIrZdIhAlcFf91xcDcN/qIBSRx6/+tQ0
+	 o1V9N7OOzUDw6kfJpRTTeheqIYyLjFhzVBNWGdrVAjFTL3+G2OvWvCQsxAgFo9+IYdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i6inozXc;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cw6wxqO8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A60606A31B;
-	Sun, 25 Oct 2026 20:41:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04A60606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310B0606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i6inozXc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792960912; x=1824496912;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8KxctUHP4pWWDpHfQ9QOIlxQinkrh6vqlKGrAnUe08I=;
-  b=i6inozXcl8W60maqfWGXYOoPjCWlczyUzicQuliy3SiOEZFmldTC+5MH
-   jMXIudybOCTb4tvhNYrqjokyrQaUpoGmvhnEBrcouH07Lrp2ovwcmvIgM
-   jrDSA4WYNyV5Zjo+4a1XIy1+3PQGWOgz1bRaa3HrHp289bi8S2jVhXiuG
-   26otn2TCTNgvsq7xMygzs/8mviLjHRzp9C8NzaTd+d2NrssiWkRSOvjXO
-   JoTeLK1esYpGzf3KwYQOF5J6kiEGuRkmS31lw9ICvgXY7eH5I4W7vtZmk
-   iQuWkw+Ov2W4AY3TFFhZD6cq8K7LivvH2UpMn2BBDT8HctQkKDjg/bQvU
-   Q==;
-X-CSE-ConnectionGUID: 2gPDk1uFTGC9ECwfh57uJg==
-X-CSE-MsgGUID: PhWN1ZC9TzSJ68zaTl2EFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1529916"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1529916"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:41:51 -0700
-X-CSE-ConnectionGUID: iX+M+mzCTFWj+QaEcNGGQQ==
-X-CSE-MsgGUID: 0+SCQi1sRE2Dbg3RSzUD5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4130758"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 25 Oct 2026 13:41:49 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xL52I-00000000V8c-1EwL;
-	Sun, 25 Oct 2026 20:41:46 +0000
-Date: Mon, 26 Oct 2026 04:41:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Nikhil Gautam <nikhilgtr@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Subject: Re: [PATCH v1 1/1] iio: light: opt4001: Re-use generic struct
- s32_fract
-Message-ID: <202610260406.ghXhpqoZ-lkp@intel.com>
-References: <20261023090802.1957593-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cw6wxqO8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56551F01825
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:42:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792960952;
+	bh=1ZVwpDuEOvVP+5WMptjvGUaD4UnS5xmh0v3my59uo80=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cw6wxqO869ZZJ8vwwoDzLpFL7knGGLPUHbSAAQ1kpxEmlLRSoAcIyI+7nCNkPXtXC
+	 /sQV6Nvfef8NOsj/Vee6+JjdQSwsL8eGsx0BMC/21zb7xTzpc9lozSJ7N6zZWF79VG
+	 mhefi2f4xhIQUZOWJNQJMiZp57XOxhMYe7hXPq/QPwTT/ClZNZV7lCq/+2OFBWsxrw
+	 7Bbsquk/ryxVB+AxDl4L4wPHsfXS7lFVdaIMIGn6/3nH7z15C+TgtIieL9xFC7NZ5v
+	 Nf14VG1zxAGC+aQJ4EokIMh5+0zoWQO5PXt/cCcE/eP1BVl+c1l6nRpKjLzjRsrTav
+	 8ePHU+mvvPfrg==
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53cd0c8614eso925651cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:42:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwQJrKm4n6ZOX0bFg3A1ug9UxMLXVhhqtcTa4CWcPtraH7iSOUm/+zCQxxKdrcOKJWNucORk8wfKqwVUFQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjENHAndOA7R3RH0kPfrsnPhDoWafNRqCA8fqoALpIKYjGEB40
+	ib9Nz4eF9q60b3aIwO1JimWerXtbnDDNLiXYxQMu3vWlg8FhmCSy+Bmxnnp9K6iME1v8tEeCqgy
+	z7KMmjGKoodApvUqE8vxE8iBZBa+MUbs=
+X-Received: by 2002:a05:620a:400a:b0:93e:48fc:aa88 with SMTP id
+ af79cd13be357-940ef95513emr790870385a.44.1792960952180; Sun, 25 Oct 2026
+ 13:42:32 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023090802.1957593-1-andriy.shevchenko@linux.intel.com>
+References: <20261025021839.1542805-1-senozhatsky@chromium.org> <20261025021839.1542805-4-senozhatsky@chromium.org>
+In-Reply-To: <20261025021839.1542805-4-senozhatsky@chromium.org>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 26 Oct 2026 04:42:21 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wF2YfHwyDSt=B_+duiHCXke8JJgqGJcaw31JunUbxxQw@mail.gmail.com>
+X-Gm-Features: AclHuK_u4ku4HYNTJ8RqUHQB0jHfvIpB2fBEVv08j0BZX4fWzV5XB72RUiMN54w
+Message-ID: <CAGsJ_4wF2YfHwyDSt=B_+duiHCXke8JJgqGJcaw31JunUbxxQw@mail.gmail.com>
+Subject: Re: [PATCH v7 03/15] zram: reset writeback state in zram_reset_device()
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Brian Geffon <bgeffon@google.com>, 
+	Bo Zhang <zhangbo0325@gmail.com>, Minchan Kim <minchan@kernel.org>, 
+	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andy,
+On Sun, Oct 25, 2026 at 10:18=E2=80=AFAM Sergey Senozhatsky
+<senozhatsky@chromium.org> wrote:
+>
+> Reset all writeback state to its initial defaults on device reset.
+> We used to keep writeback related data in zram->stats, which
+> zram_reset_device() clears, but commit 1d69a3f8ae77 ("zram: idle
+> writeback fixes and cleanup") moved it (along with the newly added
+> wb_limit_enable) to struct zram, after which neither of them was
+> reset anymore.  wb_batch_size and compressed_wb, which were added
+> later, are not reset either.
+>
+> The patch is more about just being pedantic.
+>
+> Acked-by: Brian Geffon <bgeffon@google.com>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+> ---
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on jic23-iio/togreg]
-[also build test ERROR on linus/master v7.3 next-20261023]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/iio-light-opt4001-Re-use-generic-struct-s32_fract/20261023-110802
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git togreg
-patch link:    https://lore.kernel.org/r/20261023090802.1957593-1-andriy.shevchenko%40linux.intel.com
-patch subject: [PATCH v1 1/1] iio: light: opt4001: Re-use generic struct s32_fract
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261026/202610260406.ghXhpqoZ-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610260406.ghXhpqoZ-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610260406.ghXhpqoZ-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/iio/light/opt4001.c:90:2: error: expected expression
-      90 |         ,ratio = { .numerator = 4375, .denominator = 10000000 },
-         |         ^
->> drivers/iio/light/opt4001.c:90:3: error: use of undeclared identifier 'ratio'
-      90 |         ,ratio = { .numerator = 4375, .denominator = 10000000 },
-         |          ^~~~~
-   drivers/iio/light/opt4001.c:90:11: error: expected expression
-      90 |         ,ratio = { .numerator = 4375, .denominator = 10000000 },
-         |                  ^
-   drivers/iio/light/opt4001.c:95:2: error: expected expression
-      95 |         ,ratio = { .numerator = 3125, .denominator = 10000000 },
-         |         ^
-   drivers/iio/light/opt4001.c:95:3: error: use of undeclared identifier 'ratio'
-      95 |         ,ratio = { .numerator = 3125, .denominator = 10000000 },
-         |          ^~~~~
-   drivers/iio/light/opt4001.c:95:11: error: expected expression
-      95 |         ,ratio = { .numerator = 3125, .denominator = 10000000 },
-         |                  ^
-   6 errors generated.
-
-
-vim +90 drivers/iio/light/opt4001.c
-
-    88	
-    89	static const struct opt4001_chip_info opt4001_sot_5x3_info = {
-  > 90		,ratio = { .numerator = 4375, .denominator = 10000000 },
-    91		.name = "opt4001-sot-5x3"
-    92	};
-    93	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Reviewed-by: Barry Song <baohua@kernel.org>
