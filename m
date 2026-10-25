@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.11.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792907772;
-	b=od0FxXHPBYqABGWg/gZjXKdDKszUmkAn2IoOay9uBosDUQlq9/je5WjWyrpCrGNdagpz
-	 pCn6hvBxsNtkfIXBHs0VdsPrZocHX03ZSr1qx1mekRZJMofqm3+QkKYp5MJwRiuL0YIFA
-	 htIPpanOzzz5Sotr7GWTPaeF1iA+VOrj6+gEu/qPnjbfb2mrW14Cf5mrxA9zX35z26caP
-	 dg4N9uvpquOhz5VBQhywCwQwB16yCCpmXPlNbmQhrYSt1wthc86UXrFodKZIyocJN6lzq
-	 8ZioE0MpbLE2OXi1kXYLF9EWhybQ8JjGyhMeMGtHFRKP9YCubJPqPBrHpbnqbrg4Ezw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792907772;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1lUlBFNrf2X7m1R+2vg1/7Tysy+T33s/5x7/yxD+7+c=;
-	b=LdHKPxdxMqqC6p6SYPf55axfiu24EQ691l/tVi5tBGYoZ6p/FA+0KIa4vbvm8ohG7/3G
-	 4KRl9fMv+58bIMgs+cXAb1w0oUdk0QmNkIJ5h0y65jd0ZohUo+fPVldyGECSP1Sg/E/rh
-	 gW4AzbePOvifCoTxZrlkLbu7lIigggQ2AK+mP3I59b62Qc62EM/xZfj/PhBv7rBXrDDi9
-	 injX4/kqHfAvIUlQ/t3VSLOdqDSi6q397gmS73EFHIaaRnogqxPmTtmY0sosxnKDtsSw2
-	 WW836qpZVo5WDpMHHOymxqVZiwrlzM/FmZ7cOs2+HCRxzT3hjLEHyC6CguMwp4/rXkw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Rh9R9yC2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.11.20
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012020.outbound.protection.outlook.com [52.103.11.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792907829;
+	b=Ntvqs2KXRboUpKBEYm1U2eBACMZ+dfsCLNpPQ65UzycjiJymhD6zcXc0+/xgQzTaVNho
+	 bEkF0SEcsq/0cdRt6V916ALUupoQjhN2rgq+m8Y9/AQVXx9WOWgpBgNoCf9n2QLl6YSH+
+	 NHLFh2XoxJwFSef+jt8HgvpfZx7TtGl2+ZTDSAlLTXwQcy/x944U2JYISVg1Oh7BBJxAf
+	 aZKWm9QxNj+EdldA1JL7xijp8iRZ9s/MVM+M3MSKSn0xchfMzHC5imLWRbJPITWkKYtLP
+	 WTcaUzb6JLHhwXUmCigq0rtJ4vhohgtOCwmqbbCimvk2tmAj/JRoE6m0FjH32qxUH3Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792907829;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7Zo1T7MMY3VWBGFE9NRsyEeo8UnH0kRDPr4J9VBTFh4=;
+	b=g8uuQdvBmdfeNRRM5bRu8Wf+XHadFwHdMFMRkssL3haTRWF9CoiBIYU0/GJy+ducsxTC
+	 8DbrVaOQ5nrr2pXQwYBxVM2x88e3KoiNhkDolVkwjxIYUwMpTopI5QOQbBTYInvbZDx/v
+	 X1kHsgxu+vqtS3io+hS+X7pLhioDECohPW3Jr4qwhD70TL6hFEiD8cWFiw6DGodTcAtmw
+	 2M14bQo2dGUfWD+InzV9yzc8hQrr9n9gs8UgBdhhiXdDQjmaN4BbxruK+w/IOxqAw0JX5
+	 LwU2CTk1qLNCmckrlDSvD/Uzhti1AFbg1MSePiBS6KAXcnxUDn+nOjGLMHKa2RMEgJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FWBmD5+S;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFC3606A31B;
-	Sun, 25 Oct 2026 05:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EFC3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CCE606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:57:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7CCE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Rh9R9yC2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=omt0WKn8FU7ZBA0Zk/4SP6q/4KqRzD7hkR4OEPkxGc8Ta2LUmKMqoucI9t8S+mSqz6vgJS5lMaqhaERD3PVTJOEI7NzvgLVohN7ctHj3UXgM21ykKb7hbJCrx+C5OQEaiji4xFH+6epQWKaA1CXeOlW/3l9o3ovJxOb2UnXWSiVhUam8ly4+21qkzV9gyzRYPgqp/R9XGfAvpRepdL5yvOeY2tuGLVcYdluZhcnJP+NOhhCsfRYop5cu4m75cPDIX47oihpulaI2PW45REulZFksAXl8BuhxhknL+QYip+K/b6bVzQQKNlAhUefK1uhoOoaJRMueEzv0tlFZRk4fAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1lUlBFNrf2X7m1R+2vg1/7Tysy+T33s/5x7/yxD+7+c=;
- b=KdbqfI5nIlqy5vbIuttRZrQrpRHiwE67gvojOEg0ZC0OEKOM5+XJ/xhIFuIpooQ/0sizdIems8hFT1CIRjZ6ZLaBhVzt75pFWN3KVxEjj63pbHFsiIbe40o3d6kDvAojmZ523UJMJ4cmMCuh9VU8xjJKMJoUT6VDfvrWg+LrAzbzbH2e5KEEqULdONOQQ+wKfmokmIcUAohbBK5qa+JZILIOH0FxQwLoQni0YQpcn4yPW+32PMyrZwQ7BQCE3DTPZ79XgXv2e66cBG+ProLEARrqoB7F4sPdsPx+Cyxtsf0K1b2kQYMobGtJKl6yNfMUDJbp1vVheaehak7oDMwxeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1lUlBFNrf2X7m1R+2vg1/7Tysy+T33s/5x7/yxD+7+c=;
- b=Rh9R9yC2q33eC8hMFNeOEtVbMpsC4GyZWTaLLUwmi4cJn611IyfAyc71io8NrdqYfBvxWzH1FT5MwWVa0MY4LByoVV+4a+OyQ1gllz+ZXKkWPdbCITtulkx3EeJac00W2bA/sDCAusO6TUzNlnysWVNPNN6sZA/APH3X0ypbC8mHo0W7xwczm2qr/rTIjx5ZGCrvlizodh/dQk9lFiqFnNFo0HOcbxzP29HQHKTkX+eDzQSh5GEqjRgcQeNmDRmIT7CVqaNSQoPhQPn1Xc/cVHbRMlleJQcMlDP5+m1n75AXf43Pyf5x1D9/zd0ySLs7lNKnWdMu/JnDqqiAkteggg==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by PH7PR12MB7915.namprd12.prod.outlook.com (2603:10b6:510:27c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Sun, 25 Oct
- 2026 05:56:08 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
- 05:56:08 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	"Jonathan Cameron" <jic23@kernel.org>,
-	"David Lechner" <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	"Andy Shevchenko" <andy@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] iio: cdc: add Texas Instruments FDC1004 driver
-Date: Sun, 25 Oct 2026 00:55:25 -0500
-Message-ID:
- <SN1PR12MB2528B54E68524DC62C378CD7A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atyGxFmgv85JUTls@ashevche-desk.local>
-References:
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH0PR03CA0079.namprd03.prod.outlook.com
- (2603:10b6:610:cc::24) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261025055545.35153-1-chernyakin.victor.j@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FWBmD5+S
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so4863413eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792907828; x=1793512628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Zo1T7MMY3VWBGFE9NRsyEeo8UnH0kRDPr4J9VBTFh4=;
+        b=FWBmD5+SQRS9eH3neDE/DbUVf20B0dFdHkCC5QypViWIMlnPGOIOoncwqrhEYcPq2O
+         c3xA6qYT4ZbYx8IveDRZyPyDFbZtEJnjRfFxj8s1xxq46ubeHyjdV/8s1AA+va1JXELw
+         RKNWAIsrmYiioU1/6Au6ZyNGeqTGWa+2Vp7nltGZNVmDQjCcBFJIWIWu2LGUVhYS/6Px
+         9KuLMh7Ga03AdjtHqwI5PlN8xCNfEDjE6X6q5Guuux+1WxsRf0BPmmkAfXNqFOOLXP3P
+         /N7MoOJ0fI79JxdZ4miK4e4mzykXZuLdvFlRngvOkhN2Osyt+BLb8qIw67psdzSZJv52
+         sfhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792907828; x=1793512628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Zo1T7MMY3VWBGFE9NRsyEeo8UnH0kRDPr4J9VBTFh4=;
+        b=TYbeFdkWpI49VohJgfj+1IW5wyVmC2KSEIscPBXQidOww3u9VHiTCN2TMVBzvYoItH
+         kpV1XcYeL72G5Rgkil1lZqd5El16CzUs+h90ZA6/O1RtvMBkKkn9+0OwyQ6m6AFscPG6
+         SKIhYwMzC6msnqDdbCHQqmc7OcqRfRgncvRHuhapcrCViviJmh+/aVzAn4FA0kX1XHu8
+         03mQYA+qn6975wBiWTs9RXp20vD+z6R4giwpo3kjGxWhNaWrnc7ZT1YPLmsFUgd6ni1z
+         cO75UI2XMU9c9mVkZiaJgrBrGNudGsWGbm+kYAamfw8C84wTALY4f8BIuDsq1nl4EyKH
+         Ph8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwMhRESmIrBE3jYDF+q5aiiMyc72iYTrLH/RRxyOPGbIkUE8oF895yjSbYEYjCuZjQUR2dl+iPRfI0F6OY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKao5eT0hYAcgksqC2WfoAvvJFswNqMjjGXMIb8zMstCz0sWGGy
+	itOcS4VIULxoOw6Dned0RaWfx8edpuY1MAPscTQgme77p4i2pV1jGwao
+X-Gm-Gg: AYBFou0olxUFjmPgAZNH+CwINcTagPh8BLNQW6yW6gBS2XTnrXrdTH/hB20GBkiKl/S
+	XuCQBPXhXEMj8axEvZlAGEh4oW3apv5tgapfx0ijyrlCwOP1Ioa3UY7pPY9IaW5j9eRLaecUARZ
+	yWJuHpVauY96q9B6ssK9lKLCDooVNGbQxPK9smnZhXu+yDArR23cZ8m5H69e8jHuXgTuOIV6JNA
+	kBFXCleocJQDDnFhUNr2TyJmieFLkfUUk/Ja1hml1JH5DTRnDU4fx6YMpoXmK0D6FhB55LRKKcI
+	vKRKfqop3iwxgUd1Nfq5m9QPL0qKHxmCYyu4ejNIrvuhi1THaISUf7ZRnq/TxtRnWWbckxr8yzc
+	7AMdwCePnm/bJ8ExYyzyZWt5652uUgaAtc+CQ0/lTAJoFQsUOZCsfJRJvk1YINiwMUdb07B9m8v
+	thPhz8V1L5OT+J50AkyYj35i2Yak5WS/pcdn231ZKWzF6rsURRIBu9MCgZWW8vVN0aHlpmVx8II
+	w5015QZMIqK9vY+altSkny7WN7RH+HCh0SRxqO1sE5gn/ggWU+p9KihrEOfn+JG6ICj02ekEa7k
+	neK2nD7Mc6NyXbq871ado2gRHyWx9eKjgpeQhx+fVPwZPYBnUvy8ImJs48BNUEFzLh5x3C3O
+X-Received: by 2002:a05:7301:db85:b0:369:d486:457f with SMTP id 5a478bee46e88-369e834e14amr5067746eec.2.1792907827653;
+        Sat, 24 Oct 2026 22:57:07 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d9307bsm16046244eec.14.2026.10.24.22.57.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 24 Oct 2026 22:57:07 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] ALSA: virtio-snd: fix dsnoop capture with staged buffers
+Date: Sun, 25 Oct 2026 14:57:00 +0900
+Message-ID: <20261025055702.69259-1-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,89 +98,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|PH7PR12MB7915:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55f59266-c9f4-47d4-7f3f-08df325ca9c5
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|5072599009|51005399006|24021099003|24121999003|22091999003|23021999003|25010399006|19110799012|12121999013|8060799015|260925184616899003|440099028|3412199025|12091999003|40105399003|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?IME9obIjM7+TnpaDKy5tJED7prINfXEVLlQuXm4T5ZILqOUi6twajV8Lx6ji?=
- =?us-ascii?Q?Syh5s9rk8r1t3J9hvYeZ4rJ/keQgy/+8ZaI0BLpv7Kabsi7wGkkaMLEe+6Xi?=
- =?us-ascii?Q?olqGyJd6Fc8qNSOFugVgRyHpXdCoWDcVoic15CDAKecpK+m/9RVFQJv4SgzD?=
- =?us-ascii?Q?YgJ+fKZ+3QoKghPCfMGIx6FqKzglZOxG0Vysd8k522XPkrPo4XjBTMt+lwBD?=
- =?us-ascii?Q?QYcyhJC7hPTae1V9vsCtvbf192Imhn7dXqbwU/Hh/HhuX4Ce644QYhdYdIO2?=
- =?us-ascii?Q?r9IrldZxtO2Ee+TNa83rfVpHT3l3SrXWafoXtqkbqWKOo+1VSt+BFa69zFjd?=
- =?us-ascii?Q?hWiFncYPRkZfpVf1UdEk6Q2soksAtd6Ub6cy0Anqvetr3M2J4ZOgJXbdw1PS?=
- =?us-ascii?Q?BQJs6W/lXGNqakrH1IVYy3I8Pz/Xk8zRdCi+x8NWRkKWapR4uu0Cab7sGylH?=
- =?us-ascii?Q?9y6s3OY59C6pd4RVrmZ3ktYrMIvu3v6blta/DiinfWHdY+5XH14iVFFVvZfk?=
- =?us-ascii?Q?/3yH6rcv/TTSRzaOiA1JhOptY2sJueqB0WJPNNeH2vgdGszTuuCme3ErFQAD?=
- =?us-ascii?Q?npOsTou/LKGtTmuocMXGJmlpQYbqE4M4xeIn4xof5cHTTA2XOGO69SOGh8Wy?=
- =?us-ascii?Q?75YYa6iE/iws2JvEc7bb9Uwikz0YIBZbxBUEvrwBQltg2RWr92y2Hc8xNtKi?=
- =?us-ascii?Q?YkfKkGMeQ3ESqV0Fgo6m9mHAdoyT9QcmEV636RRDzvyypGS/BrvPBTdx9eal?=
- =?us-ascii?Q?9kb4iF0Ialo40Ph5nxIU7txzafMznLVFgStI+wIXry+2EmKNati3TDJc/Rwk?=
- =?us-ascii?Q?cn5Vw+gRkdgGqaSrBWWk8HkFJEin+//jMYa1LvOnQjmeYxkf2H6gNfdd5ZAW?=
- =?us-ascii?Q?dpoyA5STqaGlzu7NLy5WCUVn12uN966lkF41VcxDtoq6WxLR/k6ZAD0SWlFP?=
- =?us-ascii?Q?dHxcjl+esaJjnP5eOU93B8yBu/PS2kD7+/Xp3owsTO/7FM4DEWomliyoM2ud?=
- =?us-ascii?Q?exfBXhz9yoHM1bU4oAgXdMWC18xMzQDLnOWwicxUnv1+3WNrQYaljwHJXfXT?=
- =?us-ascii?Q?9cbDyuvfKQeBADd35Z8ajtcWw8fBkg=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WFiXiiS5feBayTCptBLQj0EjXW77R0DvY1sWnb8avdNPq7uvywVp2+NzkffB?=
- =?us-ascii?Q?vmuBL/1dNYbuUHlGi2SioIbZsVSmULzbJ92neE5O4IaaguTV1a6cPiUyyuWC?=
- =?us-ascii?Q?YDj7wU/ZoguhbwyznxZ61GlOQWkqC93gSkXC6KzuYd0xEbQBzu96aFBX8Pvd?=
- =?us-ascii?Q?oujZQO/1JspX3bY9cG78zebg//PtQtQAkR+acEEvys84AKNSMpAS+Xk+WESY?=
- =?us-ascii?Q?ZHVUlbsEDbQ52Wv72oq6jH8purtF+mDqYzUgkCUvmwTKZs+FXNbHj8KNro59?=
- =?us-ascii?Q?nkDE396HgCsGhPgVAI2ansV/80s9jlAAVsPA0J6oUp0GOCFoobhC7cGxxn/a?=
- =?us-ascii?Q?BwbLlV7r5EXwTruValxr91T6zpqF+TiK+VCdak/29rI57YuN62sUJ5lL6RbL?=
- =?us-ascii?Q?nPEtWXIvtlsyx7M8qactOrjWuWWUqiKUHA3/lgKgHozgniwKOUKpYWIWsQxG?=
- =?us-ascii?Q?64ZmQlGp91NmkfCuKDMbrzCPYE5nsSz9SkPd0JZKrZiFs8jIrJ6PbEPQmsKZ?=
- =?us-ascii?Q?uS8QTYHO034uoB+WXgZQZHtgsNunu6dK7tkd1owqxWvs0k6bxAJQzVoNZzT3?=
- =?us-ascii?Q?wljRBL/rgf1O931kfW1f9zCjOKI3xtCUncjwqTa6Ic90golghMysqDaAzlOO?=
- =?us-ascii?Q?ZdfhUfgyhEtD+5We7+W9oWFon+Wpm68TNdvq0jMGs8FzllU/AjyIfGZjzYpF?=
- =?us-ascii?Q?QkLYhz/PZZSN0FJHkGzMYKTJolpgVXwuWqp5RujyU0gnXjGxLFki44a9oehZ?=
- =?us-ascii?Q?rA46f1QvIQm+Z6PmgiICGeL/d9PLsIHdeORJ7QDx6ZPfXxSY/nIT4m6Ujptl?=
- =?us-ascii?Q?ZHX01sgHDaMD3Je9QiluQuy4HezKRMLtw2p04KkkzHWIi9pULEBf5px4E1Ln?=
- =?us-ascii?Q?Ad47baD28jqHd+pGyIh+ajQCdpoDmdo6YyNMkpbi7VBLWaPqNzcsGrsM5D0F?=
- =?us-ascii?Q?PNChWRuqGM0I3Jf1lXtY/ON1asCo2TlskV8vcnUz2XFKJsELfe66jGrRjzxJ?=
- =?us-ascii?Q?/DPSTjMVEewS5odrUucWfWEl5fBYiYXB1IkR331Azi3yp9auRrr7sjeAtUZl?=
- =?us-ascii?Q?3tvBEIHmjIRMsWe2GPvy/dnEaG/LKY92kWAyCPUi7sEGZvDsL+fXMStZZIsT?=
- =?us-ascii?Q?G8nZsaS/RiODTqLF8FKAC0VNvtdndxKBSVX5h8bkRZEiGA7f0lGWrpIa7mbz?=
- =?us-ascii?Q?GsN3EzP5ac+7UOI3UBlig4tMQ6VfAdRJ5yzg58F+Bz0w5lFW4SzSz8JRQuK1?=
- =?us-ascii?Q?VVC8+xYq3vhHoaNw1RO+kWrhqNsvX/oaAV8RSP9vsdpJJKa08S3BBe1kphuB?=
- =?us-ascii?Q?F1IHKlwjGv61kyFPgwm5S9wLqJn52gpS+7i8Ng4cN9RqsIbIaGZbjNi48x75?=
- =?us-ascii?Q?hww9oQvxA8Ux+8nucjbVXRYZpL1exsPA4WCuYG4PA+m47+Cpcg=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55f59266-c9f4-47d4-7f3f-08df325ca9c5
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 05:56:07.9544
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7915
+Content-Transfer-Encoding: 8bit
 
-> > > I'd look at using regmap even though you only have a single bus. It provides
-> > > a rich set of helpers and the caching functionality that will save a bunch
-> > > of bus traffic.
-> > 
-> > Ah... is that a strong preference in new drivers? That would be quite
-> > a bit of rewrite work...
-> 
-> Yes, usually drivers start being looked cleaner. On top you got a few benefits
-> of regmap for free (cache, debugfs, tracing, maybe even more).
+Hi,
 
-Alright, v2 is now regmap-based!
+Changes in v3:
+* Handle staged-capture queue-refill errors during native pause release.
+  Mark XRUN and schedule the period worker so ALSA leaves PAUSED and
+  wakes capture waiters after the failed pause action.
+* Add a native-pause regression covering overflow, poll wakeup, read
+  errors, prepare recovery and reopening. Patch 1 is unchanged.
+* Preserve the base commit and prerequisite metadata added in v2.
 
-> > > Looking at these data types, can you check if linear_range.h APIs
-> > > can be applied instead?
-> > 
-> > Doesn't look like they can, since they only work with unsigned int, but
-> > these values are s64.
-> 
-> The types in the software is a result, but what is the cause? Do you have
-> ranges with a sign?
+Sashiko found the missing native-pause error path in v2 patch 2:
+https://lore.kernel.org/all/sashiko-outbox-184086@kernel.org/
 
-Yes, fdc1004_calibbias needs a sign.
+Previous version:
+https://lore.kernel.org/all/20261025051301.54640-1-mynameisjune111@gmail.com/
+
+This series fixes dsnoop capture on top of the staged-capture virtio-snd
+changes. dsnoop configures its slave with stop_threshold == boundary and
+can keep capture running without advancing the slave application pointer as
+an ordinary reader would. The staged-capture accounting currently exhausts
+its bounded unread capacity in this configuration.
+
+The first patch marks stop_threshold accesses used by the driver's policy
+sampling. READ_ONCE/WRITE_ONCE provide single-access annotations; the
+virtio-snd state transitions remain protected by the substream lock.
+
+The second patch caches the prepared boundary and samples the stop policy
+under that lock. A completion uses one sampled policy for validation,
+copying and queue refill. Free-running capture keeps requests queued and
+retains the existing frame, payload and pointer-window checks. Returning to
+bounded capture restores unread accounting from the monotonic counters. If
+the outstanding data already fills the ring, the policy helper returns
+-EPIPE without changing the cached mode or counters. The detecting RX,
+pointer or ACK path then reports XRUN through its existing error path.
+Native pause-release refill failures schedule the period worker to move a
+paused stream to XRUN and wake capture waiters.
+This does not guarantee a synchronous error from the sw_params ioctl.
+
+The ACK accounting and subsequent queue refill each sample the policy under
+the appropriate locks. Prepare and teardown reset the cached state. The
+existing ACK-race and priority changes are prerequisites to this series and
+are excluded from these two diffs.
+
+New testing for v3:
+
+* ARM64 QEMU with KASAN and lockdep, native pause: v2 returned -EPIPE
+  but stayed PAUSED, and a waiting poll timed out. The corrected module
+  reached XRUN, woke poll with POLLERR and returned -EPIPE from read.
+  Prepare recovery and reopening each captured 48,000 frames. The
+  corrected case passed with both one and two vCPUs.
+* The 13-case mode suite passed with the corrected module, including
+  direct and mmap capture, policy transitions, delayed-reader recovery,
+  reopening, mixed-rate dsnoop readers and client departure. KASAN and
+  lockdep reported no diagnostics in these runs.
+
+The following testing was performed on v2 before this focused change:
+
+* ARM64 QEMU synthetic dsnoop capture: 12 files and 2,160,000 frames
+  matched the reference sequence from each client's observed starting
+  position. All 48 corruption, loss, duplication and reordering controls
+  were detected.
+* Default KCSAN: 13/13 cases and 619 policy transitions passed without
+  race or lockdep reports. Forced RX/ACK policy changes and four isolated
+  policy-helper branches passed under KASAN and KCSAN.
+* macOS VZ with MOTU UltraLite-mk5 at 48 kHz: comparisons used one or two
+  vCPUs and idle or CPU-saturated guests. The baseline failed all 32
+  shared-client captures. The candidate passed 48 captures and eight
+  recovery diagnostics, including mixed-rate sharing, client departure,
+  reopening and recovery after an intentionally delayed reader.
+  Loaded shared captures ran for 70 seconds. All eight accepted VM runs
+  shut down on the first request.
+
+The physical tests checked frame counts and nonzero input. Exact sample
+continuity was checked with the QEMU synthetic source. VZ exposed mono;
+these tests do not establish physical input-channel routing or multichannel
+support. Aggressive KCSAN still produced dsnoop client-threshold XRUNs with
+a 160 ms buffer. Further isolation supports a deadline sensitivity, but
+does not exclude every kernel timing contribution. Separate generic KCSAN
+reports remain recorded in the test evidence.
+
+This series depends on the staged-capture prerequisite stack below. The
+tested local base is 8d0d4c1a6c4bcb81ae9f52d1c0d979fafb2e22f2, consisting
+of nine prerequisite patches above sound.git commit
+5618f6837ef3314e2c581d4c05ec13b7ed975cb4.
+
+Prerequisites, in application order:
+
+1-5. Lifetime and error recovery v3:
+https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
+6. Generic teardown/control wait v2:
+https://lore.kernel.org/all/rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com/
+7. VZ staged capture v2:
+https://lore.kernel.org/all/rfc-v2-vz-capture-compat-1.b9ab4c1540dc4691@gmail.com/
+8-9. ACK accounting and high-priority period work:
+https://lore.kernel.org/all/rfc-virtio-snd-capture-followups-1.f2737c95c12e45b4@gmail.com/
+https://lore.kernel.org/all/rfc-virtio-snd-capture-followups-2.f2737c95c12e45b4@gmail.com/
+
+This fixes the staged-capture accounting introduced by that prerequisite
+stack. The reproductions do not establish the same failure in an unmodified
+upstream kernel.
+
+The policy uses the existing stop_threshold == boundary convention.
+Sampling it under the driver lock avoids introducing a PCM stream lock into
+RX completion. A completion overlapping a policy update may finish with the
+previous policy; its accounting and refill use that same sample. Rejecting
+a transition whose bounded accounting cannot be restored preserves
+explicit overflow detection and lets the caller recover the stream.
+
+Patches:
+  ALSA: pcm: mark stop-threshold accesses for capture policy sampling
+  ALSA: virtio-snd: fix dsnoop capture with staged buffers
+
+Thanks,
+Joonho
+
+---
+base-commit: 5618f6837ef3314e2c581d4c05ec13b7ed975cb4
+prerequisite-patch-id: 39fb327a004c966ab90f66a34a64bbdbb3ffb475
+prerequisite-patch-id: 7c6bc344656fd839ae0d697ba18d66ac0b47827a
+prerequisite-patch-id: 9dd290ac3147fa7b49a475d7df8a6172778f2860
+prerequisite-patch-id: f4c24a5e441343a690f4ac2437f181c815bc23d0
+prerequisite-patch-id: ab4a5b770247a65272ab7af18a75a147daf81287
+prerequisite-patch-id: cfe3e7000e695a2fda27993f4d9acf0a637cf24e
+prerequisite-patch-id: 771e8815f2b874d98376f309dc60bc90244f378c
+prerequisite-patch-id: fdea8eaa29a47360e19820e27301dd8b6b26e43e
+prerequisite-patch-id: 67ffb5c72970e1aeace72b6537dab1b977a3fc6c
+prerequisite-message-id: cover.1791881787.git.mynameisjune111@gmail.com
+prerequisite-message-id: rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com
+prerequisite-message-id: rfc-v2-vz-capture-compat-1.b9ab4c1540dc4691@gmail.com
+prerequisite-message-id: rfc-virtio-snd-capture-followups-0.f2737c95c12e45b4@gmail.com
