@@ -1,60 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792941685;
-	b=0tKcdcihHQYn9xoK09NzyqSfk6hpNskIWxNFpflh6E1WtV9I3cm9Cotjl5wPPTLIBwC5
-	 JZVBXYYZEV0Rfo+KLdjSGNhQr8AXY7fvre+WMf0agjDxWgHsOyyhw58hhlwNv5xmAkVx4
-	 RFbdeKX2aiUMssh8HkqDg2fddc2ktjCRdox8BI/LP+mAoT9N3KZtf/uMIkN5yGRZvvGz7
-	 j4YWdFv5sBm0nmkUvZ+Xlli75K8FKRW4NDR3pGpwFpAjfTSH+GSeRhgkq2AdzKvoxB3zY
-	 SyJ5V7WKeiHEe/W1KDs8YAEht40lrH37vfKQDcjZOi9jFKUkKMRUeJqdFp+H88Lh9gg==
+	t=1792941872;
+	b=4zM/Dz9rnQ32DZsZMNhFaoQ/D/oPAZFX00diukTV2/s95PYpXq6Vl6TlbkrQJ+yLkSUO
+	 TRK9adihh5f81W+HzW/zXunqhPwNZjjsHcWBwcKu2veEsc6NkhgqCzcSGpxz05TlZ/DB1
+	 HP0S4QoK5RtMry/K2p3SCUNxZLO0Vqj9iLL5BSuy8+nngrT6pDXgYmVEPRGPhRkTmDTls
+	 X4i0cOAHC2WE61iUDXg0Jr7i1mneDquIzbAzrEXheo3uzQi/0HTx9a41I2fDKJW3xtSB7
+	 xhownCLN2XIZSTduK0oYnbNf7+VbvI/TMmPsgDu2Zu+kX63MI+1U2gV5dsN7VWnESUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792941685;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=QEJtrLOFg8lyk1USRkn9G7yenfXglsncYatbCQ2AUc4=;
-	b=svOzGgV/9Wc/bZQnz41BII8oy+XIUZBE58BtAFtvWHf8y9kIZjUun5B5pFjzBWDNH8T+
-	 N2uDwVp26QNYeS6ifqjIyzViWWym9cUuCbQdpNJFnxImNEDbLhWAuCxMPT6l1xeQXmTDr
-	 eWfztEN6yR7F7/jFYMg5GQvu7uaVfFnF7kW2fDPlk0Wam6ncAQ0pC2FmKyQUELiBAu6Lu
-	 x4sX10QG14VTkmVu4g1cHW2VRfeTMerwLyvSh4+OiU5rPL4zis+a5VfiB1MUaaPkkgzBO
-	 PC+HhtXxf43SIPnD49x4bd+HQwCw4plhUdR0kWizKg3slLaA9vLMGTIdDh/BUcbgMWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792941872;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=gr7m8Jgx5qFfXx97jCHm/dv2wdINd/6dtVxf1769JNg=;
+	b=fZz3SZYfuEDJEs+7h3964DNMVwzfBEra96aG22X+6/u7E6/vhXJKYb/QF4WWgtyI3X1R
+	 SL4jlXV7vJ7Q0irJNwhbpOiC58ygB2/HIXL+CXuYLK4uzRaqfb9W3bCKvfch0dZfIzGtp
+	 2CLzYJ8gosfd/6FhDW6UQwIT0adkY+ElnZ2q0E3ArfXOPvNldP47lOZudb3NkyunAIXtR
+	 xTBmqeGuGYHtRr3EB2ocJOOSUe6wmoVObIEYdnYREnxwTrNHZnz/naXBmKwYxqFM3BeN2
+	 B+BwCTt6C1dNgDGoMfQ/vrhxgikz4jEmOX6EYBWmHoP3bossedGAYVx58Up+AVWmvlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilmH4SQC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jxj50wNW;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CDD606A31D;
-	Sun, 25 Oct 2026 15:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F8B606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:24:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F8B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilmH4SQC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D4581F031E4;
-	Sun, 25 Oct 2026 15:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792941671;
-	bh=QEJtrLOFg8lyk1USRkn9G7yenfXglsncYatbCQ2AUc4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ilmH4SQCF0Jqln6cyztBSvodpIBv72F5GI81+Z0TcANxQWb75v6pluXJZp2i9G0dH
-	 LKn7sGj2XgXOexCEnI06hclDBRH9zYtkZkwmxEM+llGoSaaWb9eJ0iBh/PLM/i7CHo
-	 rVVUbkzPx3cEkzLowv0FLmWbkBHFMFrrHF/nqH2qM7l8Z2xRB6+IG2vt2C+Hb0XqIo
-	 i81bkiq2bll8ONDEgkpPtymbO3t9DHtwANzjZZDry1LmyNW7InSgjNH7OhwOGGmMZw
-	 pIe7fjutgheo7y6BFVC9p+SaW3KyEcZdCzdgAwvUaOOHFsMomp0tC0fTRbYqf+yX/9
-	 tLq1DV/ejesKw==
-Subject: Re: [PATCH v5 net 4/4] net: enetc: pad short XDP frames in software
-From: netdev-bot+sashiko@kernel.org
-To: vladimir.oltean@nxp.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, claudiu.manoil@nxp.com, wei.fang@nxp.com,
- xiaoning.wang@nxp.com, ioana.ciornei@nxp.com, zefir.kurtisi@westermo.com,
- zefir.kurtisi@gmail.com, david.laight.linux@gmail.com, netdev@vger.kernel.org,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 15:21:09 +0000
-Message-ID: <179294166967.3134.4009428939172084398@kernel.org>
-In-Reply-To: <20261021145314.1435049-5-vladimir.oltean@nxp.com>
-References: <20261021145314.1435049-5-vladimir.oltean@nxp.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jxj50wNW
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so17595955e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:24:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792941870; x=1793546670; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gr7m8Jgx5qFfXx97jCHm/dv2wdINd/6dtVxf1769JNg=;
+        b=jxj50wNWDxFPMjbOATJJXdbZVWc7iBzBfYoA2Pwd7DOyllRETfZmqftcOeXuA2PYyV
+         Xxy5gkOZySQr072FGWayPpr1FMYUia9mSVK3vhEJG92IMwuz88e2W2bBjxph8Q7rfrOI
+         BoYdz+wi4pPi+f+RfhYcFBMldCbtn6OwYASejA+gKCcfSTsASy6xYo+Ru8J8bsSX7C4i
+         EKJCXaXAZowji7Ni9HqvClIKJFdC34hFozv1rGJByjQu+whOgCdKG16ys74OWjbaFOT3
+         xy6ZGYLyV8qqC8hiTDQKbRxb6pxmECaVc5xEnunTwFuGxIHT6RuSn99V482shM7CAzDm
+         lTzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792941870; x=1793546670;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gr7m8Jgx5qFfXx97jCHm/dv2wdINd/6dtVxf1769JNg=;
+        b=jp4R9X95pacjo2oH4Eboxl26bGKBKGgaHoOWR/GVvxs+UKW24SXKk0XYx/nOEk+J/I
+         NgPBPozEr3JxXTNHC8Nx/C1BHOQXGa5I4dg1d4+RYdgpJ2VWS1cK/KnqhDoxaraxZxNa
+         FcUT5D7exVEWGEf3VXP3Jj9gyXlkmII+j/uDvNQgUUSo3kA+WFwhmc5homsORexjaVxo
+         IL43K7KbmkCoyU8kY4lh3t4IV3gnXd44sU25PEC+SXD6lklkdV1zKBD8io2hdRVfz64F
+         DsNmCzru9ZUpcxAYnGUrEnR2pmPQNNt5WWdrvknCaxpLUVYSFWPc72QrC3i1MPOpuLbW
+         fxvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfc/jqb601+5K9Lh3p5dXIK/BB0ZBlaloaI8h1qvJg1zrgIvX717XTZPtAHXo6PXLqWj479G1gUfoFgDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKa95B275zj/oGzU2VF5dQsexoLK4cerw0PjrSbTbr51TguYWLH
+	FohfKrrJ1nKrCmgKaFH6MO8nmZ85D/HXKD5o8kvSQuWfqWpil2IzLvpy
+X-Gm-Gg: AYBFou3rbNU4lejePwBbW/T94WtmxsL78pfohrp2sweHLOfw1AN1sKj83lFzcj6qGZx
+	uuwDgJE0FZfCosuLz9NOnZKsKl3vTq/7nbWKDUD3RC09rWCK2sg4llJgpXvq2DdHbQWTwJQG9XQ
+	9Q4cglrhvBwlwPdDAUJp4N5LYEAzIYEYdTQcLVyktp1bi2XZmM9pgv04ihnyu1cwtohLZ/SwNb9
+	EDoze9wtfBLHKjmEfChj5/RrWNl9A8ODlanoe91yPECr90D86bhTkcSodK0/vlyOZolLk/sRnZf
+	mvSs1jeg0AwPFP4n3b+97/z7fnWqf/LxZ/S+gHmAL29gDAToAelO4rdwwLb6Un4CgECmrHq0vbR
+	R8o15FHxlOSYD87l1TF9JB2z5p1NRGEduA+s7zNV0eQmvPYGU/LKHeB6lgSBjvl15Obsgxx7JNF
+	2SbmdqWbGGdb94yEt4/vZ4Imv2UKeNYs5u24lM2iOHp8b0UEIcjRYlhBYZSqienaTM0cWcjYawJ
+	ClxM3XbXh1OIk0MQ0i5qHn2bA3lDZeXztnvK+SlKpWQCWgvPWEUOLXtlcaKit0sQb+QrV58NaS6
+	gDfXciHK93F6E+M7m7yj0nusaHxsbex2qRRjaEoNgqE=
+X-Received: by 2002:a05:600c:c0c9:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4a587b3e000mr20792825e9.13.1792941870382;
+        Sun, 25 Oct 2026 08:24:30 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:861:39c2:e340:4c3:3a00:d533:9d50])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm132982575e9.2.2026.10.25.08.24.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:24:30 -0700 (PDT)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: dw-mipi-dsi: use the lane rate for lbcc when
+ lanes run faster
+Date: Sun, 25 Oct 2026 16:24:29 +0100
+Message-ID: <179294186960.4141843.10824416552753869438@gmail.com>
+In-Reply-To: <sashiko-outbox-184251@kernel.org>
+References: <20261025142639.3454322-1-romain.tisserand@gmail.com>
+ <sashiko-outbox-184251@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,191 +111,29 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sun, 25 Oct 2026 14:38:50 +0000, sashiko-bot@kernel.org wrote:
+> For a 4-lane non-burst panel using MIPI_DSI_FMT_RGB666_PACKED (bpp = 18),
+> (bpp / lanes) truncates from 4.5 to 4, giving a lane rate of 5 * mpclk Mbps.
+> That is only 11.1% (1/9) above the 4.5 * mode->clock pixel bandwidth, rather
+> than 25%.
+[...]
+> If the slack is only meant to ignore lane_mbps being rounded up to the next
+> MHz, should the check compare dsi->lane_mbps against
+> DIV_ROUND_UP_ULL(pixel_kbps, MSEC_PER_SEC) instead of adding pixel_kbps / 8?
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
+Right, the 1/8 slack misses that case. v2 will use the lane rate when
+lane_mbps is above the pixel bandwidth rounded up to the next MHz, which
+keeps i.MX93, Meson and STM in non-burst mode on the pixel clock formula.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> Should pixel_kbps and the pixel-clock lbcc calculation divide by
+> dw_mipi_dsi_get_lanes(dsi) instead of dsi->lanes to handle dual-DSI panels?
 
-- [High] The new XDP pad BD in enetc_xdp_tx() is only partly initialized,
-  so after a failed XDP reconfiguration it can inherit a stale…
-- [Low] The commit message understates what the new 16-byte head-buffer
-  check in enetc_xdp_tx() fixes.
+With dsi->lanes the patch doesn't change the timing of the dual-DSI Gru
+Scarlet panel: its lane rate stays below the per-link pixel bandwidth, so
+it keeps the current computation. Switching to the total lane count would
+change that timing, and I can't test it, so I'll keep dsi->lanes in this
+patch and leave the dual-DSI accounting to a separate one.
 
-Pre-existing issues:
-- [High] Concurrent, unsynchronized producers on the same XDP TX ring.
+I'll send v2 in about a week.
 
---
-
-net: enetc: pad short XDP frames in software
-
-This patch makes enetc_xdp_tx() drop XDP frames whose head buffer is
-shorter than 16 bytes. When a frame is shorter than ETH_ZLEN, it appends
-a BD pointing to the shared tx_pad zero buffer. The pad BD then takes
-over the F flag, the is_eof marker and the xdp_frame pointer from the
-last data BD.
-
-> Similar to the skb path, the XDP transmit path may put frames shorter
-> than ETH_ZLEN in the TX ring, and may put frames whose first buffer is
-> shorter than 16 bytes. The former relies on mEMAC hardware padding,
-> which we no longer want to rely upon, and the latter is not supported
-> by ENETC at all.
-
-[Severity: Low]
-Could the commit message say what happens without the 16-byte check?
-
-Before this patch, enetc_xdp_tx() only checked enetc_bd_unused(). A head
-BD shorter than 16 bytes went straight into the TX ring.
-
-The earlier patch in this series, "net: enetc: ensure head buffer has at
-least 16 octets", describes the result. TBaCIR does not advance,
-TBaSR[BUSY] stays set, and the NAPI/TBaIER re-enable sequence turns this
-into an MSI-X IRQ storm that soft-locks the host.
-
-That looks reachable today through ndo_xdp_xmit(). For example, a veth
-XDP program redirecting through a devmap can forward a 14 or 15 byte
-frame. The frame can come from bpf_xdp_adjust_tail(), or the peer can
-simply send one.
-
-The Fixes tags are already there. What seems to be missing is a
-description of the impact, a soft lockup on the XDP redirect path.
-
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
-> index f5a47d53d2bea..e3a08a82dc3c9 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
-
-[ ... ]
-
-> @@ -1771,15 +1774,24 @@ static bool enetc_xdp_tx(struct enetc_bdr *tx_ring,
->  		frm_len += tmp_tx_swbd->len;
->  	}
->  
-> +	/* Pad frames below ETH_ZLEN so the mEMAC does not pad them. */
-> +	pad_len = max_t(int, ETH_ZLEN - frm_len, 0);
-> +
-> +	if (unlikely(enetc_bd_unused(tx_ring) <
-> +		     ENETC_TXBDS_NEEDED(num_tx_swbd + !!pad_len)))
-> +		return false;
-> +
->  	i = tx_ring->next_to_use;
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can
-two producers write to the same XDP TX ring at the same time?
-
-enetc_xdp_xmit() picks the ring by the executing CPU:
-
-	tx_ring = priv->xdp_tx_ring[smp_processor_id()];
-
-The XDP_TX path in enetc_clean_rx_ring_xdp() picks it by RX ring index:
-
-	tx_ring = priv->xdp_tx_ring[rx_ring->index];
-
-The only thing tying a vector to a CPU is irq_set_affinity_hint() in
-enetc_setup_irqs(). irqbalance, /proc/irq/*/smp_affinity or threaded
-NAPI can run RX vector i's NAPI on CPU j. Meanwhile CPU i can call
-ndo_xdp_xmit() into this device, for example from a devmap redirect.
-
-enetc_lock_mdio() takes read_lock(&enetc_mdio_lock), and only when the
-ERR050089 workaround is active. That does not serialize the two paths.
-
-Both producers can then:
-
-- pass the enetc_bd_unused() check;
-- read the same next_to_use;
-- overwrite the same swbds and BDs, now including the pad BD and the
-  xdp_frame handoff;
-- write next_to_use and the tail.
-
-Could that lose frames or leak DMA mappings and xdp_frames? It could
-also leave xdp_tx_in_flight undecremented for overwritten XDP_TX
-buffers, which throttles RX refill, or hand torn BDs to the hardware.
-
-Would per-ring producer serialization be needed here? That could be a
-spinlock taken by both paths, or __netif_tx_lock() as other drivers use
-for shared XDP queues.
-
->  
->  	for (k = 0; k < num_tx_swbd; k++) {
->  		struct enetc_tx_swbd *xdp_tx_swbd = &xdp_tx_arr[k];
-
-[ ... ]
-
-> @@ -1788,6 +1800,22 @@ static bool enetc_xdp_tx(struct enetc_bdr *tx_ring,
->  		enetc_bdr_idx_inc(tx_ring, &i);
->  	}
->  
-> +	/* The pad BD becomes the last one, so it takes over the xdp_frame
-> +	 * (if any) from the last data BD. The pad BD has no DMA mapping of
-> +	 * its own, and it is not an XDP_TX buffer to be recycled.
-> +	 */
-> +	if (unlikely(pad_len)) {
-> +		struct enetc_tx_swbd *pad_swbd = &tx_ring->tx_swbd[i];
-> +
-> +		enetc_append_tx_pad(tx_ring, i, pad_len);
-> +		pad_swbd->is_xdp_redirect = last_swbd->is_xdp_redirect;
-> +		pad_swbd->xdp_frame = last_swbd->xdp_frame;
-
-[Severity: High]
-Can pad_swbd keep a stale is_xdp_tx and page from an earlier use of
-this slot?
-
-enetc_append_tx_pad() sets only len, is_eof, do_twostep_tstamp and
-check_wb. The code here adds is_xdp_redirect and xdp_frame. Nothing
-writes is_xdp_tx, page, page_offset, dir, dma or is_dma_page.
-
-The data BDs are fine, because enetc_xdp_map_tx_buff() memcpy()s the
-whole swbd. That makes the pad BD the first XDP ring slot that depends
-on already being zero.
-
-The slot is not always zero. On an XDP program change,
-enetc_reconfigure() calls enetc_stop() and then enetc_free_rxtx_rings().
-For XDP_TX slots that were not cleaned,
-enetc_free_tx_ring()->enetc_free_tx_frame() only does this:
-
-	if (tx_swbd->dma)
-		enetc_unmap_tx_buff(tx_ring, tx_swbd);
-
-That clears dma but leaves is_xdp_tx = 1 and page set.
-
-netif_set_real_num_tx_queues() can then fail in
-enetc_reconfigure_xdp_cb(), for example with -ENOMEM when an XDP program
-is removed. In that case the out_restart path restarts the old rings
-with the same tx_swbd arrays:
-
-out_restart:
-	enetc_setup_bdrs(priv, extended);
-	enetc_start(priv->ndev);
-
-The old XDP program is restored, so XDP_TX keeps running. Every 56 byte
-VLAN-stripped XDP_TX frame now gets a pad BD. If a pad BD lands on a
-stale slot, enetc_clean_tx_ring() checks is_xdp_tx before dma:
-
-		if (tx_swbd->is_xdp_tx)
-			enetc_recycle_xdp_tx_buff(tx_ring, tx_swbd);
-
-Would that put {dma = 0, stale page, stale page_offset} into the RX
-ring? It would also call dma_sync_single_range_for_device() on address 0
-and wrongly decrement xdp_tx_in_flight.
-
-enetc_refill_rx_ring() would then program rxbd->w.addr with
-0 + page_offset, so RX DMA would go to a bus address near 0. If the RX
-ring is full, dma_unmap_page() would run on address 0 instead.
-
-The incomplete scrubbing on the out_restart path is older than this
-patch. The new pad BD is what exposes it on XDP rings.
-
-Would a memset of the swbd in enetc_append_tx_pad() be enough? A more
-robust option would be for enetc_free_tx_frame()/enetc_free_tx_ring() to
-scrub the whole swbd, so slots are zero after teardown as well.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021145314.1435049-1-vladimir.oltean%40nxp.com
+Romain
