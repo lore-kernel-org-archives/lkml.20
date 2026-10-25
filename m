@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964844;
-	b=wpexFOMdNzvRHN3GSaq9svKUUaYodWBtPZR+Wr2Bp4+ElOlbh7F4Cj/CDQADMvjRtXKn
-	 myHMPo9gAp4t8WSP4Tgjkaztw7JvDJKKVQ6AF4DQhewhbrp+a2TZ7JZwIspIiAs7+pQvv
-	 tlTSfKWjEdZgQUC6FuyyDF1llxsxymVob4KZ3dlSJLWfgyvsx1BswbhIwEi95mlhgTbaR
-	 FK5xW1oaJ1XsfitwDlNgEnzaeVDUauyV2jlGqe82oFpyszprsfW0Ra0o8R0YsUgwpw7MI
-	 AYPT8+rgs+braDcO00FGlkfI4PZjlMd3ENZJZOlKSbmLjT7VYreri4voVRrezJFAc8A==
+	t=1792964842;
+	b=OgAuX+8Vim7HSYPPdyyUOsWUXesDX0f/ajEG+zyxe5bik7x6mNHRy5b7lGcW6bFdxYPG
+	 tcErxPUE218mL6lsijfi9HV1/9/Cw3MPVa7LzszDhF50vzQf5SsEJYsWRA1lISBbWRcVw
+	 fh/tWrhAMuizN+UUqAq5uaEeN7t+dnoVieIubQ6yMrMqLsm8yAGm81CrM/ZwZnqLDIWgG
+	 zZXAKOXVjjx8xfm6dCgX2ZgyuUDbUB/pKpyi2XQgDx1gRNtAowoRmMRMQYcPkTrU1kU+h
+	 y54uxO10B4htUGFMxW+rvxr3igJL6BEaLe1b2J0idXoDdfH2Q6o0hOarbUtOUxisf6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964842;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=JfDWXsCEAJFPhuJkXSGgQSfwM5n5EYodl5oyNokVT7s=;
-	b=cmfU+Kx1ZRR0R7egQjcQ958UsFzsks0ZEkP8dU6CC9DxpQ4eUJkoTPJyyyWW65CvBIew
-	 qiNox3HRUnOyDmtXc7TWfHfd0ImnQYFUVq2YawLPxbJqY/2n/z8iO2NT7WxzNCQRFyz5j
-	 PxY4UqIZmHv1Rtads6y/LnccX1cZolQQDyBu+BFhUrC2DSOUgYv6qHycTjLz7pw+gr6/y
-	 GbUiKc3K80AIS+XqHVucs2s2onTC3XiDLSPJnYYtwB/gKARpTo9iGxAdtvj6dFwom7cU4
-	 CVwxizJ8f7/YrrfD6cOaWP8bCGXZUr5HgjthtfRZDv2QIl8SXK0LLI112edGXibrdcQ==
+	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
+	b=LQZ5N3f4HWYIcGGr7KRE4bz8Sp5SW9xg9MKuZ726ZLKdvGUz6BAwjrszSay1wAvXn0rL
+	 IebtETSLWVy3d/W2j0vrvYDlfuVaRxvHFqubLfU/OwSRLLf8bcveLmLRymgj3ZwyuTljW
+	 zSiyPn2VHGi1WuxxU8y1brxzD7NWDrTm2aa53zdOWFiLye7ghcsf1ZhzLBRs+UfZi3oIY
+	 zJSQcP42Y3QeVfdjiS7Fc7Uec6nfl5wdJTV9w3b3Vv9lvkRkWeUU6TataZSBLxy6/6o6M
+	 ocFJCy+jg04FrpVZJPhsU3xrP5N1b+YaCwuYhX3hqRRpTCXdmCRPWee8XtGJXFaTHBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OaCnGcxa;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=TrlGPf7y;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Q2Ph5IjB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zcMLyGB4;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65857606A335;
-	Sun, 25 Oct 2026 21:47:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65857606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F02606A31B;
+	Sun, 25 Oct 2026 21:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18F02606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OaCnGcxa;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=TrlGPf7y
-Date: Sun, 25 Oct 2026 21:47:19 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Q2Ph5IjB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zcMLyGB4
+Date: Sun, 25 Oct 2026 21:47:10 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792964841;
+	s=2020; t=1792964832;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JfDWXsCEAJFPhuJkXSGgQSfwM5n5EYodl5oyNokVT7s=;
-	b=OaCnGcxalwpr4hQ05B4feUybYtXTHqjWZik6uWD0mQhJ+/JBHl7TjTeQsu3vYumwFf3vp3
-	Vx9tHGcpvrx+c8a5Svd7L1AaDKuwpwDqthh1/GkkowVjEf+Yv63vk1YP73U8/yM1thpF8L
-	rSwZ8YQ6Vghrc4PoWNL4KvrDj08f19tcFNWbhsUWNYGD652JRzCUsiUy6LYmC8A4/sk+jO
-	Pvwe0/TCebfHX0YT2ueUwExBmRyR+PzIOHUCjGCn70cbkkplJa7Y5NZaDgrKOxhIqw/gUc
-	J2qWAd/whQapTq/Go0Un0dmhj+OgFOA40fi9jj/1cHn3XjtWbK2uw3HoljpVbQ==
+	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
+	b=Q2Ph5IjB1Z8cfW5sIaCIJzTd0EISmZvGV5Ff8H8u0kYw1yxBiEfXhgvY7uqUfvFBI19eZV
+	4MznrLn7ZJVdtJw5cclQGU9iDCNPPXM/G7E88QWa0CSjO4RRbMmp6w485CLAS4OlvcSVL3
+	HpaTOLbJFscXe57blHzsH4wwfbZny75Isb1gtM1/8bFZSeyqbeDkbWzTTixjChougFltP5
+	CI7vyxdEgCP5gzDYmemomcfe0XwJUGDIOwEK5SeH2ROzc1o5PHYJM0PnFFH1nZHNsk967B
+	pygYE1n6Tx+74kVAtL01fngMrLxANfKLg9JFvai/dgoi4592Vyeh7wsdDM/c2A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792964841;
+	s=2020e; t=1792964832;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JfDWXsCEAJFPhuJkXSGgQSfwM5n5EYodl5oyNokVT7s=;
-	b=TrlGPf7yWrC/z0lrCh8QFpM0WxVWwOjBJXCJND56D+ic8SznOA4VZYWokOA1lG4FGSiFKw
-	XDZyc3B/IKKIGQBQ==
-From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
+	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
+	b=zcMLyGB4qi/EThDaY5KgZM5GfVDlRkkXHYr7Dv06hvDHqwkb9wkUBCzogLwiPLwQ4A6JXb
+	BtOamr/UHwRKpqBA==
+From: "tip-bot2 for Peng Wang" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/urgent] sched/idle: Use hrtimer cleanup class in
- play_idle_precise()
-Cc: Hui Su <sh_def@163.com>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To:
- <eccd97b2003a16291817974798cbe98b25b582a0.1792083743.git.sh_def@163.com>
-References:
- <eccd97b2003a16291817974798cbe98b25b582a0.1792083743.git.sh_def@163.com>
+Subject: [tip: timers/urgent] tick/nohz: Reevaluate the tick for kicks flushed
+ outside hardirq
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+ He Rongguang <herongguang@linux.alibaba.com>,
+ Peng Wang <peng_wang@linux.alibaba.com>, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261023145101.8217-1-peng_wang@linux.alibaba.com>
+References: <20261023145101.8217-1-peng_wang@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +80,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179296483981.4109677.4627894100325642362.tip-bot2@tip-bot2>
+Message-ID: <179296483052.4109677.11660675165338211997.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -90,59 +90,67 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/urgent branch of tip:
 
-Commit-ID:     bd091346971c88fccd44afd2547d28366f824572
-Gitweb:        https://git.kernel.org/tip/bd091346971c88fccd44afd2547d28366f8=
-24572
-Author:        Hui Su <sh_def@163.com>
-AuthorDate:    Fri, 16 Oct 2026 10:09:44 +09:00
+Commit-ID:     e389ae428847a2e6a3b698b5967df68ccf90361c
+Gitweb:        https://git.kernel.org/tip/e389ae428847a2e6a3b698b5967df68ccf9=
+0361c
+Author:        Peng Wang <peng_wang@linux.alibaba.com>
+AuthorDate:    Fri, 23 Oct 2026 22:51:00 +08:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Sun, 25 Oct 2026 22:43:19 +01:00
 
-sched/idle: Use hrtimer cleanup class in play_idle_precise()
+tick/nohz: Reevaluate the tick for kicks flushed outside hardirq
 
-Pair on-stack setup with destruction using the hrtimer_on_stack cleanup
-class in play_idle_precise().
+The nohz full kick relies on interrupt exit to reevaluate the
+tick. However, a remote kick can also be flushed from task context without
+an interrupt exit guaranteed to follow. If a tick dependency is set or an
+earlier timer is queued after the idle-exit reevaluation, the required tick
+update can be delayed until another interrupt.
 
-Keep the cleanup object's scope around timer start and the idle wait. Start
-the timer in pinned hard mode, so its callback runs as a hardirq on the
-current CPU. The interrupted task observes it.done only after the callback
-returns. Since the callback returns HRTIMER_NORESTART, the timer is not
-requeued before the cleanup object tears down its on-stack debug object.
+Reevaluate the tick directly from the callback outside hardirq context.
+Keep the existing interrupt exit handling for hardirq callbacks. The
+offline flush remains harmless because tick_sched_timer_dying() has already
+cleared TS_FLAG_NOHZ.
 
-Fixes: c1de45ca831a ("sched/idle: Add support for tasks that inject idle")
-Signed-off-by: Hui Su <sh_def@163.com>
+Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
+Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
+Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
+Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/eccd97b2003a16291817974798cbe98b25b582a0.17920=
-83743.git.sh_def@163.com
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261023145101.8217-1-peng_wang@linux.alibaba.=
+com
 ---
- kernel/sched/idle.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ kernel/time/tick-sched.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index eb73b65..2880e01 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -429,13 +429,17 @@ void play_idle_precise(u64 duration_ns, u64 latency_ns)
- 	cpuidle_use_deepest_state(latency_ns);
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index 6c3fea3..baa3ac9 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -400,9 +400,21 @@ static bool can_stop_full_tick(int cpu, struct tick_sche=
+d *ts)
+ 	return true;
+ }
 =20
- 	it.done =3D 0;
--	hrtimer_setup_on_stack(&it.timer, idle_inject_timer_fn, CLOCK_MONOTONIC,
--			       HRTIMER_MODE_REL_HARD);
--	hrtimer_start(&it.timer, ns_to_ktime(duration_ns),
--		      HRTIMER_MODE_REL_PINNED_HARD);
-+	{
-+		CLASS(hrtimer_on_stack, timer)(&it.timer, idle_inject_timer_fn,
-+					       CLOCK_MONOTONIC,
-+					       HRTIMER_MODE_REL_HARD);
-=20
--	while (!READ_ONCE(it.done))
--		do_idle();
-+		hrtimer_start(timer, ns_to_ktime(duration_ns),
-+			      HRTIMER_MODE_REL_PINNED_HARD);
++static void tick_nohz_full_update_tick(struct tick_sched *ts);
 +
-+		while (!READ_ONCE(it.done))
-+			do_idle();
+ static void nohz_full_kick_func(struct irq_work *work)
+ {
+-	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
++	struct tick_sched *ts =3D this_cpu_ptr(&tick_cpu_sched);
++
++	if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
++		return;
++
++	/* Task-context flushes may not be followed by an IRQ exit. */
++	if (!in_hardirq()) {
++		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
++			return;
++		tick_nohz_full_update_tick(ts);
 +	}
+ }
 =20
- 	cpuidle_use_deepest_state(0);
- 	current->flags &=3D ~PF_IDLE;
+ static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =3D
