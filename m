@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792894731;
-	b=biOpavJj+Rypqt2bh15JxL96nOeSusthEb8sY5DGSZlVy/jE4eRV4rj3mOY0NAzR7blg
-	 sFcKPCzG336ctWas/zFb4g8bEvi9UGNo3rzmFOecU502R6e9eDdZ+vfebQlcdvFxkHZLV
-	 ZZZa6rr2Vc+uR8ARnT8wVU5AqmDUJXg8iUF/Ryk5H2q3Fjt0563/lGYUOsCqEpG66zv1o
-	 wf2UM7pQvUlgV+ZYSNmiJYBLl6SOJHHzl8OCUrJbfJ7jRFKgv9oeC5i5qUq6Eip+VbrdX
-	 PejHtuuV8qCRNc2t2egPoD4s3TMbh4xbMGDjeoSq4CGQAJNVE51mofl+scg2xHIdhag==
+	t=1792894733;
+	b=netKYpfN/ci+zRDQNE3Cs6ANayAxklJKl8b5XKl22MWcDYecomnxG7xTfsgXelyVyX1A
+	 ExtuoY+HV0/pfaXyKvKhZFYANwWuZkJHVjWQQWgwWx1kfFf9gAmdaVGkogm8LsBmSqOwW
+	 rMZIYijRbmMHs0z/HEElQU5IJAxDCAjiXv3LXCXR0gxQuEoQqw8ntwiTd/nQ78P/4U9lz
+	 VH/bZeLLzikIJUKQZbBvwuY9NE4PvZk3Asyc+RauCHRIie/M1KcpXDa/phCfZIo9VKZDk
+	 sPh3YL9KyVr8E/rRZzRAteKqv8b73ZKhQalF1EhSYhTGXNvNvmvyqzYR3QOkjF7aajw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792894731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792894733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=hbo8DF5QYQnx8DfVRTkAJCVVYmLZodegAu826PeFH2k=;
-	b=wNULta53MJ9M2fgaD7BnUZLEV8B7Mn5EOQFFPM6KLfcdzSMQbDulIBUNKT+lBPhIldC1
-	 eMfVOmlWWdGW2EGOeD3yLN+gOTSLKKX+jWGJ908ohdVKgViCdPVcSJdBqnFJcSQoWREwA
-	 C9wwyRnnVS2RXvpJPemF5QuPaDMozpph6UWzZYTJFharDP0KxJHs+H+spM49I1Dhi6EMg
-	 bcHoXKEE/wsNYevjF+QCHD4w/GBLcduSoW+hVG/a4LYRuvhSa3dcLeFtJjFng2hlCkWdW
-	 FB72Vz3Had7HZRqkRKjtpmn6uqmOkNfnriAa0/7K5pEaJsf8dCsZAskqzu1ZkWCXPgg==
+	bh=NnTIHT+TXV1eKkVYDiQUUSu10XDJ/e0uYyNb5Fs1tYM=;
+	b=u3DxtTgSNilxNj+NMO8WuJa1Y449kKmooXRGy2BSRqyRWAe3c7Lonz9e5lkPIfEML1li
+	 ghNvBue2Fju4+neQmucd4ezT1P9c2Ojd5vwMiPwtzxPG2RLkCV0tUh3yqACZ4blcyjFVo
+	 zezJ898iI32UIXwfK7j25LAR+LvdYohodrSUK6DcMyhjNgjiU8IAWyNAsP+YvsriszVKO
+	 mbbOO7gMr+9YCxLq8b3UJicUisGX8TvODtjqzbGu6ceC2LOXeHu5Oq6Tqu7ZMtxt9elxi
+	 /RG1WjghNDvrfnn3yDhYC84wGojvqmfWKYoZB4dXEvkAPPLMunC/ak7G+DRlDtC7VHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cvG1s5gb;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DzC6fXyh;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12784606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12784606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E505606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E505606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cvG1s5gb
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso3169394eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:18:50 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DzC6fXyh
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14394530ec6so2650675c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:18:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792894730; x=1793499530; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792894732; x=1793499532; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hbo8DF5QYQnx8DfVRTkAJCVVYmLZodegAu826PeFH2k=;
-        b=cvG1s5gbfHiVD5G8moVge/qTjD1uhQvvde/bfVQ2hd+sO06P45fqfuPcqTSbedsFxs
-         ML8dp4JOatssx4Yx6iNj27SlePfi1sPwSkyX97LReByV3XAQklQJeulbUqw3PVNGQxrQ
-         n4lNru1pMxmv2b1uJMCbAWnhBufkQ5riaHOyk=
+        bh=NnTIHT+TXV1eKkVYDiQUUSu10XDJ/e0uYyNb5Fs1tYM=;
+        b=DzC6fXyhaOySYAvED9PkWySLle2vpEEhY7yVDpuTzevNQKn2qqaEfj5kA6aU3VtLs6
+         LK0RpRV3SzvxKD+HeaTHkJZE5R/544dmXn4MMbUMS5FOrdxGxkfdZSD6+uukYrFN6dq+
+         Fa+oVFPFcpEjmVgOBZ0PFvFLp3+BXOhApfZws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792894730; x=1793499530;
+        d=1e100.net; s=20260707; t=1792894732; x=1793499532;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hbo8DF5QYQnx8DfVRTkAJCVVYmLZodegAu826PeFH2k=;
-        b=tb5OJFqbsOTWu3GKnTLNU69NIBhiVrk7mnKO/We77B0fjNJdBcjlDNEYpkn3qmfa0y
-         yAH2l7KNjDHsoZgFYW3BMa+AvBG2s54Aw4F1i6zZxkEzrrkcaiF51RSeGJP8n3ZfcqfH
-         EW7uGnzfX8HQ6zkNbEL2MFUTbE7kelJwR3mA1y0opW05rEZtWYzfckcF94ARVjmFVEDR
-         mTfYEaxXXnrzAjJIdDDwcAh5RkTzYeGaZFA3pOcyUMYvNTFZZyJ4Eme/p2Uy2uSpjW7U
-         xQmrMKLOXBqsRAcjzhOYZHdtRABokreCUKKWkMZB1vkCsOVxw/jQkca9BIFR0D3izDpx
-         QSuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTIEgl+zO+sMQPViv2xA/7TGzBImAnVJrgrDGtFvn5ulRL5DwOu984iWCf9deFiyUrJ8xpmRejwCLqmUQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeb//Gyvvy5+zTzyKYDOfuqHvYlltB1ptwKUTSUmLrOg6yEehB
-	MU3wq9Mkes5yCbLU5BjeBAB1M2N7TkJLEF5BfgclE/0om/ZtSLkfY05gqnk0/5yHXQ==
-X-Gm-Gg: AYBFou1eAl94mhDDIKVcT43XE1MEdU8Z7BxuQJcUK1w0bvTFwahN2KeLXzDLIn3MH8T
-	72C0MT5IpJJfpRgDDHhAJ82BMRF/km0V4dwVsaIKA1b3eTj4ASeg81dcS3l3+/IeuNut+K83h3j
-	J0cRyjCWffWfcmPQAMXkdw101EI+TQ8VMTonArtPb3SVtb2n0tt5TgXbcQ0B/iVBXI3fySkHUwb
-	+epsiCV0infe2MBH9mREnNEqXCT8FxamZhPYbIpBO4stmVaYaXTraKXlCrNQHNXjAalNNeXbegD
-	4ZEzH8b4WAoLUc54LOJLKONzWD96uXNltdSgCX3KwlZVV5StjoTR222ywTZOZ/J8HD3eHlyBYP+
-	NgfdxXI6RV8JmpZtQHgkWjHFR4G4o+/rJhmMnnLlEuQ9MQx084bgDMVM57lw7kMm7ha47CMQVBO
-	wcVCOs4O4OoIJr79e1xZ8KF0AdGv6spMbSDL5/vI/8CbBEGP4bg5eDdTAQp6fYkFZHi24XyMaDR
-	WFMlZZqDqtpQG53XXI0N+VwwFw0FMsqHfwtGIcmoR0uf4HWUM+awwPAqcqt4jPRdZtE3cUbQG3W
-	WGK+wREOOD9zDNuDfCfPs3uPHTMAeqSQ9Kkii/jblMM5v7i8dyR8yNoDVMYXVrFeYB28PH72FdQ
-	jflZ7PFaWCOF0GeqAaQ==
-X-Received: by 2002:a05:7022:3b8b:b0:169:9f67:a91b with SMTP id a92af1059eb24-1993505df87mr5872389c88.12.1792894729886;
-        Sat, 24 Oct 2026 19:18:49 -0700 (PDT)
+        bh=NnTIHT+TXV1eKkVYDiQUUSu10XDJ/e0uYyNb5Fs1tYM=;
+        b=Prkte+tClJeojw2UxNyJCiZXaWnNNDtv1GuhTxI8ld+k0Cxe8vOq9PrcNcweXThYAV
+         O26vuMGmPasISFL7IG3rBpO2HGLDMOkEgG8Mq1t7FrWFouoL9HchusquUSVUnWyfyAql
+         Mj9gD24qrDRec3T6K1KdBjlSBzB7TX0tbbrZxA4RroSEFNt4Of/Jva6plNjQfQjCiY1a
+         YEpMdkY/TMpiy9xCBr1evr7OxDc4uazdqfkukKiXQpKNwEqvj7qip5t//IQDdIGk+WOs
+         cpJMP610dZf1ftnkCCyKmRJb3S2yWpJKR8HOqtMG8qtDMACmc1LyjRD3ZGcSXvOLgtaF
+         F8sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXbGBxMyHCzioWMOtqlHVTn8Mg70LVhCXvScWtFzHH9MtzGsocx9u0uD+DR7bM60U/mx4PccGQ+SPrPgM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXQYy9N7chbuKng3CVI6k9i9w0vOSSp3kzxHo2yNiiuwURwSd+
+	vj05lOVY2RshMFGz2OdIjJuUrPKSfadwRWqNGy/mcqZI+oufaCtwX62sB0ZeHv96Hw==
+X-Gm-Gg: AYBFou2RYL0kc3nOjch8ne4zKKKXXA3oSpXkRIxpmw4PRryR56tXzu3m0lYj40DZfw/
+	JXe0oSYWHCB9k9W+xWMSLdhVquySHOtFP9HiA7sFFtM+nzfQV/gREz7O18UVp6nflTtPFPYL1Xf
+	EbHxrU+vu5GrbpKvFFqCKzKgnGfcqxfOmsDSWGIg8CCZFI51jTgY4IKckuqLrZjuzKjtEIgl16b
+	lxEUi81Nw1Tmi8BgUaA1uCy60yUCbPkDkBB10ZWn+5VXCY3DvImYv7nQxO3epAzBoI0P9sEDdDU
+	hr9XUOZoGlRpZAGV+JNUlHWLvN+2gGFymzy9mgACeS0j89j231Gx+w77cazxSTinN5jEx4hyGuJ
+	T4OagD5ZxqvL6vULlyKSnEM9D+Zo8ixzkxxJsXrtMnkFr9Q3qhfKxDabbcGOQ2+2zpkIvktyRrB
+	SSGmSQrpJJERQtDVx0GbLkPVe1kaPJqaLk8eb8aWIWKP6jPVyM0bOYNcHDHW1/XSRqSDIWzDT1b
+	rBf0l8cF92AnMrTAZiWBdAbquvU73IP9/7YlN41CMyyCzuh7nwXTABXDfwhJ5b3w+jzTz4s1JfW
+	s9FqMV8eGTKz+awivtUXtwE7UFKhzAaK+Hyo4wbyFBql
+X-Received: by 2002:a05:701b:4306:20b0:184:1898:add2 with SMTP id a92af1059eb24-19935625958mr3965718c88.26.1792894732162;
+        Sat, 24 Oct 2026 19:18:52 -0700 (PDT)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:9f87:66fc:8c85:11bb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm10387242c88.8.2026.10.24.19.18.47
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm10387242c88.8.2026.10.24.19.18.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:18:49 -0700 (PDT)
+        Sat, 24 Oct 2026 19:18:51 -0700 (PDT)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Brian Geffon <bgeffon@google.com>,
@@ -87,9 +86,9 @@ Cc: Brian Geffon <bgeffon@google.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v7 02/15] zram: remove debugfs entry on init failure
-Date: Sun, 25 Oct 2026 11:18:18 +0900
-Message-ID: <20261025021839.1542805-3-senozhatsky@chromium.org>
+Subject: [PATCH v7 03/15] zram: reset writeback state in zram_reset_device()
+Date: Sun, 25 Oct 2026 11:18:19 +0900
+Message-ID: <20261025021839.1542805-4-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
 In-Reply-To: <20261025021839.1542805-1-senozhatsky@chromium.org>
 References: <20261025021839.1542805-1-senozhatsky@chromium.org>
@@ -104,26 +103,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Do not leak the debugfs entry when zram_init() fails to register
-the block device.
+Reset all writeback state to its initial defaults on device reset.
+We used to keep writeback related data in zram->stats, which
+zram_reset_device() clears, but commit 1d69a3f8ae77 ("zram: idle
+writeback fixes and cleanup") moved it (along with the newly added
+wb_limit_enable) to struct zram, after which neither of them was
+reset anymore.  wb_batch_size and compressed_wb, which were added
+later, are not reset either.
 
+The patch is more about just being pedantic.
+
+Acked-by: Brian Geffon <bgeffon@google.com>
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- drivers/block/zram/zram_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/block/zram/zram_drv.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index ab064c84b092..593fa4ae47c4 100644
+index 593fa4ae47c4..0e1aa0da11aa 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -3297,6 +3297,7 @@ static int __init zram_init(void)
- 	if (zram_major <= 0) {
- 		pr_err("Unable to get major number\n");
- 		class_unregister(&zram_control_class);
-+		zram_debugfs_destroy();
- 		cpuhp_remove_multi_state(CPUHP_ZCOMP_PREPARE);
- 		return -EBUSY;
- 	}
+@@ -694,6 +694,7 @@ static void reset_bdev(struct zram *zram)
+ 	zram->disk->fops = &zram_devops;
+ 	kvfree(zram->bitmap);
+ 	zram->bitmap = NULL;
++	zram->nr_pages = 0;
+ }
+ 
+ static ssize_t backing_dev_show(struct device *dev,
+@@ -2881,6 +2882,12 @@ static void zram_reset_device(struct zram *zram)
+ 	zram_destroy_comps(zram);
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	reset_bdev(zram);
++#ifdef CONFIG_ZRAM_WRITEBACK
++	zram->wb_limit_enable = false;
++	zram->bd_wb_limit = 0;
++	zram->wb_batch_size = 32;
++	zram->compressed_wb = false;
++#endif
+ }
+ 
+ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
 -- 
 2.56.0.257.gf7497c7d27-goog
 
