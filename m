@@ -1,79 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792887857;
-	b=ivinz7GGeD2wMtl54Z0N+CJLjdK+pbKHGmiMTlWq+UXxcIZdOdHS8b81Ipu+S4LmJ5fX
-	 Hcp0Eptq0lViXHVeCYY36gbFhfPSgQXSg9D8HhcybgPd0IvjGL6g6LJrl0eDaULtuChxN
-	 3cX8L+tGlG257uzKRflrWvEkHWmOjbVRu7c7bYJ5njCFPtQISu8KTxd45ec+AjDB9x4he
-	 lPrE0sBJmOo/tG8mEvksczzNwYFgaJpANn8MLPckXXEP3kXrVNQiOt3J3JKaizXt33sIH
-	 iPmXikLbttgkz4tN1PxABTwo1CGxcXl0PpHuUA0kG53bv2iVUZvFHL0qXh494YFxRsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792887857;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jh1RY3xoeF/XaqMjp8a7e4jU3alkw9RlqWuVIZCU8vQ=;
-	b=sgSSnDghy0QbxZQ9yIAK2lcyWYTZtREvfeKRdLHxCeD76WrIFWYaRZQAIKkrtiNN4suS
-	 sdiIar4hY2Zz2bkzo3HRVhrSeOzEmj7nBeZeMCjRIQvmjJwwVP2lt+7T2ypasTRdXRhC8
-	 rhPtPU3bIadY4wKELn+O1hHGF323Cufz6dNp8ltAmxxO1zqgvriV8M/RhEkKzwmWSxPpI
-	 iSAbmP74pRTYf6DQ1/HCO6ddDS4MbmV7reyMC69rEgg+rxTpfwh8SdSDVwOcVdkhofD9s
-	 3oigoGGklRwZEyl80xFG65a+Y8XxNYjgxAPjS2Wr0nEk9lGWV2LeTh23NFq7GQiCiug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dLvIan/L";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792887900;
+	b=KFeeBpJbKKwqmqmFpn3uSQ69jqG7oTdExzvfTeatGgK9+rTtS42LD7h2pmde35NXzeUt
+	 +L2iKpAvlXk7EYZ9lzutAJ4FZ8Rg3ocGzt5qfld93KHC5B3Nx2i4GsaVeiEtY/JPCTHtc
+	 CmLWMwUM6uDydEdE0k88Oa/qlQNwy5JczvdHgmTFQFkL/GmftL9FOLgYtvx32wLfAN/ue
+	 4wvWdHlt3EhhLjsoXsjFdNn5cDR8BZx/qwpOPn+efsFkXJ47+JERglvZgjBMq7Bjm3zgT
+	 g1nGnTyDonoOjJo/wGrJZMB7n9/4yxtIlujtwFfchyraSXg+E+l0DN4uj21ra89hn1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792887900;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5lWlaiiAmnWQZRyAcYV8DoDniVOniM3DV7xr7qTGKSY=;
+	b=iEs9q4pMec18KgbsMOKxPvN24jXFVFRMKtJelRrJm/flvwJhpWAxxErQClQLe54kpcMs
+	 nQ9o5d1qf10PR4grTxa/RSV++qsLX6ZjEm86lVJitk833/SkYM659RSJelupWk5wbrrIj
+	 WeMzkaJMUkuIPYCZCSDNFfHAyjbb0z4FJfvLD+jPubIx8Fv3vf4ESJaAcogkZ5b2q15yh
+	 RFbcELbjxKWvc0iw/wXGJsPqA45zrvedDiokk/xWhL/9YPpWDk/1YcoHR7dk7ce6Nwxpk
+	 FPzIHKebxg7Pmto+y4loPx+18ejHDIpLvyNJJlYvwQerrR11hwgd+afkt+qqMnLLG4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=T2ij2Vys;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94528606A31A;
-	Sun, 25 Oct 2026 00:24:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0C5606A31A;
+	Sun, 25 Oct 2026 00:24:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLvIan/L
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792887856;
-	b=gYRaCUWB6LS5uRCCN9IR/mhLjjU118ehJDaPlhOz0IU3VhLWpllgnDT5x2g+LNTZ9fLQ
-	 cHHeOufukO/PD2T+oREVz3U2vBEkOc5QysjioTlLae2uKjsQGuxez5w94km+vNfz+0h2R
-	 oXgBmwqtlnm4rzHKHgGZzwn4EHi5hKLeZcCCN4gT7cDMdmUtdGyKCJ9NdDpG7VylW8y5B
-	 kR4zUgWNpVO7ni2SSk7YJ7ot2JG+JNrmsZxFsdr2FbDNqGnlG3vJRAbwW+quy8IgUFvNZ
-	 kVu7/FlCCDixWihKhzxMbatdmyFDXaAT2RtR+uk55lb9t/CniGWO/5n07KnOuVqDOxw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792887856;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jh1RY3xoeF/XaqMjp8a7e4jU3alkw9RlqWuVIZCU8vQ=;
-	b=S3EjIPxfhBe0dJEdpkEZS59fzzBRfhBweyELWkhpK2c1qgrV9RFQ4NorsuzaKQ53xpwa
-	 OcYR2ISCOU6RM8Wshis0Y6n9lDYsHwSgbnsqtxwXvxdFd+sD6Mo8gKgaagdedipIlOOY5
-	 9Ew7hrKpRgTbp3lSDBAgeUsPaLMfxtmlYq3aoqCk41BHMRYdzF6CG3dK51JfCMqzCahzh
-	 j02P2/unuzU5keyivLyXbLxEQu/MszKSs84uDbJvx1yZn3gWJosKHhRAqkYBPnAEJ1GdS
-	 LKPEAy4FxuCeT3agjpDnYAzLg7muY71gRlV2tH/sGwOD7bCzFeZ+9+sT17lyH4Vyq1g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A5AA81F01825;
-	Sun, 25 Oct 2026 00:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792887856;
-	bh=jh1RY3xoeF/XaqMjp8a7e4jU3alkw9RlqWuVIZCU8vQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=dLvIan/LnjFzGr/S5BdRvXIqwHpz2JkUvg8wNPTBahx2c04a4UG6LB4WU6V/K6n38
-	 idNTjUkuLnF9hM+JCcpc4seul11rBswFF/+5DrWpbOmZyk0R+LdQW0mzl/c2lU234m
-	 COfEZNSC5OYd/f8E1PP2KS+KRbM8ylpDwJE7tq0js7ZORpvAm6d/Mn/RF0lggs3zjK
-	 IZz7gGRB7KAg3aAP+sJsEYwECGl5V3xF5cATkax/JcSDdtSb8rBc6CdkqhOTZDwJw3
-	 Lqpil3VxZkExwGKhtpxrdLpttO0hz6N/oIKi5OqDmr13OFz5IIJVppCY8uIk27rNua
-	 cylRvVI3wmOrA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 02328448FE;
-	Sun, 25 Oct 2026 00:24:14 +0000 (UTC)
-From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 20:24:00 -0400
-Subject: [PATCH] drm/panel-edp: disable the backlight before powering off
- panel
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=T2ij2Vys
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CC81F01825;
+	Sun, 25 Oct 2026 00:24:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792887898;
+	bh=5lWlaiiAmnWQZRyAcYV8DoDniVOniM3DV7xr7qTGKSY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=T2ij2Vys887yvaz1gCcsnJ2SUxdjMlZiaGsYXK1dkTtOhpM00qtn2430nO4sf3C8c
+	 4EW3+J91a82CCYSw9U7/nEohJCPBNbNhmk3t7YZ6XOvutHv45Ubp5R8/VjKnLnbuML
+	 w8JI2zRZwuQOU9ituJH8g9BfeyYrmig5ODPrM/Go=
+Date: Sat, 24 Oct 2026 17:24:58 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
+Message-Id: <20261024172458.48c825a7a36a3802313a0ed3@linux-foundation.org>
+In-Reply-To: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,146 +55,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyMT3eICQ0PdpBzd0oLikqLUxFxdQ91UMzNDs0QzixSzNAMloMaCotS
- 0zAqwodGxtbUA0eaJsWQAAAA=
-X-Change-ID: 20261024-sp11-bl-upstream-1-e6616a68d6f0
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Linus Walleij <linusw@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dale Whinham <daleyo@gmail.com>, linux-arm-msm@vger.kernel.org, 
- aarch64-laptops@lists.linaro.org, Haipeng Lin <jimmie.lin@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792887854; l=4817;
- i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
- bh=Ad1iSx6+Lkqh9DkZeY8irIQ3hUZslhOvNah24ewp07A=;
- b=PogfgUqfM2SzGF0yLihQqRwvLshIXA7c0iqTKAbXu3RzurqjhsnfnnS2SZ8SfVxRdSC7DzfEd
- V7qdqNst1DzCD3vex6ve2i0T8eyEINM48JC+gywDQmJOuwrHr9yr7ve
-X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
- pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
-X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
- auth_id=1164
-X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
-Reply-To: jimmie.lin@gmail.com
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-From: Haipeng Lin <jimmie.lin@gmail.com>
+On Wed, 21 Oct 2026 13:21:04 -0300 Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> wrote:
 
-If the display pipeline takes longer than the runtime-PM autosuspend
-delay (1 s) to bind after the panel probes, panel-edp's runtime suspend
-powers the panel off while the backlight is still on: pwm-backlight
-inherits the enable state left by the firmware at probe and keeps the
-enable GPIO high. The panel supply is thus cut without first disabling
-the backlight, leaving BL_EN asserted across a panel power cycle.
+> The current fat_write_failed() implementation calls into
+> fat_truncate_blocks() without holding truncate_lock. Make it so it is
+> held exclusive while truncating.
+> 
+> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 
-On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
-power cycle appears to leave the backlight controller in an incorrect
-state: brightness is pinned near maximum with a greatly reduced
-dimming range. Subsequent brightness changes update the PWM duty, but
-do not restore it to normal. Cycling the backlight off and on at
-unchanged brightness restores the full range.
+Thanks.  My AI reviewbot said:
 
-The first drm_panel_enable() does not recover from this because
-pwm-backlight still considers itself enabled and leaves BL_EN high.
+: Please expand the changelog to describe the failed/short extending write
+: racing with FIBMAP. The mapper uses i_blocks, so it can walk beyond i_size
+: while fat_write_failed() is cutting that part of the chain. That can
+: produce a bogus "request beyond EOF" error and make the filesystem
+: read-only with the default error policy.
+: 
+: Also, please change the Fixes attribution to 16fab2015099:
+: "fat: permit to return phy block number by fibmap in fallocated region".
+: That introduced the beyond-EOF FIBMAP lookup. Before it, the lookup was
+: bounded by i_size, so the removed clusters were outside its range.
+: 459f6ed3b8c7 introduced the helper, but not this failure mechanism.
+: 
+: I don't see a need to move the lock above truncate_pagecache(). Ordinary
+: reads are bounded by i_size, and the cluster containing the partial EOF
+: block is retained. FIBMAP is the case which needs this exclusion.
+: 
+: This looks like a stable candidate once validated and merged upstream.
+: Please consider adding Cc: stable@vger.kernel.org. I checked the source
+: and a reduced TLA+ model, but haven't built or runtime-tested the patch.
 
-Disable the attached backlight in panel_edp_suspend() before marking
-AUX unpowered and cutting panel power. This ensures that the first
-modeset enables the backlight after panel power and video are ready.
-When DRM has already disabled the backlight, it remains off.
+So I made some changes and ended up with the below.  Please check.
 
-Verified on the Surface Pro 11 LCD by delaying display pipeline bind
-past the autosuspend timeout. BL_EN now drops before panel power is
-cut, and brightness control works at the first modeset.
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: fat: hold truncate_lock in fat_write_failed()
+Date: Wed, 21 Oct 2026 13:21:04 -0300
 
-Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s probed by EDID")
-Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
-Assisted-by: claude-fable:5
-Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
+The current fat_write_failed() implementation calls into
+fat_truncate_blocks() without holding truncate_lock.
+
+A failed or short extending write racing with FIBMAP can spuriously make a
+FAT filesystem read-only.  FIBMAP bounds its lookup by i_blocks, so it can
+walk allocated clusters beyond i_size while fat_write_failed() is removing
+them.  If the chain is shortened during the walk, the mapper can report a
+bogus "request beyond EOF" error, triggering the default read-only error
+policy.  Hold truncate_lock for write around the block cleanup to
+serialize it with _fat_bmap().
+
+For comparison, fat_setattr() correctly holds truncate_lock during
+truncation:
+
+	down_write(&MSDOS_I(inode)->truncate_lock);
+	truncate_setsize(inode, attr->ia_size);
+	fat_truncate_blocks(inode, attr->ia_size);
+	up_write(&MSDOS_I(inode)->truncate_lock);
+
+Make it so ->truncate_lock is held exclusive while truncating.
+
+Link: https://lore.kernel.org/20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br
+Fixes: 16fab2015099 ("fat: permit to return phy block number by fibmap in fallocated region")
+Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <stable@vger.kernel.org>
 ---
-Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100,
-LGD0779 LCD) by booting with modprobe.blacklist=phy_qcom_qmp_combo then
-loading that module manually after ~20s. This delays DPU component bind
-past the panel's runtime autosuspend timeout.
 
-A/B tested against the same v7.2 tree:
+ fs/fat/inode.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-- Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
-after the first modeset brightness is pinned near max brightness with
-a "collapsed" dimming range. sysfs brightness writes still reprogram
-the PMIC LPG. One bl_power off/on cycle at unchanged brightness 
-restores the full range.
-
-- Patched: BL_EN drops ~300us before the VDD cut and rises again after
-panel power+link at the first modeset. full brightness range works.
-
-Tracing and functional testing on the SP11 shows unchanged sequencing
-for fast boots, DPMS off/on, and system suspend/resume.
-
-Two cases would benefit from testing on other hardware:
-1. AUX-controlled backlights
-The disable is placed before drm_dp_dpcd_set_powered(false) and
-regulator_disable() so the panel remains accessible if disabling its
-backlight requires AUX writes. But I have not tested this since my 
-LCD is GPIO/PWM based.
-
-2. Panels with shared/always-on supplies and no panel enable GPIO
-These panels may continue displaying the firmware framebuffer during
-the pre-first-modeset runtime suspend. This change will turn off their
-attached backlight during that interval, potentially making the boot
-display go dark earlier. This matches the driver's powered-off state,
-but I have not tested that configuration.
-
-Testing on other panel-edp systems particularly with pwm-backlight,
-would be appreciated.
----
- drivers/gpu/drm/panel/panel-edp.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 94bc54c3833a..87f9c13380be 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -21,6 +21,7 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
+--- a/fs/fat/inode.c~fat-hold-truncate_lock-in-fat_write_failed
++++ a/fs/fat/inode.c
+@@ -217,7 +217,9 @@ static void fat_write_failed(struct addr
  
-+#include <linux/backlight.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
-@@ -413,6 +414,18 @@ static int panel_edp_suspend(struct device *dev)
- {
- 	struct panel_edp *p = dev_get_drvdata(dev);
+ 	if (to > inode->i_size) {
+ 		truncate_pagecache(inode, inode->i_size);
++		down_write(&MSDOS_I(inode)->truncate_lock);
+ 		fat_truncate_blocks(inode, inode->i_size);
++		up_write(&MSDOS_I(inode)->truncate_lock);
+ 	}
+ }
  
-+	/*
-+	 * eDP panel power sequencing requires the backlight to be off
-+	 * whenever the panel is powered off. Before the first modeset the
-+	 * backlight driver may still hold the enable state inherited from
-+	 * the firmware, and some panels' backlight controllers come up in a
-+	 * wrong dimming mode if their enable line stays high across a panel
-+	 * power cycle. Sync the backlight off here so that the backlight
-+	 * enable from drm_panel_enable() performs a true power-on in the
-+	 * correct order.
-+	 */
-+	backlight_disable(p->base.backlight);
-+
- 	drm_dp_dpcd_set_powered(p->aux, false);
- 	gpiod_set_value_cansleep(p->enable_gpio, 0);
- 	regulator_disable(p->supply);
-
----
-base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
-change-id: 20261024-sp11-bl-upstream-1-e6616a68d6f0
-
-Best regards,
--- 
-Haipeng Lin <jimmie.lin@gmail.com>
-
+_
 
