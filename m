@@ -1,70 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.220
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792926152;
-	b=ChkoVEYzUCnMGqkX+zUK+RrsJ+Ne6LwSUJD5dD5kPoosZjSQ3rSI+FVlIp0I1jAxssGW
-	 kUawsXvK6ENe2L1/MctCD9pKWCZPKpDz7gLM4VF8UGbHZAjAiJ19bf9oAMBVUnQwJ4J2m
-	 JWmU9hnrs8W2htjfkTrRRg//TWqN1kwh5za8b5ebq6HhO8t/GLQXjqis1G1bLGW7d5YGV
-	 AhEsIqCROFi6X3sPdkCjfB3x0Ju4BSEODsiQDNRWWKkrEZqIiNRrpAe4wggH8YBhORatv
-	 h8uWlWL81NzY7fvIZDy3BGg7uCZCk/44dvWk1iR/KR7tGJqMEzLyD554WYOTCnggrgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792926152;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=DUTntMFLiq6jmDgNXYwkRzUguppo4y+O9jg4Bo5aZxs=;
-	b=1/1UpK2OzIiwHgvffwn5XbPNZA633KwwWTDgtOb2U4hT9KazqqDv+rNrWl5GQGHlnl49
-	 QwrEX49TG8rWKmJDm7wR12iKvk8OkwOdGWkfPFTC8wvCtsYt3HhqpCLUEly8LqIvK5EON
-	 3DtXwGfuMswbZSqmOavqfqPtjdN/d1aghZAtaZbYND8WF4z0Lm4ML4SGUA2076vH/g3Hy
-	 V00BYHaR4qexhNCckICYVPFh7GYA0pQn/4C2O3l2+V8w7pAE/uPf3NrqvUd1HlwxZ6caE
-	 tgQLFTKXiTGpKjri/YWYt37d8qlbRmtRivH+db/KIF7D3WkdbIpoKVpY80ebxLUwDmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hOcLwRLc;
-	arc=none smtp.remote-ip=91.218.175.220
-Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792926246;
+	b=lhVYB8ldGWxNJK/BVRXpKOYQlw3ZKybq5LlP/yWyLvqqVAVCELonCzdba/qOB0LNwDd3
+	 TGcI5u6e3pSZQMPHOVI7mEg8rT4BZ+ju+PpeBl6DGZ8z8D6CdQPiG6BeLWyDA9AGP/iDo
+	 sYykmhuq7gfeKBp38jsltzyLNX2LZ+7PChXX7aVZuEhm+TveXFi8Jbgr3V+tPyly+zWpA
+	 uMRneuu0Zn2oSLzoYu/PO0P4tXXkt+ljdO+uXhW1xJwB8/3SY2gmfec/+0tyO3N+Bbn6D
+	 omIvvDyDwnZ0BxYNGzI+aouuflPQXvT9/Ehtenpf7T7jZRBBB5AxBkpQFqhxoReSMsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792926246;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HE4Jx0M2O5Itj9ngGTTbasKCnkUhZR6Ef2q3CTUSEBE=;
+	b=eUVuzgvQgvq4bKZJE1Y8TxvAd07aaf6zChNzdPNayweQZECCmPsdHijcm9YGs/EQW1tY
+	 nyyib7J2j58SlgLARpIljalV4Bf38H7y232Rqd664XB1OY+VVWkq/W8NAg/K7AZWKDRff
+	 3n0NihOpYj7waVPXt0YUwwsLJ3HLSXnN6Zc0pKz0wUW6fNU4VoEeX56Rf7JWKffTxpjN/
+	 R7hQxfuvGKynu9Svx/++rmkVAxPH9Eqh5YokB99iFn7dQEFQShszCIXv0JBP/1c9wbmnd
+	 EOLf8QgNumDX7Hggpg7roChsHc6z5Iw/ClrHNM3tYxGuNqA2wRaJYMY2Vd1H0zkhMcA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGhqSY+0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34811606A321;
+	Sun, 25 Oct 2026 11:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGhqSY+0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792926246;
+	b=FUhlDT5/ct/xREPezgO8G3r0A55vCa6ytW/eL9DQzvlozfYZKuPg3Ph5BYTidvC9jX/U
+	 MTeT7tYDz6DZcJpBzsXoQ6FgIcBcQiZwr8/1YmFKtuR7+O3oyAJEz1eYuo7I4GyItkoCg
+	 /15ighrlv49Fl/lYjS0OJM5XG0b1220O5ItPT1jm3ff1GxFqW7LFUPwlFJJngt8X5SKdW
+	 oIXwE9VFgA3/2t5beiqzb2HL0ukYzGaCuoPi11AU6M+7SY35OANosJK4pAaaNeFJUffTC
+	 UrK4O3rSxtIP7nDKP5mWI7MldjZ95eKuhZmymxxZ5W2ob8wzIedVXvMSkhRTYIvEtgw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792926246;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HE4Jx0M2O5Itj9ngGTTbasKCnkUhZR6Ef2q3CTUSEBE=;
+	b=ZUNyp4O4w0To7fQsprwkwtR1OW2P9miHqzSFD0gpslKNtV1msZR746zYN08Mm/0s7anH
+	 8eaxwn/svJXilbFLefeW+XLDMGoFmWsnl+613K/H/hZDbq/JZ2fUhlCighlvba/nDg3Wd
+	 JDi65AfE1NZO2pkmqb7x4OmOiGL+/bCz0UDsKwUVqGkzDrNtA982FDUReAxdf2s5J+WwZ
+	 0hKNj81rohgRz/Ygxz5/SmgVUHyPRVJq73J+7uMvz1umW6RNtnlzkEr5dhhadnIZMXgn4
+	 AwZVmKLLB2mdIymeDvMBIOS8xyznwxfWOJ8v3URGh2nAu/L0R+7Tn6OlXC6NBqcR5SQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C387A606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C387A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hOcLwRLc
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X/BOrxpdGVtIrlELLb4mt5982rZ+vUeqKfafd5dzS9g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792926148; v=1; x=1793530948;
- b=hOcLwRLcAvZjzFQCrySkN+65wjIEWd16wddHMsGgnzIfcURCjbZTW9pLQwNtVMfnOpyrleUK
- 1+wzIAGYxolq7EBcoB/g2qA9lwzaQO8dSRg51uU1UwI07vxdwFkj5KrOw/xUtQ4udRX7bV3SdZq
- b+vdjwhbSYMTlZrkMbQK+zBA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eab13870e0a3ee80;
-	Sun, 25 Oct 2026 11:02:28 +0000
-X-Mizu-Trace-ID: eab13870e0a3ee80
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
-Date: Sun, 25 Oct 2026 19:02:09 +0800
-Message-Id: <20261025110209.4105994-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 8F3EC1F01825;
+	Sun, 25 Oct 2026 11:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792926246;
+	bh=HE4Jx0M2O5Itj9ngGTTbasKCnkUhZR6Ef2q3CTUSEBE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=PGhqSY+0oF+wbRWh41G/NRDcrFlI4k81ewT97p3BMZiI0YBKcy2XR/ztl37Vsi+Q7
+	 erxkltu4Im8Cz6dmcVy4nDvJbsUk/rG1I/s/B5BOSFZcSTvnErYk1tUH0r5eFc4FXZ
+	 3wJs7yN22vlk6Qpx/L/H59Y3mr2eaLph407YS63wyZ3y06DiyUD+o9I6KIs8BcNBcw
+	 WhHkfmALCGOcwOW2O0CJ1OHrzXGqUwwwG6nHa25V5ZlZH1hRyvG7a9XZwvxvUOTHXz
+	 Sqnu5ZkdKda7mksSE10wkDERU4M1bbYOjaOKn3F3ye6/3JsEHnUcYZOXzmkocAt+Dl
+	 ZZylREIePaHHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E49AC449E7;
+	Sun, 25 Oct 2026 11:04:03 +0000 (UTC)
+From: Mike Bazov via B4 Relay <devnull+mikeba.sentinelone.com@kernel.org>
+Subject: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption cause false
+ recursion drops in trampoline progs
+Date: Sun, 25 Oct 2026 13:02:57 +0200
+Message-Id: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,80 +84,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOLh3WoC/x2MQQqDMBQFryJ/3Q8mWE27LfQA3ZYuoj7thxpDE
+ oog3t3ocgZmVooIgkj3YqWAv0SZXQZ1Kaj7WjeCpc9MutS1KvWV24pbP3AKdvLzTxzYB2Dyia2
+ qVGNuxhr0lPvsB1nO95tez8fhjtRhSfTZth2fjKKzfAAAAA==
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mike Bazov <mikeba@sentinelone.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792926242; l=9082;
+ i=mikeba@sentinelone.com; s=20261022; h=from:subject:message-id;
+ bh=75UQ+QrC7KlIgE8x2+nWzHWRN7CbqCTK/qMOGy0MIe4=;
+ b=cXo8/qjYGeZesl4tLjcsQl3LZg5928jT7pT1hgmFq0KIhnr9E2AxbAldDMUGb2Ed5pf/dWNbU
+ GZTEHrIgK4eBby7dAKYJJGDzo7T5t1R8bj+AguTregHXRhOvQ2ZZiCr
+X-Developer-Key: i=mikeba@sentinelone.com; a=ed25519;
+ pk=DBXcQ0qoCkgacRsRwT1JU7oOWpWSYuTyLiXMfNLcP+A=
+X-Endpoint-Received: by B4 Relay for mikeba@sentinelone.com/20261022 with
+ auth_id=1284
+X-Original-From: Mike Bazov <mikeba@sentinelone.com>
+Reply-To: mikeba@sentinelone.com
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Problem
+=======
 
-When a page cache folio is migrated to another node,
-__folio_migrate_mapping() moves the per-node and per-memcg counters
-that are keyed off the folio's node: NR_FILE_PAGES, NR_SHMEM,
-NR_SHMEM_THPS, NR_SWAPCACHE and NR_FILE_DIRTY.  NR_FILE_THPS is not
-moved, although __filemap_add_folio() charges it to the source node and
-filemap_unaccount_folio() takes it off whatever node the folio lives on
-when it is removed.
+Non-sleepable fentry and fexit BPF programs silently skip invocations
+from unrelated tasks whenever the task currently executing the program
+on that CPU is preempted. Every skipped invocation is counted in
+prog->stats->recursion_misses, even though no recursion occurred.
 
-Commit 0b52c420350e ("mm: fix shmem THP counters on migration") added
-the NR_SHMEM_THPS case but not its file-backed counterpart.  Now that
-ext4, xfs, btrfs and erofs can all have PMD-sized page cache folios,
-migrating them via NUMA balancing, mbind(), migratepages, demotion or
-memory offlining leaks FileHugePages on the source node and underflows
-it on the destination, in both /sys/devices/system/node/nodeN/meminfo
-and memory.numa_stat.  The global value is unaffected, which is why this
-went unnoticed.
+In __bpf_prog_enter_recur() (kernel/bpf/trampoline.c), the per-CPU
+recursion counter prog->active is acquired under
+rcu_read_lock_dont_migrate(), which disables CPU migration but leaves
+preemption enabled:
 
-Reproducer, on a 2-node QEMU guest with THP set to "always":
+  CPU N
+  -----
+  Task A enters fentry/foo -> prog->active on CPU N becomes 1
+  Task A is preempted mid-program on CPU N (prog->active stays 1)
+  Task B runs on CPU N, calls foo() -> __bpf_prog_enter_recur()
+    bpf_prog_get_recursion_context() sees prog->active == 2 != 1
+    increments recursion_misses and returns 0 (skips BPF program)
+  Task A resumes on CPU N, finishes, drops prog->active to 0
 
-  1. read a 256M ext4 file through a MADV_HUGEPAGE mapping while bound
-     to node 0, so its page cache is 128 PMD-sized folios on node 0;
-  2. move the mapping to node 1 with mbind(MPOL_MF_MOVE);
-  3. unmap the file and drop its page cache.
+Before Linux 7.0 this was hidden on most distribution kernels because
+they defaulted to PREEMPT_VOLUNTARY, and non-sleepable BPF programs
+contain no voluntary preemption points. Commit 7dadeaa6e851 ("sched:
+Further restrict the preemption modes") removed PREEMPT_NONE and
+PREEMPT_VOLUNTARY on x86 and arm64, leaving only lazy and full
+preemption. As a result, every distribution kernel on 7.0+ now preempts
+tasks inside non-sleepable fentry/fexit programs during normal operation
+and silently drops unrelated tasks' events on the same CPU.
 
-nr_file_hugepages in /sys/devices/system/node/nodeN/vmstat after each
-step (in units of PMD-sized folios):
+BPF program authors cannot work around this from inside the program:
+prog->active is tested by the trampoline before the first BPF
+instruction executes, and bpf_preempt_disable() cannot span tail calls.
+By contrast, kprobes and classic perf tracepoints run BPF programs with
+preemption disabled (trace_call_bpf() asserts cant_sleep(), and commit
+16718274ee75 ("tracing: perf: Have perf tracepoint callbacks always
+disable preemption") explicitly kept preemption disabled for perf
+tracepoint callbacks), so the same BPF logic has different completeness
+guarantees depending solely on whether it attaches via fentry/fexit or
+kprobe/tracepoint.
 
-                    without this patch     with this patch
-                     node0     node1       node0     node1
-  1. cached           128         0         128         0
-  2. migrated         128         0           0       128
-  3. dropped          128         0 (*)       0         0
+Why This Matters in Practice
+============================
 
-  (*) the counter has underflowed to -128; negative values read as 0.
+We hit this in a production security agent that attaches paired
+fentry/fexit probes to inet_sendmsg(), inet6_sendmsg(), inet_recvmsg(),
+and inet6_recvmsg() to inspect stateful application-layer protocols:
 
-Without the patch the 128 folios stay accounted to node 0 forever, and
-every further round adds another 128.  The same happens to the per-memcg
-per-node counter: after step 3, memory.stat of the cgroup shows
-"file_thp 0", while memory.numa_stat still shows
-"file_thp N0=268435456 N1=0".  With the patch both are 0.
+1. Broken entry/exit pairing: the fentry program snapshots the msghdr /
+   iov_iter state into per-socket storage and the fexit program consumes
+   that snapshot once the call completes with the byte count. Because
+   each program has its own prog->active counter, preemption skips one
+   half of the pair independently -- either dropping the payload and
+   leaving stale per-socket state (when fexit is skipped) or losing the
+   capture entirely (when fentry is skipped).
+2. Broken stateful protocol parsing: for stateful protocols (HTTP/1.1
+   keep-alive/pipelining/chunked framing, HTTP/2 header state, database
+   wire protocols, or per-session first-message classification), a
+   single skipped sendmsg/recvmsg call desynchronizes the state machine
+   for the remainder of the connection.
+3. Kprobes are not a drop-in replacement: on hot socket paths fentry is
+   ~2x faster than kprobe (40M/s vs 20M/s in trig-fentry vs trig-kprobe),
+   and kretprobe relies on a fixed maxactive instance pool that can be
+   exhausted on blocking calls like inet_recvmsg().
 
-Move NR_FILE_THPS together with NR_FILE_PAGES, using the same condition
-filemap_unaccount_folio() uses to take it off, so that THPs in the swap
-cache are left alone.
+Minimal Standalone Reproducer (47 lines)
+========================================
 
-Fixes: d68eccad3706 ("mm/filemap: Allow large folios to be added to the page cache")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+repro.bpf.c:
+
+  #include <linux/bpf.h>
+  #include <bpf/bpf_helpers.h>
+
+  char LICENSE[] SEC("license") = "GPL";
+  static int cb(__u32 i, void *ctx) { return 0; }
+
+  SEC("fentry/__set_task_comm")
+  int on_fentry(void *ctx) { bpf_loop(1000000, cb, NULL, 0); return 0; }
+
+  SEC("fexit/__set_task_comm")
+  int on_fexit(void *ctx) { bpf_loop(1000000, cb, NULL, 0); return 0; }
+
+repro.c:
+
+  #define _GNU_SOURCE
+  #include <sched.h>
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/prctl.h>
+  #include <sys/wait.h>
+  #include <bpf/bpf.h>
+  #include <bpf/libbpf.h>
+  #include "repro.skel.h"
+
+  int main(void)
+  {
+      int stats = bpf_enable_stats(BPF_STATS_RUN_TIME);
+      struct repro *skel = repro__open_and_load();
+      struct bpf_program *p;
+      cpu_set_t cpu;
+
+      repro__attach(skel);
+      CPU_ZERO(&cpu);
+      CPU_SET(sched_getcpu(), &cpu);
+      sched_setaffinity(0, sizeof(cpu), &cpu);
+
+      pid_t pid = fork();
+      for (int i = 0; i < 100; i++) {
+          prctl(PR_SET_NAME, "repro");
+          if (!pid) usleep(50);
+      }
+      if (!pid)
+          return 0;
+      wait(NULL);
+
+      bpf_object__for_each_program(p, skel->obj) {
+          struct bpf_prog_info info = {};
+          __u32 len = sizeof(info);
+
+          bpf_prog_get_info_by_fd(bpf_program__fd(p), &info, &len);
+          printf("%-9s expected=200 run_cnt=%-4llu recursion_misses=%llu\n",
+                 bpf_program__name(p), info.run_cnt, info.recursion_misses);
+      }
+      repro__destroy(skel);
+      close(stats);
+  }
+
+Results across 10 runs (2,000 total calls per probe) on the same x86_64
+VM, comparing unmodified mainline (a804c5742bff) with this series:
+
+  Kernel & Preemption Mode        fentry skipped       fexit skipped
+  -----------------------------   ------------------   ------------------
+  6.8.0-55 stock (voluntary)         0 / 1000 ( 0%)       0 / 1000 ( 0%)
+  6.8.0-55 stock (full)            254 / 1000 (25%)     263 / 1000 (26%)
+  7.3.0 mainline (lazy)            553 / 2000 (28%)     691 / 2000 (35%)
+  7.3.0 mainline (full)            694 / 2000 (35%)     713 / 2000 (36%)
+  7.3.0 + patch  (lazy)              0 / 2000 ( 0%)       0 / 2000 ( 0%)
+  7.3.0 + patch  (full)              0 / 2000 ( 0%)       0 / 2000 ( 0%)
+
+Why This Fix (and Why Not Per-Task Recursion Tracking)
+======================================================
+
+Relaxing prog->active to check whether current is the same task would
+not be safe on its own:
+
+1. Per-CPU private stack: since commit a76ab5731e32 ("bpf: Find eligible
+   subprogs for private stack support"), recursion-checked trampoline
+   programs allocate a single per-CPU private stack
+   (prog->aux->priv_stack_ptr) and rely on prog->active to guarantee
+   that at most one task on a CPU uses that stack at a time. Allowing a
+   second task on the same CPU to enter the program while the first task
+   is preempted would corrupt the first task's private stack frames.
+2. Per-CPU scratch maps: existing fentry/fexit programs rely on the
+   same per-CPU non-reentrancy guarantee when building events in
+   BPF_MAP_TYPE_PERCPU_ARRAY scratch buffers.
+
+Therefore, Patch 1 disables preemption (preempt_disable_notrace() +
+rcu_read_lock()) in __bpf_prog_enter_recur() / __bpf_prog_exit_recur()
+when !IS_ENABLED(CONFIG_PREEMPT_RT), matching classic perf tracepoint
+and kprobe BPF execution while leaving PREEMPT_RT and sleepable
+trampoline programs (__bpf_prog_enter_sleepable_recur) unchanged.
+
+Testing
+=======
+
+- A/B reproducer above on mainline 7.3 (lazy and full preemption):
+  drops go from 28-36% to 0%.
+- True same-task recursion (fentry/htab_map_delete_elem deleting from
+  its own map, as in prog_tests/recursion.c): still blocked 10/10 times.
+- Debug kernel with CONFIG_DEBUG_ATOMIC_SLEEP=y, CONFIG_DEBUG_PREEMPT=y,
+  CONFIG_PROVE_LOCKING=y, and CONFIG_PROVE_RCU=y: zero lockdep, RCU, or
+  atomic-sleep warnings across both the reproducer and the full
+  test_progs run (debug_locks remains 1).
+- Full test_progs A/B comparison on mainline 7.3: zero new failures
+  introduced; all fentry/fexit/trampoline/recursion test suites pass.
+- Selftests bench trigger throughput (3 x 5s runs, pinned producer):
+    trig-fentry:  39.93M/s (base) -> 42.05M/s (patched)
+    trig-fexit:   31.98M/s (base) -> 33.54M/s (patched)
+- CONFIG_PREEMPT_RT=y kernel (7.3.0-rt): builds cleanly with W=1; booted
+  and verified that trampoline_preempt skips via __kconfig while the
+  recursion selftest passes.
+
+Question for Discussion
+=======================
+
+Is disabling preemption in __bpf_prog_enter_recur() on !PREEMPT_RT the
+preferred fix for fentry/fexit, or would you prefer a different
+mechanism for reconciling preemptible execution with prog->active and
+the per-CPU private stack?
+
+Signed-off-by: Mike Bazov <mikeba@sentinelone.com>
 ---
-Note: prepared with help from an LLM-based assistant (Kiro, claude-opus-5.5).
+Mike Bazov (2):
+      bpf: Keep recursion-checked trampoline programs non-preemptible on !PREEMPT_RT
+      selftests/bpf: Add trampoline preemption false-recursion test
 
- mm/migrate.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/bpf/trampoline.c                            |  17 +-
+ .../selftests/bpf/prog_tests/trampoline_preempt.c  | 222 +++++++++++++++++++++
+ .../selftests/bpf/progs/trampoline_preempt.c       |  56 ++++++
+ 3 files changed, 293 insertions(+), 2 deletions(-)
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261025-b4-bpf-trampoline-preempt-a1417898a8ed
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 7bdcdb57652f..d55f576a2579 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -700,6 +700,10 @@ static int __folio_migrate_mapping(struct address_space *mapping,
- 				mod_lruvec_state(old_lruvec, NR_SHMEM_THPS, -nr);
- 				mod_lruvec_state(new_lruvec, NR_SHMEM_THPS, nr);
- 			}
-+		} else if (!folio_test_swapbacked(folio) &&
-+			   folio_test_pmd_mappable(folio)) {
-+			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
-+			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
- 		}
- #ifdef CONFIG_SWAP
- 		if (folio_test_swapcache(folio)) {
-
-base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+Best regards,
 -- 
-2.34.1
+Mike Bazov <mikeba@sentinelone.com>
+
 
