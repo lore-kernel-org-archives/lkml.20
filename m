@@ -1,66 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792949397;
-	b=tedNb8Ys+V1M/k21N44ygiWP8u18pCjwkrLFOmsbvDgeNI4gy2GEUAmu19st8EmBgscc
-	 8Y9gE/iuG2zwSMsBVgLpE95ho5ErqVlMtePNMeu+8tjUEGJYg4AXBaUOhxRK2w1KHrMn9
-	 /70AklnQkm/uahaCfPk3wt8Ve0T6VdDrlFSfSdxpI2y9150QsJIYWIMXtGrMuX0903auF
-	 Ulsse/dTh+UjUGJl8HzzSIaUQELUM7jMRQrqtMaAgb/+2XtXXzhQs9srrzxT5nBG27l+T
-	 SRX26OAOmDm+STZrcKsKdBxGWIw9he0w4fLh+rjf1iX0H/9Ak/Zr3BNNOlFXA1eXTkg==
+	t=1792949521;
+	b=LBg0mXwUDKNc38IR/J4UrNxaBGUeUPa9+1CcjF4b8lD/m2+oINelFTSwvwlZn8mFgZHH
+	 DD+XnH6K9sYVyLQiy3P9VR+d9FGI8vA+T4Sk3eMr2WpR9j3f4HWmPpRzzoJFF9TTRllOQ
+	 h2wQLblHyeusxPKZIsO7WsEAW6zKoFlHWS3SKR6CmD1GFryf3ppLN2GqD9ezVO8UcPzYs
+	 pkL/S/AV2VsrKU+gSLOwm10R27jbDi2bAxJVUPboJnbUzumQhRknJ0/GZLY7Tv8JELwOZ
+	 IxVllzkStgNOlJfrTrJxrdrCcsPFVZygJH/H7QReaiwBg7fVG1XSKMBvO5X13e+ge3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792949397;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=la2/IIwHo5riC6klYWe715LEcKCpUi+ndCFEC0sGyHQ=;
-	b=MhiaabC8KKcCu3yCR3FUM/XWEKQv5bPUF0BeRSrWY1r2U+8N3MIiZ3gUk3eC+q+n2Eg9
-	 EmljI3lKyBRcuvtmWqwIe+cuMyLLz4MZeuT/gvfXRV9IaRDxy8IOYJ3P1iKB1XA/4n7qJ
-	 lyEF5bxpc25AUGdhDB5FclmmAYqiklLUDj5Nb+0GyKz0xHEXvl8dnoHT0QX9dAG7nO7Md
-	 cJABr1sybYXOH5I0kAFXFl6EHbr7kMFKL+dsCTDophTnnFsZ7RY7pAd+sjVoRP9lTwVeM
-	 2N+o23qmk4ajcC7f4Bo0DK7N8m/AMUCjbnfS4Gw7O9k6eE3cE3YKzI9qzVvpbgGEqEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792949521;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pAAhED+ct3sZOaLZuL2wp4pJ6byCoV8CC5//LfmSI9U=;
+	b=rZqDKvqYyKqq5MQLPS/9rCw3HS70bXNynICPyioG4zSD+3iRNjhA9dSJAF9fVdGyHfVM
+	 eJSa9EwRQYog4pLek5K29AkPrpFnzTDwPOJl0MdsZfENdKS67vBV10A4EmaR0uNQGSQrz
+	 UNKVtY8dQdxeP/FAsDnPefUibJR5DRQb5WHCR+2bCz8vRg+t0mWnA5IuPjwmEr4+xnvTX
+	 /u58fXtzjA1jXM95MDDPObg1ZHtJiS3GazE9H6sJG3qEGBnKhP+OYp4BYfq3Ep2dJLwxX
+	 iuksQpq3Kim3gYd6IBQPIsj6Q8OU53CEj0xlqwjQh5s3BC53QHAl7CErpFB5kcYRvsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b="h/rvqepR";
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SfduLc0j;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14424606A31A;
-	Sun, 25 Oct 2026 17:29:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14424606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8288F606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8288F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=h/rvqepR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=la2/IIwHo5riC6klYWe715LEcKCpUi+ndCFEC0sGyHQ=; b=h/rvqepRqmErIV7vWfhqQuI5V3
-	HN3oI69i3amobcdd1zAMiXl3u1MaFBcgDYk/dFNWS6mCi2DvTRvDcEtN7sBI8oOvuVOGOv+6if2gb
-	OY1/ZkjJeXVOryMcojOD77cSTnXUICS+a2IoS0o8ireUSiAvYWq235tLq3wb9/zA2pIgBqVA4WeZc
-	kdfLgWTSN/8fPayvilsCYFy7eMtOPDkZe7tqC+kc+dbK/8D8+yORK/xMGmq8CMZpPvoF5pI23Jrxy
-	IcxxpfoKhGVXiqGPJd8ZnD4XXnSC7IkwLi/IJhWJ8IJ1Mt2qA80/UJ6da5jH8wBx8v5DMbPr9RtUF
-	MRZ/7OUQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xL22U-00000000CpA-0lk2;
-	Sun, 25 Oct 2026 14:29:46 -0300
-Message-ID: <e071a5df45f7ccf80a9d899749e09e11@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Cc: bharathsm@microsoft.com, linkinjeon@kernel.org,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org,
- ronniesahlberg@gmail.com, samba-technical@lists.samba.org,
- sprasad@microsoft.com,
- syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, tom@talpey.com, Michail Andreas
- Michalopoulos <mike.michalo@gmail.com>
-Subject: Re: [syzbot] [cifs?] KASAN: slab-use-after-free Read in
- cifs_crypto_secmech_release
-In-Reply-To: <20261024184605.44432-1-mike.michalo@gmail.com>
-References: <8bb0534e33a5f5d152d2b1768d1fd7c6@manguebit.org>
- <20261024184605.44432-1-mike.michalo@gmail.com>
-Date: Sun, 25 Oct 2026 14:29:45 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SfduLc0j
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-369f33df08eso1485139eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:32:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792949520; x=1793554320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pAAhED+ct3sZOaLZuL2wp4pJ6byCoV8CC5//LfmSI9U=;
+        b=SfduLc0jiuFFPlslR8C0O+bsZDaMfCReVWXZ8LTNvSLLPrlUBzRaDbLkzgUKwEt0gh
+         93Y67k+5N8Ptar/vxhBr7ZAUysO97Jhuw3MdbmCPK3KBvZjpKAenGoIZa0MB8kkdr8Wi
+         BQzFjLZ1MxcxxWfQTv+xCemcXPFx6m6mWaw4JNzSOYTWQvWMuWQmHRADTj9w3eNegCQ6
+         vhOlGmlaIPFLjmajsQjw9qePSf3GcMRTuYuInTrcXJCK4EkiaF/bfZq7yaYyLLS0hYjS
+         0kWz0CaU6gIibqNT1EUi3cWw/ZcaeI3IP9PeZ2uUva6mkj4SWCpvUuMEv6oRVJk2M5Cm
+         bK3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792949520; x=1793554320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pAAhED+ct3sZOaLZuL2wp4pJ6byCoV8CC5//LfmSI9U=;
+        b=qB7uHyByiDE0Fa6vtaqW600ZW72AaoBOKfT9lTOaqH2zPH/6lIVXGld+wRo4B/NUn1
+         X03y3CEt2gE0yJN3j7lwx12d22/3A8KIYHJICLJXugiTbx39wmD1nfxIeAlqP10GABik
+         bfVR9RO0SL6qolW+OJ/gUbthvR3LPkn066m2OshNwOaWOtdejpZUO4KXmNaaUcTmckC5
+         mYqM6ap/OK0An2gQf2KG/KDY73pTPkJxlmRal2m/M/P0vNFJ0MBXF+pq7MPwjST2LYHv
+         uTZm/0j5VaHEMQNvz64atpYYzy+XrRBHL4w3dJ7u0JzHRhDT84dyPyAqLleF4hiyLVo5
+         skFA==
+X-Forwarded-Encrypted: i=1; AKwUvByvXUpkj0E2n2Sudebpo5+ri3M+8Cpm7HkThgbKwS46H5zDR/nqsa1um+T9OpnbQqSEWbk6Uu20evdkIqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSJrim5PbWratGZ2Ng2O/LeIhcvkMLAL09unRaIILIxmnv7mdk
+	7tuZsSJD/mwYKX4KC4D+j5Pa46dsRwAzPig2JA3RIpmn5CuNjE+DWiKP
+X-Gm-Gg: AYBFou3LgprOv7byLQAnLonc1zWxnw4T1Ycu4TYgHgQ9l8Z44492osEWlEUcR4fctyb
+	+sBKdZkCPT12ik2THpBoO+aClqtBbFYtA1c1td5XjouTR80TRYsXH+XsWFnBLtWBwp/avEkCeyv
+	Ln1xB8DJoQKXwFNebt0cYpy1XiwupBUfmUgSwVArlrcKxLl84YFpsoGS97ZtG38X5zGvDuICncG
+	jM9QFSHie4BwaG6nhZ1lJjqUQwgEED3MBB3eEzUHGL+bjfNV3KGj6fWwUk+XNK5xzl187UT0mm+
+	WyMfWUZchYONQ1xUwHqMKpjDdL6CECmQ85k4ME4Ek2YTnV9x1Gsv3su22DnmhsvG8XVAMvosDuM
+	4PME1aFDPjPKqItifr+K13NLkJhr5JUhcWH7Z7Pc8h+g50iAWSqlheXd1UuZjt8gvT4tx8INwIc
+	ww1NH3zb0k5gmlMbUyW/hjmmocN4H8UDXeB6INbyI3i4Ld2NrQ+Gn3rqWCF6gzLADQF5QOSX0/3
+	4Csz12CQD1xK2G2Ciy9oVaXghCTt8TjWEd6M2D2fujjO6qveZ+pcw8h+8d4i4y5zDaaSbsaJrW7
+	w1KsUBFNLSndL7WaMT4LD6FV27AQdB1R94nMUfxaPI7QvIv+9uknvDXA+PSR0FqlkEGW078C0CH
+	FX44VEG97/b4pSqz3LKYmGSqaJw==
+X-Received: by 2002:a05:7022:e27:b0:160:6a5b:7edf with SMTP id a92af1059eb24-199377d8e91mr10837106c88.44.1792949519509;
+        Sun, 25 Oct 2026 10:31:59 -0700 (PDT)
+Received: from LAPTOP-97G9G880.domain.name ([106.222.203.46])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm16844251c88.3.2026.10.25.10.31.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 10:31:58 -0700 (PDT)
+From: Karthikeyan KS <karthiproffesional@gmail.com>
+To: Richard Weinberger <richard@nod.at>,
+	David Woodhouse <dwmw2@infradead.org>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] jffs2: return -EIO when a decompressor reports failure
+Date: Sun, 25 Oct 2026 17:31:52 +0000
+Message-ID: <20261025173152.147123-1-karthiproffesional@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,16 +98,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Hi Michail,
+jffs2_decompress() passes the decompressor's return value straight up.
+The rtime and zlib decompressors report failure by returning a positive
+1. That breaks the kernel's error convention: a function that can fail
+returns 0 or a negative errno, and generic code (the page cache, the
+write path, IS_ERR()) relies on that, so a positive value is read as
+success. JFFS2's own callers only check for non-zero, which hides the
+violation: the value travels unchanged through jffs2_read_dnode(),
+jffs2_read_inode_range() and jffs2_do_readpage_nolock() to that generic
+code.
 
-Thanks for testing it.
+On a read, filemap_get_pages() returns 1 without filling its folio
+batch, filemap_read() carries on and dereferences the empty batch:
 
-I ended up merging Eduard's fix instead of mine.
+  jffs2: Decompressor "rtime" returned 1
+  jffs2: Error: jffs2_decompress returned 1
+  Unhandled fault: page domain fault (0x01b) at 0x00000000
+  PC is at filemap_read+0x1d8/0x5b4
+  Call trace:
+   filemap_read from vfs_read+0x23c/0x318
+   vfs_read from ksys_read+0x74/0xf0
+   ksys_read from ret_fast_syscall+0x0/0x54
+  Kernel panic - not syncing: Fatal exception
 
-Could you please try your reproducer against
+On a partial write, jffs2_write_begin() has to read the old page in.
+When that fails it returns 1, generic_perform_write() carries on, and
+jffs2_write_end() is called for a folio that is not uptodate:
 
-        git://git.manguebit.org/linux.git cifs-next
+  jffs2: Error: jffs2_decompress returned 1
+  kernel BUG at fs/jffs2/file.c:270!
+  PC is at jffs2_write_end+0x50/0x3b4
+  Call trace:
+   jffs2_write_end from generic_perform_write+0x144/0x280
+   generic_perform_write from generic_file_write_iter+0x64/0x10c
+   generic_file_write_iter from vfs_write+0x230/0x3e8
+   vfs_write from sys_pwrite64+0xa0/0xc8
 
-Thanks.
+Garbage collection has the same problem. read_cache_folio() returns
+ERR_PTR(1), which IS_ERR() does not treat as an error, and the "folio"
+at address 0x1 gets mapped:
+
+  jffs2: Error: jffs2_decompress returned 1
+  Unhandled fault: page domain fault (0x01b) at 0x00000001
+  PC is at __kmap_local_page_prot+0x8/0x5c
+  LR is at jffs2_garbage_collect_dnode+0x1dc/0x518
+  Call trace:
+   __kmap_local_page_prot from jffs2_garbage_collect_dnode+0x1dc/0x518
+   jffs2_garbage_collect_dnode from jffs2_garbage_collect_pass+0xa54/0xec4
+   jffs2_garbage_collect_pass from jffs2_reserve_space+0x12c/0x344
+
+Restore the convention at the one place every decompressor result
+passes through: convert any positive return value into -EIO in
+jffs2_decompress(), the only caller of the decompressors, so that its
+callers get a negative errno. The warning still shows the value the
+decompressor returned. Negative return values (lzo returns -1) are not
+changed.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: fe051552f507 ("jffs2: Prevent rtime decompress memory corruption")
+Cc: stable@vger.kernel.org
+Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
+---
+
+Hi Richard,
+
+How this was found: we backported fe051552f507 ("jffs2: Prevent rtime
+decompress memory corruption") to our kernel without b29bf7119d6b
+("jffs2: Fix rtime decompressor"). On an AST2500 SoC, the off-by-one in
+the rtime bounds check then rejected a valid node. We reproduced the
+resulting failure paths on qemu, using crafted flash images that make an
+rtime or zlib node fail to decompress.
+
+Tested on: qemu ast2500-evb (aspeed_g5_defconfig, v7.3-rc7, 32-bit ARM)
+with images holding an rtime or zlib node that fails to decompress. With
+the patch, read() fails with EIO, a mmap fault raises SIGBUS, pwrite()
+fails with EIO, GC logs "read_cache_folio() returned error: -5", and
+nothing oopses. Valid rtime, zlib, lzo and uncompressed files read and
+write the same as before. We did not test GC with zlib or lzo nodes, or
+on real hardware.
+
+ fs/jffs2/compr.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/jffs2/compr.c b/fs/jffs2/compr.c
+index 764f19dec3f0..da317ed3ccdb 100644
+--- a/fs/jffs2/compr.c
++++ b/fs/jffs2/compr.c
+@@ -288,6 +288,8 @@ int jffs2_decompress(struct jffs2_sb_info *c, struct jffs2_inode_info *f,
+ 				}
+ 				this->usecount--;
+ 				spin_unlock(&jffs2_compressor_list_lock);
++				if (ret > 0)
++					ret = -EIO;
+ 				return ret;
+ 			}
+ 		}
+--
+2.43.0
+
