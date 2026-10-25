@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792957269;
-	b=nHTWMzoFXHrvP688lLNQiYJbSH/UYZcLO9ZU1knGwaEfHNfaKW6hnKwdsKQPu3sSdrJ4
-	 0SxfEBxIp0jB15RcymB4fr8o67lECHtKKUpbjUZDZxpm0nocX52rOoso9PUoRGaEyIpCm
-	 nYYiOjjC//oCrYYmhUUWvjABs3GbjvRbon3Gi0Ofp+J+Nd188zTyvytSHteMWr3GbJDbU
-	 /Zb9I64F/P9F/q/wTPiPnBG0QGJee9UqTr6D++D/O9dXcYFZBg6Dx92KAqTA3XSk33IIW
-	 A34mc0Am59Sulgaxn1XnaiKACYQJ8eMGMWDNGLWIQzm0m5MKYXtgxNRai19w8H2TfWA==
+	t=1792957289;
+	b=HOzjZhoZDiw9CNY9SBWmeaJSHBH05kJT+gkWTTXtVgT6wJdkgY/H1GJ3kUJQkDlJuur4
+	 eUgr+NN3IoIQjEtCsijWwHd0JC/7/ENZBCreDU+hZNcPYgIQLeRjryQpCfgh+EvYY86l2
+	 0t8ai2qxLtoKxyugTJ0zdTGkw829inrsP5fdTaJk0oVxj5OpgspIwxiMDTENQlrWZuarv
+	 xKzlJWnHN6OJv+2sM3XmqnmvCGmHP8mQADjlYIJfj3F48ZvQ1H4856OWIUeXcz6Z02NiM
+	 7OghG6deVqlNEKoMHOr129gnly5C+t3HUJffvTq70lKcSnuMAf3TmfgReGa6iYqenjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792957269;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/ZjG9Xr/HMX/i7oEyIrYTz+RcRkHVl/XZuBXEaWa+5I=;
-	b=znmbkESgA6abACr4kZic70/cHRkK9iKLa0JbS1FR8PNlxbOJrIal4WL/IGSZZFqJMxnW
-	 JmHigDgIVReIh/S9kyy5fsi8YDh2REpIQlq+HPJzWeO4jAbgYQi900BoFlcAYm+RbKWK9
-	 LrZZ3JmzKSwOXLc9Q5evNeOm9FYOLgRvSHY7G1AcIFlo9hKnTp4vap2+qTtCof1/YG5NE
-	 2iHvpkH1cGc9MwVUaPHnq6HoSws7vBXlX7LbZnnXjg8m+eM6n2J9Jh9CCEYAPcRY/iANt
-	 6swadEr2yMxcDVFQY9xnOMIw5Ef/kt0YWZ4BrGCMMyjl6tyESKgPIwtUBKYgLAYDq7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792957289;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=loWA2r/IE4nsDNCChsBycXYC/X66Yw4ZxZ+0xX/WqkI=;
+	b=vmmgIC+c6oSx5KYCKJ3uKu9+F9XRad3W1lcqC1aJ07TUo8Kde+TZOdN0IgJUyCrjH+nj
+	 SF55d2DXykDsNXf9eLWA7oTbjrZj4oGJ6+SQh4XH2aQfCI/4yjzGu+fDkO8kFgJwGCKfA
+	 nKSOWS/IwF6JucV+R9MrEBZKLoE8cPuFW3ANTsNIH1JdHPdHLfhQhLw26+V1Ks644Afql
+	 McNEP02tAj/U1xFmbYxizOoKQIW7J7EMXy4Cbvu2ARLcKjQ0mDYNZlOw60Gl73zgdlI4A
+	 maSDGXQUlzLVc/tbLY1XCAmI989X7zL7Ja6QXaiclYLx1F3Q03aPAQQqQX0wGSzU7Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gpios/A9";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TevI6izW;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1C6606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D15606A31A;
+	Sun, 25 Oct 2026 19:41:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D15606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpios/A9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0681F031E6
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792957269;
-	bh=/ZjG9Xr/HMX/i7oEyIrYTz+RcRkHVl/XZuBXEaWa+5I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gpios/A9gSMoFlsDvZvnQHGLFQUe/zFMno7I9/mf9JZ0tE+O3UYT2vYbPp/SClDHa
-	 YWf976KgiTRSk0fCB1c/WMQ7I/mPg2nJPPMx2c4/vHE5FNsoZPFDFGhyEpBCIVPTIv
-	 7F2/Z+GdzFgcb7lAT+BKovQOJBu6b5hAAQDuLUY9ynyUPYi/CrStc8fOzxnScRIxIV
-	 EaYRQIfwC/niuZuF2oLYLszDu1bVChXQuGPL5Qgvl2hRDboSbYLuNon2fsvWaIQARY
-	 ZiNAWxYqUBvtqbjTEKlRmXSInMw7rw7Wr8KrcZ2lbD9IjgxWO7rTojxuy7wvgucK7x
-	 tUMGMz10gOrNw==
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4a755bbe158so1347520fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:41:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKkb7pacMApqcnzB+4krF7PemrfLpev9euC7ffuxNib3LuZGVOkpTyapZTQ+6j9OrISOVAVDLmiJg+x8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrRm6E0sB/Zd9rgK3rbYCRS0qg2qmpkq8iK3jEVTotDf7SlrXf
-	J04WO3X0WvxSEqEsqlP5aP2HdKMflaxJ61UgrRs9uaSQ7ppsSsUe6pdr89IKKAm7Ev2KlCHYVX+
-	KrNKvil8SKn9NKHIAfoIPYSx6XV836lg=
-X-Received: by 2002:a05:6870:7014:b0:48f:e0f6:bfef with SMTP id
- 586e51a60fabf-4a83fa78ea7mr2212450fac.27.1792957268483; Sun, 25 Oct 2026
- 12:41:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TevI6izW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792957287; x=1824493287;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EccOnYd2UQC7zr91/Q2wYbVks3BuQI9mfWlB2SLQG6A=;
+  b=TevI6izW2gabiZUVyiI8VMV5dAoWo1/I5gY0xnKzC/6nUqT7xD2KlQ9m
+   lCQ2X90h6CducPWljQDLmvosM8NEy5Ot7gyxxQxZhT9/Xo0adMNBK8s1q
+   GoYmgXepQoFY6XPdqHExQBYA635H+hnQP9xCtOu8KMEcrrJ8/HW3cRvNR
+   GpnCfKEgsYHIbeMbzz9TwwrXIJH7hsUGKxTVT+lYNiWC/2ZgStijogkfD
+   LFzjo3H7BpR1+8LS2UnDDcn1geXaJy/w2zekP3Myvj+rXmAdc8Kwuw7u5
+   gN5g0tnKhsLRGIVG4dzkrPIHnp4sVwY9xp1YaO2ujLLaCiy6boXk+GDDq
+   g==;
+X-CSE-ConnectionGUID: GMOME7CPRNCoTuMSVD5pQw==
+X-CSE-MsgGUID: GYdDt9sRQD+em3fjKLSlNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1631079"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1631079"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:41:27 -0700
+X-CSE-ConnectionGUID: EB5OyIlpTDW636+Y+sVf6g==
+X-CSE-MsgGUID: nXCi9rJqTa2WEOSuV5/d7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4221341"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:41:26 -0700
+Date: Sun, 25 Oct 2026 21:41:23 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] iio: add IIO_VAL_DECIMAL64_{ATTO,ZEPTO,YOCTO}
+ formats
+Message-ID: <at5bYwbaQhFoO0Ac@ashevche-desk.local>
+References: <SN1PR12MB2528DD1E6067CC4C0B76746FA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <SN1PR12MB2528A44C0997DAEB1C632F0BA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,234 +83,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <52b8bfe4ee848aff8ace47752352de486171d45f.1792595507.git.mst@redhat.com>
- <179290180493.3134.5235549211177646736@kernel.org> <20261025124546-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20261025124546-mutt-send-email-mst@kernel.org>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sun, 25 Oct 2026 20:40:57 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiiqk9Gq5=JKk7j=uK9oNbCd7GCcHUm8BmgZ4hGCqjjo45g@mail.gmail.com>
-X-Gm-Features: AclHuK8DDEtJU8OQu3ulpdptWl65cK4vWpgyXH294HkBKAHMWmRkO2A5xVy3Bd4
-Message-ID: <CAL4Wiiqk9Gq5=JKk7j=uK9oNbCd7GCcHUm8BmgZ4hGCqjjo45g@mail.gmail.com>
-Subject: Re: [PATCH net v3] net: gso: validate transport header before
- computing segment length
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: netdev-bot+sashiko@kernel.org, linux-kernel@vger.kernel.org, 
-	willemb@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, maxk@qualcomm.com, rusty@rustcorp.com.au, 
-	netdev@vger.kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528A44C0997DAEB1C632F0BA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Le dim. 25 oct. 2026 =C3=A0 17:51, Michael S. Tsirkin <mst@redhat.com> a =
-=C3=A9crit :
->
-> On Sun, Oct 25, 2026 at 04:16:44AM +0000, netdev-bot+sashiko@kernel.org w=
-rote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [High] The patch is incomplete for the producer its own commit messag=
-e
-> >   names.
-> >
-> > --
-> >
-> > net: gso: validate transport header before computing segment length
-> >
-> > This patch makes the GSO segment length helpers in net/core/gso.c check
-> > the TCP header before they read it. If the transport header is unset, o=
-r
-> > the TCP header is not in the linear data, skb_gso_validate_network_len(=
-)
-> > and skb_gso_validate_mac_len() now report that the skb does not fit. It
-> > also adds two helpers, skb_inner_transport_header_was_set() and
-> > skb_transport_header_linear(), to include/linux/skbuff.h.
-> >
-> > > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-> > > index d6894f463bf43..11c8b295bd260 100644
-> > > --- a/include/linux/skbuff.h
-> > > +++ b/include/linux/skbuff.h
-> >
-> > [ ... ]
-> >
-> > > @@ -3250,6 +3257,29 @@ static inline int skb_transport_offset(const s=
-truct sk_buff *skb)
-> > >     return skb_transport_header(skb) - skb->data;
-> > >  }
-> > >
-> > > +/* Is the (inner) transport header, as specified by
-> > > + * skb->transport_header/inner_transport_header, in the linear data?
-> > > + */
-> > > +static inline bool skb_transport_header_linear(const struct sk_buff =
-*skb,
-> > > +                                          unsigned int hlen)
-> > > +{
-> > > +   int thoff;
-> > > +
-> > > +   if (!skb_transport_header_was_set(skb))
-> > > +           return false;
-> > > +
-> > > +   if (skb->encapsulation) {
-> > > +           if (!skb_inner_transport_header_was_set(skb))
-> > > +                   return false;
-> > > +
-> > > +           thoff =3D skb_inner_transport_offset(skb);
-> > > +   } else {
-> > > +           thoff =3D skb_transport_offset(skb);
-> > > +   }
-> > > +
-> > > +   return thoff >=3D 0 && thoff + hlen <=3D skb_headlen(skb);
-> >
-> > [Severity: High]
-> >
-> > The commit message names bpf_skb_adjust_room() as a way to leave a bad
-> > transport header behind. It also says:
-> >
-> >     Qdisc length estimation has carried a guard against exactly this si=
-nce
-> >
-> > Is that guard enough for the bpf_skb_adjust_room() case? In
-> > qdisc_pkt_len_segs_init(), the only check is for an unset transport
-> > header. Nothing there matches the thoff >=3D 0 check added here:
-> >
-> > net/core/dev.c:qdisc_pkt_len_segs_init() {
-> >     ...
-> >       if (!skb->encapsulation) {
-> >               if (unlikely(!skb_transport_header_was_set(skb)))
-> >                       return SKB_NOT_DROPPED_YET;
-> >               hdr_len =3D skb_transport_offset(skb);
-> >       } else {
-> >               hdr_len =3D skb_inner_transport_offset(skb);
-> >       }
-> >       /* + transport layer */
-> >       if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))) {
-> >               const struct tcphdr *th;
-> >
-> >               if (!pskb_may_pull(skb, hdr_len + sizeof(struct tcphdr)))
-> >                       return SKB_DROP_REASON_SKB_BAD_GSO;
-> >
-> >               th =3D (const struct tcphdr *)(skb->data + hdr_len);
-> >               tlen =3D __tcp_hdrlen(th);
-> >     ...
-> > }
-> >
-> > bpf_skb_net_hdr_pop() moves mac_header and network_header forward. It
-> > leaves transport_header where it was, unless it was equal to
-> > network_header:
-> >
-> > net/core/filter.c:bpf_skb_net_hdr_pop() {
-> >     ...
-> >               skb->mac_header +=3D len;
-> >               skb->network_header +=3D len;
-> >               if (trans_same)
-> >                       skb->transport_header =3D skb->network_header;
-> >     ...
-> > }
-> >
-> > When the DECAP_L4 or DECAP_IPXIP flags remove the last tunnel GSO bit,
-> > bpf_skb_net_shrink() also clears skb->encapsulation.
-> >
-> > Take a locally VXLAN-encapsulated TCP TSO skb whose transport_header
-> > points at the outer UDP header. If a tc program calls
-> > bpf_skb_adjust_room(skb, -50, BPF_ADJ_ROOM_MAC,
-> > BPF_F_ADJ_ROOM_DECAP_L4_UDP | ...), the transport offset ends up at -16
-> > and encapsulation is 0.
-> >
-> > A simpler BPF_ADJ_ROOM_NET shrink of 40 bytes on a plain Ethernet/IPv4
-> > TSO skb gives an offset of -6.
-> >
-> > If the program then redirects to egress with bpf_redirect(), this path
-> > runs before any of the validators hardened in this patch:
-> >
-> > __bpf_tx_skb()
-> >   dev_queue_xmit()
-> >     __dev_queue_xmit()
-> >       qdisc_pkt_len_segs_init()
-> >
-> > In that function hdr_len is an unsigned int, so -16 becomes 0xfffffff0.
-> > hdr_len + sizeof(struct tcphdr) is then truncated to 4 when passed as t=
-he
-> > unsigned int len argument of pskb_may_pull(), so the pull succeeds.
-> >
-> > Wouldn't __tcp_hdrlen(th) then read about 4GB past skb->data on 64-bit?
-> >
-> > Should qdisc_pkt_len_segs_init() get the same check, for example by
-> > using skb_transport_header_linear()? If not, could the commit message
-> > be changed so it does not say the qdisc path already guards against
-> > this?
-> >
-> > > +}
-> > > +
-> > >  static inline u32 skb_network_header_len(const struct sk_buff *skb)
-> > >  {
-> > >     DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
-> >
-> > [ ... ]
-> >
->
->
-> Indeed. Not nice.
->
-> Eric, you seem to have strong opinions about how to fix these
-> bugs, so, before I spend time testing: a fix like the below, acceptable?
+On Sun, Oct 25, 2026 at 12:48:04AM -0500, Victor Chernyakin wrote:
+> The highest-precision format IIO has right now is IIO_VAL_DECIMAL64_FEMTO,
+> which gives 15 decimal digits of precision after the decimal point. This
+> is not enough for the upcoming TI FDC1004 driver, which needs 22 digits
+> of precision to exactly express its scale value. This patch adds higher-
+> precision formats, up to IIO_VAL_DECIMAL64_YOCTO (24 digits of precision).
 
-The report looks valid, but this patches _one_ consumer of a broken
-transport_header, not its _producer_.
+...
 
-bpf_skb_net_hdr_pop() adjusts mac_header and network_header, but leaves
-transport_header alone unless it was equal to network_header. If the
-popped region covers the transport header (BPF_ADJ_ROOM_NET shrink,
-or a DECAP_* shrink in BPF_ADJ_ROOM_MAC mode), we keep a stale offset.
-It can be negative, or positive and pointing to the wrong bytes.
+> +/* An abs() function that doesn't have undefined behavior for LLONG_MIN. */
 
-qdisc_pkt_len_segs_init() is only one reader. TSO drivers
-(skb_tcp_all_headers(), tcp_hdr() in ndo_features_check()/ndo_start_xmit())
-and the GSO validators would read the same stale offset.
-A 'hdr_len < 0' test does not catch the positive case either.
+Can you elaborate how so?
 
-bpf_skb_net_grow() already sets the transport header properly,
-the shrink side should do the same. Something like (untested):
+> +static inline u64 abs_s64_no_overflow(s64 x)
+> +{
+> +	return x < 0 ? -(u64)x : (u64)x;
+> +}
 
-diff --git a/net/core/filter.c b/net/core/filter.c
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ static int bpf_skb_net_hdr_pop(struct sk_buff *skb, u32 off, u32 len)
- {
-        bool trans_same =3D skb->transport_header =3D=3D skb->network_heade=
-r;
-+       bool trans_popped =3D false;
-        int ret;
+So, the trick you use is to update the type from signed to unsigned.
+'-' operator is always defined on unsigned types and produces modulo
+results in case the representation requires more bits than type has.
 
-+       if (!trans_same && skb_transport_header_was_set(skb)) {
-+               int thoff =3D skb_transport_offset(skb);
-+
-+               trans_popped =3D thoff >=3D (int)off && thoff < (int)(off +=
- len);
-+       }
-+
-        /* Same here, __skb_push()/__skb_pull() pair not needed. */
-        ret =3D bpf_skb_generic_pop(skb, off, len);
-        if (likely(!ret)) {
-                skb->mac_header +=3D len;
-                skb->network_header +=3D len;
-                if (trans_same)
-                        skb->transport_header =3D skb->network_header;
-+               else if (trans_popped)
-+                       skb_set_transport_header(skb, off);
-        }
+FWIW, it's not MISRA-compliant :-)
 
-        return ret;
- }
+-- 
+With Best Regards,
+Andy Shevchenko
 
-For the decap case, BPF folks might prefer to restore the transport header
-from skb->inner_transport_header when skb->encapsulation is cleared.
+
