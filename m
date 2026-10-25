@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792897576;
-	b=XIfVwJyw/sPVqdJM0nADvnxI+1dtCDYkYn0cQtBBclKR9t8u9sVbbvCvkYRWd1oG4Cxl
-	 oMJ5s/rW2LCB1BP8eDfdDPBkrAzorEoeZl2sDsvnOaH4wW42IH+KlTY0yzc3CMynnFMQ8
-	 SVe2FDMiKwYXsLZJXj13EuNoap3fLumBLYeueN592f8VBoiMTNoagyVtKLpOvWtVmyCyT
-	 w9cD8/WCKzcYaxQgm69K9TST2OZ2vuQPWqyXc6g3CTv7NlDAMUadE4fdnFcl1si0A1Gs3
-	 +l0+O2d6V/CSS6vN4TOtIoNhJFTO3vH6Wha9q89xt3nWR+5hk6bY9XhNmdMZoFj4UXg==
+	t=1792897578;
+	b=QHKUJgX7HsSSjJ0rpfXKVZUsqhZA19GxWNm9aCAyhe1BHpBsSXV0bQ0z8Ke8FjmgMF3P
+	 z6747lZKGLZpSXNpHjUCyFv1C2+RqR53BGUn0vMaJ6rYMdkbTzovBho8ppckMUw5vtgCh
+	 TEIrPN/fQoRzJf3qgwYeFZNuYvqcRfPKl9LOuP5itzGgdLitCUIdTJPoX7NaldfRV+ch7
+	 KzoOKtySYJYSoOhNfzWY0Y3nFPrJxohbbm0wKE4l26egJYMyWfeqTmBmu6HPQfq+02l+r
+	 TN8s5FeJL+5uCeXkuw4HvnF0BjKI+5z/XuB9tDGgnXRkAAWdz14F3iSC2TUY1gftIUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792897576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792897578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=QXJ1lAA5CJL+VwXuJtf9fzAkgG9SQEGMbPU6n42N680=;
-	b=hj+0UzFhvOPwfeflHv2GriYSq8Dy0451UaYyUeFaHQBH4ad0Bw0Nf2lzPYUmkrNHwF5+
-	 vPXaK4MCFM+R7Qbvfr4M7Gyg7ANuRAbz5QVLVN4Kwt8iNUxymlAt0QNRZVjDRheL5XVYC
-	 5Mblo7N2iSG5oM744P8FnVCr23rEo4EAustxmiUkPG4LDHcTWzoC24jU7vNHMlIO2bWuK
-	 grJMxLu4n9GkPazzOZp1fwvusDaG/tP4uicwNhDhoORlxxB+b3R8jmTpHBR5gokpmB7Sc
-	 RkXa09Kbb1F1PIJqJbJqb6nWdwBeu3vYMXxsq1xgcz3WymPzukENgFPOSlDx/h4lUdg==
+	bh=ltpPctHcCv3D3mCQn85U0Am43143Q5d2LuJIwwGQgSA=;
+	b=URXJic2Q3e/IpAR7/8eQlmfZ6GW+1X3sjYR/GJ03koAjbf2pkwRUBCnhIMA/J7Z30UoI
+	 CWdnnbiaczXUwx2et6hyon77SVgFCQ6rW7+Lp4LIfowzKqVUm459/6XJfoZwlyWev5BcL
+	 umUT09tDfibZVZ59wINwr3w1JoeIfS8uiGMopdi21NL878iQ0uqgu7P+3N1Yz5JY+ytdl
+	 brGdz1cwhbZGcMTOJ/kyt1MDtHY0bEqYcV+m++4I475G/CUP6vaE2cSsWuY8DuzWTol5r
+	 UB2svdJKke9AW0Oo2emrsV5Fwi9tXIP8J0V5tuRgEDYrIv35LpZsQCdMckava7Uvvbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X1vUlKzm;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sI3sci8P;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8182960A260A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8182960A260A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E719560A2621
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E719560A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X1vUlKzm
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso3523213eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:06:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sI3sci8P
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36681e85e87so1519606eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:06:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792897576; x=1793502376; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792897577; x=1793502377; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QXJ1lAA5CJL+VwXuJtf9fzAkgG9SQEGMbPU6n42N680=;
-        b=X1vUlKzmxrVzca0s04RBW8h3S8B/UlLGXeQV08TMrlGFFbPgHOOKI6JsH9cpURZVA0
-         N9tzxcuPSn2OpAX4luRNBMowT7WOLzPSiN4SGLD7Y9efSk5MV6drC7fzXf+3LxVhhzer
-         U0kHH8Pt2Tm37DOWF0YbMiyfKLA91Cqlm51cVDEmDwiV5OKOtBfG1ceOTPrO3ucZVLnh
-         QaK4kEQ5nY6tP7OSNVFkiEH+LD7NVbZI8Gj1UQDnROrJ+mJScfj+LZFIGbVCLkP1wfVr
-         NuDZT5wtAgaTr0u5fRn0Y4ZGXbK9cJhP1aMjo1OTHf4WiAzXI+VJ/HOxJ4mQfW+5/x1c
-         q3pg==
+        bh=ltpPctHcCv3D3mCQn85U0Am43143Q5d2LuJIwwGQgSA=;
+        b=sI3sci8PU0LRbXzg9pnV9RKSt5pEesz1u3xPqqTfEF9W2neduMRDwC6nKr6nO7RYAx
+         4SccFKxbd4j2G6559Hcgg6oQgVDeQojGC/SgpK0kDueKRFIbstaC91zBdoxg7pnjB9WA
+         hzJ8cK0LfY4e61+dPYQ6uApB2CBafT6UolL8Mcz+2dpb/KJpwu65dAz5VBAVM1yPUxq7
+         0uV83XlIeiSa4C7938vCjWJRq0QUi2TNQMduDgDeRvThLQWTmKuCb4b14+BFS9ksTfmd
+         AskoiJ4tp6+3l4t1K2cI7QpXHD0Hx6bAYt/IdOYtTSOz0Zm0NzIA1ejVuMa1YXIbZ5ps
+         q+pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792897576; x=1793502376;
+        d=1e100.net; s=20260707; t=1792897577; x=1793502377;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QXJ1lAA5CJL+VwXuJtf9fzAkgG9SQEGMbPU6n42N680=;
-        b=qLmRuLufESOJ4Pc0q/YgLZLL0zKlgTAQ2YsSChrOarGAHA/zWsh9hVHLF6aoAkBf5A
-         b3bEByWBMII8gF7PQ4cNJv445cQjVJ321tDosGIs2hy49IS21sAYkjY4ywbKLe8MBF4x
-         jV1ZjeWmLhw+N6KF9D6xGITUUl77+PdOJLH9d7euEr8xkbFPqTm91bvDTiWHB+Mp+ZXP
-         ZQ5rxRa8964qdE4uL93DlWPi6U2vzzi1v+hXHH15zV33j7sv5SJTA5NaGV4YHJrnXkPK
-         iQCQiHGKPYgkcMM8MCGV2JU+ZDoY1Iwnl25SbtIxKYOQQihhiJwjpPoydzwv4FYbPmoj
-         6hGg==
-X-Forwarded-Encrypted: i=1; AKwUvBx53Zfaa7b1FvAgMwbFqQMb70NJviNxekbHc5B0R05VjtuJ6HCKySPoC81vlldisNzdZ9L1K4Sst9dm3lE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwOhrRZ/Yvc5j916amQcbbRx95l0XTuZJeV4jBMvf0zMHWacdz
-	qtw3H8nrd9Qi1kUU/kEhYpgW6gjdVjYsFjdR3U77Rpsqvr+AhkCZcAgT
-X-Gm-Gg: AYBFou13OtY9X/sAv6wh05iB68sbsp+AWlAaPB3S3T3x7JfTW6joS+qu2zaRp5ODr4W
-	AySF3srHmvq1e3pTqO46JzK8t+lQSmTrTXBphIYR8brn/b931FUDQmA0Cu/feBrDIA/GGLoLWoG
-	qAbAGxhW6cWy0PtQ5s22rV+Klm0f5VEZ8YQDSJdWIEMifsZ9UQlpknAetcISJEpb2UK/pvZs10a
-	Bf0atuGvLyIZwqXlcmhag4GZ/qSnWfLtEO3qETL7I8lL3aT7httLzOJ8Q0TDCaCNKqxXq89+5sG
-	LjbIUUBHxA5p/jBMkn6n6eDmv3cclzok8X9sGRp24aswsJI3vqQKf702SPAumYlIGqeYXPcwony
-	XUNT0VqXKUbxjJa5tBym1EsPL6l5qxwetR2Pub55y1B04lGVwGxyhqg8YoXHi+xLlcPj9u0Lw6g
-	PCgix0p7yi/nNhHZssF2/hoSXQImlbxjMwjW7NtHwM7MthDdq52LKCgA9K1y8UGzAfKe3NjJJo5
-	bi/0q3gZcjFEJYQ0RqQoj3DGUDQ4TE5uBnW7Pl7ehKhHsFN1jDmS0V6jEhoRJ17Fg5eo04oqYbX
-	EdAPFd6X7rvesB+AJ3bQTUJBcJqsiQvxTQxcOsmLSqw=
-X-Received: by 2002:a05:7300:f292:b0:368:a825:bf7f with SMTP id 5a478bee46e88-369e84fa201mr4858295eec.13.1792897575668;
-        Sat, 24 Oct 2026 20:06:15 -0700 (PDT)
+        bh=ltpPctHcCv3D3mCQn85U0Am43143Q5d2LuJIwwGQgSA=;
+        b=huEZjwNLcDtS5bXEVChoJD0cqJ6wr7D9XKusYHRMFeeY1GtJyTSLuoco5OMDGTkq4K
+         sKQmMKgiU4+1wwcvEQ/+knMxlwANGCP4V4JUVqQk4hCB/23Yp3s56CWe00LXEIQIpoti
+         xawb9BmVF+YPS/NV7qFLFkwzQUIZO/wo0Ug0ZghEXtrpqU9SWvJ9RE6s9a7KTOJ8t33W
+         VF7mlr4ETL+3DgiTSm3jTVZgOWkhLPSs/VEKCGrLof442kLPX+kC3WDHcPwzQ8asDhgQ
+         W8FyFPNEBq/cJ/uGFv8SpUfz6SKaiUJYjRW5ndpojRC5EjxRbKwKqMvIMqfqeesUB7Xf
+         A/fg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOtKuZVR1jbG0aCptrNmqJfrJB3m0Ilshkpf6RIopesEQy6A/XAlRbxF1ZeV9b4yTLjB1VqREOokh0y+I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQ721K5G/H8/wjF7s+5ZWPYK00dKqbyRkKmQG8L5/k9Ky0VzcY
+	YzINo+GDkrYHWkGiOcrSYHP/f7IuhqQ+2VHbGKsgYG/7Y56enzIrynOt
+X-Gm-Gg: AYBFou0hmtdefZQHe7mhMINn/qay1FpMepnLMH/r2k9jFvy++wmXTA23ba7Q33ynbmK
+	Uv3/QiWutA8jta9jEvre6ql99H/oTYPKn4dW9mFEqr/LJN7CSZJrG+UilqgBgAa+GeRv/UYvsvR
+	phvmA6SfRTn5/HqH1txle2MKGpWo08Jwv2XVh++CdTaNP5aqgMGmfS343l3uZLy8qbChLIAjZxO
+	08H6m4c3M3MqAy/KZDPG8fT/zegvNkD9zOdHbbV01f7WRp+FYQlHVZdbTm2lCRjYD9yUS+Zlp42
+	ztCsySe3Vy11jhBHhiMLZpnxgTqvtKFvaAM3SrT5NeGwM1AyOZpY4fmZpYgl8bwaqIhzMShqfy/
+	NTskVUj8P7rboklCqn2ebzKTVYD8zYeb29xlKVrIhbTvcE6cvF6DqmJ5okiu/ED6CDFhSIdWRBA
+	CQR85URdxjDb8acawTL61yjvXhYvZ8j3jxvQrvLyhtT6trBZT98iGZvYXWvK71u4vng3AllLS2n
+	/exRnuqhxSqUlFAvunf3R+64Y0iBdUV5d9eoZADD7BWbcWjR0LzgPiYQu7xrX+3+F2+TbpE2D07
+	xDo+AUJkJtUihf2McnGFPTO7A4W10mf67Q1tfniSF7Y=
+X-Received: by 2002:a05:693c:4018:b0:369:f05d:6c5c with SMTP id 5a478bee46e88-369f05d6f61mr3001487eec.28.1792897577020;
+        Sat, 24 Oct 2026 20:06:17 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm20245992eec.25.2026.10.24.20.06.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm20245992eec.25.2026.10.24.20.06.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 20:06:15 -0700 (PDT)
+        Sat, 24 Oct 2026 20:06:16 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sat, 24 Oct 2026 20:06:08 -0700
-Subject: [PATCH 05/31] hwmon: (pmbus/acbel-fsg032) use 4-argument
+Date: Sat, 24 Oct 2026 20:06:09 -0700
+Subject: [PATCH 06/31] hwmon: (pmbus/adm1266) use 4-argument
  i2c_smbus_read_block_data()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-hwmon-i2c-smbus-read-block-data-v1-5-e81941ad0cd3@gmail.com>
+Message-Id: <20261024-hwmon-i2c-smbus-read-block-data-v1-6-e81941ad0cd3@gmail.com>
 References: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com>
 In-Reply-To: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>, 
@@ -107,66 +107,106 @@ To: Guenter Roeck <linux@roeck-us.net>,
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-Pass the buffer size to i2c_smbus_read_block_data(), shrink the
-debugfs data buffer to I2C_SMBUS_BLOCK_MAX, and ensure the string
-buffer is NUL-terminated before comparison.
+Pass the buffer size to i2c_smbus_read_block_data() and shrink the
+GPIO read buffers to I2C_SMBUS_BLOCK_MAX since they contain raw binary
+status bytes and are not NUL-terminated.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hwmon/pmbus/acbel-fsg032.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/hwmon/pmbus/adm1266.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/acbel-fsg032.c b/drivers/hwmon/pmbus/acbel-fsg032.c
-index 5222e7aeca44..d36076b9c44d 100644
---- a/drivers/hwmon/pmbus/acbel-fsg032.c
-+++ b/drivers/hwmon/pmbus/acbel-fsg032.c
-@@ -19,11 +19,12 @@ static ssize_t acbel_fsg032_debugfs_read(struct file *file, char __user *buf, si
- 					 loff_t *ppos)
+diff --git a/drivers/hwmon/pmbus/adm1266.c b/drivers/hwmon/pmbus/adm1266.c
+index 22ccb721dd51..9f3b5bc9f3e2 100644
+--- a/drivers/hwmon/pmbus/adm1266.c
++++ b/drivers/hwmon/pmbus/adm1266.c
+@@ -165,7 +165,7 @@ static const char *adm1266_names[ADM1266_GPIO_NR + ADM1266_PDIO_NR] = {
+ static int adm1266_gpio_get(struct gpio_chip *chip, unsigned int offset)
  {
- 	struct i2c_client *client = file->private_data;
--	u8 data[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
-+	u8 data[I2C_SMBUS_BLOCK_MAX] = { 0 };
- 	char out[8];
- 	int rc;
+ 	struct adm1266_data *data = gpiochip_get_data(chip);
+-	u8 read_buf[I2C_SMBUS_BLOCK_MAX + 1];
++	u8 read_buf[I2C_SMBUS_BLOCK_MAX];
+ 	unsigned long pins_status;
+ 	unsigned int pmbus_cmd;
+ 	int ret;
+@@ -177,7 +177,8 @@ static int adm1266_gpio_get(struct gpio_chip *chip, unsigned int offset)
  
--	rc = i2c_smbus_read_block_data(client, ACBEL_MFR_FW_REVISION, data);
-+	rc = i2c_smbus_read_block_data(client, ACBEL_MFR_FW_REVISION,
-+				       sizeof(data), data);
- 	if (rc < 0)
- 		return rc;
+ 	guard(pmbus_lock)(data->client);
  
-@@ -70,25 +71,26 @@ static int acbel_fsg032_probe(struct i2c_client *client)
- 	struct device *dev = &client->dev;
- 	int rc;
+-	ret = i2c_smbus_read_block_data(data->client, pmbus_cmd, read_buf);
++	ret = i2c_smbus_read_block_data(data->client, pmbus_cmd,
++					sizeof(read_buf), read_buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret < 2)
+@@ -194,14 +195,15 @@ static int adm1266_gpio_get_multiple(struct gpio_chip *chip, unsigned long *mask
+ 				     unsigned long *bits)
+ {
+ 	struct adm1266_data *data = gpiochip_get_data(chip);
+-	u8 read_buf[ADM1266_PMBUS_BLOCK_MAX + 1];
++	u8 read_buf[I2C_SMBUS_BLOCK_MAX];
+ 	unsigned long status;
+ 	unsigned int gpio_nr;
+ 	int ret;
  
--	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-+	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID,
-+				       sizeof(buf) - 1, buf);
- 	if (rc < 0) {
- 		dev_err(dev, "Failed to read PMBUS_MFR_ID\n");
- 		return rc;
- 	}
-+	buf[rc] = '\0';
- 	if (strncmp(buf, "ACBEL", 5)) {
--		buf[rc] = '\0';
- 		dev_err(dev, "Manufacturer '%s' not supported\n", buf);
- 		return -ENODEV;
+ 	guard(pmbus_lock)(data->client);
+ 
+-	ret = i2c_smbus_read_block_data(data->client, ADM1266_GPIO_STATUS, read_buf);
++	ret = i2c_smbus_read_block_data(data->client, ADM1266_GPIO_STATUS,
++					sizeof(read_buf), read_buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret < 2)
+@@ -215,7 +217,8 @@ static int adm1266_gpio_get_multiple(struct gpio_chip *chip, unsigned long *mask
+ 			set_bit(gpio_nr, bits);
  	}
  
--	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-+	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL,
-+				       sizeof(buf) - 1, buf);
- 	if (rc < 0) {
- 		dev_err(dev, "Failed to read PMBUS_MFR_MODEL\n");
- 		return rc;
- 	}
--
-+	buf[rc] = '\0';
- 	if (strncmp(buf, "FSG032", 6)) {
--		buf[rc] = '\0';
- 		dev_err(dev, "Model '%s' not supported\n", buf);
- 		return -ENODEV;
- 	}
+-	ret = i2c_smbus_read_block_data(data->client, ADM1266_PDIO_STATUS, read_buf);
++	ret = i2c_smbus_read_block_data(data->client, ADM1266_PDIO_STATUS,
++					sizeof(read_buf), read_buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret < 2)
+@@ -361,7 +364,8 @@ static int adm1266_firmware_revision_read(struct seq_file *s, void *pdata)
+ 	int ret;
+ 
+ 	guard(pmbus_lock)(client);
+-	ret = i2c_smbus_read_block_data(client, ADM1266_IC_DEVICE_REV, buf);
++	ret = i2c_smbus_read_block_data(client, ADM1266_IC_DEVICE_REV,
++					sizeof(buf), buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret < 3)
+@@ -387,7 +391,8 @@ static int adm1266_powerup_counter_read(struct seq_file *s, void *pdata)
+ 	int ret;
+ 
+ 	guard(pmbus_lock)(client);
+-	ret = i2c_smbus_read_block_data(client, ADM1266_POWERUP_COUNTER, buf);
++	ret = i2c_smbus_read_block_data(client, ADM1266_POWERUP_COUNTER,
++					sizeof(buf), buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret != 2)
+@@ -461,7 +466,8 @@ static int adm1266_rtc_get(void *data, u64 *val)
+ 	int ret, i;
+ 
+ 	guard(pmbus_lock)(client);
+-	ret = i2c_smbus_read_block_data(client, ADM1266_SET_RTC, buf);
++	ret = i2c_smbus_read_block_data(client, ADM1266_SET_RTC,
++					sizeof(buf), buf);
+ 	if (ret < 0)
+ 		return ret;
+ 	if (ret < 6)
+@@ -525,7 +531,8 @@ static int adm1266_nvmem_read_blackbox(struct adm1266_data *data, u8 *read_buff)
+ 	u8 buf[I2C_SMBUS_BLOCK_MAX];
+ 	int ret;
+ 
+-	ret = i2c_smbus_read_block_data(data->client, ADM1266_BLACKBOX_INFO, buf);
++	ret = i2c_smbus_read_block_data(data->client, ADM1266_BLACKBOX_INFO,
++					sizeof(buf), buf);
+ 	if (ret < 0)
+ 		return ret;
+ 
 
 -- 
 2.56.0.257.gf7497c7d27-goog
