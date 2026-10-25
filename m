@@ -1,97 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792959466;
-	b=3tsPUSRQZNVI7VJdX7sblyUMiuRcyr/ieEOIbN2UquowAlXaCwncb+/C+XH7gmHRC06+
-	 ymmWyT42C/yd9eKv5/NJWDGos0m6FV1KWhQTZaCTHoGFTyiiSBLW08uFiNrDK0qSHSN8l
-	 JzfzfLPu8nj0WXLe+yDcUWc7KxJCNi3l/EwbbeV+Urj6UI7daqkpTUNrKgkk+BkX7NomL
-	 NlLRnlJnGmjFPs5v0u5rQedpctKB7gkVgE3yvXe9oQjn6IAGKR7TRNr5V9Odjq9dPAU9P
-	 J2hHBn4jI5MObk/6GEr9yedJyqMJGEWv2j3MijSbthn/9vmWW7Be2RDmPtQS6Cc5Duw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792959466;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eDe8QWYIcWpTx/SuEAWwTBzENf2Pj+roRmj0ZMAT6T0=;
-	b=1wDeDG9xqvXoF5AKCO5nTUkKPpBH3rS99EBV31FzgRiVlNl3kqoUAPcR4s8nVwpPdSnF
-	 X0ZtmSIjxBS7+YK08BR7bPEMwMisLXgpmKERnz96rKLrFkLF6d5o3x5E8IR/M+X0WhAxN
-	 wZAjU4U2MrjY4ydzbYCK14p7WKK8aygkRyW0xG9JNtRwmNGIWW5VnAN+joKhRAnmasR34
-	 C9WsyAalxxXacCagHa7G35MJw/YwZwI8CLiOo6jkiBdwzbvywd58k0PPgSCIweIpdHtrz
-	 sUR2rRMB/73KDbcn8f5GWrGteO8fEWVG0kOr/9LqH3ZY01gdPsbrboTKmEo9UdtEe4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=QJexpRZy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.5
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792959507;
+	b=Yehey8RSwmxHrYLmr2a/3fS8alLLZoKc2ARC/Rm9bZlKmvThjjMONavJbBVQ8tcj8ui3
+	 exMHdb093MgNPLMn4e/OPolRyqnCf17Z7ZD622UWOJfJug+Fwl/23mstN20Gq4HmsKuHT
+	 472IXrX4pycOVeY7iWC30HeOSo/jXzSJPUpyCoy7EaiAEPBJ/+J0Exvtbz/D7ilq6wTqm
+	 4dlgECha6e75CWdIvSimos4xWyXbJ2nhayum06AQGz4ZYA2zQMi0zLCEPsN9BCSHDFH3x
+	 RO1oczxYS0tzj5C+L8GCW2HMW5dRccXMpo3+4W9Ed0VksOUZ5rIKyGRJkLQU6F1kV3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959507;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=gKlDBGCbH7yrkloneHjgkrYgA1FmKQUMTNRJgiOOaws=;
+	b=jTxOjCs0GKEGqZ1qWsggNbNSmMfkuwWi4n5YAThUARzNskNOZ7gHeR4cqcTSO00zmRnL
+	 oWIPQbXUA8okOk7BAtk3KCocndo5gwq/P+ddAZ3AtHgyHqRzEWkJzHR+0FANciMEkn8AF
+	 b6UoJkiS1lwUJ8bOoAmNmolA/Esbl0zRLg2S6hn2PxlqJlBg+CSZamcJDRgkv8PA43Zit
+	 kSN7l7J5HBJEc7/DHf8Zx8/NlAPPaoPsgHHuInW+XrpVxnyd46UBn8j9HNAXk2ahwFWvC
+	 1Q8AxOs/qR3Fw1pMsRiTwpr2qbfR+ykB11VBRGbD5dBFO67UZVmOWzRrm47UfRvrKbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MZA7ePc4;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872BB606A31B;
-	Sun, 25 Oct 2026 20:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 872BB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB4D606A31A;
+	Sun, 25 Oct 2026 20:18:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB4D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=QJexpRZy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gmlU+i7sqEC1Iz0jj2PkU+XpZChCzzF62BF2HAAk+d1l4r2I3trxKCRbs5g8M554uV/BH0MCq4ilEpMU+LLlVSDDWSHGekIzdUZIChobJdCgtIP71Iim1FtRQNoU+LXLMT/KJ9M86bpI/0iwzLs+RgdJiNjp2fa9mCBWTcuUwKywj12g6XG6Hlaou/7/9NzyANBPT/viFqmqgmWJSe28Z7eozxaUsGgOyF1X+TM98QKVDj1BrY7pdbUpCa5Ay87W6kUletX5Qf7reONk248DnmmvaBlh7ttOeTaYGp5xm080igayfkjg8OTfw1wMJ8hw7TzlQ1pWyeSPKRB4S9i4EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eDe8QWYIcWpTx/SuEAWwTBzENf2Pj+roRmj0ZMAT6T0=;
- b=APb+51wXjzXHbMFuWIfDgMFzvrhiUAmnukDFWht+nWBLQ8gz/NzaPGylezKZ2qK66P8oKLB21GfMhmpy7p8nZgIYyyIZABPoC4O5HPSwq0mdps0Lc6wHL+0tKLuhblZ/NsJ/LKmEKcS1E+IEmuv5r2WjdAq54UbyFLjIcahpDEP+5lOs85iFaVBCzgYKio1JiAQR1yZMFjpRUJe2RIZwAkXHZp4TLTeFc3Jru6g6PJhCEND3XTSQPydL6MtZQcSJVXMXK4qxukEXOHo16fkLpml6XTPOCTVY6wCkHxee2zctCW4NMSiAWF3bw/wSIKTD5aqdFbW1vvLHGtuLI4TE7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eDe8QWYIcWpTx/SuEAWwTBzENf2Pj+roRmj0ZMAT6T0=;
- b=QJexpRZy3Cjv7QAx3N80GOki8wZvZzn1pkVIjEigadVFmpasJRzVpDLfUzaxMMRZCOSlCXf7pba69+Nns5a5dKiSp0x7SKNSvEVRxfurfQvdxmDOcs7srRZnawXwoZpeC6d6JY8/wJxQwl2nWeoK7Nng+1k/06SMiOM5yIHrxvW7iu7dszaSfDyz3S4XGc6zvde95ZFskTMYL9hjm5QEt6uYe5+t361Yr6VIlKRdohLomQ9oVWNU0YFQ5afHN2sOaC1V5m1tqbL+SdA9WpfDkXYj+vkuWgOGh2k4xeIz71rU0BqHm1EvDLTiP4fG2vhZb5tlX7dPaKhD/jo2KbwHlQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
- by EAYPR03MB989302.namprd03.prod.outlook.com (2603:10b6:303:2c7::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 25 Oct
- 2026 20:17:41 +0000
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
- 20:17:40 +0000
-Message-ID: <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
-Date: Mon, 26 Oct 2026 01:47:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
- for SD6HC
-To: tze.yee.ng@altera.com, Adrian Hunter <adrian.hunter@intel.com>,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <cover.1791459448.git.tze.yee.ng@altera.com>
- <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0111.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:266::16) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MZA7ePc4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792959506; x=1824495506;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7WVWAs7SYa5fDFXgxFCwBxRVLtIZinVRwmFIpiC5h0Q=;
+  b=MZA7ePc4zS/EsfSxHAhI0T8Fod16tmaaZkdoXjtsXdfq++NWiBp7CCjp
+   W7arlpYP/sp5w/c+tudS8/MJkKk6KaZKsT8DtUMK78W8sApIq0YzWEXmA
+   GHXycQtL+v8B3/3rkwlotWVV57K5tdF7a/E0tTfoSNr2GJwX2XdbUJguE
+   PJZS3EB8uOBqSylMyKkthLSwse4KkGol6DMtTmFO8VKWFWesiX/ZzZhHp
+   Mi/BmBGodd3LvKkfC8MocxMWMBiMn1z26YBLcKOCcTkZv4AmzfaCR7/Mp
+   Jc1+Co9kMqQatSekP72Kt7HaDNEflS0VPatrbcPW66lvSdNHvXK4SXEuE
+   w==;
+X-CSE-ConnectionGUID: 037mxwaIS4aWYH/dfKUqGQ==
+X-CSE-MsgGUID: IEOA2DIHSw6AQJyGyDWzPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1529075"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1529075"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:18:26 -0700
+X-CSE-ConnectionGUID: 2MDbjEFvRgeyCu4A/zlUfQ==
+X-CSE-MsgGUID: ayP8CrdYSUiNmF7vEEafAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="3994840"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:18:23 -0700
+Date: Sun, 25 Oct 2026 22:18:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mike Looijmans <mike.looijmans@topic.nl>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] iio: adc: ti-ads1298: fix power-up and clock
+ handling
+Message-ID: <at5kDPzBIfwAGCNT@ashevche-desk.local>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
+ <20261024231335.280955-3-stephanbrrs8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,147 +88,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|EAYPR03MB989302:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13052a5f-d07f-41fd-9673-08df32d50506
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|4143699003|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|10067099003|55112099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	cNrSMgwsfFUPgREkz3dWwzLjP8AxVf+0sbg9llDTcCI0xpe8TIpCg27IeTS6iDZzM65wwv2V1I9yr9ks6TYsv1ffHK/apNklNUoUbdRPB1cMJKT5JA9eMRIWSX+1QKQo1BULOUdK06E5EyuNC94yV9ihK1LjsbIDGgiLJUwja4ryQsJ9XdOTfgAB8aoyendPMOPl38gFKh4hwXCv0ot//YMJJnG46Jsz+2h+QNR1nvckAQ0TFQ2tLILdZ8sIb3iTEgvzklr73UMe2zaflTmXPkS+sk/9oB7Al9ipAlUo3E/iBnAYtHFZCu1Lznk+SZzjt4ifHDeHPaBlrZNA77VRKW6dh6MdOCtElXsupm79gPrLkCU5+YMAJ4LSrtcmk4XtiVsLoYWdxYpgt9ggSj74OaPkM9F0fLTCrcUsjE1i+2g4X9k5vq5RJfe9aCXaZ4UHtprKabFMQUMExVFD6hvYTuy4loR3SfxSlcUm/7+SB1yHehtKK2zGUKR4WrBpTNbyh4im8G/LcRTJh2GXFdRYh5lAD6039unmIslA2OcNx6+vG9KirVdpyeirRGb5aX7F/eaRh9aaLFLAAnBsvC4tUgR7Yx2Hz8tO8A0d8fqgKMXKDwS0l06Jlc4GMZ4qogFPm9Qhiut4O3FdGlF7T+CZbq5WOwWz/7vJ4BU/+qTpMM4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(10067099003)(55112099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OGxlREYrQTl2RDg0a3pIVTl3SHlWZDZmK3VKSmk2cVIxZ2lRT3EyUnpYei9W?=
- =?utf-8?B?Q2RhMXBmbG5pQ3JZd2xkazdybzFLS2R4RWxFNWwrVzFOd0FNZWVMTzhrMXVq?=
- =?utf-8?B?L2V4YVc5WEtENEZJM0RVOVoxTVExSDdNYU80SjhuRFJCTGpzbnB3Y3pML0xj?=
- =?utf-8?B?RVRsOFdsOGhJZzJzeGVGNEJaWjFuM01rdWJVakwwdTdIbFhsYzVKSnlJbHFr?=
- =?utf-8?B?eGtEUXBBdE40aGdHOFRtZUNSSlJqSFM3OHRSUFV3VjM4QTZYN0dSc1NiQXN0?=
- =?utf-8?B?SklTdGl4SXJBK2UrZUhvTXNoRnRIVUNmYVdiQ1BmcGVpMmhrWjV6Q3hJUWx2?=
- =?utf-8?B?aDZVT2JiOG1sSjQ4RHRpS0dMYmxmZzlTeEl1VXpyekViVWJvbTNDZ3oxV3lh?=
- =?utf-8?B?amZzNVlpVmNyZndJNHVnYzZRTW5aU1hYK1hGNzlZMExtbFVWb3AxZmxUVzdX?=
- =?utf-8?B?TEUvRDVZUFpCSnNkWjk4U1dGUmQ4Tk15ZlBRbUVHYmt4Z295Skp5ZVI2RDhm?=
- =?utf-8?B?T2F6SDU5U2VQYkZIQyt0L2JUL05WYkpmclJvT3Zab3NPTEsvcXczS3k0Vkdq?=
- =?utf-8?B?WE9Wdmk4YUpuQXd5am93WVd0Mjg2b0dZdzZ5a1RGYk9vU0VpSlhNMC9iVXZR?=
- =?utf-8?B?ZGxmVXkxZmJQaUErNXdTSW1UQkcwZ1g3ZGdDalR3U1YyaE1LUnhCNTBXSWgz?=
- =?utf-8?B?aThLVUdxaEdBK01yOHVkUzFielAzdmdxNFBSQXR1VlAwc3hDL2thcFhnS1VB?=
- =?utf-8?B?WFdYM0xqemZHa3RJK0hxWVRjeHZWQlZ6RGxhcElKN0F2OWp3YkJmQmlIZkpq?=
- =?utf-8?B?Z3Rvdi95UHNRZExNOS8zbTBvSGZiMWU4cGJxb3JYSjVabjA2Smc4R3VZSXBY?=
- =?utf-8?B?L1BaR0szNXN5UTlBQ0dMczcwWEVhbVJSQWY0Y0pjdnRoOFVGWC9QQzF6dWNm?=
- =?utf-8?B?aGU0ZkNHWFc0aURrOGtiQmI2MUpUelp2T0JseUtEcXFEWThZSHlvbHVaZkow?=
- =?utf-8?B?c2pUejhENmM1QXl5R0tzUUc0bkxWZDlrWGluUzhaR25PbGkxWWI4RFhoU05N?=
- =?utf-8?B?UFpWUFVMMHlTQkk3b1pSSE90UWMyVWpYd1pzY2ZHOWxSYzlOazNtRzhUeHJW?=
- =?utf-8?B?ajdWeVJWSEJCYVVzOE43VkFrS2hWTStya1VWVHNSMjlGUjBheTBoZG1uNmJj?=
- =?utf-8?B?VGxEY3gzYnJFQWlJODN0TTR4cnZRSllZRmJ0YWVoMTBUTzVndkQ4bHlnYzM2?=
- =?utf-8?B?T05NdG84YWprc21NekJ6TFhVVFBGVGRkbEJ5U3g3RDZLZE5Cd3U5WHlxQVpC?=
- =?utf-8?B?VWdGbU12N1hPMk9LeFFUNWpWQlpRZHFJRVR6Q244Y0dRcUFiSFgwS3B5Tlov?=
- =?utf-8?B?U2FwZWd5UGpWS2Vhd3drcHlCRjFoSjBFU08vYUR0UXM3dTVDZC9aUWpLR0dZ?=
- =?utf-8?B?Q0xvUS8wWTloZ2F1Nnd4dnBRTTZhNWlaK1hCLzNsR1RMaUFWZzNmTzVGZENz?=
- =?utf-8?B?Z2U3aWJQQ2VzdmI5am55WWozNXlCTi85Uld2QlhlVnNvMVNnUkxIR3NRQUVh?=
- =?utf-8?B?TDh4RVQrVW1KRi9mdHdJcVJNYlJmNUF0LzNQNCs2aDM5b3lNRCt6V3VOa1VR?=
- =?utf-8?B?QUM4Zi8rM1BORHQ2Q1NIZi9WU2l3Mkd6MUFFdmwveUhRSm5HR0c2cHJybUMz?=
- =?utf-8?B?bE8rRGE4Zkp6eWVud2JVQnZWL2JpZjVvZkNqTE5vTEYyM1htbEpPTzJMbFZs?=
- =?utf-8?B?aStzSU1lb2hPQU10SnA3R0ZVTFFtTlluN1IyZHhhaHUyV0J0WVJtR2VGMHNP?=
- =?utf-8?B?M3B6RG05cUczUEdSMGFlVUJ6OEZwL3ZUNkhrQ0RNeXc2U00yeUpZbU1uMzNL?=
- =?utf-8?B?WVAxeUtFcEluajIrRjFwUElTMklHMXZuMmMzeWl1OXhqdEdnOGtkaEp0cWRm?=
- =?utf-8?B?ajV3UHZxUUF0M3lHaHF1YkhBVTZKOWdPVEs2cTJoeTVla2Rqa1U2dFdHcXl0?=
- =?utf-8?B?dDhFelNUR284K1Fram4zdGNVb3RteDRoWU90UjhqZ1dwcDRmQWpzTFFUeWVK?=
- =?utf-8?B?WUFwYis3T3haajhiaDZyODR6SGI1SDI2dHpucjAyQVhqb0FqQXBkTDBtNnJU?=
- =?utf-8?B?eTYwcHByM2s4bVlWeHlLVFAzRG9LbkNDUmlJWi9ncWhkRnc4cUl1cHBleTBu?=
- =?utf-8?B?TVdNckxqcWNMcldCd1NVY0Q3UTZoS2JYVWZIaVljMjV6dGt1bFF4TnllbDUw?=
- =?utf-8?B?cElFalIxZGlDT3Evc1RyUTdVbDBJRGcyaGl2cmdheTgrMVRSWDRmdXNVUnV4?=
- =?utf-8?B?NFpzYWliY2xrMUpGbENUbGErbUJmVVJlTWNVbHN5RnhqVE9vN05wT210OTVa?=
- =?utf-8?Q?tiX0jxy23WlEc+lg=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13052a5f-d07f-41fd-9673-08df32d50506
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 20:17:40.6088
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oNDZVnEjSUAB3sjJgEdZOquqaLzoPX+r/UddoZCAttWS7J3kxCCgVPSTdDHi5BNjo8R7fPIB58uUGTuNAd6izF0t4EPOE1UpyhvBx5Uzse4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR03MB989302
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024231335.280955-3-stephanbrrs8@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Tze,
+On Sat, Oct 24, 2026 at 08:13:31PM -0300, Stephan Costa Barros wrote:
+> Fix three issues with the power-up sequence and the device clock:
+> 
+> - The datasheet powers up the supplies first, then the clock, then
+>   waits t_POR = 2^18 clock cycles (128 ms at 2.048 MHz) before the
+>   reset. The driver enabled an external clock and the vref supply
+>   before AVDD, reset right away, and did not wait for the 150 ms
+>   start-up of the internal reference. Follow the datasheet. Probe takes
+>   about 280 ms longer.
+> 
+> - The binding describes one optional clock and no clock-names, but the
+>   driver asked for the clock named "clk". With a device tree that
+>   follows the binding, the lookup fails, the optional getter returns
+>   NULL, and a clock given in the device tree is never enabled, while the
+>   sampling frequency is computed from the nominal 2.048 MHz. Ask for the
+>   first clock of the node; a device tree with clock-names = "clk" still
+>   gets the same clock.
+> 
+> - A command takes 4 cycles of the device clock to decode, the minimum
+>   reset pulse is 2 cycles, and the reset takes 18 more. These were
+>   converted with the nominal 2.048 MHz, so a command ends after a fixed
+>   2 us, short of 4 cycles with an external clock below 2 MHz, which the
+>   ADS129x allows down to 1.94 MHz. Convert them with the rate of the
+>   clock in use. At 2.048 MHz the delays do not change.
+> 
+> The clock lookup was seen to fail on a Raspberry Pi 4, with a
+> fixed-clock in the device tree. The power-up order was found by review
+> and reproduced on an emulated device only. The decode time was found
+> with an emulated device; it is not seen on hardware running at
+> 2.048 MHz.
 
-Sorry for the slow reply. I spent some time going through the tuning
-path against the eMMC specification before answering.
+...
 
-On 09-10-2026 07:44, tze.yee.ng@altera.com wrote:
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
->
-> On SD6HC the first command after tuning may be an R1b busy command (e.g.
-> the HS200->HS CMD6 during HS400 selection) that can time out on some eMMC
-> unless the PHY is given a brief settle after the final tap and DLL
-> re-lock.
->
-> Add a single 5 to 5.5 ms settle at the end of the SD6HC tuning path,
-> after the winning tap is applied, rather than on every set_tune_val()
-> call in the scan.
->
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-> ---
-> Changes in v2:
-> - Moved the 5ms PHY settle out of the per-tap tuning loop to a single
->    settle after the winning tap, on the success path only.
->    (Adrian Hunter, Tanmay Kathpalia)
-> - Rewrote the comment to explain this specific call site.
->    (Tanmay Kathpalia)
-> ---
->   drivers/mmc/host/sdhci-cadence-core.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/mmc/host/sdhci-cadence-core.c b/drivers/mmc/host/sdhci-cadence-core.c
-> index 745455743b01..c25b235ee909 100644
-> --- a/drivers/mmc/host/sdhci-cadence-core.c
-> +++ b/drivers/mmc/host/sdhci-cadence-core.c
-> @@ -7,6 +7,7 @@
->   
->   #include <linux/bitfield.h>
->   #include <linux/bits.h>
-> +#include <linux/delay.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/iopoll.h>
->   #include <linux/module.h>
-> @@ -352,8 +353,11 @@ static int sdhci_cdns_execute_tuning(struct sdhci_host *host, u32 opcode)
->   		return ret;
->   
->   	/* Block gap tuning is only required for SD4HC, not for SD6HC */
-> -	if (host->version >= SDHCI_SPEC_420)
-> +	if (host->version >= SDHCI_SPEC_420) {
-> +		/* Let the PHY settle after the final tap and DLL re-lock. */
-> +		usleep_range(5000, 5500);
->   		return 0;
-> +	}
->   
+> +	clk_rate = priv->clk ? clk_get_rate(priv->clk) : 0;
 
-Every scan step re-locks the DLL and immediately issues CMD21, which
-carries an R1 response on the CMD line, with no delay. The eMMC
-specification moves the card to the Data state for CMD21 and treats
-any command issued from that state as illegal. If a tap fails with a
-command error, the card can remain in the Data state, so the next
-command - the CMD6 that mmc_select_hs400() sends straight after
-tuning gets no response and the host reports a response timeout.
+Why this conditional?
 
-Adrian added mmc_abort_tuning() in commit e711f0309109 ("mmc: mmc:
-Introduce mmc_abort_tuning()") for exactly this case: a timed-out
-tuning command can leave the card still processing it, and the eMMC
-specification allows CMD12 to stop CMD21.
+> +	if (!clk_rate)
+> +		clk_rate = ADS1298_CLK_RATE_HZ;
+> +	priv->clk_rate = clk_rate;
 
-This also fits with your report that SD SDR104 never fails: CMD12
-isn't defined for CMD19, which is why mmc_send_abort_tuning() is a
-no-op for it. So this theory is consistent with the SD/eMMC split
-you observed.
+...
 
-I'll test aborting each CMD21 that fails with a command error, and
-also a single abort after tuning completes, to see whether that
-removes the CMD6 failure. If you can test the same, that would help.
-I would prefer that fix over an unconditional sleep.
+> +	/* Power-on reset time, counted from when the clock is valid */
+> +	msleep(DIV_ROUND_UP(ADS1298_TPOR_CLOCKS * MILLI, clk_rate));
 
-Regards,
-Tanmay
+Do you mean MSEC_PER_SEC?
+
+...
+
+> +	priv->rdata_xfer.delay.value = ads1298_clocks_to_usecs(priv,
+> +							       ADS1298_DECODE_CLOCKS);
+
+Indent it as
+
+	priv->rdata_xfer.delay.value =
+		ads1298_clocks_to_usecs(priv, ADS1298_DECODE_CLOCKS);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
