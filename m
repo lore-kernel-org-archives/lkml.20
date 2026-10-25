@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792889282;
-	b=vH07gvCwjsUlRYSjb8s8QRAWj+E7Bit/GMa0YDql3Nq3FKzIcv74hIS2UTR6Ioa7PWZy
-	 EFcIyGpz8p0I07R8mKjpb5K54r4BNEFjnD+mqcxy2Y//rkyOyKuYaJiGNIwo5a4LuJng8
-	 wZmCk0KtgoQlSmd8Paq+OPeZj/jh19OBirba6HjA+/IThZ5HN94MNHouPeIoaL4rB3n1D
-	 3tvs2ZBKBc/rT0YK2x2+u/PLYgjz1aAnBpnlYI5aNAJUpP3IYm1grDuWHNfdvJmjxnzSd
-	 dQocY7z0/cuPCgb5YFoU5bpEueY/sUFG6k2+WnQis+H9aEZlzxUpbBhfFKubXbt5BUA==
+	t=1792889581;
+	b=sxWdamG+u5BGJhOFOQPM2EYrvYRGNp60cq3DrNs8BdLQU9uVXvKArLJ1ITnRSXH0ki9p
+	 Lt1OiqBUO9PWZMfw3gxmEDHaW8U+QjaEmmZU54Z8Y5uqMf8oB27qlS+QGi0JBgtk9AiCs
+	 VmgKRF+U8s8IOHEYHTNt2IGhlF7KvaiKBArI//D/06a8ATI0milBoYGZw98KAQJR0+I2v
+	 x1/lYxlEjhSZUOgQeIIsnXkU0B8ICW+9UJttTO1MwZOsV/T2MrRMTAR/gylWGjOlYDljE
+	 HZ658/vXifFFcgK1jnjQVYt50yIiikHcp7n4dCdN5jhR/h+oyemBRBfmPLNZUVKkcRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792889282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DfLsQ+L49XY146PqWuFFz/wd7R+ne08otmYizj5jKak=;
-	b=QCv47KE1+dwY7Af4KGzG4r8zUESMlpd0OZp3PNiwcTROr0xBzkwsLitDUwD5/Q00qnvr
-	 k169OynQMqhoIQM+RyH+FobQpCJmh3zjwo52uxUz8h71vwGZ8wygfC3DHlu+T+N4QKxVR
-	 bzHRKJ+qosCe40Wx5iIudoVRkQge+mZVC0gedMHSjMlnieGK/K+gzW2VR/zXiMdXKh1KG
-	 Ck++0FbdOjx+T1dDYctiwugKfBOB4a7gcGjAfm3XCE6hOmWmMOa2ksJcI9npXBYlFdimf
-	 lptmJxCU+NOpSsS5KfNiyYWxGr59I4G7ZohMcubgpJJwW2r/S4CMEhjO8bJKSpv5GNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792889581;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=YaX+sI/DwNoBwPQgjA/5L3YFRe1IIDktH8yT6+Oi2iM=;
+	b=4VjmP/sKFytA+Qe1yPPvt4FkyGgN797Z0Vw7a9lcFaHu4nLE9wG1QeuUS1jWwd9Xhulg
+	 NPevFzJD1K4Um+Da9EbMlOW4ke9/rDbMB6gEk/ZFZwsa6y0x3ANQcQ8vunWU/46hCraM4
+	 onDqgdZFPsrymnheiUQO0vGwllCbveJgIaexQXK+3xwzAJPASnTFG55J+PIiM9sLycQI/
+	 Q3pFjS83ikETm/bysu0BC2lQjFp0sUV+pOHsm1KhK5rCrdLITqFcJpxhdfpWHdR8WvoMQ
+	 fgQDtySHhq34srRgvTcWuvHfgIgpCamVffNxP3A3+XypnL/OJhqt4kc/iFw7EkE0m2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="q/K3d3zF";
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=cphf0yPf;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B7B606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B7B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AB0606A31A;
+	Sun, 25 Oct 2026 00:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85AB0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q/K3d3zF
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b28d7c729fso1081634b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:48:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792889281; x=1793494081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DfLsQ+L49XY146PqWuFFz/wd7R+ne08otmYizj5jKak=;
-        b=q/K3d3zFKiavoHS/XaYG7Ffq4unbWYm9iIUGXmi4aRVAf3pbfOyvKPv3sI6A98BemV
-         Yqo3mTGQdO0fIogMzaaYP+uw98wuubOfwCObtP2jTgW9W2sH8uK2wjhkkfHPG4vf7aHe
-         grCYd29OEW3o98UbsvooK/QqOzFJpWOhz+2SMYM/bIG50nDJnhkiPNfxa7ala7GBDjlc
-         W4iukfoZTKSbUApRJuSSeuRFM8zvtYiXDo0wgciBHFuijVtA1Q+a8Y1dF8x67RkyXT7B
-         vZtQsrTMZ5K1nc0NlwUK92qxADOF2X9luaXZRopA4KfPVER4yH+f3yEpSqEGS87LiOX1
-         KgZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792889281; x=1793494081;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DfLsQ+L49XY146PqWuFFz/wd7R+ne08otmYizj5jKak=;
-        b=X4YQ14GhAIZ8Gdxf06yapObNXYoQm8zpbB16VuhLwSTb/P9trYkZeos672phQJ1sJh
-         UAtoPsbaEDLzKE3VTho7xUcA7DyyNc3nBenhenZiHGQJJkXlZUUb6S1p3D5EVm26CtgP
-         +vKBk2BfpTJmc83Om2ZED+7/Ixm1+5PjsiPiKCZi4noJXQL6PCI0zkCCfGndy31Pcqpf
-         RqOti+ykeMm/yjeQrr0deeFSfbSTnT6F5ozy+eD0iHeP/DazwP0fsFr1U1M5CYKMOBPy
-         dCms1NxwlXOC3OtgwAhxWQV7WKJ2gAJjpoMUNrjskK/5AjUNoDbpqvKA0+2yg0CQGsP0
-         B24g==
-X-Forwarded-Encrypted: i=1; AKwUvBx5ehSDlwskQVXzQLIqWFLl3YrhlIR1Jb/TDA0iFq8+5arI5FRDFVczuU8Gxc73zbNzeMJB31LhDf9AgUA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfIcYpmhITB6ChRe7EByRocQeg2YF+76FPgb95QArhmRO85pnQ
-	pa+5YocXOjWJToHqSrTVmg9W3EZWR+26SV52iLcKPRc05nwIVbmk1c8D
-X-Gm-Gg: AYBFou29nfSwxa2kgNDXTkRid6WKFukiio4lPUTrUaaUMEuHoCztNp85RdoJTzGjjBx
-	Qq+bdlqE3N5vqLn0zX6pfvga6opvZOQSiylK39YeyEGmma21hVuSiMrk4rsPigaNTcJPdOFh54O
-	v/3d2ukO/dXgQnoHmZEFztfaZbeK55nwS9e4p0sAnAyxi62z2nzOWGpWL5igGj9FwXRU/NLeLLG
-	LN2Lc0+dyVFLFl6JGgfK8TXl7rQZcWFhuegZqfdGDhmnG1vWnQJ0MOh32YCYs+p0eGKnAfXdeYu
-	mJi1xCpKdSAVDztFIrvJfUKAa4M9ed4c84w+2ek4cT/kxrC29YemNXvQqDgDVVfcE0/1LA/454D
-	+XFC5zY5leVZewKMM8NF33rSenrlqerNY4dw/o3xqqcI4li6bwlQeSkCwJEIuQe73qzQ5cd6Gmp
-	g0LvwKavXSTpA4cqcXkYvaz2Zkj/QBBs+eIa0MCH0lDtBGQw4/Lp33WEMfyK0MyH2hNW0naCmDa
-	qps55ea9wlzEnAZzkBLfHFip04PMjqMjAUTO7TIKSGL+jBj4UNKQ8E31g6hZVzO4qUi8Q==
-X-Received: by 2002:a05:6808:14d4:b0:4d6:9335:d535 with SMTP id 5614622812f47-55c0041c568mr1889025b6e.66.1792889280865;
-        Sat, 24 Oct 2026 17:48:00 -0700 (PDT)
-Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0429c56asm2315505b6e.9.2026.10.24.17.47.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 17:47:58 -0700 (PDT)
-From: Leizhen Zhang <lzsx618@gmail.com>
-To: rostedt@goodmis.org
-Cc: Leizhen Zhang <lzsx618@gmail.com>,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracepoint-update: bound section names by the section name table
-Date: Sat, 24 Oct 2026 19:47:49 -0500
-Message-Id: <20261025004749.432830-1-lzsx618@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019095302.5a4aa377@gandalf.local.home>
-References: <20261019095302.5a4aa377@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=cphf0yPf
+Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 7DBCE1210A2;
+	Sat, 24 Oct 2026 21:52:54 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1792889574;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YaX+sI/DwNoBwPQgjA/5L3YFRe1IIDktH8yT6+Oi2iM=;
+	b=cphf0yPf8RbIafHVAg+S1iJpsvoahdXOXXbVfuIa+1u911K4FJ7IEyEH7thFTlQOdiaypx
+	lC1MxCL6+rFs7LWsQM1pyNqIha1d7T1Z4x6Dad7Lmlsp/qC0FHngHPxfvDB3SAi00n2X4u
+	JVrBj90Mxu5pe2ysVo9umON4oF5bIC7RinUYyTe/LIaidAE8wDTi8aglCZHx5dLqGwkJoj
+	zl/yEvwH0lvam9WgHcW2Wh+R0hrYVEudciHly7a3Z2s0F/FYLg0P6B2xKkMHCsHrckuV6f
+	eZ6BZgbVEjjfG8412iy5UNoBx8XMRGdKTLKi5krAx8yz/H1O233U9QXthhScbw==
+Date: Sat, 24 Oct 2026 21:52:45 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
+Message-ID: <at1Rz0hY0BkT9HH-@DESKTOP-PJTTJ93.localdomain>
+References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
+ <20261024172458.48c825a7a36a3802313a0ed3@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,29 +64,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024172458.48c825a7a36a3802313a0ed3@linux-foundation.org>
 
-On Sun, 19 Oct 2026 09:53:02 -0400 Steven Rostedt <rostedt@goodmis.org> wrote:
-> This is not a fix. This is just passing a corrupt object file into the
-> build tooling and showing that it fails.
+On Sat, Oct 24, 2026 at 05:24:58PM -0700, Andrew Morton wrote:
+>On Wed, 21 Oct 2026 13:21:04 -0300 Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> wrote:
 >
-> Show me that this can be triggered by a legitimate object file and then I
-> would consider it. Otherwise, you are chasing made up bugs.
+>> The current fat_write_failed() implementation calls into
+>> fat_truncate_blocks() without holding truncate_lock. Make it so it is
+>> held exclusive while truncating.
+>> 
+>> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
+>> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>
+>Thanks.  My AI reviewbot said:
+>
+>: Please expand the changelog to describe the failed/short extending write
+>: racing with FIBMAP. The mapper uses i_blocks, so it can walk beyond i_size
+>: while fat_write_failed() is cutting that part of the chain. That can
+>: produce a bogus "request beyond EOF" error and make the filesystem
+>: read-only with the default error policy.
+>: 
+>: Also, please change the Fixes attribution to 16fab2015099:
+>: "fat: permit to return phy block number by fibmap in fallocated region".
+>: That introduced the beyond-EOF FIBMAP lookup. Before it, the lookup was
+>: bounded by i_size, so the removed clusters were outside its range.
+>: 459f6ed3b8c7 introduced the helper, but not this failure mechanism.
+>: 
+>: I don't see a need to move the lock above truncate_pagecache(). Ordinary
+>: reads are bounded by i_size, and the cluster containing the partial EOF
+>: block is retained. FIBMAP is the case which needs this exclusion.
+>: 
+>: This looks like a stable candidate once validated and merged upstream.
+>: Please consider adding Cc: stable@vger.kernel.org. I checked the source
+>: and a reduced TLA+ model, but haven't built or runtime-tested the patch.
+>
+>So I made some changes and ended up with the below.  Please check.
+>
+>From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>Subject: fat: hold truncate_lock in fat_write_failed()
+>Date: Wed, 21 Oct 2026 13:21:04 -0300
+>
+>The current fat_write_failed() implementation calls into
+>fat_truncate_blocks() without holding truncate_lock.
+>
+>A failed or short extending write racing with FIBMAP can spuriously make a
+>FAT filesystem read-only.  FIBMAP bounds its lookup by i_blocks, so it can
+>walk allocated clusters beyond i_size while fat_write_failed() is removing
+>them.  If the chain is shortened during the walk, the mapper can report a
+>bogus "request beyond EOF" error, triggering the default read-only error
+>policy.  Hold truncate_lock for write around the block cleanup to
+>serialize it with _fat_bmap().
+>
+>For comparison, fat_setattr() correctly holds truncate_lock during
+>truncation:
+>
+>	down_write(&MSDOS_I(inode)->truncate_lock);
+>	truncate_setsize(inode, attr->ia_size);
+>	fat_truncate_blocks(inode, attr->ia_size);
+>	up_write(&MSDOS_I(inode)->truncate_lock);
+>
+>Make it so ->truncate_lock is held exclusive while truncating.
+>
+>Link: https://lore.kernel.org/20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br
+>Fixes: 16fab2015099 ("fat: permit to return phy block number by fibmap in fallocated region")
+>Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
+>Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+>Cc: Pedro Falcato <pfalcato@suse.de>
+>Cc: <stable@vger.kernel.org>
+>---
+>
+> fs/fat/inode.c |    2 ++
+> 1 file changed, 2 insertions(+)
+>
+>--- a/fs/fat/inode.c~fat-hold-truncate_lock-in-fat_write_failed
+>+++ a/fs/fat/inode.c
+>@@ -217,7 +217,9 @@ static void fat_write_failed(struct addr
+> 
+> 	if (to > inode->i_size) {
+> 		truncate_pagecache(inode, inode->i_size);
+>+		down_write(&MSDOS_I(inode)->truncate_lock);
+> 		fat_truncate_blocks(inode, inode->i_size);
+>+		up_write(&MSDOS_I(inode)->truncate_lock);
+> 	}
+> }
+> 
+>_
+>
 
-I cannot, so I am withdrawing it.
+Looks good to me.
 
-The only way I reached that strcmp() was by writing 0x7ffffff0 into sh_name
-myself. I have no case where a compiler, assembler or linker produces an
-object whose sh_name points outside the name table, and I could not construct
-one from a truncated or interrupted build either -- a short .o fails earlier
-and differently. Without that, this is a check against a file that cannot get
-there, which is the "made up bug" you are describing.
-
-Please drop it. The same applies to the sorttable patch I sent alongside it
-(same shape, same hand-edited reproducer); I am withdrawing that one too and
-have said so in the cover-letter thread.
-
-For what it is worth, the one thing in this round that does not depend on a
-corrupt file is the undefined shift on e_type, which you were fine with, so I
-am sending only that as v2 and nothing else.
+Thanks,
+Matheus.
