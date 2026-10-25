@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792944532;
-	b=UDPW+Is94y34E1qYo/371w/7ySB3dT09T9o79zY3sPaSuR5JOg2JAjTQrpN2CjL/MMsq
-	 ZkHw5zI5ydxomXkBoOTzSKzwWPKtd0FrDwpBX1Q+n9hk+NgxcqfPOYIaKow0iz9VDfFzA
-	 fzQsRYSADuIfzYhgX4FDwV1wSCpsjrGDsuDZ4E2mvKeuHiDJ/6k93MCp2GBNXJGv17J0X
-	 wqSfX9JmWKDbN6d1tkrgz7kspVYrjZXhXOmwn5Aytahz8YsddS5VWX1Ko1WVY92bt92Jq
-	 3Pj15H3mAWFJKj6B1HNuqpe1MbbAT8dMl538rrNQRGy45S6ICxQqsjHN1c6eNJKSKTA==
+	t=1792944626;
+	b=nR2HBspAlkvagH5WcwUutSftaqoHRjsfYSe2PULwpdgAVIiQ60itnUXyva5eP11QY61v
+	 XB2T+kYbf9ATqM6wAOB4tqCoH0QGCbGjzUYEr+M3J9mtOBZdFVP5WbfzM+F447dB4aSsZ
+	 jmX7QcuKwaOYDdiw/5R0Yvhkk1aQm3Hh4DQgvYD2sDF8zYfqDwjB4gdHkrzy45n4GARXT
+	 98OEKnWoCVQFhcw3bG2B6D+jbrGbx8LJBNffh7gA3fuqw5xS13AKL1zgKMAAcCuZdXUnr
+	 BZmjjFnwZETS8OO6CY4Wokuv5JSihxaHlbCoOZ8tNB3DMlry8drY2jqmGoSgFUzKWqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792944532;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792944626;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5bsFb1VGF6oWmE/SaHObYdwjauVdSsHZobYqpgFT4fg=;
-	b=uFs7CuVCA+774DqKyNujQhu8TZD58mJ97NVh/5/3IZFgX/eynpCBHO32YSceFtUQq0rO
-	 sEJ6+4eR3lrVR5473ZurJjm54s7ffGCTVQfhDCm3qxVE9TFMlIKyb4D9IOIqBa+/1A9qk
-	 GLBR9UkD+l5FTpZqxckWsvX2vbrYshJ6RojhCDvBVAS/+rkh6EjNcXTr5quLTLGCxYO9p
-	 10oSfAwNHK6NOeWOkSq5D6RmRWJ18D17m+LWw4PHa9rjbeF88FDzdZLNaMgaWp2vhLsr+
-	 6CnC8RPh7nQzgMkia6VrdYLPrcala5zdPrzPRwhbhSiJTr9599TXEYhiW+6Yluf3ckg==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=kI8AZKbkyFQDh3fWe2Ucjc2rZL7S/+hpSffclpLVllg=;
+	b=ZRXSQDobbgyQgg5DyX4lmw2UjaRylAn9tB2+r4VzpQCTfqjKw+q6Av/V+0HwM+PuO/RF
+	 h0U7PfZtWgyFZh7jFVw+JwMxuWjQg6eNouOR1pG47UO7+vuJBjNM428oqaLN/bYog9qEB
+	 AO8beqNNsE/fc+hb1c3g+C/EtuLJGdv0dJKTQGyqIlO9CtuzQJuA/3HmRbing9Xrz6820
+	 +USh0zFJ/r2BudJLCo1os1cfCNFjfx6AQQeK/rh9HXr+cfwemiDNlVoQ8LjGqX2Y2BkGE
+	 4V2I4Z7gD6AKutvBu8P9eYlpeb6HDob4Kry8dGeQA7sQ8BgAI6kR0C30/F34fZ3Wtqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=exSmZb4+;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qYpad43G;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C662606A33F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C662606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343D6606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 343D6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=exSmZb4+
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-157fe9d771bso2722943c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:08:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qYpad43G
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1272815f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792944531; x=1793549331; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5bsFb1VGF6oWmE/SaHObYdwjauVdSsHZobYqpgFT4fg=;
-        b=exSmZb4+Kw/kxqqpDCYdKTZy7cTyRv6ROKOOKXPRoAjBll5aml/FiU0qd78qRCr46V
-         hBvBAKzCyQEe0CPsezteuFWs4H4TuL2+Irsy0SMiU2CdIdj5H7t8AP40PnczFjz106CB
-         giwqCpQlfq1Om6b93qLEUlrD1/rpW689+tbjhKX/4zRmFh/GGLGGexJu4W6dicjNBD98
-         j2QcTlfLMjcHDbKuMcUB0qtl0oxYTiZ4TVj8O+YFoVRGkLAsuyVVY+gXN+BLxeHCm2rr
-         0wKTiwU/+z3WB74m3g0erDteWlyV5jX4hcDrNRDsFvZa6qjEN7Cf3o5N6MmlI2Riy51t
-         DM0w==
+        d=gmail.com; s=20251104; t=1792944625; x=1793549425; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kI8AZKbkyFQDh3fWe2Ucjc2rZL7S/+hpSffclpLVllg=;
+        b=qYpad43Gp/uZiEgOdnGtjj0dO9omo54vhgDQNKJjCMZiSRGg710/7z2DhUVP2weDYT
+         HzBE8cndmQ876KcaN2/yw0KAN4B7OkC5BWezW8SwqlxLy2fZ8t2pJnhlHXeEDiOn+5pF
+         jT4fyQ/AN6iE5tI5h28AdqTJSDxBmOxkSUnKUK7+ZOWtw8vbNAPzCJt2ulFSqILwVcOD
+         iqWZF6lnoyhzTgvqPmqDAr85fnoC4P3c4vymDolWoshsScrSpYiTv3znQtbqtPnat7sL
+         SmbQ+2LNm9ij/44/oXz/IP1IlhG3EOxYtSOImLxjwFWrrYhYDw6JzGdr4p5sBVVq9MH/
+         NOKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792944531; x=1793549331;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5bsFb1VGF6oWmE/SaHObYdwjauVdSsHZobYqpgFT4fg=;
-        b=S45mFf0s1oUxUbQa2xrSF0Vl6hHvKe0Drdzo+LGfU1rqOGCK69pvE3s0ChntG6CZra
-         J2nR06MQCBrba0hwLND/m5Ena5mxK0NQJZbG2/rwnaJ3pTLivZ3/o7SwPzT5mbp8tLyP
-         MyaiTy/tvqQFz5gVqQT4tO7g0jiYoLnnXe6zN0v1CJypmQduQJPLGyeAy3GC+6eoeym0
-         gTj1y+vBnAx885uYF8s+P4nnxB3CnBvXsTibyITsgLcoeMJBAiLOpjVxY/iJWbem25Uz
-         B3Kl4quL0sfwvPoZr0oi+JsdLkweTMUq3j+bg/HLAlaP71k7Sq3mBdJbYYfLKYV88vX9
-         grKA==
-X-Forwarded-Encrypted: i=1; AKwUvBw67ug4o/H9JEF+JXYwQITQXSxrLuhz6VaIY+yd9NTvjJSHamxVx6m9qsqhuUAdm0NM7KvFAUvokd5qOzA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXrDWlOPKALKAfkH9tBXkL7itV0Qu1QlSd1X/dFbR1bxu/Uln1
-	RYkC9y4vMhVuFoNjT/+H4o4d53kX8qp8z1zsREF28yi7rRy9yR6tGqGX
-X-Gm-Gg: AYBFou0fSx1R5as2J0bXMxqPud0E19f074SE101LzCav/d2uiMYK9jDxMM/a2G5lpUO
-	OMjlYk8QK1PLhRA2CDI54z2/2flqc1tluBstbjH2Qa0v/1zsBx/EX9KhlECbrVeziej35E45jUt
-	T+0o4t6D9JDYtA7TPnqc7742Uq+TkUUw09bpcls1Rvx/OVgxTmvYRY5RvpTpC0zWj6Td+eEp9h6
-	sIv9SuwRFlUAeV3lR+hCoZSUdrzLOk9k5ikfJxGKlEyDoAPPNfRpBYtpyPWAR9aios/fxB1hWUc
-	r+GtM/iN97Ps7eEDUXkmz1nx6rezbATibFhvSl3tFNRaOXDRsesVJacTNuOLSET4a41CiOqji7l
-	1z0GnzBpBDjS0hfG6bAZ7kU7tceq4fnmkehpzJ9Il/xbzhZZD61exMwIPgVrAb2CHQjrq/CQrNP
-	2MVj6Bn93P02N7SYTPwTB4ORjI1/ABm0ArZnVBeNFIZfaPX17pKKNUgQX2enslbSOZu7+8hObpA
-	wviztrgUTOJ7bx1r2Yp4LF2x2jJm0ygKQrpIGCnx78fKqOApqNCmHEBK3VtzzaQvAZsXd+btI4/
-	X0NQPqcsl1QGvcQObwi8
-X-Received: by 2002:a05:7022:1087:b0:17d:7b45:f905 with SMTP id a92af1059eb24-19937025befmr6506534c88.31.1792944531413;
-        Sun, 25 Oct 2026 09:08:51 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.166])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm16330421c88.3.2026.10.25.09.08.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:08:51 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] selftests/net: test network sysctl extremes
-Date: Sun, 25 Oct 2026 21:39:27 +0530
-Message-ID: <20261025160927.3934600-2-sahaj123.sc@gmail.com>
-In-Reply-To: <atXJLy6iTh5vbe9D@fedora>
-References: <20261014041446.2821085-1-sahaj123.sc@gmail.com> <atXJLy6iTh5vbe9D@fedora>
+        d=1e100.net; s=20260707; t=1792944625; x=1793549425;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kI8AZKbkyFQDh3fWe2Ucjc2rZL7S/+hpSffclpLVllg=;
+        b=2tmmDvogP6FnhZXpOt5y0wpXyy9AFn/It84blDqNhhztWEtwIi52ZVWsHVVdQwgb63
+         Ylb9LJTZRB44PR3wznWbz2oUE/nNN4oGJyeyE0AUiiXc2Tn5n9ReLvlXdcZNmuDB5Je3
+         Wz5BM8nmVysVDoaqrV+9XyCygZo6zp57vFdZCtTMRZkYJt3/akW5BLtMKq3rDKHuqZFt
+         1ZkaUZ78/xZ64CDdrGtE1dUG6Gbl6WFXsakXuKl9cXQQrGD5R5WAqaOv8TUMiGLhMJoy
+         Esjtwhe/BA1DelAGsFU+S72Nmf1ADFyLhH46cQEYuFEenuw5IGPcEWtWlm2/Q3qpxKT6
+         ajDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz71q8mBDdklZWWKnYXroFVjt6J1j/wl3Xq6F67mY2eawiy8Lg3jVKlWwVEc0J40ziZ1kyuaom9csSQ8og=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXZbDreTrylkb669AU0S+xdF3BQqR/l8UQWLkp7xwKSy3p5wpD
+	tkdCGX6BZSm1SlwCuseRlC2ngVaSrTfngRfzGvFa0P6Orwz88sy4S3Al
+X-Gm-Gg: AYBFou3RYBfg8o0smjJKrJgUf/BOJhfp0cQxneonju5HL9dUo5D8dP7WP/7cb6Cq4qB
+	RzZsmgtmiupZlFu/rDno1noAt4wNEw3wOIfSawZQAdqMybuoyNkLc6EPuVzqTOXmnyvQ6X5JY51
+	Y//ILGz+nNFKkSW7hXa9vAWT4Yy7xJ6dYz5Ea1yH9rr7IkwUhh94vd7W/hi5gmWPUrVapoAkkr9
+	xq5orG/wFOtpKdJ/1REAVB6SrDJWgz/n80+bBPXoNeWfZYnWyKXiDnAc0vSD6lVjmhPaSs0Oyfy
+	O7zrRz6w/Lon2Troj+Kth/bqZgTosom8HybVCVIXZdO62AgN9CssjnarTvVamN0VEpT+sdl4ikL
+	d/W9GxAEsOypLdgrKetR8anGCG0SPSjCN4JmJqi8kSl1XPrLdyxhjnpBlcwvOgAQBg3ZNqlE6GS
+	9I6UcgsevIZTdZrz5c0W3TqE7XS51OASWIGQ1jyJGJVO2lviNG6zs+0RW/upCSA9COKHd1zz7/D
+	X3d3IzE8kv0s10g1BShnmEZVlQAiNcQNGf+xqN4ptQA25d1ABDNCAv6nxFOv/il
+X-Received: by 2002:a05:6000:2384:b0:488:7df9:3898 with SMTP id ffacd0b85a97d-48e3eba06efmr8344636f8f.56.1792944624393;
+        Sun, 25 Oct 2026 09:10:24 -0700 (PDT)
+Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm13019486f8f.44.2026.10.25.09.10.23
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Sun, 25 Oct 2026 09:10:24 -0700 (PDT)
+Date: Sun, 25 Oct 2026 17:10:19 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: IgorpetinDev <igorpetindev@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, Oliver Neukum
+ <oneukum@suse.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <20261025171019.49c9a66f.michal.pecio@gmail.com>
+In-Reply-To: <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+	<20261024155614.2732-1-igorpetindev@gmail.com>
+	<20261025000643.425c57ca.michal.pecio@gmail.com>
+	<CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+	<76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,22 +103,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Hangbin,
+On Sun, 25 Oct 2026 11:16:59 -0400, Alan Stern wrote:
+> > > > +      * Even though all URBs have been given back,  
+> > >
+> > > but does anyone actually believe this here?
+> > >
+> > > Hundreds of drivers written over three decades, often
+> > > without linux-usb review. I don't trust them at all.  
+> 
+> If it's not true, there's likely to be trouble when the completion 
+> handler is called.  We could forcibly remove any remaining URBs from
+> the lists before flushing the work item and just leak them (with a
+> warning of some sort -- ideally, one that prints out the names of the
+> completion handler routines for the leaked URBs, if at all possible).
 
-Thanks for asking. C was a choice, not a requirement; I agree shell is
-clearer for simple sysctl toggles. This test also searches accepted bounds
-for each value in a sysctl vector, verifies writes, restores the original
-vector, exercises loopback, and checks kernel log records. I chose C to
-make the numeric and error handling explicit. My shell prototype was
-unreliable in QEMU when parsing the vectors and reading /dev/kmsg; I don't
-mean that shell could not be made to handle those cases.
+But you are now talking about developing a whole new feature of
+unclear usefulness (will anyone pay attention to those logs?),
+while my suggestion is merely a small tweak which costs nothing
+and makes no functional difference under normal circumstances,
+but reduces severity of hypothetical failures.
 
-I've narrowed the test to tcp_rmem and tcp_wmem; UDP is now only a
-transport smoke check. I recognize the C implementation is sizeable, so
-if you think that complexity isn't warranted for this coverage, I'm open
-to simplifying or folding the test into an existing one.
-
-Thanks,
-Sahaj
+Regards,
+Michal
