@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792899874;
-	b=cUE6d2Cz/lQ/Bdgugl2gr5ez2Jh6knxkJmtxKEq4nXGoCzFYWHkbaDLTgyUupom2es29
-	 gOhgomkO/LkCp8Y7sgWT4u1wtABlPCApJqDfo8ni7cN3ihAvOSjvYjF6LNjSgJgRaNsZr
-	 TVU8c7LaF5DALwXQflcjVCwiSfDyNWGkh2Fw6mxlcH5YiAVmF3XHonEb1c+hAd5GyzfvC
-	 PTYTZ4bGFktNwlHFpZg3ePifFnWlrxVnT0Mje198iCU3RpNpnLzIgOLP0u3wLBUtSqq06
-	 q/soriZq4+VbsnVSrVl/3o2jNvsvp4NwtlRFjBOS4K87+mauP9H5TdhFnqgViZVLXng==
+	t=1792900131;
+	b=xuvWuFEjbu5cOQVdBmK0KWwB3a+b4ev3300KOYA2Cd/CbM8EJYSStQIk8W+oxVe8BVUC
+	 1fxehrH/qs85yZ+pDILm/OiHr5GuOBTahzuH1k3YjrsH9m4xTnwdoO6ini7PVhvwehhVK
+	 Fe3xiwuLla3KiKD2fJDb+B39LmUtKkTH50hOpDs1QdE8W+JNyoQRYPjNTtkwuYv9siSpx
+	 upO8oVMHxnrRBHqThEb/E8ivyQQ/OjhJqZODMJnY8WgEh0JT1EMFluBdv6lG/CnkrHqoy
+	 /kD0eMFzYMT5SJ5qxa0crkAssSk4dc5yLMgcMPYR1lBcXns6aLdOudyZyN0c7wG255A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792899874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792900131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LFDK+1ulkRfFlkLwBfdTjH+FHi2P6fwT2yU7wsIpXvs=;
-	b=YcsBdGYagg40Ss+LRQ3oDGx0Kjo1s/1HWG3/tTrh41jJt2kTzi0l0I0N0B27XJ/4yebb
-	 X1c7+S//rq9tGJrCRvbOpwgFnHknFP0ETM37CvWRl+/oQ7l5+PFh9eMaJkvvIS7J1phAp
-	 AXRb2Cx+Eq1eXt26AuIO+h/6OPnFcB4KZF9lg84UfSbDaxWTEsG9eLCKOHR9wKyYDEbyN
-	 NRsINC6XNTbrtw71+H16rj61t3vyW1XWUOWB06KoGel6y9iem8XnortIyV9H3ZoZTa/KF
-	 PonHpKTXQ9PAuQCVIpgr0PAxjXG7ruKX69ilainB14mqg1VXp8YDKyrZ41W1nU0pgdw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LNVC/Q79iURelaMNO6LKar36XQUrN2NnF/HDD9huQKk=;
+	b=3bWvzflGSBLK2awWy+LNUreRUg27rBZx20fMMF9iUiyRqFrqTr2hTzhDi9LY3WZOyxSk
+	 zmv78ELngfq4BD2R3L4u9xaDUOB8pPnsVL91djHus9K2j2ZYqTg+36ChZ8/GnteYHZukd
+	 Sl07wz7qhgnQWW1a3ASaP8KdIOygCEoGx+W+f/Enbp2rww/Xll2Amxush8/FEkb7F7/S1
+	 mNdoIn7yUT7ioRExWg0OYbwyq6fA4ypH55tbs/GCg1+UWpmmjoYEKOoym1UWvz2cib0vJ
+	 R45k9fGB7eYLLxWKG5UwctREiDjIQM+b1X0u5lXlXSkc4T8HsVl0wssUTLhhNWTuYdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=0x0f.com;
-	spf=pass smtp.mailfrom=0x0f.com;
-	dkim=pass header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=Vw2qb8eu;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KZ91zmuh;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A5F606A32F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3A5F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372B2606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:48:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372B2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=Vw2qb8eu
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e9eb579c0eso10514465ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:44:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KZ91zmuh
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so3053247eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0x0f.com; s=google; t=1792899873; x=1793504673; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792900130; x=1793504930; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LFDK+1ulkRfFlkLwBfdTjH+FHi2P6fwT2yU7wsIpXvs=;
-        b=Vw2qb8euRlJUMv45mYZE9Io8oRd7Avf9nw74WzUdB1H/4vBSaXMrLJjfphc9q+wfya
-         sFdmWtZ/ZANGnObXe/kZiRxWie0Cl/PvMqqXrmKT5CJTBND1p83Pn/55Zi35T1UF+BO5
-         5qPNXgM7l/OmB84SlIpdL5CnFJL+Sf8LtUmF8=
+        bh=LNVC/Q79iURelaMNO6LKar36XQUrN2NnF/HDD9huQKk=;
+        b=KZ91zmuhv7KcEEx8gUY7lKMO2jtzeTsCxr/YAB/rmCeOKn/fE5z8mZpNLxXIToBsgr
+         A52hGW5THyW8Z1ijoRSs+xe+TPG2Kki4StiNWqY9Ygo8fqMUcO14OMbVxCF6NjrqeNOp
+         GkyVDhm98fcWMW3CcarGsTDtR3k3icfa1Utfy1mVolpt2V7RfH3Z0xmmGGBaxSY5gWkR
+         7ai6RMlBajQcYZc3sh8etBY8AQ4cwAjt2GxsH4w9TMtDLIjqac1pa/VTbpdL2vO24OQR
+         Ze+dQagMNm99++dRbbrLCgvOBUAkUNQyTehCxi2zZBmtBcdmnSZi/DeawX4PsEoKRqOG
+         4HDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792899873; x=1793504673;
+        d=1e100.net; s=20260707; t=1792900130; x=1793504930;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LFDK+1ulkRfFlkLwBfdTjH+FHi2P6fwT2yU7wsIpXvs=;
-        b=p5aXuAjCpThh4x8avX47ZdXoSSi+zSxaQsFuJbrKFNVQzH47Mgex6Jd7GtT1zpwisw
-         kpYavPpVc312fmC1d9iyjCFOIwmvarEcmdqdJSq5fqIBp8PDavXY/PMpNQOKdGa1p2uU
-         iNyJMdd/HH8RwgGqgxItXGRVQcOdi7WtniB4UE8IoqsXOS5A6srpgWCRsKtY5dC6Ys4H
-         3rSG7QdnDBp1lvL71btBZi1C5VjtRUelPEYICom1pAMDtQsx7pTfaAl9HAi+oR6x7jkN
-         CV1p/51sANKOuC/G8psQk2CpznGGAAmZ9TI9rNqqZSy+r+wVUwDilGwkmdjfymMztz6i
-         e+7w==
-X-Gm-Message-State: AFq9FYJvQ7QJ5CfKuEv9Vtj6NeWUHVKgulLVkF5sCaoN8QWvFapVYxff
-	tDTKISRJEEgsmkcrs7Bl4Vr+/DagPZoqtNsXZv9B+tCGMTFVLlViLVBqy9Nj3ep3D2U=
-X-Gm-Gg: AYBFou07uz0mzh5CxUkzutvNhqd/1hnP6aLCLySsRntGBt52Es7VwOSE4NKppjF3cux
-	Xt2OKT9KuVdTCNAWRshjDI3t5WHHKohMSzSZGibi+dHaF2esPBsZqfTJcLasGnl5iwrjp1KQcgz
-	b+mSiaAFTn9ctZxrjq8Rz5E5Ss5frV5SW28tVpu3TNGXLZEZRoH5cZ44Rwf5cK7zSEzUa1C+pmd
-	EnC34l6ZBAj0pqEqLApv/7l4ugoeFwmSAi1Ahh7qUmpmKTD2Ii4dJsvnC6pILJG132we4F8P2hx
-	hgEcG2hSXuJxgsIJm359vMFr0AI8LO8QEG3sjwv7R4IfBdHdf+PjKopT18XLSCcZBXbcngcl9HG
-	Hka/9KgzE/MdrSt4vxEP6Z0BxNYFgFOJDCwHe8Lic64N8HYY3XUwv/MiQSJkf7RtSpspM1rMuil
-	n2cPvzKuWhQ0jvAxlL6esTj2fAoxYGrx0dU5BoaF5/ygmnrUFWm44FbGiUx7j5mZd9ten9MwBDl
-	JCAzFZDBA8H9+qa7YmtbbWVKY6p3qz+4JoJj9QBrlGF60ThUTNK0bj0GAkJQ/bGx4WW6iqZKVgn
-	at/wnMi5njQr4lU3FM4=
-X-Received: by 2002:a17:90b:4b05:b0:3ac:86a0:5764 with SMTP id 98e67ed59e1d1-3adeb197eafmr2837181a91.64.1792899873454;
-        Sat, 24 Oct 2026 20:44:33 -0700 (PDT)
-Received: from shiro (p1469046-ipxg00b01sizuokaden.shizuoka.ocn.ne.jp. [153.223.97.46])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3adebe8f0b2sm4181927a91.8.2026.10.24.20.44.30
+        bh=LNVC/Q79iURelaMNO6LKar36XQUrN2NnF/HDD9huQKk=;
+        b=2uAxR5NT2sSCfWJ1cPhxKC//V57Ho6xGrg3rnokVu1AccyzTnP6wfYkbI+gN7zB+sX
+         Hq7hkcxzNmgb1KIzBuZ7B/pmlO5ben8QCCuCJUMF02R0sIujV8mwLARhu0jIjxtnLnx9
+         FFcHWo4BHL6GoJVgDsCE7LyhXRNOn0ZQqH/Tdf7O4ymToY9szUnVJfjM3mq49jA4SpfH
+         5GMtbL+a/XR7aiDZptqS/tECGAuIv6/3jOmJ/F/1xvXlkeJECV/d4tz5Rl3/wuM+5Ccs
+         72NxrsMAhgl+epwHe2U8Bw29AKLsMgyMxSTBIAqj7Y89arqE97oWYQZtED0fkESKHdPN
+         5vHw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwqyMmy8oO45eCrt4CUNIdPcRc4gg3KtYm75AwrqCV19KRgwBeG7wr/tP1eelzcw29jQlNVCVYViFR0dQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJh944+fmrySp8+G37uc2db4WPkJBr/kiMGBxOHrbfzSYhqFulz
+	/jkkFYaoXTqVc7uQyZtcKb9RyEeCFryVThd4uQSKm7OZbkCPHbeIPK3rZomO8w==
+X-Gm-Gg: AYBFou0xj9l3fch44Ll13/mjMX1zOxOuFSF0ofnuvi1hI7S391it+v9Skrec+vDKFN1
+	pWAaoXkMRG7p5RJqe9W/UPzXT97AQdoOvw7CDEjxHu2n+bN+hQZYOvZAfeHtfAfvCZ6NJWuDNUi
+	zqeyEM4dDELYjmSSiWhmz0VBm4T0fHTpCRLqZfBPt6Q5RAVzk4grHOExh1H4ehBA85ROLe2hVwi
+	1FI8AeDQ/V1ywXmc7VfJwCmLuD++wIR9DaEDPCdmO2oNRsQohUFHCKD7Kh/OWLNrb3aq5brFh9t
+	AyIsQgNDhu+uo8m99IYIV7+kqFeh5OkUocOxAfvOGsuEO2OPIwpi69ahdB9NdbFSWsUOw1ETfKI
+	MW73caLYWPgk0zk7duucHRfbIsxSgKGWmpYMs3v2+M9K7Fk5/eJn9zA9QgKI99w+GQEN3jYrtUU
+	5122SicrtIrnZLxigsDORLJweZCmfTdlBtK9oR8AvNfW9f6HbkqbE0NiFWODEHKBy4bH/qnnICi
+	jVXhZ0LTcE9GzCOpxdr9kMIhENuO8mEQr3cGO75LcX0hIc7yKkJqGvvyv/nhmTw+iDS/ecjg5l/
+	XAF/
+X-Received: by 2002:a05:693c:4195:20b0:369:535f:4d12 with SMTP id 5a478bee46e88-369e833625amr5936559eec.3.1792900130126;
+        Sat, 24 Oct 2026 20:48:50 -0700 (PDT)
+Received: from localhost.localdomain ([2409:40e2:11e1:8680:3154:5358:731d:7be5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec864fsm14369443eec.24.2026.10.24.20.48.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 20:44:32 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: ysato@users.sourceforge.jp,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	dlemoal@kernel.org,
-	cassel@kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-ide@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@0x0f.com>,
-	Florian Fuchs <fuchsfl@gmail.com>,
-	Colton Pawielski <colton.pawielski@gmail.com>
-Subject: [PATCH v2 2/2] sh: landisk_defconfig: enable PATA_ARTOP for the ATP865
-Date: Sun, 25 Oct 2026 12:44:10 +0900
-Message-ID: <20261025034410.808796-3-daniel@0x0f.com>
+        Sat, 24 Oct 2026 20:48:49 -0700 (PDT)
+From: Sourav Nayak <nonameblank007@gmail.com>
+To: nonameblank007@gmail.com
+Cc: ilpo.jarvinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: [PATCH V2] platform/x86: hp-wmi: fix platform profile values for Victus 15-fb0xxx (8A3D)
+Date: Sun, 25 Oct 2026 09:15:39 +0530
+Message-ID: <20261025034539.4565-1-nonameblank007@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025034410.808796-1-daniel@0x0f.com>
-References: <20261025034410.808796-1-daniel@0x0f.com>
+In-Reply-To: <20261024202658.13149-1-nonameblank007@gmail.com>
+References: <20261024202658.13149-1-nonameblank007@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,33 +100,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The landisk defconfig currently has a similar but incorrect IDE
-driver selected so IDE doesn't work out of the box on the models
-that use a PCI IDE controller.
+Currently Victus 15-fb0xxx (8A3D) takes victus_s_thermal_params,
+which causes it to register as incorrect EC layout while cold boot.
 
-Select the right one.
+- On other hand windows Omen Gaming Hub registers EC offset as 0x95,
+- which is set in driver as HP_OMEN_EC_THERMAL_PROFILE_OFFSET.
+- So, address it by adding victus_s_ec_thermal_params.
 
-Fixes: b7aaf16d10bd ("sh: remove CONFIG_IDE from most defconfig")
-Reviewed-by: Florian Fuchs <fuchsfl@gmail.com>
-Tested-by: Colton Pawielski <colton.pawielski@gmail.com> # 3x LANDISK
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+- Also perfcontrol modes as performance (0x1), default (0x0), quiet
+(0x3) registers. So, add support for quiet mode.
+
+Also, hp_wmi_fan_speed_max_reset() caused fans to freeze during loads at
+0RPM, introduce a 'if' statement to resolve it by calling hp_wmi_fan_speed_max_set(0),
+and passing platform active again to reactive curves. Test data:
+
+auto/max:
+hp-isa-0000
+Adapter: ISA adapter
+fan1:        5400 RPM
+fan2:        5200 RPM
+
+mannual[255]:
+hp-isa-0000
+Adapter: ISA adapter
+fan1:        5800 RPM
+fan2:        5800 RPM
+
+Tested-by: Sourav Nayak <nonameblank007@gmail.com>
+Signed-off-by: Sourav Nayak <nonameblank007@gmail.com>
 ---
- arch/sh/configs/landisk_defconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/hp/hp-wmi.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/arch/sh/configs/landisk_defconfig b/arch/sh/configs/landisk_defconfig
-index 2b7e10c9acee..6b5ec1f3ad71 100644
---- a/arch/sh/configs/landisk_defconfig
-+++ b/arch/sh/configs/landisk_defconfig
-@@ -28,7 +28,7 @@ CONFIG_BLK_DEV_LOOP=y
- CONFIG_BLK_DEV_RAM=y
- CONFIG_ATA=y
- CONFIG_ATA_GENERIC=y
--CONFIG_PATA_ATP867X=y
-+CONFIG_PATA_ARTOP=y
- CONFIG_SCSI=y
- CONFIG_BLK_DEV_SD=y
- CONFIG_BLK_DEV_SR=y
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 615b4cf6fc45..ee6de96b3280 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -121,6 +121,13 @@ static const struct thermal_profile_params victus_s_thermal_params = {
+ 	.ec_tp_offset	= HP_EC_OFFSET_UNKNOWN,
+ };
+ 
++static const struct thermal_profile_params victus_s_ec_thermal_params = {
++	.performance	= HP_VICTUS_THERMAL_PROFILE_PERFORMANCE,
++	.balanced	= HP_VICTUS_THERMAL_PROFILE_DEFAULT,
++	.low_power	= HP_VICTUS_THERMAL_PROFILE_QUIET,
++	.ec_tp_offset	= HP_OMEN_EC_THERMAL_PROFILE_OFFSET,
++};
++
+ static const struct thermal_profile_params omen_v1_thermal_params = {
+ 	.performance	= HP_OMEN_V1_THERMAL_PROFILE_PERFORMANCE,
+ 	.balanced	= HP_OMEN_V1_THERMAL_PROFILE_DEFAULT,
+@@ -164,6 +171,11 @@ static const struct hp_wmi_board_params victus_s_board_params = {
+ 	.fan_profile		= &victus_s_fan_profile_params,
+ };
+ 
++static const struct hp_wmi_board_params victus_s_ec_board_params = {
++	.thermal_profile	= &victus_s_ec_thermal_params,
++	.fan_profile		= &victus_s_fan_profile_params,
++};
++
+ static const struct hp_wmi_board_params omen_v1_board_params = {
+ 	.thermal_profile	= &omen_v1_thermal_params,
+ 	.fan_profile		= &victus_s_fan_profile_params,
+@@ -245,7 +257,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8A3D") },
+-		.driver_data = (void *)&victus_s_board_params,
++		.driver_data = (void *)&victus_s_ec_board_params,
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8A44") },
+@@ -2121,10 +2133,14 @@ static int platform_profile_victus_s_get_ec(enum platform_profile_option *profil
+ 	 * but logically it should have tp == 0x30 || tp == 0x31, as
+ 	 * corrected by the Omen Gaming Hub on windows. Hence accept both
+ 	 * of these values.
++	 * Since boards like 8A3D write 0x3 to EC offset 0x95 to
++	 * engage quiet mode. Map this to PLATFORM_PROFILE_LOW_POWER.
+ 	 */
+ 	if (tp == victus_s_thermal_params.performance ||
+ 	    tp == omen_v1_thermal_params.performance) {
+ 		*profile = PLATFORM_PROFILE_PERFORMANCE;
++	} else if (tp == victus_s_ec_thermal_params.low_power) {
++		*profile = PLATFORM_PROFILE_LOW_POWER;
+ 	} else if (tp == victus_s_thermal_params.balanced ||
+ 		   tp == omen_v1_thermal_params.balanced) {
+ 		/*
+@@ -2657,7 +2673,17 @@ static int hp_wmi_apply_fan_settings(struct hp_wmi_hwmon_priv *priv)
+ 				 secs_to_jiffies(KEEP_ALIVE_DELAY_SECS));
+ 		return 0;
+ 	case PWM_MODE_AUTO:
+-		if (hp_wmi_fan_control_supported()) {
++		/*
++		 * Victus models like 8A3D, calling hp_wmi_fan_speed_max_reset()
++		 * freezes fans at 0 RPM under load. Instead, disable max fans and re-apply
++		 * the active platform profile, so the EC firmware thermal curves regain control.
++		 */
++		if (hp_wmi_thermal_profile() == &victus_s_ec_thermal_params) {
++			ret = hp_wmi_fan_speed_max_set(0);
++			if (ret < 0)
++				return ret;
++			ret = platform_profile_victus_s_set_ec(active_platform_profile);
++		} else if (hp_wmi_fan_control_supported()) {
+ 			ret = hp_wmi_get_fan_count_userdefine_trigger();
+ 			if (ret < 0)
+ 				return ret;
+
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
 -- 
 2.55.0
 
