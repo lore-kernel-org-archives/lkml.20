@@ -1,82 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=189.12.192.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792965845;
-	b=MrxWYhVeRfeNhaoO2Cx1cKYG+zMjo7Qh8hX+o3nF7w1r8yydzQnFBIbF1qfOrP/7WqK3
-	 t5BoaSBE3HXL7IbjWCBXd1O9ra5lVdMCC8USfFI4VBT9rCqq9W+dsjE2mbsXguwTiqW9v
-	 QB51HY5r5T8O2hWFBvWFyl1cDyWLHBk/Uig5LxuQq0WY6a6AVXVE7OH/qR3k8FFd5NNuM
-	 cISRbiaKnfPRfmmrv885lq/i5Pq4U6fnctonZjgZ38+5Oj0VfViriappPLVIiq/n7Lwr5
-	 BCZTCqC1SgOfjYgbA5eJRyiNtWyqjRY318iBCS5sNngvA05P8D9mjU4J5a3h0E12xmQ==
+	t=1792965887;
+	b=N/LTkcfEZlPgJzct/qqAvm8GVWeeSe3tk2X+J8uPXWaoP/JKH91HF+oanIsfamIZes2o
+	 rSMhq7r5qGZLU8SFghi7FLAlec+ujkcs5xtTb6PfcGHGv2iqVZXiIlX53YUSyheXzfr0r
+	 wTug5kyRkpzitN8wScu92xrDfBK5K7LTcr0EW29xYlApiSiJGAKUExNWSs0LTbZ2dK9zH
+	 /crJ7aMEb4bbArbjbzqx8TWtGfFvCWwBuFlVKfz3djT6PufOqqTOgSXZ9Jh+sTWEXqeLa
+	 8vOQeNnaiLWJDXsxyQhs/lzoxpUynGfPWvQiHTUTtlcs11wuPSizxAT0vVU1188TAyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792965845;
-	h=DMARC-Filter:X-Hostinger-Mail-Ref:DKIM-Signature:Feedback-ID:
-	 X-Hostinger-Mail-Id:Received:DKIM-Signature:Received:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:X-CM-Envelope:X-CM-Analysis;
-	bh=h8BEVcgJKZj09m7WRqROF/3Lhsg67yJKrVv0xUXnEwc=;
-	b=Z2anJ9RqnhTAEH+m+vYMCOiX28TGB8h1dJAo70a8rd9MKiyVlEnXrBGoIn02dMsf4HWy
-	 RAIh6lI58TGsIwhcOg98+6/cgmvS1V9cKAZ+moB92DpLJjX5MVDrsJOXOsYb8IpQTB/xc
-	 FnvEoEflM6JXUPbJn7jlWrEseCmaLYfCrKzo3SpSOUz3bdu5U7W5VrB3NFYWQVNKjn8Zh
-	 pCicfGAnS05Qsiwh1ccLpJzzdKxTJvC1hyr8FuXE+fw5ogW4YW9e12fa/WuwS+GrorVP8
-	 /osbgqynyYdAzwavN/ULxk19HUXa99uMFDzzFhmAZCzuE2uDTFv524ml27EwIsX0gxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965887;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
+	b=U4eD1cNUHOh+1yhIyANne6EW7Y1WxSUYimhc3FQLi8xm3p1G8xL9IC5HxXZZg9nPqiJm
+	 XJ8+V58a9kTl6DfIFn5QyEngMx4uI7ckE8gjAkKaHEa2OeCfpmUl9t1pfcrxaf2oCSTz3
+	 pB3yS8cEOhoqfJkboAYr4qNoNi4r7+cmDkdbe19iOkqYMaTMwLhXyFss5kf0uz4D6jSUC
+	 lKTBkUK2QFXcAFwEoAp2LxVguVNYWrG15QD4JKfG7h04zPqXp8zmvo7b7eePy3XW58K55
+	 xSrbLZZGFRvkgrfoL58aMRZ57ZYxAGMxj2gVhVkN1+gTH430iQB3zTkt2gxXyGgCFEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=espilon.net;
-	spf=pass smtp.mailfrom=espilon.net;
-	dkim=pass header.d=relay.mail.hostinger.com header.i=@relay.mail.hostinger.com header.a=rsa-sha256 header.s=oak202607 header.b=XPkTqkZL;
-	dkim=pass header.d=espilon.net header.i=@espilon.net header.a=rsa-sha256 header.s=hostingermail1 header.b=gQccjs0S;
-	arc=none smtp.remote-ip=189.12.192.4
-Received: from oak8.relay.mail.hostinger.com (oak8.relay.mail.hostinger.com [189.12.192.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cvrl1h99;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB3E606A322
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB3E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=espilon.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=espilon.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E2D606A322
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E2D606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=relay.mail.hostinger.com header.i=@relay.mail.hostinger.com header.a=rsa-sha256 header.s=oak202607 header.b=XPkTqkZL;
-	dkim=pass (2048-bit key, unprotected) header.d=espilon.net header.i=@espilon.net header.a=rsa-sha256 header.s=hostingermail1 header.b=gQccjs0S
-X-Hostinger-Mail-Ref: eyJfQF8iOiJcXF8vIiwicmVjaXBpZW50IjoibGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZyI
-	sInRlbmFudCI6ImV1bjB1cz1lc3BpbG9uLm5ldCIsInhfY3VzdG9tZXIiOiJldW4wdXNAZXNwaW
-	xvbi5uZXQifQ==
-DKIM-Signature: v=1; a=rsa-sha256; d=relay.mail.hostinger.com; s=oak202607;
-	c=relaxed/relaxed; bh=h8BEVcgJKZj09m7WRqROF/3Lhsg67yJKrVv0xUXnEwc=;
-	h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:
-		content-type:date:date:feedback-id:feedback-id:from:from:in-reply-to:
-		list-id:list-unsubscribe:list-unsubscribe-post:message-id:message-id:
-		mime-version:mime-version:references:reply-to:subject:subject:to:to:
-		x-hostinger-mail-id:x-hostinger-mail-id; t=1792965837;
-	b=XPkTqkZLi1Lj3Tyalp/6N7o6/33qE7RScQSeoiOYWSrC3st8zYkpB2dkYCAtj1XabKABgGcPQ
-	0w/O/mpYEms86xJACGS9lKJQGfthLNWgG0YOmrP7fIJntNrZ7lzT4IuTDwr0dGJDVa7NvHRvPsu
-	6qmEOuOS4gGTUv5VKvlvAb6NFAa9Ssh84pSzMhOsVxedRKqqcdUXe3P9tfx4ZSwYokD+YXLMthi
-	5KQ9YCANptPz2KvEygN+lPohV2u4QM5cgjhqGQ+lYF4ZH57mtwLPjxGX29VDMXk1lpmUSrBA5sc
-	suWkINZw4/SMkTINxhipqEP1Avjx6bwzoa5Kgc4cJo1A==;
-Feedback-ID: oak202607:espilon.net:hmail
-X-Hostinger-Mail-Id: f9d73972d0bf11f1930abc241188ec74
-Received: from fr-int-smtpout22.hostinger.io (::ffff:148.222.54.26)
-  by fr-int-hmail-krelay8.hostinger.io (KumoMTA ::ffff:148.222.54.51) 
-  with ESMTPS (TLSv1_3:TLS13_AES_256_GCM_SHA384)  id f9d73972d0bf11f1930abc241188ec74 for <linux-kernel@vger.kernel.org>;
-  Sun, 25 Oct 2026 22:03:57 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=espilon.net;
-	s=hostingermail1; t=1792965836;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=h8BEVcgJKZj09m7WRqROF/3Lhsg67yJKrVv0xUXnEwc=;
-	b=gQccjs0S6r4nDFdWPxf25s89aT3IoEOBOHGkG8rbtFTYcmip7IXsrCwKnpv6BN7o2wCLbq
-	p8NX1lVYWpUdwrCmnYkHZmHDVj+9mozHGUFpVGyKqATLDu5xL9p1ad29qP8zSLD23M5a+V
-	CH5Pca/Nvng61pmAMDvsp4eREjozSVlFU7mFxjQpekwl1/LnTGD5oMtqW90jn4Jr99GTjJ
-	Toi62x0cExoGPMZ5Z/nFvt7MUpfmSmoaDBu4ZoMN29EcmFoOxCp6eJOGH3ccvl9Ivmrg8e
-	PMAjR1xWVISH/jJEJS5lNknQGsW2lNUBK8XeFEJK50BHYhY6MXtDlq/wGLEwPg==
-Received: from [127.0.1.1] (unknown [IPv6:2001:861:5b02:4810:d535:8293:aee4:a9e])
-	(Authenticated sender: eun0us@espilon.net)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jCW4D2PXkzyxG;
-	Sun, 25 Oct 2026 22:03:56 +0000 (UTC)
-From: Marouane El Moufid <eun0us@espilon.net>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: [PATCH] fs/freevxfs: reject immed inode larger than the inline area
-Message-ID: <179296581973.931625.6479067928730594410@espilon.net>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cvrl1h99
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-18eb2616974so9246860c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792965886; x=1793570686; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
+        b=cvrl1h99KW2jrjYwxZymFWRxxcePibcWIhet65tp/IrnciMaLTkvx0mt9iohyegtJh
+         u+9V+ftDhNXpVUcs8Bv/a+wS/Zed5MNBcSZyYOaappbWzd0vxB6TVitxR+ipmDSI4ykv
+         IWK+wsmwDnb+r5EtMHAZXmN8U8ydhd6haip4bMIjatjallfM2GRexn8jU3SHU4iu+4sM
+         8PcAFwhG72O9gr3Dh85YZ7LVYWvkDFlEez79Ft1RK/2rYNaCwmiRc/tcFhxik1AfXaZP
+         TsbGtTMVkPwH9Enkaa9v9px/WVTTthp29y24BIUuJcffb01sQVUuS/puvFhH6Hynv9pt
+         e9VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792965886; x=1793570686;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
+        b=tBKuqRbJ0yXZwNE+rEuMtbD/nP6omYSrKovAfQudtOsHyobi4sAjNuaJi95H7FUIIj
+         v5E2lIV6PkkuVeFMOxG005kr52cmnwwaSV9RXQgjHV93N7Uo3rI0rFqRnTFLvsU+oOTn
+         Oz0XjsodG7a9EePb1uNr2blOkVIoLda30i1CMLusPubJAcmjWAJOxCgQOsng4F8D/8H7
+         ZfOB1Yk9iyfwpv1wVH5LWFGBKZ+eVJwQWCf4ZAXqsHDPyw5bp2fngQ3eck8hnTj+cEjo
+         KNhyu6DQxWdkAEixEAMaUUsBaW9SyMnjRC1AZpsBZ4oPqcyPd+OfjBVrxrxBVgX/oDwR
+         RgsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjjJCbY3+nbkMX5w/sPndaFRn1HPtmAApfQ1RYGIeTn80ogZeAQQqZkCjxvrgtsZOIYuRzZwO3ghnXnyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBGOeroX0bFv4rhszyrmrxXIvAn4MqpBwzjgag8XqdrIKv2KSE
+	njNPLcRgd8muChxu1nHin0+4bx9/BvqoDhOYnyQRi6WWNv5EtijSZSf8xM7Aq+MSlsjmpoVKdY7
+	viUpHcfMf1A==
+X-Received: from dlbpj9.prod.google.com ([2002:a05:7022:3809:b0:18a:a95d:606c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:204b:10b0:187:eb7f:bb4
+ with SMTP id a92af1059eb24-199378d0778mr7890733c88.46.1792965886138; Sun, 25
+ Oct 2026 15:04:46 -0700 (PDT)
+Date: Sun, 25 Oct 2026 15:03:44 -0700
+In-Reply-To: <20261025220349.1244499-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,40 +78,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Date: Sun, 25 Oct 2026 22:03:56 +0000 (UTC)
-X-CM-Envelope: MS4xfLJKJZio+7K+hwx5zqexbzvIhMRa6zZWKpYpwa+f8hgZ1s9Bl5AWOuun93v5WFH7sbPVpabDlxnHJzG0RI8eQ3BjpMfYNyeviImU6GiGeMK3UWbcMBH/ S8s+zlFP1Jc4stLBNZkrfAaNkltCX806nPMrTYN4iUxPnOUHxSq7cizJAgeCYpCdqExEyMQjhfg0Pr3liLCvKJSvVi2fI/bxhYEglRybpgPP7Dc54+ZbHLOo 7onfKgA+b1bxFfNrbC+7QU31hrCtvLiTPhqPHRgJNVrfHsx7lhHRdFaksaapPsX9bOdQVVn3BTOYq2Mew8BwFdIXFdiAjY90Fge9qvu987jrnCm6eaJphB5z T9YomK4H
-X-CM-Analysis: v=2.4 cv=P6tohTAu c=1 sm=1 tr=0 ts=6ade7ccc a=NNrdi8j+18+XpAC5aQBFGw==:617 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=ICNSGLm3AAAA:8 a=alPJPtAgaqeobNmZSTEA:9 a=CjuIK1q_8ugA:10 a=-W5iAdWQbIJCsXvgvhpT:22
+Mime-Version: 1.0
+References: <20261025220349.1244499-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261025220349.1244499-2-irogers@google.com>
+Subject: [PATCH v1 2/7] perf evsel: Add bounds check for PERF_RECORD_CALLCHAIN_DEFERRED
+ ips array
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Zhan Xusheng <zhanxusheng1024@gmail.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-vxfs_immed_read_folio() copies a full PAGE_SIZE from the 96-byte inline
-immed area (vii_immed.vi_immed) without clamping to the inode size. An
-"immed" inode whose on-disk size exceeds 96 bytes therefore causes an
-out-of-bounds read of the vxfs_inode slab, and the bytes are returned to
-userspace by read() (KASAN: slab-out-of-bounds, read of size 4096),
-reachable from a mounted crafted VxFS image by read() of the file.
+In __evsel__parse_sample(), verify that event->callchain_deferred.nr and
+the trailing ips[] array fit within event->header.size using
+OVERFLOW_CHECK_u64() and OVERFLOW_CHECK() before exposing data->callchain
+to callers.
 
-An immed inode stores its data inline and is always <= VXFS_NIMMED (96)
-bytes; reject at iget time any immed inode that claims a larger size.
-
-Signed-off-by: Marouane El Moufid <eun0us@espilon.net>
+Fixes: da27c4379ce6 ("perf session: Add minimum event size and alignment validation")
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- fs/freevxfs/vxfs_inode.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ tools/perf/util/evsel.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/freevxfs/vxfs_inode.c b/fs/freevxfs/vxfs_inode.c
---- a/fs/freevxfs/vxfs_inode.c
-+++ b/fs/freevxfs/vxfs_inode.c
-@@ -268,6 +268,11 @@
- 		return ERR_PTR(error);
- 	}
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index d060fca8090f..64f090ebaa5a 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -3474,9 +3474,12 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
+ 	if (event->header.type == PERF_RECORD_CALLCHAIN_DEFERRED) {
+ 		const u64 max_callchain_nr = UINT64_MAX / sizeof(u64);
+ 
++		OVERFLOW_CHECK_u64(&event->callchain_deferred.nr);
+ 		data->callchain = (struct ip_callchain *)&event->callchain_deferred.nr;
+ 		if (data->callchain->nr > max_callchain_nr)
+ 			goto out_efault;
++		OVERFLOW_CHECK(event->callchain_deferred.ips,
++			       data->callchain->nr * sizeof(u64), max_size);
+ 
+ 		data->deferred_cookie = event->callchain_deferred.cookie;
+ 
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
-+	if (VXFS_ISIMMED(vip) && ip->i_size > sizeof(vip->vii_immed.vi_immed)) {
-+		iget_failed(ip);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	if (VXFS_ISIMMED(vip))
- 		aops = &vxfs_immed_aops;
- 	else
