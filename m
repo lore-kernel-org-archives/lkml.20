@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792918711;
-	b=G+aXK7ogcRaGV7ly8rgbY8NJVvUaOOF3jpRHeurGi7avODHB7MtkZxe3a4ElUEKkPqIX
-	 Dw68yUYeBXC3U27fLKoDF1sHuVhKdNPrJP7uW9UO+6M5EJtDOea2F94oV7xEg8YtTmMr0
-	 Rt5thlvtlfY5ptwm2inmQOdznX0degScpPPIYmbUf1/+hcmYDHzdPKLdlUGjEW61PXiGG
-	 TG+vt0RwF10u4nWd8vyHWjxwEzbpJET0c8+bkztQIMTp80MmYQwqKX7jknNl/89nzcoA5
-	 wgUaetSNttip4GFduv60uZJXbR/gj+jXxKQOKhi7KzeEWH69C3zhZacOU+PknAJUfSA==
+	t=1792918703;
+	b=N2S/FMDJVRyvmoJCIDapIEWkDv16xwn+Oo3KAVLiPCVdxT+47OiedXp8/KttaXr1383J
+	 uEkBGZ7nBuuAflhEvqIMKLlvBqP6v+kEdbuzD4dBjrjbRK6X79pRbR2YaVOmOm+DbjhfI
+	 jKocJUT7qCuA8K+B1TZUkzjgQKqmWyD/dpTp9m1fNKajWHJzo4ybHAUfa1Jp37kkhaIrm
+	 Qq//uxcZkLgPDcfSMXVuiTlWgRxK0kjNw4qIbgrYDFrm8ZuMRYpwn8kx//xfKnibNsE76
+	 hoq1HgI1rHJscv1ruLjJj6wdzoYKt7MIpb6j0EXs8+6oXB7u8n1Y3/htuTol1409Mmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792918711;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792918703;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=At55VbEIUsasl7OxdFDzlSnsOUvX8xe1OzwnO0ut21E=;
-	b=EOfuaH2UkPK8QWYMwrRgxsLA2Y3VvRR2e7tqsCQb2E96sHBwqnQ3kUdHC6uywXKe9SJo
-	 2F7j2MYvyBEB7aKavf3GKMD0e6g7qVXVUL4pXtE393/syLjLuiOJ/OpSwObbyZFxL2RfV
-	 SKOaocl1Bkl7ZVuoJEYLDaNqXqjwl33T/RAl98sn/JIpttdzAtOo+QsN1AvQCJi8rlWKO
-	 seo5Te8uVgbH8JrbaKITMQY9CuoO9+zL7nAFXo+usAKA4mFUjuNVSBFYQJsHerxQYhD50
-	 mW+zWpsmKIoXftr2n2MG35+mnD7KuREXfaSQ6Y4xwm0dPIl2S+QgGZ7FvOSpd+X5fUA==
+	bh=TUXrWd1uFQ9/7zBa9iOKq/mMkUTdmQim8i8VROH4cyg=;
+	b=G/WQ2yeuMsKb2stMJhR1RDR2qP2RjmcL4NTNzV0OgxLzzw1l4yLqgztiB4rb67mj197X
+	 LrCCPSnI2hsbXU8Kxnqj7GFmP4533SsQAdfWbjeJ2UvuiJUSDFdn7Rrrr/plCCM44hLoc
+	 aYH0txTXZXFpVKuBYza7D/BS9isrjPrWfSimnXsuSBAVorUPtXckks4u/bZFYfMyizsS4
+	 7GAhMEVyF5d/PA4/kc8azuWm46YLYBgjSoCDQqvpV0rsnUhdMfvl+B0wzkNIH8y41DSbF
+	 0sIQWcbOdH1GcQWlmS0Q6xXhZiFodLScFd1DDY0WgQX0A750DMT1RxRf3bP2BG0FQow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=nKDW6HzZ;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AFWQaoeU;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C3160A2601
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:58:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C3160A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329D2606A32E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329D2606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=nKDW6HzZ
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0759so1218582f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:58:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AFWQaoeU
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1249844f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:58:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792918702; x=1793523502; darn=vger.kernel.org;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792918700; x=1793523500; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=At55VbEIUsasl7OxdFDzlSnsOUvX8xe1OzwnO0ut21E=;
-        b=nKDW6HzZmCafjltTFm+8ii3W9l5AUN+Ycmgbxf5gFpSyptSTlU5INi7iQsdzK9oSDX
-         EpHa0ue+cGVlPIrSLVEOkI79ZyYuO4OcvTqhO4Hbc8umWlCSqHx8aBomv/ePBTeSffOt
-         dlPXnHA19Rv+j43AquuENO7QJQkxi+L9NAztEyn8pUErTS4tg34byS87AwDntcjZk5OL
-         Hxy2iavyXJvb9TuwUfrmI8wpSdyjncgoX6ljZthjcAM/shYXmaTwtGJNhrnoVEuPUPWt
-         RQ+nEZfo6j22k8nzqaoadZ3jC4F8gW1iNlVMXxQ+M2qjxXiO+xgIKvLmn3DstLo1dGuy
-         iSjg==
+        bh=TUXrWd1uFQ9/7zBa9iOKq/mMkUTdmQim8i8VROH4cyg=;
+        b=AFWQaoeU0i453UNraAPUC3OIIefOsDGCYf7FAT7Iqc2HDES0OG25t8oRkZpXCUxW6j
+         joVa4feCEk5umNLmfblszop55uV3NLiZG07MfAg0yrZSknHhf0qDtmJeuzOJ2oZ1pZ2d
+         2ZUTC03fzdkfK8oBsyfW2qyhm+Pt2Swo1ZvIUb8/pB5JmkUbmc7QfTkiOWT30IEFdIxp
+         Xlx+lr6hoklLPHZ8XpqwsZMdmMsY5hM9P/Ml2EamENRlYKhFuS+amZfpQ3OOfyLKAV5s
+         5lyc8Q//tWG/BLnF6/jY+EeloDqIan4gtZFtyL0LZktYYGYlsPysOuvATdKN6vCU5eCP
+         nkxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792918702; x=1793523502;
+        d=1e100.net; s=20260707; t=1792918700; x=1793523500;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=At55VbEIUsasl7OxdFDzlSnsOUvX8xe1OzwnO0ut21E=;
-        b=ChzghvVb+ZdEDLv1IPtLSspQUc6nDUb1GeqTnRocHm1c0n/eTQYp5fzIkSkNjLUYz8
-         yJ56Hfqid5xdnyBeKdSXR3XFbqCnTq2E4xRHSYmpWGy4Uek9/3rSBVAppRIRUf+HkuSs
-         owVpQKzzTSKFl1pQX6zEeTXk5ml3YU67kAYGwyEWhSZWJ2PvGbstyzxamn6tXZDiuify
-         GRPyq/jINsjHKomrAN1UAN4RpVt/CKEDlgHjyN/NtnR05qXBrjnB5TS1H9CKxgk6xpcb
-         dcfr272ATXOXTb39BFVjJpzJw8+Tv82oU7nh+WuLWgmvdG/Vuoun0OwRkQpvZO+ANcis
-         CO8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxmleVAoSQv+80JuhGoy/U9DK2iRaap2nFlMMGztepuaogJHxLAj0AfvHxMcZYl7IM2DwD7XqQCS/qarxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImrj8+6rpZzyDlcLMWOzmLkh+a66VaBbf3u2x1CB6bh/ENyrCQ
-	Cs+Et56poJjJPl8XG86E8f2CwLmR5XVBsCdEMgdWWCIh4UJglxebf1T6loIyZsQlX1g=
-X-Gm-Gg: AYBFou1zL8pnu12WFeWDki7kv/pwCYkDnDbn8UK76roM2Peh6PZXG/vukai7yQHxAf9
-	oiLKeX1OZPZEk+48Ilf6OLfkfXlOdBrjUAuEo1I8qb8A/Ps9Y4zkJHhesCzisMw4ZlVfxspzP4L
-	nutkTcAXNyb9G7WZQfziOZNXjsoFk2ztwEaLTwO2eNEjVPKIvWccaqIMaEasxHoxVQDp7xSRzaq
-	WMPGHu8TBR8OOb7sbvpCfrnmVEZPi/2bcE/T+JH/fGCe9/KoGJQ5KRomOtIzqCGeYhLe0Gp48tI
-	B/9/oL8hwoZ9qmJb+KAE6UAhks+5v7pyS0vrvaGXAJTIyYNj9+9AggjJh99DtpJq4iwdVerISPo
-	Pg/32CZcr2DympQbYbQddGYXBJX4VoF4GCGJh8LFefFGeU3gt7VpXiRhNETKAkU7bVLz+rboNmO
-	B0aIZyae1cHtYV0W5+9uO+YgHpR5I99ubwK6i21lz/Du3OSD2bMb6fe9Y+4NTQSXRbCKfoeelC6
-	bDxgI9OYTHh0SmLuEMgVD1PRG0nbV5Jza2f8YbAa21cAmDP7CrxmVDnq80okUfR6BNbHROhEV0n
-	F0HCdWWnu8JwYM955oTLCDovMh+vJgRk0rHRp9KwfmUF1Ry6cbiUsO97eNeIbCT9qLyW14QNsg=
+        bh=TUXrWd1uFQ9/7zBa9iOKq/mMkUTdmQim8i8VROH4cyg=;
+        b=WRd6x3xM2y1kM4f/ARk8eUK71I5SHdv7rqehCZhNBHN2FOnQKvJXKNRmHg/yRkN/2n
+         QT3p85L52OsYE5RJW5pwbOjl8EjoQmvIMZNwsgKjGdJ9j3ERDP4wTGvBCfdYTru8Ra3x
+         NpNjoXtkJ8F5T9PeHnyZUjEUu7DyWmzobQOV9zDNQ4pCZulP7jasgfNeIGip/BFwkbwL
+         1/3EQ5m4r1H9nAtkw4jVevQuOyidv0vjCBAPiG8UtuanDT+6qD1Q/iYJxV+xWcbZDQYV
+         lApVASSZNLnia/ognMDjLYf04w8mF6C86MjXhBOi9eNy4XUc5GZGlNZ52p6RH0PMbCug
+         SzEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwF6uahvyVdNJ+Dp2axm6kyIdLG89r8UWoM16YdIXGWWHU79/yysqqvE9mZxteHRgoGQqrtRIU8gJ9DqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrg9uQl8WZwzfuAN3U+IJsGi48N4ENSsp4pEDYbn2strT0MiEN
+	81rqZCaM1kdWwpYIoZtNtj/CTFIZrdOz4LMllH042kukeYJncj7Km/X/Cggvn+57z60=
+X-Gm-Gg: AYBFou0sC55vtU2AFDGEPGJN27iYTmyjsS1NEUG6esAv3U3IL+6TbemXtZ41KSNR0as
+	PYWI4SW5WO/V+YAp+IFE1soaYGNuSK+0jZdcpWDhfvqmOogfRVUnHWumOhvIpqGUdkCInruiFVs
+	WkAr3lGPk5qLwew60c4hjtHsVADVbEFYX7FFhc21wdmWHfb3bHbpRWLnMno82HPsQK3QK/KZwKT
+	U4lcUWUoG7KpGTHDqy0145dJcocTfDVI3GmgahFCkV3E736l4D5w4/tSAf+FSKb1pG3X1J7OmFw
+	tziF1rHENgWaRImY1P1M8E9RXoYRYc9tX7ksFLMr8rSabnVxZeTCfH82egCkuvBMSaVogVMNhLx
+	tlVN3J5ODU5Wj2NZat0+qnyG38OdvLz45+os3BLRmb6FfiuzcTUUiqtmu59pDWOR+Q3oQTkWIrx
+	59nLuZunajbwmh03v/n6f/CxqmmHc9wno/MEWCltTjnGJyfKjNzcclntEkZ67J9ic2sFSa6DaF/
+	cZp1S7W94n9CD67dmNEgEpwXVqgi/nfsYwYTPZZwKfB5GJxK/YMC13g0QTjr1oXnP9vtqCP1p48
+	WEZz618E+WqNk+hvyXBB3L39tDT1ehasqphaXTmg0mJXuDNnNaJdw9jN/XOuOR/DuA8loA3KFw=
 	=
-X-Received: by 2002:a05:6000:481b:b0:48e:82f:48fc with SMTP id ffacd0b85a97d-48e3eb971ccmr6935030f8f.31.1792918701855;
-        Sun, 25 Oct 2026 01:58:21 -0700 (PDT)
+X-Received: by 2002:a5d:4ccc:0:b0:48e:bf0:30f with SMTP id ffacd0b85a97d-48e3eb8b7fcmr5025357f8f.34.1792918700367;
+        Sun, 25 Oct 2026 01:58:20 -0700 (PDT)
 Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm9094542f8f.17.2026.10.25.01.58.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm9094542f8f.17.2026.10.25.01.58.19
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 01:58:21 -0700 (PDT)
+        Sun, 25 Oct 2026 01:58:19 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -97,9 +97,9 @@ Cc: David Airlie <airlied@gmail.com>,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 5/5] drm/panel: Add the HiBy LG35583
-Date: Sun, 25 Oct 2026 09:58:16 +0100
-Message-ID: <20261025085816.60405-6-olivier@mgcrea.io>
+Subject: [PATCH 3/5] drm/ingenic: Add a driver for the X1600 LCD controller
+Date: Sun, 25 Oct 2026 09:58:14 +0100
+Message-ID: <20261025085816.60405-4-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261025085816.60405-1-olivier@mgcrea.io>
 References: <20261025085816.60405-1-olivier@mgcrea.io>
@@ -114,414 +114,799 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The 480x800 parallel RGB panel of the HiBy R1. It is set up over a 3-wire
-SPI bus with 16-bit words, each carrying a register address byte or a
-data byte, which no existing panel driver speaks. The set-up sequence is
-the vendor kernel's; prepare sends it up to sleep-out, and enable and
-disable switch the display on and off. It asks for BGR666: in RGB order the
-R1 shows red and blue swapped.
+The X1600's display controller has none of the registers ingenic-drm
+programs: it fetches each frame through a descriptor whose address it
+takes from SRD_CHAIN_ADDR, and keeps its interface, TFT timings and smart
+panel set-up in separate register blocks (X1600 programming manual,
+chapter 10; the X2000's controller without the composer). This driver
+handles parallel RGB panels on a 24-bit bus, with one full-screen RGB565
+plane, and takes the colour order (RGB or BGR) from the panel's bus
+format.
+
+Each descriptor points at itself, so a frame repeats until a flip hands
+the controller the other one. The controller takes it "at appropriate
+time", so a flip's event waits until the descriptor-site register
+reports the new descriptor at the end of a frame.
+
+Tested on a HiBy R1 with its 480x800 panel: the fbdev console and
+r1player, blanking and unblanking, and 60 fbdev pans in 0.97 s, one flip
+per frame at about 61 Hz, none timing out.
 
 Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 ---
- MAINTAINERS                                |   1 +
- drivers/gpu/drm/panel/Kconfig              |  10 +
- drivers/gpu/drm/panel/Makefile             |   1 +
- drivers/gpu/drm/panel/panel-hiby-lg35583.c | 342 +++++++++++++++++++++
- 4 files changed, 354 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
+ MAINTAINERS                                 |   1 +
+ drivers/gpu/drm/Makefile                    |   1 +
+ drivers/gpu/drm/ingenic/Kconfig             |  22 +
+ drivers/gpu/drm/ingenic/Makefile            |   1 +
+ drivers/gpu/drm/ingenic/ingenic-x1600-drm.c | 694 ++++++++++++++++++++
+ 5 files changed, 719 insertions(+)
+ create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index e65500a70c9d..994847735999 100644
+index 98d46b1cc029..57313163e59e 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8156,6 +8156,7 @@ DRM DRIVER FOR HIBY LG35583 PANEL
+@@ -12931,6 +12931,7 @@ INGENIC X1600 DRM DRIVER
  M:	Olivier Louvignes <olivier@mgcrea.io>
  S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
-+F:	drivers/gpu/drm/panel/panel-hiby-lg35583.c
+ F:	Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
++F:	drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
  
- DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
- M:	Ondrej Jirman <megi@xff.cz>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a520b4d60fe..164ac349abd6 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -209,6 +209,16 @@ config DRM_PANEL_LVDS
- 	  handling of power supplies or control signals. It implements automatic
- 	  backlight handling if the panel is attached to a backlight controller.
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 2c6bc093a923..37dc781761d6 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -206,6 +206,7 @@ obj-$(CONFIG_DRM_STM) += stm/
+ obj-$(CONFIG_DRM_STI) += sti/
+ obj-y 			+= imx/
+ obj-$(CONFIG_DRM_INGENIC) += ingenic/
++obj-$(CONFIG_DRM_INGENIC_X1600) += ingenic/
+ obj-$(CONFIG_DRM_LOGICVC) += logicvc/
+ obj-$(CONFIG_DRM_MEDIATEK) += mediatek/
+ obj-$(CONFIG_DRM_MESON)	+= meson/
+diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
+index 987ed42f6f7a..206e26be143d 100644
+--- a/drivers/gpu/drm/ingenic/Kconfig
++++ b/drivers/gpu/drm/ingenic/Kconfig
+@@ -20,6 +20,28 @@ config DRM_INGENIC
  
-+config DRM_PANEL_HIBY_LG35583
-+	tristate "HiBy LG35583 RGB/SPI panel"
-+	depends on OF && SPI
+ 	  If M is selected the module will be called ingenic-drm.
+ 
++config DRM_INGENIC_X1600
++	tristate "DRM support for the Ingenic X1600 LCD controller"
++	depends on MIPS || COMPILE_TEST
++	depends on DRM
++	depends on OF
++	depends on COMMON_CLK
++	select APERTURE_HELPERS
++	select DRM_BRIDGE
++	select DRM_CLIENT_SELECTION
++	select DRM_PANEL_BRIDGE
++	select DRM_KMS_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_BRIDGE_CONNECTOR
++	select DRM_GEM_DMA_HELPER
 +	help
-+	  Say Y here if you want to enable support for the LG35583, the
-+	  480x800 parallel RGB panel of the HiBy R1 digital audio player,
-+	  which is set up over a 3-wire SPI bus.
++	  Choose this option for DRM support for the display controller of
++	  the Ingenic X1600 SoC. It drives parallel RGB panels on a 24-bit
++	  bus from one full-screen RGB565 plane; the controller's smart panel
++	  interface is not supported.
 +
-+	  To compile this driver as a module, choose M here.
++	  If M is selected the module will be called ingenic-x1600-drm.
 +
- config DRM_PANEL_HIMAX_HX8279
- 	tristate "Himax HX8279-based panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index da5175909d54..a2b34ed7cdba 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -21,6 +21,7 @@ obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
- obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
- obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
- obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
-+obj-$(CONFIG_DRM_PANEL_HIBY_LG35583) += panel-hiby-lg35583.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
-diff --git a/drivers/gpu/drm/panel/panel-hiby-lg35583.c b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+ if DRM_INGENIC
+ 
+ config DRM_INGENIC_IPU
+diff --git a/drivers/gpu/drm/ingenic/Makefile b/drivers/gpu/drm/ingenic/Makefile
+index f10cc1c5a5f2..90072ad13158 100644
+--- a/drivers/gpu/drm/ingenic/Makefile
++++ b/drivers/gpu/drm/ingenic/Makefile
+@@ -2,3 +2,4 @@ obj-$(CONFIG_DRM_INGENIC) += ingenic-drm.o
+ ingenic-drm-y = ingenic-drm-drv.o
+ ingenic-drm-$(CONFIG_DRM_INGENIC_IPU) += ingenic-ipu.o
+ obj-$(CONFIG_DRM_INGENIC_DW_HDMI) += ingenic-dw-hdmi.o
++obj-$(CONFIG_DRM_INGENIC_X1600) += ingenic-x1600-drm.o
+diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
 new file mode 100644
-index 000000000000..47aba09e91a4
+index 000000000000..34fbfc7de1c4
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
-@@ -0,0 +1,342 @@
++++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+@@ -0,0 +1,694 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * The LG35583 panel of the HiBy R1
++ * DRM driver for the LCD controller of the Ingenic X1600
 + *
 + * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
 + *
-+ * A 480x800 parallel RGB panel, set up over a 3-wire SPI bus with 16-bit
-+ * words: 0x20 and a register's high byte, 0x00 and its low byte, then 0x40
-+ * and each data byte. HiBy calls it the LG35583; its controller is not
-+ * identified. The set-up sequence is the one the vendor kernel sends.
++ * The X1600's display controller (X1600 programming manual, chapter 10) is
++ * the simple read channel of the X2000's, without its composer. It shares no
++ * registers with the JZ47xx and X1000 controllers that ingenic-drm drives: it
++ * fetches each frame through a descriptor whose address is in SRD_CHAIN_ADDR,
++ * and its interface and timings sit in register blocks of their own. It
++ * drives parallel RGB (TFT) panels and smart panels; this driver handles
++ * parallel RGB panels on a 24-bit bus, from RGB565 framebuffers.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
++#include <linux/aperture.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/dma-mapping.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
 +#include <linux/media-bus-format.h>
 +#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/spi/spi.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/spinlock.h>
 +
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_bridge_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_fb_dma_helper.h>
++#include <drm/drm_fbdev_dma.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem_dma_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_of.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_vblank.h>
 +
-+#define LG35583_ADDR_HI		0x2000
-+#define LG35583_ADDR_LO		0x0000
-+#define LG35583_DATA		0x4000
++#define X1600_LCD_SRD_CHAIN_ADDR	0x1000
++#define X1600_LCD_SRD_CHAIN_START	0x1004
++#define X1600_LCD_CTRL			0x2000
++#define X1600_LCD_ST			0x2004
++#define X1600_LCD_CLR_ST		0x2008
++#define X1600_LCD_INTC			0x200c
++#define X1600_LCD_INT_FLAG		0x2010
++#define X1600_LCD_COM_CONFIG		0x2014
++#define X1600_LCD_CHAIN_SITE		0x2204
++#define X1600_LCD_DISP_COM		0x8000
++#define X1600_LCD_TFT_HSYNC		0x9000
++#define X1600_LCD_TFT_VSYNC		0x9004
++#define X1600_LCD_TFT_HDE		0x9008
++#define X1600_LCD_TFT_VDE		0x900c
++#define X1600_LCD_TFT_TRAN_CFG		0x9010
 +
-+#define LG35583_SLPIN		0x1000
-+#define LG35583_SLPOUT		0x1100
-+#define LG35583_DISPOFF		0x2800
-+#define LG35583_DISPON		0x2900
-+#define LG35583_RAMWR		0x2c00
++/* CTRL: stop the simple read channel at the end of the frame. */
++#define X1600_LCD_CTRL_GEN_STP_SRD	BIT(4)
 +
-+struct lg35583_write {
-+	u16 reg;	/* 0: wait val milliseconds */
-+	s16 val;	/* -1: no data */
++/* ST; CLR_ST (write 1 to clear), INTC and INT_FLAG have the same bits. */
++#define X1600_LCD_ST_WORKING		BIT(0)
++#define X1600_LCD_ST_STOP_SRD_ACK	BIT(7)
++#define X1600_LCD_ST_TFT_UNDR		BIT(8)
++#define X1600_LCD_ST_DISP_END		BIT(17)	/* a frame was displayed */
++
++#define X1600_LCD_COM_CONFIG_BURST_LEN	GENMASK(5, 4)
++#define X1600_LCD_BURST_LEN_32		3
++
++#define X1600_LCD_DISP_COM_IF		GENMASK(1, 0)
++#define X1600_LCD_DISP_COM_IF_TFT	1
++#define X1600_LCD_DISP_COM_DITHER_EN	BIT(4)
++#define X1600_LCD_DISP_COM_TFT_CLKGATE	BIT(5)
++#define X1600_LCD_DISP_COM_SLCD_CLKGATE	BIT(6)
++
++/* TFT_HSYNC, TFT_VSYNC: sync length and total; TFT_HDE, TFT_VDE: active area. */
++#define X1600_LCD_TIMING_START		GENMASK(27, 16)
++#define X1600_LCD_TIMING_END		GENMASK(11, 0)
++
++#define X1600_LCD_TFT_COLOR_EVEN	GENMASK(21, 19)
++#define X1600_LCD_TFT_COLOR_ODD		GENMASK(18, 16)
++#define X1600_LCD_TFT_PIX_CLK_INV	BIT(10)
++#define X1600_LCD_TFT_DE_DL		BIT(9)
++#define X1600_LCD_TFT_HSYNC_DL		BIT(8)
++#define X1600_LCD_TFT_VSYNC_DL		BIT(7)
++#define X1600_LCD_TFT_MODE		GENMASK(2, 0)
++#define X1600_LCD_TFT_MODE_24BIT	0
++#define X1600_LCD_TFT_COLOR_RGB		0
++#define X1600_LCD_TFT_COLOR_BGR		2
++
++#define X1600_LCD_DESC_CFG_FMT		GENMASK(22, 19)
++#define X1600_LCD_DESC_FMT_RGB565	2
++/* An interrupt at the end of the frame: DISP_END needs this and INTC set. */
++#define X1600_LCD_DESC_CTRL_EOD_MSK	BIT(17)
++
++#define X1600_LCD_MAX_PIXELS		(1280 * 720)
++/* A smaller frame breaks a continuous descriptor chain (manual, 10.7). */
++#define X1600_LCD_MIN_PIXELS		500
++#define X1600_LCD_STOP_TIMEOUT_MS	100
++
++/*
++ * The controller reads a descriptor at the start of each frame and then
++ * follows its next field. Each descriptor points at itself, so a frame
++ * repeats until SRD_CHAIN_ADDR names another one.
++ */
++struct x1600_lcd_desc {
++	u32 next;
++	u32 addr;
++	u32 stride;	/* in pixels */
++	u32 cfg;
++	u32 ctrl;
++} __aligned(64);
++
++struct x1600_lcd {
++	struct drm_device drm;
++	struct drm_plane plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
++
++	void __iomem *base;
++	struct clk *clk;
++
++	struct x1600_lcd_desc *desc;
++	dma_addr_t desc_phys;
++	unsigned int cur;		/* the descriptor last handed over */
++	bool running;
++	struct completion stopped;
++	/* Serialises the read-modify-writes of INTC. */
++	spinlock_t irq_lock;
++
++	/* Under drm.event_lock: sent once the controller reads event_desc. */
++	struct drm_pending_vblank_event *event;
++	u32 event_desc;
++
++	u32 bus_flags;
++	u32 color_order;
 +};
 +
-+#define REG(r, v)	{ (r), (v) }
-+#define CMD(r)		{ (r), -1 }
-+#define DELAY(ms)	{ 0, (ms) }
-+
-+static const struct lg35583_write lg35583_init[] = {
-+	REG(0xb100, 0x06), REG(0xb101, 0x01), REG(0xb102, 0x54),
-+	REG(0xb104, 0x07), REG(0xb105, 0x06), REG(0xb106, 0x06),
-+	REG(0xb107, 0x4a), REG(0xb108, 0x21), REG(0xb109, 0x08),
-+	REG(0xf101, 0xc0), REG(0xf103, 0x01),
-+	DELAY(5),
-+	REG(0xb400, 0x01), REG(0xb600, 0x10),
-+	REG(0x3a00, 0x77), REG(0x3b00, 0x03), REG(0x5e04, 0x02),
-+	REG(0x3600, 0x08),
-+	DELAY(5),
-+	/* Gamma */
-+	REG(0xe000, 0x00), REG(0xe001, 0x2f), REG(0xe002, 0x3f),
-+	REG(0xe003, 0x1f), REG(0xe004, 0x21), REG(0xe005, 0x2c),
-+	REG(0xe006, 0x2c), REG(0xe007, 0x61), REG(0xe008, 0x1c),
-+	REG(0xe009, 0x18), REG(0xe00a, 0xbc), REG(0xe00b, 0x27),
-+	REG(0xe00c, 0x59), REG(0xe00d, 0x6a), REG(0xe00e, 0xbb),
-+	REG(0xe00f, 0xbe), REG(0xe010, 0x3e), REG(0xe011, 0x48),
-+	REG(0xe100, 0x00), REG(0xe101, 0x32), REG(0xe102, 0x45),
-+	REG(0xe103, 0x26), REG(0xe104, 0x21), REG(0xe105, 0x2c),
-+	REG(0xe106, 0x5c), REG(0xe107, 0x63), REG(0xe108, 0x1c),
-+	REG(0xe109, 0x19), REG(0xe10a, 0xd3), REG(0xe10b, 0x28),
-+	REG(0xe10c, 0x59), REG(0xe10d, 0x6b), REG(0xe10e, 0xdb),
-+	REG(0xe10f, 0xde), REG(0xe110, 0x5f), REG(0xe111, 0x6b),
-+	REG(0xe200, 0x7f), REG(0xe201, 0x7d), REG(0xe202, 0x86),
-+	REG(0xe203, 0x89), REG(0xe204, 0x10), REG(0xe205, 0x1e),
-+	REG(0xe206, 0x41), REG(0xe207, 0x77), REG(0xe208, 0x0d),
-+	REG(0xe209, 0x1d), REG(0xe20a, 0xc8), REG(0xe20b, 0x30),
-+	REG(0xe20c, 0x5f), REG(0xe20d, 0x71), REG(0xe20e, 0xc3),
-+	REG(0xe20f, 0xbe), REG(0xe210, 0x3e), REG(0xe211, 0x48),
-+	REG(0xe300, 0x7f), REG(0xe301, 0x7f), REG(0xe302, 0x86),
-+	REG(0xe303, 0x93), REG(0xe304, 0x10), REG(0xe305, 0x1e),
-+	REG(0xe306, 0x41), REG(0xe307, 0x89), REG(0xe308, 0x0d),
-+	REG(0xe309, 0x1d), REG(0xe30a, 0xe0), REG(0xe30b, 0x30),
-+	REG(0xe30c, 0x5f), REG(0xe30d, 0x70), REG(0xe30e, 0xe4),
-+	REG(0xe30f, 0xdf), REG(0xe310, 0x5f), REG(0xe311, 0x6b),
-+	REG(0xe400, 0x00), REG(0xe401, 0x43), REG(0xe402, 0x6f),
-+	REG(0xe403, 0x60), REG(0xe404, 0x21), REG(0xe405, 0x2c),
-+	REG(0xe406, 0x5a), REG(0xe407, 0x6d), REG(0xe408, 0x1c),
-+	REG(0xe409, 0x18), REG(0xe40a, 0xc6), REG(0xe40b, 0x27),
-+	REG(0xe40c, 0x59), REG(0xe40d, 0x6a), REG(0xe40e, 0xbb),
-+	REG(0xe40f, 0xbe), REG(0xe410, 0x3e), REG(0xe411, 0x48),
-+	REG(0xe500, 0x00), REG(0xe501, 0x46), REG(0xe502, 0x75),
-+	REG(0xe503, 0x67), REG(0xe504, 0x21), REG(0xe505, 0x2c),
-+	REG(0xe506, 0x5a), REG(0xe507, 0x7e), REG(0xe508, 0x1c),
-+	REG(0xe509, 0x19), REG(0xe50a, 0xdd), REG(0xe50b, 0x28),
-+	REG(0xe50c, 0x59), REG(0xe50d, 0x6b), REG(0xe50e, 0xdb),
-+	REG(0xe50f, 0xde), REG(0xe510, 0x5f), REG(0xe511, 0x6b),
-+	DELAY(5),
-+	REG(0xc200, 0x70), REG(0xc202, 0x70), REG(0xc203, 0x44),
-+	DELAY(20),
-+	REG(0xc200, 0x51), REG(0xc201, 0x06), REG(0xc202, 0x51),
-+	REG(0xc203, 0x66),
-+	DELAY(20),
-+	REG(0xc100, 0x45),
-+	DELAY(5),
-+	REG(0xc700, 0x46), REG(0xc000, 0xa3), REG(0xc002, 0x8a),
-+	DELAY(5),
-+	CMD(LG35583_SLPOUT),
-+	DELAY(130),
++static const u32 x1600_lcd_formats[] = {
++	DRM_FORMAT_RGB565,
 +};
 +
-+struct lg35583 {
-+	struct drm_panel panel;
-+	struct spi_device *spi;
-+	struct gpio_desc *reset;
-+	struct regulator *vcc;
-+	struct regulator *vccio;
-+};
-+
-+static const struct drm_display_mode lg35583_mode = {
-+	.clock = 28000,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 24,
-+	.hsync_end = 480 + 24 + 24,
-+	.htotal = 480 + 24 + 24 + 24,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 14,
-+	.vsync_end = 800 + 14 + 5,
-+	.vtotal = 800 + 14 + 5 + 8,
-+	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static struct lg35583 *to_lg35583(struct drm_panel *panel)
++static struct x1600_lcd *to_x1600_lcd(struct drm_device *drm)
 +{
-+	return container_of(panel, struct lg35583, panel);
++	return container_of(drm, struct x1600_lcd, drm);
 +}
 +
-+static int lg35583_word(struct lg35583 *ctx, u16 word)
++static dma_addr_t x1600_lcd_desc_addr(struct x1600_lcd *lcd, unsigned int i)
 +{
-+	/* Copied to a DMA-safe buffer. */
-+	return spi_write_then_read(ctx->spi, &word, sizeof(word), NULL, 0);
++	return lcd->desc_phys + i * sizeof(*lcd->desc);
 +}
 +
-+static int lg35583_cmd(struct lg35583 *ctx, u16 reg)
++static void x1600_lcd_irq_enable(struct x1600_lcd *lcd, u32 mask, bool enable)
 +{
++	unsigned long flags;
++	u32 val;
++
++	spin_lock_irqsave(&lcd->irq_lock, flags);
++	val = readl(lcd->base + X1600_LCD_INTC);
++	if (enable)
++		val |= mask;
++	else
++		val &= ~mask;
++	/* Seen on the R1: a bit still set when it is masked keeps the line up. */
++	writel(mask, lcd->base + X1600_LCD_CLR_ST);
++	writel(val, lcd->base + X1600_LCD_INTC);
++	spin_unlock_irqrestore(&lcd->irq_lock, flags);
++}
++
++/* Stops at the end of the frame; false if the controller did not report it. */
++static bool x1600_lcd_stop(struct x1600_lcd *lcd)
++{
++	unsigned long left;
++
++	reinit_completion(&lcd->stopped);
++	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, true);
++	writel(X1600_LCD_CTRL_GEN_STP_SRD, lcd->base + X1600_LCD_CTRL);
++	left = wait_for_completion_timeout(&lcd->stopped,
++					   msecs_to_jiffies(X1600_LCD_STOP_TIMEOUT_MS));
++	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, false);
++	return left;
++}
++
++static u32 x1600_lcd_timing(unsigned int start, unsigned int end)
++{
++	return FIELD_PREP(X1600_LCD_TIMING_START, start) |
++	       FIELD_PREP(X1600_LCD_TIMING_END, end);
++}
++
++static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
++					 struct drm_atomic_commit *state)
++{
++	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
++	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
++	unsigned int hde = mode->htotal - mode->hsync_start;
++	unsigned int vde = mode->vtotal - mode->vsync_start;
++	u32 val;
 +	int ret;
 +
-+	ret = lg35583_word(ctx, LG35583_ADDR_HI | (reg >> 8));
++	ret = clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
 +	if (ret)
-+		return ret;
-+	return lg35583_word(ctx, LG35583_ADDR_LO | (reg & 0xff));
++		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n", ret);
++	ret = clk_prepare_enable(lcd->clk);
++	if (ret) {
++		dev_err(lcd->drm.dev, "Unable to start the pixel clock: %d\n", ret);
++		return;
++	}
++
++	writel(readl(lcd->base + X1600_LCD_ST), lcd->base + X1600_LCD_CLR_ST);
++	val = readl(lcd->base + X1600_LCD_COM_CONFIG) & ~X1600_LCD_COM_CONFIG_BURST_LEN;
++	writel(val | FIELD_PREP(X1600_LCD_COM_CONFIG_BURST_LEN, X1600_LCD_BURST_LEN_32),
++	       lcd->base + X1600_LCD_COM_CONFIG);
++
++	/* In the manual's order: timings, output format, then the interface. */
++	writel(x1600_lcd_timing(mode->hsync_end - mode->hsync_start, mode->htotal),
++	       lcd->base + X1600_LCD_TFT_HSYNC);
++	writel(x1600_lcd_timing(mode->vsync_end - mode->vsync_start, mode->vtotal),
++	       lcd->base + X1600_LCD_TFT_VSYNC);
++	writel(x1600_lcd_timing(hde, hde + mode->hdisplay),
++	       lcd->base + X1600_LCD_TFT_HDE);
++	writel(x1600_lcd_timing(vde, vde + mode->vdisplay),
++	       lcd->base + X1600_LCD_TFT_VDE);
++
++	val = FIELD_PREP(X1600_LCD_TFT_COLOR_EVEN, lcd->color_order) |
++	      FIELD_PREP(X1600_LCD_TFT_COLOR_ODD, lcd->color_order) |
++	      FIELD_PREP(X1600_LCD_TFT_MODE, X1600_LCD_TFT_MODE_24BIT);
++	if (lcd->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
++		val |= X1600_LCD_TFT_PIX_CLK_INV;
++	if (lcd->bus_flags & DRM_BUS_FLAG_DE_LOW)
++		val |= X1600_LCD_TFT_DE_DL;
++	/* The *_DL bits set the level outside the pulse. */
++	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
++		val |= X1600_LCD_TFT_HSYNC_DL;
++	if (mode->flags & DRM_MODE_FLAG_NVSYNC)
++		val |= X1600_LCD_TFT_VSYNC_DL;
++	writel(val, lcd->base + X1600_LCD_TFT_TRAN_CFG);
++
++	/* No dithering: it only applies to 888 sources. */
++	val = readl(lcd->base + X1600_LCD_DISP_COM);
++	val &= ~(X1600_LCD_DISP_COM_IF | X1600_LCD_DISP_COM_DITHER_EN);
++	val |= FIELD_PREP(X1600_LCD_DISP_COM_IF, X1600_LCD_DISP_COM_IF_TFT) |
++	       X1600_LCD_DISP_COM_TFT_CLKGATE | X1600_LCD_DISP_COM_SLCD_CLKGATE;
++	writel(val, lcd->base + X1600_LCD_DISP_COM);
++
++	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base + X1600_LCD_SRD_CHAIN_ADDR);
++	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
++	lcd->running = true;
++
++	drm_crtc_vblank_on(crtc);
 +}
 +
-+static int lg35583_write(struct lg35583 *ctx, const struct lg35583_write *w)
++static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
++					  struct drm_atomic_commit *state)
 +{
-+	int ret;
++	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
 +
-+	if (!w->reg) {
-+		msleep(w->val);
++	if (!x1600_lcd_stop(lcd))
++		dev_warn(lcd->drm.dev, "The controller did not stop\n");
++	lcd->running = false;
++
++	spin_lock_irq(&crtc->dev->event_lock);
++	if (lcd->event) {
++		drm_crtc_send_vblank_event(crtc, lcd->event);
++		drm_crtc_vblank_put(crtc);
++		lcd->event = NULL;
++	}
++	spin_unlock_irq(&crtc->dev->event_lock);
++
++	drm_crtc_vblank_off(crtc);
++	clk_disable_unprepare(lcd->clk);
++}
++
++static int x1600_lcd_crtc_atomic_check(struct drm_crtc *crtc,
++				       struct drm_atomic_commit *state)
++{
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++
++	/* Only when enabled: drm_atomic_helper_shutdown() disables both at once. */
++	if (!crtc_state->enable)
 +		return 0;
-+	}
 +
-+	ret = lg35583_cmd(ctx, w->reg);
-+	if (ret || w->val < 0)
-+		return ret;
-+	return lg35583_word(ctx, LG35583_DATA | w->val);
++	return drm_atomic_helper_check_crtc_primary_plane(crtc_state);
 +}
 +
-+static int lg35583_prepare(struct drm_panel *panel)
++static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
++					struct drm_atomic_commit *state)
 +{
-+	struct lg35583 *ctx = to_lg35583(panel);
-+	unsigned int i;
-+	int ret;
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_pending_vblank_event *event = crtc_state->event;
++	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
 +
-+	ret = regulator_enable(ctx->vccio);
-+	if (ret)
-+		return ret;
-+	usleep_range(5000, 6000);
++	if (!event)
++		return;
 +
-+	ret = regulator_enable(ctx->vcc);
-+	if (ret)
-+		goto err_vccio;
-+	usleep_range(5000, 6000);
-+
-+	gpiod_set_value_cansleep(ctx->reset, 0);
-+	usleep_range(5000, 6000);
-+	gpiod_set_value_cansleep(ctx->reset, 1);
-+	msleep(50);
-+	gpiod_set_value_cansleep(ctx->reset, 0);
-+	msleep(30);
-+
-+	for (i = 0; i < ARRAY_SIZE(lg35583_init); i++) {
-+		ret = lg35583_write(ctx, &lg35583_init[i]);
-+		if (ret) {
-+			dev_err(panel->dev, "Unable to set up the panel: %d\n", ret);
-+			goto err_vcc;
-+		}
-+	}
-+
-+	return 0;
-+
-+err_vcc:
-+	gpiod_set_value_cansleep(ctx->reset, 1);
-+	regulator_disable(ctx->vcc);
-+err_vccio:
-+	regulator_disable(ctx->vccio);
-+	return ret;
-+}
-+
-+static int lg35583_enable(struct drm_panel *panel)
-+{
-+	struct lg35583 *ctx = to_lg35583(panel);
-+	int ret;
-+
-+	ret = lg35583_cmd(ctx, LG35583_DISPON);
-+	if (ret)
-+		return ret;
-+
-+	return lg35583_cmd(ctx, LG35583_RAMWR);
-+}
-+
-+static int lg35583_disable(struct drm_panel *panel)
-+{
-+	struct lg35583 *ctx = to_lg35583(panel);
-+	int ret;
-+
-+	ret = lg35583_cmd(ctx, LG35583_DISPOFF);
-+	usleep_range(5000, 6000);
-+	return ret;
-+}
-+
-+static int lg35583_unprepare(struct drm_panel *panel)
-+{
-+	struct lg35583 *ctx = to_lg35583(panel);
-+
-+	lg35583_cmd(ctx, LG35583_SLPIN);
-+	usleep_range(5000, 6000);
-+
-+	gpiod_set_value_cansleep(ctx->reset, 1);
-+	regulator_disable(ctx->vccio);
-+	regulator_disable(ctx->vcc);
-+	return 0;
-+}
-+
-+static int lg35583_get_modes(struct drm_panel *panel, struct drm_connector *connector)
-+{
-+	/* Red and blue are swapped on the R1 without it. */
-+	static const u32 bus_format = MEDIA_BUS_FMT_BGR666_1X18;
-+	struct drm_display_mode *mode;
-+
-+	mode = drm_mode_duplicate(connector->dev, &lg35583_mode);
-+	if (!mode)
-+		return -ENOMEM;
-+
-+	drm_mode_set_name(mode);
-+	drm_mode_probed_add(connector, mode);
-+
-+	connector->display_info.bpc = 6;
-+	connector->display_info.bus_flags = DRM_BUS_FLAG_DE_HIGH |
-+					    DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
-+	drm_display_info_set_bus_formats(&connector->display_info, &bus_format, 1);
-+
-+	return 1;
-+}
-+
-+static const struct drm_panel_funcs lg35583_funcs = {
-+	.prepare = lg35583_prepare,
-+	.enable = lg35583_enable,
-+	.disable = lg35583_disable,
-+	.unprepare = lg35583_unprepare,
-+	.get_modes = lg35583_get_modes,
-+};
-+
-+static int lg35583_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct lg35583 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct lg35583, panel, &lg35583_funcs,
-+				   DRM_MODE_CONNECTOR_DPI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->spi = spi;
-+	spi_set_drvdata(spi, ctx);
-+
-+	spi->bits_per_word = 16;
-+	ret = spi_setup(spi);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Unable to set up SPI\n");
-+
-+	ctx->vcc = devm_regulator_get(dev, "vcc");
-+	if (IS_ERR(ctx->vcc))
-+		return dev_err_probe(dev, PTR_ERR(ctx->vcc), "Unable to get vcc\n");
-+
-+	ctx->vccio = devm_regulator_get(dev, "vccio");
-+	if (IS_ERR(ctx->vccio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->vccio), "Unable to get vccio\n");
++	crtc_state->event = NULL;
 +
 +	/*
-+	 * Deasserted, which keeps a panel the boot loader left on as it is, but
-+	 * as an output: after a reset the pin is an input, and prepare's reset
-+	 * pulse would never reach the panel.
++	 * The controller takes a new descriptor "at appropriate time" (manual,
++	 * 10.6.4): wait until it reports reading the one just handed over.
 +	 */
-+	ctx->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset), "Unable to get reset\n");
++	spin_lock_irq(&crtc->dev->event_lock);
++	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc) == 0) {
++		lcd->event = event;
++		lcd->event_desc = x1600_lcd_desc_addr(lcd, lcd->cur);
++	} else {
++		drm_crtc_send_vblank_event(crtc, event);
++	}
++	spin_unlock_irq(&crtc->dev->event_lock);
++}
 +
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return ret;
++static enum drm_mode_status
++x1600_lcd_crtc_mode_valid(struct drm_crtc *crtc, const struct drm_display_mode *mode)
++{
++	unsigned int pixels = mode->hdisplay * mode->vdisplay;
 +
-+	drm_panel_add(&ctx->panel);
++	if (mode->htotal > FIELD_MAX(X1600_LCD_TIMING_END) ||
++	    mode->vtotal > FIELD_MAX(X1600_LCD_TIMING_END))
++		return MODE_BAD;
++
++	/* The sync pulses' end points must not be 0. */
++	if (mode->hsync_end == mode->hsync_start)
++		return MODE_HSYNC_NARROW;
++	if (mode->vsync_end == mode->vsync_start)
++		return MODE_VSYNC_NARROW;
++
++	if (pixels > X1600_LCD_MAX_PIXELS)
++		return MODE_MEM;
++	if (pixels < X1600_LCD_MIN_PIXELS)
++		return MODE_BAD;
++
++	return MODE_OK;
++}
++
++static int x1600_lcd_enable_vblank(struct drm_crtc *crtc)
++{
++	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
++
++	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, true);
 +	return 0;
 +}
 +
-+static void lg35583_remove(struct spi_device *spi)
++static void x1600_lcd_disable_vblank(struct drm_crtc *crtc)
 +{
-+	struct lg35583 *ctx = spi_get_drvdata(spi);
++	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
 +
-+	drm_panel_remove(&ctx->panel);
++	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, false);
 +}
 +
-+static const struct of_device_id lg35583_of_match[] = {
-+	{ .compatible = "hiby,lg35583" },
++static irqreturn_t x1600_lcd_irq(int irq, void *data)
++{
++	struct x1600_lcd *lcd = data;
++	u32 st = readl(lcd->base + X1600_LCD_INT_FLAG);
++
++	if (!st)
++		return IRQ_NONE;
++
++	writel(st, lcd->base + X1600_LCD_CLR_ST);
++	if (st & X1600_LCD_ST_STOP_SRD_ACK)
++		complete(&lcd->stopped);
++
++	if (st & X1600_LCD_ST_DISP_END) {
++		drm_crtc_handle_vblank(&lcd->crtc);
++
++		spin_lock(&lcd->drm.event_lock);
++		if (lcd->event &&
++		    readl(lcd->base + X1600_LCD_CHAIN_SITE) == lcd->event_desc) {
++			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
++			drm_crtc_vblank_put(&lcd->crtc);
++			lcd->event = NULL;
++		}
++		spin_unlock(&lcd->drm.event_lock);
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
++					struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *crtc_state;
++
++	if (!plane_state->crtc)
++		return 0;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
++	if (WARN_ON(!crtc_state))
++		return -EINVAL;
++
++	/* The plane covers the whole screen: no scaling, no position. */
++	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
++						   DRM_PLANE_NO_SCALING,
++						   DRM_PLANE_NO_SCALING,
++						   false, true);
++}
++
++static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
++					  struct drm_atomic_commit *state)
++{
++	struct x1600_lcd *lcd = to_x1600_lcd(plane->dev);
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_framebuffer *fb = plane_state->fb;
++	unsigned int next = lcd->running ? !lcd->cur : lcd->cur;
++	struct x1600_lcd_desc *desc = &lcd->desc[next];
++
++	if (!fb)
++		return;
++
++	desc->next = x1600_lcd_desc_addr(lcd, next);
++	desc->addr = drm_fb_dma_get_gem_addr(fb, plane_state, 0);
++	desc->stride = fb->pitches[0] / fb->format->cpp[0];
++	desc->cfg = FIELD_PREP(X1600_LCD_DESC_CFG_FMT, X1600_LCD_DESC_FMT_RGB565);
++	desc->ctrl = X1600_LCD_DESC_CTRL_EOD_MSK;
++
++	if (!lcd->running)
++		return;
++
++	/*
++	 * The manual hands over a descriptor by writing SRD_CHAIN_ADDR; the
++	 * vendor kernel also sets SRD_CHAIN_START, and so does this.
++	 */
++	wmb();
++	writel(x1600_lcd_desc_addr(lcd, next), lcd->base + X1600_LCD_SRD_CHAIN_ADDR);
++	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
++	lcd->cur = next;
++}
++
++/*
++ * Panels with 18 data lines take the top six bits of each colour of the
++ * 888 mode: in the 666 mode, the HiBy R1's panel shows wrong colours.
++ */
++static int x1600_lcd_color_order(const struct drm_display_info *info)
++{
++	if (!info->num_bus_formats)
++		return X1600_LCD_TFT_COLOR_RGB;
++
++	switch (info->bus_formats[0]) {
++	case MEDIA_BUS_FMT_RGB666_1X18:
++	case MEDIA_BUS_FMT_RGB888_1X24:
++		return X1600_LCD_TFT_COLOR_RGB;
++	case MEDIA_BUS_FMT_BGR666_1X18:
++	case MEDIA_BUS_FMT_BGR888_1X24:
++		return X1600_LCD_TFT_COLOR_BGR;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int x1600_lcd_encoder_atomic_check(struct drm_encoder *encoder,
++					  struct drm_crtc_state *crtc_state,
++					  struct drm_connector_state *conn_state)
++{
++	const struct drm_display_info *info = &conn_state->connector->display_info;
++
++	if (x1600_lcd_color_order(info) < 0) {
++		drm_dbg_kms(encoder->dev, "Unsupported bus format 0x%04x\n",
++			    info->bus_formats[0]);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static void x1600_lcd_encoder_atomic_mode_set(struct drm_encoder *encoder,
++					      struct drm_crtc_state *crtc_state,
++					      struct drm_connector_state *conn_state)
++{
++	struct x1600_lcd *lcd = to_x1600_lcd(encoder->dev);
++	const struct drm_display_info *info = &conn_state->connector->display_info;
++
++	lcd->bus_flags = info->bus_flags;
++	lcd->color_order = x1600_lcd_color_order(info);
++}
++
++static const struct drm_plane_funcs x1600_lcd_plane_funcs = {
++	.update_plane		= drm_atomic_helper_update_plane,
++	.disable_plane		= drm_atomic_helper_disable_plane,
++	.atomic_create_state	= drm_atomic_helper_plane_create_state,
++	.destroy		= drm_plane_cleanup,
++	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
++	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
++};
++
++static const struct drm_plane_helper_funcs x1600_lcd_plane_helper_funcs = {
++	.atomic_check		= x1600_lcd_plane_atomic_check,
++	.atomic_update		= x1600_lcd_plane_atomic_update,
++};
++
++static const struct drm_crtc_funcs x1600_lcd_crtc_funcs = {
++	.set_config		= drm_atomic_helper_set_config,
++	.page_flip		= drm_atomic_helper_page_flip,
++	.atomic_create_state	= drm_atomic_helper_crtc_create_state,
++	.destroy		= drm_crtc_cleanup,
++	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
++	.enable_vblank		= x1600_lcd_enable_vblank,
++	.disable_vblank		= x1600_lcd_disable_vblank,
++};
++
++static const struct drm_crtc_helper_funcs x1600_lcd_crtc_helper_funcs = {
++	.atomic_check		= x1600_lcd_crtc_atomic_check,
++	.atomic_enable		= x1600_lcd_crtc_atomic_enable,
++	.atomic_disable		= x1600_lcd_crtc_atomic_disable,
++	.atomic_flush		= x1600_lcd_crtc_atomic_flush,
++	.mode_valid		= x1600_lcd_crtc_mode_valid,
++};
++
++static const struct drm_encoder_helper_funcs x1600_lcd_encoder_helper_funcs = {
++	.atomic_check		= x1600_lcd_encoder_atomic_check,
++	.atomic_mode_set	= x1600_lcd_encoder_atomic_mode_set,
++};
++
++static const struct drm_mode_config_funcs x1600_lcd_mode_config_funcs = {
++	.fb_create		= drm_gem_fb_create,
++	.atomic_check		= drm_atomic_helper_check,
++	.atomic_commit		= drm_atomic_helper_commit,
++};
++
++DEFINE_DRM_GEM_DMA_FOPS(x1600_lcd_fops);
++
++static const struct drm_driver x1600_lcd_driver = {
++	.driver_features	= DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++	.name			= "ingenic-x1600-drm",
++	.desc			= "DRM driver for the Ingenic X1600 LCD controller",
++	.major			= 1,
++	.minor			= 0,
++	.fops			= &x1600_lcd_fops,
++	DRM_GEM_DMA_DRIVER_OPS,
++	DRM_FBDEV_DMA_DRIVER_OPS,
++};
++
++static int x1600_lcd_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct drm_connector *connector;
++	struct drm_bridge *bridge;
++	struct drm_device *drm;
++	struct x1600_lcd *lcd;
++	int irq, ret;
++
++	lcd = devm_drm_dev_alloc(dev, &x1600_lcd_driver, struct x1600_lcd, drm);
++	if (IS_ERR(lcd))
++		return PTR_ERR(lcd);
++
++	drm = &lcd->drm;
++	platform_set_drvdata(pdev, lcd);
++	init_completion(&lcd->stopped);
++	spin_lock_init(&lcd->irq_lock);
++
++	lcd->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(lcd->base))
++		return PTR_ERR(lcd->base);
++
++	lcd->clk = devm_clk_get(dev, "lcd");
++	if (IS_ERR(lcd->clk))
++		return dev_err_probe(dev, PTR_ERR(lcd->clk), "Unable to get clock\n");
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
++	if (IS_ERR(bridge))
++		return dev_err_probe(dev, PTR_ERR(bridge), "Unable to get the panel\n");
++
++	lcd->desc = dmam_alloc_coherent(dev, 2 * sizeof(*lcd->desc),
++					&lcd->desc_phys, GFP_KERNEL);
++	if (!lcd->desc)
++		return -ENOMEM;
++
++	ret = drmm_mode_config_init(drm);
++	if (ret)
++		return ret;
++
++	/* Framebuffers, not modes: fbdev's double buffer is taller than 720p. */
++	drm->mode_config.max_width = FIELD_MAX(X1600_LCD_TIMING_END);
++	drm->mode_config.max_height = FIELD_MAX(X1600_LCD_TIMING_END);
++	drm->mode_config.funcs = &x1600_lcd_mode_config_funcs;
++
++	ret = drm_universal_plane_init(drm, &lcd->plane, 1, &x1600_lcd_plane_funcs,
++				       x1600_lcd_formats, ARRAY_SIZE(x1600_lcd_formats),
++				       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++	drm_plane_helper_add(&lcd->plane, &x1600_lcd_plane_helper_funcs);
++
++	ret = drm_crtc_init_with_planes(drm, &lcd->crtc, &lcd->plane, NULL,
++					&x1600_lcd_crtc_funcs, NULL);
++	if (ret)
++		return ret;
++	drm_crtc_helper_add(&lcd->crtc, &x1600_lcd_crtc_helper_funcs);
++
++	ret = drmm_encoder_init(drm, &lcd->encoder, NULL, DRM_MODE_ENCODER_DPI, NULL);
++	if (ret)
++		return ret;
++	lcd->encoder.possible_crtcs = drm_crtc_mask(&lcd->crtc);
++	drm_encoder_helper_add(&lcd->encoder, &x1600_lcd_encoder_helper_funcs);
++
++	ret = drm_bridge_attach(&lcd->encoder, bridge, NULL,
++				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret)
++		return ret;
++
++	connector = drm_bridge_connector_init(drm, &lcd->encoder);
++	if (IS_ERR(connector))
++		return PTR_ERR(connector);
++	drm_connector_attach_encoder(connector, &lcd->encoder);
++
++	ret = drm_vblank_init(drm, 1);
++	if (ret)
++		return ret;
++
++	drm_mode_config_reset(drm);
++
++	/* Take over from a boot framebuffer, and stop what it left running. */
++	ret = aperture_remove_all_conflicting_devices(x1600_lcd_driver.name);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(lcd->clk);
++	if (ret)
++		return ret;
++
++	/* No interrupt from what the boot loader left enabled or pending. */
++	writel(0, lcd->base + X1600_LCD_INTC);
++	writel(readl(lcd->base + X1600_LCD_ST), lcd->base + X1600_LCD_CLR_ST);
++
++	ret = devm_request_irq(dev, irq, x1600_lcd_irq, 0, dev_name(dev), lcd);
++	if (ret) {
++		clk_disable_unprepare(lcd->clk);
++		return dev_err_probe(dev, ret, "Unable to request the IRQ\n");
++	}
++
++	/*
++	 * Seen on the R1: after an underrun (TFT_UNDR) the controller can stop
++	 * answering GEN_STP_SRD, and only a reset brings it back.
++	 */
++	if (readl(lcd->base + X1600_LCD_ST) & X1600_LCD_ST_WORKING && !x1600_lcd_stop(lcd))
++		dev_err(dev, "The controller did not stop%s\n",
++			readl(lcd->base + X1600_LCD_ST) & X1600_LCD_ST_TFT_UNDR ?
++			" after an underrun" : "");
++	clk_disable_unprepare(lcd->clk);
++
++	ret = drm_dev_register(drm, 0);
++	if (ret)
++		return ret;
++
++	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB565);
++	return 0;
++}
++
++static void x1600_lcd_remove(struct platform_device *pdev)
++{
++	struct x1600_lcd *lcd = platform_get_drvdata(pdev);
++
++	drm_dev_unregister(&lcd->drm);
++	drm_atomic_helper_shutdown(&lcd->drm);
++}
++
++static void x1600_lcd_shutdown(struct platform_device *pdev)
++{
++	struct x1600_lcd *lcd = platform_get_drvdata(pdev);
++
++	drm_atomic_helper_shutdown(&lcd->drm);
++}
++
++static const struct of_device_id x1600_lcd_of_match[] = {
++	{ .compatible = "ingenic,x1600-lcd" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(of, lg35583_of_match);
++MODULE_DEVICE_TABLE(of, x1600_lcd_of_match);
 +
-+static const struct spi_device_id lg35583_ids[] = {
-+	{ "lg35583" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, lg35583_ids);
-+
-+static struct spi_driver lg35583_driver = {
-+	.probe = lg35583_probe,
-+	.remove = lg35583_remove,
-+	.id_table = lg35583_ids,
++static struct platform_driver x1600_lcd_platform_driver = {
 +	.driver = {
-+		.name = "panel-hiby-lg35583",
-+		.of_match_table = lg35583_of_match,
++		.name = "ingenic-x1600-drm",
++		.of_match_table = x1600_lcd_of_match,
 +	},
++	.probe = x1600_lcd_probe,
++	.remove = x1600_lcd_remove,
++	.shutdown = x1600_lcd_shutdown,
 +};
-+module_spi_driver(lg35583_driver);
++module_platform_driver(x1600_lcd_platform_driver);
 +
 +MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
-+MODULE_DESCRIPTION("HiBy R1 LG35583 panel driver");
++MODULE_DESCRIPTION("DRM driver for the Ingenic X1600 LCD controller");
 +MODULE_LICENSE("GPL");
 -- 
 2.39.5
