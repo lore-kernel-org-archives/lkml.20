@@ -1,91 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952377;
-	b=yhAJ+2PiSK4eDghqjXXsjzibCUA0NqKr857JalD+VdQsFTeXTcr/DZvtdGXWe7JLgDN9
-	 c7Ue+nlH0wnPeWelnBp6yJL1xneLJPEcboIhE/qmabhYvDEA+vGdNz4GzrkVI0xGqyjbP
-	 cSJU4ueCKuXLh0b40GtvdyHMBCDRnsa3rgIp+IcD9qwAtHEBiIrqmvjEqDPtulyh5vuMa
-	 bvN6k3dcjloeQQPxrzYHmBtkGU2Hzk9nz/MjV2va2lLCEhVpdPdSPEnHBwfJMDP7lxjrB
-	 C/yLtvyol1dLWC03tSErd+ZYFFgV9o+gK6+RedWDqlVWMoY+HlQX9ptyG5gKRkoq1Yg==
+	t=1792952431;
+	b=cwPlI6oalMYXNZPr7aQP1rAHfZ7j1Ynr7EU07GuS4/I04CmGp3bryTIA36hUu8TTEpxO
+	 QpYdF1lMjtRyT6l6QX+3hy2ZG5Hfx6dEyzwsbRxmu+AjHEYzRPwKerU6pOOZg9DW2R8iu
+	 bbA8AYBnp50X/DIHyAl+DTCR09LdIfb7YAK25G7iwM5gnMvRhSyyDaWXniW9HJlMk7Q77
+	 9CrjCd2/04h4oFu3kaUDisSv+sKpwjJPc6I1fziHFnHbnGOInKTBg8KBnp4VvTU+QSWvJ
+	 XOAzhO+5FZRNJ6/SGYEPv+Z/2DtJPg8mWHi950i/tYr/9ZMHQKLR7IUZ+nswvFK6n9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952431;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
-	b=BIMS5w5mDcoElHVvEuWQoH8PE9F0Ti19DMg5yryI3QtavRLNR4H95PVPQEHoEmP5lM/Q
-	 Lm4z23U3X+cItDkheRB4Zk+Iz4fr9SemCPRLty0kZp0v7adP6dRRkBaidT3M/TkPdMRCZ
-	 rF5Y9aL3V4FiqbYjV3q8cdcUryGNtMtTT3iEYlPUVn6ds0wGJEQUAl7XwaGC1HtW9X7kG
-	 cD6LU0cn0tofOJ8tittLhkhZwdPGzo13OeHtugfJoodG4u8OcLvnlKWOeXkuXvqGqrhmN
-	 s9tRb8EvS400+T9y+nuqochbfYjhUh8uAqVtGv/j67qCvtotyVAMyMTZdUT8iELhMmA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
+	b=4UyxgDWNEdreqO2OHRGVfQFAUV7CBP/CO0mvF1q5pRli31jWPWDFU3GmRXkNXbxAc9Ud
+	 hqGfS3CiZ7mBhMVXcCHtIF4ajaxT434VJzDmtIPbtH7KW7uJgNr8MPzJ+1HucwqPMxTnw
+	 ZPN7hhCSjK99XMVxyZHOAhWeTUsnOsIZYvma4OumWvIe/+xrMAkpjPMtFn1KikgJhCIaJ
+	 /m3yZqfcUcn20nA689fhk7JrRJXsGHcNxZT2zx2xNtX42K6C5MnBZTjymHJqn4beWDlPp
+	 vUdHi1K00ChvSgQiRjzEfU2w7Lh0ZF/wo+JD28e59yCNb93xkQfBrkVXdwHLbLxKghg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c3D17ued;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hGg8IcG8;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3535606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3535606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6571606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6571606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c3D17ued
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso18581545e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:19:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hGg8IcG8
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso1139209a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792952375; x=1793557175; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792952430; x=1793557230; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
-        b=c3D17uedB/11KdUwEGzKp59eVMgf3RY2OyN+Q0UK0ghWGfxp/v3Z8S2trNNM8sTub2
-         /rXLNxmQ21QLKtnif7yjDkKDyyEaDBczbapqUnbrhi9nlvocrChT7laHS4wHqoOwEI3g
-         Q/EUXL6NTVpWjocnKxsFTGCKX5jb4ko8BRyeB9v3YBSut5ij0P0vINLMywww3mczSmAN
-         uSfpjcQWwLr9j9ZfvdoDYtyUua+3cMVu3xVXVshS4VQ/JZvBQcn5fWMBZBreUC4TgwRh
-         l+3bRVhId6ErXkmQVD80gjzKfcrb6XQpDcypAQt2TOm4SJ0u+NZ5fzC7ZhOZgUMezeck
-         g2QQ==
+        bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
+        b=hGg8IcG8zi4/Z/awlqSK8ljg8JDI7fwQl3Gd8hkVh8ELqDTkoDUnkR3YLv1jEfaZCa
+         7SDrXXOS3u4rgPbH7mtse+ndeA/T3iyjofXVtdfWNSyat7E30OY7KB8hErs78BX78YVU
+         RIKz9THfOb8vSxqplRih10XOdz+F7ny9kNM5k4PH3Nk2aL6eKeab/lggbYlBLYWrlNLq
+         vADXZg9wus2h2VjPq7t8CZEYCGjqJLq6yn10t9uBQ4LPUHQcp05QUusLmfx5f03i+gXW
+         xydEaeLW54FbOBhSn6YBcDkID/acsI3mXcWNJBxXhwgEKFat3v/Dimsx0tyLXepsqVqY
+         GokQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792952375; x=1793557175;
+        d=1e100.net; s=20260707; t=1792952430; x=1793557230;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
-        b=mnxqTHWy8pg4bxIPCVk8cvIhVGM/ZN+70CObtEJTeUX/nduOP1WJkTHzMJ1nrWl3EM
-         Oe1EnU79nsNgW/yObMQVDkzwl2rxegwirPGWRv7oCr9b/QwnpuTbecKctKe0HxXnobGZ
-         J9QenxfjwKtBf1Bqnv2LEZMMLpDLf1NItEeMvdWItnwHy4/qDk+QxSWjPE5kjcas+kBp
-         eIggE1DfkFblPs2+21+O2ChQKBMEt3OlVbOIq+wSUQQiKPgwvyzGJ//AhZJGDP8YPWB5
-         2zyIgKsVGuHzlb4Wp9lflq707pRhpvoOBCN52+gRWzwgHe63t2I4CgAujxVd6MNUX9lN
-         yLWQ==
-X-Gm-Message-State: AFq9FYJ/ZOhIfDwrTG3q2cCZE4HKS/HkONoEqpV/oc+kf5caIhjvTLS+
-	APxrlAbCbJ/LhCGRavZoiF8xYqDIG/iv12tK9szUbmtFf7R8tLtWIro=
-X-Gm-Gg: AYBFou2U+oPwccdJJ1C9jcmBU4CQgpD/jroxeBfMxMPWKo1EP2M9reZYIsr74zECotT
-	3Qdu28rjmi+3QLXEBPnKh1F60AYdrjxNSNqrCzzmIJz9TW4EtPbWqb5xIl617BhsXQph8wa8E8X
-	03/xi2QCybO9sjYkAR0fSZWF3m+JEZyfRHSYjiwnbDMkk82V3VYnebgo+LicOyc7h0ERHSfxJrP
-	FxVj9k0IhZovBcQ6B8EiuetdXoP6dd4QCD9pXx6+E+ji4V68P/IgsbJKcf4EOz+ItfNQjVRfGQk
-	Fd+7YBSLRv5JzOCcwlbTd0zcd2fU5Tb1BsC8qh9dMgJcp+bP0xv4M6vgVGC4BX0sZ+VgC9/EOXD
-	+VMAcDju3VPrzxjll/hr4GglYwq6K0ykIavZXk1F+G5RZUBVTOBn3KhjS7jE7ztCfx/sEdjxJhI
-	2iNklgoYP8CfyLG9u0AocNV8QMQA00FZs8dXe4/V3Y51YNV6u6xuGYztgEbkTW1qk21/GOZlU80
-	slXIcvSeaqNjG0mbJr58Udbt9vGGooO7AmIy1k=
-X-Received: by 2002:a05:600c:8b2c:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4a35acaa6d1mr86565045e9.27.1792952375238;
-        Sun, 25 Oct 2026 11:19:35 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2c0458sm136103515e9.11.2026.10.25.11.19.34
+        bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
+        b=SI3aaQoEQxtyhmhatrV2jof2+qrofkegCRWcckC6uW1oEwVAbkoCZqVDCIVrjAB2QQ
+         VCo5Sy7Xi1b/rASERnVIYiXipd1596MTR06VoTA1buPM0PePA0m+51Vav78NLdPTKn0v
+         X0XrR/bloWPolOfaYzI0Y5U8btOMHSxBzQ0mZnhxU9Du4UKZNbB/J9Zxd6YcjBq1j4Ij
+         /8ePAATVVkBj3W+l/MSKihdLAUKn/v1PiUzu5YoHbrmC/8mcZ7XZ57sqQyTdGQ6WbmbS
+         z/XubHQMj4gNcK3NKN0BzLyoyeoFUZ0Tt9+pO/k040DMlgVXmBw/nzG4iLn0Ta5lv5G5
+         865g==
+X-Forwarded-Encrypted: i=1; AKwUvBwe/gDqTkgZSFnSze6eIRKyp4bcto3oq1yqaJL11+lJGy8Qr53ZuwQyAfcG+KDTqrhwda9+ES6jOGJsAao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLMlsSPWmeXOhKIn0Gsdu4/IAqcnNWD0j3gCF20/0HpGeUu4iM
+	0SP6T0AfwOKnQmmJXubVGvKeMdcx6pwAeWM9A8MFD03uPjZCdChst1eM
+X-Gm-Gg: AYBFou3nOXuNKvUYx6XqBS0uzgVpa4aMBt8rUU21hUjgYKcZws4lNH4qv5ql+E8IALk
+	+FlonXMrHVpmfgOqVPxrG4b6swy8n391qT9NCsJMRsiwHQ1YR4XGG5AqTSeQkapgh7t5/SBws2P
+	PSAt+gbwaSdLmU2f7ISpTYdYTAST0vwrfmqzHSeO01RQKcQn3nVsBGmGDhCOkG1OnJH3iTohHk0
+	7/xHMaRQ6YZ5o7d664AQreRmcCLbUuIPAH6ltBZmuwL7YuC1WCyNO6lhYgKzOJv99Gm+pvdhzvv
+	pL5GNRE5r6migyfyNJZGn+P0TM0rqTMC0J+xCwUb2rvFYKO55ohkQhkWBszAcB0YKp0nTaTQpWR
+	dV34GcTqyKtaP2qorrPbK3BKN3B5NSHGToAPyJnezKrYuY0fPL40zZm7FXEjFbsa4pufVxMurf3
+	07i5LbS69dati35rAHxkfjPLYsCfxAl1Hj7Na76wj2NzhQUlnos/xBlENayWxh03NUEfDn7T5xy
+	GXFLeTSnECU8FsZAmuBgiRjgpPEkLe9bFB9mbo5XSDsJUIsaUVkYiuMSBhXrcFwoH59hn+Jn18a
+	a0IfzaY=
+X-Received: by 2002:a17:90b:4acf:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3adea0b1206mr3533541a91.7.1792952430015;
+        Sun, 25 Oct 2026 11:20:30 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:6212:1232::1d0:de])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaddd45sm4108709a91.2.2026.10.25.11.20.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:19:34 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+        Sun, 25 Oct 2026 11:20:29 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
 	stable@vger.kernel.org,
-	ajay.kathat@microchip.com,
-	claudiu.beznea@tuxon.dev
-Subject: [PATCH wireless] wifi: wilc1000: zero-pad SDIO write buffer to block-aligned length
-Date: Sun, 25 Oct 2026 18:19:33 +0000
-Message-ID: <20261025181933.3775301-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Dongpo Li <lidongpo@hisilicon.com>,
+	Jiancheng Xue <xuejiancheng@hisilicon.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: hisilicon: hisi_femac: Stop the receiver before releasing the RX ring
+Date: Mon, 26 Oct 2026 02:20:18 +0800
+Message-ID: <20261025182022.2959333-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,35 +106,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-wilc_sdio_write() rounds up the transfer size to 4 bytes via
-ALIGN(size, 4) before passing the buffer to the SDIO controller. When
-the original size is not 4-byte aligned, the trailing bytes after the
-payload are whatever data happens to occupy that memory, and they get
-transmitted to the wireless device firmware.
+hisi_femac_net_close() frees the receive ring while the RX address queue
+still holds every address that was pushed to IQ_ADDR.
 
-Zero-pad the trailing bytes before the alignment so that no stale data
-is sent over the SDIO bus.
+A port that keeps receiving then DMAs arrived frames into buffers that
+other slab caches have already taken back; on an EC6108V9C (hi3798mv100)
+the queue still held all 52 armed addresses right after the interface
+was closed, and had dropped to 43 after 15 s of broadcast traffic.
 
-Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
+Reset the port before the buffers are released, so that the receiver no
+longer holds any of their addresses.
+
+Fixes: 542ae60af24f ("net: hisilicon: Add Fast Ethernet MAC driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/wireless/microchip/wilc1000/sdio.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/hisilicon/hisi_femac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/microchip/wilc1000/sdio.c b/drivers/net/wireless/microchip/wilc1000/sdio.c
-index 67dea1360f0a8..1a8c7ffcba496 100644
---- a/drivers/net/wireless/microchip/wilc1000/sdio.c
-+++ b/drivers/net/wireless/microchip/wilc1000/sdio.c
-@@ -441,6 +441,8 @@ static int wilc_sdio_write(struct wilc *wilc, u32 addr, u8 *buf, u32 size)
- 		cmd.address = WILC_SDIO_F1_DATA_REG;
- 	}
+diff --git a/drivers/net/ethernet/hisilicon/hisi_femac.c b/drivers/net/ethernet/hisilicon/hisi_femac.c
+index 016605e86f0b..a44ea0a2b1ee 100644
+--- a/drivers/net/ethernet/hisilicon/hisi_femac.c
++++ b/drivers/net/ethernet/hisilicon/hisi_femac.c
+@@ -491,6 +491,7 @@ static int hisi_femac_net_close(struct net_device *dev)
+ 	netif_stop_queue(dev);
+ 	napi_disable(&priv->napi);
  
-+	if (size & 3)
-+		memset(buf + size, 0, ALIGN(size, 4) - size);
- 	size = ALIGN(size, 4);
- 	nblk = size / block_size;
- 	nleft = size % block_size;
++	hisi_femac_port_reset(priv);
+ 	hisi_femac_free_skb_rings(priv);
+ 
+ 	return 0;
 -- 
-2.47.3
+2.53.0
 
