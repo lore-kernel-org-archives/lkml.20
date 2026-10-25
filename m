@@ -1,87 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948574;
-	b=hdsEnFA4wKMjx2Oduu8muRZoHnyPUmFDeb8r771lMpHaEr8xrKG3gYyOsLSYDk4I/lFX
-	 87xQUL3V+pDGeRFffGaadCuHvgAjaeMH8zY1ijaZUZ1Leot2j/QKK7Z6VUTt6MvtMmoZW
-	 MLzxXfRcGQ7vXf7Nak1sC5gr/Ld59gZk9xcSRGEX37l8tyWT9Xc1Qy6T7Kwzm4pEIRN05
-	 RStneaSzn0eIAa61H4UQp2ol7Ap2NRgl687qaSq4sIFfHlh9E3Ienxhdz6j6DeugB2+5x
-	 TU7i726FErZt6uuXTdw6spSPfcyxk3tfqayUtz83xUbITyGcupdDyV0QDO68MO14+7w==
+	t=1792948769;
+	b=pmdGeXU7z6G8Raw/lI6ZVjr3LEgcgFlvmRrHvZ+2RRJzNYqVYQ7xG3Fx+6NybQz4Krhq
+	 tW7imJ2MKkZ4Ku7KhACn09WhhOBU09oLVuML9NIuSO5ARuz8l7cM2xrKYoUIhQyQdYJzn
+	 uPxlMJIxSSO2u+BlFewXLmhSKIrc4TsTFyRYLd6sl7yOZXNoJeepXDOTb5SkG+jQfWzM8
+	 WOgYkNMT1aFoffSQOB8kVaPdtc/uNcCjNwilK4wk3pGIzY5qKcy2jih8BGxW7w3sldNCL
+	 /sBJefk0g9XmFzSCRnlEq0mEo6CgA6RwUoUGMr5NmILJoEKZqRuM//wZeOQw4VyUxAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948574;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID;
-	bh=s0xqJx4FNZZGpD4GSNg7lqsUdPl9TgZ5j+xnD9OspHY=;
-	b=c0ZB9xh3zPOKL8sews/18kg0iHd5FMAc0sMUviMGs+c/7SbXhXYTSZltCd1uaF2dgbii
-	 jV+gAun3e1/ykrrpNt7LNDWqTRlpCyCDouKALf0wmDY6xWs7G28f4J8LRbkWBrswBY3Ey
-	 yz4yRzyuifVUTyLKyQH6zVlXxAzHjHITlV3FxF7f4f6RZjR6DGqjXJopTdiLEqPKfNkB0
-	 JYfZjjTnaAWogA5DOMwcUgA1lmuHW0qs6nMbdX6so3g1oAbtTrgTArMnK2+Htsy6kJ3bo
-	 Q+LmHiblPtVOED3CIEVCRjdcKFSRnl1nLvRC08jPYsugxAjORQIs65JhnIIIAi9dCnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792948769;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4apbpOD/RfD18CBpD+KC1y2A7pzzope/+sQEbeyorak=;
+	b=UU0Ia66h8VsLxJ7AUsBfyxLYuWWW+OAgqa5a7zOKm+UDu5XyxWOua6QFC2SgK7cytQn2
+	 c1c0vDs6BLqeafyCgXvWryHuvA6ttUQx8klCNzbs0UNUc+KxpmMPizE8gr1iy4EuspC7M
+	 y5TuuR4o4zHfhdE/1YHY0Ltm6YXeYhl55R49427mutc/r+sXDO0K5yjZFGV0+LeY6d6yX
+	 3RkcU6WQNQv429p7hM/2A+4qJT8pgs2cxmuS1A1u//i1e/DfLG3cuInv9SWfoTf3h5ond
+	 baOf+1zdhmiCDl62lDzVQa7+zxw0A+vqj1X7Q6+B41Irdpt9nonRhaWRJ/7RMj/SAwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZmNYajfd;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkdiu9GV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B76606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:16:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2B76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C61606A31A;
+	Sun, 25 Oct 2026 17:19:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZmNYajfd
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-19305bcb72cso1405062c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:16:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792948573; x=1793553373; darn=vger.kernel.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s0xqJx4FNZZGpD4GSNg7lqsUdPl9TgZ5j+xnD9OspHY=;
-        b=ZmNYajfdmpCGG3awDq1YR2Eu3GsbL3P45czbREob9AbZ32dVTNg5yiVd/BvjlgsSYc
-         pw4TGqNQDTvPCvYbklFqGmwYb50mjjlYKeHSTdx1wtZZbPOuu9ElZPHowQoB6iPSbl5g
-         IyNrQ6f5LKeULB59bMjHBNQU5W+1Q4uJgtKErjdSl78LO7uRuB6S39YkRSvMKI7Obmt9
-         mLZ5aLyWyC5k2tWJgTNMH3/Z2aKy7EQG4LEJjpi1xBm1cmz5qCXm3kxGVIUK4e2sFvCu
-         I4X4RIKrya+5fPa2vcOJbLJwkxRaTrYuFJk4dSox0BrI1da9p4LRId3j7vOgALO4bCC4
-         o23Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792948573; x=1793553373;
-        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s0xqJx4FNZZGpD4GSNg7lqsUdPl9TgZ5j+xnD9OspHY=;
-        b=DwtUrtKRMw7mGaTGZcRyfMsYotI4gFmDvlyFpE9J8mmsCFpj/iFQ/nOBMqzrO0aj6o
-         Oxd6W3F3Yl0wOTPUA1SKXeSsobaOd0UJiQ1a8VBpFqFXsA4+7C3sQcqA3/qt5hzlGSXf
-         WYyPakHweB5Rqk2jnD/3JbDyZ8PLmlFK3y3EU4m3s4smz5BpbTs7nAS9SMfZ9t/G7oQ4
-         RQ1gaCeDuO+28LRwUQUWNt8QoXZQoy+Pnu1NhAovNHcO66hP4JH1gUFeB3C2muEAvMjR
-         eQcGpP773vUX6Hf11aLTRp3zprzRTPYhRXGImCeTN7Qf2eJ3HXYTLmfhHHOKiNw5GsMD
-         s3Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBxN+UTiuoJlRHEwqsDbjQvaYIDVJNu3HGio4VDIj85OdBYBtv+t6SlRxubMMvLjkMU+7H37ij9mcF5Ty7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5yWxn7qNYiaRZKPgD4dKd14y0RDGfnJOqkG9MNLa6Oa09UM6Y
-	Baq709/8GTzsGhWp8AlcW+3m04uH44nwa4SpC9VpEo5gc4XS4mzTnBoR
-X-Gm-Gg: AYBFou2p6xCPDS+DOQfN5AcUg/N/ysT0uJRoG972ysGe8CiMGno/0WtpAFoX+mTIxNL
-	T8CI8xcnfcxrJTXxk8+3DhbjPOj+Ft+ObeIQwS0wZ6f209fqJld2RiTjbgUWiz5X2wh6+aocQbo
-	Z+WAEK/PjdDwI0tk5NBfAbGTeKKjleOG66Mw/oAgnu36N8N4MkKbHipRSwc5v1Db+VmkboXKCW1
-	QRqfudQ0FNQ2Fndq8JzMEKzzNWAVOuK4oD1f9BeSwsuUDp3iRzue5B5Rfwx/fBF0pW0lGDfy4zl
-	C9itfgP4s4JNG3m10p2jXNA2kGOZun8puSkaXa6rSnzSdVTOS67qoy+kxaWCQJHgKhD6kYqtcRX
-	PK66MrgY01CxzhJKiGhuDPuoHjp8swM7M1PSvQedSUqFrOaAnVi1c2cLfOT4MEMz1unLsLY0sOq
-	+lv0Jp5RdLAdRCkpZoxM9K8JGzm6J+1Nd9kUpm6JYjtfrFNaHWB3L2jaKFjsrULkXlTIvnGZubF
-	p0UqNHiG/5VGxGFFC4M5j/iXr/QnCAB+Hyv4W/o1yTJZhPa89sEUUPN8ZSa2g==
-X-Received: by 2002:a05:7022:7f14:b0:150:c9c5:1ce4 with SMTP id a92af1059eb24-19928f1541dmr6475921c88.6.1792948572672;
-        Sun, 25 Oct 2026 10:16:12 -0700 (PDT)
-Received: from [192.168.45.62] ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19886f790e4sm17125652c88.0.2026.10.25.10.16.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 10:16:12 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Mike Snitzer <snitzer@kernel.org>
-Cc: Alasdair Kergon <agk@redhat.com>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] dm-stats: Avoid cumulative rounding in time conversion
-Date: Mon, 26 Oct 2026 02:16:09 +0900
-Message-ID: <179294856968.68681.9038736644973708510.c14-dm-stats@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkdiu9GV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC481F01825;
+	Sun, 25 Oct 2026 17:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792948768;
+	bh=4apbpOD/RfD18CBpD+KC1y2A7pzzope/+sQEbeyorak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jkdiu9GVtJznxpt/87GYKGTKken/6rU925XJDOhhM0BIKW9hczfucvL0/waKCrDK3
+	 FYeZ4gvo6HkrkYoN8dhYYohzz/+jStjIMxZr/NCd8viKUpQ9+jlAtLiEx9b+b/KdUZ
+	 tkIoWk67vmlX+ea1QzdARsjEehpj/biCrjk4iFt8en3zQKwM4/81UNLKFvg0GgtH7B
+	 WDDeE8wPkmH8Vc5unQsFkwi9NItOkfnsbOYngp6a9fi61UKoY3PauRROn4KId2VdDN
+	 AONemPFLbBmUhsqJDRTwBHJrUFwVSnNrY/fRNEAze54EBcOhQS9Glr4uwTaQIvAyLQ
+	 5OaDoZKBqbqyg==
+Date: Sun, 25 Oct 2026 10:19:03 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>,
+	Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
+	Basant Kumar <basantk@qti.qualcomm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH 0/5] Add support for a TEE agnostic Inline Crypto Engine
+ service
+Message-ID: <20261025171903.GA2212@quark>
+References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
+ <20261024185602.GF2553@quark>
+ <b5cc804e-0f73-4ec9-88bf-ef6dd04eea83@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,67 +67,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b5cc804e-0f73-4ec9-88bf-ef6dd04eea83@oss.qualcomm.com>
 
-dm_jiffies_to_msec64() converts a 22-bit chunk to milliseconds, rounds
-it up, then multiplies that rounded value by the number of chunks. At
-HZ=300, the chunk length is not an integral number of milliseconds, so
-the rounding error grows with the accumulated time. For 4,194,305
-jiffies, a stats print reports 13,981,018 ms instead of 13,981,017 ms.
+On Sun, Oct 25, 2026 at 10:16:49PM +0530, Harshal Dev wrote:
+> By moving the TEE call re-direction to a separate middleware we are ensuring
+> that we only touch the 9-10 lines in the driver which depend on the TEE firmware.
+> Merging this functionality in the ICE driver would substantially increases
+> the total file size.
 
-Divide the full jiffies value by HZ and convert the remainder to
-milliseconds once. This gives a single rounding of the total while
-avoiding an overflowing multiplication of the full input. Preserve the
-precise timestamp path, which already returns nanoseconds unchanged.
+Again, it would be simpler to handle it directly in the existing
+qcom_ice module.  Yes, there will then be more code in that module, but
+then the new single-user middleware module wouldn't be needed.
 
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
----
-Tested under ARM64 QEMU/KVM with HZ=300 through the DM stats ioctl
-path on a zero target, using injected time values. At 4,194,305
-jiffies, the baseline printed 13,981,018 ms in all six time fields and
-the patched kernel printed 13,981,017 ms. Precise timestamps and
-stats_print_clear also passed.
+> This is why probe always defers if this check fails:
+> https://elixir.bootlin.com/linux/v7.3/source/drivers/soc/qcom/ice.c#L568
 
- drivers/md/dm-stats.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+Nope, it's:
 
-diff --git a/drivers/md/dm-stats.c b/drivers/md/dm-stats.c
-index beabbe3b39f3..9ec568d120a4 100644
---- a/drivers/md/dm-stats.c
-+++ b/drivers/md/dm-stats.c
-@@ -9,6 +9,7 @@
- #include <linux/vmalloc.h>
- #include <linux/mm.h>
- #include <linux/module.h>
-+#include <linux/math64.h>
- #include <linux/device-mapper.h>
- 
- #include "dm-core.h"
-@@ -831,23 +832,15 @@ static int dm_stats_clear(struct dm_stats *stats, int id)
-  */
- static unsigned long long dm_jiffies_to_msec64(struct dm_stat *s, unsigned long long j)
- {
--	unsigned long long result;
--	unsigned int mult;
-+	u64 result;
-+	u32 remainder;
- 
- 	if (s->stat_flags & STAT_PRECISE_TIMESTAMPS)
- 		return j;
- 
--	result = 0;
--	if (j)
--		result = jiffies_to_msecs(j & 0x3fffff);
--	if (j >= 1 << 22) {
--		mult = jiffies_to_msecs(1 << 22);
--		result += (unsigned long long)mult * ((j >> 22) & 0x3fffff);
--	}
--	if (j >= 1ULL << 44)
--		result += (unsigned long long)mult * (unsigned long long)(1 << 22) * (j >> 44);
--
--	return result;
-+	result = div_u64_rem(j, HZ, &remainder);
-+	return result * MSEC_PER_SEC +
-+		DIV_ROUND_UP_ULL((u64)remainder * MSEC_PER_SEC, HZ);
- }
- 
- static int dm_stats_print(struct dm_stats *stats, int id,
+	if (!qcom_scm_is_available())
+		return ERR_PTR(-EPROBE_DEFER);
+
+	if (!qcom_scm_ice_available()) {
+		dev_warn(dev, "ICE SCM interface not found\n");
+		return ERR_PTR(-EOPNOTSUPP);
+	}
+
+So if SCM is not available at all then the probe is deferred.  But if
+just the ICE interface is unavailable then UFS or eMMC comes up without
+ICE support.  This series regresses the latter fallback behavior.
+
+- Eric
