@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792951412;
-	b=2LbXRiCPDAVungOJJ2qx28YRMT5ZAdcE6d3i+SbYpj8uOm3/OYtpI+NXU0Jg5gMDuOs7
-	 D+3tnEEy7UzjK/4mt/JaUkffIM+5dxakmSLLOa7BLGJBwJHi/uPT26P81SvfkBNEyMUwI
-	 P8zmu6IBV7oYNsQDR9pRRU306bjOgqdGowfTrCOZ6NTs6woEKGL/BibfjQzmQ5FOWtEE5
-	 cKw6zcrugNciyaaUiC3uM108jy3AZ2Q1pudt3v2Qy3Kns4o9hYn8LC5b1bFlIG4Vd0fqK
-	 FMBjJVhTsqVXpDcTha/urQOJbB1wZERRnKWqcFDhTr1WKQz0HwCfTwOdxS525Y+KoBA==
+	t=1792951407;
+	b=HPvR+VYucyfIXyU9Xq4qt4+n+jEgXJEndH4Sl1YJRDn7cN1exMs0KeGmv4wnQKErSE+f
+	 5vHyQkKTbR9ah4oxtcCD9rP0kAdK5M3uNTd17D03LAM320FOpDGsx3kkrclEzl7Zs7LIN
+	 Argon3hw8/1EDCgwcjtzScBNBeEftTzbzB14e4+pHIt52XJPjNMlUQHpZcbmYGsuJduYX
+	 9lAc5ZGcom/4HuNnAMqnMHq3+hUNqt1OOwrZLIO5Y6p26nSKps96GmAbU6ZmZpVM/43yY
+	 tatdXkOS7NCpFFGl0rG1MKc6BJGa3y8vGIkYC33Qtv428bIKltp3CtyWBfDqMuddp4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792951412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792951407;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ibB05X29AOxiO6eN+tzSsFBh2h9+iozgZjegt4o/0I4=;
-	b=vjPi8bEnDEz2FAjnHajpMIUaEdnJCRUVt79boCgRf5qvbYnRd8wnHE+/nAU0QpZL0rsy
-	 pUOSfdOuW0+wbbjfCwRsMik9Fk/xP2X7WxWodHgiYiKtBxL1Rf/K/caXbI/q0H4wnJQiA
-	 HKo4Uuhk0THIOLeISB0V+eYUlrBG0f83h3ZaNm6MB4l/SIf6sSiAEA9sNLvqbE5D2OfJs
-	 mLLM01SMfTFj8ZIQNivXcOJFyi69btnqngpUc/ztmju9yaU6X3teevk1+1dla+51vElYV
-	 mCncnBBI86T3RD7aNYtaGCtb0mLdLSFpDaepv9nBGo1CjF73TleAvS+fu6zsarj46sA==
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oGMF4Q3FKs8fn3YAByKtysFrkHDHvnUFQNs10reubHI=;
+	b=XSvKwNFaTMkRLodlqawMuvOpe/EuohG+ztxSg/m24wz0fE14eV48qs2xdZmjkVKZ2xI4
+	 OY7BJ4eZLtIyMZWL995G3FHbrUWsacOecqaIELY4NMNq07hTaUsAsp955DG8G7T9U8MwY
+	 ogK2UOFqEcSjcXwGBVe+WiVuhqbPB3jSACxmZMSItz1mLN/Mm9q0gTYUry/WXV49T8nW/
+	 kjQqf7uzd/U1Ub4ONeq7AJJAFNl3zJo9H6rfJr2Lwfz3MXFLeW1QNwNAzRDIRoatky2Ju
+	 FjRf+sTpUS7MDm8P/V6RiJopyVbHBrJzAZFsgZL8Y5fSFb4I9pnaXZtS8UP7LDc8Maw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rczi1//C";
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yz3DAhZa;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4D9606A32D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB4D9606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F17606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18F17606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rczi1//C
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso6707573eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:03:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yz3DAhZa
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so4176125e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:03:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792951411; x=1793556211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ibB05X29AOxiO6eN+tzSsFBh2h9+iozgZjegt4o/0I4=;
-        b=rczi1//Cve/pm0JBj7VD8mvoblYohSSibn7m358EW4h2aQF2zXOmWfmZMnB5x1kSHe
-         ND1fcRr1wa0ggqkVGzwLcuRmq39Vw3OQYrQAzm8DZlD0C/TRfSeoODVJiGGmuQf3hKTi
-         0lD+zG08VwdSoDIERsYjecq21QDZXJymzOjZU0eULxue5rL47fbXnS5nk1GTcerJDPxC
-         R1OvlyA7MKX9Pdbv7/V8fR5i5iWir7RtGEi0aaG3mSVR1ysrGMs987G9xHyQge+U5Ptd
-         6CmED/1WAqwnRdnW5SXeK1J+aQ2cc7aNIlYubeO79GjIogmjD9dbagO0ggKZqWteYwkU
-         5YKw==
+        d=gmail.com; s=20251104; t=1792951405; x=1793556205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oGMF4Q3FKs8fn3YAByKtysFrkHDHvnUFQNs10reubHI=;
+        b=Yz3DAhZa1ioTItGzQDNf9M0ywPd9fITkrY8kdwClnU8r3li7j2PGsQtcTAdpnVaryL
+         JTXKcNOhDKV6qK6UtvgsAdfGmK3ArnEEIGTwIOMm93uMNRYkg/wOq7mTvKNL335m1q/5
+         f5Dl2tmVpHj7+Ncg9u/G8lpmFoJYzq3eryI+8FsxdPWV35FhFHF2SaChRXw+0J8JD6vh
+         UV2glsk3BhDvC3m7CditfmOSViBdHU+TzKxjopFtOdFFI/Jt+biqXWoAkYrKrfvdA25a
+         TDc8E3gWN0Q1JDTwNoTBDlePhzi5wBXQ211kIUW7isjHO1zEcoxTXnBnj514ON2iESpw
+         RXDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792951411; x=1793556211;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ibB05X29AOxiO6eN+tzSsFBh2h9+iozgZjegt4o/0I4=;
-        b=R4VsJZExV/PJdJ3KoRPPQjwH2+DN0e75R7ioi9oFoTpEWFLW4048ZEF/aFl/IQevyf
-         69K6ZjFEDf3qyPZr4xL7Xcg9jAbrnlUThYlvCyX4z2xItwY/Ig9BF6WMqcUM2RTV3fbZ
-         ZFpg/RlZa7xtjzl9VVxdCMwNmAbjaFKY143NyCh9Tt+pPLkz9dcbWpcw/0lPvfl2HUeP
-         BA6JZ3+5L/x/YOstSramBEzu88et29BZ8469TP1jJ3zyTMEF1+eTV/NSTfAx+rqLUrog
-         dK9QWbbYveG4VK9nixoPRxIC//ZRZnpl7FxsQYhQ6BPZkz3kWCp8aB4HM9UE0u6pRTiz
-         OHsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAQFVQcI96AEUfqOen+ovZ88g9ayzCesKWkLt6kC+lvTIfX9lN2O5AsKE3sa93s4xXNz5DWS2oC5rsRc8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1Hg9vVZiSdd7wBTgQJ9jGl2LOe/tcRhAF5zP8buTNNPtv9rea
-	Pg6hWMVT8mHUrqPY5q3w8bMH3F3j4GHvxftlHLpSTnB7O8HnMC2JpXQ1
-X-Gm-Gg: AYBFou0vIiszNrPNoZnPQfMQGd7SKvhaQTHxTBrQhYG2UZ4oYejLuHZmJRfTTLRDnWZ
-	QvPzUs759jh9RWxvl9LIIPfJYNBruDfDs5bGGIB2u3pf33yHCp0TAv1u6cCr/kxxFZpJa3fSnmm
-	brEItuAcSAslDpMw/mPtVy9LLY0x1fTp439qsi94TRhAmtLDcsigT0NVjYDeZWo1d9WWKj9A/+7
-	VjeJb0cGKyJ05tSdi9bUPe52Iei2OXKmvci3ccqGs4khnMWOfTU3qD6ZWOAMiKOSVRDv7eXIJ6c
-	+hoUynRqnEz95yo3NuTqZL69mW8wI+hLsgZAMbfhdxvliKKhdQXBR74bhee8vQ6CiK7CBjr7rIr
-	iNivuUCr+zoMrlWNl6++Y4e/mrIiGDkZrpIiErjy8HCWlgs26MEzz9jpVV8ieBR+J1gPsUGh5GT
-	gxjAFNBiYrHonRRsq69lhNOWNNo6tzruEdC2H8Ze1XBH7Z7kWVK2B+Xe1RF8xke03CTHAVI7d1U
-	VQkMizNvMPboPoTlKtMxQhUgXiMlvN/dn+t7Yo+7oYGme32z5tgJ85gbIJsmCzsvo1gewxvxElj
-	vulLq7rzr1JmyzxkuKof
-X-Received: by 2002:a05:693c:62d0:b0:369:9af5:7bc7 with SMTP id 5a478bee46e88-369e848143amr6347728eec.12.1792951410877;
-        Sun, 25 Oct 2026 11:03:30 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db450bsm17323338eec.17.2026.10.25.11.03.28
+        d=1e100.net; s=20260707; t=1792951405; x=1793556205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oGMF4Q3FKs8fn3YAByKtysFrkHDHvnUFQNs10reubHI=;
+        b=JKfiKdCp/VDhBBXVcPl6V5oKTbk3fC6ifdMhhpe4xU+L10jyjp9H5tPAelbHu5TrSS
+         4+RFp65Pqi9lIaB/glty7JhO6sdhQRuW3ycoWmYmfUqL3CFYliExlH0CqwMDIByXDuDc
+         GMccW/2vLGJNc0W7mJKDoIgpbUtJRHId0RrELFChEQCMTm2ND8uf/pG9vorngDgUvVku
+         qweJ+aCb1SKzxDoAcr+7nLcZqB3tJu7CPzIY/WRKdod4qxqHy5/NdskNYUzotfEGRslz
+         53svqjLqv21ihenMOsCkarqls/OGgzzqrdiGbKqYkJYKLOCnbkrab38QS8elZe52FUIo
+         Fjbg==
+X-Forwarded-Encrypted: i=1; AKwUvBzP1nMXmCVRwpP99mX30//qeCMV66EISE9Eqn5LPyLWD0QchCJ/s9OdmUmcVHLCumNnAeTUmUXRQ1O1hWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcriJGqJvn7Gi+2lfZX9GOEtom0SQpC4yGGKO1t0T+7iUux08G
+	8qG2xbQSXiaRdN8wl8IT17JysEZtIYfl4IqDyOwDtSacDi8VGbyFZKDZegeu
+X-Gm-Gg: AYBFou2uWg37lHjg55WH8dyhiZkGq7V10pACeu/A19fLcE18nVOte6OVIKnM7rk8m1U
+	rRA7PHgwDNpj5Tc6CYuv5MeqZvYxEXWcATtQOoDawOzNGJ+SulIg97ukTsiT04unafxEv8S1gZ+
+	8NrRm2Rc7e2GGT3ch4ZpKH4C+tgxrl09i05qlaewGv/q1CVMb4KuArxIdAOLlTyxw87WUm0/ibu
+	sBLd2G5ECi7ghxQP4H0BPHUQmAoNnO0ROoeYLmPCihTIbVC1lGGGrCzNOhpWDjO5BQIMZ0+rnjJ
+	6/Ye9Ji+rAuKef7jlvw/VdL0CMzuDSg5VsYwMSd7J9bgvWJrKZuvwAUwIzrRfBaDWDQyefj/OKH
+	0/pXKGv/Du+PgkZBeodqjmZ/dmtap1sITQ2l5PX+rMkWGltzYvoUQCJqk1GTeCxUoDeY4tgLHdz
+	Rv+NbT9b+bBFdjQdKr8G9P7beFV43ek1uhEIOSdZY0HhyI1IhvoJRf0vaKROTzJ1xlfWcnl3I4D
+	Mmwzm0D0cja3hzuxFnG3GxhQfyB6qAWgKfAnA==
+X-Received: by 2002:a05:600c:630f:b0:4a1:efbe:529c with SMTP id 5b1f17b1804b1-4a35ae9e071mr92039425e9.12.1792951405253;
+        Sun, 25 Oct 2026 11:03:25 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a4cb7bece3sm82641055e9.10.2026.10.25.11.03.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:03:30 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
+        Sun, 25 Oct 2026 11:03:24 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: jic23@kernel.org
+Cc: lars@metafoo.de,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Cheng Yongkang <teel4res@gmail.com>
-Subject: [PATCH] NFS: pin the superblock across migration recovery
-Date: Sun, 25 Oct 2026 11:03:23 -0700
-Message-Id: <20261025180323.349533-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] iio: light: cm32181: validate ACPI object type in cm32181_acpi_get_cpm()
+Date: Sun, 25 Oct 2026 18:03:22 +0000
+Message-ID: <20261025180323.3641477-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,74 +96,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The NFSv4 state manager walks clp->cl_superblocks under RCU in
-nfs4_handle_migration() and nfs4_handle_lease_moved(), then drops the
-lock and calls nfs4_try_migration() without holding a reference on the
-nfs_server or its superblock.  A concurrent umount can therefore run
-nfs_kill_super() -> nfs_free_server() while migration recovery is still
-inside nfs4_update_server(): the server is removed from cl_superblocks a
-second time (DEBUG_LIST BUG), and once freed by call_rcu() the migration
-path still writes server->mig_status and touches server->super->s_root.
+cm32181_acpi_get_cpm() accesses cpm->package.count and
+cpm->package.elements without checking that the returned ACPI object
+is of type ACPI_TYPE_PACKAGE.  If firmware returns a different type,
+the package union members alias onto unrelated data.
 
-Pin the superblock with nfs_sb_active() before dropping RCU, as
-nfs_client_for_each_server() already does, and drop it again with
-nfs_sb_deactive() on every path: umount then detaches the superblock but
-cannot reach nfs_kill_super()/nfs_free_server() until migration recovery
-has finished and restored the server's list membership.
-nfs4_handle_migration() releases the pin after nfs4_try_migration();
-nfs4_handle_lease_moved() releases it on both restart paths and before
-its final return.
+Add the missing type check after the ACPI evaluation and before
+accessing the package contents.
 
-Umount may now wait for the migration attempt to finish, bounded by the
-mount's RPC timeouts, the same trade-off as the other nfs_sb_active()
-users.
-
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Fixes: d34ca613b939 ("iio: light: cm32181: Add support for parsing CPM0 and CPM1 ACPI tables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- fs/nfs/nfs4state.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/iio/light/cm32181.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
-index a5dec04..ff866f6 100644
---- a/fs/nfs/nfs4state.c
-+++ b/fs/nfs/nfs4state.c
-@@ -2169,8 +2169,12 @@ restart:
- 						&server->mig_status))
- 			continue;
-
-+		if (!server->super || !nfs_sb_active(server->super))
-+			continue;
-+
- 		rcu_read_unlock();
- 		status = nfs4_try_migration(server, cred);
-+		nfs_sb_deactive(server->super);
- 		if (status < 0) {
- 			put_cred(cred);
- 			return status;
-@@ -2212,13 +2216,20 @@ restart:
- 			continue;
- 		server->mig_gen = clp->cl_mig_gen;
-
-+		if (!server->super || !nfs_sb_active(server->super))
-+			continue;
-+
- 		rcu_read_unlock();
-
- 		inode = d_inode(server->super->s_root);
- 		status = nfs4_proc_fsid_present(inode, cred);
--		if (status != -NFS4ERR_MOVED)
-+		if (status != -NFS4ERR_MOVED) {
-+			nfs_sb_deactive(server->super);
- 			goto restart;	/* wasn't this one */
--		if (nfs4_try_migration(server, cred) == -NFS4ERR_LEASE_MOVED)
-+		}
-+		status = nfs4_try_migration(server, cred);
-+		nfs_sb_deactive(server->super);
-+		if (status == -NFS4ERR_LEASE_MOVED)
- 			goto restart;	/* there are more */
- 		goto out;
+diff --git a/drivers/iio/light/cm32181.c b/drivers/iio/light/cm32181.c
+index b32a94028f091..1528465be6adb 100644
+--- a/drivers/iio/light/cm32181.c
++++ b/drivers/iio/light/cm32181.c
+@@ -121,6 +121,11 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
  	}
+ 
+ 	cpm = buffer.pointer;
++	if (cpm->type != ACPI_TYPE_PACKAGE) {
++		dev_err(dev, "object %s is not a package\n", obj_name);
++		kfree(buffer.pointer);
++		return -EINVAL;
++	}
+ 	if (cpm->package.count > count)
+ 		dev_warn(dev, "%s table contains %u values, only using first %d values\n",
+ 			 obj_name, cpm->package.count, count);
+-- 
+2.47.3
+
