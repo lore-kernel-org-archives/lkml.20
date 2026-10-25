@@ -1,53 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792921362;
-	b=1CAkI4TH8ZafWn7XOPmzsdD9n2iZKuphS4MVjMS7VBHwMGH+NW+dGkpFw5GyyiZVYnby
-	 vs682yH9qR85kZ9HrVCjd93q0FODvt0381dIfTRyM1MHdWcgqhTbWsf3nkCNm9v/S/Pqf
-	 Ph3ne14Z6FIh2qVU+ods7ukGLRuxI/vDbGSQyw6BSj0cPl3Xwc/XsiU9nMeEGsEQnWrhe
-	 qK8Rp6oMpX4s950OCPOsLSkQPf3wXez1d/4HOfDh1XrOpM7mx4jgNiYbuJbVc3EwmtjJd
-	 MDF1mJB9kzr6OoCGfC0w+S4O1qWX/f0iBkVfxm0YDk1tmpHkYl2LoF1lTZ6vpSZpuTg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792921362;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=f5z7gJoDVOOZ5z/Ou45lA/nPBYXpeSYEhWs1uILW6Dg=;
-	b=Oilw70/3SIOJtbgqfSuJG9N0DzAu7SVlsb0+uluUMEbrdeV3SFwxTGJA+CpnMTUowjFE
-	 k0/q2iDt+Yvjd3GFO337EBK/2PXWi+7vQaqb/Pjve8IuArp+r4Jd4uWn/3XCVixkPStH+
-	 skmyCqpMo/slxS5au37jLeHTqtfOIJz5Zuo2GAiD38+/2ar5/r/+SOAs5m8Nmpl+hxshg
-	 5LtwyWUuypWZ3+KFA37WyhqS2BwajGwzJH3fsKFF9DBcLdUUSf8ujlTepc/kAkwxMvpho
-	 XEwo0Ale2/KpiGB7A+aVEp2pnNFDHAcOGtYizDS5a/hz+l1UEtGBuG0ZO22hachn0Lw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792921590;
+	b=NFGaRX4X6lzINUi9yq1m4JCO5F+miU78lHBFFe3OeSSUXQH34LgParvuaMlzzqLYXUy7
+	 N6AEFKHmwcLBl7X1WtNplqCJXMxfWNPZaOiwOs6JHjxEXWXXshiO9r+vDYDBCB2MpugS8
+	 fgYmgxIJ/YDdEePX/ks7mgI0YAKneUPDzchO8DrpBqa1a0v3tVK+mmgmbstuGOMo1oZJm
+	 fJwG/OoFPbCAvV4Aylla6W8OV8vZwnVgTz3IKnl3rAjqSZyrF0WXDXCNNjmqNGi89VhNc
+	 P4xbxaiys2+vV900NiR6IHo2cUMAJGrRMJ8+R57dHp6umZKk2tJ2iH+WbqsmkLVyOhg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792921590;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:MIME-Version:Received:Received:Received:Received:Received:
+	 Received:Received:Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	bh=rQKpdTQJbLGtJOgvQhp/XHq9+mhq92mx00sXx2/2hHs=;
+	b=NY2ugQURKigKv6zHVp6qppuKumYnFS8e4f3esVJ/VjS4MT7CYRtuJ39VFiYvI5zWSUK2
+	 9JAFKOgEtRHEVd/ktMUlwUuG4JOXPaulOMQGf/D4LfvlE+2iaxAuTqgXe4yByUQ0YIhu7
+	 Etm9/HvvimoQLJGrzgrn+3SgOboe9Nn1budqoA1BB7C60js1vj3iBWixMlSXjj5o6PS/P
+	 Vkg/rjaGi8q11+LuyQ5nxubs7rDW9ilMrkoWONOpUddpqA+CHpH7p7eWQ9aFpC9kw7W5F
+	 kPJEEhzmsouRLibe2TqooNbbjDW2DWm0FnfZL1EoMNvbq7GuGP37k9NkpomKPY1svgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JIRkVo7L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED43C606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED43C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f9b643ae53so1889087b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:42:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792921361; x=1793526161;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF517606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:46:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF517606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JIRkVo7L
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c418e215671so266955266b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:46:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792921588; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lPA6MHE+efmCSeZOYFKPFb+6zoofExVMPrOvH/Z2zw+mZIKENXa8KZzXEaQajnO4Ey
+         gvmEUZOFbxidpPL4e0vgUh+3Bxj673qb29nR1/h8wRBPNFJ+IcQMcuHqeJvILgTuPk7f
+         dg5BB+pd8T1kc6sg1jPXAkmo5iY8sf1f8Ts+kEWvOX/wGJ5sbW0v7NGxsXrlPtNQ7Tkt
+         ctPeufploJxiM5A8a1RRHasmYR7jz2Uuh4n9RLO7Ck40CoQ8HNIAy5ojUW2h3QR//kYi
+         Yq4S9PsQB3bQCrxJmw3Rp98/s0uazHw0NXRKSyCmIfKeYlPEgOX2zPj221PL/6ONUVNR
+         2Ljw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=rQKpdTQJbLGtJOgvQhp/XHq9+mhq92mx00sXx2/2hHs=;
+        fh=XA3YLm5SfsG+lmNg8Qnhthiy7aVWMGDEm6ztWgbV2po=;
+        b=mf76bTtyixbr/0CowAaFGbPEodShaUSyhwSnqbW9u8G2D1FeEGvZwh9w4GI91Qud/l
+         Hib9y0p6HDCtaAiTC7cioLQmIifrAXmGHgk0MgecU0oiNyJVz641s0uAOpUGSWTckYaQ
+         DhgsQgYEcb321ppBKwL6bDArTeWC4Vb26dhoEr5yC/JNDF0bOHMv/YD3ZMgORVt2wr6A
+         cpxzFIcTXApWBt5TMKoeiFNmziHnkgpGsO3KQTi0Ru7zbvaQP4v/ey/5xH+enoPUAeVP
+         18l2hCe8nrdHq0N91i7WfV+LkA9mpbVPWmy3ceH8j/d0trgUPcaHpz5rAGKLLZqNPHWu
+         +gAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792921588; x=1793526388; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f5z7gJoDVOOZ5z/Ou45lA/nPBYXpeSYEhWs1uILW6Dg=;
-        b=coC31DMkAeEo7LhWir8TndqXIoc6KdiGN4414ZQhPih9yp/tFb6Bqv1D/m0U4BZHps
-         Iekzw6xR9fBu50rFRY5dXS9J+U1NMaeNW9+zm7G+YGIZZ55HJdbCTKP7N7dhwSq2N/Q2
-         NOdeGa4qJazbd1ncQ8s5/Llh9kHtOoFArlifuhC8C0quVJXj29HGP7b+Z9UhaXPC89Y+
-         2GEKxc9O0N43qeknEo0MOw9qg/liwsCn9uKkUzC5t+ksDCpLhJ3WKd/x/nO/AOoxsUoY
-         dGSmxlo3i5CciK/nDaGemGIgsgC/uGRbwQ5hdJJXUWdB+DV6rIzKYGgUv311yoG0I/nf
-         L9og==
-X-Gm-Message-State: AFq9FYJAAd+tE+3twP+Va0d/2bpeZYMjASx9q8QOn0J35+5woRHt5dqq
-	iBzNCqpnRjw3eMitG1bCbMZ+ab0jOa/84pl5YsgXOtPUU4o478mqAPWgNeD1QOWFNnNS4d/iR/S
-	MxPf9fXOEQ73awU0zmD1JLGTR/2V5fgCFwJ6DlXXaypzJZ1QDRAmljZuvK+o=
+        bh=rQKpdTQJbLGtJOgvQhp/XHq9+mhq92mx00sXx2/2hHs=;
+        b=JIRkVo7LOOsEbTvzdMtahKOhRazuoR+NsWju6pw+2O1qjJVt+lG0PxpHTPbOXUOR5S
+         NEMu2CpH2bWDnd9LZcLml9XCOWNrzlGXDPNxeLMYellrE8P6d38YtID1zytg8y1Gnfe6
+         khx4nZInOtzIXUT1tatQ8vJnaKywIADDZWdv8F7gbPZJIfY/JQKQwk69Yd3FiVPTSAHl
+         MkpMJQB/UiqWInPCFjxKWWhKjg61xTmm1UPvSDTelp25iBYJ/CO9wMdm3GGzLiJQTkoP
+         9iOqJFmSrjUJiCLHhobO7U7a6Diq59WvJouFO5omxI5lfe063VJE0aaaFmF5zQ76wrP3
+         43fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792921588; x=1793526388;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rQKpdTQJbLGtJOgvQhp/XHq9+mhq92mx00sXx2/2hHs=;
+        b=QtPRzuIOTGk2KmDypq/oG8d90JtTLMZTBKDANT4OuxSYhmRiKZ5fkdiL46B17k5X7F
+         MExLKYK6p9zNZU6bkJouuL3kQAhpkSmeAhqJvNOpPgwDnvz8DTsoaml6mU1pXY7gNei4
+         rrENASOdaaMmU/eHSwNZr9UdgcT47CScmMHM9jIx7U2Hr4FSsNLx5JW7S2SuFQErmfRt
+         smivikMWzfgpQKX8Ng5b8lUhaWTN7OgqEdES4Kpbtp7guHTBr9m8sa/R9EM4tf3TpIii
+         wvHkiMGj/c0Y2qv4g9Sr98D/MbRxtkfR8RL3l5O6hwSokolRH6Hgb57vBiPa7ZISLycg
+         RFaw==
+X-Forwarded-Encrypted: i=1; AKwUvBytoKIoeuHXyQm2GlYXrVq5Ir5lBaK0xpVfjXDYbnXNRPOKOP6QOWsTBDBuPEMFt/JJOyUXuUkx8cXbeJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH79BhfH5PIIWPLr2G+L29Q3oCaDoR8jPy4IjFBjFafYWCr+MZ
+	dq76iOhCr92xwvpM6bj4sAYxOrG1fQUYBzZpOCczTEAPHsNGwG7MmsR3nHv3Z/MdTd60FcV8Zkc
+	iaTRfOSYqx6ILQyn7n3WfGwMjtVHx6s0=
+X-Gm-Gg: AYBFou2Hv4j4GJUGsYxpGSjRv1o+zOarCHLEqqDkw7625PyWtdP/wijLIFW9Noxj3/H
+	RNF08amV+NktAIm4RYHUvn1tOlWWtDi5KlHtY30IZuic+r48L+wqYWxA57u0iVVDuGs93EQCw8U
+	+scZX86xQISw84c8UKOjfjF8nM2M9Y55MHjozcRJUXR5giO6CxtJM6f0bpQ8fBQ+CrBtEBQQQeL
+	nWuehgbc83bAl6AmIF9sw0OIvtfheRcSUuXX2yAdu6oalSyyWwdLL5oPkxWsvxBrlL+uJhpXqV8
+	f+HVPmAjecKcfGsXXliHNT6dxsueqCS0iAUAfVKNhpvXD7pGoJpauvGJM/FIbXrjHZCYojoI51A
+	UnzHeR5WCFJnC/ll/teQj8utu/18Iw4AaceOp+hLITIkHOjxQODExW9E=
+X-Received: by 2002:a17:907:6d06:b0:c45:c030:732a with SMTP id
+ a640c23a62f3a-c46bde5d73bmr469430366b.35.1792921587732; Sun, 25 Oct 2026
+ 02:46:27 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 25 Oct 2026 02:46:27 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 25 Oct 2026 02:46:11 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,128 +108,428 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:191a:b0:4f4:4de8:9376 with SMTP id
- 5614622812f47-55c00321b32mr2301247b6e.54.1792921360826; Sun, 25 Oct 2026
- 02:42:40 -0700 (PDT)
-Date: Sun, 25 Oct 2026 02:42:40 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6addcf10.4ce6c07b.2dfc0c.0009.GAE@google.com>
-Subject: [syzbot] [wireless?] WARNING in ieee80211_queue_skb
-From: syzbot <syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sun, 25 Oct 2026 05:45:22 -0400
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 14:42:35 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 13:19:39 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 13:14:11 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 12:46:21 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 12:33:20 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 24 Oct 2026 12:20:05 -0700
+Reply-To: JaeHoon Lee <dlwognsdc610@gmail.com>
+From: =?UTF-8?B?7J207J6s7ZuI?= <dlwognsdc6100@gmail.com>
+Date: Sun, 25 Oct 2026 02:46:27 -0700
+X-Gm-Features: AclHuK96i_lAiZ_E2-3njRuhfAO3qcT9D6j2GvJitw1WdwF_-HYTxxFwHPzE1Nc
+Message-ID: <CAE5fF3hWujpToOw+0NAAFiMwMgvpx6Sc85VskTcp-nrQyo43sw@mail.gmail.com>
+Subject: [RFC PATCH] drm/v3d: add write-back BO mappings and cache sync
+To: Melissa Wen <mwen@igalia.com>, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-api@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+From: JaeHoon Lee <dlwognsdc610@gmail.com>
 
-syzbot found the following issue on:
+Add V3D_BO_WB_MMAP to request WB CPU mappings. Keep WC as the default.
+Set map_wc before getting the BO pages, and use WB for the kernel mapping
+only when the BO is native and uses WB.
 
-HEAD commit:    20a33c6b6cbe Add linux-next specific files for 20261023
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15cf1aa5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=82b79abce6d1b17c
-dashboard link: https://syzkaller.appspot.com/bug?extid=c38f93f387ac25eabf68
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117f4d8e580000
+Add V3D_SYNC_BO, based on Panfrost's BO sync API. It takes a list of BO
+ranges and supports cache flush or flush and invalidate. Reject imported
+BOs and invalid ranges or sync types.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c38f93f387ac25eabf68@syzkaller.appspotmail.com
+Indirect CSD uses a CPU job to read three 32-bit workgroup counts. Sync
+this 12-byte input range before the CPU reads it from a WB BO.
 
-------------[ cut here ]------------
-syzkaller0: Failed check-sdata-in-driver check, flags: 0x0
-WARNING: net/mac80211/driver-ops.h:1380 at drv_wake_tx_queue net/mac80211/driver-ops.h:1380 [inline], CPU#1: syz-executor116/6060
-WARNING: net/mac80211/driver-ops.h:1380 at schedule_and_wake_txq net/mac80211/driver-ops.h:1391 [inline], CPU#1: syz-executor116/6060
-WARNING: net/mac80211/driver-ops.h:1380 at ieee80211_queue_skb+0x1cb4/0x22e0 net/mac80211/tx.c:1729, CPU#1: syz-executor116/6060
-Modules linked in:
-CPU: 1 UID: 0 PID: 6060 Comm: syz-executor116 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-RIP: 0010:drv_wake_tx_queue net/mac80211/driver-ops.h:1380 [inline]
-RIP: 0010:schedule_and_wake_txq net/mac80211/driver-ops.h:1391 [inline]
-RIP: 0010:ieee80211_queue_skb+0x1cfc/0x22e0 net/mac80211/tx.c:1729
-Code: 00 00 48 85 c0 4c 0f 44 e5 48 b8 00 00 00 00 00 fc ff df 41 0f b6 44 05 00 84 c0 0f 85 6d 04 00 00 41 8b 16 4c 89 ff 4c 89 e6 <67> 48 0f b9 3a 49 bf 00 00 00 00 00 fc ff df e9 b5 fa ff ff e8 bb
-RSP: 0018:ffffc90003316f70 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff88805ac32d90 RCX: dffffc0000000000
-RDX: 0000000000000000 RSI: ffff88805ac30120 RDI: ffffffff91d2d970
-RBP: ffff88805ac319f0 R08: ffffffff91c0abbf R09: 1ffffffff2381577
-R10: dffffc0000000000 R11: fffffbfff2381578 R12: ffff88805ac30120
-R13: 1ffff1100b58633c R14: ffff88805ac319e0 R15: ffffffff91d2d970
-FS:  00007f837dd626c0(0000) GS:ffff88812347c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f837e562ff8 CR3: 0000000013544000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __ieee80211_xmit_fast+0x8ea/0x2160 net/mac80211/tx.c:3862
- ieee80211_xmit_fast net/mac80211/tx.c:3930 [inline]
- __ieee80211_subif_start_xmit+0x1367/0x1840 net/mac80211/tx.c:4489
- ieee80211_subif_start_xmit+0xee/0x560 net/mac80211/tx.c:4726
- __netdev_start_xmit include/linux/netdevice.h:5455 [inline]
- netdev_start_xmit include/linux/netdevice.h:5464 [inline]
- xmit_one net/core/dev.c:4057 [inline]
- dev_hard_start_xmit+0x2cd/0x830 net/core/dev.c:4073
- __dev_queue_xmit+0x14d1/0x3920 net/core/dev.c:5066
- packet_snd net/packet/af_packet.c:3157 [inline]
- packet_sendmsg+0x3f1b/0x51b0 net/packet/af_packet.c:3189
- sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x408/0x5a0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __x64_sys_sendto+0xde/0x100 net/socket.c:2286
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f837e5c51de
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007f837dd620b8 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 00007f837dd626c0 RCX: 00007f837e5c51de
-RDX: 000000000000003c RSI: 00007f837dd62140 RDI: 0000000000000004
-RBP: 00007f837dd62120 R08: 00007f837dd62120 R09: 0000000000000014
-R10: 0000000000000040 R11: 0000000000000246 R12: 00007f837dd62180
-R13: 0000000000000013 R14: 00007ffe6cb13b50 R15: 00007ffe6cb13c38
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	00 00                	add    %al,(%rax)
-   2:	48 85 c0             	test   %rax,%rax
-   5:	4c 0f 44 e5          	cmove  %rbp,%r12
-   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  10:	fc ff df
-  13:	41 0f b6 44 05 00    	movzbl 0x0(%r13,%rax,1),%eax
-  19:	84 c0                	test   %al,%al
-  1b:	0f 85 6d 04 00 00    	jne    0x48e
-  21:	41 8b 16             	mov    (%r14),%edx
-  24:	4c 89 ff             	mov    %r15,%rdi
-  27:	4c 89 e6             	mov    %r12,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	49 bf 00 00 00 00 00 	movabs $0xdffffc0000000000,%r15
-  36:	fc ff df
-  39:	e9 b5 fa ff ff       	jmp    0xfffffaf3
-  3e:	e8                   	.byte 0xe8
-  3f:	bb                   	.byte 0xbb
-
-
+Assisted-by: LLM
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+This is an RFC for the V3DV host-cached memory work. The Mesa changes are
+on this branch:
+https://gitlab.freedesktop.org/yserrr/mesa/-/commits/v3dv-host-cached
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+V3DV uses WB for native HOST_CACHED memory. Internal BOs, including the
+uniform BO, still use WC. Shared allocations, images and TRANSFER_DST
+buffers also use WC. TRANSFER_DST needs cache sync in the CPU jobs that
+copy query results.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Validation:
+- ARM64 W=1 build of the V3D driver on drm-misc-next passed.
+- checkpatch --no-signoff: 0 errors, 0 warnings.
+- The kernel and Mesa UAPI command, flags and struct layouts match.
+- The actual sync functions passed 2,000 mock SG range cases with UBSan,
+  plus ioctl error and reference cleanup checks.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Hardware tests used a Raspberry Pi 5 and a backport to 6.18.34+rpt-rpi-v8,
+with 167 matching kernel symbol CRCs and the rebuilt V3DV driver:
+- Native create/map, sync batches and invalid inputs: 15 checks passed.
+- WC and WB CPU/GPU round trips: four passes each.
+- A partial WB mapping at offset 256: 32 passes over 1 MiB. Data outside
+  that range stayed unchanged.
+- Indirect dispatch: six cases, 32 passes each, with no wrong results.
+  These include a GPU writer and indirect dispatch in one command buffer,
+  with no host wait between them, at offsets 0, 60 and 4092.
+- No GPU reset or MMU error was logged. The stock module and graphics
+  services were restored after the tests.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+The hardware results are for the 6.18.34 backport. The drm-misc-next
+version was build-tested, not booted.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Base: drm-misc-next cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
 
-If you want to undo deduplication, reply with:
-#syz undup
+ drivers/gpu/drm/v3d/v3d_bo.c    | 127 ++++++++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/v3d/v3d_drv.c   |   1 +
+ drivers/gpu/drm/v3d/v3d_drv.h   |   3 +
+ drivers/gpu/drm/v3d/v3d_sched.c |  16 +++++
+ include/uapi/drm/v3d_drm.h      |  52 +++++++++++++++-
+ 5 files changed, 192 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+index db95a2fac..1eaa57c64 100644
+--- a/drivers/gpu/drm/v3d/v3d_bo.c
++++ b/drivers/gpu/drm/v3d/v3d_bo.c
+@@ -16,6 +16,8 @@
+  */
+
+ #include <linux/dma-buf.h>
++#include <linux/dma-mapping.h>
++#include <linux/uaccess.h>
+ #include <linux/vmalloc.h>
+
+ #include <drm/drm_print.h>
+@@ -147,8 +149,8 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
+ 	return 0;
+ }
+
+-struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
+*file_priv,
+-			     size_t unaligned_size)
++static struct v3d_bo *v3d_bo_create_flags(struct drm_device *dev,
++					  size_t unaligned_size, u32 flags)
+ {
+ 	struct drm_gem_shmem_object *shmem_obj;
+ 	struct v3d_bo *bo;
+@@ -159,6 +161,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+*dev, struct drm_file *file_priv,
+ 		return ERR_CAST(shmem_obj);
+ 	bo = to_v3d_bo(&shmem_obj->base);
+ 	bo->vaddr = NULL;
++	/*
++	 * Use map_wc=true for WC by default.
++	 * V3D_BO_WB_MMAP sets map_wc=false for WB.
++	 * WB memory needs explicit cache sync.
++	 */
++	bo->base.map_wc = !(flags & V3D_BO_WB_MMAP);
+
+ 	ret = v3d_bo_create_finish(&shmem_obj->base);
+ 	if (ret)
+@@ -171,6 +179,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+*dev, struct drm_file *file_priv,
+ 	return ERR_PTR(ret);
+ }
+
++struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
+*file_priv,
++			     size_t unaligned_size)
++{
++	return v3d_bo_create_flags(dev, unaligned_size, 0);
++}
++
+ struct drm_gem_object *
+ v3d_prime_import_sg_table(struct drm_device *dev,
+ 			  struct dma_buf_attachment *attach,
+@@ -195,9 +209,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
+ void v3d_get_bo_vaddr(struct v3d_bo *bo)
+ {
+ 	struct drm_gem_shmem_object *obj = &bo->base;
++	pgprot_t prot = pgprot_writecombine(PAGE_KERNEL);
++
++	if (!drm_gem_is_imported(&obj->base) && !obj->map_wc)
++		prot = PAGE_KERNEL;
+
+ 	bo->vaddr = vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
+-			 pgprot_writecombine(PAGE_KERNEL));
++			 prot);
+ }
+
+ void v3d_put_bo_vaddr(struct v3d_bo *bo)
+@@ -213,12 +231,12 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
+void *data,
+ 	struct v3d_bo *bo = NULL;
+ 	int ret;
+
+-	if (args->flags != 0) {
++	if (args->flags & ~V3D_BO_WB_MMAP) {
+ 		drm_dbg(dev, "unknown create_bo flags: %d\n", args->flags);
+ 		return -EINVAL;
+ 	}
+
+-	bo = v3d_bo_create(dev, file_priv, PAGE_ALIGN(args->size));
++	bo = v3d_bo_create_flags(dev, PAGE_ALIGN(args->size), args->flags);
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+
+@@ -230,6 +248,105 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
+void *data,
+ 	return ret;
+ }
+
++int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
++{
++	struct drm_gem_shmem_object *shmem = &to_v3d_bo(obj)->base;
++	struct sg_table *sgt;
++	struct scatterlist *sg;
++	unsigned int i;
++
++	if (offset + size < offset)
++		return -EINVAL;
++
++	if (offset + size > obj->size)
++		return -EINVAL;
++
++	if (drm_gem_is_imported(obj))
++		return -EINVAL;
++
++	if (type != V3D_BO_SYNC_CPU_CACHE_FLUSH &&
++	    type != V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
++		return -EINVAL;
++
++	if (shmem->map_wc)
++		return 0;
++
++	if (!size)
++		return 0;
++
++	sgt = drm_gem_shmem_get_pages_sgt(shmem);
++	if (IS_ERR(sgt))
++		return PTR_ERR(sgt);
++
++	for_each_sgtable_dma_sg(sgt, sg, i) {
++		dma_addr_t addr = sg_dma_address(sg);
++		size_t len = sg_dma_len(sg);
++
++		if (!size)
++			break;
++
++		if (offset >= len) {
++			offset -= len;
++			continue;
++		}
++
++		addr += offset;
++		len -= offset;
++		len = min_t(size_t, len, size);
++		size -= len;
++		offset = 0;
++
++		dma_sync_single_for_device(obj->dev->dev, addr, len, DMA_TO_DEVICE);
++		if (type == V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
++			dma_sync_single_for_cpu(obj->dev->dev, addr, len, DMA_FROM_DEVICE);
++	}
++
++	return 0;
++}
++
++int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
++		      struct drm_file *file_priv)
++{
++	struct drm_v3d_sync_bo *args = data;
++	struct drm_v3d_bo_sync_op *ops;
++	struct drm_gem_object *obj;
++	unsigned int i;
++	int ret = 0;
++
++	if (args->pad)
++		return -EINVAL;
++
++	if (!args->op_count)
++		return 0;
++
++	ops = kvmalloc_objs(*ops, args->op_count);
++	if (!ops)
++		return -ENOMEM;
++
++	if (copy_from_user(ops, u64_to_user_ptr(args->ops),
++			   args->op_count * sizeof(*ops))) {
++		ret = -EFAULT;
++		goto out;
++	}
++
++	for (i = 0; i < args->op_count; i++) {
++		obj = drm_gem_object_lookup(file_priv, ops[i].handle);
++		if (!obj) {
++			ret = -ENOENT;
++			goto out;
++		}
++
++		ret = v3d_bo_sync(obj, ops[i].type, ops[i].offset, ops[i].size);
++		drm_gem_object_put(obj);
++		if (ret)
++			goto out;
++	}
++
++out:
++	kvfree(ops);
++	return ret;
++}
++
+ int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file_priv)
+ {
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
+index 8d914dbc3..0fcf6ceed 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.c
++++ b/drivers/gpu/drm/v3d/v3d_drv.c
+@@ -264,6 +264,7 @@ static const struct drm_ioctl_desc v3d_drm_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(V3D_SUBMIT_CPU, v3d_submit_cpu_ioctl,
+DRM_RENDER_ALLOW | DRM_AUTH),
+ 	DRM_IOCTL_DEF_DRV(V3D_PERFMON_GET_COUNTER,
+v3d_perfmon_get_counter_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(V3D_PERFMON_SET_GLOBAL,
+v3d_perfmon_set_global_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(V3D_SYNC_BO, v3d_sync_bo_ioctl, DRM_RENDER_ALLOW),
+ };
+
+ static const struct drm_driver v3d_drm_driver = {
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 7c7bdf6e5..d5db64bf5 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -595,10 +595,13 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+*dev, struct drm_file *file_priv,
+ 			     size_t size);
+ void v3d_get_bo_vaddr(struct v3d_bo *bo);
+ void v3d_put_bo_vaddr(struct v3d_bo *bo);
++int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size);
+ int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
+ 			struct drm_file *file_priv);
+ int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file_priv);
++int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
++		      struct drm_file *file_priv);
+ int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
+ 			    struct drm_file *file_priv);
+ int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 1924e3440..17648a913 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -396,6 +396,22 @@
+v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
+ 	struct drm_v3d_submit_csd *args = &indirect_csd->job->args;
+ 	struct v3d_dev *v3d = job->base.v3d;
+ 	u32 num_batches, *wg_counts;
++	int ret;
++
++	/*
++	 * WB memory needs cache sync before the CPU reads the three counts.
++	 * The GPU job that wrote them must finish first.
++	 */
++	if (!drm_gem_is_imported(&bo->base.base)) {
++		ret = v3d_bo_sync(&bo->base.base,
++				 V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
++				 indirect_csd->offset, 3 * sizeof(*wg_counts));
++		if (ret) {
++			dma_fence_set_error(job->base.done_fence, ret);
++			dma_fence_set_error(indirect_csd->job->base.done_fence, ret);
++			return;
++		}
++	}
+
+ 	v3d_get_bo_vaddr(bo);
+ 	v3d_get_bo_vaddr(indirect);
+diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
+index d9b01f4c3..ca7352e96 100644
+--- a/include/uapi/drm/v3d_drm.h
++++ b/include/uapi/drm/v3d_drm.h
+@@ -44,6 +44,7 @@ extern "C" {
+ #define DRM_V3D_SUBMIT_CPU                        0x0b
+ #define DRM_V3D_PERFMON_GET_COUNTER               0x0c
+ #define DRM_V3D_PERFMON_SET_GLOBAL                0x0d
++#define DRM_V3D_SYNC_BO                           0x0e
+
+ #define DRM_IOCTL_V3D_SUBMIT_CL           DRM_IOWR(DRM_COMMAND_BASE +
+DRM_V3D_SUBMIT_CL, struct drm_v3d_submit_cl)
+ #define DRM_IOCTL_V3D_WAIT_BO             DRM_IOWR(DRM_COMMAND_BASE +
+DRM_V3D_WAIT_BO, struct drm_v3d_wait_bo)
+@@ -64,6 +65,8 @@ extern "C" {
+ 						   struct drm_v3d_perfmon_get_counter)
+ #define DRM_IOCTL_V3D_PERFMON_SET_GLOBAL  DRM_IOW(DRM_COMMAND_BASE +
+DRM_V3D_PERFMON_SET_GLOBAL, \
+ 						   struct drm_v3d_perfmon_set_global)
++#define DRM_IOCTL_V3D_SYNC_BO             DRM_IOWR(DRM_COMMAND_BASE +
+DRM_V3D_SYNC_BO, \
++						   struct drm_v3d_sync_bo)
+
+ #define DRM_V3D_SUBMIT_CL_FLUSH_CACHE             0x01
+ #define DRM_V3D_SUBMIT_EXTENSION		  0x02
+@@ -237,11 +240,13 @@ struct drm_v3d_wait_bo {
+ 	__u64 timeout_ns;
+ };
+
++/* WB BOs require explicit cache sync. */
++#define V3D_BO_WB_MMAP 4
++
+ /**
+  * struct drm_v3d_create_bo - ioctl argument for creating V3D BOs.
+  *
+- * There are currently no values for the flags argument, but it may be
+- * used in a future extension.
++ * The flags argument may request V3D_BO_WB_MMAP for a write-back CPU mapping.
+  */
+ struct drm_v3d_create_bo {
+ 	__u32 size;
+@@ -278,6 +283,49 @@ struct drm_v3d_mmap_bo {
+ 	__u64 offset;
+ };
+
++/* Valid flags to pass to drm_v3d_bo_sync_op */
++#define V3D_BO_SYNC_CPU_CACHE_FLUSH			0
++#define V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE	1
++
++/**
++ * struct drm_v3d_bo_sync_op - BO map sync op
++ */
++struct drm_v3d_bo_sync_op {
++	/** Handle of the buffer object to sync. */
++	__u32 handle;
++
++	/** Type of sync operation. */
++	__u32 type;
++
++	/**
++	 * Offset into the BO at which the sync range starts.
++	 *
++	 * This will be rounded down to the nearest cache line as needed.
++	 */
++	__u32 offset;
++
++	/**
++	 * Size of the range to sync
++	 *
++	 * size + offset will be rounded up to the nearest cache line as
++	 * needed.
++	 */
++	__u32 size;
++};
++
++/**
++ * struct drm_v3d_sync_bo - ioctl argument for syncing BO maps
++ */
++struct drm_v3d_sync_bo {
++	/** Array of struct drm_v3d_bo_sync_op */
++	__u64 ops;
++
++	/** Number of BO sync ops */
++	__u32 op_count;
++
++	__u32 pad;
++};
++
+ enum drm_v3d_param {
+ 	DRM_V3D_PARAM_V3D_UIFCFG,
+ 	DRM_V3D_PARAM_V3D_HUB_IDENT1,
