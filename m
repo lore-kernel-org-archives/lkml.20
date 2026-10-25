@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.161
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792923438;
-	b=mdWvesG7PRxUcwH6EIh3WmTE1SKuWfSk1ngCiyu5eJ6ZflkB0227g4qGkppUSanQMs0k
-	 qp3P0o++TyX4Is3a8U/QBDqYftuxd0fangNrt2Wu1k0ab8HMzCCNpcsXF3318tn9Mlhde
-	 l0CJCW82h6ucgEXr7jRKMW/wZ1kfqIDFN9S8srfPOgIAT8rN+3PUPB7Ej/IB86h6V2bOx
-	 r6uUgYXBGW/FOm3XWMFStqadQl9AL1W3nVjbaExeH3eAdKRov6h5xYOWUJ49SkQkMxY96
-	 mdNn3uPNfdrT2w1is9/9Br+yV/0iqEx1EJUMA1DX/LRAKVADGtZlpJPRlErHkjgvqFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792923438;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aywIEJcQk95fG8yqIcjxmlvLYBajOmCJTLQHqNczgu8=;
-	b=ijWS2Ll5yuzvmVeS9lqH+CknE3tv3/TZ/PWiHpq6NTpdKMc1/gnOuFFd3Ub+K/MCz+IM
-	 8jRCNv5lf+OWukxlG7XEM1T6c6Z9/vq+WdudzyhpWRGKNYJ0DYw120BMsGl16LEGhlJku
-	 dvYN2kLxXE7fI71XwoUdtNBWhmggJKpD6+rws7IclLxxBRDU5YZR8I1WiM0qRHzYYfsa9
-	 gWoWTiUIBYXxQKIL57sMDiDEofmBKflWib98ISdrvK9qIYpPS32sFWlQUWoQFrRTZ+pi5
-	 HlpSzvCpxzG40DKz+1/mDyIf9qQRz+eU1KBmu+8wJ69q9BaWh44cz3fvBtWcIsc6/0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex.com;
-	spf=pass smtp.mailfrom=yandex.com;
-	dkim=pass header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=EEYfXOWF;
-	arc=none smtp.remote-ip=51.250.60.161
-Received: from forward101d.mail.yandex.net (forward101d.mail.yandex.net [51.250.60.161])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792923666;
+	b=Is2cJfj5Ce+UkIHV6RrfnLxTGINa1Cx2tuqRG0PAg23/LnBZ9B4bhEv+66YVOhkw9npd
+	 iMSd95SBv+vkddRkKbsq5gbx3RRUPTh+VB+LZZ3+R5yE1ShabEQgxFzsjVFLF0i8+W3W7
+	 CC6KU/Zcw+mX/jI3d9ZgwWXFf0R4MRU9fSkpdszk8TCvEv5kH6EmmkJ2u8FHlzGq26atV
+	 iZmKD5QTRG4qK34FETebCtx4fnXSmaJWvAt/QvjMj6U2AzrdwVUXf3Ory47MwWzLbJJcB
+	 7YBhAhuWlLrpl0Ova7cnlZlzNCs/XZsJE14n8sQc+eHy9r8aU8XIj/QwecMP482A/DA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792923666;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=VT3yDjoVFBMeA3NRTEExtEQJlQkfQyUIOlTiWJ1bijg=;
+	b=JLOy/oyvsYfSTnAzEjXXTDpliWigybqusWEOjhuE/Xmv/f92Oih4HRd7oD41VdiAex8l
+	 ALvjLG5UPvGl7aHb5Qm7y8FCOQXgNvP4o8PP59JHQn5C5liscDYm+GCrWfKvjBJZW7PRe
+	 uvqalqmXHkpTlEzLX2YPY5xtT+9IhY2KSK+/545dzS2vdwHBcR5ZryqArcI+5BfPE+0Dh
+	 AaxE+AcAfNaTFeAkQ8pGECyI7FLyrBIya/FJ8ZSsNdVQ5555KsnSM6r3RAABfxOkIi0f0
+	 S7W/XJISlzUYAK+kxokaROZdMDeziPMRJ4lq97VOJTEgGcYk+7nsbEASeCtE2hErmBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=axvh91vK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.3
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010003.outbound.protection.outlook.com [52.101.56.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA113606A330;
-	Sun, 25 Oct 2026 10:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA113606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A83606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6A83606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=EEYfXOWF
-Received: from mail-nwsmtp-smtp-production-main-37.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-37.yp-c.yandex.net)
-	by forward101d.mail.yandex.net (postfix) with ESMTPS id 85EA0C0055;
-	Sun, 25 Oct 2026 13:17:06 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-37 with ESMTPSA id tGcxncXiEeA0-zOYGgoQe;
-	Sun, 25 Oct 2026 13:17:05 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
-	t=1792923425; bh=aywIEJcQk95fG8yqIcjxmlvLYBajOmCJTLQHqNczgu8=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=EEYfXOWFv9681Ho52IVEpkX/6dfK4Ss2QV/7Py6bd0W+nKcvwc174djHurL1q4aFT
-	 HzN4AJwenj7cZ9S0gJ6cylsQ189Jyf+AT8mGGf7ye7CWgAMw3KQgeF3LsJ/3+KlwNR
-	 x+lhRBU72VCyTJisII9bcYIxvVRJrPQL4yw84ztU=
-Authentication-Results: mail-nwsmtp-smtp-production-main-37; dkim=pass header.i=@yandex.com
-From: Alex <xnderv@yandex.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Alex <xnderv@yandex.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau/therm: mask the update bit when reading back the fan PWM duty
-Date: Sun, 25 Oct 2026 13:16:40 +0300
-Message-ID: <20261025101640.49779-1-xnderv@yandex.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=axvh91vK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gKkXgKCzYeu8SnNIrwZ8BFzMRo6YYNsnK3jM2FkTHSBmw+RZo4xb7321qj0uiH1pIAhSH1kqtP8eVRJvp9FO4cxAX3WgrFRIh2y+SXeXQd6SikaYahCtKHiTJ0u/ZZuXvPA3OY0J4BWZIClSRvS5ugBqwKPS425bqIjVIoQkzYwwbTDkkJra4jyBUouuUdzdrcrYxH4lV80hUfMqGN4hhl0YKWi8idKqBGF5jmvf4AEpX2GXeE/k/8KfjZYzXbkeO2ip8pQZuE1NAfzvj/Hc6u8Fu40+tnPjQZNaNCGc5PSkSuhCw7HEjGfQoF2A6Y/sTC2gY4Ytw8Hu38l1tipY5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VT3yDjoVFBMeA3NRTEExtEQJlQkfQyUIOlTiWJ1bijg=;
+ b=trvlsjwuZJD+otjacXSL+XcdA5P8o2hLCEmhI6tsindqWMHtB4kWk2muOFRwwlsKIkKlWQnaXqzl2AECrUHH9WixzgHbmpyDpfqp3UxMJ2XT53+2MjZbPUSXAaW351Y5XHoD01LFWETxqM1q9yeDCpUzpFGc9Eywb4UfpVBN4kA2JUIi5mREWEyphqin1UTy4TJMNa6JbzTs68F/QV1zQoTkx9o6rTgGK5ynF+c04WWoT38MCfAZbJTgb/KFv4iGzEEJjozqkmlkNaDW8p50mGsJRgeZAdJ4a//LQPqLo9hzNpjgoEFrFBOBAxLz/yxyrIUihxAYGhFS67ZDBtzVIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VT3yDjoVFBMeA3NRTEExtEQJlQkfQyUIOlTiWJ1bijg=;
+ b=axvh91vKCzrqjPWb0xZUOXgLcWNcSD9HEHHpyuUAe9KA4W3UcKgC05wnVdmlGYmdWB+pPwwMu7CwG3OpbSJMQbx5XDiucD0HdModUIhnOp7II4gdKLmiLqodlIyp4ehhc+85stGMy8RsfA522kSR/SC5dKTJo42UDeSUT4TScJfs3hR71TZQnFfHfvPNorQpuiuiDX1MQhnG/NQxvw4wP66Pxpr6VG346OEpzRQ32vkHxuz9eOyW+hatikveikRp0QGrS7Lzyb83sDsqoMUJmQp4fLaUp/7IU8fiRINTvWZV/tEUwSSiqFcsFW4X8KJIouWutvqf/VpUzsaJ1aH7Mg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by FT1PR12MB455478.namprd12.prod.outlook.com (2603:10b6:170:3d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 25 Oct
+ 2026 10:21:02 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
+ 10:21:02 +0000
+Date: Sun, 25 Oct 2026 11:20:53 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] sched_ext: Don't sign-extend unsigned enums in
+ __COMPAT_read_enum()
+Message-ID: <at3YBauZxfWw8su4@gpd4>
+References: <20261023232102.1124938-1-tj@kernel.org>
+ <20261023232102.1124938-2-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023232102.1124938-2-tj@kernel.org>
+X-ClientProxiedBy: MI3PEPF00004EAA.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::44e) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,89 +99,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|FT1PR12MB455478:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcb5cbbe-809a-484f-bf82-08df3281ab60
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003|261021123027099003|261021121427099003|261009223027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	xMo4y/rdzHrsnEGYHd/Im56Q0RIVMdEvwgyNh832aXUPJYdHr8sQ5LN7qWNQmf/mN8wVr79XvH2CsCuzyX+loqOefUgPXEtf6Or3TefRlGljFS52W++D/8iuTlRGIgjTji3wJsEpz6Yj5EiHUHki+NjR3K9RuOb9jrYtd9xtysVxG0miaEY3A75kWApNZX3jvs5GNMSKnduPA0VhhmFDHb+JXuWDKGRi3YPNBkXLspCtzF7SK0y4gsRuiHCvqRLlfm6pgyuj7x5Q/N6+2PJCbDAzIiYMr2dyBWsKOppzVtyAW89uN21qmqtQzQc6sOOefl/H8PwtbK/aZ3BeQlXxCYeiM5JfzuOssOZgIvgwWtgXVJN+16C1xxLujdG0/2Vvty9iPmU26jlwPjWn8WerbhYDY9g0y1NTZrdWAsD/I4xRawqGg8Q91KOZ4ukU42tnoGRgpBO/T/Znc2xGhMq1SyTBEy/LOpQUhOmNCf5RWT93fptZ6QepSL6GqPl3ccR7oVCj2GWy9VGUq4qra2VFHX/DrK+18bF1e7fY7bHVfw/zqR68Te1wusG5qwyiM7/dhZByD/VJAfNvoWyKON6yUs/my/wBlZ6agpIkvkPUNiorOTd8f2BwrKFT+F/Ma4MOiZLNpE+VGswv9fr+gSvkoYfz+XTvUM8uPDl9n079cqI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(261009223027099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Yk8f2gB7Ci+hz2LN7Al7c2xvo6P0zBihsxckVNHK05eKX+/MKKuO6ShaXQwl?=
+ =?us-ascii?Q?1Y1p582b8zO3MEbyff/CcCRNJwFeW0dYFlkponxxZz4/s5r+Ffji5vHMFqBb?=
+ =?us-ascii?Q?quRN5t7gw6xgmAS1j/lZJODOOjrQMDVqLM85pcms2x2KI56FrpcMWtVRaDmz?=
+ =?us-ascii?Q?nzhzB3zMCyPuAUeAJ0RrcLd3fMtQFxp7TDzskBT+U+A/mLV8aCby8+AMhOby?=
+ =?us-ascii?Q?tDb8cja/45BIefBuBNOGUadoR54FU4Pb1VIABFnSS4yV6co+OrqGV6QD51pG?=
+ =?us-ascii?Q?0RP2eN7fbPbP6oTCvTa2jv8Jj207qF5g/Xb9dmgHeWWQukwt8LLMl9PyogPG?=
+ =?us-ascii?Q?4qpBmrwnW/p8ASVtBc/Q7qjvm5fAyXyCkQNmPRGrBfIhVg4rs+dBa/9Mt+LO?=
+ =?us-ascii?Q?TuhOVLcScCDajkuR2jkK6w5uz9zvO0qKduiuYfE0zG93WE8TjOhiy1F3rTiZ?=
+ =?us-ascii?Q?bldj37eq4PEbEHcatMAFNeCVTUCtFGv7+KX8zuiu0IRXLSISqDSkv9oi7mOx?=
+ =?us-ascii?Q?TWMbwbCnEPyqmoB2o/kjbOSh94jYVpJPopFQ7zvcEMq34UqUxc9gTnPCqLKm?=
+ =?us-ascii?Q?pFA3p165/MvFE1Zh1AAew7VqAvkGQ+C7fdSkS0DZd5G5ws7ZzMe/Rupt1wmn?=
+ =?us-ascii?Q?tZLVYT80Sce0hlKtO2W4DnnNFWNi6TJPL5DeX7M2sY4CPGSwOpNNtdCqM9k5?=
+ =?us-ascii?Q?YSU0HdfBeIDxYvuuFr0a0Czkk6gdkBWHVYhQg1ePdDGn0yCxMjJwuPveqxFL?=
+ =?us-ascii?Q?X6JKEpA28GpFXfxFw7Wkh5CnoYbn3e3O0chEBoirNUqnuOX8YANb+FwlT+Ue?=
+ =?us-ascii?Q?G05CFk7M9j70/VtFgAKgvBYc1XyVUIzglunvNlZqqHm0w5LCdmd0ibz97V1s?=
+ =?us-ascii?Q?p1ckC+LLZZIWTDxbcICJ0DLKzUJgCYdME6njA4SV5VUgdaABdeuOLMuosACk?=
+ =?us-ascii?Q?ollmJxgsiXeF7G/T4yV93fwhOU6X258yTE1tUTqdaKlnjUdSCjvIAq9+8UEI?=
+ =?us-ascii?Q?YkphmZ+MCLdgJzBglScLj3/SFachAGbuzbXDP7wvKZSMOUyfnz4yn0fWpCxk?=
+ =?us-ascii?Q?ehPcOqTd6h//+YQ9lhn88iY00pOyuh1xy9uxO8JeNWXXcjKKfqUItgKOUeTC?=
+ =?us-ascii?Q?WuFp2ncijnpP1ed4J633Dfjuh2MQnGMf1rLO8ruQzMsQGq3IOwZwvP2SK1mC?=
+ =?us-ascii?Q?uXFLwCsi+8Z/cezaMqeeQlHRMsG4zAKU4Z92H6Di4GO174qmnx03L+B1ekrD?=
+ =?us-ascii?Q?EcI67XT6uBIN3NChYZTiTnPWAICQp+tpkar/NzyksKS1UMTJNATDgze21JC/?=
+ =?us-ascii?Q?+w0sMAqyere9tiipEgAvwpYGpMWprUB68RPTF6dbDt5VuyWfp3KzIhOAiUII?=
+ =?us-ascii?Q?iVT5jsWoPS9Z5y6q/Y1Z+sXVZE9qibT5c4EwweVB8VvXbVEFrq7PVWoRhG3K?=
+ =?us-ascii?Q?U1B+Okuv5gfz1RDJ+tFyBqYJL2Lo6gmw4rustrTJfxCGZZFEggPFMW3ABSWo?=
+ =?us-ascii?Q?brE5QxQTCEIHB9papdYLyRUP+B7qdPhQ3n9eiv9afrZ+bVbDJZMeJ1OSeY53?=
+ =?us-ascii?Q?xrjk7V+rjzm1aPlLGnM4XE64h8KJVF0CRqWxrnykRTSt2bt1LYPlvpJLxI6e?=
+ =?us-ascii?Q?6c85gUXr6TSE0501dLNeoP+c7gMJ83HGtgidlgxCEbHlYinfcjT++z1eDAu+?=
+ =?us-ascii?Q?w150RdkSeDEgBFYcvrpNk4JswyLtQKpDK/w7B3V8L/qCOjQw?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcb5cbbe-809a-484f-bf82-08df3281ab60
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 10:21:01.9335
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nUDYnZMDKD3GjjDoQ6fvhlKHYBUAfzmgCsQC5fnzpP4kbTcCEkyJFdl1lRjrHVQp7PWbMfhiIY0TIN600C9Xgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB455478
 
-nv50_fan_pwm_set() and gf119_fan_pwm_set() write the fan duty cycle to
-0xe118 with bit 31 set.  Normally the bit reads back clear, but when
-the register is read back shortly after such a write it can still be
-set, and nv50_fan_pwm_get() and gf119_fan_pwm_get() return it as part
-of the duty cycle.  nvkm_fanpwm_get() then takes divs = max(divs, duty),
-so divs becomes 0x8000xxxx too, and duty * 100 wraps around in u32
-(0x80000000 * 100 == 0 mod 2^32): the fan speed reads as 0%.
-nvkm_fan_update() uses that as the current speed and steps up from it,
-so it writes 3% to the fan and then ramps it back by 3% per bump
-period.
+Hi Tejun,
 
-The reads that hit this come from the two therm timers.
-nvkm_therm_alarm() (the 1 s poll) and nvkm_fan_alarm() (the bump
-alarm) both call nvkm_fan_update(), which reads the duty cycle before
-it writes a new one.  When the two alarms fire within microseconds of
-each other, the second one reads 0xe118 right after the first one
-wrote it.  On the board below the bump period is 500 ms, so this
-happens again and again while the temperature target keeps moving.
+On Fri, Oct 23, 2026 at 01:20:59PM -1000, Tejun Heo wrote:
+> __COMPAT_read_enum() looks an enumerator up in the running kernel's BTF. For
+> a 4-byte enum, it assigns struct btf_enum.val, an __s32, to the u64 result,
+> which sign-extends. BTF records the enum's signedness in the type's kflag.
+> The code ignores it, so an unsigned enumerator with bit 31 set is
+> sign-extended too.
+> 
+> b1c2a6b0d90d ("sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through the enum
+> lookup tables") added SCX_RESCUE_DISABLE to the enum lookup tables. It is
+> U32_MAX in enum scx_consts and the only such enumerator in the tables. BPF
+> code sees it as 0xffffffffffffffff instead of 0xffffffff, so a comparison
+> against a u32 holding the real value never matches.
+> 
+> scx_qmap, its only user, narrows the value to u32 in userspace and is
+> unaffected.
+> 
+> Sign-extend only when the kflag says the enum is signed and zero-extend
+> otherwise. A signed enum keeps the sign extension, which is what C gives
+> when the enumerator converts to u64. SCX_TASK_CURSOR, 1 << 31 in a signed
+> enum, still reads 0xffffffff80000000. Verified with a probe against a built
+> kernel's BTF.
+> 
+> Signed-off-by: Tejun Heo <tj@kernel.org>
+> ---
+>  tools/sched_ext/include/scx/compat.h | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
+> index 07fb55e63c57..c8d7280ceffa 100644
+> --- a/tools/sched_ext/include/scx/compat.h
+> +++ b/tools/sched_ext/include/scx/compat.h
+> @@ -143,7 +143,11 @@ static inline bool __COMPAT_read_enum(const char *type, const char *name, u64 *v
+>  				if (t->size == 8 && !strncmp(type, "scx_", 4))
+>  					return __COMPAT_recover_truncated_enum64(type, name,
+>  										 (u32)e[i].val, v);
+> -				*v = e[i].val;
+> +				/* kflag marks a signed enum */
+> +				if (btf_kflag(t))
+> +					*v = (s64)e[i].val;
+> +				else
+> +					*v = (u32)e[i].val;
 
-Seen on a GeForce GTX 560 Ti (GF114, nv50 PWM path) while the
-temperature changed quickly under load: a bpftrace probe on
-nv50_fan_pwm_get() saw 7 of 239 reads in two minutes come 7-25 us after
-the other timer's write with bit 31 still set (e.g. 0x800001e1 with
-divs 0x21c), and each of them was followed by a drop to 3%.
+nit: BTF generated by pahole < 1.24 never sets the enum kflag, so on
+those kernels signed enums are zero-extended as well. It's harmless
+today (SCX_TASK_CURSOR is the only affected entry and it's only used as
+a u32 flag), but maybe it's worth mentioning it in the comment?
+Something like:
 
-gm107_fan_pwm_get() and the PTHERM path of gf119_fan_pwm_get() already
-mask their duty reads; do the same for 0xe118.
+	/*
+	 * kflag marks a signed enum. BTF from pahole < 1.24 never sets it,
+	 * so signed enums are zero-extended there too.
+	 */
 
-Testing: with this change the same workload and probe gave no such
-reads in 155 and no fan drops.  The board was running out-of-tree
-reclocking patches; the therm and fan code was unmodified.  The gf119
-hunk changes the same register in the same way but was not tested on
-GF119 or later hardware.  Both files build without warnings.
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-The problem was found and analysed, the bpftrace probes were written,
-and this fix and changelog were drafted with an AI assistant (Claude
-Opus 5.5 by Anthropic) during an interactive debugging session.  I
-reviewed the change and ran the tests on my card.
+Thanks,
+-Andrea
 
-Fixes: cb9fa62671ac ("drm/nv50/pm: add support for pwm fan control")
-Fixes: bc79202f4c8f ("nvd0/therm: implement more appropriate pwm fan control functions")
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c | 6 +++++-
- drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c  | 6 +++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-index 684aff7..f56e763 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-@@ -74,7 +74,11 @@ gf119_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
- 	else if (indx < 2) {
- 		if (nvkm_rd32(device, 0x00d610 + (line * 0x04)) & 0x00000040) {
- 			*divs = nvkm_rd32(device, 0x00e114 + (indx * 8));
--			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8));
-+			/*
-+			 * Bit 31 is the update trigger set by pwm_set();
-+			 * it can still read back as set after a write.
-+			 */
-+			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8)) & 0x7fffffff;
- 			return 0;
- 		}
- 	} else if (indx == 2) {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-index 9cf16a7..9272256 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-@@ -72,7 +72,11 @@ nv50_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
- 
- 	if (nvkm_rd32(device, ctrl) & (1 << line)) {
- 		*divs = nvkm_rd32(device, 0x00e114 + (id * 8));
--		*duty = nvkm_rd32(device, 0x00e118 + (id * 8));
-+		/*
-+		 * Bit 31 is the update trigger set by pwm_set();
-+		 * it can still read back as set after a write.
-+		 */
-+		*duty = nvkm_rd32(device, 0x00e118 + (id * 8)) & 0x7fffffff;
- 		return 0;
- 	}
- 
--- 
-2.53.0
-
+>  				return true;
+>  			}
+>  		}
+> -- 
+> 2.56.0
+> 
