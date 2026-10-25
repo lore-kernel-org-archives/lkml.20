@@ -1,63 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792969967;
-	b=AOr/h+HHbQ1JsRq5rJxCmbOzLcGvYIDp1Ok8ElNq5/WyJ6AeiGcIWrXcicDvbI68e8Ql
-	 1qHG9lcZWEkWUR/f+7tWl2z9sVKQ1PzYvcjdMV0kdHh+hidb8tevnaqeYb/O5KAtS3l14
-	 udZpJQ9c/L6HiYZPiqy8uQAAywZ+81SyZX3RP9zSoYT8FnnJ5oCGyRSo81rQFoO+nYYHE
-	 fqY7xsQkAoxU2LZkU7WfuHhGY+EiSrWac+1/mJjWHS+hnnJP59ac4oSyjatqQb6S558hf
-	 1cF54KaivGtMmKbGEVd9Cr05FdtW7AIE3WeoPR3fucx0mTdsHddUNdlSH1qI4iAs3ew==
+	t=1792969994;
+	b=qsGSsnfu4OWZxhbLjL3vpp3Iphr3nfR9ou9xQa5wTsF03AX/Q3Pi6L882jm626DILXwu
+	 taobsnK9d7gf38Lc1tEu+/G2FrJ527htnaDKkW09IOxwLTitciZPEzel8eQLDxhDO6Ljr
+	 /BC9dY+pTy3++8IgW1kocFuj/CfZFhJCV0Op0tjcZL8OIj1Fbdh1mUvHg1Y2zMv1Zn0oW
+	 nSCDcsOr8YZvkXhhTWszf4ixD0WskLWerPBJhOphFEYTGTgRDjtzXBaXuJbcLE7zxFwK4
+	 cpRA8GQrKbm7KnAprSdsjL+yLWt6mHX/tpJDfJqB4d1bUXXcukHltst1ZFS62RBB4Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792969967;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aIUFJoFYTsajTpY+ck7fTBnjmSDJNtvuj8FkCBnGqao=;
-	b=rnWMCJwPOrc458mkKwjv+7PNh1jZPCE/ikvHoybVj9/kUgrkfI/HpqGq3mUiR2226oHW
-	 +ndqL+uoehiJWe0hFSEC9XuDrNnflUCdm9dG+YKMDb+c+kCNuQrh1r5IdeVYi9YpNE0ev
-	 vj7rXdrC23WgTtcZH3kYPmZhcTRepCOSV9NKH3uqVzTUcDzAFjSgm9ova7o+w+4b7dNse
-	 UonwdIxayehYSoIgg5ygPzbn/jb0BAPet8EajD87YedSDriZNq9U4fWSZXvGIB0gDORPT
-	 8RUuIkUum9+Mhj36ubghJZvNpGFsoigwvJl34h5ZkPX1ueYINdUmLIjPktum3Zwy31g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792969994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
+	b=JYc/QEXdOS9USZtpsz87WIhbOgs7aWsTrywd6clRjdD83gHBkNlDgBzFHNdtVvsBPrs3
+	 tgDMf0B/eqIFgEb7J6ctifUqLCCMqrAmhAbdpsDf7R6qTcXJy6eetvwVWchTutjTwyYlu
+	 rUMMVatGwUq5kkKvem+vo23c1qkOgoym/hr4rrasBr9+8LCvGPD8EtuqRF1hODOSl0rqt
+	 Sc1E/BXRoXQdhHGCOR956WyeLCE4l9GkmOp21oRbWqEMKw+AHhP5m66BUwFJDYCe249qX
+	 6FqW0TufZ48Dx6AwT9AV7gV0il+NNXNLmTFvekRjb4fjKea4/VvETRrq7scSo1nUKWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vd2dFF9+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=SyVKvHEs;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B0B606A31A;
-	Sun, 25 Oct 2026 23:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F7F606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F7F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vd2dFF9+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB361F01825;
-	Sun, 25 Oct 2026 23:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792969966;
-	bh=aIUFJoFYTsajTpY+ck7fTBnjmSDJNtvuj8FkCBnGqao=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vd2dFF9+J1LK8EfBQv8o40zxH43ruMAtF+hOdYbAQ4FkMOhQWzPypTQHHaHMEZKNc
-	 v/x3eooK6IF2tAZHpaytPQpJltkD01bmRatAjaKBFU+ZMHg62K/Fw4lhR3Hrqx6Lar
-	 XrIMl7l7ItrZZ5+/mmEpxcrcBCvXfeKtygttRoaOYWlm7AAP+dUbGmsfXRiSm1KeOd
-	 ppAREyo7OxMJdHSN0ImPBlPV/BapKM4bE2ttzJpnY8l6Bv2w+BXiFXT9MBLc3gRX1S
-	 txMb3yh+iAxZA8/qx4qlX1D7rhS09pivbTHPN0AyFas8Rqam2W3UdsvpQeCIkNQLy2
-	 n2slycruHCVUA==
-Date: Sun, 25 Oct 2026 23:12:37 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mike Looijmans <mike.looijmans@topic.nl>, Andy
- Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?=
- =?UTF-8?B?Zw==?= <u.kleine-koenig@baylibre.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] iio: adc: ti-ads1298: fix scale, ID check,
- regmap and Kconfig
-Message-ID: <20261025231237.55d4ebd0@jic23-hlaptop>
-In-Reply-To: <20261024231335.280955-4-stephanbrrs8@gmail.com>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
-	<20261024231335.280955-4-stephanbrrs8@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=SyVKvHEs
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-157fe9d771bso2876468c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:13:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1792969993; x=1793574793; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
+        b=SyVKvHEslJ/Z9K8YJ22TGO9uybiX03BNspUhbcdvAnGMGT3+QRPFAnZqIihcY+kCAH
+         InhNLrwJmZyuJAoIDWsbk5Q0AxkpQJdrD+7LU/P4SZcQftBiHoxcLdFPsz7E2Fyxaoqf
+         NUOHVCrjLyDSjN0iKLJJO4dLzwzVv7HRIxXRe9UWO2GoUlwvjgaVzFApn0zw2S5hizKe
+         iwoHJgRuRRP2j/IGWpGBDMj0cYNVyTNdeqIttxAmUwh9VbJCiIqB//0Jn1fCCd4btdZS
+         RdGG7lJgUJ8zSXJoWqLRSK7q3EXOQfO6oqzCDzaZ3KAJjL6O0NaFbZL92RNRsflze7Bs
+         irPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792969993; x=1793574793;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mR+Son9tYd2EdXF7tinsIzW0uhxqVUc0z3Q/mgmDfNw=;
+        b=qnqNH0miH83w6x3tk0ARFFdOVp3kFAOIE16jKNh48K7amJXuqeyrGdYSYbJ8siDle9
+         akmxEZxMGhn+PCYRkTvIk9lJIPbTKhs/2tVyCAgac/ZzD6gYxfcyxBgPfkUFTH4dkwlJ
+         3S9sen1hFLEIsu/QZDUEm0/cg+UuxBhpo6frFWN9B6kxHZ/ERapqtyrIVH56jdcyiVkq
+         uKuKl2R7SZuVswxsFsHqUvTW0ya1xQ63M0oRr1T/6eDQASJ73i040X06rMP/oi/X1Qdk
+         6/lZUDz0WXFMLgChqGoRxhO/lsOfXgKa0ABPPlPHZn/S9vkLEDmrv0vX152bI2QQoCvV
+         cmnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxhxGcqm+Fx2IVnxbKxwFBYyOYMJnHJYbrVcTxED0Loh4Y4WZ05JpVEqrWnh56wkCf35DUXlyntmtIbjCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDgkoH2slTw8v/jHzgXS6w/Kj56SvGNP3+DV5f2AuPZ7nwIl+h
+	ADckFbEizoboGFW9RjjY/0hw86MLJUwDNTMKjiRDjCfT70KKLUmTl51o/zWMQa/ef4o=
+X-Gm-Gg: AYBFou0zVHZppPezkLymn2t5akGazSty9/+wW9UVQGMV25UBXft23AqGxCVT68xW672
+	cRe9cLLNTmNgLWFG1W0ubmqSis9TAVNFAGJN/Jz7KZGIVf8ios/be97H29lHZ6zgW97h3wt3+/J
+	fT8W2oVyD6oc6MC9IcWLJ+SnVk83pG1/2bzqCBKEExB219qkzlSLfN1hWJSuC9TCcIpOCKYducx
+	xIjvNDX60ArXllcsP9DSKDjtfioaa7/8VuUboLD2vfZkQm3N52a2ejT39NL2tQwWQI7ll18w4jn
+	3u/RVxKrwb6WvtAU/HyeyFjvpnsYx5Y6JgWs69VL8A97cnX3/qR4L+CBuV8wshEfp7ODKV4TBu5
+	tL5DeZwDLmH+8a+KEAO6vcUWFvvSxelryzRoXzfKgIf6dcyq9usIZOn2THCR3GNcZnxlamiLC+2
+	cBb1ionSfmVvezp1pIrdGcjOC+T6Gmy1EIG6odes5MKSyS5MKXmOL1yUzsgXKiNybP6eHf+g1B6
+	Jbj7GfiKFhIj7G7B9xvJYmPVmGXQOfBCKQef77Ps+qUBAn7LM6KRUdor9NtjODFHj7WbNsmqD4P
+	Ww==
+X-Received: by 2002:a05:7022:7f12:b0:195:1a77:85cb with SMTP id a92af1059eb24-199290fe446mr7025882c88.1.1792969992473;
+        Sun, 25 Oct 2026 16:13:12 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d8a690sm19545470eec.12.2026.10.25.16.13.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 16:13:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,61 +87,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 25 Oct 2026 16:13:10 -0700
+Message-Id: <DMEATES0KH0K.3C7G7F2FELPOS@nexthop.ai>
+Cc: <linux-hwmon@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 10/31] hwmon: (pmbus/d1u74t) use 4-argument
+ i2c_smbus_read_block_data()
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Guenter Roeck"
+ <linux@roeck-us.net>, "Cosmo Chou" <cosmo.chou@quantatw.com>, "Andy Chung"
+ <andy.chung@amd.com>, "Ninad Palsule" <ninad@linux.ibm.com>, "Abdurrahman
+ Hussain" <abdurrahman@nexthop.ai>, "Robert Marko"
+ <robert.marko@sartura.hr>, "Delphine CC Chiu"
+ <Delphine_CC_Chiu@Wiwynn.com>, "Daniel Nilsson" <daniel.nilsson@flex.com>
+X-Mailer: aerc 0.22.0
+References: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com> <20261024-hwmon-i2c-smbus-read-block-data-v1-10-e81941ad0cd3@gmail.com>
+In-Reply-To: <20261024-hwmon-i2c-smbus-read-block-data-v1-10-e81941ad0cd3@gmail.com>
 
-On Sat, 24 Oct 2026 20:13:32 -0300
-Stephan Costa Barros <stephanbrrs8@gmail.com> wrote:
+On Sat Oct 24, 2026 at 8:06 PM PDT, Dmitry Torokhov wrote:
+> Pass sizeof(buf) - 1 to i2c_smbus_read_block_data() and shrink the
+> temporary buffer to I2C_SMBUS_BLOCK_MAX + 1 since only a single NUL
+> terminator byte is needed.
+>
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
+>  drivers/hwmon/pmbus/d1u74t.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
+> index 752df3af9c1a..758464a6362d 100644
+> --- a/drivers/hwmon/pmbus/d1u74t.c
+> +++ b/drivers/hwmon/pmbus/d1u74t.c
+> @@ -30,11 +30,12 @@ static struct pmbus_driver_info d1u74t_info =3D {
+>
+>  static int d1u74t_probe(struct i2c_client *client)
+>  {
+> -	char buf[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
+> +	char buf[I2C_SMBUS_BLOCK_MAX + 1] =3D { 0 };
+>  	struct device *dev =3D &client->dev;
+>  	int rc;
+>
+> -	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
+> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID,
+> +				       sizeof(buf) - 1, buf);
+>  	if (rc < 0)
+>  		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
+>
+> @@ -45,7 +46,8 @@ static int d1u74t_probe(struct i2c_client *client)
+>  				     buf);
+>  	}
+>
+> -	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL,
+> +				       sizeof(buf) - 1, buf);
+>  	if (rc < 0)
+>  		return dev_err_probe(dev, rc,
+>  				     "Failed to read PMBUS_MFR_MODEL\n");
 
-> Fix four smaller issues:
-> 
-> - The scale divides the reference, in whole millivolts, by the gain
->   before it is reported. With the internal 4 V reference, it is 0.099 %
->   low at gain 6, 0.101 % at gain 12 and 0.025 % at gain 3. Report
->   VREF / (gain * 2^23) as an IIO_VAL_FRACTIONAL; sysfs still shows it
->   with nine decimals, now without the error.
-Move this to end of the fixes. An accuracy improvement is nice to have
-but not necessarily something anyone will backport if the previous driver
-is working well enough for them.  As with prior set, separate patch
-per fix.
-
-I appreciate that will mean a lot of patches, but they will each
-be simpler to review.
-
-> 
-> - Only the channel codes 0, 1 and 2 of the ID register are defined; an
->   ID of 0x93, for example, gives 10 channels. The IIO core then reads
->   past ads1298_channels, and the RDATA transfer writes past rx_buffer.
->   Refuse the reserved codes as an unknown ID.
-
-No problem with this, but it is hardening against devices we have
-never seen. So after fixes and marked as hardening.  We should never
-have a fallback compatible issue on this, because they shouldn't
-be using larger numbers of channels.
-
-> 
-> - The driver uses regmap but does not select REGMAP, and fails to build
->   where nothing else selects it, such as tinyconfig with SPI, IIO and
->   TI_ADS1298 on x86_64.
-
-Interesting we never saw this in random builds.  Indeed good to fix
-but has nothing to do with the rest of this patch.
-
-> 
-> - Bit 0 of CONFIG3 is a read-only status bit and the GPIO register
->   reads the pins, but both are cached, so a read through debugfs returns
->   a stale value; debugfs can also write ID, LOFF_STATP and LOFF_STATN.
->   Mark CONFIG3 and GPIO volatile, and the other three not writeable.
-
-I don't really care about stale data in debugfs. By all means fix
-this but it isn't something we'd bother backporting.
-
-> 
-> The ID check was found by review and reproduced on an emulated device
-> only, where KASAN reports the read past ads1298_channels.
-> 
-> Fixes: 00ef7708fa60 ("iio: adc: ti-ads1298: Add driver")
-> Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
-
-
+Reviewed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
