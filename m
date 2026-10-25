@@ -1,110 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792935820;
-	b=YrWos7G091fWDqAEiL9pxuGuWhJJcL2Zmx8BCW2AAjGkFYzqCmySFAc3Z9eW2yZlAMGI
-	 MYfYmUko7iTY8Ss047Tk1XeY82F7A8xLlzkZ93tju60uV4bk+hOqtXbs74Xdf9PNd6w6F
-	 rCdR2nzKaU1QgNwMeU9Hiol16RWxxSYcX8QI7jiuTYkgq2Ew+gS7b3IyuJuUjvBIr/ypX
-	 EnLxbQlg/WuyBPL/PRchEIA9ZU36ZMzLgGHH0gAkQAvA8MA+4NT9aKBjpWZYcGPjBC9zj
-	 GT7khcic3q/jVSpua3Y78Whg25Yje5rs/BS2YIIUYaibTNot+drzWt1CD+KMPEAyPEw==
+	t=1792935905;
+	b=rQO9L8Z+pfD5b0H/VimjlEBodtQ6LSHv9pEkb0YyvvO30rr2fYOJB4A3BsaXfCqGL4pP
+	 bCBqkngQ0S9FBceQgvbfMvbcSEDma/NJkFHnfvpAiWcwR3J/T0qyZIRw4+JgBiQ+Rwkf/
+	 DXJCXU5VQ8B1OOodmzZBqwlB0j88ETQsSSd0iwbb+whdNXqCL2kzweRWxRYl0wnCtfDnp
+	 jo/F6aF8MUdKSunKPNyaJwpyS4Jfb8hy5dzcVv2i4LmgDBhWywE81ylDDTJbU4CiQVc0G
+	 m7yWo8RvOIESAW4Xtz1UNGr6TCaYctdXk40GHi9aF3m9LjfqFpnCAtngwPelAwl7aZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792935820;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ZyVPnIb0kULpM+/plCk3hw12bg0v06X7Bexcn/YYCWU=;
-	b=ihBUSRZQttJlv6kQLWnC0m7237CIuvQPCkLZwfY3uwpqY/Hgvu2ydMy9mcHJhkvT8LXo
-	 VC7mQdx4E8hcfmJWGi0Vw2QtK1g+0QWgyJ4peRsxiovkKXm88axW8BJM8QlqpFCNlNhJJ
-	 w9hymFgg1R8OyK+MocK2xAk7lNLrEM83YCz+71PSZx7rdT4cZwwwZqmDQp4TsMVuOE/E2
-	 uYfqaSFmlL37bz0yisNjwX+0DSqizr9hvR+6NdT0XR64mdV0/B9LD7Ao4b6mK+9uaDKtt
-	 /gIQIFut4LxNKRMXoznUTqZ7OxqzpZ7CUt6x7FPyk2CxC5uScyVk0/57zuN4MOUi7Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792935905;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=WzGdwyTIB8OSTT9qV4w81uP2js36URfyJcS9pAsflJU=;
+	b=amB+d9Vf5QdC2p1tHo36lFGW4NEamJEA5hY+vOMdc561/ay/zhcGjzGcj/FK2ZKqUpOF
+	 7KZneOy2Rc9iIAX6nlVmrfYU3srx3VCsO2+yzm22UqizzT6JGOsI/qBi42pABOBI0twSQ
+	 IUvaKQaqaeHvXw7Ri2zenZbxV+A3mpGMIyHAOZbosWbTHtiWo5/pwVbl5+4JtX1ORAx36
+	 hMP7mbJudYXqh/Q4ARZ0LaP05Sd1WB5hXvxGq1C/yronMYradAfdyE7ghpDzvOJztXJsi
+	 djobd8gDrySvwfbMyVLsIuk4pEX8aM39xUush1B/JJJOikNrkG7FqVqYJzJV6aquUIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OCo3xtms;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kZW+bZ2V;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRQRDKmu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD1B606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:43:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD1B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC63606A31B;
+	Sun, 25 Oct 2026 13:45:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OCo3xtms;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kZW+bZ2V
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69PClH0O3452791
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:43:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ZyVPnIb0kULpM+/plCk3hw
-	12bg0v06X7Bexcn/YYCWU=; b=OCo3xtmsi814QbP993m3HWiNttysUi+BLzs3Gz
-	lLVS+87bYkFS4NKaJGW3iCl1T+m5PBGFe/VE0YH1SINGjZF3owScWGAv6nNUH0u6
-	yJDcSOfP9F0EvdcGkat1C2ZxG2EKlLgqxwxkAZ8CKJLwnEC0yyf49w7ugIrX4SNe
-	u118TMf0sTdUPC3L2sis8WXjgIWa4hfyUm+BTG20lFdkw/nM10+Vro2QtmdmyqgV
-	c1uzo5EtDf1+jFDqzilt1LtWggVcKYn589gqMJSLQKYB12PmbfqQ71e9bp9vqPL1
-	bWoJW8zhAro4q8Fv2qmHkpYoNJci8oZrtYsPzr3j1+iYYrWQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27u53w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:43:38 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c5aef2a74so10883546eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:43:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792935817; x=1793540617; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZyVPnIb0kULpM+/plCk3hw12bg0v06X7Bexcn/YYCWU=;
-        b=kZW+bZ2VKw2KRIspehzJkbD3Bm4PLIJWwMwA2MIuATkeCVCjAAQzZPh/fmbuakSTN9
-         UNJJG+FmsBkYTQrqe+tqXh5KeLFrIMy58r1P33ZjltS/a8ry05112juJQnEskv8EpZ37
-         JevRI8L8Xet3AQSP309TMzWSq/Phr8Fp1m2mvqnBfnc1jQ4c4zbwZ7RIr7xGDAB8oaN5
-         ZkgH+Klx8eotPy2U43QCxZXMNArU0vSFoyccIEAVMFs9qw+xeaAwweFS/pUJMAtea47T
-         XHgr+sUlNHmrIRGBkbT8tlyPQ2ZNNJGRRUD92YgWt5tttAIORGdG8eQaFQcqahyfcqpx
-         E/gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792935817; x=1793540617;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZyVPnIb0kULpM+/plCk3hw12bg0v06X7Bexcn/YYCWU=;
-        b=WzowuZUKq0SckgNEIML2xdtytUZQSdCp+lfE224+TjAj/hEuO7PiTebT0mcBYFgjem
-         aMWmtKPeC7rROcWLalCspx2Qg1XEdwjGEub/AhQEYLv4GT9lRjqOuHBTdzHuSHcc01Ml
-         tFyF5Dstq7XTQqFt88RV48QMlMLFPEc6z1bX78sGIqYQUl0dLufJjdl/LXX/8DFr6lRC
-         v6Mbp5ryapMMwDOEobIz/DTgFwehxmsgqtXxefKa6H9kLqcwlk7m4Dt9x1ZaXC+4aIOn
-         0rNEXVG7/I3+Sk84LRyNoOpPipIuZFKVrVNLwokTL4BGnBrWe6CwoCeoJScVhvY2j3s7
-         TL0g==
-X-Forwarded-Encrypted: i=1; AKwUvBzMVEExhr9hQEFgX0P7YhdHutWrz1ecI2haOAXkAkDrGLlSqfD3vdsihLB/8Xn32aBapRhHFIWUgUfDnxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtdq38k7QDZ24iLdOpIr65DAekvSSOQdOgdK6VZFuCVNcs1voP
-	ooSQBehSColDuA3oXhfRAkCarlgW1mt4RoO1mz9cz4FsD/6u3UvSMVs2j1LfGr/7ZAWE1pLXUoN
-	R8TyXtx/nBKVF99UI/R0hwx/428DR9WhWmRFhGds2BQcm1msP3MRS18QheB6k1djK9Lk=
-X-Gm-Gg: AYBFou1ms3vn9ajb5I/Q/xfxNcPi/NKoG/PBJh/8lYByk7Tt1EeKVvKX6FMZmhi0fSu
-	0G/7icQ51PnV0+L0ABxYvPJjlHEE7jU3WdUksk9HvWQiSzQ84PEvFqPy+CgDAwvFF681pedy+L6
-	fNCek+WUciNX2f4igNmvlTlhgSMid6Sk+GMyEBU6ovKwY8cwI2PDaRpCFg6IJQXqVeApFCfIrdZ
-	JOoNwOkWerY0pD7c3LVNP1kb6/uymECEcoVQJC3w+G7BWvNhfOSpl86jvii9Cw7JpQfNP4AOklI
-	Jp//HwR+K+A8Cq8QxrNb7qK5Z9eoMmyg26jdsGydB5KkzVRh06IG3N8OnermWKnSxiQ6yuWQAM+
-	HhqBCNxiOLZsVdwldkVPt7O2Yll0IidutsWx1
-X-Received: by 2002:a05:693c:6390:20b0:366:b36f:a9ac with SMTP id 5a478bee46e88-369e861c209mr6836973eec.34.1792935817340;
-        Sun, 25 Oct 2026 06:43:37 -0700 (PDT)
-X-Received: by 2002:a05:693c:6390:20b0:366:b36f:a9ac with SMTP id 5a478bee46e88-369e861c209mr6836944eec.34.1792935816817;
-        Sun, 25 Oct 2026 06:43:36 -0700 (PDT)
-Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ef6a71a4sm14608904eec.8.2026.10.25.06.43.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 06:43:36 -0700 (PDT)
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Date: Sun, 25 Oct 2026 19:13:29 +0530
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: Add SPI3 QUP core
- bandwidth OPP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRQRDKmu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691671F01825;
+	Sun, 25 Oct 2026 13:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792935905;
+	bh=WzGdwyTIB8OSTT9qV4w81uP2js36URfyJcS9pAsflJU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NRQRDKmus9MplXxmlbdnbUu4+03S/jLB5rA2TlVMLbu/jEVISfSfvDKdepE7UnvHx
+	 oEkkz2UOHDpQovkPVfvBHqZL0oKFOoM3l/6aGeRn/Src73BUV6+mtedBrc5w9w59WC
+	 EzniXUTrdO/pIBYG+W+2os+QpScfAULMnxmDj/JYy5VxNxN9yir9yU+yzapXHvqzef
+	 Muwx761HQkMd2VtupRA3yb5J2KG+ObAL2oNveN6X1IZ8WTk9XKLRgfv+pYYewqr5K/
+	 0TH7pb3VguPY19WSA30JiSYAsidXHH2L9CWx53xGB9711JIeo8l8qfk/mNYQIZnsBH
+	 QhRPSP8jQR/VA==
+Subject: Re: [PATCH net] skbuff: keep accesses through unset transport header
+ in bounds
+From: netdev-bot+sashiko@kernel.org
+To: mst@redhat.com
+Cc: linux-kernel@vger.kernel.org, edumazet@google.com, noreply@anthropic.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org
+Date: Sun, 25 Oct 2026 13:45:03 +0000
+Message-ID: <179293590392.3134.1010737398551488334@kernel.org>
+In-Reply-To:
+ <0bdcbe2ab5ffc86ba7190fe25476bcebcb967310.1792844270.git.mst@redhat.com>
+References:
+ <0bdcbe2ab5ffc86ba7190fe25476bcebcb967310.1792844270.git.mst@redhat.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,120 +65,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-qcs6490-spi3-opp-table-v1-1-d0e0be6ed1b7@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAIAH3moC/yXMQQ6CMBBG4auQWTtJOwKKVzEuSv3VMQZKB40J4
- e5WXX6L9xYyZIXRoVoo46Wm41DgNxXFWxiuYD0XkzhpvZOGp2ht3Tm2pFseU+I59A8wAvY7qdG
- Jb6jEKeOi79/4ePrbnv0dcf7eaF0/g81/YHoAAAA=
-X-Change-ID: 20261025-qcs6490-spi3-opp-table-eae8724e9215
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: mukesh.savaliya@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792935812; l=2093;
- i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=VikVOS7UVUNtPxV/SyOLt07vTrA1qmdxUJpVFVngMu0=;
- b=FP4dkY0t3VMeNsfHXth9EnKf0NyQiqZWgOVvIIVk2I0cQHeliWy5atcJ/6hq37/iiAoSuSnKE
- wdEkbYuaRkJAV//E/2/oQatDKOp64dJta7XFu5FwofRtJCqnGp9BU4W
-X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
- pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
-X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6ade078a cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=zOFECjqJgxj6X-Cpi28A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: sleX2pb2fFZlIj8LoW2SJBMGRu8Xeib-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDA1NCBTYWx0ZWRfX8KAMJH1+BJdD
- NQI0jL+BHTI+TAPEmEJUo9I7jFkGhuTY9fAc6Zg+NYALslYoNbhvQU1ok7gYvsGGLI+2Jw+mLaM
- BvPugVK/WELw0xpMYB4K0BaGbdXCdN4=
-X-Proofpoint-GUID: sleX2pb2fFZlIj8LoW2SJBMGRu8Xeib-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDA1NCBTYWx0ZWRfXx4GYEwAddh/Z
- CIaFhSA+cxUgYkH634fw/WpeHBv8xjMnHmOwQg7aZvNqamulX5w89c2La2YJpVR76pK5HQK6Efi
- GqFVOiGD4tLVSZJPofgcbf2flp7l9zp38ljLBllSIUGFW7GrBbyvd7dMOnIKLkxs8kh2nh5HIqR
- oWMLcJug+dyjvuzAjH4OhhKbW9iD3Dd4PkWWTnA7Gbx9laCh04r3COCpQ/QNepJNUshVcL21gyC
- uuuGCxxvTUNUp4CJXKSfaUucQwY6MPKGgmIaJhY4+go4IV8rnM70rOVs5Mkx1jUB8fwWno8pMZU
- 8f3DBEio3X2EjBG/ajtZKUghgQ7fym1k8dvzorknMH6qvEUbwPTi5gTnJtJgXn9J9sYd4XIK5Kc
- /A5ws9dJQ7P9AT1z8dfEd6uooDCW80s1A7ZhxP0TCtIfjeTrw27uQgw1zYgMqCYDjUvcyFvguzo
- H088VXsX2nL9PlXNNxw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-25_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610250054
 
-Short SPI transfers are sensitive to the bandwidth available on the QUP
-core interconnect path. An insufficient vote delays Serial Engine
-register and FIFO accesses, increasing command-dispatch latency.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Add a dedicated SPI3 OPP table with the valid 75 MHz and 100 MHz
-source-clock and RPMh power-domain OPPs. Add a 100000 kBps average and
-peak vote for the QUP core interconnect path. This improves MCP2518FD CAN
-payload throughput by approximately 38%.
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
-Limit the vote to SPI3 on RB3Gen2, where it serves the MCP2518FD CAN
-controller and its frequent short SPI transfers. Other QUP/SPI instances
-do not require this vote, so avoid raising their interconnect bandwidth
-unnecessarily.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+- [High] The fix is incomplete because the length helpers that read the
+  same fields were not changed.
+- [High] The new guards in skb_transport_header() and
+  skb_inner_transport_header() only fire when the field equals exactly…
+- [Low] skb_inner_transport_header() checks inner_transport_header
+  against ~0U.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 909039816a21..bbc16f5cb808 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -85,6 +85,24 @@ lt9611_1v2: lt9611-vdd12-regulator {
- 		regulator-max-microvolt = <1200000>;
- 	};
- 
-+	qup_spi3_opp_table: opp-table-spi3 {
-+		compatible = "operating-points-v2";
-+
-+		opp-75000000 {
-+			opp-hz = /bits/ 64 <75000000>;
-+			required-opps = <&rpmhpd_opp_low_svs>;
-+			opp-peak-kBps = <100000 0>;
-+			opp-avg-kBps = <100000 0>;
-+		};
-+
-+		opp-100000000 {
-+			opp-hz = /bits/ 64 <100000000>;
-+			required-opps = <&rpmhpd_opp_svs>;
-+			opp-peak-kBps = <100000 0>;
-+			opp-avg-kBps = <100000 0>;
-+		};
-+	};
-+
- 	reserved-memory {
- 		xbl_mem: xbl@80700000 {
- 			reg = <0x0 0x80700000 0x0 0x100000>;
-@@ -1228,6 +1246,7 @@ platform {
- };
- 
- &spi3 {
-+	operating-points-v2 = <&qup_spi3_opp_table>;
- 	status = "okay";
- 
- 	can@0 {
+--
 
----
-base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-change-id: 20261025-qcs6490-spi3-opp-table-eae8724e9215
+skbuff: keep accesses through unset transport header in bounds
 
-Best regards,
---  
-Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+This commit changes skb_transport_header() and skb_inner_transport_header()
+so that they warn under CONFIG_DEBUG_NET when the transport header offset
+holds the ~0 unset value. In that case they fall back to the network header
+position. The aim is to keep accesses through an unset transport header
+inside the packet instead of at skb->head + 0xffff.
 
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..e0e2f925f7299 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -3002,6 +3002,12 @@ static inline void skb_reset_mac_len(struct sk_buff *skb)
+>  static inline unsigned char *skb_inner_transport_header(const struct sk_buff
+>  							*skb)
+>  {
+> +	if (unlikely(skb->inner_transport_header ==
+> +		     (typeof(skb->inner_transport_header))~0U)) {
+
+[Severity: Low]
+This isn't a bug, but is ~0U the right unset value to test for the inner
+transport header? The rest of the inner header code uses 0 to mean unset:
+
+include/linux/skbuff.h:skb_inner_network_header_was_set() {
+	return skb->inner_network_header > 0;
+}
+
+net/core/skbuff.c:skb_carve_reset_headers() {
+	...
+	/* Inner offsets have no "unset" marker, zero them so that
+	 * skb_inner_network_header_was_set() becomes false and no
+	 * consumer mistakes them for a real (and long gone) header.
+	 */
+	skb->inner_mac_header = 0;
+	skb->inner_network_header = 0;
+	skb->inner_transport_header = 0;
+	...
+}
+
+The ~0U case can still happen, because skb_reset_inner_headers() copies an
+unset outer transport_header into inner_transport_header. An inner
+transport header that was never set (0) is not caught by this check,
+though. It still returns skb->head. That pointer is in bounds, and the
+behaviour is the same as before the patch.
+
+> +		DEBUG_NET_WARN_ON_ONCE(1);
+> +		return skb->head + skb->inner_network_header;
+> +	}
+> +
+>  	return skb->head + skb->inner_transport_header;
+>  }
+>  
+> @@ -3081,7 +3087,11 @@ static inline void skb_unset_transport_header(struct sk_buff *skb)
+>  
+>  static inline unsigned char *skb_transport_header(const struct sk_buff *skb)
+>  {
+> -	DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
+> +	if (unlikely(!skb_transport_header_was_set(skb))) {
+
+[Severity: High]
+Does the unset value always survive until this check? The new test only
+matches 0xffff exactly. skb_headers_offset_update() shifts both transport
+offsets unconditionally, while it does guard mac_header:
+
+net/core/skbuff.c:skb_headers_offset_update() {
+	...
+	skb->transport_header += off;
+	skb->network_header   += off;
+	if (skb_mac_header_was_set(skb))
+		skb->mac_header += off;
+	skb->inner_transport_header += off;
+	...
+}
+
+pskb_expand_head() calls it with a positive nhead, so 0xffff wraps to
+nhead - 1. skb_copy_expand() calls it with newheadroom - oldheadroom. That
+value is negative when the new headroom is smaller, which gives 0xffff - k.
+
+In both cases skb_transport_header_was_set() returns true, so no warning
+fires. In the second case skb_transport_header() still returns a pointer
+about 64K past skb->head.
+
+One RX path that looks like it can reach this is vl600_rx_fixup() in
+drivers/net/usb/lg-vl600.c:
+
+	s->current_rx_buf = skb_copy_expand(skb, 0,
+			le32_to_cpup(&frame->len), GFP_ATOMIC);
+
+That buffer is later passed up with usbnet_skb_return(). Because was_set()
+now returns true, __netif_receive_skb_core() also skips its reset:
+
+	if (!skb_transport_header_was_set(skb))
+		skb_reset_transport_header(skb);
+
+Should skb_headers_offset_update() leave unset transport offsets alone, as
+it already does for mac_header?
+
+> +		DEBUG_NET_WARN_ON_ONCE(1);
+> +		return skb->head + skb->network_header;
+> +	}
+
+[Severity: High]
+Should the length helpers that read the same fields use the same fallback?
+skb_transport_offset() picks it up through skb_transport_header(), but
+skb_network_header_len() and skb_inner_network_header_len() still use the
+raw offsets:
+
+include/linux/skbuff.h:
+static inline u32 skb_network_header_len(const struct sk_buff *skb)
+{
+	DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
+	return skb->transport_header - skb->network_header;
+}
+
+static inline u32 skb_inner_network_header_len(const struct sk_buff *skb)
+{
+	return skb->inner_transport_header - skb->inner_network_header;
+}
+
+With an unset header, both still return about 0xffff minus the network
+offset. skb_inner_network_header_len() has no check at all. Callers that
+use these values for pulls, copies or offset arithmetic would still get a
+length of about 64K.
+
+Code that reads skb->transport_header directly, such as
+virtio_net_hdr_tnl_from_skb(), also bypasses the fallback.
+
+Does this match the commit message's "accesses stay within the packet"?
+
+There is also a new mismatch. Before this patch,
+skb_transport_header() - skb_network_header() always equalled
+skb_network_header_len(). With an unset header they now differ.
+ipv6_mc_may_pull() mixes the two:
+
+include/net/addrconf.h:ipv6_mc_may_pull() {
+	if (skb_transport_offset(skb) + ipv6_transport_len(skb) < len)
+		return false;
+
+	return pskb_may_pull(skb, len);
+}
+
+include/linux/ipv6.h:ipv6_transport_len() {
+	return ntohs(ipv6_hdr(skb)->payload_len) + sizeof(struct ipv6hdr) -
+	       skb_network_header_len(skb);
+}
+
+Before the patch the raw offsets cancelled out. Now the first term is
+clamped to the network offset, but ipv6_transport_len() still subtracts the
+raw ~64K value.
+
+Can the unsigned sum wrap here and skip the advertised length check,
+leaving pskb_may_pull() as the only bound?
+
+> +
+>  	return skb->head + skb->transport_header;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0bdcbe2ab5ffc86ba7190fe25476bcebcb967310.1792844270.git.mst%40redhat.com
