@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792965628;
-	b=KuLVEfu+VWi1rh/+UyeFNL8H69eJbg4inkmim9liWCPlFhNS64jvfovlZy0qJKR96stH
-	 7extAv5751gSDmL2SvoZJ9JK7Q3RdD+YWsBHANjxn9J0lYhj09cj5p7kWKzIWs+iFyFwu
-	 6U1nzoYxIYVfQ/Q7PEz8FvsvGww3n2DURmRi9+3ocvzxBZdPgP2CiC6QbhnT/XxQSaMBe
-	 m/f2JqT4WJEKXZkaqv8o2cGny5djlTfG3FcFA4duvjSACL6rOB2LSTOZ8VAuC3Ewbuyzn
-	 j1txAlEe5aEfslFVUGPD6WN6WrLatewyy+YvuJwXuEExLIW6NSsiwGP3OZxiZwYioLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792965628;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mRVKYrbkHXi7Quv1tFN615Pz9w82zvx7xWpPPWG9U6M=;
-	b=S8ZLjMm9GljxvetrNKP1DTEtAp5jbxiU+eV6zc4aZLgUmM9gW9Bytz8r4u3fgSqAY4lg
-	 Iu298FsuOgThr7Q928KYCiIJRTSrbg0A2jwi9uclLlhKF8Aq+m2KLtQsFacVlkwIAk2Gn
-	 fFVHUvFx5J9IBFiawb4ay3kfqOx5DaylWWdD9kv33wzKGgi4Qqd2f5sBk5hXnzrFiJw62
-	 /wn+pS3I2JWuMQ36aUSup/n2ybA5QOLNNJ0zOmC3olJHAKaDXNvY5NftUbQRGrHar7w2U
-	 ErcEKYpkkrOGIV49CPOyCn9M7uGKN5Yw+BQoiLw2+iRztaNkqrVs3xLae+WtRTnCYzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=mQtmLusM;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792965703;
+	b=dk369KRwzkuRnKEzChw8+RljEw3CGQ5pN24NBGRZuQOBtnj0JamOT36NsLyyVhX7l6Dc
+	 wkL7813TtLys1uqgBIM2OBPtDPYYr4Zm6ovRfPZpa3P79u+iU1aOG57K1M5w05ZbZWAr5
+	 mZOPwYE+9km6hUOeHp+LANUgGdrjROFoDjvr+2JIUPXq+Qb+0nMpu+34zjg7TjYWpUfTJ
+	 v956WJshX7x+uOBlVFYgPGk7hZDzMowzatOLQBwQ5zFDX+2JzN57rWMHrNgvIe0OQtp/z
+	 7AhMSMUebaeLg6qhoitZN3DcAo7c2ZmYydYEWB0mL/H+W5gUNTjf5ot4QEJJf8xhjlA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965703;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=RGlfky/kbSvYMvlNPauc6AogrKOAX6yWUZF/o3cy2kY=;
+	b=yxC4Vs12oubj6jCd6cigaEFZa95/gTdIaCZ65sUAU7rUg5rU/raOflwRHW1QfSifHlbM
+	 VGsSOvhMmpIDjJtlROqclRbKdoPU0JW0Xo3QJKutuxhturbNK8njwtyP1rIA/3Lo8Zk5c
+	 VoOjQ4xYn+s8sN/1sL4R1byd+A4Fxb2o03aqPiaIRddHIUPCIu25rOn0umdvw2zEoB7GQ
+	 N+l4zuIaVLE6BMQEmeR3cLIJJHZEN80cQYJNcQP776OWDMRGxd1jKEc+bDgCzl6WGNz/9
+	 q5ZAaqKFlDqrIqYaYvUCU08J1ICJNv31lk0OOws9S22tIEvZsjkrnnHYF6VJGQ3Lezw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mQTqNWsa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADCF606A31A;
-	Sun, 25 Oct 2026 22:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AADCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91C8606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:01:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C91C8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=mQtmLusM
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 497B55340ADC;
-	Sun, 25 Oct 2026 23:00:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792965619;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mRVKYrbkHXi7Quv1tFN615Pz9w82zvx7xWpPPWG9U6M=;
-	b=mQtmLusMXzB6BnpkE446q+Tc1/MaWaU0tG/0W1B6QPtvfPaIP4x90HV88J7tyKQ4nJ0cg+
-	OzP3AzElHm/wASCAZePA2PNND+WMFCqF6+VAgP2v6+nQ76gUBiBFjtShIlbBl1MlY65KVS
-	d7ZOcXIeQl6J2rkC4iX/KzTR617qPGk=
-Message-ID: <12fe717d-683b-42f6-8f72-a1e3e3612f46@ixit.cz>
-Date: Sun, 25 Oct 2026 23:00:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mQTqNWsa
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b45f9ec1ceso517708a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:01:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792965701; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rt1r8udmWt38NNwsCT3XKyVoQEtXp03X5uB6LE5WPQk3V3ZJVeO2E69YXru6kLGOcS
+         ZHQ/H4xooeO+MoEFk7JpBeQU+1DySnvmszuLzTOwvf1Fa29vz4ZbliJdTTI84hLW6YZp
+         fH3jkgpXEmCXQAZlhBF2iWEf9vUMUgXxzv2y8ohA0b7TU6rODTUwCI/jromhy5JaBT7b
+         SJCdDMtD7eBOrJC7rcIyOFCPa6a8UxYyDpIolnEtS4PxkSVMi3zlyXXIhUoVsU+qAZoe
+         A9DmIjhTgzNA7gTPpTgbS9LoqALflJ9teL1Zrnl2cA2lAato2b7K3DAS0MlUgotK3Kyc
+         DxHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RGlfky/kbSvYMvlNPauc6AogrKOAX6yWUZF/o3cy2kY=;
+        fh=z6WpRLcB81QbK5JsaBDa4S5x55j1TY43gBavAsTxVf4=;
+        b=Mo5vh4e97g66eTKB3mHif+aD01oXcrDm3lYOWryaxadYMcarhkHBKhqdocpuE8/erl
+         SAWBrSpvSfoMgXOoZqYusvRdhDR3tihcNW+eKEB75J9/fwH7YomFwhOjHAgndVY3aCPG
+         Dn0DQ3y+D4QrsNQp9tgdOWe1uQTrVd+5gfJSI5jFss+EtPoCjbtDWjZSDjAWI16U9OuS
+         6c74FHxXFZ/FiUahA6A6HNrpcLtX3iDNZ+6rCvgvlHk/33yEdXR3JB31hTJ3jK09gssM
+         Wfxi2dHTLRHPfsX8K+NZBJ0SytTHhH1x7XOay4vpJpp35CH75CvcpEDLZ9KbIFZMnMMT
+         6i4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792965701; x=1793570501; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RGlfky/kbSvYMvlNPauc6AogrKOAX6yWUZF/o3cy2kY=;
+        b=mQTqNWsaP28KlZxGFeJR0y+EVK/2CMqREV1iqCJaBvcJdV7FRgvMFnrNFcPy0bMpAE
+         gaHiKNgEvBzDtWUQai4tVtr1YEXiAfmG0Ad07Tk//xDOzjCkvtEEAG2+zP1EkJZtanL8
+         zEfRnqMui4CLwIZ5gqhyNuUH7utRthl/abV2YLJLIeLhyoQLtYep9z1yTfWMAthG4nXi
+         Y23gcTF1MDe/yCk5HjcnLlBDJPW3y1Mbxahf8FzTAQTxz8q0QqI0iO3gk9uZ6jJkJtgc
+         dw/QPZcG3tnVdkeb/L5rf+5PCGFHx0b4wJ2S6AfP7dIqWl3uH0cyK9xq9PV8In/Hwhrw
+         j/4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792965701; x=1793570501;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RGlfky/kbSvYMvlNPauc6AogrKOAX6yWUZF/o3cy2kY=;
+        b=yzpeLqWjSJK3sU/VbxNBfb91+AQzg6R3WCUxflB0B7lgwHiS3PcgcAllT0mnFw4gOr
+         HCpT3K3YrYG6x6txqswOMM3rlMTWi2CXokBsTEFaz7ZmBJlbZv+inLEyhrkPrB3L9/9N
+         3Hr27Zr/iI9LGOvUoqa3A8BX7LouSs9xaM0tCDNVStxY339N6Bc+RmEhj3fTSG2wNKtl
+         ZrgeQjK2pjP73LTiOkGA0ovmpLmeTjpemUOB2mFHGz3iZwCTpKr3qAOjnvhCHUhWuRfc
+         /eHVRuV23iAe1Oh8solemiGmoWKjYHXmAeHPW5ptZOXn7cd4sKnopo/klZlWHGd1QwkJ
+         qjjA==
+X-Forwarded-Encrypted: i=1; AKwUvBw64UbuIGVMRWQLr7hXuu4Wr8MB0TMfo+kIa2M7CUMXSHtENa03KL3QCXmkqcQ9PVeNdwXlhzERv4g2dSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiBJctIx1zskzPe953Esjseo7zOEoZWqRlWS4WU97LA3IVDGxO
+	LDnLYt9AtySZyt6hy/QZ2iUy+pd6OG73U7vDaDZdKmGbRve0N/qcdYCV8VNkhnH8jSXoxcrYVFg
+	RLlbl8giE3ukOv2129KxUxi7+dyowyjLanHZt
+X-Gm-Gg: AYBFou1X7GAfRBHUixH78RKU5AmHYQqX1aYPazcbpLnjVTjuufPbU3E8cV66P4XLLL5
+	E5c6WdyAioSQri3heASegSJgDOUGCKE74z/sy9q64uuFu/0t/Jyzb0levxy1k5HxrgC9jnu1I0M
+	bIPW5/IAF0o7/GPDGhphMYOwq39SUcP75dyNjEtl6+79TWo02uz+ac5rjefv6C3bz076b5gQqOE
+	U09zT/Nf//euspAlVaMypmSxMHFNOPmCQh+A4SafvCjglXfUnxbs3fdk2OlNJIVmuRWCVmL546y
+	RLhLTOUhH5jS7N3qWYakLCsGe5B51ElKJ4xXLKOSuJJjh6vCua2FPl0xEOw+/UmU5NQGhpldeXg
+	61NDtbkJhxkS54XU9GoZch2/R0YU3Uyjodz7VGmMJNGtrnSXjenxeop4X7o/DHUVgpiznV/ZZxo
+	3kyQ90I9kec25laZx62sbL+VE=
+X-Received: by 2002:a05:6402:56:b0:6b1:fe71:dd4f with SMTP id
+ 4fb4d7f45d1cf-6b443000260mr4663395a12.24.1792965700946; Sun, 25 Oct 2026
+ 15:01:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,103 +105,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: tcpm: qcom: fix connector fwnode_handle leak
- in qcom_pmic_typec_port_probe()
-To: Selby Mashiki <mashikiselby@gmail.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261025203151.455062-1-mashikiselby@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261025203151.455062-1-mashikiselby@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261025074237.1050419-1-linmag7@gmail.com> <20261025095252.1749067.mattst88@gmail.com>
+In-Reply-To: <20261025095252.1749067.mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 25 Oct 2026 23:01:28 +0100
+X-Gm-Features: AclHuK-eQojPe5lJyn33drATNBGWugIoWrGtsC9eLOJyaaSVhTFrZYxNKdFyp3M
+Message-ID: <CA+=Fv5QxcYhWtp1GgtMWLSzoXLXNdFkx7LreTDsPU2abv9gPGw@mail.gmail.com>
+Subject: Re: [PATCH] alpha: fix PR_GET_UNALIGN flag mask
+To: Matt Turner <mattst88@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25/10/2026 21:31, Selby Mashiki wrote:
-> In qcom_pmic_typec_port_probe(), device_get_named_child_node(dev,
-> "connector") acquires a reference to the connector fwnode_handle to pass
-> to_of_node(connector) to devm_of_regulator_get_optional(), but never
-> releases the reference.
-> 
-> Call fwnode_handle_put(connector) immediately after
-> devm_of_regulator_get_optional() to fix the leak.
-> 
-> Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
-> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
-> ---
->   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
+Hi Matt,
 
-Hello Selby,
+On Sun, Oct 25, 2026 at 2:52=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> On Sun, Oct 25, 2026 at 08:38:50AM +0100, Magnus Lindholm wrote:
+> > GET_UNALIGN_CTL clears the flags it needs to read, so PR_GET_UNALIGN
+> > always returns zero. Keep the UAC bits when translating them to prctl
+> > flags.
+> >
+> > This was uncovered while running the strace test suite on Alpha.
+> >
+> > Fixes: 3185bd261882 ("alpha: separate thread-synchronous flags")
+> > Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+>
+> Reviewed-by: Matt Turner <mattst88@gmail.com>
+>
+> This has been broken since v3.7, so please add
+>
+> Cc: stable@vger.kernel.org
 
-check out
+Will do, thanks for the review.
 
-https://lore.kernel.org/linux-arm-msm/20261025-typec-of-fix-v1-1-06bfc16a7846@ixit.cz/
-
-This is one of the patches from the gen1 Type-C enablement series and it seems 
-to be almost same as yours, if it looks good to you, feel free to drop A-b/R-b.
-
-Thanks
-David
-
-> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> index bf985efe1..b89495315 100644
-> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> @@ -728,6 +728,7 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
->   	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
->   								   to_of_node(connector),
->   								   "vbus");
-> +	fwnode_handle_put(connector);
->   	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
->   		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
->   	if (IS_ERR(pmic_typec_port->vdd_vbus))
-
+Magnus
