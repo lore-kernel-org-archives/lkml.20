@@ -1,52 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792887900;
-	b=KFeeBpJbKKwqmqmFpn3uSQ69jqG7oTdExzvfTeatGgK9+rTtS42LD7h2pmde35NXzeUt
-	 +L2iKpAvlXk7EYZ9lzutAJ4FZ8Rg3ocGzt5qfld93KHC5B3Nx2i4GsaVeiEtY/JPCTHtc
-	 CmLWMwUM6uDydEdE0k88Oa/qlQNwy5JczvdHgmTFQFkL/GmftL9FOLgYtvx32wLfAN/ue
-	 4wvWdHlt3EhhLjsoXsjFdNn5cDR8BZx/qwpOPn+efsFkXJ47+JERglvZgjBMq7Bjm3zgT
-	 g1nGnTyDonoOjJo/wGrJZMB7n9/4yxtIlujtwFfchyraSXg+E+l0DN4uj21ra89hn1w==
+	t=1792888219;
+	b=p5cEVvkSt6Au599CI85ILxPVAG3GeBfgK4TLAaJE9TcqgoZDG3pvVrW6UgmlRce9XL+Q
+	 WLMehutF/UVP4snxjlXcY/W+JvoHsWM/hHYgUvjnnejDVc+8fqK68Aaa2iuTYrge/QuU4
+	 +anihLrXtRvp3XpoODxFJA+Ac/9/TLaaXyoK4Yqd/Wb1iVETZx2vv1gpM+HgrwQ1ZzN4G
+	 2dgVzUeIicfh7cBtBbu9By9U9K21yZgXCT1+YNKvmfd5eq0H6onP0jHEg3bkWybMv+Xz5
+	 17yeAzAfB5wgfKv8UZQt6D+3AkRASTTAHtw0xUW2s/SOjrd28Gb2hcZYOMJc5t155nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792887900;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5lWlaiiAmnWQZRyAcYV8DoDniVOniM3DV7xr7qTGKSY=;
-	b=iEs9q4pMec18KgbsMOKxPvN24jXFVFRMKtJelRrJm/flvwJhpWAxxErQClQLe54kpcMs
-	 nQ9o5d1qf10PR4grTxa/RSV++qsLX6ZjEm86lVJitk833/SkYM659RSJelupWk5wbrrIj
-	 WeMzkaJMUkuIPYCZCSDNFfHAyjbb0z4FJfvLD+jPubIx8Fv3vf4ESJaAcogkZ5b2q15yh
-	 RFbcELbjxKWvc0iw/wXGJsPqA45zrvedDiokk/xWhL/9YPpWDk/1YcoHR7dk7ce6Nwxpk
-	 FPzIHKebxg7Pmto+y4loPx+18ejHDIpLvyNJJlYvwQerrR11hwgd+afkt+qqMnLLG4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792888219;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=V6F6lQu1qmB71XoZp/HmSxfthnmnQbATGjBXTzdBL9o=;
+	b=aHMAjDm2xYH+FJQg40NnlOLg+TS4AH/pM3F7cgrW0gYAqDljE27b4KKDiN05U6UzMr5n
+	 MWP0vOVfzYnThte9EZ4g3tB9+WKMH1xHbr9JRDxkiScxg10tifngaIAcnds/W45vFDV3s
+	 pKnv67eI5WlQsKIuybGVn8E16y0MYTjss3za09yjkk9sHviWtOv+2V7oMiMIm+eJ7xX29
+	 6QWNrUUtmQpvC8bcXCtOJ5TYntU9HSQ2cRGnht6l6w5LeDQO7SlS9+vmJkvbU0FdjBIFU
+	 5nrXvR5To1K/3tYlzpNQzQLBEax7IFaQeue8ncittjm1gFq1sp5IhgfnTfsbYkDBzKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=T2ij2Vys;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=UFD5UVZA;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0C5606A31A;
-	Sun, 25 Oct 2026 00:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861F5606A322
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:30:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 861F5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=T2ij2Vys
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CC81F01825;
-	Sun, 25 Oct 2026 00:24:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792887898;
-	bh=5lWlaiiAmnWQZRyAcYV8DoDniVOniM3DV7xr7qTGKSY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T2ij2Vys887yvaz1gCcsnJ2SUxdjMlZiaGsYXK1dkTtOhpM00qtn2430nO4sf3C8c
-	 4EW3+J91a82CCYSw9U7/nEohJCPBNbNhmk3t7YZ6XOvutHv45Ubp5R8/VjKnLnbuML
-	 w8JI2zRZwuQOU9ituJH8g9BfeyYrmig5ODPrM/Go=
-Date: Sat, 24 Oct 2026 17:24:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
-Message-Id: <20261024172458.48c825a7a36a3802313a0ed3@linux-foundation.org>
-In-Reply-To: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=UFD5UVZA
+Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
+	by cmsmtp with ESMTPS
+	id KLQpxJUJLJFmFKm7oxxnIn; Sun, 25 Oct 2026 00:30:12 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id Km7nx1RvNnyjpKm7nxypmV; Sun, 25 Oct 2026 00:30:12 +0000
+X-Authority-Analysis: v=2.4 cv=GJsIEvNK c=1 sm=1 tr=0 ts=6add4d94
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=VRr-wL_VGqTnNunMsMgA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=V6F6lQu1qmB71XoZp/HmSxfthnmnQbATGjBXTzdBL9o=; b=UFD5UVZAQgTUNRbsX8XCBuYbmg
+	XP601IUmysGdcxp5y9rvFDdQ05lu5w7MEhVZHEi0vZvLhNycsfY9l0rN1iwJ5ByFNbUo72R/4jkNn
+	LVesCxtVEiUihqiMAjj2JbYjtVSwCCQvcUGQz0QL9TK5e0PIICIQ7WtUzCQuIujW/QiQ9QsqWwRS9
+	UpdaJ3syyHxnDRD9FKDaNP58haxpEWR/8O7iGyem4L5ruqsrf1riw0re6tT5gLpA6TDdl/wjIdbH6
+	XysvevthulPHwcyTYvGtkA83j7MCkVX+C3/GzQP15iiR0+iLqLNrwVtUI3dzzUwumPp9Wwh6zhkF9
+	uKRzMZDw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:49360 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xKm7m-000000039XC-3wqB;
+	Sat, 24 Oct 2026 18:30:10 -0600
+Message-ID: <3fe3383f-87bd-47fd-b5f0-8b885905954a@w6rz.net>
+Date: Sat, 24 Oct 2026 17:30:08 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,92 +75,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261024064731.125251200@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xKm7m-000000039XC-3wqB
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:49360
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDLdyOdw+5gAXdbv9bwoArrzUr6Z8Qot8Yk6Idn54dQalEbar1kzicV+m9rLHF1ZmjPmpViTeqSE+oMPj6DAaDDjo6WYHUFb2idElsq/mwFznOVFE4Vh
+ OSxnb10mCDdqU+QfZvCi7gfMSMHt/xJF/4JpbwJqSh0aLWLkvQdIv2se30uB1tz0L5EfSClZkAaLCvmwsu7/wkL20tf/EpHt94M=
 
-On Wed, 21 Oct 2026 13:21:04 -0300 Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> wrote:
+On 10/23/26 23:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 243 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-> The current fat_write_failed() implementation calls into
-> fat_truncate_blocks() without holding truncate_lock. Make it so it is
-> held exclusive while truncating.
-> 
-> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Thanks.  My AI reviewbot said:
-
-: Please expand the changelog to describe the failed/short extending write
-: racing with FIBMAP. The mapper uses i_blocks, so it can walk beyond i_size
-: while fat_write_failed() is cutting that part of the chain. That can
-: produce a bogus "request beyond EOF" error and make the filesystem
-: read-only with the default error policy.
-: 
-: Also, please change the Fixes attribution to 16fab2015099:
-: "fat: permit to return phy block number by fibmap in fallocated region".
-: That introduced the beyond-EOF FIBMAP lookup. Before it, the lookup was
-: bounded by i_size, so the removed clusters were outside its range.
-: 459f6ed3b8c7 introduced the helper, but not this failure mechanism.
-: 
-: I don't see a need to move the lock above truncate_pagecache(). Ordinary
-: reads are bounded by i_size, and the cluster containing the partial EOF
-: block is retained. FIBMAP is the case which needs this exclusion.
-: 
-: This looks like a stable candidate once validated and merged upstream.
-: Please consider adding Cc: stable@vger.kernel.org. I checked the source
-: and a reduced TLA+ model, but haven't built or runtime-tested the patch.
-
-So I made some changes and ended up with the below.  Please check.
-
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: fat: hold truncate_lock in fat_write_failed()
-Date: Wed, 21 Oct 2026 13:21:04 -0300
-
-The current fat_write_failed() implementation calls into
-fat_truncate_blocks() without holding truncate_lock.
-
-A failed or short extending write racing with FIBMAP can spuriously make a
-FAT filesystem read-only.  FIBMAP bounds its lookup by i_blocks, so it can
-walk allocated clusters beyond i_size while fat_write_failed() is removing
-them.  If the chain is shortened during the walk, the mapper can report a
-bogus "request beyond EOF" error, triggering the default read-only error
-policy.  Hold truncate_lock for write around the block cleanup to
-serialize it with _fat_bmap().
-
-For comparison, fat_setattr() correctly holds truncate_lock during
-truncation:
-
-	down_write(&MSDOS_I(inode)->truncate_lock);
-	truncate_setsize(inode, attr->ia_size);
-	fat_truncate_blocks(inode, attr->ia_size);
-	up_write(&MSDOS_I(inode)->truncate_lock);
-
-Make it so ->truncate_lock is held exclusive while truncating.
-
-Link: https://lore.kernel.org/20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br
-Fixes: 16fab2015099 ("fat: permit to return phy block number by fibmap in fallocated region")
-Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: <stable@vger.kernel.org>
----
-
- fs/fat/inode.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/fs/fat/inode.c~fat-hold-truncate_lock-in-fat_write_failed
-+++ a/fs/fat/inode.c
-@@ -217,7 +217,9 @@ static void fat_write_failed(struct addr
- 
- 	if (to > inode->i_size) {
- 		truncate_pagecache(inode, inode->i_size);
-+		down_write(&MSDOS_I(inode)->truncate_lock);
- 		fat_truncate_blocks(inode, inode->i_size);
-+		up_write(&MSDOS_I(inode)->truncate_lock);
- 	}
- }
- 
-_
+Tested-by: Ron Economos <re@w6rz.net>
 
