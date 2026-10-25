@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.194
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948312;
-	b=V/phkizOMW6/MOMi1jbuTW4VzvCeW3fp5iurmW0afPfI65Tv1G3Ms9vaCFbnzoy6izCE
-	 ld9YPtKFa5tq0EewoQTQrHh2S2yb3IpIadquAKrVHInOZyWOSX7kpHB6SvL1bF/7MbRs+
-	 96U6l5vv3+MoNAvK10Xo0xcRgYOPNcQWs9KUBMofFMf0qvF5jOe+Sp9O7YQWsMtKHBQZu
-	 5NGF1xtI97yTnmhcE9zypX6VE+/i5Ln65eZfzLJXkfM1U/nqs92xiNNicUXanHXa1nzV5
-	 96IwsE4H831ZC4hOUoZ4jtGCOhVI8AgtdtizYro9K9lRpNh/IBYeRjbbAq8k0dbgFNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-	b=LcB36DP4OsOsxzPSMpsD37JOQ0fKehb+92RAGVvCcCVAlD0q3dAYNXuUcNxq15CcVlte
-	 sXz6ktO0Db1h1m+SFskoK3jQRxbdhE9vi3ZFacFcnBtKDVQskYka7v51vTI0b/+VAlO3l
-	 QXMEzp2DP4KYJpWxQRaJK9wIORpyRfE7/yxbP8FIRnLoFizcmmeE9sKrJA0L7jNKAeN8s
-	 pT0cRfxYQ1tTsZCvgRYo7PcZOAsAiuc5rrjxpvjbOl/mMSZGTaHJfOsP20tAHIWSc7gPC
-	 yCqlLo+fUOpHSMpHP2hnJsad5oUGcJnK2hR7azOGQfRGRcsnV+wxNwjpBddWMRV7t9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1crgSwR;
-	arc=none smtp.remote-ip=74.125.82.194
-Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792948431;
+	b=cp5e5roMA3n5QXZ2crGi4ouY7PnMeeZy+m47cuCI0vuPpuV5905CqDjC5AGbxrqJTIkO
+	 UV/nqYDk9IwipRi3LYHWS4nmAmSUG0KegzkrWcVyVf/ClzjOW3+Kf8iIgqCL3q/q4Ufcj
+	 RgEWlKtiVfb+1l3xrejtrjXdW0qj4ynilBAvcILakWcUsgTadVq9Y1oCe8gzuUwkxOzL8
+	 9KNCVLzxtmURJXgmoxj+l5q5VGWGt7WextrAxhvHiIbraMXjIRJTtI2O2FLhwHQ9/s8UY
+	 PMdWU1hiCQ8Yy7wTP+RmQT8nZuye2Xqh0KPQ6jhZGgOapjiMRTj0+UiYPseIQ0gjXmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792948431;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HFA68Xy32wtf4cFQgxRHRCe4WyvrjzEfKiorTbbnMvc=;
+	b=V0SX6DvQWRh/zESI8RhteCP+W3zVW4t0icEiN+yRTlpvhusHGY05ba2BZJXMpONmNX4O
+	 bJgGs98SH6y+6Y0Lyb/OjUmwjXVuspIY6R1fScmu4DK2gdX+ztNt6x/KKpZE6wHdIjulS
+	 gAUa2s+nCTqPOSZ6qXAZWQPBOH69uK2g5e4GOuyOpffUrbcCLL5viAxD0Pw8uqF0BwCap
+	 sbKhwCNtWoWdX+fF/6FbpLk6vqxUnNhxp53qGKNQbkZ1QXqh2bLCWeNe9DxSuZ71houto
+	 ev7srdu6GJJXKc+p1vVH9JLhGa60qai9bzruDVgbGY8U/INrhCjMxWivOzEqnB3SdKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k22Q5IVB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0520606A31A;
+	Sun, 25 Oct 2026 17:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k22Q5IVB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792948430;
+	b=1PTCrToDr33l+3C4LTh/nMpuwkNcenC7mIlSSZVpt2OsJPMmje7wWdv+D14A+GveIBxY
+	 nm/nEKG11rlRIEGtASBQ1M1nxCXNFA9y5e91as9EdRrRfFSKjKes3GV3ZcQlfENmMzWOy
+	 VbPTycqXHGYlP3uliT3duZ6NsCKPJoVdMqn52l3QlaJ0AkqmMThWl3mQLf1Gtbe4X9QvG
+	 xLqX0Um7i7MXR8LoDBU7RAQsc6+KSezZz6Sj0VoTQ7GH4ywXEwHPlzZbx8jexsdhIamSW
+	 fUyy4rgAZtGVs9OAd74bl2j8EdogBs+fwqjW8gAMt/9jwyyLnzYWAAaCPzqSFhWvXJA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792948430;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HFA68Xy32wtf4cFQgxRHRCe4WyvrjzEfKiorTbbnMvc=;
+	b=Ed9P0lM8zUlWGUb2p6XDeqXvgfzgyFF6KNmo+ufikxq65awGwCr+NJRa8TQ5X/Zq21mL
+	 r27B9dOp/fd/2FDJIsvJkMYdkeolM/uNd8ryZ7buAWifW2RzRQDb5K6NE7UBxeWQBdqHl
+	 XH1lEcDNR8I+1YeVK6gGTGwjTv1wk3HyKeMSRm18mssZELsJwE1v123xe0FweXX68Yptd
+	 m3Wnmyn56tv4GiaWKZp2MfkXstCdlYul/IfltB/a6d/AaBCa88DBjYqwtJc9lY/N0aXlS
+	 qAm8HGaxDUuihBKy0QK9XaCKWtuSUbXICisgeuxUS7xAqLQvDZqAumhg95mQPozpHQg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E01606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E01606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1crgSwR
-Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-35829219da8so4153815eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:11:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792948311; x=1793553111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-        b=d1crgSwRNAX8pcAiY9hJctAMXtQlVms7wbaULTZ21mEbK4effAqJ0lIajzsC9XpvQt
-         Fr7ujXbZ9AyfVmQQRCObEMTHTLQ/Gj3VvN80mGyjsahf5b1lgQ5Jdlmq8Rddh4rqCdN+
-         ATsStbP9vZCv/Y+zm73kbrEvXmn/7SA99GWNkcs7lf5stwtkU+wLrfNu6zGIxdNclhJi
-         hn685tJayEUUAl57b3vKbtNiRocD63gBcpZvD424L22laZ1FOQb0Flq+wK98ZRo/YHVU
-         nyys2UNgMCmT/j+uz1mWoN0tByIjFNCx6UxzNGGH64uB/FqzKEgW7RxlvpiVPvzUXG3I
-         pQog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792948311; x=1793553111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-        b=UrCZKKcUj4yg7NHFo4s+FSuabIrQn/KFg/juY0T9rHvSCU8JUjbEZEzg61GRWLYeTn
-         EnOwZgfbA1ubLy6gJknX48uzPXbqNr++hJmU9Kn6WvMlYKmCugnMjN5mNvBFyi1haNib
-         tiDwVkWGaVxgNU4dvE+eRoBw6MP7QPlHW2PtP5ZeLv+WzdQpH/Cu60NaUZtLy02yuv4O
-         sSz/LnrItXJSzATfmqXYhcIXHebXbkW9SQILu/r3+4rb4LsEQATZWveDIz7WB8d4m/G4
-         7/u/Oy18DW93QUxS63IJSCkFjfjTRK/m3l0TAKR8e3ygKIexToTkO8R9rQx3Q0f/fc5B
-         cJhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNtWRjlFvRg8UKcPy+LUczIIW2lPhsiuVOKi2OcA3+hKDfksPW53SvKBzVlRP6B4zHz2vibH60Ao31Pfg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNylS6ut39mYJ6lxwH6K0TUlExHihyRUFms2DEfPxuuTzIF24M
-	Fr14l9p8J9K+b8jc2QteV1A/gfYC5JPz0/rtYVZcoJPDuoV+1MnLugC/
-X-Gm-Gg: AYBFou3Czetx71fxuEYAxtJueVQCWs3mz4EWUJyfUQGcH9dErwDYbj9PbFPDSm1VujM
-	mH/ZTiaI7yKW7sQ7tSqBddTtvq+xsoM9urN8nTbCfKCtXlXL85MinWRxqITwiaVrEtz3pEFJQzR
-	1PhaX23SuxPdwuRXmkvkZj1jPqJQFjY+jr7VHo7k9jxujhqR6Tx6jd2knrMSpVeSlFVOBAALuZm
-	0EHO9mvPx2BSkyRo3H1ymvAeczWHSrdyX+FMi/jGeCHh8T5YQoDqA+UyI7t5uzcdxP+cNO21XYm
-	wVREEWj8u0/1ErcSVEi0ndldom7wpY0wcuLgpwD5IvSiU4AZV91tM1LJVDmRVuEH9QbNTsy0my9
-	oWcoK0HPP+u4pUFje2QmUWXXbDw02R1yljPS+wBRJg2qXLBa8tYZwT1Vb+Q+9Qs9PBRR9voQod7
-	EfpYv6aHnVFgf9rbsN96VR1c4s2i5/h8NU+iFR0TGMJnZEhFCWTsotQilVnVfyqnPm8TgfEuABL
-	NBsnP5UroTTS+mgCVUVRfEtnypBQFYhv6sZT+gw8agmIA33GCzzg7z3KDMdVuSSxfrt3w3eGW3P
-	y14whxg54objtucK8Ew5H9jFTsB7OQ==
-X-Received: by 2002:a05:693c:88ca:b0:366:6c79:212b with SMTP id 5a478bee46e88-369e85043a7mr5516718eec.25.1792948311310;
-        Sun, 25 Oct 2026 10:11:51 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm17670582eec.3.2026.10.25.10.11.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 10:11:46 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	akpm@linux-foundation.org,
-	dave.hansen@linux.intel.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] libfs: do not extend i_size when no data was copied
-Date: Sun, 25 Oct 2026 17:11:30 +0000
-Message-ID: <20261025171130.16115-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id DE9881F01825;
+	Sun, 25 Oct 2026 17:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792948430;
+	bh=HFA68Xy32wtf4cFQgxRHRCe4WyvrjzEfKiorTbbnMvc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k22Q5IVBJ1hN8Aucs5MI9cK+JEajrFcgteC8VspPFbp/RA/KcwmRs6l8Lq+fZQDzj
+	 Wnckn0fyQlZezwQASvz26xRWP4PE7d5kO3sSvuv0RZolp94BiJKi/JxZgE/2el7i1J
+	 XpX6V969N0i2gPSHUEMRcvm4VH1eI8++2SUjJ8WfFIblrzPqVyWhe5w8Uz0hz6oVPc
+	 JlXIDEFhO8ondVt9yM//dfQgJExiltuLMd8qOx6cwfOFtRDEfV19CydM4SPxxkFA7I
+	 zkFgyizuFuKe07Y+H8sXDXQFheHRC8uQAjf46JY2/a1PnxWjkpWlpOFcsyaL/419y+
+	 VGInKKZROAGKg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6EB7344A74;
+	Sun, 25 Oct 2026 17:13:49 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Sun, 25 Oct 2026 18:13:44 +0100
+Subject: [PATCH] gpu: host1x: mipi: Disable clock again after powering down
+ the pads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,42 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-upstream-host1x-mipi-clk-v1-1-6bc6e755b4cb@tsv-stahl-riesa.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IAjXSqxQXMZnqtFVDJhZBv
+ HtTXb7F/zsIJSaBe7VDoi8LL3OBrivwo5sHQg7FYJRptDI3XKPkRG7CcZGsN5w4MvrPG9vGUnB
+ BW9srKHlM9OTtXD+6y7L2L/L5/4Pj+AFsAn58fAAAAA==
+X-Change-ID: 20261025-upstream-host1x-mipi-clk-867edad177b0
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <treding@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792948429; l=2449;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=IqCP8sWJtCLgWyd5xt/XstbRFuDUueRcejtTTWyeurE=;
+ b=lBTdo24bssxZ/0pg7gT0fqak5kfrXQlhLtVnpWYodJfpjoF4etnW0lF+foOFhOoHAiunw9n1x
+ 8qt7ntmx10hAiLVKjs8lOCLZ3ymbg5E2EhAuFgYhXHvL7Kxy5OQwynN
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
+Content-Transfer-Encoding: 7bit
 
-simple_write_end() updates i_size to pos + copied even when copied is
-zero. A failed buffered write past EOF can therefore extend a ramfs file
-without writing any data.
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Since prefaulting was moved to the slow write path, this is reproducible
-with a one-byte pwrite() at offset 4096 into an empty ramfs file using an
-unreadable source buffer. The call fails with EFAULT but leaves the file
-size at 4096. generic_perform_write() calls ->write_end() with copied == 0
-before trying to fault in the source buffer.
+tegra114_mipi_power_down() enables the MIPI calibration clock to access
+the bias pad registers but never disables it. Every disable/enable cycle
+of a DSI or CSI user therefore leaks one enable count, and the clock
+stays on for good after the first power down.
 
-Only extend i_size when data was copied. Keep the existing folio handling
-so that zero-progress retries and successful writes retain their current
-behavior.
+Add the missing clk_disable(), matching tegra114_mipi_power_up().
 
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+The leak gets more costly with "clk: tegra: Fix Tegra114 MIPI
+calibration clock parent", which makes PLL_P_OUT3 the parent of
+mipi-cal: without this fix PLL_P_OUT3 would then stay on as well.
+
+On a Tegra Note 7 (P1640) the enable count of mipi-cal in clk_summary
+grew by one with each DPMS off/on cycle of the DSI panel. With this
+patch it returns to 0 after each cycle.
+
+Fixes: 15372d4be7f0 ("gpu: host1x: mipi: Power down regulators when unused")
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
 ---
- fs/libfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Mikko's "clk: tegra: Fix Tegra114 MIPI calibration clock parent" [1]
+fixes the MIPI calibration timeouts on Tegra114. While testing the same
+change on a Tegra Note 7 (P1640) I noticed that
+tegra114_mipi_power_down() leaks the clock enable it takes. With [1]
+applied that leak keeps PLL_P_OUT3 on after the first DPMS off, so the
+two belong together, although this patch applies and makes sense on
+its own.
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 8e2cc627bc7f..d889a4a14f41 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -1007,7 +1007,7 @@ static int simple_write_end(const struct kiocb *iocb,
- 	 * No need to use i_size_read() here, the i_size
- 	 * cannot change under us because we hold the i_rwsem.
- 	 */
--	if (last_pos > inode->i_size)
-+	if (copied && last_pos > inode->i_size)
- 		i_size_write(inode, last_pos);
+[1] https://lore.kernel.org/all/20260930-b4-dalmore-fixes-mipical-clk-v1-1-0518be6c7979@nvidia.com/
+
+Tool use (see Documentation/process/generated-content.rst): this patch,
+its changelog and this note were prepared with an LLM coding assistant
+(Claude Code). It traced the clock enable counts from my clk_summary
+dumps and wrote the code change and the texts from my measurements and
+instructions. I reviewed the change and ran the test on the device.
+---
+ drivers/gpu/host1x/tegra114-mipi.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/host1x/tegra114-mipi.c b/drivers/gpu/host1x/tegra114-mipi.c
+index c084a09784d1..83a43a5e33af 100644
+--- a/drivers/gpu/host1x/tegra114-mipi.c
++++ b/drivers/gpu/host1x/tegra114-mipi.c
+@@ -197,6 +197,8 @@ static int tegra114_mipi_power_down(struct tegra_mipi *mipi)
+ 	value |= MIPI_CAL_BIAS_PAD_PDVCLAMP;
+ 	tegra_mipi_writel(mipi, value, MIPI_CAL_BIAS_PAD_CFG0);
  
- 	folio_mark_dirty(folio);
--- 
-2.43.0
++	clk_disable(mipi->clk);
++
+ 	return 0;
+ }
+ 
+
+---
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+change-id: 20261025-upstream-host1x-mipi-clk-867edad177b0
+
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
+
 
