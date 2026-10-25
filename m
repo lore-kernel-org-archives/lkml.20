@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792892095;
-	b=vIXRJoV2UMDzLuBYwS2/KJaf3mOOELsZSUh0dpTTKnkG+lA1ikO7O6AkZBTM5dff5tJw
-	 l+o+qliSOhTbSecx9EDIFn4mZM4GAVB4k/BkmkC5uaFOdkRU2bMuPRO5a1Y1W0q+UKbds
-	 /pVyDvTfbQzHDBwlTcWIW2/E4GV70Qhe5ntNW65jLpDxCsrpH9LY07V+yHNAX2huoEMq6
-	 PI6hBa0gTf9lYhDoKN9g5hhn4XhKk4vBPSSg4pcJTTyVvm/BlJ6cHlabdv/TvhbX8G7qy
-	 KEdca1X4F6tU+Va90S2zbuaezztdOP/cSzlZ3Z63IVOnMBIoB33whn9thW03XeMTnqA==
+	t=1792892288;
+	b=OeSF1biHM9cAGOg0CyHAJSFwjFZG/qFyrCAaY7ALlovN4oNTzB5/MjCDwuxESFNzonaf
+	 LKacz3oFrcZyfK9lexd/aVGmAON0ci2FBJCbRNig3vXOveZ+SzBnun1pejguf+R73QQ3S
+	 UESYEgPY7JuRHX4njhVBPE+v/L4PLg/fUX7p+cgJA+uoMq8kYmnt6ZeYS/KsAxmJDCj0J
+	 wDcIEdt2JjT4ruzMGUix9WWp27LKj/9E61nV71NW3YNV2I0QxjNZubFA7T6qvBcZciqYQ
+	 AjEAGT22mgGGxibZpNAusAqD+KSa+gPtR+4BKY8+XobwUzMiszcSNMETCcVWjP2Z1+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792892095;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792892288;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=d8zTOCpdfLCFup0LtTUT8GHUquWtW5OhPtS3dNMqHJw=;
-	b=NPOmh6JerD1O+3SY6ImXvbTZnekezcc9LDehFY89dEUUIxXWJYxTLffvVbcHd6iFjLKu
-	 uAZlJFGnZTi3exFnrtLeC7q1SEss6A5P92l+zXg/ixONMDpb9dyiYoLM2RfGg+uLmaGMH
-	 MP7uLWwTdOryERiiDZ/MZ+GKb/b1pSxMv9J/WZ590wgeQMuPzfqQPiNo0izmmDT+i443f
-	 wUK6irjCXa3GN/aIh40d8YI9w+HlBln5YBa41BmZcrdgtGu6Bx6dLR8zqGFQyIWP7edl4
-	 zDVvtW5SCiToFcwdozmsT6shSSEDJw1uK55bT7z+4rtibuoZ3yEHqAR/RzIFSbehCcw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GE7Vb8T2woD+VGnNBcKvWotC6HZWTCQNkbu5VL66Vv0=;
+	b=5qlC3ye0kzGBKisAJdtZCzMrsSfm1N3mUqpStwlL9IYDLcIU21VLbi4/oGBzReaOi32V
+	 90Fjp70+AjaoesLsvnsy2PJlMHHAPUNPPD1zXM+6QP4hKc9f3NRvJVQ0qPFFvp6FwxBM7
+	 hZ4Ju6iKMY2pW+5eMD9nzX8JlAtDeAwSij/XM3uUUDghWl67neajZ5GFVaP9Hq33X1lZP
+	 4YX5ZAtRnVJ6ypO+7O9Lu2Us+NgeHEhsrXLP5wDU1RP0tqdV3Bht9uxjkF9XIC4V1x7fi
+	 8pI33vAVTAi57LffjLld9wPejDaEmes/ucF4y0GzuM3uv1ps4j9Wcoobb/koCwf65ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=INVTu4vU;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lgsgyk2I;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7DA606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF7DA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766B2606A328
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 766B2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=INVTu4vU
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab2395f104so1666350a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:34:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lgsgyk2I
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3248444eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:38:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792892094; x=1793496894; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d8zTOCpdfLCFup0LtTUT8GHUquWtW5OhPtS3dNMqHJw=;
-        b=INVTu4vUwpEyC7ZtxvJsKVU2+nOgKLbSmZQV5fHfLi1+JJ898E1aLK08xff6wcILew
-         LSG5Nk78eLrG9Y1U1tpmffPRoP1gn9jCLfbXSA0sMUN/r6Yzm1+pZyvghn3Vj2IIkzIY
-         JgT5Y1kG1vcwJgXPaKd5+3cYPLiIBWsZ6fNFtHZtbMiWuKlQiVB2o2LXJ1HNlj0BmVsm
-         ejI6O0J2ETi9brA+6Bf3P7RCRBJRcPhdzwkQ295uNPiJBrGd0Hzu39yZ2v3FNO/Mhc4O
-         MVnCVqHltB160meoyBF8A0z8uTl8lnlx4mL/523peD9igjcf18omkXV2CoNFnFXIr8qg
-         sr8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792892094; x=1793496894;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792892287; x=1793497087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d8zTOCpdfLCFup0LtTUT8GHUquWtW5OhPtS3dNMqHJw=;
-        b=FwkHCwPUm0vqbCnLzhAviF/EBWKP9E+qy4x11LUPT0Kqe5MGQ1O/D8ZheXSsbr9c6p
-         mXd5Fsn0Irk9yCwI9fpLSM7tEIjIU9JEp9ngp4ltg8W7exGB+Bqlv7Xt3jvB+QaCcTjF
-         RFSe/92grLAutL//kctSZP8F/rUWRmagnjNXYodmfuhsZoPzpzlX0lnK7u1rKLwolqRw
-         JqsUfleOAAIWmleQGeSQr86wQjn/3xgfiOFBlcu5JQlklEtW4GliTlR5FbF3BSQ50LxC
-         8fRIhC3wIzgmbRiYwSHQtCgbeZAqbCDRebzzhMkWkMczcDnhIVNSW1x1QHQq0LDZOOVL
-         Sr1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzLQ+Ve5f/pCmM6kBg0F/a+uoI+ecRDpsxNMEGzLM7e4uEyBAUPamn9k2qJnivf2TwEsXbxcRIIeU5+w6k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUyZZfQw8g2BRJm6UV7LEhuKRmY+tIPJ9UpXqzbJ6kwMAlx9Cm
-	sGCpqzZS4A5c4Hgjo3SmePloT+ea6sWBrPfNdRVKn0Cb1R4QNSOJ/Ok8vZ0sPnIP5EioiyBcj/X
-	MFCi2Ging4c20wt/6qQRS4g==
-X-Received: from pjblj15.prod.google.com ([2002:a17:90b:344f:b0:3a4:fb9f:4a65])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4ac9:b0:3a7:db88:3491 with SMTP id 98e67ed59e1d1-3adeabe4324mr2618939a91.33.1792892093846;
- Sat, 24 Oct 2026 18:34:53 -0700 (PDT)
-Date: Sun, 25 Oct 2026 09:34:44 +0800
-In-Reply-To: <20261025013446.345974-1-stanleyjhu@google.com>
+        bh=GE7Vb8T2woD+VGnNBcKvWotC6HZWTCQNkbu5VL66Vv0=;
+        b=lgsgyk2IbT9HmYkF1vkL1psHiDVukRm7MKEwrZkVUM8QFdh7blIn7iMzfju7b/2w4d
+         1FHlMJZ4v68W1wiNSUF3QiBh54VsVFyDEMMrZlrhjLIfXaB8u8lY+l2FRYcnmVANAFF7
+         lLygdedp34vN8kGgA/Xv0bxuQVl5x+s8LpM0Fpb1oa14m+94MjZwON2yKAUNZfRA5ZTa
+         7HYU4y2JGgiqlNOBVqx0KyyWF4wjv109UhBS6CAWz00iRJyydbjseO2MWJT8hCsCcmXn
+         AZObaGGlD7K2qCgVtnCBo7yyhaM6S4UVex1jEqT/prqMJwQz6BUdqrnoU3Wcw9wRZ6O4
+         Ds4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792892287; x=1793497087;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GE7Vb8T2woD+VGnNBcKvWotC6HZWTCQNkbu5VL66Vv0=;
+        b=mO6As2yw9GunUFEllx0AGTi+9LAJ8Kg93cJOYX7X1WBgYj0d8LMJP91WaVZA1cV8SD
+         Fw06dVtrhHKUo8aAe6c5EXlvIE/f1RWEhMClvJMg0j0Gr2KksZO7YCSS9q/ZYcLSJJqp
+         SInCRBxnUvWxUYhFv9ACvg6AaBqu9TSc/3xdt63+CY/LFVyA+w60mbumrR+KCCKYf0Yq
+         3X6LFw+ZNNwSvYqgnZXr16xlaQbmV1A7FTrsSLpcrYNvnUeWHzB/kJsGcIROVJjotYwj
+         qwTMGfkW41yxFmjYsXXm+agVELmTIaHZ5Y4RwhnavZJXYR74UQ+dMgtYVKuAjawjmTvV
+         ER6g==
+X-Forwarded-Encrypted: i=1; AKwUvBy+N8gq3t9ijCm1znhed86PuPh9h5IniTXBw7rBEhwj0dEvVT7FBsIvUnwBNIzB335QCGEr4z1d9nnqH6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBB/gxoGUXrsW8ULcRu+cPIg5c5/mM0BbwCd1HSFW/+zqDZX5v
+	4TBi3/aE6vtaBNS6H3F5cabcbvxKnevDbgh7QxnWXoFMyHc18qUUeNq4LcnVcrxry0k=
+X-Gm-Gg: AYBFou2P8177JjD5iRO4O8boIrpIQJxVMXc3Fk4TGuWuqybOYONLiPek2Amgz/sJjVZ
+	6H1a4CmctYyccxvx5uP+1beJsFXsUOinYEqMkmbhVuPslG95HCddxqUFWKn1E+ExQstBwRcvv7R
+	N6vnc1mFvsGCjHejNDMucAwIgwo8If0zLhTBJ8SU4dQ9oFMoTaqINiS+P1dYhi/d9WSNMH2924/
+	AHgogef/Ml1M8Z/8BiUnjnGbkLq+4G08nLv85dR3/YKQ7JLy0O5YjyfNMR7fBg4Z1hhOlgdrMwo
+	Yxb6dLTBH2wyttvmo3p3CPaII/PA9Y+h2ugpM032TmEwDwwBkapO0FThZE6yLtMZIKMEUhS4KGY
+	4GzKtGe1HZxofQHxu5xJirZNCzIMyEcbd8Ik+NEF+u8lvBYDqUWid03svvYSSLQtxwYulEo9aXD
+	g9idih+vjIWFQvO2zBY+wLHbgpoYK9VFLEY9WvreMFVbV6hIzTd++oPwZjgKSVpkWpmdpXozCmc
+	dGngEU431LNqIpX0PoDBOpF6sNTg9ugfLEEE7L2cJYd20irTcqAN5QxXDT0DsgokSWjquNm7Gqe
+	s6qi1ZgPl7bA9omucWcGpFT/bFpWUHSsRvyNBH5ufqSCrSYV8I/iQsbGbUxzJmv3
+X-Received: by 2002:a05:7300:e522:b0:351:245b:d1e7 with SMTP id 5a478bee46e88-369e81d398amr5582153eec.0.1792892286486;
+        Sat, 24 Oct 2026 18:38:06 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:dba3:be57:a674:a67f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8dbaa42sm13724329eec.21.2026.10.24.18.38.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 18:38:06 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v5 1/3] RDMA/srpt: bound the indirect descriptor table to the IU
+Date: Sun, 25 Oct 2026 10:37:46 +0900
+Message-ID: <20261025013748.3755639-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
+References: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,224 +101,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261025013446.345974-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025013446.345974-4-stanleyjhu@google.com>
-Subject: [PATCH 3/5] scsi: ufs: sysfs: Propagate runtime PM resume errors
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-All 14 ufshcd_rpm_get_sync() callers in ufs-sysfs.c ignore its return
-value:
+srpt_get_desc_tbl() takes the number of INDIRECT descriptors from
+idb->table_desc.len, which the initiator controls, and checks it only
+against data_out_desc_cnt + data_in_desc_cnt, two more initiator fields.
+Both are u8, so the pair admits up to 510 descriptors, and nothing
+compares the table against the receive IU it has to live in.
+srpt_alloc_rw_ctxs() then walks idb->desc_list for that many entries.
 
-1. A user-space sysfs read or write runs when W-LUN runtime resume
-   fails, when power.runtime_error is set from a failed runtime
-   suspend, or when W-LUN runtime PM is disabled while not active.
-2. ufshcd_rpm_get_sync() returns a negative errno without waking the
-   device or host controller.
-3. ufshcd_read_hci_reg() reads an HCI MMIO register on an unresumed
-   controller, and the remaining handlers issue query UPIUs over a
-   suspended or broken link.
+With the default srp_max_req_size of 8276 the table fits as long as the
+additional CDB is short, but ADDITIONAL CDB LENGTH is an initiator field
+too, and at its maximum of 252 bytes 510 descriptors end at
+48 + 252 + 20 + 510 * 16 = 8480, which is past the end of the object.
 
-Switch all 14 sysfs callers to ufshcd_rpm_resume_and_get() and return
-the error after releasing any held buffer and hba->host_sem.
+  BUG: KASAN: slab-out-of-bounds in srpt_alloc_rw_ctxs+0x631/0x870
+  Read of size 4 at addr ffff888002d6a05c by task kunit_try_catch/43
 
-Fixes: aef80fd1da32 ("scsi: ufs: sysfs: Resume the proper SCSI device")
-Fixes: b9d104465a6c ("scsi: ufs: Prepare to add HCI capabilities sysfs")
-Fixes: 600edc6620a4 ("scsi: ufs: sysfs: Make max_number_of_rtt read-write")
-Fixes: 6c4148ce7cc1 ("scsi: ufs: wb: Add explicit flush sysfs attribute")
-Fixes: 500d4b742e0c ("scsi: ufs: core: Add WB buffer resize support")
-Fixes: ae7795a8c258 ("scsi: ufs: core: Add HID support")
-Fixes: 1fd2e77b8897 ("scsi: ufs: core: Add device level exception support")
-Cc: stable@vger.kernel.org # needs "scsi: ufs: core: Introduce ufshcd_rpm_resume_and_get() helper"
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+  CPU: 0 UID: 0 PID: 43 Comm: kunit_try_catch Tainted: G                 N   7.3.0-12378-g6fba331225f5-dirty #1 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x3f/0x50
+   print_report+0xcd/0x620
+   ? alloc_pages_node_noprof+0xa2/0x140
+   ? srpt_alloc_rw_ctxs+0x631/0x870
+   kasan_report+0xde/0x110
+   ? srpt_alloc_rw_ctxs+0x631/0x870
+   srpt_alloc_rw_ctxs+0x631/0x870
+   srpt_test_parse+0x114/0x580
+   ? __pfx_srpt_test_ctx_common.constprop.0+0x10/0x10
+   ? __pfx_srpt_test_parse+0x10/0x10
+   ? srpt_test_ctx_init.constprop.0+0x4cb/0x6c0
+   srpt_test_run.constprop.0+0xc1/0xa60
+   ? pick_task_fair+0x126/0x1950
+   ? __pfx_srpt_test_run.constprop.0+0x10/0x10
+   ? update_curr.constprop.0+0x4a/0x390
+   ? __set_cpus_allowed_ptr+0x181/0x240
+   ? __pfx_read_tsc+0x10/0x10
+   ? ktime_get_ts64+0x192/0x250
+   kunit_try_run_case+0x1ca/0x4b0
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? kthread_affine_node+0x24b/0x370
+   ? __pfx_kthread_affine_node+0x10/0x10
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36e/0x500
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x34d/0x620
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xdd0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
+
+  Allocated by task 43:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_slab_alloc+0x6e/0x70
+   kmem_cache_alloc_noprof+0xfc/0x2b0
+   srpt_test_ctx_common.constprop.0+0x46f/0x9b0
+   srpt_test_ctx_init.constprop.0+0x30/0x6c0
+   srpt_test_run.constprop.0+0xb6/0xa60
+   kunit_try_run_case+0x1ca/0x4b0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36e/0x500
+   ret_from_fork+0x34d/0x620
+   ret_from_fork_asm+0x19/0x30
+
+  The buggy address belongs to the object at ffff888002d68000
+   which belongs to the cache srpt-kunit-iu of size 8276
+  The buggy address is located 8 bytes to the right of
+   allocated 8276-byte region [ffff888002d68000, ffff888002d6a054)
+
+The KUnit harness that forces this is not part of this patch.
+
+A table_desc.len below one descriptor is the other way in. It gives nbufs
+zero, which the count check admits and a span check cannot catch either,
+since an empty table fits in any IU. srpt_alloc_rw_ctxs() then returns
+success with n_rw_ctx zero, no scatterlist is chained, and
+srpt_write_pending() reaches ib_post_send() with an empty work request
+list. rvt_post_send() evaluates !wr->next before the loop that tests wr
+against NULL, so an rdmavt device faults there whenever its send queue is
+idle.
+
+Reject a table that does not fit by comparing the span it occupies
+against byte_len, and reject an empty one. The span is the table offset
+plus struct_size(idb, desc_list, nbufs), and nbufs is at most 510 once
+the existing count check has passed, so it cannot saturate.
+
+The header always lies inside the allocated buffer, since the largest
+offset srpt_get_desc_buf() can return is 48 + 252 and the header is 20
+bytes, so it ends at 320 while srp_max_req_size is at least
+MIN_MAX_REQ_SIZE, which is 996. It does not always lie inside the bytes
+the initiator actually sent, which is why the span starts at the table
+offset and covers the header as well.
+
+Fixes: a42d985bd5b2 ("ib_srpt: Initial SRP Target merge for v3.3-rc1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/ufs/core/ufs-sysfs.c | 67 ++++++++++++++++++++++++++++--------
- 1 file changed, 53 insertions(+), 14 deletions(-)
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/ufs/core/ufs-sysfs.c b/drivers/ufs/core/ufs-sysfs.c
-index cf49ad0258e1..19b62cf52410 100644
---- a/drivers/ufs/core/ufs-sysfs.c
-+++ b/drivers/ufs/core/ufs-sysfs.c
-@@ -250,13 +250,19 @@ EXPORT_SYMBOL_GPL(ufshcd_us_to_ahit);
+diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
+index 43c3ff1ad8e7e..40d796840befc 100644
+--- a/drivers/infiniband/ulp/srpt/ib_srpt.c
++++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
+@@ -1117,6 +1117,7 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 		struct srp_indirect_buf *idb = srpt_get_desc_buf(srp_cmd);
+ 		int nbufs = be32_to_cpu(idb->table_desc.len) /
+ 				sizeof(struct srp_direct_buf);
++		size_t desc_off = (uintptr_t)idb - (uintptr_t)srp_cmd;
  
- static int ufshcd_read_hci_reg(struct ufs_hba *hba, u32 *val, unsigned int reg)
- {
-+	int ret;
+ 		if (nbufs >
+ 		    (srp_cmd->data_out_desc_cnt + srp_cmd->data_in_desc_cnt)) {
+@@ -1128,6 +1129,18 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 			return -EINVAL;
+ 		}
+ 
++		if (nbufs == 0) {
++			pr_err("received SRP_CMD with an empty indirect descriptor table\n");
++			return -EINVAL;
++		}
 +
- 	down(&hba->host_sem);
- 	if (!ufshcd_is_user_access_allowed(hba)) {
- 		up(&hba->host_sem);
- 		return -EBUSY;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret) {
-+		up(&hba->host_sem);
-+		return ret;
-+	}
- 	ufshcd_hold(hba);
- 	*val = ufshcd_readl(hba, reg);
- 	ufshcd_release(hba);
-@@ -350,7 +356,9 @@ static ssize_t wb_on_store(struct device *dev, struct device_attribute *attr,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	res = ufshcd_rpm_resume_and_get(hba);
-+	if (res)
-+		goto out;
- 	res = ufshcd_wb_toggle(hba, wb_enable);
- 	ufshcd_rpm_put_sync(hba);
- out:
-@@ -421,7 +429,9 @@ static ssize_t enable_wb_buf_flush_store(struct device *dev,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	res = ufshcd_rpm_resume_and_get(hba);
-+	if (res)
-+		goto out;
- 	res = ufshcd_wb_toggle_buf_flush(hba, enable_wb_buf_flush);
- 	ufshcd_rpm_put_sync(hba);
- 
-@@ -490,7 +500,9 @@ static ssize_t wb_resize_enable_store(struct device *dev,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	res = ufshcd_rpm_resume_and_get(hba);
-+	if (res)
-+		goto out;
- 	res = ufshcd_wb_set_resize_en(hba, mode);
- 	ufshcd_rpm_put_sync(hba);
- 
-@@ -598,7 +610,9 @@ static ssize_t device_lvl_exception_id_show(struct device *dev,
- 	if (hba->dev_info.wspecversion < 0x410)
- 		return -EOPNOTSUPP;
- 
--	ufshcd_rpm_get_sync(hba);
-+	err = ufshcd_rpm_resume_and_get(hba);
-+	if (err)
-+		return err;
- 	err = ufshcd_query_attr_qword(hba, UPIU_QUERY_OPCODE_READ_ATTR,
- 				      QUERY_ATTR_IDN_DEV_LVL_EXCEPTION_ID,
- 				      0, 0, &exception_id);
-@@ -1101,7 +1115,9 @@ static ssize_t ufs_sysfs_read_desc_param(struct ufs_hba *hba,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret)
-+		goto out;
- 	ret = ufshcd_read_desc_param(hba, desc_id, desc_index,
- 				param_offset, desc_buf, param_size);
- 	ufshcd_rpm_put_sync(hba);
-@@ -1482,7 +1498,12 @@ static ssize_t _name##_show(struct device *dev,				\
- 		up(&hba->host_sem);					\
- 		return -ENOMEM;						\
- 	}								\
--	ufshcd_rpm_get_sync(hba);					\
-+	ret = ufshcd_rpm_resume_and_get(hba);				\
-+	if (ret) {							\
-+		kfree(desc_buf);					\
-+		up(&hba->host_sem);					\
-+		return ret;						\
-+	}								\
- 	ret = ufshcd_query_descriptor_retry(hba,			\
- 		UPIU_QUERY_OPCODE_READ_DESC, QUERY_DESC_IDN_DEVICE,	\
- 		0, 0, desc_buf, &desc_len);				\
-@@ -1548,7 +1569,9 @@ static ssize_t _name##_show(struct device *dev,				\
- 	}								\
- 	if (ufshcd_is_wb_flags(QUERY_FLAG_IDN##_uname))			\
- 		index = ufshcd_wb_get_query_index(hba);			\
--	ufshcd_rpm_get_sync(hba);					\
-+	ret = ufshcd_rpm_resume_and_get(hba);				\
-+	if (ret)							\
-+		goto out;						\
- 	ret = ufshcd_query_flag(hba, UPIU_QUERY_OPCODE_READ_FLAG,	\
- 		QUERY_FLAG_IDN##_uname, index, &flag);			\
- 	ufshcd_rpm_put_sync(hba);					\
-@@ -1608,7 +1631,9 @@ static ssize_t max_number_of_rtt_show(struct device *dev,
- 		return -EBUSY;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret)
-+		goto out;
- 	ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
- 		QUERY_ATTR_IDN_MAX_NUM_OF_RTT, 0, 0, &rtt);
- 	ufshcd_rpm_put_sync(hba);
-@@ -1648,7 +1673,9 @@ static ssize_t max_number_of_rtt_store(struct device *dev,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret)
-+		goto out;
- 
- 	memflags = memalloc_noio_save();
- 	shost_for_each_device(sdev, hba->host)
-@@ -1700,7 +1727,11 @@ static int wb_read_resize_attrs(struct ufs_hba *hba,
- 	}
- 
- 	index = ufshcd_wb_get_query_index(hba);
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret) {
-+		up(&hba->host_sem);
-+		return ret;
-+	}
- 	ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
- 			idn, index, 0, attr_val);
- 	ufshcd_rpm_put_sync(hba);
-@@ -1760,7 +1791,9 @@ static ssize_t _name##_show(struct device *dev,				\
- 	}								\
- 	if (ufshcd_is_wb_attrs(QUERY_ATTR_IDN##_uname))			\
- 		index = ufshcd_wb_get_query_index(hba);			\
--	ufshcd_rpm_get_sync(hba);					\
-+	ret = ufshcd_rpm_resume_and_get(hba);				\
-+	if (ret)							\
-+		goto out;						\
- 	if (ufshcd_is_qword_attr(QUERY_ATTR_IDN##_uname))		\
- 		ret = ufshcd_query_attr_qword(hba,			\
- 			UPIU_QUERY_OPCODE_READ_ATTR,			\
-@@ -1848,7 +1881,11 @@ static int hid_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
- 		return -EBUSY;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret) {
-+		up(&hba->host_sem);
-+		return ret;
-+	}
- 	ret = ufshcd_query_attr(hba, opcode, idn, 0, 0, attr_val);
- 	ufshcd_rpm_put_sync(hba);
- 
-@@ -2121,7 +2158,9 @@ static ssize_t dyn_cap_needed_attribute_show(struct device *dev,
- 		goto out;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	ret = ufshcd_rpm_resume_and_get(hba);
-+	if (ret)
-+		goto out;
- 	ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
- 		QUERY_ATTR_IDN_DYN_CAP_NEEDED, lun, 0, &value);
- 	ufshcd_rpm_put_sync(hba);
++		if (desc_off + struct_size(idb, desc_list, nbufs) >
++		    recv_ioctx->byte_len) {
++			pr_err("received SRP_CMD indirect table (%d descriptors) that does not fit the %d-byte IU\n",
++			       nbufs, recv_ioctx->byte_len);
++			return -EINVAL;
++		}
++
+ 		*data_len = be32_to_cpu(idb->len);
+ 		return srpt_alloc_rw_ctxs(ioctx, idb->desc_list, nbufs,
+ 				sg, sg_cnt);
 -- 
-2.56.0.307.g5fe7bd680c-goog
+2.43.0
 
