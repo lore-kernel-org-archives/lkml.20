@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792956091;
-	b=w3F1d+Ox7kNRNgrP0KNXjo5rlVFhYPO6RPWVI94L7+KGzDPRQ1+3hbwNLdoDkoYLg1NK
-	 SOQ9cntNpi3MYW8a0rOfhz9FYVVY9XT0r7ETFrYqtyeGmxIakQsau59AHEZjaxRr+5nnr
-	 GJCh8DZzEQ0wI/JR3YEDS/P4iIYieO8k8AMUFf3teFadDgOISmF6I8AOLEHaumbAMmkVp
-	 x8ItVx64aw6O4CCJOVXyeBoIQmrIbrIpxKq9HPzNj7SLh16r5U+wapAoy8LUYYPU429I9
-	 Z2KXpRMRzK2eCGuyws1/WcITP0gEavSpaXWj4mG631/3Zw+IntArr+C8wnX6urhtX9g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956091;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
-	b=BgUt/ai7j3SreMElHjFFOImUX5LlRXM5cnr1SIxuGP/xXaWh5o6iP/MrvQ7Mq2M7stUe
-	 Qda6N2d2bvTmp9yVm79UvhJlHxt/4NNamHaa4fliGkkrKRGqKKheJmLHcJ+j6zaZK0Z5A
-	 FcWMqVGAidLD3WZm92qgkPdpGH06QGqF6eAYujyn9I7aQesfYdNlnJW6cBeTJm00xqSlG
-	 mg9Lr9P/0YctBuecZLWsJK4ZZ1F/JA0g2oH0PrAUqzGpxra8cEbuOm/6gYUqMhJBCUN0L
-	 OO1xp3mizLbVa85s0H6tiOpgj8q7xN3I1TLzNsjBBn4iI3gdzJgDZ6QOG9+/YBjmerA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RP8xxFsr;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=M6D0qwra;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.173
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792956123;
+	b=4OrFPRwns10YP+nEU+IK8lSt6xu1EJ5E6l5cUUxfgDjk1CYWXh3RQpJcqpLwQVxCLJxO
+	 zBLfSsN0DiOEgpKTpxCuEzuuTurkUgTARAH+q6ARLaXdstAn10zY7i0fhK7nRb5QLg/Vk
+	 73kxGJnxrZBfVdRL52BUwxIqFlLvF9mY7J3WrXTnQ57n7+0iqqldqIvtuCTU4Vf0WzvDD
+	 r99LU4Cek+iSOez60FeJrICY0qeeoi78UpyO9x3Iw5OenYQyWDyIs7MwKXlcNO4Zsv8nD
+	 JLKEVH0eUbiiuFF8AYY1/JoSozTQqqOmhEH0eaW8/PjWpxccH1vQaR1hMAG3Qiy/4cQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956123;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
+	bh=Ayp/Q9Y1tgzFXIHVZ1yEQTHN8mO9FQgwx4GJ190p2IM=;
+	b=fgVdMD4e38JjA/o12cA/cQG72Lj49DV7o8PQNsl+wnFeClphARKhqpVN4Nz/m1v5+wAK
+	 pj2o8XvQpkB5LXXMI6F9aQqDAQjVmNCDk+0CMLCkEzK0Vn1WtnIfAw61SYh2e7nOg3Z44
+	 Fgi5SVVIRG0feXqwxBUhEAYfU65fTqpm4RlbiJKTNxScsKp7LDFbbUPRHAHxHdeyqvLJO
+	 HyR101LDpNAjkuBl9gVNiiDeE15ossreMfXD8JiaU+/S3/vUbVDBWBv5d9ioXeUHBpcip
+	 xQO1G6g24WmOaP5UEZ1UeueVysHFyxZpJMR5SArtIa2e/Kkf2W1t9vPtMTMWH5BXwHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=student.uibk.ac.at;
+	spf=pass smtp.mailfrom=student.uibk.ac.at;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=qpoU0FLP;
+	arc=none smtp.remote-ip=138.232.1.140
+Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09E0606A31A;
-	Sun, 25 Oct 2026 19:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B09E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C9E606A322;
+	Sun, 25 Oct 2026 19:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0C9E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RP8xxFsr;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=M6D0qwra
-ARC-Seal: i=1; a=rsa-sha256; t=1792956062; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=EIay1K7K2kJhCXIgoGwMn+Vnv6m/AJukRCh4ZDvdiCVD/WMOIT3Eu6MeNGNJ5Hymk3
-    OYDx5wktRVv1Th6YOaJZ68LNPgp3HiJwEhAXZ1SE5ft4K7iS9e7X0FcBumBNGrHa+jWR
-    2PVEBXpp9DSrCt1NIZVp1FsF8otMsYcS+yF3aC4fTrY99fTnQAJIXH5OIbQIeiForLlG
-    kXjmNRCZeD0ZBClkXsPxY+jdk0Hvo0/h+mqIES0kUNxN0S3om1UFwDLU9ebcayeyt27Y
-    rXUQOFvDj9zdw5CSfg0E1soyRn01bEChWgK4Kg9+qgJJYBM3AwRFYrWKAM04nvgDTjQW
-    bVyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956062;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
-    b=BnrXi8Wen9cZr2rpN1Mv8YuTIHobKM6negu9hg1c1h1pYmuMP0fTrFOjqqzd28MpgS
-    Kz9KzAZq32vwiOPXJcLrpK6HJXu42S1G20UDkcQfwQvtUPJFcM7BiJizuYRONzBj3C5Z
-    tOWOyzEhY/5Pq1Kr61PtchJtUnEjrCz8kGlYECtKG2AIY8K3AlzrEe+ztnriNSQItyMy
-    nyTric4TE08w0DVo7/hrTEgQs7YJEb/0gkyn8sszZM0c+nvTZVEYt18SePFMesKFv1z7
-    WxoJ/AAg1K5USrYW0v1XjoaH/LaLoWhWLkyc+Ufh8+1yjjjxz+tbphjw7bHndcgw59ug
-    6kwA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792956062;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
-    b=RP8xxFsrCWaJ8btzcIl2AKmzxCvNJkkNH+2+yeKj5BB8RJPbKjhLFFO/zAhnhNcD0H
-    G8UJYgDbQg0N1dLmrbalk4Qxu0FFu7NXAmM4ph1G3fOd++7wmdsXuzI5S4b2yr8lkZA+
-    Cd853M4IChf0TvwIffZonHzih3z3cCA5SGBpbvmwaYIpiy/FN6fojFwyIrRn3XiMW7H1
-    6X8fXzBuXFBgD68CIfSl7gk+me3vcjvrpUtIi9GC8N+tDRqEBnjQ/lF3/awmvVs5tz4A
-    y+qr/dHXRKizVE0k7qQh5NocbKbTzZkHSXfjdRn4vd4O85/yL4qMX6he80sEzhO3btu5
-    gGSg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792956062;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=109EU7K31vrMxgSiDX3Jfe909NKoOXY2SRpLxQWDJgE=;
-    b=M6D0qwrarG8IfHxdNrxDNxJw+qV9CiHtU8ZX8CiQaGRm9Uob5su4vkT5s1eBAYKlQr
-    Uh/sKD4DL2emn8BIKRBw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poNy8iNoc+LWkugLIF0fnfvFgpgbBBt2w=="
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229PJL1zRB
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 25 Oct 2026 20:21:01 +0100 (CET)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Paul Burton <paulburton@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH 0/6] MIPS: Ingenic: Add XBurst / XBurst II infrastructure and SoC support
-Date: Sun, 25 Oct 2026 20:20:49 +0100
-Message-ID: <cover.1792956055.git.hns@goldelico.com>
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=qpoU0FLP
+Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com [178.115.151.51])
+	(authenticated bits=0)
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJLko3516701
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 25 Oct 2026 20:21:49 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJLko3516701
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
+	s=prod24a; t=1792956110;
+	bh=Ayp/Q9Y1tgzFXIHVZ1yEQTHN8mO9FQgwx4GJ190p2IM=;
+	h=From:To:Cc:Subject:Date;
+	b=qpoU0FLPWW86wR12vYlkvJARkAb7TNCYFRYBTSIibxu9PqzmHz6ttAmUQBeVR4uCQ
+	 QpUW7w34VDqyhxDtN/90AjbVu4lDE06DbH8LZ9JuJvgTRvz5Ahb92tCUHbKxHH6rRT
+	 VpAPX8H7xw1Ad47/WGe3N96ckM1hR6NRmxrj7PSA=
+From: christian.koever-draxl@student.uibk.ac.at
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+        martin.blumenstingl@googlemail.com
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+Subject: [PATCH 0/2] firmware: meson: sm: make power-off work on S4
+Date: Sun, 25 Oct 2026 20:21:42 +0100
+Message-ID: <20261025192144.208954-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,56 +68,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
+X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
-PATCH V1 2026-10-25 20:20:55:
-The series updates the Ingenic platform support to allow clean transitions
-between bootloader-provided Device Trees and built-in fallbacks. It provides
-the foundational Kconfig, PRID, and CPU-probe blocks required for newer 
-Ingenic/Lumissil hardware generations (X1600, X2000, X2600).
+From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-The first patch corrects an inverted Kconfig condition regarding appended 
-and built-in DTBs. This fix is necessary to allow configurations where 
-the kernel relies entirely on a Device Tree provided dynamically by the 
-bootloader instead of forcing a built-in fallback.
+On S4 the firmware implements PSCI SYSTEM_OFF as DDR self-refresh, and
+the power key then resumes into a kernel that is gone, so the board
+hangs until it is unplugged. The vendor kernel sets a firmware shutdown
+flag first and takes the secondary CPUs down through PSCI; do the same,
+keyed on a new amlogic,meson-s4-sm compatible.
 
-The remaining patches implement CPU-probe initialization, correct PRID 
-mappings (including vendor-kernel values for the Ingenic A1 SoC), 
-platform load addresses, Kconfig updates, and generic board match updates.
+Tested: poweroff followed by the remote's power key cold-boots the box.
 
-Structure of the series:
-1. MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB logic in Kconfig
-2. MIPS: Ingenic: Add and update PRIDs for XBurst II R0 and R2
-3. MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
-4. MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
-5. MIPS: generic: Add MACH_INGENIC type and compatible for X1600
-6. MIPS: Ingenic: Add Platform makefile for X1600 and X2000
+Tool use (Documentation/process/generated-content.rst):
+This work was done with the help of an AI coding assistant, Claude
+(Anthropic), used through Claude Code over many sessions. It did a large
+part of the hands-on work: it read the vendor kernel and the firmware
+interfaces, probed registers on the board, drafted the code and the
+changelogs, and ran the builds, checkpatch, dt_binding_check and the
+tests on the hardware. I directed the work, reviewed every change and
+the final patches, and take responsibility for them. There is no single
+prompt to quote; the sessions were of the form "find out why X fails on
+this board, fix it, test it on the box".
 
-Testing:
-The series has been compile-tested for generic Ingenic targets. PRID 
-values for jz4780, x1600, X2000, X2600 were verified on real hardware 
-(CI20, LX16, LX20 and LX26 boards respectively).
+Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
+vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
 
-Please review and consider for inclusion.
+Christian Stefan Kövér-Draxl (2):
+  dt-bindings: firmware: amlogic,meson-gxbb-sm: add amlogic,meson-s4-sm
+  firmware: meson: sm: make power-off work on S4
+
+ .../firmware/amlogic,meson-gxbb-sm.yaml       |  4 +-
+ drivers/firmware/meson/meson_sm.c             | 46 +++++++++++++++++++
+ include/linux/firmware/meson/meson_sm.h       |  1 +
+ 3 files changed, 50 insertions(+), 1 deletion(-)
 
 
-H. Nikolaus Schaller (6):
-  MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB logic in Kconfig
-  MIPS: Ingenic: Add and update PRIDs for XBurst II R0 and R2
-  MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
-  MIPS: generic: Add MACH_INGENIC type and compatible for X1600
-  MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
-  MIPS: Ingenic: Add Platform makefile for X1600 and X2000
-
- arch/mips/Kconfig                 |  2 +-
- arch/mips/generic/board-ingenic.c |  3 +++
- arch/mips/include/asm/bootinfo.h  |  1 +
- arch/mips/include/asm/cpu.h       |  8 ++++---
- arch/mips/ingenic/Kconfig         | 35 ++++++++++++++++++++++++++++++-
- arch/mips/ingenic/Platform        |  2 ++
- arch/mips/kernel/cpu-probe.c      | 14 +++++++++++++
- 7 files changed, 60 insertions(+), 5 deletions(-)
- create mode 100644 arch/mips/ingenic/Platform
-
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 -- 
 2.56.0
 
