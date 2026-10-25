@@ -1,73 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792902482;
-	b=ohwbIcBN2P4/p0IQ06UxEIQC7oQVBjM4gD+S14GaV9ggc5T8M5ssN7Rud3A8lA71pJ9M
-	 NEMz/sv8u2BW9YZ+x8jFM7cXws4rKYeIL+xxDDUMs0KWvat4rhIgXh+Pnv1+Mqb/sl7Im
-	 vLnzNCkReb22dqCEskpZLBtbHQ488r8lzxnsntfekYRGiLcq9R1yisOsCTztQ5B+bfkXp
-	 8y3oU9EjSSgdsFcNS/BosW+LHTh0eVYrFqmVdKB+L3hWlO4wQOhvKwylMJFstTiPafUf1
-	 c3m2gbstY/8ZF+41LqXdsTE5a94r1DD7u5hdqRAFzbfkkZ+eaG31gHyUobKImMciheg==
+	t=1792902885;
+	b=li5nBGA6dvLaE8QWZ/cQIyhuk+4XFZStJVHGhANyHNzQc1kkKq8n2FDoAWHjkP61GnIX
+	 oPtLHh8OsTy89xuhlqYTj+ZVhM8lwW3l8w8p5yAl46QJxMtYZSWR35zs8ixF5WI2z0PjD
+	 FKhRRMzDo7QhYFqzcfnzwuegwM6FaOKy8Dcmt8CkZTKMh+S+nmLSgUxH27OcUPBI5rxOo
+	 yIe2nORYFaOxo5lM9SWQToH9oKMIuPSJ6KeEr4SncFTI48yTRvGYZLl7BXSJY5PrJFiSH
+	 MwYa7JtXfZdAXtvNYc6EPZOuAs88wi2cpcHCPy1l5cIxSFwYpnuZIDNQoZ1YPYtAJWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792902482;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=eyQvDd+FH5BWM140ObDNNBQWqnR/utrLDwxacHC587Y=;
-	b=LcteBrIyEv65kk3viAOyq8PnPUiBUauDOu7B/HCQFsa8b1gTzCYWxA7JY9txeSnaPDPL
-	 m23t2PhM03YNBoYUtP/GeXjcPDdvRUeeC/AAz0n1BpSELOkKXm8uWasgqfe4aX3I7lHg6
-	 Tuosph/5HInicI2+yUfWvVKTww28dvG8WzT+2noZwq7j8C2i9Ie8pSc8lPt2W0xt65TOT
-	 rcR2ixYYrIs3Msf9U90dRpAgqZiler3B4HAEUV7veEEiki+YQdYTZPVujMDgMTG59eyke
-	 oimv+gTo7BcH9E5DBdgYsxXSWDzLjU2zw9qAKy68Rkm0GeffXnE4SXfQX+4hqVN7g6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792902885;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=k8SxkW6hRm+hHFvtY9ZhGLiYVcCyFDMDpCnD8iFs6TQ=;
+	b=EIa0cEm2TtKk9Pes8JG8Q+ErMS0ReR+UOUkWh4LOKAlML85KrdF7FxOehUJz1v0mdd31
+	 ornQTFu9UpE01nmvkf8i8kRx2376VIfEdnDyV7ZqQHmG+Clf6b4G4j0NHu/EA/Nm8or9Y
+	 u/mfyV6GLXuSu67SZODN4La3lC1wsdFy5xgm5U5iNGAKprV6K1GVbI3JYtPc4HNVFiWhi
+	 wmjenBSwx2T3hZqLLRqHFOWr4ukXMtvpAiMcB/xk7wseSqOI2NvaTTgXKuERexzrOs2mL
+	 vXC+OUNb4w2PkAHVpY+qxi5UdDnoqlwlkuNY7cLJ7s9O5HqUxX/T0MVj+WmOTioA95g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bEYmaCiS;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fm9uYAlI;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3AA606A31A;
-	Sun, 25 Oct 2026 04:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B3AA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E1E606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2E1E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bEYmaCiS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792902469; bh=eyQvDd+FH5BWM140ObDNNBQWqnR/utrLDwxacHC587Y=;
-	h=From:To:Cc:Subject:Date;
-	b=bEYmaCiSw5QedIwxelzvAvcrrA7f/G5Fo/qD0k29qApmVFlrKXrLnDXNWfOK72DP/
-	 katOEX7/Isx+amBZ+WLekMXSCCp66R1dYEjYwsn9bkAQC2hU5cJBwdYjbvfYaQuEcf
-	 QxOJm4xZ4ox2duRFip2JpdpPK3QcPjTilhgEHcT4=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 6EF9AC92; Sun, 25 Oct 2026 12:27:47 +0800
-X-QQ-mid: xmsmtpt1792902467tgu21mfl4
-Message-ID: <tencent_BE912BA710539F285F9FCF28E854ABEFCD07@qq.com>
-X-QQ-XMAILINFO: NC4p7XQIBeahuMEjLm/qfy0hjIryTUW6bb1+hfsdLqzojCcKYmz/y/Wv4PO1de
-	 NeDcOgjpFJgbrwPEB5b6WDOuZu/4gxeE/VIfY3rpTjYOAhZHV2nZJm8OhqB+vYnBK61+aJ8CvUIW
-	 dNJ0zZu9gxnd18Ajsn1DfNdTwoSpHurvE+++nkI+xB324YKAjBmwJ81GxdHvxTEqaFXPcbCld7/9
-	 K8Rr4grWaiIa+GFgdE5leRtrvcVue3I0slXG6hxyMbGce0v9zcvG/bStMnjJVVhN341ZvbCImtnK
-	 E4YveNm+4+2hc3f5PC8fsPIECcW4DN+xOfr/NNqOi6zqU6CfEIkoRkZSlKP2fU0iTaDr0MVv5lie
-	 ShqPLeHVY75lxeW+IHIF6bL/PS2lUyvIzAP9JAQw2eha4un0wNMSbImvbXtmZaHAnsx9FLpKRGFW
-	 O7VK0z268rmO/9DqPEMHgzlO1T90NxKedcc0JgjYbt7sRMqqa8rl0SqnnDjW4fPOk9+o9Amot47E
-	 3gbh3dGrSlzIZwUGapOf7bpthU3wD2ruLPaIYxC2Ynx5+ZGzQj5VM30LnkErF/RFgOuHJK7IZKBH
-	 cSA7yVNaVEpJ1wdj+QAb/3iiRCwdBR5AjbyAC5S3eS8ByTxdMml9/oU8elVo+g5rJfRG9dPY+REP
-	 5L+ABpRTdxeMBWZHjMzSnA8nv2cz1vF6t8UxlKxYI/GYJOCQx77PRYxzpKVamwYv2I2LRLV27pYT
-	 e4gqI9cIoFNygIwqZzbQPQPDFUxx+HLIENMg7EpRktB+BMMRPfoKQa8a8iHKjnsYLpbrvDXokKZ3
-	 LU3fxpBJs+rcdz3ERft+TiFxsEw5vZZqbwocY5ecJL3sjh9noOfIjD5PVO3XApQg6wr0tbWtD/j2
-	 o3oQaXBiqeQbIoyctwvJcZRI3IheNw91N9PObRNhj4Vb5FrnU3cVlqXxt2j4yDbmc//iuITdyAKu
-	 GWG/erndMwQdN1kXLXq0+sLfnSldNGVn9fuMOsCTAqdvl1piBAxqu7K5EVG6AkCwhJ6LDVKh1pMu
-	 02iVHybLHiMfP+5RE1SG5+l/qyRzwiQi7zJWuWUGSOsCifxJ+DP0Xok2fuHHk=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Jiri Pirko <jiri@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] devlink: region trigger leaks a permanent snapshot id slot on
- every successful auto-id capture
-Date: Sun, 25 Oct 2026 12:27:46 +0800
-X-OQ-MSGID: <20261024234000.82740-devlink-yangguikun19@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fm9uYAlI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792902884; x=1824438884;
+  h=date:from:to:cc:subject:message-id;
+  bh=3f2O6UkxexmrB9uni7V5HMLlFbjEcylEuVvuGpnI9Gc=;
+  b=fm9uYAlIcGpbTCZU+UiIc1paNk2HKGETD9MMtcEKATG6OV1d9oJavgXi
+   a/pjy3u9de90z0aQLASaGebyIjlnOMU0hglEOLdd4ljwTqvM8KeU4lsib
+   UnZLzxoikz3MnoXqdXxZDR4DyakfOlQm75gze2qzU8WLlyZfZ/oPOTOOC
+   cnAHIIrUWLc8YhdtfwkazqjtWXHNeYGZ85X0wUK6I4ds/5EUcgKY/FjDm
+   vB0EdKFqv1Q+0SQlKrgZ0ygskP9P9iGFd6MRZqum7rpsoc8ukLXyVsW7h
+   3b46Qhxp3fKNJ4M/NuRGFm6W9/3Q+pWMGaQBFbRk/NduUnJ1TyBD45EC7
+   A==;
+X-CSE-ConnectionGUID: lMkIorohQam39fUrani0fw==
+X-CSE-MsgGUID: wVUXMPd+TiSqcWd398ZhMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1474762"
+X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
+   d="scan'208";a="1474762"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 21:34:44 -0700
+X-CSE-ConnectionGUID: KPzy1wh8RS2mTA71ev94nw==
+X-CSE-MsgGUID: OrW+qSmbTNWiW2Zt2rPzwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
+   d="scan'208";a="4327133"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa007.fm.intel.com with ESMTP; 24 Oct 2026 21:34:43 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKpwO-000000003cV-0RB6;
+	Sun, 25 Oct 2026 04:34:40 +0000
+Date: Sun, 25 Oct 2026 05:33:48 +0100
+From: kernel test robot <lkp@intel.com>
+To: Daniel Zahka <daniel.zahka@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>
+Subject: drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:273:48:
+ warning: '%u' directive output may be truncated writing between 1 and 10
+ bytes into a region of size between 6 and 21
+Message-ID: <202610250507.qjcLBj0W-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,93 +81,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi Jiri, Jacob,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   330517c63aa9b48227b6ab45f01003effac77ae4
+commit: 3d4e4ad43aa455353067cf004d0618009ac39205 eth: mpnic: implement Tx queue allocation and cleanup
+date:   4 weeks ago
+config: arm64-randconfig-r2301-20261025 (https://download.01.org/0day-ci/archive/20261025/202610250507.qjcLBj0W-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1-1-gc4640450
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610250507.qjcLBj0W-lkp@intel.com/reproduce)
 
-devlink_nl_cmd_region_trigger() (net/devlink/region.c) allocates a
-snapshot id via __devlink_region_snapshot_id_get() when the request
-does not carry DEVLINK_ATTR_REGION_SNAPSHOT_ID, then creates the
-snapshot.  On the success path it returns without ever releasing the
-caller's reference, so the id's refcount stays at 2 instead of dropping
-to the snapshot-only 1.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 3d4e4ad43aa4 ("eth: mpnic: implement Tx queue allocation and cleanup")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610250507.qjcLBj0W-lkp@intel.com/
 
-__devlink_region_snapshot_id_get() is documented as:
+All warnings (new ones prefixed by >>):
 
- *	Note that the caller of this function counts as a 'user', in order to
- *	avoid race conditions.  The caller must release its hold on the
- *	snapshot by using devlink_region_snapshot_id_put.
+   drivers/net/ethernet/meta/mpnic/mpnic_txrx.c: In function 'mpnic_alloc_napi_vectors':
+>> drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:273:48: warning: '%u' directive output may be truncated writing between 1 and 10 bytes into a region of size between 6 and 21 [-Wformat-truncation=]
+     snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
+                                                   ^~
+   drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:273:39: note: directive argument in the range [0, 4294967294]
+     snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
+                                          ^~~~~~~~~~~~
+   drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:273:2: note: 'snprintf' output between 8 and 32 bytes into a destination of size 27
+     snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       mpn->netdev->name, idx);
+       ~~~~~~~~~~~~~~~~~~~~~~~
 
-The netlink trigger is its own caller, and nothing in the kernel holds
-the id after the command returns, so the hold is never released.
 
-Consequences, per successful auto-id trigger:
+vim +273 drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 
-  xa_alloc(&devlink->snapshot_ids, id, xa_mk_value(1))   /* count = 1 */
-  __devlink_region_snapshot_create()                     /* count = 2 */
-  ... success, no put ...
+   244	
+   245	static int mpnic_alloc_napi_vector(struct mpnic_dev *mpd,
+   246					   struct mpnic_net *mpn, unsigned int idx)
+   247	{
+   248		u32 __iomem *uc_addr = READ_ONCE(mpd->uc_addr0);
+   249		struct mpnic_napi_vector *nv;
+   250		int err;
+   251	
+   252		/* Doorbells are plain pointers into the register window, they have
+   253		 * no way of noticing that it went away.
+   254		 */
+   255		if (!uc_addr)
+   256			return -EIO;
+   257	
+   258		nv = kzalloc_flex(*nv, qt, 1);
+   259		if (!nv)
+   260			return -ENOMEM;
+   261	
+   262		nv->txt_count = 1;
+   263		nv->mpd = mpd;
+   264		nv->dev = mpd->dev;
+   265		nv->v_idx = idx + MPNIC_NON_NAPI_VECTORS;
+   266	
+   267		mpn->napi[idx] = nv;
+   268		netif_napi_add_config_locked(mpn->netdev, &nv->napi, mpnic_poll, idx);
+   269		netif_napi_set_irq_locked(&nv->napi,
+   270					  pci_irq_vector(to_pci_dev(mpd->dev),
+   271							 nv->v_idx));
+   272	
+ > 273		snprintf(nv->name, sizeof(nv->name), "%s-TxRx-%u",
+   274			 mpn->netdev->name, idx);
+   275	
+   276		err = mpnic_request_irq(mpd, nv->v_idx, mpnic_msix_clean_rings, 0,
+   277					nv->name, nv);
+   278		if (err)
+   279			goto err_napi_del;
+   280	
+   281		mpnic_ring_init(&nv->qt[0].sub0, &uc_addr[MPNIC_TWQ_TAIL(idx, 0)], idx);
+   282		mpnic_ring_init(&nv->qt[0].cmpl, &uc_addr[MPNIC_TCQ_HEAD(idx)], idx);
+   283		mpn->tx[idx] = &nv->qt[0].sub0;
+   284	
+   285		return 0;
+   286	
+   287	err_napi_del:
+   288		netif_napi_del_locked(&nv->napi);
+   289		mpn->napi[idx] = NULL;
+   290		kfree(nv);
+   291		return err;
+   292	}
+   293	
 
-Later, when the snapshot is deleted, devlink_region_snapshot_del()
-calls __devlink_snapshot_id_decrement(), bringing the count to 1.
-Since it is not zero, the id is NOT erased from the xarray:
-
- *	If the count reaches zero, erase this id from the xarray, freeing it
- *	up for future re-use by devlink_region_snapshot_id_get().
-
-The slot stays occupied forever.  Every subsequent attempt to use that
-particular id fails:
-
-  - __devlink_snapshot_id_insert() rejects it with -EEXIST (xa_load()
-    finds the stale entry), so a user can never explicitly re-create a
-    snapshot with that id;
-  - reading or deleting "the snapshot with that id" returns -ENOENT,
-    so there is also no way to clean the stale entry up.
-
-Repeating the trigger leaks one xarray slot each time.  The slots are
-small, but the ids are allocated with xa_limit_32b and never reused, so
-the snapshot_ids xarray grows monotonically for the lifetime of the
-devlink instance, and every id ever handed out by an auto-id trigger
-becomes permanently unusable.
-
-For comparison, the failure path is correct:
-
-err_snapshot_capture:
-	__devlink_snapshot_id_decrement(devlink, snapshot_id);
-
-which drops the caller's reference (1 -> 0) and erases the slot.  The
-explicit-API users (e.g. devlink health reporters) also pair
-devlink_region_snapshot_id_get() with devlink_region_snapshot_id_put()
-and are fine.  Only the auto-id success path in the netlink trigger
-misses the release.
-
-Fix is one line: on the success path of an auto-id capture, release the
-caller's reference after the snapshot has been created, e.g. right
-before the final unlock:
-
-	if (!snapshot_id_attr)
-		__devlink_snapshot_id_decrement(devlink, snapshot_id);
-
-(the snapshot itself holds the remaining reference; when the snapshot
-is deleted the count reaches zero and the id is erased and becomes
-reusable).
-
-Checked against 7.3.0-rc7 and linux-next (2026-10-24): both carry the
-leak.  syzbot has no devlink-region reports, and I found no prior
-report on lore/marc.
-
-Reproduced on 7.3.0-rc7 with netdevsim (built-in devlink region
-"dummy") using an unmodified upstream config:
-
-  trigger (auto id)            -> snapshot id 2 created
-  delete snapshot 2            -> ok (slot refcount 2 -> 1)
-  trigger with explicit id 2   -> -EEXIST
-
-Repeating the pair three times allocated ids 2, 3, 4 sequentially and
-left every one of them permanently unusable.  PoC is a plain netlink
-sequence (DEVLINK_CMD_REGION_NEW without and with
-DEVLINK_ATTR_REGION_SNAPSHOT_ID, then DEVLINK_CMD_REGION_DEL), no
-special privileges beyond CAP_NET_ADMIN.
-
-Best,
-Guikun Yang
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
