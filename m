@@ -1,88 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.254
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792894640;
-	b=oUNtFlOBHQt+iFidjvQkv3YhK1pJfgSE9Lqh36vSygVRxuqgUr3lyXIr9zcJt8z/Hogo
-	 qx07J5KzKr/r3SjJJIF9s66vppPxqzvsBP4nRyMJJBJ+y+2UID5EldHx2aok3hBVpmRbY
-	 1GA7pHE1XTdo8SM/8RZ32KsnBXNFzToXe6zgd+olY1mtL0X9lCORESEI3clMmOnM9dpPh
-	 737iKf3xyZCVVP/CgOMH3+663WhlAdCgHplwqVfXlNk8fIQUrUw2Y9QSodWZxWWAd0+tC
-	 set786m6o/TKX3efqGkBXqdYqKyT5f0eht1f9XNoUAVEcQOS4Q3U5DZjCBQmZ1qfyPg==
+	t=1792894629;
+	b=A41nWKX3tlfyPiQnb4F7YNm6FAgyPSqMKaG2WF4xGket1L7kwhkfXCkXDopprTdgjxG5
+	 fKZqUD4PPAHEM6dioWPLyRUnMy7VWZisaWUY1NWYEgcm4eyf96MfB/k0Vornh/qUrv8NI
+	 Wy1Kq4V+vO03enbV5L0XmQtvLh0W3VYRt272d1pSWsMrkCKtq/DsJ0dlk7pYNiwkBoWyX
+	 Fsx0ynBBrTptOJwO/6lpMS//Rp2ZDPwVfopM4jct9imZ65RPmeHF1gVHZYL0YOh7exKJ2
+	 pmDJlCBHGQCT6lUwiIoogK46jtK/y9bJe3/9WeK9BK+qEao9elJbGY7XZlD591dmYaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792894640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=59O6YsOe2ZdqTEDOrhAn775YQJaCvGOavb/hzAN0T1U=;
-	b=Ydht1bArqtTj+QFqHlEJyEFZYLC8Y6jVfO7fP3tGj6XLGVk9dBOkcgyKd93CEMRR8weg
-	 zo+pxzAgg+Z1FCMYteRVV6947gdD0F6s9GLSZADoDMii9kG/1AfLchKdH6nSYIs4yv+Db
-	 Fdk1ubjDaLLM9bvlZq9yMo2bMdCMk002OLB9OwEpS/I9tZEExOyY8icm1YfAyrxn72j1h
-	 8BNrxQjD69Grgml1aGg8vGeARldxOoR3zuw3rBG4qszpTp5ATWVD16cNUs+1DKY5VC4sC
-	 MkvEAgtvp83+2mWoKHVZtDL0vU3BABW4mfIMoFnyhKcA9QIfjChtszGzzRDwARMNtYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792894629;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
+	bh=FnEFDsNw6/OpFTmHzBgKlLwdZuANPYxCz09uyvQgX8A=;
+	b=qW2RsqjrRgXIONo5y1nWBO53L6XLyYMCf1tQr5ClS7fUH3ItR3ZP0qOduIYCmMjB1B1u
+	 KTR7/vDUa9QI4uWVauS72jwp5g78BxXPvhF7qucznX1cl6GYbQef0FCVdiOtMwlfJJtqI
+	 s1pFvkk6y0bAk+syxc4zPOKdcF2+j2+oBKUDbAPLtN4vo5nyic+i1aXRU4aHz0oI8OWXq
+	 Hr3Tp1H2eH11jt1uNgadvUqBBdUgMEXvZBsmDN2KTvOIhbKVFSTbCHJjAq0dmrVz30la3
+	 noh/lCXDKqFRyLjztaKpxOC93uijV+MurYJac4wEKjk4pirZE007quee4I4yVuBIzqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gNV5pj8w;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=easystack.cn;
+	spf=pass smtp.mailfrom=easystack.cn;
+	arc=none smtp.remote-ip=154.81.10.254
+Received: from mail-m10254.netease.com (mail-m10254.netease.com [154.81.10.254])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4908606A322
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:17:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4908606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gNV5pj8w
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so3222155eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:17:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792894639; x=1793499439; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=59O6YsOe2ZdqTEDOrhAn775YQJaCvGOavb/hzAN0T1U=;
-        b=gNV5pj8wvyqTFd7GT3mqJNxxHaMp++gpshfwksnecbSIJyjTxKBy1INB12+h1tG1vJ
-         TfQo9m1tMSvHdOHNHXZWI8AUho60rXmoV1FcZWEGEJQX2VHMkKYsG8+OHtfvMdaNFZDf
-         KT4Xik4kCy3zFWfrLIuy8jcbolNC71nrdK+Rv0h4JH2FWrqidWHkO4DzcPArWNJclVU7
-         NOAjQf0A8qRwGhg7QHX7LrkTWsj6MOOgEcVlhuSvfI8RUvuaf2sg12bQk9tWE0DmEWo6
-         JpdK6g8I1gV3+j+j1xZGvsfYzdMks+9louxLyXH6GOQJPkjPJXexM/eyivAnsDAWhG2K
-         Vwig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792894639; x=1793499439;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=59O6YsOe2ZdqTEDOrhAn775YQJaCvGOavb/hzAN0T1U=;
-        b=0sldZfGyYYAFtVxR6lySLav94WlHXhT3wWA73xVjWzKH05TQfZTeP+VwoeA+owUubx
-         nUUPcpiCosq20q78fIaQGPNcOm9tBeWy+zTxHufro6F76evqtUP1JrsMqxGHz4mzxOIm
-         ypnXQL7KyjXwIGosvXYQjKM6PD1IZD9luNJdLoDsW98nOjHwJSGZYomG9TAQiBddqY4K
-         pfCytqs0Bst+luHMOuZctZwxCFx4g4uAhRPLOUlXmavXAf2CQ5EQ10CNQYP0DPnJn8C5
-         VKhSasYwbGJ4lB4IwLUR1dHJoNf4gVH4xdrRJkqQLtFSFxdtccDsBRG0zR2fNZfqPe27
-         Jmrg==
-X-Forwarded-Encrypted: i=1; AKwUvByBnU5GwxwLtmLoRTKzmqZ8ZoSPsACpFolZkbBR4LZyfBM6J+QxlCEOb0mrwvppgjs2gCrN/XskMRmpEAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIcSB82O/tR2PbavFmIli17EX5mRSzsDAdsEcCyl7YuBbGZ8US
-	eorwODjWzgnHGP6bcsf4DotGJ8865XlZXg9+T/l6u4lAFHuWJ3jylvom
-X-Gm-Gg: AYBFou1lFpwECmSoe7b7/FcbDWH/HOy/2hCXLlHxpq1lomV6tLFs4iEm024y+krlKhs
-	aLwIZI4A3ZRkhy3IxLDlJBMLRavSu4UEOwEemjXQ5rmPi2qegRU1C5fz7kThz7OV9ftyYcKr96O
-	4MrkaWGaWUflEjHMpBefbfDt9ie74HWoobYKTyTp2rwQ4fuPgFnAfSqoQEjjSu+IGLHhTsGZq7a
-	qixgagrGOm8JLlKkDmCGcJN1AYgrEhlQWasFCBNTDP2zTzcfLDHPOs7jQl+9PZW1xxKqZjqtjry
-	iQ5Id5WwhjhvmGzMSm+jvLF0te1++c0UJcuP6QT14zq27z6Hpw4CbIQ/vxQq8n/kWIf5/TWkDhb
-	3T12dIaqSA+dHF9NJ/WJHkPm4UoUlAeI41J+i6yrJ51O1Bz1I5C03JcISh0lfZjEGKnB6Dpqe7e
-	0pjSeZ3hJc0MYWwqXfEXsivfYMQAWdP0MJjdXdolVGS2pi6IFgwvlqBf0iJVJkWpgUzHjrZrPBp
-	fPmC1nMevBXYYjKY7XQsZwID9HoRSVCwZpwzn6kWR9LWh2smFcS7g==
-X-Received: by 2002:a05:693c:2d86:b0:35c:707b:acba with SMTP id 5a478bee46e88-369e8369d86mr7944429eec.3.1792894638749;
-        Sat, 24 Oct 2026 19:17:18 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d812d6sm12003945eec.10.2026.10.24.19.17.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:17:17 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Muchun Song <songmuchun@bytedance.com>
-Cc: Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, Joao Martins <joao.m.martins@oracle.com>, nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Subject: Re: [PATCH v5] dax/bus: Fix Device DAX range alignment validation
-In-Reply-To: <20261024183853.6803ce81788636e94d8c16a4@linux-foundation.org>
-Date: Sun, 25 Oct 2026 07:40:03 +0530
-Message-ID: <cxsy5y4k.ritesh.list@gmail.com>
-References: <20261024112555.2476001-1-songmuchun@bytedance.com> <20261024183853.6803ce81788636e94d8c16a4@linux-foundation.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC26C606A31A;
+	Sun, 25 Oct 2026 02:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC26C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2] (unknown [IPV6:2409:8a20:e23:2ae4:8810:8f74:8c26:2])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 206d49bda;
+	Sun, 25 Oct 2026 10:16:54 +0800 (GMT+08:00)
+Message-ID: <7f9a9da5-1250-4be3-bfa2-70e4b6051197@easystack.cn>
+Date: Sun, 25 Oct 2026 10:16:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,67 +43,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com, shuah@kernel.org
+Cc: bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+ <DMAURQCKK6CG.10CZ7MFXGJO3V@gmail.com>
+ <d39db4fb-e511-440e-9065-72c34a1a295a@easystack.cn>
+ <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
+ <06925440-8df8-4f2e-aea0-ede1a98435fa@easystack.cn>
+ <DMDAZW82I9LT.3FNX2WI80GNE2@gmail.com>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <DMDAZW82I9LT.3FNX2WI80GNE2@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa170d8bcd60229kunm6cc80f93366ac1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGE0fVkNMQh0aGRlCTUgaHlYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaSUtBHklIQUkaHk9BQ0NKS0FDHUxPQUMYSU
+	1BSVlXWRYaDxIVHRRZQVlPS0hVSktJT09PSFVKS0tVSkJLS1kG
 
-Andrew Morton <akpm@linux-foundation.org> writes:
 
-> On Sat, 24 Oct 2026 19:25:55 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
->
->> Only range sizes are currently validated against dev_dax->align. A
->> dynamic device can therefore select a large-page alignment and allocate a
->> range whose start is not naturally aligned.
->> 
->> Sashiko found that memmap_init_zone_device() could then initialize the
->> struct pages with a large-page order for a physical range that is not
->> naturally aligned. A subsequent write to a userspace mapping then
->> triggered a kernel panic in testing.
->> 
->> The automatic resize path can also split a size-aligned request across
->> arbitrary free gaps. When devices with different alignments fragment a
->> region, this can extend a range by less than the device alignment. A later
->> allocation then fails, leaving the failed resize partially applied.
->> 
->> Initialize the device alignment before its first allocation. Validate both
->> the start and size of allocated and adjusted ranges. Use the same
->> aligned-gap iterator for free-space accounting and range allocation so the
->> pre-check and allocation path cannot diverge. Skip unusable gaps and
->> serialize size validation with alignment updates.
->> 
->> Static Device DAX already has a pre-populated pgmap whose full range was
->> validated against memremap_compat_align(). Its usable data range may begin
->> after namespace metadata, so require only dev_dax->align for static
->> devices. Dynamic Device DAX builds its pgmap from the allocated ranges and
->> must continue to satisfy both alignments.
->
-> Thanks.  This is now a must-have for 7.4.
->
-> I suggest that the changelog mention that the bug becomes hittable once
-> your series "mm: Unify device DAX and HugeTLB vmemmap population paths"
-> exposes it.  That's 
->
-> 4b77739fe789 ("mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX").
->
-> I intend to send this to Linus next week.
->
-> Maybe also a Fixes: 4b77739fe789.  That series didn't create the bug,
-> but this data provides notification to people who are backporting this
-> series (unlikely) "hey, you need to add this fix as well".
->
-> Also
-> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Closes: https://lore.kernel.org/wlrkqqvg.ritesh.list@gmail.com
 
-I think, the fix for the issue (the one that I reported) is a different
-patch [1]. And I did give my tested by there.
+在 2026/10/25 03:08, Alexei Starovoitov 写道:
+> On Sat, Oct 24, 2026 at 10:19 AM zhen.ni <zhen.ni@easystack.cn> wrote:
+>> For this one node alone, about 97% of spanned is holes. With
+>> bpf_for(pfn, start, end) plus a bpf_page_owner_read() per iteration,
+>> that is at least 16,712,944 kfunc calls, and bpf_for has no scheduling
+>> point inside, and all of them are wasted work. The gap grows with memory
+> 
+> Right. spanned includes the holes. So don't pass them.
+> /sys/devices/system/memory/ has memoryN only for present blocks.
+> /sys/devices/system/node/nodeN/ links to the blocks of that node.
+> /proc/iomem has "System RAM" ranges.
 
-[1]: https://lore.kernel.org/all/20261016054914.2601510-1-songmuchun@bytedance.com/
+Thanks for taking the time to review this.
 
->
-> I don't believe that Ritesh has tested this?  He wasn't cc'ed...
+ From /sys/devices/system/memory/ you get a discrete list of memory
+blocks. The prog (or userspace) still has to walk those blocks, handle
+boundaries, and track progress. That is traversal logic that an iterator
+already absorbs into a single next() call. Pushing it out just moves the
+complexity; it doesn't eliminate it.
 
-Nopes, I haven't.
-But I am looking into another open issue on Power which this series
-exposes. So while at it, I can test this as well.
+Therefore, this only demonstrates feasibility, not superiority.
 
-Thanks for the cc'
+> 523024 pages in a 32G node looks like 64K pages.
+> Then the whole 256G box is 4M pfns.
+> When a hole is passed anyway the call ends at !online_section() in
+> pfn_to_online_page(). /proc/kpageflags does that plus put_user()
+> for every pfn, holes included.
 
--ritesh
+True, the kernel safely returns an error for offline PFNs. But paying a
+kfunc call just to learn that a PFN is ineligible is exactly the waste
+the iterator eliminates — the kernel-side cursor skips holes and
+ineligible pages before the prog ever sees them.
+
+> Syscall progs run under migrate_disable() only.
+
+Agreed, migrate_disable() pins the task to one CPU without disabling
+preemption on PREEMPT_RT. But being preemptible doesn't mean the loop is
+free — an 8M-iteration tight loop still consumes CPU, delays RCU grace
+periods, and piles up softirq work. Skipping ineligible pages up front
+reduces that pressure.
+
+> 
+>> front. The spanned of this node is already 17.23M, so a single bpf_for
+>> cannot cover it; you have to split it into N chunks and poll, with the
+>> chunking state kept in a prog map, i.e. a loop nested in a loop.
+> 
+> The loop over chunks is in user space. One bpf_prog_test_run_opts()
+> per range with start and nr in ctx_in. No map, no nested loop.
+> 
+
+The outer loop being in userspace doesn't remove the chunking burden —
+it just relocates it. Userspace still has to parse sysfs, construct
+ranges, issue one syscall per chunk, read the map, accumulate results
+into a global aggregate, clear the map, and handle partial failures. And
+in the snippet, i is an offset within the chunk while start and pfn are
+64-bit — the chunking arithmetic itself is non-trivial. An iterator
+absorbs all of this into next().
+
+>> for 52-bit PA. A 32-bit PFN range will overflow here.
+> 
+> The snippet was:
+>    bpf_for(i, 0, ctx->nr) {
+>            pfn = ctx->start + i;
+> i is an offset within the chunk. start and pfn are 64-bit.
+> 
+>> Solving all of this requires yet another, more complex kfunc—and it
+>> looks increasingly like bpf iter. So why not just use the iter?
+> 
+> Nothing of the above needs kernel code.
+
+Feasibility isn't in question. The question is whether we want every
+prog writer to reinvent this traversal plumbing, or let the kernel do
+what iterators are designed for.
+
+> v3 is +474 -83 lines on the kernel side. The diff I sent is +55 -1
+> and it doesn't touch the debugfs path.
+> 
+
+That diff includes my improvements to the page_owner infrastructure, so
+the line count doesn't really establish that bpf_for is better than
+iter. The iter approach only adds an exit on the debugfs path — thin
+shells over the single page_owner_next_eligible() extracted from
+read_page_owner(). It changes no logic on the debugfs path (aside from
+the mem-hotplug locking fix, which addresses a pre-existing bug in the
+debugfs interface).
+
+And the fact that the bpf_for approach doesn't touch the debugfs path
+is, if anything, a disadvantage: it means two sets of eligibility rules
+would have to be maintained going forward.
+
+With the iter approach, any future change only needs to be made in
+page_owner_next_eligible().
+
+
+
+Thanks,
+Zhen
+
