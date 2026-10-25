@@ -1,115 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792959563;
-	b=hgGZQ+bwVHlOtKuwyTRPf6EBgkM3t/Ngp/7mVXJcUK9zQ/wWvb4Vd9JpPA90u/L0l3p6
-	 qUSkuZjFxR9vRlh5pN20Dn3bqTiATvXgGzk38z0nMLSefTON1Ue1PjakgsIwPhVTD7yyQ
-	 WaHRd5X5oOSyoNbUTM5e7sFp26wgl4wMPAWNjGNDKGZ10jG5tj0N4wYzy3q1I2W2M1+9o
-	 DUOFf67r9btPZpkovZmPwA0IixgT9VxlkvGk4BQRIQnebJKfSpg6uSI8uPrr+wp1oiBUd
-	 o1EygevQkKb6HTl6jvkdWNVwJrB/sGpilzriJGme6n9a3CWZG9pY0+5yQIAQG0QVaHg==
+	t=1792959630;
+	b=ze1XYSLg8GIAAastwvz58rnKXGNm54z2nkbUd2tqmqwKhB770tRsCChI5bUVr74BXSSn
+	 +2MhiH9y+iROkQvxgMshwSN8ZVtvgWTEDnqJzslhNTB1ctewQjbBgQeJVfXSJwJkmWYfM
+	 l0Q9fkSvt1CoP1sncejGs38CnCbZp13dz3OXxmBQm9dM7sa65Den4fx+q+wI3ryPxnUzO
+	 30uw+No7M5A+dEHxKk3gmwJkVx5kBF3GBhygxsnclJPz58Hw+I03e0TRxLi9GwePex592
+	 cfpFF6rFtpROYqj2B6Zef6fXyYH0FRSkiQsLCYCd6XYrhLbN/kzx6o+mZo+7HiWn5cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792959563;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959630;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding;
-	bh=ZVwblgn8BYaO2Yir+1yQyjgwaD83vNJgvPl88UMx6rY=;
-	b=k/kq9d2739ieco9zF1gU0iwgZJBaTsTP/tlzIVHrOUiif1d/7wmuhlzHaTzH1suxSayw
-	 o+/iaPE8EE35yep7dpz1euxKBcaYxqjlR8RyRHttMAAcSAZ6oviF7Jg4XShRmLTFihm3r
-	 s3vBuaL1i8ViQ3/GZpskAuJQyL6TAvBOfIFkyrClcGpV/qcvaTlHgLCHhkumJbp+1csmC
-	 QBXNwuVhu3fzDbnKLcKx0TRXZ2pgO1xhmZUTVtLWYMDlyU8U2TzlcVgmI7naKypyXza5U
-	 OrLbEeIqSIOIE7sDcVCOgOaw0E7fhD0mRPQd/C8BAVMefVU8dlzC4NnimDVN9X7SDDQ==
+	bh=SyaPGIQYi/mFlxDPBVA0otWi9hIvkOWVtC96JGc7v1U=;
+	b=41z3BIW4EkRTlC7m3ozmuOgehl0HqdPK6N5/POy5Ce8I0mr1Z596zF0iDt0pSnwi5Rif
+	 s1CjxwDHJ4lMSXn4L63bE18uyOQ3QcRK/zWxwE0nDkkEUtsa6+SQmw/MU3SHH53C2/Ofi
+	 87fHnTwYPfM6pdH60qQzyjYaSTXM7mHI/Mq2o4Qvy8SQ/UOdN9Vs0yUfnIuOiHMIWwZQt
+	 Xc1hhD+DIbaM80c59CcFw7BwGnaEyBcAdY6u/uTJoPeBGvjMapxoEp/g1L1wXHXAgJ8xU
+	 3kLBDXi5SBp3SqWYYMGiEv9h8PkIHpmMsil9dlGeFLnNNGpyUBRRFk9+OwpncSk6xgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ajaP+944;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jlwOd8Xn;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njlELR10;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3459606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3459606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580CF606A31A;
+	Sun, 25 Oct 2026 20:20:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ajaP+944;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jlwOd8Xn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792959561;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZVwblgn8BYaO2Yir+1yQyjgwaD83vNJgvPl88UMx6rY=;
-	b=ajaP+9442p5wCftcxAOJL0D5fsR+vlXcibCkfBXyShwo4eVb5h4bH2XNXXUk6s2OSN690b
-	IBg7rC1JvE/29H38PNbKCX5O9W617IqCcFYO+zT5qRzmYGcBBaVeYmVNLQuQoimZ7pJEek
-	r1DKlqHEztbYRog4VGy9469pgzyYd90=
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com
- [74.125.82.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-193-P2tk2Z5yO2q262YvYlb8pg-1; Sun, 25 Oct 2026 16:19:20 -0400
-X-MC-Unique: P2tk2Z5yO2q262YvYlb8pg-1
-X-Mimecast-MFC-AGG-ID: P2tk2Z5yO2q262YvYlb8pg_1792959560
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-193b5eb133eso3299185c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792959559; x=1793564359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZVwblgn8BYaO2Yir+1yQyjgwaD83vNJgvPl88UMx6rY=;
-        b=jlwOd8XnuqKh2GG30zzpHkq+EuKbi/rJtT/yRKaQRrxdUHLwev75bLz6lUhjUnLOE5
-         aeIM0rmZ4UTsCXlfC7bdBnp1IRGILMEQ3K17QTyM+Bg28clk7atVBphLNT557kpS8qfC
-         fwXDUspvymtdmEOKMwfLkE4OKQ/99XfMLNxkkWdSdjGmks2EtO2AMHQ9sIXBCz143+9N
-         5vnPjUg0+8+wrvzIypqx3B+70HvZTl6AUiCHvvDenwJxqPnARQHqbVWJSwTMFq/pQsMG
-         bylnojweWal+Xw67HjQpOheMesAfHoIew8Ze572dPOWoY3D4ZFNoZTFiDElPXffVbu1f
-         e06Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792959559; x=1793564359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZVwblgn8BYaO2Yir+1yQyjgwaD83vNJgvPl88UMx6rY=;
-        b=tzcUNwSPB8Br+YOxwMfApj751KpdPP0NNKqmrrNUG+RrYMpJ5h/M5ACPqCoVW/ZUNt
-         G0YNouIdQa14S0WIKKwKy5eku0EOy3swwNsYU/73yC8hAWIgqV/lznoNx7Azqu0SWRgK
-         kUHs/7iHEivTdASXKppurXUaojmEAXyv3LCDBSrWd67n5vdHTOcPqu0kN1RVDJFvdcNZ
-         H6XZuyC4eQIom7L6NEDZ3WL9V6pkedhsctMxFh5kUkDLnT8fLTTQD/MIBGe6F3AaJnX2
-         LrWyhvJ1BU8Dio8hWmob1/v9nOkd2jWmOA4hB300f5PX191Z32m40KBf+8578JBhf1gP
-         SC1g==
-X-Gm-Message-State: AFq9FYINZ8jKNVgZQQvEasbIgzP3dU485bbF2WOsiNas6pjcON0dyqha
-	KHFtQv07C6y6Tpqhwv0fB+KKxJe6jH9CYT/VdxmndgBAH3CmVToaYSPfrXUS2dA9/T97BKCie97
-	LjssUr+Nn1LK9zYSWBrmnqczAzUSr/D0ix1L0+/OsImwLUXJYnSOPm6ZyqG7tm/Th8+X0Vhw0QF
-	zS4AUcJ45PEhXR6VRBqAXcaC6T+6BW+TA0zF6xtn2DD6ihr2+z
-X-Gm-Gg: AYBFou1LI3gELViJsqTZVcFDHZfj+f3I961EdmtBOdrS7i11h4WxM0Knf4wTB7FQmJc
-	8Jr6I3h/KN3NQPvjGESb3xHhD4sauvILiFFnSAGlgD9/5CK1NugrX/Nr+hIOPpshAq1WqUYv5PL
-	gGr98UuRTwiKVQ80rRjVP837E/9jDMGXp+dZXZo3c33foWj2AJr0U2AEWNRRg+Sqqi04vsUcxOB
-	gGJrpGY2i7fI0e58fT+/WZ/n55Vt5WWJghxwotWgeZDioxW8FyJqEujFRbbgtbQQxAyTjgNhQX6
-	BrCfvbtJtTS+Cv2o8rITpnhWau+A9PK3nx31Dw2+fdDCKTb461f4q54UcIS6ICBrjrTR9Fu8qLA
-	H1IS+/4FL3Fkir7ehZcBbbPWXrKWlwBCv5eXzp3Au
-X-Received: by 2002:a05:7022:b057:20b0:19a:ace1:793b with SMTP id a92af1059eb24-19aace17b02mr6777437c88.18.1792959559247;
-        Sun, 25 Oct 2026 13:19:19 -0700 (PDT)
-X-Received: by 2002:a05:7022:b057:20b0:19a:ace1:793b with SMTP id a92af1059eb24-19aace17b02mr6777387c88.18.1792959558551;
-        Sun, 25 Oct 2026 13:19:18 -0700 (PDT)
-Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm17656169c88.3.2026.10.25.13.19.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 13:19:18 -0700 (PDT)
-From: Arun Menon <armenon@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v4 4/6] tpm: tis_i2c: Use local 4KB buffer to limit memory usage
-Date: Mon, 26 Oct 2026 01:48:56 +0530
-Message-ID: <20261025201859.221991-5-armenon@redhat.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261025201859.221991-1-armenon@redhat.com>
-References: <20261025201859.221991-1-armenon@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njlELR10
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38EFC1F01828;
+	Sun, 25 Oct 2026 20:20:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792959630;
+	bh=SyaPGIQYi/mFlxDPBVA0otWi9hIvkOWVtC96JGc7v1U=;
+	h=Date:From:To:Cc:Subject;
+	b=njlELR10AqyuTF28+3eZ0sYFZM9gz65ImsBJwjmc3uWJ5B+XOV+m+Li5OobG6t9W6
+	 XN+C/WVQ1ksM7Y7Dm1Mun3eBB3Xn28ZvQi0Bsq6ZrLveUYp1FOfdtT+mIllsqw15k2
+	 0GfMWWAVHr9+UM2MoDCXSrLZ3xDX0XUnnHah/akmPZrUyDj3b41rGeM4UkKj0APqo/
+	 qG3NTd7tfvLbY7PQO+60HxLsKh3bvOz1ygYl9sfYOswJ1a3rwW3h5TxifofzeU0axa
+	 ywyMfgaJmyIk4u3y4fmakf+HxkGKsPtd+TvvkKRbbCGW0LNrwgdVLO6tTMLDbD20TU
+	 MsFj7OfnS4yww==
+Date: Sun, 25 Oct 2026 21:20:26 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: lkml <linux-kernel@vger.kernel.org>, 
+	linux-i2c <linux-i2c@vger.kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Subject: [GIT PULL] i2c for v7.4, part 2
+Message-ID: <at5i65e5wjMz2TCA@zenone.zhora.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,57 +56,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-From: Arun Menon <armenon@redhat.com>
+Hi Linus,
 
-The global increase of TPM_BUFSIZE to 8KB is necessary to support
-Post-Quantum Cryptography (PQC) payloads. However, applying this increase
-to the tpm_tis_i2c driver is unnecessary and wasteful due to physical
-transport limitations as pointed out in [1]
+as anticipated, here is the second part of the I2C pull request
+for v7.4.
 
-This commit introduces a local buffer limit that is used in the i2c
-driver.
+This round introduces dynamic transfer timeouts in the I2C core,
+already used by qcom-geni. There is also support for additional
+transfer modes in imx and a handful of driver fixes.
 
-[1] https://sashiko.dev/#/patchset/20260324071803.324774-1-armenon%40redhat.com?patch=8319
+I've also merged Igor's Rust I2C pull request, which removes an
+unsafe conversion.
 
-Signed-off-by: Arun Menon <armenon@redhat.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- drivers/char/tpm/tpm_tis_i2c.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+The branch is rebased on top of your part 1 I2C merge[*].
 
-diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
-index cde0b093ed58..4667eef15ff1 100644
---- a/drivers/char/tpm/tpm_tis_i2c.c
-+++ b/drivers/char/tpm/tpm_tis_i2c.c
-@@ -55,6 +55,8 @@
- #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
- #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
- 
-+#define TPM_I2C_BUFSIZE 4096
-+
- struct tpm_tis_i2c_phy {
- 	struct tpm_tis_data priv;
- 	struct i2c_client *i2c_client;
-@@ -233,7 +235,7 @@ static int tpm_tis_i2c_write_bytes(struct tpm_tis_data *data, u32 addr, u16 len,
- 	int ret;
- 	u16 wrote = 0;
- 
--	if (len > TPM_BUFSIZE - 1)
-+	if (len > TPM_I2C_BUFSIZE - 1)
- 		return -EIO;
- 
- 	phy->io_buf[0] = reg;
-@@ -341,7 +343,7 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
- 	if (!phy)
- 		return -ENOMEM;
- 
--	phy->io_buf = devm_kzalloc(&dev->dev, TPM_BUFSIZE, GFP_KERNEL);
-+	phy->io_buf = devm_kzalloc(&dev->dev, TPM_I2C_BUFSIZE, GFP_KERNEL);
- 	if (!phy->io_buf)
- 		return -ENOMEM;
- 
--- 
-2.54.0
+I'll now start queuing patches for a possible third week of the
+merge window. Otherwise, they will go into v7.5.
 
+Thanks and wishing you a good rest of your holidays,
+Andi
+
+[*] bb436f2a8568 ("Merge tag 'i2c-7.4-part1' ...")
+
+The following changes since commit bb436f2a8568d14f176475c79b0d5069f0a6f9e3:
+
+  Merge tag 'i2c-7.4-part1' of git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux (2026-10-22 07:36:22 -1000)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git tags/i2c-7.4-part2
+
+for you to fetch changes up to f7b70efba26963bf725f10574cc071f86cd5ee1d:
+
+  i2c: sh_mobile: request IRQs after mapping registers (2026-10-24 00:05:15 +0200)
+
+----------------------------------------------------------------
+i2c for v7.4, part 2
+
+This second part introduces dynamic transfer timeouts in the I2C
+core, already used by qcom-geni. Alongside some driver
+improvements and fixes, it also brings in the Rust I2C pull
+request.
+
+Core:
+
+- core, qcom-geni: add and use a dynamic timeout helper
+- acpi: fix adapter reference leak when creating I2C clients
+
+Drivers:
+
+- imx: support reversed address direction and no-start transfers
+- designware: queue block data reads once length is known
+- mt7621: skip the second data register for chunks up to 4 bytes
+- sh_mobile: ensure IRQs are freed before unmapping registers
+
+Rust:
+
+- Remove unsound device-to-client reference conversion
+
+----------------------------------------------------------------
+Andi Shyti (1):
+      Merge tag 'rust-i2c-for-7.4' into i2c/i2c
+
+Aniket Randive (2):
+      i2c: core: Add i2c_update_timeout() helper for dynamic transfer timeouts
+      i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and frequency
+
+Christian Marangi (1):
+      i2c: mt7621: fix copying uninitialized kernel stack with reduced page_len
+
+Ma Ke (1):
+      i2c: acpi: Fix adapter reference leak in i2c_acpi_new_device_by_fwnode()
+
+Myeonghun Pak (1):
+      i2c: sh_mobile: request IRQs after mapping registers
+
+Navon John Lukose (1):
+      i2c: designware: queue only one read command for block reads
+
+Nicolás Antinori (1):
+      rust: i2c: remove TryFrom<&Device> implementation for &I2cClient
+
+Vincent Jardin (1):
+      i2c: imx: add I2C_M_REV_DIR_ADDR and I2C_M_NOSTART
+
+ drivers/i2c/Kconfig                        |  13 +++++++++++++
+ drivers/i2c/busses/i2c-designware-master.c |   8 ++++++++
+ drivers/i2c/busses/i2c-imx.c               | 157 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------
+ drivers/i2c/busses/i2c-mt7621.c            |   9 ++++++---
+ drivers/i2c/busses/i2c-qcom-geni.c         |  48 +++++++++++++++++++++++++++++++++++++++---------
+ drivers/i2c/busses/i2c-sh_mobile.c         |   8 ++++----
+ drivers/i2c/i2c-core-acpi.c                |   6 +++++-
+ drivers/i2c/i2c-core-base.c                |  43 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/i2c/i2c-dev.c                      |   3 +++
+ include/linux/i2c.h                        |  13 +++++++++++++
+ rust/kernel/i2c.rs                         |  21 ---------------------
+ 11 files changed, 251 insertions(+), 78 deletions(-)
