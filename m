@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792957289;
-	b=HOzjZhoZDiw9CNY9SBWmeaJSHBH05kJT+gkWTTXtVgT6wJdkgY/H1GJ3kUJQkDlJuur4
-	 eUgr+NN3IoIQjEtCsijWwHd0JC/7/ENZBCreDU+hZNcPYgIQLeRjryQpCfgh+EvYY86l2
-	 0t8ai2qxLtoKxyugTJ0zdTGkw829inrsP5fdTaJk0oVxj5OpgspIwxiMDTENQlrWZuarv
-	 xKzlJWnHN6OJv+2sM3XmqnmvCGmHP8mQADjlYIJfj3F48ZvQ1H4856OWIUeXcz6Z02NiM
-	 7OghG6deVqlNEKoMHOr129gnly5C+t3HUJffvTq70lKcSnuMAf3TmfgReGa6iYqenjw==
+	t=1792957455;
+	b=LHMqBATXtXc4uiXGC1RiUOj3Y63uylgqT9JSXmG6Zi6RyuJZk5ZrV9tX+idJ2Sqk65T+
+	 t4gesPcbeBv6TW78ALVzB95AwYg6luhbG/He+DouvsRBchRqsouXXShFGv3AypKiwwUgK
+	 ubIGK7huMxoIYh2QVIGgeLEqypyfWh6JBB+3JbVzwopB/No2BGcOXR482KkfibV9wWdf/
+	 wW6YahTgiYtqSOVai1q8i6SNo6zAxwkC/iGjTLoCt78sRDVbSYtN9E3VhxNGXe1BfulQE
+	 bcs7eO6S8gJbzktrTy9qwAHwdTyMhiboxdhdCrmbbR8xMJ8kHSsjncRjSkDKdomZZQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792957289;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=loWA2r/IE4nsDNCChsBycXYC/X66Yw4ZxZ+0xX/WqkI=;
-	b=vmmgIC+c6oSx5KYCKJ3uKu9+F9XRad3W1lcqC1aJ07TUo8Kde+TZOdN0IgJUyCrjH+nj
-	 SF55d2DXykDsNXf9eLWA7oTbjrZj4oGJ6+SQh4XH2aQfCI/4yjzGu+fDkO8kFgJwGCKfA
-	 nKSOWS/IwF6JucV+R9MrEBZKLoE8cPuFW3ANTsNIH1JdHPdHLfhQhLw26+V1Ks644Afql
-	 McNEP02tAj/U1xFmbYxizOoKQIW7J7EMXy4Cbvu2ARLcKjQ0mDYNZlOw60Gl73zgdlI4A
-	 maSDGXQUlzLVc/tbLY1XCAmI989X7zL7Ja6QXaiclYLx1F3Q03aPAQQqQX0wGSzU7Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792957455;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=t8f8qyhuvy1niJGVLorepl9wBjUiaKTLfblqj2kxv0c=;
+	b=QFAxgBn8OQ85q8Qe9Ld750gHA/GkCLsJNEEinIaf75aloeNa8yNl22SePd6A1qIYaP7o
+	 vMgkrEXiTq2HIcgZ+AC45JwpoT7vuW+kcpgse4oj5x83O+plR/im3sqj/iAguJOCURQu+
+	 jfIWljXtkcGV77kDgVuHMlfpHP1Ad+WHGIbKJIKCUzqeokoNaodlTOlxxtkWOYBPeq7Ek
+	 QkLujZRwg8oN1Gj5+QR9Eu2D8BqVoi5GiH3HbVL/9+UP1FgxXfGG8+DKQb39qE8MBrJdZ
+	 lkVZBp5bXGFSCaNs3sfr3DTrVxK75JQEWcTp/FdzjC2JWWzQ8Y8LK+SA3FVdhkw7Mew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TevI6izW;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4r7hstt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D15606A31A;
-	Sun, 25 Oct 2026 19:41:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D15606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A93D606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TevI6izW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792957287; x=1824493287;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EccOnYd2UQC7zr91/Q2wYbVks3BuQI9mfWlB2SLQG6A=;
-  b=TevI6izW2gabiZUVyiI8VMV5dAoWo1/I5gY0xnKzC/6nUqT7xD2KlQ9m
-   lCQ2X90h6CducPWljQDLmvosM8NEy5Ot7gyxxQxZhT9/Xo0adMNBK8s1q
-   GoYmgXepQoFY6XPdqHExQBYA635H+hnQP9xCtOu8KMEcrrJ8/HW3cRvNR
-   GpnCfKEgsYHIbeMbzz9TwwrXIJH7hsUGKxTVT+lYNiWC/2ZgStijogkfD
-   LFzjo3H7BpR1+8LS2UnDDcn1geXaJy/w2zekP3Myvj+rXmAdc8Kwuw7u5
-   gN5g0tnKhsLRGIVG4dzkrPIHnp4sVwY9xp1YaO2ujLLaCiy6boXk+GDDq
-   g==;
-X-CSE-ConnectionGUID: GMOME7CPRNCoTuMSVD5pQw==
-X-CSE-MsgGUID: GYdDt9sRQD+em3fjKLSlNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1631079"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1631079"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:41:27 -0700
-X-CSE-ConnectionGUID: EB5OyIlpTDW636+Y+sVf6g==
-X-CSE-MsgGUID: nXCi9rJqTa2WEOSuV5/d7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4221341"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:41:26 -0700
-Date: Sun, 25 Oct 2026 21:41:23 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] iio: add IIO_VAL_DECIMAL64_{ATTO,ZEPTO,YOCTO}
- formats
-Message-ID: <at5bYwbaQhFoO0Ac@ashevche-desk.local>
-References: <SN1PR12MB2528DD1E6067CC4C0B76746FA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
- <SN1PR12MB2528A44C0997DAEB1C632F0BA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4r7hstt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0251F01825;
+	Sun, 25 Oct 2026 19:44:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792957455;
+	bh=t8f8qyhuvy1niJGVLorepl9wBjUiaKTLfblqj2kxv0c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U4r7hstth9yI2H9ozGbe6KwjiJsa0c5mODktr3udIoIg7yHMqh0qVzPotslmUCdmR
+	 9tdINqr+szbc8T3L1gP2w8ZsBed6uYI2Ovmfn0gRRbdl36LePXMkRaq+m+4j+vS84p
+	 NJxOgQDbHOV8CbfdBrtlMdbcyDpBrusFDSB4zloGgPR7bq0fRufwRCjNEtCFispfaE
+	 h06v9qLXnqLbyNl4PNgcfaEbvy2moi4psjXnZdccnkovJyluQSef7OPIQD/wwJJzO0
+	 VfSjUGTc08Mxut3qhscCe66A4GpcY/NCs2W7vg/xTYvVpop8wR8k/q+G1WYbx5p6Lo
+	 +3FAzafwhvY9Q==
+Date: Sun, 25 Oct 2026 12:44:11 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Antoni =?utf-8?Q?Kuczy=C5=84ski?= <antoni.kucz@gmail.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/build/64: Prevent native builds from generating
+ SSE/AVX code
+Message-ID: <20261025194411.GA56787@ax162>
+References: <20261025174336.8857-1-antoni.kucz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,38 +57,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528A44C0997DAEB1C632F0BA5622@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261025174336.8857-1-antoni.kucz@gmail.com>
 
-On Sun, Oct 25, 2026 at 12:48:04AM -0500, Victor Chernyakin wrote:
-> The highest-precision format IIO has right now is IIO_VAL_DECIMAL64_FEMTO,
-> which gives 15 decimal digits of precision after the decimal point. This
-> is not enough for the upcoming TI FDC1004 driver, which needs 22 digits
-> of precision to exactly express its scale value. This patch adds higher-
-> precision formats, up to IIO_VAL_DECIMAL64_YOCTO (24 digits of precision).
+Hi Antoni,
 
-...
+On Sun, Oct 25, 2026 at 06:43:35PM +0100, Antoni Kuczyński wrote:
+> With CONFIG_X86_NATIVE_CPU=y, GCC is invoked with -march=native after
+> the -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a flags
+> that keep FP/SIMD code out of the kernel. The GCC driver expands
+> -march=native into an explicit list of ISA options for the build host
+> (e.g. "-march=ivybridge ... -msse4.2 -mavx ..."), and because these come
+> later on the command line they override the earlier -mno-* flags.
+> 
+> As a result, on any build host with AVX the compiler is free to use
+> SSE/AVX registers throughout the kernel, for instance to zero or copy
+> structures. A trivial reproducer:
+> 
+>   struct s { long a, b, c, d; };
+>   void f(struct s *p) { struct s z = {0}; *p = z; }
+> 
+>   $ gcc -mno-sse -mno-sse2 -mno-avx -march=native -Os -c t.c
+>   vpxor   %xmm0,%xmm0,%xmm0
+>   vmovdqu %ymm0,(%rdi)
+> 
+> On an Ivy Bridge machine (i5-3317U, GCC 14.2) a v7.3 kernel built this
+> way resets immediately after the bootloader hands over control. Booting
+> the same image in QEMU with "-d int,cpu_reset -no-reboot" shows:
+> 
+>   v=06 (#UD) IP=0010:000000000125e47b
+>   v=0d (#GP) -> v=08 (#DF) -> Triple fault
+> 
+>   __pi_startup_64_load_idt+0xb:
+>   c5 f9 ef c0    vpxor  %xmm0,%xmm0,%xmm0
+> 
+> The startup code executes an AVX instruction before CR4.OSXSAVE/XCR0
+> are set up and before an IDT is installed, so the #UD escalates to a
+> triple fault. Even past early boot, compiler-generated SIMD code would
+> silently clobber user space FPU state, since the kernel does not save
+> it on kernel entry outside of kernel_fpu_begin()/kernel_fpu_end().
+> 
+> Re-apply the -mno-* flags after -march=native, the same way EGPR use
+> is already suppressed for native builds.
+> 
+> Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
 
-> +/* An abs() function that doesn't have undefined behavior for LLONG_MIN. */
+This option has been in the kernel for quite some time and I am sure
+people are using it. I wonder why this has not come up sooner. Just
+unlucky timing or configuration?
 
-Can you elaborate how so?
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Antoni Kuczyński <antoni.kucz@gmail.com>
+> ---
+> 
+> Notes:
+>     Tested: v7.3 + this patch, CONFIG_X86_NATIVE_CPU=y, GCC 14.2.0 (Debian),
+>     boots on i5-3317U. arch/x86/boot/startup/gdt_idt.o contains no xmm/ymm
+>     instructions after the change (previously 2).
+> 
+>  arch/x86/Makefile | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+> index b7e08519b8c1..2c0575fd7bbc 100644
+> --- a/arch/x86/Makefile
+> +++ b/arch/x86/Makefile
+> @@ -161,6 +161,9 @@ else
+>  
+>  ifdef CONFIG_X86_NATIVE_CPU
+>          KBUILD_CFLAGS += -march=native
+> +        # -march=native expands to explicit -msse/-mavx/... flags that
+> +        # override the earlier -mno-* ones; disable FP/SIMD code again.
+> +        KBUILD_CFLAGS += -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a
 
-> +static inline u64 abs_s64_no_overflow(s64 x)
-> +{
-> +	return x < 0 ? -(u64)x : (u64)x;
-> +}
+Maintaining two copies of these flags (and having them appear in the
+command line twice) seems objectively worse than just adding an extra
+'ifdef CONFIG_X86_64' and moving the block up so that this happens in
+the naturally expected order?
 
-So, the trick you use is to update the type from signed to unsigned.
-'-' operator is always defined on unsigned types and produces modulo
-results in case the representation requires more bits than type has.
-
-FWIW, it's not MISRA-compliant :-)
-
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index b7e08519b8c1..c18f660f6dc8 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -66,6 +66,21 @@ export REALMODE_CFLAGS
+ # e.g.: obj-y += foo_$(BITS).o
+ export BITS
+ 
++ifdef CONFIG_X86_64
++ifdef CONFIG_X86_NATIVE_CPU
++KBUILD_CFLAGS += -march=native
++# Prevent the compiler from generating EGPR use. The kernel is
++# not yet prepared for general in-kernel use.
++KBUILD_CFLAGS += $(call cc-option,-mno-apx-features=egpr)
++
++# generate_rust_target.rs handles Rust APX gating.
++KBUILD_RUSTFLAGS += -Ctarget-cpu=native
++else
++KBUILD_CFLAGS += -march=x86-64 -mtune=generic
++KBUILD_RUSTFLAGS += -Ctarget-cpu=x86-64 -Ztune-cpu=generic
++endif
++endif
++
+ #
+ # Prevent GCC from generating any FP code by mistake.
+ #
+@@ -73,6 +88,8 @@ export BITS
+ #
+ #    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53383
+ #
++# and after -march=native.
++#
+ KBUILD_CFLAGS += -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a
+ KBUILD_RUSTFLAGS += --target=$(objtree)/scripts/target.json
+ KBUILD_RUSTFLAGS += -Ctarget-feature=-sse,-sse2,-sse3,-ssse3,-sse4.1,-sse4.2,-avx,-avx2
+@@ -159,19 +176,6 @@ else
+ 	# Use -mskip-rax-setup if supported.
+ 	KBUILD_CFLAGS += -mskip-rax-setup
+ 
+-ifdef CONFIG_X86_NATIVE_CPU
+-        KBUILD_CFLAGS += -march=native
+-        # Prevent the compiler from generating EGPR use. The kernel is
+-        # not yet prepared for general in-kernel use.
+-        KBUILD_CFLAGS += $(call cc-option,-mno-apx-features=egpr)
+-
+-        # generate_rust_target.rs handles Rust APX gating.
+-        KBUILD_RUSTFLAGS += -Ctarget-cpu=native
+-else
+-        KBUILD_CFLAGS += -march=x86-64 -mtune=generic
+-        KBUILD_RUSTFLAGS += -Ctarget-cpu=x86-64 -Ztune-cpu=generic
+-endif
+-
+         KBUILD_CFLAGS += -mno-red-zone
+         KBUILD_CFLAGS += -mcmodel=kernel
+         KBUILD_RUSTFLAGS += -Cno-redzone=y
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Cheers,
+Nathan
