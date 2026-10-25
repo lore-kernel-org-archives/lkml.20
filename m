@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966688;
-	b=HTq6XtQ18tdVtolnY6Oyxjbj5L2U9RNpUeFbnTEb9BT22Z4XUc52YUmbfi0pzcx0jR/m
-	 +t2uQbTmatr5TAHcKPtyls/IMrhUUR3JeshF0L3DL3Qfp2HLQDV2eey7a9L06FTHqI9Rh
-	 6dYMU6FKAJ8vIy4KeGS1l++KOX2Wq7tkirS5/SheMhLpjRW+i/lokU446srO9CGGjI4Vg
-	 3s4nYqtyFl8Xzl9pDlipaU+4hQXVuQGjnM1linj/N1gHZTn9CglYa5iC9zY11iKrdZiTQ
-	 BFwwBY0a0DShTaIi46BWaStGR78mXEbHvtK5UtjTNOtCj7arzi6u9jvj6wbelQHpiXw==
+	t=1792966853;
+	b=Xgn1u/hIdbG+pDYKDqpAxxrxjSoe1jfKLNN0lFqTYoGrouDi5Mx2K37ayUyVNiwFR5a1
+	 ccyznz/AllTSG+xwnWWH3rM3oFyHXZ5RuIJqj5zvqCHRSTg2i46MRRGJ33SESFY81JoOf
+	 GpMgGxsE+1Kwsl4hF0F5TMmox7qCvtp4kwZkHDojwdSbY3fDxWirkM2odECwhqYnHEekQ
+	 OOdCfSZ7s2ufPVUzd5gH8TIaSZ662BClv1t2YrYm7UdfcojvNvc9j4AbUZclCgq087I5Z
+	 PoiVsxH1SfX2ieav+jdeb9OmcaR3Ur03AtfNKD9EXhNw6h4IPP+AkLWq4rd2+BhrXjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966688;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
-	b=oTHV8zKH2RJnshG8cYvGbOiEgFroj0Tm6XOAt3RlpoD0tRqWVI+SYXxWBq5GPYgGNEpc
-	 4HsnSG+iz9XDOJetI0OgjR6XCADVx/4OyA+1WC/tnvIgWpB65Vy7uCbPPIzwdjas07L9O
-	 CVxOvT5lD5GUMZVKV3FN7DYxgziBxD9suTxKER8M+j6qFiIlqOer/OoeItCvFoX1lSFgS
-	 o/abXf2cuO56qsmaWFYnPnwRvGNWk8ZU5T9dcC+trWoqjD0Ub0snh/gho7PUxddUqIIWE
-	 hAkSM5KdZ1qBAEgyA950J00iPH2PmzjiJa6v+f9cXzONnRA4ctSO9GqbqjoBJEMvaDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792966853;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=CldNzcrAzu3VWmHM+sbxb+ODtt2pdTx5Vl4nZT4d0qg=;
+	b=0H0NEZG/9vHbCd221IoqClkq/vFOv6q8vHzrF2+zPTDl2b2k+0az12mzu8W3WrT9Ueud
+	 5JTcxFkg8u3v4XY6uPvdt65ieMXMrBB+gXnQ5ZhGriYb+DnuIgsOmruwDrU25cO/WYPLT
+	 qXc/xKBTuLfgNp5kxy9MUcGiG3biUm+g2ST+7vaqEpnht+9uZRwNiCb1VvyiWS96ePWs8
+	 /m9zuUzGe9PRgK9x0jL9VjXkSzmjL0gNpJT8KVCPCUOg/ywXe1kt+94aw3t/229T575MP
+	 z5ypZ5Cj0TcVVElywRIUVyIQBHYc5pLHxK/fcNtihufLJJO/g9md73ypC4aFxmIRVaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E6F606A31A;
-	Sun, 25 Oct 2026 22:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303651F01825;
-	Sun, 25 Oct 2026 22:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792966687;
-	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dBm7rv6O1X+IGCP1geOO5pKCVTLaWEXmAuw/NVH+7MCusTD6CDCNKNu42Qu3tnYB2
-	 6vh79543ojjI+jGbRTtiy8ngfbok3atQBjrMxPiHvsNYh3DMnT8OskEwtLChP4wYla
-	 gQwG1Nziuc7oV0GB/eWFw2hjbiebhwE1+yqOni9WnWabIiRon9e5z6L+JSGFzZw5ki
-	 OqUD2CHJ6QqOyEVsxsM31m0SA+FrFVivkm2Y1NCo5XRHXYLHvGnROc1yLymwo8+Brl
-	 /xJ58aI59IDpcoD9399KVI8ievdqw7iTrvOSXefG4DfRqpYcgay1hl5pDG2Wsr6t+a
-	 QqRXXY6ZE15bg==
-Date: Sun, 25 Oct 2026 22:18:01 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: imu: inv_mpu6050: validate ACPI object types
- in asus_acpi_get_sensor_info()
-Message-ID: <20261025221801.1dc4a7eb@jic23-hlaptop>
-In-Reply-To: <20261025180323.3641477-2-tristan@talencesecurity.com>
-References: <20261025180323.3641477-1-tristan@talencesecurity.com>
-	<20261025180323.3641477-2-tristan@talencesecurity.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E3C606A31A;
+	Sun, 25 Oct 2026 22:20:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E3C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <e2aa2eb589c1e1c651dd9aeb09acd378109a0515.camel@crapouillou.net>
+Subject: Re: [PATCH] MIPS: cpu-probe: Recognise the XBurst core of the
+ Ingenic X1600
+From: Paul Cercueil <paul@crapouillou.net>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>, "H. Nikolaus Schaller"
+	 <hns@goldelico.com>
+Cc: Olivier Louvignes <olivier@mgcrea.io>, Thomas Bogendoerfer
+	 <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Discussions about the Letux Kernel
+	 <letux-kernel@openphoenux.org>, Paul Boddie <paul@boddie.org.uk>, Andreas
+ Kemnade <akemnade@kernel.org>
+Date: Sun, 25 Oct 2026 23:20:46 +0100
+In-Reply-To: <alpine.DEB.2.21.2610250558190.42255@angie.orcam.me.uk>
+References: <20261023204205.48222-1-olivier@mgcrea.io>
+	 <F93B4D14-97DB-4F8E-988E-3C6803F5C850@goldelico.com>
+	 <alpine.DEB.2.21.2610250558190.42255@angie.orcam.me.uk>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,56 +70,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 25 Oct 2026 18:03:23 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
+Hi Maciej,
 
-> asus_acpi_get_sensor_info() iterates through a nested ACPI package
-> structure without checking types at either level.  The outer object
-> returned by acpi_evaluate_object() and each inner element must be
-> validated as ACPI_TYPE_PACKAGE before accessing their package.count
-> and package.elements members.
-> 
-> Add type checks at both levels of the package iteration.
-> 
-> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> index 460792ed27e03..81fe1d96365b4 100644
-> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> @@ -57,11 +57,17 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
->  		return -ENODEV;
->  
->  	cpm = buffer.pointer;
-> +	if (cpm->type != ACPI_TYPE_PACKAGE) {
-> +		kfree(buffer.pointer);
-> +		return -EINVAL;
-> +	}
+Le dimanche 25 octobre 2026 =C3=A0 06:00 +0000, Maciej W. Rozycki a =C3=A9c=
+rit=C2=A0:
+> On Sat, 24 Oct 2026, H. Nikolaus Schaller wrote:
+>=20
+> > > diff --git a/arch/mips/include/asm/cpu.h
+> > > b/arch/mips/include/asm/cpu.h
+> > > index 0fd9f9bbd21f..ff7b63587daa 100644
+> > > --- a/arch/mips/include/asm/cpu.h
+> > > +++ b/arch/mips/include/asm/cpu.h
+> > > @@ -186,6 +186,7 @@
+> > > =C2=A0* These are the PRID's for when 23:16 =3D=3D PRID_COMP_INGENIC_=
+*
+> > > =C2=A0*/
+> > >=20
+> > > +#define PRID_IMP_XBURST_X1600 0x0000 /* XBurst=C2=AE1 in the X1600
+> > > (PRId 0x00d00000) */
+> >=20
+> > Well, XBURST is an MIPS CPU architecture and not a SoC. So there
+> > should be no X1600 in
+> > this macro name, especially if this ends up in a non-SoC-specific
+> > arch/mips/include.
+>=20
+> =C2=A0Is there a documentation reference available for this value of PrID=
+?
 
-Similar to previous for this one. I think we can just used the
-typed call to get it in the first place.
+It's explicitly listed in the X1600's programming manual, yes.
 
->  	for (i = 0; i < cpm->package.count; ++i) {
->  		union acpi_object *elem;
->  		int j;
->  
->  		elem = &cpm->package.elements[i];
-> +		if (elem->type != ACPI_TYPE_PACKAGE)
-> +			continue;
->  		for (j = 0; j < elem->package.count; ++j) {
->  			union acpi_object *sub_elem;
-Whilst here the ACPI_FREE() thing probably applies as it did
-in the previous patch.
-
-Jonathan
-
->  
-
+Cheers,
+-Paul
