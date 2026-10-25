@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792967498;
-	b=r28xxW2mO4kx86d50jJtBsLMjcNa+AvRgb5y4tFp9ojQc1rIeVx+DA3+viFM24eknZq/
-	 ojn7Cf0qDHHt0lKHoFbkl0IGqOQGtyvp8Bume/CIz8GBT5ZqS+xOqRD7wXLqa9saFwBjV
-	 IXHTw+xZuxoqdnAaXEZueqQQf2HcIhbLdQ5YL7Cb2AuI9FLmpaLbpfqqPcLS4wVffYnlI
-	 iYXruybVbqTCNhZxImfYM5GI9GYTyMkLSjex+nuRQaBa86YBWyHizm6NSt9CCs3XZ/oUS
-	 BbeWmBLQub2WmlahWhLYHU8wrlJQoLLmfjcN4ClJdA7FfZCy3hg9EU8XnUSL3i/atpg==
+	t=1792967509;
+	b=wBaATR2bzh4/i76dK0SomRW2B6xeO3OYqFK40H1664xXFOzoKiDgeved+rO7wPLYpoHt
+	 6MGcCdluC4oGZsxa4jntalAd3ZiT6NONAtk4kw1YlfeAXhrPidXqzzhjpfbc+fAfbxZcN
+	 Eh5nS7ZmETv002UxYzpcQLb4dnDH9OTqidl+vtuhUfelSVhkjEeTIfhJTlfi8wQQx9arD
+	 WZ1XiJshJNMFj5G6FgNDfMkZ1Pb7m37c+wpQAlvEOJJGWgDU+nypNu98qtdrEw53v+kFW
+	 9Um2CdsozsgU9lCvw6CLm819VrCmt+KC1/nzWdCuX9FFuykzx06CtFf1Dv1RnKuCXPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792967498;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=kvsFufnN8TCy3hzIcRjlITrtPYeicM3sDfMk6fgP6A8=;
-	b=oiDROsF9nmo/JFW2CxRjYTHTx0Isyv2sgfp45kvjdDTTAaHtdxtvZAKivuj3EMoCllkt
-	 oK/d34eoq320yW48Cx+I3tAQd1G5bnBINVPtvPAd0AWpnLGBSjqHO2i5EqQIpOstMee9H
-	 qEZD7flZCnLRqXjhRMLNQS6CfIpsIP9P3EVEmhL6GXQJwtzSg7tkhQMXbdw44lwdP5srt
-	 u69r4m1IHPhRr5m7QgQPvmjP/2OVPzvyLPBS6KPBHkgZKZ4sA6HsIE5GGE50kd4A7efLI
-	 Ix6T4RYp4VlcCeYxgUtbMn24adfcrYWMZW4z9BELOxMvCLezXyG5AxyBsw6PH/xcWRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792967509;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PzzYCm84YYwPwX0v9WKoCdiyAzVtZzHZgV9Vqt/HgyM=;
+	b=e1FJO7tL8i6d4lXt7O1WsnACIcJLXUX84qzhRaczqZFaHqkhPSiC/h5z15f1JKwEi2MM
+	 vLCIYHLxh4wECoFcfKaj7bm9JT6PvKDv1TYUViXoJhdo7fpqUQpX+bwQx5+apgR9we8iW
+	 /tuC9keHrsg9k5DHMtwdeT2IW1kYxAT6XtreE5waperGN8preGaqYUccy20tLD90i8qD+
+	 EkS+CbObI7MWGhp4mDZFxlOTT65f1ZRbtDaN88cr1r3CEKBxoIEZjZA+aWzXuN0vsm7cl
+	 rd+fW7UaBxdc3IyaaQstHIP4GGY8S4+c+a2AlF6szIt32qDSKP9ZtYrb7gKnN+sOE+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fptfE6vd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BD0606A31A;
-	Sun, 25 Oct 2026 22:31:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5BD0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <6bb2bc39075c38e352be9b71b0683796c893f000.camel@crapouillou.net>
-Subject: Re: [PATCH 2/2] pinctrl: ingenic: Add an X1600 group for 18-bit RGB
- on the top lines
-From: Paul Cercueil <paul@crapouillou.net>
-To: Olivier Louvignes <olivier@mgcrea.io>, Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 23:31:32 +0100
-In-Reply-To: <20261023204207.48277-2-olivier@mgcrea.io>
-References: <20261023204207.48277-1-olivier@mgcrea.io>
-	 <20261023204207.48277-2-olivier@mgcrea.io>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E21A606A31A;
+	Sun, 25 Oct 2026 22:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fptfE6vd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36CE1F01825;
+	Sun, 25 Oct 2026 22:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792967509;
+	bh=PzzYCm84YYwPwX0v9WKoCdiyAzVtZzHZgV9Vqt/HgyM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fptfE6vd6NRkeVl4VAZY9fT/hLQHTxe5WXiBR/rfhy4anpqfBPf7HURorfVVOQjwG
+	 PPskkiikZfvOp+13fciIKn379aPkwWAV9MqOrWEcnAnBg9G2Pp/sidLGBdsGtg7PI7
+	 JJDcrOTfBBFMsWjIqImbAiMdr/Gg2dV/C4inU0kntIXBXTJXVXJI5i9QtEjj1vv+Og
+	 KLF6eZo3VGUv2rV1F5B+ANDNtV+TvzTMnSWy4q15OC1jt2EF7cJgka+7kNXuwTZBoC
+	 PGCwt33BNlwxCoLQ3yn62jv6k6X+2hhjyvFWDogIKkg2pl2z8mvwel2DOAWabusA25
+	 XAy6zjPu19koA==
+Date: Sun, 25 Oct 2026 22:31:41 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH] iio: dac: mcp4725: Update the cached DAC value only on
+ success
+Message-ID: <20261025223141.0cd4ac03@jic23-hlaptop>
+In-Reply-To: <at5v4pw34L8Cj0vU@ashevche-desk.local>
+References: <20261025141351.33554-1-pocj8ur4in@gmail.com>
+	<at5v4pw34L8Cj0vU@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,76 +62,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Olivier,
+On Sun, 25 Oct 2026 23:08:50 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Le vendredi 23 octobre 2026 =C3=A0 22:42 +0200, Olivier Louvignes a =C3=A9c=
-rit=C2=A0:
-> Boards that wire an 18-bit panel to the six most significant lines of
-> each colour leave PA0, PA1, PA8, PA9, PA16 and PA17 free for other
-> uses,
-> which the cumulative lcd-16bit and lcd-18bit groups would take. Add
-> "lcd-18bit-msb" for that wiring.
->=20
-> Used on a HiBy R1, which drives its panel this way and uses PA0, PA1,
-> PA16 and PA17 as GPIOs.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> On Sun, Oct 25, 2026 at 11:13:51PM +0900, Baek Kyu, Kim wrote:
+> > mcp4725_write_raw() updates dac_value even if mcp4725_set_value() rejects
+> > the requested value or reports an I2C transfer error. After writing 1000,
+> > a rejected write of 4096 returns -EINVAL without an I2C transfer, but
+> > out_voltage0_raw reports 4096. A later powerdown exit sends 00 00 instead
+> > of the 03 e8 frame for the last successful value. The EEPROM store path
+> > uses the same cache.
+> > 
+> > Return the setter error before updating dac_value. This keeps the last
+> > successful software value for readback, powerdown exit and EEPROM writes.  
+> 
+> Does it need a Fixes tag?
 
-Ugh, what a weird setup...
+Yes. Given I wanted to reduce outstanding patches, I added it an applied
+to the fixes-togreg branch of iio.git
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+This goes all the way back to 2012 introduction of the driver.
 
-Cheers,
--Paul
+Fixes: cf35ad61aca2 ("iio: add mcp4725 I2C DAC driver")
 
-> ---
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 14 +++++++++++++-
-> =C2=A01 file changed, 13 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c
-> b/drivers/pinctrl/pinctrl-ingenic.c
-> index 28e7f1852054..8c424db27fd5 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -2442,6 +2442,17 @@ static int x1600_lcd_24bit_pins[] =3D {
-> =C2=A0	0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-> =C2=A0};
-> =C2=A0
-> +/*
-> + * 18-bit RGB on the six most significant lines of each colour of
-> the 24-bit
-> + * bus, with the clock, data enable and syncs.
-> + */
-> +static int x1600_lcd_18bit_msb_pins[] =3D {
-> +	0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-> +	0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-> +	0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-> +	0x18, 0x19, 0x1a, 0x1b,
-> +};
-> +
-> =C2=A0static int x1600_pwm_pwm0_pins[] =3D { 0x40, };
-> =C2=A0static int x1600_pwm_pwm1_pins[] =3D { 0x41, };
-> =C2=A0static int x1600_pwm_pwm2_pins[] =3D { 0x42, };
-> @@ -2503,6 +2514,7 @@ static const struct group_desc x1600_groups[] =3D
-> {
-> =C2=A0	INGENIC_PIN_GROUP("lcd-16bit", x1600_lcd_16bit, 0),
-> =C2=A0	INGENIC_PIN_GROUP("lcd-18bit", x1600_lcd_18bit, 0),
-> =C2=A0	INGENIC_PIN_GROUP("lcd-24bit", x1600_lcd_24bit, 0),
-> +	INGENIC_PIN_GROUP("lcd-18bit-msb", x1600_lcd_18bit_msb, 0),
-> =C2=A0	INGENIC_PIN_GROUP("pwm0", x1600_pwm_pwm0, 0),
-> =C2=A0	INGENIC_PIN_GROUP("pwm1", x1600_pwm_pwm1, 0),
-> =C2=A0	INGENIC_PIN_GROUP("pwm2", x1600_pwm_pwm2, 0),
-> @@ -2549,7 +2561,7 @@ static const char * const x1600_i2s_groups[] =3D
-> {
-> =C2=A0static const char * const x1600_cim_groups[] =3D { "cim-data", };
-> =C2=A0
-> =C2=A0static const char * const x1600_lcd_groups[] =3D { "slcd-8bit", "sl=
-cd-
-> 16bit",
-> -	"lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-no-pins",
-> +	"lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-18bit-msb",
-> "lcd-no-pins",
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const char * const x1600_pwm0_groups[] =3D { "pwm0", };
+> 
+> > Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>  
+> 
+
