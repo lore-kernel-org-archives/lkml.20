@@ -1,56 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792950048;
-	b=Losk0mURam0W4KIDEpw6HbbW3faYCUDIMbDwINmAPB7vQJ9Fc8GXccsB432Bt7GoRecE
-	 U4wuhqbfWxHNMjg1Jzvs6HozjLGOnqHG3GBPXrKJMCqJ0cZoRrWL6OwM+5bxtYyFLO4p5
-	 2Jp/T91K4aPAAkbsPtShgYYhCAHEexdSWrSdtZTeDW8uCu+OHhKecIVWdoP9OqmRUKk+z
-	 XVf/hsT5/XBSVx8azUKxOOvHyahhh1YxbtKhrD/6EkFmVaT3HvgrAsUnQ3Zk6ouE+LhaC
-	 4VJ7QoErHYRmMq0/BkRaC3YiUp7RtWPUKkjcrezz9xY3pgjEYnIIxsrGy+P59NI36Vg==
+	t=1792950036;
+	b=05Utp8NXcF0sJ2uB/sYa6Sv64TMr1fk53XbB/2yLk5R7E+bHhIHmYXrl0GfhX+1xkZb/
+	 lCfvbEv4Jxvw14zHJ1ipqaYrT+lJ3j2/Oq635LdeZA/EewrsfzVVjdH2kaDP2mr3BKdmN
+	 HmS94KpRrRh6ncOBZKSkzBKcorL9XcTHfiQE8xVDAdnYQLrghwDHjgQdg1MBMXqP5S+Sk
+	 lV5TrO18wcTZWJg4pMSz4GWqtT8kAezgyC1FUwLoZ0ZCmx97XEhrZAbTFPx/HT2LU1eJB
+	 ttS3plABH4i25USE6uddEhKSCDywrLkvRxn5mwpjxv192kH1vPw/nIRzlA6uPa7p4PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792950048;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=3RNZWA4Vw9nvvnFumtjjNtTb4RFaUcDB/rCF/xLRA7k=;
-	b=UZJt5RDDT749GQcLRnv7tvDiiHVe6X5yQLfzDQOMn0UbTZQIdTYGiSAhKNhsctAyUoeL
-	 QKjTYrRCKSipkR643qeKdNzzR/1i6mFKGXIOIdFuduPLCTOwZy1+pX9oxWcCncHJ82Gkt
-	 0ek8aTvQaLPy5kGiMN1b6fIWr02p/rxUIKV6KbS3If17E/zld8ZL3N9C9TJTHbXlgLm8j
-	 ZYRMazgvJjzIjmA/LFET/yM64smGDFJqnMIwRIUsxI/e2oWN0XcI7z/uwh2ZDVrdI5Cre
-	 hbJUfTYdwbQT6FbdRAKYyl7+9ymh9nhkdfu4JPDaNY/SYTzpeyUA8xlL9QPxFboh/Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792950036;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6x1S3ZqdbkxHt3USof+znmMvAt7VbtHwbOPxHgeUp/E=;
+	b=Ne6mrf0m42UpMS9acmZJFCRa8C/O/jyAb6FA78rEb/KZY1ykpjMsFCDCdiPYox5bIDOO
+	 IVSPPaz1amdRI7v166QzHCXniwAx5/kMjGLlzrjPKQw57AS0lOAS5/mDCIFevRLStBX68
+	 9jxu2uwLt+c2tgyMykClLnaY+GSlIhb/0saX0vxet/9WOp/USZ1WrZN1I0Av0oo1RpCmS
+	 eac2r1RCLKr5TswJB+UEd/RQDDAYEMy3/U7WoyEwiu2vos6PVP1NONvBGKCTaZsqOrStJ
+	 IVMRukv1QT8HdDaDOTOt/3xieTM8d6CYkiq9AIxptjokU83w/X1pZzZpDjj0L6vCToA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqs8+H7i;
-	arc=none smtp.remote-ip=91.218.175.198
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=N3W6rewO;
+	arc=none smtp.remote-ip=209.85.221.174
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C43606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:40:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C43606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FA1606A32A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73FA1606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqs8+H7i
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JEPOtefzw+ZIKLKGXFOvsCze207bnrZQqzXanSKG5k4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792950034; v=1; x=1793554834;
- b=jqs8+H7ipL2rCVjv2KfyGevaTnRgSXzxJNvdmh8xNS0rSuxyt38jbF3CPUAP/Sy7n/ikX9nW
- ntVExNRq36W/xZVM7Z6HoP6Z6E/K2hnGjV7rpqEuzJLvPHio1K3eGLgAjwJK2JIfbP45Dgh6ryK
- UNKwF91MISUSVdDuuuRlpacA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c2b717936bb992ce;
-	Sun, 25 Oct 2026 17:40:18 +0000
-X-Mizu-Trace-ID: c2b717936bb992ce
-X-Migadu-Flow: FLOW_OUT
-From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
-Subject: [PATCH v2 0/2] MM: Tighten control over zero-page remapping
-Date: Sun, 25 Oct 2026 11:39:45 -0600
-Message-Id: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=N3W6rewO
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eaefe5b523so1831963e0c.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:40:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1792950024; x=1793554824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6x1S3ZqdbkxHt3USof+znmMvAt7VbtHwbOPxHgeUp/E=;
+        b=N3W6rewOtEnCKlu0xpAwJvTOFp1/AE72NHOhKW0WInhEZ2eoJ2PpyxANhJLc96Wkl7
+         qotmYvxnHLdqJT6MbYH6Yl02zRKS7TV8jR9j/blSAHWvyqU7qDD2kKnRikH/1bWYi7ZN
+         zdMa9mnVUIJRkVNZohG/f8xIUM2njCBdpBbO/9Qz7PIK52cBvURt0PrA8QVJ/vK01n35
+         EEeRSNC0ZFoZeeLekOJwqqCDHoQ8H5JtMLj101ThUw4mUrneCAvFxyKqDhuQHn+wzcSt
+         gFpjgVGwJ/5aZaDpb1jgWtP4uqv+IdI70IKCEAyxkVkKKivgWolfllqdOZYhBE6Kf4Oo
+         lV4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792950024; x=1793554824;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6x1S3ZqdbkxHt3USof+znmMvAt7VbtHwbOPxHgeUp/E=;
+        b=zomtP8sddmz/3gMpGiy7EdjsSFbljjNEK20hy3jUAguomlOA/RBInOXUH8XUs/ah/V
+         xc0PLHqDvBQmyQLQP+gC+Y3sejHSO6bWtDtbKqeCw41iNmvuV/hEmoJMEjdJp/3ZlWud
+         meo2AOiR676hm5CroGzTchVFM50YGywnoeyMdzkpZ3p7x9n8cgoRVXTIHvfiqOGa1s6H
+         iJumHPMwy0hjDYDtFUU0wUFJsRxqezOuJaxmEijS26upyKlbnkZ0w8aCghyZxgrovMIu
+         SYMLhm8IddE4JQS5UGXTSNPmeXLvNy3YccP+4QIjXSg8dCueXiNdSnBWdE8pwbkSxwUL
+         Dj4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwucoyuVCEgp109jPz+Qv3S+a6JPcZvC/3y/35PC2p559cwARzeepy6MQz26r87LJBVaTl0HPlWawiA/+c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7iyiEVPlfIxLQhOw7TGcCYRIWskeTNSSyB7VaPwrx/0vu7mzD
+	HJDqQ3WEuNJC6v0Xxmb3+RYZsAdOt/kmJftJlQ6Sc/BvGp1SzgRE8tX5JktVD/uaLSw=
+X-Gm-Gg: AYBFou0CN/Z/NXCYwuyEhGZ6OvDwkz82RzvQeOnSrLsxApzfqg/1K1gpuqkQZkZrl4c
+	StsywNe26F45Rln76HfJGxEx6rSpeonoQmp8ZcjnAMBeDyCpYMkBRH0u5NMV/fEORo/Y1czJtco
+	ZP5lL1+0N4AiO4yJlsdUkbWTzTGlRO3dcyWMZB+bVz6joNdcIm+ea+OUHoc8HwgdetOezufQU+m
+	RPxE49/g6xvrhrb+f5xR+bLJPx8fWXkKRIxznnlRLTmCOA+wI7dhLq8BfAvMjOD3PKtjmSkrTxy
+	BugPJ30uZshp+Zhf0EogfmXSL+TugvPT9GXfs5jV9xFXGGKgcdVa4cFsDAFvjXGMMKkLRB7AJtt
+	GxNDKs8I5dOrHPmcnIRBNfuntZzASl4zhj8sI9HaNQyDvjo8s3InunN2Qyk9+xCTy/8F19tIbaR
+	4GFC80176DNpsraG8ub9A/q6tHc0Jz7kj92MNbQ1nYL8otYoy3JvAv0xoUi4EubK3K8LCF7hlN1
+	2kyS1rjS9xqx/TBZAMPNxwE/5YesgT7n9LQ02JE0l9ZM54owUqx99KSjoe1UchOkOcYkA0YZq8s
+	EbAPPM/Cbz4ul8E6I0sHVMg2Px/kMkEQ7Bhre8KY0qCP/zj+29Ht4DiAUO23kuaTMyHlkXxyxyx
+	rYS34SfEXtiFV/dpMBWPqiFA=
+X-Received: by 2002:a05:6122:21a9:b0:5ea:d5ff:3bc5 with SMTP id 71dfb90a1353d-5ec2309e769mr1605074e0c.2.1792950024405;
+        Sun, 25 Oct 2026 10:40:24 -0700 (PDT)
+Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec234673ebsm5783333e0c.13.2026.10.25.10.40.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 10:40:24 -0700 (PDT)
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: linux-kselftest@vger.kernel.org,
+	rppt@kernel.org,
+	kuba@kernel.org,
+	enelsonmoore@gmail.com,
+	bp@alien8.de,
+	shuah@kernel.org,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org,
+	vbabka@kernel.org,
+	dapeng1.mi@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	surenb@google.com,
+	pasha.tatashin@soleen.com,
+	kexec@lists.infradead.org,
+	pratyush@kernel.org,
+	rdunlap@infradead.org,
+	elver@google.com,
+	graf@amazon.com,
+	lirongqing@baidu.com,
+	liam@infradead.org,
+	jlayton@kernel.org
+Subject: [PATCH v2 3/9] kho: validate preservation metadata in kho_restore_vmalloc()
+Date: Sun, 25 Oct 2026 13:40:10 -0400
+Message-ID: <20261025174017.3870481-4-pasha.tatashin@soleen.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+In-Reply-To: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
+References: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,82 +122,302 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM7QpAQBCF4VvR/La1Jra4FUmWwZCPdpCSe7f4+
- XQ67wVCjkkgCy5wdLDwMntgGEDdV3NHihtvQI0m0pgoG6tRprLl80CFttUGKcU0NuAvqyM/fLm
- 8+C27Haje3gbc9wNdCsU7cAAAAA==
-X-Change-ID: 20261025-b4-ksm_fixv2-2bf062e92946
-To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu Zhao <yuzhao@google.com>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usamaarif642@gmail.com>, 
- aarcange@redhat.com, "Nico Pache (Red Hat)" <nico.pache@linux.dev>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-This patch series fixes a bug in KSM where the pages_to_scan limit is
-bypassed and the policy (use_zero_pages) is ignored. It also gives users
-further control of the zero-page remapping that occurs when a folio is
-split.
+kho_restore_vmalloc() currently dereferences preservation before
+checking for NULL, does not reject unknown KHO vmalloc flags, and does
+not validate preservation->first.phys, preservation->total_pages, or
+preservation->order before allocating the pages array and shifting by
+order.
 
-Commit b1f202060afe ("mm: remap unused subpages to shared zeropage when
-splitting isolated thp") added unconditional zero-page remapping when a
-folio is split. This was sold as part of the underutilized shrinker, but
-has a larger effect. Since this commit, all splits do this zero-page
-scanning and remapping, even if the user has the underutilized shrinker
-disabled.
+Move kho_flags_to_vmalloc() to kexec_handover_common.c and introduce
+kho_vmalloc_validate() and kho_vmalloc_walk() so both regular KHO and
+the upcoming read-only KHO mode can share vmalloc header validation and
+chunk-list traversal. Converting kho_restore_vmalloc() to
+kho_vmalloc_walk() also restores each chunk page before reading its
+contents and rejects non-terminal chunks that are not completely full.
 
-This unconditional zero-page remapping was also problematic for KSM, as
-when KSM would try to merge a page, it would split the folio and the
-zero-page remapping would remap all zero-filled pages to the shared
-zero-page bypassing the use_zero_pages policy. When the user had this
-feature disabled, KSM would then waste cycles scanning these already
-freed pages, causing little progress to be made, and KSMs performance to
-degrade.
-
-In this series we also gate the zero-page remapping behind
-split_underused_thp (the sysfs for the underutilized shrinker). This
-provides users with more control over this behavior, while also preventing
-the KSM bug when it is enabled.
-
-V2 Changes:
-- Dropped ksm_is_running() and its EXPORT_SYMBOL_GPL (Lorenzo).
-- Replaced the v1 approach with a narrower check:
-  introduce current_is_ksmd() to detect ksmd and only skip zero-page
-  remapping when the split is triggered by ksmd itself. This avoids
-  disabling the underused THP shrinker's zero-page reclaim on VM_MERGEABLE
-  mappings when the split is caused by something other than KSM.
-
-V1: https://lore.kernel.org/all/20260609114619.144416-1-npache@redhat.com/
-RFC: https://lore.kernel.org/all/20260508170509.640851-1-npache@redhat.com/
-
-Signed-off-by: Nico Pache (Red Hat) <nico.pache@linux.dev>
+Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
-Nico Pache (Red Hat) (2):
-      mm/huge_memory.c: skip zero-page remapping when underused THP shrinker is disabled
-      mm/ksm: prevent zero-page remapping during ksmd-triggered THP splits
+ kernel/liveupdate/kexec_handover.c          | 99 ++++++++++-----------
+ kernel/liveupdate/kexec_handover_common.c   | 87 ++++++++++++++++++
+ kernel/liveupdate/kexec_handover_internal.h | 14 +++
+ 3 files changed, 150 insertions(+), 50 deletions(-)
 
- include/linux/ksm.h | 6 ++++++
- mm/huge_memory.c    | 3 ++-
- mm/ksm.c            | 5 +++++
- mm/migrate.c        | 3 +++
- 4 files changed, 16 insertions(+), 1 deletion(-)
----
-base-commit: a2abad0d7f453cc9902fc8bf7b871db5563a652c
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm mm-unstable
-change-id: 20261025-b4-ksm_fixv2-2bf062e92946
-
-Best regards,
---  
-Nico Pache (Red Hat) <nico.pache@linux.dev>
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index c24f25bfc96a..67efbdd39439 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -1204,10 +1204,6 @@ EXPORT_SYMBOL_GPL(kho_unpreserve_pages);
+ /* vmalloc flags KHO supports */
+ #define KHO_VMALLOC_SUPPORTED_FLAGS	(VM_ALLOC | VM_ALLOW_HUGE_VMAP)
+ 
+-/* KHO internal flags for vmalloc preservations */
+-#define KHO_VMALLOC_ALLOC	0x0001
+-#define KHO_VMALLOC_HUGE_VMAP	0x0002
+-
+ static unsigned short vmalloc_flags_to_kho(unsigned int vm_flags)
+ {
+ 	unsigned short kho_flags = 0;
+@@ -1220,18 +1216,6 @@ static unsigned short vmalloc_flags_to_kho(unsigned int vm_flags)
+ 	return kho_flags;
+ }
+ 
+-static unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
+-{
+-	unsigned int vm_flags = 0;
+-
+-	if (kho_flags & KHO_VMALLOC_ALLOC)
+-		vm_flags |= VM_ALLOC;
+-	if (kho_flags & KHO_VMALLOC_HUGE_VMAP)
+-		vm_flags |= VM_ALLOW_HUGE_VMAP;
+-
+-	return vm_flags;
+-}
+-
+ static struct kho_vmalloc_chunk *new_vmalloc_chunk(struct kho_vmalloc_chunk *cur)
+ {
+ 	struct kho_vmalloc_chunk *chunk;
+@@ -1357,6 +1341,45 @@ void kho_unpreserve_vmalloc(struct kho_vmalloc *preservation)
+ }
+ EXPORT_SYMBOL_GPL(kho_unpreserve_vmalloc);
+ 
++struct kho_vmalloc_restore_ctx {
++	struct page **pages;
++	unsigned long contig_pages;
++	unsigned long idx;
++};
++
++static const struct kho_vmalloc_chunk *kho_get_chunk(phys_addr_t pa)
++{
++	struct page *page = kho_restore_pages(pa, 1);
++
++	return page ? page_to_virt(page) : NULL;
++}
++
++static void kho_put_chunk(const struct kho_vmalloc_chunk *chunk)
++{
++	free_page((unsigned long)chunk);
++}
++
++static int kho_vmalloc_restore_entry(phys_addr_t pa, void *priv)
++{
++	struct kho_vmalloc_restore_ctx *ctx = priv;
++	struct page *page;
++
++	page = kho_restore_pages(pa, ctx->contig_pages);
++	if (!page)
++		return -EINVAL;
++
++	for (unsigned long j = 0; j < ctx->contig_pages; j++)
++		ctx->pages[ctx->idx++] = page + j;
++
++	return 0;
++}
++
++static const struct kho_vmalloc_walk_ops kho_vmalloc_restore_ops = {
++	.get_chunk = kho_get_chunk,
++	.put_chunk = kho_put_chunk,
++	.entry = kho_vmalloc_restore_entry,
++};
++
+ /**
+  * kho_restore_vmalloc - recreates and populates an area in vmalloc address
+  * space from the preserved memory.
+@@ -1369,18 +1392,16 @@ EXPORT_SYMBOL_GPL(kho_unpreserve_vmalloc);
+  */
+ void *kho_restore_vmalloc(const struct kho_vmalloc *preservation)
+ {
+-	struct kho_vmalloc_chunk *chunk = KHOSER_LOAD_PTR(preservation->first);
+ 	kasan_vmalloc_flags_t kasan_flags = KASAN_VMALLOC_PROT_NORMAL;
+-	unsigned int align, order, shift, vm_flags;
+-	unsigned long total_pages, contig_pages;
++	struct kho_vmalloc_restore_ctx ctx;
++	unsigned long total_pages, align;
++	unsigned int order, shift, vm_flags;
+ 	unsigned long addr, size;
+ 	struct vm_struct *area;
+ 	struct page **pages;
+-	unsigned int idx = 0;
+ 	int err;
+ 
+-	vm_flags = kho_flags_to_vmalloc(preservation->flags);
+-	if (vm_flags & ~KHO_VMALLOC_SUPPORTED_FLAGS)
++	if (!kho_vmalloc_validate(preservation, &vm_flags))
+ 		return NULL;
+ 
+ 	total_pages = preservation->total_pages;
+@@ -1388,37 +1409,15 @@ void *kho_restore_vmalloc(const struct kho_vmalloc *preservation)
+ 	if (!pages)
+ 		return NULL;
+ 	order = preservation->order;
+-	contig_pages = (1 << order);
+ 	shift = PAGE_SHIFT + order;
+-	align = 1 << shift;
+-
+-	while (chunk) {
+-		struct page *page;
++	align = 1UL << shift;
+ 
+-		for (int i = 0; i < ARRAY_SIZE(chunk->phys) && chunk->phys[i]; i++) {
+-			phys_addr_t phys = chunk->phys[i];
+-
+-			if (idx + contig_pages > total_pages)
+-				goto err_free_pages_array;
+-
+-			page = kho_restore_pages(phys, contig_pages);
+-			if (!page)
+-				goto err_free_pages_array;
+-
+-			for (int j = 0; j < contig_pages; j++)
+-				pages[idx++] = page + j;
+-
+-			phys += contig_pages * PAGE_SIZE;
+-		}
+-
+-		page = kho_restore_pages(virt_to_phys(chunk), 1);
+-		if (!page)
+-			goto err_free_pages_array;
+-		chunk = KHOSER_LOAD_PTR(chunk->hdr.next);
+-		__free_page(page);
+-	}
++	ctx = (struct kho_vmalloc_restore_ctx){
++		.pages = pages,
++		.contig_pages = 1UL << order,
++	};
+ 
+-	if (idx != total_pages)
++	if (kho_vmalloc_walk(preservation, &kho_vmalloc_restore_ops, &ctx))
+ 		goto err_free_pages_array;
+ 
+ 	area = __get_vm_area_node(total_pages * PAGE_SIZE, align, shift,
+diff --git a/kernel/liveupdate/kexec_handover_common.c b/kernel/liveupdate/kexec_handover_common.c
+index f2784f5c523c..dc25cb4c08af 100644
+--- a/kernel/liveupdate/kexec_handover_common.c
++++ b/kernel/liveupdate/kexec_handover_common.c
+@@ -19,9 +19,96 @@
+ #include <linux/printk.h>
+ #include <linux/types.h>
+ #include <linux/unaligned.h>
++#include <linux/vmalloc.h>
+ 
+ #include "kexec_handover_internal.h"
+ 
++static unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
++{
++	unsigned int vm_flags = 0;
++
++	if (kho_flags & KHO_VMALLOC_ALLOC)
++		vm_flags |= VM_ALLOC;
++	if (kho_flags & KHO_VMALLOC_HUGE_VMAP)
++		vm_flags |= VM_ALLOW_HUGE_VMAP;
++
++	return vm_flags;
++}
++
++bool kho_vmalloc_validate(const struct kho_vmalloc *preservation,
++			  unsigned int *vm_flags)
++{
++	if (!preservation || !preservation->first.phys ||
++	    !PAGE_ALIGNED(preservation->first.phys) ||
++	    !preservation->total_pages)
++		return false;
++
++	if (preservation->order >= BITS_PER_LONG - PAGE_SHIFT ||
++	    (1UL << preservation->order) > preservation->total_pages ||
++	    !IS_ALIGNED(preservation->total_pages, 1UL << preservation->order))
++		return false;
++
++	if (preservation->flags & ~(KHO_VMALLOC_ALLOC | KHO_VMALLOC_HUGE_VMAP))
++		return false;
++
++	*vm_flags = kho_flags_to_vmalloc(preservation->flags);
++	return true;
++}
++
++/**
++ * kho_vmalloc_walk - Walk the chunk list of a preserved vmalloc region.
++ * @preservation: Validated KHO vmalloc preservation metadata.
++ * @ops:          Callbacks to acquire/release chunks and process each entry.
++ * @priv:         Caller context passed to @ops->entry.
++ *
++ * Traverses the linked list of struct kho_vmalloc_chunk pages starting from
++ * @preservation->first.phys, invoking @ops->entry for each contiguous physical
++ * range and verifying that non-terminal chunks are full and that the total
++ * number of pages matches @preservation->total_pages.
++ *
++ * Return: 0 on success, or a negative errno on failure.
++ */
++int kho_vmalloc_walk(const struct kho_vmalloc *preservation,
++		     const struct kho_vmalloc_walk_ops *ops, void *priv)
++{
++	unsigned long contig_pages = 1UL << preservation->order;
++	unsigned long total_pages = preservation->total_pages;
++	unsigned long nr_pages = 0;
++	phys_addr_t chunk_pa;
++
++	for (chunk_pa = preservation->first.phys; chunk_pa; ) {
++		const struct kho_vmalloc_chunk *chunk;
++		phys_addr_t next_pa;
++		unsigned int i;
++
++		chunk = ops->get_chunk(chunk_pa);
++		if (!chunk)
++			return -EINVAL;
++
++		for (i = 0; i < ARRAY_SIZE(chunk->phys) && chunk->phys[i]; i++) {
++			if (nr_pages + contig_pages > total_pages ||
++			    ops->entry(chunk->phys[i], priv))
++				goto err_put_chunk;
++
++			nr_pages += contig_pages;
++		}
++
++		next_pa = chunk->hdr.next.phys;
++		if (next_pa && i < ARRAY_SIZE(chunk->phys))
++			goto err_put_chunk;
++
++		ops->put_chunk(chunk);
++		chunk_pa = next_pa;
++		continue;
++
++err_put_chunk:
++		ops->put_chunk(chunk);
++		return -EINVAL;
++	}
++
++	return nr_pages == total_pages ? 0 : -EINVAL;
++}
++
+ /**
+  * kho_encode_radix_key - Encodes a physical address and order into a radix key.
+  * @phys: The physical address of the page.
+diff --git a/kernel/liveupdate/kexec_handover_internal.h b/kernel/liveupdate/kexec_handover_internal.h
+index e73a2e310917..dd79e5006562 100644
+--- a/kernel/liveupdate/kexec_handover_internal.h
++++ b/kernel/liveupdate/kexec_handover_internal.h
+@@ -8,7 +8,21 @@
+ #include <linux/list.h>
+ #include <linux/types.h>
+ 
++/* KHO internal flags for vmalloc preservations */
++#define KHO_VMALLOC_ALLOC	0x0001
++#define KHO_VMALLOC_HUGE_VMAP	0x0002
++
++struct kho_vmalloc_walk_ops {
++	const struct kho_vmalloc_chunk *(*get_chunk)(phys_addr_t pa);
++	void (*put_chunk)(const struct kho_vmalloc_chunk *chunk);
++	int (*entry)(phys_addr_t pa, void *priv);
++};
++
+ const void *kho_get_fdt(void);
++bool kho_vmalloc_validate(const struct kho_vmalloc *preservation,
++			  unsigned int *vm_flags);
++int kho_vmalloc_walk(const struct kho_vmalloc *preservation,
++		     const struct kho_vmalloc_walk_ops *ops, void *priv);
+ unsigned long kho_encode_radix_key(phys_addr_t phys, unsigned int order);
+ phys_addr_t kho_decode_radix_key(unsigned long key, unsigned int *order);
+ unsigned long kho_radix_get_bitmap_index(unsigned long key);
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
