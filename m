@@ -1,94 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792957916;
-	b=NSz1bnLADEPU0xLzSFiYHVREALF54ASumn0TZMJIziLADDNLxMEjxmN5Cd8cpmAM7hRR
-	 j4xRN5UndDwvL5PC/dzm2CYiq/hdssYk+e+BPqHDTjLY+UtCKDNsktFxNuMQOHHDarj+r
-	 JxtDFV6NwtJVvx9bwfchn2h3qVCuTBXQ05wjwR2G747ViZ+55z0qmCZFusGm52gpIi29v
-	 OaN8bVOfaNpbVcedfCJ2fvjwg8HHrhO0Dq1QhfqWkaAgV9LYKoQGZnaL0plzo19dq7Xf8
-	 6iom4tJro4EEgVBgyW9Y8Clv1HpArrZfyEUwjgBwM40oqgcpX5DGIXXApcdcuSyB3aQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792957916;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=gzqvCXUxAiBvbMROfVnJpVOaWr7Kd+9TvqdSl276L7w=;
-	b=asX/QpMZQnQrM9ut6jEDkWLlz+WkG6rfGkYs3sTVhStECRTmPFgkJ7USjm1Wce+BRtaL
-	 Jxl9ocn4lzaD0Ee4jKynOBWsxcBs2qq2OtYE5cN/0bV/O/N8WbZBX1nFOQU1CEMq2/7Qe
-	 DMk42ZpZyfqogN1fAI5OKnDnNEQK/kaBIy3wMDB4pKMsyP5Jui5C1sXBewp/il2gDJyhG
-	 lY7c6qhV4U5B0u9v5zAHDQGOKxHrXPSYK9/S9o6N5hZCZGVSyccJJ+CZTRS1pIJFy9079
-	 sgFAAOyOcDFwNAVmxwVOApBj2YZseWXNVph15JrCGS0Jv6Le27fZUJXA//ovczldcXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=e+UaXVPq;
-	arc=fail smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792957928;
+	b=C9686oq3Wl5ZkS0XvOmGczpOcduoIUxM0CFNiqgQRRcipSq8Rv6xhcFXoBiIeJ4EQtK4
+	 cvYvTisCB7+1riOUvalf0cjTDmNVbUegAQpJdqy8pBunk/Fe9yzUHDd5fm34ITLzqa9Qk
+	 zWEhTMd7SVVuQ7Jdbuhwg3b+x7qgMk6q5EGvKGIPIV3svu0BezbZ6gUknteWUb5ZRsLcd
+	 XzdVqfCx0p0S83NKR2oPNIQsWwJTipNiQf9Pc3QLkcGFw6MDzGD2s3BE6tDUD2ujcdI02
+	 0lC84dsQo2b5+OIvpEQ4SgheS5vwGzEKr2TcNfwQWt6FPcjdnOY3lFyq3nR7HvkKgDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792957928;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ksE8b4/KBgZc3kfivoq0ARabS58Vtl9JkGQ6CWDimYs=;
+	b=vpVir4gVXmezG+KWXvPFgf3fwGQo5HPkU6rOTcIKj5rWaDuc9fOUNM3OEQx+zZtC1aMS
+	 y+94Xp/PZf3FYuZxoBBZjgKksru7Ep54jCyLPR3/GejDslmD5AoHA8eo7Y68cjkMMecEC
+	 HsjBwkBU9nkdvGxQ+syCX8QKzsiy/3zlICNqyWKh7+hFDytL0ths4xPS+c6AZcFLFE2Cg
+	 H/kitMqvQ7GWn4BG3EM4Ujf8HlX8DcpNEIR+iPbNwzglSgL53T+Msts72+T1qUV905DG/
+	 WDZLJqsEDvb+PmoprOq1EZ5mBnTr9zn9OpQiwwVbHSEgR0sTEYCgCxuiKQbHDYZk8iw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NExxQwtS;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=a9CZxXn+;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52FE606A31B;
-	Sun, 25 Oct 2026 19:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A52FE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96050606A338
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:52:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96050606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=e+UaXVPq
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id DB2D9201E0D;
-	Sun, 25 Oct 2026 20:51:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792957912;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NExxQwtS;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=a9CZxXn+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792957926;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gzqvCXUxAiBvbMROfVnJpVOaWr7Kd+9TvqdSl276L7w=;
-	b=e+UaXVPqFiKQUlM60M5R2aZyVCabFa0zt7P3yPBdTvrQT/po5NwegvROGQrlj3XR4xyW6y
-	thKioIo76axU1bzIkpO/+dozoVAbDh0KeOw/CpUnkGhzP1Udtf+4NUAEqWfJU/fvE9F2yM
-	l9181PrqdQo2XLBnXgVaJ8i26FN8CzxPF7vTm+1dGhwoTM/kiwKCK1YFLlwdABWnAZ7NgR
-	1iYah4CVWokN7fuTWgyHqoAewKi2z4uOV3q1wk+4FBmyWnKe1uuiZrPRVA24jj43Vkh4kA
-	GZ6nuZ4jq+SdSKefiK8KqqiYtkrBJsKKb/9YgZPJGreS8X+V5YX6w9O0BRTIrw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792957912; a=rsa-sha256;
-	cv=none;
-	b=N5TbPRorPNfpF99yzD2IhPtJB8Wbqd708AfdOcN9RTcup92/veMemdGA3G1aPMwdVHTi8b
-	HeOLyv4dA72RxXKLxBuRGuvA6pWU4tJ+cEqv6F3pEWzvicLMWyUBEhn5qkUWMlfwJh2brG
-	+h7x3vNwH1+RB3WYUAosHAnvAfHXtyxi7nVJ0ohtmeVuX+CjRNu9HJaTRA4rnNxwn2CSmD
-	/cqgUHdZ4SniAKpV56SjsNVN/NVn1RHSAlySlDucAC+JBwSK50WOXiVicf3cOp2+FlmHSa
-	h0hPASh1CS3DLVwcYMzaCZZklS051L2+koy7ZbyFmCB49HUWkm6wYcAv8TLa0A==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792957912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzqvCXUxAiBvbMROfVnJpVOaWr7Kd+9TvqdSl276L7w=;
-	b=CY7rWDla+al34Z6wELEdZMwXC4B+TJezJtPrU3IzT0eMcRb1Pga7B4QVFtbt9nWo92YU7/
-	sWDZAj0xLoaPaaRWYGiijCQf38nShuK5POTRL/crrYQVz9l02CH8yrkjtWgreqN91cfCFF
-	FiHfloG4nY8FsrCYQ3N2Y4UD7qEcW+oPsX2CcQAnAeSfnj0dGmJTf5qSPPt/IP5b9NAqWP
-	V1LdMS7IKc3TtG/i0sr5oc8cJspBld1K0PwHrRUeEygV8dU6PNe/NZJaP1fZeEkbEsusUo
-	bBoI/fMh0UEZtq/J/NS1tlJpDuj3GmH/LdfqIoLFWvNkSw379w2+qV6TIUR7Zg==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xL4G0-001AwO-2V;
-	Sun, 25 Oct 2026 20:51:52 +0100
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 7FF105D41F4;
-	Sun, 25 Oct 2026 19:51:52 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Sun, 25 Oct 2026 20:51:41 +0100
-Subject: [PATCH v2 1/4] can: gs_usb: gs_can_start_xmit(): don't leak
- uninitialized memory over USB
+	bh=ksE8b4/KBgZc3kfivoq0ARabS58Vtl9JkGQ6CWDimYs=;
+	b=NExxQwtSp2sP1Cm/+R25vQMSDYfYK2CGNsS/sxxGkyu/82IG2Mu9EUwDYjAGJ3pKM6kHqZ
+	4g8TA6SPh//VPMJ8T1V5nVG68N8MocHqK6U1Wfq8Yb5Ta44QV/cuAnTTx4axiLdT/8x+RI
+	i7H+bM3dj06K4VUq/CbkdhO2xw0xASk=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-663-wg4z_aAHMwehEL-YvhxZCQ-1; Sun, 25 Oct 2026 15:52:05 -0400
+X-MC-Unique: wg4z_aAHMwehEL-YvhxZCQ-1
+X-Mimecast-MFC-AGG-ID: wg4z_aAHMwehEL-YvhxZCQ_1792957924
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a17741243eso16999105e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:52:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792957924; x=1793562724; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ksE8b4/KBgZc3kfivoq0ARabS58Vtl9JkGQ6CWDimYs=;
+        b=a9CZxXn+xvFCqQjeC31EB24PJsQwq/uZvki2sewHIkpr6Fub3QP0SBNQuJCBZH++dJ
+         SHTc25fgviRkl/UJ1DzNvW9KIuP9MoSOw72vWVzqTaeubN//Acq8cwGt5ndXmdyPNoYo
+         nduUKaOInkltA0ms1wA9w5awVLQgvKznsBW/IFc3Ny5J7Zs7j7qBJ/F1ZpcMj5nvHiSB
+         b5HxWRC3w8tlG36PuN0C6jBCn8ywhw1L2xzTNgVkIduWwGE6qlfkrn8kR9a23uPeN60p
+         q3k/+rrKE0d4O/RJinV7APGfDoLUMn2TN7+jP4ydPiLo90PLQfWcNQW7UIKxFZf1qoDM
+         +1sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792957924; x=1793562724;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ksE8b4/KBgZc3kfivoq0ARabS58Vtl9JkGQ6CWDimYs=;
+        b=Xpvdwo798A5q5eJ9/XIqO5aLudP27uSVWaR686ZsimCIN0qdiro8Gbv+B28O6mIJe5
+         Q/p70k6QO+zlj+aJK+IPwzl7M4ju2vOuuIIAWsmLjIPDuAeHZJnY22dMyKyvl5jxiV35
+         4TXBp9HwMSpJyK8YY6UH78+BzOyynwstj3bubucSm5YeFQCwJh1weDw86205uRzeF/xQ
+         1jrI3HvxncUONm32+ypSDGMuLHjxEjraSQ7xuun+JAanpIs9KpsRheSgXmZPPcYul+V9
+         Rj9+Aef4eAZdVyh432ogXuhMwXYY6x4nNUxThXdrqwzGpMPcbGX0AtgQdUN1Ee8LSi53
+         w2MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+i5xYampAKb1XvTwjna7RsV1Ls429F29tvQqbeS1sHvhogU7Q0dHNA71V5J1zzbodb1GDnUEHERUAcwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgOb9ZVfgN1I0sq4T1vwDL5AzBzWvj1nSuZjFmPhhFbOpMIqfo
+	w/ouIS9+uitkcskhuJNbCRqvsB3+v2XnEk0zfK9Y/hTyRYnGOIxjQKd5DVyKAQSmNiQ8PurgcZs
+	nMk5TU50C1lmDn/XE4UdyS3JsNbH3KhYQROcFTEVKFLHR0FdQawfwAAuNnU1SsJ4t5g==
+X-Gm-Gg: AYBFou0fVs+LVCDUDS0KH8ZVrT1NkmsqSQWyo/mb37YVGjRv/1oOJomDEvD5SRHP9KC
+	3qOeR6hAVuCBrVUPklzq2WJj1N+p0x0QFK9GxL2866FadBAodupPuHG15mpGGc8F+MAtnIMurMP
+	e5YVvQ6lvhZK1GsXnHeDPHPhicYkVKM8m/a2mipS7gt68EHg0yfHcsrr2wssLAwLMez/1alYNOz
+	WXXSE6qrfC5hCs6b/XLd+UaHU4YxJfC8Jz03NH2lm8XvcmCUzIjDdTmMLcolZQJq1dW8RnwPKPB
+	G4HxuYudRigpIy4SQGiJxUmZAdkjuPcQ5yOB2GM40squvkWM4cU2fSxMu8uCqBca4+M=
+X-Received: by 2002:a05:6000:188b:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48e3eb98ee3mr9182568f8f.39.1792957923709;
+        Sun, 25 Oct 2026 12:52:03 -0700 (PDT)
+X-Received: by 2002:a05:6000:188b:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48e3eb98ee3mr9182531f8f.39.1792957923128;
+        Sun, 25 Oct 2026 12:52:03 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm11844481f8f.17.2026.10.25.12.52.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 12:52:02 -0700 (PDT)
+Date: Sun, 25 Oct 2026 15:51:59 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: netdev-bot+sashiko@kernel.org, linux-kernel@vger.kernel.org,
+	willemb@google.com, davem@davemloft.net, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, maxk@qualcomm.com,
+	rusty@rustcorp.com.au, netdev@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net v3] net: gso: validate transport header before
+ computing segment length
+Message-ID: <20261025154757-mutt-send-email-mst@kernel.org>
+References: <52b8bfe4ee848aff8ace47752352de486171d45f.1792595507.git.mst@redhat.com>
+ <179290180493.3134.5235549211177646736@kernel.org>
+ <20261025124546-mutt-send-email-mst@kernel.org>
+ <CAL4Wiiqk9Gq5=JKk7j=uK9oNbCd7GCcHUm8BmgZ4hGCqjjo45g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +121,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-gs_usb-fixes-v2-1-535d45097f72@pengutronix.de>
-References: <20261025-gs_usb-fixes-v2-0-535d45097f72@pengutronix.de>
-In-Reply-To: <20261025-gs_usb-fixes-v2-0-535d45097f72@pengutronix.de>
-To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
- Eric Evenchick <eric@evenchick.com>, 
- Maximilian Schneider <max@schneidersoft.net>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=xMzMzZuOb1bhvyVgFQl8vx69LoqShxppSYb1Nul7mjw=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6F3spg+O6SIj19iDlhpZZig8XnFNb5hceqVgTU1Fh/
- 2kl2332jlIWBjEuBlkxRZalP04oCgQ6lPa+TJgEM4eVCWQIAxenAEzEyYThN9unjRuP2Sm4tV7W
- r1oTrH3VVOXz3vX3JnOJnd90btO0f7yMDBPTVgtMevCXb+3OqN2luxzfc81KvDDhVpjlj0SzJVM
- T/jECAA==
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL4Wiiqk9Gq5=JKk7j=uK9oNbCd7GCcHUm8BmgZ4hGCqjjo45g@mail.gmail.com>
 
-The driver allocates the transmission buffer using kmalloc(), which means
-the memory remains uninitialized. Then various headers are filled and, but
-only the actual CAN frame data payload (of length cfd->len or cf->len) is
-copied into the buffer, leaving the remaining buffer uninitialized.
+On Sun, Oct 25, 2026 at 08:40:57PM +0100, Eric Dumazet wrote:
+> Le dim. 25 oct. 2026 à 17:51, Michael S. Tsirkin <mst@redhat.com> a écrit :
+> >
+> > On Sun, Oct 25, 2026 at 04:16:44AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> > > Thank you for your contribution! Sashiko AI review found 1 potential
+> > > issue(s) to consider.
+> > >
+> > > Critical: 0 · High: 1 · Medium: 0 · Low: 0
+> > >
+> > > If you believe none of the issues are legitimate, please reply to each
+> > > issue of Medium severity or higher and explain why the AI is wrong.
+> > > If any of them are legitimate and you plan to respin, please let patchwork
+> > > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > > (one such reply per series is enough).
+> > >
+> > > - [High] The patch is incomplete for the producer its own commit message
+> > >   names.
+> > >
+> > > --
+> > >
+> > > net: gso: validate transport header before computing segment length
+> > >
+> > > This patch makes the GSO segment length helpers in net/core/gso.c check
+> > > the TCP header before they read it. If the transport header is unset, or
+> > > the TCP header is not in the linear data, skb_gso_validate_network_len()
+> > > and skb_gso_validate_mac_len() now report that the skb does not fit. It
+> > > also adds two helpers, skb_inner_transport_header_was_set() and
+> > > skb_transport_header_linear(), to include/linux/skbuff.h.
+> > >
+> > > > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> > > > index d6894f463bf43..11c8b295bd260 100644
+> > > > --- a/include/linux/skbuff.h
+> > > > +++ b/include/linux/skbuff.h
+> > >
+> > > [ ... ]
+> > >
+> > > > @@ -3250,6 +3257,29 @@ static inline int skb_transport_offset(const struct sk_buff *skb)
+> > > >     return skb_transport_header(skb) - skb->data;
+> > > >  }
+> > > >
+> > > > +/* Is the (inner) transport header, as specified by
+> > > > + * skb->transport_header/inner_transport_header, in the linear data?
+> > > > + */
+> > > > +static inline bool skb_transport_header_linear(const struct sk_buff *skb,
+> > > > +                                          unsigned int hlen)
+> > > > +{
+> > > > +   int thoff;
+> > > > +
+> > > > +   if (!skb_transport_header_was_set(skb))
+> > > > +           return false;
+> > > > +
+> > > > +   if (skb->encapsulation) {
+> > > > +           if (!skb_inner_transport_header_was_set(skb))
+> > > > +                   return false;
+> > > > +
+> > > > +           thoff = skb_inner_transport_offset(skb);
+> > > > +   } else {
+> > > > +           thoff = skb_transport_offset(skb);
+> > > > +   }
+> > > > +
+> > > > +   return thoff >= 0 && thoff + hlen <= skb_headlen(skb);
+> > >
+> > > [Severity: High]
+> > >
+> > > The commit message names bpf_skb_adjust_room() as a way to leave a bad
+> > > transport header behind. It also says:
+> > >
+> > >     Qdisc length estimation has carried a guard against exactly this since
+> > >
+> > > Is that guard enough for the bpf_skb_adjust_room() case? In
+> > > qdisc_pkt_len_segs_init(), the only check is for an unset transport
+> > > header. Nothing there matches the thoff >= 0 check added here:
+> > >
+> > > net/core/dev.c:qdisc_pkt_len_segs_init() {
+> > >     ...
+> > >       if (!skb->encapsulation) {
+> > >               if (unlikely(!skb_transport_header_was_set(skb)))
+> > >                       return SKB_NOT_DROPPED_YET;
+> > >               hdr_len = skb_transport_offset(skb);
+> > >       } else {
+> > >               hdr_len = skb_inner_transport_offset(skb);
+> > >       }
+> > >       /* + transport layer */
+> > >       if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))) {
+> > >               const struct tcphdr *th;
+> > >
+> > >               if (!pskb_may_pull(skb, hdr_len + sizeof(struct tcphdr)))
+> > >                       return SKB_DROP_REASON_SKB_BAD_GSO;
+> > >
+> > >               th = (const struct tcphdr *)(skb->data + hdr_len);
+> > >               tlen = __tcp_hdrlen(th);
+> > >     ...
+> > > }
+> > >
+> > > bpf_skb_net_hdr_pop() moves mac_header and network_header forward. It
+> > > leaves transport_header where it was, unless it was equal to
+> > > network_header:
+> > >
+> > > net/core/filter.c:bpf_skb_net_hdr_pop() {
+> > >     ...
+> > >               skb->mac_header += len;
+> > >               skb->network_header += len;
+> > >               if (trans_same)
+> > >                       skb->transport_header = skb->network_header;
+> > >     ...
+> > > }
+> > >
+> > > When the DECAP_L4 or DECAP_IPXIP flags remove the last tunnel GSO bit,
+> > > bpf_skb_net_shrink() also clears skb->encapsulation.
+> > >
+> > > Take a locally VXLAN-encapsulated TCP TSO skb whose transport_header
+> > > points at the outer UDP header. If a tc program calls
+> > > bpf_skb_adjust_room(skb, -50, BPF_ADJ_ROOM_MAC,
+> > > BPF_F_ADJ_ROOM_DECAP_L4_UDP | ...), the transport offset ends up at -16
+> > > and encapsulation is 0.
+> > >
+> > > A simpler BPF_ADJ_ROOM_NET shrink of 40 bytes on a plain Ethernet/IPv4
+> > > TSO skb gives an offset of -6.
+> > >
+> > > If the program then redirects to egress with bpf_redirect(), this path
+> > > runs before any of the validators hardened in this patch:
+> > >
+> > > __bpf_tx_skb()
+> > >   dev_queue_xmit()
+> > >     __dev_queue_xmit()
+> > >       qdisc_pkt_len_segs_init()
+> > >
+> > > In that function hdr_len is an unsigned int, so -16 becomes 0xfffffff0.
+> > > hdr_len + sizeof(struct tcphdr) is then truncated to 4 when passed as the
+> > > unsigned int len argument of pskb_may_pull(), so the pull succeeds.
+> > >
+> > > Wouldn't __tcp_hdrlen(th) then read about 4GB past skb->data on 64-bit?
+> > >
+> > > Should qdisc_pkt_len_segs_init() get the same check, for example by
+> > > using skb_transport_header_linear()? If not, could the commit message
+> > > be changed so it does not say the qdisc path already guards against
+> > > this?
+> > >
+> > > > +}
+> > > > +
+> > > >  static inline u32 skb_network_header_len(const struct sk_buff *skb)
+> > > >  {
+> > > >     DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
+> > >
+> > > [ ... ]
+> > >
+> >
+> >
+> > Indeed. Not nice.
+> >
+> > Eric, you seem to have strong opinions about how to fix these
+> > bugs, so, before I spend time testing: a fix like the below, acceptable?
+> 
+> The report looks valid, but this patches _one_ consumer of a broken
+> transport_header, not its _producer_.
+> 
+> bpf_skb_net_hdr_pop() adjusts mac_header and network_header, but leaves
+> transport_header alone unless it was equal to network_header. If the
+> popped region covers the transport header (BPF_ADJ_ROOM_NET shrink,
+> or a DECAP_* shrink in BPF_ADJ_ROOM_MAC mode), we keep a stale offset.
+> It can be negative, or positive and pointing to the wrong bytes.
+> 
+> qdisc_pkt_len_segs_init() is only one reader. TSO drivers
+> (skb_tcp_all_headers(), tcp_hdr() in ndo_features_check()/ndo_start_xmit())
+> and the GSO validators would read the same stale offset.
+> A 'hdr_len < 0' test does not catch the positive case either.
+> 
+> bpf_skb_net_grow() already sets the transport header properly,
+> the shrink side should do the same. Something like (untested):
+> 
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ static int bpf_skb_net_hdr_pop(struct sk_buff *skb, u32 off, u32 len)
+>  {
+>         bool trans_same = skb->transport_header == skb->network_header;
+> +       bool trans_popped = false;
+>         int ret;
+> 
+> +       if (!trans_same && skb_transport_header_was_set(skb)) {
+> +               int thoff = skb_transport_offset(skb);
+> +
+> +               trans_popped = thoff >= (int)off && thoff < (int)(off + len);
+> +       }
+> +
+>         /* Same here, __skb_push()/__skb_pull() pair not needed. */
+>         ret = bpf_skb_generic_pop(skb, off, len);
+>         if (likely(!ret)) {
+>                 skb->mac_header += len;
+>                 skb->network_header += len;
+>                 if (trans_same)
+>                         skb->transport_header = skb->network_header;
+> +               else if (trans_popped)
+> +                       skb_set_transport_header(skb, off);
+>         }
+> 
+>         return ret;
+>  }
+> 
+> For the decap case, BPF folks might prefer to restore the transport header
+> from skb->inner_transport_header when skb->encapsulation is cleared.
 
-Fix this information leak, allocate the buffer with kzalloc().
 
-Closes: https://sashiko.dev/#/bug/linux-0a8c0e8a-c623-426a-8db3-f55111f6cd84
-Fixes: 26949ac935e3 ("can: gs_usb: add CAN-FD support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- drivers/net/can/usb/gs_usb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 3b9b2f104d86..15f28833f2de 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
- 	if (!urb)
- 		goto nomem_urb;
- 
--	hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
-+	hf = kzalloc(dev->hf_size_tx, GFP_ATOMIC);
- 	if (!hf)
- 		goto nomem_hf;
- 
+OK, do you want to propose a patch, or need me to look into it?
+And are you open to patching also all known consumers,
+in case we miss a producer, or only the producers?
 
 -- 
-2.53.0
+MST
 
