@@ -1,98 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940318;
-	b=q1qixHH+C3a+YTD+Hc3jMzUeIfrXoAN2LP63TsjplQOIuOf48qlO24MS1vtdc4MT7KnE
-	 5bMo0HESaRfqn/lVEy3vLSutnlR9nFOjIxENbOfbUX+DYNw2NwB5ztPTFTdWZfUBWwodf
-	 NRGhY3bXXSZHozxjJulEFiyELS1EUIQyOV+z5AR8zUyQrh3C39ozRmkNvcBKSHeLgVfxg
-	 1RBGuXRdR4XxFuZ/6rfzC+chgxVSplKizheLkq4h1o0x+OM6z3mkhR0nTdRMKU2pJ39Rv
-	 JM3LyLog4M31szQ/C3X/d9TzY63ZM/ZlMNVzHEN2mqPGYlVrgLGCxcAdU+F63eqCGVg==
+	t=1792940404;
+	b=jISPIR8DL3+cJDnMr39GpTPa+lZstis0eyhQNgZnpvgySwYwjF+u9ralx0bFFa4cQr2U
+	 ZydsrhhZ7waRanB9rz1Z0MhV2BvFRmPgvUtmpNeNBmzM3NiF3W0wRNhOXxjEB43R4UKAf
+	 v7ttgq2surUnPysjA/xBf27FCSHCqBZNie3be4pxifWr9JPgYYYhdrN8JXC6ORW5D1J0+
+	 fpaLmHlBhZn7CNrwR4/9TgKy4xq9eg9jsJIeJVdOKl99y/4M1954tARzpY2qYvKx2p69P
+	 W7zwLDjV5ri4Ngh5nNVP6JgFsd2tCd+BtZ9yMuatgnulYIWFMUS3krEIoywnD/oGpQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792940404;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
-	b=XY5BlGUKxX1qZlv3flBhlxpwOlrkPlPeIqzoG58ZM9gFgCP4w5zGZIErMJUjFBdS+ZRz
-	 uCCpCVyOAGmQ97QjE7a/4tc5JabES6xxZ5K7w6OA5PZO/rVAz+WQU2afuTtu84y0aXAoJ
-	 VR0s1n5xPgabeBAIq5rS4F01mlMISDXrnKFu/fDpormxjeJwxIxgJD6lXHtLtPtR6/aAN
-	 jXfu8+Q7Z0zcgPICt8KVcjRLe09+jcAlFH6ozE/r2ojCQGMp/tAdaqXQMHSGc+iiz/T/D
-	 ifEj91CbRkZNdjIMTV/QdwqaG3GJpXpt8Uo9bqKeVjEgzdrpja1mN7I3YoetiLqph3g==
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=CYlLTIUHrpkrhGiaBbh26oVfeR65PZ4aFDXOFX36wWo=;
+	b=gJoCOazHIpH1sQb+fEIIShIlWcy3GrpN3h9UgRxPnQ30BRsVRAty+t9Hkd7q3qkxSrnI
+	 iOz7rVEF4ZnxgqdhbUo8zPjzFtuIqeO4+7qcULnlem3hyIbPHktXeo+4jcHWk/lPnMRzo
+	 owizeZmQlOZLkLqAXO+VqY+wHseFRQlsNHOyhvYVHfNUifx+cLUBTElROvddrT13Mr5sM
+	 Z8coxyqkln96HP4cIBxXfYRMalmkYwsLVyuCt8d5LSu/pDq1pwvH4LeMqh73cWqZ1gyFQ
+	 mFY51a/lfh3Yn0ceTScKjZML4cnOJamih0cc52MQUSyr5eNh4u/speLb5XAEzuDeWig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cYTMy7E2;
-	arc=none smtp.remote-ip=209.85.219.54
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d90EF1mR;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB15B606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB15B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115C2606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:00:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115C2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cYTMy7E2
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-9196d8543cbso22734076d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:58:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d90EF1mR
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ccca948203aso616196a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:00:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792940316; x=1793545116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
-        b=cYTMy7E2cH2XTudTTt8j0GWmUx7ICafrO+JmWRka4il1tSncOTKdVztnMkwlw2aZcY
-         rYuBymLwu8gLstJffuyuTm+auuS3Aulw5sAGu2ONQ3d+lcUPhN7jtjZLhP8xR2GQ2eXR
-         y7+rEVf1s3AJY22GbYXSp69f/eTeOx2qrRnERtQevI0y8vVwKzsAL10LC+qdXgra9TH9
-         Vpk9S3OlOgNGmem0OvNrkh/AHuJjNd875Mm6LHnuUVAAfg8DpGFkBCrzacr9HVp+dNUZ
-         6IfbAD/h9a5QYF+K+bbRYvnckpHqlrbJcUCG0rmZ6VNiSJAR1KthkhIg1Tflzps3RVWn
-         9j6w==
+        d=gmail.com; s=20251104; t=1792940402; x=1793545202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CYlLTIUHrpkrhGiaBbh26oVfeR65PZ4aFDXOFX36wWo=;
+        b=d90EF1mR/kXPITjA8UFqr5F9aZGY/Fn+EEfLVJcNkrV8iqrJrilI85FkaOglauMGgB
+         EKAy2oTirdroq3IgIBv+ISnxqN8AsFjyVCRZXyP4YCpFsuOlAvDJ+HHbsSxB01i8YFM3
+         /4z9/oqyXzhyItqF5TOThkI7BFlIlk9y29hkMZq7xJX+UYp7h00x+Q02Z2w+zUkR6F0I
+         swsMIs+PBU8rgBkFOmEnqf+A8vJ8Mpemsi5LBGttzTpyzW8KI+4LNH6YYmX5SfbzPkYi
+         jLD+lzQ+uPhauj4xi0KK3jI+y/oJVDTdTzxIjmBHjXd5pMdVIwRC022K+AFP+ZjcFYNV
+         KAlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792940316; x=1793545116;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
-        b=J8IjZC2e/xACaMdWuvygLJKIPdswnyCHwHMAQJ7OhTH19uusF4hhVwNm7O9Q8tor1m
-         QKbZ01O/sWI1YKU6p5vHmL05q+iCXcZGafDg7hdssNdf6dnbcD+1Mr0FtiJhGD8uCvoF
-         fJxw353YnMnF10zN+TthuFzM84PrakgIQzBrEib0NWn1i/jSjcaQFDS6QHGBAsloJFsb
-         B1Y2Uk8C1fpjaMMQ3kZFrcSB2B3O2/hfcpFJxqQvkhgAE7s7FhqMglZcihSeVWexp3m+
-         23+yVz0CgLSiFZK6ZU+8yPGvUa+URHAE5bOjqvjQftSYqMr03e1wr8Hi6EdkZKZOvk39
-         iQkw==
-X-Forwarded-Encrypted: i=1; AKwUvBywEe2sYhR+LmbRd/L2kQqy3QvHhTRp/WQUspANx7jZgPXXuLneqQLIV1QXzp1JtfzYZmAPW7iXhXh7SLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIT/yN69yGr8m15PxQPjRROdnPrOn8rn8wwYN5oqKsp2XWmWizW
-	ixq8+hiC0dntvC8+M0Ae/DadMTJG7WoTthKSI3ZsDg0lxuSVQtqLWfakZF4BAFGeng==
-X-Gm-Gg: AYBFou2hDVBkgZ8HjxwiSyJYI1/b2JbqNIibY9YeuZbGymOE3MnLBnkXXtSEh9IndHI
-	6WsHErTK5IL1iPZdlQFhlbJVgIViMLT0LjZptF43yOkPgV/tI+FLRmXNvTjTyNOl0j0WEUsvWdz
-	Zdj7ossFBLtZF4ElK9DGtxFn1rcad0v046lKYiRPAflw8Y1bGZ6U8Z7ZXiGboOj9edYDP2wldNU
-	9i4yrXZTxIkK7ymniKzXfC98VvVHYU6ncj7c4wg1nl1854mZWiroin+8ko3frn9iTZTUPZDFu2s
-	Pxvbu2umb41HflZ0ZW9V7YVYBz84zsN+rQwqe289BgQbgjqRO/VztLx9tj1SORaO3H5aPkCoY9I
-	KuspN67egPkZlOYVPQcTV53DM0VU+yXmDxuPp007zkrsicYHNO3cGS3kXQi4ZBgBaRcoDM5PTzL
-	04oT69droD9x7/uXqE6C0oVJ2ulhzSPa3g3vOZUi9+H3qgm1VtrDHEeDQQuPZ9mcXD4J7yCqXiF
-	hjbJWsCljSt9kMQPzCIEXDRfHOnZCu4zDeUqzXBY/04h80Pem47sLSiuHYc7bs6M2StsdoQTISK
-	UA==
-X-Received: by 2002:ad4:5748:0:b0:91b:88b9:e121 with SMTP id 6a1803df08f44-91c48ddeb51mr73244536d6.12.1792940316326;
-        Sun, 25 Oct 2026 07:58:36 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd1d42sm47859926d6.12.2026.10.25.07.58.35
+        d=1e100.net; s=20260707; t=1792940402; x=1793545202;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CYlLTIUHrpkrhGiaBbh26oVfeR65PZ4aFDXOFX36wWo=;
+        b=Zicuudz1KabtUJVR98dTsg4oCVaRvgoQIJg8dzse6XqKFn5GswsT0BS7jZ2l9e2gUn
+         qrMeX+KdCUDHNqXv1YKsCZmAtVHxu3dhjsqYK4BLgTzIX2JFsx3p2HQjcTOqwJHx67+v
+         Ppv8+RfZpiNs1b4aIGR3/+xjDpnxF30Ayh3jNJRNhvI0sb3aZSVAGz36nMx9nlqxzjw5
+         fjlKYmoxQp4lTQfAzxKxTMXeJ1pQ7mutPqNM1l1RwN6aUmbRrGZd1M8LptEhtLJKZR8l
+         5HAFuphLr5eXhXuahWMDmnlM9eIVaVFulTfiAomnOgCCCFLpyfw1hCE9VPGpLhG5w+RT
+         lY6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzPdLAd92xpDChAJ5C3hKjm1gp1Oc+iIG45OImytzv/vIjaPiFUzzxwHrWAr3RGSrpjM2ewaOo2RBh8r0o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIC4FtEvYok2NptPfgXa4q9Ifhq01wD2rsNzwn+9Pb2r0LzKi92
+	XLTaSNBbWgIbgjKhvvWo3k5x8gVzG7TxpalzooszmWfGewvI+cT09vy1
+X-Gm-Gg: AYBFou3f7LfhHOwzbXvVGZuWI/f4WkQpfDJOFTNUoCdCwK0AULH18f/09QGWU7p39Hi
+	qZ2KqIsxWgb9Ur6gIpSSIV9lA4VdxkJxnGPrzd0tCkgPTMSfHtNjfIu0S7EvNj3ZkVEANqQOXGr
+	Lclh93VgTYg29RagTfrAi7RN6t13fUv35KymaQ9wR7c74xQcQVZ2lpXQtoceOoTY/Zmp0yfazTu
+	U+/BT1kHc5jpiLbxAoVH4wM7JM+GIScd7MGZAw5WFcLw5pv1dLi4iDtiHExTfysclHr/h1avENn
+	jY9m/nclxSxJx83xjzOMbHXj/4Nz2HK3Aq4g7ttjvr/80DQPrk/0aST3PcVJ+0AyAnVAtx5mpkl
+	d+rXKCJ9CZ8lfGxXABIIe37RgJF97vyjHATcokEksj8XfHs378bCr6wdGn5i4qyfx1EpAWWMk/k
+	ao3jvHX8nh98XCOsCguwo1jF1KFWJeCoRf1NZXClZRd03kserKXtJmmb1TaJGDVCEI07F8pik5I
+	zKqcHWIIVx9JqOIrHDnxL5LUEk8d+JWIpH+6/0beI9aBUPcPwN0qW5A0SJHwTjgik8Qyg==
+X-Received: by 2002:a17:90b:2711:b0:3ac:9259:1234 with SMTP id 98e67ed59e1d1-3adead502d4mr3827268a91.39.1792940402116;
+        Sun, 25 Oct 2026 08:00:02 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaca727sm5270937a91.3.2026.10.25.08.00.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 07:58:36 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	jchapman@katalix.com,
-	tparkin@katalix.com,
-	gnault@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] l2tp: only return sessions of the given tunnel in l2tp_session_get()
-Date: Sun, 25 Oct 2026 10:58:31 -0400
-Message-ID: <20261025145831.2133617-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Sun, 25 Oct 2026 08:00:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] hwmon updates for v7.4
+Date: Sun, 25 Oct 2026 07:59:57 -0700
+Message-ID: <20261025145958.3032379-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.45.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,83 +95,434 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
-pppol2tp_connect() and the netlink session commands find sessions with
-l2tp_session_get(), which takes a tunnel ID and a session ID.
+Hi Linus,
 
-However, for L2TPv3, l2tp_session_get() does not use the tunnel ID. If
-no other session has the same session ID, it returns that session,
-whichever tunnel it belongs to. As of now, a session command that names
-the wrong tunnel acts on a session of another tunnel, and a PPPoL2TP
-socket for a second L2TPv3 tunnel fails with EEXIST, because it finds
-session 0 of the first tunnel.
+Please pull hwmon updates for Linux v7.4 from signed tag:
 
-The issue can be reproduced with:
+    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-for-v7.4
 
-    ip l2tp add tunnel tunnel_id 3 peer_tunnel_id 3 encap udp \
-        local 127.0.0.1 remote 127.0.0.1 udp_sport 5003 udp_dport 6003
-    ip l2tp add tunnel tunnel_id 4 peer_tunnel_id 4 encap udp \
-        local 127.0.0.1 remote 127.0.0.1 udp_sport 5004 udp_dport 6004
-    ip l2tp add session tunnel_id 3 session_id 7 peer_session_id 7
-    ip l2tp del session tunnel_id 4 session_id 7
-    ip l2tp show session
+Thanks,
+Guenter
+------
 
-Before that commit, the delete fails with "No such device", and session
-7 of tunnel 3 is still listed. After that commit, the delete succeeds,
-and session 7 of tunnel 3 is gone.
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
 
-This patch will make l2tp_session_get() return NULL when the L2TPv3
-session it finds belongs to another tunnel.
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
 
-Fixes: 5f77c18ea556 ("l2tp: use IDR for all session lookups")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-The first commit that shows the problem is d18d3f0a24fc ("l2tp: replace
-hlist with simple list for per-tunnel session list"), two patches later
-in the same series. Before it, these L2TPv3 lookups found no session at
-all.
+are available in the Git repository at:
 
-The receive path still looks up L2TPv3 sessions by session ID only. Only
-the lookups that name a tunnel change.
+  git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/hwmon-for-v7.4
 
-Tested with the commands above, the same session ID in two UDP tunnels
-(still allowed) and in two IP tunnels (still refused), and two PPPoL2TP
-tunnel sockets.
+for you to fetch changes up to e1b3c2630d5b8bc755fe4ba86d20d08c734eb504:
 
- net/l2tp/l2tp_core.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+  hwmon: (npcm750-pwm-fan) serialize PWM register updates (2026-10-20 15:41:38 -0700)
 
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 7e042a3e648c..f509750f80d5 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -315,10 +315,19 @@ EXPORT_SYMBOL_GPL(l2tp_v2_session_get);
- struct l2tp_session *l2tp_session_get(const struct net *net, struct sock *sk, int pver,
- 				      u32 tunnel_id, u32 session_id)
- {
-+	struct l2tp_session *session;
-+
- 	if (pver == L2TP_HDR_VER_2)
- 		return l2tp_v2_session_get(net, tunnel_id, session_id);
--	else
--		return l2tp_v3_session_get(net, sk, session_id);
-+
-+	/* An L2TPv3 session ID that has not collided may be in any tunnel */
-+	session = l2tp_v3_session_get(net, sk, session_id);
-+	if (session && session->tunnel->tunnel_id != tunnel_id) {
-+		l2tp_session_put(session);
-+		return NULL;
-+	}
-+
-+	return session;
- }
- EXPORT_SYMBOL_GPL(l2tp_session_get);
- 
+----------------------------------------------------------------
+hwmon updates for v7.4
 
-base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
--- 
-2.53.0
+* New drivers
 
+  - Axiado AX3000 and AX3005 PWM fan controller
+
+  - AX3000/AX3005 TSADC
+
+  - HONOR FMI-XX
+
+  - Minisforum UM780 XTX EC monitoring and fan control
+
+  - pmbus: MAX20826, MAX20855B, MAX20908, MAX20912, MAX20826, and MAX20916
+
+  - pmbus: Infineon TDA38740/TDA38725
+
+* Added support to existing drivers
+
+  - asus-ec-sensors: ROG STRIX X670E-A GAMING WIFI and
+    ROG STRIX Z490-A GAMING
+
+  - asus_rog_ryujin: ROG Ryujin III 360
+
+  - dell-smm: Dell 16 DC16250, Dell OptiPlex 7090, Dell Precision 3650
+    Tower, Add Latitude 5420
+
+  - it87: IT8613E
+
+  - k10temp: 1ah/80h devices. Drop support for Hygon devices (support to be
+    re-added with separate patches later)
+
+  - lm63: Sensylink CTF2301
+
+  - nct6683: MSI MAG B550M MORTAR MAX WIFI, MSI MAG B650 TOMAHAWK WIFI,
+    MSI MAG B650M MORTAR WIFI (MS-7D76), and MSI MAG B850M MORTAR WIFI
+
+  - nct6775: NCT6122D and NCT6126D
+
+  - pmbus/isl68137: Renesas RAA229639 and RAA229640
+
+  - pmbus/max34440: ADPM12300
+
+  - pmbus/tps25990: TPS1689
+
+  - pmbus/tps53679: TPS53622, TPS53659 and TPS536C7
+
+  - pmbus/xdpe1a2g7b: xdpe1a2g7c
+
+  - sht4x: Sensirion STS4x
+
+  - socfpga: Agilex 5
+
+  - yogafan: Lenovo Yoga Pro 9 16IMH9, Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub,
+    Yoga 740-15IML
+
+* Core updates
+
+  - Support for currX_emergency and inX_[l]emergency attributes
+
+* Notable bug fixes and changes
+
+  - Add missing locks to corsair-cpro, ftsteutates, nct7904, and npcm750-pwm-fan
+    drivers
+
+  - Fix jiffies wraparound in tmp102 and tmp108 drivers
+
+  - Documentation updates (document missing chip support, typo fixes,
+    clarifications)
+
+  - pmbus/ltc4286: Add writable shunt_resistor sysfs attribute
+
+  - coretemp: Document sysfs numbering and label meaning, fix handling of
+    isolated SMT siblings, read TjMax only when refreshing the temperature,
+    refresh the temperature on the first read, and return -ENODATA for
+    invalid temperature readings
+
+  - spd5118: Avoid probing when 16-bit addressing is enabled, and select
+    page 0 unconditionally during probe
+
+  - arctic_fan_controller: Default PWM cache to MCU 40%, Dual-license
+    GPL-2.0-or-later OR BSD-2-Clause, and update maintainer address
+
+* Various other minor bug fixes and improvements
+
+----------------------------------------------------------------
+Alessandro Zini (2):
+      dt-bindings: trivial-devices: Add Sensirion STS4x series
+      hwmon: (sht4x) Add support for Sensirion STS4x temperature sensors
+
+Alexis Czezar Torreno (1):
+      hwmon: (pmbus/max34440) Add support for ADPM12300
+
+Armin Wolf (5):
+      hwmon: (dell-smm) Add Dell OptiPlex 7090 to fan control whitelist
+      hwmon: (dell-smm) Add Latitude 5420 to fan control whitelist
+      hwmon: (spd5118) Select page 0 unconditionally during probe
+      hwmon: (spd5118) Avoid probing when 16-bit addressing is enabled
+      hwmon: (acpi_power_meter) Fix 18.45 TW bug
+
+Asaf Nuri Bertizlioğlu (1):
+      hwmon: (coretemp) Document sysfs numbering and label meaning
+
+Asai Neko (1):
+      hwmon: (asus-ec-sensors) add ROG STRIX X670E-A GAMING WIFI
+
+Ashish Yadav (2):
+      dt-bindings: trivial-devices: Add support for XDPE1A2G7C
+      hwmon:(pmbus/xdpe1a2g7b) Add support for xdpe1a2g7c controller
+
+Aureo Serrano de Souza (3):
+      hwmon: (arctic_fan_controller) Default PWM cache to MCU 40%
+      hwmon: (arctic_fan_controller) Dual-license GPL-2.0-or-later OR BSD-2-Clause
+      hwmon: (arctic_fan_controller) Use shared maintainer address
+
+Baek Kyu, Kim (3):
+      hwmon: (sht4x) Reject incomplete heater command transfers
+      hwmon: (mcp9982) Update the interval cache only after successful writes
+      hwmon: (sht3x) Return the consumed count for heater writes
+
+Carl Lee (1):
+      hwmon: (pmbus/ltc4286) Add writable shunt_resistor sysfs attribute
+
+Colin Huang (4):
+      dt-bindings: hwmon: pmbus: Add Infineon tda38740 and tda38725
+      hwmon: (pmbus/tda38740) Add driver for Infineon TDA38740/TDA38725
+      dt-bindings: hwmon: pmbus/isl68137: Add Renesas RAA229639 and RAA229640
+      hwmon: (pmbus/isl68137) Add Renesas RAA229639 and RAA229640
+
+Eduard Zateev (1):
+      hwmon: (pmbus/ibm-cffps) Avoid format truncation warnings
+
+Emanuel Ávila (1):
+      hwmon: (dell-smm) Add Dell 16 DC16250 to fan control whitelist
+
+Flaviu Nistor (2):
+      dt-bindings: hwmon: national,lm90: Fix channel constraints for temperature offset
+      hwmon: (lm90) Reject channel 2 on chips with only one remote sensor
+
+Frank Li (1):
+      dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml
+
+Guenter Roeck (3):
+      hwmon: (core) Add support for currX_emergency and inX_[l]emergency attributes
+      hwmon: (pmbus) Validate number of phases per page
+      hwmon: (nct6683) Add more MSI boards to list of tested boards
+
+Hemanth Selam (1):
+      hwmon: fix typos in comments
+
+Jiale Yao (1):
+      hwmon: (gigabyte_waterforce) reject short input reports
+
+Josef Bacik (3):
+      hwmon: (ftsteutates) serialise the watchdog and sensors
+      hwmon: (nct7904) serialise the watchdog and sensors
+      hwmon: (npcm750-pwm-fan) serialize PWM register updates
+
+Kees Cook (4):
+      hwmon: (asus_wmi_sensors) Fix info[] allocation type
+      hwmon: (pwm-fan) Add const to channels allocation type
+      hwmon: (scmi) Fix info[] allocation type
+      hwmon: (hp-wmi-sensors) Fix info_map[] allocation type
+
+Lin Wang (1):
+      hwmon: (k10temp) Stop matching Hygon devices
+
+Manuel Ebner (1):
+      docs: hwmon: sysfs-interface: Fix bracket
+
+Marek Vasut (2):
+      dt-bindings: hwmon: tmp102: Document TMP110
+      dt-bindings: hwmon: tmp102: Document TMP113
+
+Mario Limonciello (1):
+      hwmon: (k10temp) Add support for 1ah/80h
+
+Mario Nuevo (1):
+      hwmon: (asus-ec-sensors) add ROG STRIX Z490-A GAMING
+
+Massinissa Ghoul (1):
+      hwmon: (hih6130) Replace sprintf() with sysfs_emit()
+
+Nikita Dubrovskih (1):
+      hwmon: Add fan monitoring support for HONOR FMI-XX
+
+Nuno Sá (3):
+      hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data()
+      dt-bindings: hwmon/pmbus: Document MAX20826 and similar devices
+      hwmon: (pmbus) add support for MAX20826 and similar devices
+
+Patrick Pepin (1):
+      hwmon: (dell-smm) Add Dell Precision 3650 Tower to fan control whitelist
+
+Paul Louvel (4):
+      Documentation: hwmon: nct6775: Document NCT6116D/NCT6122D/NCT6126D support
+      Documentation: hwmon: (nct6775) Document NCT6116D/NCT6122D/NCT6126D support
+      hwmon: (nct6775) Add support for NCT6126D
+      hwmon: (nct6775) Add support for NCT6122D
+
+Pawel Zalewski (1):
+      hwmon: use named initializers for acpi_device_id
+
+Petar Stepanovic (4):
+      dt-bindings: hwmon: Add Axiado AX3000 TSADC
+      hwmon: Add driver for AX3000/AX3005 TSADC
+      dt-bindings: hwmon: add Axiado AX3000 and AX3005 PWM fan controller
+      hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver
+
+Petr Pavlu (1):
+      hwmon: Replace __MODULE_STRING() with __stringify()
+
+Qian Xiao (1):
+      hwmon: (asus_wmi_sensors) Reword BIOS upgrade advice
+
+Quchaosheng (1):
+      hwmon: documentation: vexpress: point the DT binding reference at the schema
+
+Ricardo Neri (3):
+      hwmon: (coretemp) Refresh the temperature on the first read
+      hwmon: (coretemp) Return -ENODATA for invalid temperature readings
+      hwmon: (coretemp) Read TjMax only when refreshing the temperature
+
+Ridham Khurana (2):
+      hwmon: (lm95245) Fix negative temperature conversion
+      hwmon: (lm70) Fix rounding of negative temperatures
+
+Sanan Hasanov (1):
+      hwmon: (corsair-cpro) Make wait_input_report_lock IRQ safe
+
+Sanman Pradhan (5):
+      dt-bindings: trivial-devices: Add TI TPS53622 and TPS53659
+      hwmon: (pmbus/tps53679) Add support for TPS53622 and TPS53659
+      dt-bindings: trivial-devices: Add TI TPS536C7
+      hwmon: (pmbus/tps53679) Add support for TPS536C7
+      hwmon: (pmbus/tps53679) Select page 0 for single-page TPS536C7
+
+Sebastián Peyrott (1):
+      hwmon: Add Minisforum UM780 XTX EC monitoring and fan control
+
+Sergio Melas (2):
+      hwmon: (yogafan) Add support for new Lenovo models
+      Documentation: hwmon: (yogafan) Update model reference table and contributors
+
+Stoyan Bogdanov (3):
+      hwmon: (pmbus/tps25990) Rework driver for multi-device support
+      dt-bindings: hwmon: pmbus/tps25990: Add TPS1689
+      hwmon: (pmbus/tps25990) Add TPS1689 support
+
+Tom Verdonck (3):
+      hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
+      hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
+      hwmon: (sht4x) Fix jiffies wraparound in heater-ready check
+
+Tomasz Bojanowski (1):
+      hwmon: (nct6683) Add MSI B850M to list of tested boards
+
+Troy Mitchell (4):
+      dt-bindings: vendor-prefixes: Add Sensylink
+      dt-bindings: hwmon: Move LM63 family to a dedicated binding
+      dt-bindings: hwmon: Add Sensylink CTF2301
+      hwmon: (lm63) Add Sensylink CTF2301 support
+
+Tze Yee Ng (1):
+      hwmon: (socfpga) add Agilex 5 channel mapping
+
+Vincent Jardin (1):
+      dt-bindings: hwmon: ti,tmp401: add #thermal-sensor-cells
+
+Ximing Zhang (1):
+      hwmon: (coretemp) Fix handling of isolated SMT siblings
+
+Zac Lanzon (1):
+      hwmon: (asus_rog_ryujin) Add ROG Ryujin III 360
+
+benoit.masson (3):
+      hwmon: (it87) describe per-chip PWM temperature maps
+      hwmon: (it87) prepare for extended PWM temp maps
+      hwmon: (it87) add IT8613E support
+
+rahlquist (1):
+      hwmon: (yogafan) Add Lenovo Yoga Pro 9 16IMH9
+
+ Documentation/ABI/testing/sysfs-class-hwmon        |   36 +
+ .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      |   72 ++
+ .../bindings/hwmon/axiado,ax3000-tsadc.yaml        |   45 +
+ .../devicetree/bindings/hwmon/national,lm63.yaml   |   55 ++
+ .../devicetree/bindings/hwmon/national,lm90.yaml   |   28 +-
+ .../bindings/hwmon/pmbus/adi,max20826.yaml         |  102 ++
+ .../bindings/hwmon/pmbus/infineon,tda38740.yaml    |   55 ++
+ .../bindings/hwmon/pmbus/isil,isl68137.yaml        |    2 +
+ .../bindings/hwmon/pmbus/ti,tps25990.yaml          |    8 +-
+ .../devicetree/bindings/hwmon/ti,tmp102.yaml       |   16 +-
+ .../devicetree/bindings/hwmon/ti,tmp401.yaml       |    3 +
+ .../devicetree/bindings/trivial-devices.yaml       |   17 +-
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ Documentation/hwmon/arctic_fan_controller.rst      |   26 +-
+ Documentation/hwmon/asus_ec_sensors.rst            |    2 +
+ Documentation/hwmon/asus_rog_ryujin.rst            |    1 +
+ Documentation/hwmon/asus_wmi_sensors.rst           |    5 +-
+ Documentation/hwmon/axiado-pwm-fan.rst             |   38 +
+ Documentation/hwmon/axiado-tsadc.rst               |   41 +
+ Documentation/hwmon/coretemp.rst                   |   15 +-
+ Documentation/hwmon/honor-fmi.rst                  |   32 +
+ Documentation/hwmon/index.rst                      |    6 +
+ Documentation/hwmon/it87.rst                       |    8 +
+ Documentation/hwmon/k10temp.rst                    |    8 +-
+ Documentation/hwmon/lm63.rst                       |   22 +
+ Documentation/hwmon/max20826.rst                   |  139 +++
+ Documentation/hwmon/max34440.rst                   |   28 +-
+ Documentation/hwmon/minisforum-um780xtx.rst        |   68 ++
+ Documentation/hwmon/nct6683.rst                    |    4 +
+ Documentation/hwmon/nct6775.rst                    |   32 +
+ Documentation/hwmon/sht4x.rst                      |   17 +-
+ Documentation/hwmon/socfpga-hwmon.rst              |   52 +
+ Documentation/hwmon/sysfs-interface.rst            |   14 +-
+ Documentation/hwmon/tda38740.rst                   |   65 ++
+ Documentation/hwmon/tps25990.rst                   |   15 +-
+ Documentation/hwmon/tps53679.rst                   |   39 +-
+ Documentation/hwmon/vexpress.rst                   |    2 +-
+ Documentation/hwmon/yogafan.rst                    |   46 +-
+ MAINTAINERS                                        |   45 +-
+ drivers/hwmon/Kconfig                              |   57 +-
+ drivers/hwmon/Makefile                             |    4 +
+ drivers/hwmon/abituguru.c                          |    4 +-
+ drivers/hwmon/acpi_power_meter.c                   |   14 +-
+ drivers/hwmon/adm1177.c                            |    2 +-
+ drivers/hwmon/adt7x10.c                            |    2 +-
+ drivers/hwmon/arctic_fan_controller.c              |   22 +-
+ drivers/hwmon/asus-ec-sensors.c                    |    4 +
+ drivers/hwmon/asus_atk0110.c                       |    4 +-
+ drivers/hwmon/asus_rog_ryujin.c                    |    3 +
+ drivers/hwmon/asus_wmi_sensors.c                   |    2 +-
+ drivers/hwmon/axiado-pwm-fan.c                     |  416 ++++++++
+ drivers/hwmon/axiado-tsadc.c                       |  275 ++++++
+ drivers/hwmon/coretemp.c                           |   54 +-
+ drivers/hwmon/corsair-cpro.c                       |    9 +-
+ drivers/hwmon/dell-smm-hwmon.c                     |   32 +
+ drivers/hwmon/emc2103.c                            |    2 +-
+ drivers/hwmon/fschmd.c                             |    3 +-
+ drivers/hwmon/ftsteutates.c                        |   28 +-
+ drivers/hwmon/gigabyte_waterforce.c                |    5 +
+ drivers/hwmon/hih6130.c                            |    4 +-
+ drivers/hwmon/honor-fmi.c                          |  178 ++++
+ drivers/hwmon/hp-wmi-sensors.c                     |    2 +-
+ drivers/hwmon/hwmon.c                              |    6 +
+ drivers/hwmon/it87.c                               |  308 +++++-
+ drivers/hwmon/k10temp.c                            |    7 +-
+ drivers/hwmon/lm63.c                               |  426 ++++++--
+ drivers/hwmon/lm70.c                               |    8 +-
+ drivers/hwmon/lm85.c                               |    2 +-
+ drivers/hwmon/lm90.c                               |    5 +
+ drivers/hwmon/lm95245.c                            |    6 +-
+ drivers/hwmon/mcp9982.c                            |    7 +-
+ drivers/hwmon/minisforum-um780xtx.c                |  503 ++++++++++
+ drivers/hwmon/nct6775-core.c                       |  116 +++
+ drivers/hwmon/nct6775-platform.c                   |   33 +-
+ drivers/hwmon/nct6775.h                            |    4 +-
+ drivers/hwmon/nct7904.c                            |   19 +-
+ drivers/hwmon/npcm750-pwm-fan.c                    |   11 +
+ drivers/hwmon/pmbus/Kconfig                        |   41 +-
+ drivers/hwmon/pmbus/Makefile                       |    2 +
+ drivers/hwmon/pmbus/ibm-cffps.c                    |    4 +-
+ drivers/hwmon/pmbus/isl68137.c                     |    4 +
+ drivers/hwmon/pmbus/ltc4286.c                      |   96 +-
+ drivers/hwmon/pmbus/max20826.c                     | 1044 ++++++++++++++++++++
+ drivers/hwmon/pmbus/max34440.c                     |    2 +
+ drivers/hwmon/pmbus/mp2888.c                       |    4 +-
+ drivers/hwmon/pmbus/pmbus.h                        |    7 +
+ drivers/hwmon/pmbus/pmbus_core.c                   |   29 +-
+ drivers/hwmon/pmbus/tda38740.c                     |   64 ++
+ drivers/hwmon/pmbus/tps25990.c                     |  249 +++--
+ drivers/hwmon/pmbus/tps53679.c                     |  146 ++-
+ drivers/hwmon/pmbus/xdpe1a2g7b.c                   |   10 +-
+ drivers/hwmon/pt5161l.c                            |    4 +-
+ drivers/hwmon/pwm-fan.c                            |    2 +-
+ drivers/hwmon/sch56xx-common.c                     |    3 +-
+ drivers/hwmon/scmi-hwmon.c                         |    3 +-
+ drivers/hwmon/sht3x.c                              |    5 +-
+ drivers/hwmon/sht4x.c                              |   80 +-
+ drivers/hwmon/socfpga-hwmon.c                      |   22 +
+ drivers/hwmon/spd5118.c                            |   67 +-
+ drivers/hwmon/tmp102.c                             |    8 +-
+ drivers/hwmon/tmp108.c                             |    8 +-
+ drivers/hwmon/w83793.c                             |    5 +-
+ drivers/hwmon/xgene-hwmon.c                        |    6 +-
+ drivers/hwmon/yogafan.c                            |   48 +
+ include/linux/hwmon.h                              |   12 +
+ 105 files changed, 5315 insertions(+), 458 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
+ create mode 100644 Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
+ create mode 100644 Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/adi,max20826.yaml
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+ create mode 100644 Documentation/hwmon/axiado-pwm-fan.rst
+ create mode 100644 Documentation/hwmon/axiado-tsadc.rst
+ create mode 100644 Documentation/hwmon/honor-fmi.rst
+ create mode 100644 Documentation/hwmon/max20826.rst
+ create mode 100644 Documentation/hwmon/minisforum-um780xtx.rst
+ create mode 100644 Documentation/hwmon/tda38740.rst
+ create mode 100644 drivers/hwmon/axiado-pwm-fan.c
+ create mode 100644 drivers/hwmon/axiado-tsadc.c
+ create mode 100644 drivers/hwmon/honor-fmi.c
+ create mode 100644 drivers/hwmon/minisforum-um780xtx.c
+ create mode 100644 drivers/hwmon/pmbus/max20826.c
+ create mode 100644 drivers/hwmon/pmbus/tda38740.c
