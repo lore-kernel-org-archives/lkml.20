@@ -1,63 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792931073;
-	b=c2AOwAXXubW9y4sJVwfTosTT7mSFLWGwQx6zO+Z0KM3Y9w+1f15IJ5ORGxrQVYUqaeRI
-	 0NncP0QwAW0gFXnPiOymyZHi1vT2EXBJHIz5+boZGjH5qL6gdzZkJXVIb/anbR7nxbT2G
-	 z3xBnLCRXFh2bH+RMxhV4QVXUquDmffseiIt4sTeqjOtD7B4OVQpnqOnUgy3RBHBATlc1
-	 pfXPWw9lNCP/v6+zXLnNfG0PMu2uaGPlyG+DThjmv+ICcq0aB+f5ufxee1wkn0wMYnXcc
-	 5/hRzT8OaqVPDNPeFL2nRUQj1Qw03yiulii3WfWgFD2JqTai4W4RwOmQee6OxqGSr1w==
+	t=1792931180;
+	b=NTO9EXjs6pjB1NfeCF+ywHDAwZRt/ceiQ/jv2RCgXuYSA2wEIfiKUdj3mjJtQTWsmUcf
+	 QfNfyajv9S91FI2mXeEO1Me7/1ZvpCYY9uKHgsraU/MTzjWZAZiGzq5m/1jiXw4tbSNMP
+	 sMnkxoAqEnVZZonP8yzZcX3H3yxDQKuZby0Ix2IMyngo5YHWkQWahyAd2nTO5/Fs1r8xQ
+	 lwacCWScSDSWLkVrJZ2X2dsRs65wOWANEcIRJdWxoTx5jrs5BAaQb4ccSJFcIWQfoFSxS
+	 fJ9u4X9k9LjX13dfurgwHS8rPmQNHZSxUWtrbE+Ou002FAYHq3/wwYRpJzlhCVxXM5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792931073;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=G9PnTYGt5cIFS5/QBfn2BHe94Zz+eSo3HCSqmXZsUis=;
-	b=kHz+T7/VcDDRJJOtOiVlzVFXDCw008KNWF1H8a5C5xyzkQnrGz16bG8x8S04CSIa/mg4
-	 ZxoFqUInfXm1eewwtAVp1T5rY+2KqvLgbg+dedn8fudrFfzoWmZPTWeRWWQO/RH30eX7h
-	 aC1UX+YhxYEVFavpcYNPKSj+Z0MB7ovVAp0IJAk0G+exiSRFEX/UliS9AEOtDKxnyXIz+
-	 oSgtmtwifcERQfRg/fDBBaxsXMKT/zCNvvKCmcTQu8KEjTN2RR5BLngZD6IBpy5W4sXxu
-	 Ho4HwOCras/WxlvmDc02c/qjQ12FG62ZbEwv/38fIC6eZtme+JR1opGeygxYfXxzGPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792931180;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jufQttOKS5p8h7UvGh24c7CdZP0e0JDC2zgLNdpUMHw=;
+	b=qRbsjZ6pRjW3CvQAVw9h8Q/ZZsh6LX5ujBUezWFIqB09kojgUYwOzjHynT32WwDj1W3F
+	 uB6GA706vJz31vwhroXHIFVG4WAOqMNEM/0G4ywViA1MBQNYgvlT0iULELceYfaHCeuH7
+	 7yaHLKn+me51Ka41zcODCaKcUB9eyPB36LwikUPIsz9gg9vFSy4ni2sahHYHstrApy2Ek
+	 cxAs+ujlKotL0TZvnQ8qliaj6TO5lQRQHcUQeGMWKSJnuUBrZd0NkPmNva1rEfxuMJZsY
+	 3dxy2XjhkEjCHmKR2n/8O2ryx7XIQuhVOms92ZwA2eKBe9tBPStJbZIcqntwmHPXnJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mennemann.net;
-	spf=pass smtp.mailfrom=mennemann.net;
-	dkim=pass header.d=mennemann.net header.i=@mennemann.net header.a=rsa-sha256 header.s=sig1 header.b=HDGTjyKM;
-	arc=none smtp.remote-ip=57.103.78.7
-Received: from outbound.st.icloud.com (st-2002a-snip4-4.eps.apple.com [57.103.78.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNWGSQgh;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752FE606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:24:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 752FE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mennemann.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mennemann.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA00606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA00606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mennemann.net header.i=@mennemann.net header.a=rsa-sha256 header.s=sig1 header.b=HDGTjyKM
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPS id 51F71180018E;
-	Sun, 25 Oct 2026 12:24:30 +0000 (UTC)
-X-ICL-RepId: 01a17305-0112-7a53-a2e1-109895e024c6
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhPC0MFWwNeC0gLQwVaAFBcHA4AVhlRGVc4XghZBVcdWBZdQ1kORlBfHA4AUgVcFVQZXQMZBVcEGQpQUAFLWhVVFw4CQh9QH0wWV0NEHxwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoGVx5XHV4MWQUcHlwMEwBeDw9MC0gBWwZbAEUISgFZBlocQQ1NBl0aWh8dWApQBFkrXxVXFlYAVgVcXlcdR1MXH0sAXEVQGEQfXR1mHFwAVgJc
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mennemann.net; s=sig1; t=1792931071; x=1824467071; bh=G9PnTYGt5cIFS5/QBfn2BHe94Zz+eSo3HCSqmXZsUis=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=HDGTjyKMDEy5iIW+OJC5Je3zYydBPqJUEXSwHA4dKgv3nor0eyQv9YhThIAxtkR7X3xUBCbCvaLFs2E6uEiTz8fqG2EO1PZB1f1UJRnnHyz7/WQofgjXRL81DhPuvjRznuaZWO8SZSBN4om/Kqn68sfNGwMpBn8KlkGh9hsqDt52rB29hO6Zsv+wV0KtIZj/VojO9fYTVAcTDArp9xWcSd7sHHQkwcoRybbbYzxsJcvIr7CNSsubGqEt1dUxQmqvktig8WcPl7Ydc8B3AsnNn9QSCIXADdTYQu+8wKAxyzuYFvnyffAnpCz/ne6Ekty2MFtCnCl6/LSgcVcg4QPaYw==
-mail-alias-created-date: 1719251376433
-Received: from archlinux.localdomain (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPSA id B304B1800198;
-	Sun, 25 Oct 2026 12:24:28 +0000 (UTC)
-From: Marcin Mennemann <marcin@mennemann.net>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNWGSQgh
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b060ec084so1281111f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:26:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792931179; x=1793535979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jufQttOKS5p8h7UvGh24c7CdZP0e0JDC2zgLNdpUMHw=;
+        b=qNWGSQghk8gVbQ5OHWfF9WMkT8FoueMiyZBC4NsoAEyvmMg+L7r6wyISzm4lHBaHhm
+         TfARi9A+ZKYlnnvGGR17s6dF2o54E8g6MZ/vAlwbyTQkYrvV6z4nsMdY702HB4dm06cY
+         AYOj1XY2ytSOMU3rg6C5jlv3IA0gcwa68k12Kb6HPkMYqXookA4WMhW4vsSCL/lAXqOL
+         0n4LtjdXHZylNRBoUZ5CkstXEeAxoNq68H880EUNIfkjgME0lkGdNkRxvtkcuVPhmfQN
+         PmyWVB3Xo/kG18PSV1YDaQsy0TqS69VfOxLFocetC9ND5DekshRwkirZkprGLJTlLjYl
+         auow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792931179; x=1793535979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jufQttOKS5p8h7UvGh24c7CdZP0e0JDC2zgLNdpUMHw=;
+        b=ldXfSoFq/6Cn0xTIJdarawbfhWYmru5B6JYFzAaoGLHxcpvuTc/a+pu6xcj/36wz6Y
+         WQHtExD6nAV6h7SHwjzI+2ydn9Drx9djLc22vBN+yW50tB+THEdAI4za1+B4Zdgi5UIu
+         ih9TOfn9KQIG35fegMdmY/yGqwvTN7rKJGoWt23dBLUCh6wjaqA41vwoSqaClQWDOMNy
+         y+PQ9qAksAS3UpJNIqx5QWABUK0QucE7asBJ8EQsJvEyz8v1+THA52twONpIru/7ME1E
+         ork8/7CxJHqHv+Vg/Hn3HiphOj9A4ovOh8qXKwGTJNhPb2cQV9zIFnzyMBsFI0yMfc1O
+         jbog==
+X-Forwarded-Encrypted: i=1; AKwUvBxwuswySYXdkkieAIHRJPJ6q9ko3iSbGuVGj7ITl2fssBcqezMA1HCW0j3qwfZcP08Lb3EYeD1vh265RaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqrwULM8gZeplYschL+5KZ6FWwCCwZbgFyw5hBTK3+YiHE4K/f
+	0uytjO8lX9mZO0dAlBa/rKHg8OAG8zWnKzDVAY830I28lyxIc4gHqc2dVA6y6AZH
+X-Gm-Gg: AYBFou1ZaNTgJbT3exDQlIQ7iaTcBczQt1TlIW6twrprSlyPgS86OpJSoAX0jwFs4iP
+	sZC4tf9b1aZpPn/POYL2NJEr76U9ghdNO/pEM9np6sFrHoKZKEGVTxMHjLzDmCOV5zyr6h0vegt
+	sxoK+iwL54DZr1qO1Xcc/FlUjeGxbQ0tlC8MsCnOzu+nyGTXBwu06p9KBnF7XpuEH/heTXG5RVC
+	Kn26A0clEY9HgupLHHASGRSnIRimqHAFSHizuDF5EFZM0Eb9H0aCecK6sPXLddpXPxE10BjYL1I
+	5APRgKPIaZoMMkMs0gPxKiYwJ3/QGIdfegzHJ62hF1tvwjdSg5tHCqOZOmzsrDr42W1gemOivBf
+	r7rVxdsb8rorOlHS+e+LJ74FMRnUhTq8FdxIGS3s5UXZ4NNRuxRbONC77ZJylkH+1OAn3YO8qvY
+	QXtrINV2MQLKb2yY9cZn+Lat90IGMZdqsS3YDPLp9umf44xqwAvRvsL18aH3zG4M+f/ihjBvzGD
+	ie7IGfUPlWMo/0ffN+kLGKJVa/3u1Ogitbwgci8yGT/AKCJ1ZWKN2k5rQdq8GTTohOzmvXODSTj
+	YyuKZ771dtq/qFxuKw==
+X-Received: by 2002:a05:6000:1843:b0:48d:f36e:fbcb with SMTP id ffacd0b85a97d-48e3eb8b2a1mr7255770f8f.14.1792931178772;
+        Sun, 25 Oct 2026 05:26:18 -0700 (PDT)
+Received: from Ubuntu-vm ([115.186.50.139])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm9403851f8f.43.2026.10.25.05.26.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 05:26:17 -0700 (PDT)
+From: Haasham Khan <haasham93@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Senjin <senjin@hatchling.org>,
-	marcin@mennemann.net
-Subject: Re: [PATCH] fs/ntfs3: fix SEEK_DATA/SEEK_HOLE for WOF compressed and dedup files
-Date: Sun, 25 Oct 2026 13:24:11 +0100
-Message-ID: <20261025122411.14550-1-marcin@mennemann.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261005223318.19303-1-marcin@mennemann.net>
-References: <20261005223318.19303-1-marcin@mennemann.net>
+	outreachy@lists.linux.dev,
+	Haasham Khan <haasham93@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: remove unnecessary goto
+Date: Sun, 25 Oct 2026 12:25:04 +0000
+Message-ID: <20261025122504.8404-1-haasham93@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,37 +97,34 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=X6Vf6WTe c=1 sm=1 tr=0 ts=6addf4ff
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=Y3k0dO8rAAAA:8 a=T0gKZLgf3h4bJD4k0QUA:9
- a=Vsd_HAn_fMcgZoXZC4y2:22
-X-Proofpoint-GUID: 61A4-thsRtX51QEt2OGM8FtXUQnc_H08
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDA0OSBTYWx0ZWRfX0lA/WOaDJdXi
- FxCWqEJjpq3f462E0dVTKrEdjJIRCy72MnaVGBS1wAg7z+NN/8k5RCC4jRO4YfmKmkK8dowogec
- NJNuqC4xTnd7+LIeJb/ReifTDBKDB+el39XaGJTThR3o30G1VjULyyEwuW/ivRy5HmVdO5/HarA
- e/O0OJiBHOb5pb3tXeSchPzzUKrAZAdvN6L/VbhLyTDQ4kaqE1JxHe5Acph6TYEODWuZxLCEQ0X
- NuzSoiF/L/6rMkMke52LwN7g/lylUlL7906OckkmoL78/GMqwEzrvq82n38q8HmHt/l85zYF0c0
- 3HEGR5CreYsQ1GS2u+KQ5SEwiNSRcssWeJIK7YuYIlrp/RDTw3Epb1DhmlCz34=
-X-Proofpoint-ORIG-GUID: 61A4-thsRtX51QEt2OGM8FtXUQnc_H08
-X-JNJ: AAAAAAABe0xD99npd/L/diIe32U0SdcD3JlWU9DjQLCvAAgm7cO9IM9jj8bDHU9ZSzMmGnpt8fw+aY2Lub6junFjdHbEHPIKJaR8XmdxUeCnVUznVKY6ieUnhhhaOg5vJNT4jmulARbJWQBtRi70VYM6rpoBZwftHJf6B3VzZvMeUyrJDRqoyUx8dY8G9dSQKUf5FqpcXIqbf9uMg5Eqyk7P9zpSPpp6pt+x8VhVaGoRQM8PozcrMrQl2Ryci+kJrg08MYXOgfeDfU8h9WScQMOJEaa8WL3uuvl0DMhVNIQp6IVhhwGgQl0rYCw3B6bjQ7bXv8rXEaIYd/KFQs7Oo9MlL6QPiO/17ev1QxgpAyzMxo7x80qjcw/7Dkbl+3kIZuA5INTxpH7RLTLn3WvgPJCnBMGz75wp0KT8kVgbsIa8hMy5gxPz3JuaCYgQTzc+zK4xUDCLwkoxxcIbA1muGi2sYf+3K9aBgORnnH0j7kYQbbq9R85mWfVAFkBcb1nPGU/SL2teMqg9d3fqmWkVz9uLI60HQR/AigRXjPpO0xKJST7zIQXxQ6ei+azq7xVxtrT8U82ySfcsU9nRH/gJTFpiDvU0V2ypmXEVokO81R/3ssdH4WS9wmX1c+l4EXcinavhFOm3Mg7Sg/Q/DEhV7Ao/E3ET/GeakqwBHz1WgaBOnthj87ky7B4UAp5uKH23wTdWYe/EeV0fotnHUjjNPhzEe9f4msA1ZuzFaGOpVmUD7FEz23bqvRnnJBYNjmFfJGIe0qNzl5GtDJaR2gACoQ4eP+cp1m0oDLX0MqAB0WfRoenkdTgphQst8T3uUpXcIgmlQ1lZ4dTX2S9yj9IL8j2TCsQc9dgVLO6yf8qPkSwudNJ/dHVLIFfTxIfTfRDquBTff7S4NGur0ghMDUmklD+n1TPfhcAlx1rvkUR0iqSWoCpELyZTvAYBVADU0yj7Ss7dMZ+ZNIQoO8AXClek3BUx0apcGD4
- QNztOYNM4tU2FrK5il2Lh/IFFDBHHqioLq7OlUKHYsmcsSn+uO+NbBnvQZ7jLNMDgvco8OD4Ob6bzH8kQzCSfPxBo1BSizWhDhC3YnMjZAOlvc98kf28OuI3GWU5AJ/LHYG8BBvSufcqHkvgORaI1Mdb1G7d7n8xN4gbz2TG9/LT5QrMXJ7QXMK4xf2Ucj9+BE4PocJK4MDt/A8D2prrPCSlTtbRmbX78O9GsmZOEXI5VM6vQat0oIEy5xemadixHoEsddlYW+sf02jVN4FLFwegKyTj3rOwQa3iE7JUIUatiahoY8YfOXrYnixAaFFl6B100JWJSnxsq9S0rq4b2P7wBaLXm
 
-Hi Konstantin,
+The goto exit statement jumps to the next statement, so it has no
+effect. Remove it and the now-unnecessary label, and simplify the
+conditional block.
 
-gentle ping on this one. This is a regression since v7.0: before
-c61326967728, cp copied WOF compressed files correctly; since then it
-silently produces zero-filled copies.
+Signed-off-by: Haasham Khan <haasham93@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-Senjin has since posted a fix for the same problem [1]; either works
-for me, I just want to make sure the bug gets fixed. Mine also covers
-deduplicated files.
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+index 6f4bdad00f60..c2d0cd314b81 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -2005,12 +2005,9 @@ static int recv_func_prehandle(struct adapter *padapter, union recv_frame *rfram
+ 
+ 	/* check the frame crtl field and decache */
+ 	ret = validate_recv_frame(padapter, rframe);
+-	if (ret != _SUCCESS) {
++	if (ret != _SUCCESS)
+ 		rtw_free_recvframe(rframe, pfree_recv_queue);/* free this recv_frame */
+-		goto exit;
+-	}
+ 
+-exit:
+ 	return ret;
+ }
+ 
+-- 
+2.53.0
 
-#regzbot introduced: c61326967728
-#regzbot title: ntfs3: SEEK_DATA reports WOF compressed files as holes, cp creates zero-filled copies
-#regzbot monitor: https://lore.kernel.org/ntfs3/6adc95fc26efdd1658b01fc5@mailersend.net/
-
-[1] https://lore.kernel.org/ntfs3/6adc95fc26efdd1658b01fc5@mailersend.net/
-
-Thanks,
-Marcin
