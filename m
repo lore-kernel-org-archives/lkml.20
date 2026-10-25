@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792918326;
-	b=R57gu/G0O4PjkL8qDlnROp14Gc85HXRTHHrzDnvDVrz0UfEZ24SkkWxD+ki7SJqL7AWo
-	 yYn7rpnfYb+8mzaobBi1Gcb39PMre1AtmCGr3oP11KAozYdVfAJoQScGdnX1BAl3txXXw
-	 xYNJRXlv78jW9aljh4Mrvjog26Y9EOtA01Xc7VT12xBUXYFlzUIZS44ipSZQFj/HY16U8
-	 Szk/I39G1IAReiE0mab5oK18I3+yfw084ISlnHCmb7IN8eenBSLuWuF9zKPmlPuj2lFuR
-	 ckkVlqbmeyeqf5M9S91RfOgEDxy83PTf/+hsR3Q0WfqcyXfrMkLyPAozBh7Fkj4IHtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792918326;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792918700;
+	b=0e7gUufjMMKtfA6PtkrvdY916gYYBnj3+cAntmfcym3m79RJJGapMI6s29HSHq0e+7fX
+	 hLxP+xTSBq81Q6WnhSuT//8WZUmz/DKDrlGVDOjE/hE3uY2UFru3Ey1616y5fto77uuua
+	 rgJoir0mrsC0OJ+n0NeF6qpP2634teS1tK0dLjqrsAMxoNhMu0EaFcqwGkRa7BUy0KOlW
+	 9PwATPMw2ZWTTCb8WSAoRF2buHdsPIPj24y7bwxdMdU9GEmTlVMAzpSBjRRzt+h1phK/5
+	 ZuYQQPGrbHAgL/qH5+1rohhDXcUvj/t3idk/cfnCTQ8UTnKmUvgftiMkmBGwidKKspg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792918700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
-	b=B9tQDDULOntO/HL++2ikcJ5MWnKHoqNLE4kCnzVa3ram6moHP7hsfHyfnywMLPkRH2qH
-	 PUATl89K+PcHwZVA4dWF5KHpBOf/kSH37QFHv5Nx7qZ3/OdTkhayCDFDLGrbyEMJkLK3w
-	 Kta9+GdT+AQSH43y/Fs042TH8h0wrxbV3pEjES7BL6JUm2Py3sPpThsxH7DpZ0N5ymQhX
-	 EX/hag7ykWcqNNdcbQ97m5aMcCirfiMq8hBEcjCQ9pMuhOc8nNRybLsY2p3hAznBpiaaT
-	 7ft9+963mRQwYYf3FSRPIhIgdDczJZTFgmhK07J0XwUB3rS2nMj/7UAOc2V369N0azA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="fHuKXae/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/BvMQkzk3cbMAzfEoRy8m31ymEv5Jtrkq2HGUm904Yk=;
+	b=H6vSH1CnNNIICvW4qhtEWtgCJ3tlq/FmHsCkv3PvzK2FceaI+N6B6rE9RRFCu4/Dk56d
+	 Dv7FINjWFRdwRl3yC8CV9lkDkXAvtCwY0OgWeJ0ScnNw2jPOLrMElPoMr2idtojCbCwOP
+	 +j47PYyeT7BnYvJOX7xAhcNYXxXXJdsIhhXSHADSRw81BGn1HHugRTFNsTxSC/OOYBg8t
+	 MtjuHm7l/81Ywg/yVVPif1h3EqXka51v7Kdaxt8XT8pePG/6CcSzSwgqALVe1H8w5SK9K
+	 Q6kRhjnLHzpqfng2B2yomBiSxLONF52rTSw2Vw801ztWF8onkPbwg0olghWALQrSOqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="dLVy/XcJ";
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EF8606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38EF8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC01606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EC01606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fHuKXae/
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35f036b17easo5274789eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:52:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792918325; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SNNUa1f7TeCXsndYCH7jjyE27bliW2cWmuaTJSg5SfRIV8m3GQ2HiXqayBUT63THp9
-         tMlfBu8oCCkovAlZ1LJooYQj5EpG6NGNlUYHS5RC/KkZAUroKajj3bhS7hEslYCecJxD
-         0AJTLGN+dSZyuJUXyXkG+mu9be0jzXvyIVf1b/qN3qmy1dcMG2OowEDQ7R0l1A57panT
-         vKNO3Lc6+5N++RTIVB4QnKbe8I1JknDQQXvyxnhjNEvPGTQtwAERMcFYfQ+4kdQP5kKW
-         lDGBDI7BXknuBIApPV0HoBzEAPico50Pj4kAS0MzTb6U+3HGPCD6qRRGpb9TSAUkIuc3
-         r/KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
-        fh=g9Byrh5pAdri/lsJn3Qxob5QWa7/X9mwFngTEIkIWAE=;
-        b=Nr1e7q7bPCNhTi4MbiwZfefKOApqWdniXI59X6RRsuS6K6DXDC1+Wj0oT7Cc+h+UTb
-         vu43Gf/8ASXPPfPARbgx/Pl3dJ6a3ojIwxLA9Nk0LJUytr5N8gWAY/I34tIAJiXZtVfc
-         raDYJ2XJPJemwiMoBGAsyYp8Pmraf2UdAnNtfycVoEIdMzzbNEqimSqXApEMYoRs6ESa
-         bARRPoZymMiPoixJZb0spleeIgCbOmoCPlrUUJ40n71Sw+0/eMnlnA+TeP36g5hAch+u
-         GxX0kf6gd3xJoT6Ul0NM0zo3iZutvBaEYERQzk9wOgPMmfpnWYsG5VYN6HlCpE4SsbaD
-         K2cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=dLVy/XcJ
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1605075f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:58:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792918325; x=1793523125; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
-        b=fHuKXae/GVi8tRawUFa4lbNSNPGpcGy3etaTNS3Eq865jP6HTXqyTAU7pQ9lO5hztV
-         L5T/ZeoFN1auALf2FXwqBPd7bBS2wagtMIyz37ToFRQMa/WXNVD2BEtbTGUextAR6OC6
-         m8uMdrEus0LGhKtjw18ZAw7Xky2dQ1k8endaHdCWWVCVIQF+aZ43iOE+gZdVkiSA+7S9
-         3rYxkMEDMFtqfVnmDFJ2mIM4OYrdYpqdVvaZ34/8vJ82aQJ7/B8SKZdFeN9aS9WzZRwj
-         A/dKaDDRhdAcXB5yS5wm4iH2pYAGPR/KvcqTD1AaDgNBeRnCRbeFzhw1rqQLW1Veeq0v
-         5J4g==
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792918698; x=1793523498; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/BvMQkzk3cbMAzfEoRy8m31ymEv5Jtrkq2HGUm904Yk=;
+        b=dLVy/XcJWb0thYquOmIcYdfzl0P1c2YSLpBRkjuSdyRJ+UUKKFPZPFsfNvJxNRvqCR
+         AkSMLKuPjy58EjPt16lzhKSpXMwtLC+q7OKkH1OflLVqZz8hwzBln8NnOpuRlCyF8ezu
+         sU487CxMyU6k/qahPzygle3JA9vcUmCNXZJ/6VdEm2P+99g1EpsncYOq8pA1ZYGXMfdo
+         n5RmHN0LVnp1Xca/VlP7Jr8a+HWVMN+m8j0n6Ts3W/W4lrIlq0//d0dbtCzLkMctAz+9
+         y8KR9BiNFoODPZ827pzXptfhmYnDV3TzjpGnE7TrsWC6nu003Ka3vLNnKkqv1kMpB1Fi
+         u3xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792918325; x=1793523125;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
-        b=CiVuF7eJ4JUaQ1DI3n1DP/5yjWXBoA3ilLtubdg6pfhU5KPQ9iGVdfN2FOAVZ7YXaa
-         42wt2LBH08o3gM0xXyBh0AGLSYdOpDkVuPiPJ99CYk1C2VXFNesYLuNlQ6Al2+RPkwO7
-         j8Eeze3VbOmWSDC9wxHHnjL/Jeuxi46B+mS5lOm74ZkuoF6db9Gj+MMDkXfzxQeZ32K7
-         3rvZDtQWt8KuGZuQbk1SeZLedL/XM7NsSa9vHfc9ZZMah0rDb02Mw1jzSmLJt6lavGpZ
-         p6aDd9y9JVyBSdGOoHeU0DWyqsDgC2jv8noG/KL/s+07oD242X33NNTMiTFKPYls+LcJ
-         uzzA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7Kndtwotq+I0/BG45gwSIFc2RQx+tQl9mW/yolmj/xT/7MgIaxtUTiaDQtqquLIH58nhRpQ8rVqblLIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaYjUKMSk+KzeRPzS3dwYEmFARS7rWfGwZ63us/ARg4Nhah3SB
-	2pVW9G7GGIrbl26zQwoFsJxper/LwPHLOA4H3Gb9tMyjxy0Iw8ynh2OqaMVotb7mOxeTnbMtTGg
-	K/jn993admxtf0G/WFJ5bFVst9viFU1I=
-X-Gm-Gg: AYBFou0NVoRcKWGRpZxRcKN/Cyl+uFf7ptxEwTQv9bfK5PZpgkcd+SoJtIFTaQoOwtt
-	2JSUQvpiT7ainh4wgUJXJBHR17mKP1q05kcR2kSBeAQmzuldhub+dLwrp2pk7aB/G1ti9SJDDSV
-	POc3+DJ+EYwIgrbUkb7+C7V/R0jZ/jUsnPJ5OgrLdQaEIsYfQYC0FdIqcBLUpRDrZhoBsPfjbXP
-	QicnLZb/OI1eFXH+C4JuTiUM4lwFc6sfNK0TmtZl+PbuFMIqilRsWBvY6uBZo7dotHEFOUs9d5f
-	7dxCw/v8eyd7HOI4qDM8ibMPeT0pujBC2A52/23JjrjpcjxpTjLWMAox/5fq4tewi7r/X4gZg/S
-	2HicxxgB3OIUBxv/BrPf9Pe9e/2mNFAs8zCkdgsUn0sIW4KPvseQqAbjI9z2y42Sr03jtVw==
-X-Received: by 2002:a05:693c:66c1:20b0:35e:51d6:9f6f with SMTP id
- 5a478bee46e88-369e84f5952mr5827731eec.27.1792918325200; Sun, 25 Oct 2026
- 01:52:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792918698; x=1793523498;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/BvMQkzk3cbMAzfEoRy8m31ymEv5Jtrkq2HGUm904Yk=;
+        b=y5efWWF6++Agcgjm7cxu5f58vZwlcnKnsPyBxDanKQJRtwt5DJpLnjopID7cnoJAxZ
+         Vib9Z/khU6HNKxpCwPQXzxAD8RIBKBbN9RZKohuC4akFiCjDQOCceaCsX0sO5sNQ5Tk0
+         jZZLzwGBPIbe2MG49uvHSo5gc8ECY+adLuzj8BmpgMigRFhMrjFpBf4jQwyBIcmt8eac
+         +7xwkqLti8Fai2ZI18FJ5L5m23cZFEWoM5i4SG9B8dkBsbsCB1WMJT14XyRdTY+kFWs2
+         Ne0dPqaiXgUf+/7ME73MF1BVcWX/veyeh2Q9GRdoTqPKwn3JWUi2kELt3JwbaOcOMuZE
+         G//A==
+X-Forwarded-Encrypted: i=1; AKwUvByfPtWg4yKFXTKsoCijSnl9tXsPzLEB30HjXIR2q9sAImt+xlj83WqVJFA/ChsJdzYdCo1ZZ8LlHDOWkYw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXLH1qia1m66SlsLirAn6CPwNzvXZyz/lJkCrGju+Mifom6uak
+	NXxMkbjljBJ76JsfX69SVg1tUJ+Mndlb+wXMnbvYuX8tQTe+jnb9HsEiblKrNgX7v3E=
+X-Gm-Gg: AYBFou1O514ApFePydEK0jYuC9W8flUWoWFdY/KWa2VeDxBRes+1rwAFuF9nkkqjx6Z
+	WdpL7yr+p3ATouYIe6Gabg8Zo5e+sugQNDySILi2SFgP27S0QcZpanYdZiDjB7cbGHHKZAHTfwE
+	aNqatYsJYmTEVf73KVA83N5J9gzDdVj4463HCEGKns1t2Dp1oU98MYtbqPOq6MpD+kwni0eRGkR
+	s0d5CmqWVoWXI39HWWnzWm6BcPYr4/5JDbnEhGLnj54Xy7cdx2D5lvVMidMW73rIFg8WUzXUGrL
+	kH3hBNVdiGW3oK/G6ZutKxb9Ujx5b/5jJKmqDURTPzIS01vnPhKC7jVNghRmiao6muWzQqld0km
+	SowaIQ2Kh1pEjTdCHM7cIYabQHv+BSdxa8SpGgKdVT9VPT5ydQz4GaN7dj6ss0Q47xUDCif85PI
+	4h1QMwMk7H6701n8kbvX82t1G9LD79p0I3s/If1RVe54N4KDM8r/+HznmwDeul5zzfZeWhJCFvD
+	9ND2Spt/9mQUCuDHGdvef4NL2OtNiBFFM3yZ7moIfl+4bv6e6wBW7il3qtA/p5KTkJR2OyueIuz
+	lsk9IUpcVClxDiTuPGVb963RPa3fN2tUY7l0kuLkJGJYvbh5CZiRe6xLEag/kz4zOiBC0HCvLk7
+	hl3KxoubabImxL9QdnIY=
+X-Received: by 2002:a05:6000:1626:b0:48e:4ad2:32e0 with SMTP id ffacd0b85a97d-48e4ad232f4mr1415110f8f.29.1792918697894;
+        Sun, 25 Oct 2026 01:58:17 -0700 (PDT)
+Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3cfasm9094542f8f.17.2026.10.25.01.58.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 25 Oct 2026 01:58:17 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH 0/5] drm/ingenic: Add the X1600 LCD controller and the HiBy R1 panel
+Date: Sun, 25 Oct 2026 09:58:11 +0100
+Message-ID: <20261025085816.60405-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,90 +109,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022132259.240717-1-clamor95@gmail.com> <CAPVz0n3Vrzb96iR5ZW8zvmruZ4aK0hKGKpJ2T9Ys+bSPCtLWHw@mail.gmail.com>
- <CAPVz0n3gzV+gAu_gzp3oTG9VOu-YiNSiQA0SdCFApKsi0dGjKQ@mail.gmail.com> <0g7damfVTZ2r6s4H0kv6Lg@nvidia.com>
-In-Reply-To: <0g7damfVTZ2r6s4H0kv6Lg@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 25 Oct 2026 10:51:53 +0200
-X-Gm-Features: AclHuK8VdLvGZN3upYS8jizoanUHoPG-jyCBtPV5Pp4C9VbRI_nvkyJWhb9qq0g
-Message-ID: <CAPVz0n1G0cDuUj7WRfj9YRgvMSd0sqSCjnir2p=QxUGu5BWTXQ@mail.gmail.com>
-Subject: Re: [PATCH v4 7/7] drm/tegra: Add support for 8-bit CPU interface
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BD=D0=B4, 25 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:4=
-6 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Friday, October 23, 2026 11:14=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:26 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 10:53 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > ...
-> > > > > +MODULE_ALIAS("platform:tegra-dbi");
-> > > > > +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> > > > > +MODULE_DESCRIPTION("Nvidia Tegra20/30 MIPI-DBI Type B driver");
-> > > > > +MODULE_LICENSE("GPL");
-> > > >
-> > > > No separate platform driver or device. If a separate struct device =
-is
-> > > > needed for some technical purpose, we need to create a minimal sepa=
-rate
-> > > > virtual device, but unless there is a strong reason to have that we
-> > > > should be fine with just the dc device.
-> > > >
-> > > > Thank you
-> > > > Mikko
-> > > >
-> > >
-> > > ATM, I use bridge framework to describe interface and I am attaching
-> > > it to RGB since it basically uses RGB to transfer video data. It work=
-s
-> > > pretty nice so far.
-> > >
-> > > You propose to replicate how RGB works just for DBI?
-> > >
-> >
-> > One of the reasons I used separate pdev was to be able get mipi_dbi
-> > from it using dev_get_drvdata() from patent (dbi bridge in this case).
-> > DBI framework seems to not have a way to pass it in any other way,
-> > unless you know smth I don't.
->
-> Right, I think using a bridge is fine; passing the mipi_dbi interface is
-> properly done in other ways. The direct parent devdata link is a bit of
-> a "poor man's bus", and sometimes it breaks down, such as here.
->
-> MIPI DBI is comparable to MIPI DSI -- both have a hardware channel that
-> sends both pixel data and commands. I think we should follow DSI's
-> example and have a DBI bus and devices while keeping it as simple as
-> possible.
->
-> The DC driver would register a DBI host and the panel would bind as a
-> DBI device. The DC driver can then supply the mipi_dbi object in a field
-> of the mipi_dbi_device.
->
-> This is a bit more complicated than a parent devdata pointer but much
-> cleaner, and follows the existing DSI pattern.
->
+The display controller of the Ingenic X1600 is not the one ingenic-drm
+drives: it fetches frames through descriptors and keeps its interface and
+timings in register blocks of their own. It is the X2000's controller
+without the composer. This series adds a binding and a driver for it,
+then the panel of the HiBy R1, an X1600 audio player: 480x800 parallel
+RGB, set up over a 3-wire SPI bus.
 
-I understand your intentions, but ATM kernel lacks any DBI type B
-framework. No hosts, ho devices, noting granular. Implementing
-everything just not worth my time to support 2 panels of device based
-on Tegra 20. And I am talking not about time to actually implement
-this in the code, but to upstream. DSI framework is huge, copying even
-part of it to wrap legacy DBI interface and ustreaming it does not
-worth hassle. And yes, I am a poor man, I use a parent devdata bus.
+The driver covers what the R1 uses and what could be tested: parallel RGB
+panels on a 24-bit bus and one full-screen RGB565 plane. The composer,
+smart panels and other pixel formats are left out.
 
->
->
+Two things come from the vendor kernel rather than the manual. A flip
+also writes SRD_CHAIN_START, which the manual doesn't describe for a
+running controller; flips without it were not tried. The panel's set-up
+sequence is the vendor's too: HiBy calls the panel LG35583, its maker and
+controller are unknown, hence the hiby prefix.
+
+Tested on a HiBy R1: the fbdev console and a player drawing through
+fbdev, blanking and unblanking, 60 page flips in 0.97 s at about 61 Hz,
+and the colour order (RGB order swaps red and blue on this panel).
+
+The X1600 has no device tree upstream yet; its support is being posted
+one subsystem at a time. The R1's backlight uses the X1600 PWM driver
+posted separately:
+https://lore.kernel.org/r/20261025084643.93167-1-olivier@mgcrea.io
+
+Olivier Louvignes (5):
+  dt-bindings: vendor-prefixes: Add HiBy
+  dt-bindings: display: Add the Ingenic X1600 LCD controller
+  drm/ingenic: Add a driver for the X1600 LCD controller
+  dt-bindings: display: panel: Add the HiBy LG35583
+  drm/panel: Add the HiBy LG35583
+
+ .../bindings/display/ingenic,x1600-lcd.yaml   |  70 ++
+ .../bindings/display/panel/hiby,lg35583.yaml  |  71 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  12 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/ingenic/Kconfig               |  22 +
+ drivers/gpu/drm/ingenic/Makefile              |   1 +
+ drivers/gpu/drm/ingenic/ingenic-x1600-drm.c   | 694 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  10 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-hiby-lg35583.c    | 342 +++++++++
+ 11 files changed, 1226 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
+ create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+ create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
+
+
+base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+-- 
+2.39.5
+
