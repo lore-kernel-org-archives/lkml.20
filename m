@@ -1,67 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972611;
-	b=F1PGN3RqnxiyOckIf1rT2YvIEsV4EcPxh0HsPCMoB62L+f5jdVd+h6dv/KNSFiiJWykU
-	 2HbkOGteW2XXIhxLUNP12w6kHbmMPEVMc+S9eRj+BlBUml2GdEpxmBZ1wptvBzcq9T9vx
-	 vr+gE0uqv2pdCNAhR4yaqkouZU/9xU9jRCaof4yGoQHrhJIXLSO+HX6nxlye8XeG6A+aQ
-	 iiPYleg9WWo7aFETcBIMy7nQg1C9h0nhAh7NccK7Bst5MHJgAQOstCL86+DiFcxdBef20
-	 9/mnSb2Mgh+B1C1vpfEMz9veVxBk52sw/Lj2+/FuXn8WomSLGCOsQQTSoIbr6KkS/EQ==
+	t=1792972648;
+	b=a83Hk+FZI5JH7dSQWGWFnFmuNsicCFu9sYX4CfcdQGwQfjTPblcLYSIg74W+ks96BCVh
+	 ZS7nM7kzs1oiwKRekB6xHZjU7OaGSrWKEHTx4m19ObVBv2Z5twSMTSIYKg7v0cmhRPytN
+	 JJ8OkLOxuxGPLz6H8GxBz44/7/HU555lfWDqNVB3co6QLsNbllI60q98SmbHTtHkyAZNP
+	 qiPo6i89BHtB/a/lIMcwgLb8FEDUilPp7eTlzzBdVzc9T4jQUbySmOlGa3dzrU7TpAl8y
+	 VcFn6ro1LznX+q++LElMJmUFfnU8dt3mBJpuSpVwA2WIGzpp8UAR//7tfrMhQMStVow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972611;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=DFOznfXUG/tUYx4L0OP/g1K7ukXiJVEh6dUQbh/Z5hA=;
-	b=25qolo2hU76cbvijYcJKat+gn8xihfCj26gbmL+iW/MfAgFkA9Ld1u587PZ9osQS8ZFA
-	 nzr+0Py1KQ3Drbo9PKS5SDg2R5avJ5q/KvJX0TbnFhJsBH4KaEhgUEnbrM0C9CC59Qaxe
-	 krzzuyW04OWCYMvg8g3+WR6W2zpyqzkIzR6nlkN6S7E2Rcjy1u6vGOhUSx5MlwggJBSEp
-	 Roj2JimzQ5nkRNW8ugISdVwwpopH0038GNiCtOKDi03AciVMgGBUXkvj+SssrqVjUzqQC
-	 epJ5i9m9xAxi5Iw0dyR4keJILHS7YibqfQHjZcKh+hvAYvwSpxKWeYPi+ERFj6j7uDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972648;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=oPNnQJuAXpVjRJV3/dEa6LasHj8wpKSqCglF6Ora69k=;
+	b=GKrqljb2SdfWN0ty6oQmH7oPzpEjka7v2ezT90MdqJrxJfdVzhLOvMVJskptN+g4CqSi
+	 3uFr/d1VrAeqevgfPUaM4OpqPRpkpgE3Z3M5jU8XbL8l9cJUPalDh/Fr771OWZibMv20r
+	 UA4C9K2B2KrE5oF0sBNqElO7IoiXJUYnKmrZONp1eGAd6uic3y625VrThONXZgZjqv5/G
+	 Ek8yuAg54gA8j4x4EsY8qtDx36IHf+rDmw597V0TeJ+hR+GyhjRm5/E5rnbapa4qkjz76
+	 5VVvKRDxONwVLhqAIEAJRSSlwCWn2eUhSnUDzkw+uP1a6oWelMWwOPMInVvMEM8NXyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UQwibZmp;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JYw3VHbt;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670DE606A325
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 670DE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC820606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC820606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UQwibZmp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792972609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DFOznfXUG/tUYx4L0OP/g1K7ukXiJVEh6dUQbh/Z5hA=;
-	b=UQwibZmpX5ImYjLB2f0H/rSMN538Lp+vUWJhGaoK5NyOjVehvjpPNH81EXEWTSt56c00HY
-	BlmFihsDIG7T90jLoWJn3OS3BPt4cy1++NExkn5VkCcKY5Y6hWwUVcO2K0drAVf9QxA6fM
-	SZBHqQs/1UKHJt7KRh0jtPYziug0X6o=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-435-IyalASxUMama3bNp9B6Dag-1; Sun,
- 25 Oct 2026 19:56:43 -0400
-X-MC-Unique: IyalASxUMama3bNp9B6Dag-1
-X-Mimecast-MFC-AGG-ID: IyalASxUMama3bNp9B6Dag_1792972602
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B0A891956045;
-	Sun, 25 Oct 2026 23:56:41 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 16DCB30000E7;
-	Sun, 25 Oct 2026 23:56:39 +0000 (UTC)
-Message-ID: <2751eb89-c34c-449f-893c-2e1836e3a610@redhat.com>
-Date: Sun, 25 Oct 2026 19:56:39 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JYw3VHbt
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+	by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69PNeM0V541501;
+	Sun, 25 Oct 2026 16:57:08 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=oPNnQJuAXpVjRJV3/dEa6LasHj8wpKSqCglF6
+	Ora69k=; b=JYw3VHbtjFoha8HdQAz7heeWHdWu4OhjjC9qUJs+bcA6pt5qcUFeU
+	nTGEuSMUoYzp3fjF+U2vQnVuMpTi6p2Ob2UmqSFoYXrOqzLK0ZZXLqUXQh6kHpPL
+	kKy/Y2htT4+3/3ajWDihgKtem8n1ldorUqSZdXJjXJlRMxlWoe595mdqRNbjUP//
+	nhgSoc7mqep22XzW+33VwuJgE8TdKDrGPgLe47XMVv4Pxv4GVlY0mo4qdJYqPaVU
+	j3Gqpc4FDrSVDfu2YdEHqjI6uW0P2pHfgPVZA32ilcjiypbmOshs88pJR1sSPH2X
+	n1N0hOuVbR1CzVkGch4u0Btbbn05jcylg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by m0001303.ppops.net (PPS) with ESMTPS id 4hgrbbx8vy-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sun, 25 Oct 2026 16:57:08 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1c::11) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sun, 25 Oct
+ 2026 23:56:52 +0000
+From: Ruben Hakobyan <hruben@meta.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+CC: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
+        Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
+        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+        Xuan Zhuo
+	<xuanzhuo@linux.alibaba.com>,
+        Alexander Duyck
+	<alexander.h.duyck@linux.intel.com>,
+        Andrew Morton
+	<akpm@linux-foundation.org>,
+        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+        <virtio-comment@lists.linux.dev>
+Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
+Date: Sun, 25 Oct 2026 16:56:41 -0700
+Message-ID: <20261025235641.601299-1-hruben@meta.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023042737-mutt-send-email-mst@kernel.org>
+References: <20261023042737-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,99 +85,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 09/11] cgroup/cpuset: Release invalid isolated
- CPUs with a shrunk root partition parent
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261025214449.310715-1-longman@redhat.com>
- <20261025214449.310715-10-longman@redhat.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261025214449.310715-10-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: si-3CfBR3tWIpYQXQJjFx0lUmYqvGcdU
+X-Proofpoint-GUID: si-3CfBR3tWIpYQXQJjFx0lUmYqvGcdU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDA5NSBTYWx0ZWRfX+rc1q0HqoDQl
+ dPsJqZkc/iIHyTx5oggwSKazeyC7OJWiEL64dCoRHBo7fDbU7M6OYkcVTPOmEqv+Y2AyamMpuGA
+ JTCYCu1d4mfrOjbfy5pVOD4OulqDlYY=
+X-Authority-Analysis: v=2.4 cv=R6GWitRX c=1 sm=1 tr=0 ts=6ade9754 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_78whYxrdx1mplLwxq1U:22 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
+ a=Ob1JMaaCdSkY7rSgWrAA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDA5NSBTYWx0ZWRfX4sU6XoJ2bQVN
+ H/LRMV73sKGqkBsHJhCvZ476nJkoaOsVAmktIloPobykH7aIo545IEcIszXoEKvaxRbLfN11v57
+ Aj5cHuiuWokDtxKDzyveOrnGwQUUA3Fa8r0PvH1KlA/+Y1VkUNubFHyQCs4J8GuwnttjhU/lWvm
+ pgsFgTW5MsTKcRLv1pR7WsuSn3K5QNH0HfE8rI3mKNYumzeHjG54FKuXXt/bTnBv8auBcmI9E0T
+ CHNMr71fXG9JdtztXJnWVR3NUQSaAyfCm9OtofITYJVEO8MpzxfOkX5KAhVhjVHp8brF/cuo/wz
+ cK4lMhL2pjqUXeNFcJ3dXL29Gt6JlKU7djonD3gPPGqAzKIGkAMQ+bU02vBaZY3iB/ffe2HPwF5
+ F5a4xXcb31nCdqDdzF3AgzsErkMgGxeHVrr++t0a18jQ0Q4/xL7Xx/h9R91CuTXoD0IOg21sEdj
+ h15AycLtjnCj5yHZ+dA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-25_06,2026-10-21_02,2025-10-01_01
 
-On 10/25/26 5:44 PM, Waiman Long wrote:
-> It is also reported by sashiko that there may be leakages of isolated
-> CPUs when a root partition parent shrinks its effective_xcpus with
-> isolated partition children. Leakage here means that isolated_cpus may
-> contain extra CPUs that are not in any isolated partitions and not boot
-> time isolated. Those CPUs cannot be used in any isolated partitions
-> anymore.
+On Fri, Oct 23, 2026 at 11:04 AM Michael S. Tsirkin <mst@redhat.com> wrote:
 >
-> There are 2 different cases here. The effective_xcpus becomes empty and
-> the isolated partition should be invalidated in this case. Alternatively
-> some of its effective_xcpus are not in parent's effective xcpus but
-> still have some valid effective_xcpus left. The isolated partition can
-> remain valid. In both cases, the invalid isolated CPUs will have to be
-> released from isolated_cpus if appropriate.
+> Great patch, thanks!
 >
-> Fix that by calling isolated_cpus_release() to release those isolated
-> CPUs from isolated_cpus.
+> On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
+> > The virtio_balloon driver reports a scatter-gather list of free pages
+> > to the VMM so it may discard unused pages.
+...
 >
-> New test cases are added to test_cpuset_prs.sh to test this.
+> It's not just a question of convenient, is it?
+> Rust is buggy wrt to spec as it allows only U32_MAX.
+> So it is also to make it work.
+> So should we maybe fix Rust to be spec compliant and allow 2^32 too?
 >
-> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c                           | 16 +++++++++++++++-
->   .../testing/selftests/cgroup/test_cpuset_prs.sh  |  6 ++++++
->   2 files changed, 21 insertions(+), 1 deletion(-)
+> I think we should definitely recommend U32_MAX in the spec
+> because otherwise it can not fit in the used length.
 >
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 6d224e614e74..3daab2381f04 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2012,8 +2012,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   		 *
->   		 * A partition error happens when parent has tasks and all
->   		 * its effective CPUs will have to be distributed out.
-> +		 *
-> +		 * For an isolated partition with a shrunk root partition parent
-> +		 * we may need to return some or all of its isolated CPUs.
->   		 */
-> -		if (nocpu || cpumask_empty(tmp->delmask)) {
-> +		nocpu |= cpumask_empty(tmp->delmask);
-> +		if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
-> +			cpumask_clear(tmp->addmask);
-> +			if (nocpu)
-> +				cpumask_copy(tmp->addmask, cs->effective_xcpus);
-> +			else if (!cpumask_subset(cs->effective_xcpus, parent->effective_xcpus))
-> +				cpumask_andnot(tmp->addmask, cs->effective_cpus,
-> +							     parent->effective_xcpus);
-> +			if (!cpumask_empty(tmp->addmask))
-> +				isolated_cpus_release(cs, tmp->addmask);
-> +		}
-> +		if (nocpu) {
->   			part_error = PERR_NOCPUS;
->   			if (is_partition_valid(cs))
->   				adding = cpumask_and(tmp->addmask,
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index d7d0bef0a17a..ceb1a3b4f94e 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -522,6 +522,12 @@ TEST_MATRIX=(
->   	# its effective xcpus will be removed from isolated_cpus.
->   	" C1-4:P1 C3-4:P2   .      .    T:C3-4   .      .      .     0 A1:3-4|A2:3-4 A1:P1|A2:P-2 ."
->   
-> +	# When a root partition parent with an isolated partition child is shrunk
-> +	# so that its effective xcpus is no longer a superset of its child effective
-> +	# xcpus, the invalid isolated CPUs should be removed from cpuset.cpus.isolated.
-> +	" C1-4:P1 C3-4:P2   .      .    T:C4-6   .      .      .     0 A1:5-6|A2:4 A1:P1|A2:P2 4"
-> +	" C1-4:P1 C1-2:P2   .      .    T:C4-6   .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
-> +
->   	#
->   	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->   	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
 
-I am sorry that there is a typo in this patch. I have send out a v3.1 
-version with the fixed code.
+Thanks for the review!
 
-Cheers,
-Longman
+Sounds good to me, I will CC virtio-comment@lists.linux.dev as
+per your recommendation.
+
+Agreed that Rust-VMM should also be fixed in case 2^32 needs to
+stay the hard limit. I think here for the driver, we can be more
+conservative as long as we stay below 2^32.
+
+...
+
+> > ---
+> > The wording in the spec is a bit ambiguous because it uses "chain
+> > length" for both descriptor counts and the total size of the memory
+> > ranges referenced by the descriptors. My read is that the byte limit
+> > applies to the sum of descriptor lengths, which is also what rust-vmm
+> > checks.
+>
+>
+> quote what you are referring to please, also in the commit log
+> not after ---.
+
+I will update with quotes in v2, thanks.
+
+>
+> I would also CC virtio-comment@lists.linux.dev - spec should recommend
+> U32_MAX.
+>
+> >
+> > Another option I considered was to limit reporting capacity based
+> > on the largest possible block. E.g. for 64 KiB pages, the largest
+> > block is 512 MiB, so limit the reporting capacity to 7 to stay
+> > below 4GiB. Although simpler, I found that the time to reclaim
+> > was quite a bit longer.
+>
+>
+>
+> So I was going to apply this actually:
+>
+> https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
+>
+> which makes the question completely moot.
+>
+> Does this have any effect on performance?
+>
+> Thanks!
+
+Thanks for sharing this. Yes, this would also make sure we stay below
+the limit. Regarding performance, I tested this on QEMU and it calls
+virtio_notify() after each completion. Using one chain per entry
+creates more chains, so QEMU can use more CPU time to reclaim the same
+amount of memory.
+
+If we go with this, I think a QEMU patch to batch notifications
+could reduce the overhead. Alternatively, I think we could create
+larger chains here but make sure they stay within the 2^32 limit,
+and keeping your approach of queuing them all before kicking.
+
+I am happy to share a patch with my thinking here.
+
+...
+
+> > -     if (WARN_ON_ONCE(err))
+> > -             return err;
+> > +             /*
+> > +              * Virtio spec 2.7.5.2
+>
+> Please add spec version and chapter title, and quote the
+> spec text in question verbatim.
+
+Will update, thanks for the note.
+
+>
+> > limits the total buffer length of a
+> > +              * descriptor chain to 2^32 bytes (4 GiB), so split larger
+> > +              * reports into batches no bigger than that size.
+> > +              */
+> > +             while (batch_nents < nents &&
+> > +                    sg->length <= U32_MAX - batch_len) {
+>
+> here you actually limit to U32_MAX which is 2^32 - 1 as commit log says.
+
+I will update the comment above to be more explicit about this.
+...
 
