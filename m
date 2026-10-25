@@ -1,54 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792932437;
-	b=cUYTM+MsUjLdRJwbEnwS7ygdfRWa0FcFiNoX82SHOANfn2WJadGQuC417IqS+j/Hyj0U
-	 9haqKPlM/QDikCkCMLxLi3Ozk675ZyNGl4t8DJFNodcFKjKkMP/X1HHL1YF2uZQjnxbav
-	 YshCzip/7HnJ/m/fiwkOgqsl3BRgZXknxcqCsWyATnFCRWUMc+lTDgQYu0TMgGrLF2xWL
-	 5EtcyPhyrpiZ/Sv7YENhLszliu9uihne1pkMhBVhzN4za2rn5PuQrxNri1IIfJJBcipXB
-	 clI/CatNFZ2xrPdWBfQbQLaWEXRDWjvEraasaQdu2p9HdeL+B5+z5Y8rcjf8Eq3/2wA==
+	t=1792932491;
+	b=YONq9MOnVGXvKh8h/SSOlsQJ2RgfbqfYxwjqxmBoky9bpy+6Ol6dKP2Wwes9SSHswsir
+	 djmfn+sAZKISnuIB0PVP9Tsvy/cSz94a1oSeWI00Q0jvQs+HvseI1HCqf9J+00mElXZSE
+	 RFnkfsbZjjxXgEObLb6s6nvf+Dpz5aaPpCW2VlVmWfjGTzu6aNmTm1XjtyICy+AWne4Wd
+	 YpRRcNWa2xb2V8rHSUSsFpKythMSDNXCrxAfeaODiXm8M6C5yT4gosa39Fx+A+il07+kj
+	 E9XJXPS52nESiwbwzwI3k/Bo60Q0nm+Jj/elstOZ7U1oS+bVpnVmdHmIcnCSCHb6aLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792932437;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=12D3HJWRuaQEfnNVUmCU5YbEjp0jnC7YRqPnX+RFlf8=;
-	b=VgFULSe6wowHvHb7sh+yjLUqGOn1kFEKkjF2jf5LckIErSuQh/hsvdUPV2XF5FUbC5GL
-	 7J2bltAg6zziBnwq82Jxo1WJrjQ8zG+x77M3WRPWSqO2E8yQCnk52wbiy9kJw7vrtorut
-	 PCdrF5miKxPQ6O+IyXB0jsnZnPD7l6XCO1mkpz5VVn0u4NeoFAf3f1tSmQ0Vgeefhmim9
-	 yucM3PQs1Bcylb70w6dZ2DWZdkHa0owFawSgDubYzv88Wde1onUMNGBCPUo8hnVNVJ4HD
-	 47SlzIt0T9bVb4Qv84DNSzNCNd+7hYGckESxQrxO1SxAf2YhW8hRO4g0jUlAhpRZYSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792932491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GFk493A56cYfyK4uM8/JlxklDpnCWTgb/zmDZtIoFro=;
+	b=B0AzykeT1PzjXjrsypmPQnktG+RPWurHheNzyQEwGTxQWkIk/ZPx5NBiOmowtY8R8yIE
+	 yaT8cYkGaSpjPE0hyNASmpT9jvRymdoRrhb6xIxpSJtw9CdQ3t4Xr2Ifhd3G9J1Bc+M04
+	 mC6j69g7kTYVWu0GBtoXqabhKggOOaStFwWkjbPbg8LCpIw/kvTGOIPQeP7tTs2cIRvm5
+	 v990VmCC/M+BhGj0V39C5Aj77R7V204ijiOQR6dWzoM4hJeBELBdY0wgjqo169CaDKPAm
+	 Fpk7RRVc8PL5nUMHwUk2yqifUR8QShr1eEm3qnei5AHFgEHH3al9ScoxRatsHc3+IAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pg8FDG9O;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B18D606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B18D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xKxcn-002wZj-HZ;
-	Sun, 25 Oct 2026 08:46:57 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] sched/deadline: Fix this_bw on class change of a dying task
-Date: Sun, 25 Oct 2026 08:46:57 -0400
-Message-ID: <20261025124657.836229-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0FC606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C0FC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pg8FDG9O
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso20573135e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:48:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792932488; x=1793537288; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GFk493A56cYfyK4uM8/JlxklDpnCWTgb/zmDZtIoFro=;
+        b=pg8FDG9OpzKln8+QRdvhMAtMVp0WQ1NMYaLASyxAEYJWLNST/WK5rNIhMJud+ol1qL
+         fnBQe5FIbncQ9e7Yf2jY5Avm2y32XlQwi8zLdEdscaiuJNlhCMoPO1s4R86eAMZm65+N
+         4wN667A/guovDHJDdgGvxXS+E40NfJnWTsV/VNIYrlv42LuwoD8jhjPqOl8WFcqIB9pB
+         a1e9nczTgOPdUb4RwVqkaM30MzLLvdbX8vRjHV0JGK6vlZjszCVuRfZPWEEEj2bVwOtS
+         Onb1sPkJ2qFK+BNjMAVgcE1OO2VGj/K5/NoSG134pZJDNd8mh6bvz+WE17qQMRc8Utq5
+         4GBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792932488; x=1793537288;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GFk493A56cYfyK4uM8/JlxklDpnCWTgb/zmDZtIoFro=;
+        b=ByEuV6Lh9z7XvlEZl/hmjYN5N6CyVB67PTTapx3MTKnOTh1lvr48xvoyju0eFkMQHU
+         4lIQfn1s0zaC3U7xqxRGSAUqzC9wiWz2AfiDoh9SuSrz1Ap4Nd2+qgwAcjLSa1IU3aBE
+         FyeQH3Z4ZeY7lm3+gR/YRM48YSPAtrgeSPIWNq9yCmlufvcG5ekteWAI245y3g1SdDwV
+         P2CyPOOSnOJotD+fsC9OkGRfAB0umz4aPTEzk/WWjbRa/xSrUlSs0UtmMMpynTJUrIpC
+         VFE8NC5+PaKGJgbnbqFkybThTD0zBQy+CJmNoCHHWmkksicYvhkydxAirxb77zJoyUf/
+         xrBw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4MUs70uKrDFmeXYifrymtX6+1ZKNxNJMWvJS9KpsSCa1Nk1GGlismbImgrD+D5zGLIuBaiDJ1U83kh+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1rYLsDELBUhxI9dcceJZumvGZn6UJvGUHjo2UntSJvVcVpulO
+	6SKF0hoiqP4tpdVCXchZEVIOiC3623/4XNjyXECi2D7Bi2BCulaRvA+8/7Qr2wUT+fk=
+X-Gm-Gg: AYBFou28U9sRtUfGqzXktQpy1Hu1b1cghLxC1/M0ZkEzTMov9nLsDFpzInXwYq8tcPR
+	NtmNyzdZjqaElV6HFZEZrEvz9SOcL+YOEYUGslFCRegrgauQ2jha8h5wUDs/Z7xVtLznGS8Epdv
+	Icp3KCFDSkZNiFU9w9vsSDjq04YOnyuU1jD1M/neBHcpOBF4rx3BGR7ICxmB1e1E38K+X5kA1Ce
+	OIlOX0pHkePdITyZJfAaZNn17ZsvDGbxcu/NZ7SKw06AgHI961/NN8PcKMOAoMWaoXt8Jgn7w4i
+	2hU3lj2rUCUPXlXfeVUW0S4qC6EG4hC3Uyw8tRwCBfrlHZi2SN0GclFDCGvwBz0KfHNBhQlpFOA
+	tvJug/LyniaXd4KeXoJrZt5M3rN2lFaXPTMIt0Pz2IUCWu4wYYyDTyX1kr0GE3RBEcka0cqhtIq
+	qqoVprSmsNZpANnmAuNTihwRm0MJHEqaIUxq+WFd/bUDU9EwYVIKAEzQ9rRGac3a153IPxTyuvr
+	PVvD4B/zaIVUxSSOdpWKco5sqz3jp7fYPKENA3kso61qf/ERL5l91KlyvOuJotJ6FqovpM52GBL
+	hF/f/w==
+X-Received: by 2002:a05:600c:3b19:b0:4a1:d087:f6ab with SMTP id 5b1f17b1804b1-4a35acc7696mr71714575e9.18.1792932488137;
+        Sun, 25 Oct 2026 05:48:08 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a04ad39sm326937255e9.1.2026.10.25.05.48.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 05:48:06 -0700 (PDT)
+Date: Sun, 25 Oct 2026 13:48:04 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alex Williamson <alex@shazbot.org>, Armin Wolf <W_Armin@gmx.de>, 
+	David Lechner <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+	Johan Hovold <johan@kernel.org>, Richard Weinberger <richard@nod.at>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <at34UOuYv3NtX36R@monoceros>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <2026102437-vista-unsoiled-b089@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,149 +117,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hexcezj4rledtjd3"
+Content-Disposition: inline
+In-Reply-To: <2026102437-vista-unsoiled-b089@gregkh>
 
-Moving a SCHED_DEADLINE task out of the class with sched_setscheduler(2)
-after it stored TASK_DEAD in do_task_dead(), but before __schedule()
-dequeued it, subtracts its bandwidth from the runqueue's this_bw twice.
-this_bw then stays short until reboot: __sub_rq_bw() warns about the
-underflow or about running_bw > this_bw, and GRUB reclaim for
-SCHED_FLAG_RECLAIM tasks on that CPU is miscomputed.
 
-The class change dequeues the still queued task with DEQUEUE_SAVE, which
-removes its bandwidth from running_bw and this_bw. switched_from_dl()
-then calls task_non_contending(), which, if the 0-lag time has passed,
-removes it from this_bw again because the task is TASK_DEAD. That
-removal is meant for the dying task's own DEQUEUE_SLEEP dequeue, which
-has removed nothing before it.
+--hexcezj4rledtjd3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+MIME-Version: 1.0
 
-Do the TASK_DEAD removal only on that dequeue path.
+Hello,
 
-Reproduced under QEMU on x86_64 and riscv64 by moving exiting deadline
-tasks to SCHED_OTHER in a loop; with this patch there is no warning.
+On Sat, Oct 24, 2026 at 06:56:34AM +0200, Greg Kroah-Hartman wrote:
+> So what is the real use case here, taking any type of any device and
+> thinking you can bind a random kernel driver to it and it will work ok?
+> You all have specific platform and pci vfio drivers, why not use the
+> proper device ids there instead, or better yet, bake-in this type of
+> functionality into the bus-specific logic so that you can have generic
+> userspace control of a device (like usbfs and uio does today)?
 
-Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+Also note that even if the platform and pci busses implement
+bus-specific code to pass a given device to userspace and/or a VM, you
+need proper unbind support in the driver currently managing the device
+(or cripple the mechanism to only work for devices that were not bound
+to a host driver before).
 
-Notes:
-    Reproducer (root or CAP_SYS_NICE, two or more CPUs; the warnings are
-    WARN_ON_ONCE, so boot afresh for each run):
-    
-      gcc -O2 -o dl-dead-short dl-dead-short.c && ./dl-dead-short
-      dmesg | grep 'WARNING:.*deadline'
-    
-    Before (x86_64 under QEMU TCG, -smp 2; the first hit after about one
-    second, on riscv64 after about a minute):
-    
-      WARNING: kernel/sched/deadline.c:257 at task_non_contending+0x3e9/0x430, CPU#0: dl-dead-short/68
-      Call Trace:
-       switched_from_dl+0x2d/0x1d0
-       sched_change_begin+0x1f2/0x240
-       __sched_setscheduler+0x5c6/0x820
-      WARNING: kernel/sched/deadline.c:260 at task_non_contending+0x41a/0x430, CPU#0: dl-dead-short/68
-      WARNING: kernel/sched/deadline.c:221 at enqueue_dl_entity+0x597/0x720, CPU#1: dl-dead-short/953
-      WARNING: kernel/sched/deadline.c:260 at switched_from_dl+0x1a5/0x1d0, CPU#0: dl-dead-short/68
-      WARNING: kernel/sched/deadline.c:260 at dequeue_dl_entity+0x276/0x2b0, CPU#0: dl-dead-short/68
-    
-    After: no warning in the 50000 iterations, x86_64 and riscv64.
-    
-      #define _GNU_SOURCE
-      #include <sched.h>
-      #include <stdint.h>
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <unistd.h>
-      #include <sys/syscall.h>
-      #include <sys/wait.h>
-    
-      #ifndef SCHED_DEADLINE
-      #define SCHED_DEADLINE 6
-      #endif
-      #define MS 1000000ULL
-    
-      struct attr {
-      	uint32_t size, policy;
-      	uint64_t flags;
-      	int32_t nice;
-      	uint32_t prio;
-      	uint64_t runtime, deadline, period;
-      };
-    
-      static void pin(int cpu)
-      {
-      	cpu_set_t s;
-    
-      	CPU_ZERO(&s);
-      	for (int c = 0; c < CPU_SETSIZE; c++)
-      		if (cpu < 0 || c == cpu)
-      			CPU_SET(c, &s);
-      	sched_setaffinity(0, sizeof(s), &s);
-      }
-    
-      int main(void)
-      {
-      	struct attr a = { sizeof(a), SCHED_DEADLINE, 0, 0, 0,
-      			  100 * MS, 200 * MS, 1000 * MS };
-      	struct sched_param sp = { 0 };
-    
-      	for (int i = 0; i < 50000; i++) {
-      		siginfo_t si;
-      		int go[2];
-      		pid_t pid;
-      		char c = 0;
-    
-      		if (pipe(go))
-      			return 1;
-      		pin(1);
-      		pid = fork();
-      		if (pid == 0) {
-      			if (read(go[0], &c, 1) != 1)	/* parent is on CPU 0 */
-      				_exit(1);
-      			pin(-1);
-      			_exit(syscall(SYS_sched_setattr, 0, &a, 0) ? 1 : 0);
-      		}
-      		pin(0);
-      		if (write(go[1], &c, 1) != 1)
-      			return 1;
-      		close(go[0]);
-      		close(go[1]);
-      		do {	/* wait for the zombie, then race its last schedule() */
-      			si.si_pid = 0;
-      			waitid(P_PID, pid, &si, WEXITED | WNOHANG | WNOWAIT);
-      		} while (!si.si_pid);
-      		for (volatile int k = rand() % 2000; k; k--)
-      			;
-      		sched_setscheduler(pid, SCHED_OTHER, &sp);
-      		waitpid(pid, NULL, 0);
-      		if (si.si_status) {
-      			fprintf(stderr, "sched_setattr failed\n");
-      			return 1;
-      		}
-      	}
-      	return 0;
-      }
-    
-    This patch was written with the assistance of an AI agent.
+The more I think about this taint, the more I believe the commit should
+be reverted and replaced by a some stop gaps for driver_override. (Be it
+a taint or better yet
+https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.1790612298.git.u.kleine-koenig@baylibre.com/
+.)
 
- kernel/sched/deadline.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Best regards
+Uwe
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5d..dfae08625342e 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -444,7 +444,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- 			if (!dl_task || READ_ONCE(p->__state) == TASK_DEAD) {
- 				struct dl_bw *dl_b = dl_bw_of(task_cpu(p));
- 
--				if (READ_ONCE(p->__state) == TASK_DEAD)
-+				if (dl_task && READ_ONCE(p->__state) == TASK_DEAD)
- 					sub_rq_bw(dl_se, &rq->dl);
- 				raw_spin_lock(&dl_b->lock);
- 				__dl_sub(dl_b, dl_se->dl_bw, dl_bw_cpus(task_cpu(p)));
+--hexcezj4rledtjd3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrd+oIACgkQj4D7WH0S
+/k6aewf/a1J79AfBUwvrOd6Ba/0Y7Snc6nW1R3bcrJe5+V181tlQ+NubUnz+DJdu
+l8Jqw1xcQaALmyYYZ+CaEenSacHj9TFNREGi92ZjNkN8m6+iH5soIV1vTHPZaevX
+R9oV4vf5RnsRXugZv92lNktCGbzbu2ceTDhJU4IoX5FyuqL95AVajJ4awrTw+nol
+Y+gyqcgb8mzONrS7D52rBINMIjpn9/nmcPs4bVkXCZjAvPg+MFRZTpjwZ7hB3Guo
+GM19dH/Q7rfMakDFZ/TJqgDbxuKHrPdU/EFkrRXiolTo+VEKvUOmiiW/JK6zrFH9
+WNnJHHFnJdcfBwsazk9IIqGimnpBHQ==
+=zFX2
+-----END PGP SIGNATURE-----
+
+--hexcezj4rledtjd3--
