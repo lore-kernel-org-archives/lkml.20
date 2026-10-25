@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966372;
-	b=DtUFcv39ys0fpwXYGyFRngGZH8ccRU7Sj9dC4XxsdvSbb1RXfemqcOnCc3/7h93PLNlT
-	 YmDQV4GnGPeZo/vDXKbA3QnHcIfVThsoex37TklmbHRZ95N2Dur1v/MFw7cLj9Ef55ZDX
-	 0+uBrkczwhImMdkHZVezDgBT2NG+hYrUNKtrRTwtmhGJveRRHfFwwJNtEuVe0Fgg7mG7X
-	 YIA8Pst1IouJdLapoDDfLBBUotn2LBlwYEKbXzHDJQMqFnIrUWMfGPXX0peGrmXIN5VgD
-	 Ab2N1Fx/3q/FrPORwuMrp63slC1kIHlRvAXbwhOOlm1SPWIqEt3vmx7i1XhLb+hKfEw==
+	t=1792966447;
+	b=EUKt+hJGza0Oifi+AbaPI1ba94Rw55gdrKA//hF6S/kwxRO9wkcVNJA0UloKJrPu/+i+
+	 EyL4AnZmyP8utNeBhpq4b1gXeQ2fv5Ux+VVhTRHYwmfOrtvOI05e9pz5GgBl0l7LGjRus
+	 Cci08mqp7uUraWvNQauraGejIY/RH7YcOOQpspugV1Au+MbBgC87rWZ1urDAbxM+4VjHh
+	 TLetxdHyLBLhhaMrZnOBv3P1G10joh3Emr1waLsXHLjsAzkPQePkNNsbmg6j7SQS8Ajjd
+	 rvEKRY50O/X+v7yNEcYfMve6zW+AGQaXlOrEkqgnOQfh3j/ftkVeon9bX1e3UrOpJxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966372;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8qE5yHTBSvCqq9ep0eRR6fh7pY27XkCysxDq9OCORyA=;
-	b=ia75kIYGKngcvogSZcgOz78OrQJozxGJ2wCknwBCI7BxjtTGqA/brrhbaCTYEm1W1lUf
-	 fdj/qHJHNNb+hBnAA/Z3CpJPAPT97K/dXNJfRmojU7GAG8PGlDTEFlseN+3HWLuLoHDYB
-	 IJHdUYqZ4i45v4XPk2Mky1wylwsI2buZFJjcqqQ6aFz+IPRy7PYqNmEzx4Z90GqzMf23G
-	 83q1vTiYni4N8pSowczl520lDGaquTm1io+bc9dzG1XWqlLa/rnsbs58T6pF65U1RJznH
-	 zFrTf4fwLKJpalh6F7UrXXDaO6mPMcyLLjkHfISYAj6I1YnwTCN+rUzps5FpPkjiFPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792966447;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=z+OGvBaqXC2+1NVfUpcRsQ1hy6WHpkZO2inZyh4ifHs=;
+	b=dgeneKDphB8HzTFh7x/vQRyFrojCo/YsKcpa8jjyrLZeaXt0/MpjJ+Jmw/NEZqSMcw3E
+	 Vl3CrQF+dGTxrzzuCbCXZ5NOSDY70qhHkOL1DdlfIrscTMdK0Ejcez7trJ7wV+SG3jZnx
+	 bkhASYsP4crbxCkWOcM2cRNV+5jr0M5Pq98hTEYhkUp5Lh8cPN6l3pt0YyTU2xbkA7cgz
+	 ilAV0KXYjWeDjSt5HT8DJHgOiw4uXiXIiwX0Jhs/oBtgg62CkTK7pDREXd0H0quQGDShZ
+	 zgGDpZ4h6i64C4C3+QN2JfS2EBqJpt50dRJrTJEbMRdr5N5GqnGlhWrEs29lV0E75ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eEFRLhzb;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44035606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:12:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44035606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eEFRLhzb
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535a54bed9so3841034eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:12:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792966371; x=1793571171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8qE5yHTBSvCqq9ep0eRR6fh7pY27XkCysxDq9OCORyA=;
-        b=eEFRLhzbc7gMz7bX05skDFKPkhF9qncMCXVts+Wc+K5PxFQnElI6DtyZuKddt8qE+O
-         WjtB4knNGDdEKJ4zEFSY+O1FYJiWAGjDSrdZbeHQjNU+IjNCGaw2Uq02d5y3lbjZZNry
-         c9I90PmWGonztfN122vZ+P8GQET8vlkLO7VFBWjnPr/Y+8yTgRdO5cMC/Nm/poGtPa7S
-         AqxtVM7x3vtIAt5h/Ved8AegC6RwI+a8dETIY+VCZarLjXFWjSb16HOvYeRJx9sEfdtQ
-         UNHk6JC7PDPon56slL8cq0/cEv/bAPTzTxUDA+JCHEbIuvjR2DZir3cbPZA0YnJdSDRw
-         ggnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792966371; x=1793571171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8qE5yHTBSvCqq9ep0eRR6fh7pY27XkCysxDq9OCORyA=;
-        b=dZ6PvmDhF+/DZ6xjbp0piAMNnvEDa/ZWFt5B9wXP7UG444EWwmx0xkLJ7zXRuX6ZOk
-         bgTySt9lmxiaoenDcxjSBBANjwnJqycZhNpiw3FYlUlCchQ2Z3+plkdUAi0ExApDh80+
-         AQFsgDKnvH1yV3SJrD9ViLhPLZI0SguzLsJny+v56wed/AMWzgHZTNAYLQGCnHVnhXwt
-         V4MoqxJTRui6GIwC/llY1p29C7vdTJaGnw0LeLedzVqnXjtYXejeuFSMpIeVkYy1LCU/
-         Zm4CCMAJ0AqZgeZbhz2JD8ZXAOkbG8yaxe+JWR229I2NRK8m4jIGDOJ/FmGeLOCbWYIe
-         +vbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ41LWHv8qHi+/T1H4ZW8gHr84T0yDmFKXfiSqqaChYIwhVScjByvPXnKlysP9y3vHaeerXss4GBXjVwg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQu2kCDvyNyktMMN07w7BUz/bTTfD1MnZxJ9jBhWWixnp7aUj/
-	MJwGVwr5b9c5C0USbi+GUGObc/VRQSV3R1Fx7ddu1IIAlAL5Lu3uqdQmXvMEFEqClzE=
-X-Gm-Gg: AYBFou0rduUOsznOa+ud5K+vzkLwFOeyt9pAPqLh23hSw1SQfFnQONfGGt2XxWcLnbu
-	jEmNhfP7uahmwwv4TK9APRhpZuLcCXeyVFcg1A2pC+UE+xbWLK8+c9t6VJA7cpFOO9CzyqK5UTl
-	ghiraC80eD2EBwE7TnmwRawm8byafGCCaJx0npsgDyr0/Z3fqFK+K9JsosdX4g4ZSJDJ6GEBijt
-	G5OFcd9LJ+G14de03ak/J/YUBb07y3Cr/LSRG9Pt7jwxMQwZ2CSH7Am6QAMqheKoQmkummcNDrg
-	M/1cd1DpJt1vbWnsbym+H2ntI3NHrtxd+QuIvwhbxQeeFdsXIgR7aLciM5x/A1Smn4B9L+z320B
-	rohfdPR4LYbWGvtlI0lQAxeYbHQgptfTBNAP++HfTPuuzx+H1CN3u4u/it56xEZIyY+EyCvKk1p
-	pBqW9+uaS8XHKGauZWqbimzK/rGr57YvJfLzsVxLEkUkSPJg9vwEO1AIhXfC+8PBKnoNrl+DzKF
-	basDTAV0fBYxi1m5a1I2RMPrDPiEziR5ugJU9hxDpoRkPoGiROmWGrp7GZB4KiXfBAQDt2bgPxU
-	0PMsm+eZww5nLx7T5voxC6vY56nK5MqiPqvqmLt+ZbLHdKx8qY5mmAyF+/vVwN7UGCyoEAvRN4s
-	Pp67+qWoOwTg=
-X-Received: by 2002:a05:693c:87d9:20b0:369:987f:d15e with SMTP id 5a478bee46e88-369e8336389mr8021940eec.2.1792966371114;
-        Sun, 25 Oct 2026 15:12:51 -0700 (PDT)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm16525779eec.4.2026.10.25.15.12.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 15:12:50 -0700 (PDT)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v2] iio: proximity: sx9360: fix sampling frequency write and available range
-Date: Mon, 26 Oct 2026 03:42:38 +0530
-Message-ID: <20261025221241.19596-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8242606A31A;
+	Sun, 25 Oct 2026 22:14:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8242606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <c930c184b1bcac3cfd76ecb329a8c478482d819d.camel@crapouillou.net>
+Subject: Re: [PATCH v2 2/2] serial: 8250_ingenic: Set UMR and UACR at probe
+From: Paul Cercueil <paul@crapouillou.net>
+To: Olivier Louvignes <olivier@mgcrea.io>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>,
+ linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 25 Oct 2026 23:13:59 +0100
+In-Reply-To: <20261024220712.23250-3-olivier@mgcrea.io>
+References: <20261024220712.23250-1-olivier@mgcrea.io>
+	 <20261024220712.23250-3-olivier@mgcrea.io>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,109 +68,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-GNRL_CTRL1/2 hold the scan period in units of 8192 / FOSC, but
-sx9360_set_samp_freq() computes freq * 8192 / FOSC and mis-scales val2,
-which is in micro units. Any integer frequency then programs a period
-of 0, and fractional parts above ~0.26 Hz overflow the int, writing
-0x10 to GNRL_CTRL1 outside the SCANPERIOD field.
+Hi Olivier,
 
-Compute FOSC / (freq * 8192), rounded to the closest value, and reject
-frequencies outside the 1..2047 period range.
+Le dimanche 25 octobre 2026 =C3=A0 00:07 +0200, Olivier Louvignes a =C3=A9c=
+rit=C2=A0:
+> Ingenic UARTs have two registers beyond the 16550's: UMR, the number
+> of
+> clocks a bit takes, and UACR, which adds one clock to chosen bits of
+> a
+> frame, for fractional baud rates. The JZ4725, JZ4740, JZ4755, JZ4760,
+> X1000, X1830, X2000 and X1600 programming manuals all have them at
+> 0x24
+> and 0x28. The divisor the 8250 core computes assumes 16 clocks a bit
+> and
+> none added.
+>=20
+> The driver never writes them, so a UART keeps whatever was there
+> before.
+> On a HiBy R1 (X1600) the vendor boot loader sets UMR to 8 on its
+> console
+> UART, and the vendor kernel had left 8 on UART0, which carries the
+> Bluetooth chip: every rate came out doubled, and the chip never
+> answered
+> ("command 0xfc18 tx timeout" from hci_bcm). Their reset value, 0,
+> which
+> the X1000 and X1600 manuals call normal mode, does not work on the
+> X1600
+> either: with UMR at 0 the same command times out.
+>=20
+> Set UMR to 16 and UACR to 0 at probe.
+>=20
+> Tested on a HiBy R1: with UMR at 0 or 8 the BCM43430A1 on UART0 fails
+> to
+> set up; with this patch it comes up at 1.5 Mbaud and streams A2DP
+> audio.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+> =C2=A0drivers/tty/serial/8250/8250_ingenic.c | 12 ++++++++++++
+> =C2=A01 file changed, 12 insertions(+)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250_ingenic.c
+> b/drivers/tty/serial/8250/8250_ingenic.c
+> index 0cdadacd7019..ca45e74b999b 100644
+> --- a/drivers/tty/serial/8250/8250_ingenic.c
+> +++ b/drivers/tty/serial/8250/8250_ingenic.c
+> @@ -40,6 +40,10 @@ static const struct of_device_id of_match[];
+> =C2=A0#define UART_MCR_MDCE	BIT(7)
+> =C2=A0#define UART_MCR_FCM	BIT(6)
+> =C2=A0
+> +/* Clocks a bit, and an extra clock for chosen bits */
+> +#define UART_UMR	9
+> +#define UART_UACR	10
+> +
+> =C2=A0static struct earlycon_device *early_device;
+> =C2=A0
+> =C2=A0static uint8_t early_in(struct uart_port *port, int offset)
+> @@ -298,6 +302,14 @@ static int ingenic_uart_probe(struct
+> platform_device *pdev)
+> =C2=A0	}
+> =C2=A0	uart.port.uartclk =3D clk_get_rate(data->clk_baud);
+> =C2=A0
+> +	/*
+> +	 * The 8250 core's divisor assumes 16 clocks a bit. Whatever
+> ran before
+> +	 * may have left another count, and on the X1600 even the
+> reset value,
+> +	 * 0, does not give 16.
+> +	 */
+> +	writel(16, uart.port.membase + (UART_UMR <<
+> uart.port.regshift));
+> +	writel(0, uart.port.membase + (UART_UACR <<
+> uart.port.regshift));
+> +
+> =C2=A0	data->uport =3D serial8250_register_8250_port(&uart);
+> =C2=A0	if (IS_ERR(data->uport)) {
+> =C2=A0		err =3D PTR_ERR(data->uport);
 
-The available range doesn't match the limits in the comments next to it
-either: 4 MHz / 8192 is 488.28125 Hz, not 448.28125 Hz,
-4 MHz / (8192 * 2047) is 0.238535 Hz, and (max - min) / 2047 is
-0.238419 Hz. Use those values.
 
-Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
----
-Changes in v2:
-- Rename period to period_ticks and say in the comment what a tick is (Andy)
-- Rename freq_uhz to freq_uHz and use MICROHZ_PER_HZ instead of MICRO (Andy)
-- Add a blank line before guard() (Andy)
+This assumes that these registers are available on all Ingenic SoCs,
+which is not the case. Looking at the PM it looks like they were added
+in the JZ4725B.
 
-Converting sx9360_samp_freq_interval[] to a plain int array is left for
-a separate cleanup.
-
-Compile-tested only (W=1); I don't have SX9360 hardware.
-
-v1: https://lore.kernel.org/all/20261024180149.144609-1-kapoorarnav43@gmail.com/
-
- drivers/iio/proximity/sx9360.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-index ed83d809ecf5..2a9b37df8f62 100644
---- a/drivers/iio/proximity/sx9360.c
-+++ b/drivers/iio/proximity/sx9360.c
-@@ -14,10 +14,12 @@
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/log2.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/units.h>
- 
- #include <linux/iio/iio.h>
- 
-@@ -43,6 +45,7 @@
- #define SX9360_REG_GNRL_CTRL1_SCANPERIOD_MASK GENMASK(2, 0)
- #define SX9360_REG_GNRL_CTRL2		0x12
- #define SX9360_REG_GNRL_CTRL2_PERIOD_102MS	0x32
-+#define SX9360_REG_GNRL_SCANPERIOD_MAX		GENMASK(10, 0)
- #define SX9360_REG_GNRL_REG_2_PERIOD_MS(_r)	\
- 	(((_r) * 8192) / (SX9360_FOSC_HZ / 1000))
- #define SX9360_REG_GNRL_FREQ_2_REG(_f)  (((_f) * 8192) / SX9360_FOSC_HZ)
-@@ -182,9 +185,9 @@ static const struct {
- 	int val;
- 	int val2;
- } sx9360_samp_freq_interval[] = {
--	{ 0, 281250 },  /* 4MHz / (8192 * 2047) */
--	{ 0, 281250 },
--	{ 448, 281250 },  /* 4MHz / 8192 */
-+	{ 0, 238535 },  /* 4MHz / (8192 * 2047) */
-+	{ 0, 238419 },
-+	{ 488, 281250 },  /* 4MHz / 8192 */
- };
- 
- static const struct regmap_range sx9360_writable_reg_ranges[] = {
-@@ -383,11 +386,25 @@ static int sx9360_read_avail(struct iio_dev *indio_dev,
- static int sx9360_set_samp_freq(struct sx_common_data *data,
- 				int val, int val2)
- {
--	int reg;
-+	unsigned int period_ticks;
-+	u64 freq_uHz;
- 	__be16 buf;
- 
--	reg = val * 8192 / SX9360_FOSC_HZ + val2 * 8192 / (SX9360_FOSC_MHZ);
--	buf = cpu_to_be16(reg);
-+	if (val < 0 || val2 < 0)
-+		return -EINVAL;
-+
-+	freq_uHz = (u64)val * MICROHZ_PER_HZ + val2;
-+	if (!freq_uHz)
-+		return -EINVAL;
-+
-+	/* The register holds the scan period in ticks of 8192 FOSC cycles. */
-+	period_ticks = DIV64_U64_ROUND_CLOSEST((u64)SX9360_FOSC_HZ * MICROHZ_PER_HZ,
-+					       freq_uHz * 8192);
-+	if (!period_ticks || period_ticks > SX9360_REG_GNRL_SCANPERIOD_MAX)
-+		return -EINVAL;
-+
-+	buf = cpu_to_be16(period_ticks);
-+
- 	guard(mutex)(&data->mutex);
- 
- 	return regmap_bulk_write(data->regmap, SX9360_REG_GNRL_CTRL1, &buf,
-
-base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
--- 
-2.53.0
-
+Cheers,
+-Paul
