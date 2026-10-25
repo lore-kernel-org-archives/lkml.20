@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792951652;
-	b=bOj8M2xW4ZiyfaXblSxS5eITwmdfrxiWhnnpP2Aq/vON4hOoZ6cA5IfRFFxo8fQE+7xY
-	 aLyBIMt0lBPUpml+kAYkHXjtPKW0ox8eCF4cyFCgdcwEKcaSBQKADucAOY0sSbpCvN9DZ
-	 PcjX0YmoLM5ERR+53wJduU0CorXGxPye4wAyC14L58oItXt4KmHlTMcZIlJBDkt91Hb9U
-	 WbhSvvHZzgo8dcApscp+A0c5bXbPyQ1JZFkETQzde2fldRV4OW1efgIkwfrVamY5y3sll
-	 jTiTK0ZLrvpwDWKeZcrE349A5T/+jOCy61emAItgKEUK35pFpPzWvEHVcoQKKX4cK5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792951652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=m0Ydq/j/RR3Dd8rFJdmc4BDtehwDcl6LEDUrs2GefBw=;
-	b=MN3afWGdVqwR8uKuRChTiCNHFdmNCQrALJdY11c9n4e5afozRv5IyOBsVW8gTowPkfvd
-	 guQLcrWLYMF3EWdUByxIIxplsfeO+O1JvgUzG7OQbml5MeIOqw0PQrcS/UA/N4UhPw3/U
-	 GLneYM6Ty/lN+mM2gkzdzPSuEVPdiQMKgpiwwzAgJ8stvWztyrVGHuLy45BQnmJGmlMfQ
-	 07KMRM/KVAZQFmDOSGWdny1iwTPqE6XF+PWlV6mErorZzb3GVlsiM0yITlrmYjOQNr6sB
-	 HOObknH7FHpLGcb8+jQvFoPRvin/sXkjPDIUjqm/Pl3KvwbjrdOQMAqN1eeVmRnjavw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YZENF7MF;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.129
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792951896;
+	b=pJ1Qq/2/oHDQRUDgD3yCtXwbCVPNH4XVq64tJuc/LryBwZvE4YFMBIdJePptlIiSaJX5
+	 XOWuYfvGGuwOJCrtdZEg64mTG7Ur5JElR5QR1fRJboJfV65rkd6k+91PNwJqOhkruNeab
+	 1Kx4jkemO2vzyL06Wz5W9p2PcLqMUAKOwad50hLrIcKgWhqmlCs7vjX+wRsNdKTe7tbN9
+	 z3JkV9lRMqbI9xlXG7e51vprvD/9MTQzZtzU4UUoEitP8FRqE+9lp9DqVdMo+D7z84w1c
+	 DchzwhkEkJ/LrQz2QZNVZlL24WUgZLf1bVVeCKGNF8N1WVn8UWyL5xHkEFovm9YdYOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792951896;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ZzemNGD1FqHN94h9nGTANHC6KlCsIO+x83kJATeIlCo=;
+	b=N43O6FeNLMlT1DQ2DBqOpmaDlwQFT3mfP6tFxDjcOJ/myskNOGMCCWboxkEhYybzLoY7
+	 3nCXgy2uQnuH+Wiup+LSAMS+FmwWnghzd3tMZlzDNFZ2Te9DIA2b+ww5M8jCxH/XuLQcA
+	 3DVQPuJXjFkXW2dzKf7gaRpEFQas46iQxXlywvsQoiEkC5yWLg+wRQBK9MAQf1f8M9Lpx
+	 EBc2923/1r8loU/2J8F9trrInIbrgYgAFyhdP6LDZDYK7tW7b48LCi0ySPYs3z34Mo/UJ
+	 9r5IfISRaynYgoI5eEWy+AVxBVw1v3eFxI4kSbgi1PV7FLePgisJpv0p8uXvdUeKQ1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.129
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020129.outbound.protection.outlook.com [52.101.196.129])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2733606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:07:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2733606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YZENF7MF
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b042c0759so1319715f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:07:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792951650; x=1793556450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m0Ydq/j/RR3Dd8rFJdmc4BDtehwDcl6LEDUrs2GefBw=;
-        b=YZENF7MFYp2iASoQnSKb6fMHyB+Ur17NlSLHLfambPG1WyYcjpD7Nv1gFbyFyXNvwr
-         v8Bx9cG9Q/Sd8CKko9Eog/h5tkw2ArY9XeHTdf4RQU7mNXIM2yH3XbFXIEkGWCzN9IKY
-         39XLZlyvqdxYPyn8uelhW9L6qDNgS9xaLZ7SkaDe4iQ2XpceC8XTpYtXZ+0HxzMZsliV
-         Xziow0M5YIOYiXni0OlGZqcOdftfvWlQmjwHc1s+LqOeMOaSlM25b5lVycgjdYSI5Ew8
-         ZHFyW5ss5Wa4TBKWaNhhz/3Yp8lOZUGN/MOighU1+8XSv1urwvnUoGdI2/ZvwIOKiU/S
-         PElw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792951650; x=1793556450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m0Ydq/j/RR3Dd8rFJdmc4BDtehwDcl6LEDUrs2GefBw=;
-        b=rT73ozCWcFuYyJtUsXCWlSYIFQFxFkz3DmnDk3Au2JYLbGrSPfOOciIH7KMFCo2FVa
-         BQo1V/dHqBBl5hMnq5paWAtgMe2UCqYnymuv9MlWOd2qh8vMm56N1HY9C5+EsILbpddk
-         KZK9lvliGnp6BkhgeR5qvVzjYrV+cyjCHYz1RgaK8qmz5v1P5Mew8rKBdmRlrJMVwk6i
-         L6Y+BE0YomA40Kbpv6qO932bcjJhU7K1DirYo1nxiEnLMnboEzV8in3Hi3CWEtrIxHeN
-         jfdUN4DI9lH0KEf6VAmDHGebi3Vr5TFXCayPN1tJv4tjCtRq1dkW+Am8MKTXhnX7UJou
-         P79w==
-X-Gm-Message-State: AFq9FYLe5sBR+5hkjbhAa2oAu6tW7fFpDpdiQceLWOleYrAm9+F4iUWY
-	U5pLBrJ4hXnu7MJ4np/I7Xg6eJHhfB2dkz//FEVXZiz0+SeacJKhBOQgxyYF
-X-Gm-Gg: AYBFou3aED5uOJCjnMvxuAEu46uGMHVtJ8rVk1WdwHnGtcqJHGrbICQ+/96KGrJT1+M
-	jVw9Wa5uox7sFYtaZdY4Vfj74J7DuFqZk0Ujtn0BnQ+1mj3ANdJwjV41dLihN1GzpH8girSPkdK
-	5GRV2+92DuXa3s8CKJsRTo4hkrwC1DrORRqqurCE5ecvSnz2f+N1qegGlrc49VCsCtmJT9nXcEj
-	GQHTtHdcoovxh+HEjoNvu43eZvyWg2Jqe7fk/InWzfa+l7WGP87KNGyMuwzuOYQPxcdjT4Ck3HD
-	U1I8DL09J3fjFVgOrtr5/HQmE6LxhRZI1/AmNTTL+Lph4+efCjhPgcP1f8wMdKJZiAuc3KI63th
-	4yKr4Fi7hU1SUW/RSdGMj9I6s5YEMj1wrKQ9GbAJKbB5xiWDeB5GKe+nkVIfdPhpcz5dumOLxb9
-	bLvRoWejDc7Jyo5NGxsMfgKSzrjEigffhMv8TmCBmNwEzWecmHc/NyXTOCKNafjVtZjNNRkyvyV
-	jDH02UkV9LRX9q/Gdw2bhTr/25ZkNoWe8Uijt8=
-X-Received: by 2002:a5d:5e0a:0:b0:48d:f957:bca4 with SMTP id ffacd0b85a97d-48e3eba18bamr7432826f8f.44.1792951650070;
-        Sun, 25 Oct 2026 11:07:30 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f37csm9333778f8f.8.2026.10.25.11.07.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:07:29 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	amitkumarjain0211@gmail.com,
-	siva8118@gmail.com
-Subject: [PATCH wireless] wifi: rsi: shut down roc_timer before freeing mac80211 hardware
-Date: Sun, 25 Oct 2026 18:07:27 +0000
-Message-ID: <20261025180728.3678113-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F0E606A32C;
+	Sun, 25 Oct 2026 18:11:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8F0E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jv/uQlS8AukjN7nR5PG1vVWo+wL4QLJmH1GkMOUxBF05BH9aPcMXiRUSjV6ah6lk+44K33eW/5pgj+arqrzbesMqq9DempawBA9XSZahZ+9ArVcC3kPiLb814nt4Ena3rroSpc4ZkRveclWLVh7soVfcjO23DX7JRL/zeL1KB1m06YSkHmZqVd/ldLZ6QDLgtnA8E5D/Mcx0pmaxnX745EBb9Yc09TP0y7+Kfsqz8gcJkp1nQpTQ/k4gC5SpZRKaFR7NbiG3kIwmTeafUty9Z2IHQSUnOu4rEZ3BOf+EQglFVqU0CpSjd7YGQjUOIoyZscJoeu1gUZUWI4JRGN6V4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=ZzemNGD1FqHN94h9nGTANHC6KlCsIO+x83kJATeIlCo=;
+ b=H/nkKReo9WNXglikl6+txLMZfoe8jGHo8EAOglnx7wJqn0sxeqDr5X1VNKl1SHa41iZN4sSVUnUxucYSYjxL8ilF3bR98iFeDNe06gxVtfw1QwVD8ZWANiTkcXSLdsOiVLNw9Atp7uy+gkCo9FNfkt5+5jJWsGlegLwFjhX/BizWsMv4PIfhe4D0WYP/2OUW7nmF+RnRHlaitp3j61uNYqjwlnOck4jXw7zXc4+XQ72dPDeX5oOPA+sRu4erDlUYZKTL2ZN8FifDqQ3lso/BjS0xGWYSK25sdAQliPJGpuDLIAOEP+etlShOitV4qOPNAEu/wo13SmSt1CTswRHsmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO0P123MB6815.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:30e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 25 Oct
+ 2026 18:11:33 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
+ 18:11:33 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	atomlin@atomlin.com,
+	chjohnst@mail.com,
+	neelx@suse.com,
+	sean@ashe.io,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH perf-tools-next v11 01/10] perf ftrace: Handle signals, non-blocking reads and pager exits in __cmd_ftrace()
+Date: Sun, 25 Oct 2026 14:11:16 -0400
+Message-ID: <20261025181125.514372-2-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261025181125.514372-1-atomlin@atomlin.com>
+References: <20261025181125.514372-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0311.namprd03.prod.outlook.com
+ (2603:10b6:408:112::16) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,57 +99,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB6815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 114a27e2-7003-44df-68b9-08df32c3669f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|5023799004|56012099006|261022105027099003|261022075727099003|261009223027099003|261021123027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	mGUZsB7d4xzyVuqmZWgFD8kxCcxL2rpt4OHYyW87CchNBM4OJ6synP4YafoFO7ydyB84LCGSLQdOP3qwlT7wMs92mB67NcElJqYTfUjukXpKeuUW1WDu64YDTzeU0J2cdnBzNo8VGWHJnlYKXmIVseQpAcShpvbHWe2JPzLhRc1icPyduPdrC0hGq360FyXAFmU1ln5SjmzcGygnPqpe26dX0SAq0Thd8q+h8k+T/Bdzh9rnaSVUStFELkWL2X4wOkodTHcN83LotxnUG7xLOWjXaZdow4x2noVCUWNmohXLCoNcRpM1+EDpxhkgUVrTvsgIfe/hQjj+AwUHM8w0ORZgiwK3LvnT7Sa5No05xqTSauPmBtyNnjhe4MuDFZc1tqb50MzDG+IzNZCQr/IZwB/B1Lq8C8TO1zccDToT2Ntxx/352kmanOY4IOLwQEPLV6tQPkb6TCIw9mhQMcl/mctNPqhHNuH+Gkbu0KWXPQDOiznjHcawIatyMuM3vxUbNpd8SKI/kLtKAnigkB7s3hCsaxtGwbqDIOenoVq4bJV0z+tQp0Pe+bZDqunDVmu1XDzx8GRBhZK3jHKL2Pz5qctUxvLbhickvDZ2iKWnT9010yLqHj5suRRjjQ5hOJJue1nY+JPNBa6HNuAQYycbdsIfdZ3DyTqod6o/zOI2H/Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(5023799004)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DGgHi90/+gUJASwJ24AMfRTIU//bA6Tlglsci7/MKzBWz2wKUSyJ7l+DvJyu?=
+ =?us-ascii?Q?LP505t8f6jasWghjiFOMRpGf6vhL9j76CUSnueEzKd1Xe/V99V0yjrKbQDLY?=
+ =?us-ascii?Q?o1TiRA3FZqm47Sevwg+/4AwaCzsV/Tktyet/0k7MJRSvoba1izGCDI5o44dV?=
+ =?us-ascii?Q?lAe6+OHF9xb0tIUnMQ3jC0yAgB5Wx9SV6kRy8MwubDmIwM8uQxC/hwy048/F?=
+ =?us-ascii?Q?23DpDnUmvlH/6JuhAf6V4+VENTcoySugRcq2dN+Kzet9O7JEqY59ZI4gwemX?=
+ =?us-ascii?Q?zSV7Zl6G0Ef0vG9JWLjy2wNbsqE+ijgNpmS49VqCfuWDk+Z8vcz6BKSH2mWD?=
+ =?us-ascii?Q?U56LjQfinftH6O6sQwF7E9aAVinKhXxBVUKSvfzF5XS2MYI+thUH2taJMo6l?=
+ =?us-ascii?Q?IV+Gv3BUGzFHjg8GaC+jhzXJOZymCxG9T+nFDD7L91GSieYlJ5S9vZ0JfFg9?=
+ =?us-ascii?Q?5pzvW9cRISAToR1dGc8UWa8Hw6nn8UnoYXPbJz71PsDJA3weqQjKLvwfzM9V?=
+ =?us-ascii?Q?5OD2KMrQ91//Ls+AxGyjdr4LnKB9mvLdAQletOElC6/laxd9PG/NWu9flEQR?=
+ =?us-ascii?Q?0RsO44TnSPeu0lbi11QSd3Q4BPZsku9Yu7SwY/aGDU0lx/RcZa9yef+hiC0M?=
+ =?us-ascii?Q?7fxraI7akl1uOBAwI1TxDoaGbtc7fbRpTKLYmINbPpxRb9NrTyWVq5oZ8n5+?=
+ =?us-ascii?Q?RUtCFDDjG6Uh9z5DfckAdhb6QRdudnhnKYTK6dZycNLaaON2s4LEmzeQ1KTC?=
+ =?us-ascii?Q?scuoJwc5//daxqG9YsMP4hkGBMDpd1Xmf8W6ezQrGkL/adM5mcZcMX4L8jrk?=
+ =?us-ascii?Q?fycur6IWNKo3Q7zf39l8ot+kqJFHnj4FUisUTrikqnC/CJwq2boMQ3KlHvG/?=
+ =?us-ascii?Q?yqYaUGzYmWLXrq9ADz1YxH3v/3zJziWIlYCWz4bBBANfJPl/AtIB0ho6Co9j?=
+ =?us-ascii?Q?O6fdE6+cHGHGrm/7PlfE9oMpMK+3uZ6lEfFGHK4HIeVV9g/G/3mVxSkH/gCW?=
+ =?us-ascii?Q?+KmnPD3wkJ3pJ0KCLGeARRGVZYYxJZ+GFOMXGoo7plhR+O1x16SUzUjrfVU1?=
+ =?us-ascii?Q?oV+LA2r5F/K/8qe4fnZp6KID77v8CJOBKtFuJIKhu1tVMFVv5uk+XXqVzrCe?=
+ =?us-ascii?Q?/a9pHLlaCnb1E8Vz0BvyvHt74WtUsEXh7NVaJN1jQ6adCO4GGVwXrGSkVXuG?=
+ =?us-ascii?Q?g36J1W7l0H1PyxAwwuGFY1aVAoq/KTlsZ4Uwz/dxKWS77X2uxlYi0LrFvaVg?=
+ =?us-ascii?Q?2sU+iCejly0lYEijXVSYj8p3OFt0RruDvoBiUAgSo4SyLOcpfKWkiyqX1Uw7?=
+ =?us-ascii?Q?Fcbi0dj6DTdLxi8FI2QCl/fw/h1rQb9PUlSCZMwWjjuQcVZzG6IvxKJZXpmw?=
+ =?us-ascii?Q?H2WddVLuKCBoJS/dB8goj171UFL8HB4ObtOyuW1NWOXA+kevx3QPEGKa/P2g?=
+ =?us-ascii?Q?yKXYR/wzUZR0XMKa1TCPwRa9RdS45spRdxmBd4GjEADENQ5PPfayXShR8KnS?=
+ =?us-ascii?Q?1TgQxln1yboPDPC+I8HcZtoeICPTJCnCisjPJQOHCUbWeNMYr1AhPsBm11YN?=
+ =?us-ascii?Q?6ywe6BvHVBESseaQTSBctEfZUD5evvFd1h5c8+gGxmUdW8yKWA0SkQmwrTYe?=
+ =?us-ascii?Q?OHeh32LIJaO71bF/X/TXbr+IoscunsX71VloXskrqTtD6A3s9fhsjWyiUWB2?=
+ =?us-ascii?Q?PooezzI/Aq0zafuJmDOsdsKMw5xhAq+Lqd30mwam4KzQmZ2CUEahnUWNyPk7?=
+ =?us-ascii?Q?L3p5T0KQxA=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 114a27e2-7003-44df-68b9-08df32c3669f
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 18:11:33.3109
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vI4cmPEgs268U2O18ZVe+7YqSjSLNfusumr3h64jQmRbpnyHZfUV+SA+Qg+ThLC2dMM7yikt5Dhri1ThjcR1XA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB6815
 
-rsi_mac80211_detach() calls ieee80211_free_hw() which destroys the
-ieee80211_hw structure, but the ROC timer can still fire and call
-ieee80211_remain_on_channel_expired() with the freed hw pointer.
+In __cmd_ftrace(), trace_fd is configured for non-blocking I/O via
+fcntl(trace_fd, F_SETFL, O_NONBLOCK) and polled using poll(). However,
+the polling loop previously treated any negative return code from poll()
+or read() as an unrecoverable failure.
 
-Add timer_shutdown_sync() in rsi_mac80211_detach() before
-ieee80211_stop_queues() so the timer cannot fire after the hardware
-structure is freed. Also add a belt-and-suspenders shutdown in
-rsi_91x_deinit() for the probe-error paths that call deinit directly
-without going through rsi_mac80211_detach(). timer_shutdown_sync()
-prevents the callback from rearming the timer.
+If poll() or read() is interrupted by a non-fatal signal (i.e. SIGWINCH
+upon terminal resizing), errno is set to EINTR. Furthermore, read() on
+trace_pipe can return EAGAIN/EWOULDBLOCK even after poll() indicates
+POLLIN (for instance, under concurrent readers, spurious wakeups, or
+block-mode trace iterator options). In all such cases, breaking from the
+loop causes perf ftrace to terminate tracing prematurely.
 
-Fixes: df771911914a ("rsi: add support for p2p listen")
+Additionally, output errors on stdout (i.e. when a pager or consumer
+process exits, closing the downstream pipe) were ignored by fflush(),
+leaving __cmd_ftrace() polling indefinitely until the workload
+completes.
+
+Resolve these concerns by retrying poll() upon receiving EINTR, retrying
+read() on EAGAIN, EWOULDBLOCK, and EINTR, and breaking on EOF (n == 0).
+Furthermore, detect stdout errors and broken pipes via fflush() and
+ferror() to exit immediately when the downstream output sink closes, and
+handle EINTR and ferror(stdout) cleanly in the subsequent buffer
+draining loop.
+
+Fixes: d01f4e8db22c ("perf ftrace: Introduce new 'ftrace' tool")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Tested-by: Ian Rogers <irogers@google.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- drivers/net/wireless/rsi/rsi_91x_mac80211.c | 3 +++
- drivers/net/wireless/rsi/rsi_91x_main.c     | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ tools/perf/builtin-ftrace.c | 27 ++++++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/rsi/rsi_91x_mac80211.c b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-index 3faf2235728be..90b0fb80d91f8 100644
---- a/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-@@ -301,9 +301,12 @@ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
-  */
- void rsi_mac80211_detach(struct rsi_hw *adapter)
- {
-+	struct rsi_common *common = adapter->priv;
- 	struct ieee80211_hw *hw = adapter->hw;
- 	enum nl80211_band band;
+diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
+index 6017493ff179..7cdc9ae2fbbb 100644
+--- a/tools/perf/builtin-ftrace.c
++++ b/tools/perf/builtin-ftrace.c
+@@ -14,6 +14,7 @@
+ #include <poll.h>
+ #include <semaphore.h>
+ #include <signal.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <linux/capability.h>
+@@ -806,17 +807,27 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+ 	}
  
-+	timer_shutdown_sync(&common->roc_timer);
+ 	while (!done) {
+-		if (poll(&pollfd, 1, -1) < 0)
++		if (poll(&pollfd, 1, -1) < 0) {
++			if (errno == EINTR)
++				continue;
+ 			break;
++		}
+ 
+ 		if (pollfd.revents & POLLIN) {
+ 			int n = read(trace_fd, buf, sizeof(buf));
+-			if (n < 0)
 +
- 	if (hw) {
- 		ieee80211_stop_queues(hw);
- 		ieee80211_unregister_hw(hw);
-diff --git a/drivers/net/wireless/rsi/rsi_91x_main.c b/drivers/net/wireless/rsi/rsi_91x_main.c
-index 2ce5147666208..e893bba868b72 100644
---- a/drivers/net/wireless/rsi/rsi_91x_main.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_main.c
-@@ -419,7 +419,7 @@ void rsi_91x_deinit(struct rsi_hw *adapter)
- #endif
++			if (n < 0) {
++				if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
++					continue;
++				break;
++			}
++			if (n == 0)
+ 				break;
+ 			if (fwrite(buf, n, 1, stdout) != 1)
+ 				break;
+ 			/* flush output since stdout is in full buffering mode due to pager */
+-			fflush(stdout);
++			if (fflush(stdout) < 0 || ferror(stdout))
++				break;
+ 		}
+ 	}
  
- 	common->init_done = false;
--
-+	timer_shutdown_sync(&common->roc_timer);
- 	kfree(common);
- 	kfree(adapter->rsi_dev);
- 	kfree(adapter);
+@@ -831,9 +842,15 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+ 	}
+ 
+ 	/* read remaining buffer contents */
+-	while (true) {
++	while (!ferror(stdout)) {
+ 		int n = read(trace_fd, buf, sizeof(buf));
+-		if (n <= 0)
++
++		if (n < 0) {
++			if (errno == EINTR)
++				continue;
++			break;
++		}
++		if (n == 0)
+ 			break;
+ 		if (fwrite(buf, n, 1, stdout) != 1)
+ 			break;
 -- 
-2.47.3
+2.55.0
 
