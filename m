@@ -1,62 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792922549;
-	b=BTDF02bTkOdlI6W1MY1ipzxeWfFPZMO21e1yMe9APtfmtlOhqRlZ5/NB3HzHOWSfjQJd
-	 Yc6/WBbQQ7aaZl6VOnQeBm63sS7i+x9ggiwG2M++6WMSUAyVp+0fcDCzTcmbz+1gScAAQ
-	 jyZu7KYqczhxjoseF6LA6QFLYiuv/5WbcKDkc67jx9d8YiXt27R5mohH9nXKlUo15aYF1
-	 2D66BMQhfoHjd5xzNiK/kkp6ZYXa+v9ZfDL6oyI/bTCazaVrA6SZososXAinZRb+oARWZ
-	 dzEqZFoZYabY9sEy+xvAzEHIfUH8EYR9rsvRSav5/1/oeXe2te+TWK/vnZHONF9nRfw==
+	t=1792922581;
+	b=R7PCJi61CoRmHAul9TMJmly8ikVLSqiQ+U5SPBF5xWfo/tojsJbJeZQnfiDMTyGUCsGf
+	 Vgj3Y/xAGC6neFLdzVAHv0ah/OslrNVBpBgpRsl8MIuuXMHnIB6JVLlhmuEbuF18Ms72h
+	 zvge8pZFbdhcK71VXa1wuLXecpNChK9k9uS4fP5lbgH+swL98Lql52NgjquAmV8RkEGbP
+	 zCVHXPH2rUwXwv1Lz+3Nnn9OGv3T8qUKWe1XfCT3vwPtN5BixRC1QVVS2thuI+hM2s8aE
+	 wwplhFZld5VAuW7dANiL/qas0mN8ZIoRBaSWVXfjLc4QA0p0hInWYxcfPk43p0Pd1aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792922549;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kvSkFaxAPpYhdiNlAHuz4d3umTmQ7fmdUrka5BfYdyY=;
-	b=BXf3Z2yrLL5g5Ys9nX/DNHv9SQR9XIuiqhhbEScZThmic1U7+ZSo3Y7KwSA6w2xaVOKI
-	 2d5rAKcAvpOLoKZY6Dki9068a+cPs5D6WUaH4UwMfvb4QRJqaVODkcnhtkZFELc1RbYMQ
-	 73ILGB/EsMx5TACnFn03ZVPvMOQmTVrn7jtkFPKIMN5j7wF7luu8zDtKw8BsNbMLg45EV
-	 QIbLxo5sXiRMYkviTy1vqsRC+tOUVjyUJNYvrl79/qkRBMGLmfXE9tgZwLQ0zsRSILRrL
-	 kq+k/lVgyUnG0unBwbuBxMVpkvcLM4yN01kavwftWVP1ohgpKZxDEc0FdxO8f4Umabw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792922581;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-Original-Sender:X-Originating-IP:X-ZEDAT-Hint;
+	bh=ONuclalldvGRYeCYIBCRB+p6Rhmt1LBVitO+GbjV3sE=;
+	b=bLr/xCEej3RKm5KVu+WGTfJpCKKFkc7ob1/OxACCT+CvWkmawdrbmt3wCRuFDpHPi/AY
+	 RWEgns0qjj4aM2vbA8qaM9gEoxu5eZEBaxNq6CIBNLZsjIZuVGgJajYmCdaXBDzGTwqCV
+	 B0/Z6p0CB23VLiFC9NZACgmcvNC9zKQSl5POtLI2FmOm0IF4I61FpcSaLpzuRKsY+WDjW
+	 LMagvyOyInTHoJNmmQqU8spzzvliXoj8OL/jcq38XhGV/O3AyEOB61axB198u79TIhLmX
+	 V6cGYSuX4NHLMzBCePvHKlGq/jZcSgET83JUQ3GZOFqGq2p/Hsz+697cSOO5hWmCyXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=IXjL9e7g;
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=UATREoE7;
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE53606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:02:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE53606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD644606A31A;
+	Sun, 25 Oct 2026 10:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD644606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=IXjL9e7g
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1792922546;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kvSkFaxAPpYhdiNlAHuz4d3umTmQ7fmdUrka5BfYdyY=;
-	b=IXjL9e7g31pHbH9WsPrz5Oe9/VdSt5KkOofLgYPfMmEuG1wEMhsiUFlMehd1xQpqJI0gIp
-	odyYxO7sUSDZFijXH4lnKXY5i9eG1Q1ZWEP/ra0BlxPP7rUqm286freikrReECaBuLsIQa
-	DIatAP1WFU1vdG2v9YiFbU3pauPanDw=
-To: Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/cputime: Don't warn when the tick period starts after idle exit
-Date: Sun, 25 Oct 2026 11:02:02 +0100
-Message-ID: <20261025100202.2584654-1-stian@itx.no>
-In-Reply-To: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
-References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=UATREoE7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:Date:Cc:To:From:Subject:Message-ID:From:Reply-To:Subject:Date:
+	Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=ONuclalldvGRYeCYIBCRB+p6Rhmt1LBVitO+GbjV3sE=; t=1792922579; x=1793527379; 
+	b=UATREoE7EpUtLHlyUByMgiwPB6yFfpY6a9ACNWxiwZkn/fx4mkETlcGcLgvrzIwJKIxicON6Uvh
+	aSF/ZNBJvY5eLi7TGk08DPZo+I5yHPtYoYznpeDoEGrr6nAXaL1NmvdbTu7GnN24bEtjduGzsUILo
+	u5puHlZMRvByszhf47riH4VDQpeVJmlwHD9Y123tx9QLkuxMnKpcvBDPMQvAe9RY4QN5wGlyH0uVQ
+	ad/5c7XAFXmO6UkNaTCF5KeSP6CQ0vsETXUOtqticBr+xX35OwurZ8e2iOnoRteyz9OKZavkImrnJ
+	ZJbhLe4NglDGzO9P8M1ts8TYTNBZWtpjnAfQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xKv3v-00000002f7a-0VtW; Sun, 25 Oct 2026 11:02:47 +0100
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xKv3u-00000003YTu-3hzz; Sun, 25 Oct 2026 11:02:47 +0100
+Message-ID: <3d0dc3463d42cf55ee69648fde508043b104369c.camel@physik.fu-berlin.de>
+Subject: [GIT PULL] sh updates for v7.4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Florian Fuchs	
+ <fuchsfl@gmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, Pengpeng
+ Hou	 <pengpeng@iscas.ac.cn>, Runyu Xiao <runyu.xiao@seu.edu.cn>, Waldemar
+ Brodkorb	 <wbx@openadk.org>, Rich Felker <dalias@libc.org>, Yoshinori Sato	
+ <yoshinori.sato@nifty.com>, linux-sh <linux-sh@vger.kernel.org>,
+ linux-kernel	 <linux-kernel@vger.kernel.org>
+Date: Sun, 25 Oct 2026 11:02:46 +0100
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,55 +79,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-kcpustat_dyntick_stop() warns if idle ends before the current tick
-period has started. It fired once during boot on a Dell XPS 13, in
-CPU 0's first idle period, right after the switch from refined-jiffies
-to tsc-early.
+Hi Linus,
 
-That can happen. The clocksource switch continues ktime from the last
-jiffies update, so ktime falls behind the tick by up to a tick, and the
-sched timer that NOHZ arms next on tick_next_period can expire more
-than a tick after now. In a KVM guest it was 1.5 ticks ahead after a
-switch from jiffies to hpet. An idle period that stops the tick and
-exits before it fires then sees ts->last_tick - TICK_NSEC after now.
+this is my pull request with sh updates for v7.4. It contains fixes and imp=
+rovements
+for various boards as well as the generic sh kernel from six different auth=
+ors.
 
-The tick restart keeps ts->last_tick in that case, so the first tick
-covers a period after the idle exit and nothing overlaps, which the
-code already handles. Drop the warning.
+Dmitry Torokhov has contributed three patches to help the boards mach-x3pro=
+to and
+ecovec24 get rid off the use of the old platform data API in the kernel. Fo=
+r the
+former board, software nodes are being used for gpio-keys now while for the=
+ latter
+board, static device properties are used to describe the touchscreen.
 
-Fixes: 96a494c9cfd8 ("sched/cputime: Don't account idle time twice after dyntick-idle")
-Reported-by: Paul Menzel <pmenzel@molgen.mpg.de>
-Closes: https://lore.kernel.org/all/bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de/
-Signed-off-by: Stian Halseth <stian@itx.no>
----
-I could not hit the window in a KVM guest, but instrumented, the guest
-showed the sched timer armed 5.9 ms after now at HZ=250 right after a
-jiffies -> hpet switch, and tick stops saving a ts->last_tick more than
-a tick ahead. The fix boots without warnings there.
+Florian Fuchs has contributed two fixes for the generic sh kernel, one is a=
+ build fix
+when CONFIG_BUILTIN_DTB is enabled and the other fixes an issue with __get_=
+user_u64()
+and __put_user_u64() using wrong memory operands which could cause the kern=
+el build
+to fail with "invalid 'asm'" or an internal compiler error in GCC's change_=
+address_1.
 
- kernel/sched/cputime.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+A single patch by Pengpeng Hou updates various default configuration files =
+of several
+boards to replace the removed CONFIG_USB_GADGET_M66592 with the new CONFIG_=
+USB_M66592
+Kconfig option.
 
-diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index 9e0fb8633d823..17f3cbd5d403a 100644
---- a/kernel/sched/cputime.c
-+++ b/kernel/sched/cputime.c
-@@ -478,7 +478,12 @@ void kcpustat_dyntick_stop(u64 now, u64 tick_start)
- 			kc->idle_tick_overlap = 0;
- 		}
- 		tick_start = max(tick_start, kc->idle_dyntick_entry);
--		if (!WARN_ON_ONCE(now < tick_start))
-+		/*
-+		 * After a switch from the jiffies clocksource the tick can be
-+		 * armed more than a tick ahead, so the period may not have
-+		 * started yet.
-+		 */
-+		if (now > tick_start)
- 			kc->idle_tick_overlap += now - tick_start;
- 		kcpustat_idle_stop(kc, now);
- 		kc->idle_dyntick = false;
--- 
-2.43.0
+Two patches by Karl Mehltretter fix two issues with the SH-7785LCR evaluati=
+on board
+which is actually one of the boards I personally use for testing kernel pat=
+ches.
 
+The first patch fixes a kernel memory leak which occurred as a result of th=
+e prio and
+sense lists being sorted too early in register_intc_controller() while the =
+second patch
+fixes the the registration of the PCA9564 controller so that the RTC works =
+properly
+again.
+
+A patch by Runyu Xiao fixes missing cookies when calling free_irq() in the =
+maple bus
+driver which ensures that IRQ handlers can be properly unregistered and the=
+ kernel does
+not emit a WARN message.
+
+Finally, a patch by Waldemar Brodkorb selects BINFMT_FLAT_NO_DATA_START_OFF=
+SET for !MMU
+configurations such that there is no gap at the end of text and init runs w=
+hich causes
+the GOT register to point below the real GOT, so every GOT load reads the n=
+eighbouring
+slot and gets a wrong pointer.
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935=
+:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/glaubitz/sh-linux.git tags/=
+sh-for-v7.4-tag1
+
+for you to fetch changes up to f45711b39e03ff5e80b60dcc1fd34b3fc7d3d36c:
+
+  sh: Select BINFMT_FLAT_NO_DATA_START_OFFSET for !MMU (2026-10-21 19:53:14=
+ +0200)
+
+----------------------------------------------------------------
+sh updates for v7.4
+
+- sh: Select BINFMT_FLAT_NO_DATA_START_OFFSET for !MMU
+- sh: maple: Use the matching IRQ cookie when invoking free_irq()
+- sh: sh7785lcr: Register the PCA9564 controller as I2C bus 0
+- sh: intc: Sort the prio and sense lists after filling them
+- sh: defconfig: Enable the current M66592 UDC symbol
+- sh: uaccess: Require offsettable operands for 64-bit user access
+- sh: Fix built-in DTB build with generic rule
+- sh: ecovec24: Use static device properties to describe the touchscreen
+- sh: mach-x3proto: Convert gpio-keys to software nodes
+- sh: mach-x3proto: Add software node for GPIO controller
+
+Thanks for pulling!
+
+Adrian
+
+----------------------------------------------------------------
+Dmitry Torokhov (3):
+      sh: mach-x3proto: Add software node for GPIO controller
+      sh: mach-x3proto: Convert gpio-keys to software nodes
+      sh: ecovec24: Use static device properties to describe the touchscree=
+n
+
+Florian Fuchs (2):
+      sh: Fix built-in DTB build with generic rule
+      sh: uaccess: Require offsettable operands for 64-bit user access
+
+Karl Mehltretter (2):
+      sh: intc: Sort the prio and sense lists after filling them
+      sh: sh7785lcr: Register the PCA9564 controller as I2C bus 0
+
+Pengpeng Hou (1):
+      sh: defconfig: Enable the current M66592 UDC symbol
+
+Runyu Xiao (1):
+      sh: maple: Use the matching IRQ cookie when invoking free_irq()
+
+Waldemar Brodkorb (1):
+      sh: Select BINFMT_FLAT_NO_DATA_START_OFFSET for !MMU
+
+ arch/sh/Kconfig                              |   1 +
+ arch/sh/boards/board-sh7785lcr.c             |   2 +-
+ arch/sh/boards/mach-ecovec24/setup.c         |  38 ++----
+ arch/sh/boards/mach-x3proto/gpio.c           |  15 ++-
+ arch/sh/boards/mach-x3proto/setup.c          | 165 +++++++++++++----------=
+----
+ arch/sh/boot/dts/Makefile                    |   2 +-
+ arch/sh/configs/migor_defconfig              |   2 +-
+ arch/sh/configs/sdk7786_defconfig            |   2 +-
+ arch/sh/configs/shx3_defconfig               |   2 +-
+ arch/sh/include/asm/uaccess_32.h             |   8 +-
+ arch/sh/include/mach-x3proto/mach/hardware.h |   2 +
+ drivers/sh/intc/core.c                       |  11 +-
+ drivers/sh/maple/maple.c                     |   4 +-
+ 13 files changed, 122 insertions(+), 132 deletions(-)
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
