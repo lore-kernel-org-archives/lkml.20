@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792953822;
-	b=NO2QT4OtUhNAggts83ND2zms6HTf4VeGXgwzo1isvDmFWreSJv+aqySauaCb2YamIW1X
-	 GlpyuqQAil9AZjizxm3EnSEhHSq5eyZehZs38mjBSk1fKANH+HOTStRrxHG57HELDA/0p
-	 1M1UplYle0W8RQIySIETK5xVPDL8wUADvRa7p3Qca2Zzyh1b1b6ayIrpiJcroZ2uS4Dnq
-	 pntP1wYYocaWiYtG89Ea/zvQRDIkOdZ0U3zw6l37Nl+xwQXH3d+hfRW27TBM3Bxl9JO4d
-	 kZ5uxWaBre93tp+EJ4P/BE9exx1cdL26Otzb6TNK+p0MMwmAF4FODfmI9vJrnRL9/0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792953822;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792954037;
+	b=Zr93eNtXgRA67zQ3ts6BCcbtq8/+eGyQpb37IdgJ38xJxBmU94KFe+ZP572NOCAjhmCH
+	 eY1NwazhQ8z5Y4Nh/nS8H/rAVZiyXR/k59uDg8n4MEkPq5zfDn+JFNNq4xAy9M5eIZENm
+	 2JWQxGtlr4NiRvR7jqMduQH+LtpTzVRdaDXTCGnrMRBDmVnt1kU0n2O6V8QyBZbqjzO6V
+	 QoAYatzUqZYHLpJMGlBV5njGCn/eqvKvoo+IvJpJ4Q4rOdj+nLUcumlVDGAvnqL3v5ILR
+	 WvqvDfVUV6hmi9aqZDN6eX2ZaHZB9TYKNiMo40pzEnS2IKC1PwRJf3c2Xpc4cfS7FQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792954037;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EA+TGwhOKTSjJMI/+IH2m8d0jmRxkGdSQ6LfUGiuKeY=;
-	b=Ph3JH1D6rmgXNvQD5zRkIbH5xUI+/ZSKwhDdMbQJmm2/ihwo1NsQ1lbSpx6oL0Duhj2u
-	 5STNQ06MFfbyeSV2D4SuE8wYcP9g0RFqF0Dm+NKtXoZwGm7NBrUsc75Y1rxr6K/dmyCn0
-	 JIG9s4GGKidhDrcEbOATHrG7kxOxCfqKCZa/BwEwUMlGgMnfe2LeJM0IfvYv5DDSBXjoP
-	 tLsuKHwif8gvKHPLf9jWRGDmhH2d0EOkLq1E2dZnYEll39e5CbctmVEgcUONSD8cnM9cc
-	 qcQelU0uGqfT+7id/hscjY6f8vDdBAyZYMXkxPs7rcqa7Z0dEDfhOKEEyJmP/oAe/ow==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cd/Rf0PmOsf9SbzCT228kopwmzuVCMtn/HtZcsjTHHw=;
+	b=2mZ/7XdDKJ0thg5XxZIY6dzOtldVpaE7FWne7w3bHU/JvgwHGca+bRZUseUCnmrfFuIT
+	 yTITZb8NwFLPlOqyECbJGDrVXPiwNCG/FOfX1uFE8Nkikdwib/Y27M0W13/+QO8b0BWMt
+	 rHAYOcNrr+Rva4SXxhpg0V+ToxNEE4IDZzYbZtyEcXqrCq0UlgFoIYY369s+VoqpaVclb
+	 DcIzgcDdwpuyD3K+ijwB6i3rFm+d3FRB4bvgsqGzdK/sZqPNT2AeUHNlvKPtPOOigNy8n
+	 aboxHc2yXNU9WZJvhdlfBpoDMUVJWLNmG+bjKz60IefV73YKP1fvXFsFuZ5TAokexZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ptIN5jwl;
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pFZ5a2iX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.176
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B22606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B22606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC22E606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC22E606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ptIN5jwl
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4395d31228so345962666b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:43:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pFZ5a2iX
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so3159109e0c.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:47:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792954036; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r2F+Sz+r5/sOKesLu6RKMYNOq/LXwNu+kJK+9FigG9tZft9JoHzfzx/L33M/I/Jf8h
+         lcKOcptKZIShgZi2SCelcGm4vmUdNAd/e1MmN1ya31O5sQKojF0T3YdrkCd0MIZCkdEB
+         atEB6gF/d9kQGIudBuKg3ILEleJCop60YJWrcFEoINkYmnXffjbKkaE+fjW6DxbpfEgS
+         m5vXk/bXi3psXO9NZ5W7PV+N5+LpkmReisOsV3a6EXlrMk5xw5umLwT1NpgC0WXfO4Jk
+         GUE2A9asSir9nAtuth1bzZuMhBDFYj4wTE85bc4C+cC/+bN4GXUlRfB5o1kkoyS4cLRH
+         uc2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cd/Rf0PmOsf9SbzCT228kopwmzuVCMtn/HtZcsjTHHw=;
+        fh=XhQXveBB9zwSZNziIqr3ZODFZewSzFVWEF8Hj3xByaY=;
+        b=Auf69iY8w1Y+K8tV7IkfxBfm31IBldSxfAvqLB3eMVrmFAaySUoOmBnNSROOecN+Tk
+         DjzL4tOxDLw72axKWIJFlKREQatMCZGrs7Q5/1NUD83OxEoAvMOje0J/+BCjmXtLOpRk
+         KScxqMXA6WwqqLup0nyjF8TbyF82T0q+Ev7DSPteXkaK9D+GTxh10CVQBze5C3m5prb5
+         pi7LnPXQJTCrBp86sIBD72ov+tw4I+5lNKRcQBIjrFbWn1z5AUWlpAqgMefzIaXWDSYh
+         CxUvI/MCQfepOqjq9JrOrGiF2MXCcQm6n2iMTtDzY5VAdsFxUhIavRzU2PFJt2FQtw6a
+         BNAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792953819; x=1793558619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EA+TGwhOKTSjJMI/+IH2m8d0jmRxkGdSQ6LfUGiuKeY=;
-        b=ptIN5jwl8wfXt0ZjXqZ1Prbvvn+fmQOC78CtBSeMmBPCxxuiQrVrnrqkmBLdYv5d4e
-         sWS/HkRXEnCYkb6n5plCIBH8Qj1qdiNR1AdaTa0l/NNgeSMkoB2QmovQ9kO77KXCNIIg
-         j/3aUKZBJs7gRpkhgVZc/ULIYrtWPjNoMaxpHlqNmAg7d0+preG26bntItsea3TB0Hpb
-         T91stOC7WuGNTZTfCQCNNZEQnFHVTFG/4sp+YXlB29d9NfO9mmusXHYaFNJhbbgx2TvQ
-         E6no/uQzVee8PjhW4TLusR+Lp9yse8rsXOv164SlLom3sLtZW7XmP7MO/+LeBhaMcr18
-         2u2g==
+        d=gmail.com; s=20251104; t=1792954036; x=1793558836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cd/Rf0PmOsf9SbzCT228kopwmzuVCMtn/HtZcsjTHHw=;
+        b=pFZ5a2iX/z+pKe+hYLL1GQnSOuYDBsz3Ynetp+1FWxgyGkX28iH2CSl267qWQgDyM+
+         RGRJPcOXNuTcRjE8ZLrMLmU7T+dN7BWz82eGoPJdVXP2Mvp9vwELoUeGlVLP1nOK9Xcf
+         7i722QRvAnnSymbAbqjIULgrN8IXRBrkDHcsBVG8B/xiMPMkam2S62O+X8e0DtCoP6Th
+         nl3gIW+nmYYec9t9wbAvuRGY6nPN108gaPfaCKBhFCew4Dad7WB+wwngNqiwEKYtP4uS
+         aH6gkvQr1EnE0CNMNrA2l5zFCFFOXGACQi4eaWzXmMZC3vm/YEiF0haCDgZ+hu/V61Cy
+         VLOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792953819; x=1793558619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EA+TGwhOKTSjJMI/+IH2m8d0jmRxkGdSQ6LfUGiuKeY=;
-        b=Y3+ktzMMtQW244RDsnnJ0lnP+d7Twm6pJRkC7OTc0qjT/IZlTyMc/TuARxK12ixQkY
-         faflyX9bykOsyYXXnr/g/mAhRSDAkbqt/LRLRdF3OjLjQWTnNCjOlNL7dVE9cvfTmWOu
-         hZscJY0EBIGAuJJg4LPOXvjYXxDQY6t2XoTFzyw8DsHWPAmO1EXs0pN1oatODyutLen3
-         SEsyZcZtA0UrMGUS4KBRcED0gG0ZwW+EbIUrh5CgQV0ziVK3H/7o7f8TOcCya/8BuV1A
-         2v22paRcFeNvND3gE3NzTlDlcldV/xCtVeZzscEPq11TPztlR7SeU6Ip/0278udy2sg1
-         lIvw==
-X-Forwarded-Encrypted: i=1; AKwUvByjJ79FuAfqR3coHtQjbVn5d4P4wWzu0AQElH51ka8XkYtDlmJaJwBRrAc4T/c5PT3d3lpekxjiwOafu4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK2emERE0gJSMzGiG8JQZRKG1CsA2EKZqMN7H2BYRBs0kD9CT5
-	0XZ6t7iTjP1I2geLFN4y/5vchAYb1PHguIF2V3znoB5sfxKXNknS7ia4
-X-Gm-Gg: AYBFou039dk2zLV0O4xcowgo2LZloL8nVlLG5oJw9dYNgZbavBiO6sYr7mDl3yF4DkJ
-	coinpDaKHM7HJj6FytB8CVJ+1yGXaG2hRe46GqM1MWadI3f7MUU+xKPELwnIIYRo5coggsFJL5K
-	eILOyxh+h3+PYa5NEJadnwz9hVVMiTvEsAjmjH5pJb4VAD1qPVbwNGoBbZ65qvhMiQD2Z0VjjPA
-	+JGQSX/eeflFNgQweZvlqPE271IWx5NgQVzX9Sr2G9CRKiGtkXIJWWGj1jeYl4IOowRkfxgL2Vf
-	iVC18ukvlVbIRXPaAJfDrcSobmwhQAoEXtzjt2xwr9VFDE8ndvy6QwlqwulFWuYiulzHekao2/3
-	uKnMczca+uTwG7vLtWGmO556SMXsGBj7tK45FBTVpMf2O3+46XF9D2Frio6d88POo9qxdHge0ny
-	FIaZV0TEhDNWxy+4cK6lgjoBJ55tvL/IM6PGh/ZOe0zVMdtbpvIU2FRaxC0hZ7sVOtW36cJ0Feb
-	63GlAxMYq8n0nrhk2BvCL+6yhQ+QF5iaEAQaFI/isKdvOPk5hp+1HtQzFNkuUSkIpfWVllaS0Cr
-	Od7Y50Sd989NVQn8/GrszybwOWQ8AxTykZ2AJoAS4J28hLneY0FR8RJ6mMI7OTD5nFerLVXfUeT
-	uvI3NNO6eNUns1kEx3TLPz9YFMy0cAubCCK1ByuEclb1ZkA==
-X-Received: by 2002:a17:907:944e:b0:c33:dbe8:291c with SMTP id a640c23a62f3a-c46bddf8079mr627054166b.20.1792953818947;
-        Sun, 25 Oct 2026 11:43:38 -0700 (PDT)
-Received: from localhost ([2605:59c1:3500:c210:a19e:c679:44e8:e9a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66fa59sm225666866b.61.2026.10.25.11.43.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:43:38 -0700 (PDT)
-From: Selby Mashiki <mashikiselby@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Selby Mashiki <mashikiselby@gmail.com>
-Subject: [PATCH] pinctrl: nuvoton: fix fwnode_handle leaks in npcm7xx_gpio_of() and npcm8xx_gpio_fw()
-Date: Sun, 25 Oct 2026 20:43:35 +0200
-Message-ID: <20261025184335.447963-1-mashikiselby@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792954036; x=1793558836;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cd/Rf0PmOsf9SbzCT228kopwmzuVCMtn/HtZcsjTHHw=;
+        b=inkj/kQjpW5D5ozgTYNNvMRilyF1zi6YoYgVyDLr+IKZGReInp7R4iF8XsYcpooJP/
+         YkL9r6WWhciEX0D9li7S0ItP5EzOEf+q9/QA83Jqqi+8PpkMmofkqZm1yv+GahAYMkKe
+         GGKbYh9vAt8ShZkbT9oT6D8BIVGumKtLfHFbgaNNoxmn79zJ7pAwdcDv7J3KnWHviUAH
+         u3Uw/IVIjXQ+SHS6144dTjEG5pza4PEWTkuBpaRqz1A3yijPyclnLZfTjExV9dSIQq2C
+         PpHGoId1Zj0a7j426syF72D3fnl4OuK7gSS0nMuOomg8Js5XrBqRK6Qpj6rQbZqNHFMV
+         7jAA==
+X-Forwarded-Encrypted: i=1; AKwUvBz21lN71l5mH+uEmh4ZucT35+2FVvjesrGxE6Om9KetawTEkfZvvj22Jk/p8Ne2oqEJC7HV/F1vHGPlelo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzNHl5a+nP7iuuAxfSMp4Mn7xVSH1LGjYJCXucjSLG86VFmshs
+	6oItkrENGuzoV3oDg3XEIs+4+6DOZoc8HvKr6u8gggzw2MpnN8ZeBMcrLDvNebGtkh8RQwQY6H7
+	JvP3wXPMXKb6w7AU24Rryc7uTL0vbR2A=
+X-Gm-Gg: AYBFou2oFlINMC9dnDNmWRa/bk80AfB6zZ0v0Q7pNiUw2kXK9Ft6tt4VVnrO0kf0KIV
+	KcN6ybzY+4vmf0+cMMq703MESlffoWwzhQmoBBi2OsNcJmkDmo4yiW7hfmRIkMMiwY8CUNDErYL
+	A7x1miZzvXN9PcHGLU2QtGkJfJQDYf5CIC2NScLDd7eYRklT2X7GTRPtfFxw4adsnz+uCKBaYDo
+	MlBjrYDp4KjGw3H7ieK263cknI+KbSCuTZI3n0DK5Dxzpw5HQ1ZSVw4NcoC50Z3k/UtxO121yUC
+	E7rowo6d2TK7ItOAtgZqmnJgmcx+9tqWQwZ0Ix/rTxFOT3d6PSLyuuyf7MQuGJzTVz6WIrOMqBk
+	zu6cr+JGM73EsaS89wL1LauwS5WlclimmlS2vaPmgXQQSfJtO9ec3sYK4GiiXg+lgnkKxFNtFzj
+	iz1PTfK1gwwOZZiz+ZKtZEIpVtuP2eRTjVC5yPqxc9IxJoVJ1+66Bhj9yXEvefl/GMluuWNfQ3x
+	5DkzTEt3jyH03YJTR2FdqeRX8dgpw==
+X-Received: by 2002:a05:6102:b04:b0:7b5:8fd9:27e9 with SMTP id
+ ada2fe7eead31-7ce5d005cd0mr1043722137.2.1792954035832; Sun, 25 Oct 2026
+ 11:47:15 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,88 +106,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com>
+ <20261024-submit-serial-8250-dma-cancel-v1-v5-2-9e52968928d2@gmail.com> <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
+In-Reply-To: <alpine.DEB.2.21.2610250459200.42255@angie.orcam.me.uk>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 25 Oct 2026 12:47:05 -0600
+X-Gm-Features: AclHuK8RfnuoMKUL7_ChiQcwJjtxWWikUNjoVOQNx_xye2F4G1UoFeQQYjFC0tc
+Message-ID: <CADvTj4ryYd91LYMCktJ6a8=ygm0BG6dd4ZyK6XByaVcWvFTvkw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/5] serial: serialize asynchronous write wakeups with
+ the port lock
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Raul E Rangel <rrangel@chromium.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Tony Lindgren <tony@atomide.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Both npcm7xx_gpio_of() and npcm8xx_gpio_fw() iterate over GPIO bank
-child nodes using for_each_gpiochip_node(dev, child), which holds a
-reference on child during each iteration. Returning early on any of the
-error paths inside the loop leaks the child fwnode_handle reference.
+On Sat, Oct 24, 2026 at 11:10=E2=80=AFPM Maciej W. Rozycki <macro@orcam.me.=
+uk> wrote:
+>
+> On Sat, 24 Oct 2026, James Hilliard wrote:
+>
+> > uart_write_wakeup() expects the UART port lock to be held. Several work=
+er,
+> > DMA completion and interrupt paths call it without that lock, including
+> > indirect calls from uart_handle_cts_change() and the transmit helpers.
+>
+>  Fair enough, and thank you for the cleanup and spotting the issue in the
+> first place, however...
+>
+> > diff --git a/drivers/tty/serial/sb1250-duart.c b/drivers/tty/serial/sb1=
+250-duart.c
+> > index b4e1b90e5960..b15f76acd06b 100644
+> > --- a/drivers/tty/serial/sb1250-duart.c
+> > +++ b/drivers/tty/serial/sb1250-duart.c
+> > @@ -454,10 +454,12 @@ static irqreturn_t sbd_interrupt(int irq, void *d=
+ev_id)
+> >
+> >               if (intstat & M_DUART_ISR_RX)
+> >                       sbd_receive_chars(sport);
+> > -             if (intstat & M_DUART_ISR_IN)
+> > -                     sbd_status_handle(sport);
+> > -             if (intstat & M_DUART_ISR_TX)
+> > -                     sbd_transmit_chars(sport);
+> > +             scoped_guard(uart_port_lock_irqsave, uport) {
+> > +                     if (intstat & M_DUART_ISR_IN)
+> > +                             sbd_status_handle(sport);
+> > +                     if (intstat & M_DUART_ISR_TX)
+> > +                             sbd_transmit_chars(sport);
+> > +             }
+>
+> ... why do you think the whole functions need to be called with the lock
+> held while they may or may not call the handlers in question even?
 
-Additionally, both functions call fwnode_property_get_reference_args()
-to parse the "gpio-ranges" property into args, which acquires a
-reference on args.fwnode that is never released.
+For sbd_transmit_chars(), locking only uart_write_wakeup() would leave the
+empty-FIFO decision and TX interrupt masking racing with start_tx(). A
+writer could queue data and enable TX after the empty check, then the
+interrupt handler disables TX interrupts and leaves that output stalled.
 
-Use the __free(fwnode_handle) cleanup attribute for child so early
-returns automatically drop the reference, and call
-fwnode_handle_put(args.fwnode) after fwnode_property_get_reference_args()
-succeeds.
+The same lock protects x_char handling and FIFO consumption against
+concurrent updates and flushing. These races predate this series, but
+wakeup-only locking would leave them unresolved. I'd keep the complete TX
+operation locked; each invocation sends at most one character without a
+FIFO-drain wait.
 
-Fixes: 3b588e43ee5c ("pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO driver")
-Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
-Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
----
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 4 +++-
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+> I
+> think we should avoid excessive locking where possible to avoid holding
+> execution elsewhere unnecessarily, shouldn't we?
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 0df749cbc..47bb642cf 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2016-2018 Nuvoton Technology corporation.
- // Copyright (c) 2016, Dell Inc
- 
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/gpio/driver.h>
- #include <linux/gpio/generic.h>
-@@ -1827,7 +1828,7 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 	int ret = -ENXIO;
- 	struct device *dev = pctrl->dev;
- 	struct fwnode_reference_args args;
--	struct fwnode_handle *child;
-+	struct fwnode_handle *child __free(fwnode_handle) = NULL;
- 	int id = 0;
- 
- 	for_each_gpiochip_node(dev, child) {
-@@ -1855,6 +1856,7 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 			dev_err(dev, "gpio-ranges fail for GPIO bank %u\n", id);
- 			return ret;
- 		}
-+		fwnode_handle_put(args.fwnode);
- 
- 		ret = fwnode_irq_get(child, 0);
- 		if (!ret) {
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index a68d55cae..83e4e1511 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2020 Nuvoton Technology corporation.
- 
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/gpio/driver.h>
- #include <linux/gpio/generic.h>
-@@ -2319,7 +2320,7 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 	struct gpio_generic_chip_config config;
- 	struct fwnode_reference_args args;
- 	struct device *dev = pctrl->dev;
--	struct fwnode_handle *child;
-+	struct fwnode_handle *child __free(fwnode_handle) = NULL;
- 	int ret = -ENXIO;
- 	int id = 0, i;
- 
-@@ -2345,6 +2346,7 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 		ret = fwnode_property_get_reference_args(child, "gpio-ranges", NULL, 3, 0, &args);
- 		if (ret < 0)
- 			return dev_err_probe(dev, ret, "gpio-ranges fail for GPIO bank %u\n", id);
-+		fwnode_handle_put(args.fwnode);
- 
- 		ret = fwnode_irq_get(child, 0);
- 		if (ret < 0)
--- 
-2.56.0
+For sbd_status_handle(), I'd read and filter the change status first, take
+the lock around the CTS/DSR updates, and release it before waking
+modem-status waiters.
 
+I'd also move the TX lock into sbd_transmit_chars(), so RX-only interrupts
+don't acquire it. That means two acquisitions when both status and TX need
+servicing, in exchange for narrower critical sections.
+
+>
+>   Maciej
+>
