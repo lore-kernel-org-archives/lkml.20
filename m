@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940256;
-	b=ZvUeb+B6NMMNpJ/0RsdJ8nScnWWJRHAFcY8nxR9l6Ka4UZQtrzn3ACPi+86jXmXXz/Fj
-	 fg11Jgefw3lsUsAzD8dzSzraY9ESl+UFRrhdCryyVshx6V7uBK0Dos2ny5K0EyQiWTyWP
-	 xrJgdv3KCrvhr0ESaB7+E14nJgh8JoCnChvz43LzdFxZV0L9njhUpigQ985DoLZpMNPDK
-	 BLIX2qPc12R05JlbCVLinj/L/ouX9wXMzg4YR0ubYqY24snECnCOTg9ZemLwhDY0eBZYI
-	 TTvoOqhdJs7B0SseZDiVmDAjWeYD+xYJg2iweg1sevkxTk8xgdJfoYa0webxonB8IhQ==
+	t=1792940318;
+	b=q1qixHH+C3a+YTD+Hc3jMzUeIfrXoAN2LP63TsjplQOIuOf48qlO24MS1vtdc4MT7KnE
+	 5bMo0HESaRfqn/lVEy3vLSutnlR9nFOjIxENbOfbUX+DYNw2NwB5ztPTFTdWZfUBWwodf
+	 NRGhY3bXXSZHozxjJulEFiyELS1EUIQyOV+z5AR8zUyQrh3C39ozRmkNvcBKSHeLgVfxg
+	 1RBGuXRdR4XxFuZ/6rfzC+chgxVSplKizheLkq4h1o0x+OM6z3mkhR0nTdRMKU2pJ39Rv
+	 JM3LyLog4M31szQ/C3X/d9TzY63ZM/ZlMNVzHEN2mqPGYlVrgLGCxcAdU+F63eqCGVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940256;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792940318;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=IExH7VqrZ8oPD6Z8eyPZrnBoWcrKLM561SgLi8Akt3Q=;
-	b=yquB/ZjBSWP/EW5yofNiyJXo1DU2jTPGHCfLwzS9joMlwPiImHQajRgDIx7CapXQ5o1D
-	 qJA05vTrqPz0FRD38jTXlQezUj07CrEkkaHo1ygr3a4DtNyrFbFfeUCE2ZlLdz3o4Va81
-	 vk6dPzJiDfq+Sk7QGIAnsBdOEGNKS5EBS2zOqDokgJyv0MePJrPESZslKYGeOTvIvvDpT
-	 ujKJhBy4wkn01Oq2a4NTiuWwun/7KcPhpT7nf+3ApPtWA91HKApD3EWAZxkKGiRTVIM26
-	 k016PWuClfYekzt7WItbMNyb2/Ep6xawWCe+RLnA6kzPiU3ktBuFWdrncEsOvyylqrA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
+	b=XY5BlGUKxX1qZlv3flBhlxpwOlrkPlPeIqzoG58ZM9gFgCP4w5zGZIErMJUjFBdS+ZRz
+	 uCCpCVyOAGmQ97QjE7a/4tc5JabES6xxZ5K7w6OA5PZO/rVAz+WQU2afuTtu84y0aXAoJ
+	 VR0s1n5xPgabeBAIq5rS4F01mlMISDXrnKFu/fDpormxjeJwxIxgJD6lXHtLtPtR6/aAN
+	 jXfu8+Q7Z0zcgPICt8KVcjRLe09+jcAlFH6ozE/r2ojCQGMp/tAdaqXQMHSGc+iiz/T/D
+	 ifEj91CbRkZNdjIMTV/QdwqaG3GJpXpt8Uo9bqKeVjEgzdrpja1mN7I3YoetiLqph3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P7Ipz8vv;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cYTMy7E2;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BB4606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1BB4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB15B606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB15B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P7Ipz8vv
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so6152135e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:57:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cYTMy7E2
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-9196d8543cbso22734076d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:58:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792940254; x=1793545054; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IExH7VqrZ8oPD6Z8eyPZrnBoWcrKLM561SgLi8Akt3Q=;
-        b=P7Ipz8vvUWjpF6FHXG21uKZKLgsCCgQG3zNgpPHYI7kNj/SzMLzfA1i8Yh+l5L67RN
-         +lnFJijTHERB8MBgM7MQvq+ia5BTwqQ+O8Bo3eAuXvyGDVJndQfLIC5iz8rLKEU0vvmd
-         ZusY0rRuHxrxpmAikb5wG1YGTMRRjtt66YeGaMSLIb17IdJV98dYTI8m+xZFFfU2kHB1
-         pv+EGQv+SQuyEERCUbNj6Hcq/N1N4qao5PUPxTYz6Lbcl1ls5SFzU+14Jj0yzoI3cfWi
-         OiMy4HjCXERNI8dveVidEVDlFuHqzs1iTNtr0VOIfnLhVFWziFqavrN9q3ne+IysQUZD
-         GtpQ==
+        d=cs.unc.edu; s=google; t=1792940316; x=1793545116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
+        b=cYTMy7E2cH2XTudTTt8j0GWmUx7ICafrO+JmWRka4il1tSncOTKdVztnMkwlw2aZcY
+         rYuBymLwu8gLstJffuyuTm+auuS3Aulw5sAGu2ONQ3d+lcUPhN7jtjZLhP8xR2GQ2eXR
+         y7+rEVf1s3AJY22GbYXSp69f/eTeOx2qrRnERtQevI0y8vVwKzsAL10LC+qdXgra9TH9
+         Vpk9S3OlOgNGmem0OvNrkh/AHuJjNd875Mm6LHnuUVAAfg8DpGFkBCrzacr9HVp+dNUZ
+         6IfbAD/h9a5QYF+K+bbRYvnckpHqlrbJcUCG0rmZ6VNiSJAR1KthkhIg1Tflzps3RVWn
+         9j6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792940254; x=1793545054;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IExH7VqrZ8oPD6Z8eyPZrnBoWcrKLM561SgLi8Akt3Q=;
-        b=getdZNJQEa+CbEX799R2o2qvR9Awd5AyhY2cBEhjqTdDb8zMBQS2b8OUwCnYkFqFqf
-         FtwB4ov9YQqCGVIWWUGKE2f2Zyk9W6/SwBJSLkTLQbdzuqa3jIrVsXScwebHPmdEXctP
-         MuGnJX2cv4F6VbYo8zjPjouMUWMljGLD7bvFjIG5o1IFmUuW3KZVAw2tuSgckkcfMx0P
-         Irn75CsZrxv0DBBNAi/k7rMREiAOsI7hLIvYirDEUTRrfBhrg2oq638dDdFmLQy5iT41
-         B6q5zfZysnAJx80P6LBHtcHwQ4K9JoqrxQZ8QVt+sTrLTtqlZk44iIy1Z+koHXTup/2B
-         hhyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYe35H+oTCNLs3dUXR9Trl7wUs9JxaMqyM+R9SKcrsK3yZ4jsUhbR6IdHedTTSXfFNOlr0rg1b/1L2upU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSpFMjhCREAw1YjS2rS2RFn2duuIgROa2TUjOsbO5yvqlPFHad
-	z+FJ7tozLa+M2TLLLt9cHAq3Ra5ynzsnAkwExBGODIT7ue9/f3OjadTV
-X-Gm-Gg: AYBFou1zfqjfoAh9Ebk74epAopgg4EBRQxITyv1dQLpGmvx2Db6KKtSOdzeGBYHDVLw
-	81arNuJsW2mBRWPnzoepZ/XzbmOT4eEEwo7gfLFBuN+/46f8qqa7MQGxghwoitSR8TAn94DJQAu
-	Vfoiz0M7SjsUP4ZklZcGJCJvGbgklEmVpOksaeho7i3ax8X6mhrwMfAvvCqvXZfSwl59kmJjTFn
-	hBLcdWwK2kl/lwUlVqNX6TtkyLgcFCefT7sPsVl3r4G8n78GhdxNoyj4DZM9s7X46QJs6IQx1hN
-	gpU0WxWvQvTVqXzsvFx8h40PkFBBPgSS+NOmc1CCxgegBc64dQBXRmGNV3yT79yDRBcTQisTD3b
-	gbnfMuCdz9VhQTwUGjU53uHYmwDkTPOJ8CEM1ya7G0eHezT/BHaAA71Ie41YbfFfKtFqVo75FQ2
-	NHyz9ApNRi+adWC1a3zY4IMDYqV4ZtrFieg5xQGUZdbzhZPMMFR9NH6F3psit0I48ioY+ZPPAP9
-	Y5Pl4CKoOwdZMPlPZZ4Xz5TDHYZBFurMdv9yhRJIknU9ctsbJISng4L3+gKQYyS/ZoXH+pRCxxj
-	VHzh
-X-Received: by 2002:a05:600c:6095:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a35ac7f0d2mr64643565e9.9.1792940254154;
-        Sun, 25 Oct 2026 07:57:34 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48e0sm11218693f8f.38.2026.10.25.07.57.33
+        d=1e100.net; s=20260707; t=1792940316; x=1793545116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KEKjTIlRL0cR7p1QTUIoE0FuE+zxfuCMnzVdUbm/BU8=;
+        b=J8IjZC2e/xACaMdWuvygLJKIPdswnyCHwHMAQJ7OhTH19uusF4hhVwNm7O9Q8tor1m
+         QKbZ01O/sWI1YKU6p5vHmL05q+iCXcZGafDg7hdssNdf6dnbcD+1Mr0FtiJhGD8uCvoF
+         fJxw353YnMnF10zN+TthuFzM84PrakgIQzBrEib0NWn1i/jSjcaQFDS6QHGBAsloJFsb
+         B1Y2Uk8C1fpjaMMQ3kZFrcSB2B3O2/hfcpFJxqQvkhgAE7s7FhqMglZcihSeVWexp3m+
+         23+yVz0CgLSiFZK6ZU+8yPGvUa+URHAE5bOjqvjQftSYqMr03e1wr8Hi6EdkZKZOvk39
+         iQkw==
+X-Forwarded-Encrypted: i=1; AKwUvBywEe2sYhR+LmbRd/L2kQqy3QvHhTRp/WQUspANx7jZgPXXuLneqQLIV1QXzp1JtfzYZmAPW7iXhXh7SLQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT/yN69yGr8m15PxQPjRROdnPrOn8rn8wwYN5oqKsp2XWmWizW
+	ixq8+hiC0dntvC8+M0Ae/DadMTJG7WoTthKSI3ZsDg0lxuSVQtqLWfakZF4BAFGeng==
+X-Gm-Gg: AYBFou2hDVBkgZ8HjxwiSyJYI1/b2JbqNIibY9YeuZbGymOE3MnLBnkXXtSEh9IndHI
+	6WsHErTK5IL1iPZdlQFhlbJVgIViMLT0LjZptF43yOkPgV/tI+FLRmXNvTjTyNOl0j0WEUsvWdz
+	Zdj7ossFBLtZF4ElK9DGtxFn1rcad0v046lKYiRPAflw8Y1bGZ6U8Z7ZXiGboOj9edYDP2wldNU
+	9i4yrXZTxIkK7ymniKzXfC98VvVHYU6ncj7c4wg1nl1854mZWiroin+8ko3frn9iTZTUPZDFu2s
+	Pxvbu2umb41HflZ0ZW9V7YVYBz84zsN+rQwqe289BgQbgjqRO/VztLx9tj1SORaO3H5aPkCoY9I
+	KuspN67egPkZlOYVPQcTV53DM0VU+yXmDxuPp007zkrsicYHNO3cGS3kXQi4ZBgBaRcoDM5PTzL
+	04oT69droD9x7/uXqE6C0oVJ2ulhzSPa3g3vOZUi9+H3qgm1VtrDHEeDQQuPZ9mcXD4J7yCqXiF
+	hjbJWsCljSt9kMQPzCIEXDRfHOnZCu4zDeUqzXBY/04h80Pem47sLSiuHYc7bs6M2StsdoQTISK
+	UA==
+X-Received: by 2002:ad4:5748:0:b0:91b:88b9:e121 with SMTP id 6a1803df08f44-91c48ddeb51mr73244536d6.12.1792940316326;
+        Sun, 25 Oct 2026 07:58:36 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd1d42sm47859926d6.12.2026.10.25.07.58.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 07:57:33 -0700 (PDT)
-Date: Sun, 25 Oct 2026 15:57:32 +0100
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Farid Zakaria <farid.m.zakaria@gmail.com>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ericson <mail@johnericson.me>,
-	linux-security-module@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/3] landlock: Add access rights on created files
-Message-ID: <20261025.8e22954c9c47@gnoack.org>
-References: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
- <20261025.769b43a39e24@gnoack.org>
+        Sun, 25 Oct 2026 07:58:36 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	jchapman@katalix.com,
+	tparkin@katalix.com,
+	gnault@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] l2tp: only return sessions of the given tunnel in l2tp_session_get()
+Date: Sun, 25 Oct 2026 10:58:31 -0400
+Message-ID: <20261025145831.2133617-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,130 +102,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261025.769b43a39e24@gnoack.org>
 
-On Sun, Oct 25, 2026 at 12:07:10PM +0100, Günther Noack wrote:
-> Hello Farid!
-> 
-> On Sat, Oct 24, 2026 at 01:39:16PM -0700, Farid Zakaria wrote:
-> > This is a proposal for an idea to add support for landlock to work
-> > better with build systems such as Nix where they want to apply
-> > restrictions but the paths may not yet exist.
-> > 
-> > TL;DR;
-> > ========
-> > 
-> > Landlock rules attach to inodes that exist when a ruleset is built.
-> > That makes a directory shared between trusted and sandboxed tasks hard
-> > to confine: the sandbox may create entries there with
-> > LANDLOCK_ACCESS_FS_MAKE_*, but no rule can name those entries ahead of
-> > time, and granting read access on the directory to cover them exposes
-> > every other entry as well. This series adds a rule flag that grants
-> > access rights on the entries a domain creates in a directory, instead
-> > of on the directory.
-> > 
-> > Motivation
-> > ==========
-> > 
-> > The motivating user is the Nix build sandbox. Every Nix build runs in
-> > its own sandbox, and a build may only read its declared inputs in
-> > /nix/store and must be able to write and read back the outputs it
-> > creates there. Nix enforces this with a private mount namespace: it
-> > creates an empty store directory and bind-mounts each input path into
-> > it, one mount per input. Nix has paid this per-input cost since the
-> > sandbox was introduced [1].
-> > 
-> > The cost is paid per build and grows with the size of the input
-> > closure. Nix is moving towards much finer-grained builds (many small
-> > derivations instead of a few large ones), so the number of sandboxes
-> > grows while each build's own work shrinks, and the sandbox setup is
-> > becoming the bottleneck. A typical build has hundreds of inputs; large
-> > ones have thousands.
-> > 
-> > A microbenchmark sets up and tears down a Nix-like sandbox (user,
-> > mount, PID, IPC, UTS and network namespaces, pivot_root into a chroot,
-> > removing the chroot afterwards). It compares one bind mount per input
-> > with a single bind mount of the whole store plus one Landlock rule per
-> > input. Median latency per sandbox, one sandbox at a time, Linux 7.1,
-> > ext4, 16 cores:
-> > 
-> >   inputs   bind mount per input   one bind mount + Landlock   speedup
-> >       10         3.2 ms                    2.3 ms               1.4x
-> >      100        11.6 ms                    2.8 ms               4.1x
-> >     1000        79.3 ms                    6.4 ms              12.4x
-> >     5000       400.1 ms                   24.4 ms              16.4x
-> > 
-> > With Landlock, an input costs an O_PATH open and a landlock_add_rule()
-> > call: there is a single mount, and no mountpoint directory to create
-> > before the build and remove after it (removing the 1000 empty
-> > mountpoints alone took 17 ms).
-> > 
-> > The single bind mount is only sound if the store listing and the
-> > undeclared store paths stay unreadable while the build can still use
-> > its outputs. Without this series, covering the outputs requires a rule
-> > on /nix/store itself, which makes every store path readable again.
-> > 
-> > [1] https://github.com/NixOS/nix/issues/179
-> 
-> I have not done a thorough code review yet, and will focus on the
-> general approach.
-> 
-> I am generally in favor of this approach where we keep track of the
-> directory inode plus the file name.
+Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
+pppol2tp_connect() and the netlink session commands find sessions with
+l2tp_session_get(), which takes a tunnel ID and a session ID.
 
-Apologies, I think I was jumping to conclusions here when I read this
-too superficially - I realize that you have implemented something
-different;
+However, for L2TPv3, l2tp_session_get() does not use the tunnel ID. If
+no other session has the same session ID, it returns that session,
+whichever tunnel it belongs to. As of now, a session command that names
+the wrong tunnel acts on a session of another tunnel, and a PPPoL2TP
+socket for a second L2TPv3 tunnel fails with EEXIST, because it finds
+session 0 of the first tunnel.
 
-If I understand correctly, your proposed patch set is granting the
-access rights on every file that you are creating freshly, but not on
-files that were created by other processes in the same directory.  The
-semantics, from what I can see, seem like a Landlock variant to what
-the "sticky bit" does in /tmp -- you have access to what you create
-yourself, but not to the files created by other processes.
+The issue can be reproduced with:
 
+    ip l2tp add tunnel tunnel_id 3 peer_tunnel_id 3 encap udp \
+        local 127.0.0.1 remote 127.0.0.1 udp_sport 5003 udp_dport 6003
+    ip l2tp add tunnel tunnel_id 4 peer_tunnel_id 4 encap udp \
+        local 127.0.0.1 remote 127.0.0.1 udp_sport 5004 udp_dport 6004
+    ip l2tp add session tunnel_id 3 session_id 7 peer_session_id 7
+    ip l2tp del session tunnel_id 4 session_id 7
+    ip l2tp show session
 
-## Alternative suggestion
+Before that commit, the delete fails with "No such device", and session
+7 of tunnel 3 is still listed. After that commit, the delete succeeds,
+and session 7 of tunnel 3 is gone.
 
-I have been discussing the other approach with Mickaël a while back.
-This would also work in use cases where we want to express a rule on a
-path whose underlying file inode might change, with examples being
-/etc/resolv.conf (recreated by a DHCP client) or Pathname Unix Domain
-Sockets (commonly recreated when services restart).
+This patch will make l2tp_session_get() return NULL when the L2TPv3
+session it finds belongs to another tunnel.
 
-In that approach, we'd add a rule like
+Fixes: 5f77c18ea556 ("l2tp: use IDR for all session lookups")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+The first commit that shows the problem is d18d3f0a24fc ("l2tp: replace
+hlist with simple list for per-tunnel session list"), two patches later
+in the same series. Before it, these L2TPv3 lookups found no session at
+all.
 
-/* pseudocode; name and exact layout TBD */
-struct landlock_path_beneath2_attr {
-	__u64 allowed_access;
-        __s32 parent_fd;
-        char  *basename;
-}
+The receive path still looks up L2TPv3 sessions by session ID only. Only
+the lookups that name a tunnel change.
 
-During the path walk when checking for an access right, it would match
-if the parent_fd matches an inode and the name of the next path
-component is basename.  For example, to access a (potentially
-changing) /etc/resolv.conf:
+Tested with the commands above, the same session ID in two UDP tunnels
+(still allowed) and in two IP tunnels (still refused), and two PPPoL2TP
+tunnel sockets.
 
-struct landlock_path_beneath_attr2 attr = {
-	.allowed_access = READ_ONLY_ACCESSES,
-        .parent_fd      = open("/etc", O_PATH|O_CLOEXEC),
-        .basename       = "resolv.conf",
-}
+ net/l2tp/l2tp_core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-Or to allow the creation of an output file:
+diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
+index 7e042a3e648c..f509750f80d5 100644
+--- a/net/l2tp/l2tp_core.c
++++ b/net/l2tp/l2tp_core.c
+@@ -315,10 +315,19 @@ EXPORT_SYMBOL_GPL(l2tp_v2_session_get);
+ struct l2tp_session *l2tp_session_get(const struct net *net, struct sock *sk, int pver,
+ 				      u32 tunnel_id, u32 session_id)
+ {
++	struct l2tp_session *session;
++
+ 	if (pver == L2TP_HDR_VER_2)
+ 		return l2tp_v2_session_get(net, tunnel_id, session_id);
+-	else
+-		return l2tp_v3_session_get(net, sk, session_id);
++
++	/* An L2TPv3 session ID that has not collided may be in any tunnel */
++	session = l2tp_v3_session_get(net, sk, session_id);
++	if (session && session->tunnel->tunnel_id != tunnel_id) {
++		l2tp_session_put(session);
++		return NULL;
++	}
++
++	return session;
+ }
+ EXPORT_SYMBOL_GPL(l2tp_session_get);
+ 
 
-struct landlock_path_beneath_attr2 attr = {
-	.allowed_access = READ_WRITE_ACCESSES | LANDLOCK_ACCESS_FS_MAKE_REG,
-        .parent_fd      = open("/output/directory", O_PATH|O_CLOEXEC),
-        .basename       = "mymodule.o",
-}
+base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
+-- 
+2.53.0
 
-Would that be a model that would work for your Nix use case as well?
-I'm imagining that you are declaring the exact list of output files,
-is that correct?
-
-–Günther
