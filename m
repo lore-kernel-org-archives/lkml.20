@@ -1,96 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792958211;
-	b=SfDLmiWoNn7dJXYcYJAFpj+v70EOwcKCLQ4V3bMedBEUYYYWAbA2qQFzGtNHQCQQTbaP
-	 31+DMci+VVq7pBFysP1VfiXNDli6pgG8hBy5csufeNWSgLGRBFnwUc0VjkzA8hLuzfYHR
-	 vs3ERYl53O9toiCNSzKI0OLcL387Gt9CQv0M7m1muTbsH0LhvufNA8vqjTSpzVjOURmbO
-	 2f4RV4RCkApUXXpJ9SJPGFYpbEXm5YuXTRHbG3TpdO0YmTuf7WaCXZgb35V9cxaYVTI01
-	 He8lbLhiH5V6ii/oVBIRBkKm2kNFM29TD7GuEMhEe8L/4pfWbIKuJNnaXnfRzh0XwlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792958211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=8E0DR5GD5b4Tk6mwwmmrVFgi2D/bQejxmkS22k9iLko=;
-	b=ulH70TbH3PS6KPSH6Oj5fTKrM1y3NHq5Lg4CyH2CQdpW94Mr8d0RVdkUxnk/dECvF8da
-	 Ar+6dzQzOqLtdMHgF0E0BnnfQlVH4//RnP+T2MXkpCaoslB1S8JQcLBQJ5bB2fR4qO57g
-	 yMSwGhmt14ym1YLTSXm8QFkyx4np3UP173UeiMIrMhWPQkWtrolT7mP2rWHXRdtnp8MYB
-	 XN3mm3yC3dmbs7f6XxwBE2il512DRfbs5Ai9c0LtheUYmOjP7jyaUbh7S1R9qgUGZAaFa
-	 JHUM0jX2POjK93NxFiaNWLxDTQtOnjFqLD6AZDwDOVB2xDowLh+hXsEit9/6uriScFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=miget.com;
-	spf=pass smtp.mailfrom=miget.com;
-	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=YhdKt4bL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792958809;
+	b=pNszrFHRIBAkCJbkcr27TOt+/ic7RtGc6ycx4bZnjHeCghvsK1zvjFjkjw0v31jHKDYM
+	 uU3fmXg5V8RSR+kgeZWqhxZtxpT2SP4vsRT2aGDUUcM1atOFzqPYiASJXNpN9jSgeJHVd
+	 7UdzA4KBx8pM7qoztXSN5brXAJSgODhtZ97RoVptT6xzcbFTJeqy68/Yks5+Ntq5Ntk5R
+	 NUQthee5fE2t6CVxh5nYBq+hulBEbPYxs58YWTqZghOjDFV2RWuvTHeo9SRpmksRUIRZQ
+	 5oFK77PX2tqov//g+YQlSYjSeT//hhRDwOKvKUDaJiz0pJJvbDXTVRfKgS2BbbPVQiw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792958809;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=mbRl3t9exy6FqHqmbYkjfXKdOm1e4uREYg0nK1TRNp0=;
+	b=wJbZpk5CsQKrfOQ+0lxNnsVqjU7nMGZSibg7/GsuS55bgNDPs9Szr9YPAQVHMTvQxQaB
+	 wMAzdeygFt3pFG7qJsl+tN40GnifpwhIt1nVh3ZRF5Zg0q3UqZvZMm2z5q32Z/pgStBim
+	 r8ETbpEeMVl81PxyUajs2sohrrZV+n/M8redT0jZUHQpdwWJUOfSU824BikQKfyXAiwxI
+	 U49VbRYm+Uqtcs6KbO2BPmWjD03wjyBEpSGsH6IEoCqe3tAUFfCLK8hIGFFBKZiL2UoFq
+	 udPw2JRCnAfh03RaXOSZDPtdM9up6i4Fzaq831j1Rkv6eLHZWvLFoy6XPRZzRj5C+5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UaNL2qBa;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF07F606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF07F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831C606A31A;
+	Sun, 25 Oct 2026 20:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E831C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=YhdKt4bL
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4f48d91ba7dso1428406b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:56:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792958210; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kO+vzc8jugE/q7CczDdpXlWOJ7lw/Ii1UEGAMmckW5JrEN06xcTvRjqXie8m+LuaZQ
-         R2igxuBs8gqKn+GnZjE5F2e1/4Phe60Q5WO6dUX9euumMzD6nONpnXnNKfIWWiOHgQIp
-         myv/u8qKCfJJHaIW4k3vc00IINnwqP6kKP8nF+JW6bo1MnplyYyIGJx3HUTT3fIrjfKz
-         rV/7VNNmUlji4OaBRh5xpz1zZOw0C8ZshpQSdKfx6bMDtA0ky5esL/OBvetbespWpjLR
-         5+aNpuzin6PQlicFulRRX3LWHlzmFWYqoDpaLQh+6i+qoDkCQfi/QL3cvBlCBBW1bnaW
-         b7Hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8E0DR5GD5b4Tk6mwwmmrVFgi2D/bQejxmkS22k9iLko=;
-        fh=ID7epbRqhT58/8hsShdYafUtQUqa+6oH3iLpDVdKLKY=;
-        b=X0Fip0DmVShuYLBF6UYxowaNJDYiIeJJ2TlENns4iIpliH8EFcgQluBNvPvCUTVcGj
-         kuj8zkBqQMzJLaKCSyCMRzyBhzy788cqrHNVd4PSYJ0/ADkZsyUMXbPkguqNTdPCtIr9
-         O6XHlsClKB0ackCVJzjdyl9kZgJvZWLy+pOwNHlr9jird1BH0IthgueWLkQ7eX/KZKEr
-         E1Z6rwIMntAqjuuI84nAPy44Dw0xR2HdUcyUuKUKEmsymi14hmpJvNVqmtFdMgu9EH4x
-         nkU4EfCGiKB4qwNugdMWljXL51GD4frG6Zbtqya20wh0GxLQJ/WW9RaFPw5Rb3vd0GeV
-         KMkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=miget.com; s=google; t=1792958210; x=1793563010; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8E0DR5GD5b4Tk6mwwmmrVFgi2D/bQejxmkS22k9iLko=;
-        b=YhdKt4bL8v4zP1AGhP0iULi9UTrUSqvyjN5tn1ng4hnObgq3uo+Rw3NJAnKTMXTMfN
-         8SpIr8XbQ3NSePAzmEbVFmBrQsrDZXZ3447Ekrh9ldaoHLXCLHhvQn6QozXDKO98FCwd
-         j10UD8lVVhWIPH8wSCJrbak43Pyz3bY1thy54=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792958210; x=1793563010;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8E0DR5GD5b4Tk6mwwmmrVFgi2D/bQejxmkS22k9iLko=;
-        b=IcbcagK7kEczPXyl8GXfMqKfZzqIJ9x2FF5w0SaudLRebBjfOZgmwsTzicfSkEi1fz
-         +VNG0PyKo6vf/SrVIgP9YEA3wAXB7QUotxJqTD5hTGfXKPWiNqIohAYrVetXok+zWwTH
-         M0hSvDaZrGnYrY/ehhpo5gsDKHONioqfjn7jgB79AZ+9sdEMg41IR8iMeJ5WHXMhKyPt
-         lVV1X1YEKYHegWfhJDXIcLOYtoXSFvKFOla3vobmviMSjHM6bpQTwpvfcV3r/tgujm4v
-         78NaMi5dZHnRMlqL/vvgd5Aiv6PO8R5ezbY89BhJUtQIcUQm6bce6xo1DNTiXOQalkVR
-         zhxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzC80RKWAFFUSc6SxIM51KT/i0E0pZLjChVdoLJrIA/RzhQflJ/F2XZ/uDxFthcQF9Chpv2Nh3v3dSRYgY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwfH2jyoxNkfeexHJa6pPvfRTZKObt1vLyH13EJO4tpXCZqjxP
-	TjCqvekR/ZO6skIuGsXeiri8Ufv0xeKxVFPajbbqQrqFlabxnUxcubUvJ0i3MbahunTF/FO/s7J
-	Per8YUENCv1ZdZoqSWo8NZ1fA8BPPKYPoBVql26yVXw==
-X-Gm-Gg: AYBFou1BWDt3gryP3l+gAz3nf6/ilvahm0W+vvDKfPdpc0NskDJ9TGYE2VhKa4Xrdtn
-	gbn1hR9F9bE/nJMoc/P1f+NomPGqKjtH/Fi2IBUGhpwV76j8ttSe2T51ozCuOVtkcFJ0B4dS9mM
-	YZPFmkXlJTKWTknOxmDkZVqyXJ2fu4cvfNCPrN3FQthDNUaYYPLwDWnL7DILU6ndeHocWrM6t3y
-	BAmzsVVvySBx5lDGEE+oaViYMslFv8hc43WbbRkvENK5Av+fWjeQt6knarzrzlJvafaAQT4NUEX
-	w5XdNaRq5bT0gZllK/UDznkiHSv7IWWN9I7369m29RDmMCE4EyGq/B0UjZeJSbmKw4pArnXRxOV
-	haPwYbclEzeAxEa+GBofwaplonLKxZi2/uH6wh8nRibky6wLP5vmgQjEBtyS10Jhe4yLoPg==
-X-Received: by 2002:a05:6808:1798:b0:55b:f88d:6ebb with SMTP id
- 5614622812f47-55c00353f15mr2758966b6e.54.1792958209871; Sun, 25 Oct 2026
- 12:56:49 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UaNL2qBa
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F36BCBB;
+	Sun, 25 Oct 2026 21:04:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792958676;
+	bh=CeO0S0s51CfRjENlBU+f96CdgbSMMC9AWHkiZh0bpdU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UaNL2qBaQPXrrMmTRXx2EmU6XOLkLDGTFHmgJf4YuU0PQS6vw4hhL8JGkSEP5nrGM
+	 xNX7pQ2ttmm1LqVS9TXJQCpOe5OkF+RkGyEfYs0zvlXnLnwGbDhhuRkeIToGSv2ZTa
+	 HLzNXisp3rQ1+ptVVN41zQIivA5vSdF3AiZvc/0s=
+Date: Sun, 25 Oct 2026 22:06:45 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Manuel Herrmann <m@manuel-herrmann.de>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Add support for NV21 pixel format
+Message-ID: <20261025200645.GB1001933@killaraus.ideasonboard.com>
+References: <20261025143522.327365-1-m@manuel-herrmann.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,35 +63,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021123414.25516-1-qby140326@gmail.com>
-In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
-From: Chris Taraszka <chris@miget.com>
-Date: Sun, 25 Oct 2026 20:56:38 +0100
-X-Gm-Features: AclHuK9IdxE4OYNBcfhIKhKsiyI6PGABjPIR4Vumut9py7mbCOHZDOUuXUD2Vv0
-Message-ID: <CAAcRvKPSk5FYzZGkw12cPVGkxWVGFACwRvupBDDNae7B_JwF0A@mail.gmail.com>
-Subject: Re: [PATCH v13 0/7] Merge redmi-wmi into bitland-mifs-wmi
-To: Mingyou Chen <qby140326@gmail.com>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Hans de Goede <hansg@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>, 
-	platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>, 
-	Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org, 
-	Matias Civadda <matias.civadda2342001@gmail.com>, =?UTF-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>, 
-	powerfullz <wleizc7319@gmail.com>, =?UTF-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>, 
-	=?UTF-8?Q?Milo=C5=A1_Vlku?= <vlku.milos.fun@gmail.com>, Rsplwe <i@rsplwe.com>, 
-	Bozhen Peng <bozhenpeng93@gmail.com>, Anton Karasev <uselessfire@gmail.com>, 
-	Jame Jao <jaojame6@gmail.com>, Serhiy Shliapuhin <shlyapugin@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025143522.327365-1-m@manuel-herrmann.de>
 
-On Wed, 21 Oct 2026, Mingyou Chen wrote:
-> Does accept_zero_function still necessary since the driver now permits
-> 0x0 function field on SET operations?
+On Sun, Oct 25, 2026 at 03:35:22PM +0100, Manuel Herrmann wrote:
+> Add support for the NV21 (Y/VU 4:2:0) pixel format to the uvcvideo
+> driver. This format is exposed by the color camera of the Creality Pika
+> 3D scanner (2bc5:0c0b), next to YUYV and MJPEG. Without it, the driver
 
-Not on the Xiaomi Book Pro 14 (TM2424). With 7/7 every SET succeeds
-without it.
+Could you please provide the USB descriptors for that device
+(`lsusb -v -d 2bc5:0c0b`) ?
 
-I tested the series on that machine (BIOS XMAPT4B0P0A0A), backported to
-v7.3, together with the TM2424 entry I just posted on top of it.
-Platform profiles, s2idle suspend/resume and the hotkeys, including mic
-mute, work, and redmi-wmi is no longer needed.
+> skips the format as unknown.
+> 
+> NV21 only differs from NV12 in the order of the chroma samples, so
+> bytesperline is wWidth, as for NV12.
+> 
+> Signed-off-by: Manuel Herrmann <m@manuel-herrmann.de>
+> ---
+> Tested on media next (d7e7bca71698) in a QEMU guest with the scanner passed
+> through. Before the patch, the driver logs
+> 
+>   uvcvideo 2-1:1.3: Unknown video format 3132564e-0000-0010-8000-00aa00389b71
+> 
+> and the color node only offers YUYV and MJPG. With the patch, NV21 is
+> listed, G_FMT reports a bytesperline of 1280 for 1280x960, and v4l2-ctl
+> streams it at 30 fps. A frame captured in the guest has the right
+> colors decoded as NV21, and red and blue swapped decoded as NV12.
+> 
+>  drivers/media/common/uvc.c       | 4 ++++
+>  drivers/media/usb/uvc/uvc_v4l2.c | 1 +
+>  include/linux/usb/uvc.h          | 3 +++
+>  3 files changed, 8 insertions(+)
+> 
+> diff --git a/drivers/media/common/uvc.c b/drivers/media/common/uvc.c
+> index 0107cedd0..7d918ba0e 100644
+> --- a/drivers/media/common/uvc.c
+> +++ b/drivers/media/common/uvc.c
+> @@ -24,6 +24,10 @@ static const struct uvc_format_desc uvc_fmts[] = {
+>  		.guid		= UVC_GUID_FORMAT_NV12,
+>  		.fcc		= V4L2_PIX_FMT_NV12,
+>  	},
+> +	{
+> +		.guid		= UVC_GUID_FORMAT_NV21,
+> +		.fcc		= V4L2_PIX_FMT_NV21,
+> +	},
+>  	{
+>  		.guid		= UVC_GUID_FORMAT_MJPEG,
+>  		.fcc		= V4L2_PIX_FMT_MJPEG,
+> diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
+> index 644c2f1cd..60732f5ac 100644
+> --- a/drivers/media/usb/uvc/uvc_v4l2.c
+> +++ b/drivers/media/usb/uvc/uvc_v4l2.c
+> @@ -232,6 +232,7 @@ static u32 uvc_v4l2_get_bytesperline(const struct uvc_format *format,
+>  {
+>  	switch (format->fcc) {
+>  	case V4L2_PIX_FMT_NV12:
+> +	case V4L2_PIX_FMT_NV21:
+>  	case V4L2_PIX_FMT_YVU420:
+>  	case V4L2_PIX_FMT_YUV420:
+>  	case V4L2_PIX_FMT_M420:
+> diff --git a/include/linux/usb/uvc.h b/include/linux/usb/uvc.h
+> index 99b070ab8..48419a862 100644
+> --- a/include/linux/usb/uvc.h
+> +++ b/include/linux/usb/uvc.h
+> @@ -85,6 +85,9 @@
+>  #define UVC_GUID_FORMAT_NV12 \
+>  	{ 'N',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
+>  	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
+> +#define UVC_GUID_FORMAT_NV21 \
+> +	{ 'N',  'V',  '2',  '1', 0x00, 0x00, 0x10, 0x00, \
+> +	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
+>  #define UVC_GUID_FORMAT_YV12 \
+>  	{ 'Y',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
+>  	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
+> 
+> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
 
-Tested-by: Chris Taraszka <chris@miget.com>
+-- 
+Regards,
+
+Laurent Pinchart
