@@ -1,64 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792925615;
-	b=HJrFuZhAzaa15QQo6AN2JWUWnud64BjP+Mc33PQ7lOIiuVoUpJz+wyIdt7FbImqo3Q8f
-	 JDCl8YltsT96aoYx6bVIhmlMzv7BsOJnhcuVVy0dn56UQDwuxisrbsHF/aRXqv4FPq9nU
-	 vUMnL2txoFyklVNBbm+RR1rHYLR4FRZpYD/fGyv7XUe8fvLQkGKnQqIcJtfy+rQJ9Brro
-	 nRfNpn8oCTBLMt/zKUJ4FpSRZLu2oMhoLYwvjay2sdYIXEyEUzOoyp0YIyG3SEtcvvXCy
-	 mC4J0iXFqKqyp9ZH25OpbZ4WZzO+3O942ncssZSlxejZiJ99EDWI1dpbR3cXXkpcqbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792925615;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zVPVIevQ2+RA/xYQCl+WFJZrVw4+BqUD1pwMwn5wSlE=;
-	b=zyZXxP+1AS+3A9e0lZNHrH0iUw6v5sUL3lDSckpY1XHBW0w8riIPXiifrzQFQfWVMNdZ
-	 pKu4JzypmfPIA+VDI2XK78+vpCBbtSto3v/R/RBu7ECMrKCO0/hx8AgNlGNfCB3amiTAE
-	 bsy9CVb/RBwgAM5hJWbwJvMGJCJxJiXsIkzaSqxPiT/WYHO0hCL/36bBHokesHgbFW/zI
-	 sRa2lvw/ktFpHeX/Cky3/XUwxBP2XIawMXjG7gZRVgOpDx/PwtzhYuoJTsbJ9Vr9CbiE/
-	 rmNM5IKFbU/9Rz+/Lipf83KZ6M4QZWWpF4NvUB/ZMY6dJMhs45y2iG/mCE65mzvANeQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=FOTGf9R8;
-	arc=none smtp.remote-ip=202.108.3.20
-Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792925646;
+	b=jmrRQ4LWrCr0qLwOM7KCxgYx8Kl/OJ+ojWbLcbIIBY9cduXMjlhziG9W90zcVHpktIyQ
+	 oB0D7YawziEbqFl9rHK4yztuyRLI6I1EeSoPX8YnWchfh2zhTfxxhRctqmJsIXMXosWhw
+	 UhDehsy6vBaSFeB8xuu16KwZ9AszUh1cQKYLXHYBzWhZzTov0bssVuafTcxJkxmgbtAvb
+	 ECIOK/7giB6s6+2+eWVOCdXmdIXo4W6h3EH5fu+CIW1l07jGbQFNwba1q15mhtO0/8lxQ
+	 5eyVXC6Ei22H4L10PRPPFLHxUS1pxl8X0CfykXdJGgwA0Mt7ENClkcAuQ5lW0xHheJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792925646;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=MtahZLniFEJWP8SrmHT3ICGVYOg1SiAxfLPOaOBltmM=;
+	b=XFo0+DpguaN2AGzm0PDj/jO56nKwjJPe9Xdjk8BEbInC9MfnyrJoZfKZLojYSW9v1qeI
+	 A8TcZgxo9GmjfDF0cWp0wRe25Le0jdCZkhoOgEolLJXJ6LLir8/x0HH65uDfYgqsU2iwf
+	 +YvVcas09NpbSOC2m2iTguUdjyDFX8GshB1ztiL5hr5Az17xlsDjm0OvFiFhdXFbTeAUq
+	 a/IXVfuYMu+Nk/cIEvjauYlkYm9CSKwGLmZzBpwKoFKwDoqhgftRWOhzGUpWX5E81Epbi
+	 TrnDKiKw51JobbANBoYxvl7L4kFzLAnl1RuanYyW/+8poMW0JaaOG5CPHZgtzvNYINw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="DV8n/LCl";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578D9606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:53:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578D9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97A1606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:54:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B97A1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=FOTGf9R8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792925613;
-	bh=zVPVIevQ2+RA/xYQCl+WFJZrVw4+BqUD1pwMwn5wSlE=;
-	h=From:Subject:Date:Message-ID;
-	b=FOTGf9R8m3UMJq+fU1RLQsZuo3k2FQTBaBTxZKLA+4fIT/Lfr7tF1kNnWWy1qzWY3
-	 aPakDCQqVA3SZPnUwg5fcliya0kypOy+kxjATAsQ4b5IUYAVC4GM+AzNDp/uec5U/h
-	 T6BMLnvzUpyWaYPTXYWyYP3aSK1Qroq4J9mkhMis=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.246.238.232])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6ADDDFA0000062DE; Sun, 25 Oct 2026 18:53:23 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 2673924456912
-X-SMAIL-UIID: 340D044D953E496082DFDBC6D1EE664F-20261025-185323-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in snapshot_ctr
-Date: Sun, 25 Oct 2026 18:53:09 +0800
-Message-ID: <20261025105310.1134-1-hdanton@sina.com>
-In-Reply-To: <6adcd395.998fdb85.f0000.0011.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DV8n/LCl
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4395d31228so319059566b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:54:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792925644; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MHlpgWQq7lSIwf878nLK6mdAOVmXORJTPC+qkKztCggYZb9noAYAtimelxT6IyiSvY
+         3bQnQvCMS9UViM6aaP3iB65kXL9chS6bSkpMXdGvTvQ9sm9DRHoklqfGSEU7S5YxT5c6
+         BcFCWzqkBD2NeXtk05FWiHRespGaimvIR1KrnZtEQBJuTV8cdlRMwJAmLBPHok08fVn1
+         jiWsFU5fWu8Zvb8fPRkZuZFf8uUQ96wLOvrlkjwUsuz1Zg7zlWoBp8Mc8+oXp0hg+6qm
+         yKq4tk69eilSadtHOY8E1EHmG07JXfiMrP1fyG76sQkaIhVCZTc1ZjCKv/Yd1yH8l+98
+         S34A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=MtahZLniFEJWP8SrmHT3ICGVYOg1SiAxfLPOaOBltmM=;
+        fh=xWMh9rvq5kLClwifMwb1RldDUkZh9SV1jB94Df7hCK4=;
+        b=kzw+JB1VkKPDIYO/Unqn8BZl7JzaMu5Re5OqHwxg17XXBbLU/UQg1/dCGVWGfp02Ju
+         kai1tIqwfG1khmT0FSnNR4YfaVvvoKYBXtqdebrX4ZJqyUXQei3pujqmu8UJ/7gj8uDr
+         rJqzXBCdYE8uhKNxlugs7bsd7S/SUNqCIIJdnRiX2c/10eFycghEIhY+kvhNqKuSR2qb
+         sCyNdQuDYbmR6G2QQJ+prmJupC++MKFflejYEnxOhvM7PCDLC/E4ZlbA9kxN6yZhAjBa
+         4s35LaIzWKOEeqcVM7yznYfV6F2p35ye4SnJzxYv1O239R0Oe6Jsnh81rCpu22EmRBRU
+         LKEw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792925644; x=1793530444; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MtahZLniFEJWP8SrmHT3ICGVYOg1SiAxfLPOaOBltmM=;
+        b=DV8n/LClRQkvosXfhQ0fijXpBBiRX21CM1+IZat6DfI75dTcwsLeBQojsVBUfOeP81
+         zvqDTzoRSZXb8btAR3wX6x67PyEkaRPcWi1N4xvxKb5mQGny3do1SMBosemHyK8jbQwE
+         5GPkMz9voLcdVGw61GQfC+kYyJ/ypICn+XDq1hu1vSeKN9gnfAFro6jN/pedfVPAWA7Y
+         WDhuzUfYrbf9qVIPIqPz868rGk52OsRLBViKCdZWqmhnnKy1uv+3HKnBJ1MzOru0WHIT
+         //uh0UGCll4z0ouMqkQj2ntts15HaXe4D7v+F2lXy0rVRX219NP0hFqVgybIJxYjerGJ
+         h9GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792925644; x=1793530444;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MtahZLniFEJWP8SrmHT3ICGVYOg1SiAxfLPOaOBltmM=;
+        b=QsU/0YLjj6hY/E+IaMH/cgVndQpYsbPciztRd7jc8MXsVS2I1osZ//52bx5CYKjket
+         lgDZi+n+GSTODhtpOxhXjvnKqNf/rA8GpXRI4FGnN9jeztzi46d14Su+1e3HhlbNHCD4
+         oCL05otPifmamWBgjx+P/S26ERoIm2ZGO+op4ftrxBNfj8TedDs7jaIetrEI0dWKDcML
+         XUrc8xas+xV9HA0cE3HNcPwmWEs105ep2tYS7Dg/XCd9ScSV0EzHE0IPa5Bs4hZ40wK2
+         Ch1z5MEOa3m/JOMIHX2oNKaYfWpwC4T/JjhdJAKrPBiV1PY6yeJOj8dIYaRcA2WfgR9U
+         R2Sg==
+X-Forwarded-Encrypted: i=1; AKwUvByJheUSCDDZWbR/vsf42YZFoc7Wz7I8IXP8syT2x6KQlatiCCETpHYQVeeAOpLT7QhnuncLnScBXje0OT8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIig+Y6L282nOYje5BWtw5SmS06peYEOZwJN6EWx/TYEzBadHRX
+	bcfFd0VYyNshdCFLYRwRE2f+XTZfQn/ToR5ue2G7NZVmLCkO6DHaafJBeplfzJVhyb+9GSYB9V9
+	7M34zmZT5AvIlYhZrxQDTf/6MSuvs81BtDStNq9F+75kR
+X-Gm-Gg: AYBFou3N96EsWhJv/QsRlRd6/6iQobY3bXnHEtR2PQJT8MFpNK4Dln+Cg4fG48wylXa
+	NXMry5Jg6bRNPXj2YOmI4B4Yje8Y9xbNW8z1D+dtzl29jUeCfIFU/lxzCk24BMDxpqbRIxquEzg
+	qDODSLGrbCEBOMvKWqXI3hwWEc88u+vVew4NZ7z+MvVA8bft1Bddhj89Ml5uo7GJvA+GS779nEY
+	1YGeg+Q//hbFhEgBWk/xUafSEu0Ayp1RsYVdsL8AUnBydqDP8gKifPG6zR0AKfrzd7BdJXjz1x3
+	HScTpbNEokRuTDdH4bwudDPDzZScas7r6ZNIrtoDLAH+5PMDxLWo4IPRumX0LpC2/aPLc5Jfx+A
+	7enc/LhSN8PKqhkptrFml/8xzTN+kCNlGbRpJcyn6QCY9RC9t9xYiZ3Lfw/5gMTGrjWBq
+X-Received: by 2002:a17:906:dc8b:b0:c29:659e:2fd6 with SMTP id
+ a640c23a62f3a-c46bddb549fmr450364866b.10.1792925643928; Sun, 25 Oct 2026
+ 03:54:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,57 +101,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Date: Sun, 25 Oct 2026 11:53:49 +0100
+X-Gm-Features: AclHuK9TY3j97je9JyLB2E5dU6k-0NiwAm7rcWLnTy2tP6DroPMgj8seRuA_E5c
+Message-ID: <CAHxSwT8zGKHDLjAbkR=EZL7QVwzS_47TPB283YTHKEQsE0mvFA@mail.gmail.com>
+Subject: [PATCH] staging: fbtft: fb_ra8875: Replace mdelay() and udelay() with
+ sleep alternatives
+To: andy@kernel.org, gregkh@linuxfoundation.org, outreachy@lists.linux.dev
+Cc: linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, julia.lawall@inria.fr
+Content-Type: text/plain; charset="UTF-8"
 
-> Date: Sat, 24 Oct 2026 08:49:41 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=127202a5580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=97e47414c855a3d8
-> dashboard link: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a47f71580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13edba35580000
+From 474546adc013fab098dfda25e6503413fddb9929 Mon Sep 17 00:00:00 2001
+From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Date: Sun, 25 Oct 2026 11:38:17 +0100
+Subject: [PATCH] staging: fbtft: fb_ra8875: Replace mdelay() and udelay() with
+ sleep alternatives
 
-#syz test: upstream  f47d223627f8
+Signed-off-by: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+---
+ drivers/staging/fbtft/fb_ra8875.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
---- x/drivers/md/dm-table.c
-+++ y/drivers/md/dm-table.c
-@@ -400,8 +400,8 @@ int dm_get_device(struct dm_target *ti,
- 		if (r)
- 			return r;
- 	}
--	refcount_inc(&dd->count);
- out:
-+	refcount_inc(&dd->count);
- 	*result = dd->dm_dev;
- 	return 0;
+diff --git a/drivers/staging/fbtft/fb_ra8875.c
+b/drivers/staging/fbtft/fb_ra8875.c
+index 0ab1de664..ded953636 100644
+--- a/drivers/staging/fbtft/fb_ra8875.c
++++ b/drivers/staging/fbtft/fb_ra8875.c
+@@ -47,12 +47,12 @@ static int init_display(struct fbtft_par *par)
+                /* PLL clock frequency */
+                write_reg(par, 0x88, 0x0A);
+                write_reg(par, 0x89, 0x02);
+-               mdelay(10);
++               usleep_range(10000, 11000);
+                /* color deep / MCU Interface */
+                write_reg(par, 0x10, 0x0C);
+                /* pixel clock period  */
+                write_reg(par, 0x04, 0x03);
+-               mdelay(1);
++               usleep_range(1000, 2000);
+                /* horizontal settings */
+                write_reg(par, 0x14, 0x27);
+                write_reg(par, 0x15, 0x00);
+@@ -72,12 +72,12 @@ static int init_display(struct fbtft_par *par)
+                /* PLL clock frequency  */
+                write_reg(par, 0x88, 0x0A);
+                write_reg(par, 0x89, 0x02);
+-               mdelay(10);
++               usleep_range(10000, 11000);
+                /* color deep / MCU Interface */
+                write_reg(par, 0x10, 0x0C);
+                /* pixel clock period  */
+                write_reg(par, 0x04, 0x82);
+-               mdelay(1);
++               usleep_range(1000, 2000);
+                /* horizontal settings */
+                write_reg(par, 0x14, 0x3B);
+                write_reg(par, 0x15, 0x00);
+@@ -97,12 +97,12 @@ static int init_display(struct fbtft_par *par)
+                /* PLL clock frequency */
+                write_reg(par, 0x88, 0x0B);
+                write_reg(par, 0x89, 0x02);
+-               mdelay(10);
++               usleep_range(10000, 11000);
+                /* color deep / MCU Interface */
+                write_reg(par, 0x10, 0x0C);
+                /* pixel clock period */
+                write_reg(par, 0x04, 0x01);
+-               mdelay(1);
++               usleep_range(1000, 2000);
+                /* horizontal settings */
+                write_reg(par, 0x14, 0x4F);
+                write_reg(par, 0x15, 0x05);
+@@ -122,12 +122,12 @@ static int init_display(struct fbtft_par *par)
+                /* PLL clock frequency */
+                write_reg(par, 0x88, 0x0B);
+                write_reg(par, 0x89, 0x02);
+-               mdelay(10);
++               usleep_range(10000, 11000);
+                /* color deep / MCU Interface */
+                write_reg(par, 0x10, 0x0C);
+                /* pixel clock period */
+                write_reg(par, 0x04, 0x81);
+-               mdelay(1);
++               usleep_range(1000, 2000);
+                /* horizontal settings */
+                write_reg(par, 0x14, 0x63);
+                write_reg(par, 0x15, 0x03);
+@@ -150,11 +150,11 @@ static int init_display(struct fbtft_par *par)
+        /* PWM clock */
+        write_reg(par, 0x8a, 0x81);
+        write_reg(par, 0x8b, 0xFF);
+-       mdelay(10);
++       usleep_range(10000, 11000);
+
+        /* Display ON */
+        write_reg(par, 0x01, 0x80);
+-       mdelay(10);
++       usleep_range(10000, 11000);
+
+        return 0;
  }
---- x/drivers/md/dm-snap.c
-+++ y/drivers/md/dm-snap.c
-@@ -1390,6 +1390,7 @@ static int snapshot_ctr(struct dm_target
- 	if (r)
- 		goto bad_read_metadata;
- 
-+	dm_put_device(ti, s->cow);
- 	return 0;
- 
- bad_read_metadata:
---- x/drivers/md/dm.c
-+++ y/drivers/md/dm.c
-@@ -823,9 +823,8 @@ int dm_get_table_device(struct mapped_de
- 			mutex_unlock(&md->table_devices_lock);
- 			return PTR_ERR(td);
- 		}
--	} else {
--		refcount_inc(&td->count);
- 	}
-+	refcount_inc(&td->count);
- 	mutex_unlock(&md->table_devices_lock);
- 
- 	*result = &td->dm_dev;
---
+@@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par,
+int len, ...)
+        }
+        len--;
+
+-       udelay(100);
++       usleep_range(100, 150);
+
+        if (len) {
+                buf = (u8 *)par->buf;
+@@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par,
+int len, ...)
+
+        /* restore user spi-speed */
+        par->fbtftops.write = fbtft_write_spi;
+-       udelay(100);
++       usleep_range(100, 150);
+ }
+
+ static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+-- 
+2.34.1
