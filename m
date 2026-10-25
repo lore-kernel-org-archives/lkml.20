@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792929153;
-	b=04tH+KlZpKJI8vzCBmEvl0ShUjQlhu8incnuSj7vGaKDp7abqC+4+JHxWnDubxlLeg0b
-	 TqjMLnzwJVtxGoo5LduN1ctbCiBCe/t1bTwMEZrIacU75oTfwLI2JojFQFQozyYBZE2XA
-	 8Ugwm1OSQcAk96CIrkK1M6uQB/OMjmVd12OOrWHhT6QSkZ6WOsmrRMP/H39ZUJlI0iwiy
-	 rHY6NsQBBg4UxPuKId12WkmkmDClkbQVIXcNiNTFE4zclGzq8aB8xv66nIdC8IWAyWh1f
-	 ohuC6A3xHV10QTHouD3keECe+5FplCGvdTXKK9EL7FIXaPLWcwe5y/oiJfCslFZItEg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792929153;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792929926;
+	b=RKillTg+OY19n442E0G2QyAFPrA17u1Tfs4fH1i2/E8HbuqtVGr7AImdD8+5K7n5NwAN
+	 6nFA0McAQwnq+ZUjb0NzLhVmK+Pjjdktq1zGbLeJAofTX59MItoAp5VgmdVR7aDir8MaQ
+	 CKYVYvZRITppYSDu4uDnhiVWaCtzwCXKVaY2gFkxoTi7x1DMaGKMl4u2eWBY1PeagiKeO
+	 bl0buxqGq2O+OI1LBCdmp31FZrpibtuDZAb/zdWlbKs6sGxAKShEK9mpbv9uh24ENTut2
+	 zkvBs/fbGWrsU9P+UPkLi4C2IqOq5UzTPQpvFVwFDqF/1hpCaPxVhcFbE9xzLlsOQfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792929926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=9CEWfORfntv8VkhsX5SGmYSPLl0+f9APEy3k75g3Ges=;
-	b=PTLlWtamVb7vaYK90q/zDJPVyvC06kOEH8VkM82zXekNnp+NrxElQbE5gEu27jNL71UV
-	 iZqSIpuS5oDXK08DmX2U6x9UI321KnragK0f7Ky5nG9R6g+f+u9XQrWo+BOVtzHw8SmJQ
-	 krE53fpo+aj0wUPiw5Soo3dgskwaqUpZmIWzmtKnXvya8T7+zP8UOOyF9FM9YRBNVN0FK
-	 84SqWDyqCpmv1RRCQOZsv0Jf/PfPODkyovN81kpw3bvncMs0HOqKUVjQoOPS1NGlB6J4s
-	 85zMN5bT+9g6+jh9rcg/BIIr3medXUMW85hx3ML3cIjuYQq2R69IP46cTdusLxxP5gQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kXvSlVnD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=ZLCOnd82Q2AmvSjk1g9482NEnoKPBW6l7CpBPhWPtsU=;
+	b=suy9SlVDVk07Vg0SbclyHOo3s1OQ05maYWagiU1Hh/Mqles70VhPTIEfYzgWPNwyrS4J
+	 FnDxgZ116hzWOEjbbyTn3pGEbBWQj8HmnH/mTlklhHybCv1k765ER2HbUDyWbUYha9Agb
+	 uDO6AOmKg84K5IRhdzsTgJln1YCKYnFbEl5G1ZiObfDlsNYZ9COFygVG/peRP0y/IwXiK
+	 YNo231Z4W98EsgFCByhlZu+e7/yfeKuRk9IiEUHImJ/D7lnmgo4WNwfWrrifBMrHOIToV
+	 sncy/3OWwPDqwjA51wjJywTqQzo4Y6Ccz0dDL4bCp9n4eEObXYqlhhxDmkObJJ2/psg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GBihmkTC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81698606A31A;
-	Sun, 25 Oct 2026 11:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA27606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:05:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA27606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kXvSlVnD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D311F01825;
-	Sun, 25 Oct 2026 11:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792929153;
-	bh=9CEWfORfntv8VkhsX5SGmYSPLl0+f9APEy3k75g3Ges=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kXvSlVnDH15cWbO+1dz7W4fA+T+ypLAoZ5VIau7XmbxS6feD3VAzBV1LffLw5p6nH
-	 NQGjuMGAlXxYHVEuvpQ0vcRtODFwdjaIc0xgimwJ4L/8XTFRcIN9lwnrg0BoCXQTqk
-	 386sgwGM/6HyI+6Tuz5K8dPrXes8XavbQRl9tpJKTcviHkxSJb1Knt8DPmVJw+J9zN
-	 poVRvHhxtbzIXdvplQThOA+xbji8a5V3vMiF9TSUAjcLn8ogW4RhCHq9dwQuEuLFJE
-	 oThSBPZwm4yzahMxKEfSeVBAu7ay/18ITsC084l18AwdnVqAfO7yH3ERFL3W36MsR7
-	 HQiXEUK1N8C8g==
-Message-ID: <78127b64-d4ba-4e72-87fd-28e26f989de9@kernel.org>
-Date: Sun, 25 Oct 2026 11:56:58 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GBihmkTC
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso1289308f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:05:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792929924; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ObTJQpKnsKYoZMgDUGAl1PpHxs0mCGizGQS1PPgyB+INWB+IACT7j/AW2NmWQ8xlRp
+         GRCHHrdn4ZDRhuo36vqpf7pyoFsCa+/Ui48uoBzIxHKDP1nLylbaSfmsLVwEt1lCqORA
+         VWK+gBwdcmyWGD6EmPgfJJ3fVhiqNLynSGRFKNm1oWQWpHnAu3NRrOayjJVvQIBwg0xx
+         4TD6GoP20HdAl/gwLExeu1CJTXp9MAKqVPcuK1FaiRzV7VCxa70H1MIxKpOA0PJfcO0v
+         NpuRBOtvwSI+6nZgb3pfiqJQewd6cG+7ndeguN2+N8R2dAx5/ZvhkEK30WvWFU+5AG/3
+         dGaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZLCOnd82Q2AmvSjk1g9482NEnoKPBW6l7CpBPhWPtsU=;
+        fh=J0QKfFGqE/NqMtxVzH6moYO52GjTutzP8Djwl7O9ET8=;
+        b=YlqT9Xc5G0SItSCQnIsn83YuKqHpuxz2jRAIkG6TQqntK7OrbdfgTPswf8SaO4V+do
+         H60axXNIc6PiHkXKlp/q9B0rND7QK4xk+ZbnUYUv6qZN/kbzhURgpbpuTGkdyOAPOzPJ
+         Lz/aO3X20WgCDcQEf8+KUCH5cEbFbylorXREpHjgayyxCNIJhs6yBE2CZC2262c+y+06
+         MCNifrWMiUCXldbdeqdt8LRYqH8yfIM+h15ThEuZvp+kxmuzKrI8A78d6bNdsrDP7u00
+         1v/ROHCJZ0T1/OJtfddMuX+EfwK6diHfmpnpTdQ3x2FYHBPgUX3AEqnoFJiYnQC+IOpu
+         +wqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792929924; x=1793534724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZLCOnd82Q2AmvSjk1g9482NEnoKPBW6l7CpBPhWPtsU=;
+        b=GBihmkTCfHn+bfUYbg5tWYX7ugUcM7fxxWrF/zRRCSXag4BycNDkC0a+lcBBsqSshz
+         XvzxWVb5fK0a4IEInLXlS7Stu2IcUSWQtANo8BM/0NEjnkci4hNcju59hcIiBVg3Y6uE
+         a0N2YIkj5LXDjERGxAo/qPrz8wW1jU0sd8/2SgkPyXtaVz1895anA0Zfne+0FUp9OlOD
+         qyZFWBoiDPWbWEk/Lawl/2zUyQOPJckcrhz7vidhpaAxXRKrRPka43Xtnc5gUxDxlBR8
+         0cHdW22MDXuh224/lV8nrSsx7FF6N9IXp3/7PfZSjv70r8rxP3nZQbl3UhAi4rlkacPI
+         Q4sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792929924; x=1793534724;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZLCOnd82Q2AmvSjk1g9482NEnoKPBW6l7CpBPhWPtsU=;
+        b=EQRMdplE/u17iuWDc0vlgONkQ2VMcVgu4lluQCEXTdYb1oaSPT5K4e5iVsPVR2mw3H
+         0nyj8yJkXsGwbCgZz1iS4S3aaQfGvpyLo19xzO2aMBCrk/7mKuo7hd9alyif9kAm7SCR
+         N5x2BhEsilu6aUzfof/zRcUTbMHuJKdUODeHr05oEPuVIq3HzimijE79k0La6TauW1ie
+         tiya3V7RIq3WmgNpjiNqD1Rj5lBfKeBjg3H5t/WqxaAcRcld+Q+Q8Tcoj4XAhHl+oSR2
+         wP+FbMFkvU23C098bUKYs6nu0jFpvS+WF/Os+9imS9dFO4r/GlXRRHbC3Mizy14I97ur
+         KCyA==
+X-Gm-Message-State: AFq9FYJbj6zxGit1BS844aqEHlEwVNct7E/LBElqDxFtrD30Qr6jTVHD
+	BQKrCyTIeVAIm7XA2g4NfE1WniMdfOThQs0CHnTPtW4L777NQYPJvpEgpe6Rq48SWnr+lguXBQf
+	KeDUpmrqGcTGb0d7qSiB+GQZtFbdXoJHtSjjPKAJq
+X-Gm-Gg: AYBFou2MNJO8G7fT8dmVirOvV04/A9W9vfVsIrmjrRl8oq4mjVkbORSbyCPjWftLKM5
+	hKax4hr300aE8JBQA9/t6DVVtSS7xmuEdpeL1w9q2qY3FxZQ5ks7sMiI5QQjR7wAMQKKIOlzDXI
+	pDkUbutBsaSJhIFdm9fYnQqK/YJ+aLKygFpDfaIFC+7G3JrKHD5cPvFk8pwn4KjiCnMw/tSsmON
+	ArEUArUuWlU0eHrpPmSebq5OiT5Y4gGo1pThvzTh9qW7PCyeXnfgJRmI6VipPkbSxk59zNQktVX
+	i1p8drCaPAzyWHp/vjFqlJez4rLUyJg5xb2uaRr4S8WNt36CYwKKK8xhmf1zBYOJ/D4C+v1qgnk
+	hdbe2+9V8erzTGK06aOyYVCVQ5+b3afsBhHfXwDj8KlnB48INhLdsbjixFr2DTmdgfn6HoxOKEn
+	DyG8MJN6+GIzGwrQ==
+X-Received: by 2002:a5d:5f44:0:b0:48b:10af:f85c with SMTP id
+ ffacd0b85a97d-48e3eb9da68mr6693615f8f.37.1792929923496; Sun, 25 Oct 2026
+ 05:05:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,113 +104,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: return -ENOTTY for unknown pagemap
- ioctls
-To: Hengyu Liang <hengyul@cs.unc.edu>, akpm@linux-foundation.org,
- linux-mm@kvack.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, jannh@google.com,
- pfalcato@suse.de, usama.anjum@arm.com, avagin@gmail.com,
- mirq-linux@rere.qmqm.pl, arnd@arndb.de, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261023181300.3366487-1-hengyul@cs.unc.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261023181300.3366487-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@onurozkan.dev>
+ <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev>
+ <20261021093808.1128449-1-aliceryhl@google.com> <20261025112341.60054-1-work@onurozkan.dev>
+In-Reply-To: <20261025112341.60054-1-work@onurozkan.dev>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Sun, 25 Oct 2026 13:05:09 +0100
+X-Gm-Features: AclHuK_vlq1pG_e9KogyCUhHCbMVS-gy1nu0YhyrawGdRf1hO7SrcpUQY2i8IzE
+Message-ID: <CAH5fLghQAGskFzEOAQwjO9eDoKU51nG4L0C8EHNOtugWov4hHQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/tyr: unplug the GPU when reset fails
+To: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, dakr@kernel.org, 
+	daniel.almeida@collabora.com, airlied@gmail.com, simona@ffwll.ch, 
+	ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/23/26 20:13, Hengyu Liang wrote:
-> Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
-> optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
-> handler of /proc/<pid>/pagemap.
-> 
-> However, do_pagemap_cmd() returns -EINVAL for every command other than
-> PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
-> the VFS returned -ENOTTY for these commands. As of now, they fail with
-> EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
-> of ENOTTY.
-> 
-> The issue can be reproduced with a simple C program:
-> 
->     #include <fcntl.h>
->     #include <stdio.h>
->     #include <termios.h>
-> 
->     int main(void)
->     {
->             struct termios t;
->             int fd = open("/proc/self/pagemap", O_RDONLY);
-> 
->             if (tcgetattr(fd, &t) < 0)
->                     perror("tcgetattr");
->             return 0;
->     }
-> 
-> Before that commit, the result is:
-> 
->     tcgetattr: Inappropriate ioctl for device
-> 
-> After that commit, the result is:
-> 
->     tcgetattr: Invalid argument
-> 
-> This patch will return -ENOIOCTLCMD for unknown commands, as
-> procfs_procmap_ioctl() in the same file does, so that the VFS turns it
-> into -ENOTTY.
-> 
-> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
+On Sun, Oct 25, 2026 at 12:23=E2=80=AFPM Onur =C3=96zkan <work@onurozkan.de=
+v> wrote:
+>
+> On Wed, 21 Oct 2026 09:38:07 +0000
+> Alice Ryhl <aliceryhl@google.com> wrote:
+>
+> > On Sun, Aug 23, 2026 at 01:50:08PM +0300, Onur =C3=96zkan wrote:
+> > > @@ -56,7 +57,7 @@ pub(crate) struct TyrPlatformDriverData<'bound> {
+> > >      // ensure the correct drop order.
+> > >      #[pin]
+> > >      _reset: reset::ResetHandle<'bound>,
+> > > -    _reg: drm::Registration<'bound, TyrDrmDriver>,
+> > > +    _reg: Arc<Revocable<drm::Registration<'bound, TyrDrmDriver>>>,
+> > >      _device: ARef<TyrDrmDevice>,
+> > >  }
+> > >
+> > > @@ -161,17 +162,18 @@ fn probe<'bound>(
+> > >                      gpu_info,
+> > >              });
+> > >
+> > > -            // SAFETY: `reg` is stored in the platform driver data a=
+nd is not leaked or
+> > > -            // forgotten, so it is dropped before the `'bound` regis=
+tration data can become
+> > > -            // invalid.
+> > > +            // SAFETY: `reg` is wrapped in a `Revocable` owned by th=
+e platform driver
+> > > +            // data and its reset handle. Neither is leaked or forgo=
+tten, so `reg` is
+> > > +            // dropped before the `'bound` registration data can bec=
+ome invalid.
+> > >              let reg =3D
+> > >                  unsafe { drm::Registration::new_with_lt(pdev.as_ref(=
+), unreg_dev, reg_data, 0)? };
+> > >              let device =3D reg.device().into();
+> > > +            let reg =3D Arc::pin_init(Revocable::new(reg), GFP_KERNE=
+L)?;
+> >
+> > `drm::Registration::new` requires that the `Registration` is dropped
+> > before `'bound` expires so that `drm_dev_unplug()` runs and
+> > `TyrDrmRegistrationData<'bound>` is dropped while `'bound` is still
+> > valid. Wrapping it in an `Arc` makes this invariant fragile: if any
+> > `Arc` clone outlives `TyrPlatformDriverData` or is leaked,
+> > `drm::Registration` will not be dropped on platform unbind and
+> > `TyrDrmRegistrationData<'bound>` will outlive `'bound`.
+> >
+> > With `pin-init`'s new safe self-referential struct support in `rust-nex=
+t`
+> > (see e.g. [1]), you can avoid both `Arc` and raw pointers altogether by
+> > storing `_reg: Revocable<drm::Registration<'bound, TyrDrmDriver>>`
+> > directly as a `#[pin]` field of `TyrPlatformDriverData<'bound>` and
+> > having `_reset` borrow it via field + existential lifetimes:
+> >
+> >     #[pin_data]
+> >     pub(crate) struct TyrPlatformDriverData<'bound> {
+> >         #[pin]
+> >         #[uses('_reg: invariant)]
+> >         _reset: reset::ResetHandle<'_reg>,
+> >         #[pin]
+> >         _reg: Revocable<drm::Registration<'bound, TyrDrmDriver>>,
+> >     }
+> >
+> > and in `reset.rs`:
+> >
+> >     #[pin_data]
+> >     struct Controller<'ctrl>
+> >     where
+> >         exists<'bound>: 'ctrl,
+> >     {
+> >         pdev: &'ctrl platform::Device<Bound>,
+> >         state: Atomic<ResetState>,
+> >         hw: Arc<HwGate<'ctrl>>,
+> >         #[uses('bound: invariant)]
+> >         registration:
+> >             Pin<&'ctrl Revocable<drm::Registration<'bound, TyrDrmDriver=
+>>>,
+> >     }
+> >
+> > Then `probe()` simply initializes `_reg` first and passes `_reg` to
+> > `ResetHandle::new(pdev, hw, _reg)?`, `reset_work()` calls
+> > `self.with_registration(|reg| reg.revoke())`, and `#[pin_data]`
+> > statically checks that `_reset` drops before `_reg`.
+> >
+> > Also, as a heads-up for rebasing onto `drm-rust-next`:
+> > `_device: ARef<TyrDrmDevice>` has been removed from
+> > `TyrPlatformDriverData` (along with the empty `PinnedDrop` impl), and
+> > `drm::Registration::new()` now returns `impl PinInit<Self, Error>`
+> > directly without the `flags` argument, so `_reg` can be initialized in
+> > place via `Revocable::new(unsafe { drm::Registration::new(...) })`.
+> >
+> > [1] https://lore.kernel.org/r/20261019133647.1279779-1-gary@kernel.org
+> >
+> > Alice
+>
+> Any idea when will we push drm-rust-next changes into rust-next?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+We are currently in the merge window, so drm-rust-next and rust-next
+are both being pushed into Linus's tree. Once the merge window is
+over, drm-rust-next will have everything that was pushed to Linus's
+tree available.
 
--- 
-Cheers,
-
-David
+Alice
