@@ -1,71 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792956568;
-	b=t0Kou76olnLFktSG1LifsxNTFLxLAdcfe2e+cg/mZofIh4PT7rWi/85ZjYyPG/PT1xUc
-	 Ep1a6Ee0Zs74cD4n2poz+fMCHrokZ8ledXcv+PPnFGP313bCKQSWsBKrxb7YkpZYQ0JVu
-	 Ogq1cs3ET2gLV/1UfCDg5f934jw2MUvUkhbvtCREWMolEkAjuRqokIj9JNV6+W2Ki3O7X
-	 DTfu3NOGCjB83ti//C0+V/X9AA1J3iH9YIjzCd/0G+6zl4nalNl/TH8Y9CtIMG/AYo2Y7
-	 iF5q8WwsyrMLm7ca+/XofTMvQM4wa4Q6xE05Z1/CLkFaCnAZ9F9RoxPMiYqPeAtC7UQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956568;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-SEG-SpamProfiler-Analysis:
-	 X-SEG-SpamProfiler-Score:x-atlnz-ls;
-	bh=GD51In45fMn+qDR1TmuUA/ftDXmIKaB4nnOxsqPNpCo=;
-	b=1LZkkWqWo9VzILeVhwH8NX3nxlKFUtBmb2ZpkFTS0S7p3QaB2sSulMm6qt/51WwQ5OZU
-	 YeYNnHfUcoo78ubPNILV2BRKrHx0BVQy8NysJTJB+AIFNyIYFKtMG9XQ3VIbSley2aZhX
-	 zzHh+ir30G/uMVX3Bi2tATIDEMNVno9smlTeetBS3nC5z7CuJIfA1amq51dpmS64vRvRx
-	 35Kv7uwgXdBQraqoa550BGvUShV7cw3CLQwGlE2NZoQECbq/FAcSa8Or857e4ykKctFjX
-	 38jNUhXKatS7HR2s8aIG2mijhJfNrtFupa8QHHJV248djY0mJyDN+V7qmH5mx5zNZ2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alliedtelesis.co.nz;
-	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
-	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=uxmbDt8s;
-	arc=none smtp.remote-ip=202.36.163.20
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792956614;
+	b=eAtctBVNBMnGEBxunN3/23088WptCLuSIdJ2KjKnRTQzvhL7LzlAJs8Ucgd0naydtLHa
+	 ESJI1gIN44f9p/G3SMyaSuJ6dSsx9Y0KtjlSdXTBLO59XHqJ4zgzvt4dZD7ImTW1QL0io
+	 LRUvH3agRFpJqzmZnKIcyFTZcnWl227ciK8eRQ9KoLtXILeQksVThLkg2fKiVCGjthH+z
+	 2uMhCG/mN4dQdew63iQzWcCIAjXKfqTRQtLOabjxwZQRkdczH8A8YnxRNFf+O2NgEGX9M
+	 Or8g1DSisW1BI3mb95QqBAroSD36EuFTXS2CVR5XXzhMbIR7HsBMVOYNyXElopc9GyQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956614;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=id7QjALoxAPo7E4SdhvMjrZKW1hR51xHpAUwMdzan0k=;
+	b=zuZ9VkE1fg1WH+Kip4IkMl71OjUczhg4gUGwn9SEz2IS5zDASCr2AXibUiF70P7GDBOL
+	 ZLllN9ythBnz1ccqQlWb0atoHqQI0TI5lFpUv94Q3RFmH5GQTKIV+krLu+TIJi/MxTRia
+	 ieliNoh6fhVHgtqXcMgVAuir7xi199+t54ksKeQzxGUE+NPWfVh4AwRLRn6sPZO5WS+iX
+	 +shzsAmfGziav1Bf8Svg4HkthhMSnHdSk7TnLIjShNF7t3ZUjxXrcnlz/YXWudvinaLM6
+	 yiODwq2XSERcVvTdNFvtw5AfS8+cFL83CJ7NKRIDkRvgjdcYu6vlnDW8O+jhJRov7yQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=MDf5Gqgo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE05606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE05606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A1D606A31E;
+	Sun, 25 Oct 2026 19:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A1D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=uxmbDt8s
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 8436C2C0108;
-	Mon, 26 Oct 2026 08:29:24 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1792956564;
-	bh=GD51In45fMn+qDR1TmuUA/ftDXmIKaB4nnOxsqPNpCo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=uxmbDt8sgsHj4J5ayCYOg1XPkYcC03R3fHwxtDqjcIfXClfNE7oqYzk9xDr9GKyoO
-	 kv/Mk4VyArOrrYMI3vCHkECz4xafYq8MYG/AvFmj9f/YV95Y1t7ma9Z8sRYyyVyYT/
-	 FioF3UXaRyXbq7NpVw7bDQ1oT+6nZy0MKs+0j9bv2FDmaDtmZnJwOkMJQyyLBNFgR4
-	 azKZfqOIcMWh1kVvrS4XRFnziXlY5it4B673Kvl/Nz2ilewhLIq+nWOW/GyOmhFm9v
-	 4nCF+8nCt7SqXDIEM5Y6NX+dFVBWn2xHmQkW8paa978szCuJL5MvLEU050tjzeiBf1
-	 6Ji05+x3pBqPA==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6ade58940000>; Mon, 26 Oct 2026 08:29:24 +1300
-Received: from carls-dl.ws.atlnz.lc (carls-dl.ws.atlnz.lc [10.33.25.22])
-	by pat.atlnz.lc (Postfix) with ESMTP id 5AE5713ED56;
-	Mon, 26 Oct 2026 08:29:24 +1300 (NZDT)
-Received: by carls-dl.ws.atlnz.lc (Postfix, from userid 1474)
-	id 5476920187; Mon, 26 Oct 2026 08:29:24 +1300 (NZDT)
-From: Carl Smith <carl.smith@alliedtelesis.co.nz>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Carl Smith <carl.smith@alliedtelesis.co.nz>
-Subject: [PATCH] MIPS: Octeon: Verify the device tree so that /sys/firmware/fdt is created
-Date: Mon, 26 Oct 2026 08:29:18 +1300
-Message-ID: <20261025192918.586220-1-carl.smith@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=iav@iav.lv header.a=rsa-sha256 header.s=zoho header.b=MDf5Gqgo
+ARC-Seal: i=1; a=rsa-sha256; t=1792956566; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=eMv/bAri8IF6pcaO2CYYPE5kK/AZFG5a/CSqDgLSsR2HWvYxk+yxYsd0tSrDMwb63v3rFOqplTdCdfemJwWohSOGYfUdV4tdhauhq6R63WcJ3NWhbNwK5oA1ORJg8WSxvYG00B8tQy1oJ1+U2YWuRzW+zE2h7kZIKkdd0hefcHA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1792956566; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=id7QjALoxAPo7E4SdhvMjrZKW1hR51xHpAUwMdzan0k=; 
+	b=UxSkqiB5P2sq29YbmvMn/yKF4U8bc1imFTplIuYL/TQm8us6js/qzconkHtB2K72htyU8BugCRlThO4qcnXydCoAOhP0Adq5lNQepiIvZKOuezSsPPTAGZZvau8agJGrkXCFUaxJRBWT36lKGdMNjuJr6MjlvuETwok7B1KrMxo=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792956566;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=id7QjALoxAPo7E4SdhvMjrZKW1hR51xHpAUwMdzan0k=;
+	b=MDf5GqgoSZi4epNF+W+1G9CB/2NU2GRhy1bXA/pfTd425x+6ylNvFbJwETHz6F/O
+	1ksD7ECZv5wJo9XMQeTVPDAYwiu8m08JtGMx242bX2mHWCt1kYd8vb8mHOJQ7D7eM2j
+	3bGn2OdUiGjBggY4Hq1JGqvPZ7TRvewZaf1ukoUs=
+Received: by smtp.zoho.eu with SMTPS id 1792956564711297.8298415361571;
+	Sun, 25 Oct 2026 20:29:24 +0100 (CET)
+From: Igor Velkov <iav@iav.lv>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, p.zabel@pengutronix.de, Sergey.Semin@baikalelectronics.ru, mika.westerberg@linux.intel.com, andi.shyti@kernel.org, Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH v4 2/2] watchdog: dw_wdt: manage reset line during system suspend/resume
+Date: Sun, 25 Oct 2026 21:30:00 +0200
+In-Reply-To: <CAOPX745u-2S4V_HfwPjkeiC+SLn6Z1GxQOTE3SqMFX75eZRKTw@mail.gmail.com>
+References: <20261024140854.25664-1-a.shimko.dev@gmail.com> <20261024140854.25664-3-a.shimko.dev@gmail.com> <20261024-dw-wdt-shimko-v4-resume-imbalance@iav.lv> <CAOPX745u-2S4V_HfwPjkeiC+SLn6Z1GxQOTE3SqMFX75eZRKTw@mail.gmail.com>
+Message-ID: <20261025-dw-wdt-shimko-v4-databook-ack@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,42 +70,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=FJW4xPos c=1 sm=1 tr=0 ts=6ade5894 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=660iZSQnnn4A:10 a=prcWOdHMlqgRWzT-IwMA:9 a=3ZKOabzyN94A:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-device_tree_init() sets initial_boot_params directly without calling
-early_init_dt_verify(), so the FDT CRC is never computed and
-of_fdt_raw_init() skips creating /syts/firmware/fdt.
+Hi Artem,
 
-  not creating '/sys/firmware/fdt': CRC check failed
+On Sun, Oct 25, 2026 at 09:32:44PM +0300, Artem Shimko wrote:
+> The official datasheet DW_apb_wdt_databook says:
+> The reset must be de-asserted synchronously after the rising edge of tclk.
 
-Call early_init_dt_verify() after the tree has been pruned and the MAC
-addresses filled in, so that the CRC covers the tree that the kernel
-unflattens.
+Fair enough, the databook requirement wins; I withdraw the comment.
+v4 is fine with me as is, and my Tested-by stands.
 
-Tested on a CN7130 with a bootloader-provided device tree.
-Fixes: 08d53aa58cb1 ("of/fdt: export fdt blob as /sys/firmware/fdt")
-
-Signed-off-by: Carl Smith <carl.smith@alliedtelesis.co.nz>
----
- arch/mips/cavium-octeon/setup.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/se=
-tup.c
-index 1ad2602a0383..f25301e08222 100644
---- a/arch/mips/cavium-octeon/setup.c
-+++ b/arch/mips/cavium-octeon/setup.c
-@@ -1178,6 +1178,7 @@ void __init device_tree_init(void)
- 	}
- 	if (fill_mac)
- 		octeon_fill_mac_addresses();
-+	early_init_dt_verify(initial_boot_params, __pa(initial_boot_params));
- 	unflatten_and_copy_device_tree();
- 	init_octeon_system_type();
- }
---=20
-2.56.0
-
+Thanks for checking,
+Igor
