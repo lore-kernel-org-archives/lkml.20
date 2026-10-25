@@ -1,58 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940555;
-	b=eEU01UJXonn0Lrq5Buh/tqRNVSiHAUEg8XrUViKUYpsm4DcJtzu5MbeKSLtEyt2sO1PK
-	 WZFB3FxMrM0kliN51WTcGU969GY9BezA+SIsBgbxfUe7yO45f1ywUHg11zfTGCagNkWSZ
-	 k2RafnHLWdUpVrRXW6skcnUvAz13W80p3gZa7gQ4hZTUUdvr/s3ye7gXp4bHcPD41EA7W
-	 9JYzwdhYf2Wle8gTOK+LTbhxg5wiwDop708H5N4cL5rl+st+cR/M/tbIFXeUPPuGjnfDA
-	 p6QM+8ml/+u3EQroV9kyOOT4QIXfY97mSAHW5DAkmQEuYVQCijyOQKpOY++NEbbhPgQ==
+	t=1792940662;
+	b=3zyd4qPsd1HzdQjNsqoejKEmrWhO+uCDLeL4Tez9I1gx9I1fjJmCjK1cU6vVKDow+OgM
+	 FPUQasGT0Ib6MerzmNcquxGt88wqvpB0DX/reSkb1Zw+IBGc/PJN2E1QYi0C7YNtpin1I
+	 kkRAZlKW7wVO4TKE5/lEnuwEPUrNDFhRxx4XEDSnSQ8RuJQrMpmKrEJb4pysiX3QXrC1T
+	 1cNub6dyzh210S+dS46w8YdlRUq3kCq/pK49zup+xKnn9W7KRGwvkpPnYzjU8hecyPoE2
+	 N4lP3N7MVzYQWvLX7bbLzHiKizm9NIHndILDJdeprnMo+WYykgHcEy7/AAQSmS40wyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940555;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
-	b=fItakkcn9Jg7adq4jX+u+9SJHOvSffKP7+uH8OS2itsfLrufG8/dMaNOWS6b1NqVTzbv
-	 KMXYp3JEQgMWBh0s2HZH6vShC4mA8y9o8uwynJmOGR1NRTZ61GyPdtgEi1f/0Yp+5Nm+Y
-	 lDcDzcXbN95jDyAXHey5SbRp1xk5AyFmEr83eFZZxuDcHC7s5XhNLi1UMcuHJIL2HfEa5
-	 cQA/9iPs9S/WWqfzayuSbHSAag3t+R9elIJ9woOhntCLc6GkQ8sknZVXmx4mLFDQdaYBJ
-	 g2O9BGLVZN7c1KfU7MG2Ff0Kt8IynG4Q9K86mrRBgLGtKCGcoApv70E2fmbPXQ+lJng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792940662;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=rS3/wqoyUiFC/nwlEVyVdFa4VAmvnpE3Qb2WkVE+lSE=;
+	b=344R/nswe8DinE1bbZJaxP1J8e7r6Vrmw8slnnkRRCGxUh2fHb79UXKHPp/R54HZbEh3
+	 lWwattlyPLwqeHZ+ThO2A2AAP8E+O4nst2flpNOs7ITblyocbvJS/eGOi6zWAayPG460+
+	 83BBCyvVQBBYewgUaSkfstkyTlj0tHpTjus0lxC6ZhuOFt546BiVv22UosUY5fhBrTlig
+	 ExVIKpEK+3B3v97fvOsx0mhmZDOzqpNQ0QfdW0D3OwI1pkmw5PSIu5O3XlYReY3mQmwiS
+	 9ag777omlqL/7wRTRONBGrT+UZXOlzd3QIIobtcOqhyOLUNbFPN/HIioFKI81MCvP6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NT8kzVzT;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E90606A31A;
-	Sun, 25 Oct 2026 15:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B98606A31B;
+	Sun, 25 Oct 2026 15:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B98606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C501F01825;
-	Sun, 25 Oct 2026 15:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792940554;
-	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dB8BFSmIqZFoIJvvcTzrwfGFB/Kcmfjwo42raWbl1Sw1fgJkiMPZllORd9Zfs5cGP
-	 IyMmhP6OwvLFS39rfdjFkyh64QkFqAZdDL5nplKR6ctb3g5WbDpK+glIXbcmMLFFY0
-	 tXOlVnhHHFgcdAHEQq5a7qzyvVlZORHThoP0wKnp/hWxDpqvdc7OHTFI4CggRchovG
-	 9RSpfhAO9e5F6A/oWKUUGrArmOkJOhHseJ22EVIMDfiXmW920lJtzDyM+kO53dbQ5z
-	 QrUGgC/jvswT/x4Su8DT0xyHPj+z1G9O5pDxcdCektMtzvTuNauQfc6chL92zAxaS2
-	 AjjcIFbF34yHA==
-Subject: Re: [PATCH net] tcp: limit tcp_tso_rtt_log to a valid shift count
-From: netdev-bot+sashiko@kernel.org
-To: 1075151112@qq.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
- kuniyu@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 25 Oct 2026 15:02:33 +0000
-Message-ID: <179294055394.3134.18315932925125315352@kernel.org>
-In-Reply-To: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-References: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NT8kzVzT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792940661; x=1824476661;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mbitdxTff249OBDqO5321R0i6ugZINRmq8qsd0e14/U=;
+  b=NT8kzVzTDbOLMSXUsBaCvB7A4KRSJGK2b+C4a4c+yZpz0qpdpUozKdWa
+   ML2W/d4UK9xQKJZe7baMbDdIpXEDLpIW8PZzWvWPM30QlhmkhoD3P5Ia1
+   vSGXgLg/TY7tr5zEorNxfA86Bkyqr+79NPkbXa3o0o3mO9n11Ya/3GuJ7
+   wxaRwu4TGXKrg+gXZ7Rc4VpFu3UnA57w4u9Eg2Y6PW0DwxlGK4V85pfY6
+   2vQzhJQ1kxGo7EHrcwA0ToCXJ13fLQwQOmS+heVfceuRp0CohQiS1Lfus
+   97Dq3rxGzemlHj/v7sgvoxgYyjbnoeYzp7IJ2oTzgpCn+LIaR8Rj14eBX
+   g==;
+X-CSE-ConnectionGUID: e6424VpLTsa44yc9Fd4Mnw==
+X-CSE-MsgGUID: swPqWkwWSaGqb7qNh9blIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1623171"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1623171"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:04:21 -0700
+X-CSE-ConnectionGUID: pobX85RvRdSp/PhX9BTmGw==
+X-CSE-MsgGUID: g5SvmkfrRiurS7nX9CyIDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4404121"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:04:18 -0700
+Date: Sun, 25 Oct 2026 17:04:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Cc: julia.lawall@inria.fr, gregkh@linuxfoundation.org, andy@kernel.org,
+	outreachy@lists.linux.dev, linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: fbtft: fb_upd161704: Replace udelay() with
+ usleep_range()
+Message-ID: <at4acP_svOxU9_mP@ashevche-desk.local>
+References: <CAHxSwT_bdBdiwwXpGpr9+rGizZU3p+RsB18hPH5TxqMuMZOsQw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,103 +80,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHxSwT_bdBdiwwXpGpr9+rGizZU3p+RsB18hPH5TxqMuMZOsQw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sun, Oct 25, 2026 at 03:22:30PM +0100, Abubakar Musa Samaila wrote:
+> Replace udelay() calls inside the init_display() initialization
+> sequence with usleep_range() to avoid CPU busy-waiting. Since
+> init_display() runs in a non-atomic context, sleeping allows the CPU
+> to yield, improving power efficiency and system responsiveness.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch puts the new bound on the wrong sysctl, so it does not
-  fix the bug it claims to fix.
-
---
-
-tcp: limit tcp_tso_rtt_log to a valid shift count
-
-This patch tries to cap the net.ipv4.tcp_tso_rtt_log sysctl at 31. The
-reason is that tcp_tso_autosize() right-shifts a u32 by that value. The
-patch also documents the accepted range [0, 31] in ip-sysctl.rst.
-
-> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-> index e3760daa34706..e954311405b41 100644
-> --- a/net/ipv4/sysctl_net_ipv4.c
-> +++ b/net/ipv4/sysctl_net_ipv4.c
-
-[ ... ]
-
-> @@ -778,6 +779,7 @@ static const struct ctl_table ipv4_net_table[] = {
->  		.maxlen		= sizeof(u8),
->  		.mode		= 0644,
->  		.proc_handler	= proc_dou8vec_minmax,
-> +		.extra2		= &tcp_tso_rtt_log_max,
->  	},
->  	{
->  		.procname	= "ip_early_demux",
-
-[Severity: High]
-Was this hunk applied to the wrong ctl_table entry?
-
-The entry just before "ip_early_demux" is "ip_dynaddr". With this patch
-applied, ipv4_net_table reads:
-
-	{
-		.procname	= "ip_dynaddr",
-		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
-		.maxlen		= sizeof(u8),
-		.mode		= 0644,
-		.proc_handler	= proc_dou8vec_minmax,
-		.extra2		= &tcp_tso_rtt_log_max,
-	},
-
-The "tcp_tso_rtt_log" entry further down is unchanged and still has no
-extra2:
-
-	{
-		.procname	= "tcp_tso_rtt_log",
-		.data		= &init_net.ipv4.sysctl_tcp_tso_rtt_log,
-		.maxlen		= sizeof(u8),
-		.mode		= 0644,
-		.proc_handler	= proc_dou8vec_minmax,
-	},
-
-When extra2 is NULL, proc_dou8vec_minmax() falls back to its default
-maximum:
-
-	unsigned int min = 0, max = 255U, val;
-	...
-	if (!tmp.extra2)
-		tmp.extra2 = (unsigned int *) &max;
-
-So writes of 32..255 to net.ipv4.tcp_tso_rtt_log are still accepted, and
-tcp_tso_autosize() still does:
-
-	r = tcp_min_rtt(tcp_sk(sk)) >> READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_tso_rtt_log);
-
-Is the UBSAN shift-out-of-bounds from the commit message still reachable
-through tcp_sendmsg_locked()->tcp_push()->tcp_write_xmit()->tcp_tso_segs()
-->tcp_tso_autosize()? The r < BITS_PER_TYPE(sk->sk_gso_max_size) check
-after it guards a different shift.
-
-This also means the kernel does not enforce the new "Possible values are
-[0, 31], inclusive." line in ip-sysctl.rst. This statement in the commit
-message doesn't seem to match the diff:
-
-    values 32 and 255 returned -EINVAL
-
-Separately, net.ipv4.ip_dynaddr now rejects writes of 32..255 with
--EINVAL. Before this patch it accepted any u8 value.
-inet_sk_rebuild_header() checks !sysctl_ip_dynaddr, and
-inet_sk_reselect_saddr() checks sysctl_ip_dynaddr > 1, so both accept
-larger values. With the Cc: stable tag, this change in what the sysctl
-accepts would also reach stable kernels.
-
-Should the extra2 line go in the tcp_tso_rtt_log entry instead?
+Please, slow down. I have already answered on very beginning version.
+Don't waste time on this.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07%40qq.com
+With Best Regards,
+Andy Shevchenko
+
+
