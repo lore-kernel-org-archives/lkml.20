@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952497;
-	b=nRzAHvq4WU0AOD5zLywuVlXyEE2uHdI5sDJlhvRYGvp9+q1OKnzDx3ylvWErTldljRDw
-	 6h7ibZhyZ8c2VL+wR0MUgrHOxo3GwtlHnoe5QXq5niuodaEysjwssTPtMJxB3P0vjwCh+
-	 aS9a7+rvALLPg4S6XgB1Sd2bqbPCL0AcKYeHoqRJj3nHi/vNK2Qa9CbWlbUu6CGg71x1P
-	 RO1Y4dD1zcJvQ2Ftk8ouLU4KmBVOfpQc3EQGc0L9Z10TQgGbGcBIZ1P9TTDtcplZTN/81
-	 Uze04j02xWQX2kao7G31KWqSAUojEWbWTkQjfjaEff9LeEt7+w7SgOEgoA/d0vB/lNw==
+	t=1792952615;
+	b=ZXvwZDJYFElPMFyVS3qN9vcPJ3UUmj7zW14KCwOxBx8SmMliJnv0496ppiR8wfhvK/Ks
+	 N/hCx8whY//7eXkqj6mt3vvEKEQUtIWB4Ll0Qu4m0eznCb3IYM+nHM/jz9xYb8FP85tcH
+	 ZJqC8jUBNEInCAnG6HztlhIlF6/rEo8CGa8QmIW9dm3xBpbGcmfoH+FvZsffuGhYUDMbn
+	 In4bkbm3v8pTlxKK0axMI6eohjEWnmxh/gUoZ+Px+rLhEVHA3L3KwktT/PkGW4UFOIFuJ
+	 f8+TEW29URH+vWZyjA9aEOfeysfrE/HaaBF2dm9eSpvtSF28CEdChfgbAFsI7I05YCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952497;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=QTUVlPXfapWlmm/xh9eGeir+RrX39EDrNrK8lAdDbWw=;
-	b=SCIR/CfMbCXAVSIfMbe8DKteKgV5y7hxRZlpSTCGO+6V+jJKsaEauX8gkEzALqNyqQ0l
-	 oUPMym0jXOMGKJxo3sUYnZtPzg7H1xwysW6eJH/It6qmR3xsxPoFUBtzjDR+f+0usM5Ya
-	 CJCGhp2MtPoDDhq6P/wFOuF229UEW/4XtfZ1DBlsxkWEm0gD2twZAOps7KorHKZ04E+ff
-	 UZlzA6/kbb1fmo+09LgNQIYWLvaOxarkRwRIJh5ynEiDp90LbEJn2cMB3JPviqpfmoBWO
-	 cMOoHnD1ys36I49FC8ErAqsPjnNdnYCN8wSGcQ6NQmS/4mZ1pOhu1ImVIJAEptypF6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952615;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Aiq+VkJ1bKei0HRd+y60jGfMrXiYAQCM2kSm5AYlbis=;
+	b=ofVWfqBIfCknPts6CZga8w0njQXoJlFQXUG2aDj0eOszGyE/3kqYQZtnTHfNw20IYBbG
+	 CLJkgZH2W2U93OcWsNLfmAB8xP7bfcfPnUfProejVa/B2ZKXQpXWMvZkI7ZxVxD3vs5cY
+	 Qu2z20OAUL1rvvpGs/D/l/vaxWIMAA3ES60+7jQdgJ5uWVtkaf0BWJDck13OZZakL3KFc
+	 0lftEUDORtIv7ac20CUnZgMFktq6X4fWGuMSAK5nDwJd2M735ASZBDCeabL087CwM61ji
+	 OTKgeWhVuJHH5UHphSYLmsRZ2t8WgK53JCn3oeGqjE5urm6tcgolAhs9yh04kz18OLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G9bqZRrh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpooGz8m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BFB606A31A;
-	Sun, 25 Oct 2026 18:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D30606A31A;
+	Sun, 25 Oct 2026 18:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G9bqZRrh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4B71F01825;
-	Sun, 25 Oct 2026 18:21:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpooGz8m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331C31F01825;
+	Sun, 25 Oct 2026 18:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792952496;
-	bh=QTUVlPXfapWlmm/xh9eGeir+RrX39EDrNrK8lAdDbWw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=G9bqZRrhZ9Lc4+9et1T4QxTNvKJgBIcO5cB8FGWrs3mcNDMuW2r0deoEjkMK/lVsR
-	 D3N02lrAX23DK2dYAiBGZQb2ehoibhUn5pe5Imr09n6xGvEXsy5NPcQDlirfsy9VDz
-	 tNAfDfa4ARqc5qbqKtdFTnVtm3uC2ebOZVJsFNFdw6TvqhR5HGI1kdjTOXx7QBfy3S
-	 +n+/Da7lZeMrITqDaXvy3PqmZ0C+wSjfAbqLs60XiUcGkEr2TLZ8dqWX8b+2Bs1h3y
-	 ZGAqvLDWnCvkGaXt89HMZVs1zmzihT4hBjVHLUs6wGJrPaSAWPHw0QYXTAHWGMegJ9
-	 w/vKh2DVJNdjg==
-Subject:
- Re: [PATCH net 1/2] net: dsa: mv88e6xxx: fix 88E6171 statistics snapshot
-From: netdev-bot+sashiko@kernel.org
-To: f.fainelli@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 18:21:35 +0000
-Message-ID: <179295249579.3134.1107182685968868930@kernel.org>
-In-Reply-To: <20261024182124.296988-2-f.fainelli@gmail.com>
-References: <20261024182124.296988-2-f.fainelli@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792952614;
+	bh=Aiq+VkJ1bKei0HRd+y60jGfMrXiYAQCM2kSm5AYlbis=;
+	h=From:To:Cc:Subject:Date;
+	b=hpooGz8m9Tgo5CDnxiy0f1E6f6l4s4bQTGgI2jn56t/YGYYUdh8Gpd+HUgwVXrFNz
+	 vnPIzO1zjbb4voRaK3ij/6KOoWkq5TxgsNtfyITQ9t6Uqiv0bQZx8ykTMfsS7L3xl8
+	 QWgrM9fWhoe5ksmm2n02DXm+QR+8Hf0NyQw7AjIiVTI6v1lS/pTwMl8ksIfv9ExR9n
+	 tEs+D8H2O97uVEddghxI5xzR08PysHIuGUWt6vKrdJRdkRKIJ84ywugGarZLwyqsG/
+	 E6yLNsnVdBfyNJxeKeBQxwydSmgPjOdji2uZUyssyea5Fp/u8BhY1ocJs2H0DAzLyX
+	 ZCsQ/DAEQbVHQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [RFC PATCH 6.12.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Sun, 25 Oct 2026 11:23:25 -0700
+Message-ID: <20261025182326.178326-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,86 +60,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Patch series "mm/damon: move zero damos quota target_value handling to the
+core layer".
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It is
+easy to make mistakes in some of the multiple API callers.  Move that to
+the core layer.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Patch 1 adds the corner case handling into the core layer DAMON parameters
+validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
+side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
+respectively.
 
-- [Medium] The fix is incomplete.
+This patch (of 3):
 
---
+If a DAMOS scheme has a damos_quota_goal of zero target_value,
+damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
+API callers should do the zero target_value validation.  It is easy to
+make mistakes.  Actually such bugs in DAMON_LRU_SORT and
+DAMON_SAMPLE_MTIER were found and fixed [1].
 
-net: dsa: mv88e6xxx: fix 88E6171 statistics snapshot
+It is better to handle the corner case only once in the core layer,
+instead of multiple places in all DAMON API callers.  One straightforward
+option is using an alternative denominator for the corner case in the
+damos_quota_goal().  However, the zero target_value is meaningless.  In
+this case, the quota goal is always evaluated as achieved or
+over-achieved.  The quota will only keep being reduced.
 
-This patch changes the 88E6171 ops table from the shifted
-mv88e6320_g1_stats_snapshot() helper to the unshifted
-mv88e6xxx_g1_stats_snapshot() helper. The 6351 family takes the port
-number in the low bits of the statistics operation register. With the
-shifted helper, ethtool -S returns port 0's MIB counters for every user
-port.
+Simply avoid using zero target_value by adding a check in the core layer
+DAMOS quota goal parameters validation/commit path,
+damos_commit_quota_goal().  Update it to return an error in the case.
+Also update its caller to propagate the error.
 
-> diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
-> index 2a975ecd79c74..60d2ce80ede01 100644
-> --- a/drivers/net/dsa/mv88e6xxx/chip.c
-> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
-> @@ -4611,7 +4611,7 @@ static const struct mv88e6xxx_ops mv88e6171_ops = {
->  	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
->  	.port_get_cmode = mv88e6352_port_get_cmode,
->  	.port_setup_message_port = mv88e6xxx_setup_message_port,
-> -	.stats_snapshot = mv88e6320_g1_stats_snapshot,
-> +	.stats_snapshot = mv88e6xxx_g1_stats_snapshot,
+Notes for stable kernel porting.  The upstream commit doesn't have
+Fixes: and therefore not ported to stable kernels.  It turned out it
+fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+goals user input to DAMOS") which was merged into v6.8.  The user impact
+is a race condition that can result in divide-by-zero.  Hence backport.
+Reproducing the issue requires sysfs write permission, certain DAMON ABI
+usages that are supposed to be uncommon, and a rare race timing, though.
+The issue was discovered [2] by Sashiko as a part [3] of its bug report.
 
-[Severity: Medium]
-Should the other 6351 family ops tables get the same change?
+Also, the upstream commit on this stable kernel can fix the issue for
+parameters commit paths but DAMON start path.  That's because DAMON
+start path does not invoke damon_commit_quota_goals().  To fix the path
+with minimum change, add a new small validation of quota goal target
+value before damon_start() call.
 
-In chip.c, mv88e6175_ops, mv88e6350_ops and mv88e6351_ops are all marked
-/* MV88E6XXX_FAMILY_6351 */. Their info entries set
-.family = MV88E6XXX_FAMILY_6351. All three still have:
+[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
+[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
 
-	.stats_snapshot = mv88e6320_g1_stats_snapshot,
+Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
+Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
+Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c  | 18 +++++++++++++-----
+ mm/damon/sysfs.c | 16 ++++++++++++++++
+ 2 files changed, 29 insertions(+), 5 deletions(-)
 
-and that helper in global1.c does:
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 81d44e41de210..ed32855c16ed8 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -698,14 +698,17 @@ static struct damos_quota_goal *damos_nth_quota_goal(
+ 	return NULL;
+ }
+ 
+-static void damos_commit_quota_goal(
++static int damos_commit_quota_goal(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
++	if (!src->target_value)
++		return  -EINVAL;
+ 	dst->metric = src->metric;
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+ 	/* keep last_psi_total as is, since it will be updated in next cycle */
++	return 0;
+ }
+ 
+ /**
+@@ -723,18 +726,23 @@ static void damos_commit_quota_goal(
+ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ {
+ 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
+-	int i = 0, j = 0;
++	int i = 0, j = 0, err;
+ 
+ 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
+ 		src_goal = damos_nth_quota_goal(i++, src);
+-		if (src_goal)
+-			damos_commit_quota_goal(dst_goal, src_goal);
+-		else
++		if (src_goal) {
++			err = damos_commit_quota_goal(dst_goal, src_goal);
++			if (err)
++				return err;
++		} else {
+ 			damos_destroy_quota_goal(dst_goal);
++		}
+ 	}
+ 	damos_for_each_quota_goal_safe(src_goal, next, src) {
+ 		if (j++ < i)
+ 			continue;
++		if (!src_goal->target_value)
++			return -EINVAL;
+ 		new_goal = damos_new_quota_goal(
+ 				src_goal->metric, src_goal->target_value);
+ 		if (!new_goal)
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 5aa23c6545cb8..7895b11555d06 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1497,6 +1497,20 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+ 	return ctx;
+ }
+ 
++static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
++{
++	struct damos *s;
++	struct damos_quota_goal *g;
++
++	damon_for_each_scheme(s, ctx) {
++		damos_for_each_quota_goal(g, &s->quota) {
++			if (!g->targe_value)
++				return false;
++		}
++	}
++	return true;
++}
++
+ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ {
+ 	struct damon_ctx *ctx;
+@@ -1517,6 +1531,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
+ 	if (IS_ERR(ctx))
+ 		return PTR_ERR(ctx);
++	if (!damon_sysfs_valid_start_ctx(ctx))
++		return -EINVAL;
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
+ 		damon_destroy_ctx(ctx);
 
-int mv88e6320_g1_stats_snapshot(struct mv88e6xxx_chip *chip, int port)
-{
-	port = (port + 1) << 5;
-
-	return mv88e6xxx_g1_stats_snapshot(chip, port);
-}
-
-For ports 0..6, bits 4:0 of the STATS_OP CAPTURE_PORT write end up as
-zero. If those chips decode the port from the low bits, as the commit
-message says the 6351 family does, wouldn't every snapshot on
-88E6175/88E6350/88E6351 capture port 0?
-
-All stats readers reach the callback through mv88e6xxx_stats_snapshot():
-mv88e6xxx_get_ethtool_stats(), get_eth_mac_stats() and get_rmon_stats().
-Each of these would then report port 0's counters for every user port on
-those chips.
-
-The commit named in the Fixes: tag, a605a0fe7115, appears to have set
-mv88e6320_g1_stats_snapshot on all four 6351 family tables. Before that
-refactoring, _mv88e6xxx_stats_snapshot() shifted only for:
-
-	mv88e6xxx_6320_family(chip) || mv88e6xxx_6352_family(chip)
-
-so every 6351 family chip used the unshifted encoding.
-
-As far as I can tell, the follow-up patch in the series ("net: dsa:
-mv88e6xxx: fix 88E6171 statistics type") only touches the 6171 info
-entry. At the end of the series, the three sibling tables would still
-use the shifted helper.
-
->  	.stats_set_histogram = mv88e6095_g1_stats_set_histogram,
->  	.stats_get_sset_count = mv88e6095_stats_get_sset_count,
->  	.stats_get_strings = mv88e6095_stats_get_strings,
-
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261024182124.296988-1-f.fainelli%40gmail.com
+2.47.3
