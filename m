@@ -1,98 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792905192;
-	b=Jd7K2E3ntG3mpe0uCwFnfRrPJgvp6ryX2K5NK68nrSzBD53h/MjStN+JVKNVfukiYiXa
-	 E7a5zWBxEU4zFgDxJol5DFG0E3zmU4rod8NQL4GOh7ndBTmPnGhorMXkRK8n6q6ajtAXY
-	 0JW7kXkSer/OhQYI0EnsLVctVVEwAhR38lgweafZq7lE2gfp1c6VQXTYfL+2tFnhmBZZ1
-	 YMAwMsPRoi1Ndo3qR2i/j4HHioCxPeTsgHbBrLo8lTrPKLBRYHo7ckTRhPe2VQBQA/4TO
-	 F9f4HxKy2GLAnqL9u31YhXUZG+3qQksnt6jonK7gyKMlTZW2dBAv+VLjY/Z12/QEbOQ==
+	t=1792905494;
+	b=eIAA5lGtT6mta9RVAlkd3XqF3Dh4L11aoha8GePT5VBUrTUnEpcIX/iR33KSAhcNhL2R
+	 vlraP/ylokJV4dfkMp+AsirU/EAIHI3fv1njoOEnPKmLSx8VAqPHi/wHAH0OtW8x+I03w
+	 bcvc2eWOMHEAuKDhzGfzYv3hTQsSoa2aEo7i1ymD0MR17z3tq2vnm8WTbH+PVqOujOc6/
+	 vcDL0WeEMQw9iao23nbB09tiEHNzYIM3vOHXBiYt1jPB/nfRw8EA4cNrzo18/7RXydqnT
+	 mQW6Af/cTlvGHqBpsm7zv0JC1k8UFcYkU3aoqXJpyQ1U7Jk7hAlmITOBYsst9FooaIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792905192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792905494;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7F72u9lGuKmWjfIbijrWQhevi9rtH/ah1WlkZ5PLmgA=;
-	b=LYcjkVgGNxeXl54iyP2ixCe24f0eOsUuNQ+luAE749Kx1GHLPqeJ58qRc4uFF9QmiqWn
-	 VOvdCE0DcVul95tDRcZIfh2QSpOkgKzKBsdYsrmh4gj2FryV79czF1kK6zKfws7ymYNJH
-	 dikYlAcbZ0+90y9LMfZx1d9FB0Qw5rR+EWeOdNPd/a4whylweOYG5ju0AJw6NdMYCkJaP
-	 BP+36XBpn9KxuNewrnN53N4qaQKjLFUeEOhjG+1DR6efpqhXzxg+C5fx0ixuml+ZCv5Yj
-	 Ppvmi6xANuXhQJNGzlKDMYWU919DwotOPEuuzEO54BMscirfGCC48muULoIxoubguFg==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
+	b=kV3rBIDi9UTo2aOoN0S6Ue48IK4M7mRUEBVqMHHW8c/5+lRt2SkMsg4X35vjjO0X2Yq5
+	 EOSggU4oYzcpfmsm/o9EIzKbEbgJnIV9FqeZpiXPCdVhbI0+HtiNegn1+oPhc0IdzS6Jr
+	 ZJbD1mguhmQ6euTOQ/L8fdwLIKsEKdFrhU9XG2zPX72Vt6E9yTkWA+CgyU44ymCSf+Bz7
+	 jN/0Bzy1xVBt11Y6tOVsRHvnPXIbsW+AIesUCd1Cp/aursWtXhfn19rSKRotrMyqbbub4
+	 kN9e5ElUNPpJmpns7TCxITSP3+CvsJX0FG7cD46aC7gLMapn5NiIMOSM+BJBXJE7u1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZoKOdbap;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=drja54eF;
+	arc=none smtp.remote-ip=74.125.224.130
+Received: from mail-yx2-f2.google.com (mail-yx2-f2.google.com [74.125.224.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF8B606A325
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:13:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DF8B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33DD606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:18:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A33DD606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZoKOdbap
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-14fd9dafb0dso1704878c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:13:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=drja54eF
+Received: by mail-yx2-f2.google.com with SMTP id 956f58d0204a3-679e6ab647dso907968d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:18:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792905191; x=1793509991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7F72u9lGuKmWjfIbijrWQhevi9rtH/ah1WlkZ5PLmgA=;
-        b=ZoKOdbapG7SssTZOUoDCZxBqeRzdM1Ln91S4l2vGxHpfK7GSPVV/sPFB7N3YhkUSLP
-         Oz0G2kczwZBv3ZivAviAaM/9sRTj0Y5I7bkZRKtOGy6M9MU1tOoVzEOPj9TUrLfqJst3
-         nZ7jWrNh1mioNmohILtHuEoB5HeyHQq5QHrq8FZwEs0sX5dP8MXDj+Fq4f2HJQQspqdI
-         ifc1HTouDOf6obG2i2u7u9MPkCKR6py8npBeg9jb9+qSGzhyJGzUzcfT1DFDglIbS0SW
-         R8ShpbSB1hrd5KWVWkYyzpucUsIHr4b8KYzHqiLyQO6yHVAnqhswEBUBorEtTTUOfmv2
-         LaCQ==
+        d=gmail.com; s=20251104; t=1792905492; x=1793510292; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
+        b=drja54eFfOch0K2zQqZ+GcI5pRTkKIua+FkkXwTXsXLqxXMjggZrXYM4w7OdalIeQR
+         8hn11BPeNLyLW1EqGm3B7ceBn8cAKPebgrcDuIE9uOoQmTzoTCBa15gr5Vc/yo3qNN5i
+         LZcWIq9rLcstfAsz9YoOYcHF29T61rUHulmm9hxTJ6z+HIQ52MbbD1ug6AFryJY6QqOE
+         vYsXIBD34c99QGkEWeHfKib+YMI222btcaBuP/DHz+5CYukhAEorA7l9wxp0YXGlkjQB
+         MsNt9wn9QvDg7JNuQuAj9tAWqmS6y71dykTClSWk/O+LuJJPvx8wK+v++bPy2JVhaHqr
+         t4eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792905191; x=1793509991;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7F72u9lGuKmWjfIbijrWQhevi9rtH/ah1WlkZ5PLmgA=;
-        b=1McNL4qmcESJeTiNtFklTEfjQfbW521GAC/A1VxM5vakUWXyGzaQlBKjmrFHK0U4fl
-         iWDhh6CiZ0mbZFlW4Rjcrjc8F5RZLRA/yxQQk2a5z4v6uZwNFs6vQdP/ydRw3vFXXQ97
-         HPY1dgHqhOxzrByP2KuuozggraMMvzIQNca/xs/zx6qf0W2E2JXAa54UyRZ8fc7m7Aet
-         S0LCAQBRDNo3ZTxVAJ78QO8TKjdmJNaIruoB0gD9Rjaak7YyA7Qw5hvqIgrl6EpmBDxD
-         XvL80pdXDVl5Yhr2xpRIgoB+LCJVI1wZX4FpdSKVzGo2xGQYS06ko7Ik+LI/2MhcUKEd
-         VOJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzLA9HXqdJ5/Sjg1OYbESeN0IpFyfcEgKIlKqKx2PJsJIOrRHhp3wLpvr+c7lfza2S95wSux40BfTjWZWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMtHujQNcVgFrq6BtJcxhEFCR5/YlAGsvWFNU59fECqHMSklC3
-	GpBGBBy26SsIwVseQskrzFy8n9ZKFTyuzgny1odyCnG1TU/UrypgkUxa
-X-Gm-Gg: AYBFou2dGnKHie6oGFxjglg0Ck5ctll8sp+yRgkXINS3zU6lYVNHeuNAti9BV5MYurb
-	WNXz9eTEuL9OJjaSsNwF5RMnsB3/9+5ZOdqRZbxcHPTm+WFKjxDFsj8L9L32iO63bCjda6K9K1d
-	kBblRrbo0QHwFt7AZHQsMpebMmFQvgxGVwzGzW1/pYEAhBpTN3eVr222bnLYdjCw9bJi5KKsQJx
-	3vwAQUdtJevv9IDiHqdVHgIRmtOptWXJFNJeZlIwenbYHIEQRw1a7WbF95wEQ8s5I/a1iZbwkPm
-	9CbTOdr+n8IrrDi3z4JgkAOIu9P+rBJtXJWkWwaAOFIh201EXnHZBcjHWJ0+tqN7Qn4Ji5Wyyyc
-	/chTvnmp2L/geWgGoBNOG9BwXV9QFhUxzKg/zLOHq5y7iPPLDIhdT9pK93u1438mDPaP9672nso
-	m52kZIrfkkR/3i/rjVSoI7VEHOWkAZadOsQbqRNtWogIOtlWe2fVacxIsiT+E8Z6B2SKV1bhzxV
-	oY9YpA3JMY8VAQ8zZwRcMwQYxBPIwcpF6LN+knbvQYSnAfKZR69bDTZik4CYCHNMbulu25dJb62
-	q9alNLVnkC7Pf1O/kl9gBF80qW99sveYpIbj9FX0bZZNPV4HwF5EflHFHGu45owvFnuqwTSd
-X-Received: by 2002:a05:7022:b90a:b0:14d:baf5:c415 with SMTP id a92af1059eb24-1993499de9fmr5265834c88.7.1792905191130;
-        Sat, 24 Oct 2026 22:13:11 -0700 (PDT)
-Received: from localhost.localdomain ([180.182.24.11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm12588456c88.14.2026.10.24.22.13.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 24 Oct 2026 22:13:10 -0700 (PDT)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v2 2/2] ALSA: virtio-snd: fix dsnoop capture with staged buffers
-Date: Sun, 25 Oct 2026 14:13:01 +0900
-Message-ID: <20261025051301.54640-3-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261025051301.54640-1-mynameisjune111@gmail.com>
-References: <20261025051301.54640-1-mynameisjune111@gmail.com>
+        d=1e100.net; s=20260707; t=1792905492; x=1793510292;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
+        b=y3dokJ43oh00Qa8o2u2qG9vzUGGRkNK2KBPPrw6O+z+QcAsvGHBx6DD9pHC28guX9T
+         Uusax32JOEVeKkoNAkjxyouiXKF6qHRvLBypPx8cLgv1Wc7Oz7drAoICooBPblZbGTIw
+         aTjAZNiWz2CN9pfY/OXARCTYAD7CLpmzrtdMgxkwI0Rk5gEiyQ4WoTXMRIQwU/XXniP2
+         shdYNxgL/QLzNJLMbrfCmjGHwpA2l8d3v5HDI6TLxozLK8vM0eIsVtRnE35JSK23tL5j
+         hCRP5c9JubROVKJq30m8slLKYzY4wMm2vb4/wBa/a9G6LUyjGI51tAYsrQoqkBTQXFl9
+         D2Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQekVKeM3IWhzynQyCfYa3tK0kxO3WqvvEAMIp3qZxhPcwGVqoZie0hmfdKAFwCL/PHDy0dqF3PvmuMZ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGeRNoJ4jqaY4V69wp6OND30Drfm8kryY+mTE2ovt3pXItHLDy
+	K1qrr60yV2lR5Zz5pZk1nN6KKFX/x+3qzLRssPumgs0AbLgxd65Dl++A
+X-Gm-Gg: AYBFou3jyjWR2ryY7k9BjngAD8qpbtMy7FtYg8q6lyuwAMCScZYZh4G0QnLCZt6lFcS
+	G2GUbWLB6HgLIUeAInVEgtX7TXvR33Cbw2I/UD0lGf9ikqL2OOfW3zCdbhHRBmNjfCOh3QP/7I5
+	QcF/titB0khlosF7wnNSCv4ZIlyQ0c3aQ5O9lPV4uOz1A6iSz2MPWPAKU68iuKsaJtoGXRCICT2
+	NCZzon9Ee2bAHTFY7UG1Yq98+OWrGCQU7FfrRbZXMgKFoVrLcUV64sQHr6TRxHaf7K3XmhmjEDj
+	OxkXYHR974DCHocfhuUSrlPCfveUoAw1YGKI7sKQQo5ePl88spfNq9InOJOSPqw7706u7A86rPD
+	8xVal2396ksa5XqMV5p5Oq3YQBkJH0mYtk7ve0GL5a+u0iTFosNROw6RQZy6Wh7xIUisJjY3oEo
+	lE6NHQ7+sAPzMiVlRCAGLrnEmJVYybn9uFnYIE5AcXrnOHOCZqc+dXW1eD4GjgmrvurYL4B7ff5
+	hsekXgtJjTje0e+dNrlh5XjMDeMBsFb0dq7xMZshvVGNw==
+X-Received: by 2002:a05:690c:3141:b0:8b0:a01e:2ccd with SMTP id 00721157ae682-8b166c938afmr20299057b3.62.1792905492438;
+        Sat, 24 Oct 2026 22:18:12 -0700 (PDT)
+Received: from [192.168.1.91] ([2600:1702:894b:4a00::12])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b166c5d605sm16477797b3.5.2026.10.24.22.18.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 22:18:11 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
+Date: Sun, 25 Oct 2026 00:18:07 -0500
+Message-Id: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,434 +91,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43NQW6DMBBA0atYXjPVMIMdwir3qLow9oRYKhDZg
+ NJG3L0iUiXUbtj+xftPnSVFybpRT51kiTmOg26UKZT2Nzd0AjHoRmlCsnguK0htmgXyLN8w3/O
+ UxPVx6KCfLJ9P4OaHCx6MlEQ1kvEGdaH0Pck1Pl6b949C6VvM05i+Xtel3OrvwBwbLCUgBDaBn
+ Odgr3jpehc/3/zY622w0B49HURpQ1s2dU3OYv0P5R1KeBBlQPCIEpxvRWz1F632aH0QrQCB2DA
+ 7DIzCe3Rd1x+DAIjN1wEAAA==
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792905489; l=10472;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=hZ4ataN3TqF3XlcUTTlr0WAyyMp0HQO8iZw+M3vlDFw=;
+ b=PGRd3RMljy/6mIRA8gGGOeRo7WduXda/Rryemi47hJYV3sSsq4sgHWrhfc4JzkvhM5IjreR0T
+ CkV77HYcjVCDhu9OirSxZjs6ecT4tzXz5sn4coU1G5jEG5GuR5JXq9L
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-dsnoop runs its hardware slave with stop_threshold == boundary and can
-consume the mmap capture ring without advancing the hardware application
-pointer. Staged capture currently treats every stream as a bounded
-consumer: capture_ready grows until the completion capacity check fails.
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
 
-With a 48 kHz mono slave, 960-frame periods and a 7680-frame buffer, the
-baseline dsnoop reproduction stops after 6720 frames with -EPIPE and a
-ring_capacity rejection. Direct capture continues to work.
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver. The MFD cell that
+instantiates it was patch 3 of v4, which Lee has applied [1].
 
-Cache the prepared boundary and recognize the free-running policy under
-the substream lock. Keep RX requests supplied in that mode, while retaining
-payload, frame alignment, counter and pointer-window checks. Sample the
-policy once per completion so validation, copying and refill agree.
-Refresh it separately in the ACK accounting and refill critical sections.
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
 
-On a return to bounded capture, reconstruct unread occupancy from the
-copied and acknowledged totals. If outstanding data fills the ring, the
-policy helper returns -EPIPE and preserves the cached mode and counters.
-The detecting RX, pointer or ACK path reports XRUN through its existing
-error path; this does not make sw_params fail synchronously.
-Reset cached policy state during prepare and teardown.
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's
+array and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
 
-In MOTU/VZ comparisons with one and two vCPUs, the baseline failed all
-32 shared-client captures. The candidate passed 48 capture cases and eight
-recovery diagnostics, including 70-second CPU-saturated shared captures.
-Synthetic QEMU dsnoop data matched 2160000 reference frames across 12
-files. Forced policy transitions passed KASAN/KCSAN checks. Aggressive
-KCSAN still triggered dsnoop client-threshold XRUNs with a 160 ms buffer.
-The physical tests checked frame counts and nonzero mono input; exact
-sample continuity was checked with the synthetic source.
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads
+817 counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it. The error paths are driven by injecting a
+regmap failure into each helper in turn. The read returns the injected
+error, and every bit is cleared again. The teardown writes were also made
+to fail, one at a time. When one write fails, the others still run, and
+only the failed write's bits are left set. The next read clears them
+anyway. Run the same way, v3 stopped at the first failed write and left the
+later bits set. v5 gives the same results as v4 in all of these. Loading
+the two modules alternately on the board, their readings differ by 0.3 LSB
+on the battery channel and 0.1 LSB on the thermistor, both inside the
+comparison's own noise.
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+A new driver was created here, instead of modifying an existing driver such
+as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+
+ - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+
+ - For mt6323-auxadc, which is the closest I could find to the mt6397
+   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+   It uses CON22 for its request register, and reads the result value
+   from the same register as the ready bit. We don't do that - the mt6397
+   has a factory-calibrated value for each channel at 0x16 higher than the
+   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+   we have 1200 mV / 10 bits. We also have some per-channel preparation
+   that we have to do before the burst, that the mt6323 doesn't have to
+   do.
+
+ - For mt6359-auxadc, it has a more generic framework for describing the
+   AUXADC, but it assumes requests are channel-per-bit, and so we would
+   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+
+ - We also have our own software sampling, which the vendor does too
+   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+   sampling callback to do it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again.
+   Both ADC input enables are clear when idle, unless a teardown write
+   itself fails: the rest of the teardown still runs, and the next read of
+   the channel clears whatever was left set.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: in one interleaved run,
+   0.92 LSB standard deviation for one conversion against 0.67 for sixteen,
+   where independent samples would have given 0.23. Conversions in a burst
+   are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+This series was developed with the help of an LLM coding assistant.
+
+[1] https://lore.kernel.org/all/179206667779.1910726.5341177428334836457.b4-ty@b4/
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Changes in v5:
+- Split the read into one helper per channel, each doing its own setup,
+  burst and teardown, and a caller that takes the lock and dispatches on
+  the channel. mt6397_auxadc_release() is gone. The register sequence is
+  unchanged on every path, including every failure path, and retested on
+  hardware. (Jonathan)
+- Keep Andy's Reviewed-by on patch 2, since the change is a restructure
+  that does not change behavior. If that's incorrect let me know.
+- Drop the MFD cell patch, applied by Lee from v4.
+- Rebase onto iio/testing. The MAINTAINERS entry now follows the MT6323
+  PMIC NVMEM one.
+- Drop the Assisted-by trailers per the new kernel guidance, and put the
+  disclosure in the cover letter.
+- Link to v4: https://patch.msgid.link/20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com
+
+Changes in v4:
+- Attempt every teardown write even if a previous one fails, so a failed
+  write doesn't leave the buffer, bias, or input powered. Reverses the v3
+  change. The teardown neither checks nor logs errors for failed writes,
+  similar to mt6358_stop_imp_conv(). The next read will rewrite those bits
+  anyway. (Angelo, sashiko-bot, Andy)
+- Move teardown into mt6397_auxadc_release(), keep error paths out of line
+  with goto, and use mutex_lock() / mutex_unlock() rather than guard().
+  (Jonathan)
+- Reword the comment above the BATSNS disable prior to ISENSE enable.
+  (Jonathan)
+- Collect tags.
+- Link to v3: https://patch.msgid.link/20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com
+
+Changes in v3:
+- Move the sample loop into its own function, so read_channel() is setup,
+  then a conditional burst, then an unconditional teardown, with no goto
+  mixed with guard(). (Andy, sashiko-bot)
+- battemp_bias_off() and isense_disable() now return on the first failed
+  write, as mt6323_auxadc_release() does, and twelve other teardowns in
+  drivers/iio that I could find. A failed write can leave the later bits
+  set; the teardown runs at the end of every read, so the next read of that
+  channel clears them. (Andy)
+- Drop the "if (!ret) ret = err;" accumulators with it. A teardown failure
+  now goes to dev_err() rather than being returned, since the caller cannot
+  act on it, and read_channel() takes the iio_dev so no struct device * is
+  stored. (Andy)
+- Split battemp_bias(adc, bool on) into battemp_bias_on() and
+  battemp_bias_off(), and drop the bool. (Andy)
+- Make the SCALE case an if-else. (Andy)
+- Move the "why a new driver" rationale below the --- marker in patch 2,
+  out of the commit message. (Andy)
+- Reduce the CHSEL regmap_update_bits() call from four lines to two. (Andy)
+- Drop the comment above guard(mutex). (Andy)
+- Say in a comment why lowering START needs no settling delay. The ready
+  bit survives the fall and is cleared by the rise before the next
+  transaction on the PMIC wrapper can observe it. I measured this, and the
+  details are in the reply on 2/3. (Andy)
+- Cc Luca Leonardo Scorcia with a trailer rather than in prose. (Andy)
+- Link to v2: https://patch.msgid.link/20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com
+
+Changes in v2:
+- Add justification for this being a new driver rather than folded into
+  mt6323-auxadc.c or mt6359-auxadc.c, in the cover letter and patch 2.
+- Drop the "ret = ret ?: ..." chains, and let teardown fall through on
+  errors, allowing the chance for all bits to be properly torn down. The
+  errors are now held rather than discarded. (Andy and sashiko-bot)
+- Run teardown even when per-channel setup fails part-way through, so we
+  don't leave bits enabled that would have been cleared. (sashiko-bot)
+- Set ISENSE settle time to (1 * USEC_PER_MSEC). (Andy)
+- Write the two channel descriptors out instead of using a macro. Also
+  gets rid of the padded column. (Andy, Jonathan)
+- Move the MAINTAINERS entry for the dt-bindings header into patch 1, as
+  the mt6323 series does.
+- Declare the sample loop counter in the loop, instead of with sum, and
+  split the declaration of sample and ret. (Andy)
+- Keep the two CHR_CON16 ADCIN bits as BIT()s rather than turning them
+  into values of a GENMASK field. Fix OR operator on the bits, treat them
+  as mutually exclusive. (Jonathan)
+- The rest of Jonathan's v1 review: two-space indent separating a register's
+  fields from the register, a blank line before the settle times, a lock
+  comment that says why the lock is held, the two CON1 START writes on one
+  line each, the single-call init helper inlined into probe, and { } for the
+  of_device_id sentinel.
+- Add the additional three CHR_CON16 ADCIN defines that make up the 5
+  single-bit enables. These are currently unused.
+- Link to v1: https://patch.msgid.link/20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com
 
 ---
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -47,7 +47,9 @@
-  *        substream operators, including @stopped.
-  * @buffer_bytes: Current buffer size in bytes.
-  * @hw_ptr: Substream hardware pointer value in bytes [0 ... buffer_bytes).
-- * @capture_ready: Captured bytes copied but not yet acknowledged by ALSA.
-+ * @capture_ready: Managed-mode bytes copied but not yet acknowledged by ALSA;
-+ *                 always zero in free-running mode.
-+ * @capture_boundary: ALSA boundary captured for this prepared epoch.
-  * @capture_copied_total: Monotonic bytes copied into the capture ring.
-  * @capture_acked_total: Monotonic bytes acknowledged by the capture client.
-  * @capture_pointer_seen_total: Last capture position sampled by ALSA.
-@@ -58,6 +60,7 @@
-  * @capture_staging: Capture uses request-owned payload buffers.
-  * @capture_started: Non-empty capture data was received since prepare.
-  * @capture_empty: Consecutive empty startup completions.
-+ * @capture_free_running: Cached staged-capture policy, protected by @lock.
-  * @xfer_enabled: Data transfer state (0 - off, 1 - on).
-  * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
-  * @stopped: True if the substream is stopped and must be released on the device
-@@ -88,6 +91,7 @@
- 	size_t buffer_bytes;
- 	size_t hw_ptr;
- 	size_t capture_ready;
-+	snd_pcm_uframes_t capture_boundary;
- 	u64 capture_copied_total;
- 	u64 capture_acked_total;
- 	u64 capture_pointer_seen_total;
-@@ -97,6 +101,7 @@
- 	bool runtime_active;
- 	bool capture_staging;
- 	bool capture_started;
-+	bool capture_free_running;
- 	unsigned int capture_empty;
- 	bool xfer_enabled;
- 	bool xfer_xrun;
-@@ -128,23 +133,29 @@
- 
- /*
-  * ALSA may observe a subperiod tail before its period callback. Keep actual
-- * unread occupancy separate from pointer observations and notification state.
-+ * unread occupancy separate from pointer observations and notification state;
-+ * free-running streams account occupancy from monotonic totals instead.
-  */
- static inline bool
- virtsnd_pcm_capture_counters_valid(const struct virtio_pcm_substream *vss)
- {
--	return vss->buffer_bytes &&
--	       vss->capture_copied_total >= vss->capture_acked_total &&
--	       vss->capture_copied_total - vss->capture_acked_total ==
--			(u64)vss->capture_ready &&
--	       vss->capture_ready < vss->buffer_bytes &&
--	       vss->capture_pointer_seen_total <= vss->capture_copied_total &&
--	       vss->hw_ptr == vss->capture_copied_total % vss->buffer_bytes &&
--	       (!vss->capture_callback_snapshot_active ||
--		(vss->capture_callback_snapshot >=
--			vss->capture_pointer_seen_total &&
--		 vss->capture_callback_snapshot <=
--			vss->capture_copied_total));
-+	u64 outstanding;
-+
-+	if (!vss->buffer_bytes ||
-+	    vss->capture_copied_total < vss->capture_acked_total ||
-+	    vss->capture_pointer_seen_total > vss->capture_copied_total ||
-+	    vss->hw_ptr != vss->capture_copied_total % vss->buffer_bytes ||
-+	    (vss->capture_callback_snapshot_active &&
-+	     (vss->capture_callback_snapshot < vss->capture_pointer_seen_total ||
-+	      vss->capture_callback_snapshot > vss->capture_copied_total)))
-+		return false;
-+
-+	if (vss->capture_free_running)
-+		return !vss->capture_ready;
-+
-+	outstanding = vss->capture_copied_total - vss->capture_acked_total;
-+	return outstanding == (u64)vss->capture_ready &&
-+	       vss->capture_ready < vss->buffer_bytes;
- }
- 
- /**
-@@ -207,6 +218,9 @@
- 
- int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss);
- 
-+int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
-+					    bool *free_running);
-+
- void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
- 
- void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss);
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -3,6 +3,7 @@
-  * virtio-snd: Virtio sound device
-  * Copyright (C) 2021 OpenSynergy GmbH
-  */
-+#include <linux/compiler.h>
- #include <linux/limits.h>
- #include <linux/mm.h>
- #include <linux/overflow.h>
-@@ -384,6 +385,8 @@
- 	vss->capture_notified_periods = 0;
- 	vss->capture_callback_snapshot = 0;
- 	vss->capture_callback_snapshot_active = false;
-+	vss->capture_boundary = 0;
-+	vss->capture_free_running = false;
- 	vss->capture_empty = 0;
- 	vss->capture_started = false;
- }
-@@ -508,24 +511,54 @@
- 	return 0;
- }
- 
--/**
-- * virtsnd_pcm_capture_send() - Queue staged capture requests.
-- * @vss: VirtIO PCM substream.
-- *
-- * Queue full-period requests while the outstanding requests fit the remaining
-- * ALSA ring capacity. The final request may exceed that capacity by less than
-- * one period; completion validates the returned payload before copying it.
-- *
-- * Context: Expects the RX queue and substream spinlocks to be held by caller.
-- * Return: 0 on success, -errno on failure.
-- */
--int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
-+/* Caller holds vss->lock. */
-+int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
-+					    bool *free_running)
-+{
-+	struct snd_pcm_runtime *runtime;
-+	snd_pcm_uframes_t stop_threshold;
-+	u64 outstanding;
-+	bool new_free_running;
-+
-+	if (!vss->capture_staging || !vss->runtime_active || !vss->substream)
-+		return -EBADFD;
-+
-+	runtime = vss->substream->runtime;
-+	if (!runtime || !vss->buffer_bytes || !vss->capture_boundary)
-+		return -EBADFD;
-+
-+	/* Validate the currently committed policy before observing a transition. */
-+	if (!virtsnd_pcm_capture_counters_valid(vss))
-+		return -EIO;
-+
-+	stop_threshold = READ_ONCE(runtime->stop_threshold);
-+	new_free_running = stop_threshold == vss->capture_boundary;
-+	if (new_free_running != vss->capture_free_running) {
-+		outstanding = vss->capture_copied_total -
-+			      vss->capture_acked_total;
-+		if (new_free_running) {
-+			vss->capture_ready = 0;
-+		} else {
-+			if (outstanding >= vss->buffer_bytes)
-+				return -EPIPE;
-+			vss->capture_ready = outstanding;
-+		}
-+		vss->capture_free_running = new_free_running;
-+	}
-+
-+	*free_running = new_free_running;
-+	return 0;
-+}
-+
-+/* Caller holds the RX queue and vss locks and has sampled the policy. */
-+static int virtsnd_pcm_capture_enqueue(struct virtio_pcm_substream *vss,
-+				       bool free_running)
- {
- 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
- 	struct virtqueue *vqueue = queue->vqueue;
- 	unsigned long period_bytes;
- 	size_t free_bytes;
--	size_t request_limit;
-+	size_t request_limit = vss->nmsgs;
- 	unsigned int i;
- 	bool added = false;
- 
-@@ -535,16 +568,17 @@
- 	period_bytes = snd_pcm_lib_period_bytes(vss->substream);
- 	if (!period_bytes || !vss->buffer_bytes ||
- 	    period_bytes >= vss->buffer_bytes ||
-+	    free_running != vss->capture_free_running ||
- 	    !virtsnd_pcm_capture_counters_valid(vss) ||
- 	    vss->msg_count > vss->nmsgs)
- 		return -EIO;
- 
--	free_bytes = vss->buffer_bytes - vss->capture_ready;
--	request_limit = free_bytes / period_bytes +
--			!!(free_bytes % period_bytes);
--	request_limit = min_t(size_t, request_limit, vss->nmsgs);
--	if (vss->msg_count > request_limit)
--		return -EIO;
-+	if (!free_running) {
-+		free_bytes = vss->buffer_bytes - vss->capture_ready;
-+		request_limit = free_bytes / period_bytes +
-+				!!(free_bytes % period_bytes);
-+		request_limit = min_t(size_t, request_limit, vss->nmsgs);
-+	}
- 
- 	for (i = 0; i < vss->nmsgs && vss->msg_count < request_limit; ++i) {
- 		struct virtio_pcm_msg *msg = vss->msgs[i];
-@@ -585,6 +619,25 @@
- 	return 0;
- }
- 
-+/**
-+ * virtsnd_pcm_capture_send() - Refresh policy and queue staged requests.
-+ * @vss: VirtIO PCM substream.
-+ *
-+ * Context: Expects the RX queue and substream spinlocks to be held by caller.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
-+{
-+	bool free_running;
-+	int rc;
-+
-+	rc = virtsnd_pcm_capture_refresh_mode_locked(vss, &free_running);
-+	if (rc)
-+		return rc;
-+
-+	return virtsnd_pcm_capture_enqueue(vss, free_running);
-+}
-+
- static int virtsnd_pcm_capture_status(const struct virtio_pcm_msg *msg,
- 				      size_t written_bytes,
- 				      size_t frame_bytes,
-@@ -638,6 +691,7 @@
- 	size_t audio_bytes = 0;
- 	size_t next_ready = 0;
- 	u64 next_copied_total = 0;
-+	bool free_running = false;
- 	bool got_audio = false;
- 
- 	guard(spinlock)(&vss->lock);
-@@ -651,6 +705,9 @@
- 		/* A full ring is modulo-ambiguous, so fail closed before copying. */
- 		if (!runtime || !runtime->dma_area)
- 			invalid_reason = "runtime";
-+		else if (virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								 &free_running))
-+			invalid_reason = "policy";
- 		else if (!virtsnd_pcm_capture_counters_valid(vss))
- 			invalid_reason = "counters";
- 		else if (vss->hw_ptr !=
-@@ -660,18 +717,28 @@
- 						    frame_bytes, &audio_bytes,
- 						    &latency_bytes))
- 			invalid_reason = "status";
--		else if (audio_bytes >=
--			 vss->buffer_bytes - vss->capture_ready)
--			invalid_reason = "ring_capacity";
--		else if (check_add_overflow(vss->capture_ready, audio_bytes,
--					    &next_ready))
--			invalid_reason = "ready_overflow";
--		else if (next_ready >= vss->buffer_bytes)
--			invalid_reason = "ring_full";
- 		else if (check_add_overflow(vss->capture_copied_total,
- 					    (u64)audio_bytes,
- 					    &next_copied_total))
- 			invalid_reason = "total_overflow";
-+		else if (free_running && audio_bytes >= vss->buffer_bytes)
-+			invalid_reason = "payload_exceeds_ring";
-+		else if (!free_running &&
-+			 audio_bytes >= vss->buffer_bytes - vss->capture_ready)
-+			invalid_reason = "ring_capacity";
-+		else if (!free_running &&
-+			 check_add_overflow(vss->capture_ready, audio_bytes,
-+					    &next_ready))
-+			invalid_reason = "ready_overflow";
-+		else if (!free_running && next_ready >= vss->buffer_bytes)
-+			invalid_reason = "ring_full";
-+		else if (free_running &&
-+			 (next_copied_total < vss->capture_pointer_seen_total ||
-+			  next_copied_total - vss->capture_pointer_seen_total >=
-+			  vss->buffer_bytes))
-+			invalid_reason = "pointer_window";
-+		else if (free_running)
-+			next_ready = 0;
- 
- 		if (invalid_reason) {
- 			virtsnd_pcm_capture_xrun_locked(vss);
-@@ -713,7 +780,8 @@
- 
- 	msg->length = 0;
- 	if (vss->runtime_active && vss->xfer_enabled) {
--		if (!vss->xfer_xrun && virtsnd_pcm_capture_send(vss)) {
-+		if (!vss->xfer_xrun &&
-+		    virtsnd_pcm_capture_enqueue(vss, free_running)) {
- 			dev_warn_ratelimited(&vss->snd->vdev->dev,
- 					     "SID %u: failed to refill capture queue\n",
- 					     vss->sid);
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -543,6 +543,8 @@
- 			vss->capture_notified_periods = 0;
- 			vss->capture_callback_snapshot = 0;
- 			vss->capture_callback_snapshot_active = false;
-+			vss->capture_boundary = 0;
-+			vss->capture_free_running = false;
- 		}
- 	}
- 
-@@ -565,6 +567,7 @@
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct virtio_device *vdev = vss->snd->vdev;
- 	bool pause_restart = virtsnd_pcm_pause_restart_enabled(vss);
-+	bool free_running;
- 	int rc;
- 	bool stopped;
- 
-@@ -622,6 +625,15 @@
- 	vss->suspended = false;
- 	vss->msg_count = 0;
- 	virtsnd_pcm_msg_reset(vss);
-+	if (vss->capture_staging) {
-+		scoped_guard(spinlock_irqsave, &vss->lock) {
-+			vss->capture_boundary = substream->runtime->boundary;
-+			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								     &free_running);
-+		}
-+		if (rc)
-+			return rc;
-+	}
- 
- 	memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
- 	vss->pcm_indirect.sw_buffer_size =
-@@ -1132,12 +1144,18 @@
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	size_t hw_ptr = 0;
- 	u64 total;
-+	bool free_running;
- 	bool xrun;
- 
- 	if (vss->capture_staging) {
- 		scoped_guard(spinlock_irqsave, &vss->lock) {
--			xrun = vss->xfer_xrun ||
--			       !virtsnd_pcm_capture_counters_valid(vss);
-+			xrun = vss->xfer_xrun;
-+			if (!xrun &&
-+			    virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								    &free_running))
-+				xrun = true;
-+			if (!xrun && !virtsnd_pcm_capture_counters_valid(vss))
-+				xrun = true;
- 			if (!xrun) {
- 				total = vss->capture_callback_snapshot_active ?
- 					vss->capture_callback_snapshot :
-@@ -1244,14 +1262,18 @@
- 		snd_pcm_uframes_t appl_ptr;
- 		snd_pcm_sframes_t diff;
- 		size_t bytes;
-+		u64 outstanding;
- 		u64 next_acked_total;
-+		bool free_running;
- 
- 		if (!vss->runtime_active || !runtime || !runtime->control ||
- 		    !runtime->dma_area)
- 			return -EBADFD;
- 		if (vss->xfer_xrun)
- 			return -EPIPE;
--		if (!virtsnd_pcm_capture_counters_valid(vss)) {
-+		rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-+							     &free_running);
-+		if (rc || !virtsnd_pcm_capture_counters_valid(vss)) {
- 			vss->xfer_xrun = true;
- 			virtsnd_pcm_schedule_period_elapsed(vss);
- 			return -EPIPE;
-@@ -1270,7 +1292,11 @@
- 
- 		/* ACK includes any subperiod tail already copied to the ring. */
- 		bytes = frames_to_bytes(runtime, diff);
--		if (bytes > vss->capture_ready ||
-+		outstanding = vss->capture_copied_total -
-+			      vss->capture_acked_total;
-+		if ((!free_running && bytes > vss->capture_ready) ||
-+		    (free_running &&
-+		     (bytes > vss->buffer_bytes || bytes > outstanding)) ||
- 		    check_add_overflow(vss->capture_acked_total, (u64)bytes,
- 				       &next_acked_total) ||
- 		    next_acked_total > vss->capture_copied_total) {
-@@ -1280,7 +1306,8 @@
- 		}
- 
- 		vss->capture_acked_total = next_acked_total;
--		vss->capture_ready -= bytes;
-+		if (!free_running)
-+			vss->capture_ready -= bytes;
- 		vss->pcm_indirect.appl_ptr = appl_ptr;
- 	}
- 
+Ryan Brue (2):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 394 +++++++++++++++++++++
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 6 files changed, 423 insertions(+)
+---
+base-commit: c9dbe2a47f635465c9985b7af74d2ae310e98125
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
+
