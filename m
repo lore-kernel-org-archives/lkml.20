@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792933740;
-	b=O3qsgnzsvIoAp8LdD+aP05Wxc5BYz9+DvVBBeu3Ld4Es9uNw9e26fTLagNOz+srlWWd3
-	 lKB1ExSrS17IHD2x1oyaqMq88lKqh0ft7KthNbnu8hEbHl7miNVALTl3JoTRXgb2lilHD
-	 5g/C/qJpj6ZTsryDNwlIt3UunpljwDwhh2ROM5d+wJ9uFCdQradxhYYm+hOOdGBDyJqaC
-	 LAyVXwmJ+MqcbVr09KhV7oOlK7OOZVk0L916AHbGxmkG1uOKAr5Kv5UWjnGviXQ0pk5fV
-	 IG05MIZaNSei6WJCP4d74l0OlhIKf+Q2GiWXV1c0Uq9b9sJXtAJU9cPsbhvrpWtElrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792933740;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=8OfFtE9BghprGfgEs7SfcReLZbfiryOJ6K46f0rsq/8=;
-	b=PMloNym4llfTmTasHDFt0MvDolLNUXebHtp/+Tk39M7U/Y1qL6xPUhoVhBIHiTJoIBj/
-	 Z9CSWHnuteg09AyPbBTH4/mJ/M3fDew0k8zyJCYCUtsoeTP8k5gS4GSuEBtn8If9k4Pvw
-	 yqFKfqwbUK0pMnNmfEX2IRQii0G2w4OMxehGtmWsAFlZ9IqdhBscEsVUWtP/rlt/CcB+1
-	 d/XB+rzvS4pUVnl55kWbODcUX7YsRTXPx5yka022fvGekbuNklwpKwLLe4eISAZM2Wiqg
-	 v+r7Q0YhS+fgIgZ9i1KOczxSIsOspCaVqLZ0YNercqFYJWvCG6tqB1KrY0MsxxcO6+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bvNZQYJy;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792933849;
+	b=q6AE7h47dYYZ60FISWXDiaSbQ5qO+3y6OFvMllwM9c5lE/SdNoezTNym/bKqQxHCXDS2
+	 ovE4ZM32Kyw9l04oDzQMBnNlNiGQMbz8dSri749eWuUiJ0g20B1hqcLTyZlJUG8x+MJ6T
+	 WzoLFmNx3Z9R70Sz2IEKO7IQKGsOZK/gRgCLJoJy4oMLBkey/7TYfDobhV2W6s3IS/rJ+
+	 3uYEHllNVSClaA0wq///EIDN8PKfgq1KnU3Q/2MKSpvGpk0Em0Bw5L9/SdonqoQgHzRCG
+	 XcOSLq+QQ2znQSWWz5Qol4SOYFw7Ych3f3Tb0vga+US5VSgtabVCdJbjIGx56l0nxTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792933849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vWsvI+WhZ/eBQ+bJmj0eGRitrJCJTUhFaPA/quTsmaQ=;
+	b=KeHuC9ycF50dzyB/ieCHTbevIybCN+E3DMEUY8cZSqJAcO59BOIi/OQCCwz2a56ojZum
+	 x1YM02XNE4dMeuWtZQKQyDbvdg1r+XbbLalr4p2DUpcCtyaMP8jOLhzk3/1Vo9Hfvfz6a
+	 KUN21KLMHUTPbEWQ86Gvd3LLEe4UVBzk9f5Q+IBahfA1vKZ6HqRpWHvqKztDBs3HdrZrk
+	 LUkZR7ul/yN0dOY3nbADZaollpMjFKRWbffDOCIwj4WH+scVaWmPqfk1yyJ9oa65+2m0+
+	 uVjmUyBSRmtdhF0NunifCFviUiaiqhmlHMv+6hfwFI/0l99cnzFoImRhDWe6BOvNTag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aS0mT9lT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9613606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:08:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9613606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCB4606A321
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDCB4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bvNZQYJy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8O
-	fFtE9BghprGfgEs7SfcReLZbfiryOJ6K46f0rsq/8=; b=bvNZQYJySCZCqP4/EG
-	Lh7FYeEezjdJdEQxFm32ESok0JMBKUmvH3LlBvO/gAY+mvanDBLdT3Yq42JOS5hY
-	EJQ0p5XCQPS11jfiWebFyXqdn0VNUXGaAJMVbpuO8bN7rKUgIWmESf9Hej5vz6Yi
-	5WGXq2uF5ellIx6mzi7VDhwFY=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3x8gf_91qrpA2CQ--.39109S2;
-	Sun, 25 Oct 2026 21:07:43 +0800 (CST)
-From: albin_yang@163.com
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	chen.yu@linux.dev,
-	kayracizmeci@gmail.com,
-	linux-kernel@vger.kernel.org,
-	albin_yang@163.com,
-	albinwyang@tencent.com
-Subject: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated blocked donors
-Date: Sun, 25 Oct 2026 21:07:40 +0800
-Message-ID: <20261025130740.3324391-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aS0mT9lT
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5364648ae07so27943141cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:10:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792933848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zz4XgFm+zp29OrndrbKHlkTcpAn38xLHPra/rUJTEX9NfHTW7A1vZULhM8cYgJVfg6
+         i5oQY1UdcQO23FJ+1N8tWYVAEd8myvmrtC/EUoNRtNIfwO1x3V5UoPGzBUVuoEcdEJDc
+         /pRlXu1D/uf/Ktj81wSru/VvuX90889DK7OjGq+rzaX2EgI17EDyGNojzVFAr4rh9zSF
+         VG3ri4r3gtX0yR4C2yZjGJ0+qgjP+9nVpjey/QU8t4V+57iwEhESlQZmID4ahOTgCmZw
+         nBiu18sTBZff+QrSK1x2AoPeEb0WoPbNW/ZoUFtHOCcNl/4yMgn3VUgD+o91COfWrS+x
+         VogQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vWsvI+WhZ/eBQ+bJmj0eGRitrJCJTUhFaPA/quTsmaQ=;
+        fh=gJq4rWi8JQZF5gAVlcGDBqkgK7kEYjT0Y4cRb7IbK1A=;
+        b=q4iOr4bgoQ8GxwAxp9uIVD6wCiiyqKgQTKRSlmKTZ4/hQV6n9g/jg404o/lyXjkrPw
+         qd/nKtEpQbtWcGfcSGhT/VeTPwYb2ErRTSu1QwAiFc1pqeLY2cT9rJjw8XShMTasKN2N
+         Ng7Ply+YaQ35H4vy8v7HKhleiyzkKVoPDqhNkHnfbxit2a6z3hfbTZPChO6yfLkZYhsf
+         Sxk/19SQ77VSjNKIA/vpIcc+JIGYVK8/UmBLe55TiC97GiO5fPajfu5EH2bDJrHs6Gsu
+         u+dBuVz1HbZhBvWcYAzUBevWfQaq8UT1qy4eyWNWbshi5YO50MkaRlthReJtZXNtxBQA
+         +8zA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792933848; x=1793538648; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vWsvI+WhZ/eBQ+bJmj0eGRitrJCJTUhFaPA/quTsmaQ=;
+        b=aS0mT9lTrQZMpxtqfZBjxGMaks+hTpRYEU6OKbUfSyi8ZWIzKcYOOxBas2QBhmCYzR
+         ++r0YSLdUM/ldxZP1Tgg/7g9RpSe6Bg2p5aLRy50nSs5ZfOlCoPfJ07Q2Cu+tCAutFWe
+         SpIfEYmLYxoHLlu7LmHIs4vnV8bTEVuHLUzuRnTc9ynlDQoaj3L2l+3bGErskjlSZzuF
+         45NzEwCZGKg6HYssHJ1K8A9G52HlVEFWUFL6JcQ2LmrvZS1vC+EJYxq0I4QVodGyBJDM
+         cn3OCTU9n78L/cRaDJSlN/IK8XAb+BtIkzx6jAAGccR50ZrxHamJAasGhPW9IJ2wLTcj
+         vHCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792933848; x=1793538648;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vWsvI+WhZ/eBQ+bJmj0eGRitrJCJTUhFaPA/quTsmaQ=;
+        b=i8pYxMb+1jIjl8ysawUUvR1Zn08w+2PdcqQUNFEYqLH64F9qx94x8BasRdTcwkpMSO
+         Nt2APottsmUBPu6cIygaJRKWDIPhLs2yF7Vliss2JPIKQYg7wtoUWBAMLmV1IMMcd8o4
+         eHVc4LzXfxwFNwOfmDClxg6UWKBYDYxT6oc5iRNf9Yx3S9KkMZJfON85Yuitn/FpJRzz
+         grkl87teZjtzhVJlOyeXNU94A+/XTv0wlu7naYQzEZBh+l2DKiemx+JJWE8vFtxQitAp
+         Iqxcv0+W/ulQg0mGLtt7mEi8MXpnumTz3A+LKOIr9C3Fxn+KmvDWRrxEYiJRUIUSjcp2
+         2byw==
+X-Forwarded-Encrypted: i=1; AKwUvByEpup4ysiKlFFuSCcRplMwRTpDS00eWU9HM8U/+JtSV8aLKdl6kfFL35576qUo7g07LsW8VbvVdYzM4mo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIF2m/GRmfr3LXYd6zMe6QdNRYe4BkNYghCyqfxzJY789o4VXx1
+	T+FQv8rbI3BqQNZqXwsloRC7YUeNzfkReCB910yTevXfemuBepaZ6eSxI7O4bbV+2xEQU3z+21e
+	NDMtSjyn5pUbIcJeaeMguS9erANXC7OM=
+X-Gm-Gg: AYBFou0ShjLOJBlr2K9Il9MMefL/ftljrE6l/697vLuLqnrsLOJmKH5wJ2YeP2/7z0I
+	IDeqf8Hz0UJSmlxO1/glmH60kLJWXEg6q+n5fseJ4raYOAO3jxYC8UbkIymH9YNSNMKnM9zk275
+	oQOriwKS2MTxLR3lyqXSAGITjapNJabtrDNWsQrdxeVNtHC9+LXmI/4R3/YM0/ZFqF0K1aRteyQ
+	6Hc1v/PoXswEIy1fc2k/w2BIyb0pteajcuYVb1OUsV6+bjgYRgP/G48WAVnuoTJ7TAabFK2wewr
+	kCUgkfb97pVE3EEg4DnQ5AB7hDxp5ao+EAFSEsWxshZJw3udaLIG0hFtrNLxnu0xBsujeKAkGHD
+	HOIP1eGfy8dap6TMaoKNIRXJjAGHRqk6B7F5tf5J7QfuY5swmwlITtw/+N2VrZMKXio/JjkYyOP
+	dfMVLyrMfJfEyKyqXB27HAsgeffzVD82ShLJ/efLc8gjDIwyUX5+4ID/cApN79D+VLQ51KLp6Y
+X-Received: by 2002:ac8:5fc5:0:b0:535:2447:3d03 with SMTP id
+ d75a77b69052e-5383b5a1483mr65514591cf.35.1792933847628; Sun, 25 Oct 2026
+ 06:10:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,86 +104,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3x8gf_91qrpA2CQ--.39109S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAryUtFWxCr48Xr4rCryfJFb_yoW5Kryrpr
-	Z3Ww17Gw4kKrWrK3ZFkr4UX3y3CwnrGw43KF1kt34rurs0yr1Igw17KF1xXFZYkrZavF4a
-	vF1jga9xAF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRLZ27UUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC7x8Zu2rd-x+QwQAA3U
+References: <20261015125644.12908-1-danielmaraboo@gmail.com>
+ <20261015125644.12908-2-danielmaraboo@gmail.com> <atQ_mXYNqs4tnDpW@wyuan.org>
+ <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn> <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
+ <40aeaf0a-6e04-461c-a507-52f791b45541@hust.edu.cn> <CAMAsx6fk=k1aXT3gvyZ4k8hG9KN+YCmvEc42LGdmm3Y+p2J1_g@mail.gmail.com>
+ <8ff98b43-248e-4568-a5fc-6f84f9cdbe33@hust.edu.cn>
+In-Reply-To: <8ff98b43-248e-4568-a5fc-6f84f9cdbe33@hust.edu.cn>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Sun, 25 Oct 2026 10:10:36 -0300
+X-Gm-Features: AclHuK8bHcc4Z-qSdqWJEwmIBsb6YWn-kuRE8Y87S9rU-feLwPs47WKKAFHvhfc
+Message-ID: <CAMAsx6fha-ZKkiph+nG14hbNduGs=G3qRjHNUNxLSktTTQY+gA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
+To: dzm91@hust.edu.cn
+Cc: wy@wyuan.org, jani.nikula@linux.intel.com, alexs@kernel.org, 
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	si.yanteng@linux.dev, chenyou910331@gmail.com, federico.vaga@vaga.pv.it, 
+	akiyks@gmail.com, carlos.bilbao@kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Wei Yang <albinwyang@tencent.com>
+(Resending to the list: my previous reply went only to Dongliang.)
 
-When a task is blocked on a kernel mutex (a proxy-exec donor) and its mutex
-owner runs on another CPU, find_proxy_task() migrates the still-blocked donor
-to the owner's CPU via proxy_migrate_task(). This happens when the donor is
-picked as next while not current, and the owner is on_rq and not delayed. The
-migration re-attaches the donor with attach_task() -> activate_task(rq, p,
-ENQUEUE_NOCLOCK), i.e. without ENQUEUE_RESTORE, so sched_info_enqueue() arms
-last_queued even though the donor is not runnable at all -- a fake enqueue.
+On Sun, Oct 25, 2026 at 11:22 +0800, Dongliang Mu wrote:
+> Good job. I will quickly verify them and send a patch to move them.
 
-The real wakeup does not correct it: the donor is still on_rq and is not
-sched_delayed, so ttwu_runnable() never calls enqueue_task(), and last_queued
-keeps the migration timestamp. sched_info_arrive() then charges the whole
-interval from the migration until the donor actually runs, i.e. the time it
-spent blocked on the mutex is counted as time spent waiting for a CPU.
+Thanks. To avoid overlap, could you confirm which languages your patch
+covers? I understand zh_CN, and that zh_TW is already handled by
+Chen-Yu's series. That leaves:
 
-Fix by not re-arming last_queued while the task is still blocked on a mutex.
-A delayed dequeue sleeper has no blocked_on, so this is an additional
-condition rather than a replacement for the se.sched_delayed check, and the
-DELAY_DEQUEUE fix is unaffected.
+- sp_SP: process/magic-number.rst and wrappers/memory-barriers.rst;
+- the .txt files in ja_JP and ko_KR (stable_api_nonsense.txt and
+stable_kernel_rules.txt), which I think are for their maintainers
+to convert or drop.
 
-Measured on a 2 CPU VM: the same ~170 ms block is charged ~167 ms of
-run_delay when the mutex owner runs on another CPU, and 0.01 ms with this
-patch.
+> It seems the original English documentation moves fast. I would
+> write a script or skill to check this relationship maybe daily or
+> weekly.
 
-Fixes: b049b81bdff6 ("sched: Handle blocked-waiter migration (and return migration)")
-Signed-off-by: Wei Yang <albinwyang@tencent.com>
----
+A periodic check like that would be useful, especially once the guide
+states the path mirroring as a rule.
 
-Reproducer notes and full numbers (5 iterations each, run_delay is field 2 of
-/proc/<tid>/schedstat). A userspace futex mutex never sets blocked_on, so this
-needs a small test module exposing a kernel mutex:
+For v3 of the guide, this is what I plan, based on the discussion so
+far:
 
-  config                          block      run_delay delta   migrated
-  -----------------------------   -------    ---------------   --------
-  cross-cpu, unfixed              169.9 ms   167.1 ms          5/5
-  cross-cpu, DELAY_DEQUEUE fix    169.9 ms   167.1 ms          5/5
-  cross-cpu, with this patch      169.8 ms     0.01 ms         5/5
-  same-cpu (control)              167.3 ms     0.00 ms         0/5
+- state the path mirroring as a rule for translations of English
+documents, and exempt documents that exist only in a translation,
+such as a glossary or a language-specific how-to (Chen-Yu);
+- describe ":Original:" as optional, and not needed when the path
+mirrors the original, instead of showing it in the header example
+(Jani, Weijie, Dongliang);
+- drop the generic parts of the sections on writing documentation
+and sending patches, and link to doc-guide/sphinx.rst and
+process/submitting-patches.rst instead, keeping only the points
+specific to translations (Federico).
 
-Sanity check: with the donor runnable and contending for the CPU, run_delay
-still grows by ~39 ms over an 80 ms window (5/5), so the gate suppresses only
-the fake enqueue, not real waits.
+Federico, I did not see an answer to my last message about this last
+point. Is keeping those short translation-specific notes fine with you?
 
-Applies on top of:
-  [PATCH v4] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-  https://lore.kernel.org/all/20261024042753.2276779-1-albin_yang@163.com/
+Since v3 only states the rule and does not depend on the moves, I
+intend to send it without waiting for them to land. Dongliang, you
+suggested removing ":Original:" only after all translations follow
+the style; v3 only says it is optional, so I believe this is
+compatible. Please tell me if you would rather I wait.
 
-Kept separate from the DELAY_DEQUEUE fix on purpose: the delayed dequeue
-over-count exists from v6.12, while this one needs the proxy exec
-blocked-waiter migration, which only landed in v7.1. Coupling them would
-either fail to build (v6.12.y..v6.16.y, no proxy exec at all) or add a
-dependency on code that cannot trigger (v6.17.y..v7.0.y, proxy exec present
-but no blocked-waiter migration). The two are also independent: the
-DELAY_DEQUEUE fix alone leaves this case at 167.1 ms.
+If anyone has other comments on v2 that I have not covered, please
+let me know. I will send v3 in a few days.
 
- kernel/sched/stats.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-index dc626f99ffd9..ef52fbe86bba 100644
---- a/kernel/sched/stats.h
-+++ b/kernel/sched/stats.h
-@@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
-  */
- static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
- {
--	if (!t->sched_info.last_queued && !t->se.sched_delayed)
-+	if (!t->sched_info.last_queued && !t->se.sched_delayed && !task_is_blocked(t))
- 		t->sched_info.last_queued = rq_clock(rq);
- }
- 
--- 
-2.43.7
-
+Thanks,
+Daniel
