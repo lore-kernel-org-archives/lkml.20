@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964894;
-	b=0anK2rkhGGDR3KrbrwX2PSPoq42Ay5JeeCUkU6LCHLHhdo4P7HR+agEgaX46KL2xHC76
-	 GtCZYh75V8ZhFeKlwG/xmg/aVUJllDEz7eDYxRN/2lpQ9pPLGA61prKEOj/XkH+sZfvyb
-	 QbJvRcfEzMaYY673zp51gNTM2j1vflVE4Bi+LjLk89VidNmBMgZj3Y7gO+v5qGECtzpCH
-	 pheISbfl/UVoId5sfLzz/vNfn5cZXl5CY+9jqpDyWEPuFVMKODsvXaI1ieIKO2IJqndi1
-	 Y+zGCz3SG+YAbrHaqFf/yXcshkt1aLcc59fxriPD+MWTd5Mpw28c5N6Zr5kxE01FknQ==
+	t=1792964931;
+	b=hglu9f/o4dGMkJX0Bp2j3HAXTdPobmy8lTPyU1aR2YoHIY5d2BEFO/+Yf4hkQzUrcjTf
+	 YRAUhDK7799xK/O4MMflwZwnC+oLjMRlu1zqjxW/m8vijooE73Mi70K50x+X7ewatZED0
+	 bYnrq/DmvdrC+brBpK/kEduU61YhWVL9l0tx8OxolR53Iv7n3Mltv7jNI1J9y35f5gA5p
+	 I6KOMMof6+uMecg39clDtJBrHJMgTgBKLn+ew/AWj3igfjnE3DmiAU9yzsvCSK9Kjo6V8
+	 2wPdieDJmpRfPKu0klTKu0AkTa83XdSl8xxQT6NkndRi+qaTs4Ra62/7kTghy9JeVEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964894;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=hDiTTg5aqjPLEBuvxWemMxO8n0pna/rsjNCyQxTZjbA=;
-	b=GivsaRKAFiNMm7rQSc/fhDTeUrFXRWqySn7o5yHXHYttTpaKr3v1gs/BJKO/p4dKUJ6J
-	 mgkKcsPVxHz38Lp6RvOYBVIKCYOEMCUW9BA+ABeQSFBPU2gdAlXNnRN7RvEU0/R5LpEW9
-	 OQ+hgZXV95VDcjDKbGLZrkvMQHEa7bDwyrbGAAIJPvk33YKHJ8X7G46rfydFJkQpua84b
-	 l2ovAij2801Hye0s1b3HsvlLDGLppEQ21silkrinXsXOrJ/o+7lcaw/upXcDlvZPYqvMx
-	 NwI0v4IBwy4aFSRsUEYEvcnok3MY+timOYr9ECcbt4KaVThafbx/aFZCujLaX6MszJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964931;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7wQNgAvrV53M6g73xXbn+Hsa5Wpgb9uHDA2CEi88MY8=;
+	b=DFh9jW6FoCDqYgP4pSSWGSmq7HZ6Bxv6ohCZeRM0YqOJm9WxGUSGL97Usy2fafU4aLz3
+	 Sl25J7u716GwQ88/AFiBJYUO5dIH8u7lpd/+5PUnDHM9yU5XeWueqH33sc3/hh3czRttu
+	 n2CUywNa3A0BFps6Apal2VBDqkAcNRH9ue30asZcGrVEIoiwNKQO/tD7nlh9XegDbExdo
+	 k6qbLcH8H4b1WvuJSRN5BAlX84ygTvVCTUL/Wd8OJHYCyNUfumf5XiQvKrY+UqRgggTvN
+	 /3ZOcB19kexCz1A5UVYpcvL8XRADQEvzHJ7LnbIyHiON10wM+f3bs7SQtVJW1SvY6Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZlGFo4G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gWkUhUFU;
+	arc=none smtp.remote-ip=95.215.58.235
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF592606A31B;
-	Sun, 25 Oct 2026 21:48:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAF1606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAF1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZlGFo4G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A6A1F01825;
-	Sun, 25 Oct 2026 21:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792964893;
-	bh=hDiTTg5aqjPLEBuvxWemMxO8n0pna/rsjNCyQxTZjbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RZlGFo4GhsbFHSK9ofCYklD9mxJX6RDlW5nMeJqwBzaIhMeZVbyQhtm8Pht13aBUR
-	 N5H2XX+HWnWprbfYsWvw/J5cApSoeX2zzOYbqxy85tpfvD059F9v0grCwJsIOKAuQG
-	 kTzCQC7kDS9lO0NCB5/DVxrKb1zCkbbeEBVWgw7yeDF1GKd744CpAu/smx9T4lO4JK
-	 zZECt8Y5BWSUUEg8iIHeg2IXFbbpKvbj1NKR5HLhoyKkgqMvHlw+5tAhVjDSg47L2i
-	 SoEZuOciwHXr7s4WuKOlrUVnZZu3dqiEitjMl4fjy5wfjqifO/N8oQntht3VJIhPwc
-	 ANFnmObSBJj3w==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 8C8FE1AC5994; Sun, 25 Oct 2026 21:48:10 +0000 (GMT)
-Date: Sun, 25 Oct 2026 21:48:10 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: selftests: Skip ignored AArch32 ID regs in
- the failed-run test
-Message-ID: <at55GhnsD67k2Xkg@sirena.co.uk>
-References: <20261024161118.1007472-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gWkUhUFU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FW93I9g2tFhlVSvMbZvJhIsiJI9bo4PZOSNREMcmxDA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792964928; v=1; x=1793569728;
+ b=gWkUhUFUyP2n9w1XqfxuzV06+ZqN3YN+wNJCYBrB4HxP5Nwf4YoA/Ifr7LPlYyKV633fnYzN
+ ZQA0k94WlZsm0a64RNpARKHYrHVnMTF+ivYvmRNLgLaeOBang+tBO6hINmNWwGhQVq7MrwtftlD
+ 8ilzZwtbnrH9kXJ2kDI26e2M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5eed0b9c945e22a;
+	Sun, 25 Oct 2026 21:48:48 +0000
+X-Mizu-Trace-ID: e5eed0b9c945e22a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e865f7f0-087c-4fe5-b729-6e6946cd20f6@linux.dev>
+Date: Sun, 25 Oct 2026 15:48:43 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,70 +58,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XZ3wpwJ3w0pXiMRa"
-Content-Disposition: inline
-In-Reply-To: <20261024161118.1007472-1-sashal@kernel.org>
-X-Cookie: FEELINGS are cascading over me!!!
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mm/huge_memory.c: skip zero-page remapping when
+ underused THP shrinker is disabled
+To: Barry Song <baohua@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Yu Zhao <yuzhao@google.com>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usamaarif642@gmail.com>, aarcange@redhat.com
+References: <20261025-b4-ksm_fixv2-v2-0-8b61ad0491f1@linux.dev>
+ <20261025-b4-ksm_fixv2-v2-1-8b61ad0491f1@linux.dev>
+ <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
+Content-Language: en-US
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <CAGsJ_4zUVpBJazRxc1CzN6u5XvpUaGnaf-_7JMz-rGK_ZTYMtw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---XZ3wpwJ3w0pXiMRa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Sat, Oct 24, 2026 at 12:11:18PM -0400, Sasha Levin wrote:
+On 10/25/26 2:28 PM, Barry Song wrote:
+> On Mon, Oct 26, 2026 at 1:40 AM Nico Pache (Red Hat)
+> <nico.pache@linux.dev> wrote:
+>>
+>> The zero-page remapping in __folio_split() was added to support the
+>> underused THP shrinker. When the shrinker is disabled via
+>> shrink_underused, gate TTU_USE_SHARED_ZEROPAGE on split_underused_thp
+>> to avoid scanning subpages for zero content unnecessarily.
+>>
+>> Suggested-by: David Hildenbrand <david@kernel.org>
+>> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
+>> Signed-off-by: Nico Pache <nico.pache@linux.dev>
+> 
+> is b1f202060afe a correct fixes tag? as
+> commit b1f202060afe has no even "split_underused_thp" there.
 
-> An ignored write leaves the register unchanged, so the ID registers are
-> still immutable and only the test's expectation is wrong. Skip the
-> AArch32 ID registers that KVM_ARM_GET_REG_WRITABLE_MASKS reports as not
-> writable for this VM, which is decided by the same
-> kvm_supports_32bit_el0() check as the write path. The aarch64_only flag
+I believe so. IIUC these two series were merged together. While 
+81d3ff3c6f7 introduces the toggle, b1f202060afe is where the behavior 
+started.
 
-Another approach if we're going to change the test would be to have the
-test support WI registers like the kernel does and also accept a
-successful write that does not change the value, as you say this is also
-maintaining immutability.  Doing that would handle anything else that
-gets made WI.
+I guess you could argue that the Fixes should include both?
 
-> This does not change the AArch32 ID register readback issue under nested
-> virtualization that Itaru reported:
-> https://lore.kernel.org/all/as8x38o9taXgKZym@sm-arm-grace07/
+Not entirely sure!
 
-It's been reported by a bunch of people, including me with the test
-fixup that Itaru was mentioning.  It does seem like if we're going to
-fix this in the test we should fix all the instances rather than just
-one, or we should just fix the kernel like Marc previously requested
-(given that we've just stepped on the same landmine...).
+-- Nico
+> 
+> it was introduced by 81d3ff3c6f7 ("mm: add sysfs entry to disable
+> splitting underused THPs").
 
-> +		/*
-> +		 * KVM ignores writes to the AArch32 ID registers when it can't
-> +		 * expose AArch32 EL0, and reports them as not writable.
-> +		 */
-> +		if (sys_reg_CRm(reg_id) < 4 && !masks[encoding_to_range_idx(reg_id)])
-> +			continue;
-> +
-> +		val = vcpu_get_reg(vcpu, reg);
-
-This is checking for AArch32 AFAICT because we're currently seeing
-issues due to the lack of AArch32 making the registers WI but one would
-expect the same issue to recur for any other ID registers which we end
-up doing the same thing for.  If we're going to do this shouldn't we
-just check for writability?  Adding the check for AAarch32 as well seems
-to have the same papering over the cracks concern that Marc raised.
-
-If writes are being accepted to things reported as unwritable at all
-that seems like a separate issue to the finalization, we should test for
-that separately.
-
---XZ3wpwJ3w0pXiMRa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat55GgAKCRAv73Ows9A4
-iWvMAQCfmdP6zPYprHHX9YOoVU356Zhd4rFs5rfa4rIZuFFTJwEAm+X1RFxCBYQi
-PZV+kXkd55f3HK82Y3dOjL/RBH2InwA=
-=6dZ9
------END PGP SIGNATURE-----
-
---XZ3wpwJ3w0pXiMRa--
