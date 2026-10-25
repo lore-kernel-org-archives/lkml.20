@@ -1,114 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792891159;
-	b=1hbHo3Twpat0dcjXg0oWKcr3n7fBpCWwydbyfLY/+0TlpXSZZcOdwmXo80KKRF/mrh/9
-	 9io4urOkYnnMcBhKRIxcP6xMjezS1y79bskMx++06ps5CsDy/CGKAgVNVdxGIsy9zA+og
-	 pza0VOZfv0bSP4odzSXjZJhlWYDVPnx/t8WcriI8mxt2tpkKG2gabpXQq7RTRujgmf0FV
-	 rR09ekx6Kid6WuiN2xiNAp0iv9x+Kq6S2N0xJzfKaPt4eLDDjBvxoVq1WQerKjeAebyNG
-	 +XC3XKBtVM7i223+Cfx+c3Kl93ryp5imWPZI3mDyUiaezwE07R7lS0XWBvKG//knLzg==
+	t=1792891206;
+	b=vPDcPzK7MRLz6xRTztkWo0PNKCC87PyVQmRd5PfSHyw4bU61RIT39J+94jtY7AzRzCxq
+	 ARsUwlMKNip7k8cyJAeceV1Z3rAF/v9/zyOZ8zLfbANT+bA36tYv7KgH60ZfxP7D6YJ2Y
+	 vS8ur9jLTAx4ORyr6qkSjMOeLf2K6F5twWVAwP6SVrfGwiRVLmwwVxvR8wma0NxgiaKPy
+	 VMVTMsLmSTtruolBbVgR5JuMMC43+iPQJMdNebZSIU5vOWXwOacq+38cIKIqkOtMM+NI9
+	 VnO9ueNhbON5A65C2fxtUfpI7QsyOynnhVfkFB75Qg/+VwqObXtaSKPx3oxqhEovPTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792891159;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=zZQiqU7HN1B6GTDcBYXT/sQqb91Q6ayBvJSvSKkioZE=;
-	b=0HqWTgHZowFIfDifLAEWV43HYSUzOqQS5UgoMxurWicx6UGFdRrhbzRGmuAJemQB30XZ
-	 6jgl2ck5YRHj+UAYYHgLdlznPw3OLmDLW7PcJ/63yGxdlhO/ktdY1BSr778+LYQbZPLNL
-	 rBURoSwO6wkKuda5jruRycvPeH+PXtNS6sGnm02NUuk9EC+ojRRD+vosolBVz06WFgACO
-	 M6mk1suHxNxgo7yv9zmm+/vGrykc55gpXe2rCe35RcQSbyNorkG/khzmGLjhwIR2A5gmT
-	 LThKkdnKd/tgk+CqgNQXFAlTbcMB3aSCANyu5NTm1FW7dBqdDmvKYh1jjjDCgZW1fVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792891206;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Fi+ijDq1Mg1llE2oxXd3mCn+/cAVsBD2tELJliTiq+o=;
+	b=uWa3JpgGghIr47DX25Pk20HRV7cs/gj31WlA9mcvJO4k/wpJldiZ6GzyxTEl2AVXOJbX
+	 3L276L4DIoMAaZCh4PcrAq0SUU/CvB8VBn18wYcPz35iUNGTBDduRDovn63MwLU918VcT
+	 VTg7mSde7Yp+VvO0/bvwDv6QHg7DrpaxWGcGiqnbiVLaaQg8o5ClbomdVuIpv+Gtz5nkq
+	 437OsMiznhRbbMdwewwEJb2nDSis6DN8ILnsobTG8vCZN9uekBlEOa8QQtWFCqZIln+wn
+	 V006RTdRFaY68h4XEeqn97f2SOosEs5DOicS9aPu8+az+n4Ux6vMZFJdcM9InTDF8DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nyUFwVcj;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E691C606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E691C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nyUFwVcj
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so1645961a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:19:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792891158; x=1793495958; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zZQiqU7HN1B6GTDcBYXT/sQqb91Q6ayBvJSvSKkioZE=;
-        b=nyUFwVcjgd6g3xuNlSD/rMAoH+5rhnVhKVDNLCsK4WeHGC6W0qiL1ts8cv2tR1rrUV
-         25HBD5SR+xxXKkJEZAgiBcwUwzFB/8BmOaZyQfXgksIEQPAA7hzt77jyYLP8tiOFUItI
-         W9iZBfz9LCduMPMN5NGg4KhetNlKWFha5VYkZea131wCfXvhV3PdR6ebjUC9EoVAVyn2
-         AH/Evm6Z7YrF7QQ6sOLK36AH4Sy4N30imPWThuGRMJQXCQD/m6QVbiS8UFrPoTvwbgoy
-         C5oM7nXa3UKdOZ8ZAuZnhUnSXyuO1smqDpTLCqvs//S/k1X8Fb5g6Tk/wRdQk1gvuJ9F
-         qGJg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9890D606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:20:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9890D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a45b3f0bdfso3289140b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:20:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792891158; x=1793495958;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zZQiqU7HN1B6GTDcBYXT/sQqb91Q6ayBvJSvSKkioZE=;
-        b=CYOM37Wxi4WroHB4B6A7mSeIlNkUrznW+RWV4ekXG5Br9RTdeSUAUYJuPZv0cZQcaG
-         ysO8m2IlQrRKTnBOL2WJ9NpdDO9fwHtKMGtrSK4+XF33vcc/Bdx0igB4iVIpk7yTHdKh
-         j+poxne7564bYI5btqzawgpWPyOg8gCcVW/Xia7UnAxUDkMzFfspAnss9HlUfCjkm/zQ
-         QbDodDSEvuQlNEkbD7VKmDv5NlxkBnBCNErAk+qSzY/ObMv4PZ0YDgHnPPRXYiG6Krh2
-         yGJjjs0RTjIFPuX7uZeT6tbhAz5lVd9OtamWJakbVwAxF205WbIzisUaL2DhkMuj0B1N
-         mJzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEwJTEhTzmeJOB/Qao/xrzkLdrRX+u7JYOInU+je7GHFaMTRnbmWJfuYP0Dj52UyVvjJNA3WRiK4wiJTA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGnNu9BUSSTDaQgdLJ2Gk1bXXBwimzhbsYelqChciqwjVs1fDB
-	TJR9Ezr8SgAVHEiMY8kWbUu1CTROJmtpbKVd0FlgkjGy6aNLUYokLop5
-X-Gm-Gg: AYBFou2q9gMxcJxN0JrEkv4kCpYE99CV+NSuzHkXp+976DqmND7C2YLhf2Q2fXyPFHb
-	PLMqkIH62SNwvR3YLYl+cvTZRYg59keNVG8FthUCgctt6xcLHjH0tTTW9eyWpb3qk2phBJL7e4V
-	0SGjcMT/9i963JjMIYMHFS4O0ugjzbMGm4OjnRbp4DkXqCjVk4ytLTVasIRrHoVaJSM2rqvp6Ld
-	jnuEOYg1xMLd5h6AOm3KcuKFad/LIdh0yD3bj0mBpL7GZfsRxVXt1lgFKLPp22mkGGzY0MF4kg5
-	Xm7wSZ069sEB4oiaczmfe4JkjF9gaUxLfxfrfS6JhgeRzY8hrul2t/vr7a7jBgoZKCzgNmbr/Vb
-	Ybjy22R6D+E53kP+kulNs7SZ7Y8ys9vfNfs9HpLb9cZVL+rztUFrZqGAFjDAJMLFQOnZ2RwnhIw
-	P9E5IsdynHGTVph6e9CcPZdXORlTvjjPLMaCqoRwH7xKSO9PdBzsg/pZumspdb/xt6AJ/In8+3+
-	Y3oNnsVCr+ZH1G1290XaHoVVsr4KcXO4QGkDepPvqBQwe0WjZXTmt/Pp+0phc6MvqmizxSwWo9K
-	lb59DUhoZfufxFRFWzgbYSdk79ncXvJp9UpQTXAoDnI6UOLIMSBu8IcUFVPm
-X-Received: by 2002:a17:90b:1a92:b0:3a0:bbd8:5ba7 with SMTP id 98e67ed59e1d1-3adeafd7770mr2867415a91.62.1792891158057;
-        Sat, 24 Oct 2026 18:19:18 -0700 (PDT)
-Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32f70sm3963081a91.1.2026.10.24.18.19.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 18:19:17 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 25 Oct 2026 01:19:16 +0000
-Message-Id: <DMDIVEW7P9QN.1TB58XDPD7V3A@gmail.com>
-Cc: "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
- Horman" <horms@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Jesper Dangaard Brouer" <hawk@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>, "Stanislav Fomichev"
- <sdf@fomichev.me>, "Steven Rostedt" <rostedt@goodmis.org>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Shuah Khan" <shuah@kernel.org>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Hangbin Liu"
- <liuhangbin@gmail.com>, "Martin Karsten" <mkarsten@uwaterloo.ca>, "Masashi
- Honma" <masashi.honma@gmail.com>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v4 2/6] bpf: Add syscall common attrs support
- for xdp link_create
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Leon Hwang" <leon.hwang@linux.dev>, <bpf@vger.kernel.org>
-In-Reply-To: <20261024153608.58569-3-leon.hwang@linux.dev>
-References: <20261024153608.58569-1-leon.hwang@linux.dev> <20261024153608.58569-3-leon.hwang@linux.dev>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1792891204; x=1793496004;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Fi+ijDq1Mg1llE2oxXd3mCn+/cAVsBD2tELJliTiq+o=;
+        b=bXSTLXZZlkEYyAFPh9jPTLYXxy1DvARVxhAOILgCgeuxiXA1CNbvzB2jESH5jhXNom
+         eII8+DeSWmYROZ/XedvkYmDfL0EyULnkeRrCzoP0uc0rBtmK1OlgIZPdU0wn9ayHHmf0
+         ixwDXMeT4QK+/scPwVR/Ozz/f2yX0WM6AqEgTcNeJK6+CjdmekGAvD7xmuw50AhW9LDU
+         OGvCjL7YrWMe99hc2Us2EcoM1iiPPob0Gq5oS1xBgIpmJYW6uwOKShJak6HBSlySUx52
+         ftAwEWG7MthinBbmZgJKT/nrv+EQ158HWxCyNnDgYe6Z7faDA4fUtbNy4T9x0nl87vyS
+         FcuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjgtI+o9R6hR8zTSSqRozfGW7cugAd+YATOQ5O7iseZ2UAVcLtEA87ckQ1fAISOeXgVdP3jhgjTY4lS0w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFiWsj6F+nsao0dqolXlRPATcLaTuOqhrLFLG9F4PxkJuOB10c
+	apqMqdqAZ0VTj8iU54emRZWalwavemMNtyAZsdeTjaxEWMLvlLpjxjJIc2w5ccJXYkuf5+t2WuZ
+	AnvM0AULj2QCCy08zjMtkdEv8mwnQjxhu0O1Eaguyk1VCZnucQB0ZrPUzsyI=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,172 +58,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:c1b4:b0:4f4:6c04:8ac2 with SMTP id
+ 5614622812f47-55c0026230fmr2137822b6e.10.1792891204616; Sat, 24 Oct 2026
+ 18:20:04 -0700 (PDT)
+Date: Sat, 24 Oct 2026 18:20:04 -0700
+In-Reply-To: <20261025010125.1085-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6add5944.a6443767.132891.000a.GAE@google.com>
+Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in snapshot_ctr
+From: syzbot <syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 24, 2026 at 08:36 AM Leon Hwang <leon.hwang@linux.dev> wrote:
-> Instead of passing bpf log or extack to bpf_xdp_link_attach(), pass an
-> errmsg pointer to receive the kstrdup() error msg, because
+Hello,
 
-[...]
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: slab-use-after-free Read in snapshot_ctr
 
-> 2) passing extack will access underlying driver string out of dev_put()
->    guard, which will crash kernel when the device is unloaded
->    concurrently.
+==================================================================
+BUG: KASAN: slab-use-after-free in snapshot_ctr+0x5cb/0x1370 drivers/md/dm-snap.c:1282
+Read of size 8 at addr ffff88801388a898 by task syz.0.17/5914
 
-Netlink does exactly that.
-rtnl_setlink() looks up the dev with __dev_get_by_index(), so no refcnt,
-do_setlink() -> dev_change_xdp_fd(dev, extack, ...) calls into the same
-drivers that set the same strings, rtnl is unlocked, and only then
-netlink_rcv_skb() -> netlink_ack() does strlen(extack->_msg).
-All extack users work this way. kstrdup() in one of them fixes nothing.
+CPU: 0 UID: 0 PID: 5914 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ snapshot_ctr+0x5cb/0x1370 drivers/md/dm-snap.c:1282
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5604b9f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f5605b42028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f5604e25fa0 RCX: 00007f5604b9f559
+RDX: 0000200000001640 RSI: 00000000c138fd09 RDI: 0000000000000003
+RBP: 00007f5604c36b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5604e26038 R14: 00007f5604e25fa0 R15: 00007ffe1ba2cfd8
+ </TASK>
 
-Instead of patches 1 and 2:
+Allocated by task 5914:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x3d1/0x620 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ open_table_device drivers/md/dm.c:733 [inline]
+ dm_get_table_device+0x23e/0x740 drivers/md/dm.c:821
+ dm_get_device+0x327/0x750 drivers/md/dm-table.c:388
+ snapshot_ctr+0x2b2/0x1370 drivers/md/dm-snap.c:1267
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index c0ae442..6f7fec2 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -4440,7 +4440,8 @@ struct sk_buff *validate_xmit_skb_list(struct sk_buff *skb, struct net_device *d
- struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
- 				    struct netdev_queue *txq, int *ret);
+Freed by task 5914:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6802
+ close_table_device drivers/md/dm.c:798 [inline]
+ dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
+ upgrade_mode drivers/md/dm-table.c:326 [inline]
+ dm_get_device+0x567/0x750 drivers/md/dm-table.c:399
+ snapshot_ctr+0x471/0x1370 drivers/md/dm-snap.c:1277
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
--int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog);
-+int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
-+			struct netlink_ext_ack *extack);
- u8 dev_xdp_prog_count(struct net_device *dev);
- int netif_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
- int dev_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 90bc723..0ce75ee 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -5862,8 +5862,12 @@ err_put:
- }
+The buggy address belongs to the object at ffff88801388a880
+ which belongs to the cache kmalloc-96 of size 96
+The buggy address is located 24 bytes inside of
+ freed 96-byte region [ffff88801388a880, ffff88801388a8e0)
 
- #define BPF_LINK_CREATE_LAST_FIELD link_create.uprobe_multi.path_fd
--static int link_create(union bpf_attr *attr, bpfptr_t uattr)
-+static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_attr *attr_common,
-+		       bpfptr_t uattr_common, u32 size_common)
- {
-+	struct netlink_ext_ack extack = {};
-+	struct bpf_verifier_log *log;
-+	struct bpf_log_attr attr_log;
- 	struct bpf_prog *prog;
- 	int ret;
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1388a
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff88801c041280 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x252800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_THISNODE), pid 5850, tgid 5850 (syz-executor), ts 160176372736
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_pages_slowpath+0x3f9/0xec0 mm/page_alloc.c:4884
+ __alloc_frozen_pages_noprof+0x3f3/0x5a0 mm/page_alloc.c:5449
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ ___slab_alloc+0x16a/0x960 mm/slub.c:4568
+ slab_alloc_node mm/slub.c:4987 [inline]
+ __kmalloc_cache_node_noprof+0x1db/0x620 mm/slub.c:5578
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ alloc_node_nr_active kernel/workqueue.c:5079 [inline]
+ __alloc_workqueue+0x746/0x1fe0 kernel/workqueue.c:5974
+ alloc_workqueue_va kernel/workqueue.c:6033 [inline]
+ alloc_workqueue_noprof+0xe3/0x210 kernel/workqueue.c:6049
+ ieee80211_register_hw+0x368f/0x4b00 net/mac80211/main.c:1523
+ mac80211_hwsim_new_radio+0x3258/0x56b0 drivers/net/wireless/virtual/mac80211_hwsim_main.c:6143
+ hwsim_new_radio_nl+0xd8b/0xf90 drivers/net/wireless/virtual/mac80211_hwsim_main.c:6966
+ genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
+ genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+ genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
+ netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2579
+ genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+page last free pid 5899 tgid 5899 ts 159580482965 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ __slab_free+0x274/0x2c0 mm/slub.c:5823
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x2b9/0x600 mm/slub.c:5010
+ vm_area_alloc+0x24/0x140 mm/vma_init.c:36
+ __mmap_new_vma mm/vma.c:2671 [inline]
+ __mmap_region mm/vma.c:2904 [inline]
+ mmap_region+0x13d6/0x25b0 mm/vma.c:2989
+ do_mmap+0xe0a/0x1300 mm/mmap.c:573
+ vm_mmap_pgoff+0x272/0x4e0 mm/util.c:581
+ ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-@@ -5873,14 +5877,24 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
- 	if (attr->link_create.attach_type == BPF_STRUCT_OPS)
- 		return bpf_struct_ops_link_create(attr);
+Memory state around the buggy address:
+ ffff88801388a780: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+ ffff88801388a800: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+>ffff88801388a880: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                            ^
+ ffff88801388a900: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+ ffff88801388a980: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+==================================================================
 
-+	log = bpf_log_attr_create_vlog(&attr_log, attr_common, uattr_common, size_common);
-+	if (IS_ERR(log))
-+		return PTR_ERR(log);
-+
- 	prog = bpf_prog_get(attr->link_create.prog_fd);
--	if (IS_ERR(prog))
--		return PTR_ERR(prog);
-+	if (IS_ERR(prog)) {
-+		bpf_log(log, "Invalid prog_fd.\n");
-+		ret = PTR_ERR(prog);
-+		prog = NULL;
-+		goto out;
-+	}
 
- 	ret = bpf_prog_attach_check_attach_type(prog,
- 						attr->link_create.attach_type);
--	if (ret)
-+	if (ret) {
-+		bpf_log(log, "Invalid attach_type.\n");
- 		goto out;
-+	}
+Tested on:
 
- 	switch (prog->type) {
- 	case BPF_PROG_TYPE_CGROUP_SKB:
-@@ -5931,7 +5945,7 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
- 		break;
- #ifdef CONFIG_NET
- 	case BPF_PROG_TYPE_XDP:
--		ret = bpf_xdp_link_attach(attr, prog);
-+		ret = bpf_xdp_link_attach(attr, prog, &extack);
- 		break;
- 	case BPF_PROG_TYPE_SCHED_CLS:
- 		if (attr->link_create.attach_type == BPF_TCX_INGRESS ||
-@@ -5959,12 +5973,22 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
- 			ret = bpf_uprobe_multi_link_attach(attr, prog);
- 		break;
- 	default:
-+		bpf_log(log, "Invalid prog type.\n");
- 		ret = -EINVAL;
- 	}
+commit:         f47d2236 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1093470d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=97e47414c855a3d8
+dashboard link: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12f7d931580000
 
- out:
--	if (ret < 0)
--		bpf_prog_put(prog);
-+	if (ret < 0) {
-+		int err;
-+
-+		if (extack._msg)
-+			bpf_log(log, "%s\n", extack._msg);
-+		err = bpf_log_attr_finalize(&attr_log, log);
-+		ret = err ? err : ret;
-+		if (prog)
-+			bpf_prog_put(prog);
-+	}
-+	kfree(log);
- 	return ret;
- }
-
-@@ -6536,7 +6560,7 @@ static int __sys_bpf(enum bpf_cmd cmd, bpfptr_t uattr, unsigned int size,
- 		err = bpf_map_do_batch(&attr, uattr.user, BPF_MAP_DELETE_BATCH);
- 		break;
- 	case BPF_LINK_CREATE:
--		err = link_create(&attr, uattr);
-+		err = link_create(&attr, uattr, &attr_common, uattr_common, size_common);
- 		break;
- 	case BPF_LINK_UPDATE:
- 		err = link_update(&attr);
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 1a09e78..4aa5525 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -10882,11 +10882,11 @@ static const struct bpf_link_ops bpf_xdp_link_lops = {
- 	.update_prog = bpf_xdp_link_update,
- };
-
--int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
-+int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
-+			struct netlink_ext_ack *extack)
- {
- 	struct net *net = current->nsproxy->net_ns;
- 	struct bpf_link_primer link_primer;
--	struct netlink_ext_ack extack = {};
- 	struct bpf_xdp_link *link;
- 	struct net_device *dev;
- 	int err, fd;
-@@ -10895,6 +10895,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
- 	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
- 	if (!dev) {
- 		rtnl_unlock();
-+		NL_SET_ERR_MSG(extack, "Invalid target_ifindex.");
- 		return -EINVAL;
- 	}
-
-@@ -10916,14 +10917,14 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
- 	}
-
- 	netdev_lock_ops(dev);
--	err = dev_xdp_attach_link(dev, &extack, link);
-+	err = dev_xdp_attach_link(dev, extack, link);
- 	netdev_unlock_ops(dev);
- 	rtnl_unlock();
-
- 	if (err) {
- 		link->dev = NULL;
- 		bpf_link_cleanup(&link_primer);
--		trace_bpf_xdp_link_attach_failed(extack._msg);
-+		trace_bpf_xdp_link_attach_failed(extack->_msg);
- 		goto out_put_dev;
- 	}
-
-I'm think I gave this suggestion earlier. Why did you go with strdup()?
-
-pw-bot: cr
