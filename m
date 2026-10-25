@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792939020;
-	b=H+U0/yGmGM6Q6CrOQawXhPdWGdhp9HESFSJKR7U1KG8R9pfbi2cXUQm70IxsX9M/X1XD
-	 MV6avjg6/lI627o9Ln17K/4wOzh98UNHS7HvguJlpiyjhSZUPKxFzqyRk9WpZBDMCmf5Y
-	 0vag6C6BhN9AyiZpECXvVGfKM9+804Mso/j9cRzusiQrhCrIuFVYXU8fRcYpFHU8FpKh7
-	 OO+HW9qwiR+AhFT4gjaTzPzf0fhtu+Gb+xd74r4NOEZoroLmqkvtPcWyJH2hXgN3e95lH
-	 808Vk5Y044BO6BwqyFK/LRIVIAwTI40tzcgb6h/4yZgK5k+Xs4N/+uebK22heDXaeDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792939020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7t8wKfK1o19+DWGwoFNHE4Tp8X9jgaWEQ6IOGtgFgAo=;
-	b=Jzi3F21VJHMdFV0csCux4AKoQk6F0MDcwsAswNopl3WjmFj4Q1xaOo6CTqc7hD/09ci6
-	 5OCkPN1cdLgJSFkRdnbx/6B/rRRmVLavXXFu6pWe+nSg/4qagOsr5pPMIxNPlECkmHSnV
-	 juHKTe4IJh5pCGQSbUDTSQhEMKONw6xSIGKMa/VE/lPvaHG/B+QoCtsKQE3exOKrE/my3
-	 Qi1ayPvgxxbhaaATRMbatjEiczHqZvZTgMG5Cz83uCqZDTe0dlgWk+Ta/DSFbn9TMPbdS
-	 OofjSqtX18nOXfmP7Cj9BL+nTzf9H+aNlgK2PgZW3BTAIVdp6HhX8mHyVVDpQYAtriw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KCyPtJde;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792939242;
+	b=5r88vPF/o5DziHqUBCmU9Z9nCNdXv31U/MIiEZuVYVB28aWzt/lK2QaaQLZAGlUhSs6k
+	 AGVwoHZ5BENPGxTAFZUapa73bX2dYY488qjpXdfLdkxEmq7asMyKgMgDjNGWPxWXzG5Pm
+	 NMsC4cZjfdVVHRpblB0ALZ93Q/SJzFn8IZgL7Uifs9VJxTXbMdCrx/VKK37xKXceF1Vew
+	 taXbbDyQQUPCq3yeZd0fdhG7W7roHb9GOI5Ontvq2TC+2Si4fbupBFJS4zuty9kFkqaNJ
+	 0FRKDuns+Ki567brcRWLOshoPr0J4BSTvyGtezKEI7Z3/+KgZu25nZvDqzXG6m97oPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792939242;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=9FAAKmlEypGsI9J86zAjMvVPqXYkvra1xp/aDP/bK/g=;
+	b=q/mN6GMy5L5nEW9XsMxZZksZEfH/N/a05YHdB3ikwbdfUyfxDMgBdfxHszp61IvSb53z
+	 TRRw2Y0RrjgwAniurWAxuJG6Q+9S3LAF59T3cVfxrmPRnr41OcbDigIc40Dj7hQe/vF5o
+	 PI1/6+sPPpUatAkqE5gVv0sJ+ByHskVd0d4eV1VP7047z3W/jm2NObFAm7Bj1b+WKCta1
+	 2TP/NnXTLouQCiUOjMdRjibt/L2AK0G8bupttEOqBoGNJPC7bKfxGvqazixhJ+VPGCWDX
+	 a2+SzvJ19QeYpBJLE1xURJ9hUQpljhENoXzLgtnJapZH7B6o/U0LLC1mwKqko5CWL2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4p9RgXF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50ED606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B50ED606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2392606A31A;
+	Sun, 25 Oct 2026 14:40:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KCyPtJde
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3584f70a5aaso372932eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:36:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792939019; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VhEciqW8aeC4QiqXUZfCwY8afST7ny7CY1IcVq8OWvorcqm/wSEBoqTyQY/fLOhXBJ
-         veGk3i4tdnti3vopc/DKJxdcyyl9Kd5l4P+mPYomUf2FMxpF0WpNQ8vgoawr2ZbkdL6K
-         MugX/WvO+FriS5bCqUdPuygsekrXQod6csDaPHJuhlYwNfEROO7lHtjJt+C2aL/pHG3M
-         0gJdHZtS6LUResyrjImnjpxIrZ9ykGyWhdltYUryoyuMGtZj2dKkLr0UT6X+oNljkiml
-         drXzB6exTGyQDLHWkP0LT1IuOi4FKuAq4rc9sDeMMgVB6sSrDZLYp0ISYlcyLrhK1OTh
-         dR/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7t8wKfK1o19+DWGwoFNHE4Tp8X9jgaWEQ6IOGtgFgAo=;
-        fh=Wvp+fakHI+wfOQ2V4yVnYyVqxPDX1nYVdUH5m8yXPOY=;
-        b=UT7mqYXtKfBf0E3u6gC3l9knnibo6ONnQJTLZiDV1mueq+pw3205kJeIU5wTqXup/C
-         Nx4mbpkJdkhaGbpX7b11gb4bAf5TfC8cb1/kTlOSFqUOEebpZhG0XO8moPAHumsYHKAF
-         mU+hm7DJyudQY1U3IRs2UeVFU8720rOL9BdzApaq9kiJNJq8H+MDNzujbOHtDuD5B7i8
-         WVhAVlneZVAUDHW3FmviUH0szC9uapvWSGmDA3r7AfbYbZl441KUdDXmHcI+vSOMLfsz
-         LKJJOiQoqBhi1Wo/NXBJg/Jv6aNlHyU3c6udDXVEkNU217uY0a9hwMGqcjEEDYXb/dXn
-         AUuQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792939019; x=1793543819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7t8wKfK1o19+DWGwoFNHE4Tp8X9jgaWEQ6IOGtgFgAo=;
-        b=KCyPtJdeW6FFq/pYmI8qmk4pj0VceGk0r3sATQ3CcnpAtkjG8ITVjusSlrvBV4VqES
-         IM1+qSXj+dHI6V1jDYppDud6J/VcAd+uAoH7I9I6BBoM2so7x1O98hO4JhdVdu/qBCS8
-         wfV37nOpNvshZGcc/wZzNsn8JQC0LDZodzWH1BDrFBbNWGYTis5D8P79Bet7dJ8IRzLA
-         vB1Iklms0Ov6IsB1ZlIiz7955IA3B9Vsbfh/ZASCowJCJ97G9Jl8QisCLuSLhOS0ltkv
-         W5Vylk2TW8Y7KBqJxkQ2yid6iLmnqxMCFMiw8n3sOJIX7JbNPmxiaNW3EJcX0rXvi4Rl
-         9jnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792939019; x=1793543819;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7t8wKfK1o19+DWGwoFNHE4Tp8X9jgaWEQ6IOGtgFgAo=;
-        b=iQF98LCNNm0Lum8csnal3pa2JNjOAOHANQitMMBlN4FRZDuuMx82cUZ+CEw4NRA7/J
-         lI1+rLVRX52SfRBzfJGCO+7hvL/T4Jn6FIx416K2+tzqAt992E/iUeEsJ0XWmS2i7d8l
-         8R+4dP804xDu+IcRZRHSYOVKsRLAmKe/bmxcT12ZDHnBZKdFW6T/quHPGOlB4wx8WsOH
-         knbp6Bnpgt0SLiFJtLACgONR2HAtIzWThkX7XYK5mDl2NHfFKw44DBeAIqdwJ5min6/7
-         7yAYXqCBw2nejCOaIoW/Fkm9zk9kiySVtAHtVzAmr/GJwisQWk+6wKI8Jr3081w/GqaP
-         e36g==
-X-Forwarded-Encrypted: i=1; AKwUvBwwkIVa5b0KQFQNjy5183zGIduhNE2MAxGBbVPjMiLCqYncVuiz/aoqUS6rAty6dIFxgjGjIcnGWE25L28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKs92IuUaCGEfz47F1WJUMCiNJKy8NJfvWjxY+e5/y9EdmB1EgA
-	4wghSWNs/fyP8JT0zH11qFlFXna2/KpV0hhYOWj1G2x1gwQYFdSilmnZc1D+TV/vn/r/PBI/yqI
-	s+lxq+d0kWEQ+O9J4E7pxy2XDreFikPE=
-X-Gm-Gg: AYBFou03YpP9/IHoi6eRC3lBg+Vjy7wycpN5h9lO6MxZEo0htE0yP6eX/okvGv0KWbU
-	R2UfWp2HHxb5SytKKrlVpQcb3v5THXL7wsLFKLFQfepSwA2h4DyStST51ERXvHyD/w4/G67ByYR
-	BtJKQ9uaxHmxKN0FqS6h9ttX8DVjASYD4KYyvL3vuU+qR+XOynT1oq9afRndbwe6rRAr4xko4GX
-	GlZ5/K6SpcN6+nSemH+vzX491hewKECn5gWPWbTUSu7XtPOghYbFF6JvZdZgVhR2h5+dtlrKIDH
-	Z9UrK0wPYmQ1CvK6akxGf2R6hjaBemLroABPUzrmQDHJPOCOgCa/xebCDmwF7RBP3mdMjnrumEF
-	8j7EPWYS/2tTk6r72OOSphzN0iAu7rCj/a4FRIwR6TSBtdtCJMY6LAV3Ri7/bGc4J7zshuOnfJO
-	v6fYRQCSKd7weEunTRkFrp8r915UminIaPkHwCDSrwqnxz3AKo2YSJzNgACJQf3OqXe9L69ljSW
-	QH9CI2tSV+UltWdq5wC28MZeRxXm/rog833
-X-Received: by 2002:a05:7301:19c:b0:368:1f8c:5f23 with SMTP id
- 5a478bee46e88-369e821311amr10193874eec.0.1792939018761; Sun, 25 Oct 2026
- 07:36:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4p9RgXF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2A51F01825;
+	Sun, 25 Oct 2026 14:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792939241;
+	bh=9FAAKmlEypGsI9J86zAjMvVPqXYkvra1xp/aDP/bK/g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=a4p9RgXFDdTIMncUeym0clbeqw5a446nsraSwDw1pBh9d9gQXcnbq/IFl4kL71eEv
+	 tdZKgP7EKMfg45l2194j9Z0UYiZ0Le3lSzfsZlhRodVz9XbfI9q9SBo+notV6Jag5g
+	 JkkOzQHf3nE2kcYfybNGV2ojbeD+FSQKg1i0SldRKWm7+piHIHICw0LLZd1/1Q5H5p
+	 2yHoKM3p9bhAGEVxBsO8qGTx5lrq/Qj3PJ+6ca/2lh6ClIlC9+dF/rQyGYHrNjRqQS
+	 +Fewk5VwvadGyCXE8Q5s5y1sZ37KjQtQpf2MkbHiy+8aevtfB9/Kp3sZhhMkpKB9x/
+	 ZfMAJ5FsLYrTA==
+Subject: Re: [PATCH net v4 3/3] netconsole: recheck device registration after
+ waiting for carrier
+From: netdev-bot+sashiko@kernel.org
+To: gustavold@gmail.com
+Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ stephen@networkplumber.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 25 Oct 2026 14:40:40 +0000
+Message-ID: <179293924034.3134.1271340447995228966@kernel.org>
+In-Reply-To: <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
+References: <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,40 +64,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025114304.16730-1-sagartaunk@proton.me>
-In-Reply-To: <20261025114304.16730-1-sagartaunk@proton.me>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 25 Oct 2026 15:36:46 +0100
-X-Gm-Features: AclHuK_uTRohvpAYfcxxJcFSohBs9I7tNrP1XAzPP9scTKatqkb4tVmZ6FhHCQ4
-Message-ID: <CANiq72kC=+EKHXgH2V1mCw2JYP-9DYGt9ohQ+0q-5_dzB-h77Q@mail.gmail.com>
-Subject: Re: [PATCH v3] rust: workqueue: fix SAFETY comment incorrectly
- referencing `Arc`
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Martin Rodriguez Reboredo <yakoyoku@gmail.com>, Tejun Heo <tj@kernel.org>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 25, 2026 at 12:43=E2=80=AFPM Sagar Taunk <sagartaunk@proton.me>=
- wrote:
->
-> I originally sent this patch in April but it was not merged because I mes=
-sed up on
-> the tags. I remembered that I failed to follow up on this while trying to=
- read this module.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-I don't think it was because of that, no worries :)
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 2
 
-I guess we can take it via `rust-next` unless workqueue wants to apply it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks for sending v3!
+- [Medium] The stall the commit message names is still reachable during
+  the carrier wait.
+- [Low] The patch fixes a user-visible bug but has no Fixes: tag.
+- [Low] The new check in netcons_netpoll_setup()
+  (drivers/net/netconsole.c:541) reads ndev->reg_state with a plain load.
 
-Cheers,
-Miguel
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the same
+  RTNL-drop window in netcons_netpoll_setup() loses other notifier…
+
+--
+
+netconsole: recheck device registration after waiting for carrier
+
+This patch adds a check in netcons_netpoll_setup(). After RTNL is retaken
+following the carrier wait, it confirms that ndev is still registered. If
+the device was unregistered in that window, the device reference is
+released and -ENODEV is returned.
+
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-netcons-fixes-v3-1-1aac85ed7665@gmail.com
+
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-netcons-fixes-v3-1-1aac85ed7665@gmail.com
+> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+
+[Severity: Low]
+Should this have a Fixes: tag? The commit message only has Closes: and
+Signed-off-by:.
+
+In netcons_netpoll_setup(), the rtnl_unlock() / netcons_wait_carrier() /
+rtnl_lock() sequence blames to 672ecd3bb145 ("netconsole: take over
+netpoll_setup() from netpoll"). That commit describes itself as pure code
+motion.
+
+Before that commit, the same window existed in
+net/core/netpoll.c:netpoll_setup():
+
+	rtnl_unlock();
+	netpoll_wait_carrier(np, ndev);
+	rtnl_lock();
+
+It was followed by __netpoll_setup() with no recheck.
+
+So the bug appears to be older than the netconsole.c history shows. Older
+stable trees would need a backport against net/core/netpoll.c rather than
+drivers/net/netconsole.c.
+
+> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+> index be7eb632ee424..bd36ebd334aa4 100644
+> --- a/drivers/net/netconsole.c
+> +++ b/drivers/net/netconsole.c
+> @@ -534,6 +534,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
+>  		rtnl_unlock();
+>  		netcons_wait_carrier(np, ndev);
+
+[Severity: Medium]
+Can the unregister_netdevice() stall from the commit message still happen
+during this wait?
+
+netcons_netpoll_setup() takes netdev_hold(ndev, &np->dev_tracker) before it
+drops RTNL. netcons_wait_carrier() only watches carrier:
+
+drivers/net/netconsole.c:netcons_wait_carrier() {
+	...
+	while (!netif_carrier_ok(ndev)) {
+		if (time_after(jiffies, atmost)) {
+			np_notice(np, "timeout waiting for carrier\n");
+			break;
+		}
+		msleep(1);
+	}
+}
+
+Suppose the device is unregistered while this loop runs. netdev_run_todo()
+then waits in netdev_wait_allrefs_any() and resends NETDEV_UNREGISTER.
+netconsole can't drop its reference in response, because np->dev is still
+NULL and netconsole_netdev_event() only matches on nt->np.dev == dev.
+
+A device that was just opened and then torn down usually won't get
+carrier. The loop then tends to run until carrier_timeout expires (default
+4 seconds, a writable module parameter). Only after that does the new
+reg_state check reach netdev_put().
+
+Doesn't that leave unregister_netdevice() blocked for up to
+carrier_timeout seconds? If that is longer than
+netdev_unregister_timeout_secs, the "waiting for ... to become free"
+warning is also printed.
+
+The resend already limited the stall before this patch, so the change
+seems to shorten it by about one resend interval at most.
+
+Would it make sense to also break out of netcons_wait_carrier() when
+READ_ONCE(ndev->reg_state) != NETREG_REGISTERED? The new check after
+rtnl_lock() would then do the cleanup.
+
+>  		rtnl_lock();
+> +
+> +		/* Check that ndev hasn't been unregistered when we released
+> +		 * the RTNL above.
+> +		 */
+> +		if (ndev->reg_state != NETREG_REGISTERED) {
+
+[Severity: Low]
+Should this be READ_ONCE(ndev->reg_state)?
+
+RTNL doesn't serialize this read against every writer. netdev_run_todo()
+drops RTNL before it writes the final state:
+
+net/core/dev.c:netdev_run_todo() {
+	...
+	__rtnl_unlock();
+	...
+		netdev_lock(dev);
+		WRITE_ONCE(dev->reg_state, NETREG_UNREGISTERED);
+		netdev_unlock(dev);
+	...
+}
+
+This means netconsole can hold RTNL and read reg_state while that
+WRITE_ONCE() runs. A plain read racing a marked write is a data race that
+KCSAN can report.
+
+The behavior is the same either way, since both NETREG_UNREGISTERING and
+NETREG_UNREGISTERED fail the check. Other lockless readers in dev.c use
+READ_ONCE() here. process_resume_target() has the same plain read.
+
+> +			np_err(np, "%s was unregistered while waiting for carrier, aborting\n",
+> +			       netcons_egress_dev(np, buf, sizeof(buf)));
+> +			err = -ENODEV;
+> +			goto put;
+> +		}
+>  	}
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the same RTNL-drop window
+also loses other notifier events, and the reg_state check doesn't catch
+them.
+
+np->dev stays NULL until __netpoll_setup(). Any NETDEV_UNREGISTER,
+NETDEV_JOIN or NETDEV_CHANGENAME sent during netcons_wait_carrier() is
+therefore ignored by netconsole_netdev_event():
+
+	if (nt->np.dev == dev) {
+
+Two cases seem to get past the new check.
+
+The first is a netns move. __dev_change_net_namespace() calls netif_close(),
+unlist_netdevice() and call_netdevice_notifiers(NETDEV_UNREGISTER, dev).
+Its comment says "dev->reg_state stays at NETREG_REGISTERED". If local_ip
+was set explicitly, __netpoll_setup() then binds an enabled target to a
+device that now lives in another netns.
+
+The second is enslavement. bond_enslave() and br_add_if() send NETDEV_JOIN,
+and that event is lost too. The netdev_master_upper_dev_get() check is not
+run again after rtnl_lock(), and __netpoll_setup() only checks
+IFF_DISABLE_NETPOLL. netconsole can then end up on a slave device, which the
+-EBUSY check is meant to prevent.
+
+process_resume_target() has the same reg_state-only recheck.
+
+Would it be worth also checking net_eq(dev_net(ndev), net) and
+!netdev_master_upper_dev_get(ndev) after RTNL is retaken?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021-netcons-fixes-v4-0-3857120c6340%40gmail.com
