@@ -1,91 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792947175;
-	b=dD/nTlK1Sa+NNHQZQS/ytZclO5hz3YYLT8uyMFcGoz8whgEaf9azW8g1FQ4+/m300ZLx
-	 gFyVPDZacVoye4O4pMKS2eeW9CqJ3pUQTox41bqNPYbBaknXoyBTEkdEYFAGC9uFVxGNh
-	 w7Y4qdmBPWnt9i+Lc4u/ZoACdIWvKJD5ryfoyFiyb9YHspLQ0ytZCEiAypuEqIFzbMpwl
-	 DbxO2BEh7vFTYO2V4wCIgt79cULjoFdEqcjh2L5Xs1n6zyOSPg9U6GKxicT2NeWb84aSD
-	 YMsjmYtx4i7zsns0JkxTHaydiHln4wn1nPUPQXoEb5V4paLW0PhUhbyM+FrLMMdD5lg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792947175;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ks5Nj1Rp6nJ8C0/sAGiBc8M5bTi1BI3WWiAy9GduFxA=;
-	b=vs9jVdAtZQhXq6Ife3mVJG7xi1e3Xyi94SohSpPq70mkY8o6bsHHjPfXdZ0WhC4uJep7
-	 xiw8PaUec4ZiqZzpP64jTVLTe6wHlD3Qp0D9pmlOd6v5cB+s/8vPqgr9hxvsCCe2Gr7Ah
-	 p/lP9aLzYle6yhBVK5asecu/gy9GUja3W4mylr6fpQeTcR/EtC+YCT2iB6BkPs5n4QU42
-	 2XKFcvdLjhSVn11vTVrtlieuNmYtxpsyTTXL64CX/Hi2nD5jekjKHO4UFVGTWrwTj9NdY
-	 bOWRTYMYdoIuq55keUjj76Kj9OT57NF10cSwgHyUxE/1GKIFJHTVUoeOIJO6WLZFYaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gO83qPJT;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792947626;
+	b=gvn+k9QrSqC9ynUOr8sj1PYPKLtAGKU7bsReuklKVvumoF5r77I97AqDXPXRr+9rO+io
+	 vcCIjyYEo3EdxCQxtPNbMyJ/PhjJqPlyVvnUOfSaCMusTZkZSGl8V+oqS+qyyW10Kamjx
+	 6XjxE2ouNBzV4cN28QIuUEtnQspItBOqHJM5uDXzb+xSlJMfH3EZY0+WJlMTxctoeU6oK
+	 U8W7UEGI1NYamblpqPQ25SoUC4nbxLjC37lVed4so/7OPwk4UOOFZcuAz+GhqWAxXubwS
+	 5M1SnmsQfeiZn0s+pBKmD70riWztQdGzLEDP7bSrv53aSsm5aY3DIZlDP2ZTbdZLOVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792947626;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2kaGId0jyBB2Z9Zn37kzMz1TDKdpgYpw9Y9lXWn779U=;
+	b=osxm7lXDIKC99qmW0fzXml2EUkYEDn0bcsQphqYRE1BPIIZk23nNS/Os9pTA4yjxOFYf
+	 PITA8P5M9CNPUXvbHsF4dis+0LC7U5jm3Ki0wV81Cz3sZCmkcC/LmERPvkl8L6e/kNDf4
+	 YhJxICNOsTKNvMwF3sapfTsTK0HuxpqCcWo/7aVXIXB+lLG3m6SHXvTksgl9HIKBhZOwO
+	 JwzWY5KLQnNVOeADIt1UxGVCTF1v4KXe6L20F/HM2WRwELJ3cbcV9gk1IRkb/mjC8/+uo
+	 byxrWgUigVpdmmtjqaLXMlPkLJ/bjgxi5hgx6u2h6Oxg+mWxs6CRwm3gCT2g9KyOK7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfUVcSv2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9A6606A31F;
+	Sun, 25 Oct 2026 17:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfUVcSv2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792947625;
+	b=RIBYkbyKxxoxK7upH5Dyn+qqQwTxzG1lfAtam9lKz2eIfvtr8vx877XNmNiyxuxe6pyx
+	 FbAKcb8oQiUiWAZGi9xFpW3JiGmsA03ZaKRydOCTb446rmQDG/iltcZ2Bz9UFXQ1P61mu
+	 bEFuZYd/VZ2HK9FvMf9dT5ed+R8OD7OHSdl0RXksg/s+ptCEQjZfBXhUeNV8X+jz+9B7i
+	 MmFR24ouDYxta7iirPNMa2X5jSelgBBjSPx4i3iYyZt0wWJI4Apm1xHSNGkDKW3Ukncs3
+	 8q/qMO4tL3uOUjegMiA8wBYEz+s7IIOzAQbbqnXJ6wjz4Yma/bu+XI3Jfcw4aisgxPA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792947625;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2kaGId0jyBB2Z9Zn37kzMz1TDKdpgYpw9Y9lXWn779U=;
+	b=VXFqLDswjaNvUZ1TS7TfcrjSMA1PK+qMzil7eo5/5J8EV8Z4jlRziawfup9G371i+GYP
+	 hLSdcFwiipU8paY+XDXcucF5GB6XGUFQ589gTMe4vZEnduyvphk53E9FWko4Vhu1o77JJ
+	 qNVE8PSSWav5Zn7wRisiVkkNXvC1JyUraOLO+gQw4h9yuKE/ejdqhCB+AWPwPvT6NJFzq
+	 Yl9+feDkMOQzwMrpNq5tPex4S51qvZHpWsAw8MafWnxOm8avVUvbniED1aAeo1zYvhq6U
+	 Q9jesyj9rUUUiZqtKv9eAiF70oBtCd7afgtloPDNqgDRsROE2yPwIre6bNCNGDwAcMg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828B2606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 828B2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gO83qPJT
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-19305bcb72cso1399030c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:52:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792947174; x=1793551974; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ks5Nj1Rp6nJ8C0/sAGiBc8M5bTi1BI3WWiAy9GduFxA=;
-        b=gO83qPJTlsVOuCRHiUlIgxveQCeYRw0awcZJWoKO6HvcBlwdr/EOpPOKyCo4BtQ9c3
-         0OhR/DIFFl3ZhoVMSg6hQNys4+lqMr4D2qws1357RfIiF/j2p2SBomdejKMVU19hbSho
-         NlqcWd1Lh/TyxhAJHRgTnWcdUNCv2G3OgqTDvf5tpjg7IYc7hqi/JlEO0ckzPad9flXD
-         hKNVtyMrgp+G2qBU2otyxiZed8+M7kKzwQEUmjPuEuRCoHlkDa9Xktnmnqf7fXi/eN8h
-         ZtlzrZf/UkbgEIg4dxpkUCOQ4fG5kLXyh+D5juCeltMltIS8hxxulciErWKX80A4P9ZT
-         /Qwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792947174; x=1793551974;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ks5Nj1Rp6nJ8C0/sAGiBc8M5bTi1BI3WWiAy9GduFxA=;
-        b=xYIFvm9ZQFNkMWoCLYfo1j5rv62TGHzbQegZ9AUJeSZexUgG1juL92iBkhAF66UFjY
-         Hp+HBeywUS3Wrzx+RtnO9zmsrK29hnxf2dXX8KpCdw96PTp/cJQzB3H5fu0tk1kQaOK3
-         Vg0U1a/7n5y31eJYENZ+dXwSw5EWZLPgZTQsJfOcGYq5NHy1czktXDfCrfbFfkfAG1Ql
-         REP0sxgUjkx97aHztnm1zTFDcPpNjzOtd11egfrvT9bb9pFFJimkns87ruJk2f+1QFRV
-         OXrs9Zs38nNEB2ZJ/HCpnDWrvzu5B/7WDaybv/xBgdr+UDAd+4SyAuLvWqR7CZ7ABtLr
-         Lurw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDFNCQhYL0vsbghETYl70dPkjkDupiESO6tzSIhcswhXoc+rfD5kPMF7dfUnSBpHCia1U7Sa2wlc8BF0c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIehs6I3ma7zbzgVlnvkDWyiVoSpfr8j0gt7IJkNURAARC3NCa
-	tA6rWZ5hqR6xN/Jz9+zOtir1AJlgTYpJ8xMv1bc0cSt2oUPYuUnBrtNG
-X-Gm-Gg: AYBFou15PWpmz1WXLqlxSle5UX4P0Jfn9DPYL0KSPduSLaMP44q63eUes5DM9JMidnv
-	aAl1MWuF2jiKTclbXTThearCv7OXdZHrDT6CXwHk099iN9fz3hVDTk+5GlkHHuTURpKWTbzmc6U
-	GIrF5TfrES1Ik+WSvRe0zvv8mFQ9GDWtrOePCVAb+0wp7BaXTDNh7V7+ZvAifjjkO/HxRoKujXz
-	vAMLOnC9RrOaTY2e7xThPuVIwc6gz/qUdFvSoDpYnIso28096iM8SF9E9yrB3fSUto15CFFBe/4
-	uTvFlksnZw83LOo3R2mBX4SaQCXglj4W6fHKuEkVb8eAfHc31/QeFevdPDqA1x+74FF9AxFT+mF
-	8A7iV8v+ayIV2AgsYcIcMqOg8u2kOfUzLlBySyEtYHihFTssY8z8wrrlEfYFbflUsHzb1sL8sby
-	lLGaF0KC3U5vqIZjo9uWs01S7V3hLgZF1PWrjBcf8JFmcOYZl2KQrQobNSfcoRrdf8Yst9ycmsW
-	IDS1eFm+Q67M+tGUi9CTcQ9170OYAi91fJpiZ1sSvk0NUhwAVox0DTSuMJcMdVgIWlWp3Qh
-X-Received: by 2002:a05:7022:3f07:b0:144:fa57:c617 with SMTP id a92af1059eb24-19935dd7f53mr7910138c88.34.1792947173498;
-        Sun, 25 Oct 2026 09:52:53 -0700 (PDT)
-Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee69sm24035239c88.4.2026.10.25.09.52.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:52:53 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tracing: Free tracer resources on instance creation failure
-Date: Mon, 26 Oct 2026 01:52:50 +0900
-Message-ID: <20261025165250.65363-1-pocj8ur4in@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 58D0A1F01825;
+	Sun, 25 Oct 2026 17:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792947625;
+	bh=2kaGId0jyBB2Z9Zn37kzMz1TDKdpgYpw9Y9lXWn779U=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=IfUVcSv2jVTNBkiLx4m7R7ScfN00N88OPau14IUmapjq/3wuFWKbOTcMNgC19xigM
+	 ksCxcxVXJkxWkNgqKG/m/UUz8wCkYe05uBnC/2PGUvd3a1A9zbCBNsuf+ZeTST0XVP
+	 ivjjA/YBqUtJZkf15FjtqDZwewc6VFqQBDkHBFZHq1QYbHTw4vQDuYt4dLaypPonUx
+	 XX7vJVPcbtEQjWC89y8J9ve7+97YRKFs4pSrfGNKc7Ch625MuimofaT2t7FmCsiwhN
+	 g1GjxgaxcN/sbDNiyfGQh7eKA27Z853BcGpmZBlQexps7rt7MTIXq2oKDUeBRv5+YR
+	 iFepICpwN3yFw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CB96D44A74;
+	Sun, 25 Oct 2026 17:00:24 +0000 (UTC)
+From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Date: Sun, 25 Oct 2026 16:59:41 +0000
+Subject: [PATCH] iio: test: iio-test-format: add test case for char format
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,53 +82,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-iio-test-format-char-v1-1-e2c208f90e87@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB1IAq3aq4iLqBMdQSMzaSmId
+ zetyw/e+w9QEiaFV3GA0IeV45ZhywKG2W8TIY/Z4Ix7WuMeyBwxkSYMUVafMK8Ea2+r0IfGO2M
+ hX3ehwN9/tu1u67tfaEi/FpznBdGu6/R4AAAA
+X-Change-ID: 20261025-iio-test-format-char-8a17fbf9a201
+To: Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792947624; l=2121;
+ i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=uYIGztgLiYRny/7kylD4MRCRKqn6ok2BmKnYkqfKVcI=;
+ b=xBDuRUL+yDkde1Lwh9CMrp33F0cJH9ggpOK2GKUdDyWWatBvnmFIWACQ3CzvcSdm/a8Rao18T
+ DiA2jJLpvZ0ByTE3W8YmcmNq4CskLZRb6u7LVZ3J6OlAbTJ0qu0kVwm
+X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
+ pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
+X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
+ with auth_id=1160
+X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Reply-To: raffaele.tranfaglia@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Creating a tracefs instance can allocate private tracer nodes, copied
-flags and option arrays before trace_array_create_dir() returns. If a
-later allocation fails, trace_array_create_systems() jumps to
-out_free_tr and frees the trace_array without releasing those private
-allocations. The failed instance is never registered, so normal removal
-cannot reclaim them.
+From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 
-Free the tracer nodes and option arrays when trace_array_create_dir()
-fails, then continue through the existing trace_array cleanup. Earlier
-failures still use out_free_tr because the tracer list is not yet
-initialized there.
+IIO_VAL_CHAR is used by thermocouple drivers to report the
+thermocouple type, but iio_format_value() has no test for it.
 
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+Add a test case that checks a single character is printed followed
+by a newline.
+
+Assisted-by: LLM
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 ---
-Tested under ARM64 QEMU/KVM through tracefs instance mkdir with
-failslab targeting tracer flags, a later tracer node and option-array
-growth. The baseline retained one or four private allocations after
-the failed mkdir; the patched kernel retained none. Normal instance
-option read/write and removal also passed.
+Tested with KUnit on arm64 QEMU: all 8 iio-format cases pass.
+---
+ drivers/iio/test/iio-test-format.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
- kernel/trace/trace.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+diff --git a/drivers/iio/test/iio-test-format.c b/drivers/iio/test/iio-test-format.c
+index e5d0a2ac4670..701c362695f3 100644
+--- a/drivers/iio/test/iio-test-format.c
++++ b/drivers/iio/test/iio-test-format.c
+@@ -197,6 +197,28 @@ static void iio_test_iio_format_value_multiple(struct kunit *test)
+ 	IIO_TEST_FORMAT_EXPECT_EQ(test, buf, ret, "1 -2 3 -4 5 \n");
+ }
+ 
++static void iio_test_iio_format_value_char(struct kunit *test)
++{
++	char *buf;
++	int val;
++	int ret;
++
++	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
++
++	val = 'K';
++	ret = iio_format_value(buf, IIO_VAL_CHAR, 1, &val);
++	IIO_TEST_FORMAT_EXPECT_EQ(test, buf, ret, "K\n");
++
++	val = 'j';
++	ret = iio_format_value(buf, IIO_VAL_CHAR, 1, &val);
++	IIO_TEST_FORMAT_EXPECT_EQ(test, buf, ret, "j\n");
++
++	val = '0';
++	ret = iio_format_value(buf, IIO_VAL_CHAR, 1, &val);
++	IIO_TEST_FORMAT_EXPECT_EQ(test, buf, ret, "0\n");
++}
++
+ static void iio_test_iio_format_value_integer_64(struct kunit *test)
+ {
+ 	int values[2];
+@@ -308,6 +330,7 @@ static struct kunit_case iio_format_test_cases[] = {
+ 		KUNIT_CASE(iio_test_iio_format_value_fractional),
+ 		KUNIT_CASE(iio_test_iio_format_value_fractional_log2),
+ 		KUNIT_CASE(iio_test_iio_format_value_multiple),
++		KUNIT_CASE(iio_test_iio_format_value_char),
+ 		KUNIT_CASE(iio_test_iio_format_value_integer_64),
+ 		KUNIT_CASE(iio_test_iio_format_value_decimal_64),
+ 		{ }
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 97a058623f94..ad68a39a1161 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -8751,7 +8751,7 @@ trace_array_create_systems(const char *name, const char *systems,
- 	if (trace_instance_dir) {
- 		ret = trace_array_create_dir(tr);
- 		if (ret)
--			goto out_free_tr;
-+			goto out_free_tracers;
- 	} else
- 		__trace_early_add_events(tr);
- 
-@@ -8761,6 +8761,11 @@ trace_array_create_systems(const char *name, const char *systems,
- 
- 	return tr;
- 
-+ out_free_tracers:
-+	free_tracers(tr);
-+	for (int i = 0; i < tr->nr_topts; i++)
-+		kfree(tr->topts[i].topts);
-+	kfree(tr->topts);
-  out_free_tr:
- 	ftrace_free_ftrace_ops(tr);
- 	free_trace_buffers(tr);
+---
+base-commit: c9dbe2a47f635465c9985b7af74d2ae310e98125
+change-id: 20261025-iio-test-format-char-8a17fbf9a201
+
+Best regards,
+--  
+Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+
+
