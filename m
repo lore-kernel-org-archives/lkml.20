@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792901010;
-	b=BfcwzEPPVgaTUZXSbbTBKW3AQC4/U7pczLbVR7ekw1rtUvaKJdMYGgPvib7TFXf9FJfB
-	 PPVFDZnHXe5uxlnRuhTHZIg9/LUpkWKB+6oPJo7oESsolKEgsmrqyzCmPfts7QmUsUgRI
-	 EXbMnbmsg/VYZ1X4bXNoxpQkuVE0VZOZL4Q2KLYnGgygJygd6n/aQSHh1tUY8B1yqRPPs
-	 Yz0aXF64N/ZJHDgTOP8gKeMCHUUtDW4PoCLK52oHBIaD9e4EWVN6FINXwmREpOMRpnu2Q
-	 ZV2oFbpmkgLQNh0T0gaehMEtCOC+TTaIyHqJBd7wuf1QfAaZiFGlH7pBRpCwgwh+tgg==
+	t=1792901023;
+	b=rkTeAki/9YWnSzMD8vnDDdD60UENn6Y9/t48PPYDnBRpyokun7PcmMJCvpcY8+kCUZor
+	 3QQpiojQcOb0gTe2Ur9PGYVyLgfAVz5vus6xjk4ophO41jXGa7pVgPq43/g+HWarsoLUQ
+	 xp3uxbxvmeA+tcDENTBu1GlVnfRi1pt3poTDYPc/3WKGyeQw+LpFpWdSgnjsycqa1hAQm
+	 GqhSkQ3wQuwHAneM7xjSKUNmKeH4X0vpbwrkX95q5QWhVy2K+I5vCp+xFv86txNUJPcCx
+	 aAbwZs+DrywS3ioxocgN7z6G03HfBq0IxdDOiUgEusdWJeLQFvOZJy2WSVw10usPymQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792901010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792901023;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
-	b=G2mJlPJOqBy9YlljzMnlrmwzR3YYagPwJDFfFuHRcDSlkM6hDL0liw6GGBS9ynUMn7O5
-	 2wW8HkWkRt+czTE5hHTfOie3LujovLMpPu6VWlG8rH3e2H1uyEc2Kmc/6SAt++7dE/ixj
-	 ZkF3PVkpmohHsw2C2SvmWwitsrAAqJkZ9okkAPJrdcgKSoIl8V5r1YcXWD643H8G4WTB0
-	 SIP2plZzhTWBP3TUDamqAYlMBSTN/Hqx9HCN17G9u1ikjskCUTB0fziIFbEnCRGZF2h7b
-	 ey1Q/KRyk97vubBtiwB5jC+ZD8iMNjZQNmLpzX2GFvlMWsuaah2lSOKKUWwEr13yChA==
+	bh=iig0z0KMkzGM7EBZYC3zYQ+uH8lNfEJyczCziU7pfIM=;
+	b=LeydYAGHoh6zQbx9pLztmUUo0qxVvvDpZ1EUjPxghxZN2oPaSDYP8N8AZ0GD2t6EPNGu
+	 tpa6BUs3A+5Fd6gOEAUxByhUMgy0nlp5ZCi/cBpx5orlycSHXZ511af8UkTglTaqf/kc8
+	 GRMsja4aYY7e3k3yv9bj6co+/K31dgi1Jnqz279EyoD80FBflpWcvQXVkRmvOPii9dEIg
+	 zwO+9CBu62sNSpgwUurvz2EU/S5aos9w4sjv0UWuUOgL0+LVD9X4ufgkNrxF0ng0NC3BN
+	 YBDOZrwSTN6DySItRDpL4sCrnKr7U4A84JTxj/vk5akq0yODLY/QOXfFA3RSBoiVSxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AM0uRj5N;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PJtxf6Nk;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C14606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:03:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C14606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07294606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07294606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AM0uRj5N
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3322709eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:03:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PJtxf6Nk
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14fc585291cso716542c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 21:03:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792901008; x=1793505808; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792901022; x=1793505822; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
-        b=AM0uRj5Ni7AVIcmLeHYqnhgJL5glYj9pmfjYAEkYwXLA2M3nSbfZFYqtnxRtrZ4b7w
-         8K9zNrzpqDaFxY3kFaYiDnyFTPvmqZgUrPrQVZrf81hzVR+aRanRnZWNEa94ExLC5ASH
-         I1X72VUzfiUVdGQq6ClApCjwhoBBCluFlr72HHCV8nqALB7wIs5jX5dwOjSpF2uX7xr3
-         m71EfYgUvlCOzGXNE6+y7OVqHeFb7Ynda5dYBuVvuCiGmwsjoqoYsikXjJyjNSJRsYAf
-         +Gab036V3AH+boxsd0vqnpmWph3SCV4aFwjmnk+JOaXJ3Te3yTrc6inSfOqw79cd7a9g
-         rRwA==
+        bh=iig0z0KMkzGM7EBZYC3zYQ+uH8lNfEJyczCziU7pfIM=;
+        b=PJtxf6NkKfEOOHQLs4zYC2Hznepq2CsdFd24+OGx88t7IlFyrpiRpm0fCWe30C9LU/
+         0IhNvRfSkw/Y+LMgxZ2yvRQVK4wtjnkKiZb0obEZnW/B+9wGVz4n0zmBZKLLg5fEXrlE
+         cF+dPDQhvmaui3Ptk6UkusVRH4mz1Szol5Rkz7JIOw2EzXcq3uagbkoeIsIqvPEXWF76
+         eNrrnqcy+zuPdSukRf81k6LSGF0J8GcRcNn7C+xkPkD4e6JlqRJ8vCyV2tYGTSM7Crwe
+         1VovFpoIHbUKrsCAXU57jex2hh2Pa4XkL+TqDDnP+t2FQKmKcAh7LnwXQ6/5KXvWzDkM
+         +FmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792901008; x=1793505808;
+        d=1e100.net; s=20260707; t=1792901022; x=1793505822;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
-        b=RVOphft538n3xd3hjgHtCTrMnyfVpVHyd0/pJLkSFM1AmzK2nQomfrofeAvGWT5tY7
-         zHO3NyTlcelWJ3U75z5fmRG6I67JmwtYDNTRVAWqfeu7II5znnZBwa40RqTY2FgPxKoj
-         xE0gSXakgCx122vQT0gnkAxEJZcK/isJUqCbMK9SWNDiivHPiqD3jAgNwHK9JgHt1r/b
-         wa09CX19QIb1atKbt/gBBNNq2wMxMVk79rg2vCCmYJb0vafJBpGlThZ2CTghj26YeX1Z
-         yW++ZeJJ9anBDA7PDAQ1v0v/738FKAwR9V/LGZGV0DDP5O+B/TeduBGVZDTlxqHc9OCy
-         EcDw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8Z02/YyN4mpyxA/AeCighR6Bp9Y7m/fvNimgu78rhqj2rp+etOlSBYQlzq1PkudseP65YcsLaVjJtaOc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxKhKPKnk1xjfzGPP/ejew/VPNuJpGDSKWKG6b2dK94oeuB22Z
-	v6HYYJTXaZZB5h+NAcG7o+kKQLOn5zX/1pxaznvRkRj+7uoXXQ2Vjww=
-X-Gm-Gg: AYBFou0T6DADIWl1cvKm7T/3s1q304yGQ3+uMbfnMieDElpu3NQYpp4o5xTD2jG60zD
-	h6iD0uOd/yg4MgXy2KumzAnM6OBmjethaxOWdmH+gJrI82sIAiF33hemS7qSYLM8wCDQP9LLlq5
-	/QfK+wJ5RidNtoRkXIX9CVA7gl4tg2pnoG/eCclTzYrtpfM6HfdVSUxOX7MXouixhyIjL3+Ybf4
-	jiBj39+Z+3YCpHDI2XnXGjbg/rn/wJ97oZQchLk1s851mXdjuGxh8MEpWkrvmqm2NdsNB/NUAgz
-	hnSXFUUP/5vNSiLWhYXmMVLavthuNKMTo7J39cSNH3kv0Gnpe1/9ZBqNCqdNLjDR58dWGJA9VPW
-	aO0rQyy8gdxn6BIjVC6DKRWJFlF3n2Cn1RFtsjrrc5qTgPys5WLU35E5ITezIH78tuQZIITaqTL
-	2+CUHsbbSndybyLiDRbbQsytR2Y2xFG049XObNgR2JWBjtk0Eew8EJuvjTw9iHdyvJ2Ir7cAjbi
-	/YuTipus3tajYCs5QMM08Wv5cHs2iZHlcJRw7mtDldXQ14r3cx8ORXDKMNgqLc0x3OXVVpYgNHS
-	fae1SYXX03q0sTkLpeRJwfchqpdEFgsWoA65
-X-Received: by 2002:a05:701b:42cd:10b0:187:ec67:2fc5 with SMTP id a92af1059eb24-1993702567cmr5122803c88.32.1792901008081;
-        Sat, 24 Oct 2026 21:03:28 -0700 (PDT)
+        bh=iig0z0KMkzGM7EBZYC3zYQ+uH8lNfEJyczCziU7pfIM=;
+        b=lSzLZQCOsGrfkiXqaW9hAONPAPKuLm0q1R92OL8DKX8elFwA4M4XKHzvkoLwPBHJuH
+         5zL9XSmV4qhiOjOjQ6SW12UzFhZCdLGX3Dw3o6ixbuxkVNDWmyXdwOQZmVXBQZdYPSe4
+         NW5+nRi1y1ScXM4zkJvnH8T+GH/Gx3cMvajiEoooyOxPifZLGC6WU1PcvVUrO6SmfbiG
+         BvSY7rnB8NN7HX+ipQr1G3mtOZPxskUhjRdnH+id8E3mzioxtky2oB9LFcgUwyMYS0u9
+         2flnH3zzqYJaICxMP9DP9rxLp2V8cVm7iihELoRe2AdvKAHzHQSXLUD4VkYD60dCstTV
+         dt+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwfqnjV12JpHxJGQ9o0HgU49aq9sx7AeuX/TOlo4yzQNxwPMWaTkJLszmMh6dZ2+gIY/F3c6/4txEGSo/A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHQ5tfHsTnNMzq69psBPRCpZMl75KtUAW25QZYMYmus4J4fntR
+	XUQur6ipDGGY4sRVcYLCkpPPE0m/0MAo5RvilFXruvfxy/ySxS/u1ko=
+X-Gm-Gg: AYBFou0sGT4zZwWtyjKkeQ+MnoLkHxNXEyyx/4BB6/86Ium/3eJlO8OlTRA0WpTgJyt
+	vjR22ehSBCcYU7OPWFRNtq48qyBz6mDqr9s2dpd+1S7sU3YiTDOpTBztj8dkyzEra1may/OEuWF
+	4Emcn6cHX0If3Kbv7yByUpS94a2gJzXWGLbroVbSp/kEXoyDYWfn0/d2yX316bObcHt7qw7JkQ6
+	RTuiPvp73nYoL5imfgpm5zYTOe09KDnmgOodZ4T8JmfMfI/vMRHdrRSNtnAtxMHcwNUT1VFmqUG
+	yP7ElBskk+OJ+PmesRxssW5nJuS/UFWZ/wOhSSlsK7KUrKSr5U8YJMtEiw8FKmBs0CRjJFx9Ug4
+	Xzwc+yc5cwoGoctcQprkAufmGAQjynQr6vEaHhMb3N6ujm/4aivCGy0zyrGucQDaotUYbFw+t2i
+	oWQT5x6c9Xw6kQ5W4bLcd64vLPwy1KdfqxFE+Rx7ippJWXnkJpQm/v4KkoSiyS1CHxprd5xQcP6
+	0x9fpl4v0r7mLcqPqXrO+K7e9ZkQukDXH2nNinf3scpkL9FXcjlRc5si+MICdOTVoxTmjDsrihk
+	H/IgGSGa6ezUCnvm
+X-Received: by 2002:a05:7022:7f12:b0:176:2095:1ac4 with SMTP id a92af1059eb24-19935be809dmr5230234c88.18.1792901022034;
+        Sat, 24 Oct 2026 21:03:42 -0700 (PDT)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.19
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 21:03:27 -0700 (PDT)
+        Sat, 24 Oct 2026 21:03:41 -0700 (PDT)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Andre Eikmeyer <dev@deq.rocks>,
@@ -104,9 +104,9 @@ Cc: Andre Eikmeyer <dev@deq.rocks>,
 	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
 	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
 	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 09/13] drm/amdgpu: Add Apple GMUX runtime PM support
-Date: Sat, 24 Oct 2026 23:59:45 -0400
-Message-ID: <20261025040046.1602-10-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH 10/13] drm/amdgpu: Catch register access while GMUX keeps the GPU off
+Date: Sat, 24 Oct 2026 23:59:46 -0400
+Message-ID: <20261025040046.1602-11-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
@@ -123,325 +123,147 @@ Content-Transfer-Encoding: 8bit
 
 From: Andre Eikmeyer <dev@deq.rocks>
 
-The T2 MacBookPro's uses Apple GMUX to control power to the discrete GPU,
-but it does not expose the ATPX or ACPI power-resource interfaces currently
-recognized by amdgpu. The driver therefore leaves runtime PM disabled even
-though vga_switcheroo can switch the GPU reliably.
-
-A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
-to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
-across system sleep, following the smart-suspend handling already used by
-BOCO devices.
-
-On muxed systems the inactive GPU cannot reach the panel AUX channel. Like
-the macOS driver, tell Display Core that eDP is disconnected before
-dc_create() when the GMUX GPU is not the boot display device, and skip eDP
-detection at init as the resume path already does. This avoids powering the
-panel from the inactive GPU and retaining a fail-safe sink that reports as
-connected and keeps the GPU runtime busy.
-
-This allows the discrete GPU to enter D3cold while the integrated GPU is
-primary and allows PRIME workloads and external displays to wake it on
-demand.
-
-This was tested on MacBookPro15,1, 16,1, 16,4 together
-with the corresponding apple-gmux power-sequencing support.
+As mentioned previous any access to the GPU when the GMUX has
+shut off the rails results in a CPU CATTER, skip and report
+any register access after the GPU was runtime suspended for GMUX power-off.
 
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 55 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 40 +++++++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
- 5 files changed, 93 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  5 ++++
+ .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    | 24 +++++++++++++++++++
+ 4 files changed, 36 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a9c6f5d4a..6fd607587 100644
+index 6fd607587..ac8dfc3ab 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1194,6 +1194,8 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
- int amdgpu_device_link_reset(struct amdgpu_device *adev);
- bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
- bool amdgpu_device_supports_px(struct amdgpu_device *adev);
-+bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
-+bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev);
- bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
- bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
- int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+@@ -881,6 +881,8 @@ struct amdgpu_device {
+ 	/* enable runtime pm on the device */
+ 	bool                            in_runpm;
+ 	bool                            has_pr3;
++	/* GMUX has cut power, any register access would hang the PEG link */
++	bool                            gmux_off;
+ 
+ 	bool                            ucode_sysfs_en;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9269e780f..c1f196242 100644
+index c1f196242..8185934b4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -34,6 +34,7 @@
- #include <linux/slab.h>
- #include <linux/iommu.h>
- #include <linux/pci.h>
-+#include <linux/dmi.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/apple-gmux.h>
- #include <linux/nospec.h>
-@@ -570,6 +571,45 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
- 	return false;
- }
+@@ -946,6 +946,11 @@ bool amdgpu_device_skip_hw_access(struct amdgpu_device *adev)
+ 	if (adev->no_hw_access)
+ 		return true;
  
-+static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+		},
-+	},
-+	{ }
-+};
-+
-+bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
-+{
-+	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
-+	       !dev_is_removable(&adev->pdev->dev) &&
-+	       apple_gmux_detect(NULL, NULL);
-+}
-+
-+bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev)
-+{
-+	return amdgpu_device_supports_gmux(adev) &&
-+	       (dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,3") ||
-+		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,1") ||
-+		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,4"));
-+}
-+
- /**
-  * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
-  *
-@@ -640,6 +680,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
- 			/* enable PX as runtime mode */
- 			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
- 			dev_info(adev->dev, "Using ATPX for runtime pm\n");
-+		} else if (amdgpu_device_supports_gmux(adev)) {
-+			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
-+			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
- 		} else if (amdgpu_device_supports_boco(adev)) {
- 			/* enable boco as runtime mode */
- 			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
-@@ -3767,7 +3810,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- {
- 	struct pci_dev *pdev = adev->pdev;
- 	int r, i;
--	bool px = false;
-+	bool gmux, px = false;
- 	u32 max_MBps;
- 	int tmp;
- 
-@@ -4202,12 +4245,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
- 
- 	px = amdgpu_device_supports_px(adev);
-+	gmux = amdgpu_device_supports_gmux(adev);
- 
- 	if (amdgpu_device_should_register_switcheroo(adev, px))
- 		vga_switcheroo_register_client(adev->pdev,
--					       &amdgpu_switcheroo_ops, px);
-+					       &amdgpu_switcheroo_ops, px || gmux);
- 
--	if (px)
-+	if (px || gmux)
- 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
- 
- 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
-@@ -4336,7 +4380,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
- 	int i;
--	bool px;
-+	bool gmux, px;
- 
- 	amdgpu_device_ip_fini(adev);
- 	amdgpu_fence_driver_sw_fini(adev);
-@@ -4367,11 +4411,12 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	adev->xcp_mgr = NULL;
- 
- 	px = amdgpu_device_supports_px(adev);
-+	gmux = amdgpu_device_supports_gmux(adev);
- 
- 	if (amdgpu_device_should_register_switcheroo(adev, px))
- 		vga_switcheroo_unregister_client(adev->pdev);
- 
--	if (px)
-+	if (px || gmux)
- 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
- 
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
++	if (unlikely(READ_ONCE(adev->gmux_off))) {
++		WARN_RATELIMIT(1, "%s: register access while powered off by GMUX\n",
++					dev_name(adev->dev));
++		return true;
++	}
+ #ifdef CONFIG_LOCKDEP
+ 	/*
+ 	 * This is a bit complicated to understand, so worth a comment. What we assert
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d9d794a7d..5ad7b6dd8 100644
+index 5ad7b6dd8..135798c76 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2494,11 +2494,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
- 
- 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
--		/* only need to skip on ATPX */
-+		/* ATPX requires a full system-sleep transition. */
- 		if (amdgpu_device_supports_px(adev))
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
--		/* we want direct complete for BOCO */
--		if (amdgpu_device_supports_boco(adev))
-+		/* BOCO and GMUX can remain runtime suspended across system sleep. */
-+		if (amdgpu_device_supports_boco(adev) ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
- 						DPM_FLAG_SMART_SUSPEND |
- 						DPM_FLAG_MAY_SKIP_RESUME);
-@@ -2610,7 +2611,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
- 	/* Return a positive number here so
- 	 * DPM_FLAG_SMART_SUSPEND works properly
- 	 */
--	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
-+	if ((amdgpu_device_supports_boco(adev) ||
-+	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
-+	    pm_runtime_suspended(dev))
- 		return 1;
- 
- 	/* if we will not support s3 or s2i for the device
-@@ -2881,6 +2884,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+@@ -2932,6 +2932,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 		amdgpu_device_baco_enter(adev);
  	}
  
- 	adev->in_runpm = true;
-+	/* GMUX dGPUs drive displays, so hotplug handlers may reopen them. */
- 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
++		WRITE_ONCE(adev->gmux_off, true);
++
+ 	dev_dbg(&pdev->dev, "asic/device is runtime suspended\n");
  
-@@ -2891,7 +2895,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	 * platforms.
- 	 * TODO: this may be also needed for PX capable platform.
- 	 */
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
+ 	return 0;
+@@ -2960,6 +2963,8 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+ 		return -EINVAL;
  
- 	ret = amdgpu_device_prepare(drm_dev);
-@@ -2900,16 +2905,19 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	ret = amdgpu_device_suspend(drm_dev, false);
- 	if (ret) {
- 		adev->in_runpm = false;
--		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			adev->mp1_state = PP_MP1_STATE_NONE;
- 		return ret;
- 	}
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		adev->mp1_state = PP_MP1_STATE_NONE;
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
--		/* Only need to handle PCI state in the driver for ATPX
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
-+		/* Only need to handle PCI state in the driver for ATPX and GMUX.
- 		 * PCI core handles it for _PR3.
- 		 */
- 		amdgpu_device_cache_pci_state(pdev);
-@@ -2956,10 +2964,12 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
++	WRITE_ONCE(adev->gmux_off, false);
++
+ 	/* Avoids registers access if device is physically gone */
  	if (!pci_device_is_present(adev->pdev))
  		adev->no_hw_access = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+index 7468855c1..bb5dbeb7f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+@@ -594,6 +594,9 @@ u32 amdgpu_device_indirect_rreg(struct amdgpu_device *adev, u32 reg_addr)
+ 	void __iomem *pcie_data_offset;
+ 	u32 r;
  
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
--		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+			drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
--		/* Only need to handle PCI state in the driver for ATPX
-+		/* Only need to handle PCI state in the driver for ATPX and GMUX.
- 		 * PCI core handles it for _PR3.
- 		 */
- 		pci_set_power_state(pdev, PCI_D0);
-@@ -2979,12 +2989,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	}
- 	ret = amdgpu_device_resume(drm_dev, false);
- 	if (ret) {
--		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			pci_disable_device(pdev);
- 		return ret;
- 	}
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 
- 	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 47a0ff2ed..aee12cd76 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -81,6 +81,7 @@
- #include <linux/moduleparam.h>
- #include <linux/types.h>
- #include <linux/pm_runtime.h>
-+#include <linux/vgaarb.h>
- #include <linux/pci.h>
- #include <linux/power_supply.h>
- #include <linux/firmware.h>
-@@ -623,6 +624,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	else
- 		init_data.bb_from_dmub = NULL;
- 
-+	if (amdgpu_device_has_gmux_edp(adev) &&
-+	    adev->pdev != vga_default_device())
-+		init_data.flags.edp_not_connected = true;
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
 +
- 	/* Display Core create. */
- 	adev->dm.dc = dc_create(&init_data);
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
  
-@@ -2545,6 +2550,15 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
- 				aconnector;
+@@ -677,6 +680,12 @@ u64 amdgpu_device_indirect_rreg64(struct amdgpu_device *adev, u32 reg_addr)
+ 	void __iomem *pcie_data_offset;
+ 	u64 r;
  
-+		/* Like the resume path, skip eDP detection without a sink. */
-+		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+		    amdgpu_device_has_gmux_edp(adev) &&
-+		    !link->edp_sink_present) {
-+			drm_info(adev_to_drm(adev), "Skipping detection of inactive GMUX eDP link %d\n",
-+				 i);
-+			continue;
-+		}
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
 +
- 		if (!dc_link_detect_connection_type(link, &new_connection_type))
- 			drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
  
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 8e8a052e1..025fa806d 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
- enum amdgpu_runpm_mode {
- 	AMDGPU_RUNPM_NONE,
- 	AMDGPU_RUNPM_PX,
-+	AMDGPU_RUNPM_GMUX,
- 	AMDGPU_RUNPM_BOCO,
- 	AMDGPU_RUNPM_BACO,
- 	AMDGPU_RUNPM_BAMACO,
+@@ -706,6 +715,9 @@ u64 amdgpu_device_indirect_rreg64_ext(struct amdgpu_device *adev, u64 reg_addr)
+ 	void __iomem *pcie_data_offset;
+ 	u64 r;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+ 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
+@@ -762,6 +774,9 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev, u32 reg_addr,
+ 	void __iomem *pcie_index_offset;
+ 	void __iomem *pcie_data_offset;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+ 
+@@ -784,6 +799,9 @@ void amdgpu_device_indirect_wreg_ext(struct amdgpu_device *adev, u64 reg_addr,
+ 	void __iomem *pcie_index_hi_offset;
+ 	void __iomem *pcie_data_offset;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+ 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
+@@ -832,6 +850,9 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev, u32 reg_addr,
+ 	void __iomem *pcie_index_offset;
+ 	void __iomem *pcie_data_offset;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+ 
+@@ -861,6 +882,9 @@ void amdgpu_device_indirect_wreg64_ext(struct amdgpu_device *adev, u64 reg_addr,
+ 	void __iomem *pcie_index_hi_offset;
+ 	void __iomem *pcie_data_offset;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
+ 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
+ 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+ 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
 -- 
 2.55.0
 
