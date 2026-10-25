@@ -1,82 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792947818;
-	b=qvPCcQ+jfUsvS9AfPEkx03gEh4dPWx7eN1I8j78UtQy8ROPwLpCcxB91goQO1iEZOy1b
-	 ix3tdKMAwf5X77aJdIQHItVgToXeusjtgpDCcFuZMPoUKqOAUapwbYM7EX9tANMGE9HgD
-	 dmSQSfqTh9XMkv3FBF6IaLeubh7h5F0v/P/xnGUPR/11dmzcvcRhaI9unXbs2HoG2AF6H
-	 fJGAFQz+mt07hp8QWQnDggB2OII2wVbTviLNz8rejh8w9t3cqN9IRShJ4GQYSzQV+rmLT
-	 8mvhz21dBNjOxso7l5dB/9oz4dUB2EDd01QzzfZUJWj1LKM3iggQmZKoAMcTS/MT6vA==
+	t=1792947965;
+	b=HP1XIbdlOLOmqAxsg0I5BsinDiof/Qv1HpOjUjCdJknvVQIzRB9wEefTtKVJTIxUdJC5
+	 4xeOCSM2IgLI9tXzt40CAbK2OrvtraXJijoVZTM/wOeduRZnkt8sFjhkd3DwovitSv0VG
+	 P38J3Dyql33162jttommQwqRcxTNIfxm1rFq+4hUkq+2kM3ocL2ZKfzMqQkjJwYn3auXv
+	 gjL+QAJekjE64XYReqa7La0xdHxASzHqtMuisvxWnA0L348H5fYRhsqCOnGVDa3cfTQM3
+	 SUH6pqoz4wO0ZsJKwW0chXpnZ49UwQXQjRinFo28Xqk0zP+7CeJar2OsCGtKBRa6+xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792947818;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=Upb6pTRlJjRU6wJ39mtFq3FyWkFkQOOHET/C22knccw=;
-	b=e/gf+bQSDJY5wKnuwhHPyfsUzwh0LnCzDBvkbeErLhbZ2pipeW5DO6kajTNmrLB4dH/M
-	 EwOtAWS1oRxgGUEE/+GnYDZXrEJ0b3ZcjuVsfyzAy4TGlgyzb0FhLhmEbyRmj3NlnsxYI
-	 ZAqznD8kkPhhj2Ows4szxRLhOpcTG+guM57J5MxHLHH6ezQXVzUXKte9SvOGGfD+hhLCr
-	 /CWewwsGO8EfXqAUlTDfhrQzyIcnKKHmigZcOUDU2ltHxBH4R1Y+NN8bqavBytCpBqGt+
-	 KsmZQxHL6jMkgDSPZ8gh96Dy3EX2l4TiR8Oxri+WMgKhsbmHhPRwEsFjBOWcnMxOfZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792947965;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=oUwvHq0P/9gsOPpgAsIiXBykttRf2wfXHYBWY4fgpX4=;
+	b=AhBv58+UiYfwP0XdVv+WfCErXtalkEJMc18Z9ZFHrtm/rK/ZRxWlOeYwU74PsCBSsS90
+	 F2GuGhbl9JIa/fEwle1fwqP/xHnn5DXV8q+UEYavveE9XFChNUWQZAM29KVWNPqXi0JJ+
+	 qOf7tWmmPs5qxQJdIlIKAPDbFjx/QmHcaOr0xQ2LUtzGO37g9D3hy3MkMyQbETFZIyTsQ
+	 ynWm87oT2063kRnDiIPCl4VUa0WIszO9ur2Gq3wjJtP0AeXhikQVZ+aDmIYeAaq+jiLOd
+	 7Gsyt10PWTDj34sFmWx2p5AhqFaj27TpMXFbqJ1cBbPqm0OLDcXADztqIxMRImz3rPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=fgQNUbrI;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=fgQNUbrI;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R2sE4R29;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFE6606A31A;
-	Sun, 25 Oct 2026 17:03:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DFE6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0EE606A31A;
+	Sun, 25 Oct 2026 17:06:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE0EE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=fgQNUbrI;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=fgQNUbrI
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9C5A6222D5;
-	Sun, 25 Oct 2026 17:03:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1792947815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Upb6pTRlJjRU6wJ39mtFq3FyWkFkQOOHET/C22knccw=;
-	b=fgQNUbrIZsyn9rinjL2pFUFxViHNCLfyRsHOOFAElL1MGlNFFhJmXuZpjEtSf1klu6eObP
-	uXa4w9RxjY2PHMytowk4AOsXg5HFlyr8vIfkUBiA5gztHgntFAiK/g07x9fSKKieD5E9Z9
-	FePZ5dZDl7C/w+Jt7yWVbAYVfrJmgQM=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1792947815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Upb6pTRlJjRU6wJ39mtFq3FyWkFkQOOHET/C22knccw=;
-	b=fgQNUbrIZsyn9rinjL2pFUFxViHNCLfyRsHOOFAElL1MGlNFFhJmXuZpjEtSf1klu6eObP
-	uXa4w9RxjY2PHMytowk4AOsXg5HFlyr8vIfkUBiA5gztHgntFAiK/g07x9fSKKieD5E9Z9
-	FePZ5dZDl7C/w+Jt7yWVbAYVfrJmgQM=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 53F6313314;
-	Sun, 25 Oct 2026 17:03:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5AZdC2c23mrYFQAAD6G6ig
-	(envelope-from <dsterba@suse.com>); Sun, 25 Oct 2026 17:03:35 +0000
-From: David Sterba <dsterba@suse.com>
-To: torvalds@linux-foundation.org
-Cc: David Sterba <dsterba@suse.com>,
-	linux-btrfs@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R2sE4R29
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792947963; x=1824483963;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AxOjbFvh/NcIZrioJUJIpPem4ac7BqaQaQFD2sY7xA8=;
+  b=R2sE4R29VIABX3QPzLRl6Z1YY7M7zIGR64PW/rA2dk9afhMKKukVvbL7
+   0k7CFnwNP+cXXqO2QPGQz6gt5pFhBE+5KZQya2Zs2dRRh/m5WHROcNxnT
+   dggBGGoY6hXlrFMn+HDuRtbb9qIQZOBe7FGAiQBknaboIyVUeVC9Ah+pK
+   yoK+W1MMqP/WgUvx278MvgGnNKNyY/+jh0ugQ1mPppf9MIUvOonLzoZwy
+   7STbbizVbcSNgwiWdz3UxI9pMBkKOXP8IY1/+tNY71Mq6w31rKkWuWkDi
+   EHLMAWG0AjxDbDeT6tFbB46QKm71V0fgVh5YgxNCgfqg3bpcWSRR+pHSj
+   Q==;
+X-CSE-ConnectionGUID: qb5x8gk3R66xo5Af9nbtJQ==
+X-CSE-MsgGUID: TtyQkWpDTgy3pRn0CoNzpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1611689"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1611689"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 10:06:02 -0700
+X-CSE-ConnectionGUID: 58RfMdFWTXqNG1oYrD8erg==
+X-CSE-MsgGUID: ITdobinPTCSRoDNVxb84cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4051939"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa002.jf.intel.com with ESMTP; 25 Oct 2026 10:05:58 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xL1fN-00000000UxW-3BwO;
+	Sun, 25 Oct 2026 17:05:53 +0000
+Date: Mon, 26 Oct 2026 01:05:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Amir Ayupov <aaupov@fb.com>, James Clark <james.clark@linaro.org>,
+	Leo Yan <leo.yan@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Daniel Pereira <danielmaraboo@gmail.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Btrfs updates for 7.4, part 2
-Date: Sun, 25 Oct 2026 18:03:33 +0100
-Message-ID: <cover.1792947250.git.dsterba@suse.com>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH v3 5/7] perf: arm_pmuv3: Add pmuv3_event_implemented()
+Message-ID: <202610260043.uPhMX80G-lkp@intel.com>
+References: <cd3e622681f7254216b0488f09d2cb2d91a2d8ca.1792907333.git.aaupov@fb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,106 +95,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cd3e622681f7254216b0488f09d2cb2d91a2d8ca.1792907333.git.aaupov@fb.com>
 
-Hi,
+Hi Amir,
 
-this pull request removes unused code of free space caching, disabled in
-7.3 (545e560a5b0f "btrfs: disable v1 space cache").
+kernel test robot noticed the following build errors:
 
-It's been the original free space cache feature, superseded by free
-space tree (4.5) and mkfs default since 5.15. The grace period was
-sufficiently long, backward compatibility still exists with a
-performance impact, effectively as if mounted with '-o nospace_cache'.
+[auto build test ERROR on 343cfcbb3ecfdb80aa576a428cfa3b65ad783842]
 
-This is a separate pull as there were a few iterations based on sashiko
-feedback, but 90% of the code has been in linux-next within the
-pre-merge window period. Too late I noticed a glitch in the branch,
-unrelated commit "btrfs: fix use-after-free on quota enable allocation
-failure" is duplicated due to addition of reviewed-by to the original
-base (no code change).  If anything of that is a problem, postponing the
-merge is also fine for us.
+url:    https://github.com/intel-lab-lkp/linux/commits/Amir-Ayupov/coresight-etm4x-Fix-event-count-decoding/20261024-233901
+base:   343cfcbb3ecfdb80aa576a428cfa3b65ad783842
+patch link:    https://lore.kernel.org/r/cd3e622681f7254216b0488f09d2cb2d91a2d8ca.1792907333.git.aaupov%40fb.com
+patch subject: [PATCH v3 5/7] perf: arm_pmuv3: Add pmuv3_event_implemented()
+config: arm64-allnoconfig (https://download.01.org/0day-ci/archive/20261026/202610260043.uPhMX80G-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610260043.uPhMX80G-lkp@intel.com/reproduce)
 
-Please consider pulling, thanks.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610260043.uPhMX80G-lkp@intel.com/
 
-----------------------------------------------------------------
-The following changes since commit 940983a3000361ddff834a1c55bdb0e9e47ed88b:
+All errors (new ones prefixed by >>):
 
-  btrfs: prevent use-after-free in btrfs_transaction::switch_commits (2026-10-12 19:18:10 +0200)
+   In file included from include/kvm/arm_pmu.h:11,
+                    from arch/arm64/include/asm/kvm_host.h:38,
+                    from arch/arm64/include/asm/arm_pmuv3.h:9,
+                    from arch/arm64/kernel/cpufeature.c:80:
+   include/linux/perf/arm_pmuv3.h: In function 'pmuv3_event_implemented':
+>> include/linux/perf/arm_pmuv3.h:333:26: error: implicit declaration of function 'pmuv3_implemented'; did you mean 'pmuv3_event_implemented'? [-Wimplicit-function-declaration]
+     333 |         if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+         |                          ^~~~~~~~~~~~~~~~~
+         |                          pmuv3_event_implemented
+>> include/linux/perf/arm_pmuv3.h:333:44: error: implicit declaration of function 'read_pmuver' [-Wimplicit-function-declaration]
+     333 |         if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+         |                                            ^~~~~~~~~~~
+>> include/linux/perf/arm_pmuv3.h:336:28: error: implicit declaration of function 'read_pmceid0' [-Wimplicit-function-declaration]
+     336 |         pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
+         |                            ^~~~~~~~~~~~
+>> include/linux/perf/arm_pmuv3.h:336:45: error: implicit declaration of function 'read_pmceid1' [-Wimplicit-function-declaration]
+     336 |         pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
+         |                                             ^~~~~~~~~~~~
+   arch/arm64/include/asm/arm_pmuv3.h: At top level:
+>> arch/arm64/include/asm/arm_pmuv3.h:49:19: error: conflicting types for 'read_pmuver'; have 'u32(void)' {aka 'unsigned int(void)'}
+      49 | static inline u32 read_pmuver(void)
+         |                   ^~~~~~~~~~~
+   include/linux/perf/arm_pmuv3.h:333:44: note: previous implicit declaration of 'read_pmuver' with type 'int()'
+     333 |         if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+         |                                            ^~~~~~~~~~~
+>> arch/arm64/include/asm/arm_pmuv3.h:160:19: error: conflicting types for 'read_pmceid0'; have 'u64(void)' {aka 'long long unsigned int(void)'}
+     160 | static inline u64 read_pmceid0(void)
+         |                   ^~~~~~~~~~~~
+   include/linux/perf/arm_pmuv3.h:336:28: note: previous implicit declaration of 'read_pmceid0' with type 'int()'
+     336 |         pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
+         |                            ^~~~~~~~~~~~
+>> arch/arm64/include/asm/arm_pmuv3.h:165:19: error: conflicting types for 'read_pmceid1'; have 'u64(void)' {aka 'long long unsigned int(void)'}
+     165 | static inline u64 read_pmceid1(void)
+         |                   ^~~~~~~~~~~~
+   include/linux/perf/arm_pmuv3.h:336:45: note: previous implicit declaration of 'read_pmceid1' with type 'int()'
+     336 |         pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
+         |                                             ^~~~~~~~~~~~
+>> arch/arm64/include/asm/arm_pmuv3.h:170:20: error: conflicting types for 'pmuv3_implemented'; have 'bool(int)' {aka '_Bool(int)'}
+     170 | static inline bool pmuv3_implemented(int pmuver)
+         |                    ^~~~~~~~~~~~~~~~~
+   include/linux/perf/arm_pmuv3.h:333:26: note: previous implicit declaration of 'pmuv3_implemented' with type 'int()'
+     333 |         if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+         |                          ^~~~~~~~~~~~~~~~~
 
-are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.4-part2-tag
+vim +333 include/linux/perf/arm_pmuv3.h
 
-for you to fetch changes up to 293aae0123e1c178c7f76fd7a93bcced41e6663c:
+   320	
+   321	/*
+   322	 * Whether this CPU's PMU implements a common event, as reported by
+   323	 * PMCEID{0,1}: events 0x0000-0x003f in bits [31:0], and from PMUv3p1 events
+   324	 * 0x4000-0x403f in bits [63:32], which read as zero before PMUv3p1.
+   325	 * Must run on the CPU whose PMU is queried.
+   326	 */
+   327	static inline bool pmuv3_event_implemented(u16 event)
+   328	{
+   329		bool ext = event >= ARMV8_PMUV3_EXT_COMMON_EVENT_BASE;
+   330		u16 id = ext ? event - ARMV8_PMUV3_EXT_COMMON_EVENT_BASE : event;
+   331		u64 pmceid;
+   332	
+ > 333		if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+   334			return false;
+   335	
+ > 336		pmceid = id < 32 ? read_pmceid0() : read_pmceid1();
+   337		return pmceid & BIT_ULL(id % 32 + (ext ? 32 : 0));
+   338	}
+   339	
 
-  btrfs: remove TRANS_JOIN_NOLOCK (2026-10-16 19:10:46 +0200)
-
-----------------------------------------------------------------
-Tal Zussman (19):
-      btrfs: drop the extent maps of the written part of a failed ordered extent
-      btrfs: update the inode item when removing a free space inode
-      btrfs: stop enabling the v1 space cache from the on-disk state
-      btrfs: remove the v1 space cache writeout from the transaction commit
-      btrfs: remove the free space cache endio workqueue
-      btrfs: remove the v1 space cache write path
-      btrfs: rename cache_write_mutex to dirty_bgs_update_mutex
-      btrfs: drop the transaction handle from the prealloc helpers
-      btrfs: remove the v1 space cache load path
-      btrfs: remove btrfs_disk_cache_state
-      btrfs: remove the SPACE_CACHE mount option flag
-      btrfs: replace btrfs_set_free_space_cache_v1_active() with a cleanup helper
-      btrfs: remove the free space cache trimming ranges
-      btrfs: remove BTRFS_RESERVE_FLUSH_FREE_SPACE_INODE
-      btrfs: remove the free space inode ordered extent special cases
-      btrfs: remove the free space inode special cases from the COW paths
-      btrfs: stop special-casing free space inodes in the delalloc accounting
-      btrfs: stop reading free space inodes from the commit root
-      btrfs: remove TRANS_JOIN_NOLOCK
-
-Yalagada Pavan Kumar (1):
-      btrfs: fix use-after-free on quota enable allocation failure
-
- fs/btrfs/block-group.c      |  497 ++--------------
- fs/btrfs/block-group.h      |   14 -
- fs/btrfs/btrfs_inode.h      |    6 -
- fs/btrfs/delalloc-space.c   |   13 +-
- fs/btrfs/disk-io.c          |   81 +--
- fs/btrfs/file-item.c        |   11 -
- fs/btrfs/free-space-cache.c | 1354 +------------------------------------------
- fs/btrfs/free-space-cache.h |   29 +-
- fs/btrfs/fs.h               |    2 -
- fs/btrfs/inode.c            |  155 +----
- fs/btrfs/ordered-data.c     |   27 +-
- fs/btrfs/qgroup.c           |    7 +
- fs/btrfs/relocation.c       |    2 +-
- fs/btrfs/space-info.c       |    2 -
- fs/btrfs/space-info.h       |    4 -
- fs/btrfs/super.c            |   48 +-
- fs/btrfs/transaction.c      |   62 +-
- fs/btrfs/transaction.h      |   27 +-
- fs/btrfs/zoned.c            |    9 -
- 19 files changed, 154 insertions(+), 2196 deletions(-)
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
