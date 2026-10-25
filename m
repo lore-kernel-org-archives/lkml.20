@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792892093;
-	b=ci3twD6Y39tKQKbuli6FSEQw3159Ry+DTOAX21Bo6oLA6yWjXiga6U6qymGX7witRCil
-	 7uU9JoWrUQra2I2cYI0mBZMFQwqJ5oAazsQqIjHWCh2VHK1lJ1dEC9SYUIF/JeBuKktAN
-	 yBbtqY/9er8cR7UDg9ZJFQqKMtvC2jTDK0k8QNFc9eePXLgu58qrUqot1dJJQpkkAMvIx
-	 JJnRChB60FTOPbozqWS5DHiOiepLFmnpt0Ddk3lozu/sMiXx0Zvm6QpVc2c0+FGvpXyRl
-	 GxYboLakJ0vQyEoESPEIVAjJuI3k4flLPig3GGxwKOdJhuvwEFnZytxi5tFmZxy1Kyg==
+	t=1792892099;
+	b=M/vcW0TZZfT797WgvoVduJ9NwgWnre8cjfWmymG0lERqqWUm3gIIFs1+nT0GrrZMReXz
+	 9gvuY6W+YZajxe7Q79ol0bgYF/RJeHwzPOpBi5Zg7rRpTjN9+B1ApWwQF++da3ZAMT8qh
+	 YlYjqjFKhReY8rVGGrV/dM6yiVrAyPYi+rqH+K/qAsWSv9Tb4yFU10IRIZVjAMtA6l3/l
+	 grHT5JCJtFjdstCGENLeC44G1/knoxpE2NoVOt8JPWYEUZ/GycoYwkaWDOn/y4FAwvNWq
+	 2PjVYXhY2bEOSVA0nSm6RlQnWQtgwJL4LIlR0NBDe6svb+KESyZ08ueTuEfvyqmvIcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792892093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792892099;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=TYSiwMwmay2OMU5hIoROJC2gk9HspYKqZIDwCmXW3lI=;
-	b=FAv6qbnp9xAvuAtuWDU/wwU3t2kT8q/XoFywa2+Si6PZhN+lrmjCj/DFz2HxMVoU9PP9
-	 zh3+lNFut/rM1zvuTfgfBO5IW86ZzRbcbLLHPBffv4XnjftsuXJ6rjTFjejBmB/FEgkJy
-	 X4Zbr3SsftaZvfwCNMqswY8fYNroFEg4nmjYP0LGfZNiFyTHHRBwUrTVl/7+bIp7jzPw0
-	 UDgdLKy1MBR8GZc5blgI53OSJMqJf78NArPDtqh8GRm3UhzP+c0QBVwG1kfkQf++5gy81
-	 gRQtLdtuJtx9aLnbfzmzVX0uqvhlVBP44oI01t72XV2hBBIhN9LGMh/Axx92uded/MA==
+	bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
+	b=X6KyHozobY5/Pi6Lut6ku8Ys1FLqVUTV0BYIgfIS88oHFiTd82gveJnsT9tsk8GBP3Si
+	 YKyV/JtS2tOAqpXKuNnpTfyv2dYKcN1btFoNz7px/HnrZBeJcABurSnpuYao/Dp0oLHqs
+	 Y99bNZ5qh1WMMLTFokFWNnGSwGpj5zQrQ9C3eXUuC5cfif6Zwfahg8DwNl+ehsO13Ls3u
+	 vOkChIaGFyGwE3ypGVlrjmrxgwACVg53J2icwIDOw+Rr9yVuT3U32HBfrlAu95Efs9Zdq
+	 BIB4DuXF7oJywZI61xRsE11u01+Ktlrh7qb13yfKSJ0m9v/GFk9cLc8Jd1e5OOXfmXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=F4N0ZchE;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dEzswU2F;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76E7606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B76E7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C870E606A331
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:34:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C870E606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=F4N0ZchE
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd60e4e8bc3so953642a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:34:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dEzswU2F
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so2618741a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:34:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792892092; x=1793496892; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792892098; x=1793496898; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TYSiwMwmay2OMU5hIoROJC2gk9HspYKqZIDwCmXW3lI=;
-        b=F4N0ZchEUtxLDkRuysvRWHNjVkT2Cdxb8qW5SaGA/D9l4XU8KggToSVVBaSYhL508c
-         TgmDNkOW+NBil9p+ujKNfzwIi4cXt7r+1z+EGNP9Kk1HSd3Ys7r23PQUpdS6f9qMKgSR
-         1ABxqpuAlGG934lYJx4gRYywisYUHOURssZBBKBL+kl9vWMZcuC+RHIvqr5RgdkcDswa
-         kna2JQfGpqIC6gr1Nm24g5Pei/liKP1UUhcSx9uJ28ig22n7YogAC5duqRgs9yx/eSAX
-         nMz+N450hX6FEMzmbXHzR6jERiwO5mYc65LwLeQfKcqksJt18lRMVmST+xVDLBIkgrjt
-         lbkg==
+        bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
+        b=dEzswU2Fcsi1HV/1C1T/dd4ptCo42oLxLfLaX5mdu4t50ngB7DU/MikWO9wmPQj6hH
+         wDUjsaOuZILakJWz6SJ3xNZCNmaVOroWsYUI0BdPbphSAX4n5KQs2LEcJzxhbWG/vmg/
+         JsaGpOiIsL68Yedj1JC3z2zz5qupKclpqFwpYMmmbVLaSjFk18tmQ/jScKl4xe2CLsFA
+         eU+M6DvthyaXWW+EldMi2NBn1+nYccZERagA7tSuxh5bnXFk8m69l/JToSc7HbFV4eHp
+         UctyADqbeG7sOpmRZAm98fcpI53RaKdQ4FyL6pbMHXBTEbA1fnu7Mi4VbAoQYn3SqQNH
+         tamA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792892092; x=1793496892;
+        d=1e100.net; s=20260707; t=1792892098; x=1793496898;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TYSiwMwmay2OMU5hIoROJC2gk9HspYKqZIDwCmXW3lI=;
-        b=isxxeDbR4pPFSKPc9SU7VYRBsWuz2OFZ7aD8nGU90e+Vv2/NRkVyR8tmmAlRCnfIyD
-         kEF6fXb216gjUfmJM9Vn8GT0Xj0ZaNDb8xl20hyVO0Hzonl/B0nlMEUR9Zjd8/j899P2
-         L2tS7dmPg4I5gIvMJE74z0gyv8jB7uR7brNVZfwPAVDiApo7I2KiLl/VpoyxnX3YIFou
-         Nn8cSg/GV/91tFZ1vmcCYCARK+h04gJJ+9+vifFLAFmcpKuI1LVqBw01s3RB0H0DeVGC
-         FlTWrZolvR3MmrI2k/+S+PXXCPyOqbURlUAHsl7/OB1oGGI6MV9KjztzqP37v+NVSYit
-         h4vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ4w0/EqskWyFdk3G2NhSJSFmrbGdwxbo7r6izzB3z2i99HrqYImYVjjU/qJH83Bbnj5chJY15Joh1IF4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiK3jhZhCjW+ViE9M4OyOBD1LbmsXV9S+PGhnSCFs+oIUsLHk7
-	cAeOg7eDQzPcPoy7pf4puVKTo+54AzucL20mAb3o6ltbwkxLT3f6voq6rlAsNRV5IbMRyhDwBdW
-	LaDGkE0nMmiQKhWtkSr/j3Q==
-X-Received: from pfblb14.prod.google.com ([2002:a05:6a00:4f0e:b0:899:4601:80d])
+        bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
+        b=m2RueS56tlucIH0uc6oDpFKNM4DmeetDhe8a3nnH0zKIdB3hkS9DvGOMyXQO9Ee0em
+         9piFnQxBZQoRi3uSwFnRibZmNdDFNm8+oUL0utv9sOT7VS/x9zuhVXjxLLRTQEY2fcxc
+         SRYJUKqD68FXxyXOZ0NNCR7adPu/Quxhhn0e0ycf9OkCoSimWFZiYuOzVJDiTCEJztdD
+         xqIKOmOajEF2esyY9yTe8VKagA68cNkrHRCfY2E1YcRmCoi9q1bnYwLURtoozpx5Luo9
+         goutt0KAiRJkx3VCzoZW75i2GSu+pUK/XJ24U7pDda+qvhuSMBC5sakGWH+kLS1/gGo5
+         5KOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzjg8ZChrGqNU8lb3K/nyE+TH+MNoow2z8UFJTjliwmm9C4AelUZWbsgD8o11DQMyf+Ifvl9FzyqAKbkmE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICywls1cxqJvcnMTpwS+u5uVCs4BmNM1r1MgkXit/C9iOLZaWQ
+	6BIZdmAv1b0a7CQXOAp6NN5T9pbaXflXQByqskEhxKhWq/XYBazUe78KaHWo9hwmiZdam/vqZzX
+	VSA4RVuQKhQM4LTuhDDjlfA==
+X-Received: from pjvf5.prod.google.com ([2002:a17:90a:da85:b0:3ac:16a7:52de])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:94fb:b0:899:394d:2976 with SMTP id d2e1a72fcca58-8a3689aa5ddmr2517554b3a.39.1792892091847;
- Sat, 24 Oct 2026 18:34:51 -0700 (PDT)
-Date: Sun, 25 Oct 2026 09:34:43 +0800
+ 2002:a17:90b:3b8f:b0:3ac:450a:f9d4 with SMTP id 98e67ed59e1d1-3adeb16364bmr3012759a91.64.1792892097936;
+ Sat, 24 Oct 2026 18:34:57 -0700 (PDT)
+Date: Sun, 25 Oct 2026 09:34:46 +0800
 In-Reply-To: <20261025013446.345974-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261025013446.345974-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025013446.345974-3-stanleyjhu@google.com>
-Subject: [PATCH 2/5] scsi: ufs: core: Introduce ufshcd_rpm_resume_and_get() helper
+Message-ID: <20261025013446.345974-6-stanleyjhu@google.com>
+Subject: [PATCH 5/5] scsi: ufs: hwmon, debugfs: Propagate runtime PM resume errors
 From: Stanley Jhu <stanleyjhu@google.com>
 To: "Martin K . Petersen" <mkp@kernel.org>, 
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
@@ -93,73 +93,88 @@ Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-ufshcd_clkscale_enable_store() and ufshcd_auto_hibern8_update() call
-ufshcd_rpm_get_sync() without checking its return value:
+ufs_hwmon_read(), ufs_hwmon_write(), and ufs_debugfs_get_user_access()
+ignore the return value of ufshcd_rpm_get_sync():
 
-1. Runtime resume of the UFS device W-LUN fails and leaves the W-LUN in
-   RPM_SUSPENDED, or a prior runtime suspend error latches
-   power.runtime_error, or runtime PM is disabled while suspended so
-   !pm_runtime_suspended() still evaluates to true.
-2. ufshcd_rpm_get_sync() returns a negative errno and leaves
-   power.usage_count incremented.
-3. Both functions proceed as if the host were active, scaling clocks or
-   writing REG_AUTO_HIBERNATE_IDLE_TIMER while the controller or link
-   is still suspended.
+1. A hwmon sensor access, a debugfs exception-event write, or a debugfs
+   TX equalization retrain request runs when W-LUN runtime resume
+   fails, when power.runtime_error is set, or when W-LUN runtime PM is
+   disabled while suspended.
+2. ufshcd_rpm_get_sync() fails with a negative errno while leaving the
+   device unresumed.
+3. The caller still issues temperature or exception-event query UPIUs,
+   or retrains TX equalization, on the suspended target.
 
-Add ufshcd_rpm_resume_and_get() wrapping pm_runtime_resume_and_get() so
-failed resumes drop the usage reference automatically, and return early
-in ufshcd_clkscale_enable_store() and ufshcd_auto_hibern8_update() when
-it fails.
+Convert all three call sites to ufshcd_rpm_resume_and_get() and release
+hba->host_sem before returning the error, ahead of
+__acquire(ufs_debugfs) in ufs_debugfs_get_user_access(). This covers
+ee_usr_mask_set(), ufs_debugfs_restart_ee(), and ufs_tx_eq_ctrl_write(),
+which all use ufs_debugfs_get_user_access().
 
 Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
-Cc: stable@vger.kernel.org
+Fixes: e88e2d32200a ("scsi: ufs: core: Probe for temperature notification support")
+Fixes: adbabdcf0db0 ("scsi: ufs: core: Add support to retrain TX Equalization via debugfs")
+Cc: stable@vger.kernel.org # needs "scsi: ufs: core: Introduce ufshcd_rpm_resume_and_get() helper"
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/ufs/core/ufshcd-priv.h | 5 +++++
- drivers/ufs/core/ufshcd.c      | 7 +++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/ufs/core/ufs-debugfs.c |  8 +++++++-
+ drivers/ufs/core/ufs-hwmon.c   | 12 ++++++++++--
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
-index e55c2a02c1f5..99f654b79035 100644
---- a/drivers/ufs/core/ufshcd-priv.h
-+++ b/drivers/ufs/core/ufshcd-priv.h
-@@ -388,6 +388,11 @@ static inline int ufshcd_rpm_get_sync(struct ufs_hba *hba)
- 	return pm_runtime_get_sync(&hba->ufs_device_wlun->sdev_gendev);
- }
- 
-+static inline int ufshcd_rpm_resume_and_get(struct ufs_hba *hba)
-+{
-+	return pm_runtime_resume_and_get(&hba->ufs_device_wlun->sdev_gendev);
-+}
-+
- static inline int ufshcd_rpm_get_if_active(struct ufs_hba *hba)
+diff --git a/drivers/ufs/core/ufs-debugfs.c b/drivers/ufs/core/ufs-debugfs.c
+index 9f83628f3e2c..44a1a9692324 100644
+--- a/drivers/ufs/core/ufs-debugfs.c
++++ b/drivers/ufs/core/ufs-debugfs.c
+@@ -70,12 +70,18 @@ token_context_lock(ufs_debugfs);
+ static int ufs_debugfs_get_user_access(struct ufs_hba *hba)
+ 	__cond_acquires(0, ufs_debugfs)
  {
- 	return pm_runtime_get_if_active(&hba->ufs_device_wlun->sdev_gendev);
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 5193be703752..2d73dc7d68a9 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -1864,7 +1864,9 @@ static ssize_t ufshcd_clkscale_enable_store(struct device *dev,
- 	if (value == hba->clk_scaling.is_enabled)
- 		goto out;
++	int err;
++
+ 	down(&hba->host_sem);
+ 	if (!ufshcd_is_user_access_allowed(hba)) {
+ 		up(&hba->host_sem);
+ 		return -EBUSY;
+ 	}
+-	ufshcd_rpm_get_sync(hba);
++	err = ufshcd_rpm_resume_and_get(hba);
++	if (err) {
++		up(&hba->host_sem);
++		return err;
++	}
+ 	__acquire(ufs_debugfs);
+ 	return 0;
+ }
+diff --git a/drivers/ufs/core/ufs-hwmon.c b/drivers/ufs/core/ufs-hwmon.c
+index aa0b60a0ee8a..2b9673d92573 100644
+--- a/drivers/ufs/core/ufs-hwmon.c
++++ b/drivers/ufs/core/ufs-hwmon.c
+@@ -61,7 +61,11 @@ static int ufs_hwmon_read(struct device *dev, enum hwmon_sensor_types type, u32
+ 		return -EBUSY;
+ 	}
  
 -	ufshcd_rpm_get_sync(hba);
 +	err = ufshcd_rpm_resume_and_get(hba);
-+	if (err)
-+		goto out;
- 	ufshcd_hold(hba);
++	if (err) {
++		up(&hba->host_sem);
++		return err;
++	}
  
- 	hba->clk_scaling.is_enabled = value;
-@@ -4792,7 +4794,8 @@ void ufshcd_auto_hibern8_update(struct ufs_hba *hba, u32 ahit)
+ 	switch (attr) {
+ 	case hwmon_temp_enable:
+@@ -113,7 +117,11 @@ static int ufs_hwmon_write(struct device *dev, enum hwmon_sensor_types type, u32
+ 		return -EBUSY;
+ 	}
  
- 	WRITE_ONCE(hba->ahit, ahit);
- 	if (!pm_runtime_suspended(&hba->ufs_device_wlun->sdev_gendev)) {
--		ufshcd_rpm_get_sync(hba);
-+		if (ufshcd_rpm_resume_and_get(hba))
-+			return;
- 		ufshcd_hold(hba);
- 		/*
- 		 * Serialize with the host driver's AHIT control. Skip the
+-	ufshcd_rpm_get_sync(hba);
++	err = ufshcd_rpm_resume_and_get(hba);
++	if (err) {
++		up(&hba->host_sem);
++		return err;
++	}
+ 
+ 	if (val == 1)
+ 		err = ufshcd_update_ee_usr_mask(hba, MASK_EE_URGENT_TEMP, 0);
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
