@@ -1,53 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792895322;
-	b=txvgCHsTSxSAcUJNpL9rJBqF0L1ckfzAbEGzGN6UtP+bZv+qDYRCe2hABGa/rkcC9zoO
-	 aHjCK67Cnyc4GwtqNFti03/CRc1UQBUA/iIXkg06aNozpluUCAcu2ZX0fa8Bu5+tg/vSU
-	 ybFCp55TYe8eGa2z2IlB2lCElar65H0c+po+D1AAFYEg6ioE/YnpP1olw1UNepHImEyeF
-	 1yjo/UDTmgBxhHu97GtwiZB2NUmEPywR+6Y9oRhBaMnzavkFU+lsnb9yHEPTILJjEGPxD
-	 nvnYX/RtluluIrT1HJY+qKd4ncixUTRwMZ6iyqpFv/jwFOFm4VeP6FnSook70BGU9vA==
+	t=1792895569;
+	b=D64XB+Oxj8+HZ5clwxvSdClvP6bh+/psN9zl3D2I6gnBx0wo5S15x4ucf/F2XdhBHEOV
+	 mv/bIUB+7JYT7BKxrpt5qhEHdqn10pxDHsMt5Xn/xtGZjvuVfROiF8OLlj97nvCkzgG+a
+	 /nXcbaba3foEwe/2KFF5QHwg7PvsPl9n05WskQV/1jA6i9+JR4ABRyFHnxBAGWMK8tipE
+	 hM2Hx5LC3UY6mA3nbzy9ilY/St5svaGZQtHyAb2KSrP2LxTE+24PFsoAxEDToVYOIm82W
+	 V5NZSLUGffFFJL8zXFdwOC+j6Sg9E36+uLnYQawB5O7JuB56a4KFmnZpp6NO+nCR8Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792895322;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=KlCL6ajdGE33h/4ItyXVVQ/Y4XQB52mQkplGtSJphiU=;
-	b=NgQ21L8OJv9pp+f2yAxxYUQYFE8VzBxUKlDbu3eQp1D58U4896UIcb7aVRFEZZeBiHcz
-	 7yYiHd4d33l7Q8panyC973mG/GQ8yM4iReTohXTmWnyMs0tyL5OTYpXxxWZfvBss5frWA
-	 Bs62KX7dovAkDWhg2QIZh03eOgawbAUhi4Xzfa5iOOR9RQEqo+MMPUx+HAdLKXddzHOXE
-	 XLYTRy0L4NtsaBZHG3IzmCTi9so2v08yyqAUpUfjL3J23A78JKeyWMbux8epfYUfD30FI
-	 phAhcObVQXXkJH+kMK3Yb+6bKGEbvk8bhHzgUESyrIfCpsLbRzlRD3aNZ1NN4a4DuBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792895569;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=uHgs6Tm7C66Qlctbe5wyn2x3N2vz9NhVDH/uP4NfMcE=;
+	b=TfbLMM2Oh2tFL7VHv9Gt6DxpjrVN4RVhV46+YO6JiEtHeXQ5vYjrlWJL+JW9S03U1Ytx
+	 /tw9EuMOYOR/oSG3hnZ09BtoLW8BVc3NHB6BroNwwUjJse6tC9VOTCcYbFiI0hcxr1cDl
+	 xlqUOALItbwEgiCLMu06h/GoAgdGgLkItgcaRVhGmEQhcB/VzVvwZUOhlapQsT8q5F5Js
+	 4xFgS4QbTZ4ap7CZfxnSuXCyRNV/v2y+e4YZOfNPAqFSyliXOK4wQ+7Tt7u2Ra4LECNK0
+	 KSu/iymALMk0FE31QfKe12773uPpo3aWM7Jz5pYHfWnMC8q1uSfH7yFDvfQg0+e+Nig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=k8d0q9TX;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qm7sfx5X;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BAD606A31A;
-	Sun, 25 Oct 2026 02:28:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1BAD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5BF606A31B;
+	Sun, 25 Oct 2026 02:32:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5BF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=k8d0q9TX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=KlCL6ajdGE33h/4ItyXVVQ/Y4XQB52mQkplGtSJphiU=;
-	b=k8d0q9TX55BoVQrGOGwu9FEhK1QW0Eh1zxQ3LBmsm0N1JKO5HVdQg51xC1+At1
-	huVbBzDFHhexlsZlWfc5YtPWZdVXxLRF8fnzcl58ZGHvImaAfjTNKSq++O39UCRC
-	cPCzrYhegxXvyPRPbO229UjCreXwU1qjl6wHHNEyVFdGA=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: sashiko-bot@kernel.org
-Cc: linux-can@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Oleksij Rempel <o.rempel@pengutronix.de>, Robin van der Gracht <robin@protonic.nl>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v6 1/1] can: j1939: validate the EDPO packet number
-Date: Sun, 25 Oct 2026 10:18:45 +0800
-Message-ID: <179289472575.8393.8146655386481092375@163.com>
-In-Reply-To: <179278868667.3130.12995219647320420687@kernel.org>
-References: <179265494813.314254.14725785769836234084@163.com> <179278868667.3130.12995219647320420687@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qm7sfx5X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792895566;
+	bh=uHgs6Tm7C66Qlctbe5wyn2x3N2vz9NhVDH/uP4NfMcE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qm7sfx5X7L9rLa7n64h9jbSJeqQqxPdWiWocA4h4T8y6VL/5jKU8NRScIuOQE29+Z
+	 eXZMw3b2Gf21gwXvMzAKY7LWTVenPuDdtjWhyoPaiKO+iYcCxIKxNhWLJR5pCtFX69
+	 8D7L56zJgVikgNm+go/NY2ML3YVhAmK85xPRVLHqyLXH9hFLZzx9+jzJZKOxSYG+Wu
+	 NjaVgqMmXqoOTFuwfe/vv40/67jf0Z/it9u3F/jtrOzaOSdwONM+9QOHiSMln0KCl8
+	 dV7Yo1ujKPsh4kDoy1++yYF5S+3FnME6aX8lBQ3JoeiO0/hl9atCE5+ReL0fXgjegM
+	 aY1cofI9rHMYQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jC14t0Nllz4wJS; Sun, 25 Oct 2026 13:32:46 +1100 (AEDT)
+Date: Sun, 25 Oct 2026 13:32:41 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
+Message-ID: <at1qO7oEdCyhX6k8@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-13-herve.codina@bootlin.com>
+ <arDJmHPwgvwwmITG@gractus.seuss>
+ <20260922182547.6cc7475c@bootlin.com>
+ <20261023092559.7608ff25@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,160 +76,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t0wwad1qVysZCw--.1023S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF1kGFyfuFWfGw1DWrWkXrb_yoW3ZrWUpr
-	W3Kr9rGr1DGF4Yvr4ktFWkXFy09rs3Xr45WF17G3s7A398Cr47tFyDKFyfWa9rC3ykCaya
-	9w1Ygw4DGr4kC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRLvtiUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xF47WrdaTGUXAAA3A
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XENMgbyF3t/NKs0Y"
+Content-Disposition: inline
+In-Reply-To: <20261023092559.7608ff25@bootlin.com>
 
-Hi sashiko,
+--XENMgbyF3t/NKs0Y
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks -- both Medium findings are real. I will respin as a split series
-rather than argue with them, and the three Low findings are accepted too; two
-of them are process points that I should simply have gotten right the first
-time.
+On Fri, Oct 23, 2026 at 09:25:59AM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Tue, 22 Sep 2026 18:25:47 +0200
+> Herve Codina <herve.codina@bootlin.com> wrote:
+>=20
+> > On Mon, 21 Sep 2026 16:07:21 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >=20
+> > > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote: =20
+> > > > Future operations, such as handling unknown tags on dtb modificatio=
+ns,
+> > > > need to get an offset to a property based on the node offset and the
+> > > > property name.
+> > > >=20
+> > > > Several function exists to get a property based on the node offset
+> > > > and the property name but none of them allows to get the property
+> > > > offset.
+> > > >=20
+> > > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
+> > > > simple variant fdt_getprop_offset().
+> > > >=20
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>   =20
+> > >=20
+> > > This seems redundant with fdt_ptr_offset_(), which can trivially get
+> > > this information when combined with fdt_get_property(). =20
+> >=20
+> > Indeed, It should be ok using both functions you pointed out.
+> >=20
+> > I will remove fdt_getprop_offset_namelen() introduced here and use dire=
+ctly=20
+> > functions mentionned in the next iteration without wrapping those calls=
+ in
+> > a new function.=20
+>=20
+> I've started to replace fdt_getprop_offset_namelen() by the combination
+> of fdt_ptr_offset_() and fdt_get_property_namelen().
+>=20
+> As a reminder fdt_getprop_offset_namelen() I proposed was the following:
+> --- 8< ---
+> > +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
+> > +			       const char *name, int namelen)
+> > +{
+> > +	const struct fdt_property *prop;
+> > +	int lenp, offset;
+> > +
+> > +	prop =3D fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
+> > +					 &lenp, &offset);
+> > +	if (!prop)
+> > +		return lenp;
+> > +	return offset;
+> > +}
+> --- 8< ---
+>=20
+> fdt_get_property_namelen_() was called.
+>=20
+> Switching to fdt_get_property_namelen() introduces a regression.
+>=20
+> fdt_get_property_namelen() calls fdt_get_property_namelen() and this func=
+tion
+> (without the '_' suffix) performs a check on fdt_version() returning an e=
+rror
+> on version < 16.
+>=20
+> Using it to replace my fdt_getprop_offset_namelen() function will break
+> write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
+>=20
+> [1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15=
+-herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
+>=20
+> Now, several options:
+>=20
+> a) No problem if we break dtb version < 16
+>    Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_()=
+ to
+>    get an offset and remove my fdt_getprop_offset_namelen() wrapper.
 
-## Medium: session reference leak in `j1939_session_cancel()`
+So, practically speaking this is probably true.  Version before 16 are
+truly ancient, and versions 1..3 were all before dtbs really caught
+on.
 
-Accepted. The old code did the cancel/get/start back to back inside
-`j1939_tp_set_rxtimeout()`. The patch moves the cancel above
-`j1939_session_list_lock()` and the get+start below `__j1939_session_cancel()`,
-which calls `j1939_xtp_tx_abort()` -> `j1939_xtp_do_tx_ctl()` ->
-`can_send()`, and then `j1939_sk_send_loop_abort()`. So the window now spans
-lock acquisition and a CAN frame transmit instead of three instructions.
+> b) Keep my fdt_getprop_offset_namelen() function without any modification
+>    We support version < 16, problem solved.
 
-The list lock does not help, exactly as you say: `j1939_tp_set_rxtimeout()`
-does not take it, and it is reached from the receive path without it by
-`j1939_xtp_rx_cts_one()`, `j1939_xtp_rx_dpo_one()` and
-`j1939_xtp_rx_dat_one()`, plus from the transmit retry path through
-`j1939_session_tx_rts()`/`_tx_dpo()`/`_tx_dat()` inside `j1939_tp_txtimer()`.
-Your CPU0/CPU1 interleaving is therefore reachable: two `j1939_session_get()`
-calls, one queued hrtimer, one `j1939_session_put()` on expiry. The session
-then never reaches `j1939_session_destroy()`, so it keeps both its
-`priv_dev_tracker` netdev reference and its `j1939_priv` reference, and
-`ip link del` hangs in `unregister_netdevice()`.
+Still don't like it.
 
-Two notes on the fix I intend to take, because I do not think
-`hrtimer_try_to_cancel()` alone closes it:
+> c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_inter=
+nal.h
+>    Export fdt_get_property_namelen_() in libfdt_internal.h and use it in =
+the
+>    static inline fdt_getprop_offset_namelen().
+>    This implies that fdt_get_property_namelen_() will be no more static a=
+nd
+>    usable internally out of fdt_ro.c but only the fdt_getprop_offset_name=
+len()
+>    wrapper should be used.
 
-- The reason the cancel had to move out of the lock stays valid. Before this
-  patch, `j1939_session_cancel()` called `hrtimer_cancel(&session->rxtimer)`
-  while holding `active_session_list_lock`, and `j1939_tp_rxtimer()` takes the
-  same lock, so a running softirq callback waiting for the lock deadlocks the
-  CPU that holds the lock and waits for the callback.
-- `hrtimer_try_to_cancel()` under the lock avoids the deadlock -- a callback
-  that is already running makes it return -1 instead of waiting -- but the get
-  and the start would still race with a concurrent `j1939_tp_set_rxtimeout()`,
-  which does its own cancel/get/start without the lock. Closing the window
-  needs both armers serialized, so the respin arms the rxtimer only under
-  `active_session_list_lock`: `j1939_tp_set_rxtimeout()` takes the lock and
-  uses `hrtimer_try_to_cancel()` + `j1939_session_put()` on a return of 1
-  before the get+start, and `j1939_session_cancel()` does the same under the
-  lock it already takes. That is the pattern `j1939_cancel_active_session()`
-  already uses. No caller of `j1939_tp_set_rxtimeout()` holds that lock today,
-  so this does not create a new lock order.
+Eh.
 
-That is a larger change than the current hunk, which is another reason to
-split it out (see the subject finding below).
+> d) Use directly fdt_get_property_namelen_()
+>    Export fdt_get_property_namelen_() in libfdt_internal.h and use it
+>    directly to get the offset.
+>    I don't really like this solution. I would prefer to have a wrapper to
+>    explicitly return the offset instead of exposing and using directly
+>    fdt_get_property_namelen_().
 
-## Medium: WAITING_ABORT deactivation lets the ABORT echo hit the next session
+Hm, I think this is my preferred option.  libfdt_internal.h exists
+precisely to "expose" things across modules internally, but without
+exposing them to external users.  Maybe I'm missing something, I don't
+really see why that's objectionable.
 
-Accepted, and this one is the more serious of the two. Confirmed in the tree:
-`j1939_xtp_rx_abort()` calls `j1939_xtp_rx_abort_one()` twice, once with
-`reverse = false` and once with `true`, and each does
-`j1939_session_get_by_addr()`, which walks `active_session_list` and matches on
-SA/DA/type/PGN only. Queued sessions are activated by
-`j1939_sk_queue_activate_next_locked()`, which schedules the next session's
-txtimer with `time_ms = 10 + get_random_u32_below(16)` when the previous
-session carried an error, so there is a real 10-25 ms window in which B is on
-the list and has not sent anything yet. An ABORT echo that is still in flight
-from A then matches B, `j1939_xtp_rx_abort_one()` drops B with
-`j1939_session_timers_cancel()` + `j1939_session_deactivate_activate_next()`,
-and the sender of B gets an error for a transfer that never started.
+> On my side, I would prefer b) as it support version < 16 without the need
+> to expose fdt_get_property_namelen_() out of fdt_ro.c.
+>=20
+> I would like to have your opinion on this point.
+> Is also option b) ok on your side ?
+>=20
+> Best regards,
+> Herv=E9
+>=20
 
-The respin drops the `waiting` branch entirely and instead arms the abort
-timer for both `J1939_SESSION_ACTIVE` and `J1939_SESSION_WAITING_ABORT`. Only
-the `ACTIVE` case calls `__j1939_session_cancel()`, so a second error input
-does not put a second ABORT frame on the bus; it just re-arms the timer. The
-session stays on `active_session_list` either way. What the branch was working
-around is that a second error input reaching the same session calls
-`j1939_session_timers_cancel()` first, which cancels the abort timer armed by
-the first call, and the second `j1939_session_cancel()` then found the state
-already `J1939_SESSION_WAITING_ABORT`, matched neither arm of the old state
-test, and armed nothing -- the stranding case from your subject finding, the
-one that ends in `unregister_netdevice: waiting for vcan0 to become free`. With
-the timer re-armed, the session either gets its own ABORT echo, which now still
-finds it on the list because it was never deactivated, or `j1939_tp_rxtimer()`
-takes the `J1939_SESSION_WAITING_ABORT` branch after
-`J1939_XTP_ABORT_TIMEOUT_MS` and deactivates as before. Each re-arm stays
-balanced: one `j1939_session_get()` against the one `j1939_session_put()` in
-the callback.
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
-## Low: the comment in `j1939_xtp_rx_dpo_one()` is wrong
+--XENMgbyF3t/NKs0Y
+Content-Type: application/pgp-signature; name=signature.asc
 
-Accepted, the comment is simply incorrect. `j1939_can_recv()` sets
-`J1939_ECU_LOCAL_SRC` from the source address alone:
+-----BEGIN PGP SIGNATURE-----
 
-```c
-	if (j1939_address_is_unicast(skcb->addr.sa) &&
-	    priv->ents[skcb->addr.sa].nusers)
-		skcb->flags |= J1939_ECU_LOCAL_SRC;
-```
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrdajsACgkQzQJF27ox
+2GckPRAApwUBVCrf4MP1zOaPXcDxtCZVe10c/lLhf/TDUvTNDCukEVieyg0lHNV+
+rHgizSNqjsouULzjRw7VEHyRwwlwnU4npX+Kq0CQdBk3nk8vFeBMSBMl+XoQBiYJ
+Kg0p8DzU49XVxGVJD75bIJTx23hc9pAlywL1aS0yMJycfd9cCh4NYLVXNRKxsVYW
+h8+uZZPDHhkBaljFzTxY7zFpQ9W9l7bq/aeSQvLJSq1ql8RpQrIqKw42mxWvEX8d
+VIl6vTxCTnO7YSW8f/5SA2OTQT7AXiBK1Br6pTj4J0Q6zDz0dVj11HdNWxGIpS5R
+vzHCPOOeO78wNo5rjQciGPXNQsfH+odZQaGm0WuXgOTlfLB+8S8yLcJoWKNkiRo0
+IGb6uMuCOelorSNvgjFTGZqMmM1dpQzd7vfqRirjUAg7msK5DW9gyOGcepLbgXbN
+cvkF2dFUMre3Zudz9cID3ujU1ZlW2WNVlm7E5d3zYrifQVjzmRckGXBy5xLVyWu0
+numzMIjtlep+Bq16ITeh1gEPQ6+yOM41wgh+DUPjZe3EVJOYPJLUImN9rkCO9Ehv
+n3qUDUQa9mppKY5jpd+XS9rLhcQQvxWnBBJUH9ui7QoOFX0OLsdiGmj9LDHsT6wG
+RXLhAmjfdEryCC0VBNh5PD/2MrqQIyhcoRlhgwCQBgNXjT+A0tI=
+=ve+b
+-----END PGP SIGNATURE-----
 
-and `j1939_tp_cmd_recv()` forwards every ETP.CM_DPO with that flag to the
-transmitter session, so any local node sending a bad DPO reaches the branch,
-not only the echo of an EDPO this stack built. Both the comment and the
-matching sentence in the commit message go away.
-
-On the reason code: `J1939_XTP_ABORT_ECTS_TOO_BIG` ("ECTS requested packets
-exceeds message size") is wrong for a DPO we received, so the check will send
-`J1939_XTP_ABORT_BAD_EDPO_OFFSET` unconditionally. The transmitter-side case
-that motivated the conditional is real, but its cause is not in this function:
-`j1939_xtp_rx_cts_one()` bounds `pkt` only with `if (!pkt)` and
-`dat[1] > session->pkt.block`, so an oversized ETP.CM_CTS packet number can set
-`pkt.tx_acked` past `pkt.total`, and the EDPO built from it in
-`j1939_session_tx_dpo()` carries that value back to us. The respin bounds the
-CTS there -- `pkt > session->pkt.total` is exactly `ECTS_TOO_BIG` -- and then an
-out-of-range DPO reaching the transmitter is a genuine peer error.
-
-## Low: the subject covers only one of the changes
-
-Accepted. v7 will be four patches:
-
-1. `can: j1939: abort a session whose abort timer was cancelled` -- the
-   WAITING_ABORT re-arm, with the two-unparsable-ETP.DT repro and the
-   `ip link del` hang.
-2. `can: j1939: arm the rx timer under the session list lock` -- the
-   `j1939_tp_set_rxtimeout()` / `j1939_session_cancel()` serialization above.
-3. `can: j1939: simplify the second RTS handling` -- the
-   `j1939_xtp_rx_rts_session_active()` change.
-4. `can: j1939: validate the EDPO packet number` -- the bound check, the NULL
-   guard in `j1939_session_completed()`, and the CTS bound; the 256-packet
-   repro and the 3/3 panic result stay with this one.
-
-You are right that the `dpo >= pkt.total` check alone stops the T1 NULL
-dereference; patches 1 and 2 are there for the reference strand, not for T1,
-and I will say so in their messages instead of implying they are part of the
-crash fix.
-
-## Low: commit message and tags
-
-Accepted, all three:
-
-- The revision and testing history ("stock, v5, and this revision", the
-  per-case matrix) moves below the `---` line.
-- `From:` and `Signed-off-by:` will use the same name. The `Author:
-  Quchaosheng` in v6 is a `git send-email` identity mismatch on my side, not
-  an intentional alias.
-- `Closes:` replaces `Link:` after `Reported-by:`.
-
-Thanks for the review -- the two Medium findings in particular were worth the
-round trip, and finding 3 saved a wrong abort code from going in.
-
-Chaosheng
-
-pw-bot: cr
-
+--XENMgbyF3t/NKs0Y--
