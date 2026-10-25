@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007679;
-	b=07JbsXEo4/It6oI25pYQUhE2kC41FzBWwZujPNmieLKNtWFyBIhEXshv2JIl9lze1ozV
-	 yajHZAyWYmaL6AyspF/uGSsPbYMW6Lvx79a98yDUXeqGPaZhIjjO33BlxFMkZRp0LlSvx
-	 pl70BBTYYSNMZI6aC5dqchHUzfzZRFrZA5dtvabIP0HTwRKrWV/T1ZWWCufN+QukgJ2Fe
-	 iDbJuoCTEr9MHMmZbCF9BjbwAgvtvGu+AJLyQwB4Rnb+1nw/5ZrZB8pSFmjHFfzrwe3yr
-	 2F+gtcxwAOFgHD3clU/01V4Ufs6y9TrZGIx7CqNDKrwrMRmCsx/LYa2XcqvJ+FCTZXw==
+	t=1793007675;
+	b=GXE1SCOOtVkDRmLotGJj8sI9VR8AlRacXgzLul6x/LRzQ9cuEbKnuV1XFbbf3lgQOHu+
+	 ShccIMVgfMb1lMKsFjUGQcyAZzTVAyNSn+s/FL1+ng1Rhdo+3Bx8htdU/sNC3TkNWsntd
+	 t447mJygD1nOLrhbdC+yfAqivltGU+DJKJX6JReULx+rVE6R4YjQ6z6eGpsOwF8ZLUbTd
+	 Sah0qAm2cw3nOb5TiARR04mv4aqrdrUjg+/L+dugOJQX2rVrfmfsPw5dawk4tviPA7jGc
+	 6Lcwe/Vy2IICoQ3pufLO9zCWhFGyKMAcnZpCyntNAvGFvDpa3huFZSOI9gE+UgSH9UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007679;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=BxRlcgnZgnkhi6+O0aTsbz1x8Tq983dT+cO3SyC2Rpk=;
-	b=5SlvK4f1YHM96u92xH7SQAluSUtJrt3CXURrsZjdIdGIChiP+kSEimU4i477l4s0DfJF
-	 iQulBD7L+32wQ8QQXyEZ0uI0cqHyIZ/tL8gX+MPIEir2FK0QmsZVauFmoos9Qqav17u47
-	 XVuQuj4kFK6D2PDLhfW42b4/wYQgW6tlZa9yxn35PcCA4teVb5jqFLpIwvTrRhJ9DiKDq
-	 XCJ7MY/RCWcaChDr4Sf9gRf6pvJJ158VM0C9wJQaMVRuUxV2kqE2vO3ve86vlxixNttSC
-	 gVKP/7dKewzsNzdJcA31KDA/MMNJIgCofblfjFFNBFKiDcVqz95UXUq9eTowvPOonzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007675;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fmErr11J4yiDe+oqOLxrAHXMe+lgqHj/gW1PNNiv0PY=;
+	b=R+RiHAC8GtzZb4e8+UvCbZ7Pa4QpNPXM/tT9OsvYXUbloTqigPDBGEb6e640/O8EwVHL
+	 WxAHy5x1v67Mqj4eO822ValNvhCB61K3JswqUyqL5Tm0Is3hOuH5mSrONNJ2uvQO3DiLE
+	 lejRDQ8Riav8CnImEjtQsWqeDxCC19ulX9EMwDZXUBTXAuk//dE5uZf5MrFB94q5GYTtZ
+	 b0tsp9LYMTetxgGUinbzEeSalalaHAd6KAQH1lMnqDliF5hyS/ygszNh+rQFSSl+/YjyQ
+	 aH/gevGmDEEVKmWtWJoa+3AxOQk3apsF3NApCunseh4c4OCA6yukg3CEv5R8U/NnU0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLWJfIRf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoY+nVJd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B7460A260E;
-	Mon, 26 Oct 2026 09:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43B9606A330;
+	Mon, 26 Oct 2026 09:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLWJfIRf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B28E1F01828;
-	Mon, 26 Oct 2026 09:41:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoY+nVJd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56F11F031E2;
+	Mon, 26 Oct 2026 09:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007678;
-	bh=BxRlcgnZgnkhi6+O0aTsbz1x8Tq983dT+cO3SyC2Rpk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LLWJfIRfqQ9yw9zN8w+tiThnDWMyYGvn4LuqFmaS/+sKhD0RYXGM6ekuLbp5pwye0
-	 GlAFStgMZ4bpa74f1YXxkncoHCET/UQGIsZMpznOcVE3Xmzy+UQDI+uXyspDicU48a
-	 RwH9olooA8JB2RwulISypqfyfEg2BuWxr9jC0KFeW6gkQcEvmtEnultg/qf45+imgv
-	 xOP2nH//hSvDA7H4Rya9klWucPxS630yCdhbc/J0QCPYiQ7ztrPc2vWIote2d2lKzq
-	 n28H/ZOeHflhVLZO1TbpQ0jpRnv49HxVS6FYn+bLcMj+oniKTOECFaDwVDwQK06mDn
-	 Q3tzYXHhxZhCg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 26 Oct 2026 10:40:37 +0100
-Subject: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+	s=k20260515; t=1793007674;
+	bh=fmErr11J4yiDe+oqOLxrAHXMe+lgqHj/gW1PNNiv0PY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hoY+nVJdTpF+bOnGRqA60bqEon5wES0uTDgRThXCOwAPT/eYwNotrJ8PurgaBDBH8
+	 6RTUTlsQSoBeGbuLzwDPLxO6Tg9aX0DzEGmjJzZhajmJdWtdQFKWaGv+iqM+2uBKpu
+	 026t64oG7a4GhVyDaiFRtUzs+QhNWsy1qp4OK/oABUnwArhQHMz6REf23JPiDPpyUt
+	 H3PBDpVbqxeuL8lP8i6Dj/GHiIrypsBVaNKkQxsf+1b7KTZ/1TIdboA/vnbPXaRbcE
+	 n8p/qSrc52pFTkI67KgPo+ShAyE6zmyE2/FC0JJN0+EVo+8neJxNDYKWgRVYf+Oiv/
+	 WBm0YdS18Y/Ng==
+Message-ID: <a6cbfb24-efea-41ef-8f1b-dd2bd160cff4@kernel.org>
+Date: Sun, 25 Oct 2026 13:43:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,156 +51,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-In-Reply-To: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3607; i=david@kernel.org;
- h=from:subject:message-id; bh=MTJYg0b2CsxJrcKABZR2LY1h7dDRQY+5hOZR0M8LIUo=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLuK4jVT3O8UbFoGtvb8E/hKj+m79twwzyz9KL69Zhz0
- XPUIrbu6ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAih3MY/ocumabo41Zs8b81
- 98X2SZ2fZJuSGX7/ZC5IXXy4c8ncH/oM/11F0stiO/pbry90a6pbmJ955bLoRzPhPf7JQsqlB4v
- 6uAE=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: ppm: add PPM (Page-Plugger Under Memory) to Page
+ Fault and Overcommit elimination
+To: dev12124 <joaoanandalima@gmail.com>, linux-mm@kvack.org
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, ardb@kernel.org, keescook@chromium.org
+References: <20261024104552.394-1-joaoanandalima@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261024104552.394-1-joaoanandalima@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+On 10/24/26 12:45, dev12124 wrote:
+> Hi mm subsystem,
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+Hi,
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+> 
+> This patch implements the Memory Tatic called PPM, Page-Plugger Under Memory.
+> The Main Objective is: Page Faults and Overcommit Elimination.
+> 
+> A few points under additionate:
+> 
+> 1. Allocation Handshake (ppm_kalloc):
+> Using the GFP_PLUG_MEMORY mask, the allocator completely bypasses
+> passive overcommit verification. It instantly isolates physical frames
+> on the RAM, maps the page table entries síncronamente, and forces the
+> Present Bit and Writable Bit to 1 before returning the address block
+> register to the CPU.
+> 
+> 2. Desallocation Cleanup (ppm_kfree):
+> Triggered via the GFP_FREE_T parameter, the release phase executes an
+> immediate length truncation to 0. It forces a synchronous TLB
+> invalidation (via invlpg execution) and flushes the data out of the L3
+> cache lines using clflushopt instructions before moving the hot clean
+> pages into a dedicated priority recycling pool.
+> 
+> I additionate a Buffer/Cache with store important objects.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+Reading this description I have no idea what this patch does, what it tries to
+solve, and why anybody should spend their time to look into it.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: use common helper; simplify description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+> ---
+>  include/linux/ppm/gfp_types.h |  74 ++++++++++++++++
+>  include/linux/slab.h          |  11 +++
+>  mm/memory.c                   | 158 ++++++++++++++++++++++++++++++++++
+>  3 files changed, 243 insertions(+)
+>  create mode 100644 include/linux/ppm/gfp_types.h
+> 
+> diff --git a/include/linux/ppm/gfp_types.h b/include/linux/ppm/gfp_types.h
+> new file mode 100644
+> index 000000000..741122b2d
+> --- /dev/null
+> +++ b/include/linux/ppm/gfp_types.h
+> @@ -0,0 +1,74 @@
+> +/* 
+> +  Memory Tatic: PPM (Page-Plugger Under Memory).
+> +  This File is for PPM Flags/Macros/Functions/Types.
+> +  Engineer (brazilian): João Guilherme da Silva Freitas Lima <joanandalima@gmail.com>
+> + */
+> +
+> +/* Types Include Guards */
+> +#ifndef __PPM_TYPES_MEMORY 
+> +#define __PPM_TYPES_MEMORY 
+> +
+> +typedef unsigned char uint8_t;
+> +typedef unsigned short uint16_t;
+> +typedef unsigned int uint32_t;
+> +typedef unsigned long long uint64_t;
+> +typedef uint64_t gfp_t;
+> +/* For errors in Allocation */
+> +#define __PPM_ALLOC_ERROR -102
+> +/* For errors in Desallocation */
+> +#define __PPM_FREE_ERROR 0x04 
+> +/* For success */
+> +#define __PPM_SUCCESS 0
+> +#endif
+> +
+> +/* Functions Include Guards */
+> +#ifndef __PPM_FUNCTIONS_MEMORY
+> +#define __PPM_FUNCTIONS_MEMORY 
+> +
+> +/* Initializer */
+> +void __init_ppm_memory();
+> +
+> +/* Allocator Optimized */
+> +int ppm_kalloc(unsigned long address, uint64_t size, gfp_t flags);
+> +
+> +/* Desallocator Optimized */
+> +int ppm_kfree(uint64_t size);
+> +
+> +#endif
+> +
+> +/* Flags Include Guards */
+> +#ifndef __PPM_FLAGS_MEMORY 
+> +#define __PPM_FLAGS_MEMORY
+> +
+> +/* PPM inits/starts in Bit 54 of a 
+> +   64-bit variable 
+> + */
+> +gfp_t GFP_PLUG_MEMORY = (1ULL << 54); 
+> +
+> +/* For free memory, the Bit 55 is 
+> +   used 
+> + */
+> +gfp_t GFP_FREE_T = (1ULL << 55);
+> +
+> +#endif 
+> +
+> +/* Macros Include Guards */
+> +#ifndef __PPM_MACROS_MEMORY
+> +#define __PPM_MACROS_MEMORY
+> +
+> +/* For Kernel Kernel tests 2 Bits (54 and 55) in 
+> +  1 Clock Cycle (or in small clocks, example: 5 Clocks), 
+> +  is used a mask using | 
+> + */
+> +gfp_t GFP_MASK = GFP_PLUG_MEMORY | GFP_FREE_T;
+> +
+> +#endif
+> +
+> +/* 
+> +  Notes:
+> +    E-Mail of RFC:
+> +        [RFC] mm: page-fault: overcommit: PPM (Page-Plugger Under Memory)
+> +    
+> +    
+> +    Assigned-Off-by: João <joanandalima@gmail.com>
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34a..272479317cf10 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index d97fc32e7c942..86b9d19f26c7e 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1549,10 +1550,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5400,12 +5402,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl NULL
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
+I don't know if I am supposed to laugh or cry ;)
 
 -- 
-2.43.0
+Cheers,
 
+David
