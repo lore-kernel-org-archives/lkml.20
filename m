@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792931744;
-	b=ojL52tkJah1dzmqegU/lFTcWm+kpJGiDascVFkEMhQzrmYIsTY5EZUIRuUeRKMND0nFc
-	 rZKBDMt+L5ZSqfGbd+T+/6nhUV5VRDCLeO2G6eKXZ0WZFQ7o7jujjvQZ3HRXNy6B8WWa3
-	 2A2o6hvnhYsTEHCKdyesBjvbdGcZjhbcxpViL7mrTtWRbw8vuuLd1WUdSp+YftM2AVbz1
-	 PNiH2qQR+3ZGKo5ynPPBx6HQLTHLCpE0EqdmH0TNs4k21zn8ON6/K8YWw3Rt/uo2q3Sen
-	 PfD6DHlMu9BOtQXqIzY6s43a8KNw82JVaO37uXA4lDL8GGoh10HYCyokHL7dVYyc3qw==
+	t=1792932098;
+	b=A2hU5cecNrhDZOT2TU59Suy0Qwo6JsgCktX1WXe3jreHiMJvE0j1kc8jWB9y3zW3C1es
+	 cKSl5pankp5bWzE54CHvZZnFX+GuJ5MNEAtYXe0s7O0X5tOSAPhXfe/EF0NwongLEn19z
+	 26XwjagdXnauPKtTSXZdutgfHvthzcxfFFeGkTezTItPOZW+1hPQPmOdzcYhHSfZATgi2
+	 YMaaEi3mLAT82isNXpzNUpcN08LhWFgqUp+9ITcUwzWN0KlaYdtVpc+4DelBvMd42YTrW
+	 VJ6kNCVy8kkx1WcjQs0gdabjZXxBn+3oX7QkNgRP+1wGo6g/F2Dbr2vjEs49OI6Sb5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792931744;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=9/A+575MKRk7GA5uUGQCk986GQEMOzFS8Mn/MJQXXRo=;
-	b=lXAZd6/3MA2GJvjZ8lRbS1bL+BKjrSkl8BrLWBpT9G9j98y4sLtjkU1Wrs63co/j12IG
-	 wzq2Z3Lf49Tz1LOBnhi45KLyNWuZFnoO32wvkQGb95GAQ1MbEbYJMl6bEo/cIifEq9PaA
-	 qgjU1f8FfTqiXr4pYtvBpxsn07PurYE8XgRnokZ5Rxo2tEGeTogM8djx25+EpioY946I5
-	 DgndcteJpwTAqiL1VgTDmSAftdBlm8L6jWZhcv2Eu7CR5/+PZSdFAbJ9dsiJss27Mr+y7
-	 EGNNzfDpJHr4mJfz1r8TvfseQsUlTbG5EbxSb1FwVnpKbmp5Wx+Fyudfj6gj2TIAPZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792932098;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=kBj+4RxwijaLWN5ITLDs5hsE3jd/u1ixbAu4cXW/vcs=;
+	b=SJjMbN3Ts/w34jwgeY1joZ6ETRjeKEHgCZIIEy5U0xCcsOjnxGs5cZySIccwRZfYTGmv
+	 1+NrNbYEXYf1bkfzcRfKIWve4pdHSFvLeXaSWvqYDMYsqZmLLsU72tRAUK/uvktI4qWY/
+	 0ANBKp8xNjGr2HmAfigk7tIILrXzneMjZHJF/7CYyjDXUzxEekhM5y1rmkj4Ma2/mn7oP
+	 hIWz55EGu+hQncQUnfXzeD2naVEpbbVjnvXML42NCVv2cmU+AHafXnsS/2hnD03LE3Rin
+	 WqmPcKxFb71uI3tTnQDGP1tihuNlqjp/xbJSR7oy/pYl1FE9nGQlVmR0AJ9uoXF/a9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tobzealy;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=irqm4AVT;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C9C606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C9C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC34A606A31A;
+	Sun, 25 Oct 2026 12:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC34A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tobzealy
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-844a8bf7e25so1578108a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:35:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792931743; x=1793536543; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9/A+575MKRk7GA5uUGQCk986GQEMOzFS8Mn/MJQXXRo=;
-        b=TobzealyoKc+QExgkY3TCVSTk5jug3m2cY9Y235nTo3Puld9D/WjC2EDwo0NxU4J2u
-         YH4v81J7ScG69QWmERv4SbnrWdMNt9dW8ZJ2NFIKObtAQwOhTR7/TVoPQDHR63qICDut
-         lO0Iz0ci3bjZ8vb2RhkV3dVfppRf3R6ziFDbwV7irlFUI8trMO/EzViwRLveGusYD0ec
-         xMHGpI/6l2LXk2Ndamwu3hC8HwR8CQXs5VVjcdx621FXr8YHR5d1j793dWj2MXBJ/JtL
-         GCjbCs9haGaCaT1CKON56IZLJ65+81kPm6R8oW2cQiPHMvlfzMp8INi2Uyx/ipdZYSBF
-         G6sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792931743; x=1793536543;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9/A+575MKRk7GA5uUGQCk986GQEMOzFS8Mn/MJQXXRo=;
-        b=vqkUDTwXzmqmcFY6mkTsvJeE8bLQKchTEYNYm6TLE6ILxjloncyd1sgajzsC/vQfXz
-         w+1brjh5EfDsNy72KiYJEbzSSRqBACv+CAL5w3xAd++KkmtTsqaraXjWHPjEImaIfCnv
-         aC25J09/fS/OAZJurghrPic5y6Wv0SlFFblIg3dm/FNM6ADLhbzw5Tb+qkvObGUQV4+W
-         Jtwd0M6S9AQS1U9my7M5FA0kFhTNis52kuFtyiu3nteq8Z8KYq+3HI24z3/0tE00XU4q
-         D7+9hJmgWEkddPdf7e0Lt4TeKug9/nzv5ZgwYDmngD+BXdGAmMLbzqfwzLnnnOCw2+tw
-         HrHg==
-X-Forwarded-Encrypted: i=1; AKwUvByFa2LJbAGHoiGuDRNMesf9JG47+vzdRHAtfXhWdhHattFQJPoP7FSPVgrPGJRd1vpxFcihnDrsmufqmZc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLr9d7nFm216bd/SNEXXMXumIUTbTSSCqdGVE73E/d7VjG9PcmA
-	ToWQm8NwotL2An6vouVMw9DUO4WC8PCwIIXRRFlNdmRqT0MQm1IV8vCE
-X-Gm-Gg: AYBFou1PW86l1VPwYP675A4Srqu0mi93DM0rktiFb1PQqpWF4X5ftZluhpZdKapwtee
-	JmVSAUBVmCq7x1IJ9WqvMrvw/OleoRwvNDy32WOzP5LV644mZ+GHthH6mVcpqEwJvbqB3JOdy/H
-	fOoambLz5cK8Dh1IgIVvHu5ikjXtWkkHFdbG8qwvut0nVgoUeYRuq/eW+xoliqfJu/Zobn+b3h8
-	WbCPpytHL9elBFuVYo2OguGlPx8uxhOfthOWcMcvThpftq8vMCqAw16cc7hWJWfVMgFlODevkvU
-	Lb6IP+WvOF8mz+7g6ntwhyCjiKliXWrklCtI6AuhGx2b2uWBzhI3n9bm7sK2vCCs48E2ct+go+p
-	zGSd2D2WiMCIeQDl8GlxHUW4pJeJaTjTj/1soC1vlytEZJm8U/Q7O9QJzA8Lw7L1Qi7Nr06kmeL
-	b2AmqJ2UF1ayVIDP7X9ZVI34FOpfd9CZG/8UJ5fxRKUdQuRk+21D1Oo/P1i79dNeFPmJO1lg3BH
-	n6bC+2GcRF+/Lg47MZg6GVlUBgp36+vhMXNXPudtYzWHUdX7MLQ3hubHyHydT28tMhmvVDs0dPf
-	VVRqHLMEGypNexbO4ritpM99Ok5k8rUfLdvn5Ln/Vgww9L5wVGmdZmsuSPN949OFWV6hABZ0Ydf
-	jEULc4oSzvLu/kVCw+Hl5KmDiCmSG3fVgqXH/xIG0iNGyYFHVFPOF0ZaZzesnp25xCLjtGcw1zZ
-	cUjhcgIgkaXZQFB5DnP5/dhsk=
-X-Received: by 2002:a05:6830:441e:b0:81f:827a:b1cf with SMTP id 46e09a7af769-850ff0a53d1mr3579687a34.22.1792931742819;
-        Sun, 25 Oct 2026 05:35:42 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb0749cfsm5095788a34.9.2026.10.25.05.35.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 05:35:41 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 25 Oct 2026 06:35:17 -0600
-Subject: [PATCH net-next] net: phy: acx00: report receive statistics
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=irqm4AVT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kB
+	j+4RxwijaLWN5ITLDs5hsE3jd/u1ixbAu4cXW/vcs=; b=irqm4AVTDaZMMfbMc9
+	ZI3mPqcgCSZgPdSKM8qtMSLspV66/LzvQCoE6pZXc/59gHIy7jRTG9e503ChvQCt
+	V28xRWnjS+yxejDfzXcgNWJMkeJJehpfrhhGIf3gr5SX/q0VxYQ4mCr6Bf2C6uE5
+	LRikHUBT52D1uuRDeaRVq4OIk=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDnvTzs+N1qxJALCA--.54355S7;
+	Sun, 25 Oct 2026 20:41:23 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Naohiro Aota <naohiro.aota@wdc.com>,
+	Johannes Thumshirn <jth@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 5/5] zonefs: drain in-flight DIO before buffered writes
+Date: Sun, 25 Oct 2026 20:41:14 +0800
+Message-Id: <20261025124115.3178287-6-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261025124115.3178287-1-yaojiale02@163.com>
+References: <20261025124115.3178287-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,296 +65,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMwQ6CMBBEf4Xs2Y2lNkL8FeOhLYtdEyrpVoIh/
- LutxuPMvHkbCCUmgUuzQaKFhZ+xhPbQgA823gl5KBm00udWaYPychNntH5VCufwRsk2Cy4tDv2
- pH7vOGEM9lP+caOT1675CpIyR1gy331I0D/K5qivrrBC6ZKMPtfrTx8lyhH3/AMf3bBanAAAA
-X-Change-ID: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDnvTzs+N1qxJALCA--.54355S7
+X-Coremail-Antispam: 1Uf129KBjvJXoW7XF13Ww17XFy8CF45XF43Jrb_yoW8Jr4DpF
+	9xKF13GF95ZrWxC3yvka1UX3ZYkF1kXr43WrWqq3W7Aa4DJr1jgF4jyry29a45AFsrAFWI
+	vF4kWryUuryqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URCJQUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xOMxmrd+PM7ngAA3v
 
-Expose receive frame and byte totals through the generic PHY statistics
-interface as rx_packets and rx_bytes, alongside CRC errors in rx_errors.
-Report the hardware totals directly: the packet and byte counters include
-errored frames as well as successfully received traffic.
+Conventional zone files allow both direct and buffered writes. An
+asynchronous direct write can remain active after its submitting thread
+releases the inode lock. A buffered write can then dirty page cache before
+direct I/O completion performs post-write invalidation, causing the
+invalidation to fail and record -EIO in the mapping error sequence.
 
-Collect the free-running 32-bit counters through phylib's
-update_stats callback and accumulate wrap-safe deltas in 64-bit totals.
-Read the high half on either side of the low half and retry until both
-high-half reads agree.
+After taking the exclusive inode lock, wait for active DIO before running
+buffered write checks. Return -EAGAIN when an IOCB_NOWAIT request would
+otherwise block.
 
-Hardware testing confirmed that the receive-byte counter wraps at
-4,000,000,000, while the receive-packet and CRC-error counters wrap at
-2^32. Use the corresponding modulus for each counter so rollover does
-not inflate the software totals.
-
-Serialize collection and reporting with the package-state mutex so reads
-cannot race reset or power-off, and the totals are safe on 32-bit systems.
-Commit a sample only after all counter reads and page restoration succeed.
-The reporting callback returns cached totals without accessing MDIO.
-
-Take a best-effort final snapshot before soft reset and suspend. Invalidate
-the hardware baseline before reset or power-off, including failed power-off
-attempts, and establish a fresh baseline after configuration. Preserve the
-software totals across these transitions and retain the live baseline when
-resume reconfigures an already active PHY. A failed initial snapshot can be
-retried by the periodic collector without preventing initialization.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Fixes: 4008e2a0b01a ("zonefs: Reorganize code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/phy/xpowers/acx00.c | 157 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 154 insertions(+), 3 deletions(-)
+ fs/zonefs/file.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
-index d19ba6d8069a..1375784d2837 100644
---- a/drivers/net/phy/xpowers/acx00.c
-+++ b/drivers/net/phy/xpowers/acx00.c
-@@ -8,6 +8,7 @@
+diff --git a/fs/zonefs/file.c b/fs/zonefs/file.c
+index 5b34849be7a2..8635a795c24c 100644
+--- a/fs/zonefs/file.c
++++ b/fs/zonefs/file.c
+@@ -576,6 +576,14 @@ static ssize_t zonefs_file_buffered_write(struct kiocb *iocb,
+ 		inode_lock(inode);
+ 	}
  
- #include <linux/bitfield.h>
- #include <linux/device.h>
-+#include <linux/ethtool.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
-@@ -31,6 +32,7 @@
- #define ACX00_PAGE_2				2
- #define ACX00_PAGE_6				6
- #define ACX00_PAGE_8				8
-+#define ACX00_PAGE_9				9
- 
- #define ACX00_PAGE0_GLOBAL_CONFIG_REG		0x13
- #define ACX00_PAGE0_XMII_RX_CLOCK_INVERT	BIT(12)
-@@ -76,6 +78,29 @@
- 	(ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS | \
- 	 ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS)
- 
-+#define ACX00_PAGE9_RX_BYTES_HIGH_REG		0x19
-+#define ACX00_PAGE9_RX_PACKETS_HIGH_REG		0x1b
-+#define ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG	0x1d
-+
-+/*
-+ * Hardware testing confirmed that the receive byte counter wraps at
-+ * 4,000,000,000 rather than 2^32.
-+ */
-+#define ACX00_RX_BYTES_WRAP			4000000000ULL
-+
-+enum acx00_ephy_stat {
-+	ACX00_STAT_RX_BYTES,
-+	ACX00_STAT_RX_PACKETS,
-+	ACX00_STAT_RX_CRC_ERRORS,
-+	ACX00_NUM_STATS,
-+};
-+
-+static const u8 acx00_ephy_stat_regs[ACX00_NUM_STATS] = {
-+	[ACX00_STAT_RX_BYTES] = ACX00_PAGE9_RX_BYTES_HIGH_REG,
-+	[ACX00_STAT_RX_PACKETS] = ACX00_PAGE9_RX_PACKETS_HIGH_REG,
-+	[ACX00_STAT_RX_CRC_ERRORS] = ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG,
-+};
-+
- /*
-  * Another integration of this exact-ID PHY documents its digital vendor
-  * register map, which also matches the observed ACx00 reset values. The ACx00
-@@ -86,11 +111,15 @@
- struct acx00_ephy_priv {
- 	struct phy_device *phydev;
- 	struct acx00_ephy_control *control;
--	/* Serializes package state and multi-register power sequences. */
-+	/* Serializes package state, power sequences and statistics. */
- 	struct mutex state_lock;
- 	bool is_ac300;
- 	bool use_low_calibration_tuning;
- 	bool xmii_rx_clock_inverted;
-+	bool stats_active;
-+	bool stats_valid;
-+	u32 stats_last[ACX00_NUM_STATS];
-+	u64 stats[ACX00_NUM_STATS];
- };
- 
- static int acx00_ephy_read_page(struct phy_device *phydev)
-@@ -110,6 +139,105 @@ static int acx00_ephy_write_page(struct phy_device *phydev, int page)
- 			   FIELD_PREP(ACX00_PAGE_SELECT_MASK, page));
- }
- 
-+static int acx00_ephy_read_counter(struct phy_device *phydev, u8 reg, u32 *count)
-+{
-+	int high, low, check;
-+
-+	/* The free-running counter can carry while its two halves are read. */
-+	do {
-+		high = __phy_read(phydev, reg);
-+		if (high < 0)
-+			return high;
-+		low = __phy_read(phydev, reg + 1);
-+		if (low < 0)
-+			return low;
-+		check = __phy_read(phydev, reg);
-+		if (check < 0)
-+			return check;
-+	} while (high != check);
-+
-+	*count = (u32)high << 16 | low;
-+	return 0;
-+}
-+
-+static int __acx00_ephy_update_stats(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	u32 counts[ACX00_NUM_STATS];
-+	int oldpage;
-+	int ret;
-+	int i;
-+
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	if (!priv->stats_active)
-+		return 0;
-+
-+	oldpage = phy_select_page(phydev, ACX00_PAGE_9);
-+	if (oldpage < 0)
-+		return phy_restore_page(phydev, oldpage, oldpage);
-+
-+	for (i = 0; i < ACX00_NUM_STATS; i++) {
-+		ret = acx00_ephy_read_counter(phydev, acx00_ephy_stat_regs[i],
-+					      &counts[i]);
-+		if (ret)
-+			break;
-+	}
-+	ret = phy_restore_page(phydev, oldpage, ret);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < ACX00_NUM_STATS; i++) {
-+		u64 count = counts[i];
-+
-+		if (priv->stats_valid) {
-+			if (count < priv->stats_last[i])
-+				count += i == ACX00_STAT_RX_BYTES ?
-+					ACX00_RX_BYTES_WRAP : BIT_ULL(32);
-+			priv->stats[i] += count - priv->stats_last[i];
++	if (atomic_read(&inode->i_dio_count)) {
++		if (iocb->ki_flags & IOCB_NOWAIT) {
++			ret = -EAGAIN;
++			goto inode_unlock;
 +		}
-+		priv->stats_last[i] = counts[i];
-+	}
-+	priv->stats_valid = true;
-+
-+	return 0;
-+}
-+
-+static int acx00_ephy_update_stats(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = __acx00_ephy_update_stats(phydev);
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static void acx00_ephy_get_phy_stats(struct phy_device *phydev,
-+				     struct ethtool_eth_phy_stats *eth_stats,
-+				     struct ethtool_phy_stats *stats)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+
-+	mutex_lock(&priv->state_lock);
-+	stats->rx_packets = priv->stats[ACX00_STAT_RX_PACKETS];
-+	stats->rx_bytes = priv->stats[ACX00_STAT_RX_BYTES];
-+	stats->rx_errors = priv->stats[ACX00_STAT_RX_CRC_ERRORS];
-+	mutex_unlock(&priv->state_lock);
-+}
-+
-+static void acx00_ephy_snapshot_stats(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	/* Statistics collection must not prevent reset or power management. */
-+	ret = __acx00_ephy_update_stats(phydev);
-+	if (ret)
-+		phydev_dbg(phydev, "failed to snapshot statistics: %pe\n", ERR_PTR(ret));
-+}
-+
- static int acx00_ephy_control_power_on(struct acx00_ephy_priv *priv)
- {
- 	lockdep_assert_held(&priv->state_lock);
-@@ -122,6 +250,10 @@ static int acx00_ephy_control_power_off(struct acx00_ephy_priv *priv)
- {
- 	lockdep_assert_held(&priv->state_lock);
- 
-+	/* Even a failed power-off can have reset the hardware counter. */
-+	priv->stats_active = false;
-+	priv->stats_valid = false;
-+
- 	return priv->control->power_off(priv->control);
- }
- 
-@@ -350,6 +482,10 @@ static int acx00_ephy_soft_reset(struct phy_device *phydev)
- 
- 	mutex_lock(&priv->state_lock);
- 
-+	acx00_ephy_snapshot_stats(phydev);
-+	priv->stats_active = false;
-+	priv->stats_valid = false;
-+
- 	ret = acx00_ephy_set_interface(phydev);
- 	if (ret)
- 		goto out_power_off;
-@@ -475,10 +611,21 @@ static int __acx00_ephy_config_init(struct phy_device *phydev)
- 
- 	/* Restore the standard EEE policy retained by phylib across resets. */
- 	ret = genphy_c45_an_config_eee_aneg(phydev);
--	if (ret <= 0)
-+	if (ret < 0)
- 		return ret;
-+	if (ret > 0) {
-+		ret = genphy_restart_aneg(phydev);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return genphy_restart_aneg(phydev);
-+	if (!priv->stats_active) {
-+		/* Establish a new baseline after reset, retaining the software total. */
-+		priv->stats_active = true;
-+		acx00_ephy_snapshot_stats(phydev);
++		inode_dio_wait(inode);
 +	}
 +
-+	return 0;
- }
- 
- static int acx00_ephy_config_init(struct phy_device *phydev)
-@@ -550,6 +697,8 @@ static int acx00_ephy_suspend(struct phy_device *phydev)
- 	mutex_lock(&phydev->lock);
- 	mutex_lock(&priv->state_lock);
- 
-+	acx00_ephy_snapshot_stats(phydev);
-+
- 	ret = genphy_suspend(phydev);
- 	if (ret)
- 		goto out_unlock;
-@@ -616,6 +765,8 @@ static struct phy_driver acx00_ephy_driver[] = {
- 		.soft_reset = acx00_ephy_soft_reset,
- 		.config_init = acx00_ephy_config_init,
- 		.disable_autonomous_eee = acx00_ephy_disable_autonomous_eee,
-+		.get_phy_stats = acx00_ephy_get_phy_stats,
-+		.update_stats = acx00_ephy_update_stats,
- 		.suspend = acx00_ephy_suspend,
- 		.resume = acx00_ephy_resume,
- 	},
-
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+ 	ret = zonefs_write_checks(iocb, from);
+ 	if (ret <= 0)
+ 		goto inode_unlock;
+-- 
+2.34.1
 
