@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792894665;
-	b=O7loWiOClcOjZ6l+rNXIf3GdACjjbQLuTfUE9+lPCoNJtht/wEZlte5T3i/3dxnXNkFq
-	 yeU8/VUWohYvAKaiO6VEtsyAYtmVvJXa8KE+MYPU/V1hQT4NtlGcho1nsiBt+9DCY2fnP
-	 f7HNDC9k/zAAOjmRyoQUBoECUW/1bXsUeEKVmeWDhxeeiYIfh8Y8hru3EWGxcIAZYrH01
-	 SQRcd8Tvb7F64itCEvL8hoTQ4MzXugYrpiWNKsK4cPC4jw25Wg/L8E3xzxfFP3gh3VOJB
-	 79lyowYaHDAPG1GO4x0ZsAEjQXFC00WHV7lvQDIFPuUVObrDfdrlZi4P4PzpapJ7FxQ==
+	t=1792894681;
+	b=jr8u+Xn1mXYKpn1UZHgS/UlBMgW3RHMmfMafxpTl2WO0eHT5uNQIZD1/PZ4nrzJqVNjM
+	 W/Vw/dnnzZ6huzSsNBYn/oXKGeRG0nx2Zb/LnhrMso7SdlaJ31CrKTQOxjWPLiJHJENGN
+	 Fv8zK9DOAbJlZS7icpXj5gc4WtayJ3W3pRMWyMZQJ6LC73rx21wKwUlERdgrJLVSFMJSC
+	 Mz7Oxeyb9K4TIPY/9N41hS/p/xOEyzWxbw4LX3OaGlPvu/cCs+/3cBcQ0MM5b6sO1si79
+	 uiiEzug+y+sY3GFadw6fnH9mS3CIJLPIyoXWL2BcSmIVN+0aV2hqUhIaxLma54EYkDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792894665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792894681;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PmU9LeRVfJIomttwTfI12hurbmJm5G5qfWSq52y0m8o=;
-	b=KnMpYenkFG94HUP3SsiC3C8RdT3G8bgPpafZ4AdU5PNjwDho/JdpLg8LZ/GokcZ7tulM
-	 lqFzo9jnQjdtvldkdGeab3nnS2B7JsCnzWTqVIXpxlQVsi+d+uLcwCw6GQEG7uwj9of6T
-	 QNCOd7iYjvx4PYOtoXmrJAdAfskdu8DByTBSXkL9UHfIIVb9qKqdqXkASmEOCQP4CCK3O
-	 Eu/wsolOc1t/xKNxIs5E450bs6+yUAeeDbh0pJVUZD/X0U93cEgzFiq3R+vOdEJ/ALo8m
-	 Qtme+oqlIpICCeOouHlLxJhrUpMtdbk/FRdAUNyLYXd6MebzjGV1MxMD0qCC/m7wnWw==
+	bh=XRo+9xB+oh8S0Rx8RxvopOwEmLItymY1nHGmltPfYUg=;
+	b=rrikYOsGfNP3Nq2pAHZHS9PUM76s9RznxLJ5LiaHc4bN7bONQYXEuLRhY0rlYEHRSHTj
+	 aXXLrsVHouPw/Y29b4YXrryGIllN/cs+gHAMrG+2d0nFU0A6JEDjPxytereqbs7lQV5nA
+	 ZWNnyz4TmGy35C5hDeGqeNk+8daYpUZdKw2OteuyD7zQ1TGBVj7Z9AlwWW4C2lnEEsRKd
+	 BiViSH2NK8CEMOTtb2Cvbns/tzAsnUhgqUbq++epbTrL61r7yR06Qf8tH4hmA9e7E/MFR
+	 yJFzarG4t59+0tmB9vfO0+RQ1bQ3beWAb9yA6ssyF4sJVj0hR0iHX6aSRaVdVZjDRsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pu6AoDu3;
-	arc=none smtp.remote-ip=209.85.167.181
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oV6CHipU;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D84606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:17:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D84606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BCC606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BCC606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pu6AoDu3
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4e4a4d77e5bso1790833b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:17:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oV6CHipU
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-82109f51565so857604a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:18:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792894664; x=1793499464; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792894680; x=1793499480; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=PmU9LeRVfJIomttwTfI12hurbmJm5G5qfWSq52y0m8o=;
-        b=pu6AoDu3aCeUvw4nLmqGFPqbIm2HBjwQIXqoXBzY/7qK7aiKJshMUp6t4G1dpv9To4
-         J7XTpNw1bEquOgVLoV0hG30OUBNjN2LrH3L8YZzk7wPfvcZ1JCcaHToB46NUK4acGvIr
-         PBLviwvVhGKnsZVyHiNuL08WPjwCXCP7+PNhCeFVwqZUTd21Zyweniy9mOtrhEvFpliN
-         yEx0usVMwkaNP3+tAsXA6xtOaUgfmA88F9l4TC2KF1F7To/hmIVzu/RVtKQTEofrOMXm
-         JyAiCBaElEkrNGiq0iDou0wKC47yRZzjmuC6FJaydy3a3FwTl9Z+etxazyx4lxptORUI
-         teKQ==
+        bh=XRo+9xB+oh8S0Rx8RxvopOwEmLItymY1nHGmltPfYUg=;
+        b=oV6CHipUXqX3uSguvm8Foh58xy6rgrbqrlZCyHvp2uif8Utqxx/swkC0xoMHR9cEFM
+         RvuWdAXYYgXfnoW4WzmedcxODWxOLutqgor/rmdQ5boa0qzgRFzgHH4TAhYtG788RmIy
+         IOjefGKTm//12Dhds3W3zBUfAZz3HXMUCy5jUdOVW4MOKKdkd8to9VFPscnTeENi04Ng
+         +jYBZxlJOc5hIcyOlxt6aSXQsEu8DYOaWDaM8BDncDSDDzMpoytHjrwhefYoDyXJJeex
+         Yeg4fQXxJIVbOqYIZl3rNnOgW+RlruTTlvHpvb63KlFzxmR/qGjE3luzAQmGJtvd+mWE
+         y4Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792894664; x=1793499464;
+        d=1e100.net; s=20260707; t=1792894680; x=1793499480;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PmU9LeRVfJIomttwTfI12hurbmJm5G5qfWSq52y0m8o=;
-        b=H3W7obajScvXLru7DywTtvhGySAdMrqxRi8Ii0vjO473KpBikVrP5q/NYDcGj4H1LB
-         9K/YvHCMtwGridDVws4aGT5pPTM5t04YUu5XidxX2cQw16znqg2j566meYjCifqvrzXn
-         0/DBq4IcuolpNoAbEJlcmDf5xCbzl2TCN14Bx+dQCySYyL7KBpR23hx59hr+0Ib8UCI6
-         zQxDftLWIX1JI9pdg0PeyVm7JFiaiDJ7S8bA1mg2BQFzsP5yS9O+fRdq+UrvlvevHSfD
-         Z996tBG3ndSeK61EtImzV3E/T6ccUlgi5eratOhtbmRyfms/Ebu0qxKPBTkFWXBUDAlN
-         FHPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSKzDdj/5PpXT9XesPtVp7eJYQoCTU6xLvHLonuxeRRjAS8GuKagjFnQa9TMWL6Tm9G5REzHDiZixGhMM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEWuh+LGGIyX20UQhyyCpGudNS6ZaigOIzj4H77uoUaWLvsSCz
-	Z5FR7zl7rtYvGFIyhpzmHY8UI8WYyR7uZsMi3m4fPrN8LFX96f3C8+Ry
-X-Gm-Gg: AYBFou3rVT/8//MeEmlzeFRpDrtJpUi+YEx0y9DME+y3Xz8WAwXa+UlLz9liqDM8b24
-	Ex7t9+YjK2KMgzLPJonswapNxerKmKTLUipGroJbSX4ZXsDQijey7SiN1Ztbf8GsLN4mQrqiJyh
-	LB7Y+BQsKnElOslzKkc6xN6cfJGG70ZFLU3aIbqCKBSdhwEdxbelibr3tzR0J76OPlUXPaxYqzY
-	4XUuDaxADCZfs6cug9vazeCOX/HR9LC1kxBr4jr5xKI699mxHUTyYXVx3GmqaR1CCaP+nDRkUYM
-	uXwWaBO6CLm8CsZjGPtx2b8iQrAQvhp5A9OWdgkRowvRH4C7vhXp8zgFzYjDXltGRnX3JUH5Z4/
-	XApIDsHYZo7w09hEEMqrXls/fkHIwh4Qov8ALvj/JLsD4EGaFVEaW/NlhWmm/Fa/rb1bJP6q3nR
-	c1dfB+xyBQtA9N/7fPcAtEKm4lgDeVUkM9XINdSOr+L3fHwHMKT8uqsxtT+xCTauui9imuyfkfS
-	qx+TZeKr+/XjfEXlU4gC3NNHe39NJKkwXkFqIOeGy38EUYaSPQVz+ceGZGjzhtWt+gryQ==
-X-Received: by 2002:a05:6808:3196:b0:4f0:2d60:f0f4 with SMTP id 5614622812f47-55c00280f59mr1461562b6e.17.1792894663783;
-        Sat, 24 Oct 2026 19:17:43 -0700 (PDT)
+        bh=XRo+9xB+oh8S0Rx8RxvopOwEmLItymY1nHGmltPfYUg=;
+        b=10Bjdut9raYA0fyskb+vYzPk4qJ7DlRHmRPTs9xjHSZQh0dPhZ+e+JZNfrJ+1fKvRT
+         i3CrffCnLKuZ+zTAbtikcauzUcP9t75cLeTNsTizRkldlFMThYqKE5ufqEIvly8zLP63
+         fa/901pFApJbkdyEV0T+Hte+F8SD7XlbvzwBAy47EZJfC4V7rZ40e7261E0zd2Wl3h6g
+         dJrUUEL1vuAJqWB8OwAjU27b1Pb3KfMngpAqOrCw6ZxO4cAOzeVNmk9tiptlb2jyMUc2
+         m+NqVdS2S0wY1CxSObki/HOFM6Lb09wQ8xPa5u8HWAEQ+tHErJhcmUVFZdZXo9iHsRwZ
+         UAhA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+ymLdHxijfUAqVRyU9O0+WQpfP4TG5ozwikNJvdDaVP57BPSQqlptitOyUPa7s2p2qGaFoDTQh2Piy2I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5SR/0fOeDFAsJghPkmKE4aaUDC08h71xQxXIWV5QlZLZIdTHk
+	D/+nNlg/l5F6mcsFPLbTafqcXL0o4VNFF0/EMTzbxmfZLLYuu3xuksaV
+X-Gm-Gg: AYBFou0HKNVj/I40/BqP1iB30s2wslzZs2PH0TBRxRetRcwl1Qss4Mmw8gnYVYusSxe
+	yuPhzMRPiZg7ppj1YSIBGoN8QRjV6Tej08B3jPHxe7hm1e5HfXjqsqVfnd9Jl83jU+01UCOpBsh
+	FT+sx1WhFNU3H8yenXcCpS720nlpvYHkAnVYrY81XimUQysbsLHREWrTtgUoNIBRNCmNONo6jwX
+	xJucJQDUoIxqbdP4kfTud0OmF+zncnJ1oHqwwo6SwDX9HVSaxGwX3vRzc4ibKDuEba5XxK4f9wm
+	GXpkjZ3oCJmVatRizFvf5h3LgeyKFSEzQKIz7UjvEBCx0JxCocKK0feEja4Fkj+PQmHn4GTUEv7
+	SGoiS5Xesh7hk6JmT52ApoSeUX21R3aIVMg6a6eQFfNFRgwyo2TBAk91ETdvjfxvpb5Se5HljXX
+	AHUTOvZ/L+kOq+kbQL21yEPOo8HNeRJAbk7IWnD6sK5SBHI0LmIc9hNE8bjFYCSfEIDYDN2X15U
+	8Lrd8qBK/v7uyxJbBG/hBhRXu5ktmfiGqzqwd6G32VBp/crDSG+rDCTyP/EwSRiF4Hd46w=
+X-Received: by 2002:a05:6830:4494:b0:814:b62d:3122 with SMTP id 46e09a7af769-850fe112da7mr2774207a34.22.1792894679793;
+        Sat, 24 Oct 2026 19:17:59 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c040806a7sm2433986b6e.2.2026.10.24.19.17.41
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb64a8c4sm4058115a34.15.2026.10.24.19.17.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:17:42 -0700 (PDT)
+        Sat, 24 Oct 2026 19:17:57 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: dhowells@redhat.com
 Cc: Leizhen Zhang <lzsx618@gmail.com>,
+	dwmw2@infradead.org,
 	akpm@linux-foundation.org,
 	keyrings@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] asn1_compiler: fix heap overflows on small or token-dense grammars
-Date: Sat, 24 Oct 2026 21:16:54 -0500
-Message-Id: <20261025021654.519754-1-lzsx618@gmail.com>
+Subject: Re: [PATCH v2] insert-sys-cert: fix use of uninitialized pointer with an empty System.map
+Date: Sat, 24 Oct 2026 21:17:50 -0500
+Message-Id: <20261025021750.519884-1-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008164004.3668307-1-lzsx618@gmail.com>
-References: <20261008164004.3668307-1-lzsx618@gmail.com>
+In-Reply-To: <20261008164137.3671294-1-lzsx618@gmail.com>
+References: <20261008164137.3671294-1-lzsx618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,12 +105,10 @@ Content-Transfer-Encoding: 8bit
 
 Hi David,
 
-Please drop this one. I went back and ran an ASan build of
-asn1_compiler over every .asn1 grammar in the tree, and none of the 15
-gets anywhere near the token-count assumption; only hand-written inputs
-like "{}" or a comment-only file do. Since the compiler only ever sees
-in-tree grammars, this is not a bug a real build can hit, and I would
-rather not add churn for it.
+Please drop this one. The uninitialized read only happens when
+insert-sys-cert is handed an empty System.map, which a real kernel
+build never produces, so it is not something a legitimate input can
+trigger. I would rather not add churn for it.
 
 Sorry for the noise.
 
