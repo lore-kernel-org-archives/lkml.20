@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792912952;
-	b=SNZPzhwVgSwz2WLl7I+vR3z7ZokSeAYw7DQXFnjIe7VI/Eilq26g3PN/w1m7uiVP26wX
-	 4tCCgxso4Q+6FWEMRhyaerSRW6kS+3N6A95h6kpvUelYtmr9711xFXBQXKdvLoz+wM3Hd
-	 acNPtoqE6IF8Clhi5VGsoRQkaFoC+2btHSgDBbuF/bEKcuyVhyP9fD6xPR5hVkpxNuw4x
-	 5Y56QMPSYuil9QKEoG2t1jFA2+hGTrb+aR+Z14Cg4M39uw5QrKY4f8bITtmFZdi9RYXdK
-	 HXGVnCq1HzsTK/3Or5rpMYTAxLtKbWGMqzMcNt9Qf8tO6GWSWBr/ep1SVWbc4NaJAdw==
+	t=1792913166;
+	b=W45v9rZxVJMsbIhYIB+TqdKhEQajrhu0ufRMijLhGxv9k/0bwVM9nFJtO7BuSJZFM3yL
+	 hS457hhk1d0aI52Yqr4GPJRwEwEPWNmvgkjdsFh06aETCwTuoVDB+yRf0i7gCiMfOePD7
+	 49b8hYMYVhizmezXhpsYU1KemynMZ7Eo7cHMpus2fWqpEgDltwvkOymkW0GSI2EejsgE4
+	 AbsINhR5L+Qre6l25n9NmhlOfjwOBBrQi+NFY3cKG/4LwhrSqq1GRoXYoZGIGt5Ouaoqs
+	 gLgFIdScGoa+a4vokv48jICrP6ftSqBJM79aBtnvhMZ35eAaYQOutyUw1tkaS610SVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792912952;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792913166;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/GcpDOIHzeZZHHnDHnE8tFmy0iBveN0FRIH1VtyXChM=;
-	b=akUXd6XdZJF4sP1RDjAL0jes8NOr+RW9SaGOm+fr/gQ+RRtU3g2RxP71KXNSxz7XM2w6
-	 pPH8S3Co/62PM537vNjfp8UosOxSfRfbipFPX5CsE9yHo88Lmt86cK3MVb0SJHoOuYXWF
-	 x9vMNd6A3W0Foe6q2znHpKUOHu5OMMV6KuIuY73bUIqUqhZtBfScRRrf2y+IjZWKG0H2O
-	 AwGWbJU0c884J8jQvyWBkl7kn4yVxumhYHychqeje2SsbQvc+kxZnULDukejtMM5sHdXg
-	 yr9D/SFjOPf3knG81cQbxhOMfKqlqKAt5141A+5FApIhEdY7IfrGYKXUKe7emPU3T4A==
+	bh=j9KSsqg4A137dhfxHCtQJ3v4H0Z3Fv0RGgyT9sIdyTM=;
+	b=mFj2j9tvtkXw3n+WZsuzSPhNtQL6tyAO/pMoMoMfBxKFGLeeRb368ne7NHhW7WCCKqNl
+	 WHvbSDmOQyp5LWc/hNDDwFovv6QrC8YdwVhRGttTH2C4FyqitF13Qfv28LD8QVlkmI+Fk
+	 2JHTAwsCh/x+fZLGswocXau7ER1VCBte+1BtMkbHwaq1N/7FCGyKDPtYP+W4hBcKge0pg
+	 eMSeTYsSdU4ImGi+jrlHOfBzNxeoBDihvzg8XRiJYq7XVlDJt7Rw8Men/iaUvycwut259
+	 iGqnrqRLocRIVArQUhxP8SQbVSoM6uzEUXhuLxhLBvvOcc//2bxFsK9yRjKohf9a7Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="I/Ef2Atf";
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SrylrmSI;
+	arc=none smtp.remote-ip=91.218.175.78
+Received: from mta0.migadu.com (out-78.mta0.migadu.com [91.218.175.78])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8E9606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:22:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8E9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896C2606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:26:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 896C2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I/Ef2Atf
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35f036b17easo5154828eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:22:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792912951; x=1793517751; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/GcpDOIHzeZZHHnDHnE8tFmy0iBveN0FRIH1VtyXChM=;
-        b=I/Ef2AtfGeMluXC7NTZ+RuqYBNmgd3N4TLprBbVmpnXS4YEivT/OnxgyDoABtA0idd
-         PB5EjL6+hzFMHPOTK3xlzOer4n8Umrc9czxgGHTASL5oV/UFbduAjKx+hahx6lXO/whj
-         V20JnkwWZG6POBM2VT+IByM4TFYyzI7LQaaUNsvJACSTcDlDAbxG36EuO16NbbV9EfdD
-         BgtTJTtl9R4fOJyrIv9Mj4SzATnJR5JdwhZWWak5DJuRO6dYq2kihliflhYmrUfv5T96
-         VoGVuBN03e0oErK4aRuBYH+f+Rjh4RoR88Yr7gzebKakIh1TbKbD+OHxkGHALC98ROST
-         /drA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792912951; x=1793517751;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/GcpDOIHzeZZHHnDHnE8tFmy0iBveN0FRIH1VtyXChM=;
-        b=EFZdzB8FIKQrfOgnv4bwmFQJlWRQ8pe4fKVw1Cl7ihdyO9/Px8L1BDliMHAN0clWlf
-         qyFCV0uvjtP3rDcP4+1GRwh5thqvvR8zZnqoqkih71/7fybV921ahW9jk1siAeFW1vnt
-         n7LjvgFALe47wmpcHiwpZlL6Z03ezTqV1EFfvlRsF/pBivXa+FescbrgdOCKr+/0hPNN
-         gfrQM8kdLqOJdIeSu0N4VsGgyTeutBx8HCbV6DM4x54FqQPfhdr6kdQVj7mtlFvutvrS
-         92hhlSyV/wdqacuDcY2LMTpSu/w1kV4x/gRVueMl7s9mZg3ftJsAyDo9D9stKoVWJrL4
-         EPfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/LjTlaTMXvjYgHbN6K4ENt+sLjScHJzVFDpV6nQZA68doTPqYQlrNm8DF5mogf8RExcwHqLSMp2PFwb8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9Vwpp+gYv6QcT07zxqkPO434T9BSMrr27IqnHbLtL48TOGcnl
-	BRSgTFobWRTZtMrDw2oD52TTHzhxgKial8hpUBS+QA3D6Wz3BRpzPMgI
-X-Gm-Gg: AYBFou01W25r6be0EzgCqF1rB0hg8EsY07rYvtG4xiMgCGQ9nZj3Q8Qg897fY/WkXnC
-	T5DuT5WNYUh18OuYrZQxIuwK+k9lskPQ3+RVal30BZ4XxwEXa999dQeB7as1tzsbuLxhGe7GdS7
-	tWQC9vEThWpw8Cm07BPaq/LR0GCk0d/Mf7z7MfeYvDslGd+c0DeVJv+8PykC/viZ48LvNjCgKC6
-	3POs5S2NX0FTiJk89+ARq16c/67nKrjQl4oZpWGOjzZVumvFOybM1ySt9uRCoEexgM37YmozZgx
-	MXwkIoFIjMoyjaVRUy9h7joYu7sXMeswfCGDSrHBijHXcvf57VauHhu2ZoQv2tw/WFZatZBl7dP
-	617YrzLig17WqaUvgsOE4lnNq4bhi3rjN7logdFYQwoNKFA/T9sCw+w1MZkogCzZebuzv9twe7M
-	+DM/tqyijsFnlzUaFHnYyAtXJ0fHZtvweDIsurScUK0J3B+m9zvoV0HxjhBbeGxT1F5RYQyyK/h
-	ocoXoAQAUJTR6zKSSpkthdQ1IUfhqdVgJAnEPakZecC7zkZk61Pu8uM5UZ5VPVZWV6lZTFDsHTV
-X-Received: by 2002:a05:7301:6182:20b0:366:c0a2:642f with SMTP id 5a478bee46e88-369e84ddf59mr5292495eec.22.1792912951407;
-        Sun, 25 Oct 2026 00:22:31 -0700 (PDT)
-Received: from ZephyrLabServer.internal ([165.162.64.148])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec4d73sm18682269eec.22.2026.10.25.00.22.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 00:22:30 -0700 (PDT)
-From: John Macias <dencity7@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: dsa: clear the conduit RX queue on user port receive
-Date: Sun, 25 Oct 2026 00:22:03 -0700
-Message-ID: <20261025072203.1519561-1-dencity7@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SrylrmSI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EX8dlYfY5NSf0gGAQukKQCIqou6iNOsLwD+U7YkkxHM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792913161; v=1; x=1793517961;
+ b=SrylrmSI51G99gfF6hP20BW1YezhxVFD2E9TcQm9rb+kJyGod8R9UFeYM6oOD81yF6EmKP2a
+ Cc7uTvxq0o6eOPxCE4pAEqTqOXP3yM9Z7W4JamGMlFNRx6/ZfN5JtJTLvu3e35ENVW7M1jFEBZL
+ wR28/ZW6JvosYCN7CyRmoWgg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 483da7f721b1c77a;
+	Sun, 25 Oct 2026 07:25:59 +0000
+X-Mizu-Trace-ID: 483da7f721b1c77a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c9df96da-983e-4803-9082-472f5294d50e@linux.dev>
+Date: Sun, 25 Oct 2026 15:25:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,70 +58,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/9] mm/vmscan: pass scan_control to
+ mm_vmscan_balance_pgdat_end
+To: Barry Song <baohua@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, bpf@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261019034426.2354049-1-ridong.chen@linux.dev>
+ <20261019042308.2372396-2-ridong.chen@linux.dev>
+ <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4z7u_PtSkjm+kH7JX_ZZDLSnGr1teHq6By0ovgB23O8_w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-A multi-queue conduit records its RX queue in skb->queue_mapping with
-skb_record_rx_queue(), as stmmac, mtk_eth_soc, fec and dpaa2 do.
-dsa_switch_rcv() passes the skb to the user port with that value
-unchanged, but user ports have a single RX queue. For a packet that
-arrived on conduit queue 1 or above, get_rps_cpu() finds the index past
-the user port's real_num_rx_queues and returns without steering. The
-WARN_ONCE() there stays silent because the port has only one queue. As
-a result, rps_cpus on a user port takes effect only for packets that
-arrived on conduit queue 0.
 
-Clear the queue mapping when the skb is handed to the user port. TX
-queue selection is unaffected: the user port's own netdev_pick_tx() sets
-queue_mapping again before the conduit transmits.
 
-Found on an IPQ8074 board (OpenWrt, Linux 6.18, conduit with four RX
-rings): with rps_cpus set on the LAN and WAN user ports,
-/proc/net/softnet_stat showed no RPS for traffic hashed to conduit
-rings 1-3. With this change, that traffic is steered to the configured
-CPUs.
+On 10/25/2026 6:24 AM, Barry Song wrote:
+> On Mon, Oct 19, 2026 at 12:24 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> balance_pgdat() passes sc.order and sc.nr_reclaimed to
+>> mm_vmscan_balance_pgdat_end as bare arguments. Pass the enclosing
+>> struct scan_control instead and read the fields out in TP_fast_assign,
+>> consistent with the other reclaim tracepoints. highest_zoneidx stays a
+>> separate argument: it is a balance_pgdat() parameter, and
+>> sc.reclaim_idx may differ from it by the time the end event fires.
+>>
+>> No functional change. The tracefs event format (TP_STRUCT__entry and
+>> TP_printk) is unchanged, so tracefs-based consumers are unaffected.
+>> BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
+>> to be adjusted; tracepoints are not a stable ABI (see
+>> Documentation/bpf/bpf_design_QA.rst).
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> 
+> Could we combine patches 4–7 into a single patch? The changes
+> seem a bit too scattered across separate patches.
+> 
+Sure, I split the patches just to make them easier to review, since each one 
+contains only small changes.
 
-Fixes: 91da11f870f0 ("net: Distributed Switch Architecture protocol support")
-Assisted-by: LLM
-Signed-off-by: John Macias <dencity7@gmail.com>
----
-The Fixes tag points at the commit that added the DSA receive path. The
-problem shows up once RPS is used on a user port, since get_rps_cpu()
-checks the recorded queue against the port's own queue count.
-
-This was found and fixed with an AI coding assistant (Claude, from
-Anthropic). It traced the missing RPS to the stale queue_mapping, wrote
-the change and this changelog, and ran the tests on my hardware. I have
-reviewed the change.
-
-Testing: the same change on OpenWrt's Linux 6.18 on a Netgear RAX120 v1
-(IPQ8074, out-of-tree qca_edma conduit with four RX rings, RSS over all
-four). Before, received_rps stayed at 0 on every CPU over 8 runs of
-bidirectional UDP with rps_cpus set on lan1 and wan. After, it rises on
-the configured CPUs for traffic from rings 1-3. On this tree (net,
-7076f684d) the change is build-tested only (x86_64 defconfig with
-NET_DSA, W=1, WERROR). I have not tested it with a mainline conduit
-driver.
-
- net/dsa/tag.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/dsa/tag.c b/net/dsa/tag.c
-index 6a5aa7fc3..ecd4d8669 100644
---- a/net/dsa/tag.c
-+++ b/net/dsa/tag.c
-@@ -115,6 +115,12 @@ static int dsa_switch_rcv(struct sk_buff *skb, struct net_device *dev,
- 		skb = nskb;
- 	}
- 
-+	/* The conduit's RX queue index means nothing on the user port, which
-+	 * has a single RX queue, and get_rps_cpu() skips RPS when the index
-+	 * is out of range.
-+	 */
-+	skb_set_queue_mapping(skb, 0);
-+
- 	dev_sw_netstats_rx_add(skb->dev, skb->len + ETH_HLEN);
- 
- 	if (dsa_skb_defer_rx_timestamp(p, skb))
 -- 
-2.47.3
+Best regards
+Ridong
 
