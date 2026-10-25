@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946143;
-	b=JYFRofWD8rGHJK2mCb4SkUife9U1if8pU6sHp+ufidWoIlwVjZiB+4kJcsUvZRqG4Oza
-	 xzkuwp7141y0rzu9aYzpRffd4wAvjHgS5A+UT4VUgYhbex7gDPzt6oXwlQ7Z1KBxBQrBO
-	 xXPlWKs3jQMlIF9v6c1Wx2iFNhuS1JbUUzEdd7gaI1Cp4jZdZzTPxbNfkAgJi6d2fuBjC
-	 Bri6aQi6unUt2ONcoLnlrRGUxmLwRrr2Q4eKMolJe4zPGrZL5cnOHZy5geBl5aBUBbXVe
-	 x9qigL+UZs3+aiyxWHhPbtIjuxdCt7z+aJg3m7RXBE8dje9g6lr7ZDPxHAB9uxrtadg==
+	t=1792946408;
+	b=GHKvuKupbFkrZVd96ldQhDb8GU0GxDme1HbkW2aLoctmtmcVKq30zTzVa9e5kyEyZ3Re
+	 2YRozfBzi8XfNUpyu4OLPX68RvZYYeMsuindrPa8uJVDz0oW+b6dELoMn+9kWwcRmhcs8
+	 idKPRXarqEom8bRuJ8cSB4IOUmxhsedbYqGYVHz7XGqiopJ+yJUavzC7tYCcIN5kpJ+Dm
+	 Z6RYvFWJR+GEl6+0JqrvXa34IcrFggBopW8Fxy01rx9qEJrJ7gwktyEiFTtodT6sSRcjt
+	 0PQsD3vzLSI0yYSh7vuFClTUpwxTEcHig7TvZ7KU+PEuOxJxYYK/IFgME3OHwGm3wnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946143;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bPmM7jPV12+A5yMCa9enXrOMHKwR1XmYaS6FdKIgNrk=;
-	b=krjCnMgxCI+GWN0hXCrS3gIl6qcHI9c7+Jpinm2VCx5aq0WVIPBj2/Rue2qG4+62BjwZ
-	 fSUcmxc4QIguM8GFxN90Y0/9dOhz1ylZFmIK2mlPkxnaoUj5uqPmcbPRuBF3eDr9+5FRy
-	 tV35bTr245tyyIqlDgYcfXxYQIC3Jm5oDe9LGhU/q+aLhEDZMZ/Y9ZdJZO98EkQc0ojVJ
-	 dIhHjP3aICm2JRsGG3a6ZyLkG1LcbZBUfgvDKjDnOk+2k+Zu5PpcEy4mM+TbGeKmpNr5Z
-	 96PeH+K4qt8wj9rlqYDsgBgY9b6Yh4OfB9MbDtz7DLQ8jmoN8Uaezyj+FsQnriL/kHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946408;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Content-Type:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To;
+	bh=Uh/jV+RKdu40i5W3iEKoOk51H35K6TRUWCc2sdumjMw=;
+	b=y1oSUw3/XTgYu2Vtw/6esFzjXkIna5iiIU8EmlxE+xIQ4l5OU3RE0uUjthC1caOINjiY
+	 wGlgXPCoh3VpMMFPwL1e1rZN2MessJc+6tig7YVAG14W5kD/Ez72gaAfMphVTZ+XQBZe7
+	 YWO7Q4/EdoPjcZ2ukA4psRWo+I/qAZiF4eE3mhTi7RIo7I2nQ3gYp/0fnjkvp+IwlVRbu
+	 TKb3s00ieAvh8xZuJf8SHLo1c2DAbBN6teWWJQHHjIowHWT5HqmdaB2VuFrEwijsoLLmE
+	 +nKG2A8CU6wQ7bPymL+8F9RpLUI5DC571A8lplRZgRMLJKV7UUbTz7mOQYltWPUaH4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HXU/Tc7l";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RFQh4fhu;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43632606A31A;
-	Sun, 25 Oct 2026 16:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952F2606A31A;
+	Sun, 25 Oct 2026 16:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXU/Tc7l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8971F01825;
-	Sun, 25 Oct 2026 16:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792946142;
-	bh=bPmM7jPV12+A5yMCa9enXrOMHKwR1XmYaS6FdKIgNrk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HXU/Tc7lRKLIMMtT0QgsC+2boygE949sSbn5B+2Ef9OW0gwIrIjdKbqe0Vjg/mQSd
-	 MqIMA2NoOz8WW+9h4lyd7WaH0jQj1/IuLY6V3+FQfpZP5iH47EcjgCZGKOF21CT8kj
-	 nJPikF/7GQnylYapA6YxXbDCrPhA0q2PXK5HLMQlTc1HZaVQw1b7GA+cnxZgVRhlqw
-	 OZ0hEOj9PKTZHlJYfX+KAIzdwoNcW9IPOFgWON3STOfksTx9O+CGOiOIg0EWlJ7O4u
-	 NXbYopt9UyTG1Dloo3+kWii89oQ/qnh+r2eT94iVNb37oHygQHDAA3mmf7y4QSGVMy
-	 uZ4C+p+BVlPqA==
-Subject: Re: [PATCH net-next v4 1/2] tcp: keep the route window metric when
- SO_RCVBUF is set before connect
-From: netdev-bot+sashiko@kernel.org
-To: jain.sm@gmail.com
-Cc: edumazet@kernel.org, ncardwell@google.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, kuniyu@google.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 16:35:41 +0000
-Message-ID: <179294614147.3134.15330394649606203025@kernel.org>
-In-Reply-To: <20261021155715.30094-2-jain.sm@gmail.com>
-References: <20261021155715.30094-2-jain.sm@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=RFQh4fhu
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCMtb0MgWzlfvps;
+	Sun, 25 Oct 2026 16:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	in-reply-to:from:from:content-language:references:subject
+	:subject:user-agent:mime-version:date:date:message-id
+	:content-type:content-type:received:received; s=mr01; t=
+	1792946402; x=1795538403; bh=Uh/jV+RKdu40i5W3iEKoOk51H35K6TRUWCc
+	2sdumjMw=; b=RFQh4fhuq4AoaRVGEDY8S6S9/iSNXg1uPbaStbtRKzLK62rvU/5
+	kZEPMYs+Lt/mVqRVhKtSZp1haNTDQol4mGc+z5jmEt/DVDZKO7GAmeajsTZtqlEh
+	RlcUmoZ0k62jJGWgqP/C+r+5ILKhpYXaemk0vEa+d7pW365W59vannmG59SnETNy
+	IltqgGl3ppF0HZYmsqaOCxD0S9a6NbvwditXceYhxdHmU/kS9/eJIZfFdbt5Amoc
+	G/27sDNcJPveruy0QnGCr4IMs3ncUr7r3Q9VvmEAadgjBUvgUasQe+M8xSFBvr02
+	Pu62PmliHdA2TNfqhPMlCnb5c6g4hXpSP7Q==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id OvQEV815hSJE; Sun, 25 Oct 2026 16:40:02 +0000 (UTC)
+Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCMtV1NRszlfvpN;
+	Sun, 25 Oct 2026 16:40:01 +0000 (UTC)
+Content-Type: multipart/mixed; boundary="------------s8Ey6hFPBGWnSQfWbkDzsdy9"
+Message-ID: <8a702a89-ad21-425e-9850-d9771fcf7c31@acm.org>
+Date: Sun, 25 Oct 2026 09:40:00 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,249 +70,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] scsi: target: iscsi: fix stalled aborted WRITE
+ commands
+To: Laurence Oberman <loberman@redhat.com>, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ mlombard@redhat.com, michael.christie@oracle.com,
+ linux-kernel@vger.kernel.org
+References: <20261016175351.126373-1-loberman@redhat.com>
+ <60cf407142a0663a811a2ccd64cf387cb71808ab.camel@redhat.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <60cf407142a0663a811a2ccd64cf387cb71808ab.camel@redhat.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+This is a multi-part message in MIME format.
+--------------s8Ey6hFPBGWnSQfWbkDzsdy9
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+On 10/25/26 7:43 AM, Laurence Oberman wrote:
+> Gentle ping:
+Please take a look at the attached review report. The report has been
+generated by an LLM. As known LLMs may make mistakes.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Bart.
+--------------s8Ey6hFPBGWnSQfWbkDzsdy9
+Content-Type: text/markdown; charset=UTF-8; name="review.md"
+Content-Disposition: attachment; filename="review.md"
+Content-Transfer-Encoding: base64
 
-- [Medium] tcp: unordered lockless reads of window_clamp in
-  tcp_req_window_clamp()
-- [Low] The changelog says: "Without an RTAX_WINDOW metric and without
-  TCP_WINDOW_CLAMP nothing changes".
+UmV2aWV3IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAxNjE3NTM1MS4xMjYz
+NzMtMS1sb2Jlcm1hbkByZWRoYXQuY29tLwoKSSd2ZSByZXZpZXdlZCB2MiBvZiBMYXVyZW5j
+ZSBPYmVybWFuJ3MgdHdvLXBhdGNoIHNlcmllcyB0aGF0IGZpeGVzIHN0YWxsZWQgYWJvcnRl
+ZCBpU0NTSSBXUklURSBjb21tYW5kcywgcGx1cyB0aGUgU2FzaGlrbyBib3QncyByZXZpZXcg
+YW5kIHRoZSBhdXRob3IncyByZXBseS4gSSBjaGVja2VkIGl0IGFnYWluc3QgdGhlIGxvY2Fs
+IHRyZWUsIHdoaWNoIGFscmVhZHkgY29udGFpbnMgdGhlIHByZXJlcXVpc2l0ZSBjb21taXQg
+ZDU4NjlkYWU1MDgwLgoKKipPdmVyYWxsOioqIHRoZSBkaWFnbm9zaXMgZm9yIHBhdGNoIDEg
+bG9va3MgcmlnaHQsIGFuZCB0aGUgImNsYWltIHRoZSBjb21wbGV0aW9uIG9uY2UiIGlkZWEg
+aXMgcmVhc29uYWJsZS4gQnV0IHRoZSBjbGFpbSBpcyBvbmx5IGFwcGxpZWQgaW4gc29tZSBv
+ZiB0aGUgcGxhY2VzIHRoYXQgY29tcGxldGUgYW4gYWJvcnRlZCBjb21tYW5kLiBTbyB0aGUg
+ZG91YmxlLWNvbXBsZXRpb24gcHJvYmxlbSB0aGUgc2VyaWVzIGRlc2NyaWJlcyBpcyBvbmx5
+IHBhcnRseSBmaXhlZCwgYW5kIHBhcnQgb2YgdGhhdCBwcm9ibGVtIHdhcyBpbnRyb2R1Y2Vk
+IGJ5IGQ1ODY5ZGFlNTA4MCBpdHNlbGYuCgojIyBNYWluIGlzc3VlcwoKKioxLiBOb3QgZXZl
+cnkgY29tcGxldGlvbiBzaXRlIHRha2VzIHRoZSBjbGFpbSwgYW5kIG9uZSBvZiB0aGUgZ2Fw
+cyBpcyBhIHJlY2VudCByZWdyZXNzaW9uLioqCi0gQWZ0ZXIgZDU4NjlkYWU1MDgwLCBgX19p
+c2NzaXRfY2hlY2tfZGF0YW91dF9oZHIoKWAgY2FsbHMgYHRhcmdldF9jb21wbGV0ZV9jbWQo
+KWAgb24gYW4gYWJvcnRlZCBgVFJBTlNQT1JUX1dSSVRFX1BFTkRJTkdgIGNvbW1hbmQgd2l0
+aG91dCB0YWtpbmcgdGhlIGNsYWltLgotIFdoZW4gdGhlIGFib3J0IGlzIHRoZSBhc3luY2hy
+b25vdXMga2luZCAoYHRhcmdldF9jbWRfaW50ZXJydXB0ZWQoKWAg4oaSIGB0YXJnZXRfYWJv
+cnRfd29ya2ApLCBgdF9zdGF0ZWAgaXMgbmV2ZXIgY2hhbmdlZC4gU28gaWYgdGhlIGNvbm5l
+Y3Rpb24gZHJvcHMgYmVmb3JlIHRoZSBjb21tYW5kIGlzIGZyZWVkLCBgaXNjc2l0X3JlbGVh
+c2VfY29tbWFuZHNfZnJvbV9jb25uKClgIGNvbXBsZXRlcyBpdCBhIHNlY29uZCB0aW1lLgot
+IFRoYXQgc2Vjb25kIGNvbXBsZXRpb24gaXMgdGhlIHNhbWUgYElOSVRfV09SSygpYC9gcXVl
+dWVfd29yaygpYCBvbiBhIHN0aWxsLXF1ZXVlZCBgc2VfY21kLT53b3JrYCB0aGF0IHRoZSBj
+b3ZlciBsZXR0ZXIgZGVzY3JpYmVzIGFzIHRoZSBmYWlsdXJlIG9mIHRoZSBlYXJsaWVyIGF0
+dGVtcHQuCi0gZDU4NjlkYWU1MDgwIGlzIG9ubHkgaW4gNy4zL3Njc2ktc3RhZ2luZyBzbyBm
+YXIuIFRoZSBmaXggYmVsb25ncyBpbiB0aGlzIHNlcmllcywgd2l0aCBgRml4ZXM6IGQ1ODY5
+ZGFlNTA4MGAsIG5vdCBpbiBhIGxhdGVyIGZvbGxvdy11cC4KLSBgaXNjc2l0X2NoZWNrX2Rh
+dGFvdXRfcGF5bG9hZCgpYCDihpIgYERBVEFPVVRfU0VORF9UT19UUkFOU1BPUlRgIOKGkiBg
+dGFyZ2V0X2V4ZWN1dGVfY21kKClgIGhhcyB0aGUgc2FtZSBwcm9ibGVtLiBJdCBpcyBvbGRl
+ciAoaXQgZGF0ZXMgZnJvbSBlYTg3OTgxYTBlZTgpLCBidXQgb25jZSB0aGUgY2xhaW0gaGVs
+cGVyIGV4aXN0cyBpdCBpcyBhIHR3by1saW5lIGNoYW5nZS4gUGxlYXNlIGluY2x1ZGUgaXQg
+dG9vLgoKKioyLiBUaGUgYXV0aG9yJ3MgYW5zd2VyIHRvIFNhc2hpa28ncyBzZWNvbmQgcG9p
+bnQgcmVsaWVzIG9uIHRoZSBnYXAgYWJvdmUuKioKLSBIZSBzYXlzIHRoYXQgaWYgYG91dHN0
+YW5kaW5nX3IydHNgIGlzIHJlYWQgbG93LCAidGhlIGxhdGVyIGNvbXBsZXRpb24gaW4gYF9f
+aXNjc2l0X2NoZWNrX2RhdGFvdXRfaGRyKClgIGJlY29tZXMgYSBuby1vcCIuIEluIHYyIHRo
+YXQgcGF0aCBkb2VzIG5vdCBjaGVjayB0aGUgY2xhaW0sIHNvIHRoZSBzdGF0ZW1lbnQgaXMg
+ZmFsc2UgYXMgcG9zdGVkLgotIFRoZSByYWNlIGl0c2VsZiBpcyB1bmxpa2VseTogYm90aCBh
+Y2Nlc3NlcyBoYXBwZW4gb24gdGhlIHNhbWUgY29ubmVjdGlvbidzIFJYIHRocmVhZC4gVGhl
+IG9ubHkgd3JpdGVycyBvbiBvdGhlciB0aHJlYWRzIGFyZSB0aGUgcXVldWUtZnVsbCByZXRy
+eSAoYHFmX3dvcmtgKSBhbmQgdGhlIEVSTDIgdGFzay1yZWFzc2lnbiBjb2RlLgotIE9uY2Ug
+aXNzdWUgMSBpcyBmaXhlZCwgdGhlIHJlYXNvbmluZyBob2xkcy4gVW50aWwgdGhlbiwgdGhl
+IHJlcGx5IHNob3VsZCBub3QgYmUgYWNjZXB0ZWQgYXMgYSBqdXN0aWZpY2F0aW9uLgoKKioz
+LiBDb25zaWRlciBhIGZpeCBpbiB0YXJnZXQgY29yZSBpbnN0ZWFkLioqCi0gVGhlIHJlYWwg
+Y2F1c2UgaXMgdGhhdCBgdGFyZ2V0X2NtZF9pbnRlcnJ1cHRlZCgpYCBxdWV1ZXMgYHRhcmdl
+dF9hYm9ydF93b3JrYCBidXQgcmVjb3JkcyBub3RoaW5nIHVuZGVyIGB0X3N0YXRlX2xvY2tg
+LgotIEEgdGVzdC1hbmQtc2V0IGZsYWcgaW4gYHRyYW5zcG9ydF9zdGF0ZWAgdGhlcmUgKHdp
+dGggYSBXQVJOIG9uIGEgc2Vjb25kIGNhbGwpIHdvdWxkIGNvdmVyIGV2ZXJ5IHNpdGUgaW4g
+ZXZlcnkgZmFicmljLCBpbmNsdWRpbmcgaVNFUiBhbmQgY3hnYml0LCB3aGljaCBhbHNvIHJl
+YWNoIGBpc2NzaXRfY2hlY2tfZGF0YW91dF9wYXlsb2FkKClgLgotIFRoYXQgd291bGQgYmUg
+YmV0dGVyIHRoYW4gYSBwcml2YXRlIGlTQ1NJIGZsYWcgdGhhdCBlYWNoIGNhbGwgc2l0ZSBo
+YXMgdG8gcmVtZW1iZXIgdG8gY2hlY2suIEF0IHRoZSB2ZXJ5IGxlYXN0LCB0aGUgYXV0aG9y
+IHNob3VsZCBzYXkgd2h5IGhlIGNob3NlIG5vdCB0byBkbyB0aGlzLgoKIyMgU21hbGxlciBw
+b2ludHMKCi0gKipNaXNzaW5nIGBGaXhlczpgIGFuZCBgQ2M6IHN0YWJsZWAgdGFncyoqIG9u
+IHBhdGNoIDEuIENhbmRpZGF0ZXMgYXJlIGVhODc5ODFhMGVlOCAoInNjc2k6IHRhcmdldDog
+aXNjc2k6IEhhbmRsZSBhYm9ydCBmb3IgV1JJVEVfUEVORElORyBjbWRzIikgYW5kIGFhYTAw
+Y2M5M2MxZCwgd2hpY2ggYWRkZWQgdGhlIGJhcmUgYHJldHVybiAwYCBpbiBgaXNjc2l0X2V4
+ZWN1dGVfY21kKClgLiBOb3RlIHRoYXQgYWFhMDBjYzkzYzFkIGlzIHlvdXIgb3duIDIwMTgg
+VEFTIGNoYW5nZS4KLSAqKkNvbW1pdCBtZXNzYWdlIGZvciBwYXRjaCAyOioqICJVbmxpa2Ug
+cGF0Y2ggMSBvZiB0aGlzIHNlcmllc+KApiIgYW5kIHRoZSBwYXJhZ3JhcGggYWJvdXQgd2hh
+dCB3YXMgc2VlbiBpbiB0aGUgZmllbGQgc2hvdWxkIG5vdCBlbmQgdXAgaW4gZ2l0IGhpc3Rv
+cnkuIE1vdmUgdGhlbSBiZWxvdyB0aGUgYC0tLWAgbGluZSBvciBpbnRvIHRoZSBjb3ZlciBs
+ZXR0ZXIuCi0gKipDb21tZW50IGluIGBpc2NzaV90YXJnZXRfY29yZS5oYDoqKiBpdCBzYXlz
+IGBjb21wbGV0aW9uX2NsYWltZWRgIGlzIHNldCAib25jZSB0aGUgZmFicmljIGhhcyBjYWxs
+ZWQgYHRhcmdldF9jb21wbGV0ZV9jbWQoKWAiLiBJdCBpcyBhY3R1YWxseSBzZXQgYmVmb3Jl
+IHRoZSBjYWxsLiBSZXdvcmQgaXQgdG8gImhhcyBjbGFpbWVkIHRoZSBjb21wbGV0aW9uIi4K
+LSAqKlBhdGNoIDIgaXMgdW50ZXN0ZWQgYnkgdGhlIGF1dGhvcidzIG93biBhY2NvdW50Lioq
+IEl0IGxvb2tzIGNvcnJlY3QgdG8gbWUsIGluY2x1ZGluZyB0aGUgYGlzY3NpdF9zdG9wX2Rh
+dGFvdXRfdGltZXIoKWAgY2FsbCwgd2hpY2ggbWF0dGVycyBvbiB0aGlzIHBhdGguIEFzayBm
+b3IgYXQgbGVhc3QgYSBmYXVsdC1pbmplY3Rpb24gdGVzdCwgb3IgYSB0ZXN0IHdpdGggYE1h
+eE91dHN0YW5kaW5nUjJUID4gMWAsIGJlZm9yZSB0YWtpbmcgaXQuCi0gKipUZXN0aW5nIHdh
+cyBvbiBhIDUuMTQtYmFzZWQgZGlzdHJvIGJhY2twb3J0LioqIEFzayBmb3IgYSBydW4gb24g
+dXBzdHJlYW0gKDcuMy1yYyBwbHVzIHNjc2ktc3RhZ2luZykgYXMgd2VsbC4KLSAqKk5pdDoq
+KiB0aGUgdW5sb2NrZWQgYHRyYW5zcG9ydF9zdGF0ZSAmIENNRF9UX0FCT1JURURgIHJlYWRz
+IGluIGBpc2NzaXRfZXhlY3V0ZV9jbWQoKWAgc2hvdWxkIHVzZSBgUkVBRF9PTkNFKClgLiBU
+aGlzIHByZWRhdGVzIHRoZSBzZXJpZXMuCgojIyBTdWdnZXN0ZWQgdmVyZGljdAoKQXNrIGZv
+ciBhIHYzIHRoYXQ6Ci0gc2VuZHMgZXZlcnkgY29tcGxldGlvbiBvZiBhbiBhYm9ydGVkIFdS
+SVRFX1BFTkRJTkcgY29tbWFuZCB0aHJvdWdoIGBpc2NzaXRfY29tcGxldGVfYWJvcnRlZF9j
+bWQoKWAsIGluY2x1ZGluZyB0aGUgZDU4NjlkYWU1MDgwIHNpdGUgYW5kIGBEQVRBT1VUX1NF
+TkRfVE9fVFJBTlNQT1JUYCwgb3IgZWxzZSBtb3ZlcyB0aGUgb25lLXNob3QgZ3VhcmQgaW50
+byB0YXJnZXQgY29yZTsKLSBhZGRzIHRoZSBgRml4ZXM6YC9zdGFibGUgdGFnczsKLSBjbGVh
+bnMgdXAgdGhlIGNvbW1pdCBtZXNzYWdlIGZvciBwYXRjaCAyLgoKUGF0Y2ggMSdzIGNvcmUg
+Y2hhbmdlIChjb21wbGV0aW5nIHRoZSBjb21tYW5kIGluc3RlYWQgb2YgcmV0dXJuaW5nIHdo
+ZW4gbm8gUjJUIGhhcyBiZWVuIHNlbnQgeWV0KSBpcyBmaW5lIG9uIGl0cyBvd24gbWVyaXRz
+Lgo=
 
-Pre-existing issues:
-- [Medium] The patch adds tp->window_clamp_user and comments that
-  window_clamp "never goes above a clamp the user set with…
-
---
-
-tcp: keep the route window metric when SO_RCVBUF is set before connect
-
-This patch adds tp->window_clamp_user to record the clamp set with
-TCP_WINDOW_CLAMP. tcp_connect_init(), tcp_openreq_init_rwin() and the SYN
-cookie paths now use it, instead of any non-zero window_clamp, to decide
-whether to apply the RTAX_WINDOW route metric. tcp_set_rcvbuf() now caps
-window_clamp at the user's clamp.
-
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 99d7237a623d8..64465bc257d18 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -1859,7 +1859,15 @@ int tcp_set_rcvlowat(struct sock *sk, int val)
->  
->  void tcp_set_rcvbuf(struct sock *sk, int val)
->  {
-> -	tcp_set_window_clamp(sk, tcp_win_from_space(sk, val));
-> +	u32 user_clamp = tcp_sk(sk)->window_clamp_user;
-> +	int win = tcp_win_from_space(sk, val);
-> +
-> +	/* window_clamp follows the receive buffer, but never goes above a
-> +	 * clamp the user set with TCP_WINDOW_CLAMP.
-> +	 */
-> +	if (user_clamp)
-> +		win = min_t(u32, win, user_clamp);
-> +	tcp_set_window_clamp(sk, win);
->  }
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new comment says
-window_clamp never goes above a clamp set with TCP_WINDOW_CLAMP. Only
-tcp_set_rcvbuf() enforces that. The other writers of tp->window_clamp
-still ignore window_clamp_user.
-
-tcp_measure_rcv_mss() resets window_clamp from sk_rcvbuf every time
-scaling_ratio changes, even with SOCK_RCVBUF_LOCK set:
-
-net/ipv4/tcp_input.c:tcp_measure_rcv_mss() {
-    ...
-			if (old_ratio != tcp_sk(sk)->scaling_ratio) {
-				struct tcp_sock *tp = tcp_sk(sk);
-
-				val = tcp_win_from_space(sk, sk->sk_rcvbuf);
-				WRITE_ONCE(tp->window_clamp, val);
-    ...
-}
-
-tcp_rcvbuf_grow() raises it during DRS autotuning:
-
-net/ipv4/tcp_input.c:tcp_rcvbuf_grow() {
-    ...
-		WRITE_ONCE(tp->window_clamp,
-			   tcp_win_from_space(sk, rcvbuf));
-    ...
-}
-
-tcp_set_rcvlowat() raises a non-zero clamp in any state, including
-TCP_LISTEN:
-
-net/ipv4/tcp.c:tcp_set_rcvlowat() {
-    ...
-		if (tp->window_clamp && tp->window_clamp < val)
-			WRITE_ONCE(tp->window_clamp, val);
-    ...
-}
-
-mptcp_set_rcvlowat() also writes the subflow window_clamp directly.
-
-Take an established socket that sets TCP_WINDOW_CLAMP=X and then a large
-SO_RCVBUF. window_clamp stays capped at X only until the next
-scaling_ratio change, when tcp_measure_rcv_mss() sets it from the larger
-sk_rcvbuf.
-
-Is the changelog statement that SO_RCVBUF no longer grows window_clamp
-"above a clamp set with TCP_WINDOW_CLAMP" accurate beyond that short
-window?
-
-Now take a listener that sets TCP_WINDOW_CLAMP=X and then SO_RCVLOWAT=Y,
-with Y > X and the rcvbuf not locked. This leaves window_clamp=Y and
-window_clamp_user=X. tcp_req_window_clamp() then gives Y to request
-sockets and SYN cookies as if it were the user's clamp:
-
-	if (READ_ONCE(tp->window_clamp_user))
-		return READ_ONCE(tp->window_clamp);
-
-The same things happened before this patch, so this is not a
-regression. Should these writers also be capped at window_clamp_user? If
-not, could the new comment and the changelog be reworded to cover only
-the tcp_set_rcvbuf() path?
-
-[ ... ]
-
-> diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-> index c8865205cdc8b..21b4ae303dd63 100644
-> --- a/net/ipv4/tcp_output.c
-> +++ b/net/ipv4/tcp_output.c
-> @@ -4137,7 +4137,7 @@ static void tcp_connect_init(struct sock *sk)
->  
->  	tcp_ca_dst_init(sk, dst);
->  
-> -	if (!tp->window_clamp)
-> +	if (!tp->window_clamp_user)
->  		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
->  	tp->advmss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
-
-[Severity: Low]
-The changelog says:
-
-  Without an RTAX_WINDOW metric and without TCP_WINDOW_CLAMP nothing
-  changes: before and after this patch the advertised window and scale
-  are derived from sk_rcvbuf (tcp_full_space()).
-
-Does that hold for MPTCP subflows? mptcp_set_rcvlowat() writes the
-subflow window_clamp directly and never sets window_clamp_user:
-
-net/mptcp/sockopt.c:mptcp_set_rcvlowat() {
-    ...
-	mptcp_for_each_subflow(mptcp_sk(sk), subflow) {
-		...
-		WRITE_ONCE(ssk->sk_rcvbuf, space);
-		WRITE_ONCE(tcp_sk(ssk)->window_clamp, val);
-    ...
-}
-
-__mptcp_socket_create() adds msk->first to conn_list as soon as it is
-created. That happens on bind(), on listen(), or on any setsockopt that
-goes through __mptcp_nmpc_sk(). So SO_RCVLOWAT can reach a subflow that
-is still in TCP_CLOSE, or the listener subflow. The write happens when
-the rcvbuf is not locked and mptcp_space_from_win(val) > sk_rcvbuf.
-
-Before this patch, and before b025461303d8, that non-zero value was kept
-as the clamp. tcp_connect_init() checked "if (!tp->window_clamp)" and
-tcp_openreq_init_rwin() used "window_clamp ? : dst_metric(...)".
-tcp_select_initial_window() then derived rcv_wscale from it, and the
-final window_clamp was capped at val.
-
-After this patch, window_clamp_user is 0 on these subflows.
-tcp_connect_init() overwrites window_clamp with
-dst_metric(dst, RTAX_WINDOW), which is usually 0, and
-tcp_req_window_clamp() ignores the listener subflow's clamp.
-
-With default sysctls and val=1MB, the wscale in the SYN/SYN-ACK seems to
-go from about 5 to about 7. The initial window_clamp is also no longer
-limited to val.
-
-The new behaviour matches plain TCP, because tcp_set_rcvlowat() only
-raises a window_clamp that is already non-zero. This patch has a Fixes:
-tag, and this MPTCP change goes back further than b025461303d8. Could
-the changelog mention it?
-
-[ ... ]
-
-> diff --git a/include/net/tcp.h b/include/net/tcp.h
-> --- a/include/net/tcp.h
-> +++ b/include/net/tcp.h
-> @@ -1879,6 +1879,20 @@ extern void tcp_openreq_init_rwin(struct request_sock *req,
->  				  const struct sock *sk_listener,
->  				  const struct dst_entry *dst);
->  
-> +/* Window clamp for a request socket of listener @tp: the listener's clamp
-> + * if the user set one with TCP_WINDOW_CLAMP, else the route window metric.
-> + * The SYN-ACK and the SYN cookie paths must make the same choice, or the
-> + * child's window scale would not match the one sent in the SYN-ACK.
-> + * The listener is not locked here.
-> + */
-> +static inline u32 tcp_req_window_clamp(const struct tcp_sock *tp,
-> +				       const struct dst_entry *dst)
-> +{
-> +	if (READ_ONCE(tp->window_clamp_user))
-> +		return READ_ONCE(tp->window_clamp);
-> +	return dst_metric(dst, RTAX_WINDOW);
-> +}
-> +
->  void tcp_enter_memory_pressure(struct sock *sk);
->  void tcp_leave_memory_pressure(struct sock *sk);
->  
-
-[Severity: Medium]
-tcp_req_window_clamp() runs on the listener without the socket lock,
-from tcp_openreq_init_rwin() and from cookie_v4_check() and
-cookie_v6_check(). It loads window_clamp_user and then window_clamp.
-Nothing orders those two loads against the two stores that
-setsockopt(TCP_WINDOW_CLAMP) does on the listener.
-
-In do_tcp_setsockopt(), tcp_set_window_clamp() stores the new
-window_clamp first, and window_clamp_user is written afterwards with
-WRITE_ONCE(). READ_ONCE() and WRITE_ONCE() prevent tearing. They do not
-order the two fields against each other. On a weakly ordered
-architecture, a SYN handled at the same time on another CPU can see the
-new, non-zero window_clamp_user together with the old window_clamp.
-
-If SO_RCVBUF was never set on the listener, the old window_clamp is 0.
-tcp_req_window_clamp() then returns 0. Unless SOCK_RCVBUF_LOCK is set,
-tcp_select_initial_window() treats a 0 clamp as no clamp at all, so the
-request gets neither the user's clamp nor the RTAX_WINDOW metric. If
-SO_RCVBUF was set earlier, the reader can instead pick up the old,
-larger window_clamp derived from SO_RCVBUF in place of the user's clamp.
-The SYN-ACK and the cookie ACK make this choice at different times, so
-they can end up with different rcv_wscale values. Avoiding that mismatch
-is the point of the new helper.
-
-tcp_disconnect() has the same problem in reverse. It zeroes
-window_clamp with a plain store and only then clears window_clamp_user.
-A reader that already passed the TCP_LISTEN check can see the old
-window_clamp_user and window_clamp == 0. The plain store was there
-before this patch. Should it become WRITE_ONCE() now that
-tcp_req_window_clamp() reads the field locklessly?
-
-The window is narrow, because it needs a setsockopt() or a disconnect
-on a live listener while SYNs arrive. Still, the changelog presents
-READ_ONCE()/WRITE_ONCE() as what makes the unlocked listener path safe.
-
-Pairing smp_store_release() on window_clamp_user with smp_load_acquire()
-in tcp_req_window_clamp() would cover the setsockopt case. It would not
-cover tcp_disconnect(), where the reader can still see the newer
-window_clamp of 0. Would it be simpler to make the result robust to a
-stale or zero window_clamp? For example, return window_clamp_user
-itself, or the minimum of the two with a fallback to window_clamp_user
-when window_clamp reads 0. Or is there a reason the listener's
-window_clamp has to be used here rather than the stored user value?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021155715.30094-1-jain.sm%40gmail.com
+--------------s8Ey6hFPBGWnSQfWbkDzsdy9--
