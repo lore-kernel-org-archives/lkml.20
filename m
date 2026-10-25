@@ -1,105 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792933333;
-	b=WTGn/o9mqTOQpFklXCuhlu9AsrZsfMP4oTEfUPAZyWgpXg5UIHdtu9LXWbqoihFy2DWV
-	 2u7HhsijGNGnXYeshLC/WQukuOXeasi1Pww52OjK/o5SxJP/vX5UJmjrhF89q0Fgrsk03
-	 jPy5LSGsVtGpUyZpXsDfq+sWMXjZDwksKP4Wy8K3ppADQIeTVi7nsZO2qAOALoPpHaJSu
-	 w5fPpmtEvxTAOdRhpA5atOVqV0IDtLxdPatIC0TeUiXYGTcL52Fe+5EczGcnB0VUzjDik
-	 d/En9uTrBhFqFErSO1WYosDs/b8akJMenyoOcfLPfCR1gFM6D7a5EANgrAIsWzFXvew==
+	t=1792933397;
+	b=zpsF+8ShNCHqGPznmtRmFIKsHI2GJJlqUfqfAKj49Z5e4ejaTRCq1FZcLW/2URqKGZ7O
+	 HmPafK0JI3wN3yhRVE3WZNU618rIezorK2HiB59CvTxtG8E6hWbf4Vo8CFgehZJt0xluW
+	 /97K+SLFP1iR8gkcWFY2fkejDX15qEJGao+e+0OT2+Kjs1oT8Ofx5tp3qVMqF10oMf3i1
+	 ecyZrmUfDCnr0ZlsDUphNFa8SjItzWFrE9CovMwsjAN4eXhlDueZo4c5IvcqGrpcJsJXY
+	 qXabvEf7kxFHME7xT8i3XbTsv0Ae5TIGar/HG+7PMlk+6ijaroVjlIoh7SJ5fQW7H6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792933333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792933397;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BeWhtqurdRURXZzZxthQRkSgg7DOPSB9+FM4Irtz//w=;
-	b=r3+07X28Y+3Uea/RhC16JeUltIYnBmen7WtcYbumVODyriVPAJ7TpuE0nDmPH96QTJCn
-	 t0senwVhucI8uVAOFB/brTqqvXiDVqqkMpllxwYTmDe5u9Iu4IdLrXNdEAX8sFBZxyNl3
-	 39xSthGr9H7rNrSDTcm9VtiK9ZQzaq6sZSlg1gHLLhdOxIcxav5Z8BM8FdHhIK5uPW6vm
-	 RtSinNdRS82jjLnTuWE1ZrsGRibWfuPN6jC526mUiZfXFCfZHM6/c0QUdoz/jfC76K4/S
-	 VGbaIj0o8TgHkSYnJbfhZRu59EqnhKunRNk4+o06eivFXEJG7cnoi58N/WRt80j3SIw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pw+VQzikrvNhFcsLNLiHCOdnZ30fvzuuTNfRPpO+bNk=;
+	b=ico1b5MW1wk8nWUBzLT/RXhadpKofM+1f/4wiS5vW0VCYXcx5fzW/Sivm7NZ3wqWiUAg
+	 Yai7qVvFN0zlH+LMTnZZjxCSwdbD1+y4KpU5TKRh/Aml1H1y4aMB0sN0PaoOzmOJbuP53
+	 lTJn9HU6o+I75nKMQlVJ10JU/B2zBVUzJu+qAuI/Rm4G/NZt8kG4N9ZZRada0mea03I7Q
+	 4wJ728JXzXhR0PxxXQ7DlomXAQabfSRFsqYCFxVlaVo/rvwiWqL8118qamUJxqgrVC6rB
+	 vAvItC+4+1PmkZAY7x7skW8mACqB/Id3s8DCGhUeiqn+Tuy7r+fRXY5c2WD2gifytJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mBkw7GqN;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Arc/I2nN";
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675A0606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 675A0606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71439606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71439606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mBkw7GqN
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e7e742a2c7so14118565ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:02:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Arc/I2nN
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso22725845e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:03:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792933333; x=1793538133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BeWhtqurdRURXZzZxthQRkSgg7DOPSB9+FM4Irtz//w=;
-        b=mBkw7GqNrc34m232ZMimBrlq1vV6Ys7Pn1+2+EHfXPKmZtX9Nv6aiOtRInpoJHIbhn
-         hvZMvHtZWT40zQ62jqcmaeeTa7jqnGUty0ITjrox0cZ+lIEHfexy3B4kf936yV+pCtOU
-         iu7FTW7T41Hu52OPCm4xkaeCGFeawmUuJmG6fpiSiikSYx8gEvSvV8gknrF5wf1AwlgA
-         Yvk2tma9S5zSkynu3sQYUuLyTvni9xTINkzQeVrJtRScssiBAiv1SFgKznkJSkeUNy+E
-         UedKk5tBLIb6qzJGIQimXkPsLRzCV6Z/KK5bYke9if4vZY6cHaFFGRbsUdiCWeFJ+ea3
-         DaPQ==
+        d=gmail.com; s=20251104; t=1792933396; x=1793538196; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pw+VQzikrvNhFcsLNLiHCOdnZ30fvzuuTNfRPpO+bNk=;
+        b=Arc/I2nNT7rH/CtpyJYfHvjMnenGPvEByGpIu9xigsqKL3Jh73UlOuO8gwX+BjKbco
+         R+0qhcYclzCSXoJX7XFUt2+Ahtf8QNYf+5pAD8u73XsAcRK6cQPHrQC3+UESBvg/Kskr
+         y7lMBEF99Z7mVBn7ya3bOY6vYryXyh+LXZfEot69HgEAN5VeB0QK/uJIKXaTXhJ5wmZr
+         uswbF679IdSMOgv2SoMXHXXps8HheNpsOr4vI1Oa2urkItnX8q8rc87LDvXBaRK4glP5
+         vZbdDkLsU/E2M+RSbvfDaePpWs4KAU1JL9mg0z8jO0NmYBoPzND1bzjQv128ENB2+0mx
+         KVGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792933333; x=1793538133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BeWhtqurdRURXZzZxthQRkSgg7DOPSB9+FM4Irtz//w=;
-        b=l2J2i4TApWrvtKF6iCj/VJZHjh0FAZmfNpUMZ+3p83QtU0xS4HJGJkpIiUiHacgeBB
-         zSD45U8fKmd9m8iwFXTjG4EMRPN4n6SS+8msOHRiOswJmlPD3HRpdbr94cGdIaqTsUYn
-         qMPiDvuu7iZisMoX7fxjlZ1qeXHhWUSAqgT8Aj+SDDyWfDoyo7rYZTmTCCwuLXXFJF+3
-         6tLbcxsyVe6uOkWHB3rkBzRHYXT8foyy6e0B+qNv9pOVmW462tkolxqmWu08BnamMGJK
-         6zMdG1pLTg8ZU/+et3MjE42kIvFpl1vgvUyeowO9flg3IJ+s3V7TA3D586dxPwwb0ifC
-         RYiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwyxnT+ho4e2ilqNT9Fb+LXIZPettVGjb23oLEr/UWL4XriEPT5OCSZFpqmpUwtI+cuXtnJ8j/zNpWk2ws=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZOzcH4TtLqzkDan3PiUYtM0NKIcBYvb0JgEL2wK5LxVkzvG1Y
-	anvXFsxGwP3RhS6BGClGLH7S1ZCb5YyaEDq0AjcEmJuMPQky1JidrFxP
-X-Gm-Gg: AYBFou0iKO69kAgmUAXayUQro9qEmRZxghvY81f/mi3EyIj9nMqr04mrMB/e/eu5NTD
-	LtM5+SbHmHcNoJf67byvThqCSA0Bo7zPWNbN2icz+uZJu2DdB58amIHS9Q+88NT5a0f2vhL8Daj
-	JBKshIHBSy/nSHtFRltnCMYFzOy9cgrZ2A5jK/MfVADh5b2zTZrpYGend34LTkioeuQg+DvhNzZ
-	R9oVskOB+nhaGP/qOJ177d16Po/oqUG87N9rbwximt5OiI5abye9PQuWD59GXR4NeuN0N45Ky2z
-	Us03LiNOWu3SLf3Ai7LVYMzanLEf6xN1jyIRUt9L5waUnH5meYnLtdQDoWYMbg0CqAqScd5SJbP
-	G903PllTI4GcnFbvnedjuloOOno/f40Lt2m3WKe9TsDeTlD3ecetBmi3b3DYbbqucerKLc5oNlp
-	y0++5ftU3oAV7rro/aIN+AvlVmhEA+wABaPSSYl6Q1+qUuVoomBVsVCo5yQmKqc4662qma7zq5z
-	cWJM/AJDt5tY5SsIzjGJ8QljOktok2n1CfrwoQEeAmrPinpfWc4NQ++z+jyoRCHJqZHxXM79jXW
-	pNwGaS4i5lVodXxYCT+4Fsktd4CYBQchg6IgsXwsr551enraU6sd/z8ucEMw935H3Xd83xNHQD+
-	eBYK0fm1g6dWhTov6ZW25Y7ZL56qvQHEQZol+CK975o6d/bW7xvqyy0z49A==
-X-Received: by 2002:a17:903:198e:b0:2e5:41d6:178c with SMTP id d9443c01a7336-2ea9cc5802emr27275065ad.33.1792933332318;
-        Sun, 25 Oct 2026 06:02:12 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b14d1ddsm8430055ad.40.2026.10.25.06.02.08
+        d=1e100.net; s=20260707; t=1792933396; x=1793538196;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pw+VQzikrvNhFcsLNLiHCOdnZ30fvzuuTNfRPpO+bNk=;
+        b=OWbiUUqlCrCVtd0MM+Ga8bGNOMMaTRTto3lWanS7PFCKyTK3W4VijLrPsb059FPGhH
+         kgPMSbB0NGnHy7FexMfl5G1u69ksIc1bHeYiuw//1CntrHmBpc7Ry6tZZ5HUrViK8ND4
+         DhCbrJZtOu/wMDLpF1c6J7IZQ14mmJWSo+bsfexC9Oz7Q/MvDK2LWSogoZbsPvSAGBbL
+         BzZGUIpboPyctwMkbqQ2sAT+va7nJJK5n8IT334Yq2rsHc9JGQeCVmXOGQcKDGrDSrL1
+         aMXPErK4N23lBhm80FIx85VLxGC/jtsbLZjcfbiQsWcwelKIe66HdPM2KxKpTyQie4cY
+         FKAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzS26AoQVG+WVeRiy35U9Eja2fjleEkVSQ2DRqWdw1wHYlYg8pKFz7fPJDuPB8V+Upa3WVtZBPiX4GO344=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXUUcyO6nQhQqgxXeyhZpSWo3lxIDoECz8apUTBMTzKX30ula0
+	U/iP99Fpou8lmUoeghaFjgM8kFNHSK39Zd40TiklOLnorv+qJXv926UvOyXp6aP9
+X-Gm-Gg: AYBFou33RX6gmNlQr1Qkave4B+NgNIkCqI297ThlccW+khHbOlrktTPe6dId6vSxtIe
+	qHhzyLkZ7a9iOrZsmNW/rSs79j3Zse7FrwEEpcuvgeyWucrxhk66e04NLGyHFtANz5F4OImpKZH
+	x7RbLXSg7eY/a9tIB7CPyH409v9RmKc+3ForU4gtey1bsbN4B2/cYAU4ZwN5WzBoMMAW4I6isn7
+	p3CkKg2cr5VD53iCYecfWzsysXquBRn2Zvw40pf8bxMVN8MCyQUguAAonyP0i02WKh9N2RKOuMT
+	KaeH8bwZG5YgN1JJH/YmOjqI7WbRbzpQ71wF/erq7ROVE8ddXZN9EiN5Su+dj2Bp1AM3JVGr/6U
+	JJ9g/Gez6WwgiaZjigb/VundbeTMKHzRvB5UIWVSEWMO5FEgjRAd6RckxjAy/hCxAjIzsCrup8G
+	fhCH2SupP7pWton2viG3a8Tc4tcZubu2EDNc5IfeFD6zDVTTDoGMmyyDnAACwx94MbWyl2IixQj
+	mcwiTizZqbFLd8WCn2GSgqnP0knH1llbe6weWxLbStS1SxTriHteoAtmoL2Th+61Vy4c3b7SrF8
+	XUCboZIqtTs8Nod55Q==
+X-Received: by 2002:a05:600c:6749:b0:4a2:e0c:2b10 with SMTP id 5b1f17b1804b1-4a35aca32e1mr66130535e9.19.1792933395658;
+        Sun, 25 Oct 2026 06:03:15 -0700 (PDT)
+Received: from Ubuntu-vm ([115.186.50.139])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm108000685e9.4.2026.10.25.06.03.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 06:02:11 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: dlan@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	e@freeshell.de,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-Date: Sun, 25 Oct 2026 21:02:04 +0800
-Message-ID: <20261025130206.187282-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANAwSgQ=Djw_o89MgvEsmKVxuNiE3Yuy=e0T5DcLfqCYy6eWMw@mail.gmail.com>
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com> <20261024092558.143621-2-alan.tseng.cs@gmail.com> <CANAwSgQ=Djw_o89MgvEsmKVxuNiE3Yuy=e0T5DcLfqCYy6eWMw@mail.gmail.com>
+        Sun, 25 Oct 2026 06:03:15 -0700 (PDT)
+From: Haasham Khan <haasham93@gmail.com>
+To: sudipm.mukherjee@gmail.com
+Cc: teddy.wang@siliconmotion.com,
+	gregkh@linuxfoundation.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Haasham Khan <haasham93@gmail.com>
+Subject: [PATCH] staging: sm750fb: remove unnecessary goto
+Date: Sun, 25 Oct 2026 13:02:58 +0000
+Message-ID: <20261025130258.10747-1-haasham93@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,45 +100,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Anand,
+The error path in hw_sm750_crtc_set_mode() jumps to a label that
+immediately returns ret. Return directly and remove the unnecessary
+label.
 
-On Sun, 25 Oct 2026 at 18:43, Anand Moon <linux.amoon@gmail.com> wrote:
-> Could you update the pinctrl and GPIO configurations, including all
-> necessary pin
-> assignments, to bring up the SD card, PCIe, and Ethernet nodes?
->
-> Please ensure that the required bootph-pre-ram properties are applied
-> to the relevant
-> pinctrl, GPIO, and other dependent nodes wherever necessary for SD card boot and
-> SPL initialization.
+Signed-off-by: Haasham Khan <haasham93@gmail.com>
+---
+ drivers/staging/sm750fb/sm750_hw.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-I'd like to keep this series to what is needed before DRAM is up.
-PCIe and Ethernet are not used in that phase, and their pinctrl-0
-entries are already in the board files.
+diff --git a/drivers/staging/sm750fb/sm750_hw.c b/drivers/staging/sm750fb/sm750_hw.c
+index c4358d3e5091..22f93277e91b 100644
+--- a/drivers/staging/sm750fb/sm750_hw.c
++++ b/drivers/staging/sm750fb/sm750_hw.c
+@@ -272,7 +272,7 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
+ 	ret = ddk750_set_mode_timing(&modparm, clock);
+ 	if (ret) {
+ 		dev_err(&sm750_dev->pdev->dev, "Set mode timing failed\n");
+-		goto exit;
++		return ret;
+ 	}
+ 
+ 	if (crtc->channel != sm750_secondary) {
+@@ -332,7 +332,6 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
+ 		poke32(CRT_DISPLAY_CTRL, reg);
+ 	}
+ 
+-exit:
+ 	return ret;
+ }
+ 
+-- 
+2.53.0
 
-For the boot media, the BootROM has already set up the pins of the
-device it loaded the SPL from. U-Boot's spacemit_k1_defconfig does
-not enable SPL_PINCTRL or SPL_GPIO either, so the tags would have no
-user today. SD boot on a Milk-V Jupiter works without them.
-
-E also asked on the cover letter to keep the BootROM part and the DRAM
-part apart, so I'd rather not widen it.
-
-> Additionally, could you update the regulator-name properties for
-> vdd_core, vdd_1v8,
-> and vdd_1v8_mmc?  On all the boards, the SPL code requires these regulator names
-> to locate and enable the corresponding regulators during early boot.
-
-These names come from the U-Boot SPL code, not from the board
-schematics, and U-Boot already sets them in
-arch/riscv/dts/k1-bananapi-f3-u-boot.dtsi and k1-musepi-pro-u-boot.dtsi.
-I think that is the right place for them.
-
-> I am verifying the changes against the existing U-Boot board device
-> tree and configuration to ensure
-> that SD card, eMMC, PCIe, and Ethernet initialization work correctly.
-
-Thanks for testing. Please let me know how it goes.
-
-Thanks,
-Hung-Chun
