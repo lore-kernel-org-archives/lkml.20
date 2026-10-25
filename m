@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.186
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792963963;
-	b=reChDM6y+eIbC3AFkmp5Kxbr62qR5/V+floH75fNTOYvPBsqzLH03LZnmkcon0upJH8F
-	 WrCzFd1m7NDzqteUj2lqi6nk7xKwcRBFqL6mw0z7OsU+W1YuETS9bPd/2A2iGVyAF2aTZ
-	 063GzT1aCBJloQf7ToUeDQKXQmN2TgUMV0xEbEDOMsHK4zq2eqtmnLuEiwfLTyPMg+Y6S
-	 hgPQs516NgnlO2xningUHBjOyxgH4l+tnNQMA0O9BvvIHQL+sgcFA1sIl7r0d8XMHEGp/
-	 H9id6Iw+WemhZopmwwhFktJam7FflJ+7ALlavfPmwp2K6R/zDEn5vJf4XgNIJiJmT+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792963963;
-	h=DMARC-Filter:X-KPN-MessageId:Received:Received:DKIM-Signature:
-	 X-KPN-MID:X-CMASSUN:X-KPN-VerifiedSender:Received:Date:From:To:Cc:
-	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Priority:Importance:X-Originating-IP;
-	bh=5vuSnrcKwQeIRn0wbWhYdGvFkzDXojcWcGjlh6QDcMQ=;
-	b=lEOqwpuUL7uzQKSNMn74uLXFlK0udutcuDo6Ft0JvNZj8eY4nVICZGw+XXr+m2a1JQ00
-	 zSk4WLlVIBVefdO4N6CvgbPEUokMFjC6DUL1HkA2hYyf6KsYzCh1HvRCkgA2W+jV6bzW4
-	 C/suXEkXekmKcUtGqvfZ6owis5E+eNSVyHJHHAiqyP3DdhsVJxrIAmF61CoBkJmnfgEcI
-	 GCIcRbIJm1tgdnJochA4pJiLzHSJ8oJEZ8GVhjtPnihpizrlZi99znKnfOS+ThJGcZB00
-	 hDHuxy0cMkrofkj50ZeXXLk8VdhMOTFnT2fEq7NW0lInsbFDF8Y9rKH0c5orJDcdDRA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xs4all.nl;
-	spf=pass smtp.mailfrom=xs4all.nl;
-	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=H3Lyxcaz;
-	arc=none smtp.remote-ip=195.121.94.186
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792964154;
+	b=4IMhseh0OocQtqaFygASyqzY9OHXXj6HrM7idSBDmtQOXZNyR/fWadf4D+7XfOt2ckIw
+	 Nf/AJdAqL4SdqF9eLIyPdTDVUhUj+nqQo6S5IO7FR55m/K66PhOn86biqEo7sq7opMuB9
+	 BqWk/SDuyNOodA9bOHh2uhLLpXMXFAqTR6XQhyCEkPGLEe0LS4VIGMcAwToKSPPn/YH2S
+	 wwgw1ZB0kA4goFGZdrufahcPjQVAJULW/mgpyw6V4ltQD5kNmSoJWYvk5Eq468xPV1DWl
+	 wmIkQOV7UCZjeZE5GxJD7eW2M8rqmYucJFmuGDrDDYVomNl/6bS3djOks1vhWQivglw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964154;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tu5C6ICjThLNxpGp2fvFHElxFVE5D3XEJqCECz6gfv8=;
+	b=Wbd7kSnMjO5cyIWsTMEEMI9ufYxKMHwd+Vsq3yt+eWf6gpLemjRyFB54UzaqbfPkekx7
+	 zf9MLGjCc1UoaRuOMprTZRFBmgGuaxHzUHWGrrNNr20Rx3ZK+ZcpRAolE/0atuG57I9p/
+	 ZZgyII6XVc2X2X9JYBR6q0dNMk3pe7r3mGlG/4rAS4xii4WwQ2EYg55ncznB+wrgeRLo8
+	 9oSuIa8f/TdWutlHuH50c6oRoCKTmVsr8mAGhPjiqISqKFh3YdW3kYoQvKw23RqN6+3va
+	 Q+mkCffxSsydi19sL8pPDBUYTBusR//0D1JvE03RTY8c+j3QyfHQlRYf2VsrCtJ4+rg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=iEibY0wS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.3
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010003.outbound.protection.outlook.com [52.103.12.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F63E606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F63E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCF4606A31A;
+	Sun, 25 Oct 2026 21:35:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DCF4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=H3Lyxcaz
-X-KPN-MessageId: 957011bd-d0bb-11f1-87e5-00505699b430
-Received: from mta.kpnmail.nl (unknown [10.31.161.190])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 957011bd-d0bb-11f1-87e5-00505699b430;
-	Sun, 25 Oct 2026 22:32:30 +0100 (CET)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 956ec94e-d0bb-11f1-a8ab-0050569977a2;
-	Sun, 25 Oct 2026 22:32:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=5vuSnrcKwQeIRn0wbWhYdGvFkzDXojcWcGjlh6QDcMQ=;
-	b=H3LyxcazLjO3BsnaA/eVkplsL+87/CmawTLYkHaxYk/dFOV0AArOCWWmMM9siWMYX+QVYW4fXMdoz
-	 n+y1CYUr1kLJkx+afjXan79gwEP+f3Bm7qLWvdmwa/QDJr7qtNZPa3C5OF8NkySQjjmSyTr1pkuu60
-	 fJWOZT8Lq4Yi+M90VWLg0k2yj9eZtQoe0R1V6XKXzSwLKHwt5LiEuzrDP3IganmEq4SrfeGHfVHWpn
-	 y07BfxOnHxLL9fTdYZcSjRwa8xmGSuRYdHeTh+IE9423XM8ZY4olu3EHPioZc8kgxs7Zff0hO3BNYE
-	 fn5gf0VyY/TowodKJaUzqb7pBjHgKFA==
-X-KPN-MID: 33|ewbb4jy8pZhqwJOE/4BRNgw3degIzkXnoW8litV1V+IUNVtk2goIwP9dd+dxvN0
- 3wsQCfDGArapfOl4Vp+ZnZEJ/n2ql7zr+sPIY5GEKWPU=
-X-CMASSUN: 33|sa/DoRaLLkvYyhWgxj8o6+RtIBFbDgoUcwEDZcjXQXI5rhTaWxTQKQX6mY0/ihE
- XcmKn7Ys1ssMhmsXjlSQamw==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh03 (cpxoxapps-mh03.personalcloud.so.kpn.org [10.128.135.209])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 9562e720-d0bb-11f1-90df-00505699eff2;
-	Sun, 25 Oct 2026 22:32:30 +0100 (CET)
-Date: Sun, 25 Oct 2026 22:32:30 +0100 (CET)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Justin Stitt <justinstitt@google.com>,
-	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Message-ID: <345522644.2279143.1792963950889@kpc.webmail.kpnmail.nl>
-In-Reply-To: <atuDosjEibZI9exi@gremlin>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
- <20261013173240.GK4214@killaraus.ideasonboard.com>
- <atI_TSQXzAQFWBfx@gremlin>
- <20261020211532.GD15441@killaraus.ideasonboard.com>
- <atuDosjEibZI9exi@gremlin>
-Subject: Re: [PATCH] docs: remove Assisted-by references
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=iEibY0wS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vLIRq82BPqEoLxha8a3ea6+TRlka5uEZaDFp2mxkg+wft0ONYR+A0VUEcJAhCqDMUNN6EfQ1Tj6861OVrCUd0aLSR9l3ezLEqm1rCbZZbTLPSdi76mdXDUVi36nnQG8DM7+I6KSS2ZGm+4pDrGa+Bsh970FWj4+IssAaVfUZBLA/ThS2WSA7LZUx83fO2mnBVQaUQrU9scNMjqXJgBzIz0mqMafzMgLit5na9bS0YMABxI3TfqBL8TlWQf17QbIJeHELWxoGvgXxCHCsURvdGqElxBXRkauoi6d+4IW1jsWkEykP3Ljsxk5SNkdatzSECTOrQO35yp46zf280dJnBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tu5C6ICjThLNxpGp2fvFHElxFVE5D3XEJqCECz6gfv8=;
+ b=j0kfSEXh2oWQki7iWQ8wbbQy/p9a0ExIZSofHROy5fTV6SeLMVA3ZMEwwqJrUsR0KbNcOeg5rv+A3ZqIlDT2aI9j7z3YC17WxTkSHcEAw/G//fTfdiDW7iVNpKGrDoCixI4BIavkTc8FYUHsShZ7hw6saOio8ISML5C4AZ7fJqRzEAHwWjDyqz4Y189jvkAtG1VAQ6UYlWyF1jjAF11rO9Oa502uZTbL1D37tURSh1O+GJb3pQ7UQTNIsUf+9118sz6OfhubO5S8rj9m7myCSVhAIQ2c/lLNGcRLn8uQDo7tQsiUZmslde5yz/AXEFeeEin7g260lqA6NBSENjB01A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tu5C6ICjThLNxpGp2fvFHElxFVE5D3XEJqCECz6gfv8=;
+ b=iEibY0wSn2hMcdaCHyx5HoR8WU34/OrxYfUhEAHgMMurBIhnVFGIhp46xv9zTDN49bAoBkr23OHRnsnAolMqg9VezSzqk/+hlkG2+COr9iBLga5YmmJHrYx15J87e50xyFFAxcgqzKDmW6U42cMbcu38/42qv69i3ya8DAzd2Hl1SKV/VKtCYOvX+15EA0QsK8MKghDUJhMyCXXcCKfTfJLY1AE6u67YMVmCEEmst9iJjK3+qOAOZfYk28D2IW8lNYd58yjnB9fFcC1J0Hs+xf9PNmcsSfW9Xir/QVdTJuhSePFDgcLDQE52nw/4o/3ELp9FHjLfhnqL4neniMSLAA==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by MW4PR12MB6897.namprd12.prod.outlook.com (2603:10b6:303:20a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 25 Oct
+ 2026 21:35:50 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0546.021; Sun, 25 Oct 2026
+ 21:35:49 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: andriy.shevchenko@intel.com
+Cc: andy@kernel.org,
+	chernyakin.victor.j@outlook.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v2 0/3] iio: cdc: add Texas Instruments FDC1004 driver
+Date: Sun, 25 Oct 2026 16:35:36 -0500
+Message-ID:
+ <SN1PR12MB2528B7C10FBE90A0B31BE375A5622@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <at5qzj89R8W4K5Zc@ashevche-desk.local>
+References: <at5qzj89R8W4K5Zc@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH2PR12CA0002.namprd12.prod.outlook.com
+ (2603:10b6:610:57::12) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261025213536.51941-1-chernyakin.victor.j@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +101,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Priority: 3
-Importance: Normal
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|MW4PR12MB6897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07b11e14-03cb-472f-378c-08df32dfef9d
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|25010399006|19110799012|8060799015|23021999003|15080799012|22091999003|8022599003|24121999003|24021099003|260925184616899003|3412199025|440099028|3071699003|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?l7iQomKGjsh7Ehne6Jx7dneM7bhx3wxb1PDNYff2W+b4D/XcKu5Pwayv3oMP?=
+ =?us-ascii?Q?eeYvc6b7jgJ0nHCCx7w6TUD0YuOQ32QEQNqznJnvx/jWChW+WQmJ1DpPdzmW?=
+ =?us-ascii?Q?0pku5sGB3Siqb9ycErOOaDuz2Dgzje82xppLOcVoZvsy0fPd6eSj3Uc3TwZ4?=
+ =?us-ascii?Q?fNRgrrGXOo5uHMyUHdLNYZUOCz2VJnNz7mQpbChJnG8RRn6n/DKoV2G0Y5Dj?=
+ =?us-ascii?Q?uZkhZPe4pKeoEwmApADIq9LcxPlY7uj3lKQ2E5ibcpKInREFXcbWj1EPFJME?=
+ =?us-ascii?Q?JHRez4byk2wcXfF8H9Cy8jz3TSOtlyaHTMqfXdf5QZwShNrxFtQNcFrNvUTa?=
+ =?us-ascii?Q?37wsvxpSPImATNRg5in6h5NnCSH+CueRgByQxA/Jd2lTGv+1KVLFvEQpMgZf?=
+ =?us-ascii?Q?pf3i91LMzQysL2OLj82/fpOtoHz8plRhRb7YYwyDvjyCHWO+ktnaqGgHnOqc?=
+ =?us-ascii?Q?zUNnLdR70qt2Q0dcJv41I4iSJwFiVZXcSDqzoJqAiJBVZwVP1LDHcVgddG6M?=
+ =?us-ascii?Q?+U3u97CP5wpy+9tni+UVkWTW3JnVtGjYNCHRjZSk26+z96UCJIzq3GTXvQMo?=
+ =?us-ascii?Q?pfU/NX5ZNv1BsHL8DmEFCMD3/OtoPzem1xRYSr40ZxFVh8WIODTMfqQ+sKny?=
+ =?us-ascii?Q?fT2jh2WCHoBZBBiZNYvouSLYhorWuRcA1RbpAjQY2jqd4xevHN9tcSm2/oSe?=
+ =?us-ascii?Q?BsMzi+JtxbUbjBTRr4bga6djWSud2RyDsZIk2RSpKNdrjk3FuLgqpBMOzIGR?=
+ =?us-ascii?Q?vjScn/UrugtgUjqbLinD0e6VmFXPP2iSmOw9/3jn9MdfxycgIN5eQxKCCHrv?=
+ =?us-ascii?Q?xD25ONcJjYPHmRwavVQOdshdL+o+vt99FVH9j+vZwFz+rLts2nzGxRsdf54p?=
+ =?us-ascii?Q?CeoGNC7ovo1H6R5v8gjNj8Xqgdy16L8d8H0TQ+0i9zKABNUd1LlqVj/loQT6?=
+ =?us-ascii?Q?XqFBkT1Fsz/Pzy8BAreyoCG1WhaAP3kFFBpJqo8uvI8p5tRNyyT5cIZ77P3o?=
+ =?us-ascii?Q?6xLIf8YAFCOxbmN2LS7Lm0I4DQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RCk2pvjnDKFDeeZgf8WGz9BegEtkOlyXt0GGv+GdDsb1zibHz+eT5hpZMfkB?=
+ =?us-ascii?Q?DowzaG3hhAwYrWRCB/74N7NG2z17wlCbZXn+2Z99KDLYl5dzXffyJVzahLli?=
+ =?us-ascii?Q?OnIdaPaY8I8UUApGcuw9gmVVS/S5ddZLN2XOAF8F9M63rorzcjd4B6aIWbql?=
+ =?us-ascii?Q?slZrDA+BbJWV/gJtNJLon1Ges94r+vWWNlyiziyrGYc+hIQ0PwQZETOS15mK?=
+ =?us-ascii?Q?+kRU8rrhvXdThDQfNmC/mauJXdfru73YuYMEw1JHBFHBOgFNJ+gcnLjXFJwS?=
+ =?us-ascii?Q?gQljGJIeAf7l7rtSQQQD3st8zCXH1vr4RZzZJeAnNLA21acS9ECHyxrRhk0I?=
+ =?us-ascii?Q?0gC0uN1JIucHvEFW/WPbzliaw1JRv96ickl257ysUTCXSXQPQaIg+pXJ3Qug?=
+ =?us-ascii?Q?TbKNM7rElAmWjTl+usAUZW18Lq9Hx0zHn9wpncS80m0bn6YyM0yQM97zUHWj?=
+ =?us-ascii?Q?o7+UcnSnPvzBm4vSZVwoMT+ASUU3gYJQa3FP3ZnPDSd7gtYE3CUMZSXya4Zy?=
+ =?us-ascii?Q?0qpHKKMV6DJ4Cl2Gu5n+PdaP47BcmM7MbDX/Z/V9qzEt+hzNWsFT6o0kpS5r?=
+ =?us-ascii?Q?2fVUShMqWtZO6lX453s3vUfv8D201J0SCNgwOJBXdz44Q4Kg6QRxmYwpYRoj?=
+ =?us-ascii?Q?qnBGowQTZhTGoxaphPcNwNyhhJJiG6KXGU9X9RA2pPwBOWcvXuJ5GDKcohm3?=
+ =?us-ascii?Q?2FYLJRsulu4O8J1myDNxu4kFeeFEJPgxyl6tKk/OAaexJthNrlKTLQPuHX1a?=
+ =?us-ascii?Q?Nhn2XqOtgKQmviJ/o2/b5ktsSKfMCNpvzRV8OmBrq5RmFXy5WZloT0oBvBkM?=
+ =?us-ascii?Q?KlRIDykpqL/zV8te0DjdoOLuXhCUYy5IjGqQDykP+8uX5PGcqUiJMnoG09lB?=
+ =?us-ascii?Q?RoDkkfgN3Rf6CgIy9/cb6lY59eiegTCG8UZAmaE9sv3pDrWzEDnt1rJ09/Ie?=
+ =?us-ascii?Q?7Yl0I4yNmTZjeGlyp124UaR4tEtNBbnPlcHXiOqkzgX02HTp0biyqQkDETmQ?=
+ =?us-ascii?Q?aBAOO/8OXKABjJx6lQ1tOZv8iFV2jhZRYLLW5wG0Ob/GobNgThICBJryuvvF?=
+ =?us-ascii?Q?otPgbmoB5BI8w8lmLGl16i7Y3jOYam/LzpSu/yY0vyHowHFVF4kR03mk60SP?=
+ =?us-ascii?Q?92jmf3MmQcW/y+jeYX1YW32CmkD73MhR6Rt3//kRMO1FjuUu9jXb/TmZKavY?=
+ =?us-ascii?Q?JHHG9RwybYSjmj63hA8p/ACo8Y4LXT0L/HlltTFdvDRk348+oM080t4BC6bd?=
+ =?us-ascii?Q?5eu4P54Ts0JXYM9lkob34sJpdX+hyI6x/LOCTBPbdEYxZl0TJY8aEnS+cGHU?=
+ =?us-ascii?Q?t+8NyfC6AqJxlYbag+CuDEeu3Bi6nzbv+mP57vL84cKUEx4zEBqJROFj5r/e?=
+ =?us-ascii?Q?UBwgvhD7IX1jfexqF3K0IYuC7k+fFpSr/fguGQChli0rS0vN0w=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07b11e14-03cb-472f-378c-08df32dfef9d
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2026 21:35:49.6499
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6897
 
+> > Changes in v2:
+> > - Patch 1
+> >   - Added tests
+> 
+> >   - Added a fix in iio_format_value
+> 
+> If it's about abs(), it should go  in a separate patch.
 
-> Op 23-10-2026 12:44 EDT schreef Lorenzo Stoakes (ARM) <ljs@kernel.org>:
->=20
-> Again, to me, it's just a scaling issue - nobody can read hundreds or
-> thousands of mails a day effectively, and maintainers and reviewers are
-> past capacity even now.
->=20
-> And agreed, we need talented young people coming up and it kills me that
-> they might be discouraged both by 'AI will take over so what's the point'
-> and the hordes of 'competing' people sending slop.
->=20
-
-There's a striking parallel with the mathematics community in this regard.
-They are dealing with a similar problem where the old way used to be you
-make a name for yourself by proving a hard theorem (Linux equivalent:
-you make a name for yourself with sweeping patchsets.) That does not
-really work as well anymore as a signal for competency (at least in maths):
-
-"Among the mathematicians I have spoken with, the prevailing sentiment
-is that this traditional mechanism of recognition has effectively collapsed
-in a matter of weeks. A strong mathematical result, by itself, can no
-longer be taken as convincing evidence of a student=E2=80=99s independent
-mathematical abilities."[1]
-
-> Perhaps there are ways and means of getting talented new people involved
-> via side-channel, though.
->=20
-> I did the 'eudyptula challenge' many years ago, which was a sort of boot
-> camp for kernel developers (with a lot of 'are you patient enough' bits :=
-)
->=20
-> That can't work in identical form anymore because of AI (sigh), but perha=
-ps
-> we can figure out some AI-proof version of this?
->=20
-
-Would it be worthwhile to organize some sort of informal discussion on what
-such channels might be and how they can be organized in an LLM-resistant
-fashion? It would be interesting and useful to share and collect ideas on
-how the talent pipeline should take shape in the LLM-era, so that the commu=
-nity
-can ensure, also in the future, that talented and motivated people are cont=
-inued
-to be brought in and not drowned out by slop or other unwanted hurdles, suc=
-h as
-having access to very expensive tooling (a concern that I share with Lauren=
-t.)
-
-You and Ted have views on this; Shuah runs the kernel mentorship program; a=
-nd I know
-Greg also helps people get exposed to the kernel through various means. The=
-n
-there's GSoC and Outreachy, etc.
-
-I guess a lot of these people will be at LSFMMBPF?
-
-Best,
-Jori.
-
-[1]: https://terrytao.wordpress.com/2026/10/18/will-it-be-a-golden-age-or-a=
--dark-age-for-mathematics-and-science/#more-18496
+This is about both abs() and working around overflow when
+computing 10^scale. To be clear, neither of these were problems before,
+they're directly caused by the new units. You're saying they should still
+go in a separate patch?
