@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792904600;
-	b=aawQnc4mP9USJZr8L2OqMZat3lpP6h5EorlAdhXn5rZU7NFXQO97ewbnB9RCyCS9vNt2
-	 N1mNg4Aq3j2Y4gw2RZN2WqPPnF3IzQ0SN1cnVawrB6NJ9iQ1u/6H03zAFZGL0crfzHJIH
-	 UyJmK4kEQ0EJqus72j0qpxKF9H7H8M6C6tvyFfVqHcqlNCezHXIRXGADIS+x+dEdqYgvy
-	 VosJjQgdGa8cIoGdcFh0rwZCEkpUFdYmJXkTGp8x5HnNebfHNhxcdWHm36heayL+X95lp
-	 C3skBa+aUt5JUXrxvANbiifPHH2vj1gfGkP4DkaH29smCIJQZ1dPYPb/uVGKIGGFbWw==
+	t=1792904606;
+	b=Dj3WEajQPc2ANrnEdH/GQ4MOlT9wtN14is67PzKXdug383F9luJAYDNcB07Q4pXjkg0V
+	 9ZfyWL8AppxxnT8DC4olJHPQ3HE45cnhTsaVXoHbXSK9+0DGImXHUaVG2fjR22A6DRO6P
+	 aVFkWfEpk3BeeJ6WXXJn6VRMApGxL+acYEruGGTbItYQBwMTDAtLK0UoqvFFdLcjsBo8+
+	 Rj4JCQRkuPHELRSZpDfZvzLu0ukMOY376eS9yivDKK2DY8t2SgG233Es0psUJnIBYTDq8
+	 +tQmpykhOda204pybLn8+Mh+t51dJYCoKXwmz9MHbIdEHBgGUXGay0asBvzW/9hq5dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792904600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792904606;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=4DzG5D7v2La/sD4DyNjoiERdLKEODMg4TWNG90dgHBE=;
-	b=XxZFr2K1UuHeWaljsUNzqByY11FIFKfgDEgbG2dDKlRNoV+fceQZGvBQFPs3qfm5xpqd
-	 UWV+SdRZHwz+PkXepqnHKUL9r/rd28VtCpWA+TrP9wK1IDBroPfJlR50p/Cb5ILhWf78C
-	 af/XRJEa03HrWgUMHMKQswJsfMrupzbTtfEfvtWH0kHiJqlqYLIctQWToBYCEEBgwFNNq
-	 mOgNhPo39kTQNyaz6uPjs4641YQUo8benOLiK/HnC5EPB/gOf/dYnTsXMpUBbETWsm5vy
-	 hPtbZKgkTMWT1eKYYsE0R7vBp7XvQM9F2odtG9VnBALvW4iDcPsw9CN3lCQ5RLJNN+g==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=XvlUBd9t253/XOnBgnu6wcIP+Rj8CczN5W7bxz4QbhY=;
+	b=cFpZ/mv/+wh/Cnm1+q1uctI8uvtex/wEZo0cvErsHqlGAXXgyCJxISyWpVrUYr0fiLav
+	 2LDVnoB6zAmgFvzlN2920zEtLhCESl91F0hBOuQ+EGEzvxerEv8bIIBVVT/TXrG2PStRt
+	 ZCIrTFNk0rTVIzciSJ/NMBRVzUyd09s+6XrGCQk63kLtru1UfP0hXKwOfcw2e/6b+ePh4
+	 0d3c+xaJ5ts7kAj3hx8rKsV3bVDHgXn452Ov7QVjiC8Z+qKlUyNNa7bWGIo+4jAqac6c2
+	 1RhY0xOe+ob1ne7Pg647jjnhHvZHrJgi4eVWskAXk/f0G1LFC2Wnk0SVL38Q3gSMOzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RGeuTC4F;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bqo6732h;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC4D606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADC4D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4A0606A320
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A4A0606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RGeuTC4F
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35943f55c06so2738009eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:03:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bqo6732h
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35f1f76ea84so3456679eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 22:03:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792904599; x=1793509399; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4DzG5D7v2La/sD4DyNjoiERdLKEODMg4TWNG90dgHBE=;
-        b=RGeuTC4FqHm8RpVRr9ob8Cj8TuYQSnGTa3lX9ZcOtrtx3whCX33An0L7oWWjranFCw
-         cZvUCoh9v9j5dMSA5QH10zjRQeujZJ/wia2yctZ/yxdIVFg90kKIvWhkuOCeswVS9bps
-         9yFwDv8upHhJQDunVk5aWexBLBpx7QYwxzHp3pltqpC2U9SkdPMLm+QvGPQ029LwBOIj
-         daaEAWnMTaRKl7pFH0s0rqbAwOPy1sPff3AqmYoa9RWPaRG+176SHje0zoExWw1ZaAgJ
-         /8rKuhdoAQzB/zNy2mncqkMoQUWiEP371cq6ZyTvuI5/gnmpX7gABrUG8+z/Oz9TXFWO
-         3zbw==
+        d=gmail.com; s=20251104; t=1792904605; x=1793509405; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XvlUBd9t253/XOnBgnu6wcIP+Rj8CczN5W7bxz4QbhY=;
+        b=Bqo6732hop10KAX6KynAJtJ+tX0d1pujIN3l7rGbHFEBE7GIQGEffm4Q89kRghzAhn
+         1u8i3+Vo5wgffheGroKsmkk8Upf6qiZH3yEgqmGB/YCdClD8wTHjml5iVN+3ZdNczz6c
+         +Dvg8vDEgy6OYv49NWGqV4jPOmhNr2HbFJSIaQseHIMtInni4+le7U6Mwd7fsu3UNlax
+         YXjnhk+sOx3L5+Z5ZPe0T6xlp99hnofjvuMQ5ddtQ3hMAf8x+mwIzTWjSH3GFn5CLFGg
+         6lc8WiS8bMP6qCQ8OhARBJR/A6BmOiep/8KYd0vuu1wUQjsefGRTAqfAessbPKuw9z6M
+         15WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792904599; x=1793509399;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4DzG5D7v2La/sD4DyNjoiERdLKEODMg4TWNG90dgHBE=;
-        b=NtcObBrb06Vpk9NMPMJGoW3cNcMBNlIFpMvslYyjEPSYhex25ZYhHCkMFHDDmHYeuw
-         HHs5/ya0yivxj19B3vwAjFnJmiPwo8iPL1qiVB2byhT3mFsQuXv008BzHZUqEwA+LuFq
-         GLCIIi0h63MNvPANHe2PmysSOnhVYbo5BpHMk5imli4DWi7k/YKV/E4Bp9H5ckYfmOHL
-         rxJiRot4pFD87au+VS5plYpkezY+kkDSgcZAjUwUU/4U1/8ve8LvSdkdNZFY1JAyCdX1
-         sqO5diIwC07yRUZN0ePOGSzP68ebLe5Int9s/T7N/IH3rfmxm7p3YLGSkRmybbme3coa
-         7D2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxPw07BuLabao/Hvu6wWwA9obft9ZTuaq68FjKCJGatYvcdJnqJR2YS23mYtYSFscbQj1lHSxvoqWipdLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+asOdik0HGJLz7i4JSBinnHN72146XEmxBc70U0Kyn3sTwgEJ
-	m62HTC3JM8iSBVukD6cwRZM6IaHqekc/2XBUhXd7fNaKg6W9X7XBiNSG
-X-Gm-Gg: AYBFou3nvIi5EuUvBEYuDi5VYEEZtIGC+N1bOIx12WtqLuDNtvDaLZnp/BsjaeLJ0/F
-	lA/DtXlyPznSBl2J8cUsy0jIxEy563lktCt8WTgPJ1+QyiPRxLlb4CLPYLKHBW7jqK1LLBMnSSn
-	RvBvmr2U6ldKtwDjQofCxJPrpNaa+/hccF9m4vYTv9fWQHWii7oo5ptGvULYQLpWiygqfyjmd+K
-	Kl+PpQAuLrYmRRB48ekPb+1/eIyLoFzht/6inedS7BnS3nhlxjL7uwg18BIy+eMX7Vi4Co+q+zZ
-	6zdUgBVxfIy/SwqMg295hsKhXi0dLMAwU/ujQOmWAzVC3Z/KSxqqTWqAqbm9zyvYd7q9KxI0oqq
-	7naUIktv/6a3TPO9swajlX4JUYi63S2Jy2Cbfuc+CLA9k6GjrSe0gvu4iz0Tbtl+D70RZw2ntSn
-	9m3Tx4UvxlWq5cVtlLRnauWxPhwe23JC2K5CgaaNnLKJsyhhp0mXrWjsMK2M+WBttyPJcjB2uiB
-	F1gVKuyeTLm6rZsWnMOEHajcBBmDQsOF5cTr+63dVEYCnx8N9rtC2uahrrke8BVhs+rlOc0O+zc
-	H3VfjWdd3zRS1nvSHSEcK8w6bIVy9f9r9MsQk5Bvk1I=
-X-Received: by 2002:a05:7300:fc02:b0:366:eabf:ad9c with SMTP id 5a478bee46e88-369e8759b5fmr5049781eec.5.1792904598560;
-        Sat, 24 Oct 2026 22:03:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792904605; x=1793509405;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XvlUBd9t253/XOnBgnu6wcIP+Rj8CczN5W7bxz4QbhY=;
+        b=15Qmfob9UaINomzg456j2I3yzvKpYa1+It/N2tv00galyh/55R0qLukBYQ7JanaqMw
+         J3BO8Avcjzhu82WquJC3CP99Biw9x+vCHForthx/gKwBvYlkdPjEL2IqbEGYSKmQ/4l0
+         SvHT/E+WKW5OXNpLgF7aTb/BWs2574QlVRLFF1/52lecXBQClF6p6Ymlpmxvfpar/FEC
+         NgfQta8WdaRwz3g5m9PeBZtv3XyMWeFPR/ui0+hmaOsU9CoF0BPYJQGzwmCpTW8JULbP
+         NforZset0kHDwyBVVzDU1C8gLtvI1wkqZIOTEoRnEX3Vry4ADAdNJ1FXlvrDCLTigwav
+         gVkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3idGVfP6WNFpcDq+0c0nO0LssReQqH6cxEJOT/qScNz6zDzfDWj0RvJqq6pqxsdm9PSlLcM0yggXGyWY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdq51/3B5gyfaOThGCPNsi+hAZD9RAZvE6MGwGmSZheDOK2tRZ
+	xBjRFmflW09BvGziNX7wW5U3gOHJlEUMey+k4HJCXx5t3tGAvCYY0R+A
+X-Gm-Gg: AYBFou1MOag35afoWNb3A6S2VxSWxF0GLb9PvhQ3NUCqYc4ksmTxtlTVtZ/Qzxd8NTl
+	14S+HtfysSMnuYtqSLqWHhR7eTD0wAtcVsEAoLs/Gex7AAwfPoQ72vJgAQq9fxsnOHpt8+wrz1k
+	bii0cCmjnDN9vnh3NeSm6gdgpgR7D8Ci4AcOUvmUOGPQEdRkvEj0BB/PsL29O9i/c5+5MR1/L9N
+	0XjzRi54AlrEukQzeA35bC5pEWs0oXa0WlViA7HCHn3ZXiIwEFcGh4VNvcbg4U82SI92TsPB3Gp
+	tVrpS8VjnveM3mRGjZt424PDAttoBPoAUsnQyPjT4a4Xvq0DFWW/dK99lsscbBrcaQBotvukLmT
+	1CMyPCB3wmolddgsH0PH01U8mbexn980NW4BIh+9lfhYjP6mY+5d1hdb5+uGfBViLyLnjAbbz3Z
+	j99qWLYjmx62+91CsZaNgR3fFxU9cuDakAPQMNAWjIFhI+A0/c9wwnxjGCZSrlYKlq03YP2M6Uj
+	X3wyXM4jLEHqzjSKri4X9lQqzzM2PBei1GfdYsnBvXmEbMTBb4uipwQr7kJWHB9AXGeol2cjnkR
+	YocupBdOoiIEcm2/CeXoHi5u9B1B/fVpoDA1OHxA9Zc=
+X-Received: by 2002:a05:7301:e0c1:b0:35c:85fa:5a61 with SMTP id 5a478bee46e88-369e865e4e6mr5016953eec.38.1792904605444;
+        Sat, 24 Oct 2026 22:03:25 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f44bd644sm4710287eec.15.2026.10.24.22.03.16
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f44bd644sm4710287eec.15.2026.10.24.22.03.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 22:03:17 -0700 (PDT)
+        Sat, 24 Oct 2026 22:03:24 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH v4 0/4] ARM: s3c: crag6410: Convert to software nodes and
- properties
-Date: Sat, 24 Oct 2026 22:03:11 -0700
-Message-Id: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+Date: Sat, 24 Oct 2026 22:03:15 -0700
+Subject: [PATCH v4 4/4] ARM: s3c: crag6410: convert WM1250 and SPI0 GPIO
+ lookup tables to property entries
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,12 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI+N3WoC/1WOwY7CIBRFf8Ww9jXwwLa68j/MLCg8WqIUAx0yx
- vTfh7qqy5Obc3LfLFPylNnl8GaJis8+zhXU8cDMpOeRwNvKDDkq3oszZB3y7zzC/QmGyFrl0HX
- IWRWeiZz/+8RuP5VdigGWKZH+SnB16oVsUJxUqxAE2OCX9GqWmOJ9iuU6Bu0fjYlhi04+1+H1O
- VhwS2+hlne8338pCBykackqcx7k0O4q25cid6oQX6qs6oDO6EF3nXZur67r+g+Z/U5xJAEAAA=
- =
-X-Change-ID: 20240819-samsung-kp-ceedd4f2f720
+Message-Id: <20261024-samsung-kp-v4-4-e21253295e68@gmail.com>
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+In-Reply-To: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
  Peter Griffin <peter.griffin@linaro.org>, 
  Alim Akhtar <alim.akhtar@samsung.com>, Russell King <linux@armlinux.org.uk>, 
@@ -113,80 +110,213 @@ Cc: mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.17-dev-e56a4
 
-Hi,
+Static property entries support defining GPIOs and are more similar to
+device tree properties and are not prone to losing link between device
+and a lookup table because of changes in device name. Convert the board
+to use them for WM1250 and SPI0 devices.
 
-This series converts the Cragganmore 6410 board to generic software nodes
-and device properties, allowing the removal of legacy GPIO lookup tables.
+This also fixes issue with recent conversion to GPIO descriptors
+where GPIO lookup tables were specifying incorrect GPIO chip name
+("GPIO<N>" vs "GP<N>").
 
-We add software node propagation support to the wm831x MFD core to route
-DVS GPIOs to the PMIC regulator, and convert the peripherals on the
-Cragganmore board (PMIC DVS GPIO, basic-mmio-gpio, LEDs, WM1250, and SPI0)
-from legacy GPIO lookup tables to software nodes and properties. This
-eliminates the legacy GPIO lookup tables on the board and fixes incorrect
-GPIO chip names from previous conversions.
-
-Hopefully Krzysztof can finish merging the series through the soc tree
-once Lee acks the MFD part.
-
-Thanks!
-
-Changes in v4:
-- Patches 1-6 from v3 were applied to the samsung-soc tree
-- Rebased onto latest linux-next
-- Capitalized the MFD patch subject per MFD subsystem conventions
-- Added Lee Jones and the MFD mailing list to recipients
-- Link to v3: https://patch.msgid.link/20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com
-
-Changes in v3:
-- Fixed legacy property handling regression in the keypad driver by
-  separating compact and verbose binding paths
-- Removed redundant registration of crag6410_mmgpio_node from
-  mach-crag6410.c
-- Removed dead S3C64XX_SETUP_KEYPAD Kconfig symbol definition and
-  selection
-- Fixed missing newline in pr_err() message in mach-crag6410.c
-- Redesigned PMIC DVS support to keep regulator driver changes minimal
-  (untouched) and only use software nodes for GPIO routing via MFD core
-- Link to v2: https://patch.msgid.link/20260708-samsung-kp-v2-0-3c6ed4c9b3b6@gmail.com
-
-Changes in v2:
-- Patches 1-8 of v1 were merged into mainline, dropping them from this
-  series
-- Rebased patches 9-14 of v1 onto latest next
-- Resolved conflicts in mach-crag6410.c
-- Removed redundant "out of memory" error messages from the keypad
-  driver
-- Added an infrastructure patch to register and attach software nodes
-  for Samsung gpio_chips
-- Converted basic-mmio-gpio and LEDs on Cragganmore 6410 to software
-  properties in a new separate patch
-- Addressed DT bindings feedback on the compact binding patch
-- Fixed proximity switch event type for GPIO keys
-- Added support for software nodes in wm831x regulator driver
-- Converted PMIC DVS on Cragganmore 6410 to software properties using
-  the new driver support
-- Removed legacy DVS platform data fields and cleaned up driver
-  fallback.
-
+Fixes: 10a366f36e2a ("ASoC: wm1250-ev1: Convert to GPIO descriptors")
+Fixes: a45cf3cc72dd ("spi: s3c64xx: Convert to use GPIO descriptors")
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Dmitry Torokhov (4):
-      mfd: wm831x: Support software nodes for DCDC regulators
-      ARM: s3c: crag6410: convert PMIC DVS GPIO to software properties
-      ARM: s3c: crag6410: convert basic-mmio-gpio and LEDs to software properties
-      ARM: s3c: crag6410: convert WM1250 and SPI0 GPIO lookup tables to property entries
+ arch/arm/mach-s3c/devs.c          | 35 -----------------
+ arch/arm/mach-s3c/devs.h          |  1 -
+ arch/arm/mach-s3c/mach-crag6410.c | 83 ++++++++++++++++++++++++++++-----------
+ 3 files changed, 59 insertions(+), 60 deletions(-)
 
- arch/arm/mach-s3c/devs.c          |  35 ------
- arch/arm/mach-s3c/devs.h          |   1 -
- arch/arm/mach-s3c/mach-crag6410.c | 234 ++++++++++++++++++++++----------------
- drivers/mfd/wm831x-core.c         |  47 ++++++--
- include/linux/mfd/wm831x/pdata.h  |   2 +
- 5 files changed, 175 insertions(+), 144 deletions(-)
----
-base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-change-id: 20240819-samsung-kp-ceedd4f2f720
-
-Thanks.
+diff --git a/arch/arm/mach-s3c/devs.c b/arch/arm/mach-s3c/devs.c
+index 35b98a9a9237..7c8dc29b994b 100644
+--- a/arch/arm/mach-s3c/devs.c
++++ b/arch/arm/mach-s3c/devs.c
+@@ -335,38 +335,3 @@ void __init dwc2_hsotg_set_platdata(struct dwc2_hsotg_plat *pd)
+ 		npd->phy_exit = s3c_usb_phy_exit;
+ }
+ #endif /* CONFIG_S3C_DEV_USB_HSOTG */
+-
+-#ifdef CONFIG_S3C64XX_DEV_SPI0
+-static struct resource s3c64xx_spi0_resource[] = {
+-	[0] = DEFINE_RES_MEM(S3C_PA_SPI0, SZ_256),
+-	[1] = DEFINE_RES_IRQ(IRQ_SPI0),
+-};
+-
+-struct platform_device s3c64xx_device_spi0 = {
+-	.name		= "s3c6410-spi",
+-	.id		= 0,
+-	.num_resources	= ARRAY_SIZE(s3c64xx_spi0_resource),
+-	.resource	= s3c64xx_spi0_resource,
+-	.dev = {
+-		.dma_mask		= &samsung_device_dma_mask,
+-		.coherent_dma_mask	= DMA_BIT_MASK(32),
+-	},
+-};
+-
+-void __init s3c64xx_spi0_set_platdata(int src_clk_nr, int num_cs)
+-{
+-	struct s3c64xx_spi_info pd;
+-
+-	/* Reject invalid configuration */
+-	if (!num_cs || src_clk_nr < 0) {
+-		pr_err("%s: Invalid SPI configuration\n", __func__);
+-		return;
+-	}
+-
+-	pd.num_cs = num_cs;
+-	pd.src_clk_nr = src_clk_nr;
+-	pd.cfg_gpio = s3c64xx_spi0_cfg_gpio;
+-
+-	s3c_set_platdata(&pd, sizeof(pd), &s3c64xx_device_spi0);
+-}
+-#endif /* CONFIG_S3C64XX_DEV_SPI0 */
+diff --git a/arch/arm/mach-s3c/devs.h b/arch/arm/mach-s3c/devs.h
+index 2737990063b1..90a86ade3570 100644
+--- a/arch/arm/mach-s3c/devs.h
++++ b/arch/arm/mach-s3c/devs.h
+@@ -27,7 +27,6 @@ extern struct platform_device *s3c24xx_uart_src[];
+ 
+ extern struct platform_device s3c64xx_device_iis0;
+ extern struct platform_device s3c64xx_device_iis1;
+-extern struct platform_device s3c64xx_device_spi0;
+ 
+ extern struct platform_device s3c_device_fb;
+ extern struct platform_device s3c_device_hsmmc0;
+diff --git a/arch/arm/mach-s3c/mach-crag6410.c b/arch/arm/mach-s3c/mach-crag6410.c
+index 2855d6d32fa3..330e8cf12ddc 100644
+--- a/arch/arm/mach-s3c/mach-crag6410.c
++++ b/arch/arm/mach-s3c/mach-crag6410.c
+@@ -443,7 +443,6 @@ static struct platform_device *crag6410_devs0[] __initdata = {
+ 
+ static struct platform_device *crag6410_devs1[] __initdata = {
+ 	&crag6410_dm9k_device,
+-	&s3c64xx_device_spi0,
+ 	&crag6410_lcd_powerdev,
+ 	&crag6410_backlight_device,
+ 	&speyside_device,
+@@ -777,17 +776,22 @@ static struct wm831x_pdata glenfarclas_pmic_pdata = {
+ 	.disable_touch = true,
+ };
+ 
+-static struct gpiod_lookup_table crag_wm1250_ev1_gpiod_table = {
+-	/* The WM1250-EV1 is device 0027 on I2C bus 1 */
+-	.dev_id = "1-0027",
+-	.table = {
+-		GPIO_LOOKUP("GPION", 12, "clk-ena", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("GPIOL", 12, "clk-sel0", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("GPIOL", 13, "clk-sel1", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("GPIOL", 14, "osr", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("GPIOL", 8, "master", GPIO_ACTIVE_HIGH),
+-		{ },
+-	},
++static const struct property_entry crag_wm1250_ev1_properties[] = {
++	PROPERTY_ENTRY_GPIO("clk-ena-gpios",
++			    SAMSUNG_GPIO_NODE('N'), 12, GPIO_ACTIVE_HIGH),
++	PROPERTY_ENTRY_GPIO("clk-sel0-gpios",
++			    SAMSUNG_GPIO_NODE('L'), 12, GPIO_ACTIVE_HIGH),
++	PROPERTY_ENTRY_GPIO("clk-sel1-gpios",
++			    SAMSUNG_GPIO_NODE('L'), 13, GPIO_ACTIVE_HIGH),
++	PROPERTY_ENTRY_GPIO("osr-gpios",
++			    SAMSUNG_GPIO_NODE('L'), 14, GPIO_ACTIVE_HIGH),
++	PROPERTY_ENTRY_GPIO("master-gpios",
++			    SAMSUNG_GPIO_NODE('L'), 8, GPIO_ACTIVE_HIGH),
++	{ }
++};
++
++static const struct software_node crag_wm1250_ev1_swnode = {
++	.properties = crag_wm1250_ev1_properties,
+ };
+ 
+ static struct i2c_board_info i2c_devs1[] = {
+@@ -800,7 +804,8 @@ static struct i2c_board_info i2c_devs1[] = {
+ 	{ I2C_BOARD_INFO("wlf-gf-module", 0x24) },
+ 	{ I2C_BOARD_INFO("wlf-gf-module", 0x25) },
+ 	{ I2C_BOARD_INFO("wlf-gf-module", 0x26) },
+-	{ I2C_BOARD_INFO("wm1250-ev1", 0x27), },
++	{ I2C_BOARD_INFO("wm1250-ev1", 0x27),
++	  .swnode = &crag_wm1250_ev1_swnode, },
+ };
+ 
+ static struct s3c2410_platform_i2c i2c1_pdata = {
+@@ -904,15 +909,48 @@ static void __init crag6410_setup_leds(void)
+ 
+ static struct dwc2_hsotg_plat crag6410_hsotg_pdata;
+ 
+-static struct gpiod_lookup_table crag_spi0_gpiod_table = {
+-	.dev_id = "s3c6410-spi.0",
+-	.table = {
+-		GPIO_LOOKUP_IDX("GPIOC", 3, "cs", 0, GPIO_ACTIVE_LOW),
+-		GPIO_LOOKUP_IDX("GPION", 5, "cs", 1, GPIO_ACTIVE_LOW),
+-		{ },
+-	},
++static const struct software_node_ref_args crag6410_spi0_gpio_refs[] = {
++	SOFTWARE_NODE_REFERENCE(SAMSUNG_GPIO_NODE('C'), 3, GPIO_ACTIVE_LOW),
++	SOFTWARE_NODE_REFERENCE(SAMSUNG_GPIO_NODE('N'), 5, GPIO_ACTIVE_LOW),
++};
++
++static const struct property_entry crag6410_spi0_properties[] __initconst = {
++	PROPERTY_ENTRY_REF_ARRAY("cs-gpios", crag6410_spi0_gpio_refs),
++	{ }
++};
++
++static const struct resource crag6410_spi0_resource[] __initconst = {
++	[0] = DEFINE_RES_MEM(S3C_PA_SPI0, SZ_256),
++	[1] = DEFINE_RES_IRQ(IRQ_SPI0),
++};
++
++static const struct s3c64xx_spi_info crag6410_spi0_platform_data __initconst = {
++	.num_cs = 2,
++	.cfg_gpio = s3c64xx_spi0_cfg_gpio,
+ };
+ 
++static const struct platform_device_info crag6410_spi0_info __initconst = {
++	.name		= "s3c6410-spi",
++	.id		= 0,
++	.res		= crag6410_spi0_resource,
++	.num_res	= ARRAY_SIZE(crag6410_spi0_resource),
++	.data		= &crag6410_spi0_platform_data,
++	.size_data	= sizeof(crag6410_spi0_platform_data),
++	.dma_mask	= DMA_BIT_MASK(32),
++	.properties	= crag6410_spi0_properties,
++};
++
++static void __init crag6410_setup_spi0(void)
++{
++	struct platform_device *pd;
++	int err;
++
++	pd = platform_device_register_full(&crag6410_spi0_info);
++	err = PTR_ERR_OR_ZERO(pd);
++	if (err)
++		pr_err("failed to create spi0 device: %d\n", err);
++}
++
+ static void __init crag6410_machine_init(void)
+ {
+ 	/* Open drain IRQs need pullups */
+@@ -941,18 +979,15 @@ static void __init crag6410_machine_init(void)
+ 
+ 	software_node_register(&crag_dcdc1_swnode);
+ 	i2c_register_board_info(0, i2c_devs0, ARRAY_SIZE(i2c_devs0));
+-	gpiod_add_lookup_table(&crag_wm1250_ev1_gpiod_table);
+ 	i2c_register_board_info(1, i2c_devs1, ARRAY_SIZE(i2c_devs1));
+ 
+-	gpiod_add_lookup_table(&crag_spi0_gpiod_table);
+-	s3c64xx_spi0_set_platdata(0, 2);
+-
+ 	pwm_add_table(crag6410_pwm_lookup, ARRAY_SIZE(crag6410_pwm_lookup));
+ 	platform_add_devices(crag6410_devs0, ARRAY_SIZE(crag6410_devs0));
+ 	platform_device_register_full(&crag6410_mmgpio_devinfo);
+ 
+ 	crag6410_setup_keypad();
+ 	crag6410_setup_gpio_keys();
++	crag6410_setup_spi0();
+ 
+ 	platform_add_devices(crag6410_devs1, ARRAY_SIZE(crag6410_devs1));
+ 	crag6410_setup_leds();
 
 -- 
-Dmitry
+2.56.0.257.gf7497c7d27-goog
 
