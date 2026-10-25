@@ -1,112 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792945282;
-	b=gzbq4Pj56XvhIY3+I2KNyS/Vp0uQEbOSZEuKwXox34dJWwjNeE4MIQoCJwaBxnudBkUt
-	 BS7zYt/XHDE40LCPmgfBVyMgFeN4e9l9b+fWqOiDSGAxOsATqjIqvqsR3pTz7iJNDlnBJ
-	 cyqzXBvIBEwrSWQkVMzcJtqZng6ldIJZmrD0oF4ZcGdfCyY4VgoLw5E+WsrmJGMC4HED1
-	 iFU58oMkmucvtbVsQFWrCR68g+b8hHPE0NZ//qGHXkD+X8/Slvj2BmKMqNOFeqerHwWSK
-	 39aHq+WHXLeQLQGCTDdU49s625SJ5NAXHM0SuTwdfVUrgkqwc87ByRFXkawIGd40gBg==
+	t=1792945468;
+	b=i41x2jGgp2ckAqWz8pYhZIngDq1WFUKPb0DbgVi+JNCgHkYhfWbZ+tVyijy2xnFTNY3i
+	 d+LMU73rIdKu277e2UKqlKcZIFdpLjyU3fXNO69c3RetKCGOaPn+RvSj+OgYOogmibYpp
+	 f8RpSkF/EUiMHB80dOufDS2QbYGDz0flqm/8eaDNuO8yK7upOTF0UxY5weOOrz43fypkW
+	 rSQpIQtlbBHGn6j5noGwWnoW86mqZxt8qyfGojpQi4vVcMnSoaEViwFFwBbJO7kmpBFFc
+	 U5UABe08NBiHpIrCVXO3Jsh43dZw4HNOWHtd2E7ZlHAVDBawyLbyUu//IYy8fJ18U/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792945282;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=73ZPodarEYb3e7DUBak9R1h+ccxHlOqbpZwPQev5M5I=;
-	b=gGtfn0ywhKKRzJ7v88FksV6gWuR/vN5EcQPI4kUjFKaAGuvQ1AEKSAMzFl3xqBXI3Hi7
-	 B5akoU7mzf619JRZ0ni0MxXozlQi47lPn3kvLm2WbAP43aRFPabNCXpnYjvl1zYciYt6i
-	 pF+rSqMemQdMQmXUkppatnxxJPFD8G2+VyhmRqeSLUAMVMYgMzv/PQ4aEqQZL3FQ6gnVt
-	 RBdkLre5aFY71JtXYyGJvv0bSBGuGdE3QN0uaENzit/cf5sgBKZvVurLAbzVrBDvo8BiC
-	 +xmBYszO/ZwswLVtUUW5luJP/cwVo+Pg3fylY5I/dGHpuSCBPFl/IGSwWxJtZqUygyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792945468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
+	b=T7qppMav1134pCF1qpjKaWqRh0PqZZNBoyiaxEBor4WkM/TDKqIgnV0UgE/D3/wyDvxF
+	 XKfQ3dl5/To++HONsPapiXHILEJtYZR2OZqIF7UDwSTPmmjAvMUhIx3jGlbXoc0K5NaC7
+	 D8M9yB6Fjfv2AYouU21UPIpvMWz97lvGfJ+vkR9YbSKcV5RExqGbU6sXWuFdjIBTpjzXu
+	 9uIkO4ssv9QbNOSxXUX2/5LLvQ7Tzw4aE/TpBeLftggeieL4h3tpfxiXom5VCHeqtsH12
+	 bJwQL6NpHUZG+V69z+/N/3dyPt7ECjQyWiRQxTwZocwWqmfZsyvEppzubBxXZUhddMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oP9Qdc+L;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YUEQH8g0;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxJV8umB;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE29606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE29606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7468606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:24:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7468606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oP9Qdc+L;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YUEQH8g0
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69PFj1K73806882
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:21:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	73ZPodarEYb3e7DUBak9R1h+ccxHlOqbpZwPQev5M5I=; b=oP9Qdc+Lcq869ppe
-	qb1vpEuShHoPv9ei2TrG5it9ThELhu++oReJwGkGCB8rZe96vNFka9dWxVWbj/JA
-	OA9lCYfFfgkCYOo0+RSxFi0ms5FFTED87bNKRS2PTxRZcBE6YnWnB9zHLf7dmIKU
-	cziH0eTlsDu4k4kgk0SAKd3fSGkN5J/wjneZ1PLjp+eBz9pt2G92Ig+YuWfxKMLi
-	w7zZ78WaVzT0gSAxq5/RYzS0u1tlzkO91GC9+qHlY/Hiy0xqa4A2tciVfIJP8QsQ
-	IwdQXNbNnlkxKNd5YiFggHTUQacorNgSfW2Fw0ORPMukKUKUnKbhHc1EN2ngIPdu
-	tHSBvA==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27ud6k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:21:20 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-18eb2616974so8775838c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:21:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxJV8umB
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1931ff67a29so5053955c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:24:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792945279; x=1793550079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1792945467; x=1793550267; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=73ZPodarEYb3e7DUBak9R1h+ccxHlOqbpZwPQev5M5I=;
-        b=YUEQH8g0Jui0rLijciwQbCjFHLRNOoTsqt3RRl5H7G0EMqUAhXiag0dOiQ7P+3VSQB
-         /pIsoDAdaeGGEG0Ax8YxjqN9s1PaFkZQ/nVPGs4EywTXstGn5EILP4ktv0iDruaCHjRH
-         Fpg1ZDSgwUgxuE8Lbmn0Uok3wnKJ97w++P/Th5Cf/JZxMDvAOecAbY1OBtXnOxjM8HiX
-         KZiWDSVyWnCKt2+KtPTS0XVDZuiJIQtlNHyXbVcBw2pA3WHOofm7fpYYEUnLZTaTV3A1
-         unn9FGmvKZzxk2j2vo5giplocGQe3gAa562vGLCAyTGcdv/4z/miP3YaF6vZO+nqltSI
-         343w==
+        bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
+        b=KxJV8umBld7rA2/LkiKiL2e0PFwkHHnUuSYo0m4TJPJ8/PRuR77A0ppY7FZQf3wRzg
+         y3iss9UbZTuiLvtHjruYR6iepIErOgbpxJEuVu9LUD+9zipTrVr1OwUXVv+hV0bCD69W
+         wWjY2sQdrQSvDjyQeSxONqjYPMd2kdzEn7MBo7eGvjr2iX2W3KjrVECpKTwQ7C9R25go
+         FAkkP9nPgzlesH/FL9jxVdj8wU3zVA/5angovv87/Yp1e/l1bLS1HHS8fvz5EjTNTdlH
+         be+13rF/4y46KnQtZ8TFox4kHg63KgyJQAQQycjQgIo4wPCU68bt9Ozx8n5eEm4xXbTH
+         tVYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792945279; x=1793550079;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1792945467; x=1793550267;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=73ZPodarEYb3e7DUBak9R1h+ccxHlOqbpZwPQev5M5I=;
-        b=c3Hm1dfMQBgmItJ0wBJpINbK+Gk3iYirjhKZRn6+KXTB3dGk3y7WaNoVBKXBSFzasw
-         GjoCAR1ZO4wAijVnYOSwbBhha5THmXzmo1lCpWn4PF/g78W2rcVfyBcWcGdPeyKT3+ar
-         2syg208oCHBrDdY+iOWT9sQ8EVALOjXs1jtyN0lQBhaAyEDPrA2JoCkX5wIS32F/4fuP
-         GkMZ83bLY/FCNpnWs/aO2NVIFbMo9TyAf/EQA4HL8PTsqMCpsJckc3iGR+Cn/+frnYUD
-         jZDJMBQSZRw8wOLh1cJoooqbX1WOY6EsakdvsNBHgGfxsD4E2/lpp3UnVOTWKX5paRjl
-         PMAA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/6qpSqp3K+MNoUagZNWrnrC/P8yax9UbFJj90XdorCYjhyUjF9BR9rEVNNFYx60pheKMpC77mDc+w/84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1CupTEXUOFWjBAH4SPgEaJ2wMrCQk0aiu79fDv0r42OlGu79m
-	ZzeGU0weWak0kAGhrWXBtf+PRwmYikXvOyEF7guu5jdUw8S3ZDPhnvjrCKj+S1ZN3I/0k1uOkCH
-	JRlDR6PYYhCRQYARvwyTk2HPA1s7xMNnw9HRHffB4vmqUzDf09RHxoO4dKUPudB3Ijniu+PBQEz
-	o=
-X-Gm-Gg: AYBFou0LdVa3eDp+P22dWMEFSh3CE+BM79zkj9GECKEmtg6/SlBxdRxYvbMPval6q5q
-	J8pscW8dx7vecoenej+tRXPA9pnHOyWaTzipA/J7deQWR2opawZAeV5oozTiygbbKFXuHitW0lb
-	OE5Tp1iVrO62PPy8iGiaWRd5hSfbZ5fDYdFcaqpvojzI3pUTUNdwLEvKvqcPsJRyX6i0rRBaqNm
-	L0VnoS+qJljFSWKYyneZ9UMpMxvGP6Tzbo2JHNKvpqhsZBhRQQh1nbQCXu22D9olKhcvJ59ZOQQ
-	zSmrClFDQhoMmt2gtLRwFJ+PzEa4HJF06I4wMmkKybSFeeVYLDDwaUALh4I3yGmehQr3E4Eo3W5
-	JKaaGVY7FWlTIH9rdofF1UTwSGOf2dA==
-X-Received: by 2002:a05:701b:4544:20b0:190:f24b:9491 with SMTP id a92af1059eb24-19b5804d78amr4459200c88.12.1792945279264;
-        Sun, 25 Oct 2026 09:21:19 -0700 (PDT)
-X-Received: by 2002:a05:701b:4544:20b0:190:f24b:9491 with SMTP id a92af1059eb24-19b5804d78amr4459173c88.12.1792945278640;
-        Sun, 25 Oct 2026 09:21:18 -0700 (PDT)
-Received: from [192.168.29.10] ([49.37.153.119])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm15581495c88.19.2026.10.25.09.21.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 25 Oct 2026 09:21:18 -0700 (PDT)
-Message-ID: <da0ad591-7111-4e8f-9d31-3466f6b93ff7@oss.qualcomm.com>
-Date: Sun, 25 Oct 2026 21:51:12 +0530
+        bh=lkPpCgWKpJ5/7YzkFrqHKCZljSOcrFOqT756QjQTQmY=;
+        b=hTOeH/9hdqIqMaD3fq2jh90fOI2AwuNjjIiNk+iq2ZIklVvzGyf5Jpc6I77eMXBVhV
+         MtI60qxPRCMROvLfc/02tdjUAhJY8W67SgaxjtImSng3eCctUDfx9vAyjAsxTWADAep8
+         18/EPmnSF/xKZIW/GpscQKypze+ckJB0L7TakCU10W1nwQVx9V1nOwl7824U/Dj8qNbE
+         rhPjanVYfmuJEHnh07X9SqarkNUPRSFx31HoqgHI9t9MLftrHuMlr44HtZxYgmfh5mIc
+         3Pw/7fEYjZdnaRVe+0dNMODwVKTyGUHqS3tssD+W/+eDClcVOjAfX7OINGNAMTrnqTfc
+         vCQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxACh0oHsM28lEXhtUt1AU9fwr6pr11a9O0wP6w3B3xtP/DM+7CAeMO/ZTdCcnTYO7JwaE8DxPCKy7XgTY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIf0YuKd05gm4At/TcSKA0b7kGC0qqgbVtAPryRLCnG33qTclJG
+	r/6J4DYbRXNBasHYfd9Azhqfetxen4TURVAoz4Q2Ia0XDaFvGXlWulyQ
+X-Gm-Gg: AYBFou2hoZWopHdKrCgPq0FzHG+U4ywKUV5ihPlNyZt1rR7TGKL518BZEpGLHBbmksZ
+	KCp0rjo+J+wYDm2tjHI8MvHUetx0JAgLHt3BzsueLmB+8jSMsfeNSnQxX+0cUO5M2JyYhE0mIn2
+	MFr4Yq53aXodiWgOHQilPFYvwzYKkVQ/EykPal+xfJaDdF/EG2Pk1nwT3zvTzKscij4i6Nqr2zm
+	nB2qSlok11GEcbjIw+g4OrJrauqwHTSbMGzG5Z5pDjmgPP5axB+gFzawytPZrRjFXBgsB/ieVrU
+	U0xcHPr9Xq/a0Vh2pYQlFUogxnPLElvqHRjS9CZbBr5pkF7PGXvifPQ79Bs3GD7qkkWEZarEJ0U
+	Tn+8JjKiKkjln7b2lShiPMuIkwTG6QfhPjEUAZPDIBjV4qhK85D9hN2p36ZOFLwuKhsZQOK4oC4
+	rEaZvmNXFJujWSf4H1Cg92Yj6t+KmP2dZ4NBmfaU8KdKWxv2jPgKcVD0umiq+siSwBJ2NzoSdwj
+	IzwFZwfslTHIOCmJvF+N4RgEbsRTu017/P7BpHqbfv2Oq8i7LGAA4F3gW+fQ5sFv0wo/r5VeYtw
+	cFWNX6mHLEEAqlu7hwcpbdMyEJf0+KwaP3tyng==
+X-Received: by 2002:a05:7022:ea48:20b0:183:3140:3ac1 with SMTP id a92af1059eb24-1a0ca49ad43mr687113c88.24.1792945466814;
+        Sun, 25 Oct 2026 09:24:26 -0700 (PDT)
+Received: from [127.0.0.2] ([2401:4900:7b93:fac6:22d5:5a09:b572:da26])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19a3736d16fsm16385722c88.12.2026.10.25.09.24.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 09:24:26 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Subject: [PATCH v8 0/3] media: Add Himax HM1092 mono NIR sensor driver
+Date: Sun, 25 Oct 2026 21:54:16 +0530
+Message-Id: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,195 +92,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] firmware: qcom: Add an TEE bus based ICE back-end
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>
-References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
- <20261021-ice-migrate-tee-svc-v1-3-b035be7aab0a@oss.qualcomm.com>
- <0b389532-a917-49fc-a827-3b90d3ffd95b@oss.qualcomm.com>
- <48e7d80c-ddd3-4a53-82d8-588c3c439709@oss.qualcomm.com>
-Content-Language: en-US
-Organization: Qualcomm
-In-Reply-To: <48e7d80c-ddd3-4a53-82d8-588c3c439709@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6ade2c80 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=hZ1hWxSZf3UX9FuxeSnJ0A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=ve44vtD2qhli23QWqmcA:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-ORIG-GUID: Pf39TN4mgDVdtTFZWyM4_-Z0V2BKoq3F
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDA2NSBTYWx0ZWRfX3xqc/Fh92rLk
- Xb+fV0xo5B+Rmp25KjSbn5V6ytVamkdrEnST9TMjWE5fJQBcCbgA6OKCJ/XvUwwYfpYRm9z0qgn
- 7x1WlkC7tGKP/ik5CP3HEKfVmpCYeX8=
-X-Proofpoint-GUID: Pf39TN4mgDVdtTFZWyM4_-Z0V2BKoq3F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDA2NSBTYWx0ZWRfX/srzja+X7Rs7
- m6N3IqCa79oUTiGH714PWUJMBPrIJ5OewRivgn3kYYV8riWa2gGz/Np2eesFaWZI2g3QXmKIrmG
- e5VXxH3TlRGr3oVFSWhrFnNnUCjO30vzqOYTvg9V8+V4ow7q59xOAorlt4wC4KFSf4kqr3SqbnL
- 5eJVpK599ouhS778znLIAz9kAMgIZjhC8H0P60Y8fDmBbo0VStWHLXS9Pj1YWb3lO2dUkRZ0oFi
- DjAFyJLrzCY6pstjoJMZcgr1rUIVln2pUyFexcF0FlW3mn+3gn3KTYTsjxEfJZuibHox//IAZU3
- 2G+dFKaggCcRxyaXSSNJ5ICiSEsW3PCB2qAaAj/oUQ7Z0YQVnsokdpG9gsrqNavVi4V35jyVfFZ
- pFakAOv0srAwLqcno3koO53B6kGpPE9hyXiPqs494DyjQQPFp0y8mueB/alxje7MzgkGyUd7pTf
- ZBTWc41wkP2ssQrysuA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-25_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610250065
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Q3UrEMBAF4FdZcm0lM/n3yvcQL6ZNZhuxW2nXo
+ ix9d9Nd0JIFLw/MdxLORcxpymkWT4eLmNKS5zyeSvAPB9H1dDqmJseSBUq00oJv+gFkwCZOeUl
+ TQ5aRKEZGCaKYjylx/rr2vbze8vzZvqXuvJVsF32ez+P0fX1wge3u1u0kVN0LNLKJ0EYPCZVqz
+ fNxoPz+2I2D2LoX3GusNRatObCyIVrSvtbqX62K9oaJHLPm1NVa77WptS5aEqjUodPRh1qbvQ6
+ 1NkUTsGmpzJvk3c/tn/b3q9miTXCBEZXTnmrtfjVIULV22+YeKLRgkDnu9bquP40jb2MwAgAA
+X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jake Steinman <j@metarealtyinc.ca>, 
+ Eduard Kulyk <kulikeduard89@gmail.com>, Ray Strode <halfline@gmail.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8367; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=bji53MivHxAGK3eudCZSs9Bh0L0QddkWESjSVc3a5JQ=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBq3i0yT5aqJd9an3FOhmhrEz/TRTsP0JWaN4HS7
+ RzGTZlaVxqJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCat4tMgAKCRAVlYpeERwF
+ 3m4ED/0bpdZg/tcTmSTCegXVpMOgFS+vLZ74PY6sX0Uh9RuAgtFOpFmyMPUrLhGuJsX8HC6x/g1
+ cepx19hPBIuoaIWify/rhZzQotpxnHpsvoAZy//IpwfcTE/F9K3zWDIiTpHuYd8nDVCDiDb/g/A
+ b1/fu1AqduLvF9L5ik9ALh+6ZeOZiDNBv8WjM+daR3GqxcobH8YeyZnPy5lm49Z2QPxTObvR6vB
+ iLGoxh8T6Ry4AkHtGo9JQbr40VuhPweAiGXJVXlxd0eoZUfZKDPZkRTfaQlPHXdz8QzIGi8Iiei
+ v7ZxBrEikSis1TleU0xKvttCN8IOk8clvbx7yAOBgokObzq3ZcInENG9Hn478L8l/RywxyIA+8X
+ qp8w/ky6eu7yskDymArFYVqG5CNgDC3rKlRhMTMhXwXUKWsy+A6tq4iWGrF6AxSMGFG1oJ5rgFw
+ KlnIZhfTbDnPgqgkqnn+DOsZVL1CqcoMrU8hshXCdV7ysdpCF0jsrf2Xx87ncA/P8UPmBybpZpI
+ Ken8o8EbgK1vHFkaVG9VmYE4vdvetzv0eLboewGtDBtDD2OvQrQLc/epFFu0tRKvsC4qJsHHXRI
+ 7xXFy5l2LjoQKq70hYxSDLU28az7n9mnqwqeuZhkxeaLO9OOpoXGiIcghhoXqKlIVN3HmR2C5+u
+ GyT2tYYGXXuDLRA==
+X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
+ fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-Hi Konrad,
+This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
+1 megapixel monochrome near-infrared image sensor. On laptops it sits
+behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
+data lane and outputs 10-bit RAW.
 
-On 24-10-2026 07:16 pm, Harshal Dev wrote:
-> Hi Konrad,
-> 
-> On 22-10-2026 01:21 pm, Konrad Dybcio wrote:
->> On 10/21/26 5:43 PM, Harshal Dev wrote:
->>> Add support for a TEE client driver which forwards calls from the Inline
->>> Crypto Engine (ICE) service (invoked by the ICE driver) to the OPTEE ICE
->>> Psuedo-TA.
->>>
->>> The ICE PTA supports both ICE Legacy and Standard modes. In Standard mode
->>> Hardware Key Manager v1 is supported.
->>>
->>> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->>> ---
->> [...]
->>
->>> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
->>> +	if (ret < 0 || inv_arg.ret != 0) {
->>> +		dev_err(dev,
->>> +			"ICE generate_key failed, ret=%d, err=0x%x\n",
->>> +			ret, inv_arg.ret);
->>> +		ret = ret ?: -EINVAL;
->>> +		goto out;
->>> +	}
->>> +
->>> +	buf = tee_shm_get_va(key_shm, 0);
->>
->> This can return an ERR_PTR()
->>
->>
-> 
-> Ack. 
->>> +	out_size = param[0].u.memref.size;
->>
->> This returned size is not validated, there are a couple occurences
->> of that
->>
->>
->>
-> 
-> Ack, will fix in qcom_ice_tee_wrapped_key_call() as well. 
->>> +
->>> +	memcpy(lt_key, buf, lt_key_size);
->>> +	memzero_explicit(buf, out_size);
->>> +out:
->>> +	tee_shm_free(key_shm);
->>
->> LLM is concerned about freeing the key without zeroing the memory
->> first
->>
-> 
-> When the TEE invoke call fails, the TEE must not touch the out_buf.
-> We trust the TEE to behave correctly, since it is a 'Trusted' EE after all. :)
-> 
-> When we fail after a successful call from the TEE, we must clear the buffer.
-> I will check for returned size and ERR_PTR() and clear the out_buf in that
-> case.
-> 
-> Ack. 
->>> +static int qcom_ice_tee_probe(struct tee_client_device *ice_dev)
->>> +{
->>> +	struct device *dev = &ice_dev->dev;
->>> +	struct qcom_ice_tee_private *data;
->>> +	struct tee_ioctl_open_session_arg sess_arg = {
->>> +		.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL,
->>> +	};
->>> +	int ret, err = -ENODEV;
->>> +
->>> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->>> +	if (!data)
->>> +		return -ENOMEM;
->>> +
->>> +	data->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
->>> +	if (IS_ERR(data->ctx))
->>> +		return -ENODEV;
->>> +
->>> +	export_uuid(sess_arg.uuid, &ice_dev->id.uuid);
->>> +	ret = tee_client_open_session(data->ctx, &sess_arg, NULL);
->>> +	if (ret < 0 || sess_arg.ret != 0) {
->>> +		dev_err(dev,
->>> +			"tee_client_open_session failed, ret=%d, err=0x%x\n",
->>> +			ret, sess_arg.ret);
->>> +		err = ret ?: -EINVAL;
->>> +		goto out_ctx;
->>
->> Should we care about the specific retval that comes from the TEE?
->>
-> 
-> Traditionally TEE client drivers do not map the TEE error codes to kernel ones
-> since a 1-1 mapping is not always possible. Also, since the ICE client driver whose
-> calls land into this API via the intermediate ICE service would not know whether
-> it is calling into QTEE or OPTEE, any error-code mapping we create here would
-> possibly conflict with the ones returned from QTEE.
-> 
-> So returning a generic error code while printing the specific TEE error in the log
-> helps keep things simple and easy to debug.
-> 
-> I'm open to any alternative suggestions.
-> 
->  
->>> +	}
->>> +
->>> +	data->session_id = sess_arg.session;
->>> +	dev_set_drvdata(dev, data);
->>> +
->>> +	qcom_ice_ops_tee.dev = dev;
->>> +	qcom_ice_svc_ops_register(&qcom_ice_ops_tee);
->>
->> This can fail (but it currently returns void)
->>
-> 
-> Practically it can never fail because if the platform boots with OPTEE, QCOM_SCM never
+The driver exposes one fixed mode, test patterns, exposure, analogue
+gain and digital gain controls, pixel-array selection targets and the
+standard fwnode properties. The mode is selected by the external clock
+rate, since each known platform pairs its clock with its own PLL setup
+and init sequence:
 
-[...]
+  24 MHz EXTCLK (Qualcomm, devicetree): 560x360, 180 MHz link frequency
+  19.2 MHz EXTCLK (Intel IPU, ACPI HIMX1092): 648x368, 180.48 MHz
 
-> Hypothetically it could fail. If it fails:
+Both run the single lane at about 360 Mbit/s and deliver about 30 frames per
+second.
 
-[...]
+Patch 2 adds the driver with the 24 MHz configuration. It has been
+tested on an ASUS Zenbook A14: the sensor probes, streams, changes
+brightness across the full exposure and analogue gain ranges, accepts
+digital gain updates while streaming, and returns to runtime suspend
+after capture. Its register programming was extracted from
+com.qti.sensormodule.hm1092.bin in the Qualcomm camera stack shipped for
+that system. Jake Steinman independently identified the exposure,
+analogue gain, digital gain and group-hold registers from Dell's
+hm1092.sys. The available documentation does not identify the
+test-pattern modes, so their menu names are based on output observed
+during hardware testing.
 
-> I can cover this hypothetical scenario by making the function return a failure which
-> QCOM_SCM ignores but this driver interprets as fatal. But it could open another Pandora's
-> box of compiler/static analysis tool warnings.
-> 
-> Let me know.
+Patch 3, from Jake Steinman, adds ACPI enumeration and the 19.2 MHz
+configuration used on Intel IPU6/IPU7 laptops. It was posted on top of
+v6 and is carried here at his suggestion. It has been tested on a Dell
+XPS 16 (IPU 7.5, with the ipu6 driver) and a Dell Latitude 7350 (IPU6).
 
-I'd like to backtrack on this one particular comment. I think it's better to simply
-return a value as suggested by you and print it when it isn't fatal in the case of
-QCOM_SCM driver. In the case of ICE TEE, I'll fail probe here when it returns error.
+The 19.2 MHz configuration reads out (0,0)/1294x734, which is what the
+vendor sequence programs and includes the dummy border. The crop bounds
+therefore cover the 1296x736 native array, while the default crop stays
+on the 1280x720 active array.
 
-Ack.
+The ipu-bridge entry for HM1092 was applied separately to media/next as
+commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor").
+The board-level device tree and PHY work that wires this
+camera up on the ASUS Zenbook A14 will be sent as its own series.
 
-Regards,
-Harshal
-> Regards,
-> Harshal 
->> Konrad
-> 
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+---
+Changes in v8:
+- hm1092: report the 1296x736 native array as the crop bounds, keeping
+  the 1280x720 active array as the default crop, so that the 19.2 MHz
+  readout window lies within the bounds (suggested by Jake Steinman
+  and Ray Strode).
+- Cover: drop the staging/ipu7 format note; with the ipu6 driver in
+  media/next the sensor streams on IPU 7.5 without it (Jake Steinman).
+- Link to v7: https://patch.msgid.link/20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com
+
+Changes in v7:
+- Rebase onto next-20261012.
+- hm1092: follow the sub-device pad op API change that added a
+  struct v4l2_subdev_client_info argument: take it in get_selection,
+  and drop .set_fmt, which only mirrored v4l2_subdev_get_fmt(), as done
+  for the other fixed-format drivers.
+- hm1092: limit the digital gain control to 0x3ff. The register is a
+  10-bit 2.8 fixed-point value and the sensor ignores higher bits, so
+  1024 and above wrapped back to black frames (reported by Eduard Kulyk).
+- hm1092: handle negative pm_runtime_get_if_in_use() returns without
+  touching unpowered hardware or dropping an unacquired runtime PM
+  reference.
+- hm1092: credit Jake Steinman as a co-developer of the control support
+  and carry the requested coding-assistant disclosure.
+- New patch 3 from Jake Steinman: ACPI enumeration and the 19.2 MHz
+  configuration, with Eduard Kulyk's Tested-by. Drop its
+  <linux/mod_devicetable.h> include as requested by Uwe Kleine-König.
+- Cover: describe both configurations, document the separately applied
+  ipu-bridge entry and correct the v5 data-lanes history.
+- Link to v6: https://patch.msgid.link/20260801-hm1092-driver-v6-0-5979f223748a@gmail.com
+
+Changes in v6:
+- dt-bindings: update the example to the PLL-derived 180 MHz link
+  frequency.
+- hm1092: replace the inconsistent 400 MHz link frequency and derived
+  80 MHz pixel rate with 180 MHz and 36 MHz. The new values are derived
+  from the ASUS Windows configuration's 24 MHz external clock and the
+  sensor PLL dividers.
+- hm1092: report the 1296x736 native array, 1280x720 active array and
+  1150x718 mode crop as distinct selection targets.
+- hm1092: add exposure, analogue gain and digital gain controls using the
+  register map supplied by Jake Steinman. Keep multi-byte controls as
+  separate writes, use group hold, derive the exposure maximum from VTS,
+  and program the hardware-tested 500-line exposure default in both the
+  init table and control. Hardware-test the controls on the 560x360 mode.
+- hm1092: do not power the sensor on in probe(). There is no I2C access
+  during probe, so leave it suspended and let runtime PM power it for
+  streaming.
+- Link to v5: https://patch.msgid.link/20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com
+
+Changes in v5:
+- dt-bindings: drop the local data-lanes constraint and omit it from
+  the example. Keep the inherited video-interfaces.yaml property allowed,
+  even though it does not describe configurable hardware.
+- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
+  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
+  geometry, as required by libcamera.
+- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
+
+Changes in v4:
+- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
+  constrain explicit values to <1>, and omit it from the example.
+- hm1092: add the copyright notice.
+- hm1092: replace the private register representation and write helper
+  with CCI register sequences and direct CCI writes.
+- hm1092: use descriptive test-pattern names based on hardware captures;
+  the available documentation does not identify these modes.
+- hm1092: parse fwnode properties before creating controls and set
+  read-only flags after validating control creation.
+- hm1092: use the generic get_fmt callback for the fixed sensor mode.
+- hm1092: initialize endpoint parsing with the fixed one-lane default,
+  reject other lane configurations, and remove the redundant endpoint
+  presence check.
+- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
+  declaration, brace, return-value and error-path formatting cleanups.
+- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
+
+Changes in v3:
+- dt-bindings: add the Reviewed-by tag from Conor Dooley.
+- hm1092: initialize RAW colorimetry fields in the pad format helper so
+  userspace values cannot leak into subdevice state.
+- hm1092: return -ENXIO when the required firmware graph endpoint is
+  absent instead of deferring probe indefinitely.
+- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
+
+Changes in v2:
+- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
+  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
+  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
+  build.
+- hm1092: free the control handler on the error paths in
+  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
+  leaked the handler.
+- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
+
+---
+Jake Steinman (1):
+      media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+
+Ramshouriesh R (2):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+
+ .../bindings/media/i2c/himax,hm1092.yaml           |  101 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/hm1092.c                         | 1140 ++++++++++++++++++++
+ 5 files changed, 1260 insertions(+)
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20260618-hm1092-driver-a6f2aaddf201
+
+Best regards,
+--  
+Ramshouriesh R <rshouriesh@gmail.com>
 
