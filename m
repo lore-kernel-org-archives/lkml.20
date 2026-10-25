@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792960312;
-	b=1+DHwGDOwgr063zpIkPnLynQfzEyLd+YiupQXtAs26FAaPUMYxXgIqTsizWE7YUEovsa
-	 smkR8OKRSU6iyeOJvZ1MOLx66XioufSQBQYQJ/O0s1RXbST7ydHVxCwadO8ZmmnvH67qV
-	 v2mC9ExzGD5XKDLI92XPmzP/nm7vtr2mM2RZ6WM0hqt1ZOa1zNSnx9W5gajyiozDxxkH1
-	 HzwtBrWW7blDKW51hIKfFzCLWIwFSwG4URou8IgXER/JXaraQwbOZBTU/VnYWVvdHUge6
-	 qFeSzjUjgXKV6CsNyMgq8w8ACgXbF9qcJJ2tb/bM1gPYwJU2BkCCZpylkiDw62vdGsA==
+	t=1792960316;
+	b=OEg2c6Ys8mpzX8aLINKT06EsFSpopqCgI33uEfZXno0GrBq74AURYadQpiZ0bkUtZKnz
+	 Lkw/Gg2EY2KC6l8t4qbSalvug16VHUS0FOQBKXdUZEW1dJuozsHTuEty1r0ISHLm3YhaK
+	 mMmqJ3yBjeOgbGv0+fnWlEwzWd4cNEkk5jgY+KfoJ6KADVlQL8JL1vRcVGQRMHxWzIuH6
+	 7GWguvmBBxSo2JuoC31Afg7icVbNjVJ/8b5MC6x2E43K/PDYU7FV/5TsGt3WvH1eeTtED
+	 fnI5IetfyieQ4kpy02ShuYfmTAlex3htoBN9ei3nYX9EYhLQ+E/R4ncEdARDK2SWTiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792960312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792960316;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=YXP7LYt248mnXrTdbFg3MpHjAHmc9wRJcoYVHySeVa4=;
-	b=awlJiMn1gQQMFhVHoXoFgDo2uCxWvwIZjFpmIjcq73omPX1+sZVVg86TBgSkFnWVfwL3
-	 amI41kkN6c9AwY/8wcoF2WLAUd2Zg386iqLVqvNpSVqBoJn8I0iR+elYp0pAvowZvCQqb
-	 YMuHLSQbUh0SBf8VMN6u7qVt/eoK3rdIeiXlwDl7+6PYdIqX1eIgUxZB7bwhtKZZotWEq
-	 Afb3QIql7fjhKCrFVrt7oo6qTZBYuMWzowBPcTU/8HHWzyrEldW/Xm1YHyypCc1KQPI6D
-	 z2Rymt9ibBa1m8ggBJFYHSZ9/fZscNMHdYrBSwt9G4NGQaRVO+ixzmaGd/5+uWumVEw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Be2Qj5VPj3anKQUTdbqSapQ73mXLTFDSUDurM06zZss=;
+	b=DhWZEx6R1TgKUaT0Of7aeZs1+ItO6YwtsH8V5W9y0GHwpGaanaQh4J6eb6QUfB0KHorJ
+	 KiGUXQRsurPZGiDdmeuQ4uMQhhF4Wm502rFpazL4sqA1RtkGT5siG7Ht9xp272udN/PK5
+	 jo8MlBUzNDeOic6If1mWQBL6Tr0eaAMvE4dml0M8ZNJ9ZY8dn9GOuX8yXBpRUBvGJPL7I
+	 4Wrtu10/rpMYD2NpsefbJ776HfO5kKFInrvVAW8sB9RTkD6SqLU2karta5pl7bu0kO3pP
+	 E6cTy2p2yGSgKtS3LTDTmkX0CbUrrdSg0DFGRkf3tu9VB0ym4Ala+UgLlSodGPL5A+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tDQgcr11;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K6aBLVdw;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E987B606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:31:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E987B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FD8606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FD8606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tDQgcr11
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso348159866b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:31:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K6aBLVdw
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so3082767a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:31:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792960310; x=1793565110; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792960315; x=1793565115; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YXP7LYt248mnXrTdbFg3MpHjAHmc9wRJcoYVHySeVa4=;
-        b=tDQgcr118rJw0XFge3yEWlp0H2YCXfjjA95Ktm315yipkuno16IvEOf1CmYiIp2X+G
-         RRnu9wGgtFhYJ6ugkk0PpvaEaIavkBstmTnu+/n3fM8LDE6e86+wCcsu4A9U04kl7kr1
-         BNkjNcN31gAOzxZ156hy6v4XsWCe1SnoptS5lXrAnT5PbTqFWqCXQHcQexs1Fb5M6SwU
-         eVCBU/nPkQriDTE6M3qZaYe6oHFLVY0Q2jTKR3EWx8ZQmZv3ag/hnoO55iNEQWLgRZpP
-         9HK6i33ABc0Aj0Sb2vGhAjtjl3slmkMi1zsdrAOrrbDRMiB3w9d8e/DXK1he1W21TxcE
-         IttA==
+        bh=Be2Qj5VPj3anKQUTdbqSapQ73mXLTFDSUDurM06zZss=;
+        b=K6aBLVdwCtDvNVXrUDErFoAr+HRy4mh7AvlIq94sT2SQL9nyA0N0K9H5ArPFI4co+s
+         Hr62gpQP70mBYNeGejcjmoM+Cfj3qhkDcel7pq7QbZsdI0VbAbD6rDdyyY4kvpsHlHUv
+         iyzeHlGZwXYYHFOqfgle5UBdOdTPCbKp7wAxs9Mw3zsMWCfZHMsRvOP2eVfXmTACkLBo
+         lYLIOPAIRQABc4UuQ7pnKwWy378A7RpZE6pdLZ7SNuijZrhAmeIIV+RqlgtNgxXrBTlr
+         GjuvAgHMD07GeL3Pq8U3S5MLlyf8PMp0+5yvMvFbjZs9lpzvib0qYA9zy8nH4IwyQayl
+         RFsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792960310; x=1793565110;
+        d=1e100.net; s=20260707; t=1792960315; x=1793565115;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YXP7LYt248mnXrTdbFg3MpHjAHmc9wRJcoYVHySeVa4=;
-        b=FMdta7pgEqIwYp8VKDo+OdHazbgQR+MXswEHMtD7M7TkhKI9OQcFzWj+lx3PICjbE8
-         4AToIZQbOSbBMlr/bgSp0n/UXuIRjJ3d1uLkPshjwbdKIbgn2f7rlOAMu9FutuSpN8jF
-         kOks6o14Kq785jMb1RaPIrgpFKKfjmUImFektyIoI8MCF2YJx6s4QiBFuSjZ4kbWKfcX
-         x7tQailIoMAdVpAM/W9eUZXS1H0B+23Bk6d2mj6+0qXEmALIOfUgEtrAbOoBO+LvaVum
-         F2zXV/KFvDiBp3w9XKkgetiJ59gOkZLycuM1elp3oAgKqN7qNzhV2wVOqmkGkbxwlzP6
-         siKw==
-X-Gm-Message-State: AFq9FYKXKBcOvwZwfPpCImGkaOgRGJ1uRYGnq0/A/JK4oziCU+/pYder
-	XaHs28efg8NxHo7ZNFwFW2RUk370mDBasQhTxiWv+7TrqQBVXYYm+L5Za/Q0opLNCG0=
-X-Gm-Gg: AYBFou1EzNiBah4pdWaQPGAFLwmqBQK6lirhjw7YJo1Wq3WAEij5+zdlD0p9PQxmBNP
-	MYOfJtyzQ7SqRAodZm998Um5TzoOXpU35CM7cg4Q+7pL0buGWSrmisNICop9rx7RaPGiRFJzkZf
-	h8YpXLTP963RHsDK5azHg51Wd0wIMzEEVmKgVxMm3aG/R2pT8dPvCQXYCvbmXbMGpVh8IlFQN5B
-	XNfAaEOyPJ4Zt2kS7kWj1G27QtEZNP0x3c2WsqY2VpanLq1F7me0TDGnlrNL/5m9SYJ9YIFTIUu
-	vECiDOxaPFAeQRNhiUKBbtPPr3en0pKlPVZxa8JrYA38UpaLAK+kpryMvq3Wh7PB05twXdVd+eG
-	/JzlEowSUH+4bQtlpbheAW9DQRtBxBnBmpa7qGKEmVZn3TRLmSOGHowpaQRdJqS3H0vAhO4lTDF
-	mWUI9n0s1d0eiQ2FihkZ/hxvyxeHNc+OJyc5m+fIW3TSm0K1xrPHRbxzjP7lSy48pHLoN9GnrfN
-	RR6UGvHKXxbPlwqcuclSAb1WmbeW42OEmmm/XxrnceDlt6ByJr80s7+y8DU7dxhufzxtF4/nK7P
-	MhAjcWlJNUK24Jx85UoqgiljPCYxsuZ3vyRMFjFPh2UpnTxI5Hswhnsc8hNJNr28zGiVht180bS
-	j3Yg3KOkLpzqL587hAEX98ONTT7xge6xZbt6KvMqQIbs6
-X-Received: by 2002:a17:907:3ccc:b0:c40:6ed9:b962 with SMTP id a640c23a62f3a-c46bdc2a4b5mr626000166b.26.1792960310068;
-        Sun, 25 Oct 2026 13:31:50 -0700 (PDT)
+        bh=Be2Qj5VPj3anKQUTdbqSapQ73mXLTFDSUDurM06zZss=;
+        b=OlSEbViuHHJs4zexNeALQaRi+XQioEuEy6Zf1ZTtkNhRrd9mf0/7DZDJbF95tfLRGC
+         +C2L+oAg38rytrPLDEsT+fOPUmumuIjUMXp8co5cpEMHxiaYIYqJeVwn5/ZJFXyo+zhQ
+         OwuW9wfcNN+vCCLNjaPl9Iy/ftmhFhhy0zzFqRa8aVEQZsi32BmuzHoXJE5kI2NU9EDX
+         smtWULLLV1glMz4PTXdYW+zDPY47HkQQE2RdKq61fWG3aMrrb1R2aTFjNnryENxEp82F
+         56rCzSjjxbeMM7eWi7A6+K5OAnYsmjZnWUw4UgjnBw4ioHjqv6RW3vBHidyHPdKw5JXt
+         amEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWvoCzLsvRadV7wbGHEV4SmI8gTY0yYFIl6DNiis3RF2g2Qy9zNVGkJpVEg69m3GhF96HvAiA773eyffY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjRBo7Egu3oWzrqQjQYDM8c01WEh1FXBsiRujVTNChCZY6fn5b
+	4uu0NBlhJb8RJu/KXEx/x+PENeQe4jtShjbP5AWFoT1pPaQwucOKrqIR
+X-Gm-Gg: AYBFou2cqd6/HXPewqmrQFpK1F6CMUEVyMWFTch+UIaq+rqCHQEt2GYNOv+MjZeXe3h
+	Aj2ThBBeddevlOUxT0GhyGWuUu6xf6vwjh9xFITrCUpFiroAVMXAEDcSLZin2IJIQS8bsFGB1C1
+	EyD3fRXBHjRuFNy7tY7IeFK2Q9Bfwrypt3cWGyaYaMeqY9HlBNA0xwLZMsCquXCvodbZZ6swe7S
+	HXSifD9X2n6UFkTC+I10oW+zHflAL9MvyLzSJK2mw5S8euegpcmTB0Qp3ZeEzYwLv+Z9ptVuw0o
+	cvlaHTIDkdcTaBserS8csdpL4SNBCtaNo5CxMLl8IsSp1nIhh4p2ei3fkAYbJTrHk8Q4aWRJO/e
+	B0QfqgixS+gRULPcAKKFXzka/hytMbWWEK+dNRm3dTHa/NkNhBAHNO2+mLhDFtpjD04F0NqaK0J
+	C+5Yk3xOrRkjmHbmicI7hkPdLRVnxS1PfwLwIuXnN2r3f4Ytco/c8H2awugXYlTPqIL3ViOnvag
+	a49Q0Z5Ek6Pld3+YZhA1lBaKtJESU0sbHD6ohpCDWHiiOHE+QIsB9WCs8fNXhg5NwxJDaJdeJZl
+	0U5nPT50o2OQAa2WhlWJbx++dXopoX+L7qQ3IM9fYAKIUZgpmK0FNU0NixPDxebgQmBuYyqoF3s
+	ovPLH5ikOOVCvDx9iSLW3C5yJLLH5uUUUkyOOi6jTp6ug
+X-Received: by 2002:aa7:d286:0:b0:6b3:8018:7643 with SMTP id 4fb4d7f45d1cf-6b44300a8d3mr4496308a12.45.1792960314732;
+        Sun, 25 Oct 2026 13:31:54 -0700 (PDT)
 Received: from localhost ([2605:59c1:3500:c210:a19e:c679:44e8:e9a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd52435asm237098966b.36.2026.10.25.13.31.49
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44595df8fsm2802175a12.11.2026.10.25.13.31.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 13:31:49 -0700 (PDT)
+        Sun, 25 Oct 2026 13:31:54 -0700 (PDT)
 From: Selby Mashiki <mashikiselby@gmail.com>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Selby Mashiki <mashikiselby@gmail.com>
-Subject: [PATCH] extcon: rtk-type-c, ptn5150: fix connector fwnode_handle leaks
-Date: Sun, 25 Oct 2026 22:31:46 +0200
-Message-ID: <20261025203146.455051-1-mashikiselby@gmail.com>
+Subject: [PATCH] usb: typec: tcpm: qcom: fix connector fwnode_handle leak in qcom_pmic_typec_port_probe()
+Date: Sun, 25 Oct 2026 22:31:51 +0200
+Message-ID: <20261025203151.455062-1-mashikiselby@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,68 +101,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In extcon_rtk_type_c_init(), device_get_named_child_node(dev, "connector")
-acquires a reference to the connector fwnode_handle that is never released
-on any return path.
+In qcom_pmic_typec_port_probe(), device_get_named_child_node(dev,
+"connector") acquires a reference to the connector fwnode_handle to pass
+to_of_node(connector) to devm_of_regulator_get_optional(), but never
+releases the reference.
 
-Similarly, in ptn5150_i2c_probe(), device_get_named_child_node(dev,
-"connector") acquires a reference to connector that is passed to
-fwnode_typec_switch_get() and fwnode_usb_role_switch_get() and then leaked
-when the function returns.
+Call fwnode_handle_put(connector) immediately after
+devm_of_regulator_get_optional() to fix the leak.
 
-Mark both variables with __free(fwnode_handle) so the references are
-automatically released on scope exit.
-
-Fixes: 8a590d7371f0 ("extcon: add Realtek DHC RTD SoC Type-C driver")
-Fixes: 842546c56345 ("extcon: ptn5150: Add Type-C orientation switch support")
+Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
 Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
 ---
- drivers/extcon/extcon-ptn5150.c    |  2 +-
- drivers/extcon/extcon-rtk-type-c.c | 10 +++++-----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/extcon/extcon-ptn5150.c b/drivers/extcon/extcon-ptn5150.c
-index eca1b140a..b5e1a3f3d 100644
---- a/drivers/extcon/extcon-ptn5150.c
-+++ b/drivers/extcon/extcon-ptn5150.c
-@@ -256,7 +256,7 @@ static int ptn5150_i2c_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
- 	struct device_node *np = i2c->dev.of_node;
--	struct fwnode_handle *connector;
-+	struct fwnode_handle *connector __free(fwnode_handle) = NULL;
- 	struct ptn5150_info *info;
- 	int ret;
- 
-diff --git a/drivers/extcon/extcon-rtk-type-c.c b/drivers/extcon/extcon-rtk-type-c.c
-index 82b60b927..4b1fc084f 100644
---- a/drivers/extcon/extcon-rtk-type-c.c
-+++ b/drivers/extcon/extcon-rtk-type-c.c
-@@ -1236,20 +1236,20 @@ static int extcon_rtk_type_c_init(struct type_c_data *type_c)
- 	schedule_delayed_work(&type_c->delayed_work, msecs_to_jiffies(0));
- 
- 	if (!type_c->port) {
-+		struct fwnode_handle *fwnode __free(fwnode_handle) =
-+			device_get_named_child_node(dev, "connector");
- 		struct typec_capability typec_cap = { };
--		struct fwnode_handle *fwnode;
- 		const char *buf;
- 		int ret;
- 
-+		if (!fwnode)
-+			return -EINVAL;
-+
- 		typec_cap.revision = USB_TYPEC_REV_1_0;
- 		typec_cap.prefer_role = TYPEC_NO_PREFERRED_ROLE;
- 		typec_cap.driver_data = type_c;
- 		typec_cap.ops = &type_c_port_ops;
- 
--		fwnode = device_get_named_child_node(dev, "connector");
--		if (!fwnode)
--			return -EINVAL;
--
- 		ret = fwnode_property_read_string(fwnode, "power-role", &buf);
- 		if (ret) {
- 			dev_err(dev, "power-role not found: %d\n", ret);
+diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+index bf985efe1..b89495315 100644
+--- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
++++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+@@ -728,6 +728,7 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
+ 	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
+ 								   to_of_node(connector),
+ 								   "vbus");
++	fwnode_handle_put(connector);
+ 	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
+ 		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
+ 	if (IS_ERR(pmic_typec_port->vdd_vbus))
 -- 
 2.56.0
