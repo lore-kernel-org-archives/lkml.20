@@ -1,94 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792886929;
-	b=UD/O5U3aL4w0rfM3clnPMxKmnzsyajN3rjcCx48IkQENzJPhkQ36TMBRGw3FJLRq1ze4
-	 LE50CaZctElkZmyE/Ma88ndV5or0XSvmSoeBYy2zfHsjc4bB+I79d1QD/ip5BMVqLBxZ0
-	 Ugeo0rhJjw76XafwqfE7lBPPX4+D/a3IXrQeM66Jjcm21unS0ZBaS+hTJV9R+gpNwN5B3
-	 IdiK7ZMPW1koN1cqvf/Bm3FxBW/aG/RPRfjKgvL+DDwUT5WiiMJeMEIHKwCRna7fhYKc6
-	 lFn8Ijk83puLRgLmitOj0+Sbptb+J/xkeiGffdZxO+NEMFx7RrMtmRCuu1XBmRipuNg==
+	t=1792887102;
+	b=08uiorJfrOivaNpFTw9H6Uz3FbI1sy1h3UrDQnvMcULtiw1+wINYfroG7ELWN7T4GVj2
+	 ypAoobbcpMq8+I1sCBVekRKCiaefxA0VBlaYMwu1fTKtDvL/FdKjSnn6YzO5IrLpcJM0k
+	 /sSaz8r4AcFfK3I0tDNrBmZR+ELRn/JH5NM0jvSQfv0mHU/5RqtkT1Gl4VQV0RptOJtv0
+	 a8lsH5sz1AepY4dQAxz0BqjaCl5jBDruQw8932qA8Y5UOfFOijKiiX/i4aYn1bdeHCr4n
+	 JUzc+FqFvshnaExgARDcPzbaKxFp3/JRPhFrvrjFdImxffSVmRKx3aEY/2CzDQZs3OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792886929;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792887102;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=OSC4ftnTo6YGV1dHbcFRy9QyJa8EnMoA6aGGO4fBdTk=;
-	b=jjbKXsiqeLyQDRi5j7yxL2K4RYfzFzh39CsVN/XEZuy0laBns4ts02p/DDkgdWj9NbJv
-	 gRdkrG55SjAsdeWGEC2+dcjO0lwX9Tggf1R+ucMta9UENnDxknrRgRpMx2BwFjVtHrMDB
-	 a+GmWZhTIccyNaV5pCAUI0+m6iTkLCZG+FaNQ4d8FyqdD5ihFPYsxePB/yW/WG8xXBvnX
-	 EOvVOASocY6ZTMr/+e8Z2gNvpS7ciG6JYT0M73NpJE7/B7kOP1b3LpkK3PIfigrcpNCmB
-	 XwGM/ncinEi+UYIDfLVyv9Oom17k79KNJoCnfVa6FpwQRBeM0fFRaPlX1VMrZ3xj/iw==
+	bh=hyNNUZaRnakcEtdBWh6hHPbyrLmmMxNp/bH3C2xcpVY=;
+	b=Xinz17cI85m32a6WMyDbkvJh4s7di2wnaPkrRUi0TrnGv8cer6zRn5fG3eKEFiiVZOJW
+	 NMHyYY+7GgRkQ9Pc2GWMdYhA10GBiSIvejAnMh2luneFqEVzF3gcjWm3yuxpNYSfB8uBG
+	 zcxvrX6ug6qGw1nYiLeFu5YOaJGeVPjcloQL3VXxuerkaIGsGt5xN40h4JkJF9gm0tcmj
+	 mfSUg7r4TlEAzaXCgElz5OiCMSdoZgk1HWG7s5JAB3XE4uFwV4dBDoIcUttKh9Uz83r5Q
+	 4M0BqxYjTKmxwXCKy3kXKpKEe0gcdcfSos1waIaWYUeURoFOfoZPWFYDojujPQKJa3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a4kyn1Rs;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cyrrfm/L";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D7E606A333
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:08:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D7E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6F04D606A31A;
+	Sun, 25 Oct 2026 00:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a4kyn1Rs
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67999045530so1795999d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:08:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792886928; x=1793491728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OSC4ftnTo6YGV1dHbcFRy9QyJa8EnMoA6aGGO4fBdTk=;
-        b=a4kyn1RsoXyAe+BMj98OM2o6BnP3ig0CSWjT1CR8Plhkum6F65npCHTANcuDOfFv+w
-         mo9x5EodTMZhJIf9XQLRWyfmzFjiZXJlnPax69on6IKwLEA2mkSxywTRCu5Jo3/kKklj
-         J3N5stlQQ5sn2DhMc1mnDctZ8ND96MPj07F0WPm7RoAVW4bGHDK/CP8Dnl3H2xueuilT
-         UPekTtBsnRbz50O/LDPEAcRWIVCtdAAPaFL9qFt6jBrqP81n8wlJv1DTS93ZwKvr1Fua
-         1L7Pt0ekrQ4dkiyLndXoJExf1vtytp/I3ifG3UuVXJ7kaDXfmK0FzjbinEucHGHlG/dy
-         Xeyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792886928; x=1793491728;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OSC4ftnTo6YGV1dHbcFRy9QyJa8EnMoA6aGGO4fBdTk=;
-        b=1f6F0JTU3/c7PeDA389BivZopOo+TcZGxwQzBa5klVpCTL5dkLbloJm0E+zggpFfyy
-         QVPiXCYksFOTi2D4ndyEjwP66T0Mdj4XOHz2aDuPSqwh++L5E/KBtAiNZdomL9ZoZuvv
-         ZiwKO8Iaj4X6kldl4NGB18bVe/hDAjH3DIeAxUuO5GLaMO/hZZPFxrh2mtybIcHjmJtE
-         CykNFehqdA0Riys/7cA6jRvhl4iqIL5z0OD8hIydPF84VFasjYbh/UvZcDQ6NVAvQMS/
-         bx+wx6arfohBYw38k02jDy2c82WwFSalyUrLQ59tlKnWf/fz0fVMsIxXMqE+D+CQdf7W
-         LtEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLDzW19At2JoRKNptKoiUQnE//pyz8eTSFfI6bGvsEpv+3VQpbdo1xHZxMVUFm13o88/8EfuablCKsVh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVbWnz1ASLY0/V92A8Ci9ctM1vgxi3PUNI2606JCsQU65kZqmY
-	9apH787JwLzp698+cHnAT+X2GCsJcgogto8J9mXAaFXFAZgk/ImBHmDm
-X-Gm-Gg: AYBFou1a5Q8lt3Jx+ivd6L2CpsQ9iPo7UU1R/OKY3x5q2pyuC0a4/rDJicLvzOdJ2xi
-	Evuca5NpSKtsSDQdBrznZ7Q7zHr9N81k+1WYBAaUBMiNkyWwB+T7S0vogrPE15W1xEJjY78ozfj
-	GOqMUSrofb2pMeDyehNINeJtxJV4yLQZNYqPA5LEJNwr2+41r2S/MQpOjNZ/lzhWh9qJhDS64/T
-	IQljGuXhvnlp6FzzXiuMrB7w4kOUTH9XFtJrJZShIqZ9VxKm8lnhMGB4MaLGRpr7q7j38hRXrMm
-	SI3xYLIT2QcjQ4youxF1lGib5sEKrwv0ap+9RVxDidnikj6Zr7aF0HtpKXkW3kI4wGamY3t0Dm2
-	PAYLymA0xE31up1Nb91y7lmbnlcDo4A5UhHgfXnasUJd9O/VWjvpbVdDSZoYb0JFcQbq13k59Zf
-	bsY//kNSygv0ChA/xODqWB3C8yvi+JfO6M6ySZ8ByHDPGsclfLIoAhIZC8Rhhlclw1XcesKvtBm
-	tdMCl7kZPQVWCWzh7cLVMSq0XVxqryoD33rrn7tJ3ONswgLrxtwST0=
-X-Received: by 2002:a05:690e:4851:b0:679:9b73:bf9e with SMTP id 956f58d0204a3-67a453f9553mr2071640d50.57.1792886927621;
-        Sat, 24 Oct 2026 17:08:47 -0700 (PDT)
-Received: from gmail.com ([2a03:2880:1fff:49::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a45ff8d6dsm1551707d50.1.2026.10.24.17.08.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 17:08:47 -0700 (PDT)
-From: Matthew Wood <thepacketgeek@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kbusch@kernel.org,
-	Nikita Vetoshkin <nekto0n@meta.com>
-Subject: [PATCH 5/5] PCI/sysfs: Use user config accessors for serial_number
-Date: Sat, 24 Oct 2026 17:08:33 -0700
-Message-ID: <20261025000836.58294-6-thepacketgeek@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025000836.58294-1-thepacketgeek@gmail.com>
-References: <20261025000836.58294-1-thepacketgeek@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyrrfm/L
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 59BBF1F01825;
+	Sun, 25 Oct 2026 00:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792887102;
+	bh=hyNNUZaRnakcEtdBWh6hHPbyrLmmMxNp/bH3C2xcpVY=;
+	h=From:To:Cc:Subject:Date;
+	b=cyrrfm/LuHwFLpOhIU5gkEif0YoAZzHEpEjo2eDLOvxhmjkTgSTqRDabx7jjPWZbY
+	 OOn5vgrh10DqH2TSmFBu2b86u8+YlNu8OgTNyfUDDcz21n3bPpZ2KoBll9bBBokLJV
+	 A6KTLmAs97hXSqu4L5JKYZrko3l2i0x9bBjE4PoW9MlYu2vxivxEvsJmeJ6ahQs5rF
+	 ZhjVPPwZMIPkT8NGiCiVL4DB2nezv0RTCwpw6O8edRPPp/B4U5d96hU7DmI7fxM6ee
+	 VYt1y0yEEUSjspHj2NJbOLKhVLjd9OcR/hsRw6z6nNL4kcgBAnTrQGlzEGvbg6Fw3w
+	 4ROW54479cdlQ==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-crypto@vger.kernel.org (open list:RHASHTABLE),
+	linux-kernel@vger.kernel.org (open list:LIBRARY CODE)
+Subject: [PATCH v3 0/6] KEYS: Replace assoc_array with rhashtable
+Date: Sun, 25 Oct 2026 03:10:08 +0300
+Message-ID: <20261025001105.1824178-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,60 +65,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-serial_number_show() reads the device serial number with pci_get_dsn(),
-which uses the kernel config accessors which don't check
-block_cfg_access, so a read that races with a reset goes to the device
-mid-reset and can fail with -EIO or report an all-ones serial number.
+The keyring subsystem depends on assoc_array for searching keys by their
+description, type and domain. It is the sole user of this data structure,
+which has during the age of LLMs transformed into a maintenance nightmare.
 
-Do the capability walk and DSN reads with the user config accessors
-instead, as the "config" attribute does, so each access waits for any
-pci_cfg_access_lock() holder (e.g. pci_reset_function()) to finish.
-Also wrap the reads in pci_config_pm_runtime_{get,put}() like the other
-attributes that read config space.
+assoc_array needs to be replaced with a data structure meeting the
+following criteria:
 
-A reset can still start between two accesses, but the next access just
-waits for it to finish, and the DSN capability is unchanged by a reset.
+1. Must be suitable for a sparse key-value store.
+2. Must have multiple in-kernel users.
+3. Would be nice if it had dedicated maintainers.
 
-Unlike pci_find_ext_capability(), the walk doesn't check dev->cfg_size
-first. serial_number is only visible if pci_get_dsn() found the DSN
-capability when the device was added, and cfg_size is final by then.
+rhashtable is likely the best pick from the available options as it is
+designed for a sparse key space, has dedicated maintainers, and multiple
+in-kernel users.
 
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
-Tested-by: Nikita Vetoshkin <nekto0n@meta.com>
----
- drivers/pci/pci-sysfs.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+CHANGES
+=======
 
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index a272f8583a8f..cbdd56b92d1a 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -696,10 +696,23 @@ static ssize_t serial_number_show(struct device *dev,
- 				  struct device_attribute *attr, char *buf)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
--	u64 dsn;
-+	u32 dword;
-+	u64 dsn = 0;
- 	u8 bytes[8];
-+	int pos;
-+
-+	pci_config_pm_runtime_get(pci_dev);
-+	pos = PCI_FIND_NEXT_EXT_CAP(pci_user_read_config, 0,
-+				    PCI_EXT_CAP_ID_DSN, NULL, pci_dev);
-+	if (pos) {
-+		pos += 4;
-+		pci_user_read_config_dword(pci_dev, pos, &dword);
-+		dsn = (u64)dword;
-+		pci_user_read_config_dword(pci_dev, pos + 4, &dword);
-+		dsn |= ((u64)dword) << 32;
-+	}
-+	pci_config_pm_runtime_put(pci_dev);
- 
--	dsn = pci_get_dsn(pci_dev);
- 	if (!dsn)
- 		return -EIO;
- 
+v3:
+- Since David is away for the next week I decided to address the
+  low hanging fruit that I reported myself.
+- Unified and sanitized function and variable naming and removed
+  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
+  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
+- Flattened the implementation by refactoring out some useless
+  wrappers and other constructs.
+- Addressed continuation after triggered WARN_ON() on at the three
+  sites that I've described in my email response to the previous
+  patch set version.
+- Reworked keyring_read() so that it triggers the scheduler between
+  the iterations.
+- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
+
+v2:
+- Tried to address all the issues pointed out by David and Eric. Tell me
+  if something was ignored, as that would be an unintentional mishap.
+- Updated and trimmed the source code comments.
+- For assoc_array_edit I decided to go with two-element pointer array,
+  which shifts a bit what David suggested.
+- Dropped is_keyring flag. It was so obvious call so I mention it here
+  just in case because too obvious maxes out my self-doubt ;-)
+- Used cleanup.h primitives where I possibly could especially in order
+  to make fallible initializations more bug-resistant.
+- The already-ack'd bug fixes are included but will be dropped as soon
+  as I've sent them over to Linus.
+
+VERSIONS
+========
+
+- v2: https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
+- v1: https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
+
+
+
+Jarkko Sakkinen (6):
+  KEYS: Expand key->{datalen,quotalen} to unsigned int
+  KEYS: Reject descriptions larger than KEY_MAX_DESC_SIZE
+  KEYS: Verify the key identity in __key_unlink_begin
+  KEYS: Introduce keyring_is_empty()
+  KEYS: Replace assoc_array with rhashtable
+  lib: Remove assoc_array
+
+ Documentation/core-api/assoc_array.rst        |  564 ------
+ Documentation/core-api/index.rst              |    1 -
+ .../zh_CN/core-api/assoc_array.rst            |  473 -----
+ .../translations/zh_CN/core-api/index.rst     |    1 -
+ drivers/md/dm-verity-verify-sig.c             |    2 +-
+ fs/smb/client/cifsacl.c                       |    6 +-
+ fs/verity/signature.c                         |    2 +-
+ include/keys/keyring-type.h                   |    1 -
+ include/linux/assoc_array.h                   |   88 -
+ include/linux/assoc_array_priv.h              |  178 --
+ include/linux/key.h                           |   27 +-
+ lib/Kconfig                                   |   14 -
+ lib/Makefile                                  |    1 -
+ lib/assoc_array.c                             | 1724 -----------------
+ security/keys/Kconfig                         |    1 -
+ security/keys/internal.h                      |    9 +-
+ security/keys/key.c                           |   32 +-
+ security/keys/keyctl.c                        |    2 -
+ security/keys/keyring.c                       |  940 +++++----
+ security/keys/request_key.c                   |   24 +-
+ .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
+ 21 files changed, 491 insertions(+), 3601 deletions(-)
+ delete mode 100644 Documentation/core-api/assoc_array.rst
+ delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
+ delete mode 100644 include/linux/assoc_array.h
+ delete mode 100644 include/linux/assoc_array_priv.h
+ delete mode 100644 lib/assoc_array.c
+
 -- 
-2.53.0-Meta
+2.47.3
 
