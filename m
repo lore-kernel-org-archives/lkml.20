@@ -1,91 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792939767;
-	b=L8s8WdwDywkbTvBMy3u5PO6SyX/letxPynj9kGJxvsUvS/URvY3NVu/U25ixQFj8cyQo
-	 GOxYX/bJrHv71xeLzhFpEgzRbC1GfI6CgrnOLOFp4Pf+RteFS5a3q0em9tU/EvHJAKAeO
-	 AjDTGsSzQsLJ8hTI8ByTLpRdoTLvOjOiyG9hID/kGxab+mTe0Fl0c6UGDXMN80jk7bSMs
-	 2GJEo+ygJzaImuSdLkCz/8KswSMcyQfcT4qCZ7l8dYBNHoOyT7bVpllEo+b4Cm7ij/IY9
-	 QIZx1NetVhhb7mq81zKrghrtHKoi0hGLCSNOzBJWXDZGSCQQrXBRR/4nx1dz9e5H14g==
+	t=1792939837;
+	b=I+DQjLfhwpY/mNcNn5uaUnaJeWouy9rD4oZFwO2S0uQKTaHfmD6YA0vjemeNYuCuyHUe
+	 g81mNC99R28HfDQWCcaUb7dqnJ82lP8A8L2YWnp1S50wvVq2/HVevNLC+DtYmCGKjd9xn
+	 RKIOPPBEuQitNycragd2TerWbrKWT5Y78c3DdtDHUxiGkbkKP0GZdIeqU158185KiSLOa
+	 sCOna/WvUdIwbft/ot1Gk+TN+UNETIFa/3ewOKh325c3Fzctj40pI9rnYqwqK4TsBzJCD
+	 /bWMI7YVIPimFJq9R4ymMz7BvhLCkWhgvVu0PWnMJR8LyjajoFP3cVNMVtBGTFU85Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792939767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792939837;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=hG/4IjfT07Q6Afx12UtU9nDqugWqc6o8tThzxSfg8ek=;
-	b=lCTHI37dQYEwze3uT/ff8OyAGNkp/CIu9E60ajQ6ZWWvq14sZyS2p3JtcBn9SNm9Wb2q
-	 yWMJPRcnqz4B7sUShb4mqzAjvYMN0Ucw/LKotAmDTImrU6YTx6oncf4dVCprhhrbdoeT+
-	 DNDkb5e194BUPCd8XnB6GhqE0NvEC//wyYbC6uOr0EER1L5OPgANfIJ+VTx8MIB3kVZmQ
-	 81rMvABHBPxCflGBXvp8T9eV7og5yX97L3/a0dQukGmjqozYkm0iSZq/GvimTQhg7dwGT
-	 dn30znEFrl7UKlCLw6ooNvAek2uHLKCTNkgGL7zo/Ak6N4NT2w4/nSHOkng8kIDuU5Q==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6Pxhpwyug/cohEo6PD4X5ffzTblLzmuMS1iKA6wHYTY=;
+	b=nhMd8gLwCg72eDC2qxCOJb00gpQQCrZKdc6jJj6lxduD4uRLT2QNXK9IKt/8eD+zeN2D
+	 0n24yNrdOEI4UHN4U3DoExGkl8CHcSSl5Qq4OaZpMmHNJLtwRR+H1VvhPnnKSYwcB1x3E
+	 CT7pEl1mYXXGq9p2qOvCupRu+Cl0Sc8roykb5YAQ6eh36UJuwua67hjj4jX4s7tKR82+Y
+	 e9zsTeyL0hqqmYoRgChwWZzRLF3MQSR+8AlyGn3RHOOtKXhBMePb2T/JYxIOyBXfeohSG
+	 2DD+iwyEUOYearZFng5PjiZtAITypDKlGM5GHI2WRX/sQtP5LPZNdu+157kb6Z8wmxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JoX9YSyY;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PshC8Di0;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D62E606A31B;
-	Sun, 25 Oct 2026 14:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D62E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6434606A31B;
+	Sun, 25 Oct 2026 14:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6434606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JoX9YSyY
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PshC8Di0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792939767; x=1824475767;
+  t=1792939836; x=1824475836;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=wuyAVWzNlf4WMUq3kPSPErfH5dgjJuFGGL+u8KZMwqg=;
-  b=JoX9YSyYPo3YSEXEB9DgsDa5kB24LpEaPMOhIUITUv75fnbTIu3ts7PA
-   sRRbBGqQP9zSclIYxFcGbt5E8lv38t3ap8sXcFq7LugNjcGc79mOo3pLr
-   +6FkNVyVBczl8fDFx5ub9ps8W4teh2yS8YfWBfPlPtHjBtNohH8oiLaaH
-   k2Mhg6elLGV2y2bfnY6qjhQRnl+Un1Bm2g7q8l91zKsTVo6lloEnldU3y
-   u347VXhtTo03+D3uyw96hmXlZefmR7ROZfA+LHotkCxLiERytcdmrzKDV
-   +t0lAhaFLajl0v6IDdpibRfopNG+JJwGVRRJCHBniK9vaKvQ0P6Kle62Y
-   Q==;
-X-CSE-ConnectionGUID: ny0dF926QfGUduMh+3G2eQ==
-X-CSE-MsgGUID: ohqcIaBNQO+CfEm1VSYnkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1524417"
+   mime-version:in-reply-to;
+  bh=H4I93okhC8Zg01N6xJwsIKRDh9uxsIAKt5AaymrgcT4=;
+  b=PshC8Di0VvoCJPT1LPZrWYHCax+1tWNXg4qka93dGdGFM084thK169kR
+   tUpvUQOnhDQ4SYrazUarH4D2Fa11pglepfTL05qWsDkHwHoMDXL+pbCVk
+   RI78SJMRKlEJRXWcVsnvEWeTQ3Jpep8i7LTpi/0SjO3mXVgKYjnu/avvG
+   eN+7OU9gKE+khRVtmp1R1l4GdVVDkN+zmhKoG4CWQ9qzyhalkT+JvIpcR
+   Lr5zDMDJQNJDphOMgc2W/Gvxgbub+ql88xDHBhe6x2OnfIMts0Rv2ANLa
+   swPU4fe0XL/4s+nghzskjR9EGa0LKJdUE1nabLhHebvYCFu9OduATy6gK
+   A==;
+X-CSE-ConnectionGUID: Zdxga9Z/Rri3zrgBnPED6A==
+X-CSE-MsgGUID: sUPakF10SnGFZIzWov87Qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1724549"
 X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1524417"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 07:49:11 -0700
-X-CSE-ConnectionGUID: eYmjATg5S1KYkRpA6TtrFQ==
-X-CSE-MsgGUID: PrP7FVEiS6+DW/v+rR1Cow==
+   d="scan'208";a="1724549"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 07:50:35 -0700
+X-CSE-ConnectionGUID: ZsO6uhFNQiSLWYBDVmp0rQ==
+X-CSE-MsgGUID: /noBoKB5Qp24wD3Z0bBbcg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4147140"
+   d="scan'208";a="4060247"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 07:49:06 -0700
-Date: Sun, 25 Oct 2026 16:49:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: James Hilliard <james.hilliard1@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
-Message-ID: <at4WnVkovotMBmFe@ashevche-desk.local>
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
- <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
- <atseYvQUYvpMFEIM@ashevche-desk.local>
- <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
- <CAGb2v65LVm1GV2kV4bVO8YJd16tkubHOvXUtbJ3uuBw2O3TBsA@mail.gmail.com>
- <atywVnHU5NsP_gOP@ashevche-desk.local>
- <CAGb2v64P2rM0VnFh0NfNhi+3_xGPYkxt2j+2hmBMu5ZvugHRow@mail.gmail.com>
- <aty37_xHO-QRa7hQ@ashevche-desk.local>
- <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 07:50:33 -0700
+Date: Sun, 25 Oct 2026 16:50:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, outreachy@lists.linux.dev,
+	linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: staging: fbtft: fb_upd161704: Replace udelay() with
+ usleep_range()
+Message-ID: <at4XNunsk8UWquPB@ashevche-desk.local>
+References: <CAHxSwT8=ZA2sFqXNjfX2=Bf369+gNRLfCO+VtVmmWiTzenLwWQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,45 +80,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
+In-Reply-To: <CAHxSwT8=ZA2sFqXNjfX2=Bf369+gNRLfCO+VtVmmWiTzenLwWQ@mail.gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 24, 2026 at 11:10:40PM +0900, Chen-Yu Tsai wrote:
-> On Sat, Oct 24, 2026 at 10:51 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Sat, Oct 24, 2026 at 10:41:55PM +0900, Chen-Yu Tsai wrote:
-> > > On Sat, Oct 24, 2026 at 10:19 PM Andy Shevchenko
-> > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > On Sat, Oct 24, 2026 at 10:10:33PM +0900, Chen-Yu Tsai wrote:
-
-...
-
-> > > Ah, that's nice. I hacked up something [1] in the past to get it to
-> > > work, but that was probably before you added the helper. I never got
-> > > around to splitting up the commits and sending it out.
-> >
-> > Hmm... The helper is in the kernel for the past 2.5 years.
-> > Maybe you rebased it and it lost original dates?
+On Sat, Oct 24, 2026 at 04:32:11PM +0100, Abubakar Musa Samaila wrote:
+> Hi Andy and Greg,
 > 
-> I had been carrying the changes locally without committing them. I only
-> committed them recently to back them up remotely. So yeah, the dates are
-> not accurate.
-> 
-> > But if it's not working, we need to address that, I believe it should work out
-> > of the box, because the same function is used across dozen of serial drivers.
-> 
-> The new helper probably works fine. I can rework my code to use the values
-> given by the helpers and give it a try sometime next week.
+> Please find attached the patch that replaces non-atomic udelay()
+> instances with appropriate usleep_range() bounds in
+> drivers/staging/fbtft/fb_upd161704.c.
 
-Would be nice, but I assume there is no hurry.
-
-> > It might be an issue in 8250_dw.c, but I can't tell for sure.
-> >
-> > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/wens/linux.git/commit/?id=e7e0741fa04f349ad9f94a4059e32467a30ef5d9
+Please. study the respective mail archive on lore.kernel.org to understand
+why this patch is no-go.
 
 -- 
 With Best Regards,
