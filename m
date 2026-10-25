@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792908925;
-	b=HXOQEEj+LOApbGogbZWcDAWIcjlpu6o/lPaLgJY3b1MRxDFTx1jIqaDTgNBSz3ZV2d6j
-	 RCrf68jhyZwXHlGMtfL16C50+hhwyLjTgknePUqbmjA2JVx5bug3qlwBxsY4fh68RlMAf
-	 +l8n0PZNTbCExCQhd6fdFKcsOHzWzJJG6gJud4d7nCY+Qcut//4UoE8PKU4jXl3GEdkDo
-	 TutLaBfSZeYPNoJmF7rOgrYqgpfT/z4co2w6CRUS+kO8rrBAG60nMAyZFADOl/sqOJMdH
-	 GClLb1Dx/BK5IozQrO61E1P7D34pZkUaQWiLH8LRxxccWI2Sk0I0H3kGkv19STOJGpw==
+	t=1792909139;
+	b=2e9KY8wiECb+0ntkMk2o7Vh3cHVr/pC4JjIfq0UDwD/9NJ/Sv1SH+X66no+zg4JXrsNR
+	 ir0Ls5Iklr1fqbArloYsYXEZTTZY2cj94X5Tfxg4ciuJ9NuNjQwkctAabBCAEe5pnlv6o
+	 fBFQARYbCD4uQVwKv5ybAD/Pqu8TTHga23A4J3EeH81tO9uleJ957zpRY9tohcBOIVroW
+	 bYRMdqIhrGGLk7TE64hGGBaesJm9Aa54Xy2uarF8sEfRhpV24D7y5CffcQdqKMqxPGLdS
+	 Kf4dWkvWuzLuIpNMIgtb0yZU9MZbJobnj/P2mSgLv35ZDJ2bMB88HA6Qk2tDnHPMFLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792908925;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=1L7MYTJTd8WVGJ13nARkPhok0Xv7jBo+Dah16XPMJXU=;
-	b=E4aMeApO0kZDwMDc5KhXNTuv5V8t8ieszZQGRUkjMVA4AHCTX7ftOJkcVqV2dyHKMpSH
-	 EJZptRMXdH+TSU3gut8HDlmSrux/WTX7CX2y18Ps/7QJe11SAeVkFiP1GguQCORSP1JG7
-	 udzTO+8Jw6TPm/5i+Raw32VRxUavtLJs2Fkbb9t6mg1PoW018CDA4mmKZXiz0fRNB3SQw
-	 QC8FxiuNxAL7aRR44ndbyJP6b14ZP1gNc4h9h403UqlxVUi42YnJTbSYcw7AwPJDFjr1M
-	 XVZXM9wmFB5/5kWcIhd3dqdxCr/jexbOwpd2jbL6ga0ERW3hqqDxibwk2VcQi+9WPxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792909139;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=mE80kSeQnRy822DQdzD027tqTiplPDu44C6x00nRUWw=;
+	b=y2In7IRE+Ohniz6LZLwT2C/ka54+sf9dEfUvK7+i2Q1KNI9b9tLn3EimvxyTA/vt0Uzc
+	 NIxRyJ+0KYhhDBWMhq+LMwtQMoJg5VlMLmApSBR0dyYHh+Y9RsiF8jaVUKcbY0d2T3fZy
+	 k4OyGeMCqdao//9wfdQXvTcHWc8fIXg+H+T1Rl5DtewQrPfraUTHO6b70PX5PhJ9kAnFU
+	 iEr3PNV6a90869fmkdGjGQSmwxaCW1T88pKes3Pn00CcKYOgYT7IYK67gSVWlVK17WnVk
+	 Myo9Y0DeaLqzTxdShXEBj/1x93KBgFB97zYDQdD2aCiJt0/jc5zyZn/EEMRTPSRQkTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ID51PChc;
-	arc=none smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bQ0en68/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFC6606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FFC6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD78606A31E;
+	Sun, 25 Oct 2026 06:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ID51PChc
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6acb57c2b88so2380745a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1792908923; x=1793513723; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1L7MYTJTd8WVGJ13nARkPhok0Xv7jBo+Dah16XPMJXU=;
-        b=ID51PChcAixVVnmGp6/Y6fmP7QJ++uPibZVkw0od/01e2uuNtjvQOmjkW2KtHR4qJ6
-         p5bUdNmjKfgurrqf1Ux4Kc5EEOONhcK2JanuZES9g+2WycVyWG2ufIDu2rUAO0XDCH5P
-         rxUe+Ju1kH6i/T7X1cvOfLF+hAf/EV5o+oS3Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792908923; x=1793513723;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1L7MYTJTd8WVGJ13nARkPhok0Xv7jBo+Dah16XPMJXU=;
-        b=I1Mr4jaoabUPVjyoUcG2sBA8Tv7BPUlrFK1TlrtJxrqK+bEe7Xy9eVsCtJOQ1DUMCu
-         OCPKEBzPKoAGz3bsXiv9cGHewDGsMDQXSI0SG4D8+zn1rt/SCGZaq06sxt+77ir9tPNY
-         xOKqeJwnom0pEjX4M6ekmt8wnZlrW730B7qNfhLR9Jd3H0g8Gy0E3GV50o3J2/cDOquK
-         sSAd+KimaIv0+quoExjRNp73z0HoTDuusamRrtUpVu2iH3EYThtP0zha+5Q1DqKZASuv
-         9zzxgNEAUb3/kvLEMV3IFxtdCb1oAtUZd3dHSw16rey1Dah1ydbOsbwFxOnxGhXM8VDN
-         N45Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwENYZmRz2HWHAXl6IXbdQyRkqz/6+SyW9JaYTZ3Xk1knSz4G2Ce3NBoCcj2z4SMqPeOIlzplwMZuvDDJg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6Yz6xm/l7w7pD849tGavXcDwTxZ1dr9SY8hidKC9Hs7Sd9sV/
-	1hQ+63URnvle4PVqC+e13/Jdh6ocA4xi5BucfTr+Dtpbm6e2FW6Se1XDLlFAKUUnz0Mb4pPQViE
-	1Dennl7Q=
-X-Gm-Gg: AYBFou2PZ5Tu+yA2Ri8E6mRoXZuqobiQOvZtl3N+Nu/Yi8avQbHaqbg9zGKF4+tL/Zb
-	We0mLt+Gpvxt42tUX6SdoKf7xG6gGOEWx9jOgxSC6R/Z7h3zZeIOr4hk9bTAPdRLuCXO8Bg/Yxy
-	s9ep9Z3qAH3/RBq3qysawPQZxbC+hUlsvZAq/JpnIE+tcUU5DZR/aFvPN6EL/9T+Dm4NxIn5NOf
-	xnbaXuwY0LaWmopqe+fAeOCq43av+gTnKHefBo05O2qQqXtvRNdjW/MMknLv4rZgkgrhz8xpJkY
-	VDLIEPm07coaGv5gGbraOlc3qNBxjNcZ5Ss6UXq4kNj7owdh13VrMl5HQVwU2Ino2s9/GyyUwH9
-	qU06d3uHKo52WhGz4Zn97T6A0ZlyVmJqeLK+/L5j99GEinoZqY/k3p11oLPOLvays7AiDkDB+sA
-	gOE+V3JlVI38zreTy/MS0IIA76gJJOx9lUHIzqqmb3thZ+TB6+erWUsXOHlkBlY+vXVrP3VoHY7
-	HtUXdPRBCGv4Rb2kEp14JG4Ey29eT+OHjDPIWhVHzmjii00jbhH1t/5kh/YkkHJ84pWDvO7yO9m
-	0RRKcwO0QDCjTvED26/KOfUaVVXPwQ==
-X-Received: by 2002:a05:6402:1950:b0:6b4:1df2:244f with SMTP id 4fb4d7f45d1cf-6b44311209cmr4202580a12.38.1792908922797;
-        Sat, 24 Oct 2026 23:15:22 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445991e83sm1959214a12.34.2026.10.24.23.15.21
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Oct 2026 23:15:22 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4395d31228so305820566b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:15:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByfsWu30oD/P4Iov+3x5k2W382WPA3SDcspkMRZN3rnBZQB6EtKZxIhaK7B9dEOAODWrSlvDfpP+IcWNu8=@vger.kernel.org
-X-Received: by 2002:a17:907:96a5:b0:c40:36ca:9d1b with SMTP id
- a640c23a62f3a-c46bde9d4e5mr422758366b.40.1792908921647; Sat, 24 Oct 2026
- 23:15:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQ0en68/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81CC1F01825;
+	Sun, 25 Oct 2026 06:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792909138;
+	bh=mE80kSeQnRy822DQdzD027tqTiplPDu44C6x00nRUWw=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=bQ0en68/coHZ27ABXrhX1glAPXzitTV2Zliw0uthOETGqTUuMeq+TnYWk+76Qr7AX
+	 IOQtZLL2vaEYHpZiGS4ZSGETgvuvZt0SgloZWolRsqHtmlrAIu3aijunm4pLnLiKhP
+	 5FsfzB9/qz/2lRg4M6wNi/sSUia9cjJys+D++PEvCJ2BBLkWtNvgC9sojk+aCKKvtt
+	 DdwbTCBQaHEqeYtSwu7SPWAWewbvNsSMlARf8WQuGt6xVAdlTQMIsAkqxTzg8vdU+g
+	 LDvmMydj2KDOKLK/szgtG+YTakERDv9GGJji8pTzX7DBjKwPWyEJ5yuKBIc/nkN8hE
+	 rBetnbJV5JyvQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5E3392ED67;
+	Sun, 25 Oct 2026 06:18:58 +0000 (UTC)
+Subject: Re: [GIT PULL] gpio fixes for v7.4-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261023084131.49264-1-bartosz.golaszewski@oss.qualcomm.com>
+References: <20261023084131.49264-1-bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Tracked-List-Id: <linux-gpio.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261023084131.49264-1-bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.4-rc1
+X-PR-Tracked-Commit-Id: dae739137441667d67fbfcc4d303a0ecc6618662
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 9628ee0c2219daaa6374b0c5f5a5c0d55e0e263b
+Message-Id: <179290913747.2017309.7425268997146101790.pr-tracker-bot@kernel.org>
+Date: Sun, 25 Oct 2026 06:18:57 +0000
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,26 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261022195741.GA3409202-robh@kernel.org>
-In-Reply-To: <20261022195741.GA3409202-robh@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 24 Oct 2026 20:15:05 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wi_=AAiRHLqW6DxBfaw0mY-KRtkd0JNS6SqTRmp+f2+Xw@mail.gmail.com>
-X-Gm-Features: AclHuK8lPpA4JFhXTyry20nXxc5JcKa7_iIYA6Rr6nbO12sQCOuIinbGoDIc4vY
-Message-ID: <CAHk-=wi_=AAiRHLqW6DxBfaw0mY-KRtkd0JNS6SqTRmp+f2+Xw@mail.gmail.com>
-Subject: Re: [GIT PULL] Devicetree updates for v7.4
-To: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 22 Oct 2026 at 09:57, Rob Herring <robh@kernel.org> wrote:
->
-> Please pull DT updates for v7.4. There's one merge conflict with
-> mailbox tree and the mailbox.txt removal. Take the deleted files.
+The pull request you sent on Fri, 23 Oct 2026 10:41:31 +0200:
 
-I assume you meant "git rm the deleted files".
+> git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.4-rc1
 
-                 Linus
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/9628ee0c2219daaa6374b0c5f5a5c0d55e0e263b
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
