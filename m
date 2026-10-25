@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792897123;
-	b=n/tDDfTk5Utt+BG1Z9W6gsr8/8LMA23qcxKB3lXtvu+Ik8WaJBMhOc7F5W7wMqhpHl8h
-	 5CnwsFS+619xuE9GBOD5lllfsuvJQRMYu+qqzDf9SclMFh/qUdFtEFWrF2QO2YSzlAbD0
-	 x4cHvljXkeD2PudgnCRKqDbOR51Ul6TRHjji1ECHGIqA6o4pcT5WgEE9StgGoqoTC5P+8
-	 AdPqtqCPH6Mpq7btmZSt8YsaYD9z++GyryOW1aD4j9o0EbJO6XaQulZCXGo+BWveWFaje
-	 6+sls9pRm/U0HkqUtu05phyEIxcTGtvQRTSUhPBj/gF7ShHlAJy8dl65lGImNg/M26A==
+	t=1792897153;
+	b=fyaKkH9L4bz1b9eBPWFgIzL3d/qQmOfwlz0p4AwE7C0ZaG42bqALt7r49X3yWIc0y1AV
+	 zeP8FFoJoFFowQuF4wTZpoXeLqjeXmH2T5J5Nz8M30PJztj1dgwM1Urs0a9+onoyDXcUa
+	 XFpS22onWly+2yFNNt+HSM4UrQpUm3Y7h5if+3hqKW+acSFUIVCTdjhvo08udOX8NRCJ9
+	 TGdDbpJ78r8sI335hh4FyTtG7g+XPo2aFYDSEJEXUJdetIlI11RFRSrXTc6nRGZEdRyzx
+	 aLac41w68AlrBm5wMGrv9A13y65NgSXs+Ek/BUrs2CZwTR5tDX2Gkp+MoqBVZwmQC8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792897123;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792897153;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cv9hAJb6OOBGgjMXAhD6mSWLhoRdml/4YCRPOys+VM0=;
-	b=MgohfAiT4A7W6PdnzWa84RAzfrfTGM6p5S3yjA4AalsV+DLsVJV8HqiuY2OCDNcwXV3X
-	 pkyxcO7xnALTn7s9P9N8dbZpMISbBMLuh0b0pMdXw8kpqqAAiEQPNKiXHwdtB8BrhlQ86
-	 azx51MAPe7fcjmwDrtpyKkhIe7QjqOXpv6uF9SX/EwAn+y1R4zuXOe8WsGHd33ufhwgYS
-	 z318GFxsieUwTBGYI7FOjw67Sphg1t+SF6pOdwz7B0GN3zpOspyPE9sxqEY417EkGly6U
-	 R6bDNN9I6nFwdYCnkyraO/D1EJjwtS+nm87G1EobJc74q0h7ma8bqxdFU8lbdFjYKJQ==
+	bh=1tSveiC9WG8nJMC82YjXaEy7jhVjm3LRsoK8sttDlLg=;
+	b=md5d3FsyvIwvV+5LqPIVYhepw4LMYzpiPzYQ4Z1frHe+pa/2RhKeIwttjY4rQUWCorFP
+	 St1yKgjrxKkzRcv4IIt7Ld7cJK/DQnK19lMyKFnKSSgg3+n8k8aOXkWKJ7xec4iTvjHLm
+	 IVXTxHZsW1a0+EdouTr0+zXqQDoJGl1GZuXBn/3ngptgaEN0pBHzlKUvfnXTYOl44xr2U
+	 LXi7agICoedO99ThtMZCF6114I0aY6sLXcnj5dPp41ADt5XLCd8eXO8T4C8O1DprOIuUO
+	 sBK/UMPNH+5ndOWatR+45/c9rQn2viwEVNtCQDpp1h5D+Pu5GIBmMj+5osjtVFz/Dtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=TDuHTHwE;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8B19606A31A;
-	Sun, 25 Oct 2026 02:58:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B19606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2SukEhAW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFD7606A31A;
+	Sun, 25 Oct 2026 02:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=TDuHTHwE
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2SukEhAW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937C71F01825;
+	Sun, 25 Oct 2026 02:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=TDuHTHwE99WajUA2Hhc+0tvmyloDHsX0/zg4C/fCNX1uUriSmZL8Nx1v5hoOc2/6ZgUrxhoIEblC3
-	 dzB5zMfJKbBxX6Pb/JLAsf2iGFxCW91SXExnPfPivFKE7rRKadFaUoM/TfjmRnEQe2FLoaAJNvaoev
-	 Q9heKGgIZG/MEnYM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46add70574a7-e26e3;
-	Sun, 25 Oct 2026 10:58:32 +0800 (CST)
-X-RM-TRANSID:2ee46add70574a7-e26e3
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHA-W6400298 (unknown[36.137.216.17])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86add70534cd-7b194;
-	Sun, 25 Oct 2026 10:58:32 +0800 (CST)
-X-RM-TRANSID:2ee86add70534cd-7b194
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: dhowells@redhat.com,
-	lukas@wunner.de,
-	ignat@linux.win,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] certs: Print correct error on pkcs7_parse_message() failure
-Date: Sun, 25 Oct 2026 10:58:29 +0800
-Message-ID: <20261025025830.2239-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	d=linux-foundation.org; s=korg; t=1792897151;
+	bh=1tSveiC9WG8nJMC82YjXaEy7jhVjm3LRsoK8sttDlLg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=2SukEhAWahl1LanuRCfpmWN9EAsZSd2DghzLxWqgSM/BdZOyTgSiWteYNq7sELApu
+	 rS/6a9ICHLaAul7K/u+sy3oJb7tu0MnPlQmyqrU/D071n7iEK/EUJgg6Dt9OCmeMxt
+	 5SmCwZ0znZy2DZPgUTGd6QOujsyeSEbOt+F3KCIk=
+Date: Sat, 24 Oct 2026 19:59:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>, Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Joao Martins
+ <joao.m.martins@oracle.com>, nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Subject: Re: [PATCH v5] dax/bus: Fix Device DAX range alignment validation
+Message-Id: <20261024195911.64e9d7fbb7522bab8193911d@linux-foundation.org>
+In-Reply-To: <5AFA3B1F-48C6-49FF-A6FF-7D71153671CF@linux.dev>
+References: <20261024112555.2476001-1-songmuchun@bytedance.com>
+	<20261024183853.6803ce81788636e94d8c16a4@linux-foundation.org>
+	<5AFA3B1F-48C6-49FF-A6FF-7D71153671CF@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,36 +61,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The panic on IS_ERR(pkcs7) printed 'ret', which still holds the result of
-the prior successful x509_load_certificate_list() (0) rather than the pkcs7
-parse error. Use PTR_ERR(pkcs7) and %ld so the real failure code is
-reported.
+On Sun, 25 Oct 2026 10:52:29 +0800 Muchun Song <muchun.song@linux.dev> wrote:
 
-Fixes: 8cd9f234f706 ("certs: Move RSA self-test data to separate file")
+> > your series "mm: Unify device DAX and HugeTLB vmemmap population paths"
+> > exposes it.  That's 
+> > 
+> > 4b77739fe789 ("mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX").
+> > 
+> > I intend to send this to Linus next week.
+> > 
+> > Maybe also a Fixes: 4b77739fe789.  That series didn't create the bug,
+> > but this data provides notification to people who are backporting this
+> > series (unlikely) "hey, you need to add this fix as well".
+> 
+> Based on the above info, do you think it is necessary to include this
+> commit as a Fixes tag? My inclination is to exclude it, because the
+> issue is still there. It's just that it gets triggered earlier when the
+> debug kernel is enabled.
 
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- crypto/asymmetric_keys/selftest.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/crypto/asymmetric_keys/selftest.c b/crypto/asymmetric_keys/selftest.c
-index 98dc5cdfd..179b385cc 100644
---- a/crypto/asymmetric_keys/selftest.c
-+++ b/crypto/asymmetric_keys/selftest.c
-@@ -41,7 +41,7 @@ void fips_signature_selftest(const char *name,
- 
- 	pkcs7 = pkcs7_parse_message(sig, sig_len);
- 	if (IS_ERR(pkcs7))
--		panic("Certs %s selftest: pkcs7_parse_message() = %d\n", name, ret);
-+		panic("Certs %s selftest: pkcs7_parse_message() = %ld\n", name, PTR_ERR(pkcs7));
- 
- 	pkcs7_supply_detached_data(pkcs7, data, data_len);
- 
--- 
-2.52.0.windows.1
-
+OK, skip that.  This patch "dax/bus: Fix Device DAX range alignment
+validation v5" has cc:stable anyway so things will work out.
 
 
