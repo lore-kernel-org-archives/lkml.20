@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792897590;
-	b=QrNfn0SkGK6JFu74MnSnCYb3vnwEQ05NWjmeYSAcb8yNII/Y9BuMzCLkHhr+gfr46jAH
-	 r9jovcDCntAnXsQwwhfRrq+zfrdfLKAPxJgyVK7gelvLZscb9aNE4AM3LOXNwh/jcgV98
-	 +BrMG4U1TU5P12r+MU1gevwn4vdzNPeWQ70UwKQu1Cig+NmKrWT6CnIUESKQFGHn6hELs
-	 21mbF00l+1lbcOo2bvynUDwK1ePav5PGCJPz4vG7HBZLC8jrMEZhPYyKicml4mtVLdJ5z
-	 lE24K7T+UgQzUJJniDgO8YLz0UgxNUUN/8fY+BUKIMpH+R10eXnCre/4ArvzO+fTsEw==
+	t=1792897586;
+	b=cMyTLz669HEqigyDgd0g58gbvrBGVvi7gxR8exD/nCd/vdIRR/fC4I5NuS+nY4Ipis/O
+	 fnpbgET9GYruN8tdb+vElWP+PDwoOEqSfr8qV82uDEf3w7Bn8X4cQTD3nBd5+/0a/q/Ty
+	 Iwlj4lEgzfk8dYcFODYtwtabQJSf0mzkDDG7srMwRyR2UOG6pCFz/ZPHjEGbDNQsR1ILK
+	 mu/V+VbqdJxuCB/BsHJuuZUg/KSz0YryYKDM3LcZXlQAIiM+xkzNYSpgfvmxcabCPdBMn
+	 z6m36xthj+dWfHf0VBUSnCwGCYdIvrl9JeN9HisRjJZCi6o2tcX3/GCIDPXdqM0C+Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792897590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792897586;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=hk1wDV3cftNul7hst1bpw8ll7MqO7jC3vQTcFnAfOM0=;
-	b=LVgTLXMTTvTdkm75Z3dvpv4OYcK9r775459bVEjv89ipB414YmUwlsK+somu4yS/Qw0f
-	 cURk3T+VZHNzMGI0G7bV4VttQIORq1o2bBPdrQNc4m5tYPkP/I3cIHcA43U+sJHbshMYl
-	 q2qT3fkWY2eXkFUdDvTmb5ZTFo9tTGiZBNmBwMZSfamrl1S3Y3YVryhWAAQKbx7Gudz6H
-	 O6xRjv/3roElccRn6cf6OuAJZVSrn4vb7HSuKw88ae7cB9QVhlqlW0Y0CLwh7RXWx7y65
-	 FoCjXxTfFQaE1YlpQSkJFNS3R3N3wELwu3hKeHp2iOXmIGLCxyDhHABVYgeO76m5Oaw==
+	bh=osyCBuMlFwaJ7pCpXIldLLNCTTzeyf5KJ+XpIin8lLU=;
+	b=BZQ+BZ7VHNF5JlYUGTPIS9w+1JkRiiZXrtPkZ0U7bFeMAHxBYfZOGUj1VS8Z4VP1zvsP
+	 0ia5lkzxksLn1+0Oy3XthyiI5v8sD3ySSdFcp4R8p/2Eg3Hobhe8ynEEIJtIkCqdL8a3a
+	 3IIfomHXGhvXb/aPUlCe2ENTIqtECebLMo6zi0NOiQaOL1DMnT+WioJlx7/sA+6MRA3u+
+	 j9VIOBChPtXtIWTaWaXtAaAinwIKAHbgqcGAyHc10dgnKobJDdLWd/pE4B3s4q0ngnbBe
+	 jxIZWwBHRHNras3xWQTnhrny601ESCEUpmJ/apVIU4POSX8u/BdraFkrLxLxyGQbm/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aN8Enjwg;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f3FPvKUA;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1F60A5BD5
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD1F60A5BD5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542CD60A3832
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 542CD60A3832
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aN8Enjwg
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f33df08eso737908eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:06:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f3FPvKUA
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-369f33df08eso737856eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:06:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792897590; x=1793502390; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792897585; x=1793502385; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hk1wDV3cftNul7hst1bpw8ll7MqO7jC3vQTcFnAfOM0=;
-        b=aN8Enjwg1S+wyY45qPIpVzwnmddTQSjnGLzLtTtX5aywM4Ypnn+84EIVjq/0PgRatw
-         EW2bv4jFE5sb8kcp5uCn0i2nzz4Lbv92cEE+/4MnZ81zAMZnhifhkHA7hKLbedSe8Q1U
-         SEdy2X9nm2FpC/lioHT8oylUbBX6NdkDc/oVXYi58HXnSEqZKwi87QPcliSyH0dvgRRr
-         qv3i703MNbkZjIyMMylbY6wZ/qoWm3yrXz1vDUbM6Yhl6Bdb4vHH9oEJ0baK0yIADVuN
-         GMq3wNoIR2H0lkJjqzLy1gl1pdunGPz4XmCJhCjaFXZNOQn2BESKmcNdEP6rndAmgxA4
-         PJmA==
+        bh=osyCBuMlFwaJ7pCpXIldLLNCTTzeyf5KJ+XpIin8lLU=;
+        b=f3FPvKUA3FwLxyTVNlpoN/PVAzJWJqqU64XCci9jEONr0TiI7pON/EQ9f/+ple1kzG
+         lFMvf54IAfBFfZ64s05j2WQSaEzbJ6HIXxwfK/YDZm+HiWEy7Mh3XR3HuM/2ymdY/NdM
+         FNPSneSMqDFvpXbaHObqEHOyNsvNtmaNjQ/1857G9BUYeg2foYxPxTCzAb94yY8UjZfP
+         Yv5jvw0K8acvXEYFM+9sva/TdhffwOxL+4o6K7V55pstQaOKEDcglfp+KhM/f9wReb7X
+         /Se5X1tfZoM+LWODjS3tZh14Ktn/InWj0LUJ5dj0DRL6W2v+Rr0qnC3cHulGACYjmYPS
+         V9fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792897590; x=1793502390;
+        d=1e100.net; s=20260707; t=1792897585; x=1793502385;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hk1wDV3cftNul7hst1bpw8ll7MqO7jC3vQTcFnAfOM0=;
-        b=D+Ae9sV0dNwZYneMTbLX7STJ1mp1yeleIPU4unD9yvwjtVDfyvTMxn1pyWpPSomPJI
-         8YJHOd7EZ0Jhw7PmvR048boyNLFkq3Y+mYOq6PRzOC2ZY1mJUNOvpfC3IgrNUBt/uFI2
-         O30IvWMTL5VWZpivvozFWzeqLW9jf0lXQOEtlMvMPAxnHconm7Pe36sCfFCeaXMLCQIs
-         42+qDgZQTfVhTuWVAAwwiGlVXjpiv5g7wc+roLb+tfdVcWRShHTkIpfHPTIfwNLnP5dx
-         6xTlHFfkz6zNO9E+q55cQeRpnZ/O5xss/ju1U3yJMypQYa2mHTdMX6z6U0eC3clTH8ce
-         IFIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxU3dTWKPyzi8klYQr30DF8itu9m6nyH2qVkRoIj/4mOD2mAoRCBXCnQ0JdIqJeJgu7KiZ8X7Je/DohCMY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLS0EK501r1I1JOypUcjuXqhYHtYdQ5SJrbwwT6DFfpZ0MqoN7c
-	9rQvWeNAAIuu5Qytp49cPU13rhC47OtIfh4y7aOsRoqSfcMOj6sFrvjE
-X-Gm-Gg: AYBFou0Mm8bpjg7gNlZozD06UbxxriA4cPIROmDhhmPcrmo68dWH6124fjYZK+lAdcr
-	8ft3/qw7r1WMbJjrw8h/laY/8s+UqddAphCShMScJehHxDcDODmd3Ry3uwdQQPBPOalkPEEyOP1
-	iVlWtJVbszmQ50/5ufQRISY2UMQKmhm4wqt2hkdHMvP1RIXHnZEr7ujhH8RuVE6C2LfPd8wepZJ
-	tfVVixlpW2HonlPTeQKaMNNwCpU+7z73QCXrfkGQOc9dz1ERw70HwSIcxkdYXS7vpfjDNDklmNp
-	0MzF20QpQqTySRb2ksHj+VWJUqNjWa/hm3EXrhCsMGiZi1rH4Sq8yMiKU9SZi0zJCYxGexVfLTr
-	qZuBU6kdpjrEYKcLdU4L2Ynce67bxydZWwwkvZW0vi9akoDRf9OsAYj7COTjiiXHuew2+OsovDw
-	3aXLVZoMTfUe2ksWvBGGvnh09A6gWRxkf1NAhtlquq4xQecsa9oGMZQu/x3nfRbdL+LOpqvlKYH
-	Pj8uSW6x95G/V+vAQtkKWR5lfT5c+p+Z8God0T0D79glT2mJ9Ni24iP95zhh2UF0qnbWGA/g0s+
-	+Kmx+JQB+lITNf71WnbZxpMirOMiz4oWDaxK0ZpCvcH+
-X-Received: by 2002:a05:7301:b0d:b0:360:e2e6:f849 with SMTP id 5a478bee46e88-369e864c29emr4731675eec.28.1792897589570;
-        Sat, 24 Oct 2026 20:06:29 -0700 (PDT)
+        bh=osyCBuMlFwaJ7pCpXIldLLNCTTzeyf5KJ+XpIin8lLU=;
+        b=fCYcsy5Jpi3vrBMbHq0vVS2v81uzIJz3zDumsKaniIg2S8jYskGJFTfZAy7Tsx+bUc
+         4Wte5TD8FBOiQzAeDTRs1EwiRFZANAN2xIYXlkS0A0ZWvPO14ZvrE06aJGulFWX4CD38
+         o9vjOxzllymBzaMX+0YeKmScMWZyyqPdFMG/mPfgbAWAnxs6NFxUGBwZCVJh84v+wm7Z
+         UC6W5xm1IfQd4Dp68erfwcHIdyMqrsvWt5xiMBZJn68dM2LlCpQb4MrSyx2E0gzpAS6v
+         mCQqo6lAaqxfRqMpOFDCcLMJr7Ckxs93jWJ7JLlPCbjv9+YpAs7HrVUP/HbNaGV0khpE
+         2Ngg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdq6uvg/2yxXoq9rBTsvMewz6y0Qb1Ep8ljrgmCZ6oinP+mlbeJhkgiIAa/bJwQNLAOMmNMH5I1dVyvNc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqPGNY6RydWplJGrIGfPdM2PBjoPRLMDPk4geJNep5pHBKKAXo
+	7CTkFW/vqlKpOdJi/m0NDuvF6AM1B8AtIiENygNJ4XNIc10a++lovewo
+X-Gm-Gg: AYBFou1zmoH7kWx8nFfbcdB5uR0yRmvw7umXL7/IKpEnnv7fjB59rBjmcBTKgj8dWw3
+	ZduVa+7V9wMwVR+EvoS7Usra2wWX8ArczYdvONwtOGLPBvW84AFhKcyrV5JKgloqtZ5njdKK/0F
+	LAGqMok/A+RgtbkIYz9ntHE7aMTrLCp8SSb0yqgIFGIxVZqtcCQMVjsrzZ7+RJN0s+iKZdbZnbH
+	6/iUgRTvvV5X73LDzt4SazzIhjJt4gLl5QMT64hHwYQtWbEGGt1CL+MLiDqiWsEoHqRJkGXQyQT
+	iMQmdCH3gDwKaHO8FlOmUVbMpFKkJOvTZEb56Umkl4Z4t5ZcQTJTCLPD2y2clEJkK4tI77KWLQE
+	7MZhazlpVwK/OwPGJsQ+G6ykCILdQgkm9xTkhhnBti+nlDN95PKTvJPkluRhwliilw4XoxH+ih+
+	8PNTl6T0PYmIRlRcuSW/HPqYw1X3BTp7Z+jMRvPq8BjRPPxVUgNLWYFOm3STY8HRqk0CNivWRK7
+	Zm+ED4C7q53auSJYvmpXTRITceSd5vTZchzYXWd2tQPeVKodxqucGXca0z+b27A0nutt3C68YEh
+	JyM5NMKNcFfliopp8GdoddhMwZm8JwTVSPaBDJx5V+4=
+X-Received: by 2002:a05:7301:7bc4:b0:360:51af:3146 with SMTP id 5a478bee46e88-369e861475bmr7532937eec.14.1792897585448;
+        Sat, 24 Oct 2026 20:06:25 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm20245992eec.25.2026.10.24.20.06.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm20245992eec.25.2026.10.24.20.06.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 20:06:28 -0700 (PDT)
+        Sat, 24 Oct 2026 20:06:24 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sat, 24 Oct 2026 20:06:18 -0700
-Subject: [PATCH 15/31] hwmon: (pmbus/ir35221) use 4-argument
+Date: Sat, 24 Oct 2026 20:06:15 -0700
+Subject: [PATCH 12/31] hwmon: (pmbus/fsp-3y) use 4-argument
  i2c_smbus_read_block_data()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-hwmon-i2c-smbus-read-block-data-v1-15-e81941ad0cd3@gmail.com>
+Message-Id: <20261024-hwmon-i2c-smbus-read-block-data-v1-12-e81941ad0cd3@gmail.com>
 References: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com>
 In-Reply-To: <20261024-hwmon-i2c-smbus-read-block-data-v1-0-e81941ad0cd3@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>, 
@@ -107,38 +107,28 @@ To: Guenter Roeck <linux@roeck-us.net>,
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-Pass the size of the receive buffer to i2c_smbus_read_block_data() in
-ir35221_probe().
+Pass sizeof(buf) - 1 to i2c_smbus_read_block_data() in fsp3y_detect()
+to leave room for the NUL terminator.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hwmon/pmbus/ir35221.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/hwmon/pmbus/fsp-3y.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
-index b2120fc76f40..346276efff87 100644
---- a/drivers/hwmon/pmbus/ir35221.c
-+++ b/drivers/hwmon/pmbus/ir35221.c
-@@ -79,7 +79,8 @@ static int ir35221_probe(struct i2c_client *client)
- 				| I2C_FUNC_SMBUS_READ_BLOCK_DATA))
- 		return -ENODEV;
+diff --git a/drivers/hwmon/pmbus/fsp-3y.c b/drivers/hwmon/pmbus/fsp-3y.c
+index 44cf2db9364b..c59a58001c48 100644
+--- a/drivers/hwmon/pmbus/fsp-3y.c
++++ b/drivers/hwmon/pmbus/fsp-3y.c
+@@ -205,7 +205,8 @@ static int fsp3y_detect(struct i2c_client *client)
+ 	int rv;
+ 	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
  
--	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID,
-+					sizeof(buf), buf);
- 	if (ret < 0) {
- 		dev_err(&client->dev, "Failed to read PMBUS_MFR_ID\n");
- 		return ret;
-@@ -89,7 +90,8 @@ static int ir35221_probe(struct i2c_client *client)
- 		return -ENODEV;
- 	}
+-	rv = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
++	rv = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL,
++					sizeof(buf) - 1, buf);
+ 	if (rv < 0)
+ 		return rv;
  
--	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL,
-+					sizeof(buf), buf);
- 	if (ret < 0) {
- 		dev_err(&client->dev, "Failed to read PMBUS_MFR_MODEL\n");
- 		return ret;
 
 -- 
 2.56.0.257.gf7497c7d27-goog
