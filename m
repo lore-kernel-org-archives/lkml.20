@@ -1,97 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792913511;
-	b=UrgDmP6n7kIuDpVXfxi8QtybY9yNIHjbgkTMhlSCGt40sa2Gpndml7vT6jVDV2pB4dgN
-	 gkTTzRbr0xz+YeEM7CoJ+MdHa9RAPmNdHv1aJp/BqcK1a9BFnR403neYxxGL0c6WmFi0x
-	 w4BCal4LB3Ww8Jj+fwHjHHEoM2OWUwX2BTQtNrwJC+BoioE46yYRx6XLFu9Kcl6O17dWR
-	 ei3KsOL0TcRsuiA4VhtilZSRYh8MgxLyV2TjDtSM6QfFoi0rne/PhK/ORvPUYwA+YsYxn
-	 gukui26k+ih8+mvQ/JBD13Gg08HUgcNPkcX6AQ+yZDNvcOyPt4u5K2wDtu/tcgbNmcw==
+	t=1792913709;
+	b=Ts9RlCMpb6e21Bt6/WcO5SX6gOhEbYAeZX/3M7M8J0P7KQFfmJmlfMma8s12ac8UtJX1
+	 aerjjBTT6PfuB7UAWF8qkz55FCkRK4StHQxK76+HcDpDlkWuSDG0D6fUHcN/VIk2/gEbb
+	 4ut/YpkkW1tLgw5WStwdS9De65wrUVqMK7djna2Mo8w1kbrBkdPItfgz1rlbPIHodHmbb
+	 5MdGE0XfCJa0AtqdTk1XYovHWmI5vmIqIvC89w3fSmL75sGiXtgFI4b7/SXKD6hO6QRlJ
+	 6oANtpZ5T2oDyBeRimWxkLNvFHmjiq4TtOTnZ0AWpORJ+oBngyY6ln6gqeudi2YeMZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792913511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792913709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FcxHNNwYWKeHjjE84+HBT2CorhyixjN1OSIrgYoYL2o=;
-	b=DJPCtBcWOpy31HEg2gy3kKkBfT/bJtwRm2iZ/HrSCl/CSSH0EEowz49NW/Nm3V0GVFc5
-	 EaZVsrNotCyAxLNHVxGoe2MxU1alI+3SC04bpfiMNxFJhMkFRhnplj9ntVLc6YIL7L7hG
-	 cYchv9cdjrnenoHgbjjeLLZ49n6VIVNKg1Thxit0X1OWV089aQURy31Zebra8XfybI2hJ
-	 4LKhxXFrzM9f3Ngz2IDi9YVhFzxGBUwwunVcPWgK0TpKTkpKy/TNkuQGsKrL4IMouoo9X
-	 d47vKX/1Z2RWubOC2Bxtk3YEaw2SxXbyqcFcBPC4EoJ6fuHmpQAUmVf9XXL/Ax53R0w==
+	bh=aJ7YOTOHa3OxglopkxnSIc2krfMh+ZddwdOunBlwhvU=;
+	b=lHxiSo+x8eEwc/XPL2pC/DIR8kfqizRb1U2w8T0cSR30PklDNEiPrC8rq/DzE2lvG7gt
+	 pfWLhKmIYiKQ/Pzpfpblw9IK0sEAJMOmXu0mA3tooD1RBnICrHAl1zL1g0hig9vHdkhDd
+	 AiMvwVJm3dm664F27h+ikN58Jehwl8i8Nbl6WfbTm20N/C8e97cDkroBIUFxtwlGSjF5V
+	 89ct+Z1l/QUKvo2spzN0w0j4lykmcPgmFGPGEnSgmHl4+1ArDkUJc6+on1IlNCiyS6fmV
+	 /QWmiLFyDDiUbqZfI6Zj93nhp1wYrmqS9TvEcVWXiloIrs2jNQdpRypO/Fvt+p8FYKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="y/cWJBta";
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XeL9YMmp;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C271606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:31:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C271606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39769606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39769606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=y/cWJBta
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso21089825e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:31:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XeL9YMmp
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36681e85e87so105451eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:35:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792913508; x=1793518308; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FcxHNNwYWKeHjjE84+HBT2CorhyixjN1OSIrgYoYL2o=;
-        b=y/cWJBtadCDkUwIRpDUyDF5RbDvZLEt7trvtu32AONUpv2qtZ/5z8xKMdwnduPNzl9
-         nqvJQEGOlpTj7aim32x0J0V8H7vJlfNwqOdwu3n1VNaRATIu/7a+C+6LPLH95n7ZdSxO
-         u6nXz7Ra/FhYZpFB+i1fe/OIH2I0hnE1f5bZHROA0qIi4FZLqiRXVQK94y7c0coCLn1Y
-         BclJ44/UVeJBr06j5UtqCRx6lb3b1Lq8KkYgEHqntYTLOxAKLHe9FHKPNSaYlQimlYzR
-         dnFlr1Lxo2eFI0NZ5uVsO/UVugB6egCO559MjX2LORvZ0vRgsVPusMFHEZ7zWqRgvcv+
-         mGAQ==
+        d=gmail.com; s=20251104; t=1792913708; x=1793518508; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aJ7YOTOHa3OxglopkxnSIc2krfMh+ZddwdOunBlwhvU=;
+        b=XeL9YMmpXNghgNiNN6qKfxSa1Ko4c+uS37FICamRT1deiNALEjS6UgcgQlAwp1e4gt
+         J4zFscC3C0L5Su0+zhWy5UKTD4aezHCEsK0j0QCkZL/NjLU7NZvbwZV5K7Al7lxLdsZo
+         4p9tkRJrWYc9N2WxRU2JiWy0/6B0rXm4Vq0OjQxHca5Zg2qYIFzHaLYKnlJzsOQYdNnW
+         3yYaHtH4Onwg2qClfnJRGnKQbk/ILwmRd7VtasVZ5JtAY+oVJU0fQKhAuWKmZVyZ+6ir
+         bbTQ/RI0DXS0LO5RvS1Au2LL2RgtQcNoVQlz/TmgaeF2COMIyLeEJ9jtyOZ146sjSarG
+         MOqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792913508; x=1793518308;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FcxHNNwYWKeHjjE84+HBT2CorhyixjN1OSIrgYoYL2o=;
-        b=XJTVdL8RLXVb3VwFa7xwU52MpCjNAVaZYfVW7uBPmCFg6sJeepemWeHClGpPs34Czs
-         l2cbQ73GO0m4RxYSP3WotMYgy2OQvIn6k5++4oMM+UISuOZpJb4mGkJzxT4T+CHHNVrl
-         ccnrL0XmG4Imc6LtB8EdMNFSuE9kjFODiMsUT0LK1mJJOJXFKoa0Hc9/N7xCj4U7KS2L
-         ECL3HTnkHMut1G6YhcMNXqBQE3GAfYkEGdjBBv3p3i2YD3Yiw0GLSFQWc6hQj3h3ZZ/z
-         GX57PQZ+ZKgO9QoSTVPw5iUPRr6m/38zu/LTs717gPvApfYNfAhJlUGKszGkxxhAXuPj
-         l3Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdi+R6UDmOZ7DUja5UmPMwNZffd2OkRDPzTBtJ/OMe4F3ugcpa0/xjMWlBVDz+KFJDZXJ7Mj03poKFGWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKx8+IYO6owe624hc5m65oqW3Ipxe7Jelb0MtCGqj4Xa/12o1Do
-	DzcJeLKo5LyrxLsiQNGcAGdaf8T6F6jG3mN0swsmr7lnKiYSlBpwtex7zuExYuj9Ah8=
-X-Gm-Gg: AYBFou340su4RW/8P3kbJ43tFH2c7aEnV/5bMrFkHF0L+J7SCm7Gl6Q8xShgzEcKK2f
-	7X1bKXYWKPJK0evEYSxTJRNgXTXwfy7xX9oVhXHL1j/shjAOnRySzCsQxU3WrxoSRO024/EX1ii
-	nkUEn9s+U2Dixf57j6tQvtldASgPLBnAmPpbf8SePRre8LP31JAGp30C3gnDlJnJ7aXGgYCq4Bo
-	9/WBiM8TKLVovdXXxKdxOK71WkeF5zRuURGIK9n2vlZ5fv9UZTeM3rk3K1GO11FSLlGuj+sDYnA
-	NvcRClJdKG2vRItCvyIS/kpoBVHYhsE2AAWtltI1Us5si3I9QPB5T2DKNBkM55rBCxSDZ9V/mCA
-	v1/V6PCHxMR+C7PqgPJZ/dcVZTetnVDh0qyMMp1saakDoa0oP5+YnmhBKusP1Wldx1wrLyk/sJ+
-	IQPNLy8XjpoXPsnrE+SdnDHQSkTKkepF5CE8TR0fqyouY5Xav2PwE0r88FW6HUc2G0g20aLXXPy
-	PVrELSPvYMcL4vDFPCP303jgzQmvm3d6NV073Hgt1RtQjzZr0LFBbcKTYcgZXHTRvxjw0p+uvo8
-	3YIK+UwNT9z3FIjrRKYjYlejhRPWYoJinJmqvkMA11KxTRjVhh9kWgfiE3XhwRRQYH1aaUbcP+L
-	NQfyEPHBkG6/KDSI45/8=
-X-Received: by 2002:a05:600c:46c3:b0:4a2:fd2:9855 with SMTP id 5b1f17b1804b1-4a35acbd173mr62562205e9.13.1792913507871;
-        Sun, 25 Oct 2026 00:31:47 -0700 (PDT)
-Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm107744875e9.2.2026.10.25.00.31.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 00:31:47 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "Maciej W . Rozycki" <macro@orcam.me.uk>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
-	linux-mips@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792913708; x=1793518508;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aJ7YOTOHa3OxglopkxnSIc2krfMh+ZddwdOunBlwhvU=;
+        b=umoFC+YViLPiViEzgUxOtH8q+V57Tk/TZcRAZumc+l3g5H8KX27MTNDZCSPUn+57yU
+         FExJSbR7hCF0gLchugT4KY9s0aw8GJJlzGu2quw4Ln+W2+Df0s9vVdySydTeIwaHDSKA
+         V3VuDGsC+FbqXJE3M6TXZzAzfPs/8HeQwMn0DoN9izRBDOj6DZrzyacN4IpKuWt+Y3NM
+         BFDNma5YtjFMbFi+Qw8tNCP9CY+0FPjkd4lJvJOXKV/SttVtKjGnF6I6RuSq7UEb03qI
+         qfCK9WwEPzovitbaoD9XLk1b569GGBQQASb88hwC88+s7FzMuc1haUfQNROFrRri3bHD
+         OIRA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4n4pMwwKSnuc7MDunNZlogqXTxGvHMvU74wYnZGOom3xGqZx8i5zkI99tog75dPDZh42PMYsX8mtsyfw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNLHaj8hjERzQv9exk87W41wc+X9DZPKYisOA23asWxzpzP4t2
+	PjXZ88p7PSQQPY0EqI0410Hnq67FKvuhLPBoGPH8RQhJ8Hn33cdRz5kl
+X-Gm-Gg: AYBFou2Z//c+t19yk7YJif/2KBBEhnSgfWkGzaAygCfqT5DfyZNn1WThIU1foR6iYdE
+	fgI0/Eu3NoXCrEmy5TmCxEImlZeXf26cuRkmk7aCmb8ld8a4dpONh+HaAkdMCTNRRd1A9FUGCXO
+	jlbOaIvIt8u3tbXG2qX6YXo/95+aOgrMMo2J+0MfbEyudpAH5HWaAprObiP7yAeN889rhVCiHKe
+	Gt3w5g4KacGCacUKLfqZAwG8Mbdz/o0SCX2IQ2Aj7GjLDayClS4vjx56C9wHL0h661zr3dn92K1
+	qmLCFUnnZKUTmc0vNpvijiBLFTMqTxe1zIuajpQ+hgODitoARpKSQxWBysxXCpBhOkbKVwuobXR
+	W/ancXf2on6UboigH9FCW46RiwpWX1MAELv+5ETGt0DrtKzAHgW7npK1zr5PqKVZn6RDG3+xinF
+	m8dTqjPstwZ4kWCheDPfZAPZuYG/ObrbuTF0/TbJrA7qicdFdkaoHPAP/yy4/GIa5orDCCLqQZi
+	PJQMqDoXLig9Hh3p2iX0ymlYC1oY7nub+kPeNERqY0Uv4b4Ab4eGC4Nfqy9ZKReH4UCcsZ55Jqq
+	TQkd
+X-Received: by 2002:a05:693c:6209:b0:366:83dd:46f3 with SMTP id 5a478bee46e88-369e84596b9mr6176954eec.14.1792913708251;
+        Sun, 25 Oct 2026 00:35:08 -0700 (PDT)
+Received: from localhost.localdomain ([2409:40e2:11e1:8680:3154:5358:731d:7be5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec50bcsm27620427eec.23.2026.10.25.00.35.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 00:35:07 -0700 (PDT)
+From: Sourav Nayak <nonameblank007@gmail.com>
+To: ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2] MIPS: cpu-probe: Recognise the XBurst core of the Ingenic X1600
-Date: Sun, 25 Oct 2026 08:31:46 +0100
-Message-ID: <20261025073146.25326-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+	Sourav Nayak <nonameblank007@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: fix power limit failure for Victus 15-fb0xxx (8A3D)
+Date: Sun, 25 Oct 2026 13:04:06 +0530
+Message-ID: <20261025073406.10085-1-nonameblank007@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,71 +95,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The X1600 reports PRId 0x00d00000: company Ingenic D0, implementation 0,
-which cpu_probe_ingenic() rejects with "Unknown Ingenic Processor ID!"
-before any console exists.
+Victus 15-fb0xxx (8A3D) does not support 0x29 query,
+Casuing severe CPU power limit after disconnect/connect of charger.
 
-The value is in the X1600 programming manual, 2.2 "PRID of X1600-CPU":
-"For X1600, its value is 0x00D0000", a digit short (the X1830 manual's
-same sentence gives 0x00D00100); the chip reads 0x00d00000.
+- Fix this regression by restoring user selected profile,
+- It matches behaviour written in omen_power_source_event.
 
-Add implementation 0 as PRID_IMP_XBURST and handle it as
-PRID_IMP_XBURST_REV2, as for the X1830, which also reports company D0:
-write-combine through the WA bit, and none of the REV1 workarounds.
+Error output:
+[ +14.861905] hp_wmi: query 0x29 returned error 0x29
+[  +0.000036] hp_wmi: Failed to actualize power limits: 41
 
-Tested on a HiBy R1 (X1600) on v7.3: it reports "00d00000 (Ingenic
-XBurst)", mips32r2 and 1099 BogoMIPS at 1104 MHz, and boots to userspace
-straight from the boot ROM's USB loader after a reset, so without the
-HPTLB_DIS write of the REV1 path.
-
-Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Tested-by: Sourav Nayak <nonameblank007@gmail.com>
+Signed-off-by: Sourav Nayak <nonameblank007@gmail.com>
 ---
+ drivers/platform/x86/hp/hp-wmi.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-Notes:
-    v2: the Letux kernel's handling (commits ee3e4e8baeb6 and b799b9a5e4d3,
-    Nikolaus): no SoC in the macro name, and the REV2 path, as for the X1830.
-    v1 put the X1600 on the REV1 path, which its commit message didn't say.
-    Letux's PRID_IMP_XBURST2_R2 (X2600) is left out: I can't test it.
-    Added the manual reference Maciej asked for.
-    
-    v1: https://lore.kernel.org/all/20261023204205.48222-1-olivier@mgcrea.io/
-
- arch/mips/include/asm/cpu.h  | 1 +
- arch/mips/kernel/cpu-probe.c | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/arch/mips/include/asm/cpu.h b/arch/mips/include/asm/cpu.h
-index 0fd9f9bbd21f..c43c9364ddd0 100644
---- a/arch/mips/include/asm/cpu.h
-+++ b/arch/mips/include/asm/cpu.h
-@@ -186,6 +186,7 @@
-  * These are the PRID's for when 23:16 == PRID_COMP_INGENIC_*
-  */
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index ee6de96b3280..9770cab99b9c 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -2355,6 +2355,25 @@ static int victus_s_powersource_event(struct notifier_block *nb,
+ 		return NOTIFY_DONE;
+ 	}
  
-+#define PRID_IMP_XBURST		0x0000	/* XBurst®1 (X1600)			*/
- #define PRID_IMP_XBURST_REV1	0x0200	/* XBurst®1 with MXU1.0/MXU1.1 SIMD ISA	*/
- #define PRID_IMP_XBURST_REV2	0x0100	/* XBurst®1 with MXU2.0 SIMD ISA		*/
- #define PRID_IMP_XBURST2		0x2000	/* XBurst®2 with MXU2.1 SIMD ISA		*/
-diff --git a/arch/mips/kernel/cpu-probe.c b/arch/mips/kernel/cpu-probe.c
-index 489612ed9d49..7da5591f6024 100644
---- a/arch/mips/kernel/cpu-probe.c
-+++ b/arch/mips/kernel/cpu-probe.c
-@@ -1814,6 +1814,8 @@ static inline void cpu_probe_ingenic(struct cpuinfo_mips *c, unsigned int cpu)
- 		}
- 		fallthrough;
- 
-+	/* XBurst®1 (X1600) */
-+	case PRID_IMP_XBURST:
- 	/* XBurst®1 with MXU2.0 SIMD ISA */
- 	case PRID_IMP_XBURST_REV2:
- 		/* Ingenic uses the WA bit to achieve write-combine memory writes */
++	/*
++	 * For board 8A3D (victus_s_ec), query 0x29 is unsupported and makes
++	 * CPU power limit to 4-6W. Match omen_power_source_event omen/victus behavior:
++	 * if returning to AC and the profile differs from EC, restore the user-selected profile.
++	 */
++	if (hp_wmi_thermal_profile() == &victus_s_ec_thermal_params) {
++		if (power_supply_is_system_supplied() > 0 ||
++	    active_platform_profile != actual_profile)
++			return NOTIFY_DONE;
++
++		err = platform_profile_victus_s_set_ec(active_platform_profile);
++		if (err < 0) {
++			pr_warn("Failed to restore platform profile (%d)\n", err);
++			return  NOTIFY_DONE;
++		}
++
++		return NOTIFY_OK;
++	}
++
+ 	/*
+ 	 * Switching to battery power source while Performance mode is active
+ 	 * needs manual triggering of CPU power limits. Same goes when switching
 
-base-commit: bfe97f12a0a64c3682be21a02404238e3b91e945
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+prerequisite-patch-id: 81b94f3910be80ec60f3b82188d4b141ac6c34d7
 -- 
-2.39.5
+2.55.0
 
