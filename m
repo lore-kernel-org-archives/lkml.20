@@ -1,97 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792945618;
-	b=EM0ysEmln1fAilpjTqeHbU/ul5UIfDV/TSMPTCIkitsT9QfdSVuC1yxF2UwGY4kKhV28
-	 SwjXMXUIdiiEOTRl9ZoAsK02IRRdZG8sXqCyoT3AJqIuvl1oDQu/RQHsQQpXppvzdEeYo
-	 a/pUjq5UXgTpLFxJ/dULdvuhe9hBn7vfJ8xALFvhAPw1AihIZFGTb8/pyFy5MbKDtJ3Rh
-	 DNcrhA+j+7FFJRJDMZzW7EG2gGQuz0XgVD2HioPkwmQ6I0GwVNxiANggrwRWfzhesk1M9
-	 5lyxXJUACXzUPl7JPHalhfpHn4vCMflpd62y1JxT/0KyP8YPT7f7Np3lwO6YE2cBCWg==
+	t=1792945940;
+	b=VI0QZ13I9W0Edd5DwW95WbKt/USF99KumA3ssznzWJJU/e1uAwk2bbr/HsUxPbkE4GHs
+	 Ea/ZiYg73Qb7ZDgxm393QHefxIcBX+vfmULmdYQrOK9BfpxEFoyvJGLj9bUBGtpPI8YOh
+	 Sl+3c2dm7JEeKxgeII1lbRfobjiq4aFlzel4lH4k7qw+45QEXIIuERq92o0kQ6NzbkOx9
+	 mUixjm5tbcfZQJ6pv7IuP64VERbJQNQVprXhhAI1fpCmSBlWnuiWZ+TGR+jDRnejWDogE
+	 hkf4kkPcyj//n+sEJXjUouR4LcXUOymQ1RQT0VWLPOhSCX8R4U8VLfp+Wil5y6T/qYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792945618;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792945940;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bDSSPNSQqDQ8t1tNwPdKc7jR5DatkZpoImvsQgQ5S54=;
-	b=3DER/0QcedQuHUL42D5w4xaMEcg3zAeu6h2s9u9hP8/+k1FIH5DMbnhDpAAcFyluWV2I
-	 fVL4g4j9rRrmBhu2UtkNozshEOJ+np+PSHsjTYEyxC9a3V/ed62p9VVSq4BPHzQRW67qs
-	 JuZzJ4hQeBZN/IhoPkr5JMQTxZszjjS+7oMFBAzIsWVLkbeiNGOaPFjU20rLoFDx9m643
-	 oXiMM1CkM6h1kDCK1AgKe87VxzX4ItbxF1PXZyqoKEl6F+YW5IOX5pgeXk2rSeXQ7kiy/
-	 WM4ScpBIoQI6258N6PLhY3Df/KdHwi8tWs0bVc1/APH6tYgK3s3Lu0DEfEM4G9tvByQ==
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8okjaHqjL4OJDz9RgzhtvzITY5sy3ytCZSHI9pXfkb8=;
+	b=cT0FCmpQ1J4BCUyhOIEYB778Sf+IZHVejdeVK0oYCsrL/mBAKgsmijc6xYN74HA/dhU/
+	 TsjZqjOvzSVbJhIcutKCZJ4shtifqOo0Y8+FQ1tBgdIK3TQsE7722Gd1EAz6INyr9n7aB
+	 LazsXGPINQtBRgH3u0roICIFv5l3CKF5uarQ9i2PR73XK1AW+IWe/BBDARO6z0CP/ITrP
+	 hgo/QKDoxk4OZK2GlVynrw9craQbPBx/hOoD366+KxBCW+YwhWCafXw4z36sEs/kiJZ8F
+	 pn0s2NUofFEr1lXCk6hMPcVdwBlD6VnFjQ17bK0HMzOcUfVYZJGJ/bn21c7+j4XryVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzxt2t1J;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qFZnebnx;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DDC606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18DDC606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DDC606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 16:32:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21DDC606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzxt2t1J
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b060ec084so1341610f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:26:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qFZnebnx
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-16079d54c17so1681205c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:32:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792945616; x=1793550416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bDSSPNSQqDQ8t1tNwPdKc7jR5DatkZpoImvsQgQ5S54=;
-        b=hzxt2t1JJI290AWZMMbrFT04USgwJ56QM2abbAq0YUa+RLcjcF4tzeqiw7vhF2dyIJ
-         7oJFjXb8KDrLsfNCTcA8BIgyIHdHmIckbEPA6o+uKVEOujr7PkanHJi61fxLDKzsNgCH
-         7tLdEAef4UKvhGkfspWmSwIxleoP/ywEwaj2idsTn1KfX3G252Rx2QpJmXYtku1VtLdB
-         bF2FuQZFTNLMGUlP5YFgiPpFd/JOms6AwhHSv/HjYBdNuJ+wdU7Bp6zGAImFrXzBU4F0
-         6xbgSE9dgDSO2Zsa9gtjUZJq2XOCajF+3QzpVN3yE1mfkT/qOUsgV87+550PbBkAlTcC
-         JCTA==
+        d=gmail.com; s=20251104; t=1792945939; x=1793550739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8okjaHqjL4OJDz9RgzhtvzITY5sy3ytCZSHI9pXfkb8=;
+        b=qFZnebnxj5Vvx6U0fvVEUOfRvN1himjhFXtGu5AX5OCfmExMSshqb9FXwntjZV7ys+
+         fcCHEN5ZlCO424XaWgf924/upjgtY78bqJtP9X1c3zhTu4HjAdm7gPMnD8Ef3QVBm2ey
+         RXixkmHVVp+ruBQr1s7NdhTOhKGV/4NqqGhTq5v3vFDgTxdcgNP3T234mYz0ChKSgyGd
+         cZhpuwtf6yiHBG59MNE4tVkGMEMSF26y3eDENo/8p+5mIDxrVzbUPHM9PbUSdkJqeZXx
+         Wiz0oVF34Sj+k/JTutL5kLTll53rD8331uuwZfcDJMLpeuY/N84+AC671UZ1VCh9GuaQ
+         x7fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792945616; x=1793550416;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bDSSPNSQqDQ8t1tNwPdKc7jR5DatkZpoImvsQgQ5S54=;
-        b=XfvGvexPCM4NAW3zPoYNdgdsMYXmbEn6/ssK7ZRqBrHG1MlcjqlXyWCI+Z0PbjGoZi
-         TprR5CiNZ09mhS7fEnyVwIH1bjnQh3w1BrEoCNgLRy9x40LANzy6HCor4+ffwKhBs+8r
-         sVjmJk3DkTJ2x3U2PQqf6r4eUGmVmQI8Nd6tr2U8uNQrDqkEk4k7hI/HUeCg13Nw5WUK
-         x/jiKqln/6hJXvFTEIweXRMUURndtdygWJm6JDhN38+8zP+Wc5eemsvGyVkOM8g2YorV
-         kOhdGf7P5sDY3ulejYDlQM1PP9yPzhpfJehprZ+AOjGLEHEwwu7AtJoaIPLvrkNRVaQ2
-         f2rw==
-X-Forwarded-Encrypted: i=1; AKwUvByCwI7bHg/SNFozPr9EEt5rbHOOdasY3kq+bq6yvYPC4E6KQGs2XcG3YQXdN/gwwdBBl+f73PU8N65Pf00=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2H+lo2OEkQFrhN4mfoc0UhC78qIvgFxTsQiR0ZidluyeZH+J6
-	Bxq9b19AC1HhBkIlfkv5riqHsTYVNGMlNipmULA2WxxIS9Ye1iS6U+LT
-X-Gm-Gg: AYBFou2xioHiDAz+w/Tr9lueLhrOuc6nAtivdqOBi8Lt2g90KWM7IQL1zPkkhfxDfh7
-	aLv3tUmoXJjlLmzf7U1K5o0EVBCFvsQItAv7vTn2vcLJoVaw18/p0y4IrcZ0iiCWQgI0CoKCroQ
-	mv8L2LV6Vd9+WZMLQ7J9XcJzEx15XugyMfC4teXAg6qTuX9aG5/D6mK7FEHu42OLVzAhBGxWxrn
-	faQ4UE0Hijqrb6EXY9AUebBU4G4FTnT8ulrxuVsebwH1LSYOr4dxkwF613tjU+unknPLkeFt4Sw
-	7kVYLCHaceGp60OOPTWgh7iRf2pOY8JFg14bvIy6V3nY9SYhJuKjiEMxOFN7pcKyDOeuHT3OugD
-	16Rx64bcItLPW44xpHdYACJEHP3VSK9Ol12Hk50Wwuk+hxazVsNIpHtfsyAHMTYY0zRrF86ZdgC
-	KXAQ9e4ebSUzD6T09xTHKd8T70pk6pdlZMNf2BU93bcrtCD0XgZR27UXWaRcI1X9L1LHjP5UfC+
-	BGxySKiLZ1i33uA5Szi+kstWIiFtEj44OHxl7xUkH5GYE4mjDNYFNQ6BoKaJ9JPtVVUame+18gS
-	AdiKPITKxtSg+VaSLMWHXO0=
-X-Received: by 2002:adf:f0cb:0:b0:48b:e50:7159 with SMTP id ffacd0b85a97d-48e3eb931efmr6231047f8f.30.1792945616300;
-        Sun, 25 Oct 2026 09:26:56 -0700 (PDT)
-Received: from Ubuntu-vm ([115.186.50.139])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfb8esm11127395f8f.54.2026.10.25.09.26.53
+        d=1e100.net; s=20260707; t=1792945939; x=1793550739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8okjaHqjL4OJDz9RgzhtvzITY5sy3ytCZSHI9pXfkb8=;
+        b=XqDp0pQadGaTOixd/z2HDk+fH0FP4+ziBN5sUQuIkyo17sb6a9vanVW5njYSVKn20f
+         W22korpj6UJk1FJ4XHSesYUYswxHZEzDOZghl/5b3BI4aUTCiTMRgB2wJU1eTgyJhoYL
+         lNd/9KtYm9oxgxK9H5g2gnD0r8onudxPjCtyxigKvj5fGYM0h36lTKxzbcuwrOVeuSFM
+         J0BHZg/v4e20aBWdbrFcs7RRpznTTUXoSzmFCIPa3gaS+4j+82ET7KP93d04KwbJJKvx
+         VwBXY9Uyw14xJ+z9OQaCgUR911Ye31MxAsjF3ZzpSe5b1TN+L/bp5FdWatoCwvG9fpok
+         AUqA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3BMZ4juTp0y9fFAs9jb5/o/1BD4tv9nuHu35BaHt8AO8L7Wrfw+/BLJ7WlzpFlNyscJajOwhvs0En+rs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1ZYNnlBoso4F7NqiFZTMX4WH9yzqTeGZuwylza6ZYHxbPsOHe
+	QA0PltNlmZ7l49vfn74SxY7LUe+2GGd7HYFdRm6aN/qxJ7B1JdXMp1l4
+X-Gm-Gg: AYBFou3R8ujpPZZCOMc3IuM0izfmKzNjB1drNMUmwX4YqzZUxBXelrJwWwEdXTWdhF0
+	V9GCRIC+QvvkSmzO5g8yNVOPeOl/qN5B9wv2xnIHQmijVceX6zGVRS0dIva5cDdhuRLEuXPOqbJ
+	MswR8ZU1heQCo3KPG/raoCoID+vguzOpcJZftP9rFtofOJ2LOtT1iqMk/2DxGOw9v+y3epl8niA
+	IbApkQ4XI/Mgs78HvhF2pTrb1Se/wBdDiiSeIwT3bzUqNpgIAPBHUre5bpwBklOIxVi3cJRi73P
+	P8278oSVbYf426HHpJLUmx/bVPXi0iz0cHt4mqoH8yq26tLsyLfHuzFY5VDua7UA1JAkLMPGA1t
+	x9dwUkdQEDU5YIyMSEewlLC6Q7UAG6tFxyEV3YkcVyUs5uLaLLnbwh38FB7b5TnpLFuININUNjj
+	HKVPUu81/y5xZiLP+9dfbtXnSQyShe0b/alyy4V7hRW3k5P7IGRvrSiJ0TfgoKuW2xvRxBRJ858
+	n4KQWnHRK/1hk4XuHKZ3Lwb+4FRMTj+/3Epi28vjqUTrEZGLzt8a9fC5EZ3Onsqx7JRhXjL
+X-Received: by 2002:a05:7022:b051:10b0:151:d6e5:596b with SMTP id a92af1059eb24-1993571a0abmr7277044c88.9.1792945939038;
+        Sun, 25 Oct 2026 09:32:19 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f83cedsm22025164c88.13.2026.10.25.09.32.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:26:55 -0700 (PDT)
-From: Haasham Khan <haasham93@gmail.com>
-To: sudipm.mukherjee@gmail.com
-Cc: teddy.wang@siliconmotion.com,
-	gregkh@linuxfoundation.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+        Sun, 25 Oct 2026 09:32:18 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Haasham Khan <haasham93@gmail.com>
-Subject: [PATCH v2] staging: sm750fb: remove unnecessary goto
-Date: Sun, 25 Oct 2026 16:26:32 +0000
-Message-ID: <20261025162632.7186-1-haasham93@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025130258.10747-1-haasham93@gmail.com>
-References: <20261025130258.10747-1-haasham93@gmail.com>
+	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+Subject: [PATCH net] bridge: cfm: keep RX work disabled while CC is disabled
+Date: Mon, 26 Oct 2026 01:32:15 +0900
+Message-ID: <20261025163215.62509-1-pocj8ur4in@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +97,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Return directly when setting the mode timing fails, rather than
-jumping to a label that only returns ret. Return 0 on the successful
-path.
+Found by reviewing the peer deletion workqueue fix. After CC is
+turned off, a valid CCM can still reach br_cfm_frame_rx(), clear the
+peer defect and restart its RX timer. cancel_delayed_work_sync()
+only cancels existing work, so a later receive can queue it again.
+The peer may then report a new loss defect with CC still disabled.
 
-Signed-off-by: Haasham Khan <haasham93@gmail.com>
+With a bridge/veth setup under ARM64 QEMU/KVM, disabling CC after a
+loss defect and injecting a valid CCM reproduced the restart. The
+original kernel reported another loss defect; the fixed kernel did
+not. A test-only gate paused an in-flight receive until after the
+disable ACK and reproduced the same difference. The gate is absent
+from this patch. The reproducer passed with the fix; bridge selftests
+were not run.
+
+Initialize each peer's RX work disabled, enable it only when CC is
+explicitly enabled, and disable it synchronously when CC is turned
+off. This also prevents an in-flight receive from queuing work after
+the disable completes.
+
+Fixes: dc32cbb3dbd7 ("bridge: cfm: Kernel space implementation of CFM. CCM frame RX added.")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
 ---
+Tested under ARM64 QEMU/KVM using bridge/veth, netlink CC settings,
+and valid CCM frames received through AF_PACKET. After a disable ACK,
+the baseline queued RX work and reported another loss defect; the
+patched kernel rejected the queue attempt and reported no new defect.
+The same difference was observed when an in-flight receive resumed
+after the ACK. Explicit re-enable and peer deletion were also checked.
+No physical NIC was tested.
 
-Changes in v2:
-- Return 0 on the successful path, as suggested by Dan Carpenter.
- drivers/staging/sm750fb/sm750_hw.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ net/bridge/br_cfm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/sm750fb/sm750_hw.c b/drivers/staging/sm750fb/sm750_hw.c
-index c4358d3e5091..4dfa1cb6b352 100644
---- a/drivers/staging/sm750fb/sm750_hw.c
-+++ b/drivers/staging/sm750fb/sm750_hw.c
-@@ -272,7 +272,7 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
- 	ret = ddk750_set_mode_timing(&modparm, clock);
- 	if (ret) {
- 		dev_err(&sm750_dev->pdev->dev, "Set mode timing failed\n");
--		goto exit;
-+		return ret;
- 	}
+diff --git a/net/bridge/br_cfm.c b/net/bridge/br_cfm.c
+index 9dcc97d63a6f..8576f387d037 100644
+--- a/net/bridge/br_cfm.c
++++ b/net/bridge/br_cfm.c
+@@ -150,12 +150,13 @@ static void cc_peer_enable(struct br_cfm_peer_mep *peer_mep)
+ 	memset(&peer_mep->cc_status, 0, sizeof(peer_mep->cc_status));
+ 	peer_mep->ccm_rx_count_miss = 0;
  
- 	if (crtc->channel != sm750_secondary) {
-@@ -332,8 +332,7 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
- 		poke32(CRT_DISPLAY_CTRL, reg);
- 	}
- 
--exit:
--	return ret;
-+	return 0;
++	enable_delayed_work(&peer_mep->ccm_rx_dwork);
+ 	ccm_rx_timer_start(peer_mep);
  }
  
- int hw_sm750_set_col_reg(struct lynxfb_crtc *crtc, ushort index, ushort red,
--- 
-2.53.0
-
+ static void cc_peer_disable(struct br_cfm_peer_mep *peer_mep)
+ {
+-	cancel_delayed_work_sync(&peer_mep->ccm_rx_dwork);
++	disable_delayed_work_sync(&peer_mep->ccm_rx_dwork);
+ }
+ 
+ static struct sk_buff *ccm_frame_build(struct br_cfm_mep *mep,
+@@ -695,6 +696,8 @@ int br_cfm_cc_peer_mep_add(struct net_bridge *br, const u32 instance,
+ 	peer_mep->mepid = mepid;
+ 	peer_mep->mep = mep;
+ 	INIT_DELAYED_WORK(&peer_mep->ccm_rx_dwork, ccm_rx_work_expired);
++	/* Keep RX work disabled until CC is enabled. */
++	disable_delayed_work(&peer_mep->ccm_rx_dwork);
+ 
+ 	if (mep->cc_config.enable)
+ 		cc_peer_enable(peer_mep);
