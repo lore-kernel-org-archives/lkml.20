@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007665;
-	b=XM25ViHwz67pIkOfZP1NOeDyM4SaUCkWusl76VtgG1fMHs+SQpBpSUr+WvN7k4hbSGkM
-	 SZMk6729XUzFs9uKTHExrGkNbQM+G2YH3sF+z/UHAsRjn4ZjoiQR1wH6dQE8vcwdeLB/Y
-	 QZMzkLMzmaZ9N2CiHmz/rREiFGncOEalKnaFKVMEm73s0mWwfm5OVWAPA/OyO/l6jnWF0
-	 AaI0t8Mj9W9tyK62uAjnOEm1RJf4fr6Gulg/wZegCygEuwWNUrVoPF5xp96mWtrzpZYNc
-	 HKZtPb6oy9TN3ykmZ+SlvdzZz83ChyuicEKBZQ5/KQfEyRpntp4mhVvyyk3/S9/8Q5Q==
+	t=1793007669;
+	b=xHb8wVVLyMLPvA2YIP6Yc/0q/zLPgN91uPNWRZ9FBa63YucYwb6aeUpEt+25aIOB+EZu
+	 weYKxgOtGiWaa0K38L41K0nFi2+s8TtqL6vU7qXW8qlDhVV4xPiRrQJ9mzUOfcw1QEb+E
+	 ok5wLk8QqWZ5IjCZfWJXKsWMpPoQf9d4YxkE2ihTuw3weQeqsBCiXlRznSHkruju7/JnA
+	 U9LNYuwLh32FTQ/wAcBlOW2Hg/B2LXcv2vrOMuG4loXgd/d+oJua93Vn8m6p718TisaOA
+	 DBnVy375Cpk116Z/OLi/h80/cQGy7Ae/+X424UbfBikvzpCInHBtJsq22aHx+DEeHRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007669;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=tZqjNhLUtMM9qzCfqbSSbYtLAIMBnXc3isIanFGM8jk=;
-	b=JBuCQ9imSmw/Ua3ndmuz2qYnbqiM+ps8Sbg0aWJPlpZuaFCQOQ9iWoi4WA5kzmx+Rg+b
-	 eVvZe53mkehcssFKRIzhXVJb+2EPN3dvWeTLUhUMWkqVWEta6VfpkcqoOTuYYQwUo1P4u
-	 avm/ov4AtLxjgrcytsP2pxK1iJWW5cT+5OPKvUW65DaSKNo5oTB0iLF66SJjgJznCd66D
-	 ox2YW2FHB/8ZCzHoCb3GVZLgi3XX+272sMSynzq2vF4HvuQQRdYWQSfcVAbfPv472iMUy
-	 W8soGjo7iYutEv3EVD7ggeuQ4p7Mr8d06JQxBcpT1miof4KNkQHcvnAoc5Pyc4htkpQ==
+	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
+	b=CVGJ24cD5ddTS7X+d5u6CFxVyVbfLDycOUDtEHLo3v1nAaMRjJyvUbYRObeYr2uAn/Hn
+	 /lo94eziMreAcSZTWo6IamAAATyZLuO3O2VlN2T00FYRRG8RyhJ5W4Fg8zxlB/oauJYo5
+	 DfYpQmQciuY0kUIyN4Djbl8WbCJlOrwBIRWgcWURrNHPtU6DwC+iu3JhVBsdtzafBIrNr
+	 7zTQHRhY2U/EuFfZAmX1Vcoqp86tb3NQrmUPGuKpsiphI/KVzR9tf0vjg1mDOqHf3rsHX
+	 JDoQeUylfpAPtGfvWKVGoJB9sUu8tmRt804TBS4LyKjrW/O9hKwv653OO4B7QEhJ7Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBQBoKup;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2AF606A32D;
-	Mon, 26 Oct 2026 09:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81433606A32C;
+	Mon, 26 Oct 2026 09:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBQBoKup
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDAD41F01828;
-	Mon, 26 Oct 2026 09:41:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55651F01825;
+	Mon, 26 Oct 2026 09:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007665;
-	bh=tZqjNhLUtMM9qzCfqbSSbYtLAIMBnXc3isIanFGM8jk=;
+	s=k20260515; t=1793007669;
+	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MBQBoKupOvPboBHAGShCa2KQHrEqsjR/MrgjtQuP2sCUGgdjYOu9EegxmvwTqeS0A
-	 BhyCWDRazJkTCdvKvi93Chg2Dt9yUC3zjnKvtF8cj2a4zGLqh5ZI6f8JR+LbqZAri9
-	 pjdttV/hbpEzrBaTLLeHdF7nRVgYcdVsz67gdzy+qo+ccnK2foO3SKTNOayx62tWdr
-	 B0iw3aidemCTPsAIvkYeMn4HjnRBFXQ7HfWuv2F6iQ02aXFnU/W0VSqZm5u3ao3vNC
-	 Zh9tR/ItbPiOGYbq8CnVXm7Zb27eTS7lH4NUtCOpOAUjhch2Ric3mQEgBHXljExawj
-	 jywrQTpbflAcw==
-Message-ID: <1c0141e8-3033-4f59-b247-34dee14cbb1f@kernel.org>
-Date: Sun, 25 Oct 2026 13:34:13 +0100
+	b=B4kVC4DGdBI0nHvQd38JB3xiE9r0i4N3qGwuJUEdjHaOsRrrDZWTPYEJgHeU9YP9E
+	 x5UEkksaPWu3fLn9gKPRdq9+DlZLl0tmGoNyWUTZOpghl1JA3iJtkPbRWENoHMLND0
+	 8xydXSGcQL+2c4pEPRs5A5JdLRoUtySK0dNJxK8+ahLXPcv+8QCPc5omQkBWFUtcxY
+	 vA7PKr/GgjLz8qst218EKOSDbH04nxpTs0Dx06ndguB6lpIkRNDlWswaSwXP9c+WET
+	 C/MpOG0Myr+GqyGXVQ3kAUP5tjXu3f0N0sDBYOpKbf1s3bAHMKbcHbpeeWxIZKOy/I
+	 oC0Y/U9Fj1mgA==
+Message-ID: <d39e7c09-7098-4563-b5fc-dc90982facee@kernel.org>
+Date: Sun, 25 Oct 2026 13:36:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,20 +52,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
- PTEs
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
- will@kernel.org, Ryan Roberts <Ryan.Roberts@arm.com>
-Cc: dev.jain@arm.com, baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
- mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
- <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
- <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
- <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
- <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
+Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Samarth Narang <samarth.colleges@gmail.com>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+ <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -112,43 +107,28 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
+In-Reply-To: <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/24/26 18:00, Zhao Gongyi wrote:
-> On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
->>
->> Hi,
->>
->> sorry for the late reply.
->>
->> If we have the spare PTE bit, why shouldn't we just use it?
->>
->> It will make batching over PTEs faster. And we care about that for present PTEs.
->>
->> So I don't quite see why the stable fix couldn't just do it right away? Do you
->> have a prototype that shows that it would require significant code changes?
->>
+On 10/24/26 07:33, Andrew Morton wrote:
+> On Wed, 21 Oct 2026 11:21:57 -0700 Samarth Narang <samarth.colleges@gmail.com> wrote:
 > 
-> Hi David,
+>> replace_page() maps the KSM page with a PTE built from scratch, so the
+>> soft-dirty bit of the PTE it replaces is lost. A page written since
+>> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
+>> a soft-dirty based dumper treats it as unchanged.
+>>
+>> Copy the soft-dirty bit from the original PTE to the new PTE.
 > 
-> I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
-> It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
-> recognize pte_present(pte) && pte_cont(pte), instead of checking only
-> pte_valid_cont(pte).
+> Thanks.  My LLM review thing says:
 > 
-> With this change, the guard-marker reproducer passed 100 iterations
-> in an arm64 QEMU/KVM guest running a KASAN-enabled kernel. The fork
-> and PMD-split probes passed five runs each, with no warnings or KASAN
-> reports. In the earlier A/B test, the unmodified kernel failed on the
-> first guard-marker iteration.
-> 
-> The prototype makes the reported reproducer pass with a small change
-> while retaining PTE_CONT. I therefore cannot point to evidence that
-> fixing this failure requires significant code changes.
+> : There's a separate, pre-existing problem with the KSM zero-page
+> : path which is worth pointing out.
 
-Can you paste the code here for easy review if that it the right approach?
+Cool, more AI schlop.
+
+TL;dr Sashiko raised this before and I commented why we don't care IIRC.
 
 -- 
 Cheers,
