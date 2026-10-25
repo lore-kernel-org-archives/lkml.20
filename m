@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792888538;
-	b=tj5v4z00Ggvwds+T5plvgPSx00Vyhk1XjEmnOLR6N0kTULIoJEMYDwazeP2/t3KoJq2+
-	 Rewn8PSoa9oA77PF4X+LUUOT/Xj/cR3kqubRvIDNjyCyYUv/t+WILrHWMZu0GmiFWnMja
-	 y2sRFMi7Zds7oTGaSko9ywu6jCaleCjOw8GmRlj3jsSMywO3D8eLa34YMwioY7ScDFVbB
-	 LcRj0Yb9w1AemUxIT7uVkD4y/Hl+JN7rnU6cp5fXNjd/8uDln42EYOBKv8Z6YTtf9celJ
-	 bQwMITKS5w7arxgJ/2vcbLJdvrtIibu6/+7m23Ntl+6dptOkMz6bjM93BLHCqhLX4nQ==
+	t=1792888635;
+	b=fADTBf8Po5CIIkMSW5OlCsCj1FPgVjxOtYNmGRy7g+viGoF/LBfgTrEBBuMQDR62EVGN
+	 HlxCo2tLsLBfL6Ve5OpHDvNLEy4p1UF3m5pe0QRA/vk8GYu5dc6NXVJ1ABiSB8gFH/G4B
+	 +KCPuD80U5qNPZb82ew+tzqSzzz4JxNk5BK2si6n2A1AJZj8FCGUUP8J4Hf3ILRUhlpGq
+	 AoN+8ZUYsc8a/zI/9bt3YFLll9G8YnQX3dVm855qmtlKe1gRVA9gG5D1EUKDHjs8KR/04
+	 6Zs+atGwYI6zNpWChJrhQe0dJmWXnXdwF4V7+qHXX6gcneGNYXhZDnSBIuwRoJsJ30w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792888538;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=XSpvoJJOnlwRIHqeOURy97S0PX5mhHQN8lVWg3MejC8=;
-	b=oYaecUZlxQI72whqzQ/VgoSzHfY/VXdxH9fLiiBs4vCxc2IV3w6ar9xyZ95B1AR8ws8g
-	 ipuIWL54BR1YmX7E1yOTQLtwM5g4tPcJsIXVNA4BlEQl1rUbNgEahr2K6XofN91Q1LwPa
-	 lnDgHXrclslLH/Sdqdvy+q4HVeLNjO9KhnAGDF/07CaYkNwwJjAYyLO7uyAgWIKRFZGBH
-	 9gAGO3vltHCOA27fRItbL5Kcpi1MxtyHPTwXXMnbmwsc4EzKZiFqlqkV2wZlEI1wN+ggL
-	 h+ENwIL7D/h+9DNG1+fB5BpdNHgEF+GQina+XjVbR8Z+bivctEW6t4kDiyX2zEP9DSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792888635;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=y0J6f+7fz9qiuM+nKAPfCcyE4UpIjVqLueVjidOj29M=;
+	b=mEk/lA6H05D7P2Xzm7iqUO6y4+MBBJWjKNqzjcsqLZ6xAGKYqY4va5K5qphZK7MgF6Cb
+	 WMUdGMH4JvLdKNhoRUtKWPwexjucmJ23jodHh0NHO+UwYkmJ437gdZ0cFrIyUutxWC6vQ
+	 00XmYkjBGS9DpB9hEKYoYyAsnCmmE1hx/wyDOZCqZ+fjCZ7T5Joyuj3XIk84C+rcySSV1
+	 pP6ZN4q+K/GKn3y/ZOOIrgiKf2ASQvuJvRXpm7biSI1NcvH1Z0aC/EYR3j93Ivqq0aB8l
+	 9zaJRN4daOck9DMhkV2CqZVzHoM9nSx1bcbn3fHvCX7kAnyW4gqq0aRcHtTNyUp1J0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=l7Pi0M1o;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29400606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29400606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f9b643ae53so1741340b6e.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:35:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792888537; x=1793493337;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XSpvoJJOnlwRIHqeOURy97S0PX5mhHQN8lVWg3MejC8=;
-        b=GSux/tElO+eacRHshMAv+V01BSgu0zO2Fr2WjO4Tf47EsXBRxs+TiaAWETK2T0uceD
-         8Nt29X9xlXgIVCDQgBm/6OuRo/or2DDqtyJ9KNWPipXHJtzw+sx8gXVp6O10L4RZvRK3
-         38+AIEkAD2980jafrFT8m+wmBEGWtrJNx7iytMXJfmHNs7rTHkkaOgEk6UPT7kNY6wfW
-         PwriYEA/G23EU6QqX4lshDbe6zjlrUCCzAfLVX5eBc5LvcNcSd+2vx1yasMoApFa23qT
-         D84fZ83tIUzbQ417HBeiVnAZo0boJQ3FiKWJd4/ep5TolEH/cDEGYl6eB71huqxDKhZ0
-         sIcg==
-X-Forwarded-Encrypted: i=1; AKwUvBywlFwZv8gkTd7X4WP0K1NwUArFSo0I4iZcTnwjZeyLAduLefn4BfxcjKf1sme7oHhrJTWE7bLTGnRcnu0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJbT5Q0XH9hceHvuss4uulexk9odD4P9kJ1bueyrzmjzAPWR2k
-	hv7TZpCtrQnLwHxStL+1vJ7HzfEfl1TFfpmZBj++xu6NN9FUSl9jehZusgS9gCfbzCXd9ps0Rxj
-	7Z1n0S/zQdUNXV1jvazoL/tm0c3FF9V2gJFuv8HfVbmbY/P4/dqQvDrFAZ1g=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE439606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE439606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=l7Pi0M1o
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id KOF2xcm9PaC0UKmEWxKHQe; Sun, 25 Oct 2026 00:37:08 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id KmEVxOpPdFB8dKmEVxCfng; Sun, 25 Oct 2026 00:37:08 +0000
+X-Authority-Analysis: v=2.4 cv=HcoUTjE8 c=1 sm=1 tr=0 ts=6add4f34
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=6m-s6s55t6cD9z_nMwYA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=y0J6f+7fz9qiuM+nKAPfCcyE4UpIjVqLueVjidOj29M=; b=l7Pi0M1o1eL5xp7giHgphqSqqV
+	IDdfjo8e29J0r8hNPso6l3gU6U2S9y7CCWwXpyXegh29BpA/paBbRiiFVl2lMRHbRR6xLoWBaZHKZ
+	6fe9UyDCupD0Q5xSrWhCK9RDPUZrb8C0bZIoA3Oqnw7hBBJvPEbUL0zI6sjByVhXaSTRVWx1Z33ZV
+	VeZ2gEx55XQ7kpK+H9kVcWwTmSzDCfkCcYzVmYM8Ca5aAIiCshHjMOu2QCHTUYCev/WW10yXfyhjK
+	s1hgCaOW56+MHGwptoiZAiA6r+Zy8lagcvQEq1IdCS7ITPNqSV+7qFKwjV+souGcinARnuEwTD1Ch
+	mf0ngrCg==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:51622 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xKmEU-00000003BgT-3Vzq;
+	Sat, 24 Oct 2026 18:37:06 -0600
+Message-ID: <f6d268fa-e8e4-462c-86ff-58c0eacbea5b@w6rz.net>
+Date: Sat, 24 Oct 2026 17:37:05 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,124 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f5e:b0:4d6:9232:b3be with SMTP id
- 5614622812f47-55c003118a5mr2285739b6e.53.1792888537264; Sat, 24 Oct 2026
- 17:35:37 -0700 (PDT)
-Date: Sat, 24 Oct 2026 17:35:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6add4ed9.67317f00.38c4bc.0066.GAE@google.com>
-Subject: [syzbot] [smc?] possible deadlock in __smc_lgr_terminate
-From: syzbot <syzbot+7ea1f5efd5de7e24f1de@syzkaller.appspotmail.com>
-To: alibuda@linux.alibaba.com, davem@davemloft.net, dust.li@linux.alibaba.com, 
-	edumazet@kernel.org, guwen@linux.alibaba.com, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	linux-s390@vger.kernel.org, mjambigi@linux.ibm.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, sidraya@linux.ibm.com, syzkaller-bugs@googlegroups.com, 
-	tonylu@linux.alibaba.com, wenjia@linux.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261023163714.201276352@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xKmEU-00000003BgT-3Vzq
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:51622
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfIqI4sb19AyiBUaq71V3mUsqYKWvGatJ/x5RLimXcbx09fMZARHP+R5cYbx6LYbZlp1JqGx0nLwLBZrARtLZ4nWJ1FUpEdjQzTYfApswtF5fX5fxrMag
+ onnEbJ2uD91TJTXw/eoiuLwxuvdE2BCGAu/RZ15ouLccFRN/CP/d7YtvrUcW1UJFugmKUL2uhmexLPSvDsWYamdwzDwmfClbcU0=
 
-Hello,
+On 10/23/26 09:34, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.59 release.
+> There are 193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 25 Oct 2026 16:36:50 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.59-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-syzbot found the following issue on:
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1413290d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b8fd4ba7675545d0
-dashboard link: https://syzkaller.appspot.com/bug?extid=7ea1f5efd5de7e24f1de
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+Tested-by: Ron Economos <re@w6rz.net>
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/54bd1c4ffe03/disk-f47d2236.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/7c7d29f96e65/vmlinux-f47d2236.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6342fb551ce8/bzImage-f47d2236.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+7ea1f5efd5de7e24f1de@syzkaller.appspotmail.com
-
-============================================
-WARNING: possible recursive locking detected
-syzkaller #0 Not tainted
---------------------------------------------
-kworker/0:2/7972 is trying to acquire lock:
-ffff8880419c3118 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
-ffff8880419c3118 (sk_lock-AF_SMC){+.+.}-{0:0}, at: __smc_lgr_terminate+0x19e/0x6a0 net/smc/smc_core.c:1580
-
-but task is already holding lock:
-ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
-ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: smc_listen_work+0x5e/0x1410 net/smc/af_smc.c:2463
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(sk_lock-AF_SMC);
-  lock(sk_lock-AF_SMC);
-
- *** DEADLOCK ***
-
- May be due to missing lock nesting notation
-
-locks held by kworker/0:2/7972: 3, last CPU#0:
- #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
- #2: ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: smc_listen_work+0x5e/0x1410 net/smc/af_smc.c:2463
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 7972 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Workqueue: smc_hs_wq smc_listen_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_deadlock_bug+0x27a/0x290 kernel/locking/lockdep.c:3085
- check_deadlock kernel/locking/lockdep.c:3137 [inline]
- validate_chain kernel/locking/lockdep.c:3939 [inline]
- __lock_acquire+0x25db/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- lock_sock_nested+0x41/0x130 net/core/sock.c:3865
- lock_sock include/net/sock.h:1715 [inline]
- __smc_lgr_terminate+0x19e/0x6a0 net/smc/smc_core.c:1580
- smc_conn_abort net/smc/af_smc.c:1019 [inline]
- smc_listen_decline net/smc/af_smc.c:1978 [inline]
- smc_listen_work+0x69e/0x1410 net/smc/af_smc.c:2588
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
