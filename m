@@ -1,74 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792931030;
-	b=oOwPCIcfR9uJZ8S5VAZqsTvvEHz3falBNM21rlcaoLK8Bytf3oAaZfd/IcVButEfIAK4
-	 Ii/r2BFkDgUDsgZr6WtEbRrhTKeY3a6BFt6r+rCG3Fi7mc4LrK1WvWHgDD3/5dtCfYQw6
-	 EMI6/PybaIlfpfCjWReeKN5p4tEsI2MKFjgB5b7NdlRZmqTy88paBRRt4tAO/H6Y1pozd
-	 31iXThPitxeGXlm3h68eN6h29UWomVmLcxk/30FynV5GlygVFSflDnRIKTrJCZystuYay
-	 AS9iK+KvOf5wUHMRYD2syHmrZS3vhnRShM6luMVy3v3oBDdCgligRCIZu/AfyhwNuNA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792931030;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=WCJq7Spt50NY99h3wenFRcpEIoJZtvetq+C/35JzX4c=;
-	b=00F68KP6wV35S6ykpuGOugCrXuUM62N48pnaW9c++t7cp4YzQPenzpOggsnlhq6qmLI3
-	 tSvCixqLfbVfxF0wcSW9zm1X/GXSTC5Ctmzg62tK/CHXD8jXJSlnc6x1CVBqzj9TRY6uS
-	 jlpe7GwVw6iaHfy+JEMY8QO/1hU9HS0fY6MKt/Ixld/DTdkTDK3I8/S8pxs4X4+gFo8wt
-	 32gyZViPMEsf3BAKGD+9pKo4iPcCb+p5Gm1/GqI/GCBA1cfZruQNijwyxP5e6AvMYo6fm
-	 cfZC2GYycaFxjYYBYfA7wYipPq9rRvHKxR8C8cEch+gA6qpH4nrbME+pWps1GWitWhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CmEmXH0k;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A06C0606A31A;
-	Sun, 25 Oct 2026 12:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A06C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792931049;
+	b=vb1FcpLAi7jwDJz0+uPw8ZUwC998NpghU5LxyaeFziQWT26rF5qY2SqfoRa+raZ8o0Nk
+	 eKaXV77Pfe+6lv2D+XwZbJn/xq9lVa/X1liA3y+RLU55LZkEyGoB+uMs88/fUGgsDIlhf
+	 SFDUV5gfvum2WPpKd7OJsuDPzWnh579ebpA1uH1oFkXj4jd5QCxWmbn6NhLAXzQovCfrj
+	 mpyBiwEGOwWvpRK37mi8OfMT9aKtpveYv0H9pDx8A90mfQ/E/Ii4gJ3xohSM4ZgawT90B
+	 fBwccwwecIXW9H/39TnK3KDY7DPOW8ca34TvY06f/VaSvOmu4uskBYwEYiB90w7rwYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792931049;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=QWwjhZJVOuQsknoBYdsGkV66LM4wbuBq8C0gaGxv7flEE2O9XGD+whIkMXxWJEw55Vii
+	 Mz/RenzQYEvrJ9O1+WtxMqGhkmA7ILti4QQ9MQPEoGQUw2PUexx+ebfnV6auB6ykL1Tgk
+	 uk2zHNraycJxnH+VgXHF6ke3XTen8iCglBXIwjJ+8/R7+OrjxdhbYzo5Ac/ilT64ETppG
+	 gLoAIJjfToq7G/XoGupAmxOPMitEgGEkZRNnlM7B8i5unCiMZBtsUtkoe2mIDYhpmf6Em
+	 of5Njp7JAxW1C49/BWl9+3JGm03/EsT4gRklUi692qEg0eooXJp3IOmSSOCkiw2v1lA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMn0UGWY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CA9606A31B;
+	Sun, 25 Oct 2026 12:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CmEmXH0k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=CmEmXH0keYZExIibYd2Z4j4puaoQaGMxTI5eSDTzKvQSPwAumIar6hhBx4TWkXCXNcOx1r2PNK9j3
-	 8mfzocU2rtZhnqINpfOqb/JsThkezZXMLscnmtMMeThhZm4XHNeKSkjx0Jolxp282/3xyA9SijEP0a
-	 tS4e9oGJ8lgmldL0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86addf4d023e-e4627;
-	Sun, 25 Oct 2026 20:23:44 +0800 (CST)
-X-RM-TRANSID:2ee86addf4d023e-e4627
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26addf4ceb0a-878d1;
-	Sun, 25 Oct 2026 20:23:44 +0800 (CST)
-X-RM-TRANSID:2ee26addf4ceb0a-878d1
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: edumazet@kernel.org
-Cc: netdev-bot+sinfo@kernel.org,
-	netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dskr99@gmail.com,
-	maheshb@google.com,
-	linux-kernel@vger.kernel.org,
-	yana06070@163.com
-Subject: Re: [PATCH net] ipvlan: fix RX byte accounting for local traffic
-Date: Sun, 25 Oct 2026 20:23:32 +0800
-Message-ID: <20261025122332.725535-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAL4WiioxAR1ZBjVJNgYfLM0hUwyHapRu+TAUzedpOpe0yheH3w@mail.gmail.com>
-References: <20261025014251.542973-1-yanxia@cmss.chinamobile.com> <179289279836.3327.9494173903555653580@kernel.org> <20261025052117.603790-1-yanxia@cmss.chinamobile.com> <CAL4WiioxAR1ZBjVJNgYfLM0hUwyHapRu+TAUzedpOpe0yheH3w@mail.gmail.com>
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMn0UGWY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792931049;
+	b=3BorcKOHxwYE7Rfq0dooSNWwCO3ZNfdn/bnMrzf4Hi3277dNaN+xAtdkclj1m9YUP7ja
+	 BD3/kJkodVfuWoPtiWAzxGv+vJ8AahoyByTCMFLZvbEsUHFprSP6xi3Ruvs94snYMCF4d
+	 c6Im6fpl2eHsuxUaSz/i70NIGuOW92l+3HYvLSL/dmKfk4Xp4laTi0qzwx1FY67lgK1bx
+	 j2MUvO1y4cxtIAdh3VnnYzu5ECHvqhQgGcKX61VF14x12Y6xCn5r408hLSmQNekiheyPL
+	 Fnj7/ZhlrxHr5Ez4K+Jgj9gOlW0cOqEfh8EworGplRlABZ9DQXUk7OnCS+qiyEQzdOA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792931049;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=XYm0N+q3IzOtFcD/x5EgY2TBNpz4lFlqJ8JFWrzxZWp9leOzMt+N98w+NL19aQo9T7YC
+	 uXnYuRJgwQi8M9ANSXtjlI/4sN/pXD2DSKRth1SI9oW9EUtXvyWWUuV2CQsEmMtML6hX5
+	 M2/pLeS88EPaXB3UOdrvSL6amvj+FAPHWeL8yhD20T6NkpwwExvloFGtogq2jNOJknBUG
+	 Z7x1ppPVEN1n8RIbWgldGXSKP1MJmiGxGh6dml9LcYltYjCvlL4Lp+6dzJJViUBazAgED
+	 hj7hsCZjczTieQHx2W0W6uB+6GU/KufQKesjzwPM+EEEM1cPQPz6g2twOhLpvMn27KA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id B22271F01828;
+	Sun, 25 Oct 2026 12:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792931048;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fMn0UGWY51qv1l9R5FFAp242yE4F4bY8OizPG4LWbcSvLCQllX/uu+O32mp7l2Exj
+	 eA2YRU8zaLhnAV6/OnkGWthts+LLxH1JmhHQscFMqgml2SEtOzA2rGXTVMQz4VAv5e
+	 GtzAGZOZDg0sw/xF3RiRzZLJZPcuY2RidgwYpOfdZ+O5YbayRPSKaXyXy74d+IJdit
+	 8helhElBVSAHxK+s4jFFibgSfqBCSqUCVSG1P/WVfY+whh15wPXXOqhErVvTid3GmU
+	 LwofHhxKfCk3BK5tyzqj+zegSiwZJdsFK0w48VIZaBKaXNhYnH7HeUqf0Mr8fS2Yl5
+	 Z1uOn7INhSOHw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3664C44A10;
+	Sun, 25 Oct 2026 12:24:07 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Sun, 25 Oct 2026 20:24:04 +0800
+Subject: [PATCH v7 4/7] dt-bindings: timer: Add UltraRISC DP1000 CLINT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,23 +82,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-ultrarisc-dts-v7-4-621eca2b8790@ultrarisc.com>
+References: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
+In-Reply-To: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792931045; l=964;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=H5nCeqGhgsZIHGD5OQKUEdhmWR2MLVPLwQY1q4JBFrk=;
+ b=KpjRiQn0LwxFjhg+GYHft2ko28fks36EjIOjjWGtF7aQUa7mQo1Z1ZJPXLdrLtDMJHVpgk7v4
+ //neWzmTGdnD4nZ/rhT/VMRAGG2YHzJTyEre4WtRVsv6t48iPDPr4XP
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-Hi Eric,
+From: Jia Wang <wangjia@ultrarisc.com>
 
-> Also macvlan has the same issue, maybe wait for net-next reopening to
-> send a series fixing both ?
+Add compatible string for UltraRISC DP1000 CLINT.
 
-I reproduced it in macvlan bridge mode on a 6.6-based kernel. For local
-broadcast and multicast, five IPv4 UDP frames with 32-byte payloads
-increased rx_bytes by 440 bytes instead of 370. The captured frames
-matched what was sent. Local unicast and traffic received from the lower
-device were counted correctly.
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-I'll prepare a net-next series fixing both drivers, without Cc: stable,
-and send it when net-next reopens.
+diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+index 3673836e14de..878f267d089b 100644
+--- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
++++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+@@ -40,6 +40,7 @@ properties:
+               - starfive,jh8100-clint   # StarFive JH8100
+               - starfive,jhb100-clint   # StarFive JHB100
+               - tenstorrent,blackhole-clint # Tenstorrent Blackhole
++              - ultrarisc,dp1000-clint  # UltraRISC DP1000
+           - const: sifive,clint0        # SiFive CLINT v0 IP block
+       - items:
+           - {}
 
-Thanks,
-Xia
+-- 
+2.34.1
 
 
