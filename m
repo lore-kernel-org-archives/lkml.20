@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792951342;
-	b=NX8+4E4RuxLXuZplflcsadraX1vMn2BIYtlSDJQTbGGFa99RLgCDg3R7JjVpGx2U1WjU
-	 Rg+b5OjDOr2WN02cnwxRhSyqEGnv7vCOfjmY6AE1H/hWTF2RiUWmkVBZvmo/3LpjxS46E
-	 S4ssMGtn+PO2u5MjMzpbyNCe/Qxi94eV0Siad15bPHKVvhJE5/UJMVayW5tMU3M3dtuO4
-	 PckntpXt3LE1KzNDRMq0r59ZyaS+frqQFsaZZ8udgaFGjT0sEp6iHyRTj25qQ0l79CRFr
-	 XpBgUrzDwkiI05Rfj4qs1sMKCXthxlr6Jgq1IYtCnYWTxqb/L4cVsdhxtBjGs/ZT4tQ==
+	t=1792951350;
+	b=l8FO8CVnME8xpN6+wcAaAt7kExmqHdDxtKSw9x9ApveaiNg/B8HoQISNzBtD62EqnHLV
+	 M4EhEib1buDFoNzQP3/o6SBV/mDpwbIgJkTHqVBZE+G8WehM1JKzlMgS518Ie+S/O3USY
+	 OWrEbIDYnHVbZ6kG7cDFsn8Jizau5XHPR+NpeHiJWvopaAvSFXSF/XUUPGabnysladxVM
+	 2oT/pK9MPbSkDvcsGCWKScmCcAmS/YyB78x2oakjA5NLOpDm7NpIMfHyWUzxef2JAsPpx
+	 NKgREJtxuE8dlT5YgRrlufmSvv875RhNPycJqoM7rrro7R+N8FQTrvjQ1TyZBQBprTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792951342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792951350;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=95rdhHdO0ki+AAo/8XpKJWa1xRVeRBmYXzxQNVzeBFU=;
-	b=j+KBwSN0FXUiQYLl/Ec3BAfQUul5bwgVzhiXFFN0J2/lg0aXj5VvuvUnMJUPWoTpB/Dq
-	 kXpjz0WSJbSNl9kZvWIcOBeFyKFDTfYvF6iMSaurpa2+9djFViJPHdjwJ4DiuKMPiYaMk
-	 VfuN6zt6LzeYm9W61vAcReYd0b+lsXkGanvfcKJ+/PgdlEOcPQVh7QFLNz8LlXO8H+kPE
-	 Ljy8KJ9BycDq4g/0tYF2OOEwFFCSvEhximrLCgD49g8gBeMOTBPxYp/eJy83MrK9hPhuY
-	 c1xmYX7hvM9koHTNEr0lpoVzdv7mAwaNFdS+ozeFxwTQHcQzmeevPl0srtTX6VCaqTA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rgV7roqEK0hJNAZ4WkNhuBhtFoAn+fipk0Qu5uolb/o=;
+	b=1iel3i4d46rWP4FC4sVVWKiiHVvNK5P9Q8yW7C/f1elhZSCq97auul7bSOhlAKkOH5pP
+	 CrDNHXqoZPLiKukCn1YmGNLd+QQmGgfTvxXOToyMXNPzUPlJkbf4FN+2LkibSzrPMl5bF
+	 FpJmGStS1k22MyE7wuh6yTo/P6ZNV2DbsKW0BrtU6XLP9PG5EnC2KcmVwiZ3d+beDSWxJ
+	 dWm9maMdjx3Mg/GdEPMbdI9/nLyxxxBC11WKOyhZJsvYN9VYrDspLwt8tYJsFEUJNdaog
+	 YXCoKcyaB7dWvfCnMAHnFQOX4sawrZW+VGe9ZjaId2eO8hSjNtTZmyPqCYM6N434MlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HKoZgO8Z;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VlX5ZKKN;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B409606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:02:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B409606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0225606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0225606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HKoZgO8Z
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1846bc43c28so2336135c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:02:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VlX5ZKKN
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1931ff67a29so5164712c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792951341; x=1793556141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=95rdhHdO0ki+AAo/8XpKJWa1xRVeRBmYXzxQNVzeBFU=;
-        b=HKoZgO8ZF5FYT2E10nYovpwApzcNv2ReBv+dstaQR/0GVY1dCA7dmqMTsoPiaLRpAO
-         vqEcJ3IZ/klqBDCLn+84z9IjboTn98ba/L0wYlW4EHp0Aw4ZvKKhN6FEPtCLL3L0zQ2e
-         +WSe5urfHaBIMkDI9kH1RdcI7b0oWvy8gvNRh4HPLnMFMjdrzIyUhBbS26mtqf1LlIrA
-         qNyBwXKj2CknfVYQAKTPepAB+R1y2O/fFhie4k9T4U6hmR6O3XmNMnnyVsV/yOwY0Mbp
-         zH76r3ijMxIbCm2P6Q2Wad1i6EIp35dFsDD0kB/eqHT7pl2bfCM43sYplN3xBuxouH9S
-         p4jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792951341; x=1793556141;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792951349; x=1793556149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=95rdhHdO0ki+AAo/8XpKJWa1xRVeRBmYXzxQNVzeBFU=;
-        b=gdK3MuuIq9sma015thvMnLwPiEHwF8SHTMyKbT1+Pr9XZrj9fn4d5ChXvzq3NWZW1a
-         fp6iQKWa3sIFb860IBsb7Hjz2g4PmO+EQS7ips26fdGE3I7Ftj/aB6O14eqTF/biUKBr
-         bU/iUL4C0t35+AGQu7ipfEw7YaiDQufEPOcYGyGgg4zVPg/fl5fSEru9T75lp3lS85HT
-         7uvtbJHypx0pnsRLYqs2CTHrVIND2wJ5RBkeqhiB4A9LFvgrIh4N/kAWpL+FIWDN6cqA
-         N/y6TbErjvGpmg40dSJxanbDYG8DQCxZyUiz/VfTzc20sxvwKJXDKwvvYOvqtj/PN76R
-         IaAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxxvlUHsKSzpFwzWrqqjhGFhf0G1tNgqKwfqQi3z9GEqRLWKE/OHQJPCkFD0L6AmDXr93YuCC2mcDXYc8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKl9VxZUBU8FqLTzndIQGOSI2Nx+Cn69M7gvNOOxU5zgmBKtgfb
-	UHCN7LQMEsspGBQdCHZnht2Dg522mGykQK/vu0s7D1Ma5/5azABZecxp
-X-Gm-Gg: AYBFou2E8OvfmxCmlvesCpoCPjJSshWgLeqzi85TB6AgrypSosNUmUM4924FQ4qHvxu
-	rmxBhCLfBAovAMcbqhcgIj38RP6ekfjQJdSd6D07OoHFnx6de9EwyTqK99pPppxKZFs2NUZAzCk
-	71FrYZZMDr3UlmJn9werzYKr5PN3hpiOXgo5CwuE5AhCKK1MipKNVfazR6O1Ihew3W08wJp8Ysl
-	pGabs8d04ivu7Kz8DD0x6ha7NL6zYyLgvMS7fvECUcMccCdkresOId/fDPrd7s9k0uBEHrrEN/g
-	np/JLTkmqKHdjj3gQ4JKVc6+likh1WxhmhdmCtx64Yvu1/MAWjIejNaTkBJYIwFdglzM3tjWWk8
-	Z/5Z2/SQPDxidBbkZKhi3IgljarIm/IhDDODBW/rwT9rC2eGYFek30a8XUgrUoRQh+ApzWuw2SC
-	ha50OdjE1AxPppR6LAq5GCLhOz8TAEbXn41FTZKI3Aiz+aBUj6io/mV/nl+RL6tWk4I3b/QQVCr
-	SHs9+XNh0iLOAOPxo+7igFbhFUQXMI7EiHxN4F8vcLbv6CkLNr218QPusFzUAUXlagzLGGPPqQ8
-	gG3RAzGZZFPJ21/5ib3H
-X-Received: by 2002:a05:7022:3a85:b0:14f:8d59:edcc with SMTP id a92af1059eb24-1993505de94mr7777952c88.12.1792951341298;
-        Sun, 25 Oct 2026 11:02:21 -0700 (PDT)
+        bh=rgV7roqEK0hJNAZ4WkNhuBhtFoAn+fipk0Qu5uolb/o=;
+        b=VlX5ZKKNytiya15OMckeCCqM+c6EtLc/G8XheXqBWZtqkQu4ialV0WYfc3qMdV30eJ
+         vedPvylRRH/yPgIV23FF/CejrUkZZB7vEpLHXFJqsWVqc3WSV3zmHiVxH029muHkKZaN
+         Hx3yL3gJaUqRSRXkILz98kD4uudf9D+tLtUUUrhrgI5jX0EXkf13DCVdYtzWbCMtqvgz
+         6x6aKsCZGmL8RGh6KSDgxJavk+iUR6dXZzBOWZvpIQ2fs2HkWitXeN1uu2WChIwQ/98H
+         8E8WrwQmAA6FZn8r65KFYVdOmxMDRY1s/vqycAzqP1NIENfKU+KG9RabPGubPqMnjexC
+         E61Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792951349; x=1793556149;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rgV7roqEK0hJNAZ4WkNhuBhtFoAn+fipk0Qu5uolb/o=;
+        b=gspiy1NxJ5itb6GnMb2O/SfJnLngYQjdb6tXRZ84EfBIaRWn6Ef4ObKT5aVR8zEltr
+         dvjGGpdZuhlqqPioniX9ozbGgCBLF8pNzXeuaOiGuQuOzJEqRCnHrTf+i5MhwgQRTNXW
+         3BC3kUHMcKJUM8wzxtKHToqWRhiibgrESrvDoFGbeLGkKdgBqr3dE2NXbvJZ5A0CBW53
+         FNmcCVOZU4Gu6Ejm+9nnPuqhx+rCtsC8sP7pbXValn1S2+LZW7IzvB8Ms50/758QIwhn
+         eeKF84J21i24qYN37zf7Z3HC/60loG0T5vA4CtgA67bvdBVkdrLatK9FnmIyYoKeWT91
+         k6Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBxBrtU6i0wfe7gdPIUlEkvIL+oo44BRbtffsNrs5NRdNy76VN/9sOXwbiddZWVKZNQEqzXIX1hN1vGV42A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2CXvSphbiEuSgAIHGywUAmhfe09deD9yHdnP6L3iLSa0J1beh
+	/jky5VOF2E50iTmdGieV21WwkKLmDGt54RTrFY4j+AvrVz7CKWpl0XWz
+X-Gm-Gg: AYBFou3L6T+Yq2ynoG9gRjCuk9YWZIIxe9tSR4oPeTc8KiNVDjJZcfokLINrGOMpg1u
+	1SHrzSYHBKryDpRI8gfVk0ZVpY75pAe0GIXfm21wWmyVhovukHs6LmmfjXKIFLmINh8Lq4LfeTc
+	Bn8zD6d0eOcwMxjTxC7mbIzT6EMliGZL4WRuCgDwTKmvkG3lIrpsvuKe6wEiZfz/DfSHRsr9Rag
+	rHrRb1hjZH1HooOdyxYpW1bwMNC8CqR9qkWW/UqFZpVBsusU0En7+0kkzwV57GkverMxLA7uNdR
+	z0woAKRXV8mnDXGxy4tTv+NOnHmRzjGdJDKNwuOeolzWunZUSRvVyRPFrfHkK05az9qLYv1es/y
+	6hoJHFSoqebTmdprti8k/HhrpVQH/nM7OOqkyUAZz5T/dvoGW2gY4CKSsIq9mV60boTJ/Vxn8sx
+	gAQr3VytAhYRiQohaQHmMSMSI6YIFpcEn4//U2D8rhOoCdYrbCYGr00abwThIwh7clRBBIK6LzI
+	ol1UMsIYpLGkefNedAlCCdop+irsOj5j9mrohq/2exAjmSzfgrvpOejMMVhKiv8u5JpgcgJ5SYW
+	+ve851MYcDd+qfckWV4=
+X-Received: by 2002:a05:701b:2405:b0:18c:e014:6f1d with SMTP id a92af1059eb24-19929a9e465mr6481076c88.1.1792951348538;
+        Sun, 25 Oct 2026 11:02:28 -0700 (PDT)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm16099227c88.19.2026.10.25.11.02.12
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm16099227c88.19.2026.10.25.11.02.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:02:13 -0700 (PDT)
+        Sun, 25 Oct 2026 11:02:28 -0700 (PDT)
 From: Cheng Yongkang <teel4res@gmail.com>
 To: Jaegeuk Kim <jaegeuk@kernel.org>,
 	Chao Yu <chao@kernel.org>
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Cheng Yongkang <teel4res@gmail.com>
-Subject: [PATCH 0/3] f2fs: fix dentry recovery and MAIN_AREA validation
-Date: Sun, 25 Oct 2026 11:02:04 -0700
-Message-Id: <20261025180207.348498-1-teel4res@gmail.com>
+Subject: [PATCH 3/3] f2fs: refresh superblock CRC after MAIN_AREA alignment fix
+Date: Sun, 25 Oct 2026 11:02:07 -0700
+Message-Id: <20261025180207.348498-4-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261025180207.348498-1-teel4res@gmail.com>
+References: <20261025180207.348498-1-teel4res@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,27 +101,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes three independent issues found while validating crafted
-f2fs images:
+sanity_check_area_boundary() fixes the on-disk segment_count through
+__f2fs_commit_super(..., false), which does not refresh the superblock
+checksum.  segment_count is covered by the checksum, so the next mount
+fails with -EFSCORRUPTED after the alignment fix.
 
-1. reject a non-directory i_pino during dentry recovery;
-2. reject MAIN_AREA boundary underflow in the alignment fix;
-3. refresh the superblock CRC after that alignment fix.
+Recompute the CRC over the modified superblock before writing it.  Use the
+raw superblock's feature bit: sanity_check_area_boundary() runs from
+read_raw_super_block(), before sbi->raw_super is assigned.
 
-Each patch is a single logical change and compiles on its own.  All three
-were validated in QEMU on the KASAN kernel: baseline trigger, patched
-no-trigger or clean rejection, and a normal filesystem mount/write/fsck
-regression.  The baseline source and build were restored and
-hash-verified after each run.
+The stale-CRC trigger was reproduced 3/3 times; with this fix both
+superblock copies end with segment_count=9 and a matching CRC, and the
+next mount no longer reports an invalid checksum.
 
-Cheng Yongkang (3):
-  f2fs: reject non-directory parent inode during dentry recovery
-  f2fs: reject MAIN_AREA boundary underflow
-  f2fs: refresh superblock CRC after MAIN_AREA alignment fix
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+ fs/f2fs/super.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- fs/f2fs/recovery.c |  7 +++++++
- fs/f2fs/super.c    | 13 +++++++++++++
- 2 files changed, 20 insertions(+)
-
---
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index b90831e..7dcf15e 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4023,6 +4023,13 @@ static inline bool sanity_check_area_boundary(struct f2fs_sb_info *sbi,
+ 		raw_super->segment_count = cpu_to_le32((main_end_blkaddr -
+ 				segment0_blkaddr) >> log_blocks_per_seg);
+ 
++		if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_SB_CHKSUM)) {
++			u32 crc;
++
++			crc = f2fs_crc32(raw_super, offsetof(struct f2fs_super_block, crc));
++			raw_super->crc = cpu_to_le32(crc);
++		}
++
+ 		if (f2fs_readonly(sb) || f2fs_hw_is_readonly(sbi)) {
+ 			set_sbi_flag(sbi, SBI_NEED_SB_WRITE);
+ 			res = "internally";
+-- 
 2.34.1
+
