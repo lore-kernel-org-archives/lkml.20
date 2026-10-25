@@ -1,86 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792955999;
-	b=Awv/E8E26+sPNicdt0ULQNfjirRLB2Q5ekpgCknaeBBT4zXcGiN2FJsOy7ywz+lJNK/F
-	 NdMAlen6mzpkF0nLNbRTBKV8OXhByRex8rgqiWtbJsidGuNFr/aEnmnpsUeJFxtbNxZGB
-	 ORuoJYu9IBVgH4oKQdNQeYzextBCkyaB1PR6EJyZVNfVJyKyaxxvJPEUy51LZtCA0zNZ4
-	 kUnWKw/Caf8bQfyBij40hU196CHxWIv6kIcwmFy+Qm2GDd8VYEHR3eF7k+yVZ6GxstPL3
-	 IYjP/FqL146DFhVC01JP7esfxJIkboosu5Osc9R1w3AhNkYY1vjEBqftYAhz7y1rFIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792955999;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WCgwFDtfTJTyMxxPB/i3TG8L8ZoI2yM1l0zgDGnEJFg=;
-	b=jRjaRJtzdfhfQ7kyRvURu+XNS32SkDbs28I89dWApHo0CGkD9Bqrq2bzwkGNKvnudpbp
-	 DrDf9hG0c9+bR+O/fjWSBKseRlOFM6qNyo5Qkyj7ey1LZ1kp2N7EhjREFO/ywWclcrMrl
-	 E89dXCFH7aEx8FEEZ5RdfcimAg4OUHJUVmQpqQqHLBQ5hPepn6vFIngARbZBnSztkgg7x
-	 5AO2zVjnlR67/i8LL22XOslySAbxEna0KUfatNtiTajObYKIszx23s0idCfdS4WX/JeOi
-	 EapOM3PQIIxIJ9GTw3hWdO8d0nZQd6FHp+qWrkPPbsAYU+7G55/bS4sNBmmQHEcD6Wg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KoyB3i6x;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.83
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792955940;
+	b=UOZCOdBfXOvyoFHLRuiYS9eljnF6SXbZcHeP4FJtPiq/4KrQeQ/yebD8pMu8UGQKxXRS
+	 pYd4+SqUYLLf1tXA7UHEGiWP7bEaarzvsY/hBNN9iOEZoO/dUGC2fBsVYlK53McMI5gS6
+	 4Fk9D/55WIAV78evxObEG/wUxlFrQi+wIymDOOWVYBEzPnkP54j0xzM0pO9mDIzYY4BXC
+	 cJF0FH4UF94VO/7vpEW45Z+MpwuGf9mY6PfbpG8bsuztLc75NBNj88am66CTGloi5gpgw
+	 Ma8q7WNis2Y3zI+vebT269+d/+Oq839bR8s7NWS6LlNZhn6RrunQlEU6Gnu4PgJumkw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792955940;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=h9v9mzP0tqY8fn2282IDMcsxTzv3Wudu66uiKy5P9Ec=;
+	b=AVXUuMcoYMGvGAJV1L2Fnsi4C8vG+0VGAL9914Alj3wW8eOhVM/idpasPVmMqK5DYHaW
+	 VGxn2Z/mr9XMSc+srFeu5YTIhemz3t74NQtmNMuQY9mB+IoUJ2dmb1a0JdF8JHifFTL0z
+	 7JQKuEQNKNVFw7jwKIIZJQYdl5oEDDmra4DBTouK2qaT0cUA5W7hSUDoqS5IBtvr0k9TW
+	 RA+Z1wFtw57uJsBe3d2fpxLt519061PyK1IwNdHfDgG/sLciB6FozJdKc33rIbVtm7SA5
+	 pFpvqdUdrY7+3JVwpJSKSNJHiMbHyD/dAgOt7AGGgbb80T8ENQyRRDEtFDgNVypXRsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CuDUrbyq;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=KFmhKFoA;
+	arc=fail smtp.remote-ip=85.215.255.83
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9834F606A334
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 19:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9834F606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C2E606A32D;
+	Sun, 25 Oct 2026 19:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C2E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KoyB3i6x
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-16079d54c17so1811851c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:19:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792955998; x=1793560798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WCgwFDtfTJTyMxxPB/i3TG8L8ZoI2yM1l0zgDGnEJFg=;
-        b=KoyB3i6xaZsFLoXQqvdb5LVBXh7TLCe6dqoBruoOd/Qm22FpuhOLM4WIndM9mn216G
-         tQDu9OCapXeKxZrPUNVZY64aRJrYST3s9dW7JHQi8KWwg6tx4HNc3cfrmvVkUWzBMKT9
-         gbGMu93pLc1SD1Ht55DL2C3g6Fy/FCykETBWTSdadOdCbBGZ65s/P+ZA0ydgmKczdsOE
-         d95BE1N5CB/m/Wi+CPKboOIBzKc+XsWxQd43SvPfFYPcMnQ7GpCkFLigFvAHbtd1RH06
-         3CJBQ+D4V6t8WbaQec3ldPIhT9yhgfJJh1OVs9YPU0sQt9vA3Pi+YX06Gcgu4YDD9ph0
-         ffMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792955998; x=1793560798;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WCgwFDtfTJTyMxxPB/i3TG8L8ZoI2yM1l0zgDGnEJFg=;
-        b=bNdxpB8jhLFHfEf73I6Hq7Y3o8hLICRh+D5WFHW6NoV4/VP9kqyG7oXP6/Ds0N5qY2
-         cHGbMnztoaLJEVHREWto2WfqE/7RA4XJsrHDOXcz7XWVNURbKm/j5dv90rlsE3l1/pGd
-         BVVnBNcMTfNpQ422b2BfovzIymqDtNPcOx0/MMtgJotKq4VFJ9YktqBG74lgIJ19wuu5
-         zqN+5Nnm7b1Qz7U+I2OQa3AqlFn3d5YFq4m24K2PX5zlj+LZVGSrZfX/pnflPSSAB05/
-         7dvv8Kb+jyZjL1ipPdEpCcKVKCqh4fdBf3AP9XsZsRHCHAHQAJnaoc1eIgCr67Uniu5z
-         Llyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqcrU2sH1v35IKb0fe2h/Actvl/iKwqImeKxPh+srluqzw6W09C5EBnF+hONUPeY4N0weIIg8Vx3cM3xs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3/oBZOhSNzKIQgXbcfDW6JZWzWDK5UHw+0fcIegqyEujnzPZm
-	f8TJHWbkBwtmEkmFP3UNuLsXLEPM1DNmoZ8csKe6kuFSrMY9iASyfQssEXST8eaQ
-X-Gm-Gg: AYBFou06hpO6IlRUjvSHtFmnujDNM4aQFj4wL3IeCwlu3AenQvoNJrj+obH5DlRhixH
-	97nNxHy5CuVwPjFmnTneJ5obGdeJZdMJQD65u4TfQ/ZFP7ZXrSHzide/kJ3VQhrUimTfL/RQYcX
-	1QahHcG75c1aG5aHzyzjoP3dlsBAp+GK0RITPUx938Z42K1+nKKz8f+3ZW2iKVdK9n96iUE2uva
-	tDoQaUZQiTh9pJsYHxLZcIuNgzEXP39+BsNZ7kPmYTDmhWGdReoTLn1INi6+1egKDmDYcdA7HJs
-	/F0tMPD4ecQb+okaBl/rsT2Gk9ewKcmfcH3jlaMz1KE6wpeCuPOFMkwPKtp3ugmL6/DOEdJsWDO
-	4IZnCt5vpVDOBKPk3LCrFulBOKdOo9jVQjZdlfrnc9s2if8urJOCsrkmq8qcejkXC5Do24BoOpw
-	bMn2hisV6bv4wyEETa2rA88ox4w4lzYGoJal2rp9HjLpNUlCO9LtMCfF+GxuZ3qBnZR4pqXv8xc
-	o5vDRGBhZJF/TlKXu8N+WkUw3UpQboqpz2C7z/7qacLRC4bDu3wZxIIz28FkVGxyVeNOzyUBOfZ
-	my6nONO7X6MuZBX71VT+Pe80c0P0iw==
-X-Received: by 2002:a05:7022:5f14:b0:144:de98:eec1 with SMTP id a92af1059eb24-1993571a23bmr6933077c88.11.1792955997486;
-        Sun, 25 Oct 2026 12:19:57 -0700 (PDT)
-Received: from ?IPV6:2600:8802:b00:1f81:d121:605b:ad3:d032? ([2600:8802:b00:1f81:d121:605b:ad3:d032])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ef6a71easm16319342eec.5.2026.10.25.12.19.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 25 Oct 2026 12:19:56 -0700 (PDT)
-Message-ID: <96828518-81e3-4c58-b9c8-65f46beb7111@gmail.com>
-Date: Sun, 25 Oct 2026 12:19:56 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CuDUrbyq;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=KFmhKFoA
+ARC-Seal: i=1; a=rsa-sha256; t=1792955914; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ldrZ4jrBOsVSp4DR8V+FW9H1r1NG38llVAxc7QytAorIDgK+O9swXFzs28F1IE8wl6
+    l2w51S/BU2gMADBdWYgUVaFjqqQ5Z82swASrXXmyEXxXtOhazuC5j2rcZHxP6lJUL4/E
+    RwEmAN1w+Gsy2GLmeiUhzzKxwjBnnheTV6pwZ5xKebLjxLfAhJzFgrRiUVmniY5DYwyu
+    rIvofJTOErdIsERK5IWkeDPY/9TGZgqoQg07HEi71oXSN10g4XXB5qSR603Fdr6vYe7e
+    LyLRgKXB2WnsnU/4K0Ap4Luwzku/YmK0HBmRSaw2/r/sG9MB2hYpdLV2V0lCMij+YkUf
+    Yr6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792955914;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=h9v9mzP0tqY8fn2282IDMcsxTzv3Wudu66uiKy5P9Ec=;
+    b=SQjrdX8ns0ckxdwTCp6iQt88m3fpcpjOt+P1Flr3oJFTABgiMoniJWxHI6vqAcESoO
+    9Ix8agzauRtCESBVqoj3H69xtUI/hc4dBqQq/Sed6nfJUq5fVAKYnTzOLuP0lnlDszjq
+    Um+mZNoL73Cly9nUDNzVmxkz3lcAIav+RpIH4ZbOgb8/FKUwoUJ2QD5PPEzGP1k3+e2u
+    +fnlLsaaYZja4lHGInFxc5WLOoznHe7lJ0tYqyOAiOr9uhmhBcbvb+uUwM+dH2T/5S90
+    lgp/beUWtAcg6O/k/EM9/wPNJcAbxiODr8GR+L2fjPTEbNxIADruigKNmtM1XylgjedL
+    exwA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792955914;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=h9v9mzP0tqY8fn2282IDMcsxTzv3Wudu66uiKy5P9Ec=;
+    b=CuDUrbyq/vuubYZG19cPN8gx0/z6QUbXKQ/1FXcGlHtwHCqt5s/ygLBAzR5s8UErZw
+    iTWQnW4/hGnTHERLX+dPV9ebTfGU+cMRWJrDyiyS7yGsN+pzFE05BoxcJsWAfCSsfHYI
+    lYILfIxQzIZH5JWlbGw/HkE3QA2nkzdamHUUt5ddzLvF6gP40seryVVl6s2qIfUSuE0Y
+    pEsW2OG8d8TdT9j20Bd/aQki+Yc5GqSuyRh5oPO1cnUtXRURvZi92rayR3xaJqkr282g
+    j78+0X0l+bxo/wh9Pg86MTx9Qw/1jAwGDCtKdl+CFWJglm3YgXiOhpxbDKQGaVc7misv
+    715g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792955914;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=h9v9mzP0tqY8fn2282IDMcsxTzv3Wudu66uiKy5P9Ec=;
+    b=KFmhKFoAE70qmFCSzD/JoDAElDGHoU3hVuUCshgj12zGncl/HCUAW98EplrfY3Gq7+
+    Sb2Y6pZiRiCAFFGKvLBw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poNy8iNoc+LWkugLIF0fnfvFgpgbBBt2w=="
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229PJIYzQo
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 25 Oct 2026 20:18:34 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>
+Cc: linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	kernel@pyra-handheld.com,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Paul Boddie <paul@boddie.org.uk>
+Subject: [PATCH 1/4] dt-bindings: clock: Add Ingenic X1600 CGU bindings
+Date: Sun, 25 Oct 2026 20:18:24 +0100
+Message-ID: <13abd95aaab56ce5c9dc565db7f0198162b0c166.1792955907.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1792955907.git.hns@goldelico.com>
+References: <cover.1792955907.git.hns@goldelico.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,55 +114,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O
- window
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: linux-mips@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, open list <linux-kernel@vger.kernel.org>
-References: <20261022163106.1410595-1-f.fainelli@gmail.com>
- <alpine.DEB.2.21.2610250247210.42255@angie.orcam.me.uk>
- <ff0e6a32-af88-432b-a976-2a432f625cb2@gmail.com>
-Content-Language: en-US
-In-Reply-To: <ff0e6a32-af88-432b-a976-2a432f625cb2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
+Add the device tree bindings and the clock ID definitions for the
+Clock Generation Unit (CGU) of the Ingenic X1600 SoC.
 
+The clock layout features specific I2S handling. To properly support
+the I2S controllers on the X1600 without relying on complex compound
+dividers that are not yet natively supported by the drivers, split
+the structures to explicitly describe the additional I2S divider
+fields. This design accounts for the current driver limitations
+regarding division encoding while matching the hardware's internal
+gating architecture.
 
-On 10/25/2026 12:16 PM, Florian Fainelli wrote:
-> 
-> 
-> On 10/24/2026 7:55 PM, Maciej W. Rozycki wrote:
->> On Thu, 22 Oct 2026, Florian Fainelli wrote:
->>
->>> Changes in v2:
->>>
->>> - implement Maciej's suggestion to reserve PCI resources first
->>>    and then the rest of the peripherals
->>
->>   Thanks.
->>
->>> diff --git a/arch/mips/cobalt/pci.c b/arch/mips/cobalt/pci.c
->>> index 85ec9cc31d66..29fd052766b2 100644
->>> --- a/arch/mips/cobalt/pci.c
->>> +++ b/arch/mips/cobalt/pci.c
->>> @@ -14,6 +14,8 @@
->>>   #include <asm/gt64120.h>
->>> +#include <cobalt.h>
->>> +
->>
->>   Hmm, why do you need it here now, a leftover from testing?
-> 
-> Yes indeed it was a leftover from moving code around until I settled on 
-> the current approach.
+Furthermore, introduce dedicated I2S0 RX and TX clock definitions to
+allow independent and precise routing for I2S stream usage.
 
-Actually I take it back, it is to provide a declaration for 
-cobalt_pci_init() otherwise we get a warning with -Wmissing-prototypes 
-since the function used to be static and now it is not.
+Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+---
+ .../bindings/clock/ingenic,cgu.yaml           |  2 +
+ include/dt-bindings/clock/ingenic,x1600-cgu.h | 64 +++++++++++++++++++
+ 2 files changed, 66 insertions(+)
+ create mode 100644 include/dt-bindings/clock/ingenic,x1600-cgu.h
+
+diff --git a/Documentation/devicetree/bindings/clock/ingenic,cgu.yaml b/Documentation/devicetree/bindings/clock/ingenic,cgu.yaml
+index 509df06b9c9d8..c622131c5c49b 100644
+--- a/Documentation/devicetree/bindings/clock/ingenic,cgu.yaml
++++ b/Documentation/devicetree/bindings/clock/ingenic,cgu.yaml
+@@ -28,6 +28,7 @@ select:
+           - ingenic,jz4770-cgu
+           - ingenic,jz4780-cgu
+           - ingenic,x1000-cgu
++          - ingenic,x1600-cgu
+           - ingenic,x1830-cgu
+   required:
+     - compatible
+@@ -58,6 +59,7 @@ properties:
+           - ingenic,jz4770-cgu
+           - ingenic,jz4780-cgu
+           - ingenic,x1000-cgu
++          - ingenic,x1600-cgu
+           - ingenic,x1830-cgu
+       - const: simple-mfd
+     minItems: 1
+diff --git a/include/dt-bindings/clock/ingenic,x1600-cgu.h b/include/dt-bindings/clock/ingenic,x1600-cgu.h
+new file mode 100644
+index 0000000000000..a0001a63a6b54
+--- /dev/null
++++ b/include/dt-bindings/clock/ingenic,x1600-cgu.h
+@@ -0,0 +1,64 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * This header provides clock numbers for the ingenic,x1600-cgu DT binding.
++ *
++ * They are roughly ordered as:
++ *   - external clocks
++ *   - PLLs
++ *   - muxes/dividers in the order they appear in the x1600 programmers manual
++ *   - gates in order of their bit in the CLKGR* registers
++ */
++
++#ifndef __DT_BINDINGS_CLOCK_X1600_CGU_H__
++#define __DT_BINDINGS_CLOCK_X1600_CGU_H__
++
++/*
++ * beware of unwritten rules:
++ * - list must start with 0
++ * - list must not have "holes"
++ * - all clock parents must have lower number than a clock itself so that
++ *   parents are initialized before
++ */
++
++#define X1600_CLK_EXCLK			0
++#define X1600_CLK_RTCLK			1
++#define X1600_CLK_12M			2
++#define X1600_CLK_APLL			3
++#define X1600_CLK_EPLL			4
++#define X1600_CLK_MPLL			5
++#define X1600_CLK_SCLKA			6
++#define X1600_CLK_CPUMUX		7
++#define X1600_CLK_CPU			8
++#define X1600_CLK_L2CACHE		9
++#define X1600_CLK_AHB0			10
++#define X1600_CLK_AHB2PMUX		11
++#define X1600_CLK_AHB2			12
++#define X1600_CLK_PCLK			13
++#define X1600_CLK_DDR			14
++#define X1600_CLK_I2S0			15
++#define X1600_CLK_I2S1			16
++#define X1600_CLK_LCDPIXCLK		17
++#define X1600_CLK_MAC			18
++#define X1600_CLK_MSC0			19
++#define X1600_CLK_MSC1			20
++#define X1600_CLK_SSI0			21
++#define X1600_CLK_CIMMCLK		22
++#define X1600_CLK_EXCLK_DIV512		23
++#define X1600_CLK_RTC			24
++#define X1600_CLK_OTGPHY		25
++#define X1600_CLK_NEMC			26
++#define X1600_CLK_OTG0			27
++#define X1600_CLK_SMB0			28
++#define X1600_CLK_SMB1			29
++#define X1600_CLK_AIC			30
++#define X1600_CLK_SADC			31
++#define X1600_CLK_UART0			32
++#define X1600_CLK_UART1			33
++#define X1600_CLK_UART2			34
++#define X1600_CLK_UART3			35
++#define X1600_CLK_PDMA			36
++#define X1600_CLK_AES			37
++#define X1600_CLK_I2S0_RX		38
++#define X1600_CLK_I2S0_TX		39
++
++#endif /* __DT_BINDINGS_CLOCK_X1600_CGU_H__ */
 -- 
-Florian
+2.56.0
 
