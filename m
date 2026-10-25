@@ -1,44 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792959401;
-	b=tSQV7rBZR03c4sZ8dyDACYE/3MtTNNO5oGkDVrkrXA1qA5PX1H/LVfc6uhGEvAkaLzO2
-	 pLw9hX5Y5MRCNf9VuuyoV08FiyPlq/IzhVBUYyWwqSP1m65l1Z211tcu+GkaR8TOStROY
-	 vVqMm9F38sVf4pldpHSrMtRcsvavvZuy2hsmcmuE1nkCmnOdjUD6B4wXYxXJ5IluVyCoZ
-	 7yNWtvL+UP2BladgOQ6EIcnN6WF7krs1CEFMiip8gr2s5s1CtY6tAzGHZfAqSB8L7L/Ci
-	 tYbs+N58cDv6mtM1poFzdnVTvJ2eXPQ2GgF0Sp8lgloeZjIl7mSWULVgXHWLltehmGw==
+	t=1792959457;
+	b=sPZ3kEViZfd9MxpBmbUOI7TSdQzfjAUqgH+o1nWpybE8aZixWD0tM0BUpKPkRrk60XJs
+	 /MIgzlRx03fAccQ1pER3wnev1+XaUZ1uIoc0S3ExFd3QPvMvsqJnNY+QWoHqnUpevoV2D
+	 3BpkeTKF2xqvkc0MrRI19OIQIJX0JlsBZHJwbHSDrLcwpvG4tNKtEQzqKTXc3WXqkWG1O
+	 EokwN+3kYBDkjvKlOFp8fVkkmsiWeOl/WP4F+XNq2QPkiVPU7rZRUOIUgp4RsmSS5eYX2
+	 whmd7NSg6qpNUgPgDsNjGRdYVvgDUZsW33TFSeJxg0/7NwpSftY8kjnY7BFbJ6vO1Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792959401;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:X-Mailer;
-	bh=uBM0P5AgsQXktIUVJpV9bT1UztKARyF/NcxqP+Nynek=;
-	b=1F/4PFGwclbw16UVrMZ6ycUqQ6s05W+Myh/FM3rh2JkPbQhWLiuZzerUwPlprS+7CSog
-	 lF4NnLXG2W4RqjpggR71PUSFI8luUonUN4hsnAa2Kr0OcS5Ig0egyMlg5ItyJtc9iG97W
-	 v+ZfnZNxSUxzUTAlDCur6rkCQvcGScy5jERGsCXlq/Yf0Jigrc7y6kx2TIxG9YBjP5wcx
-	 8zJiL/EWfjN4+rfnmCZkes+nIO97QLOz3gZFWRgnZWivuKSUcvNjx5zQ0xXqs9jnzoeiA
-	 2RmBJs03iR6mWr/Papu6oRxMIai1NCkEXxfhBfW6DTySGdIqK++kZ3ETn51LyRh5X7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959457;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=46WEtRZ+0CGOkp0Boc8DGNL6y/8ZUUah7QZB53jNGg0=;
+	b=F8irjTqQOitdwzllY66DwL9YQv/6iaScKQCziBco7lk/keb3MAN38rt7htV3QaU4a1TD
+	 Rc1gOVm0k4P9TCa1IVDISaQ+9KEyXnUd18gH7Lld1hXxLsBz57XxCwlfW6XFjvJmEVuh/
+	 AL7rmYhE3GmSXK0pa7mspRjOkLxJN53xpipFWu/bp6q9PRqoJMJfC+i2dCkJtz6HE8Qap
+	 iUn2HC8iKQPp2h7D5Oo1gto0SJzXdj0U4aNBUK/zuehgmz01ibZPfPqhTsCw0+Iy6f5pd
+	 Fnh3QYk0oNuzNlyQAMRm8K0etGox9RmYJd2XR+htDgJ3mFJxiTD6sOV6nXbeq2PCydg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqAYdfmV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cwOmVmPK;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5C7606A31A;
-	Sun, 25 Oct 2026 20:16:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60740606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 20:17:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60740606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqAYdfmV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82401F01825;
-	Sun, 25 Oct 2026 20:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792959400;
-	bh=uBM0P5AgsQXktIUVJpV9bT1UztKARyF/NcxqP+Nynek=;
-	h=Date:Subject:Cc:To:From;
-	b=YqAYdfmVTVGmha2Z5SQ2FllCG40ih7Rmfyt9rnM8Tgb/byn0mmcBoVZVl66zKEEIq
-	 woW3H9DPDbbfNdJSodvmnYREeXysX+9+DCAgAclGiiR2dn8alr6f+w29M1a2z2dGbv
-	 gUjWJx+Wj5rUupiaHlpm5H1wa2tPoizhUeu5Dpmyhot1TUxih+XqdefZh85gyBiaBW
-	 3DX5aqSXw4Q01zOql5C85gLttwA6sAgA6mnRXZy34hcrMKQn1BcKw32TcBCrgCK5Nr
-	 bk0vRL7B1nud2M+53eARVSRD5HYQd+c1TReGLcrvgQvFCrZLuQYyXIg4q0n92ZpFog
-	 Nawss08X4mCDA==
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cwOmVmPK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792959456; x=1824495456;
+  h=date:from:to:cc:subject:message-id;
+  bh=syAfG+kp2XB6yrbAcLipgM6CejacTQP8smCRAWAmD8Y=;
+  b=cwOmVmPKxaK/OgHQAvyZFejsFWj56gE+cTTgCYY7Tgpgh7DXgc4EotE8
+   Jsb0NhoDezO2e9zKfGLGN7cGePLsardJN0SfwgGMyOfSTOfSNDKt7Q0Fe
+   pUeiaK45OaOvMg6h21flK5aOWzGjG2HgxXeZNusrqZwuDrSuZ1fq7vRaw
+   2DjXPVKDARHsDCHNPcP1RqhitpB1HjXeOR/KaQlQgf+fkUETVKZQ/moX+
+   9d3Z47M1+GVS+zqZAs1w9Ox14x3hzFIn/krE8LOvmuJPVt9luG3/D8BiN
+   oNUHjP4AGZyHyurrm33At49g0X+k36uq2btr1ifEywhegZoq3AiOPDI8P
+   g==;
+X-CSE-ConnectionGUID: l7r7C2StSsWxSBdQrNTsRA==
+X-CSE-MsgGUID: LVjrip2zRxmSWf4IMYj7LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1654654"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1654654"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:17:35 -0700
+X-CSE-ConnectionGUID: n7+DC3RSTeqZ/YJio4cTYQ==
+X-CSE-MsgGUID: bBKqubHNQiyuUDoT++hNdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4050398"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by orviesa001.jf.intel.com with ESMTP; 25 Oct 2026 13:17:34 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xL4eq-000000003ot-24Wf;
+	Sun, 25 Oct 2026 20:17:32 +0000
+Date: Sun, 25 Oct 2026 21:17:24 +0100
+From: kernel test robot <lkp@intel.com>
+To: Alexei Starovoitov <ast@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: vmlinux.o: error: objtool: do_jit+0x4f77: relocation to
+ !ENDBR: .text+0x24c3b5
+Message-ID: <202610252131.3Wl3JYJ5-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,71 +79,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 25 Oct 2026 21:16:37 +0100
-Message-Id: <DME7288WXCGZ.1XSS13X4IVJ5W@kernel.org>
-Subject: [GIT PULL] Driver core fixes for 7.4-rc1
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Johan Hovold" <johan@kernel.org>, "Saravana Kannan"
- <saravanak@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
- <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
 
-Hi Linus,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   21a7f44fd0765fcc5194130b28767786eba1d1e7
+commit: cff94a3d78d8cc12ceaf60aa9272aac422b1dc39 bpf, x86: Support unwind_goto and unwind_exit
+date:   5 days ago
+config: x86_64-randconfig-r2107-20261025 (https://download.01.org/0day-ci/archive/20261025/202610252131.3Wl3JYJ5-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610252131.3Wl3JYJ5-lkp@intel.com/reproduce)
 
-Please pull these driver-core fixes.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: cff94a3d78d8 ("bpf, x86: Support unwind_goto and unwind_exit")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610252131.3Wl3JYJ5-lkp@intel.com/
 
-These fixes arrived late in the cycle and missed the main driver-core pull
-request for 7.4-rc1.
+All errors (new ones prefixed by >>):
 
-Thanks,
-Danilo
+>> vmlinux.o: error: objtool: do_jit+0x4f77: relocation to !ENDBR: .text+0x24c3b5
 
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e=
-:
-
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git=
- tags/driver-core-7.4-rc1-2
-
-for you to fetch changes up to 187a62f99da29b1a55602b0d401a783d8dc86161:
-
-  driver core: take parent lock in async device attach (2026-10-16 22:36:09=
- +0200)
-
-----------------------------------------------------------------
-Driver core fixes for 7.4-rc1
-
-- Make parent-lock requirements per device type instead of per bus,
-  fixing a use-after-free on USB disconnect by limiting the requirement
-  to USB interfaces, which retain a reference to their parent
-
-- Honor parent-lock requirements during deferred and asynchronous
-  probing, fixing USB interface probe races, including duplicate
-  endpoint creation attempts in sysfs
-
-----------------------------------------------------------------
-Johan Hovold (2):
-      driver core: fix parent lock use-after-free on USB disconnect
-      driver core: take parent lock on deferred probe
-
-Mario Peter (1):
-      driver core: take parent lock in async device attach
-
- drivers/base/base.h        |  1 +
- drivers/base/bus.c         | 32 +++++++++++++++++++++++---------
- drivers/base/dd.c          | 90 ++++++++++++++++++++++++++++++++++++++++++=
-+++++++-----------------------------------------
- drivers/usb/core/driver.c  |  1 -
- drivers/usb/core/message.c |  1 +
- include/linux/device.h     |  5 +++++
- include/linux/device/bus.h |  3 ---
- 7 files changed, 79 insertions(+), 54 deletions(-)
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
