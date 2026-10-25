@@ -1,64 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971771;
-	b=diKEyBs3CmWwepxPS8BuxS3EaHVPFVsfRbBgYkemDJM0PqnkYaCC3BbZBeJDTHfN7ChT
-	 kBRCO25DOuG8cj/8WygOZA5iB4I2jMQFIm4IrycpuMAjOTZUHCscz23qykr7DQlQTI/9F
-	 W+ggFMGvpv0XFwruTJtuc6+/x889zbM2DMyzjIC6Ll7MU28x7pfOrp7sB/WD0qYV51YIn
-	 XSvrUEwM5zXzvYJArmZ6x+WL6ufDXEISyvWG5gA3EWb57ZXnHbUV1SuITXfjEu8+M+Fma
-	 482aCqvw2tTz6cBYaBKfcz471hveaxd6mzZ2lNtD0cNycRSxhs6C1l3LAh4fb6GYqJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971771;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mjEc846qK12NmucwoaUMxCDuJp2pVqdCBmGFmNcxzkc=;
-	b=2X10MfC5Ql+s2TO1Ug5R5UVdhDm2FJUtUwWTjK57MKS1Gjv6+XOH8rFtXUGebrBQfKr6
-	 D3gLN3jkdj9qWR3rn9kgZE9o0aeiH63VyUqQdA0JlKVINTLF637mFV3KS0CE55TX2JrqF
-	 9a8T7zWtCUoHvcl8fjGIgZgGP87u89FH7DcQXolSUgulQLnaE5YPeWqibmfDOkWSHa4EZ
-	 Ehy3T1s5+tVRpG27F7EP40I3TxhODlLwuEzsUW8Nu3AW/6tRTwPmQCymmi7kkXpeuK4Lm
-	 qxAeiis9zfWDnPsBt+sBePf2Zn/RCqALBE32XBL7oI+wQhDTooXZV8j7fDhP6xlW0OA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqkr2esW;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792971945;
+	b=MCvgJphM1b79H+F1TmWGQhCjFIf8ZORBXQqQEwRz/SmL3V4491OSOLASgGS0ZXAmjpUv
+	 JDZpMFxQP/xO7Y8+r+9b9ujffo572MUsUFw1iAFFAx6iS6LLcua7eRz0YSoYy4vB85Fif
+	 kLq1wkObSH24XrcQMYcqNsVfOB3X63pQXJoc8aQSHukpIpw2GK4lIIu4k8zd5VwSspxlQ
+	 Y3uXNXtS8j6KQFpuzKGLzwsmIdWT9NRioDCG1apdkGJbHjhBQ8muoYmcibAzaHtHUkmXk
+	 iKhBfNdOQnWaTGl7LCP08NK0deH9Q9gLNbSrvoHb4j5bkT/LluwZ+zk9hRKAkotkjnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971945;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=nDw9i3Z2SirvRvn+BaVz+MSjkgG+3Zolh5xd3HzvrVo=;
+	b=mr2Z4JKva9yfBMVuL0kVPutN1QUfWwsfEGeJ1Q797eLZudziEJhxqEDiZWjn28u6FMLo
+	 qQZGgvLe3hvQYb3UW1P3O5z+UgDIsKknodR14QM1+GGLelmC8rikSNa9MU0Qhk1rNKZcM
+	 l11kwRawlw0dobjGQNJdkAxmO0sCW2GzlNLAW43f+LnEUUrETyVBmjMWL3lSmdtKjKORr
+	 weFMo9kKH7+d0xnBpr3tBT7+p7QBlAu1NQqn94Brs5y6ljVjU5MHq0JPuTGwY77bJp74V
+	 QpPPkWeuEqqyBRvBHd5ROE+cgv2SWvnLQCzMxEliqKL5ALWhuR05TMYlqX3TgCsU/HQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ergdZ05P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1D2606A31A;
+	Sun, 25 Oct 2026 23:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ergdZ05P
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792971944;
+	b=K9k9lyhSXnfRapDSnG9lvMWg5wxZqez+wIiZPoos7L8/lYvq7U74PbxMVAJWB9Ci/Js5
+	 WQDanfb9DhwwgatB+0Tgg4QM+IuvNXAoBuLB+twUhNoybuuZNtgKL8O9x3gWTXX8C078U
+	 IvIYUZSmlh4b2Eq7l+AB58XE2b+EWgq2oIEfZ33kUznkK+KaGghsFunBWMHY7Vk9B8re7
+	 vZP1yIRqSaTAjwIaFw6gWF5vPVSitXPq08ZU84XRtEV4+Ai3uhSnjDSFUHCWrk6k1apNf
+	 JYlLUIfw+CTSpcbHVCYzNUBf8f6J9I8TxSMkhQq2lSZ1J62LMQdWpuk5R0aKxF+zaRQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792971944;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=nDw9i3Z2SirvRvn+BaVz+MSjkgG+3Zolh5xd3HzvrVo=;
+	b=aATNW+gR4PlQ9JWNDL4lxHUIstI6uBYDIqKGrYO5PGY8iqS6LXo7j6MHjcccwMPei4b7
+	 k4sGbgHIvEupCWHeDyXRl4iokUOYKIn5ZR8pavXj0awD1M7ks5TAOWoeqn+gBKqjYwB6Z
+	 H+JIoQqYgOlqc71EQbD3RlE6wEKqf4TTwFLTjfenxk03SNRSSk1nqz2wYigjgWNS4wbWI
+	 beSghhn2/0SM4ul2GJxS4SpZyhsqi74ioj2SjOCbcT9kUzAj2iBfgqnJm1PixynZWumCO
+	 w/xMwjIVVKJaKvmHXuSnV15S/hRiv5SrhIcv2PKV/d85v5oiBQzR58RtNa6hvilQG5Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1663B606A31A;
-	Sun, 25 Oct 2026 23:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqkr2esW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F991F01825;
-	Sun, 25 Oct 2026 23:42:46 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id DA6E31F01825;
+	Sun, 25 Oct 2026 23:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971770;
-	bh=mjEc846qK12NmucwoaUMxCDuJp2pVqdCBmGFmNcxzkc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aqkr2esWh8cv5AxNWaiYDWcX+C3yUzwLUx/ELGd8A7rvdIM1nqiIEcjZ8UGTHV3zj
-	 vBFPuEEbc0S9YTcEjMtEcHyLSqtLumeNVJ8jvNPZH6fp99bihUdgH20Y7RSIe69gwH
-	 bUFt++Ndd/wr3P7EPT7wJjJiE1xkng0ixJLVzAZ6aMAbZWO7TUVk2sNqKDFMl4AOw8
-	 Hq7Q/sm9GmYqOgEBiEGy9m+CHJH0heDPSkbTtVTrcQlNh3gUqn590cDUx0hNtbyuNC
-	 /Ma1xHmZfa09jumB1wQ1jtklXMcDIDJZPvJGMB9VWY5OAeRIA76dW4uPHxBFIGFSou
-	 ID0MrmL9OFoEw==
-Date: Sun, 25 Oct 2026 23:42:43 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Olivier Louvignes <olivier@mgcrea.io>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
- Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, Discussions about the Letux Kernel
- <letux-kernel@openphoenux.org>, Paul Boddie <paul@boddie.org.uk>, Andreas
- Kemnade <akemnade@kernel.org>
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261025234243.031acf32@jic23-hlaptop>
-In-Reply-To: <3C468594-DAC6-4DD7-8394-4516F9D43917@goldelico.com>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-	<20261024041357.34346-2-olivier@mgcrea.io>
-	<3C468594-DAC6-4DD7-8394-4516F9D43917@goldelico.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792971944;
+	bh=nDw9i3Z2SirvRvn+BaVz+MSjkgG+3Zolh5xd3HzvrVo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ergdZ05PSlkrgvyJUE0RMjWhQ/BFYhPHbsfaJnvbF9a81FFeO2m0lkty8VHXSndL2
+	 rosTagI37VyeYY/3AHK9+JrT+9iw0dFRPf3RS34iJl6EmNXdajMKgMprLHL0T3L27B
+	 n3OEiMeUPpBH9U4QeKmPba9gAsUoM9/5lV28RTOEYZ50j4ehYAfaokT02WjBF/498T
+	 scao/9HVjvbN67OUr9U5/9mHv+efE0pgupeoVwC/W6qig4iSddFjG3jsdMOUAtjBYP
+	 uqavIS3XKZZBDNvmf0NapMFWBq9njUfJ07fua8ow5OQnWo4MxoHLYxcV8CGsbo70QC
+	 Tqtis3PW9dyjw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6804F44B2D;
+	Sun, 25 Oct 2026 23:45:43 +0000 (UTC)
+From: Eli Skeggs via B4 Relay <devnull+kernel.eliskeggs.com@kernel.org>
+Subject: [PATCH bpf 0/2] bpf, sockmap: Fix dropped data and EPIPE on empty
+ skb redirect
+Date: Sun, 25 Oct 2026 16:41:56 -0700
+Message-Id: <20261025-sockmap-bare-fin-v1-0-bb8feae7c4a7@eliskeggs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,104 +84,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swtJhCr+inhI1o2uYhqyVYTSf
+ zfqcQZmFpg0FcNhWNDkpaZT6eA3A/gay0VIz50RXBi9C45s4vsjVkqxCWUtJD7v/eh4y7uEntU
+ mWd+/5RGpZpz+0p7pJjx/Z1jXDweIJxJ5AAAA
+X-Change-ID: 20261020-sockmap-bare-fin-e1f8160c3c7b
+To: John Fastabend <john.fastabend@gmail.com>, 
+ Jakub Sitnicki <jakub@cloudflare.com>, 
+ Jiayuan Chen <jiayuan.chen@linux.dev>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Cong Wang <cong.wang@bytedance.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: Geliang Tang <geliang@kernel.org>, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Eli Skeggs <kernel@eliskeggs.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792971941; l=1845;
+ i=kernel@eliskeggs.com; s=20261021; h=from:subject:message-id;
+ bh=Wlyiie0CKDzxYgDQSpvxa4sS+tMNMfU2M/Qk54ENhjw=;
+ b=tbyYi/j3qg52YiRw/uGwHTvdc1MwNPTaY4YyjbYq3J6a31YmybW5d/zOUFmKzo8P67EOjxD7h
+ kZuWm2tJq1YBrVWeIvDgbj0Jp5hebWFSYVm5EGihK9IZk/NKBTSYo5y
+X-Developer-Key: i=kernel@eliskeggs.com; a=ed25519;
+ pk=38k+FqQ3STTnr2H4HZ7IEseBOHWRDYVhvyMmQlB51gc=
+X-Endpoint-Received: by B4 Relay for kernel@eliskeggs.com/20261021 with
+ auth_id=1252
+X-Original-From: Eli Skeggs <kernel@eliskeggs.com>
+Reply-To: kernel@eliskeggs.com
 
-On Sat, 24 Oct 2026 19:57:53 +0200
-"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+When a socket receives a bare FIN, tcp_read_skb() hands an empty skb to
+the attached BPF stream_verdict program. The program may redirect that
+skb to another socket. Doing so causes the target socket to report EPIPE
+and stop transmitting redirected data. A proxy may see the erroneous
+EPIPE and truncate a half-closed connection. Instead of treating a
+redirected empty skb as an error, treat a 0 return as an error only when
+there is more data to send.
 
-> Hi,
-> 
-> > Am 24.10.2026 um 06:13 schrieb Olivier Louvignes <olivier@mgcrea.io>:
-> > 
-> > The X1600's SAR ADC has four auxiliary channels, each with its own start
-> > bit, interrupt flag and 12-bit result, and none of the touchscreen or
-> > battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small  
-> 
-> I have checked a little and
-> jz4780 has its unique SADC register set
-> x1000  has no SADC (just a note for a clock reserved)
-> x1600  has this register set for 4 channels
-> x1830  shares the same register set
->        but has only 3 channels
-> x2000  has a register set similar to the x1600
->        but has 5 channels
-> x2600  has a completely different register model (and 16 channels)
-> 
-> So the x1600, x1830, x2000 only differ in number of channels and the bits
-> in ADENA, ADCTRL, ADSTATE
-> 
-> > driver that exposes the four channels as voltages against the 3.3 V
-> > reference.
-> > 
-> > There is no datasheet here: the register layout and the clock dividers
-> > come from the X1600 driver of the vendor's 4.4 kernel.  
-> 
-> Or x2000... Since the x2000 is older, this IMHO should be an x2000 ADC
-> driver where the x1600 is also compatible to.
-> 
-> But I am not sure what the policy is here. If the sequence of publication of
-> some chips and derivatives should be used for the driver name and internal
-> constants. Or if it can be based on which chip is lucky to find someone
-> who writes a driver for that chip.
+Patch 2 adds a selftest that fails without patch 1.
 
-First supported part is normal choice - though here it seems like there
-may be some low hanging fruit if Olivier is up for supporting the
-similar parts from the start.  Even then he gets to choose naming
-(often it is the one the author has to test with!)
+Tested on x86_64 with virtme-ng, under QEMU without KVM. The new subtest
+fails on bpf/master without patch 1, and passes with it. The full
+test_progs -t sockmap passes all seven tests and 802 subtests with patch
+1.
+
+The bug dates from v6.0 (965b57b469a5), so please consider queueing
+patch 1 for stable.
+
+Found while building a sockmap proxy between TCP and MPTCP sockets,
+running out-of-tree MPTCP sockmap patches, where the EPIPE caused
+half-closed connections to prematurely abort. An LLM helped locate and
+reproduce the issue, and proposed an initial fix. I traced the code
+path, reviewed and verified the LLM-written test, and simplified its
+proposal to a one-line fix.
+
+Signed-off-by: Eli Skeggs <kernel@eliskeggs.com>
+---
+Eli Skeggs (2):
+      bpf, sockmap: Stop reporting EPIPE on zero-length skb redirect
+      selftests/bpf: Redirect a bare FIN to another socket's egress
+
+ net/core/skmsg.c                                   |  2 +-
+ .../selftests/bpf/prog_tests/sockmap_basic.c       | 74 ++++++++++++++++++++++
+ .../selftests/bpf/progs/test_sockmap_pass_prog.c   |  8 +++
+ 3 files changed, 83 insertions(+), 1 deletion(-)
+---
+base-commit: f909e534f5e34feb2ea2701d54df63e21aa506fc
+change-id: 20261020-sockmap-bare-fin-e1f8160c3c7b
+
+Best regards,
+--  
+Eli Skeggs <kernel@eliskeggs.com>
 
 
-
-> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> > index a802d8ee4dd9..7b5c3d3fcfdb 100644
-> > --- a/drivers/iio/adc/Kconfig
-> > +++ b/drivers/iio/adc/Kconfig
-> > @@ -881,6 +881,16 @@ config INGENIC_ADC
-> >  This driver can also be built as a module. If so, the module will be
-> >  called ingenic_adc.
-> > 
-> > +config INGENIC_X1600_ADC
-> > + tristate "Ingenic X1600 ADC driver"
-> > + depends on MIPS || COMPILE_TEST
-> > + help
-> > +  Say yes here to build support for the SAR ADC of the Ingenic X1600
-> > +  SoC and its four auxiliary channels.  
-> 
-> X1830 and X2000 should be mentioned here.
-> 
-
-If supported - hopefully Olivier doesn't mind doing that but
-we normally wouldn't insist on it.
-
-> > +static const struct iio_chan_spec x1600_adc_channels[] = {
-> > + X1600_ADC_CHANNEL(0),
-> > + X1600_ADC_CHANNEL(1),
-> > + X1600_ADC_CHANNEL(2),
-> > + X1600_ADC_CHANNEL(3),  
-> 
-> X21830 has no ADC_CHANNEL(3).
-> X2000 has an ADC_CHANNEL(4).
-> 
-
-Depending on how likely buffered support (with timestamps) is
-you can deal with that via a single array but changing
-num_channels appropriately.
-
-> > +};
-> > +
-> > +static void x1600_adc_power_down(void *data)
-> > +{
-
-> > + return devm_iio_device_register(dev, iio_dev);
-> > +}
-> > +
-> > +static const struct of_device_id x1600_adc_of_match[] = {
-> > + { .compatible = "ingenic,x1600-adc" },  
-> 
-> There should be some mechanism to make this driver compatible to x1830
-> and x2000 as well and base the number of channels on this.
-
-A chip_info type structure would work for this plus naming for
-the various parts.
-
-Jonathan
