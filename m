@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792968904;
-	b=znNf/hMHw2PciepFYSOTW6IsyfcHHeLL8Q5Sg/cJqBCI9SLzj/m6bsnrgbhHNaiQEiQL
-	 S8VGmwh5NOvZeOsZcv6ZzWUs8uVeeQBFHoRH+oi5l3KSkMYEd3U3Num6XFfucXrmkNCLX
-	 OK1o+4trYr3/NeRzJAUX5EGGYoyOpIQlmacB2dP2/9bmyRjldrPF/GcjJd4HaQlAQivYB
-	 XrCgZY6OFWpqPa8HMoZyy6ehDPK1D5Zn6+AG/gnwsOYmMsWJvmBEWAlwpoOTM5UHTlXny
-	 gylH//7In2kCWucGx98VBlhN30+uEn6PES+bqDs7f71Go2vqAC9ltRaQ13XeVHUUmEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792968904;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=Vm//i3BWkJl3AkkwF5gC7SHrPbPShxtg/tUJT/ir0V0=;
-	b=AAGJHxul3Gs5J+NBNWMHyWQPk6PwJsGJDe00AoPVgT/LI0emFpFnhu5BDKI2wOjI5lc1
-	 N3L6kTGEpoDxHi8Il7J9J2u9Ee3CxPt5irwkz1o9UbFpzd/W0E/DdqSyZvBIbYtuOZGjQ
-	 ZQKj4CgmLTihxQJYidDWRSF2Ka3gwJjbbhC9y/tuGy4PUpcinKHENOLIm5DdUW9P6yooN
-	 9zjb3+7PcBN0XbxT+LQWZ1TtBQA9585sOR6wo/+d/1ZjgDwLTTzbHq3iBeOuVafP/wzkJ
-	 vd9XdDwW0og9jJENtPbQTT35hvmPCstVxVwh/1fU9AwTZIJ615fl8OvaxIZBtyz2vaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792968954;
+	b=verLYoZyb1r/d/a+8NZKkYg34wzh8ETxlZlw2rZbi2orGMKA/w4bWO1iq7lZY0EVduxT
+	 Ip54VFXSfWoIc+cjYNYp0hjYjDRx1uTEsyJd/j8neVNwPCbVQgnQdh2Zu8zdJCiYP6jzO
+	 ovwC9W3FCSCrcci1gMeajij0i4SZt11Uznctq3KLD5tj1EYCDTYCnLAX4vWPBP+zSnPCv
+	 S7LpVbc3AKQVEuKcKQ6rwWCAfgyIuwlv4/KP9A9+Y+PEC0rSXvtColxqODHzVJoV1Lgve
+	 RNe/+2sO13FUj0Unzogk0so3s+51rDjf3OZLPJZYP9bHbiHm8lh+MiTTAGp+Lu7J/4Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792968954;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fVA9Px7sGwhBCvFM7n5uL7LpsIT0mOi13oe2+5aD5jQ=;
+	b=zOHo8zqOEb55qiX5yQUyGq+YHYXYtyiHihB00oe1kcCWTAXR215D8kamZ76L+MzAKi/X
+	 KD0SirH3YXl6cmDBWOpcsrAUIdO+F4mJmDSr/T6027zThDIkkm08zDIi1BzldJ7AeYQFp
+	 QRjnpkP2Dfv5kkl9N8zqreMWpVtHCUy1fhn5dv6+bjv/raaNJj7R3jNhqAto3JxrKLc+W
+	 LbtS2WKJDA/jGUkgmj5M0jkCKy7LeB5vq0EsZnHfLgljt/G+VZKFl9Z/h1cJohdKEvP33
+	 DVdQRF5hu4nEJrJQX7l8N0G4VH/xOFTtd2CuavgPo4XXPKKGtFwjbo3bFoR2UacJW+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/Zn+ncC";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC37B606A31A;
+	Sun, 25 Oct 2026 22:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/Zn+ncC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792968953;
+	b=We/IzOgTgGdY8Ivf/0fs+nRQUgZlhlcC5TfTWNcpKb03Qqo3vUULcrR/Nu9XKRO4/Bhu
+	 i+Kn8EfilZkd5RPBSZiuPiJcoklJwnYCodHQwoxhirfY+orb6G7ETj9/HkNVsF3ZIYwEL
+	 eXPDotGJQwO25lNe+Xoh464VVHhrmJpuxh5OUPm3NYS9nXhy/RxbIwyk+aXmIHXW/Kh7+
+	 a1pJFuQfN+IMR+MQGQzjZ7b0fc2aRLJFJj18G9TcjshwzhdvB7EuD85zklxJvo6PDdhlg
+	 jMOtSzpJMsFSyQBlcQQ5uAVqklgq+FfLf2eFpAuoSRUqrJ86pm4AfiHjdSJjSHIkl1A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792968953;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=fVA9Px7sGwhBCvFM7n5uL7LpsIT0mOi13oe2+5aD5jQ=;
+	b=eJ4k3CNMngo00if3VNRPeTMtOxi7FFe6cENde8nDBHtLyalhKO7FM1jymj8ElsuaHyRr
+	 Tn9ImNyaOec2U42xhIZ/EyYxgtPgjjtBh2PeeO+zd4u3mtqMpQVNxsFm0RUNmjwztG42a
+	 2Pyj4c9HBaJy7JeOyzLSfGCk0P+ZMO0EaLY1enONvz3tMXp79tgb5ibm3O3CQO6cYIuqC
+	 SxJoY6cEcUjZJ0HkARGydYE+lndbeXwfgiVZniMATgRRh0MNDCWJIf3/mCsdfW2xPTXBB
+	 8Sjv6KmZU7Vl4Sd+ogrv8CwaSXUTy8YOwlX4pdYxbCynphoOpu1OztgFrsG6ACYbwZA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7AB606A31A;
-	Sun, 25 Oct 2026 22:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C7AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <c1591d63538946500b5939c385d624223495361e.camel@crapouillou.net>
-Subject: Re: [PATCH 3/4] clk: ingenic: jz4760-cgu: Adapt calc_m_n_od() to
- core framework changes
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Stephen Boyd
- <sboyd@kernel.org>,  Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Date: Sun, 25 Oct 2026 23:54:57 +0100
-In-Reply-To: <a718b428cff741a2c14fe3c022026c8a88c28abe.1792955907.git.hns@goldelico.com>
-References: <cover.1792955907.git.hns@goldelico.com>
-	 <a718b428cff741a2c14fe3c022026c8a88c28abe.1792955907.git.hns@goldelico.com>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.kernel.org (Postfix) with ESMTPS id 14AAA1F01825;
+	Sun, 25 Oct 2026 22:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792968953;
+	bh=fVA9Px7sGwhBCvFM7n5uL7LpsIT0mOi13oe2+5aD5jQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=A/Zn+ncCxnwDUhrdQwt8/kdI25iLeG6fcuEAfZzSCntM3flOGw9yRSK1Dw77af2LZ
+	 g0S1Q2kV7avA3+S8odi/jMlfVRSOY6FY2PvfUeDmpY2vSdZIQiY+vmI9v54nyvYptS
+	 on2Zy1pXmXmeqWA/4KzGWytTRmzvZxsklSnXWG5T6oEdkjTcQEOXV3ZUjNzccCEQYB
+	 iKjBdnzYhiMvCdPdTNSeBeSusxtR7uesukgyBtHhHsyVJ3c5uykfgCpGgXFytkT/Nx
+	 lZxhfkwiYjRdLpExBKreVBME6yCUO9swsBUqkGIZjOki/qmnuQdeK+wnAxB6SoFzXf
+	 EMwdHaKSIv+eQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 997CF44AE2;
+	Sun, 25 Oct 2026 22:55:52 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sun, 25 Oct 2026 22:55:51 +0000
+Subject: [PATCH] arm64: dts: rockchip: Describe the Ethernet PHY on ROCK Pi
+ 4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,49 +83,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-rockpi4-gmac-phy-v1-1-69ce4d677189@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAPaI3moC/x3MSwqAMAwA0atI1gZs/XsVcSExrUHU0oIo0rtbX
+ L7FzAuBvXCAIXvB8yVBziNB5RnQOh+WUZZk0IVuVKFr9CdtTiq0+0zo1gdVZ1RJPZWtIUiZ82z
+ k/pfjFOMHydgcumIAAAA=
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Pragnesh Patel <Pragnesh_Patel@mentor.com>, 
+ Akash Gajjar <Akash_Gajjar@mentor.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2295; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=ysO0nvScc///4x6g3QSeXnmC72DmKboxgyT6JKfyNes=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFn3Or7P1jZ6PnH/hIjcQx9E9L/axL654Hc84v6UypqD7
+ h8ei5+/21HKwiDGxSArpsgy4ZDGrYwlV//6e5g/gJnDygQyhIGLUwAm4t3GyPD1UHKXP8+0xPwD
+ z0Pfan3c2f+D/c9+nn9h7D5J4idOb1Zl+O9rLfT124GNCRlpRw+fmrKwPNPjypr+te7r7p0VShX
+ TZ+YBAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Hi Nikolaus,
+From: Igor Velkov <iav@iav.lv>
 
-Le dimanche 25 octobre 2026 =C3=A0 20:18 +0100, H. Nikolaus Schaller a
-=C3=A9crit=C2=A0:
-> The common Ingenic CGU core framework was updated to support a
-> secondary post-VCO divider (OD1), which extended the signature of the
-> calc_m_n_od() callback.
->=20
-> Update the JZ4760 CGU driver implementation to accept the new pod1
-> argument, preventing compilation errors. The parameter remains unused
-> on this specific SoC architecture.
->=20
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> =C2=A0drivers/clk/ingenic/jz4760-cgu.c | 3 ++-
-> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/clk/ingenic/jz4760-cgu.c
-> b/drivers/clk/ingenic/jz4760-cgu.c
-> index 372fe4b079927..52cc5ce150048 100644
-> --- a/drivers/clk/ingenic/jz4760-cgu.c
-> +++ b/drivers/clk/ingenic/jz4760-cgu.c
-> @@ -56,7 +56,8 @@ static const u8 jz4760_cgu_pll_half_div_table[] =3D {
-> =C2=A0static void
-> =C2=A0jz4760_cgu_calc_m_n_od(const struct ingenic_cgu_pll_info *pll_info,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long rate, unsigned=
- long
-> parent_rate,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int *pm, unsigned int *p=
-n, unsigned
-> int *pod)
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int *pm, unsigned int *p=
-n, unsigned
-> int *pod,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int *pod1)
-> =C2=A0{
-> =C2=A0	unsigned int m, n, od, m_max =3D (1 << pll_info->m_bits) - 1;
-> =C2=A0
+The ROCK Pi 4 GMAC node has no mdio subnode and no phy-handle, so stmmac
+scans the whole MDIO bus. The RTL8211E answers at its strapped address 1
+and at the Realtek broadcast address 0, so two phy_devices are created
+for one chip, and the netdev attaches to the one at address 0.
 
-Well you can't update a callback prototype in patch 2/4 then update the
-implementations in 3/4, the kernel has to be buildable after each
-patch.
+On system suspend mdio_bus_phy_suspend() leaves the attached PHY to the
+MAC (mac_managed_pm) but suspends the unattached one, which writes
+BMCR_PDOWN into the same chip. With s2idle and a MAC Wake-on-LAN magic
+packet, 17 of 40 cycles did not wake.
 
-Cheers,
--Paul
+Describe the PHY at address 1 and point phy-handle at it, so only one
+phy_device is created.
+
+Tested on ROCK Pi 4A (RTL8211E), s2idle: one PHY on the bus; 40 of 40
+cycles woke on a magic packet sent 15 s into sleep, and 35 of 35 more
+woke from the expected source with magic packets sent after 5 s to
+20 min, RTC alarms, and the two alternating. Later board revisions use
+an RTL8211F; their schematics strap it to address 1 as well.
+
+Fixes: 1b5715c602fd ("arm64: dts: rockchip: add ROCK Pi 4 DTS support")
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+The deprecated snps,reset-* properties stay in the MAC node; moving the
+reset to the PHY node is a separate change.
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+index a8ab043e4062..52de4a79e2f4 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+@@ -202,6 +202,7 @@ &gmac {
+ 	clock_in_out = "input";
+ 	phy-supply = <&vcc3v3_lan>;
+ 	phy-mode = "rgmii";
++	phy-handle = <&rgmii_phy>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&rgmii_pins>;
+ 	snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
+@@ -210,6 +211,16 @@ &gmac {
+ 	tx_delay = <0x28>;
+ 	rx_delay = <0x11>;
+ 	status = "okay";
++
++	mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		rgmii_phy: ethernet-phy@1 {
++			reg = <1>;
++		};
++	};
+ };
+ 
+ &gpu {
+
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261025-rockpi4-gmac-phy-18f13c9c37fc
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
+
