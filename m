@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940498;
-	b=2A5D9l3KST6bNwLiZ4fQXDq0QpA1of/YO+NJcYBatiWMrwIbb7BDeqID/Z8YTMUEqiR4
-	 7tfPXVXU8jNCyxnq54CDhs6Ib+oLsrw/HSuxVHBatSy3n8iNRfEe2IPC/0V8rjHs1H1Gd
-	 eqsNCCCjC8MNDgtKeBuYB+EsjckDHIcZi6/o0bnNCCFsrdil7Dy103pfqV2IGQbnIJbMd
-	 Z5abL6LTcDXiQ2MJfYN4ybdU7Ah7SxYhbYaI2Wi42H0Rzcuw/ZxnVkb08E9jqB2VqVImR
-	 5wjEbN92sBUciWarOCvLgoj/ILWTnO/Gsp5KtSq4GKmL0ku+BEHlpIpm/6nRdXN927A==
+	t=1792940555;
+	b=eEU01UJXonn0Lrq5Buh/tqRNVSiHAUEg8XrUViKUYpsm4DcJtzu5MbeKSLtEyt2sO1PK
+	 WZFB3FxMrM0kliN51WTcGU969GY9BezA+SIsBgbxfUe7yO45f1ywUHg11zfTGCagNkWSZ
+	 k2RafnHLWdUpVrRXW6skcnUvAz13W80p3gZa7gQ4hZTUUdvr/s3ye7gXp4bHcPD41EA7W
+	 9JYzwdhYf2Wle8gTOK+LTbhxg5wiwDop708H5N4cL5rl+st+cR/M/tbIFXeUPPuGjnfDA
+	 p6QM+8ml/+u3EQroV9kyOOT4QIXfY97mSAHW5DAkmQEuYVQCijyOQKpOY++NEbbhPgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940498;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=D9mREOesp9ix2gw/zcluHwQx8Ah3Xmw9pk+GCQ06GNs=;
-	b=kBNOirYctXHSV+NVxzhI6hRhMkzlFVguK8r5PEaPTCUn9X9qY1tz87Yu3+dGRWqIg/ia
-	 lHQLPw8W+t59lfM/9tfzvfVRxE6mhO8RGqfeoiYfzHTfWH89mXuJoMG8dobwzjgUFc58K
-	 qoGQPu5Y4i5yeOHTxYkBDlru10un6B3jtyjCq1g6J5jq9OkpwR1s8LqHmPha9tk4c4uIu
-	 NOxImwt7xDj6CD/tQJcpxiFM1pqiywbm1hxCDrEEibiZlj2OsYIDMYqMRWzA9QQfjBqTw
-	 h3gixlbTHESgltsBeihq4wVGa8naastEwBay8h1pL5FOkD8A3gwQqVwEoM8rJBS5cNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792940555;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
+	b=fItakkcn9Jg7adq4jX+u+9SJHOvSffKP7+uH8OS2itsfLrufG8/dMaNOWS6b1NqVTzbv
+	 KMXYp3JEQgMWBh0s2HZH6vShC4mA8y9o8uwynJmOGR1NRTZ61GyPdtgEi1f/0Yp+5Nm+Y
+	 lDcDzcXbN95jDyAXHey5SbRp1xk5AyFmEr83eFZZxuDcHC7s5XhNLi1UMcuHJIL2HfEa5
+	 cQA/9iPs9S/WWqfzayuSbHSAag3t+R9elIJ9woOhntCLc6GkQ8sknZVXmx4mLFDQdaYBJ
+	 g2O9BGLVZN7c1KfU7MG2Ff0Kt8IynG4Q9K86mrRBgLGtKCGcoApv70E2fmbPXQ+lJng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nJaZNf5L;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B85606A31F;
-	Sun, 25 Oct 2026 15:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B85606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E90606A31A;
+	Sun, 25 Oct 2026 15:02:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nJaZNf5L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792940496; x=1824476496;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=L3ipZTsNucMPzNkW+kxXI9G3iUL6JjrKCA2IMBnMnBo=;
-  b=nJaZNf5L/rYoCssx9wNz2/xvR4nyix5cog2qweK5jFqDMsQiepwEWdLu
-   c5wuHliK/bbNdOSyciMQnWoBEWnjaO+rZVa8jLLnnQw8IoaFl4OPxvAP5
-   oSBV2DVMbb8p0k3qj8P5D9IsjXA3gxY7J+nNd2q2oJFd3BmvLEMhv0yJ+
-   hKAzHip4PRODg8Uk7u8ikWuIjm02oE26gE7588Nnz0eAY3RN3jqA0JnGU
-   F3Qjyl/UXl3Izl7+l7Qyrz7RIaaTYYZluNRLp8DoBLGT9dRiTgDJfgGeD
-   SD6Npq/F2v98aUevdSK07kY+Z26FY0HroHdy1Xqxu4r/lCZJ+hx+Xe9LJ
-   g==;
-X-CSE-ConnectionGUID: jqNSNDGfTEiF9mOugw0qVg==
-X-CSE-MsgGUID: TbYBP1jiSziU6xjkTnm+Zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1629432"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1629432"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:01:35 -0700
-X-CSE-ConnectionGUID: IJ5YdLbERyyITfSahx/fEQ==
-X-CSE-MsgGUID: jbpnSTeYSNOhBbOZEZN2nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4097073"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 08:01:33 -0700
-Date: Sun, 25 Oct 2026 17:01:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: himanshu bakshi <himanshu.bakshi478@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: Fix line length warning
-Message-ID: <at4Zyt9QP3Yo-ZTC@ashevche-desk.local>
-References: <20261024180803.108872-1-himanshu.bakshi478@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C501F01825;
+	Sun, 25 Oct 2026 15:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792940554;
+	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dB8BFSmIqZFoIJvvcTzrwfGFB/Kcmfjwo42raWbl1Sw1fgJkiMPZllORd9Zfs5cGP
+	 IyMmhP6OwvLFS39rfdjFkyh64QkFqAZdDL5nplKR6ctb3g5WbDpK+glIXbcmMLFFY0
+	 tXOlVnhHHFgcdAHEQq5a7qzyvVlZORHThoP0wKnp/hWxDpqvdc7OHTFI4CggRchovG
+	 9RSpfhAO9e5F6A/oWKUUGrArmOkJOhHseJ22EVIMDfiXmW920lJtzDyM+kO53dbQ5z
+	 QrUGgC/jvswT/x4Su8DT0xyHPj+z1G9O5pDxcdCektMtzvTuNauQfc6chL92zAxaS2
+	 AjjcIFbF34yHA==
+Subject: Re: [PATCH net] tcp: limit tcp_tso_rtt_log to a valid shift count
+From: netdev-bot+sashiko@kernel.org
+To: 1075151112@qq.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
+ kuniyu@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 25 Oct 2026 15:02:33 +0000
+Message-ID: <179294055394.3134.18315932925125315352@kernel.org>
+In-Reply-To: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
+References: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,44 +62,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024180803.108872-1-himanshu.bakshi478@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 24, 2026 at 11:38:03PM +0530, himanshu bakshi wrote:
-> 
-> Split the line in fbtft_init_dbg macro to keep it within the limit of 100
-> columns and address the check-patch warning.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-checkpatch
-(in one word)
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-...
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->  #define fbtft_init_dbg(dev, format, arg...)                  \
->  do {                                                         \
->  	if (unlikely((dev)->platform_data &&                 \
-> -	    (((struct fbtft_platform_data *)(dev)->platform_data)->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
-> +	    (((struct fbtft_platform_data *)(dev)->platform_data)-> \
-> +	    display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
->  		dev_info(dev, format, ##arg);                \
->  } while (0)
+- [High] The patch puts the new bound on the wrong sysctl, so it does not
+  fix the bug it claims to fix.
 
-First of all, make sure that \ (backslashes) occupy the same column on each
-line of this macro. Next one, it's better to add a temporary variable to
-hold the platform data pointer. Something like
+--
 
-	struct fbtft_platform_data *__pd = dev_get_platdata(dev);	    \
-									    \
-	if (unlikely(pd && pd->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS) \
-		dev_info(dev, format, ##arg);				    \
+tcp: limit tcp_tso_rtt_log to a valid shift count
 
-And last, but not least, have you checked with `git grep` how it's being used?
+This patch tries to cap the net.ipv4.tcp_tso_rtt_log sysctl at 31. The
+reason is that tcp_tso_autosize() right-shifts a u32 by that value. The
+patch also documents the accepted range [0, 31] in ip-sysctl.rst.
+
+> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+> index e3760daa34706..e954311405b41 100644
+> --- a/net/ipv4/sysctl_net_ipv4.c
+> +++ b/net/ipv4/sysctl_net_ipv4.c
+
+[ ... ]
+
+> @@ -778,6 +779,7 @@ static const struct ctl_table ipv4_net_table[] = {
+>  		.maxlen		= sizeof(u8),
+>  		.mode		= 0644,
+>  		.proc_handler	= proc_dou8vec_minmax,
+> +		.extra2		= &tcp_tso_rtt_log_max,
+>  	},
+>  	{
+>  		.procname	= "ip_early_demux",
+
+[Severity: High]
+Was this hunk applied to the wrong ctl_table entry?
+
+The entry just before "ip_early_demux" is "ip_dynaddr". With this patch
+applied, ipv4_net_table reads:
+
+	{
+		.procname	= "ip_dynaddr",
+		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
+		.maxlen		= sizeof(u8),
+		.mode		= 0644,
+		.proc_handler	= proc_dou8vec_minmax,
+		.extra2		= &tcp_tso_rtt_log_max,
+	},
+
+The "tcp_tso_rtt_log" entry further down is unchanged and still has no
+extra2:
+
+	{
+		.procname	= "tcp_tso_rtt_log",
+		.data		= &init_net.ipv4.sysctl_tcp_tso_rtt_log,
+		.maxlen		= sizeof(u8),
+		.mode		= 0644,
+		.proc_handler	= proc_dou8vec_minmax,
+	},
+
+When extra2 is NULL, proc_dou8vec_minmax() falls back to its default
+maximum:
+
+	unsigned int min = 0, max = 255U, val;
+	...
+	if (!tmp.extra2)
+		tmp.extra2 = (unsigned int *) &max;
+
+So writes of 32..255 to net.ipv4.tcp_tso_rtt_log are still accepted, and
+tcp_tso_autosize() still does:
+
+	r = tcp_min_rtt(tcp_sk(sk)) >> READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_tso_rtt_log);
+
+Is the UBSAN shift-out-of-bounds from the commit message still reachable
+through tcp_sendmsg_locked()->tcp_push()->tcp_write_xmit()->tcp_tso_segs()
+->tcp_tso_autosize()? The r < BITS_PER_TYPE(sk->sk_gso_max_size) check
+after it guards a different shift.
+
+This also means the kernel does not enforce the new "Possible values are
+[0, 31], inclusive." line in ip-sysctl.rst. This statement in the commit
+message doesn't seem to match the diff:
+
+    values 32 and 255 returned -EINVAL
+
+Separately, net.ipv4.ip_dynaddr now rejects writes of 32..255 with
+-EINVAL. Before this patch it accepted any u8 value.
+inet_sk_rebuild_header() checks !sysctl_ip_dynaddr, and
+inet_sk_reselect_saddr() checks sysctl_ip_dynaddr > 1, so both accept
+larger values. With the Cc: stable tag, this change in what the sysctl
+accepts would also reach stable kernels.
+
+Should the extra2 line go in the tcp_tso_rtt_log entry instead?
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07%40qq.com
