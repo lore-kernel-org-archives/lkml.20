@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792892287;
-	b=XAk5YN75VWFi7cDZRoFhA61VWNA4rKMZ/O79gorAs+PAf1zqd5xklNwFaO5C38lPitcO
-	 tgs99ZwVlVv54hPvzygNCuBqqK/I/WRN2nxR5yUnBW3Hypnf4aJdD4842tTPBF/eITcfb
-	 GPVmwmDVnSlXd4XMHKvxDB5q/mOhIrG0wnlnORmfiD6TIJM6kGymOfdByrJKTNrjn3yeJ
-	 yyuhr2cvN2yHG+FXf4GQ5RtX3s7pv2BU9VfNTZKNtQCQ8svYgbyjqyRVEIlR5MxwN66E+
-	 lX2X900h790Ry5A0wXaPbw5A8jO6Oz128++2a40s0C7Jyq1rljWPUG2I+ogfZrFfQcw==
+	t=1792892295;
+	b=a1YKCs228vaS8aPE/5vpxy7IgsqN2c+v5vsvKw4gbHTd0MihZROH/QhirsnUSNAbTRuJ
+	 IPvQSORnV7bOJJMONe0YFFgXMzUHzm8JVb7fufWJzx+KOL9ReuuzWB8B4ldwRq7cv16ng
+	 FmFhwXU+t7IV+jlePz2dIJa5ybxfUzpqebaZHdAjScwOlTP/hogXGu1Pnr+V/mPTsKA4y
+	 As/U0hmQYAe8h49+yoDJ8t/UUjuAX1IxcpXPaMpmPYpFRqeMbbU0D/GdkTWUWPu9rn99d
+	 4YUFP+gzx/MqFNe2MfeWWzUrvSwtLDDt5pm19g+sCyDbmVBDY0HadKLYB8Dz8yZLejw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792892287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792892295;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
-	b=N50yhynIeAvoDCBgQVK6MtXfclyC950mvtCdZpGLDxG619sWzAbaMZ5wRtaLrRJjwRwG
-	 XUogTJ9vIJrRXWYz21Jns7kUYT8/TSkqbfT4Cz2cJZA0H3BEwwdy+BAmUrCs3xTGeCurY
-	 pEHcICRmS4blZww7VV8PqIE4BLRm5HO8XNLX2gcy99YOWGT4pvqZ74GG5otOJE0KIJpCH
-	 uSzGHKfTOShTr3E4Vws9vqdfqvt9fucLQRw/4/jDeWBzDcAdEv8w8u9y5ZqNcNAp1Qw8I
-	 ICDKCcqKvLiIS+RiH31F7xQjmDCz27X7e3y+3CiyrjX2BgXwgF3pNcXtdzYhQLZMbXg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OwT87TkRyG6fAEd7ylK/rWIM/7AqJXyhM7Ww/r4lOq4=;
+	b=YCIN5QtIP/dGd6fHeAm5WFm+NDzziDnii4hJN4IF76P9J3mfHq13xDIXd+C1e9j5+7zB
+	 9YXkNw3frL+g8GCUjOvclYZCb30lmBKfn+UPbybhv16edHrvIplylqdmBZ45KkXBxmfer
+	 XR94nSHJB+2iCp5Z3ZHDVV2Frzsbz6Fe0g3HNGsX4aipZ3GrRJKa3NMb3X7PGLGofxmmX
+	 TMDjj0e6x8xQmr6+VOJkG3waP0JX+fOUZIq0n5bXPPq3mQnotrHXDuH7WdpxBOrSK0/v+
+	 sYyznbh/axidKlySNADxmpThbqgPnK6K1iPmP80hUYEwQikIOZjvZDDOsQRVLrZd8jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=isslab.korea.ac.kr;
 	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sEGEkAsT;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VTbCxHGY;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24A5606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24A5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625C8606A33A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 625C8606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sEGEkAsT
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36681e85e87so1426797eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:38:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VTbCxHGY
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3535a54bed9so3175276eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 18:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792892284; x=1793497084; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
-        b=sEGEkAsTpgfmX82g11PV76q1y7ztdsbuImZnA2R0xNogWSBJjygohuxHaAvHrR5h4t
-         MIjSvtpCEnNm7+2UUXIBZ+gmfNImcsjx1SEKy6y3PK18adPKmvvRmeJ9zllhdHjO+1/q
-         njtdixJEtnfxjw1SdO+rSCevSSHExE0Q/TCKvrXXbBgsjYcAJGmDjrmU/totlJei9AV2
-         NJydQzHgb16+Sman8eEjuNjMtMkqer46DIgBoMmbiRPBrVWiJ8flj7Q+EKdjAOAqOB73
-         c9YDNartU+E6io5F3XtQR6ODJmWLZ0Nhe//6KM5ot91kyRbukwdAxh0u4okw7spJD2H1
-         blfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792892284; x=1793497084;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792892289; x=1793497089; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
-        b=S9t3CISxLDvRs38T26V2hW8iJIIgrBUplUOcRgHrA7FqlByQ/ZO1fkamWOhiE2YmfA
-         DOA217MzUvwBGQv8pPRlCVeUGbpdYxhz9aC2Rx6MvSN2nZLbhtV6YkFFt6HX5G6pJWaE
-         8uG7DOSRyHhejBKTsO7KD9C2xVO4QhlPdaAJTcPV553dvM1Y8he0iw7vzwJAxLDLcb9Q
-         /USoPVs2tqFN9OblFt80BEUyawEPS5kb8frXpDO9WPAv7hJHp1z9NXsu+3FrQZovtfex
-         Q3NWCzRZLHrp6mZlSXzpXonMFbefp0kG/4OmOI2Zj6pO8B02ow73yvaV8nwaygvhpSm2
-         LfRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbSHts6QoyV1HhytpC+WoHRH1Zx84vmtlE5yqFsnWyecyWuIX4MQYk9JodV/Bn58h5DO2vQv0Bq46wpno=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTpl7izRf4a7a01vfU1M+TAIGjiRspApD19+sB6zt1gnBTvv9p
-	vbfhhMF4i/LIXkEibIIPOKpp7YYpfYWJhnV0jNZvWcIgXNreKBSQc/FdHoZXNP+sljY=
-X-Gm-Gg: AYBFou1od47eLC4F5ERgUDlyvLztSZ2e93fAjHQ3a3gsIlriDobgTb3JqnmJVspxa6v
-	HrhGMBCzMbzxk/lgEIU5Cqr/GqBxi2ES+BbfqvdPb1XucWvQZjbQr8OAwwISJZBiVxEv/BEQVAg
-	v/ykW4OkH/a3QZtFAeOz3uHeQi1jctrdeORr1SPc9t9LOuS/ZvC1YWmNuaq+wRA0ZG/Q4DCZAJX
-	qWq/ubzaRn/p+Kczi7Sy+wQz6pGqQkuBQTfsm3Uxf4PcqW/OlrJCKKFHud4P+r47mQn51KsL8kX
-	8ZebMjR0iu7LKDrj/+s4FwRVD/i8FhZnuMzE9KGTZDWfsd0AaSbfmXZo0Z7rn9PCZHt0mlBRET6
-	hyWBdPsKnb6P5WBQ/V40OUEWBOyKi4attg47bnvDeHZK9LiIIi9ZoZxqu3KkfM1ej7y/J7C9Yen
-	FzuvcrT6n8HQaR2XfZ9uPve3Jef+boADncrjXIL8K11rHiKWaZymoJU1nn4BeFJelKQsIgzE/DW
-	AnTMqoYq1hElOp8bLn28kZz0GOjXiNhA7tagWZxCkSdnzdT6oRo5inJgRcOQ4Bg+Xsfz/C68gwK
-	+XFrDh734psr65XaJ5ZqWcGTAFPnQHYrWoGaZZKGmHWDBLZ4YCAhnqfuchmpsxGM1A==
-X-Received: by 2002:a05:693c:820d:b0:366:bcf9:1807 with SMTP id 5a478bee46e88-369e84dd76amr5254349eec.36.1792892283556;
-        Sat, 24 Oct 2026 18:38:03 -0700 (PDT)
+        bh=OwT87TkRyG6fAEd7ylK/rWIM/7AqJXyhM7Ww/r4lOq4=;
+        b=VTbCxHGYQUc2nGwdMnpE0v024Jod606tsp6LU65Hynq3jQKnV7TiQmEXMJYfDNkDY9
+         xTgdOUIEin3x2q7DbzoaHhqH4GiRpvaItmTr4zAzDyD74IVu1Gk2mpdWfhnTF8RZQUTQ
+         1ZfnhgsS8eZZttjcd/Okk30Fu1SdD+Yd7T3DF+VQsY9AUjGR606dgv+Ayb/w9F+Lsy49
+         KmqVo5mPv6iKQjPULSwRslixWagA//sSHuvgJV5KAQ1v3YEb9bpEoH+iOCeAhBkIbCC/
+         uwB9lPkKtT1gB9e20e4ry0YROnMmC/uAsDGq1eBXFZ2UzDDQXjrTHnYhEdIzMeGrzUHh
+         7qvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792892289; x=1793497089;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OwT87TkRyG6fAEd7ylK/rWIM/7AqJXyhM7Ww/r4lOq4=;
+        b=GMPjcnMexU5PxH/+rMs34EVXd36ykHwikuBpocXZdryGZm45uwWIe0PXwRNdglXKJu
+         QxsAp4z1/XVIlJoW4MdlNua7AZi/ivXQPXpH4f3PzkJe6GksGypEloYyPfL033l1XfsD
+         uqCqa4bu0WrvAy2qGuipO4UqK3fh5YoPtJgyU8vfOaTazTVOAOkaVsdVj123F6vQ/Ufx
+         KulBmzOeJsBl3jkckJaBQOjToDMjQQVbvgxfXAcZePnB6xJb+GYjHHyOH4fkmfHyiNc2
+         3b15sJ1uKWfEsyMnUSrqO+IqHRwQnWERlomBKr5qoOHRaDQfba5G0auSQ/J7OZw7al/P
+         K+bw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsoC6F3CZbx1n4T38x4x2nqW9RL1tuN7Gg/8Hyv9pgJ5PKag1Uk9GiFLUHrkSZojWe7kw7bbJmSB4jxPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/tqLelhf7V/V4zpJgADx75js9lVlp8Ivn1B7W23cWzlUCAMGo
+	d3PnyPBrnveUQYnudXE+mAJPYgPJxGhLTjnvtckGhwgVy7typfkaFnx+MRskz7atmZU=
+X-Gm-Gg: AYBFou3rcT3W6k0oSpI40eNNEuWW8YkINnt7W9DgAjRIZnSKGuOyheLmP5uFNeh2zBW
+	jHmwvIwFsYiC8TY9Z3+1TGA0rJnyrrbR+VZwbm9UrqFPEyGrAXH6BkbV1Yu/D3NmyfBYc6mIw5T
+	49CR2t1VqQNWs1PHjYeUlqliBlr+TJ7lAktvp6pDV+HmsIUOTwNzdEN72lKbzxlFMsFO9LOEMMY
+	2lmJgSxtceJT2pZiHQuDmpMvDn200+o92JIWXLA97ltiNI8NQ8LHXCmiGt3wl+F2aR8Z0KU0KLG
+	A/pK83WxFGL464whx8VzLsuBdsCI8eUwOgs3UWeAkxvH6SEV12sWezusEnuj3VySo9ndNWx/xQx
+	QRFDE0pAsqginEaTcsTK1lu7pa9J4jd5D1dAMF4U9D3FjD8U0AwSD14G5rDWdqVblKyO/6SJmEW
+	Ac+Sa8hnJEen5JVpPYykG8BbAF7UI1mrFwYJyHM1LgXheEGmTbT+eE9ATPMPOUnWHonlIxzYqzY
+	ZbTmhbijnnJNawb8uQYz2TsPNO9H4MNkMPo568hd/Pn1e3p//qhV+qdGjGiKnQOwYDx341JCW7r
+	AD+VRhO8Zoh7eMfHimeTEIyNQ5hIpQxUt8WibhLCswJsIJDazkn0XEGWSsyANk8f
+X-Received: by 2002:a05:693c:65d5:b0:359:8492:20ff with SMTP id 5a478bee46e88-369e842bda4mr4860522eec.12.1792892289422;
+        Sat, 24 Oct 2026 18:38:09 -0700 (PDT)
 Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:dba3:be57:a674:a67f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8dbaa42sm13724329eec.21.2026.10.24.18.38.00
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8dbaa42sm13724329eec.21.2026.10.24.18.38.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 18:38:03 -0700 (PDT)
+        Sat, 24 Oct 2026 18:38:09 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Bart Van Assche <bvanassche@acm.org>
 Cc: Leon Romanovsky <leon@kernel.org>,
@@ -86,10 +87,12 @@ Cc: Leon Romanovsky <leon@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v5 0/3] RDMA/srpt: fix the descriptor table checks and the context counters
-Date: Sun, 25 Oct 2026 10:37:45 +0900
-Message-ID: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v5 2/3] RDMA/srpt: reject zero-length buffer descriptors
+Date: Sun, 25 Oct 2026 10:37:47 +0900
+Message-ID: <20261025013748.3755639-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
+References: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,55 +104,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The first two patches bound initiator supplied descriptor data, and the
-third widens the counters that hold what the first one admits.
+srpt_alloc_rw_ctxs() takes each buffer descriptor length straight from the
+wire and hands it to target_alloc_sgl(), which has no length check of its
+own.
 
-A 510 entry table fits in the default 8276 byte IU when the additional CDB
-is empty, so the bound accepts it and the counters then have to hold it.
-With only the bound, a conforming command carrying 256 or more descriptors
-still wraps n_rw_ctx and leaks every context it allocated. With only the
-wider counters, a command that sets ADDITIONAL CDB LENGTH to its maximum
-still walks a descriptor table that runs past the receive buffer.
+For the single descriptor of a DIRECT request, and for the last descriptor
+of an INDIRECT table, chainable is false, so a zero length makes
+sgl_alloc_order() compute nalloc zero. kmalloc_objs() answers that with
+ZERO_SIZE_PTR, which is not NULL, so the allocation looks like it
+succeeded and sg_init_table(sgl, 0) runs. That reaches sg_init_marker(),
+which does sg_mark_end(&sgl[nents - 1]) with nents unsigned, so the index
+is 4294967295 rather than minus one and the read modify write of page_link
+lands far outside any allocation.
 
-The first fix dates from the driver's merge and the other two from the
-conversion to the generic RDMA READ/WRITE API, which is why they are split.
+  Oops: general protection fault, probably for non-canonical address 0xdffffc03fffffffe: 0000 [#1] KASAN PTI
+  KASAN: probably user-memory-access in range [0x0000001ffffffff0-0x0000001ffffffff7]
+  CPU: 0 UID: 0 PID: 43 Comm: kunit_try_catch Tainted: G                 N   7.3.0-12378-g6fba331225f5-dirty #1 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  RIP: 0010:sgl_alloc_order+0xb6/0x370
+  Code: ef 01 4c 89 e2 49 89 c4 31 f6 49 c1 e7 05 48 89 c7 e8 ae e0 cb ff 4d 01 e7 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 6b 02 00 00 49 bc 00 00 00 00 00 fc ff df 49 8b
+  RSP: 0000:ffff888002d4fa38 EFLAGS: 00010202
+  RAX: dffffc0000000000 RBX: 0000000000001000 RCX: 0000000000000000
+  RDX: 00000003fffffffe RSI: 0000000000000000 RDI: 0000000000000010
+  RBP: 0000000000000000 R08: ffff888002b158a0 R09: 0000000000000000
+  R10: 0000000000000010 R11: 0000000000000037 R12: 0000000000000010
+  R13: ffff888002d6803c R14: 0000000000000000 R15: 0000001ffffffff0
+  FS:  0000000000000000(0000) GS:0000000000000000(0000) knlGS:0000000000000000
+  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  CR2: ffff88802f1c8000 CR3: 000000002e458000 CR4: 00000000000006f0
+  Call Trace:
+   <TASK>
+   target_alloc_sgl+0x2b/0x70
+   srpt_alloc_rw_ctxs+0x2ef/0x870
+   srpt_test_parse+0x114/0x580
+   ? __pfx_srpt_test_parse+0x10/0x10
+   ? srpt_test_ctx_init_direct+0x17d/0x280
+   srpt_direct_len0_test+0xa4/0x280
+   ? __pfx_srpt_direct_len0_test+0x10/0x10
+   ? __set_cpus_allowed_ptr+0x181/0x240
+   ? __pfx_read_tsc+0x10/0x10
+   ? ktime_get_ts64+0x192/0x250
+   kunit_try_run_case+0x1ca/0x4b0
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? kthread_affine_node+0x24b/0x370
+   ? __pfx_kthread_affine_node+0x10/0x10
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36e/0x500
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x34d/0x620
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xdd0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
 
-Changes since v4, all in 1/3 and all from Bart's review.
+The KUnit harness that forces this is not part of this patch.
 
-The span check now uses struct_size(idb, desc_list, nbufs) rather than an
-open-coded sizeof and multiplication, and the size_t casts are gone. nbufs
-is at most 510 by the time the span is computed, because the existing count
-check runs first, so struct_size() cannot saturate.
+A zero length descriptor elsewhere in a table is chainable, so one entry
+is allocated and that write does not happen, but the entry count comes
+back zero and the mapping in rdma_rw_ctx_init() then refuses it.
 
-nbufs == 0 is refused explicitly. Bart and Sashiko both pointed out that a
-table_desc.len below one descriptor still got through while the v4 commit
-message claimed otherwise, so the check is there now and the message
-describes what the code does.
+The target core never hands the same allocator a zero length. Its own call
+in transport_generic_new_cmd() sits behind a cmd->data_length test.
 
-2/3 is new, and it has not been reviewed yet. While working out why
-nbufs == 0 reaches ib_post_send() I read the rest of srpt_alloc_rw_ctxs()
-and found that a descriptor length of zero is not checked either. It
-reaches target_alloc_sgl(), which has no length check of its own, and ends
-in sg_init_marker() indexing a zero entry table at nents - 1, which is
-unsigned, so the write lands far outside any allocation. DIRECT requests
-are affected as well as INDIRECT tables, so the check sits in the shared
-loop, and the patch carries its own Fixes tag.
+Reject a descriptor whose length is zero. The existing unwind label covers
+the first iteration, where its loop body does not run because nothing has
+been allocated yet.
 
-3/3 is unchanged and carries Bart's Reviewed-by.
+Fixes: b99f8e4d7bcd ("IB/srpt: convert to the generic RDMA READ/WRITE API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Link: https://lore.kernel.org/linux-rdma/20261024162852.3528224-1-yhlee@isslab.korea.ac.kr
-
-Yehyeong Lee (3):
-  RDMA/srpt: bound the indirect descriptor table to the IU
-  RDMA/srpt: reject zero-length buffer descriptors
-  RDMA/srpt: widen the indirect RDMA context counters
-
- drivers/infiniband/ulp/srpt/ib_srpt.c | 21 ++++++++++++++++++++-
- drivers/infiniband/ulp/srpt/ib_srpt.h |  4 ++--
- 2 files changed, 22 insertions(+), 3 deletions(-)
-
-
-base-commit: 6fba331225f5040e93d0947d1027e9712238291f
+diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
+index 40d796840befc..dfcecbe3a47c7 100644
+--- a/drivers/infiniband/ulp/srpt/ib_srpt.c
++++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
+@@ -979,6 +979,12 @@ static int srpt_alloc_rw_ctxs(struct srpt_send_ioctx *ioctx,
+ 		u32 size = be32_to_cpu(db->len);
+ 		u32 rkey = be32_to_cpu(db->key);
+ 
++		if (size == 0) {
++			pr_err("received SRP_CMD buffer descriptor with zero length\n");
++			ret = -EINVAL;
++			goto unwind;
++		}
++
+ 		ret = target_alloc_sgl(&ctx->sg, &ctx->nents, size, false,
+ 				i < nbufs - 1);
+ 		if (ret)
 -- 
 2.43.0
 
