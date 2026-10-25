@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792965885;
-	b=F+nmbf7uYRTVjOQU+0AHrYeO1ouRnTxfFDv7fkUhCCbFn1x4uvygRK9AVWU9asufTnBD
-	 WbhPKy1qS6FkLpq2rbp9VXYlVjlYR2Sd1IppNAbVN6dpTVCAbLfX9tFbXp2V+SMG+RPj7
-	 R4wc6YCG5xOGc1otK+6WoXwimd+x7pmFahA9oSVZ1SeB3XdVPXARS80ZD2L1mHnzWDun1
-	 txNE5NhNv30Xo3z2av2vdWHTNxtDjxTbkUfMEvq8owSqN+Y886GRXi9DXduyIxhw6zeIu
-	 8n5nFp7pNkQktXnlbHpT+cUWlWzufUbLXRZMkTOUN3XSofo4SmwRg+t/d0O3ySGhFig==
+	t=1792965894;
+	b=l+9gnkrInqRJBXA1OtiMvzAWtvGod2HhMz5GjdU15YydnrRnQVjr0boty/Ep9/i6srEW
+	 4YgoGXoFXOzGjq7jFGqr9FjAkbERrrZwh3KBRepGvRQhzetogkLEgDFY32BAzkkr1lctv
+	 8NA7JZCZ0DgzwVIxD8B4xwOQLok/Ht4V3nfSyqj9UwRY8WRoK1DnJfEwKa5Z3axjWNEyJ
+	 Rh7aOHPhFa2i+wad9X9NyGWBpGRcCdC/pHJyNN7tGV+OCOhsOUekzZj7Ve10hJ4zSLHVx
+	 WhGUDkBgOLxBz8TKfAAkpZMweuB1UYN9coxuS+wbMBa5J6GBlHl05AXMi4cH8mMGCOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792965885;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965894;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Content-Type;
-	bh=hKZUnu5wtT1E98Kxc/nSegz23tYHL1tF4broOYTq818=;
-	b=ZZBr4o371xiphGWlamicjaZNq+7WT/6nVGFlA1/VaP4ubeh05XyfsVCoNPu7bM6RUf9d
-	 s5AOZStXBHPtlKpz4xq4XFZ8/mr4JVbPt3dP+WAJr7mgTbaxfdBN9ZuueW9r0vp3EyWvB
-	 NCrPhmOAPVyzKKwgE3bWbN3AbyAeXNTGdCAEYL7NwOuKBunSeUg+jYmMQ+VEDBULBbOYP
-	 fi/9TT7JVxSH5aj7++ndMeZbIprJK6eJZy8Pi6EDdT3+XjnTEQ6n1N7nQHHBNouEBjY4K
-	 7K1TgA6p8hz+uRzqOxZpoWB/dllWqtYSNUSKHPlWedPBsmnd3Pgx0LIWsfdCdbjTgdw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=WqJecG14GS07cjQMqiYKTg40m/jsJ/DoHEnrZ2BoimU=;
+	b=nKzoTjbPlJfJXAKZGstkznygyDfBHtMLxtrjzHmLlEBUn3Jrz5O89Z7I9kvstK8fSRdm
+	 iSCxDONyX4RnmO4ZrRZrDdLk3lllYJ0+iGERjdFVzPnSstyBGky30XZeFaTGxSQhbNh+g
+	 WHKOwXm+19hK58aU7KttmfhC10UeRk4LqjEJBrTujPPYJcFm7vlIfRjsgk/TbwlVD6/ic
+	 956hKqV9aD+9unXrHPjycv5+6/7BwChrfbILYCveIcp0qtou5jRbDtYjRaupWxqO/buFR
+	 Uk16hMc0h3S5nGoZRRheDVB6IqQzuS47E2xxwczY7oD0muC4uyKVS7VWWoYETk3naXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=buY9zqVX;
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AtGADeB0;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D56E606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D56E606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF80606A32A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF80606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=buY9zqVX
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-151ba226e1bso4560950c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:04:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AtGADeB0
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3596238eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:04:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792965884; x=1793570684; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hKZUnu5wtT1E98Kxc/nSegz23tYHL1tF4broOYTq818=;
-        b=buY9zqVXRM1q5QK50WwSLnEuEGKHr+cUp9LzKFuM2XrfTdydh5hdQKXSrSegg8vLRU
-         SUg9ZGfgdxP/wjPm53P+/YXTgIr4v5KNwCNI2uwgLS9xn5oq6rHmdbeco/w4S5/t1uCX
-         xVzjwj3MgsRXZuDW8+kvfnnqPNQ6vamWSZmBSel62cub8uvsBchuAZNN7HB6pD2McI57
-         fQKrO28jYA7PNRGAyNybmPODNgOGrJMJIYFttcCg+4AYnQwNiRYRa+E7AAZU9n14NEOa
-         pu3oPDHdAObPTFauIleaVOr1oFR57Wl/Pw5l8P0O5dv5DsOWtU8tA6QvT8vAUVB4S1jV
-         YVPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792965884; x=1793570684;
-        h=content-type:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792965893; x=1793570693; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hKZUnu5wtT1E98Kxc/nSegz23tYHL1tF4broOYTq818=;
-        b=thuC4aTXRI4AarnObvNZLZ4FQ2M4TCOr0g715+Gqy27tgrJRybozWQsN/tbR1mmB0L
-         B7IvHVkkTMAhe0Kb3gh7FNYpUoAXgL12FXkBZBstmtPE+5wEGuXHiL1bxXN+eHgjeYcm
-         L4eJ6YHvRgko75DKV2g2inuQOz7pj3p18jXDndnCQPjx4452SSJaWC0MhXleQUDFMFyL
-         P/2veZ12ElQAJaRrAW5awKJoEXXrMgBEq/sxF5n7v5X+2CKvf72G2wI52H37+VW70+Ks
-         NwsTtIwye8h6MzWO8/MDOGeyjHBpboQ/6DIDUPs7gZB7WJeYKcV1MeJlmnOUznPajRRT
-         a0sw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/BIguiR+DF/QT7GwHt8pPErnmAsiezKJ0MDGho9LgmfQh7ynwmV8tQ27RKqW0Na2Oa6KIF9jHRnniViM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfnu0YI7mfckCj00ZBbXuwlMcCrRrMU79GyYTCFHmKdTlDgutM
-	v4CbB5YWh6KGzikSMUYACOMWk3kjt2JsOCRpuOaG3etYAdwTh/BS+J2sb1zRpDKjeFZaHlMtVSc
-	UtOQ7vfiueA==
-X-Received: from dlbsj2-n1.prod.google.com ([2002:a05:7022:f902:10b0:158:5d29:90be])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3c04:b0:151:2e62:fe6e
- with SMTP id a92af1059eb24-199363a337fmr5791484c88.19.1792965884027; Sun, 25
- Oct 2026 15:04:44 -0700 (PDT)
-Date: Sun, 25 Oct 2026 15:03:43 -0700
+        bh=WqJecG14GS07cjQMqiYKTg40m/jsJ/DoHEnrZ2BoimU=;
+        b=AtGADeB08dC8Z0twUtwipae0nFTvl5qJrtGaxHO7MPr+8QgJz4FVSyHGXDeaFjzvS4
+         q2KtXxobDXdlxIKrnqlPe0+Q8R7XZhe5bfjSbnV1hUHDk0wrX9d6QiIeASjxW+hg1a6b
+         8M1wzoW84dpR6q5zeK5f81kZ2VasAUbaTGsc9XgOoZP7m8NmV8IawSfkGMGASR2tAO4h
+         nXZwIxUPrtQV3NyGHZbdMPE41yOkVjJYxvoWekbpDVewGnOMM8FPQDdKiZ6XEYWpPa7C
+         BgFOlxEWo6uRFsN5lm1pvhkt2gfaOfugnVxgijY824o5ZolnYGvhv8MzIv1tCa+5BM3F
+         xmxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792965893; x=1793570693;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WqJecG14GS07cjQMqiYKTg40m/jsJ/DoHEnrZ2BoimU=;
+        b=W9s7mmzn6/lB3zq8p8723p95F+TQpYMOuv3KresNwoO0iHkaVpCUEgLrJolWwZbs6/
+         45DV49lt9Pdb9Ug4qH4RlWOgcsv81FeevBCkYsccvExWgIEt99WD5I/UJkQU5aKG49qn
+         G6qF2mi3YL/2EqqKfZ6/GBaD+uH86iKRzfbfya0ukiBW4/LOwVxMlj5VuQ/DqP7tzBc7
+         cMNa34sCUUG8w+nXXca2540jTFGQ2rpu9jD95a8kc1nUo3N/oDyrIRiSTiGawbdgpMOa
+         7/ZZkmPcUhn/E2Vi2VX2MYMRs/O+qWXChSnzdlP+YKLrQjSIZX+oGPsrNDNALbggSjJf
+         JI4Q==
+X-Forwarded-Encrypted: i=1; AKwUvByYYE7C1grtjUzp7Wpq349g/CHiFF9Ml9rDAlOQG5b9BY1iDTC0fRHh/FkpB1M/6EMz+qY8Wn9OjwZshr0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7nDMLMqslC838/xkuU5jsckmkceBnVG04ESCH4zDZ8KE9H8b8
+	4KmUJlJ8ZXFaS3MFbUdrIXu5cHEEsRnyxV4Tq2r1lDG8TOQGskr9oIoMbMSBGkZjmx7AudH/E2g
+	7ZgcEAECr4Q==
+X-Received: from dyba8.prod.google.com ([2002:a05:693c:63c8:b0:369:f2bd:5ab6])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:3f17:b0:369:d7b0:99f0
+ with SMTP id 5a478bee46e88-369e84a1c0amr9295533eec.21.1792965892350; Sun, 25
+ Oct 2026 15:04:52 -0700 (PDT)
+Date: Sun, 25 Oct 2026 15:03:47 -0700
+In-Reply-To: <20261025220349.1244499-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261025220349.1244499-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025220349.1244499-1-irogers@google.com>
-Subject: [PATCH v1 1/7] perf session: Fix minimum event size for PERF_RECORD_CALLCHAIN_DEFERRED
+Message-ID: <20261025220349.1244499-5-irogers@google.com>
+Subject: [PATCH v1 5/7] perf inject: Use perf_tool__init() for --vm-time-correlation
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -88,30 +92,42 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-struct perf_record_callchain_deferred contains header, cookie, and nr
-(24 bytes), but perf_event__min_size[PERF_RECORD_CALLCHAIN_DEFERRED]
-only checked for header + one u64 (16 bytes). Use
-sizeof(struct perf_record_callchain_deferred).
+When cmd_inject() was converted to use perf_tool__init() in commit
+a37c0436f379 ("perf inject: Use perf_tool__init()"), the
+--vm-time-correlation branch in __cmd_inject() still called
+memset(&inject->tool, 0, sizeof(inject->tool)) to clear the default
+repipe callbacks. Zeroing out the struct overwrites all default stub
+handlers set by perf_tool__init() with NULL, causing a NULL function
+pointer dereference if any other event type is encountered.
 
-Fixes: c69993ecdd4d ("perf: Support deferred user unwind")
+Use perf_tool__init(&inject->tool, /*ordered_events=*/true) instead of
+memset() so that un-overridden callbacks retain their default stub
+handlers.
+
+Fixes: a37c0436f379 ("perf inject: Use perf_tool__init()")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/session.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/perf/builtin-inject.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/tools/perf/util/session.c b/tools/perf/util/session.c
-index 56a5e57ec512..d9d06337933f 100644
---- a/tools/perf/util/session.c
-+++ b/tools/perf/util/session.c
-@@ -2773,7 +2773,7 @@ static const u32 perf_event__min_size[PERF_RECORD_HEADER_MAX] = {
- 	[PERF_RECORD_HEADER_FEATURE]	  = sizeof(struct perf_record_header_feature),
- 	[PERF_RECORD_COMPRESSED2]	  = sizeof(struct perf_record_compressed2),
- 	[PERF_RECORD_BPF_METADATA]	  = sizeof(struct perf_record_bpf_metadata),
--	[PERF_RECORD_CALLCHAIN_DEFERRED]  = sizeof(struct perf_event_header) + sizeof(__u64),
-+	[PERF_RECORD_CALLCHAIN_DEFERRED]  = sizeof(struct perf_record_callchain_deferred),
- 	/*
- 	 * SCHEDSTAT events have a version-dependent union after the
- 	 * fixed header fields; the minimum is the base (pre-union)
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index ce7562fc788c..c30f5aaabf4c 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -2464,12 +2464,11 @@ static int __cmd_inject(struct perf_inject *inject)
+ 		}
+ 	} else if (inject->itrace_synth_opts.vm_time_correlation) {
+ 		session->itrace_synth_opts = &inject->itrace_synth_opts;
+-		memset(&inject->tool, 0, sizeof(inject->tool));
++		perf_tool__init(&inject->tool, /*ordered_events=*/true);
+ 		inject->tool.id_index	    = perf_event__process_id_index;
+ 		inject->tool.auxtrace_info  = perf_event__process_auxtrace_info;
+ 		inject->tool.auxtrace	    = perf_event__process_auxtrace;
+ 		inject->tool.auxtrace_error = perf_event__process_auxtrace_error;
+-		inject->tool.ordered_events = true;
+ 		inject->tool.ordering_requires_timestamps = true;
+ 	} else if (inject->itrace_synth_opts.set) {
+ 		session->itrace_synth_opts = &inject->itrace_synth_opts;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
