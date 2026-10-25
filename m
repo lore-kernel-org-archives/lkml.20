@@ -1,73 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792913338;
-	b=ljZ7fjkfNaVByrRApserBhkfOULxjrCDn75IT8jzuxZJcPU/qL3Sna7ETvSXLGKGs0pJ
-	 T75YwEB2Cq6bIlbAh3XEOGrYW1q4jW1ESwlwv/8L6JblJOJFrwniXJV9jNXPHWAMZy5yS
-	 KBmspbfr3GKwDwmKDcQ2f6SOKp2tOxC8MAZIhd1tR0y3HhXMqbEaT/0xIBthc39KkYdqZ
-	 Kb0E10JJfPn9JOuQ7kXjpsS8yuOHBKKuyoayriRUuymcm0j3z8lVOfdfq4Vn0sD/EAx61
-	 W51y6nRHnxS6LrTCoo9p/E/8VESfDhpHTkxkYBy8kRh6yzxV1obz2IvzykKhGZRp86Q==
+	t=1792913402;
+	b=XcdGsBctkGuKfdsRauuzhOluMvoFtEoPAv+MEWHwlDLDubzkRkhmqL7geEPLX/+P/0tM
+	 AxlorNkLFz7bVzICdsAoZdgGiAtA32e014hlh5hihXWdpOK6LMBj5Qh10A2rbFiJwxwD0
+	 5eJ4GN9RVSnUFb7c5RcuAeNso9lch5XWAlyc0l6l5PRPMs4Hwtp2vXdPNyfimSj4gp78p
+	 IZHtqg0DKC3UNy1/GhksvH0PImwME/taCTfCWxZT5IoKhz+YhYTpoatZdi8tqvhWrWrkj
+	 8o8AqlOtlEfs3dL3eMylwzLqfPqQvP1nhx/YPBq3GFzWXeRgZdVPBTFiXqgRZWp1ecA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792913338;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=XXMvtFSdUEGKs/5q/+ure9deVaQh3l258VCaXu3OrvE=;
-	b=r7nRDrf8GnnHG6AQH9MaLsIvOBqtlYJtcDZLXl0Hoinpk5US06hNsAoR0CHrMKC0K3B5
-	 1LygDA4uNKjJChwWRCTxfUIqJTmw47XR90B7jyf8Qgmxr4tnSPU77HhFfHSBhhS2T/M0z
-	 AWQpVGglzp0f1GNam3/KeGR1oc1JzyZCygQkw//VmlIAoT7aRUdjd0XuTiYMsKdP/mFBs
-	 gKUoYjdTFA3j6IWms8Jsuy8u+62KfjYFuNf8KeR0SyiuNgRgg2o/NWK9fd5yD5kQcF1vM
-	 DVbLsP3z04eCJQYDZjK+W4g/hUULwWcDs4SzbqQa70R2ONJavRELBWVSqjsfjMbK+MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792913402;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Ca84V1D9B8Ybj/7LgOQ6VhiC3u886cles4dpmUcGdP0=;
+	b=a0SbbiSZwJ6DezNzqHd1BjgTLFKRk0s0kqs4U3DMLJ8VsHfCiGnVDoRt9lpJWceO+zc7
+	 6CgHjlN50cafAYw8wfPMXDnqRKIF4hGhZxpr2XDDBGznuXS+sEgjdnZ48O7nonwi3NzcS
+	 SRl2YmmOGrAfhJPwvqysdLMQkWtwwP++XqBeh0LClMnThvucYsKeOtw59xzcZz6f3jvvi
+	 1LaLc6h0jy5ohU77luBuETvMpY4b0kw5whqXdTBSTlvxAJsZoAc/IxYBx625WHa/tbnVJ
+	 5GlJBM5MLwunr6izVbwN4Ls2a6fZCxS52ZgOwz8AsyoznvzH+WOzvUFR+c6ndX4HjIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Xr+2Y3Zw;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63CE0606A31D;
-	Sun, 25 Oct 2026 07:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CE0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sbXu8TmW;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F84606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F84606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Xr+2Y3Zw
-Received: from kali.mshome.net (unknown [4.213.232.20])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C1FB520B7166;
-	Sun, 25 Oct 2026 00:28:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C1FB520B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792913322;
-	bh=XXMvtFSdUEGKs/5q/+ure9deVaQh3l258VCaXu3OrvE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Xr+2Y3ZwicqDZ44huF2KOxEFTUEyf+8oEmbSKzkYePzPW30itQP7l+INQrkDnmFjM
-	 ILb7LMzmBikQapVxUT97X6ItsqaJKEGATeRGTwDE1xIz+BkOHaw5lXtz+J98qpnQb2
-	 658OodSdmQk3jNWpjGnpQmrfRVuOyzrl1wb+j9zo=
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	weh@microsoft.com,
-	kotaranov@microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	gargaditya@linux.microsoft.com,
-	mawasthi@linux.microsoft.com,
-	sahilchandna@linux.microsoft.com,
-	kees+treewide@kernel.org,
-	schakrabarti@linux.microsoft.com,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH net] net: mana: Avoid waiting on dead HWC after device reset
-Date: Sun, 25 Oct 2026 02:28:36 -0500
-Message-ID: <20261025072838.1991785-1-sahilchandna@linux.microsoft.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sbXu8TmW
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso10498045ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:30:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792913401; x=1793518201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ca84V1D9B8Ybj/7LgOQ6VhiC3u886cles4dpmUcGdP0=;
+        b=sbXu8TmWoOHQrI8owKBYY+cShhIySq2CbLFlzir2i5fc2R9j8kIlcd1bA32HTv1ljK
+         s1c2pu7rkeKozyEjYZYB2Se7ES828YwyltBHAF4G/PBj12X2ENqFNv/QOHoiHY85ldEr
+         Er99edSVkY9kP97jiC21DjEYoMpySlGGzgtBxikkbnOTpQEXQa+wAMHSOZ2Y3lnJEcjn
+         XcnLmHktz3Z6c3s1dTd4bxl3NmpHIGbdFh63JcXGLlyERo9Jc0iuoGSp+HNZQzv9KW1g
+         njhcF7ceKgvztm6cz8xMA+PAGFaFY/iqmp6RtdZFZXfbcQ7PimdO446S0ZuU/OBO4xt0
+         U6Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792913401; x=1793518201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ca84V1D9B8Ybj/7LgOQ6VhiC3u886cles4dpmUcGdP0=;
+        b=Z59B957iDoOxcYlgJt+RDKYkNoYDp9iO9DfhXvlDx6zkZWAXmscUyMbf9Vugh45t8C
+         hsQBFujyMvZsQFq+triQR/A4BWHV2eXeD083cAsOwn4KfJeRv/wNUqZO6gyeFa2EHoB/
+         Q8Rv5aYsqw97p58HlxxR47wGUSZplrWWnqbJjC9J6UZ/rpdB+bj/k9hpMgdG6F+b9GL0
+         CaAXcB+tHDDl42XWw1WJYKuxZDgRBWh6a6TDAsr+RuKiHaJzOM9bFIvoHLEhlFr8QVHu
+         Cp+LV7oamQTmjuT7nJniAQ93Y+hzm63dwzk+zSob1dfhzM5RKgSU3l3cBXdhfotyMZ3h
+         b2xQ==
+X-Gm-Message-State: AFq9FYLwHyiWnayc8Nu9wGQwXZ8UGGLVv2ht5C7ImHTehvXFaR2p9We+
+	s4yWu2G2HFsDtM9sOGZI5u/usqQYe6saA+2Yvl5+9RikTIdIngZPnxuA+/yntGHTw/4=
+X-Gm-Gg: AYBFou0lh8SA6PZhs64WbN3qzSQWVd+jIY9W1KZrV8eVLyU7EydLi3wru6WI3IIF2R2
+	FuS04ORX0VpE/ZJNxKP0RFB7Gi1zU0arYkBIxWG6XB0vI0oZwtY3SWN4zdVWjqUbRHYoYY9l8tn
+	0RpyD9wYlMZPBn84mCWPLY/JCpeVrO+izuEcCl2oqD4IWjqqI6o20sQltXsPap2wq8loe1CUJkF
+	MCTBME8Gn1gZkEjpYG9Ru2lE0RbWM7YgNx3oi+/gT6WJTSUNwpo0SUsXCeBGFVEq+DKd/zNx/52
+	2DrTHlWLhKRpuVL82ENVZcQq/8uzxETeNPl0drpBw+GvcN/9hgJs33Sb/PFQWMkEIX1Q+0H7G93
+	YQE4840hnBUFSMRG2yUJ4zlLbVQimsL22TxMcU0zHPoDpISrxWBY1fHvkKMG/t8eeOpPY4mDbO6
+	XcwS33ccURTNvNCRI/mByiS1e51o9IyDNJeDRfPGNYbJTyMNWKc6tAWBTJMc0AkuGuH5Cz5q1hM
+	4hnELSgv3/wpqcHzPF95ZTOhwFM2yWS+fDTUtes+D6Al7TCHJbA5lY=
+X-Received: by 2002:a17:902:ce03:b0:2e2:e3aa:7a35 with SMTP id d9443c01a7336-2ea9c7fb4c2mr32015315ad.36.1792913401389;
+        Sun, 25 Oct 2026 00:30:01 -0700 (PDT)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b121725sm7788525ad.14.2026.10.25.00.30.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 00:30:01 -0700 (PDT)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests/ftrace: Add debugfs requirement suffix
+Date: Sun, 25 Oct 2026 16:29:41 +0900
+Message-ID: <20261025072956.1739981-1-jaewon8868@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,308 +97,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After device reset is issued due to TX drain timeout in
-mana_dealloc_queues(), hardware channel (HWC) state is non-functional.
-However, the driver continues to issue HWC commands (mana_disable_vport_rx,
-mana_fence_rqs, mana_destroy_wq_obj) which will each wait for a
-completion that never arrives.
+Add a :debugfs requirement suffix to check interfaces under debugfs.
+Use it in the kprobe optimization test to report unsupported instead
+of failed when debugfs is unavailable.
 
-The first such command (MANA_CONFIG_VPORT_RX) blocks for the full
-hwc_timeout (60s as set by the firmware on the tested system), after
-which the timeout is reduced to 1ms for subsequent commands. This
-causes the calling thread to hold the RTNL lock for over 180 seconds
-(120s TX drain + 60s HWC timeout), triggering hung task warnings and
-blocking all other networking operations on the system.
+Tested on x86_64 with QEMU:
+- debugfs not mounted: UNSUPPORTED
+- debugfs mounted: PASS
 
-Fix this by:
-1. Replacing the sleep-based TX drain with a CQE polling approach:
-   disable NAPI per queue, do a final synchronous poll to collect
-   any remaining completions, free uncompleted SKBs, and reset the
-   device only if sends remain unacknowledged. The device is reset
-   at most once per call, and not at all if an earlier reset already
-   marked the HWC dead. This eliminates the 120s sleep entirely.
-2. Setting hwc_dead flag after a successful device reset.
-3. Checking hwc_timeout and hwc_dead flag in mana_hwc_send_request()
-   before posting the WQE and returning -ETIMEDOUT immediately
-   without submitting commands to hardware that cannot respond.
-4. Skipping mana_fence_rqs() and the SHM channel teardown handshake
-   once hwc_dead is set.
-
-Fixes: a7dfeda6fdec ("net: mana: Fix MANA VF unload when hardware is unresponsive")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
 ---
- .../net/ethernet/microsoft/mana/gdma_main.c   |   4 +-
- .../net/ethernet/microsoft/mana/gdma_pci.c    |   2 +-
- .../net/ethernet/microsoft/mana/hw_channel.c  |  32 ++++--
- drivers/net/ethernet/microsoft/mana/mana_en.c | 102 +++++++++++++-----
- include/net/mana/hw_channel.h                 |   1 +
- 5 files changed, 107 insertions(+), 34 deletions(-)
+ tools/testing/selftests/ftrace/test.d/functions        | 10 ++++++++++
+ .../selftests/ftrace/test.d/kprobe/kprobe_opt_types.tc |  4 ++--
+ tools/testing/selftests/ftrace/test.d/template         |  1 +
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index 8c915e008784..b249752ce828 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -153,7 +153,9 @@ bool mana_need_log(struct gdma_context *gc, int err)
- 		return true;
-
- 	hwc = gc->hwc.driver_data;
--	if (hwc && hwc->hwc_timeout == 0)
-+	if (hwc &&
-+	    (READ_ONCE(hwc->hwc_timeout) == 0 ||
-+	     READ_ONCE(hwc->hwc_dead)))
- 		return false;
-
- 	return true;
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-index ed8925296c8a..3995e4ab4c96 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-@@ -102,7 +102,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 	}
-
- 	/* HWC is not responding in this case, so don't wait */
--	hwc->hwc_timeout = 0;
-+	WRITE_ONCE(hwc->hwc_timeout, 0);
-
- 	dev_info(&pdev->dev, "MANA reset cycle start\n");
-
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index 3bca4b683134..c9337f49fbe1 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -192,7 +192,7 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
-
- 		switch (type) {
- 		case HWC_DATA_CFG_HWC_TIMEOUT:
--			hwc->hwc_timeout = val;
-+			WRITE_ONCE(hwc->hwc_timeout, val);
- 			break;
-
- 		case HWC_DATA_HW_LINK_CONNECT:
-@@ -819,7 +819,12 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
- 	 * non-zero, the HWC worked and we should tear down the HWC here.
- 	 */
- 	if (gc->max_num_cqs > 0) {
--		mana_smc_teardown_hwc(&gc->shm_channel, false);
-+		if (READ_ONCE(hwc->hwc_dead))
-+			dev_warn(hwc->dev,
-+				 "HWC unavailable, skip SHM teardown handshake\n");
-+		else
-+			mana_smc_teardown_hwc(&gc->shm_channel, false);
-+
- 		gc->max_num_cqs = 0;
- 	}
-
-@@ -862,6 +867,7 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	u32 dest_vrcq;
- 	u32 dest_vrq;
- 	u32 command;
-+	u32 timeout = 0;
- 	u16 msg_id;
- 	int err;
-
-@@ -897,6 +903,17 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	dest_vrq = hwc->dest_vrq_id;
- 	dest_vrcq = hwc->dest_vrcq_id;
-
-+	/* If the HWC is unavailable (e.g. hwc_timeout was set to 0 or
-+	 * hwc_dead set after device reset), do not post the WQE: the
-+	 * hardware cannot respond, so fail fast instead of waiting out
-+	 * the full timeout.
-+	 */
-+	timeout = READ_ONCE(hwc->hwc_timeout);
-+	if (timeout == 0 || READ_ONCE(hwc->hwc_dead)) {
-+		err = -ETIMEDOUT;
-+		goto out;
-+	}
-+
- 	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
- 	if (err) {
- 		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
-@@ -904,14 +921,13 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	}
-
- 	if (!wait_for_completion_timeout(&ctx->comp_event,
--					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
--		if (hwc->hwc_timeout != 0)
--			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
--				command, hwc->hwc_timeout);
-+					 (msecs_to_jiffies(timeout)))) {
-+		dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
-+			command, timeout);
-
- 		/* Reduce further waiting if HWC no response */
--		if (hwc->hwc_timeout > 1)
--			hwc->hwc_timeout = 1;
-+		if (READ_ONCE(hwc->hwc_timeout) > 1)
-+			WRITE_ONCE(hwc->hwc_timeout, 1);
-
- 		err = -ETIMEDOUT;
- 		goto out;
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 6b7c027e497e..00885d21a9af 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -3753,16 +3753,19 @@ int mana_attach(struct net_device *ndev)
- static int mana_dealloc_queues(struct net_device *ndev)
- {
- 	struct mana_port_context *apc = netdev_priv(ndev);
--	unsigned long timeout = jiffies + 120 * HZ;
- 	struct gdma_dev *gd = apc->ac->gdma_dev;
-+	struct hw_channel_context *hwc;
-+	bool trigger_flr = false;
-+	int flr_pending, i, err;
- 	struct mana_txq *txq;
- 	struct sk_buff *skb;
--	int i, err;
--	u32 tsleep;
-+	u32 flr_txq_id = 0;
-
- 	if (apc->port_is_up)
- 		return -EINVAL;
-
-+	hwc = gd->gdma_context->hwc.driver_data;
-+
- 	if (apc->rxqs)
- 		mana_chn_setxdp(apc, NULL);
-
-@@ -3774,42 +3777,92 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	 * a txq because it may not timely see apc->port_is_up being cleared
- 	 * to false, but it doesn't matter since mana_start_xmit() drops any
- 	 * new packets due to apc->port_is_up being false.
--	 *
--	 * Drain all the in-flight TX packets.
--	 * A timeout of 120 seconds for all the queues is used.
--	 * This will break the while loop when h/w is not responding.
--	 * This value of 120 has been decided here considering max
--	 * number of queues.
-+	 * Drain the in-flight TX completions for each queue. TX is already
-+	 * stopped, so pending_sends can no longer grow. For each queue,
-+	 * disable NAPI so it cannot run at the same time as this drain,
-+	 * then process all completions still in the CQ. If some are still
-+	 * missing after that, the hardware is not responding: reset device
-+	 * and stop waiting on the now-unavailable HWC.
- 	 */
-
- 	if (apc->tx_qp) {
- 		for (i = 0; i < apc->num_queues; i++) {
-+			struct mana_cq *tx_cq;
-+			struct napi_struct *napi;
-+			int pending;
-+
-+			if (!apc->tx_qp[i])
-+				continue;
-+
-+			tx_cq = &apc->tx_qp[i]->tx_cq;
- 			txq = &apc->tx_qp[i]->txq;
--			tsleep = 1000;
--			while (atomic_read(&txq->pending_sends) > 0 &&
--			       time_before(jiffies, timeout)) {
--				usleep_range(tsleep, tsleep + 1000);
--				tsleep <<= 1;
-+			napi = &tx_cq->napi;
-+
-+			if (txq->napi_initialized) {
-+				/* Stop the NAPI poll so it cannot run
-+				 * concurrently with the synchronous drain.
-+				 */
-+				napi_synchronize(napi);
-+				napi_disable_locked(napi);
-+				cancel_work_sync(&tx_cq->dim.work);
-+
-+				/* Reap all TX completions currently in the CQ.
-+				 * A zero budget frees skbs via the non-NAPI
-+				 * path, which is required outside softirq.
-+				 */
-+				tx_cq->budget = 0;
-+				do {
-+					tx_cq->work_done = 0;
-+					mana_poll_tx_cq(tx_cq);
-+				} while (tx_cq->work_done);
- 			}
--			if (atomic_read(&txq->pending_sends)) {
--				err = mana_gd_dev_reset(gd->gdma_context);
--				if (err) {
--					netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
--						   err,
--					    atomic_read(&txq->pending_sends),
--					    txq->gdma_txq_id);
--				}
--				break;
-+
-+			pending = atomic_read(&txq->pending_sends);
-+			if (!trigger_flr && pending > 0) {
-+				trigger_flr = true;
-+				flr_txq_id = txq->gdma_txq_id;
-+				flr_pending = pending;
- 			}
- 		}
-
-+		if (trigger_flr && !(hwc && hwc->hwc_dead)) {
-+			/* Completions never arrived: the device is
-+			 * unresponsive. Issue device reset and
-+			 * mark the HWC dead so subsequent HWC commands
-+			 * fail fast instead of each waiting the full
-+			 * hwc_timeout.
-+			 */
-+			err = mana_gd_dev_reset(gd->gdma_context);
-+			if (err)
-+				netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
-+					   err,
-+					   flr_pending,
-+					   flr_txq_id);
-+			else if (hwc)
-+				WRITE_ONCE(hwc->hwc_dead, true);
-+		}
-+
- 		for (i = 0; i < apc->num_queues; i++) {
-+			struct napi_struct *napi;
-+			struct mana_cq *tx_cq;
-+
-+			if (!apc->tx_qp[i])
-+				continue;
-+
-+			tx_cq = &apc->tx_qp[i]->tx_cq;
-+			napi = &tx_cq->napi;
-+
- 			txq = &apc->tx_qp[i]->txq;
- 			while ((skb = skb_dequeue(&txq->pending_skbs))) {
- 				mana_unmap_skb(skb, apc);
- 				dev_kfree_skb_any(skb);
- 			}
- 			atomic_set(&txq->pending_sends, 0);
-+
-+			if (txq->napi_initialized) {
-+				netif_napi_del_locked(napi);
-+				txq->napi_initialized = false;
-+			}
- 		}
- 	}
-
-@@ -3822,7 +3875,8 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	if (err && mana_en_need_log(apc, err))
- 		netdev_err(ndev, "Failed to disable vPort: %d\n", err);
-
--	mana_fence_rqs(apc);
-+	if (!(hwc && hwc->hwc_dead))
-+		mana_fence_rqs(apc);
-
- 	/* Even in err case, still need to cleanup the vPort */
- 	mana_destroy_rxqs(apc);
-diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
-index 1ab2d66c891e..0bc222c32244 100644
---- a/include/net/mana/hw_channel.h
-+++ b/include/net/mana/hw_channel.h
-@@ -179,6 +179,7 @@ struct hw_channel_context {
- 	struct gdma_dev *gdma_dev;
- 	struct device *dev;
-
-+	bool hwc_dead;
- 	u16 num_inflight_msg;
- 	u32 max_req_msg_size;
-
---
-2.53.0
+diff --git a/tools/testing/selftests/ftrace/test.d/functions b/tools/testing/selftests/ftrace/test.d/functions
+index 826141e299e5..3cf8ac5fb4d4 100644
+--- a/tools/testing/selftests/ftrace/test.d/functions
++++ b/tools/testing/selftests/ftrace/test.d/functions
+@@ -145,6 +145,7 @@ check_requires() { # Check required files and tracers
+ 	p=${i%:program}
+         r=${i%:README}
+         t=${i%:tracer}
++	d=${i%:debugfs}
+ 	if [ "$p" != "$i" ]; then
+ 	    if ! which "$p" ; then
+                 echo "Required program $p is not found."
+@@ -166,6 +167,15 @@ check_requires() { # Check required files and tracers
+                 echo "Required feature pattern \"$r\" is not in README."
+                 exit_unsupported
+             fi
++	elif [ "$d" != "$i" ]; then
++	    DEBUGFS_DIR=$(awk '$3 == "debugfs" { print $2; exit }' /proc/mounts)
++	    if [ -z "$DEBUGFS_DIR" ]; then
++		echo "Required filesystem debugfs is not mounted."
++		exit_unsupported
++	    elif [ ! -e "$DEBUGFS_DIR/$d" ]; then
++		echo "Required debugfs interface $d doesn't exist."
++		exit_unsupported
++	    fi
+         elif [ ! -e "$i" ]; then
+             echo "Required feature interface $i doesn't exist."
+             exit_unsupported
+diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_opt_types.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_opt_types.tc
+index 9f5d99328086..25f7192f887b 100644
+--- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_opt_types.tc
++++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_opt_types.tc
+@@ -2,7 +2,7 @@
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (C) 2023 Akanksha J N, IBM corporation
+ # description: Register/unregister optimized probe
+-# requires: kprobe_events
++# requires: kprobe_events kprobes/list:debugfs
+ 
+ case `uname -m` in
+ x86_64)
+@@ -22,7 +22,7 @@ for i in `seq 0 255`; do
+         echo  "p:testprobe $FUNCTION_FORK+${i}" > kprobe_events || continue
+         echo 1 > events/kprobes/enable || continue
+         (echo "forked")
+-	PROBE=$(grep $FUNCTION_FORK /sys/kernel/debug/kprobes/list)
++	PROBE=$(grep $FUNCTION_FORK "$DEBUGFS_DIR/kprobes/list")
+         echo 0 > events/kprobes/enable
+         echo > kprobe_events
+ 	if echo $PROBE | grep -q OPTIMIZED; then
+diff --git a/tools/testing/selftests/ftrace/test.d/template b/tools/testing/selftests/ftrace/test.d/template
+index 2cd8947edf72..d4a2500498f6 100644
+--- a/tools/testing/selftests/ftrace/test.d/template
++++ b/tools/testing/selftests/ftrace/test.d/template
+@@ -5,6 +5,7 @@
+ # The required tracer needs :tracer suffix, e.g. function:tracer
+ # The required README string needs :README suffix, e.g. "x8/16/32/64":README
+ # and the README string is treated as a fixed-string instead of regexp pattern.
++# The required debugfs interface needs :debugfs suffix, e.g. kprobes/list:debugfs
+ # you have to add ".tc" extention for your testcase file
+ # Note that all tests are run with "errexit" option.
+ 
+-- 
+2.43.0
 
