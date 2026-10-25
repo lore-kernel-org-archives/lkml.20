@@ -1,62 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792917315;
-	b=U4vh9ec/efajF9E5aBhsi/j/1AD4E0mjcvgYnNVXdGqyE3SEPmEClC+r5a1e26sRnI8L
-	 1UNhinZhxECSYYr6BU9z7cjDjh+vah2jTVeilE9Ib0c2PT35pZuTkIS3BIM7YdDU27cHI
-	 +eUoFwA+MOxS4kaWtaEt1Uc2mvGZmOG3ehfsFynBpav3ibtPtQ8lTSrKyARc3Z0ThGHpN
-	 cliayOKAixhGHCjkF1ZgrsObj1uG3SLjZWWjSiVIXVei2OVxznez/lWmgm+INg7GEUz67
-	 Tvrgmr5lPUwUbLJsgMudOm8HZaqVXVBVZzQ6HK34Zt+8kPF4/aVYjGKF4hKH7Vbn5dw==
+	t=1792917434;
+	b=k9MDfJfrjXEt99g3SgTUqUYp1Fip6WgvalEbXn9vlmKCMxpFJ7SUu/Tb0nRbFLvmCLpo
+	 nIjKu0pLP29u90XMYL35ijmqbZIc77/m5gxTvbzsg//y2NmfncIwALwy/MXFsCtNR1H/4
+	 fdwVUSjBGJjkcVsbK3rsNqzGxVQzKkWh+E/HaLdDhr0sCaaVVotoLLXzdVQg3es7cgxfk
+	 +9XpqTP7Oiz5jBka/0Bb7NZFTQ+hgqW34YVdw8gzpISOEGVk7ArD+wlYaqO/mBt0uU0Fo
+	 ZTWRQMa1+JnaIfzoXdRtuQuWrOTa0qxLC07tXV38fDH/oHMquPlNL/JZQT6akDr9mzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792917315;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Umtx2QekNJJOh/UY3thL10Al6ydHDa8XNgIJCQa01dk=;
-	b=UlUvTDFpS7f84jMk9h5RSHRH9KuBOtCXXkDeNUtEGdSadsq53Z6Hd8pYKQKAhItfctq9
-	 bQaSKebIxrYnyM8MhyPLvqbZxgcuZEDAgOkMk4hCH+XUFerokGgD4S26rwLpblbbJ55Ek
-	 PTIjtc/oh81Mi8aJQxAFv71twnfFbgD2XV4kugbLpJnGoaMs9//qo3r7kIPhGfCdN+EEP
-	 qOyPg1DWeOl88PgPZXKz47rVPh6rw8vMH0dgfFF6MBJC1FCnF/D/w49PsVWjEtzvus1ep
-	 gE+w/INrrnCZKye4XAwROn/QKwiWBvirbreb3k2lT/hZ0j93LghC70s4qZeTZKpYrJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792917434;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 User-Agent:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=TUTD02y1snVEKJiu1G5hkhL/dhz7ijXrdWl50l7if3c=;
+	b=2loGvMmsODHffvPmg36SH8ZNeIXirSKXmlUMhFQs/HcWCA5Gy4rwZjCgVRRhCMbIw+zN
+	 +NB2MesrGIaz9MWTMT133/fsvnYgMkwgpMewPMrIgPPUsoA2d/SEIcpbuQicvKUO1NSTP
+	 wUUr6DFV0d0L3g+pBeLZgD2LztyAIMG8TxFINJp3hlUANlT01bmIOK4BLB1kH41/RjI2/
+	 cxXWUf4U1UvrOZtAM+qPPJXlye6BFqvezDd8arKEV4NEkwEk47KKTqRsC3Hi9ZmiJDkvQ
+	 MWMAFuB8aF2fhmODyXh4pMaHVY6RpyYUTh49yxSXllHrFgQUaypReAQlELMxxhBpTZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwWbrWr5;
-	arc=none smtp.remote-ip=91.218.175.48
-Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jd8/UsZH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A74606A321
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A74606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C44606A31A;
+	Sun, 25 Oct 2026 08:37:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwWbrWr5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Umtx2QekNJJOh/UY3thL10Al6ydHDa8XNgIJCQa01dk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792917312; v=1; x=1793522112;
- b=HwWbrWr5kH39BlfikdLrFRyIbdJ1SbM/25MQ0oJN7Kxw2ZeucgCjJrW9BeMyajcuruWsvBXD
- UCCAlVmD2sJeqgj0zVacQGoE3ND93S850cPquuJy79YAKXFTU/bWuTf7/Q6YF9+dtyDBlBf0g2t
- rOrY2GFtgFC6soU5zT/EwhQw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 397e6e464de94714;
-	Sun, 25 Oct 2026 08:35:12 +0000
-X-Mizu-Trace-ID: 397e6e464de94714
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be58ad9600so5801e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:35:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzkEC8+0iXoAHXw+m0taKu62dgYi7eEJQuQG1unQ7eAV/+Ihch23GaBxusReax2ZwknfgQTSsCwXXAF9Jk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtneJAa+y3TKFfDH1X34n5WLwcXVt9olFbLRUlP7DvHXU3aAXy
-	XqFuk42O6cQ9YyIY9LY8xsbfhNwtdU8IGhc5c/F0ice8GL7bag6dBPmDX5e1WKjZBVgR174nns1
-	3CiymgGjx7OCjtD7Gcf3+HzhtpvLOZeGee8pi80Ki
-X-Received: by 2002:a05:6512:3a8a:b0:5bb:ff6f:b4bd with SMTP id
- 2adb3069b0e04-5bfb79cfb9dmr89930e87.14.1792917307506; Sun, 25 Oct 2026
- 01:35:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jd8/UsZH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453FE1F01825;
+	Sun, 25 Oct 2026 08:37:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792917434;
+	bh=TUTD02y1snVEKJiu1G5hkhL/dhz7ijXrdWl50l7if3c=;
+	h=From:To:Cc:Subject:Date;
+	b=Jd8/UsZH/s5jmgXiZYu8yk4mpi099K410+p5UEunAOPVfkRvOJzbrO7x0eLwQKKll
+	 zBkpBHLKg6lwNzWDe/8JNippdRiTqd08GMpXtYwtc57p2iqqnlXqIuMpQNXFd3yw+B
+	 TWZrhX2AqrKjRk8BiIU/y7FizUUwNLPm4JNpARkB7rnc6mRpdW+RHB/wiN8Jl10Dod
+	 vTFtk3m4weUkjMwvfPLa41gtAMk//ELs/MH0+Li7hDbxWClQkFGIhsQxrhFoPPabSb
+	 UBwPBM6ZznmDienZiom4xpQ3a6HOmKXDA2Ph21F5sJ5Jad34iF4FroVX8ZGkkl/B5O
+	 6fFsAr6lJyC6g==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v2 0/9] tracing/filters: Fix event filter parsing and matching bugs
+Date: Sun, 25 Oct 2026 17:37:09 +0900
+Message-ID: <179291742944.492959.11659339795290028998.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,42 +61,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024161118.1007472-1-sashal@kernel.org>
-In-Reply-To: <20261024161118.1007472-1-sashal@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Sun, 25 Oct 2026 08:34:31 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxKRThB+kp33nALkEejj2L8vDxE=SZYw+0KyHodYu0y8g@mail.gmail.com>
-X-Gm-Features: AclHuK_kP_F3xF9Iyo3ZWQZWl_t2OJWVWAHcLTFVaYw38-o0EI2yWRjxxMOJhA0
-Message-ID: <CA+EHjTxKRThB+kp33nALkEejj2L8vDxE=SZYw+0KyHodYu0y8g@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: selftests: Skip ignored AArch32 ID regs in
- the failed-run test
-To: Sasha Levin <sashal@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+Hi,
 
-On Sat, 24 Oct 2026 17:11:18 +0100, Sasha Levin <sashal@kernel.org> wrote:
-> test_idreg_frozen_after_failed_run() checks that changing a feature ID
-> register after a failed first KVM_RUN is rejected with -EBUSY, and does
-> so for every register in test_regs.
-[...]
+Here is the second version of fixes for various bugs in the trace event
+filter parser and predicate evaluation in kernel/trace/trace_events_filter.c,
+along with a new ftracetest test case covering filter syntax checks.
 
-I reproduced this on the FVP AEM model configured with no AArch32 at
-any EL and with PMUv3, under nVHE: set_id_regs fails on
-ID_DFR0_EL1_PerfMon without this patch and passes with it. It also
-passes on QEMU (which supports AArch32 at EL0) under VHE, nVHE and
-pKVM.
+The previous version is here:
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+ https://lore.kernel.org/all/179285912318.466249.7425922682086130057.stgit@devnote2
 
-Cheers,
-/fuad
+Changes in v2:
+[01/09]
+ - Guard against negative length and avoid calling strnlen() when the
+   buffer capacity is smaller than the search pattern.
+ - Use strnlen(str, len) directly instead of calling strlen(str) when
+   len is 0, avoiding an out-of-bounds read on 0-length dynamic arrays.
+[03/10] (in v1)
+ - Dropped because out-of-range CPU numbers are already rejected at
+   filter parse time by cpulist_parse() checking against nr_cpu_ids,
+   making the runtime check in do_filter_cpumask_scalar() unreachable.
+
+Summary of the patches:
+
+- [01/09] Compute the actual string length with strnlen() in
+  regex_match_end() so suffix matching ("*pattern") works on fixed-size
+  string fields (such as comm) and dynamic strings.
+- [02/09] Fix process_system_preds() so that "fail" is only cleared when
+  at least one event in the subsystem succeeds, and use
+  delay_free_filter() when freeing replaced filters on error paths.
+- [03/09] Return "pred->op == OP_NE" when "cpu >= nr_cpu_ids" in
+  DEFINE_CPUMASK_COMPARISON_PRED so "!=" against a cpumask evaluates to
+  true for out-of-range CPU numbers.
+- [04/09] Ensure parse_error() is called on all -EINVAL error paths in
+  parse_pred(), predicate_parse(), and process_preds() instead of
+  leaving lasterr as 0 ("Error: (0)").
+- [05/09] Fix function event ("ip") operand parsing in parse_pred() to
+  avoid reading past the NUL terminator on empty operands, check for
+  missing closing quotes, advance past closing quotes, and reject empty
+  operands or stray quotes/'(' in unquoted operands.
+- [06/09] Advance past the second character of "&&" and "||" in
+  calc_stack() so the second operator character is not miscounted as a
+  new predicate.
+- [07/09] Reject unsupported field sizes in parse_pred() when
+  select_comparison_fn() or CPUS{} size matching leaves pred->fn_num as
+  FILTER_PRED_FN_NOP, avoiding a kernel warning in update_pred_fn().
+- [08/09] Terminate the input filter string at the first newline ('\n')
+  in create_filter_start(), apply_event_filter(), and
+  apply_subsystem_event_filter() so multi-line input cannot desynchronize
+  cpulist_parse()/parse_pred() from calc_stack() or misalign error_log
+  caret placement. (as an improvement)
+- [09/09] Add filter-syntax-check.tc to ftrace selftests to test valid
+  filters, syntax error diagnostics and caret positions, multi-line
+  input truncation, and subsystem filter error returns.
+
+Notes:
+
+- These bugs were identified and the fixes and cover letter were
+prepared with the assistance of an LLM coding assistant.
+
+- Also, note that [08/09] may need more discussion because it can break
+user space tool which attempts to use line-break characters as a filter
+for reasons that are not entirely clear. But as far as I can see, the
+error_log does not support such multi-line filter input. So I think
+we still need it. (But not sure we should backport it, maybe as an
+improvement.)
+
+Thank you,
+
+---
+base-commit: 1fdc4164e488916402badddbb1f51e9380dabb91
+
+Masami Hiramatsu (Google) (9):
+      tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
+      tracing/filters: Fix false success return in process_system_preds()
+      tracing/filters: Handle out-of-range CPU for OP_NE in cpumask comparison
+      tracing/filters: Report parse error on all -EINVAL paths in filter parsing
+      tracing/filters: Fix function event operand parsing in parse_pred()
+      tracing/filters: Skip second character of '&&' and '||' in calc_stack()
+      tracing/filters: Reject unsupported field sizes in parse_pred()
+      tracing/filters: Terminate filter string at first newline
+      selftests/ftrace: Add event filter syntax check test case
+
+
+ kernel/trace/trace_events_filter.c                 |  101 +++++++++++++++-----
+ .../ftrace/test.d/filter/filter-syntax-check.tc    |   52 ++++++++++
+ 2 files changed, 130 insertions(+), 23 deletions(-)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
