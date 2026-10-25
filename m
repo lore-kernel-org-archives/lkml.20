@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792888383;
-	b=yoQxqSu2eh+LEmjQOApA0oX1IMTlHkh5gT4DHckh3sm3gEbYu0uwn+myJccYJ4r5H9bD
-	 yV2Sl1NYGaguHsR1kD/QUBnm/I13wCFUYBNltxTeeydcKS9xMq8Lj1irU3ouNyfqJ8HUj
-	 KN5N+Rry5tHPar8bQrg7VjugF8OrZ25t2KReAEVyOHZEZhMbpO30INxaJKJskPMLVz5JS
-	 YEv4L17XUa6pDRy5xSlGmGKcP2znGsnIBxYCRsOzbUoaZgBQTAF95sZ1sQGCxRW01fZwQ
-	 YrTolev5pRJQOUMr/pfnxKTw+0oAAwdLhPMQw1W1/p6scPa4wwwaEHkv422R7OlAnSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792888383;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fM3fUjfJbDJMit10qV/pCXS3vPaAmvybkayDS3aKiJU=;
-	b=jAi88Fwb+WCK5o6lbz4kwes95yRBzuVtE5i3uXaObUeVJXz3Tm/jkgniBBYeNcrnxYLq
-	 pG+N4EnGzRq1NAL5cWwhf07T6jxuJXX9kA5th+P/10VFsR4uXPD+Ow6d0Uo6ewgmb9lZa
-	 sr7PTEP8PRBvyTsguqljJozGdn1JJWMi6SNLWfNOUdj5o/TKcSg5Oj2LoRakR7GRN0TGo
-	 HYDeB4p5jpPSbPHBYAhpxqo2fqSI2gJ9NCWWYXuXwUQhexNn6ndpZrKo9M43Z1MxRx2IT
-	 DxVFUxOdT/Yo7Au7lhOPyWZrRZTKS29OyM4u25HKlmtyhCL2/momcOondX6fSRgaF2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxU6RX80;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E43606A31A;
-	Sun, 25 Oct 2026 00:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxU6RX80
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792888382;
-	b=TFbtSwoW4pZ6WrMztmIW+Z4alDuH86UrYELU4eisdhIsbYVv701YD/COQWGNL7du7Nv3
-	 e68IhOlZyJ7MhyRheQkXOQkpqGrRU7XImxsdegGEnwRXZYiYNam3vUksy+Pai8bNuiU+4
-	 pbUbrcer4zFbQMEAJOTB444+KELoSkuFW1PsFwJKcc2qba9YcYiC0qbUlOTXuGypx42oc
-	 JRLjhDY3qzYLq0LGjqpH5pU1bjn7Lk1DUqTWH1hkAVnJlRUlTGebZiJNVs4Oq27uxm7bQ
-	 gUS6FLwA3zQMzhlYrxPBREiPL3jH7pxTDstPL/NFjP9ege7wFXe7JfmNLbamLnYQwbQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792888382;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fM3fUjfJbDJMit10qV/pCXS3vPaAmvybkayDS3aKiJU=;
-	b=whNZcmhUrRbcq/fvULET1P2CsSHLsm7aNco5JOF0IQCIdgOQcGzganjFchBgNIX0pE0p
-	 /2f+SVhb/B2XHhF4dYuMRjl4gYvxR6WNOctfVh/RQQQr0q28L/Yat+XglHYkjb+xD9uz/
-	 ITle+BPOKYSHtLL2FyHKrBImu9JuiW9xWGT6qcqCoWGxGeKcUm/XJF5AhZjsjjqu780Uq
-	 90yQNc090LGLBpVHpLr6AZ39S6rwFvEs7x1i43CdD8PW3luREFyDg/cZ8d0AJtdpCRRi0
-	 UGcI3nt2+6SbKiaeDY7vZRzrtR6XdQUWcmi4UuMnETx70qp3URKqG0z+3IUWf7HTQVA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792888538;
+	b=tj5v4z00Ggvwds+T5plvgPSx00Vyhk1XjEmnOLR6N0kTULIoJEMYDwazeP2/t3KoJq2+
+	 Rewn8PSoa9oA77PF4X+LUUOT/Xj/cR3kqubRvIDNjyCyYUv/t+WILrHWMZu0GmiFWnMja
+	 y2sRFMi7Zds7oTGaSko9ywu6jCaleCjOw8GmRlj3jsSMywO3D8eLa34YMwioY7ScDFVbB
+	 LcRj0Yb9w1AemUxIT7uVkD4y/Hl+JN7rnU6cp5fXNjd/8uDln42EYOBKv8Z6YTtf9celJ
+	 bQwMITKS5w7arxgJ/2vcbLJdvrtIibu6/+7m23Ntl+6dptOkMz6bjM93BLHCqhLX4nQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792888538;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=XSpvoJJOnlwRIHqeOURy97S0PX5mhHQN8lVWg3MejC8=;
+	b=oYaecUZlxQI72whqzQ/VgoSzHfY/VXdxH9fLiiBs4vCxc2IV3w6ar9xyZ95B1AR8ws8g
+	 ipuIWL54BR1YmX7E1yOTQLtwM5g4tPcJsIXVNA4BlEQl1rUbNgEahr2K6XofN91Q1LwPa
+	 lnDgHXrclslLH/Sdqdvy+q4HVeLNjO9KhnAGDF/07CaYkNwwJjAYyLO7uyAgWIKRFZGBH
+	 9gAGO3vltHCOA27fRItbL5Kcpi1MxtyHPTwXXMnbmwsc4EzKZiFqlqkV2wZlEI1wN+ggL
+	 h+ENwIL7D/h+9DNG1+fB5BpdNHgEF+GQina+XjVbR8Z+bivctEW6t4kDiyX2zEP9DSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E5EA51F031E3;
-	Sun, 25 Oct 2026 00:33:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792888382;
-	bh=fM3fUjfJbDJMit10qV/pCXS3vPaAmvybkayDS3aKiJU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jxU6RX80El+/x3FYcU0qXnwZvVCufnkGyLyc+bkC2XnSX/zeHRZfqro1qR92tx1Te
-	 GYy5PKqySTcnWSmsbkuCOwdoBPa2jNK59j/aY0FpT4Sp7RKkPT19gqsdyM+e7NgkYl
-	 qKHmUMaud5x0lva3n1mycgcleyCXMgneLnhKc6lPhjKhNrvNqpQGLcN6o/DTGzPyku
-	 HTMDXvOnAMVRUygNtx/FUNYcbn3Nw9fKulMHYQTtYteMuodvxlG8oQq/ouWZLY4OgV
-	 f4/3ZDlbrfaF9jIbkUa4DzUbzq1eXpHjvNpe9bUcJRaesvNyDfZHGop6brNNlcSNEz
-	 ueGv6SwnNnfeg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7787E448FE;
-	Sun, 25 Oct 2026 00:33:01 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 19:33:01 -0500
-Subject: [PATCH ath-next] wifi: ath11k: fix beacon stats with more than one
- started vdev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29400606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 00:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29400606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f9b643ae53so1741340b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 17:35:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792888537; x=1793493337;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XSpvoJJOnlwRIHqeOURy97S0PX5mhHQN8lVWg3MejC8=;
+        b=GSux/tElO+eacRHshMAv+V01BSgu0zO2Fr2WjO4Tf47EsXBRxs+TiaAWETK2T0uceD
+         8Nt29X9xlXgIVCDQgBm/6OuRo/or2DDqtyJ9KNWPipXHJtzw+sx8gXVp6O10L4RZvRK3
+         38+AIEkAD2980jafrFT8m+wmBEGWtrJNx7iytMXJfmHNs7rTHkkaOgEk6UPT7kNY6wfW
+         PwriYEA/G23EU6QqX4lshDbe6zjlrUCCzAfLVX5eBc5LvcNcSd+2vx1yasMoApFa23qT
+         D84fZ83tIUzbQ417HBeiVnAZo0boJQ3FiKWJd4/ep5TolEH/cDEGYl6eB71huqxDKhZ0
+         sIcg==
+X-Forwarded-Encrypted: i=1; AKwUvBywlFwZv8gkTd7X4WP0K1NwUArFSo0I4iZcTnwjZeyLAduLefn4BfxcjKf1sme7oHhrJTWE7bLTGnRcnu0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJbT5Q0XH9hceHvuss4uulexk9odD4P9kJ1bueyrzmjzAPWR2k
+	hv7TZpCtrQnLwHxStL+1vJ7HzfEfl1TFfpmZBj++xu6NN9FUSl9jehZusgS9gCfbzCXd9ps0Rxj
+	7Z1n0S/zQdUNXV1jvazoL/tm0c3FF9V2gJFuv8HfVbmbY/P4/dqQvDrFAZ1g=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,124 +58,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-ath11k-bcn-stats-v1-1-1355f86ec907@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADxO3WoC/yWMSwrDMAwFrxK0rsByQxe5SujCH6VRAm6x1BAIu
- Xvddjm8N3OAchVWGLoDKm+i8iwN6NJBmkN5MEpuDN75GznfY7CZaMWYCqoFU3TXKebecY6eoGm
- vypPsv+QI7Y2Fd4P7f9F3XDjZtwjn+QEHglELfgAAAA==
-X-Change-ID: 20261024-ath11k-bcn-stats-03fbd40edb21
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792888380; l=3718;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=vMs+Yy0kwU5J/ZNugFhL2guGxAJmpSpiZGhMOQQV6/c=;
- b=e+0h242b8f1f3kyTwb1214FNrbc3wtmB5iK/fbrbc8ioniBBRKm6hxrJ6VE2Z0XcAZHZNVQz+
- ZDzCgRu+0LdBLct259/0Jy0o0uledG+ZV8FRx4tPrCppH+yDA42QXLZ
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:4f5e:b0:4d6:9232:b3be with SMTP id
+ 5614622812f47-55c003118a5mr2285739b6e.53.1792888537264; Sat, 24 Oct 2026
+ 17:35:37 -0700 (PDT)
+Date: Sat, 24 Oct 2026 17:35:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6add4ed9.67317f00.38c4bc.0066.GAE@google.com>
+Subject: [syzbot] [smc?] possible deadlock in __smc_lgr_terminate
+From: syzbot <syzbot+7ea1f5efd5de7e24f1de@syzkaller.appspotmail.com>
+To: alibuda@linux.alibaba.com, davem@davemloft.net, dust.li@linux.alibaba.com, 
+	edumazet@kernel.org, guwen@linux.alibaba.com, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	linux-s390@vger.kernel.org, mjambigi@linux.ibm.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com, sidraya@linux.ibm.com, syzkaller-bugs@googlegroups.com, 
+	tonylu@linux.alibaba.com, wenjia@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+Hello,
 
-ath11k_open_bcn_stats() requests beacon stats one vdev at a time, and
-ath11k_mac_fw_stats_request() waits for fw_stats_done after each
-request. ath11k_debugfs_fw_stats_process() completes fw_stats_done only
-once num_bcn_recvd reaches num_started_vdevs, but every request resets
-num_bcn_recvd first. With more than one started vdev the count is never
-reached, the first request times out, and reading fw_stats/beacon_stats
-fails with -ETIMEDOUT.
+syzbot found the following issue on:
 
-Complete fw_stats_done on each beacon stats reply and drop
-num_bcn_recvd, as ath12k does since commit 2977567b244f ("wifi: ath12k:
-Fix timeout error during beacon stats retrieval").
+HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1413290d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b8fd4ba7675545d0
+dashboard link: https://syzkaller.appspot.com/bug?extid=7ea1f5efd5de7e24f1de
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Fixes: 9f6e82d11bb9 ("wifi: ath11k: avoid burning CPU in ath11k_debugfs_fw_stats_request()")
-Fixes: 2bcf73b2612d ("wifi: ath11k: don't use static variables in ath11k_debugfs_fw_stats_process()")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
----
-Found on an Arista C-260 (IPQ8074), where reading beacon_stats failed
-on both radios, each running four BSSes.
----
- drivers/net/wireless/ath/ath11k/core.h    |  1 -
- drivers/net/wireless/ath/ath11k/debugfs.c | 12 +++---------
- drivers/net/wireless/ath/ath11k/mac.c     |  1 -
- 3 files changed, 3 insertions(+), 11 deletions(-)
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/54bd1c4ffe03/disk-f47d2236.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7c7d29f96e65/vmlinux-f47d2236.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6342fb551ce8/bzImage-f47d2236.xz
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index a0d725923..9be0259e7 100644
---- a/drivers/net/wireless/ath/ath11k/core.h
-+++ b/drivers/net/wireless/ath/ath11k/core.h
-@@ -616,7 +616,6 @@ struct ath11k_fw_stats {
- 	struct list_head vdevs;
- 	struct list_head bcn;
- 	u32 num_vdev_recvd;
--	u32 num_bcn_recvd;
- };
- 
- struct ath11k_dbg_htt_stats {
-diff --git a/drivers/net/wireless/ath/ath11k/debugfs.c b/drivers/net/wireless/ath/ath11k/debugfs.c
-index 70922612d..3e4375715 100644
---- a/drivers/net/wireless/ath/ath11k/debugfs.c
-+++ b/drivers/net/wireless/ath/ath11k/debugfs.c
-@@ -97,7 +97,6 @@ void ath11k_debugfs_add_dbring_entry(struct ath11k *ar,
- void ath11k_debugfs_fw_stats_process(struct ath11k *ar, struct ath11k_fw_stats *stats)
- {
- 	struct ath11k_base *ab = ar->ab;
--	bool is_end = true;
- 
- 	/* WMI_REQUEST_PDEV_STAT, WMI_REQUEST_RSSI_PER_CHAIN_STAT and
- 	 * WMI_REQUEST_VDEV_STAT requests have been already processed.
-@@ -107,18 +106,13 @@ void ath11k_debugfs_fw_stats_process(struct ath11k *ar, struct ath11k_fw_stats *
- 			ath11k_warn(ab, "empty bcn stats");
- 			return;
- 		}
--		/* Mark end until we reached the count of all started VDEVs
--		 * within the PDEV
-+		/* ath11k_open_bcn_stats() requests one vdev's beacon stats at
-+		 * a time, so one reply ends a request.
- 		 */
--		if (ar->num_started_vdevs)
--			is_end = ((++ar->fw_stats.num_bcn_recvd) ==
--				  ar->num_started_vdevs);
--
- 		list_splice_tail_init(&stats->bcn,
- 				      &ar->fw_stats.bcn);
- 
--		if (is_end)
--			complete(&ar->fw_stats_done);
-+		complete(&ar->fw_stats_done);
- 	}
- }
- 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 1a237adaa..74ecf4661 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -4059,7 +4059,6 @@ static void ath11k_mac_fw_stats_reset(struct ath11k *ar)
- 	ath11k_fw_stats_pdevs_free(&ar->fw_stats.pdevs);
- 	ath11k_fw_stats_vdevs_free(&ar->fw_stats.vdevs);
- 	ar->fw_stats.num_vdev_recvd = 0;
--	ar->fw_stats.num_bcn_recvd = 0;
- 	spin_unlock_bh(&ar->data_lock);
- }
- 
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7ea1f5efd5de7e24f1de@syzkaller.appspotmail.com
+
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+kworker/0:2/7972 is trying to acquire lock:
+ffff8880419c3118 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
+ffff8880419c3118 (sk_lock-AF_SMC){+.+.}-{0:0}, at: __smc_lgr_terminate+0x19e/0x6a0 net/smc/smc_core.c:1580
+
+but task is already holding lock:
+ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
+ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: smc_listen_work+0x5e/0x1410 net/smc/af_smc.c:2463
+
+other info that might help us debug this:
+ Possible unsafe locking scenario:
+
+       CPU0
+       ----
+  lock(sk_lock-AF_SMC);
+  lock(sk_lock-AF_SMC);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+locks held by kworker/0:2/7972: 3, last CPU#0:
+ #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880344a4938 ((wq_completion)smc_hs_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900045ffc40 ((work_completion)(&new_smc->smc_listen_work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1715 [inline]
+ #2: ffff8880326f9298 (sk_lock-AF_SMC){+.+.}-{0:0}, at: smc_listen_work+0x5e/0x1410 net/smc/af_smc.c:2463
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 7972 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Workqueue: smc_hs_wq smc_listen_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_deadlock_bug+0x27a/0x290 kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x25db/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ lock_sock_nested+0x41/0x130 net/core/sock.c:3865
+ lock_sock include/net/sock.h:1715 [inline]
+ __smc_lgr_terminate+0x19e/0x6a0 net/smc/smc_core.c:1580
+ smc_conn_abort net/smc/af_smc.c:1019 [inline]
+ smc_listen_decline net/smc/af_smc.c:1978 [inline]
+ smc_listen_work+0x69e/0x1410 net/smc/af_smc.c:2588
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
 
 ---
-base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
-change-id: 20261024-ath11k-bcn-stats-03fbd40edb21
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
