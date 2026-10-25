@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792965887;
-	b=N/LTkcfEZlPgJzct/qqAvm8GVWeeSe3tk2X+J8uPXWaoP/JKH91HF+oanIsfamIZes2o
-	 rSMhq7r5qGZLU8SFghi7FLAlec+ujkcs5xtTb6PfcGHGv2iqVZXiIlX53YUSyheXzfr0r
-	 wTug5kyRkpzitN8wScu92xrDfBK5K7LTcr0EW29xYlApiSiJGAKUExNWSs0LTbZ2dK9zH
-	 /crJ7aMEb4bbArbjbzqx8TWtGfFvCWwBuFlVKfz3djT6PufOqqTOgSXZ9Jh+sTWEXqeLa
-	 8vOQeNnaiLWJDXsxyQhs/lzoxpUynGfPWvQiHTUTtlcs11wuPSizxAT0vVU1188TAyg==
+	t=1792965889;
+	b=RM3iGpNgJqkVp/0XCMu3RekoUsDsfWGU9Sa8XpkEczf78co0ILo1xw5kZC1YQG9ttEKi
+	 fKMBQimWCIOqvvOBhcW/bLWzEv8MFtZNMHj5OKht7iXO8iJ3fi1X7B5onCKYUBcUsXdeq
+	 NozmeX/H0dQ754lSSt0MZRQBko4TQsD86IJf2sP+vp7WD4J+xLMpn+W0fosZQ6bMuPAN9
+	 LEzlFF20DqZQOlZDmC3JKp8vtiJVfnGjeU9Lg9UvXNXQzLPTiOLdrPbzTe0Eng328vsbu
+	 JxumcXSydEBxTW209L+AJo0Gwdfj1n+6jdZ8SFMc6hvLWRdecSxeTC5i/MmrWF7tgzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792965887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:
 	 Content-Type;
-	bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
-	b=U4eD1cNUHOh+1yhIyANne6EW7Y1WxSUYimhc3FQLi8xm3p1G8xL9IC5HxXZZg9nPqiJm
-	 XJ8+V58a9kTl6DfIFn5QyEngMx4uI7ckE8gjAkKaHEa2OeCfpmUl9t1pfcrxaf2oCSTz3
-	 pB3yS8cEOhoqfJkboAYr4qNoNi4r7+cmDkdbe19iOkqYMaTMwLhXyFss5kf0uz4D6jSUC
-	 lKTBkUK2QFXcAFwEoAp2LxVguVNYWrG15QD4JKfG7h04zPqXp8zmvo7b7eePy3XW58K55
-	 xSrbLZZGFRvkgrfoL58aMRZ57ZYxAGMxj2gVhVkN1+gTH430iQB3zTkt2gxXyGgCFEQ==
+	bh=pOADWcGOPToCVkIIlJEq+Vs0tCSXpfjYPCXfS9/IopM=;
+	b=12ggtyUUwQbJr5cX6CRCm/vpCqW0gaCNaL9UwxG7IG+FsiF6Lwc6ZcppGR+UQCUz8ae9
+	 rErWo32QJq/U7Jdne13mjWtJ1uRpJ4bELurt8Oh0UzBxqnnRifTHfwkmYjp8+JuqdMAQJ
+	 UcScTF9q4NDLlSLGnOxt9btxrHWFxq/s6OaQoFgH82sf9hgtQ/4VC4X0EhfIHqY61LLvr
+	 U7gXuJn9He30xLo5acU28dRoBPbVMVYYDsDUj6sRkYStghO0MCqilGwIROF+C2E/l4qDr
+	 PKaAOgvDNwDdCMMFGpOgrdiUPaMbBQqW6c1dYsCdpnVhEn0bCdrH6eNT1/EB8zfCYwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cvrl1h99;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=SIeaB5kN;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E2D606A322
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E2D606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D8F606A333
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D8F606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cvrl1h99
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-18eb2616974so9246860c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:04:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=SIeaB5kN
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso4061184eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:04:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792965886; x=1793570686; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792965888; x=1793570688; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
-        b=cvrl1h99KW2jrjYwxZymFWRxxcePibcWIhet65tp/IrnciMaLTkvx0mt9iohyegtJh
-         u+9V+ftDhNXpVUcs8Bv/a+wS/Zed5MNBcSZyYOaappbWzd0vxB6TVitxR+ipmDSI4ykv
-         IWK+wsmwDnb+r5EtMHAZXmN8U8ydhd6haip4bMIjatjallfM2GRexn8jU3SHU4iu+4sM
-         8PcAFwhG72O9gr3Dh85YZ7LVYWvkDFlEez79Ft1RK/2rYNaCwmiRc/tcFhxik1AfXaZP
-         TsbGtTMVkPwH9Enkaa9v9px/WVTTthp29y24BIUuJcffb01sQVUuS/puvFhH6Hynv9pt
-         e9VQ==
+        bh=pOADWcGOPToCVkIIlJEq+Vs0tCSXpfjYPCXfS9/IopM=;
+        b=SIeaB5kNUGPEKCEkPiPPRD1zVasOhdeFrNfVWehGeHA3qLT9T7BsSO0IMd6QsXfCIX
+         oPqULZsG5amqmwJfg9TdWjQcpcdJ90+EFJd5igs0Pu6qVUBzSOJeUGGgDwab3SoDAKub
+         678g8kRPzPgA7o326exi+VRfUzJM3cxatvgd3tWcM2HjWpl5fPvAfdBuX78mMm3IbmbR
+         C2BdsTtNLpIXiiXqjdwmiayYbMGDanvd4vx4+Mg3cQzBI6zdBOnQ8ahEPLtIYqwz/gZ2
+         XlcPIVYY99ARn2+hPJ2jeLgmbx7pGcuUh1hAVZsrkRSioGn0rt7wi4+NbznZoIgvTn5D
+         ZYAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792965886; x=1793570686;
+        d=1e100.net; s=20260707; t=1792965888; x=1793570688;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P4+5Oq0nOjNp6fO4fditjc4pY9SodPe+Ia1vUoXZX4g=;
-        b=tBKuqRbJ0yXZwNE+rEuMtbD/nP6omYSrKovAfQudtOsHyobi4sAjNuaJi95H7FUIIj
-         v5E2lIV6PkkuVeFMOxG005kr52cmnwwaSV9RXQgjHV93N7Uo3rI0rFqRnTFLvsU+oOTn
-         Oz0XjsodG7a9EePb1uNr2blOkVIoLda30i1CMLusPubJAcmjWAJOxCgQOsng4F8D/8H7
-         ZfOB1Yk9iyfwpv1wVH5LWFGBKZ+eVJwQWCf4ZAXqsHDPyw5bp2fngQ3eck8hnTj+cEjo
-         KNhyu6DQxWdkAEixEAMaUUsBaW9SyMnjRC1AZpsBZ4oPqcyPd+OfjBVrxrxBVgX/oDwR
-         RgsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjjJCbY3+nbkMX5w/sPndaFRn1HPtmAApfQ1RYGIeTn80ogZeAQQqZkCjxvrgtsZOIYuRzZwO3ghnXnyk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBGOeroX0bFv4rhszyrmrxXIvAn4MqpBwzjgag8XqdrIKv2KSE
-	njNPLcRgd8muChxu1nHin0+4bx9/BvqoDhOYnyQRi6WWNv5EtijSZSf8xM7Aq+MSlsjmpoVKdY7
-	viUpHcfMf1A==
-X-Received: from dlbpj9.prod.google.com ([2002:a05:7022:3809:b0:18a:a95d:606c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:204b:10b0:187:eb7f:bb4
- with SMTP id a92af1059eb24-199378d0778mr7890733c88.46.1792965886138; Sun, 25
- Oct 2026 15:04:46 -0700 (PDT)
-Date: Sun, 25 Oct 2026 15:03:44 -0700
+        bh=pOADWcGOPToCVkIIlJEq+Vs0tCSXpfjYPCXfS9/IopM=;
+        b=bWMibX6FvWb1lsvZGiMrMDVRLtfORTITceD0U0x8Gh+ihY8W4Ul5ub5/9UaujjE84n
+         J9bR39qvTbTRewJMIrjd0p5D1l70+xs2oNf+5CwwIxYL9fMbyj5xvVwM/xRh1Uvjj2VB
+         vXKtI4wc7pG5NsE2DBGY0h8JpkaaAKmUhjcuCSBK9H8oytD9y7HC8XMxFAL46lRIWPx7
+         kRbRFNRgEdNY7AuG/K50kPrD074fj89GZ9i0vBNCOwde9XeDAuBQxLziXjJ22pNTAGmA
+         pMxlnczfHN/HZea0hNUe5IMNyGPwH/rp/IDURWox0RuMlRRA/ObQ/0nG1d/cl1dCmTxT
+         wb+g==
+X-Forwarded-Encrypted: i=1; AKwUvByHiI4LChyliH7DlIGahhqe7Kc0FRg2G74yWQ0v05pRwMU9NpXx/GI68L9LvXO77eQFWL2eqNQsAB3NYbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6J+o8KtKhcjMCTMWzVg6HKg+L7GHsJkvEUpOUSArT4+okePzN
+	+CgQ3KZIvvjhW66imy7EDe7d+A2xFtvpNK20zfrsGd2XXd3m+BxBAB4DixaU4j2MedAtD6ZCuNq
+	7wQ7E/BFg5A==
+X-Received: from dlbsn8.prod.google.com ([2002:a05:7022:b908:b0:196:cccc:8099])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7f12:b0:179:a1d0:be39
+ with SMTP id a92af1059eb24-19935fcba5amr7749987c88.29.1792965888158; Sun, 25
+ Oct 2026 15:04:48 -0700 (PDT)
+Date: Sun, 25 Oct 2026 15:03:45 -0700
 In-Reply-To: <20261025220349.1244499-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261025220349.1244499-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025220349.1244499-2-irogers@google.com>
-Subject: [PATCH v1 2/7] perf evsel: Add bounds check for PERF_RECORD_CALLCHAIN_DEFERRED
- ips array
+Message-ID: <20261025220349.1244499-3-irogers@google.com>
+Subject: [PATCH v1 3/7] perf dso: Handle trailing zeros symmetrically in dso__build_id_equal()
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -93,34 +92,46 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In __evsel__parse_sample(), verify that event->callchain_deferred.nr and
-the trailing ips[] array fit within event->header.size using
-OVERFLOW_CHECK_u64() and OVERFLOW_CHECK() before exposing data->callchain
-to callers.
+dso__build_id_equal() allows a 20-byte dso_bid with trailing zeros to
+match a shorter bid (such as an 8-byte or 16-byte build ID), but did not
+handle the symmetric case where the lookup bid is 20 bytes padded with
+trailing zeros (e.g. from BPF/perf kernel build ID extraction) and
+dso_bid has the exact shorter size. Handle both directions symmetrically.
 
-Fixes: da27c4379ce6 ("perf session: Add minimum event size and alignment validation")
+Fixes: f4e3381648be ("perf tools: Minimal DEFERRED_CALLCHAIN support")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/evsel.c | 3 +++
- 1 file changed, 3 insertions(+)
+ tools/perf/util/dso.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index d060fca8090f..64f090ebaa5a 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3474,9 +3474,12 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 	if (event->header.type == PERF_RECORD_CALLCHAIN_DEFERRED) {
- 		const u64 max_callchain_nr = UINT64_MAX / sizeof(u64);
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index ce98613868e7..e46cd614eb21 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -1949,7 +1949,8 @@ bool dso__build_id_equal(const struct dso *dso, const struct build_id *bid)
+ {
+ 	const struct build_id *dso_bid = dso__bid(dso);
  
-+		OVERFLOW_CHECK_u64(&event->callchain_deferred.nr);
- 		data->callchain = (struct ip_callchain *)&event->callchain_deferred.nr;
- 		if (data->callchain->nr > max_callchain_nr)
- 			goto out_efault;
-+		OVERFLOW_CHECK(event->callchain_deferred.ips,
-+			       data->callchain->nr * sizeof(u64), max_size);
+-	if (dso_bid->size > bid->size && dso_bid->size == BUILD_ID_SIZE) {
++	if (dso_bid->size > bid->size && bid->size > 0 &&
++	    dso_bid->size == BUILD_ID_SIZE) {
+ 		/*
+ 		 * For the backward compatibility, it allows a build-id has
+ 		 * trailing zeros.
+@@ -1959,6 +1960,13 @@ bool dso__build_id_equal(const struct dso *dso, const struct build_id *bid)
+ 				    dso_bid->size - bid->size);
+ 	}
  
- 		data->deferred_cookie = event->callchain_deferred.cookie;
- 
++	if (bid->size > dso_bid->size && dso_bid->size > 0 &&
++	    bid->size == BUILD_ID_SIZE) {
++		return !memcmp(dso_bid->data, bid->data, dso_bid->size) &&
++			!memchr_inv(&bid->data[dso_bid->size], 0,
++				    bid->size - dso_bid->size);
++	}
++
+ 	return dso_bid->size == bid->size &&
+ 	       memcmp(dso_bid->data, bid->data, dso_bid->size) == 0;
+ }
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
