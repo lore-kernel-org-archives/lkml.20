@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972380;
-	b=SxJ4yavtYvxmsK03DkiO6nMU9/tTs9SQC0N3CxSHXYzQwrVFDZ/mYhvCXFDxMXoCBKhy
-	 VNDkvs3pyjpDVSIignCSk055adXtIzdo+pZHCNaGIUG9P6E9hJAJW9HQEO4EW6fTdpDPx
-	 cWdJN+M2IwyY5ctNczktAznBvBfJvLJR887krddh5y0WhkVnxvt6EysSfppLw4R3EQUYw
-	 tGjNkjjau8+lrG1SVv2LH21LaIJ3jPeTQeG9n8asqw9u7wxI//ccro1zV1XqfRX8m4V5Z
-	 Eqj5/w8zn7gC3cIjz3zQvVVM+LQi+RyPOd1tlt7jBSMYzi4S2oXVQmt6pguhQ45g5Pg==
+	t=1792972375;
+	b=0sDs4E14hC2OmiVbrGHoSYvI2xnloIf2LvhOfAb+lo5qToJmbDbTAM/3OcHzyVW5HHPR
+	 YmrXAEX8Dj8SKXW/tfKRkVoZH7F4xqy+xwRALq7qy2da0uKEmrxkIHKIQhJ5JH4ie4GLx
+	 G4yswLzrahYUwEHc/M+zEjg7Z9OVX0YVKt/1Xr6lnK5qdwGAk/o6s3ugL8ul2QbeKEto4
+	 q0XAIHNX+Ig0wfYLXdJFH1Q4PzBS1s//rBiHPbDWPIv2XW5Bkz/0Yy6EMSIszz2MTx/vR
+	 NFG6Fj/fZZx6PpT0d8sTRyn4v1E/j2OJHs9n2PQXmgNk6BmGSasLwnuIisuX4zMIdmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972375;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4XcvdXE7iu06lf+EzKfEwW1LLRyCvQ5Rn1hX8VQxLwM=;
-	b=AxPRX/XMhwdj9Z4ALOJPFw3hpG858cYeF8B3Wkf8d/80vdURICaR3fuo89phCaeOuDd7
-	 aSwES3yxh7IrkJLldbK6yDm69RWsqQGqwjAA6yvwLGak2EwHGOJXlhmc1MgV0WDoFezlh
-	 C39/BZsAOfMBZehFEH1yIOG8Fr7lo8o3HaxN0ZIlbdJ2zoDgW4dypjG2HLSTlyIS839ie
-	 nDqet+1eAKEmB/2b5hfmFzsHxzCeeQqPIm3lHJUwv0VMCD0nPlamaoNvWyhTuxENrkLeX
-	 X6WUShW4an+TvPkKcxvXPxqWa3TiiPBFlW6ZQ+D8UPeyQc90rMF5hw+DAmZMqvhuBGg==
+	bh=7O3rdsq8qyOyPdRGkT+DeMVThufotXJuU+0N7B8lJeM=;
+	b=gROPLKwOCxlzDnVRz6sWV7uPwqLFO2FMFB2acTbHQqAdqyOfrPbj2GNOvndYWWit17Tq
+	 HqQchT/gyXpUwNjrmJLLA+4U+piQnVWHdx03025YACIn52uV2hIA+EgrKX2sreu1gLGtx
+	 wOchl5bAjkGjsCfoBPsMLDpPe+J5iBJtns/Yz2786NXJ/1AsZVBfQdkCtGGqjbQQ1ckOy
+	 oO+3/MGwsNNyFA92W3Dwj7Fpe2fVuZR1LSJjrATw+06LFoApblpzA1I8GGmhh8eJQnN6G
+	 wnG+IqNL6E/Z/lCdkHjfIb7Ib+9iH+Ex/SO+2z8kCso6XHdjzRiFUDnmWLKmcmuA2KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VzLHFwgL;
-	arc=none smtp.remote-ip=91.218.175.168
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lI8fk+X8;
+	arc=none smtp.remote-ip=95.215.58.67
+Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8A060A3811
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E8A060A3811
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128B8606A32D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:52:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 128B8606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VzLHFwgL
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lI8fk+X8
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yxGeeLhI8coWqq8KUgnwdicWuxUg8DPJ1hLJ6UkbIBk=;
+DKIM-Signature: a=rsa-sha256; bh=YMKh/YRCZnuW+b3BrRugbkizKQASHKS89Na2GmBrItA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792972377; v=1; x=1793577177;
- b=VzLHFwgLzA9AdAiicPgjA655LNZPyYYQx65EtDT9DIA9JuNYQF33T6do3Kwxbj2Fa0/jFwqz
- ZqMHeS09sSWqMWGM0QX0kLeDi0/b48wV4MdtSQy70X9MzcZaimC4lCh2nwMsVuVytDKaKkk+pQR
- nycRPqM0A7VsH7NruwZ6434s=
+ t=1792972373; v=1; x=1793577173;
+ b=lI8fk+X8VwRzXgtkkglXZ0/a1Lt/UEB+158/7KiWrzEw4e5IfrPg7O6wxKNSN9nso7RTxu7g
+ bpShax863eeO3Xgtb18tra7ssy1hQgMNhINDD4Oq1lDYDN/55xIaOut8lmuQjDcnbcdbUWuVBen
+ ZtHM9CTbMlANQAhORBZ6Npbk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id caf90732ca1a0a7c;
-	Sun, 25 Oct 2026 23:52:57 +0000
-X-Mizu-Trace-ID: caf90732ca1a0a7c
+Received: by smtp.migadu.com with ESMTPS id 06c047188015d1b4;
+	Sun, 25 Oct 2026 23:52:53 +0000
+X-Mizu-Trace-ID: 06c047188015d1b4
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v11 10/18] HID: asus: add support for turbo buttons
-Date: Sun, 25 Oct 2026 23:52:23 +0000
-Message-ID: <20261025235232.129945-11-denis.benato@linux.dev>
+Subject: [PATCH v11 07/18] HID: asus: add support for response curve
+Date: Sun, 25 Oct 2026 23:52:20 +0000
+Message-ID: <20261025235232.129945-8-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261025235232.129945-1-denis.benato@linux.dev>
 References: <20261025235232.129945-1-denis.benato@linux.dev>
@@ -85,535 +85,375 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ROG ally devices supports a feature called turbo buttons that allows
-the user to quickly toggle button state by keeping a button pressed,
-therefore allow userspace to configure the feature by exposing
-relevant sysfs attributes.
+ROG ally devices allows configuring the response curve of both joysticks,
+therefore add the ability of userspace to modify the response curve by
+exposing relevant sysfs attributes.
 
 Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Khamunetri Clark <khamunetriclark@gmail.com>
 Signed-off-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Jonathan LoBue <jlobue10@gmail.com>
 ---
- drivers/hid/hid-asus.c | 463 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 463 insertions(+)
+ drivers/hid/hid-asus.c | 297 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 294 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index fae5f36a9fa6..ed95b2cdec81 100644
+index b4bc89ec28bc..e1883ee20413 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -198,6 +198,99 @@ struct ally_joystick_resp_curve {
- 	struct ally_joystick_resp_curve_param entry_4;
- } __packed;
+@@ -22,6 +22,7 @@
  
-+/* Button identifiers for the turbo attribute system */
-+enum ally_button_id {
-+	ALLY_BTN_A,
-+	ALLY_BTN_B,
-+	ALLY_BTN_X,
-+	ALLY_BTN_Y,
-+	ALLY_BTN_LB,
-+	ALLY_BTN_RB,
-+	ALLY_BTN_DU,
-+	ALLY_BTN_DD,
-+	ALLY_BTN_DL,
-+	ALLY_BTN_DR,
-+	ALLY_BTN_J0B,
-+	ALLY_BTN_J1B,
-+	ALLY_BTN_MENU,
-+	ALLY_BTN_VIEW,
-+	ALLY_BTN_M1,
-+	ALLY_BTN_M2,
-+	ALLY_BTN_MAX
-+};
-+
-+/* Names for the button directories in sysfs */
-+static const char *const ally_button_names[ALLY_BTN_MAX] = {
-+	[ALLY_BTN_A] = "btn_a",
-+	[ALLY_BTN_B] = "btn_b",
-+	[ALLY_BTN_X] = "btn_x",
-+	[ALLY_BTN_Y] = "btn_y",
-+	[ALLY_BTN_LB] = "btn_lb",
-+	[ALLY_BTN_RB] = "btn_rb",
-+	[ALLY_BTN_DU] = "dpad_up",
-+	[ALLY_BTN_DD] = "dpad_down",
-+	[ALLY_BTN_DL] = "dpad_left",
-+	[ALLY_BTN_DR] = "dpad_right",
-+	[ALLY_BTN_J0B] = "btn_l3",
-+	[ALLY_BTN_J1B] = "btn_r3",
-+	[ALLY_BTN_MENU] = "btn_menu",
-+	[ALLY_BTN_VIEW] = "btn_view",
-+	[ALLY_BTN_M1] = "btn_m1",
-+	[ALLY_BTN_M2] = "btn_m2",
-+};
-+
-+/*
-+ * Button turbo parameters structure
-+ * Each button can have:
-+ * - turbo: Turbo press interval in multiples of 50ms (0 = disabled, 1-20 = 50ms-1000ms)
-+ * - toggle: Toggle interval (0 = disabled)
-+ */
-+struct ally_btn_turbo_params {
-+	u8 turbo;
-+	u8 toggle;
+ #include <linux/acpi.h>
+ #include <linux/cleanup.h>
++#include <linux/ctype.h>
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+ #include <linux/hid.h>
+@@ -185,6 +186,18 @@ struct asus_touchpad_info {
+ 	int report_size;
+ };
+ 
++struct ally_joystick_resp_curve_param {
++	u8 move;
++	u8 resp;
 +} __packed;
 +
-+#define ALLY_TURBO_PERIOD_MIN 0
-+#define ALLY_TURBO_PERIOD_MAX 20
-+#define ALLY_TOGGLE_PERIOD_MIN 0
-+#define ALLY_TOGGLE_PERIOD_MAX 255
++struct ally_joystick_resp_curve {
++	struct ally_joystick_resp_curve_param entry_1;
++	struct ally_joystick_resp_curve_param entry_2;
++	struct ally_joystick_resp_curve_param entry_3;
++	struct ally_joystick_resp_curve_param entry_4;
++} __packed;
 +
-+/* Collection of all button turbo settings */
-+struct ally_turbo_config {
-+	struct ally_btn_turbo_params btn_du;
-+	struct ally_btn_turbo_params btn_dd;
-+	struct ally_btn_turbo_params btn_dl;
-+	struct ally_btn_turbo_params btn_dr;
-+	struct ally_btn_turbo_params btn_j0b;
-+	struct ally_btn_turbo_params btn_j1b;
-+	struct ally_btn_turbo_params btn_lb;
-+	struct ally_btn_turbo_params btn_rb;
-+	struct ally_btn_turbo_params btn_a;
-+	struct ally_btn_turbo_params btn_b;
-+	struct ally_btn_turbo_params btn_x;
-+	struct ally_btn_turbo_params btn_y;
-+	struct ally_btn_turbo_params btn_view;
-+	struct ally_btn_turbo_params btn_menu;
-+	struct ally_btn_turbo_params btn_m2;
-+	struct ally_btn_turbo_params btn_m1;
-+};
-+
-+struct ally_btn_sysfs_entry {
-+	struct attribute_group group;
-+	struct attribute *attrs[5]; /* turbo_period + toggle_period + ranges + NULL */
-+	/*
-+	 * The entries are created while hid_asus_ally_probe() is still running,
-+	 * before asus_probe() publishes drvdata->rog_ally: carrying the shared
-+	 * state pointer here avoids dereferencing that not-yet-assigned field.
-+	 */
-+	struct ally_handheld *ally;
-+	struct ally_config *cfg;
-+	struct hid_device *hdev;
-+	enum ally_button_id btn;
-+	struct device_attribute attr_turbo_period;
-+	struct device_attribute attr_toggle_period;
-+};
-+
- enum ally_gamepad_mode_index {
- 	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
- 	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
-@@ -236,6 +329,9 @@ struct ally_config {
+ struct ally_config {
+ 	/* Must be locked if the data is being changed */
+ 	struct mutex config_mutex;
+@@ -217,6 +230,9 @@ struct ally_config {
+ 	/* Vibration settings */
  	u8 vibration_intensity_left;
  	u8 vibration_intensity_right;
- 
-+	struct ally_turbo_config turbo;
-+	struct ally_btn_sysfs_entry *button_entries;
 +
- 	struct ally_joystick_resp_curve left_curve;
- 	struct ally_joystick_resp_curve right_curve;
- };
-@@ -2467,6 +2563,343 @@ static const struct attribute_group *const ally_cal_attr_groups[] = {
- 	&ally_right_trigger_group,
++	struct ally_joystick_resp_curve left_curve;
++	struct ally_joystick_resp_curve right_curve;
  };
  
+ /*
+@@ -1933,6 +1949,235 @@ static struct device_attribute dev_attr_right_trigger_range_upper_limit =
+ static struct device_attribute dev_attr_right_trigger_range_upper_limit_range =
+ 	__ATTR(range_upper_limit_range, 0444, right_trigger_range_upper_limit_range_show, NULL);
+ 
++enum ally_joystick_side {
++	JOYSTICK_LEFT = 0,
++	JOYSTICK_RIGHT,
++};
++
 +/**
-+ * ally_set_turbo_params() - Set turbo parameters for all buttons
++ * ally_set_joystick_resp_curve() - Set joystick response curve parameters
 + * @ally: ally handheld structure
 + * @hdev: HID device
-+ * @cfg: ally config structure
-+ *
-+ * The payload mirrors the whole per-button turbo configuration, so the
-+ * caller must hold cfg->config_mutex: building it locklessly could send a
-+ * mix of parameters from concurrent sysfs writes to the hardware.
++ * @side: which joystick side (0=left, 1=right)
++ * @curve: response curve parameter structure
 + *
 + * Return: 0 on success, negative errno on failure
 + */
-+static int ally_set_turbo_params(struct ally_handheld *ally,
-+				 struct hid_device *hdev,
-+				 struct ally_config *cfg)
++static int ally_set_joystick_resp_curve(struct ally_handheld *ally,
++					struct hid_device *hdev, enum ally_joystick_side side,
++					struct ally_joystick_resp_curve *curve)
 +{
-+	struct ally_turbo_config *turbo = &cfg->turbo;
-+	const u8 payload[] = {
-+		turbo->btn_du.turbo,
-+		turbo->btn_du.toggle,
-+		turbo->btn_dd.turbo,
-+		turbo->btn_dd.toggle,
-+		turbo->btn_dl.turbo,
-+		turbo->btn_dl.toggle,
-+		turbo->btn_dr.turbo,
-+		turbo->btn_dr.toggle,
-+		turbo->btn_j0b.turbo,
-+		turbo->btn_j0b.toggle,
-+		turbo->btn_j1b.turbo,
-+		turbo->btn_j1b.toggle,
-+		turbo->btn_lb.turbo,
-+		turbo->btn_lb.toggle,
-+		turbo->btn_rb.turbo,
-+		turbo->btn_rb.toggle,
-+		turbo->btn_a.turbo,
-+		turbo->btn_a.toggle,
-+		turbo->btn_b.turbo,
-+		turbo->btn_b.toggle,
-+		turbo->btn_x.turbo,
-+		turbo->btn_x.toggle,
-+		turbo->btn_y.turbo,
-+		turbo->btn_y.toggle,
-+		turbo->btn_view.turbo,
-+		turbo->btn_view.toggle,
-+		turbo->btn_menu.turbo,
-+		turbo->btn_menu.toggle,
-+		turbo->btn_m2.turbo,
-+		turbo->btn_m2.toggle,
-+		turbo->btn_m1.turbo,
-+		turbo->btn_m1.toggle,
++	const u8 payload[] = { side,
++		curve->entry_1.move, curve->entry_1.resp,
++		curve->entry_2.move, curve->entry_2.resp,
++		curve->entry_3.move, curve->entry_3.resp,
++		curve->entry_4.move, curve->entry_4.resp
 +	};
 +	int ret;
 +
-+	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_TURBO_PARAMS, payload, sizeof(payload));
++	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_RESP_CURVE, payload, sizeof(payload));
 +	if (!buf)
 +		return -ENOMEM;
 +
 +	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to set turbo parameters: %d\n", ret);
++	if (ret < 0)
 +		return ret;
-+	}
 +
 +	return 0;
 +}
 +
-+static struct ally_btn_turbo_params *ally_btn_get_turbo_params(struct ally_config *cfg,
-+							       enum ally_button_id btn)
-+{
-+	switch (btn) {
-+	case ALLY_BTN_DU: return &cfg->turbo.btn_du;
-+	case ALLY_BTN_DD: return &cfg->turbo.btn_dd;
-+	case ALLY_BTN_DL: return &cfg->turbo.btn_dl;
-+	case ALLY_BTN_DR: return &cfg->turbo.btn_dr;
-+	case ALLY_BTN_J0B: return &cfg->turbo.btn_j0b;
-+	case ALLY_BTN_J1B: return &cfg->turbo.btn_j1b;
-+	case ALLY_BTN_LB: return &cfg->turbo.btn_lb;
-+	case ALLY_BTN_RB: return &cfg->turbo.btn_rb;
-+	case ALLY_BTN_A: return &cfg->turbo.btn_a;
-+	case ALLY_BTN_B: return &cfg->turbo.btn_b;
-+	case ALLY_BTN_X: return &cfg->turbo.btn_x;
-+	case ALLY_BTN_Y: return &cfg->turbo.btn_y;
-+	case ALLY_BTN_VIEW: return &cfg->turbo.btn_view;
-+	case ALLY_BTN_MENU: return &cfg->turbo.btn_menu;
-+	case ALLY_BTN_M2: return &cfg->turbo.btn_m2;
-+	case ALLY_BTN_M1: return &cfg->turbo.btn_m1;
-+	default: return NULL;
-+	}
-+}
-+
-+static ssize_t btn_turbo_period_show(struct device *dev,
-+				     struct device_attribute *attr, char *buf)
-+{
-+	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
-+							  attr_turbo_period);
-+	struct ally_btn_turbo_params *params;
-+
-+	if (!entry->cfg->turbo_support)
-+		return -EOPNOTSUPP;
-+
-+	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
-+	if (!params)
-+		return -ENODEV;
-+
-+	guard(mutex)(&entry->cfg->config_mutex);
-+
-+	return sysfs_emit(buf, "%hhu\n", params->turbo);
-+}
-+
-+static ssize_t btn_turbo_period_store(struct device *dev, struct device_attribute *attr,
-+				      const char *buf, size_t count)
-+{
-+	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
-+							  attr_turbo_period);
-+	struct ally_btn_turbo_params *params;
-+	u8 old_value, value;
-+	int ret;
-+
-+	if (!entry->cfg->turbo_support)
-+		return -EOPNOTSUPP;
-+
-+	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
-+	if (!params)
-+		return -ENODEV;
-+
-+	ret = kstrtou8(buf, 10, &value);
-+	if (ret)
-+		return ret;
-+
-+	if (value < ALLY_TURBO_PERIOD_MIN || value > ALLY_TURBO_PERIOD_MAX)
-+		return -EINVAL;
-+
-+	guard(mutex)(&entry->cfg->config_mutex);
-+
-+	old_value = params->turbo;
-+	params->turbo = value;
-+	ret = ally_set_turbo_params(entry->ally, entry->hdev, entry->cfg);
-+	if (ret) {
-+		/*
-+		 * The hardware rejected the update: restore the old
-+		 * value or a later write to another button would
-+		 * flush this stale one to the device.
-+		 */
-+		params->turbo = old_value;
-+		return ret;
-+	}
-+
-+		sysfs_notify(&entry->hdev->dev.kobj, entry->group.name, "turbo_period");
-+
-+	return count;
-+}
-+
-+static ssize_t btn_toggle_period_show(struct device *dev,
-+				      struct device_attribute *attr, char *buf)
-+{
-+	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
-+							  attr_toggle_period);
-+	struct ally_btn_turbo_params *params;
-+
-+	if (!entry->cfg->turbo_support)
-+		return -EOPNOTSUPP;
-+
-+	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
-+	if (!params)
-+		return -ENODEV;
-+
-+	guard(mutex)(&entry->cfg->config_mutex);
-+
-+	return sysfs_emit(buf, "%hhu\n", params->toggle);
-+}
-+
-+static ssize_t btn_toggle_period_store(struct device *dev, struct device_attribute *attr,
-+				       const char *buf, size_t count)
-+{
-+	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
-+							  attr_toggle_period);
-+	struct ally_btn_turbo_params *params;
-+	u8 old_value, value;
-+	int ret;
-+
-+	if (!entry->cfg->turbo_support)
-+		return -EOPNOTSUPP;
-+
-+	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
-+	if (!params)
-+		return -ENODEV;
-+
-+	ret = kstrtou8(buf, 10, &value);
-+	if (ret)
-+		return ret;
-+
-+	if (value < ALLY_TOGGLE_PERIOD_MIN || value > ALLY_TOGGLE_PERIOD_MAX)
-+		return -EINVAL;
-+
-+	guard(mutex)(&entry->cfg->config_mutex);
-+
-+	old_value = params->toggle;
-+	params->toggle = value;
-+	ret = ally_set_turbo_params(entry->ally, entry->hdev, entry->cfg);
-+	if (ret) {
-+		/*
-+		 * The hardware rejected the update: restore the old
-+		 * value or a later write to another button would
-+		 * flush this stale one to the device.
-+		 */
-+		params->toggle = old_value;
-+		return ret;
-+	}
-+
-+		sysfs_notify(&entry->hdev->dev.kobj, entry->group.name, "toggle_period");
-+
-+	return count;
-+}
-+
-+static ssize_t btn_turbo_period_range_show(struct device *dev,
-+					   struct device_attribute *attr, char *buf)
-+{
-+	return sysfs_emit(buf, "0 20\n");
-+}
-+
-+static ssize_t btn_toggle_period_range_show(struct device *dev,
-+					    struct device_attribute *attr, char *buf)
-+{
-+	return sysfs_emit(buf, "0 255\n");
-+}
-+
-+static struct device_attribute dev_attr_btn_turbo_period_range =
-+	__ATTR(turbo_period_range, 0444, btn_turbo_period_range_show, NULL);
-+
-+static struct device_attribute dev_attr_btn_toggle_period_range =
-+	__ATTR(toggle_period_range, 0444, btn_toggle_period_range_show, NULL);
-+
-+static void ally_btn_turbo_init_attrs(struct ally_btn_sysfs_entry *entry)
-+{
-+	sysfs_attr_init(&entry->attr_turbo_period.attr);
-+	entry->attr_turbo_period.attr.name = "turbo_period";
-+	entry->attr_turbo_period.attr.mode = 0644;
-+	entry->attr_turbo_period.show = btn_turbo_period_show;
-+	entry->attr_turbo_period.store = btn_turbo_period_store;
-+
-+	sysfs_attr_init(&entry->attr_toggle_period.attr);
-+	entry->attr_toggle_period.attr.name = "toggle_period";
-+	entry->attr_toggle_period.attr.mode = 0644;
-+	entry->attr_toggle_period.show = btn_toggle_period_show;
-+	entry->attr_toggle_period.store = btn_toggle_period_store;
-+	entry->attrs[0] = &entry->attr_turbo_period.attr;
-+	entry->attrs[1] = &entry->attr_toggle_period.attr;
-+	entry->attrs[2] = &dev_attr_btn_turbo_period_range.attr;
-+	entry->attrs[3] = &dev_attr_btn_toggle_period_range.attr;
-+	entry->attrs[4] = NULL;
-+}
-+
 +/**
-+ * ally_create_button_attributes() - Create turbo button attributes
-+ * @hdev: HID device
-+ * @ally: ally handheld structure
-+ * @cfg: ally config structure
++ * ally_resp_curve_is_valid() - Check that a response curve is valid
++ * @curve: response curve parameter structure
 + *
-+ * Return: 0 on success, negative errno on failure
++ * Return: true if the curve is valid, false otherwise
 + */
-+static int ally_create_button_attributes(struct hid_device *hdev,
-+					 struct ally_handheld *ally,
-+					 struct ally_config *cfg)
++static bool ally_resp_curve_is_valid(const struct ally_joystick_resp_curve *curve)
 +{
-+	struct ally_btn_sysfs_entry *entries;
-+	int i, ret;
++	return curve->entry_1.move < curve->entry_2.move &&
++	       curve->entry_2.move < curve->entry_3.move &&
++	       curve->entry_3.move < curve->entry_4.move;
++}
 +
-+	if (!cfg->turbo_support)
-+		return 0;
++static ssize_t response_curve_show(struct ally_config *cfg, bool is_left, char *buf)
++{
++	const struct ally_joystick_resp_curve *curve;
 +
-+	entries = kcalloc(ALLY_BTN_MAX, sizeof(*entries), GFP_KERNEL);
-+	if (!entries)
-+		return -ENOMEM;
++	guard(mutex)(&cfg->config_mutex);
 +
-+	cfg->button_entries = entries;
++	if (!cfg->resp_curve_support)
++		return -EOPNOTSUPP;
 +
-+	for (i = 0; i < ALLY_BTN_MAX; i++) {
-+		entries[i].ally = ally;
-+		entries[i].cfg = cfg;
-+		entries[i].hdev = hdev;
-+		entries[i].btn = i;
++	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
 +
-+		if (!ally_btn_get_turbo_params(cfg, i)) {
-+			hid_err(hdev, "Invalid button id %d for turbo attributes\n", i);
-+			ret = -EINVAL;
-+			goto err_cleanup;
-+		}
++	return sysfs_emit(buf, "%u %u %u %u %u %u %u %u\n",
++			  curve->entry_1.move, curve->entry_1.resp,
++			  curve->entry_2.move, curve->entry_2.resp,
++			  curve->entry_3.move, curve->entry_3.resp,
++			  curve->entry_4.move, curve->entry_4.resp);
++}
 +
-+		ally_btn_turbo_init_attrs(&entries[i]);
++static ssize_t response_curve_store(struct device *dev, struct ally_handheld *ally,
++				    struct hid_device *hdev, struct ally_config *cfg,
++				    bool is_left, const char *buf, size_t count)
++{
++	struct ally_joystick_resp_curve curve;
++	struct ally_joystick_resp_curve *cached;
++	unsigned int v[8];
++	int used = 0;
++	int ret, i;
 +
-+		entries[i].group.name = ally_button_names[i];
-+		entries[i].group.attrs = entries[i].attrs;
++	/*
++	 * Parse and validate the whole curve before taking the lock: a
++	 * write is all-or-nothing and a rejected one must leave the
++	 * recorded curve untouched.
++	 */
++	ret = sscanf(buf, "%u %u %u %u %u %u %u %u%n",
++		     &v[0], &v[1], &v[2], &v[3], &v[4], &v[5], &v[6], &v[7], &used);
++	if (ret != 8)
++		return -EINVAL;
 +
-+		ret = sysfs_create_group(&hdev->dev.kobj, &entries[i].group);
-+		if (ret < 0) {
-+			hid_err(hdev, "Failed to create sysfs group for %s: %d\n",
-+				ally_button_names[i], ret);
-+			goto err_cleanup;
-+		}
++	for (i = 0; i < ARRAY_SIZE(v); i++) {
++		if (v[i] > 100)
++			return -EINVAL;
 +	}
 +
-+	return 0;
++	for (; buf[used]; used++) {
++		if (!isspace(buf[used]))
++			return -EINVAL;
++	}
 +
-+err_cleanup:
-+	while (--i >= 0)
-+		sysfs_remove_group(&hdev->dev.kobj, &entries[i].group);
++	curve.entry_1.move = v[0];
++	curve.entry_1.resp = v[1];
++	curve.entry_2.move = v[2];
++	curve.entry_2.resp = v[3];
++	curve.entry_3.move = v[4];
++	curve.entry_3.resp = v[5];
++	curve.entry_4.move = v[6];
++	curve.entry_4.resp = v[7];
 +
-+	kfree(entries);
++	if (!ally_resp_curve_is_valid(&curve))
++		return -EINVAL;
 +
-+	cfg->button_entries = NULL;
++	guard(mutex)(&cfg->config_mutex);
 +
-+	return ret;
++	if (!cfg->resp_curve_support)
++		return -EOPNOTSUPP;
++
++	ret = ally_set_joystick_resp_curve(ally, hdev,
++					   is_left ? JOYSTICK_LEFT : JOYSTICK_RIGHT,
++					   &curve);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set joystick response curve: %d\n", ret);
++		return ret;
++	}
++
++	/* Only a curve the controller accepted becomes the recorded one. */
++	cached = is_left ? &cfg->left_curve : &cfg->right_curve;
++	*cached = curve;
++
++	sysfs_notify(&dev->kobj,
++		     is_left ? "left_joystick_axis" : "right_joystick_axis",
++		     "response_curve");
++
++	return count;
 +}
 +
-+/**
-+ * ally_remove_button_attributes() - Remove turbo button attributes
-+ * @hdev: HID device
-+ * @cfg: ally config structure
-+ */
-+static void ally_remove_button_attributes(struct hid_device *hdev, struct ally_config *cfg)
++static ssize_t left_response_curve_show(struct device *dev,
++					struct device_attribute *attr, char *buf)
 +{
-+	struct ally_btn_sysfs_entry *entries;
-+	int i;
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
 +
-+	if (!cfg || !cfg->button_entries)
-+		return;
++	if (!ally)
++		return -ENODEV;
 +
-+	entries = cfg->button_entries;
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
 +
-+	for (i = 0; i < ALLY_BTN_MAX; i++)
-+		sysfs_remove_group(&hdev->dev.kobj, &entries[i].group);
-+
-+	kfree(entries);
-+
-+	cfg->button_entries = NULL;
++	return response_curve_show(cfg, true, buf);
 +}
 +
- /**
-  * ally_config_create() - Initialize configuration and create sysfs entries
-  * @hdev: HID device
-@@ -2478,6 +2911,7 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
- {
- 	struct ally_config *cfg;
- 	unsigned long flags;
-+	int cal_created = 0;
- 	int ret, sysfs_i;
++static ssize_t left_response_curve_store(struct device *dev,
++					 struct device_attribute *attr,
++					 const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_store(dev, ally, hdev, cfg, true, buf, count);
++}
++
++static ssize_t right_response_curve_show(struct device *dev,
++					 struct device_attribute *attr, char *buf)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_show(cfg, false, buf);
++}
++
++static ssize_t right_response_curve_store(struct device *dev,
++					  struct device_attribute *attr,
++					  const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_store(dev, ally, hdev, cfg, false, buf, count);
++}
++
++static ssize_t response_curve_index_show(struct device *dev,
++					 struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf,
++			  "move_1 resp_1 move_2 resp_2 move_3 resp_3 move_4 resp_4\n"
++			  "\n"
++			  "move_N: joystick deflection percentage at which curve point N\n"
++			  "is placed (0-100, each move_N must be greater than the\n"
++			  "previous one). resp_N: response percentage applied from\n"
++			  "point N on (0-100).\n");
++}
++
++static struct device_attribute dev_attr_left_response_curve =
++	__ATTR(response_curve, 0644, left_response_curve_show, left_response_curve_store);
++static struct device_attribute dev_attr_right_response_curve =
++	__ATTR(response_curve, 0644, right_response_curve_show, right_response_curve_store);
++static struct device_attribute dev_attr_left_response_curve_index =
++	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
++static struct device_attribute dev_attr_right_response_curve_index =
++	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
++
+ static struct attribute *ally_config_attrs[] = {
+ 	&dev_attr_xbox_controller.attr,
+ 	NULL
+@@ -1957,6 +2202,8 @@ static struct attribute *left_joystick_axis_attrs[] = {
+ 	&dev_attr_left_joystick_outer_threshold_range.attr,
+ 	&dev_attr_left_joystick_anti_deadzone.attr,
+ 	&dev_attr_left_joystick_anti_deadzone_range.attr,
++	&dev_attr_left_response_curve.attr,
++	&dev_attr_left_response_curve_index.attr,
+ 	NULL
+ };
  
- 	/*
-@@ -2571,12 +3005,30 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
- 				goto ally_config_create_sysfs_err;
- 			}
- 		}
+@@ -1967,6 +2214,8 @@ static struct attribute *right_joystick_axis_attrs[] = {
+ 	&dev_attr_right_joystick_outer_threshold_range.attr,
+ 	&dev_attr_right_joystick_anti_deadzone.attr,
+ 	&dev_attr_right_joystick_anti_deadzone_range.attr,
++	&dev_attr_right_response_curve.attr,
++	&dev_attr_right_response_curve_index.attr,
+ 	NULL
+ };
+ 
+@@ -2082,6 +2331,25 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 		cfg->right_trigger_max = 100;
+ 		cfg->vibration_intensity_left = 100;
+ 		cfg->vibration_intensity_right = 100;
 +
-+		/* All the groups exist now: the error path must remove them. */
-+		cal_created = ARRAY_SIZE(ally_cal_attr_groups);
-+	}
++		/* Initialize default response curve values (linear) */
++		cfg->left_curve.entry_1.move = 0;
++		cfg->left_curve.entry_1.resp = 0;
++		cfg->left_curve.entry_2.move = 33;
++		cfg->left_curve.entry_2.resp = 33;
++		cfg->left_curve.entry_3.move = 66;
++		cfg->left_curve.entry_3.resp = 66;
++		cfg->left_curve.entry_4.move = 100;
++		cfg->left_curve.entry_4.resp = 100;
 +
-+	if (cfg->turbo_support) {
-+		ret = ally_create_button_attributes(hdev, ally, cfg);
-+		if (ret < 0) {
-+			hid_err(hdev, "Failed to create button attributes: %d\n", ret);
-+			goto ally_config_create_sysfs_err;
-+		}
++		cfg->right_curve.entry_1.move = 0;
++		cfg->right_curve.entry_1.resp = 0;
++		cfg->right_curve.entry_2.move = 33;
++		cfg->right_curve.entry_2.resp = 33;
++		cfg->right_curve.entry_3.move = 66;
++		cfg->right_curve.entry_3.resp = 66;
++		cfg->right_curve.entry_4.move = 100;
++		cfg->right_curve.entry_4.resp = 100;
  	}
  
- 	cfg->initialized = true;
- 
- 	return cfg;
- ally_config_create_sysfs_err:
-+	if (cfg->button_entries)
-+		ally_remove_button_attributes(hdev, cfg);
-+
-+	while (cal_created-- > 0)
-+		sysfs_remove_group(&hdev->dev.kobj,
-+				   ally_cal_attr_groups[cal_created]);
-+
  	spin_lock_irqsave(&ally_data_lock, flags);
- 	ally->config = NULL;
- 	spin_unlock_irqrestore(&ally_data_lock, flags);
-@@ -2601,6 +3053,9 @@ static void ally_config_remove(struct hid_device *hdev, struct ally_config *cfg)
- 	if (!cfg || !cfg->initialized)
- 		return;
+@@ -2099,10 +2367,11 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 	}
  
-+	if (cfg->button_entries)
-+		ally_remove_button_attributes(hdev, cfg);
-+
- 	for (i = 0; i < ARRAY_SIZE(ally_attr_groups); i++)
- 		sysfs_remove_group(&hdev->dev.kobj, &ally_attr_groups[i]);
+ 	/*
+-	 * Skip the calibration and anti-deadzone groups when none of the
+-	 * features they expose is supported.
++	 * Skip the calibration, anti-deadzone and response curve groups when
++	 * none of the features they expose is supported.
+ 	 */
+-	if (cfg->user_cal_support || cfg->anti_deadzone_support) {
++	if (cfg->user_cal_support || cfg->anti_deadzone_support ||
++	    cfg->resp_curve_support) {
+ 		int cal_i;
  
-@@ -3147,6 +3602,14 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
+ 		for (cal_i = 0; cal_i < ARRAY_SIZE(ally_cal_attr_groups);
+@@ -2491,6 +2760,28 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
  				 ret);
  	}
  
-+	if (cfg->turbo_support) {
-+		ret = ally_set_turbo_params(ally, hdev, cfg);
++	if (cfg->resp_curve_support) {
++		/*
++		 * The MCU does not keep the response curve across a reset:
++		 * send the recorded curves again. A write to the sysfs
++		 * attribute validates and applies the curve atomically, so
++		 * the cache always holds one the controller accepted.
++		 */
++		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_LEFT,
++						   &cfg->left_curve);
 +		if (ret < 0)
 +			hid_warn(hdev,
-+				 "Failed to restore turbo parameters: %d\n",
++				 "Failed to restore left response curve: %d\n",
++				 ret);
++
++		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_RIGHT,
++						   &cfg->right_curve);
++		if (ret < 0)
++			hid_warn(hdev,
++				 "Failed to restore right response curve: %d\n",
 +				 ret);
 +	}
 +
