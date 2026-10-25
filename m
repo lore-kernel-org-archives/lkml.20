@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792928535;
-	b=kTbZt5/dzVL0mnjlDK4glCFlFkVHRiQR18LoO0SO0K0MDs9StY4RFuvi5CUXHEye/iqg
-	 ZH/4IGQ9dJeevyrg20jwNpHIIIj+5Mspiba13MGeAnfH6VgpzDFapbaL1rArzjLm4g/Cf
-	 wxcAZbURVlyRyPgDlV8TMIMBTe0tywoB7YVnwJ/NFggPmiNnVzOtqIqC+Z5JpHpIT202f
-	 +kFJ0X02B6rv5/ATt5W03hbRcQqemu5IPnrnOBLj2zImegROuBmC8wy5Pv3BdolP053iT
-	 ZKP3On+1Q3wo394v3MHaPxEVya/DkUy26W3YmPleuEocM2zUG0GJb+K/JkJT4iDSguQ==
+	t=1792928590;
+	b=1dMTrkiRUocuK5l2DGu7huLQayW0fcVPPklqdY9PIh6UfBRLePNEINPYU9cNF8oiYJzn
+	 djUA2qeC+NKiZEdmNWsrAgcqAYFmaSUIWjLYoXFDXqo6S+gGafLZJA3+Vfn1VhZirbNFv
+	 7HmUzfHQK8CbFcF3WvZOiUl3CfRtA1NW32AxXS1CDpAfuIoqSCE5OkWLLxUz11wDOKJ/t
+	 OOOCNonNre9+mAAWAzn34VBqi9OsQP91LkkRa0SFvmeBWyn4MBUHpz/ueTANCcVZdsvo0
+	 LA25kaD8hP9pMhy7nBp6peGy+0w3eFj2UaF68yGYM21exZXQ+o6uU/FK5CQVpsiipkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792928535;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=eKGclNvWgUqyUYzP51bT4mzycc6IKVIeGzeiBZdeKY8=;
-	b=F2gQxNL//wExt7gfZyd6eGuv7P7arRLkNvJ2zIz3T753aZL+MIqj26NgdMtGG1z1Idht
-	 /kv1+cLBrZD+5KVRnlmmG1p7HTsEr+8yhKpgqSWAnzkVDWEOQQSowcEKmDzfEKLFRj7aD
-	 x3gyHQi1ciwR1srJFwk0FgjiSYFJtGUaM3eVxhmzaVKsOn6NXI3UeztjQ4JqtJEwA7Ywt
-	 FjUolYngbpLYPTr9D6XFQIL912SwTOd7HfjwzgQ5hrWmmT+go4amboSAuZ6fHm6cTzK5A
-	 QqZfp+jRrTSnO4vRg9lrus464N4xuZtpAPKum25fY9SpPc8LYICEchhzd93lRa6K9ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792928590;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=1vvzv/rSvfcKw30uzKsTe1KIP0FW6HAKpvirU0JdiVE=;
+	b=yqyNz9ECZFlQlB3Yj4FPsbhf50T0zGBnrYy/K3soUQcV4EZuM77qR2fcwadIJ3c7Ys6r
+	 7xYvPFYzM8uChw804tPJm/gfYV0FvcnegsCwxD489S3FAhHhl0v3EbXVZCw20wSF82Fed
+	 IWp7wcFYTCVrqIhTqmzQUEPRxwLVVEkaEArOvarr7VF0IyfqsapyFFS/7uW3a2H6vErnC
+	 civZnCi9gmadpJPb3GNCp6PkOkvhB9tK75SPy9tMNVzpGiOJ4R7xaUp99qWZ6WtWHNZ0l
+	 08nmQvpF0yNYZjq9AlvfdgjgUr8GTRD6yWe6BXW8DZcjiTiz2F4yn4BR8wKSFKm7pSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=U8j+IzmY;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=d+uwkHDw;
+	arc=none smtp.remote-ip=212.227.17.11
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB98606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 11:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB98606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26458606A31A;
+	Sun, 25 Oct 2026 11:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26458606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=U8j+IzmY
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so1543280a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 04:42:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792928534; x=1793533334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eKGclNvWgUqyUYzP51bT4mzycc6IKVIeGzeiBZdeKY8=;
-        b=U8j+IzmYH/pXSKWVIUwus2HUH+rGH8aZ4T8suJNpGewLFnCD7J5rvzI0HfSiYCPSVZ
-         UU4CkEMO9Qqy2W5QvDKlmwHH/tbrDBUXcW+av3RsVX87Yr76Pcq2W4fqtINnH9Dj0YAt
-         PMT1xCU8sCW8NDrXZD7L89UuKvknbqIDeWPRU0pyXxNlktk/2pQo/MiFFoAFQc/QXQJm
-         CkiPrXK0z/fSuNwg/322gb5PCMGD1njFA5/U9v7Uy42Xg5UcrgXotJ4/DNDnAPW2vh4m
-         oQWEI0QnVs/dLN9i8IBZti+bNhXgdtmXhofpsOoPgmWMCSXUEn8tr/h9gmkuOJw2jxJg
-         U2NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792928534; x=1793533334;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eKGclNvWgUqyUYzP51bT4mzycc6IKVIeGzeiBZdeKY8=;
-        b=VAoaUf2E1iuS1ADcEQ67mIZMRwVkZ6ytxxoYcvezYpHK9fIWwXbBJ/Ik1DjZrZNti6
-         8tMpHM2v7ekP+RREiR3ZbpId8ZaDan6xKs/cRzzN6wgwuJ0Oytve8337ogGU13pw/3XX
-         +GSwXmQSZWKjD68jzBGlfAGzR+F1tEzqztfct/SHXr8UJdopcv3MQnOOMwv//fdhPbAF
-         AEIeYULw3SOhTqndERYTwMHmgYKupvzFrDf5MyzowWDdlRxEK0juU5HWFT3PdB/0PPFH
-         ywATOLah/33LEnhaB7M+CVDOvAu0bDatf7RTrYUDq6yBWa3RpogIZsbxX+/EDdywS8AC
-         aB9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxNVjPJORy3QuylAD8gLyGHJv5lH9S9ziGYq6dDxqm3f9dFjbvk0oa17EOKGOlXl+8pCrNt/5bsgob0W50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuUlhmWnO40GCTYrXYYdznCY8vs/5GvuS9tJRQQZiAfZhcf0D9
-	l961Pp5lqA2W7mReUD9pPoipYy1tSD1RBqZVN5bJU5vcueUlU6GO+wpM9GLEHb3pqak=
-X-Gm-Gg: AYBFou2FWPvAYbbbxD6Zz3wOVHl8U2vd3D4drDbSE5cM/uqNLoT90eFb3dzaGQPkYP7
-	m7KoKKFvPq3DVibKIuXmp/5QxbCIAyYO9W/v6FjwSdwu0Cu295Q0KXr3X7sQUi95X2QlS8s9VDW
-	KpiwZWXfsQE7Ah7xM89kM6s2YlrK3MfBp5O3gQ3AKRl0mV1dCDOmBuxS6qREPkjff4a7Q5edu0g
-	cvjZ0ykTSUN/hOs9ZPIbocnn5Ot7kPTt6y9ddzxxGgmgJ8vzTqOqaEtLubg7ueibCY/ANnefOLz
-	g7tOl9kHhJLkztyRropXhoHGnK1mvCFzGxs+sCXmhDQDu/1QkeRBMaA5zrTTmdh5CZeeCER3h/8
-	Xq/8iDdGGiCqOSBOOWBQOsl4a9TWly1dOBsFDyxe0BJOJlQu2Wz4eD5h7PS0JLgqt9tjoHL7Due
-	hO7ab335vY3nsPeA7FDqMIZeNcKj9sfnek5SEPKVSonZ+4secr+k3CcaDtrHCgMP3wtGUILdd0i
-	y+V5rqB6SSR2mZ1sDqb8rVw+d7zu4lTR/A9nX+LPCYooQ8HdOWosv9zxZukEGbCvdQ/j7k8r2n0
-	yMNExHvRIdHD3v5+ckhXRujQTFrtuJRxBgsUtSmX8QDKZBFncZj18EQ/Se0mEjhVPw==
-X-Received: by 2002:a17:90b:57e5:b0:3ac:a7ee:6770 with SMTP id 98e67ed59e1d1-3ade9b2f223mr3775889a91.7.1792928534279;
-        Sun, 25 Oct 2026 04:42:14 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:dba3:be57:a674:a67f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32e38sm5219705a91.2.2026.10.25.04.42.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 04:42:13 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH 2/2] RDMA/srp: drop a truncated SRP_RSP
-Date: Sun, 25 Oct 2026 20:41:55 +0900
-Message-ID: <20261025114155.4007867-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
-References: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=d+uwkHDw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792928575; x=1793533375; i=markus.elfring@web.de;
+	bh=1vvzv/rSvfcKw30uzKsTe1KIP0FW6HAKpvirU0JdiVE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=d+uwkHDwqkM6pHE2/U6ObctDchWmW0l5SNC2Xba/IMsAM3dGzsCzEXILDZW5irYH
+	 C/xLdNSSNJGKTU9q00KQXVpKVDJJ3dq5PBEfRFskE4C+cMu5/q6F2CRVoJ3F5mvKA
+	 AZsW3cLNYSzoWlK7sDq+iulHcsK+ae5nLeEfi2VvT57Auvtx2eEHtfiglQT+Y5xQB
+	 gPb27vUndBB9COZgR6xJ2nVlzkYzYtTrzLohD6fhtGxJ81AXGUo+xAw+MqC+wYrNI
+	 vTdLcO7M9f/Yyad1MA8XetHcb4WXMhHFYZUWX/IvIQ+bwXgs5RnHDRYc+VVxI5K+3
+	 iwtH9/ozJ89q7i+V1Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MCGWe-1xUG0z0GG2-009Od2; Sun, 25
+ Oct 2026 12:42:55 +0100
+Message-ID: <230b2dd8-8d8f-4b1c-ac9f-2c1eac636751@web.de>
+Date: Sun, 25 Oct 2026 12:42:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,46 +63,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: soc: mediatek: SVS: fix device reference leak in
+ svs_add_device_link()
+To: Coia Prant <coiaprant@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Angelo Gioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Lu <roger.lu@mediatek.com>
+References: <20261023082948.1854252-1-coiaprant@gmail.com>
+ <fa60e7c4-d8ca-4ff4-a56f-6a6e2bfbf3cf@web.de>
+ <9AE974CC-F342-42F0-84A3-D72C3A0326C2@gmail.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <9AE974CC-F342-42F0-84A3-D72C3A0326C2@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:skHlHJ52nOfkhJUnuDm/lCGTAMm/nvoD7frVFUZFgKpKWz71nbo
+ dPATAgOF4g0CcWWmhVafttYOyBt5iKXP1spYoBfILepSp9u0M7z6tbAPqNS7IHZ4rV4sNvj
+ RKmH5jU3dS11w6ZdXaL3B4IbB/ZqvSygGwKGOwDTuHg0U/o1wKjYlclGqrwYo76vm/cquPG
+ F0IzHh+pZK64RqMndqjNA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:IcwVGQBRHOo=;MR2U4Q31JMpEzXkSVkSHz+X3XZ9
+ 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
 
-srp_process_rsp() reads the whole 36 byte SRP_RSP header, the tag, the
-credit delta, the flags, the status, the residual counts and the two data
-lengths, without ever checking how many bytes the target actually sent.
-Its two siblings, srp_process_cred_req() and srp_process_aer_req(), both
-refuse a message shorter than their header.
+=E2=80=A6
+> __free(), DEFINE_FREE() and return_ptr() only appeared in v6.5, while
+> this driver dates back to v5.19 and the fix is tagged for stable (first
+> LTS is v6.1). Converting to scope-based cleanup here would not compile
+> on 6.1.y and would force the stable team to rewrite the backport.
+>=20
+> So I'd prefer to keep the explicit put_device() in this patch and leave
+> the __free(put_device) conversion to whoever owns the driver, as a
+> separate cleanup when the stable backport is no longer a concern.
 
-A short response therefore makes the initiator parse whatever the receive
-IU happened to hold from an earlier response, since the IUs are reused, and
-act on a stale tag, status and residual count.
+Would you eventually like to become more involved with corresponding
+source code transformations?
 
-Refuse it the same way the siblings do. A conforming target always sends at
-least the header, because a response shorter than that carries no tag to
-complete a command with.
-
-Fixes: aef9ec39c47f ("IB: Add SCSI RDMA Protocol (SRP) initiator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/infiniband/ulp/srp/ib_srp.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
-index a85d28b95306a..d891029087b7e 100644
---- a/drivers/infiniband/ulp/srp/ib_srp.c
-+++ b/drivers/infiniband/ulp/srp/ib_srp.c
-@@ -1946,6 +1946,12 @@ static void srp_process_rsp(struct srp_rdma_ch *ch, struct srp_rsp *rsp,
- 	struct scsi_cmnd *scmnd;
- 	unsigned long flags;
- 
-+	if (byte_len < sizeof(*rsp)) {
-+		shost_printk(KERN_ERR, target->scsi_host, PFX
-+			     "dropping truncated SRP_RSP (%u bytes)\n", byte_len);
-+		return;
-+	}
-+
- 	if (unlikely(rsp->tag & SRP_TAG_TSK_MGMT)) {
- 		spin_lock_irqsave(&ch->lock, flags);
- 		ch->req_lim += be32_to_cpu(rsp->req_lim_delta);
--- 
-2.43.0
-
+Regards,
+Markus
