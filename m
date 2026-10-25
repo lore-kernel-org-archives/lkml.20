@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792965064;
-	b=3eFyuXwfHIuycLYvQvhJ9HBcb3KvtyBk75/faCqk0y54GsVc1xukgl4LIS3XAZWTKaLh
-	 vAuEharhhEWW5wm+jOo5r+lZE9w66VWhQeMPuKTB6oHBQZh4fXlgaau6g3ejuqCORFkCd
-	 N1BHaAAIrSOAChqcTNtOnDBnKMSthM8WI9rEhaNJRH10uCIq+IcD4PIze8aBuERwWRCy2
-	 PUYACdd/SkNqBIcx5vZ6zKOXIk/Gp+/AdprQVnSspqutBAg2opyvUbtKzmX1hWIqJj3yu
-	 kF7B+nLMiqSu2gyxTM0JQp3Xvp9Q8IZ27OEfW7Rd12V2u/foGpwMyycbz1EWh7F4bNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792965064;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Content-Type;
-	bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
-	b=iMH+HRNOleYUrkfz1+uirilVNcL4bdLavumY/LgmkqMnYUhUrW5k8i8fRFsoob+m9v/w
-	 EtENJxHN8LhPIZ8mu21UtPJTmKr3fxVX5bkq02sH9LlIuotEWUVB6x/5hI+CCHsEwEjyS
-	 d+1ILiWTWzGP8bLD3+1br8XAGGg2JRiTCQRdUWqWfb9weEZmFgpk8zG4PbmJVre7Nwlug
-	 L1op9ZTEthBO7H1fHbHnL8g3RdXDg5nLk/DbDrUUdsq8Uo9v/VJZrTeYzKSlZc8Wmtx4Y
-	 uzW/B2bLTh/Ss/QGUKvJZ8i8o0K6A1XHEaPpABGKfoFgxwltiArPETtD0tEySolgNvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pl8n5Bl+;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792965250;
+	b=sNdSzPCRDpo9uuEQpVIlz/rV8gJET2YsCNLSdeo3+Ii3afz972notZwhGm7w3hZ1bH2H
+	 pcde8cGXUN3Dxg84Yc8XXWwFPSs/mXInnPmwTNE+eZ/DlmZUqzV0q5btIhXpXmj99nRpt
+	 mPU33xK9J6H7IntQd/iYCKAfCba5tC7/7rJK2k2TGGsbkcx/YY20BzCJQN9rDCrhM/PYd
+	 AWv6ObLvXa3JVaAyac/IeSGLU7SelvEoaIUz5L/4guG0cVgCvvMXZbOCKpJYEsNkZKgi/
+	 B0U6sG2p87b+Q3/bWPRFtSJCn6I2nnOTCeyljf8UPwboG+H2YSBAjyP8wO0WBxSR27Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965250;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Nuq7MU3cVWezrN42I9uBwDrHZrV36YTul38Xu0nT4BY=;
+	b=op7R3Um/s8HZyVb0iKBOcFhPmQWn37Yz8s3vBmpKDazF2JgGKxMtWp9960qxUSwiuXCj
+	 WvRpiUCofCq9997HNOJwHCQds8/9xJggb6lbZWJUiZXf4AmelKkTpOzo5RRoB4CABwsKl
+	 02LjFEblZZSNpTJqy1Mpf/XByJwK4cwwqbNTQmUQXJ+luPZcGiv23PzrV5XQW31gv4jN/
+	 h6McmNM8/wwgNEEnP3H3ueQ26baOu8V+slmF573IL4teuYmdYV/EMSXSkCDw4Q7xU5Hhw
+	 ydyHmO3M0Zm9VKNOartamt8rmzmUjKB62L87Ra7Yclvcm1Elb9Fx2SAhmm1AYDXtqKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZL2ACjcY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A93F606A31A;
+	Sun, 25 Oct 2026 21:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZL2ACjcY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792965249;
+	b=Y/dvNagl+EGj3Eq7PjffL97F0KLUPjqJeM8fSGQ/80+KMjahIXRHepZZzJ4EWt1R6Wqy
+	 FVY5H21+M6O1jY+PtVXKJwT06cLhwtwCd9lljXjPkjsTw/HLAm6UGCTl5azZtqfojvKU6
+	 gyNTPMXJFYi9Gr9ZQk1S514xl05LcnT8U24g3MmGCtAlWybsf3zWEAylJfS+TefIVDnJo
+	 TOjSyfxxxW81gphkStGQg3AhpWjobsoGQYsUfzWhC+vzoKb1q6ZJ2HJECe5ZDF364TxKN
+	 A1XGxxIl2+pq4i/Ftqa6wQtWb6NKZxj4gv0bZnHtJ1Rc9KWxf1wFDAo+MOzsz4y0kHg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792965249;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Nuq7MU3cVWezrN42I9uBwDrHZrV36YTul38Xu0nT4BY=;
+	b=rvKUdYMi6TnMb3kc9UCOWmZs2x86pMEhYLDg/ZBA8LVkjLRIUjAH8ntkaBRNIc/yEl8w
+	 gj1vTbIu2Pik4cnllcs2AEU8cvq9ytzei1si8ZnVMiibZMZAAdm4eA6mDOVNixHZJKtlk
+	 Hy00GC+Xd6tVmWzWJ/sf5GPVXDfxuzSCbQSPjzQExtJLWhEUDKysqvcJcL4PMIwzEcVbo
+	 ohOi/NbxO4luwR23H5YNvnqJs+kAH5s3nOFznL3XmDmk8dX/GiVcH8A3VaMSyB3c73daJ
+	 KUi9iVrNmiKwKOZ9w/MD0G0rKWGuWGyu77hsBYUQA9PAm0PYqGz+oCoa5bZdDOQjWkw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B920606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B920606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pl8n5Bl+
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3580c07911eso8023694eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792965063; x=1793569863; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
-        b=Pl8n5Bl+F15yh5lVoMpCegJwJSkZH3E1vsxK51rRk5hYpCl/PiNAEh2xtHCfCn89/b
-         b7C3/H/05YQ6KGbRcPj3m+09eVyv5zkUFRpRg1f9HT1ywifYfz18D4q+EcLy6EBPkMJZ
-         1x33zkGplXdFIJTSBrZ1zDfKFWb/InT8pvXTizCxOSgSwDdV+RI+LqIbFnJ1vJ4tVCJV
-         t1nFjl6B+GoRlO0V4D1LRQwOF6Oqx8pE8vugy1LvP7LnZMULnJ1hKzRkU+29ANM4uGs5
-         k3CqrKt9tWjLxw/hNGkWNnVEj/Y7raYc3KF7QQWWwTkyvBQEFYfG9SyYtH3HKzi02HaG
-         EkrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792965063; x=1793569863;
-        h=content-type:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
-        b=nDDpc4xUztIYMFoJ8YH8fAwkKRpCsTkYWILZLRlltDJT6462M1zru+MbszdWc5epzx
-         YmJVfRwz0J/FaT5Vo7MmuOO309tQOJdXCgjwJQjMmlSHNZXSu+pOGp2SbG+4ZggzbDZ3
-         6O5DVqwJf0003m/mI0qYyNQRloHIUMS1u88kzStNOPy0QO3OjV1+nI82N1ivsSXb4JD8
-         rRe32Qjc+CEJBRIWa66y/uvjWgEbj7W+azmRDotV+//IfScwIREkXTvoqL+zVbtlFEo/
-         140CH0o74AaVY4g9wK2E5FYPGKTQSKwiEhMfuRSMMJ5ofkC6Ig/zORGxU0ZC0/PzfPMV
-         GOPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxyR95XBlVdyEhPHecP6vnMSFgCzhv6T2PqYEB5Jfc0wxNvLedXpm/k/HNaAaLbW7UxX1IpTYJ9Bz1T6PY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIukey4i8pCArSfXgWpCm6NclEcf+RmyoE3dwFNKCORbFt6Ulo
-	F6CuPFQobqRuDgz8yWZxk/zYApMHqQ7aRza3KQnPgVu6XXqs8wk8hQLt2QCGx9gHzS4kOYFaHCr
-	t2q8NEKUxrQ==
-X-Received: from dycui22.prod.google.com ([2002:a05:693c:6016:b0:369:f67f:7a43])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:87c8:20b0:365:f73b:510b
- with SMTP id 5a478bee46e88-369e84818cemr7217715eec.13.1792965062646; Sun, 25
- Oct 2026 14:51:02 -0700 (PDT)
-Date: Sun, 25 Oct 2026 14:50:56 -0700
+	by smtp.kernel.org (Postfix) with ESMTPS id 703891F01825;
+	Sun, 25 Oct 2026 21:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792965249;
+	bh=Nuq7MU3cVWezrN42I9uBwDrHZrV36YTul38Xu0nT4BY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ZL2ACjcYXaSjsR9ASSRroWcwRTvQOPTSYFgb+9AWRDZ48bFu6hDLt7ECM20v1yDGV
+	 eQz1jDt3r6v8MSmsrnLVK+mawjVa9YpJWNinPgmwPS7E+iGWXKT2qO7v2SEsZd9CWm
+	 YqbH31m+9PG8OFPsHW13a1voRtmLkUG+z309eI+vRrOXUNTJn8XO40eXba8qnjdFJH
+	 exP6Y35ym26FAjrNsd0df+jz6P9rl+zh4FgXhIBz48/6VFQyXBEA7mPq7LfFhoOcQi
+	 4gei2fIzJt7l1PjQ8NYn3VlnGN9qfPDWACxs5eYc5ON8JApAFNP8sm71QRpM11skTf
+	 dmFQnWRt/DTwg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BD1F444ACE;
+	Sun, 25 Oct 2026 21:54:08 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 25 Oct 2026 22:54:01 +0100
+Subject: [PATCH] usb: typec: tcpm: qcom: Release the connector fwnode
+ reference
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,176 +82,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025215056.1228120-1-irogers@google.com>
-Subject: [PATCH v1] perf test switch-tracking: Fix hybrid cpu-cycles and spin timing
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@linux.dev>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-typec-of-fix-v1-1-06bfc16a7846@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrE1SbdC4ilhQg7FopUWIuLti+
+ b3k/RcE8kwBquQCTzsHdjYiSxMwU2tHQu6jQQpZZELmuJ4LGXQDDnygLlWnWqNzLRTEy+Ipzl+
+ ubn6HrZvJrG8D7vsBbJNlm3AAAAA=
+X-Change-ID: 20261025-typec-of-fix-873b3ac85803
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Selby Mashiki <mashikiselby@gmail.com>, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2217; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=wXV9haqapMKGQNSewUN4c3h43256Fd/Lnk+wuYRTZWM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq3np/VtuNlfdNDQsmOnb1DMkwGZSlfij8G1UNP
+ ZraDEArBESJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCat56fwAKCRBgAj/E00kg
+ cv4xEAC7j7ZSblq50tssC6MUVCJEF1l2TMGXXMZ45V+mqK0KjPmOPQA9n4IwLRS7ozvSt4vPiHm
+ 38nwy+jX4nNQ9H3P3G/BRimv77x6gAZYm8OCUNA8EAcWBNLgLGSH+sI21ADgkSZVs7p4gwobujX
+ 9aQ/IMv0OwFlX+y1WTGmeDWKqZ83CcH+d698YBzrxK2nZmzHoY688BZtxb4kxfhVmt9LhS7+DCJ
+ Scl3AAVpgvopiSzyMhGmczr9vepjUvDYUz9rHZGZ12VfEc8LMoOr5/dSU/q73uvczXB2G7hqv2G
+ 4+eycz1FnXAoN3SaMdwj4kBr390Socw4z/esA4LJJEBeDoY5UL2C1UuUoPLrTANUn0mdS37wVb5
+ jfh7vjK6kGtf42Xpaa7ONty9fKasg38OLMUW9nguWxV+69SyNGKKlCmNJRJufteySqwNmBn70cA
+ eRhd430VxRsyQky5DGlyGLb1dszaXPST08chtDKFHSaJBl/7NceomcUTu48TS1pB695kKjtWi53
+ Kpa5KAmZsB0yQ7HYChtHePhFjIMxpy87hB+r6H7AxrDj1V4u+wiWJ6K23u+4bDEM2dE0YQlW8Nh
+ NbU9//nD1nTNqGz78w+Zvx0QnuqT6Nkf232BmMe6718ucwygX8Qf7/GJdfDHhaWaGwcBI5wqAOS
+ 683ql/eLubxDDsQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-On hybrid systems, parse_event(evlist, "cpu-cycles:u") creates multiple
-evsels (e.g. cpu_atom/cpu-cycles/ and cpu_core/cpu-cycles/), but
-test__switch_tracking() only configured, enabled/disabled, and checked
-evlist__last(evlist). If the test process ran on another core PMU during
-one of the spin phases, the tracked evsel recorded no samples and the
-test failed with 'Missing cycles events'. Additionally, the other core
-PMU evsels did not have PERF_SAMPLE_TIME set, which add_event() missed
-because __evsel__parse_sample() initializes sample.time to -1ULL rather
-than 0.
+From: David Heidelberg <david@ixit.cz>
 
-Use evsel__match(evsel, HARDWARE, HW_CPU_CYCLES) to configure,
-enable/disable, and check all cycles evsels created by parse_event(),
-check for sample.time == -1ULL in add_event(), and use
-CLOCK_THREAD_CPUTIME_ID in spin_sleep() so preemption under load does
-not finish the 50ms spin without on-CPU cycles.
+device_get_named_child_node() returns the connector node with its
+reference count incremented, but the port probe never drops it. The node
+is only needed for the VBUS regulator lookup, so release it right after.
 
-Fixes: 94f9eb95d954 ("perf pmus: Remove perf_pmus__has_hybrid")
-Signed-off-by: Ian Rogers <irogers@google.com>
+Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- tools/perf/tests/switch-tracking.c | 57 +++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 25 deletions(-)
+Separated from (for stable):
 
-diff --git a/tools/perf/tests/switch-tracking.c b/tools/perf/tests/switch-tracking.c
-index 73568c782d72..ff98f5483e7e 100644
---- a/tools/perf/tests/switch-tracking.c
-+++ b/tools/perf/tests/switch-tracking.c
-@@ -24,28 +24,26 @@
+https://lore.kernel.org/all/20260926-typec-v1-0-31adc19f32c6@ixit.cz/
+---
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+index d3523435f3e01..6029d51db4393 100644
+--- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
++++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+@@ -5,16 +5,17 @@
  
- static int spin_sleep(void)
- {
--	struct timeval start, now, diff, maxtime;
--	struct timespec ts;
-+	struct timespec start, now, ts;
-+	u64 elapsed_ns;
- 	int err, i;
+ #include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ #include <linux/string_choices.h>
+ #include <linux/usb/tcpm.h>
+ #include <linux/usb/typec_mux.h>
+ #include <linux/workqueue.h>
  
--	maxtime.tv_sec = 0;
--	maxtime.tv_usec = 50000;
--
--	err = gettimeofday(&start, NULL);
-+	err = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &start);
- 	if (err)
- 		return err;
+@@ -728,16 +729,17 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
  
--	/* Spin for 50ms */
-+	/* Spin for 50ms of thread CPU time */
- 	while (1) {
- 		for (i = 0; i < 1000; i++)
- 			barrier();
+ 	connector = device_get_named_child_node(dev, "connector");
+ 	if (!connector)
+ 		return -EINVAL;
  
--		err = gettimeofday(&now, NULL);
-+		err = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &now);
- 		if (err)
- 			return err;
+ 	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
+ 								   to_of_node(connector),
+ 								   "vbus");
++	fwnode_handle_put(connector);
+ 	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
+ 		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
+ 	if (IS_ERR(pmic_typec_port->vdd_vbus))
+ 		return PTR_ERR(pmic_typec_port->vdd_vbus);
  
--		timersub(&now, &start, &diff);
--		if (timercmp(&diff, &maxtime, > /* For checkpatch */))
-+		elapsed_ns = (now.tv_sec - start.tv_sec) * 1000000000ULL +
-+			     now.tv_nsec - start.tv_nsec;
-+		if (elapsed_ns > 50000000ULL)
- 			break;
- 	}
- 
-@@ -62,7 +60,6 @@ static int spin_sleep(void)
- 
- struct switch_tracking {
- 	struct evsel *switch_evsel;
--	struct evsel *cycles_evsel;
- 	pid_t *tids;
- 	int nr_tids;
- 	int comm_seen[4];
-@@ -164,7 +161,7 @@ static int process_sample_event(struct evlist *evlist,
- 		switch_tracking->tids[cpu] = next_tid;
- 	}
- 
--	if (evsel == switch_tracking->cycles_evsel) {
-+	if (evsel && evsel__match(evsel, HARDWARE, HW_CPU_CYCLES)) {
- 		pr_debug3("cycles event\n");
- 		if (!switch_tracking->comm_seen[0])
- 			switch_tracking->cycles_before_comm_1 = 1;
-@@ -241,7 +238,7 @@ static int add_event(struct evlist *evlist, struct list_head *events,
- 		return -1;
- 	}
- 
--	if (!sample.time) {
-+	if (!sample.time || sample.time == -1ULL) {
- 		pr_debug("event with no time\n");
- 		perf_sample__exit(&sample);
- 		return -1;
-@@ -394,6 +391,12 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
- 	}
- 
- 	cycles_evsel = evlist__last(evlist);
-+	evlist__for_each_entry(evlist, evsel) {
-+		if (evsel__match(evsel, HARDWARE, HW_CPU_CYCLES)) {
-+			evsel__set_sample_bit(evsel, CPU);
-+			evsel__set_sample_bit(evsel, TIME);
-+		}
-+	}
- 
- 	/* Third event */
- 	if (!evlist__can_select_event(evlist, sched_switch)) {
-@@ -422,9 +425,6 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
- 		goto out_err;
- 	}
- 
--	evsel__set_sample_bit(cycles_evsel, CPU);
--	evsel__set_sample_bit(cycles_evsel, TIME);
--
- 	/* Fourth event */
- 	err = parse_event(evlist, "dummy:u");
- 	if (err) {
-@@ -499,10 +499,14 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
- 		goto out_err;
- 	}
- 
--	err = evsel__disable(cycles_evsel);
--	if (err) {
--		pr_debug("perf_evlist__disable_event failed!\n");
--		goto out_err;
-+	evlist__for_each_entry(evlist, evsel) {
-+		if (!evsel__match(evsel, HARDWARE, HW_CPU_CYCLES))
-+			continue;
-+		err = evsel__disable(evsel);
-+		if (err) {
-+			pr_debug("perf_evlist__disable_event failed!\n");
-+			goto out_err;
-+		}
- 	}
- 
- 	comm = "Test COMM 2";
-@@ -525,10 +529,14 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
- 		goto out_err;
- 	}
- 
--	err = evsel__enable(cycles_evsel);
--	if (err) {
--		pr_debug("perf_evlist__disable_event failed!\n");
--		goto out_err;
-+	evlist__for_each_entry(evlist, evsel) {
-+		if (!evsel__match(evsel, HARDWARE, HW_CPU_CYCLES))
-+			continue;
-+		err = evsel__enable(evsel);
-+		if (err) {
-+			pr_debug("perf_evlist__enable_event failed!\n");
-+			goto out_err;
-+		}
- 	}
- 
- 	comm = "Test COMM 4";
-@@ -547,7 +555,6 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
- 	evlist__disable(evlist);
- 
- 	switch_tracking.switch_evsel = switch_evsel;
--	switch_tracking.cycles_evsel = cycles_evsel;
- 
- 	err = process_events(evlist, &switch_tracking);
- 
--- 
-2.56.0.307.g5fe7bd680c-goog
+ 	pmic_typec_port->dev = dev;
+ 	pmic_typec_port->base = base;
+ 	pmic_typec_port->regmap = regmap;
+
+---
+base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+change-id: 20261025-typec-of-fix-873b3ac85803
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
