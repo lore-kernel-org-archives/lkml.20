@@ -1,95 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792895242;
-	b=DcoipHvjFhzk7bF3v97iiEcg80pHLrpehv3IeKIMxVeupK2eW3Ri6lpr4o2ePa8P0RAT
-	 yG9XsZNaDRE/cDN0doVfrhZk3dKUpQfMWvlxApu6tU0alqRbpklcZw/NrkmIKiB49AuNt
-	 E1febwtzfBSZqwmMVGShjSrM4TGl4a2ThYhIdmGusPlN4dSgxP0VgSoEeNt12H2oGOvWv
-	 qEkRGkezSKyOqfkta0/BkN+hc7XUpIXn1rAMZ3hivrm6m8pJgzzpEuONo+HJ6EqDrm+Qg
-	 Q9TvtZmi64tSp1D3YBRK57l42fNdzvfsaym/t+FUalMPS9gOknHswwkJ3V6lsQ8qFtQ==
+	t=1792895322;
+	b=txvgCHsTSxSAcUJNpL9rJBqF0L1ckfzAbEGzGN6UtP+bZv+qDYRCe2hABGa/rkcC9zoO
+	 aHjCK67Cnyc4GwtqNFti03/CRc1UQBUA/iIXkg06aNozpluUCAcu2ZX0fa8Bu5+tg/vSU
+	 ybFCp55TYe8eGa2z2IlB2lCElar65H0c+po+D1AAFYEg6ioE/YnpP1olw1UNepHImEyeF
+	 1yjo/UDTmgBxhHu97GtwiZB2NUmEPywR+6Y9oRhBaMnzavkFU+lsnb9yHEPTILJjEGPxD
+	 nvnYX/RtluluIrT1HJY+qKd4ncixUTRwMZ6iyqpFv/jwFOFm4VeP6FnSook70BGU9vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792895242;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
-	b=LLvdmvC5TjMV86HzAaaBc9U7lXnUkfZrlhu5GTTJDllmQlHqPaWYjQC9VF7tEfNPaKfJ
-	 oLXDd+X90Hogvx3Wjc0pyox9v+z3U3pn5lqIitIHT5WFf6uj787nOHLKORKnKPtHUYW0n
-	 M9GxSFikSOX30j+HlmPQtdnMhzZHJB9mR08UAB8hdr8oMLvqe2BOYkEgzxNQVIB3cnqJx
-	 7Fps/jtEnPVTEjffikYRKRF7Xy+Dslf9dyKE2SfPkkZeOxw2vWMmwNGsW9PDQBiMZaVil
-	 QYoII3fU/VyOlm+gzccVCvqXWNS0rcTYCh90vw+qOJrTHbeDHu8genZrewA6IALEWGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792895322;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=KlCL6ajdGE33h/4ItyXVVQ/Y4XQB52mQkplGtSJphiU=;
+	b=NgQ21L8OJv9pp+f2yAxxYUQYFE8VzBxUKlDbu3eQp1D58U4896UIcb7aVRFEZZeBiHcz
+	 7yYiHd4d33l7Q8panyC973mG/GQ8yM4iReTohXTmWnyMs0tyL5OTYpXxxWZfvBss5frWA
+	 Bs62KX7dovAkDWhg2QIZh03eOgawbAUhi4Xzfa5iOOR9RQEqo+MMPUx+HAdLKXddzHOXE
+	 XLYTRy0L4NtsaBZHG3IzmCTi9so2v08yyqAUpUfjL3J23A78JKeyWMbux8epfYUfD30FI
+	 phAhcObVQXXkJH+kMK3Yb+6bKGEbvk8bhHzgUESyrIfCpsLbRzlRD3aNZ1NN4a4DuBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=k8d0q9TX;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB394606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:27:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB394606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BAD606A31A;
+	Sun, 25 Oct 2026 02:28:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1BAD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc751eddf25so1001671a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:27:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792895241; x=1793500041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
-        b=RaXn1+akRAg/67j9inzsGfdYM4IjBVcMsg1U1Ef8LmhifXBuKl0E7FMZdagML6aWjE
-         5qdq112ofBvQVY8tjaSUL74pF1Wp2c6pok4LvL0e8Bt9B4XI2NBPNkceIAwG+EZoengE
-         dDsLsEeQF1yDZkv9uwn+oN2wOCGxuHAjbILMRPgCXYDJvnn2/EXsGJGwvbpCj1cE6fqN
-         T+1D7o+V7nHc/QMOn9BvWMdCjkFBeXESL9iaL1lFGRBOxFBhf8LicHyROAEH8bEO4P7e
-         LS/r8yHRKAwP50hv4Une7jh7Xq3Ze40M5tGBjQnJUGxRgpfC9WPsr2Z1phNP0AU39U00
-         kGfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792895241; x=1793500041;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
-        b=po+aqFRTtQd3LBiZmOgXbXqWUVM8tbDbmdTR0juYi9OOUj+pAnWOcyurqATaMXo5tF
-         0gaOTLn67IAEzfL1VI8sRxrMhc4no72OYq6HLhK/eG12I+IUbQiS0yjAtyBJ7YsqPuZH
-         Mmu7a+vriinLedBbG9Rt+SXPvXCpplPpdPiDTh0+6NNxTUcX/D+V0900xgii5ccNWiJn
-         uyyIhk9hu/SewCcLtjgfs4GosbiS679Uvz8nD1FvwZ8txFhby9wdTwGNpv5woSgSfyMo
-         20HZBnIDnTJrBsvFQfKNHTfIwOnoiHRBUajMzsqOBns1LtGPBiMGFnMAaGXog2LJoheA
-         cUHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzd6gZ+XHq2HfvIZTJ4/6vxOHtPA+vt1/GbDTbInlELMH01QrbC442gGByOHk4QclN4PYEh/U6c38iECzI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK2clIxdR/UfqP1lBlB7HOrpC8vKdixKNI/BUOf/ruNwEHwA2I
-	WK1qTme7CHIzjb0XRm/XNVLMY5UtTsmLX4wsz+PmK4Zn+ldcww1OpeUE
-X-Gm-Gg: AYBFou0lW3hXkk2r2FQSQwFoEK0XISXRX5wDEKFkthOYB7Pd+kA3P4f/dHIkBq1EbCt
-	S+B5wXchxvWp1B85uVoBET256kuKGJJxRrgaij24+qB81RP+ymHsa62SGTlGGnV9TAAofHLafsP
-	p00cHuu2QWBbseEnVSRbC99tswqRpzkfl6GpNZERJQtRmD1QJmjvvbyLWVYM9ANzcgfCuAcSPns
-	zvsw9247PFiDXs9KpneeWj7AAsAYIDKaBQ3oB7Haa2/2c5FQ9GG6/w25KyV7i9jcbrYZ2lMk2yl
-	4WdveLEJGgG7WaD6yDMRfITrBMIkdEsHc2JncUSOWJ8qilvTvC1v9J2ukIU1kdNebOAoBTIM3aB
-	M5/uVKWvWzc0Peb2E8FrKy9Vjw06U4PRYh3VzgKkwcCC+ou0IrC8sNCQp0o93F0VlI3fQPADBNH
-	16w0l6pg9c76FPmDOoK7nYJDdMH/XidQ7CNHVKWKuOKxjFyuCFq0d5CaCITGOm9cQFeDcXu/hJ0
-	GEcaR3YICNwIK7X9dy/nHf41Gt2D4tTBRDCW37KdDoRXuo5LErraZbZZurxHDI9iJM1lZgPX1qL
-	R+SE4t4=
-X-Received: by 2002:a17:90b:3143:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3adeafd27aamr2667251a91.52.1792895240980;
-        Sat, 24 Oct 2026 19:27:20 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:6216:1250::1d3:c4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebad6306sm3064944a91.2.2026.10.24.19.27.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 19:27:19 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	stable@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Zhangfei Gao <zhangfei.gao@linaro.org>,
-	Guoxiong Yan <yanguoxiong@huawei.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: rc: ir-hix5hd2: set up device data before requesting the IRQ
-Date: Sun, 25 Oct 2026 10:27:02 +0800
-Message-ID: <20261025022706.1905466-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=k8d0q9TX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=KlCL6ajdGE33h/4ItyXVVQ/Y4XQB52mQkplGtSJphiU=;
+	b=k8d0q9TX55BoVQrGOGwu9FEhK1QW0Eh1zxQ3LBmsm0N1JKO5HVdQg51xC1+At1
+	huVbBzDFHhexlsZlWfc5YtPWZdVXxLRF8fnzcl58ZGHvImaAfjTNKSq++O39UCRC
+	cPCzrYhegxXvyPRPbO229UjCreXwU1qjl6wHHNEyVFdGA=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: sashiko-bot@kernel.org
+Cc: linux-can@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Oleksij Rempel <o.rempel@pengutronix.de>, Robin van der Gracht <robin@protonic.nl>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v6 1/1] can: j1939: validate the EDPO packet number
+Date: Sun, 25 Oct 2026 10:18:45 +0800
+Message-ID: <179289472575.8393.8146655386481092375@163.com>
+In-Reply-To: <179278868667.3130.12995219647320420687@kernel.org>
+References: <179265494813.314254.14725785769836234084@163.com> <179278868667.3130.12995219647320420687@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,61 +57,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3t0wwad1qVysZCw--.1023S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF1kGFyfuFWfGw1DWrWkXrb_yoW3ZrWUpr
+	W3Kr9rGr1DGF4Yvr4ktFWkXFy09rs3Xr45WF17G3s7A398Cr47tFyDKFyfWa9rC3ykCaya
+	9w1Ygw4DGr4kC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRLvtiUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xF47WrdaTGUXAAA3A
 
-The hix5hd2 IR interrupt handler passes priv->rdev to the
-ir_raw_event_*() helpers, which dereference it immediately, and
-devm_request_irq() unmasks the line as soon as it is called, so the
-handler can run before probe() returns.
+Hi sashiko,
 
-hix5hd2_ir_probe() has requested the IRQ before assigning priv->rdev
-since the driver was introduced, so an interrupt already pending when
-the line is requested, e.g. decoded symbols left by the boot firmware,
-would pass a NULL rc_dev to ir_raw_event_store().
+Thanks -- both Medium findings are real. I will respin as a split series
+rather than argue with them, and the three Low findings are accepted too; two
+of them are process points that I should simply have gotten right the first
+time.
 
-On Hi3716CV200 the handler ran 8 ms after the device was bound and took
-a NULL-pointer fault in ir_raw_event_store() from interrupt context; on
-Hi3798MV200H the same fault killed every boot 25 s into startup.
+## Medium: session reference leak in `j1939_session_cancel()`
 
-Request the IRQ only after the device data is set up.
+Accepted. The old code did the cancel/get/start back to back inside
+`j1939_tp_set_rxtimeout()`. The patch moves the cancel above
+`j1939_session_list_lock()` and the get+start below `__j1939_session_cancel()`,
+which calls `j1939_xtp_tx_abort()` -> `j1939_xtp_do_tx_ctl()` ->
+`can_send()`, and then `j1939_sk_send_loop_abort()`. So the window now spans
+lock acquisition and a CAN frame transmit instead of three instructions.
 
-The same ordering was fixed for talitos in commit 666d66df2525 ("crypto:
-talitos - init tasklets before requesting IRQs") and for bgmac in commit
-ac1f6e58cb77 ("net: bgmac: enable interrupts only after NAPI is ready").
+The list lock does not help, exactly as you say: `j1939_tp_set_rxtimeout()`
+does not take it, and it is reached from the receive path without it by
+`j1939_xtp_rx_cts_one()`, `j1939_xtp_rx_dpo_one()` and
+`j1939_xtp_rx_dat_one()`, plus from the transmit retry path through
+`j1939_session_tx_rts()`/`_tx_dpo()`/`_tx_dat()` inside `j1939_tp_txtimer()`.
+Your CPU0/CPU1 interleaving is therefore reachable: two `j1939_session_get()`
+calls, one queued hrtimer, one `j1939_session_put()` on expiry. The session
+then never reaches `j1939_session_destroy()`, so it keeps both its
+`priv_dev_tracker` netdev reference and its `j1939_priv` reference, and
+`ip link del` hangs in `unregister_netdevice()`.
 
-Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/media/rc/ir-hix5hd2.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Two notes on the fix I intend to take, because I do not think
+`hrtimer_try_to_cancel()` alone closes it:
 
-diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
-index 1b061e4a3dcf..c3b984a0c2e4 100644
---- a/drivers/media/rc/ir-hix5hd2.c
-+++ b/drivers/media/rc/ir-hix5hd2.c
-@@ -316,6 +316,10 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		goto clkerr;
- 
-+	priv->rdev = rdev;
-+	priv->dev = dev;
-+	platform_set_drvdata(pdev, priv);
-+
- 	if (devm_request_irq(dev, priv->irq, hix5hd2_ir_rx_interrupt,
- 			     0, pdev->name, priv) < 0) {
- 		dev_err(dev, "IRQ %d register failed\n", priv->irq);
-@@ -323,10 +327,6 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
- 		goto regerr;
- 	}
- 
--	priv->rdev = rdev;
--	priv->dev = dev;
--	platform_set_drvdata(pdev, priv);
--
- 	return ret;
- 
- regerr:
--- 
-2.53.0
+- The reason the cancel had to move out of the lock stays valid. Before this
+  patch, `j1939_session_cancel()` called `hrtimer_cancel(&session->rxtimer)`
+  while holding `active_session_list_lock`, and `j1939_tp_rxtimer()` takes the
+  same lock, so a running softirq callback waiting for the lock deadlocks the
+  CPU that holds the lock and waits for the callback.
+- `hrtimer_try_to_cancel()` under the lock avoids the deadlock -- a callback
+  that is already running makes it return -1 instead of waiting -- but the get
+  and the start would still race with a concurrent `j1939_tp_set_rxtimeout()`,
+  which does its own cancel/get/start without the lock. Closing the window
+  needs both armers serialized, so the respin arms the rxtimer only under
+  `active_session_list_lock`: `j1939_tp_set_rxtimeout()` takes the lock and
+  uses `hrtimer_try_to_cancel()` + `j1939_session_put()` on a return of 1
+  before the get+start, and `j1939_session_cancel()` does the same under the
+  lock it already takes. That is the pattern `j1939_cancel_active_session()`
+  already uses. No caller of `j1939_tp_set_rxtimeout()` holds that lock today,
+  so this does not create a new lock order.
+
+That is a larger change than the current hunk, which is another reason to
+split it out (see the subject finding below).
+
+## Medium: WAITING_ABORT deactivation lets the ABORT echo hit the next session
+
+Accepted, and this one is the more serious of the two. Confirmed in the tree:
+`j1939_xtp_rx_abort()` calls `j1939_xtp_rx_abort_one()` twice, once with
+`reverse = false` and once with `true`, and each does
+`j1939_session_get_by_addr()`, which walks `active_session_list` and matches on
+SA/DA/type/PGN only. Queued sessions are activated by
+`j1939_sk_queue_activate_next_locked()`, which schedules the next session's
+txtimer with `time_ms = 10 + get_random_u32_below(16)` when the previous
+session carried an error, so there is a real 10-25 ms window in which B is on
+the list and has not sent anything yet. An ABORT echo that is still in flight
+from A then matches B, `j1939_xtp_rx_abort_one()` drops B with
+`j1939_session_timers_cancel()` + `j1939_session_deactivate_activate_next()`,
+and the sender of B gets an error for a transfer that never started.
+
+The respin drops the `waiting` branch entirely and instead arms the abort
+timer for both `J1939_SESSION_ACTIVE` and `J1939_SESSION_WAITING_ABORT`. Only
+the `ACTIVE` case calls `__j1939_session_cancel()`, so a second error input
+does not put a second ABORT frame on the bus; it just re-arms the timer. The
+session stays on `active_session_list` either way. What the branch was working
+around is that a second error input reaching the same session calls
+`j1939_session_timers_cancel()` first, which cancels the abort timer armed by
+the first call, and the second `j1939_session_cancel()` then found the state
+already `J1939_SESSION_WAITING_ABORT`, matched neither arm of the old state
+test, and armed nothing -- the stranding case from your subject finding, the
+one that ends in `unregister_netdevice: waiting for vcan0 to become free`. With
+the timer re-armed, the session either gets its own ABORT echo, which now still
+finds it on the list because it was never deactivated, or `j1939_tp_rxtimer()`
+takes the `J1939_SESSION_WAITING_ABORT` branch after
+`J1939_XTP_ABORT_TIMEOUT_MS` and deactivates as before. Each re-arm stays
+balanced: one `j1939_session_get()` against the one `j1939_session_put()` in
+the callback.
+
+## Low: the comment in `j1939_xtp_rx_dpo_one()` is wrong
+
+Accepted, the comment is simply incorrect. `j1939_can_recv()` sets
+`J1939_ECU_LOCAL_SRC` from the source address alone:
+
+```c
+	if (j1939_address_is_unicast(skcb->addr.sa) &&
+	    priv->ents[skcb->addr.sa].nusers)
+		skcb->flags |= J1939_ECU_LOCAL_SRC;
+```
+
+and `j1939_tp_cmd_recv()` forwards every ETP.CM_DPO with that flag to the
+transmitter session, so any local node sending a bad DPO reaches the branch,
+not only the echo of an EDPO this stack built. Both the comment and the
+matching sentence in the commit message go away.
+
+On the reason code: `J1939_XTP_ABORT_ECTS_TOO_BIG` ("ECTS requested packets
+exceeds message size") is wrong for a DPO we received, so the check will send
+`J1939_XTP_ABORT_BAD_EDPO_OFFSET` unconditionally. The transmitter-side case
+that motivated the conditional is real, but its cause is not in this function:
+`j1939_xtp_rx_cts_one()` bounds `pkt` only with `if (!pkt)` and
+`dat[1] > session->pkt.block`, so an oversized ETP.CM_CTS packet number can set
+`pkt.tx_acked` past `pkt.total`, and the EDPO built from it in
+`j1939_session_tx_dpo()` carries that value back to us. The respin bounds the
+CTS there -- `pkt > session->pkt.total` is exactly `ECTS_TOO_BIG` -- and then an
+out-of-range DPO reaching the transmitter is a genuine peer error.
+
+## Low: the subject covers only one of the changes
+
+Accepted. v7 will be four patches:
+
+1. `can: j1939: abort a session whose abort timer was cancelled` -- the
+   WAITING_ABORT re-arm, with the two-unparsable-ETP.DT repro and the
+   `ip link del` hang.
+2. `can: j1939: arm the rx timer under the session list lock` -- the
+   `j1939_tp_set_rxtimeout()` / `j1939_session_cancel()` serialization above.
+3. `can: j1939: simplify the second RTS handling` -- the
+   `j1939_xtp_rx_rts_session_active()` change.
+4. `can: j1939: validate the EDPO packet number` -- the bound check, the NULL
+   guard in `j1939_session_completed()`, and the CTS bound; the 256-packet
+   repro and the 3/3 panic result stay with this one.
+
+You are right that the `dpo >= pkt.total` check alone stops the T1 NULL
+dereference; patches 1 and 2 are there for the reference strand, not for T1,
+and I will say so in their messages instead of implying they are part of the
+crash fix.
+
+## Low: commit message and tags
+
+Accepted, all three:
+
+- The revision and testing history ("stock, v5, and this revision", the
+  per-case matrix) moves below the `---` line.
+- `From:` and `Signed-off-by:` will use the same name. The `Author:
+  Quchaosheng` in v6 is a `git send-email` identity mismatch on my side, not
+  an intentional alias.
+- `Closes:` replaces `Link:` after `Reported-by:`.
+
+Thanks for the review -- the two Medium findings in particular were worth the
+round trip, and finding 3 saved a wrong abort code from going in.
+
+Chaosheng
+
+pw-bot: cr
 
