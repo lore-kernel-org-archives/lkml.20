@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792911538;
-	b=EQ/ZYNPC6GbJePUwnW9KfetAk60FV91wRhkp9kwTSxnb7z9RCkknst9YyHRDtoR1Pzmn
-	 QYKNaY4tph3JlclsRJacM07KxAzuSTUJiBWSoPd3HvfoGDIiFtiVsBGn1CcaH7yUF4KIH
-	 7mNNDszq3/QGGCv8rqqzPzJyJ3BKwz6mQCK+5ICrJaJ/7+teE86JYZ4vlTG5gCkDuSBXk
-	 APujgKR+lh75zFrKKa26uf6CdR29OqQJmuqf//BXDSxQzm3kY9bgVZMCS2qZBXUd8ITDX
-	 FgX3mbXqPrOb9xD+Mq3cX1bjZnoVGIYYNqGBwbzHzY9PPX/Poc9tWBZ88gSeQtucFOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792911538;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DEDrWhzB0JYQ+KwSldFCqmbu5IwHMjVNz3uZKpkiENY=;
-	b=cSofEcZIy32azJJNz1LKJB2nXN0aT+rA/E/fkzKpucTaM4wKNhbPBDi1QS4d2Bgqd0cu
-	 B6nrXzzD5RglnhWt/T6BiKZZOIoyI9ymLkYUuRz4WYG2C+T743X6ESGy2DHtDOfwVNpwu
-	 GpoBM3PUqmeM9fV7k7b3GibLMbFl/Kz4IER2Uwf9C7YlKMCjUmcSUWavTGRZ9QmdWhVjh
-	 nwlDNojweyImfAihr6nS5lbfbRCGSUxEYta+ZcHstPrhfuD3wT4/CKOLAhWfULxNC7kU9
-	 1dbttik1MF6gChiqVZAfYAdtvAA2zKCiFB0sOjtKeXd7OPo1xblWwMFpF54WDtHJw5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mFM7X1QE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792911957;
+	b=sZiZw6uLhjfComzpoBS6oyfHiYLKzsW8ktLWjTHixL2mHn1CxR53NRFd3gyBlX9D3L7N
+	 eCwKphuNUB+qGNTXRszjC52FlAFv7p0vDUYk4tB/j+rUGtoYX1KB70EHCpbDlRBwoWrV8
+	 prSnefDlOoT44ZeaOsSgKdlrbCfHfrd6s1ZSgIT1852GO83hNOIexviIu7NaRglsjFKnU
+	 a5NDQNe9Iavw4m5GE+jCULat00D2slikeBMjVluiyuirOZil8Bx2RynRIAiutxB2qOtBO
+	 2wbYvWPHwbS3EYfd4jJ3dHXKWCXor6j99haKQF6P9jij7TWQm0/GPhreVA71QeSoZDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792911957;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=ZHgf9Oqz4kON6PIRMceQHOAtbrDTsic99xdcjhJ2H64=;
+	b=qrBLFwICYuNYMVycYX02wUNfxNPRTuyEJkc/ZWAMbSzXshug3SqBpxip7s5+HAHW8or7
+	 38rd9UmGIC7gpe0KOkBtv5zoC45z7QA38tu1RmrXiT86FlK3Ur3yDY9iv4rH0KUBEioCA
+	 dBh1Fx8E0oWzEED0m7J/wOWTOXLDG6yOGFPlnYkdnPbv3lXsZnzOyLjZl7cZLm6RQDxBs
+	 qIQArJC2XuxV7ipVViOBYIPYb9aeqR4isydyDu1VQ0oFnd5vt3SyjeoITrRNZ9yGoO5Uy
+	 InQiUWoofvxQc5b1SrrRndl1H2jWtAXHuKjUdILrsIP79JJT0NQ8FGb6hKL4dcJ2Hvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b="L74DT/QZ";
+	arc=none smtp.remote-ip=212.227.17.11
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF2E606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EF2E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E91606A31A;
+	Sun, 25 Oct 2026 07:05:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E91606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mFM7X1QE
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6774639a8a4so1713213d50.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:58:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792911536; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AZPg8iT1frUHj64CbJDsn6LxL8QoOD4XmUFnpThJ5HfoWopH3Va6fZrZNY/Zz8S0ZZ
-         fdMl83/0maKG5eW9ZhOukV6PwqmAkkSzx1r+q4oH4tM8BjC5IW6mmeqqdOnjVBKkywZi
-         Km7uD5WgvlJ/MykDYUQfYcA835LFKI6Tzxc4SNpgfLuvGY441LNBk1Fg6X7zgNkoOWl7
-         Fw3ijtShHPdQ0qamCbdyf1UEhgivLb4zLV/JE9SI7YLJ+LSDxTUmDUbko9OG8SO7oHAy
-         M1TrM8auR8BwoBy3D1lzKg/S3JCnFfKKKQUHa3wTx39v1gVfumQ2im5Df/RBIwPEeGbD
-         udoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DEDrWhzB0JYQ+KwSldFCqmbu5IwHMjVNz3uZKpkiENY=;
-        fh=eXiWaf3p9OmeQOu6JlaIDlBg3xm3NBfTl11evpOS6qk=;
-        b=ix1ThpgGWEGXo5ihWoTsvOEXqcNkYI/eI0k4daqohdjCbk7r9ea7VeOS9/56Sw3sjm
-         l49v+FgJ0nOGRi4uQHCeF/8r3xHSpp187bTOy6HmhcyXX4yluZk2n8AW4S1VRTvF/goM
-         sEHG+HyZafSB2TMz7GR26edDHSS8bANUJTbBV/UJz8VOEKVMAxn+nR7c/Nssp00yIXGd
-         xTrS5cgVbMFhaa1ry0I5ju1h5+BTVnVc4a6Ap6giwncuqO9qRmICngL/kiZMkVhhFWJx
-         xfAVVIqAHuS/ZdOdR7ULhdp2NRM78pbYHamt0Lpjcp/JoLXBMJGKxuKJOyEtbqAAlL2Y
-         C9iQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792911536; x=1793516336; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DEDrWhzB0JYQ+KwSldFCqmbu5IwHMjVNz3uZKpkiENY=;
-        b=mFM7X1QEo9W6d2hQVLIpZt6ebznwNAsWmI7Bgw+OicY7jkwUHppMXR96jh0UfouvNO
-         dmXJaQBux9X5HPt3qf9hTA9rjFRfq0Bu10UXnZo+tfmXnl2+E8ZCmL0Eeg3s/oZmKqCO
-         vktnb6Hkhh7ZY9xo8skTotr2TAdgOHZl0L3E4GiKjJMixjT2KkJGDNMcEk/k0WdHEG/c
-         1Tzhs3xdJEDmjiAf8pWyU0kODIm0X3Xi7aNhK8BrZimtaRwrx4HOjTmk1ieKDlK/K0qC
-         Cn6vuV94wgyeEXwM3w+1h04qe6lFTDR755svERQlUnby5xyBSSJ7z20LSo4cxCDRNU7O
-         nbig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792911536; x=1793516336;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DEDrWhzB0JYQ+KwSldFCqmbu5IwHMjVNz3uZKpkiENY=;
-        b=oio4PdMb9wUmlzGJsBYYt4CJ2lFAR3XrI3Fg6r0LcfyCgCEs2k29oTZ4D5bonjaBk2
-         IdNv7rwm104nEn7hdAZDsvnPDY4kAGbTWj7ccpdsSdbZFS0O8BPQ/0TrNEIz0YnajXF/
-         20yuKEeX/zGp7xMQfjVMUz7LioaR0NI0rK+jP/HPWbh9BeaTugFyPZ7Kj4d7quh+sxjr
-         DticLvb4c9klwlZrB1EVUlQHJjKA+y35q/2kp4WsBS8fpuZpBN+fdGaBQ21+0tVxq+wW
-         +gkSXuj+aqF8EF2kLqVMMFTxFwfhXm47XKk0F+ZSx+ETE2T9SR74Hb5mj/LDvcOQxA79
-         U1rw==
-X-Forwarded-Encrypted: i=1; AKwUvBzs2Ga+Djk8Jaqh/e2UD3YHGe5YqJsUXzMy+2BWa8f7VPdSLKUh9Rk0gFfkReDzK4bnLDx/dhRiMn2fiI8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHte64YCDSQVi8NMQKX4nN6sniA3lpQwvI3+xPbVmoRKy0jKcF
-	gREz0kwhyqzya684LXBmf6J2RdBrSZpEQE/W+jsxzd+Y4Ca6sHk+DESaEQ8zJisoTETX/7/EdBy
-	wkBp0YftgUWyQwQttW/iv/bSNtCHT0Dk=
-X-Gm-Gg: AYBFou0HojMPpANKis5AdJZ1gmh6ce1Ol/Icj20E1vj3QVOSmRe9k1f0K5bV569I8YM
-	RGsfhp5tJlH5pW+cqVQHsu6m2+DoYClH1loa6uSaDvVfZN3+NMw/0qhw25LHN44Hh2aIpfFSvhX
-	Qpk37WoZn/ELzTTJk0EfFPIEiFZet1IfH5NoAqKQ71bVc9ceOcrqqd9YzAF81SuHuwj2mzS2yFh
-	nVJdRkNEPXOVSGwdyZtcBLqu7rco3rvrQDU5XrB/3dq/9s7ZLJNbfqz+f3cw/9h4tI80yAbgsOK
-	abUL3PqDbpkQLLQ0B9Sy1sSoeUJLkVgW2/5gqMF6eimGpJC4DP5X8Yw7LKKQpajecY6SLEBwwP9
-	YhJiSBX1UrEBw1DdzBIBNdRiMaoohsK0vL1w0ylvS5hSpD88N9FpoSnwO5/OfMeU/kZ0=
-X-Received: by 2002:a05:690e:1516:b0:679:9a1b:1f73 with SMTP id
- 956f58d0204a3-67a4519e6a4mr2055322d50.9.1792911536548; Sat, 24 Oct 2026
- 23:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=L74DT/QZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792911948; x=1793516748; i=markus.elfring@web.de;
+	bh=ZHgf9Oqz4kON6PIRMceQHOAtbrDTsic99xdcjhJ2H64=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=L74DT/QZ5OrxkqjZphSLivWVoYV3OMfwcsBKutCrePr94HvT8gz2BcL7yVaEFzCg
+	 X9VKCpnpYFdpGL43/ETmw8hURDslMpAZ9MIFR40YcOYiiogC61MtSJkTAZhkmVvkL
+	 A/iVYqlh+WCznTl6GG8zhfKHntNbcbLsBCdMcdVHRO2u+cB6upvwU89cOVovXZ9Xk
+	 0CsB8rO4rWUhRzXFkiYlaNVLXE7O5FGem8o6x/CCMBm/14rdkh7ussiJLORo6mz0t
+	 YxoiDnnlI+g5+oWxv0dk9tUMHPKGZGWdEN0KaU9Q2QboGYSY1nRWV3H7BoNDEq3VU
+	 2LT3cuLrD/x+ynI9Mg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mt8kN-1wRWkv0TUH-00tU96; Sun, 25
+ Oct 2026 08:05:48 +0100
+Message-ID: <ad468ad8-c7d2-4737-ac43-827fe02aec04@web.de>
+Date: Sun, 25 Oct 2026 08:05:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,114 +62,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023023105.28829-1-laoar.shao@gmail.com> <20261023023105.28829-3-laoar.shao@gmail.com>
- <CAKfTPtD7UsFkH=YPp9Faf0LX8ppNDw6hkVgFd-0Y30oSBYdgfg@mail.gmail.com>
- <179276890032.2252127.6836118712740428624.b4-reply@b4> <CAKfTPtAkN06AKxQZrTCT+_C=x7v8f+S3EC=nkcdyJpuspfop3A@mail.gmail.com>
-In-Reply-To: <CAKfTPtAkN06AKxQZrTCT+_C=x7v8f+S3EC=nkcdyJpuspfop3A@mail.gmail.com>
-From: Yafang Shao <laoar.shao@gmail.com>
-Date: Sun, 25 Oct 2026 14:58:20 +0800
-X-Gm-Features: AclHuK-MUo6kuLXbOL8Id-ZF9MQLnhulJ7KahyYB8JEZEOdIQvp8es1eXx3PZZ0
-Message-ID: <CALOAHbAgUdVvvtdEjcP6otQgVmptsred+xZSLtDd9zj-bMmM1Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] sched: use static_branch_likely() for the NUMA
- balancing tick check
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, mingo@redhat.com, peterz@infradead.org, 
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, david@kernel.org, tim.c.chen@linux.intel.com, 
-	yu.c.chen@intel.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>, dmaengine@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Frank Li <Frank.Li@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Christophe Jaillet <christophe.jaillet@wanadoo.fr>
+References: <20261023-fix-a9-dma-wq-v1-1-b414de837e6e@amlogic.com>
+Subject: Re: [PATCH] dmaengine: amlogic: fix workqueque not free when probe
+ failed
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261023-fix-a9-dma-wq-v1-1-b414de837e6e@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:3rws5CI/7MTBtlb3WWWM7Mr/AAe2xTFSlBPb/BKb9JvCUh/l1nC
+ xuANG5mzetSBpvtI8Rkk94q3zpGG8LLE39yjbv/1cHqMSarUgk6Yq0A0tB5L71r4S3JPhmB
+ h+DCu+xqV2cTGOqHp1tdbLX7k1R21RBAhu1gQOoGlljmVj+noCUb2LzUDZO9nw/AmLvV5Qs
+ GLy6iBH8xS/4QxnthRUGQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:cTkS9iLFIfM=;zX3Zcqlmq55WnSqqryhUzqE5rZt
+ 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
 
-On Fri, Oct 23, 2026 at 11:49=E2=80=AFPM Vincent Guittot
-<vincent.guittot@linaro.org> wrote:
->
-> On Fri, 23 Oct 2026 at 17:21, Gregory Price (Meta) <gourry@gourry.net> wr=
-ote:
-> >
-> > On 2026-10-23 14:23 +0200, Vincent Guittot wrote:
-> > > On Fri, 23 Oct 2026 at 04:31, Yafang Shao <laoar.shao@gmail.com> wrot=
-e:
-> > > >
-> > > > task_tick_fair() checks sched_numa_balancing on every tick. The
-> > > > static_branch_unlikely() annotation reserves the nop for the disabl=
-ed case,
-> > > > so the default configuration (NUMA_BALANCING_DEFAULT_ENABLED=3Dy) p=
-ays a
-> > > > taken jump per tick. Flip the polarity to static_branch_likely() so=
- that
-> > > > the fast path matches the default.
-> > > >
-> > > > Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> > > > Acked-by: Gregory Price (Meta) <gourry@gourry.net>
-> > > > ---
-> > > >  kernel/sched/fair.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > > index 973647ad6c2d..71dc47d6114d 100644
-> > > > --- a/kernel/sched/fair.c
-> > > > +++ b/kernel/sched/fair.c
-> > > > @@ -15351,7 +15351,7 @@ static void task_tick_fair(struct rq *rq, s=
-truct task_struct *curr, int queued)
-> > > >         if (queued)
-> > > >                 return;
-> > > >
-> > > > -       if (static_branch_unlikely(&sched_numa_balancing))
-> > > > +       if (static_branch_likely(&sched_numa_balancing))
-> > >
-> > > static_branch_unlikely is used by default for other static keys too
-> > > like  sched_cluster_active, sched_cache_active, __sched_core_enabled
-> > > sched_asym_cpucapacity and others ...
-> >
-> > every other instance checking sched_numa_balancing checks likely(), thi=
-s
-> > is the odd one out.
->
-> Some other places might be behind another key but otherwise it should
-> be unlikely()
+> when probe failed, workqueue not free. Convert the driver to use
+=E2=80=A6
 
-Hello Vincent,
+I find this wording approach improvable.
 
-I checked the other places that use the sched_numa_balancing static
-key. None of them is behind another key, and all but one also run
-while the key is disabled:
+See also:
+[PATCH v2] dmaengine: amlogic: Fix missing destroy_workqueue() at error pa=
+th in aml_dma_probe()
+https://lore.kernel.org/dmaengine/13a835b1770e360af7991bb4c91ce52a8d01e331=
+.1792785154.git.christophe.jaillet@wanadoo.fr/
 
-  fair.c:  exceed_llc_capacity()
-  fair.c:  get_pref_llc()
-  fair.c:  get_scan_cpumasks()
-  fair.c:  update_scan_period()
-  fair.c:  migrate_degrades_locality()
-
-The only exception is task_numa_fault(), which does not run when
-NUMA balancing is disabled.
-
-Please correct me if I'm wrong.
-
->
-> >
-> > > So systems which don't enable them don't pay a jump when not using it=
-.
-> > > I don't see why numa should be different
-> > >
-> >
-> > numa balancing ships enabled by default.
->
-> Others are also shipped enabled by default
-
-sched_cluster_active, sched_cache_active, __sched_core_enabled and
-sched_asym_cpucapacity are all DEFINE_STATIC_KEY_FALSE() as well,
-but none of them has a config that enables it by default.
-sched_numa_balancing is the only one with an explicit default policy:
-NUMA_BALANCING_DEFAULT_ENABLED=3Dy enables it on every
-multi-node system.
-
-That said, Gregory is right in the other thread that I overlooked
-the single-node case: with this change, a single-node system pays
-one predicted jump per tick at this site, where it previously paid
-none.
-
-
---
-Regards
-Yafang
+Regards,
+Markus
