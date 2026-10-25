@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792916177;
-	b=1DtVCk5KQm7lDYF8gxFVtflRXdu6LKaxzDUAm0Alk3uM8CzFdMAN4LKLitSsqWwV+qli
-	 iS6cuIK4y4pIlG5+AlvlNMxgq9yDFXpP7nq7SQmGsBI2YUPrHLte7p2gjehw36D3C5UU8
-	 t/ZpuQkTjA6vHBGZREFU7G1/X3nVnV7bE5vP4eJe8QPFRQ/VIryuT0/hxx6FPoZQG1Knm
-	 0hlwzxPJGku3IDMxX0AVsv9nJFGElOXFWjEv8tDr6m2A0QWmes1sko3WH6GVZJ+Y+RX2m
-	 GRJL9nl7kND1U+rIhB4SLvQVLT3B5EEdwuMhp/0P5S/oEC1S1t57koE6fq4pIcmNa6Q==
+	t=1792916306;
+	b=RyBw4aDOCzQ7rw+5ErW6sbwQHgASF+SLYtlyK5+T9lCpM762aEU0xpOc+Zdyv8+98c27
+	 NjIclQwSU7HwEc66Jb7EUlI3eJW3lmgGhwFZiRM1nak4Qpuw/8v8srqnRHG8OOULWw+Qq
+	 9yAXGLpbQKYDd0h9Mv8x8e3VKxTW8I4TPsRgHLO5xMabPyO/yDFp05yg0mMdRuSzOApcD
+	 C+pjWephwSq854i1NnON/cVjPY/8BrxJ8EG1ODWMRd/6eunX3U5wdY4cFiocq2xUb2EJc
+	 dd4E0SYefcgMQCr3I6w5tiT2WrdowRXDQ+mz8KTH5NtUrmPy4JT0UirEu/Pu7coaAnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792916177;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pDVCC9PFhBIVgawYa/F+D3FvgUGbAG373bzoi9jD/8o=;
-	b=qz5VrP3WvEmNj4JlBx0cDjR6nRULHAsJWz60Ahin7l25ovblrM2ynaTWXR72DfmlOdWx
-	 k72/HbvqBgJBSeU29tfgTjIQSrWK86g3twA5YlrKGzjMwKb46NtcsUNjbP5dScbf4ru5K
-	 VKTuyS7j1suzvsNeoaAvaiLAInH6LzDiz8NM0S/siwUN6hNkYRxgoe62YVOfK2wvYChqc
-	 WYFhmfB1u5gVbvakE6o6J+czeWpFVHjbPe9gMFh5ndCLPG4LwXgNCVt7Cedrrf7FS8aIm
-	 wQKqED4mheSFoDuGtqNXSj5A1uNhnzCl3i9XkbC2E3JXMF55W9FVH42dqM+WI0/UzLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792916306;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AsNHdaP0DaFxZmA1z43ju3qP0T8QtZgJyo6DJslfBS0=;
+	b=4O4mniLe4Wr+34fyh32cXOcWKer6IyH4Bf09iIzHXZR/O/7QF1j/DZ7rl41Bve+kTPvt
+	 ZEmY68R0ixmYbhPlZ/8sK90NMHM9BTRNKwC+eJyUYbd/C5YwDP2K7sd/WC0Raz4PmaAv3
+	 ISQqY++AAYysB9P2Hyo1ZjxMN4G183SZqbZevrIv17BIwpBYnsDNuszxNIs0L63L1p4sz
+	 KN2m9hKzhOD7wwS6gr6w28/rhHSt0JuQP83mMLAdSWcfs3CXecZp7qDtELCcn2Z7qWRI+
+	 LKuDoqSxTZefkK8nTHh5G4r4sRxmud3/ja+SvL2F9MghAMWChflqZqceIOJHeTfBW/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="ssg5/qcI";
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C035606A31A;
-	Sun, 25 Oct 2026 08:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C035606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iDpVIF/u";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F56606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:18:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ssg5/qcI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ssg5/qcIk1rCtwEzMps8s1lznRNgcTiV/k+vVP6d7pv9+wba5t3jxgKioSOUNFQKlA9QGgCOXoEoL
-	 MzXp6UX1vGRXoT2Phn5wOr3g20bC5xd1eeKnfzho9qvyL6S/xMjeOwMRdPbE/UrGKdYxDMDsldmjc1
-	 uoyCAhchUv4s40Wg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86addbacb3d2-e37ba;
-	Sun, 25 Oct 2026 16:16:12 +0800 (CST)
-X-RM-TRANSID:2ee86addbacb3d2-e37ba
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHA-W6400298 (unknown[36.137.216.17])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76addbac8b3a-82765;
-	Sun, 25 Oct 2026 16:16:12 +0800 (CST)
-X-RM-TRANSID:2ee76addbac8b3a-82765
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: srini@kernel.org,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tangbin@cmss.chinamobile.com
-Subject: [PATCH] ASoC: qcom: storm: Fix of_node_put leak on error path
-Date: Sun, 25 Oct 2026 16:16:09 +0800
-Message-ID: <20261025081610.2675-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDpVIF/u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B875F1F031E2
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792916305;
+	bh=AsNHdaP0DaFxZmA1z43ju3qP0T8QtZgJyo6DJslfBS0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iDpVIF/uED/tlWSmFDuxYuTsYyyrxCFcKdCZ6yyTtTxppFfSQIW4ReAgMvbdX15Xv
+	 C1ttBxQjy3LadLmngcNn1y1fulirinzAImSxwT92/R/mf1yXo6ioVwd2KtL8xEeMfA
+	 T+6tavEiO1DxB4HXZUBG/bwgWPY2SDFh6DvuIrBbbWcgZzDnkkyXq5ptIsbMrLQcrs
+	 gUBtoPqIZV/lCiXOPfQjrUhnA6t6zUIh3GfQaRvopr87xPw8cy7mWasRkKgO+Hz3cB
+	 n2OPRvSgNOzIL9hOFd1lxkBjXT06OKkFuIedYTxQmjpIg75bDF3u70Sqng29+xRALK
+	 n6YbHi45QKM7w==
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so489713fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 01:18:25 -0700 (PDT)
+X-Gm-Message-State: AFq9FYLbMde0ynkaQY7fs1KxVTdBzCqhhjBVpMcaqSxTZNqTaFTLPddm
+	rwd+kviDvFE6zjL0EDeiWvJu0yWMfTILWHOJVEiamGwCIxVb5VruqVvPKpM6hLYYSvEfWCR1yzz
+	93e8i7UHzfqHvs32gELiS9n5QqOGmiNc=
+X-Received: by 2002:a05:6870:a70c:b0:49e:59ea:71f3 with SMTP id
+ 586e51a60fabf-4a83f5199aamr2400955fac.40.1792916305053; Sun, 25 Oct 2026
+ 01:18:25 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,38 +58,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <0bdcbe2ab5ffc86ba7190fe25476bcebcb967310.1792844270.git.mst@redhat.com>
+In-Reply-To: <0bdcbe2ab5ffc86ba7190fe25476bcebcb967310.1792844270.git.mst@redhat.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Sun, 25 Oct 2026 09:18:14 +0100
+X-Gmail-Original-Message-ID: <CAL4WiipHjseFcNaqaufAf5C7d3J5e6aLZBTsehJuJyR2m7G1Hg@mail.gmail.com>
+X-Gm-Features: AclHuK8D0EtYNyshwYTKsg-IsiHwgRYjfcghygIB__I_5tlQJCxm8A4sK_Kydf8
+Message-ID: <CAL4WiipHjseFcNaqaufAf5C7d3J5e6aLZBTsehJuJyR2m7G1Hg@mail.gmail.com>
+Subject: Re: [PATCH net] skbuff: keep accesses through unset transport header
+ in bounds
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
+	Claude Code <noreply@anthropic.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In storm_parse_of(), if the codec phandle is not found, the function
-returns -EINVAL without releasing the CPU phandle that was obtained
-earlier via of_parse_phandle(). Since storm_dai_link is a static struct,
-the leaked reference persists. On a probe retry, the CPU of_node would
-be overwritten by a new of_parse_phandle() call, losing the reference
-to the previous one.
-
-Fix this by calling of_node_put(dai_link->cpus->of_node) before
-returning -EINVAL when the codec phandle is not found.
-
-Fixes: 79119c798649 ("ASoC: qcom: Add Storm machine driver")
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- sound/soc/qcom/storm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-index 6b42fbfd2..6a42876ce 100644
---- a/sound/soc/qcom/storm.c
-+++ b/sound/soc/qcom/storm.c
-@@ -79,6 +79,7 @@ static int storm_parse_of(struct device *dev)
- 	dai_link->codecs->of_node = of_parse_phandle(np, "codec", 0);
- 	if (!dai_link->codecs->of_node) {
- 		dev_err(dev, "error getting codec phandle\n");
-+		of_node_put(dai_link->cpus->of_node);
- 		return -EINVAL;
- 	}
- 
--- 
-2.52.0.windows.1
+Le sam. 24 oct. 2026 =C3=A0 14:56, Michael S. Tsirkin <mst@redhat.com> a =
+=C3=A9crit :
+>
+> Commit 2170a1f09148 ("net: no longer reset transport_header in
+> __netif_receive_skb_core()") stopped the receive path from pretending
+> that an unset transport header starts at the network header - but only
+> on CONFIG_DEBUG_NET=3Dy builds, the idea being that fuzzers and CI could
+> catch stacks reading a transport header where none was ever established.
+> And the plan is to drop this for release as well.
+>
+> Indeed, under KASAN, an access through the unset offset produces a
+> slab-out-of-bounds splat, which is how these bugs are usually found.
+> But a regular debug build has no such safety net: the accesses land at
+> skb->head + 0xffff, some 64K past the packet data.
+>
+> I don't think release builds are exposed to oob in this way, but I want
+> to make the stack a bit more robust if yes.
 
 
+This is not a net candidate: there is no bug in release builds, since
+__netif_receive_skb_core() still resets the transport header when
+CONFIG_DEBUG_NET is not set. The Fixes: tag points to a commit doing
+exactly what it was meant to do.
 
+>  While I appreciate a nice
+> KASAN splat as much as the next developer, making even a debug kernel do
+> oob accesses was never the point of the exercise.
+>
+> Make skb_transport_header(), and its inner variant, verify and WARN,
+> then fall back to the network header position when the transport header
+> was not set. This way, accesses stay within the packet.
+
+This adds a test and a conditional branch in a very hot helper
+(tcp_hdr(), udp_hdr(), skb_transport_offset()...), inlined in hundreds
+of places, for all builds, to protect CONFIG_DEBUG_NET=3Dy builds only.
+
+Falling back to the network header is also what 2170a1f09148 wanted
+to stop doing: pretending transport and network headers are the same
+is wrong, and silently hides the bug after the first WARN_ON_ONCE().
+KASAN would no longer report anything.
+
+>
+> An extra benefit is that release and debug kernels now behave
+> identically if an unset transport header is ever reached,
+> avoids heisenbugs.
+>
+
+Not really, the fallback path is only reachable on CONFIG_DEBUG_NET=3Dy
+builds.
+
+If you have an actual report (syzbot, KASAN, or a stack trace from a
+debug build), please share it, and we will fix the caller that uses
+an unset transport header. That is the whole point of the debug check.
+
+pw-bot: rejected
+
+> Fixes: 2170a1f09148 ("net: no longer reset transport_header in __netif_re=
+ceive_skb_core()")
+> Cc: Eric Dumazet <edumazet@google.com>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> Co-Authored-By: Claude Code <noreply@anthropic.com>
+> ---
+>  include/linux/skbuff.h | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index a3ff380d43f0..cbfeb17d86f7 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -2993,6 +2993,12 @@ static inline void skb_reset_mac_len(struct sk_buf=
+f *skb)
+>  static inline unsigned char *skb_inner_transport_header(const struct sk_=
+buff
+>                                                         *skb)
+>  {
+> +       if (unlikely(skb->inner_transport_header =3D=3D
+> +                    (typeof(skb->inner_transport_header))~0U)) {
+
+
+Inner offsets do not use ~0 as an 'unset' marker, they are zeroed.
+
+> +               DEBUG_NET_WARN_ON_ONCE(1);
+> +               return skb->head + skb->inner_network_header;
+> +       }
+> +
+>         return skb->head + skb->inner_transport_header;
+>  }
+>
+> @@ -3072,7 +3078,11 @@ static inline void skb_unset_transport_header(stru=
+ct sk_buff *skb)
+>
+>  static inline unsigned char *skb_transport_header(const struct sk_buff *=
+skb)
+>  {
+> -       DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
+> +       if (unlikely(!skb_transport_header_was_set(skb))) {
+> +               DEBUG_NET_WARN_ON_ONCE(1);
+> +               return skb->head + skb->network_header;
+> +       }
+> +
+>         return skb->head + skb->transport_header;
+>  }
+>
+> --
+> MST
+>
