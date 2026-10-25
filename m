@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792914716;
-	b=II1bAYAqJCb+yYpdiSpRTfCgPaB8j92oK3S+ZoVp9nw7f0sxignSJGpUm1BAjsagcd/5
-	 elxJ9wpeaJUtYATLhraMYnynKFSo4pG4bbNzA2SUPsCYO/SWD6NqWE3HWsPDMR3DL35h6
-	 Vw2ghNfnviMJg5w7u8lbw2aTyIMzaKRMZnc4u45pOEzSW+TxFULM+mTsO/OqYJwmxTlrz
-	 lh9EBIJ2EdiSk5jChGXhd5GEAviez8EI0lMoknFzL2aY1fK4TnM4NnlEQZouUNwZs91kf
-	 Y+gzlb17+H+KIY51jOXp1h1QR8IOUF5PGICOObVywxQyrcpLo0hxebk03JCjLDBKpyw==
+	t=1792914721;
+	b=PPRXp0sjWfVCg06APtKlsOqUF+SZcEFqoodMY03YAAgXIXdE4LaifNXLzAcGfXwj1kIG
+	 Reojws13yflzxmlOHFFOut9Rx2bbzLS/qfTGmuca3TI2cKoBxzwAft2x+VSMzc83vhuDp
+	 3CLKIXejwbalEu8/MGIW1BFfwCM070aH+bx8Lb04geKW4s5RHcNiPcOeORtqXFa/ehaZ/
+	 qOM1JnT4MMl7128ugTqVVOmlZ2CuYEO6xs3zYylvKfouAZ7a2TpBnPbcrX/1KuMsl/gRW
+	 4yL/nvqDugP+MpSOLpyQL6YeWJZAXqLxKH9JWaGlCLyUp1xeTK3UHh6q/TpQUg6kdtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792914716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792914721;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZBJQD9CEX8BSoBmqxIKznqV9jSK1F+2qL8QO29Cd7to=;
-	b=uqOSl64lpMZYMn8aopMXi5ejwBXy5tyAMmF9NXq9Qw3H4aUuFwo3QgVmMrm3qN8pNRF2
-	 s+hrwN3KkSnz3wq/4bX6ztmBLk7anYp3FLugRUZTntaNCCJWflLYqiVsEtw1sAVadnQO1
-	 lUV9rMSQyQj7AQJ0OhWDKrXTEMeqI7abRt8ANRbWYtHdd+dP8fz/hVpivvAxWVM+bfK0x
-	 MNKBHvKs7YsI336EdiwSlBOJ0yMe6srjRwhvnI0G1Dpkpl55sYQcLtdYg5E+sFg3PzjSs
-	 Q8yFgo4v+T0r1bxfm0yO1jRTb9/rupdnohvf8JWZtHOiBVEAbwjQ9kG1MKvV3jAot+Q==
+	bh=kd+dIHLAZ0VbjKhoBYhi5STIRTNamR3vQAK0UqVJG5I=;
+	b=JJ/W9hTTqAR4RSYgJyXQgufEM2q42x8qLDjgXSjXijj+qSqk1lLgNBHOZZbBJLrJXm/6
+	 /YNQYkisAyoKHY5skTqLQKM/t0BtF42p3YYAo914OnKytLsziAXs+LPDzNLsdKRHPvbxK
+	 5x5LBhWvlZf66LpfOclyhI2h+66uUWDUA97j4rFpfQDeIb8A+4aDrTIfpEdf6uc2F7JAp
+	 ayLgxWvcm1P4Ol/D0PrYX/HaXZTMyQWumNpTkzBbT2exXnhEj9CWT6L8emBsVQEnls/eg
+	 mI7h+bnPgI/y4qSx9yzxJNCbirtbNXQKT9wYHvvtmFahFMswAddUo31kiApdg3leL0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="n/kLLYr8";
-	arc=none smtp.remote-ip=95.215.58.98
-Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cTdjI3+Q;
+	arc=none smtp.remote-ip=91.218.175.246
+Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F5D606A320
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:51:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F5D606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BCD606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:52:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BCD606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n/kLLYr8
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cTdjI3+Q
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4/HL2d4Nrhce67FzGis9vXGrK25cQYCUC9c0XAxPHEk=;
+DKIM-Signature: a=rsa-sha256; bh=Z2sHLhxFVy/B5w9Rnnrt3uG5g0JTtJ0jVUFIyN0gxO0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792914713; v=1; x=1793519513;
- b=n/kLLYr8dscJbvlScpg92+xPBfNLNwxn35iqvYOUP/RSRSYfC1M+Aa649LCqbY1/ND4BdHbM
- wrhM3EvT/dAMsjaHqhxhD7ii2xHbi5fib28O2wpkQUvNFuBJPeJWFoVpMjMsI89WzpH9WKOpafZ
- r3Tdzh08BXpsgpTcaStnMY+c=
+ t=1792914719; v=1; x=1793519519;
+ b=cTdjI3+QvXqk4cYmtvjSsIsx9AxR1NBU4tX5SFFx5IrPusBpErbKSqfMj5ku4tEGygh1et58
+ ue4XDPxhIWPAdl2lwzx6C515AB+AtoBJ6458fpVGROXWsONM9z5hBaSBTaaG4AHGLJe3qTzsUq5
+ YoUvKQzENrNc7s3wYu7O1IIA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0235f86465034b12;
-	Sun, 25 Oct 2026 07:51:53 +0000
-X-Mizu-Trace-ID: 0235f86465034b12
+Received: by smtp.migadu.com with ESMTPS id 48f71797eadf8a7f;
+	Sun, 25 Oct 2026 07:51:59 +0000
+X-Mizu-Trace-ID: 48f71797eadf8a7f
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -65,9 +65,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	Fuad Tabba <tabba@google.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/5] KVM: arm64: Add ACCDATA_EL1 to the sysreg array
-Date: Sun, 25 Oct 2026 07:51:35 +0000
-Message-ID: <20261025075138.2919734-3-fuad.tabba@linux.dev>
+Subject: [PATCH v2 3/5] KVM: arm64: Add context-switch of ACCDATA_EL1
+Date: Sun, 25 Oct 2026 07:51:36 +0000
+Message-ID: <20261025075138.2919734-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261025075138.2919734-1-fuad.tabba@linux.dev>
 References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
@@ -84,63 +84,110 @@ Content-Transfer-Encoding: 8bit
 
 From: Marc Zyngier <maz@kernel.org>
 
-Make ACCDATA_EL1 a first-class citizen, and add it to the sysreg
-array. Visibility is conditioned on the feature being enabled.
+Add ACCDATA_EL1 save/restore as part of the EL0 context. This is
+conditioned on the guest's view of ID_AA64ISAR1_EL1.LS64 reporting
+that this register is supported.
 
 Signed-off-by: Marc Zyngier <maz@kernel.org>
-Link: https://lore.kernel.org/r/20240815125959.2097734-4-maz@kernel.org
-[Fuad: rebased]
+Fixes: 58ce78667a641 ("arm64: Add support for FEAT_{LS64, LS64_V}")
+Link: https://lore.kernel.org/r/20240815125959.2097734-5-maz@kernel.org
 Cc: stable@vger.kernel.org
+[Fuad: rebased; switch ACCDATA_EL1 for guests only, as the host never
+ uses it; gate it on a new ARM64_HAS_LS64_ACCDATA capability, since
+ in pKVM the host controls a non-protected guest's ID registers, and
+ an EL2 access to ACCDATA_EL1 on a CPU without the feature is UNDEFINED]
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/include/asm/kvm_host.h |  3 +++
- arch/arm64/kvm/sys_regs.c         | 12 +++++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ arch/arm64/kernel/cpufeature.c             |  7 +++++++
+ arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h | 23 ++++++++++++++++++++++
+ arch/arm64/tools/cpucaps                   |  1 +
+ 3 files changed, 31 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 27fe0cd5b2d7a..5b1cd1f502b7d 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -498,6 +498,9 @@ enum vcpu_sysreg {
- 	GCR_EL1,	/* Tag Control Register */
- 	TFSRE0_EL1,	/* Tag Fault Status Register (EL0) */
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 32102c3912fa7..b5720c56eebc9 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -3225,6 +3225,13 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+ 		.cpu_enable = cpu_enable_ls64_v,
+ 		ARM64_CPUID_FIELDS(ID_AA64ISAR1_EL1, LS64, LS64_V)
+ 	},
++	{
++		.desc = "LS64_ACCDATA",
++		.capability = ARM64_HAS_LS64_ACCDATA,
++		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
++		.matches = has_cpuid_feature,
++		ARM64_CPUID_FIELDS(ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA)
++	},
+ #ifdef CONFIG_ARM64_LSUI
+ 	{
+ 		.desc = "Unprivileged Load Store Instructions (LSUI)",
+diff --git a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
+index c382848d31947..4a008c8a696ba 100644
+--- a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
++++ b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
+@@ -17,6 +17,7 @@
+ #include <asm/kvm_mmu.h>
  
-+	/* Random stuff */
-+	ACCDATA_EL1,	/* Accelerator Data */
+ static inline bool ctxt_has_s1poe(struct kvm_cpu_context *ctxt);
++static inline bool ctxt_has_accdata(struct kvm_cpu_context *ctxt);
+ 
+ static inline struct kvm_vcpu *ctxt_to_vcpu(struct kvm_cpu_context *ctxt)
+ {
+@@ -67,6 +68,13 @@ static inline void __sysreg_save_user_state(struct kvm_cpu_context *ctxt)
+ {
+ 	ctxt_sys_reg(ctxt, TPIDR_EL0)	= read_sysreg(tpidr_el0);
+ 	ctxt_sys_reg(ctxt, TPIDRRO_EL0)	= read_sysreg(tpidrro_el0);
 +
- 	POR_EL0,	/* Permission Overlay Register 0 (EL0) */
- 
- 	/* FP/SIMD/SVE */
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 44aae52c473d7..40f8be41da3a4 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -2914,6 +2914,15 @@ static unsigned int sve_el2_visibility(const struct kvm_vcpu *vcpu,
- 	return __el2_visibility(vcpu, rd, sve_visibility);
++	/*
++	 * Despite the appearances, ACCDATA_EL1 is part of the EL0
++	 * context, as it can only be used using ST64BV0.
++	 */
++	if (ctxt_has_accdata(ctxt))
++		ctxt_sys_reg(ctxt, ACCDATA_EL1)	= read_sysreg_s(SYS_ACCDATA_EL1);
  }
  
-+static unsigned int accdata_visibility(const struct kvm_vcpu *vcpu,
-+				       const struct sys_reg_desc *rd)
+ static inline bool ctxt_has_mte(struct kvm_cpu_context *ctxt)
+@@ -131,6 +139,18 @@ static inline bool ctxt_has_sctlr2(struct kvm_cpu_context *ctxt)
+ 	return kvm_has_sctlr2(kern_hyp_va(vcpu->kvm));
+ }
+ 
++static inline bool ctxt_has_accdata(struct kvm_cpu_context *ctxt)
 +{
-+	if (kvm_has_feat(vcpu->kvm, ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA))
-+		return 0;
++	struct kvm_vcpu *vcpu;
 +
-+	return REG_HIDDEN;
++	/* The host never uses ACCDATA_EL1 */
++	if (!cpus_have_final_cap(ARM64_HAS_LS64_ACCDATA) || !ctxt_is_guest(ctxt))
++		return false;
++
++	vcpu = ctxt_to_vcpu(ctxt);
++	return kvm_has_feat(kern_hyp_va(vcpu->kvm), ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA);
 +}
 +
- static unsigned int vncr_el2_visibility(const struct kvm_vcpu *vcpu,
- 					const struct sys_reg_desc *rd)
+ static inline void __sysreg_save_el1_state(struct kvm_cpu_context *ctxt)
  {
-@@ -3601,7 +3610,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
- 	{ SYS_DESC(SYS_CONTEXTIDR_EL1), access_vm_reg, reset_val, CONTEXTIDR_EL1, 0 },
- 	{ SYS_DESC(SYS_TPIDR_EL1), NULL, reset_unknown, TPIDR_EL1 },
+ 	ctxt_sys_reg(ctxt, SCTLR_EL1)	= read_sysreg_el1(SYS_SCTLR);
+@@ -210,6 +230,9 @@ static inline void __sysreg_restore_user_state(struct kvm_cpu_context *ctxt)
+ {
+ 	write_sysreg(ctxt_sys_reg(ctxt, TPIDR_EL0),	tpidr_el0);
+ 	write_sysreg(ctxt_sys_reg(ctxt, TPIDRRO_EL0),	tpidrro_el0);
++
++	if (ctxt_has_accdata(ctxt))
++		write_sysreg_s(ctxt_sys_reg(ctxt, ACCDATA_EL1), SYS_ACCDATA_EL1);
+ }
  
--	{ SYS_DESC(SYS_ACCDATA_EL1), undef_access },
-+	{ SYS_DESC(SYS_ACCDATA_EL1), undef_access, reset_val, ACCDATA_EL1, 0,
-+	  .visibility = accdata_visibility},
- 
- 	{ SYS_DESC(SYS_SCXTNUM_EL1), undef_access },
- 
+ static inline void __sysreg_restore_el1_state(struct kvm_cpu_context *ctxt,
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 2775ba3359cfe..f01719bbd6037 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -49,6 +49,7 @@ HAS_LPA2
+ HAS_LSE_ATOMICS
+ HAS_LS64
+ HAS_LS64_V
++HAS_LS64_ACCDATA
+ HAS_LSUI
+ HAS_MOPS
+ HAS_NESTED_VIRT
 -- 
 2.47.3
 
