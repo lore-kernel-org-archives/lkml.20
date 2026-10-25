@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964983;
-	b=e6Vn5Fv9ciWlUyZCLFoOiZ+0Gi0hxRhi4LVAJB0pzZnToYc6GB+rAUKFEL/J2StcoknB
-	 OSf0iIke5FwskckJfZKTfnRxioZuuecIq8HU8lEClkql9R+xh1B63qRjQLsYrPAmFkClm
-	 JZCp7Zs1uVufzifnA9KAQe1lCnAvIYo+GqncvKtp9udVvyY+rK44iSRol0S6GNUEKW00r
-	 bviPaD3hbWCWfuMXVKwojNPBUgjpRmjxA7HVtTsyRi79HMnKdUOuCpKgmbUnvvKWFp+cr
-	 B1QPXTdLfFOPptavKps+AyfOe03g1XqvXIZPmVNTu9oSFqbZwOXRT701B15l9FlVg9A==
+	t=1792965064;
+	b=3eFyuXwfHIuycLYvQvhJ9HBcb3KvtyBk75/faCqk0y54GsVc1xukgl4LIS3XAZWTKaLh
+	 vAuEharhhEWW5wm+jOo5r+lZE9w66VWhQeMPuKTB6oHBQZh4fXlgaau6g3ejuqCORFkCd
+	 N1BHaAAIrSOAChqcTNtOnDBnKMSthM8WI9rEhaNJRH10uCIq+IcD4PIze8aBuERwWRCy2
+	 PUYACdd/SkNqBIcx5vZ6zKOXIk/Gp+/AdprQVnSspqutBAg2opyvUbtKzmX1hWIqJj3yu
+	 kF7B+nLMiqSu2gyxTM0JQp3Xvp9Q8IZ27OEfW7Rd12V2u/foGpwMyycbz1EWh7F4bNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964983;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965064;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Content-Type;
-	bh=rSl/IRl/7R53a17GL4J9p0EIN6qioPBOxysY/CGRCZ8=;
-	b=ffmzd6cZccS1xcCiBedpXJfa1XssxRQCstsQ+VQ7b1lYaTcJ5y6NeXP9i61qKr8BYpL3
-	 dQ+SfMX9Ml5OnYJQ8GAkPJXytP+3xHMExEafZvdsHwNX49dYVUq141l8oemP8xIptx280
-	 90482x4Fq2AxV6VMPRt/qqrG80t9XeSWjQY2xOgS8DkTFICVNF5ANDBDXQFl0LR/hzWoC
-	 rc72vSlrXxEuoDOkEEWdOXU26BzavxZIsW5Ej2TpkzJ0FHXHw/O9OvCx0wLMBnjAvsmBs
-	 QLJT9ZwdzmWx0AGYTDCGImoR2P8L3jl9rSuY4tLO6EtL+v9+5zN4z29g3+zSI2ZZzFA==
+	bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
+	b=iMH+HRNOleYUrkfz1+uirilVNcL4bdLavumY/LgmkqMnYUhUrW5k8i8fRFsoob+m9v/w
+	 EtENJxHN8LhPIZ8mu21UtPJTmKr3fxVX5bkq02sH9LlIuotEWUVB6x/5hI+CCHsEwEjyS
+	 d+1ILiWTWzGP8bLD3+1br8XAGGg2JRiTCQRdUWqWfb9weEZmFgpk8zG4PbmJVre7Nwlug
+	 L1op9ZTEthBO7H1fHbHnL8g3RdXDg5nLk/DbDrUUdsq8Uo9v/VJZrTeYzKSlZc8Wmtx4Y
+	 uzW/B2bLTh/Ss/QGUKvJZ8i8o0K6A1XHEaPpABGKfoFgxwltiArPETtD0tEySolgNvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=r2Rt2lom;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pl8n5Bl+;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C7E606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30C7E606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B920606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:51:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B920606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=r2Rt2lom
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5199381eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:49:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pl8n5Bl+
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3580c07911eso8023694eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:51:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792964981; x=1793569781; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792965063; x=1793569863; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:mime-version:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=rSl/IRl/7R53a17GL4J9p0EIN6qioPBOxysY/CGRCZ8=;
-        b=r2Rt2lomB3QnV4EK1aO7dOz5gUTGEEkqARp7iXsYagt+c4tci0PiYaArEJe1ZQLGBg
-         JpOPpX8c0G2eCPDf0d+F5iwEvULjNxyE6Ru+CBExTrafav1hBwOghYNnEKMfQTEwGa6p
-         5heoT5JRt1kQWLDQELdMXxpZMLm+S8lMHye2ID6Tizv3CBKvtYhRHZ0RGT4vDjV+Utsj
-         yRJDyWe9tqPOgnA9lLAEmvoymLDgBbdh1o26c4mONZj2WW2Se0AGVW+HTBGD3SCrGPtN
-         6aXnjIWMPZFekkalYRe7OuGkLQVZpjib0/7nmlTc+RQeYWJBNERTPvWjZAcbrIKIMLA4
-         dCXQ==
+        bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
+        b=Pl8n5Bl+F15yh5lVoMpCegJwJSkZH3E1vsxK51rRk5hYpCl/PiNAEh2xtHCfCn89/b
+         b7C3/H/05YQ6KGbRcPj3m+09eVyv5zkUFRpRg1f9HT1ywifYfz18D4q+EcLy6EBPkMJZ
+         1x33zkGplXdFIJTSBrZ1zDfKFWb/InT8pvXTizCxOSgSwDdV+RI+LqIbFnJ1vJ4tVCJV
+         t1nFjl6B+GoRlO0V4D1LRQwOF6Oqx8pE8vugy1LvP7LnZMULnJ1hKzRkU+29ANM4uGs5
+         k3CqrKt9tWjLxw/hNGkWNnVEj/Y7raYc3KF7QQWWwTkyvBQEFYfG9SyYtH3HKzi02HaG
+         EkrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792964981; x=1793569781;
+        d=1e100.net; s=20260707; t=1792965063; x=1793569863;
         h=content-type:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rSl/IRl/7R53a17GL4J9p0EIN6qioPBOxysY/CGRCZ8=;
-        b=AG9rjrf+xy7ucDLFhjHwF40mHQi4VpxaPXGQBLxqrg0QH1ihb084jwYPB1LHSieLH/
-         ltmyUOtg/sqZZ00fD2NTbC4QKPNfo+bW369y8IKLjtdRd4Y+iWqMxgMzSlKVcF/dJgkk
-         vLURX36pjFAyiP+Dcl3JkbqtWkZHtKOd52QvES0aeNnbQuu+g05alEaY4QqWVkp8YGsp
-         m1Mmg5nCjWHyVGfD1hBiZ7DCyj57PHhwN+xZ4aEUG977yzpa/VVtpRzdWm0Cing1ovOR
-         kLWNUWshlgnqGjfVIL29k6Bt25xjAvENRkST2zvrLcw05+y8LbFAWJdPC/I7A+5A+zvD
-         Fynw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7Hx6e0T9WJ1FuuaA0Ybd1B476FPboJ+Gzn/36A7G8u0/7/IIBDEn4ZaAVwU55lTLk4TCntTspz16Ip+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1BPQzbu2nbv7swZuG8PC1n0O9N6sKa7ctucDqi/T9O2vKR4dC
-	MXiXYXKRpP3faBe3Khup/zuJcejVX/OvuV9rk0mYNX09jGjklbItyiK2lKE2ZGhX8fTPj7sjTTr
-	jCTeFDol5Yw==
-X-Received: from dli20-n2.prod.google.com ([2002:a05:7022:294:20b0:19f:527d:96cf])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:451c:20b0:193:5449:b889
- with SMTP id a92af1059eb24-1993f6d2ccemr6647782c88.45.1792964980671; Sun, 25
- Oct 2026 14:49:40 -0700 (PDT)
-Date: Sun, 25 Oct 2026 14:49:28 -0700
+        bh=6mBEu8QdPj4ooVI6HvdpOOBqaqB/w+5Tqv00IVdAX5w=;
+        b=nDDpc4xUztIYMFoJ8YH8fAwkKRpCsTkYWILZLRlltDJT6462M1zru+MbszdWc5epzx
+         YmJVfRwz0J/FaT5Vo7MmuOO309tQOJdXCgjwJQjMmlSHNZXSu+pOGp2SbG+4ZggzbDZ3
+         6O5DVqwJf0003m/mI0qYyNQRloHIUMS1u88kzStNOPy0QO3OjV1+nI82N1ivsSXb4JD8
+         rRe32Qjc+CEJBRIWa66y/uvjWgEbj7W+azmRDotV+//IfScwIREkXTvoqL+zVbtlFEo/
+         140CH0o74AaVY4g9wK2E5FYPGKTQSKwiEhMfuRSMMJ5ofkC6Ig/zORGxU0ZC0/PzfPMV
+         GOPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxyR95XBlVdyEhPHecP6vnMSFgCzhv6T2PqYEB5Jfc0wxNvLedXpm/k/HNaAaLbW7UxX1IpTYJ9Bz1T6PY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIukey4i8pCArSfXgWpCm6NclEcf+RmyoE3dwFNKCORbFt6Ulo
+	F6CuPFQobqRuDgz8yWZxk/zYApMHqQ7aRza3KQnPgVu6XXqs8wk8hQLt2QCGx9gHzS4kOYFaHCr
+	t2q8NEKUxrQ==
+X-Received: from dycui22.prod.google.com ([2002:a05:693c:6016:b0:369:f67f:7a43])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:87c8:20b0:365:f73b:510b
+ with SMTP id 5a478bee46e88-369e84818cemr7217715eec.13.1792965062646; Sun, 25
+ Oct 2026 14:51:02 -0700 (PDT)
+Date: Sun, 25 Oct 2026 14:50:56 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,9 +77,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025214928.1225895-1-irogers@google.com>
-Subject: [PATCH v1] perf test task-exit: Fix POLLHUP busy-loop race waiting
- for SIGCHLD
+Message-ID: <20261025215056.1228120-1-irogers@google.com>
+Subject: [PATCH v1] perf test switch-tracking: Fix hybrid cpu-cycles and spin timing
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -88,67 +87,164 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In the kernel's do_exit(), perf_event_exit_task() runs before exit_mm()
-and exit_notify() (which delivers SIGCHLD to the parent). Once
-perf_event_exit_task() completes, PERF_RECORD_EXIT is written to the
-ring buffer and POLLHUP is set on the perf event file descriptor.
+On hybrid systems, parse_event(evlist, "cpu-cycles:u") creates multiple
+evsels (e.g. cpu_atom/cpu-cycles/ and cpu_core/cpu-cycles/), but
+test__switch_tracking() only configured, enabled/disabled, and checked
+evlist__last(evlist). If the test process ran on another core PMU during
+one of the spin phases, the tracked evsel recorded no samples and the
+test failed with 'Missing cycles events'. Additionally, the other core
+PMU evsels did not have PERF_SAMPLE_TIME set, which add_event() missed
+because __evsel__parse_sample() initializes sample.time to -1ULL rather
+than 0.
 
-In test__task_exit(), once POLLHUP is set on the fd, evlist__poll()
-returns immediately on every call without blocking. If the child is
-still in exit_mm()..exit_notify() on another CPU when the parent reads
-PERF_RECORD_EXIT, exited is still 0 and the retry loop spins through all
-1000 non-blocking poll() calls in less than a millisecond before SIGCHLD
-is delivered.
+Use evsel__match(evsel, HARDWARE, HW_CPU_CYCLES) to configure,
+enable/disable, and check all cycles evsels created by parse_event(),
+check for sample.time == -1ULL in add_event(), and use
+CLOCK_THREAD_CPUTIME_ID in spin_sleep() so preemption under load does
+not finish the 50ms spin without on-CPU cycles.
 
-Sleep briefly with usleep(1000) on subsequent retries (which also wakes
-early on EINTR when SIGCHLD arrives), mark exited as volatile
-sig_atomic_t, and reset exited and nr_exit on test entry.
-
-Fixes: 791ce9c48c79 ("perf test: Avoid infinite loop for task exit case")
+Fixes: 94f9eb95d954 ("perf pmus: Remove perf_pmus__has_hybrid")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/task-exit.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ tools/perf/tests/switch-tracking.c | 57 +++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 25 deletions(-)
 
-diff --git a/tools/perf/tests/task-exit.c b/tools/perf/tests/task-exit.c
-index 9fac426ac2f9..1a9de2d13497 100644
---- a/tools/perf/tests/task-exit.c
-+++ b/tools/perf/tests/task-exit.c
-@@ -9,13 +9,14 @@
+diff --git a/tools/perf/tests/switch-tracking.c b/tools/perf/tests/switch-tracking.c
+index 73568c782d72..ff98f5483e7e 100644
+--- a/tools/perf/tests/switch-tracking.c
++++ b/tools/perf/tests/switch-tracking.c
+@@ -24,28 +24,26 @@
  
- #include <errno.h>
- #include <signal.h>
-+#include <unistd.h>
- #include <linux/string.h>
- #include <perf/cpumap.h>
- #include <perf/evlist.h>
- #include <perf/mmap.h>
- 
--static int exited;
--static int nr_exit;
-+static volatile sig_atomic_t exited;
-+static volatile int nr_exit;
- 
- static void sig_handler(int sig __maybe_unused)
+ static int spin_sleep(void)
  {
-@@ -55,6 +56,8 @@ static int test__task_exit(struct test_suite *test __maybe_unused, int subtest _
- 	struct mmap *md;
- 	int retry_count = 0;
+-	struct timeval start, now, diff, maxtime;
+-	struct timespec ts;
++	struct timespec start, now, ts;
++	u64 elapsed_ns;
+ 	int err, i;
  
-+	exited = 0;
-+	nr_exit = 0;
- 	signal(SIGCHLD, sig_handler);
+-	maxtime.tv_sec = 0;
+-	maxtime.tv_usec = 50000;
+-
+-	err = gettimeofday(&start, NULL);
++	err = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &start);
+ 	if (err)
+ 		return err;
  
- 	evlist = evlist__new_dummy();
-@@ -135,6 +138,8 @@ static int test__task_exit(struct test_suite *test __maybe_unused, int subtest _
- 			err = -1;
- 			goto out_put_evlist;
- 		}
-+		if (retry_count > 1)
-+			usleep(1000);
+-	/* Spin for 50ms */
++	/* Spin for 50ms of thread CPU time */
+ 	while (1) {
+ 		for (i = 0; i < 1000; i++)
+ 			barrier();
  
- 		goto retry;
+-		err = gettimeofday(&now, NULL);
++		err = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &now);
+ 		if (err)
+ 			return err;
+ 
+-		timersub(&now, &start, &diff);
+-		if (timercmp(&diff, &maxtime, > /* For checkpatch */))
++		elapsed_ns = (now.tv_sec - start.tv_sec) * 1000000000ULL +
++			     now.tv_nsec - start.tv_nsec;
++		if (elapsed_ns > 50000000ULL)
+ 			break;
  	}
+ 
+@@ -62,7 +60,6 @@ static int spin_sleep(void)
+ 
+ struct switch_tracking {
+ 	struct evsel *switch_evsel;
+-	struct evsel *cycles_evsel;
+ 	pid_t *tids;
+ 	int nr_tids;
+ 	int comm_seen[4];
+@@ -164,7 +161,7 @@ static int process_sample_event(struct evlist *evlist,
+ 		switch_tracking->tids[cpu] = next_tid;
+ 	}
+ 
+-	if (evsel == switch_tracking->cycles_evsel) {
++	if (evsel && evsel__match(evsel, HARDWARE, HW_CPU_CYCLES)) {
+ 		pr_debug3("cycles event\n");
+ 		if (!switch_tracking->comm_seen[0])
+ 			switch_tracking->cycles_before_comm_1 = 1;
+@@ -241,7 +238,7 @@ static int add_event(struct evlist *evlist, struct list_head *events,
+ 		return -1;
+ 	}
+ 
+-	if (!sample.time) {
++	if (!sample.time || sample.time == -1ULL) {
+ 		pr_debug("event with no time\n");
+ 		perf_sample__exit(&sample);
+ 		return -1;
+@@ -394,6 +391,12 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
+ 	}
+ 
+ 	cycles_evsel = evlist__last(evlist);
++	evlist__for_each_entry(evlist, evsel) {
++		if (evsel__match(evsel, HARDWARE, HW_CPU_CYCLES)) {
++			evsel__set_sample_bit(evsel, CPU);
++			evsel__set_sample_bit(evsel, TIME);
++		}
++	}
+ 
+ 	/* Third event */
+ 	if (!evlist__can_select_event(evlist, sched_switch)) {
+@@ -422,9 +425,6 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
+ 		goto out_err;
+ 	}
+ 
+-	evsel__set_sample_bit(cycles_evsel, CPU);
+-	evsel__set_sample_bit(cycles_evsel, TIME);
+-
+ 	/* Fourth event */
+ 	err = parse_event(evlist, "dummy:u");
+ 	if (err) {
+@@ -499,10 +499,14 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
+ 		goto out_err;
+ 	}
+ 
+-	err = evsel__disable(cycles_evsel);
+-	if (err) {
+-		pr_debug("perf_evlist__disable_event failed!\n");
+-		goto out_err;
++	evlist__for_each_entry(evlist, evsel) {
++		if (!evsel__match(evsel, HARDWARE, HW_CPU_CYCLES))
++			continue;
++		err = evsel__disable(evsel);
++		if (err) {
++			pr_debug("perf_evlist__disable_event failed!\n");
++			goto out_err;
++		}
+ 	}
+ 
+ 	comm = "Test COMM 2";
+@@ -525,10 +529,14 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
+ 		goto out_err;
+ 	}
+ 
+-	err = evsel__enable(cycles_evsel);
+-	if (err) {
+-		pr_debug("perf_evlist__disable_event failed!\n");
+-		goto out_err;
++	evlist__for_each_entry(evlist, evsel) {
++		if (!evsel__match(evsel, HARDWARE, HW_CPU_CYCLES))
++			continue;
++		err = evsel__enable(evsel);
++		if (err) {
++			pr_debug("perf_evlist__enable_event failed!\n");
++			goto out_err;
++		}
+ 	}
+ 
+ 	comm = "Test COMM 4";
+@@ -547,7 +555,6 @@ static int test__switch_tracking(struct test_suite *test __maybe_unused, int sub
+ 	evlist__disable(evlist);
+ 
+ 	switch_tracking.switch_evsel = switch_evsel;
+-	switch_tracking.cycles_evsel = cycles_evsel;
+ 
+ 	err = process_events(evlist, &switch_tracking);
+ 
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
