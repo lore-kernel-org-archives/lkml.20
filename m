@@ -1,61 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792926773;
-	b=MjtLb7f7HUM3K7VbNX86s4t/jr2AEXa3nM06D0KijIMvsFOXD8qw/WnStbtDS0YD1sUr
-	 s6ZtCa3wySO+BTM1NlDP6AOrFIUtVcCHOpBKLYN/X3UGBli88HSMW734Rpt8jKCTmGXYd
-	 KkHyQ7e2/oV4o13TsLrV1osLu19uScTFWpmlxi7c75lyOApXxDT4w5fG1+jGQb29JbMno
-	 RK2Bf408J59bdwDofrsF6Y5LNizK8FUPqeCAmGB1O7FimnyaSBKoX83MWdyBOQs+Az154
-	 it6s5CqD7Z28iKd2zdjYLjsSIRqVjdkd6UraHjZTC2960OIBHNfTr4Aeq0ZKBw1w2Bg==
+	t=1792926923;
+	b=Dhop/r2jSQ5NzCRVpYHqN+B8xUuwuxJusTT8pSxX3oKIhfGumbfQMUZwZiImNDRxhyIP
+	 LfaiGv7zR/u7t6YsVKL3WvONrWdErSoxcPzXvVKWNOKXgqLcYCwXwKkFabDh5NCjmOmqg
+	 brNb0dRaxi6MUxwrAFToi3NEZvDVxatBYtRj1OncGMyEchznCKK+4CXt6MZPxiPlf6vm9
+	 MtmyUgNNQy6IyrR0VJ4DrJAMsD/zsUw6ZrnflqOPBdKWQpaIwA3+oB8h2aZR7d9sQQePw
+	 xoJwuyA/4F7b91bufO5w7OTLObrZDQXf1rqnlx52PVdDtVpu3dMfTkOymM4zrgbmZZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792926773;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=c6HZ5AuQuDdSM6WePTl5pWE3nzEiRcbOpys/vPqDFO0=;
-	b=aQg7bqfmHFIWm6lybwIg8BWtd2maRvtc0Ns1VgKGoky+xykNnp/0kgCcuvGV9BlrolsG
-	 bEQCZN870Rx7mCAqq4xylnXkM6/iq72K27L0S9u5jIolBwI5LQm1YIX3Mqgnjp7Zm0kCA
-	 qfrykz2qf2cXM3v/a/iF4qvcE2IzisEL3A+6vy787p+Wh92+Jvbzw+gMuK51OgGL+FV2b
-	 3p6dPSvEJB5Nt8ie8Sj0kvsyZVq3zT2sUCEEeEX/JHROIbVhSeGcYDvpLJt04+q2h9jl9
-	 VsMzkgXr9vxXjv4nZPh+E31CEatZvZzq51+1d3uFBkFzz49UGc8CTmZqwvxTv85N1UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792926923;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aCQ908e5fq0myCcCYkICDgW98S7SYRw6oV+dSPgnStk=;
+	b=feG0EkjN2y+USKz4xxNdkSY6wcdnhF/yToU6EvGWfAAoublazQCPs5hJpcaw4HQ2jv7D
+	 JTQ3wdUlTtonOUcPnvydaN0+IYPTpIUDKki9ltTJBbmWVuhjJ2DAETGB00t3agLfQe14/
+	 F2HRrYVkfskZpECNDrWpOXvNn1ZwJtBe1ZrKZWZIyKOEWNyvH9h58bIrlfx+RcnHF0UKt
+	 emzS+aG7vOmuigb6GAXHFARqQKlgsjg6reaZuV317HSvIkS9Gorf+U0GwNFQKtJg+Zt0Z
+	 uuneDTfXXa2KNSXzv9W5R2uf3S0mWxlHhejxfk+yMTQWBULOIBNQiOAMtuE/mSn+lrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="flZb/4PD";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJUVdEtP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F35F606A31E;
-	Sun, 25 Oct 2026 11:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2913606A31B;
+	Sun, 25 Oct 2026 11:15:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flZb/4PD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EDD31F01828;
-	Sun, 25 Oct 2026 11:12:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJUVdEtP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62071F01825;
+	Sun, 25 Oct 2026 11:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792926772;
-	bh=c6HZ5AuQuDdSM6WePTl5pWE3nzEiRcbOpys/vPqDFO0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=flZb/4PDwUdWoRVtglXxFjp4FpIq7BMCV4A17VFisPgcsOriLtlZrdifdXRBhDmas
-	 sXCkY1gldaDptg9rogMbfPgeYXeCzEORMz02sHeEISR0T+rL4EKTPbJdTEsOtCjVrh
-	 HDUeXle1Zj49++gm2owm8X8XgnnBj+dWk3BknuGPc5kpYZ6hM9Bo1Ik25gJVl1bX5w
-	 MhLpBX+WFK6ogOFPX+7d1dfXhV6GEx8Gu0bB+Tqp/dGj//A5nefwgA1VgWUOT9oL26
-	 VXdpG3Zp2Y6Z9Cx3sYblAWOuZy9/AEYLJRGV2BCBRJAt8/1Z5p6unG9Us2fKizo+Ew
-	 KZr78mbB4Ru7g==
-Subject: Re: [PATCH net v3 2/3] sfc: ptp: serialize host and MC
- synchronization transactions
-From: netdev-bot+sashiko@kernel.org
-To: alex.austin@amd.com
-Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, netdev@vger.kernel.org, linux-net-drivers@amd.com,
- linux-kernel@vger.kernel.org, alucerop@amd.com,
- pieter.jansen-van-vuuren@amd.com
-Date: Sun, 25 Oct 2026 11:12:51 +0000
-Message-ID: <179292677109.3134.11754540009075067459@kernel.org>
-In-Reply-To: <20261021091534.3164258-3-alex.austin@amd.com>
-References: <20261021091534.3164258-3-alex.austin@amd.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792926922;
+	bh=aCQ908e5fq0myCcCYkICDgW98S7SYRw6oV+dSPgnStk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CJUVdEtPQTJrfekPCnGwGIIkLLqyp5jfVv3ETzGaiP311gVDOY1ig+8nXrcrrd7MJ
+	 cTss52+x1ABimLco3/dBU8cEWWov3o5kCVL4x9fwv0BDw37nrumGwr2Tx/1wjIdwvZ
+	 ccx5fCNQfA0y8vp6qz+2WrJ4FQMAs00e0284XM4u87w1ev/PKRodAQkgvsBWROXOj2
+	 L+F8GiqWooXNNRZ0eG7G+9TUn+rZHwEQe1DCw5yJ4plWaN4mSANxyoyiBKKbrELcwo
+	 eZbLDzp23/3K3vxDhDmzq4BXonHI1l14RgS0JxGJu674wW2NUj0OyKDm09GNtcf3zY
+	 QNImcY1thwjkg==
+Message-ID: <5e1cc716-22d2-4d1e-b68c-0c1608890043@kernel.org>
+Date: Sun, 25 Oct 2026 11:15:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,185 +51,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 08/14] media: qcom: camss: csid: Add support for CSID
+ 1080
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com>
+ <DiH264mdSk9atz9YjnNUImra2MISyqRZQN8lEO6HpzVBiYU4i_cNONZzyW0DfvCXJ5aGIrBbDYFXRbTBYLyjBg==@protonmail.internalid>
+ <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 25/10/2026 03:17, Hangxiang Ma wrote:
+> +#define		INFO_INPUT_SOF				BIT(12)
+> +#define		INFO_INPUT_EOF				BIT(9)
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+Excellent thank you I forgot to ask for INPUT_EOF too, which we 
+obviously need too.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The Siena driver keeps its own copy of the PTP code in
-  drivers/net/ethernet/sfc/siena/ptp.c (built into sfc-siena by…
-- [Low] The new kernel-doc for @phc_lock in struct efx_ptp_data
-  (drivers/net/ethernet/sfc/ptp.c line 276) says the lock "Serializes…
-
-Pre-existing issues:
-- [Medium] At this commit, efx_ptp_pps_worker()
-  (drivers/net/ethernet/sfc/ptp.c line 1511) copies the shared…
-
---
-
-sfc: ptp: serialize host and MC synchronization transactions
-
-This adds a phc_lock mutex to struct efx_ptp_data. The lock is held for
-the whole efx_ptp_synchronize() transaction and for the PHC adjfine,
-adjtime and settime operations. It also makes efx_ptp_synchronize()
-bail out when efx_mcdi_rpc_start() fails, instead of finishing an RPC
-that was never started.
-
-> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
-> index 2247e5e3e25a8..eedab53e308af 100644
-> --- a/drivers/net/ethernet/sfc/ptp.c
-> +++ b/drivers/net/ethernet/sfc/ptp.c
-
-[ ... ]
-
-> @@ -272,6 +273,8 @@ struct efx_ptp_rxfilter {
->   * frequency adjustment into a fixed point fractional nanosecond format.
->   * @current_adjfreq: Current ppb adjustment.
->   * @phc_clock: Pointer to registered phc device (if primary function)
-> + * @phc_lock: Serializes PHC commands and synchronization, and protects
-> + *	      @current_adjfreq
-
-[Severity: Low]
-This isn't a bug, but does this comment claim more than the code does?
-efx_phc_gettime(), the .gettime64 op, sends MC_CMD_PTP_OP_READ_NIC_TIME
-without taking phc_lock. Only efx_phc_settime() holds the lock when it
-calls efx_phc_gettime():
-
-efx_phc_gettime() {
-    ...
-	rc = efx_mcdi_rpc(efx, MC_CMD_PTP, inbuf, sizeof(inbuf),
-			  outbuf, sizeof(outbuf), NULL);
-    ...
-}
-
-efx_phc_enable() also changes nic_ts_enabled without the lock. Only
-adjfine, adjtime, settime and synchronize are serialized.
-
-Could the comment name the operations the lock actually covers? Or
-should gettime take the lock as well?
-
->   * @phc_clock_info: Registration structure for phc device
->   * @pps_work: pps work task for handling pps events
->   * @pps_workwq: pps work queue
-
-[ ... ]
-
-> @@ -1027,11 +1038,14 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
->  	MCDI_SET_QWORD(synch_buf, PTP_IN_SYNCHRONIZE_START_ADDR,
->  		       ptp->start.dma_addr);
->  
-> +	mutex_lock(&ptp->phc_lock);
-> +
->  	/* Clear flag that signals MC ready */
->  	WRITE_ONCE(*start, 0);
->  	rc = efx_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
->  				MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
-> -	EFX_WARN_ON_ONCE_PARANOID(rc);
-> +	if (rc)
-> +		goto out;
-
-[Severity: Medium]
-Does the Siena driver need the same fix?
-
-drivers/net/ethernet/sfc/siena/ptp.c is a separate copy that is built
-into sfc-siena (siena/Makefile lists ptp.o). Its efx_ptp_synchronize()
-still matches the version this patch replaces:
-
-drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_synchronize() {
-    ...
-	WRITE_ONCE(*start, 0);
-	rc = efx_siena_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
-				      MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
-	EFX_WARN_ON_ONCE_PARANOID(rc);
-    ...
-}
-
-No lock is held there. efx_ptp_pps_worker() and
-efx_siena_ptp_change_mode() can still race. The second one is reached
-from ptp_set_ts_config() in siena.c. Each can clear the other's
-handshake flag and overwrite ptp->timeset[] and ptp->host_time_pps.
-
-efx_siena_mcdi_rpc_start() can return -ENETDOWN early, before
-efx_mcdi_acquire_sync(), when mc_bist_for_other_fn is set or the mode
-is MCDI_MODE_FAIL. The Siena function still calls
-efx_siena_mcdi_rpc_finish() in that case, so it waits on and releases
-an MCDI interface it never acquired.
-
-Siena's efx_phc_settime() still calls efx_phc_gettime() and then
-efx_phc_adjtime() as two separate steps, with no lock held.
-
-current_adjfreq is still written without a lock in efx_phc_adjfine()
-and efx_ptp_start(), and read in efx_phc_adjtime(). Patch 1 of this
-series removes the efx_ptp_start() reset only from sfc. Nothing under
-sfc/siena/ has a phc_lock.
-
-The later "sfc: ptp: avoid racing PPS timestamp updates" patch fixes a
-PPS race that is also still present in Siena:
-
-drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_pps_worker() {
-    ...
-	ptp_evt.pps_times = ptp->host_time_pps;
-    ...
-}
-
-All of this code descends from 7c236c43b838, the commit named in the
-Fixes: tag. Should there be a companion sfc/siena patch, or at least a
-note in the commit message, so that stable backports cover Siena too?
-
->  
->  	/* Wait for start from MCDI (or timeout) */
->  	timeout = jiffies + msecs_to_jiffies(MAX_SYNCHRONISE_WAIT_MS);
-
-[ ... ]
-
-> @@ -1062,11 +1076,13 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
->  			++ptp->no_time_syncs;
->  	}
->  
-> +out:
->  	/* Increment the bad syncs counter if the synchronize fails, whatever
->  	 * the reason.
->  	 */
->  	if (rc != 0)
->  		++ptp->bad_syncs;
-> +	mutex_unlock(&ptp->phc_lock);
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but
-ptp->host_time_pps is still read after phc_lock has been dropped.
-efx_ptp_pps_worker() copies it after efx_ptp_synchronize() returns:
-
-efx_ptp_pps_worker() {
-    ...
-	ptp_evt.pps_times = ptp->host_time_pps;
-    ...
-}
-
-At the same time,
-efx_ptp_change_mode()->efx_ptp_synchronize()->efx_ptp_process_times()
-can be rewriting the field in two steps under the lock:
-
-	ptp->host_time_pps = *last_time;
-	pps_sub_ts(&ptp->host_time_pps, delta);
-
-Can the worker then pass a half-updated PPS timestamp, or the other
-caller's timestamp, to ptp_clock_event()?
-
-The next patch in the series, "sfc: ptp: avoid racing PPS timestamp
-updates", appears to fix this for sfc. It returns the timestamp through
-a caller-owned struct pps_event_time in efx_ptp_pps_worker() and passes
-NULL from efx_ptp_change_mode().
-
->  
->  	return rc;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021091534.3164258-1-alex.austin%40amd.com
+---
+bod
