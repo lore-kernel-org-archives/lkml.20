@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792943268;
-	b=5V8yCvo7cJf3VTccjjOiCaSWoEeoB1yBHYJ8gdTBy+/hQAcMcSrDlPZ3SmnceOAkGpL/
-	 4TDOOWPCJ62Uq0NhHt9Cuss3yTQ5qAGp8mD9lxMxsfzkSPBUdP89JR+sYi8wYoQd9Ihei
-	 PkwjF+oxEjo/PcJ2WlzNq0Bz3DEHEeChYbKqCXxlmY144C8/HgBb1lKck2TtVWVH790P+
-	 rWIxfOAKwM6CJAuLcaZpcVUJoSiTtBmGpddmq4egvg6O4VXRn3QJCkkvm04PPuqzSJ7lm
-	 EWidpuSvQ+GhzPE8MFqf1o6nEJEwI4vw/5VuUzLCAoN0ep2OvqdaHM5azgXvDpbpHqA==
+	t=1792943269;
+	b=RwbMRrPs6WpMsS5IRaBxKrGamcnLauyPb4WWTkg/5jnkNAtfTuDUubZ6Chlmx4FVnoPL
+	 rhbdV6+JROXWq6OQkpYSeJoQ+eqpoNGYgnOyhEMQ6vThMu4Ln7IStIiC/4Qw+BjQ+lJEb
+	 bbHjg4l5b9fC704ZwaXf9GghInhFxbSyZZT4ons9F6De5QTER4eNWiR2QBzYl/W5VQ+gn
+	 PVXnguqjV5jhvZyGeYOg4fZqw6Q/NVyvmG0/XEOzat/07f00uKfXwfU9aUNGse0Wuui+C
+	 ML/XyCKvzETCapIfUx9/tmFnT2WdRJ398FRDk3O55HbA/tp+t16cFky6nLLBPZIz8CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792943268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792943269;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
-	b=ri8eAul12m9VyO06bh/Rcy0+HE1eyl9VE9QA4Vq9J4yweMX6zZZOpFBRqT8560FQjh+U
-	 mQjhZ/ko3NTqk0IFvAchajgi0Z08sNVkPZd0sJM8aZDzSF+z6hLn9UecyNJTFI52AMykI
-	 0QDjmH+6CIZ3ZpPWlNXe83Zx+oyV1e/iesEMrw5JUz1R4jCOVEFJ3ac4Hhd+ON0odu61E
-	 ms0TNi9YuvPMa47ix9JYVGwkMUjralk64+jtF3dld9C6xZvSjOuq/XgsgMRiM23oPLxH5
-	 z0GadsLZEaQyTHvNTpp8SLLh6fUqe0opZtge6sa3Q8VRPoIh+oaSkt1hAhmO3wAYHFQ==
+	bh=1PFzcjS9a5ugm6SjW0wqUNsqPHzgzm9GT41d0aNyDjs=;
+	b=rMkWGKjl19Oz1BDgEYyDy9MugGyDrGSznJKkyun0JIqTaEOAQS1oWoYzpgaNOyGhq3sg
+	 WSX195CqZKu7MGveg4pmFkdMrcW0Ntia9QEFNOGx1yXuCWWDJFd+621JxgIasZw+AYToh
+	 F+FarrhnRYBjWAaGNhMIIvZUhXn8o++2LHH3Fpdd/XXh2KkNSU4+VNp6OHlF7rAwUqQqO
+	 cW0dwqG/ARUlT+PxVmZUViaApY1zRPj2ji0+h40HSBphWL7YlZRheghyjAfE65OnvH/cl
+	 eOclIue1HV3clvkdiiRqzuPdWxvg2NQRvT04HAvcMgKqWVUD0f3xB4tM1Xpmc6BRu4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUbFg6pC;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Whk9x7ig;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A16606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:47:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A16606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A02606A32D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 15:47:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A02606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUbFg6pC
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so7106755e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:47:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Whk9x7ig
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso18118585e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 08:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792943266; x=1793548066; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792943268; x=1793548068; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
-        b=pUbFg6pCeaGLafevfQtN6qmdyX9arxUMhbN7MrMT+KmOUc0yqNaZaZqrTvdbhxltW1
-         YiIWCnqICn/yESHm+yxv6zRXYRRJ4ZJ55Hl17ROCI4sGpbCvcUG8KkM/53j8EIQiNy34
-         iekkYyULvPJDYy7oX7w88rqciU8vhqkEZksTHuRUM1G2s4PNFjBKC3fN0qJ2e71eUWB8
-         MFzR9wDubGV6WMtFFmSTCw8PnUnrDrath782dSwDI97f6cSFXRCXmvG2rAZMf80UpcZQ
-         J+gEUQRgK68tJh6y/Is3DJBb7UK3e46KIhBqLj9ftdFQI+J/UqDVhpRIpiPcmzNLzEpP
-         F58g==
+        bh=1PFzcjS9a5ugm6SjW0wqUNsqPHzgzm9GT41d0aNyDjs=;
+        b=Whk9x7igyBJniH9ha6sp9vgTL8bJdcVKHEdSLYlnC5UbrY8iKdodDYcrAKR8hvI4Pe
+         haGFB1VJAFbjKE/5uyJ0OPBPZPxHSx5tTkZpueBWt16lp2jPmOSgcRdvaXAYAud20mMO
+         FPBOqRRJd67zfG9mnVOrTqhQe+upOMsfVh1EPc7IhwM9t4BGNhp25MANVzX6yeabutwQ
+         7ThmRZPrdJYf0Wg22rkHxdfAa/d/xJwp/ftc78+3nODX7+O0/AdpxDxVEoIPz0eWQt2u
+         i/xDp77ARpPzVAmvZpCtFChEo6+/qUlzExqKQ3ebiq1h5ITZ67n4G2rTbWI2owwU0Xmk
+         EgCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792943266; x=1793548066;
+        d=1e100.net; s=20260707; t=1792943268; x=1793548068;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
-        b=D2P0NVIBlQksGSecq1e8pQmocGwHOVt/IPfx7DUXdVD7UWxfy6eruwUwNrTaKSVIaJ
-         ylTYcnJa3oMucGspwajTlwfoUtj0eUqM8QXYqP2lmuGkeR1SUmRMzStIB1zITOWkKWmB
-         T8Kk9GQL0Zvsp+ICuUpZ+7Yu3sLe1swdJ+7AwsnlTXxoDh2tF55H28GCklWcmPbvnioE
-         4QUxQE0PqLXw41n+cL4NStLs5bJ98QmS6l0Hi9zIGPUA2eJuWFJxTa4LQiCb5wzZzoZF
-         DjtsWdMfAEeLi+K5/vxT/nGZiOtH9CpBz0XuA92KURl8CO9o+Ym6aQllQzG4JTYd1zTH
-         jEiQ==
-X-Forwarded-Encrypted: i=1; AKwUvByu6FZhxkGlqKEB2ennbqASG/JF4osEdgyaAOSVoGkH0e0aG8AtuCZGLnYcFqgcaXyAoHVBMdk0XN6ete4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKi5x1glt3jUnyZoHXkVnCjeRTJfwQdL4DJmMZlFU9PYvNH2scI
-	ytWmEUk4jCQxBALsZDCjqLS0UvJQgOr4NQuoyh474nRFGD7jOuTvBYkX
-X-Gm-Gg: AYBFou2cMtjV2nNt8smQCsdGlNse3JV7tpxmpIBZ6zEI1mEKn825+2NGRVvuYf8q5eT
-	2HTFp0GS/hiK2kQy0nnbguYpkYXVtS1JGhkj0WYm/I+UCG+0flQa4G3nOdxYysZYpyLgFK9ahST
-	VC0Wjr6gwY3hRxIP+O0/Ne/a268IdYrnQfewkJqzu1t8+s9d5hQYDR9UsvXhBgSbgWgAsq+25pm
-	0gFjgLoToa4j2D4kK/I6n/OI0FBAzUvvjhFX7ijMCCaGxgu7XSWDFfsjOaAqXkZYIgmhhNhpluV
-	xE4f4sMmjtEdAaLv2/c0zEouFjLIn+Zk1FhW2BgxM760OYt6bqgJMQCjSfrIhn2XB3VgclSU/P9
-	VnW4Rz/3k88ckhaW0bKd8qiN33uSDtTzqCDOF5d51WMWH7V7eY84oPsG0Q6UHkYzelIOWqZ/Lhy
-	O5q2Hx2c2oZkYe8vjr1ZLJny+VX9VKSIlt7og7wdu/zKoCN60YBfXtO74k8hhq0f4a0ICR/1Ezg
-	rYe3K5THEdaGaDT7ECZIiNelBfKrS1+xr76MH6Qej/kiloli2wH9A4V1DINatkxhqoedHd6MyIy
-	okbtpXSH/raY9w==
-X-Received: by 2002:a05:600c:8183:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a35ac99b77mr69181225e9.9.1792943265629;
-        Sun, 25 Oct 2026 08:47:45 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a0e2sm161730455e9.13.2026.10.25.08.47.44
+        bh=1PFzcjS9a5ugm6SjW0wqUNsqPHzgzm9GT41d0aNyDjs=;
+        b=E+Eem1jOSsib09WAOinpySQuCJicJMYT6byIGxB6LM6hZNuMbgUwRejx9oi2j6zhwB
+         axnminuACFWGbsMC4QMcYvLFIadWw/kcQaf30ncBkykion8QCDOFFf9vpRnQD7Chp815
+         u/DVvgrB4CgX0FiuAA+s+ylhYs6oqcNEklaNsXBhesJxIfSJdSXwcK50Yd5W2uJntxC1
+         HPUDumMlm5zGmwPPcaypK7MuwsSFjcqq7aD6yD53YAxSA+gFpjUuGzTLiVAW0bwxW3Yz
+         EmdLQ0j5N0MpTqGBfXXkbNXTm5HSTAZc1GOMBDC3cs1kTZnVAhefZ6Ao2qNwViht1d4n
+         2YqA==
+X-Forwarded-Encrypted: i=1; AKwUvBztKhv1ZYEdVzc0J12g1U2uaPFVK0j204XBbglyCM6VQvPZBLVDYn7z2yK8s9aaLh33IiCQM5k6rzPxgpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+N0nfmqzY98Rj/hGJkKV7nKV/3b8WbhmxNFcxYTDydp0leRFA
+	yBawutEM58gmwJimsPmJ3u5Hsin8hUbw/sN5IbGuQKQOauZteepzbfI=
+X-Gm-Gg: AYBFou21DhJv4BbvBR4T1xtzG5CgWbo+kin8Sq7+ySCAqtyMKcRSgfBWMLOOj6ayHXY
+	9aJUJYi1T3tJNdj9R1+piQ7P4jAdFt08gnWXBNtFONBBUwuT/syZ1PxIfwH86PMNgJxAiHviska
+	Lb6jvRcfR7/CI10ycqCEB60dy6f/dG9VUPWzudsU3Iwp6pAIIXqYADE4QTxUiR1go8eLp5J/WwR
+	56ux0q7SJnH9eyIq5tY2AHIlE2u+WHzOOhk+olcvSlVFJEPsHEO1haP/6eBgLSHq+4NA7RIjCdk
+	J5dme07+BHC5uNG5eA12YvVMdGpdw9XfJ4FCQo3xJjBFgSD4KsNC1GBgjA19pPAAABLLHeMF06M
+	I+bvFyEqyK61pR+yCHQDJsEHr/lCtq560E+eWpl5aQO/SWv+F0MN99Ya4RT/b3qAQNoRZf7+i1d
+	QOoQWbR6vrICSva3OUGsotXiST3HUbRRx8cAM9Pqnoz0pe6p28tt+9dGOb6Wfy5eK8cwcgTducj
+	XW3/X+BMmNHdhMMlLhrdByr
+X-Received: by 2002:a05:600c:1c03:b0:4a6:42cc:bf65 with SMTP id 5b1f17b1804b1-4a642ccc7b2mr7207065e9.17.1792943267753;
+        Sun, 25 Oct 2026 08:47:47 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fc1207sm102382235e9.1.2026.10.25.08.47.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 08:47:45 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>,
-	"D. Manresa" <dmanresa@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
-Date: Sun, 25 Oct 2026 15:47:41 +0000
-Message-ID: <20261025154743.39801-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019162722.25587-5-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-5-lsa.uz@pm.me>
+        Sun, 25 Oct 2026 08:47:46 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: even.xu@intel.com,
+	xinpeng.sun@intel.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: srinivas.pandruvada@linux.intel.com,
+	mpearson-lenovo@squebb.ca,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] HID: intel-thc-hid: validate ACPI buffer length before memcpy
+Date: Sun, 25 Oct 2026 15:47:45 +0000
+Message-ID: <20261025154745.2734805-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261024205850.4051206-1-tristmd@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,63 +105,292 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sergey,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On Mon, Oct 19, 2026 at 04:28:11PM +0000, Sergey Lebedev wrote:
-> +/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-> +static const u32 surface_pro_11_ir_gpios[] = { 1 };
-> +
-> +static const struct ipu_sensor_leds surface_pro_11_ir_leds = {
-> +	.hid = "SMO55F0",
-> +	.property = "st,leds",
+The QuickI2C and QuickSPI ACPI helper functions copy firmware-returned
+buffers into caller-provided structures without verifying the buffer
+length. Malformed or short ACPI tables could cause an out-of-bounds
+read from the firmware buffer, and oversized responses could overflow
+the destination struct.
 
-[...]
+Additionally, quicki2c_acpi_get_dsd_property() does not validate the
+returned ACPI object type before accessing buffer fields, and does not
+free the allocated ACPI buffer on the success path, leaking memory on
+every call.
 
-> +	leds = ipu_bridge_get_leds(cfg);
-> +	if (leds)
-> +		sensor->dev_properties[d++] =
-> +			PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
-> +						     leds->nr_gpios);
+Add a buf_size parameter to the ACPI helper functions and reject
+responses larger than the destination buffer. Accept shorter responses
+to handle firmware that returns buffers without struct tail padding
+(e.g. ISUB tables returning 177 or 145 bytes for a 184-byte struct).
+Zero-initialize caller stack structures so fields beyond the firmware
+response length are deterministic. Add the missing type check and
+kfree to the DSD helper.
 
-The property entry keeps pointers to both its name and its values, and
-here both point into the module image: the "st,leds" literal and the
-static const surface_pro_11_ir_gpios[]. The bridge never unregisters its
-software nodes, on purpose, so that a rebind can reuse them. After rmmod
-ipu-bridge both pointers dangle, and a sensor driver probing again reads
-freed memory for the property's name and value.
+Fixes: 5282e45ccbfa ("HID: intel-thc-hid: intel-quicki2c: Add THC QuickI2C ACPI interfaces")
+Fixes: 7cb06f08ef13 ("HID: intel-thc-hid: intel-quickspi: Add THC QuickSPI ACPI interfaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+- Use overflow-only check (>) instead of exact-match (!=) so firmware
+  returning shorter buffers (e.g. 177 or 145 bytes for 184-byte ISUB
+  struct, or 1 byte for 4-byte SPI opcode) is accepted
+- Zero-initialize caller stack structures for deterministic behavior
+  with short firmware responses
+- Add missing type validation and kfree in DSD helper
+- Add braces per coding style
 
-It is the same thing that a20c843c9bc4 ("media: ipu-bridge: Keep the
-clock-noncontinuous property name out of rodata") fixed for
-clock-noncontinuous, and that D. Manresa's v4 fixes for the
-link-frequencies values and the lens-focus name:
+ .../intel-quicki2c/pci-quicki2c.c             | 40 ++++++++++++++-----
+ .../intel-quickspi/pci-quickspi.c             | 36 ++++++++++-------
+ 2 files changed, 51 insertions(+), 25 deletions(-)
 
-https://lore.kernel.org/linux-media/20261010155626.2766298-1-dmanresa@gmail.com/
+diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+index 7a913f717efaad..dd21864d16b05b 100644
+--- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
++++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+@@ -62,7 +62,8 @@ static const struct acpi_gpio_mapping quicki2c_gpios[] = {
+  * Return: 0 if success or ENODEV on failure.
+  */
+ static int quicki2c_acpi_get_dsm_property(struct acpi_device *adev, const guid_t *guid,
+-					  u64 rev, u64 func, acpi_object_type type, void *prop_buf)
++					  u64 rev, u64 func, acpi_object_type type,
++					  void *prop_buf, size_t buf_size)
+ {
+ 	acpi_handle handle = acpi_device_handle(adev);
+ 	union acpi_object *obj;
+@@ -75,10 +76,15 @@ static int quicki2c_acpi_get_dsm_property(struct acpi_device *adev, const guid_t
+ 		return -ENODEV;
+ 	}
+ 
+-	if (type == ACPI_TYPE_INTEGER)
++	if (type == ACPI_TYPE_INTEGER) {
+ 		*(u32 *)prop_buf = (u32)obj->integer.value;
+-	else if (type == ACPI_TYPE_BUFFER)
++	} else if (type == ACPI_TYPE_BUFFER) {
++		if (buf_size > 0 && obj->buffer.length > buf_size) {
++			ACPI_FREE(obj);
++			return -ENOSPC;
++		}
+ 		memcpy(prop_buf, obj->buffer.pointer, obj->buffer.length);
++	}
+ 
+ 	ACPI_FREE(obj);
+ 
+@@ -97,7 +103,8 @@ static int quicki2c_acpi_get_dsm_property(struct acpi_device *adev, const guid_t
+  * Return: 0 if success or ENODEV on failed.
+  */
+ static int quicki2c_acpi_get_dsd_property(struct acpi_device *adev, acpi_string dsd_method_name,
+-					  acpi_object_type type, void *prop_buf)
++					  acpi_object_type type, void *prop_buf,
++					  size_t buf_size)
+ {
+ 	acpi_handle handle = acpi_device_handle(adev);
+ 	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
+@@ -113,7 +120,16 @@ static int quicki2c_acpi_get_dsd_property(struct acpi_device *adev, acpi_string
+ 
+ 	ret_obj = buffer.pointer;
+ 
++	if (ret_obj->type != type) {
++		kfree(buffer.pointer);
++		return -EINVAL;
++	}
++	if (buf_size > 0 && ret_obj->buffer.length > buf_size) {
++		kfree(buffer.pointer);
++		return -ENOSPC;
++	}
+ 	memcpy(prop_buf, ret_obj->buffer.pointer, ret_obj->buffer.length);
++	kfree(buffer.pointer);
+ 
+ 	return 0;
+ }
+@@ -129,8 +145,8 @@ static int quicki2c_acpi_get_dsd_property(struct acpi_device *adev, acpi_string
+ static int quicki2c_get_acpi_resources(struct quicki2c_device *qcdev)
+ {
+ 	struct acpi_device *adev = ACPI_COMPANION(qcdev->dev);
+-	struct quicki2c_subip_acpi_parameter i2c_param;
+-	struct quicki2c_subip_acpi_config i2c_config;
++	struct quicki2c_subip_acpi_parameter i2c_param = {};
++	struct quicki2c_subip_acpi_config i2c_config = {};
+ 	u32 hid_desc_addr;
+ 	int ret = -EINVAL;
+ 
+@@ -145,7 +161,7 @@ static int quicki2c_get_acpi_resources(struct quicki2c_device *qcdev)
+ 					     QUICKI2C_ACPI_REVISION_NUM,
+ 					     QUICKI2C_ACPI_FUNC_NUM_HID_DESC_ADDR,
+ 					     ACPI_TYPE_INTEGER,
+-					     &hid_desc_addr);
++					     &hid_desc_addr, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -155,7 +171,7 @@ static int quicki2c_get_acpi_resources(struct quicki2c_device *qcdev)
+ 					     QUICKI2C_ACPI_REVISION_NUM,
+ 					     QUICKI2C_ACPI_FUNC_NUM_ACTIVE_LTR_VAL,
+ 					     ACPI_TYPE_INTEGER,
+-					     &qcdev->active_ltr_val);
++					     &qcdev->active_ltr_val, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -163,12 +179,13 @@ static int quicki2c_get_acpi_resources(struct quicki2c_device *qcdev)
+ 					     QUICKI2C_ACPI_REVISION_NUM,
+ 					     QUICKI2C_ACPI_FUNC_NUM_LP_LTR_VAL,
+ 					     ACPI_TYPE_INTEGER,
+-					     &qcdev->low_power_ltr_val);
++					     &qcdev->low_power_ltr_val, 0);
+ 	if (ret)
+ 		return ret;
+ 
+ 	ret = quicki2c_acpi_get_dsd_property(adev, QUICKI2C_ACPI_METHOD_NAME_ICRS,
+-					     ACPI_TYPE_BUFFER, &i2c_param);
++					     ACPI_TYPE_BUFFER, &i2c_param,
++					     sizeof(i2c_param));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -180,7 +197,8 @@ static int quicki2c_get_acpi_resources(struct quicki2c_device *qcdev)
+ 	qcdev->i2c_config.target_addr = i2c_param.device_address;
+ 
+ 	ret = quicki2c_acpi_get_dsd_property(adev, QUICKI2C_ACPI_METHOD_NAME_ISUB,
+-					     ACPI_TYPE_BUFFER, &i2c_config);
++					     ACPI_TYPE_BUFFER, &i2c_config,
++					     sizeof(i2c_config));
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index 53023e30cf8d47..e4331ba4e503d9 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -81,7 +81,8 @@ static const struct acpi_gpio_mapping quickspi_gpios[] = {
+  * Return: 0 if successful or ENODEV on failed.
+  */
+ static int thc_acpi_get_property(struct acpi_device *adev, const guid_t *guid,
+-				 u64 rev, u64 func, acpi_object_type type, void *prop_buf)
++				 u64 rev, u64 func, acpi_object_type type,
++				 void *prop_buf, size_t buf_size)
+ {
+ 	acpi_handle handle = acpi_device_handle(adev);
+ 	union acpi_object *obj;
+@@ -94,10 +95,15 @@ static int thc_acpi_get_property(struct acpi_device *adev, const guid_t *guid,
+ 		return -ENODEV;
+ 	}
+ 
+-	if (type == ACPI_TYPE_INTEGER)
++	if (type == ACPI_TYPE_INTEGER) {
+ 		*(u32 *)prop_buf = (u32)obj->integer.value;
+-	else if (type == ACPI_TYPE_BUFFER)
++	} else if (type == ACPI_TYPE_BUFFER) {
++		if (buf_size > 0 && obj->buffer.length > buf_size) {
++			ACPI_FREE(obj);
++			return -ENOSPC;
++		}
+ 		memcpy(prop_buf, obj->buffer.pointer, obj->buffer.length);
++	}
+ 
+ 	ACPI_FREE(obj);
+ 
+@@ -129,7 +135,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_INPUT_REP_HDR_ADDR,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->input_report_hdr_addr);
++				    &qsdev->input_report_hdr_addr, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -137,7 +143,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_INPUT_REP_BDY_ADDR,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->input_report_bdy_addr);
++				    &qsdev->input_report_bdy_addr, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -145,7 +151,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_OUTPUT_REP_ADDR,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->output_report_addr);
++				    &qsdev->output_report_addr, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -153,7 +159,8 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_READ_OPCODE,
+ 				    ACPI_TYPE_BUFFER,
+-				    &qsdev->spi_read_opcode);
++				    &qsdev->spi_read_opcode,
++				    sizeof(qsdev->spi_read_opcode));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -161,7 +168,8 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_WRITE_OPCODE,
+ 				    ACPI_TYPE_BUFFER,
+-				    &qsdev->spi_write_opcode);
++				    &qsdev->spi_write_opcode,
++				    sizeof(qsdev->spi_write_opcode));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -169,7 +177,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_IO_MODE,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->spi_read_io_mode);
++				    &qsdev->spi_read_io_mode, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -184,7 +192,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_CONNECTION_SPEED,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->spi_freq_val);
++				    &qsdev->spi_freq_val, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -192,7 +200,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_LIMIT_PACKET_SIZE,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->limit_packet_size);
++				    &qsdev->limit_packet_size, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -205,7 +213,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_PERFORMANCE_LIMIT,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->performance_limit);
++				    &qsdev->performance_limit, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -215,7 +223,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_ACTIVE_LTR,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->active_ltr_val);
++				    &qsdev->active_ltr_val, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -223,7 +231,7 @@ static int quickspi_get_acpi_resources(struct quickspi_device *qsdev)
+ 				    ACPI_QUICKSPI_REVISION_NUM,
+ 				    ACPI_QUICKSPI_FUNC_NUM_LP_LTR,
+ 				    ACPI_TYPE_INTEGER,
+-				    &qsdev->low_power_ltr_val);
++				    &qsdev->low_power_ltr_val, 0);
+ 	if (ret)
+ 		return ret;
+ 
+-- 
+2.47.3
 
-Following his v4, the name would go in struct ipu_property_names and the
-GPIO numbers would be copied into struct ipu_sensor, so that nothing the
-node points at lives in the module.
-
-On the same hunk:
-
->  		sensor->vcm_ref[0] =
->  			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
-> -		sensor->dev_properties[3] =
-> +		sensor->dev_properties[d++] =
->  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
-
-Manresa's v4 1/2 changes this same line to use names->lens_focus, so
-whichever of the two lands second will need a rebase.
-
-The Surface Pro 9 needs an entry too. Its VD55G0 drives the illuminator
-from GPIO 1, as on your machine. Its DMI strings are:
-
-  sys_vendor    "Microsoft Corporation"
-  product_name  "Surface Pro 9"
-
-I tested it with your driver by having it fall back to GPIO 1 when no
-st,leds was found. In a dim room, 640x480 Y8 at exposure 600 and
-analogue gain 8, the frame mean goes from 22.0 with led_mode off to 64.7
-with it set to flash. There is more on how the series runs on the
-Surface Pro 9 in my reply to the cover letter.
-
-Fernando
