@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792936709;
-	b=D4wV1Oyqo8IcfVilQYJHSu/W6o1G79sl65/P6/1qTAz3pweZ6Rr9BvgkrbuaUpCcT34p
-	 0gYukQ7DzRRSeqhgLj91oGL4O8V1wwci98b3vgkioZv2rG7EmpnXt/dh12LxJzSNzrwKV
-	 L6wvQ0Q+1HM4Ing6pmWprd3swizKs+u5FoqbFwv+vwEtkBq375p+wYDFgXTRbms/9K217
-	 iuLvqE/EsSM2aDybI/JP6EpMmr404MDkBM/w63j1a71WcBTYu1+x72/U/cbZLvIJxCRwv
-	 Is9QIcg7IlJZM7Z/cr8QCNtTPnwE+sIKGHPlUPPuVktT9ZSrweL+SsQsCFrjnFFshOg==
+	t=1792936732;
+	b=t4Og++LCNVCV8JklGLN8h/p8erVgwTNqKsZhTh84MpM2X9BIBCrI3wy/vIv0iJLnli4M
+	 TgonD0Bg4wgqA2y6UeKm8Z/W2sK0rEL+A3OA5PE7hQLDtzq+Ms3QgfDDSsflApDycZfHH
+	 McycJ/yrMkSV7soQQPAKb8MycWKegP9TYOfmCEbGAQ3eGw8/080jbDdjM9yldjQMMuEOf
+	 47nCWx8xpa60MAx0JY9izDoLmYRWkjyx0bKAwoRFcdR/xU9mfOmsxaYMcg75nxS/EazMS
+	 1wDjrotyvt96RKXRYd7eDUNLpmgdoRygkz0SMxQ3+QCm8pu4JViiH+gz2m49G+Pz4gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792936709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792936732;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
-	b=qzorJ8oFCYhC4+pz71KoRsLhmsDKIGc1OoqODcu3UUmp5HWIgNIy5aBfjI8yCzLU7Xj8
-	 8ZETlJ2IjtIaQ1fHWcjE1jPmhqNPDHxe4S78xY0AXrcMpGvv0zeEcEsMNfTDoHgcD8PA1
-	 HMuRjI0cChiSTJSEtTEsQodR0UvgE1xOj5spgEeudwVlL3cqrFUuWL79xQJx/R1ZrWKuf
-	 k1Onrf/Am0mUuPiOry6b3U9xygUHhWBrfejC6cA1VN1Ju0v3y6FNexEkuaVGqDFwAryE5
-	 +ZU4daukd7TmT8kaM9O5C+1wDZu/XJ5S9er8erR3I6uc+/Vb8opqBVNbpZMOR45tWRg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=so8lfUIk2kpbn92EQdY+sr4PHE6OnQZjUslmbfm4DwQ=;
+	b=zkiBwE1VD8eiKEO1+CKFRIZ6WXGpvyPgf4dhGa3onSD17oHJF1PnavpJSLrZQkXpyfqC
+	 +I0g5h6PkewfD5TjSTolXRnXsIvMVAP4U4+kbewCPzFlyCSbiDqquExkyaHt54ZIZClUO
+	 6an8IpfjZrVO37L2jT3s6OE/yb/VRdnk6J9hIC60FYfHZsJOPcU18jDeDb78L+hfH5U3i
+	 4x/1FXpGD4PFGtg1iOUR/CBNvKIpTQI42X2eBvVC0mMUVYXtuL3hfoB+kIalDz9GIAlMz
+	 5MbcHMP2PWKjNWJBCbod1klRaw2DJK23UpE5j9Urfc2Z+f2ucMM51IDJC829bh1UbZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5TfxP3r;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="roEio4p/";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D8C606A324
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0D8C606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E4E606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 13:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E4E606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5TfxP3r
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1253027f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:58:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=roEio4p/
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4956869750eso14374455e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:58:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792936707; x=1793541507; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
-        b=n5TfxP3reBlEm7ySHf8YpItTveboXcCRmuCtGf8xmaew8QkuZ2UFtwM6fcYztOPx2H
-         3NVw6eesIW57y3bKjvWP67ksHUSh3BckdE72GTKJ54r8DpIE+YycTcbO+D/mYKp6Pc+7
-         cNeVJvo4kBKTsOniQRbELTEV7j+OwWao0wVv9FuWwnUIgm+/BJp7vnTNaikmc/wRJfsV
-         mzDMErTSyGMJEdXZeOHi8RYihmE8RxdIUGU7OMg5rcZhkVAnpIsa1liJsHXcG9YJPo2M
-         i/q35LdXCUoKjCRSzsdHtimMxKL3yyEqzRt27jqxCT83j5777OuFb2GnLLeDMQj65b1N
-         9tMg==
+        d=gmail.com; s=20251104; t=1792936730; x=1793541530; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=so8lfUIk2kpbn92EQdY+sr4PHE6OnQZjUslmbfm4DwQ=;
+        b=roEio4p/SNDt1lLBBpyDRgA+J7X49aiBxo0+pbSw7SD3P7aDyAJjyw9GQ7VCwqZ8hm
+         Bo9H0wgpNLrpfWBiYcNqRGKCVBaILlPji8KqTZHY943o52QEEomGAyNNuM/8i2gZs8xg
+         Pd0I7l+B7ZBxgxyhNBrUqcI17JBeHr+nl/d2pRPIIsudVuJ3p55qCIjw6G07CPmDSU1X
+         lMRum9TYcZA4bBO4ulSXWbkneSrKu33N9VJwSxBW3pQuiHODrfMvDoEohcEKnyXfzbLq
+         3C8iNZQHi8EXAc3CYSlYqqZAjDfZ6s1C7Y2Wt5JConmNy/qvMXicIe+6tJuYhcTD3LAp
+         C+7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792936707; x=1793541507;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qZDW2dez0cOfo2mICduaoV5mJqQ/i8sEV5FUxUvLkpU=;
-        b=TTB9256qRHt0qIjFvEIzwpuBOEANYQ8Mh31+11AaId+y9p5Cbsz5Sl5B2IbuZe5Q19
-         EfBVpO3tpZnjre9XSHhQzvgcc/99gDo+uCqbnkBc/e4oATPIgf9Q503oLM5ZChBlpMhd
-         cu9gwWp3C/sfPsLGZW1zG2sjrq4pPoaAcXQw/swD0bRIetKXmGRmp5T9nGi0B7SMgb5E
-         rCkMogpyp60sFSXJCmiS2WUtKMzltZ82HXqNA5oWwJ/0YTXSeiH1wKJgh8qJtshbUZ+t
-         P+yBb0cCBYXRCXIxNs1NM/BBBXaoD3OeRzDSfYpKQ9JumtGhxQbU/ezCn9qw+bs07xqn
-         YBkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvuTJNxJfBPKSE3Kf9Tsf/KQUunok07MxiX5Z7CXohnK9DUsEymGfBJfR8hTCOoZcfmoW1AKk6FP52TEU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/NrHdTN6l5zH/sQHgMNJEhB4AWzXfM6okKqnLq6HS86f3gWj4
-	RhGCfFta1hLqpqL1qwqP2F4jxgCKZCeQs7GO0770ZF7ZHlq5kGr8sSfj
-X-Gm-Gg: AYBFou25Zucy/7XnTrj647P/qatTo4WLhm2PP1rc1qskc5lZ0gW3vNgEj3pihZaRSDY
-	YNGBPVRO+57DhdKBNrxQr/rSzwPkdWAccZ/EFj2qbjaV/xmdTvtDAupjfPAAzD5L7SWW7Id8wAu
-	p1UVh+jO92kFpPzk3UITNwkmJfNjSFuSDG5aeXDjpfgaRNg1mnfyBoCXUd1WekF0SOwZL5V6ZHO
-	yyOiZXrkrY3HahNnZMA7t5/oGPWpc08k0rG7i2tP0/+LsiIOK3TaUUZ6EGJUwATDFvzJeNzLpUa
-	stjHrb8z6jYvvl+4gFo3o8EXz+Z5PjsSJZLRaEmbfHBvh+9L6lxk0bEErG1+x+iXzwmOvqFdRkG
-	OaKXmWxCXjHtj5Tp+JeSU1s1w3IwdDFEH9hYpNSXXfAgLZmi6A7r1Ntf/N6OSAkm+hxqu5RmWug
-	LBtUwFB3BI9YONVIGK0fPh2rcfYFYWSltQyL6M16bo5pK2H1wcWaLDwlXFBiHAet6VffePcWAiZ
-	blC4BTBnHPdjdZ+bod8PmzkrIUTP4ezB26lPod3LVems7+q+/TGIL7t+guWRqrJhFHHHp1oXcHD
-	JEjo0aHc/Jf2Yg==
-X-Received: by 2002:a05:6000:2501:b0:48d:f14a:9173 with SMTP id ffacd0b85a97d-48e3eb247a8mr7109194f8f.8.1792936707263;
-        Sun, 25 Oct 2026 06:58:27 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e4806e208sm5663415f8f.40.2026.10.25.06.58.25
+        d=1e100.net; s=20260707; t=1792936730; x=1793541530;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=so8lfUIk2kpbn92EQdY+sr4PHE6OnQZjUslmbfm4DwQ=;
+        b=QVOwAUYt+jZw6hPaefZUc1nePDKgYSjKb42PxOpL7T2RSRAs9U7fm+NXSPFt69eWVA
+         CZf1eZ6bLysZssCwVxu2WSCORYTjYuU/18/1PzTeDGplsDOCQ9pQH+vGI6tdxDoFsnkY
+         3UwmbfaJ1KJRqauPVKxHNG1eR5bPZTleOwipmEcVZ7gcgDEfxruZC/6cBoPxnyxLcodZ
+         IyV9WeN8Bpd1w6utL0EFfrO2TDqzTuGLACfsgYrR6kPLg8zpQMW/IW81k3jloINuQ9Nh
+         EHUgZWWIu0onKevyn1SSdOkjKglCxxOgxCOupuoYslAMuehu8xW8/ErzWTwJXTL9Wt8P
+         7FXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxMaLkwdJc24Dc66RhYVt+Q82YmT1X8A3GmGzLLY/lDAx9tnx/9hUsxiaRvFLPu5FS+nCooUuHwX3AjmA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzBBKKYFbfJjIKzFbeD+uBG8sWX2ODVMkY8Ve0ZykWgQiGS44K
+	wx70RSYPMjdxJDGE8fqeTMJNsDmRwjEYR8QMV2rLUtaIsojEHJ0RAs2I
+X-Gm-Gg: AYBFou2WMkF1Aiig5TqqSLGHCGaEEX42MDVVpQd4l+GTiG4IuSOb+BTh9E9rjorgHOn
+	UBfbqXHVTj6khZNltjycBf8BqoFLOZmTyPUk270fCyJd8KoyNBcs19F5Vr51oRpyl6utHUeYMAQ
+	qMOgPRE3F4jFABEXVvkpDU2osbVDPmPisaOzlG5YcOVJOatEAfOAayFZeXb8Wi1RTfk1V8krKtw
+	eVKCWhptTmrhKEBa7h9hhUOnl6W4MQZuS10z3HPRmfPxbOnLkga1gZIMw1cJ9dHI9e4FmATOxxj
+	mu7c/fAt95dUCfQU4IM2Zvwf4uzfnrhnPClRRVoJtwLMQox8k1+WldEHuT8Oo2xbICPqigxUn2h
+	7BlPtPdHU2a/9Q/B5Jld6MpoFB/nUk/F9izO2P1V4O1w8Oo1UblbHkFSiq0AxMNhIuLF7j5yErV
+	D9nWe5+Os0WqZ1UG5ypJXVC4BG8buG94+k3mCLDu6T3NEARLA1g2/nAuykD0Sn+mINOJAgt1xPn
+	UxC/YqOHWiNEZ2XYOffEKmivysJ8XQsp2vtKt9ujbBnxAEXq+kHgeW1YKCQiTZRzldDvaLF7Q==
+X-Received: by 2002:a05:600c:1391:b0:4a1:fc0a:8b75 with SMTP id 5b1f17b1804b1-4a35ac9f430mr75846955e9.24.1792936729550;
+        Sun, 25 Oct 2026 06:58:49 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a09434esm123575575e9.0.2026.10.25.06.58.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 06:58:26 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: drop the PA GPIO interrupt
-Date: Sun, 25 Oct 2026 13:57:45 +0000
-Message-ID: <20261025135745.102970-4-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025135745.102970-1-pmazzini@gmail.com>
-References: <20261025135745.102970-1-pmazzini@gmail.com>
+        Sun, 25 Oct 2026 06:58:48 -0700 (PDT)
+Date: Sun, 25 Oct 2026 16:58:44 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Haasham Khan <haasham93@gmail.com>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com,
+	gregkh@linuxfoundation.org, linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: remove unnecessary goto
+Message-ID: <at4LFOUt-XGzBAgS@stanley.mountain>
+References: <20261025130258.10747-1-haasham93@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,33 +96,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025130258.10747-1-haasham93@gmail.com>
 
-The PA IRQ bank is not implemented, and the driver now numbers the IRQ
-banks from PB. Drop its interrupt.
+On Sun, Oct 25, 2026 at 01:02:58PM +0000, Haasham Khan wrote:
+> The error path in hw_sm750_crtc_set_mode() jumps to a label that
+> immediately returns ret. Return directly and remove the unnecessary
+> label.
+> 
+> Signed-off-by: Haasham Khan <haasham93@gmail.com>
+> ---
+>  drivers/staging/sm750fb/sm750_hw.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/sm750fb/sm750_hw.c b/drivers/staging/sm750fb/sm750_hw.c
+> index c4358d3e5091..22f93277e91b 100644
+> --- a/drivers/staging/sm750fb/sm750_hw.c
+> +++ b/drivers/staging/sm750fb/sm750_hw.c
+> @@ -272,7 +272,7 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
+>  	ret = ddk750_set_mode_timing(&modparm, clock);
+>  	if (ret) {
+>  		dev_err(&sm750_dev->pdev->dev, "Set mode timing failed\n");
+> -		goto exit;
+> +		return ret;
+>  	}
+>  
+>  	if (crtc->channel != sm750_secondary) {
+> @@ -332,7 +332,6 @@ int hw_sm750_crtc_set_mode(struct lynxfb_crtc *crtc,
+>  		poke32(CRT_DISPLAY_CTRL, reg);
+>  	}
+>  
+> -exit:
+>  	return ret;
 
-This reverts commit 6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add
-missing GPIO interrupt").
+Change this to "return 0;"
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 85ef492ffeae..fc4d714a96ea 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -129,8 +129,7 @@ gpu: gpu@1800000 {
- 		pio: pinctrl@2000000 {
- 			compatible = "allwinner,sun55i-a523-pinctrl";
- 			reg = <0x2000000 0x800>;
--			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-+			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
--- 
-2.52.0
+regards,
+dan carpenter
 
