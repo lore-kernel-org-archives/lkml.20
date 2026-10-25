@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792920267;
-	b=2P9NtPfVNXilrJVgvFpkNg1SYeLoINc55ijOWb9dULe7GE33VcwXxytucQ9ddN+F/AwD
-	 xbLhCYYwvUq0gUkbRjBJYU0Lbdt4Rgra8LqIQpUK2+vLdn7gnohIuljdFxAmgDGMrFARu
-	 vI6pPpQov2jwxu7Y5aX8BHOY1IqDEHEZhSQJAAHcZmK+GW6oBvdW8WtZA6AtN5UzvhKCk
-	 d0uZ1YfmUEquvaQ2VCbylhvfTPNbJ2c0uV4lTVRFiCD+8tzM+mmQ1/U6v9u/Ux0rElN+8
-	 e+o6x5rTvmBiJVgNVLUShAtDKy63G1Io8pjPBhso8lSXoKRwHFVgiclUtF65UzFTlQg==
+	t=1792920266;
+	b=5TMOIiYiL91Fhl0mRbIkfhAIWWlqifpnVq+8Uh2F/fSfaSLk73yfLa/jrrfEblo5VHPu
+	 VFG6XtrXoPnVQ7wz4kIrvjGOrZtPfDCyEWZL6TMaSX7QcF95wUseLjFosjSrR/Ybb6FeI
+	 8471L6rfPs/OAHi90FIxUp6D2B7yg/WvMADcciBAo9nJkcghSeRp60hD3PTiXD3t27Qt3
+	 qhmXt9ZwFPonR1iUmp1a24JljgtihUc1JupauwWWtfNdCwj6wXYrG5CtxHdKabdLkpDwm
+	 bc/jTPMJhkdzEifQWLpEwmIcjUzw9ikE7AWUIHaB2kS2cP+SFuaHLjvYctolUEpYIwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792920267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792920266;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=8ru8WucTgf5XxTTBZ+kWcpF4CX3cvFOX6RXg7kHDSH8=;
-	b=DvQaeexF/qCPtNufUIzSTuEF8DOvob0hLA/r3iD4LBdfxdpLRjfbRZVT5yXCSlIy8v3F
-	 Ari1EsbbbrtLgOhSbskLjVqbIaV1EKV3yiqvoUCbAajL28HeMEHhLgSGUbjbGXbkRs8FH
-	 bhv2C1OGEeIMacmIURHdShz0gBm6CKMLBFVZi25WOXWrMJ/dE95jqzaB0Z9OPOVwVWTfU
-	 cjRYws8HDbgaDoI4Gixdaj153W2YnPIsLxlU9cnCFLZgL4HMrhSNbuOBmSWZZu3bA8Kjm
-	 OQue9UHudmC6TSCvkJ36et+cNSdRD+lfURtUjkFyW9bVNGWleW9nm/AgzD1iaFm893A==
+	bh=mQkk6S7SJpaF5dKZiyzk1p0nrfAeW52DdMKc53u3N8M=;
+	b=H5lpyWF3Ho33Mz9pfRRMwWQ9WSuCo2Y2qN5rSjaOqhAfZ0kl5hLYmm4NY7if01YoBpva
+	 yqkTrqzDSWAVby7cZ+mPDagyhdVrbB9kuPq5ULyh9j4yEV8FiiIFhRXHzhgGbqLGlYcRU
+	 YMUhP5RonFUn3OGuhKNtAFWX7NFhLdEA5NrKZeIjZ9Net9vtF9CPvN/mXadEhbA7dMlJb
+	 3iX9FO2P5qJI5dfl43GyvV4v/eD7ZdfEAKm393oV3NKu/IBa87mZ0etDfDksII24jYeWs
+	 fXoo1Kng8Xvg2n0pdQ7CdjPJxwNADulXo0xN1IdPZWqJ13f0dpeCdPd81dOe2Dc2VdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZMyfoPq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i9t/j2I8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1324606A32F;
-	Sun, 25 Oct 2026 09:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZMyfoPq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0332D1F01825;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B465F606A320;
 	Sun, 25 Oct 2026 09:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9t/j2I8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D020C1F01828;
+	Sun, 25 Oct 2026 09:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792920266;
-	bh=8ru8WucTgf5XxTTBZ+kWcpF4CX3cvFOX6RXg7kHDSH8=;
+	s=k20260515; t=1792920265;
+	bh=mQkk6S7SJpaF5dKZiyzk1p0nrfAeW52DdMKc53u3N8M=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QZMyfoPqMVgCEguqdcJuKeGJecn6vc/Iu6h8q1gX2W+6mNkajoO2AP0w32SgR9Z30
-	 xmLhYdNOpqTMWYt5ao6AISrAGvl879z0I1cKyPv14UWj3DEQkUpi0F9pVxO+GyHnKp
-	 GCkEX+u0QKe0Z7uhXOXCf7pVuaFByl9HBl1FydyOWAOVldjS2z9qAAJ27+zKx/rFyy
-	 r5oIKfRPltdaS66Z3FoZyU9rw6hjSAgyYWojAc8+h4fcEluMl7sEK6GLkh/aFjPwyj
-	 JaGr2sPahSKH9PM6M9pDU3YoNonH2BchVMmSrh7sELsv6/wlf6U24okCvl4ODBXeei
-	 Wet4+KsgSnlHQ==
-Subject: Re: [PATCH v32 net-next 4/8] net/nebula-matrix: add chip-wide
- hardware init/deinit implementation
+	b=i9t/j2I8IlCMI7DY/WiOeZePRRzzF/9kysiqyjZyLQIMJ0d7TRKT0nG7bhsUiazFO
+	 mke5GGBeFCPBvQR9iM7zjw933t7cDPKx5E5j14zisN3S9y0EcSWyqWvVXwZMFZmZYv
+	 xfSx9M/1TIYEpuUYyUctQNNDpOnOsIXbkNGJjqnha+OHzRxKASdi94EBfV0rGbckT0
+	 1plE1RHXD9ajmrZJxAYcmAOS++3rtP8C7SMQO+XrFIYNq0XeJa7nvdadPD/XrRh155
+	 Cwe/5vXAG/HFpF1vfgKLQrgmWEO10fg0uVpVDZ0Vrnukzzty1cwLHe9lIvlt3WuCiB
+	 hIERdnzIensLQ==
+Subject: Re: [PATCH v32 net-next 3/8] net/nebula-matrix: add intr resource
+ implementation
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
  horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 09:24:25 +0000
-Message-ID: <179292026555.3134.12245469100906472128@kernel.org>
-In-Reply-To: <20261021062113.2158-5-illusion.wang@nebula-matrix.com>
-References: <20261021062113.2158-5-illusion.wang@nebula-matrix.com>
+Date: Sun, 25 Oct 2026 09:24:24 +0000
+Message-ID: <179292026443.3134.14659465471285693546@kernel.org>
+In-Reply-To: <20261021062113.2158-4-illusion.wang@nebula-matrix.com>
+References: <20261021062113.2158-4-illusion.wang@nebula-matrix.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,215 +76,241 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] nbl_hw_clear_stale_status() and nbl_hw_deinit_module() only
-  wait a fixed 2-3 ms before going on, and nothing confirms the firmware…
-- [Medium] nbl_hw_set_driver_status() does a host-side read-modify-write
-  of NBL_DRIVER_STATUS_REG (0x1300444): rd32, clear and set BIT(16),…
-- [Low] The commit message and one code comment do not match the code.
-- [Low] The header comment on nbl_hw_init_module() says 'Full chip
-  hardware initialization is handled by firmware.
-- [Low] Concern (baseline decision: false positive): nbl_shaping_init()
-  does a read-modify-write of NBL_DSCH_PSHA_EN_ADDR with…
+- [Medium] Nothing waits for the device's in-flight MSI-X map table
+  fetches to finish before the coherent tables are freed or their…
+- [Medium] The new kexec/no-FLR scrub runs too late to do its job.
+- [Low] The commit message overstates what the quiesce delay guarantees.
+- [Low] The header comment of nbl_intr_mgt_stop()
+  (nbl_interrupt.c:748-753) describes a caller that read the intr_mgt…
+- [Low] Claimed use-after-free: a caller that read res_mgt->intr_mgt
+  without the lock could lock a mutex that devres has already freed…
 
 --
 
-net/nebula-matrix: add chip-wide hardware init/deinit implementation
+net/nebula-matrix: add intr resource implementation
 
-This patch adds the Leonis chip-wide init_module() and deinit_module()
-hooks in the hw and resource layers, gated on has_ctrl. init_module()
-programs the DPED/UPED/SHAPING/DSCH/USTORE/DSTORE/DVN/UVN/UQM/PADPT
-datapath registers and sets the driver_status bit. deinit_module() clears
-that bit and sleeps 2-3 ms for the asynchronous firmware cleanup, and a
-stale driver_status bit is cleared early in nbl_hw_init_leonis().
+This patch adds an nbl_interrupt module. The module manages the
+chip-internal MSI-X vector index space and programs the MSI-X map, info
+and FID tables from the control PF. It also adds the cfg_msix_map,
+destroy_msix_map and set_mailbox_irq resource ops, plus a global teardown
+in nbl_intr_mgt_stop() that waits a fixed ~1ms before freeing the
+coherent tables.
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> index 75d6982ae1e83..05f21d0416104 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-
-[ ... ]
-
-> @@ -150,6 +167,695 @@ static void nbl_hw_get_fw_eth_map(struct nbl_hw_mgt *hw_mgt, u32 *eth_map)
+> 1. cfg_msix_map: Allocate global hardware MSI-X vectors from the separate
+>    net/other interrupt bitmaps.  Reuse the per-function coherent DMA map
+>    table on reconfig, eliminating free/realloc cycles, DMA race windows
+>    and redundant quiesce sleeps.  Only tear down the old hardware state
 
 [ ... ]
 
-> +static int nbl_shaping_init(struct nbl_hw_mgt *hw_mgt, u8 speed)
-> +{
-
-[ ... ]
-
-> +	nbl_hw_rd_regs_lock(hw_mgt, NBL_DSCH_PSHA_EN_ADDR, &reg_val,
-> +			    sizeof(reg_val));
-> +	reg_val &= ~NBL_DSCH_PSHA_EN_MASK;
-> +	reg_val |= FIELD_PREP(NBL_DSCH_PSHA_EN_MASK,
-> +			      eth_bitmap & GENMASK(3, 0));
-> +	nbl_hw_wr_regs_lock(hw_mgt, NBL_DSCH_PSHA_EN_ADDR, &reg_val,
-> +			    sizeof(reg_val));
+> 2. destroy_msix_map: Recycle global vector indices, clear hardware MSI-X
+>    mappings, and release DMA/descriptor resources.  Implements two-stage
+>    teardown: disable mailbox IRQ routing first, mask vectors, clear
+>    hardware VALID bits while retaining the live DMA addresses, wait ~1ms
+>    for hardware DMA quiescence, then zero the table entries and free the
+>    coherent memory to prevent torn reads.
 
 [Severity: Low]
-This isn't a bug, but this read-modify-write of NBL_DSCH_PSHA_EN_ADDR drops
-reg_lock between nbl_hw_rd_regs_lock() and nbl_hw_wr_regs_lock(). Right
-now nbl_shaping_init() is the only code that touches this register, and it
-only runs from the serialized control-PF probe, so no update can be lost.
+Do these descriptions match the code?
 
-nbl_dvn_init() also writes NBL_DVN_ECPU_QUEUE_NUM without the lock:
+The comment above nbl_intr_quiesce_wait() says the chip exposes no
+idle/completion status and that the window "is not a guarantee".
+nbl_intr_mgt_stop() calls the same wait "Best-effort only". The ~1ms
+wait makes the window smaller but does not close it.
 
-    nbl_hw_wr32(hw_mgt, NBL_DVN_ECPU_QUEUE_NUM, 0);
+The fresh configuration path of nbl_res_intr_cfg_msix_map() also still
+does an extra invalidate, flush and quiesce sleep on every call:
 
-nbl_uvn_init(), by contrast, writes NBL_UVN_ECPU_QUEUE_NUM under reg_lock.
+    if (!had_config) {
+        hw_ops->cfg_msix_map(res_mgt->hw_ops_tbl->priv, func_id,
+                             false, 0, 0, 0, 0);
+        hw_ops->flush_write(res_mgt->hw_ops_tbl->priv);
+        nbl_intr_quiesce_wait();
+    }
 
-To match the rest of the file, would it make sense to hold reg_lock
-across the whole read-modify-write here, and to take it in nbl_dvn_init()
-too?
+Its own comment calls this defensive, because nbl_intr_setup_mgt() has
+already invalidated the entry.
+
+Could the commit message be adjusted to match what the code does?
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
+> new file mode 100644
+> index 0000000000000..379b19576fd80
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
 
 [ ... ]
 
-> +/*
-> + * Read-modify-write under reg_lock: NBL_DRIVER_STATUS_BIT is the only
-> + * bit the driver owns, and the RMW leaves every other bit of the
-> + * register untouched.
-> + */
-> +static void nbl_hw_set_driver_status(struct nbl_hw_mgt *hw_mgt, bool active)
+> +static void nbl_intr_quiesce_wait(void)
 > +{
-> +	u32 status;
-> +
-> +	spin_lock(&hw_mgt->reg_lock);
-> +	status = nbl_hw_rd32(hw_mgt, NBL_DRIVER_STATUS_REG);
-> +
-> +	status &= ~BIT(NBL_DRIVER_STATUS_BIT);
-> +	status |= FIELD_PREP(BIT(NBL_DRIVER_STATUS_BIT), active);
-> +
-> +	nbl_hw_wr32(hw_mgt, NBL_DRIVER_STATUS_REG, status);
-> +	spin_unlock(&hw_mgt->reg_lock);
+> +	usleep_range(NBL_MSIX_DMA_SYNC_MIN_US, NBL_MSIX_DMA_SYNC_MAX_US);
 > +}
 
+[ ... ]
+
+> +	/*
+> +	 * Release the coherent table independently of interrupts so a
+> +	 * partially built config (table allocated, vectors never
+> +	 * published) cannot leak coherent DMA memory.
+> +	 */
+> +	if (msix_map_table->base_addr) {
+> +		dma_free_coherent(dev, msix_map_table->size,
+> +				  msix_map_table->base_addr,
+> +				  msix_map_table->dma);
+
 [Severity: Medium]
-The comment says bit 16 is the only bit the driver owns. That suggests the
-other bits of NBL_DRIVER_STATUS_REG (0x1300444) belong to some other agent,
-most likely firmware, which already consumes this register.
+Could the device still be fetching this table when it is freed here?
 
-reg_lock only serializes accesses from the CPU. If firmware updates
-another bit of this register between the nbl_hw_rd32() and the
-nbl_hw_wr32(), can the driver write back a stale value and undo that
-firmware update?
+The only fence between clearing VALID and this dma_free_coherent() is
+the fixed usleep_range() in nbl_intr_quiesce_wait(), and the chip offers
+no completion status. If a table fetch is still outstanding after
+~1ms, does it end up reading freed or reused pages?
 
-All three callers can hit this: the stale-status clear in probe,
-nbl_hw_init_module() and nbl_hw_deinit_module().
+On removal, bus mastering is still enabled when the tables are freed:
 
-Is this register driver-exclusive? Or does it have W1S/W1C semantics that
-would let the driver set and clear bit 16 without a read-modify-write?
-Could the semantics be documented next to NBL_DRIVER_STATUS_REG?
+nbl_remove()
+  nbl_core_remove()
+    nbl_res_remove_leonis()
+      nbl_intr_mgt_stop()
+        nbl_intr_quiesce_wait()
+        __nbl_res_intr_complete_destroy_msix_map()
+          dma_free_coherent()
+  pci_clear_master()
+
+The map entry is programmed with the control PF's BDF. Later in the
+series, sibling PF maps are destroyed at runtime through mailbox RPC.
+For those, pci_clear_master() on the sibling would not stop these
+fetches either. nbl_dev.c later in the series calls this a known
+limitation.
+
+The reconfiguration path in nbl_res_intr_cfg_msix_map() relies on the
+same timed wait before it recycles the old vectors and rewrites the
+live table:
+
+    nbl_intr_quiesce_wait();
+
+    nbl_intr_release_bitmap(intr_mgt, res_mgt, old_interrupts,
+                            old_num);
+
+Can a late fetch there resolve to vectors that have already been given
+to another function?
+
+[ ... ]
+
+> +	/*
+> +	 * Invalidate any map entry left VALID by a previous kernel.  One
+> +	 * flush plus one quiesce window covers the outstanding table
+> +	 * fetches, same as the teardown paths do.
+> +	 */
+> +	for (func_id = 0; func_id < NBL_MAX_PF; func_id++)
+> +		hw_ops->cfg_msix_map(res_mgt->hw_ops_tbl->priv, func_id,
+> +				     false, 0, 0, 0, 0);
+> +	hw_ops->flush_write(res_mgt->hw_ops_tbl->priv);
+> +	nbl_intr_quiesce_wait();
+
+[Severity: Medium]
+Does this scrub run early enough for the kexec case?
+
+During kexec shutdown the PCI core clears bus mastering, which blocks
+any fetch from a stale VALID entry. nbl_probe() turns bus mastering back
+on before hw and channel init, but the stale entries are only cleared
+here:
+
+nbl_probe()
+  pci_set_master()
+  nbl_probe_chip_deps()
+  nbl_core_init()
+    nbl_hw_init_leonis()
+    nbl_chan_init_common()
+    nbl_res_init_leonis()
+      nbl_res_start()
+        nbl_intr_mgt_start()
+          nbl_intr_setup_mgt()
+
+In that window, could a FUNCTION_MSIX_MAP entry that is still VALID make
+the pcompleter DMA-read an old-kernel table address that this kernel has
+already reused?
+
+The scrub is only MMIO writes. Could it run before pci_set_master()?
 
 [ ... ]
 
 > +/*
-> + * Clear a stale driver_status active bit before this probe programs any
-> + * per-PF state.
+> + * nbl_intr_mgt_stop - global control-PF interrupt teardown
 > + *
-> + * A previous kernel instance can leave the bit set (kexec, or an unload
-> + * that never reached deinit_module()) and firmware then never ran the
-> + * per-PF cleanup it drives off the 1 -> 0 transition.  That cleanup
-> + * reclaims the mailbox QINFO routing and the qinfo registers, which is
-> + * exactly what nbl_dev_setup_chan_qinfo() and nbl_chan_setup_queue()
-> + * write later in this probe.  Clearing it there - as the chip init path
-> + * used to - wipes those registers and leaves the inter-PF mailbox dead,
 
-[Severity: Low]
-This isn't a bug, but "as the chip init path used to" seems to describe an
-earlier revision of this patch, not code in the tree. Could the comment
-just state the current ordering requirement?
+[ ... ]
 
-Also, the commit message says:
-
-  The relaxed-ordering bits in
-  both DVN and UVN are derived from the PCIe DEVCTL state through
-  pci_relaxed_ordering_enabled().
-
-There is no pci_relaxed_ordering_enabled(). nbl_dvn_init() and
-nbl_uvn_init() both call pcie_relaxed_ordering_enabled(). Should the commit
-message use that name?
-
-> + * so sibling PFs' RPCs time out in nbl_dev_start() and their probes
-> + * fail.  It also has to happen before the mailbox queue is live, so the
-> + * cleanup cannot reclaim routing under an in-flight transfer.
-> + *
-> + * Only the control PF owns this chip-wide handshake.  The bounded wait
-> + * after the clear is best-effort, see NBL_FW_CLEANUP_SYNC_MIN_US.
+> + * After this returns res_mgt->intr_mgt is NULL, so the public entry
+> + * points report -EINVAL.  A caller that latched the pointer before that
+> + * instead runs into the stopping latch: the config path and the enable
+> + * path of nbl_res_intr_set_mailbox_irq() report -ESHUTDOWN, the latter
+> + * reporting -ENODEV when the function was never configured, while the
+> + * en_msix=false disable path returns 0 without consulting the latch.
 > + */
-> +static void nbl_hw_clear_stale_status(struct nbl_hw_mgt *hw_mgt)
-> +{
-
-[ ... ]
-
-> +	dev_warn(hw_mgt->common->dev,
-> +		 "driver_status already set, stale cleanup forced\n");
-> +	nbl_hw_set_driver_status(hw_mgt, false);
-> +	nbl_flush_writes(hw_mgt);
-> +	usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US, NBL_FW_CLEANUP_SYNC_MAX_US);
-> +}
-
-[Severity: Medium]
-Is a fixed 2-3 ms sleep enough to keep the firmware cleanup pass from
-racing with the rest of this probe?
-
-nbl_flush_writes() only shows that the status write reached the device.
-The comments also say the hardware has no cleanup-complete bit.
-
-With the later patches in the series applied, the probe order is roughly:
-
-nbl_core_init()
-  nbl_hw_init_leonis()
-    nbl_hw_clear_stale_status()    /* clear bit 16, sleep 2-3 ms */
-  ...
-  nbl_dev_init()
-    nbl_dev_setup_chan_qinfo()     /* programs mailbox QINFO routing */
-    nbl_dev_setup_common_dev()
-      nbl_chan_setup_queue()       /* programs qinfo, sets QUEUE_EN */
-
-Suppose firmware takes longer than about 2-3 ms, for example because the
-ECPU is busy right after kexec. Can it then reclaim the routing and qinfo
-registers that were just programmed?
-
-That would leave the inter-PF mailbox dead, and sibling PF RPCs would time
-out in nbl_dev_start(). That is the failure the comment above describes.
-It could also reclaim routing under a live queue.
-
-nbl_hw_deinit_module() relies on the same unverified delay. On a later
-rebind driver_status is already 0, so nbl_hw_clear_stale_status() returns
-at once without knowing whether the earlier pass has finished.
-
-The NBL_FW_CLEANUP_SYNC_MIN_US value does not appear to come from any
-documented firmware latency.
-
-Could the driver poll for an observable side effect of the cleanup with a
-timeout, such as the QINFO/qinfo entries reading back as reclaimed? Or
-could it check the registers after programming them?
-
-> +/*
-> + * Full chip hardware initialization is handled by firmware.
-> + * This function only configures driver-level table entries and registers.
-> + *
 
 [Severity: Low]
-This isn't a bug, but does this comment match what the function does?
+Can the enable path actually return -ENODEV here?
 
-Through nbl_dp_init() and nbl_intf_init() it programs chip-wide datapath
-registers that every PF shares (SHAPING, DSCH, USTORE/DSTORE, DVN/UVN, UQM,
-PADPT). The commit message also says "none of which firmware sets up on
-the driver's behalf".
+__nbl_res_intr_set_mailbox_irq() checks the latch before the state:
 
-The comment on nbl_hw_deinit_module() describes the same registers
-differently:
+    if (intr_mgt->stopping)
+        return -ESHUTDOWN;
 
- * Note: firmware does NOT automatically revert chip-wide registers
- * configured in this init flow.
+    func_res = &intr_mgt->func_intr_res[func_id];
+    if (func_res->state != NBL_INTR_FUNC_CONFIGURED) {
+        ...
+        return -ENODEV;
+    }
 
-The nbl_dev_init() comment added later in the series repeats the "Chip
-hardware initialization is completed by firmware at power-up" wording.
+So once stopping is set, the enable path always returns -ESHUTDOWN.
 
-Could these comments agree on who owns this state?
+This comment and the one on nbl_resource_mgt::intr_mgt also leave out
+nbl_res_intr_destroy_msix_map(). It returns -ESHUTDOWN after stop,
+because __nbl_res_intr_destroy_msix_map() checks the latch first.
 
 [ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+> index ae0a3d33198dc..e0f07922137c5 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+
+[ ... ]
+
+> @@ -56,14 +122,30 @@ struct nbl_resource_mgt {
+>  	struct nbl_resource_info *resource_info;
+>  	struct nbl_channel_ops_tbl *chan_ops_tbl;
+>  	struct nbl_hw_ops_tbl *hw_ops_tbl;
+> +	/*
+> +	 * Published interrupt manager, control PF only.  The public entry
+> +	 * points read this pointer without the manager lock (the object is
+> +	 * devres-owned, so it outlives them) and then pass the value they
+> +	 * read down to the internal helpers; nbl_intr_mgt_stop() clears it
+> +	 * under the manager lock as its last step.  A caller that reads it
+> +	 * after gets -EINVAL.  A caller that latched it before runs into the
+> +	 * stopping latch instead: the config path and the mailbox-enable
+> +	 * path report -ESHUTDOWN, while the mailbox-disable path
+> +	 * (en_msix == false) returns 0 without consulting the latch.
+> +	 */
+> +	struct nbl_interrupt_mgt *intr_mgt;
+>  };
+
+[Severity: Low]
+This isn't a bug, but is "devres-owned, so it outlives them" the right
+reason here?
+
+devres frees intr_mgt and its mutex once nbl_remove() returns. A caller
+that had already read the pointer and was still running at that point
+would lock freed memory, and the stopping latch would not help.
+
+As far as I can tell, nothing in the final series can race this.
+nbl_core_remove() runs nbl_dev_remove() before nbl_res_remove_leonis(),
+and nbl_dev_remove() cancels clean_mbx_task and tears down the mailbox
+channel. Sibling PFs are unbound first through the device link.
+
+Would the comment be clearer if it said that removal ordering is what
+keeps callers out?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021062113.2158-1-illusion.wang%40nebula-matrix.com
