@@ -1,51 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.246
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792896777;
-	b=uZlXYCQ9WM3F6S6Mygaqt+aN3oe/HPcF1yQThAe/WvdyT2rtb85Xf9QX91XI6/Co5VvR
-	 3pTm8EAUugKxlOd9Q8TE0/1PPEoEjtISe+0i+t3YXe+xRrDn+hqK4VBpCH+bMQ0s1+N15
-	 po0KIQ/N7339T1OH3EE4U39hwkRnOGo8IJiN6jcmWgoK6Zla4iDT3ULar+gsT3of1i/rw
-	 NwGII3Wmh3ueymLdURAElEf5ynRtwXDND+o+aQS4jIF3GXcSJdCScgoRdA4jxUIyVwKM+
-	 jWPKJhOb7hpOpObKXmZLF7WzYjhOL4INOBSpT2TX37ZWAv0fTNrilu/z2OCtFmLA8Sg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792896777;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=HLOt41l/QWC0fEiGeX8Tnz6uBnCfl8WR/5GPhpD68hE=;
-	b=RwsF9mgUH71OTwtA1DMBNelvavkc8Vvp7lkNqP0nR6hvPtuhJ3bpMq9z/frLBD0Cp6DP
-	 uRHqJTtwybC8zRt9FyOkPt6oVcnJjOBQiT0NkgT9xfHBsoCDcE0zX+WaQyKHDKpu4tEZk
-	 LBOeCH6a7bgPBykPchYknm/JxSwMW6ViEYDWjSHLEr3gebNR9DfcRIPqgO/2/Y9Ev3XMj
-	 mfXDo6uc9af7wlcqptY0CFUvw2ozv5B465mo6kzFc2HXyUo0B3K3Ma9HAn+KeB72rXoFX
-	 pvvrPdtCpL7rVWB/3a14N/sA3f/snRK1vcogCAjGNwLaRUtyE2omWSgqkOZHchQ65hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.246
-Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792896795;
+	b=xj7g5ogoTrnXSGPsygIKYkqyaMT6xyM8hTepgys8SFUo2wJkMjppaKfvWLLkHitGfmRO
+	 dh2w5PjzYyti9JlzA8h8SPOmphAha9h1gFVVjgW6UnR2CwRFAvwPJR1EpROaoSw2gNeiX
+	 Rstymwd8Z2dCkKYHrIQUsE8VqCdtDSeTlrcfjuhrVcrmB0AmsDAEEIZZ+umFQtd5sp4EH
+	 rVFkHunVR28oJzhrhWT3EP6Tq2OJ/RtNVUh/ewVvQv7J9hZCTvPvxfoK3zPgHichTUODr
+	 h1apDpNFTsgl/oVIExJmd6NG7LF7PdFw27iuq1+JM/x23qTX0CYS14VX6e1tE8GANuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792896795;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=jHGtF+NZaI+hhPHPeZP23JdzKtyfeu2RME20H6dVyog=;
+	b=jX9vo4L8XdsEUdG97RsBU52YylX+ors0d30DOLPDS1cfqTcBcJJ1XhjDoFXx8TnQlbQr
+	 OD8Sva322orc3h5vHakJDLxTSmFGUllWTJjdOX64F/u3gB+GyeRhdYXmHsxBp9lHboLLT
+	 sS4aGtFouKpj7jOWii5/W8AOuWoBR0NpssXYw1zbpXErTWtuyQ+QCY+ENGDRawnposmwE
+	 4N5BcmUAqULdCZ835kv0DeRkziEPgf4FQ0DLtsS2L+mXrOVF3mbSM6iAYdGJRRTtP+6rd
+	 blsL33/HA+MRSEmrUMNY3RJXBD1E/pRMrlpLXwXAzdmyJJCS/p+M1m2CU+xidT1arRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=0x0f.com;
+	spf=pass smtp.mailfrom=0x0f.com;
+	dkim=pass header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=GwcUEZjb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B2D606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:52:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B2D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WwzTK24epbuB+saadzHwyBUTb+kgdJ1j3wLcauZFEws=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792896768; v=1; x=1793501568;
- b=VnaMzf5pP3Dolmqi+66MHJL/fPyN+GrmDU63AeVASk3zjwFHOWk9+fUUekuYO5bIq4AL+N0W
- TTpc/GyPXOStjk4DZHeTmD7zheTL7w7jOCSobVda8+JBXlxWtMG4CR2oYj/HD7TMDalmUYzyEE0
- rpUmsgMDP/XwtlphkrLbNM6s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 8cc735b5c8cf76cd;
-	Sun, 25 Oct 2026 02:52:48 +0000
-X-Mizu-Trace-ID: 8cc735b5c8cf76cd
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95164606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95164606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=GwcUEZjb
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-19305bcb72cso1160687c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:53:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792896788; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hc6Gtr9nvvDvRj/sG2GfGEcwc0JPIu1riKPzf8gc2ar6m2+OTP88xTb0KvswdsgBrk
+         mII4x4HGd3B1MqPVX7qF61kAR7KjCwFkws8LFobboWFcj5sPVWkN2jCtk5i1Q0yqBAMb
+         ynwt7JqPQEm9lNyMVN9Sp1VvQ+x5yUgBQp3HvKgS9GY6qZcayqIyDDWQ6FfGVBHubv/P
+         Tt5lIfPihBRpthUfjOOzwngZ55bz/BQIexWooH/SORayMSXmzBFe0Cb4NTjwWf9EtCBx
+         Q0zmDCn7DAeCRFt5hB4rR9jiFzOiTxrZfWP1gxXbCeepZahwMgTCP5hHPcAd4vKI3sj3
+         j4Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jHGtF+NZaI+hhPHPeZP23JdzKtyfeu2RME20H6dVyog=;
+        fh=4NoxXNXnV39VCgSOpanvvBNiJp2YREJkxzsTYRBmJGI=;
+        b=oaBO6hZrmf+ijvcWRVJNQ+/7nZxFOSWbI7xxXIolILuRCF66ONUaMdnrSYbuT9LmSL
+         3n5D8WSKs7d1iq/ewYforFJxDJoYxmceAQk+RsdBrxi9O6scusJh+tcCPnx1X43cgt7o
+         wV2redDRF+EzblbSE+OXqq+US7brm1BHVnJ5MdQ1m4PyC4SEJr0fCT8cN1IYY/xtLbwR
+         QmMLcPxaurNa4bC59bPHd5uYrgxugur25lx8gpMRobslOxuS9bW/189EL+5vCUlD9arj
+         lsfFRYAafhIiIsC8brzGPVzaSb5OQFpNnUbwzFNcvZia36vFTfR14jvQ1QL06KXL5nH4
+         3+yw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0x0f.com; s=google; t=1792896788; x=1793501588; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jHGtF+NZaI+hhPHPeZP23JdzKtyfeu2RME20H6dVyog=;
+        b=GwcUEZjbtQYEBYkG+EKGOefzT9NTXUQB6xwcN0B/cqwwm4qgN4m0Th2Ovyan1vAn7J
+         2vYqZIZoV/jA3RUO6UcMoiRTfDbwFGjxmUTwLnpjvoelEptoc7YDN/BkPZOsoF+ukW9Z
+         PPBvbX7i5ysIE1CZ79IfHFecG9MJEyBMnbGhU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792896788; x=1793501588;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jHGtF+NZaI+hhPHPeZP23JdzKtyfeu2RME20H6dVyog=;
+        b=GBbn4+Dj6NWLuE0FxnhmB86OQ5CVhGIo5SRwIfl2OnFIg8ksv4DeUQd9vi40NgcLsn
+         g8AJziCrDjUSKSHizxA3p9U8KaVEqlmmT8J8dXwbcHEt5ozfj/ix8WiV/8WlLed3bQvr
+         wMMWl7LZZNrHLQ8NjYYMD8Q5MA5lcdKti7Vz81Lhw1EVPvBzWupIPjrMqdBnGFw3l7Gi
+         or7PsJhWDmgo+OFMroKeZfKe/B1rf1+NMogPdDqd6XC/UQCGJfN7I6J9tj7/Td1S0RJX
+         7aKzhc9PIpGGg7WJbEK4GdaIz23m1Wve3Mr8iUERK02auMTus+Iv7ymVGLtRA/IC7nA6
+         OT/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwXL1OMLIN1GxxNOEKX4uNJC4TU09iyKBWlV4/hEQAITN09nmIPfjD7d3RqvZRvDygoXCIJfCe966pRz9o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCQhFsqeEjuiqI9WEzYkuPTKwAZLncmF3Bvutm8pkMwn2Ms2tx
+	cLhyNkIc6L+f4s/Uyh33yxkmOJDNJe40oyjLYWmywJjpQLaptf2LcaHekQ3QkGLiquBU1TwKUBH
+	M2C6cPThYQnZWeubPjpTaMI2pIeqLhsEwIp/kyupa9JLTfv6xkM0mpO0=
+X-Gm-Gg: AYBFou2Mvx1Vm15GJUM4xMQ8bk7tK5fPbtuiZ+zYNke3wCJ8AJ14GMjUKjJi8yLKJwO
+	hbYT5nk8Hs8CrlKY4HbHmGdIQQOAXzl7dhN1hT4xLk/fRhr3nmqFKBVVUXu8aliTABDytiLC1Lp
+	eErvUSO5W3O5TLcM+zucyQ4ofdgI9l4gMku+ZUXdPDtgd6sqvbdgacxhspPp8pQHQB3MVBV4xL4
+	v3+laxZn7EdqVJ1/xTEvJLYTgJBsTj+iXowPidblru87k9VIWjLsVtpNb9mOF5i/qm6vEXb83Ra
+	ka3vsprlfLF1GK44m2PcouMddcYzrSNAh6UQ/9RfcRTWOZZrZZMwTwz29Ftmsv90gpAlYDRdGKl
+	Xqd388xv57VEMEHWjCCYuNx0bjew1arqp8gjo
+X-Received: by 2002:a05:7022:b04c:b0:163:3bcd:e5e6 with SMTP id
+ a92af1059eb24-19934a96f4fmr5011598c88.24.1792896788514; Sat, 24 Oct 2026
+ 19:53:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,125 +99,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v5] dax/bus: Fix Device DAX range alignment validation
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261024183853.6803ce81788636e94d8c16a4@linux-foundation.org>
-Date: Sun, 25 Oct 2026 10:52:29 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- nvdimm@lists.linux.dev,
- linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <5AFA3B1F-48C6-49FF-A6FF-7D71153671CF@linux.dev>
-References: <20261024112555.2476001-1-songmuchun@bytedance.com>
- <20261024183853.6803ce81788636e94d8c16a4@linux-foundation.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+References: <20261025024514.802862-1-daniel@0x0f.com> <179289664421.3327.13269797237144711675@kernel.org>
+In-Reply-To: <179289664421.3327.13269797237144711675@kernel.org>
+From: Daniel Palmer <daniel@0x0f.com>
+Date: Sun, 25 Oct 2026 11:52:57 +0900
+X-Gm-Features: AclHuK-izwE4tuQ9_k56qieEjJy4dAKE5drC7e2460UfCl4uONeoDil9BFT3OsI
+Message-ID: <CAFr9PXk93VVxotS-C90Rhi+uuk0BJngTAoMVQqWkfh5dRCbdcw@mail.gmail.com>
+Subject: Re: [PATCH] net: i825xx: 82596: use MMIO accessors for the MVME16x
+ PORT/CA registers
+To: netdev-bot+sinfo@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	Denis Ahrens <denis@h3q.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hello bot,
 
+On Sun, 25 Oct 2026 at 11:50, <netdev-bot+sinfo@kernel.org> wrote:
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
 
-> On Oct 25, 2026, at 09:38, Andrew Morton <akpm@linux-foundation.org> =
-wrote:
->=20
-> On Sat, 24 Oct 2026 19:25:55 +0800 Muchun Song =
-<songmuchun@bytedance.com> wrote:
->=20
->> Only range sizes are currently validated against dev_dax->align. A
->> dynamic device can therefore select a large-page alignment and =
-allocate a
->> range whose start is not naturally aligned.
->>=20
->> Sashiko found that memmap_init_zone_device() could then initialize =
-the
->> struct pages with a large-page order for a physical range that is not
->> naturally aligned. A subsequent write to a userspace mapping then
->> triggered a kernel panic in testing.
->>=20
->> The automatic resize path can also split a size-aligned request =
-across
->> arbitrary free gaps. When devices with different alignments fragment =
-a
->> region, this can extend a range by less than the device alignment. A =
-later
->> allocation then fails, leaving the failed resize partially applied.
->>=20
->> Initialize the device alignment before its first allocation. Validate =
-both
->> the start and size of allocated and adjusted ranges. Use the same
->> aligned-gap iterator for free-space accounting and range allocation =
-so the
->> pre-check and allocation path cannot diverge. Skip unusable gaps and
->> serialize size validation with alignment updates.
->>=20
->> Static Device DAX already has a pre-populated pgmap whose full range =
-was
->> validated against memremap_compat_align(). Its usable data range may =
-begin
->> after namespace metadata, so require only dev_dax->align for static
->> devices. Dynamic Device DAX builds its pgmap from the allocated =
-ranges and
->> must continue to satisfy both alignments.
->=20
-> Thanks.  This is now a must-have for 7.4.
->=20
-> I suggest that the changelog mention that the bug becomes hittable =
-once
-
-Let me explain this issue in more detail. Without my patch set, the
-problem was not hidden=E2=80=94it was simply shifted to the second =
-stage.
-
-DAX device usage is divided into two stages:
-1) Device DAX initialization
-2) When user space maps a Device DAX device.
-
-Without my patch set, this problem would trigger a kernel panic during
-stage 2). After applying my patch set, the problem is caught during the
-first stage (with the current prerequisite that CONFIG_DEBUG_VM is
-enabled; if it is not enabled, the problem still occurs in the second
-stage).
-
-Therefore, there is already a serious problem that will trigger a panic
-when users use it.
-
-> your series "mm: Unify device DAX and HugeTLB vmemmap population =
-paths"
-> exposes it.  That's=20
->=20
-> 4b77739fe789 ("mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX").
->=20
-> I intend to send this to Linus next week.
->=20
-> Maybe also a Fixes: 4b77739fe789.  That series didn't create the bug,
-> but this data provides notification to people who are backporting this
-> series (unlikely) "hey, you need to add this fix as well".
-
-Based on the above info, do you think it is necessary to include this
-commit as a Fixes tag? My inclination is to exclude it, because the
-issue is still there. It's just that it gets triggered earlier when the
-debug kernel is enabled.
-
->=20
-> Also
-> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Closes: https://lore.kernel.org/wlrkqqvg.ritesh.list@gmail.com
-
-This is a similar issue to the one reported by Ritesh, but it was =
-reported
-by Sashiko.
-
-Thanks,
-Muchun
-
->=20
-> I don't believe that Ritesh has tested this?  He wasn't cc'ed...
-
-
+A version of this was tested on MVME177 by Dennis. Dennis will
+hopefully test this version on his board and reply with a Tested-by
+tag.
