@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792962867;
-	b=P0nKREr2+Hs+FQvM+zOdZxaOtnx5WM/VOHEuKmhTC72eFBOdsSZ9BcAObPNNJ3WuM6CV
-	 U07cBZcJDidb0NzuNpVRqetu3c85BQFT35qrZ2Ks7/JkRBbRPGvogZyo7NkQTj7gkVLQ9
-	 WjzfCGeuSieuja6kzt5XQp5JDWzFeUAiIxAmN+RNblmEsslk2ymz9a6qFkm04n5nqP4ll
-	 D3MhvBkNissyhkMcSVXt32dui/XRIqh5UePRkwdeLAUkjWDDsGAeoYHjH7D63Tg5fav62
-	 MK4lcZ0hxqcZzGgssuBJiJXzZ4cdV2j3TYYoGXRaR1M665EoviQ9aJyvzBbQ/f37TAw==
+	t=1792963003;
+	b=jB/MJAIl40hrf4XAgqeTRkNXn5rxRq77HrPVjPoEVebaYQ34BcIWUPMuU0PNj3RCQpER
+	 ZuHZcJz8eSO9u3IBeF/o8RsczB0YIfn6leWyxNXdNaJjy05itnCXFvPftJABXdkUVZtzZ
+	 +ilb40FEkAMccpJxfFdYZdOg+bVoLdrn4ZN5GC76XV9DuJ9z+5TFC/kkFoCzyG5Z9fUis
+	 g99PIUgL2SCPbEx3yqG4F69r7pFmYORqOiJN36rHKUuHtGwOjSr/zRE3nErFLHQpMT5G3
+	 Ck8QjRsALiYc0Nz49BKvaBWY3RHDIGT6NAt0eKGqOgsmj412GxkVTWmjva2uyQV1spw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792962867;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0fDnmTgyC1Lfjzd5lNHuAW8LBK7VsCVWFrjnswBrxqA=;
-	b=tj5jqa65UymH45pdwC0G4mJaBtOxDD8ymhrgXeEYo87DKqhRCfWCq3mEY9h7p7VHOKyk
-	 e2rWBMRUokaGdWqRWv4OGDmvMW5H4iA3hon9ywMMUIzAzueT8twM45eFE1keQd5kddO7S
-	 I8ztAqB1yOcORIMb1vGk1waPUXGV02Jjy/6bDRwjh2duyJYu+ZwB2V7hkgzusz3D217fM
-	 RdZGtu2ywTP8vr/ZV1eBXf15kw0+O9jxPgERbhVKaEYRFMmKVCFQTJyMtMfmslir8pXkL
-	 eUKPM0UQmqMVNDOQiUjGXMcCLyZG35027tusXv0wCcVq5DwH2cBrjIs226wxlG1wVPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792963003;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=xC4wBpwVt5DBUgr5L5OrfGB4RWBaaYkDpsCLYRcAQ3M=;
+	b=zKBA9TfVduLmrLYGBbUM0Rgkokq4TtgeDcyEWqRPiYkxTnXm1kefJM1TqJOWAAtm6V4k
+	 N7gIHf+cb6ExO0TJA7GjbBN1/UZ0siWutyJcYQ+2Zc8I8DIURK8+ryneloBY+GJEZe5ig
+	 /21+wOIyxiQUFjnIagwe2Tl9l8aOrKqVYw+C+VwUc6NgUQVl82J3B/zv60kBUXpfk0bnn
+	 7K0e6+dwS+Qc9DGrc3WUrqjH+cnYxJ011xNw+AJJbThJVFlQ7JNZU3YcqsxaUo9NZ6XlB
+	 jnIgT3FPNC3z/LHJepkoqvAcVDcUsR0mylZi7B4BjoIc0seyc5id9ImOulZO0MoH0aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ESmTEjgU;
-	arc=none smtp.remote-ip=95.215.58.104
-Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=c4Mv+Mtq;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BAF606A320
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BAF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1F8606A31A;
+	Sun, 25 Oct 2026 21:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF1F8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ESmTEjgU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gh1lvrCZ4Dnvyo1jnNWX0NLz7DAdsWWssUDqVY6DOzg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792962864; v=1; x=1793567664;
- b=ESmTEjgUJRI9q15hoEu9jRfamXMzWd1TaLDgiWpbhZ0Xq/KgCJ3TOG2mjH//AMiPmMA7xkhZ
- xLxvSRS1q2IHnKpGmfPz6JUBtOz7WVlXQP5fnbbryNfFlvveEMNqmZfrARuEeZ+8wsUZKnd5Pb5
- JGXpcsevPdnJYeN73xnifgNg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ffd748f1b1ce3b29;
-	Sun, 25 Oct 2026 21:14:24 +0000
-X-Mizu-Trace-ID: ffd748f1b1ce3b29
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f4a337e6-9ba4-4f52-be99-95d0d5ba11ff@linux.dev>
-Date: Sun, 25 Oct 2026 22:11:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=c4Mv+Mtq
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jCV1g3Rm2zMl19;
+	Sun, 25 Oct 2026 22:16:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792962999;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xC4wBpwVt5DBUgr5L5OrfGB4RWBaaYkDpsCLYRcAQ3M=;
+	b=c4Mv+MtqgDoi/mOwdfjKNIw5tUvRXAwImHOnFHuJJO9uPxSA4Min9bRXghnbVmPrISdoTt
+	V3mn5cr6KnpthVb2W4u/dn2Sk2vvbIUBTuPLqqMqtifdEhjv4zuGgHCcIByk5qH4TDScE9
+	xNGb0rtbN88VzWxxWSy+oR/96D2fflwCZunnwUOVtb9B+fheheCqL/ov/Yx8VPttIt9H1y
+	2jF61ctxoKpjMzhxRpNKZuMn8jluh9XtZjo38gOBj5BynR98MLWhG557mQ9+NghSqaVTtl
+	VLXIKjxt9s5Sr26MXJX1nXzMJV6H/TMp3Is3OtSFu7rWSieX/cVPu9nri+XNjA==
+Date: Sun, 25 Oct 2026 22:16:36 +0100
+From: Anthony Ruhier <aruhier@mailbox.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
+	Val Packett <val@packett.cool>, 
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH] PCI: Disable LTR on Qualcomm WCN7850 [17cb:1107] to
+ allow ASPM L1.2
+Message-ID: <at5wnfBC0AMyN9ct@tour-anthony.aruhier.fr>
+References: <20261023-quick-wcn7850-v1-1-9a139b9b2c8e@mailbox.org>
+ <20261023182004.GA2796729@bhelgaas>
+ <atvQtV71SbtMK-jZ@tour-anthony.aruhier.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,85 +73,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] ASoC: amd: acp: add ACP7.B/7.F SoundWire DAI
- link support
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, yung-chuan.liao@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
-References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
- <20261023065216.3473883-3-Vijendar.Mukunda@amd.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20261023065216.3473883-3-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atvQtV71SbtMK-jZ@tour-anthony.aruhier.fr>
+X-MBO-RS-META: 1mwu4yke9d14agntr8aehr3b9a3xbpt5
+X-MBO-RS-ID: 4097712fceb3e9935af
 
-It'd be useful to comment/explain why this routine only relies on a
-subset of IDS...
+On Fri, Oct 23, 2026 at 11:49:25PM +0200, Anthony Ruhier wrote:
+> By disassembling the firmware with an LLM, I discovered that when wake-on-lan
+> is active, it stops this behavior so that the card can go to L1.2. But I
+> couldn't find anything else of why it would do this.
 
-> +int get_acp7x_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct device *dev)
-> +{
-> +	switch (sdw_link_id) {
-> +	case AMD_SDW0:
-> +	case AMD_SDW1:
-> +	case AMD_SDW2:
-> +	case AMD_SDW3:
-> +		switch (be_id) {
-> +		case SOC_SDW_JACK_OUT_DAI_ID:
-> +			*cpu_pin_id = ACP7X_SW_AUDIO0_TX;
-> +			break;
-> +		case SOC_SDW_JACK_IN_DAI_ID:
-> +			*cpu_pin_id = ACP7X_SW_AUDIO0_RX;
-> +			break;
-> +		case SOC_SDW_AMP_OUT_DAI_ID:
-> +			*cpu_pin_id = ACP7X_SW_AUDIO4_TX;
-> +			break;
-> +		case SOC_SDW_AMP_IN_DAI_ID:
-> +			*cpu_pin_id = ACP7X_SW_AUDIO4_RX;
-> +			break;
-> +		case SOC_SDW_DMIC_DAI_ID:
-> +			*cpu_pin_id = ACP7X_SW_AUDIO5_RX;
-> +			break;
-> +		default:
-> +			dev_err(dev, "Invalid be id:%d\n", be_id);
-> +			return -EINVAL;
-> +		}
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	dev_dbg(dev, "sdw_link_id:%d, be_id:%d, cpu_pin_id:%d\n", sdw_link_id, be_id, *cpu_pin_id);
-> +	return 0;
-> +}
+Val Packett suggested that I tried to test that in practice to check if that's
+true. So I tested enabling WoL and putting the laptop in suspend, but I
+couldn't reproduce what the LLM described. So either it's a hallucination or I
+couldn't find the right conditions.
 
-... defined here - I marked the NOT USED ones.
+So you can ignore this statement.
 
-> +/* ACP7.B/7.F SoundWire CPU pin IDs */
-> +#define ACP7X_SW_AUDIO0_TX	0
-> +#define ACP7X_SW_AUDIO1_TX	1 << NOT USED
-> +#define ACP7X_SW_AUDIO2_TX	2 << NOT USED
-> +#define ACP7X_SW_AUDIO3_TX	3 << NOT USED
-> +#define ACP7X_SW_AUDIO4_TX	4 
-> +#define ACP7X_SW_AUDIO5_TX	5 << NOT USED
-> +#define ACP7X_SW_AUDIO6_TX	6 << NOT USED
-> +#define ACP7X_SW_AUDIO7_TX	7 << NOT USED
-> +#define ACP7X_SW_AUDIO8_TX	8 << NOT USED
-> +#define ACP7X_SW_AUDIO9_TX	9 << NOT USED
-> +#define ACP7X_SW_AUDIO10_TX	10 << NOT USED
-> +
-> +#define ACP7X_SW_AUDIO0_RX	11
-> +#define ACP7X_SW_AUDIO1_RX	12 << NOT USED
-> +#define ACP7X_SW_AUDIO2_RX	13 << NOT USED
-> +#define ACP7X_SW_AUDIO3_RX	14 << NOT USED
-> +#define ACP7X_SW_AUDIO4_RX	15
-> +#define ACP7X_SW_AUDIO5_RX	16
-> +#define ACP7X_SW_AUDIO6_RX	17 << NOT USED
-> +#define ACP7X_SW_AUDIO7_RX	18 << NOT USED
-> +#define ACP7X_SW_AUDIO8_RX	19 << NOT USED
-The IDs are different from what was used for ACP70
+Thanks,
+--
+Anthony Ruhier
