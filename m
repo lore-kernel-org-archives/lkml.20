@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792938093;
-	b=fR5rVbi9wNFQuF/5wZzxBN+pnXU8z38VScEsbO/bnuVYIPk72xZsUN2s6BKaada9BuiB
-	 kp8OkqDwjINav7SNQ32XV/YzQdnu+8SCLYZaH+M94Ptp0nBUCq2gbqq0uZGFk2gR4SHKA
-	 EMdCi0BsDMdq+LONHp+2e+yRxaRdgOMcpu3/GarGibZi92I9zNnNtF/hMX+dLZ0WfdisF
-	 3uLrZMa5RBH5afzFMiZjtYv3zmQOhXJQCl02sPWkPQA1WSfsR66GvU08bjUBnLt0OAaVj
-	 1ACQd8ULzPBfQrLIRZT+jZhFVF5hrxqeqxNTGHRB1+tzSoVpvjweD5RiZd2XGSp2eUg==
+	t=1792938166;
+	b=5L81s+Z6Ztpd2XKO27J2Y24CEKPS9aXUgREj8uC8LcbeOKBviYhF8jkw5m/ov12m2gcq
+	 v5aRE97viqovkT3jMkhNdlRVJoLuGC4i0jLkQF1CfOJhUHXgpoBKyPbZ7Zic8K8PK2o8A
+	 4htW4OJEwheWQzvnz6844VIUKIJTkIq+Objdj6axSmT4aj/1LBwbUJBKHxYrG913nYH3Q
+	 w+jtL32FpYwzqY9ZthKqnxM2n4acfaSVU4jWOU5/H2B1lyltmEvQ5B0/wEdartnVgfdYV
+	 pRMssUW/kq7+3FFrVVzrNvNfuPwENjNahEL06dmKc6H2n52ms5B6JacaZrA+pPQ2XUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792938093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792938166;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=SM7Yv/1HjzmGuGQj9J0EPWbZsOFrrCqzpNrPuOL5wcg=;
-	b=s/f8olo17e2hDK/AUB580XU/cIygMMAy37l+ux2OByAsEn/1uoq46qv8h6t5miaC4d/T
-	 cO/ps95sAnfB+bmsTyRR4evv0TmURZmQbRFcowNcIG3CBjozhFLtPFu9unR3UasR7tipc
-	 qz96UHChJt+WMIMRRg6mmrKtc1Lv7Ouu50pUb854CrT1TM+86BV/Nu0dOM+/Dijxf/YA/
-	 3YLX9AB3bgy93ndr8Lt9XBbFvLCNb3NEod2JAyWpUJDxpLG8TGtVuOzXifjwmeABZBrJU
-	 286pR96MQj/wkBWbKuWx7gOPlniXPZ1dc5V520tbaIf81nq1i9a70pmVyh6eVRB3KAA==
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=GWA3ILffVhGa4FkzQXQubKTR5QBs74w5VthahbifZWg=;
+	b=o4yEff5aqDQ+gRHoooAEIDSYaIdX6Kc2KCgI+ni0x2kDFn7+yyEJTvZYijaOtlrsdfKG
+	 k06mfdjA/SM8TTUyf20WGniYW99IU8t5KQnuE2zAPuOlSQGKQlxdzZaYTMws9tn89nnXz
+	 aOS1vEN/NjJ9DnxWfGpF8ApSqVEA2LWi1LOpg2ZhVfGTUEExHHfTaOJvDsMxatZqD9dab
+	 QCW2sv6SkQabbrxfMlEd/zfZNm+59uY1v2kbqw79nImqiAI7rEjgVxWbdA8E7pMdUJkeB
+	 e8qkMwDk2qz44zdsZmITcIMY0ieDBrpcK30GMAW11L72N9U/S/gO/20im4YB4O/rgWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yeh32Jht;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YvB1UI7z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582C7606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:21:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 582C7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C19606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 14:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C19606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yeh32Jht
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91b834592afso27712666d6.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:21:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792938092; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YvB1UI7z
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e8c710847so263890766b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 07:22:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792938164; cv=none;
         d=google.com; s=arc-20260327;
-        b=EqyWQt0JPfjbR/D3Mo9ON7x/a5XAiCIMmTJXNtKv8XZf/QbUTjPbBKs523RmqBy/UE
-         8A92eQ5UkSAkHMqWqHxOuXVgvpwmQFhuUZZ6C87wg4cnwEoazxo3moQti6sxVAE8SH+i
-         YcpqPE7Hit3NSMOeADcYqLcBG4QDc4m9mWfLh5kAAJO9rk3sNbFfbt6BNiAEwS5NDEj2
-         kfXYaGrmKt1VAYDUBPomM6C4lVx+i2TF0C7VUuCyJ9VEhKUFinoYZUfNu1hKA8feUVfp
-         baIN0dIN/99zRhj/LW+7nW4FatPL1nSXOy3f56iZfzpX2ht48dZlf7FEjOS4xrsQCQjh
-         FNdA==
+        b=Tbptx+0emMiChlpMh/FAjRU4nOzwELDGaBSdshY3T4hl1uR4CeB5ZchxTfCSy5jkYp
+         GCXPi9abcwI8cQb0pIbQttwUSCfbNZOXpBcmoFqZqfjBX89S19gH+47Mb/qC0I0D4LjQ
+         jtDvaFXCXbWPydCfRwJ+dZtbd5CDfE9WP7Ci9vglnoYxsrt02cj1XF5+z2jDhngrhGTo
+         sVzJLR3l/QXgp605Fv6dYyb5Pgyp0kNa+3Vy8SYOqo4V5jIfEFiIv+hfvXoIINLLvAde
+         DECSzdtm8pM7rgJE28AqjUXwS/c+awHYHhhd0lYze8Lr0By0dTEUqpJLOfOXtwe7ajJ5
+         Oa0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=SM7Yv/1HjzmGuGQj9J0EPWbZsOFrrCqzpNrPuOL5wcg=;
-        fh=VzAdGZQDwGC8XbyUhQoljIwukkirB0UqDNbvPIKVKlk=;
-        b=q/SdQ4ahG24+SVRCCi835+78xKved4QZC2snk740kISaI8iX4+E56T34csJOJNfXjB
-         MNd1+FMayfrB6uDkKQI26U4EtWmQ97nouFap0YdL5r6bMyAAjSJIRx/6QoxkKdIUYQDl
-         Zj4N84qdCxJSyd0r9wjKWgomBm/et9tsOHoFR11RYJAIzI9lJluh/LG/EQfvAIjbeNnX
-         1KcY8nXMjXUw9H7WmRZ20DjiQOmNEIMJgwh9SWOl0UrkJm6nKla610jsOUjpG5VJ5d+a
-         ukEcXf5PSthHlhNX1tbUfd4zXaaNIR0dvRM6TMqHFl+3ax71vsnHYzLwKx0MjsTeg5XD
-         kkkw==;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=GWA3ILffVhGa4FkzQXQubKTR5QBs74w5VthahbifZWg=;
+        fh=TbRnABaKEkT4eO3Zs0MX16cVblrsPE1k2LKtiFfv9Tk=;
+        b=OsWiIUSMSCtPR8HB1+kthuCFmP7dmQaUhkaZFMIdZunzqpn76c6znFsBHH2k0vK9XX
+         84mqHr9x/f+p1n038cFx9Rd228isCpk7ICwGXtIfukDNpTER1agBS8ZpwBQ/hUbc+gGk
+         2idWiovjQEO3Eh3573RaKotDdX2lggaU7jGrrZDTGrICnAcDxx+rrIAvG+oY1ptGoVBr
+         mCgc+JRlO2qady/lvYGJ4R0/TrUMJ69mToq8ahNMuJWn6kRd5+gpajCF8kRVRq/mzBDX
+         2JlZvuRaRYCKngp3+ysScNucZq9p+w0ADY5NysAw4H6E1/XhLSV9E6zUsMliS+RbMcbP
+         H4uQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792938092; x=1793542892; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SM7Yv/1HjzmGuGQj9J0EPWbZsOFrrCqzpNrPuOL5wcg=;
-        b=Yeh32JhtZmd2iC8QTwS3rSPC+4TSmNn+3v5gKoXld8RdwJJN3cxGhjaNGyXCto/O4P
-         f+0jqrBrGvdQ2aISEC/WD/zgW5r7eSNj777rU0XiNu6UxMDUoRoJbJwRsvdMZwj4mVG+
-         fRjhzGU1uQdgxHWWpYYg98vmTb2p0MK8hPXv80QRvnCu13AO68UzamMdcIiBnok+vEva
-         aJVL++M0Y6f/ATiSXDOghgwOzxw4RiHirD2KgIemhiWiXjM+/P6PA1iES9c26TFg3nRY
-         52ZwfNNhRZfVaFU2TG20+8PUDmVIeP0GLoiNDmaft7QhSttqZbo7dMYsXeBVR7c81S6Q
-         3otA==
+        d=gmail.com; s=20251104; t=1792938164; x=1793542964; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GWA3ILffVhGa4FkzQXQubKTR5QBs74w5VthahbifZWg=;
+        b=YvB1UI7zCPwKzfQoNIOP8u+7sxd+2SekPsPaL4cz4Caz6iuwhzKHqH265iPli9K7j7
+         yWZKKZ7VDNLkeXwsrP3lYpbwRVnnpiUOSn7zDtyUcTMybO0wRTewjTdwepTKl/oBtsgM
+         ON5FBxXXm1fJdNZ7FNaobq2wGyrOYOkRB+P6wYnmw8L5tUAFUx+ashFou2TA6xTmD89U
+         tyi1beDT6fEv77Y9ro9lMTkZEQnxxMbAtvX/EIn3YdpMqUo9T4DSv0an7twk4RDd22CT
+         aKblOnnVwPP+MUHmIR8niaNwjciFPotrSrAnqLCfcXEu8F9B//nV1sMXpgxneeA97cDN
+         zzHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792938092; x=1793542892;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SM7Yv/1HjzmGuGQj9J0EPWbZsOFrrCqzpNrPuOL5wcg=;
-        b=zw/YQ0Jah1ZzFJTR7SzPA7rP50dRAYmg+6uRrT1O7dIl1hWtz2B7Slmz1lOlZwJFo5
-         ZtbxdePYpnD8M9/fhmggCKGR+iLdF4p1PAZPlgIxA2E/x4tfWmjmz9fdz4Esk1FwhIdy
-         rZJrGjNRTp+rfo1scLxuGLPrYx45iCLKYRtt4OLWIaJxZ7ugheo9lRct7SK6Jsb6Sbbt
-         ab2klv3kV78OWc0Ro3SYCCEDfbJQ59HBhQfE94vVTxvL9OqVOWhGI17w8gOeZvLYr2nT
-         isrWrzcQ2hTr3AP8gSU/KxN5pnFaydzu9Lciswb7KHXMLZyPQx/n5X2Dqp8buxT3y1eM
-         T7lw==
-X-Forwarded-Encrypted: i=1; AKwUvByBXp+hDUJDnTnAi1OqPTSKgERcEt/b4ErsreSF1ki2m5FXUSn3nVLZOn8+Ckq19I1m9cxdlBbFCpHOeJs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeA20ICNnfupMnWJkipn1b/7/stq1GqgbMqQGWNXQtXLCTBQo8
-	+9l20LivJrpG8DN2ZSnaFrSgyj7QaUvg3HRqJTVQGh6M1eTDyzNwxbWMFgROC/1BXcRh1QOPYDf
-	Tk2Zcu1l1Cu2bs1ZaajiBP/e+DzJyLFs=
-X-Gm-Gg: AYBFou3lzPlQX2Y6ZM1rq/pjgARX/Q1/c46K/nqnlOdOZA42tnBExjxwV6y9vgq0WH9
-	Fuuvs+kkvUX2NiXbO0ZNQDghGNYJ/PiayVZphh9820EpkTU+WS5jOp9Z5P3sYyipLxp62RD5wJn
-	S+L2BBKuM4zu4/NLm0A8rhWPAuGLgKH9c/KkSS3BONz1dtniUBt/69TSWofmtAIqVGrXyQ1l4n2
-	EMbE06FRSCZTEHT94LgwbAIoiscGljRM+be+V66N7hLZC52LocvZBGD/x43EOI9JFYgg8Jxpxx/
-	LmAYdzb8/xwj0B8dji5axqnhNyV1ARv344YbwY8pNBs9l3907L57Bn2WPuV/uOXZmkylq65HjF2
-	mJJAC3B4SPe0EAfLCPxf6lHysGu18vwDO1jA6ZwyfqIBFwdtDfIWVLvKGV5RUIgeOgkIHLmi0EP
-	MBQFpXGzsMnUIkqNNTt2MNmgJyUuTBYL43KLzpVkL/NGwIOfP7zpyjJdB+1VDEZX2APhcdoVfT
-X-Received: by 2002:a05:6214:4601:b0:917:a943:c4c2 with SMTP id
- 6a1803df08f44-91c48e56a20mr74345036d6.23.1792938092287; Sun, 25 Oct 2026
- 07:21:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792938164; x=1793542964;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GWA3ILffVhGa4FkzQXQubKTR5QBs74w5VthahbifZWg=;
+        b=F2Sg68EfaTBE3WfyrIKFL94qUilcWpQd+CSyFcFRAb11krEfb4cxT60gZcIq9Jco04
+         95CUQPVkfh6A5mdAmQpMxKB25cEWWxn9U0VOFWDETFI9NXmkCm+4o63XyrgOg0LFYT6l
+         03q6Lx7eCZdA2R8kjTZ7/d8qtkkYVn0BxQCkxQaN90JEtct9y+/9aITSMk3YAAhUCihw
+         4Z0FrRS/pK90u7+XD8v741B17/yZdjJoVmD8Zv6RC4WYarWZNSjTIW+P0rmwenm3uMPQ
+         YO580gpr9BeQXS5uoijrmhMxYi+d5RErR98tKc4bY3yWPBS09yUmSYk++ZoTTEHFa0Ad
+         C5vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTnZwNg8u+c53pHcvtiqqVB3oKks3x/USy8mqDAsbzpHRR/tEWnF8BSeK2qvY83xLZbqi1alR34fFB+vs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ+fsfF1D7QWcNC7De2OoN51kNwKPWEoZX52mXYfh7Py33ltCF
+	QPD7U4mfde8/WI5zSydn01e2i/409vwsbqDtQYXhVxiC0xJmx4tXp/Weai44U/0fq3xVmrtexWu
+	F0eOosWfhEMaDANZWCh9aI287bt79Sqw=
+X-Gm-Gg: AYBFou2YLmY7QhEP0n4koKRwSgqoPEmhLoR8VliLg8xBXmrL48INeSKX/J1l65pz4es
+	GTXRU1VS9CsZjVi+C49ur1pWZrbQhZ9YLmAL3W5WUG/vNcbAcb9Thget0nusq9PUN4B2jLczEnR
+	66pPxIe7/uoycr9cT5MN3BVX9hN/ljqYuZFbCr1+AMC3WqTLT9dRdd+PSjS/8f/SElM2UocDeBj
+	7TLbzlAlsnpu54Imjf0o68tsAN6LiYsp0RRQvKFd5Wtn03yOwjP/EYDyUJOXcUvurgc79gh18UJ
+	8bZU8ThbBnkj6e15JpgBKtIfqvIV2U95r6sfAZcEfAYdBGNc2fr/Dql/+mqfmA07k4VvpRRt9rp
+	IP0SyCPTMXJvbcS/GdD2YFWPblcgdPnrsY24mX/E9B7Sf5vBVXjfwD3w/wDqVGlPFvA==
+X-Received: by 2002:a17:907:dac:b0:c31:e9b7:f10b with SMTP id
+ a640c23a62f3a-c46bdea43dfmr530904366b.42.1792938163869; Sun, 25 Oct 2026
+ 07:22:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +101,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020142534.3533478-1-sashal@kernel.org>
-In-Reply-To: <20261020142534.3533478-1-sashal@kernel.org>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Sun, 25 Oct 2026 11:21:21 -0300
-X-Gm-Features: AclHuK_3A6YoAPopWYDdBpyLpTtDAS3DEQEhpWyYqeQDBqHn86Lo3m1k1XEe8Gk
-Message-ID: <CAMAsx6ch8bztwO2w+gA1xc2H8JEM-7haUd05dmyODN_=VWJ74A@mail.gmail.com>
-Subject: Re: [PATCH v4] docs: submitting-patches: say which commit a Fixes tag names
-To: sashal@kernel.org, corbet@lwn.net
-Cc: skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, brads@mainlining.org, 
-	gregkh@linuxfoundation.org, linux@leemhuis.info, mst@redhat.com, 
-	error27@gmail.com
+From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Date: Sun, 25 Oct 2026 15:22:30 +0100
+X-Gm-Features: AclHuK9wgskeKFnwTz3UroDZd-FWWYPOLCNifdGibJ7BV5fPBFLMKtRw3_x8_lk
+Message-ID: <CAHxSwT_bdBdiwwXpGpr9+rGizZU3p+RsB18hPH5TxqMuMZOsQw@mail.gmail.com>
+Subject: [PATCH v3] staging: fbtft: fb_upd161704: Replace udelay() with usleep_range()
+To: julia.lawall@inria.fr, gregkh@linuxfoundation.org, andy@kernel.org, 
+	outreachy@lists.linux.dev
+Cc: linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026, Sasha Levin wrote:
-> +Name the commit that introduced the bug. When using ``git blame`` to find it,
-> +do not settle on a commit that only moved the code. If a later commit exposed
-> +an older bug, add a Fixes: tag for that commit too. If the same bug was
-> +introduced separately by more than one commit, add a Fixes: tag for each.
+Replace udelay() calls inside the init_display() initialization
+sequence with usleep_range() to avoid CPU busy-waiting. Since
+init_display() runs in a non-atomic context, sleeping allows the CPU
+to yield, improving power efficiency and system responsiveness.
 
-Hi Sasha,
+Signed-off-by: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+---
+v3:
+- Remove raw git headers from the email body per maintainer feedback.
+- Add a descriptive commit message body explaining the rationale for
+usleep_range().
 
-I went through v4 against the tree (docs-next at f857ff5bf):
+v2:
+- Send patch inline in the email body rather than as an attachment.
+- No functional changes to the code diff itself.
 
-- the new paragraph sits between the description of the Fixes: tag and
-the existing "Note:" about the stable rules, and reads well there;
-- handling-regressions.rst does ask for this ("Add a "Fixes:" tag to
-specify the commit causing the regression"), so the reference in the
-changelog is accurate;
-- I built the process documentation with the patch applied and it adds
-no new warnings.
+v1:
+ drivers/staging/fbtft/fb_upd161704.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-One thing for information only: checkpatch --strict reports the
-"Assisted-by: LLM" trailer ("Non-standard signature" and "Unrecognized
-email address: 'LLM'"), because Documentation/process/ in docs-next does
-not describe that tag. If it is defined in the agents series or in
-another tree, please ignore this.
+diff --git a/drivers/staging/fbtft/fb_upd161704.c
+b/drivers/staging/fbtft/fb_upd161704.c
+index 7288140e7..94ae5bbf0 100644
+--- a/drivers/staging/fbtft/fb_upd161704.c
++++ b/drivers/staging/fbtft/fb_upd161704.c
+@@ -32,27 +32,27 @@ static int init_display(struct fbtft_par *par)
 
-Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+        /* oscillator start */
+        write_reg(par, 0x003A, 0x0001); /*Oscillator 0: stop, 1: operation */
+-       udelay(100);
++       usleep_range(100, 150);
 
-Thanks,
-Daniel
+        /* y-setting */
+        write_reg(par, 0x0024, 0x007B); /* amplitude setting */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0025, 0x003B); /* amplitude setting */
+        write_reg(par, 0x0026, 0x0034); /* amplitude setting */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0027, 0x0004); /* amplitude setting */
+        write_reg(par, 0x0052, 0x0025); /* circuit setting 1 */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0053, 0x0033); /* circuit setting 2 */
+        write_reg(par, 0x0061, 0x001C); /* adjustment V10 positive polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0062, 0x002C); /* adjustment V9 negative polarity */
+        write_reg(par, 0x0063, 0x0022); /* adjustment V34 positive polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0064, 0x0027); /* adjustment V31 negative polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0065, 0x0014); /* adjustment V61 negative polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0066, 0x0010); /* adjustment V61 negative polarity */
+
+        /* Basical clock for 1 line (BASECOUNT[7:0]) number specified */
+@@ -60,7 +60,7 @@ static int init_display(struct fbtft_par *par)
+
+        /* Power supply setting */
+        write_reg(par, 0x0019, 0x0000); /* DC/DC output setting */
+-       udelay(200);
++       usleep_range(200, 250);
+        write_reg(par, 0x001A, 0x1000); /* DC/DC frequency setting */
+        write_reg(par, 0x001B, 0x0023); /* DC/DC rising setting */
+        write_reg(par, 0x001C, 0x0C01); /* Regulator voltage setting */
+-- 
+2.34.1
