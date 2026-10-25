@@ -1,89 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792898565;
-	b=YlUoJis+HI0WwQnu5ftDxcrYqZowaPkKwkJu7rtHKtwEmso0Prz0WaG/CHRcyYVxGdrr
-	 daE9fM3KIE7WvPDN3u23S1/ciVF17hgNQw5qRESRyZQ9YkUfezaDGom7WGxa0v/LrLKq0
-	 Z57GHfkQF4WxK7sJuU3ovltDXvMkhTVGQzRRtKGsrh98blQ9o84QDE0Ki04W8shmPxY/2
-	 haHZyZWjuGNs2+wxbyKN5S7WPuUBh2iy3E7VV2VqHs/25tMlfpb5HoDzls1xlsc5xXa7M
-	 +R/ovncvrZTMEB744z+zCcM4GHsrOPLlUEfQt1i8vdQkiQ/iZHG2k+rOxF8qn1Dwfbg==
+	t=1792898612;
+	b=HPEkCPKg6Ej3xWA+okCVKIIugvS1Pj2u4rBB1UjONgJ/GDs+Q666Pm9nwefLg/ZgdR3q
+	 +gbdKmlHJYg6InVghgqSnD5XJDKPIJANeVykhcmgK3iv30qEZNXLVinqk9PVYEi0yHc/w
+	 lGOatvsm3Kt94Fx3uegHI0skw65aP6SoOB5ak5xx7IYSMCMvQAvWbLtYbmK/InnY5g+4W
+	 zzxndkm5qdxm2ReONfSITtleZwKSwvKGzZi5ne/gzhxIuTe07Qzvzi/+gl0VoUNImA02v
+	 4UYJ1PAExyHuiK05LCFVWytuOVmFXxEJ9aLY4Wqz3Azp3MWd/Rzp8wHWTghL8fSGGxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792898565;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=AGASU0krO4dcW1R4gKRMwQopKJJbDchm1ha/pJWZAsA=;
-	b=Av8Rb2W3J64BqGD+mP/Fe45FIZlBoluJZ5ZwgIdC1QFzY+kCWX3RZCxtuUPGdCBpntmQ
-	 sxx1MJ089Ho8a3CL8dp5CZ2eALQFZuuP3CWtjDm0AkERwM934EtQnLtP3D1r7P7aKnnuS
-	 bGTb3I7gGRL4/HoTDy14dLfDbXgeJyjr9qXYL5a+EpgSl43yOrF8wTqqSSAeBHGn7ifTg
-	 7ASVGesoT9DoXicXtAgklDtBE8VGYz/H8UIjY3pcX2VmzuYcA8ItyRXRcC1+wldMq2lQB
-	 zkirotqMMPpFkJPvzyLyhEjMJpJ/Rk2pkXFOoSrAwQnNySAJ2s/xSBUDZr4nRSnpr1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792898612;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=+CEND9LNEbGqZK0RMafj7krsiQI5NK+7VAVtk3WXtP8=;
+	b=TL+mE81RhcZHYq3YowBdqLHjCb+W5hhwKPgt3hZlBPfIAvHhAsdqdCAi/V4P6ihOHJW1
+	 L6Ym9mIKw6J8wu4eXxAtJLaabcxFPZGRipnixM6x2adQaNJe2Ny2WD4rZnkkI5giv+XYq
+	 2/stJyMzP+Og+yoSanIRg77UBbjm/9qykEQW7t+Z+fXgPyv3iypjhC5uVqzT8Wvwi4xIk
+	 h07rHCmxubAfwbFwHXHV5jBlI1gvacpaknnRsHrI7+A4r1y7hY3oG8OdsBJV635RRq1Qi
+	 Q9ELa8rR66L7dsVJRkQV9dg7G1p+wdXVVC9sCkUEDP5sK7cFLmNRt0OjnAPZPSodQNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=No8+gWTg;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8D8606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 03:22:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F8D8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=No8+gWTg
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3300936eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 20:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792898564; x=1793503364; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AGASU0krO4dcW1R4gKRMwQopKJJbDchm1ha/pJWZAsA=;
-        b=No8+gWTgwfulpHDt96mwihycd+Wu9qfSllEKE9t+HvO6m+kDhTow7SPHSag94h5mtO
-         k9SV/0wj8JHhzjC9EWT1cYqSeb10oiisvS4P3LNsY+WfYeIskMw43EEbpopd8T05oTBc
-         bS5tmHMpqzax1P5VSqrqqTn7Wa06sff2b2E7tavdtI00AVS9qtLp2PUxypWhOjnDwKpr
-         OV/ATf8CH3msdfm6vwpSzRXmXDlLKOfzlLDi0YMeLdBFN85Sb45LqfNOGT+1uHLSqdqm
-         IdNYNyDhsoaRb6PNXjBd26eFw+MyQzkk6jNPjY20PDrtFomjycE9kO0fN3L3bkhiPcf+
-         YCPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792898564; x=1793503364;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AGASU0krO4dcW1R4gKRMwQopKJJbDchm1ha/pJWZAsA=;
-        b=Ds5sUBD8lIqrr6TnUbDzvTkN+DCmYhz4FECZEVbAoWRU2PvEJoaDH+16ToZLuDhA0n
-         MLEoL0libow1UKoKZPzSvI/BagtkoMJa99AZLk1VzrBINcq4yp2O1VQ5USBuMEVjNUV/
-         Pnd94n8eNDE3ZrFrpjD7/gb22rjShylKhogatrM1AR5KzHJApW+wdaOV2C9az+Z2769r
-         99TUwr73YCbL0GNgKlZABsr4k0nWdUl9H05ilGn1GJoPNMH2RK34kQsGSm3lmNUmiF+0
-         F7LJB8BxRk5iVn9oAmt4SkOY/uiho7IAipH1R2F8rg87Lp/xsCwBFc2MKHertlAFJPic
-         fy+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxkrqxq1iY4A/jpSd9mj+V52ez5+SuiYWGDR1weBNA6eqERkgdbzaNy6AoqTZ1jIMgojcszfJnp6ShG0qI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1iMRa7mufntx0gp2OTm6WHqqW6YmsIbFo60QbbWiSWyCZGVtY
-	ZWEPSQway8x1SI05Rk2yix/BHSZ65j/b71n5u1Q2XwS8ND4bFjaO839G
-X-Gm-Gg: AYBFou2iZKuohwSFduW4GjWAYyWN4684MGntr/uN9x0nsQzGy+ECY15PYxsTK/QCnN/
-	oE5tLRWyIijq6NZ8tJWHbc+h+Imuo6T5qPrQk4SfRr5o3MbjZxE5V3T4wmrSBEr0mhoRUI1+l3n
-	QpDO8dXWAFWBzoexjCt8VDONkAj5wA9z++j6YM2o4mlVJCHzSfrUWm7DYCWLQfwsFXptOiQ9TOO
-	/tqU1a/sjOxWxNqP44qVeQLzFLn3ziJHeNx1O+pMTHPN6A9gRabO3CwQOtSuctOKy5YE0Xyy+UM
-	a15/B73vdwIogGLIuzHDAyVKguNqTViazm6m4ReT+IPPRrriJ7Ok7PelvsW46NAP7G1DJn0qfyh
-	lwZddW1FDNvXYGl6/n/zHppKRSxj7+ZVWAxDHsvsunkyC1ZI1NoSVo8FCMg7/7i/pcNvfJfNrWj
-	2G2mwUzpBhKvwGOfGJdfvSTn8hjLw3yc05fPtOUt/qTVZYUb04/5WDnKUPFKgN6m9ZwL7LGrFoU
-	xWEjvb+npmzDGnqz0oPxG6djXo8XnVGvO2uP3mBtdX/9mO+GGOHD0mgXJpvT8RVl574en7wSriJ
-	uSciBLYpv2ukZiYjGYTA4Fw0jJp6gvZiV+Y85+fEjBDQriwTSoLJqY6uSv5f2usYw1kyvyy9is/
-	kHPvoY9382zaF7dCewawzv3liOF+0
-X-Received: by 2002:a05:7301:2293:b0:353:5908:36fc with SMTP id 5a478bee46e88-369e8483d0dmr5753055eec.17.1792898563532;
-        Sat, 24 Oct 2026 20:22:43 -0700 (PDT)
-Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm13602486eec.13.2026.10.24.20.22.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 20:22:43 -0700 (PDT)
-From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 25 Oct 2026 13:22:18 +1000
-Subject: [PATCH v2] ASoC: tas2770: Fix error detection in
- tas2770_set_dai_tdm_idle
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26180606A31A;
+	Sun, 25 Oct 2026 03:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26180606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMB2u6Endt1qY_ArAQ--.9583S2;
+	Sun, 25 Oct 2026 11:23:19 +0800 (CST)
+Received: from [100.81.40.43] (unknown [222.20.126.216])
+	by gateway (Coremail) with SMTP id _____wCnY6oddt1qreO6AA--.14806S2;
+	Sun, 25 Oct 2026 11:23:15 +0800 (CST)
+Message-ID: <8ff98b43-248e-4568-a5fc-6f84f9cdbe33@hust.edu.cn>
+Date: Sun, 25 Oct 2026 11:22:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,125 +45,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-tas2770-idle-fix-v2-1-6c8096a87f44@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NzQ6CMBCEX4Xs2ZrtBqh68j0Mh1JWWMOPaZFoC
- O9ui3eP32TmmxUCe+EAl2wFz4sEmcYIdMjAdXZsWUkTGQip1Ei5mm0gYzDGPau7vFWNGnMuzro
- wJ4izp+cY78pb9ePwqh/s5uRJjU7CPPnP/rno1PujX7TSCk2N1OQlO+JrO1jpj24aoNq27QsrL
- QzewgAAAA==
-X-Change-ID: 20261024-tas2770-idle-fix-b0104e591578
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, stable@vger.kernel.org, 
- James Calligeros <jcalligeros99@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3066;
- i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=+JeNkcg7xxI+ILpKkc9D2dhooDxOFAaRNmDxxxAetxE=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFl3S/9PC2C6sMlpjWb5kqiQAxK+y/QFU7w49D/mz5PUL
- bx6ZuWljoksDGJcDJZiiiwbmoQ8Zhux3ewXqdwLM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFSvk2b4Z/jZrKwqzDrcjN225MTJ+ibNTeFn9/eeXh3wr6hbZO7qnwz/XZ/mrv/
- ctLmwZ3Zd2rrmFSv+F9fMWTR5deCbaa9X1Isf5AQA
-X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
- fpr=B08212489B3206D98F1479BDD43632D151F77960
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
+To: Daniel Pereira <danielmaraboo@gmail.com>
+Cc: wy@wyuan.org, jani.nikula@linux.intel.com, alexs@kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ si.yanteng@linux.dev, chenyou910331@gmail.com, federico.vaga@vaga.pv.it,
+ akiyks@gmail.com, carlos.bilbao@kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015125644.12908-1-danielmaraboo@gmail.com>
+ <20261015125644.12908-2-danielmaraboo@gmail.com> <atQ_mXYNqs4tnDpW@wyuan.org>
+ <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn>
+ <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
+ <40aeaf0a-6e04-461c-a507-52f791b45541@hust.edu.cn>
+ <CAMAsx6fk=k1aXT3gvyZ4k8hG9KN+YCmvEc42LGdmm3Y+p2J1_g@mail.gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <CAMAsx6fk=k1aXT3gvyZ4k8hG9KN+YCmvEc42LGdmm3Y+p2J1_g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IAEQrMB2u6Endt1qY_ArAQ--.9583S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWfGF4UCryrXFyfCw4xKw1rWFg_yoWkAw1Dpa
+	45GFyxK3ZxJry7Ar1xKw4UZF1SyayxGw45WryDt3s3AwnYyryIqr43tr9IgFykXrW8ua4j
+	qr4UKrya9rWUAFJanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUsqjgDUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-snd_soc_component_update_bits returns 1 on a successful update, and
-we were returning from tas2770_set_dai_tdm_idle early on any nonzero
-return code. Change this so that only negative return codes are
-treated as errors.
 
-Fixes: af176d0787d2 ("ASoC: tas2770: expose SDOUT bus keeper via set_tdm_idle")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
----
-Changes in v2:
-- Make commit header more concise
-- CC stable
-- Link to v1: https://patch.msgid.link/20261024-tas2770-idle-fix-v1-1-07b02d46ec2e@gmail.com
+On 10/24/26 9:28 PM, Daniel Pereira wrote:
+> On Fri, Oct 23, 2026 at 10:10 +0800, Dongliang Mu wrote:
+>> Daniel, can you list all 14 files in sp_SP, zh_CN and zh_TW?
+> Hi Dongliang,
+>
+> Sure. First a correction: when I counted, I only looked at .rst files.
+> With the .txt files included, ja_JP and ko_KR do not fully mirror the
+> original paths either, so my earlier statement about them was wrong.
+> The full list follows, translation first and current original below.
+>
+> The 14 .rst files. Original moved, translation not moved with it:
+>
+> sp_SP/process/magic-number.rst
+> -> staging/magic-number.rst
+> sp_SP/wrappers/memory-barriers.rst
+> -> core-api/wrappers/memory-barriers.rst
+> zh_CN/dev-tools/gdb-kernel-debugging.rst
+> -> process/debugging/gdb-kernel-debugging.rst
+> zh_CN/filesystems/gfs2.rst
+> -> filesystems/gfs2/index.rst
+> zh_CN/filesystems/gfs2-glocks.rst
+> -> filesystems/gfs2/glocks.rst
+> zh_CN/filesystems/gfs2-uevents.rst
+> -> filesystems/gfs2/uevents.rst
+> zh_CN/networking/xfrm_proc.rst
+> -> networking/xfrm/xfrm_proc.rst
+> zh_CN/process/magic-number.rst
+> -> staging/magic-number.rst
+> zh_TW/admin-guide/security-bugs.rst
+> -> process/security-bugs.rst
+> zh_TW/dev-tools/gdb-kernel-debugging.rst
+> -> process/debugging/gdb-kernel-debugging.rst
+> zh_TW/process/magic-number.rst
+> -> staging/magic-number.rst
+Good job. I will quickly verify them and send a patch to move them.
+> Document exists only in the translation:
+>
+> zh_CN/glossary.rst
+> zh_CN/how-to.rst
+> zh_TW/glossary.rst
+>
+> As Chen-Yu pointed out, the three zh_TW moves are already in the zh_TW
+> tree and will go away once that series lands upstream.
+>
+> The .txt files whose original is now an .rst file elsewhere:
+>
+> zh_CN/arch/arm/kernel_user_helpers.txt
+> zh_TW/arch/arm/kernel_user_helpers.txt
+> -> arch/arm/kernel_user_helpers.rst
+> zh_CN/arch/arm64/{booting,legacy_instructions,memory,
+> silicon-errata,tagged-pointers}.txt
+> zh_TW/arch/arm64/{booting,legacy_instructions,memory,
+> silicon-errata,tagged-pointers}.txt
+> -> arch/arm64/*.rst
+> zh_CN/filesystems/sysfs.txt
+> zh_TW/filesystems/sysfs.txt
+> -> filesystems/sysfs.rst
+> zh_CN/video4linux/omap3isp.txt
+> -> admin-guide/media/omap3isp.rst
+> zh_CN/video4linux/v4l2-framework.txt
+> -> split into driver-api/media/v4l2-*.rst
+> zh_TW/IRQ.txt
+> -> core-api/irq/index.rst (according to its own header)
+> zh_TW/io_ordering.txt
+> -> driver-api/io_ordering.rst
+> ja_JP/stable_api_nonsense.txt
+> ko_KR/stable_api_nonsense.txt
+> -> process/stable-api-nonsense.rst
+> ja_JP/stable_kernel_rules.txt
+> -> process/stable-kernel-rules.rst
+>
+> These .txt files are not part of the Sphinx build, so the language
+> switcher never sees them, but they still break the path mapping that
+> checktransupdate.py relies on. Whether each one should be converted and
+> moved, or dropped as outdated, is up to the maintainers of each
+> translation.
 
-To: Shenghao Ding <shenghao-ding@ti.com>
-To: Kevin Lu <kevin-lu@ti.com>
-To: Baojun Xu <baojun.xu@ti.com>
-To: Sen Wang <sen@ti.com>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- sound/soc/codecs/tas2770.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+It seems the original English documentation moves fast. I would write a 
+script or skill to check this relationship maybe daily or weekly.
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 882e19857697..6b9ec8f630fe 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -513,7 +513,7 @@ static int tas2770_set_dai_tdm_idle(struct snd_soc_dai *dai,
- 		ret = snd_soc_component_update_bits(component, TAS2770_DIN_PD,
- 						    TAS2770_DIN_PD_SDOUT,
- 						    TAS2770_DIN_PD_SDOUT);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		break;
-@@ -521,12 +521,12 @@ static int tas2770_set_dai_tdm_idle(struct snd_soc_dai *dai,
- 		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
- 						    TAS2770_TDM_CFG_REG4_TX_KEEPER,
- 						    TAS2770_TDM_CFG_REG4_TX_KEEPER);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
- 						    TAS2770_TDM_CFG_REG4_TX_FILL, 0);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		break;
-@@ -534,25 +534,25 @@ static int tas2770_set_dai_tdm_idle(struct snd_soc_dai *dai,
- 		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
- 						    TAS2770_TDM_CFG_REG4_TX_KEEPER,
- 						    TAS2770_TDM_CFG_REG4_TX_KEEPER);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
- 						    TAS2770_TDM_CFG_REG4_TX_FILL,
- 						    TAS2770_TDM_CFG_REG4_TX_FILL);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		break;
- 	case SND_SOC_DAI_TDM_IDLE_OFF:
- 		ret = snd_soc_component_update_bits(component, TAS2770_DIN_PD,
- 						    TAS2770_DIN_PD_SDOUT, 0);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
- 						    TAS2770_TDM_CFG_REG4_TX_KEEPER, 0);
--		if (ret)
-+		if (ret < 0)
- 			return ret;
- 
- 		break;
+Dongliang Mu
 
----
-base-commit: cc3fc99f1bce93c3ae3771ef98cb91a566da857e
-change-id: 20261024-tas2770-idle-fix-b0104e591578
-
-Best regards,
---  
-James Calligeros <jcalligeros99@gmail.com>
+>
+> Thanks,
+> Daniel
+>
+>
+> Em qui., 22 de out. de 2026 às 23:10, Dongliang Mu <dzm91@hust.edu.cn> escreveu:
+>>
+>> On 10/23/26 1:09 AM, Daniel Pereira wrote:
+>>> On Mon, Oct 19, 2026 at 12:37 +0800, Dongliang Mu wrote:
+>>>> So my suggestion is that, after confirming all the translated
+>>>> docuementation follows this style, we can delete this field and write
+>>>> this relocation style in the translation guidance.
+>>> Hi Weijie, Dongliang, Alex, Jani,
+>>>
+>>> I checked docs-next. it_IT, pt_BR, ja_JP and ko_KR already mirror the
+>>> original path for every file. There are 14 files in sp_SP, zh_CN and
+>>> zh_TW that do not, for two reasons:
+>>>
+>>> - the original has moved and the translation was not moved with it:
+>>> magic-number (now in staging/), gdb-kernel-debugging (now in
+>>> process/debugging/), security-bugs (now in process/), xfrm_proc
+>>> (now in networking/xfrm/), memory-barriers (now in
+>>> core-api/wrappers/), and the three gfs2 documents in zh_CN;
+>>> - the document exists only in the translation: glossary.rst in zh_CN
+>>> and zh_TW, and how-to.rst in zh_CN.
+>>>
+>>> So I agree with Dongliang's order. For v3 of the guide I propose:
+>>>
+>>> - state the path mirroring as a rule, since the language switcher and
+>>> checktransupdate.py both depend on it;
+>>> - describe ":Original:" as optional and not needed when the path
+>>> mirrors the original, instead of showing it in the header example.
+>>>
+>>> Moving the files above and removing the existing ":Original:" fields
+>>> can then be done per language, as separate series, by people who know
+>>> each translation. I can send the moves for the files whose originals
+>>> were relocated, if the maintainers of those translations agree.
+>>
+>> I agree with this proposal. Ask maintainers of each translation to
+>> solves these issues first.
+>>
+>> Daniel, can you list all 14 files in sp_SP, zh_CN and zh_TW?
+>>
+>> Dongliang Mu
+>>
+>>
+>>> Thanks,
+>>> Daniel
+>>>
+>>>
+>>> Em seg., 19 de out. de 2026 às 01:37, 慕冬亮 <dzm91@hust.edu.cn> escreveu:
+>>>>> 发件人: "Weijie Yuan" <wy@wyuan.org>
+>>>>> 发送时间:2026-10-18 11:40:09 (星期日)
+>>>>> 收件人: "Daniel Pereira" <danielmaraboo@gmail.com>
+>>>>> 抄送: "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>, "Alex Shi" <alexs@kernel.org>, "Yanteng Si" <si.yanteng@linux.dev>, "Dongliang Mu" <dzm91@hust.edu.cn>, "Chen-Yu Yeh" <chenyou910331@gmail.com>, "Federico Vaga" <federico.vaga@vaga.pv.it>, "Akira Yokosawa" <akiyks@gmail.com>, "Carlos Bilbao" <carlos.bilbao@kernel.org>, "Avadhut Naik" <avadhut.naik@amd.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, "Jani Nikula" <jani.nikula@linux.intel.com>
+>>>>> 主题: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
+>>>>>
+>>>>> +cc Jani Nikula
+>>>>>
+>>>>> On 2026-10-15 09:56:42 -0300, Daniel Pereira <danielmaraboo@gmail.com> wrote:
+>>>>>
+>>>>>> The documentation has seven translations, but nothing in the English
+>>>>>> documentation explains how to contribute to them.  The only guide that
+>>>>>> exists, Documentation/translations/zh_CN/how-to.rst, is written in
+>>>>>> Chinese and covers the zh_CN translation only.
+>>>>>>
+>>>>>> As a result, the same problems come up over and over in the review of
+>>>>>> translation patches: labels and citations copied from the original,
+>>>>>> which are global in Sphinx and collide with the English ones; partial
+>>>>>> builds with SPHINXDIRS that hide those collisions; lines over 80
+>>>>>> columns; translations not added to any toctree; missing commit
+>>>>>> descriptions, tags separated by blank lines, HTML email rejected by the
+>>>>>> lists, and the documentation maintainer left out of the recipients.
+>>>>>>
+>>>>>> Add Documentation/doc-guide/translations.rst, a guide that covers the
+>>>>>> whole workflow of a translation: choosing what to translate, the layout
+>>>>>> of a translated document (path, header, labels, citations,
+>>>>>> cross-references, what must not be translated), translation quality and
+>>>>>> terminology, adding the document to the build, checking it with a full
+>>>>>> htmldocs build, checkpatch and checktransupdate.py, preparing and
+>>>>>> sending the patch, the review process, keeping translations up to date
+>>>>>> and starting a new translation.  The commit message format it suggests
+>>>>>> is the one already recognized by tools/docs/checktransupdate.py.
+>>>>>>
+>>>>>> Link the guide from the doc-guide index and from the translations
+>>>>>> index.
+>>>>>>
+>>>>>> Signed-off-by: Daniel Pereira <danielmaraboo@gmail.com>
+>>>>>> ---
+>>>>>> Changes in v2:
+>>>>>> - Drop the Assisted-by references from the AI tools section, the tags
+>>>>>>     example and the checklist (Weijie Yuan).
+>>>>>> - Use a plain path in the ":Original:" example and drop ":Translator:"
+>>>>>>     from it (Weijie Yuan).
+>>>>>>
+>>>>>> v1: https://lore.kernel.org/linux-doc/20261013003702.5824-2-danielmaraboo@gmail.com/
+>>>>>>
+>>>>>>    Documentation/doc-guide/index.rst        |   1 +
+>>>>>>    Documentation/doc-guide/translations.rst | 694 +++++++++++++++++++++++
+>>>>>>    Documentation/translations/index.rst     |   3 +
+>>>>>>    3 files changed, 698 insertions(+)
+>>>>>>    create mode 100644 Documentation/doc-guide/translations.rst
+>>>>> [...]
+>>>>>
+>>>>>> +Anatomy of a translated document
+>>>>>> +================================
+>>>>>> +
+>>>>>> +Location and file name
+>>>>>> +----------------------
+>>>>>> +
+>>>>>> +A translation mirrors the path of its original under the language
+>>>>>> +directory, and keeps the same file name::
+>>>>>> +
+>>>>>> +  Documentation/process/howto.rst
+>>>>>> +  Documentation/translations/<lang>/process/howto.rst
+>>>>>> +
+>>>>>> +Do not translate file or directory names.  The documentation build uses
+>>>>>> +this mapping to add, at the top of every page, links to the same page in
+>>>>>> +the other languages; it only works if the paths match.
+>>>>>> +
+>>>>>> +The file header
+>>>>>> +---------------
+>>>>>> +
+>>>>>> +Start the file with the same SPDX license identifier as the original.
+>>>>>> +Most translations then indicate, in some form, which document was
+>>>>>> +translated and include the language's disclaimer.  For example, the
+>>>>>> +Italian translation uses::
+>>>>>> +
+>>>>>> +  .. include:: ../disclaimer-ita.rst
+>>>>>> +
+>>>>>> +  :Original: Documentation/core-api/symbol-namespaces.rst
+>>>>>> +
+>>>>>> +A plain path is enough in the ``:Original:`` field: the documentation
+>>>>>> +build turns ``Documentation/...`` paths into links automatically.
+>>>>> Oh, btw. There's a comment about ":Original:" from Jani [1]:
+>>>>>
+>>>>> | I'm wondering, are these :Original: fields useful anymore since the
+>>>>> | translations extension adds the button to switch between languages?
+>>>>> |
+>>>>> | The pretty much hard-coded expectation is that the English version at
+>>>>> | path/to/foo.rst is the original, and its translations are at
+>>>>> | translations/xx_YY/path/to/foo.rst.
+>>>>> |
+>>>>> | I.e. neither the HTML nor the RST benefit from it, and it's just
+>>>>> | repetition.
+>>>>>
+>>>>> Perhaps we could have a bit of discussion here?
+>>>> Hi Jani and Weijie,
+>>>>
+>>>> if all the translation documentation follows the relocation style -
+>>>>
+>>>> Documentation/XXX/XXX.rst to Documentation/translations/XXX/XXX.rst,
+>>>>
+>>>> the ":Original:" has no meaning, but actually this convention does not work sometimes.
+>>>>
+>>>> BTW, tools/docs/checktransupdate.py uses this relocation style in the zh_CN translation. When I try to test this script in other translations, this issue occurs.
+>>>>
+>>>> So my suggestion is that, after confirming all the translated docuementation follows this style, we can delete this field and write this relocation style in the translation guidance.
+>>>>
+>>>> Dongliang Mu
+>>>>
+>>>>> Thanks.
+>>>>>
+>>>>> [1] https://lore.kernel.org/linux-doc/c719c6756f345c6c39db483654578ef09de1948f@intel.com/
+>>>> ------------------------------
+>>>> Best regards,
+>>>> Dongliang Mu
 
