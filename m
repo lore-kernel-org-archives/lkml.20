@@ -1,51 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792910603;
-	b=XNYHu2utP09pmwg+vu+H42uJjv8/4iXHKf6VxrW9olu0TFJaJCuqUdhxLq0v/gsY6nIY
-	 Kv1VdJJvWT0H30TvTrezymbeuEy5jzojOPfuXuV1qRyx7F6YIt57ceDWwGWkjxxq82epJ
-	 IoMcdMvfJn51a0/8iALEScc2aEtmdgtZPxyDUf12AGKCPONNaxnEfQhUf3vAN/ZAOt39R
-	 cb9hUEEj8jv5zbnc4lq0mjW8bloLl7X/UE1A4PT4McBwJPeCfAjq0FZi+ONh3PGGMJI4O
-	 uc+CCXwQQIksHbHCl9p8Yu7vq8ya5ApsapN8i3ahjEGaBHZnrKnreXztVYntWZ7ot/w==
+	t=1792910912;
+	b=AYLdqfHdRXMZYiA/N9izHrN2uX2ngyGIUgIKLylCVuZfiQZXu85dz4u5tSRzZ+EHd3ua
+	 N1gnnXr4SRLBDGxvDJOge/RN1QifbFReAdYysYX+n75X4DQ7fbIltEQwHCrmE4LCuud40
+	 cfA6gAIB6cq52ZY7YcDaT0QWahs4g2dY97lzPf/eKUHtMYYjtck62ezlIxVeQjT2Ndpgd
+	 wUr93Ru52Fy942Z06kqM8Wlf7by067emrJ/5qPStRtyjQhbTlKq7TIOYqwyt5qOj06gAP
+	 TEHH3NNgxNXpZOD6ORr7mIMSP8kNnYvKjk6oV156oPomZYdTWj4H9x2rjI10551rh4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792910603;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=qBPHxbBorrARAtlXB+i4p11nEdPU/NYekY0RSO2yICQ=;
-	b=14u90IrOOP3n1fJ+LhmBerc5f+AGmXip+V7eC9FrVGkZ/rdFQgWpWu/wiAuINJTilhoM
-	 yiYDM2Q2LO3plTAt7qVdkqDr4oBesEs4ZGsV/g5RyMowLnKmu46JwbDSotqwsJWvlT0dx
-	 IIWdzre0a5uNY72iyt62ZGFxCZ7MIasvZdQp9H3x0b6//v80NwnN8YXHoO5kuCWRDsk7m
-	 5K1JfsjgH3gXYGQLFrusJUIBJFiizajqBJ0YVkIYJKq66YiB5itRts5lhS/diZB/SUGqW
-	 fPvitgX1BMp7SE5yGYZYgVts50UGYa2CMi1IkX7Qb3X5mdoqQ1oPbxtf/cGjPF/mH5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792910912;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=X4mro5Ju+0/OZNa6+ydVcSk0tnNUNnmhCi4geW3t7cw=;
+	b=V5lao+BwQI7w7y7v0usNwxocSYRxgznyOuzspJs000MuY7L/YdmcPiUp7ZLm1xVFm2Ez
+	 1s4gPhwJSQXO274hONYJJnPBfuhSdT9C0oD2kCFRXJ6DMFxysX124DoTxzEGM+/eBSJXN
+	 ouqYGg7vBKjtgxf/FBOCHkxWFW07lbwy6QrobiXNwAdzUBDk+nXRb1shuWDnOg4h0wzf5
+	 BMGhQj0nIpKvnByV9TNJMFu3nWOzb/dCptB3iQUlUOiiNnEfGFll15qxXE/fZfPS7/Ch6
+	 iD0cKRYVH0Q7SihnS5WStKNo5/CHhViSNXwJPBYvbXZb4+1w7Ey4snjk5lRUq/OJbxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xiedada.net;
-	spf=pass smtp.mailfrom=xiedada.net;
-	dkim=pass header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=cwk7uEC0;
-	arc=none smtp.remote-ip=101.71.155.68
-Received: from mail-m15568.qiye.163.com (mail-m15568.qiye.163.com [101.71.155.68])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B1f+FXkv;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q6BDgHi5;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2FB606A31A;
-	Sun, 25 Oct 2026 06:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2FB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiedada.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiedada.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFB3606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:48:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFB3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiedada.net header.i=@xiedada.net header.a=rsa-sha256 header.s=default header.b=cwk7uEC0
-Received: from matebook (unknown [219.131.208.111])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 523ec1e20;
-	Sun, 25 Oct 2026 14:43:12 +0800 (GMT+08:00)
-From: Xie Youtian <xiedada@xiedada.net>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-kernel@vger.kernel.org,
-	xiedada@xiedada.net
-Subject: [PATCH v3] ALSA: hda/conexant: Fix swapped speaker/headphone outputs on Huawei MateBook 16s
-Date: Sun, 25 Oct 2026 14:43:12 +0800
-Message-ID: <20261025064312.62767-1-xiedada@xiedada.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B1f+FXkv;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q6BDgHi5
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69P4uU4b2667484
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:48:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=X4mro5Ju+0/OZNa6+ydVcS
+	k0tnNUNnmhCi4geW3t7cw=; b=B1f+FXkv7WIc1WX7NfQd2k+7LDtBtPw6hPcMIt
+	uW6H1dkF9SaIWgTkE1hA1ujDe4uygBWA7cvg29F0TU8Jere/U8kuMwWnDmT8bn9Z
+	Qgzv/LAYC1sK7SMYsfAirdS37PjPbqRDVDxB0bTAQ+iQeV/ubg17HQcLJqZ8oz3W
+	oxiOcLFgsrGKc9PHZ8QIoU9QqI5yx6IC0MHF/KHXh5Jvm1TQ2yZ06G5RrAbiHgJY
+	g3+wUL9kDSAGxZ3X/m2Zgwbn0SjsW3iXJ6G++7baLJD0jPtEwj7zVAlRJuFXt0WG
+	TH7Qot5Mgqz7AAYrXC3hpIbo7lMY5vYWiSA/zNv2x+uFg4EQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgny9ted5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 06:48:31 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3663d3547a0so230667eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 23:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792910910; x=1793515710; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X4mro5Ju+0/OZNa6+ydVcSk0tnNUNnmhCi4geW3t7cw=;
+        b=Q6BDgHi5LcE4ayEdpYZwr7s7IwLaZoSv/v+TAHBcRYrXHwswhbI//0rmvt+qvQ1dQb
+         4abuOXwHrQOzTqUZ16qjTNAvJjsmkpnjqmmtqeDMXHPqEXofhw07oNtP5FvhvnbpDH0T
+         Ka/jzrxoWIK6hFgiQYBUyX4nQP0FQEV3FfWCNeRPj52VtMhTtrmRLTcG73sBL3ou9WAp
+         D19wUyz3qIxsr1Pcgzb+R6p4hbebxSJ2LEXZO4+JpOEUz1Snli85rm9xRodKNfgOiU+q
+         FknkXnLUc/jT97u6/0zOM0xZLhqKBCpqK27WWnUieKhnSuglyyYJbhmz5z181LhdtLr9
+         g1Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792910910; x=1793515710;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X4mro5Ju+0/OZNa6+ydVcSk0tnNUNnmhCi4geW3t7cw=;
+        b=wY48ILX3Piw8ZY5f9BEj+qpd3f6hBcKvUWfhnvEVTZQ7zWPQHx6HdCJo7lewaxDjPs
+         deigQ6imXLPxtIiHz4YUOAZxeUnlRV3dLHKqJA2dTzAkziK4QY1hDNJ+JgfTJ1b/8db6
+         OWT8O2pcr10IBlgE41jpigrUfvDthHShBa2V0TQY/q0QGQfRamBStCO1cRKDw2L9uvDS
+         o8Zfh4zU+S98TluaS01MvjP9aOD7HNBFGkP1NmLP7CZHsCLqZGcsx4wDR5AFmKPb741d
+         biF7q8gb0fop7NgEQupGVnDvHwpLKTDHg10d2fZYjIXt6Nz490wAmK2pGRNV+oU5sPwG
+         0/Yw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUIIuq5TCYt9QT6z6Aw8+Qix4u8AEUyb+meDesOW2Ty7aqb9XNtMQ0kjZiPqd7f/YMuY3hkpu2MKE86x8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXtXmka67SBJtkO2LTKZDD2GxyFLyONa9/YWXfqIvBaKmw0eLl
+	ZSGitGeUgf4yOKTXAHYu8rRIHJ+1Yx2q/4qCwxl+uHxnbA7OdEW3hr5QJ2wiQVOymJzxGK6UFki
+	GPsq/fPYMee+uLPk2JVXQLh7TtaI5i6R+gg6Lrp3Dp2F97rPpP65d1CqkZdBwK5uni3o=
+X-Gm-Gg: AYBFou0+4RfSbefozp0bRY2JW3Ayqartof2SH0ZpbCLmDpgtHpGQPq8p8mGw0cU6+oE
+	fVI59aUGr9nH+vhC9JId+zACc+pu85BZB2MKTsJ7fXGzTlmtuOjNpwgyWqU7+P1mfZ1CU3+E48j
+	nb85uYuzzRmemLcX9kOktSKQgNkJWxVHGAZBPe8y2WIsW1ZuL3mg0bR8SPzOX0wn7odq2fN4hma
+	25u4/IkaiWwT6HOfLdYG0XgPnrjzPAWWiTFbQgLWv0UAnnTI7Dq1lee0HRMi0euP8qecMn2k+ht
+	D8Dl2Yvgq99//KvT1LeWq+YSk4DRSL8NUc/gz62nhzCg9SODm5D5Ncq7+oa5EeNRtPVnFGrRW62
+	GegDTMFGwBjCeiQ+EW8Lfq64G8afyK/ZuDST2MAZ7GjDIcRo7yquZ6hbUxZjMWClWwSZFIjVnL7
+	Xmw37keNxATI0X+VDlJk0eLgU0O1AQi98aALULmH1gaKEpfU2AL6ak
+X-Received: by 2002:a05:7301:19c:b0:368:1f8c:5f23 with SMTP id 5a478bee46e88-369e821311amr8345547eec.0.1792910909949;
+        Sat, 24 Oct 2026 23:48:29 -0700 (PDT)
+X-Received: by 2002:a05:7301:19c:b0:368:1f8c:5f23 with SMTP id 5a478bee46e88-369e821311amr8345520eec.0.1792910909428;
+        Sat, 24 Oct 2026 23:48:29 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm13649886eec.20.2026.10.24.23.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 23:48:28 -0700 (PDT)
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Date: Sun, 25 Oct 2026 12:18:17 +0530
+Subject: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,334 +115,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa171cc89930a37kunmb3a5c59c8edc1
-X-HM-MType: 4
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOSEhLS043V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ04fSFZMSU0eSkNMHh
-	1CHh9WHQkeHlUCFhMWGhIXJBQOD1lXWRgSC1lBWUlKQlVKSEpVSUtDVUpKSllXWRYaDxIVHRRZQV
-	lLVUtVS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=cwk7uEC07bgUunvG6S6tEjMCwONUrHcygpi6ulgQ4wqcezhowV8vY+VLb/Vt0gItMfp/Z0Svzga/hOfcQWK21qJZBKZmbAPHWGs9aPTCHTVM7AnB7pcPxJRculVTou/buh5tJbpJxTgMj7MNuGy6NjXqPtXMgC4TFmenfhGadRM=; c=relaxed/relaxed; s=default; d=xiedada.net; v=1;
-	bh=qBPHxbBorrARAtlXB+i4p11nEdPU/NYekY0RSO2yICQ=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIADCm3WoC/x3MQQqAIBBA0avIrBMmoYiuEhE2TjkkFRoRhHdPW
+ r7F/y8kjsIJevVC5FuSHHtBXSkgb/eVtbhiMGjaGk2jXaBptrQFWf2lCdEhMnVLa6A0Z+RFnv8
+ 3jDl//RLYNl8AAAA=
+X-Change-ID: 20261025-dlc_backlight-c00d00ec8f62
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792910904; l=1110;
+ i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
+ bh=KEjEjjiW+qz2CFMhiqwDXwGVoBcaGxFwtK5Yh/btD6w=;
+ b=ylj8Su/xsVS1c7l08nNRZ+V2yiouVkhZg1jT7eGaGd1z+hATN4BsRBfwWI817ktPIOmaDohGF
+ AVCrKxZAdVVB8JVubT0YZ2dpuDFX2fRBC/RFywHiADGjoX/5Coo8lAz
+X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
+ pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
+X-Proofpoint-GUID: dURUxw_YuNc7zfYXTTsGZrSoEUtaQKO2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDAyNiBTYWx0ZWRfXyVLSBN7JGJgF
+ HiP3M7VLq8mzq8yY+R1Btk1DobAbJ2RkarMeelgky1sJ8DZcPBGbxjlpcEXEuu8if6SVfFl3Lmu
+ TEZV6kbianITO9C9KqedkKoqsdWs76fJil6oeZcAebWZb1u/OI4tSYdA6zJI46Y0f1/OgMMARp+
+ WDNHTHQmmccsIfxTLRRk8VM4g79zamerM/imhpTQaYNPjSt2gwADZtTJ7aO5nCWJoOaA6+QeBF5
+ LbIvOwccQZaYhIvnhit/MNr32SphJPohy78boe5XRMLXYSyVxMCMYesBQcXoqHN/wWhw2nTMIqu
+ 7NSLiKS36NB1vxDktYo/PkFltA2A+Vcky7Hv5X0U8448kQn5IsWPIH7bd7B8bwYKLF2TJgKDNP9
+ oyZWUlAyDhSQSuIST9ZPnvgQCWQKOPiPH8RtlX1bzDkljWY1YxGM9WTskDLBQ2c+fqx7uiAU0CK
+ XCH/dSpUEI+Ozqkp1Gg==
+X-Authority-Analysis: v=2.4 cv=PqcG/AM3 c=1 sm=1 tr=0 ts=6adda63f cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=In323_k3SEhDHscflrYA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: dURUxw_YuNc7zfYXTTsGZrSoEUtaQKO2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDAyNiBTYWx0ZWRfX1a3pRQTTpgry
+ Ppuq4B8S/MCg0A7gmvNT1ecGRaFixDcbcrJxN4AMWj2DwhhXX6PKVJX1INJ6PerIlTXOWfCx50p
+ Eq8LiyRqH4Ce0ZdxmOMCjYvQ9fHnPHI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-25_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610250026
 
-On the Huawei MateBook 16s (2023) with a Conexant SN6140 codec (codec
-SSID 0x19e5:0x3291), the speaker amplifier and the headphone jack are
-both fed from the analog output line of pin 0x16: the jack through a
-tap that needs GPIO1 enabled and driven low, and the speaker amp
-switched by the EAPD of pin 0x17 - none of which matches the BIOS pin
-config.  The generic parser therefore routes audio to the wrong
-physical output and never powers the jack:
+The DLC0697 panel is lit by a separate backlight device, which is
+referenced from the panel node through the common 'backlight'
+property.
 
- * headphones plugged: the headphone path (DAC 0x10 -> pin 0x16)
-   drives the speakers while the jack stays silent
- * headphones unplugged: the speaker path (DAC 0x11 -> pin 0x17) feeds
-   no transducer at all and the machine stays silent
+Declare 'backlight: true' so the property is explicitly allowed by the
+schema.
 
-Route the shared line to the DAC of whichever output path is currently
-active, so a manual route selection keeps working on the shared line,
-open or close the jack tap accordingly, and gate the speaker amp
-through EAPD.  The verbs are applied from a private jack callback (the
-generic unsol->automute path never fires on this machine while a stream
-keeps the codec awake), and a delayed recheck re-applies everything
-from a settled sample - only while the codec is already powered - and
-resyncs the jack state cached for userspace, since any reader of the
-pin sense can see stale data for a short while after a codec power
-transition.  The 600 ms recheck delay matches the factory Windows
-driver's plug-detection restart window.
+Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The factory Windows driver groups codec SSIDs 0x19e5:0x3291 through
-0x3294 into a single audio configuration, so the siblings very likely
-share this wiring; only 0x3291 could be tested.
-
-Tested on the machine: headphone/speaker switching in both directions,
-during playback, over the bare PCM path and through PipeWire, and
-across suspend/resume.
-
-Problem detection and the verb-level hardware experiments were
-performed with the help of an AI coding assistant, with all audible
-verification done by ear on the actual hardware by the submitter; the
-fix was drafted by the assistant and then reviewed, understood,
-adjusted and tested by the submitter.
-
-Link: https://github.com/geniusinsanity/huawei-matebook16s-speaker-fix
-Signed-off-by: Xie Youtian <xiedada@xiedada.net>
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+index ba8c5bbf8ffc..46b941c18565 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+@@ -23,6 +23,8 @@ properties:
+     maxItems: 1
+     description: DSI virtual channel
+ 
++  backlight: true
++
+   vddi-supply:
+     description: I/O voltage supply (1.8V)
+ 
 
 ---
-Changes in v3 (addressing review comments):
+base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+change-id: 20261025-dlc_backlight-c00d00ec8f62
 
- - Route verbs follow the active output path (whichever DAC the mixer
-   leaves unmuted) instead of the jack state alone, so a manual route
-   selection on the shared line works; the jack tap now closes while
-   the speaker path is active.
- - Drop the in-callback debounce msleep(); the event path applies at
-   once from the raw sample and only the delayed recheck heals a
-   bounce, which also removes a teardown race window.
- - The recheck runs only while the codec is already active
-   (pm_runtime_get_if_active), so it never forces a resume and never
-   waits inside an ongoing suspend; cx_suspend() no longer cancels it
-   (cx_remove() still does, now only when the quirk initialized it).
- - When the settled sample disagrees with the cached jack state, mark
-   the jack dirty and report to userspace so the audio server follows.
----
- sound/hda/codecs/conexant.c | 208 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 208 insertions(+)
-
-diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
-index 9bfdbf5c9032..3f72546fd697 100644
---- a/sound/hda/codecs/conexant.c
-+++ b/sound/hda/codecs/conexant.c
-@@ -43,6 +43,10 @@ struct conexant_spec {
- 	unsigned int gpio_mute_led_mask;
- 	unsigned int gpio_mic_led_mask;
- 	bool is_cx11880_sn6140;
-+
-+	/* quirk for Huawei MateBooks with Raptor Lake */
-+	struct hda_codec *rpl_recheck_codec;
-+	struct delayed_work rpl_recheck_work;
- };
- 
- 
-@@ -203,6 +207,15 @@ static void cx_auto_shutdown(struct hda_codec *codec)
- 
- static void cx_remove(struct hda_codec *codec)
- {
-+	struct conexant_spec *spec = codec->spec;
-+
-+	/* stop the quirk recheck before the spec is freed below; only the
-+	 * quirk ever initializes the work item
-+	 */
-+	if (spec->rpl_recheck_codec) {
-+		spec->rpl_recheck_codec = NULL;
-+		cancel_delayed_work_sync(&spec->rpl_recheck_work);
-+	}
- 	cx_auto_shutdown(codec);
- 	snd_hda_gen_remove(codec);
- }
-@@ -312,6 +325,7 @@ enum {
- 	CXT_FIXUP_HP_A_U,
- 	CXT_FIXUP_ACER_SWIFT_HP,
- 	CXT_FIXUP_HUAWEI_MATEBOOK_HP,
-+	CXT_FIXUP_HUAWEI_MATEBOOK_RPL,
- };
- 
- /* for hda_fixup_thinkpad_acpi() */
-@@ -863,6 +877,192 @@ static const struct hda_pintbl cxt_pincfg_sws_js201d[] = {
- 	{}
- };
- 
-+/*
-+ * Huawei MateBooks with Raptor Lake and SN6140 (e.g. the MateBook 16s
-+ * 2023): the speaker amp and the headphone jack are both fed from the
-+ * pin 0x16 line.  The speaker amp is gated by the EAPD of pin 0x17, the
-+ * jack tap by GPIO1 - none of which matches the BIOS pin config.  Point
-+ * pin 0x16 at the DAC of whichever output path is currently active,
-+ * gate the speaker amp via EAPD, and open or close the jack tap
-+ * accordingly, so the shared line drives exactly one transducer.
-+ */
-+static bool cxt_matebook_raptor_lake_dac_active(struct hda_codec *codec,
-+						hda_nid_t dac);
-+static bool cxt_matebook_raptor_lake_sense(struct hda_codec *codec);
-+
-+static bool cxt_matebook_raptor_lake_dac_active(struct hda_codec *codec,
-+						hda_nid_t dac)
-+{
-+	return !(snd_hda_codec_amp_read(codec, dac, 0, HDA_OUTPUT, 0) &
-+		 AC_AMP_MUTE);
-+}
-+
-+static void cxt_matebook_raptor_lake_coerce(struct hda_codec *codec)
-+{
-+	bool hp_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x10);
-+	bool spk_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x11);
-+	bool hp;
-+
-+	/* which path carries signal decides; if both or neither DAC is
-+	 * active (paused, master-muted, mid-transition) fall back to the
-+	 * jack state
-+	 */
-+	if (hp_dac == spk_dac)
-+		hp = cxt_matebook_raptor_lake_sense(codec);
-+	else
-+		hp = hp_dac;
-+
-+	snd_hda_codec_write_cache(codec, 0x16, 0,
-+				  AC_VERB_SET_CONNECT_SEL, hp ? 0x0 : 0x1);
-+	/* the tap path needs pin 0x17 selected and driving, whatever the
-+	 * parser does to what it thinks is a speaker pin
-+	 */
-+	snd_hda_codec_write_cache(codec, 0x17, 0,
-+				  AC_VERB_SET_CONNECT_SEL, 0x0);
-+	snd_hda_codec_write_cache(codec, 0x17, 0,
-+				  AC_VERB_SET_PIN_WIDGET_CONTROL, 0x40);
-+	snd_hda_codec_write_cache(codec, 0x17, 0,
-+				  AC_VERB_SET_EAPD_BTLENABLE, hp ? 0x0 : 0x2);
-+	/* the tap follows the opposite way: closed while the speaker path
-+	 * is active so the shared line drives exactly one transducer
-+	 */
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_MASK, 0x02);
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_DIRECTION, 0x02);
-+	snd_hda_codec_write_cache(codec, 0x01, 0,
-+				  AC_VERB_SET_GPIO_DATA, hp ? 0x00 : 0x02);
-+}
-+
-+/* read the pin sense directly: snd_hda_jack_detect() returns the
-+ * cached state, which is exactly what a bounce-healing re-read must
-+ * not trust
-+ */
-+static bool cxt_matebook_raptor_lake_sense(struct hda_codec *codec)
-+{
-+	return !!(snd_hda_codec_read(codec, 0x16, 0,
-+				     AC_VERB_GET_PIN_SENSE, 0) &
-+		  AC_PINSENSE_PRESENCE);
-+}
-+
-+static void cxt_matebook_raptor_lake_apply(struct hda_codec *codec, bool hp)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+
-+	spec->gen.hp_jack_present = hp;
-+	snd_hda_gen_update_outputs(codec);
-+	cxt_matebook_raptor_lake_coerce(codec);
-+}
-+
-+/* at init or from the delayed recheck: behave like a fresh jack event
-+ * unless the mixer switches disagree with the jack state - a manual
-+ * route selection - in which case only the routing verbs follow them
-+ */
-+static void cxt_matebook_raptor_lake_reconcile(struct hda_codec *codec)
-+{
-+	bool hp = cxt_matebook_raptor_lake_sense(codec);
-+	bool hp_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x10);
-+	bool spk_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x11);
-+
-+	/* when the settled sample disagrees with the cached one, the cache
-+	 * and the userspace jack state must follow, or the audio server
-+	 * keeps routing for the stale view
-+	 */
-+	if (snd_hda_jack_detect(codec, 0x16) != hp) {
-+		snd_hda_jack_set_dirty_all(codec);
-+		snd_hda_jack_report_sync(codec);
-+	}
-+	if (hp_dac == spk_dac || hp_dac == hp)
-+		cxt_matebook_raptor_lake_apply(codec, hp);
-+	else
-+		cxt_matebook_raptor_lake_coerce(codec);
-+}
-+
-+/*
-+ * Right after the codec powers back up every reader of the pin sense -
-+ * ours and the parser's alike - can see garbage.  Re-apply everything
-+ * from a settled read a bit later, which heals any misguess made at
-+ * init or during a jack event.
-+ */
-+static void cxt_matebook_raptor_lake_recheck(struct work_struct *work)
-+{
-+	struct conexant_spec *spec = container_of(work, struct conexant_spec,
-+						  rpl_recheck_work.work);
-+	struct hda_codec *codec = spec->rpl_recheck_codec;
-+
-+	if (!codec)
-+		return;
-+	/* never force a resume and never wait for an ongoing suspend:
-+	 * only run while the codec is already active
-+	 */
-+	if (pm_runtime_get_if_active(&codec->core.dev) <= 0)
-+		return;
-+	codec_dbg(codec, "matebook-rpl: recheck\n");
-+	cxt_matebook_raptor_lake_reconcile(codec);
-+	pm_runtime_put_autosuspend(&codec->core.dev);
-+}
-+
-+/* shared event body: apply at once from the raw sample - sleeping here
-+ * is not allowed (callbacks race teardown) - and let the delayed
-+ * recheck heal whatever a bouncing contact made it misread
-+ */
-+static void cxt_matebook_raptor_lake_event(struct hda_codec *codec)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+
-+	if (!spec->rpl_recheck_codec)
-+		return;
-+	codec_dbg(codec, "matebook-rpl: event\n");
-+	cxt_matebook_raptor_lake_apply(codec,
-+				       cxt_matebook_raptor_lake_sense(codec));
-+	mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
-+			  msecs_to_jiffies(600));
-+}
-+
-+/* the parser reprograms pin 0x17 and the DAC amps on output updates */
-+static void cxt_matebook_raptor_lake_update_outputs(struct hda_codec *codec)
-+{
-+	cxt_matebook_raptor_lake_event(codec);
-+}
-+
-+/* our own jack callback: the generic unsol -> automute chain stays
-+ * silent on this machine while a stream keeps the codec awake
-+ */
-+static void cxt_matebook_raptor_lake_jack_event(struct hda_codec *codec,
-+					       struct hda_jack_callback *jack)
-+{
-+	cxt_matebook_raptor_lake_event(codec);
-+}
-+
-+static void cxt_fixup_matebook_raptor_lake(struct hda_codec *codec,
-+				  const struct hda_fixup *fix, int action)
-+{
-+	struct conexant_spec *spec = codec->spec;
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		spec->gen.automute_hook = cxt_matebook_raptor_lake_update_outputs;
-+		INIT_DELAYED_WORK(&spec->rpl_recheck_work,
-+				  cxt_matebook_raptor_lake_recheck);
-+		spec->rpl_recheck_codec = codec;
-+		break;
-+	case HDA_FIXUP_ACT_INIT:
-+		/* the parser's own view is the best guess at init; the
-+		 * delayed recheck above heals whatever it gets wrong
-+		 */
-+		snd_hda_jack_detect_enable_callback(codec, 0x16,
-+						    cxt_matebook_raptor_lake_jack_event);
-+		cxt_matebook_raptor_lake_reconcile(codec);
-+		mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
-+				 msecs_to_jiffies(600));
-+		break;
-+	case HDA_FIXUP_ACT_FREE:
-+		cancel_delayed_work_sync(&spec->rpl_recheck_work);
-+		spec->rpl_recheck_codec = NULL;
-+		break;
-+	}
-+}
-+
- static const struct hda_fixup cxt_fixups[] = {
- 	[CXT_PINCFG_LENOVO_X200] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -1062,6 +1262,10 @@ static const struct hda_fixup cxt_fixups[] = {
- 			{ }
- 		},
- 	},
-+	[CXT_FIXUP_HUAWEI_MATEBOOK_RPL] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cxt_fixup_matebook_raptor_lake,
-+	},
- };
- 
- static const struct hda_quirk cxt5045_fixups[] = {
-@@ -1164,6 +1368,10 @@ static const struct hda_quirk cxt5066_fixups[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad/Ideapad", CXT_FIXUP_LENOVO_XPAD_ACPI),
- 	SND_PCI_QUIRK(0x19e5, 0x3289, "Huawei Matebook", CXT_FIXUP_HUAWEI_MATEBOOK_HP),
-+	SND_PCI_QUIRK(0x19e5, 0x3291, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3292, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3293, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
-+	SND_PCI_QUIRK(0x19e5, 0x3294, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
- 	SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
- 	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
- 	SND_PCI_QUIRK(0x1d05, 0x3012, "MECHREVO Wujie 15X Pro", CXT_FIXUP_HEADSET_MIC),
+Best regards,
 -- 
-2.56.0
+Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
