@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792950475;
-	b=O228hLYEVRXfq9uj9WuRkbjPOh1G3OBvK24lmVwoBmKSwiuJhsDzliwd37C7BxVJPSuo
-	 luyGyU8zEmV4ZclHTT40Jj1omGt7852XHfzxYDFbFMKA1n9payMd/l/+9aKjflQ/ktJaP
-	 /i4DhrnTSNJ+cNheu3emDqPoJmdLCZEcCVs0doaolGncuHcTrsMp/yV69T3rT35jIR8yD
-	 rNh18EHtjxdUfrreOviv+akibt5Y5DnUHPFsMbEpq1F76sW8Vq7vGI/1JC+K75wUHL4V9
-	 e1W/AUKoogbjwSlBiW4y7XWuTuB8PAU6wUZ2AKDhXjiAufsDKnpBhIG7GP2p9N3felQ==
+	t=1792950656;
+	b=WZ1ksc3SPE+U/UMpO9blURM2cYBXakoTyp2yN+wMnKKUV9uHBXnfkASDiLjFUfdUhNMO
+	 xd/7YAN612p1edsFo4PO02aLmMLdXRpo6n5DUpYmXDD3CNVhCUAtlUuUGyfdhG0Mz8l7N
+	 eIQueYEVmPTeaxONRXJFaxCaAvlluKsTqFesAZpnGM71tJY+Mzdqo724WgsMAPB9IB9AK
+	 kLiGKbd4hRQcH762KLDJ8YBO4PGUqz3adEGkeOoCw93Y5LmJsQ+sQJWDP8uby6PoOBV1D
+	 GnibY6fwtlN1sBjnnhDx6Ipxy/QqgetjHqZR/aBJZFQwdWLpAp5HAbQXDTtzNMhDC+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792950475;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=umoLJmKZTlAf2lH0+QaiNGrYZlN8I8eaFHN45iIXEqE=;
-	b=xltr3B++7L01Gyr9RaXnESE9PwwfYVEM+i+GDKnwHtL9ff4Zx1jiY22sHPT3Z5Mq09h3
-	 /mYuqdCWtUtw86YOXk2E0EpXWIhpexFoY4Bzks0AnGA5I7VQpoXbYee8uY3+sKaXB7ZC0
-	 cqG86nifkFiZyM6EklUTCZaAxtJgudblap77rr8USmVEbpO/TrpwkzyMWKgnirPU2MUt3
-	 MK2c+m2CIHGsJSedHv56qIW7NmMcNm4zDCOMTXWVsG6Ydx9kYqedfhOdpjHBx1qOwzvak
-	 v8G4RSVYkRJqDvXP8rBupfqI+29m3PmF+4uVTLWM0LC9WOwXJQKw0/buZz4pwU23Msg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792950656;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TA54rHY6teOSFaQOktJwbWdE9uD5IaMDmhSmda0ZLjs=;
+	b=cnBOKNOvLs9myWwuPydzN7mNEH9dGMjrXpzfPZIwg748ykI8yAFtRUZPRmQaUPRcT83i
+	 SLnATPJhczoj2B2XQbMX/Bbs1FPwv876/jW6VqHKrPIFormF9ov6trYkhChBssEL8ifiR
+	 02lmY95Kz34GjO6U735Gbzdu1i6ypSTA7RIEfSrzABnsGc91ta2+O2Mc5xXQFom3A3EK1
+	 KePQplkrHfY3qeBCzTxWuOSZR2MpriLEOWlrj/OR7Dj87oHuHeSCBqWiRsoc+7iDmDA7D
+	 4unmSNhwBLPPIUVEXD+QJLMGybvznBi6+MHLIPm5UVLkz1pLGxN89FUDDejoZFrl1Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwfF9bpF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=aBY905KZ;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8479F606A321;
-	Sun, 25 Oct 2026 17:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAAE606A31A;
+	Sun, 25 Oct 2026 17:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAAAE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwfF9bpF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076971F01825;
-	Sun, 25 Oct 2026 17:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792950475;
-	bh=umoLJmKZTlAf2lH0+QaiNGrYZlN8I8eaFHN45iIXEqE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KwfF9bpF4oRYrf7S8breNvRCiE8XkSYmqI1+/LvQkoxystZZh0MvwQtj6Vk/nIonf
-	 I6th8/DcipruVViu8UHTwLAXW3xnDiHsL366t7jvLnaKIlrAUcEHblTAorINeIoryG
-	 s1KMtV28iqJ9WRhBmg50gEixPnMhIhl924uAx2fDRUyi9Tyq4qE5IyL1AqFV84Cz8X
-	 gWsdQ5EGjixn1svyOHna+qhsq9qFPiPlINt+1dkttT7fyfG3fErWhqrisjBdPB/w6w
-	 BI62ym0X6bNV2PZzEOCBYvLnw2xQfqU7UmKksyIa6RfW4O6frlip5qKGBgdQYDC+27
-	 K61RhAXvh3obw==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH 6.18.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Sun, 25 Oct 2026 10:47:47 -0700
-Message-ID: <20261025174748.165405-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261025172712.164385-1-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=aBY905KZ
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69PHoYjb4052143
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Sun, 25 Oct 2026 10:50:35 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69PHoYjb4052143
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1792950635;
+	bh=TA54rHY6teOSFaQOktJwbWdE9uD5IaMDmhSmda0ZLjs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=aBY905KZt3mZIxTLKMSLBnPJxCRSoDbW8HU2ypGBQFuIByLZyKivDl/zpKwR81hby
+	 0xbHsk0hCBYea1vXqj0FUvIxaxbBy/CJq3N4kMszBnMB8ChdzaGUqmxZWHAqPrZTWo
+	 7VzpmHbuwxHYgAvVoh+asSsxs6XkXJGV9OyorJ2El4QbDoJcJyFF3A+m/+r8IWoaJN
+	 fMiq3/J4kVlQzFpdyEpk9Eb5WEuUDdcXGmVlOqaFeJQvigmSgzntfna+eh+NQ09TLg
+	 2QEWxZxWDm0TIxHzCIrkIMn8zDima7pYJ0AcLUE6kLIN9AHIsUmJfFceIrVN5bC310
+	 0vDeabyYb39mw==
+Date: Sun, 25 Oct 2026 10:50:28 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>, Thorsten Blum <blum@kernel.org>
+CC: Dave Hansen <dave.hansen@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Lukas Wunner <lukas@wunner.de>, linux-pci@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_RESEND_v2=5D_x86/early-quirks=3A_S?=
+ =?US-ASCII?Q?can_all_functions_in_early=5Fpci=5Fscan=5Fbus=28=29?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <alpine.DEB.2.21.2610250743510.42255@angie.orcam.me.uk>
+References: <20260916100206.92853-2-blum@kernel.org> <asDr0tWYBNC296EQ@kernel.org> <f9b1c1b6-03d9-44fb-bdc4-78342b05f2af@intel.com> <asLw3ZfDy-rDxwtv@kernel.org> <as0mu05UzFWBBRJ7@kernel.org> <alpine.DEB.2.21.2610250743510.42255@angie.orcam.me.uk>
+Message-ID: <74A9835A-4B16-409E-B13A-4C34FAB5DC8E@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,62 +73,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 25 Oct 2026 10:27:10 -0700 SJ Park <sj@kernel.org> wrote:
+On October 25, 2026 1:07:28 AM PDT, "Maciej W=2E Rozycki" <macro@orcam=2Eme=
+=2Euk> wrote:
+>On Mon, 12 Oct 2026, Thorsten Blum wrote:
+>
+>> Is there anything else I can do to help get this queued?
+>
+> FWIW, it's not unusual even if not common for multifunction devices to=
+=20
+>have "holes" in functions, e=2Eg=2E:
+>
+>07:00=2E0 Parallel controller [0701]: Oxford Semiconductor Ltd OXPCIe952 =
+Parallel Port [1415:c118]
+>07:00=2E3 Serial controller [0700]: Oxford Semiconductor Ltd OXPCIe952 Na=
+tive 950 UART [1415:c11b]
+>
+>which is a chip the functions of which (one or two native or legacy seria=
+l=20
+>ports, one parallel port, one GPIO interface) can be activated selectivel=
+y=20
+>with reset straps, however the resulting numeric 0-3 function assignments=
+=20
+>for individual interfaces are not necessarily contiguous, presumably to=
+=20
+>simplify internal decoding logic=2E
+>
+>  Maciej
 
-> Patch series "mm/damon: move zero damos quota target_value handling to the
-> core layer".
-> 
-> Having zero DAMOS quota target value can cause division by zero.  DAMON
-> API callers are checking the target value parameters to avoid that.  It is
-> easy to make mistakes in some of the multiple API callers.  Move that to
-> the core layer.
-> 
-> Patch 1 adds the corner case handling into the core layer DAMON parameters
-> validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-> side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-> respectively.
-> 
-> This patch (of 3):
-> 
-> If a DAMOS scheme has a damos_quota_goal of zero target_value,
-> damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-> API callers should do the zero target_value validation.  It is easy to
-> make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-> DAMON_SAMPLE_MTIER were found and fixed [1].
-> 
-> It is better to handle the corner case only once in the core layer,
-> instead of multiple places in all DAMON API callers.  One straightforward
-> option is using an alternative denominator for the corner case in the
-> damos_quota_goal().  However, the zero target_value is meaningless.  In
-> this case, the quota goal is always evaluated as achieved or
-> over-achieved.  The quota will only keep being reduced.
-> 
-> Simply avoid using zero target_value by adding a check in the core layer
-> DAMOS quota goal parameters validation/commit path,
-> damos_commit_quota_goal().  Update it to return an error in the case.
-> Also update its caller to propagate the error.
-> 
-> Notes for stable kernel porting.  The upstream commit doesn't have
-> Fixes: and therefore not ported to stable kernels.  It turned out it
-> fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-> goals user input to DAMOS") which was merged into v6.8.  The user impact
-> is a race condition that can result in divide-by-zero.  Hence backport.
-> Reproducing the issue requires sysfs write permission, certain DAMON ABI
-> usages that are supposed to be uncommon, and a rare race timing, though.
-> The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-> 
-> [2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-> [3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+Indeed, or there might be multiple versions of a chip with different featu=
+re sets =E2=80=93 often the same physical chip in different packages, so so=
+me features are fused or strapped off because they aren't pinned out=2E
 
-On v6.18, DAMON sysfs interface calls damon_commit_ctx() for validation
-purpose, for parameters commit but initial DAMON start.  Hence this patch fixes
-the issue in parmeters commit but initial DAMON start.  I will post a new
-version to cover the start case.
+The assumption that a multifunction service will have all its functions co=
+ntiguous is absolutely false=2E
 
-
-Thanks,
-SJ
-
-[...]
+Acked-by: H=2E Peter Anvin (Rosaic) <hpa@zytor=2Ecom>
