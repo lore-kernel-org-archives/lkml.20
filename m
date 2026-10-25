@@ -1,72 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792895569;
-	b=D64XB+Oxj8+HZ5clwxvSdClvP6bh+/psN9zl3D2I6gnBx0wo5S15x4ucf/F2XdhBHEOV
-	 mv/bIUB+7JYT7BKxrpt5qhEHdqn10pxDHsMt5Xn/xtGZjvuVfROiF8OLlj97nvCkzgG+a
-	 /nXcbaba3foEwe/2KFF5QHwg7PvsPl9n05WskQV/1jA6i9+JR4ABRyFHnxBAGWMK8tipE
-	 hM2Hx5LC3UY6mA3nbzy9ilY/St5svaGZQtHyAb2KSrP2LxTE+24PFsoAxEDToVYOIm82W
-	 V5NZSLUGffFFJL8zXFdwOC+j6Sg9E36+uLnYQawB5O7JuB56a4KFmnZpp6NO+nCR8Lw==
+	t=1792895930;
+	b=hkeBo7mXXoAhAzDmRNdFIVxd7ZMmqhg93MmdxSqEMtFQRkXJfAcQD+ukhTxWaMQfg5dT
+	 OEY2+vbmz9b4INcjXp9l5jHctCu6DBFlFbc3Jq1463s8wabKmKibU2GYLBmG63ff8FvCZ
+	 TUZ1fziVlVoWVNjf0Z6y8sXyEvqT9msmHlHvMG9Cf0cWa9Jf27suG4fiZ7l8Gv2600Hq/
+	 MCOzC/0VOT4oNa328g9cNLt19XVyuUcFgTVIDOwHJUIHR3umKX3i9XrrpANOPOSySy5PL
+	 zODIRWStaUlF267tv/RnCg2LHIQgekABzx/uip2yGI7IbGPJijaAi7EXKW4Xf1u1fyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792895569;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792895930;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=uHgs6Tm7C66Qlctbe5wyn2x3N2vz9NhVDH/uP4NfMcE=;
-	b=TfbLMM2Oh2tFL7VHv9Gt6DxpjrVN4RVhV46+YO6JiEtHeXQ5vYjrlWJL+JW9S03U1Ytx
-	 /tw9EuMOYOR/oSG3hnZ09BtoLW8BVc3NHB6BroNwwUjJse6tC9VOTCcYbFiI0hcxr1cDl
-	 xlqUOALItbwEgiCLMu06h/GoAgdGgLkItgcaRVhGmEQhcB/VzVvwZUOhlapQsT8q5F5Js
-	 4xFgS4QbTZ4ap7CZfxnSuXCyRNV/v2y+e4YZOfNPAqFSyliXOK4wQ+7Tt7u2Ra4LECNK0
-	 KSu/iymALMk0FE31QfKe12773uPpo3aWM7Jz5pYHfWnMC8q1uSfH7yFDvfQg0+e+Nig==
+	bh=dflo9Yio8r83UnlnUmpgKhh7+70T4UxxCiY1S2zSEiQ=;
+	b=hWYxz0DIuXNYeehPEjwgmGXivtHTeC8DjVLFJLO0st52eVQn2J6wKoXbkiPyJWLcci6C
+	 /47BkEDHZIfnx9R1xunnVZ296J9g1r/FX63KdeASwNZlXsviU0WA1lby75xEQXixcW4L0
+	 LECHB3Fn38TjUrlyjY9mnFccn5CEbY2tjIzG48T0LmWx805xzIFdGNpI3k0GSdTqbXLER
+	 vVve77LzsmvvW/qC2EWK7t7UyLgN5EKEni242AkhSWy60mtd6J6krHkAZiPMVeiZNUmj7
+	 IHHBnvu+ChYUalQ3kx2subdsIiakzrPC9ggu8pTJbUTMajGruSYd5ySlnFHNuZI052A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qm7sfx5X;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="V/l16pyh";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5BF606A31B;
-	Sun, 25 Oct 2026 02:32:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5BF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BED606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:38:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05BED606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qm7sfx5X
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V/l16pyh
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3860999eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:38:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792895566;
-	bh=uHgs6Tm7C66Qlctbe5wyn2x3N2vz9NhVDH/uP4NfMcE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qm7sfx5X7L9rLa7n64h9jbSJeqQqxPdWiWocA4h4T8y6VL/5jKU8NRScIuOQE29+Z
-	 eXZMw3b2Gf21gwXvMzAKY7LWTVenPuDdtjWhyoPaiKO+iYcCxIKxNhWLJR5pCtFX69
-	 8D7L56zJgVikgNm+go/NY2ML3YVhAmK85xPRVLHqyLXH9hFLZzx9+jzJZKOxSYG+Wu
-	 NjaVgqMmXqoOTFuwfe/vv40/67jf0Z/it9u3F/jtrOzaOSdwONM+9QOHiSMln0KCl8
-	 dV7Yo1ujKPsh4kDoy1++yYF5S+3FnME6aX8lBQ3JoeiO0/hl9atCE5+ReL0fXgjegM
-	 aY1cofI9rHMYQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jC14t0Nllz4wJS; Sun, 25 Oct 2026 13:32:46 +1100 (AEDT)
-Date: Sun, 25 Oct 2026 13:32:41 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
-Message-ID: <at1qO7oEdCyhX6k8@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-13-herve.codina@bootlin.com>
- <arDJmHPwgvwwmITG@gractus.seuss>
- <20260922182547.6cc7475c@bootlin.com>
- <20261023092559.7608ff25@bootlin.com>
+        d=gmail.com; s=20251104; t=1792895929; x=1793500729; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dflo9Yio8r83UnlnUmpgKhh7+70T4UxxCiY1S2zSEiQ=;
+        b=V/l16pyhDwJpYItIN83XuiFQivIFKwHhhAwJ161uHWgFb67I/T1lzBGrycHLy1GeNM
+         3mYUmfsx8sSHGQn6eEdyo1VZx1K4bNXOm7LL3pfenIHyij22AnW7JrIFFuh8PUcX6t0A
+         cRKgG/LrioM88XW4XxB8rOPT8Y8K4zjKkehoIHMCAT2T7+xSX4N+SjHo48D2fcjPAZSu
+         FGYA/ZqD0b9rJoxtnl8I7NaVTfiULiGLckr1JXFQSzV3zw0g+lvDW7kMx/5QJKD/jo2g
+         I2MiKXfPJsnRjveIqYkAQw67oq6Vi4Pu1fqatFvu50oClERzYifBDOGcd3utLfblYuyK
+         nCXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792895929; x=1793500729;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dflo9Yio8r83UnlnUmpgKhh7+70T4UxxCiY1S2zSEiQ=;
+        b=L6cM3QreMZwgZazP95Kq9OnjX2XJRc+d7uh2UcW07ASp5lvJ3J3oz0Wx6Jr0tAl4vV
+         hX/H97K3ICTMqJOgixL+T+eJcg9b6dzfJrCGph7vf2Am5H1C0Pqvdyzd7rUz9Kw17a/E
+         IZdvGZJpZowiQsMLa00xoI2xx46FMsJ0t/1x81u30estgq5pIiRlQZJ4FBxdWcXTWw+O
+         3Wa98En+SG6nV5nJEOwtr45VcMQuwmrAw4GbTAWUd1RZcbm3ZOsnOudYvmbygtUbrww8
+         TKCFjTMP21z66dBtuJo6nziazLdpGtiNAsvd+UUGr6Sb92qDNc1O9OhgB46xeiqcM2K6
+         I1cA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMzacboHbfQqrIk/wAsDoBAhVu3vVDiOmTBKMhb4oRFWsgbFnJj7OOGKmSVeYc/lmde0oyr+whVO+eJLA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrFVLAWZtGhW1RZGY8jl1qugamBuT/kMS+6dQ1Cr9ssIwD8za4
+	c2Rx0Ns+BLsnvmttLW5oAqMKJuBJXHLKxrZ97s9DecuZsITe15YxVC2g
+X-Gm-Gg: AYBFou2EbydnGTldFE8yrl2LaE1gWWwHM+h12AJLNcIdJZW8bs0aFs60+D6qIl8yQpj
+	qsBtRxtoJA51+9KgPKy9ywPwhNlML5r4FuV/M7o0ckvzxt5VrYq1C3LJPMtcEXFmkoseGyx6pNs
+	sGb+ElLXU01mGKPNLy88EbGtL+/kUWpXY97KnK98PMmzySjDh1dC9l89K6fBVSYmGcjpJh8BaFJ
+	zQW/3V1qBVouik/BxqTRdfYOrylqkseLFe33XrGtVcsxTCpy+yHrlaGH3tMoL/w0N6CquHo3tcP
+	ylDljb7Ui/uaVjzD+ShbEOdeJGyl4Xjrck4ZRg9uIFVCyzsttMrPZIoWW1/kKBNlgtRUOEx4GCe
+	1M+Vo6dhf+DK6j3l6Cjkp3klkG2q33TJgi3VkVd193xkQZmc7JDuz4K1hm9lPaJLZgyUvv8pKb9
+	bfCkLR8w22kwwnJTmSxlJcIP2V/hA1pCvJYBOnl6GidjtNyDV6wUgu+8rGL0UqPs5qV/OG2TMrH
+	8qa69BjDDpV6CgmVDmnB9F9m1VBahjyc/xj8eK1EGGnavUniDk8m3B0I/iefyk7epe2uxmN+re/
+	6FHnGFxHNobNc+SJMXSEPWdHt9ZxOTtbaVKHvIIxYg==
+X-Received: by 2002:a05:693c:88c1:10b0:366:83dd:4704 with SMTP id 5a478bee46e88-369e84ff9f8mr4909251eec.17.1792895928963;
+        Sat, 24 Oct 2026 19:38:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec864fsm13867225eec.24.2026.10.24.19.38.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 19:38:48 -0700 (PDT)
+Date: Sat, 24 Oct 2026 19:38:45 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Rong Zhang <i@rong.moe>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	"Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Maxim Mikityanskiy <maxtram95@gmail.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard
+ controller
+Message-ID: <at1n85VJhz9E-bC7@google.com>
+References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+ <8cdbdcb893e2353e0ea2fe919e0c8a6a53f8b683.camel@rong.moe>
+ <7b21717e80a7b779ab94d964ca40ee68@gmail.com>
+ <5bdb870be988333df200ac7d4904dd1bda6ef52f.camel@rong.moe>
+ <ab1d30eca12d5e7a764da99b68d0e229@gmail.com>
+ <cae0b78ac544dbc78242d55fe370a0eb7926825b.camel@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,161 +105,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XENMgbyF3t/NKs0Y"
-Content-Disposition: inline
-In-Reply-To: <20261023092559.7608ff25@bootlin.com>
-
---XENMgbyF3t/NKs0Y
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cae0b78ac544dbc78242d55fe370a0eb7926825b.camel@rong.moe>
 
-On Fri, Oct 23, 2026 at 09:25:59AM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Tue, 22 Sep 2026 18:25:47 +0200
-> Herve Codina <herve.codina@bootlin.com> wrote:
->=20
-> > On Mon, 21 Sep 2026 16:07:21 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >=20
-> > > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote: =20
-> > > > Future operations, such as handling unknown tags on dtb modificatio=
-ns,
-> > > > need to get an offset to a property based on the node offset and the
-> > > > property name.
-> > > >=20
-> > > > Several function exists to get a property based on the node offset
-> > > > and the property name but none of them allows to get the property
-> > > > offset.
-> > > >=20
-> > > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
-> > > > simple variant fdt_getprop_offset().
-> > > >=20
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>   =20
-> > >=20
-> > > This seems redundant with fdt_ptr_offset_(), which can trivially get
-> > > this information when combined with fdt_get_property(). =20
-> >=20
-> > Indeed, It should be ok using both functions you pointed out.
-> >=20
-> > I will remove fdt_getprop_offset_namelen() introduced here and use dire=
-ctly=20
-> > functions mentionned in the next iteration without wrapping those calls=
- in
-> > a new function.=20
->=20
-> I've started to replace fdt_getprop_offset_namelen() by the combination
-> of fdt_ptr_offset_() and fdt_get_property_namelen().
->=20
-> As a reminder fdt_getprop_offset_namelen() I proposed was the following:
-> --- 8< ---
-> > +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
-> > +			       const char *name, int namelen)
-> > +{
-> > +	const struct fdt_property *prop;
-> > +	int lenp, offset;
-> > +
-> > +	prop =3D fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
-> > +					 &lenp, &offset);
-> > +	if (!prop)
-> > +		return lenp;
-> > +	return offset;
-> > +}
-> --- 8< ---
->=20
-> fdt_get_property_namelen_() was called.
->=20
-> Switching to fdt_get_property_namelen() introduces a regression.
->=20
-> fdt_get_property_namelen() calls fdt_get_property_namelen() and this func=
-tion
-> (without the '_' suffix) performs a check on fdt_version() returning an e=
-rror
-> on version < 16.
->=20
-> Using it to replace my fdt_getprop_offset_namelen() function will break
-> write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
->=20
-> [1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15=
--herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
->=20
-> Now, several options:
->=20
-> a) No problem if we break dtb version < 16
->    Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_()=
- to
->    get an offset and remove my fdt_getprop_offset_namelen() wrapper.
+On Sun, Oct 25, 2026 at 09:52:27AM +0800, Rong Zhang wrote:
+> Hi Dmitry,
+> 
+> On Sat, 2026-10-24 at 16:13 -0700, Dmitry Torokhov wrote:
+> > Hi Rong,
+> > 
+> > On Sat, Oct 24, 2026 at 11:30:06PM +0800, Rong Zhang wrote:
+> > > However, the methodology has been changed from hardware-based to
+> > > software-based. Because of the fundamental change, it has the potential
+> > > to break something if some users depends on the side-effect of toggling
+> > > the aux port.
+> > > 
+> > > While my device never needs the quirk, I can think of several useful
+> > > side-effects:
+> > > 
+> > > - pause the interrupt (and hence pause event handling) to save some
+> > > energy
+> > > - prevent the touchpad from waking up the platform
+> > > - reset faulty touchpads
+> > > 
+> > > By switching to the software-based methodology, all these capabilities
+> > > have gone. Of course, relying on these side-effects is a misuse, but
+> > > relying on the parameter itself without reporting it to the mailing list
+> > > is also a misuse! More below.
+> > 
+> > This reminds me of https://xkcd.com/1172/ ("Workflow").
+> > 
+> > Also note that I8042_CMD_AUX_DISABLE / I8042_CMD_AUX_ENABLE only toggles
+> > the AUX clock inhibit bit in the 8042 controller; it does not power down
+> > or reset the touchpad (psmouse is unaware that ideapad-laptop poked the
+> > controller behind its back, which is the whole problem), and i8042
+> > already manages the AUX port and wakeup state across suspend and resume.
+> 
+> Thanks for the detailed explanation. I agree that there should be no
+> outstanding spacebar-heating workflow depending on I8042_CMD_AUX_DISABLE.
+> 
+> > 
+> > > A completely new behavior reusing an old knob is always prone to break
+> > > *something* in a obscure way unless users are notified about the change.
+> > > Breaking something with a visible warning [1] in kmsg is much better than
+> > > potentially breaking something in radio silence. 
+> > > 
+> > > We don't want to support poking i8042 anymore, so the use of
+> > > 'ctrl_ps2_aux_port' is anyway becoming unsupported. The parameter was
+> > > introduced only for debugging and is expected to be removed at any time.
+> > > If users don't report their use of the parameter to the mailing list,
+> > > they are already relying on a broken setup.
+> > > 
+> > > By renaming it and breaking the unsupported setup loudly, we encourage
+> > > users to report quirky devices, as well as getting rid of an outdated
+> > > parameter name.
+> > > 
+> > > [1]: ideapad_laptop: unknown parameter 'ctrl_ps2_aux_port' ignored
+> > 
+> > We already have DMI matching for this quirk (ctrl_ps2_aux_port_list[],
+> > which has only ever contained the 2011 IdeaPad Z570 since commit
+> > c69e7d843d2c added it in 2022), and the module parameter simply sets the
+> > exact same priv->features.ctrl_ps2_aux_port flag as the DMI table.
+> > 
+> > Intentionally breaking the module parameter for anyone who might be
+> > using it for its intended purpose (making the touchpad toggle hotkey
+> > work on an older IdeaPad) 
+> > 
+> 
+> It's the flag's intended purpose, and never the module parameter's.
+> 
+> The module parameter's intended purpose is only for debugging and bug
+> reporting. And its name and description describe the intended behavior.
+> 
+> Renaming it does not change either of them, while reusing the knob makes
+> its name mismatch the intended behavior.
+> 
+> > just because of hypothetical spacebar-heating
+> > workflows does not make sense to me.
+> 
+> Using the parameter without reporting is also a spacebar-heating
+> workflow. That's why the description asks users to report to the pdx86
+> mailing list, so that we can add a new entry to the DMI quirk table. It's
+> similar to sysfs bind/unbind to a certain extent, which recently gained
+> TAINT_FORCED_BIND.
+> 
+> We shouldn't create a divergence between the intended behavior and the
+> parameter's name simply because such a workflow either.
 
-So, practically speaking this is probably true.  Version before 16 are
-truly ancient, and versions 1..3 were all before dtbs really caught
-on.
+OK, I'll just defer to Ilpo here. If he wants to rename module option I
+can do that. I still believe that this gratuitously breaks users that
+happen to use this module parameters. While we would like them to report
+their systems they are under no obligation to do so.
 
-> b) Keep my fdt_getprop_offset_namelen() function without any modification
->    We support version < 16, problem solved.
+Thanks.
 
-Still don't like it.
-
-> c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_inter=
-nal.h
->    Export fdt_get_property_namelen_() in libfdt_internal.h and use it in =
-the
->    static inline fdt_getprop_offset_namelen().
->    This implies that fdt_get_property_namelen_() will be no more static a=
-nd
->    usable internally out of fdt_ro.c but only the fdt_getprop_offset_name=
-len()
->    wrapper should be used.
-
-Eh.
-
-> d) Use directly fdt_get_property_namelen_()
->    Export fdt_get_property_namelen_() in libfdt_internal.h and use it
->    directly to get the offset.
->    I don't really like this solution. I would prefer to have a wrapper to
->    explicitly return the offset instead of exposing and using directly
->    fdt_get_property_namelen_().
-
-Hm, I think this is my preferred option.  libfdt_internal.h exists
-precisely to "expose" things across modules internally, but without
-exposing them to external users.  Maybe I'm missing something, I don't
-really see why that's objectionable.
-
-> On my side, I would prefer b) as it support version < 16 without the need
-> to expose fdt_get_property_namelen_() out of fdt_ro.c.
->=20
-> I would like to have your opinion on this point.
-> Is also option b) ok on your side ?
->=20
-> Best regards,
-> Herv=E9
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---XENMgbyF3t/NKs0Y
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrdajsACgkQzQJF27ox
-2GckPRAApwUBVCrf4MP1zOaPXcDxtCZVe10c/lLhf/TDUvTNDCukEVieyg0lHNV+
-rHgizSNqjsouULzjRw7VEHyRwwlwnU4npX+Kq0CQdBk3nk8vFeBMSBMl+XoQBiYJ
-Kg0p8DzU49XVxGVJD75bIJTx23hc9pAlywL1aS0yMJycfd9cCh4NYLVXNRKxsVYW
-h8+uZZPDHhkBaljFzTxY7zFpQ9W9l7bq/aeSQvLJSq1ql8RpQrIqKw42mxWvEX8d
-VIl6vTxCTnO7YSW8f/5SA2OTQT7AXiBK1Br6pTj4J0Q6zDz0dVj11HdNWxGIpS5R
-vzHCPOOeO78wNo5rjQciGPXNQsfH+odZQaGm0WuXgOTlfLB+8S8yLcJoWKNkiRo0
-IGb6uMuCOelorSNvgjFTGZqMmM1dpQzd7vfqRirjUAg7msK5DW9gyOGcepLbgXbN
-cvkF2dFUMre3Zudz9cID3ujU1ZlW2WNVlm7E5d3zYrifQVjzmRckGXBy5xLVyWu0
-numzMIjtlep+Bq16ITeh1gEPQ6+yOM41wgh+DUPjZe3EVJOYPJLUImN9rkCO9Ehv
-n3qUDUQa9mppKY5jpd+XS9rLhcQQvxWnBBJUH9ui7QoOFX0OLsdiGmj9LDHsT6wG
-RXLhAmjfdEryCC0VBNh5PD/2MrqQIyhcoRlhgwCQBgNXjT+A0tI=
-=ve+b
------END PGP SIGNATURE-----
-
---XENMgbyF3t/NKs0Y--
+-- 
+Dmitry
