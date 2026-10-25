@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792925700;
-	b=44MWP1A3zkQtH4GImwM3ofB6esM3vvkXs2LM3FIuX2wihKGrUabf21nRIp2SDMRiubUv
-	 Tima8gXpokB4x1IOqIcZ8L7+N2/clhn5QLCKrZENP5ySbfVLNP4JxKZ0XVgZyUwkXuF0p
-	 1MPMmzrLJK6hxkpJkr5Tr+r+frhDKUlWkGaCip4R022ZU3jjeDTIdvGsufpRLpzCzzKcy
-	 z8lrQCU0GXgI/JKaw4aHEeGNtDwKsUOZ10X2oK/gSoMWVPrpUZt4WNQxiPhtJWwGXcHSG
-	 DR3FWmpkRA+UWK1JOPPs10E7hVTuT7Ys9iU7mAVq1ivfk1iQ18+gPrPea8+MxuHvMfg==
+	t=1792925766;
+	b=KVrAu9ZO4x5a6MYVcU4+Eza/pZ3BPsriPzpL+9zylZSL3a8gYuTNlzDGcZm+RoNFPgja
+	 HYmokOfNQmUD+Hl9gqAy3Vw0RqgtV0GzOR35puGoF48EPBbgPY+4Ee7VCxlpEHTR9Eyg7
+	 qM9IcypmH3LiNAI7ouGV0wLRcmpyPwmFPeLuHwH7cfwLVurVWYkl7lbTno/YrIN2p1KCj
+	 nyqE4GvJHYS/BVO7CiUbIImPlD+/i72Z57te0uKs5GNeVHpfB+HbECGZAr6MvUBYuAqWi
+	 c32NkAiLocWznnBdgGVv7NurT/oRHNr0gx2+IRbJFHKqeDNYF0a12vFfiD9Y0ZSS6jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792925700;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4ddGAYAtB79F7wRhnGkW+ljKWe8FQH+MNDzT857Yhzs=;
-	b=Dmu0Xi9TkrweHHNQcesLEUni3D1A+btudIII4GzO3qeEBZXFIXJC8bOKavWorVLPdDYG
-	 uIlerjVUeNvzjpNGyVdsm+blP5t8HhUwJ0fPBvnAydCiEmVMPBsniPrIcvbQo3uzFBdD6
-	 ce3l/+wsu4kZWt4oPqkwK043LmUMYPoyreISCydY+Gp1+IAw8FhjLtr724F8Jc/GCUaK6
-	 urKln6noNCGqtmGfBMXhlPt7JWCVpMRWskVZwOH8vatOjJFmxGRrr8s1+diXAQsVrmHhe
-	 J/Ga8+WXuTmNNm0/F/D1L7rCwtEs7lOnlE/YN86bAfgfxzSIs4WlqTXKV4gtyZUVUvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792925766;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=68QJafW62HgkjotUsbneO0EWoKRkIg6fDkzU/Qf+g1s=;
+	b=mULmOSdhUpYubYF6n7HQyojBykGw1T4EIC45+zdGPxViEdKNEC0Ea2haaWmciJbjughU
+	 e6AoawbIf5+0B535xo2erx1VWmpK8sW563Z0Buo4Sx66XgePVh/X9awQF9t7KK06j6FW2
+	 8iu8T9EHJ+gKk9isToa99fPEiafEhvS7STxSJAvtnelw7u39AH2hQ6tH0j1x85HtaASDZ
+	 RRMRQrDie5gLsdePOT02e5lxJKL2BuEAtr/U5jXZJiEnPi5zNs+gUQ9IKw0QfhEvAY4A0
+	 VdNTA0ImbsMK3cMAoY4YXJEsvAgbosUWpqv4svFtb8M2lxFUUaLsaMY5RXsseY0Zc9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dwcveCtW;
-	arc=none smtp.remote-ip=202.108.3.20
-Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QMXrqqMs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10381606A31B
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 10:54:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10381606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D86F606A31A;
+	Sun, 25 Oct 2026 10:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dwcveCtW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792925698;
-	bh=4ddGAYAtB79F7wRhnGkW+ljKWe8FQH+MNDzT857Yhzs=;
-	h=From:Subject:Date:Message-ID;
-	b=dwcveCtWjTIJ0cYPZzJoegiSxxeA91p7J90iNFfT7pkuBVicFrRL2T3DZ4G1Lw1l/
-	 cv4n1t8cBnwObK4J4IWd77ZB4pkx8xb9DpgpBjwPXxvHPNIU8uaS1cNVo7Nf3h0ZjI
-	 NvMcdtUHzD1fv2txTgYj8zXPhU2b2v4AiBqszo2s=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.246.238.232])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6ADDDFFB00000221; Sun, 25 Oct 2026 18:54:54 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 6351494456771
-X-SMAIL-UIID: 9557747A4C984AC9AE3E1418D8FD2278-20261025-185454-1
-From: Hillf Danton <hdanton@sina.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Barry Song <21cnbao@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brian Geffon <bgeffon@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
-Date: Sun, 25 Oct 2026 18:54:40 +0800
-Message-ID: <20261025105441.1148-1-hdanton@sina.com>
-In-Reply-To: <at1cSbfBXdYIAIyT@google.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QMXrqqMs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA25A1F01825;
+	Sun, 25 Oct 2026 10:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792925765;
+	bh=68QJafW62HgkjotUsbneO0EWoKRkIg6fDkzU/Qf+g1s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QMXrqqMso456ITXiNZr90kPAO74wrbYx+z54a3x+l9eEMuCfAezKeCbqq2Y+wX32C
+	 0qz/HU8V/DjMllMVNsZ7dxS2kR7tjv05cgXujnvcOFDLsJgM6noFufS+AkA9cfsGBg
+	 0C85Lpvl1/EXlcjibTd/iJTpsmVptJ+cf7juyho5braCwFt0YC5MlKZfE4ASGGgeSx
+	 JjecmP1+6N+QaI9Kppdd/CDp5h3GuqJBbtBE4rrInZxLZpDvcd3p/7+Xcl7UGbkQot
+	 QXQZQwBFz+bxBlFkiGuMQ5BrHn3TDOa7ZpsXKfvZyeHiTnvEKf1Uu/Ty6n4qEBXv+y
+	 8Z1Dbxv9k8c7Q==
+Message-ID: <9aa49812-1132-458e-9bf5-6dba8b476b26@kernel.org>
+Date: Sun, 25 Oct 2026 11:55:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,171 +51,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Ngoc Quy <ngocquy0700@gmail.com>
+Cc: liam@infradead.org, ljs@kernel.org, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Muhammad Usama Anjum <usama.anjum@collabora.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+ <20261019174659.42c3529d5e35563cc6e5244c@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261019174659.42c3529d5e35563cc6e5244c@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 25 Oct 2026 10:38:47 +0900 Sergey Senozhatsky wrote:
->On (26/10/24 18:14), Hillf Danton wrote:
->> > (PE enabled for all tests)
->> > 
->> > ######## zstd compression level 3 W-vs-R
->> >     BASE     IOPS 1,154k  avg 7.84us  sd   444us  max   697,634us
->> >              IOPS 881k  avg 14.16us  sd 2,242us  max 1,387,000us
->> >              IOPS 704k  avg 20.43us  sd 3,499us  max 2,058,300us
->> >              IOPS 563k  avg 29.02us  sd 3,910us  max 1,649,800us
->> >              IOPS 626k  avg 24.79us  sd 4,013us  max 2,085,800us
->> >              IOPS 976k  avg 11.54us  sd 1,518us  max 1,165,800us
->> >              IOPS 1,178k  avg 7.44us  sd    22us  max     3,103us
->> >              IOPS 1,120k  avg 7.39us  sd    21us  max     7,222us
->> >              IOPS 522k  avg 32.51us  sd 4,311us  max 1,598,300us
->> >              IOPS 581k  avg 27.54us  sd 3,626us  max 1,448,600us
->> >              IOPS 1,160k  avg 7.69us  sd   352us  max   702,099us
->> >              IOPS 1,169k  avg 7.52us  sd   129us  max   281,428us
->> >              IOPS 954k  avg 12.06us  sd 1,705us  max 1,545,600us
->> >              IOPS 1,029k  avg 10.24us  sd 1,156us  max   976,065us
->> >              IOPS 1,169k  avg 7.48us  sd    24us  max     4,305us
->> >              IOPS 1,177k  avg 7.45us  sd    53us  max   118,777us
->> >              IOPS 579k  avg 27.43us  sd 3,661us  max 1,615,800us
->> >              IOPS 1,169k  avg 7.52us  sd   115us  max   228,074us
->> >              IOPS 1,110k  avg 8.59us  sd   985us  max 1,288,000us
->> >              IOPS 1,177k  avg 7.45us  sd    29us  max    72,245us
->> >              IOPS 580k  avg 27.74us  sd 3,755us  max 1,507,000us
->> >     PATCHED  IOPS 1,179k  avg 7.40us  sd    23us  max     7,404us
->> >              IOPS 1,179k  avg 7.41us  sd    22us  max     2,857us
->> >              IOPS 1,176k  avg 7.40us  sd    22us  max     6,615us
->> >              IOPS 1,175k  avg 7.44us  sd    23us  max     5,623us
->> >              IOPS 1,176k  avg 7.42us  sd    24us  max     5,625us
->> >              IOPS 1,173k  avg 7.42us  sd    24us  max     5,632us
->> >              IOPS 1,172k  avg 7.41us  sd    23us  max     6,223us
->> >              IOPS 1,173k  avg 7.40us  sd    25us  max     5,848us
->> >              IOPS 1,173k  avg 7.40us  sd    24us  max     7,563us
->> >              IOPS 1,172k  avg 7.42us  sd    24us  max     5,625us
->> >              IOPS 1,175k  avg 7.42us  sd    23us  max     5,626us
->> >              IOPS 1,177k  avg 7.42us  sd    23us  max     4,243us
->> >              IOPS 1,170k  avg 7.46us  sd    25us  max     5,622us
->> >              IOPS 1,178k  avg 7.40us  sd    22us  max     3,213us
->> >              IOPS 1,167k  avg 7.43us  sd    25us  max     7,593us
->> >              IOPS 1,174k  avg 7.44us  sd    23us  max     6,971us
->> >              IOPS 1,179k  avg 7.38us  sd    23us  max     3,477us
->> >              IOPS 1,180k  avg 7.39us  sd    23us  max     2,894us
->> >              IOPS 1,145k  avg 7.37us  sd    21us  max     4,048us
->> >              IOPS 1,177k  avg 7.38us  sd    22us  max     5,620us
->> >              IOPS 1,177k  avg 7.40us  sd    23us  max     5,623us
->> > 
->> >     IOPS: BASE 932k (+-260k), PATCHED 1,174k (+-7k), 21 runs each.
->> >           significant difference at 95% confidence: PATCHED is 241k (25.9%) higher; 95% CI [+136k, +353k], Welch's t-test p = 0.000
->> >     max latency: BASE 3.1..2,085.8 ms, PATCHED 2.9..7.6 ms
->> >           runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 11 of 21, PATCHED 0 of 21
->> > 
->> > ######## zstd compression level 12 W-vs-R
->> >     BASE     IOPS 690k  avg 21.53us  sd 3,088us  max 1,635,500us
->> >              IOPS 478k  avg 36.51us  sd 4,385us  max 1,941,300us
->> >              IOPS 822k  avg 16.13us  sd 2,865us  max 2,263,800us
->> >              IOPS 1,161k  avg 7.73us  sd   114us  max   190,307us
->> >              IOPS 780k  avg 17.56us  sd 2,717us  max 1,550,500us
->> >              IOPS 1,166k  avg 7.66us  sd    40us  max    94,522us
->> >              IOPS 585k  avg 27.51us  sd 3,847us  max 1,550,600us
->> >              IOPS 1,147k  avg 7.97us  sd   344us  max   496,483us
->> >              IOPS 1,166k  avg 7.64us  sd    49us  max   115,243us
->> >              IOPS 1,163k  avg 7.66us  sd    23us  max     7,006us
->> >              IOPS 1,071k  avg 9.42us  sd 1,489us  max 1,915,500us
->> >              IOPS 962k  avg 11.88us  sd 2,168us  max 1,904,500us
->> >              IOPS 607k  avg 26.05us  sd 3,538us  max 1,591,100us
->> >              IOPS 1,167k  avg 7.63us  sd    23us  max     2,903us
->> >              IOPS 1,157k  avg 7.78us  sd   198us  max   418,930us
->> >              IOPS 1,163k  avg 7.66us  sd    40us  max   100,346us
->> >              IOPS 1,162k  avg 7.70us  sd    32us  max    82,602us
->> >              IOPS 488k  avg 35.43us  sd 4,340us  max 1,786,400us
->> >              IOPS 563k  avg 28.85us  sd 3,989us  max 2,209,500us
->> >              IOPS 843k  avg 15.43us  sd 2,490us  max 1,572,100us
->> >              IOPS 604k  avg 26.30us  sd 3,560us  max 1,555,700us
->> >     PATCHED  IOPS 1,166k  avg 7.60us  sd    23us  max     5,623us
->> >              IOPS 1,169k  avg 7.58us  sd    23us  max     5,629us
->> >              IOPS 1,157k  avg 7.67us  sd    27us  max     5,639us
->> >              IOPS 1,166k  avg 7.61us  sd    24us  max     5,644us
->> >              IOPS 1,160k  avg 7.64us  sd    26us  max     7,543us
->> >              IOPS 1,167k  avg 7.60us  sd    24us  max     7,514us
->> >              IOPS 1,160k  avg 7.61us  sd    25us  max     6,643us
->> >              IOPS 1,162k  avg 7.65us  sd    25us  max     7,315us
->> >              IOPS 1,161k  avg 7.66us  sd    24us  max     6,237us
->> >              IOPS 1,158k  avg 7.62us  sd    27us  max     7,688us
->> >              IOPS 1,167k  avg 7.58us  sd    24us  max     5,637us
->> >              IOPS 1,165k  avg 7.59us  sd    24us  max     7,098us
->> >              IOPS 948k  avg 7.58us  sd    23us  max     7,808us
->> >              IOPS 1,166k  avg 7.60us  sd    24us  max     5,621us
->> >              IOPS 1,166k  avg 7.58us  sd    24us  max     5,672us
->> >              IOPS 1,162k  avg 7.65us  sd    25us  max     6,824us
->> >              IOPS 1,165k  avg 7.59us  sd    24us  max     7,078us
->> >              IOPS 1,168k  avg 7.58us  sd    23us  max     6,191us
->> >              IOPS 1,170k  avg 7.56us  sd    22us  max     2,851us
->> >              IOPS 1,171k  avg 7.55us  sd    22us  max     2,834us
->> >              IOPS 1,166k  avg 7.59us  sd    24us  max     5,627us
->> > 
->> >     IOPS: BASE 902k (+-269k), PATCHED 1,154k (+-47k), 21 runs each.
->> >           significant difference at 95% confidence: PATCHED is 252k (27.9%) higher; 95% CI [+142k, +367k], Welch's t-test p = 0.000
->> >     max latency: BASE 2.9..2,263.8 ms, PATCHED 2.8..7.8 ms
->> >           runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 12 of 21, PATCHED 0 of 21
->> > 
->> > ######## lz4 W-vs-R
->> >     BASE     IOPS 1,422k  avg 3.84us  sd   418us  max   619,495us
->> >              IOPS 1,450k  avg 3.57us  sd   326us  max   609,723us
->> >              IOPS 1,414k  avg 3.92us  sd   543us  max   879,815us
->> >              IOPS 1,451k  avg 3.56us  sd   253us  max   503,428us
->> >              IOPS 1,460k  avg 3.40us  sd    68us  max   135,825us
->> >              IOPS 1,413k  avg 3.31us  sd    44us  max   188,450us
->> >              IOPS 1,432k  avg 3.73us  sd   503us  max   844,228us
->> >              IOPS 1,387k  avg 4.20us  sd   719us  max   961,827us
->> >              IOPS 1,464k  avg 3.38us  sd    44us  max   133,675us
->> >              IOPS 1,469k  avg 3.38us  sd    22us  max    65,812us
->> >              IOPS 1,465k  avg 3.40us  sd    49us  max   111,788us
->> >              IOPS 1,465k  avg 3.39us  sd    64us  max   174,040us
->> >              IOPS 1,467k  avg 3.38us  sd    36us  max    97,821us
->> >              IOPS 1,445k  avg 3.63us  sd   343us  max   671,026us
->> >              IOPS 1,472k  avg 3.35us  sd    27us  max    86,795us
->> >              IOPS 1,473k  avg 3.33us  sd    44us  max   138,096us
->> >              IOPS 1,439k  avg 3.71us  sd   353us  max   619,815us
->> >              IOPS 1,398k  avg 3.36us  sd    54us  max   206,815us
->> >              IOPS 1,471k  avg 3.36us  sd    15us  max     2,832us
->> >              IOPS 1,407k  avg 4.02us  sd   629us  max 1,074,800us
->> >              IOPS 1,465k  avg 3.40us  sd    63us  max   158,779us
->> >     PATCHED  IOPS 1,471k  avg 3.30us  sd    15us  max     6,946us
->> >              IOPS 1,473k  avg 3.29us  sd    16us  max     5,618us
->> >              IOPS 1,474k  avg 3.29us  sd    15us  max     5,615us
->> >              IOPS 1,473k  avg 3.29us  sd    15us  max     5,625us
->> >              IOPS 1,440k  avg 3.26us  sd    13us  max     2,829us
->> >              IOPS 1,456k  avg 3.30us  sd    15us  max     5,623us
->> >              IOPS 1,476k  avg 3.29us  sd    15us  max     2,835us
->> >              IOPS 1,464k  avg 3.28us  sd    16us  max     6,063us
->> >              IOPS 1,468k  avg 3.32us  sd    19us  max     6,692us
->> >              IOPS 1,465k  avg 3.30us  sd    17us  max     6,834us
->> >              IOPS 1,468k  avg 3.28us  sd    16us  max     7,268us
->> >              IOPS 1,463k  avg 3.31us  sd    17us  max     6,480us
->> >              IOPS 1,454k  avg 3.33us  sd    20us  max     8,418us
->> >              IOPS 1,452k  avg 3.32us  sd    19us  max     5,621us
->> >              IOPS 1,477k  avg 3.27us  sd    14us  max     2,834us
->> >              IOPS 1,468k  avg 3.30us  sd    16us  max     5,617us
->> >              IOPS 1,475k  avg 3.30us  sd    16us  max     3,884us
->> >              IOPS 1,475k  avg 3.30us  sd    16us  max     5,692us
->> >              IOPS 1,471k  avg 3.30us  sd    15us  max     5,616us
->> >              IOPS 1,473k  avg 3.28us  sd    16us  max     7,014us
->> >              IOPS 1,475k  avg 3.28us  sd    15us  max     5,616us
->> > 
->> >     IOPS: BASE 1,444k (+-27k), PATCHED 1,467k (+-10k), 21 runs each.
->> >           significant difference at 95% confidence: PATCHED is 23k (1.6%) higher; 95% CI [+11k, +35k], Welch's t-test p = 0.001
->> >     max latency: BASE 2.8..1,074.8 ms, PATCHED 2.8..8.4 ms
->> >           runs with max over 100 ms: BASE 17 of 21, PATCHED 0 of 21; over 1 s: BASE 1 of 21, PATCHED 0 of 21
->> 
->> 
->> Lets see the data from another pov (feel free to disagree) -- in the android
->> phone/car cockpit environment, the render frequence is required above 60HZ,
->> IOW a frame rendered within 16ms, so what share of the 16ms does the IOPS
->> account for after this patchset, for example when an app in background is
->> brought foreground?
->
-> A single 500 ms read stall is 30 dropped frames.  Across 126 runs that
-> I ran, base+PE had read stalls over 100 ms in 108 runs and over 1 s in 47.
-> The worst read with the series+PE, in all 126 runs, was 8.4 ms, i.e. within
-> one frame.
->
-Good work from the 2026 most valuable baker, MVB.
+On 10/20/26 02:46, Andrew Morton wrote:
+> On Wed, 14 Oct 2026 16:55:40 +0700 Ngoc Quy <ngocquy0700@gmail.com> wrote:
+> 
+>> The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
+>> /proc/<pid>/pagemap without holding a reference to mm_users.
+>>
+>> proc_mem_open() deliberately grabs only mm_count, so a consumer that
+>> touches the address space has to call mmget_not_zero() first. Every
+>> other consumer in this file does -- m_start(), do_procmap_query(),
+>> show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does
+>> not.
+>>
+>> Without that reference the target can reach exit_mmap() concurrently,
+>> and exit_mmap() calls unmap_vmas() while holding mmap_lock only for
+>> reading, which does not exclude the scanner. For ordinary VMAs this is
+>> harmless, as free_pgtables() and remove_vma() run afterwards under
+>> mmap_write_lock. A shared hugetlb VMA is different: __hugetlb_zap_end()
+>> frees the VMA's hugetlb_vma_lock inside the read-locked phase.
+>>
+>> walk_hugetlb_range() can therefore load vma->vm_private_data, have the
+>> lock freed underneath it, and then down_read() a freed rw_semaphore.
+>> The load happens before the freeing side clears the pointer, so this is
+>> a use-after-free and not a NULL dereference. Any unprivileged user can
+>> reach it with no huge pages configured, as hugetlb_reserve_pages()
+>> allocates the lock before the VM_NORESERVE early return.
+>>
+>> Pin mm_users across the scan, the way the other consumers do. mmput()
+>> from the exiting task can then no longer reach exit_mmap() while a walk
+>> is in progress.
+> 
+> All looks good and checks out for me, thanks.
+> 
+> Except...
+> 
+>> --- a/fs/proc/task_mmu.c
+>> +++ b/fs/proc/task_mmu.c
+>> @@ -3231,15 +3231,18 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
+>>  	size_t n_ranges_out = 0;
+>>  	int ret;
+>>  
+>> +	if (!mm || !mmget_not_zero(mm))
+>> +		return -ESRCH;
+> 
+> Why the new test for !mm?  The current call chain guarantees this is a
+> cant-happen and the current do_pagemap_scan will cheerfully oops if
+> mm==NULL.
 
-Hillf
+I'd just keep it for consistency with all the other checks in this file?
+
+-- 
+Cheers,
+
+David
