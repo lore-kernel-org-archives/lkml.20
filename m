@@ -1,66 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792921661;
-	b=dQqmQD2187Xh+7s8DS3NdVlUKaAbJpkqg+hqxeyq9rvwGywHNXmMtDjyx0YT0lko50zw
-	 O0It6IWqWaM8BAl0B2Qq3fBhKQt1XAqJoqcu/DHJOUYgzw7Dc7DpY3AGpF77vBDKmpfXq
-	 MkwVGEikpgrIbb28SlyrSXQ/Mn2kbfWch+2fds4OW6O5TWggND3DWB4ZaAJ03SAHl4UqM
-	 4AtWs/t9Sy695/eU6nlmKM/luD8GrEh+uyJyfErhkB59mY7G8pI6ax8jHSecnn6fwYv6w
-	 HZGhtT3cf6RF7LipJ+hqJ7AmTwXpVEHe8bhcOZbgx9PxJnRJVKMvPOHyEeo9OR1DScg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792921661;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=6wMi+VRMdXtwGgWeYPr3fgIuVKDrKzKxvHBThVIJSgE=;
-	b=jlsGuiqy7uAytuEBSOYtHjagOu1Cer9xr+uwacSt7Bul6a4HYGO4qK2P1L+CHzgiUADl
-	 zYl96CZJWzEkB1nzIO6IiTjbqSN7+bplOFBfzXhZFLj2JtWepXtbG9meyt8WSI9Jt6767
-	 +UcjpSKLIRZk595kj2gTiaS3jKGsai0VwgnLVmbq1YxZ+KvcPUBeKC8ciCju7ayyaqsgo
-	 xKR5YBUd+xoSn6jUA4kMjqT0swcjp7eSZl0Hk7O7c3DHjfkFoFPAkP6Sub+xqOMVWvorJ
-	 Rpwy47dse6ADaQ+IaGR3/1LzZ5TgGDKb4yk3jsAeBS4oYJP06fe8VJ0nvMs1iCXMdAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="S/bnQUUq";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792922003;
+	b=IzAHuHjejDhTfp6GkGOR57gXhZPK7njZp2AZsepDzhCuFovwuNsMoD0fx8471Mj0i9QA
+	 lGciQXXjMmzIyjg/5gcQnD6NKEyMSRt3mkgrg027wAKN7nK54AOdNNqso+H5mJRsIjegJ
+	 eicbItW5uYMx/+Cet5QTSuXB1wBsE1SqwAu3GUQoaKJe4WtYVjhqCSgXopxRljYbW+Ac1
+	 IljOc0KdeqCEo2fABkp96Tn6cOAPT+nAiBgLzzh7497jhdaBty70EWCJEnksCSwk4TipQ
+	 bJaBTO7YrlZk6O7JdGOZvDSfSrWSH6fkSVdJmp1UcmtQ3J+fNh4TMRdTB69agAI/EkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792922003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=6PtEA2UtMTqcqVdkWoMV++OnOcpG82BOix7xLgA714w=;
+	b=meTMc18f6rFOmqH9cRz93kRahNj18mQTjRvgEqpwb1BkMQ8gd/iFZbGKOLGVmnFLyhCI
+	 v8Xg9SmMSANs6TYNquR8OSKI0e26PAkzJ8wZMPCdaKeHcVwEifXvTn7gXkG49u8gmBcUV
+	 Xi099kFMegCYIMZ7qIRXbaPefpsjvLLDBiIwCnynXrJoMJ4vfSW+nccPCjBGZ/AR71QIy
+	 QAEIelvwTAO23fjSXQPcewhXnrBvAkpqBVMWFM1dE+OrHPiFQE8agk5Gbz/l8LJS3EWob
+	 pOQUrpmDkq+eD1pv5rhaHJSWG+69SsEZJWgaEkuZyFLlxLpOvtbxz4YPT5gS2AMEImw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Vy60/HuI";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F7E606A31A;
-	Sun, 25 Oct 2026 09:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F7E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA58B606A31B
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 09:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA58B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S/bnQUUq
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D97D2493;
-	Sun, 25 Oct 2026 10:45:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792921522;
-	bh=gaeNNxYSwdfO6+h2u4lvwXbi37LKCI3h3I6UXVoiu3g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S/bnQUUqMktsQwHkzY2NAfgTGltXt1OtYw3ryd5rkvGvg0soJFQw+El6kTtmwsX85
-	 itHwM1Vyaqz7iMqHz4d4A0iVtBTYsZZ9Cn4WqR2cDqcQDUdGIuqqPK4xy6Ih3RarBB
-	 GlkkoES43hQ4dntbJIagc0mVrKxAXvJ9hsluWq2w=
-Message-ID: <c76885d0057833361d0f5d5ad0c62dec@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Aristo Chen <aristo.chen@canonical.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Guoniu Zhou <guoniu.zhou@nxp.com>,
- Christian Hemp <c.hemp@phytec.de>, Jacopo Mondi <jacopo@jmondi.org>,
- Stefan Riedmueller <s.riedmueller@phytec.de>, linux-media@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Aristo Chen <aristo.chen@canonical.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] media: nxp: imx8-isi: Register the media device only once
-Date: Sun, 25 Oct 2026 11:46:49 +0200
-In-Reply-To: <20261025082419.199021-1-aristo.chen@canonical.com>
-References:  <20261025082419.199021-1-aristo.chen@canonical.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vy60/HuI
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2938197a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:53:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792922001; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UVNoqnVqI16MOx1PlDT8gCFXTyng+S8Q4nSgZKAhu8uYEmXS0hIFX/DO+i38sc3R+F
+         OtAjqKBEKhUHwq8J+3LWlN+mCBrzi2qNhV2XMITuFpxEw52TSdHacesD7+k/u+ftid7j
+         CPWUrPThSecV/kjpOSuYCFmVM5Ho3b9cYgXBgBhcVdLC0dinAarDgz7IajXgY16/Uzu7
+         CxNjHCgQUxyEvBfLbhq+Cu3kle+0I0JoFqANRkkqEHJnWhsvdPaNCyFe9m/+VNcQ4ron
+         F/crTqmDyIRxNKa0EomyJz59RBjIdGCqWx1Y70eK6344G4Z5623WJphgdZnfx7wJqJcR
+         nWOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=6PtEA2UtMTqcqVdkWoMV++OnOcpG82BOix7xLgA714w=;
+        fh=Z1+3HjOOACRQT+hikdfeO5frX88dDDsVdSZatZyIq2E=;
+        b=mOI+fhfwZmdPdxC1PSZLCKdLHXeUD8TWpaQEHk5kOE5hxhxr4qEPJVS4m9RrnBx2/T
+         y7uWaRd0DylkEaT/O1Xy9WwEHoolp+kaQ2dnvdT7sP2/3Pj+ovRasPMeZKNqcasBBJ8Z
+         e+VpPh9SOspzUddP8enxHhs0/VfS8ansEJoMpVSM/iiCQJlVazZ/MNZrSOV4Vkw3GmJQ
+         t+zGhWlaYD+sZ+SOtxOjLrythEoM2soqFJbZ2SNSHWKuiu9D3ySaSLB2AwsKz1UEVbfw
+         k6C6hDRiyCKIrILFcO1yw1VwppptBaKcOVNdPBGGmcYOyWp9wUgzEzb7ZWpG3zfhWB8c
+         2zRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792922001; x=1793526801; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6PtEA2UtMTqcqVdkWoMV++OnOcpG82BOix7xLgA714w=;
+        b=Vy60/HuIOOHGkECakw9qQeSwY7OX8plnS0WVLz8+4hCtE+H+FdizqKoXsRIodYiqWm
+         waLxD8Lk9Mh5BV/UGp5eZxlIxFM3LX/MTou2H2VyYTI0XZZ/izLuLJNx/gTaeZF8tLxG
+         hV+bSizw71J5ks7psvQO8YYUnOeQlzOv3y4zyA+3A/5tAGmgrJOtrCwb4RkxebFp0kHQ
+         hUT5FLoewOEUExXqWkHbuELYNSbjZlSnSEFAzEWHdkehYOnaaChz4zpwQl2EK45dKedu
+         FGfGHk34oPwNaZRh+Fy6pkHK7sYS5CvbcJxvQjRhYHjiehqkIYtiUhs+MgGirPzaYMKz
+         Q78A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792922001; x=1793526801;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6PtEA2UtMTqcqVdkWoMV++OnOcpG82BOix7xLgA714w=;
+        b=uUrIEv2FVQ1VyohjCVC1Q+kpyBGlrcE8Uu8JIKleG2J0GM3Tjsa9tDULAikQ8gesNW
+         geKdqAf/f+6bAGxYDG93r0vJkYU/w8koZt0uOI1DaTonoxJ4imJUrb4QRpY1d+D/grNn
+         dwzkIaytpSrCNHlwORYISy3409j7Oy0wbhvAbgp2R4bZLVkpLR6sXwjGBmrbdZLU6w6V
+         4ffcWm+3f1A4KoXI9aE2f7ikYeh8Os8QxFYnzgnqtdTeVDvIr4pQrcx9jUZMTUocCYsl
+         0qZbmPp6uzI07rchdVAPa6mkgONRQ4ogG8ZLhBQeDkWOyQPCeFvQJYsq6JqDYSoPTVOo
+         V06Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzpcrlc3eNgPwbyMLfefV5ItbnUjoa0rGmcfWUdMytOgFkxeccF0ujkRmkpt3jHtq0KU/chktkQL+QkhQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRBaz/+XDBgXLIXGvczkPedkF4u18TpEHpWypm0xJ4vP1rCqXV
+	1+gLYNd9BQ8zFVbe3EnRkGxdS1VJLDV/Ac8xN+VEyX9TOwR4AeUJD01TTjZYwCcOHkmrsq2oJtU
+	w4NZCYjz/eaykFxKwPVc8NvATPBrdr+o=
+X-Gm-Gg: AYBFou3KeYOglEW4KrkqRIW6ka6q6drKrYJsrCuAMBlDyiUmulBX/10/IP2EU+Kag/L
+	7I6yYzvmIh/F+oHnCxcmPt0+KR+R4jJV0NT0AvxO6pvri6nGTAy+0T3Em9HpCkU86uKEVxmJlKE
+	ytZHhAH3s1P0ftPteq5HWZPJpsxQUPRp9ALnj6OYCR/rbqqdGc0WszaXL5fpWaxW/QatbVOuv6c
+	/0n3ztK/LDwuRaNZn7IBgmexFVfkftQi4QGjSsenzx/qIudzoCTPc9Xs9h6necjXxlNUpMqHO6S
+	SrJcy/5pjVgxR21zY7IYBtsSRR5ygmMa2Ypq3EFbkEfte0NQrEQiPSpwWSMk0imzMYDAeBsPd+e
+	CHBoagCLUbRWfOSBRLIAGNTPmksv7kUiSlTeuJ6S+GBPMwmjn7sNT7IYZcyfEtbVdIx8=
+X-Received: by 2002:a17:907:9d1a:b0:c2e:2d8c:4585 with SMTP id
+ a640c23a62f3a-c46bde8a1f2mr445903566b.36.1792922000889; Sun, 25 Oct 2026
+ 02:53:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,107 +101,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Date: Sun, 25 Oct 2026 10:53:07 +0100
+X-Gm-Features: AclHuK_xZzMIUgzgDxUYS0S8n_we1GNSKAQQHoI-f2BeDz1YvWNvfoIENaxJN_0
+Message-ID: <CAHxSwT_ya=kxLdQkx5iY6DdVbxDv9MP5shRUF5-yDUvM=cFpKw@mail.gmail.com>
+Subject: [PATCH v2] staging: fbtft: fb_upd161704: Replace udelay() with usleep_range()
+To: andy@kernel.org, gregkh@linuxfoundation.org, outreachy@lists.linux.dev, 
+	julia.lawall@inria.fr
+Cc: linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+From 778030aa9291e3a7d40ffb03b19e6877041cddc8 Mon Sep 17 00:00:00 2001
+From: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+Date: Sat, 24 Oct 2026 12:02:25 +0100
+Subject: [PATCH v2] staging: fbtft: fb_upd161704: Replace udelay() with
+ usleep_range()
 
-This is an automated reply.
+Signed-off-by: Abubakar Musa Samaila <abubakarmusasamaila@gmail.com>
+---
+v2:
+- Send patch inline in the email body rather than as an attachment.
+- No functional changes to the code diff itself.
 
-You have sent a patch that appears to have been generated by an LLM. The
-commit message and/or code show little to no real understanding of the
-changes being proposed.
+v1:
+ drivers/staging/fbtft/fb_upd161704.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-Such patches require a large amount of work to review. They rely on the
-maintainer to propose - and often even implement - a proper design. The
-probability that the author will learn from the experience to improve
-their future contributions is close to zero.
+diff --git a/drivers/staging/fbtft/fb_upd161704.c
+b/drivers/staging/fbtft/fb_upd161704.c
+index 7288140e7..94ae5bbf0 100644
+--- a/drivers/staging/fbtft/fb_upd161704.c
++++ b/drivers/staging/fbtft/fb_upd161704.c
+@@ -32,27 +32,27 @@ static int init_display(struct fbtft_par *par)
 
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your patch has been rejected.
+        /* oscillator start */
+        write_reg(par, 0x003A, 0x0001); /*Oscillator 0: stop, 1: operation */
+-       udelay(100);
++       usleep_range(100, 150);
 
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of the patch by
-feeding this reply to an LLM will only result in your e-mails being
-ignored.
+        /* y-setting */
+        write_reg(par, 0x0024, 0x007B); /* amplitude setting */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0025, 0x003B); /* amplitude setting */
+        write_reg(par, 0x0026, 0x0034); /* amplitude setting */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0027, 0x0004); /* amplitude setting */
+        write_reg(par, 0x0052, 0x0025); /* circuit setting 1 */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0053, 0x0033); /* circuit setting 2 */
+        write_reg(par, 0x0061, 0x001C); /* adjustment V10 positive polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0062, 0x002C); /* adjustment V9 negative polarity */
+        write_reg(par, 0x0063, 0x0022); /* adjustment V34 positive polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0064, 0x0027); /* adjustment V31 negative polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0065, 0x0014); /* adjustment V61 negative polarity */
+-       udelay(10);
++       usleep_range(10, 20);
+        write_reg(par, 0x0066, 0x0010); /* adjustment V61 negative polarity */
 
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
+        /* Basical clock for 1 line (BASECOUNT[7:0]) number specified */
+@@ -60,7 +60,7 @@ static int init_display(struct fbtft_par *par)
 
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Sun, 25 Oct 2026 08:24:18 +0000, Aristo Chen <aristo.chen@canonical.com> w=
-rote:
-> The v4l2-async framework calls the notifier .complete() operation every
-> time the last missing subdev gets bound. This happens again each time a
-> remote subdev is unbound and bound again, for instance when the sensor
-> driver is unbound and rebound through sysfs.
->=20
-> mxc_isi_async_notifier_complete() calls media_device_register()
-> unconditionally. Each call allocates and registers a new media devnode
-> and overwrites mdev->devnode, so every rebind creates an additional
-> /dev/mediaN for the same media device, and leaks the previous devnode
-> and its minor number. As media_device_unregister() only unregisters
-> the most recent devnode, the older ones also stay registered after the
-> ISI is removed, and ioctls on them dereference the freed media_device.
->=20
-> On an i.MX93 board with an AP1302 ISP, every unbind/bind cycle of the
-> AP1302 driver adds one /dev/mediaN: after three binds, /dev/media0,
-> /dev/media1 and /dev/media2 all expose the same media graph.
->=20
-> Register the media device only if it isn't registered yet. Keep the
-> v4l2_device_register_subdev_nodes() call unconditional, as it has to
-> create the device nodes of the rebound subdevs, and it already skips
-> the subdevs that have one.
->=20
-> The issue was found while debugging an unbind crash in the AP1302
-> driver of the NXP BSP kernel. An AI coding assistant helped to find
-> it, and wrote this fix and its changelog.
->=20
-> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
-> ---
-> Tested on an i.MX93 FRDM board running the NXP BSP kernel
-> (lf-6.18.20-2.0.0), whose mxc_isi_async_notifier_complete() is identical
-> to mainline, with the AP1302 driver from the same BSP plus a local fix
-> that makes it possible to unbind it:
->=20
-> - Without this patch, three unbind/bind cycles of the AP1302 driver
->   left /dev/media0, /dev/media1 and /dev/media2.
-> - With this patch, after each of three unbind/bind cycles only
->   /dev/media0 exists, and media-ctl -p on it shows the rebound AP1302
->   and sensor entities. No kernel warnings.
->=20
-> Not tested: the ISI removal path, where the stale devnodes would be
-> dereferenced. Build-tested on top of 330517c63aa9 with W=3D1, no new
-> warnings; sparse was not run.
->=20
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/=
-media/platform/nxp/imx8-isi/imx8-isi-core.c
-> index 0ae5f35e017c..82a03742405d 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> @@ -90,6 +90,10 @@ static int mxc_isi_async_notifier_complete(struct v4l2_a=
-sync_notifier *notifier)
->  		return ret;
->  	}
-> =20
-> +	/* .complete() is called again every time a subdev gets rebound. */
-> +	if (media_devnode_is_registered(isi->media_dev.devnode))
-> +		return 0;
-> +
->  	return media_device_register(&isi->media_dev);
->  }
-> =20
->=20
-> base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
+        /* Power supply setting */
+        write_reg(par, 0x0019, 0x0000); /* DC/DC output setting */
+-       udelay(200);
++       usleep_range(200, 250);
+        write_reg(par, 0x001A, 0x1000); /* DC/DC frequency setting */
+        write_reg(par, 0x001B, 0x0023); /* DC/DC rising setting */
+        write_reg(par, 0x001C, 0x0C01); /* Regulator voltage setting */
+-- 
+2.34.1
