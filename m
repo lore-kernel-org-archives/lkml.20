@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792931584;
-	b=FlaKy+/5aa0U9JIl3U6zEOfWUkuZKX22ZtM2S6P4ogt8dIkj+FAWMpfIdeY+uHJBZvln
-	 jPb5HEL5Y/gG6zXM9QNDa8WdxaFFHJJVxESeG4lJYlYf82b/WS+OKAm/JdS5Y2WbqFKOn
-	 4idOVsBJgXydpUqARP8yfvgqCf9zMCe4fzp8n5JikflZUOjhZs7Bdw6qItmao7x2bBfPQ
-	 buRYG61kQkSPaSv7ZqkStOW/LcAX5fFOqOkRBteNfhvaXpgTsasopk0WhvaIJDsZCTniF
-	 rdfdzpw0VT4ov5kho9hpPdcfDai4lp747x6ViQsPEpPDKEHdHfq7SnBTbvjArXY1Rgw==
+	t=1792931607;
+	b=3HjV358QyOp9GRd3yVYXO5/h6Pbbg1+w+fGd2DYm2npJS2gwC7v+u8ekbK9C7V1imuGj
+	 XRbUFZMwJxMRNpmIKgRv2CeIVjrRh4Jahm2/NGHw0deFyMd/5F4HOUXwMPUtN0LhO71ip
+	 /+Ax8kRfXeR0DLHe3tLJedqpukScBtsn016ghBEpPcq+YgVJZJoVh7xhgtuJdI67rkpGt
+	 Te8yG/ThKbDeX3i2uqJhIt4Msti4MK610Ra6M/oVclvvPP0obXlyI9SR4Rnxlhn94xp8y
+	 psWgZIEATWYsZk0tJhkdJvm8RDRXSMqnaCyTJGKGpcVCtWISOmTsxKE1ErDSx+UCMQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792931584;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type;
-	bh=sBXji8iA/1eL9YPTJhqHfbQ8hs7sG8mNf+w5hLMZXRo=;
-	b=XFIKm+sDvA0ljPg6cZgLKZENEza/Ytt/GcdfZZPL4akylVotK/pi8/SoDwmdkyGIt6eh
-	 1Gl6KDmTHy41HNCKuetR/z4bzTCKp3U8ik2Brr1ywiQjYsvpnMAJ4Ez/r8n1uSjcLb/lq
-	 VhF3UVxRPiC7Go/UMn7OkQnjRau/L1MMHGEFehpibQOgKnEsa56ThYrexsFWX5H8MsDo3
-	 YhC94UJx0r6mURm7Q61vz4iqw5F1jdFXlBSw6mJJjty14ZLr41DA9/o0vfR7heYCORIFQ
-	 LUkpv6dBAi9S9O3kQ0VfUDP9dO2wBr34SDJIJu7o9wIgqFHj6JB0931bwlJHSd9QY1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792931607;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=kVBzGFtNCTUSDocuvH1j5E27S8HzPs9e8Kt49P7lnhQ=;
+	b=QbTExjW8AybIwi+bZmofXLU9I/fGT/snFvSVh9xfVzGz4Cmle838gSFVvv3/y1wVssJa
+	 BveCMgf29EUVmRElDzHkYB664dwdS/yP9OHJ4jRr7COam7WkbWA7LN0DHdtj2YnsVsRMf
+	 FcuCPELrjiXQ05WmAL096VMeEHWvysIq+dqJ8XU9R0hNFyxoam18BK6XC3bTJpWB24zVI
+	 w71yuI0vZpJnJeHi1aQdpH3Fqpe7CWbZ8PHNGYF3pdVWcJDtMbc109xP9hoKX4wp9Pj9F
+	 YHPP6ZbiNgA8OMLZpESrn20c5EpY9EKl+ReNwDoFl5GOE5PeHVaiVWjLLi0ij+Bb83w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=p9wsF1wr;
-	arc=none smtp.remote-ip=192.134.164.83
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E71606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26E71606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=p9wsF1wr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=sBXji8iA/1eL9YPTJhqHfbQ8hs7sG8mNf+w5hLMZXRo=;
-  b=p9wsF1wrf+2fDgZKyNOZecLahv8uj0+gqN/VlSUBcfZisoW9H7ug3/L/
-   vqLyxlZXsKsdYa5NHFfT9kqXx0m1U88BAQCICuv1RWzroDGe8go4NQJb5
-   TSIZTUY3GHDasd52X6YJZ8d/cKZVX0wZ4udVSBL7mcE8q/JA7+q1bo36o
-   0=;
-X-CSE-ConnectionGUID: mS2hlVexRgGJzBqmG7V6Zw==
-X-CSE-MsgGUID: twqPJ0EtR/ulr0epeI8thQ==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,177,1787004000"; 
-   d="scan'208";a="302214243"
-Received: from c-76-123-3-53.hsd1.va.comcast.net (HELO hadrien) ([76.123.3.53])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:32:59 +0100
-Date: Sun, 25 Oct 2026 08:32:57 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Haasham Khan <haasham93@gmail.com>
-cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
-Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary goto
-In-Reply-To: <20261025122504.8404-1-haasham93@gmail.com>
-Message-ID: <3b68a92f-b81c-9dd7-fc91-96a761a1237d@inria.fr>
-References: <20261025122504.8404-1-haasham93@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AD7606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 12:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1AD7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8468290b866so3576288a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 05:33:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792931606; x=1793536406;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kVBzGFtNCTUSDocuvH1j5E27S8HzPs9e8Kt49P7lnhQ=;
+        b=Z/nmAR5Xa3k1t93hkwwHVEijhDCrPz3Ig90JPWcCEd/Hjuz2F26Vt7Pp2U1Xy3PjTn
+         pk8M9Gbg/fKjChvH1cfUyZRwhTMmWqwSRnpykno+YaNJ1BU0vw5Bn/1vSEbqZFWunbjc
+         nGueOwu29+ZlWZ4cc4FOTpPJcvZxaPuGayUeGtcNtzM3uQ8+7LtUAlbV7xHQe6tKUsO+
+         yZvh5UG6XvS6X5knPz+d19jGvn2fKPQXCeVcOhP7EsSA/MxXeyTiZPL6oc+1mUaaCcc2
+         ZAq0xHpiNBXxpVFrRqUgTB/6v3o5+mb+rhlUczF8QP/tQd/zTgfQMc2JN6RaSOJ2kTkk
+         CfCw==
+X-Forwarded-Encrypted: i=1; AKwUvBz8Up9WNXYFW02nHM9m+2DXWFqLT5/XaeHLpsWOnH+4nyG3jcLFv99ZYE6EfRh0KFkk2QNAH5J1lproxlc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSGv0r6z0KSf/a+f4tqX5NQclPDRXRHwb7MgkEoMa3uSDhTedJ
+	eDGHtasdJ9Aoef5z2AMGiBw1cwt2dhMqydFMUIRP/5vM32kHXPcwgosQwqioew/3W6nZtTuhDED
+	Sr+UUGM5WtrVm7mz6HE/+CteTkNpxQEBvO8zyNv3cbL10Is+1W2Wa7kLUTyU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,47 +58,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-Received: by 2002:a05:6808:4f06:b0:549:572c:fd42 with SMTP id
+ 5614622812f47-55c0031b091mr2010500b6e.47.1792931605841; Sun, 25 Oct 2026
+ 05:33:25 -0700 (PDT)
+Date: Sun, 25 Oct 2026 05:33:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6addf715.67317f00.38c4bc.0080.GAE@google.com>
+Subject: [syzbot] Monthly input report (Oct 2026)
+From: syzbot <syzbot+list4c580c10329f11ac634c@syzkaller.appspotmail.com>
+To: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello input maintainers/developers,
 
+This is a 31-day syzbot report for the input subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/input
 
-On Sun, 25 Oct 2026, Haasham Khan wrote:
+During the period, 3 new issues were detected and 3 were fixed.
+In total, 32 issues are still open and 70 have already been fixed.
+There are also 3 low-priority issues.
 
-> The goto exit statement jumps to the next statement, so it has no
-> effect. Remove it and the now-unnecessary label, and simplify the
-> conditional block.
->
-> Signed-off-by: Haasham Khan <haasham93@gmail.com>
-> ---
->  drivers/staging/rtl8723bs/core/rtw_recv.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+Some of the still happening issues:
 
-Actually, this driver isn't accepting patches any more, because it will be
-removed.  This was discussed on the mailing list recently.
+Ref Crashes Repro Title
+<1> 1516    Yes   KASAN: slab-out-of-bounds Read in mcp2221_raw_event (2)
+                  https://syzkaller.appspot.com/bug?extid=1018672fe70298606e5f
+<2> 873     Yes   WARNING: ODEBUG bug in corsair_remove
+                  https://syzkaller.appspot.com/bug?extid=0a031a76585d1c7e737d
+<3> 368     Yes   possible deadlock in __kernfs_remove (3)
+                  https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
+<4> 42      Yes   INFO: task hung in devres_release_group (2)
+                  https://syzkaller.appspot.com/bug?extid=d789904ff97c2f3dac88
+<5> 28      Yes   INFO: task hung in __input_unregister_device (5)
+                  https://syzkaller.appspot.com/bug?extid=78e2288f58b881ed3c45
+<6> 12      No    KASAN: slab-use-after-free Read in k90_backlight_work
+                  https://syzkaller.appspot.com/bug?extid=abcedffc9201f2bb66c2
+<7> 2       Yes   memory leak in __usbhid_submit_report (2)
+                  https://syzkaller.appspot.com/bug?extid=e2c057ea576d2644e2be
 
-julia
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
->
-> diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-> index 6f4bdad00f60..c2d0cd314b81 100644
-> --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-> +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-> @@ -2005,12 +2005,9 @@ static int recv_func_prehandle(struct adapter *padapter, union recv_frame *rfram
->
->  	/* check the frame crtl field and decache */
->  	ret = validate_recv_frame(padapter, rframe);
-> -	if (ret != _SUCCESS) {
-> +	if (ret != _SUCCESS)
->  		rtw_free_recvframe(rframe, pfree_recv_queue);/* free this recv_frame */
-> -		goto exit;
-> -	}
->
-> -exit:
->  	return ret;
->  }
->
-> --
-> 2.53.0
->
->
->
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
