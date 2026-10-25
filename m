@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792932098;
-	b=A2hU5cecNrhDZOT2TU59Suy0Qwo6JsgCktX1WXe3jreHiMJvE0j1kc8jWB9y3zW3C1es
-	 cKSl5pankp5bWzE54CHvZZnFX+GuJ5MNEAtYXe0s7O0X5tOSAPhXfe/EF0NwongLEn19z
-	 26XwjagdXnauPKtTSXZdutgfHvthzcxfFFeGkTezTItPOZW+1hPQPmOdzcYhHSfZATgi2
-	 YMaaEi3mLAT82isNXpzNUpcN08LhWFgqUp+9ITcUwzWN0KlaYdtVpc+4DelBvMd42YTrW
-	 VJ6kNCVy8kkx1WcjQs0gdabjZXxBn+3oX7QkNgRP+1wGo6g/F2Dbr2vjEs49OI6Sb5A==
+	t=1792932114;
+	b=saQ3/7oaGxLMgTDWr+51yqRUOyq7KPpzQTr9EFOjY0u73/xMk9CQGhzsI2UPZ8C+pAzW
+	 J8LVvmaVJ0ePrXJoAeUEPDq0wmBLhRg3kv7crSD4t3f3zzjfO3Xpis92ap5tlh5f5GIxR
+	 Fl7E7r/4JAsTfOgE8YZs+ffhDcDD8zKgLfE217CT46XI/arz89dJx+nQSsNCpT9Zj3fnr
+	 g2qbYejTzLWCT8B0s7REsmd7BQJte1DfhVKC3INXZbC6APMOpwddWsPDECoZWcpfJLQza
+	 JpEYhFCh1j/amKd08YSSIOPgzoiyGEKZ8Vs0OZ8H98duaX7y6DIGPubzI3P9hZb546w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792932098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792932114;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=kBj+4RxwijaLWN5ITLDs5hsE3jd/u1ixbAu4cXW/vcs=;
-	b=SJjMbN3Ts/w34jwgeY1joZ6ETRjeKEHgCZIIEy5U0xCcsOjnxGs5cZySIccwRZfYTGmv
-	 1+NrNbYEXYf1bkfzcRfKIWve4pdHSFvLeXaSWvqYDMYsqZmLLsU72tRAUK/uvktI4qWY/
-	 0ANBKp8xNjGr2HmAfigk7tIILrXzneMjZHJF/7CYyjDXUzxEekhM5y1rmkj4Ma2/mn7oP
-	 hIWz55EGu+hQncQUnfXzeD2naVEpbbVjnvXML42NCVv2cmU+AHafXnsS/2hnD03LE3Rin
-	 WqmPcKxFb71uI3tTnQDGP1tihuNlqjp/xbJSR7oy/pYl1FE9nGQlVmR0AJ9uoXF/a9w==
+	bh=ZUrqx1rvvs6o+dee+0TNtCMY/5xlNRoKRO5LvvKhg7Y=;
+	b=STm1uk6V7alc+lN9jLcK8TaFhGz6YtIFDP132FoS74Rcwng33U60RFiV/sQcNKMjQGdi
+	 D3DBOBxEgMAKJtsOlGGGXf+WiUCZqamHesZ/AWROx8OWi8fIIIa5Lui6pp/PDpz1g748U
+	 v33CfXQPbDUCrxyCNN+RwENNvBkacOLbY1eP9KsnmxysORGUkRhdrGbLrd6Mx5DXX6ucB
+	 Iz/ndyqRRvm7sTrXFO+BhRZ9wCeFvNERAY/d3xB6oC+K87JsZuVEMIxqcgZI6IXhF/PPg
+	 /rymDaxOT2MfHPu7dBpjIE2ir0KME/Cwks2mA3gecnwAc3WDoh5irOIyACpyAOryJ/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=irqm4AVT;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CgjBCxH1;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC34A606A31A;
-	Sun, 25 Oct 2026 12:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC34A606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AC606A329;
+	Sun, 25 Oct 2026 12:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 542AC606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=irqm4AVT
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CgjBCxH1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kB
-	j+4RxwijaLWN5ITLDs5hsE3jd/u1ixbAu4cXW/vcs=; b=irqm4AVTDaZMMfbMc9
-	ZI3mPqcgCSZgPdSKM8qtMSLspV66/LzvQCoE6pZXc/59gHIy7jRTG9e503ChvQCt
-	V28xRWnjS+yxejDfzXcgNWJMkeJJehpfrhhGIf3gr5SX/q0VxYQ4mCr6Bf2C6uE5
-	LRikHUBT52D1uuRDeaRVq4OIk=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ZU
+	rqx1rvvs6o+dee+0TNtCMY/5xlNRoKRO5LvvKhg7Y=; b=CgjBCxH1/Oc2JfWhDS
+	OQiL4Vxzt2QEj/wPgkFG6ex2R86k2uIkiMSHUCroN3mB+1wYgE4ah2i1rBjQOzOm
+	6+SezCV1pMmuInJE/CwGhkp/RAqFQqytW6Y8gOd96VvTzU+USTWFcxIafIybCW6L
+	4MyFYZpDx6kxlWFJq9jdt2esQ=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnvTzs+N1qxJALCA--.54355S7;
-	Sun, 25 Oct 2026 20:41:23 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDnvTzs+N1qxJALCA--.54355S4;
+	Sun, 25 Oct 2026 20:41:21 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Naohiro Aota <naohiro.aota@wdc.com>,
-	Johannes Thumshirn <jth@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Eric Biggers <ebiggers@google.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 5/5] zonefs: drain in-flight DIO before buffered writes
-Date: Sun, 25 Oct 2026 20:41:14 +0800
-Message-Id: <20261025124115.3178287-6-yaojiale02@163.com>
+Subject: [PATCH 2/5] f2fs: drain in-flight DIO before buffered writes
+Date: Sun, 25 Oct 2026 20:41:11 +0800
+Message-Id: <20261025124115.3178287-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261025124115.3178287-1-yaojiale02@163.com>
 References: <20261025124115.3178287-1-yaojiale02@163.com>
@@ -66,49 +66,70 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnvTzs+N1qxJALCA--.54355S7
-X-Coremail-Antispam: 1Uf129KBjvJXoW7XF13Ww17XFy8CF45XF43Jrb_yoW8Jr4DpF
-	9xKF13GF95ZrWxC3yvka1UX3ZYkF1kXr43WrWqq3W7Aa4DJr1jgF4jyry29a45AFsrAFWI
-	vF4kWryUuryqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URCJQUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xOMxmrd+PM7ngAA3v
+X-CM-TRANSID:PigvCgDnvTzs+N1qxJALCA--.54355S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrWDGr4rXw1DZF13CF48JFb_yoW8CFykpF
+	9xKa45ur97JrZrWrn7Ga1UZ34FgFykJrWfWryUX3WIvw1DGw4Yq3WIyF1a9F1rtFy7Jw42
+	gan09FyDW3yjyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joUDJUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BGMxmrd+PEPUwAA3J
 
-Conventional zone files allow both direct and buffered writes. An
-asynchronous direct write can remain active after its submitting thread
-releases the inode lock. A buffered write can then dirty page cache before
-direct I/O completion performs post-write invalidation, causing the
+An asynchronous iomap direct write can remain in flight after the inode
+lock is released. A buffered write can then dirty page cache before the
+direct write completes its post-I/O invalidation, causing the
 invalidation to fail and record -EIO in the mapping error sequence.
 
-After taking the exclusive inode lock, wait for active DIO before running
-buffered write checks. Return -EAGAIN when an IOCB_NOWAIT request would
-otherwise block.
+The pre-write checks can also zero post-EOF page cache while an earlier
+direct write is still active.
 
-Fixes: 4008e2a0b01a ("zonefs: Reorganize code")
+Wait for in-flight DIO before post-EOF page-cache operations and before
+buffered writes. Return -EAGAIN for a NOWAIT write that would need the
+blocking post-EOF operation.
+
+Fixes: a1e09b03e6f5 ("f2fs: use iomap for direct I/O")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- fs/zonefs/file.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/f2fs/file.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/fs/zonefs/file.c b/fs/zonefs/file.c
-index 5b34849be7a2..8635a795c24c 100644
---- a/fs/zonefs/file.c
-+++ b/fs/zonefs/file.c
-@@ -576,6 +576,14 @@ static ssize_t zonefs_file_buffered_write(struct kiocb *iocb,
- 		inode_lock(inode);
- 	}
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 0c759cc99054..d3d0ebf2f6c3 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -5328,6 +5328,7 @@ static ssize_t f2fs_write_checks(struct kiocb *iocb, struct iov_iter *from)
+ {
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
++	loff_t end_pos;
+ 	ssize_t count;
+ 	int err;
  
-+	if (atomic_read(&inode->i_dio_count)) {
-+		if (iocb->ki_flags & IOCB_NOWAIT) {
-+			ret = -EAGAIN;
-+			goto inode_unlock;
-+		}
+@@ -5345,8 +5346,14 @@ static ssize_t f2fs_write_checks(struct kiocb *iocb, struct iov_iter *from)
+ 	if (err)
+ 		return err;
+ 
+-	err = f2fs_zero_post_eof_page(inode,
+-		iocb->ki_pos + iov_iter_count(from), true, true);
++	end_pos = iocb->ki_pos + iov_iter_count(from);
++	if (end_pos > i_size_read(inode)) {
++		if (iocb->ki_flags & IOCB_NOWAIT)
++			return -EAGAIN;
 +		inode_dio_wait(inode);
 +	}
 +
- 	ret = zonefs_write_checks(iocb, from);
- 	if (ret <= 0)
- 		goto inode_unlock;
++	err = f2fs_zero_post_eof_page(inode, end_pos, true, true);
+ 	if (err)
+ 		return err;
+ 	return count;
+@@ -5436,6 +5443,8 @@ static ssize_t f2fs_buffered_write_iter(struct kiocb *iocb,
+ 	if (iocb->ki_flags & IOCB_NOWAIT)
+ 		return -EOPNOTSUPP;
+ 
++	inode_dio_wait(inode);
++
+ 	ret = generic_perform_write(iocb, from);
+ 
+ 	if (ret > 0) {
 -- 
 2.34.1
 
