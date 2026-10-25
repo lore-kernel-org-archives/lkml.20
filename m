@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792920269;
-	b=EumV5Ff9Q8GydZjtveKFroDKLXyboP5xxLsXeSHH9je6tTzozBOZvfSkvu1zcOs1EgeM
-	 dWRU4ihSy3CPnXzxuvpOiKQgwz0Go5lDXR8rViNnyV4J1uJQpZ1v82EgtHzhjx2WJidPn
-	 1Elu4a4+NKMiIym56p8f57Wi1PbHw3dDXE+K9XEQwLrnn3VDaSl0bLWMYwEz0UD9b/INa
-	 WCE+PmpxMipbxjCS85k4+mIQct5fzmg/ahR/r0lR/zS+KcqBPm2grHoq9c1KDqMxOdCpS
-	 5QrTYUmCDRDiEBxbhmg3RGpT1hgkjpxe4w/bbnuVdRWtWR0aM6xS4SSTQh0WaAliliQ==
+	t=1792920267;
+	b=2P9NtPfVNXilrJVgvFpkNg1SYeLoINc55ijOWb9dULe7GE33VcwXxytucQ9ddN+F/AwD
+	 xbLhCYYwvUq0gUkbRjBJYU0Lbdt4Rgra8LqIQpUK2+vLdn7gnohIuljdFxAmgDGMrFARu
+	 vI6pPpQov2jwxu7Y5aX8BHOY1IqDEHEZhSQJAAHcZmK+GW6oBvdW8WtZA6AtN5UzvhKCk
+	 d0uZ1YfmUEquvaQ2VCbylhvfTPNbJ2c0uV4lTVRFiCD+8tzM+mmQ1/U6v9u/Ux0rElN+8
+	 e+o6x5rTvmBiJVgNVLUShAtDKy63G1Io8pjPBhso8lSXoKRwHFVgiclUtF65UzFTlQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792920269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792920267;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=MWi098cMJlP1WHrul13CB7sxRj2mt5l+cQpJpKNbkFE=;
-	b=Tet1MUh3SfJSYLvTIADDH5ieR4B5gYp3lFU0oR+NKWJDr11xPIrwOMGdOCSZAENX3WYN
-	 kuyUMXBG2yosVwoJd0jYfkc8XgAWoEKYZiFJF4vdIzmcUKBX+Zhm6jmnSzhYWcHde3XC7
-	 zNUUW2ew4MiZ6lZzMU8411EtFmPY2tSxvSF12ddu/133WyHhv8s9jE0sHltc0idp7xMwu
-	 fs41GlEDZEWLbut9X2pMi9bmzqO0MdiYvz6p5guvkgxJKcibtSoosn3Ke/3vifzSECApn
-	 CTmxSzlZfG5Nz8g8UWMMBlGyhCPHsLiZyeK6yPAlS+lN4ca+khKZzX85agg1Hh0IyxQ==
+	bh=8ru8WucTgf5XxTTBZ+kWcpF4CX3cvFOX6RXg7kHDSH8=;
+	b=DvQaeexF/qCPtNufUIzSTuEF8DOvob0hLA/r3iD4LBdfxdpLRjfbRZVT5yXCSlIy8v3F
+	 Ari1EsbbbrtLgOhSbskLjVqbIaV1EKV3yiqvoUCbAajL28HeMEHhLgSGUbjbGXbkRs8FH
+	 bhv2C1OGEeIMacmIURHdShz0gBm6CKMLBFVZi25WOXWrMJ/dE95jqzaB0Z9OPOVwVWTfU
+	 cjRYws8HDbgaDoI4Gixdaj153W2YnPIsLxlU9cnCFLZgL4HMrhSNbuOBmSWZZu3bA8Kjm
+	 OQue9UHudmC6TSCvkJ36et+cNSdRD+lfURtUjkFyW9bVNGWleW9nm/AgzD1iaFm893A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3Fgbnsx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZMyfoPq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D7D606A33A;
-	Sun, 25 Oct 2026 09:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1324606A32F;
+	Sun, 25 Oct 2026 09:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3Fgbnsx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7A31F031E0;
-	Sun, 25 Oct 2026 09:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZMyfoPq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0332D1F01825;
+	Sun, 25 Oct 2026 09:24:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792920269;
-	bh=MWi098cMJlP1WHrul13CB7sxRj2mt5l+cQpJpKNbkFE=;
+	s=k20260515; t=1792920266;
+	bh=8ru8WucTgf5XxTTBZ+kWcpF4CX3cvFOX6RXg7kHDSH8=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Z3FgbnsxHuUoMF9Yn+bT/7DfPaX9z9PxDxzZEcti3v+turLoQluyVSKWjGuNNQFTy
-	 /XNXRG0MS8k+c5nCVn8tYCOVhXW/jf8QA4o7DNjshsA/G7YivdBHuJU4R6Idf8zsTD
-	 dl4P5QUkMSw6OkA39KTwIpp3xcrRgeTvqgUZmWV7uHhQx9/iOGdVtHdirQk1QhSFVQ
-	 1IvKM/xGpvgr0+O1islperjpzXRtaOHiq0b0xDyO2JOIEz1ArIlBOVX6JzLE5sCjLY
-	 I/9Bx+tcKcbuN6CHlUwem3kPM2DMD6VO2b5hXePaKVH015kQiXpvbjXAWbXYr7l8eB
-	 Sx2vX2oJejYgg==
-Subject: Re: [PATCH v32 net-next 7/8] net/nebula-matrix: add common/ctrl dev
- init/remove operation
+	b=QZMyfoPqMVgCEguqdcJuKeGJecn6vc/Iu6h8q1gX2W+6mNkajoO2AP0w32SgR9Z30
+	 xmLhYdNOpqTMWYt5ao6AISrAGvl879z0I1cKyPv14UWj3DEQkUpi0F9pVxO+GyHnKp
+	 GCkEX+u0QKe0Z7uhXOXCf7pVuaFByl9HBl1FydyOWAOVldjS2z9qAAJ27+zKx/rFyy
+	 r5oIKfRPltdaS66Z3FoZyU9rw6hjSAgyYWojAc8+h4fcEluMl7sEK6GLkh/aFjPwyj
+	 JaGr2sPahSKH9PM6M9pDU3YoNonH2BchVMmSrh7sELsv6/wlf6U24okCvl4ODBXeei
+	 Wet4+KsgSnlHQ==
+Subject: Re: [PATCH v32 net-next 4/8] net/nebula-matrix: add chip-wide
+ hardware init/deinit implementation
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
  horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 25 Oct 2026 09:24:27 +0000
-Message-ID: <179292026791.3134.7406957765573459661@kernel.org>
-In-Reply-To: <20261021062113.2158-8-illusion.wang@nebula-matrix.com>
-References: <20261021062113.2158-8-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: Low
+Date: Sun, 25 Oct 2026 09:24:25 +0000
+Message-ID: <179292026555.3134.12245469100906472128@kernel.org>
+In-Reply-To: <20261021062113.2158-5-illusion.wang@nebula-matrix.com>
+References: <20261021062113.2158-5-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,174 +65,224 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-- [Low] At this commit, several new comments in nbl_dev.c (and one
-  existing comment in nbl_hw_leonis.c) mention functions that are not…
-- [Low] The teardown-ordering comment above nbl_dev_remove_ctrl_dev()
-  (nbl_dev.c lines 180-183) says that nbl_probe_chip_deps() 're-checks…
-- [Low] In nbl_dev_remove_common_dev() (nbl_dev.c lines 151-156), the
-  comment says 'A register_chan_task(..., NULL) from here would be a no-…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] nbl_hw_clear_stale_status() and nbl_hw_deinit_module() only
+  wait a fixed 2-3 ms before going on, and nothing confirms the firmware…
+- [Medium] nbl_hw_set_driver_status() does a host-side read-modify-write
+  of NBL_DRIVER_STATUS_REG (0x1300444): rd32, clear and set BIT(16),…
+- [Low] The commit message and one code comment do not match the code.
+- [Low] The header comment on nbl_hw_init_module() says 'Full chip
+  hardware initialization is handled by firmware.
+- [Low] Concern (baseline decision: false positive): nbl_shaping_init()
+  does a read-modify-write of NBL_DSCH_PSHA_EN_ADDR with…
 
 --
 
-net/nebula-matrix: add common/ctrl dev init/remove operation
+net/nebula-matrix: add chip-wide hardware init/deinit implementation
 
-This adds nbl_dev.c with nbl_dev_init() and nbl_dev_remove(). They set up
-the mailbox channel queue and its clean work. On the control PF they also
-program the mailbox QINFO routing and run init_module/deinit_module, and
-the new entry points are wired into nbl_core_init() and nbl_core_remove().
+This patch adds the Leonis chip-wide init_module() and deinit_module()
+hooks in the hw and resource layers, gated on has_ctrl. init_module()
+programs the DPED/UPED/SHAPING/DSCH/USTORE/DSTORE/DVN/UVN/UQM/PADPT
+datapath registers and sets the driver_status bit. deinit_module() clears
+that bit and sleeps 2-3 ms for the asynchronous firmware cleanup, and a
+stale driver_status bit is cleared early in nbl_hw_init_leonis().
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
-> new file mode 100644
-> index 0000000000000..cbb0b06b80117
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
-> @@ -0,0 +1,295 @@
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
+> index 75d6982ae1e83..05f21d0416104 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
 
 [ ... ]
 
-> +static void nbl_dev_init_msix_cnt(struct nbl_dev_mgt *dev_mgt)
+> @@ -150,6 +167,695 @@ static void nbl_hw_get_fw_eth_map(struct nbl_hw_mgt *hw_mgt, u32 *eth_map)
+
+[ ... ]
+
+> +static int nbl_shaping_init(struct nbl_hw_mgt *hw_mgt, u8 speed)
 > +{
-> +	struct nbl_dev_common *dev_common = dev_mgt->common_dev;
-> +	struct nbl_msix_info *msix_info = &dev_common->msix_info;
-> +
-> +	/* mailbox vector allocated in nbl_dev_start() via
-> +	 * nbl_dev_init_interrupt_scheme(); nbl_dev_request_mailbox_irq()
-> +	 * only attaches the irq handler to pre-allocated vectors.
-> +	 */
+
+[ ... ]
+
+> +	nbl_hw_rd_regs_lock(hw_mgt, NBL_DSCH_PSHA_EN_ADDR, &reg_val,
+> +			    sizeof(reg_val));
+> +	reg_val &= ~NBL_DSCH_PSHA_EN_MASK;
+> +	reg_val |= FIELD_PREP(NBL_DSCH_PSHA_EN_MASK,
+> +			      eth_bitmap & GENMASK(3, 0));
+> +	nbl_hw_wr_regs_lock(hw_mgt, NBL_DSCH_PSHA_EN_ADDR, &reg_val,
+> +			    sizeof(reg_val));
 
 [Severity: Low]
-Are nbl_dev_start(), nbl_dev_init_interrupt_scheme() and
-nbl_dev_request_mailbox_irq() defined anywhere at this commit? They only
-seem to appear in comments: here, in the nbl_dev_setup_common_dev() note
-further down, and in the comment above nbl_hw_clear_stale_status() in
-nbl_hw_leonis.c.
+This isn't a bug, but this read-modify-write of NBL_DSCH_PSHA_EN_ADDR drops
+reg_lock between nbl_hw_rd_regs_lock() and nbl_hw_wr_regs_lock(). Right
+now nbl_shaping_init() is the only code that touches this register, and it
+only runs from the serialized control-PF probe, so no update can be lost.
 
-The comment above INIT_WORK in nbl_dev_setup_common_dev() has a similar
-problem:
+nbl_dvn_init() also writes NBL_DVN_ECPU_QUEUE_NUM without the lock:
 
-	 * INIT_WORK must precede nbl_dev_register_chan_task() below: the
-	 * registration hands the work item to the channel and the IRQ
-	 * path may queue it as soon as setup_queue() completes.
+    nbl_hw_wr32(hw_mgt, NBL_DVN_ECPU_QUEUE_NUM, 0);
 
-This commit doesn't request any mailbox IRQ, and nbl_probe() ends after
-nbl_core_init()->nbl_dev_init().
+nbl_uvn_init(), by contrast, writes NBL_UVN_ECPU_QUEUE_NUM under reg_lock.
 
-The next patch in the series, "net/nebula-matrix: add common dev
-start/stop operation", adds these functions and wires up
-nbl_probe()->nbl_core_start()->nbl_dev_start(). That makes the
-references valid.
+To match the rest of the file, would it make sense to hold reg_lock
+across the whole read-modify-write here, and to take it in nbl_dvn_init()
+too?
 
-Two wording problems remain after that patch. The INIT_WORK note still
-refers to an IRQ path, but the IRQ is only requested later, in
-nbl_dev_start(). This note also reads like development history in a
-newly added file:
+[ ... ]
 
-	 * VSI/ETH identity fetch moved to nbl_dev_start().
-
-Could these comments be reworded to describe the code as it stands?
-
-> +	msix_info->serv_info[NBL_MSIX_MAILBOX_TYPE].num = 1;
+> +/*
+> + * Read-modify-write under reg_lock: NBL_DRIVER_STATUS_BIT is the only
+> + * bit the driver owns, and the RMW leaves every other bit of the
+> + * register untouched.
+> + */
+> +static void nbl_hw_set_driver_status(struct nbl_hw_mgt *hw_mgt, bool active)
+> +{
+> +	u32 status;
+> +
+> +	spin_lock(&hw_mgt->reg_lock);
+> +	status = nbl_hw_rd32(hw_mgt, NBL_DRIVER_STATUS_REG);
+> +
+> +	status &= ~BIT(NBL_DRIVER_STATUS_BIT);
+> +	status |= FIELD_PREP(BIT(NBL_DRIVER_STATUS_BIT), active);
+> +
+> +	nbl_hw_wr32(hw_mgt, NBL_DRIVER_STATUS_REG, status);
+> +	spin_unlock(&hw_mgt->reg_lock);
 > +}
 
+[Severity: Medium]
+The comment says bit 16 is the only bit the driver owns. That suggests the
+other bits of NBL_DRIVER_STATUS_REG (0x1300444) belong to some other agent,
+most likely firmware, which already consumes this register.
+
+reg_lock only serializes accesses from the CPU. If firmware updates
+another bit of this register between the nbl_hw_rd32() and the
+nbl_hw_wr32(), can the driver write back a stale value and undo that
+firmware update?
+
+All three callers can hit this: the stale-status clear in probe,
+nbl_hw_init_module() and nbl_hw_deinit_module().
+
+Is this register driver-exclusive? Or does it have W1S/W1C semantics that
+would let the driver set and clear bit 16 without a read-modify-write?
+Could the semantics be documented next to NBL_DRIVER_STATUS_REG?
+
 [ ... ]
 
-> +static void nbl_dev_remove_common_dev(struct nbl_adapter *adapter)
+> +/*
+> + * Clear a stale driver_status active bit before this probe programs any
+> + * per-PF state.
+> + *
+> + * A previous kernel instance can leave the bit set (kexec, or an unload
+> + * that never reached deinit_module()) and firmware then never ran the
+> + * per-PF cleanup it drives off the 1 -> 0 transition.  That cleanup
+> + * reclaims the mailbox QINFO routing and the qinfo registers, which is
+> + * exactly what nbl_dev_setup_chan_qinfo() and nbl_chan_setup_queue()
+> + * write later in this probe.  Clearing it there - as the chip init path
+> + * used to - wipes those registers and leaves the inter-PF mailbox dead,
+
+[Severity: Low]
+This isn't a bug, but "as the chip init path used to" seems to describe an
+earlier revision of this patch, not code in the tree. Could the comment
+just state the current ordering requirement?
+
+Also, the commit message says:
+
+  The relaxed-ordering bits in
+  both DVN and UVN are derived from the PCIe DEVCTL state through
+  pci_relaxed_ordering_enabled().
+
+There is no pci_relaxed_ordering_enabled(). nbl_dvn_init() and
+nbl_uvn_init() both call pcie_relaxed_ordering_enabled(). Should the commit
+message use that name?
+
+> + * so sibling PFs' RPCs time out in nbl_dev_start() and their probes
+> + * fail.  It also has to happen before the mailbox queue is live, so the
+> + * cleanup cannot reclaim routing under an in-flight transfer.
+> + *
+> + * Only the control PF owns this chip-wide handshake.  The bounded wait
+> + * after the clear is best-effort, see NBL_FW_CLEANUP_SYNC_MIN_US.
+> + */
+> +static void nbl_hw_clear_stale_status(struct nbl_hw_mgt *hw_mgt)
 > +{
-> +	struct nbl_dev_mgt *dev_mgt = adapter->core.dev_mgt;
-> +	struct nbl_dev_common *common_dev = dev_mgt->common_dev;
-> +
-> +	if (!common_dev)
-> +		return;
-> +	cancel_work_sync(&common_dev->clean_mbx_task);
 
 [ ... ]
 
-> +	 * Unregistering the clean task is the channel layer's job too:
-> +	 * teardown_queue() clears clean_task under state_lock and then
-> +	 * cancel_work_sync()es it, after shutdn has blocked new queues.  A
-> +	 * register_chan_task(..., NULL) from here would be a no-op anyway,
-> +	 * because nbl_chan_register_chan_task() ignores writes once shutdn
-> +	 * is set.
-> +	 */
-> +	nbl_dev_remove_chan_queue(dev_mgt, NBL_CHAN_TYPE_MAILBOX);
+> +	dev_warn(hw_mgt->common->dev,
+> +		 "driver_status already set, stale cleanup forced\n");
+> +	nbl_hw_set_driver_status(hw_mgt, false);
+> +	nbl_flush_writes(hw_mgt);
+> +	usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US, NBL_FW_CLEANUP_SYNC_MAX_US);
 > +}
 
+[Severity: Medium]
+Is a fixed 2-3 ms sleep enough to keep the firmware cleanup pass from
+racing with the rest of this probe?
+
+nbl_flush_writes() only shows that the status write reached the device.
+The comments also say the hardware has no cleanup-complete bit.
+
+With the later patches in the series applied, the probe order is roughly:
+
+nbl_core_init()
+  nbl_hw_init_leonis()
+    nbl_hw_clear_stale_status()    /* clear bit 16, sleep 2-3 ms */
+  ...
+  nbl_dev_init()
+    nbl_dev_setup_chan_qinfo()     /* programs mailbox QINFO routing */
+    nbl_dev_setup_common_dev()
+      nbl_chan_setup_queue()       /* programs qinfo, sets QUEUE_EN */
+
+Suppose firmware takes longer than about 2-3 ms, for example because the
+ECPU is busy right after kexec. Can it then reclaim the routing and qinfo
+registers that were just programmed?
+
+That would leave the inter-PF mailbox dead, and sibling PF RPCs would time
+out in nbl_dev_start(). That is the failure the comment above describes.
+It could also reclaim routing under a live queue.
+
+nbl_hw_deinit_module() relies on the same unverified delay. On a later
+rebind driver_status is already 0, so nbl_hw_clear_stale_status() returns
+at once without knowing whether the earlier pass has finished.
+
+The NBL_FW_CLEANUP_SYNC_MIN_US value does not appear to come from any
+documented firmware latency.
+
+Could the driver poll for an observable side effect of the cleanup with a
+timeout, such as the QINFO/qinfo entries reading back as reclaimed? Or
+could it check the registers after programming them?
+
+> +/*
+> + * Full chip hardware initialization is handled by firmware.
+> + * This function only configures driver-level table entries and registers.
+> + *
+
 [Severity: Low]
-Is shutdn actually set at this point? It only becomes true in
-nbl_chan_teardown_queue(), which runs from nbl_dev_remove_chan_queue()
-after this comment:
+This isn't a bug, but does this comment match what the function does?
 
-nbl_chan_teardown_queue() {
-    ...
-	mutex_lock(&chan_info->state_lock);
-	WRITE_ONCE(chan_info->shutdn, true);
-	task = READ_ONCE(chan_info->clean_task);
-	WRITE_ONCE(chan_info->clean_task, NULL);
-    ...
-}
+Through nbl_dp_init() and nbl_intf_init() it programs chip-wide datapath
+registers that every PF shares (SHAPING, DSCH, USTORE/DSTORE, DVN/UVN, UQM,
+PADPT). The commit message also says "none of which firmware sets up on
+the driver's behalf".
 
-Until then, nbl_chan_register_chan_task() still accepts writes:
+The comment on nbl_hw_deinit_module() describes the same registers
+differently:
 
-	mutex_lock(&chan_info->state_lock);
-	if (!READ_ONCE(chan_info->shutdn))
-		WRITE_ONCE(chan_info->clean_task, task);
-	mutex_unlock(&chan_info->state_lock);
+ * Note: firmware does NOT automatically revert chip-wide registers
+ * configured in this init flow.
 
-So a register_chan_task(..., NULL) at this point would clear clean_task,
-not do nothing. It is still true that no explicit unregister is needed,
-but the reason is that teardown_queue() clears clean_task itself.
+The nbl_dev_init() comment added later in the series repeats the "Chip
+hardware initialization is completed by firmware at power-up" wording.
 
-Could the last sentence of the comment be corrected? The comment is
-unchanged at the end of the series.
-
-[ ... ]
-
-> + * Teardown ordering guarantee: every non-management PF creates a
-> + * consumer->control PF device link in its probe path, so the driver
-> + * core always unbinds all siblings before allowing the control PF to
-> + * be detached (sysfs unbind, driver unregister and hot-unplug alike).
-> + * nbl_probe_chip_deps() defers a sibling's probe until the control PF
-> + * is fully bound (DL_DEV_DRIVER_BOUND), and re-checks that state after
-> + * device_link_add() so a supplier that slipped to DL_DEV_NO_DRIVER or
-> + * DL_DEV_PROBING in between also defers.  A sibling therefore cannot
-
-[Severity: Low]
-Does nbl_probe_chip_deps() actually do this re-check? In nbl_main.c it
-checks the state once under device_trylock(). It then creates the link
-with the lock still held and unlocks without checking the state again:
-
-	if (mgt->dev.driver != pdev->dev.driver ||
-	    mgt->dev.links.status != DL_DEV_DRIVER_BOUND) {
-		device_unlock(&mgt->dev);
-		pci_dev_put(mgt);
-		return -EPROBE_DEFER;
-	}
-	...
-	if (!device_link_add(&pdev->dev, &mgt->dev,
-			     DL_FLAG_AUTOPROBE_CONSUMER)) {
-		...
-	}
-
-	device_unlock(&mgt->dev);
-	pci_dev_put(mgt);
-
-	return 0;
-
-The comment in that function says the guarantee comes from holding the
-lock:
-
-	 * Holding the lock is what makes the check and the link creation
-	 * below atomic with respect to func 0: ...
-
-Is this sentence left over from an earlier version of
-nbl_probe_chip_deps()? The mismatch is still there at the end of the
-series.
+Could these comments agree on who owns this state?
 
 [ ... ]
 
