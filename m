@@ -1,73 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792893983;
-	b=SzlDZhoSrVHlhqjOThgd9//YKhJx+YoB74s1YfAIs6KH4jK0SLuBIteUgorPpTad5Ekp
-	 U28+U1xXathm/ARBCWJ3FSUIOElgPU4vM8MmnT8bkgXKrZyqe91sJ1N7Uz/COTdKZ9eNG
-	 NE4gyOL2K4zRRpq97WXVviuvP2GM/JHBKaDXGEHoj+KF9cvg02v+IwZy2ehyqSddP5Bqn
-	 RUcX5s9fpk6iC3PF6R5jFR/9uzAtuxySfDXDe0ao3VrPL2ev9UifGEb4p0QuNnbv8ZJ0f
-	 YOgD17Tcg4RNtF0mWVY4AVcU5F4rzwQyHYkFcc5LkJd2+NnP5KDRfFDb6bbGSYJKBvw==
+	t=1792894027;
+	b=0Av2vqBld0VRkHWmyHckeTQ5b+xOHvq50SgH1DlRToYu7G0Ma3MGDikcH0v148p0xQdZ
+	 Vtv9oW87A8KXfOj9aaJgQE0yphrLbC5VhaH2HPr+yGacvaNKhtUORcaYg9u3ua+gbo40c
+	 2u1v3ooIfBy5zSOdtddww0xbs+qRw5dGhRLdLe/TvjhyoqNS77XI9tq/ynmfUGwfhrFYv
+	 x1xTYu+oLO64MYq4QLJLNUDoMEKExjeB7eg6ywXEAngzrytsX9VYxnnAPOwDsvK4bopbD
+	 tIC5duX71VuYBr+Bgunjm1JSFvy7HmP3z5UkH2ZdCxZT9MOje5go10kEjJ3floOAn0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792893983;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=WVhn12b4N24AJ1WPG089D/lakUuR4+PyygMCKsFpCEs=;
-	b=zPm2EYd8syHbwjxAS6Bu1tfBVwjl7z2jEr07YEV66slz4cd8fP08gqxNz1J75Pv0HMhc
-	 brdkZD7qzJuQmtexYlaNCHNcFhBkmi1pyUVwS/5oew2J0/3e78QIyMKgbO+UgPXXmvH1f
-	 aoYuH7Brl2ny+3Jk23iBxKVM7r4P0fEepoQXVjE+uiCwnVtbNyVcE3rYQ+xq5e5nJ/1FF
-	 Fwmd3SkXLjXOJeg3jxBk0QwmOCn7ZkmlwvioDP7Q82r7luMXyIbGxXHPNnIHWEeB9xVbO
-	 SYeIRIgP4yoxe2GQ3d6fQoNYNQsVxBQT3DpHqpHJixkFUTYhM3T44bPz+kyfhFdPC8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792894027;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=kT5jczTWjpVEtFbXjx0wDEmlz0lFSNa8Dp/5ZmbafD8=;
+	b=LlsDJPn1j2ndtRmWkxjOl8OIbvk6k/syGb+EeRJWWBf8PdLhSXT8+8Sp+BDOJPia4fHd
+	 TEgc1ZMFzaqNiJJ5B6PpbXZEFfykLs5A+FL7OnlZN0ayHvaE37MnLZ6fNH8wsdwb8aiM5
+	 EYJAFbdt1/ek6TzNao4B9pzOoxU53SEqdjSSuHCPqJ6LYv2rECWk9V2gGx0XMc36E16Ng
+	 2IFfUYeiQ1UGgS5fAmXOmNnYNaMcI8qzDiehgTrOkWncTRCZRcl9pjE4Hs7YtttZhtUhz
+	 TFzJ38AkxrZdj0cTbbrc9wcfrLb7JN0uHPtxLI2iQvCHi5ulp8dZTAaWR7J3WmMyQyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KW8g+Lek;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IcrCWgfF;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9E1606A31A;
-	Sun, 25 Oct 2026 02:06:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC9E1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B789D606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 02:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B789D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KW8g+Lek
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792893971; bh=WVhn12b4N24AJ1WPG089D/lakUuR4+PyygMCKsFpCEs=;
-	h=From:To:Cc:Subject:Date;
-	b=KW8g+Lek87w2ucpwLeA24efwcvXmcFQgFO6Kpdk3/PqaEMMg4PSruMs4y/EjpgcpO
-	 mXDC0Iwk+b9FYeJvklkVEXJWEzmFxZXhQQcn+HawT5P+K+6E3cAAL6wWl1CtZSoWN9
-	 Jz/pV4+pgrMyZZNyD15Dnk8gHKEE4Qys9vuU5PgI=
-Received: from kernel-lab.tail5e91bb.ts.net ([39.144.194.158])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 189BFE07; Sun, 25 Oct 2026 10:06:09 +0800
-X-QQ-mid: xmsmtpt1792893969tqaus357m
-Message-ID: <tencent_23BFCCE74C508AD599E72011EAE5E409C006@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoe+2vMzbfGV1q91RIeCxPLcIhE/Wse252dGGcyTcYgEF0yG0sURy
-	 y1hAsy5rCpV/E/PPRKtYoz93ggjjpnDGReqyGoTt0+DJ1klgdXxbXWKyjRlYp/IjRxGGoMYx81l9
-	 eSQ/Abkm8QV7iC4UW5y2JVHLMCJGKgaloYFOvbZvK6mMcM6SulSMA1TDgcdaoE474IQZjgi4ESc6
-	 26NqwrSiqtT1RjYAlWLobm8YxnlZJpeJqHAaN7eiXBqr1Q7N0ITjp+Y05gD6hDJaLMyVYqxpdtKT
-	 K0mVRDlCN5R6KQ4jJJ3w+EfYyishc7Y8iniXDHIKgj9JB1cpifSpazPDo2TyorATNPjcJcT9opUW
-	 ltX8rvPEEiBPWq1b9t/D20tUBXRUSM+9o3cLQrIqgo0uyg8+s24JYWqHSuAQvXKceeBZ5BuhG50o
-	 bcTn8fmlhPZWPsQvNJC+xxPcrKrbLGMcM82uT76aChswv2g+by91SoA2jM+Y3omAx4EogKsxdkjM
-	 BgJQYExSh7ZJU2HCoe3J5uTM4CHOHuZAwEi0WZjF/taV1/v3rGlixMMaOumsXVeRiDO+fWgAqoA4
-	 iQYDKc8We51ypwcPcaH14fEKqexqLWg3buAimnEq1CWrXnRUjK26SVFKY6yFpdvb1v0kbNFIyqCg
-	 pBLKq7adAHxOcTH3aZ3CZEtidUGGLuQoVz8vLtFGL3/K/WLXe0YqyO4JJUPEGnjz1WBUCsk4hkMI
-	 nUlUZvizlIlh9yzZns+eFJEr3mCtjdIte/VfVCJQy0HnuxvYJt7PMXSPqNd3mFidPujJuxxBE9PK
-	 3dCV//md0TXzR8O7INETdmR4jHNhpkA9RJ5CpwHLpXtaf0sibgGTCMKMagZvz4ouXupseeXxBNyK
-	 kCUsPW6vy6VEK0Dxf1duLrZBUZHcTKBGeYer1qqiSBX5JrjA149cVc7Q0FI5E8JWfHUeUZMMI3AU
-	 +jrZMqHY+Eqzu8LiSyO1voOsO9n2PVglLxVOyVtlemkqVFvd7cpe8du7q3Xr8UUvb9oi+wrlNGpI
-	 TNxfcDsNCP0gA1kBCnVfrM+1ultDBoKAxfLZorqw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Yingjie Wang <1075151112@qq.com>
-To: gregkh@linuxfoundation.org
-Cc: jirislaby@kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] serial: 8250: Disallow runtime changes to nr_uarts
-Date: Sun, 25 Oct 2026 10:06:09 +0800
-X-OQ-MSGID: <20261025020609.2177758-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IcrCWgfF
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-18cdcfc05ffso2321193c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 24 Oct 2026 19:07:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792894026; x=1793498826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kT5jczTWjpVEtFbXjx0wDEmlz0lFSNa8Dp/5ZmbafD8=;
+        b=IcrCWgfFm8/4E6xZKHSrH8AKfkOmCuc2EEPho8czLqrA/HYkR2I5WNfPEB+HYy1f3u
+         n+K+JjiTXDk8Pkn8Z8yLw102xS/nhOiDO1Kyi5au8eQTAQxskL/XdUnnbhSb6d1Z5556
+         R7gUD2kG3NuhEP7wsWog7OHtlImr8nYdOBtbBLmwqTQTdPL6BeE0EpjQg3cWLiHGBgzU
+         Ckc1ZBL7JZXrwL1mnZ1Xx38IdQxWNcYk8rMNyWpKnzThSfLm183zYAcZiMSwxmHv+s50
+         e/4d7ZF6AOoi7biOuXvzLFZv3eoqfn6FsS7eTvunZHMIVKKWo8COtddIqf7NSc/str8V
+         ah5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792894026; x=1793498826;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kT5jczTWjpVEtFbXjx0wDEmlz0lFSNa8Dp/5ZmbafD8=;
+        b=nrU6T6RxBORi3F2P35Uw25kq1r+/STMl/uSCf8suDYXVG0JbQqYaaa1Up4JoHRGHIz
+         M7Pfr5mFBoGknIcAB8LPYDS6H0X/DNlcfd24Ni7oVBvr9mySqXtl14QuvCg0DkX47T/Y
+         nQcgyhjmoAdAeoIx98v4ncucIysDDNdx1NAWyAizr0qQIaAvbBdXaiBKjRfCSJ7pqJ16
+         4zL9oBpFiOAzyq+vvI+BO0HQt9AqSMLbRwg6aP8g8YQgY73JDQfr6t1HaS86PpaHRueH
+         4dynsXnt5cRWjbuhORN9BizHl2bXezeCseSsc2wAyD3axxcIwEOdq1Rmxf1gyqrbcyMw
+         BKcw==
+X-Gm-Message-State: AFq9FYKOZw1mAIVvva1Nk3qrtLebXLrN7p5mtNYBXCsNdJsH9JWlIO0c
+	AFvpy1d2TEBvMtih/BWRSom7hnDvOuHoRFPkYnPEZerHTYdVIf2JTDCCkPuZXQ==
+X-Gm-Gg: AYBFou2fGErSs3384r2bisoj9DKPr9IbEwugPVZBgIJraYai94/5dD+Jw4QB3kYfuQs
+	2kzqC2RS0HPShrmI0AZSa3RicMgLrBdMQtHvyhDTVq1FG60ksuHRW31j05Tr72OQIyMeYFfWsXV
+	yBXjVdOkPw9UusvMOrXIygYVyii0DGdAI+yTw8cBLg+HBJ16HrNBm2SuUJzdenDGMq7NCDxc+zZ
+	VVbwlmDIDMn54Sjfmb+OoBMG4Fp2UzdvJw/6Er0ZlBjGMXjrRj0oFfWIqYpSKT3Q/FIm/dEppAH
+	tAYwdGcgTXnH2SiE67JJpsBesKxidhJbgNp0lBFNhD8SqioB7maUwiIOAfGJkAQAc1M9Ttfe78y
+	Ub0+rzLFqPJap3ou3Gl1pyhAZwsIuB/WAkKwgCNnkIisTh0HS7YFEekesWm/2+wqyKyJLKlAr0T
+	b6gYCwxqU5AS3Ycp7xA/hePKf20dCZLXFF6xjrA3WbDPCJNavlJBJcbzOsx0BbVJUAD8RQQxgi3
+	O2ZkEDweeRfJnG2TkPHuwOgFPkHUgyBycullyURR06u81QatkhUg76hqLMUaYsus9BDmuAEVan7
+	OH1XE8nLnYDa4vqNhvGM
+X-Received: by 2002:a05:7022:3b8b:b0:169:9f67:a91b with SMTP id a92af1059eb24-1993505df87mr5833060c88.12.1792894025678;
+        Sat, 24 Oct 2026 19:07:05 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:8fe4:693:7158:24de])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm11421531c88.14.2026.10.24.19.07.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 19:07:04 -0700 (PDT)
+Date: Sat, 24 Oct 2026 19:07:02 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+Subject: [git pull] Input updates for v7.4-rc0
+Message-ID: <at1kDafUvUUJTnPr@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,47 +93,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-nr_uarts is clamped to UART_NR while the initial 8250 ports are
-initialized, but it is also used as the iteration bound by the remove
-path. serial8250_get_port() assumes that the index is within the
-serial8250_ports array.
+Hi Linus,
 
-Allowing nr_uarts to be changed through sysfs can therefore make the
-remove path access beyond the end of serial8250_ports. The value also
-describes the number of initialized or dynamically registered ports, so
-changing it after setup is not safe even when the new value is within the
-array limit.
+Please pull from:
 
-Make the nr_uarts module parameter read-only through sysfs. Boot-time and
-module-load parameter parsing remain supported and still go through the
-existing clamp.
+	git://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git tags/input-for-v7.4-rc0
 
-Tested on x86-64 with CONFIG_KASAN=y under QEMU:
-- 8250.nr_uarts=5 is honored at boot.
-- Writes to /sys/module/8250/parameters/nr_uarts are rejected.
+to receive updates for the input subsystem. You will get:
 
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
- drivers/tty/serial/8250/8250_platform.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Updates to input core to reject parent device overrides on managed
+  input devices so devres lifetime management is not split across
+  different devices, along with fixes for da7280, drv2665, drv2667, and
+  tps6507x-ts that were reparenting managed input devices, and removal
+  of redundant parent assignments across multiple drivers
 
-diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
-index 9d9dba4e0439a..2b07337407fd1 100644
---- a/drivers/tty/serial/8250/8250_platform.c
-+++ b/drivers/tty/serial/8250/8250_platform.c
-@@ -385,7 +385,7 @@ MODULE_DESCRIPTION("Generic 8250/16x50 serial platform driver");
- module_param_hw(share_irqs, bool, other, 0644);
- MODULE_PARM_DESC(share_irqs, "Share IRQs with other non-8250/16x50 devices (unsafe)");
- 
--module_param(nr_uarts, uint, 0644);
-+module_param(nr_uarts, uint, 0444);
- MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __MODULE_STRING(CONFIG_SERIAL_8250_NR_UARTS) ")");
- 
- MODULE_ALIAS_CHARDEV_MAJOR(TTY_MAJOR);
+- A fix in input core to always accept EV_SYN events in input_event()
+  and input_inject_event() so events seeded before device registration
+  are properly flushed by input_sync()
 
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+- A fix in matrix-keymap helper to reject keycodes above KEY_MAX and
+  prevent out-of-bounds bitmap writes
+
+- Fixes and cleanups for HP GSC PS/2 (gscps2) serio driver to resolve
+  race conditions in port list management, ring buffer access, and
+  interrupt handling, return IRQ_NONE for unhandled shared interrupts,
+  and drop busy-waiting on transmit
+
+- Fixes for maple_keyb driver to correct inverted key press detection,
+  implement open and close methods so polling only runs while the device
+  is open, and clean up unused driver fields
+
+- Fixes for maplecontrol driver to emit EV_SYN after reporting events,
+  only enable axes reported by the controller with corrected hat limits,
+  and stop polling and clear the callback on close
+
+- Updates to maplemouse driver to stop polling and clear the callback on
+  close and drop redundant driver data cleanup
+
+- Fixes for matrix_keypad driver reverting forced switching of row GPIOs
+  to input mode that broke row interrupts on platforms with separate
+  GPIO and interrupt pinmux functions, and propagating the actual error
+  code from matrix_keypad_build_keymap()
+
+- A fix for st-keyscan driver to keep the interrupt disabled while the
+  peripheral clock is gated off to prevent bus faults, along with probe
+  error handling improvements
+
+- A fix for mms114 touchscreen driver to disable interrupts before
+  synthesizing touch release events during suspend so concurrent
+  interrupts do not leave stuck active touch slots
+
+- Updates to xpad driver to support GameSir Nova Lite controller
+
+- A number of updates to device tree bindings, including a new schema
+  for Analog Devices AD7147 CapTouch controller, conversion of SiS 9200
+  I2C touchscreen binding to DT schema format, and allowing the
+  wakeup-source property on Dialog DA9062 onkey
+
+- Other assorted driver cleanups, style fixes, and conversions,
+  including switching to named initializers for acpi_device_id tables
+  and converting cyttsp5 to DEFINE_SIMPLE_DEV_PM_OPS.
+
+Changelog:
+---------
+
+Alexander Kochetkov (1):
+      Revert "Input: matrix_keypad - force switch rows to input mode"
+
+Diederik de Haas (1):
+      Input: cyttsp5 - convert to DEFINE_SIMPLE_DEV_PM_OPS
+
+Dmitry Torokhov (79):
+      Input: gscps2 - clean up driver code style and structure
+      Input: gscps2 - use RCU for ps2port_list and manage it in open/close
+      Input: gscps2 - protect buffer access in read and report helpers
+      Input: gscps2 - serialize hardware and buffer access in gscps2_flush()
+      Input: gscps2 - return IRQ_NONE when interrupt is not handled
+      Input: gscps2 - serialize concurrent interrupt handlers
+      Input: gscps2 - drop busy-wait and manual interrupt pump on transmit
+      Input: mt - update input_mt_report_slot_state() kerneldoc
+      Input: matrix_keypad - propagate error code from matrix_keypad_build_keymap()
+      Input: gpio_keys - drop redundant input->dev.parent assignment
+      Input: applespi - drop redundant input->dev.parent assignment
+      Input: axp20x-pek - drop redundant idev->dev.parent assignment
+      Input: cyapa - drop redundant input->dev.parent assignment
+      Input: 88pm860x-ts - drop redundant idev->dev.parent assignment
+      Input: adp5520-keys - drop redundant input->dev.parent assignment
+      Input: bcm-keypad - drop redundant input_dev->dev.parent assignment
+      Input: clps711x-keypad - drop redundant input->dev.parent assignment
+      Input: cros-ec-keyb - drop redundant idev->dev.parent assignments
+      Input: imx-keypad - drop redundant input_dev->dev.parent assignment
+      Input: jornada720-kbd - drop redundant input_dev->dev.parent assignment
+      Input: lpc32xx-keys - drop redundant input->dev.parent assignment
+      Input: max7359-keypad - drop redundant input_dev->dev.parent assignment
+      Input: mpr121-touchkey - drop redundant input_dev->dev.parent assignment
+      Input: pxa27x-keypad - drop redundant input_dev->dev.parent assignment
+      Input: qt1050 - drop redundant input->dev.parent assignment
+      Input: st-keyscan - drop redundant input_dev->dev.parent assignment
+      Input: stmpe-keypad - drop redundant input->dev.parent assignment
+      Input: tc3589x-keypad - drop redundant input->dev.parent assignment
+      Input: tegra-kbc - drop redundant kbc->idev->dev.parent assignment
+      Input: 88pm860x-onkey - drop redundant info->idev->dev.parent assignment
+      Input: ab8500-ponkey - drop redundant input->dev.parent assignment
+      Input: ad714x - drop redundant input->dev.parent assignments
+      Input: ariel-pwrbutton - drop redundant priv->input->dev.parent assignment
+      Input: e3x0-button - drop redundant input->dev.parent assignment
+      Input: max77693-haptic - drop redundant haptic->input_dev->dev.parent assignment
+      Input: max8925-onkey - drop redundant input->dev.parent assignment
+      Input: pwm-vibra - drop redundant vibrator->input->dev.parent assignment
+      Input: regulator-haptic - drop redundant haptic->input_dev->dev.parent assignment
+      Input: retu-pwrbutton - drop redundant idev->dev.parent assignment
+      Input: tps65218-pwrbutton - drop redundant idev->dev.parent assignment
+      Input: twl4030-pwrbutton - drop redundant pwr->dev.parent assignment
+      Input: wm831x-on - drop redundant wm831x_on->dev->dev.parent assignment
+      Input: ad7877 - drop redundant input_dev->dev.parent assignment
+      Input: ad7879 - drop redundant input_dev->dev.parent assignment
+      Input: ar1021-i2c - drop redundant input->dev.parent assignment
+      Input: bcm-iproc-tsc - drop redundant idev->dev.parent assignment
+      Input: chipone-icn8318 - drop redundant input->dev.parent assignment
+      Input: colibri-vf50-ts - drop redundant input->dev.parent assignment
+      Input: cyttsp - drop redundant input_dev->dev.parent assignment
+      Input: da9034-ts - drop redundant input_dev->dev.parent assignment
+      Input: edt-ft5x06 - drop redundant input->dev.parent assignment
+      Input: hycon-hy46xx - drop redundant input->dev.parent assignment
+      Input: jornada720-ts - drop redundant input_dev->dev.parent assignment
+      Input: max11801-ts - drop redundant input_dev->dev.parent assignment
+      Input: mms114 - drop redundant input_dev->dev.parent assignment
+      Input: sx8654 - drop redundant input->dev.parent assignment
+      Input: wm831x-ts - drop redundant input_dev->dev.parent assignment
+      Input: wm97xx - drop redundant wm->input_dev->dev.parent assignment
+      Input: mms114 - fix touch slot corruption in suspend
+      Input: st-keyscan - disable interrupt while clock is gated
+      Input: maple_keyb - fix key press detection
+      Input: maplecontrol - only enable present axes
+      Input: maplecontrol - emit EV_SYN report after reporting events
+      Input: maplecontrol - stop polling and clear callback on close
+      Input: maplemouse - stop polling and clear callback on close
+      Input: maple_keyb - implement open and close methods
+      Input: maplemouse - remove redundant drvdata resetting
+      Input: maple_keyb - remove redundant drvdata resetting
+      Input: maplecontrol - remove redundant drvdata resetting
+      Input: maplemouse - remove unused mdev->driver assignment
+      Input: maplecontrol - remove unused mdev->driver assignment
+      Input: maple_keyb - remove unused mdev->driver assignment
+      Input: da7280 - fix input device parent assignment
+      Input: drv2665 - fix input device parent assignment
+      Input: drv2667 - fix input device parent assignment
+      Input: tps6507x-ts - fix input device parent assignment
+      Input: reject parent overrides on managed input devices
+      Input: always accept EV_SYN in input_event()
+      Input: s6sy761 - drop duplicate axis initialization in s6sy761_probe()
+
+Francesco Orlando (1):
+      Input: xpad - add GameSir Nova Lite support
+
+Frank Li (1):
+      dt-bindings: input: dlg,da9062-onkey: Allow wakeup-source property
+
+Krzysztof Kozlowski (1):
+      dt-bindings: input: Use consistent indentation in the example
+
+Linmao Li (1):
+      Input: matrix-keymap - reject keycodes above KEY_MAX
+
+Pawel Zalewski (4):
+      Input: keyboard - use named initializers for acpi_device_id
+      Input: misc - use named initializers for acpi_device_id
+      Input: mouse - cyapa: use named initializers for acpi_device_id
+      Input: touchscreen - use named initializers for acpi_device_id
+
+Peng Fan (1):
+      Input: atkbd - use __assign_bit() where applicable
+
+Rob Herring (Arm) (1):
+      dt-bindings: input: Add AD7147 CapTouch schema
+
+bui duc phuc (2):
+      Input: snvs_pwrkey - tidy up error reporting in probe
+      Input: st-keyscan - improve probe error handling
+
+Ștefan Ghețu (1):
+      dt-bindings: input: touchscreen: convert sis_i2c to DT schema
+
+Diffstat:
+--------
+
+ .../devicetree/bindings/input/adc-joystick.yaml    |  20 +-
+ .../bindings/input/adi,ad7147_captouch.yaml        |  48 ++++
+ .../devicetree/bindings/input/cypress-sf.yaml      |  14 +-
+ .../bindings/input/dlg,da9062-onkey.yaml           |   2 +
+ .../bindings/input/mediatek,mt6779-keypad.yaml     |  10 +-
+ .../bindings/input/microchip,cap11xx.yaml          |  14 +-
+ .../bindings/input/touchscreen/eeti,exc3000.yaml   |  16 +-
+ .../bindings/input/touchscreen/sis,9200-ts.yaml    |  61 +++++
+ .../bindings/input/touchscreen/sis_i2c.txt         |  31 ---
+ .../bindings/input/touchscreen/ti,tsc2007.yaml     |  12 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/input/input-mt.c                           |   5 +-
+ drivers/input/input.c                              |  12 +-
+ drivers/input/joystick/maplecontrol.c              |  29 +--
+ drivers/input/joystick/xpad.c                      |   1 +
+ drivers/input/keyboard/adp5520-keys.c              |   1 -
+ drivers/input/keyboard/applespi.c                  |   4 +-
+ drivers/input/keyboard/atkbd.c                     |   5 +-
+ drivers/input/keyboard/bcm-keypad.c                |   1 -
+ drivers/input/keyboard/clps711x-keypad.c           |   1 -
+ drivers/input/keyboard/cros_ec_keyb.c              |   4 +-
+ drivers/input/keyboard/goldfish_events.c           |   4 +-
+ drivers/input/keyboard/gpio_keys.c                 |   1 -
+ drivers/input/keyboard/imx_keypad.c                |   1 -
+ drivers/input/keyboard/jornada720_kbd.c            |   1 -
+ drivers/input/keyboard/lpc32xx-keys.c              |   1 -
+ drivers/input/keyboard/maple_keyb.c                |  34 ++-
+ drivers/input/keyboard/matrix_keypad.c             |   5 +-
+ drivers/input/keyboard/max7359_keypad.c            |   1 -
+ drivers/input/keyboard/mpr121_touchkey.c           |   1 -
+ drivers/input/keyboard/pxa27x_keypad.c             |   1 -
+ drivers/input/keyboard/qt1050.c                    |   1 -
+ drivers/input/keyboard/snvs_pwrkey.c               |   9 +-
+ drivers/input/keyboard/st-keyscan.c                |  30 +--
+ drivers/input/keyboard/stmpe-keypad.c              |   1 -
+ drivers/input/keyboard/tc3589x-keypad.c            |   1 -
+ drivers/input/keyboard/tegra-kbc.c                 |   1 -
+ drivers/input/matrix-keymap.c                      |   7 +
+ drivers/input/misc/88pm860x_onkey.c                |   1 -
+ drivers/input/misc/ab8500-ponkey.c                 |   1 -
+ drivers/input/misc/ad714x.c                        |   4 -
+ drivers/input/misc/ariel-pwrbutton.c               |   1 -
+ drivers/input/misc/atlas_btns.c                    |   4 +-
+ drivers/input/misc/axp20x-pek.c                    |   1 -
+ drivers/input/misc/da7280.c                        |   1 -
+ drivers/input/misc/drv260x.c                       |   2 +-
+ drivers/input/misc/drv2665.c                       |   1 -
+ drivers/input/misc/drv2667.c                       |   1 -
+ drivers/input/misc/e3x0-button.c                   |   1 -
+ drivers/input/misc/max77693-haptic.c               |   1 -
+ drivers/input/misc/max8925_onkey.c                 |   1 -
+ drivers/input/misc/pwm-vibra.c                     |   1 -
+ drivers/input/misc/regulator-haptic.c              |   1 -
+ drivers/input/misc/retu-pwrbutton.c                |   1 -
+ drivers/input/misc/soc_button_array.c              |  12 +-
+ drivers/input/misc/tps65218-pwrbutton.c            |   1 -
+ drivers/input/misc/twl4030-pwrbutton.c             |   1 -
+ drivers/input/misc/wm831x-on.c                     |   1 -
+ drivers/input/mouse/cyapa.c                        |   7 +-
+ drivers/input/mouse/maplemouse.c                   |  10 +-
+ drivers/input/serio/gscps2.c                       | 277 +++++++++++----------
+ drivers/input/tests/input_test.c                   |  34 +++
+ drivers/input/touchscreen/88pm860x-ts.c            |   1 -
+ drivers/input/touchscreen/ad7877.c                 |   1 -
+ drivers/input/touchscreen/ad7879.c                 |   1 -
+ drivers/input/touchscreen/ar1021_i2c.c             |   1 -
+ drivers/input/touchscreen/atmel_mxt_ts.c           |   4 +-
+ drivers/input/touchscreen/bcm_iproc_tsc.c          |   1 -
+ drivers/input/touchscreen/chipone_icn8318.c        |   1 -
+ drivers/input/touchscreen/chipone_icn8505.c        |   2 +-
+ drivers/input/touchscreen/colibri-vf50-ts.c        |   1 -
+ drivers/input/touchscreen/cyttsp5.c                |   8 +-
+ drivers/input/touchscreen/cyttsp_core.c            |   1 -
+ drivers/input/touchscreen/da9034-ts.c              |   1 -
+ drivers/input/touchscreen/edt-ft5x06.c             |   1 -
+ drivers/input/touchscreen/elants_i2c.c             |   8 +-
+ drivers/input/touchscreen/exc3000.c                |   2 +-
+ drivers/input/touchscreen/goodix.c                 |   8 +-
+ drivers/input/touchscreen/hideep.c                 |   2 +-
+ drivers/input/touchscreen/hycon-hy46xx.c           |   1 -
+ drivers/input/touchscreen/ilitek_ts_i2c.c          |   4 +-
+ drivers/input/touchscreen/jornada720_ts.c          |   1 -
+ drivers/input/touchscreen/max11801_ts.c            |   1 -
+ drivers/input/touchscreen/melfas_mip4.c            |   4 +-
+ drivers/input/touchscreen/mms114.c                 |  13 +-
+ drivers/input/touchscreen/raydium_i2c_ts.c         |   4 +-
+ drivers/input/touchscreen/s6sy761.c                |   2 -
+ drivers/input/touchscreen/silead.c                 |  18 +-
+ drivers/input/touchscreen/surface3_spi.c           |   2 +-
+ drivers/input/touchscreen/sx8654.c                 |   1 -
+ drivers/input/touchscreen/tps6507x-ts.c            |   1 -
+ drivers/input/touchscreen/wdt87xx_i2c.c            |   2 +-
+ drivers/input/touchscreen/wm831x-ts.c              |   1 -
+ drivers/input/touchscreen/wm97xx-core.c            |   1 -
+ 94 files changed, 453 insertions(+), 406 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/input/adi,ad7147_captouch.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+ delete mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+
+Thanks.
+
+
 -- 
-2.43.0
-
+Dmitry
