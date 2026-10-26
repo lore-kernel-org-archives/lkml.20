@@ -1,95 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011856;
-	b=11s3vRgDbcEaO69AS7eX2p8Jo0K1d62qrEmqk9ta6rrgjB0c8I7HvKS/gXvon6gzid9Q
-	 s2akhNx7mZ9GbBUfMlKWmNEIUzBf2ipun+sygD14sWVZ3Hp+Cl+Ivo1GS/ObgZmOuWVUZ
-	 e/zcrkd7P1Ow7H6kko9Ag2vBDyznOSH6UvKnCFYOe2p05y3zw4Ocea4sB5/sSKta6Qf/8
-	 Cc1tuYQ0V51uxg401i8zboIco8hqLsbMcc0gaXWm1Jvp7skiq6HXpq2vsSqU3y8+Pxb+V
-	 zjFPI8OOVzwsKazfTSm3Jkqfp8JlEk04v6NbT7m9Z1JviEApBupvXBKkuuWEVpGlY1g==
+	t=1793011859;
+	b=cIc3QQpTURMwTza+dorVtzECDp+9OHLlXZilVjJkSTP8K7gv0AfRY7Y4zlrZpej4Xg28
+	 SujzGTszxBbc+/dpYXcu/j4OKhP7oMBF6CDYc0rKAHy3HH0qZWmKqajittdGgHeLf5nwu
+	 ttBZtsYMWN3wgsbTRSE58e6SoLA1PTUajTxzV3yt+TYD5ykPTO0L9+4gAU/5l9vdOynXh
+	 e9BFcQ6LvFLXRyOuDJ3m3STC2aJPM2xgzgijv9Acp0w3bbBM4T2H6bRwIKz/rDFUKIgEJ
+	 cdC/i/pyPCr0BhRzr3gvJ88616zJQs85IxGFLYXjeMdhNjiXjo34Vf18QT3TGDzt7kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011856;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
-	b=o6dNjpb5IfblcW8247rbWz9M7r2fdBuDoergbhEXOE8+jiQTD4YmkEA5C5M6eNXliwYb
-	 Be54S27Mnb6UcOqb9VWICBf2OwbLOQ9QUe3c0qM6SZ1jWK61zoeIr/jHk4s7dmKSYBh1p
-	 xMZN+c9CnFgeXraTUKqEpWtSUsiLfKI0gaARPXRzP8nlS3BYLkynWNmUAb7ekhTqTlVF6
-	 82U6c3TFLX2KAWXrne+BtMb/NAOnU0TdfXqkkSSRxCPVhXCdrYfXq2pxxspnM5mFrwVOL
-	 8gBy+4tIbSt6eY5zsAdwyqUErsoctpOLK/AZI03yrJavNNOSkxQOosI1cMKYLAKEaEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011859;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=kmQEvKG4CMzbVMw4K/IBgEk1MXHDLqOQrYUZ7ewDtwU=;
+	b=FgbfooT9jFqbzv5tqRFqbyWBRA/n37nRNPzUQIrvAof8ML3lgTOaXtgzf+zJaXfoK2lV
+	 Vls1INoRek5bm79bBx3EPhOrsDT5F+pgOXMSs/CXfAOppfExRMF0lyY5IaKL2M0as0sfP
+	 Kl7qXg7ZyQ0RV1ZBuitB01DOFsNpFH3fQ23qVSwbVA30QpHco1kfm0dz/Spu18nmhcNCp
+	 lzVZ+Lpsi/HWKX3CFdMvO77RPOo75X4F1c5Kh54KXcg07cckt85q5UHEEY5W2LHQJjtQj
+	 quwQLVZgVvYhCd8eDE1c0o0qmQ0XYHMk5G3p2HZYBpT0Q+xPHylkLvlhYut5CffhKaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eB3nclYt;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L8sFEwZY;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B8F606A327
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6B8F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A76606A33C;
+	Mon, 26 Oct 2026 10:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A76606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eB3nclYt
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-156cbe59622so2049527c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011855; x=1793616655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
-        b=eB3nclYtzQ1Vfnnnt0Y8TG+UyWLz923k7t7nN2Di5brv/ggzQ4Dz3kBr1UOF2P8UZE
-         rz+Y090lcdMA/sMuB9DsSHZFLY7RVlzw3y0PGtEXtkL/Y4FAFikeIaHOUzD2IEZCOaxA
-         xVRlD1KfozP9xRkz1IaAX3XtZnrsE3Raa9Pw30n08wG0fllkcWIKlA7VekuMCA3kJiHw
-         vBvJrntCZLk6Xlq60v06lgHfFWxfRZ8PaM8jwcjMusAZX7hZMcTR+ZLjnAdTMDniTYBa
-         4qSAULj9o4/FXp67/nlVWKsQROJqdPOMYg8TLnbm7cYw2MucyIhtcHympgNclzaiclwd
-         WeDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011855; x=1793616655;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
-        b=d2bGyIly9IQ5bwKzh7ch3QO5jdcEOgU82Bqi41jDapAjVbXgFDRYcPD0c9t5yfURD7
-         m6aTXSIJYSAUIRmIU3j/0Aq3YkWHz7kwB3deLTSpmid+2KQ8JLazQeYuxBsWWfuwZHLX
-         LmqidOHhyiY5/ZuHyASCkjgKSS9iNMNkAucl/KlMH/z2MxjHSqFWGAwdYZGOdyVAgQzQ
-         PXOGrJ3+ZDTeskDBu5o9jm3ZRoXrTUGEW+SpZksmzS+tob1yL0hQvzaMRanz6qo65PpZ
-         vGnk/V0RYq1UWn93pKB3iUNGosmPqfI+ha9EiEFdvw6eHP90296CaSkoxqdiNvfPr1w3
-         1Smw==
-X-Forwarded-Encrypted: i=1; AKwUvByxTfhC3UEj7oj/ryQqwaIV5E2viN0aIdkRMyc+/SiM5fGRM99FGYfM4jp2yyGcQhBX0w/uhZGW323nk0A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzFCsJUx1kU6cjgg1qtLBFRevCINV5ttduVGpFSaY11Ug3fJV5
-	qSaK3ANwWNu8DSWArygCnnBtTPQqdZWABN2nMREoWxV9IUo2t1wrgJjTzsTND2z8WhM=
-X-Gm-Gg: AYBFou1X8lP+Ul+LsrSBkptfECbMr4XZ2Nxu5BJYUQ1EI9lNa9wCq69FuD6w0Zaqupv
-	XW9jDM9NrSxjQMc9YGEHk09crCKaLUzbLROJ/zAqqtC5EVVXsqNkiZ9tYvfUGZ4DSRMFGyQj/SK
-	aZFf1JBz9Fm1lHFqLbH2Fcfzaqo2VKx6727qskgvyjFRIsYf5/3v6GhalOdCdEDbBXpC2xeBRB2
-	8nKRfV6Q1RDHav3ng0rc5pemFK5PJrSOxl5KwFL0O43yDDQSo0oJ4K+FmnCMGluTNescxDhuhFV
-	CgdEzOccHg/2XhSZ5mjVaqU3JywGxJ8RiIRCotv69MQH5Z3xChVT9290EhFtN+Bxncl5Azqu2X5
-	i4Ou/XNPJaDRSm3fY2b/YO31ztAERaJQmBMqAanjloUK3lal+6DFZ852ewNus8CxJbTidyMS9ad
-	WAiNCBwiKT5TH0joLBEy2iOoOFXqUygwqHDfUWEBgVu+orLFw0RybYYynySndaZml97dvi1MwH9
-	J3DsWY7vjIuoKdiwWMkgBFnpYzesmbe2PCzHmoGwa7WOgrjHHZQuDDJ1kjaCv22GspH5/YEjObs
-	uBRAaPCLQvHqS/QHmew=
-X-Received: by 2002:a05:701b:4586:10b0:196:4eeb:76e8 with SMTP id a92af1059eb24-1993562594bmr9140816c88.20.1793011854790;
-        Mon, 26 Oct 2026 03:50:54 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm27897863c88.6.2026.10.26.03.50.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:50:54 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] f2fs: reject non-directory parent inode during dentry recovery
-Date: Mon, 26 Oct 2026 03:50:39 -0700
-Message-Id: <20261026105042.1148554-2-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026105042.1148554-1-teel4res@gmail.com>
-References: <20261026105042.1148554-1-teel4res@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L8sFEwZY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793011858; x=1824547858;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=whmJtoIdcC46RFzy3YsAmoExsbtfQVq2H3BT00c+e84=;
+  b=L8sFEwZY92wlVs0U5wxQI1GmXXb28V0a+cXPmdR067RgTrWmR8p1Xkmp
+   76qu+jH71N1V2M4RQLL5lCbaL5jaGjSsFkskI6hh+Ftz6TjIqIti9srHI
+   eRNPKsTkdvYU004+13Q1x6254BlfTezESIgQKqwQZUUztcvtCIMFS5eeg
+   2IuXpXQZLIWioLD1DPiCOPoAh6wsCVG59m37wDDCKl+kfq+zreSvUhphV
+   1VmrjqhRPpl6jWWMr6YYD/KIVagj+9O0y5sP7LwC/DVXCmRGlZBRzUiM1
+   oZs9wLhBL3a9bZup+3JHKSToqW0hoNp8Mc4jpJ6Ewzd7RIiIfVrwTsi5z
+   A==;
+X-CSE-ConnectionGUID: Or5mGIjHRZ+9kzkNjTZFmQ==
+X-CSE-MsgGUID: TUuMVJtrRX6zkR2zvAH5sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1550204"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1550204"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:50:57 -0700
+X-CSE-ConnectionGUID: 3c2W0tBMSlSqFshfQxFkAQ==
+X-CSE-MsgGUID: yU0X9AesT5uhy3M1keiRnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4738167"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:50:54 -0700
+Date: Mon, 26 Oct 2026 12:50:51 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	linux <linux@analog.com>
+Subject: Re: [PATCH v4 5/8] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <at8wi0tO7qR29i8E@ashevche-desk.local>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+ <20261023-adis16607-v4-5-a4d541ebfd13@analog.com>
+ <ats2XBBnfGmusCI2@ashevche-desk.local>
+ <LV9PR03MB841429F153BCF3BA9F18CC02F7612@LV9PR03MB8414.namprd03.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,43 +93,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <LV9PR03MB841429F153BCF3BA9F18CC02F7612@LV9PR03MB8414.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-recover_dentry() takes i_pino from the on-disk inode and uses the
-resulting inode as the directory for __f2fs_find_entry() and
-f2fs_add_dentry().  A crafted image can set i_pino to a regular or
-special inode; the recovery code does not check S_ISDIR() and then
-writes a dentry into a non-directory inode, extending its i_size and
-changing its directory-only metadata.
+On Mon, Oct 26, 2026 at 10:22:22AM +0000, Sabau, Radu bogdan wrote:
+> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > Sent: Friday, October 23, 2026 1:27 PM
 
-Reject the record with -EFSCORRUPTED and mark the filesystem for fsck:
+...
 
-  F2FS-fs (loop0): recover_dentry: ino 4 is not a directory
-  F2FS-fs (loop0): Cannot recover all fsync data errno=-117
+> > > +static int adis16607_firmware_revision_show(struct seq_file *s, void *arg)
+> > > +{
+> > > +	struct adis16607 *st = s->private;
+> > > +	u16 rev;
+> > 
+> > Can this be
+> > 
+> > 	struct revision {
+> > 		u8 minor;
+> > 		u8 major;
+> > 	} rev;
+> > 
+> > ?
+> 
+> Although I like the idea, I have a question here.
+> If u16 rev would be replaced by the struct and the read was done
+> directly on the struct pointer, could it mess things up on big-endian
+> targets? A native 16-bit store would place the value's low byte at
+> the lower address on little-endian, but the high byte at the lower
+> address on big-endian - so minor (at the lower offset) would only
+> get the right byte on little-endian, and would actually get major's
+> byte on big-endian, right?
+> 
+> What about we declare this struct and also have a u16 tmp declared,
+> do the read on tmp, and then rev.minor/rev.major get assigned via
+> FIELD_GET() - keeping the readability improvement without that risk?
+> 
+> struct {
+>         u8 minor;
+>         u8 major;
+> } rev;
+> u16 tmp;
+> int ret;
+> 
+> ret = adis_read_reg_16(&st->adis, ADIS16607_REG_REV_ID, &tmp);
+> if (ret)
+>         return ret;
+> 
+> rev.major = FIELD_GET(GENMASK(15, 8), tmp);
+> rev.minor = FIELD_GET(GENMASK(7, 0), tmp);
+> 
+> seq_printf(s, "%u.%u\n", rev.major, rev.minor);
 
-Fixes: d624c96fb324 ("f2fs: add recovery routines for roll-forward")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
----
- fs/f2fs/recovery.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Yes, this will work for me.
 
-diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
-index 54b524660..3e8054324 100644
---- a/fs/f2fs/recovery.c
-+++ b/fs/f2fs/recovery.c
-@@ -209,6 +209,13 @@ static int recover_dentry(struct inode *inode, struct f2fs_cached_block *entry,
- 	}
- 
- 	dir = fsync_entry->inode;
-+	if (!S_ISDIR(dir->i_mode)) {
-+		f2fs_err(F2FS_I_SB(inode),
-+			 "%s: ino %u is not a directory", __func__, pino);
-+		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
-+		err = -EFSCORRUPTED;
-+		goto out;
-+	}
- 	err = init_recovered_filename(dir, inode, raw_inode, &fname, &usr_fname);
- 	if (err)
- 		goto out;
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
