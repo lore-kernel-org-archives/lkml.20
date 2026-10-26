@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793046367;
-	b=NQexIpPGk1o7gvh5nsOdjzlqiT2CrOHIhcOs2nRXHcPPitLwF2mYv8llgCASLhD+/jBl
-	 T7JxyF08RiZwKu4plDGDbfFrjvNlZIHJigGdoN4iVMn8d5tCvO6Yn91MASgfOXRbMj8zx
-	 j3OhAGaeaNCWx6Ps2BkfYlmUAPRBleafSeTZqh0gwO+nLy5Zkv8+6ZHByr4ZvmXFWm+lD
-	 3DHS+DkDPkeAype1yUloenPtWQQWva7PIM5ocep8nt4i+i4CudzRfoNGCLc/uACAMFnsA
-	 DqtM7nClkVBb1IlG3tqRlkGxXnMWOr0Z2YjIROBMfqxsMrdvlNMRWHKBVOb8JquUSug==
+	b=LcY41dAbmkb/G2toYLpTaYe/z+rC1iCEmbmbyzG3/eU06HZdvTbbWcYBlsrJ70UrPLdN
+	 kWKjuK+FpMPlfiiy0/uvkC2iwk75VM2R1vImK3e6O71aMd3cytkPkekfZVw5yqeoyM8+l
+	 SjfN7+MEikE8cGPh0SDUhJbaGB2H/bSq+i4p/Yqt2cMpXWLhD5kVUaOYbQVLp93JPuyYq
+	 T7Wt6Wxc7EVeRR758bREdR6j5J5E7xJMZMpeY/j04O14EaKGxHoREZGjaNwHPrEi9wYPX
+	 kcVvPcIP1QCVeDu92OZkifIznHoZryjD3avwjvNnOLnO+gu7Kpj8Vn6ilLGS8zJousQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793046367;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Fj09/jauXkz5U9D12Z3ZmVr1su41ljj6T2mjBFgcV/8=;
-	b=RZDtGcBtOi/h6KYwtiloit8hySP1fpRk4OfncoL0JYqMyNW5T/ZLYsqFfwez0XmNS9SC
-	 IL+pKs16uUp6ApcXY/jVWF6+ELhQgkn3N4BTLlSC9ZWXpvbnFSOQhOC0Zo9doNtv24Rsm
-	 qD38QAH5GlQ+jJb4bVG7m0nY0PUjHx3E748bfVwwvLmY2Cj1dITT8FQON8DG8pn2eXW23
-	 xPVTkBRzpymPn+VM6Y6l3XaP+m5S6aRxlf7T8OeIUeCE9rt2gmd+Vnfp/EjehsPTtIP3k
-	 J5E+OK2h3V2kL7C/Fck/e4l9tDfuldu7rxbEbEp6whTfOQXwo6FVkyKkZGKFhOIMTyg==
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	b=njFF8IN08Ke+lk7vD5etYW95FMuGCMcOBajsVlzMIo9bULPJVZD3sL7htRCbL2yb/Y5A
+	 OxjEEeB82Hf2evf67iYuIQCUP7UsxuDgMTvI7nJ6F7BzG9Mx1F/sfFiHsh8HAg7Bs+m1x
+	 U4NE4l/WZeEBxkzkS/Wck2oiCHeFn+3d4dunFMF/Ci3BHIDhZlB9HYZLzt7xVUNLaNE/o
+	 UoOY54Iyiwa5wazOkipE9CDZZI59thxvFxrzHEzZ97wPFzApDNLj0uCnVpEbhiDThmrZ2
+	 2sFVqt7mZ+8tiRhBOP+WiUe5LSA60JROPoXfqWJLSq2iSx27FqX/DviKcI2YBMYEmAA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YgWpmS0Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdHs6WVa;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31289606A333;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48923606A32E;
 	Mon, 26 Oct 2026 20:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YgWpmS0Q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdHs6WVa
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793046367;
-	b=Yu2t1aEpOw6wNn95iEJUN65ukLCvlqa+DWIchOy0dbp0cBz856iZt4gQvFBVKKazW4vR
-	 6qblxFFKfdjRhYmju1Nug9i7EEwfJBe+OLtPMe0Ag4FgZX2lMxfKvaoV9eDppGCyVx8Xy
-	 Q7sI0Z3SrqkRtkwsP+TaNTlru7uRTw6WnD/XNI6BPgVXbLQv6CStg++kbwXb1g85Hi4ot
-	 Y7pyNni/hjGAvxVnFoy39OYSg01dbiJKoCpONWiDEUYY/B+QFIZLGagzuNcds2KuQyHjo
-	 s1J0Nn00tOTKwiSa4r2t/D9tDzmMRo4AWCYlzqOKgzZnK3gSOh/miDXWhngC/hBfGjQ==
+	b=ftZsnhlL6QO9aXpUTjGIDxFZl77RE4f6eHlMrciUZqNCoJY2nNfWpEHEIZVesr8+wJcN
+	 983eHSOU9LGw2H3P8zmSJhAOYEP0nN/rr3Z6Vdios+RaOm5uZheNhGOsKhuY0FrMIveXD
+	 cFfvBqIptm+NIBUvw2Az1RJbYTmDY3BSFd1WJkbk2jt5o4ASRSsVFR6Kkr2sbXw2x+jWH
+	 AM8LjyuoADt7Kfcr8+mdsx3JYOgU1EGD2kRZitXbmTeMKqdaOAxQPIvux32WPgLTbH4U3
+	 1pzuASTcijRX2EMWCNHalfn0C6iK1yCi6uVgHYSPlC3IC70FbbS4vwlFfgbqBgifjTw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793046367;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Fj09/jauXkz5U9D12Z3ZmVr1su41ljj6T2mjBFgcV/8=;
-	b=Ng5wKfyfvtHsP9xVb9XghEDFgGQzjUw/GaKeLt757psuFhV8uewL6YauY5FEnr6g6Ykk
-	 neG+g6LFflkK3lpcW7fig49Lo0M16l2G/6zMrpP5roPZ5vUKX44QHG8LIRTbwNBDPkB+g
-	 FKuQ3X61GFgM/27x/zXwKD/3QNxgI/PQVMRqgk8TCZKQM6T7CACYbeZYL6hDi+TkHIDp5
-	 r/TGk3roIKFMe9ZOilEnWA6upOcGDdZsTAm79qNxIsQQzLEYrS6WuWOJp0eNV2+Euwl20
-	 EtwIOM2te3gJ6PNCrZatTnZQFnr7gWi76h1Lsb6zytx9ljgTTac5ebPGkUatOCGi4bw==
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+	b=FOsxEslVomg0TRFNTPhfXTt9ygxmhPFZCwFk62BDbZ0MFZ73FTbqdOiQ5xvR8E0IOaO9
+	 XQ6VI/7oGGtk2wlCWZDulsrr3il1jWo1iME/WS14dYKTo7xStxvZZtaN5RNZORGNvJyNs
+	 yYIqEHrOSIwoX4GBnM05vLPV00vONXYQs6OTax8iEI+E8XxkAUY+TW0HACPqyDV3Y9V0W
+	 1N2LplcAC8gy/BLkXEepTGjsPwhvmXp7ECUACeTUQtMQQiqR+83pwv3c7K9UosxDeZcEm
+	 SxWtNbRyG8sJ7D1KoJTsV5Bnz4n6l5G5YIpTkfBRNi2635Hdwjm7MPFdobkUVB8Im6Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 828FE1F031E3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 7FDBD1F031E2;
 	Mon, 26 Oct 2026 20:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793046367;
-	bh=Fj09/jauXkz5U9D12Z3ZmVr1su41ljj6T2mjBFgcV/8=;
+	bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YgWpmS0QcC4H6aBnhXWT+fckGg35zG0lM1V5EY/FgQhtxCFcBYP0iF86qkKA7MvfS
-	 9rsw/yGkxmImvGx1YWPrc1in/x9EKuVKrNg6GfJpkxjOTn4V6LwtMkWZE8/Q1prSMA
-	 Dq7LXllU1Ss0kDJ7oCfERkwkYcD5dzZ4xOJjsfe9Eh0CxIz+NCP17kQmAhQQwbEFbJ
-	 kO+UI7IxLybrsZmA+1ux1zFWqYQGTe4qvnyoOW/+gfyoPdfDEVpK3Msfvbd0t1ViAo
-	 sQMHj6gCkI5ocWqYmqAoXztwSmS4NwpR/TnR3cG3AJrDjVplvI8Ddd4Txoeo79gW7I
-	 s8cl3Gu/WSZEQ==
+	b=kdHs6WVako4Z6HlJI8pXx0/a5mGf8EaqSIK2d+6Z9SQfCiMQ/ayF05LCh/u+XPlkc
+	 e2VF43ZOGJllhZJ/yAvx4z86W7yuJve71nHW1TCxazOoQ8/7NGTCWxsZURbLzFfkfn
+	 YjeAPIGYDmct4HUX1aUVG+jMz/luAWM0rC4ygnh8IjeYI8GkHQsHn7a3Kh9nrsxznp
+	 RDHdmqlAmjzZTlthTjO9oW3hlOaGSyJZWKIAI7AW3962CLKOSrkn5f+/5K2NM1jDsG
+	 KM599wKK0JJsYyZC02UZu7Bun+uFAo284AvUkBkRjogGNkNG5X6sgSnwvW4ETWbkjp
+	 CP66oyWBZcn/Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1A51244EA1;
+	by lkml.kernel.org (Postfix) with ESMTP id 09AE344E9D;
 	Mon, 26 Oct 2026 20:26:05 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 17:25:47 -0300
-Subject: [PATCH v2 6/6] drm/msm/dpu: reset DSC_CMN_MAIN_CNF in dsc disable
+Date: Mon, 26 Oct 2026 17:25:46 -0300
+Subject: [PATCH v2 5/6] drm/msm: force mode_changed on color_mgmt_changed,
+ not just ctm
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v2-6-3d864435186e@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v2-5-3d864435186e@gmail.com>
 References: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -96,11 +97,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793046364; l=1211;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793046364; l=1219;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=wGiN+gugp5FNldO/Kg3sFcSJT75myNdU6h5lxozuNKM=;
- b=XeYvMeWiN8pWxAujZwv1lVFeUuZWtbYdWkRtqIUxjFcwFi1t9hLTcgJplJAkouXRs5pRxEzHJ
- Wlwqz6H2XOcBbB9Zf3kc3ceKOK6LDAw72c2JuTWnlB9yTrzm0Lffg7z
+ bh=Wo3tEP0RL/iVZrlVbjqizqGErC2YhsS/kVeKWgJ1UBY=;
+ b=xk2S9U22PiVIjh/lxg6nCCjNYmmmTTw7ync+SZXmMp3OtYjWmbKZMhqvg3FSWrZdNIOII1xcQ
+ wIOKmLLp4abCAAdIvtHphs0zznDHCIhxkKPDjmYlueo9cJKH3x2FTSN
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -111,36 +112,37 @@ Content-Transfer-Encoding: 7bit
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-From observation, DSC_CMN_MAIN_CNF has hardware restriction on
-differing values between paired even/odd dsc.
+dpu_crtc_atomic_check calls dpu_crtc_assign_resources when
+color_mgmt_changed is set, which is unsafe outside of full modeset.
 
-Reset it to 0 when dsc disable to avoid issues when a dsc pair
-is later used individually for each of its dsc.
+Set allow_modeset and mode_changed when color_mgmt_changed is set,
+not just when ctm is changed.
 
-Note that currently dpu always assigns dsc in pairs if possible
-for power saving. In the future, it may be desired to assign
-singular dsc if possible to support high display count. e.g.
-when dsc for DisplayPort support is added.
+Also would fix
+commit 42f62cd79578 ("drm/msm/dpu: try reserving the DSPP-less LM first")
+which was reverted.
 
-Tested on Ayaneo Pocket DS (SM8550 Kalama)
+Closes: https://gitlab.freedesktop.org/drm/msm/-/work_items/102
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/msm_atomic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
-index b3395e9c34a1..b8a330d813e6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
-@@ -78,6 +78,7 @@ static void dpu_hw_dsc_disable_1_2(struct dpu_hw_dsc *hw_dsc)
- 
- 	hw = &hw_dsc->hw;
- 	sblk = hw_dsc->caps->sblk;
-+	DPU_REG_WRITE(hw, DSC_CMN_MAIN_CNF, 0);
- 	DPU_REG_WRITE(hw, sblk->ctl.base + DSC_CFG, 0);
- 
- 	DPU_REG_WRITE(hw, sblk->enc.base + ENC_DF_CTRL, 0);
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1dbe0d..6f0f30b0728a 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -195,8 +195,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ 	 */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+-		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
++		if (new_crtc_state->color_mgmt_changed) {
+ 			new_crtc_state->mode_changed = true;
+ 			state->allow_modeset = true;
+ 		}
 
 -- 
 2.55.0
