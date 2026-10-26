@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793058891;
-	b=xYSIbfB+Fa0EiTIIBeLQEfhXabl8YbbPBJuJkdn6HwW5uqtjRjqddQeEH8zZc840oU0Z
-	 U3TbI9O+NxhIu53wNLBinZyPYLnPEEFIvmVdC6EIvYXYntGfKuRyJzxFRXFXxpZvu//gK
-	 3xUvH67SxfcK6cQWN9/PP1Z3MNs2RCrMkDHTpLdWm/y9GE5xdHUWBZ96cYHF0pL8PwcNQ
-	 Lt9yaKp15Wk71FYJ4MqViiCJdIrwpGLd9VR2lyZbimdCB5saxOMdtOYes7GKaLYG4+2/A
-	 v+0WULXiq/9yQg2a1zAm1q3tj4gnLZDIgPPykmY6CerPC9H8idy5mLGboxXg3RCnuMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058891;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=tmLf/LhHmlix/ZRJFso7e9AUnTilQUuxrbjjOjPIDDQ=;
-	b=OUuktfkxYfc/crMMhmb6AOfrP3YiwcOeJBJTWgPnH1IjgnPGNAEJnoviToGygocJm+b3
-	 /0gMpIOJygxsAe5FkC4oVxnnosKOKcHB7erseo+0VZjNhjFG15q2DEDW0dEPwJYd89O3S
-	 GGIHSaAg2hU+4Tzgg9A13U0o+KE8TxlaVHywSM0wc0ss5TxjVtureRUpUAwS6K1TmkBnS
-	 9opZbfGCcWfbJVKvPKz4Bvurt4mS+W5m4284Ix10TiUWpG0z3N96kXw7nSfFPVZC5brBl
-	 IOykqjcSKRGG5K8dusSWaxqMkVqn4lZr+bpHML9MTKTo2WjIG6mSIFMPeeIybv/dl3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mythread.it;
-	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=JBCVBDzP;
-	arc=none smtp.remote-ip=62.149.156.101
-Received: from smtpcmd10101.aruba.it (smtpcmd10101.aruba.it [62.149.156.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793058938;
+	b=oyK7USB3P+kUouQbpVRmbmabRcP4NL9fDD5ahGFraunGG6iotQlio64i395Ha7yWx85x
+	 NBHU6+UfvoGEqnZw0Q9V49XH15Uqf0kCbvPNJd1uXjNRsH7dmF6byysLF4+SbcleucGHY
+	 U99EVLA6v+H6vACm7Q8eAuZaAUV1D0uK2h1LYIrIt0aRuhCavulCA56dtu9krfCccu5CD
+	 12sQr5kDGblgkPJU54JMaw0wRU1uqX+xrsT5PQJxHsZxqS2MVovSoZ3/bYTI/Ve3JY7PZ
+	 T3VSCk9yWZ/ROcfF1Yym2VLchUGVFuHvFjp+2zK2vgK6DM3AoYG+6/Z5NTKrx6piNsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793058938;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZzMX7mFcIWh7Kuz+dntrLxcfYo0Pt/pLtJ3pm/q59a0=;
+	b=P4sshkIvDwTcpti24z2uWxg8IvNvshrH4L5EIsZ8zbIoLosIMcAw/b1Qu+Q6qaTR3pS8
+	 rutTxECxpjKx3hOVdXIX6F22QNZ6f+JmOzOBXf5KHHOZtPGOLiWySHqkDYElcucXx+AfI
+	 I6XQZpP0LLwfOIe+2WoPX/+U5lSJQglTOtKSeL0f/y4Un5Ksc4oxkGkTZTjyfBmau3v3Z
+	 rEFVDO5LaKMHRQe47yImmSExn7ttPxyQCum7BLUeekAJf2vSkqV4hs6FxUy5s8Uqn2Afz
+	 IySSAQmz9pTMkjmO2SdT4ThPmYEs6bMUV5knRS/uiOaaaWQACsGgFTJ04nOIotzjfCA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TQpGK3pm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62829606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62829606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C40606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48C40606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=JBCVBDzP
-Received: from [127.0.0.1] ([79.43.52.162])
-	by Aruba SMTP with ESMTPSA
-	id LUVexsCYFW41bLUVhxjBfo; Tue, 27 Oct 2026 00:53:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793058830; bh=VkghKG5mvE7++Re6VaVBV/w1wZKm0wW+u8rh6hBTMK4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=JBCVBDzPXNi4vn6vpTnOCS0fEXx2E6eg/0rfazevTA50urSwwITx5J3SzljULhuWZ
-	 oJJZS1MzcYZSNVBUaCX10uTBeo4mw7R2CuFd2Z0kyoHa+F3QjrLS6gT4qcbbyqMRCF
-	 5rWkf7U1SyWYuP3i7+otcAbs7RlOLp8skBWIXaqn1KY2NsAxL3vSXSHkXAeAtnZGDD
-	 61f1REf9zPUuvlrn5cjpbIc58cWGXvFtOTT0vCF77IpOyPiXtHd1CCaE3avNXfa/GF
-	 /e7XRfolXzMgxvpNCizlm6+o7Z5B7HO88V9KnIx2JmbFpUXrcrkqZc03zpgJOruK5F
-	 m4BULNPAACKyw==
-From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Tue, 27 Oct 2026 00:53:50 +0100
-Subject: [PATCH wireless-next v2 7/8] firmware: bcm47xx_sprom: read
- boardflags3 and AvVmid_c0..2 from NVRAM
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TQpGK3pm
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-917a707f37eso36144396d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:55:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793058937; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Gmu/zOhewueibLnWIslIeMi7cy9cMpMzC61QGthf+WZBxQ2UFo6um9ytFPwP8PC9/B
+         MP73grNQx2kd/xckwXesvcie0fK2/QkhFc7il5wxNz42cPzZa3PI07xoSt1+lbTrmzMi
+         NcRkedIOAEVVe4tbcqtpo5B8fKJhEQXq2I2xgZB31WK8c7rLv3bDWtZfwTX0rOck5k1o
+         eZH+FsLWCTMFrflQF3nGUzoZUh++0gEJkVo0nw5tVy6TyMSBADl1WyutQgEgVvkbywow
+         fRpKBhaXiNPCYvQJbF/q5Ax/ctCQwn/7pR4Ace0PqdqquSdyI5nvpU8LS6aC0vi6qNxO
+         pnJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZzMX7mFcIWh7Kuz+dntrLxcfYo0Pt/pLtJ3pm/q59a0=;
+        fh=Id18WDwpAJFemU0SGZsgqfMJWn9b6U7IUVywlrdOX6M=;
+        b=I6x9a7/GMu/3/eAoKTx+vh0S1yA7kJQKjAM3GUKXTjrV4zA37Bnhe1eSti6izL6k6V
+         0PZsyjmc+3m6TQmZFfUZpTpDDJY/t6Qq99rj8IdXyBmYcjYm6CRcfYlEXe5sTlKoATgE
+         AFMym35ca//oUKIGTndcdvUjwhcq+E+CNauTw8wW90M/XDvJ5sEtQ/g2hDrkkR596igl
+         wejvF12uHii4Cn0FBbjSYSnSACWHXHXBfORkPdMvaF1BbTM4HP8BgjJrqMK+Sq0XBdoz
+         a8e42kL5TQoXIS837l4k0t/TFyR4ruI4bKWlEl9GMKnk9y2uvzkfagyiXSV5BeJ/exoV
+         ef2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793058937; x=1793663737; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZzMX7mFcIWh7Kuz+dntrLxcfYo0Pt/pLtJ3pm/q59a0=;
+        b=TQpGK3pmnxF9Uh6mGxtTM0eoOIkxVBX4Wm6rLvp8nWLojE4nxAZMlCEmoVe/K7O1IT
+         lwuyAQWdQRiI3GNV44n3R9H/UshrkWSTq6oD1vkhet1APzf+TpbIQ4vwSN3zzqTDfT37
+         Ed1rwH91/BFSMotyBHUJ7VCOgLkpiakvPiEM36ophgmxm6mUSd1mvTljS0SC/rl5+410
+         OK142PrbY9MR2EtBXmHC+KgoYWYfkAgFwgXH/cxyXo4KGJhsDsGJzkTrTuf2YDyiXvxq
+         kGGTVutZxXnosvs8t+mP2Baw0iZzSIYryGRjIidYlNcspZDzGGY18sntryGZFSDAi7Ny
+         3K1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793058937; x=1793663737;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZzMX7mFcIWh7Kuz+dntrLxcfYo0Pt/pLtJ3pm/q59a0=;
+        b=Y9gSbLckx7cdfEaXBCU+NYvqYXtOWeDvFXvlqaUGNnn3NaQJR9rXoG1Kbogviz/W0l
+         8onBa0C0Qg/ApyI9zovfbPp4HiqMcLHCXbSjXRihXi/zGhgte4xWJgbruMKksz5fMEtu
+         jZGlApKZqoOMwLWnN6xLOJOReSHod9m3O4aNDA557mklf6McOkRnV7FTDGb4gs/H9Cvz
+         ZeIqVcj0uWFIAzi2uxmxbuV+eTDlgnxvOVXKP6TyDVb4Tk0fwOrCNYednkxuPNx+W3+/
+         zWGM0aORZPUMiRtlJuxO0onFLh01hXAhZJ0g0vDhoEZ2mLT783P4h0SmxCPAzSwS+qi4
+         uhJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnofqhPoEQty+IzBP2jb3Ogbg7ZbvypimoX2jmLdGZeRO565xQPnwREux9dbAqTTelC8FQ49xDyOgrYec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuh4HRDe3eRkWV8cMEOQ3zihI/pK5g8mzdeRS3o5WvBhrBLPDG
+	OKgH4bERYje94wcjaFPz3f4w+ZHTQ1SCDaPzlG1UbaCcXx3Izn/f+dPcDczmN1/PPl1gizTmMTn
+	ciZ3uyNUtQwhjhYrDb+SSbD41/bb5fr0=
+X-Gm-Gg: AYBFou0mxmo7kNd38JFLc0sVLEGTV+WQzDC6NlKikSr+UkU95qpZCmPvvWiyluAjNAG
+	jCc5nzlIluiDjdjjWiiiGz5vak2LKlLP7/xDdCo/fCTIYG+GpDVpGCLcDkzToOtMqbWRyNSdHDH
+	fi0fSX59ICrxh+5NLaz7rKJin4vrecDgIenkQIVJjAISOZmCEpnyvZTnc+6djWPENe2aN0+wosY
+	OvAmfJMe8uSsBYyySYzCW6iJdGOHcsuyRoTXzPFdX5/aBJVpbTdvppZL3koqZQMI24Xe4AU9kUO
+	/sUOcll9T/uzevhoGJdv0zdYxza9W3MR10rA8f1xpXGJWa26zJSEke0HZaIOiTAtks3QiEJV/yj
+	cWnr2OQX/8m7znJOubqeEQLU3fZzjznR7bfrqyQ==
+X-Received: by 2002:a05:6214:3c9d:b0:91b:a702:cc5b with SMTP id
+ 6a1803df08f44-91c48d21df9mr142161736d6.7.1793058937159; Mon, 26 Oct 2026
+ 16:55:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,96 +104,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
-In-Reply-To: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
-To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
- Michael Buesch <m@bues.ch>, vit9696 <vit9696@protonmail.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>
-X-Mailer: b4 0.15.2
-X-CMAE-Envelope: MS4xfGKOy2UZ5BM+jnYiTwLEWzZm9Bqn9y/XHLMt91Xe039y1mbDS6zN0sl+Ucfo/cVe5tkuNjlp6Rw5hN+pifebbZjZn2Ot8f5D3LabQYjPCd/QfoiIkk2z
- JRJRI98Ftv5kvfHOqcJ1mtIfbRgImpA+peqL7328E84g79omkE9gdyAGEk2JXHETX2SDT04LEZH/kbK507b5ZcEL7VoJ38S47JO1LyQfbEB7UNOtNEZiRvGv
- vvXnSdrxqhHJY0KqsWG1LTLCbhu75G2uAsRslHmkmNgWC99Gu/V4nYcdiRUV2aLrl537YzJvKQybbZt8yxAgZ4dcX2fuvGRKgnGYwPFNpFScuw+o8SNY9+l6
- gQ11Azqo6whfTqXDkAFnfhVyHKz3Tn6hteUXv2jso0pvDihPObU=
+References: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
+ <20261026-msm-dpu-res-clean-v2-1-3d864435186e@gmail.com> <498e2fa8-b707-4a06-9fe7-9e62253786c5@packett.cool>
+In-Reply-To: <498e2fa8-b707-4a06-9fe7-9e62253786c5@packett.cool>
+From: Xi Zhang <xz.ca.cn@gmail.com>
+Date: Mon, 26 Oct 2026 20:55:20 -0300
+X-Gm-Features: AclHuK8LbWKXuTefwbNDto9JuTcVHDIAbeMY8N4dmB0dUoKxhMwBSYQlkgp2Y_c
+Message-ID: <CABxuLgMHx+ZvkL=Rs7R2N=cO8Vtyc8FktZ4nUzmCRD=WdorWMg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] drm/msm/dpu: reset unassigned resource slots to
+ NULL on topology update
+To: Val Packett <val@packett.cool>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Xilin Wu <sophon@radxa.com>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Read them along with ledbh4..ledbh15. AvVmid_cN holds the Av/Vmid pairs
-of chain N's power detector per band; avvmid_valid marks the chains
-whose list parsed. A boardflags3 in NVRAM overrides the SPROM word.
+On Mon, Oct 26, 2026 at 8:04=E2=80=AFPM Val Packett <val@packett.cool> wrot=
+e:
+>
+>
+> On 10/26/26 5:25 PM, Xi Zhang wrote:
+> > While this is not currently the case, it may be possible that topology
+> > for cwb and dsc resource requirements change between mode set in the
+> > future.
+> >
+> > e.g. when dsc support is added to DisplayPort, dsc may be optionally
+> > enabled and disabled between different modes due to
+> > bandwidth requirements.
+> >
+> > Set unassigned resource slots to NULL on topology update to avoid
+> > issues in the future. It's good practice to do so anyway.
+> >
+> > Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++++-----=
+--
+> >   1 file changed, 15 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/=
+drm/msm/disp/dpu1/dpu_encoder.c
+> > index 0a6be69a3e83..8d2b4d2726f2 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -1205,9 +1205,13 @@ static void dpu_encoder_virt_atomic_mode_set(str=
+uct drm_encoder *drm_enc,
+> >                                                      ARRAY_SIZE(hw_pp))=
+;
+> >       }
+> >
+> > -     for (i =3D 0; i < num_cwb; i++) {
+> > -             dpu_enc->hw_cwb[i] =3D to_dpu_hw_cwb(hw_cwb[i]);
+> > -             cwb_mask |=3D BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
+> > +     for (i =3D 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
+> > +             if (i < num_cwb) {
+> > +                     dpu_enc->hw_cwb[i] =3D to_dpu_hw_cwb(hw_cwb[i]);
+> > +                     cwb_mask |=3D BIT(dpu_enc->hw_cwb[i]->idx - CWB_0=
+);
+> > +             } else {
+> > +                     dpu_enc->hw_cwb[i] =3D NULL;
+> > +             }
+> > [..]
+>
+> I've mentioned in a reply to v1 that this was indeed affected by the DSC
+> changes in radxa's WIP, but missed the more relevant one:
+>
+> This is already handled by the "drm/msm: fix SMMU fault dumps" series:
+>
+> https://lore.kernel.org/all/20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@os=
+s.qualcomm.com/
+>
+> Namely patches 5-8 ("drm/msm/dpu: clear the ... blocks ...")
+>
+> Thanks,
+> ~val
+>
 
-Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
----
- drivers/firmware/broadcom/bcm47xx_sprom.c | 32 +++++++++++++++++++++++++++++++
- include/linux/ssb/ssb.h                   |  3 +++
- 2 files changed, 35 insertions(+)
+Thank you for the reference link!
 
-diff --git a/drivers/firmware/broadcom/bcm47xx_sprom.c b/drivers/firmware/broadcom/bcm47xx_sprom.c
-index 75604cd70..581dd867d 100644
---- a/drivers/firmware/broadcom/bcm47xx_sprom.c
-+++ b/drivers/firmware/broadcom/bcm47xx_sprom.c
-@@ -173,6 +173,32 @@ static void nvram_read_alpha2(const char *prefix, const char *name,
- 	memcpy(val, buf, 2);
- }
- 
-+/*
-+ * AvVmid_c<core>: Av,Vmid of the chain's power detector for 2g, 5gl, 5gml,
-+ * 5gmu and 5gh. The chain is marked valid only if all ten values parse.
-+ */
-+static void nvram_read_avvmid(const char *prefix, int core,
-+			      struct ssb_sprom *sprom, bool fallback)
-+{
-+	char name[sizeof("AvVmid_c0")];
-+	char buf[64], *p = buf, *tok;
-+	u8 v[10];
-+	int n = 0;
-+
-+	snprintf(name, sizeof(name), "AvVmid_c%d", core);
-+	if (get_nvram_var(prefix, NULL, name, buf, sizeof(buf), fallback) < 0)
-+		return;
-+	while (n < ARRAY_SIZE(v) && (tok = strsep(&p, ",")) != NULL) {
-+		if (kstrtou8(strim(tok), 0, &v[n]))
-+			return;
-+		n++;
-+	}
-+	if (n != ARRAY_SIZE(v))
-+		return;
-+	memcpy(sprom->avvmid[core], v, sizeof(v));
-+	sprom->avvmid_valid |= BIT(core);
-+}
-+
- /* Variables read from NVRAM whether or not the SPROM itself comes from it. */
- static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
- 					  const char *prefix, bool fallback)
-@@ -185,6 +211,12 @@ static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
- 		nvram_read_u8(prefix, NULL, name, &sprom->gpio_ext[i], 0xff,
- 			      fallback);
- 	}
-+
-+	nvram_read_u32(prefix, NULL, "boardflags3", &sprom->boardflags3, 0,
-+		       fallback);
-+	sprom->avvmid_valid = 0;
-+	for (i = 0; i < ARRAY_SIZE(sprom->avvmid); i++)
-+		nvram_read_avvmid(prefix, i, sprom, fallback);
- }
- 
- /* This is one-function-only macro, it uses local "sprom" variable! */
-diff --git a/include/linux/ssb/ssb.h b/include/linux/ssb/ssb.h
-index 02e6c9054..5a4daa76d 100644
---- a/include/linux/ssb/ssb.h
-+++ b/include/linux/ssb/ssb.h
-@@ -77,6 +77,9 @@ struct ssb_sprom {
- 	u8 gpio2;		/* GPIO pin 2 */
- 	u8 gpio3;		/* GPIO pin 3 */
- 	u8 gpio_ext[12];	/* GPIO pins 4-15, NVRAM ledbh4-15 only */
-+	/* NVRAM AvVmid_c0..2: {Av, Vmid} for 2g, 5gl, 5gml, 5gmu, 5gh */
-+	u8 avvmid[3][5][2];
-+	u8 avvmid_valid;	/* bit per chain whose AvVmid_cN parsed */
- 	u8 maxpwr_bg;		/* 2.4GHz Amplifier Max Power (in dBm Q5.2) */
- 	u8 maxpwr_al;		/* 5.2GHz Amplifier Max Power (in dBm Q5.2) */
- 	u8 maxpwr_a;		/* 5.3GHz Amplifier Max Power (in dBm Q5.2) */
+Also thanks for the radxa mention. I have some msm/dp dsc work
+for the older v7.2 kernel and could use those code reference.
 
--- 
-2.34.1
+Awaiting comments before removing the overlapping patches
+(1 and 5 of this series) which have more complete fixes in the
+series you linked. There may be other issues with my series that
+sashiko bot didn't find.
 
+(I'm using the gmail web interface reply-all, hope it's doing the right thi=
+ng.)
