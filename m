@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792973450;
-	b=j9bZ8dj4wI9+wNsx2un1akbdNYS9hNhcB05Z2FPLKStRIbnFjBUzTGpvz1T+KhbHPv65
-	 X4DQONAlGFveO/R3jGujlKabiKYiDbvOkM6LzAvMRkPDaTse+QvT2nldq0WQK/CgY5dAB
-	 8bjEwPLYX6UrSn9gNPxzTyfPM46KcaKJWxVWvxzCaEeEreM8idr9pKHgJQOpimoYGdDA9
-	 0bw/9CrgGaoDVKHmi6Xr8fQ9CWiW/i2cmSRIv5ShvWWmmfwxIut/o82d78jS7kZTcPb+1
-	 OGxQBXMkNtQM8XJiszAxKsNfnGA5Pws4gXquzWa6l1MDgrWU5O7suR4o4oBTGfuLbKQ==
+	b=UJncnE+kwg2eMyhoPXb/mSO+lMoBNTuFnKdJHVVLsaTHCnmgg6m06x6Y4JdhEgfe0Lp9
+	 0Yd2xFW6I9W2o3cEo5lv+I9IJGD2lxatuN0DYTGzBI3feh872X/jxJJ5+3x8XHS9CUwIO
+	 UQQVR1VVx348C/vTC0nN73rcALbVvo+RSAG6gKFcjWQUWyNMBXVQRLRGa8cECG1xK9AWR
+	 RY5rMIPi8/VZc4ZaWmFEua8t1+yn+ZanD8SHXX+0T9RnD20tW26Vl7NFwmqT0Ic8ZMWsN
+	 RRSOZlaB2rdxTUdQPbZTPZ0YgwiYQWqQGXUGpEL1BHtso1T7VZPPjuWP39fLF4gHRlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792973450;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rEBKyEzDVraLXKxaOkha7Wx1jCRXe3d3QWz8EKrntEU=;
-	b=NU8jRbi7+qdQfA2nWm8vhYsRNx5TJX0YFW34AKLo4doCqubG/fKkhn2V7AZIK6AsaeG6
-	 w/DMKwX8QmCKTBDqdYSHj8VTQjfukwxcBG68eQ+OipO8GVAk7bd5nlMM1+guJns96MOLM
-	 5wuroWb6c6/RLm6wSXKx2f06KLNfAQTc7u0xTo7/i8ig8wh2NuT6RbK/3zM9RKdK5xBUC
-	 AKNUdrjClO6dQrEWXVFHDKZU3spgrBxZZ7ZBD+rFdpIan/tJ4ogjX+5/YcfUd1ktLarkg
-	 QoBGTEunU8XFTb0F14v7BB9oaOk3cqQE4BfZ+W+67ETppJodGBm42a3wC11hPxtZA0w==
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n7yZoHhyTLFPnLQUrJNNMtndbObg885vG7XwHptPQI8=;
+	b=b2IUxg/bYn7pW7/W++EmodzEeV3AxtFlx5e3mmiO6dnK/FvBhBYKt5ZlrP1Jkdbd5jjM
+	 HougI7ZmlFJs//gL/iNeh7hl6FV+3MckH70aGEjmWHhNSZWuIJGDcSZMG2/X6UhEqeRNC
+	 GFYxlsoUA+Jjjyrxf4iNkfNTszx43OdCx8Mkx9sAzCNx080CXfodHbswvsZPcPnHMJHXI
+	 X2Gav4PMR05uQPRtesVZQ4OH4mjVDF/fRZ3toKvNNwIbGEVpe9GapBgg2Z3cO//sOwXKI
+	 3MitQApa6IfAKeB2h2YrgQpnuViiB3mnF6dvEJEORQ6dL0yeDci0v6Y3ME2c6U/a4sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jQpJ4cdv;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=prcXDbYb;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBAE606A31D;
-	Mon, 26 Oct 2026 00:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FBAE606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576DD606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 576DD606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jQpJ4cdv
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=prcXDbYb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792973447; x=1793232647;
-	bh=rEBKyEzDVraLXKxaOkha7Wx1jCRXe3d3QWz8EKrntEU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jQpJ4cdvnvsmElw7QdxKU5eLPOnna5FTAJgEpeWXOPw7rbos6ieDjtsC6Dmnu1zWa
-	 VyPyqWwuL8qSowi2c8vOLIzEpwfjWxOUBG2tn2eSGEy9m0/HgWDanoehFSF684osja
-	 IGYRzUJRwjbHgqG+CA8Xjqsm3gPBTCV0rOzgXdviUzijeBb0cyTbtxTmey7ODVCzmf
-	 kn2kgDV1RrnGpMy3/4CrqehVlbSl1fp78Asx+wZYptzJJB8HfWvwBQ0egyo6eZieRP
-	 6FtCE50FvVYGCksKw/SL8OG8+UtkDnjHwodU9Dih5/A7L8eL561xRh1xHqSVDtt6I7
-	 V8cDDoZT542kw==
-Date: Mon, 26 Oct 2026 00:10:43 +0000
+	s=protonmail3; t=1792973441; x=1793232641;
+	bh=n7yZoHhyTLFPnLQUrJNNMtndbObg885vG7XwHptPQI8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=prcXDbYbgx0F0H2nD/mNZw+aJeqFKhRhWwxM0tN4VVKzeLGJUGbjgkv2qJhLWg44W
+	 sWc7t9+RhDEZD63tv0GNNXnvJeHNLHME7Ni3xGbgZWWYO7MOSqPdVycKG7TsMUaTsv
+	 jiUHAwmQ7T5wjGA8t6H5FKZ8LE5XTTrREETAkLWlBfBEibff1twcaggW9CSPf+2u9G
+	 O391/oOycRhP4wN2dHz7ACtSsDPMI9UpmyDBIzdrrIafOBr2Jk9PsWbSFgn9iokxqu
+	 8+5qjy8VBwplXMRY2/B+z006Mb7XMiOwcGGYHvHfrT/6nf4YWqIzmf0/o9kWD+vUTg
+	 ZDnxISv7WwUOg==
+Date: Mon, 26 Oct 2026 00:10:37 +0000
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Clemens Ladisch <clemens@ladisch.de>
 From: x8svc <enscrpt@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH 1/2] ALSA: usb-audio: Bound packet copies by the PCM buffer size
-Message-ID: <20261026001003.1067-2-enscrpt@pm.me>
-In-Reply-To: <20261026001003.1067-1-enscrpt@pm.me>
-References: <20261026001003.1067-1-enscrpt@pm.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] ALSA: usb-audio, ua101: oversized packet copies overrun PCM ring buffers
+Message-ID: <20261026001003.1067-1-enscrpt@pm.me>
 Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: a35d86fe96ad780fa77230ffd5c431b2b44aa77d
+X-Pm-Message-ID: 566c381662afafa4890696aa27a92d74dbff5e1d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,92 +64,248 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-retire_capture_urb() and prepare_playback_urb() assume that one USB
-packet never carries more data than the whole ALSA ring buffer. Nothing
-enforces that: the packet size comes from the device (wMaxPacketSize,
-and curpacksize =3D=3D maxpacksize when the class-specific endpoint
-descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
-require 64-byte periods, two periods and a period time of one data
-interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
-full-speed device can send 1023-byte packets into it.
+Hello,
 
-On the first oversized packet hwptr_done is wrapped once and stays
-beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
-the wrap arithmetic in the copy path computes
+I found ring-buffer overruns in snd-usb-audio and snd-ua101 when the
+amount of data copied from or to an isochronous transfer exceeds the
+ALSA PCM buffer size. The copy paths use a two-part memcpy() and a
+position update that handle only one wrap, which is not enough when a
+single packet is larger than the whole buffer.
 
-    bytes1 =3D subs->buffer_bytes - oldptr
+I reproduced the overruns under KASAN on 7.3-rc7 (2f2f7eeef8b0) in
+snd-usb-audio and snd-ua101, for capture and playback. The two patches
+that follow apply to and build on current mainline (c03c1a14507d). I
+found similar code in snd-usb-line6, snd-usb-usx2y and cx231xx-audio,
+and reproduced them on 7.3-rc7. em28xx-audio has the same shape. I
+booted it, and KASAN reported nothing. By reading, the
+same shape is in 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y. I did
+not boot those branches. 5.10.y has older code, which I have not
+checked.
 
-with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
-runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
+The reproducer is available to maintainers on request.
 
+snd-usb-audio (sound/usb/pcm.c)
+-------------------------------
+
+retire_capture_urb() and copy_to_urb(), called from
+prepare_playback_urb(), copy data across the ALSA ring buffer with a
+two-part memcpy() and update the position with a single wrap:
+
+    subs->hwptr_done +=3D bytes;
+    if (subs->hwptr_done >=3D subs->buffer_bytes)
+            subs->hwptr_done -=3D subs->buffer_bytes;
+
+    if (oldptr + bytes > subs->buffer_bytes) {
+            unsigned int bytes1 =3D subs->buffer_bytes - oldptr;
+            memcpy(runtime->dma_area + oldptr, cp, bytes1);
+            memcpy(runtime->dma_area, cp + bytes1, bytes - bytes1);
+    }
+
+Nothing in the path guarantees bytes <=3D buffer_bytes. The device sets
+the packet size and the PCM client sets the buffer size.
+setup_hw_info() permits 8 kHz mono U8 with a 128-byte buffer (64-byte
+periods, two periods), and a full-speed endpoint can send 1023-byte
+packets.
+
+The first oversized capture packet already overruns the logical PCM
+buffer: with oldptr =3D 0, the two-part copy writes 128 bytes and then
+another 895 bytes at the start of the 128-byte buffer. It also leaves
+hwptr_done at 895 (1023 - 128), beyond buffer_bytes. On the next
+packet, bytes1 =3D 128 - 895 wraps to 4294966529, and memcpy() runs past
+the URB buffer and the vmalloc'd DMA buffer.
+
+For playback, copy_to_urb() has the same single-wrap assumption, and
+the reproducer reaches an out-of-bounds read there as well.
+
+KASAN reports (7.3-rc7, x86_64):
+
+Capture:
+
+  snd-usb-audio 2-1:1.0: invalid position: , pos =3D 895, buffer size =3D 1=
+28, period size =3D 64
   BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
   Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
+  ...
+   retire_capture_urb+0x251/0x870
+   snd_complete_urb
+   __usb_hcd_giveback_urb
+   vhci_rx_loop
 
-and for playback, where copy_to_urb() has the same shape:
+Playback:
 
   BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
   Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
+  ...
    prepare_playback_urb+0x98a/0x1fc0
+  The buggy address belongs to a 1-page vmalloc region starting at
+  0xffffc90000045000 allocated at __snd_dma_alloc_pages
 
-Truncate an oversized capture packet to the buffer size, and stop
-filling a playback URB once it holds a whole buffer. With bytes <=3D
-buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
-in both copy paths stay inside the buffer. A device whose packets do
-not fit the buffer at all was never going to play correctly anyway.
+On 6.19-rc3 the same reproducer faults in memcpy() from
+retire_capture_urb() without KASAN (RDX =3D 0xfffffd01, the wrapped
+bytes1).
 
-Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
-isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
-wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
+The USB/IP server never reports an actual_length larger than the
+requested packet: actual_length equals the URB's iso_frame_desc length
+and curpacksize. I reproduced this through USB/IP only. I have not
+tested a physical device or a physical host controller.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: x8svc <enscrpt@pm.me>
----
- sound/usb/pcm.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+The local PCM client only needs permission to open the PCM device. My
+reproducer runs as an unprivileged user in the audio group. I also
+tested Fedora 42's PipeWire 1.4.11 with WirePlumber 0.5.14 and
+PulseAudio 17.0 against the same USB/IP device:
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 682b6c1fe76..c2f7b08607a 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1343,6 +1343,18 @@ static void retire_capture_urb(struct snd_usb_substr=
-eam *subs,
- =09=09=09bytes -=3D adj;
- =09=09=09subs->stream_offset_adj -=3D adj;
- =09=09}
-+=09=09/*
-+=09=09 * A packet can be as large as the endpoint's maxpacksize, which
-+=09=09 * the device chooses, while the ring buffer can be as small as
-+=09=09 * two 64-byte periods. The hwptr_done wrap below handles one
-+=09=09 * wrap only, so never take more than one buffer from a packet.
-+=09=09 */
-+=09=09if (unlikely(bytes > subs->buffer_bytes)) {
-+=09=09=09dev_warn_ratelimited(&subs->dev->dev,
-+=09=09=09=09=09     "%u-byte packet exceeds %u-byte buffer, truncating\n",
-+=09=09=09=09=09     bytes, subs->buffer_bytes);
-+=09=09=09bytes =3D subs->buffer_bytes;
-+=09=09}
- =09=09frames =3D bytes / stride;
- =09=09if (!subs->txfr_quirk)
- =09=09=09bytes =3D frames * stride;
-@@ -1553,8 +1565,14 @@ static int prepare_playback_urb(struct snd_usb_subst=
-ream *subs,
-=20
- =09=09for (i =3D 0; i < ctx->packets; i++) {
- =09=09=09counts =3D snd_usb_endpoint_next_packet_size(ep, ctx, i, avail);
-+=09=09=09/*
-+=09=09=09 * Bound by the ring buffer as well as by the URB:
-+=09=09=09 * copy_to_urb() wraps hwptr_done once, so one URB must
-+=09=09=09 * never carry more than the whole buffer.
-+=09=09=09 */
- =09=09=09if (counts < 0 ||
--=09=09=09    (frames + counts) * stride > ctx->buffer_size)
-+=09=09=09    (frames + counts) * stride > ctx->buffer_size ||
-+=09=09=09    (frames + counts) * stride > subs->buffer_bytes)
- =09=09=09=09break;
- =09=09=09/* set up descriptor */
- =09=09=09urb->iso_frame_desc[i].offset =3D frames * stride;
---=20
-2.56.0
+- In the tested PipeWire configuration, the driver selects its maximum
+  buffer, capped at two seconds (16000 bytes for this stream).
+  Full-speed 1023-byte and high-speed 3072-byte packets fit. With a
+  super-speed device advertising wBytesPerInterval 49152, pw-record
+  hits retire_capture_urb() with a 33152-byte write (49152 - 16000)
+  and then faults at the vmalloc guard page. pw-play hits copy_to_urb()
+  with a 33152-byte read on PipeWire's data-loop.0 thread, and the
+  machine soft-locks.
+- PulseAudio 17.0 inside this VM turns timer-based scheduling off by
+  itself. The measured buffer is four 25 ms fragments, 799 bytes, and
+  a full-speed 1023-byte capture packet reproduces the
+  retire_capture_urb() report. I did not measure timer-based scheduling
+  left on. The PulseAudio source uses a 2 second buffer in that case.
 
+A client with permission to open the PCM device directly can trigger
+the full- and high-speed cases by selecting a sufficiently small
+buffer. The super-speed case reproduced in the tested PipeWire
+configuration with an ordinary recording or playback application when
+the emulated device was selected as the default device.
+
+Reproducer
+----------
+
+I used USB/IP because I could not exercise this isochronous transfer
+path with dummy_hcd and raw-gadget. The reproducer is available to
+maintainers on request:
+
+- usbip-server.py emulates a UAC1 microphone or, with --mode playback,
+  a speaker. It advertises a one-channel, 8-bit, 8000 Hz Type I stream
+  and a full-speed isochronous endpoint with wMaxPacketSize 1023 and
+  bmAttributes 0x80 (MaxPacketsOnly). Each packet is 1023 bytes.
+- attach.c imports the device and attaches the socket to vhci-hcd
+  (CONFIG_USBIP_VHCI_HCD).
+- client.c opens the PCM device with U8, one channel, 8000 Hz,
+  period_size 64 and two periods (buffer_bytes 128), sets
+  stop_threshold to LONG_MAX, and starts the stream. For playback it
+  first writes 128 bytes.
+
+The fault occurs within a second of starting the stream in my tests.
+
+Patch 1
+-------
+
+The snd-usb-audio patch bounds the capture packet copy by the PCM
+buffer size and stops prepare_playback_urb() from scheduling more data
+than the buffer can hold.
+
+I tested it on 7.3-rc7 with the same reproducer for 30 seconds per
+mode. KASAN reported nothing. Capture kept streaming and logged the
+ratelimited truncation warning. Playback entered XRUN at once because
+the buffer cannot hold a single packet, which is the safe failure for
+such a device. With PipeWire and a super-speed device, capture
+truncates the packet with the same warning and the stream keeps
+running. I did not repeat the patched playback run with PipeWire.
+
+Patch 2
+-------
+
+In snd-ua101 (sound/usb/misc/ua101.c), copy_capture_data() takes the
+frame count from actual_length, and copy_playback_data() takes it from
+the capture packets through rate_feedback. Both split the copy at the
+end of the ring buffer and wrap the position once.
+
+set_stream_hw() permits an 18-frame buffer: periods_min is 2 and the
+period can be 9 frames. A 672-byte packet of one-channel, 24-bit audio
+holds 224 frames. After the first packet the position is 206, which is
+188 frames past the 18-frame buffer (224 - 18). On the next packet the
+single-wrap calculation underflows.
+
+KASAN reports in my tests:
+
+  snd-ua101 2-1:1.0: invalid position: , pos =3D 206, buffer size =3D 18, p=
+eriod size =3D 9
+  BUG: KASAN: slab-out-of-bounds in capture_urb_complete+0x9eb/0xcb0
+  Read of size 4294966732 at addr ffff88800d73e7e0 by task vhci_rx/81
+
+  BUG: KASAN: vmalloc-out-of-bounds in playback_work+0x789/0xac0
+  Read of size 4294966732 at addr ffffc9000002626a by task kworker/0:1H/80
+
+The reproducer uses the same USB/IP server with --device ua101 to
+present a UA-101 interface layout, and a client using S24_3LE, 44100
+Hz, period_size 9 and one channel.
+
+The patch clamps the capture copy to the buffer size. On playback it
+copies at most one buffer and fills the rest of the packet with
+silence, so the URB length, the delay accounting and the data sent stay
+consistent. I first tried shortening the playback packet instead, but
+that makes the URB's declared length disagree with its buffer and
+USB/IP drops the device, so I kept the length. With the patch, capture
+and playback each ran for 30 seconds without a KASAN report and the
+streams kept advancing.
+
+The period accounting still subtracts one period at a time, so a
+packet spanning several periods of a tiny buffer leaves period_pos
+above one period until later calls drain it. I did not see this cause
+a problem in the runs, but I have not analysed it further and would
+welcome your view.
+
+Other drivers
+--------------
+
+snd-usb-line6, capture, on 7.3-rc7. A GuitarPort device sent 1024-byte
+packets into a 128-byte buffer (S16_LE, 44100 Hz, 16 frames, 2 periods,
+2 channels). ALSA logged:
+
+  snd_usb_toneport 2-1:1.0: invalid position: , pos =3D 224, buffer size =
+=3D 32, period size =3D 16
+
+KASAN reported nothing. The ring is a whole page, so the extra bytes of
+the first copy stay inside that page. The driver then stopped copying
+and logged "driver bug: len".
+
+snd-usb-usx2y, capture, on the same tree. After the hwdep firmware
+load, a US-122 device sent 1024-byte packets into a 512-byte buffer
+(S16_LE, 44100 Hz, 64 frames, 2 periods, 2 channels). KASAN reported:
+
+  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
+  Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_r=
+x/83
+
+That read size is the single-wrap length once the position has passed
+the buffer. These two patches do not change line6, usx2y, cx231xx
+or em28xx.
+
+cx231xx-audio, capture, on the same tree. A Pixelview Xcapture device
+sent 1024-byte packets into a 128-byte buffer (S16_LE, 48000 Hz, 16
+frames, 2 periods, 2 channels). KASAN reported:
+
+  BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
+  Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
+
+ALSA logged pos =3D 224, buffer size =3D 32, period size =3D 16. That
+position is one 256-frame packet minus the 32-frame buffer. The read
+size is the single-wrap length once the position has passed the buffer.
+
+em28xx-audio, capture, on the same tree. An em2860 device sent
+3072-byte packets into a 24576-byte buffer (S16_LE, 48000 Hz, 3072
+frames, 2 periods, 2 channels). The endpoint was 0x83, with 64 packets
+per URB. Capture ran for 30 seconds. KASAN reported nothing.
+period_bytes_min is 11059 and periods_min is 2, so the smallest buffer
+is 22118 bytes. em28xx_audio_ep_packet_size() caps a high-speed
+endpoint at 8188 bytes, so one packet cannot pass that buffer.
+
+Process
+-------
+
+I understand this to fall under the regular-bug handling in
+Documentation/process/threat-model.rst, because reproduction uses an
+emulated USB device, so I am sending it to the subsystem list with the
+proposed fixes. An AI tool helped with the analysis and the patches.
+I reviewed and tested them myself.
+
+Thanks,
+x8svc
 
