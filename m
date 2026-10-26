@@ -1,59 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001624;
-	b=WPYmZeZEyM3eoC6I3zdiJZLV3j1ywz2P4wEqPrpiY3wazM9xFaKWi2PJjompmud/nv3v
-	 PKK4m59ZaJ3Jl3jclgeQXw956AJaEHxbZBF3Ae+D8n1XSn5Oz3U0CZc0OeSJYPyeYvuXe
-	 /2gR+nofM/1qmLtj260U+6DT6MxmkIKdAC0SeI+tmo5sw6Nb5BeJH4X8+tgQK/nOYGGe7
-	 a3U33Xj87ysDmyJ7E28I3Y9TINcefHxdNu8m5haBe3pf2tj80KGgT8qAzW25nTey6fa/e
-	 vhZqIsHPwIh7+TUCiqC+f08PeGpTEkMdkV1BlOuSp4IfdYjp/QhMrD3n3n23JX2RKqg==
+	t=1793001685;
+	b=Cjyy3k/AgnLc4+opqRgQtJOQuWYhJ0anmd5mtzkiKFLmEIn40Thz8QpJCp1tM1BCeEgT
+	 IXs+ipgpjMg68ey3ByhVoIBkKUk1Y6insO/y0go9lLjsTH3O9wSMRIiKoFJcd/hBPnCEu
+	 YT0WSkuc+J+mEWZIGCy/uc0izZC0VHUsHZ/hgxkEcwsYdlql/lEf4hfdaTvchdArbT/ow
+	 VmHE6qjhTQsjs5gkbaF1mQLhf3Xi9rxs1Zqw3vxMxwWe+7s57pISMIFmWkTDu2eRXVvTR
+	 7pk3Bnn9kElVooGUgCuRIua2BDg8bthGiPrGrqenDtO4ACfTMsXR3NjSvhYk4Qo6xKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001624;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=LPA6Inh2wBCKqBtP/pIYKJnpKzD87TCTJsmoxrtXeEE=;
-	b=VTVhZ77HMf3KWZYs+JTy3r72EU2F17EVyXla6tbrLZ5X1uTHSsrWfh6MMnmbWuao8sRY
-	 SqdWtRcd3PElzM01OT8WBNwnMm+njo5GAulPdF+16fTEIfWSHW1ZZKg5lyfu21slD7Wcb
-	 fTgxPnUDa7hn8hKSPrlzzFdTY0Swoed3dhCvzgYD88wOVPsitX98timhVpesfAAW7GLuj
-	 EUiZH3pqWfHDr9kFzmqxyKkHTp6DvrZSWr7r7NFKywTU7EQOS/y0p8oNOBkHk/9qrIku7
-	 7xiSMa9y18CH6MotwFVa4njClyUJ8zqABQFtmyY1NT+2dbYvHDFUTBUW+vOB3YjASNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001685;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=Ctyq+gG5jXVz/TU156m5hBEkcXWdW8CVnveOiNrOFVE=;
+	b=ecL9Af4QhsFocE07HVj7L3a2wPoNeARD4b4RrHIcuVmal2SAVS9EL9YqTsDWCFz+PNC8
+	 wZDHVoiOVzJvcJProDylv18y8D/Ln6QCnu+YzEYHGHakCCxsg34evJsY0ga5+elD/m5JQ
+	 ZBUedRhXLXdkA3ILK74aCMAxbsZOBtgQ9uytCrd9s9GIxA1/IpuqmKEUtsRWAfy0EbLud
+	 ae8LYzF+ZOPknfdtOzsbbkxcGPJgdVOOlP18t+cFOfJNwnUYjP+3o8LW2qn21V2Zixo2t
+	 CYaTB/JwtIlNoUr5+mHPyUKQslVzN560Oxv840QBTqs5JCW5Nlhfwprhh7C4IqjDhkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QECr/k6o";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhMbNPJL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IQ0LwCfJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhMbNPJL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IQ0LwCfJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0DC606A321;
-	Mon, 26 Oct 2026 08:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5301F606A31A;
+	Mon, 26 Oct 2026 08:01:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5301F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QECr/k6o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9481F01825;
-	Mon, 26 Oct 2026 08:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793001624;
-	bh=LPA6Inh2wBCKqBtP/pIYKJnpKzD87TCTJsmoxrtXeEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QECr/k6oPnJQSYrB8n8135pm0yWfma3W8gHbGBvPPvekVnkM/TjL6OjHvCrm1QW1w
-	 Bkb6xDeGmOhZDxN3t63xry94md6Zf2EYBXS8j3BY+RTRribLkAHkp7QFrvtSUIStnw
-	 7U7u6ZAxNEhbQjmhQs9uwIu4La3H7PumY91o95wze/bqoAsIrRJCSyVLydMZDEfJW9
-	 870cwJTxR3cRFL5m+EEVgQ9FcE8npchwziEnso7MeTJErvjigZ2R3fYhDXYB4uAVpO
-	 td/2FPDai/Mggm9NMOZFCng+w/9LvpqXlR9tgl2TfPYpkv1q890751GAO8DFCRMXOD
-	 ZVt5RRNBS8q+A==
-From: netdev-bot+sinfo@kernel.org
-To: Dong Yibo <dong100@mucse.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, yaojun@mucse.com
-Subject: 
- Re: [PATCH net] net: rnpgbe: Accept link-down events without speed magic
-Date: Mon, 26 Oct 2026 08:00:22 +0000
-Message-ID: <179300162296.3327.8577140950893281339@kernel.org>
-In-Reply-To: <C2DFBBF04F1DCFD2+20261026075445.920572-1-dong100@mucse.com>
-References: <C2DFBBF04F1DCFD2+20261026075445.920572-1-dong100@mucse.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhMbNPJL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IQ0LwCfJ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhMbNPJL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IQ0LwCfJ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4831C1F7B7;
+	Mon, 26 Oct 2026 08:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793001683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ctyq+gG5jXVz/TU156m5hBEkcXWdW8CVnveOiNrOFVE=;
+	b=lhMbNPJLXR1S0MM93RDkY9cFgZGkiBPVFjJN9IDhQk9ByNH3dqlrPbp7ZMxpnEY0TRw2QY
+	ICTJPklOi7c76juQ58oeS9GoHhMutdnusVN3EYBLVj5mo8K6LVWVZmDVKbzY2DYzV0+tGA
+	dvcLydwKLn0pVyal27FSiFAB5gOFR6c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793001683;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ctyq+gG5jXVz/TU156m5hBEkcXWdW8CVnveOiNrOFVE=;
+	b=IQ0LwCfJaydBa/wioP5v+qdB1QM/dA5/06BW+JrKiScMp3RYysSoWMkxa6b3160jgEHGZS
+	YICA8dFAZ5NExFAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lhMbNPJL;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IQ0LwCfJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793001683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ctyq+gG5jXVz/TU156m5hBEkcXWdW8CVnveOiNrOFVE=;
+	b=lhMbNPJLXR1S0MM93RDkY9cFgZGkiBPVFjJN9IDhQk9ByNH3dqlrPbp7ZMxpnEY0TRw2QY
+	ICTJPklOi7c76juQ58oeS9GoHhMutdnusVN3EYBLVj5mo8K6LVWVZmDVKbzY2DYzV0+tGA
+	dvcLydwKLn0pVyal27FSiFAB5gOFR6c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793001683;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ctyq+gG5jXVz/TU156m5hBEkcXWdW8CVnveOiNrOFVE=;
+	b=IQ0LwCfJaydBa/wioP5v+qdB1QM/dA5/06BW+JrKiScMp3RYysSoWMkxa6b3160jgEHGZS
+	YICA8dFAZ5NExFAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E827513319;
+	Mon, 26 Oct 2026 08:01:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OvKWMdII32pRGwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 26 Oct 2026 08:01:22 +0000
+Date: Mon, 26 Oct 2026 09:01:22 +0100
+Message-ID: <87wlr46gbx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.de,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH v4 0/3] ALSA: opl3: Fix sequencer timer and channel lifetimes
+In-Reply-To: <pm-pmb-4552c4e605507d8d9b16-v9-70247b8436e10e26d324-0@gmail.com>
+References: <pm-pmb-4552c4e605507d8d9b16-v9-70247b8436e10e26d324-0@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,26 +115,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,suse.de,gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 4831C1F7B7
 
-Hi!
+On Sat, 24 Oct 2026 18:49:48 +0200,
+Cen Zhang wrote:
+> 
+> OPL3 can receive a fixed-duration note before its timer is initialized,
+> and the card-owned voice array can retain channel pointers after either
+> sequencer port has freed its channel set. The delayed-note timer can also
+> remain queued after the sequencer client has been deleted.
+> 
+> Initialize the timer before publishing ports, key off active voices and
+> clear their aliases before freeing each channel set, and shut down the
+> shared timer after client deletion has drained both event producers.
+> Retire higher-numbered partners before their 4-op primaries so no active
+> hardware KEYON is skipped when the primary changes its partner's state.
+> 
+> This series applies to tiwai/sound.git for-next at d74eb09af56b.
+> 
+> ---
+> Cen Zhang (3):
+>   ALSA: opl3: Initialize the timer before publishing a sequencer port
+>   ALSA: opl3: Clear voice channels before freeing their sets
+>   ALSA: opl3: Shut down the timer after draining sequencer ports
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Applied all three patches now.  Thanks.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Takashi
