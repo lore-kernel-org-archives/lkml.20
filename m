@@ -1,107 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018386;
-	b=ItQC79zZ9VNUdW/IcV3B32ErBpUEs1/lXUC0Q2mE6x5L6pqmexEz8hOATg8HGrRMUrWf
-	 fzF4Hr958BEnBUqwIZrsb0wvAfiU8/dzFJYTkkZvLxBeqWIgomQH9m0yE+6hrGI70vHIK
-	 T7idnz3UXkRE9fQV6MsZh/zqlr5aOlvfwNZuUtIZ/tht2Wdxzg5EGu7eLqZXUsPdB0dd9
-	 QgYacha22et1MXuWNmETud3WwZkeYEzBBHv3XJsekWBfuExjV+FTjbdwCrWUHndLCvKwQ
-	 b1QwmTkVR5Qs60WV9MR5PW2a8J0rLXwCcNAQJyMiU2snh5QopSVOHxSgaBAGYnr+Zxg==
+	t=1793018415;
+	b=D5I7c+iS+/YSdn2WACjPdeXdAvVgfuJHQecwPJwAhyqsIBk1bg+g21AIFleDmLpnWGdQ
+	 s1VXJg4CgeWlu4Pa35kGBPsGBqxfm0EmYpuqUjWGrZaQEhaVhakSnLbDaRGmoFjWXtcWu
+	 vPaTDydc+ldRQD0LXpeQFpf50Yte3YV1uHP+bD9XRVPC2v43RfCWs/6/Bwmk/XeXaYyug
+	 aeAp/+svOHIBqoaFymZOpLTGM9QXgUeHg1ysTmQ+H5+EPEoAl0bAhRit7xEIhJdOUyzcs
+	 LFql10CLcBahRPlHJUe2RNVqfr88Qc7HjrnBECUijnBLMZTkZc+s2tmohCOZX/KU5cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018386;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
-	b=osellOhcQxVfV8CAob7Tkac9CrCdi9BjvIztYXW34hZyDPGTA4MgMvc7VPdDqjoh5309
-	 G0mDhTrIeNZj8Ij7c9YkZB0LtOo0iapZDNLwCHbnuTbCFwMoJTutmMMd7IdDZmDQU2WL1
-	 hwayQ720t2DwqkIN1JdzjmsbgkTiuBxZkCHac0J6d5T0Sz5/fMd6Pip5e19bK5C2HNpMr
-	 10qTHp15eNh+WzR3AzwUkRVrDwy0d2Qt7/8wLylp2xV2iRZfvOL2+eHhMmBMnXN+uAAF/
-	 WUUbNwX/FM55M50qtFrTcp3hw2STW6sfncSvnl+wowzsEfnntBcuSdkmpin6X5oeQUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018415;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ihE3J0tMhcm8xJUaaHT/JhbOlKVqb9U5D80ilvr1OUQ=;
+	b=EIB4MPPHXGnvjrdcpjiI6aZkevDB1CPvJvAJu1pRQczTEG/5DCBcQ18X0MEuPvsWWuVa
+	 4g9/Pcm/gOOXvyDZne7kd94ad8XUeYD8WKALw1YlyHd5yzWmvVV9m0QMhiTiLP2EonLzb
+	 JjP6DWe31vaUFgeCciJ3P+1NIxjFjSsMxxfq2bMryYpWaST304lN04GbiYK73omrU7dTy
+	 +N6kz0GIjDp+nKFwc6Oq7hAs5AhHmsYXUYnoHCil1J9VnBh3fSuYNWEt5QJ8fS8i4mbAO
+	 LH15qC64ZLOw6hdXY6lwnK+fmTcEp/LeOe9nLWE+1KaAqqbRKzJfjn36D+K3e2gQszA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="i/Qotwak";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NPbnbhH1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UyBkdwTm;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/jbCXYqr";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uNqZM3HM;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD347606A31A;
-	Mon, 26 Oct 2026 12:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD347606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58A0606A337
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A58A0606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=i/Qotwak;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NPbnbhH1;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UyBkdwTm;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/jbCXYqr
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1D8631F807;
-	Mon, 26 Oct 2026 12:39:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
-	b=i/QotwakT0gNRHREU1wFt/wueTqEGMxkEwBZeAfvtg2vOQK5MYdjocpFukd6OPnCPB/HBb
-	BS0H0i4lis8Cx5HxUegab52ZMYIDulElTF5aTBb4Hap0VclwXxLjUKay5gMGoKDFBAw/gO
-	anMbeiMRLXl/qiNjvli9BmC5o5g5fSc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018384;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
-	b=NPbnbhH1+/ni7hIQiLvEz0Rw5mCTPrjqGt7I2H76ldS/ThhDXfkF8lfkKoBLAi7flQa7sI
-	AFYw0bBdP9G4PIBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793018381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
-	b=UyBkdwTm5idr9gRs92m2eXllZTQxCYHgb6mSyGPn3DAQii7ZPZorI6hRb5yz437E6K8JRt
-	9pOQjbje6tYo+E1xUamu/s+LJWs2gVfm2XsRkhf8at6dGKTDCHLAc33wjhqLyl1FQZJ5Tu
-	RVFUKsWGY9W3ynWQXI3luWhJsu7g258=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793018381;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NGOYvwWXtHCtXAoCdL/2EsRICoNUM1uFaxEPB0yTgrg=;
-	b=/jbCXYqrtbqaIP7dJVxN5S4mQ57yZnFtClcNfpzjJKt3CjU7A46+Pv9vRDGjctpBpT3HIY
-	FqElgoIqGoH83JAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E89A713319;
-	Mon, 26 Oct 2026 12:39:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 39IFMQxK32qJQgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 12:39:40 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 7EA71A1419; Mon, 26 Oct 2026 13:39:40 +0100 (CET)
-Date: Mon, 26 Oct 2026 13:39:40 +0100
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] fs: make mount(2) remounts killable on s_umount
-Message-ID: <3x3n2vfnyy3nmhz3rd56q6ygm72252gy26lxrf2kmhdrxg7f5d@q56ow6psbtpb>
-References: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
- <20261023-b4-s-umount-killable-v1-3-844a341ff1df@toxicpanda.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uNqZM3HM
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=ihE3J0tMhcm8xJUaaHT/JhbOlKVqb9U5D80ilvr1OUQ=;
+	b=uNqZM3HMTQk9Xu0sNLqrju0QZDjawzqeIsP44Uzit3ceBjCo26aeQZ5A0ydLfrwhewGbTQkXv
+	e8bfZW6CITdgUHVckYH7sONZYnXt/JUb3hMIw4EGjTCeSww7wtZYWv/JyKKWEjklt62bJFtQsYC
+	e5HBTHxLlvihKPry+4HlAY8=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jCtW470pPzKm9S;
+	Mon, 26 Oct 2026 20:40:00 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D49CB40586;
+	Mon, 26 Oct 2026 20:40:08 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
+ 2026 20:40:08 +0800
+Message-ID: <d77ead72-4c5c-42bb-b002-f5928c2ae496@huawei.com>
+Date: Mon, 26 Oct 2026 20:40:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,90 +62,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-b4-s-umount-killable-v1-3-844a341ff1df@toxicpanda.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.cz:email,suse.com:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email,toxicpanda.com:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 06/10] arm_mpam: resctrl: Rename struct
+ mpam_resctrl_dom to mpam_resctrl_ctrl_dom
+To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
+	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <fe38eaea025896ace1baa536fa8e73b409f22b9a.1792443633.git.reinette.chatre@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <fe38eaea025896ace1baa536fa8e73b409f22b9a.1792443633.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Fri 23-10-26 20:39:32, Josef Bacik wrote:
-> mount(2) with MS_REMOUNT takes s_umount exclusively, with MS_BIND as well
-> it takes it shared.  If the lock is held for a long time, by a syncfs(2) on
-> a device which doesn't answer say, the remount sits in D state and can't be
-> killed.
+
+
+在 2026/10/20 6:07, Reinette Chatre 写道:
+> struct mpam_resctrl_dom holds the control domain of a resource, while
+> its monitoring domain is held by struct mpam_resctrl_mon_dom. Unlike the
+> name of the monitoring structure, the name struct mpam_resctrl_dom does
+> not say which kind of domain the structure holds.
 > 
-> The one which wants the lock exclusively makes matters worse for everybody
-> else: while it is queued, every new reader of s_umount queues up behind it.
-> Killing it gets it out of the way, the rwsem wakes those behind a waiter
-> which gives up.
+> Rename it to struct mpam_resctrl_ctrl_dom to match its monitoring
+> counterpart.
 > 
-> Nothing has been changed yet when the lock is taken, and both can fail.
-> Use the killable variants.
+> No functional change.
+
+LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
 > 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 > ---
->  fs/namespace.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/resctrl/mpam_internal.h |  2 +-
+>  drivers/resctrl/mpam_resctrl.c  | 18 +++++++++---------
+>  2 files changed, 10 insertions(+), 10 deletions(-)
 > 
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index e5feb4e48290..837f531e494b 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -3485,7 +3485,9 @@ static int do_reconfigure_mnt(const struct path *path, unsigned int mnt_flags)
->  	 * We're only checking whether the superblock is read-only not
->  	 * changing it, so only take down_read(&sb->s_umount).
->  	 */
-> -	down_read(&sb->s_umount);
-> +	ret = down_read_killable(&sb->s_umount);
-> +	if (ret)
-> +		return ret;
->  	lock_mount_hash();
->  	ret = change_mount_ro_state(mnt, mnt_flags);
->  	if (ret == 0)
-> @@ -3531,8 +3533,9 @@ static int do_remount(const struct path *path, int sb_flags,
->  	fc->oldapi = true;
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index 1df439ecb055..dc304e4e0dc0 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -432,7 +432,7 @@ struct mpam_msc_ris {
+>  	struct mpam_garbage	garbage;
+>  };
 >  
->  	err = parse_monolithic_mount_data(fc, data);
-> +	if (!err)
-> +		err = down_write_killable(&sb->s_umount);
->  	if (!err) {
-> -		down_write(&sb->s_umount);
->  		err = -EPERM;
->  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
->  			err = reconfigure_super(fc);
-> 
-> -- 
-> 2.55.0
-> 
+> -struct mpam_resctrl_dom {
+> +struct mpam_resctrl_ctrl_dom {
+>  	struct mpam_component		*ctrl_comp;
+>  	struct rdt_ctrl_domain		resctrl_ctrl_dom;
+>  };
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index ce5519635c51..022920be1862 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1375,7 +1375,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+>  	struct mpam_config *cfg;
+>  	struct mpam_props *cprops;
+>  	struct mpam_resctrl_res *res;
+> -	struct mpam_resctrl_dom *dom;
+> +	struct mpam_resctrl_ctrl_dom *dom;
+>  	enum mpam_device_features configured_by;
+>  
+>  	lockdep_assert_cpus_held();
+> @@ -1384,7 +1384,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+>  		return resctrl_get_default_ctrl(r);
+>  
+>  	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
+> -	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
+> +	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
+>  	cprops = &res->class->props;
+>  
+>  	/*
+> @@ -1435,7 +1435,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+>  	struct mpam_config cfg;
+>  	struct mpam_props *cprops;
+>  	struct mpam_resctrl_res *res;
+> -	struct mpam_resctrl_dom *dom;
+> +	struct mpam_resctrl_ctrl_dom *dom;
+>  
+>  	lockdep_assert_cpus_held();
+>  	lockdep_assert_irqs_enabled();
+> @@ -1448,7 +1448,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+>  	 * resctrl_arch_update_domains() relies on this.
+>  	 */
+>  	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
+> -	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
+> +	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
+>  	cprops = &res->class->props;
+>  
+>  	if (mpam_resctrl_hide_cdp(r->rid))
+> @@ -1618,7 +1618,7 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+>  static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
+>  					  struct rdt_resource *r,
+>  					  struct mpam_component *comp,
+> -					  struct mpam_resctrl_dom *dom)
+> +					  struct mpam_resctrl_ctrl_dom *dom)
+>  {
+>  	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+>  	int err;
+> @@ -1710,10 +1710,10 @@ static struct mpam_resctrl_mon_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu
+>  	return NULL;
+>  }
+>  
+> -static struct mpam_resctrl_dom *
+> +static struct mpam_resctrl_ctrl_dom *
+>  mpam_resctrl_get_ctrl_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+>  {
+> -	struct mpam_resctrl_dom *dom;
+> +	struct mpam_resctrl_ctrl_dom *dom;
+>  	struct rdt_resource *r = &res->resctrl_res;
+>  
+>  	lockdep_assert_cpus_held();
+> @@ -1730,7 +1730,7 @@ static void mpam_resctrl_add_cpu_ctrl_domain(unsigned int cpu,
+>  					     struct mpam_resctrl_res *res)
+>  {
+>  	struct rdt_resource *r = &res->resctrl_res;
+> -	struct mpam_resctrl_dom *dom;
+> +	struct mpam_resctrl_ctrl_dom *dom;
+>  	struct mpam_component *comp;
+>  
+>  	lockdep_assert_held(&domain_list_lock);
+> @@ -1780,7 +1780,7 @@ static void mpam_resctrl_remove_cpu_ctrl_domain(unsigned int cpu,
+>  						struct mpam_resctrl_res *res)
+>  {
+>  	struct rdt_resource *r = &res->resctrl_res;
+> -	struct mpam_resctrl_dom *dom;
+> +	struct mpam_resctrl_ctrl_dom *dom;
+>  
+>  	lockdep_assert_held(&domain_list_lock);
+>  
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Best regards,
+Jinjie
+
