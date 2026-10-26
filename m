@@ -1,83 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039357;
-	b=0LtaoS6TQr147r3JmtkwrJGo/7kQ4bFO8ERrwtt9vA7+mNUac82BS87tt3/4kcNU3bRa
-	 jvVJ7kKy9P2YgV3PWinx9LZTPn7ByMwfggJvzhTJqfP+C734+xoRisKQnN0p1c63ugt/P
-	 1sqKHDXRwcrOCO9wiZCjQ5ISVHDvY7UzGkaB8spTzaD45bohBV5GRoQM6YGO686derhXe
-	 30btx01Y2Td7AAxsBRQWoQNx0QMW3WrMjVHtYBAE3/FLNHrmMmZJCfglvFSm2WNbDOum7
-	 F9q7s9LQWBqzhfwU4Szw9SpWmj1V2kZyT/pSNJIXmj+cmswHSuAWVO+FIr3NyKuS1Rg==
+	t=1793039380;
+	b=V7aA8cnkEqFj5gd5T9k6ohdADXDFbgF4qNkmt7oPD68ZlRf0bWXpxAGTQ/FBs0FeJr7h
+	 FyUcWQRIp5KBTsbZ8MD7apqusoW0VWRYdS8oZ+gM6bf4KIwLDopqDkdcKj3kpkf3D3z5v
+	 Aev+SyJmwtYozwEGsEkSml+dVa0Z9fG3Qgd6vfHX321nBNxHN7RxuSMnIiOzZs/cU/XLw
+	 uca7/cYTA6d0Hmd4lVsfquLniebfQF8++/xPsd4KZcxafHhI+/cW1bTqmo6Vi8iPQi1TQ
+	 7ToztnaAavvypWJHO4Jez+pNi4lQFMvH5oBVIH6AKV8KuYFeSmDtqyigb8BqR78gQgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039357;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2MLrqt+GUM0f3y9eyD203JdQ2SEZO2AUc5pd8y9hPHg=;
-	b=1wo2v0R8RqjRpbOs2c6TxgmU6lH2L0Ot6LeFc4uTWhHIi/vZzsMVwv01vWj9O4dmrAbr
-	 qZTHMmbtvSX70TlY/d8c4i2xAcMP6bfknDdM2fls+Miif/yL2P3Z1+UllKPR2jIsn4DZC
-	 BspiCy13QOsCWrU1qbgoeBr7y5+oj2Hq9EwqFMaO3LGGRA2zpOC/j3ZXQlArMx/iR+Iv8
-	 eg4t+oo40zXoXz7mlf2jjHj8hp1waOiJzAgAtYmv2eua/yq7pJDFe9eyBrj3TJ3nsMCUP
-	 atvCNLNScmbi9b6PGiriYDzocM//qihRjzlM4AlycphmhMPfyLgR1W/iNP8wDJQeJ+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039380;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
+	b=hKQtTYanbfK+D39DMAVsJm5LX5nwb8v4A3ZTMWqb4WrgFp+038BtBuTZuJjaGcgYiLZX
+	 d76MVTBK6tofJGEPiF2U55ABsXSUZFvnlYlfFmtgGIGc4VnKhqU5ywTZgM1IMN0J0X3Kx
+	 vuIQztDxpRmLD83gMszY/A4Irt8G1OupAI1+XPa6huY5ymCevARBkSR8exfik2KYDtC2E
+	 QvjWendowXo6xzBdtqT93n6l0KKedAPSpbwgct0C7I7Tqg4sOIUK5pWvA2tWBIDboxQJT
+	 oeC8CmzZf0AbMrC93NhagPuiu4mGhI00lJ4s9vUQRVFRhxsBmE3PUsv37CVCDTtfd7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AQ3ZbWmy;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WkWvrgmd;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A541606A335;
-	Mon, 26 Oct 2026 18:29:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A541606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B96E60A262B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B96E60A262B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AQ3ZbWmy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793039357; x=1824575357;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ye9oJ2wiNKDXIqB9hLG+TzGMLKOS2iiflvQtoXVdaYE=;
-  b=AQ3ZbWmyJsw9G8ZUqNmsjthvVBjN0ESOzISTNkhUZOiC6dIq6bnwY/Ar
-   +TZp6IiI9MYqsJwKoYx1N5ub7eEq6IfKuUrTBP74kErOvwfS7JSPgiBO0
-   fiVe6NS4udswH54qi7N1tkgvO9qQ18X2pXOST8mK2vmQIegxX8RkqKoPo
-   v1ns+Ris4hfVJU7085CG2G7FfNtR3rivH8823y+nE6IRc2LuUW2ymdFOC
-   fj1vDIfwF4lFfC4QpDH1ez7yyGCwfg/mhS0PHAqkrvuy65sSqnr7oBPiW
-   CT6a0cC2wPDbSxW+Fnasqj+sxm+RjM2BZyOzVlnrsvzMEOZLbzNYa/GN9
-   g==;
-X-CSE-ConnectionGUID: cW0nfFZwTsaRZsJEDe8PNA==
-X-CSE-MsgGUID: J54yjalZQZSPG1WdYeAeRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1601021"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1601021"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:17 -0700
-X-CSE-ConnectionGUID: 3EDd2l2KSLqz4MXZpeyD8w==
-X-CSE-MsgGUID: FI9LJTPvRWCRkhBrF22zcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4720103"
-Received: from ubuntu.igk.intel.com ([10.102.114.174])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:29:14 -0700
-From: Szymon Durawa <szymon.durawa@linux.intel.com>
-To: nirmal.patel@linux.intel.com,
-	bhelgaas@google.com,
-	robh@kernel.org,
-	mani@kernel.org,
-	kwilczynski@kernel.org,
-	lpieralisi@kernel.org,
-	asutosh.pathak@linux.intel.com,
-	szymon.durawa@linux.intel.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 5/7] PCI: vmd: Replace hardcoded values with enum and defines
-Date: Mon, 26 Oct 2026 20:54:58 +0000
-Message-ID: <20261026205502.3502574-6-szymon.durawa@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
-References: <20261026205502.3502574-1-szymon.durawa@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WkWvrgmd
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc502d509c0so988802a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039380; x=1793644180;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
+        b=qdllYGKzjrC6EqQPTpw2uRciYC7mqvAkOumgeDxKHoHyWTAYntIqQPGLDRA2eJje2q
+         pStmoxG+1n6l/F97ZKo0mo2qZz+xeWGSj2kVQ6LI7yparL1ItRYjVFYy30morFlQflE+
+         ekKaGYFXYbBOAijoWQ4hAbxKnwV9SRqcxZT34OUc4pJJ7bV4QsCG7gISm+yUIDLq0iFB
+         Td4QI23jYQ464t9N2qeH/W3IsNR0mVst0yMbM0kWdbTPJCV5cvCRtRHs7aoy5QezlpZq
+         2yLwJ/ZLwOyW4B7GQYHRAfs2p+HyYPK2PliWTY1zlX9BWOS7InviDpxpW5c++1BOZ5+p
+         xLzg==
+X-Gm-Message-State: AFq9FYL0jSvk+HKrvzaFfXYUvzKrZQKSrWR0QrqviyHARVwXQZC/qPJE
+	rZAaVsUfmg4yEIZ+ByY2/EhCZJfxGxGzpA9GfREafMlgXuk/hkXLRWukolNmaG0BbcR5R/6Yt3F
+	BCOMrBBgysnzkUEGJgeyXLECJU3co0GGxoWApPbFcXp46rZTQ0GiLvsZLrTFxaQIbFLtO8STPdg
+	j6NejiH1yMPniplihh6pehrTU/dkBxhNEk/ODq+iVzd8T20wHaodPrUrxz66klK+VMX7SpeN92R
+	0eh3Q6w13WDpqrXPS3filFy
+X-Gm-Gg: AYBFou01TIjHvwLXsA8WGwK0grirroztl+kKKG9cBznOG03Xc50ipSROQcshAnslIHs
+	U+VlKjHrIAVzox+F0XSL6/LU0YiVdjs7u2rItUyhfu59gJUXkvcbaYEADWX7o9ZcZvDBXXpYtxr
+	RQJotR2zThLub801UqMbLd9f9yncH0p+1Enx78VsRRVeRBUMSbdm8CIxSn1uOzTEn9dWkytoHeY
+	gVsXWYoHk3I4iq6UGKo40iEnmcBogZ+s+LfI80kX/UpBNiKbfFUYkaY4YkZ4dxqWimyxEXvGIPX
+	Up5h8m3hm4YRnaD1ETjbcMzs5W0HMDxaOAlZS0hYwPqRv9iyMtiS3yPIePBqiySt4VMOSNyfjbP
+	jDs25B6QC/4ytxg7EfmmzC7iureOHI0+MRcuMBK/ZVnXYv/xVc4xqQLf2i604Ipg6elNZUvNJMC
+	bJZ8fzokC1lgibOglgeXHp0Zaq3h4ZltokPzF+RB9n
+X-Received: by 2002:a17:90b:4e83:b0:3a8:6a04:80ef with SMTP id 98e67ed59e1d1-3ade9b2cf01mr6186249a91.6.1793039379887;
+        Mon, 26 Oct 2026 11:29:39 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae405f13ecsm262604a91.4.2026.10.26.11.29.38
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 11:29:39 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-359b81ad4e8so4801768eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:29:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793039377; x=1793644177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
+        b=WkWvrgmdvdVuovyLoQ3QJgYuz1ZkJj9eQ56bDBXGJlNmvDc5/db+VnWwVBgraYA3BX
+         5NqUKfVwLYOR5Uq5CWryYRJgPNXZ2AIdqgoaHz2WDjt3tA3B6N4nzczbwzWlzxEZFunG
+         U6FMoXcAUqSPRCdf0kOkcjTd9hVjcAYxjwkvM=
+X-Received: by 2002:a05:7301:b0b:b0:365:921:8ce with SMTP id 5a478bee46e88-369e84e8888mr9413483eec.32.1793039377071;
+        Mon, 26 Oct 2026 11:29:37 -0700 (PDT)
+X-Received: by 2002:a05:7301:b0b:b0:365:921:8ce with SMTP id 5a478bee46e88-369e84e8888mr9413439eec.32.1793039376159;
+        Mon, 26 Oct 2026 11:29:36 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm24657259eec.21.2026.10.26.11.29.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 11:29:35 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
+	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
+	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
+Subject: [PATCH v2 6/6] ARM: dts: broadcom: Enable SATA on BCM958625HR
+Date: Mon, 26 Oct 2026 11:28:56 -0700
+Message-ID: <20261026182856.3168686-7-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
+References: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,161 +127,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Add enum vmd_resource type to replace hardcoded values. Add defines for
-vmd bus start number based on VMD restriction value. No functional
-changes.
+Commit 77416ab35f57 ("ARM: dts: NSP: Disable AHCI controller for HR NSP
+boards") disabled AHCI after reports of boot hangs. Both SATA PHYs
+remain enabled, but the disabled controller leaves the eSATA ports
+unavailable.
 
-Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
-Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
-Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
+With explicit IDM clock/reset setup and the corrected shared PHY
+register aperture in place, enable the controller on BCM958625HR.
+
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- drivers/pci/controller/vmd.c | 52 +++++++++++++++++++++++-------------
- 1 file changed, 34 insertions(+), 18 deletions(-)
+ arch/arm/boot/dts/broadcom/bcm958625hr.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-index 8b59b369f126..f85dd2d7c4af 100644
---- a/drivers/pci/controller/vmd.c
-+++ b/drivers/pci/controller/vmd.c
-@@ -26,6 +26,11 @@
- #define VMD_MEMBAR1	2
- #define VMD_MEMBAR2	4
+diff --git a/arch/arm/boot/dts/broadcom/bcm958625hr.dts b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
+index 53acae385822..f6717ca76aef 100644
+--- a/arch/arm/boot/dts/broadcom/bcm958625hr.dts
++++ b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
+@@ -184,6 +184,7 @@ partition@700000 {
  
-+/* VMD restriction value determines secondary start bus number */
-+#define VMD_RESTRICT_0_BUS_START 0x0
-+#define VMD_RESTRICT_1_BUS_START 0x80
-+#define VMD_RESTRICT_2_BUS_START 0xE0
-+
- #define PCI_REG_VMCAP		0x40
- #define BUS_RESTRICT_CAP(vmcap)	(vmcap & 0x1)
- #define PCI_REG_VMCONFIG	0x44
-@@ -43,6 +48,13 @@
- #define BASE_ID_REG_28C1		0x2840
- #define MEMBAR2_OFFSET_28C1		0x30d0
+ &sata {
+ 	/delete-property/ dma-coherent;
++	status = "okay";
+ };
  
-+enum vmd_resource {
-+	VMD_RES_CFGBAR = 0, /* VMD Bus0 Config BAR */
-+	VMD_RES_MBAR_1, /* VMD Bus0 Resource MemBAR 1 */
-+	VMD_RES_MBAR_2, /* VMD Bus0 Resource MemBAR 2 */
-+	VMD_RES_COUNT
-+};
-+
- enum vmd_features {
- 	/*
- 	 * Device may contain registers which hint the physical location of the
-@@ -150,7 +162,7 @@ struct vmd_dev {
- 	struct vmd_irq_list	*irqs;
- 
- 	struct pci_sysdata	sysdata;
--	struct resource		resources[3];
-+	struct resource		resources[VMD_RES_COUNT];
- 	struct irq_domain	*irq_domain;
- 	struct pci_bus		*bus;
- 	u8			busn_start;
-@@ -554,7 +566,7 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
- 	unsigned int ecam_start;
- 
- 	cfgbar_buses = resource_size(&vmd->dev->resource[VMD_CFGBAR]) >> 20;
--	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[0].start);
-+	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start);
- 	if (ecam_start >= cfgbar_buses)
- 		return 0;
- 
-@@ -562,14 +574,15 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
- }
- static void vmd_domain_reset(struct vmd_dev *vmd)
- {
--	u16 bus, max_buses = resource_size(&vmd->resources[0]);
-+	u16 bus, max_buses = resource_size(&vmd->resources[VMD_RES_CFGBAR]);
- 	u8 dev, functions, fn, hdr_type;
- 	unsigned int ecam_bus;
- 	char __iomem *base;
- 
- 	max_buses = min_t(u16, max_buses, vmd_cfgbar_ecam_space(vmd));
- 	for (bus = 0; bus < max_buses; bus++) {
--		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[0].start + bus);
-+		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start +
-+					   bus);
- 		for (dev = 0; dev < 32; dev++) {
- 			base = vmd->cfgbar + PCIE_ECAM_OFFSET(ecam_bus,
- 						PCI_DEVFN(dev, 0), 0);
-@@ -613,8 +626,8 @@ static void vmd_domain_reset(struct vmd_dev *vmd)
- 
- static void vmd_attach_resources(struct vmd_dev *vmd)
- {
--	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[1];
--	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[2];
-+	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[VMD_RES_MBAR_1];
-+	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[VMD_RES_MBAR_2];
- }
- 
- static void vmd_detach_resources(struct vmd_dev *vmd)
-@@ -690,14 +703,14 @@ static int vmd_get_bus_number_start(struct vmd_dev *vmd)
- 
- 		switch (BUS_RESTRICT_CFG(reg)) {
- 		case 0:
--			vmd->busn_start = 0;
-+			vmd->busn_start = VMD_RESTRICT_0_BUS_START;
- 			break;
- 		case 1:
--			vmd->busn_start = 128;
-+			vmd->busn_start = VMD_RESTRICT_1_BUS_START;
- 			break;
- 		case 3:
- 		case 2:
--			vmd->busn_start = 224;
-+			vmd->busn_start = VMD_RESTRICT_2_BUS_START;
- 			break;
- 		default:
- 			pci_err(dev, "Unknown Bus Offset Setting (%d)\n",
-@@ -910,10 +923,10 @@ static void vmd_configure_cfgbar(struct vmd_dev *vmd)
- 	struct resource *res = &vmd->dev->resource[VMD_CFGBAR];
- 	resource_size_t busn_end;
- 
--	/* Do not let resource[0] end go out of bound.*/
-+	/* Do not let resource[VMD_RES_CFGBAR] end go out of bound.*/
- 	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
- 	busn_end = min_t(resource_size_t, busn_end, 0xff);
--	vmd->resources[0] = (struct resource) {
-+	vmd->resources[VMD_RES_CFGBAR] = (struct resource) {
- 		.name  = "VMD CFGBAR",
- 		.start = vmd->busn_start,
- 		.end   = busn_end,
-@@ -970,14 +983,15 @@ static int vmd_configure_membar1_membar2(struct vmd_dev *vmd,
- {
- 	int ret;
- 
--	ret = vmd_configure_membar(vmd, 1, VMD_MEMBAR1, 0, 0);
-+	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_1, VMD_MEMBAR1, 0, 0);
- 	if (ret)
- 		return ret;
- 
--	ret = vmd_configure_membar(vmd, 2, VMD_MEMBAR2, mbar2_ofs, 0);
-+	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_2, VMD_MEMBAR2, mbar2_ofs, 0);
- 	if (ret) {
--		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[1].name);
--		memset(&vmd->resources[1], 0, sizeof(vmd->resources[1]));
-+		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[VMD_RES_MBAR_1].name);
-+		memset(&vmd->resources[VMD_RES_MBAR_1], 0,
-+		       sizeof(vmd->resources[VMD_RES_MBAR_1]));
- 		return ret;
- 	}
- 
-@@ -989,9 +1003,11 @@ static int vmd_create_bus(struct vmd_dev *vmd, struct pci_sysdata *sd,
- {
- 	LIST_HEAD(resources);
- 
--	pci_add_resource(&resources, &vmd->resources[0]);
--	pci_add_resource_offset(&resources, &vmd->resources[1], offset[0]);
--	pci_add_resource_offset(&resources, &vmd->resources[2], offset[1]);
-+	pci_add_resource(&resources, &vmd->resources[VMD_RES_CFGBAR]);
-+	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_1],
-+				offset[0]);
-+	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_2],
-+				offset[1]);
- 
- 	vmd->bus = pci_create_root_bus(&vmd->dev->dev, vmd->busn_start,
- 				       &vmd_ops, sd, &resources);
+ &sata_phy0 {
 -- 
-2.43.0
+2.53.0
 
