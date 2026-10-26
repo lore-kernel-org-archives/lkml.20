@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051110;
-	b=vNW11hbDsqbgQwdW8xpHg5mC7XUgFxOOs6t7gXy8MppUrta5N1MrToQfM0eoJ6+xKPcC
-	 /OJBGlgbCX4mp1ydF3HpGnM/BSJ3P3acrygCoYgMc9D7g1khPKJ6FIXSSTuIwe295WSxn
-	 MgnDxA/l3EeROesesKYzG4dbz6+UK6y0nCox4memFRiIk3yeDgxCJdVSa5yFnRuLyMfQW
-	 by77rLKrj54jVUlsHFDiwaoVQoTOLu6qhG2pPlRzP9NdwMUvRrE+p/yScfe1M3ecIfB7N
-	 HO6DoGYFbMo+lS8CQlCbxBndA6sARjAaeQz09CpwEf++U2/4VXhNaMfWVEGCKmsSFZw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051110;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793051106;
+	b=IFrsFQ7hm+BvMFy7lY/gLiZ4Zr6QaxclFfKBQlGsUC8p0a4bXhWQEPHy+/1C/r4K6bAV
+	 8GyFeSGsLY0YCpn149w4Ki+CTU9Sy9Q1QLUyaWcnNZV2lK8pv7H93rtUXanH+zG/2Uf36
+	 CkhFO8yrcQnclDk1f99/6jaDixEJIrP8z2QHDe5OfI2U/Pzy+3Laa8BPxTTCwk2cgBfsq
+	 m8iPPFfR6P9KghL7pZFsXECeIwx+T76wG7R49tnFGhNsNG98jNh5mxz2DvIX3kdFf3Yqp
+	 o4J5yLM6XBJdr/zSxpspbEPQTBqsRfuigxCNh2AlLQJi8/xSQwwsrWtWRdBkjCWP0cw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051106;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6W2C5IplodH9p+zbg0ncY61FJ1aii/GuvQjvTf4ZsVE=;
-	b=lSi11zJi2pJXR36awVh50BVTtNYNNM+DUTBHWKHg6QdLxyhVOqqQopzPerS5jhlUsAhp
-	 tfonwb5btx/xEBFeRf/LRAVa4ye5VRAHfhjS4yLEV1kYbUDnj38qrGE+ValfrekFVtHPy
-	 0dsA97vDA5vEyRHDTlWciEvnx8YlO5TLwTA6wrffqHmNQlOp0Hl3p3cdbACGmUjGumjKZ
-	 +8nd6wsrt932g3x5qDnH9WlzNepkdLDN8XVEGFnU8H7XuatDTIcKlkQobLGHxFyTIR+1j
-	 aacjFS4xvzJcxv/72E0cFu3p6qRBzTQBez+yTk+uLDjkwSp0oYCEFczWhMBydGjF7fA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbviEIMM;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=RcfvlemgCTZlIBY/k2jUOT8Q1Nv2+ZFBdkrs4l7Ures=;
+	b=4gZVnEVVVdoS0rb48j73Ucl4F62sFpFAYypJ0Kk+A9+Bkz62dBjGF9laeoMGErOpsQzj
+	 thJ8nRpR0MKObXM6VsEtczWfhjeBWCyXKhjdJ9iD3PWhu0floyiSuUkP6dVwv6wXsXwiO
+	 sMSHQJ1coqsXh+RD4MMkWdQUVsG2PrM+Kx6ZVf+zUsEj/X+p9PcWQ9eyGF5L72TjYDwx8
+	 DY0M6lJNJxTpcsKFnYfUNl63jtDonPKEcN+jLf/tbuALZEPNqsnK0RsVvtV6dVCYncuWR
+	 zS85PmlBFzprsmxZap0l0S8OuDAgfefKbKa6YOG4RmTg342hepcv2IOx+58+YTcpdZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="cPl7BAV/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EF260A2607
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86EF260A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67026606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67026606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbviEIMM
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35f036b17easo9422806eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cPl7BAV/
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba328513b9so2730652e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793051104; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UldS/sryt46fzF3bTwSRccfw8O+RS40xj5dmBqQSdRxG7MxXWELTL3UHrYIGnVBtZk
+         mBHn53AAC/GQMO5gMnlzIHx4NkCwfezoL4epzNcCnkdpLzJCiTLuLOs0cB4yH9Ymq70o
+         OuGyzNmm6uwOBLPNrzoKWzEsww6u4We0kjC8nQy4M+6jZeB4UL4j8VmKZWateHrI2MR7
+         WPg6ts0yKPNk41obriiVEl+3k7z8zSesoXiiCx42OtmLHHuOZV3FVsLPhLODrbPy9Cum
+         Ni53qfsNX5xP7eO3Q5zUjzoEqyKsjCzC67j2eg3KynV9JkoXT0En/KISjaH04J8FKrYL
+         tsmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=RcfvlemgCTZlIBY/k2jUOT8Q1Nv2+ZFBdkrs4l7Ures=;
+        fh=Cz7YPKMcrbJpy1itFOu7SspPRHVft5s2+NuVg89sU2Q=;
+        b=L1jK+zMPzEuD4vSAIAwJiCRMK/QPrDIPqzjPptM0xsB0jkNU7iQ4QzsnpTCfpdLuq6
+         CFS/8vHHazcEl8ZLcNnZ3GWcOhUEXABnHZ1YcgKR2ScM1i8F3P0PCUO9EjcrJJp8EbYV
+         g+3lZwl7l8aqLb4B/5VxqvFpdW2rS9tV9Q2kICnVhJbhbttGvE2jR4ogugEEXmJxXb76
+         I14MgjW9Mhks1gCbh3Tqz1CpwWs8clbVOFmUWsXaWihShksE1Kl6ZKvXWHkleNOSFwA0
+         NmaG6+KY1Hv56nNca2+Logkn/M8vtDUjdgqGu/f38/6MaYSLuEjgqhAoIK7xKbHapTtb
+         zjAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793051109; x=1793655909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6W2C5IplodH9p+zbg0ncY61FJ1aii/GuvQjvTf4ZsVE=;
-        b=lbviEIMMtwlSR27hH1gLuiEww03/6gUnquti3tjtSHbHIvz/450DkqVwxQFBN0bxNo
-         CKs7PmgcCx4ycdYMaw3/6TfDx8HdrZfFbKNOgM/GSkL6aQeDuXJfCi6UeX3V9Zy+IUZ0
-         fFOwnv4G7YBMlnwXjC5qBScX1E9WL2hFsLLhc=
+        d=gmail.com; s=20251104; t=1793051104; x=1793655904; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RcfvlemgCTZlIBY/k2jUOT8Q1Nv2+ZFBdkrs4l7Ures=;
+        b=cPl7BAV/EQ44x7OQoitBw7m+OVC9E66/NZNcin4y+oWs83ZmQ79/4A0oi/9sQineRh
+         AH7anqMyhEmvtu7T727k452z3UK5baGS3lqH22b6juVITOEzoRCvZp+ba3+mP0K/1rbu
+         dDS/WUnvUKHZHy88Bz5BClTQLVRz7LV1tnUgcAn7xhEXswOIZags0GlRm423a8txjywv
+         XBZeYG3VFbgIzPz+YIZR4d931Ava+TYCURGkhkHHGxzYPUL6z/cA5sKAIAADzn7Xv2e6
+         DkPM1Nt0UboWyviyxsNn2ZMLJ7EhuquMAXSsOWkPgsS4lMzHGAkELfk036iSlfluV4Ea
+         Hv6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051109; x=1793655909;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6W2C5IplodH9p+zbg0ncY61FJ1aii/GuvQjvTf4ZsVE=;
-        b=bd7OTnYOHUCA7GBQRieues0k1fg8jbJmKphiCdwnoMjhNyOUDWbKXBytsZ3/kkiTzL
-         6JFXfClPxnhA2RGFvVPbyBLhcH+eVS5eBMXJl8roFa/pepfMlin9+gYv/yWkkVYRJH6m
-         UzW2J6JVFfYnm+eDg4eH5AuuaYFaD3hajjisor+Pd0QXmVp5YvsjKxxz/YnOYbaYFU1i
-         x+en93yO5Gpuz1rRlMwMOCgY7mWUeab62m+6EzkarSnMgzRzyNvMJeexn6AeQxg8t8nC
-         uJyfkbM5GDsBkNDM8erWIBJWPr73nsWOhVQKcJr9mBIls55lc82ULTQfIgne4SGxIZRZ
-         rByg==
-X-Forwarded-Encrypted: i=1; AKwUvBxc9Qk5QfpltSdsdnJzIOmg2Fa3BsFAChLch971m11waDFOBNwD8FHes5S8EtJx/vJpMB5FFa2u048NEto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITxWJDNk0ZRx2PpxSIvsyHdStJgE3ew1LOsQrH528kUBC1xpMx
-	jkfxTWVrW5Wqfe1BKxQCvqX6LHSDtNdV6w1P6gxLD+hFJfDFYLKdhmE+r/Xu7cWAEw==
-X-Gm-Gg: AYBFou24j3h0VM+zGozYbcnI/GcwhaCyw9RxBvrltIzuDHUd8DyQqsKqqQcEtecZ+Ns
-	KZuzv7QY3cfde7j/KiV7d+Q2nPF/wRDl0IQjzMfcx5KEF8PT1PtXF2U0hTPvcRUxDOKXRxQucth
-	mKNvfwxTAmaL4UYjGJ71wNg3E+1GxHNCIOa+L5JB+YptvIw48FdBkTXWPui20OoA92/AHeOKw4H
-	RWLx+hE/dsnFG0QyTCA4lk3zojskl+TwZaA6ZDi7fhgnJaIseAGIq2L1MuffWbRS4d4yOrescXo
-	WR2L4i5KJNDSV8DfzfnXDnxdCPrcNpLTuybACk3urAqLKx3cXX40ELRo3aQLlM2y5D8YzV7PqKb
-	JsHm35v6rheKBSJfDDFW55uqZ3gFkhv9pYzmWujKTV5Q/Eh/uNMRgymtu4MYzqOewWLj76ZfRTB
-	pUs2FEDI9JF6XbqF7xgOOIGZbClaVFkQqzucP35+OFIpGgihq+rYOYpghs8WLBe/LpNI6ZhOeMC
-	ijN9R5xbmijT65umKYfwWFJKuw03JECwcLr1tDUMpgxrtCUFwRQ6AH7ft48N96A1XCpE6C4bxjw
-	kMrJLoV5nM4J7Ui7wm8=
-X-Received: by 2002:a05:693c:87dc:20b0:350:2a5c:56c with SMTP id 5a478bee46e88-369e84b1873mr12192158eec.20.1793051108206;
-        Mon, 26 Oct 2026 14:45:08 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:79c5:9cd3:db14:7468])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36a026e04a0sm9389605eec.1.2026.10.26.14.45.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:45:07 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-clk@vger.kernel.org,
-	=?UTF-8?q?Jakub=20G=C5=82owacki?= <jglow@google.com>,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM binding
-Date: Mon, 26 Oct 2026 14:43:40 -0700
-Message-ID: <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-In-Reply-To: <20261026214359.3122870-1-briannorris@chromium.org>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
+        d=1e100.net; s=20260707; t=1793051104; x=1793655904;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RcfvlemgCTZlIBY/k2jUOT8Q1Nv2+ZFBdkrs4l7Ures=;
+        b=EPdUn13J4yDlEH+nGJZ0lGVWD3iG3jNzLICxVm0XUocNmfFGzJXLetxv8rPl4tjB7p
+         NBJH5pZL3b6cpXGBbjPX/11qONMifTQOCkEYEp13lCtPsD20Gy+m/iUrwUWcPV4lmgj4
+         Yb2LufWbCWgYfJohtB5GqmB7F6gsS6uMapkVP5w8tDpVs3ZOVpOfQ62wnKFeJVqFtJnT
+         rgR6AXHnblqc49mUNSrzwrxG0d70K6A5MhFsIYEAIIrgeqXC8DoGsYtlGcWhDjtJlMlu
+         oS/hL96dJJezYDsyuStimlGo+LvciQp0KFErwPCiJM1uk8KukgepNMeGUYeXt0PGgmcV
+         XnRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIbEVExxhow6+iWYUq04LAfBZkYnv0U+x/bkdECBdEm9W4UCGUMluPMgXSwvGZHoHXzwAqrm9JLZ+AmcI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlCTO31CvIIa2/cSCA1P+18LZu86mEnvNCl0iyr3KMr24BarUc
+	ggD2yD8rHYKHaBP2lW21I9ziOrVy6DENWGUqQk1dxep8HI47QklClHurBxJsL8+4k/PONP9gwsy
+	m9VZYS/wc1CpbLIDEXvpYQbAMNm31QpA=
+X-Gm-Gg: AYBFou2x12fZ6Cu2VPKK1XOU+M5y/pwCnrhuK9YvlgZrgtPWdGWTxJfNPETnoJLE6PJ
+	I4jFKzh2/kpzaAApraka4ZchzCS2DKxFWSp9d+bFV2r6yz2sblYFQylNbqRUkuyI2dsInVqD7M2
+	PRg1P4PwAg/qkZrcH/s5kOp3pjTz4GVR6yb8vk1rg+AgAZhj6mKRxXkJiVv2XibWHh07ykeIKAE
+	DJF6KUEcSFDVgSwBGuO/O4jF9cso3J4e1j6tPB19B1CR2zrjsUHwGlO0J/0w0gm+MJCZSqZOx1X
+	QwMLKQpBeYg6eBij7B4091K6gWeb9XiHfZFU52EiIJmyF1kjUTx8MuN9y/gNHjBYhBBJ8bM/WEQ
+	zGQEG1vzMi4kgMcayKr2mBx5hpscBi4DnQFm5K0r2Jty5tmsA567jXG7GsNQyeESV3Baxkg7q/o
+	RlLH+Y42Mv7tKnIoyC
+X-Received: by 2002:a05:6512:39c7:b0:5bf:b14f:beb6 with SMTP id
+ 2adb3069b0e04-5bfb71ceab6mr2640493e87.55.1793051104260; Mon, 26 Oct 2026
+ 14:45:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,687 +104,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019230159.834954-1-mrwillporter@gmail.com> <at-dpPOGs2zD2fuL@khmer.arcnet>
+In-Reply-To: <at-dpPOGs2zD2fuL@khmer.arcnet>
+From: Will Porter <mrwillporter@gmail.com>
+Date: Mon, 26 Oct 2026 16:44:50 -0500
+X-Gm-Features: AclHuK9tUQE0tf_YAoVLwJma_OAqCZzGDMvFDjxOPoIp64S0vvpQ1r31I3IqvTw
+Message-ID: <CAMZ8TExJThTMZVvbDMVdtXSB-edGAsAnmKYtAtM1CCw0pDvNGw@mail.gmail.com>
+Subject: Re: [PATCH 0/5] ALSA: usb-audio: Audient iD14 MkI vendor controls
+To: Christian Ruppert <arc@gmx.li>
+Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Neil Andrews <neil@androos.io>
+Content-Type: text/plain; charset="UTF-8"
 
-The Central Power Manager (CPM) is a co-processor on the Google Tensor
-SoCs, as used on Pixel phones. CPM supports power-management and a
-number of other features.
+Hi Christian,
 
-The Application Processor communicates with CPM over a pair of mailbox
-channels. CPM provides clock, power-domain, reset, and interrupt
-services.
+On Mon, Oct 26, 2026 at 07:36:24PM +0100, Christian Ruppert wrote:
+> I took a look at this question and it seems like we can share the majority
+> of code in the EVO driver by complementing it with the following features:
+> - variable width read/write
+> - caching of write-only values
+> - enum data type
 
-Notably, CPM manages other services that are not yet included in this
-binding -- some attached PMICs, an RTC, and more. For simplicity, we
-don't try to describe and support all features all at once.
+Thanks for looking into this so closely, and for the fixes. I like
+the idea of one driver, and I'd like to find out whether the iD line fits.
 
-Because it may be useful both for reviewers familiar with the downstream
-Linux support for these devices, or for future developers looking at
-adapting/improving/adding further features later on, it's worth noting
-some major deviations from downstream bindings:
+Your TLV in patch 4/4 is the same one I use for the iD14 matrix: same
+unit 0x3C, s16 in 1/256 dB, -128 to +6 dB. That made me wonder whether
+the iD14 matrix could use your MIXER type almost as it is. Its channel
+number is input * 4 + output, so Main L/R and Cue L/R of each input
+are adjacent, like your stereo pairs. Could we expose it as 28
+controls with two values each, rather than my 56 single-value ones?
+An input's level and pan in a mix set its L and R values together,
+so a pair seems a natural fit. Does that look right to you?
 
- * CPM does not sit on the soc bus, and does not have any IO/reg region
-   of its own. The downstream bindings included some not-quite-related
-   hardware resources in the same "device", to aid doing some similar
-   things in the same driver. For instance, some power domains
-   (specifically, the GPU) are not managed by CPM, and instead are left
-   for direct-register-access. Such a domain should be described
-   separately, and not within the CPM node.
+> The only part which seems more problematic is probably FU12 which looks
+> like it requires some custom logic and would still need actual code.
 
- * Downstream bindings tended to describe every CPM-using service as its
-   own node, with a (fake) mailbox-phandle back to the CPM node. We try
-   as much as possible here to avoid separate nodes if we can help it.
-   And see the next point:
+Agreed. I'd keep FU 12 as its own code.
 
- * Downstream bindings tended to describe every individual clock, reset,
-   and power-domain as their own sub-node, with various
-   software-describing properties as part of each node. These properties
-   are inherent to the SoC, however, so we avoid sub-nodes and instead
-   just provide appropriate #{clock,power-domain,reset}-cells, and leave
-   the per-{power-domain,clock} properties to the driver.
+A few questions about the rest:
 
-Signed-off-by: Brian Norris <briannorris@chromium.org>
----
+1. Read before write. As I understand it, the put handlers in
+   mixer_evo.c read the value first to see if it changed. On the iD14,
+   GET stalls for mic boost, input polarity, optical mode and the iD
+   key function, so a put that reads first would fail there. Talkback
+   source always reads 0, so a read would hide real changes. Could
+   these write-only controls skip GET in both get and put, with get
+   returning the cached value? And could every put still send the
+   value, even when it matches the cache, so that "alsactl restore"
+   reaches a device that was reset?
 
- .../bindings/soc/google/google,lga-cpm.yaml   |  74 +++++++
- include/dt-bindings/clock/google,lga-cpm.h    | 191 ++++++++++++++++++
- .../interrupt-controller/irq-cpm-google.h     |  16 ++
- include/dt-bindings/power/google,lga-cpm.h    |  79 ++++++++
- .../dt-bindings/reset/google,lga-cpm-reset.h  | 175 ++++++++++++++++
- include/dt-bindings/soc/google,lga-lpcm.h     |  54 +++++
- 6 files changed, 589 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/google/google,lga-cpm.yaml
- create mode 100644 include/dt-bindings/clock/google,lga-cpm.h
- create mode 100644 include/dt-bindings/interrupt-controller/irq-cpm-google.h
- create mode 100644 include/dt-bindings/power/google,lga-cpm.h
- create mode 100644 include/dt-bindings/reset/google,lga-cpm-reset.h
- create mode 100644 include/dt-bindings/soc/google,lga-lpcm.h
+2. The cache. My driver writes a known value at probe (off or none,
+   and for optical mode its measured power-on mode, S/PDIF) and
+   updates the cache only after a full-length write. If the probe
+   write fails, an enum reads "Unknown" and a switch reads off. Would
+   that approach work for you?
 
-diff --git a/Documentation/devicetree/bindings/soc/google/google,lga-cpm.yaml b/Documentation/devicetree/bindings/soc/google/google,lga-cpm.yaml
-new file mode 100644
-index 000000000000..546e6c7fff80
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/google/google,lga-cpm.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/google/google,lga-cpm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Google Central Power Manager (CPM)
-+
-+maintainers:
-+  - Brian Norris <briannorris@chromium.org>
-+
-+description: |
-+  The Central Power Manager (CPM) is an on-chip power management subsystem
-+  found on Google Tensor SoCs. It has a variety of responsibilities, from DVFS
-+  and power management to resets, PMIC control, and even RTC management. The
-+  Application Processor communicates with CPM over a set of mailbox channels.
-+
-+properties:
-+  compatible:
-+    const: google,lga-cpm
-+
-+  mboxes:
-+    items:
-+      - description: TX mailbox channel for sending requests to CPM
-+      - description: RX mailbox channel for receiving responses from CPM
-+
-+  '#power-domain-cells':
-+    const: 1
-+    description: See <dt-bindings/power/google,lga-cpm.h> for power domain IDs.
-+
-+  '#reset-cells':
-+    const: 2
-+    description:
-+      Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
-+      See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-+      <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 1
-+    description:
-+      Interrupt identifiers are assigned by CPM firmware. See
-+      <dt-bindings/interrupt-controller/irq-cpm-google.h> for interrupt IDs.
-+
-+  '#clock-cells':
-+    const: 2
-+    description:
-+      Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
-+      2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-+      <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
-+
-+required:
-+  - compatible
-+  - mboxes
-+  - '#clock-cells'
-+  - '#power-domain-cells'
-+  - '#reset-cells'
-+  - '#interrupt-cells'
-+  - interrupt-controller
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    cpm: cpm {
-+        compatible = "google,lga-cpm";
-+        mboxes = <&cpm_ap_ns_req_mba>, <&cpm_ap_ns_resp_mba>;
-+        #clock-cells = <2>;
-+        #power-domain-cells = <1>;
-+        #reset-cells = <2>;
-+        #interrupt-cells = <1>;
-+        interrupt-controller;
-+    };
-diff --git a/include/dt-bindings/clock/google,lga-cpm.h b/include/dt-bindings/clock/google,lga-cpm.h
-new file mode 100644
-index 000000000000..6d5a5567226d
---- /dev/null
-+++ b/include/dt-bindings/clock/google,lga-cpm.h
-@@ -0,0 +1,191 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef __DT_BINDINGS_CLOCK_GOOGLE_LGA_CPM_H
-+#define __DT_BINDINGS_CLOCK_GOOGLE_LGA_CPM_H
-+
-+/*
-+ * LPCM clock ID's of each SSWRPs
-+ */
-+
-+#define LSIOS_GPIO_CLK			0
-+#define LSIOS_MCLK0_CLK			1
-+#define LSIOS_PWM_CLK			2
-+#define LSIOS_PWM_CFG_CLK		3
-+#define LSIOS_CLI0_CFG_CLK		4
-+#define LSIOS_CLI1_CFG_CLK		5
-+#define LSIOS_CLI2_CFG_CLK		6
-+#define LSIOS_CLI3_CFG_CLK		7
-+#define LSIOS_CLI4_CFG_CLK		8
-+#define LSIOS_CLI5_CFG_CLK		9
-+#define LSIOS_CLI6_CFG_CLK		10
-+#define LSIOS_CLI0_SPI_CLK		11
-+#define LSIOS_CLI1_SPI_CLK		12
-+#define LSIOS_CLI2_SPI_CLK		13
-+#define LSIOS_CLI3_SPI_CLK		14
-+#define LSIOS_CLI4_SPI_CLK		15
-+#define LSIOS_CLI5_SPI_CLK		16
-+#define LSIOS_CLI6_SPI_CLK		17
-+#define LSIOS_CLI0_I2C_CLK		18
-+#define LSIOS_CLI1_I2C_CLK		19
-+#define LSIOS_CLI2_I2C_CLK		20
-+#define LSIOS_CLI3_I2C_CLK		21
-+#define LSIOS_CLI4_I2C_CLK		22
-+#define LSIOS_CLI5_I2C_CLK		23
-+#define LSIOS_CLI6_I2C_CLK		24
-+#define LSIOS_CLI0_UART_CLK		25
-+#define LSIOS_CLI1_UART_CLK		26
-+#define LSIOS_CLI2_UART_CLK		27
-+#define LSIOS_CLI3_UART_CLK		28
-+#define LSIOS_CLI4_UART_CLK		29
-+#define LSIOS_CLI5_UART_CLK		30
-+#define LSIOS_CLI6_UART_CLK		31
-+#define LSIOS_CLI0_I3C_CLK		32
-+#define LSIOS_CLI1_I3C_CLK		33
-+#define LSIOS_CLI2_I3C_CLK		34
-+#define LSIOS_CLI3_I3C_CLK		35
-+#define LSIOS_CLI4_I3C_CLK		36
-+#define LSIOS_CLI5_I3C_CLK		37
-+#define LSIOS_CLI6_I3C_CLK		38
-+#define LSIOS_MCLK1_CLK			39
-+#define LSIOS_MCLK2_CLK			40
-+#define LSIOS_MCLK3_CLK			41
-+#define LSIOS_MCLK4_CLK			42
-+#define LSIOS_MCLK5_CLK			43
-+#define LSIOS_MCLK6_CLK			44
-+#define LSIOS_MCLK7_CLK			45
-+
-+#define LSION_GPIO_CLK			0
-+#define LSION_CLI_INT0_I2C_CLK		1
-+#define LSION_CLI_INT0_I3C_CLK		2
-+#define LSION_CLI_INT0_UART_CLK		3
-+#define LSION_CLI_INT0_SPI_CLK		4
-+#define LSION_CLI_INT0_CFG_CLK		5
-+#define LSION_CLI_INT1_I2C_CLK		6
-+#define LSION_CLI_INT1_I3C_CLK		7
-+#define LSION_CLI_INT1_UART_CLK		8
-+#define LSION_CLI_INT1_SPI_CLK		9
-+#define LSION_CLI_INT1_CFG_CLK		10
-+#define LSION_CLI_INT2_I2C_CLK		11
-+#define LSION_CLI_INT2_I3C_CLK		12
-+#define LSION_CLI_INT2_UART_CLK		13
-+#define LSION_CLI_INT2_SPI_CLK		14
-+#define LSION_CLI_INT2_CFG_CLK		15
-+#define LSION_CLI_INT3_I2C_CLK		16
-+#define LSION_CLI_INT3_I3C_CLK		17
-+#define LSION_CLI_INT3_UART_CLK		18
-+#define LSION_CLI_INT3_SPI_CLK		19
-+#define LSION_CLI_INT3_CFG_CLK		20
-+#define LSION_CLI_INT4_I2C_CLK		21
-+#define LSION_CLI_INT4_I3C_CLK		22
-+#define LSION_CLI_INT4_UART_CLK		23
-+#define LSION_CLI_INT4_SPI_CLK		24
-+#define LSION_CLI_INT4_CFG_CLK		25
-+#define LSION_CLI15_CFG_CLK		26
-+#define LSION_CLI16_CFG_CLK		27
-+#define LSION_CLI15_I2C_CLK		28
-+#define LSION_CLI16_I2C_CLK		29
-+#define LSION_CLI15_SPI_CLK		30
-+#define LSION_CLI16_SPI_CLK		31
-+#define LSION_CLI15_UART_CLK		32
-+#define LSION_CLI16_UART_CLK		33
-+#define LSION_CLI15_I3C_CLK		34
-+#define LSION_CLI16_I3C_CLK		35
-+
-+#define LSIOE_GPIO_CLK			0
-+#define LSIOE_CLI7_CFG_CLK		1
-+#define LSIOE_CLI8_CFG_CLK		2
-+#define LSIOE_CLI9_CFG_CLK		3
-+#define LSIOE_CLI10_CFG_CLK		4
-+#define LSIOE_CLI11_CFG_CLK		5
-+#define LSIOE_CLI12_CFG_CLK		6
-+#define LSIOE_CLI13_CFG_CLK		7
-+#define LSIOE_CLI14_CFG_CLK		8
-+#define LSIOE_CLI7_SPI_CLK		9
-+#define LSIOE_CLI8_SPI_CLK		10
-+#define LSIOE_CLI9_SPI_CLK		11
-+#define LSIOE_CLI10_SPI_CLK		12
-+#define LSIOE_CLI11_SPI_CLK		13
-+#define LSIOE_CLI12_SPI_CLK		14
-+#define LSIOE_CLI13_SPI_CLK		15
-+#define LSIOE_CLI14_SPI_CLK		16
-+#define LSIOE_CLI7_I2C_CLK		17
-+#define LSIOE_CLI8_I2C_CLK		18
-+#define LSIOE_CLI9_I2C_CLK		19
-+#define LSIOE_CLI10_I2C_CLK		20
-+#define LSIOE_CLI11_I2C_CLK		21
-+#define LSIOE_CLI12_I2C_CLK		22
-+#define LSIOE_CLI13_I2C_CLK		23
-+#define LSIOE_CLI14_I2C_CLK		24
-+#define LSIOE_CLI7_UART_CLK		25
-+#define LSIOE_CLI8_UART_CLK		26
-+#define LSIOE_CLI9_UART_CLK		27
-+#define LSIOE_CLI10_UART_CLK		28
-+#define LSIOE_CLI11_UART_CLK		29
-+#define LSIOE_CLI12_UART_CLK		30
-+#define LSIOE_CLI13_UART_CLK		31
-+#define LSIOE_CLI14_UART_CLK		32
-+#define LSIOE_SPMI_CLK			33
-+#define LSIOE_CLI7_I3C_CLK		34
-+#define LSIOE_CLI8_I3C_CLK		35
-+#define LSIOE_CLI9_I3C_CLK		36
-+#define LSIOE_CLI10_I3C_CLK		37
-+#define LSIOE_CLI11_I3C_CLK		38
-+#define LSIOE_CLI12_I3C_CLK		39
-+#define LSIOE_CLI13_I3C_CLK		40
-+#define LSIOE_CLI14_I3C_CLK		41
-+
-+#define HSIOS_MPHY_REF_OSC_CLK		0
-+#define HSIOS_MPHY_REF_TCX0_CLK		1
-+#define HSIOS_GPIO_REF_OSC_CLK		2
-+#define HSIOS_GPIO_REF_TCX0_CLK		3
-+#define HSIOS_HCLK_CLK			4
-+#define HSIOS_SYS_CLK			5
-+#define HSIOS_T_CLK			6
-+#define HSIOS_LP_T_CLK			7
-+#define HSIOS_MPHY_CFG_CLK		8
-+#define HSIOS_UFS_CFG_CLK		9
-+#define HSIOS_PHY_FW_CLK		10
-+#define HSIOS_PCIE_REF_CLK		11
-+#define HSIOS_UFS_RESET_CLK		12
-+#define HSIOS_UFS_LP_RESET_CLK		13
-+#define HSIOS_UFS_ARESET_CLK		14
-+#define HSIOS_UFS_PHY_RESET_CLK		15
-+#define HSIOS_AUX_CLK			16
-+
-+#define HSION_USB_CLK			0
-+#define HSION_DP0_CLK			1
-+#define HSION_DP1_CLK			2
-+#define HSION_PHY_FW_CLK		3
-+#define HSION_PCIE_REF_CLK		4
-+#define HSION_U2PHY_REF_CLK		5
-+#define HSION_USBDP_SUSPEND_CLK		6
-+#define HSION_USBC_NON_STICKY_CLK	7
-+#define HSION_USBC_STICKY_CLK		8
-+#define HSION_USB_DRD_BUS_CLK		9
-+#define HSION_CSR_CLK			10
-+#define HSION_USB_TOP_CSR_CLK		11
-+#define HSION_DP_PCLK_CLK		12
-+#define HSION_DP_CFG_CLK		13
-+#define HSION_U2PHY_APB_CLK		14
-+#define HSION_DP_VCC_CLK		15
-+#define HSION_U3PHY_REF_CLK		16
-+#define HSION_USB2_PHY_RESET_CLK	17
-+#define HSION_USB3DP_PHY_RESET_CLK	18
-+#define HSION_EBU_CLK			19
-+
-+#define DPU_DP0_PIX_CLK			0
-+#define DPU_DP1_PIX_CLK			1
-+#define DPU_DSI0_PIX_CLK		2
-+#define DPU_DSI1_PIX_CLK		3
-+#define DPU_DSI1_PHY_CLK		4
-+#define DPU_FE0_CLK			5
-+#define DPU_FE1_CLK			6
-+#define DPU_BE_CLK			7
-+#define DPU_AON_CLK			8
-+
-+#define GPCM_DPU_PLL_DP_CLK		0
-+#define GPCM_HSION_PLL_DP_CLK		1
-+
-+#define CPU_SSWRP_TSS_CLK		1
-+
-+#endif /* __DT_BINDINGS_CLOCK_GOOGLE_LGA_CPM_H */
-diff --git a/include/dt-bindings/interrupt-controller/irq-cpm-google.h b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
-new file mode 100644
-index 000000000000..26d83bfe39af
---- /dev/null
-+++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * This header provides constants for CPM IRQ.
-+ *
-+ * Copyright 2025-2026 Google LLC
-+ *
-+ */
-+#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-+#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-+
-+#define CPM_IRQ_RTC_ALARM_NO			0
-+#define CPM_IRQ_AOC_MIN				7
-+#define CPM_IRQ_AOC_MAX				156
-+#define CPM_IRQ_AP_GDMC_WAKE			157
-+
-+#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
-diff --git a/include/dt-bindings/power/google,lga-cpm.h b/include/dt-bindings/power/google,lga-cpm.h
-new file mode 100644
-index 000000000000..4b35c59df2cc
---- /dev/null
-+++ b/include/dt-bindings/power/google,lga-cpm.h
-@@ -0,0 +1,79 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef __DT_BINDINGS_POWER_GOOGLE_LGA_CPM_H
-+#define __DT_BINDINGS_POWER_GOOGLE_LGA_CPM_H
-+
-+/* AOC */
-+#define LGA_PD_SSWRP_AOC		0
-+#define LGA_PD_AOC_CORE			1
-+
-+/* AURORA */
-+#define LGA_PD_SSWRP_AURORA		2
-+
-+/* CODEC_3P */
-+#define LGA_PD_SSWRP_CODEC_3P		3
-+
-+/* DPU */
-+#define LGA_PD_DPU_DP			4
-+#define LGA_PD_SSWRP_DPU		5
-+#define LGA_PD_DPU_FE0			6
-+#define LGA_PD_DPU_FE1			7
-+#define LGA_PD_DPU_DSI0			8
-+#define LGA_PD_DPU_DSI1			9
-+
-+/* EH */
-+#define LGA_PD_SSWRP_EH			10
-+
-+/* G2D */
-+#define LGA_PD_SSWRP_G2D		11
-+#define LGA_PD_G2D_CORE			12
-+
-+/* GPDMA */
-+#define LGA_PD_SSWRP_GPDMA		13
-+
-+/* GPU */
-+#define LGA_PD_SSWRP_GPU		14
-+
-+/* GSW */
-+#define LGA_PD_SSWRP_GSW		15
-+
-+/* HSIO_N */
-+#define LGA_PD_SSWRP_HSIO_N		16
-+#define LGA_PD_HSIO_N_USB		17
-+#define LGA_PD_HSIO_N_USB_PSW		18
-+#define LGA_PD_HSIO_N_PCIE		19
-+#define LGA_PD_HSIO_N_DP		20
-+#define LGA_PD_HSIO_N_EBU		21
-+#define LGA_PD_HSIO_N_EBU_CORE		22
-+
-+/* HSIO_S */
-+#define LGA_PD_SSWRP_HSIO_S		23
-+#define LGA_PD_HSIO_S_UFS_PREP		24
-+#define LGA_PD_HSIO_S_UFS		25
-+#define LGA_PD_HSIO_S_PCIE		26
-+#define LGA_PD_HSIO_S_SD		27
-+
-+/* ISPBE */
-+#define LGA_PD_SSWRP_ISPBE		28
-+
-+/* ISPFE */
-+#define LGA_PD_SSWRP_ISPFE		29
-+#define LGA_PD_ISPFE_PIPE		30
-+#define LGA_PD_ISPFE_CSIS		31
-+
-+/* LSIO_E */
-+#define LGA_PD_SSWRP_LSIO_E		32
-+#define LGA_PD_LSIO_E_CLI_GPIO		33
-+
-+/* LSIO_N */
-+#define LGA_PD_SSWRP_LSIO_N		34
-+#define LGA_PD_LSIO_N_CLI_GPIO		35
-+
-+/* LSIO_S */
-+#define LGA_PD_SSWRP_LSIO_S		36
-+#define LGA_PD_LSIO_S_CLI_GPIO		37
-+
-+/* TPU */
-+#define LGA_PD_SSWRP_TPU		38
-+
-+#endif /* __DT_BINDINGS_POWER_GOOGLE_LGA_CPM_H */
-diff --git a/include/dt-bindings/reset/google,lga-cpm-reset.h b/include/dt-bindings/reset/google,lga-cpm-reset.h
-new file mode 100644
-index 000000000000..d147296dbffc
---- /dev/null
-+++ b/include/dt-bindings/reset/google,lga-cpm-reset.h
-@@ -0,0 +1,175 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef __DT_BINDINGS_RESET_GOOGLE_LGA_CPM_RESET_H
-+#define __DT_BINDINGS_RESET_GOOGLE_LGA_CPM_RESET_H
-+
-+/* HSION */
-+#define HSION_PCIE_PERST_RST			0
-+#define HSION_PCIE_APP_HOLD_PHY_RST		1
-+#define HSION_PCIE_INIT_RST			2
-+#define HSION_PCIE_PWR_UP_RST			3
-+#define HSION_USB_DP_CFG_RST			4
-+#define HSION_DP_PCLK_RST			5
-+#define HSION_USB_TOP_CSR_RST			6
-+#define HSION_PIXEL_CK0_RST			7
-+#define HSION_PIXEL_CK1_RST			8
-+#define HSION_U2PHY_APB_RST			9
-+#define HSION_USBC_NON_STICKY_RST		10
-+#define HSION_USBC_STICKY_RST			11
-+#define HSION_USB_DRD_BUS_RST			12
-+#define HSION_USB2_PHY_RESET			13
-+#define HSION_USB3DP_PHY_RESET			14
-+#define HSION_EBU_RST				15
-+
-+/* HSIOS */
-+#define HSIOS_PCIE_PERST_RST			0
-+#define HSIOS_PCIE_APP_HOLD_PHY_RST		1
-+#define HSIOS_PCIE_PWR_UP_RST			2
-+#define HSIOS_UFS_PHY_RST			3
-+#define HSIOS_PCIE_INIT_RST			4
-+
-+/* LSIOS */
-+#define LSIOS_CLI0_I2C_IC_CFG_RST		0
-+#define LSIOS_CLI0_I3C_IC_CFG_RST		1
-+#define LSIOS_CLI0_UART_IC_CFG_RST		2
-+#define LSIOS_CLI0_SPI_IC_CFG_RST		3
-+#define LSIOS_CLI1_I2C_IC_CFG_RST		4
-+#define LSIOS_CLI1_I3C_IC_CFG_RST		5
-+#define LSIOS_CLI1_UART_IC_CFG_RST		6
-+#define LSIOS_CLI1_SPI_IC_CFG_RST		7
-+#define LSIOS_CLI2_I2C_IC_CFG_RST		8
-+#define LSIOS_CLI2_I3C_IC_CFG_RST		9
-+#define LSIOS_CLI2_UART_IC_CFG_RST		10
-+#define LSIOS_CLI2_SPI_IC_CFG_RST		11
-+#define LSIOS_CLI3_I2C_IC_CFG_RST		12
-+#define LSIOS_CLI3_I3C_IC_CFG_RST		13
-+#define LSIOS_CLI3_UART_IC_CFG_RST		14
-+#define LSIOS_CLI3_SPI_IC_CFG_RST		15
-+#define LSIOS_CLI4_I2C_IC_CFG_RST		16
-+#define LSIOS_CLI4_I3C_IC_CFG_RST		17
-+#define LSIOS_CLI4_UART_IC_CFG_RST		18
-+#define LSIOS_CLI4_SPI_IC_CFG_RST		19
-+#define LSIOS_CLI5_I2C_IC_CFG_RST		20
-+#define LSIOS_CLI5_I3C_IC_CFG_RST		21
-+#define LSIOS_CLI5_UART_IC_CFG_RST		22
-+#define LSIOS_CLI5_SPI_IC_CFG_RST		23
-+#define LSIOS_CLI6_I2C_IC_CFG_RST		24
-+#define LSIOS_CLI6_I3C_IC_CFG_RST		25
-+#define LSIOS_CLI6_UART_IC_CFG_RST		26
-+#define LSIOS_CLI6_SPI_IC_CFG_RST		27
-+#define LSIOS_CLI0_SPI_IC_RST			28
-+#define LSIOS_CLI1_SPI_IC_RST			29
-+#define LSIOS_CLI2_SPI_IC_RST			30
-+#define LSIOS_CLI3_SPI_IC_RST			31
-+#define LSIOS_CLI4_SPI_IC_RST			32
-+#define LSIOS_CLI5_SPI_IC_RST			33
-+#define LSIOS_CLI6_SPI_IC_RST			34
-+#define LSIOS_CLI0_SPI_CFG_RST			35
-+#define LSIOS_CLI1_SPI_CFG_RST			36
-+#define LSIOS_CLI2_SPI_CFG_RST			37
-+#define LSIOS_CLI3_SPI_CFG_RST			38
-+#define LSIOS_CLI4_SPI_CFG_RST			39
-+#define LSIOS_CLI5_SPI_CFG_RST			40
-+#define LSIOS_CLI6_SPI_CFG_RST			41
-+#define LSIOS_PWM_IC_RST			42
-+#define LSIOS_PWM_CFG_RST			43
-+#define LSIOS_GPIO_IC_RST			44
-+
-+/* LSION */
-+#define LSION_CLI15_I2C_IC_CFG_RST		0
-+#define LSION_CLI15_I3C_IC_CFG_RST		1
-+#define LSION_CLI15_UART_IC_CFG_RST		2
-+#define LSION_CLI15_SPI_IC_CFG_RST		3
-+#define LSION_CLI16_I2C_IC_CFG_RST		4
-+#define LSION_CLI16_I3C_IC_CFG_RST		5
-+#define LSION_CLI16_UART_IC_CFG_RST		6
-+#define LSION_CLI16_SPI_IC_CFG_RST		7
-+#define LSION_CLI17_INT0_I2C_IC_CFG_RST		8
-+#define LSION_CLI17_INT0_I3C_IC_CFG_RST		9
-+#define LSION_CLI17_INT0_UART_IC_CFG_RST	10
-+#define LSION_CLI17_INT0_SPI_IC_CFG_RST		11
-+#define LSION_CLI18_INT1_I2C_IC_CFG_RST		12
-+#define LSION_CLI18_INT1_I3C_IC_CFG_RST		13
-+#define LSION_CLI18_INT1_UART_IC_CFG_RST	14
-+#define LSION_CLI18_INT1_SPI_IC_CFG_RST		15
-+#define LSION_CLI19_INT2_I2C_IC_CFG_RST		16
-+#define LSION_CLI19_INT2_I3C_IC_CFG_RST		17
-+#define LSION_CLI19_INT2_UART_IC_CFG_RST	18
-+#define LSION_CLI19_INT2_SPI_IC_CFG_RST		19
-+#define LSION_CLI20_INT3_I2C_IC_CFG_RST		20
-+#define LSION_CLI20_INT3_I3C_IC_CFG_RST		21
-+#define LSION_CLI20_INT3_UART_IC_CFG_RST	22
-+#define LSION_CLI20_INT3_SPI_IC_CFG_RST		23
-+#define LSION_CLI21_INT4_I2C_IC_CFG_RST		24
-+#define LSION_CLI21_INT4_I3C_IC_CFG_RST		25
-+#define LSION_CLI21_INT4_UART_IC_CFG_RST	26
-+#define LSION_CLI21_INT4_SPI_IC_CFG_RST		27
-+#define LSION_CLI15_SPI_IC_RST			28
-+#define LSION_CLI16_SPI_IC_RST			29
-+#define LSION_CLI17_INT0_SPI_IC_RST		30
-+#define LSION_CLI18_INT1_SPI_IC_RST		31
-+#define LSION_CLI19_INT2_SPI_IC_RST		32
-+#define LSION_CLI20_INT3_SPI_IC_RST		33
-+#define LSION_CLI21_INT4_SPI_IC_RST		34
-+#define LSION_CLI15_SPI_CFG_RST			35
-+#define LSION_CLI16_SPI_CFG_RST			36
-+#define LSION_CLI17_INT0_SPI_CFG_RST		37
-+#define LSION_CLI18_INT1_SPI_CFG_RST		38
-+#define LSION_CLI19_INT2_SPI_CFG_RST		39
-+#define LSION_CLI20_INT3_SPI_CFG_RST		40
-+#define LSION_CLI21_INT4_SPI_CFG_RST		41
-+#define LSION_GPIO_IC_RST			42
-+
-+/* LSIOE */
-+#define LSIOE_CLI7_I2C_IC_CFG_RST		0
-+#define LSIOE_CLI7_I3C_IC_CFG_RST		1
-+#define LSIOE_CLI7_UART_IC_CFG_RST		2
-+#define LSIOE_CLI7_SPI_IC_CFG_RST		3
-+#define LSIOE_CLI8_I2C_IC_CFG_RST		4
-+#define LSIOE_CLI8_I3C_IC_CFG_RST		5
-+#define LSIOE_CLI8_UART_IC_CFG_RST		6
-+#define LSIOE_CLI8_SPI_IC_CFG_RST		7
-+#define LSIOE_CLI9_I2C_IC_CFG_RST		8
-+#define LSIOE_CLI9_I3C_IC_CFG_RST		9
-+#define LSIOE_CLI9_UART_IC_CFG_RST		10
-+#define LSIOE_CLI9_SPI_IC_CFG_RST		11
-+#define LSIOE_CLI10_I2C_IC_CFG_RST		12
-+#define LSIOE_CLI10_I3C_IC_CFG_RST		13
-+#define LSIOE_CLI10_UART_IC_CFG_RST		14
-+#define LSIOE_CLI10_SPI_IC_CFG_RST		15
-+#define LSIOE_CLI11_I2C_IC_CFG_RST		16
-+#define LSIOE_CLI11_I3C_IC_CFG_RST		17
-+#define LSIOE_CLI11_UART_IC_CFG_RST		18
-+#define LSIOE_CLI11_SPI_IC_CFG_RST		19
-+#define LSIOE_CLI12_I2C_IC_CFG_RST		20
-+#define LSIOE_CLI12_I3C_IC_CFG_RST		21
-+#define LSIOE_CLI12_UART_IC_CFG_RST		22
-+#define LSIOE_CLI12_SPI_IC_CFG_RST		23
-+#define LSIOE_CLI13_I2C_IC_CFG_RST		24
-+#define LSIOE_CLI13_I3C_IC_CFG_RST		25
-+#define LSIOE_CLI13_UART_IC_CFG_RST		26
-+#define LSIOE_CLI13_SPI_IC_CFG_RST		27
-+#define LSIOE_CLI14_I2C_IC_CFG_RST		28
-+#define LSIOE_CLI14_I3C_IC_CFG_RST		29
-+#define LSIOE_CLI14_UART_IC_CFG_RST		30
-+#define LSIOE_CLI14_SPI_IC_CFG_RST		31
-+#define LSIOE_CLI7_SPI_IC_RST			32
-+#define LSIOE_CLI8_SPI_IC_RST			33
-+#define LSIOE_CLI9_SPI_IC_RST			34
-+#define LSIOE_CLI10_SPI_IC_RST			35
-+#define LSIOE_CLI11_SPI_IC_RST			36
-+#define LSIOE_CLI12_SPI_IC_RST			37
-+#define LSIOE_CLI13_SPI_IC_RST			38
-+#define LSIOE_CLI14_SPI_IC_RST			39
-+#define LSIOE_CLI7_SPI_CFG_RST			40
-+#define LSIOE_CLI8_SPI_CFG_RST			41
-+#define LSIOE_CLI9_SPI_CFG_RST			42
-+#define LSIOE_CLI10_SPI_CFG_RST			43
-+#define LSIOE_CLI11_SPI_CFG_RST			44
-+#define LSIOE_CLI12_SPI_CFG_RST			45
-+#define LSIOE_CLI13_SPI_CFG_RST			46
-+#define LSIOE_CLI14_SPI_CFG_RST			47
-+#define LSIOE_GPIO_IC_RST			48
-+#define LSIOE_SPMI_RST				49
-+
-+#endif /* __DT_BINDINGS_RESET_GOOGLE_LGA_CPM_RESET_H */
-diff --git a/include/dt-bindings/soc/google,lga-lpcm.h b/include/dt-bindings/soc/google,lga-lpcm.h
-new file mode 100644
-index 000000000000..d1944afff2b9
---- /dev/null
-+++ b/include/dt-bindings/soc/google,lga-lpcm.h
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-+#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-+
-+/*
-+ * LPCM IDs of each SSWRP.
-+ */
-+#define LGA_LPCM_CPM			0
-+#define LGA_LPCM_AOC			1
-+#define LGA_LPCM_LSIO_E			2
-+#define LGA_LPCM_LSIO_N			3
-+#define LGA_LPCM_LSIO_S			4
-+#define LGA_LPCM_HSIO_N			5
-+#define LGA_LPCM_HSIO_S			6
-+#define LGA_LPCM_GPCA			7
-+#define LGA_LPCM_FABHBW			8
-+#define LGA_LPCM_MEMSS			9
-+#define LGA_LPCM_FABMED			10
-+#define LGA_LPCM_FABRT			11
-+#define LGA_LPCM_FABSTBY		12
-+#define LGA_LPCM_FABSYSS		13
-+#define LGA_LPCM_CPU			14
-+#define LGA_LPCM_CPU_MAIN		15
-+#define LGA_LPCM_CPU_CCM0		16
-+#define LGA_LPCM_CPU_CCM1A		17
-+#define LGA_LPCM_CPU_CCM1B		18
-+#define LGA_LPCM_CPU_CCM2		19
-+#define LGA_LPCM_EH			20
-+#define LGA_LPCM_AURORA			21
-+#define LGA_LPCM_CODEC_3P		22
-+#define LGA_LPCM_G2D			23
-+#define LGA_LPCM_GSW			24
-+#define LGA_LPCM_ISPBE			25
-+#define LGA_LPCM_ISPFE			26
-+#define LGA_LPCM_INF_TCU		27
-+#define LGA_LPCM_GPU			28
-+#define LGA_LPCM_GPU_REMOTE_FLL		29
-+#define LGA_LPCM_GPU_REMOTE_SENSOR	30
-+#define LGA_LPCM_TPU			31
-+#define LGA_LPCM_TPU_REMOTE		32
-+#define LGA_LPCM_BMSM			33
-+#define LGA_LPCM_CPUACC			34
-+#define LGA_LPCM_DPU			35
-+#define LGA_LPCM_GDMC			36
-+#define LGA_LPCM_GMC0			37
-+#define LGA_LPCM_GMC1			38
-+#define LGA_LPCM_GMC2			39
-+#define LGA_LPCM_GMC3			40
-+#define LGA_LPCM_GPCM			41
-+#define LGA_LPCM_GPDMA			42
-+#define LGA_LPCM_GSA			43
-+
-+#endif /* __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H */
--- 
-2.56.0.307.g5fe7bd680c-goog
+3. Control entries. The iD14 table uses 16 unit/selector pairs and
+   explicit control names, such as "Main Out L Source Playback Enum".
+   It also needs volumes in 1 dB steps (0..128, stored as s16
+   1/256 dB), a boost switch that writes 0x0a00 for on, and enums
+   that map items to device values, plus an "Other" item that only
+   get reports, for values outside the list. Would it make sense to
+   move the unit, selector and an optional full name into each control
+   entry, and add the new value formats (1 dB volumes, boost, enum)
+   as ctypes? Or would you structure it differently?
 
+4. Checks. My helper returns -EIO on a short read or write, before
+   it decodes a value or updates the cache. My matrix put also rejects
+   values outside -128..+6 dB, and get clamps what it reads back.
+   Could the shared code keep these checks?
+
+I don't have a firm view yet on which way is better. If the iD14
+fits the table without many special cases, one driver seems clearly
+worth it. If it needs a lot of per-device branches, two smaller files
+might be easier to read and review. What do you think, now that you
+have seen what the iD14 needs?
+
+If we do combine them, the order I imagined is: your four fixes first,
+then the rename to Audient, then the generic changes, then the iD14
+tables on top as v2 of my series.
+
+In that case, would you prefer to do the rename and the generic part
+yourself? The rename would also touch MAINTAINERS; how would you like
+to handle review of the iD14 parts? I can write the iD14 parts and
+test them on my MkI. I don't have an EVO 4, so would you be able to
+test that side? And which base should I work against, sound for-next
+once your fixes are in? I'm also not sure how a combined change
+should reach Takashi: as one series, or as two with a stated
+dependency.
+
+Thanks,
+Will
