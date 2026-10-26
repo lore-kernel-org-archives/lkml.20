@@ -1,53 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015571;
-	b=LtnPRUWmoL1DwcWwujnwm52m4virW+06L3ga5cIOYN4zq2aPWt1uy293g2DaOE74iAnl
-	 dyVnYl1HEOYQNpBMFSy5EKN8+olYyvvxx4FI822T3uTht2o7pUMVGLTQ4hbTLbNjf+YhV
-	 aiwm3UXQje7yzwDiCAkvLGvkO6r6/ux3Qgm4z3WUMOsyahPkYLyOhBIL8r5uK1ZViytMV
-	 mFrKxc4eI+WA0hja7gEf2HSOogBjg0fJgU5VMrgPqUTPD9EtVHttCeeN3KpyKEmd9n0tA
-	 pq2xB5n6xQuRNjRWm3Srqb17UPiSU9xWEvy9KWblYBZ0FvI6Omg7CQN458IqM6yEs4w==
+	t=1793015579;
+	b=oBLv9hE79VlO+0pRAwTJ2ZL8RcQDjGmn/kEHjDmp0rf7OT7j5c4EWuo/Et6hR61oT2tJ
+	 EXBi5m7ASWYqW+7n7/tzng/4wicJulalzbXRS4WlgL0WWBIzcH3XBhz8hZEtDgILrKFFp
+	 7pff065DP29o2NMs/HHVB8LysjxdM5k/0fqkM0LlwX45XZKz9O1ch3QJEQPnT57/Bg9TV
+	 0/FqNTjrV/ZxrDn80QRXVLiVABl1LNWxiu93lL9feZRUFCoaHqFIP8vm5TXGab6bGLpr+
+	 qDlZP9K6P5M0jLgWwFufLnqpGuFDj6R+TtjfcDh43u8kWeZBwqo77r3ZWlJpXAZqakQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015571;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=8j4oNTIcFNh8lFf1TCDHIGK6IzVaY3FeTaMvxD+ny5Y=;
-	b=gnw000FmtGJuuFtt1lC0nbsWY8XAnJYx/PsIPp7TJYszldzSAcEFL5X3abjXk9oqL+mH
-	 Kw58Q56iHdXKlEUVDuxITNl34t9BK5JUwhDgjhQpqG8wJ5jGSMQJUL+Pw6t1C45nnnH43
-	 qOgMN9RlZ+t3Nkp8qbQdLQuFz2oz2wGfaMLdRR0aDJjfEj5c8cqQFkZCUVUko7qXF2iux
-	 TT427cdtITIT+uYasxch72yylzCdc671mhEb1cXD098Shc4yr8QHIQ9TGySwzKPWL4Gc3
-	 kp/LW0b7efVluSrvev39lMV2HjR/nEhCO0Ey+paXuwURM38x1RFOn2WlYPlHXltm2xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015579;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=muRBYzWWqUsiTqMXGBh1F+ip6DW5FQ1L0G5hI7qvkU4=;
+	b=BMyoxIE1TiVIjM8Crx4nSYOczFMAV2iGVw+r38cqqnpgg0S2uyR/DPmuK8W/9dNfLjQ/
+	 NVYWP1X7nDzF0P9iH6YqxbxidOopg3CD/Qt08wlJT3O+YGwc6YhG6EXouvS7PFfVjgr0x
+	 G46sL9WORknfJnv7FWrUU6b57dwTb/0+1FwtajcKcSr1eI8XM0VZt3TpTfn7ozK+Ngfuf
+	 Db0VLiKR32DEs/Hk9aF4/PeixqAdXBJbZ5Wu/vHIbbBgOkUD74LruMFYxiSgv702YcdNF
+	 9ne5ArTbucy46EUuBzaMFhtkUR4qNFa723eVIJ+qTVqVuOke3qI1YpPcRfi84QMdbSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="vj/FpkW1";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD1F606A31A;
-	Mon, 26 Oct 2026 11:52:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD1F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jCsSc2ZKVz57DCk;
-	Mon, 26 Oct 2026 19:52:48 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 69QBqgup090165;
-	Mon, 26 Oct 2026 19:52:42 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 26 Oct 2026 19:52:45 +0800 (CST)
-X-Zmail-TransId: 2afa6adf3f0d4e8-dec98
-X-Mailer: Zmail v1.0
-Message-ID: <20261026195245337ktSXy9G17VCcXyw760g9s@zte.com.cn>
-Date: Mon, 26 Oct 2026 19:52:45 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4396606A31B;
+	Mon, 26 Oct 2026 11:52:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4396606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vj/FpkW1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=muRBYzWWqUsiTqMXGBh1F+ip6DW5FQ1L0G5hI7qvkU4=; b=vj/FpkW1ZOQmSYvYZLBvez8zkK
+	wzkdQ3yZs32dv+fHFQBTaautS364nQ0U1Jj9dsvorR9vH2HBd7uEbESCzHBdwFoBJPJkVHJH/vlrg
+	rE5NgklBGoG77Uxyv26qtMuGw2k99CdxaQ94uUmSqAPL/Pe0QkKjCACjs8yYlrhEUMF/1LTc8oxyE
+	RDkVesG9Ets6BZnyu0nwm7SluaetDGsilC1Tpz9I1QliMFAdr7edKyKmxH32GSWk419yEj1biaG+k
+	fe4Z08+pG49TY72+avc+RU8T+Xb+rN/BIYB6emWxwquC01AkEd9cZGpTGHeQVsPU4zCaBiMduSAfc
+	WPEbfvdQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLJG0-000en3-38;
+	Mon, 26 Oct 2026 11:52:53 +0000
+Date: Mon, 26 Oct 2026 04:52:48 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Gustavo Luiz Duarte <gustavold@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stephen Hemminger <stephen@networkplumber.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 2/3] netconsole: read np.dev under
+ target_list_lock in local_mac_show()
+Message-ID: <at8-E_EP8B3x6BFi@gmail.com>
+References: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
+ <20261021-netcons-fixes-v4-2-3857120c6340@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,54 +69,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <bostroesser@gmail.com>, <mkp@kernel.org>, <linux-scsi@vger.kernel.org>,
-        <target-devel@vger.kernel.org>
-Cc: <michael.christie@oracle.com>, <bvanassche@acm.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBzY3NpOiB0YXJnZXQ6IHRjbXU6IEZpeCBkaXZpZGUtYnktemVybyBpbiBkYXRhX3BhZ2VzX3Blcl9ibGsgc3RvcmU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69QBqgup090165
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 26 Oct 2026 19:52:48 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ADF3F10.000/4jCsSc2ZKVz57DCk
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-netcons-fixes-v4-2-3857120c6340@gmail.com>
+X-Debian-User: leitao
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, Oct 21, 2026 at 03:19:06PM +0100, Gustavo Luiz Duarte wrote:
+> local_mac_show() loads nt->np.dev and dereferences it with no lock. It
+> can race with the interface going away and netconsole_netdev_event()
+> eventually calling netdev_put() and freeing the device before we
+> dereference it, leading to a UAF.
+> 
+> The window is only a few instructions wide, so I could only reproduce it
+> with an artificially widened window between the load and the
+> dereference:
+> 
+>   BUG: KASAN: slab-use-after-free in local_mac_show+0x4e/0x80
+>   Read of size 8 at addr ffff88800e990458 by task uaf/130
+>    local_mac_show+0x4e/0x80
+>    configfs_read_iter+0x187/0x260
+>    vfs_read+0x453/0x5a0
+> 
+>   Allocated by task 116:
+>    alloc_netdev_mqs+0x78/0x830
+>    rtnl_create_link+0x53b/0x5c0
+> 
+>   Freed by task 121:
+>    kfree+0x159/0x420
+>    device_release+0x77/0x120
+>    kobject_put+0xb5/0x160
+>    netdev_run_todo+0x420/0x850
+>    rtnl_dellink+0x259/0x5b0
+> 
+> Two places can free np.dev: (1) netconsole_netdev_event() moves a target
+> out of STATE_ENABLED under target_list_lock before netdev_put(), and (2)
+> process_resume_target() releases np.dev under dynamic_netconsole_mutex.
+> 
+> Fixes: 0953864160bd ("[NETPOLL]: no need to store local_mac")
+> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
 
-tcmu_set_data_pages_per_blk() only validates the upper bound of the value
-parsed from data_pages_per_blk=. Zero passes that check and is then used
-as the divisor when computing udev->max_blocks:
+Reviewed-by: Breno Leitao <leitao@debian.org>
 
-  divide error: 0000 [#1] SMP
-  ...
-  tcmu_set_data_pages_per_blk
-  tcmu_configure_device
+> @@ -888,10 +888,23 @@ static ssize_t remote_ip_show(struct config_item *item, char *buf)
+>  
+>  static ssize_t local_mac_show(struct config_item *item, char *buf)
+>  {
+> -	struct net_device *dev = to_target(item)->np.dev;
+> -	static const u8 bcast[ETH_ALEN] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
+> +	struct netconsole_target *nt = to_target(item);
+> +	unsigned long flags;
+> +	u8 mac[ETH_ALEN];
+> +
+> +	eth_broadcast_addr(mac);
 
-Reject non-positive values, as the neighbouring max_data_area_mb and
-cmd_ring_size setters already do.
-
-Fixes: 08976cb548d6 ("scsi: target: tcmu: Make data_pages_per_blk changeable via configfs")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-Cc: stable@vger.kernel.org
----
-diff --git a/drivers/target/target_core_user.c b/drivers/target/target_core_user.c
-index 425ad1246a75..07b514678176 100644
---- a/drivers/target/target_core_user.c
-+++ b/drivers/target/target_core_user.c
-@@ -2524,6 +2524,11 @@ static int tcmu_set_data_pages_per_blk(struct tcmu_dev *udev, substring_t *arg)
- 		return ret;
- 	}
-
-+	if (val <= 0) {
-+		pr_err("Invalid data_pages_per_blk %d.\n", val);
-+		return -EINVAL;
-+	}
-+
- 	if (val > TCMU_MBS_TO_PAGES(udev->data_area_mb)) {
- 		pr_err("Invalid data_pages_per_blk %d: greater than max_data_area_mb %d -> %zd pages).\n",
- 		       val, udev->data_area_mb,
+Yeah, this is much nicer than the bcast one. My only concern is that
+this is a fix, and it changes quite a few things beyond the fix itself,
+which will make backporting it to stable harder.
