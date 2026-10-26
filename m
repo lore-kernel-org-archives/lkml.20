@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024830;
-	b=k0hHYWscUj+JzuS/b+zOurAm0Vv2UNisTweN19XjslzkiuGlmmeqlFebs2NxFEtuqaq6
-	 IEqjP64QLADczv4+Ge2gQ0bMNp3cijFY5PRzkNcBrdSejW3i6TJLVFd/Fb6qc2xU16NA4
-	 f0og8ySrCBlG5zXlHfK6EVZI4zjiAAHs/Ut1w7z/icI+xglW+ZZycb7cVhJpwND2xyMe5
-	 nCbGJrehoh7GD4cgnOBR7q82jMNS6yyenMH17A9m/O1tcZGt16/U0snKl+ts8cVoXnDWn
-	 7h6ULdyqLTn8pQqeT6pM8IBKEIOM3C+jIc2o1PewbwauGTGxrza/DREHQi3Rtnt/ocQ==
+	t=1793024843;
+	b=Y1gaKnOtruulH3UXDOwkdKP6zaQnREHGNpyn4cHdfom9zmm1k0d+b2quB/YJzx2GupHp
+	 u3XT9WrXFEwNevgWN/nZk45KwsHheQKNCt1gXQZ9Ws4l1CGUDcjJZFkcp1i6pmiJmc7AO
+	 YV9SJB5bDuTuAAMDMQMXcRG7RzqZPikvacrZKuVTqzzvsaqI8Rb3azouasqCk3peLVSWZ
+	 fa8kJUBkrxDuuSdpRrfs9UROaLgylw/IURdRx2vd+Uv9ww6Mr+/Rl00ws+VHViRW5STWn
+	 SP575YjDaP+rLEjy6syA7qtVunzQVHl+vPjcoBFucRrgShW19Oyx2YlsLq0FUVRCytA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024830;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=i018fVxtGTIXL7t0acZx7UyQ/yTWV3DDtBO9UCel/XQ=;
-	b=GbCTHS9v7tZQjAi8gwSSvCiHkVkXM1riYZv2HYWznn4yP0PGuwJpq+f+YuVncTjRGXSb
-	 R1bkRtBOmSrQ+me39B57WUs29IFHWk+ntmQyly5Evu1EiY8kwR9BqctPHSuwq6OLtSKG7
-	 NvvTwvj2PndOi9zdfHgLiM6vOqKyrTTrIGAi2mZK9nVCfOUAkGFjTo5+pdFyi0mCU2gro
-	 8Vmg3Y/HQj9vjARuZocR0Mnw/cXkQNAeTy8K9B2RkDfS9UILImbRp3EBKCrmmXiINTPgp
-	 MqsE13Jl2VjLJqkSpx7ozGBk/otvjyyRhGuac4M5OT5bSQ9COX+O+waH5Y/vjNkJ/vA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024843;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=pWNIDudccydM955IzkAINXE2ZjY/ipVqw0niCy80XBs=;
+	b=OR7/vIBweaDf6h/6WZtOVlkIM1hRZt5oIhfFi1QPSD6isJO6syUyKPF1VuLAYoK+IDz3
+	 03Z8anWl3unbB46QeutpKLU8CRGWQoXZAzxdgjiv4G5S1BMIxZj9Qr6rJcucWCJaPdNew
+	 gBwdL9evVBZJvNS/S8ZLWPqyy5KLsoidQBgyqM2z+ln3787fNddFcr1mq77PRq6XvCepD
+	 3MN1KggYu1GLsEL9WmFhN+cwfDxjbipmPZvuEB0Xbt8PSP5Ks1mrqsCYEI2F/2wzh9Iig
+	 TwhagKJTi6SFx091ZQefKOEU8T9iJRa2dV2jIE44CsV+XklSlHoaxsWXRoCxKqNJPYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AwZIzzlE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="JDo/xBF0";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhlxvgU1;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2D2606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE2D2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09E4606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:27:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D09E4606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AwZIzzlE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JDo/xBF0
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QCtRpA3348824
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:27:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	i018fVxtGTIXL7t0acZx7UyQ/yTWV3DDtBO9UCel/XQ=; b=AwZIzzlEeGhTQmT6
-	owKx+fKavOPPVwB5kkhFl1jcf2hHNJNiEAqmZyxcbgoeicgnfNQMdIbhowSw9GOH
-	SNrjh72i4zTJoP81Un1VYXgoxXqxdslYn3jvj8x7/YtLDLBBXtksRLTIwsdMhS9+
-	OOpVn0NnyDuEi0CNREPns4f1eAJlQ182qBc6IALASd5Hg+Svdbwxk9r522N0Xx/D
-	IQudgErFZUOqPea/DSjCHBV5Bud0JvSHvsa2tiCEaK6WMVd19Mr444PJLAC9eSHv
-	LlTv8HJyGMQKTm7wSXRfzMGVpiGLkn74HkJAXimNF6JE+DqJ+UDWjdjQ1gZ18Uwv
-	xpt8Qw==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj79xrbu0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:27:09 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc0e22fe64so83029137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:27:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhlxvgU1
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2df921c1d0eso13749775ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793024828; x=1793629628; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i018fVxtGTIXL7t0acZx7UyQ/yTWV3DDtBO9UCel/XQ=;
-        b=JDo/xBF0KPxvMm/bZNWhuz8db0UFfPkt4Ce5P1SOkZIr1KfmK5RHZr4Vi9Zro0YymR
-         Lgrlnkf8xcXN0OUGAu1Ts6z6J69ulODJMc5yR4MRAUU5ggHx8peOa6kPMRzoO0xGm0ZJ
-         2lhgxPRU5CLhAV0jVG/cD3NZI0zzBjka9Ckn13b0wWQ5ASdhA9cZpZIyYT/pLNpJtYHz
-         fjUo8K4sfiBf7OWPG99/cE4vI42d/Lm1Vc3KaGEfk4zpB5feyG4WGEI0pJmn8rjRtcvS
-         A1Ae2/GQB/Sd/rGgBLrUdk9gQdTunQgv3F45Z4nALrXL6t/lywpCRmcBHg0q+vQ80oyT
-         CSfQ==
+        d=gmail.com; s=20251104; t=1793024842; x=1793629642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pWNIDudccydM955IzkAINXE2ZjY/ipVqw0niCy80XBs=;
+        b=XhlxvgU1GrMaPNJspEjfRmGarJy5LJYRRhTg1Hq/82/Zw43IZLmp1XR/SVpCsCs05U
+         BoGs9OSrt8nbSJESb3b6dLlIhykpaBy28HH8+8wK9xG+vb2OSN/fiGslwFxR/GKZEZ8z
+         m19YStf2V0YttCwB+h1Ew2WhtANJutgxfoX0HLvXOn6juDf2bZROzyGtjQ4vvRzF+7XO
+         pm4XP+AZgP36L+2ig5rDwJ0P1QJdE8Q0aVP36TEb1uirPl3ZKJ1WrDZOhzgckhWRNmIn
+         GkkvbnCuyiz50A6qCwqJCiz9XxLWrqnGx7fqHQfrfdSw5/PXSL0VMpNbQxZQedFvav1G
+         +gzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793024828; x=1793629628;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i018fVxtGTIXL7t0acZx7UyQ/yTWV3DDtBO9UCel/XQ=;
-        b=jTTNEIHF1NTIgPsApdRwcMMyHLk8M1REyFNKe5hJmAsUFMzVHMqDi2d3ZODGz9P76x
-         DmHzLWaOuj9cdwzWdSqOmkZOey8jRyWT/8PNzxxBt5Rq3mX3viIJ69bLmW5AJlUIh390
-         BWaoF9T122UrGJfqrDmjcar5HG05jOuWpuR42Z9w5Rf5ql+anzJO9zx9NcIp5nORgJsG
-         cgHtT1tuKD0/YPrLCd/LzGlG74N78BrcDvwHpcWzaPKhtxzcrkD7LQUtoADz0wLlUg3K
-         7RE+n6vNMKaVkhcT5W5wBfv1AAhfQmYJv0ZQ2d01MJz1p4EqDUiaS7SjoBaKcnGC6HCb
-         iE6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzC+t9cItIEVbLlLnAQ21blJWAyi6Nl2YQap4/7jeQPnD6E21z+w05DTc83+2/jZ9RLvUJqw+DJzwqHlME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhlDfH03ovqXPxOrll9XZmvCzsR1wxw9PjtW3V7w5jRPEQG99Y
-	vKx5UITBfw0jziBWDHDFOMB6kWMoLg0mHohL5mcxfJW4Jh18ZSXbN3jY83/nJkxwrdDIYsmjVTr
-	WyIjCXnXbECjQNMzSC+1d8PJE7TU5u4dvBXtCais9WQniuYfQxoBhDwSQxcIt9d3iK9k=
-X-Gm-Gg: AYBFou3A2Q5NCi3D1Q6VFpv7kG/kH54XFa9tv/lB+PJYsfFcIPgPZLybz28yX6TrLBd
-	5ehmXbUDCzRdNiLWgm5SG8kFVfnf4t9DXwLei6T3c3JTOSqK84wFEJMS7xgcWZcjWyU2sRJ/vZD
-	9OpPilNtaZ5z8rDVTtd+A6qJjlEpmkCecbaOw5/1rDcFXTtLkZmLp1D7s2OUyM+bCVVXBzGORsw
-	3EkxEndFGf+2tHQhYNrHJHpcDGOpUVHwGB6EHybF9JvuIE2Kd6CCbnnwnEmrPvkNdB6byWNOfH3
-	IyztDzDozibC2OJUrbkL/4iQifLoYGQX+ibUUjNGNb0DRFVcVnAnctHoKnX7ARgoOw3A0cG4sxW
-	giJXzfFxujaHTvVA/uLLEQA==
-X-Received: by 2002:a05:6102:8648:10b0:7c3:83a9:edb2 with SMTP id ada2fe7eead31-7ce5cabd66fmr1677000137.1.1793024827930;
-        Mon, 26 Oct 2026 07:27:07 -0700 (PDT)
-X-Received: by 2002:a05:6102:8648:10b0:7c3:83a9:edb2 with SMTP id ada2fe7eead31-7ce5cabd66fmr1676924137.1.1793024827225;
-        Mon, 26 Oct 2026 07:27:07 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44598480dsm3584442a12.24.2026.10.26.07.27.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 07:27:06 -0700 (PDT)
-Message-ID: <a603ce1d-6664-4c28-8f07-f8697d833e7a@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 15:27:02 +0100
+        d=1e100.net; s=20260707; t=1793024842; x=1793629642;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pWNIDudccydM955IzkAINXE2ZjY/ipVqw0niCy80XBs=;
+        b=I5HrZgBhRkHVxiFowOPWR6zNUSmHhH7Hri21PcLI55oicbagCQevz6Tk0KE5cm45Qa
+         rz7mrax4/AQ1CDqZGa6wvHbbURS6KXzx328njrbYuXTUfYI1zioLAYgNd3dYX9qjFJQF
+         LnL6YCuPU2VF3CKg+HMUJpX1LScfTm4OdXbZTkuLHAhGS4Uw2hIf8gPwj2yeo6SsH3lo
+         n2ezlyR4WewyA60wFNhwLQVXCSbr/BH7l9ZH2JGTxQaM1IWzXr8aX1q1HWm+FTrR5RVW
+         YE7c0lkLqAPhab/LVpQeSrP4I/z30ZaXDHMQRRDMoA+IrZkWjIIg+RESBeYZRreihmcQ
+         sU/w==
+X-Forwarded-Encrypted: i=1; AKwUvBywxxGcQgR4GyWH/x02IfmvuVQy/n11dtjQru4NUeY+0Z3bNWbJIGilOnMPC0sp4wRIDOrHRMDJhinGPA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRilL3ZFh3MKb3blRG2GJ+/dU0eM87ntPNClJgFWUNTMbpNDIg
+	esF0mNvsZyTnlCHv04eViNzmFKE5dnVMg6RCASAzFgG4ZJl3hBRDTtLO
+X-Gm-Gg: AYBFou3oBAssYIApUv4MJygzQoinVjowhQcMlj0Ln7iIB6za8IxiNNNUMf2c4KE0G2g
+	mA322UE+iSpYJV2Ab6R75rcRrutJFLUqm5XGS3bectkUwUQrQ0+i2g/X4+GQ1q42mwbjrJOaPOo
+	5dP2ESMfbJ3S3QxsHu95n7jxcFIPJIPBANy7QS36fVlekl9ruOgo/7RmkjNwMsUTVY+oWfUvTxs
+	OKBbCJILXfz13WgR9QSaLca3N6m/buem1zUhqtlKXB+fYWGlOxidACQEG6PaL4vf6a/vZLMyKgS
+	bFQ68FMW9KJoPPClxogUwyLA+QjSClTyQBmnNfwnkdtZasTvOEX7cf+y/NI5bVlA3UWvvw6ksDn
+	QRGLGMT7DjQG8Jms3P31/WztsALlQzHHjoBo8+jUR9VvnThFLcknSUvvG2xatI3zOtDp89rDxeX
+	w1v2niqY273JVIFUDQ3hlRuBoBn+/4JJIdh4YCS4Ep9JFeSTKtQVG1j7hcL8lNC/tt9wdVUZH47
+	vQH5k0bN9UZ+j7VcHsssw+SpdvGA3jb1l42HtAUhReAoWjKJpdl2K6F071kC6DvRqfmFt2Jve8a
+	HEUqWk8KGBbaAn3I
+X-Received: by 2002:a17:902:f68d:b0:2e9:a090:dd80 with SMTP id d9443c01a7336-2ea9c69710dmr55298395ad.22.1793024842080;
+        Mon, 26 Oct 2026 07:27:22 -0700 (PDT)
+Received: from localhost.localdomain ([240e:46d:2300:286:8580:7ae4:15b1:705])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b121725sm17638495ad.14.2026.10.26.07.27.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 07:27:20 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Stanislav Fomichev <sdf@google.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	stable@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] xsk: defer software checksum until the skb is complete
+Date: Mon, 26 Oct 2026 22:27:05 +0800
+Message-Id: <20261026142705.4564-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <at82NLzM7g8HGgum@boxer>
+References: <20261024091256.17918-1-testwrzwrz@gmail.com> <20261024141157.59301-1-testwrzwrz@gmail.com> <20261024141157.59301-2-testwrzwrz@gmail.com> <at82NLzM7g8HGgum@boxer>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,118 +104,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/8] usb: misc: qcom_eud: add per-path role switch
- support
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@kernel.org>
-References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
- <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
- <944d39ba-6e1a-46af-b5ee-32140947f924@oss.qualcomm.com>
- <ba7e8dc5-a5a3-45de-a1b3-ca200faf1ed5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <ba7e8dc5-a5a3-45de-a1b3-ca200faf1ed5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: l2SZ9DnDuYfqQtLkn8MiIr2Z8HYsjtnW
-X-Proofpoint-GUID: l2SZ9DnDuYfqQtLkn8MiIr2Z8HYsjtnW
-X-Authority-Analysis: v=2.4 cv=FPyOVOos c=1 sm=1 tr=0 ts=6adf633d cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xHC4QZjwoU4ybDikHDkA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NyBTYWx0ZWRfX1+4UbS5MdsPe
- dGwU5ZW9eKhQw0hr5FBQGkwSkez4fpdhhmDM7aoMIhnEBS92XiowSTsg6TM3n6zGEVTUB9uvYDB
- vgPfAWx7OrR++S2nsG/VcqOf7SsPy3qUUz67AMHSSvGunUDVOELb9Z2rTO8plDKHBZpeUvpXzmy
- O60YXNWcWGSe1GCjoVvhUtM55/cMJaws3IYK7pDM7A0OCs5lJVmhJz8i8kBKxKpg5HrMdHd4seH
- 7/piXAvKlbEwV8a6epqeQSwn131TNbRKQFePuwI1Ohe1IlFrjcvkbgwhChEIgND5tAc7+Ocpl0R
- hNeRXWfB3iL7UZZZHQYuSpu9YC8b0T4+ChK+xLLybnY1RGF+zPUWmZI0OXDhXleO3dlCDxdRWxB
- fzRtRENo4mn7BTtmWQMtXBlRWeC/d7IQ4delDFBK4i/Ii8jhxrea7m0Eie8jUhDwtKjmyOA+hvK
- FzcG2VvI3NkvIMNI2dw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NyBTYWx0ZWRfX6g822SDC05Sz
- VjzUF9u8h9hL4sDnuz0px9szhHuxTMkmfbbQkPItrQatCT8k/gFz2HlWJ9popXJeABfBxYkzKFU
- KjkI/ovYbkGso0cs3JGva7wIRBkoEh0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 suspectscore=0
- phishscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260057
+Content-Transfer-Encoding: 8bit
 
-On 10/17/26 3:14 AM, Elson Serrao wrote:
-> 
-> 
-> On 10/15/2026 7:44 AM, Konrad Dybcio wrote:
->> On 9/29/26 11:35 PM, Elson Serrao wrote:
->>> The EUD hardware can support multiple High-Speed USB paths, each connected
->>> to different USB controllers. The current implementation uses a single
->>> chip-level role switch, which cannot properly handle multi-path
->>> configurations where each path needs independent role management. Since
->>> EUD is physically present between the USB connector and the controller,
->>> it should also relay the role change requests from the connector.
->>>
->>> Restructure the driver to support per-path role switches and remove the
->>> chip-level role switch. Additionally, as EUD need not modify the USB
->>> role upon enabling, remove the unnecessary role switch call from
->>> enable_eud().
->>>
->>> Reviewed-by: Peter Chen <peter.chen@kernel.org>
->>> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
->>> ---
->>
->> [...]
->>
->>> -static void eud_role_switch_release(void *data)
->>> +static int eud_role_switch_set(struct usb_role_switch *sw, enum usb_role role)
->>>  {
->>> -	struct eud_chip *chip = data;
->>> +	struct eud_path *path = usb_role_switch_get_drvdata(sw);
->>> +	int ret;
->>> +
->>> +	/* curr_role tracks the role from EUD's point of view */
->>> +	path->curr_role = role;
->>
->> This should be assigned after the fallible call below
->>
-> My thinking here was that `curr_role` should track the role requested by
-> TCPM, rather than the outcome of the downstream controller role switch.
-> 
-> When TCPM requests `USB_ROLE_DEVICE` (e.g. cable insertion), EUD should be
-> enabled regardless of whether `usb_role_switch_set_role()` eventually
-> succeeds or fails. EUD access is tied to the requested device-mode
-> operation, not to the controller's ability to complete the transition.
-> Likewise, when the port exits `USB_ROLE_DEVICE`, EUD should be disabled
-> irrespective of the controller's state, since device-mode EUD access is no
-> longer needed.
-> 
-> If `curr_role` is updated based on the controller's outcome, EUD state and
-> `curr_role` can become inconsistent. For example, TCPM may request
-> `USB_ROLE_DEVICE` and we enable_eud() as per Patch6, while the downstream
-> controller subsequently fails to switch roles. In that case EUD remains
-> enabled, but `curr_role` would still be `USB_ROLE_NONE` (see also Sashiko's
-> observation with this approach 
-> https://lore.kernel.org/all/20260811215406.7FD161F00A3A@smtp.kernel.org/).
-> 
-> We could keep them synchronized by rolling back the EUD state when the
-> controller role switch fails. However, I don't see a strong reason to tie
-> EUD state to the controller outcome. EUD is intended to operate
-> independently of the controller in device mode. Preserving EUD access in
-> this scenario also provides a means to investigate why the downstream
-> controller role switch failed.
+Hi Maciej,
 
-Okay, I think we can tackle this if any issues show up in the field.
-Otherwise, I think it's high time to get this merged!
+Thanks for the review.
 
-Konrad
+Yes. xsk_skb_metadata() is only called for the first descriptor when
+skb is NULL; continuation fragments do not call it. So
+skb->ip_summed == CHECKSUM_PARTIAL means the first fragment requested
+the checksum.
+
+I'll preserve unlikely() around pool->tx_sw_csum like this:
+
+    static int xsk_skb_sw_csum(struct sk_buff *skb,
+                               struct xsk_buff_pool *pool)
+    {
+            if (unlikely(pool->tx_sw_csum &&
+                         skb->ip_summed == CHECKSUM_PARTIAL))
+                    return skb_checksum_help(skb);
+
+            return 0;
+    }
+
+For the drop path: xsk_drop_skb() increments tx_invalid_descs and
+consumes the skb; sendto() returns the error from skb_checksum_help().
+Since the descriptors are already consumed, retrying is not useful. The
+current metadata validation makes the malformed-packet path effectively
+unreachable, so this is a defensive drop.
+
+I verified the propagation in a local QEMU test kernel. For the test
+only, I temporarily changed xsk_skb_sw_csum() to:
+
+    static int xsk_skb_sw_csum(struct sk_buff *skb,
+                               struct xsk_buff_pool *pool)
+    {
+            if (unlikely(pool->tx_sw_csum &&
+                         skb->ip_summed == CHECKSUM_PARTIAL))
+                    return -EINVAL;
+
+            return 0;
+    }
+
+and ran test_xdp_metadata. It failed at the first generate_packet()
+sendto:
+
+    generate_packet:FAIL:sendto unexpected sendto: actual -1 < expected 0
+    Summary: 0/0 PASSED, 0 SKIPPED, 1/0 FAILED
+    TEST_RC=1
+
+The normal kernel still passes. The test harness does not print errno,
+so I can only state that sendto() returned -1; the injected error was
+-EINVAL. I restored the source after the test.
+
+Magnus suggested a distinct counter for malformed packets. I agree that
+would be more precise than tx_invalid_descs, but I'd prefer to do that
+in a separate patch instead of extending the UAPI in this stable fix.
+
+I'll address the remaining feedback and send v3 as a new thread.
+
+Thanks,
+Rongzheng
