@@ -1,88 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792987333;
-	b=J597xaLk+W2xN9WoLUmpoZ8Te1nI8CLH6Pngx00OfSCRqbYp48p7ombQ4G59TUGOV7uM
-	 2pFlqy25wuH0S2s2K5Zr+VDa/5BBA0IWF6a/awiDAzx7a2dMtrggc0gexwarrvm8TduwL
-	 S9w7vB6dXQNkB9APoeb+9NdXL/FVykwSLOWaoel3cUnIRPugkxsLZU9fXYKoOW38F494G
-	 qL7OOb+zFKoGwN0baALit3EBusP5UUqZVvfaV5D0N2ZsoRHvlYvB66toQLfDcE2TnUgV4
-	 NyqIgaPojr1hox5dtZDUotB7Ucy2CsvX3Pl6Fi15z9Za8bSBGl0uHFSMG8uKrk1PP+Q==
+	t=1792987365;
+	b=Qtg5278U+1nCIEc0IG7laSmA1OoJjmGQ8G8zWl8Quw+27LJ3WXlY8pM+WZnny0Bt2H+E
+	 PU8uIv0OP+49Fhh1+LHDCK6/fr73RBbYACDV8pz4BQa0L08J5wD7XE8QFWtq6fBwFevX8
+	 Om96RuCDLA9l0ZNWwROF6OX6MMKXquFom4JzhvCg8BgcWj2zQV4aiJDh+IGLwNDKchp/H
+	 pwssQKzRWuMNmZ4XG5jDKvIkLxGgzzaGnaeBiTAK9rO4oVTqwtZMul9BP+A1uYAx6p9C4
+	 RFlWr8nJCzouhMAxdrrhuhY/2NpI8NOiYdPTrs2B+GjIYLccu7vDeZbFq7Y1KmDqblQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792987333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792987365;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=7IsVQT+EBQo1oTvITpYf6+rXx0JZnsNppK5scdXnmz8=;
-	b=vc3PMlU4En3uH52heikGTGaIHCjRYxfdSKoXargXsNZFoTEuwoGP08TTpfiRkNFARjkY
-	 i829TrfPYMzLSKuRQ2KsYDUjq/+QKi4lLixEDOqatK4kE9Lw6V1vrayb9l4p4yrHxLSf0
-	 bPDjKswAqx2AF38c8LQNQNctuiwVIYqio9vPOxhRQSP0fOdLNFfOZp+adwZvM+syXL6Q2
-	 hEXjkhSVKedjZKG59Mavc3AZ4CU5Jninm9/E3lxJg9Lbc7U4CXf8GgW1BQwCAbC/qDtUZ
-	 An6agIjua8DOE8lJ6ZKIRrP8Z8oHlz/FSReKHecERUyi6YtLER/hnOFe6io8Ybo5mmQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+	b=lv97e2xMLpQyJUU6hD906lgrGE+RqXgi0GyRpn/aPF4AbOfbxC05eWtAUi+jraEnXaec
+	 PzBNIDAPRCSGEZ/rr5A/uzbHVeWUBkauP5T13kVgLsK/7y/p2w/hRM9JIDhM3PdcyIh2y
+	 FYQNHuE2+YZkfg61Kp1lynXHVFJrxNH7YniaviegJQ5Br0b6dho8yV2iKe7xI4JUZ06a4
+	 dyx0rF/RS6fg2DzMGQtKsSTkW5iAZQ5PY2PWy6rEUE8vCP7hvcegInJa6zElrT/nUgqnT
+	 j9Gnot+wMe/aT4Adw9UePiOLCWfZORD78kSTxZhkkv7M2GtP8AIgYN76qM/BKqiLVUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C63TgyKq;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ayyPxwWM;
+	arc=none smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70558606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70558606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CFA606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:02:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55CFA606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C63TgyKq
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3550c917fd3so3891307eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:02:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ayyPxwWM
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e985106c0cso21670195ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:02:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792987332; x=1793592132; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792987365; x=1793592165; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7IsVQT+EBQo1oTvITpYf6+rXx0JZnsNppK5scdXnmz8=;
-        b=C63TgyKqhS79//aZjYn7A72ETrj3J4Jmx7z9adsGrZ6BdiMYniJUoU8X2MjGLEb5qF
-         vcdWELlXuwNjY7ri1eQ+bOPMV1ERQBlhznsdnyXlkQEOtq7nOJ7fqb8zQLMMrRsFFtvq
-         7mA+K2J02rpQArtdedYi3GTZYjZ9CnHGUkBj6Q2UnWbJpF0+24YTVn6xgCf9kyWS+5jg
-         cpM+e6AZV7jNUE78AVfZtoN/VyT4gydY1fme8SjZfrrsZ8ecdaFWRy4oa+7GYjFAHe1q
-         ZO2+zk1KtdnNtS5RPLVatVSjtCwMfgiz30COpxkzE/YMry6lVswa+4R4O7SCp4wGY3K/
-         HRqg==
+        bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+        b=ayyPxwWM/lb+H5VABRhht0PR6vZEeUivf9sh2Rgba0uC+hcvHTu/6mrShgE43B9ZT/
+         kMs218fUY4beR83h7cZSyjRDyrIsJUF70dAmMY77n2GZ7zShdhLZofVUAk4UCxtWJFnO
+         x0vswuv9993aAFPfzJM9bDcFhz8jw8VEIr3g32fettpVMclgL0mMHLxjWO0iv6YiGhmu
+         RtvYkwSdBW0zd0sZeheju6ID8IAOSSf8yfkDe8DJCalQFyrQ39ydaP4S5yjQ7P/6aHa9
+         nAVcmEqSej2jmssIaA28ZVHJTo47vL332VCVpSHKoNrOMFGVtzVQsfrrEGpE0x/yAu9P
+         lnRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792987332; x=1793592132;
+        d=1e100.net; s=20260707; t=1792987365; x=1793592165;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7IsVQT+EBQo1oTvITpYf6+rXx0JZnsNppK5scdXnmz8=;
-        b=1XyWkUdbCiGDcdNbz17B+psNrJCWclLJzYaKPTInCmJ5XTLoJFLXEDtAB0OC2zy8lz
-         wrTd8JhWkd54gSuJT2O4sZ31OZgaFdlLPQJcs7gx77PjRwEEMANh++084UHguqQQgmK8
-         K/wztx2D94w2YEDo6BzKjHXZrfaS3EdC9jTXqpKtrUhOlifVGjqJQ0Dhhn/fdLTnZfhf
-         6u0uyrG6khBKsF1hDDdD/K+CMMqS3bOgAyvigJZsbr5SCQj+sqp043sZXQPWnXhhzd0e
-         8AuZGIB9fU3Bzs+GWdWr57fEui+POTDBSc1SAKRnmFzGkxRQsVXvgBfXUqP5pgAt9T3d
-         7BGQ==
-X-Gm-Message-State: AFq9FYLWyq4FnHAcW5XXDKFfZQ/0GYzFI58ye5MxljvtukTdUo9TLj+E
-	niOmBM1jEHY3sP3d3qNAuDgQwdpVtFX6+vM5CSTJ+7uZxl1ipEgQpi9l
-X-Gm-Gg: AYBFou1vfX1fc9dIKsLl7lOmpUzcIG1+OloZZDsU5OxG/+zd5rcReQ7W5kxZNQ5TGY9
-	Xi4bpXxVhWaiF4P/1wOz+iFq73J1iUylqwKRdgGU4NlOSPIJd9IkDAfa56JTu4YmaZRUL7KgUkz
-	kix7nBEykb4bAjxVFKfU+EWjemZAhjr0S3hGvYQ72RhBPXCR2v/t5CeymhxDDWpDOY55/SWqJbw
-	zPu4uW+DugIvuxh4/F8BR4p6vikUAAix/YbzrDLpuKIq8Vnt0/qS1Wb8d3o77YgtZlJm5sxYOrd
-	q30BE+RLRSXDEqpcZbnKiyBbzvBFNpaO8BbGuH8RrE3BElSBcwIvRNhSTanpekZMIm3+lSgB3Qq
-	AkaApmiHCx2Aa3PAS1Mk2ojkjTDgUIQpNNBYmkMom4XD9FJRQL9jFNSkkJBJ6RkS/tgDavUfM1T
-	OprnFgMNYvzuOj0X2ShK84oz4JMovSllZ440wuewxyMHuBndOUxLaxGU2AUTkW8mqR5uCFNVw4E
-	O3hGwvf6fEieVA4xK05tYV/m/0LQu2QLrBtxaoyPzEQa72lyyCG/uin4RBKQU7kNOoLM4dkR+JW
-	hPvv2HJFfz0mJIueHHilfA==
-X-Received: by 2002:a05:7301:5404:b0:35c:8b96:94d9 with SMTP id 5a478bee46e88-369e8471460mr8498716eec.19.1792987332331;
-        Sun, 25 Oct 2026 21:02:12 -0700 (PDT)
-Received: from ZephyrLabServer.internal ([165.162.64.148])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369ff5a4d68sm6395094eec.14.2026.10.25.21.02.11
+        bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+        b=cgktNGOL5Bo2ctoKAXF3X+Y1WEvETNju6ZIL3XM3PPFH1cRSIAu8qsaRN1ZBPaEiEd
+         CGv3shDKSHFqGfktW+1/iuJw+02kaJu1PWiznz9Qz+KsD5pK+XrE8oED39WiDrNLbSl6
+         /frL/fduWq+ygCfLQoGBdAmq/VTPrJIZAhj4lfqpN5XqG26W31AuCxt0S0LaK2yrqTnT
+         PRLGYKp2Yc1ZdiR9fdqSzno5lB5dnlMH66EymS1rnZkcu3Bu4sDhES/0cV3iiaEFK2ZI
+         YPK6IxU2u10NtpSZgJhzFvJe1QwwjNUfOlPwtcD3evIbfCBUgXQ6kXBTZ7s6JAbAnSrd
+         ew6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBysYpenk1ho7z/GorTtNFBKAwafe8F1xZa1LoECyZGKDyj8PVxCTkCksfVMc4QNb4zMhJKWxh1599InDIA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQNJErG1kvykeW5N8DvxD3dhslMGKQrYbjpblBP/u2qyb9OBdR
+	W1JqHeBb5nAs8wfZG1c4QYFIm3LoK0/U90n2S2ZXJ4A0DKVNflUgdFzJ
+X-Gm-Gg: AYBFou1A6SpeR2JhYv+xBZgzR9ZxcIfOBEHIZ3e9jsoVBmrO/vh4t+fNBDjo3HVnOWj
+	e1kiZNiAIpk6drrq4bbgQgmsn8Y/aP1Nnl1y7NXfObIpSB3Hvc/CvtB/0NeLtW72d2j/6SsdFZB
+	Y7hLWJ6+h+A0DYH2HQLv/VEmPK0lzcQcaogfeKbTdm+xIPZnTu9O6Y67+ww2TmqV3ULICHhYGqB
+	z9gDnKGH/T7+fDQIrUmdyx9n8foHu3BoWbFjsRT6/Pg8QwZWCSu9xZ4Of3MwAX6e3MaJmogspP7
+	dgJzqoezCo5Q2A606cE4dogDnmnEbpA4ncH7i9oDG8rzOBEWwJ0vNT3/xNQ+p6kX2J+v4fqnlIe
+	tftrP8WRcueFReeKlnGC4BPgaJm5tg4i5jzHVrgVRXljrne8zpF/2sNjwLcENNipLVA3JN91gTE
+	AuHVBzRt4FYBrFRz+iEzOUNDtoUP4hiBT+Dh818axjHDSjVR4Np3XA2oijbw+BgQN4ygeSdsdgw
+	KS1MH67ieSirUqT9iNLoD5xMvSjWbMz4LYjZr7KtICISuv/aNExMvjfJP37P798Nv/O5bKVmck7
+	7wnqEsvIbdwfgmHWzOY=
+X-Received: by 2002:a17:902:cf12:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2ea9c63efcamr46730195ad.17.1792987364597;
+        Sun, 25 Oct 2026 21:02:44 -0700 (PDT)
+Received: from xiaolei-VMware-Virtual-Platform ([219.142.21.190])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b22416bsm10626705ad.72.2026.10.25.21.02.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 21:02:11 -0700 (PDT)
-From: John Macias <dencity7@gmail.com>
-To: johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH wireless] wifi: mac80211: use HT CCFS2 when computing the AP's HE and lower bandwidth
-Date: Sun, 25 Oct 2026 21:01:48 -0700
-Message-ID: <20261026040148.2633920-1-dencity7@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Sun, 25 Oct 2026 21:02:43 -0700 (PDT)
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+To: aisheng.dong@nxp.com,
+	festevam@gmail.com,
+	Frank.Li@nxp.com,
+	ping.bai@nxp.com,
+	kernel@pengutronix.de,
+	s32@nxp.com,
+	linusw@kernel.org,
+	s.hauer@pengutronix.de,
+	sudeep.holla@kernel.org,
+	cristian.marussi@arm.com,
+	peng.fan@nxp.com,
+	xiaoleiwangxiaolei@gmail.com
+Cc: linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] pinctrl: imx: scmi: replace custom dt_free_map with pinctrl_utils_free_map
+Date: Mon, 26 Oct 2026 12:02:30 +0800
+Message-ID: <20261026040230.22338-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,52 +110,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the driver advertises VHT extended NSS BW support, hostapd announces
-a 160 MHz BSS the way IEEE 802.11-2020 allows for that case: the VHT
-Operation element has channel width 1, CCFS0 is the 80 MHz segment and
-CCFS1 is 0, and the 160 MHz centre is in the CCFS2 field of the HT
-Operation element.
+From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 
-ieee80211_calc_ap_he_and_lower() only looks at the VHT CCFS1, so it
-sets bss_bw.he_and_lower to 80 MHz and ieee80211_sta_usable_bw() then
-limits every HE and VHT station to 80 MHz. Stations parse CCFS2 and use
-160 MHz towards the AP, but the AP never transmits wider than 80 MHz.
+pinctrl_scmi_imx_dt_node_to_map() kmemdup_array()s the pinctrl configs
+of every pin into map[i].data.configs.configs, but the driver's own
+pinctrl_scmi_imx_dt_free_map() only frees the map array itself. The
+pinctrl core releases maps through pinctrl_dt_free_maps(), which calls
+dt_free_map(); the duplicated configs are therefore never freed and leak
+every time the DT node is parsed, e.g. on each (deferred) probe attempt.
 
-Take CCFS2 from the HT Operation element when the VHT CCFS1 is 0, as
-the station side already does in ieee80211_chandef_vht_oper().
+Replace the custom dt_free_map with the core helper
+pinctrl_utils_free_map(), which frees the configs of each
+PIN_MAP_TYPE_CONFIGS_* map before freeing the map itself. Its
+signature matches pinctrl_ops.dt_free_map(), so the driver-specific
+implementation can be dropped entirely.
 
-Seen with ath11k on IPQ8074 (it advertises extended NSS BW when the
-firmware reports an NSS ratio) with an HE160 BSS on channel 36: peers
-were created as 11ax-he80 and no frames were sent at 160 MHz. With this
-change the peers are 11ax-he160, nearly all downlink data goes out at
-160 MHz and an MT7925 client's download went from 810 to 1645 Mb/s.
+Detected with kmemleak on an i.MX95 board (FRDM-IMX95).
 
-Fixes: c9b62ab79133 ("wifi: mac80211: fix per-station PHY capability bandwidth")
+Fixes: b755521fd6eb ("pinctrl: imx: support SCMI pinctrl protocol for i.MX95")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: John Macias <dencity7@gmail.com>
+Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 ---
- net/mac80211/cfg.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/pinctrl/freescale/pinctrl-imx-scmi.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index a1753335e..e6fd83cb7 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -1366,6 +1366,13 @@ ieee80211_calc_ap_he_and_lower(struct cfg80211_beacon_data *params)
- 			 */
- 			ccfs0 = vht_oper->center_freq_seg0_idx;
- 			ccfs1 = vht_oper->center_freq_seg1_idx;
-+			/*
-+			 * With extended NSS BW support the second segment
-+			 * can be in the HT Operation CCFS2 field instead.
-+			 */
-+			if (!ccfs1 && params->ht_oper)
-+				ccfs1 = le16_get_bits(params->ht_oper->operation_mode,
-+						      IEEE80211_HT_OP_MODE_CCFS2_MASK);
- 			if (!ccfs0)
- 				return IEEE80211_STA_RX_BW_80;
- 			if (ccfs1 && abs(ccfs1 - ccfs0) == 8)
+diff --git a/drivers/pinctrl/freescale/pinctrl-imx-scmi.c b/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
+index 613552e35070..8cbd66950848 100644
+--- a/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
++++ b/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
+@@ -153,18 +153,12 @@ static int pinctrl_scmi_imx_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	return 0;
+ }
+ 
+-static void pinctrl_scmi_imx_dt_free_map(struct pinctrl_dev *pctldev,
+-					 struct pinctrl_map *map, unsigned int num_maps)
+-{
+-	kfree(map);
+-}
+-
+ static const struct pinctrl_ops pinctrl_scmi_imx_pinctrl_ops = {
+ 	.get_groups_count = pinctrl_generic_get_group_count,
+ 	.get_group_name = pinctrl_generic_get_group_name,
+ 	.get_group_pins = pinctrl_generic_get_group_pins,
+ 	.dt_node_to_map = pinctrl_scmi_imx_dt_node_to_map,
+-	.dt_free_map = pinctrl_scmi_imx_dt_free_map,
++	.dt_free_map = pinctrl_utils_free_map,
+ };
+ 
+ static int pinctrl_scmi_imx_func_set_mux(struct pinctrl_dev *pctldev,
 -- 
-2.47.3
+2.34.1
 
