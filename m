@@ -1,94 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013560;
-	b=YwQ6UQSg1PHbg37vraysA8iTyAiuKdalx+KL0GXw/9UeWD70EYuQJC07+tysq4OCqRUI
-	 Kp7s3NCbBnXhVrp4pKzvfUpWSRAO+SmeRlt8Rq2+zJnvKDPDTP0M48idETSN5xJAZQZZj
-	 TDHLPB+RkLiXTNI+iP28jp3+j9C4FzUiH8hyH9x5ZLbYj0fqBowS4ETpwZKAXeaWnpQOw
-	 dcR0GD/S+0tQeHMFbv7DVxmJkQmMz1eJkMuGBVuzfde9NvTqLD70kgsQTs3tYNxaFvgyl
-	 75KbZLTY3PsuwYqt4fKr74r8z6WFYlqhpu4P06PGIDmawj3K7D2NcTgMxSQJZiQbr8A==
+	t=1793013561;
+	b=h5KkDFJMqD46WzL/OMhS9KhWYBbRAC+PrR2wZm2zRyzu9sFFqeqjFhmJbo7uYNI2Voms
+	 1hPs/KpdR/Z6zZTchB9lP2eLgUQSNXNBDNasZ57rm3tkcc2A1Tw+iSKAty8ugU3C7AAcT
+	 V3A6W6FgFpK9Db6TtwObXJ0MuDVlsR9KtZ0a+Fj0qmu7ujLwDzUU+JHZSJBZsfafiK7Up
+	 zWRXWggsHkhO9SuCaRBMAQPAhtowBonMWLu63P0IuSCGJnjxudHZEqKeyM0YYIsoPfJUl
+	 XNVHPwzJXEF5zTR97neXPAdrtvm4c1a78+SjeiD6hAewmN/Gd3alLzMT+kwwes5miPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013560;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013561;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=Jsb8n2PnG62q8kRquOJFB0kDepBKTWthhPmFyD+4b2I=;
-	b=zsJBTaH+H85vL3Z9lwCuhETvqP+/l8aAL3Skooxoqh+sBVUsqAQmrCZM+TJ+D+BLSrGn
-	 gxvrJrnn9X0AtLWCqkS+s9MIIot1guBCzXZ/ktEcpj/vettMOb2puiz9+Wa1kP5FGg/DO
-	 lON2Z8fobRGJbYuAVLl7IiSHZWQGBq4XaWRi28FluLS0H2DSroUpHsAz0Xx4qJoSFwcI3
-	 A50Wp1pTQsL3YwEw1hAYVZ7RxAjTfamtJxh4ZtIMUXRdn8pSqP+CKN70UbL+6KTU/kauT
-	 Gn8/OSpZTv9qP4c3aJrb9FGeo1+rerufq/yfmmJMjaNahJMrV9usnsbjc/dwP2pc2ZQ==
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
+	b=fnEG5MHfquPPGsA+3qiegHQdNQwds1W7hujodiuXnJ2doLw5FgV2bh8DcTI+IqYt+e1T
+	 RRmAGFeOde1aMjwSPvHnMC7a3cLD8cq6ryImbGhFtTq8df83CEIWGpOKxtr0YRfDM1gvF
+	 vwmtOYLnXBHrxYXozFKv5Q2frnE/a6UqAbWQ5EbJbtrHvjVjRn1RaVo3lqlHeZ/D+QExf
+	 YnX79k9iauF4Q79VBKvCdPAvH2xgIPoVFfeGxocQnVQso244/dbCT5e5V3XgYqg0QByDT
+	 SFFdL1bxaKB9LSDEetObcM94xuVBp0U9W9pkq7mk1j5h3I9g85MhjvnxuiUndd2QhOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JyZoyzrJ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=exDP8lOG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=edJhxMFa;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B9A606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B9A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B26E606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B26E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JyZoyzrJ
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=exDP8lOG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=edJhxMFa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793013559;
+	s=mimecast20190719; t=1793013560;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Jsb8n2PnG62q8kRquOJFB0kDepBKTWthhPmFyD+4b2I=;
-	b=JyZoyzrJoxcckkCRJBS/w8FzP7lJ/Jdp+o1gS5Qxh1sdupIYT9D229iO/reDLbwygZDnQx
-	tvHX/3as7WBV6RaJBV2tGut0JxZxayS0xH5HuG23rqJliDp67rab/CdTs4hSbFvcNq3VA+
-	ZFuQrmcxbc8Wnu8I3S85dSMpFF8RRJA=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-664-Bu33x-t4PUy_yTIIX_4dyA-1; Mon,
- 26 Oct 2026 07:19:16 -0400
-X-MC-Unique: Bu33x-t4PUy_yTIIX_4dyA-1
-X-Mimecast-MFC-AGG-ID: Bu33x-t4PUy_yTIIX_4dyA_1793013553
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D97671800632;
-	Mon, 26 Oct 2026 11:19:12 +0000 (UTC)
-Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9ABDE1956087;
-	Mon, 26 Oct 2026 11:19:07 +0000 (UTC)
-From: Jerome Marchand <jmarchan@redhat.com>
-To: Richard Henderson <richard.henderson@linaro.org>,
-	Matt Turner <mattst88@gmail.com>,
-	Magnus Lindholm <linmag7@gmail.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-alpha@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arch@vger.kernel.org,
-	Jerome Marchand <jmarchan@redhat.com>
-Subject: [PATCH 7/7] asm-generic: Remove the unused non-atomic local64_t functions
-Date: Mon, 26 Oct 2026 12:18:22 +0100
-Message-ID: <20261026111822.458404-8-jmarchan@redhat.com>
-In-Reply-To: <20261026111822.458404-1-jmarchan@redhat.com>
-References: <20261026111822.458404-1-jmarchan@redhat.com>
+	bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
+	b=exDP8lOGGdvbGxuWcwRBohza8Q5dXzqiTDDeIF4FooZW+etCa8aqRsVG+tamQEgfzSPPAc
+	8pAQR2r6VwkiTPpeWP3yMu/b+cqpI2AGPqICjaX0n8Pukd+xE+2KqmTcRRlIFxI2HWSzj7
+	qdarzLfP6N6PAN59s5kZs+VuLHERfNk=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-595-N8Q046OxOdyN1rc3jIkXLw-1; Mon, 26 Oct 2026 07:19:19 -0400
+X-MC-Unique: N8Q046OxOdyN1rc3jIkXLw-1
+X-Mimecast-MFC-AGG-ID: N8Q046OxOdyN1rc3jIkXLw_1793013558
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0af48c18so2585336f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793013558; x=1793618358; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
+        b=edJhxMFa2df1qMg4OG5AjcrSprOPCmo3n+yHEG+41QeLu7FHZ2+/SpTfVpttmTHcaO
+         Ql3mMV2REfFTRVTQdudtzslARWrXYNk7LOgEc6Di0qj49GNY8W+7kldqP1CKacCMGx79
+         v2LORWjgX/JMS+2KvfNRClAzsYLKaAgU/t4CWHW9UIQHyyIvW9n2vOJlgO+XRrD+gPCw
+         fr90RBjRnTa0xsnD8m7zX6+6GsiGBFCRZB5BG8NCXBnT9evusgLlWlF5i9ItQfLac+2S
+         ZbNeBaiPq4A4Q5Hsc1HFhVpEjPpNBhM5hrE3YP95ewoykkSWdcEoBBYltM++/5aXzO12
+         s3zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793013558; x=1793618358;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HUBCCmBt2r3pJ9gqCwCptcdEOvWrEL9wpNqjqAAArdI=;
+        b=PJdQ7xnrrCAeJ7C7wKqLhdk2RxVy52dwIVWUlHPkQkDdQEXGS0wWTPdROFhLU+kz8V
+         OncnaAOdi+tydVGm00qYzhJ0XXmNUJt8jZmQwA6x+Kt5abH3aO41Wix5Z6R83XVA0Epu
+         XM4nzXS9oIM9V395EASLYtn2FBMl264Zv7AMeBQZRA4qPHPUX35G9x1B5wi9ckS871M4
+         kaD+GSgnPCB93GP2dY2g9dDcMsIbZTwxyD0k8TTGNHUQXTjqfCzYoJoMyf2qSaE1mLyI
+         6htx0Ch1BoIxgjxy7nc1ml/wsMY3000ivmRKKoFNsxqatu1qc3I9qJTwQdU+haT2PPHj
+         iFbw==
+X-Forwarded-Encrypted: i=1; AKwUvBwERMmzTuvoSfnm65a/QCReWZHC67KOFUv9dsbBXvw05OYmsUJQ5hTDhUil57yFHHzeaok/inyUjO6gKrU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmrY21ODiaQhEPhz7NHA0giRMxBTPL9vIfTJyY16O9ZkLLtBgM
+	kxTsSbrt53W6OY7ZyZAvngn6oWcWnZCjT+G9du+6rYK2s9XkDo8z37kaj2FQnrE58TI60qchjBA
+	b+wfY/P2d/EYfEUfay0WvX3BI88e4MzxGL6AdxjZvG4J+8gSZcTwtuqyajB5icWXqm9HmUFqhFg
+	==
+X-Gm-Gg: AYBFou3t63FLKaQEW2zRxWA3PJGZvbeVmZG1dpK/Z+QSATRuqcRxJidXLy/p379mkbn
+	gFxDi6cQFg0rS5Bb0VEwmn5mqw7izDmr3QI/RUS+pIE0NtcV3YqDVwdgUM3rGpPE7Wqgcv4NAHd
+	5DHQ+D1Ok89q9NB037jrSpeUnreDbNFeDI3T7LIiBAnSey7EJf4UqpwfCm4tYOUXzf2cMnrMwTF
+	Nsd6LM/wg3anCAGYyMTfJgM6FZOWHquElv+RVV+MO46/gPm+mgJllThh/bxAzUhxj782YXs8kVL
+	VOa2dDNwaItucj/a17c/O8e6dY9sj3QDgbIrmRp9iDCNO8bWEzGiMrIqk6JJ1GCpeAd520d1a08
+	7nQK+9mWGFCLqneE8Q46Tz1CK8C9v2DetkzYPFHircV7KgOJ98SIL8A==
+X-Received: by 2002:a5d:5d86:0:b0:48d:f996:1814 with SMTP id ffacd0b85a97d-48e3eb9c7fdmr10996887f8f.57.1793013557016;
+        Mon, 26 Oct 2026 04:19:17 -0700 (PDT)
+X-Received: by 2002:a5d:5d86:0:b0:48d:f996:1814 with SMTP id ffacd0b85a97d-48e3eb9c7fdmr10996782f8f.57.1793013556171;
+        Mon, 26 Oct 2026 04:19:16 -0700 (PDT)
+Received: from debian (2a01cb0580324c0086a938fffe1eee25.ipv6.abo.wanadoo.fr. [2a01:cb05:8032:4c00:86a9:38ff:fe1e:ee25])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd47basm17193489f8f.32.2026.10.26.04.19.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:19:15 -0700 (PDT)
+Date: Mon, 26 Oct 2026 12:19:13 +0100
+From: Guillaume Nault <gnault@redhat.com>
+To: Guikun Yang <yangguikun19@qq.com>
+Cc: James Chapman <jchapman@katalix.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] l2tp: OOB read in l2tp_recv_common() for L2TPv2 sessions
+ with 8-byte peer cookie
+Message-ID: <at83MWsp98Mei-Si@debian>
+References: <tencent_389453EACB37DA0886D3896959D4A4CF5006@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,56 +120,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+In-Reply-To: <tencent_389453EACB37DA0886D3896959D4A4CF5006@qq.com>
 
-While working on a fix for a tracing soft lockup, it came to my
-attention that __local_dec() was broken on ppc64 and other arches (it
-actually increment the value). My first instinct was to fix it but the
-fact that this function was utterly broken for so long, decades for
-some arches makes me thing that those functions have not been used for
-a long time, if ever.
+On Mon, Oct 26, 2026 at 01:35:25AM +0800, Guikun Yang wrote:
+> Hi Guillaume,
 
-The local64_t non-atomic functions aren't used either, so remove
-them too.
+Hi Guikun,
 
-Signed-off-by: Jerome Marchand <jmarchan@redhat.com>
----
- include/asm-generic/local64.h | 14 --------------
- 1 file changed, 14 deletions(-)
+> l2tp_recv_common() (net/l2tp/l2tp_core.c) reads L2TPv2 optional header
+> fields beyond the linear area guaranteed by the caller, for sessions
+> configured with an 8-byte peer cookie.
 
-diff --git a/include/asm-generic/local64.h b/include/asm-generic/local64.h
-index 14963a7a62538..b30ae05f42b95 100644
---- a/include/asm-generic/local64.h
-+++ b/include/asm-generic/local64.h
-@@ -56,13 +56,6 @@ static inline bool local64_try_cmpxchg(local64_t *l, s64 *old, s64 new)
- #define local64_add_unless(l, _a, u) local_add_unless((&(l)->a), (_a), (u))
- #define local64_inc_not_zero(l)	local_inc_not_zero(&(l)->a)
- 
--/* Non-atomic variants, ie. preemption disabled and won't be touched
-- * in interrupt, etc.  Some archs can optimize this case well. */
--#define __local64_inc(l)	local64_set((l), local64_read(l) + 1)
--#define __local64_dec(l)	local64_set((l), local64_read(l) - 1)
--#define __local64_add(i,l)	local64_set((l), local64_read(l) + (i))
--#define __local64_sub(i,l)	local64_set((l), local64_read(l) - (i))
--
- #else /* BITS_PER_LONG != 64 */
- 
- #include <linux/atomic.h>
-@@ -95,13 +88,6 @@ typedef struct {
- #define local64_add_unless(l, _a, u) atomic64_add_unless((&(l)->a), (_a), (u))
- #define local64_inc_not_zero(l)	atomic64_inc_not_zero(&(l)->a)
- 
--/* Non-atomic variants, ie. preemption disabled and won't be touched
-- * in interrupt, etc.  Some archs can optimize this case well. */
--#define __local64_inc(l)	local64_set((l), local64_read(l) + 1)
--#define __local64_dec(l)	local64_set((l), local64_read(l) - 1)
--#define __local64_add(i,l)	local64_set((l), local64_read(l) + (i))
--#define __local64_sub(i,l)	local64_set((l), local64_read(l) - (i))
--
- #endif /* BITS_PER_LONG != 64 */
- 
- #endif /* _ASM_GENERIC_LOCAL64_H */
--- 
-2.56.0
+Cookies are an L2TPv3 feature (RFC 3931). They don't exist in L2TPv2
+(RFC 2661) and l2tp_nl_cmd_session_create() ignores L2TP_ATTR_PEER_COOKIE
+when creating L2TPv2 sessions. Have you found a way to get a non-null
+->peer_cookie_len on an L2TPv2 session?
+
+> The UDP entry path only guarantees the first L2TP_HDR_SIZE_MAX (14)
+> bytes:
+> 
+> 	if (!pskb_may_pull(skb, L2TP_HDR_SIZE_MAX))
+> 		goto pass;
+> 
+> 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
+> 
+> Inside l2tp_recv_common(), for a L2TPv2 session with peer_cookie_len =
+> 8, the cookie check consumes bytes [6, 14):
+> 
+> 	if (session->peer_cookie_len > 0) {
+> 		if (memcmp(ptr, &session->peer_cookie[0],
+> 			   session->peer_cookie_len)) { ... discard }
+> 		ptr += session->peer_cookie_len;    /* ptr = optr + 14 */
+> 	}
+> 
+> Then the sequence-number branch for L2TPv2 reads at ptr:
+> 
+> 	if (hdrflags & L2TP_HDRFLAG_S) {
+> 		L2TP_SKB_CB(skb)->ns = ntohs(*(__be16 *)ptr);   /* [14, 16) OOB */
+> 		ptr += 2;
+> 		ptr += 2;
+> 	}
+> 
+> With a minimal 14-byte L2TPv2 packet (6-byte fixed header + 8-byte
+> cookie, no payload, L2TP_HDRFLAG_S set), skb->len is exactly 14 after
+> __skb_pull(udphdr), so the read at [14, 16) is past the end of the
+> linear area — a 2-byte slab-out-of-bounds read (KASAN catchable).  The
+> subsequent `ptr += 2 + offset` handling for L2TP_HDRFLAG_O can read
+> even further out ([18, 20) with the same setup).
+> 
+> Trigger conditions:
+>   - an L2TPv2 session with peer_cookie_len == 8 (admin-configured),
+>   - a UDP packet whose L2TP payload is exactly 14 bytes, with
+>     L2TP_HDRFLAG_S set and the correct cookie.
+> 
+> The peer address is not verified on the UDP path (l2tp_v2_session_get()
+> matches only on tunnel_id/session_id), so any host that knows the
+> cookie — i.e. a peer of the tunnel, or anyone when no cookie is
+> configured (in which case the OOB read does not trigger, since the
+> pointer stays at 6 and the seq read lands at [6, 10)) — can send such a
+> packet.
+> 
+> This is the L2TPv2 counterpart of the L2TPv3 optional-fields OOB fixed
+> in 2019 by commit 4522a70db7aa ("l2tp: fix reading optional fields of
+> L2TPv3"), which added l2tp_v3_ensure_opt_in_linear().  The commit
+> message of that fix explicitly noted that fixing L2TPv2 as well would
+> require refactoring l2tp_recv_common() and was deferred:
+> 
+> 	To fix both L2TPv3 and L2TPv2, we'd better refactor
+> 	l2tp_recv_common. It's complicated to do so.
+> 
+> L2TPv2 has remained unprotected since.  The in-function
+> pskb_may_pull(skb, offset) at the end of l2tp_recv_common() runs only
+> after all the header reads have already happened, so it cannot help.
+> 
+> A minimal fix for the v2 path could ensure the header is fully linear
+> before parsing — e.g. in l2tp_udp_encap_recv(), after determining
+> version == L2TP_HDR_VER_2 and before calling l2tp_recv_common():
+> 
+> 	if (session->tunnel->version == L2TP_HDR_VER_2 &&
+> 	    !pskb_may_pull(skb, 6 + session->peer_cookie_len +
+> 			      (hdrflags & L2TP_HDRFLAG_S ? 4 : 0)))
+> 		goto invalid;
+> 
+> (or a full refactor pulling the cookie/seq handling into a
+> l2tp_v2_ensure_opt_in_linear() helper mirroring the v3 one).
+
+I personally think that a full refactor should first stop mixing L2TPv2
+and L2TPv3 in the same code paths. Although these protocols share
+similar concepts, they actually don't have much in common from a
+technical point of view (different headers, features, transports, etc.).
+
+Starting packet processing with a pskb_may_pull() over actual header
+length would make sense but, for L2TPv2, that lenght should be computed
+based on L2TPv2 header flags (the Length, Sequence and Offset bits) plus
+the Offset Size field if the O bit is set. The ->peer_cookie_len field
+should never be considered for L2TPv2.
+
+> Checked against 7.3.0-rc7 and linux-next (2026-10-24): neither carries a
+> fix; l2tp_v3_ensure_opt_in_linear() is still v3-only.  I found no
+> report of this specific OOB on lore/marc.
+> 
+> Best,
+> Guikun Yang
+> 
+> 
 
