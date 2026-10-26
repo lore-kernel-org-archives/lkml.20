@@ -1,138 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793026442;
-	b=qVmpxBDKEhpFSmCErK1DaUn+LGMW8d63B6Dz7xpZq6rdDssHqLKYYPs68Uv6J2mge9yv
-	 aoiX3DrtwRH8R52LoHLbj/+zHX4qSfQykzF5rRgCkxPiddxBqc8NeMJfxidJlZHtag+vH
-	 kHYS5tOMalMBuZLGHT7/fin8+9VGadcAMraDD7W9QuPUnREnVKxfSrcpiVgDvobxUISrZ
-	 6cf3d9FNSrKJMMxWlrEHCu0TurZ0c+m5o8ZYrYPpiZvqoHEMrr8pEWuygF7cb9Jph3qLo
-	 ZjeyuGLF2hRlampd0fXgyznqQKQtWFL+Qs0E/j4jSZsig8/Cm45KKF5wFrP0y0AGKiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793026442;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=OKz8jQo/auRPZNzdWHUdE6yB8Ix7XlP0akY/URWqfWs=;
-	b=c276FkIo7Hmdyd8GND6nwqoILMrYToABL9XMGCNxzbUy11mK81vZ9vGhKH7vwzy8sH/y
-	 OaPMhHsAOMlz5AGvwMirvq63/EOl5cE5o2Fx/5EUm6p4la7qHZfRYzP4amj2x+RsmIYxY
-	 1+aysckRNbfdWcykgcs3DVV+xjGSBUEcq9iBDAwzhRYOwU5fInXIg7j0uqHFJZ++phThA
-	 Q+MyoOkVuSmux2RdZ2FDobf+H9T5e2L74olLzUd5/r2jtQijjwLaIEYB0QF6/wVksZAtJ
-	 6KZ7EUqV4OYCcr1ls8UgdBcQ90T/RpI45ppsyyZhgTLEFK6LKzBzvKw8MUqu02GGA9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ERkprg9R;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uGP0Pk1z;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793026449;
+	b=uqS19/wv+nq0+FBmj4ju+wLcZQqOVIvRqPtMzmFK40jkcRkcdEZU47qgQW1v7vW0fJTW
+	 xCM4fCGcN04O3m86556710ylC9KX7c2bPN6mokauvoo5kR0biX1nTapIHjTZIkyBSPq77
+	 eVDQQRNfYJ+LjrVO6eTmbeZ0geQlm6WvVvag+2Hcea11eGRoDO2TQEfe8Yqu9Uv5lo05b
+	 6fFhq1QqITKXNEITbs+wjzAC+Cd/xdH9xiwh5jkS5tf4R32a7p9ehkPeoB73D0LsZ78b1
+	 GyhJrlT7wHPYnIg3A7XI2OpeI/yX4SU4QsL3yIk0xCx6Bv+69d8wLO9B/4IJ3FgbbHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026449;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+	b=4o85Ptw0EssNlXd0ZVYPveKodVkJKI5E6T/tVBxOu5HuvGi4I9ruSCjZJ3/rWQv/ozvl
+	 abgEtrrbeVPt8kSojvW2FbRiQLpjqidPGN3Kh2V2DNFjr4058sIbYX9Q1xhYaIamjegEG
+	 zsre8ixLT9AixJ9KIjaDKPmoLVZTypc8QCtCj1ZboDkTs3xDhRg6Ot7cT7ItwyT+vtAy6
+	 C2T70ruPqc5AYcesyJWAIjcOKU0CbWOl46SmUbA9g+8DTWdeBnc+QKR/dZs+gQhnEQxKc
+	 pzISX+tfRFaLQZZN3B6kepfpCczhPrklHDthzRLEJMVhKXgNrWtewU2MU5b7R8LLx+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TLjPVf0P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D3F606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D3F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6A9606A31B;
+	Mon, 26 Oct 2026 14:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D6A9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ERkprg9R;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uGP0Pk1z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793026440;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OKz8jQo/auRPZNzdWHUdE6yB8Ix7XlP0akY/URWqfWs=;
-	b=ERkprg9RQDF0hLYEQEK6W4YCQtJjEBAQ2TsbjX0HNA7pDMMr9hxWvnDrf1AwjvOcUkPO8A
-	i4B0XAr3Rm4srBQh/5THFEiFYLs7Necl9hh9WEIafQRRXJuQAtKtSphr0iU99grbeYdyuW
-	Pjp5DevJWYd9DUES5b6nE5M3FfVpMkQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-629-NmJVYOQ3POa3u0WIqZyDBA-1; Mon, 26 Oct 2026 10:53:59 -0400
-X-MC-Unique: NmJVYOQ3POa3u0WIqZyDBA-1
-X-Mimecast-MFC-AGG-ID: NmJVYOQ3POa3u0WIqZyDBA_1793026438
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1e489f97fso33424305e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793026438; x=1793631238; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OKz8jQo/auRPZNzdWHUdE6yB8Ix7XlP0akY/URWqfWs=;
-        b=uGP0Pk1z+PvBjyU5Hd6NCgEDYd37ZOFgb5K88Kicdyu4SrkHEyKubZkMEDQBGEHNDn
-         J4hhOoBBQHKxj50cF8n760kkcjv7fs5I/8s6OL8/uLwjHS1atvPaVjh+wpnrp8erF2is
-         V61hvK97UJlnw8cey7yvLrchgDJbY+o1VJVmEf5Wf477EBUMEfAm+rXMoRcHnm7lb+Fk
-         PL0yY3325jYsfWNJsP0g5w5fv5GCAghuaVJZbo1pwbrrj9AjwK6t2Eq+pYWCaL4aWs6J
-         wuPcj5UE7QFZy0DwHLUwh3jPaFCQERxlvgUcOxYAlo7kqc5gedOjz4OmOMSJGCcApDQz
-         wXoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793026438; x=1793631238;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OKz8jQo/auRPZNzdWHUdE6yB8Ix7XlP0akY/URWqfWs=;
-        b=YH0IjhAkDg4oCHBWPvDL4n4sGcWha7t6Qaej3MAQorshSBHfyUjr01TQhLmi6En4EH
-         tDd+DZsM0+7OuhXSgDHt8Osfm9k3jlmISaYAqaZYB23YjSmtZvQofDic7SfestQszeoj
-         dlaJQR9waBtFN3i17OBTJ+zPhi4YOA3b98TSKcCigx2sOYEouD2I5NFBNDMfuOmbYBLa
-         nQaKsDbWtdJymn84lR3RsIWqClRR96oqOSFAzBE/F+uq828W6o2uSu0O0GgzVGquqYrX
-         fQtfCDh+aBN78iDr2QAnfDGEJyNr2FGbymSq5qwV6JkdZSGFQiD+JMV2ZT/4lTvN4PKu
-         c2JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxb930tPulYZvRNMgqgiRTn6rvgc7XlMVn44rmriEbOZPmwv7c8XActg38hpRExfpYzTHm1c76rSPk+i20=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfmuy9kY8T+q0KAW6LWHKrKnXcMIXrxjE6TWJhVZ0zYpiRGxEE
-	StVFl6CoV7GXab8/f23lyGVtq5E8osANtN8ObRuN0rTVM5ooNxOLI+2dFRhSSZin+SlXi4XB2MS
-	mRHz0j+4IRZ+aS8mkvqDgE2nJB7iYO+xuxkGkCacEXuWh1s1YrTul51skMt1gOWABvQ==
-X-Gm-Gg: AYBFou2A0niCSXIqL5Kcu0teonQDxF2Jwq1U2yf7pMhHxCjWRBnFi2hs65PUTbgkNIC
-	AJFwPDuwCQ8BPH+esY8IRc/QsUNscaTHktB50/wit6d6c0lsCnBnf1RLmD9/rYRS/hG/vBBhvzW
-	bf2e/G5PTwdbB+P6vPtvbrIfjsZ+hYvPXyfpxREY2853b2smkyoBsEo1Ra08cbE8k2EtGGjADrH
-	XNvvNvAf4B6BRnN2z8GcYU0hV3mW2GEJkAwvbxLl/7uFosf9ZOm9tZpqy2Tq8g6fmqXw6AUF9DA
-	clV4M1sAAleQ/XfEdy91bD+OjWx/wx5RXbktbWgA5dY94QeCyGSdg6jtjX91Hr97VwM=
-X-Received: by 2002:a05:600c:3487:b0:4a1:fba8:b13d with SMTP id 5b1f17b1804b1-4a35ac8c231mr138381515e9.9.1793026437532;
-        Mon, 26 Oct 2026 07:53:57 -0700 (PDT)
-X-Received: by 2002:a05:600c:3487:b0:4a1:fba8:b13d with SMTP id 5b1f17b1804b1-4a35ac8c231mr138381105e9.9.1793026437038;
-        Mon, 26 Oct 2026 07:53:57 -0700 (PDT)
-Received: from localhost ([46.6.57.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bac37sm213564065e9.6.2026.10.26.07.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:53:56 -0700 (PDT)
-Date: Mon, 26 Oct 2026 15:53:54 +0100
-From: Albert Esteve <aesteve@redhat.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
-	cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-mm@kvack.org, linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	mripard@kernel.org, echanude@redhat.com
-Subject: Re: [PATCH RFC v2 7/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-Message-ID: <at9pgl9sC8__GHlZ@aesteve-thinkpadp1gen8.rmtes.csb>
-References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
- <20261021-v2_20230123_tjmercier_google_com-v2-7-ef6ee2dd8c5c@redhat.com>
- <9e54354d-b037-47e1-9390-86d5e25444a7@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TLjPVf0P
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mzxeUN2DExM3/qSC3mwcSRIbtQ+C5JtvY4/7k2A1ByZAFAeJOi34R2J1LOlJqmx1IN8GF2MOFX9LOW/EOmhKfOehzhy1/A0lHM85TIsonADlFMmti9JvqYA94XOyra8LqUqTh8wv19fagEUSQ/BtQ98Ew9yrqR7Bp//lXvk9qCMhKGSycTGx7bBv0osh+xDykNaPhzskoslIJoZpzieppyFOqqUepgRMD2/x6GgJQuSfnA+vZf8Tim8B3DwcEvavKr1fiy1P7aheH72THCdkb/Elz8EuA2JSeTpTmS4a2ssZK/hdplStl09PUc8sSr8VNMCwRKgn8aamurR6809wCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+ b=cskT5l5cf497yCDxQ0IQjwvwvYxMUpVqgNdJjA9jTBbIQ2RxfEwFj8SMXecT/ILq7+MOFOXUi0l1Rq2pljg/m5exdeO3fYDqGTGCAAxfXRn4h13C0mSmF1mTu8qW48tkphRKXgYZVa8DOBBIRfkfgM1y8rvS1MXmjdDUD0WnGOy4edN7AGwOk9zfcdglhaTMXr5LVgMrYBYlgDoLtsk10NDc87R5RRwNfjcwWjGlJiypyKy2MqaCfezXYvGozGEe0L4DOC6FVdneLuWZUGtqTroMLY3iC78klQgo40tKyPZwbAi9ZbA5/FfSb5Vz7vbfZGgBVz0kzegX/KK0ajLDdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+ b=TLjPVf0PpxDtUL3Dyf9Jv6A1QSCMBYoSjy6D/z/2vBPWn+DxmxP6t+M60RaeYRPCw7S0v5j0v0cHxv3mP9u7t46N6g6aayik1+fBzJq0M/UcmJLzT31yYfhQ5BTAqgeHuHiZ5XV7AoNiAXMH+PmI8TC/eLrkCMUjU/bcUerSJmDbea+mhNNQ6uYOh4Cw8aiiKHFD4QPkv9tsIyb0Ms4p57ql9Z6IrzKGDGWgf3kTvU+vczKl1PoSXVWM6PmaKUTLi0teme6VXG40dAl5t6ORCV0a+PuuEd7tDWwo1yM4QOtTf8Q6Y+udLszP7IvPy2aCjhv5jq99wNNQ/6tH1oTRqA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by BR0PR04MB944139.eurprd04.prod.outlook.com (2603:10a6:2c8:46::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 14:54:05 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 14:54:05 +0000
+Date: Mon, 26 Oct 2026 09:53:54 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	francesco.dolcini@toradex.com, leonardo.costa@toradex.com,
+	hvilleneuve@dimonoff.com, marex@nabladev.com,
+	stefano.r@variscite.com, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch
+ Display 10.1" LVDS
+Message-ID: <at9pgvFmDPI9oLrS@SMW015318>
+References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
+ <20261001155412.3177428-4-leoreis.costa@gmail.com>
+ <ar6JnZp1jBvlc8bx@SMW015318>
+ <20261002081824.GA7222@francesco-nb>
+ <ar_bsQbD-IbvUf86@SMW015318>
+ <20261005075319.GA7692@francesco-nb>
+ <ateZGwrFGfD1j-i3@lizhi-Precision-Tower-5810>
+ <20261026111149.GA46946@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026111149.GA46946@francesco-nb>
+X-ClientProxiedBy: PH0PR07CA0012.namprd07.prod.outlook.com
+ (2603:10b6:510:5::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -142,306 +109,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9e54354d-b037-47e1-9390-86d5e25444a7@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB944139:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18e39276-fe45-4035-0a9d-08df3370fb39
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|7416014|376014|261009223027099003|261021123027099003|261021121427099003|261021135927099003|261022105027099003|261022075727099003|10067099003|56012099006|3023799007|18002099003|22082099003|11063799006|4143699003|261026140227099002|261026121527099002;
+X-Microsoft-Antispam-Message-Info:
+	gOgpMVAe5yWTOQOP+4lJagxfmbkd+M/Azxy8E988FMRJkXoUrvlNpuAqQeG/rs5FbLuGCTlanEU02IlRwOQKbobEoMic+pxn5R0KvS58DGJOIBEGLigaGWpOBSCokTQH4T/PdDFW5CH1q0WGg8jXlX75nQqAXsS+wVbe8jt8NX/+jHhLPzm/902SFYNbQLzXBmWMulebH5D/M8e8oqUE/rn5lyQAhwwGo3ktSKaNyBwB4hP4XVZmnOJaLIojZV6zKoMaC2S90DjxdiTfR6mNgX/Mk6L2CXX4Ih3H9QvkXu3lNdfDggN3a2XpOU3Bs/WLV56lGTlGHERuTr9khjPPZULG6ep6R6lZKZzMVPP3hePdxh5txrWZxZGP6/GIqa7i2xvPfBfw520lli5SkBhPM3AMIElnneZseax7BoyHuRNlvAIONwnTlgbK/G2hvvH7kQQyKln60ipvF6ocm8dUUPcauw1Dga0mWECIaX8aaRDPIHysCRPCc1EYa2Fz4q3LWjGPRVSi65+utcmxE+LdCKp/N1puvLAEiwcGCK5fOGjZQ0q8OBoJVKIxN7PUtFm0G4hrCZTwmVTTv8KyqPDigRua2sHBjMZE9n1Ie5qjjp52FiE420hY/YPOnGa8JRsO
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(7416014)(376014)(261009223027099003)(261021123027099003)(261021121427099003)(261021135927099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003)(261026140227099002)(261026121527099002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+E9KQusI5zDsyWKxC7KtAblRTJQczSaOgeAAGJ6ktoS++itv2MVdD81ku5/y?=
+ =?us-ascii?Q?bk5SHMLPdmeNKdkHqv+zruCh9fQBZzqTXTDsK0bohkmA+VOfJ7ux0IKDEjhm?=
+ =?us-ascii?Q?HFGi00vW3LH6FxiA9SCr7sjGBtI2SxiEIuT6oRZysySnbAyXcyhZTEBZ7/jp?=
+ =?us-ascii?Q?krQhX5urfqjgU81UZCixlVG9y51tcO11oOL1U90sdeHC7VZtX+1+tP0kk9/x?=
+ =?us-ascii?Q?aQGdccy7kEAqsHbSe0GLH2mmcVohqmU19SiiDvt9wCO8PCGG/1YY0OsJ5hZK?=
+ =?us-ascii?Q?H1eTJ3+pJVmP0lcS4nnKvQfUZA1Vql6APtGkWAcIl2UNDZdMZssH9eNL7meF?=
+ =?us-ascii?Q?cvcXl9YgHPqFRqJCINJBncQaf3ph00RoTH08gyxxFUjHOlsTR+Puk35/xMcG?=
+ =?us-ascii?Q?F2e2nyltzs3u9T1X4F7rm20XTeMkh9pPYZ90j98NWxOPJqnYGXjvR55HiME9?=
+ =?us-ascii?Q?3NPdIWJFRX6VFDWfqDDS/nRXHFvApax98DKFcLLn8prN33sDYV4B1Rey8nEi?=
+ =?us-ascii?Q?FDTD5kUeYoIKaMYm9kmqAaaffuOlYHyKab8tgKzJ8MVkP7XY+vNVxvS6ga8y?=
+ =?us-ascii?Q?Hdvw0rcpEnVjdehXW5W2SkEiaYW6ejjIQbH//xbZSTV5NzX+72wSsP5K3uCL?=
+ =?us-ascii?Q?YVaiK+h3DqYb15VQVsAiNrFgJoed35inbyrbzgSXJbGaELykelmDcNG/xJoU?=
+ =?us-ascii?Q?Tntopz9V/2ulNHhromOTz8eQrr7w6x0bmC/94Y16PVMqFiG2jIqr1fmlXo63?=
+ =?us-ascii?Q?QKyrQNAFQv3c3XuN+OHbA0h4Z4cu+bhdJ+qPoU8TWXlPiVSxLj5a7lUIvBYE?=
+ =?us-ascii?Q?3leD8+xPNYmqTpAQB8uRJwiWOQeJWKCSkBsXskHzY7hSued1E65PNoMtxSRp?=
+ =?us-ascii?Q?4qLoyNCxh9zLEPTJi1dHzcXG8YTDblIUVN3S8YAfg6lNJxT93255LB8aI0TZ?=
+ =?us-ascii?Q?aYvWxgsgK0CAHhhXwDnNH0EZYeyLRL7zTGy/S2V98flqr4AqMC/VHSYTk4bt?=
+ =?us-ascii?Q?B81CM8+5QlewkBn+GTFusd6fPx5DycCi+hy4/02Ma7/XBmJ30ET4axHyScIv?=
+ =?us-ascii?Q?ycvzWA7x6TWkJnCGbCud3FPMA3f1Es5HPIJWt0uw53CYDgZxg+csk6zD7Sy8?=
+ =?us-ascii?Q?awEX6Dyj1YPXZFbBMaOY0LRHYqA1CZtQthNLgGt6wWmxxwvWfMDFpNo08exv?=
+ =?us-ascii?Q?vOn6lUdu7GVfi8U7gDFI5upieE+dDA+7P8AlGHqtlCnaUDwmwEvFfecbU4Ys?=
+ =?us-ascii?Q?vQ4l4uSncDI42Wo9sJ2kUJVHlogeLKbV85oQf9TzdvX2UpWducllV9pXzNB3?=
+ =?us-ascii?Q?LBZgGZVVQMOyzHWHk6TNXSZuE8otUDV3GvKJF9Pqe9fLx2TuQDJ2MWTUzb6x?=
+ =?us-ascii?Q?Zt63RnraXNJS8hJ2Occ74QX113PhfpdOIeg/D82nFdRmNNr99QyVW11xb31W?=
+ =?us-ascii?Q?DrQjPPCc2AJIZEtQ0RiIpjVJ/XGusBk27YYx0B2ACHjmVYROvvXLeD4mvNMr?=
+ =?us-ascii?Q?/DEX9bIBINcEcRDKUGNW4rs3pN9uYpd7Cs+qlbbSDRrt8HvCwYc53JFsiPVw?=
+ =?us-ascii?Q?nwLgGgNQJ4T5/NWHcvO0hATAzEVdQm7s68w8Oyv6FrvyMjtiOA/XG9VbUzVa?=
+ =?us-ascii?Q?HRl/pIragJW3jhdY8jv5SvEJJd+N6Z/GUs90yhgmxwucKjKJknIwy77v5KhS?=
+ =?us-ascii?Q?WbedeA1ZcM4e5A4EzLbXus7JssUlxbm/aLabV4a8pN/veHEI3kinF4aswNsH?=
+ =?us-ascii?Q?b16Tl3szxNnzn70URHJOjj6JhKj1h6qCC7/nWjmy0D8svh40GhTX?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18e39276-fe45-4035-0a9d-08df3370fb39
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 14:54:05.6242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kQJ5MrsF5APFP0ooYC5kSN4Tv0HaM7Sgx7Jy5NCuwsW+F4pun0U2ESQZFmDXdtE7J7tlcm7hqhvyMdGhI6MEPdMh9uA+VFrJ7ciuyKSSNwktkCzsKQ7bAEvRlgvjfQEP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB944139
 
-On Thu, Oct 22, 2026 at 12:23:57PM +0200, Christian König wrote:
-> On 10/21/26 17:42, Albert Esteve wrote:
-> > dma-heap already supports charging a specific cgroup at allocation
-> > time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
-> > originate from any exporter (DRM, V4L2, etc.), and the allocator may
-> > not know the final owner at allocation time.
-> > 
-> > Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
-> > to a different cgroup after allocation. The target is identified by
-> > charge_fd, which may be a cgroupfd or a pidfd.
-> > 
-> > The transfer charges the new cgroup before uncharging the old one,
-> > preserving the original charge on failure. An atomic cmpxchg on
-> > dmabuf->memcg prevents races with concurrent transfers.
-> > 
-> > Usage example:
-> >   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
-> > 
-> >   struct dma_buf_transfer_charge xfer = {
-> >       .charge_fd = cg_fd,
-> >   };
-> >   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
-> >   /* charge now on app1's cgroup */
-> >   close(cg_fd);
-> > 
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c    | 77 ++++++++++++++++++++++++++++++++++++++++++++
-> >  include/linux/memcontrol.h   |  9 ++++++
-> >  include/uapi/linux/dma-buf.h | 26 +++++++++++++++
-> >  mm/memcontrol.c              | 40 +++++++++++++++++++++++
-> >  4 files changed, 152 insertions(+)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index f31f49ebd0af..7fa607d9bf65 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -540,6 +540,80 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
-> >  }
-> >  #endif
-> >  
-> 
-> A single line code comment what this is all about would be nice to have.
-> 
-> Some note to look at struct dma_buf_transfer_charge for details is most likely good enough.
+On Mon, Oct 26, 2026 at 12:11:49PM +0100, Francesco Dolcini wrote:
+> Hello Frank,
+>
+> On Tue, Oct 20, 2026 at 12:38:51PM -0400, Frank Li wrote:
+> > On Mon, Oct 05, 2026 at 09:53:19AM +0200, Francesco Dolcini wrote:
+> > > Hello Frank,
+> > >
+> > > On Fri, Oct 02, 2026 at 11:28:33AM -0500, Frank Li wrote:
+> > > > On Fri, Oct 02, 2026 at 10:18:24AM +0200, Francesco Dolcini wrote:
+> > > > > On Thu, Oct 01, 2026 at 11:26:05AM -0500, Frank Li wrote:
+> > > > > > On Thu, Oct 01, 2026 at 12:52:53PM -0300, Leonardo Costa wrote:
+> > > > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > > >
+> > > > > > > Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+> > > > > > > LVDS connected via the Apalis iMX6 LDB.
+> > > > > > >
+> > > > > > > The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
+> > > > > > > touch input is provided by an Atmel MaxTouch capacitive touch
+> > > > > > > controller.
+> > > > > > >
+> > > > > > > Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
+> > > > > > > external component that does not exist at the SoM level.
+> > > > > > >
+> > > > > > > The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
+> > > > > > > Board V1.2 device tree to provide a ready-to-use DTB.
+> > > > > > >
+> > > > > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > > > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > > > ---
+> > > > > > >  arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
+> > > > > > >  ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
+> > > > > > >  arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
+> > > > > > >  3 files changed, 59 insertions(+), 13 deletions(-)
+> > > > > > >  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+> > > > > >
+> > > > > > similar 7" case, add panel module name in file
+> > > > > >
+> > > > > > imx6q-apalis-lvds-panel-lt170410.dtso
+> > > > >
+> > > > > This does not work, sorry, the current name is the correct one, for
+> > > > > various reasons:
+> > > > >
+> > > > >  - the product is a display made with a specific connector, touch
+> > > > >    controller and display and more. The actual panel is just part of it
+> > > > >  - the current name wholly describe the product, it's a public product
+> > > > >    with an official name, all of that is clearly linked in the commit
+> > > > >    message and comments. there is no ambiguity.
+> > > > >  - the same toradex accessories are not module specific, they are used
+> > > > >    across multiple families/carrier board. It is a whole ecosystem that is
+> > > > >    building on top of standardized interfaces and connectors. The same
+> > > > >    overlay file is available for multiple boards and in multiple SoC
+> > > > >    vendor directory (as of now TI and NXP, soon we are going to have
+> > > > >    also QCOM). Having a consistent naming scheme is important, we cannot
+> > > > >    call the same things differently every time.
+> > > > >  - there was a situation in which we did a new product revision of a
+> > > > >    display, specifically the "Toradex Capacitive Touch Display 10.1"
+> > > > >    LVDS" there are two versions. The official product name is the same,
+> > > > >    apart an additional version number, one is version1, the other is
+> > > > >    version2. They have differences, and it's not just the panel, more
+> > > > >    stuff changed, so having the panel name in the filename will not
+> > > > >    help. v2 support is already in [1], for reference.
+> > > > >  - the toradex naming scheme is not encoding the actual part number used
+> > > > >    in the product name, for example we have apalis imx6 v1.2 that uses a
+> > > > >    different touch/adc than previous apalis imx v1.1. The product has a
+> > > > >    different schematics, different BoM and so on
+> > > >
+> > > > Do you have schematics number to identify it?
+> > >
+> > > Why do you ask specifically about schematics? We have schematics and we
+> > > have a way to identify a product to the related schematic. The way we
+> > > identify schematics, whatever is a number, a string, or anything else
+> > > seems not relevant to me.
+> > >
+> > > But yes, answering you question, we do have schematics and a unique
+> > > way to identify them, and it's not using "numbers".
+> > >
+> > > What matters here, is that Toradex products have a unique number,
+> > > and we have a way to trace product revisions.
+> > >
+> > > So, for each product we have
+> > >
+> > > <product name> <pid>
+> > >
+> > > and <pid> is 8 digits, the first 4 digits is the end customer product
+> > > definition, and it matches with the product name, and the last 4 digits
+> > > is the product revision.
+> > >
+> > > All of that is documented, see https://developer.toradex.com/hardware/hardware-resources/general-product-information/ordering-information-and-product-identification-pid-pid4-and-pid8/,
+> > > and this is what is used for any kind of product traceability.
+> > >
+> > > Staying on our LVDS 10inch panel example
+> > >
+> > > Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12121000 | (version 1)
+> > > Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12122000 | (version 2)
+> >
+> > include  12121000 in your file names.
+>
+> That would result in filenames such as:
+>
+>   imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-12121000.dtbo
+>   imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-12122000.dtbo
+>
+> While technically correct, this creates a usability problem. PID8
+> ("12121000" is what is called a PID8 in Toradex product naming/number
+> scheme) tracks hardware revisions, including changes that do not affect
+> the DT, such as passive components or mechanical changes.
+>
+> A user with PID8 12122001 would not know which overlay to use, and
+> duplicating identical overlays for every hardware revision makes no sense.
+>
+> I therefore propose:
+>
+> imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
+> imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
 
-Sure, will add it for next version.
+It is okay.
 
-> 
-> > +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> > +				const void __user *user_data)
-> > +{
-> > +	struct cgroup *cgrp;
-> > +	struct cgroup_subsys_state *css;
-> > +	struct dma_buf_transfer_charge arg;
-> > +	struct mem_cgroup *memcg;
-> > +	struct task_struct *task;
-> > +	const struct cred *tcred;
-> > +	unsigned int pidfd_flags;
-> > +	int ret = 0;
-> > +
-> > +	if (copy_from_user(&arg, user_data, sizeof(arg)))
-> > +		return -EFAULT;
-> > +
-> > +	if (!IS_ENABLED(CONFIG_MEMCG))
-> > +		return 0;
-> > +
-> > +	if (arg.__padding != 0)
-> > +		return -EINVAL;
-> > +
-> > +	cgrp = cgroup_get_from_fd(arg.charge_fd);
-> > +	if (!IS_ERR(cgrp)) {
-> > +		/* charge_fd is a cgroupfd */
-> > +		rcu_read_lock();
-> > +		css = cgroup_css(cgrp, &memory_cgrp_subsys);
-> > +		if (!css || !css_tryget_online(css)) {
-> > +			rcu_read_unlock();
-> > +			cgroup_put(cgrp);
-> > +			return -ENOENT;
-> > +		}
-> > +
-> > +		memcg = mem_cgroup_from_css(css);
-> > +		rcu_read_unlock();
-> > +
-> > +		ret = security_dma_buf_charge_cgroup(current_cred(), cgrp);
-> > +		cgroup_put(cgrp);
-> > +		if (ret) {
-> 
-> 
-> > +			mem_cgroup_put(memcg);
-> > +			return ret;
-> 
-> Maybe use goto skip_transfer; instead?
+> >
+...
+> > Ideally, rpi-display-2-7in.dtso should reused for all boards, which use
+> > rpi defined connectors. Now exsiting these combinations reason is current
+> > nexus node is not good enough. but we face to this directions.
+> >
+> > And anyway, rpi-display-2-7in is not good name because rpi many produce
+> > difference 2-7in panels in future.
+>
+> This is an existing upstream naming convention, already reviewed and
+> accepted by multiple maintainers.
 
-Yeah. This is a copy from the ALLOC part sharing this logic.
-I will refactor all this logic (extracting memcg from the fd)
-into a function in memcontrol to clean up this mess.
 
-> 
-> > +		}
-> > +	} else {
-> > +		/* charge_fd is a pidfd  */
-> > +		task = pidfd_get_task(arg.charge_fd, &pidfd_flags);
-> > +		if (IS_ERR(task))
-> > +			return PTR_ERR(task);
-> > +
-> > +		tcred = get_task_cred(task);
-> > +		ret = security_dma_buf_charge_task(current_cred(), tcred);
-> > +		put_cred(tcred);
-> > +		if (ret) {
-> > +			put_task_struct(task);
-> > +			return ret;
-> > +		}
-> > +
-> > +		memcg = get_mem_cgroup_from_mm(task->mm);
-> > +		put_task_struct(task);
-> > +	}
-> > +
-> > +	if (dmabuf->memcg == memcg)
-> > +		goto skip_transfer;
-> > +
-> > +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
-> > +		ret = -ENOMEM;
-> > +		goto skip_transfer;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +skip_transfer:
-> > +	mem_cgroup_put(memcg);
-> > +	return ret;
-> > +}
-> > +
-> >  static long dma_buf_ioctl(struct file *file,
-> >  			  unsigned int cmd, unsigned long arg)
-> >  {
-> > @@ -590,6 +664,9 @@ static long dma_buf_ioctl(struct file *file,
-> >  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
-> >  #endif
-> >  
-> > +	case DMA_BUF_IOCTL_XFER_CHARGE:
-> > +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
-> > +
-> >  	default:
-> >  		return -ENOTTY;
-> >  	}
-> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> > index aa08fbb0c26c..3a6acfda1423 100644
-> > --- a/include/linux/memcontrol.h
-> > +++ b/include/linux/memcontrol.h
-> > @@ -674,6 +674,9 @@ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
-> >  bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-> >  			      gfp_t gfp_mask);
-> >  
-> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +				       struct mem_cgroup *new_memcg);
-> > +
-> >  void __mem_cgroup_uncharge(struct folio *folio);
-> >  
-> >  /**
-> > @@ -1183,6 +1186,12 @@ static inline bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf,
-> >  	return true;
-> >  }
-> >  
-> > +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +						     struct mem_cgroup *new_memcg)
-> > +{
-> > +	return true;
-> > +}
-> > +
-> >  static inline void mem_cgroup_uncharge(struct folio *folio)
-> >  {
-> >  }
-> > diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
-> > index e827c9d20c5d..4970a7b8e08e 100644
-> > --- a/include/uapi/linux/dma-buf.h
-> > +++ b/include/uapi/linux/dma-buf.h
-> > @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
-> >  	__s32 fd;
-> >  };
-> >  
-> > +/**
-> > + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
-> > + *
-> > + * Any holder of a dma-buf file descriptor can perform a
-> > + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
-> > + * cost to a specific cgroup, or move it from one cgroup to
-> > + * another.  The ioctl charges the new cgroup before uncharging
-> > + * the old one atomically.  On failure the original charge is
-> > + * preserved.  If the buffer has no existing charge, a new
-> > + * charge is established.
-> > + */
-> > +struct dma_buf_transfer_charge {
-> > +	/**
-> > +	 * @charge_fd: File descriptor identifying the target cgroup.
-> > +	 *
-> > +	 * May be either a pidfd, in which case the charge moves to the
-> > +	 * memory cgroup of the referenced process, or a cgroupfd obtained
-> > +	 * by opening a cgroup v2 directory, in which case the charge moves
-> > +	 * directly to that cgroup's memory controller.
-> > +	 */
-> > +	__u32 charge_fd;
-> > +	/** @__padding: Reserved, must be zero */
-> > +	__u32 __padding;
-> 
-> Maybe rename to flags, put before charge_fd and add "/* unused for now */".
+The existing doesn't means good enough. That's reason why there are hundreds
+patches each days.
 
-Agreed.
+Our goal is making thing better.
 
-> 
-> > +};
-> > +
-> >  #define DMA_BUF_BASE		'b'
-> >  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
-> >  
-> > @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
-> >  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
-> >  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
-> >  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
-> > +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
-> >  
-> >  #endif
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index e94222237d31..d994a4b2d35e 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -5688,6 +5688,46 @@ bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-> >  	return true;
-> >  }
-> >  
-> > +/**
-> > + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
-> > + * @dmabuf: buffer to transfer charge
-> > + * @new_memcg: target memcg; caller must hold a reference
-> > + *
-> > + * Transfers the charge for @dmabuf to @new_memcg and, on
-> > + * success, stores @new_memcg in @dmabuf->memcg.
-> > + * Returns %true on success, %false if the charge against @new_memcg
-> > + * failed or a concurrent transfer raced on @dmabuf->memcg.
-> > + * On failure the caller retains its reference to @new_memcg.
-> > + */
-> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +				       struct mem_cgroup *new_memcg)
-> > +{
-> > +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
-> > +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> 
-> That doesn't work as easily as this.
-> 
-> DMA-buf can contain litterally *anything*, ranging from system memory over device memory all the way to functional HW blocks. In other words doorbell, GWS, GDS, OA, I2C, I2S, any random data consuming or providng HW block...
-> 
-> For memory the "size" is the actually number of bytes the buffer represents, but for everything else it is just an arbitary number given by the exporter. In most cases just 1 or actually number of HW blocks/channels, but for GDS for example it is actually a pretty large number.
+Frank
 
-I don't think I was completely aware of all these uses for dma-bufs and
-the specific meanings of the size for all them. Thanks for pointing this
-out.
-
-> 
-> Saying that you most likely need some flag from the exporter if charging and/or the changing of charging should be possible or not. Otherwise you can potentially do quite a bunch of nonsense with that.
-
-Yes, a flag seems to be simple solution for the problem at hand. I can
-focus on the system heap for now, and it can be easily extended in the
-future for other allocators as needed.
-
-> 
-> Regards,
-> Christian.
-> 
-> > +
-> > +	if (!mem_cgroup_disabled() && try_charge(new_memcg, GFP_KERNEL, nr_pages))
-> > +		return false;
-> > +
-> > +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
-> > +		if (!mem_cgroup_is_root(new_memcg))
-> > +			refill_stock(new_memcg, nr_pages);
-> > +		return false;
-> > +	}
-> > +
-> > +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
-> > +
-> > +	if (old_memcg) {
-> > +		/* Uncharge old cgroup */
-> > +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
-> > +		if (!mem_cgroup_is_root(old_memcg))
-> > +			refill_stock(old_memcg, nr_pages);
-> > +		/* unref from buffer - buffer keeps new ref to new_memcg */
-> > +		mem_cgroup_put(old_memcg);
-> > +	}
-> > +
-> > +	return true;
-> > +}
-> > +
-> >  /**
-> >   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-> >   * @dmabuf: buffer to uncharge
-> > 
-> 
-
+>
+> Product naming and versioning are the responsibility of the manufacturer
+> (whatever is raspberrypi or toradex).  I do not think we should
+> second-guess those decisions without a concrete technical issue.
+>
+> Francesco
+>
