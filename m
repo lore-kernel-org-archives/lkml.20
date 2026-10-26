@@ -1,53 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036526;
-	b=z/qemG8/ccI+o+cKHmCRcXfwGt0ktKnVDEKWpS0FTeARRYcpq/bHIbgrl1Yk4sgv6KVP
-	 bqhOFm/iW1MH5IAoQfP4NWO3j0hwv6LbNPhXeZGt4y3jO4zxnz7riptbTbP17Zs7t596n
-	 vEAUxWse9lXXBxib/5oPcUCqBhoKkp6ZaNyBtkZsvdh4kmLn4bnlHdDdMvJJKJ62+JVYo
-	 QnLI4Pv4ieQRc2du/VBxyIoTV2ib/fDdW1ZReQqVNhLdv2RMV8PuYTq7Falh8e10stoN9
-	 TTQL0xgDJIeuvK4gRSDBCXX4fFaubW5P6Qd7xfKVCk7hO/Aa1/KacuaTI0+UZBCep5Q==
+	t=1793036546;
+	b=0sSYhiUVTqNPaoRyvO3/5r+PNNl0YlSj0nzE480lhPilNi+F1m0kgv/F5Q640RjVC1Yd
+	 ZAZLs15heYLNSsnc2AtMUehdbS1GEuyz1V6yBmyays++SDVhq45rY0lv4M4QzYKFMlvsi
+	 WK8rUEozhNgeIpk4OAxRTJU26dZJcjEnAWqEBIy59pccgOckl2pyZ52QAJLzAFZ+lwRZ3
+	 Ajffha0rO/49SpKk05kWUPiNRqrIL17H7nGYvDFuR8UhsjeMcBFRC+jN/B4xVD3XaMyIj
+	 xHjVSnBtzj00BXnMCKSvGOhMIeBi0lIWvkotWQFdAHMsBXPqt7QpK/3Y7IFeqxbn+Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036526;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lW+60CqCGiKqWMT6sfEWNVQyKUdP03cTYPBnmO6VxcM=;
-	b=yB45b21PwxWcj2KZWednbwCz8/1FD4biyIJzS12zVEX8pga1fLQ67xrbyXtzMRjVM5Ea
-	 gL/tV3z/5CkUv9ptyDZWljkcZTcoSEnDytugIb74hPtrVlATjUdrXNLMi1KWa79apz7LC
-	 /qvjH+gqrmZwDaquAPa15lCVPWvMPZC8cwXLOZ34CgW6hjPJj+ZksOCkEDKFay4Mv5q+T
-	 ohCD8a+zqoFV+VDi02NlftCt++GYpRRUUw1PW5uFQggaXQ0xHGhNZ0bcQq0tq0z/Ro9JH
-	 8KDIFcCzXXVlbihMvxhjYkBR/qAifPTIJybmUcqlYhLgxm3Y9zI8brhsw6oa/mwenSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
+	b=EspBloSQrn1bir08jEuNEb0YhOMm2lPBG7G2FR5srb0Iqp94v/8Fox02WFggjAPIFGOQ
+	 zyggXKcSiXvHkXomVBimpY3n70+8eooVipKaQ31MaYx0F/1yrPRcJkDIhJKaJpUG/G93e
+	 Oyg+J8KTbrGxHYE2hlKqX6X/3ZYA96HhTdbTqxIi5LBkVs45J+WZuToHXwjZ+yKjukZ5f
+	 3vHVFsLH/D4llHxn77hQjqiUWwQ/KVUTM1PcSok6I7x1VgGFKPt42+vVPRvn+BUoYsKgK
+	 CyaGTK0EG4n560bqK7O4pyN6C6GKgc8XksopJ80crpDhRUO1sjfqXYtWjDvsH6SiqOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnrfyN8M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Dw19YtuS;
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62D3606A31D;
-	Mon, 26 Oct 2026 17:42:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55143606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:42:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55143606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnrfyN8M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C7E1F01825;
-	Mon, 26 Oct 2026 17:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036525;
-	bh=lW+60CqCGiKqWMT6sfEWNVQyKUdP03cTYPBnmO6VxcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KnrfyN8MnnCoHch+P1d7MsDaTfKoP0ANBI9ps/LwYtCyVPMWMjMHeP91vzXLGrIPN
-	 JRkFWeMMRw19WmqbyMTQ+hcDMOcOTw7ZBZHBOnQrHNKbtSM38t42kti7qlJJUgZY8P
-	 HUWw1O1bmg8tdamM27lyH4BCTecOYtKr/OcGqhqU2wzXXmIf/NqahVfWBGpB5D5Ap9
-	 tFpytcqtu7Ef3Eqk9IMSX4lFluyotQl8xNDbGs6G2u04q7A9vuhh7bMwFrKu1OwR/O
-	 +QhFMslIgKWlyfEwYsWt3IpX0pYeG+6KUnMDYuJZafKCkPq7YVla4/D44dgxBctcZ4
-	 nHC7ulQX49WcA==
-Date: Mon, 26 Oct 2026 18:42:01 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: lkml <linux-kernel@vger.kernel.org>, 
-	linux-i2c <linux-i2c@vger.kernel.org>
-Subject: Re: [GIT PULL] i2c for v7.4, part 2
-Message-ID: <at-MCkIj2_kLxgAY@zenone.zhora.eu>
-References: <at5i65e5wjMz2TCA@zenone.zhora.eu>
- <CAHk-=wiMOMfksBhvDa+huuNCAu_EfpxzLiSawNxdady0r=zFEg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Dw19YtuS
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c2e8c76334fso292562166b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:42:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793036545; x=1793641345; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
+        b=Dw19YtuSCBkDZ+YV3esZ3Fwyy4DxWgbYfY7ajuc+UMo56P4l1RJi/NpNrFVz0acP37
+         Radrhs9Y8dbUpCYq1Q3/BLrNaHL2zF0bDYJ0k8C50q/mfDqgVB7rkylzjkq3AxBB2Ypt
+         FJyIh355MY/eXiRA+PMXy69zZ35Ti9hoMrF7mlCj5stBmm2PFEUzGAldox2Dm+K03gX7
+         3cD6/ikLxWZ1qaEBvyO+0eB+fippzfgGvE7jn8cBXiQ9FKf2BcLJL9nDSH+440wj+Vva
+         Mepau1xQFgRApy7cyCve8Er0IQaRebnWHnQYuVtlVzt3k9nQDMVeFdNFJrLByZGkXaWc
+         DEHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793036545; x=1793641345;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6FbknuYB2KaKiO/nAwNHeWF6UfDvsJ7xQW+UNHo6NJE=;
+        b=uSMMRT1pSETe51AbSH1UxtvyBKU0RARHB3ECGxNPfTLzF/nnvvH4/TGQ5qmmky4jjB
+         pJ0Ve26gDSozDxQtnfrWzsCvx2B64V6FDjLiZiutjaNDseNbEVTwjB2Ut1pt+YJHbyD2
+         0S5JRp+k4EZkFl+AwB6jZkuXF5QOlb6Qrh/nVQDSJrgAyHwddwcvRmAzL7d85D4VZevE
+         DQAwokh22FHwYi20F/gWnwonNpyrbKqTZCcIFRZ8Semp3IF4ysINrFNLnyCriTew/saq
+         z8u2MKn99kepoNrL76z3woxFqMsK45AoycfnVKxKXAtKEc6Di8JT6th6tlYfrVUjXkd/
+         aUJw==
+X-Gm-Message-State: AFq9FYLk5HlszKiXEIfjjWnhxyyLa3U40c5/nsIfoeV1HsfxmsveczDy
+	FzJB3Idp084DBr1HdgTmuYnV9NkrNskKeBmEZ88aLpIUin3hQzknq/2qgf+FInb+O152ShFYiAg
+	8szysEyce9S0FgdLr0w==
+X-Received: from ejczw1-n1.prod.google.com ([2002:a17:907:e001:10b0:c42:73df:9346])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:f585:b0:c41:e75e:5889 with SMTP id a640c23a62f3a-c46bde3a942mr794298266b.33.1793036543707;
+ Mon, 26 Oct 2026 10:42:23 -0700 (PDT)
+Date: Mon, 26 Oct 2026 17:42:17 +0000
+In-Reply-To: <20261026174217.603114-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,63 +76,221 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiMOMfksBhvDa+huuNCAu_EfpxzLiSawNxdady0r=zFEg@mail.gmail.com>
+Mime-Version: 1.0
+References: <20261026174217.603114-1-tarunsahu@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261026174217.603114-5-tarunsahu@google.com>
+Subject: [RFC PATCH v3 4/4] liveupdate: Add KUnit test for the feature header helpers
+From: Tarun Sahu <tarunsahu@google.com>
+To: loganodell@google.com, alex@shazbot.org, dwmw2@infradead.org, 
+	seanjc@google.com, Mike Rapoport <rppt@kernel.org>, will@kernel.org, pbonzini@redhat.com, 
+	jgg@nvidia.com, Pasha Tatashin <pasha.tatashin@soleen.com>, arnd@arndb.de, 
+	linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, oupton@kernel.org, 
+	baolu.lu@linux.intel.com, David Matlack <dmatlack@google.com>, robin.murphy@arm.com, 
+	maz@kernel.org, Alexander Graf <graf@amazon.com>, joro@8bytes.org, 
+	Bjorn Helgaas <bhelgaas@google.com>, kevin.tian@intel.com, 
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	Tarun Sahu <tarunsahu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 07:15:52AM -1000, Linus Torvalds wrote:
-> On Sun, 25 Oct 2026 at 10:20, Andi Shyti <andi.shyti@kernel.org> wrote:
-> >
-> > I'll now start queuing patches for a possible third week of the
-> > merge window. Otherwise, they will go into v7.5.
-> 
-> NO!
-> 
-> I've taken this.
-> 
-> But the whole "merge window is for new development" needs to stop. I
-> will *NOT* be taking any more patches from you that aren't fixes.
-> 
-> The merge window is for merging stuff that is ready BEFORE THE MERGE
-> WINDOW STARTED.
-> 
-> It's absolutely not for "let's add more to the pile". Never has been,
-> and never will be.
-> 
-> The merge window is two weeks NOT as a way to give maintainers two
-> weeks (and no, it won't be three weeks this time, I've been keeping
-> up) to create new stuff. It's so that the stuff that *was* ready
-> before the merge window can be merged in a sane and controlled manner.
-> 
-> So no. No more of this "I'll have a second - or third - pile of
-> stuff". If it wasn't ready before, then it wasn't ready, and it goes
-> into the *next* merge window.
+Add a KUnit test suite in lib/tests/liveupdate_feature_kunit.c covering
+the Live Update feature header declared in include/linux/kho/abi/luo.h.
 
-OK, got it!
+The suite contains two focused test cases:
+- luo_ser_hdr_set_get_test: verifies DECLARE_LUO_SER_WRAP structure
+  sizing, header initialization, payload pointer resolution, and 2-bit
+  feature flag setting and retrieval across flags entry boundaries,
+  including out-of-range queries.
+- luo_ser_hdr_truth_table_test: verifies luo_ser_hdr_validate against
+  all rows of the feature state truth table (absent, optional,
+  required, and reserved 0b10 encodings), as well as empty supported
+  tables.
 
-Just to clarify, most of the patches in this pull request are
-fixes or patches that were taken well before the merge window but
-had to wait for some dependencies to be resolved. They have also
-been tested in my -next branch for several -rc cycles now.
+Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+---
+ MAINTAINERS                          |   1 +
+ lib/Kconfig.debug                    |  16 ++++
+ lib/tests/Makefile                   |   1 +
+ lib/tests/liveupdate_feature_kunit.c | 118 +++++++++++++++++++++++++++
+ 4 files changed, 136 insertions(+)
+ create mode 100644 lib/tests/liveupdate_feature_kunit.c
 
-Since the merge window opened, I've added only two patches that
-are not strictly fixes[*]. One is a trivial fix that doesn't
-deserve a Fixes: tag, while the other has been properly reviewed
-and in my tree for almost a week.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5d1b58271989..dad09961c275 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15191,6 +15191,7 @@ F:	include/linux/liveupdate.h
+ F:	include/uapi/linux/liveupdate.h
+ F:	kernel/liveupdate/
+ F:	lib/tests/liveupdate.c
++F:	lib/tests/liveupdate_feature_kunit.c
+ F:	mm/memfd_luo.c
+ F:	tools/testing/selftests/liveupdate/
+ 
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625..d8208f3f4515 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2906,6 +2906,22 @@ config LIVEUPDATE_TEST
+ 
+ 	  If unsure, say N
+ 
++config LIVEUPDATE_FEATURE_KUNIT_TEST
++	tristate "KUnit test for the Live Update feature header helpers" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables the KUnit test suite for the Live Update
++	  Orchestrator feature header helpers defined in
++	  include/linux/kho/abi/luo.h. It checks the feature flag encoding,
++	  the flags array sizing, the source/target kernel validation
++	  truth table, header initialization and the payload size checks.
++
++	  The helpers are self-contained, so the test does not depend on
++	  CONFIG_LIVEUPDATE and can also run under UML.
++
++	  If unsure, say N.
++
+ config CMDLINE_KUNIT_TEST
+ 	tristate "KUnit test for cmdline API" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a752..2f1f1f765617 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -33,6 +33,7 @@ obj-$(CONFIG_KFIFO_KUNIT_TEST) += kfifo_kunit.o
+ obj-$(CONFIG_TEST_LIST_SORT) += test_list_sort.o
+ obj-$(CONFIG_LINEAR_RANGES_TEST) += test_linear_ranges.o
+ obj-$(CONFIG_LIVEUPDATE_TEST) += liveupdate.o
++obj-$(CONFIG_LIVEUPDATE_FEATURE_KUNIT_TEST) += liveupdate_feature_kunit.o
+ 
+ CFLAGS_longest_symbol_kunit.o += $(call cc-disable-warning, missing-prototypes)
+ obj-$(CONFIG_LONGEST_SYM_KUNIT_TEST) += longest_symbol_kunit.o
+diff --git a/lib/tests/liveupdate_feature_kunit.c b/lib/tests/liveupdate_feature_kunit.c
+new file mode 100644
+index 000000000000..fc9d2de263d9
+--- /dev/null
++++ b/lib/tests/liveupdate_feature_kunit.c
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for the Live Update Orchestrator feature header helpers
++ * in include/linux/kho/abi/luo.h.
++ *
++ * Copyright (c) 2026, Google LLC.
++ * Tarun Sahu <tarunsahu@google.com>
++ */
++
++#include <kunit/test.h>
++#include <linux/kho/abi/luo.h>
++#include <linux/module.h>
++
++struct luo_test_multi_ser {
++	u64 val;
++};
++
++static_assert(sizeof(struct luo_test_multi_ser) == 8);
++DECLARE_LUO_SER_WRAP(luo_test_multi_ser, 32, 35);
++
++struct luo_test_one_ser {
++	u64 val;
++};
++
++static_assert(sizeof(struct luo_test_one_ser) == 8);
++DECLARE_LUO_SER_WRAP(luo_test_one_ser, 24, 1);
++
++struct luo_test_zero_ser {
++	u64 val;
++};
++
++static_assert(sizeof(struct luo_test_zero_ser) == 8);
++DECLARE_LUO_SER_WRAP(luo_test_zero_ser, 16, 0);
++
++static void luo_ser_hdr_set_get_test(struct kunit *test)
++{
++	struct luo_test_multi_ser_wrap out;
++	struct luo_test_zero_ser_wrap zero;
++
++	memset(&out, 0, sizeof(out));
++	luo_test_multi_ser_wrap_init(&out);
++
++	KUNIT_EXPECT_EQ(test, out.hdr.size, 32U);
++	KUNIT_EXPECT_EQ(test, out.hdr.nr_features, 35U);
++	KUNIT_EXPECT_EQ(test, LUO_SER_NR_FLAGS(out.hdr.nr_features), 2U);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_size(&out.hdr), 24UL);
++	KUNIT_EXPECT_PTR_EQ(test, luo_ser_payload(&out.hdr), (void *)&out.ser);
++
++	/* 0, 31 in flags[0]; 32, 34 in flags[1] */
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
++	luo_ser_set_feat(&out.hdr, 31, LUO_FEAT_OPTIONAL);
++	luo_ser_set_feat(&out.hdr, 32, LUO_FEAT_REQUIRED);
++	luo_ser_set_feat(&out.hdr, 34, LUO_FEAT_OPTIONAL);
++
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 0), (int)LUO_FEAT_REQUIRED);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 1), (int)LUO_FEAT_ABSENT);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 31), (int)LUO_FEAT_OPTIONAL);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 32), (int)LUO_FEAT_REQUIRED);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 33), (int)LUO_FEAT_ABSENT);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 34), (int)LUO_FEAT_OPTIONAL);
++
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 35), (int)LUO_FEAT_ABSENT);
++	KUNIT_EXPECT_EQ(test, (int)luo_ser_get_feat(&out.hdr, 100), (int)LUO_FEAT_ABSENT);
++
++	memset(&zero, 0, sizeof(zero));
++	luo_test_zero_ser_wrap_init(&zero);
++	KUNIT_EXPECT_EQ(test, sizeof(struct luo_ser_hdr), 8UL);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_size(&zero.hdr), 8UL);
++	KUNIT_EXPECT_PTR_EQ(test, luo_ser_payload(&zero.hdr), (void *)&zero.ser);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&zero.hdr, NULL, 0), 0);
++}
++
++static void luo_ser_hdr_truth_table_test(struct kunit *test)
++{
++	struct luo_test_one_ser_wrap out;
++	bool supp_yes[1] = { true };
++	bool supp_no[1] = { false };
++
++	memset(&out, 0, sizeof(out));
++	luo_test_one_ser_wrap_init(&out);
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_ABSENT);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
++
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_OPTIONAL);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
++
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1),
++			-EOPNOTSUPP);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
++
++	out.flags[0] = (u64)LUO_FEAT_RESERVED;
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_no, 1), 0);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, supp_yes, 1), 0);
++
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_REQUIRED);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, NULL, 0),
++			-EOPNOTSUPP);
++	luo_ser_set_feat(&out.hdr, 0, LUO_FEAT_OPTIONAL);
++	KUNIT_EXPECT_EQ(test, luo_ser_hdr_validate(&out.hdr, NULL, 0), 0);
++}
++
++static struct kunit_case luo_feature_test_cases[] = {
++	KUNIT_CASE(luo_ser_hdr_set_get_test),
++	KUNIT_CASE(luo_ser_hdr_truth_table_test),
++	{}
++};
++
++static struct kunit_suite luo_feature_test_suite = {
++	.name = "liveupdate_feature",
++	.test_cases = luo_feature_test_cases,
++};
++
++kunit_test_suite(luo_feature_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for the Live Update feature header helpers");
++MODULE_LICENSE("GPL");
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
-So, apart from this last patch, which I could drop to be fully
-compliant, I believe this pull request meets your requirements.
-
-Am I still missing something? Is there anything I can still do?
-
-As for my mention of a possible third week and a part 3 (not this
-part 2 pull request!), I was simply trying to check whether that
-would be acceptable for trivial patches. I understand now that it
-definitely isn't.
-
-Thanks,
-Andi
-
-[*] f7b70efba269 ("i2c: sh_mobile: request IRQs after mapping registers")
-    c2867bb0fa1d ("i2c: imx: add I2C_M_REV_DIR_ADDR and I2C_M_NOSTART")
