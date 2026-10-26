@@ -1,40 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.37.145.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000759;
-	b=jAnU1MaLl0fcfD67Yc7vJpib6+83z24qZBCv53QP7izDWLgY74Luz3TGMAy7z1dm54JA
-	 iReDv0/NJ7FFBwEnkBqWo88vEoM/uGZ5xwOzaWtk4naXobIt4G9b3x7jXFCSOrufaU51Q
-	 X7pBq/V2wFJa4Bx0YwfkXlgfBHP0jbTmF30dKGYhpWsQ4ZJ0E0shGapf3/MdHLfaPItqL
-	 ICZYbn3N1aABhntjbPZHR7Hksef1a+MT+u2a/cYmLu77cj3TP3eOe0C38pu+sc5yys083
-	 9upEIG4kVM0Azay4Owakvkmh1I8NG98TYY4buleCAYuLiav2GcNWlUUD/aABaCgREjg==
+	t=1793000821;
+	b=k+1JjWvdoemZuM3va4pkAswEruYi0tpR/XQzgFHgK2QWGNB55PWq1dn3lT/Ms85n6NPC
+	 WZH5Qf1s1OXk1zd3q8e2SlzI+JUSNm7MsUXmONtZ6IN8ay26pM3kVH3zeec+wcFkZchGD
+	 Sa7aVFLBIpGRSKBMVsodI6n1gCnjA92IdhXcML+RxAAN1uAI4MiZ/T53rGpIbwtvMWRCm
+	 56bwIdpezOSNqk8HovsZd17jPoRYfDf0Hcjkln+dpxK8nPvb1Gbk7Qe4ynIwm1/ecGWTg
+	 /9J4eXn+gtzN9HXs+oxr+MHuF3dFt0msLkfrdSgmY7yQnLnUdHQgA//oDPDUwP1vEQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000759;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793000821;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fhYNs4xAZegSXJ//rS+5G8q1eKnnok6UpzM/4/hfWLs=;
-	b=ZFwaV21oIw37G4E6D+a42vlMKBnwQK4thlwoNvEYcaPYR/luq7kOg5D54+qOCy8+27eS
-	 4d2P9TA9W6AzV4P44PN6gTe/q7wxV3EuM7rLvBIsKZhYQY6taxM3hQi2IBDNdOtWq+3Ds
-	 oXJUYBEvm7Wu/vrC55C4SHFEttCS8XVduXKgLams+S8JJZ6CyP53rfLXxla8S+PiuiQVm
-	 R2NFAI+GDP4acZXtmX+30Kr9khPiQP6fgRCW1kRP6C9H4V0jl9WxHvPnt9R3CtoMzH6Io
-	 XT1M8pHFvCvvKwVq9zB43u63fL294uQ3ZzhyRp5pwhSKftGSDPnyc3z97mbEA99HOSQ==
+	bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
+	b=EbVRLPvG78Z7zrVqurkPYUrxRUIBQOqt8AZXTAp4LqZ5MWb/7mYSmEUJAkFKkcDxQuZR
+	 BsTGRoqzMLFFWPdecljyEQvYM+O7l7GNho4sfsUl9GX/nFNC6pGHVk9qRxVTCQd1BZlvx
+	 8ZQIeP0iXO8kOQD83v8qhzhaPnza/SZUXxkbY6XTG5a+06R8bP9v3IMnc7wFH8uKQCtzF
+	 aZgwLXOygWQFsu+OGgivj+UZalv7WAT4cLjz7uHpRNSF3bEOwkJT2aJIDqc1dMbzntHst
+	 SggKNA/FokAShV5AL43zvHgUMR6VTfStigvPsu0FxO2ke1oBG6u5nTlwuyKlbZO2aiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iap-kborn.de;
-	spf=pass smtp.mailfrom=iap-kborn.de;
-	arc=none smtp.remote-ip=195.37.145.25
-Received: from mailx.iap-kborn.de (mailx.iap-kborn.de [195.37.145.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=NCzrwkS7;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E03C606A31B;
-	Mon, 26 Oct 2026 07:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E03C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iap-kborn.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iap-kborn.de
-Received: from [195.37.145.130] (pcdueff.iap-kborn.de [195.37.145.130])
-	by mailx.iap-kborn.de (Postfix) with ESMTPSA id 9D36F3BB5D2;
-	Mon, 26 Oct 2026 08:45:54 +0100 (CET)
-Message-ID: <9a8d698b-afd4-41a2-98f6-e062d33d71ff@iap-kborn.de>
-Date: Mon, 26 Oct 2026 08:45:54 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67814606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:47:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67814606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=NCzrwkS7
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so15446695e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:47:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793000820; x=1793605620; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
+        b=NCzrwkS7ftLddMPUiiC0UEPgiUmuUYezwx2j9vcNMKeg7NnJRX4sLEAL56vufEIlDd
+         Ngvfv7abkzA3fFBpQA4wpjEiNDBjsLalUBTWvlcTMlZXfM6nCt6fUvAmh8M2/ttu4YJO
+         Zpuu3rwMZrOq0zCrdz61m64foLZQm/O1Js7Ac=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793000820; x=1793605620;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c5dii+p2+tXugsvLbD0LiEn9CLz6QjSaElSANvZFz5A=;
+        b=rIbvZ0C/GCDrx1sI6YByZkodfQJyZmfKGp4ACOIiw6e9v/SJEVQPTy2IW4q0FVuROb
+         7Cx3LJIu3vocpopnkBEpmmr6L+KnJDC+rV01JHUMDnR6W3sUIppQXnp0z9xMO2eCkrUI
+         3BPwmYj/0iKp9DBEDv/hSvQry3QfwqwswUGzuRxzGJ1SBKDlR/2awUAeLKY/QVmJsM+E
+         FoduMFhrUb5IzvGUfjKywAv6oLO1/1qCNV/e9/8QkOeu3ta+qCvgbUafynKOI+PPwFru
+         j1jDjQ2icjJCz530DiQOwIB3EPbQDXD85OMwKkfGIhoFdjxh0rnOCnW19nZEs0eLdDUV
+         4vwg==
+X-Gm-Message-State: AFq9FYKG6yQ6XZxRxFa/3Ro6HC+ezaxWyznP1but71sMPnwl+SnYwy99
+	1Qn05zNsaBshO+n464Nrfkr/P2h7qKDhHyg9M1Ykr9qgaHSo73R0zsB12xNm3t85gsdTKhhl/nb
+	UsrMG
+X-Gm-Gg: AYBFou3ZL7MBT9xFCYLilHUgWAJJWk8xLxsb9qtXCnuvjJq4jhRu1o54UENByQYIpO2
+	dewBavgozbhCzGknI+cY+NubCogeoZwx9Fp9jR2NX2f0HXfOpDsS7uTTTBIfAa9uCu3IY7+OgEo
+	AoBklbFgDSgaiFeVhmEZjGow2POnX4V2VAUBcGGdAQd/iTFHWIkg4G0x8untr/st4xZRoeYG5DT
+	9N28IdhNugZhXPEr9gaKM6qvvA2P3SIIIqBu84wBT7jlHyf/6iQMOUgbfh2itB6Q2oERWlTy7u9
+	oCzm8Qll6eD7G6ID1i8wKwwDIoYv5wo45LxrYNFlT/J9VWl5ta4ey815FPfOAMUw5bKfP6nnoLA
+	Win19tvG/DWJUTiEOelAtNHrqiOITavt4HuQzO3IwhLgVzgKWtRi252+omoAqudx7joJLM2HXqF
+	A16mJSy9tfOeCMrhWhiM5cV8m0GH/5JAXLzTVQxQ3X/vONFmBji327OqQoBqiX6Z40R68RnivbA
+	YQCfFhGaYpiJrAHy6bxn61N+AikjwLB/pT65kOZkCuYs+U0na3O87Z7+xSOwpjySxG8hyM4QTKC
+	lOi9iSQu0yqGm+p0Jx+gwdnphkw0Lx1Wqq4UkSol2VU6Zsd8CrEjXowgewfA5nWu2qrnsLHcUSP
+	wD+WNWiVEYNAnIaFeeBEsRc/Frq874ckw0Mp+3yKH9Zcr6d14KKT1bg==
+X-Received: by 2002:a05:600c:3541:b0:4a1:fbf8:55c9 with SMTP id 5b1f17b1804b1-4a35acc6a2emr107275155e9.33.1793000819693;
+        Mon, 26 Oct 2026 00:46:59 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm13731353f8f.7.2026.10.26.00.46.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 00:46:59 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v2 1/3] dt-bindings: clock: ti: dpll: drop the ti,ssc-* properties
+Date: Mon, 26 Oct 2026 08:46:27 +0100
+Message-ID: <20261026074654.3997494-2-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
+References: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,55 +104,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] NFSv4.1 client hang in nfs4_drain_slot_tbl under concurrent
- workload against Windows NFS server
-To: =?UTF-8?B?6YOt546y5YW0?= <guolingxing@supcon.com>,
- Rick Macklem <rick.macklem@gmail.com>
-Cc: Lionel Cons <lionelcons1972@gmail.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <552f72d1.1c692.19e389e8ea4.Coremail.guolingxing@supcon.com>
-From: Peter Schubert <schubert@iap-kborn.de>
-In-Reply-To: <552f72d1.1c692.19e389e8ea4.Coremail.guolingxing@supcon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The common clock binding provides assigned-clock-sscs to configure
+spread spectrum clocking (SSC), supported by the clock core since commit
+a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Keeping the
+vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
+properties would leave two ways to describe the same thing.
 
-Am 18.05.2026 um 03:06 schrieb 郭玲兴:
->   Hi Rick, hi Lionel
->
-> ..
->
-> Regarding the "soft" mount option: understood. We will retest
-> with a hard mount as well.
->
-> One question is whether the observed behavior is expected.
-> Even if a soft mount contributes to the problem, is it expected
-> that a single RPC timeout can leave the client in a state with
-> no forward progress, blocked in nfs4_drain_slot_tbl, and with
-> lease renewal no longer occurring? Or would that more likely
-> indicate a client-side recovery bug?
->
->
-> Thanks,
-> Guo Lingxing
->
->
-Hi,
+The properties have no in-tree users, so they can be dropped.
 
-We performed one additional recovery test before rebooting the affected 
-client.
-On Windows, the affected client still existed with |TotalSessions=0|, 
-but no session or open files.
-We explicitly ran |Revoke-NfsMountedClient|for that client ID. The 
-client record disappeared completely on the server.
-More than one 120-second NFSv4.1 lease period later, Windows still had 
-no client/session for that host, while the Linux NFS state-manager 
-remained blocked in |nfs4_drain_slot_tbl|and did not create a new session.
-This suggests that once the client reaches this state, removing all 
-server-side client/session state does not trigger recovery; the Linux 
-client remains stuck waiting on its old local session state.
+Existing DTS files using them continue to work, with SSC disabled,
+until they switch to assigned-clock-sscs.
 
-Regards,
-Peter Schubert
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
+---
+If keeping the properties as deprecated is preferred, I can add a
+fallback to the driver in v2.
+
+(no changes since v1)
+
+ Documentation/devicetree/bindings/clock/ti/dpll.txt | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/clock/ti/dpll.txt b/Documentation/devicetree/bindings/clock/ti/dpll.txt
+index 14a1b72c2e71..ffbe50f46e68 100644
+--- a/Documentation/devicetree/bindings/clock/ti/dpll.txt
++++ b/Documentation/devicetree/bindings/clock/ti/dpll.txt
+@@ -56,12 +56,6 @@ Optional properties:
+ 	- ti,lock : DPLL locks in programmed rate
+ 	- ti,min-div : the minimum divisor to start from to round the DPLL
+ 		       target rate
+-	- ti,ssc-deltam : DPLL supports spread spectrum clocking, frequency
+-			  spreading in permille (10th of a percent)
+-	- ti,ssc-modfreq-hz : DPLL supports spread spectrum clocking, spread
+-			      spectrum modulation frequency
+-	- ti,ssc-downspread : DPLL supports spread spectrum clocking, boolean
+-			      to enable the downspread feature
+ 
+ Examples:
+ 	dpll_core_ck: dpll_core_ck@44e00490 {
+-- 
+2.43.0
 
