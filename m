@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975273;
-	b=23jWMo5nIBlk4mKrCRRvgFZjCr/2MVTbjfEQcDSaa5afqsl713ifYF/IJpG8qGLPgLmZ
-	 pgCCK6OKa7TIsMd9tXCM9C9KkIIvq7tVJMu+yQKiX08DOplNwK7qnoFDD5GgK3+BQ3n/t
-	 kTdoLFc/wJKvpm/iMRpSSYeZpUPan9acBwoeS7MaZn/MIrd9Uc5l+TpKKXVHCGAEMKvcT
-	 M/FBuhKm4cByvDmALmFoLItAOm+Epgb0oa4qhDNC3tv+RDFBgZfbptKh2HRR5Lx/vFILJ
-	 unb1T0YQiqYnHUpRyQbWuNSnY9aLVO2xn9oPwRGVo5WFrLOINFaQJJ+CNt1fA87xH2w==
+	t=1792975319;
+	b=WS3SGLwvryQQ6s4KaZXHjlWbdeVsAHFXjR9ewXwPen6V/GrCC8CSbN3K0uUEDCQ2jSoU
+	 oP4maTVOqTAnvU7lqpzRnzqN4D1QF0ERVWPvpOxSteyypRbZRJO2opAww3QKz9p3X86bo
+	 TUKB1gIbqCKoqaM95V70H5rcRXQ2uwL5iCF45Q6f0cLp6BdhaL0P8jDCWcigpjK9M9m7K
+	 e8IA7I/SA+SqH83YYnjlITGPtMEJNQSzLwpBIdQQveeyry8Cjn5fDyyhOSl2KGp8Y03UT
+	 N0z4csHbV9GyZwS2K7+S1r9PFIbrQa8HJs1gRRL6GcIFB8d/L/ZaGBzFKBBPe4dUSfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975319;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PFobPJXVsXDz19LQO+RLD3R/7cNmq2aYjbNBSXJLmQE=;
-	b=T2ArmfBZxMmGb8EjPPk3SVKonFz2pEwEV48xMxNdjW44WvDbHzl8xb78zr1agBWD6kkY
-	 ext4jL/fWB0BBNbWJD+5OYR/imzUB61tACLHtIEzKhNcNAhf6TGw12QOiNfW5y3L4XHc4
-	 G/3CkMe4emSDEzo08p0CT84Xc3687jBJc2Pslm55lTXPxRvYXv4bhepLL379RiSJk3yHX
-	 Tf00hjWBxEROPYmdOmr6NGWDnJ6PwCBg/KYuuKQH2ueqMSajEKVLI/jebuC8gGze8AWlw
-	 zeROd+KLQk8P6Y0OJuXcr1MrZe7A2HKkwt18BM+oYQw/fVOoikxr4UtX7FMhu4INK7w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DVUzVNid1P+LTdFVvlLwM1Fhv12J1eQeUUaeEQIwGJ0=;
+	b=hs8hMl4xy/3fxucbjR/FhqXzmic23DVn6boGGZAAGYlG+ubQxS4QrDM3pFHk1mDXNeRv
+	 e3z6lHiGHCEUYnImQG7s5ZPF4t0BEqHz98gIi4xCsLwbaGnTFjkIKj9rFrSmGxZsM+T3B
+	 +WHzme4Y8YUxK1X2kj8KN88UnGdrC1dpGTCYJxv0cQaQpgMRgJrnM0WjUSe1854qjQBt1
+	 nuYZwUJT+uBg4La3OVQinKC1lYlXMK/G3J2VNVskMuopSeevR4KZIkl5t+ju1oInSgbkF
+	 NHAvNgwWQJ6ZOFQQyoo3o14j9boD/VhGDqwQQ+ysrqODj2sMp1KJX1Sj4WLl/02ysjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VKx+obQA;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TYSWqhtG;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF6E606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF6E606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12EC606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 00:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B12EC606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VKx+obQA
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a215e64962so16806765e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:41:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TYSWqhtG
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so2484358f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 17:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792975270; x=1793580070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PFobPJXVsXDz19LQO+RLD3R/7cNmq2aYjbNBSXJLmQE=;
-        b=VKx+obQAPb5/XrR9/roIFYPRYGDzzDrkDoIp3EMgMBi/JMmvYE/fBNeA1Z1c4kRnb2
-         /5FawM3AjVvvX2Vrbh2TeCQRbtjZKXN31fGLMSFHZlpPbp6IvroOUVjulEOZx9U6Wt0R
-         vw6XMPJz+4WhSv8rAMrLWA5HDcT33bu6gonFcqDZTJMHo5OqCR7/k65EenzsIYSVHt3K
-         X5K9j8DMsvfVEImpHP6pQ5C63OFW9hT5m6zBFUVKsN/rb48+OTqeSmIUI0zrG74dep6K
-         VELfJ4YXVWTb93hj7rhxZIB6NR5Vqzki9sivn9wYcT7X5QMTBRK2DCzwDEfHSgibQkoU
-         Tc+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792975270; x=1793580070;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792975317; x=1793580117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PFobPJXVsXDz19LQO+RLD3R/7cNmq2aYjbNBSXJLmQE=;
-        b=ZDkU7Nd4lem09FPC3/HbHxTQ7pct7vryJjkzZWba5+6foquB4NQ87Opecex/LE2Gg8
-         q14O9TuYdhlfymDGmd19pJyYXg3MDFXJJWAMw/WAjZmAaTxqGYbDBKBEkDjmItBiw5Io
-         YdI3KXM0WzJ/Aomql/gzObb5T/YPiFWzYiYJ0CsVjyZHgOavAYK8deV3fzjG3aHrCykQ
-         dpsIYWxmx0Q1VGNVh5t0vLkKIjW16E0I3C+ZjD5hfiW41RkRx34OuPBuUyL40pA6PCsf
-         k/q1Di/Pw1aWXbJ+8uF/0SbMSSztn2tuINVPldfKK7ZTrkYq3/D8DbpcWTbj9GUVFkvj
-         v/vw==
-X-Forwarded-Encrypted: i=1; AKwUvByXVHAifYMAsra9kKqWWsEvhb+KoAgO3PFi9FvC1KvJG9yn8ReNJzF8Lhj8DxXnElqB4xrpLHiGSPfUJfo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJW0qA3GEndxAHAXaxja2c5pGFRqq6ixku78Q3hHBg9DY154fR2
-	KSLKB6FTNcf+mtAiO18StIp6h6AqhveH5bPEnmWUixW6ms26fYCf2hmz
-X-Gm-Gg: AYBFou3M2h62wlseqzcycZFg3DOY29jJwEIaxebgJgimq3nRzRJBQoNNxSOdUZbfr+X
-	XMNPWsIvLlLrFzU4h7PtLE0urPzuXIjhks/N6UYiMWonxXMQV8xImESDrX9V08hZ/H6gPsNjJNL
-	a+pHg0RYIjR94+FhaTrDW6YQMi5cbQVHCZhdvTnsWHF6vM3ita0wbo3OeyJlnwopbccMV3xnGOp
-	M1d9WYUIRvwpVzjIZy78wPyytV8tLrqd1fBTVjkgih70ykJCRjBHUcDYt9+UzP+9hIDsqpwE6ZD
-	tGY6VAERPBTY5aDn+dC5osIANKtiA/4SHArteeuT0eIxXT9nWwe8XJLIaO5JeMRDAmeJAmzx5Jg
-	yOopQvQyTF2xsdKibVyAbNc1uJ8wb6b1q7QzDjvmoQ54fLeiSIeHtHnB8uDCxFyx4EL7fq/Oiwl
-	OQgvnCwlkXLXcIReEzkpmnw4YXP7U62fhx12AlYDt5tLEMgLy174LoMuklAMaSMrPBnrLlKxckX
-	6jwmmnrmtjnGhjrwYaTFpTdf3sTjpk6NyfykYGUp0F+iDM7FNbW9O79EJ2vafvgMWeebR3ZGC0m
-	8WnCfUONVok40A==
-X-Received: by 2002:a05:600c:1c1b:b0:4a2:1a:a116 with SMTP id 5b1f17b1804b1-4a35aae5c48mr101973045e9.0.1792975270272;
-        Sun, 25 Oct 2026 17:41:10 -0700 (PDT)
+        bh=DVUzVNid1P+LTdFVvlLwM1Fhv12J1eQeUUaeEQIwGJ0=;
+        b=TYSWqhtG4qTa8bk5UMguTkT4gS//KTP9Ibm6N4gcxtB+VWTHQRCIpwxjj5VlrRqOPO
+         xt9gYfoUj418wEuMSioI8vhKynhwvZEnd8dZwaQ7hr8BsBXBa6YZOVB+mekSID5jvUUN
+         odBY6voH9byWTcNE1n3Fe5SyzFIhInSRmKCR+1WLcHIXqby40w4Lhs27pvksfOeXFmVb
+         lOS7KxBNB+K0LhMlYMBcA8QrFP4pqOn8G+vA7z6FwALSgWbZV7T7jE+uL64AwrVvOCmq
+         p95dx4hUy//JylXZgF6wT8tZuHeH+aP2pfoVYwB3xRPvq0yruldB3TrO4Y1kxqmjLnD/
+         5C8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792975317; x=1793580117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DVUzVNid1P+LTdFVvlLwM1Fhv12J1eQeUUaeEQIwGJ0=;
+        b=YAhBkD3x4rNoOzcs7DWgCNCwg46n2QKpFokJd+5prPQCAez7u8PxL6UYYB4k1NHvSs
+         ZvfYJRVrQwNiSxlZWw4r/uUdrlReub9DfGHIV55Rt+HvmLqhfuJ3mbtVrZw33n8+KtNl
+         V6BOoTkqJkFT+B8YCeJxFo5BTqTSsQ7chVVSudjTvnnVrRn7hX8Ho3jSelKR454Gpn+v
+         MWlOg4nnwYpe4y4SPxfjP7xT3MaJVXE/Z7zd9G9YhS8oH/2Vq/uEz/WagPKq+34RoDS8
+         B6sXU3fFNj7Lf58+M7V6t2LxMpvJUauaNTiVlF0xe3kvw7JwRW0T+l0IK+VzD7BSkllz
+         iWmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNpn61MELBCbQxTV/GoQnhOGduZkNx0szS9QontIbGevsWpad+mgvgLzW3A81yiF7JBxZh96nbk2rFk6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkXfWIA7kGpNCDTSh2z9ejBc2ETboNNJj9XdvA4pkkSYCRnXi5
+	m3wY/akq0q4RHczfC2RL97rEqr6U09aPCNnD1JNpQhWSwKHAjm1RSveX
+X-Gm-Gg: AYBFou1r6BRv/8PmsbI1XfXQZawweIVBX5TJNBomXFBuRUekW6I0ZLfcD/OlM5fBnOX
+	LSg5uBExoDrVEAFJACN7EVGCdPx0yPW1VBg4VVLyVnly0Eu506QwasYaebZSoMJHoMirrfzIzvI
+	J8nNxoHfwcg9N3iySrwfmHtz7NixCkoMhL3lRyq8ZzSZACOs9M6rex5iS12Zb6ruPflx6jowSH8
+	h31hsTxAjhdZwW4j9Gf09CgHS6cqNPR3+UWGVf6OCtLHVZggdpiMY6DHfV+5uxyr81xnOJ8iwI+
+	q9YAX8BhFL7Y92t+UroMhElMi5xeXETos2BtTiGCt6Mw5z8DTUYHFiqo7LBL7WFalWMigteuIf9
+	eBrljx8r5xJs9GcD7lQEy6kOF/L+D8Ls6Oi55OfGCZu6G3b0EvyXtczRUEeJKq2yuB7VYOIhRwv
+	vK3T+rono/5dvKTmNKIk0ZIX/ySHRWMTnCDQyhZetVOWyeuVYgcQyj/GAqbdEqTgRlRMBo9QqkE
+	oMF0oEJnyJns0voXPUdM33TMRcb7TtvjCsXpT/yHtVZgzJxz5ha3lpRGkW5a1sqmsoT4MuRDhm0
+	GfT4UqmW0y8AMA==
+X-Received: by 2002:a05:600c:4688:b0:4a2:b73:d15c with SMTP id 5b1f17b1804b1-4a35ae71750mr96046025e9.3.1792975317060;
+        Sun, 25 Oct 2026 17:41:57 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a07ebc0sm74574555e9.3.2026.10.25.17.41.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a07ebc0sm74574555e9.3.2026.10.25.17.41.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:41:09 -0700 (PDT)
+        Sun, 25 Oct 2026 17:41:55 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Lee Jones <lee@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
 Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	Alistair Francis <alistair@alistair23.me>,
 	Andreas Kemnade <andreas@kemnade.info>,
@@ -92,13 +92,13 @@ Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org,
-	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] sy7636a: power the panel only during updates
-Date: Mon, 26 Oct 2026 00:39:11 +0000
-Message-ID: <20261026003918.155321-1-pmazzini@gmail.com>
+Subject: [PATCH 1/7] ARM: dts: imx: keep the SY7636A VCOM on
+Date: Mon, 26 Oct 2026 00:39:12 +0000
+Message-ID: <20261026003918.155321-2-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026003918.155321-1-pmazzini@gmail.com>
+References: <20261026003918.155321-1-pmazzini@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,46 +110,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SY7636A hwmon driver keeps VCOM on from probe, so a display driver
-can not power the panel only during updates.
+The SY7636A hwmon driver turns VCOM on at probe. The reMarkable 2, Kobo
+Libra H2O and Tolino Vision 5 have had the rails on so far. Mark VCOM
+always-on before the driver stops doing it.
 
-Read the temperature in the regulator driver instead, as the TPS65185
-and FP9931 drivers do, and remove the hwmon driver. Boards that relied
-on VCOM staying on mark it always-on. The regulator also switches VCOM
-with VCOM_EN, gains VCOM voltage control and binds to the I2C device
-directly.
+Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+---
+ arch/arm/boot/dts/nxp/imx/e70k02.dtsi           | 1 +
+ arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts | 1 +
+ 2 files changed, 2 insertions(+)
 
-Tested on a PocketBook Verse (B288).
-
-Pablo Mazzini (7):
-  ARM: dts: imx: keep the SY7636A VCOM on
-  regulator: sy7636a: fix the chip name
-  regulator: sy7636a: add VCOM voltage control
-  regulator: sy7636a: wait for power good, then switch VCOM_EN
-  regulator: sy7636a: report the temperature
-  regulator: sy7636a: bind to the I2C device directly
-  ARM: imx_v6_v7_defconfig: drop the SY7636A MFD and hwmon options
-
- Documentation/hwmon/index.rst                 |   1 -
- Documentation/hwmon/sy7636a-hwmon.rst         |  26 --
- arch/arm/boot/dts/nxp/imx/e70k02.dtsi         |   1 +
- .../boot/dts/nxp/imx/imx7d-remarkable2.dts    |   1 +
- arch/arm/configs/imx_v6_v7_defconfig          |   2 -
- drivers/hwmon/Kconfig                         |  10 -
- drivers/hwmon/Makefile                        |   1 -
- drivers/hwmon/sy7636a-hwmon.c                 | 102 --------
- drivers/mfd/Kconfig                           |  10 -
- drivers/mfd/simple-mfd-i2c.c                  |  11 -
- drivers/regulator/Kconfig                     |   6 +-
- drivers/regulator/sy7636a-regulator.c         | 240 +++++++++++++++---
- include/linux/mfd/sy7636a.h                   |  34 ---
- 13 files changed, 205 insertions(+), 240 deletions(-)
- delete mode 100644 Documentation/hwmon/sy7636a-hwmon.rst
- delete mode 100644 drivers/hwmon/sy7636a-hwmon.c
- delete mode 100644 include/linux/mfd/sy7636a.h
-
-
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
+index dc7ff108aa85..bd9c6c6fa117 100644
+--- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
+@@ -154,6 +154,7 @@ sy7636: pmic@62 {
+ 		regulators {
+ 			reg_epdpmic: vcom {
+ 				regulator-name = "vcom";
++				regulator-always-on;
+ 			};
+ 		};
+ 	};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
+index ff9d50942884..6cf5603c0752 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
+@@ -327,6 +327,7 @@ sy7636a: pmic@62 {
+ 		regulators {
+ 			reg_epdpmic: vcom {
+ 				regulator-name = "vcom";
++				regulator-always-on;
+ 				regulator-boot-on;
+ 			};
+ 		};
 -- 
 2.52.0
 
