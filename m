@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011853;
-	b=v4FIhVpRZt3dQiyffTfcQxTTXv51EMoN8sVLAPEiMT91IQ2SSfFL/TJ0CNFwAJ0M2VCC
-	 39U0/K46conbSYeVjDfHZVgRzaXtgA+qrwF/w4uBBCRYzXsyjNtLgy2s2PuZ35qNxjnOD
-	 +2qEBgP3r6VJby/zjxbJQCBQBi9ptZuBXeEI5d/6Ux1Qh0lhfeFsVl3XvQd1Dq2sPytHz
-	 j4tUDvzYTiFzxO3MFHz5Dk/Z1OAuP2NHtYTAPYWZ8/pU5oaOlOYxPDH7jZ2agCOyz1dTm
-	 CBQbUCb7Ux1cTcjx8Y6lMLOvdCEoTlHX1N/lQfMdjIz0dq//CauEg3Y8kiPYkNCfB/A==
+	t=1793011856;
+	b=11s3vRgDbcEaO69AS7eX2p8Jo0K1d62qrEmqk9ta6rrgjB0c8I7HvKS/gXvon6gzid9Q
+	 s2akhNx7mZ9GbBUfMlKWmNEIUzBf2ipun+sygD14sWVZ3Hp+Cl+Ivo1GS/ObgZmOuWVUZ
+	 e/zcrkd7P1Ow7H6kko9Ag2vBDyznOSH6UvKnCFYOe2p05y3zw4Ocea4sB5/sSKta6Qf/8
+	 Cc1tuYQ0V51uxg401i8zboIco8hqLsbMcc0gaXWm1Jvp7skiq6HXpq2vsSqU3y8+Pxb+V
+	 zjFPI8OOVzwsKazfTSm3Jkqfp8JlEk04v6NbT7m9Z1JviEApBupvXBKkuuWEVpGlY1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011856;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
-	b=z+LkGo0b7m7KDQPO53i0CmUEWOixCDixiH16ngBgIO4YoRe4JCC7zu9UTbNAabLglQKU
-	 GzQ8SLvTBvc9aDjDP0uHJiRXKRc8vMB9Mdvrcx++/d5MoYvGhbrS5/awkjpmfRreaKFjO
-	 1NZewHewcZNXk/ht2XA16bct3yOWYAOZvrQIUNQsaOT7HU6jRvm+I1bzzE+k7IwtD1bZg
-	 ZHdXHtwy2jXWguK1/VltX4Kh3afqvSLZS1sJ7yNO4hW62IZFVmDctJNh3wEM2B/z+30T+
-	 qls6YnhpCsQlVE8uCeUUCGmN9Ld3ADYTy6QSI/62peW1Yv2YcYJGCQg/njxXtE2fwGQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
+	b=o6dNjpb5IfblcW8247rbWz9M7r2fdBuDoergbhEXOE8+jiQTD4YmkEA5C5M6eNXliwYb
+	 Be54S27Mnb6UcOqb9VWICBf2OwbLOQ9QUe3c0qM6SZ1jWK61zoeIr/jHk4s7dmKSYBh1p
+	 xMZN+c9CnFgeXraTUKqEpWtSUsiLfKI0gaARPXRzP8nlS3BYLkynWNmUAb7ekhTqTlVF6
+	 82U6c3TFLX2KAWXrne+BtMb/NAOnU0TdfXqkkSSRxCPVhXCdrYfXq2pxxspnM5mFrwVOL
+	 8gBy+4tIbSt6eY5zsAdwyqUErsoctpOLK/AZI03yrJavNNOSkxQOosI1cMKYLAKEaEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRfS7Q8O;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eB3nclYt;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9AA606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F9AA606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B8F606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6B8F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRfS7Q8O
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a2761c69fbso353728c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eB3nclYt
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-156cbe59622so2049527c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:50:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011852; x=1793616652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
-        b=RRfS7Q8OPPYtJbHt0dGwO+5W8hsvH0JAbXLtkhOccVHZw3MtoFz2og4+VrGzVWn6ph
-         65lOhe37KnOeYyQDPPPfZ6FN8bp/mBZFG/dWnP2vofcWlND77h8OqqIOboUfmRBX1387
-         TazPaVrjjwk+Hj6UO8gW/BWmBkPTKiY9oS62XGltasL0axnLairab6B/K0PSJrUsO4Ke
-         p1FbkkkAy19bTs2TzE6U+NEDs3delOQ6TBG/RMvDyvVN8HsRwyANDHvLgpTOnYLcWTwg
-         J+p4NuVfQsRBDta1pmjWxF5r7ldHHAMOHVcOgZzlAUQ7KFMtW5U0Nc76r6vYWeOxB+NM
-         NDYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011852; x=1793616652;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793011855; x=1793616655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dyIOxsTmkVspFMyxvRPipvvAUXx4yxejy3ONSysLtPo=;
-        b=yBNw9H3RsBfFkhIiZjvabeImAI4TCN4faQThXk5xK1tIUsPomVWW5nPjl9+ljQdymA
-         DXSiJhB+0QTVyoy7oHUPlhwlooL11THbO6Mx3AnSvY1GQkrS1aIWe/M7pNDXAePBIQvP
-         28WcL+0zCfXEjXX7keLj9+x4w4IMBJ8uU4QxdpLMYSbUoNzezA7GQUmkuvFci+9k9pic
-         99mGIP4NPVW21uhh7eDgRAzvUBz5SPEADOUeR8tr7FVMoxh69EeKJsD9A0Yk65GoQuX7
-         3IwXbYTC+kmg3uI01/pr3tp6rgjxs9HhBcXgvlh27NaIIIw7N3dRnlJMwsmEaZsfxQIX
-         N9Og==
-X-Forwarded-Encrypted: i=1; AKwUvBzFeMYbKKugM/I869JqrR7mt3P33KyQjPO5PeBHHy5/ltqgsR5DfPEdd96ewno0X6ht/UZWYIbogxNVaGI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGpaFI3oZnwst+bNBr/x+rJzyi2hA2O3LJWXL4AoSMJwfq3PlD
-	ZSDTbrr2f3yK2tpjDjUJwVjifsSaVIAn+lT6eIFj3jZTa7yKNWTeaaBj
-X-Gm-Gg: AYBFou0sFEN4D1+G0R1T5f40Emt+JYyrWoOf9hS9UimX4XjbQ2jtFyKzCQIW1C4uC8q
-	z3wbliOOAnlTWwBkyunj4bDuZqlTzXr3bwH2zxbtbA4wDB86VZfipRMlsYRBhKz105ZxcjRn7zK
-	bJHLVI8X2tEOvEfprtQOCf5CYgnE7pI8Z/ThdCtXO/iM9sVPzs4+lbOcPooCd1ujhyQ++/iyIJ1
-	QecXURMalgTuPPfOLICWhHnttAgB4dtiRfEx8/BRu+JjaGuCr1MqGr5rLPBadho29541WzfzwH+
-	i+/6WN1hgoRC/7ZyR7tPUB1ZWtVCq9aTBUWu7JmeLrtYsiVRPsRNSI75UvG+RtPC2hQZ7oF3Qvu
-	JCI05tW4BRI40NbrHqkFsNgvztLMNe59NSWN8bjHVUuDkKiv/zlfj0XCtIBisHAyaM1WJYrX98z
-	R5Cd5ZSwn3kVoN1QzKAt2wONN/8+MJDp4vFut0a4+l2VaKXuzfwmU/JDeBAMxeS0rOZuOZKb9go
-	setwFajIqwb7THuU2mbAbk2MgqHu2tMJC7L+QSLio9g/b4/oTsK3Ld2UoHo+nfF/NcukqowHKa8
-	e+/XosmWOr840opKN/w=
-X-Received: by 2002:a05:7022:f502:b0:15a:9834:73f2 with SMTP id a92af1059eb24-1a243f18c54mr1365627c88.38.1793011851969;
-        Mon, 26 Oct 2026 03:50:51 -0700 (PDT)
+        bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
+        b=eB3nclYtzQ1Vfnnnt0Y8TG+UyWLz923k7t7nN2Di5brv/ggzQ4Dz3kBr1UOF2P8UZE
+         rz+Y090lcdMA/sMuB9DsSHZFLY7RVlzw3y0PGtEXtkL/Y4FAFikeIaHOUzD2IEZCOaxA
+         xVRlD1KfozP9xRkz1IaAX3XtZnrsE3Raa9Pw30n08wG0fllkcWIKlA7VekuMCA3kJiHw
+         vBvJrntCZLk6Xlq60v06lgHfFWxfRZ8PaM8jwcjMusAZX7hZMcTR+ZLjnAdTMDniTYBa
+         4qSAULj9o4/FXp67/nlVWKsQROJqdPOMYg8TLnbm7cYw2MucyIhtcHympgNclzaiclwd
+         WeDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793011855; x=1793616655;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zpoGBsTQ1MMQtEr8iRtFOb/elu0nHODI5EyL2pzDfwY=;
+        b=d2bGyIly9IQ5bwKzh7ch3QO5jdcEOgU82Bqi41jDapAjVbXgFDRYcPD0c9t5yfURD7
+         m6aTXSIJYSAUIRmIU3j/0Aq3YkWHz7kwB3deLTSpmid+2KQ8JLazQeYuxBsWWfuwZHLX
+         LmqidOHhyiY5/ZuHyASCkjgKSS9iNMNkAucl/KlMH/z2MxjHSqFWGAwdYZGOdyVAgQzQ
+         PXOGrJ3+ZDTeskDBu5o9jm3ZRoXrTUGEW+SpZksmzS+tob1yL0hQvzaMRanz6qo65PpZ
+         vGnk/V0RYq1UWn93pKB3iUNGosmPqfI+ha9EiEFdvw6eHP90296CaSkoxqdiNvfPr1w3
+         1Smw==
+X-Forwarded-Encrypted: i=1; AKwUvByxTfhC3UEj7oj/ryQqwaIV5E2viN0aIdkRMyc+/SiM5fGRM99FGYfM4jp2yyGcQhBX0w/uhZGW323nk0A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzFCsJUx1kU6cjgg1qtLBFRevCINV5ttduVGpFSaY11Ug3fJV5
+	qSaK3ANwWNu8DSWArygCnnBtTPQqdZWABN2nMREoWxV9IUo2t1wrgJjTzsTND2z8WhM=
+X-Gm-Gg: AYBFou1X8lP+Ul+LsrSBkptfECbMr4XZ2Nxu5BJYUQ1EI9lNa9wCq69FuD6w0Zaqupv
+	XW9jDM9NrSxjQMc9YGEHk09crCKaLUzbLROJ/zAqqtC5EVVXsqNkiZ9tYvfUGZ4DSRMFGyQj/SK
+	aZFf1JBz9Fm1lHFqLbH2Fcfzaqo2VKx6727qskgvyjFRIsYf5/3v6GhalOdCdEDbBXpC2xeBRB2
+	8nKRfV6Q1RDHav3ng0rc5pemFK5PJrSOxl5KwFL0O43yDDQSo0oJ4K+FmnCMGluTNescxDhuhFV
+	CgdEzOccHg/2XhSZ5mjVaqU3JywGxJ8RiIRCotv69MQH5Z3xChVT9290EhFtN+Bxncl5Azqu2X5
+	i4Ou/XNPJaDRSm3fY2b/YO31ztAERaJQmBMqAanjloUK3lal+6DFZ852ewNus8CxJbTidyMS9ad
+	WAiNCBwiKT5TH0joLBEy2iOoOFXqUygwqHDfUWEBgVu+orLFw0RybYYynySndaZml97dvi1MwH9
+	J3DsWY7vjIuoKdiwWMkgBFnpYzesmbe2PCzHmoGwa7WOgrjHHZQuDDJ1kjaCv22GspH5/YEjObs
+	uBRAaPCLQvHqS/QHmew=
+X-Received: by 2002:a05:701b:4586:10b0:196:4eeb:76e8 with SMTP id a92af1059eb24-1993562594bmr9140816c88.20.1793011854790;
+        Mon, 26 Oct 2026 03:50:54 -0700 (PDT)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm27897863c88.6.2026.10.26.03.50.49
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm27897863c88.6.2026.10.26.03.50.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:50:51 -0700 (PDT)
+        Mon, 26 Oct 2026 03:50:54 -0700 (PDT)
 From: Cheng Yongkang <teel4res@gmail.com>
 To: Jaegeuk Kim <jaegeuk@kernel.org>,
 	Chao Yu <chao@kernel.org>
 Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] f2fs: fix dentry recovery and MAIN_AREA validation
-Date: Mon, 26 Oct 2026 03:50:38 -0700
-Message-Id: <20261026105042.1148554-1-teel4res@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] f2fs: reject non-directory parent inode during dentry recovery
+Date: Mon, 26 Oct 2026 03:50:39 -0700
+Message-Id: <20261026105042.1148554-2-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261026105042.1148554-1-teel4res@gmail.com>
+References: <20261026105042.1148554-1-teel4res@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,39 +101,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v3:
-- Add the missing Fixes trailers to 1/3 and 3/3; 2/3 already carried its
-  Fixes tag in v2.
-- Add Cc: stable@vger.kernel.org to each fix.  No code change from v2.
+recover_dentry() takes i_pino from the on-disk inode and uses the
+resulting inode as the directory for __f2fs_find_entry() and
+f2fs_add_dentry().  A crafted image can set i_pino to a regular or
+special inode; the recovery code does not check S_ISDIR() and then
+writes a dentry into a non-directory inode, extending its i_size and
+changing its directory-only metadata.
 
-v2:
-- Rebase patch 1/3 onto current f2fs dev.  recover_dentry() now takes a
-  struct f2fs_cached_block and sets dir from fsync_entry->inode; the
-  S_ISDIR() check is unchanged.
-- Patches 2/3 and 3/3 are unchanged.
+Reject the record with -EFSCORRUPTED and mark the filesystem for fsck:
 
-This series fixes three independent issues found while validating crafted
-f2fs images:
+  F2FS-fs (loop0): recover_dentry: ino 4 is not a directory
+  F2FS-fs (loop0): Cannot recover all fsync data errno=-117
 
-1. reject a non-directory i_pino during dentry recovery;
-2. reject MAIN_AREA boundary underflow in the alignment fix;
-3. refresh the superblock CRC after that alignment fix.
+Fixes: d624c96fb324 ("f2fs: add recovery routines for roll-forward")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+ fs/f2fs/recovery.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Each patch is a single logical change and compiles on its own.  All three
-were validated in QEMU on the KASAN kernel: baseline trigger, patched
-no-trigger or clean rejection, and a normal filesystem mount/write/fsck
-regression.  The baseline source and build were restored and
-hash-verified after each run.  The series applies cleanly to f2fs dev
-(fd106ada4dee).
-
-Cheng Yongkang (3):
-  f2fs: reject non-directory parent inode during dentry recovery
-  f2fs: reject MAIN_AREA boundary underflow
-  f2fs: refresh superblock CRC after MAIN_AREA alignment fix
-
- fs/f2fs/recovery.c |  7 +++++++
- fs/f2fs/super.c    | 13 +++++++++++++
- 2 files changed, 20 insertions(+)
-
---
-2.34.1
+diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
+index 54b524660..3e8054324 100644
+--- a/fs/f2fs/recovery.c
++++ b/fs/f2fs/recovery.c
+@@ -209,6 +209,13 @@ static int recover_dentry(struct inode *inode, struct f2fs_cached_block *entry,
+ 	}
+ 
+ 	dir = fsync_entry->inode;
++	if (!S_ISDIR(dir->i_mode)) {
++		f2fs_err(F2FS_I_SB(inode),
++			 "%s: ino %u is not a directory", __func__, pino);
++		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
++		err = -EFSCORRUPTED;
++		goto out;
++	}
+ 	err = init_recovered_filename(dir, inode, raw_inode, &fname, &usr_fname);
+ 	if (err)
+ 		goto out;
