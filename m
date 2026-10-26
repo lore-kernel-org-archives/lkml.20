@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792976928;
-	b=0HOdFPHn5oIuyhtgk5TPvTuldxVoZ8ipS5biGzW98UbPJdIakMI9Nh8Bcut15ZgY7VUT
-	 p2ApcZrtRVNJwVQKjnYCkhqk2yJVzEZNLgKx8GbQDnvkaCiBNhg3509FYH0ry+dgEl3LW
-	 oUs2IjY3rT4W/I2ZuKjtC6Coc3ZaDtoVuTA/YXeU22qvEoTSsUHd9kmglV6hMQePV9PQf
-	 ZiheB4Wz4/ay1hhjPU1Sn5G01fAwykfM/8qAxMiRrf2w/w8vUI4SlULpXtaao4JF8fEZW
-	 Kimjtkmll6GFRNf3jEWmJUTbfpwha3ftpqDGxaca6V2Y//HDsnCKyqKGDB2EUdwxkvQ==
+	t=1792976989;
+	b=Bg4f9HhGAeeRv/3+Xgw/rUNA2s2CvAABcCLuRE9fJO6/OiWodPXt9YuaKUCCr+pRKMlq
+	 PtnVVHz8ervA7izNnF77Cw6YwrVHjcX2+ks3HVIgPDyoNSVZkySQNH3ERvLOzY9SdpkSk
+	 jHr9Vv6s0YW1JUPHUDb8E1UtZ+wWIfU7ZUggCRGRCYi9sIsBqx1n2IrUNBcPoLXZx83Wd
+	 gIi3QvF0kV5hdb6BuxRGwIB/17jIR4yqUawSaHdRfnFurummABiyGvf6GaBZIfmFACFGH
+	 VY/ImqvFiU362XHmDd6oFMiQ9r1pYg29DVklOqkJcgHb9CLHu4Lv1D5np2oX+2qYkmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792976928;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1hgj4CnUvO7cv9RW3JdCHadNJGjXOR2CZY0go+pT5j4=;
-	b=XvnoVFnXwkiChSnmI0Pb/BIRsAD145GZvT8lzEz2i8QvxDn/4tNHd5KLnTqKRln0pmGA
-	 NkSOz56/ILjk03QkEbiAkw4POkqEoddkXi9Z03aFRgwvJ2DpTP1GVr0aeUHfA+Sg2O0F5
-	 WPy58a7y9ROrmVXPfu7UzKNLDQLC7II/pHMBItowTWUg0Zt3WQy1WRytNvafWIbKEusi6
-	 RaR9XO9fcVzhgdKXfUKtCm1uiHYC/t5Qot2Dhw2Xhh/ZQFA2NIqNlTTjGJOHSdPkOaiMt
-	 pCiudRHjCee4YXPq5en/hTUCz/DXd9TKMMc0P9cbI1qkv9xLCt+cvnldpSTxwR/ZSlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792976989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+	b=BGBFDJYwP3b0RfGODERYqc6hpurNFKiMIwjbb9QXg5IdIChxb6/q0x5+nxTfw1ukkwGZ
+	 1Gy+BeZ/b9Q+GgAuE5eWB7lbgTeje+qcfK71xsbFRPBLRys7tMqi4FtKIikAqPPd+SfnN
+	 mPZsNfJsrOXZi8zu2esQ5lsQdrf3B0jqLTMMc8fxG/hjNqjisZWn6pAIO94YSPDBu3GTK
+	 bmMJZrBAaskGfq+RAg5sjAtKxoQG5GbAJ5GARlTBz2AGaiqcfHZyfCW4RY38ZoKlRBm46
+	 qxsqhnJneeSwoaYaH1MP5Xil7fbT8cBxf3coq2mgVkKpt1Zh2U6Fucwdob1ZDk9jE4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzcDPFMI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43573606A31A;
-	Mon, 26 Oct 2026 01:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzcDPFMI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F5B1F01825;
-	Mon, 26 Oct 2026 01:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792976927;
-	bh=1hgj4CnUvO7cv9RW3JdCHadNJGjXOR2CZY0go+pT5j4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jzcDPFMI5NRTbN2SiUrfcNys6dJN7uvDqDJhMHI8PWx1bs3Sh2JSbCXqHGiX6gsTT
-	 I8DbnzHNKn5pcV5LttMGJECOrH+690iUfeF490rBCiiHkjSbqT4cOlcT0A2NkIC68h
-	 bCs09p04jrXk0fY98HOfFwTQzOANKnsizeu16O8kzL04vWq1YnRH4pgUCv2T9/D/Ey
-	 7KVAh3fRx+H98Se6MofFG7g+6aGrzxM8SQMwUUPTloYTTv15Pa3eo0K5+188qtNdIh
-	 irGoMyKG+dtb/P5bUvBrF4heDfpMs1sTNV8XjQIBm9XJ/Z47dRV3lt/6NJii/Y8uhl
-	 BVshkI0T9R7ew==
-Date: Mon, 26 Oct 2026 01:08:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 14/17] iio: light: pa12203001: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <20261026010840.57583c86@jic23-hlaptop>
-In-Reply-To: <20261021165858.v2.14.I501510b542691f595de1e110cfe35632a5fa7768@changeid>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
-	<20261021165858.v2.14.I501510b542691f595de1e110cfe35632a5fa7768@changeid>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E7D606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 01:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3E7D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53512cd2f85so27880951cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 18:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792976983; x=1793581783; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+        b=MMk+k0COyYmNm4YdnxYfC2ghljf4SFkUhbA6kOhdeg1cbfitG0EjUsLQQEsUWdh2mT
+         DfisF8g8yCg2zHx3IasNOO7RoHrWYOPP6vcdds9StC+lsuj6pEzcWdILCdQbgNGYa2gA
+         fiWfgn11b2ceufwdYy2Q/aKNdKRi3guSGdI+5531lVzJQMrxEiYtYM9XzQsCI0sgoBtA
+         0SAZzsqwgQu1MOojO7vvZbQg+to6vbuYsUW3/bNiA5a27yiZ3RtFjyuvXX0S+onRwy+n
+         DrhHSBrd6oFm3nt3UAb01Ka+25XOFLCV3zQMmrJj3FeDJPFc0wS8cAuNIgLE3yNxipaB
+         JAcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792976983; x=1793581783;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+        b=JbPT9ZV/M2UfDXHO8E6Wf5nMumzN7sqyOlwuLNKVGk9m4Mg4o6eh53df/gLY2Loys8
+         wfKfP8mldc+hR/YQTSmGdABwjmed9TstnYvMURxGnBADx2EaBM2VuEkF9T0Cjy3FSeCL
+         +QLB4RpCDcsJetY/YNuJye6r8Rxr4504Lxf3ymXC9CysLzO7BuxZZR0/ESzbGK7Zv1cU
+         GWM4VholQ3OfdBlHSrTDB2d0Ig/M23zDIPejQv6XS9Tzp+vbxpSqb7yhLXDSuLDjwtn6
+         vcKkCgh/k9001eo/MKW5OqZCB+5KdykkXpamjbxc0HRJRkEK+n9w+A2yVDL8QHzcxfKV
+         44dg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUeICtxPWtpUqF8DiQSXoVbDKFD22MS/E9PpxRl1AVDVQ8YArCZ7tZpa4dsjNYJMLkS3ByIofFa574WUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgUd+gwNolR0sXR/6S+VGxorb1qQJ22aiKY5ZApNgQyzFJEIqa
+	XKPmMTEcVwmG7D4voAqrp1/32FH3tGii/l8B17JpS1Ve5wRHIIZKoQL1kfryj0XWAQ==
+X-Gm-Gg: AYBFou1uE1/jQRuLl1iKE8OxCvOJpYAZVRUQCQnxT268NZtypHhJIuuM1RzDVO0EMxY
+	/Gi6SZ/rMk7cIqE5PosEc+u3mk6N7dP46kNQjTkJr41RHn5fcHfmo/xdMiks0G6/Dp4moV9XHIv
+	vz5LylVqqrthRBxiaGMC5bDzT1rgomvV6DkPbMQf3ySgi7pZIqJNERAi6RvTC2eT6h7lCs/6yqL
+	UeTMSKvgSdelzbLXKK1SQPz/6pYvz0mfwErgaQB6+DUDZL816ErAlHJer0AMOmzczHSpdXvuLGm
+	cR24/rUY9lyGJVmGldcjSo4OBrzSRUNkL8j1ZMv6Nx4wJGi5vs63QO8sfA8CkRZSDkx5/YMnZ8E
+	+3AuDN/62za9xoUBi95GfJylp5iftlM83FRITQA+Dh/vfIFML4apFd+w/7wseO1UICfSDvV/tC5
+	D2gDrA6saLVjro7Gtz7Eeb7TmDe26zUgb0AeLRAs/VclkHwXbCg9ykP8auQdf3sptJeq97Yh/Vd
+	LarOWQlmni9e4FDlqWBQBQB7Tdf4kqTvcd5fL2lmRSZRXvu147k0/rF
+X-Received: by 2002:ac8:5f10:0:b0:536:8843:c2bf with SMTP id d75a77b69052e-5383b5f25d9mr84356811cf.67.1792976982790;
+        Sun, 25 Oct 2026 18:09:42 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839739ad5sm43892661cf.23.2026.10.25.18.09.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 18:09:41 -0700 (PDT)
+Date: Sun, 25 Oct 2026 21:09:38 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: IgorpetinDev <igorpetindev@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <4f60a287-f914-4b81-9dbb-d93528312356@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <20261024155614.2732-1-igorpetindev@gmail.com>
+ <20261025000643.425c57ca.michal.pecio@gmail.com>
+ <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+ <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
+ <20261025171019.49c9a66f.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,132 +101,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025171019.49c9a66f.michal.pecio@gmail.com>
 
-On Wed, 21 Oct 2026 16:57:15 -0700
-Brian Norris <briannorris@chromium.org> wrote:
+On Sun, Oct 25, 2026 at 05:10:19PM +0100, Michal Pecio wrote:
+> On Sun, 25 Oct 2026 11:16:59 -0400, Alan Stern wrote:
+> > > > > +      * Even though all URBs have been given back,  
+> > > >
+> > > > but does anyone actually believe this here?
+> > > >
+> > > > Hundreds of drivers written over three decades, often
+> > > > without linux-usb review. I don't trust them at all.  
+> > 
+> > If it's not true, there's likely to be trouble when the completion 
+> > handler is called.  We could forcibly remove any remaining URBs from
+> > the lists before flushing the work item and just leak them (with a
+> > warning of some sort -- ideally, one that prints out the names of the
+> > completion handler routines for the leaked URBs, if at all possible).
+> 
+> But you are now talking about developing a whole new feature of
+> unclear usefulness (will anyone pay attention to those logs?),
 
-> This driver propagates the return value of pm_runtime_put_autosuspend(),
-> which is not particularly useful.
-> 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
-> 
-> For this reason, modify this driver to simply discard the
-> pm_runtime_put_autosuspend() return value, and inline some of the
-> runtime PM helper function, now that it behaves the same with and
-> without CONFIG_PM.
-> 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-> 
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-Applied. Note I sent a follow up just now to use guard() on
-the code that is visible in context here.
+Actually I mentioned two new features: forcibly removing any remaining 
+URBs, and printing a warning about them.  I guess you're saying that the 
+warning would be of unclear usefulness.  That may be true; I was just 
+thinking that if anybody was interesting in chasing down the cause of 
+such errors, knowing which driver was involved would be useful.
 
-Thanks,
+> while my suggestion is merely a small tweak which costs nothing
+> and makes no functional difference under normal circumstances,
+> but reduces severity of hypothetical failures.
 
-Jonathan
+What suggestion was that?  Using cancel_work_sync() instead of 
+flush_work()?  Doesn't that amount to the same thing as forcibly 
+removing remaining URBs from the giveback lists?
 
-> ---
-> 
-> Changes in v2:
->  * Split iio patch into per-driver patches
->  * Inlining
-> 
->  drivers/iio/light/pa12203001.c | 26 +++++++++-----------------
->  1 file changed, 9 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/iio/light/pa12203001.c b/drivers/iio/light/pa12203001.c
-> index c0f4db8d95f7..0a0502a60a06 100644
-> --- a/drivers/iio/light/pa12203001.c
-> +++ b/drivers/iio/light/pa12203001.c
-> @@ -154,13 +154,12 @@ static inline int pa12203001_px_enable(struct pa12203001_data *data, u8 enable)
->  	return 0;
->  }
->  
-> -static int pa12203001_set_power_state(struct pa12203001_data *data, bool on,
-> -				      u8 mask)
-> +static int pa12203001_runtime_resume_and_get(struct pa12203001_data *data, u8 mask)
->  {
->  #ifdef CONFIG_PM
->  	int ret;
->  
-> -	if (on && (mask & PA12203001_ALS_EN_MASK)) {
-> +	if (mask & PA12203001_ALS_EN_MASK) {
->  		mutex_lock(&data->lock);
->  		if (data->px_enabled) {
->  			ret = pa12203001_als_enable(data,
-> @@ -173,7 +172,7 @@ static int pa12203001_set_power_state(struct pa12203001_data *data, bool on,
->  		mutex_unlock(&data->lock);
->  	}
->  
-> -	if (on && (mask & PA12203001_PX_EN_MASK)) {
-> +	if (mask & PA12203001_PX_EN_MASK) {
->  		mutex_lock(&data->lock);
->  		if (data->als_enabled) {
->  			ret = pa12203001_px_enable(data, PA12203001_PX_EN_MASK);
-> @@ -185,10 +184,7 @@ static int pa12203001_set_power_state(struct pa12203001_data *data, bool on,
->  		mutex_unlock(&data->lock);
->  	}
->  
-> -	if (on)
-> -		return pm_runtime_resume_and_get(&data->client->dev);
-> -
-> -	return pm_runtime_put_autosuspend(&data->client->dev);
-> +	return pm_runtime_resume_and_get(&data->client->dev);
->  
->  err:
->  	mutex_unlock(&data->lock);
-> @@ -213,7 +209,7 @@ static int pa12203001_read_raw(struct iio_dev *indio_dev,
->  		switch (chan->type) {
->  		case IIO_LIGHT:
->  			dev_mask = PA12203001_ALS_EN_MASK;
-> -			ret = pa12203001_set_power_state(data, true, dev_mask);
-> +			ret = pa12203001_runtime_resume_and_get(data, dev_mask);
->  			if (ret < 0)
->  				return ret;
->  			/*
-> @@ -226,13 +222,11 @@ static int pa12203001_read_raw(struct iio_dev *indio_dev,
->  				goto reg_err;
->  
->  			*val = le16_to_cpu(reg_word);
-> -			ret = pa12203001_set_power_state(data, false, dev_mask);
-> -			if (ret < 0)
-> -				return ret;
-> +			pm_runtime_put_autosuspend(&data->client->dev);
->  			break;
->  		case IIO_PROXIMITY:
->  			dev_mask = PA12203001_PX_EN_MASK;
-> -			ret = pa12203001_set_power_state(data, true, dev_mask);
-> +			ret = pa12203001_runtime_resume_and_get(data, dev_mask);
->  			if (ret < 0)
->  				return ret;
->  			ret = regmap_read(data->map, PA12203001_REG_PDH,
-> @@ -241,9 +235,7 @@ static int pa12203001_read_raw(struct iio_dev *indio_dev,
->  				goto reg_err;
->  
->  			*val = reg_byte;
-> -			ret = pa12203001_set_power_state(data, false, dev_mask);
-> -			if (ret < 0)
-> -				return ret;
-> +			pm_runtime_put_autosuspend(&data->client->dev);
->  			break;
->  		default:
->  			return -EINVAL;
-> @@ -262,7 +254,7 @@ static int pa12203001_read_raw(struct iio_dev *indio_dev,
->  	}
->  
->  reg_err:
-> -	pa12203001_set_power_state(data, false, dev_mask);
-> +	pm_runtime_put_autosuspend(&data->client->dev);
->  	return ret;
->  }
->  
+I still think if you're going to deliberately leak some memory because 
+of a misbehaving driver, there ought to be some mention of it in the 
+kernel log.  Otherwise, how would anybody ever know?
 
+Alan Stern
