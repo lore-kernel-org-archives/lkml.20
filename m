@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982771;
-	b=m8HqOjJpTEsHmyj2plFCgOSdkZJ5WJ2mvU2DKzO909m+pcg9NA5Nm+/FhKf78+wLoX3k
-	 K8pMW6xd71FZN1ScajsHn8TDJQCCSHFC27ijy/l56bd/Uk1TVzT7BvqwZ6i3YzHvWsZUp
-	 cVjPc8mQOLLcojKAGnWm1Xi81ik2J9o8xnBR+ajjNs2uAJqJEIcrAmydNSfZo2aomycJx
-	 munc/VWPcdpTRNrNygKh8TUcF3+Hbrcc6EA3QV1J6iLLFjfQBZ1060gUb9obuds3xHdDu
-	 QRJFnQTDhwiPyeE1Z4eoFmCDWvIrX1BaUG+WTiQLPrcVEgLDvtD7/NrPADYR30qjyMg==
+	t=1792982944;
+	b=rnQRSLyUWeIenY062Kvpx0LN53h657aQ58sAhsLJdHnXxGnb1SbJ3gAMqE7otdG1rt16
+	 nwc+OtG3IR2lcFxLwYbenWkqm4fOqcfaGEw3OrNvioWiYQbp0+4qN5UppjejWuHa5q8ie
+	 RIeD03ZYbZHIaT/osGBTnrLDpsccTjlkYWM9iNiKH2t6fyHbjHYiQKC74JhtdZdRzGUTT
+	 /VgWezmEmNCZEvUIWO067IJ+UpLjgzfsY08r4SkRh0LiWY+iNSJoqz7I2o7OtNd1j6x7D
+	 zYQvdqqYH77baf02QFyjAMqb9/SF/mum94fLvcenkuhHQd39XrKE+NV2TsagH4S6Jqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982771;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
-	b=3zr8b9aVGA7aqUJ//s6U2L3+RToAVz6Nkd60K0aL4k5PrHfU/19sPQ6524ke0bmGIioY
-	 VRZj33H0cey3dszr9FsQq6vapT3EHW75657KHs5MXbpCEJqdU4ym+BaqkGZBVzUUZcKEX
-	 MPN+wrhsYduWvPkLhcGUXL7dkFpxdmMtXeNSjRdhWiDIef1QfWwNalRMnUG1Wrpr3Kv+V
-	 IF/yfkBvdoiGQwZi1S5FW6iGD5EhcB7dHvRG0Qz86b1w/o+nuTe+LHOO4UYu1QCZs/Ai9
-	 1SZIAIpDcex/jmUywNVyATJUCnnbxqkjzIa5XLYJu1Djv4mDKUFQEEinHo2Mb1KIRRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982944;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QoMN9IuoMoRHGY91ipX/fPql2/FDyo785asdqTToyvk=;
+	b=JPVssrKCYpTRMOswKypx4IHHh8RzHmlGoIaovka9bo9h8xVl9izNQRRnj2awoh4IIxdz
+	 uPhteuGLUEXgxtxTHgx69v/8UujqBQLnxbVIINCV0Q068tXVm6dqVzCS1m6ioQ4yFdNLs
+	 0atmUDtzZI1m81uphPrP6gC26vMDzD/20wfi2SkwIDAmjIFuBFfKsv88llaPMgEMt2npy
+	 FlxPt16ae30p6W6A5BS2xcc4/hSAeP9ZN6b2x9Il9imiwWXN9vvWlMDq/FLYUSGKkLfrL
+	 I433fNfPXMGmSHtiZkXxwiIRmpivYw7V/pOneR455t6KuabFeFVbzbAc+YvmT/XkWPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bERgx/F9";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SiwXqmHb;
+	arc=none smtp.remote-ip=95.215.58.84
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448C6606A31A;
-	Mon, 26 Oct 2026 02:46:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AD0606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50AD0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bERgx/F9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0F21F031E2;
-	Mon, 26 Oct 2026 02:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792982770;
-	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bERgx/F9ZjkMitNzqoudEWvCaXT/3dbqzKl+ZiXjjftlhGpYvDfv2NBTP4Y5e8Aac
-	 T5naUosoU6z7L5JhLOUn5cwD6Xojt86l3MB36mxqAzZxDafUW7VJR7bnO8GXGVsd1T
-	 YuLAdE4slSGEOw1ry/io4QzbhEudt28Aa8iwrLMm5SiQt6Iuu2fhYi7H/+V3fv0JJp
-	 AyLzhVyGLVxkTrVjHWnCQlXxiIN1VdW1zXOmkc2i1AOjwx9N+AIVhVV10UbRpW0euO
-	 k5RsxToIcyTpiusbpp6nw/BJ2hul1yf6nOzDTLyM4UYxHxa7g2Mem1HwEGpiLrNDsN
-	 HeTCHU99vn4gQ==
-Date: Mon, 26 Oct 2026 02:46:05 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko
- <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Eddie James
- <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a
- ratio change
-Message-ID: <20261026024605.3286702f@jic23-hlaptop>
-In-Reply-To: <atZqSXI14WojGso5@ashevche-desk.local>
-References: <20261019153328.80739-1-zoone.rupert@gmail.com>
-	<atZqSXI14WojGso5@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SiwXqmHb
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jdRN6MFYj2YmCSPub8P43JPTJWPrmm0ezeN7UlTo9nU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792982940; v=1; x=1793587740;
+ b=SiwXqmHbi65DNkwwTjRhyM6I0cf8U2pHI0z3sKlege9VRk7dGsCpjiFCHsKNi56JsIGrCEFq
+ QjTEpy9XjBygk5vpewtFb/uZge3opXg0VpkYG83yVVH76VurYndIhXHDIXIBb4RZ1Ov5rAY52rG
+ OVsg92/8WqJaebd8ExTg3EsM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7a9d9d49db9a7899;
+	Mon, 26 Oct 2026 02:49:00 +0000
+X-Mizu-Trace-ID: 7a9d9d49db9a7899
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 10:49:35 +0800
+From: Chenguang Zhao <chenguang.zhao@linux.dev>
+To: Serhat Kumral <serhatkumral1@gmail.com>
+Cc: jgg@ziepe.ca, leon@kernel.org, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/mthca: Fix off-by-one in mthca_map_user_db()
+Message-ID: <20261026024935.GA151928@pc>
+References: <20261023192348.11070-1-serhatkumral1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,49 +63,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023192348.11070-1-serhatkumral1@gmail.com>
 
-On Mon, 19 Oct 2026 22:06:49 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-
-> On Mon, Oct 19, 2026 at 06:33:28PM +0300, Rupesh Majhi wrote:
-> > After an oversampling ratio change, the sample waiting in the result
-> > registers and the one being measured are both from the old ratio, but
-> > are scaled with the new one. Pressure ratio 2 to 16 reads 192 kPa instead
-> > of 103 kPa, and temperature is off by hundreds of degrees. Pressure is
-> > also wrong after a temperature ratio change, as it is compensated with
-> > the cached temperature.
-> > 
-> > Discard those two samples on a ratio change, and for temperature cache
-> > the one after. The ratio write now blocks until then.
-> > 
-> > That wait can be longer than the 1/rate timeout, after which the driver
-> > resets the chip and the ratio silently goes back to 1. Allow two periods.  
+On Fri, Oct 23, 2026 at 10:23:48PM +0300, Serhat Kumral wrote:
+> db_tab->page[] has uarc_size / MTHCA_ICM_PAGE_SIZE elements, so valid
+> doorbell indices are in the range [0, uarc_size / 8 - 1]. Allowing
+> index == uarc_size / 8 results in an out-of-bounds access at
+> db_tab->page[npages]. Use '>=' instead of '>' in the bounds check.
 > 
-> ...
+> Fixes: 56483ec1b702 ("[PATCH] IB uverbs: add mthca user doorbell record support")
+> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+> ---
+>  drivers/infiniband/hw/mthca/mthca_memfree.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> >  /* Make sure sleep time is <= 30ms for usleep_range */
-> >  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)  
-> 
-> Seems the use of USEC_PER_SEC below should be postponed to a regular cleanup.
-> Because otherwise it will be inconsistent with the above where it would need
-> to be 30 * USEC_PER_MSEC
-Do we want to have the extra churn on the below?
-I'm not that bothered by a temporary state of different styles.
-Nice indeed to have a follow up tidying up other cases though!
-
-There is quite a bit going on around this driver, so I'm going to pick this
-one up for the testing branch of iio.git rather than the faster path.
-
-Thanks,
-
-Jonathan
-
-> 
-> > -/* Silently handle error in rate value here */
-> > -#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
-> > +/* A period plus a measurement time; silently handle error in rate value */
-> > +#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))  
+> diff --git a/drivers/infiniband/hw/mthca/mthca_memfree.c b/drivers/infiniband/hw/mthca/mthca_memfree.c
+> index 9c5eb03f354d..39d82dc73807 100644
+> --- a/drivers/infiniband/hw/mthca/mthca_memfree.c
+> +++ b/drivers/infiniband/hw/mthca/mthca_memfree.c
+> @@ -453,7 +453,7 @@ int mthca_map_user_db(struct mthca_dev *dev, struct mthca_uar *uar,
+>  	if (!mthca_is_memfree(dev))
+>  		return 0;
+>  
+> -	if (index < 0 || index > dev->uar_table.uarc_size / 8)
+> +	if (index < 0 || index >= dev->uar_table.uarc_size / 8)
+>  		return -EINVAL;
+>  
+>  	mutex_lock(&db_tab->mutex);
+> -- 
+> 2.53.0
 > 
 
+LGTM
+Reviewed-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
+
+Thanks
+Chenguang
