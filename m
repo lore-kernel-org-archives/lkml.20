@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042747;
-	b=fRFwEojT7BitmRa/LUIKHigU78M2cg9lfGWG51xyA0ry19bJCPHN+R7+Uv0XhHPpytj3
-	 KHb0WOnOen9/2tNfr0oq0Zv4atOXajf2VZfQaPnyP2d8kTjlDQfaLlNjinXR1RJYafWMf
-	 rz8Uh5io+R07tF7F/hoCrvOpDNlEIOGTHczayT3QEBggW57zXkbxcQjbJqwFx5d0QzfQZ
-	 CBEPh2D6p+7tPqa/+lphz7DEO6MySxabWiC22h4OnM0gY97CYDGWwjhcT0x9+WnfH7sLi
-	 YHOZtWzafUq0q0h4PL7jP+zm4lHyogRuHQulMW3BqPBV+1cZIQmaB+9an8Hnux1srtQ==
+	t=1793042797;
+	b=FJRs6HzZ8SGO26IUKGppxIZ61vgrxDK4jtTqSTL5JyZoS21bFb9wfUXkWK12N7VVEKsg
+	 Xnqe9MdkBzN7PqvB7OKYURylCxrhKYV08nEOJz+5mKrf1LPsvEyuni616Tg7rYQD5I8td
+	 DPi1+hkE8kjgKL3IyXXfYFFh9npm+9FT+cKJ1G8LGZ2DAPyuAiz4yYGFnRhsgW2eOl45Z
+	 ySsSFs3dtu3VFacbI2EfzQSlw63xCDDfSmuTtDYR9+zfMrEjQc17XdaE0wNTETRjcKNOU
+	 +vkgYsnJeyzRKz08EYaMjf67HHp86sLQAvtOdd80FsMMzfTIPVErDqP/C13kwWOdzew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042747;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=YeW/vsuTURatWo8vjPgKFuIFk5Oa69ycBygNEDu8EaQ=;
-	b=HkXPga8rUJ4UrKP7HOFL6gmT6/u0ydzTL3wAc+0B0tK3CmISH/UukyIa9OUZDwVrL/jM
-	 RTlAe+fwuHMjcLOHSPFBSBgczzMSW+OncYHxjbbPAYe6DrIhin9yVgWMwAtdj4fS9Lj92
-	 JsGYXWJgIw65k5fBtxddTgA4plYKKL7w+1OgaEAz5jRhDVwcqHdIMc8b/ocEYbxJI9hXl
-	 c2Z355H9kAX+2L0PEcpPFqmZ33XMmXW4qoe1rEe1MM65B5BBYPLAwS+xP8zWLK9zxuUpy
-	 Yuy3BTXhmThw1PN5n+oL9iVz9KOb5mdcjza/b47y1VMJy2lg1joNTsiMh7Q0eOget0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042797;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8Kc1cohtal7Z6JWXOOnKtAzlP3ZNhZ94KfGnkpnEI7c=;
+	b=nazQKsIsSyNKqgTcn4wbEp8T1UI9C4oZS9TuSGGZ4Ksq1hY5t/ovtDDlg3OqOuFYwuXz
+	 6KbpKrp2SJ4Bqyu6/+Nl8oj2LuufZoJsw0Jql1Yh153Mkp3ypFM20bXnnKDh0o1uhxz7D
+	 8JYvAIXEFAB4Q2S7GoMK2Pj/TijMv1mqUw6wntdj0K10teHzqbBoV97CiCJ6Dq37p8tVH
+	 vYg2UUSm9WbSpBBwK0HxcxtMmszZMcoGiRS0iJI6DzJoLtFHdMftjimzScgcuw1SjwYq4
+	 MlUvjMLTSemAG9Obi1A24cOUuItw5VFx/ZIxRKlbDTlcVLNEaKPptdqZ6eCAh4d3rRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hJIVYZtl;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 954B1606A31E;
-	Mon, 26 Oct 2026 19:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 954B1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCAtdriz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6976A606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hJIVYZtl
-Received: from CPC-beaub-VBQ1L.localdomain (unknown [70.37.26.58])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 60E5220B7166;
-	Mon, 26 Oct 2026 12:25:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 60E5220B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793042736;
-	bh=YeW/vsuTURatWo8vjPgKFuIFk5Oa69ycBygNEDu8EaQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hJIVYZtlPTmPI5cyNa7YnpdtY68LGbJYo+ASmCKVcm1MZxUN0pDAXIz2UYC3R2wNX
-	 eltpn2wFwj3M0ZvBMZt3/IRpTnCzKxaYamBnD0p1bNQDrvsKEJfxEDYIHhTthzPJ4o
-	 kBVR526gFDxi2Fbu52VjNCOQ1LeU1PSxrX9ezdNw=
-Date: Mon, 26 Oct 2026 19:25:41 +0000
-From: Beau Belgrave <beaub@linux.microsoft.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Haoran Wang <haoranwangsec@gmail.com>, mhiramat@kernel.org,
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com
-Subject: Re: [PATCH] tracing: guard trace_event_get_offsets() against an
- empty fields list
-Message-ID: <20261026192541.GA65-beaub@linux.microsoft.com>
-References: <6ad1f2ca.6048f038.32d739.a530@mx.google.com>
- <20261016102249.090d33af@gandalf.local.home>
- <20261016105100.7a64aa51@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCAtdriz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0783C1F031E2
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793042797;
+	bh=8Kc1cohtal7Z6JWXOOnKtAzlP3ZNhZ94KfGnkpnEI7c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MCAtdrizNe43F0olqIRRZn4iuFqaFMWg+zXPlJdEc63+HMl1SqUYbK0TVVICYGhEV
+	 xc7oUgzwL+Qv142zTXJk3FJ2+rahZfKG2KtxO71ZjmEcvyvWTQS2cQvpp/QychbwQx
+	 bRNzeE7ALvjW9zYM6oWVSBwqvpPorVd1Bw61FCnQffZwupLj+15lSJRgkWbSHdTtn8
+	 ZlpCQ9/BtvUu9NWFnVEb/v7nFsF8NL9eviIuwNyOFHLlowjNBECkMYs4zyxv+xAhbZ
+	 skvpgi5HsglzeCBKsNjzqctYhWHul1h8UbfO7PESBYtSfC3BhVtAWQmv/VKo0Y/2NS
+	 D6bB/eeeGt7Lw==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso1061043e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:26:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw33BxtbwrZo2gJ7fQtVQSUzXq3MA28rnmVUsttd+NI/xr+LcA8wijGnL9FbO9yAvJQOV+BS1uoYklQCa8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIPrsGtnI0CtuOSETwVwskwMo4Ngt9GdX8f+GZQZ1FWlALgkmX
+	Mb40jVb5+RL2JkzZh8vK1bHyshI6XGbVWRS4vYT2v1Nrdxspa5MErKrk+aKpsywTR174FrF51t5
+	6pVwDKcSw5gGd4b8rY/SS9GyFwYFjPyI=
+X-Received: by 2002:a05:6512:694:b0:5be:513b:a44f with SMTP id
+ 2adb3069b0e04-5bfb71e3d25mr2337199e87.49.1793042795490; Mon, 26 Oct 2026
+ 12:26:35 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,60 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016105100.7a64aa51@gandalf.local.home>
+References: <20261003000011.58045-3-blum@kernel.org>
+In-Reply-To: <20261003000011.58045-3-blum@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 26 Oct 2026 20:26:23 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iBX3tL2mx10g_4abRO_G3U96z5bgF49zaR-SvszbuOjg@mail.gmail.com>
+X-Gm-Features: AclHuK-RzJ2SwTkeK5-H7Bk42trBPZSMQT2JY6seIFQATTFT6YeYQQ-1dwFRvaI
+Message-ID: <CAJZ5v0iBX3tL2mx10g_4abRO_G3U96z5bgF49zaR-SvszbuOjg@mail.gmail.com>
+Subject: Re: [PATCH] thermal: sysfs: Fix indentation in create_s32_tzp_attr()
+To: Thorsten Blum <blum@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 10:51:00AM -0400, Steven Rostedt wrote:
-> On Fri, 16 Oct 2026 10:22:56 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
-> 
-> > On Fri, 16 Oct 2026 17:47:51 +0800
-> > Haoran Wang <haoranwangsec@gmail.com> wrote:
-> > 
-> > > From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-> > > From: Haoran Wang <haoranwangsec@gmail.com>
-> > > Date: Fri, 16 Oct 2026 16:30:00 +0800
-> > > Subject: [PATCH] tracing: guard trace_event_get_offsets() against an empty fields list
-> > > 
-> > > trace_event_get_offsets() dereferences the first entry of the fields list
-> > > returned by trace_get_fields() via list_first_entry().  list_first_entry()
-> > > then returns the list head itself, and tail->offset + tail->size reads past
-> > > it.  The corrupted result is used as the BPF context-size bound in
-> > > __perf_event_set_bpf_prog():
-> > > 
-> > >     int off = trace_event_get_offsets(event->tp_event);
-> > >     if (prog->aux->max_ctx_offset > off)
-> > >             return -EACCES;
-> > > 
-> > > so a context-reading BPF program that ought to be rejected can instead be
-> > > attached to a zero-field tracepoint (which still carries
-> > > TRACE_EVENT_FL_TRACEPOINT) and read adjacent kernel memory when the
-> > > tracepoint fires, bypassing the verifier's context-size confinement.
-> > > 
-> > > This is reachable through user_events: a user can register an event with no
-> > > fields (e.g. `echo u:my_event > dynamic_events`), which leaves user->fields
-> > > empty while the event remains a BPF-attachable tracepoint,
-> > > trace_get_fields() then routes through user_event_get_fields() to that
-> > > empty list. The corrupted
-> > > result after list_first_entry is then used as the BPF context-size bound in
-> > > __perf_event_set_bpf_prog(), which lets context-reading BPF programs attach
-> > > to a zero-field tracepoint when they should be rejected with -EACCES.
-> > >   
-> > 
-> > Hmm, so user events can have empty events. :-/
-> 
-> I meant "empty fields".
-> 
-> > 
-> > Beau, Is that a thing?
-> 
+On Sat, Oct 3, 2026 at 2:01=E2=80=AFAM Thorsten Blum <blum@kernel.org> wrot=
+e:
+>
+> Indent the show callback consistently with the store callback and use an
+> early return if the thermal zone parameters are not available.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/thermal/thermal_sysfs.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/thermal/thermal_sysfs.c b/drivers/thermal/thermal_sy=
+sfs.c
+> index 96fe5d591a0a..47daba943a76 100644
+> --- a/drivers/thermal/thermal_sysfs.c
+> +++ b/drivers/thermal/thermal_sysfs.c
+> @@ -287,12 +287,12 @@ sustainable_power_store(struct device *dev, struct =
+device_attribute *devattr,
+>         name##_show(struct device *dev, struct device_attribute *devattr,=
+ \
+>                 char *buf)                                              \
+>         {                                                               \
+> -       struct thermal_zone_device *tz =3D to_thermal_zone(dev);         =
+ \
+> +               struct thermal_zone_device *tz =3D to_thermal_zone(dev); =
+ \
+> +                                                                       \
+> +               if (!tz->tzp)                                           \
+> +                       return -EIO;                                    \
+>                                                                         \
+> -       if (tz->tzp)                                                    \
+>                 return sysfs_emit(buf, "%d\n", tz->tzp->name);          \
+> -       else                                                            \
+> -               return -EIO;                                            \
+>         }                                                               \
+>                                                                         \
+>         static ssize_t                                                  \
 
-There have been events in the past that are used simply to signal
-something has happened and have no payload/fields. That is a valid
-scenario from previous discussions with folks on our side, yes.
-
-Thanks,
--Beau
-
-> -- Steve
+Applied as 7.4-rc material, thanks!
