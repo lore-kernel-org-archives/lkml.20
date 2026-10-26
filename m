@@ -1,111 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027087;
-	b=uCtntZmrtXf3FixTsjdQf+aapIo52+SNyD0Ew4JkdLyKZ35A2iOjSbwYA6gdrpv9+D9S
-	 nBgdpRkg9h2nZdYfGK7FICUP8vp3CqTvRTJTGVv2xzqy4kOkP3Ch38ZKVs545QCRnLE+Q
-	 t0PCHUi7ijNfsEFaJsa4dHFLlUrz+u+QZ8HHoBVEZ6i612UDC6U26/XNz2M+MwpJaW+ef
-	 IozEKlvLahdH516pvLTGBadUo+37C8/sTF3nkA6S2HW3fiiloNYGnNZfI9rZTE0rFXFMY
-	 /rZOypz0ihmqUwNIjoSbyCnIXSzBl3PmWsYuI+7FgSRnWMaJZPY3V9iOE8zzURFOklQ==
+	t=1793027093;
+	b=lnmE5YXrjURWSfygM9wQMprzrE7Y95iZxP6jTcn0u6PW/LvldVWNwYavEmZZlMC4Q8vt
+	 vGeJo7Hpi9tPHkwHxxetxhfZ04v+o/+oPVkAx+KBPVEB7RCnvHNYZ+GOJQhS9J4PIGlWm
+	 pxWh411GjUxAFwvXUHTb5g08gGmC96zxvnoAeWm49uQk1gjvwKWPGB9IU6NLgB5p+ZhXC
+	 4l55whsM95u4qSfUZfVp19tW0LaQ43+IQkQAebDkSEp+g2IqYg8xaCo2RVts6M3ZOlkwd
+	 4Z5Z/R8tvDcc4Qz7Gc2cU9vVqhy+OFqIAb0qaxd7tEj0Oab8QxeZJEqDcYd+5xrNNmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027087;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=etnV3nBisIEN4CK2x4XO1LJb3qrvWzkEtTmrYybBqqo=;
-	b=dtGWNscL8njyOtwGAofEPcMXHM5dWjdHsOH+XlfkTYyKab0Ljop1k6z8ww80SvOpFaoU
-	 O+tJSwABLm8uHqMnf/1DWswP8VYmNSHjmNgWYu+m3AYKnCplGFrg/GMMlRWUYtK9USdJF
-	 hjqlsO6TvArpjNgy8p7bHeyO5uewDKKVRroe3AH7Vre/HWSKuHB8gvvwzENe9IFNHmOzH
-	 PVgBExBsvFDWaSvJZutEBdZ5+fvkLxpYqoRaGINmMePJH8aRAVXMQxwtltH9txwXRzfbQ
-	 2/+lKsmJswORZyFKgBAI35xdf5bj6l+zwCJn9vp/pmv11j9oyiTvHGen8wVIVtec/sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027093;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9XE2j6DUb6n5+qYI4Bd75SEMcPwHROZ60jDXuopARVE=;
+	b=sSA8xEudTUVbjLxa9z/CjND2F4oOQwU06nMq+sP/rarcfKznx6FY3poqolA6g8Qy4mqm
+	 cdxHAzwLmBtav/80LEfEAKu9xY4j98Q2slDepCY9/y19B6a582ynB/JMc5Bg8dGN2BLLE
+	 wecF7aS+xjIQywWLIA9E5R26nGb8aHEMseq9BffcXzCHRrT3EtGK8YEmiURkvmxe8i5Ny
+	 KkKSWeW5DrdTG/Rq6XW9A2O3p1g76Py+Wfi9mGQ7HIZ0NDzr6yzOsB2GgMhqLshdjaxyt
+	 sEhvvceV0c0ImGfXdyoq6YAnA6N03DLc70zd+O45GI8rU2FnYeJ7Y2i0c3Eq7rcd7MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MQCM+Rmp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="hi3CS/w0";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3qz8qhW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CAE606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:04:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91CAE606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FDA606A32C;
+	Mon, 26 Oct 2026 15:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MQCM+Rmp;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hi3CS/w0
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvfsF4167994
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:04:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	etnV3nBisIEN4CK2x4XO1LJb3qrvWzkEtTmrYybBqqo=; b=MQCM+Rmp+OZKHlj/
-	ciKNByeD1VCOEeHm/cod6l/pyvN2YTQHAFlhorvZqwiKHrUqvJkCMMcy5+8NzsJe
-	dMMeh21KUtXzbdhwyWnjSTWfoqDqaz+ua+npTwqYYVPbVaR4wcuIPmXxaV+Z0Soj
-	7bvziDtshD6feN3rD3xS4cQSlN466v/4zq9C1aaPSG7sL5YezH66fQWFD4B1SgW2
-	ANjibawOqc4WYIMXjujy6A1t0z72lzPVBkAtQJQnbGl+/fMMAOcyHF6r9cpgBhJE
-	oDxNwtLwXz3Hw58HMTyQswM9SIaYHH9TunVE28H5F6B9VDmUJRw/Q2bHUg0ZM1dv
-	zrVBdQ==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf14f3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:04:45 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-555eaa3ff0dso601498b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:04:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793027085; x=1793631885; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=etnV3nBisIEN4CK2x4XO1LJb3qrvWzkEtTmrYybBqqo=;
-        b=hi3CS/w0VZhpnvpAzVfNK1wzX0z9QvpV8ZWs51pe3ru7ISKFgRpjPHnnoGHumVU6qr
-         f5DOUQt00G4rL0bQe/BEXfvgBFAzug/jtsdCOuYpn+lRZyDSeX69OnetF74gB/0AGby+
-         Su3o4a4D7xdrMifOcemeeE/7vPf6hs2cWiDdXTrNugPCICgLLWn0BQxJNodWyEz6KItf
-         UpkItjM+H52+K3Hnm6ZZJrSIkbG1ZnCWArtwtseSLBifS8j02eVJVPVJgNW7vi10dQ/l
-         UiGUBjCFqpV4OSARb8Sydc8r3QEVh/B62xeJ31LO0ZsZW1t6OzIkXvrDfjCIjhMyEt/C
-         jQMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793027085; x=1793631885;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=etnV3nBisIEN4CK2x4XO1LJb3qrvWzkEtTmrYybBqqo=;
-        b=0F2vnJE8zPml7Sa8K6N+VlgLHtg9QCNTgyfZfeJtHDEIhu352KIOdsfdS1j1h0bNSU
-         hoaJczkx50c3S6cUJGzpeCJZRZVTuBypgSzhzVi/wLKX176fijPnBji8tdvLGHwym4Sm
-         AWg/sP2Lg87Kxm1Mnb4w97TfLXZZr3p1t0R0HyFD/C8R8t98K0OyEAZOwZt3FjAojCG+
-         1QqE1KarkBcViDajY75MmZXy+zPfuZv1QpQkzUemIYpuYxUaI37K9Gql5+KFtIKo+JUh
-         amq3jjdH6GAG/7VFP8eBvhAYn2MdF/BAGDtjbz+nicBhqsGVMs2dIzxfraqS39+o/RCp
-         mqVA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9fbQ7K7Ss0IRukXs5yBUsyVuQbIBujYHqNtSYKVCRbaZuENsxLBMgxVWEPq93PuHRfjzHjjdOqokyqCM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrWs4O9quXTuSCa6LyxITu6YhRrJ8K0RizuqznioepUByp27Yg
-	8Ae9Mi8OJER9roLK5d0k87c+2RFUpOXWbg3++NCCAGCk+NeZeTVN6+h3uwqoZj8EJgSnh2TUHoI
-	PL6rIoSk9DUq4v1Dfa0NATq5PYx9Vzb2mvhsOxq/jg/0lHFz+KX18/3l3Upze6QFXyss=
-X-Gm-Gg: AYBFou23t0/MtHaOPFUDjIQWLGoqqxb0Qy/n0XWhkHc/tA9kHeKN/PMiqaemZVL/StW
-	yU9TyHlj4BtBkncSRjR955nJa2IJXcDO1PEbtgYyjwx+Ucm2cMLs0OVVVMiqc+jxmQWvvLilYnL
-	1NHnmj7eBYqVOUOU8A/5F7ThrqQG2FSHRi8jIcitI6zOWMJ9W4wfccPO17KYDQ+ZupJJsKqDkkW
-	lt8YjXWfYmCDyD7EO7nhvn6dFOiJ3PLPBgzQzpRS4xd/NJbrHsM0BCXID1PUi7dzxeaBHLyTb9T
-	5idfvofJhFaV7GqKpLNd9rCZtUZeXakJ3uZBYvStzpD0wI3F6cO1hESs3Pe6ixzxCePlwAvwynS
-	ATeWjkiTK0/OdPRMpZJhGbA==
-X-Received: by 2002:a05:6808:30a6:b0:549:e9e3:9460 with SMTP id 5614622812f47-55bffd26cf3mr6808456b6e.0.1793027084516;
-        Mon, 26 Oct 2026 08:04:44 -0700 (PDT)
-X-Received: by 2002:a05:6808:30a6:b0:549:e9e3:9460 with SMTP id 5614622812f47-55bffd26cf3mr6808389b6e.0.1793027083999;
-        Mon, 26 Oct 2026 08:04:43 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44595e70asm3844350a12.9.2026.10.26.08.04.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 08:04:42 -0700 (PDT)
-Message-ID: <2d4e66f6-7187-4642-9371-4385a46bbfed@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 16:04:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3qz8qhW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781DA1F031E2;
+	Mon, 26 Oct 2026 15:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027092;
+	bh=9XE2j6DUb6n5+qYI4Bd75SEMcPwHROZ60jDXuopARVE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l3qz8qhWyTMcNtsxWqOvXSdiIexDlTpz+mnt0gK0cuC05exPRrvBp/Y4p33zXmj+0
+	 JqM4JGmm9QT/UdL35MMf0Tsn2bJN4sfvniApV8hcOi506oA1nG6kjv2tCiPpsCV/JB
+	 y13Qalef/ToGeb6FFcQzJ2Rz6xTF++/GWeNkOr4rSirhkNtnc+OhD88PCDdBBsJbNF
+	 bX/MLFXdwn6vaix51RJiX96VG21VfyLWrA05Gfk9BE4eBmqheAGzcC0vQdBqsory19
+	 ktKpAMZERper+2TzZ2JCdVUHTfZzK0Wee269MPWSSpIgVkuRAuOWPNNEdSiZHyB3zH
+	 D+Rw2Wizteeqw==
+Date: Mon, 26 Oct 2026 15:04:46 +0000
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"broonie@kernel.org" <broonie@kernel.org>,
+	"mfd@lists.linux.dev" <mfd@lists.linux.dev>,
+	Frank Li <frank.li@nxp.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	Vikash Bansal <vikash.bansal@nxp.com>,
+	Priyanka Jain <priyanka.jain@nxp.com>,
+	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Subject: Re: [PATCH v20 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+ and on-die regulator
+Message-ID: <20261026150446.GB2195460@google.com>
+References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
+ <20260922103551.2754613-5-lakshay.piplani@nxp.com>
+ <AS4PR04MB9362E4F3E5E69CE45BE436E9FB642@AS4PR04MB9362.eurprd04.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,94 +71,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/7] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: muzafferkadir@mainlining.org, Srinivas Kandagatla <srini@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-References: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
- <20261011-msm8952-initial-support-v5-7-1857074992ec@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261011-msm8952-initial-support-v5-7-1857074992ec@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1OSBTYWx0ZWRfX7co4kR8GHg4X
- vBpC1jcbdlUo3Gtz0znr15Hd2Cr4Td5bb3gmdvM0a3O2+2AfIVlb4K+K64Vvvk+2JVNTg5BD2cp
- VAQcihfpmrvBgxnxblVjGOnyOG9G9SY=
-X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf6c0d cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=NCdQflJRAAAA:20 a=OuZLqq7tAAAA:8 a=CrGEZSrvnsKXYSFoqd0A:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10 a=efpaJB4zofY2dbm2aIRb:22 a=AKGiAy9iJ-JzxKVHQNES:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: n4Kbt9jqaPsgjergYAp6r4XOM5E3YE7C
-X-Proofpoint-ORIG-GUID: n4Kbt9jqaPsgjergYAp6r4XOM5E3YE7C
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1OSBTYWx0ZWRfX2KWR1iQNsKeN
- DLu1+wPTmTqJCZA5hdDuMV4z/1Mb2gBU7+Ni8HDuhO6nggjchWQ/WrA1ofiF1oQO1bXThOhzcpP
- 0jv6jn+RgKcTFehxrHtPP6q9Rhy4N71M7qiNCBbLGbWdHqA1PMIkyKKN1aeJqaUJNT37DE/tPEu
- yj8PSiuCCwYtccllQAHBxoUMOXelh5YLqUhF/ZH5R44kM4TC+GQ8CXVO3TOJV767qReDP70tTSG
- VoJz1YYLh59zB2N15wvsvQyqMPwrI4DfVWC+H975S0FHDRMF2LIf/qqhUMbHO0VpT0vcZYkWmGZ
- Hsf0WJ0hv7dy3e3XqnR43Dd3OcDyEwbnloPe7BD6ENp4x5u6AegSPXPF54uqPh5SO4DdBHuTjuF
- 8XZc1rw2EKrPFNgZAJkmIzyFAkESQ3YPJBSqCiefTfsOSKRf5tEtmBGtcVmz4lke5K2E0rVeb+o
- +kcE3+JkIrBuCidBtrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260059
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB9362E4F3E5E69CE45BE436E9FB642@AS4PR04MB9362.eurprd04.prod.outlook.com>
 
-On 10/11/26 6:51 PM, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Fri, 23 Oct 2026, Lakshay Piplani wrote:
+
 > 
-> Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed
-> similar to L9300. Downstream reference is [1].
+> NXP Confidential
+
+Really?
+
+> > -----Original Message-----
+> > From: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Sent: Tuesday, September 22, 2026 4:06 PM
+> > To: linux-kernel@vger.kernel.org; linux-i3c@lists.infradead.org;
+> > alexandre.belloni@bootlin.com; krzk+dt@kernel.org; robh@kernel.org;
+> > conor+dt@kernel.org; devicetree@vger.kernel.org; broonie@kernel.org;
+> > mfd@lists.linux.dev; lee@kernel.org; Frank Li <frank.li@nxp.com>;
+> > lgirdwood@gmail.com
+> > Cc: Vikash Bansal <vikash.bansal@nxp.com>; Priyanka Jain
+> > <priyanka.jain@nxp.com>; Aman Kumar Pandey
+> > <aman.kumarpandey@nxp.com>; Lakshay Piplani
+> > <lakshay.piplani@nxp.com>
+> > Subject: [PATCH v20 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+> > and on-die regulator
+
+Why is your mailer adding headers?  Please configure it properly.
+
+> > From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> >
+> > Add core MFD support for the NXP P3H2x4x
+> > (P3H2440/P3H2441/P3H2840/P3H2841) family of multiport I3C hub devices.
+> > These devices connect to a host via I3C/I2C/SMBus and expose multiple
+> > downstream target ports.
+> >
+> > All variants share the same register interface. Read the implemented target-
+> > port count from DEV_CAPAB, so no per-compatible driver data is required.
+> >
+> > Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> > Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> > Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> >
+> > ---
+> > Changes in v20:
+> >  - No change
+> >
+> > Changes in v19:
+> >  - Retain only nxp,p3h2840 in the OF match table because the other
+> >    variants use it as their fallback compatible
+> >
+> > Changes in v18:
+> >  - Rebased onto v7.3-rc1; no intended driver behaviour changes
+> >
+> > Changes in v17:
+> >  - No change
+> >
+> > Changes in v16:
+> >  - Use a named initializer for struct i2c_device_id
+> >   ({ .name = "nxp-i3c-hub" })
+> >  - Keep the shared header in include/linux/mfd/ (struct p3h2x4x is shared by
+> >    the mfd parent and its regulator/i3c-hub children). The i3c_hub_priv
+> >    back-pointer is retained for IBI routing, with documented publish/clear
+> >    ordering
+> >
+> > Changes in v15:
+> >  - Read the device capability register to determine whether the device has
+> >    four or eight target ports
+> >  - Store the detected target-port count in the shared MFD data
+> >  - Add OF match entries for all P3H2440, P3H2441, P3H2840 and P3H2841
+> >    variants
+> >  - Add a shared hub-context pointer for use by the IBI handler without
+> >    overwriting the MFD parent's driver data
+> >
+> > Changes in v14:
+> >  - Clean up MFD driver comments, formatting, variable names and author
+> >    information
+> >  - Define and document the I3C hub DCR value in hexadecimal form
+> >  - Use direct regmap bit-width values instead of local macros
+> >  - Add a shared protected_reg_lock for protected register accesses across
+> >    P3H2X4X child drivers
+> >
+> > Changes in v13:
+> >  - Use i3c_device helpers (i3cdev_to_dev()) instead of direct struct access
+> >    to maintain API abstraction
+> >  - Avoid including internal I3C headers and use public device headers instead
+> >  - Ensure proper device matching by relying on manufacturer ID checks in
+> > probe
+> >
+> > Changes in v12:
+> >  - No change, added Reviewed-By tag
+> >
+> > Changes in v11:
+> >  - Use MFD_CELL_NAME() for child device registration
+> >  - Rename local variables for consistency
+> >  - Rename driver names to follow subsystem conventions:
+> >    - Use '-' instead of '_' in driver names
+> >    - Drop the "_drv" suffix from driver names
+> >
+> > Changes in v10:
+> >  - Drop redundant is_p3h2x4x_in_i3c flag
+> >
+> > Changes in v9:
+> >  - Renamed macros to follow consistent uppercase naming conventions
+> >  - Made REGMAP selects in the P3H2X4X MFD Kconfig conditional,
+> >    to avoid I3C/I2C dependency issues
+> >
+> > Changes in v8:
+> >  - No change
+> >
+> > Changes in v7:
+> >  - Use new config I3C_OR_I2C
+> >
+> > Changes in v6:
+> >  - No change
+> >
+> > Changes in v5:
+> >  - Corrected the ordering in the Makefile and Kconfig for MFD_P3H2X4X
+> >  - Updated dev_err_probe() for regmap_init failure.
+> >  - Updated module description
+> >
+> > Changes in v4:
+> >  - Split the driver into three separate patches(mfd, regulator and I3C hub)
+> >  - Added support for NXP P3H2x4x MFD functionality
+> > ---
+> > ---
+> >  MAINTAINERS                 |   2 +
+> >  drivers/mfd/Kconfig         |  13 +++
+> >  drivers/mfd/Makefile        |   1 +
+> >  drivers/mfd/p3h2840.c       | 164 ++++++++++++++++++++++++++++++++++++
+> >  include/linux/i3c/device.h  |   2 +
+> >  include/linux/mfd/p3h2840.h |  41 +++++++++
+> >  6 files changed, 223 insertions(+)
+> >  create mode 100644 drivers/mfd/p3h2840.c  create mode 100644
+> > include/linux/mfd/p3h2840.h
+> >
 > 
-> [1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
+> Hi Lee,
 > 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
+> Alexandre has already applied patches 1/8, 2/8, 3/8 and 6/8 from the v20 series.
+> 
+> Patches 4/8, 5/8, 7/8 and 8/8 remain outstanding, with patch 4/8 providing the MFD core required by the remaining patches.
+> 
+> Do you plan to pick patch 4/8 through the MFD tree, or would you prefer it to go through the I3C tree with your Reviewed-by?
 
-[...]
+I'd be happy to apply the MFD patch and the dependents.
 
-> +/ {
-> +	model = "General Mobile GM 5 Plus";
-> +	compatible = "generalmobile,shamrock", "qcom,msm8952";
-> +	chassis-type = "handset";
-> +	qcom,msm-id = <QCOM_ID_MSM8952 0x0>;
-> +	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
-> +
-> +	aliases {
-> +		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
-> +		mmc1 = &sdhc_2; /* SDC2 SD card slot */
-> +		serial0 = &blsp1_uart2;
+However, right now it looks like you have a bunch of Sahiko issues
+pending.  Is that the case?
 
-You need to enable this console if you want to use it (stdout-path
-also points to it)
-
-Konrad
+-- 
+Lee Jones
