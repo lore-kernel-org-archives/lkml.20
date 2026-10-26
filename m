@@ -1,137 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792980219;
-	b=QjGIbLpsNXIEmkuDBVJr8f6LGQHNxEr2YxCoKpLKne6OTeogc9CFQ/QqJRp07JmdqTJs
-	 mQXvfI/5xvs7DQ0lSJhgV/PTiU4aJiEfcyHrr/6Bt3AG2SJPPqLYkcdcGUzdcLD02eShP
-	 yTcF6oKWkCChanbowe3lgGGcb2MjyGT+F8NDRnEHCK0pDbOj4kZxLw5Jlmh92QgW+oruE
-	 zYQ5KXL1HLofybXhYf3sNpdQ0GRQq5hBTsRF16P63MX5mMR6PBSEP5lLC5kG7pnW3iFhf
-	 8KyQE7Jxf+H9wye+X7rO2xXLmRiZmKc3e4h9N6Nsa7JUvmC2JFlPoic+DtIHRgUVNaQ==
+	t=1792980257;
+	b=pFeSy/w7LnAYoRr5ZDhs5xygBVgMZ3gHoLuJ+ToFj14WkCC8c1N6uiQahszZKU6PC4O3
+	 adsJftOfGvT3p+O9gkRanbJdFm6WcZqsqViJyFheGQUoyMxO+Yopv44s7IzDxybeQOFRy
+	 GzCAZ2qBfopwBD1DYcoJ2Tt6cKOv7JHZv7WSxJcCtxpiOMaHkQo7HzIBED0Xy9MFAPc86
+	 bRUby3aYPQvS+vZMody5FnqaU/vjYO9d9xGDUjkgLDaSOavhxWZO+Xz8K5N/ptURxQIzF
+	 wrSpS1rPyJMC7Rii7SVF90MLLjr7egQ5+bBMBhkMvkeCjUNqNNUJrgr8iqjFeger1wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980219;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=ObCoBFjUZfVpU7QAF/pPsY9nZQ/6rTEZ2XBtFy2tQpo=;
-	b=C0iSGlpqVxWxQAGx8LZHEya+7/frckZOpExYPpvJnQqAy51r+tqUIbMm/Dwv3cJ5b7aN
-	 t3QGt/4rWDClCEPKwaxPUhvQ3U8AprijW7gUO2/KJ8RStOuf2dpjhmVi/1BawlqiPt1Ex
-	 /yieIeQ+Qwgrq1PYudIB/PXDTqrkvjO+0zutaRaOKM9vsSBn4eGIvcZxK5RdW/kD/YIty
-	 Aofk9CiL8NW7FmnyuCJ3aiSq0nzl/fjesf9g35LVDTFc7cRJDW+1FtqOdySlfHNpQY+xA
-	 00JCrhRq0flMC02EcbBqDq9lKuHTUGUuIX98UhH2x4czNyQNRCIiI1zN+tHUzAC30Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792980257;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=zkV0DSYY1q2xiz5WJX/niGx/d7Lw7ICLtD+7Nzqc/EE=;
+	b=o7rukYrEsaLpVjX2dIpgo5ey9uz+RKTU5g7oUkXNVBXuZu0hRR8L+9eBPr8ECXuW1jOa
+	 o04sKAHXlVAi73TiRhngB4V62v4Ub9iKgBuCZRouTj9aAAxEcJzkn1ikTjp9cLinRqsgA
+	 4+IWFxOonmFRSGb4/WKLxU9i5APuxR0ubw1N/SQlMUNWXhzGnrbTyYklydkCKLuKG4TC+
+	 /fBbKKMumDUFqENGh+29vypU9NKAmUWYH0CWzTeLjE0g5g0LTY8YO2PFuWDytsYvxA7MU
+	 TzvqMME8/TIHVwDU77xTsnBq4rrUJwvdKrxJ580HFMMLu1VgXfm7XNlU+bk32R3xTUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=H2YNFYcQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bK5U8HpM;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="A4/DwLqj";
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B1F606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50B1F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3707D606A31E;
+	Mon, 26 Oct 2026 02:04:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3707D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=H2YNFYcQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bK5U8HpM
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id A7EDC7A02D3
-	for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 22:03:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Sun, 25 Oct 2026 22:03:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792980216;
-	 x=1793066616; bh=ObCoBFjUZfVpU7QAF/pPsY9nZQ/6rTEZ2XBtFy2tQpo=; b=
-	H2YNFYcQI1nDWTbaulTrTpELKcaEwTiafytqufiM1FvVYpvM4fK/qSm6+46p2LP1
-	GNqdN6i6i7rwvlyJHe50II3FXCZd5t/Qoen/xdb9n+kRt1nuST9+nsGCBzOGgemr
-	PWK8NKArTFAJziSuCkVdKcxjQ0oFikS7jJ9mJ9dBU4lktr6U/ATjh4IcREDuddIZ
-	1Jlp3huKz5LX7LBFy38/qODwuJLRrgjQV60COjWDKDzFzI7cB/15Y60ad32fI2/K
-	9e9SwZpVRAOaxMwtrEechNF+CA0cGrSwXFZlrY98IEsjNnKKW0oqo24Z/kh+j96x
-	YVu7/sVT/lgTaCOeyykmiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792980216; x=
-	1793066616; bh=ObCoBFjUZfVpU7QAF/pPsY9nZQ/6rTEZ2XBtFy2tQpo=; b=b
-	K5U8HpMJ9Fe/6la/5+dqUA2AIygKEVUnOq7QareG935kQa73cYWP4mN8P8aCvhXj
-	gyPl8reWEEf5tNLQydIkO/ANQ+PIT/TESYKkvvsy4It3RhvpdhZWzgdAZ6PAlBbE
-	bubJuOi4OBqRlAZuOK6y+KF4EeRp5MZHEMpVGqHyZu/EiYkhZnfvlrmkZU0+g/Vh
-	YjPcw+UtEa8jfuUbS5eCiQjmJ5CE2shM9zNC0qY/AYPzC4YtAAEsrCIRxWR4d5t/
-	MPbhszeuWKy7wfAROCtC9N4bEGikTAt66FsaEx3WjHZqB8lkJgfDcUxIkcF6NGVN
-	9jHy0k9E9w2cnKhQVXH1g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792980216; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:As3tMP2I7xTzg3C526n5oPKdAb28VhEnJgq2R3vmQiYtMuF
-	N8cHIKvvIUdqGLXVskEw8LKI1ET+ICve+H13eKILzSsofTnvRxEuG/62UvDaiMM9
-	loFtCGobH1QinPZT3TJfNpoy7Aa8N/E60B+AqU7QyiL/7+V3hgDwdkk5fJvXGktQ
-	hFMbmThAYzwg3Z4nIxlQcKzOFKXL9S6ZccjpUA2Y3/hndAMjYRJ/ruf+fpLIKPap
-	roQzK2xGraU+gRYWhucJ0r0NR9RpUAEkWHrDA63qOGCOETFMNcrjx1PgTr8wsChP
-	IB06f42xpq45sJUA9wg9ebMN+HkQ8ghC7JXmOuQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:IBLuiHgrXhxkQ3yJpPBNgevu/+0GI+2p5QzfA/1lYvc=:ObCoBFjUZfVpU7QAF/pPsY9nZQ/6rTEZ2XBtFy2tQpo=;
-X-ME-Sender: <xms:97TeajF9EMB84EGCCE7pRLZlMbXh8yaOJOK5hoUuhAkn1eRSTn1nTw>
-    <xme:97TeanSxjpMDX7ZKdp74dorV0LYGyIOQ86GnFIqnn4g8aVOX4H1UdlO1Py9uVMld2
-    WVWGNeVZAjdDRVaPbWY1DLZGpD89uJjli35AiDvVIjTt9mW0Q>
-X-ME-Received: <xmr:97TeaqMYD-iB3j9b2YWLmYWw6OiB4t7hg-PRs84RTxXi1zmScnIoSatOQrOV84ymuKmNchiBxKXfj5Vz0pFQha6dVbwBRKZnVHfcV0zU_0ndIetGiAoOIc_wLr8>
-X-ME-Proxy-Cause: dmFkZTGNejTxx4aqqfXZftYpM1visYrWvDsIt/Tj4xDAh9ziwy936SqVQXZVb6mtsHj8my
-    2x+BJM3nCNAUPJwHTQds4VrmV9EdcH8LFJl8UDwDEOHPlekFXeIeMRhlTdtzymZV8nRIpE
-    eRzO2ly9KiGOPmjn+i1mUMEFrRO1uS5KIXrJVckgeJeMGMoss/9q124Y/YBjRW0YQxFBKF
-    gnhGRTa3nOzFWp2A4PhNV2WnEF9Rpa8a00pOi9TkxMX6fBOyVqTkBTa7yVDUpf7A3BbiGp
-    jtTHyebMjuxSFERqGSCc4JCisM6sx3sfOM49mnn9h8kMAdYIqfGLAG2I+YNp88oH31Phmj
-    z71IIo2DDHlUdwCrtAO99/AUBxb8nRPq1SuPVYQ3h5AwUZmcGh4XjABFlZ2pfMPFx9RxGl
-    F41HO6KJXh54nFoL8nSrYjE5Ev/e7zicgMePlCL1HitKun6VAFur9qRW6LrFM7NbtXdarW
-    RCSmKveXKWnJTkJWkagg/ZQTp1Q2cEFy2aDgBR+wy/q4C7jVwUbOyD5CGXqKmE98vq3zwr
-    iZVauML6pJorRKtZ98haRD+S5NmMwTezrKY6EcR9SYIEl3O8vTAY2zLmaJOKhaUMaLQC9G
-    1jsbxqOY3I2M7+qBcXcgQw6t2doc9z9F40D8GpbTLGc8Eeat3Bywn2zIW6nw
-X-ME-Proxy: <xmx:97TeaoMnipO--jWtgECBuOHvtFXftegazaXXawrHutpNJlNUgj6Tbw>
-    <xmx:97TeakF5dRLABBYUu9alJznfCgc_ba27mOfr57OkqyIObV5d_Y8f7g>
-    <xmx:97TeaiPesgn2ifpl1BAi9bVMvs94JAeLRDLOO1eWfLI5WXKHo9p8Kg>
-    <xmx:97TeamtPTCrlvbwTmKBsdgcSUd8qs965PQjTxySL7xlRoispdmaYRQ>
-    <xmx:-LTeaqcRWG7KNgKcZLLnn7hMLfVf_MNWtz49jeD0YgY-TCX0lxqijeoa>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 25 Oct 2026 22:03:29 -0400 (EDT)
-Message-ID: <2e2964b9e6bde6f263000f2a29e548b4f44b11a1.camel@themaw.net>
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-From: Ian Kent <raven@themaw.net>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Tejun Heo
- <tj@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki"	
- <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alexander Viro	
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
-	 <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra	
- <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
- Axboe	 <axboe@kernel.dk>, driver-core@lists.linux.dev,
- autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Date: Mon, 26 Oct 2026 10:03:26 +0800
-In-Reply-To: <7a212208-74f2-4d79-8ca2-a1502d0e0a1c@gmail.com>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-	 <cover.1792577179.git.krystianmkaniewski@gmail.com>
-	 <649966b83b39fcdd25e892fc3c6732a1@kernel.org>
-	 <22d41f2a5546d3bc90a1b3ad24ed3656588a854f.camel@themaw.net>
-	 <7a212208-74f2-4d79-8ca2-a1502d0e0a1c@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=A4/DwLqj
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=zkV0DSYY1q2xiz5WJX/niGx/d7Lw7ICLtD+7Nzqc/EE=;
+	b=A4/DwLqj9bOFxt5jV1aHRDIbIvOm+m2aGeOnwHabNmmuXnOs+Peabb0o1Z/UV2H6NIOnZJZp0
+	uXbSQ9bcLJqQ0YRCDlMkBLaeUL+Wopvmw/TrIt2Ji3woo7Dc27yvo9Z2//TZk/IpOQQwsvXJ81I
+	STqRtfEiiseBYGD+s3ZMQe0=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jCcP40pfSzcb3C;
+	Mon, 26 Oct 2026 10:03:52 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 993D340575;
+	Mon, 26 Oct 2026 10:04:01 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
+ 2026 10:03:59 +0800
+Message-ID: <02118069-9360-4055-bc61-2ee2dd3486c9@huawei.com>
+Date: Mon, 26 Oct 2026 10:03:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,148 +62,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched/hotplug: Remove unused idle_task_exit
+To: Srikar Dronamraju <srikar@linux.ibm.com>, Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo
+ Ren <guoren@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui
+	<kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Florian
+ Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review
+ list <bcm-kernel-feedback-list@broadcom.com>, Jiaxun Yang
+	<jiaxun.yang@flygoat.com>, "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, Scott
+ Wood <oss@buserror.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
+ Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens
+	<hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
+	<agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Yoshinori Sato
+	<ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, John Paul Adrian
+ Glaubitz <glaubitz@physik.fu-berlin.de>, "David S. Miller"
+	<davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>, Chris Zankel <chris@zankel.net>, Max
+ Filippov <jcmvbkbc@gmail.com>
+CC: LKML <linux-kernel@vger.kernel.org>, Srikar Dronamraju
+	<srikar@linux.vnet.ibm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Kees Cook <kees@kernel.org>, mrigendrachaubey <mrigendra.chaubey@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, Pengjie Zhang <zhangpengjie2@huawei.com>,
+	Thierry Reding <treding@nvidia.com>, Xi Ruoyao <xry111@xry111.site>, "Rafael
+ J. Wysocki (Intel)" <rafael@kernel.org>, Tiezhu Yang
+	<yangtiezhu@loongson.cn>, Rong Bao <rong.bao@csmantle.top>, Hui Wang
+	<hui.wang@canonical.com>, Frederic Weisbecker <frederic@kernel.org>, Thorsten
+ Blum <thorsten.blum@linux.dev>, Josh Poimboeuf <jpoimboe@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-csky@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linux-mips@vger.kernel.org>,
+	<linux-parisc@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
+	<linux-sh@vger.kernel.org>, <sparclinux@vger.kernel.org>
+References: <20261016095711.1364609-1-srikar@linux.ibm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261016095711.1364609-1-srikar@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Fri, 2026-10-23 at 16:05 +0200, Krystian Kaniewski wrote:
-> Hi Tejun, Ian,
->=20
-> On 10/22/26 04:46, Ian Kent wrote:
-> > On Wed, 2026-10-21 at 11:48 -1000, Tejun Heo wrote:
-> > > it doesn't make sense to change the locking scheme for it.
-> > > Can we just disallow splice on /sys/power/resume instead?
->=20
-> That would address the direct case, but it would not make this report
-> go away. The lockdep report combines two separate operations.
->=20
-> First, the reproducer splices a pipe into the cgroup v1 devices.deny
-> file. This records:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &pipe->mutex -> &of->mutex
->=20
-> It later uses a normal write() to /sys/power/resume. That records:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &of->mutex -> &sbi->pipe_mutex=
- -> &pipe->mutex
->=20
-> There is no splice into /sys/power/resume in the reported sequence.
-> Disabling splice on that file would prevent some direct deadlock
-> cases, but the first edge of this report would still come from
-> devices.deny.
->=20
-> A complete restriction for this attribute would also have to cover
-> both splice directions. With an O_RDWR open, a splice read takes the
-> output pipe mutex before the same of->mutex. Another thread can write
-> through the same open and reach autofs in the opposite order.
->=20
-> Kernfs splice support is established behavior. Commit f2d6c2708bd8
-> ("kernfs: wire up ->splice_read and ->splice_write") explicitly
-> restored it in v5.11 after the VFS stopped providing the implicit
-> fallback. The pipe has been locked across ->write_iter() since 2014.
->=20
-> I agree that changing serialization for every regular sysfs store is
-> too broad for this case. Before preparing a v2, I would like to
-> clarify the intended scope.
->=20
-> > Not only is the description hard to follow the example is flawed
->=20
-> You are right that the cover letter was hard to follow. I should have
-> described the two operations separately. The automount itself uses
-> the
-> normal empty directory case.
->=20
-> The reproducer creates a detached indirect autofs mount with its own
-> daemon pipe. It changes its current directory to the root of that
-> mount and moves out of the daemon process group. It then writes the
-> relative name "0x0000000004000921" to /sys/power/resume.
 
-I still don't quite get the scenario.
 
-Maybe it's just because I (still) don't understand how autofs
-is implicated.
+在 2026/10/16 17:56, Srikar Dronamraju 写道:
+> Commit 21641bd9a7a7 ("lazy tlb: fix hotplug exit race with
+> MMU_LAZY_TLB_SHOOTDOWN") moved the handling previously performed by
+> idle_task_exit() into the scheduler CPU hotplug path using
+> sched_force_init_mm().
+> 
+> As a result, idle_task_exit() is now an empty stub and the remaining
+> architecture call sites have no effect.
 
-By definition an indirect mount is an autofs file system that
-triggers mounts in the root directory of the autofs mount and
-those entries must be empty directories. So I don't get how
-accessing /sys/power/resume can result in triggering an automount.
-At least that's how it reads to me from my admittedly autofs
-centric POV.
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-If there is something missing from autofs that could be used to
-prevent this scenario then I'd be happy to implement that.
+> 
+> Remove the calls to idle_task_exit() and the now unused stub.
+> 
+> Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
+> ---
+>  arch/arm/kernel/smp.c                        | 2 --
+>  arch/arm64/kernel/smp.c                      | 2 --
+>  arch/csky/kernel/smp.c                       | 2 --
+>  arch/loongarch/kernel/smp.c                  | 2 --
+>  arch/mips/cavium-octeon/smp.c                | 1 -
+>  arch/mips/kernel/smp-bmips.c                 | 1 -
+>  arch/mips/kernel/smp-cps.c                   | 1 -
+>  arch/mips/loongson64/smp.c                   | 1 -
+>  arch/parisc/kernel/process.c                 | 2 --
+>  arch/powerpc/platforms/85xx/smp.c            | 2 --
+>  arch/powerpc/platforms/powermac/smp.c        | 2 --
+>  arch/powerpc/platforms/powernv/smp.c         | 1 -
+>  arch/powerpc/platforms/pseries/hotplug-cpu.c | 2 --
+>  arch/powerpc/platforms/pseries/pmem.c        | 1 -
+>  arch/riscv/kernel/cpu-hotplug.c              | 2 --
+>  arch/s390/kernel/smp.c                       | 1 -
+>  arch/sh/kernel/smp.c                         | 1 -
+>  arch/sparc/kernel/smp_64.c                   | 2 --
+>  arch/x86/kernel/smpboot.c                    | 2 --
+>  arch/xtensa/kernel/smp.c                     | 1 -
+>  include/linux/sched/hotplug.h                | 2 --
+>  21 files changed, 33 deletions(-)
+> 
+> diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
+> index b5fb4697bc3f..bbfbbe728b7a 100644
+> --- a/arch/arm/kernel/smp.c
+> +++ b/arch/arm/kernel/smp.c
+> @@ -319,8 +319,6 @@ void __noreturn arch_cpu_idle_dead(void)
+>  {
+>  	unsigned int cpu = smp_processor_id();
+>  
+> -	idle_task_exit();
+> -
+>  	local_irq_disable();
+>  
+>  	/*
+> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+> index a61dc3016a11..afb5aa65d737 100644
+> --- a/arch/arm64/kernel/smp.c
+> +++ b/arch/arm64/kernel/smp.c
+> @@ -370,8 +370,6 @@ void __noreturn cpu_die(void)
+>  	unsigned int cpu = smp_processor_id();
+>  	const struct cpu_operations *ops = get_cpu_ops(cpu);
+>  
+> -	idle_task_exit();
+> -
+>  	local_daif_mask();
+>  
+>  	/* Tell cpuhp_bp_sync_dead() that this CPU is now safe to dispose of */
+> diff --git a/arch/csky/kernel/smp.c b/arch/csky/kernel/smp.c
+> index 92dbbf3e0205..e6333ccc335a 100644
+> --- a/arch/csky/kernel/smp.c
+> +++ b/arch/csky/kernel/smp.c
+> @@ -294,8 +294,6 @@ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
+>  
+>  void __noreturn arch_cpu_idle_dead(void)
+>  {
+> -	idle_task_exit();
+> -
+>  	cpuhp_ap_report_dead();
+>  
+>  	while (!secondary_stack)
+> diff --git a/arch/loongarch/kernel/smp.c b/arch/loongarch/kernel/smp.c
+> index 11f54837f56c..6b21af1c25e0 100644
+> --- a/arch/loongarch/kernel/smp.c
+> +++ b/arch/loongarch/kernel/smp.c
+> @@ -478,7 +478,6 @@ static void __noreturn idle_play_dead(void)
+>  	register uint64_t addr;
+>  	register void (*init_fn)(void);
+>  
+> -	idle_task_exit();
+>  	local_irq_enable();
+>  	set_csr_ecfg(ECFGF_IPI);
+>  	__this_cpu_write(cpu_state, CPU_DEAD);
+> @@ -503,7 +502,6 @@ static void __noreturn poll_play_dead(void)
+>  	register uint64_t addr;
+>  	register void (*init_fn)(void);
+>  
+> -	idle_task_exit();
+>  	__this_cpu_write(cpu_state, CPU_DEAD);
+>  
+>  	__smp_mb();
+> diff --git a/arch/mips/cavium-octeon/smp.c b/arch/mips/cavium-octeon/smp.c
+> index 054e331b3202..0e557e76d616 100644
+> --- a/arch/mips/cavium-octeon/smp.c
+> +++ b/arch/mips/cavium-octeon/smp.c
+> @@ -344,7 +344,6 @@ void play_dead(void)
+>  {
+>  	int cpu = cpu_number_map(cvmx_get_core_num());
+>  
+> -	idle_task_exit();
+>  	cpuhp_ap_report_dead();
+>  	octeon_processor_boot = 0xff;
+>  	per_cpu(cpu_state, cpu) = CPU_DEAD;
+> diff --git a/arch/mips/kernel/smp-bmips.c b/arch/mips/kernel/smp-bmips.c
+> index 35b8d810833c..e4a523b7c988 100644
+> --- a/arch/mips/kernel/smp-bmips.c
+> +++ b/arch/mips/kernel/smp-bmips.c
+> @@ -391,7 +391,6 @@ static void bmips_cpu_die(unsigned int cpu)
+>  
+>  void __ref play_dead(void)
+>  {
+> -	idle_task_exit();
+>  	cpuhp_ap_report_dead();
+>  
+>  	/* flush data cache */
+> diff --git a/arch/mips/kernel/smp-cps.c b/arch/mips/kernel/smp-cps.c
+> index b01ebaace48e..51e68a42bcc8 100644
+> --- a/arch/mips/kernel/smp-cps.c
+> +++ b/arch/mips/kernel/smp-cps.c
+> @@ -804,7 +804,6 @@ void play_dead(void)
+>  	unsigned int cpu;
+>  
+>  	local_irq_disable();
+> -	idle_task_exit();
+>  	cpu = smp_processor_id();
+>  	cpu_death = CPU_DEATH_POWER;
+>  
+> diff --git a/arch/mips/loongson64/smp.c b/arch/mips/loongson64/smp.c
+> index e584299d0fde..73eca9c44b04 100644
+> --- a/arch/mips/loongson64/smp.c
+> +++ b/arch/mips/loongson64/smp.c
+> @@ -766,7 +766,6 @@ void play_dead(void)
+>  	unsigned int cpu = smp_processor_id();
+>  	void (*play_dead_at_ckseg1)(int *);
+>  
+> -	idle_task_exit();
+>  	cpuhp_ap_report_dead();
+>  
+>  	prid_imp = read_c0_prid() & PRID_IMP_MASK;
+> diff --git a/arch/parisc/kernel/process.c b/arch/parisc/kernel/process.c
+> index 703644e5bfc4..8606ecde4c30 100644
+> --- a/arch/parisc/kernel/process.c
+> +++ b/arch/parisc/kernel/process.c
+> @@ -164,8 +164,6 @@ EXPORT_SYMBOL(running_on_qemu);
+>  void __noreturn arch_cpu_idle_dead(void)
+>  {
+>  #ifdef CONFIG_HOTPLUG_CPU
+> -	idle_task_exit();
+> -
+>  	local_irq_disable();
+>  
+>  	/* Tell the core that this CPU is now safe to dispose of. */
+> diff --git a/arch/powerpc/platforms/85xx/smp.c b/arch/powerpc/platforms/85xx/smp.c
+> index 32fa5fb557c0..9dc81e4226f0 100644
+> --- a/arch/powerpc/platforms/85xx/smp.c
+> +++ b/arch/powerpc/platforms/85xx/smp.c
+> @@ -121,8 +121,6 @@ static void smp_85xx_cpu_offline_self(void)
+>  	/* mask all irqs to prevent cpu wakeup */
+>  	qoriq_pm_ops->irq_mask(cpu);
+>  
+> -	idle_task_exit();
+> -
+>  	mtspr(SPRN_TCR, 0);
+>  	mtspr(SPRN_TSR, mfspr(SPRN_TSR));
+>  
+> diff --git a/arch/powerpc/platforms/powermac/smp.c b/arch/powerpc/platforms/powermac/smp.c
+> index 88e92af8acf9..f8e674cfcdd7 100644
+> --- a/arch/powerpc/platforms/powermac/smp.c
+> +++ b/arch/powerpc/platforms/powermac/smp.c
+> @@ -925,7 +925,6 @@ static void pmac_cpu_offline_self(void)
+>  	int cpu = smp_processor_id();
+>  
+>  	local_irq_disable();
+> -	idle_task_exit();
+>  	pr_debug("CPU%d offline\n", cpu);
+>  	generic_set_cpu_dead(cpu);
+>  	smp_wmb();
+> @@ -940,7 +939,6 @@ static void pmac_cpu_offline_self(void)
+>  	int cpu = smp_processor_id();
+>  
+>  	local_irq_disable();
+> -	idle_task_exit();
+>  
+>  	/*
+>  	 * turn off as much as possible, we'll be
+> diff --git a/arch/powerpc/platforms/powernv/smp.c b/arch/powerpc/platforms/powernv/smp.c
+> index b1201dbafcaf..9a480c924020 100644
+> --- a/arch/powerpc/platforms/powernv/smp.c
+> +++ b/arch/powerpc/platforms/powernv/smp.c
+> @@ -172,7 +172,6 @@ static void pnv_cpu_offline_self(void)
+>  
+>  	/* Standard hot unplug procedure */
+>  
+> -	idle_task_exit();
+>  	cpu = smp_processor_id();
+>  	DBG("CPU%d offline\n", cpu);
+>  	generic_set_cpu_dead(cpu);
+> diff --git a/arch/powerpc/platforms/pseries/hotplug-cpu.c b/arch/powerpc/platforms/pseries/hotplug-cpu.c
+> index bc6926dbf148..1ade9a811157 100644
+> --- a/arch/powerpc/platforms/pseries/hotplug-cpu.c
+> +++ b/arch/powerpc/platforms/pseries/hotplug-cpu.c
+> @@ -19,7 +19,6 @@
+>  #include <linux/kernel.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/delay.h>
+> -#include <linux/sched.h>	/* for idle_task_exit */
+>  #include <linux/sched/hotplug.h>
+>  #include <linux/cpu.h>
+>  #include <linux/of.h>
+> @@ -64,7 +63,6 @@ static void pseries_cpu_offline_self(void)
+>  	unsigned int hwcpu = hard_smp_processor_id();
+>  
+>  	local_irq_disable();
+> -	idle_task_exit();
+>  	if (xive_enabled())
+>  		xive_teardown_cpu();
+>  	else
+> diff --git a/arch/powerpc/platforms/pseries/pmem.c b/arch/powerpc/platforms/pseries/pmem.c
+> index 0f1d45f32e4a..af48dfebb640 100644
+> --- a/arch/powerpc/platforms/pseries/pmem.c
+> +++ b/arch/powerpc/platforms/pseries/pmem.c
+> @@ -9,7 +9,6 @@
+>  #include <linux/kernel.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/delay.h>
+> -#include <linux/sched.h>	/* for idle_task_exit */
+>  #include <linux/sched/hotplug.h>
+>  #include <linux/cpu.h>
+>  #include <linux/of.h>
+> diff --git a/arch/riscv/kernel/cpu-hotplug.c b/arch/riscv/kernel/cpu-hotplug.c
+> index 0bc56d8381b6..348043122593 100644
+> --- a/arch/riscv/kernel/cpu-hotplug.c
+> +++ b/arch/riscv/kernel/cpu-hotplug.c
+> @@ -66,8 +66,6 @@ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
+>   */
+>  void __noreturn arch_cpu_idle_dead(void)
+>  {
+> -	idle_task_exit();
+> -
+>  	cpuhp_ap_report_dead();
+>  
+>  	cpu_ops->cpu_stop();
+> diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
+> index 32499cad86f0..dd1d40ec5440 100644
+> --- a/arch/s390/kernel/smp.c
+> +++ b/arch/s390/kernel/smp.c
+> @@ -918,7 +918,6 @@ void __cpu_die(unsigned int cpu)
+>  
+>  void __noreturn cpu_die(void)
+>  {
+> -	idle_task_exit();
+>  	pcpu_sigp_retry(this_cpu_ptr(&pcpu_devices), SIGP_STOP, 0);
+>  	for (;;) ;
+>  }
+> diff --git a/arch/sh/kernel/smp.c b/arch/sh/kernel/smp.c
+> index 108d808767fa..afd57bdce04e 100644
+> --- a/arch/sh/kernel/smp.c
+> +++ b/arch/sh/kernel/smp.c
+> @@ -108,7 +108,6 @@ int native_cpu_disable(unsigned int cpu)
+>  
+>  void play_dead_common(void)
+>  {
+> -	idle_task_exit();
+>  	irq_ctx_exit(raw_smp_processor_id());
+>  	mb();
+>  
+> diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
+> index 371460e34484..e98b5ddebc9e 100644
+> --- a/arch/sparc/kernel/smp_64.c
+> +++ b/arch/sparc/kernel/smp_64.c
+> @@ -1290,8 +1290,6 @@ void cpu_play_dead(void)
+>  	int cpu = smp_processor_id();
+>  	unsigned long pstate;
+>  
+> -	idle_task_exit();
+> -
+>  	if (tlb_type == hypervisor) {
+>  		struct trap_per_cpu *tb = &trap_block[cpu];
+>  
+> diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+> index ba01a9e919b7..dcbaf3f27862 100644
+> --- a/arch/x86/kernel/smpboot.c
+> +++ b/arch/x86/kernel/smpboot.c
+> @@ -1407,8 +1407,6 @@ int native_cpu_disable(void)
+>  
+>  void play_dead_common(void)
+>  {
+> -	idle_task_exit();
+> -
+>  	cpuhp_ap_report_dead();
+>  
+>  	local_irq_disable();
+> diff --git a/arch/xtensa/kernel/smp.c b/arch/xtensa/kernel/smp.c
+> index e4c25d0c2158..094e1da933a6 100644
+> --- a/arch/xtensa/kernel/smp.c
+> +++ b/arch/xtensa/kernel/smp.c
+> @@ -336,7 +336,6 @@ void __noreturn arch_cpu_idle_dead(void)
+>   */
+>  void __ref cpu_die(void)
+>  {
+> -	idle_task_exit();
+>  	local_irq_disable();
+>  	__asm__ __volatile__(
+>  			"	movi	a2, cpu_restart\n"
+> diff --git a/include/linux/sched/hotplug.h b/include/linux/sched/hotplug.h
+> index 17e04859b9a4..18fa3e63123e 100644
+> --- a/include/linux/sched/hotplug.h
+> +++ b/include/linux/sched/hotplug.h
+> @@ -18,6 +18,4 @@ extern int sched_cpu_dying(unsigned int cpu);
+>  # define sched_cpu_dying	NULL
+>  #endif
+>  
+> -static inline void idle_task_exit(void) {}
+> -
+>  #endif /* _LINUX_SCHED_HOTPLUG_H */
 
-The above paragraph reads like the autofs file system needs to
-check request paths are within the autofs file system but that
-doesn't make sense either because that that would mean there's
-an autofs mount on /sys/power. But it is stated below there
-isn't an autofs mount within kernfs so rejecting autofs file
-system mounts within kernfs won't help.
+-- 
+Best regards,
+Jinjie
 
-Note that an autofs direct mount might be susceptible to this
-as well.
-
->=20
-> resume_store() calls lookup_bdev() on that string before trying to
-> parse it as a device number. The pathname lookup therefore starts in
-> the autofs root. The new negative name triggers the normal mount
-> request for an empty indirect autofs directory.
->=20
-> The dentry whose ->d_automount callback runs belongs to autofs, not
-> to sysfs. There is no autofs mount on top of kernfs in this
-> reproducer. Kernfs is involved only because resume_store() starts the
-> pathname lookup.
-
-I'm sorry, there's just not enough path information to work out if
-there's something going on that should be checked for and rejected.
-
->=20
-> The change which made this path possible is 1e8c813b083c ("PM:
-> hibernate: don't use early_lookup_bdev in resume_store"). It replaced
-> early_lookup_bdev() with the normal pathname lookup in v6.5. That is
-> what made autofs reachable from resume_store().
->=20
-> > The other possibility I was thinking about when I saw that report
-> > is to disallow file systems that don't make sense for automount.
->=20
-> I may be misunderstanding this suggestion. In this reproducer, the
-> filesystem which owns the automount dentry is autofs. A restriction
-> based on the filesystem owning that dentry would therefore see
-> autofs,
-> not kernfs.
-
-As I say, it sounds like, the only valid indirect mount request
-must be triggered by a sub-directory of /sys/power which is a
-mountpoint within kernfs (or maybe we are talking sysfs) which
-could be rejected in the autofs mount code.
-
-But it's not straight forward to be sure about which file systems
-should not allow auto-mounting but is probably doable. For example,
-systemd (direct) mounts /proc/sys/fs/binfmt_misc but mostly proc
-should not allow auto-mounting.
-
->=20
-> The lookup from a sysfs store is also not unique to
-> /sys/power/resume. For example, with CONFIG_BCACHE=3Dy,
-> sys/fs/bcache/register also resolves a user supplied pathname.
->=20
-> The exact reproducer records the lockdep edges with different pipes
-> and different open files. It does not deadlock on those mutex
-> instances. After sending the request, it waits killably for a daemon
-> reply that never arrives. Related setups can deadlock when the daemon
-> pipe itself participates in splice or tee.
-
-I think this is what's causing me trouble.
-
-Such a request should never be sent over the pipe, there should
-be validity checks in autofs to prevent it. Unfortunately I'm
-not sure about the path info.
-
-Ian
->=20
-> Given these two separate paths, did you intend to prevent only direct
-> splice operations on /sys/power/resume even though the reported class
-> cycle would remain, or should a replacement also eliminate the
-> lockdep report?
->=20
-> A per-attribute splice restriction alone cannot do both. If this does
-> not justify new kernfs infrastructure, I can leave it alone.
->=20
-> Thanks,
