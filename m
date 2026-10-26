@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023805;
-	b=leryG9fGndA6L6Nnb64lt2Rw7MZEz5JgvfMhyjMpTO8NIRkSlZrfF0p1PYfjgbTQjfIQ
-	 jrpD6Xr9MDHTC20YOpSww0rGBcp2w8Dz6KAlHKH3B5riyw48k/XeaKcmasF/pKNPbQSxV
-	 Vf6sKkJ1L+xqmkQag+/AJr/5KeoX+ENMAWMA8nvo+q1ah3HT17NaZhxVKUo7hBCpVjKcj
-	 NMzHmf6gakhnyVe4A9Hkb3jNBaNZvZaRzRr4HmXpDPWIcpm02ChXPeufwMGLg16oOfx55
-	 afP3o+sr6TO90qyS9quj7yqXeeQvAR0QcQuPzC56OtVZPSxabSHwdxNEFQDQTrqA71w==
+	t=1793023810;
+	b=aN2g8NoiLX/5jYoSzejY/+bAqYJ5+r80u4hr6pg3vk7san6XTSYk5+Wgm86Bfg6Gxw1b
+	 CXHAvPITLbXTZSKeTKflup6jaaFusmgb95q26BiVtw2eS4pj5IjuVddC0HPb2J4fBdDS+
+	 NlLVMrSDIyGhfU45EwHxrETtWZVmiWi4w0NeQR5PP/DnqmslRZdSnnI63/c2HqkC41qar
+	 42Z2A/hGZ5Krl0wFpdqJEBsM8+u5Vjr31LAkql4GcbEs7kp7/auXnqyIM3/GMHrqp4JUc
+	 PhoNT0Y6PLJfYm7LxvV/0ROEIYcj89Cy7470CLV5J+4TACB0dwamofOYqWcN6VG32Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023805;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:User-Agent;
-	bh=bK+ZQ/EvBU7KRwa8afyK/LFrCy8A+Duc2znXk3QqQOs=;
-	b=RCzVdJMI7xLtXf0cZCQCUGZcKgBAjP5SMjU6lNpT87XojMHeYK0WTuGGyEqN1y9vnf+C
-	 cpOPes+yeDectkEdt166w5FCkhf6ZIBHWA9A8ffz1tBTmGraBXD/yFdW4oSpukO0O5kq8
-	 VPUKeCysA5iQIeU3pSXOQGP6ABJ6RrtGeiVkUx/5cDi2nj/ohCkQmC1DjUfltkkTkUrDk
-	 YGOpvVAxtgQu0n7PSz6U8NtSTLglBakjqQSq/4O9P+wQXbJMaqtRKnD3jVgpXbNja7q+6
-	 LrGbZAX6PHGPbsFY5fBwq0UWmdZtkbEz1Op1ClhuVZWxoGhHQd1y7/3stmNpmKXJoXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023810;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
+	b=4/lgWYn8S8KMLx3Rtc8vVQnTbArlSKEO24UwE0Y9vQK3vmMByWzmmAN7h0W3jsEKzp75
+	 vMEQhu6QawJA87Whdixy/9Z9cgaMjQAgrLH2C/cdUPZE92XkUG04KizwXXzg4LbWf5pTk
+	 92t5kcESDvTfByY+aqg98Y4G5GhQBc+rfhVQH12REyxuMmwv6x75E59Lrjmpa20NwU5OE
+	 Obf9yYmc2diVD0Ix2qepVkVV8/+A6D/g0IH+WbnWdohiyRG18H2zkb/+KC97/vJYDLiTb
+	 zlsJ0h9PvzVEQl9BchuW2zgOJkyfC1OQqOfDbl+WHu2wPout59uwR1uKZy5mUstDPBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=YtCv4GQg;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C356606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C356606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116BC606A322;
+	Mon, 26 Oct 2026 14:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 116BC606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=YtCv4GQg
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc502d509c0so867482a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:10:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793023804; x=1793628604; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bK+ZQ/EvBU7KRwa8afyK/LFrCy8A+Duc2znXk3QqQOs=;
-        b=YtCv4GQgtYbpp0FWtnOdmC45qR4k3IQOXQ5EU8lVqySPMb2rk8br7NleWPFst1vCK+
-         FWfz3egqb0T9MZwhgkZXzXL+wKAY5Em4PjdUX9fNx8ZjmMH2HWICkVK9WGUkhKTjVzGn
-         kIAdIEp3XfcTHdMO5hZEhu8zzFN+JwLlkte4o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793023804; x=1793628604;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bK+ZQ/EvBU7KRwa8afyK/LFrCy8A+Duc2znXk3QqQOs=;
-        b=cqvzPFqpWlBvJ2dYrrjj5yCUI3uxiYBaJ7XJvBnOf/qSz9Flru9j3NepOWhZlJVWAV
-         oCvKmHtjCFYsnHzP1EtpC0Dgmg3MFLfdPVVg3WS2xa0lJoQgJnsJYqaGGzKB2RbPfs5b
-         POcHoYcWewAISfSTlJZDTC1W1uOVZKnutOAaa3UhrfpyC1SlpdPB6i2+FvqLGXa2jE3g
-         HNimqxLrBkUtOPooF1PkBCRzpzxFWJ5gHR3DP2C48WgjnhWi/qsjqEXsGiIzJ5WpaZi6
-         pSDYG2ZYaa5wCP6y84U2raMhPdRUy1qYvH5F4SlA3Xyp4BCBujEVunGL0nBDYHbUvooe
-         mN4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxu2fycsLogQJLmV9kaEUeW7pNZA1NjF8NRlQsKgDRPsqBNkgIlyDETDFh0wnDlfgNl7L1YlYma4hmHzz8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK84XaiN8GgyBvnIXm3cUKoTvEoXiGEkwiZKgd5qQAO/30QrS9Q
-	Rg0pFoG7pLuR5tJPAMqPRGcqvT9UFDX3c2lDOKAAIDhEqzsKN8Y825zAahlEX+P34As2iqFJZj6
-	Gh+P9q0cYfKacz4c=
-X-Gm-Gg: AYBFou36atj0eHL4HG0gBEI/sLLBtX1p1ikE+aUchupm0VaY7GCQevotUVcNIWZBtS8
-	5hQA3jkg/YA65JhwcHU6VuYxXbZKlyBDIZrB2pajlX1tRTKDIx60YTGahe+Zqa0O54sLRG/zmB6
-	MwsHnZkxjDxOZzSd2cO1ux/V1bHvqKadw4arVl1lrxSDQKelzBLtKWOYNJ0Rafb/xeENloSu8KI
-	QNO/jVcURQFUN/kCsMILAr1IGpZpKm9oDs5fMM92QhD/1j2OTmdvxArnSiueXRTJfjibD/Qc9o9
-	iSPyIAgI/Q0oN4YansxWCyoFxOxg0KhiR28V6QBwHSLf7DY8lIktH+MTjJufoy/PLlNGupHmh0q
-	bONJDnMzk2BVOBZrX31+91mRyKhvxfcAOjOtMlRxC8e0HF+xf+lNtZWxYUhY2bAauXjK3Atg0r2
-	KmvLK7s97SsHrjfTq6mMDSmnFg4FoUuDxKWSgdRqC62PXOIRXwK0bk/4UJIBHSEzy1dETJSsmgO
-	MWTwPy95EVnsAjJZYkdX2FrD5g5GcilQ5kuTMCcnroayBRal4FWe8aXNwQzJ2rtyzT7dwBoAVbk
-	SCFV7Y31+9sA5dQAXN9br4EusvPw9+8PsyTH92yTNxilzv1+YadjiTUAlBen6Yr6+T+EnFYL4Ri
-	czuFP6MfB8yqj5AWWJ6osw3E=
-X-Received: by 2002:a17:90b:3c05:b0:3ac:a7ee:6780 with SMTP id 98e67ed59e1d1-3adeafcf072mr5341249a91.66.1793023804351;
-        Mon, 26 Oct 2026 07:10:04 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebacc885sm8579201a91.5.2026.10.26.07.10.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:10:03 -0700 (PDT)
-Date: Mon, 26 Oct 2026 22:10:01 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: [PATCH RESEND] x86/ioremap: Always incriminate the caller on failure
-Message-ID: <at9fOaosqPC3sslL@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=M8PpZdww;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XK0VRyT1
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 28E90222D1;
+	Mon, 26 Oct 2026 14:10:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793023804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
+	b=M8PpZdwwPBi8GdZSTVAJs/1VKegcckiCwUXuUa8TdZBzmEDOY2Nc4gUKuHgS2a1WX9vRLy
+	xWTEZZOrnWlVtn7BBnLHSuDlpxjjj351zPOVCdXSL/lSGgPX6rY4sXcrG2QCmrHlcGc/N1
+	DOVoyqxiTB4PhLnGUN41V1R1n57ipb0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793023804;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
+	b=XK0VRyT1SszO2SFQbm8U5dYoFPu4oufO9Kb3gMYZSAKAvnrDx8mrfFDd5pNQwVdvlL/VzO
+	QplSGZqaxYJUZNBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793023804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
+	b=M8PpZdwwPBi8GdZSTVAJs/1VKegcckiCwUXuUa8TdZBzmEDOY2Nc4gUKuHgS2a1WX9vRLy
+	xWTEZZOrnWlVtn7BBnLHSuDlpxjjj351zPOVCdXSL/lSGgPX6rY4sXcrG2QCmrHlcGc/N1
+	DOVoyqxiTB4PhLnGUN41V1R1n57ipb0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793023804;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WM4vAEGlhlHGhMEi1px3qUFAkL1THxHMrZ+7SD9VpUI=;
+	b=XK0VRyT1SszO2SFQbm8U5dYoFPu4oufO9Kb3gMYZSAKAvnrDx8mrfFDd5pNQwVdvlL/VzO
+	QplSGZqaxYJUZNBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DD1013319;
+	Mon, 26 Oct 2026 14:10:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jYdOFztf32oaJAAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Mon, 26 Oct 2026 14:10:03 +0000
+Message-ID: <3141c47e-6fa1-4012-a756-db565f7d1c03@suse.de>
+Date: Mon, 26 Oct 2026 15:08:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,103 +106,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] netfilter: nf_conntrack_sip: fix out-of-bounds read in
+ ct_sip_parse_transport()
+To: Duc Anh Luu <luuducanh05051995@gmail.com>, pablo@netfilter.org,
+ fw@strlen.de
+Cc: netfilter-devel@vger.kernel.org, phil@nwl.cc, coreteam@netfilter.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022172248.554687-1-luuducanh05051995@gmail.com>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261022172248.554687-1-luuducanh05051995@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,netfilter.org,strlen.de];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
 
-On my T14s Gen2, I get the following on startup:
+On 10/22/26 7:22 PM, Duc Anh Luu wrote:
+> ct_sip_parse_transport() compares the "transport=" parameter value against
+> "TCP" and "UDP" with a fixed length of 3, without first checking that the
+> parsed value is that long:
+> 
+> 	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
+> 			       &matchoff, &matchlen)) {
+> 		if (!strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
+> 		...
+> 
+> ct_sip_parse_param() sets the value end to the surrounding limit when no
+> ';' delimiter follows, and that limit can be the end of the SIP message
+> (dptr + datalen) when no ',' is present either. A Contact/Via parameter
+> such as "transport=tc" placed at the very end of the payload therefore
+> yields matchlen < 3 with matchoff + matchlen == datalen, and the
+> strncasecmp() reads up to two bytes past the end of the message buffer.
+> 
+> The value of the over-read bytes can also flip the detected transport,
+> so this is not purely a read: a crafted short value can make the helper
+> classify the transport using out-of-bounds data.
+> 
+> Both call sites (process_register_request() and
+> process_register_response()) are reached from attacker-supplied SIP
+> traffic when the nf_conntrack_sip helper is active.
+> 
+> Bound each comparison by matchlen. A value shorter than three characters
+> can never equal "TCP"/"UDP", so this only rejects already-malformed input
+> and leaves valid transports (TCP, UDP, TLS, SCTP, ...) unchanged.
+> 
+> Reachability and behavioural equivalence were verified with a userspace
+> ASan harness built from the verbatim parser functions: the over-read is
+> confirmed as a read past dptr + datalen, and the fix removes it while
+> producing identical results for all well-formed transport values.
+> 
+> Fixes: f5b321bd37fb ("netfilter: nf_conntrack_sip: add TCP support")
+> Signed-off-by: Duc Anh Luu <luuducanh05051995@gmail.com>
+Hi, this is a dup of:
 
-    e1000e 0000:00:1f.6 eth0: Intel(R) PRO/1000 Network Connection
-    e1000e 0000:00:1f.6 eth0: MAC: 14, PHY: 12, PBA No: FFFFFF-0FF
-    sof-audio-pci-intel-tgl 0000:00:1f.3: warn: FW ABI is more recent than kernel
-    ioremap error for 0x930bc000-0x930bd000, requested 0x2, got 0x0
-    sof-audio-pci-intel-tgl 0000:00:1f.3: unknown sof_ext_man header type 3 size 0x30
-    ucsi_acpi: probe of USBC000:00 failed with error -12
+https://lore.kernel.org/netfilter-devel/179286139765.93379.986858959213810476@gmail.com/
 
-Notice the ioremap error which appears sandwiched between SOF driver
-messages. Without more knowledge of the kernel, and due to the
-interleaving of printk errors, it's not immediately obvious to the
-system administrator where this message comes from (although in this
-case tracing confirms that it comes from ucsi_acpi's ->probe, as one
-might expect).
-
-To avoid issues with printk interleaving, always incriminate the caller
-on ioremap() failure since we have it. While we're here, also change
-these from printk(KERN_FOO) to pr_foo(), which we already use elsewhere
-in ioremap.c
-
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
-Resending this patch from February 2022 that went stale.
-
-Original submission:
-https://lore.kernel.org/all/YguzmS7umfiaSSHU@chrisdown.name/
-
- arch/x86/mm/ioremap.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/arch/x86/mm/ioremap.c b/arch/x86/mm/ioremap.c
-index 12c8180ca1ba..2443f4668d0d 100644
---- a/arch/x86/mm/ioremap.c
-+++ b/arch/x86/mm/ioremap.c
-@@ -201,8 +201,8 @@ __ioremap_caller(resource_size_t phys_addr, unsigned long size,
- 		return NULL;
- 
- 	if (!phys_addr_valid(phys_addr)) {
--		printk(KERN_WARNING "ioremap: invalid physical address %llx\n",
--		       (unsigned long long)phys_addr);
-+		pr_warn("%pS: ioremap: invalid physical address %llx\n",
-+			caller, (unsigned long long)phys_addr);
- 		WARN_ON_ONCE(1);
- 		return NULL;
- 	}
-@@ -213,8 +213,8 @@ __ioremap_caller(resource_size_t phys_addr, unsigned long size,
- 	 * Don't allow anybody to remap normal RAM that we're using..
- 	 */
- 	if (io_desc.flags & IORES_MAP_SYSTEM_RAM) {
--		WARN_ONCE(1, "ioremap on RAM at %pa - %pa\n",
--			  &phys_addr, &last_addr);
-+		WARN_ONCE(1, "%pS: ioremap on RAM at %pa - %pa\n",
-+			  caller, &phys_addr, &last_addr);
- 		return NULL;
- 	}
- 
-@@ -234,17 +234,18 @@ __ioremap_caller(resource_size_t phys_addr, unsigned long size,
- 	retval = memtype_reserve(phys_addr, (u64)phys_addr + size,
- 						pcm, &new_pcm);
- 	if (retval) {
--		printk(KERN_ERR "ioremap memtype_reserve failed %d\n", retval);
-+		pr_err("%pS: ioremap memtype_reserve failed %d\n",
-+		       caller, retval);
- 		return NULL;
- 	}
- 
- 	if (pcm != new_pcm) {
- 		if (!is_new_memtype_allowed(phys_addr, size, pcm, new_pcm)) {
--			printk(KERN_ERR
--		"ioremap error for 0x%llx-0x%llx, requested 0x%x, got 0x%x\n",
--				(unsigned long long)phys_addr,
--				(unsigned long long)(phys_addr + size),
--				pcm, new_pcm);
-+			pr_err("%pS: ioremap error for 0x%llx-0x%llx, requested 0x%x, got 0x%x\n",
-+			       caller,
-+			       (unsigned long long)phys_addr,
-+			       (unsigned long long)(phys_addr + size),
-+			       pcm, new_pcm);
- 			goto err_free_memtype;
- 		}
- 		pcm = new_pcm;
-@@ -309,7 +310,7 @@ __ioremap_caller(resource_size_t phys_addr, unsigned long size,
- 	 * tree.
- 	 */
- 	if (iomem_map_sanity_check(unaligned_phys_addr, unaligned_size))
--		pr_warn("caller %pS mapping multiple BARs\n", caller);
-+		pr_warn("%pS: mapping multiple BARs\n", caller);
- 
- 	return ret_addr;
- err_free_area:
-
-base-commit: 29643f6655dcce5bbc43e938fcee1718a63a83a5
--- 
-2.54.0
+Since the v1 was sent earlier, let's stick to that patch.
 
