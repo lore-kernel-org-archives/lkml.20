@@ -1,130 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036378;
-	b=DczEpG0GzUzSqrHa9jJr9HBMT5ITCuKnkP5N4WmUZ9rA1574wqjAuavXT+SQn2xAl1xh
-	 EWqvu2cFsii1WKP/m81T02ihtpcQSCCS/po2URlnPZX9VMrVCaqCWSpxFohrwJmFfquRY
-	 YgsCXTEl4g4S1M+rJhf8Y7Vi2NpzPvwAzBhl17A/8GpXpLksw1QToXTip+v3+Vrm7j3FZ
-	 UhkK0ATldO1zJFEZGfLm7S2hQvhxbmCr0QQSWlX7BwQra7RqXuxfc1UtvB91URQhEJzC9
-	 r8u0/QJp+ZsKYsxv7CdWjhpuBY4eQzdgWn7repUfF6YfBjA8IjNB/OfDLStoF3WPqIQ==
+	t=1793036403;
+	b=xjvvr0HweuyQRRI4BMkYP4DNKTLA8ljsvUGO+BlreVqOJElB2GJ1YZqW7vIvlLpVJ4W6
+	 WCGH6ehpkE4ARfuYpRyPmTFlpy13o8N7T4GKM8Dp7Wr4yl05nDhP9ihMtG/TtqmB995w6
+	 dJ1Ymxnev6/FmZirK+LQ0Xk+sZWQnFqTgEg39ZKDR8Uk2JqKz4VApivdORYROLvCJWEuq
+	 tiQfyOlNzLAr6kTZV4moQn7QWkz4VJOaB7uN/OEdJKpijjj7Mq4EBaQJWso0soZ1aF0gr
+	 eqzsmq4UrG0QuRuc4PnwLAptFSAHT/cl+60OVliqqPIhmUkG2ajqCy2oy0JOsG69gRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036378;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=;
-	b=wSdSFHd+QoAUf6T27AQa657+0wEGJuCbQGtNRXFpTcZiEk18y2n5mqPT9iWY3sq+W0/H
-	 wCSCzg3Q6fBvD6DXsKh1YLzZealMUpz0psbHDVDWX/Lhhd2q2ysB29Eo0ME8zrWCcRHW7
-	 cuBUNDu5RbXb0E68Rvhr9X0ThZU7jR8LhiS5KEjf9HpHM09jjE7qXGjp4SLZelZ8PgvgD
-	 /QyC1m424nvHFMxVEvvSVdz9zqNtLY6TvmKEqnWVHr+f4tIzbIye5h4Nmlt/o4CZT3E6g
-	 xut2VlOGckSgUaOS806TamYbfKozp37vIWNdadLBiUFoWyItxAGlgQYQ1b6O9Sx5rEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036403;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TdZI+A/T6veaOF7Fsd3qi5AF2bBsWKQ3dAj9xuoYJUM=;
+	b=RDhGVQftQc6razY6ME60u8ZZIf2a1ySoH6mDcAz/E5QLhpGAsQzzm3CdmlPnNHh3Pc1x
+	 K6yA6Tl3o+dLQ8w7vh8gqpaLoJdXSV22Y0L7vU/b7vYYeVs43shtUbwlSTZ2O23IgDHjH
+	 zjE64YX89zwgBxP7SGZ3TcSGBmqGTTDRYG7yzvOtCbmEMe/mueiW1uDAlTimFB9hYM5pO
+	 tLxqp9+Cnlv7qqZOR6keoWva3mBcxgGuoFbkAv76auyXhLFax11dH4zyq+5HRYXDMDhx0
+	 azmlqoHzeTYX/B0JGHjvVbUd0AU3/qBcO6p1GmsEBy0AQboQU7aXAe4K9iMn/2DANwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Axh/bVHR";
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57BE606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57BE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124E3606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:40:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124E3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id E57CD1380208
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:39:36 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 13:39:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793036376; x=
-	1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=; b=F
-	rVDQJkAnwkechcedtUGj+LlJKPVJxedWqltj8oi1vF61VyeKCt36pkyuCO99sxtk
-	WZiGJ07h+f8//gF4HvxL4FWzL8Z6bvThxlk+lrnMDkNCUQZyXFj8d0Q3UdyTKt2l
-	9iuMoTgmEnBwoxJmtJMsr6NwJ/CY0RV8i0i9rwBeUEET0NdcD1b6Az/Xa4IRiczx
-	YHDkbydGvvTDHRvFuGm0EgYw//c2gwCHBbh3dRJRldyEP9ANvg82ix4frg+0lAYe
-	E0K5CnlCz5p7z0/VFxmZbBptZAv65ZrTpS4H/6F3UKnHcQ6rTbmETipC29I+7n9K
-	kuaI3j+2Xekb5rDOQ2+sw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793036376; x=1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXC
-	dvP4sKUY=; b=PWsvFXSPHwOA7U63+FmsIT5MJ91tmnaoVdIO3ZUPNtH1Ab98ug7
-	6yRLTsnP0VZYP4arU+dkW54hbAXMiH/3avrcLaDlx8VQi5U5X2CaxWFFE6ql9IvH
-	u2KWd57w4YJQ39WjdP1yEr5vXSFiCsczCwW72tOywJYnGGFP5IjHGlc3xUc2zIGJ
-	IuqjRRsuGWnrWtDoBR4G47nB03Yg6FvGmMYfG/gPsCV/5yAoylo+T3aqJXwBsxPG
-	NxVBXkZWY9JY7jTGuC2TYoiFaYmOvxqntUjmj0EzHbSV/SWY2wxpzX/NJVfP+PMs
-	lF55pPKm/iQJGbRExFpKi+RoxKlLRrZTxZw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793036376; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:zYB5h4n+fpY7zbkTWro5+XE6BiP9fOEPZrbz4/U74BAQmDS
-	rfc9IfifGMxWUgHJ7Ws20jUAsaarSK204bZfNc2yc14KOHiEyhveSMgY2WN/IGqd
-	Q5jrfjqELPYoJqhBb5qRVV2JyxizBO+Pv24SuvXeN6NiDs5N+AX9mTbT/s+WctcY
-	iiITG7II8l2XhmOxIDJWzp8E/EEB4zqqcvQaG9OYai8a0aiDJF3+CA8XQzuKvAz3
-	XMHtrVVsm0dyaHhMRaY5k69oPk96GrkpXFmew6bvwxZgVv7bSvYzhcaiWG1VQsg+
-	4H/UB7BQ+1jaIhWYOMsGzyJKZwmG6LRN2KoBxzw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:6Ww9OTLtowtBqWiQULkq+ViRqleNawRqoZVwSFz61xs=:HK5PFLyxFNzFgXX9dEXISx5+CcuJoukdbYSiqq5cWfw=;
-X-ME-Sender: <xms:VpDfakvPYGwmN_RcJhMM65tFUhC25CZ0upVwgyH3PxSnClQheEyqWQ>
-    <xme:VpDfagngJAvfN0X7xcKjN6W8bBdHw39DCvlKQ9KHbLnrX4g-bjZ3ZUPEqIe3OEU2E
-    Bf6sFD51XGQsFxCbFmazWK4kihPX--4aOQhJ_WnQGcKxP4saAk8cw>
-X-ME-Received: <xmr:VpDfakyMxTAcw7YAFXhGLBb7cSk8qCGR1MZW7lU55Eq8QTsPAyQX5K4-lzs>
-X-ME-Proxy-Cause: dmFkZTF6H3SEpQShDd/kr54hvdkdt3MDjTF28+OqAC/bxg6UM4iEJWWMlnnT27v9jePEmz
-    vGMx8mJpChUjh8v1OiOAzIMSlkJxTEn6JkrbUpKe5ErfD84wXqDBMbWsH0xqlTzlt+hdpX
-    HDMnRTKOD4gayTPO77h+/Ew/lA79lBP4gW3fvzv7nBS/pThjI7OlhteCj0KZuy/1hMJ6hl
-    7wmBRBmCVaoZTUGA4TbSiu2cZAiVpR2sAcoEBREPHEr0+AEhMBFYMn8kihpTBwQKSYCN0e
-    19KCYnBmkwGoKFl6OLcnuRebfdT7MuZ9XNsKec6UnbEsx7bfq/xEUZydvzTLi/RATFXjpR
-    wg+k4o4CXPH2SHleMmZd+BJOxQjRUBedVDMhgIl4OfPGAJcx+beaQw6YEv7A+FqYkHm/ut
-    zSnQBLlCtTdKLQafgvSYYz/RytMnVVsxTnFXIt2nl75Gv3qZpsXjjxUKpHBOrTZ3ZdkISo
-    NDQKKsOTGpDz/LwIrqV5boxfnXtPK9RxGT6X8zV4kMwZ3tPcECJ7n2FNAQCeI3MmONSZNa
-    zVwHbzNgIkWSjZgZz2TmJOap4iORe69JcFquTFfiuvDTwYx10HKrvTSr8EO0wMyplkS86w
-    xvaW1X0JnKp3AcjJQzKKgJbBSrQco6NzrXRHjs/+lbO8Y53HXH+/w7g09DeA
-X-ME-Proxy: <xmx:VpDfamwXPRg6kIALhDkqagVgg6yM9zrSZqcuQeKsPQDYoDoh9idcQA>
-    <xmx:VpDfatB2V75JiLUBZeB-0A6yudE42QZQZm0BSVgir-yaurDCmJEAbQ>
-    <xmx:VpDfahph8RNX-Vy4wt4o9RDAs4PQ-LNcicnx_uZWvyvHj56NtyDaZg>
-    <xmx:VpDfarQEV2WjxZIMj2k32K03Eq43nNqa66hkd6edr_rcG7lSkx5J_g>
-    <xmx:WJDfahffJM9mqtUXpu9sfOKyk63ISmf__apPCjOjkhdYXJi2hYZ9tLFA>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:39:33 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:39:32 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
-Message-ID: <at-Pen0rJcHRDnBv@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Axh/bVHR
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c450ab1483cso446966766b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:40:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793036401; x=1793641201; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TdZI+A/T6veaOF7Fsd3qi5AF2bBsWKQ3dAj9xuoYJUM=;
+        b=Axh/bVHRFf+6yVjD5QuZk/aN6eIF5mIJW+FknJ0QhIFnrlfy0ITy11nIf3e2M1NREC
+         9iDJHdGVxDSkatZadFtw8tuU030vrweeN108n43l1VsEqG73neammW06FuVJKFngLRmC
+         2fJEFd+pWsZeZh7lwV3lMZiNVTuqs89n//ARWVzuwkTGYFxBZ/jNIiLOHzrVTanEFm0G
+         9w0wf95xzIpwYCqfzs/GbkMv4NJUiINg/Wq6gLG1bnTb0D9zT9luVqck16GOUxqa0w7F
+         b42DVlGlAKjvo3PRijkVQM0JKcBlypmH+yEq77UlPdd29aOUo25MrulqmJcnfa0h/dsl
+         uwHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793036401; x=1793641201;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TdZI+A/T6veaOF7Fsd3qi5AF2bBsWKQ3dAj9xuoYJUM=;
+        b=EyVilFkTRs2stPJZNAw4uc5CiTJPBZaIR4RZmgnPsF0jV8poDYc2/YaavIxJvmhTtA
+         gLmYvOhOu9Tgh8P6CUyCTUUqSJuuSTQLVFbPhIqhLd8N6I3uI84fXSFfd61cmDwoGynb
+         vR7dT7J5npPJT9veAxxtbonh7hnwivrB0QJUUL90M2BeJKL6bMtvA3GWM86lU22eYgMt
+         hcVzamEFd76kf/4ZCwQ7skF91IvsmYSjsxQ08pmAy7DgSAoZRPq/xLrhGOrQsiDZ2QOO
+         eTVKt0n8Q0ptWlymEM+rTdI8IpGlbvIrCZ3TDX2gBLug81uouq532zYP4kaDtrNkr4vt
+         0fgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkkI/bS1q2wuVTEHGUBD2gga2xTblpgrPpEVm1O4ZCXDS0077bz9tVl9Kd9rsWTBSthWlAc6ErfdMgDIg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT/lQIlG6Pps6GX+lKgT15xz2KFPNLJGpt9PFJxs6ahHqjohIb
+	YCvvh8qTlV4TrS0cOsmZnz1nJ4TU4U/mXLhOJsIkag0bDjCf9BoNbwt0TTz0PHHA
+X-Gm-Gg: AYBFou33w+c0EkGVY9gnyr7g6Llr1+MtA5dap2f8MdTzOebEupgIWcv1QJ5ArYmpCnr
+	gU9hsh/G5Wa2WvwSZR157MczlTYls7LzDKHXNgBnhsXhldERaTCay3t+XmdypfWa4bIt8xCl3mP
+	V36S2pH6XAXgnjfg4kg4JU0lOhtzhd/a3AVyHTicWLnXw318KORbS2mmrPXbUFX6/PBpxYk9kZF
+	zodeJuBWzurP9wJYeoBJLC2sE9Cth6ioVGUmFcRNodRUWdxeKw6jAAPeFi7zat+7ng0cVoNYAcH
+	8T5gRZ0LyUsSou7wnXoQse+EnUHLuE43FdYlV6dyxlimx+WNVBI70X7HtcrWC3to92p0Q+ci3Ih
+	oak4ttgrXYY1QgMxoN2/legeIGvAfjusfFNmU1mr1Mqmpay14i66yhhqQK5wC68UMR3JZBJqfSf
+	CufHk8o+mjssPZ36MUPGxam79RJtr+EMea4LK/162PkGuDxDhGD1q3nhzQh9KRmYPBYa6e/3R31
+	ry5ybHkdh6b3rV37a42
+X-Received: by 2002:a17:907:944a:b0:c29:f5d8:9c6b with SMTP id a640c23a62f3a-c46bde4346cmr829233566b.26.1793036401209;
+        Mon, 26 Oct 2026 10:40:01 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49954c8ff1sm101721166b.78.2026.10.26.10.40.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 10:40:00 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 26 Oct 2026 18:39:58 +0100
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>, linux-mm@kvack.org,
+	Baoquan He <baoquan.he@linux.dev>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] mm/vmalloc: Bail out if in softirq context
+Message-ID: <at-QbgvltXF0pmcd@milan>
+References: <20261026102503.30860-1-urezki@gmail.com>
+ <20261026090421.e4bd83f3e20fb82852abec4e@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,62 +101,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026090421.e4bd83f3e20fb82852abec4e@linux-foundation.org>
 
-On Mon, Oct 26, 2026 at 10:40:45AM +0100, David Hildenbrand (Arm) wrote:
-> Truncating a tmpfs file or memfd to a page-aligned size inside a large
-> swap entry can loop indefinitely in shmem_undo_range(). The task holds
-> the inode lock and cannot be killed.
+On Mon, Oct 26, 2026 at 09:04:21AM -0700, Andrew Morton wrote:
+> On Mon, 26 Oct 2026 11:25:03 +0100 "Uladzislau Rezki (Sony)" <urezki@gmail.com> wrote:
 > 
-> A large swap entry represents a whole swapped-out folio. For example,
-> truncate a file whose pages 0-7 share one swap entry to four pages:
+> > vmalloc() is not allowed to be invoked from the NMI,
+> > hard-irq and softirq contexts because doing so may
+> > deadlock on internal locks.
+> > 
+> > Commit 04aa71da5f35 ("mm/vmalloc: do not trigger BUG()
+> > on BH disabled context") replaced the deprecated in_interrupt()
+> > macro with explicit in_nmi() and in_hardirq() checks, but
+> > unintentionally dropped the softirq context check.
+> > 
+> > Example:
+> > 
+> > <snip>
+> > vzalloc() in a task
+> >  spin_lock(&vn->busy.lock)
+> >   <------ Hard irq
+> >    irq_exit()
+> >     process softirq on the same CPU
+> >      vmalloc()
+> >       spin_lock(&vn->busy.lock)
+> >        spins forever
+> > <snip>
+> > 
+> > Restore the check by checking the caller's context with
+> > the in_serving_softirq() helper. Note that, it is still
+> > allowed to invoke vmalloc() with disabled bottom halves.
+> > 
+> > Replace BUG_ON() with WARN_ON_ONCE() for in_nmi() and
+> > in_hardirq() case.
+> > 
+> > Cc: David Hildenbrand (Arm) <david@kernel.org>
+> > Fixes: 04aa71da5f35 ("mm/vmalloc: do not trigger BUG() on BH disabled context")
 > 
->     [ 0  1  2  3 | 4  5  6  7 ]
->          keep    |   discard
->                  ^
->             new EOF, start = 4
+> Sounds like a cc:stable is needed?
 > 
-> i_size has already been updated when boundary handling asks
-> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
-> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
-> because its starting offset equals i_size. Nothing is read back.
-> 
-> The final scan cannot free the entry without losing pages 0-3. It skips
-> it, restarts from start = 4, and finds it again indefinitely. An unaligned
-> truncate avoids this particular failure because the requested page starts
-> below i_size. Folios already in the page-cache cannot trigger it as the
-> direct lookup will return them beyond EOF.
-> 
-> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
-> directly for swap entries. This bypasses the read path's i_size check,
-> allowing the existing boundary handling to zero and split the folio. If
-> swap-in returns a smaller folio, it also splits the swap entry so the final
-> scan can free the entries beyond EOF. Retry the lookup if the entry
-> changes during swap-in.
-> 
-> Handling swap-in allocation failures remains broken and is unchanged by
-> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
-> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
-> shmem_undo_range() skips boundary handling. If the large swap entry
-> remains intact, truncation can still loop in the final scan, while hole
-> punching can return without zeroing the boundary.
+Yes. Should i resend and put cc:stable?
 
-Oof.
-
-> This may read an entire large folio back from swap while holding
-> i_rwsem, only to discard part of it. Avoiding that I/O would require
-> splitting both the swap entry and any large folio still in the swap
-> cache. That, however, is much bigger work.
+> > Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> > ---
+> >  mm/vmalloc.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> > index 7521b9b3bfd2..36e6e3be6ba4 100644
+> > --- a/mm/vmalloc.c
+> > +++ b/mm/vmalloc.c
+> > @@ -3252,7 +3252,13 @@ struct vm_struct *__get_vm_area_node(unsigned long size,
+> >  	struct vm_struct *area;
+> >  	unsigned long requested_size = size;
+> >  
+> > -	BUG_ON(in_nmi() || in_hardirq());
+> > +	/* IRQ re-entrancy -> irq_exit() -> process softirq. */
+> > +	if (in_serving_softirq())
+> > +		return NULL;
+> > +
+> > +	if (WARN_ON_ONCE(in_nmi() || in_hardirq()))
+> > +		return NULL;
 > 
-> Original fix generated by LLM and sent by Chris Mason in private.
+> WARN does a lot of stuff and I rather doubt that it's all nmi-safe.  I
+> don't think this matters much - it'll probably work out and as long as
+> *something* gets printed, it did its job.
 > 
-> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Yep. I checked before the kernel sources and saw that people use it
+with WARN. I thought switching from BUG() to WARN() is better.
 
-It is getting horrible situation somewhat better, so:
-
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+--
+Uladzislau Rezki
