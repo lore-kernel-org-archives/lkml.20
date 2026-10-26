@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005721;
-	b=K6eJqFKz6uww0e0E8jjYZfuNDopthY4n3NQuqV0c1B0TSvyJsD4i5A3nFJkQMooa9UCf
-	 +d/KXSrl/f+6bDrqvBmRQOxSwB95etUubYUiMH/IZOn40JHByRu1AYjybau+1j5SpYXl7
-	 wnHRd0W+sE7e4f8DNArEwDBv+vEYMuvpJWaKgMJpvNm/RGznzY0Ti4PjaQU38Y99TzTJk
-	 RIdl7UXSJdn4bUB/XH8oM+8PV0/AZF9ygqfjYkRdVKAyb3XGdQZbVgB3NGPDs7XvVEBx4
-	 C4fyYYlCTCK36vNb36cIuVHjy54IGxFFMTY+Tl0UyZD0v3eZtCaw9tdQ7aqiAE3arlA==
+	t=1793005732;
+	b=OPQzyY+/8D2uj6h1K7E2t75uQ4C51Ap/vlWlmb6f6koKEWm6dFLusOwV6z4HWAa+MCxu
+	 dsPZQVmsQeKAMc5BcLjEhnnC41aYu9smXWDYa82S0UFmm3+nskqBUlDVOIE1xvOYKDlU6
+	 vmXrve94omNJtUQEbzgnDBwCuZvI/yJPZ+/0hC/a/oLk0mAlokZ8au/L+dFOUI1HfEWE+
+	 2qHub/S8oUWvJVQi9mtirKTWQQXj86notBo4cw6ivPobFB5/mDGjPdJYmFDGPHON5tENs
+	 5cMlonp+yDrkuFnGIRqSZ6PqoZUdOuf98ZGni7uXJrEXpJg39GLxeqRG89WS+T0q5WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005721;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005732;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
-	b=gDXQPDu35jkQVmDJwXcGO6juSACR+ZTQTyBFrnRfL9NLRvnj4QD4xmusKkrh5UyoT8tO
-	 t5R/WxHJQFlLK38v33L4ZOyAVC0RFUY3UKqXT6Hj5ie9JsQ/g80hUl/OfuVoONwex+WnV
-	 xUcRJ/L8N+Rwcwu9MAvhTpK0UmsHIE0iF5OxqkE8KQwxEHiBilR8rkhfdXZR254niLnXg
-	 w2zpt7GAYdhlEWsDc18sat52lqSYHFItRnpt5E5GJPcZ6Iiih6qiGgDjJRbhpGQuxKX33
-	 6AJC+wX0N9XkY1vIRDPzPL3bfarC4Nd643tRCWxpbdoOfG/xWp6MLX/cRozwxf9xaNQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
+	b=Qj2q4DqRX0T2nC5RPis6d5EQR4T7b1eipoBlm+vOhmSz8HEvVrBhou8k54e8HhXphi/l
+	 PIji/809n0z8NeucArs67V3G126uHohLFX+XndE6NAjPHjelGmdcQRhcVLIEXSHjfwQwW
+	 lYBWPXx+oF1z7xcWj94Lo3i1CHP8R07lRfRHiDLUn1LBh27zSLSfNF1jQweJAJjmZ4QxJ
+	 TzmbuabCYws+3zmzYBSgXMohGOXvrP2ocdg/5MnrkSDictofKLoPWSas7qSKQMPtKXE/e
+	 YFCnXUU5seSKurFy5c2OgIvOoWpjs6P0XaXgtECX9TdagRfqx7kkKtbBJD0ZfKXKnkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E2nChXtY;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=X2OOUp+A;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5406F606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5406F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BE9606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:08:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BE9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E2nChXtY
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so25630995e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:08:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=X2OOUp+A
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e00eee27dso1685693f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 02:08:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793005720; x=1793610520; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
-        b=E2nChXtYMbQzknLcmsGLItmLC33Vcbz7TbExnMP+FecCooTiWq8lJ493eTYmIPi2PX
-         bZj1RRLB5LqOIVxzeci4CNxwdFZRQW8jAToRqp0ufyGK6ilTTLvlllNRfZpnpK4VreSj
-         9bkldAP250R8LDLN6wNj6MurdUwCQ2ckDlZx84loRK9c0FKIZODfLLBF7McNytU5JgBo
-         f3BnzHEJ7YzXEOatj79J/D6nULRTV+0+3L56I7IzA7FHKTSx9+bXzR+tyS9fKGkIyvbZ
-         goY5gmTvWP6XltVnvDup8uu2RSWRksFpCxGoeNAi0HVXCDBSDveY9BkfVUn+qu+9TMa+
-         EOJA==
+        d=linaro.org; s=google; t=1793005730; x=1793610530; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
+        b=X2OOUp+A02CXDZvu8A20i0A6Kra8e4XDde7P4W/y8Ml4B6cdCfBkSSZbeRW9XJ7pfi
+         nf1zLDFqoX0M1m5ST91pY3FVF0iZ+yXj92VKjKXpuv2aFa5fX4+KSHpSwjTnhmmkzQN9
+         LYM0Wx72tHCgBnmCr2VjuVhsdL6lYkzKHBVImzyDavyCD6owRdMEIY7o1EP4oHiCywgl
+         ky1O+qCDd16rZJTLbn3RmrEt3mRNpANDxIAcT9uZeEzNE1NqyVQHZT3vfhMxKeJ0ybRN
+         ci+LCHoJ+iRHmcuKntLk0ExEcVJfSZBGBWq3+VGeMBX7qnIO+KUxtXnFSexb814dyljs
+         isng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005720; x=1793610520;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793005730; x=1793610530;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
-        b=EZsPaaUVg4KSj8/XMmMGFxz3vge7W8DsbT6uGy5KUDCr7XpvpNnAn3cBagBaj4YchP
-         oYINFsqzkcgdcDfkFJFEwOmlNvHCBGPDQ1TLglXk6QnyhjDGwgy/B++5uiM0a1OMJjGh
-         ds29gc41QJ2WWWPE2m9QGtrBv+3DDFDCkanAP7XpqkTwGhFhd4tBC2q2WFT+Tix1muMH
-         vJuI0tmjaywy1SRlCyVF5BMiaYGSImtz4Rw2Vxt/OzBA75+pn+8zihZjF9UO4sbFGmwr
-         Hc1GZOcRODmi+m0yKweBXutAlfS9+6lk50duLuFLJH9CUfgjTRqskH+jnu9GOsL1fWtM
-         wmdA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNaMagQPBFCD6U8+XZErmeO67rsfPHdgvXOUNyVvGdRr1JBc7hYGLve4y2GSc5T0P197yq6XoaSV9pG4k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMX6T5lx1BS/nTqs8v/cDl4dn+ZNsLMbTu5IRuMAgYJ83HtgnX
-	M1r1zig4SV0H/bTpcskcJgGdXH/7upiQM4Tl3Ht5XMrjXgvjHAosgyPKN774uQI5FjvrmeLoW9q
-	rFE/dtn7FadxsZ3NHVQ==
-X-Received: from wrvd13.prod.google.com ([2002:a5d:538d:0:b0:48a:fe63:7751])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:34c9:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4a35acebc28mr107940825e9.33.1793005719194;
- Mon, 26 Oct 2026 02:08:39 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:08:36 +0000
-In-Reply-To: <20261005134010.302208-1-laura.nao@collabora.com>
+        bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
+        b=ILY5BAi7uvuGyGpyfDjqYKbpUKZEVPHdCTS/Kp3mefBSe+YhYsQuNnsCeSD9tNb2LM
+         iH//nd1+iR8QElVSTXt4kH+H/T/Tm348TaQJvFVlv93aSLm+yINNhxbaWYBX+Fj0LvYS
+         lSJK6LGaFhYgr7ryhinocPo3AcW1gRriphjrhCNQOBp8TG3kTi5Nd/DB/Q8E1q7BhJ3y
+         3tpdL9951fNiMZ7QlWmlDaF1MU1vlkKzRB9fwBWInkFaZptDfzWYipaEb7E5W7TON7b3
+         sTn7MFOZY3raNF0o/1WhEq772rPS1ox6xe/nf0NrbGkgx+3pLkC4IRbuglcJeJffJjq6
+         GAUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxk1Jnd4QOzFwA4GdOcIUZA3MCXpL5C/bLaxpdH/BAfpj6NwtvEjQIJCe9chZVSYlXftd3wdg68teRjaUQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFbnZ9viuN7M1TPn1R4eRM3LRCsIHrQ+MsafuW1CJcoyWeFl3Z
+	VA3/ce/56J5tYSvFM1gd/zLmqC2ihhpdtmmVMzVrKqzwHhaZPXBBNDzysyWnCmVhRSA=
+X-Gm-Gg: AYBFou3g58vDkxdpLWdVrNhx+I9X4Bf4s58ka7HWBHMGR7qEkn41z2TUFmu28OHNA/K
+	tPuowrJljD5WvrhbEylGdFz2sU4SLgmvUUYVcvG8p+WN6QuAAz+aJdGgXSCp/SrrBIVhz4ABzuy
+	RFqE7WhsvhcCrIq8nxYxqWgeStEBVKly9uzA3DHarooxkedTY/DJ2EZ6u4lN4rlL8eP9nU0pZYQ
+	ypd8jYUHu+LkoROXH8rtPjGCZ6AvF3ThYdSQSZO5DVZwcAPH9ogyoGuOCaBHVN+g3KGhqtN3MAL
+	/AvjlYH0cYQgKxQjgHb9XbqWD69xF1TKWpm/0m6PEQjz29nLFZ5o9jE4Y7Jcw1p+BKvQqN7jTkU
+	TpycW7XYFLd2W7d/UkQW40KsR/H9cjRP9Qul7djLf9u0W1DRyq/1o11DdZFHaMk7Yk5ZTYx6EQt
+	uX6lktrjaz34UJKjzH2u07L3avjPIcM63cTCxYv2zsR1SvVmZelRoMt+TWX5VBVHUpIyBasLc4+
+	1TrvVReIL0LkCCMKpQhTPWgEkXhMJM8H5E3oZx5wFCrOJfBWi4gNh2NIchrd3nmefI=
+X-Received: by 2002:a05:6000:2312:b0:48d:ee59:3a30 with SMTP id ffacd0b85a97d-48e3eb8b4c5mr11452297f8f.22.1793005730243;
+        Mon, 26 Oct 2026 02:08:50 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.151.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece13aasm14118984f8f.58.2026.10.26.02.08.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:08:49 -0700 (PDT)
+Message-ID: <2665de15-dea8-493e-9a24-1c12cd9eda3f@linaro.org>
+Date: Mon, 26 Oct 2026 09:08:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,137 +88,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <arOP5iuLuj1aTiLl@google.com> <20261005134010.302208-1-laura.nao@collabora.com>
-Message-ID: <at8YlKUJOWc_X-JV@google.com>
-Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
-From: Alice Ryhl <aliceryhl@google.com>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com, 
-	bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org, 
-	daniel.almeida@collabora.com, deborah.brouwer@collabora.com, 
-	dri-devel@lists.freedesktop.org, gary@garyguo.net, kernel@collabora.com, 
-	linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org, 
-	rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org, 
-	tmgross@umich.edu, work@onurozkan.dev
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] media: qcom: camss: sm8250: do not set VFE core
+ clock rates from CSID
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
+ <eGhL2aGIqxBFBKgd68g6t_m4p17F_a0I12V3BQjSCuOQ0HisGBIC1n8Oh4dIXGvyIEEJBQptPK1TAGQpg_ik1Q==@protonmail.internalid>
+ <20261024094027.3095475-4-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261024094027.3095475-4-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 03:40:10PM +0200, Laura Nao wrote:
-> Hi Alice,
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> The SM8250 CSID resources list clock levels for the VFE core clocks and
+> for the shared VFE Lite core clock. CSID power on runs after the VFE is
+> powered on and sets these clocks to their lowest level, overriding the
+> rate selected by the VFE from the pixel rate and lowering the shared
+> VFE Lite clock under a running VFE Lite.
 > 
-> On 9/23/26 10:37, Alice Ryhl wrote:
-> > I agree with sashiko's review here.
-> >
-> > This needs to happen after the free_irq() call in the destructor of
-> > TyrIrq.
+> The VFE core clocks are set by the VFE. Drop their levels from the CSID
+> resources so that CSID only enables them.
 > 
-> Thanks for the feedback.
-> 
-> In v5, I was masking the interrupts in TyrIrq's PinnedDrop impl which
-> resulted in clear_mask() being called after free_irq(). However, sashiko
-> warned the device could then assert irqs after free_irq() completes
-> but before clear_mask() runs, potentially leading to an IRQ storm that
-> could result in the shared line being permanently disabled. 
-> 
-> So calling clear_mask() before free_irq() should avoid this, but we
-> still have to deal with threaded handlers potentially re-enabling the
-> mask after clear_mask() has run (as per sashiko's review on this current
-> revision). Adding the atomic state should help with that though, as you
-> suggested:
-> 
-> > And most likely, we need an atomic along the lines of ACTIVE /
-> > PROCESSING / SUSPENDING in panthor_irq.
-> >
-> 
-> So I'm thinking something like this for the state:
-> 
-> #[derive(Clone, Copy, PartialEq, Eq)]
-> #[repr(i32)]
-> enum IrqState {
->     Active = 0,
->     Processing,
->     Unregistering,
-> }
-> 
-> unsafe impl AtomicType for IrqState {
->     type Repr = i32;
-> }
-> 
-> This could then be stored in TyrIrq:
-> 
-> #[pin_data]
-> pub(crate) struct TyrIrq<T: TyrIrqTrait> {
->     irq: T,
->     state: Arc<Atomic<IrqState>>,
->     #[pin]
->     _pin: PhantomPinned,
-> }
-> 
-> Then TyrIrq::handle() proceeds only when the state is active and
-> TyrIrq::handle_threaded() re-enables the mask only if the state is not
-> `Unregistering`.
-> 
-> Does this make sense to you?
-> 
-> As for masking before free_irq() runs, I'm thinking of possible
-> alternatives to JobIrqMaskGuard and its ordering convention (i.e. must
-> be stored in a field declared before the corresponding
-> `ThreadedRegistration` in the struct that owns both). Would it make
-> sense to define a TyrIrqRegistration struct that wraps
-> ThreadedRegistration instead? and then clear the mask in
-> TyrIrqRegistration's drop impl.
-> 
-> Something like:
-> 
-> #[pin_data(PinnedDrop)]
-> pub(crate) struct TyrIrqRegistration<'a, T: TyrIrqTrait> {
->     #[pin]
->     registration: ThreadedRegistration<'a, TyrIrq<T>>,
-> }
-> 
-> #[pinned_drop]
-> impl<T: TyrIrqTrait> PinnedDrop for TyrIrqRegistration<'_, T> {
->     fn drop(self: Pin<&mut Self>) {
->         let handler = self.registration.handler();
->         handler.state.store(IrqState::Unregistering, Release);
->         handler.irq.clear_mask();
->     }
-> }
-> 
-> This should make sure teardown order is still respected without relying
-> on the user correctly putting the guard before `ThreadedRegistration`.
-> 
-> Any thoughts on this approach? In case it helps as a reference, I've
-> drafted both IrqState and TyrIrqRegistration in [1].
-> 
-> [1] https://gitlab.freedesktop.org/laura.nao/linux/-/commit/c78e296690e643b790fb3195660f1229e3cdb5ca
+> Fixes: b4436a18eedb ("media: camss: add support for SM8250 camss")
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-I believe there is still a race. In this code:
-
-        if self
-            .state
-            .cmpxchg(IrqState::Processing, IrqState::Active, Full)
-            .is_ok()
-        {
-	    // <--- thread is preempted here
-            self.irq.reenable_mask();
-        }
-
-If the above code performs the cmpxchg, but then gets preempted before
-it runs the reenable_mask() call, then another thread can come along and
-execute:
-
-        handler.state.store(IrqState::Unregistering, Release);
-        handler.irq.clear_mask();
-
-clearing the mask. Once the original code starts running again, it calls
-reenable_mask() even though the state is now Unregistering.
-
-This incorrectly leaves the irq enabled even though the
-TyrIrqRegistration has been dropped.
-
-Adding a lock around these critical regions would solve this, because
-it would make preemption between `state = Active` and `reenable_mask()`
-impossible.
-
-Alice
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
