@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055906;
-	b=CctOTYR9I7yGq4kUU3vGuQzdU3y41rXB0eFEa7c6WmcGAk2JDxHAf1ThzeGWjpANwvht
-	 PP3i35GGoyS8Lh4PfU1ZEjgD8R/NIjGckvKNWSHRbCvPakN2i7qe2Aj7nheRs+GlaURpp
-	 qKamGvt/FTW6GgioESB9W4s9w1lnemgMtFomTeKogEgJ/JqybGSqfq49wcMZRCXfMSArq
-	 RluVgyQm4ckcUg+JgDTAmc2ciSuiAk9Hj8o5zjzRLBtd0at70tjoHNXTYVU6KXrNInp6V
-	 wGOElBLeCV7Bpnf8wcJbCRC2/SaoGruwfj0MV7xSzHXsu+i5n5rSAjHVwgWOWwGvw6w==
+	t=1793055916;
+	b=Ve3pDYKitpN7TWAUC8CX5Mdq4/ra2OSqnhh5FIp0NRZ3iA+PI1FzV4aiP1LlXmbBEPE0
+	 UW8EpjNHaxXGDy/Y456zpGmV+wRCXATx1j4mhAJm3gHcBzWPYnOw2rZ8Y2KHWGT7BdvWw
+	 597P9xIt2QGJWO8ypI2T3K9BtBj0WAq8PZeLPCZijRe0U2gCJMokdcWLnQF5Hzly5b5ev
+	 baTiKTyRVrZ2+BGobh+3q8SdvLbVAjaQjDHGeAkhWd3Td2D4JnScK18nAOJDZ2hq18H4y
+	 jv4YySreE90/20DWud1ur2mcnooMFkNwWeKpjzsm+hJmJz9Cm/oiY/8t3rbKQRVZHLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055906;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mS8o8LE6/P7UzDYNIS5DVu7f5ackztetuCI0LIcPVJM=;
-	b=bKDyFDVQhOLJfDyi5AYLDB1psd3eGNQRMrVCAdTmb165fMRBtijFWrInujDUaPcR6Taj
-	 /bAEGVCMb4dXv7jyB9xPR8e/6CAAZ7b390f+60wb/ll0VCS3faOAtuvFd763OiazLR+AA
-	 hrD3IMRNTf844I46jqKhJMsr53qdSpAQP4hkRSzEZbArlHOq2kg2QRljmSdq58ouXIbN+
-	 YtqZkbJXE7JOCYSoxABKA0LJ9Wxmmj9Afn9BG5uDESxCzTTt+ykQRDKnXu2OONhQy8ye3
-	 xmlQTQtz4Ki3MUWDqluWMR4M3Fzc+rvSEDky1MgxBJLppt3p41ECvQWN5ywfyh9NcOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055916;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=u+pcA88uqljIuM4J+8W32stD+B35hyJR5+c7Ut/D2VScHyj7d8qfRbiTVX/dqkIRpVDF
+	 QckkfzLo/L6Uh2x9FmyI81EsNMW+6xBb8zEvqlN0dHki60urajDcSTyIfD/2HUB9DwdIl
+	 J0kIQY0q4vf4L582sFzAon11mVPT1JOJsVRFbs+GA5OdqF0bVvuKegRvYD78QOfLYcuPj
+	 kjVoPGtzWPI5GOk9nLo5lbAx1H27w8Q7wL+q9js7mB1V45p3rmk2gd7dd9RbQRB+MtS87
+	 3yOokRnLl/WNdwTRZFYjU2lgonx9PiQNVBIGtlZrFkBXDVDtynUN/Q6XrB/KnCTMiDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=sBzeQInx;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgCp+P8y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834C4606A31B;
-	Mon, 26 Oct 2026 23:05:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 834C4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0486E606A31B;
+	Mon, 26 Oct 2026 23:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=sBzeQInx
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jD8NJ6J04z1XM30g;
-	Mon, 26 Oct 2026 23:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793055900; x=1795647901; bh=mS8o8LE6/P7UzDYNIS5DVu7f
-	5ackztetuCI0LIcPVJM=; b=sBzeQInx8PZvDhu8NsER0CYGZkvuTLRrEXHT42BJ
-	gZKm3LtXPTIggtiAJNalbsFDFo6KZL/dPcbgIJq3GVmHdEbqo7ijsF18hD0rSOkI
-	b95crvdw54jp10BaWbu3fBaL7kQTkI2JVMKjlcR0G3sWNCLpnorx3HT/SP/DLdYV
-	OzXcIR5VKo1wArVaPrG6Xhtcj6b631mFSvUwuFyHcI4fooFEROYx+wjg75F1X/1W
-	9OSR6TQekBiHMhZ1dGMW+XmTQx+4yHOHckLgqU1ZrriHwiY8eWWbgfTFZzUG1HPm
-	JFJVrOEzXffSthzNqkpNYcJFgCDF85jgtGAcOaRUt+4McQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id tWaatCI9yzHm; Mon, 26 Oct 2026 23:05:00 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:d824:fc54:e646:594c] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jD8NB36pLz1XM4Tl;
-	Mon, 26 Oct 2026 23:04:58 +0000 (UTC)
-Message-ID: <78ae70dc-bbfc-462f-9c79-632b97543f7a@acm.org>
-Date: Mon, 26 Oct 2026 16:04:57 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgCp+P8y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26ADE1F01825;
+	Mon, 26 Oct 2026 23:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793055915;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NgCp+P8yU7DZ/iuJx+Xl9oNUKf3stDCxcL2Axv+GMxovwBp44dFoddxt1qBH0iNER
+	 Sdh0ZYQCQXSnduPmLEHWtbMX2E2QqgXV33SFtIxkP2CSFYl9EWdT5Ex6sKiOFsWz1U
+	 mBea+HGRt+SDXYjL6eCRqGv0uZBzoHddNJh8p8uMk4fbb8L9eosrv5M/4y4YL3vcq4
+	 SIByfPZ/jdx9Lm4mQ7nnSMkCWTHQBXtQEOZt/N7hjYHZn7G00NAhiwB8xb7QogLb6i
+	 RnVGbh+kHB4VB1Y/9hOsTTpwEFeIUw1Y4T6du5DuyHmBLRPzIXeaedMCnI6Gxv7xkz
+	 EidBavGRi7i4w==
+From: netdev-bot+sinfo@kernel.org
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH net v3] net: dsa: motorcomm: Isolate all ports during chip setup
+Date: Mon, 26 Oct 2026 23:05:14 +0000
+Message-ID: <179305591469.3327.15926756079213213876@kernel.org>
+In-Reply-To: <20261026230300.1108190-1-mmyangfl@gmail.com>
+References: <20261026230300.1108190-1-mmyangfl@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,36 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/gem: Add some cleanup.h
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261026213701.22126-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261026213701.22126-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/26/26 2:37 PM, Rob Clark wrote:
->   drivers/gpu/drm/msm/msm_drv.c        | 38 ++++++++------------------
->   drivers/gpu/drm/msm/msm_gem.c        | 41 +++++++---------------------
->   drivers/gpu/drm/msm/msm_gem.h        |  3 ++
->   drivers/gpu/drm/msm/msm_gem_submit.c |  6 ++--
->   drivers/gpu/drm/msm/msm_gpu.c        |  3 +-
->   5 files changed, 29 insertions(+), 62 deletions(-)
+Hi!
 
-Please consider adding the following to drivers/gpu/drm/msm/Makefile:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-CONTEXT_ANALYSIS_msm.o := y
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Thanks,
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Bart.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
