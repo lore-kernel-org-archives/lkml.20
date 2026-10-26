@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011124;
-	b=2WUsum7LNeuh47OAhHU9TPupUKge8i+15KM9YzfACZv5287XliKE0GVdXtR3usVfY2Y5
-	 o7ZAXYfbr0GzE9Z2sbW2HNlVZ5znEO0cyqpMQY5tgj8IoZqKMinxLXq4C46VSN7PeZhpY
-	 Ad6w/iXcJJ8JUiTBxQOa5LQN2Ht3iFDvbbCeMsV77dXi1xpFwQd++wNGs9VY8nLiyldpA
-	 4EVUlfGbqkN+cJK/dZV8hUFRPReu+hnyTUIlkVgMAe6vSuBJ35Gj16lwckK7VdduQuObG
-	 jhr9KVyLKx1WEfuf+LvaXmY+IqvcaqvrVtLVNcM/N9BfEcUrfrzvVjRcJsLJA18gmzA==
+	t=1793011130;
+	b=wqA0VjXeive9Qt+wF9cDBJWThYcl05IzV10m4LoRdB1HGnO1gU1jvxXfQgTMyLEF4BUc
+	 UHKsgzh1GUI6kZS9dlmt276cre38MiGFoY4C659w2yfQAmNvoC+vTwLQQAeZmxSvyzI7c
+	 SLh2i0KDWsEBiZnydXNEIQ1hud4Rt3ZbC1mmiPS0k5+ZlHbgut9Uc2iscWLJKfCl3UVxA
+	 3ZcwTaP3JDrXZOi4xJHHeZHjbHKb/8SlbXfhTbbI7ur7epDRfi0ELLXCuDbby8gydcZku
+	 z0+DanB5YMGP970ul9x0AjU0Y92crrMpUHHpDc5hBTinz/JlXW2lY+Q5HxR85Rt5EGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011124;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=skVw1yfqLZXOPzWoETXOkA5tQYujR3wIhQszB1NNCeM=;
-	b=1vfYOrHKNC5cNPQ7naAavDGIiuYE3ybX1Ax1Rk/lZRI7QvmlQHvt10NgFDsvTvUME45t
-	 Mb3yVWzepBgy//I4CwhiyNfHkabW2g12aDXR9dgkrDPxbFRW0Bp0ex/HW2VEQwJ40RzWJ
-	 +AX0BR+Jr4C5vOS+0p4Nhr75462NP+WYJDVGY98C4PtwcyKghlaQwQDvULprmFUcXdp6q
-	 8rRmlXgC3cAen6pcLUxdeHFNQJdHhZpMilxddfrqJsZsQF7xi8njrBCaMFZuO5v0gVYkW
-	 9wRA4cNTxK0RtX13JB4aSPiQ4MYCRiVEXLy3+9f2rMl8O+kGMao2/5kt3ef/4yy6dSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011130;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/BLhE6A843KDT8+y0mtaljR3lPY00tdB/4nQapDfY8E=;
+	b=3J7fSOQL8q+gM2Qf5MJgKx4BzOFHFAohF5ib++s2DXvHP0aJz8BJWgKrwUZciYCiK1FH
+	 QcRGfTtTLp/m6vgRtq9jLTgiCtMQUh3UaRgPhGcF5W2TPqaM9grveW0kr/ZGbLYbP5ejG
+	 pno9lN3MhghWpMjteynLGzJDbYnwC9w5OoWHxFHQcCsQQkC7hxokADOTSpKmseTjA4Fa0
+	 3XDcNPYlmjz6PE8YE0n8qEZ7IXPaiMs6nQGUc34PHPnLUYVMCUNjoshI3+vaCaOuuTX1r
+	 YAi0B8ADxyyQLylh6rWd5iauIRfHZ2EvbZT7kpktPyKDMSl4/MVP/r5osbgxL3hZ4Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UltD07cl;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DAokXhrI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CF0606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9CF0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3647606A31A;
+	Mon, 26 Oct 2026 10:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UltD07cl
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so16893015e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011122; x=1793615922; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=skVw1yfqLZXOPzWoETXOkA5tQYujR3wIhQszB1NNCeM=;
-        b=UltD07clBw2g+Y1aJYem1Dl1rIWB1uh8fp7BUdxaZ4uc5gMQGC1HSwdgOUYeOP8/dx
-         2TkThOJk1VP9OMA2ajX02tpdaLLAa5XG2w8XHnfR99TLeHIhpp4CUSsvJFI/9J5IGG7c
-         pGzoT7+hbDmAEe+Lj0blTQX1cy/K3pYIgAmUvAI6NR06P+hLyHXNoYC4EEOjfsP4PddJ
-         tykQqtvjlvbunzbk6J5SlUFpbGUQcZwwcJDkjq9SfqJRVTEvOT2Jy/gP/WwtYNTUMPH/
-         6Ls8CKv69hJpKI0qEtMEemKuUne4ij183SbEp3ZiQq9ERIHvQ8aSHt7vps2ehiKxt4rM
-         jK8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011122; x=1793615922;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=skVw1yfqLZXOPzWoETXOkA5tQYujR3wIhQszB1NNCeM=;
-        b=Hl0ABlyx1qSJNfy7an8nq74ec9MPhdafsBRidbIHPoZUNbbhojeTyDWnhm8GiKleSa
-         KS+fnHbc5k2/+bmu3IGtZgI80I6lrFwFrDAb5x1R0Q75F7V1G5HzMBlh6uuabsceUhYq
-         gmPm+JwOfLszesAj2hJFfLaAKNByJfaV97dMNtJRQexIRS3tmXuX5mdcFY/SizR2nY3U
-         KLm5y/rUtUy5aGMC6VIK0Nnxr88qB9Eel9eLq9L/6/ToKPLt7cUyJfngoBxLWyx3Z6Cy
-         8IzhyrCi5gNRmZoghcaNrjafiNiR6UKwxNNwLE+NUCennGa81eXKBywYq374Y7DQwaw+
-         02kA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHa/wkmygs+N24+ZGlqnHB0fE0SekuIRiKZ5vJahj64nTF+ByfqhbtqoGYqTV+iXmWvTV2eslj5fJ1zPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6e4qr1UgetHKv6/zsCNmovzdGfvNW4Azd5gQ82LSx4Sr3LP5G
-	1kM5HHp2FvoL4ttR0X5mVGnlbaiiTgFwnGVS5uexwE2lV//d3IFcYgSH
-X-Gm-Gg: AYBFou0RWZ3IzKo9BAxwri6PoC4MTwITBDx6IzkM6hF3S1M43BMgS3ZlRmBbUnwgcHT
-	fZ0v3eXCPgKdHqFq2rKlG5mDOYdwxB3ad4Sqb4Kimz9KjwBiaQ8Y2kkKK1rQ0YFXtys9usyxhhX
-	K8bEupzZBNvDvXKLCJqnpAKUd3h4mQPziofId8dKy5vsAnyp8bS2B+fjWHkO68SJ7ums+p4NNWn
-	z/mAogoJXq9F45+E7UyYPNisAJxdw5mZzkRnSNatAaWXzF0Z1N3Oc1fpiTP2Z33mpB0cSR5wUgO
-	6QnnQXAObZjfYQX0XGQjOPTYVQPJ6RjyuNdIvnLLFqZi5hI9F0WHtFT2c3K7s4s6+61LeD4ubmj
-	nvCn77pqQm3A2z2CxSEKj1q4YG7v+eiN/ZZQ/jSVGhYfZl230mjPYf3U9h8JBW0f8zCzbyJ51gE
-	T/lpdyxvEwRDIV87kzpDmgNDA3SMG+Zxq7B00jp0ji4zMLM2PD2iYGnFZo3m62krGIfBb2+Bpjk
-	eQwyuEwxIHS+pBK4bK+nMU9/ySmAj1m1FNZ/s4v676t/dWEVvMt/lY9Bs2q2NtMxePpY7B0HR9j
-	Vj8gtbi9BljmSUwYueldzUneXcIdevk2PjSkFa7Nr4YrpmOaWbizhYf0Q1pXnG1e92u1td9SvHw
-	rjjy6MW7uxeeLVlqyy0VgFDzKbUrUxe5ZciSme4jfubeFgkE+GC0a+bQp7O8r0FrqsNETmbMjfc
-	rfTLRVd6vlkPFau5xWJXV4W+e0RdKCoi1F4q7dwntPvlVq/V4HRMbZk+KpFF5Pew==
-X-Received: by 2002:a05:600c:4f56:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4a5a5cae166mr78474005e9.30.1793011122095;
-        Mon, 26 Oct 2026 03:38:42 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a293sm184743375e9.12.2026.10.26.03.38.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:38:41 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:38:31 +0100
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: sx9360: keep the IRQ balanced across
- suspend and resume
-Message-ID: <20261026113831.00007f06@gmail.com>
-In-Reply-To: <20261026100450.17023-1-kapoorarnav43@gmail.com>
-References: <20261026100450.17023-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DAokXhrI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431F41F01825;
+	Mon, 26 Oct 2026 10:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793011129;
+	bh=/BLhE6A843KDT8+y0mtaljR3lPY00tdB/4nQapDfY8E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DAokXhrI31jxzYuScbo35XEhEcxr79cZ8kAnkbToxT9/ue8/BqmP4QcZTyIgwFr4s
+	 WrQDTnU4Z7PLHHPOo7V1mQ9uEoB0nciISo4EFJJ5JwATLvAz8R+NJCvNCfvC07PDBK
+	 Row6ghd03Z7AzOD7m5dxYks0nXQoMHfyZL5kIGiP4JtbjhQMcMmgHLMAEOFv0w2VQ2
+	 pPcjKjSp7tIivkSDIrkJG8v1k3EurLoxIGf2HGUR4RdOMB2QPDN+XQ3T4jdZifymE2
+	 SKGIZPqarIgIR9sUUWwS9qu2oz3PnM/GKk3Ufmwg/dbFuX2cftxjpQh2XPrlUlhZZD
+	 oksob1U8ckOHw==
+Message-ID: <103481d2-f75a-4982-b9a1-3592cda8267a@kernel.org>
+Date: Mon, 26 Oct 2026 11:38:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +51,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm: generalize PUD page table allocation
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Arnd Bergmann <arnd@arndb.de>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, linux-mm@kvack.org,
+ linux-arch@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261014035910.687847-1-songmuchun@bytedance.com>
+ <20261014035910.687847-4-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261014035910.687847-4-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 15:34:47 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
-
-> sx9360_suspend() disables the interrupt first and returns with it still
-> disabled if a register access fails. Resume isn't called after a failed
-> suspend, so the interrupt is never enabled again. sx9360_resume() also
-> returns without enabling it on error. Without an interrupt line,
-> client->irq is 0 and both callbacks act on IRQ 0, which the driver
-> doesn't own.
+On 10/14/26 05:59, Muchun Song wrote:
+> The generic PUD allocator assumes order-0 page tables and zero-valued empty
+> entries. MIPS and LoongArch need pud_init() to install their invalid
+> entries. MIPS also uses PUD_TABLE_ORDER to describe the allocation size.
 > 
-> Disable the interrupt only once the device is asleep, always enable it
-> in resume, and skip both when there is no interrupt.
+> Default PUD_TABLE_ORDER to zero, honor architecture overrides, and invoke
+> pud_init() from the generic allocator. MIPS and LoongArch can then drop
+> their duplicate helpers and use the generic constructor handling and kernel
+> ptdesc marking.
 > 
-> Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> This also switches their user PUD allocations from GFP_KERNEL to
+> GFP_PGTABLE_USER, so they are accounted to the active memory cgroup
+> context. Allocations for init_mm continue to use GFP_PGTABLE_KERNEL.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 > ---
-> I'm sending the same fix for sx9310, sx9324 and sx9360 as separate
-> patches, as the Fixes tags differ.
 
-Shame you didn't send the patches as a series with a cover letter
-given it's the same logical change and that it concerns the sx93xx
-series.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-Kind regards,
-Joshua Crofts
+Cheers,
+
+David
