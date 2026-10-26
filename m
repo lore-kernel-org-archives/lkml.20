@@ -1,73 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028744;
-	b=vK4ggNY0TbedSxdaUhLs71maSBdFCwiR8TZzd5sCBeFvjg8iyzNAfP2gGr44Rka7njax
-	 OeeXlIDzTIXDRAjTpBxPbno/w/PtOUhXblF/7O/biRLTrvZJwp/0AFv56PbeMfcTfd5By
-	 hLcSFUhFNAFyRWbE5aZyF/jlFuIlUJo7waUN06V1nE1l/noE7xmbOA6nxpGgXI1qfC/Zf
-	 JuetcKRri7SoNS0QLQ06wlI0Vwnx1W4vIUJbGST1IK8ziiPJgrrC14bMJBKtyng52UIjZ
-	 63t1SMVNvlpm9Rwpoq9gTch7J3QmMNddKOUXMX/U34Y1KSrDZvdpu7SQjOXqUEI4a2A==
+	t=1793028780;
+	b=iyyPw39vPa9+l4UlAFNyouFPvDI+Hbdri/h5ewnQJzIrK/q8p4qZ904yDjMk6SDfaX5+
+	 joTaSf+5b7FONnXZ3Yi8ES6/TP6OIyZ1+7EOmKIsv1vXsMsjGdI3wNTJEMbMOmzuny+N6
+	 m8eWSVNai0y8VG2xvzDBWpaHczlWvgW4pkZrIugUurnIdC7HuGTwsyqTtkDoeAFvWwpV0
+	 rVAUxOBWnG6sLx9v9ouwy/M0zGmeL2FpOf+gmfhAgt/3qFV+EE4jw2luD9lZdDSfDDPA8
+	 Yy1IxYxKte/wHMvzY9E+sLKR637ZJhuf8RsMItHK3bXYsZwD/Mrj5REugW58lxfJ/hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028744;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=xsbZnMuIwZGVt5Zv5ZprAj+CulDRMl9ek0Cr3wabECE=;
-	b=aioJUOENummFgWbxmJkECtTRt4L8LAjzNEt3ter0Ia1VRrAiSobwIcWqt2GkmM+DtXm6
-	 lk8fAwZH2Cer3nn7kYJlz+0a1qvUfU5/nrqgGWs33tBFzLv41Et1DdWFNnzXMzipgxLpE
-	 771fy2wl8ZNSq8jQ87j46PpaHHHHEP81J6e6TS1KNlvdfLQ3wEiZAM0bYVcbpWQwxxMjQ
-	 C+608f6qY6lHFOjkhP+/sp35JbzvB7d0qcnVIo/1fDBbe24Yqh+H81XQfSaGX3aMsOtb5
-	 0mIYlBGDiqLLHdtbAvVcX8t82N8vaLin+dxVZu7f9YyWoo7snQB9a3UZa+YcgJQbWLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028780;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1L/sRvLXXTsA81LJd54Ga7im1P97da+8ZFczaoojjT4=;
+	b=dKhqy+C/lS7rhUgh9ACk6QNfG5NoH31aAzJQ4u3W2MCjoiaZgFgQojiyAjQH6Ww1nN9x
+	 gnCVq/9mDpf7yju+l6drRxs+4KCCTmrGX6iJwaxjFa2kctypJUHMJnsgcZQ4d7FxALb2F
+	 cSzVarFG8SPIZ4LYPVvF0Sh9gKuAj7PM9Mz1KbKZWHfGZxsOidzM1YsB4WbUYxDE9dPt7
+	 hAwvo8wsvQv4PK6Z7OWvA+BXbZH6rwsqZIp34fOJW9KIoTEzjaaJiQqTkKGvg7Rj5H7kG
+	 HAWCZN3Mxpcq/mmEsoc+LrcnBOVTXLXMABYvObbw+kRz8/ZSvRwAcVk+yWM5/dtkjww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IoRI1Jhi;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=LEXAjWIR;
+	arc=none smtp.remote-ip=115.124.28.77
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46DC606A31A;
-	Mon, 26 Oct 2026 15:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B46DC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048CA606A31A;
+	Mon, 26 Oct 2026 15:32:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 048CA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IoRI1Jhi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xsbZnMuIwZGVt5Zv5ZprAj+CulDRMl9ek0Cr3wabECE=; b=IoRI1JhiV7krpPaiUcxvPCmXe3
-	MHJ2c8wAUT8DD1SCTpRiFg5MO8oddSvRs1ceA6w6L9f9kt50vm0hN1TXTC/PVh4aToQJVjJHL4uUB
-	msUFJYVS823574Ow0sELheq2lw7LdPQt5li8A2fj+19yN7wOlqtv5HvLcM3zeVP6eKctNFVcCBmg4
-	PMY2j6JjeyzOy5P+bsbRBBnIXinzGIEOvf+GPqz1SAM5+p3wqZONII2C0tRlr11xZOcRApuhOcYBK
-	1nCVJymXCF+bTTB4Z/X4KURwy5QkwfxMCU2kyYdKmzDmJArNNaV5cbEVQvqMlZaAtRgwkLpD9kDJi
-	/s+6R8yg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLMgA-000m23-2K;
-	Mon, 26 Oct 2026 15:32:06 +0000
-Date: Mon, 26 Oct 2026 08:32:00 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Sam Crossley <samuelcrossley@gmail.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Petr Mladek <pmladek@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Paolo Abeni <pabeni@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Simon Horman <horms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
- demand
-Message-ID: <at9sdzpT1y7ygAbR@gmail.com>
-References: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
- <87fqxskdpl.fsf@jogness.linutronix.de>
- <at84qygscue8crQi@gmail.com>
- <at9mJoA8ZQfUCFGw@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=LEXAjWIR
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793028775; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=1L/sRvLXXTsA81LJd54Ga7im1P97da+8ZFczaoojjT4=;
+	b=LEXAjWIRqKoe9RUBnHSGTolAlfutbKEPwLCve+dRKf4NnI8crAgT31fR6xeU224Jq31/6B1Yfz3by0o+fHvFClY8rr5C5I7REhGL2WcdOW0DL1z5jFCaoSUptRgZpPNeJ444KoiOw3aTINVTtiiHpb+CmKbQ+YikpqD7Aw8mTUA=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08317636|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00846258-0.000433577-0.991104;FP=5752320225235176881|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040092104;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jq7I2l2_1793028773;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jq7I2l2_1793028773 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 23:32:54 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Lee Jones <lee@kernel.org>
+Cc: Weibin Liu <liuwb@xiaopeng.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	mfd@lists.linux.dev,
+	Guanglei Zhu <zhugl3@xiaopeng.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3 0/2] mfd/spi: sprd: fix ADI transfer length handling
+Date: Mon, 26 Oct 2026 23:32:51 +0800
+Message-ID: <20261026153253.689525-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,25 +68,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at9mJoA8ZQfUCFGw@chrisdown.name>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-Hello Chris,
+Thanks to Sashiko for reviewing v2.
 
-On Mon, Oct 26, 2026 at 10:39:34PM +0800, Chris Down wrote:
-> Breno Leitao writes:
-> > So the next step would be to add a basic /sys/class/console/, similar to
-> > [2], and put a `replay` entry in it.
-> 
-> Feel free to incorporate an abridged version of my patch with my From: in
-> your series if you like and we can take whichever one lands first.
+v3 only rate-limits the two new invalid-length error messages in
+patch 2. The exact transfer length checks and the SC27xx caller fix
+are unchanged.
 
-Thanks Chris.
+The separate, pre-existing issue about writing back an uninitialized
+value after a failed ADI read is intentionally not included here. It
+is independent of the transfer length fix and can be handled in a
+separate patch.
 
-Your patch does a bit more than the series needs: it also adds the
-loglevel entries to sysfs. Would you be OK if I trimmed those out for
-now, kept only the basic sysfs support, and preserved your authorship?
+The series was rebuilt with W=1 and retested in QEMU (aarch64 virt).
+The length matrix and SC27xx software path remain unchanged. A burst
+of 32 invalid reads and 32 invalid writes emitted only 10 messages at
+each new driver call site. QEMU has no model of this hardware, and no
+Spreadtrum hardware was available.
 
---breno
+v2: https://lore.kernel.org/r/20261015-spi-sprd-adi-exactlen-v2-0-13203b6aef7e@xiaopeng.com
+
+Changes in v3:
+- Rate-limit invalid-length errors as suggested by Sashiko's review.
+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+---
+ drivers/mfd/sprd-sc27xx-spi.c |  2 +-
+ drivers/spi/spi-sprd-adi.c    | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
