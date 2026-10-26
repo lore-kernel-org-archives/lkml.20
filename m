@@ -1,144 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009264;
-	b=p/tTQAl6Bdz6w+Dt3aKbiSBnc+vUpPamyIXyNK49LVIs31f9kn7Fvk/xsLoa9UkIkwex
-	 6sXFatAPw39S9RnMwqrApj7XNJ0R0QxlbQ6scL9Kf5d4sqISO4ctp2jNkfTKShuv33fqI
-	 1Jx6cy/IDmWmiOY7MeXhN21jdltm94PbmwaGZJ/8jYUWbEMPXI438uoN+lascUHb9hGjN
-	 NwqFJHq15/k0B/MHxxfpq9C8XOWLLnShje4A6+WXo4VKJQHL26xtjn5eD1F6jxqOi5JOn
-	 F585WN373c7W9UbBx1nm+wITdmCPnnaF3JfxZvfC0pnTOQta5pzKTfoXfqmPvQ/3uYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009264;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-	b=0qMHdTzrPOQamRfEmOYQ24ZGVL5qImU+qsu1MkPy31IsHVJMTXWOpyeaAoQrekjNovUI
-	 TDmESYKcFuDCpL0mkO2YlhDck+SM3dzKEWC2TDeeHuKA28ugHAvuYSTIbjB/n+6bnuNKz
-	 2qs0kLkqDwtma0NPRjX3kJI5N/y908ORkYvMo3H7QaWTd/omC2snZeuoGVqnebXw7CGJF
-	 99mXTM/b4z4UZLPSseLQhu5qHZ+0tIyMhL1XSQ1HxPWDrgp6774lzyyKn5iBHjvLY62KO
-	 rh8Zp6+DS0+6oXmCMOqGygk95Q9XWiSQOSc0dRHsKwRySOVPZFmEyTakh3aMDNJ4mvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RermaiNu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mvs0brTc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793009298;
+	b=dn8stK4O7U+Q/wszSaAfn76DZ6+LtIkwgqLUtcDJJ7Ga3DVstyphbrcgCpCRi4S2FaaT
+	 Gau0zFnhk/DcZQWejRAnu0xuKVnJv54FvTvrfU9w76Ov2DAwoTWIJjBhUaUsz/QumEAEX
+	 rbyLDNLga+pTz7k8QLkkAvqW+y32R/pjle8FWvAmgRmhtRhIAxYQKG6u7n7WARc8hRgCV
+	 u/tj42LIIjEcepRKjVrnQmwzFRT6h39gOIf6gp6ZxWq7YijbB8lHPDGCqFY22hd5cQmXH
+	 errSSoCRRxeTeWxOaPcxAYG9QOxPjxvHcYbbndFnx/Q8lKFzlJGCavaoM4pJiwfAllg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009298;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+	b=OxPIEbkLAz3eDrq26/FuVX+0hgucrop9NQa6yv/WOmGvRcPQ+NU5OasLuz4lYRuL4+G6
+	 qkiAC9Au+w3jwlCshz1suOhJEwbb4oCi3BgbYmO3bhafDglVPZL1tGK0jK9X0YsAT8Qhn
+	 CaAdMW+HO4aRZkan9pRIAB85+XbbH9P9gzPVtSDwQC2spHvSlEMK6WZAreHZoHGBUjXW4
+	 8jgEYNisi+c0JgDR6P8kl82RPPchmsF2rtS5Zwx2aqm0GGFpegYJ2u2aimLH1xNcydb2g
+	 VtWnMlfAKCaKfhaf6wxEO/j7E8XbNtLnDzpdeKenewmgka2TP2I0hGoaCFxYTw/Pq0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=outlook.de;
+	spf=pass smtp.mailfrom=outlook.de;
+	dkim=pass header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013073.outbound.protection.outlook.com [52.103.35.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9AB606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:07:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F9AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266D4606A31B;
+	Mon, 26 Oct 2026 10:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266D4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RermaiNu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mvs0brTc
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4au3i2255130
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:07:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=GnGg3CwhR38uGbReDQYTDKY/
-	Dc4Njz+sxG9mC0bWH/s=; b=RermaiNumI6rQUJ4BUBComPJBEVniwoJh0VMlc6L
-	zi8lY4wo4UkHn1tu94EH1c2wE/7KGgmysAno4bo/lleCg63U8CmjHFLWK9QouH1O
-	YqwLJQKjvKHHKyn/QDBQvxD5RMNH0RRPk6f+b541i3J5cDRx23yunhFNdcOJHUUl
-	BhjjLC2wqsPkZ9lXYJ1SeV8LnyOWq1ZuuK7KZxf7xu6Qbq0HPN6yrB5I3LHs44Qs
-	WSwK9lOVPsbzYhLFRb50iRgeRrew+XmBUFPw5vrkxUpcwTSJD5B5l5qNHtlXx13d
-	GE4mUhKllt4PYqyf5veLfeemSRlQ7vWnM9rW8wlISiPNfA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3ntut-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:07:42 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-988b86c66e5so3206807241.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793009262; x=1793614062; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-        b=Mvs0brTc2Om9zMc0haaxWbSyHQiaJzV5W0cTi5GIjVqDI0jHNEGdtJDd1JTedDvpv9
-         2gPzT6QkUeqDW3dcO/nWIE13LHtglL2bwg2uDGmq07hzDh0+uadTRhO81L4Ocd5p3wJm
-         Vpl0Bz9CnEUijlzh+8391R0X/7ZS/29j9fwLfBBoEbF6NxvO74qIPYCkSF7d1RahOfU3
-         J7ddSWmUCRCjOvOaw1ZI259y/FGAgh55loMC/PY+I89soHZPLKVEyEbhE2op0Kk2gwa3
-         IOf30PBt18fyBbaevO2OAVTZycUrNvJwWiCEgWO2taU82PHxgkLYl+z+e6m+OUAfiNxQ
-         0Pow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009262; x=1793614062;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-        b=POgaUZyVo8CEG+lRrECdbz16c06F0ILS8P9vqP0ZW+Is7YljslXcNX/DyNlDt7Nduw
-         lOF6eh36/t/yRQ7x3FOPczcqoljjmwqYRiyuyZQKWqpQfUJVxkdXvYuBoAh3QFxqu34z
-         2+bDsESU6Sy3FhF+JgqSB4ZmaBk+Ne6nTNbdYlFSU3J85x76MM8KuxWB99zY1yTc0/8+
-         rxQpUqOiA1Ynq1uisK8NXXXag9uEh/rhvpdleKLlifaPJQapka9C+K2CRwYm+jPUtEPt
-         faEXI0hRehCqfCKDRATrb/LvyuMBA08LebQvwb58qyiKdoQN5UuZp6kH1P5c4PKVsDDj
-         +ZiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDM4NF0zOp5GA5TUtfQByDaQKE9pr/bbWu1a5CBgsTKg/lCTSnqjy1fYLtpIqf2Hz0V142RQqlIELMMUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjREkW6tVnCdZ5PWWddKR20rL/IOAfVUG8nWaOAzrD4dUj032h
-	1hDi91cXQkYzXrn+qswecfoMW4Fy0WapMWbvMf4EQGPK1WH0Q792mKFkG6K3snQ80zSZakUNzD2
-	Q6bSGD2ziJAOGBdk9mf4SLNL6wi5k7PjE6XstY5C2V0TVoE3Sw+zhWQZi+6NBFgnj4ac=
-X-Gm-Gg: AYBFou02xnbAmJ9bVqGmssGY/6Ppqwwq6J6V+6uNcq95+J4F97ixRBOWz+ASKv6YWMV
-	czGX4NyiFdLiN6FIIj+X4amxIP71UFyV+imzn2WvkXql2ZvWaeHIPbA7e80245l3sy6rOUc/TWT
-	535N4PrxpWaHehcXblZ3G3bDLY8tRGEp7Rgo1Kyeqd6D8wZ5v5WeFtPijVzgk7iqSHOaInxauwy
-	FyWmnNSVuwujTvR1U9OdZvNPKrdJMdEMrAgXi3C85yDNgiblYylhvxLNLtqiLe7sLTdv+QbpRVy
-	yhmRy/bTGzrNva+NexLTKVRYr3zP95QZiypNn62pp3O3bQtbkHOEptVlP6dQw8GTB/Sj6TTfAQd
-	wkQtTus9WUL1RopWQXyolSw68n1Ib1JA9QNOCvskTYRuSijFWQ5QPqw1J0EVZOlvvgZiuSdLYgV
-	NJCPQ6S82uGF/S
-X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id ada2fe7eead31-7ce5cd9e89cmr1435448137.26.1793009261549;
-        Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
-X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id ada2fe7eead31-7ce5cd9e89cmr1435438137.26.1793009261000;
-        Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a463f5sm16498211fa.36.2026.10.26.03.07.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:07:39 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:07:38 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 19/23] drm/msm/dcp: Add Qualcomm VirtIO transport
- wrapper
-Message-ID: <ib5ts37i4f7qx4wqoscawrwnpeld3pcnarb4w7y3z4b3kolgkf@5avoy2fyp22l>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZN6ssiP/qpxt1+jIDBoBGBEH1kvjuj/vzLUqpbYawT1MxL9npes0JP4MkDoKXm+XHxS+arm3tUF06gQW7m1UPrrqM40HaLztDl7RXbITdbSrYAHsKWq4zLQjgNgm2qGO00nXxFa3OFdEIIKbFrokcv/DYQyJJsQPrdy7g2+Pvp8TGI+n5uxvELxQFoZDTBtDhyu16Gmg+9s17RztKVop69Hul5BNuuWslf/nGdnKuAE7KsG5x1Zujq0z0G5Ivt8rHqRxE/0Ykaezdi5LINMPh59Bg7cpziQivmGLTy3bjJvXa+fs322Z+gI+WRdc/69qaTCy6v/9kaeZS/4MJUHRKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+ b=K+Y+vGwW41SkWx7+9kawhKv/bOupNXj6Z6sVC+Vc8M5AR0nzMdGeUiO/Dk27/q7LTj6cPWv3KcCTBWAyxnJ5Z0oRzhwQnItIJSmCbncVZT7QzrzXhQgQV9G6ygG39USnpra1eEjfqDj9rd8WTxQA3rCAV6YHSs6Greqljjc1ZJPEhODc2BbPpK4RpgvXS5SCvy1ujEDGwxARkqCy0Ve6Wvre7vVlGBGrCE4lFwRUdjZvMVR7Y0o+4Grq41CUG3sVlWhdkugYQ89B6uTKt7PN/S8BbHlgwbuSYRIKfGpjv8IufxYmBJaarHwmJBw4BTvJ+s+okdvV9pZasFjoSPh+DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+ b=RCBlX9svj7XWjVZdAkUUDAc/GIWKeCQY9rk43pZ81yZP1jSxtdnnrZg8lcGZnpCMGsDJPCtcWDgAVTRfvY+KmhpSjwt71zrUAIXWiWFUYJ8Gwx+3s0hVELfTs1YGNpjnP7pnpUC9Dnp4D234YkzD6a7RS+CbsGXuXez0/u2MruQ0DKmzCtboCVOdAMZmMwTWzdGHTqo+QFAo4pGGj7GFiCO+j43MWMfV56wEUtalcKDBiJBPMpJpMKx1xta2MtC8EKAg3mtZiXz+OZuNnbVZgVhfaALmpWT4pCpTQ7Nhw9VCwqinR9syRFyIWhVJ18ZO38Nzn35fr8mQBzEo5jgp5g==
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19) by AS8PR08MB9361.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5a8::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 26 Oct
+ 2026 10:08:15 +0000
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5]) by MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 10:08:15 +0000
+Message-ID:
+ <MMZPR08MB549315DB32DCE8589A27E461B5DF612@MMZPR08MB549315.eurprd08.prod.outlook.com>
+Date: Mon, 26 Oct 2026 11:08:04 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+ khilman@baylibre.com, martin.blumenstingl@googlemail.com, rafael@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+Content-Language: en-US
+From: =?UTF-8?Q?Christain_Stefan_K=C3=B6ver-Draxl?= <ckoever@outlook.de>
+In-Reply-To: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0097.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::15) To MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19)
+X-Microsoft-Original-Message-ID:
+ <792d5a57-ba6f-4100-8145-7f863435a7c4@outlook.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,333 +106,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-GUID: PjQixY6-6A4q2W8eOFxuazK2Q53s78gv
-X-Proofpoint-ORIG-GUID: PjQixY6-6A4q2W8eOFxuazK2Q53s78gv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfX4YIhHtOhP6K6
- rVOh4LDJW+vFKQjyFnYbfgKFx9zR1+BbUFK4osY7jjSfEutBTLcTPGPJ71rrq4ISMUZURSfum+n
- Dee54Es8vr40JVZKaC70CfQrkasA4Ok=
-X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adf266e cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=zJVDlABOU36UOg3UFKQA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfX2szAcKgd6IVZ
- azgsmHfCwJuw1Dm6fYXju9l1PJz097nZrtdLOi8/ItdXkc8xzotX0fhX5UntaWJxu9Uk1TbAcS2
- WiN4ge6iPY062SjE/aFLdBUEJ9CqAR9VDe5DiGZpUPc+tItaaO4qYZ+phgYCHhPrn7D4a14FpH5
- hDaAj/kxX/Xi4nP9X5tc0iDGPSsGUgpjfxE6NifjtPDiZMyNSfaoOC4gJqBAAReKgebawTQVFvG
- GQqPgLT4ruErkHAd4LOIwTitXSQUKZ6nZKbjqGjntGcHjqZuGo7JyN3M48rdWzQQTjeRtoI4iL0
- eNJ/aHZhR4mb7HayiEvmxSiHAmB7KRBQCxO6l0t7RZ+14+a4fTrzadIsAC1TxDCK3seGE9RAxc/
- aa23lopcVtANCTr2donAy59Phtz5Z6pdOhxG/XI8qgx3z6sjrz52VGGnuLhheZw6+r7knmXW3+y
- PCdw9DDBAnbAh6vTHCg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260040
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MMZPR08MB549315:EE_|AS8PR08MB9361:EE_
+X-MS-Office365-Filtering-Correlation-Id: da040348-fd84-4b6d-7fff-08df33490cfb
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|39105399006|22141099003|25010399006|4140399003|19110799012|23021999003|8060799015|5072599009|15080799012|19101099003|6090799003|41105399003|40105399003|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Qkt4NHhiRmlXeE10ZklNZGMrWGtNTEJPaGxDRUF6engrZ1YvaEprZFRDNkoy?=
+ =?utf-8?B?QW9UVWw4SnRKcjJJdjF3MUhOMGlDTFVlM2JZRGl5K3l3M2plY0pqU05qS2hq?=
+ =?utf-8?B?bGVoYUxaSzh1SzEyNkNhWHRzdWdwU0Zma2JLVzVuQUlybzNuajdmOEcrVHpJ?=
+ =?utf-8?B?bGdjSUxEREIwcUlzTXRWbkRuaUFZaUx4bnZ4NU81b0VUWkpYcFpRWG5oMyty?=
+ =?utf-8?B?RDVJMjZiVXYwUGw1aHRiNithWTV3WXZPNFhWcFJNMVR4Qi90bmlYRjBMTEsy?=
+ =?utf-8?B?aDFkK0t3b24wQ1NhUHRvbDUzQ05OcDNwZGhjb1ZnQWc5bXZtdnpEUkJEZVVW?=
+ =?utf-8?B?cEZRRmQ2MUlXTzZ2bUJGck5TeXE4TU96THpHbVpjSjZKSVNQLzRiT3QrbjhO?=
+ =?utf-8?B?RlFXNnQyZ0lHTjlDeDZ0SnZEVU1FQWtQdFA0Mmo1Z1MvNERneVpoeldNTnAx?=
+ =?utf-8?B?QXVyU0V1cWhZZ3UybTQrRUtkdFhpTDQ3Vlljb09pMFkwZ1JINlZQUU50TGZR?=
+ =?utf-8?B?M3BKU0ZObGk1dTRiS1lKRnE2MWh0V3NFdUdudmtjdVZZOXQyWDYxMzAwdHpk?=
+ =?utf-8?B?ZVNKM1dLWFFQSzZGK2ZvQWhDNTJKYnJlZC9mcmxxSG5NWmJXMDdwaXo5bFZR?=
+ =?utf-8?B?N2Q0Vzk5MUg1cjAwd01TKytLbG9KRVVvRU8xdWh3ZGxGOWY5OVB1N09UcTQ2?=
+ =?utf-8?B?SURwcFBEVEp3LzZjTWN6Z1pOT1Q0ZEtnejFmVzlsc2Z6NjF1MXJlcWtuY1cr?=
+ =?utf-8?B?OW1UN0R0OUlIZWQya0NrekdnaU5VZnJEdmdSSmRHd090MWc1RXhEbmxUc0tG?=
+ =?utf-8?B?WXdla0hUYkZIR2pobGtBdDhMN2ZiK0FNbWZqbEZTUTJRNXhwdyt2OGpFU3Nv?=
+ =?utf-8?B?dGVDTVFPL3kwaGRqU2NsRmx6WFNFMXA2RGRYV3lpeUNHZGdHcmJtaHNHdlgz?=
+ =?utf-8?B?aEQ3OCt3alllemJmNjNhdFFEU3ZqRVU5aTM5eDRNZ0M0Z2k2bkY3Yyt5MGw4?=
+ =?utf-8?B?eFQwQjhzWjBJUHR3TzBqWm9TaU51VXVwTXhrVUk0VXFyQzVqamJFd1c3b0Vr?=
+ =?utf-8?B?N2NoeGFqTmtjc25iSjFBM2ZZQTJKSG1zNDNXT1FNamlBVXhJUmhXWjFKNm1U?=
+ =?utf-8?B?RXVlMm1yTnhJVEN4a2ZtTkxYaU9yNTVhems1ME0zcFhrbnZXU1BoTWNiNnE0?=
+ =?utf-8?B?QkpRc1BuQk9nNnRJSFU4cWI1RFBDRTgwbmw1LzN2VEcwWmJuU1VGOTYzRnlC?=
+ =?utf-8?B?Uzk1UXBjd0hjNVBrcDQ5S29xVHl4WThGT3RMUkZ3cnpSbnZGZDcrazZkREZC?=
+ =?utf-8?B?RUl5UFFIRXFJc3ErYnFCaEpkalVCQVJRRVAvdkxoS0N5RTVLRmp3SzdFbXA3?=
+ =?utf-8?B?am5UU0IzTENVR1RIaG1ia1JOdDJ3aXgxM0lpd3RtRFhPeStsanozcjhwOVV6?=
+ =?utf-8?Q?cKdvhWTw?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkFBU3cxQVJvUlAzcnFxTEpEdUJycWpwNHNib3Fjem5rNmpKMSsxVmh5K3I5?=
+ =?utf-8?B?SmFmK0paTFM0Nm9sQmcrU2pHeXZCaDBPdnl1MmFEckx4NVAxbXRwVkpKM2pQ?=
+ =?utf-8?B?ejJpUUxnSVI3V0wzTWFsR01YZ2xNd1RiaFh0V1c5d0VCa25STW1tZnhWSy9h?=
+ =?utf-8?B?VktOSWxFU3YvMEpmR3dJT09YS2hkeGRFYmU2TjRlbjB1N043eDFzNmZoT1BR?=
+ =?utf-8?B?amt5N3hrbE1zTVBYQkU0cmhJbEpqeXhmOFdMekQxdUZ2cmpRZk5DaVFzWUhl?=
+ =?utf-8?B?czhmYzRJR3NzS1YwSGZMUElKOVZSdk9neiswVVN5TmFEQWFDNzZHdE91Qmdn?=
+ =?utf-8?B?eEVVVXpZMmxnb3d1cGtnQzFMK0p5Nit5K1VzUDFtL2g3Q2hkSCtzYkZxeVNt?=
+ =?utf-8?B?eFBZbFpkOUMxWWxOOWlraEVwZUFvOGlJaGIwbXZRWFhURUhPUnR0enYyUGo5?=
+ =?utf-8?B?bEdtY3dReDNocjhYMGxiMmZNUkNDUVYrL291R0kxVWl3dFNEZWdESU94VU1E?=
+ =?utf-8?B?LzlsTXdtKzJCQU5NMUZpY042VDFqTTVhQkQ5Q0xhWEJIK1ZTaVpndis0NkVr?=
+ =?utf-8?B?UzVWTFVhZkJsRmM0eEtLOVdleVVscnV1L2NTYW1mN0h3ekVqWEN5QzRWZ1l1?=
+ =?utf-8?B?US92N21uUnlqc3lCNmc0UnAyYTV1MlpMUk9Yb1daYiszc2xyRW1iZDNrdFdt?=
+ =?utf-8?B?bTBBWSt3L0lwZDRKalF5RVhWbTNLcS9EbXF5cFAwZ2ZwZ1JTRER0Sk1PSGN0?=
+ =?utf-8?B?dWxUendZWUFOZ0pvWm9QS1hyVHBMYi9EWDR4R3dwbHhuMVZqS2N4aVZIZ3E2?=
+ =?utf-8?B?WnFjeFB2WHlSSkxYcS9YMUM2VTg5L0RQK0JnSjQ1WXBuZDNxVTU2TzBpUjFp?=
+ =?utf-8?B?SVRySVNxb2dPNi9tUU5iRzgxWFJDbCtNNEFDeW5tbkE5RXdjbFdpNjRLLzIv?=
+ =?utf-8?B?UDQwR0t2L1RLWktUZmRKNDVGYlRjVFI3NDZtUHB2NTdvRnJWMXAzRmgyRWdT?=
+ =?utf-8?B?aTdmQzRsbXNNNHI2d25qcGV5Wm0vL2k1VllRaUJSNkQyVzJ4RVlhUFVzODBL?=
+ =?utf-8?B?dUMzYnRxR0NXbUVZd3RBUUpCVThUTCtYc1dSSkF1LzFpSDVjd2x6Q1k4bUc1?=
+ =?utf-8?B?cnpXcDJwZVRrSjNnNG9Ga0RjZ09pZXlGWmc2aFl5eTQvTHp4Um9HdjF2RUtX?=
+ =?utf-8?B?aDREN00vV0I4ak1velkzWHUrNnFWWVdWQ1ZDZzFGRkIwdmN4Q0dEUGw5Uzhx?=
+ =?utf-8?B?WGZtcnJReG55MGtXR0s0RjNoUllJUHpEdVhyZFlnVWNrU2RWeE15V3J5TW5R?=
+ =?utf-8?B?QmJIVTJMME15SDNrUkxyRmZhS1BvVmZlMjgwSlpnZC9iQy9Ca0NBZ0JYZHVt?=
+ =?utf-8?B?K2ZCZStseDFidHBmWEhuZDFsbVdMNzFKUit0dkV0cXZPSy95U1diYmIwZkpF?=
+ =?utf-8?B?NkNJOHdzU3didDRZOTd3SXM5YnpzMzNxTVQ4UFArcStoZ2piUVkyWGl5SlBw?=
+ =?utf-8?B?NjZzQi9CZWNJSTdzMHFOaXNTMytEbk9XdEJQRU0xbXJIOWlpNVlnMnQrU1dv?=
+ =?utf-8?B?cHQ5QTRFL1hzQ0ZjQ290a3VNa3NPbXFlSENqb2E4alNadE9Hd25TaTFwV0dp?=
+ =?utf-8?B?UHBKOHlUVVFkckJmYkZQZytxVjhSVThHdk9PMTdpM0xWdzBtN1o2bkZOYnBm?=
+ =?utf-8?B?OTR1cSsxQnpPSTNEcUJ2VXNlcVRla05wVk5oa0dhdEdFa09QaEhVVFczMW1G?=
+ =?utf-8?B?amhyMHMrb2NzMHBkdnBMRUdWaXZwdzVxRHZhZmxIQ2krYkF0YWJmTGNyNVNh?=
+ =?utf-8?B?YmtWZXZHWmQwUGp6TmdpajRvL3RQWUVSYmRGUStjNDdhMHUwSTZwS0h2bkJN?=
+ =?utf-8?Q?xIcN3KgFzrLsz?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-fbb9b.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: da040348-fd84-4b6d-7fff-08df33490cfb
+X-MS-Exchange-CrossTenant-AuthSource: MMZPR08MB549315.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:08:15.5305
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9361
 
-On Mon, Oct 26, 2026 at 11:51:29AM +0530, Jayant Shekhar wrote:
-> Add the Qualcomm-specific VirtIO transport required by DCP firmware.
-> 
-> The transport sends an IPCC power notification before accessing the
-> VirtIO MMIO registers, then registers a VirtIO device directly.
-> 
-> Implement MMIO configuration access, feature negotiation, virtqueue
-> setup, interrupt handling, reset, DMA setup, and suspend/resume
-> sequencing in the transport. Keep power-management ordering in the
-> transport so VirtIO queues are quiesced before DCP power changes.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/Makefile                   |   1 +
->  drivers/gpu/drm/msm/dcp/dcp_virtio.h           |  23 +
->  drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c | 643 +++++++++++++++++++++++++
+Hi Viresh,
+Hi Jerome,
 
-This is a separate VirtIO host driver. Please move it to drivers/virtio
-like the rest of the VirtIO hosts. It has nothing to do with the drm
-subsystem now.
+On 10/26/26 09:59, Viresh Kumar wrote:
+> On 26-10-26, 09:57, Jerome Brunet wrote:
+>> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>>
+>>> On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+>>>> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+>>>>
+>>>> Every S4 speed bin runs the same CPU frequencies but needs its own
+>>>> voltage curve, and the bin can only be read through the secure monitor.
+>>>>
+>>>> Read the bin from the firmware, select the matching
+>>>> "opp-microvolt-speed<bin>" property for all CPUs, then register
+>>>> cpufreq-dt. Bins outside the known range fall back to bin 0, which
+>>>> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
+>>>> on the SoC compatible and needs no node of its own, and S4 is added to
+>>>> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
+>>>> the bin has been applied.
+>>>>
+>>>> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+>>>> ---
+>>>>   MAINTAINERS                          |   1 +
+>>>>   drivers/cpufreq/Kconfig.arm          |  14 ++
+>>>>   drivers/cpufreq/Makefile             |   1 +
+>>>>   drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
+>>>>   drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
+>>>>   5 files changed, 202 insertions(+)
+>>>>   create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
+>>> Is it safe to apply just this one ? I can take this via the PM tree then.
+>> I would advise to wait a little for Amlogic to chime in.
 
->  3 files changed, 667 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 9f0a9bfeb2a7..e1a995a8c980 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -85,6 +85,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->  	dcp/dcp_hfi_plane.o \
->  	dcp/dcp_ipcc.o \
->  	dcp/dcp_encoder.o \
-> +	dcp/dcp_virtio_transport.o \
->  	dcp/hfi/hfi_packer.o \
->  	dcp/hfi/hfi_unpacker.o \
->  	dcp/hfi/hfi_utils.o
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
-> new file mode 100644
-> index 000000000000..a9c3b9aff61d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
-> @@ -0,0 +1,23 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef __DCP_VIRTIO_H__
-> +#define __DCP_VIRTIO_H__
-> +
-> +#include <linux/device.h>
-> +#include <linux/virtio.h>
-> +
-> +struct dcp_drv;
-> +struct dcp_ipcc;
-> +
-> +struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
+Viresh, thanks, but please don't apply it alone. It would need the 
+speed-bin call from patch 3 (meson_sm), and without the CPU clock from 
+patch 2 it has nothing to scale.
 
-What is the use for it? The DCP driver should not communicate to the
-IPCC, it's a part of the underlying VirtIO mechanism. If we export DCP
-to the VM there will be no IPCC anymore.
+Best regards,
+Christian
 
-> +
-> +int dcp_virtio_transport_register(void);
-> +void dcp_virtio_transport_unregister(void);
-> +
-> +int dcp_virtio_register(void);
-> +void dcp_virtio_unregister(void);
-
-Unused, remove these two.
-
-> +
-> +#endif /* __DCP_VIRTIO_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
-> new file mode 100644
-> index 000000000000..02c0e2a9fafe
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
-> @@ -0,0 +1,643 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * Qualcomm DCP VirtIO transport.
-> + */
-> +
-> +#include <linux/acpi.h>
-> +#include <linux/delay.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/highmem.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/list.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm.h>
-> +#include <linux/slab.h>
-> +#include <linux/virtio.h>
-> +#include <linux/virtio_config.h>
-> +#include <uapi/linux/virtio_mmio.h>
-> +#include <linux/virtio_ring.h>
-> +
-> +#include "dcp_ipcc.h"
-> +#include "dcp_virtio.h"
-> +
-> +#define VIRTIO_MMIO_VRING_ALIGN		PAGE_SIZE
-> +
-> +#define to_dcp_virtio_transport(_plat_dev) \
-> +	container_of(_plat_dev, struct dcp_virtio_transport, vdev)
-> +
-> +struct dcp_virtio_transport {
-> +	struct virtio_device vdev;
-> +	struct platform_device *pdev;
-> +
-> +	void __iomem *base;
-> +	unsigned long version;
-> +
-> +	bool wake_irq_enabled;
-> +	struct dcp_ipcc ipcc;
-> +};
-> +
-> +static u64 dcp_virtio_get_features(struct virtio_device *vdev)
-> +{
-> +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(vdev);
-> +	u64 features;
-> +
-> +	writel(1, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
-> +	features = readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
-> +	features <<= 32;
-> +
-> +	writel(0, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
-> +	features |= readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
-
-Can we turn virtio-mmio into the library code instead of copy-pasting
-everything here?
-
-> +
-> +	return features;
-> +}
-> +
-
-[...]
-
-> +
-> +	magic = readl(transport->base + VIRTIO_MMIO_MAGIC_VALUE);
-> +	if (magic != ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
-
-Is it really a correct magic here? should it be a different magic as you
-are not just a virtio-mmio?
-
-> +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
-> +		ret = -ENODEV;
-> +		goto err_node;
-> +	}
-> +
-> +	transport->version = readl(transport->base + VIRTIO_MMIO_VERSION);
-> +	if (transport->version < 1 || transport->version > 3) {
-
-Isn't transport version fixed for the DCP purposes? Why do we need to
-determine it again at the runtime?
-
-> +		dev_err(&pdev->dev, "Version %ld not supported!\n",
-> +			transport->version);
-> +		ret = -ENXIO;
-> +		goto err_node;
-> +	}
-> +
-> +	transport->vdev.id.device =
-> +		readl(transport->base + VIRTIO_MMIO_DEVICE_ID);
-> +	if (!transport->vdev.id.device) {
-> +		ret = -ENODEV;
-> +		goto err_node;
-> +	}
-> +	transport->vdev.id.vendor =
-> +		readl(transport->base + VIRTIO_MMIO_VENDOR_ID);
-> +
-> +	if (transport->version == 1) {
-> +		writel(PAGE_SIZE,
-> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
-> +		ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
-> +		if (!ret)
-> +			ret = dma_set_coherent_mask(&pdev->dev,
-> +						    DMA_BIT_MASK(32 + PAGE_SHIFT));
-> +	} else {
-> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
-> +	}
-> +	if (ret)
-> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> +	if (ret)
-> +		dev_warn(&pdev->dev,
-> +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this might not work.\n");
-> +
-> +	ret = register_virtio_device(&transport->vdev);
-> +	if (ret) {
-> +		put_device(&transport->vdev.dev);
-> +		dcp_ipcc_deinit(&transport->ipcc);
-> +		platform_set_drvdata(pdev, NULL);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_node:
-> +err_ipcc:
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +err_free:
-> +	platform_set_drvdata(pdev, NULL);
-> +	return ret;
-> +}
-> +
-> +static void dcp_virtio_transport_remove(struct platform_device *pdev)
-> +{
-> +	struct dcp_virtio_transport *transport = platform_get_drvdata(pdev);
-> +
-> +	unregister_virtio_device(&transport->vdev);
-> +	platform_set_drvdata(pdev, NULL);
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +}
-> +
-> +static int dcp_virtio_transport_suspend(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = virtio_device_freeze(&transport->vdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = dcp_ipcc_enable_irq_wake(&transport->ipcc);
-> +	if (ret)
-> +		goto err_restore;
-> +
-> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret) {
-> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +		goto err_restore;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_restore:
-> +	virtio_device_restore(&transport->vdev);
-> +	return ret;
-> +}
-> +
-> +static int dcp_virtio_transport_resume(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +	if (transport->version == 1)
-> +		writel(PAGE_SIZE,
-> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
-> +
-> +	return virtio_device_restore(&transport->vdev);
-> +}
-> +
-> +static const struct dev_pm_ops dcp_virtio_transport_pm_ops = {
-> +	.suspend = dcp_virtio_transport_suspend,
-> +	.resume = dcp_virtio_transport_resume,
-> +};
-> +
-> +static const struct of_device_id dcp_virtio_transport_of_match[] = {
-> +	{ .compatible = "qcom,dcp-virtio" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
-> +
-> +static struct platform_driver dcp_virtio_transport_driver = {
-> +	.probe = dcp_virtio_transport_probe,
-> +	.remove = dcp_virtio_transport_remove,
-> +	.driver = {
-> +		.name = "qcom-dcp-virtio",
-> +		.of_match_table = dcp_virtio_transport_of_match,
-> +		.pm = &dcp_virtio_transport_pm_ops,
-> +	},
-> +};
-> +
-> +int dcp_virtio_transport_register(void)
-> +{
-> +	return platform_driver_register(&dcp_virtio_transport_driver);
-> +}
-> +
-> +void dcp_virtio_transport_unregister(void)
-> +{
-> +	platform_driver_unregister(&dcp_virtio_transport_driver);
-> +}
-
-Turn it into a separate driver, use module_platform_driver().
-
--- 
-With best wishes
-Dmitry
+> Sure, I wasn't going to wait for the maintainers to respond anyway.
+>
