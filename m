@@ -1,82 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023574;
-	b=Se8ojdLfN8bCE91m7KM1EmiFM81hQbWRMOl7UbdodNjzQBu18h6Pj+NuJWk5YjMhwUBu
-	 CbUEFDegeOYu1QMO5hOcBvd7gjqKzenAoLCtJ88QTOkM4BOOWaOG2XTgfjyl3XWL5++Wq
-	 W4rYBybUl7TfeLboEIRJXwOKtB88Co5Sy675qMv8Ot+umh9sfW1RvqF9jukjv38tt6VF5
-	 13lQI9eeqXAAavO+fOD8S0hRPFXlgN7H11LeZd33mJgvGLd/+YrC//2MeW+4QZJSGvpNw
-	 SOH3d0YtE2ycACxyef/YLDv/kILxyJfDijFWIhsx5sHLVlY8cNgBUuZMHicsGNRnyvQ==
+	t=1793023584;
+	b=VI5KxRpED4wgJvLMjMhadjeztST2D7zPpDngamgAZq7gSclYVX7m44qPj7EE1VktDOya
+	 9xf4YveKVfncY81h1vyqP7i5bJnw+jE5dpb0G048A+GlQvCDsdXLKZ2G+XxB0LuCBvFgK
+	 ONtn5Pomb2kuaGBKsweWw/Zb7b1DiTaCbKhP/S1edgoBKSW0yK9QeFX/ZOeGPaqnQs8yz
+	 kUZ6mcalOsXKfe4ULE4dlNzIyYIxz2Z4dvWjXEvrZAUlfEQIPD9u8XsyFzLun07BIb1dH
+	 YlaP0O12bBY/QvwW6y1d8XWmczyBK9gc3vif5XgDes5Jht0nFzuvHDaFn9UXR0cd8hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023574;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
-	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=S+aChkfaMd9EivevKx38Q/7Syxky3lnzhcs/iXmA7Hk=;
-	b=QwxLNJMtkXkRoboqGtILc6LEoQmnfbKCOmEZCLymAoqBi6RbaMLhnnHP7Fmci9WyxIec
-	 lz+dy8AaaLVSzqnhfhKlKVHlFDGPnyVZqBdDAZQhilxGzkVsB1FX1NhpSAyf2NCp2gPLf
-	 /zv6SPMZ3jzXEsbzB+vVfh9SiODOgzTy64Cq6g5bdgRrMrJqr3CqeOkEBVIL5sShJb7rn
-	 XJz5UiFU9un1UMq0fDoBm2ytCUnGjXL2th6l9aFZkNr43jrxAwJ/96ct5aNg305hVxZSC
-	 BSBC6JoettlRvRZyuDHebjPj9bHGgrX8Qxg22ih2kGwF/c9/D3W4EEdBkRvwIeJNivQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023584;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KVOT22Bwz4LtlT/RZuYF6B93AUp538Zy+jsG2nfmmpU=;
+	b=rzCVawAr6TLZdrYXrttXHYRSYqupDr0WXPPa8hrw0d/YupXFyif6/pFlcT05eWYpsNMh
+	 0uoL7hV+IZizacCwsCe1cpFOVammHl/39kFVwFe04xK6+DevL2gjLMi4V0DLV2Ri4vw/q
+	 3rxvNJBI7Fees3anXIIDd2Yf/zV6pKsnJ5Uqt0hKYyK+07XgaA7estyhDliAFrFivHkGm
+	 kFXvh1YmVv8B7Jh3N0JfVuNXhUOwHvOCphV/f39BThYYoLsOdXE7iwDJ0wH8SYY/aU7Jv
+	 e3T9RDJVoPPjChe9/jMTM016lfVdsY1u1b63Wt2EZKcQK3dt51ub9xTmVojPGhnDjEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=UGmjf8VY;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b="tp/eiOPR";
-	arc=none smtp.remote-ip=160.80.4.37
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53C65606A31A;
-	Mon, 26 Oct 2026 14:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C65606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLi4XMum;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA26606A322;
+	Mon, 26 Oct 2026 14:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=UGmjf8VY;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=tp/eiOPR
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69QE5aHh010301;
-	Mon, 26 Oct 2026 15:05:42 +0100
-Received: from lubuntu-18.04 (unknown [160.80.103.126])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 8AE4F1203BC;
-	Mon, 26 Oct 2026 15:05:42 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1793023543; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S+aChkfaMd9EivevKx38Q/7Syxky3lnzhcs/iXmA7Hk=;
-	b=UGmjf8VYEjQ3iKMxhBykCXQ2zVJ0aAgYaycPpfcNB4aRZ9SJPM99SxoBW9h5/j5FNCI1jX
-	G3aKXx7/2EAJL+Aw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1793023543; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S+aChkfaMd9EivevKx38Q/7Syxky3lnzhcs/iXmA7Hk=;
-	b=tp/eiOPRb951NNKopf1HgWI0lb4Zs6BspwO+XzwB2jaDUstzbN2eXW0i7u0eX7/a3ivBQD
-	vcBj+CKvtZIg64wYdSRZ9f3RhdeKCe0iaDwQHsbm2yDP1hC8KZx7ZY0cF7QSs6RxviAOeX
-	Pie/ZdmIhSLLP9rfV+OU7dQo9SU3zbnlzx/FL7JSbEp2JB5SvX48W/tDe1zC72kg3Y21mP
-	mU124AcC124ed4z3oko1LbXMgpf4/Zz7ADttTv0eM1UU6W6LE2EEa4PbCeyaERdr02643j
-	dEsI56USpDzXKTGCYs8lo11ptlsipiiBM1HdUzhQKGKLeiaDZmymhH1wXt+YGA==
-Date: Mon, 26 Oct 2026 15:05:41 +0100
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: netdev-bot+sinfo@kernel.org, davem@davemloft.net, edumazet@kernel.org,
-        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-        tristan@talencesecurity.com, david.lebrun@uclouvain.be,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        stable@vger.kernel.org, stefano.salsano@uniroma2.it,
-        Andrea Mayer
- <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace
- teardown
-Message-Id: <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
-In-Reply-To: <20261025222222.1064464-1-tristan@talencesecurity.com>
-References: <179278529389.3327.1530536500905686255@kernel.org>
-	<20261025222222.1064464-1-tristan@talencesecurity.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLi4XMum
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88801F031E2;
+	Mon, 26 Oct 2026 14:06:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793023583;
+	bh=KVOT22Bwz4LtlT/RZuYF6B93AUp538Zy+jsG2nfmmpU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=DLi4XMum9/39TU9W0qod4lbS1gGVQvAo4jmVHTLwutSS2im08ba7nt9Nd02iZnJPM
+	 de8kamUHZhgNRhrD+2J1RB2Lvf5n5B97yjWlfW2UMj5guAaLT8uV+j07s22sqCI3t0
+	 WU7MxUUpbKFoHug9b3+zUf2a1EbmFO1IrYN+VSMeCSDmXbMzYhYgF4DnNcSYhZpYet
+	 ZrfN8e63FUGwFyrh7q4IM50gFNnTN3o0x0rg86dKKQXKRHvlxEn0Phnm2An0BDNA5f
+	 jE6GRUhnOnEvvtj6lNx3WyRjjmrGmAUqMsjtCfR1j6m0EiFMpqZT0R9hNYS3V59+OX
+	 ljUXjKx3W+wrg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 71264CE0877; Mon, 26 Oct 2026 07:06:23 -0700 (PDT)
+Date: Mon, 26 Oct 2026 07:06:23 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kai Ma <kai.ma1@huawei.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
+	rcu@vger.kernel.org, lkmm@lists.linux.dev,
+	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH hazptr v3 0/4] Hazard pointer updates
+Message-ID: <e3b1c73d-8248-4644-80e7-a0640538fde6@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com>
+ <2cf703a6-7828-4735-98af-1a6fe93abd3f@paulmck-laptop>
+ <87cxsw4qnl.fsf@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,65 +64,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxsw4qnl.fsf@huawei.com>
 
-On Sun, 25 Oct 2026 22:22:22 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
+On Mon, Oct 26, 2026 at 01:01:18PM +0100, Kai Ma wrote:
+> "Paul E. McKenney" <paulmck@kernel.org> writes:
+> 
+> > On Sun, Oct 11, 2026 at 03:48:46PM -0400, Mathieu Desnoyers wrote:
+> >> Hi Paul,
+> >> 
+> >> This series applies on top of "hazptr: handle NULL address in
+> >> hazptr_detach" you have in your rcu dev tree.
+> >> 
+> >> This first patch addresses a race identified by Boqun Feng in the
+> >> two-phase wildcard scheme. (no change since the last series)
+> >> 
+> >> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
+> >> Those were discussed at length in a prior version of hazard pointer
+> >> patches.
+> >> 
+> >> Since the last series, I have renamed ptreq.h to ptr_eq.h, addressing
+> >> the feedback received from Boqun and Gary.
+> >> 
+> >> Patch 4 introduces a "try acquire" helper to allow the fast path
+> >> to not rely on wildcards, while keeping the wildcard forward
+> >> progress guarantees in the acquire slow path, used on fast path
+> >> failure.
+> >
+> > I have pulled this in for additional review and testing, thank you!
+> > (With Bradley's Reviewed-by on 4/4.)  Still subject to rebase, which means
+> > that I can easily replace it with an updated series from you, if you
+> > wish.
+> 
+> Hi Paul, Mathieu, and everyone,
+> 
+> I've been following the hazard pointer work and have done some testing
+> on earlier versions. I'd be interested in getting more involved,
+> particularly in concurrency correctness testing.
+> 
+> If there are WIP patches or early design discussions where additional
+> review or testing would be useful, could you please CC me? I'd
+> appreciate the opportunity to get involved earlier and help identify
+> potential concurrency issues.
 
-> Found by manual code inspection while auditing RCU lifetime
-> patterns in the seg6 subsystem.  The issue is theoretical --
-> found by reading the source, not triggered in production.
+The current stack is in my -rcu tree [1] at v7.3-rc1..c3aea7747975,
+with these patches on top:
 
-Hi Tristan,
-thanks for the info.
+5df49d76ff3a3 hazptr: Fix two-phase hazptr_synchronize race with detach
+b41c6c2d4a33f ptr_eq.h: Introduce ptr_eq() to preserve address dependency
+97ff14db1c381 Documentation: RCU: Refer to ptr_eq()
+451174c765179 hazptr: Introduce "try acquire" fast path, fallback to overflow list
+633f91e3408cc hazptr: Record per-CPU slot owner after claiming the slot
 
-The pre_exit in this patch introduces a NULL deref. It sets tun_src to
-NULL before the netns devices are removed, while set_tun_src() can
-still read it.
+The biggest need is use cases, with the most likely ones being cases
+where per-CPU reference counts consume too much memory or a reference
+count is suffering from memory contention.  However, we are still finding
+critical bugs both in the mechanism and the torture tests, so as you say,
+review or testing is also very important.
 
-I ran a stress test on net with KASAN. A userspace program sends UDP
-packets in a loop from init_net through a veth into a test netns, where
-a seg6 encap route without a per-route tunsrc forwards them. Meanwhile,
-the test netns is created and deleted repeatedly.
+These patches CC the rcu@vger.kernel.org list, so the best way to get
+involved in the discussions is to join that list.
 
-With this patch applied, KASAN reported a null-ptr-deref in
-set_tun_src() and the kernel panicked:
+And welcome aboard!!!
 
- BUG: KASAN: null-ptr-deref in set_tun_src+0xd1/0x240
- Read of size 8 at addr 0000000000000000 by task udp_flood_user/379
- Call Trace:
-  <IRQ>
-  set_tun_src+0xd1/0x240
-  __seg6_do_srh_encap+0x410/0x710
-  seg6_do_srh+0x65e/0x6a0
-  seg6_input_core+0x87/0x4c0
-  lwtunnel_input+0x18d/0x420
-  ipv6_rcv+0x44f/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x15a/0x6c0
-  do_softirq+0xb4/0xf0
-  </IRQ>
-  <TASK>
-  __local_bh_enable_ip+0xdd/0x100
-  __dev_queue_xmit+0x538/0x1030
-  ip6_finish_output+0x280/0x640
-  ip6_output+0x118/0x380
-  ip6_send_skb+0x99/0x210
-  udp_v6_send_skb+0x397/0x760
-  udpv6_sendmsg+0x1100/0x14d0
-  __sys_sendto+0x219/0x2d0
-  ...
- Kernel panic - not syncing: Fatal exception in interrupt
+							Thanx, Paul
 
-Without this patch, I ran the same test with 1000 netns deletions and
-KASAN reported nothing.
+[1] git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
 
-Ciao,
-Andrea
+> Thanks,
+> Kai
+> 
+> > But in the meantime, some additional testing.  ;-)
+> >
+> > 							Thanx, Paul
+> >
+> >> Thanks,
+> >> 
+> >> Mathieu
+> >> 
+> >> Mathieu Desnoyers (4):
+> >>   hazptr: Fix two-phase hazptr_synchronize race with detach
+> >>   ptr_eq.h: Introduce ptr_eq() to preserve address dependency
+> >>   Documentation: RCU: Refer to ptr_eq()
+> >>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
+> >> 
+> >> Cc: Paul E. McKenney <paulmck@kernel.org>
+> >> Cc: Boqun Feng <boqun@kernel.org>
+> >> Cc: Bradley Morgan <brads@mainlining.org>
+> >> Cc: Gary Guo <gary@garyguo.net>
+> >> Cc: <rcu@vger.kernel.org>
+> >> Cc: <lkmm@lists.linux.dev>
+> >> Cc: Lian Wang <lianux.mm@gmail.com>
+> >> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> >> 
+> >>  Documentation/RCU/rcu_dereference.rst |  38 +++++++-
+> >>  arch/x86/include/asm/ptr_eq.h         |  16 +++
+> >>  include/asm-generic/Kbuild            |   1 +
+> >>  include/asm-generic/ptr_eq.h          |  16 +++
+> >>  include/linux/hazptr.h                |  48 +++++----
+> >>  include/linux/ptr_eq.h                |  63 ++++++++++++
+> >>  kernel/hazptr.c                       | 135 +++++++++++++++-----------
+> >>  7 files changed, 237 insertions(+), 80 deletions(-)
+> >>  create mode 100644 arch/x86/include/asm/ptr_eq.h
+> >>  create mode 100644 include/asm-generic/ptr_eq.h
+> >>  create mode 100644 include/linux/ptr_eq.h
+> >> 
+> >> -- 
+> >> 2.43.0
+> >> 
+> 
+> -- 
+> Kai Ma
