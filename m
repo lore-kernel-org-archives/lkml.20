@@ -1,47 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013567;
-	b=KHYn/9UDsMqUjXiMTBCZ6af0uildl1bN2g1uBPmbdngHO/TPfJs4ZXQydGMFoSjc/JNs
-	 WpESwk3JGsBzjuOXj7IQzSaJin+Re3uXv4TqqWxqxSTHsPmNHeRIxxukAawm9HjKSBZ3/
-	 ehaBOGWqRObg9AijpfD5+84knCPhQ8ZeadO5F6WbHA4kgekfPO57c8H3FhrjDVqs+a3JB
-	 aPAmHEtJnR2DGKwwJhFT8C523P+AtLZpyAXXvI73ORZ96VA4ZK8TUZhzbDpCOo8iILxgC
-	 0Vw8eR6rTmkfpRubAzHClc1ztsPDVDrRbiJ4yxkswV9HNLeXqRs9djacYE5V67+/VoQ==
+	t=1793013655;
+	b=1xdwlJfcjgRvd4NZgukKGWehnRTt58NE5HrHONcqyXhXjYBwLmNwyrwmEiISpicSQokh
+	 xAWMkZIUBkCSnYJDXDDNzkZf6sCBDv4EWdfMGmSya3Js5DqnYfWmG5vNgaBJmW6mvYbw1
+	 VeMBE0oY6WS+Xsk3582JuDllu1xgkLCwDWV+CAi1GFcMOjBnyYMKqQqTf7NTgEr2faenz
+	 Ge+VF4zRZTrPE2Kd5S6q3S1l8t70ahepsiQdonFTusdbf5w+qgoeS5paeSpJh+ipvpN01
+	 2TR36CEY/5XvdlEjIitGMIdbb2nIqgxhP1fS0f1eO1lZVEyDciTC2vsHAtwBJmEzTsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013567;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ym2rUG4N9q5Vuz2Zf+g/cQPodhMY2XS2XpRVAbz6x2o=;
-	b=p4AkynAD6PnRQBleGmwMRGi4k9QhLxdI46VmDAc2OsJeJ6D1FONfABtYhqXWff/yy6Zl
-	 hE8Dn1mVKs1vxIUZalpok1mLcHHTQ4gkAv4Az5gLgw0ic8GdmoBgJ6uIoRWdMndsrZCF8
-	 46iscbA8MJDgd6gkItJXIg2ASENd1mfpbk7xU50hkYxNNDpmfbU94DCJdIpEkyD5u/1wK
-	 PzIryl8I5x2GN0wH54G5WUZFH6CzwXb3/fHbTiv8HilbTO/m9P6NSB5oBfNoMOCECKJA2
-	 ULBeqP/7sIrzAYEDw1Qz+/3kpxBLap/VgLvEJMGe+q2WCYQqVLCkSnn72CE/s1NcZTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013655;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
+	bh=RVMrEyTfPd6L3DrmXBQ+EA71uekThvDl0bNGFGHSH8Y=;
+	b=2whMIDGY3W+sa0nmOUySRxnCubezuznT7mHbpfTfAfQ8WY5XohI75lOhX5qlYOh5poYB
+	 Y4Nxadho+7F+56MBqVVeobur0Jn7PSw5bxlcl7k7e3/Ts6SfLYtBNV8DxdJxYtYzHzZAS
+	 yNFWV1n1RCC89TaSn29YM8S6gPFIwL+fdWimVCnxYJWvbhvtLxvrswPzAvcxIz/5nCiae
+	 8mHA+tosvIMxiX5oZTmzb6e6pCGZxr4eIDoIprxFvg9kZdeGphayDr1dCNHNeynK/N6xE
+	 M7tbD1oNVGUr6KceG/gvrWCz3uDeHK9OL6rKBdEHEY1Bjmi58BXFsOCcPtXO4JdNxKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Naie0bLo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99781606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Naie0bLo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6723F1F01453;
-	Mon, 26 Oct 2026 11:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793013567;
-	bh=ym2rUG4N9q5Vuz2Zf+g/cQPodhMY2XS2XpRVAbz6x2o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Naie0bLom6KB1rvZiawwhNtlk55RBj7K9WkrJ62mpDzmd9p3ZjTeOhiy9/BYmyqqo
-	 SnNRmD9w2Kz+0bSLQRlg8Tui85D5ZH0652mrSWRzXhTB5K+jIu9ma16QMmKAtXShM8
-	 DPHVOy6h8rmnPLxA+itKXfRJjJHDY/UsAnutAKmXMCh/pi+/jNoUCmRv2nSkUKchq5
-	 iXCcTfsHnUyFmxEe5kxR3+PmC4oYX1reUzFTklfn/oI4jh476Y8y6Z0tz31GJGBHpW
-	 nDNDalO8lQY5sWzN7TmhP8cMk8olsxCglZgxn5aDh4gDUCv7xAUOoqxZ9Y1YxDVIeV
-	 uaJorTDd45ugg==
-Message-ID: <c021e641-f415-48bc-badd-d340d70dd850@kernel.org>
-Date: Mon, 26 Oct 2026 11:59:46 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2FD606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:20:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E2FD606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793013646; x=1793272846;
+	bh=RVMrEyTfPd6L3DrmXBQ+EA71uekThvDl0bNGFGHSH8Y=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LwL5VSvsK1xDlecepNPv/axsoHB6q8JkvAstkUXb39MjaRkd2kyPAThlNPT0wuMQv
+	 Xbs4d2TH5GsojsmzWtiIcvmJbDjmt1WLqgnSGuzkNJTVDMmVJx+9Q7f8hw8LEW4Rml
+	 A/hkigCz0ajJ1yyewvSH3vJVm9SRieZX/n5/J/+EFgvJPU5Q3TmAUOYcbP3kX2aNtp
+	 a0MbVV4dDyowSs6kKo4joCT7VxY97sf/q/7Fxk9dLyVvNXZHpOANt+7WU53ePtg7Ug
+	 cJqbZrVxkDramzCw+IpNjl2/ZO+BqKgdeG9Xo/B9HAxuZRqXAP10xKKmJf3C23iWDd
+	 IoAsSQb98AHZQ==
+Date: Mon, 26 Oct 2026 11:20:40 +0000
+To: Egor Poderiagin <egor@crazyrussian.pro>
+From: Robin Everaars <robineveraars@pm.me>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Matthew Schwartz <matthew.schwartz@linux.dev>, Pengpeng Hou <pengpeng@iscas.ac.cn>, bui duc phuc <phucduc.bui@gmail.com>, linux-sound@vger.kernel.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [REGRESSION] ASoC: rt721-sdca: runtime resume fails with -ENODATA since v7.3, jack PCMs cannot be opened
+Message-ID: <179301363708.752130.11323881261715222213@pm.me>
+Feedback-ID: 201127006:user:proton
+X-Pm-Message-ID: bff56b458c010fbe6cc66c08f6bf8b0a34853281
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,146 +57,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
-To: Ridong Chen <ridong.chen@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-References: <20261025110209.4105994-1-ridong.chen@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261025110209.4105994-1-ridong.chen@linux.dev>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------65f99b9543396eee2734472a3f36df622da95d9e568eb34c82109226620c8deb"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------65f99b9543396eee2734472a3f36df622da95d9e568eb34c82109226620c8deb
+Content-Type: multipart/mixed;
+ boundary=eb85fcef38c74adcd6507b38bec70231e0c3f098e0341a2c2f9807fa32c7
+From: Robin Everaars <robineveraars@pm.me>
+To: Egor Poderiagin <egor@crazyrussian.pro>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, bui duc phuc <phucduc.bui@gmail.com>,
+ linux-sound@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [REGRESSION] ASoC: rt721-sdca: runtime resume fails with -ENODATA
+ since v7.3, jack PCMs cannot be opened
+In-Reply-To: <8a12a2d9-1b56-4e00-8ccc-cf31325f8366@crazyrussian.pro>
+References: <8a12a2d9-1b56-4e00-8ccc-cf31325f8366@crazyrussian.pro>
+Date: Mon, 26 Oct 2026 12:20:37 +0100
+Message-ID: <179301363708.752130.11323881261715222213@pm.me>
+MIME-Version: 1.0
+
+--eb85fcef38c74adcd6507b38bec70231e0c3f098e0341a2c2f9807fa32c7
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/25/26 12:02, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> When a page cache folio is migrated to another node,
-> __folio_migrate_mapping() moves the per-node and per-memcg counters
-> that are keyed off the folio's node: NR_FILE_PAGES, NR_SHMEM,
-> NR_SHMEM_THPS, NR_SWAPCACHE and NR_FILE_DIRTY.  NR_FILE_THPS is not
-> moved, although __filemap_add_folio() charges it to the source node and
-> filemap_unaccount_folio() takes it off whatever node the folio lives on
-> when it is removed.
-> 
-> Commit 0b52c420350e ("mm: fix shmem THP counters on migration") added
-> the NR_SHMEM_THPS case but not its file-backed counterpart.  Now that
-> ext4, xfs, btrfs and erofs can all have PMD-sized page cache folios,
-> migrating them via NUMA balancing, mbind(), migratepages, demotion or
-> memory offlining leaks FileHugePages on the source node and underflows
-> it on the destination, in both /sys/devices/system/node/nodeN/meminfo
-> and memory.numa_stat.  The global value is unaffected, which is why this
-> went unnoticed.
-> 
-> Reproducer, on a 2-node QEMU guest with THP set to "always":
-> 
->   1. read a 256M ext4 file through a MADV_HUGEPAGE mapping while bound
->      to node 0, so its page cache is 128 PMD-sized folios on node 0;
->   2. move the mapping to node 1 with mbind(MPOL_MF_MOVE);
->   3. unmap the file and drop its page cache.
-> 
-> nr_file_hugepages in /sys/devices/system/node/nodeN/vmstat after each
-> step (in units of PMD-sized folios):
-> 
->                     without this patch     with this patch
->                      node0     node1       node0     node1
->   1. cached           128         0         128         0
->   2. migrated         128         0           0       128
->   3. dropped          128         0 (*)       0         0
-> 
->   (*) the counter has underflowed to -128; negative values read as 0.
-> 
-> Without the patch the 128 folios stay accounted to node 0 forever, and
-> every further round adds another 128.  The same happens to the per-memcg
-> per-node counter: after step 3, memory.stat of the cgroup shows
-> "file_thp 0", while memory.numa_stat still shows
-> "file_thp N0=268435456 N1=0".  With the patch both are 0.
-> 
-> Move NR_FILE_THPS together with NR_FILE_PAGES, using the same condition
-> filemap_unaccount_folio() uses to take it off, so that THPs in the swap
-> cache are left alone.
-> 
-> Fixes: d68eccad3706 ("mm/filemap: Allow large folios to be added to the page cache")
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
-> Note: prepared with help from an LLM-based assistant (Kiro, claude-opus-5.5).
-> 
->  mm/migrate.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 7bdcdb57652f..d55f576a2579 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -700,6 +700,10 @@ static int __folio_migrate_mapping(struct address_space *mapping,
->  				mod_lruvec_state(old_lruvec, NR_SHMEM_THPS, -nr);
->  				mod_lruvec_state(new_lruvec, NR_SHMEM_THPS, nr);
->  			}
-> +		} else if (!folio_test_swapbacked(folio) &&
-> +			   folio_test_pmd_mappable(folio)) {
-> +			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
-> +			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
->  		}
+Hi Egor,
 
-Looking at filemap_unaccount_folio(), I was (once again) surprise about the
-different handling.
+I can confirm this on a second ProArt PX13 HN7306EAC (BIOS
+HN7306EAC.310, same components string), running v7.3 on NixOS.
 
-Key is that we might be migration aonymous folios in the swapcache.
+Here it happens at boot without any manual steps. The first open of the
+jack PCMs, when WirePlumber probes the card about 14 to 20 s after
+boot, fails with -61 on SDW1-PIN0-PLAYBACK-SimpleJack and
+SDW1-PIN3-CAPTURE-SimpleJack, and the card is left with only the off
+and pro-audio profiles. A boot with the stock in-tree rt721-sdca behaves
+the same. v7.2.9 was fine on this machine.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+A regmap trace of one jack open, with only regmap_reg_write and
+regcache_sync enabled, matches yours: 12 regmap_reg_write lines from
+202d to 40981300, then regcache_sync status=stop, and the open fails
+with -61.
+
+Your change to rt721-sdca-sdw.h fixes it here on top of v7.3. The card
+is back on the HiFi profile with the speakers and the ACP DMIC, and both
+jack PCMs open again. The module I tested also carries one unrelated
+local rt721 change (a .remove callback
+ that drops hs_jack). With it,
+four s2idle cycles in a row resumed without any rt721 errors in dmesg.
+After the first two I also checked that the card was still on HiFi and
+that both jack PCMs opened. I have not tried headphones yet.
+
+Tested-by: Robin Everaars <robineveraars@pm.me>
+
+Thanks for the thorough analysis.
+
+Robin
+
+--eb85fcef38c74adcd6507b38bec70231e0c3f098e0341a2c2f9807fa32c7
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - robineveraars@pm.me -
+ 0x8B6BA132.asc"; name="publickey - robineveraars@pm.me - 0x8B6BA132.asc"
+Content-Type: application/pgp-keys; filename="publickey -
+ robineveraars@pm.me - 0x8B6BA132.asc"; name="publickey -
+ robineveraars@pm.me - 0x8B6BA132.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFoOGxaUllKS3dZQkJBSGFS
+dzhCQVFkQWFSa3p2ZTQ5ckJFSk1LSkg3NDZSWEhZKzJmVDc3b3hST2k1ZAo4SnBMKzY3TktYSnZZ
+bWx1WlhabGNtRmhjbk5BY0cwdWJXVWdQSEp2WW1sdVpYWmxjbUZoY25OQWNHMHViV1UrCndzQVJC
+Qk1XQ2dDREJZSnFIeVZsQXdzSkJ3a1FIY1YvYThzR0dvcEZGQUFBQUFBQUhBQWdjMkZzZEVCdWIz
+UmgKZEdsdmJuTXViM0JsYm5CbmNHcHpMbTl5Wng2VjVxUzg5dzdDRFlTSXNjNU54dVBKSTFyZ29F
+eVkvdjhkYlAzSApxa29OQXhVS0NBUVdBQUlCQWhrQkFwc0RBaDRCRmlFRWkydWhNcmIyWHVqRm5G
+akxIY1YvYThzR0dvb0FBQVpzCkFQOXpJS1d3dWJDbEZFczBKNmpwUUhUS1hGVHErOTlNUmtmREtx
+SVRidW1RelFEL1IyT2F6VHA0b0NKTzJiT0QKTkZsaVZBbTh5WFA2QSs1ODZ6UjJZS3QwUkFiT09B
+UnFIeVZsRWdvckJnRUVBWmRWQVFVQkFRZEEzcDVGN2I1TwpGc1dLclNXRW1FSGlhL29lN25vLyta
+MVcwT1BmZllyRFB5OERBUWdId3I0RUdCWUtBSEFGZ21vZkpXVUpFQjNGCmYydkxCaHFLUlJRQUFB
+QUFBQndBSUhOaGJIUkFibTkwWVhScGIyNXpMbTl3Wlc1d1ozQnFjeTV2Y21ldlVkUisKViszVWd2
+SVZqcURMRk9XeXlHcDVoNEpYQVBmWVpzRC8vUkhndlFLYkRCWWhCSXRyb1RLMjlsN294WnhZeXgz
+RgpmMnZMQmhxS0FBQm9GZ0VBOGU0ZVNMU2FMbXY4L2UyVzFMOS9WS0FiajJaN0pFUzZLQXBpOUJa
+Nm5RZ0JBTmhaCkZoTUZ6c3l6dTJZWXRhQjhTWXRWdGhKSjYvZUlRVFQ2VWRRRUlZc0YKPVlLaE0K
+LS0tLS1FTkQgUEdQIFBVQkxJQyBLRVkgQkxPQ0stLS0tLQ==
+--eb85fcef38c74adcd6507b38bec70231e0c3f098e0341a2c2f9807fa32c7--
+
+--------65f99b9543396eee2734472a3f36df622da95d9e568eb34c82109226620c8deb
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0FgmrfN4cJEB3Ff2vLBhqKNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmcZyz09Yry8k5txF9AgY7fhFiEEi2uhMrb2XujF
+nFjLHcV/a8sGGooAAKntAQCE12WuMgR/UbHEYxzx4DH5v+0Ysh2a8e4abKyR
+8duUPwD7B+YdmAr+EzePS0M9Vsxwba28VqgrPqaFy660JjmUWwI=
+=cD6M
+-----END PGP SIGNATURE-----
 
 
--- 
-Cheers,
+--------65f99b9543396eee2734472a3f36df622da95d9e568eb34c82109226620c8deb--
 
-David
