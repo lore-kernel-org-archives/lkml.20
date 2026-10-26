@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025431;
-	b=zy8fNJUrbVcaFrfUfD/tg5+hJQRBPlJZqcHfAITbkWcxKKqv2u/mrd0MzTBnB485qKpa
-	 h0j+QRjRajWJ7IRgb+89lpLL4dekz9Gj0pRZuL3Sy+G3vVj8nE+vQvcruTDAo7F6/9cRq
-	 rHQ81f+BX43KSHfRCBoOiapMotJrXTXowEs0i5K00KVC4dzA75nYUrz2sL/L+a0SJpJzT
-	 DfB/Wyapf8Hl3SVq1/C/4Gmo1SGmillByytIkJp1/LOu5T3hvjpfpJxovQbbgGePV9maE
-	 +kP106chfmOqj18Gb4oR89p0MPJILrH2SXoOeBGSpuOMC3n2IpvYAZSCVtjF9Bggrog==
+	t=1793025482;
+	b=tgDjHymeKBlbeysioZC502/cDw6tKObPCg+y5m71LhYyasMZEJz8aNBWDS+vIzMcRve5
+	 uIhwlINLZt5cwjq7EF2eUWYeEjuYA8uZDSNVplJQ/OSMgDp8vaubOVpiQ3S49u0PVxKm2
+	 n6jPN8YB4g7yTFZnVIdrumnnuKIN5kB94zvvAAYF9PcOgSIuQHnBnZCpfy5iCnw8UsKGH
+	 fCeuA8nwYJUxV092mY43ZTIlq5DoKqnhVaEIwLxRRoG5vvSmAi7DLVmEnOjN2Cg9QnITk
+	 OSUSc7MbhmMjUCEI+IzvzvoVL7niCrka9+9Kbmi5r6YOia52Gasqh2PUN8i0/xNrr6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025431;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
-	b=iIaG2tDOfsk+2agTgZGIeis0ucfBebeuCTUyTs0PkrJrh9nXKkejjPpdOtoiiGdPw9GX
-	 +wPNByPmmX0wxDyjuymraZtZOdhzI+c+Ns40pWm51u5XcqboxG1fUsDII4VkO9Gq0X/fV
-	 s5TDlSPP7moUScQRD6JgkNLqRuW4vVheg+cEul+ZYU4fCBm3ynFQmRd/xSoWt18hJH1V7
-	 Sdxkxnn9fhZb6SxuvmQl41Kni5GZwQrGJWay95tGZWBGwa/mzM6YUcjvn/XTtZ2nIi9sR
-	 McZyt2MrYb9VlUqX8W1/7+ps9DHSz9VaytqiG9aMTyQFjExAKIygenefFmSNlTaFBAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AhMF1tBfJ8dTRfzIo3kwEYnuOUaHaCo5YpY+nl34Bcs=;
+	b=MLQtbqgBUvKbmowec9H4fOib9EyvtT35k9Lod+uTrwLVDeylo04Gjzzf3/Diy/WZhhC7
+	 owS6tAhvEx8/0+Q05qKSUjXi1y5WegwYnK9Tr8E5HLw8m+8JV81OoYu6ufY2uhV+iMZB/
+	 koULwgm3arIFwTO4iiIeo5E6vj8rnyj4MmjNFgR9nS3QzCfW5R/5cNf09iYJzQONSkCO5
+	 mmbulRKvQGC+2kbgTXi4JpgS9AxkEA0ZwO1RSmi8pruPLmkviZkt9MbGqL2XKSXZtVR72
+	 fpO1cybhGzkQ3arJ6A7SE5+4P9bksIJJ8CYdksOn++fac35nGU32aZOhUAXiiyIWJtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ka/7Sxsk";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="ikjfWv3/";
+	arc=none smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0819606A31A;
-	Mon, 26 Oct 2026 14:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9255F606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:38:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9255F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka/7Sxsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA76F1F01825;
-	Mon, 26 Oct 2026 14:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793025430;
-	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ka/7SxskYU2X8HL9aFrMsSmohChlAIIZ8CqxW5S8KxSfV/fmq5SxQPV1sJOqYwepk
-	 61cs3TwGMcQOa7Ma1/IW9h7U5F67h9S4kMsQaaTaYkPDuvYpWyrnCbZaByHyM4gN9G
-	 LFr9UBBC1GKpUxScLdzwZ1kqVkzNcseCy6PRhYemqbFTymHwK8dItOaB19+4lUisDU
-	 1UkWga42Y1EU9ifGgERxGI3o5x+QT9zmNpRgYN40KcKFvD9v6NkDftUdA2Yoh2t1Wf
-	 GJkmfyxuLbdXZRMtWVwp7vueyBAUxQBl35c7aVJE1qyA8/xKa3U5BMpLqJuMY7WFAJ
-	 EL+YIbmiq6Mtg==
-Date: Mon, 26 Oct 2026 14:37:05 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ngoc Quy <ngocquy0700@gmail.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muhammad Usama Anjum <usama.anjum@collabora.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-Message-ID: <at9jXXDoMLi3X2EF@gremlin>
-References: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=ikjfWv3/
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91b52ba422cso20750446d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793025480; x=1793630280; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AhMF1tBfJ8dTRfzIo3kwEYnuOUaHaCo5YpY+nl34Bcs=;
+        b=ikjfWv3/FIpguoDjg9IBardldZle6sdWRDV2pLk9e03TKQzi8Ik7+/HfVuyBfyEAJC
+         5TPd2cjsdfTJIWIGOEc0Vqlrty/ZfVs/2J+jDDCEOCj0pXmSYHQVuN/cskkkcYkYRe7z
+         8CCuKHjCYVRyQEDsZXT77jDHMdmmXxXvbrx7jm1Iv0v8uAXt8Wrc1XiQhejhUrmVsl6P
+         /YFXTQ1XLxwpAvfwX+UsjXW3o6OrUM3l6BtEpUTd17lYTmSgTyvmMvOOBU5vGnyBZa5A
+         q4KCqj+vdhVW0L80IqRYrdmA5NH505b0wJQ8ciN0TeQYuCytGNXkrlABYFfdhUsw5Hwy
+         vKww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793025480; x=1793630280;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AhMF1tBfJ8dTRfzIo3kwEYnuOUaHaCo5YpY+nl34Bcs=;
+        b=xy+4/oWMzKbM+7PETtk5c6bSGp2YV5AXM4rn2T3nwoLRGaCW07cWZqYN1Gf0t3lIzm
+         cQDHya8fFRxBeR/BcHIixHUckYf7a/0PMoDVe+hYCrXUnUgJtKtpJ2OCLqhxgfIn6zqv
+         qnRCeT7Fg5OlWdC3ngWKvpnHT78zYLStvsVxy5BheICPKOa3G8LjNGWEMia8ypLRTwNb
+         RoGmDqEFZtOEUssNLRYxzJXEfL6xeGm33mJL5a73CKfxbamhYknEXBQIiN7Wf+nm+9AU
+         d0Yevl7Iq3jnDPC6GJGSWMDP/ClnIolTLZ2ZDc+wV29CGa4I1slifq7Mpe8ZDfAiwPtc
+         +PoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByl/ySe8mgAz52qcRBg5+sfxy8+Azn7vnj76UrtmX0VffPKcZeuly8UaFrs+1ab8Xc10kstzoJA5/2E2Uc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJYqyGQSqrdIMisRkcedkxhIoed2jLVvboJyrN6LQRRF7qQ16c
+	4N2UE0JWcb9of9nArqhMwF0rWh3CRMV9u0xq4DWM2WvfXao8vmyWmff/yDKLkVt3N2I=
+X-Gm-Gg: AYBFou3cyjAFTLxmtyEsNaG70z1vIfvPexf9r0+eC7wu6g6FkoKgcYSvs/pCltH3gd/
+	bM2RDQm7DptTE9O7B2DJNOaJE+2PYVqcIX5hrRR3/ZE3Iprba0UApCigWUhagWVIx65GTf08K6T
+	36TyfAvl+Z8Mm1Mb62cyLbYu4AdMHxxpSxT9cAnvFdX+u6CrHcMB7oO1HDyLgvugDnG3FI3CtFa
+	C9jcwqcSd5j+yriJ5d7ankG+gCNSsXMx9KGoR5UKMElbGdueBnCtMlATxerLx8v+GkM+LjXUERH
+	7p5nNQ/0xGnitNAa5ACcU3TEv48fwBlBpBVz7Rr6Lju4/mjSEaN4lgAq6qRjw3Vva0BsgEmZ4ql
+	qjDWSZ9bA4coF7PgefNC0DHniSloAvSa8V/gbkC5E0D3UR1ZFBW51ftz/ndTPf4MnZQaq/+yNet
+	zskV6ARdoshkDa4G4vM21HfuMf9nBuPxHdFrD0IC5wSl74s2AkSnii1wh+MmhgqbSrh4EVFFLu0
+	YpoPj9GJiUfBXpS4IssB2cXlxMhufP9E1TGV87Z1yCtqrqDypL4Z6H7n4IiDNDkB7tWwzMHBffz
+	N3qqAFbN0C3lJJ8cfZ2G3tFDvb4GXk1CU+ZSSg==
+X-Received: by 2002:a05:620a:6881:b0:93e:74b4:3115 with SMTP id af79cd13be357-940ef8db935mr956013785a.38.1793025480452;
+        Mon, 26 Oct 2026 07:38:00 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f067c0dasm697089185a.17.2026.10.26.07.37.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 07:37:59 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xLLpm-00000007425-3W6s;
+	Mon, 26 Oct 2026 11:37:58 -0300
+Date: Mon, 26 Oct 2026 11:37:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Li Ximo <lixicaicai@gmail.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
+Subject: Re: [PATCH] iommu: Guard iommu_group_first_dev() against an empty
+ device list
+Message-ID: <20261026143758.GA1674867@ziepe.ca>
+References: <20261023065705.2854692-1-lixicaicai@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,98 +104,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+In-Reply-To: <20261023065705.2854692-1-lixicaicai@gmail.com>
 
-On Wed, Oct 14, 2026 at 04:55:40PM +0700, Ngoc Quy wrote:
-> The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
-> /proc/<pid>/pagemap without holding a reference to mm_users.
->
-> proc_mem_open() deliberately grabs only mm_count, so a consumer that
-
-NIT: just say mmgrab() here. Its comment already explains the
-mmget_not_zero() semantics.
-
-> touches the address space has to call mmget_not_zero() first. Every
-> other consumer in this file does -- m_start(), do_procmap_query(),
-> show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does
-> not.
->
-> Without that reference the target can reach exit_mmap() concurrently,
-> and exit_mmap() calls unmap_vmas() while holding mmap_lock only for
-> reading, which does not exclude the scanner. For ordinary VMAs this is
-> harmless, as free_pgtables() and remove_vma() run afterwards under
-> mmap_write_lock. A shared hugetlb VMA is different: __hugetlb_zap_end()
-> frees the VMA's hugetlb_vma_lock inside the read-locked phase.
->
-> walk_hugetlb_range() can therefore load vma->vm_private_data, have the
-> lock freed underneath it, and then down_read() a freed rw_semaphore.
-> The load happens before the freeing side clears the pointer, so this is
-> a use-after-free and not a NULL dereference. Any unprivileged user can
-> reach it with no huge pages configured, as hugetlb_reserve_pages()
-> allocates the lock before the VM_NORESERVE early return.
->
-> Pin mm_users across the scan, the way the other consumers do. mmput()
-> from the exiting task can then no longer reach exit_mmap() while a walk
-> is in progress.
->
-> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-
-This is the old-format tag, but the tag is no longer required, so let's
-just drop it.
-
-Instead, write something under the --- about AI usage.
-
-> Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+On Fri, Oct 23, 2026 at 02:57:05PM +0800, Li Ximo wrote:
+> From: Wang Haoran <haoranwangsec@gmail.com>
+> 
+> iommu_group_first_dev() calls list_first_entry(&group->devices, ...) and
+> immediately dereferences the result with ->dev, without checking whether
+> the group's device list is empty. list_first_entry() does not return NULL
+> on an empty list: it returns container_of() applied to the list head,
+> i.e. a non-NULL wild pointer pointing at &group->devices itself. Since
+> "list" is at offset 0 in struct group_device, the ->dev read then lands
+> on whatever struct iommu_group fields happen to follow the list head,
+> yielding a garbage struct device pointer that the callers
+> (__iommu_group_alloc_default_domain(), iommu_group_alloc_default_domain(),
+> __iommu_attach_group(), __iommu_group_alloc_blocking_domain()) go on to
+> dereference, e.g. via dev_iommu_ops() -> dev->iommu->ops, resulting in a
+> page fault / kernel oops. An empty group is a legitimate end state: the
+> list becomes empty when the group's last device is removed under
+> group->mutex, and nothing in the helper itself prevents it from being
+> called on such a group. Note that the sibling helper
+> iommu_group_for_each_dev() in the same file iterates the very same list
+> with the empty-safe list_for_each_entry(), which suggests the missing
+> guard here is an oversight rather than a deliberate design. This
+> potential issue was found during a code audit.
+> 
+> Fix this by making iommu_group_first_dev() return NULL when the device
+> list is empty - which is the semantically correct answer for "the group
+> has no devices" - and by teaching all four callers to handle NULL:
+> __iommu_group_alloc_default_domain() and iommu_group_alloc_default_domain()
+> return ERR_PTR(-ENODEV), while __iommu_attach_group() and
+> __iommu_group_alloc_blocking_domain() return -ENODEV, consistent with the
+> existing error handling in each function. Behaviour on non-empty groups
+> is unchanged.
+> 
+> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+> Reported-by: Li Ximo <lixicaicai@gmail.com>
+> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 > ---
->  fs/proc/task_mmu.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 5c54aebe2118..8825b01f5e38 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -3231,15 +3231,18 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
->  	size_t n_ranges_out = 0;
->  	int ret;
->
-> +	if (!mm || !mmget_not_zero(mm))
-> +		return -ESRCH;
-> +
->  	ret = pagemap_scan_get_args(&p.arg, uarg);
->  	if (ret)
-> -		return ret;
-> +		goto out_mmput;
->
->  	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
->  			      p.arg.return_mask;
->  	ret = pagemap_scan_init_bounce_buffer(&p);
->  	if (ret)
-> -		return ret;
-> +		goto out_mmput;
->
->  	for (walk_start = p.arg.start; walk_start < p.arg.end;
->  			walk_start = p.arg.walk_end) {
-> @@ -3294,6 +3297,8 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
->  		ret = -EFAULT;
->
->  	kfree(p.vec_buf);
-> +out_mmput:
-> +	mmput(mm);
->  	return ret;
->  }
->
->
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> --
-> 2.53.0
->
+>  drivers/iommu/iommu.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index cd1bca7ed..5f26785bb 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -1386,6 +1386,8 @@ EXPORT_SYMBOL_GPL(iommu_group_mutex_assert);
+>  static struct device *iommu_group_first_dev(struct iommu_group *group)
+>  {
+>  	lockdep_assert_held(&group->mutex);
+> +	if (list_empty(&group->devices))
+> +		return NULL;
+>  	return list_first_entry(&group->devices, struct group_device, list)->dev;
 
---
-Cheers, Lorenzo
+list_first_entry_or_null()
+
+>  }
+>  
+> @@ -1723,6 +1725,9 @@ __iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+>  	struct device *dev = iommu_group_first_dev(group);
+>  	struct iommu_domain *dom;
+>  
+> +	if (!dev)
+> +		return ERR_PTR(-ENODEV);
+> +
+
+Are any of these even possible to be called with an empty group? How?
+
+The giant wall of text at the top failed to explain how this could
+ever even happen.
+
+Jason
