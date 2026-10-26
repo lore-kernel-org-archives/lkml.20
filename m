@@ -1,100 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793050795;
-	b=J5tGVD5F0ZKfRg9u5H5XdnOHsgEH2UrbaDy69Yjp0HZnnFJ7wA+dhw7sPMvdk6te+jza
-	 iey0iOpFo2k1SmlXLeZW/gVSTN18cDWnMB8f5ylUBLBo5akYOehx1JIxfzeFyCh3Ftkmd
-	 tqjVyhaULK326WkEe9gHkjqgV+2sG4lrMgrbWhvZVVNlrzsK6fpZAYlJu648odgKQJMpo
-	 A1WoiXi0u0x1wej164X1jgYciDdtvs6jb6w+StxJmpSluEiDSKtRvVIRKrXRJooeMkYvp
-	 Cb/YvmkehEpBHh5BZ22kLw55FLhuwXHsc/yyVIYS3rjmP/KKDQqFJ4qq2cMaiWm3fjw==
+	t=1793050889;
+	b=WpMqkxBlVm89TsBoog9Ski75AUuSfBZ/mPsxCkZD2N0BUyFqyNGSTlzNgw4sm+uUyJ6f
+	 QwYugqLgddtdP0K/rPK/jv41Ipb7mpI6m5jr6cgwqenksAAY3CatmTAS18XeMlA8OTZ0t
+	 tLaJtTZ0wMjsoKpDTGoWV/dNQdQ8cV8dTPY4jZ2pBuoasbbXH1NWOsq0PmE9RoxIzkKuQ
+	 OJFCj8RMtlO+HI3gGeKw8oy9YmYxewAThSo6cH/mIqHD5yERQHcKMu3reMwQd19/Si5Hr
+	 g0kauy/Hq4OK6vNlN5OnZrrtYUAtqDzEyWxUV1qpd476doogp8gINC6Ag21QvGvSFRw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793050795;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xSeNS65qus3GCZvtaI28SVIcrlO1tnD2OBxNeWc37ko=;
-	b=0qVAbpup14HRgRjPkRUuH9vBt2rNNevxzaDzBwuw/HyRLDqidjYCS1XxT5HS5yVyAyTN
-	 /03coERFHb/25QMmZS2YBYUNMW2YCoXzXl4uG5Uwc/kC5vk88zackl/zOA0UpZa0Sw3E1
-	 zV0kGO4P66dGAiLWHqc8thLRLOJVI1wcc8Tl7SPmtPxOqF115MbSj+fQEc1pPKSz9OHEQ
-	 lrSDoXpmYy7kvadTBWBQ+XYzbZY+t0YTMzRAufh7Nm+P58DRBBcJDOXd/TklQoiPKX8fH
-	 Oissc8vaGH5QQRGTrB4O9v8sA7DDIw8AHRJEL8Yg9i/c74znsJqn76avu/62HkaDSZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793050889;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=lWzxRcNP0EA974T23MJtm9JINdrJZubezdMnSoVs3yE=;
+	b=i2fdkGUwPGmBBmFp1KrrYWKiBO1AprGPquAKRBjwJuV5jT5pyNzK7uaR0BhxbEEsUsCn
+	 TSNEXzYgYnafHs/262HOsjhHqD8WfqKwg4w3p85qy8pmghUaDBC8mqTMWHdYHmJPEhCeU
+	 i73GkzO+pGn66BmtOwVLf/Id+FSHdnwz7YuuULcMfd5xiRc5QsWPDabMoRARE6iVCoAda
+	 T7KL4JuhlhqKf1O8OTQOoTCey00Gh/cYDIJODLnZeudQEzVZM/kUUCbpw3B/4b1uYGvti
+	 trqhF2GwAsSkPa5IJI+dxSx/rLt/fQdHWXxu2ezgjCFJOQPbmgPHE/d1q3a/mC4MGCg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AkhoyGEF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i1HD5ZpP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SQn4dk8f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37687606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37687606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AC4606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:41:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8AC4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AkhoyGEF
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20d7a8984so5005e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:39:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793050793; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i1HD5ZpP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SQn4dk8f
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QIoItC488448
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:41:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=lWzxRcNP0EA974T23MJtm9JINdrJZubezdMnSoVs3yE=; b=i1
+	HD5ZpPQh7FmJTdyM4lPzMiwyHeHp+XFvkKgfZ6OBqDRrW8DkvJyAS4W53OUFw5po
+	SLQRtdxZe9ceVunbTWAwpCbVCdRZ5+ZEXFDYHi2QBSQcQF3wCuQjUZp+A7VTcFKE
+	RkEG4qqasoRLcidRJ1MyQOAfGSmx2hcqdIeWoFKUDMJBnGiCUcgmcftRNBNFn6RT
+	F3OGGURu1bbiK8HzRCawmWw7PI8t1lCB6y/iKFw+L+PdibcWCzkdvp7v2aXEvuB9
+	rKrQqm6db2tT0yPshIDh+4OR/b/7kf0oNzsv26OtdjZtCLI+Y8nxaaRoQbgRXm99
+	Rm1oZWDVarEmf4Ul9R3Q==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf2kk9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:41:27 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-46dade0d7cdso3357146fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:41:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793050887; cv=none;
         d=google.com; s=arc-20260327;
-        b=RcWP9iAN2QaRsekajjnFZJz9bkfI/SRYCTE1UGddcQ3NY7mHe5acWRQxnqrS43wzQE
-         BkQyG2DRucEOyIOiR1CN25NkaePUcjU2RsMGF8HNQZ2leJgmaURjjuTuG7l9Tpn5SPPg
-         T0+A3GWj9GNTgcgdkE29DTtJJQyRBfammHTWssqPwI0HAjIsDWy375aCX9MgP0xndO+s
-         3YKPdodGgzgvPUaOc+aXrS6WQNMq2OgS813bUPfwvCx6SvqPAuK3jfiOLpXjee8gqa25
-         bYlZl87iyl4pCuJaKFYhHsYiswT9DzBhww1ttmriqlg5LYYuaOJSzvvdpXOohJea+TPh
-         Z/sA==
+        b=Tkx4ieJPsmQdXkfwVr/0YSKUcrHVBbVYNVxJpm0pMjeA8htq6UVzRDoFUD+sm1Zo2x
+         tJqNFBFPH3CJMUMXgVFLa5wPI6VlbUN15rS3hszrultJDn58JSnzjQ1pnhD9f6LhJ47W
+         ithFbnmBAJs32PSLwR0jnis7/d+ktBjktK5ZKHSh8KHmiN93YJSD2334or206g3KUf9w
+         bdVm98phfuV+nY35+y1oa5n3eDdZcjCK245RW4pAYn2GSLv8WjykRo2ANxC7b02CPuG3
+         ksggMU8eelETn7hxqKH5JUVIxt7xDKFCMEjhZ4TTbFV1Dn3fepSE0O770QIDnITC5FNu
+         /YZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xSeNS65qus3GCZvtaI28SVIcrlO1tnD2OBxNeWc37ko=;
-        fh=rd14+2ZgGmbIv5vnVleyjLKY4v0Fsn498T6O1skzayU=;
-        b=glCXDt+DZsyU8eTCEazwjPyPTFVkALnSKFl435KJWBP9yCncxiHy/6ew8S6V4Vr/bu
-         l366TtJyOktNPEBuvNH4QHpWBaPYMoO4S+pOqLJR82fwu1GqlwG0KJVHFRzU3hcKf+JK
-         BJoPh0sovW4vPZeyNx2n4gV0jFqGTGqP+0mYnr5IhRPXkOub7dgs4behFVCCVE2kphIk
-         0UYDHqT7BvjRw0pwFw+6ON1JEzkv37NkwgnvRKUjql8959QZ77yn8BU+xWrfMQp463x1
-         aTNBjcKoZ5Id9uIprejMUe2i8N4aHPbZox1OCK57Y6kwVlG/J2unN9vdNQYWX6eRClgq
-         wQ4Q==;
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=lWzxRcNP0EA974T23MJtm9JINdrJZubezdMnSoVs3yE=;
+        fh=pVSDqPo3rwta0qlmaJq5LuEevrnTxF+vHfTiZJm4nG8=;
+        b=evbUAjLvQggqvTaCzweRY8Y1PCgORI+dd8AGyWyU3oMFZcIGc6LyRqdWN95eqBVBR/
+         gQgeS2ULY3JY4CzeytlSpp4Rqq8P1CqLs+3HvImxn6wwKCyICNmpcoQ0ID0J2D4Ov/ga
+         7nhehCvtRZ0LKdeSaSwve+p0WuQswWEuXYET1/lySgQXXhro49o3ASO1a5+ag3kitamm
+         ss1pbSvSg3dZ3WX7Xa9OHNv64FWT2ifF9FkHzxWmn8H7mvTHWJrFD4hGUK4PctIG/cwO
+         fjJ7luGoajOqJOO4KcczrwOmcdd2ac1bC0bPMsUUET6AyM3glk1n5RMGoDhdTPFARG3i
+         vULQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793050793; x=1793655593; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793050887; x=1793655687; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xSeNS65qus3GCZvtaI28SVIcrlO1tnD2OBxNeWc37ko=;
-        b=AkhoyGEFiwKTk6zjNVHjA9wc5L29B3d4uC+l6tR9TiHokqM1l9x8YloeaTQoe+TL/y
-         kwrsnlTSWVWicofnjo1Fm/ovL230erCkc4hJPiVRmMgtcWfncEiEODc0wW4mO+of6zE/
-         cV7Nott2DlVcEZ47FiHNXWsiR6L5Cu4yUMpYwLG05dgCQPlYWeypQH2VTwSBCXBW6n8e
-         heMl81P3WDEMbow1b+7JrTri8EkvGFqPPDdN7kn8PvrPy0+LJ+1ONuk3POd7oIwnfmyJ
-         +ObSPx2K2cjbtJO7LQ8gtI6EBGTxAaMbKtqGJKv5RhoGVvGgEIxHhM2f0JSmHvrZWUF9
-         HlVA==
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lWzxRcNP0EA974T23MJtm9JINdrJZubezdMnSoVs3yE=;
+        b=SQn4dk8fXGvQFIl9Qka6dwTCOzIdPVi+FeQF/m3x582nM598VwpZbH8PVewPtDWJNS
+         Lg9sRvF1QbXEx1M180g45CsWizTkmUoBKZnjaquJxgBO3RirkiOvsM5lpy/DcKosWUi3
+         TCV9E6F+2hMCtA2HXoxkbK6aMF9IeTlAamqTXeGKQ0tWKY/eNIWB+ahp6Cg/3qJ2zNSs
+         x0Ut/LH7e89rmJtseOFoSx8YW6YzKGMcwMOwIrUx2HIQGJVOkFpr3Xo3vFY5ZKS7x9/D
+         qfmFt/NVzqWiTfZaFwdHciFI7zcgrtcO60vk+/ZdCnlBfnP2tr3qK/c+GNA6eKZBxRJj
+         S7CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793050793; x=1793655593;
+        d=1e100.net; s=20260707; t=1793050887; x=1793655687;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xSeNS65qus3GCZvtaI28SVIcrlO1tnD2OBxNeWc37ko=;
-        b=m2fmexY4ya2EGOM5ICnOPd0ZGxsvIyfCPIjEf7lp3qk0G2gaIFCsmuIPjeoSZse2m3
-         PbqQBck4wSns6y+UrreQVbYHG33Rz6EJSZsK2jAz4St1PZcoqE7SirTkghT9dDZRa2ow
-         FwAI7Bclt0Z6fs7p9l9fj6p4+iOj3lsMtuu6MAQc4bzrrqei3FJWMDUTNzFHEXszaP1M
-         ed0gDNa3Mgm8ZdeQR1TOPLJL4ta4httEmORcrBmLFB+cTNC8gsU7f3iT9BmyGMFRo70y
-         +T5JswGuBJWpe6yV3LCUQ7NOiFVc9UZ+Wka8Qx8M0Qgp3K1Lek7Tc0v5VLJQiO5ElYzr
-         UUFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbVM7mSlZiQwTpKmWGgG2hibOTmjPniT/d/C1s+/PbiAxzrVy8A9HF5YZaco+Vbkh034QY/f4Kl6dsJT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8RgoI7iFcxFOTL5CZWdsTToQjTNh4JEAYpsy+d6dl1tJAzEyS
-	nt4+lhTWQV0oS2oLNu66S8qnzoKdXTcdam+M/tIO98qgSPCelAh5F2w/EnuNHIW4DQgN4G48JiE
-	8yzFA/sGpGrAh5G1g9jqSd9VbYAo9ihW5Yyl7MY4v
-X-Gm-Gg: AYBFou3j9sBdHsPRKFWOymKPaj1ogXqBNNA8u9ddgMiGnrB4VlMf5kXjorruTezdii7
-	WtgeZpqPNqqdamowgLAX+2gLcQOgnr8pDJnWuMVTq1695SvkEpAH001OAbRNTucET0s7aad3fD/
-	KFiyPQ+E9SpPzyChfoMmUkxCZnmpcXsTYk7byRQNUy70JeAql5OAT+QhDMaitlqm296qrAVYnMD
-	WGKR12YWaQpR/HGLX79limz8NudN4TljGZnyq4SvRvGqIBfboYDmJ6H22u3F1RmsYF/Oil5n1xk
-	ND2tb1HbG5h8GDDEmbJvLcW3556j0uNi7bugWUFXtVUezC5V92w+B2oRkZMVuu5Jk1YvMj+z3GP
-	uft6bs8E5IA9O1RgLREpCL18gHIw5MO1PbeBK7gqubehenCKM+MqplcE7zuVVpuWw/lk=
-X-Received: by 2002:a05:600c:6385:b0:4a2:1053:8854 with SMTP id
- 5b1f17b1804b1-4a7fa6d7103mr133845e9.7.1793050793074; Mon, 26 Oct 2026
- 14:39:53 -0700 (PDT)
+        bh=lWzxRcNP0EA974T23MJtm9JINdrJZubezdMnSoVs3yE=;
+        b=ZZYkSe1NRTvwc4llfa/FHvyG16E4srWoBVfFnnujwnDxLW9Fi0zKxVKh9RPfyvXuIu
+         dbhdVUHHy7xidDXqehC9NNAw3NdFmw769lAQptZNGJpm8o6wa/mZx1i7JqNt3V+fVe+T
+         0UXdui85PQH8SA6X4GX6IesH/aVIYOYc7Ag1fFx3hqRnsFyyrtpZ2rXLBit6yJ8nHxME
+         4PAqPw28dKQpg2YKzJl04SgGPWDvb/x6aoJT+f4/8dSEEwUczCDJtGDfb8zxPlTX0bGU
+         NWcos095Cukgjiwom5S46pYqM8v5mIZ2DsOnh0NvWVgXMvY5AEN5XQFnRL4IrtaaZtTe
+         SPSA==
+X-Forwarded-Encrypted: i=1; AKwUvBysTl+TqqXBb+Gd46CakX/n9Ammmu2cOEnXYYwjScggOlaMQD3huSUR7VdkEJudmxDrPy0za7UmGoGZ7UE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlZtyZrd9KIhwGKPjTz2yxDIDuwSFnzfZrcjzkYolwYu4Iva7b
+	dFr67K8LuS4vwCc9IKeg/RJWpo84a2UPLIOA/ONLm6r07fjNJKnjjrk2sz4HlJVwzTAEyMwkr/u
+	yXz0/+KxdPKNpzd5X6J59LX5CkEQYId7J+n1kWjF94kG4VOSrGUJ4dX5EqrI3WHMArBblg3/Re0
+	WUVciZ62PR67sksIVQYSYmdUSrkvfGb2mmpXC80loRwJ9YdQUfp9WA
+X-Gm-Gg: AYBFou0EGWjmf38ZZIkkgEywdI/QobwAv233run5QW5DoTHZlPQbnB8134BydouOVAE
+	6jHWy/C7PAx2mhDy6KCVJnWIQfTG6tRy9W9EssT+NgfQVNdPDqKgzBdJlC//yQQvA3aGgKbbuiN
+	XtSI4xy8ES0CiCb3dz5rlox8FdIE7QKeDAWqvuGvzCIr4u2bf3IWzeel10Iw==
+X-Received: by 2002:a05:6870:a2c9:b0:491:8695:3323 with SMTP id 586e51a60fabf-4a83f5338fdmr4761486fac.24.1793050887070;
+        Mon, 26 Oct 2026 14:41:27 -0700 (PDT)
+X-Received: by 2002:a05:6870:a2c9:b0:491:8695:3323 with SMTP id
+ 586e51a60fabf-4a83f5338fdmr4761476fac.24.1793050886681; Mon, 26 Oct 2026
+ 14:41:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,187 +127,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024030401.852598-1-almasrymina@google.com> <179289749460.3134.17105687099040790537@kernel.org>
-In-Reply-To: <179289749460.3134.17105687099040790537@kernel.org>
-From: Naman Gulati <namangulati@google.com>
-Date: Mon, 26 Oct 2026 14:39:40 -0700
-X-Gm-Features: AclHuK-532-QF-vwACr9a_MraviT-0vIBoDHd00aDqRCqW9_XeV6vsyv8HKpu8M
-Message-ID: <CAMP57yUindVWCLV4O=Qki61VmZ2y8hjMPVJ51UnODz3D0LKwXw@mail.gmail.com>
-Subject: Re: [PATCH net] idpf: free the skb on TX DMA mapping errors
-To: netdev-bot+sashiko@kernel.org
-Cc: almasrymina@google.com, aleksander.lobakin@intel.com, 
-	anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
+References: <9671164f87138a0caf5c69b66129bbd6faf932f8.1793044688.git.bvanassche@acm.org>
+In-Reply-To: <9671164f87138a0caf5c69b66129bbd6faf932f8.1793044688.git.bvanassche@acm.org>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 14:41:15 -0700
+X-Gm-Features: AclHuK_7zT2IvHbHTNDkSXUCFvxh-cTVSQ0IQQuP8eK-pbBj0w4a_pzyD7ZWFRw
+Message-ID: <CACSVV03Vjjd7AV3WrrpxbDgHAjWAUrru8GnJQK7HLwSSzQ=XAQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: Fix a lock leak in msm_ioctl_gem_info_set_metadata()
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Yuan Chen <chenyuan@kylinos.cn>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA4NiBTYWx0ZWRfXxewH3RZtmQwi
+ DPo8hFT1TXivK9fWTujykvdJhSfLrK0xDso7OYxTN303CCM/Lp/wgretbtWzFfuQBpY6/HO0aAE
+ xtdtZpHZXrvBFp3jgkY/zdMOB0yN+ag=
+X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adfc907 cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=N54-gffFAAAA:8
+ a=058b4stj7-OAlbUbkHcA:9 a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-GUID: _4iwBMQutQ77UOan9xB_ppzOM6feaNKz
+X-Proofpoint-ORIG-GUID: _4iwBMQutQ77UOan9xB_ppzOM6feaNKz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA4NiBTYWx0ZWRfX80X1gi4XOLFY
+ Z7yO6/NpXr2ghO4fvOr1W6VCovvsZbUwNBgz708J+CBMjEquNLpNQT5i11upUv951H64uYCcrtM
+ TLT5Sej7WsGSrTyCpYE8xOVrdsg4ZLIip6+F7MhvMRMgK8YiV0J+8jV1vNBMsrnsSULAn1s4Aqw
+ QbO+tt4j7ijvbaqhMGSRK7L/RLmDNH9ElIGXa+zruXQtYZ/fGbcSKT7/bJ9MRDr858O/wb+kL4C
+ XxkgbP/kBzxM20GIt5FGMNe7IakKWmamaDKYu4cWtjD5ZuRWEzvVy0AFnKoL41rFrf5Xce6+l2Y
+ pImcbrMsClsCRkuzU2krWGhdBgFvjr+/YV0tZy877vwqqxbvX78hqj6M1UHEGwHIcIDnTangqba
+ J7HLeKHl2AkvuI610P0bgJLMtTI19T1YZ3ZWOEdqUH8QQ5uOcHvissy7mygCxBt6oXyXDw05I18
+ zLUXEXvqx7I2Iwb11mQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260086
 
-On Sat, Oct 24, 2026 at 8:04=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
+On Mon, Oct 26, 2026 at 12:58=E2=80=AFPM Bart Van Assche <bvanassche@acm.or=
+g> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+> If krealloc() fails, msm_ioctl_gem_info_set_metadata() returns without
+> unlocking the GEM object. Fix this by jumping to a new label that
+> unlocks the GEM object before the buffer is freed. This bug has been
+> detected by the Clang thread-safety analyzer.
 >
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] The fix leaves the skb leak in place for HW-timestamped packets,
->   and the Tx timestamp latch they hold is also never released.
+> Fixes: 1c8c354098ea ("drm/msm: Add error handling for krealloc in metadat=
+a setup")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 
-Both issues are pre-existing. This patch does not introduce any leaks
-and these should handled separately in the tx tstamp and FLOW_SCH_EN
-code paths.
+You nerd-sniped me into:
+https://lore.kernel.org/all/20261026213701.22126-1-robin.clark@oss.qualcomm=
+.com/
 
+(but I'll take your patch for -fixes and rebase mine on top)
+
+BR,
+-R
+
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> Pre-existing issues:
-> - [Medium] This bug was not introduced by this patch, but in FLOW_SCH_EN
->   mode idpf_tx_splitq_frame() increments=E2=80=A6
->
-> --
->
-> idpf: free the skb on TX DMA mapping errors
->
-> This commit frees the skb at the end of the TX DMA mapping error unwind
-> in idpf_tx_splitq_pkt_err_unmap() and idpf_tx_singleq_dma_map_error().
-> At that point the first buffer is not yet typed LIBETH_SQE_SKB, so
-> libeth_tx_complete() only unmaps it, and before this change the skb
-> leaked.
->
-> > diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.c b/drivers/net/=
-ethernet/intel/idpf/idpf_txrx.c
-> > index 885df6294ad94..a92e2457781e6 100644
-> > --- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-> > +++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-> > @@ -2606,6 +2606,7 @@ static void idpf_tx_splitq_pkt_err_unmap(struct i=
-dpf_tx_queue *txq,
-> >       struct idpf_sw_queue *refillq =3D txq->refillq;
-> >       struct libeth_sq_napi_stats ss =3D { };
-> >       struct idpf_tx_buf *tx_buf =3D first;
-> > +     struct sk_buff *skb =3D first->skb;
-> >       struct libeth_cq_pp cp =3D {
-> >               .dev    =3D txq->dev,
-> >               .ss     =3D &ss,
-> > @@ -2621,6 +2622,8 @@ static void idpf_tx_splitq_pkt_err_unmap(struct i=
-dpf_tx_queue *txq,
-> >               libeth_tx_complete(tx_buf, &cp);
-> >       }
-> >
-> > +     dev_kfree_skb_any(skb);
->
-> [Severity: High]
-> Does this still leak the skb for packets that asked for a HW Tx
-> timestamp?
->
-> idpf_tx_splitq_frame() reserves a timestamp latch before it maps the
-> packet:
->
-> idpf_tx_splitq_frame() {
->     ...
->         idx =3D idpf_tx_tstamp(tx_q, skb, &tx_params.offload);
->         if (idx !=3D -1) {
->                 ctx_desc =3D idpf_tx_splitq_get_ctx_desc(tx_q);
->                 idpf_tx_set_tstamp_desc(ctx_desc, idx);
->         }
->     ...
->         idpf_tx_splitq_map(tx_q, &tx_params, first);
-> }
->
-> idpf_tx_tstamp()->idpf_ptp_request_ts() then takes a second reference
-> on the skb and moves the latch to latches_in_use:
->
-> idpf_ptp_request_ts() {
->     ...
->         ptp_tx_tstamp->skb =3D skb_get(skb);
->         skb_shinfo(skb)->tx_flags |=3D SKBTX_IN_PROGRESS;
->
->         /* Move the element to the used latches list */
->         list_add(&ptp_tx_tstamp->list_member,
->                  &tx_q->cached_tstamp_caps->latches_in_use);
->     ...
-> }
->
-> idpf_tx_splitq_map() can then fail in two ways: dma_mapping_error(),
-> or idpf_tx_get_free_buf_id() failing between fragments in FLOW_SCH_EN
-> mode. In either case this dev_kfree_skb_any() drops only the xmit
-> reference. The tail is rewound to params->prev_ntu, so the hardware
-> never fetches the TSYN context descriptor.
->
-> Normally a latch is retired only through the completion path.
-> idpf_tx_clean_bufs() sees a LIBETH_SQE_SKB buffer with
-> SKBTX_IN_PROGRESS set and calls idpf_tx_read_tstamp(). After that,
-> idpf_ptp_get_tx_tstamp() asks firmware about latches in the
-> IDPF_PTP_REQUEST state.
->
-> A packet that went through this unwind never reaches that path. The
-> only other cleanup is idpf_ptp_release_vport_tstamp() at vport
-> teardown.
->
-> Wouldn't the skb then stay pinned until teardown, along with the socket
-> wmem charged to it, and one hardware latch per failure? Once every latch
-> is used up this way, it looks like all later HW Tx timestamp requests
-> would fail with -ENOBUFS until the vport is torn down.
->
-> The refillq exhaustion drop path in idpf_tx_splitq_frame() also runs
-> after the latch has been reserved. It seems to be missing the same
-> rollback:
->
->         if (unlikely(!idpf_tx_get_free_buf_id(tx_q->refillq,
->                                               &buf_id))) {
->                 ...
->                 tx_q->next_to_use =3D tx_params.prev_ntu;
->                 return idpf_tx_drop_skb(tx_q, skb);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
+c
+> index 5e8f3ce26b32..7ab808322be6 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -571,13 +571,14 @@ static int msm_ioctl_gem_info_set_metadata(struct d=
+rm_gem_object *obj,
+>                 krealloc(msm_obj->metadata, metadata_size, GFP_KERNEL);
+>         if (!new_metadata) {
+>                 ret =3D -ENOMEM;
+> -               goto out;
+> +               goto unlock;
 >         }
 >
-> Should the unwind also move the latch back to latches_free, clear
-> SKBTX_IN_PROGRESS, and drop the latch's skb reference?
+>         msm_obj->metadata =3D new_metadata;
+>         msm_obj->metadata_size =3D metadata_size;
+>         memcpy(msm_obj->metadata, buf, metadata_size);
 >
-> > +
-> >       /* Update tail in case netdev_xmit_more was previously true. */
-> >       idpf_tx_buf_hw_update(txq, params->prev_ntu, false);
+> +unlock:
+>         msm_gem_unlock(obj);
 >
-> [Severity: Medium]
-> This is a pre-existing issue that was not introduced by this patch, but
-> does this unwind leave num_completions_pending too high?
->
-> In FLOW_SCH_EN mode, idpf_tx_splitq_frame() increments the counter and
-> sets last_re before calling idpf_tx_splitq_map():
->
->         if (idpf_tx_splitq_need_re(tx_q)) {
->                 tx_params.eop_cmd |=3D IDPF_TXD_FLEX_FLOW_CMD_RE;
->                 tx_q->txq_grp->num_completions_pending++;
->                 tx_q->last_re =3D tx_q->next_to_use;
->         }
->
-> When mapping fails, the tail is rewound to prev_ntu. The RE descriptor
-> is never posted, so its completion never arrives. This unwind restores
-> neither num_completions_pending nor last_re.
->
-> When a context descriptor was used, the stale last_re can also make
-> idpf_tx_splitq_need_re() return true again for the retried packet.
->
-> Once IDPF_TX_COMPLQ_PENDING() exceeds IDPF_TX_COMPLQ_OVERFLOW_THRESH(),
-> idpf_txq_has_room() returns 0:
->
->         if (IDPF_DESC_UNUSED(tx_q) < descs_needed ||
->             IDPF_TX_COMPLQ_PENDING(tx_q->txq_grp) >
->                 IDPF_TX_COMPLQ_OVERFLOW_THRESH(tx_q->txq_grp->complq) ||
->         ...
->
-> idpf_tx_clean_complq() also sets complq_ok =3D false, so the queue is
-> never woken.
->
-> Could enough of these failures stall the Tx queue until the tx timeout
-> reset reinitializes the counter?
->
-> >
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261024030401.852598-1-almasrymina%40google.com
+>  out:
