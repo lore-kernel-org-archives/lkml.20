@@ -1,130 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032081;
-	b=4oDZ6n04AwLia0FeE9EkfkCehkJ5mGl+kCz4x0JsMiv3u2dqlNRoHt9oPcyikaLikkNr
-	 dQyU8AaKFvhjF7KtMwc/kif24UsdMvgj4WqDTjE3l2yqVO+TVXmTer8TUzTZ1xtn2YPhF
-	 f56lkUPGrJHElXynElxYl1xVIln73xXFj4CK/1Zh/ltI4kMwyMwxVvZrB3fc0jgRu+qtG
-	 FfH4S8uumC6cjmNeTnZHIB5gYQ3gX1a7HD4QHMlnTMYAXCiYcnoWLe5M8ooUKUaKNXcnT
-	 qIX7w/9k/Klj81dFqvt7S6F19sdMcNBL7ZgJRiQhHnX3eoGJb62SOcAZXygOm6IMAzA==
+	t=1793032165;
+	b=YYoS2qnswfhOIwyaxDeZmBR1hYuxIPP4NBspYRjo5YgdaXFpeti5XXx3hnr0ODswpLgg
+	 CNIJJ4A1NmCCY9pduvMAALa/l/j1uDgbqmLDk+B0FBdYH9wnVZeFzUIzNKfEpfqg0hCyp
+	 tHAsCn2DCMmslTInlpL+Hi2FQdNQ0i9jaFwiadm+rii7VFjrNaZ6cBU+nEVP6AzCvJz1e
+	 Wd7gKhWrmNPCOAZrnVIvzaOZVqR+sspFJk4bmxKb7yx0x8O7nv4I5WS1iSWu9pFHp7pe8
+	 CWJCKEQgJHhCKgwQNa/N1SYto8BjiR1F2H7A9LEK/mRYxkpK8XSoMlDG7ciUbwWvAcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032081;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=DgbFgdGwx0LxvaVp9RgzD0rA2Eaf0b4Fh1Y0S4eeYow=;
-	b=oYsUEOxWV6igx7fu+ipmX5W2+KZr+LMJ8WkvDpPWyu0mqM2Ajgz/wp9+7fiEu4GX2Gx/
-	 eWmaJFipNeASNSl6rj3EF6nYaYWd7RgiPqHZT74hFFVBipzD1qAgutmsOIbtJUYzMMzbG
-	 D+ltNcZyEbh04liRLBBghqa0Oyri/NqZcyFnVeHUojO2WztuG0brEGfpWRmwAJefA/ALC
-	 8Vc/k283+edYG4z7MHKsqwvzk7Bu5humZr1veOg7f5yibLGnBmIOXluWLwHJV9im/7bHO
-	 TK+Sm4/TSHGyZimbHxtDwvawY0qaqXgPSkGAnP5OpQ96pGTcEG4lp/bB3JMParuTZlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032165;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=ITqbDSTjwjfbrrpkyujx4v8CTbfspgT4IGjU+cO6egY=;
+	b=46gLTajwEdtKBO6ueGp4R5CMPJIKYgDF1QaPjFDF7e/aImCODqKxZHLCRkzmolLcqNQF
+	 l2zweolSBaQMcOM1THMHYfWDHVYs/y57Szb9zitfIT6rNcbs5BTjOS1PGBAfKbPv/Pwdq
+	 JSKBXrdzbvQ8l7cC6qpUZ0ZxGP/ryKv7Ywsv8rGyuYmMeMx9+XYaI6IhxrXiL2TwZRTTy
+	 qsxwurNCRGF07oMMvHVIH5KQdQ6rInrZwGxMBlSOu03b83SL8REvT9YN6CGBWbEXTwb8h
+	 fJjXntA8KDNe8LfKdxZ1V51KKg9iuGN2ERoeQz5B0+1JEVg7aomg+AAim3NAKsF/IOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Icvcr8v8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j6gLnBcl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DifXhBTJ;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADDD606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CADDD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487CC606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:29:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487CC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Icvcr8v8;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j6gLnBcl
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvv0e2707724
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:28:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=DgbFgdGwx0LxvaVp9RgzD0rA
-	2Eaf0b4Fh1Y0S4eeYow=; b=Icvcr8v8v7hK8qcfYwrBYrcqCMVNXeTz3YpTKEXg
-	mdmdJ5SuXbVcw945UvK6fUFy7RYibLBAbrK9JVEJ/fBsyVazlw4CvovBwSBDax5O
-	JFmOcSwc4pt41RSCoZg1HvxRc1DExZgWUj6rf7TyerDYnGku69EpU5YAb6BbYBHl
-	Unv+vZJOfYr5sPnBUerBWR0/68KBwCeb6iec/tGteUwt+VAQlg36QDA90tpD431j
-	t36hoZZwXXNbjJsr+hg9erH4C/+HvLN0VMZSDlXwNuDpKa6TWnICxKknknZ1X29L
-	j+yCYLrKXmPub9xBgoI8c581p1fNBGyfyyLZjkwCWEt9cA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u61q2x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:28:00 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f5844cb60so14622085a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:27:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DifXhBTJ
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so15528005e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793032079; x=1793636879; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DgbFgdGwx0LxvaVp9RgzD0rA2Eaf0b4Fh1Y0S4eeYow=;
-        b=j6gLnBcla2HE5aRaz6IunowyyoGLQREkoQaaGRXLUmzgEmASZ3EIX9yDjYlRi2aJCt
-         iaoPRJnVL8yHvAuXgk2VE1Y9KZ/R4QNFMaqTZhvJocKBhKo5xBHIwJcomERoxFuEKN2m
-         sQbXBCWTBalS8JM/Jq+aRBdVt+QW0FKqAQL58tKo1EEfoKgiZ6Tl7HczpZ+KPRxbIgs3
-         30pnAnMf3xxN6N1xIP557rsB0zrICK3iGqSioMzighwpAppjobXnb5Lu6ktIaInE7cmx
-         xjjLt6JznYJ3mKKl7B6WbQch4NDP7DI44wRwuU7p0EQcjv9TIlTvnNCyddQBpuJlG74W
-         2N5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032079; x=1793636879;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1793032163; x=1793636963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DgbFgdGwx0LxvaVp9RgzD0rA2Eaf0b4Fh1Y0S4eeYow=;
-        b=f1AopavdVInMT+xs0WIfedI1njWdL2Kge4gHZtnh7LqWxwlPrPQxS9qYFCTTZ53RmV
-         ZKs1VPHEhsytbDlK/NsJNlnZ8y9rWt8t/yK0FonEwwRl+W+6Yn7iGUtXYe4rRyUQPXnl
-         xJgHeSUuTrWZ1mFv3G9dkk1kFNBzHKugp67ZMII/xM8mzN4IpOvVw7aXnCaWfOI5ogh7
-         wt/VO/P+/Xh9FC0F8hXaZf4428xhyt4upCCoxsExZkLXRdgLBkOsw21q502PSXLZHGu9
-         acJOxBfFBbtds6rK3gB0H9FisN50cAipgHlEBJo+N0OM+axq5lMFEthdo7roMs8kgJ5g
-         Kfuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkeH4l7Kd+HQ262xqSk5N9NgPWJ8jhbhtQGs7aatNTrjcdRAuO48QSsGXsbBSR7HFdXcjsZxGpwaBAD9k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ45bAiG1wWKyz98XXG82VPEKEz+7B+1lPgNtoj1pwWzbscE7CM
-	kZZsKY0oZ5e5M4S23AvidIz1MrzLt7nWMY2nI9pd+A2/XwgrMITBuQTuuNuHx/L5XHtAiizkV+F
-	iUbhs3vdhlT4gMgpynLft4fyPHZtSwjdVGbKWIslSmqJpKpBXKblk7YWl2iJALqj5U2M=
-X-Gm-Gg: AYBFou3xBz6K/gY+tNwCN3+LoEXnr0QkEdlC2kn84P405hAzVLjJqJNI8X2d0EExC6U
-	jx+k1G0KYa87HTZ1rpM5F/9lS3E3ZI1WfVwIew6zECP0b0hJ8XBUaeSelXmMFKbnA+u5hPsuSpr
-	J1rnOkVfqHc94cpE4hLfb3G5E5kxTG2M2h0KZiFW2jpBBp5AFXElDJ6JDFBkDuHV9OqxQnxz3zO
-	yBlUzzmB8eV+J7sp8TTQldSJD4EVEWCq3TfeHmxcwGPU/yGjVb7erGzKsHfe7Bv/4JE8mghRxGy
-	HVjSaQAYR8nCrVAkl51qQt0HKdgfXqZwD4xcwGWxGcQPF7TL0VIKvXy2PmpoZMtHj4+fgv90N3L
-	UjsiUeRDN2lkF0ZY7l+V/DCExBtfd00U00K+MVkIz9rRVW1Zi6Pb9ehs/SvV7RLtpMg==
-X-Received: by 2002:a05:620a:27d5:b0:943:2746:3c4a with SMTP id af79cd13be357-943f4a05fb2mr32405285a.5.1793032078856;
-        Mon, 26 Oct 2026 09:27:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:27d5:b0:943:2746:3c4a with SMTP id af79cd13be357-943f4a05fb2mr32399785a.5.1793032078257;
-        Mon, 26 Oct 2026 09:27:58 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm18160539f8f.24.2026.10.26.09.27.56
+        bh=ITqbDSTjwjfbrrpkyujx4v8CTbfspgT4IGjU+cO6egY=;
+        b=DifXhBTJvVk6Znsfpih+FjoF5Wrg8MrElM8vyIYQMuriEdZUtnmV1Ytb2fl6ArI9rS
+         D+7w6w3VpIz+TsP1rgGV2DdnTf+azKO0nz7iMBN/ilkiUuoHSciiqM8LieFFsMm7HXTC
+         OF24i9+3qwQtdvqBQQnWKSKIl6x9VkXIuL4LDFEbsEJNC0zgbXm2cgUwYJOLnJG/zhOI
+         cE6NBCl16W61Eqz27cCC0I+HYoboIJMACuuniRG48Hfab5GyC/3a52VvGpFR5KSNjwmQ
+         AcBqRQugntBg1pxLccN5iKH5pEMTNRivZ1B2IN3ifWFJctq1M1c2XptTKy6HcKE0++lG
+         0DGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793032163; x=1793636963;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ITqbDSTjwjfbrrpkyujx4v8CTbfspgT4IGjU+cO6egY=;
+        b=wvwNITKpBzWCpfJ2cEkyDcYtmzbOgl6XLYtsvfQvf4grkQS9ttsY6EDGJMRT0fjGI6
+         SB+LM5vX6LbLKsvFEDymgfyklRMHlHpLGXmB5Gq75NVVbLx97xo6Ah2a1km48r++n1gm
+         Y090oNVMqpfmJWADkuuxGDag22NLZ/6o1IbVhoHkfnAMcyodrSykouAshCFDXvJZO9ns
+         qr2/h2yFwUvrYsjN0TBtkjGyH+cL5OncQ6va3P3YQUDIq3ohTJYRV5Ba0ALhOdCz3G96
+         Dhk8P4GTJfmCzPHwADbX9EORJUVyca1umZIFySU3s5vlFC/Lv153mPn6mf0C7eK7Dnx3
+         CDTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOH38ARd/sqd8jOSmWGYzLhHgRoZZlTO9NrbyWuvBWwHGqxP+H6/gI+J1QYhfZCM/nD6q68juMBY4jVYg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuZ+gHzgHI3+jvLL7si0I18cC3klHpjOkK4hq/WmF8BgAk0B9J
+	AxxvlvukDRixb9ThcqItY0UCgC/ILZFC9Xbg+9sEAuilzMgyQDQwRL1P/oI5+h9EFjc=
+X-Gm-Gg: AYBFou3FyJBiTb3ER/l4FPD6ENwP0jYlIE9JVvRpMD8HuxYkCQB2ZkO01wXNL8ApwBB
+	KShP9tjWa2RBgcFLSiT9g3xkaDNjsixTM08KOvPA5iX/FdNxaMPxCHwCxmV5PC6aBRsKV2JvXmG
+	rVnlUE5EBN+/otG8C2tsf8Dk1LrFhAf9wpuYsHedAL9S6NPNzO1NiReKf6vmV1cgbqix68hrFeS
+	e39leHQpn9G+1F1AIgTZ5N4kP2A0oZSoO2wntmCEM6/G3JZd4T8bq8BHwnobBP2R7DojRXk4mQY
+	TloBIOiFTjt1YustX72etlCHx/x1ZAvQDKH1mAtTqsFIaMjlZr57FUbmWx/Lw1eMp/XlgyQ0lpY
+	Ug+61G5Jx99wekuQtjfVA7YOE/fMHnEE0v143FXnVorjCNEwhtB6J7JLBAUL06IbIZqs+3w3MeA
+	Pmlr3j/Zp/J7JZFIFeq8etOOe4DIb+BkklW3bNkQN0rIdlqaFX7sG23BBGsmikAeAsuhZiO/6ii
+	jjLMZhKLE3ol8N+QGGEfGQkO0ytMBxP79ADlu61ajXoNGGP9APPWj48E5bcjLy9KHp4g2S0PrpR
+	gT30acFOdOujgwWCSvO6YUoyUJ7kHzzzEv/g4IqrHgo=
+X-Received: by 2002:a05:600c:474a:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a35acb9afamr139448685e9.33.1793032162560;
+        Mon, 26 Oct 2026 09:29:22 -0700 (PDT)
+Received: from localhost (p200300f65f19a904cbccaa7a4d73ac15.dip0.t-ipconnect.de. [2003:f6:5f19:a904:cbcc:aa7a:4d73:ac15])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ecd8dcfsm17304483f8f.50.2026.10.26.09.29.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:27:57 -0700 (PDT)
-Date: Mon, 26 Oct 2026 18:27:55 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-gpio@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 11/12] arm64: dts: qcom: sc7280: Add GP M/N clock
- controller
-Message-ID: <oxkqlvbjnlji4zyx7frurfjzf2ryfkbjjirwkewtp5trj7q5nf@pg6pogt5z6pi>
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
- <20261026-b4-pdm_clk_gp_mnd_v2-v2-11-ff8e4bc8d567@oss.qualcomm.com>
+        Mon, 26 Oct 2026 09:29:21 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yang Shen <shenyang39@huawei.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Imre Kaloz <kaloz@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	Hoan Tran <hoan@os.amperecomputing.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	"Enrico Weigelt, metux IT consult" <info@metux.net>,
+	Viresh Kumar <vireshk@kernel.org>,
+	virtualization@lists.linux.dev,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-tegra@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Srinivas Neeli <srinivas.neeli@amd.com>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-aspeed@lists.ozlabs.org,
+	asahi@lists.linux.dev,
+	linux-mediatek@lists.infradead.org,
+	openbmc@lists.ozlabs.org,
+	linux-omap@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-unisoc@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Michael Buesch <m@bues.ch>,
+	William Breathitt Gray <wbg@kernel.org>,
+	Robert Richter <rric@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-acpi@vger.kernel.org
+Subject: [PATCH v3 00/22] gpio: Improvements around device-id arrays
+Date: Mon, 26 Oct 2026 17:28:11 +0100
+Message-ID: <cover.1793030820.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.56.0.rc1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,93 +150,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-11-ff8e4bc8d567@oss.qualcomm.com>
-X-Proofpoint-GUID: KTytyCnT8JYs5H5c5H4d4fcx8Zhb3lZb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2NSBTYWx0ZWRfX42pWhGj6gUqX
- wIBHccNx84PxN8HIUN7qtiTAZVpisVw+ufDZXKyclbVp6I7JJWk8RaU/pRmr32/3HX4bIw1p+NI
- k+gmegUvjDYoX3K5xOEJ7zlU4Ku4lOrJzE8SAQh7ljQi+u4AsV2t9UUUJgKyKjMg+m67HdE/1tl
- dzaNATtODvVWIYXfVCpnhdk7iEQUcd8Ob3N8x5r/mwzb/Q1b1qcDWdr6utGwtTxttB6jibQrROB
- Pw9bVATywV9GoeAbnSTDCE9l+yzJhexhpFAWh8+9Za1x2D3n2RkJ/4coGbBEFTwCIUsmi+G57hk
- /FLJDmgJXjcFtkTKLQYgOHaClK6xehQfv4q5K0/S9wBvzvRZVMxqF1Ew3CRKPKPU29UJE5Ws1Ye
- um3GlrXZJDoJv4skBRipVnpLfItl5Nr5Va6QIZAK9QdKqz+ZXV+R/Fr2qz2kJGCpVtZeEI41Vw3
- 9Af/mq/hsRvOVZCxggA==
-X-Proofpoint-ORIG-GUID: KTytyCnT8JYs5H5c5H4d4fcx8Zhb3lZb
-X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf7f90 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=oTvOlQyMf-P45GjRKUkA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2NSBTYWx0ZWRfXzzDA59/noCDc
- ybQuCYOnmDXZBHojOl4A9W/50GjVh5Ws75G+i1lUJxHEMgrQiuhxNysJ5tarsWxyJOILZACdCTN
- w1Wo8qG+qUiIi9UQLtVRpJP5d3HLFfU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260065
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8375; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=/oBogVX4W/l/tSbRcbLeyK5GzZPZsHFXHxISWg2r7FU=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq33+c3CfzXRBmptFu1GW2GtVslcFR47MrFB6ag QI8Xzy686OJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCat9/nAAKCRCPgPtYfRL+ TixACACdtBFK6kNYWLMcAtstDryOYl7PdfPG1N2WQbOF3hzVRHuidZJEElOlxQOHOxjmH5QxfjG oK6tEHPvQpPYGNE6X2ddRlR3vKhFUQXZie3uQhpRkFU+T2B/9DaN4bQiSXUkhXTzFYvqdfGt+bx UbRl8w0O3UDWE1J1O3+WraRa9pLQ1EiCUZzbGW6h1FRI28X6Atl+O3zYxu2WImvV46mPVm5T7XZ b0jHMwW4knA+B/zWMTvL7A92KmAeoLFPWwfaif9ujRL8DnOG5TkQO7aEpnmwLg6WGA9ruZ09COA LKAAW+CtN1A3UjlRp4pFGny5ogYUqSyfQs1hycndKa4RLwtW
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On 26-10-26 16:59:37, Taniya Das wrote:
-> Add the GP M/N clock controller and its pin configuration for SC7280.
-> The controller uses the PDM XO4 and AHB clocks from GCC and routes its
-> output to gpio60.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kodiak.dtsi | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> index 8c7523602d2719775b8f5c6a8cef138a93292721..de27a051ee3b0e9046ff97b8e6fe0164985d7b17 100644
-> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> @@ -4442,6 +4442,20 @@ usb2_role_switch: endpoint {
->  			};
->  		};
->  
-> +		gp_mn: clock-controller@88d3000 {
-> +			compatible = "qcom,sc7280-gp-mnd";
-> +			reg = <0x0 0x088d3000 0x0 0x1000>;
-> +			clocks = <&gcc GCC_PDM_XO4_CLK>,
-> +				 <&gcc GCC_PDM_AHB_CLK>;
-> +			clock-names = "pdm_clk", "ahb_clk";
-> +			#clock-cells = <0>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&gp_mn_active>;
+Hello,
 
-pinctrl-0
-pinctrl-names
+as with v1 and v2 the original motivation for this series are the
+patches that convert the arrays to use named initializers, see
+https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+for the idea behind it. Then by not closing the eyes for small issues
+spotted while working on that, this series grew a bit.
 
-Same for all other patches.
+Changes since v2 (available at
+https://lore.kernel.org/all/cover.1784133987.git.u.kleine-koenig@baylibre.com/)
 
-> +			assigned-clocks = <&gcc GCC_PDM_XO4_CLK>;
-> +			assigned-clock-rates = <4800000>;
-> +			status = "disabled";
-> +		};
-> +
->  		qspi: spi@88dc000 {
->  			compatible = "qcom,sc7280-qspi", "qcom,qspi-v1";
->  			reg = <0 0x088dc000 0 0x1000>;
-> @@ -6653,6 +6667,13 @@ mi2s0_sclk: mi2s0-sclk-state {
->  				function = "mi2s0_sck";
->  			};
->  
-> +			gp_mn_active: gp-mn-active-state {
-> +				pins = "gpio60";
-> +				function = "gp_mn";
-> +				drive-strength = <2>;
-> +				bias-disable;
-> +			};
-> +
->  			mi2s0_data0: mi2s0-data0-state {
->  				pins = "gpio98";
->  				function = "mi2s0_data0";
-> 
-> -- 
-> 2.34.1
-> 
+ - Rebase to current next/master (new changes to
+   drivers/gpio/gpio-mlxbf.c, drivers/gpio/gpio-mlxbf2.c,
+   drivers/gpio/gpio-74x164.c)
+ - Fix a few commit logs to reference the right *_device_id names
+ - Drop all tags for Andy
+ - Drop a questionable MODULE_DEVICE_TABLE(acpi, ...) for drivers/gpio/gpio-usbio.c
+
+Checkpatch only reports two undocumented device-tree compatibles:
+
+	WARNING: DT compatible string "apm,xgene-gpio-v2" appears un-documented -- check ./Documentation/devicetree/bindings/
+	WARNING: DT compatible string "marvell,pxa1928-gpio" appears un-documented -- check ./Documentation/devicetree/bindings/
+
+I felt free to ignore these as this is a pre-existing issue and
+out-of-context for this series.
+
+Andy didn't like how this series is split into patches before, I do. I
+think it's not possible to please everyone's opinion regarding minimal
+changes per patch vs grouping similar changes in patches and about what
+is considered churn. I'm happy about every patch in this series that
+goes in, so feel free to apply patches that you like and that don't get
+resistance even if other's do. If patches don't apply, just drop them,
+I'll catch up on them eventually.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (The Capable Hub) (22):
+  gpio: Remove __maybe_unused annotations from acpi_device_id arrays
+  gpio: fxl6408: Remove __maybe_unused annotations from of_device_id
+    array
+  gpio: Drop unused assignment of acpi_device_id driver data
+  gpio: max7301: Drop unused assignment of spi_device_id driver data
+  gpio: mmio: Drop unused assignment of platform_device_id driver data
+  gpio: ljca: Drop unused assignment of auxiliary_device_id driver data
+  gpio: xgene: Add missing ACPI module annotation
+  gpio: sodaville: Add missing PCI module annotations
+  gpio: Add missing OF module annotations
+  gpio: pxa: Add missing platform module annotations
+  gpio: pl061: Use empty initializer for amba_id terminator
+  gpio: Use named initializers for acpi_device_id array
+  gpio: pcf857x: Use named initializers for of_device_id array
+  gpio: bd73800: Use named initializers for platform_device_id array
+  gpio: Use named initializers for spi_device_id array
+  gpio: virtio: Use a named initializer for virtio_device_id array
+  gpio: Unify style of acpi_device_id arrays
+  gpio: Unify style of of_device_id arrays
+  gpio: max77620: Unify style of platform_device_id array
+  gpio: Unify style of spi_device_id arrays
+  gpio: Unify style of pci_device_id arrays
+  gpio: Unify style of various *_device_id arrays
+
+ drivers/gpio/gpio-74x164.c          |  4 ++--
+ drivers/gpio/gpio-adnp.c            |  4 ++--
+ drivers/gpio/gpio-aggregator.c      |  2 +-
+ drivers/gpio/gpio-altera-a10sr.c    |  2 +-
+ drivers/gpio/gpio-altera.c          |  4 ++--
+ drivers/gpio/gpio-amd8111.c         |  2 +-
+ drivers/gpio/gpio-amdpt.c           |  8 ++++----
+ drivers/gpio/gpio-aspeed-sgpio.c    | 10 ++++-----
+ drivers/gpio/gpio-aspeed.c          | 10 ++++-----
+ drivers/gpio/gpio-ath79.c           |  2 +-
+ drivers/gpio/gpio-bcm-kona.c        |  1 +
+ drivers/gpio/gpio-bd73800.c         |  4 ++--
+ drivers/gpio/gpio-blzp1600.c        |  4 ++--
+ drivers/gpio/gpio-brcmstb.c         |  2 +-
+ drivers/gpio/gpio-bt8xx.c           |  2 +-
+ drivers/gpio/gpio-cadence.c         |  6 +++---
+ drivers/gpio/gpio-creg-snps.c       |  5 +++--
+ drivers/gpio/gpio-davinci.c         |  8 ++++----
+ drivers/gpio/gpio-dwapb.c           | 14 ++++++-------
+ drivers/gpio/gpio-em.c              |  4 ++--
+ drivers/gpio/gpio-ep93xx.c          |  1 +
+ drivers/gpio/gpio-ftgpio010.c       |  3 ++-
+ drivers/gpio/gpio-fxl6408.c         |  2 +-
+ drivers/gpio/gpio-graniterapids.c   |  4 ++--
+ drivers/gpio/gpio-grgpio.c          |  2 +-
+ drivers/gpio/gpio-gw-pld.c          |  4 ++--
+ drivers/gpio/gpio-hisi.c            |  6 +++---
+ drivers/gpio/gpio-hlwd.c            |  4 ++--
+ drivers/gpio/gpio-imx-scu.c         |  1 +
+ drivers/gpio/gpio-ixp4xx.c          |  4 ++--
+ drivers/gpio/gpio-ljca.c            |  4 ++--
+ drivers/gpio/gpio-loongson-64bit.c  |  4 ++--
+ drivers/gpio/gpio-lp3943.c          |  2 +-
+ drivers/gpio/gpio-lpc32xx.c         |  4 ++--
+ drivers/gpio/gpio-macsmc.c          |  4 ++--
+ drivers/gpio/gpio-max3191x.c        | 12 +++++------
+ drivers/gpio/gpio-max7301.c         |  2 +-
+ drivers/gpio/gpio-max7360.c         |  8 ++++----
+ drivers/gpio/gpio-max77620.c        |  4 ++--
+ drivers/gpio/gpio-max77759.c        |  2 +-
+ drivers/gpio/gpio-mb86s7x.c         |  2 +-
+ drivers/gpio/gpio-ml-ioh.c          |  2 +-
+ drivers/gpio/gpio-mlxbf.c           |  6 +++---
+ drivers/gpio/gpio-mlxbf2.c          |  6 +++---
+ drivers/gpio/gpio-mlxbf3.c          |  4 ++--
+ drivers/gpio/gpio-mm-lantiq.c       |  2 +-
+ drivers/gpio/gpio-mmio.c            |  3 +--
+ drivers/gpio/gpio-mockup.c          |  4 ++--
+ drivers/gpio/gpio-moxtet.c          |  4 ++--
+ drivers/gpio/gpio-mpc5200.c         |  9 ++++----
+ drivers/gpio/gpio-mpc8xxx.c         | 25 +++++++++++-----------
+ drivers/gpio/gpio-mpfs.c            |  1 +
+ drivers/gpio/gpio-mpsse.c           |  3 +--
+ drivers/gpio/gpio-msc313.c          |  1 +
+ drivers/gpio/gpio-mt7621.c          |  2 +-
+ drivers/gpio/gpio-mvebu.c           | 13 ++++++------
+ drivers/gpio/gpio-mxc.c             |  2 +-
+ drivers/gpio/gpio-mxs.c             |  4 ++--
+ drivers/gpio/gpio-nomadik.c         |  7 ++++---
+ drivers/gpio/gpio-novalake-events.c |  4 ++--
+ drivers/gpio/gpio-npcm-sgpio.c      |  6 +++---
+ drivers/gpio/gpio-octeon.c          |  2 +-
+ drivers/gpio/gpio-omap.c            |  2 +-
+ drivers/gpio/gpio-palmas.c          | 10 ++++-----
+ drivers/gpio/gpio-pca953x.c         |  4 ++--
+ drivers/gpio/gpio-pca9570.c         |  2 +-
+ drivers/gpio/gpio-pcf857x.c         | 26 +++++++++++------------
+ drivers/gpio/gpio-pci-idio-16.c     |  3 ++-
+ drivers/gpio/gpio-pcie-idio-24.c    |  8 +++++---
+ drivers/gpio/gpio-pisosr.c          |  4 ++--
+ drivers/gpio/gpio-pl061.c           |  2 +-
+ drivers/gpio/gpio-pmic-eic-sprd.c   |  2 +-
+ drivers/gpio/gpio-pxa.c             | 20 ++++++++++--------
+ drivers/gpio/gpio-qixis-fpga.c      |  3 +--
+ drivers/gpio/gpio-rcar.c            |  2 +-
+ drivers/gpio/gpio-rda.c             |  2 +-
+ drivers/gpio/gpio-realtek-otto.c    |  2 +-
+ drivers/gpio/gpio-rockchip.c        |  4 ++--
+ drivers/gpio/gpio-sama5d2-piobu.c   |  2 +-
+ drivers/gpio/gpio-sifive.c          |  2 +-
+ drivers/gpio/gpio-sl28cpld.c        |  2 +-
+ drivers/gpio/gpio-sodaville.c       |  3 ++-
+ drivers/gpio/gpio-spear-spics.c     |  3 ++-
+ drivers/gpio/gpio-sprd.c            |  2 +-
+ drivers/gpio/gpio-stmpe.c           |  2 +-
+ drivers/gpio/gpio-stp-xway.c        |  2 +-
+ drivers/gpio/gpio-tegra.c           |  6 +++---
+ drivers/gpio/gpio-tegra186.c        | 32 ++++++++++++++---------------
+ drivers/gpio/gpio-thunderx.c        |  3 +--
+ drivers/gpio/gpio-tps65218.c        |  2 +-
+ drivers/gpio/gpio-ts4800.c          |  4 ++--
+ drivers/gpio/gpio-ts4900.c          |  2 +-
+ drivers/gpio/gpio-twl4030.c         |  4 ++--
+ drivers/gpio/gpio-usbio.c           | 12 +++++------
+ drivers/gpio/gpio-vf610.c           |  4 ++--
+ drivers/gpio/gpio-virtio.c          |  4 ++--
+ drivers/gpio/gpio-visconti.c        |  2 +-
+ drivers/gpio/gpio-waveshare-dsi.c   |  2 +-
+ drivers/gpio/gpio-xgene-sb.c        |  6 +++---
+ drivers/gpio/gpio-xgene.c           | 10 +++++----
+ drivers/gpio/gpio-xgs-iproc.c       |  2 +-
+ drivers/gpio/gpio-xilinx.c          |  4 ++--
+ drivers/gpio/gpio-xlp.c             |  6 +++---
+ drivers/gpio/gpio-xra1403.c         |  6 +++---
+ drivers/gpio/gpio-zevio.c           |  5 +++--
+ drivers/gpio/gpio-zynqmp-modepin.c  |  2 +-
+ drivers/gpio/gpiolib-acpi-quirks.c  |  2 +-
+ 107 files changed, 269 insertions(+), 252 deletions(-)
+
+
+base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+-- 
+2.56.0.rc1
+
