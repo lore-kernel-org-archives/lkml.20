@@ -1,157 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793019072;
-	b=qZc5AV8Up3Voaq147MXmmbxnLyhXohK/Vfkn+VmPWkB7pIbCcXKqkTxjMM4BQw0sE4/C
-	 +tL1OTiJ04KUhG6QtyP7sv6qQv7nScmrWiIMYy6bGFWjus+aeYtz0EgZv+KWcVB2OZ6UN
-	 quWXYi14yFJy0W/E5WXsJgUdB6DKXtMHa6FVBBBgM9dPj3girRLO8czofsPpVUUbQBjB2
-	 /eyTHPHZ721L7QxbZ0y/4zsyrPuRxI/QBzLx6+cZ9WofYX21fpT/ylAPeWMiGwrumjwdj
-	 spIBfUqzY4uqoBtnD25Udmm9XJ14Qwr3jz4Re0HOnXbUtYbAtCsjQ3J84xc4fg2y4VQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019072;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lndx5EHpUHUxuEsY0Ym0d/6cRncm4Buyk7Tmq6LCKxA=;
-	b=vBLaYPzm/D8WTiSJOe3wBoVLkyMHs7+9uFqnDyASC+o61UZM7KWgQe4Ost46r6kc3lYz
-	 uBVsCApbqr3viRiFM+R57sdBlphk4j8ik++za1LvLvCGSnKXZQFdgTkEthXSMG/elkeVp
-	 K3HFJAym+QJNeOmhXgNtnFrd53w6cJP0Hct5k47TXvrQfCS14QwIr04b1ONe2FtiRwn1W
-	 +5pvVoq5K1mGeQrw5G/qmwq1YcusaZD0TrHeJscQNINic4nsXHlNxrT1qOwy/uxkswyQz
-	 GErrUZyxaV9jyNuX1SQg1/d5Eq42A4gHiWLbj8zKz5qB9UZky/cS5dLdfyUkFobL9eg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pRh7DZqy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.19
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793019081;
+	b=5fG9/BS2ayH0h1kFtAPhDnmYe+0nohMAANGn4VOfbKLFLP4BqUoukWZjCojLo0okDmiz
+	 OPugco3gjrrw2mpi0PU2Gmgcq9LwwyDgI7J0JXZNHU6necqKYXHTT43x6GF+boKgjX2yX
+	 h5PH6cWZW2ki7/imnHX+2HV4MgXXJW5+MeCkj2j+9ZbxB/qCVhuhnBZZe0ZyrK9u4Od+7
+	 36GGWg/L/7INjyO7Ee6qf8R/MYz4QAHSDkl6UrOxHAfNAwqo75d5yHu3wnMLxlLCk4u5x
+	 azlG6Fhdz3xJg2nE3Twu37TpzREp8OzF7gPHgwL7gSn6Fy8YK70zPtMUdqxELYqhbyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019081;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
+	b=sStet9hJeHa+5GiNFF5i7OWS6s+cGLXguWjuy5iTZW+jr+fY8rNVgtxl4Ii7u5xQqvFw
+	 E5CiK5zj+Mx2mHH0hz7ZlGNbE0jyyr5W6H+COndfQOa4Qt6ZELXe8I6Uw9mCuckMgufCJ
+	 hiS5bhJgZXEEMqtzkDYQU7fU16CM/U4KrJo9wYTYrOKuBI74L8M/EaNnGsb8W97/NaAKn
+	 T97Z60Q0i7PipOjbZTyM437GlewaHSstX1n3Seh+UpqNnPdU+6pTjAp3ixM6+fQthek7/
+	 sLsfQx4pqUvy43qs3j9gXg7J3R5IwqLOiy3HcFWf5VkPkakLppp0X2LmFeBo3VSOo4Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EB2606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1EB2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6281D606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6281D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pRh7DZqy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=msrSqZUlk1kedD0ZoovqZjRdJmpYLq7NxtERploWG2rTQrPmfihzp5coxs1irHBU1OAQQjslBvkTlECuNuWpvWcNvHQisX+EhLK68gzJ6SW6ajAxRAk5xxfbtvFC4Jn6ITv74Sk40a14rMLFzohRat9/YfZDfqAd4MaS+Iq8+GDY2G9P0r/WEpJsOTYUTjEaspdNGSdsdxz4KvbyyPunCMQTVOAe9ljeeUUXTc09atgxyQ8ONCLQtH8VI10w4x/hl0KQS9YcL8xk46iE4HeAoFb1PRXCUMqfa24gZTFiexDD6eBIdRVycYZtgCa15O4SsOhxMKcn66dqYuNqVju5wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lndx5EHpUHUxuEsY0Ym0d/6cRncm4Buyk7Tmq6LCKxA=;
- b=RYVGj/+2WyMbEj7sDP2Nz37bcDsYxbdMQsPEc1vP/JYdmy88n2QaOlBa6F/v9uuFzRVwKRa6dFg457SWVjIW6MRnW6ynfE674VGjUB5DYv4SZ1LhOrko++ywRYg0HdaK8lpknRCYoARwrSnu4QiFWsUCkAer/HwA3A/kj7PeHf8ajSRBn0m4sdaZ2XnRTkujo/7JfqPoaUJgNRkfV1m3fvR5KUzfZEAzqq9tIp2hNg3sZPKrh3Odh2GRaESL6uqPYVh5sv4DEe/AK9pip25XNC33h5qop2XgFzy2O/uO3sdIAXE+t5Dwm75T0lESimsUdac1ki8muiC3J0TLo6kMGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lndx5EHpUHUxuEsY0Ym0d/6cRncm4Buyk7Tmq6LCKxA=;
- b=pRh7DZqyQtD3fSF2SkiFJZmSk5cbW3AAtWLxQ/ONLkTUxWSR6tEfUVuuCoUVjyRhhvf7HC8S9GWnsWEAkeRMl3tR+uFQh4nA+Qf5qYZm3yGfkr4UxxeWTYpwhkB6ihePqrWjLVKLAVGLhOk0gwZNHc2cYNtUNxkhjl3IuNE5nCg=
-Received: from BN9PR12MB5259.namprd12.prod.outlook.com (2603:10b6:408:100::17)
- by IA1PR12MB9524.namprd12.prod.outlook.com (2603:10b6:208:596::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 12:51:09 +0000
-Received: from BN9PR12MB5259.namprd12.prod.outlook.com
- ([fe80::122c:cca7:c2b3:90ed]) by BN9PR12MB5259.namprd12.prod.outlook.com
- ([fe80::122c:cca7:c2b3:90ed%2]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 12:51:09 +0000
-From: "Garg, Shivank" <shivankg@amd.com>
-To: "david@kernel.org" <david@kernel.org>, "ridong.chen@linux.dev"
-	<ridong.chen@linux.dev>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>
-CC: "chenridong@xiaomi.com" <chenridong@xiaomi.com>, "apopple@nvidia.com"
-	<apopple@nvidia.com>, "ziy@nvidia.com" <ziy@nvidia.com>, "gourry@gourry.net"
-	<gourry@gourry.net>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"matthew.brost@intel.com" <matthew.brost@intel.com>,
-	"joshua.hahnjy@gmail.com" <joshua.hahnjy@gmail.com>,
-	"ying.huang@linux.alibaba.com" <ying.huang@linux.alibaba.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"byungchul@sk.com" <byungchul@sk.com>, "willy@infradead.org"
-	<willy@infradead.org>
-Subject: Re: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
-Thread-Topic: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
-Thread-Index: AQHdZUap6b89HZSxXkmOXK0M45UPB7cPp6wAgAAfHQA=
-Date: Mon, 26 Oct 2026 12:51:09 +0000
-Message-ID: <6372d92c7b0ec9c3fef4e803e39e54a36f3aa918.camel@amd.com>
-References: <20261025110209.4105994-1-ridong.chen@linux.dev>
-	 <c021e641-f415-48bc-badd-d340d70dd850@kernel.org>
-In-Reply-To: <c021e641-f415-48bc-badd-d340d70dd850@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5259:EE_|IA1PR12MB9524:EE_
-x-ms-office365-filtering-correlation-id: ed4e66a9-e2cc-4c49-cb77-08df335fceb8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|38070700021|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 45eK30wxETx4Nnyk7ZrFnOhQOvoIoRRWBPiTGlkGJPLbJc6BH4IHgp52/pH3B3haqZeQWr5U4CsfAhIbPk6rCPE8n/HhTF4573tMkYImnRmgPWM+bbX02Wg6uD0t7jBCXO/PmaKvegCF+ywLQDfRLou9qIY1dciNb/D3U1V0yycqUS/P40T/gZcU17uReXVGXnnFPITCdYj6RXTnaysqpaBbFFTkPqVNB+0cFlDwuezMZpkbsHnbLyZYYQ7nbvhu7aF3Fmf/PMWSCP7nmvEH0DyczLwlZIVVxlyLjwG8vnLyie4j3hAd8mix+g4HJlmwQYllRe8yNRqZ6NKCqIP6/HZRP+QDAIfUDTjpZYkHjQnentEHG//kKlDj3qtBvzWgos90zRmj1FciXO44gpofK89QXU21eKCZ6db3g3K6Zs2e74gYQ2rlpqiJyNlWJTH2MBoI9xKjcv55DdMygAao6eQ0odD4ez2KggqO7B0PKjZ/3BhrkKj1O63J0uqO2f18rQuQ8uRPQeL3ZHP5KB/1i1lDRWAaG+a/lmKFjV5CEAx8z+crL3Kox3jtpAEmjV02FHMWzjjCAC0YBUZtaPFMvEROC+NdGOSOUJM8qTik/yTI5G2jaqmLh3x+gTVprRWkNooahvfTafzxXh8WtAxbg/rQDhZEDxHZMaCE/4fZ1k6smImdKhxmbeY3TaS/73xh8bpUoicmhaKzIp4HGk6uP7oEVG3y5aEZ/cZyuFSh90Q=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5259.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(38070700021)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?U0lGVzhLeXRlT0c1NXpBS3RDTm1GU3J2RmI4cEd1NjVMS0pURmc0Z3pKQkps?=
- =?utf-8?B?MkRtcXhoaUVIT213S0xMbTdPSVdBWWtraDdCLzB3M0x2bG95TzJPWjhLS1F2?=
- =?utf-8?B?Y3dMRGw3QjRpTXc1TTZzUE9FS05ZQnFUb1VqaFVKYmVtamFlRXh0SUsvM1NF?=
- =?utf-8?B?bmI2MVl5ZW5ZWEtWL1hDZTc1bS84NG0yOEZ2T2dTTkRlYmY1K2lXZHhYL1hi?=
- =?utf-8?B?RFVSMVhjSEJWcHp6ZWRwTFNtaU1DQ29QOXdWdUpDbGcxL2ZDQnREQTZSWm9a?=
- =?utf-8?B?TUxHb2RKUzdEM1MrQ0RMb0l6b0krWnpqNFpncjFJY3EvUDN3NkhHL1hhUnF1?=
- =?utf-8?B?MWhDN21zNDBoOVcxMWZpR1AyMGtKc0w5S0VMTUR4bk95TnNhb3hOTGk5aGFQ?=
- =?utf-8?B?SjVXMHlLTEc0VW9NVmg3MFVkUzcxWWtBSW9weGY1YS92eGNWeENuTEhvSnpl?=
- =?utf-8?B?ZGxnSFViVFl3TisyNGtESGFwLzZTM0k3Y1JNOGRLRVFLbGlHK3hMN0hBaE5w?=
- =?utf-8?B?NjRXcHNST3p5cGVycXVJYXd1QkdBTmx1dS9HWUVmWGtQMGFBbFZWNTRhTGF4?=
- =?utf-8?B?ZTZ5ZzRkTTVvTkE4TU5SSi9GMjBVcUtRWXRIS1hQQUg2bWk2Rjh3UDF1ZU9l?=
- =?utf-8?B?UWwxNE1HUGdHYTE0bU93cUJESnlIYzA4SjF2WTk5N2ZzUjhVWDM3UjNyYkcr?=
- =?utf-8?B?ekVCdlVSU0FId3NpTm1RR2M1T3QwU0F4TjFWTXpBNGxNc0VUT2hxa0VzcFpR?=
- =?utf-8?B?TEx3TXNWUmlCNjZqZDJQTlVJa1djYXl1TmJ1UUQ5aWN2NTFlY3VJRG9JcGpz?=
- =?utf-8?B?bmJCMU8zWVhkYUt6VkNsWjRWYjkraFpxSzN0Qm80c094Q0F4SWxYTlM3c0di?=
- =?utf-8?B?ZEZpN0pWczIrTDI3RHFwNHhubVNQUDdGTFFUZTJvQnFIRUlUdmM2eWthRGEv?=
- =?utf-8?B?NnNSays3Mkk5RHoybEFaRTRNaUdHMGJLMlZqS1lUdWh1a01kdGVCeURoNlQ1?=
- =?utf-8?B?YXY2dmFzd3EreVN0aGtEaUE4RHdtSnl6cm5NNE1tZEc0ZmRwc3VWb2lLekgz?=
- =?utf-8?B?UG54K0VsM2VPTTNaQ0kvK3lTRERoL01qMlZNbmRIWFhrdnp0ZkpLVVpqOGNk?=
- =?utf-8?B?aE43YjcvODhZRlhIYWZqUXR0ZTQxMGM5ZlZQODZLTUlPdHgxS0VnVVYwRFJu?=
- =?utf-8?B?WVMyRDd1Sis4dXJHNzl0eUpsNW5kbC9CeTBHOWdaODBqUE92c2s0VVhjdHJT?=
- =?utf-8?B?RllvOW5MUis3WU8xaU83UzdNTGdabUJFaHJtc2JxL3FxQkVyTW04QW1lSGtt?=
- =?utf-8?B?eHJzbUNyREdySWVIemg2ZWd4MlJBSmFYZ09VRlZQbFVJUzJWUEgrcW5jZ2Fo?=
- =?utf-8?B?ZUJZTFgveHYwTEkvb3RSRk5aNThrR0tQMWxiY0hweDkxeUdkR0phTExXS1lF?=
- =?utf-8?B?czkvdzBFbkdXaDdFZjRoWUhVOHFSaCtHNkQ2YjcraVQ5N3dGNkk0SlcveUxU?=
- =?utf-8?B?bExsZHJqaXhqd1Fxc1RkV0tkTW9rc0xLSUdLajdTdDE4alpiZ3pvbjYza1l2?=
- =?utf-8?B?MzlLZWhyZEgxLzlUWUx5OE5hUTZReGJQUFZ0TGFTZS9zS1FXRzJrYVJWb21Q?=
- =?utf-8?B?QnJzQUtjTW9kVDRBTERCUEs0UW53QmNVNDIzbStEMStlRDRXSUlIUzlTeU01?=
- =?utf-8?B?aXBOektZblNDY213ZGZ4bmFveVB2OFlXdUhrVkkydUZZK2d4UGhhUFhnSkNR?=
- =?utf-8?B?dnVHaEN5YXNOajhHVURtM2FOR2srSUhGUXlVcTNoZG1EOFZicHZ6WmhWTWpX?=
- =?utf-8?B?WlRWTVNqdEV6QnVlQWYrZHMzeFJZUDJza21Nems4WnNTellaSlVkdVdjRGt1?=
- =?utf-8?B?SjhrOCtTaVdGK1hJRUxYS0U2R1UxRElwVEFRN1UvL3NpZlJ5WFdYTW01WmhG?=
- =?utf-8?B?V3FHbEhBRjVuNHU0WjB6R1hQZ2tva1JUT1Vlb1NtemZMN2pqVlB6TVhFU1pQ?=
- =?utf-8?B?Tm8yV2ozRVVsc1F5cGtWV3N0WW95dlIyYVBtKzBLTXRyUXh4NWJMZXVndm1Q?=
- =?utf-8?B?eVlXd1Z1M2FmU1B1bFErclcvNG9UZWJJRkRXSVRYa3o0a292K2hhZWhsWjZr?=
- =?utf-8?B?emN1aGV4UGlaNUN5Y2NLUzFSQXpTeGYzczV4bUlsZE1sK0ZjLzNMd3cyamk3?=
- =?utf-8?B?cDJ1Y0Z0cHl6RlN2QzFBblkrMXBHbmV6Y0VkaWRCZmJFY0Z0MHN1VnJIT2Yw?=
- =?utf-8?B?MDAyN21VcS91azMwd3djUXJnbzNheWVqNVR3MHoza1R6MTVpRGRSM1VieFNH?=
- =?utf-8?B?bVBZK3hYMjczcDRjVjBkRDYzUHlCNUxYY21hankwS0l3amRaYnhjQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BB99486E0C725F4AB56F71258941BD26@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2358873f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 05:51:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793019080; x=1793623880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
+        b=iAZzmVibNZ5pXAmJsCf9QwWsIrQYAfHeu5kyYReNIuzI6oS/f2HYWCX7Q8ivzDoW4O
+         neaRZ31K6y3YVy0hK9Z9UKswFGDGDVf5Dainac8GhMB5WI9Pca6o9kxfSnsaFXUBFILP
+         dJQHwIHxzpvzxFQQ+p7qI2NiifdOcoi6ZaSLHVJtakYKE/BjKEhAIS47gqUHgkc7NeNs
+         mF7+HYQ0jp1hxQDhQSt9rY4xFFBS73TQHdB+FveLr7n1sJZibkuITzoN9YLHyG1ANn/O
+         9eQEnjBmfLx8TaLolPwWLNFgLlwhJ/5QKJJfsZUUKCuSIsV4Qrf9N6X0YZmelNBSYoxF
+         AMgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793019080; x=1793623880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
+        b=ftNfqqNR+H1I9zvSbUGL+07DKau8xZO/ZEM9eLvucolvn4CaiVlJSgwQDUiHyQJeas
+         roRX/0oGmleQtuBkI9fpcMIJ/tshaY71PoK/72+c6JxuZjjWfsSFBlYWoMDeoEm7eVPO
+         x+kc4V5BpzejBitFxTuVj2NcWP4fhTVVqmw8Ml+PKBr1Mo5PNkuLpAL3nfuC8yob2YPR
+         xA+1Zm0GZ1UDgD5D7w/6b0VW/Z7BojPajDUoINZHG9kL0atrLgimEOBl3PgHSCB4JaOI
+         vS6jEvgdC0ibXp2qMk82rGoOzwmGkeLmhAasFG6OZi4RPXj8/vRQaMRJNbTSqSQ2ix8T
+         GHSg==
+X-Forwarded-Encrypted: i=1; AKwUvByE1rAKdqQVnYzYhcIKA+Bybujq+8VIPxTsb2rUsySMqTGFJ5+rbx+H19+lZKo3VyuOf6qSNJa2MpXu6RM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIihJAcyIUbrRjXC74Gnk1YGjyewbl5zLjFUOavIumGXjzc2m23
+	V8TFk5GCCPkareViEUsv057GEG2e4HT1aA8HwZ5sQZxc5xshIoEg5UGX
+X-Gm-Gg: AYBFou2tjABrxYV7NUbGTle8pMPQtTF5jF7J//bcgS6WlJIimWhtvJsly4zmYsz0OQV
+	QrDX17OmyHssTYBjz3KWxE3SCiSiwN8jKq3UnbMQDVB7FhrCncE4RhJrH7FebKSTq6nwcDxvgoi
+	3lC3I9vOczZMBg9KiMvlJ7RnfUtw1ZelXo6Sy+fef4R9rRu0a8m3jFkW8HtAi5BcksMmFEtIcDl
+	5+5l9XvhtMDUy39RHaL39lBkm2E5gezVte8HaRzsnfKoSUCpAhwiZza7VVbuc1ZJxPYccfMf/41
+	yn/gIABR/4IsWYKs4LV066/WzH9Bnlr1ZrFAZbAzUZwfKAfgMBsej2TBWKeBJ7cUV0bZ44yx3By
+	7wKqvD+Wj5sh6WLpq6cc1UNaxPBOsFpBz+Akud35QlM0b0ta6c79UaxDelMz+24GQu2GMLh7OWy
+	S832FboAUTfcDQ0i4hmAQddUAoG4QLJvr8vZRkz3N1K76FOSAp0dTpL4XlBjT5JhdrEBnKrLXUS
+	hx3E2WUTbEN1WxIQovOGx2jSOuquT0zht24126Du/vO/3NYMyD2Z0+Tn8+/k4BOoQ2E8Xrws5kY
+	y6YsQ5mkYbM7+ssw7FIhyyjA0wkcEQ==
+X-Received: by 2002:a5d:6308:0:b0:48a:fff3:f9c1 with SMTP id ffacd0b85a97d-48e3eb87c2amr9417775f8f.20.1793019079507;
+        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([129.45.79.200])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dd7sm15828994f8f.15.2026.10.26.05.51.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com,
+	jason.cai.kern@gmail.com
+Cc: dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
+	syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] dm: reject aliased metadata/data and pool/origin devices
+Date: Mon, 26 Oct 2026 13:51:14 +0100
+Message-ID: <20261026125114.251-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -161,83 +101,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5259.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed4e66a9-e2cc-4c49-cb77-08df335fceb8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2026 12:51:09.2766
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /jQtA6DAKK1rOxXb6cfa2A65FZ6j50IUNypqGQiSvZSuwHYY2L45DHu/n7cv+H0BNzlXNqk7l2kWx5kufSkHjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9524
+Content-Transfer-Encoding: 8bit
 
-T24gTW9uLCAyMDI2LTEwLTI2IGF0IDExOjU5ICswMTAwLCBEYXZpZCBIaWxkZW5icmFuZCAoQXJt
-KSB3cm90ZToNCj4gT24gMTAvMjUvMjYgMTI6MDIsIFJpZG9uZyBDaGVuIHdyb3RlOg0KPiA+IEZy
-b206IFJpZG9uZyBDaGVuIDxjaGVucmlkb25nQHhpYW9taS5jb20+DQo+ID4gDQo+ID4gV2hlbiBh
-IHBhZ2UgY2FjaGUgZm9saW8gaXMgbWlncmF0ZWQgdG8gYW5vdGhlciBub2RlLA0KPiA+IF9fZm9s
-aW9fbWlncmF0ZV9tYXBwaW5nKCkgbW92ZXMgdGhlIHBlci1ub2RlIGFuZCBwZXItbWVtY2cgY291
-bnRlcnMNCj4gPiB0aGF0IGFyZSBrZXllZCBvZmYgdGhlIGZvbGlvJ3Mgbm9kZTogTlJfRklMRV9Q
-QUdFUywgTlJfU0hNRU0sDQo+ID4gTlJfU0hNRU1fVEhQUywgTlJfU1dBUENBQ0hFIGFuZCBOUl9G
-SUxFX0RJUlRZLiAgTlJfRklMRV9USFBTIGlzIG5vdA0KPiA+IG1vdmVkLCBhbHRob3VnaCBfX2Zp
-bGVtYXBfYWRkX2ZvbGlvKCkgY2hhcmdlcyBpdCB0byB0aGUgc291cmNlIG5vZGUgYW5kDQo+ID4g
-ZmlsZW1hcF91bmFjY291bnRfZm9saW8oKSB0YWtlcyBpdCBvZmYgd2hhdGV2ZXIgbm9kZSB0aGUg
-Zm9saW8gbGl2ZXMgb24NCj4gPiB3aGVuIGl0IGlzIHJlbW92ZWQuDQo+ID4gDQo+ID4gQ29tbWl0
-IDBiNTJjNDIwMzUwZSAoIm1tOiBmaXggc2htZW0gVEhQIGNvdW50ZXJzIG9uIG1pZ3JhdGlvbiIp
-IGFkZGVkDQo+ID4gdGhlIE5SX1NITUVNX1RIUFMgY2FzZSBidXQgbm90IGl0cyBmaWxlLWJhY2tl
-ZCBjb3VudGVycGFydC4gIE5vdyB0aGF0DQo+ID4gZXh0NCwgeGZzLCBidHJmcyBhbmQgZXJvZnMg
-Y2FuIGFsbCBoYXZlIFBNRC1zaXplZCBwYWdlIGNhY2hlIGZvbGlvcywNCj4gPiBtaWdyYXRpbmcg
-dGhlbSB2aWEgTlVNQSBiYWxhbmNpbmcsIG1iaW5kKCksIG1pZ3JhdGVwYWdlcywgZGVtb3Rpb24g
-b3INCj4gPiBtZW1vcnkgb2ZmbGluaW5nIGxlYWtzIEZpbGVIdWdlUGFnZXMgb24gdGhlIHNvdXJj
-ZSBub2RlIGFuZCB1bmRlcmZsb3dzDQo+ID4gaXQgb24gdGhlIGRlc3RpbmF0aW9uLCBpbiBib3Ro
-IC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9ub2RlTi9tZW1pbmZvDQo+ID4gYW5kIG1lbW9yeS5u
-dW1hX3N0YXQuICBUaGUgZ2xvYmFsIHZhbHVlIGlzIHVuYWZmZWN0ZWQsIHdoaWNoIGlzIHdoeSB0
-aGlzDQo+ID4gd2VudCB1bm5vdGljZWQuDQo+ID4gDQo+ID4gUmVwcm9kdWNlciwgb24gYSAyLW5v
-ZGUgUUVNVSBndWVzdCB3aXRoIFRIUCBzZXQgdG8gImFsd2F5cyI6DQo+ID4gDQo+ID4gICAxLiBy
-ZWFkIGEgMjU2TSBleHQ0IGZpbGUgdGhyb3VnaCBhIE1BRFZfSFVHRVBBR0UgbWFwcGluZyB3aGls
-ZSBib3VuZA0KPiA+ICAgICAgdG8gbm9kZSAwLCBzbyBpdHMgcGFnZSBjYWNoZSBpcyAxMjggUE1E
-LXNpemVkIGZvbGlvcyBvbiBub2RlIDA7DQo+ID4gICAyLiBtb3ZlIHRoZSBtYXBwaW5nIHRvIG5v
-ZGUgMSB3aXRoIG1iaW5kKE1QT0xfTUZfTU9WRSk7DQo+ID4gICAzLiB1bm1hcCB0aGUgZmlsZSBh
-bmQgZHJvcCBpdHMgcGFnZSBjYWNoZS4NCj4gPiANCj4gPiBucl9maWxlX2h1Z2VwYWdlcyBpbiAv
-c3lzL2RldmljZXMvc3lzdGVtL25vZGUvbm9kZU4vdm1zdGF0IGFmdGVyIGVhY2gNCj4gPiBzdGVw
-IChpbiB1bml0cyBvZiBQTUQtc2l6ZWQgZm9saW9zKToNCj4gPiANCj4gPiAgICAgICAgICAgICAg
-ICAgICAgIHdpdGhvdXQgdGhpcyBwYXRjaCAgICAgd2l0aCB0aGlzIHBhdGNoDQo+ID4gICAgICAg
-ICAgICAgICAgICAgICAgbm9kZTAgICAgIG5vZGUxICAgICAgIG5vZGUwICAgICBub2RlMQ0KPiA+
-ICAgMS4gY2FjaGVkICAgICAgICAgICAxMjggICAgICAgICAwICAgICAgICAgMTI4ICAgICAgICAg
-MA0KPiA+ICAgMi4gbWlncmF0ZWQgICAgICAgICAxMjggICAgICAgICAwICAgICAgICAgICAwICAg
-ICAgIDEyOA0KPiA+ICAgMy4gZHJvcHBlZCAgICAgICAgICAxMjggICAgICAgICAwICgqKSAgICAg
-ICAwICAgICAgICAgMA0KPiA+IA0KPiA+ICAgKCopIHRoZSBjb3VudGVyIGhhcyB1bmRlcmZsb3dl
-ZCB0byAtMTI4OyBuZWdhdGl2ZSB2YWx1ZXMgcmVhZCBhcyAwLg0KPiA+IA0KPiA+IFdpdGhvdXQg
-dGhlIHBhdGNoIHRoZSAxMjggZm9saW9zIHN0YXkgYWNjb3VudGVkIHRvIG5vZGUgMCBmb3JldmVy
-LCBhbmQNCj4gPiBldmVyeSBmdXJ0aGVyIHJvdW5kIGFkZHMgYW5vdGhlciAxMjguICBUaGUgc2Ft
-ZSBoYXBwZW5zIHRvIHRoZSBwZXItbWVtY2cNCj4gPiBwZXItbm9kZSBjb3VudGVyOiBhZnRlciBz
-dGVwIDMsIG1lbW9yeS5zdGF0IG9mIHRoZSBjZ3JvdXAgc2hvd3MNCj4gPiAiZmlsZV90aHAgMCIs
-IHdoaWxlIG1lbW9yeS5udW1hX3N0YXQgc3RpbGwgc2hvd3MNCj4gPiAiZmlsZV90aHAgTjA9MjY4
-NDM1NDU2IE4xPTAiLiAgV2l0aCB0aGUgcGF0Y2ggYm90aCBhcmUgMC4NCj4gPiANCj4gPiBNb3Zl
-IE5SX0ZJTEVfVEhQUyB0b2dldGhlciB3aXRoIE5SX0ZJTEVfUEFHRVMsIHVzaW5nIHRoZSBzYW1l
-IGNvbmRpdGlvbg0KPiA+IGZpbGVtYXBfdW5hY2NvdW50X2ZvbGlvKCkgdXNlcyB0byB0YWtlIGl0
-IG9mZiwgc28gdGhhdCBUSFBzIGluIHRoZSBzd2FwDQo+ID4gY2FjaGUgYXJlIGxlZnQgYWxvbmUu
-DQo+ID4gDQo+ID4gRml4ZXM6IGQ2OGVjY2FkMzcwNiAoIm1tL2ZpbGVtYXA6IEFsbG93IGxhcmdl
-IGZvbGlvcyB0byBiZSBhZGRlZCB0byB0aGUgcGFnZSBjYWNoZSIpDQo+ID4gU2lnbmVkLW9mZi1i
-eTogUmlkb25nIENoZW4gPGNoZW5yaWRvbmdAeGlhb21pLmNvbT4NCj4gPiAtLS0NCj4gPiBOb3Rl
-OiBwcmVwYXJlZCB3aXRoIGhlbHAgZnJvbSBhbiBMTE0tYmFzZWQgYXNzaXN0YW50IChLaXJvLCBj
-bGF1ZGUtb3B1cy01LjUpLg0KPiA+IA0KPiA+ICBtbS9taWdyYXRlLmMgfCA0ICsrKysNCj4gPiAg
-MSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQ0KPiA+IA0KPiA+IGRpZmYgLS1naXQgYS9t
-bS9taWdyYXRlLmMgYi9tbS9taWdyYXRlLmMNCj4gPiBpbmRleCA3YmRjZGI1NzY1MmYuLmQ1NWY1
-NzZhMjU3OSAxMDA2NDQNCj4gPiAtLS0gYS9tbS9taWdyYXRlLmMNCj4gPiArKysgYi9tbS9taWdy
-YXRlLmMNCj4gPiBAQCAtNzAwLDYgKzcwMCwxMCBAQCBzdGF0aWMgaW50IF9fZm9saW9fbWlncmF0
-ZV9tYXBwaW5nKHN0cnVjdCBhZGRyZXNzX3NwYWNlICptYXBwaW5nLA0KPiA+ICAJCQkJbW9kX2xy
-dXZlY19zdGF0ZShvbGRfbHJ1dmVjLCBOUl9TSE1FTV9USFBTLCAtbnIpOw0KPiA+ICAJCQkJbW9k
-X2xydXZlY19zdGF0ZShuZXdfbHJ1dmVjLCBOUl9TSE1FTV9USFBTLCBucik7DQo+ID4gIAkJCX0N
-Cj4gPiArCQl9IGVsc2UgaWYgKCFmb2xpb190ZXN0X3N3YXBiYWNrZWQoZm9saW8pICYmDQo+ID4g
-KwkJCSAgIGZvbGlvX3Rlc3RfcG1kX21hcHBhYmxlKGZvbGlvKSkgew0KPiA+ICsJCQltb2RfbHJ1
-dmVjX3N0YXRlKG9sZF9scnV2ZWMsIE5SX0ZJTEVfVEhQUywgLW5yKTsNCj4gPiArCQkJbW9kX2xy
-dXZlY19zdGF0ZShuZXdfbHJ1dmVjLCBOUl9GSUxFX1RIUFMsIG5yKTsNCj4gPiAgCQl9DQo+IA0K
-PiBMb29raW5nIGF0IGZpbGVtYXBfdW5hY2NvdW50X2ZvbGlvKCksIEkgd2FzIChvbmNlIGFnYWlu
-KSBzdXJwcmlzZSBhYm91dCB0aGUNCj4gZGlmZmVyZW50IGhhbmRsaW5nLg0KPiANCj4gS2V5IGlz
-IHRoYXQgd2UgbWlnaHQgYmUgbWlncmF0aW9uIGFvbnltb3VzIGZvbGlvcyBpbiB0aGUgc3dhcGNh
-Y2hlLg0KPiANCj4gQWNrZWQtYnk6IERhdmlkIEhpbGRlbmJyYW5kIChBcm0pIDxkYXZpZEBrZXJu
-ZWwub3JnPg0KPiANCg0KZmlsZW1hcF91bmFjY291bnRfZm9saW8oKSBhbHNvIGNoZWNrcyBmb3Ig
-QVNfS0VSTkVMX0ZJTEUsIGJ1dA0KX19mb2xpb19taWdyYXRlX21hcHBpbmcoKSBkb2VzIG5vdC4N
-Cg0KU2hvdWxkIGFkZCB0aGlzIGFzIHdlbGw/DQoNClRoYW5rcywNClNoaXZhbmsNCg==
+dm_get_device() identifies devices by their resolved dev_t, but pool_ctr()
+and thin_ctr() only reject identical argument strings.  Different paths
+such as "/dev/ram0" and "1:0" therefore bypass the check and select the
+same dm_dev_internal.
+
+syzbot reported a slab-use-after-free in pool_ctr() when a read-only pool
+used such aliased metadata and data devices.  Opening the metadata device
+read-only first and the data device read-write second made upgrade_mode()
+replace dd->dm_dev and free the old table_device, leaving metadata_dev
+dangling before __pool_find() dereferenced metadata_dev->bdev.
+
+syzbot reported:
+
+BUG: KASAN: slab-use-after-free in pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
+Read of size 8 at addr ffff8880340cc698 by task syz.0.17/5507
+
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+ Allocated by task 5507:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x3cc/0x620 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ open_table_device drivers/md/dm.c:733 [inline]
+ dm_get_table_device+0x23e/0x730 drivers/md/dm.c:821
+ dm_get_device+0x327/0x760 drivers/md/dm-table.c:388
+ pool_ctr+0x4ae/0xd60 drivers/md/dm-thin.c:3329
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5507:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6802
+ close_table_device drivers/md/dm.c:798 [inline]
+ dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
+ upgrade_mode drivers/md/dm-table.c:326 [inline]
+ dm_get_device+0x56f/0x760 drivers/md/dm-table.c:399
+ pool_ctr+0x585/0xd60 drivers/md/dm-thin.c:3336
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff8880340cc680
+ which belongs to the cache kmalloc-96 of size 96
+The buggy address is located 24 bytes inside of
+ freed 96-byte region [ffff8880340cc680, ffff8880340cc6e0)
+
+Validate the resolved device numbers with dm_devt_from_path() before either
+device is opened, keeping the existing string comparison.  Do this in both
+pool_ctr() and thin_ctr(), which has the same problem for the pool and
+optional origin devices.  Checking the device identity up front avoids the
+mode upgrade entirely and is preferable to switching the dm_get_device()
+call order, which would rely on the data mode being a superset of the
+metadata mode and would only cover pool_ctr().
+
+Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
+Fixes: 70de2cbda8a5 ("dm thin: add sanity checks to thin-pool and external snapshot creation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+ drivers/md/dm-thin.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 358ed77ffb2b..281b2e1745c3 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -3292,6 +3292,8 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	dm_block_t low_water_blocks;
+ 	struct dm_dev *metadata_dev;
+ 	blk_mode_t metadata_mode;
++	dev_t metadata_devt;
++	dev_t data_devt;
+ 
+ 	/*
+ 	 * FIXME Remove validation from scope of lock.
+@@ -3314,6 +3316,22 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 		goto out_unlock;
+ 	}
+ 
++	r = dm_devt_from_path(argv[0], &metadata_devt);
++	if (r) {
++		ti->error = "Error opening metadata block device";
++		goto out_unlock;
++	}
++	r = dm_devt_from_path(argv[1], &data_devt);
++	if (r) {
++		ti->error = "Error opening metadata data device";
++		goto out_unlock;
++	}
++	if (metadata_devt == data_devt) {
++		ti->error = "Error setting metadata or data device";
++		r = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	/*
+ 	 * Set default pool features.
+ 	 */
+@@ -4204,12 +4222,30 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	tc->sort_bio_list = RB_ROOT;
+ 
+ 	if (argc == 3) {
++		dev_t pool_devt;
++		dev_t origin_devt;
+ 		if (!strcmp(argv[0], argv[2])) {
+ 			ti->error = "Error setting origin device";
+ 			r = -EINVAL;
+ 			goto bad_origin_dev;
+ 		}
+ 
++		r = dm_devt_from_path(argv[0], &pool_devt);
++		if (r) {
++			ti->error = "Error opening metadata block device";
++			goto out_unlock;
++		}
++		r = dm_devt_from_path(argv[2], &origin_devt);
++		if (r) {
++			ti->error = "Error opening metadata data device";
++			goto out_unlock;
++		}
++		if (pool_devt == origin_devt) {
++			ti->error = "Error setting metadata or data device";
++			r = -EINVAL;
++			goto out_unlock;
++		}
++
+ 		r = dm_get_device(ti, argv[2], BLK_OPEN_READ, &origin_dev);
+ 		if (r) {
+ 			ti->error = "Error opening origin device";
+-- 
+2.43.0
+
