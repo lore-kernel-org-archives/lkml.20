@@ -1,108 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015536;
-	b=Y890NIW0KzVV1XBWn5Sjp03FzJR4ZngBTR2w2Vu+2OsN0CmfjLRyGeGc1sihZxRqHF2i
-	 CiLbbnPUPQQxR4+w5QOaVgk0QT9T1q7Ico1jZsHiRBoMN6q6CeTjsu6fiMQeU0uK6+Lw7
-	 dBQKpFeyMWX0I7RYqHrEchrVPp8OD69rYrZ5pPhZdedG3nkJ+GSkS4RGPLcuKYIjFMnbp
-	 5lfQKtCkkhNZShT/uerhKqNUUS7u//aUk/3Nn6OND4Z34rHDVk0KPvwKa5nIH7nWRqYpY
-	 gIks49bJn0csXVcOTotpyzJokivuZGPLBScXT6vaWd5vWY+xTZHCGgOcM29leHorPCQ==
+	t=1793015555;
+	b=F3lVrVlgfxJXhRPYiTZJNGrqu+WCQqmsICb6O1/F78S8X501+y4nzLd3YUopkigI4vYe
+	 3UAv/K27UR4p1fj1AJMKE1Y1PXC+uNptgVqz8UIpJJkKpYXyO5rHiq20pms5+8gxxMx5k
+	 uVKmlVwclt4SRN0Fo71LkuE0SgkcudCyRz5CPjSQWmPGp4MOfPTuccVJRldhoUNMRgm2w
+	 qRgkRqYyP5U4cKybwbnwHwz3TA9BDOtQZyRdImdgx9xmpJragF8f13Rq1/emHe22Royze
+	 vxLZIYpDLqxn916omnNfOkC4aHCyqaTt/iDBEEBA6OIN640j27+IcRz5gqlPvqeT19Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015536;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=Ld6pQRS1XVAcbHfpVuJJdRWHOkG/cVMYEOp3pQQkRBg=;
-	b=MGSq6TKpLJUzQRqDmBZeugfCwKv9kyrwsgOvI4WpqF3TjXLagXwEPqUz3jTvEqAyatTG
-	 9pOa3ZaeqoA7GdyzLIcqg8NIO7hXhRyLqmIjJAGzssOqPIYKbes97JqChKZjWQiErxY2l
-	 GbXhqrWtV3AwTeWyL+rLSIdj/QoIec0QBIfgYXe+QsdxbkFBi5aEJGVvjELwCRWopXCU4
-	 r4wR9r0kaocLgbLCAcZrJJVFtwQlEcu84PljfiyMf2k3Cotbov99Ts1W+hnAY907EMmLq
-	 E1qAhpFgBYWZMo2A2JvVmzS3gSKm7zE27ckliLKHH7vYrQ99wGtz7hcvzMyDVIZDTCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015555;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+	b=4rQ7xVu3o5ezYtAkpHMIXL/P9bYibgRy+ab1YXzSHxsfSkssmwgh3I1v0bnw/xvZI22S
+	 OCqb1IHjmcEkZ3JrRpqrRGJUobWiT23l5RSOkYv2GXGYfP+9cJQ/EkgclTGvpfph9IaQv
+	 HQDixsyBu72oogGzQvUl2xSI2hnUUUMckXKhrSL2Trvew5Rb5uFZZbcSm3wRfQpbvrUZF
+	 wYKSE+CtcBHtXhNT2S3lKY2rX0Kktdfk5sNNINXDqe/cNIxRX6Ap91vnNz2+D29zewjSs
+	 aFvTcWgDod+kl54mfq1pFYVq166Z3rWPChmKiiYZZhiMtZu4NjjH91xxfO9ZwOtINcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LbueHXB3;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f7EhidXT;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n0ElWpS2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OCMuPuDK;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D50606A326;
-	Mon, 26 Oct 2026 11:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D50606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64081606A337
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64081606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LbueHXB3;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f7EhidXT;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n0ElWpS2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OCMuPuDK
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EE4801F461;
-	Mon, 26 Oct 2026 11:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793015534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ld6pQRS1XVAcbHfpVuJJdRWHOkG/cVMYEOp3pQQkRBg=;
-	b=LbueHXB3piHV5fNixYysrQTBKb6vLL0w2O1UevkWY4G5x5ow4MSP9MmfLC8ezdqvAoVj0f
-	7Yg7wGDvp9MvlGJaqyA/1sSTuCs+dJlOfHebRhB1M+ocrepqXnz4yficMgRdfUjyNOHMMS
-	kwFwkSaYMPV+unh2Tpz1kKHGkq1mre8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793015534;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ld6pQRS1XVAcbHfpVuJJdRWHOkG/cVMYEOp3pQQkRBg=;
-	b=f7EhidXTX9b6BOywFdC/Kz36tXQuTLT2VzUQGM9hm1924MhDBy0nRGPlMcfMsONRW6FXFE
-	0iFwCQuCbq61lXBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=n0ElWpS2;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=OCMuPuDK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793015532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ld6pQRS1XVAcbHfpVuJJdRWHOkG/cVMYEOp3pQQkRBg=;
-	b=n0ElWpS21XJNl4N0nE0iUuMd2zmFSqs0V+2521oVVyOwC540CfjceAibDsYu8OHG3H4LZo
-	jz/qLQg0eSFwIoM/PSqmJWpefPBnfR1Lz5S+0yh7EsbA1rLTGYpTTcdBS7kJ2hZXR4N7uM
-	IOg5XmpCygtLHlGMjHsqdXgToPzi/mE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793015532;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ld6pQRS1XVAcbHfpVuJJdRWHOkG/cVMYEOp3pQQkRBg=;
-	b=OCMuPuDKAf8dPJUjysOC6yTK/zEIvpvo3Hll9SZ90hgL+Pp8zXIpbhgM+8rdEySEWMswhp
-	IqrsKNUPO16cu/DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C03AB13408;
-	Mon, 26 Oct 2026 11:52:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DUgCJ+w+32q0EAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 11:52:12 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4E571A1419; Mon, 26 Oct 2026 12:51:57 +0100 (CET)
-Date: Mon, 26 Oct 2026 12:51:57 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] super: let super_lock() take flags
-Message-ID: <47bakruk4wgmxfcnepjksifr6eohwf3l5gmxjwjwur3wbekcqw@mqufkqbgpe4e>
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
- <20261023-work-super-lock_helpers-v1-2-d0fcb3f2f275@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a06b436dffso1374745b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:52:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793015555; x=1793620355; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+        b=IsWxLjyvSS+yJR2TrqdixNFLlM5rTDb7uGtRIyBFo7Hkb3usvDA6pa/LO7PUAFYFm0
+         jL38qgPpgv7tHi8v89bgFJqnUY1Cb5oudLNTw9Z9i/L1MOPyrevjKh5uO/m5w5OWIKZD
+         yVSwWSrA3VEE/eKsrUv45Aw7PuG+L+0XAuCtpt9Ppm9VjKRaHh6dca1MFxfhriz9SHXT
+         NKWMp/2+cHiGiYxdlCoJCmwdkzPp7cbleL9PvimiNxdhLHildiwD6tJL+vKrgom4h/Mz
+         lFjOiTkcr/W71Re3NYhieMIM1wukkhA1IjrlnCWOYkGqheQSYffVJOohK4+bTpdYtWDn
+         3lhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793015555; x=1793620355;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+        b=hlJNdmSHrqcDLw80mLmJSwkXtgp2YXVHbjE1jD60/P08Eyh7cdd/sEImlh8C9plF6b
+         +/lIomhQrwZbyVqe7yNLf7X8TwFIN2EupC5uJyEg2c8vuxEgTRLMulxC3kpOhW+je+pc
+         7zZtc9iaJq4ygitf1uCDDMWIjdJc9NPohuzbuoaeT5dmTXB0DB/5jk5kSwHFYU57s5pP
+         lFcTxWR6a7WJeLkEzrsAvY9R/nw2ceMSp6gO83yck1nWxISbJkvb8rR/l+DsNVtvnuxC
+         AVvPO2wPhuvSS+HmTJ8q/KefVGi4P7ZKrDRtbWXKzSMvzB4xVt/jXd5Sge6h9+X3Wi4a
+         BXLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVEpdN9KAfYn4IEEZewuLD9TkAOkMvAph4MRx5qGjzO/jPfboLoy6I6UleJ0cZcF2Jt0P9JiwFqdoS9hY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgSDKzjEoXt5b6cqWoIWD81XYXVmrH72RYBfu97Okg8jbdD/Er
+	waZgW1AgsNBOKp5yO5cIe6P+vpW1nY/wHD2I6xxmFNSm5//NDf10QvLT
+X-Gm-Gg: AYBFou2YNkSJDyUI3ST+DywzdkESIT6SVdF/bl6cCxgn8Nd4PjCKD8ieWAUMG0zoWBU
+	h/Mij6d8iKuFVrajsmBwY03tn+EMnD0MfeVsYWsFssjfWncOajpzAcL7t1cBYnHeMwQtnpy3q+P
+	PMcly8Zw8D5hJSw9XpsEwkxEJtOW72xwfb2F32DGCc16FNwP0CKZrDR3wU2GYj44ut7Yo8oAy61
+	59EfnnsGfDorKpOpHMvnPFcCw8pC+sjlX67cj8YrDQplfuDXfYQynE/LMd1VX9xMmPYV5vRZ22b
+	eOEquI1tvWa1aoDPhBXIex6zUCZhtPRoJJrH2E+6tNOAK5GvxJMA4b4mpCZxsntM0Chp6ncQlFy
+	BXfZ1IM96y+/Y5Lludi83FA/Akz9/nDETH96l+Zpr5qR7cwTe5/QpVGzt4xzhPzt4N9B4/MHZy2
+	zyn3YHrCqFwD6T0nwziTUfv88xFGjy7t8Fgh4C4eBSmb654fh9csXfVaA+Vs51Dfaq0KG/HwZ3F
+	u2Wcs/ushSRu3SQY73hG27Fh1aITqHdB/fSadr7cYDNeDgQTiXU5g==
+X-Received: by 2002:a05:6a00:1808:b0:87d:ee98:606 with SMTP id d2e1a72fcca58-8a367f0eb74mr4959061b3a.23.1793015554801;
+        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
+Received: from lgs.. ([101.76.249.61])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36ada2805sm1233497b3a.12.2026.10.26.04.52.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Gregory Fong <gregory.0xf0@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: brcmstb: fix UAF after IRQ domain setup failure
+Date: Mon, 26 Oct 2026 19:52:26 +0800
+Message-ID: <20261026115227.41779-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,409 +101,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-work-super-lock_helpers-v1-2-d0fcb3f2f275@kernel.org>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim];
-	RCVD_COUNT_THREE(0.00)[3];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: EE4801F461
+Content-Transfer-Encoding: 8bit
 
-On Fri 23-10-26 11:41:02, Christian Brauner wrote:
-> We have super_lock() returning a bool, super_lock_killable() returning
-> an int and both forwarding to super_lock_common() which takes two bools.
-> On top of that super_lock_shared() and super_lock_excl() return true on
-> success while super_lock_killable() returns 0 on success. So whether
-> "if (super_lock*(sb))" means we got the lock depends on which one is
-> called. And the next patch wants super_lock() to optionally wait for a
-> superblock that's being shut down.
-> 
-> So instead of growing yet another variant, add SUPER_LOCK_EXCL and
-> SUPER_LOCK_KILLABLE and pass them all the way down. __super_lock() and
-> super_unlock() take the flags instead of a bool, which also gets rid of
-> __super_lock_killable(). super_lock() takes the flags and returns 0,
-> -ENOENT or the error from the wait. Then remove super_lock_killable(),
-> super_lock_common(), super_lock_shared() and super_lock_excl() and
-> convert everyone to super_lock().
-> 
-> No functional changes.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+When devm_request_irq() fails in brcmstb_gpio_irq_setup(), the error
+path removes the IRQ domain but leaves priv->irq_domain non-NULL.
 
-Yeah, much better. Thanks! Feel free to add:
+The probe error path subsequently calls brcmstb_gpio_remove(), which
+checks priv->irq_domain and attempts to access the already-freed
+domain through irq_find_mapping(). It also attempts to remove the
+domain again, resulting in a use-after-free and potentially further
+memory corruption.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Set priv->irq_domain to NULL after removing it so that the common
+cleanup path skips the already-freed IRQ domain.
 
-								Honza
+This issue was found by our static analysis tool under development.
 
-> ---
->  fs/super.c | 163 +++++++++++++++++++++++++------------------------------------
->  1 file changed, 67 insertions(+), 96 deletions(-)
-> 
-> diff --git a/fs/super.c b/fs/super.c
-> index 16b9d7ac381c..0185c1f16ba3 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -55,24 +55,31 @@ static char *sb_writers_name[SB_FREEZE_LEVELS] = {
->  	"sb_internal",
->  };
->  
-> -static inline void __super_lock(struct super_block *sb, bool excl)
-> +enum super_lock_flags_t {
-> +	SUPER_LOCK_EXCL		= (1U << 0),
-> +	SUPER_LOCK_KILLABLE	= (1U << 1),
-> +};
-> +
-> +static inline int __super_lock(struct super_block *sb,
-> +			       enum super_lock_flags_t flags)
->  {
-> -	if (excl)
-> +	if (flags & SUPER_LOCK_KILLABLE) {
-> +		if (flags & SUPER_LOCK_EXCL)
-> +			return down_write_killable(&sb->s_umount);
-> +		return down_read_killable(&sb->s_umount);
-> +	}
-> +
-> +	if (flags & SUPER_LOCK_EXCL)
->  		down_write(&sb->s_umount);
->  	else
->  		down_read(&sb->s_umount);
-> +	return 0;
->  }
->  
-> -static inline int __super_lock_killable(struct super_block *sb, bool excl)
-> -{
-> -	if (excl)
-> -		return down_write_killable(&sb->s_umount);
-> -	return down_read_killable(&sb->s_umount);
-> -}
-> -
-> -static inline void super_unlock(struct super_block *sb, bool excl)
-> +static inline void super_unlock(struct super_block *sb,
-> +				enum super_lock_flags_t flags)
->  {
-> -	if (excl)
-> +	if (flags & SUPER_LOCK_EXCL)
->  		up_write(&sb->s_umount);
->  	else
->  		up_read(&sb->s_umount);
-> @@ -80,17 +87,17 @@ static inline void super_unlock(struct super_block *sb, bool excl)
->  
->  static inline void __super_lock_excl(struct super_block *sb)
->  {
-> -	__super_lock(sb, true);
-> +	__super_lock(sb, SUPER_LOCK_EXCL);
->  }
->  
->  static inline void super_unlock_excl(struct super_block *sb)
->  {
-> -	super_unlock(sb, true);
-> +	super_unlock(sb, SUPER_LOCK_EXCL);
->  }
->  
->  static inline void super_unlock_shared(struct super_block *sb)
->  {
-> -	super_unlock(sb, false);
-> +	super_unlock(sb, 0);
->  }
->  
->  static bool super_flags(const struct super_block *sb, unsigned int flags)
-> @@ -113,13 +120,38 @@ static int super_wait(struct super_block *sb, unsigned int sb_flags,
->  				    state);
->  }
->  
-> -/*
-> - * Returns 0 with s_umount held, -ENOENT if the superblock is going away, or,
-> - * if @killable, the error from a wait which was cut short.
-> +/**
-> + * super_lock - wait for superblock to become ready and lock it
-> + * @sb: superblock to wait for
-> + * @flags: SUPER_LOCK_* flags
-> + *
-> + * If the superblock has neither passed through vfs_get_tree() or
-> + * generic_shutdown_super() yet wait for it to happen. Either superblock
-> + * creation will succeed and SB_BORN is set by vfs_get_tree() or we're
-> + * woken and we'll see SB_DYING.
-> + *
-> + * A superblock which is being shut down is not waited for, see
-> + * super_wait_shutdown() and super_wait_shutdown_killable() for that.
-> + *
-> + * With SUPER_LOCK_EXCL s_umount is taken for writing, otherwise for reading.
-> + * With SUPER_LOCK_KILLABLE both the wait and taking s_umount can be cut short
-> + * by a fatal signal.  That is only for callers which give up altogether when
-> + * they are killed.
-> + *
-> + * The caller must have acquired a temporary reference on @sb->s_passive.
-> + *
-> + * Return: 0 if SB_BORN was set and with s_umount held. Without s_umount held,
-> + *         -ENOENT if the superblock is being shut down or SB_DYING was set,
-> + *         -EINTR or -ERESTARTSYS if the task was killed.
->   */
-> -static int super_lock_common(struct super_block *sb, bool excl, bool killable)
-> +static __must_check int super_lock(struct super_block *sb,
-> +				   enum super_lock_flags_t flags)
->  {
-> -	int ret = 0;
-> +	unsigned int state = TASK_UNINTERRUPTIBLE;
-> +	int ret;
-> +
-> +	if (flags & SUPER_LOCK_KILLABLE)
-> +		state = TASK_KILLABLE;
->  
->  	lockdep_assert_not_held(&sb->s_umount);
->  
-> @@ -133,8 +165,7 @@ static int super_lock_common(struct super_block *sb, bool excl, bool killable)
->  		return -ENOENT;
->  
->  	/* wait until the superblock is ready or dying */
-> -	ret = super_wait(sb, SB_BORN | SB_DYING,
-> -			 killable ? TASK_KILLABLE : TASK_UNINTERRUPTIBLE);
-> +	ret = super_wait(sb, SB_BORN | SB_DYING, state);
->  	if (ret)
->  		return ret;
->  
-> @@ -142,10 +173,7 @@ static int super_lock_common(struct super_block *sb, bool excl, bool killable)
->  	if (super_flags(sb, SB_DYING))
->  		return -ENOENT;
->  
-> -	if (killable)
-> -		ret = __super_lock_killable(sb, excl);
-> -	else
-> -		__super_lock(sb, excl);
-> +	ret = __super_lock(sb, flags);
->  	if (ret)
->  		return ret;
->  
-> @@ -155,7 +183,7 @@ static int super_lock_common(struct super_block *sb, bool excl, bool killable)
->  	 * grab a reference to this. Tell them so.
->  	 */
->  	if (sb->s_flags & SB_DYING) {
-> -		super_unlock(sb, excl);
-> +		super_unlock(sb, flags);
->  		return -ENOENT;
->  	}
->  
-> @@ -163,49 +191,6 @@ static int super_lock_common(struct super_block *sb, bool excl, bool killable)
->  	return 0;
->  }
->  
-> -/**
-> - * super_lock - wait for superblock to become ready and lock it
-> - * @sb: superblock to wait for
-> - * @excl: whether exclusive access is required
-> - *
-> - * If the superblock has neither passed through vfs_get_tree() or
-> - * generic_shutdown_super() yet wait for it to happen. Either superblock
-> - * creation will succeed and SB_BORN is set by vfs_get_tree() or we're
-> - * woken and we'll see SB_DYING.
-> - *
-> - * A superblock which is being shut down is not waited for, see
-> - * super_wait_shutdown() and super_wait_shutdown_killable() for that.
-> - *
-> - * The caller must have acquired a temporary reference on @sb->s_passive.
-> - *
-> - * Return: The function returns true if SB_BORN was set and with
-> - *         s_umount held. The function returns false if the superblock
-> - *         is being shut down or SB_DYING was set and without s_umount
-> - *         held.
-> - */
-> -static __must_check bool super_lock(struct super_block *sb, bool excl)
-> -{
-> -	return !super_lock_common(sb, excl, false);
-> -}
-> -
-> -/**
-> - * super_lock_killable - killable super_lock()
-> - * @sb: superblock to wait for
-> - * @excl: whether exclusive access is required
-> - *
-> - * Only for callers which give up altogether when they are killed.
-> - *
-> - * The caller must have acquired a temporary reference on @sb->s_passive.
-> - *
-> - * Return: 0 if SB_BORN was set and with s_umount held. Without s_umount held,
-> - *         -ENOENT if the superblock is being shut down or SB_DYING was set,
-> - *         -EINTR or -ERESTARTSYS if the task was killed.
-> - */
-> -static __must_check int super_lock_killable(struct super_block *sb, bool excl)
-> -{
-> -	return super_lock_common(sb, excl, true);
-> -}
-> -
->  /**
->   * super_wait_shutdown_killable - wait for a superblock being shut down
->   * @sb: superblock super_lock() failed on
-> @@ -240,18 +225,6 @@ static void super_wait_shutdown(struct super_block *sb)
->  	super_wait(sb, SB_DYING, TASK_UNINTERRUPTIBLE);
->  }
->  
-> -/* wait and try to acquire read-side of @sb->s_umount */
-> -static inline bool super_lock_shared(struct super_block *sb)
-> -{
-> -	return super_lock(sb, false);
-> -}
-> -
-> -/* wait and try to acquire write-side of @sb->s_umount */
-> -static inline bool super_lock_excl(struct super_block *sb)
-> -{
-> -	return super_lock(sb, true);
-> -}
-> -
->  /* wake waiters */
->  #define SUPER_WAKE_FLAGS (SB_BORN | SB_DYING | SB_DEAD)
->  static void super_wake(struct super_block *sb, unsigned int flag)
-> @@ -726,7 +699,7 @@ static int grab_super(struct super_block *sb)
->  
->  	refcount_inc(&sb->s_passive);
->  	spin_unlock(&sb_lock);
-> -	ret = super_lock_killable(sb, true);
-> +	ret = super_lock(sb, SUPER_LOCK_EXCL | SUPER_LOCK_KILLABLE);
->  	if (!ret) {
->  		if (atomic_inc_not_zero(&sb->s_active)) {
->  			put_super(sb);
-> @@ -1078,7 +1051,7 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
->  
->  		if (flags & SUPER_ITER_UNLOCKED) {
->  			f(sb, arg);
-> -		} else if (super_lock_shared(sb)) {
-> +		} else if (!super_lock(sb, 0)) {
->  			f(sb, arg);
->  			super_unlock_shared(sb);
->  		} else if (flags & SUPER_ITER_WAIT_SHUTDOWN) {
-> @@ -1155,8 +1128,6 @@ void iterate_supers_type(struct file_system_type *type,
->  
->  	spin_lock(&sb_lock);
->  	hlist_for_each_entry(sb, &type->fs_supers, s_instances) {
-> -		bool locked;
-> -
->  		if (super_flags(sb, SB_DYING))
->  			continue;
->  
-> @@ -1165,8 +1136,7 @@ void iterate_supers_type(struct file_system_type *type,
->  
->  		spin_unlock(&sb_lock);
->  
-> -		locked = super_lock_shared(sb);
-> -		if (locked) {
-> +		if (!super_lock(sb, 0)) {
->  			f(sb, arg);
->  			super_unlock_shared(sb);
->  		}
-> @@ -1191,7 +1161,8 @@ struct super_block *user_get_super(dev_t dev, bool excl)
->  	for_each_dev_super_killable(sb, &cursor) {
->  		int ret;
->  
-> -		ret = super_lock_killable(sb, excl);
-> +		ret = super_lock(sb, (excl ? SUPER_LOCK_EXCL : 0) |
-> +				     SUPER_LOCK_KILLABLE);
->  		if (ret == -ENOENT)
->  			continue;
->  		super_dev_walk_end(&cursor);
-> @@ -1314,7 +1285,7 @@ static void do_emergency_remount_callback(struct super_block *sb, void *unused)
->  {
->  	struct fs_context *fc = NULL;
->  
-> -	if (!super_lock_excl(sb)) {
-> +	if (super_lock(sb, SUPER_LOCK_EXCL)) {
->  		/* the unmount writes the filesystem out, wait for that */
->  		super_wait_shutdown(sb);
->  		return;
-> @@ -1362,7 +1333,7 @@ static inline bool get_active_super(struct super_block *sb)
->  {
->  	bool active = false;
->  
-> -	if (super_lock_excl(sb)) {
-> +	if (!super_lock(sb, SUPER_LOCK_EXCL)) {
->  		active = atomic_inc_not_zero(&sb->s_active);
->  		super_unlock_excl(sb);
->  	}
-> @@ -1379,7 +1350,7 @@ static void do_thaw_all_callback(struct super_block *sb, void *unused)
->  		while (sb->s_bdev && !bdev_thaw(sb->s_bdev))
->  			pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
->  
-> -	if (super_lock_excl(sb))
-> +	if (!super_lock(sb, SUPER_LOCK_EXCL))
->  		thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE, NULL);
->  	deactivate_super(sb);
->  }
-> @@ -1668,7 +1639,7 @@ static int fs_super_thaw(struct super_block *sb)
->  	}
->  
->  	/* The caller holds an active reference. */
-> -	if (WARN_ON_ONCE(!super_lock_excl(sb)))
-> +	if (WARN_ON_ONCE(super_lock(sb, SUPER_LOCK_EXCL)))
->  		return 0;
->  
->  	/* FITHAW or an emergency thaw may have dropped the freeze already. */
-> @@ -1689,7 +1660,7 @@ static void fs_bdev_mark_dead(struct block_device *bdev, bool surprise)
->  	mutex_unlock(&bdev->bd_holder_lock);
->  
->  	for_each_dev_super(sb, &cursor) {
-> -		if (!super_lock_shared(sb)) {
-> +		if (super_lock(sb, 0)) {
->  			/* don't take the device away from under an unmount */
->  			if (!surprise)
->  				super_wait_shutdown(sb);
-> @@ -1720,7 +1691,7 @@ static void fs_bdev_sync(struct block_device *bdev)
->  	for_each_dev_super_killable(sb, &cursor) {
->  		int ret;
->  
-> -		ret = super_lock_killable(sb, false);
-> +		ret = super_lock(sb, SUPER_LOCK_KILLABLE);
->  		if (!ret) {
->  			if (sb->s_root && (sb->s_flags & SB_ACTIVE))
->  				sync_filesystem(sb);
-> @@ -2517,7 +2488,7 @@ int freeze_super(struct super_block *sb, enum freeze_holder who, const void *fre
->  {
->  	int ret;
->  
-> -	if (!super_lock_excl(sb)) {
-> +	if (super_lock(sb, SUPER_LOCK_EXCL)) {
->  		WARN_ONCE(1, "Dying superblock while freezing!");
->  		return -EINVAL;
->  	}
-> @@ -2684,7 +2655,7 @@ static int thaw_super_locked(struct super_block *sb, enum freeze_holder who,
->  int thaw_super(struct super_block *sb, enum freeze_holder who,
->  	       const void *freeze_owner)
->  {
-> -	if (!super_lock_excl(sb)) {
-> +	if (super_lock(sb, SUPER_LOCK_EXCL)) {
->  		WARN_ONCE(1, "Dying superblock while thawing!");
->  		return -EINVAL;
->  	}
-> 
-> -- 
-> 2.53.0
-> 
+Fixes: 0ba31dc201de ("gpio: brcmstb: consolidate interrupt domains")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpio/gpio-brcmstb.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpio/gpio-brcmstb.c b/drivers/gpio/gpio-brcmstb.c
+index 44ca798cf832..3b1aaea63951 100644
+--- a/drivers/gpio/gpio-brcmstb.c
++++ b/drivers/gpio/gpio-brcmstb.c
+@@ -513,6 +513,7 @@ static int brcmstb_gpio_irq_setup(struct platform_device *pdev,
+ 
+ out_free_domain:
+ 	irq_domain_remove(priv->irq_domain);
++	priv->irq_domain = NULL;
+ 
+ 	return err;
+ }
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
