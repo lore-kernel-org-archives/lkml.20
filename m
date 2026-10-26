@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023467;
-	b=qMUfLcMJ4PU3jkJi6PzOvM1mqfHcDEryOG01iJhKHNSwTPz3spbWY+k8HmpXOlMWIiPr
-	 OY+9kWu9PeoBGo/Wa/54JCawyTT1D7ILFXpjJAf8KjxkiCq2gxJiYVKfXuuJyeXnei/8d
-	 2q8yzD40u0fYNaH/GmNV+TkMoNmvuumP2+DWDD6LxttaMezDWtcXWyCxkFOhARNg2SvmK
-	 mx9wHIkPyXbwHwSO9CX5sP1pO97LlNA5YJrRhS76ynwi+C0zSdMxFJqAcI+8We1CXgYpR
-	 eUY8LHBX7kcRtjhkuZRZZINSFKG38lUnUyLfCdeM0nFAFEEB9nevm6wA7bTD0t7mBuQ==
+	t=1793023507;
+	b=pbyIthvfpXgNQySccGUjV9cFMuJSX3AQWIOKJy3+XZ5A0EflCMaw1LEGkJCPjFOuX2az
+	 HdZOg1fGOy1tHdL4NZsepo1Gcm+jzhBOMduIAEX/MTsye2i/609Zp618WfCN7O7zOpPUK
+	 L+FFAO4C1hp/sShIRWkDMjAvpDhonW3/55OWBvG2/rj+wOTxi8cMTB+mGwbXmwCBq1zqT
+	 APLnDGWzgFu4EcwxmcaBIAsKxSMRsYvuLK0hDoekx7bQvp5nf7KMOzqAylwNX0n7v8UAs
+	 flTDWMYD0U3kK5AppG4eLVhBTWO/goBlHiHkEq8g7ha69wP7z3aI6oYKn2viZWfXNMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023467;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
-	b=miOSngHgA6DmJSFbm0YR6o+wW+4n/OMJC/Y/rE3M0iFfANDhDbdxqJhbI90Jmw3Pfj6Q
-	 Pac/oAXXl9ACmKbc99Nuwarv9znQtSsbZhVOqR5ZuRAgVCUM2Ztjc8Sl1JKIojriG+z98
-	 BL1zlUOG0bABF1NTy4pVVPxmn1N0wAtanG3PmhTBGsK4qiUcQg4lQi12JLc3KneP7wPzP
-	 FpQRiEtc3/ybIe4MTmilXBg0elpo5Bx1eapxU1KCBuaxk0BvUN70IF356P3YJxdFxTDRu
-	 rP9S/XhbxVPkowXE5cDc94dO8Gxvv7jTx+Jjw2tYAcZ9po27pjfyF213f0cyaphlw/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023507;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BkQwxegoRMOd1GCfVoTOGhoSJ4VyKQPCHguHKah43lE=;
+	b=MXncfZfVwv5KGx5G0+PYLUJBPkljOpLQxzYE/ZzwgE3VYRQ/hx4745ftiF1XCsdNrutC
+	 fVIX31QE+qctO7UueXReC+5FXjW9iYL/0abmuZU2IpTTnVDv/q0dAkilylvvm+5UwQT0n
+	 nBL0zmsbFOsFqSsYu6MigSZyOtzTYKWAD8SywjBVm0vDxf12qfdxpy+sqPUEgpihwz1xX
+	 p6fMwr2QsoizKP9InYuhwdTXPxKqO/FJj/U7RHAs9ORLwlhCjV1pK0h96s4f5ILGCGPAQ
+	 Nqny2+CXihZbIzOvMiuqWNb3jbRC1kBlre+OvQOv/69IabZ/u9wqIjJitlWqW5NgAsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Xdp8Bl+H;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0179606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:04:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0179606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=g71p6+n8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 74D39606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D39606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Xdp8Bl+H
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9995ce866so28027315ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793023466; x=1793628266; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
-        b=Xdp8Bl+HlIpTIPADNhAC0Bnw5OtQeb3yZTFJmf5cytDe9mHelUcX2mmU4icI+2ccD/
-         WrnClsqvYtuTqsazujFmgW0Gcj46cDEuRSg9F1uojLb3QNxF/Nq5kg0Boui8wIYQXPtk
-         OU604TtjzKm0ENnUPinDkMxv8DmH0XrQerPPs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793023466; x=1793628266;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+j+27jHK6eH0bRZGv1MwMG7TaEjdMoEo1o6LdZHQ6Ew=;
-        b=PdRJ3AFgi9sw/dXbyWh1aSnAKh066cdcTqO5905Qw+yJ5WkjBJdFGDIsTx93n5648S
-         Z8yoWHH13hWG5P2s2lJl74ztaZPMF6ojyYny8GXfiZK96pUXZmbRyzp9zFnLvgK8AtLp
-         qLj+ikFz1PPBEAmJwsg7tRhZWmZu7FwGa5u1WgmGJvx9ijdcGAZXCb76Z8Sm9qGlPjV0
-         dj2HxMLltLa5V2S4DlsmgYl+UeG42n2cI/x1PdXcwnUSjizkzUp1oGq7shERUCkwXLVG
-         pEp4NmWQ9o7F1u8rHi4d33qtpij9KDjkglLcDRVQ3NtcFqv4CejAfipApewEr3HQmy4w
-         qD8A==
-X-Forwarded-Encrypted: i=1; AKwUvBzbPnoqBqPOp2sG6YDxxf2zMBKyGjp+ZjQq4Gy3UX5ArN4ugBwmxq4WsA+oor0WLYWXfDUbOscSDI+seqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUA/bRcvm5bpp3dMQf1wl/BMfWL4NMqy2OLWS47jPUElGcxV6A
-	GC0DzinQDhrS8KOVPXGkHslbERT18gLsgwRkA5iJfdRjQFNNJyCxa6ZBTNQH4r1qUZA=
-X-Gm-Gg: AYBFou3diGwcNE0Xsn20cxqonYFuiA2QsEJcHu0K8erkjHe0r+ZOK3SsuSK3SeJxgx7
-	SmFKAzzfxBssl4hXYSYFu35Dp4ZmLKxIi0K39LGQ+f14WWKenrNm/Mnqr+V9N0DlWv4zlUaOEaa
-	1/I/tXdPgl6DEcVG6JCc0pTZFut90U1BMcLp0sxqdz43nMJ+0VDLp6nISTXhAiyQPhqe8q8jEt/
-	MXJXhGTChKEsbmFbIBnOaIc4te8sMVJeRSbF49hjw/vykXL/ClhY+8u3dlrRxzh0YyjRRMVD+9J
-	XUfi/pvLeVEODmBkkqdsczRvEpiq9D5WVT7Sj2t3G8V94qBDPIUwrr/3Cr7D1jXXFYG0P8yXUvg
-	OMYRjvDNrl8IyDiHRpr8qEcqBQOHRFOFLu0JqQEAtdtpsT0FazUpme2XcjRNcYw/MxXgznqfCz4
-	ADypreOC4A9jaMjBd6QxzS2PF7KA77jOuzFL3PSxuvu2EolQg9s2tNSUrqDr4QbgQxXZsOYY/4i
-	NK0gyJjNUjlT2nv1gNJOIT87qkE3Y6HM1vSyBCMTzWoOH+T1VRFolu3TJGA2OGSguKUPs8tto3g
-	S2Sz42IuO1yYsBMQJM5MhvxMM1/XWzxU4z4jfw+Eh9JPcT9SMTJpRCxBB1nRibxMUK5dPErpIVx
-	o3fyDWLsFognn8RaIXs9Ly1Y=
-X-Received: by 2002:a17:902:db0f:b0:2e8:4066:d247 with SMTP id d9443c01a7336-2ea9c697792mr62884475ad.33.1793023466139;
-        Mon, 26 Oct 2026 07:04:26 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a748csm17270035ad.55.2026.10.26.07.04.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:04:25 -0700 (PDT)
-Date: Mon, 26 Oct 2026 22:04:22 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Ying Huang <huang.ying.caritas@gmail.com>,
-	Kelley Nielsen <kelleynnn@gmail.com>,
-	Vineeth Pillai <vineeth@bitbyteword.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm: Make swapoff interruptible when unusing mms/shmem
-Message-ID: <at9d5rD-15wXXiK8@chrisdown.name>
-References: <ar2YlFYjYUZ49ZA5@chrisdown.name>
- <b1aaff8f-c4b1-4c2c-939e-7051e7f9b6b8@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=g71p6+n8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 893E72720;
+	Mon, 26 Oct 2026 07:05:01 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1430E3F7B4;
+	Mon, 26 Oct 2026 07:05:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793023504; bh=3IUUrH2FTySlI66DGVS+Ss41CPixbJOMNYfUDgjzOZE=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=g71p6+n8NZgxgf9gdpWmR3NFO97/R3e79wBtNQLVJMFtz7koqPYeNZQY6S4W237x9
+	 3CClKooX8gR8DOJJfAutaRJlHw1cJjl6I9M7xdcMiEuhzB+83lFaYnQ36DJVUu7dhA
+	 7OXQUlfJJWGm43MbCetdvdibrmy6a3Ag+/wBoDjc=
+Message-ID: <e47868eb-e5df-4c6f-a968-e80e5199b611@arm.com>
+Date: Mon, 26 Oct 2026 14:05:00 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,27 +53,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <b1aaff8f-c4b1-4c2c-939e-7051e7f9b6b8@linux.alibaba.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 RESEND 01/15] fs/resctrl: Return -EBUSY when
+ per-CLOSID RMIDs are in limbo
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ tan.shaopeng@fujitsu.com, zengheng4@huawei.com, jic23@kernel.org,
+ gshan@redhat.com, catalin.marinas@arm.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+ <20261020134239.3921377-2-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261020134239.3921377-2-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Baolin, Andrew,
+Hi Jinjie,
 
-Sorry, I missed this.
+On 20/10/2026 14:42, Jinjie Ruan wrote:
+> resctrl_find_free_rmid() returns ERR_PTR(-ENOSPC) when no matching RMID
+> is found in the free list. On systems where RMIDs depend on CLOSIDs
+> (CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID), the target CLOSID may have RMIDs
+> temporarily in limbo rather than permanently exhausted.
+> 
+> When userspace attempts to create a new monitoring group, a permanent
+> -ENOSPC failure prevents retry even though the CLOSID's RMIDs may become
+> available once the limbo handler completes.
+> 
+> Check closid_num_dirty_rmid[] before returning -ENOSPC. If the target
+> CLOSID has dirty RMIDs, return -EBUSY to signal a retryable condition.
+> 
+> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Babu Moger <babu.moger@amd.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  fs/resctrl/monitor.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index 73413cb128ea..da883adc3adc 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -225,6 +225,14 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+>  			return itr;
+>  	}
+>  
+> +	/*
+> +	 * If this CLOSID has RMIDs in limbo, return -EBUSY so userspace can
+> +	 * retry. Otherwise, the CLOSID is genuinely out of RMIDs.
+> +	 */
+> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
+> +	    closid_num_dirty_rmid[closid])
+> +		return ERR_PTR(-EBUSY);
+> +
+>  	return ERR_PTR(-ENOSPC);
+>  }
+>  
 
-Yes, I think -ERESTARTSYS is appropriate here. I used -EINTR to match the 
-existing signal exit in try_to_unuse(), but that also means a freezer induced 
-interruption becomes visible to userspace after thaw. Let me use ERESTARTSYS 
-instead.
+This seems like a sensible change to me. I ran into this myself the other day. For both cases the
+last_cmd_status is "Out of RMIDs".
 
-Re: Andrew's earlier questions: before b56a2d8af914, try_to_unuse() checked for 
-signals between swap entries, rather than after walking an entire mm.  
-Individual I/O waits can still delay it but certainly it's a lot better than 
-this situation.
+On a related, I have a patch, which I need to dig out and post, to add a flag so that the user can
+know from the resctrl interface alone the maximum number of monitor groups can be created in a given
+control group. It just displays the value of CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID in
+info/mon_id_includes_control_id.
 
-So yes, I think this probably warrants a stable backport given the suspend 
-timeout is reproducible and it's a reasonable usability regression even though 
-it has been present for a long time. I'll add Cc: stable for v2.
+For this patch of yours, and the next one, it would be good to post them with a series title with
+the prefix 'fs/resctrl:' so that they are easily seen to be generic resctrl changes and discoverable
+by the resctrl maintainers.
 
-Thanks!
+Thanks,
+
+Ben
+
