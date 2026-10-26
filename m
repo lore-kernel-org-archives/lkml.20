@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001203;
-	b=KceIc/eNhDIrxyW+LoddL90W5AuqE4iVsgb8n/XnjL6hZmdS38VNAEK9dQr0kuw/y4LF
-	 Cv9A2YLNx5Ejhwbvpi/jD09+WHZJco5SsmAwe9mVmxf6DwdOSq8HKGwNQilb+LP4FFHWJ
-	 DJnlRjbCdquO+WjgcStfMl7iel8RPMNh/L1ePm8zW2OKe06npUNtylq+s3G807fNlCvgv
-	 56iumDOKqM0d4SOjz676kp7Gqhtncho2JvvBfykEifCLvHTB4QYE2asBrJKos52Dv0WjP
-	 MXegJ9K8DGwVltzp7bIB/WN8VprY+pHUVIAQ+F8jfz8OotliCMhPt6j0vOGijTyVFvA==
+	t=1793001359;
+	b=SdxOpIejT/HvQ5/iDYC6V7WGByL6+llMuLElrpbLtLLrMzk96RvS75znWtlNLVsTQwdE
+	 j9DZf1RRWpCpAueMbRcWApxsy7oU0a74JyV1roQirG8hQZl+6LJLLukWT2HUwslsqQORN
+	 D4AFzo2/51K1XcYGm8J3UcAYlYuWqrmtXxc4KFpAUMhK4g6ecV5nlm1LggTp8/BOA59Ww
+	 2uFJpBNdtbzwszliWVkvKuAuQILRDAK8I61FaLBnphOFxGY27EFjyhboxCWtSfleSodXx
+	 Stzg8+QcOEvB83RCpmc7P+SDiaO4QqIW8f6qq/VMiipICEGwD44ijSCqxUzBPvGaMTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001203;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=mfJDf2saZhRyM8lhlYVnrxJjuWkMOyjzX5Pm7gBK9aM=;
-	b=cO5o9Bh0n14BXiABTayTKWm6ndJKejpeDF7UpKb4TCH4ym65oR96/+jr3OFT2dtKDr+5
-	 Zz/BpfWXw0fBRAXqLfYsiRhO5KbRwMwn4w/gZttZmnO/q286sbGSlpy1sp7EnX2VjGXvc
-	 592YFMCMeffEF7bDjZTY15qr2E54owUNegClGHptsUACakGrfdAM0E48sIY6KLZmvhd2A
-	 GHB7bohIPhbaSgFH5zkM84ts0GASZw4kq4QtL+0HpX52sHOqax1Oza9rjryrFHNahqT0g
-	 /AjY5nw0eeNU/ZjlLPVk7fkL2haFmgWrCkAcd7FXC5tphkq1xng/yJkoETfbwtXFaoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001359;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=Me1IHTGh7HaHL/Lp2GiEA8ohCBtZ5+Ph03H7s2kqLjo=;
+	b=5dmxp1+LespzUFJw/hsandoMpIxfjzxMk6SZCfLl3XZrxJtjvxgi5n6B2OpYmNV0u7JS
+	 D8dnDX2yljvkA1WHN9Xb7a5u0mdUelDitZ7W4aYEzehkq2mJ+fecorMQ8gcyRv/uui8KZ
+	 d85siA4zOeOkvGyTI3GX67UIvK64OciISe/aMmWsv1mp5lz9jBLegkK2u7WKObOwDApue
+	 bBIp3i3t8Lf44nE8AelYr+wSlfV53i0RmdnuArk9TfrPT7nE9dfUVGZiADf430NMrMk8P
+	 e2ZmwBNZy/FwS03YB0q7WgmCcdcmYaDnuZYszNilBkLrro35TkbOwpMzRXeUHPPcYYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Qniwr2Mp;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=mucse.com;
+	spf=pass smtp.mailfrom=mucse.com;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B673060A2625
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B673060A2625
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Qniwr2Mp
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=mfJDf2saZhRyM8lhlYVnrxJjuWkMOyjzX5Pm7gBK9aM=;
-	b=Qniwr2MpK7TJoN1Qu7La4LzKRnHeo01r6FPCPpP3sshmuH6ql6KbjD55Cw/f61CYiRNabI0l/
-	6PbkoAJqeToWnCcDZmm3Q5eTDMXEUJFkLUvBtmATOqy0YZvvTK81+hldzY2t/Q06ig7MJ0r+keq
-	mgGy9JFFZIHNZY3aNER5I3M=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jCm852YzwzcbTF;
-	Mon, 26 Oct 2026 15:53:09 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 598BC40579;
-	Mon, 26 Oct 2026 15:53:19 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 26 Oct
- 2026 15:53:17 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <thuth@redhat.com>, <ruanjinjie@huawei.com>,
-	<leitao@debian.org>, <yeoreum.yun@arm.com>, <robh@kernel.org>,
-	<sourabhjain@linux.ibm.com>, <kees@kernel.org>, <coiby.xu@gmail.com>,
-	<Yeking@Red54.com>, <tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
-	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
-	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
-	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
-	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
-	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
-	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-Subject: [PATCH v7 13/15] arm64: kexec_file: Use kexec_load_other_segments() to simplify code
-Date: Mon, 26 Oct 2026 15:51:59 +0800
-Message-ID: <20261026075201.699550-14-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F8E606A31A;
+	Mon, 26 Oct 2026 07:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F8E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: esmtpsz18t1793001290tb456ae39
+X-QQ-Originating-IP: iSu4K1cwzRODviiMBIePWVeQmAUrC3usdp+Obm7KSdQ=
+Received: from nic-Precision-5820-Tower.tail7b ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 26 Oct 2026 15:54:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17866973158191589033
+EX-QQ-RecipientCnt: 10
+From: Dong Yibo <dong100@mucse.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	vadim.fedorenko@linux.dev
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dong100@mucse.com,
+	yaojun@mucse.com
+Subject: [PATCH net] net: rnpgbe: Accept link-down events without speed magic
+Date: Mon, 26 Oct 2026 15:54:45 +0800
+Message-ID: <C2DFBBF04F1DCFD2+20261026075445.920572-1-dong100@mucse.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,205 +64,65 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: NU4e3V92LJuQi/2w+WXj/grTUfD3Dc4ce6ext5jmL93DdEiXE9ECyIXi
+	UJ534xj55WfZ8LJm5s/v8tAwJQNdxl5rMDiET1fRf74o/zobTfAzpPARXAedbu6uGvT41pI
+	J1FD9qPNimlmu3By38z9wRnLJ65A2uDtP+qQOaDgyKtQhLY+zgoCsHDu83fPgPP4j55f33v
+	pjjlSIhMwBMjNX+VXrLt7XZDhPjiSa00MBwLVtbBtcPntDMm7sST80nb2WEIz8c6PmRrp/6
+	Y3h1NiNgGQ4ilgRA8ZxDBr+4LJJRM9/h4Ve5xsJaAe4YWOp+WHpAlYXgkHHibSGPKo+BIAN
+	3V8Xlvae3nUqcOLCZZqR4thxJVAgxfCfxr/h6U9xWHwP4RglKQ+cJZuOhxmxRqbMpkfYRxh
+	FDLZSigpU2ZBglzi14+YWKS/0zAX9M/08pV/j5NYwwZowmEGLntHRwQsZl5n2rd0NQD2UsL
+	HvtZXKDJRt9oAklp+RGtxDLNVhuygYVIP22wZuEmjVm91Tv8HTK0CedztM5Xt9i1znAiO2U
+	oNkcDJD5d2hD5O0viiVtRRDG3SizGZJnU9Qel42aFtFY0lvek7WSPOcdc8EarmSu2MCE4/N
+	e8ScuYUIxV2B9q1AbOO5f6ojGJ+Tf3Ky1mEQH3ZA/qWy1TIs59dRUMr+Q1ra1RiaQy5NPtu
+	aP5HYQg/IybXqoFpQlNiDJAr4b23tRMjYcRyn6HDi9/MDh1Bv7elRFzsGMEri4x5cDI4Hv8
+	7eGjdyyTNAnTse0fJb+5ZCyRTdXCukaB4h8I6ug4ck1eCEesH1Y3osqGdW/loWswRhltBH3
+	WK+T2DReOUYLIIe0mVI9BEILur6pfy6EgXjuIKb3lPOrMNeKumLHT6kMpgjV0Ru7kUaBnLu
+	2h1E5js3UvlzixI4M8ReO8rAY18X5M8JKWwPXBYY8JMXWgyGZVxnSaVpGwQ6ogqsyr8LvSE
+	sp0QLFCpNdQd6Ixq8v/bsmzsNMcfp5HqHaR5Out2dvM4kcSOL9A1IxWYD3cKmuVNv97uBRA
+	VU4CS/F44GAV8i84pqPuQSSnQm9cMSice12b9A6SIHLJaACBTg
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-Replace the local copy with the common helper.
+The interface can continue reporting carrier up after the link goes
+down because the driver ignores the firmware's link-down notification.
 
-The retry loop stays. And the DTB and the dm-crypt keys move to the setup
-hook and the keys are loaded after the initrd now.
+Firmware reports link-down events with a zero port_magic and no
+valid speed or duplex information. The driver requires ST_VALID_MAGIC
+for every link event and returns before updating the cached link state
+when this check fails. It also writes an invalid driver snapshot to
+firmware instead of acknowledging the link-down state.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Validate the speed magic only for link-up events. This allows link-down
+events to update the cached state, propagate carrier loss, and update
+the snapshot exported to firmware. Keep the checks for invalid link-up
+magic and unsupported speeds.
+
+Fixes: 92a671d510a8 ("net: rnpgbe: Add link status handling support")
+Signed-off-by: Dong Yibo <dong100@mucse.com>
 ---
- arch/arm64/include/asm/kexec.h         |  5 --
- arch/arm64/kernel/kexec_image.c        | 12 +++-
- arch/arm64/kernel/machine_kexec_file.c | 95 ++++----------------------
- 3 files changed, 23 insertions(+), 89 deletions(-)
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
-index 892e5bebda95..8fc04e0e7dad 100644
---- a/arch/arm64/include/asm/kexec.h
-+++ b/arch/arm64/include/asm/kexec.h
-@@ -123,11 +123,6 @@ extern const struct kexec_file_ops kexec_image_ops;
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+index 683e0ea74113..c6ce9dbee3d0 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+@@ -392,8 +392,11 @@ static void mucse_mbx_fw_req_handler(struct mucse_hw *hw,
+ 		u16 speed = le16_to_cpu(req->link_stat.st.speed);
  
- int arch_kimage_file_post_load_cleanup(struct kimage *image);
- #define arch_kimage_file_post_load_cleanup arch_kimage_file_post_load_cleanup
--
--extern int load_other_segments(struct kimage *image,
--		unsigned long kernel_load_addr, unsigned long kernel_size,
--		char *initrd, unsigned long initrd_len,
--		char *cmdline);
- #endif
- 
- #endif /* __ASSEMBLER__ */
-diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-index 6ed1991e3142..f5a7f1f92afc 100644
---- a/arch/arm64/kernel/kexec_image.c
-+++ b/arch/arm64/kernel/kexec_image.c
-@@ -44,6 +44,12 @@ static void *image_load(struct kimage *image,
- 	struct kexec_buf kbuf = {};
- 	unsigned long text_offset, kernel_segment_number;
- 	struct kexec_segment *kernel_segment;
-+	struct kexec_load_params params = {
-+		.initrd = initrd,
-+		.initrd_len = initrd_len,
-+		.cmdline = cmdline,
-+		.cmdline_len = cmdline_len,
-+	};
- 	int ret;
- 
- 	/*
-@@ -101,9 +107,9 @@ static void *image_load(struct kimage *image,
- 	while ((ret = kexec_add_buffer(&kbuf)) == 0) {
- 		/* Try to load additional data */
- 		kernel_segment = &image->segment[kernel_segment_number];
--		ret = load_other_segments(image, kernel_segment->mem,
--					  kernel_segment->memsz, initrd,
--					  initrd_len, cmdline);
-+		params.kernel_load_addr = kernel_segment->mem;
-+		params.kernel_size = kernel_segment->memsz;
-+		ret = kexec_load_other_segments(image, &params, false);
- 		if (!ret)
- 			break;
- 
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index e7f280915e8d..44754b380bf1 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -63,91 +63,30 @@ int arch_crash_populate_cmem(struct crash_mem *cmem)
- }
- #endif
- 
--/*
-- * Tries to add the initrd and DTB to the image. If it is not possible to find
-- * valid locations, this function will undo changes to the image and return non
-- * zero.
-- */
--int load_other_segments(struct kimage *image,
--			unsigned long kernel_load_addr,
--			unsigned long kernel_size,
--			char *initrd, unsigned long initrd_len,
--			char *cmdline)
-+int arch_kexec_setup_other_segments(struct kimage *image,
-+				    struct kexec_load_params *params,
-+				    unsigned long initrd_load_addr)
- {
- 	struct kexec_buf kbuf = {
- 		.image = image,
--		/* not allocate anything below the kernel */
--		.buf_min = kernel_load_addr + kernel_size,
--		.buf_max = ULONG_MAX,
-+		.buf_min = params->kernel_load_addr + params->kernel_size,
- 	};
--	void *dtb = NULL;
--	unsigned long initrd_load_addr = 0, dtb_len,
--		      orig_segments = image->nr_segments;
--	int ret = 0;
-+	unsigned long dtb_len;
-+	void *dtb;
-+	int ret;
- 
--#ifdef CONFIG_CRASH_DUMP
--	/* load elf core header */
- 	if (image->type == KEXEC_TYPE_CRASH) {
--		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
--		if (ret) {
--			pr_err("Preparing elf core header failed\n");
--			goto out_err;
--		}
--
--		if (unlikely(image->elf_headers))
--			vfree(image->elf_headers);
--
--		image->elf_headers = kbuf.buffer;
--		image->elf_headers_sz = kbuf.bufsz;
--
--		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
--		kbuf.memsz = kbuf.bufsz;
--		kbuf.buf_align = SZ_64K; /* largest supported page size */
--		kbuf.top_down = true;
--
--		ret = kexec_add_buffer(&kbuf);
--		if (ret)
--			goto out_err;
--
--		image->elf_load_addr = kbuf.mem;
--
--		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
--			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
--
- 		ret = crash_load_dm_crypt_keys(image);
- 		if (ret)
--			goto out_err;
--	}
--#endif
--
--	/* load initrd */
--	if (initrd) {
--		kbuf.buffer = initrd;
--		kbuf.bufsz = initrd_len;
--		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
--		kbuf.memsz = initrd_len;
--		kbuf.buf_align = 0;
--		/* within 1GB-aligned window of up to 32GB in size */
--		kbuf.buf_max = round_down(kernel_load_addr, SZ_1G)
--						+ (unsigned long)SZ_1G * 32;
--		kbuf.top_down = false;
--
--		ret = kexec_add_buffer(&kbuf);
--		if (ret)
--			goto out_err;
--		initrd_load_addr = kbuf.mem;
--
--		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
--			      initrd_load_addr, kbuf.bufsz, kbuf.memsz);
-+			return ret;
- 	}
- 
- 	/* load dtb */
- 	dtb = of_kexec_alloc_and_setup_fdt(image, initrd_load_addr,
--					   initrd_len, cmdline, 0);
-+					   params->initrd_len, params->cmdline, 0);
- 	if (!dtb) {
- 		pr_err("Preparing for new dtb failed\n");
--		ret = -EINVAL;
--		goto out_err;
-+		return -EINVAL;
- 	}
- 
- 	/* trim it */
-@@ -163,8 +102,10 @@ int load_other_segments(struct kimage *image,
- 	kbuf.top_down = true;
- 
- 	ret = kexec_add_buffer(&kbuf);
--	if (ret)
--		goto out_err;
-+	if (ret) {
-+		kvfree(dtb);
-+		return ret;
-+	}
- 	image->arch.dtb = dtb;
- 	image->arch.dtb_mem = kbuf.mem;
- 
-@@ -172,12 +113,4 @@ int load_other_segments(struct kimage *image,
- 		      kbuf.mem, kbuf.bufsz, kbuf.memsz);
- 
- 	return 0;
--
--out_err:
--	while (image->nr_segments > orig_segments) {
--		kexec_free_segment_cma(image, image->nr_segments - 1);
--		image->nr_segments--;
--	}
--	kvfree(dtb);
--	return ret;
- }
+ 		spin_lock_irqsave(&mucse->link_lock, flags);
+-		if (magic != ST_VALID_MAGIC) {
+-			/* Do not change the cached state for an invalid event.
++		/* Link-down events do not carry valid speed/duplex information
++		 * and may have a zero port_magic. Validate it only for link up.
++		 */
++		if (mucse_link_is_up(hw, req) && magic != ST_VALID_MAGIC) {
++			/* Keep the cached state for an invalid link-up event.
+ 			 * Use an invalid speed encoding to make firmware report
+ 			 * again.
+ 			 */
 -- 
-2.34.1
+2.50.1
 
