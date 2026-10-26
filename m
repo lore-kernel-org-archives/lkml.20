@@ -1,130 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030423;
-	b=jIjMCwfLHj0LKNNnWiPpn4P5FotfbqpFBE/gNMNRFniAcaIUqWYLKl+sii/sHLjZd/QW
-	 cB3T9zq7dOSLfIE+l4Xsxr0IfeiHmcQRmr7/cHUa3Q6VxPFBSB0KzSlNM3l949/EPUZDV
-	 t9rDcnyqe9aP4YHjHnSwk9XqsCjjqJBAnBcixCDuseUlB4ALI3Vh64VMuW1fmktu9ifbF
-	 w43Vq6hl56yRvWQZ+I647KfJY2fVeUO6hEt5y2jX3Ca0yakr3cc4CAtbl2rPVtkYb0+xx
-	 Tt8v9/lPcsarUeaP49bNqeuYZTD031ZtkJ31aN2WmRcYa0o8kOWMOTXoKWKg0OGr2mA==
+	t=1793030450;
+	b=Guu1B+iu3EYY9sxUilxMehLk20MX/UrDNTRaOhzan3xJLysb5Yr6qIRItd6R/Z+EaOra
+	 uCZZoqzJBL2BKdpcntqUen1IH3ebky1rSVT83vRFLn28uAiLzzaWvbyBszKOde/3MkT2y
+	 s/79i0vrBTgsowPspny1JtRctCc54SxflLyX5o/40pq2rQWfcW9IA6+pIa+gsIyrjyV5V
+	 +hJq7oQnEZ9JNK+kLhxeAREYoGexwy4A/XhRKn5JWONd7oqM74C8592Rl+TSPb72Ounky
+	 AgJJGZ7bOKztZ5QkZ6jjG2K7KoP2enR4wqQmgANN4qs3frZu/jChVmSKL2ThWouhwyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030423;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=2IYnJWIdmisQFzrKQUkCcuczzZRiHZa2yg/KvW4ePcc=;
-	b=AlUPWtIsH5R7y7XA7/Fj/eZjEa+BWndL0InemMHsDVDzM0vgYMerrG8c5iPjR84vgcWo
-	 LUPFIQbTaYpso09AKAf1NKkjyuestkguHzsy99DWUBW++cWz5hYzQoF3QqsWRmSzVVvyr
-	 IbP4p22g6Up6zU9kNUkZfM4iNmkEc34CnodI76ia3JILtMfyn0fmLV0rGW/aKeKTtep9b
-	 BM1YXUzSSjyTLeKAdtkZPLjs8dFub7aHCsrpsrlToR3aBvzUfcu5hNkNNGT5sa8RH/m7A
-	 fB5yDI+1oUoEdRxiMGsHg05zeAVifW47Zo9tnftgXgL9kLcY1opM1XvEpVSrI2Ld8IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030450;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gdGEMgfJnyh5c7TJH0CYOcTTMHllOethu7h0lyRTWF4=;
+	b=TzVzQ620VNNcVEoKKY/Q0KOmyf8WmeJRrPVAYl1FLQjH8+qB0I4UrYMcLQ2bouSJWzu9
+	 XxHuPYKqwYeIIg2dXW679YhW4x5H+yQYG9naPZGJAkTjT8B36aGWExZ0cooMsWqPMo6me
+	 HI4PLjxSaAR/FkrKjP4UVifieqXIXMOgFI0yaD2xKfrs6ysRMNJ3oWDbS8WRIUmCSV74h
+	 EuKH1PraTzeusxzWVMMaTIUPBMp338P43vdR3UaCAqfVV21Qs88ohWkTvIn6VFs1kQ4LP
+	 Rl9OwkCtAu+Lj0by1MB1MLqvD0H0g94H6otr2R7SNWWMnyuBIAPGBZIg7vExWPXLfoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=JuAIutRo;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UsVKaysC;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WUOZccjz;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CEC606A31F;
-	Mon, 26 Oct 2026 16:00:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35CEC606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA675606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:00:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA675606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=JuAIutRo
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=2IYnJWIdmisQFzrKQUkCcuczzZRiHZa2yg/KvW4ePcc=; b=JuAIut
-	RoC4Cq2nPGXCBH+jTxgWy49Lbxu4jcgzQofxjI77DLR9MvN30SnoY5HYeRK6Z94ySxpYQrgieDz2/
-	XIU9TzritE2mhW3qByP+jxwpHfp92h8gx3Af+UcJdQHQFmgN5Gobyd6Zh5EzvmfI6t271k/VWkANG
-	hKrMe8WRsR5U5Y6GBfE6KXPmUhrAgC35ccFVR/CYlr/zNESwaI0r2xxVYhrGdhgoB/EmqdbfGnBbR
-	CPjDB4SolTrO9Vqf6+pVjBvxHyBAYuGZ3CQBWIAI7+UCzsytes6hYSmtNsZP+PV5cqal7qzy6Eoh3
-	GOoJyVMS8lYzJZshdOJM5iCpwfYw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xLN6A-0000000A1Pf-20ZE;
-	Mon, 26 Oct 2026 15:58:58 +0000
-Message-ID: <340025b7e3bdc6d905da2cd052ccbbda63a58ac0.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)"
- <david@kernel.org>,  Johannes Weiner <hannes@cmpxchg.org>, Chris Li
- <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Michal Hocko	
- <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel
- Butt	 <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, Muchun Song
-	 <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, Barry
- Song	 <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, Chengming
- Zhou	 <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"
- <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, "Vlastimil
- Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- =?UTF-8?Q?Baghdasaryan=EF=BF=BC?= <surenb@google.com>, Qi Zheng	
- <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu
- Xie	 <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price	
- <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet	
- <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, Baolin Wang	
- <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>, Meta
- kernel team <kernel-team@meta.com>, Linux Memory Management List	
- <linux-mm@kvack.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Joshua Hahn	 <joshua.hahnjy@gmail.com>
-Date: Mon, 26 Oct 2026 11:58:58 -0400
-In-Reply-To: <CAMgjq7Cjt==BxXPNw5HjiA0hjxhfzWn=9gDQ+2x-rdrEQBWTeg@mail.gmail.com>
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
-	 <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
-	 <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
-	 <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
-	 <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
-	 <aqgMCIOFi0dKx_6L@fedora>
-	 <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
-	 <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
-	 <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
-	 <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
-	 <20261014195354.GA371161@cmpxchg.org>
-	 <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
-	 <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org>
-	 <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
-	 <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
-	 <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
-	 <CAMgjq7CN7qTes+OXvCfsgPOnbtyY7YPytTEP3zZJTBxrGZ5JnA@mail.gmail.com>
-	 <12081d266e4846f23faacfc65c7be7da4ed013a9.camel@surriel.com>
-	 <CAMgjq7Cjt==BxXPNw5HjiA0hjxhfzWn=9gDQ+2x-rdrEQBWTeg@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UsVKaysC;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WUOZccjz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793030449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gdGEMgfJnyh5c7TJH0CYOcTTMHllOethu7h0lyRTWF4=;
+	b=UsVKaysCdLs6OznSchfeC/Hl2MyYhWz2Yx9VREVKqdPi2M0FzI06tAWRbKrqB7b5v4Rdun
+	VTGqFhX59Bv5aGamHeLAr8+mHOAetNdAFvwhbqO9RqFfiUGGZRIw7sA50ajZ8OBw9Sv7Xa
+	xxo+YZgXGDmtGTrdb0Cgl2x+AwDbpHM=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-244-MiZr5KZJM6GHXZn2IHNKtg-1; Mon, 26 Oct 2026 12:00:44 -0400
+X-MC-Unique: MiZr5KZJM6GHXZn2IHNKtg-1
+X-Mimecast-MFC-AGG-ID: MiZr5KZJM6GHXZn2IHNKtg_1793030443
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c415561aaso2087250f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:00:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793030443; x=1793635243; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gdGEMgfJnyh5c7TJH0CYOcTTMHllOethu7h0lyRTWF4=;
+        b=WUOZccjzipFzglhUftqLKG/IfPJAtSiC5FZ/1zMchw5twZsgZ58ikqnJs/LtGfa6ZM
+         O31j/0pVWuP47Baa6Au6UXH2cTaNaANxh0Q257Tf6W7j1rWxMU/iJQsPKMh6pZyjx+vR
+         kd2b0SEsa5AuOrWcYc4UttFKCaJGnffjS5zljty9IW259Av0H1rlfNBIEx80Fe+07+N7
+         WBhVyEn7tWtv11zPvHd8siSkddLp9IvsU5UNE4QLjfwl6GMn0A9UTHBKZmWpGx6vRFW1
+         wLxPTtR9Iyb4+nhOVwlN2c+Onn2TIFPDF3Ibj046I+BOogPxyNu4WgpQmG/iOcEebeHz
+         h4Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793030443; x=1793635243;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gdGEMgfJnyh5c7TJH0CYOcTTMHllOethu7h0lyRTWF4=;
+        b=v5//TP0OvrI1laYfPzrrseCFA0flXI54Nfl5mVS/srdGqzL5fP8qxYwbfZpq75mESX
+         eaW8L8y6KMVnuvPuJqon552d6nLUz1UgqIWGsQO2nIrmLm6bSTjEFcRm00jAKAZL6IpB
+         F6DQVDs/yNC6Z5RyTJ8Y15KNGQk50KeKolJ552Nt1FWKwvxS6/quQdqXDX0K99CwrsIC
+         4pQDxQs8Szj0wWgWOWxyISS8MqJXCSPBjrWDmmG0BRC90YcGStPIzWVYa+P6MpZvbN+a
+         UHtGLEHC2IOT83sVSmABxPbm/1YXxT5dAirkE8jHl4rqaflHHGnQhEp1/LHm3fWhBPN+
+         MBvw==
+X-Gm-Message-State: AFq9FYJ6rA15KV+F33FpM4/Yf6TvRMRmb0ebY8ebEKbJx8NzopMExFHl
+	HaNXYn2T0NbPHHOa0Cmv6H/Ldq2yQnd5QJwWX4XX7kV+fDFfm7c9oCJslXBQrDfD15MxJnTq3nW
+	j/k0DLkLwFRe6f6bG7tgyjTnkwusH4H9MJ3dSsi8ceQMaCGWfAN5jvOw3M18vZqaDSSxK2FOm0u
+	K+czfSxp2AnXV9Cjv0yh+C7RggOZDfTT181jxUydPf+00=
+X-Gm-Gg: AYBFou0e2uWrkSL7lddbSegIrIVambwJH+9Joq7nr+cQgntxmp6rHqOvgmvApg3nQAa
+	KyM+5bKYyoAPqCoqPR5RJnamm9mLQwydonaKjgvKx1fezLnawFz7YX+M+iLQDi7eesCV3w5WHOW
+	aA1L+7Py4gAkBZPmLggB3fURLWqYWm0lV2cI7nrMdPOP4eHFoO3vFQwiLPCK95UQlZbo/GX3rZb
+	Pk08aze27yhEkrM5n3Zl6CcBUHdtWhU4rXGxmsZvE+q31NMo9BQ+c1avqPBJMuZiQTBeJYI9Pah
+	3gBuLcr/iABiBFtcGE9daCGlOlb5L9Hi8Dhr/uKDpXB4WAmLuIMl1+0SLv4Ftk6crCQ=
+X-Received: by 2002:a05:6000:160d:b0:48e:35d4:55b5 with SMTP id ffacd0b85a97d-48e545bcbe7mr1461316f8f.52.1793030442462;
+        Mon, 26 Oct 2026 09:00:42 -0700 (PDT)
+X-Received: by 2002:a05:6000:160d:b0:48e:35d4:55b5 with SMTP id ffacd0b85a97d-48e545bcbe7mr1461218f8f.52.1793030441486;
+        Mon, 26 Oct 2026 09:00:41 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb958sm17511497f8f.21.2026.10.26.09.00.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:00:40 -0700 (PDT)
+Date: Mon, 26 Oct 2026 12:00:37 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, Ruben Hakobyan <hruben@meta.com>,
+	David Hildenbrand <david@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 2/2] virtio_balloon: submit reported pages as individual
+ buffers
+Message-ID: <20261026120022-mutt-send-email-mst@kernel.org>
+References: <ad6a530f49c4a0e182112a73789e31b5e91f3bb7.1793026707.git.mst@redhat.com>
+ <6668d51dbda117d05d2eddd47db6ad69baab8b0c.1793026707.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,58 +125,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6668d51dbda117d05d2eddd47db6ad69baab8b0c.1793026707.git.mst@redhat.com>
 
-On Sun, 2026-10-25 at 12:21 +0800, Kairui Song wrote:
-> Rik van Riel <riel@surriel.com> =E4=BA=8E 2026=E5=B9=B410=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E6=97=A5 02:16=E5=86=99=E9=81=93=EF=BC=9A
-> >=20
-> > On Sat, 2026-10-24 at 23:50 +0800, Kairui Song wrote:
-> > > On Sat, Oct 24, 2026 at 4:03=E2=80=AFAM Rik van Riel <riel@surriel.co=
-m>
-> > > wrote:
-> > > >=20
-> > > > In my mind, we have vswap sitting as kind
-> > > > of a swap VFS between the rest of the system
-> > > > and the swap devices:
-> > > >=20
-> > > > +-------+=C2=A0=C2=A0=C2=A0=C2=A0 +------------+
-> > > > > vswap |-----| swap cache |
-> > > > +---+---+=C2=A0=C2=A0=C2=A0=C2=A0 +------------+
-> > > > =C2=A0=C2=A0=C2=A0 |
-> > > > =C2=A0=C2=A0=C2=A0 +----------+-----------+
-> > > > =C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
-> > > > +---+---+=C2=A0 +---+---+=C2=A0=C2=A0 +---+---+
-> > > > > swap=C2=A0 |=C2=A0 | zswap |=C2=A0=C2=A0 | zram=C2=A0 |
-> > > > > file=C2=A0 |=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
-=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
-> > > > +-------+=C2=A0 +-------+=C2=A0=C2=A0 +-------+
-> > > >=20
->=20
-> > However, having swapoff remove all data from the swap
-> > cache, after mapping the memory back into userspace
-> > page tables, seems like it would be fairly easy to do.
-> >=20
-> > Does that meet the needs of your use case?
->=20
-> Right, it's nothing hard, as long as we don't add mandatory new
-> layers. For very high bandwidth swap devices, a mandatory indirection
-> layer is pure overhead.=20
+On Mon, Oct 26, 2026 at 11:09:59AM -0400, Michael S. Tsirkin wrote:
+> The virtio_balloon driver reports a scatter-gather list of free pages
+> to the VMM so it may discard unused pages.
+> 
+> For an arm64 kernel with 64 KiB pages, the default reporting and
+> allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+> report contains a sufficient number of large entries, we will end up
+> with a descriptor chain that represents over 4 GiB of memory. This
+> violates virtio spec, which says:
+> 	Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+> 
+> Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
+> 
+> Submit each reported page as a separate virtqueue buffer instead of one
+> buffer with an sg list of all pages.  This also avoids indirect
+> descriptor allocation (kmalloc in the reporting path).
+> 
+> To avoid multiple buffers causing interrupt storms, keep callbacks
+> disabled while we wait for an event.
+> 
+> Note: if the virtqueue is broken, wait_event on
+> virtqueue_get_buf hangs.  This is a pre-existing issue:
+> the old single-buffer code had the same hang.
+> 
+> Reported-by: Ruben Hakobyan <hruben@meta.com>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 
-Don't we need a swap cache lookup regardless, to
-make sure the data we want to swap into the
-process is not already present in memory?
+brown paperbag post,forgot to commit.
 
-At that point, it shouldn't matter whether we
-get the backing swap location from the swap
-cache lookup data structure, or from the
-page tables?
+> ---
+> 
+> Lightly tested. Ruben, could you pls help test?
+> 
+>  drivers/virtio/virtio_balloon.c | 48 ++++++++++++++++++++++++---------
+>  1 file changed, 35 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+> index f6c2dff33f8a..363519fa890d 100644
+> --- a/drivers/virtio/virtio_balloon.c
+> +++ b/drivers/virtio/virtio_balloon.c
+> @@ -202,25 +202,47 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
+>  	struct virtio_balloon *vb =
+>  		container_of(pr_dev_info, struct virtio_balloon, pr_dev_info);
+>  	struct virtqueue *vq = vb->reporting_vq;
+> -	unsigned int unused, err;
+> +	unsigned int i, err = 0;
+>  
+>  	/* We should always be able to add these buffers to an empty queue. */
+> -	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
+> +	for (i = 0; i < nents; i++) {
+> +		struct scatterlist one;
+>  
+> -	/*
+> -	 * In the extremely unlikely case that something has occurred and we
+> -	 * are able to trigger an error we will simply display a warning
+> -	 * and exit without actually processing the pages.
+> -	 */
+> -	if (WARN_ON_ONCE(err))
+> -		return err;
+> +		sg_init_table(&one, 1);
+> +		sg_set_page(&one, sg_page(&sg[i]), sg[i].length,
+> +			    sg[i].offset);
+> +		err = virtqueue_add_inbuf(vq, &one, 1, &sg[i], GFP_NOWAIT);
+>  
+> -	virtqueue_kick(vq);
+> +		/*
+> +		 * In the extremely unlikely case that something has occurred
+> +		 * and we are able to trigger an error we will simply display
+> +		 * a warning and exit without actually processing the pages.
+> +		 */
+> +		if (WARN_ON_ONCE(err)) {
+> +			nents = i;
+> +			break;
+> +		}
+> +	}
+>  
+> -	/* When host has read buffer, this completes via balloon_ack */
+> -	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
+> +	if (nents) {
+> +		virtqueue_kick(vq);
+>  
+> -	return 0;
+> +		/* When host has read buffer, this completes via balloon_ack.
+> +		 * We report pages as individual buffers, so arm the callback
+> +		 * to only interrupt once all the queued buffers have been
+> +		 * used: otherwise we would get one interrupt per page.
+> +		 */
+> +		for (i = 0; i < nents; i++) {
+> +			unsigned int unused;
+> +
+> +			virtqueue_enable_cb_delayed_max(vq);
+> +			wait_event(vb->acked,
+> +				   virtqueue_get_buf(vq, &unused));
+> +			virtqueue_disable_cb(vq);
+> +		}
+> +	}
+> +
+> +	return err;
+>  }
+>  
+>  static void set_page_pfns(struct virtio_balloon *vb,
+> -- 
+> MST
+> 
 
-We have the page table lookup, and the swap
-cache lookup. That is two lookups, regardless
-of whether there is indirection, or not.
-
-Am I missing something?
-
---=20
-All Rights Reversed.
