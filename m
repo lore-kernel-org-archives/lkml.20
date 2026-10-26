@@ -1,110 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032404;
-	b=ppWZbENt2D3JUhLFLuyvPp3gyR1DwbqdT8zmJ5k8zzHhQWOWzzQ2lVV29Vf1FUBZEoii
-	 +rq8mpPkW2DoVlcMyxiylJMXfuQlrje1Gm4aB+eXvRhVBVpXreQ1N93A0LMVzFvnalvHE
-	 yuegmErxCcjFI9HHkHPGa7SAuu4o+OHkUIteCE2vjx99Mi/mzWXkfwOCW5uPlKyurIfxE
-	 GM+pxsf8llGsr2xrtD+TbjEDMF+3pnZzQjjAO1mHswPc88tsb1R0APO9sT8duA7V238+e
-	 HyIQNwXhhEOtCIguSsIgedQv+1EYYsrMmzSHgARggrQhqPuPCSwPJ7YegMIEGo2uEEw==
+	t=1793032422;
+	b=y9RFE1S6E8JTnB3vEdr9yDs8fPVScQze7+D3iIZWpGj98yeYU4mmNbGVYoY2Suw34acJ
+	 5hy+W+0kwQAqUf1c8LWwX1ZvLUMZ/a6xIkJF3A308XkSZ2B1d+u9rK4DWGLxtsHzs8oGE
+	 Xu2rNepNXn3tOMRoTP8GTgko/UBbXrUZl58JFNyiIApkqKLjwGCu6bnXYyztPAVxEfu3B
+	 8V6TTAc+Q9NQzxP8nD8JDP74ZD9EI5G8RA9sxXfR3GpDnw9tR3wTIfcfaHP6uMUSkffEf
+	 yMpY9407TK0hiP4Of6J7hYXuuPadaxAuagWG801s9UsGxEU5ltfyVVp1j5FVw17xyEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032404;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=yYf5UWvZ+GcrVAg69TILlqXVI2fvHpzHYVVjWtuH7Kg=;
-	b=EY+eH0pFgUGtCq8/M6jxVRWhs6msUulCIqm0IaBK/sB5cfuHJ8DlffzFMGuH4Jri7l00
-	 NTUYzve4U9bRAtf9k0JwCkuYIicKkkqhuicSaF27IDVbnuAEPmGn67XSU22UWjcUj6/br
-	 O5wzOFUOOI9Hu7d3Plbh2+t24UMFemkmXtTHqP9iRxaNB6eBsoTy/CWQADOGoxVITSXpF
-	 gwibcOMu4HlTDIChsKeIwDVdz6ANNccqXfo6CXD6vwfNco1acyoKjgOBNc8DjpE55ZrLr
-	 AAQC1xeEPTuQRMbxQWcN2r3Y3+Ms3LrMwcKGi13H+LBFOYdKZRv3zWbqJCXbmrDLs9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032422;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=0fQGdln8uuwOHJNK5c2o0V+82oadJJd56FQOhqoEA48=;
+	b=cCRdjhAlzqBmmc8G9IGLI1Sc0zziueh1xQbknojhRNKwR6BK7BH9zmQT4E9X6X4O1xfl
+	 Lu7WhkmTnaOSeHmOef8JV7X7WiLr5GBxCgrgL6dsasgxQWjfeSlQlmb4UrUQYkpBHgVcU
+	 1XO/VEoqzfuzELajnBpAKmKiuWsh+cmiB4EmJeJeoNrCsR+HNNjb8YUCx4dKkNzAIky7I
+	 CZNsWKlBlH1Blcneuon10QOayB5VWFqe7dcmqEFm82X+2Hc7u2uXYUkpbZLsoCf098h0W
+	 sma0SHqfcdJO5QM25sq36LHJ8sS9WmRGjWE2kGNfHdVxhJeXZyHodj6751vShcv5ncw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=itFUQNJd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Iypac72U;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XjgU0Ptl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1jTlf6CB;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fwCZMlVJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dQnzDEFv;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF05606A330;
-	Mon, 26 Oct 2026 16:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF05606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF00C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF00C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=itFUQNJd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Iypac72U;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XjgU0Ptl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1jTlf6CB
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 21B971F7A3;
-	Mon, 26 Oct 2026 16:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793032401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yYf5UWvZ+GcrVAg69TILlqXVI2fvHpzHYVVjWtuH7Kg=;
-	b=itFUQNJdXyvJGmDFuqzVC3Wgj8yybg5QcWEeRsYwqj5nzEXUjS0/Z+NNNtgSDtBjNmnxoI
-	e2qbFQAs0KMd+9HVQkE5ENS6X8SXg1GCK8HMQS5p9RdFK3Lo/bS0gB8e2U24vkHCFWoojK
-	zYaW+hgP8Xq2+PIBSr/E0PRajXKd9PI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793032401;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yYf5UWvZ+GcrVAg69TILlqXVI2fvHpzHYVVjWtuH7Kg=;
-	b=Iypac72Uy6VsBosAChLXP6YfP+EG3v3d1dAfTsAR8NtC5SrCYyxOeGgc8WJQbw3SVCdBDD
-	JcWEtBoXEHD6ITAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XjgU0Ptl;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=1jTlf6CB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793032400; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yYf5UWvZ+GcrVAg69TILlqXVI2fvHpzHYVVjWtuH7Kg=;
-	b=XjgU0PtlvsnMlLIoCHG6nZSOdfgN1SThx2J1hD1bnNOovjaTsto6DwtgEGlLBEywyE/4XN
-	70XIBEB9gTonX3a0JwooBax/2+hzNUps4N/WvQcVQcZZYa2UwDo1CnNMwMPGlWd+GpexSo
-	yyAl2t6uP/Ts8uajjsWE+CnSFdJFm28=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793032400;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yYf5UWvZ+GcrVAg69TILlqXVI2fvHpzHYVVjWtuH7Kg=;
-	b=1jTlf6CBBJwwHOB4ROaNRLi1p9O3txN9e7ypjNbFNqaUMGFHWU6au3TkpCmUCQf6oiIDVl
-	JwyYcfz/n45ZfuCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63A6413319;
-	Mon, 26 Oct 2026 16:33:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0FTXCM6A32ppOwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 16:33:18 +0000
-Date: Mon, 26 Oct 2026 16:33:08 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
-	jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, hch@lst.de, ngocthang2710.1999@gmail.com, 
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
- collapse_file()
-Message-ID: <at9_1mf2kLqMX8-W@pedro-suse.tail5790ac.ts.net>
-References: <20261026152013.10511-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fwCZMlVJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dQnzDEFv
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvf9g4167994
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:33:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=0fQGdln8uuwOHJNK5c2o0V+8
+	2oadJJd56FQOhqoEA48=; b=fwCZMlVJrnzG8kbFf7KqHYafY0dAThM4IbWaFOBy
+	QT3KsXlQuzRCEyQ/BP4gVJDJ4nk0L12B4ZfSaxJc9OIyfY5Vp4NrnzaA4FVfQ28v
+	oWHEo5s3n7CQx9cLAq/W7oa1ZRygQwA1BRA1xNw7oOvW/dBVldrhTUzMIe0sLA4r
+	yJsGXU/+WWM4Zgf4/AW8NVOUWz00bFWn57d8lA0rXGqBl6KUeEZ11CBqMWrXjswP
+	M2gLip2s8RgnqzpgtOqbdQdoeglxgbNz0CL+L3vgUhMIo21tyO3i7w6g6EiIvq+p
+	X6cgeXs/IvrE8D0TvIOT3JcxnUFxp0Kb5kZvXuaApycd9g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf1gkm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 16:33:40 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb93c874bso13887185a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:33:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793032420; x=1793637220; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0fQGdln8uuwOHJNK5c2o0V+82oadJJd56FQOhqoEA48=;
+        b=dQnzDEFvpC53zCvxW6VsoFGqcKg028XbXBqFCVsawPd1x6315G7Uy2J2ZssBOvlmfv
+         +oxSAXmA6WE9XnBjXSf7DfMCz80KheRDaufSqgMqwZ+LWOlQh0CyZeTgCWnEOUXrd0ew
+         +m/hp+HhRKY4mysaWLP3c687OZCOCik9VkuBaNt7IkW3abkPcfyu4ZluZghVSux192S5
+         op+p9MUT4P0GoPRoN2xn/Ed12ajdRcR/8voRdNbnkTRYwhAePaf7tv26W/f+bIE5fe+V
+         TsDeZiyexe3IeeXQLrlYk+lHKNU5vHITTSt04fCnEKokveVyIEQD3maVRbJExoQHbHvC
+         mnIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793032420; x=1793637220;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0fQGdln8uuwOHJNK5c2o0V+82oadJJd56FQOhqoEA48=;
+        b=Kw/EUopf8/oikzK/VZO5hfxsPBoVcbvaP4PY/JvhCu9FLhELWzvYXEbTwi7En1bUMd
+         i2bI6H5afw4Gi/caOpj2qTyBxjD6xfxLp+utjn+pvW3j1eGO/dGPn4oavK9MjYnwGVt/
+         Eh/R/0q9d9m6u58loDSGkXgZ57NRZXTA6NlM1tFOURU3/fn9N3PALxh3wXHse43nMWQ8
+         XMWoGJVgTJ8QtrIjW5H5PrG6MO4bReSPF1ca8zqb7IkvnBbdtw4MaBWacT4h0CXJwV0u
+         ceYQ9LOARdeC421Vp0Q9wbrdGzplfGNadGeyl804EZTdMqIF/o7gSaFoDr9Yu1w5ziOr
+         khFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiqGyRhA2EbfKWCopwMW1JhqDOp9+8EXuXRObOgllKX3xtSDIEA1XB5xIHSicbQDqkShVNqmLV6ref/Ww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzLL5DmXr+YP9iBhC/r7o/HclNt53Br9JPbOMJ7m49w2pQyOII
+	2hPLEPt+UzKEviJzawZWw9SVDAiBkZpjlbUpRVOIU7ADbl4XyR/6MQI55I6JWkgviNtLicqYI8H
+	AdfU1rA9QLN+8v2d6VEuBAMg42cjKMaXPAzFjT0ODxCLpALhq7GEWhriFI25iGsPWjVQ=
+X-Gm-Gg: AYBFou0s+BwBv78PK2CGlZgFwfiVEYVn+yUtpzVHzXq19oNCTYv5EY8EM0fVc1vDBfu
+	3WnNId7GOx/0WEfH89q/vBMLaKBka/hyl2V8lCnndaxVRL5YtlRYIWkkOyPbtcP16Fve48CF0tH
+	BHISI0p3radjzwFS2f5J0jxoN1w2BaNdHgzjBBKXavv+J+0lNfN5zHdfmCM6mAjSekfbm/RJF8u
+	Sqpn8lwIoc+ReEme2wbseXDM+lL4AgnaqnqH48VJxY9Y83EnBVo6JjpAypTrsJFlkzA+fiZAE5x
+	9qL6lvX+x/NfnOlM/vrSc9rBg+xv015Pi+9dpeFnkxKeob57yoxn5QLXfs+MZpeMY/K9HgVN/Re
+	bzUXP7Zrw1VRGVLcT
+X-Received: by 2002:a05:620a:4515:b0:93c:891b:90f1 with SMTP id af79cd13be357-943f4ba8037mr31283785a.26.1793032420069;
+        Mon, 26 Oct 2026 09:33:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:4515:b0:93c:891b:90f1 with SMTP id af79cd13be357-943f4ba8037mr31278185a.26.1793032419429;
+        Mon, 26 Oct 2026 09:33:39 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm16862342f8f.6.2026.10.26.09.33.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:33:38 -0700 (PDT)
+Date: Mon, 26 Oct 2026 18:33:36 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco: reserve firmware carve-outs
+Message-ID: <cx7qdacerxz2zi23ti522dtjssowumkbvtn7jmb7m4lhxfc4sd@p4yzdvzqrp4y>
+References: <20261024-monaco-fw-carveouts-v1-1-1cd68aedf46d@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,172 +124,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026152013.10511-1-lance.yang@linux.dev>
-X-Rspamd-Queue-Id: 21B971F7A3
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[linux-foundation.org,kernel.org,nvidia.com,linux.alibaba.com,infradead.org,linux.dev,arm.com,suse.cz,kvack.org,vger.kernel.org,lst.de,gmail.com,syzkaller.appspotmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TAGGED_RCPT(0.00)[16bf7cd0ebeb1de93aa5];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,syzkaller.appspot.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
-X-Spam-Score: -12.01
+In-Reply-To: <20261024-monaco-fw-carveouts-v1-1-1cd68aedf46d@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2NSBTYWx0ZWRfX6bGH9gb7pCXe
+ VXa5d37fVWGT5MLWLzrTuvjwAb9PIGKwPTqL3AJOm4bFR9bkxjUfBbon3F1BdCwkq2u/YZOD0r9
+ hll3bH22WGBZIdMjz7XzmyLxCxLJ7lk=
+X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf80e4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=2hiNXssHTY28xlfzKCsA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: aGVx6yOzE_50kBcl2Ru-NxH68ak08dNd
+X-Proofpoint-ORIG-GUID: aGVx6yOzE_50kBcl2Ru-NxH68ak08dNd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2NSBTYWx0ZWRfX3NEyuK3Fk1hh
+ 6ySA12xku2j46iWINr8ofVdAuXoy0SPo3FJ3Ow+eEAdgYT8qXXvLRvPyDlhBr8r1EiF/+LW2Zw3
+ L0n7phegX40NMt83zPFbvw1BmSqcqXtJ0OWMXJeVFOQeKzsfloiRTXckFQmwjCyFHrnLWfW9ECc
+ IkFdSJTArsMadsay+cfQg0UQeBdfrFnv6uUunzgcsMi9ywGaTllh+I9JtJPxpShdX0U/dkbcJLM
+ Lej4siLeu2lqE0C360OIWXvzM0sSbKpzwCLAoXo6ZGqwkHOMvK8C3YdKE+fs5MmSo//s1LoW5FG
+ Ad61k0frd+PEE/r9V9hAXumTnMKH2ojJcCff5qz7YLcyiySIxXJ2UzZrG11hM8Jqk7BBigyl4Wk
+ brMsy34UccVIyFnrpyi3QLh3R4FcPwj981ktgKF3qVUhTFv8dtr0xnsiTIgS7hfNajHJIZtJzmG
+ YbcIqmIkktfqcPrvXAw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260065
 
-On Mon, Oct 26, 2026 at 11:20:13PM +0800, Lance Yang wrote:
-> collapse_file() can call page_cache_sync_readahead() while still holding
-> source folios locked. If truncate holds mapping->invalidate_lock
-> exclusively and waits for one of those folios, readahead waits for
-> invalidate_lock and neither side can make progress.
+On 26-10-24 21:09:44, Tyler Baker wrote:
+> monaco.dtsi does not reserve the DDR carve-outs used by firmware at
+> runtime.
 > 
-> We need to release those folio locks before starting readahead. On a page
-> cache miss, roll back first, populate the collapse range, and retry once.
-> Doing readahead after rollback avoids an extra pass when all folios are
-> already present. If another miss occurs on retry, give up rather than keep
-> retrying while truncate or reclaim removes folios.
+> The downstream UEFI hides these from the OS. U-Boot as the EFI firmware
+> [0] builds its memory map from the SMEM DDR banks, which do not list
+> them, so it hands them to Linux as RAM, and the first write to one of
+> those pages takes an SError.
 > 
-> Keep page_cache_sync_readahead() and wait for read I/O with
-> filemap_lock_folio(), releasing each folio before moving to the next. The
-> existing uptodate check during collapse still handles read errors.
+> Reserve them as no-map, at the base and size the QCS8300 boot binaries
+> use, as lemans.dtsi does.
 > 
-> Shmem uses shmem_get_folio() for swapin and fallocated folios without
-> taking mapping->invalidate_lock, so it is unaffected.
-> 
-> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-
-Thanks for the patch! This looks almost perfect!
-
+> Link: https://lore.kernel.org/r/20260928-monaco-ventuno-q-v2-0-0e046c8242be@oss.qualcomm.com [0]
+> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
 > ---
-> v3 -> v4:
->  - Move readahead after rollback and retry collapse once (per Pedro).
->  - Drop the preparation pass and its redundant uptodate check (per
->    Baolin and Pedro). Thanks!
->  - https://lore.kernel.org/all/20261016065920.4153-1-lance.yang@linux.dev/
-> 
->  mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
->  1 file changed, 33 insertions(+), 11 deletions(-)
-> 
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index da91762f6358..0d3bd9e23613 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -2239,6 +2239,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->  	enum scan_result result = SCAN_SUCCEED;
->  	int nr_none = 0;
->  	bool is_shmem = shmem_file(file);
-> +	bool do_readahead = false;
-> +	bool readahead_done = false;
->  
->  	/*
->  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
-> @@ -2256,6 +2258,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->  
->  	mapping_set_update(&xas, mapping);
->  
-> +retry:
-> +	result = SCAN_SUCCEED;
-> +	do_readahead = false;
-> +	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
->  	__folio_set_locked(new_folio);
->  	if (is_shmem)
->  		__folio_set_swapbacked(new_folio);
-> @@ -2320,17 +2326,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->  			}
->  		} else {	/* !is_shmem */
->  			if (!folio || xa_is_value(folio)) {
-> -				xas_unlock_irq(&xas);
-> -				page_cache_sync_readahead(mapping, &file->f_ra,
-> -							  file, index,
-> -							  end - index);
-> -				/* drain lru cache to help folio_isolate_lru() */
-> -				lru_add_drain();
-> -				folio = filemap_lock_folio(mapping, index);
-> -				if (IS_ERR(folio)) {
-> -					result = SCAN_FAIL;
-> -					goto xa_unlocked;
-> -				}
-> +				do_readahead = !readahead_done;
-> +				result = SCAN_FAIL;
-> +				goto xa_locked;
->  			} else if (folio_test_dirty(folio)) {
->  				/*
->  				 * This page is dirty because it hasn't
-> @@ -2657,6 +2655,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->  	new_folio->mapping = NULL;
->  
->  	folio_unlock(new_folio);
-> +
-> +	/* Readahead may take invalidate_lock; source folios are unlocked. */
-> +	if (do_readahead) {
-> +		for (index = start; index < end;) {
-> +			folio = filemap_lock_folio(mapping, index);
+> Tested on the Arduino VENTUNO Q with U-Boot as the EFI firmware and
+> with the downstream UEFI, which already withholds these regions.
 
-I'm not sure if there's a point in locking the folio. If we are retrying,
-then the logic above will lock it anyway and check uptodate. So I don't
-think there's much of a point doing it here. Right?
-
-So I think we could get away with a filemap_get_folio() here, and no
-filemap_lock_folio() after RA. Unless you're intent on waiting for RA
-right before failing, but I don't see a point in that.
-
-With that addressed:
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
-> +			if (IS_ERR(folio)) {
-> +				page_cache_sync_readahead(mapping, &file->f_ra,
-> +							  file, index, end - index);
-> +				folio = filemap_lock_folio(mapping, index);
-> +				if (IS_ERR(folio)) {
-> +					result = SCAN_FAIL;
-> +					goto out_put;
-> +				}
-> +			}
-> +			index = folio_next_index(folio);
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-> +		}
-> +		/* Drain the local LRU batch before retrying isolation. */
-> +		lru_add_drain();
-> +		readahead_done = true;
-> +		goto retry;
-> +	}
-> +out_put:
->  	folio_put(new_folio);
->  out:
->  	VM_BUG_ON(!list_empty(&pagelist));
-> -- 
-> 2.49.0
-> 
-
--- 
-Pedro
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
