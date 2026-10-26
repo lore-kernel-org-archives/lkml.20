@@ -1,76 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989704;
-	b=poANjKNPvkEjM87m0dXONZwDaXINNbX7A564oxWmJsPdgRxWBlLHOe0VZOpl1OecNWET
-	 uDu6hqZAbO/WOomWTVXZdDryUWC4Dqjpcr9Hwp810u43kKWYDo8+X3Q7TtXWbBfaNbdyl
-	 qrMytlTqwFe8BwOmNTvFoGYWTcqNlzo5LmcD9cK75EZOLKHCCsielz8wcdSJ2nKbpxm+B
-	 mjVYzSIirXgLozcmHacH0DpjextPAWsy6lXtjMDeS6f2D3Ii4lMTYKFoPL0IgjjBNkqlF
-	 KyWk6wbyY5u0F4w1q7g62OgM1fcSOq+cNBuWh7v0fJzz6dpEeW3c9aAZElqU+mbSbdA==
+	t=1792989705;
+	b=5VGgfmsnmy1KzXvTfl+YxSb6XIRZ099BWkiLCMwtFL4eBClP8B67pfOqQFlN/llS9X6g
+	 VgG6EI6/+yYcvlV7JUNKOulzt4CzyifWLfaEb0XITk6p/I/qbdJGxJbmlyBgNYaBFZM73
+	 VclAa2fhYNrkMn72iZeUnAfRfiHs+nqoMzSxw1sRaG+FuZirtBY+IkKGRLnxWby9E7Vll
+	 9nj0X10/0i/E8YfHlkbup2mfj9Oc8PlzP8fxmA5DST55R3chcj7yrPeh+ZmGNQfHEUyuz
+	 Etsk6l8CGAfdkKxPZmuiiNERhW8rhmj+J+j+G8FNpTaFPwvpxgfemMEWWjQjhDPZV5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989704;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989705;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=8Uha6gBOHxxpMhg5C4HSAGVuxKhZmxnkljAaEvU5MkM=;
-	b=ElZVsIFUWX2viIPCuYGwbZc/bKDtylklo7I0dAueC9jsZTEzZveunCzIxszOiVvsZVaO
-	 BXX9cWYbncFwz8d7mfRA9UHz0DsdVXJ6OV5gUoIu2vOt0P706iQM34GR8Mfx1S6YSGlXa
-	 gvOtge2WLBwpejtpKDHhpDBxLd0gFxDd5DoLgwEG5W9K3v6MYKWqpBBob2bB7v5DR558U
-	 c0kn3crDAryeBTQ+5Q7O56cxQ9z+iqvz+8CvznbkCLfV24wImcVWMWvHl9lSnaBJ9lCYM
-	 wp1taW4btqOv8QFRCI25PXC4YZ0XQ8MjisP278qiTYL7UwAvIVM/BkDaazLyTPSYlQw==
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=i9Ml4qigH7DzspM/Amzf5XaHAXSm7xpnRAKJSyb+B5s=;
+	b=D6k1//JS7XcMWDaqg9MosYfaYWGlNP90ENIMsQgS9h81nkVu/UYzC2IQbHg3RVowWisM
+	 QnV0iIVJH1uWF6gGXI+47w2FM3qsmAB96n2HEuMSF6R1RWAEYLvFP0kSl3gQKSm5YFj1h
+	 8iKJ9To82HOVMUZKvntioA5ow7yRfNQbdmrroPSVugYcnJXUblwHutzj28GVUGaaX1jzc
+	 BlJX7umC3tR/S5Yx66UxvMdaVmt6r6gt7kRaqJ1XcbZ7aqc0RK8gX1n+KzAe2MDzZ7KE4
+	 mro8AADOgTOc/uvHaVF4ygj0PwxVUGL3WoHUYYB61xH3YQcgKkrysZT+fH2HG7T61Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uYBHNih4;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="Ha/DKq0X";
 	arc=none smtp.remote-ip=203.254.224.25
 Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAE9606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BAE9606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E16F606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E16F606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uYBHNih4
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Ha/DKq0X
 Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026044139epoutp025068b7e82bcaadfd0e838f5459160e60~h_qHIP7wH2412224122epoutp024
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:39 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026044139epoutp025068b7e82bcaadfd0e838f5459160e60~h_qHIP7wH2412224122epoutp024
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026044141epoutp021f32950ec907e8bfbb15bd6daf78d8e6~h_qI3mVZb2390623906epoutp02F
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:41:41 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026044141epoutp021f32950ec907e8bfbb15bd6daf78d8e6~h_qI3mVZb2390623906epoutp02F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792989699;
-	bh=8Uha6gBOHxxpMhg5C4HSAGVuxKhZmxnkljAaEvU5MkM=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=uYBHNih4LGnqNhzVOIdotzXDYvZ+IRjIFhXj9zoYDaXhgLHqnC5RiZXDl63aN3TpN
-	 grVxEFRiTTDBoBXEHRZ84kFxPRTacLwEOztLgfGjFao4wn7bMbDM3+meFZP3apP8Wl
-	 YkelrVcpvO5ZV5DuKFhRhvAGVQNb2Vd7MR/L7aBo=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261026044139epcas2p2303decafac496954077a710720e638e1~h_qG3nwto1713717137epcas2p2f;
-	Mon, 26 Oct 2026 04:41:39 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.199]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jCgv65V0zz6B9m7; Mon, 26 Oct
-	2026 04:41:38 +0000 (GMT)
+	s=mail20170921; t=1792989701;
+	bh=i9Ml4qigH7DzspM/Amzf5XaHAXSm7xpnRAKJSyb+B5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Ha/DKq0XOwk423BgBc++PfZrKnSvpFec1cfj+K6/wLLbhbNtfEOThZyQJY2HDVev9
+	 7ew1lKJvEMaPeQzbq6dJLL1J8FvPF5M7dkWLJ3IVT6ZfT1++8GLHe8oMu/8YEXyU4M
+	 dBLtAW7J6N4/dHKd+qiQcM4+5otd/gJQlPaz3uvs=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261026044140epcas2p3a062afdfe7952408f310da73cf0495ca~h_qIdHFO21523415234epcas2p3F;
+	Mon, 26 Oct 2026 04:41:40 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.206]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jCgv82dysz3hhT9; Mon, 26 Oct
+	2026 04:41:40 +0000 (GMT)
 Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026044138epcas2p19feb1c8130a1c07b67b1f27eefb1c300~h_qGCWphS2359023590epcas2p1Z;
-	Mon, 26 Oct 2026 04:41:38 +0000 (GMT)
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261026044139epcas2p3a5b55ec93b313eeb9a38bbf0c93cf889~h_qHfcBAx1607616076epcas2p3S;
+	Mon, 26 Oct 2026 04:41:39 +0000 (GMT)
 Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
 	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026044138epsmtip1fff4495ec607331d61b51e7d3947f3a2~h_qF9SeyM2136321363epsmtip1I;
-	Mon, 26 Oct 2026 04:41:38 +0000 (GMT)
+	20261026044139epsmtip1c6e30acc4f83bf7ebfc8318ef2d9bc21~h_qHa79XP2136321363epsmtip1K;
+	Mon, 26 Oct 2026 04:41:39 +0000 (GMT)
 From: HOYOUNG SEO <hy50.seo@samsung.com>
 To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
 	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
 	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
 	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
 Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v3 0/2] scsi: ufs: core: Avoid redundant link recovery
- during system resume
-Date: Mon, 26 Oct 2026 13:37:19 +0900
-Message-Id: <cover.1792989286.git.hy50.seo@samsung.com>
+Subject: [PATCH v3 1/2] scsi: ufs: core: Clear saved errors in
+ ufshcd_link_recovery
+Date: Mon, 26 Oct 2026 13:37:20 +0900
+Message-Id: <31fc787b76a2586ca6d3c442afdb694aab3d14bb.1792989286.git.hy50.seo@samsung.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1792989286.git.hy50.seo@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,7 +82,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261026044138epcas2p19feb1c8130a1c07b67b1f27eefb1c300
+X-CMS-MailID: 20261026044139epcas2p3a5b55ec93b313eeb9a38bbf0c93cf889
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: AUTO_CONFIDENTIAL
@@ -89,43 +90,70 @@ CMS-TYPE: 102P
 X-CPGSPASS: Y
 cpgsPolicy: CPGSC10-234,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261026044138epcas2p19feb1c8130a1c07b67b1f27eefb1c300
-References: <CGME20261026044138epcas2p19feb1c8130a1c07b67b1f27eefb1c300@epcas2p1.samsung.com>
+X-CMS-RootMailID: 20261026044139epcas2p3a5b55ec93b313eeb9a38bbf0c93cf889
+References: <cover.1792989286.git.hy50.seo@samsung.com>
+	<CGME20261026044139epcas2p3a5b55ec93b313eeb9a38bbf0c93cf889@epcas2p3.samsung.com>
 
-If a LINERESET is reported and the hibern8 exit fails during system
-resume, both ufshcd_err_handler() and __ufshcd_wl_resume() call
-ufshcd_link_recovery(), and the two recoveries are not serialized.
+ufshcd_link_recovery() resets both the device and the host and then
+re-establishes the link. Unlike ufshcd_reset_and_restore(), however, it
+does not clear hba->saved_err, hba->saved_uic_err and hba->force_reset,
+so the errors latched before the recovery remain pending after the link
+has already been recovered.
 
-Patch 1 makes ufshcd_link_recovery() clear the saved errors like
-ufshcd_reset_and_restore() does, so the error handler does not act on
-errors that have already been recovered.
+When ufshcd_err_handler() runs afterwards,
+ufshcd_err_handling_should_stop() sees these stale errors. The error
+handler then quiesces all queues and, depending on the latched errors
+(e.g. a fatal error or UFSHCD_UIC_DL_PA_INIT_ERROR), performs another
+full ufshcd_reset_and_restore() on a link that is already operational.
 
-Patch 2 makes ufshcd_err_handler() wait for host_sem instead of
-recovering the link early when the hba is system suspended.
+Cache and clear the saved errors before the reset, as
+ufshcd_reset_and_restore() does, so that only errors raised during or
+after the recovery are left to the error handler. Put them back if the
+recovery fails.
 
-Changes in v2:
-- Add patch 1. As pointed out by the Sashiko review, saved_err and
-  saved_uic_err are still set after the resume path recovered the link,
-  so with v1 alone ufshcd_err_handler() would run a redundant recovery
-  once host_sem is released.
-- Patch 2: describe the race and the system/runtime PM difference in
-  the commit message, and add a comment.
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+---
+ drivers/ufs/core/ufshcd.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- Patch 2: reword the commit message only, no code change. The error
-  handler does not always run a full recovery after a failed system
-  resume; it stops according to ufshcd_err_handling_should_stop() (e.g.
-  in UFSHCD_STATE_ERROR). Describe this behavior and refer to the commit
-  that added the early link recovery (Sashiko review).
-- Patch 1: no change.
-
-HOYOUNG SEO (2):
-  scsi: ufs: core: Clear saved errors in ufshcd_link_recovery
-  scsi: ufs: core: add is_sys_suspended state before recovery
-
- drivers/ufs/core/ufshcd.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..74dfbb98129e 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -4690,10 +4690,20 @@ EXPORT_SYMBOL_GPL(ufshcd_uic_change_pwr_mode);
+ 
+ int ufshcd_link_recovery(struct ufs_hba *hba)
+ {
++	u32 saved_err, saved_uic_err;
+ 	int ret;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
++	/*
++	 * The errors saved so far are handled by this full reset, so cache and
++	 * clear them first, in case new errors are generated during recovery.
++	 */
++	saved_err = hba->saved_err;
++	saved_uic_err = hba->saved_uic_err;
++	hba->saved_err = 0;
++	hba->saved_uic_err = 0;
++	hba->force_reset = false;
+ 	hba->ufshcd_state = UFSHCD_STATE_RESET;
+ 	ufshcd_set_eh_in_progress(hba);
+ 	spin_unlock_irqrestore(&hba->host->host_lock, flags);
+@@ -4704,8 +4714,11 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
+ 	ret = ufshcd_host_reset_and_restore(hba);
+ 
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
+-	if (ret)
++	if (ret) {
+ 		hba->ufshcd_state = UFSHCD_STATE_ERROR;
++		hba->saved_err |= saved_err;
++		hba->saved_uic_err |= saved_uic_err;
++	}
+ 	ufshcd_clear_eh_in_progress(hba);
+ 	spin_unlock_irqrestore(&hba->host->host_lock, flags);
+ 
 -- 
 2.34.1
 
