@@ -1,62 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017942;
-	b=bq9tYZ0Vo2sm26ob4TOHQWqHF/8Ugo1zuE6rEJFcK+K6wvHSFAECYAWcI+BKNYvZBmTR
-	 7zknCAiY3me5r2AXXpd45oC7mBQgEanJt5Dk3+S8Gn/8JjIcTTxQvnZdJPJ+yTPQuqoSl
-	 V68CW1gcA6UCoe2yN77Rg+1wVu6I6KKbcl0xOVSQx0dEjGm4nhzL/o+/x0hx3rJA7SYm5
-	 yye129TY9kFWol0dGeXrAndmnbWPNww0no8aIyAgjP3z2NZt2+G264txUbppQMeKT3/0I
-	 idsvJyU4cqyQV9EyBsDuT2KyI/8Tc/3avQb7Ga9jt7s11QtUUqiQ/2SXWfxr5hvjDAg==
+	t=1793017978;
+	b=IUyjGEuPd7z9QYO4ByC5J0WW9P0G2C0wno8OKz8kIWAI2yoe3Fm6cjWpYN4xzCZvHW96
+	 GNkoGzBwEjCBPVMmlNm+/TPBjQgTLKtlTPMx9loTxTQTdxujP+uS8uuM/lsO3E0SMlA3z
+	 Jw2QfQ14Zo+vHYqBjc3VdiismmYUH7ti8GMGwZq5ljqpvJvRhlKuX/w0b+LGzdkXnwG+P
+	 57UBTSI1Bo+0yleTSGLMDA7j51QuCfM5y6gPVYzLVtpye/HqKm0FaZAecbVtoyQFSkNm/
+	 Tdrq92waZiOaAXh5o4yhvB5ck62LfKOQieVnrpDVy4evRgODhE9LrJhyuEu6TLPadEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017942;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=YP6TS5doeKkZA3J1McevqiS1QfTiivf4o6F01McV3DE=;
-	b=E5+l5Kb7M0m0lXCKHcZiV0b1Idpga1n5Q/9a4kNd3+EbyYwrzP2bDRGbEPbOyxxdq0Hy
-	 x91tFh2UTxeBuBM5bDtVf5xjG3HLywNM+oHHsBReGy5rTklNTbmQpWdkBPyRqKn96nUw/
-	 t8CF3RcqPvZGZF94gutIynNJgqWxC/ikq3t07OBMArPm5nZPMtZhUfn4yplS8uNI+gM7H
-	 SAEoPH/V2HC7wyqKs3/4EQmGGRsmFn960KSJMVM3zXx0BIh0nD9QQoF0hTSbmsNE7Z2s/
-	 YGinWOfMqlaSH17cwZWaecafPs8owmlNGPlU17S96Aj4LH6qsYV1fxQvqKUmEb5Nv2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017978;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wBWKAJ7Sj6JriSj5p7Z5YlnSwdpQx47a7utMt3KjLrQ=;
+	b=31Ei+n0M2sTTyZnoAEiJE1p4FzFQT333tgzs86APTffRsCfnW2UwQnWe+wZ9DJJO4tGB
+	 cqouq37jHb8kiwXDJiBbgkRgtNTXAGAW1igsb97rV1cNHtxIrAvU9X+P/0627GcNoDwv5
+	 id44oaJbFFfJC+XCjBLjqPTKTLx31ZiDXDY0VqnNTGTViVrOnJL1rf6RCdz4cyDVe+58H
+	 rrxWHF3+QKlX5mTkQty43duutXhTCZwj1j9bEQ6b8ITTin30Pb0lAhKJGWzSJr9mGHeZG
+	 BDW2rJ5PBCBCXG3DrJn9wMOyhlQ/SwSUEbkI0XJ9PjdjFdVFt1OS9eM4hVWRJWp0m7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KjfPsXrq;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A876460A2608;
-	Mon, 26 Oct 2026 12:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A876460A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1;
+	arc=none smtp.remote-ip=95.215.58.196
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3160606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3160606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KjfPsXrq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=YP6TS5doeKkZA3J1McevqiS1QfTiivf4o6
-	F01McV3DE=; b=KjfPsXrqNaSj4Vcy28dhyHq1iGnFj1L9Wn9ev7iedyOkKBp+ka
-	23TNA1Uosjx3JrIppoggJKLg5V2VEWAYsytkKgNi+1nCwnDqPb6QyxHJ3W6n80BG
-	nXecgJ/MRZbAIXOvyE5oDgzmig6t0wV6pex9xcXMjo36qMxgdKTaDldPM=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZLSN9qClRJAA--.2459S3;
-	Mon, 26 Oct 2026 20:32:13 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wRMLJQ0LgYvQePRIKO1OVjTSBPiwUDDy98B0yUAI2W8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793017974; v=1; x=1793622774;
+ b=RtptRIX1cRj6FNyXpSrJIFOchTzXeEqfQTqT6pMyNZdoqV3jrX1n9651T0XVRL8q5inUHKnd
+ oKrGbUNZnMuyS+YSdnbISbCJf4pcARd7HcCtPgPSvluprD4ybP6932TQ1nZvcLjiS1dtKBYGiU/
+ aWYR0S1T9SOLJTi+SJ+yZjyM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b9b247da60df294;
+	Mon, 26 Oct 2026 12:32:54 +0000
+X-Mizu-Trace-ID: 4b9b247da60df294
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/3] dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
-Date: Mon, 26 Oct 2026 20:32:09 +0800
-Message-ID: <20261026123211.243224-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH net v2 1/2] tcp: fix shift-out-of-bounds in SYN-ACK retransmit timers
+Date: Mon, 26 Oct 2026 20:32:38 +0800
+Message-ID: <20261026123244.239766-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,184 +76,166 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgCHATZLSN9qClRJAA--.2459S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxGF48XFW7XF1ktF4fXryDtrb_yoWrWr4kpF
-	ZxtF48JrykKryfX3s7AF18uwn5K398ArnrJryUJryUZa98Jr1rXa13Kwn0qa47Cr92va4a
-	k34kWF1Yq3W7GF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgm9-UUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREMB2reWNVnoAALsu
 
-Two connectors can share the High Speed D+/D- pair of a single DWC3
-controller, with a GPIO selecting which one is connected.  Super Speed
-lanes stay per connector.
+req->num_timeout counts the SYN-ACK timeouts of a request and is used as
+a shift amount:
 
-Describe that in snps,dwc3-common.yaml:
+	/* tcp_reqsk_timeout() */
+	u64 timeout = (u64)req->timeout << req->num_timeout;
+	/* tcp_fastopen_synack_timer() */
+	req->timeout << req->num_timeout
 
-  - port-select-gpios selects which connector drives the shared HS bus;
-  - the shared HS bus is port@0 with two numbered endpoints, endpoint@0
-    and endpoint@1, so that "ports" keeps describing the controller's own
-    buses as the graph bindings expect;
-  - each endpoint carries "mux-state", the port-select level of that
-    connector, and "usb-role-switch" to declare that this connector has
-    its own role switch input.
+Once it climbs past the width of the shifted type the shift is UB. Seen
+with tcp_synack_retries=255 and a peer that never completes the
+handshake:
 
-When port-select-gpios is absent the endpoint properties are rejected,
-so existing single-connector descriptions are unaffected.  The two
-mux-state values are constrained to be complementary.
+  UBSAN: shift-out-of-bounds in ./include/net/tcp.h:917:34
+  shift exponent 64 is too large for 64-bit type 'long long unsigned int'
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0xc1/0xf0
+   dump_stack+0x10/0x20
+   __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+   reqsk_timer_handler.cold+0x1c/0x5d
+   call_timer_fn+0x17d/0x510
+   __run_timers+0x662/0xab0
+   run_timer_softirq+0xdf/0x260
+   handle_softirqs+0x204/0x9b0
+   __irq_exit_rcu+0x13c/0x220
+   irq_exit_rcu+0xe/0x20
+   sysvec_apic_timer_interrupt+0x40/0xd0
+   asm_sysvec_apic_timer_interrupt+0x1b/0x20
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+num_timeout is a 7-bit field. Once a retransmit limit is above 127 the
+"num_timeout >= limit" check can never be true, the request is never
+expired by that limit, and after the field wraps to 0
+reqsk_timer_handler() decrements queue->young again on the next expiry.
+
+ - split tcp_reqsk_timeout() into tcp_reqsk_timeout_sk() and bound the
+   shift there; a num_timeout well under 30 already saturates the
+   tcp_rto_max() clamp, so nothing reachable changes for the u64 path.
+ - cap max_retries / max_syn_ack_retries at 127, the largest value the
+   field can hold, instead of narrowing the sysctl; 128..255 are still
+   accepted and act as 127.
+ - cap the TCP_DEFER_ACCEPT conversion in secs_to_retrans() at 127 too;
+   larger values kept an acked request from ever expiring. getsockopt()
+   now reports at most 14527 instead of 29887 seconds.
+ - route the TFO path through the same helper; its u32 shift could also
+   wrap to 0 before reaching UB.
+ - document that tcp_synack_retries values above 127 act as 127.
+
+Fixes: e6c022a4fa2d ("tcp: better retrans tracking for defer-accept")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- .../bindings/usb/snps,dwc3-common.yaml        | 109 +++++++++++++++++-
- 1 file changed, 108 insertions(+), 1 deletion(-)
+v1 -> v2: reworded the commit message, no code change.
+v1: https://lore.kernel.org/netdev/20261023064915.401112-1-jiayuan.chen@linux.dev/
+---
+ Documentation/networking/ip-sysctl.rst |  4 +++-
+ include/net/tcp.h                      | 16 ++++++++++++----
+ net/ipv4/inet_connection_sock.c        |  2 ++
+ net/ipv4/tcp.c                         |  2 +-
+ net/ipv4/tcp_timer.c                   |  3 ++-
+ 5 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-index 6c0b8b6..6b06b00 100644
---- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-+++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-@@ -13,6 +13,38 @@ description:
-   Defines the properties of the DWC3 core as being embedded in either an
-   vendor-specific implementation or as a standalone component.
+diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+index 4b19c8d3efda..eac33072be2d 100644
+--- a/Documentation/networking/ip-sysctl.rst
++++ b/Documentation/networking/ip-sysctl.rst
+@@ -956,7 +956,9 @@ tcp_stdurg - BOOLEAN
  
-+$defs:
-+  hs-endpoint:
-+    $ref: /schemas/graph.yaml#/$defs/endpoint-base
-+    unevaluatedProperties: false
-+
-+    properties:
-+      usb-role-switch:
-+        type: boolean
-+        description:
-+          This connector endpoint has its own USB role switch. The switch is
-+          registered against this endpoint and looked up with
-+          usb_role_switch_at_endpoint().
-+
-+      mux-state:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          Logical level of the port-select GPIO which connects this
-+          connector to the shared High Speed data bus.
-+
-+    dependentRequired:
-+      usb-role-switch: [mux-state]
-+      mux-state: [usb-role-switch]
-+
-+  hs-port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+
-+    patternProperties:
-+      '^endpoint@[01]$':
-+        $ref: '#/$defs/hs-endpoint'
-+
- allOf:
-   - $ref: usb-drd.yaml#
-   - if:
-@@ -26,8 +58,83 @@ allOf:
-       $ref: usb.yaml#
-     else:
-       $ref: usb-xhci.yaml#
-+  - if:
-+      required: [port-select-gpios]
-+    then:
-+      required: [dr_mode, ports]
-+      properties:
-+        dr_mode:
-+          const: otg
-+        ports:
-+          required: [port@0]
-+          properties:
-+            port@0:
-+              required: ['#address-cells', '#size-cells', endpoint@0, endpoint@1]
-+              properties:
-+                endpoint@0:
-+                  required: [usb-role-switch, mux-state]
-+                endpoint@1:
-+                  required: [usb-role-switch, mux-state]
-+    else:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              patternProperties:
-+                '^endpoint@[01]$':
-+                  properties:
-+                    usb-role-switch: false
-+                    mux-state: false
-+  - if:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint@0:
-+                  properties:
-+                    mux-state:
-+                      const: 0
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint@1:
-+                  properties:
-+                    mux-state:
-+                      const: 1
-+  - if:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint@1:
-+                  properties:
-+                    mux-state:
-+                      const: 0
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint@0:
-+                  properties:
-+                    mux-state:
-+                      const: 1
+ tcp_synack_retries - INTEGER
+ 	Number of times SYNACKs for a passive TCP connection attempt will
+-	be retransmitted. Should not be higher than 255. Default value
++	be retransmitted. The sysctl accepts 0-255, but values above 127 are
++	silently capped by the SYN-ACK timers to match the 7-bit
++	request_sock::num_timeout field. Default value
+ 	is 5, which corresponds to 31seconds till the last retransmission
+ 	with the current initial RTO of 1second. With this the final timeout
+ 	for a passive TCP connection will happen after 63seconds.
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 0265c27a5fd7..986b7ea05e4a 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -183,6 +183,8 @@ static_assert((1 << ATO_BITS) > TCP_DELACK_MAX);
+ #define MAX_TCP_KEEPINTVL	32767
+ #define MAX_TCP_KEEPCNT		127
+ #define MAX_TCP_SYNCNT		127
++/* request_sock::num_timeout is a 7-bit field. */
++#define MAX_TCP_SYNACK_RETRIES	127
  
- properties:
-+  port-select-gpios:
-+    maxItems: 1
-+    description:
-+      Selects which of the two connectors drives the controller's shared High
-+      Speed data bus. Each connector is described by a numbered endpoint of
-+      "port@0" that carries its own role-switch input and the "mux-state"
-+      level selecting it.
+ /* Ensure that TCP PAWS checks are relaxed after ~2147 seconds
+  * to avoid overflows. This assumes a clock smaller than 1 Mhz.
+@@ -912,12 +914,18 @@ static inline u32 __tcp_set_rto(const struct tcp_sock *tp)
+ 	return usecs_to_jiffies((tp->srtt_us >> 3) + tp->rttvar_us);
+ }
+ 
+-static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
++static inline unsigned long tcp_reqsk_timeout_sk(const struct sock *sk,
++						 const struct request_sock *req)
+ {
+-	u64 timeout = (u64)req->timeout << req->num_timeout;
++	u64 timeout = (u64)READ_ONCE(req->timeout) <<
++		      min_t(u8, req->num_timeout, 30);
 +
-   extcon:
-     maxItems: 1
-     deprecated: true
-@@ -411,7 +518,7 @@ properties:
++	return (unsigned long)min_t(u64, timeout, tcp_rto_max(sk));
++}
  
-     properties:
-       port@0:
--        $ref: /schemas/graph.yaml#/properties/port
-+        $ref: '#/$defs/hs-port'
-         description: High Speed (HS) data bus.
+-	return (unsigned long)min_t(u64, timeout,
+-				    tcp_rto_max(req->rsk_listener));
++static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
++{
++	return tcp_reqsk_timeout_sk(req->rsk_listener, req);
+ }
  
-       port@1:
+ u32 tcp_delack_max(const struct sock *sk);
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 8151c638a24c..ee7b64f3141c 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1072,6 +1072,8 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 	net = sock_net(sk_listener);
+ 	max_syn_ack_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
+ 		READ_ONCE(net->ipv4.sysctl_tcp_synack_retries);
++	max_syn_ack_retries = min_t(int, max_syn_ack_retries,
++				    MAX_TCP_SYNACK_RETRIES);
+ 	/* Normally all the openreqs are young and become mature
+ 	 * (i.e. converted to established socket) for first timeout.
+ 	 * If synack was not acknowledged for 1 second, it means
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 99d7237a623d..a309fd45ad42 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -358,7 +358,7 @@ static u8 secs_to_retrans(int seconds, int timeout, int rto_max)
+ 		int period = timeout;
+ 
+ 		res = 1;
+-		while (seconds > period && res < 255) {
++		while (seconds > period && res < MAX_TCP_SYNACK_RETRIES) {
+ 			res++;
+ 			timeout <<= 1;
+ 			if (timeout > rto_max)
+diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
+index e56eae4bc341..f7b100334a89 100644
+--- a/net/ipv4/tcp_timer.c
++++ b/net/ipv4/tcp_timer.c
+@@ -469,6 +469,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
+ 	 */
+ 	max_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
+ 		READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_synack_retries) + 1;
++	max_retries = min_t(int, max_retries, MAX_TCP_SYNACK_RETRIES);
+ 
+ 	if (req->num_timeout >= max_retries) {
+ 		tcp_write_err(sk);
+@@ -490,7 +491,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
+ 	if (!tp->retrans_stamp)
+ 		tp->retrans_stamp = tcp_time_stamp_ts(tp);
+ 	tcp_reset_xmit_timer(sk, ICSK_TIME_RETRANS,
+-			  req->timeout << req->num_timeout, false);
++			     tcp_reqsk_timeout_sk(sk, req), false);
+ }
+ 
+ static bool tcp_rtx_probe0_timed_out(const struct sock *sk,
 -- 
-2.53.0
+2.43.0
 
