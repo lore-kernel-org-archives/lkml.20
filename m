@@ -1,63 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042004;
-	b=GhgoL8zgZDPyOJmcLcjZn+dQsfhbwn/+LiiSTVhOvGz6JV43bF6KLiXPBlKx6zrQ9YW4
-	 zXyNrHDlz9bRpzTrheF9Zpb8HwFk88F67YIpFi/4HYtp/XDwCSpy/mfvpV2bUOlepNSWU
-	 kj8dZNrUIpypd16/VAAXW3k03AfThGfWRcOF6RsBDKsl01/vptFLwW37peWuePoCV/0qO
-	 3i2sfc1blrsQvSuacy5rhFRSu9F+F/a0qeGZuO6oYCpxTIDE4vsGka9KrZrXSlkx2hqOY
-	 sZf5FEIEOqVNS8sSloTNEMHdWHiz+udo4FYzcH7p3iNhzIq8Gg4qhl0znQSgcb94aTQ==
+	t=1793042000;
+	b=rYjjAt1ZeYgzmnvJ5QPO3DBvu5AqQW43QtHAvovJSCmsPNfGmuq/+rQ64eXksfQDzdNQ
+	 VUCzXI+f3QbWQJI9PuFArwpn1iXcH2RLp8gpzn4/zzVnNCow7Wd9/6RwuYWP/pBP+/l1d
+	 4TsKUYPlVzKX7X/xpWNQQ9+aIhxLGntIB8TnrxlRwJLHGwIL2rATGnYXs8oGGSwsa9PYH
+	 02hg1JTQQi50GF0v3B3UDM/ENfvU5MawViOgSvgujMlhlX3pATSwm1LLCRMI5oMSgsUY+
+	 I2Ad+aEujVB1Y8taOAekCVpLnS2AwVkwJKKZWPEF0NK04nM9h3bYGfdDMVVfHRHk94w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042004;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=3yrz+Ov6jBpPKPNpWn5AEy9fZTQAY5u9WL+GOyU2/X0=;
-	b=HXIhY3XtF1P5hyAmLKuYXDyv695DINrRgG6U4Gy/6q73OHCEWJldFuVGbtEP4v0O5R0p
-	 O7YW/wX+EoMDxVyyz4eU/9XLpxyRSicdPQrJQbzfs5w1vo9o7H5hXVCc/ymFStLcbZLRj
-	 voW37OdoasQ7cPQE2w+Kw3WWE80sUTUAGC1fsKD17xIfkuwKKltKAisxcBK86pw5J4RU4
-	 UkCeSM32r3pG0RG9KXHRDS5Fce+qMje0tqYZubkEnOZlMxo9ssJAlsX7oX4pE3gamwSjy
-	 U3/ROXmzIB51Fen6z/WYVMh3QaRUWFedWtevLg+FAzyWTOUEUrRKiPfHE5fZ3K2Ku0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042000;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XLkJpQWco9n5sMNhMe9Rfty/fDIzzK2dX/PPWjtzMU4=;
+	b=LvnhPxDz1IGz0bjfFd9C6IL3vgM90DXRHXFAsvSrWZKJtKrrYOayw+BxouCsF7S0WOTD
+	 Yc87LpITvbmPxVaeD4ZJ79q1nksquCFbjw/uWaUcHfxd/Do8/VHWukteqUKCR672P7UjK
+	 rPlu8YQTnWpZNPeZXwFSFwz8Dupo+3PgwBAKh8U0tn8e+qJJ8qtsock6DxQSWjc6x4GFR
+	 ZSSlnekxbxTNjPpxKcVfG0odD4wwC7RqBspKDbD6GUhsmWMDPDwzskBYja1is8LjTicK6
+	 +8xGebBoXDeBrUJ9SSkpecG9I0ieat42mXK7aBC211NiduweBWInskxKm7CnEogkE/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CQQTClel;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D377606A31E;
-	Mon, 26 Oct 2026 19:13:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D377606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153FE606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:13:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153FE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E18CCB1A;
-	Mon, 26 Oct 2026 20:11:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793041870;
-	bh=ivDiP8NI9Z30mey8L2KGIt+N5uRIkUdxK3fKOwTUsIg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UlrdTnkqAoAFbqjmbN7M+tq859syiUuvI+z+afkwnI9wFCwCRXWY9kCG97buiEXVC
-	 U+0a9Ivky/rYi9rgEJmtnrzqSlvTK4XpOX3qlDrv08bfpheaKA6L1DzqC1eX27Y38F
-	 rxMygoM85k+PJJ8+lIC35GjauAVkRbhTzsxWUz50=
-Date: Mon, 26 Oct 2026 21:13:19 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261026191319.GA1996520@killaraus.ideasonboard.com>
-References: <20261024185058.20410953@foz.lan>
- <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
- <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CQQTClel
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so5831806c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793041999; x=1793646799; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XLkJpQWco9n5sMNhMe9Rfty/fDIzzK2dX/PPWjtzMU4=;
+        b=CQQTClelF4Z/y1v1UKcARaJfZ2oWDcixPOJDkotrofreXPGW19wumCKvJyACKbtJ2j
+         3Ldi/Kz4d5QPEAc/T3wJ09OqTnf3OU/JbpSKIA02sReTxeYEOAWBMCpTGGmEtMrqxkUK
+         CrTHirElSsEtq+lLIc3g7mzJfNsqAROk8B4TCgiKHFWBzabG/oFAIVlb2VNeXijG2UPT
+         sUNyumvg5MrbwWEY9W1wuUL5DcJvvEpUic+iRRZsSXSdxe5mWvfWzBwMYvJoq9aHLzVY
+         CQL8+kLLjqhfmjskjxHhFQsd1tcAEprAG2PozEDtk6zjl9Kb9qlg47kJnucj0ixTqTHg
+         nWJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793041999; x=1793646799;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XLkJpQWco9n5sMNhMe9Rfty/fDIzzK2dX/PPWjtzMU4=;
+        b=0Qa5/Yg1mCmwYfzobyi0vD6Ke/4oBhC0pPSZ+dhs+/xP7IkIoVj78x4xpqcmGZfvNL
+         CStvyHnK11YTQ+9RtkVazhxLuYD3gihFjGAF6/OaJPnfbcEdpiIuDI2YrFi9m6dCLWyA
+         /UJpe34MftkFToO5GY6DspnRE2fbQazif3jR6mZRLSdu9BoXvKZEtv3o7P+APrCbbiqB
+         mZNnOiJ+hW0tASheqBbH3E9ip2iJ80K/lb7k0nRf4vq+03s8EdbIk1YGqdjhe54A8yZW
+         ij/spQfPEoLgzvewpukp5IZJhpI6wnWFih/b7oZMpqfpnjME+Ae8G5TFCATpBZduP4/2
+         w/AQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYpzxh2+44t4VTjU4KtFZe7uAZ3BDOq4yi8nLqcu4Eltjx3ejQUUcR3NZKOcb/11pus8lb2PlrJz/TWKQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK30nfG88mulPwpYTRA2jHKhNXvWh4WBrAZZke3yXwmesf930zq
+	xEOdHDBCPcpdOM1joj3lW7u568X/J/hyC0j2QCHFPUBE5EzSVBH/Gvu/
+X-Gm-Gg: AYBFou32U40s6en+L1YfHpYSDkk9cA6hPnjoXM6Q04Gbipw1Qwi9kz8CEEr0THnCZMV
+	jy5oYZ9fRrpbmA/ZVgBBcJ9Yq4+F+MMNkRjO5On79SJK78PmXMBAbJOyXW6KYG8r9JTxvQpqpKf
+	hgxditdYUNill2mmwEznZnhwbWxM+mDz/bM5TjPPs0H4nLS3N4sSwkVQZC6Isilp5vNf75aeIEs
+	4gdRwd1W2RXlAIla2d8oy1RHQw+wYzqsoJcv+G608vpKfh3Dl6QnHJAOYBXzo+Vf4Nawhs1k17C
+	Td/XcT3Taa4m6AjG64YkoEnW6S82J/ZVkpEWfKqQdC+MaLM1cOqkSe+dH4pAp3aNO/9juBLTfFs
+	trsBcjVJhwlb//eCdRtUg+T9TskLGhwiw4LWPWYp9eVy5L6lfxyyzpqXiwQp+JuBBMXLZ04tbfu
+	ruFbuISQbRsMOaj8boy5GWqt399w+7/f7ysteT02PSaELA5GXhPJQQvP3OZfWD//rePoByvsSmT
+	EYGfYe7Ai//F9F8tgZ8WQAOLdtkUnvJlzsdRfWUmFyrtKJks+UrqqDjZJPpX+v3VFk2DfQNm8wm
+	Wo0EX/S8UO9j8f8=
+X-Received: by 2002:a05:701b:4309:b0:151:6e80:baa9 with SMTP id a92af1059eb24-19933e10e2cmr10466847c88.12.1793041999000;
+        Mon, 26 Oct 2026 12:13:19 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a1bfaf25sm26826628c88.14.2026.10.26.12.13.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:13:18 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 12:13:16 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] hwmon: (nct6683) Report the duty cycle of NCT6687D-R
+ system fans
+Message-ID: <0c8f35ac-3c92-4b1d-a027-7d8912751109@roeck-us.net>
+References: <20261004153250.516730-1-someguy@effective-light.com>
+ <20261004153250.516730-2-someguy@effective-light.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,66 +100,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+In-Reply-To: <20261004153250.516730-2-someguy@effective-light.com>
 
-On Mon, Oct 26, 2026 at 08:24:59PM +0200, Sakari Ailus wrote:
-> Hi Linus, Mauro,
+On Sun, Oct 04, 2026 at 11:32:49AM -0400, Hamza Mahfooz wrote:
+> Recent MSI boards (customer ID 0x20d) use an NCT6687D-R. Its system fans
+> are connected to channels 10-15, which have no fan output configuration
+> register, so their duty cycle is not reported.
 > 
-> On Mon, Oct 26, 2026 at 07:34:12AM -1000, Linus Torvalds wrote:
-> > On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab wrote:
-> > > Sakari Ailus (60):
-> > >       media: Don't hide I²C or SPI drivers by default
-> > 
-> > This needs to be fixed some way.
-> > 
-> > The kernel config is asking about ridiculous things that no sane user
-> > can know the answer to. And that change has made it worse.
-> > 
-> > Asking a user for random media drivers by chip ID is *NOT* ok. It
-> > needs to be hidden some way. If the old way didn't work, some new way
-> > needs to happen.
-> > 
-> > Guys, the kernel config phase is already *the* most annoying thing for
-> > people trying to build their own kernel. Don't make it worse by asking
-> > questions that make no sense to a normal user.
+> According to a reverse engineered register map, the duty cycle of these
+> channels is reported in register (0xe00 + channel - 10). Report it for the
+> system fans that are present, so that pwmN matches fanN. To do so,
+> support up to 16 pwm channels, indexed by fan channel.
 > 
-> The patch in question puts camera sensors and related chips in line with
-> how the rest of the drivers are selected elsewhere.
-> 
-> The reason why I wrote the patch was that Arch Linux kernel missed enabling
-> these drivers, which given how the MEDIA_HIDE_ANCILLARY_SUBDRV option
-> worked before the patch was to be expected at some point (rather it's a
-> small miracle no-one had complained about this earlier). Raw camera sensors
-> are quite common in laptops these days and the only way to enable compiling
-> them before my patch was to enable CONFIG_EXPERT first.
-> 
-> I guess we could have an option to compile pretty much all media drivers as
-> modules (it may be hard to draw a line) and then require CONFIG_EXPERT to
-> allow choosing amongst them. I'm not sure I like that idea much though.
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 
-As far as I understand, the goal of the patch was to stop hiding the
-"Miscellaneous helper chips" section by default, and let users select
-VIDEO_INTEL_CVS. While the commit message states that it applies to all
-camera and lens VCM drivers, that doesn't seem to be the case, those are
-not covered by MEDIA_HIDE_ANCILLARY_SUBDRV today as far as I can tell.
+Applied.
 
-One simple option could be to drop MEDIA_HIDE_ANCILLARY_SUBDRV only for
-the section that covers the CVS. It's not ideal, but it could be a quick
-fix until we find a better option.
-
-Junjie also proposed automatically selecting VIDEO_INTEL_CVS in
-VIDEO_INTEL_IPU6 and VIDEO_INTEL_IPU7. You didn't like that because CVS
-is an I2C device separate from the IPU6 and IPU7, but is it found in any
-platform other than in conjunction with an IPU6 or IPU7 ?
-
-> I wonder what others think.
-> 
-> Also cc Hans and Laurent.
-
--- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Guenter
