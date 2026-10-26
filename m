@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051125;
-	b=Izjnzj7fz0rAMpq9E8GIxD2PrPhVqnkYH7tJKNdyfQo8QjYOOVtp+nntaDTrP7dxE41m
-	 Qf3nYazkEt3Gt1199QhufM7IqB9zD/u5FeYJrAykNbDg1HTGg58pa1fcLJ+H9l/AUaosX
-	 m2Wgdo9b2xmTQdi+VuV06caUZVrEZdvXFNIxSk4xy1nPElzZMIm7gw1FrvQ1VOsy2q+b4
-	 Zo4KZVBmo4cFJyQR0PpZalZkdRQiWjFzQGwXTMsfda/Ib+OsI5MbkmL4TbrYZVcMXfVMb
-	 O53hfP53YKFWTPnG6tY+EB0UuqjN3/UB+PomOO9LrC00lSjt0kHwf9mh+RKXTwWM77w==
+	t=1793051127;
+	b=eszJwku2pp21HFbRac/2uAcEVJibZGrdhFnRNisPsZmp0UJ0reHp7rAmkMBN64Eq681h
+	 JPGI3tY/mnlBLyT80HxrW8hLPL0nKynT5WW7OTd4IOXRo+a7gUc/1HsUYKloPufbhPXR1
+	 xDkaxir54K84wdetOOpuPYG8VS/HM3Yi7VcjkEYJ5ImOs57hS4XiCkyvcppCpxNfgmnaA
+	 Hyk+c9NRM2XQT+P1oLCQhgbF8MvP8ke65Skj4bdElo5hd9gNCA/F5SNhet3WTZrxLf+G2
+	 wKX416cH52Qk7KDnIm02jXrsuK2qppCfCh22QO0SQ3KPINeM3v6gkkjyWMBRx/jXGvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051127;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fFnPwskegPZzfHsLT5NNhjCL4eznWzxTpvnez9GW2eg=;
-	b=yvcyWt7uSFQOb6YvDJ9FxGuisRWpHrljv5ma1I7MEdky+xW7L9ZywbyHFL4tBepmPzT6
-	 jB5du9s7mVVQE9ljp7dGZJQ7RwX9LmUEFHCl6XBz9PFDqi5gcUpnPNRi+FFxZHUfNdWak
-	 266q1FEcOfnAoBPXTfUNWvDEfArGmO+0zwkXT0Yh8AhJmvo1zp2axtx2uPFgByOze2IGP
-	 QxbmMEb0bjmlmpk9ed73e/8UOl8z4h+yf6Q0xR3xUrEsjxEiyTc5K+cx8BchdokKSIZin
-	 3xnZdl33qtfvNgzOyFk+iFJwoK9+4qKAOGIs+3FCExDmvdgaBWBz4eqFxb9ATjYGL4A==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
+	b=nRhDn+8COZFfgGJGjRlEM9/sHJ+VtCYlHGAYleU9t+CDwh4lShmgg9pfmaB/bqdNhbpS
+	 rQNx7aM/Wc02Ue58ttktaIV/sECtmBCH0NVv327wPvqLF4khu6Jyzq7aqZRdTCdBPT5Y3
+	 lq4Pn3/owCgSFh5O8MxdJBGJ8pWyNdyIHq48vwG0Dy2N/dmzHBQ66vBVHvC/u9LTogPSp
+	 zh4XJPbVROBCkQ8KaGqv7flvndc4fIVhiwMhLx0fa4tvxd64JjrNruE0Zr4gLyZHJ6cx9
+	 jaWdwvtqIiwag2CYAoLKyq9DbLJfp/e7VKfcVozjZhulnku//NibW6XUUKWW4bAtxBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iy3fXxzS;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WcLnrBjF;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCE160A2623
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DCE160A2623
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8A7606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8A7606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iy3fXxzS
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5692440eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:24 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WcLnrBjF
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-185fd3a4ca3so2945135c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:45:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793051124; x=1793655924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fFnPwskegPZzfHsLT5NNhjCL4eznWzxTpvnez9GW2eg=;
-        b=iy3fXxzSkOcIiFm0/SXhQRLEuohrieumxG1CHZh3cShs2NfrlObJ8dly7NDumJDq91
-         Tu2uGmc4+DOogdSxc/vth16b3mPQio3M/2heoH5y7JOEwwq6jKC1xjaZ+GAmOzjJiQ/x
-         Yrs8KA0eXKWDqcmF/AjhFFy5OVJOCnG0T1mlo=
+        d=chromium.org; s=google; t=1793051126; x=1793655926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
+        b=WcLnrBjFahP4hj117P1H8KOoO7McgOsldZ7VnLKpBz14+p8egeKZglizlEryKv+lFi
+         8ETonFbWRyuNR223HvqZyNsz87YT+Jfc5DLfseqwwn+QOI6EHCOsS5VXdhpO/oBlWf12
+         tndMKrs8kvUKVhYnBi+E1amNaUwFFI1lUQ/R8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051124; x=1793655924;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fFnPwskegPZzfHsLT5NNhjCL4eznWzxTpvnez9GW2eg=;
-        b=amDRv7nDImY7BZOlC3TWhTxMFVLn9ujWb2fiJJzB64YRD4zEumUsrlFEvPrgDoXCaz
-         2paxL6h81Qb0SXXrgEHfbb9Ic8Fp6cvbc6jmf0gYZ4Rex8iq1XtFPHDy6/ks7j8qAKom
-         41uFL3jmwq8d+Z3osW/lgghg/EtK+Jwm5QJeauunmVDeoPjLlMRF0qNDqUQn3xGfqX2X
-         DWIfUHmK4flYTVvNwAYFCtmKfIa782ORId1li4Yta5zVADDf35quDzyF+zYYk9W9oW6d
-         rxKTS22AeWAbAMBbgiYfyVr9TRtZj3H1mNzYYOLwRk7CwtjpQoyEMQhPH4Ic29uJ2a1p
-         l21w==
-X-Forwarded-Encrypted: i=1; AKwUvBxxS3T4Bu5IHnO1yQieKKmKBia4OAT/155QnK1OrH3Z+f1KppXJHbbrUvJpgsvoH2Dw5FnjfZ6NnaUKfKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDfa/ivqsvd+d+YIjwG//ThjMIGxETGt7elvxmKzBfthEp7Mep
-	QP4SbJ5U3quG44ZcfYmN7NRITbysAOxBEkRVTXAXIhUBwQ2pdNimw2s6yZ00qZ4drg==
-X-Gm-Gg: AYBFou2xmfATZLG6yu0fzWtZwKImUGMCHelKCjStwtlOa0tBb7bR5sno6vLWIjaidoB
-	usCiW9wqZzK8BT7sQY3Bf3Z+4GyJD9asQ6gexxGf0FI27bq5baLu6XHTEjMIBnzpg4biOl4LVbS
-	/I0iMV7zKLVbzbXdhWi5nnwcH1LqUcgc02xi3qqHitSIkBVSPrNQ2wJIkIkYC68OJikasZzgwHj
-	e7HHT76xv4OJRv0HMz2qxpIELj6675ND/rypT5tVJzEDVrxp3bJBBQ2tO4DeA/kvTpNKOuKQrgJ
-	pYR7Wg8oPCGDgmQuubaLnEbfhbZJU1mj9IdtSZX4kGnUt/TO/8Q9tVu/KTrunRXWGFraOPFFejj
-	1MNro6eMkI6ADtegIhKRB5ksrXtGMzrLlr+KEy8i2UPX/4/u8VTB8S1omfRzLM7m98G8XlQI6iV
-	cHq5IND4G0XeapZYcFGfJXGc/srFbesd7JZfvJWvxIRYOITDcdrNQ1AhB7/WkEyF3Vz83q9xj/E
-	8qqp9U1rZ6MyBOjKjdndInCMFEjjGOG9xrRQOPSZ0n7y62sghPSd485WtxFS2U9hjhsyCbTs8d7
-	5q/Tu58ax5JCxZZRE98=
-X-Received: by 2002:a05:7301:d80f:10b0:369:f7d2:d7b4 with SMTP id 5a478bee46e88-369f7d2eed8mr7550254eec.26.1793051123451;
-        Mon, 26 Oct 2026 14:45:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793051126; x=1793655926;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vYe8GiP6hKBNXwq/bmbj0sq6IXWr6LLeCLyGCfiUVAo=;
+        b=WAAc8M/a/sYNITq8220M3qe3YtIdAvD0AWfl8621fflygltdIrkP2csTr1AhEQhTJn
+         gZtJ0hf7UB9WfAdI58D+UZKg9Y/aVEx0ghRyBJgPTa40C7FHPHrylUCaBH2GUYBg/c8n
+         UYoLiPWnZAB34eGQh1Iv+YxVm3c5LSZLCALY0GMEqOW2ZgdohoZo/RvZPPnJaqu7Fqfw
+         woYQw8Jtlz4uL6A96WP/ktsTqm+Y81fCW77Ri8P29teR01Re4YqsbsT9UsNF+A2AZ6NS
+         qNLhpMBNsYnr4RF1hbhPWO0Zx4uV3Sb7snD3Pjhxffgj3QeUCQLFooveU+oWe6sQ7ZEk
+         Fdxg==
+X-Forwarded-Encrypted: i=1; AKwUvByWdbyNlbkTNzcxrq3KHzEOhRUDMP9VXBOIZRzPIG3T4ywJQdWIlyOv5rmqOtHQ21d4mZRhSoCvK2u70E8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyMzgvm9YIbPogZYPbHMS4sPKtnGcTOHuxHhkD/YNxiePLINS7
+	I5yr5CWPzhBS/HPxoWMaCNOWaI8vtjYUkyse2kKkGbuvNv2ORtjEr/6UNqNnxjCBfw==
+X-Gm-Gg: AYBFou1+spEm6OUrHWc+l4zNr8BOQbpF5pviGkwwYlFRA6VIWy4X9WZHuF2np2QFUTH
+	YNlkA+GZ4z2cTDIAfMxdZzjfJxxY/YQ9dxTHmHywCNEcBIrcKj3dOHY/uLoNqoe9cWtcBgxhjzx
+	iXgBdW/MRe7RfEBjXoF0PcCHYtvbOi+Vkfp7/+Bz+zChC6ALYMTfJ6qxhwBPz1INqnpzKy/opcT
+	BJeJAGe2DlIqrrbvfwr+zkJLnMeOb4f/KGHaRRaJ1wqNtcxP2x4qRBBo1xlgoR63EpZiemhS8B5
+	4ZAnb6vyiFI5VrMGuUFO610OkaCxPpaR3l+Kl/YcGz3xxxuxa61Cu8F7lq/V8+eNaF9hHFfjQ0u
+	Xr9oTvK6l9zOC4VxJtYW4rb4NRWB3x4C7UqO/SHiEOF188KLVUU+VGMAgGIP7xfUj9A/Iol+t77
+	G7rrlxlclGKBNzFV/XB2KLKQ3fXiGaQdmAZ9ZWWhznCVAIUpIq/62VRvvKaJ7SPTS6war0rntjU
+	nzvwEo40RL1rwHEUzgJS3nxDMRT3mXGxaLiqH0aXx1L27HhcsYrsb0hhaEm8M8GrIrAlAcLSOQN
+	zrUwgd+jGqVbYAVkWwqZ
+X-Received: by 2002:a05:701b:290b:b0:192:74cf:1db2 with SMTP id a92af1059eb24-1993505e004mr10316882c88.11.1793051126391;
+        Mon, 26 Oct 2026 14:45:26 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:79c5:9cd3:db14:7468])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-369ff5a4d68sm13241766eec.14.2026.10.26.14.45.21
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36a002a486csm13039391eec.22.2026.10.26.14.45.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:45:22 -0700 (PDT)
+        Mon, 26 Oct 2026 14:45:25 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -100,9 +99,9 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
 	linux-clk@vger.kernel.org,
 	=?UTF-8?q?Jakub=20G=C5=82owacki?= <jglow@google.com>,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 7/9] irqchip/google-cpm: Add CPM IRQ driver
-Date: Mon, 26 Oct 2026 14:43:45 -0700
-Message-ID: <20261026144346.7.I41e14e9460b3add41e69dac97abf57a741e9c4c5@changeid>
+Subject: [PATCH 8/9] arm64: dts: google: Add Laguna CPM node
+Date: Mon, 26 Oct 2026 14:43:46 -0700
+Message-ID: <20261026144346.8.I4778aeffbdc796147efa8114431efcb201063b59@changeid>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261026214359.3122870-1-briannorris@chromium.org>
 References: <20261026214359.3122870-1-briannorris@chromium.org>
@@ -115,189 +114,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The Central Power Manager (CPM) on Google Tensor SoCs can signal
-events/interrupts over its mailbox communication protocol. Today, the
-downstream driver for these chips only supports interrupt notification,
-although the CPM firmware may also have mask/unmask support (not
-currently used) that could be added later if needed.
+The Central Power Manager (CPM) is a co-processor on the Google Tensor
+SoCs, as used on Pixel phones. CPM supports power-management and a
+number of other features.
 
-In practice, this driver is used for RTC alarms and for events driven by
-the Always-on Compute (AoC) subsystem.
+The Application Processor communicates with CPM over a pair of mailbox
+channels. CPM provides clock, power-domain, reset, and interrupt
+services, so we include the appropriate cell-definitions for those.
+
+Because this also adds clock, reset, and power-domain support, we add
+them to the UART node at the same time.
 
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
 
- drivers/irqchip/Kconfig          |  10 +++
- drivers/irqchip/Makefile         |   1 +
- drivers/irqchip/irq-google-cpm.c | 123 +++++++++++++++++++++++++++++++
- 3 files changed, 134 insertions(+)
- create mode 100644 drivers/irqchip/irq-google-cpm.c
+ arch/arm64/boot/dts/google/lga.dtsi | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index ca915fca0ef5..47f9739b1d74 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -556,6 +556,16 @@ config CSKY_APB_INTC
- 	  by C-SKY single core SOC system. It uses mmio map apb-bus to visit
- 	  the controller's register.
+diff --git a/arch/arm64/boot/dts/google/lga.dtsi b/arch/arm64/boot/dts/google/lga.dtsi
+index 6ceb9ea6a100..83b2361c5f00 100644
+--- a/arch/arm64/boot/dts/google/lga.dtsi
++++ b/arch/arm64/boot/dts/google/lga.dtsi
+@@ -7,8 +7,13 @@
  
-+config GOOGLE_CPM_IRQ
-+	tristate "Google Tensor CPM interrupt controller"
-+	depends on GOOGLE_CPM_MBA
-+	depends on ARCH_GOOGLE || COMPILE_TEST
-+	select IRQ_DOMAIN
-+	help
-+	  Support for the Central Power Manager (CPM) interrupt controller
-+	  found on Google Tensor SoCs. This controller routes interrupts from
-+	  the CPM to the Application Processor.
+ /dts-v1/;
+ 
++#include <dt-bindings/clock/google,lga-cpm.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/interrupt-controller/irq-cpm-google.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/power/google,lga-cpm.h>
++#include <dt-bindings/reset/google,lga-cpm-reset.h>
++#include <dt-bindings/soc/google,lga-lpcm.h>
+ 
+ / {
+ 	#address-cells = <2>;
+@@ -356,6 +361,16 @@ abl@be000000 {
+ 		};
+ 	};
+ 
++	cpm: cpm {
++		compatible = "google,lga-cpm";
++		#clock-cells = <2>;
++		#power-domain-cells = <1>;
++		#reset-cells = <2>;
++		interrupt-controller;
++		#interrupt-cells = <1>;
++		mboxes = <&cpm_ap_ns_req_mba>, <&cpm_ap_ns_resp_mba>;
++	};
 +
- config IMX_IRQSTEER
- 	bool "i.MX IRQSTEER support"
- 	depends on ARCH_MXC || ARCH_S32 || COMPILE_TEST
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 16a5fd126c9a..ca10888687fd 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -101,6 +101,7 @@ obj-$(CONFIG_QCOM_PDC)			+= qcom-pdc.o
- obj-$(CONFIG_QCOM_MPM)			+= irq-qcom-mpm.o
- obj-$(CONFIG_CSKY_MPINTC)		+= irq-csky-mpintc.o
- obj-$(CONFIG_CSKY_APB_INTC)		+= irq-csky-apb-intc.o
-+obj-$(CONFIG_GOOGLE_CPM_IRQ)		+= irq-google-cpm.o
- obj-$(CONFIG_RISCV_INTC)		+= irq-riscv-intc.o
- obj-$(CONFIG_RISCV_APLIC)		+= irq-riscv-aplic-main.o irq-riscv-aplic-direct.o
- obj-$(CONFIG_RISCV_APLIC_MSI)		+= irq-riscv-aplic-msi.o
-diff --git a/drivers/irqchip/irq-google-cpm.c b/drivers/irqchip/irq-google-cpm.c
-new file mode 100644
-index 000000000000..a235cc1cfe7c
---- /dev/null
-+++ b/drivers/irqchip/irq-google-cpm.c
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Google CPM IRQ chip driver
-+ *
-+ * Copyright 2023-2026 Google LLC
-+ */
-+#include <linux/auxiliary_bus.h>
-+#include <linux/device.h>
-+#include <linux/interrupt.h>
-+#include <linux/irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/module.h>
-+#include <soc/google/goog_cpm_service_ids.h>
-+#include <soc/google/google-cpm-mba.h>
-+
-+#define CPM_IRQ_COUNT				512
-+
-+struct cpm_irq_info {
-+	struct device		*dev;
-+	struct irq_domain	*domain;
-+};
-+
-+static void cpm_irq_process_irq_status(struct cpm_irq_info *info, u32 irq_number)
-+{
-+	int ret;
-+
-+	ret = generic_handle_domain_irq_safe(info->domain, irq_number);
-+	if (ret)
-+		dev_err(info->dev, "Error handling IRQ %u, error code %d\n", irq_number, ret);
-+}
-+
-+static void cpm_irq_rx_callback(u32 context, const struct cpm_payload *msg, void *priv)
-+{
-+	struct cpm_irq_info *info = priv;
-+	u32 irq_number = msg->payload[0];
-+
-+	cpm_irq_process_irq_status(info, irq_number);
-+}
-+
-+static void cpm_irq_domain_remove_action(void *data)
-+{
-+	struct irq_domain *domain = data;
-+	unsigned int hwirq;
-+
-+	for (hwirq = 0; hwirq < CPM_IRQ_COUNT; hwirq++)
-+		irq_dispose_mapping(irq_find_mapping(domain, hwirq));
-+
-+	irq_domain_remove(domain);
-+}
-+
-+static int cpm_irq_domain_map(struct irq_domain *d, unsigned int virq,
-+			      irq_hw_number_t hwirq)
-+{
-+	struct cpm_irq_info *info = d->host_data;
-+
-+	if (hwirq >= CPM_IRQ_COUNT)
-+		return -EINVAL;
-+
-+	irq_set_chip_data(virq, info);
-+	irq_set_chip_and_handler(virq, &dummy_irq_chip, handle_simple_irq);
-+
-+	dev_dbg(info->dev, "Mapped hwirq %lu to virq %u\n", hwirq, virq);
-+
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops cpm_irq_domain_ops = {
-+	.map = cpm_irq_domain_map,
-+	.xlate = irq_domain_xlate_onecell,
-+};
-+
-+static int cpm_irq_probe(struct auxiliary_device *adev, const struct auxiliary_device_id *id)
-+{
-+	struct device *dev = &adev->dev;
-+	struct cpm_client *client;
-+	struct cpm_irq_info *info;
-+	int ret;
-+
-+	info = devm_kzalloc(dev, sizeof(*info), GFP_KERNEL);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	info->dev = dev;
-+	auxiliary_set_drvdata(adev, info);
-+
-+	info->domain = irq_domain_create_tree(dev_fwnode(dev), &cpm_irq_domain_ops, info);
-+	if (!info->domain) {
-+		dev_err(dev, "Unable to add irq domain\n");
-+		return -ENODEV;
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, cpm_irq_domain_remove_action, info->domain);
-+	if (ret) {
-+		dev_err(dev, "Failed to add irq domain removal action\n");
-+		return ret;
-+	}
-+
-+	client = devm_cpm_request_client(dev, CPM_AP_NS_IRQ_SERVICE,
-+					 cpm_irq_rx_callback, info);
-+	if (IS_ERR(client))
-+		return dev_err_probe(dev, PTR_ERR(client),
-+				     "Failed to request cpm client\n");
-+
-+	return 0;
-+}
-+
-+static const struct auxiliary_device_id cpm_irq_id_table[] = {
-+	{ .name = "google_cpm_mba.irq" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(auxiliary, cpm_irq_id_table);
-+
-+static struct auxiliary_driver cpm_irq_driver = {
-+	.probe = cpm_irq_probe,
-+	.name = "cpm-irq-chip",
-+	.id_table = cpm_irq_id_table,
-+};
-+
-+module_auxiliary_driver(cpm_irq_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Google CPM IRQ chip driver");
-+MODULE_AUTHOR("Jim Wylder <jwylder@google.com>");
+ 	soc: soc@0 {
+ 		compatible = "simple-bus";
+ 		ranges = <0x0 0x0 0x0 0x0 0x10 0x0>;
+@@ -423,9 +438,14 @@ lsion_cli16_uart: serial@db62000 {
+ 			reg = <0x0 0x0db62000 0x0 0x100>;
+ 
+ 			clock-frequency = <200000000>;
++			clocks = <&cpm LGA_LPCM_LSIO_N LSION_CLI16_UART_CLK>,
++				 <&cpm LGA_LPCM_LSIO_N LSION_CLI16_CFG_CLK>;
++			clock-names = "baudclk", "apb_pclk";
+ 			interrupts = <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH 0>;
++			power-domains = <&cpm LGA_PD_LSIO_N_CLI_GPIO>;
+ 			reg-io-width = <4>;
+ 			reg-shift = <2>;
++			resets = <&cpm LGA_LPCM_LSIO_N LSION_CLI16_UART_IC_CFG_RST>;
+ 
+ 			status = "disabled";
+ 		};
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
