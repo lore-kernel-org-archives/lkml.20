@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793038748;
-	b=MjsaxaGuwAuXfffUCO97J/wSVAXQTOHTumaJBiNRpakBcLR7oyC+DiVOWXIdjUlqU4qF
-	 SX5GNjaUGZDqv5HbUpGuv997nbKshzkGmD9MRdFTVJZb23+6wuoCr++Yhh7liRama9DVv
-	 p6HBECVZnCja46GHHrxEdNbek7BQNZBajefavA3LqOJo0mkdZD/Rf1HTpC45OTegI14O1
-	 HhWm3BBofhZWtlmca6gNKi4yAKmSzPCBdTpceBv+SLUPON+haBxnWLL968SxxDsEJO7+d
-	 4Q6s7hktNv37lxr15kEyF808JiXrmY5qAViBB9u6ccbRcZViblCt4yhvIaMZxnXlG4A==
+	t=1793038781;
+	b=f+wWsp52CZs4uIFlFy9GJHDLVABfVk2ihr9GrHobu3duBNZFeYoRpwsW+o6Qj0Em9sss
+	 px0TPlPEDL1xsfNdkwjFpujijZOEhcqfZt84082FRyAz7YuD81ZFbfrt5fx44W0syVF/B
+	 21QRoM4u0QC38GGzN7mzWg9bS3ve/vRWhlhjf7WvmKtc6fdzRR7Lk6GrC46D9mv6fTvXj
+	 4m6qnW6F9Hg5yYAdJdSO4+hQBEKpW10duDo60F1zPpaW/3LMDv1KFMB1VdxgNgSpz1mfl
+	 egFKQJR4Q8alB11Iy6lUanWTf9UNRjCdjZyXmj6mxKirsD4RWX0o4/1JFsvzImQ4GEQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038748;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
-	b=ReaEzpQd8GQCC+59Yk97R3mdCM6g5iBVm5qhYKqNY6uQkHNC5BpxZV80cAmSaowadCfH
-	 GFn7+l455pGTtimw9jjRaB1pNL2LG13QAKGdPvbsyTlBzPfzcLk5OwxgaBKlM4wCME6NU
-	 7uy1HY0cevgi3HmGH6hrpIxKnaSI8uwLOyy3k5m8W0QT0e+BZ+FWdfPL44zLGcUVXCQz+
-	 Zby7KwpuvAiRJPfJDsW3d8kcEb0HGK1TzRN62MgW+oTvoHfOsX0hdY8hy+QOAFb+mgGqq
-	 l7820zTWjOA7yMa4w2PLnQLN+PFiwmspsEW5EMW/8w/W18qeSrlCf1uolx3lg1G8Nmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038781;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:From:
+	 MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=gcu/WhMdrdYK6iOAbE1Wy3Ff5zsW5qSQV/IfZkNxdhE=;
+	b=y/c7nUHre1TjfGk+7lQ8gig81KX9m0CH/aP/4ESL+isAizekjBn80d5DKbBoZFP5lJmB
+	 0noLWFxZNSmdBstxsiIvwgv8o1T4cwS5B4Q2n8Xx3R52pVic4+wAN40zMu8hZd7FwbOaB
+	 Vtwz+LrLGajVj4MsG7+YIwipaa7MUnF8whVPx08/KNeQHKFYuHCXM6NBpjHvt3D3vQHr9
+	 u+S/YTEcN0c31OYCkaGr4Gg51dw2AkVXkt6NNL1QWdKUfACtTZf/TzQdWC442nRwIufl2
+	 3Xia6y/WUs16jc2u43WMsTB3uPFiFTpgVeBACMerL0n2n4Amnn4Q10MS/53+80vVYiw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEBkeUXZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE0A606A31D;
-	Mon, 26 Oct 2026 18:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEBkeUXZ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793038748;
-	b=TMuu3Xhc2O8glIct9ox3xNTZlNStQF3ryCGDrEnPzA5jmG/3LOotmSZmpdSxxxwsJhod
-	 vEHBGRJd/kdiDWZiul/A1444Q1S1GXXB1ZQZdxJTAooPBYLLEn3mOSNd4b3sufpwPZMnt
-	 3pTa2Wwxjs7UQNMuMEoQnj9rEiq4TSSO9XQ63c+NyRPFqs9xI2ZRLREpUw2jayLCQAqMM
-	 fF44LMMMRpUk9jThqZbODvT0P87WQ4ka5uxqn2It8p0nB05UlL5gVqzBSmkr6uKLWkpCJ
-	 vPh+CwiD+IWEiLSLCSpygfD2NZhN1NXD6dTeZ1/STY7PB5OMCU/JJWRn7MqdRO22b5w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793038748;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
-	b=cLQ7PMmWgQlmeXn2D5t93yyN1PXsESd+iX8mgCP/XgS1FB6V79BnQCFrD6M8efhb6rO/
-	 9evONDJMSVm8DXlM+bxVEXoEbh7GTmvmAANNyTR2y6FIl85TZmsoEyeEfRRCUjSkatXxj
-	 ZkcHX2ziW+dyek2vJ5muH3VbiKYHQI5We2LBvPNRAC9XxG6V/FQQ1OVxjMV9Gttl8x8BR
-	 moSPJL/EBNELL2mrSXh/LlJkml6jg5ksbzI9jgn5wp113846glEO6oHTgnb0ljYi8yLVK
-	 njARkApwGoVQ40ThhrPVgawg+KsUILroKV2D0wt5RPJyrTa9qM+bPA5CWlRZ5Jv9kAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qgFDjUB4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9562E1F01825;
-	Mon, 26 Oct 2026 18:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793038748;
-	bh=m08PXGyn7U8s1ZQtlfTCv0P39/uk4oenXTU+aUpG6AY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YEBkeUXZadQDXk7iriQYF75B+lX0bA8c8LVij+9l78XRwZ77m3v5UqMvOVohd/i5h
-	 SnxhAtHoxDeht8LOWwyC9Oz2fp0ScEEPYjyDZCzd3Uu1wMQQctfqx4q9jxu/e/ueyx
-	 YbjlfPN0fBXcHbiSoV5WPBD7fB1kO3/zQeQJ3IOjSlJeDEInulcB4IWvTTOJk6Wuig
-	 iAFOXGeQe5hoQj9atoP458izSMH/ZB5DBe142kKR7LnbHIMU2cYIXuhW0meystprBE
-	 OVaQdus3HNjD8S88qhvDgB5X9x2g1SN090+V2piOOP8tXXYvFzWNdoUz8a+1qhfh9R
-	 DJFgh4JFcQlcA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2666C44E1F;
-	Mon, 26 Oct 2026 18:19:07 +0000 (UTC)
-From: Filippo Falezza via B4 Relay <devnull+effeffe99.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 18:19:07 +0000
-Subject: [PATCH] remoteproc: qcom: pas: Print auth error code
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0062606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0062606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qgFDjUB4
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so4682481a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:19:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793038779; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T/PYLolQo6gnvCCNdJmfnMP77ltTS0OoqdEfzv+QAp0VcEpaTpWYAChhM3ajekIgUb
+         PiDLLf/jvlmrbvDaeA8A4FLQCtv+0E6XzAl4TnQydzb34Vco5W7P09UVv3wT+c67eHpP
+         0B4ehn2aA7XUsku+q0zPM/AY5RBvXIym0RGRjZ4N5awAW42NKR/6pemixyXdqULvXo/z
+         oYpOI6xYmmM1qkiTPWQnLkLQVU07PAsoQUSKnwbAAe9kgSVyU78x6h9wm1sKPR4g9i8N
+         2wNn27yacL9wWjXj6ZQHYeO70nq5DbN282VwBwy7AD5HnwnVSf733iuXc/QRTxsH6k1O
+         59dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=gcu/WhMdrdYK6iOAbE1Wy3Ff5zsW5qSQV/IfZkNxdhE=;
+        fh=gO9/vS+3gtnAcQ7P0i/NbH5QoUDJg7HAuIIbh6SrKgY=;
+        b=TNw0qtzVsQNJG9v4nUWKGiyhHt+0+bOgPEgQQtFhR1isWqNCh4BjAWG9dc/tNW0/pt
+         Bxy0ECMtF9AaSx6S9QcdN6GEOmfh/9m6+pJgY74IagoExAgK2H6TmyCcj6STLVAxvvnY
+         L1MNgZvO6YRPwXmILiOQ8BURbxi2I7rWow69t4iZK+x8rb2wBFkaQbNj64r0X15+RKuE
+         CRpUIzZnRXj5zzFNd4OxmNsOzDHdf7aua8VTpyzKqgDNpfGYRQL08OkA4NYFf4mIT6eo
+         /kZRW96m9qGBvg2UEEZP8AOrYpPkMkAKXnjpsn1H9Ojuw5yaNOJrVVF4x6Y6UZm5sVbY
+         bDcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793038779; x=1793643579; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gcu/WhMdrdYK6iOAbE1Wy3Ff5zsW5qSQV/IfZkNxdhE=;
+        b=qgFDjUB4mGPeLZ/KoTsqfqUWk2pqjKgrnYLQhSeAjCBbb0cQhT30g2n6PTHHvpHBAN
+         zDYayQmaZGOlRTxfgaW5KtytN62+bup8k4Xo09PVFmVNx2Dh60nJBbOLMtog0ong/2Hr
+         77aIWTFUcUzCbqnjF5k+OvaDg+q4r2x1q7H6kT7Xr3UX7BRaQABpetXjO2tUOQPW40+o
+         c8OmH6hdxBBAqFFzbAEhYLbBWCTgcus3V5/np0yAPE7kpKu5qhqH/UKHB04adI1FK9mT
+         7X/6lP/Gq3wojjqqZprKppZsBRmC7UnH5E2rXpIKddfUSHKzNIiCC/phC0LAUqzFn+cS
+         jIIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793038779; x=1793643579;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gcu/WhMdrdYK6iOAbE1Wy3Ff5zsW5qSQV/IfZkNxdhE=;
+        b=QL6crDckbacJsbXglgBNKoJhFRucYUY3C0gohp9zbLTS5j5vXcwqux8a3Hz/LUe/9W
+         zWZXyNbvVuAwofdJ6lSxWdBEYM3/aWqiA6gOVP6QF+COf1XtLqkr9/Ka+thMsViMPr9T
+         ibwd3ZX094PPS8kzGcO3r08ZQjEjE7JF2lp9cQcmFARajEXeiVnGf4NKiKmjql5Ksbh1
+         f5YZ7JCXaWk13sN6p2dPT3p3OPt9wqTy3EUNaOfzXt2VPJLQXE9qzNCKinA30nt0BN0H
+         QAmrlFTF0VVgUBcA9ERqLEZQo+yz3kdbGxyhCUjoBCMRQn37qws4P0H0jzJnCzJjH3aT
+         lbvA==
+X-Gm-Message-State: AFq9FYJTXTsrgEPm17GBqfn2nAudmrrURXdCTBFKWz7W3Ky8H0uX7KT0
+	sdOtuJ0g4BohP3Mok+FIf8rIB6q+A4d9dV2s7R7TtEXr0BquXRQG5iHrzxoATomlxgtgUEAoRH3
+	y/B9Z8okAQVbGWYQ2Z1ZjJIikQ9BCn3lSYMi4
+X-Gm-Gg: AYBFou3MhUR1QkxzAHHXMu3jhi03YNmP1mW578zZRAwGSa8HLEbDhDfsHYN/t4Vt+uf
+	cipUcvObb4Fw5uO47hh4bnEe9t6iz3pOPz4DefGuS+oml3neNdDgmWM5wbg4U3whr4YEiM5PC34
+	t3vXAqrWds7AigkxJe11t3m8PBy/bOaHud34onqVmEc4aHSdoLJSgB2Jm+oBuiCcXPSC/pnnBUE
+	Re0ouUW7Lxa/pZMtXbJtTtubp2ING1QW/ALk89fH7CHeXL3iL3p4UpzSSM/UWbQWtkDQrJr2va4
+	p+QSHAL7XXcL39x7S+WZ3eaGOF7fU7MaA/s97WKt2VF5rCIvWeEU5y3zmx6MTO++4q5AuN8882J
+	4TEEtz2OEG3JjJwoHyeGhhXikczcDhLF783Ojytg8yGG3l+AF0QTAzGY=
+X-Received: by 2002:a05:6402:42c2:b0:6ab:6e:a8e4 with SMTP id
+ 4fb4d7f45d1cf-6b4430043a8mr8107946a12.44.1793038779150; Mon, 26 Oct 2026
+ 11:19:39 -0700 (PDT)
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 26 Oct 2026 11:19:38 -0700
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 26 Oct 2026 11:19:38 -0700
+From: Ivan <ivan.vin.ctf@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,101 +105,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-pas-auth-error-v1-1-1569e83358e5@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMBCE4VeRPbuQiBTaVykeYhyb7SHKroogv
- ntTPczhO8x/kEEFRq/qIMUmJlMu8HVFMYX8ActQTI1rHr6M52Ac1iUxVCdltLF9un7w0YHKaVa
- Msl/Bd3fb1v6LuPwrdJ4/s+C2enIAAAA=
-X-Change-ID: 20261026-pas-auth-error-e4c490bd1c0e
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Filippo Falezza <effeffe99@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793038746; l=2798;
- i=effeffe99@gmail.com; s=20261022; h=from:subject:message-id;
- bh=+UAPMP0mpA/2AP1Feq4iEAd04j9ngTHwcofPyCUE/Rw=;
- b=/A113p09qt5dybuOuaIFcfMOHoKqEPwur5s2OMpFXC4z7zJipTjl/hbYB7nEIOxAIUAuYW7Yh
- LamNBz+gD6bAmKVdj1qtMzrew4KsdCHGMtU6w61Kx9mlSpAZyYEyV+u
-X-Developer-Key: i=effeffe99@gmail.com; a=ed25519;
- pk=7PPwl4QILojrh+ATB5QOpvXVmmoxaxyLQhrLRLWEL0I=
-X-Endpoint-Received: by B4 Relay for effeffe99@gmail.com/20261022 with
- auth_id=1327
-X-Original-From: Filippo Falezza <effeffe99@gmail.com>
-Reply-To: effeffe99@gmail.com
-Content-Transfer-Encoding: 7bit
+Date: Mon, 26 Oct 2026 11:19:38 -0700
+X-Gm-Features: AclHuK-KbFYex8S3FFBCSiB4rgxThxEkN2l4h08kZuZwhKqNjkub1_ZiVvB8nzQ
+Message-ID: <CA+hZKY+2wgMo79G72X28xg3yma6Va=CXeTX7_4=f8F3ZTDOODw@mail.gmail.com>
+Subject: tty: vt: three wedge paths on 5.15 (paste_selection spin, vcs_open
+ hang, do_update_region spin) - family report + backport request
+To: linux-kernel@vger.kernel.org
+Cc: jirislaby@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Filippo Falezza <effeffe99@gmail.com>
+Hi,
 
-When a subsystem fails to start, qcom_pas_start() logs "failed to
-authenticate image and release reset", but drops the error returned by
-qcom_pas_prepare_and_auth_reset(). That code tells the failures apart:
-a negative errno is either a clock, interconnect or SHM bridge failure
-on the Linux side or the SCM call's own status, remapped by
-qcom_scm_call(); a positive value is the status the PIL service
-returned for the request. Without it, finding out which one happened
-means adding a print and rebuilding the kernel.
+Three related reproducers on 5.15.216 (KASAN) covering the vt/console
+family - one already has a fix upstream (not backported), two look
+unreported. Together they make a 3-trigger-path family report:
 
-Print the error code, for the DTB image as well as the main one.
+1) soft lockup in tty_ioctl: tioclinux(TIOCL_PASTESEL) -> paste_selection()
+   (drivers/tty/vt/selection.c:374). The throttled-tty loop does a bare
+   schedule() without timeout; spurious wakeups spin it -> CPU soft lockup.
+   The 2024 "[PATCH v2] tty: vt: selection: fix soft lockup in
+   paste_selection()" series addresses exactly this and is NOT in
+   5.15.216 -> backport request.
 
-Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
----
-Hello there,
+2) task hung in vcs_open (drivers/tty/vt/vc_screen.c:763): takes
+   console_lock() and blocks in down() forever if the console semaphore is
+   held by a wedged console path -> victims pile up (cascading hang,
+   /dev/vcs* readers, printk, VT switch all freeze).
 
-this is a small one: when a remote processor fails to authenticate,
-qcom_pas_start() says so but drops the error code, and that code is
-what tells a TrustZone refusal apart from a problem on the Linux side.
-The patch adds it to both messages, the main image and the DTB one.
+3) NEW: soft lockup in do_update_region (drivers/tty/vt/vt.c:664):
+   writev() of binary blobs to /dev/tty1 (embedded VT sequences leave the
+   VC in a bad state) -> insert_char -> do_update_region loops, CPU stuck
+   22s+. Independent site: neither paste_selection nor console_lock.
+   C reproducer available (syzkaller-generated + minimized).
 
-I ran into this bringing up the Motorola Moto G 5G Plus (nairo,
-SM7250), where the compute DSP will not start. With the patch it
-reports "failed to authenticate image and release reset: -22", which
-pointed at TrustZone refusing the call rather than at the image. The
-ADSP and the modem still start as before. I could not test the DTB
-path, as SM7250 has no DTB images.
+Mechanistic link: one wedged paste_selection/console_lock holder freezes
+every console consumer; the do_update_region spin is a third, independent
+way to wedge the same console. On shared hosting any tenant with a tty can
+trigger these -> cross-tenant DoS.
 
-It builds without warnings with W=1 (arm64 defconfig), checkpatch
---strict is clean, and it applies to rproc-next (82d0bbd67c42). The
-change and the changelog were written with Claude Opus 5.5 in Claude
-Code during that bring-up; I tested it on the phone and reviewed it
-before sending.
+Patches/repros available on request; happy to test any fix on our fleet.
 
 Thanks,
-Filippo
----
- drivers/remoteproc/qcom_q6v5_pas.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Ivan Vinichuk
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index abc59c0c29f0..ea3eb8e293c2 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -346,7 +346,8 @@ static int qcom_pas_start(struct rproc *rproc)
- 		ret = qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
- 		if (ret) {
- 			dev_err(pas->dev,
--				"failed to authenticate dtb image and release reset\n");
-+				"failed to authenticate dtb image and release reset: %d\n",
-+				ret);
- 			goto unmap_dtb_carveout;
- 		}
- 	}
-@@ -365,7 +366,7 @@ static int qcom_pas_start(struct rproc *rproc)
- 	ret = qcom_pas_prepare_and_auth_reset(pas->pas_ctx);
- 	if (ret) {
- 		dev_err(pas->dev,
--			"failed to authenticate image and release reset\n");
-+			"failed to authenticate image and release reset: %d\n", ret);
- 		goto unmap_carveout;
- 	}
- 
-
----
-base-commit: 82d0bbd67c42a44f0e18b0b7b0da0f3ace0c9527
-change-id: 20261026-pas-auth-error-e4c490bd1c0e
-
-Best regards,
---  
-Filippo Falezza <effeffe99@gmail.com>
-
-
+Reported-by: Ivan Vinichuk <ivan.vin.ctf@gmail.com>
