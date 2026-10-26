@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012341;
-	b=iRWmH4TclAzCGvlgvENJbqV/qsia43FG1ZOQYSULqdGok33o5Fdk3A9f0hxlFVUSiF8I
-	 PDAFfm2PwjVB+OOZ60RjvAW3CYEIUVIZHhiumqYjL/+N8klYQo1eRAp0tr9m92MHAPt4M
-	 C7+G9tAv+hGg+Z8QBYUbpeCLByic/1+afkU+l6yA2yign6uHsunujp70em+kVD7iCTg5Q
-	 2GA6Pj2rr/LERgVNn9Y44TyBmQG6+bloHLTZTJ4Iu30Ow4q/oQCskCsO6fFbgmZcyX7rm
-	 u2dH4OcOAmNMdMPJuWkny32VfHGLfNgG76ltSR7DMx4ibkSpsfNf5x0X6if6KEeo+VQ==
+	t=1793012344;
+	b=xy02FFuBZFTiRRbeiLatAvWRCNT9I2ur3iaDj85A8i2TDCML7jhZJH5afwyThee1UClP
+	 j3yEdaajv0GRJiC7PycRd0/ClOzaPD6wKbJFEwYLpj/w8YeQLRNmwHplj3QCZPsuSBdv7
+	 G/icSjn0ku0h6M1QOhwmS6p9a5SC4VKHN5ByZXrTH7SNuS8V17uQ1dqmDuc2TOKqcm2/2
+	 O0jJrHUs66+6Guz0/WEybAi7ak64Q6RiMfqfN6VdGs/hNQOzFs6RDrFsgyEbsxpsf3xeR
+	 wls1BzVQzyBIodkVQgAH4hB1yAymS31CGvclWdKuMty4TboKOhNdoxku3eVNSDKC6mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RRSR6UZrJp4tph+fHDjWo4hO/H1Uq5cP28g57V4V9yw=;
-	b=rIDIKpWq5qk4hUuQ5YdW5w9bhz0/2Z6SX371w/HWnvDuvysBHSsK0y/M3NrGLtx4+hzz
-	 KvE3XR0xf8mC7mnD1DgDmvfNwBRirFiQEqczk5Ourixy7/zWYuxeKzPOBWZ1OweWUCfKy
-	 Il1aWA33UH1za7ZQaKdIwn9AV+8SThNk4Hf4zQh8JmF41+wFoJxmB8l3GcBV8/LuTZYyB
-	 reY/rX8B5u5HeO+5fq+X5k4RiDiqlEry75fYmGloBcmLpdn7U3Z5UF7UJEKhAokg0qsl0
-	 hy0ILGCpyMObg+SjrHHFgRvP1AuqEFAemkUVdXd7Si+m74nUXG5WeiY+yxMJvV0YtMQ==
+	bh=Xl+Yg/UNKEqVV/uF8sRZx4ShFAFRNq2WVWeIxaupX3g=;
+	b=sOznmSla9V75evk8WuO74+T2UjM1rxovfFSRYRmxRe+tFzoT8e4XBmQ629twm2qMqziv
+	 w4rZvnUWNRMV5puvwOg1qqWQaHnc38p5d2kCXclg64ykeQviXr4nQ5zX7SDF/yFNt08TP
+	 qXXfIouZSOQzpfe4pG+GMtqSVJjCo9vnZXig+kiVT/10cYDD0sIRn6mfjnVZEFE0EwtVN
+	 2Yk4Y8QUEokHKHz4dUp1YTI/HTIbsRKzXnY2Wtrs76c/MBC0cdGJw8/zaWmaWv3u+QE+M
+	 K91abjCNnHdLnLxFaN7MlDfZ+Y2rr7IbiY+FZQ0kC5XVpfM87VyvYPPfjIb/ZZQPUAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E4AMdxsa;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iv8UIpwU;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C73F606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:59:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C73F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBC9606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 10:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CBC9606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E4AMdxsa
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso1413629a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:59:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iv8UIpwU
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so1937261a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 03:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793012340; x=1793617140; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793012343; x=1793617143; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RRSR6UZrJp4tph+fHDjWo4hO/H1Uq5cP28g57V4V9yw=;
-        b=E4AMdxsa3wzyzbX705calueicxP4utUf2k4Jx4lntZl0oYXfaSAYVmoKKOo4RhYAz6
-         nMTBrYDvmQTmRtrPkt6RA9Mi88xlq4olfDNuIDXH9fMO0VkpauLMdceQ9WNK5aRO0TkK
-         +aVTk+uyCgo1WG9pHItVGB32xvbo2eetEyRZmaHlB9dSPVLW3TycFbd9n83fz6ctFlNZ
-         cHAymeKsY1GW0nHcq3xCrBOT6j0HLjsKSuntrPXmN0hX4RU9FpwEg4cemgMc3Pb97wDl
-         flbWwSLDDL/ijEZFVYR7C/KjGT7+TFFMY9R1mUyEXTcy8ub/FRId8UgcYZgpXfVvTwzU
-         a+eA==
+        bh=Xl+Yg/UNKEqVV/uF8sRZx4ShFAFRNq2WVWeIxaupX3g=;
+        b=iv8UIpwUi9eXzRMigy0++OyradCQuvf2ODH3+WNz/MkR/z8PrJVR6C876X3GLcM4GG
+         CuKWi5FaS2ckUWNyDdNM1gKbw7tdzqnuupsQSULIAwMcdn5ukzFtGgO37qrGNfUBiXS1
+         zo8IovRU8eM7NJQK0ie+OE9fqGf5hwwGeSuK2VvneDSgRVBfwIrzPWFMm5QUlmljd+rY
+         shGTEimeMltqLNK7qa6VdheRSXo+io9cCd01QTI3iq9q4bLLK5NLzZtfJzHUcz2YsJSk
+         iyO0BNRq/F2h/wOfTRrkaWguohn4T4vNhO5eYDY6T1IkC/rCmzAVFRNsbJlXBIhqLjsY
+         Kx1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793012340; x=1793617140;
+        d=1e100.net; s=20260707; t=1793012343; x=1793617143;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RRSR6UZrJp4tph+fHDjWo4hO/H1Uq5cP28g57V4V9yw=;
-        b=CSMoQu5S5/97ioURurtoFiDktmMk0DDPeT+XuQOLofQIVyH0LR1o9J6yq2hzeXBgR6
-         dHeMtuqG8jp9k9V7rh5Ui3OAdV5HLZoj35Z7hhE9epaIBWuNGFIDwEwsdn/ISN9QZFyQ
-         LuYCB7tatrwgR+jc9gubgaSH31MqcuVT72WEBAWsbkK4b9oO5yNIQ84GslX/CfWER8Bm
-         oV835HMi/oeGrH3X9JMXtSHZ+hPm2Si+BP506HLCAVRQ2GYD8k82ZJCmXDgjWg2efkWq
-         40hyFgoLoUTr/7yw0mKwfWywE5DuywMFmk1fFACkLjWsKd0yynlJJH5D5fiqI5Am/93S
-         RI/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzFn6YR7pynrG4A5AnlMkRp9+rzIT4sNU6ouA5FNOYAvTj1utRzq17FoYiYgpNiuG8gIWKQQOOg0WOt+IM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5d3ciAXLOaqEsjIdQ/1QLBJ9I2X3+0kba3zLPCZfb21MWkCyD
-	JXrGlyLQsqKTjITWOv+ca9n39OJ1rA1DZhXN14W9yTVEr6AnRtmT8RnX
-X-Gm-Gg: AYBFou1kOrNOfIflJ/WJ3Qiit9wCTSA0KalwrVylhAdeIx2+EEVgF5HKDU2dPRMUKE5
-	deEaqc1IWOzYGx62cD//3sdNMnxLY6p5106PgI5P0sspf99z6/5/HCAzNqGlmTkjLLf1Oq4MJc/
-	qCNFXn8GGRrR3xjnszQC5OhQPIJXXfbFi2AEZjRpI0G/8q4b72w3UQqmacL85BuXMKx6LjqxfZ1
-	5Pf2gNJde6rXRZxxoxnrPkUflQi2PDcITHVzouKNNz8P/i9lUek7g60UIxXZuOJQ0Jwc7ql3sda
-	CD17AhmjqjTGlLUf17zk+jNWYu+QMnfh5q+qEluH8bWUY7ORt3bJGgCN9kLMLNOzki0O3t0dgk5
-	vrCSxe45d2SOl3xFvMvf5oNtJhN8QhZC+ZLvCT6Tsj/xuELkALbfHm0MOV+uoL9p0C+dbUzu2aW
-	I5jZEdmHCTzPZ0FeyjwgqkrE0T8mBZ4c2QUtk81xg7RK9QwGWhgAQmzClD3a5Bg+uNoTmf01aT+
-	Cz2v6EI9a55Vaic290R1mva4/88ixbodsJgsl8Hqmw3rGakNTuaP8/gVcrfRbSUU+J4jejN5DiL
-	vOe5GKaFr+pbmuD0VadtOxoTPcUmXZk5bYnfq6VdHdxZDpz6LHb4unJfWcaPW0k8+xoq43o=
-X-Received: by 2002:a17:90a:dfcc:b0:3ac:403d:6239 with SMTP id 98e67ed59e1d1-3adeb0fb5d3mr5038011a91.43.1793012339349;
-        Mon, 26 Oct 2026 03:58:59 -0700 (PDT)
+        bh=Xl+Yg/UNKEqVV/uF8sRZx4ShFAFRNq2WVWeIxaupX3g=;
+        b=cJ3WL7mRY6Rpyk8Dgbca8zXhiuOhyQUi8LSoZwTUveKqrDlzXlJ4EU9dubGvO2c+Sz
+         H4YV6YL84JYhZQ6bZNSH1xV5sLcAgz2JSDVHSN6GyQWs9qaLoY8/+xDrYG1OUOlJuB9X
+         orgSC7fLkFSNINonwkvDbjo+EymjHCjM7BDOHEMMM08xQpLJiza5TW8OgRR8lZ//j3Kh
+         B3ji1Xscg0jVgkqEMWEGemFzDpsAePDRZofgqoCljiA6hUVlQ989+WM7MmP1is806wL4
+         PGX0qGC6/9xZLA27JQjWs1WQdP9AbkVywA+Ms2JiJNN8Jrp6DBhBCwky0rQZZlmy5WoH
+         ceUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyHjrNTF3aWeY7/3yt7Bj1RKtDOhELSlprugWY+8oA3yKvaxyL8nKouD+CaPIX63lzbi0GrFSvDLfFCAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPPGMF4nXAsvUFbZE0uqmx0rpdvRi2ZWDQe2YZkAKl0TF+1IN1
+	AQem/xUy16E2VQed0lsoFslZc+OejaUk3BUuW0s2OOpyZ0hX3SE16U1s
+X-Gm-Gg: AYBFou19kHRu/u5XQM/uta5dyXO/SSgjXstY61iU5WYw1HUMaZma6SO7Dnaikwjk0Xm
+	txKqt8yGZWM3v7AoQRh+4AvN378wZGVO8Au0Mt7s+zn31tjdp2eNi6m4sYNLRw1EyTFxLOK70LH
+	gxPT8QCsoeKP68/7K4yg9LEvKsuR6HB85S2e4dzvOOKB5/9js1KTOExIsVw20Ndk7O3SMuc9I/+
+	VpfizeyR7TKrhEHrEMZG3y4dzEkpX5oAHZCHf6+K0Xd+kJ9/i2mky4Rg4KiliGICSVIqpJ/MREC
+	C+n7iExQQ9j8ERDfHYp5A1RBESp44XUw7d7QTOrWrWXW/TirYeWiGYFRtmjB9tvo7W0+Q/pwz2z
+	G604uzu5jRvHg9xZRGbfWpjPub/hCFNnmFuLsT0d6GghpxNB12Jd/QM18DWcbuyJsIH3DYGnJwo
+	fBYScZoZ/NJGcRqBj+CkRRw9uDVoyYdzbeBURjK5T+ypJacr6vpx6hknmntCMh94+AfaOOVfd2a
+	cvIThfeqjYGOSUS0F7kyKBDsT1qvzo+UufK+9wWT6NsLgwXxldbCOUVVFN8QM+gqra6Pt9P8YQH
+	n/Fl0X4dr3d0TO3ig/y5GosZXAQM5Z+XaPf7hkrfJ9u5n0s4RczUgcjNXWbPMjKxaKjG5TU=
+X-Received: by 2002:a17:90b:3842:b0:3ac:8527:3fcd with SMTP id 98e67ed59e1d1-3adeae8b8f4mr5611507a91.39.1793012343483;
+        Mon, 26 Oct 2026 03:59:03 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm7980768a91.8.2026.10.26.03.58.56
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm7980768a91.8.2026.10.26.03.59.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:58:59 -0700 (PDT)
+        Mon, 26 Oct 2026 03:59:03 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
@@ -88,9 +88,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	Russell King <rmk+kernel@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 2/5] ASoC: kirkwood: kirkwood-i2s: Improve error handling in probe
-Date: Mon, 26 Oct 2026 17:58:32 +0700
-Message-ID: <20261026105835.19052-3-phucduc.bui@gmail.com>
+Subject: [PATCH 3/5] ASoC: kirkwood: kirkwood-i2s: Check return value of clk_prepare_enable()
+Date: Mon, 26 Oct 2026 17:58:33 +0700
+Message-ID: <20261026105835.19052-4-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261026105835.19052-1-phucduc.bui@gmail.com>
 References: <20261026105835.19052-1-phucduc.bui@gmail.com>
@@ -107,47 +107,36 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Use dev_err_probe() to report clock acquisition errors.
+kirkwood_i2s_dev_probe() ignores the return value of
+clk_prepare_enable() when enabling the external clock.
 
-Remove the redundant error message when snd_soc_register_component()
-fails. The errors handled here are already reported deeper in the
-call chain, so the additional dev_err() call is unnecessary.
+If enabling the clock fails, the driver still selects the external
+clock DAI configuration and may later call clk_disable_unprepare()
+on a clock that was never successfully enabled, triggering an
+unbalanced disable warning.
+
+Check the return value and fail probe if enabling the clock fails.
 
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/kirkwood/kirkwood-i2s.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ sound/soc/kirkwood/kirkwood-i2s.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/kirkwood/kirkwood-i2s.c b/sound/soc/kirkwood/kirkwood-i2s.c
-index cf4327101b96..29641bd4cc60 100644
+index 29641bd4cc60..395790682355 100644
 --- a/sound/soc/kirkwood/kirkwood-i2s.c
 +++ b/sound/soc/kirkwood/kirkwood-i2s.c
-@@ -687,10 +687,9 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
+@@ -701,7 +701,9 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
+ 			priv->extclk = ERR_PTR(-EINVAL);
+ 		} else {
+ 			dev_info(&pdev->dev, "found external clock\n");
+-			clk_prepare_enable(priv->extclk);
++			err = clk_prepare_enable(priv->extclk);
++			if (err < 0)
++				return err;
+ 			soc_dai = kirkwood_i2s_dai_extclk;
+ 		}
  	}
- 
- 	priv->clk = devm_clk_get(&pdev->dev, np ? "internal" : NULL);
--	if (IS_ERR(priv->clk)) {
--		dev_err(&pdev->dev, "no clock\n");
--		return PTR_ERR(priv->clk);
--	}
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(priv->clk),
-+				     "no clock\n");
- 
- 	priv->extclk = devm_clk_get(&pdev->dev, "extclk");
- 	if (IS_ERR(priv->extclk)) {
-@@ -726,10 +725,8 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
- 
- 	err = snd_soc_register_component(&pdev->dev, &kirkwood_soc_component,
- 					 soc_dai, 2);
--	if (err) {
--		dev_err(&pdev->dev, "snd_soc_register_component failed\n");
-+	if (err)
- 		goto err_component;
--	}
- 
- 	kirkwood_i2s_init(priv);
- 
 -- 
 2.43.0
 
