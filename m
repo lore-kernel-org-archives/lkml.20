@@ -1,48 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042216;
-	b=UjdMf26w0E7iiTtviIRaLZ5qLy1UMj2XmcntjXazbn1RGLpAFknMCqjyH9VlT90MP6zB
-	 6toLXCU4Vl8Y3RUqdjfigcv1atvi6PeQAzDJM8gFsLytdJXWTrwxQ7cWzgRYZ+OWUfHGH
-	 Ge+er+k9mIlPAK2qeFZdFUpsBjV8/gwSi70JZyLep/pbaxyMB+dvGdjROX7rsJMrDDs4y
-	 Rc9WTSdQiT56saJI/VoTsFa2tZgN8cFnhPDmF2MUdiW5Dp4gGwLu3qU6qzcCZXWzAoBuf
-	 6M2PLz1oN7nJOJkbWRSG7ck88UsTIQuTrPQvj9ayvSWi6Vplz+0/+9nqyySrHcHQB5A==
+	t=1793042218;
+	b=Z61pMuHcq1lehjFNpfGjdXk4LG/ATAGyGsRNk2asGhFgLxhGQH1Kw2ceWBLBAMN0irsE
+	 PAY8jZ/qEgi8e7t7x+GIHr8zJxHPhzUdWYaivoGcTqnkGEkaBSWXGNYUbVtnBkqFgUE1n
+	 H/ZLKbrTSX6eMrr3XFlxfz1y2TAZRh5uHPMZ3hFzyrW/oK+FF9rEpdGXgmRrZRPipi9/w
+	 FEH/k0bJy0AuKXegHg8/ASy928MT/vovs0rD6+X51lptUAQLqb/emNMDoeo9F4dC9V1L7
+	 svaCi6SeIfezSwyA+MvwGH0K+WSbhXAA7h3Kxn8kqhrSvR01KNPoRrv1BYHQllWGDNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042216;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RnxgXT6Poel9Dt5EQBRodal3GDy2sNUU3sHe83tKdzw=;
-	b=dodQpLFovNaCE6S2y0af8gES3lhD+IXha5WlBdjs1PrZxOzM7dRIZ1TiPT6snGJ9lyCU
-	 R1tFfBsYHltst4WS1+psH4pcQ5Rjenjr1MVyxy5bHiafqoEaNWhDJqddVok7frDc16BYH
-	 kjti9yqBRwTFF8K7LZxkgMbfFog6cIZGHPmi1ShjYUHy5lzQRVpJUAPnIZ7c9Uin5VqXU
-	 s2cmfbPAzVJ4XrfR1ijXHv9XvIsceMuP/IEoS4k4Y8XrMelZes+Qz+H8KGKhDCXqjTMHu
-	 F+cRftppw+ECQKkNC59Jhw9MCz/6aW9LoK3Jxrw9yMu0HO4yyOLhlvQEBzlEmcZzWpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZmT2nATq+bZ29K53UZMGVTr9REnvo4iJdWh63MeUqzM=;
+	b=kNDAhmN+jAWbOm0AxRDNnL54hENrc6xF94rgw2vTqmrPiMqoeV5FgAhu+re+DCK7jy81
+	 YlD9M69QaXLTj35OMRsayoLfccuqECSNo2zDy47yULb6gVYI/JKjgI4o0HlNZn8Lp9f1z
+	 4ftfLMGmQRdUP9dKA+e1dficfy6ygLrj8YdVGKrLEptlHroTlgJmMszwwYlCUnplr1iB+
+	 Qg6OjV4n2dN8KEH3OTdDDNHlBnqi8oTMGB+HQ5wVktR/SZsZNOoZJ4Ccz0bWxOWimP//r
+	 g6XF5lj5RR6Jmza2pUR2PjxvOPQe6asdKr1OZHk584mVmSmd0x6XCVGR0UekPyYqkuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eH6IR1ai;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=niQW91uo;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E1A606A31A;
-	Mon, 26 Oct 2026 19:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2890606A334
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2890606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eH6IR1ai
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271761F031E0;
-	Mon, 26 Oct 2026 19:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793042216;
-	bh=RnxgXT6Poel9Dt5EQBRodal3GDy2sNUU3sHe83tKdzw=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eH6IR1aiA3w4X5afl94dkMVtQ2nRNEU3AxBruZlX8vl86wwugxpnWqRIZJON0OOUk
-	 ZLNnXu3gaaL4usfF+aqqmj2tAE+sivfz7E068UFFD1NEClZepPzFaad0uQuqWFZNPc
-	 prfBcE6WhCy6TAXhtNmW5cpbUs+xxiXR0aLaoD+ZMeSGLpyhMLehiJ2nHq/VTIr+vj
-	 8R9Tqyj8rYzFXIdQvonak1JqEhWh/c3jpFUyMBb0V1AymCxQQXQBgZKqrM3jC0PDKz
-	 /4qN0O0LvNZOtK0F39YnCNfxob7tiwDsjSEZnoRJ1pggyzvpOkuXvMz2qJOLGGVp8x
-	 1UiuLC2aNJgjw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 106311E90F08;
-	Mon, 26 Oct 2026 19:16:40 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=niQW91uo
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-19305bcb72cso2486610c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793042217; x=1793647017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZmT2nATq+bZ29K53UZMGVTr9REnvo4iJdWh63MeUqzM=;
+        b=niQW91uogOXmDUmt/TVR97QiE+ou1Dp7Dsm0nmpEDkvwwZ+fX8/wUUccMknO3X5vI0
+         Zkui/rKZYxuXgrPMP4hiAZXW5gC33bUzV2zKQies+0cubpzN1aCsyYMdaZcNUW4f1zKY
+         6WMOFZ+F0SLv9UvoEcH//7rqI/zbgzQfvbzsLJtZBdrGFTKWH97pBMDHBmh4HyXJWp7A
+         gMG+3yk3nfmylfj4jwvn8uDwyRXYHPaOiYQ9gidFyROPJx5v6abMJkLjWVm3YSgPmAs9
+         bCEgLG5nA1glxIycuDuRIUMkg8XCNJAvifB6QH7wx+KYeoG0Vr6ahapCjuPVa1AXPtQT
+         7Hzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793042217; x=1793647017;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZmT2nATq+bZ29K53UZMGVTr9REnvo4iJdWh63MeUqzM=;
+        b=EJ+7o0sFyjy9OUmCpBg8LsgWQphV7DsPBrS297lKN5kXlbNeexjSWyTB7Di9Bosw+Y
+         HW6/1+YuL4dNmdmeLEujP7KlQYsFUvPDTz0GFqXXUa9nepwRqgewLvQ/psoZ7RblfcI0
+         6oCJqqJj4j2nXcraA6qfyRwBWSE4cg6zC6uoQCiaveIsLma+X74GsMXGP7e0e3495IJG
+         vBjDM8dCkjjaawjtiX5bCs390P1y2QV5wJGQrI5jeJDfrCTL3t0Lw7R0JvELm5V/ZJl3
+         NnBCsnax5UCIL0NX6sS8M3Sl1y2kdtxg4EPd0tHl7GRPgWeEN2IppM7rQDb+cCXzXkrB
+         ebdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqfr0550Hw+N+qCaIMD2zzA0gphctYgAbvAJgFL7eanN+bpWlC8heLZwOc1Dv8rYs6LQff9NSLLoyDoRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZABx3Ee3d1b6KwRSTt0gaGAVxRHE9sV6qYXpTG0j/O+VpKhvu
+	9xKilYyFBnjd9WnWlufTWSbp91rwX6N60K2CVWCrJxyd6Ik9Bd5VMUDX
+X-Gm-Gg: AYBFou0+WLgZ6qYG9pv/Xu4cCi/xCsGig+B0lKkAKHWBio/J6XpaI/fq0TKGJ0sycSe
+	EBzLG9NoILPMohJdDk7xTnpYNmMW8GTGlu3IBjUg2YjdTsXBw159etOtVokzLk40E2/wpHpRkP0
+	Se3dF2aoOGO0Ks9iL8DqFt52MB8Zp3jeXtABQVjhpx5zAXNMjgC9CJlkWienpeDooRplKLcb8GV
+	wEWOvrLGeL8enwJRmf3q/rmLi/Dzg2jkTIu9XcbRoFAGfjTvLhFeKCTGXV/hQclUF6/g7+JdRpC
+	Q4kKmU3R74wVMRGPv6MSWYS863z9ZwvGre+lTlVyGEtVoNNwa9UlVfYmvSY7JbjhuvDCXOSCTU9
+	HaH73Vmb/GfmCSOl/KEEFs3zIksYFfI2GZuQn0UvUilzIIuXnLedgQeus5FcVYjNmkSZAN6Mn25
+	wZa+qvPGx1qxjUfkVQFCi3+NZGxaP6QSWl8Hy+mu/ZheoQxEVRjmtJL50lx9rufYV7auayKd8ec
+	wxASyle6PlSH2CDe+rsgDKQW3pnRz4V5t5lFUrIdeuvFlgkZkEf3Zpr0R79jyh5APTRVwV0cgVW
+	VuQfkB1sorbufnfwitiu
+X-Received: by 2002:a05:7022:6283:b0:143:7001:7645 with SMTP id a92af1059eb24-19937022b7amr15370847c88.47.1793042216791;
+        Mon, 26 Oct 2026 12:16:56 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm25348449eec.21.2026.10.26.12.16.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 12:16:56 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Henry Zhang <henryzhang62@gmail.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Mon, 26 Oct 2026 12:14:54 -0700
+Message-ID: <20261026191618.9430-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,56 +102,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/4] ASoC: rt5659: cancel jack_detect_work on component
- remove
-From: Mark Brown <broonie@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
- Oder Chiou <oder_chiou@realtek.com>, Bard Liao <bardliao@realtek.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Jorge Eduardo Candelaria <jorge.candelaria@ti.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-In-Reply-To: <20261026112212.2519775-3-tristmd@gmail.com>
-References: <20261026112212.2519775-1-tristmd@gmail.com>
- <20261026112212.2519775-3-tristmd@gmail.com>
-Date: Mon, 26 Oct 2026 19:16:35 +0000
-Message-Id: <179304219594.199157.13097381941103109173.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
- h=from:subject:message-id; bh=8hI3Cn/uEFiGNUcolcJAWodGnQ2bg4SCU/Lm/ZgtQ+A=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLuLxcXt9VMXWzfPWXWhi97Jvq8/Pf7ayqTxLp2iwZj3
- WfOk3s9OkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRBZ8Z/gp911wj1v2xvC1m
- Y9DNgwpNb34ee3d8wap1bGl9J+f7pexhZFiwX3Pd3NO3uMK3ZhQs/Co/48zj1vU7H6sz+cqeVmt
- ++YsFAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> Track successful IRQ acquisition with a flag so that disable_irq()
-> only quiesces a line this driver actually owns.  On component remove,
-> disable the IRQ to synchronize with any running handler and prevent
-> new enqueues, then drain the residual jack_detect_work synchronously
-> before resetting the hardware.  On the next component probe (card
-> rebind), re-enable the IRQ to restore jack detection.
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
 
-> @@ -3684,7 +3690,14 @@ static int rt5659_probe(struct snd_soc_component *component)
->  static void rt5659_remove(struct snd_soc_component *component)
->  {
->  	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
-> +	struct i2c_client *i2c = to_i2c_client(component->dev);
-> +
-> +	if (rt5659->irq_acquired) {
-> +		disable_irq(i2c->irq);
-> +		rt5659->irq_disabled = true;
-> +	}
->  
-> +	cancel_delayed_work_sync(&rt5659->jack_detect_work);
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 1).
 
-This work isn't unconditionally initialised, cancelling something that
-wasn't initialised is an error and will trigger warnings.  Either this
-needs to be conditional or we should just always initialise.
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 4).
 
+Patch 2 rate-limits the error interrupt messages, which patch 4 would
+otherwise turn into an interrupt storm. Patch 3 serializes host
+transfers against each other and against the bridge callbacks, so that
+the recovery cannot reset the block under a transfer or while it is
+being configured.
+
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a command can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
+
+Tested on a Raspberry Pi 4 (DSI1, 2-lane video mode panel) with the
+same changes backported to the Raspberry Pi 6.18 kernel:
+
+- 5 minutes of generic long writes from 4 extra threads with video
+  running: 40394 writes, 583 timed out; each timeout was followed by a
+  reset and restore, and the following writes went through. The DSI
+  interrupt rate stayed at 131/s, with one error message logged.
+- 50 display off/on cycles with 2 writer threads running (the case that
+  locked up v2): no lock-up, no warning.
+- 250 display off/on cycles without extra traffic: 248 panel inits
+  succeeded; 2 failed because the data lanes did not reach LP-11 after
+  power-up, which this series does not address.
+
+Reads were tested with these patches plus a change, not part of this
+series, that stops video while a command is sent: 2000 of 2000 reads
+returned the expected data.
+
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
+
+Changes in v3:
+- v2 is not safe; please don't apply it. Its recovery keeps the block
+  usable after a timeout, and a peripheral that leaves the data lanes in
+  a bad state then raises the "data lane 0 sequence" error interrupt
+  tens of thousands of times per second. Printing each one starved a
+  Raspberry Pi 4 until it had to be reset.
+- Patch 2: new, rate-limit the error interrupt messages.
+- Patch 3 (was 3/3): moved before the recovery, and also taken in the
+  bridge pre_enable, enable, disable and post_disable callbacks.
+- Patch 4 (was 2/3): only recover while the block is enabled, and mask
+  the interrupts while the block and its AFE are in reset.
+- Link to v2: https://lore.kernel.org/r/20261019174930.7237-1-henryzhang62@gmail.com
+
+Changes in v2:
+- Patch 2: restore the registers in the same order as pre_enable, and
+  call synchronize_irq() before the reset (Sashiko review)
+- Patch 3: new, serialize host transfers (Sashiko review)
+- Link to v1: https://lore.kernel.org/r/20261012190249.3167-1-henryzhang62@gmail.com
+
+Henry Zhang (4):
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Rate-limit error interrupt messages
+  drm/vc4: dsi: Serialize host transfers
+  drm/vc4: dsi: Recover from a timed-out transfer
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 172 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 163 insertions(+), 9 deletions(-)
+
+
+base-commit: 650385a0fd0ea6475a17d39a20ec90470c7a4c67
 -- 
-Mark Brown <broonie@kernel.org>
+2.47.3
+
