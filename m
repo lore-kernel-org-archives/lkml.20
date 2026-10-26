@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022432;
-	b=lMLIBkOVbs7CsqGWmEefdnYTEiUOr7iT3BJ5DeHfzP1bxG8lzGqYx2fdNjXCzlGNSehP
-	 CkWm4vkxt7EZJjyN9iTXNt7W5Sxk2lgMSAaFsp0czP433n0MouYuCiKN3e88YsTt+7O3x
-	 +fXwRU6mT+keocVR2TcTsASgwzDGTFV9otWo/4yoAx7WihIu4TgBD+zi7VF0KMhd9Mfms
-	 H2MmUz0tlQaVq/wIG/F+sZR8vXrbotFc4Ar/t6r5z7DBtKx+d0EC15HDaE+Yx80nCXjVo
-	 y9lvKi9LG3hKv/n90f4kmh9a3E6Kj0Wrbuxu/6+euhlxRdEwMTQNhY+P8XN1xU288NQ==
+	t=1793022468;
+	b=hW3wWKdlasX6NE2orefOV35zdJjWZyBxbdLacMWLoBEBdKuWGIIKynTh5hK5JU6KvxZx
+	 FaI+9gYe+rd70JJdasueJiXjeoG4wP44+HzHa3U/H7IOiD+XgV5vt9QHdKiZMHjgSBWnM
+	 Z//2YngWEges8xxtMxYDEDtkxd5Zw8DjYCDmI3oMSUMSejZS4geBv4SYrqOGKKoiyL007
+	 v0ag0Y0Yo/RFOCZZMXBx4BTER5PF9KB/HHR+RIdc9MzAhZubnsx4mt0VmhvLhbzzIWTl9
+	 PQFilFhVjCHqOo6IZOuxi1M6KvEZ28/gQgP97o6wAYrXFQ+AMlqedc+Ph+h58RbNX6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022432;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=CMDpq3SX25eoltOh6fRlQWDgSOu/p9POGr2uOh69ti4=;
-	b=YizgcXWqXtNA81uf2tthRdq93iWpNdYyT01UyVZe7StjDJTJoNYdlm9AGwdnR7B69s8c
-	 +AGvi9PCbPFfFhvZyA1LipxkbALE5/6oh9B4wuq24teG7104m3Qp+F90obBFYUXCp5gzJ
-	 wXVofUeyDjHayY0OgaUgZZIQaLTHeGwndbVhVV8ZzlXycAVweeFzsf6nOouIXVksEiURW
-	 1gEARUiT/WPe4vMmrinuCuOM1Zt0RvBYd68/uKSdVWwwu2bKwNhPdnX/nV70xLtXNY7Q5
-	 SL0KSY3DKwZtYEnfDk4kr2n9ht5j+bGp7i3FLhkrVVZbin9LQRYHqY08fiwHRkNl7KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022468;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
+	b=G2i77zt+SGDGmp3uNwISOIYKKiCT49g57trnX7ozVQAq3sTo1MCRkYHA4jj6eseXWZIi
+	 L2p2XMVxBhnppsB334RQyOcRf+2Sb+DV3+pFGuFwxovH/fV6mcEu7ZpaOfUxBuc3K+/tl
+	 u2ysrUllbO4JinzzgCg75fCxdrRH/kZCCDRbGx+X3wm6DLk8QdcHDFW/fZqV1pt7T0VDa
+	 F1g6Y75vSNqrP8LpKaIoCsDNXMN4m714mlwjGzs563kJnjRdHtVX3f+t7hufw3yBF8PLX
+	 Yt4dqWzZPeL1cGkXSWYNRGUfuCYfCR1SyIe5+cE2auSct+6J8DpIev1/EMbfRxGzazQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=rCRpc4N3;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20516606A325;
-	Mon, 26 Oct 2026 13:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20516606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91272606A31A;
+	Mon, 26 Oct 2026 13:47:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=rCRpc4N3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793022432; x=1824558432;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=FZSsuCVIS62A5Iur16KkQlWqBTNAz42t+vGvyVs+4/g=;
-  b=rCRpc4N3Cy7F6zoBe5sJNI/SqAPzF9UR8x2mZ7gSwXKO5GLAFIWxj/fn
-   /FwrnaZrxbXGk/csNR9dehtvBwAf7B+vw3eWAYGDC/QtGSz0tlsSFM+TB
-   40zIrw7yXI9Arhe3GlqdQ0iI1xr4UxX3I9ZV5oxuSgScLLpCqmWxjgeYD
-   LpdEc3uegNpqv44+RN3P2ljM/N1VOVyQZ+8NdkTm9lmtwRz4RjyhtbMaB
-   2e9NYAezLMPiaKh5HsHariLqYvaJKuL/LzxPKUR1ZEg11kSnD2t8MfOV3
-   9+J2JAC27CPeUjU1DHCzCbvK6EOCwnjdN8cKeHcARBLwdN/GD9N9n+Lq1
-   A==;
-X-CSE-ConnectionGUID: R18wWG9GScO7v44QD2uZqQ==
-X-CSE-MsgGUID: 05SZEdVXT8GhKjkO5jeCGQ==
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="76044859"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 26 Oct 2026 06:47:11 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 26 Oct 2026 06:47:10 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 26 Oct 2026 06:47:08 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Mon, 26 Oct 2026 14:47:05 +0100
-Subject: [PATCH net] net: microchip: fdma: fix DCB corruption under
- sustained load
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19021F01825;
+	Mon, 26 Oct 2026 13:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793022468;
+	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
+	h=From:To:Cc:Subject:Date;
+	b=FuknI81ysijUZpiN3I8AI1drSsxf4I4W+69dTEHZKpuflQISUwVDqE39PD3fIJYCw
+	 lhJUtaM9OZMr4yWHWyglUOxl003BdzsrZFGsMysr63GezpUhcuCEdMmGkkyLI/luFq
+	 OakdRhMcb/Fo2hOJeqL6PNUgBaj1IPUQX6IUmZ2LlU09PqoAPms4rObvneHX3GY8zH
+	 VETwiEnGGb++JIFUc5a6iKPBjfqnUWKPmpnun4abliYzyJk5A3Sy3LNBMKHuSRz3U2
+	 HfTOIQRGc1e1n5T0cz1tSraKe9M6VEgAOX2K9DetLQzZjHp0l4qHJqm4/zyZtbVImM
+	 Gb6ezA3sehgfw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [RFC PATCH 6.18.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 06:47:39 -0700
+Message-ID: <20261026134740.149027-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,116 +60,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261026-microchip-fdma-dcb-corruption-v1-1-36dab6caca07@microchip.com>
-X-B4-Tracking: v=1; b=H4sIANhZ32oC/x2MQQqEMAwAvyI5G7BFBPcryx5smq452JbUFUH8u
- 2EPc5jDzAWNVbjBq7tA+ZAmJZu4vgNal/xllGgOfvCTM3AT0kKrVExxWzBSQCqqv7pbiVNI4+D
- DPAfnwR5VOcn5/78h8w6f+34AthLrJHQAAAA=
-X-Change-ID: 20261026-microchip-fdma-dcb-corruption-6bf402b99b12
-To: Steen Hegelund <Steen.Hegelund@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
-	<horatiu.vultur@microchip.com>, =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-__fdma_dcb_add() prepares a DCB and links it into a channel's chain by
-writing its address to the NEXT_PTR of the current last DCB. The FDMA
-may be processing the chain while this happens.
+Patch series "mm/damon: move zero damos quota target_value handling to the
+core layer".
 
-Before this patch, the link is written before the new DCB's own nextptr
-and info fields, so the FDMA can follow it to a DCB that hasn't been fully
-prepared yet. Under sustained load this stalls the FDMA.
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It is
+easy to make mistakes in some of the multiple API callers.  Move that to
+the core layer.
 
-Prepare the new DCB fully before linking it, and update the previous
-DCB's NEXT_PTR using the two-step sequence from the datasheet (poison
-the LSB and flush, then clear it) so the FDMA never observes a
-partially-updated pointer.
+Patch 1 adds the corner case handling into the core layer DAMON parameters
+validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
+side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
+respectively.
 
-Reported by a customer running iperf3 --bidir against a lan969x board.
+This patch (of 3):
 
-Reproduced on lan969x with iperf3, throughput collapsing to zero:
+If a DAMOS scheme has a damos_quota_goal of zero target_value,
+damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
+API callers should do the zero target_value validation.  It is easy to
+make mistakes.  Actually such bugs in DAMON_LRU_SORT and
+DAMON_SAMPLE_MTIER were found and fixed [1].
 
-  [  5]   1.00-2.00   sec  73.9 MBytes   620 Mbits/sec    0    305 KBytes
-  [  5]   2.00-3.00   sec  73.9 MBytes   620 Mbits/sec    0    305 KBytes
-  [  5]   3.00-4.00   sec  13.9 MBytes   116 Mbits/sec    2   1.41 KBytes
-  [  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    1   1.41 KBytes
-  [  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-  [  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    1   1.41 KBytes
+It is better to handle the corner case only once in the core layer,
+instead of multiple places in all DAMON API callers.  One straightforward
+option is using an alternative denominator for the corner case in the
+damos_quota_goal().  However, the zero target_value is meaningless.  In
+this case, the quota goal is always evaluated as achieved or
+over-achieved.  The quota will only keep being reduced.
 
-The race is timing-dependent: across three reproductions the stall
-appeared anywhere from ~400s to ~3000s into the run.
+Simply avoid using zero target_value by adding a check in the core layer
+DAMOS quota goal parameters validation/commit path,
+damos_commit_quota_goal().  Update it to return an error in the case.
+Also update its caller to propagate the error.
 
-Fixes: 30e48a75df9c ("net: microchip: add FDMA library")
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Notes for stable kernel porting.  The upstream commit doesn't have
+Fixes: and therefore not ported to stable kernels.  It turned out it
+fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+goals user input to DAMOS") which was merged into v6.8.  The user impact
+is a race condition that can result in divide-by-zero.  Hence backport.
+Reproducing the issue requires sysfs write permission, certain DAMON ABI
+usages that are supposed to be uncommon, and a rare race timing, though.
+The issue was discovered [2] by Sashiko as a part [3] of its bug report.
+
+Also, the upstream commit on this stable kernel can fix the issue for
+parameters commit paths but DAMON start path.  That's because DAMON
+start path does not invoke damon_commit_quota_goals().  To fix the path
+with minimum change, add a new small validation of quota goal target
+value before damon_start() call.
+
+[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
+[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+
+Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
+Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
+Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/net/ethernet/microchip/fdma/fdma_api.c | 30 ++++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
+Changes from RFC
+- RFC: https://lore.kernel.org/20261025172712.164385-1-sj@kernel.org
+- Add a validation for damon_start() path.
 
-diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-index f7a42348e932c..fed41da550c59 100644
---- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
-+++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-@@ -43,9 +43,19 @@ int __fdma_dcb_add(struct fdma *fdma, int dcb_idx, u64 info, u64 status,
- 				u64 *dataptr))
+ mm/damon/core.c  | 22 ++++++++++++++++------
+ mm/damon/sysfs.c | 19 +++++++++++++++++++
+ 2 files changed, 35 insertions(+), 6 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 4e6e3d7d0a5c0..8fa788b0d709c 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -807,15 +807,18 @@ static void damos_commit_quota_goal_union(
+ 	}
+ }
+ 
+-static void damos_commit_quota_goal(
++static int damos_commit_quota_goal(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
  {
- 	struct fdma_dcb *dcb = fdma_dcb_get(fdma, dcb_idx);
-+	struct fdma_dcb *prev = fdma->last_dcb;
- 	u64 nextptr;
- 	int i, err;
++	if (!src->target_value)
++		return  -EINVAL;
+ 	dst->metric = src->metric;
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+ 	/* keep last_psi_total as is, since it will be updated in next cycle */
+ 	damos_commit_quota_goal_union(dst, src);
++	return 0;
+ }
  
-+	/* Per the FDMA datasheet, adding a DCB to an active channel takes
-+	 * three steps:
-+	 * 1) Write NEXT_PTR of the current last DCB with the LSB forced to
-+	 *    FDMA_DCB_INVALID_DATA, and flush that write.
-+	 * 2) Clear the LSB to complete the link.
-+	 * 3) Reload the channel (FDMA_CH_RELOAD); this is done by the caller
-+	 *    once the chain has been extended.
-+	 */
-+
- 	for (i = 0; i < fdma->n_dbs; i++) {
- 		err = __fdma_db_add(fdma, dcb_idx, i, status, db_cb);
- 		if (unlikely(err))
-@@ -56,13 +66,25 @@ int __fdma_dcb_add(struct fdma *fdma, int dcb_idx, u64 info, u64 status,
- 	if (unlikely(err))
- 		return err;
+ /**
+@@ -833,14 +836,17 @@ static void damos_commit_quota_goal(
+ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ {
+ 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
+-	int i = 0, j = 0;
++	int i = 0, j = 0, err;
  
--	fdma->last_dcb->nextptr = cpu_to_le64(nextptr);
--
--	fdma->last_dcb = dcb;
--
- 	dcb->nextptr = cpu_to_le64(FDMA_DCB_INVALID_DATA);
- 	dcb->info = cpu_to_le64(info);
- 
-+	/* On the first DCB of fdma_dcbs_init() prev is the DCB itself;
-+	 * don't link it to itself.
-+	 */
-+	if (prev != dcb) {
-+		/* Write NEXT_PTR of the current last DCB with the LSB forced
-+		 * to FDMA_DCB_INVALID_DATA, and flush that write.
-+		 */
-+		prev->nextptr = cpu_to_le64(nextptr | FDMA_DCB_INVALID_DATA);
-+		dma_wmb();
-+
-+		/* Clear the LSB to complete the link. */
-+		prev->nextptr = cpu_to_le64(nextptr);
-+	}
-+
-+	fdma->last_dcb = dcb;
-+
+ 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
+ 		src_goal = damos_nth_quota_goal(i++, src);
+-		if (src_goal)
+-			damos_commit_quota_goal(dst_goal, src_goal);
+-		else
++		if (src_goal) {
++			err = damos_commit_quota_goal(dst_goal, src_goal);
++			if (err)
++				return err;
++		} else {
+ 			damos_destroy_quota_goal(dst_goal);
++		}
+ 	}
+ 	damos_for_each_quota_goal_safe(src_goal, next, src) {
+ 		if (j++ < i)
+@@ -849,7 +855,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ 				src_goal->metric, src_goal->target_value);
+ 		if (!new_goal)
+ 			return -ENOMEM;
+-		damos_commit_quota_goal(new_goal, src_goal);
++		err = damos_commit_quota_goal(new_goal, src_goal);
++		if (err) {
++			damos_free_quota_goal(new_goal);
++			return err;
++		}
+ 		damos_add_quota_goal(dst, new_goal);
+ 	}
+ 	return 0;
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 7f52470be36e3..3a79d8c89b5bb 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1592,6 +1592,20 @@ static int damon_sysfs_repeat_call_fn(void *data)
  	return 0;
  }
- EXPORT_SYMBOL_GPL(__fdma_dcb_add);
+ 
++static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
++{
++	struct damos *s;
++	struct damos_quota_goal *g;
++
++	damon_for_each_scheme(s, ctx) {
++		damos_for_each_quota_goal(g, (&s->quota)) {
++			if (!g->target_value)
++				return false;
++		}
++	}
++	return true;
++}
++
+ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ {
+ 	struct damon_ctx *ctx;
+@@ -1618,6 +1632,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 		kfree(repeat_call_control);
+ 		return PTR_ERR(ctx);
+ 	}
++	if (!damon_sysfs_valid_start_ctx(ctx)) {
++		kfree(repeat_call_control);
++		damon_destroy_ctx(ctx);
++		return -EINVAL;
++	}
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
+ 		kfree(repeat_call_control);
 
----
-base-commit: 6430fb7f1cc4e329e386521b7b208df443de92f2
-change-id: 20261026-microchip-fdma-dcb-corruption-6bf402b99b12
-
-Best regards,
+base-commit: 2926d88bb7fc4608fd942453d929c39e4e5ec006
 -- 
-Daniel Machon <daniel.machon@microchip.com>
-
+2.47.3
