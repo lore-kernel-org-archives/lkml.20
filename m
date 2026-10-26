@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006429;
-	b=xSNIIlJenwPqm6DLG1HtRCNcfXKHl8oCe0X3/iwH9yYqiYkOrJIi/V54V69zqGMRRJIA
-	 ECP1txNqFzhqOIudZDakwxgraJjqn7Fo9nx4m6RLLq9kQX5XRNH16G7c16kT4NuR8RNWH
-	 h0FVK4jsgBoy1o55+QJFUzFvtwjHjRCXrW+JJJtrqBAm5VgmN1UN81UHNpdp7g7WQV5gp
-	 /o9zMSW9fiT9d5Q4A2PTqVt3XJSK2TyTLjQpGW/50bDk/lA4whfEySP3qtrwXjTN5Ip1F
-	 zoWnLvt2lOOhnvMecqgX4b+30Z13033GvpP/RAqkwiRiXWPFTJ2DNJ1G1DDFLsNekVQ==
+	t=1793006436;
+	b=UwwEnbSo9KZhojxRmHQHTOPwuRcxcpfFo/sZ5Rylw+90MOv+B2p64bIoBEIhJnaU/mgZ
+	 Ee6e/F6yKZc3GaCC2k/rkhtDG7X9qa/u8GBT7El6O+SpOBlw77rwJZGyHw7iz19ISaotr
+	 nifLVMwALGc2JN5ulKWlsHeYTRC7g9XML54LDj/KLqsgrxvQmP9ciBUGn3lx7xKNZtk3F
+	 Dt+QH3mKd5+pqvFShJHLM/eynak0M4+V4961MfC6jQR6cbPP+pegBwbHpqFMLQV+bWeHG
+	 xGhYRuKH9J6PiVELK2X/WGQeCwQaMjv5Caz70U/WyNkC5IrXCHwLIub3FHLPB6axONQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006429;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=U4TVtGKo/fiGPaT+dXAjf6JSM+N/2DXwi2N+GS3A0nbRZUFWzorplfyW8obCGNpVgpu7
-	 qsD6mT4rp5Ap5pHb68XYhK49UKrvX8PHy5dHY/GCd0JAXu1+rA/BhW7dbi2ZCwlEEWA2v
-	 N8Xgmk63XFOTu0EJzsb5eoLWjY2ha0gMJZ6iaKzN8W8XLNmXAC02MCirXryM4y1F5Zk4V
-	 9bckKFNf00YiUUj2TeTvghXw4T/+c3D0fnhIh8iw7LB+3j8kbiW33SH1XLsUPQE1KP1ot
-	 kFB0TxyW94kmPGmf3p7Eey5pyeMYlC0pBn+LRpFFaGkDWNl5uIk/pKEnKdBLArJH2/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006436;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=stI/el1CBpWwCJRTG5Yr04XGmaRKr84A3Tq3Gj7mwzQ=;
+	b=ac4bdy6ZRisWA36jyHgQ7m5B2rBohFLaCj11ObgYU3d+jJw1wktPVJnnBLuXWV3Im34y
+	 UsU0iQZuhC3g9u1PbOt3+FcMm1xN6Q7nKMcQYdW/t9Bri+gfriKs3ZysgwceXW6LHeC86
+	 ZIPihB7r9ibw53wIt8cPPlHwY+bXElSRMmqzLn+ywt01UWkrFTiT0iB3HdRFHOr5OaJoz
+	 JQ24EXNSLnNEGIw4q8VgkR/EiQzVKaG5HjApoF/9CUh84yrBSA/hE8XFKjKWm4WYP2ve+
+	 EiEj7IEa1XsRqz2Les/E7OW7bSqkGtX1PgX+yhLsxazqzAS5PEWTp7f0Zg7/m+1VLEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z71U8dI2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEDA606A322;
-	Mon, 26 Oct 2026 09:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z71U8dI2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093211F01829;
-	Mon, 26 Oct 2026 09:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793006429;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z71U8dI2QvKTJynspl15J6gQC6Isn2+VTBjxhFitQebvW7UQ8orPMQoWasdkB4VYp
-	 YGSWd3olF68KmcAGygnO0PFtlZ0S85iNoacvgXG4zvbDduQVsmjWL10pMX6uD/4vIa
-	 mKQVIP6oe+Sl/UOTqYz6eEDJqzzFMWD957elaUtbA3MMc5pA0v3DofKBvw0plb3aWc
-	 g1HEbKMZWulfE3EicsJbzvMqHvB/qQZ1rMQj3IqaeSUVOCbknJ/uUlltz9wlxovGYJ
-	 Im9haTqcMaM9m3IrKHiNCwfTPtn0GVpqBjeTIQ8JyK+G6hgYvUfXOnAKBZM1R1F6HD
-	 jiDR0+P2wQPog==
-From: netdev-bot+sinfo@kernel.org
-To: Paul Moses <p@1g4.org>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com,
- faizal.abdul.rahim@linux.intel.com, horms@kernel.org,
- vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com,
- aduyck@mirantis.com
-Subject: Re: [PATCH net 1/3] igc: pad preemptible packets before reserving TX
- timestamps
-Date: Mon, 26 Oct 2026 09:20:27 +0000
-Message-ID: <179300642756.3327.8776904148998915275@kernel.org>
-In-Reply-To: <20261026091549.605810-1-p@1g4.org>
-References: <20261026091549.605810-1-p@1g4.org>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38C9B606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:20:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C9B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1793006440; x=1824542440;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=XcUFy86mcXwBkdVbQzI9DqvGN0xrj3EmlcdsiyF9xIA=;
+  b=SYMEP2wGLMoNnBBgiIjEc3to1ou1Rkv1+WTAQtUBc3miGC7oBhZAsxaT
+   hLpjHmavKfaWcQYrqCi+RxPQ5qrkEjzj++tYvBXTJc3YK6hJVskZPui4P
+   e6iEKZzMlowfBJ694PLJFjL4fslZFxt19Toyk5WYzmPMqW7/g1GoN3UDl
+   TV3yNtbOV2Nit9wgK2zpBAqiGJhsHlm+/6ogDFdQAdPuG9FFQ2a1Haw/l
+   TY4JNMLL8uXB1Cq2dHzh1wWItSLDGZC0yoSf4+DwvMe6A1BM+tyhmXfgN
+   cukJcCJ7IHFL5Y5GjEaaiRm+6LMaMJcUI6zSdDfXtUnRb8Vlk/NJleNPy
+   A==;
+X-CSE-ConnectionGUID: auR1k5XGSqCWNInnh1f+ng==
+X-CSE-MsgGUID: TxPMjjjRSMel8uFU3YwpBQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 11:20:30 +0200
+X-CSE-ConnectionGUID: gKvA0zqFSmmoyalL2Yt+MA==
+X-CSE-MsgGUID: /ZycMpbtR/OWvQOwYg+9Gw==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
+  by ces04_data.me-crop.lan with SMTP; 26 Oct 2026 11:28:07 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Mon, 26 Oct 2026 11:20:23 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Mon, 26 Oct 2026 11:20:03 +0200
+Subject: [PATCH v3 2/2] riscv: accept the atomic extensions this kernel was
+ built with
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,29 +66,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-lrsc-only-v3-2-ec29c8190fb1@mobileye.com>
+References: <20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com>
+In-Reply-To: <20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>, 
+ Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com, 
+ torvalds@linux-foundation.org, olof@lixom.net, 
+ aleksa.paunovic@htecgroup.com, arikalo@gmail.com, 
+ Boqun Feng <boqun@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Vladimir.Kondratiev@mobileye.com, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.16.0
 
-Hi!
+riscv_early_of_processor_hartid() rejects a hart unless its
+riscv,isa-extensions property contains "a". That rejects a Zalrsc-only
+hart even when the kernel was built to use only LR/SC.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Require "a" or "zaamo" when the kernel emits AMO, and "a" or "zalrsc"
+when it emits LR/SC. A normal build defines both toolchain macros and
+still requires the full A extension. The legacy "riscv,isa" fallback
+keeps its rv{32,64}ima check.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/riscv/kernel/cpu.c | 28 ++++++++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index 3dbc8cc557dd..5d1e39d16e59 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -82,12 +82,32 @@ int __init riscv_early_of_processor_hartid(struct device_node *node, unsigned lo
+ 		return -ENODEV;
+ 
+ 	if (of_property_match_string(node, "riscv,isa-extensions", "i") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "a") < 0) {
+-		pr_warn("CPU with hartid=%lu does not support ima", *hart);
++	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0) {
++		pr_warn("CPU with hartid=%lu does not support im", *hart);
+ 		return -ENODEV;
+ 	}
+-
++#if !defined(__riscv_atomic) && !defined(__riscv_zaamo) && !defined(__riscv_zalrsc)
++#error "Need AMO or LR/SC atomics"
++#endif
++	/*
++	 * Require each atomic form this kernel emits. The single-letter
++	 * "a" extension satisfies either check. A Zalrsc-only build defines
++	 * __riscv_zalrsc and checks that extension only.
++	 */
++#if defined(__riscv_atomic) || defined(__riscv_zaamo)
++	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
++	    of_property_match_string(node, "riscv,isa-extensions", "zaamo") < 0) {
++		pr_warn("CPU with hartid=%lu does not support AMO atomics", *hart);
++		return -ENODEV;
++	}
++#endif
++#if defined(__riscv_atomic) || defined(__riscv_zalrsc)
++	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
++	    of_property_match_string(node, "riscv,isa-extensions", "zalrsc") < 0) {
++		pr_warn("CPU with hartid=%lu does not support LR/SC atomics", *hart);
++		return -ENODEV;
++	}
++#endif
+ 	return 0;
+ 
+ old_interface:
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+-- 
+2.43.0
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
