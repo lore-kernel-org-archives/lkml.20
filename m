@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020545;
-	b=OhLjsED0ALW6gG5/mff/zXV0quh1Obn+DP3BsEI3vxpKHsM6v7oCSZ3XEhcKxxT/bs2U
-	 Lp1Pe0yK1FA4x0vapRVfZyVd15Fh65HLGJd0+Ob69aDC1Jxasklc3UWkS+ufrUfCHlurF
-	 SqCuCFG7gTwuqzc7xWhJ74asFxdw8q9I5xJzQgq1s+ukmWIeSzq/7YTWYyFowLbHWfxZ/
-	 ul6fXSBxoYZsgDjUhZpf7LQek44aMkHD6RCtVCRRka1XZ6KDLQZ0KyJuVQ3b13ZX/uwMT
-	 WQLWUayo1I5DAyFXlvsnM3/JvH54wQ/2qlMy9sYntzZv5FOp/SBiWbqw/rYa29QUXdw==
+	t=1793020548;
+	b=mBD8h26TFFZ/may/+ix6Oc/G1D936LHDJBLBxa8FrSiZ/JgMFOUXfY1ds0Agc7z8iEOm
+	 hbRLPaM+aNF5F+W0dWrKinUe1VYcX27aYpc4fjJ+mXkW8tOJnXjmEkfMjR21KcM5EkDOD
+	 5I3UmWPRaO+4vhVwI7qmFGlFsZXhX7PNQWUJdz19N622bFF4dkWK8selCoLaJjRDLOf5G
+	 PA3YXfGiJ+MC6pEq4EvvvTRfBN90cQKP3nHwDUCJfebdvm5AMhcbgRMV/eX9BcAVzJUUN
+	 KqE6WuOTU7gbWG9chreY38AmxtYafAocteDIUNo/kFyNZruD6MiYXm5MPInP6LtK6IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020545;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
-	b=AgEcDKYiJvOzayMkkRuNUd1BeXDJ4RbNO9OQFH4xVvlfdUgW2yji7wshNWbEcRWu5hW6
-	 5f957429RegneIfS/y1mJln5xJSUj6lze0/V4FcUpqrvLdHKas67QHP7c21RRi5lRFenI
-	 /S35qIpBqHPKokQcrKWB/PXzCKy3ebjKPO/TF8ZbGsFNkv9f8Xe6WFzWhzz2QVApZhD2U
-	 lnys3BTYFXcqJW9zE6CTXjhqoALkCVfKBjDmLifAscpLD8Y9xcNHkYn9EwiGt5v28sLrg
-	 9C7m3IBXzcZ9w2Xh7DEofyGkb4iWdVyR4Fz3gYb92GxZkzFIX4/4A5c4Vh+Myyq2bUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020548;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=FxYdNqfpROYq392tPSh0yDReTEDRrw0x9MOLpsTOSGA=;
+	b=tgPq4q/NCeZX1NoxT83gExjjjfs2hNeBAo1JDR1g0G8vjVf8WTCwNUjUKdYVJIqbQg3Z
+	 Rrqgr9nhtcuDm2XTcvOIfeY19xSx81i6+ty4kmtPso44cACv0SmhSrOLv6AD1DyokEwkJ
+	 NVrlqJw5DPwsyOYTDE+JwAJULvULS2M+2KxBQtVXTx0Sjtg2U2N0m4Sbx62mUPitzGAom
+	 D5YP8eFO9+K5wBfX52dFWnK1S7/cJ7mB7tF0HxEf4ijzgiX9uzW/lPldIhVEp9woNH1Xy
+	 xZhYxch+IWXC7k3qivEaKYOe2ceSylhDPlm4W7UIvk+oZNBIepne53XvPbC3U292Vrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Uz9kfLfZ;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B989E606A31B;
-	Mon, 26 Oct 2026 13:15:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C823606A327;
+	Mon, 26 Oct 2026 13:15:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C823606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB9B1F01825;
-	Mon, 26 Oct 2026 13:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793020544;
-	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
-	h=From:To:Cc:Subject:Date;
-	b=lmveuHIBw3NzrRNioS45fPA/x/ZEmPqKziYwNbCbHiOvmGNjQ7FxiTZyofXGlCFnM
-	 wsCBgUiUgjOEA8N7/nWJfzxnTG4nCJ5tPrLBTbaV+lomDOdF1qwA40bH2Iym0QjyxN
-	 VvxHH5dRf0N+Y1b4v1OfpPAlqCiGlz191dR2NqOuzqrvkwWHlpMdTgiBFBgcpYMfCj
-	 evLwks/k7Ya3+GgoRDX9XFwz99W1Wo5HePxA2OvoOTEGWf0+7zNEGeuiiuMX6qBfRf
-	 CVq86qBnnVc8E+b5RLn0KtiQPOmqzoQ1XpDPsxjNwWKDqiNmEu60b4mPYMQ9dZfzF+
-	 J+sbmTUMICQ6Q==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Hannes Reinecke <hare@suse.com>,
-	James.Bottomley@HansenPartnership.com,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: aic7xxx: Use default settings on the SGI O2 onboard controllers
-Date: Mon, 26 Oct 2026 14:14:32 +0100
-Message-ID: <20261026131432.26065-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Uz9kfLfZ
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jCvJJ4tHVzKp6c;
+	Mon, 26 Oct 2026 14:15:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793020544;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FxYdNqfpROYq392tPSh0yDReTEDRrw0x9MOLpsTOSGA=;
+	b=Uz9kfLfZAKrqrthcp+DJL6mrV3Ax36bOlD47AFpjxDEDnFw47PCeuZzAAVXd8b6nd1YWx1
+	pk6HkYfhCVpLbav4SRneCk4Sq+yNqG29nzEgCt+4akBoAfwnBIZiRunYV8cvRQSZvxn7pv
+	nLWdFYRJGL8y00uEiVJvF5KiLlvshMNoXcR9/cebhBiZB4ZtYZtRPTrEERrobylN2N3+Dc
+	dpJlMveXqSXqeKsTulmDjlmBpNPHhkMe3lo0Q3pKhkc6cdsKWCGI8QcI0Wu8G9wQizoOOe
+	ON8knNH8Al0+dRfFLdzwBUYkfJPR/Ciq4VoAk6HbHmoeDiI96+Vu78fCQG1WTA==
+Message-ID: <3bb84dda-7131-4ec5-8cf1-ea848db00930@mailbox.org>
+Date: Mon, 26 Oct 2026 14:15:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +62,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: renesas: spider: Add overlay for PCIe ch0
+ endpoint mode
+To: Koichiro Den <den@valinux.co.jp>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261026063942.3173469-1-den@valinux.co.jp>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20261026063942.3173469-1-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: 7ra5n6gbduxnawghewztszp7wiukhrip
+X-MBO-RS-ID: 8cc285441a8a79d7ba7
 
-The SGI O2 firmware runs its onboard aic7880s without the Adaptec BIOS,
-so scratch RAM holds no settings. The left over BIOS path reads
-uninitialised bytes, and bad parity panics the boot.
+On 10/26/26 7:39 AM, Koichiro Den wrote:
+> PCIe channel 0 on the R-Car S4-8 Spider board can work either as a Root
+> Complex (the default) or as an Endpoint. Add an overlay that disables
+> the RC node and enables the EP node, to let it work in EP mode.
 
-Use the defaults there with host ID 0. ahc_init() keeps the default host
-ID ahc_pci_config() chose, 7 on other PCI controllers, so only the O2
-changes.
+Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- drivers/scsi/aic7xxx/aic7xxx_core.c |  8 ++++++--
- drivers/scsi/aic7xxx/aic7xxx_pci.c  | 20 +++++++++++++++++++-
- 2 files changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/aic7xxx/aic7xxx_core.c b/drivers/scsi/aic7xxx/aic7xxx_core.c
-index b9761f9f0bbc..8ad82171e925 100644
---- a/drivers/scsi/aic7xxx/aic7xxx_core.c
-+++ b/drivers/scsi/aic7xxx/aic7xxx_core.c
-@@ -5266,9 +5266,13 @@ ahc_init(struct ahc_softc *ahc)
- 
- 	/*
- 	 * Assume we have a board at this stage and it has been reset.
-+	 * PCI controllers keep the host ID ahc_pci_config() chose.
- 	 */
--	if ((ahc->flags & AHC_USEDEFAULTS) != 0)
--		ahc->our_id = ahc->our_id_b = 7;
-+	if ((ahc->flags & AHC_USEDEFAULTS) != 0) {
-+		if ((ahc->chip & AHC_PCI) == 0)
-+			ahc->our_id = 7;
-+		ahc->our_id_b = 7;
-+	}
- 
- 	/*
- 	 * Default to allowing initiator operations.
-diff --git a/drivers/scsi/aic7xxx/aic7xxx_pci.c b/drivers/scsi/aic7xxx/aic7xxx_pci.c
-index 2d4c85426dc3..5a04c7d55e4b 100644
---- a/drivers/scsi/aic7xxx/aic7xxx_pci.c
-+++ b/drivers/scsi/aic7xxx/aic7xxx_pci.c
-@@ -701,6 +701,21 @@ ahc_find_pci_device(ahc_dev_softc_t pci)
- 	return (NULL);
- }
- 
-+/*
-+ * The SGI O2 firmware runs its onboard controllers, in slots 1 and 2 of the
-+ * root bus, without the Adaptec BIOS and at host ID 0.  It leaves no settings
-+ * in scratch RAM, which may still hold power-on contents with bad parity.
-+ */
-+static bool
-+ahc_pci_sgi_o2_onboard(struct ahc_softc *ahc)
-+{
-+	int slot = ahc_get_pci_slot(ahc->dev_softc);
-+
-+	return IS_ENABLED(CONFIG_SGI_IP32) &&
-+	       ahc_get_pci_bus(ahc->dev_softc) == 0 &&
-+	       (slot == 1 || slot == 2);
-+}
-+
- int
- ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- {
-@@ -782,6 +797,9 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- 	ahc->bus_intr = ahc_pci_intr;
- 	ahc->bus_chip_init = ahc_pci_chip_init;
- 
-+	if (ahc_pci_sgi_o2_onboard(ahc))
-+		ahc->flags |= AHC_NO_BIOS_INIT;
-+
- 	/* Remember how the card was setup in case there is no SEEPROM */
- 	if ((ahc_inb(ahc, HCNTRL) & POWRDN) == 0) {
- 		ahc_pause(ahc);
-@@ -898,7 +916,7 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- 			 * Assume only one connector and always turn
- 			 * on termination.
- 			 */
-- 			our_id = 0x07;
-+			our_id = ahc_pci_sgi_o2_onboard(ahc) ? 0 : 0x07;
- 			sxfrctl1 = STPWEN;
- 		}
- 		ahc_outb(ahc, SCSICONF, our_id|ENSPCHK|RESET_SCSI);
--- 
-2.47.3
-
+Thank you !
