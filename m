@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021781;
-	b=CKrnvd63GS0nW7RWfg/Fj7nn6Ha9ly3fXIWZDSqkvWYFPfXGGJj4HuwCCJVXMSK/t4EA
-	 vMpgrQEDgDHGwySPdnKptKUHNeZt3RrVZAVf6Np2GpSDoxznGtCVBUFuKnTNESBoWYQK/
-	 08gpubjMjkVotMZZMMbZPaAVNoDVKKq+1YRjezxnv5uQUYB0iwcLXmYdiuGZZSPvosFhC
-	 T9YqhfALwOBrln2ScOC0JWI2aOkY/ujUUcSUVNctj1ZMDtKsjZY9lqz0fR/fm1d05Zmq2
-	 kr5Qi6mkXVZqu85A29hRS8YSRa6CWvMyvfkK0xruHk6S8vq7SSX/UYtF/IMUXKbBKDQ==
+	t=1793021814;
+	b=46t/PjrSS6ob5SsyE1rZeT3ADhmXXzrU8GNQraoe52JqOpIP+8Z9lpjl+zOP2A9qW+Wv
+	 DS+CRNx6oYpd0AGniZc/lOnkfDw2A2Nr/Jm3BpPdkni//g6KY5xNjp56voXaw5kbkK2oJ
+	 ij/6iqhyxijPZ86OySRu//ldP5iKsHjgC1qR6/wXusceZPvhL6EV4VxpnPXaKz4NFHrUK
+	 qJYGUpzGpBWSEhUFBLLX/vlp9DDsA4q8pfz6bgYLSGi7pkkxze8c4a357kPZSW+L9SGPd
+	 NdYn4QidGGjp6h1ycw45uTz9LVX3/uQynfvA/gwvqb5JsCT61U0ioMrmYSgOp1DQ49Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021781;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PTD8vsLA4VFfeYmEIL50Y436blAuTVZEYGwnTnp7CWc=;
-	b=TIgH7JLwH4vHjy5j0ZltJmhfhaClq1HkAPZpJDkM8L0xKc3L+BOeXLb1jC+4258W0kgE
-	 NpRBSM3K03cDC6JGZMDPRI8qiWek0P9f6vYAN75p6tbfez0UrVm8Y6GSLkqBLrXtVU8qG
-	 ITdbZv+l40r7r/EcpGeSbLryqSnUvjitRUTopjQAftNo20pz0lzEapMGW3rLd9p86tAEC
-	 lRsncEEs1xG4YsnHa9EDiO6dW1NpGhM54tq8tSuebYQE5ko+g0uDfmiYKp6OEsGUV55jz
-	 1riyfr4WY3m4caV+Ueyg6Kst6064+5uSt2y039SbG9IFY/Cev44N+N6yj2uFf9xJaIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021814;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QYZ0XMP0Wi8hecXFzBwOfGQ9AN/zBa/t/RaItnxb0wg=;
+	b=SJkeHy0X0DtSU9dpnm6Xr0xRWSIOHwWPJEyzT9PgXUG9eyh73So/UUt9kkPwZSTCfrZI
+	 +fTLrJzQjHEUFJf5AgkbudvDastR5qeuI9k4cFsxQCewgYhtWRujejJVvNuNI1Uw3OWzN
+	 I3BvrkyVMFQbE4dB9PX7weHgRDAFuRHAQlF80CtYbS09gXyCXPBWWJY28cl/Qg2511ouT
+	 v749kLs62pDdGLDUI843YdbliIOSSYjtYdAMpmuAaXvMMQ8eX6ThnUFxz2Q8vxtU2M08P
+	 u1ngjVJDkKHKu8qdte04nPxHScYUxO1P1env/Q/TyAdaUx5qVdT4KTIKOs7wJGmKIYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.com;
-	spf=pass smtp.mailfrom=posteo.com;
-	dkim=pass header.d=posteo.com header.i=@posteo.com header.a=rsa-sha256 header.s=1984.8680eb header.b=KJ8+6T2l;
-	arc=none smtp.remote-ip=185.67.36.65
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nk/QG8F8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D61606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D61606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EED606A31B;
+	Mon, 26 Oct 2026 13:36:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.com header.i=@posteo.com header.a=rsa-sha256 header.s=1984.8680eb header.b=KJ8+6T2l
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 3662D240029
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:36:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.com;
-	s=1984.8680eb; t=1793021772;
-	bh=PTD8vsLA4VFfeYmEIL50Y436blAuTVZEYGwnTnp7CWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From;
-	b=KJ8+6T2lyvFCwc1WDPknSq45YbhYbIpuc3x0EJ5n/dkdm84zomfC80Mox0EoWzZ6x
-	 z8y1J92/Vx171sFxieg86nAa5MOyi7FKx7eprLrdrbwvwmtwGX0Iar34MImO5LvFQI
-	 l1uHBbGTIHNyb5W4VkyF8f/2C0lt8mywvirF0zPDOJKpOefvfKjc9xMxUT1zxvedRq
-	 7LtVwV51hf3ziHto2uLKgdMT6yXjYzFe0lvYjh6LqVvzr6UIvSENZUd1b9ZP71NhQr
-	 gaVRm1kREuVHiBPuqNzkXXn6R3lLRZAEnTE4v25kGdPiPm9BN1UoXKbjwxDUr3Tm+D
-	 89++5JQtaX8TA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jCvlt44T9z6v0l;
-	Mon, 26 Oct 2026 14:36:10 +0100 (CET)
-From: =?UTF-8?q?Patrick=20Gr=C3=B6ssing?= <invarianztheorem@posteo.com>
-To: John Johansen <john.johansen@canonical.com>
-Cc: apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nk/QG8F8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431841F01825;
+	Mon, 26 Oct 2026 13:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793021813;
+	bh=QYZ0XMP0Wi8hecXFzBwOfGQ9AN/zBa/t/RaItnxb0wg=;
+	h=From:To:Cc:Subject:Date;
+	b=Nk/QG8F87cBP4iJGeTUTM8JjtvVnB52rR0VsL7gkPmHXSjlReJAJfz4uTnoMucvw9
+	 ArjLJKQ6q5JP7JsQvMebOc1oI+NgAFJkpEL3XUQPA4sQZgMMYNjMBVAjKqJ4A6Q3S7
+	 CEGZ9GFnUYrZT1cYNkE27HeTrAJypC7Ty40woI474vn37WU3XtNgpiQg1RB8JYLLE4
+	 NQROOXGsCoO0oIHfTvibdAlt+ckfQytLwm+lVSFWbYBOYQJLB6yF7DDVAsX5T4DqAc
+	 06NrMSxu5RwO5h4/lOuNP6htVihjZwB0q3HAYTjeqiGzKcIgb6v69dQks39XMWvUNK
+	 LQ5XWOzmWxT9Q==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	=?UTF-8?q?Patrick=20Gr=C3=B6ssing?= <invarianztheorem@posteo.com>,
+	linux-mm@kvack.org,
 	stable@vger.kernel.org
-Subject: [PATCH] apparmor: handle diff-encoded states in leftmatch_fb()
-Date: Mon, 26 Oct 2026 13:36:11 +0000
-Message-ID: <20261026133600.11252-1-invarianztheorem@posteo.com>
+Subject: [RFC PATCH 7.2.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 06:36:43 -0700
+Message-ID: <20261026133645.119485-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,97 +60,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-leftmatch_fb(), used by aa_dfa_leftmatch() and therefore by find_attach()
-to match profile attachments, open-codes the DFA transition and treats the
-default transition as final:
+Patch series "mm/damon: move zero damos quota target_value handling to the
+core layer".
 
-	if (check[pos] == state)
-		state = next[pos];
-	else
-		state = def[state];
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It is
+easy to make mistakes in some of the multiple API callers.  Move that to
+the core layer.
 
-For a state flagged MATCH_FLAG_DIFF_ENCODE the default state must instead
-be tried again with the same input character, which is what match_char()
-does for every other matcher. apparmor_parser emits differentially encoded
-DFAs by default when the kernel advertises policy/diff_encode, so larger
-attachment patterns end in a non-accepting state and the exec silently
-stays unconfined. No conflict is detected, so nothing is audited.
+Patch 1 adds the corner case handling into the core layer DAMON parameters
+validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
+side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
+respectively.
 
-One visible victim is Ubuntu's firefox profile, whose attachment
+This patch (of 3):
 
-  /{usr/lib/firefox{,-esr,-beta,-devedition,-nightly},opt/firefox}/firefox{,-esr,-bin}
+If a DAMOS scheme has a damos_quota_goal of zero target_value,
+damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
+API callers should do the zero target_value validation.  It is easy to
+make mistakes.  Actually such bugs in DAMON_LRU_SORT and
+DAMON_SAMPLE_MTIER were found and fixed [1].
 
-never matches. Firefox then runs unconfined, is moved to unprivileged_userns
-and is denied CAP_SYS_ADMIN, losing its user namespace sandbox. The same
-profile compiled with -O no-diff-encode attaches.
+It is better to handle the corner case only once in the core layer,
+instead of multiple places in all DAMON API callers.  One straightforward
+option is using an alternative denominator for the corner case in the
+damos_quota_goal().  However, the zero target_value is meaningless.  In
+this case, the quota goal is always evaluated as achieved or
+over-achieved.  The quota will only keep being reduced.
 
-Use match_char() in both branches of leftmatch_fb().
+Simply avoid using zero target_value by adding a check in the core layer
+DAMOS quota goal parameters validation/commit path,
+damos_commit_quota_goal().  Update it to return an error in the case.
+Also update its caller to propagate the error.
 
-Fixes: 21f606610502 ("apparmor: improve overlapping domain attachment resolution")
-Cc: stable@vger.kernel.org
-Link: https://gitlab.com/apparmor/apparmor-kernel/-/issues/8
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2172229
-Signed-off-by: Patrick Grössing <invarianztheorem@posteo.com>
+Notes for stable kernel porting.  The upstream commit doesn't have
+Fixes: and therefore not ported to stable kernels.  It turned out it
+fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+goals user input to DAMOS") which was merged into v6.8.  The user impact
+is a race condition that can result in divide-by-zero.  Hence backport.
+Reproducing the issue requires sysfs write permission, certain DAMON ABI
+usages that are supposed to be uncommon, and a rare race timing, though.
+The issue was discovered [2] by Sashiko as a part [3] of its bug report.
+
+Also, the upstream commit on this stable kernel can fix the issue for
+parameters commit paths but DAMON start path.  That's because DAMON
+start path does not invoke damon_commit_quota_goals().  To fix the path
+with minimum change, add a new small validation of quota goal target
+value before damon_start() call.
+
+[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
+[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+
+Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
+Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
+Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Tested on a kernel built from Ubuntu linux 7.0.0-38.38 (upstream 7.0.14):
-with this patch the diff-encoded reproducer profile from the GitLab issue
-attaches, and the stock Ubuntu firefox profile attaches to
-/usr/lib/firefox/firefox-bin (all processes "firefox (unconfined)", no
-unprivileged_userns denials). Without it both stay unconfined, also on the
-stock 7.0.0-38-generic kernel. Compile-tested with W=1.
-Based on apparmor-next as of 2026-10-26.
+Changes from RFC
+- RFC: https://lore.kernel.org/20261025172434.161597-1-sj@kernel.org
+- Add a validation for damon_start() path.
 
- security/apparmor/match.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ mm/damon/core.c  | 22 ++++++++++++++++------
+ mm/damon/sysfs.c | 19 +++++++++++++++++++
+ 2 files changed, 35 insertions(+), 6 deletions(-)
 
-diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-index 7713484..796126d 100644
---- a/security/apparmor/match.c
-+++ b/security/apparmor/match.c
-@@ -751,7 +751,7 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
- 	u32 *base = BASE_TABLE(dfa);
- 	u32 *next = NEXT_TABLE(dfa);
- 	u32 *check = CHECK_TABLE(dfa);
--	aa_state_t state = start, pos;
-+	aa_state_t state = start;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 40714c69d1b18..0aefaef46d655 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -999,15 +999,18 @@ static void damos_commit_quota_goal_union(
+ 	}
+ }
  
- 	AA_BUG(!dfa);
- 	AA_BUG(!str);
-@@ -769,13 +769,10 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
- 		/* default is direct to next state */
- 		while (*str) {
- 			unsigned int adjust;
-+			u8 c = equiv[(u8) *str++];
+-static void damos_commit_quota_goal(
++static int damos_commit_quota_goal(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
++	if (!src->target_value)
++		return  -EINVAL;
+ 	dst->metric = src->metric;
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+ 	/* keep last_psi_total as is, since it will be updated in next cycle */
+ 	damos_commit_quota_goal_union(dst, src);
++	return 0;
+ }
  
- 			wb->history[wb->pos] = state;
--			pos = base_idx(base[state]) + equiv[(u8) *str++];
--			if (check[pos] == state)
--				state = next[pos];
--			else
--				state = def[state];
-+			match_char(state, def, base, next, check, c);
- 			if (is_loop(wb, state, &adjust)) {
- 				state = aa_dfa_match(dfa, state, str);
- 				*count -= adjust;
-@@ -788,13 +785,10 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
- 		/* default is direct to next state */
- 		while (*str) {
- 			unsigned int adjust;
-+			u8 c = (u8) *str++;
+ /**
+@@ -1025,14 +1028,17 @@ static void damos_commit_quota_goal(
+ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ {
+ 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
+-	int i = 0, j = 0;
++	int i = 0, j = 0, err;
  
- 			wb->history[wb->pos] = state;
--			pos = base_idx(base[state]) + (u8) *str++;
--			if (check[pos] == state)
--				state = next[pos];
--			else
--				state = def[state];
-+			match_char(state, def, base, next, check, c);
- 			if (is_loop(wb, state, &adjust)) {
- 				state = aa_dfa_match(dfa, state, str);
- 				*count -= adjust;
+ 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
+ 		src_goal = damos_nth_quota_goal(i++, src);
+-		if (src_goal)
+-			damos_commit_quota_goal(dst_goal, src_goal);
+-		else
++		if (src_goal) {
++			err = damos_commit_quota_goal(dst_goal, src_goal);
++			if (err)
++				return err;
++		} else {
+ 			damos_destroy_quota_goal(dst_goal);
++		}
+ 	}
+ 	damos_for_each_quota_goal_safe(src_goal, next, src) {
+ 		if (j++ < i)
+@@ -1041,7 +1047,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ 				src_goal->metric, src_goal->target_value);
+ 		if (!new_goal)
+ 			return -ENOMEM;
+-		damos_commit_quota_goal(new_goal, src_goal);
++		err = damos_commit_quota_goal(new_goal, src_goal);
++		if (err) {
++			damos_free_quota_goal(new_goal);
++			return err;
++		}
+ 		damos_add_quota_goal(dst, new_goal);
+ 	}
+ 	return 0;
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 26cdad603ad06..9c7e34f18b28f 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -2226,6 +2226,20 @@ static int damon_sysfs_repeat_call_fn(void *data)
+ 	return 0;
+ }
+ 
++static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
++{
++	struct damos *s;
++	struct damos_quota_goal *g;
++
++	damon_for_each_scheme(s, ctx) {
++		damos_for_each_quota_goal(g, &s->quota) {
++			if (!g->target_value)
++				return false;
++		}
++	}
++	return true;
++}
++
+ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ {
+ 	struct damon_ctx *ctx;
+@@ -2251,6 +2265,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 		kfree(repeat_call_control);
+ 		return PTR_ERR(ctx);
+ 	}
++	if (!damon_sysfs_valid_start_ctx(ctx)) {
++		kfree(repeat_call_control);
++		damon_destroy_ctx(ctx);
++		return -EINVAL;
++	}
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
+ 		kfree(repeat_call_control);
+
+base-commit: cc9de5d4b5ab6459f5774946aa3195ad51236fa8
 -- 
-2.53.0
-
+2.47.3
