@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989781;
-	b=IxAThlfzDVjoLUKBAITMZnLOYwBlB+vpGoPQsPS2pybqNpwaNWxYFWxjYaYqk8KabnpQ
-	 F8r+jZhlMtSQDUDPkFSmw9NTszakAy2JF+14D5oLZVOmq4cblvVnAIHuTYQOPQIlzEreg
-	 v8Bb5zJPcoly1XKd1HFigziE0Qm+wKDrE9PnOC4oN+Ilw+pRFyQbrFGX95bnsQQNWgPib
-	 67QR7wbzh6wUpZdpeNLPZXW9SxNebpUsXkHY+M3eERantcg4Bvo/XFTh4NNVRwk/TUS+n
-	 6gP3+a/sYwLaQpkP/LYjtUb8UPacjN/lQ4MK1N/MuMwgLjEKzalDjZUAwN0Vm1oEVCg==
+	t=1792989794;
+	b=pCZUP5/obnEVQZni38C/AqV5sjqXNrCJE3LoHQtaTI0vIFGES7E9vIfQZV+eYebdZXMX
+	 1doJOd1Q0sRdWpYDXzXvwCYEZ3TR89c/v0vhZg1Fa3/xR1t3lUPMrX3znpl5h/Em78YSM
+	 IObWqPDVLcgBBvD2NYW7ulKYg4QvveQICeVdtCJaCRsR1sBgW8aDEY7Uw6+m8ZOqrf40e
+	 jYnO2QFmTVd9evqPTyxKzR//Qs6ICqw8DPIuKq0DZTmtB620oKWMjjc6cUlShU1z6KtkJ
+	 H/HzeCLoO6L4tUvx25yh/YlOwc2pMTz6zaDyiyDzn1/alez/qe5VZQJ/IjGyYgSNveA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989781;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=0mBZXCvcPmcyrgoCvx1EODCbOp+rR6onLvjINz5UMPE=;
-	b=pgpn3sNX4c53dI8yqF2CCvWPHf7bZpNa1ECngjgCZkoa7U4dPhyyVoPLl/zZjTXqRQHB
-	 PKZzZBxQTeS738Q8B7bdPusvDRK3poN3Rz3ISZjq7RVbh+fqea0WM11r34TI9ZtHTSLFH
-	 aCK66Z5JHBU9xMwRvcaBYZexb2fuYZfXGShiXOEurJeuHcA9MwP6gxVMZjseeQqWiAVHM
-	 kAZkZJBBILh2d13296PCPtz/RnMqLZ2mQIjH2zBCsY70wrh8HVBG0tZ6z8FoYvXZq0i/9
-	 W/4uXhVe4HXrP9Tcw6LMECgp4Bwg8QVeHQJ3n1Ge7H2vBcdlV8iq9a85iKVuZq3Qd9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989794;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=C3wmcsq5M8ZYfUOpWBYK3fngZJLQioceUB0ZD5J5oxY=;
+	b=BPFdYk+WCxKeSusI+bKVYoeGrRk74e3PHDEjbP2w9DtcQSQNFazbpyRTi/msmPrFrqNh
+	 etNSzKetbniRzRtmy/AS2uVwcqpDi6uJLL+SykYg1/vJCMdQH00mMW8o/YD8mzcq/jeOK
+	 Mc1oCgLZVXCjq/ZshW6G9TRIWVtqCqVAXO29WCoaeewAItr+4fJdFkizcT0oBrdzdpJ5D
+	 kxWmQCK9Fd88h7HJUcbogZLZSflZ3ZmKOM+8MUcujXt0dyfnd96/4Gcuca7XIPbVT8yWw
+	 V3CdU3rD5FRmFPtXRzJIjTfnXr6Pjrd3jr7JSAqnAvVpZJl8JXIB7iZcCREAzLIS27A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=jkETFqNd;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UL62WYR9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9A8606A31A;
-	Mon, 26 Oct 2026 04:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B9A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4CE606A31D;
+	Mon, 26 Oct 2026 04:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=jkETFqNd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=0mBZXCvcPmcyrgoCvx1EODCbOp+rR6onLvjINz5UMPE=; 
-	b=jkETFqNd3BsogIR/i2e0kI2yIByq1bv4TtgCrjIgIOPJCjC93bvZEJLG8tj84xjsWEtLwL6YqY3
-	4ahGxE3HvfNyifD4+9P0iTs+BpM5IM6CbCPuwk+JiidHBiLEik+UPJB3APtX9zvTZy7HIh14b5hH1
-	8w5bxgbQRIIr7Y8jQRi8iZRo9wGGWoRDg0qB0bvrMLG/n3rhDcWNL9FyTtbQUkop/UnBhdQy3oIzt
-	zUE7on2ziDfTvhUASQGxcpGASk/hnDO2/B2roBG2dx3yUYCEy8hPPJv9KbsvU8tle32tj5hRq0pv7
-	/fs+62xhLpFLbv5IvXFy/H5iAQi1Nu+epwXQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xLCXm-00000007Xbc-0NqX;
-	Mon, 26 Oct 2026 12:42:47 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 26 Oct 2026 12:42:46 +0800
-Date: Mon, 26 Oct 2026 12:42:46 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
-Message-ID: <at7aRrDPsroWZtuA@gondor.apana.org.au>
-References: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <atCc0iL0RrDLwHHX@gondor.apana.org.au>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UL62WYR9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223621F01828;
+	Mon, 26 Oct 2026 04:43:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792989793;
+	bh=C3wmcsq5M8ZYfUOpWBYK3fngZJLQioceUB0ZD5J5oxY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UL62WYR9wHfUyvGclkHE1jqewvO1f/PQouXboKg+eXXL851glUWbZLagl/vmJ06Xn
+	 m2BX4428qvRssyYYY56MLZPtasqi4TXS+eTuJegDjDD1cielm8KjwXUblSvayj4nKY
+	 UWE5AgWBLN8mIgt1YWuxbQbZdzJQ0QQpRcGbxHfRT+1hXLaP6cJGXE9hkZ4uFcF4Db
+	 E7ty4j15M6qNI3yUBEZZy6qh31vyNFf6uIa/VnCB0TPkC+EPXG8bCsatgRe20ld2oo
+	 H7CbkwVZSUAkTm9xumMMmvbynUDpe24HlIhn49bhfh7l2mp1MbSnnj+I53jNhxHGLG
+	 KTMcpLO3Gq9Nw==
+Subject: Re: [PATCH net] Subject: [PATCH] octeontx2-af: fix TX scheduler queue
+ index mask for 2K schedulers
+From: netdev-bot+sashiko@kernel.org
+To: kmahammadraf@marvell.com
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, sgoutham@marvell.com,
+ rkannoth@marvell.com, gakula@marvell.com, sbhatta@marvell.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, skoteshwar@marvell.com
+Date: Mon, 26 Oct 2026 04:43:12 +0000
+Message-ID: <179298979262.3134.248662363515081325@kernel.org>
+In-Reply-To: <20261022042653.2640537-1-kmahammadraf@marvell.com>
+References: <20261022042653.2640537-1-kmahammadraf@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,48 +64,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atCc0iL0RrDLwHHX@gondor.apana.org.au>
 
-On Thu, Oct 15, 2026 at 08:28:50PM +1100, Herbert Xu wrote:
-> On Thu, Oct 08, 2026 at 09:35:53AM +0000, Jérémy Jean wrote:
-> > caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
-> > from the corresponding prime. rsa_parse_priv_key() only bounds these
-> > integers against n, so a malformed key can provide, for example, a
-> > two-byte dP with a one-byte p. dstlen - nbytes then underflows and
-> > memcpy() writes outside the allocation during set_priv_key(). KASAN
-> > reports a slab-out-of-bounds write in caam_read_rsa_crt().
-> > 
-> > Reject empty or overlong CRT parameters after stripping leading zeros.
-> > qInv is consumed by CAAM as a p-sized value, so size it from p rather
-> > than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
-> > top-level key cleanup handle partial form-3 allocations and return the
-> > specific error to the caller.
-> > 
-> > Also test nbytes before dereferencing it while stripping zeros, so an
-> > all-zero integer does not read one byte beyond its input.
-> > 
-> > Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> > ---
-> >  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
-> >  1 file changed, 30 insertions(+), 39 deletions(-)
-> 
-> Sahil, could you please review this patch?
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Hi Sahil:
+Critical: 0 Â· High: 1 (1) Â· Medium: 0 Â· Low: 2
 
-It's been two weeks and you've provided no feedback.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-If there isn't going to be timely feedback to patches on this
-driver then it will be removed.
+- [High] Incomplete fix: the patch widens only the child scheduler index,
+  which comes from the register address (TXSCHQ_IDX_MASK becomes 11 bitsâ€¦
+- [Low] The patch is a 'fix' for a user-visible bug on hardware the tree
+  already supports, but it has no Fixes: tag.
+- [Low] Submission/tag problems in the commit message: (1) The subject
+  literally reads 'Subject: [PATCH] octeontx2-af: fix TX scheduler queueâ€¦
 
-Thanks,
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  rvu_mbox_handler_nix_txschq_cfg() validates the hierarchy on the rawâ€¦
+
+--
+
+Subject: [PATCH] octeontx2-af: fix TX scheduler queue index mask for 2K schedulers
+
+CN20K raised the number of TX schedulers per layer from 1K to 2K. To
+match, this patch widens TXSCHQ_IDX_MASK from 10 to 11 bits and extends
+NIX_TX_SCHQ_MASK to cover bit 26.
+
+> Subject: [PATCH] octeontx2-af: fix TX scheduler queue index mask for 2K schedulers
+
+[ ... ]
+
+> Signed-off-by: kmahammadraf <kmahammadraf@marvell.com>
+> Signed-off-by: Satha Rao <skoteshwar@marvell.com>
+
+[Severity: Low]
+This isn't a bug, but the mail header ended up in the commit subject:
+
+  Subject: [PATCH] octeontx2-af: fix TX scheduler queue index mask ...
+
+Since this is a fix, should it also be sent as [PATCH net]?
+
+The first Signed-off-by uses kmahammadraf, which isn't a real name as
+submitting-patches.rst asks for. It also doesn't match the author.
+
+If kmahammadraf wrote the patch, should the From: say so? If both people
+contributed, is a Co-developed-by: tag missing?
+
+[Severity: Low]
+Should this have a Fixes: tag?
+
+CN20K NIX support is already in the tree. nix_setup_txschq() sizes
+schq.max from the NIX_AF_*_CONST registers, so CN20K can already hand out
+scheduler queues >= 1024. With the old 10-bit TXSCHQ_IDX_MASK and a
+NIX_TX_SCHQ_MASK that leaves out bit 26, the AF would either reject a
+queue the function really owns or program schq - 1024.
+
+Could this get a Fixes: tag pointing at the commit that enabled CN20K TX
+scheduler handling, and target the net tree, so the stable tooling picks
+it up?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/mbox.h b/drivers/net/ethernet/marvell/octeontx2/af/mbox.h
+> index cece197d1074..1b62f9d7f00a 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/mbox.h
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/mbox.h
+> @@ -1164,7 +1164,7 @@ struct nix_txschq_config {
+>  	u8 lvl;	/* SMQ/MDQ/TL4/TL3/TL2/TL1 */
+>  	u8 read;
+>  #define TXSCHQ_IDX_SHIFT	16
+> -#define TXSCHQ_IDX_MASK		(BIT_ULL(10) - 1)
+> +#define TXSCHQ_IDX_MASK		(BIT_ULL(11) - 1)
+>  #define TXSCHQ_IDX(reg, shift)	(((reg) >> (shift)) & TXSCHQ_IDX_MASK)
+
+[Severity: High]
+The child index is now 11 bits, but does the parent index need the same
+change? is_txschq_hierarchy_valid() still cuts the parent read from the
+PARENT register value down to 9 bits:
+
+drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c:is_txschq_hierarchy_valid() {
+    ...
+	schq = TXSCHQ_IDX(reg, TXSCHQ_IDX_SHIFT);
+    ...
+	parent = (regval >> 16) & 0x1FF;
+	/* Validate MDQ's TL4 parent */
+	if (regbase == NIX_AF_MDQX_PARENT(0) &&
+	    !is_valid_txschq(rvu, blkaddr, NIX_TXSCH_LVL_TL4, pcifunc, parent))
+		return false;
+    ...
+}
+
+After that, rvu_mbox_handler_nix_txschq_cfg() writes the full, unmasked
+regval with rvu_write64().
+
+nix_setup_txschq() takes schq.max from the NIX_AF_*_CONST registers, so on
+CN20K, TL4/TL3/TL2 indices of 512 and above can be allocated. On the PF/VF
+side, otx2_txschq_config() encodes the full parent as parent << 16.
+
+Say a PF or VF uses TL4 600 as an MDQ parent. The AF checks who owns TL4
+88 instead. Would that reject a valid config with NIX_AF_INVAL_TXSCHQ_CFG?
+Or would it pass only because TL4 88 happens to belong to the same
+function?
+
+The reverse case also looks possible. A VF that owns parent X < 512 could
+send X + 512 * k. The AF checks X, but hardware gets a parent that may
+belong to another function. Does that break the cross-function isolation
+that is_valid_txschq() is meant to enforce?
+
+The SMQ flush walk uses the same 9-bit decode:
+
+drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c:nix_smq_flush_fill_ctx() {
+    ...
+		if (parent_off) {
+			regval = rvu_read64(rvu, blkaddr, parent_off);
+			schq = (regval >> 16) & 0x1FF;
+		}
+    ...
+}
+
+With parents >= 512, the saved and restored CIR/PIR offsets would point at
+other schedulers. nix_smq_flush_enadis_xoff() would also skip the wrong
+TL2, so the real TL2 of the SMQ being flushed could get XOFF'd. Could the
+flush time out, and could other functions' rate limits be zeroed and then
+restored?
+
+The NIX_AF_MDQ/TL4/TL3/TL2_PARENT_MASK definitions in rvu_reg.h (9, 8, 8
+and 5 bits wide) look too narrow for 2K schedulers per layer as well.
+
+The tree doesn't document the CN20K PARENT field width. Still, with 2K
+TL4s per layer, the MDQ PARENT field has to hold TL4 indices up to 2047,
+so a 9-bit decode doesn't fit the premise of this patch.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> index 95f782d47927..a1d68afd7c9e 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> @@ -2850,9 +2850,9 @@ static void nix_tl1_default_cfg(struct rvu *rvu, struct nix_hw *nix_hw,
+>  }
+>  
+>  /* Register offset - [15:0]
+> - * Scheduler Queue number - [25:16]
+> + * Scheduler Queue number - [26:16]
+>   */
+> -#define NIX_TX_SCHQ_MASK	GENMASK_ULL(25, 0)
+> +#define NIX_TX_SCHQ_MASK	GENMASK_ULL(26, 0)
+
+[Severity: High]
+This is a pre-existing issue, not one this patch introduced.
+rvu_mbox_handler_nix_txschq_cfg() runs the hierarchy check on the raw
+request regval, and only then merges in the caller-controlled
+regval_mask:
+
+		if (!is_txschq_hierarchy_valid(rvu, pcifunc, blkaddr,
+					       txsch->lvl, reg, regval))
+			return NIX_AF_INVAL_TXSCHQ_CFG;
+		...
+		val = rvu_read64(rvu, blkaddr, reg);
+		regval = (val & val_mask) | (regval & ~val_mask);
+		...
+		rvu_write64(rvu, blkaddr, reg, regval);
+
+For a PARENT register, can the parent that gets written differ from the
+one that was checked?
+
+For example, say the child's current parent is 1 (bit 16 set) and the
+caller owns parents 1 and 2. The caller sends regval = 2 << 16 with
+regval_mask = 1 << 16. is_txschq_hierarchy_valid() approves parent 2.
+The merge then keeps bit 16 from hardware and bit 17 from the request, so
+parent 3 is written and its owner is never checked.
+
+MDQ, TL4 and TL3 sit below nix_tx_aggr_lvl, so a VF can reach this path.
+Could a VF use it to attach its scheduler under another PF's or VF's
+scheduler?
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Sashiko AI review Â· https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022042653.2640537-1-kmahammadraf%40marvell.com
