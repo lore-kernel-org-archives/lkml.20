@@ -1,78 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015791;
-	b=Am60Aw45PC8/hlYE+VOkZvs4+VbvqVvNb/iBEdb8Abqx0xTOJgbP/3r6KT6lXSNfpAzr
-	 BTnKLCazzIfvDDk/RebH11xgrqelurw/6lSN1mzY9fz11ckGK6MjeXsZuy7qzfK9dJnvS
-	 4zINW2lx0zAwjJusFYBxoZGJJPB3cU3QBtaug9B6geHK0uO8t6DyO8QYtxjTK5oWdxV03
-	 e4KuCYbBxQKlenBLhM9sqOlEvJQ98h2nKCi885Jv3CNUPHA/Qqx64WZHlZ253wl2YrFjh
-	 zEccN0LQih1ENV6ixqyJsUgbvo7a3FdyNPDy97q8aBcwsPqU+nYhBA3zK/B6yWbXUIQ==
+	t=1793015815;
+	b=vxNqsvc63OPFJCyAWQd2ulK0w9KAgy3YAsOARtduUOVX5Sq2I9Jz3OuZ2s8BA/Kuow/R
+	 ifMQdru+1stpeiNBbHx4lkYe6UOmrD9Vka2QELX5KRvp62ybs9yNC8GlEMENdDrBKAylT
+	 14+7/GADviN9BmaA0xQYGw+lKOQKQs7XwWUBKA1nFNtBSZiSf5mllcpaCFrGLi5JcFnPZ
+	 M0lfSFaRCHNopN5HKqiHw3Oq54nFpkFyBROFQnwmNKbpF+JhkGo2Ce6h+5Ei/ltbYzsjc
+	 K9CxsQHHKbyDbahjyH4B4+dqH4EGh6x59zoWNEAXUeqAN9KYZfFFqG6+jIROeXhG7uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015791;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=HFiOrM97HwRVCFpE4g+Fj9tumKj4KLeVGsM2WR0PuTs=;
-	b=lFrHhvnxmYK7zL6GT2XzXy6y2BwK3CQr7rY3ksQpibh99fkmOnxwVgSZqM8YTikPdyj7
-	 BUc865Yghjwx8NjT6VatDsKURYONfAiYCJ8GEQnZhV2YkB8e4IBA6+vD+qxlqx8lElPFm
-	 dfqtVW+D+aJq5Stv7tBz14zzp0VCXspP2pr5n9Fi3h12ydrjQyiZvu2d2/PCQx5N+0JeM
-	 wQhy5cTy1M00hKYMvSTmxa/uI/OfiWV5S13JpZ0WuNNVGzqx0LgqyEVIgFoq+bxY+JYwO
-	 YypPM32hTTfTcaE1drgjfnaXWA44xYvwhsTFjmkChXctXfiPEucP8rs2lERa+KrAIhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015815;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=p863F7yqUAlNIjnSjn9uwuB2MTfwUOc9FZgewPikWBY=;
+	b=Q/ulJ7Qh71jrXGLorX8OGkc3fbSloWuGmqiBxdNderuepm1DUkrf+btwwRh9coG6boMt
+	 vj1vIH+urwuXExhnPTLpVn/pAT4NHpYxNdYqLqLChqqjo6yEtfmYTF76ddDzY631MAv34
+	 xIjFxpc+tJGxTqO9VBuxBhe4qvOVIao9UdJ0XzxmSvRo6N0k1SxKbShB93Cv97MZe/Mvq
+	 uYkv50Ni4OBALFjusXuP1rztaSV4XbWOWdChLGy5Fx/2u6EviX3C95Z/WWJpf8CB5L1Cx
+	 0D4dlAirKwVIXSvu5ONIuqS1IBoc7y/gG2or42LQ6nA+59ap3oQKjupSad3LMDyPqhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="b1E5jA8/";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Xcha/J6y";
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85F3606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85F3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45FB606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45FB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=b1E5jA8/
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id CAD1DC79AA4;
-	Mon, 26 Oct 2026 11:57:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E34760740;
-	Mon, 26 Oct 2026 11:56:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7B911032900F;
-	Mon, 26 Oct 2026 12:56:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793015785; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HFiOrM97HwRVCFpE4g+Fj9tumKj4KLeVGsM2WR0PuTs=;
-	b=b1E5jA8/ZqtYxSc98+8jPuYdYPFjTSSMTlkPp1JnTNBnioXheY5yefHR+XNUwbigBCOif6
-	xLm6HTWZrlfQVe/a+Wf9pzEY1unE2L6ZdXTiy9pso78RWFnZ+2CWFW92hYIcxHmQqmfcyV
-	EMoMuhP8CnqwP1tUuCuXUzng2jMpBoYmU/OGz48Dr9wb9tAB/1TfpzkRcRhwU5NasOgcOl
-	TeOp7/UzoKHs4eD5/zwAK67JVukr77unFhgVcdehfIOmeHoZ74pS0nwY8htQY2Td8+O6nu
-	XWr/wkfCFpaiEuoAiJe/nUFQhJ68k7tJUTsD/yektuKce7bYpqwwnfmtFPtqyA==
-Date: Mon, 26 Oct 2026 12:56:15 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <20261026125615.055e7214@bootlin.com>
-In-Reply-To: <at6t-l9XYYFfS48T@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-9-herve.codina@bootlin.com>
-	<atrTn_I_8O6q9QUW@gractus.seuss>
-	<20261023181533.0c44a57f@bootlin.com>
-	<at6t-l9XYYFfS48T@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xcha/J6y
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so2333500a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793015814; x=1793620614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p863F7yqUAlNIjnSjn9uwuB2MTfwUOc9FZgewPikWBY=;
+        b=Xcha/J6ytYLVg9qc21z4jUCiIqfAiSjlASvyzHU4ZWtwmRnrQhThSfgiCLNpMR+M6v
+         PLb8Sgvl66WTH39KuCs9A4RNs4NAqPH3U3YUreb8/34f7dUEQAouqhNnlOTe/b7Qnpu4
+         9M4TtT62O6HXUU4/Cfk6Atj1zq4YsKpoaPXwSvaLBmaHmrILZ+winxDCnxY+fkSsHJB7
+         O4fhN0HiPy0WEZZ+YS6IkZ032+q7Jn3NleSBB3yYnGCb1HUAFhvYn+sGomYSKxPbEsha
+         coaKkKhw1KtilP5QfRzt7VSnDEA6BfoVr4YFVrRBx3yncAwWJbaWMCzTJaHfwxXLZt31
+         7j4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793015814; x=1793620614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p863F7yqUAlNIjnSjn9uwuB2MTfwUOc9FZgewPikWBY=;
+        b=W9FdtDWH78QDUTrRcWc2HtwPhtK6NNxwBRz+33YnZQ5nq0eFbLTuvCofyoSMSwu44Y
+         rWJ1ErsA8YkeV+6MUaXOb3S1+08guCpCov+MinSFVkI9wWG4CTlIyJ4AkIc669Up1ybG
+         WVxwJ8/LOu1IASTOJ0Dp/UD8lJ+9AVLi9Wy65oZgl8s9cBJSxoBjo/g02v6z4NhiLjrK
+         eY2wPUkQP/fB8HTG/gbnTkbAjstgyeTptqI/BS7ladAaAifeT8Of9fm07Ha+V8PGxfJO
+         9NCBkXLC1AsKZ0UXpnB4Nh9yp6TBaw84Mjhb0G4YVc44Q8srdPairHgx2vHc7okhw2xJ
+         AwGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsoXKDL708z6BLUbU2ZsaSMm63XfcRaNOFPZ3h9d91aol6Zgy7MZCXex7cMHyNzqMWSud1wMOvYX8c3s4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItyduoJMggoUVn6j110iEtkmyjERMH20uwcaq9Ms16j+gXVmI0
+	uGsDM+2ngtEBDJklOv72JE3b+EvgQ5x+/jW/iB608WeNxpJLKZMVaqVTEA/aew==
+X-Gm-Gg: AYBFou2il3L4iTMrLh0BxU9W2ITdq/O/zTNQJaqRvBi7ZqeIoQX8hab1LjLftpac3TW
+	e5rWVeed/rT9773pEcx0FL/PBBpGJpZmbHvlIlbiWom5dINbl5KBsD+T5risWuk1jOBDwpKJpxw
+	VW4FgjikocS8ERnvhKFNyquZWNZkew8gcIobhi+1vx2+7sDgFmg9v9dwlN4JK8Wf7A2tN6NTlv8
+	ZxITVBI9MKOpSZXLJPe1kielWRT1uC8Ye0PovstmJEITkqeu5fXRAP+3ibfTG4NpPMKhr22jTBh
+	ULM0oSzhPn5hRQDTFP0MYCqx7ujMCR1miPcfX7pL36FQIUB2sOfDxmyyT0bEuNSR7HxrQDErc9x
+	J3jgkElSx29seoRnKcMYfjYTWZysTs2pk8Mfaw6iPZdyMVh2K1C10qWHwskMksfR9tXqCGx2dzq
+	i9R6SCWOHH0FDSipHnixJl8LPbkyOo/EwUX+So6CH2gBAc1kaSxjaqn9UfadzQD7B0Ybe7aJp0I
+	tapSdOMQM/GjtRkzPqXCkyGTOg7i/u54H2s6SytiSpVbnD9ALndONxRkFpoWfd43jTAbanZ4WQ=
+X-Received: by 2002:a17:90b:1812:b0:3ad:b7d1:8631 with SMTP id 98e67ed59e1d1-3adeac04901mr5445526a91.17.1793015813956;
+        Mon, 26 Oct 2026 04:56:53 -0700 (PDT)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaddd45sm5684433a91.2.2026.10.26.04.56.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 04:56:53 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Prabhjot Khurana <prabhjot.khurana@intel.com>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH] crypto: keembay - fix list_first_entry() on empty dev_list in find_dev helpers
+Date: Mon, 26 Oct 2026 19:56:46 +0800
+Message-Id: <20261026115646.4137906-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,311 +97,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-On Mon, 26 Oct 2026 12:33:51 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+list_first_entry() does not return NULL on an empty list; it returns a
+bogus pointer computed by container_of() from the list head. Both
+kmb_ocs_aes_find_dev() and kmb_ocs_ecc_find_dev() call list_first_entry()
+on their global dev_list without checking list_empty() first. The list
+becomes empty after the single OCS device is removed (kmb_ocs_aes_remove()
+/ kmb_ocs_ecc_remove() do list_del()), while existing tfm instances may
+still invoke find_dev afterwards: for AES the device lookup is deferred
+until the first encrypt/decrypt operation (setkey only stores the key),
+and for ECC init_tfm of a new tfm can run after the device was unbound.
+In both cases the bogus pointer passes the callers' validity checks
+(the AES callers test for NULL, the ECC caller tests with IS_ERR(); a
+container_of() address inside a static struct satisfies neither) and is
+later dereferenced via ->engine or used for MMIO through ->base_reg,
+causing memory corruption or a kernel crash. This was found by code
+audit; we do not have Keem Bay hardware to reproduce it.
 
-> On Fri, Oct 23, 2026 at 06:15:33PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Fri, 23 Oct 2026 14:25:29 +1100
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:  
-> > > > get_node_by_phandle() allows to get a node based on its phandle value.
-> > > > It checks the phandle value against value available in internal node
-> > > > structure.
-> > > > 
-> > > > This internal phandle value is updated during process_check() and so,
-> > > > get_node_by_phandle() cannot give correct results before the
-> > > > process_check() call.
-> > > > 
-> > > > Improve get_node_by_phandle() to look at node phandle properties when
-> > > > the internal phandle value is not valid.
-> > > > 
-> > > > This allows to return a correct matching node even if process_check()
-> > > > was not called yet.    
-> > > 
-> > > The idea is sound - it's always been kind of clunky that we need the
-> > > process_checks() pass to fill the phandles before we can use them.
-> > > But, there's at least one significant catch:
-> > > 
-> > > [Aside: you might notice the way it's done violates the principle I
-> > >  stated elsewhere of avoiding structures where you must know where you
-> > >  are in the flow to know which parts are populated.  My type
-> > >  discipline has improved since I first wrote this code :)]
-> > > 
-> > > We need to gracefully handle the case of malformed phandle /
-> > > linux,phandle properties; that's actually the reason for the weird
-> > > placement of this in checks.c.  By treating it as a "check" we handle
-> > > this case by failing the check.  Other checks that rely on phandles
-> > > then have the 'explicit_phandles' check as a prereq so they don't need
-> > > to verify this again.  We can still report errors for other checks
-> > > that don't rely on that (which is the whole point of the checks
-> > > mechanism).
-> > > 
-> > > That's not the only way to do it, of course, but we need something to
-> > > check for that error case.  Further notes on the code.
-> > >   
-> > > > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-> > > > needed to update internal phandle references before the call to
-> > > > process_check(). Indeed, this tag allows to identify phandles and
-> > > > internal references need to be updated based on the phandle value before
-> > > > the process_check() call.
-> > > > 
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > ---
-> > > >  livetree.c | 21 ++++++++++++++++++++-
-> > > >  1 file changed, 20 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/livetree.c b/livetree.c
-> > > > index abe73de1..a9f8c5d2 100644
-> > > > --- a/livetree.c
-> > > > +++ b/livetree.c
-> > > > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, const char *label)
-> > > >  	return NULL;
-> > > >  }
-> > > >  
-> > > > +static cell_t get_node_phandle_existing(struct node *node)
-> > > > +{
-> > > > +	struct property *prop;
-> > > > +
-> > > > +	if (phandle_is_valid(node->phandle))
-> > > > +		return node->phandle;
-> > > > +
-> > > > +	prop = get_property(node, "phandle");
-> > > > +	if (!prop) {
-> > > > +		prop = get_property(node, "linux,phandle");
-> > > > +		if (!prop)
-> > > > +			return 0;
-> > > > +	}
-> > > > +
-> > > > +	return propval_cell(prop);    
-> > > 
-> > > In the case of a malformed property, this could SEGV.  
-> > 
-> > Ok, will update to
-> > --- 8< ---
-> > 	if (prop->val.len != sizeof(cell_t))
-> > 		return 0;
-> > 
-> > 	return propval_cell(prop)
-> > --- 8< ---
-> >   
-> > >   
-> > > > +}
-> > > > +
-> > > >  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> > > >  {
-> > > >  	struct node *child, *node;
-> > > > +	cell_t tree_phandle;
-> > > >  
-> > > >  	if (!phandle_is_valid(phandle)) {
-> > > >  		assert(generate_fixups);
-> > > >  		return NULL;
-> > > >  	}
-> > > >  
-> > > > -	if (tree->phandle == phandle) {
-> > > > +	tree_phandle = get_node_phandle_existing(tree);    
-> > > 
-> > > This means that every time we search for a phandle, for every node
-> > > scanned before the destination with no phandle, we do a full property
-> > > scan to check that no, it still doesn't have a phandle.
-> > > 
-> > > I don't care that much about dtc performance, but that's still a bit
-> > > much to swallow.  I think we need to cache negative lookups to avoid
-> > > that.  Happily, since there are two invalid phandle values this
-> > > shouldn't be too hard.  We could, say, use tree->phandle == 0 to mean
-> > > we don't know if there's a phandle, and tree->phandle == -1 to mean
-> > > we've scanned the properties and we know there isn't one.
-> > > 
-> > > In fact, caching property lookups might be the better way to do this.
-> > > Rather than having an explicit pass where tree->phandle is populated,
-> > > we could have get_node_by_phandle() cache its property scan (success
-> > > or failure) in tree->phandle.
-> > > 
-> > > I think that's a more elegant approach than the current one, but we do
-> > > still need to handle the malformed property case.  
-> > 
-> > Well, get_node_phandle_existing() can be improved:
-> > ---- 8< ----
-> > static cell_t get_node_phandle_existing(struct node *node)
-> > {
-> > 	cell_t phandle1, phandle2;
-> > 	struct property *prop1, *prop2;
-> > 
-> > 	if (phandle_is_valid(node->phandle))
-> > 		return node->phandle;
-> > 	if (node->phandle == ~0UL) {
-> > 		/*
-> > 		 * We've already looked at existing properties and no valid
-> > 		 * phandle value were present. Avoid looking at them again
-> > 		 * and just return the invalid phandle value.
-> > 		 */
-> > 		return 0;
-> > 	}
-> > 
-> > 	/* Try to get it from the 'phandle' property */
-> > 	phandle1 = 0; /* Assume invalid */
-> > 	prop1 = get_property(node, "phandle");
-> > 	if (prop1) {
-> > 		if (prop1->val.len == sizeof(cell_t))
-> > 			phandle1 = propval_cell(prop1); /* Well formed -> Get it */
-> > 	}
-> > 
-> > 	/* Try to get it from the 'linux,phandle' property */
-> > 	phandle2 = 0; /* Assume invalid */
-> > 	prop2 = get_property(node, "linux,phandle");
-> > 	if (prop2) {
-> > 		if (prop2->val.len == sizeof(cell_t))
-> > 			phandle2 = propval_cell(prop2); /* Well formed -> Get it */
-> > 	}
-> > 
-> > 	if (prop1 && prop2) {
-> > 		/*
-> > 		 * Both property are present. They values must be the same
-> > 		 * and valid.
-> > 		 */
-> > 		if (phandle1 == phandle2) && phandle_is_valid(phandle1)) {
-> > 			/* Ok, Cache this correct phandle value and return it */
-> > 			node->phandle = phandle1;
-> > 			return phandle1;
-> > 		}
-> > 	} else if (prop1) {
-> > 		/*
-> > 		 * Only the 'phandle' property is present.
-> > 		 * Check its value validity
-> > 		 */
-> > 		if (phandle_is_valid(phandle1)) {
-> > 			/* Ok, Cache this correct phandle value and return it */
-> > 			node->phandle = phandle1;
-> > 			return phandle1;
-> > 		}
-> > 	} else if (prop2) {
-> > 		/*
-> > 		 * Only the 'linux,phandle' property is present.
-> > 		 * Check its value validity
-> > 		 */
-> > 		if (phandle_is_valid(phandle2)) {
-> > 			/* Ok, Cache this correct phandle value and return it */
-> > 			node->phandle = phandle2;
-> > 			return phandle2;
-> > 		}
-> > 	}
-> > 
-> > 	/*
-> > 	 * No valid phandle value were found. Cache this information and return
-> > 	 * the invalid phandle value.
-> > 	 */
-> > 	node->phandle == ~0UL;
-> > 	return 0;
-> > }
-> > --- 8< ---
-> 
-> That looks good to me.  But the "existing" in the name no longer says
-> anything useful - this can be the standard way to get a node's
-> phandle.  In fact it might be worth changing the name of the
-> node->phandle field to make sure we don't have any stale users rather
-> than going through the get_phandle() function.
+Fix both helpers to use list_first_entry_or_null(). The AES helper now
+returns NULL on an empty list, matching the existing NULL checks in its
+callers. The ECC helper converts NULL to ERR_PTR(-ENODEV), matching the
+existing IS_ERR() check in kmb_ecc_tctx_init().
 
-Ok, I will rename node->phandle to node->phandle_ and add a comment saying
-that phandle_ field must not be accessed directly.
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+---
+ drivers/crypto/intel/keembay/keembay-ocs-aes-core.c | 3 ++-
+ drivers/crypto/intel/keembay/keembay-ocs-ecc.c      | 7 +++++--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-Related to existing users, I can see check_explicit_phandles() available
-in the checks.c file.
+diff --git a/drivers/crypto/intel/keembay/keembay-ocs-aes-core.c b/drivers/crypto/intel/keembay/keembay-ocs-aes-core.c
+index 660830c36..268a15886 100644
+--- a/drivers/crypto/intel/keembay/keembay-ocs-aes-core.c
++++ b/drivers/crypto/intel/keembay/keembay-ocs-aes-core.c
+@@ -129,7 +129,8 @@ static struct ocs_aes_dev *kmb_ocs_aes_find_dev(struct ocs_aes_tctx *tctx)
+ 	}
+ 
+ 	/* Only a single OCS device available */
+-	aes_dev = list_first_entry(&ocs_aes.dev_list, struct ocs_aes_dev, list);
++	aes_dev = list_first_entry_or_null(&ocs_aes.dev_list,
++					   struct ocs_aes_dev, list);
+ 	tctx->aes_dev = aes_dev;
+ 
+ exit:
+diff --git a/drivers/crypto/intel/keembay/keembay-ocs-ecc.c b/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
+index 9bdee39dc..67a69a205 100644
+--- a/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
++++ b/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
+@@ -208,11 +208,14 @@ static struct ocs_ecc_dev *kmb_ocs_ecc_find_dev(struct ocs_ecc_ctx *tctx)
+ 	spin_lock(&ocs_ecc.lock);
+ 
+ 	/* Only a single OCS device available. */
+-	tctx->ecc_dev = list_first_entry(&ocs_ecc.dev_list, struct ocs_ecc_dev,
+-					 list);
++	tctx->ecc_dev = list_first_entry_or_null(&ocs_ecc.dev_list,
++						 struct ocs_ecc_dev, list);
+ 
+ 	spin_unlock(&ocs_ecc.lock);
+ 
++	if (!tctx->ecc_dev)
++		return ERR_PTR(-ENODEV);
++
+ 	return tctx->ecc_dev;
+ }
+ 
+-- 
+2.30.2
 
-check_explicit_phandles() could use the new get_node_phandle_exising() with
-the caching feature. The only problematic part will be
---- 8< ---
-	if (linux_phandle && phandle && (phandle != linux_phandle))
-		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
-		     " properties");
---- 8< ---
-
-Indeed, this check is done in get_node_phandle_existing() and the function
-returns 0 (invalid phandle) when both properties are set with a different
-value. A value other than 0 should be returned by get_node_phandle_existing()
-to identify that mismatching properties values.
-
-This should not be a big deal if we introduced a new invalid phandle value:
-  - 0:
-    Invalid value. Can be returned by get_node_phandle_existing().
-
-  - ~0:
-    Unresolved value (phandle value in properties) or value cached in 
-    phandle->node_ for "mismatch 'phandle' and 'linux,phandle' properties
-    values". Can be returned by get_node_phandle_existing().
-
-  - (~0)-1:
-    Invalid value in properties and or value cached in phandle->node_ for Invalid value.
-    Will not be returned by get_node_phandle_existing().
-    When this cached value is found, 0 will be returned.
-
-In phandle_is_valid(), those 3 values will be checked to determine if the phandle
-value is valid or not.
-
-Now last point, renaming get_node_phandle_existing().
-
-get_node_phandle() already exist. It get a phandle but also if the node doesn't
-have a phandle, it allocate a new phandle value and set node "phandle" or
-"linux, phandle" property to this allocated value.
-
-IHMO, get_node_phandle() should be renamed to set_node_phandle() and
-get_node_phandle_existing() should be renamed to get_node_phandle().
-
-Does all of these make sense?
-
-I so, I will try to implement that and maybe I will see other issue I might
-have missed.
-
-Worth noting that if you're ok to rename get_node_phandle() to
-set_node_phandle(), I will do it in a dedicated patch. Indeed, this will
-ensure that get_node_phandle() has been renamed everywhere (compilation
-without failure) and so I can safely rename get_node_phandle_existing() to
-get_node_phandle() in a next patch.
-
-> 
-> > In get_node_by_phandle(), no change compared to my proposition and so the
-> > full function is:
-> > --- 8< ---
-> > struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> > {
-> >         struct node *child, *node;
-> >         cell_t tree_phandle;
-> > 
-> >         if (!phandle_is_valid(phandle)) {
-> >                 assert(generate_fixups);
-> >                 return NULL;
-> >         }
-> > 
-> >         tree_phandle = get_node_phandle_existing(tree);
-> >         if (phandle_is_valid(tree_phandle) && tree_phandle == phandle) {
-> >                 if (tree->deleted)
-> >                         return NULL;
-> >                 return tree;
-> >         }
-> > 
-> >         for_each_child(tree, child) {
-> >                 node = get_node_by_phandle(child, phandle);
-> >                 if (node)
-> >                         return node;
-> >         }
-> > 
-> >         return NULL;
-> > }
-> > --- 8< ---
-> > 
-> > Caching should work correctly without any other modification.
-> > 
-> > I let you double-check on your side. Let me know about your opinion.  
-> 
-> Yes, I think that should work.
-> 
-
-Best regards,
-Hervé
