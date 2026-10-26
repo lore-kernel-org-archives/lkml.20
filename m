@@ -1,81 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019588;
-	b=xEwvSA4KydUjub6gGeVem6rXSc2jOVqMNn0PtEXIHgMG9VzyyTwd9Fk7pD4SJ8DETOT/
-	 5m+fcNZMDFQP+qi5WlOPXLxV6/2hhKmQEZUOJjuI6i1GgluB7n595sdUzbx7lZTbw/vPn
-	 +D8o/nf3p1jb4RxB20RcnWawQ5vY/fhlUy/33Qjk6UeBlMfab2G0A8S7MqJsxEyZhQGIE
-	 k5vyRwp7LVt+iY6l04obACVAiVxAS6Upd2Xk/Fdp+AYcqFwrp1RB8IP9iU2vr6eskyLn4
-	 rLiAxI8N3mkGdfoWFQaUk8gL9eiMZm5m9DKOtmgQ7yQu8snd70+RPVCFZxR6tK4KTRg==
+	t=1793019614;
+	b=XeWtLR0MKVRXT6zS9277FPsNnIR2rI9uMdKELelAL3S8JQiwIkod3YRJhS6NNZSE3vjc
+	 wgqkDzBcpuWdCPPwkSXuABsEDth7/M+RWyzyCIOIQ9GIDaXAuzfVNNvt6zu/l5Ny0Reye
+	 Y+65OBjA3ejjvyaOo7LaOWuvYY40qBbglXDDyPjptlJxLrQT7pXQdqPKANQ6jI5el16bI
+	 n/4ywEKles2JV+ki9YkMR4EoF8SErkp8rZfy7X0uL4sCI7Xble+AmrwiSCbHLvT3EtlzE
+	 Y7bItGa1MfNawIFvhjNCkZ7x1a+bC+ttLRfoxpmRpv6DlpYy4f2RrK0KL4wjJpyqf3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019588;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=Ylh0ZRGYkm3k+/2Sw0RkV7Rs+/pu7YAFHX03rxum3h0=;
-	b=T+b6BJFPw6gLeKywogLYlLSNHCsuFslntdH6Yy+u09SZNOg1ReAzPxJCljf8pDuQowwh
-	 GbAegkME2AL5qAGyMcu/m0F0yKK4ITMR1aXmhUvXhyTiZdmf0yhSQi7LzlO1zl9bp0S5Y
-	 KM9d00nOVyh40gsReGIF3bfjMELhlQpLG6O6ozuAkmhsSwMy+qaUZbneF56tMVmx+m2u7
-	 nHFvDlualGM8l0i6etKF4X+8gutm4rt6uttNbg09eRd3hJ9zrv3k3WJrAIX2LP6jTe8nD
-	 oNHcxUCMhOUgTX6s7SIhlkmy1JH2/jOdI3evcoblDwQ4E/IKkrjwEboCTOCYRL38sCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019614;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=aLycgPRWJ2JG0cxzTu+EAdwBiwxmFU1wy6+ndTeNbPA=;
+	b=eUNl8KFW6hKMlCnNIKpbymdKvYfmpUkaqEH7aLS4+ngtotokK2MyWJ8OUI8rv8/wdS2M
+	 IMDvwBymD9EfvLwQ5gOW8LkUL+vf1GMQgvmqNxWHMgD33ptFneDluxgg7DS+ru8XZEDFF
+	 nlBB6t5GAFjo7MSVLnCPap3wxn2N5YB5/ndvmC8vHNutTxYIqt/nPmQLDyDOeHLoRzCfI
+	 K+UFDqL0g0Eaawxc1DBpqTXkfcGOcLOeC4371xJ6eU6Yq9WMiXJ3VgepKllBVkHm2/ON7
+	 nNsbkRHLVp4GcViDZc6P7bGKRprHLaVFq9Wmx7bcG83PwqB8/ADrqCGzzrXQN3YNMOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=M9d5t80n;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dClPxWPr;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7201606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:59:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7201606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C51606A31D;
+	Mon, 26 Oct 2026 13:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C51606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=M9d5t80n
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
-	by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69QAtBWw2267254;
-	Mon, 26 Oct 2026 05:59:24 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=Ylh0ZRGYkm3k+/2Sw0RkV7Rs+/pu7YAFHX03r
-	xum3h0=; b=M9d5t80nb/srchutcAsrh5+nVyBXZYlnYMQtFkiPCsyO0P1XkdphV
-	YmFx/jm+vsKyRa/IjiB6cj2eeHxkYlj4X3vxGtrDJpLxygraH7FQm8KNRqVLHvuY
-	+YxQPE4cU2BfcuYWjk1fRk3NdjKh2t6GublcxN0pHQYQFFRIb8+jMmThREpQUXYE
-	rJUoLB97QRHdxBxN/MIPCvUK0HazmBeHkPRQrzWxy+NOumFWH//Z6yk5M84mTUlj
-	rPZJ2NF0BH7P9+uvxbHaGxgr/sgw+Lqn7W9gUgAEx3okinVFyBmOnh62MqKV3PnP
-	xJLDidbho0gosNHJovXB8QixMdD/OqzcQ==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by m0089730.ppops.net (PPS) with ESMTPS id 4hgr5n192m-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 26 Oct 2026 05:59:23 -0700 (PDT)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 26 Oct
- 2026 12:59:22 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
-        Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-        Xuan Zhuo
-	<xuanzhuo@linux.alibaba.com>,
-        Alexander Duyck
-	<alexander.h.duyck@linux.intel.com>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-        <virtio-comment@lists.linux.dev>
-Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
-Date: Mon, 26 Oct 2026 05:59:11 -0700
-Message-ID: <20261026125911.753798-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025200808-mutt-send-email-mst@kernel.org>
-References: <20261025200808-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dClPxWPr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793019614; x=1824555614;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=qDODWVgoL1IWxLL0zt9d9i/eSrOYk8bZzq8SoRG38j0=;
+  b=dClPxWPrTjZ4iQX1xm5Y0BqFoTa6ybLCc4mlUn81ex9fkODtwujKZ77K
+   pSoKh+y7gBGv3NjLv1ye6HD3mxY1DRMCGC+PP6/0SttnVlrolJi7HSWd0
+   yiTkfCs/MTIXEQlc5dTtI9K1hcGqCVbpT0TmE3hRRyTNKIabPD452ySRi
+   wte5Yfx96wkNyecfiYrivJsD1vU9wKcdP5/zq+YhnsGsAKKzPsfFAMx8V
+   S7mu7SZFa/oefe8nDbrsrm02ai2pqKwtdV84m7/CQb98NfIN3gFcTu6kT
+   ZlqLekuPU0k/G1Nyq6LAUO549cjxe3t6FtuWslgvqg8Wh0LGY6MZhUaSg
+   Q==;
+X-CSE-ConnectionGUID: tsnmzb6UQE6kx+2pMTMD7A==
+X-CSE-MsgGUID: Vwrn7s+gTy67PLahijHIUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1776392"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1776392"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:00:13 -0700
+X-CSE-ConnectionGUID: At6L9gueRR2N4T0zmFjrHQ==
+X-CSE-MsgGUID: +XEWu6hVTRC6gLTqRPDXRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4270923"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 06:00:07 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 26 Oct 2026 15:00:02 +0200 (EET)
+To: Denis Benato <denis.benato@linux.dev>
+cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org, 
+    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+    "Luke D . Jones" <luke@ljones.dev>, 
+    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
+    Denis Benato <benato.denis96@gmail.com>, 
+    Jonathan LoBue <jlobue10@gmail.com>, 
+    Khamunetri Clark <khamunetriclark@gmail.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
+    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v11 04/18] HID: asus: add joysticks inner and outer range
+ configuration
+In-Reply-To: <20261025235232.129945-5-denis.benato@linux.dev>
+Message-ID: <2bf5c5f8-185e-c322-dd76-ec182514c93c@linux.intel.com>
+References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-5-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,135 +91,506 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: gPwBMYUX77H1GdAaAehk4gVWy3gfM89H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MSBTYWx0ZWRfX/wNdMHc+/EtN
- rdTGV6nH1uaW0e1MI06Ces30U+OMiY3HnDexehqRw/h0Br+neuJ8MNCqTLNdqCV9qTmEKVcP+gJ
- M84DkeCyxgJ1o/zfsbnzXx3MuTBuquA=
-X-Proofpoint-GUID: gPwBMYUX77H1GdAaAehk4gVWy3gfM89H
-X-Authority-Analysis: v=2.4 cv=Vr62kO2n c=1 sm=1 tr=0 ts=6adf4eab cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=855S8uPTkML1Oy45N9_h:22 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
- a=SjX2uGVl9HjTzPjVSL0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MSBTYWx0ZWRfX/NeanwFrptU/
- aDJrb/u/DZyNVxCGI+vUZObAtDsAZkAPkQBp2h2mj+9pGq/NMmanZ0psx+iwiJuQnjh9PHxLlJm
- M0nr3pqvWpKjw7fX1fcE01lG4I77NmZ3c4kBor9p8GwA9cM6CUiiWtklAJS0eoKvMtXjUirdeNY
- JGVqsPb2l2KdHETMRiXGYNhnQc1UGCw/uCTD/gnvMI7N5gd+eJog2we6aSeuDctYPi6XlpJmcl6
- +AxzBwOuuBX3sRNNa4gvRNT5uAYsjNBXzN79qrPfe5DSvG5W3thhuTs8T8apYVNjrV3tpXvEtCH
- QjjSQ9ciuF0P7BZTtbZrnlJrjup+2Pw7fSzZa0Km3NSEbi1vy1GcpaISEuzjdLyt23qWIk+ZkzM
- EJ5ECA9uQGtDJoxn00G0wMObe7I++aI1yDZouRN5s9D2Kbwc/wY7E7ggo9ZrHibXS97hYU2FkKa
- /Hm57otoOi19XzULVIQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset=US-ASCII
 
-Sorry, I just realised the other reply went on to the wrong thread, so just
-reposting it here.
+On Sun, 25 Oct 2026, Denis Benato wrote:
 
-On Mon, Oct 26, 2026 at 12:19 AM Michael S. Tsirkin <mst@redhat.com> wrote:
-> On Sun, Oct 25, 2026 at 04:56:41PM -0700, Ruben Hakobyan wrote:
-> > On Fri, Oct 23, 2026 at 11:04 AM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > >
-> > > Great patch, thanks!
-> > >
-> > > On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
-> > > > The virtio_balloon driver reports a scatter-gather list of free pages
-> > > > to the VMM so it may discard unused pages.
-> > ...
-> > >
-> > > It's not just a question of convenient, is it?
-> > > Rust is buggy wrt to spec as it allows only U32_MAX.
-> > > So it is also to make it work.
-> > > So should we maybe fix Rust to be spec compliant and allow 2^32 too?
-> > >
-> > > I think we should definitely recommend U32_MAX in the spec
-> > > because otherwise it can not fit in the used length.
-> > >
-> >
-> > Thanks for the review!
-> >
-> > Sounds good to me, I will CC virtio-comment@lists.linux.dev as
-> > per your recommendation.
-> >
-> > Agreed that Rust-VMM should also be fixed in case 2^32 needs to
-> > stay the hard limit. I think here for the driver, we can be more
-> > conservative as long as we stay below 2^32.
-> >
-> > ...
-> >
-> > > > ---
-> > > > The wording in the spec is a bit ambiguous because it uses "chain
-> > > > length" for both descriptor counts and the total size of the memory
-> > > > ranges referenced by the descriptors. My read is that the byte limit
-> > > > applies to the sum of descriptor lengths, which is also what rust-vmm
-> > > > checks.
-> > >
-> > >
-> > > quote what you are referring to please, also in the commit log
-> > > not after ---.
-> >
-> > I will update with quotes in v2, thanks.
-> >
-> > >
-> > > I would also CC virtio-comment@lists.linux.dev - spec should recommend
-> > > U32_MAX.
-> > >
-> > > >
-> > > > Another option I considered was to limit reporting capacity based
-> > > > on the largest possible block. E.g. for 64 KiB pages, the largest
-> > > > block is 512 MiB, so limit the reporting capacity to 7 to stay
-> > > > below 4GiB. Although simpler, I found that the time to reclaim
-> > > > was quite a bit longer.
-> > >
-> > >
-> > >
-> > > So I was going to apply this actually:
-> > >
-> > > https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
-> > >
-> > > which makes the question completely moot.
-> > >
-> > > Does this have any effect on performance?
-> > >
-> > > Thanks!
-> >
-> > Thanks for sharing this. Yes, this would also make sure we stay below
-> > the limit. Regarding performance, I tested this on QEMU and it calls
-> > virtio_notify() after each completion.
->
-> Who, QEMU does?
+> ROG Ally devices supports configuring joysticks inner and outer range:
+> add sysfs attributes to allow userspace modifying the sensitivity
+> of those controllers.
+> 
+> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> Signed-off-by: Luke Jones <luke@ljones.dev>
+> ---
+>  drivers/hid/hid-asus.c | 433 +++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 433 insertions(+)
+> 
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index 0471e6263c24..4dbca9402f1d 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -1039,6 +1039,358 @@ static struct device_attribute dev_attr_right_vibration_intensity =
+>  static struct device_attribute dev_attr_right_vibration_intensity_range =
+>  	__ATTR(intensity_range, 0444, right_vibration_intensity_range_show, NULL);
+>  
+> +/**
+> + * ally_set_joystick_thresholds() - Generic function to set joystick ranges
+> + * @ally: ally handheld structure
+> + * @hdev: HID device
+> + * @left_it: inner threshold (deadzone) of the left stick (0-50)
+> + * @left_ot: outer threshold of the left stick (70-100)
+> + * @right_it: inner threshold (deadzone) of the right stick (0-50)
+> + * @right_ot: outer threshold of the right stick (70-100)
+> + *
+> + * This function sends the command to set both inner and outer threshold
+> + * for the left and right joysticks.
+> + *
+> + * Return: 0 on success, negative errno on failure
+> + */
+> +static int ally_set_joystick_thresholds(struct ally_handheld *ally,
+> +					struct hid_device *hdev,
+> +					u8 left_it, u8 left_ot, u8 right_it, u8 right_ot)
+> +{
+> +	const u8 payload[] = { left_it, left_ot, right_it, right_ot };
+> +	int ret;
+> +
+> +	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_JOYSTICK_DEADZONE, payload, sizeof(payload));
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
+> +	if (ret < 0) {
+> +		hid_err(hdev, "Failed to set joystick ranges: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static ssize_t left_joystick_inner_threshold_show(struct device *dev, struct device_attribute *attr,
+> +						  char *buf)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	return sysfs_emit(buf, "%u\n", cfg->left_deadzone);
+> +}
+> +
+> +static ssize_t left_joystick_inner_threshold_store(struct device *dev,
+> +						   struct device_attribute *attr,
+> +						   const char *buf, size_t count)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +	u8 value;
+> +	int ret;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	ret = kstrtou8(buf, 10, &value);
+> +	if (ret || value > 50)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = ally_set_joystick_thresholds(ally, hdev,
+> +					   value,
+> +					   cfg->left_outer_threshold,
+> +					   cfg->right_deadzone,
+> +					   cfg->right_outer_threshold);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cfg->left_deadzone = value;
+> +
+> +	sysfs_notify(&dev->kobj, "left_joystick_axis", "inner_threshold");
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t left_joystick_inner_threshold_range_show(struct device *dev,
+> +							struct device_attribute *attr,
+> +							char *buf)
+> +{
+> +	return sysfs_emit(buf, "0 50\n");
+> +}
+> +
+> +static ssize_t left_joystick_outer_threshold_show(struct device *dev, struct device_attribute *attr,
+> +						  char *buf)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	return sysfs_emit(buf, "%u\n", cfg->left_outer_threshold);
+> +}
+> +
+> +static ssize_t left_joystick_outer_threshold_store(struct device *dev,
+> +						   struct device_attribute *attr,
+> +						   const char *buf, size_t count)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +	u8 value;
+> +	int ret;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	ret = kstrtou8(buf, 10, &value);
+> +	if (ret || value < 70 || value > 100)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = ally_set_joystick_thresholds(ally, hdev,
+> +					   cfg->left_deadzone,
+> +					   value,
+> +					   cfg->right_deadzone,
+> +					   cfg->right_outer_threshold);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cfg->left_outer_threshold = value;
+> +
+> +	sysfs_notify(&dev->kobj, "left_joystick_axis", "outer_threshold");
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t left_joystick_outer_threshold_range_show(struct device *dev,
+> +							struct device_attribute *attr,
+> +							char *buf)
+> +{
+> +	return sysfs_emit(buf, "70 100\n");
+> +}
+> +
+> +static ssize_t right_joystick_inner_threshold_show(struct device *dev,
+> +						   struct device_attribute *attr,
+> +						   char *buf)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	return sysfs_emit(buf, "%u\n", cfg->right_deadzone);
+> +}
+> +
+> +static ssize_t right_joystick_inner_threshold_store(struct device *dev,
+> +						    struct device_attribute *attr,
+> +						    const char *buf, size_t count)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +	u8 value;
+> +	int ret;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	ret = kstrtou8(buf, 10, &value);
+> +	if (ret || value > 50)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = ally_set_joystick_thresholds(ally, hdev,
+> +					   cfg->left_deadzone,
+> +					   cfg->left_outer_threshold,
+> +					   value,
+> +					   cfg->right_outer_threshold);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cfg->right_deadzone = value;
+> +
+> +	sysfs_notify(&dev->kobj, "right_joystick_axis", "inner_threshold");
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t right_joystick_inner_threshold_range_show(struct device *dev,
+> +							 struct device_attribute *attr,
+> +							 char *buf)
+> +{
+> +	return sysfs_emit(buf, "0 50\n");
+> +}
+> +
+> +static ssize_t right_joystick_outer_threshold_show(struct device *dev,
+> +						   struct device_attribute *attr,
+> +						   char *buf)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	return sysfs_emit(buf, "%u\n", cfg->right_outer_threshold);
+> +}
+> +
+> +static ssize_t right_joystick_outer_threshold_store(struct device *dev,
+> +						    struct device_attribute *attr,
+> +						    const char *buf, size_t count)
+> +{
+> +	struct hid_device *hdev = to_hid_device(dev);
+> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> +	struct ally_handheld *const ally = drvdata->rog_ally;
+> +	struct ally_config *cfg;
+> +	u8 value;
+> +	int ret;
+> +
+> +	if (!ally)
+> +		return -ENODEV;
+> +
+> +	cfg = ally_get_config(ally);
+> +	if (!cfg)
+> +		return -ENODEV;
+> +
+> +	ret = kstrtou8(buf, 10, &value);
+> +	if (ret || value < 70 || value > 100)
 
-Yes QEMU, sorry for the ambiguous wording.
+I'd prefer binding values that are not 0 or 100 with defines. You print 
+the ranges with string literals and they are linked to checks here so 
+the code should link those by using same define.
 
->
-> > Using one chain per entry
-> > creates more chains, so QEMU can use more CPU time to reclaim the same
-> > amount of memory.
-> >
-> > If we go with this, I think a QEMU patch to batch notifications
-> > could reduce the overhead. Alternatively, I think we could create
-> > larger chains here but make sure they stay within the 2^32 limit,
-> > and keeping your approach of queuing them all before kicking.
-> >
-> > I am happy to share a patch with my thinking here.
-> >
-> > ...
->
-> Oh. It's just the driver being silly and never disabling
-> callbacks.
->
-> pls just add virtqueue_enable_cb_delayed and this will fix it.
->
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&cfg->config_mutex);
+> +
+> +	if (!cfg->user_cal_support)
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = ally_set_joystick_thresholds(ally, hdev,
+> +					   cfg->left_deadzone,
+> +					   cfg->left_outer_threshold,
+> +					   cfg->right_deadzone,
+> +					   value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cfg->right_outer_threshold = value;
+> +
+> +	sysfs_notify(&dev->kobj, "right_joystick_axis", "outer_threshold");
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t right_joystick_outer_threshold_range_show(struct device *dev,
+> +							 struct device_attribute *attr,
+> +							 char *buf)
+> +{
+> +	return sysfs_emit(buf, "70 100\n");
+> +}
+> +
+> +static struct device_attribute dev_attr_left_joystick_inner_threshold =
+> +	__ATTR(inner_threshold, 0644, left_joystick_inner_threshold_show,
+> +	       left_joystick_inner_threshold_store);
+> +
+> +static struct device_attribute dev_attr_left_joystick_inner_threshold_range =
+> +	__ATTR(inner_threshold_range, 0444, left_joystick_inner_threshold_range_show, NULL);
+> +
+> +static struct device_attribute dev_attr_left_joystick_outer_threshold =
+> +	__ATTR(outer_threshold, 0644, left_joystick_outer_threshold_show,
+> +	       left_joystick_outer_threshold_store);
+> +
+> +static struct device_attribute dev_attr_left_joystick_outer_threshold_range =
+> +	__ATTR(outer_threshold_range, 0444, left_joystick_outer_threshold_range_show, NULL);
+> +
+> +static struct device_attribute dev_attr_right_joystick_inner_threshold =
+> +	__ATTR(inner_threshold, 0644, right_joystick_inner_threshold_show,
+> +	       right_joystick_inner_threshold_store);
+> +
+> +static struct device_attribute dev_attr_right_joystick_inner_threshold_range =
+> +	__ATTR(inner_threshold_range, 0444, right_joystick_inner_threshold_range_show, NULL);
+> +
+> +static struct device_attribute dev_attr_right_joystick_outer_threshold =
+> +	__ATTR(outer_threshold, 0644, right_joystick_outer_threshold_show,
+> +	       right_joystick_outer_threshold_store);
+> +
+> +static struct device_attribute dev_attr_right_joystick_outer_threshold_range =
+> +	__ATTR(outer_threshold_range, 0444, right_joystick_outer_threshold_range_show, NULL);
+> +
+>  static struct attribute *ally_config_attrs[] = {
+>  	&dev_attr_xbox_controller.attr,
+>  	NULL
+> @@ -1056,6 +1408,22 @@ static struct attribute *ally_right_vibration_attrs[] = {
+>  	NULL
+>  };
+>  
+> +static struct attribute *left_joystick_axis_attrs[] = {
+> +	&dev_attr_left_joystick_inner_threshold.attr,
+> +	&dev_attr_left_joystick_outer_threshold.attr,
+> +	&dev_attr_left_joystick_inner_threshold_range.attr,
+> +	&dev_attr_left_joystick_outer_threshold_range.attr,
+> +	NULL
+> +};
+> +
+> +static struct attribute *right_joystick_axis_attrs[] = {
+> +	&dev_attr_right_joystick_inner_threshold.attr,
+> +	&dev_attr_right_joystick_outer_threshold.attr,
+> +	&dev_attr_right_joystick_inner_threshold_range.attr,
+> +	&dev_attr_right_joystick_outer_threshold_range.attr,
+> +	NULL
+> +};
+> +
+>  static const struct attribute_group ally_attr_groups[] = {
+>  	{
+>  		.attrs = ally_config_attrs,
+> @@ -1070,6 +1438,28 @@ static const struct attribute_group ally_attr_groups[] = {
+>  	},
+>  };
+>  
+> +/*
+> + * The joystick and trigger range calibration attributes are tied to the
+> + * user-calibration capability: their sysfs groups are registered only
+> + * when the device supports configuring those parameters, and the show
+> + * and store callbacks reject accesses with -EOPNOTSUPP regardless, in
+> + * case the groups are registered for another supported feature.
+> + */
+> +static const struct attribute_group ally_left_joystick_axis_group = {
+> +	.name = "left_joystick_axis",
+> +	.attrs = left_joystick_axis_attrs,
+> +};
+> +
+> +static const struct attribute_group ally_right_joystick_axis_group = {
+> +	.name = "right_joystick_axis",
+> +	.attrs = right_joystick_axis_attrs,
+> +};
+> +
+> +static const struct attribute_group *const ally_cal_attr_groups[] = {
+> +	&ally_left_joystick_axis_group,
+> +	&ally_right_joystick_axis_group,
+> +};
+> +
+>  /**
+>   * ally_config_create() - Initialize configuration and create sysfs entries
+>   * @hdev: HID device
+> @@ -1130,6 +1520,25 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+>  		}
+>  	}
+>  
+> +	/* Skip the calibration groups when the capability is missing. */
+> +	if (cfg->user_cal_support) {
+> +		int cal_i;
+> +
+> +		for (cal_i = 0; cal_i < ARRAY_SIZE(ally_cal_attr_groups);
+> +		     cal_i++) {
+> +			ret = sysfs_create_group(&hdev->dev.kobj,
+> +						 ally_cal_attr_groups[cal_i]);
+> +			if (ret < 0) {
+> +				hid_err(hdev, "Failed to create sysfs group '%s': %d\n",
+> +					ally_cal_attr_groups[cal_i]->name, ret);
+> +				while (cal_i-- > 0)
+> +					sysfs_remove_group(&hdev->dev.kobj,
+> +							   ally_cal_attr_groups[cal_i]);
+> +				goto ally_config_create_sysfs_err;
+> +			}
+> +		}
+> +	}
+> +
+>  	cfg->initialized = true;
+>  
+>  	return cfg;
+> @@ -1160,6 +1569,18 @@ static void ally_config_remove(struct hid_device *hdev, struct ally_config *cfg)
+>  
+>  	for (i = 0; i < ARRAY_SIZE(ally_attr_groups); i++)
+>  		sysfs_remove_group(&hdev->dev.kobj, &ally_attr_groups[i]);
+> +
+> +	/*
+> +	 * The calibration groups are removed with the same gating used to
+> +	 * create them, so a device without those capabilities does not
+> +	 * trigger a "not found" warning.
+> +	 */
+> +	if (cfg->user_cal_support || cfg->anti_deadzone_support ||
+> +	    cfg->resp_curve_support) {
+> +		for (i = 0; i < ARRAY_SIZE(ally_cal_attr_groups); i++)
+> +			sysfs_remove_group(&hdev->dev.kobj,
+> +					   ally_cal_attr_groups[i]);
+> +	}
+>  }
+>  
+>  /**
+> @@ -1458,6 +1879,18 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
+>  		hid_warn(hdev, "Failed to restore vibration intensity: %d\n",
+>  			 ret);
+>  
+> +	if (cfg->user_cal_support) {
+> +		ret = ally_set_joystick_thresholds(ally, hdev,
+> +						   cfg->left_deadzone,
+> +						   cfg->left_outer_threshold,
+> +						   cfg->right_deadzone,
+> +						   cfg->right_outer_threshold);
+> +		if (ret < 0)
+> +			hid_warn(hdev,
+> +				 "Failed to restore joystick thresholds: %d\n",
+> +				 ret);
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> 
 
-Ah great, I tried with virtqueue_enable_cb_delayed() and yeah it
-largely fixed it.
-
-So regarding the patch in
-https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
-
-I see it's in a larger series, so just wanted to check if you're
-planning to send this patch separately? Or let me know if you'd
-like me to do it. Thanks!
+-- 
+ i.
 
