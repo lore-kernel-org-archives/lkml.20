@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041176;
-	b=LPVL6LdirzyHGyvT74YmcAVCQkqX7+mYCnjnfivNLwaPSB05klY0O4/GVi84QlrBvgvi
-	 ngP68i5V2bO+gFun6htGWh2RDInQ3pqeqc4OVkpoMPXJAw2wnZjgnN1YifWbquiGSjtoa
-	 fwyXL3T6UUpBoBrPvWTpyBGsyOtarjbWyVA9+cMGu8LxYHh/gdNS+nyOt4E+mSxC8sIDJ
-	 zUPjzLM22GqZfcoxupHHqGbwnYV2qtDPjnVwXDnYFHZoZKfUVPEhqpQ0E+Fiuej0i5JsT
-	 wp3aa2hzYPfKYtFwDNHdYJVKnJIMfIuRV9kbHzBUxj6awMIagnzlhxvcGVTmNmqHVzg==
+	t=1793041187;
+	b=BgWFqRiQ1DNrByC0vApdpBRmYJXEyzrzHDJq2+NoYA0wZyHv4/WcIz8PqO6Ea3qDXLI4
+	 QQHkVitkBq0WYqmW3Gv55ggRmWC1QntKWtDTiRrkLStLzLQcKpfmggEt9FDtSJzKFH0GD
+	 hIxfUsHZW5j03Y8uba9nCZ6C+6RBowtzCLUSA0FzDkQWRCMDE6l+z7grESVVMFrFBXdqN
+	 zkCwkCF3/01FnquDh4ezae/UOdkaXXHNICMlCWq3nUGmXSyqFqBe/4IM3O0NPh7UyUByk
+	 XG5t51xVfZVa513dVfzQX7s4sCJm925vRE99Il3Lc8vz9EL+NPWyNVJxlvc2ibzWjtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041176;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=vTjqmSt66KfvF8vPxCFY9aUVyzzoVUV2p70ZlxlokqQ=;
-	b=BdzJi+zZnETAa748oxgmM83TntN2qaFSXw8zH+nIQOkIKJZF1yVccosqYUKVjpexsRYy
-	 yqHpjEXdV0H3hIG1joGvT1qvGlZzxI0PpqT+Rzxi0Oe43Z3jPME4/wUqkuLcHN4/UQDPM
-	 1uWGgbcwiV0w9ItZOVB9UMaZyweSk9W4yYiEZ7XUBRqBPKdbdjI6mmobZx3IuM/J4Hc8J
-	 3ArayFEr0zdG5Yh0iSs85nV0B/MijSEBfIO6QiOYv0K6WkiyabS1oiFLez0ujnW2v45+B
-	 Gr4iEw+KiPYNV9AcGlyKbWniAeWr/1glNj/ZruNvsJVXczcbIy559pj7UhTqAmqVTlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vFQSzrzMPbR886MkQnFhhUgLb0bB/SvZ7Bv3piD6vcA=;
+	b=s5d3B6utnlDejIuHDHGRs1sXCGmWrnxXjpKAvIcX+lS+Q13Yw1e0yj2CAqG5DxLPf3GS
+	 RA4yvk9zA5GT07FnPP052Iytxp3EXZrfsiEE4Vn5mYVo4wOya8xYaps62jSKxCK3GzMWi
+	 yaGOASKgAp0pAR8AVRqt+I+mcDai2Qvb1aIuf93M0vSvW6Ufr/yJ0v3JjRfVFdzovpQRp
+	 +XmmtsRMDSmIpzXedHsM09Rp3A5FZvee05ex8dsRyw55SYhBmpiYeAjtbtvsm9sFGL6BZ
+	 It2lPjnOHRB+rI2edsb3U6uwb5mO4cZYv9l1Y/jg6NV5wB1jV5Q1xguc6Bm050PlzrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATGWt3xL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NUlN30vn;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE087606A31A;
-	Mon, 26 Oct 2026 18:59:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14BB606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14BB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATGWt3xL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C831F01825;
-	Mon, 26 Oct 2026 18:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793041175;
-	bh=vTjqmSt66KfvF8vPxCFY9aUVyzzoVUV2p70ZlxlokqQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ATGWt3xLPP9m/pjNLo1pz4ihUN2X7V+ARSOYQQjWTsEelrvUu7LOmcwSXsdgM/G03
-	 Gdd0vf+ap7jG9Me9glo+aREIsHT6O8VnWMBdchsVt2LSPqpCu87fc8Pk+32zIT0OVX
-	 2xjt/RTdWluektV6j65lSyhxhlBLhbQ1jxw3Ih6QsV1oH6iP8z1IAeUGSZJ7KFe7DK
-	 dFhJsxnLKHIJQZxQaMKYupLZxlv+V7AnDryx2iMiZb6WOgSsqZVa30c6t7V25+JlYi
-	 Ku/Dkv5u2eB4O5hZghI/9gT6AVuE9tzRi4gwhvxLr6Lvr45qvzCCy+hUAZmTbigUPN
-	 bPHPSN07g8zWw==
-Date: Mon, 26 Oct 2026 08:59:34 -1000
-Message-ID: <ebefec7ae9cb7f3ffc405bac53a6e95f@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Guikun Yang <yangguikun19@qq.com>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] sched_ext: sub-scheduler kfuncs use struct scx_sched beyond the RCU read side under sleepable ops
-In-Reply-To: <tencent_572AA31E5369BE41464E9DDA4CEDA2DA7C09@qq.com>
-References: <tencent_572AA31E5369BE41464E9DDA4CEDA2DA7C09@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NUlN30vn
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9821ca96fso38594355ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:59:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793041186; x=1793645986; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vFQSzrzMPbR886MkQnFhhUgLb0bB/SvZ7Bv3piD6vcA=;
+        b=NUlN30vnYiu/NIUtOUp+Tn4OxP3vIq7NpWCK/SBMEp0pzsRPLp3PSYWwv08HqWKq8c
+         DMP+nLjVSEnuniHsAymIsTM7kpVYCHa534FAc0ZvmNh2LQP7iDWqKwIMJi38LGZTGDai
+         UeOiaWkYNaKU5kKenhqjQOe59hKsMNOukDtG7z9etMGVjBwVzOIm2DDtSAHyuyna1r9N
+         EKQ1ZW4a6Riu45WU8/INkcUq3hRDjnw6Gx3WDw/Nh/Zpx823xFlqRzTueV/kpLJei9sQ
+         SJHpd3BuAkucBYeUwPkuvYyabt7yBtr8wYdd4gZisVFmGSmVfgbzBj7zOlsMc38qTUyo
+         Ts0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793041186; x=1793645986;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFQSzrzMPbR886MkQnFhhUgLb0bB/SvZ7Bv3piD6vcA=;
+        b=r2JFD/feeoPgj3k1a0lsFFH2HBew8B+Ycdhv7w2d0p3qwuf5uGWDWOAqTdRdZ2Cmkd
+         GVmeh8PRTA5ORDqkPanL4FXaXYKi2YRHC7EKXa4srVcH5U/LOMwdzDcTBh7z9haIvn5y
+         YVAri962MVnIOLTme3bIf5m/4StErGvSiT4NcGQ38cz+YPitt2hFmNfRKayo8Po+pAE7
+         QaFu2+FXjUshiPLF/80CNS195CcLExEQQv3CHEYSETlvs1VIjPsUOlpUrVIaXuFGu9Nn
+         dhmcZk5dIuD2OJmf7fw57Rk5/cK4X4IQ56u/FyalDoE2XoBmwo9E6eJkoAkFGy3TU6+L
+         eSTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxi6DQtU6zATGQKbji1AC9XJnKCV2YcQ3dDYbvUoF4KVq4ThqIEGLnOyWXL3HVGD7QYYX5peAPcZ3BvtGs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK78HwraU6x+qpTODhMoe4Fxd6gsAcGMz/lct2WsqirzMb+smuN
+	sq5Y94F8Ik8l3/Bz4QSvbKzsl7wo7FW5c3V10i9zo87dOeAQ25J/K53+Rbd3Tp4aP656ooYZnZS
+	lAqvLZw==
+X-Received: from ploe5.prod.google.com ([2002:a17:903:2405:b0:2df:a429:6698])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3805:b0:2e9:460e:ca57
+ with SMTP id d9443c01a7336-2ea9c66910dmr71815065ad.15.1793041186062; Mon, 26
+ Oct 2026 11:59:46 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:59:45 -0700
+In-Reply-To: <kupecdcwbmc.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,52 +79,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+References: <20261022215541.631694-1-seanjc@google.com> <CAO9r8zPFEwUVYSTePWN-FurHLzGN6cY8bd-BOj3sjRmjj4xQbA@mail.gmail.com>
+ <at-Pfgjt__PJl55M@google.com> <CAO9r8zPAvi0vCENtj+7+gVrojB2nOHEoYfyhgdgxpmiUA2kWgQ@mail.gmail.com>
+ <kupecdcwbmc.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+Message-ID: <at-jIZ4uK9_IgzZh@google.com>
+Subject: Re: [PATCH 0/2] KVM: x86: Convert all runtime WARNs to ONCE
+From: Sean Christopherson <seanjc@google.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello, Guikun.
+On Mon, Oct 26, 2026, Vitaly Kuznetsov wrote:
+> Yosry Ahmed <yosry@kernel.org> writes:
+>=20
+> > On Mon, Oct 26, 2026 at 10:36=E2=80=AFAM Sean Christopherson <seanjc@go=
+ogle.com> wrote:
+> >>
+> >> On Fri, Oct 23, 2026, Yosry Ahmed wrote:
+> >> > On Thu, Oct 22, 2026 at 2:55=E2=80=AFPM Sean Christopherson <seanjc@=
+google.com> wrote:
+> >> > >
+> >> > > Convert all bare WARN() and WARN_ON() runtime usage, i.e. WARNs th=
+at aren't
+> >> > > strictly scoped to module init/exit, or similar, to ONCE() variant=
+s for what
+> >> > > should be fairly obvious reasons at this point.
+> >> >
+> >> > Do you wanna CC stable?
+> >>
+> >> Not really?  Maybe?  I worry that this will generate an absurd number =
+of conflicts
+> >> and also have "misses" in older kernels, to the point where it oculd d=
+o more harm
+> >> than good.
+> >>
+> >> I could be convinced this should be tagged for stable@, though honestl=
+y it might
+> >> be better to omit the automatic backport trigger and just rely on some=
+one to
+> >> "manually" provide equivalent patches.
+> >
+> > I can just see this ultimately preventing a DoS and if it lands on any
+> > stable kernel it should be a win, but yeah probably manual backports
+> > are needed :/
+>=20
+> With my backporter's hat on, it would help significantly if we split the
+> patch per-area (hyperv, [l]apic, posted_intr, vmx, svm,...). It would
+> also help those who want to analyze whether the particular WARN_ON() is
+> actually guest triggerable and open the corresponding CVEs.
 
-On Sat, Oct 24, 2026 at 03:47:07PM +0800, Guikun Yang wrote:
-> The four sub-scheduler kfuncs scx_bpf_sub_grant(), scx_bpf_sub_revoke(),
-> scx_bpf_sub_caps() and scx_bpf_sub_kill_bstr() obtain the child
-> scheduler through scx_find_sub_sched(), which is an
-> rhashtable_lookup() call.  rhashtable_lookup() is the _fast variant:
-> it takes and releases the RCU read lock internally, so the returned
-> struct scx_sched * is only valid inside the caller's own RCU read-side
-> critical section.
+Honestly, I don't think that's actually going to help.  Exactly which WARNs=
+ are
+problematic will vary by kernel, a lot.  I.e. the set of WARNs that are spa=
+mmable
+*now* is not the same set that was spammable in 6.18, 6.12, 6.6, 6.1, etc. =
+ Then
+factor in different configurations and threat models, and the set of proble=
+matic
+WARNs gets quite large.
 
-There's no use-after-free here.
-
-rhashtable_lookup() isn't the _fast variant. It requires the caller to
-be in an RCU read-side critical section. rhashtable_lookup_fast() is the
-one that wraps itself in rcu_read_lock()/rcu_read_unlock().
-
-> The kfuncs themselves only take guard(irqsave)() (sub.c:2323).  They do
-> not hold an RCU read lock and take no reference on the scheduler, yet
-> they use the returned pointer for their whole body, for example in
-> scx_bpf_sub_grant():
-
-scx_bpf_sub_grant(), scx_bpf_sub_revoke() and scx_bpf_sub_caps() do
-guard(irqsave)() before the lookup, and the lookup and every use of the
-child happen inside that IRQ-disabled region. scx_bpf_sub_kill_bstr()
-takes guard(rcu)() explicitly.
-
-Since v5.0, a region with IRQs disabled is an RCU read-side critical
-section, and synchronize_rcu(), synchronize_rcu_expedited() and
-call_rcu()/queue_rcu_work() wait for it (see the comment above
-synchronize_rcu() in kernel/rcu/tree.c). Whether the sleepable program
-holds an RCU lock of its own doesn't matter.
-
-> There is no synchronize_rcu_tasks_trace(), call_rcu_tasks_trace() or
-> kfree_rcu_tasks anywhere under kernel/sched/ext/.  A normal RCU
-> grace period does not wait for rcu_read_lock_trace() sections, so a
-> sleepable op running inside the teardown window keeps using the freed
-> scheduler object.
-
-scx_unlink_sched() removes the sched from scx_sched_hash before the last
-reference is dropped, and scx_kobj_release() frees it through
-queue_rcu_work(). So the grace period before the free waits for any
-kfunc that found the sched in the hash.
-
-Thanks.
-
---
-tejun
+So from an upstream perspective, I think we should assume everything the wo=
+rst
+and "fix" everything, and then do the same for LTS kernels.  I.e. backport =
+the
+concept of "never do multi-WARNs at runtime", not necessarily the literal p=
+atch.
