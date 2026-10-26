@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011438;
-	b=b1wYTC0UKJDKgMlNg+KK70VwQbReKdK5a9Atw3/TOapa0SrSEdHLKN+kM+is845xVFKo
-	 wp0084A4UiJfO0UuaqTijV/qX4ivJjqIgHviIxglaf1MFAUeRPwkZFpyNv1SliWK8Q3dB
-	 bhG5q0RlV95/A+kfnk3rXe/r4D3it6gYuX1o++27ggmxx82k8bNTA0/C4/9+8o6VvXK/7
-	 NH/atMxduOjpN+7PZge8IJ9686lz8ZEVy6OwRIr2C5HGd+U8Ld6K++aq1wYKMm2fSKWhI
-	 FLKTizf/YSWnl8u0avZXG1PX5FZkvIc5hEdWrwDCE39lFZxnMh0q3czoAHRk3hFppBg==
+	t=1793011472;
+	b=qpgUGBExyPssZnY82u1s9VqcfdVIs1Zox3pYDA8R9gmTS4xY3ohtyGWOanyvUHSqdyvp
+	 woDEuPSlJWQVQdzPyZxw+GEP9WAxdMhaJ/7bKIj64rl442A6QvLqnBdejT5oSG/Gg+gD2
+	 njmTzhE7y+AXFho7EwI3TYtKTTpXArT1d1e3uHfaw7wJZpTL7gu1tsvYFkx+yVx47C0/u
+	 8t/FJrgUMeRXgtamuJ8LePxedDosH2h9U5hSUQ4phfHIj5PHdqAn+NuJrZFap/6QFG2XO
+	 zj1cfvy36J2GKAoLaC/VJHh3krUunzTR2+L6Jut2AzZT1cs3XMyhSmpIh+yzzKD+MYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011438;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Wf0uPaRwggOutnw7/pw6//TwuSgBGQaNrdvQ/zHEx5w=;
-	b=0JPiefG/o16eAbCyUoDxWgkRp75wqwdNkycciIMnENAlTU+1QfEEQAXDL3AtDcvt+v9j
-	 yN2D4vevilaDVVe33S6YU0XFfS0yC7nRRheSFuIuhJe3wt/uXlSamV1pn9p0YADpAnyz0
-	 +OY7Yw8ipH6YG/8RRTuRtW3bNvs4cihGm3/IhUCZctYRYNBye45PRkff5sROOxH/Wy7NP
-	 1gNx183/Tutqx6m1FvIEMUVp+/Nft7uDN2JoA1UAZU7atUiYS/97GDSbT/JpzniFBAMHN
-	 b9SRQxHgEqtn14qkVLmN9S2Kz7FBfYMPl4wo0KFM5pe/JR+0lVs1lixkO2u4Ixls6eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011472;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZT3sIrPYsLf4bF7EjJfBOJes6yXJ8vu8pSt2SltAhV0=;
+	b=DiJpdeAo7W62D6Kf1fXpALasBSGHGdoW2CkYv6fdXyCqSiPOhVpV9BHbDiP70izlabkb
+	 /8eYnF946SjCnd6j0byScpL3YSpG95hWL9KiP3QT5uXi4jxTmdceZr11ep9E93bAsUMGF
+	 5SCRFxa2dGG4LN3+ApRqSI8QVFnFqj7Ur+PqPBJwtsN08Ua5TUaAZO5WCyvncAY+2C++3
+	 u6tJ+XlgiRXgBIM7UD4N2gSi72PBMfTmDoJ9k4IW9WDDkf1UXOQQTqEFkjVLPAZ5ZDFFq
+	 IH7G8MS+Y2WGX9gOLIXexec1q0wUlCjVNvdvSWI5Om6yMpz2sf5lZcTpijQ0IckfWYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDpw8+ys;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fA/vhGip";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5D9606A31A;
-	Mon, 26 Oct 2026 10:43:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CE5606A31A;
+	Mon, 26 Oct 2026 10:44:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDpw8+ys
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7B3E1F01825;
-	Mon, 26 Oct 2026 10:43:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fA/vhGip
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367B61F01825;
+	Mon, 26 Oct 2026 10:44:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793011438;
-	bh=Wf0uPaRwggOutnw7/pw6//TwuSgBGQaNrdvQ/zHEx5w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bDpw8+yswp51VW2WiUh1P9jbp4Ygh2PYzvQLx8Ul1/aD1+J3+PSCr3CU/lTqC3lSX
-	 aNOOMWQwFUPiNQRBm2bO/QxIqDB+Zchx9SClqQfjhCMjqon9mG3eqAMw/tebqlKEvN
-	 +1pVhkCSu7nB41rjOpFAavh0oJkWXtkWxTchDdZN+nHn0aoFjxUtGN5hjxdYs14zpA
-	 +OmMJK1tpwkhM5A3Bv7IjI2t98IhQNzO4mYqFVGXlnIi/7EJUP7WX8f3fuMEG6AYkI
-	 XA/xzsYKyQ1iyL3nZXNWd/lgT9/3XIkeMWfDdND0dVNwBBmABGAEvE9naRIsc+Zmll
-	 Vcykj16VfAnmA==
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: David Cemin <dcemin@nvidia.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH] firmware: arm_ffa: Compare notify_id when looking up notifier callbacks
-Date: Mon, 26 Oct 2026 10:43:51 +0000
-Message-ID: <179301133069.1771203.5657844869255921300.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020220902.611138-1-dcemin@nvidia.com>
-References: <20261020220902.611138-1-dcemin@nvidia.com>
+	s=k20260515; t=1793011471;
+	bh=ZT3sIrPYsLf4bF7EjJfBOJes6yXJ8vu8pSt2SltAhV0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fA/vhGipLIk1O8gOBsJtkkVVYQX814G2padlR/E3QpRBcK9Qi6+HvZ2ExCNOfCNwa
+	 rwu46EGB1Ig+KgwWwFAMn3XSlehwoSFnKuXERVlXj/MT4cMi3ci5SHxxU1xSaZq5F0
+	 JA0Un8J+PEVjd8yImOpT2z+oBDU0Xb58usskbKjW2GmBV/vQ7fOEHmyEU++MBHHBIc
+	 qc9BcyIsbAHuACLSyGoxZaIZBwYVH+BNpEkIO02v5yPrxfepNl2gd5BKGOMypn3Qg4
+	 Pipvea0+AzWp200ETgLLs/fltu0GJ/fJTJXimDKzvaxXG4JtEw7QNt4dOEigK2ChW/
+	 8MaEOASm4t+Uw==
+Date: Mon, 26 Oct 2026 10:44:25 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, Colin Cross <ccross@google.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] mm/vma: write lock source VMA before duplicating it
+ in __split_vma()
+Message-ID: <at8u8H9dVRYLJI5u@gremlin>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+ <20261023-fix-vma-atomic-v1-2-8ff4fae1fc85@kernel.org>
+ <20261023192627.yj5ltdj4fjzydblp@offworld>
+ <24bb4c36-730c-4f04-9cfa-be096d4da9a2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,27 +64,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <24bb4c36-730c-4f04-9cfa-be096d4da9a2@kernel.org>
 
-On Tue, 20 Oct 2026 15:09:01 -0700, David Cemin wrote:
-> The notifier callbacks are kept in a hash table keyed by notification ID,
-> but struct notifier_cb_info does not store the ID and none of the lookup
-> helpers compare it. hash_for_each_possible() walks the whole bucket, so
-> any two IDs that hash to the same bucket are treated as the same
-> registration.
-> 
-> With the 64-bucket table, hash_32() maps IDs 2 and 36 to the same
-> bucket. A driver that requests notifications sequentially therefore
-> fails at the 37th request:
-> 
-> [...]
+On Mon, Oct 26, 2026 at 11:42:40AM +0100, David Hildenbrand (Arm) wrote:
+> > should just say "stabilize atomic VMA flags".
+>
+> You mean the s/stabilise/stabilize/ ?
+>
+> I guess that's just the (uncommon in the kernel) UK english variant Lorenzo
+> tends do use.
 
-Applied to sudeep.holla/linux (for-next/ffa/fixes), thanks!
+King Charles dictates that this form be used ;)
 
-[1/1] firmware: arm_ffa: Compare notify_id when looking up notifier callbacks
-      https://git.kernel.org/sudeep.holla/c/8ab2e426762d
--- 
-Regards,
-Sudeep
-
+--
+Cheers, Lorenzo
