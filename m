@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793025859;
-	b=pNOvXunEnPx31XdkNBRD/PtVK71rKtYb6vnooWpvxpLeWIsNBGtfuq8mPQWz27edaRQB
-	 ZHlqLsYuboHWTNXNBRLX3GIuNBtFP0U9lBYXM5l45kyFKMNIv0LkX4iFFEAeMOOlcyUIy
-	 /Hs0kfQc3hm4FvN4xTAfpCf0ffBt7/uF6VzJJiYkF1Gv7XO2Tf/3Rs0v+e5HSQ9mBSvtE
-	 WMZQAmj7DPylOgmzyG8Rmvf9/To15WxPS/2Y3ppBMn0YjJTB+ey1COTh558K+Nk2EV0YP
-	 MmJWY3MjUnD3ljAVs9M11jefmeLOh+sSS4t576fRkHJE2JK5FV67jl+GzKO4GeyvA+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PmLN4KMI9/ckNOzHWJ+qP7gBBd55w1zodrkYmeyXAOM=;
-	b=t5/n1x72e4W8i8WFh7dFjnBj6iVdUzF2qxjDTmi2neyJO4Da/PjMuPTQ7Rz2OOIs92pI
-	 +Tn3QgVgVj8Bgq6DK79VGKNwOWw+5+IcuUnzRzZqpsw7Z9VVpBuoaGZThJrsDAY2NZKuS
-	 wE2Q2tZjZC2vLJeeUHaBnPYL1fm36eMVvHvB6n49Z0U8MXpKXM8GbI7KZyEEV2yD4Ilrg
-	 VIlAEq0Azs9L4LzVkc2eDW7Aw6VsWr9DazCorDcY7PaivGoQoX2UrgbVM3gd2W8OwAWoI
-	 rm1c3gLAlOw+OYBL4ongkQZ42yLK3OukqkEVFRM8tU6eIMFqKOsS3VlpDfMSSOz6cqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="I/xgKncw";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9170606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:44:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9170606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793025883;
+	b=a04oN5eqEz1b9nkEXNQiBCuXKm7KuI2BQ8EjrGj4CuPiSiU4j0lOpS6jdhbAVJ2tsESc
+	 KZaqdxo9xAEVmkXBiTfrF+FVZ7wmwGJ7AFi1gPVwFl5ZIXs1vwMfuHWjOeyOi8V79bhvI
+	 d41ytvkt4d8MN4ZWOiJBcvzRKE29kzgm2/uGizwW+U6xt3UsLhb4HrigtF5RZTyR920Ii
+	 Rej9JGfsjGD4b5OZ75jE99aPluIIh5ui8MVsv0W00JG8NhXuue5RSmhVWDy/ZqGZQsX25
+	 0l+9XHvmRJA9B7V4c0iutysTD70tE0L3cHdFRd1XiaTNU/m4JKvusfwe5oZTK/v8oag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025883;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=2bC/tKvsMyQSFyWd/4grWajRGenpXtC7/e5rOkNlwlE=;
+	b=cRvK84ST7gW5GgOgzMPmQJipo+cXbZiblN5D2K4Io3DabySuvKMjwB9szmeG11FW5rUF
+	 4Hiu9Xuj5+tlQWysbR+fbqwY5yOZTUrxasV2QH+z8QRTkbLdDKpVEHHcRQ1bbhtUB7nDd
+	 CZtz0M6XFatndgxBqJS7MXzYbv7oOx9Fo6Xq7PfF+OeP3E2xtCcZG+Ag+pdf19viSlOpW
+	 nfqzQ3eIsA76Ghr3hBl/pNB5j1K+JOSJzCfHYg6W1mvkLrJ5xgNHf2rmVTSZdl/tVA/LT
+	 T72rwqrSApjFPWOFis/xFwKNtCIAnZ7YbJ1qxYYTx5KHQvNKhSF0L6JV/x5d0+i3g6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cc641w2U;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A849606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A849606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I/xgKncw
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8565d77c277so23883927b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:44:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793025858; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eVPr/OlafeOw2dgchnTLJMkAOOBQ80WHlLHajH83k6Elcn1B6iEaO1eNFT9Sp25Zqi
-         GLIYVLUkQ9287168zOgRRh3UPgH5Adcze6uKMPjwcoHROlqXQBKrHfz+gkkURQmMy1/K
-         RSdGddPN5eko9ipjDl1jU8ecpwhKJx2RmLwORaEUw1QNQC0rj16J309i1x0XR7NIUqQ5
-         SclLYhubi2e5F9crUucjnW70BMf1oBeWQ1PfctOOjG6wBpG/40A0O3PKaPBby9zM2vOs
-         S8/DNhuUJI6cJk+nRHqwqfq2Rj1G6q+9k8Fe4t4bN85Gxkoy0g4/D53qait9t8QdluWL
-         669w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PmLN4KMI9/ckNOzHWJ+qP7gBBd55w1zodrkYmeyXAOM=;
-        fh=HcrSqwt1F399EEMC1xAm53use1k5K5PC8L8x9bqT0P0=;
-        b=BNYT7Qx7LEYMO2FMKvZNVdNgsC+qYfe2DE8T05ZBWGE2H9q2nmSnnbJJPj7ViDlZyB
-         MOeblnw0A2YAUbTkDLW/PE+QYFsYy9NR0fHiu8eCi6xkV/GxJ6TrpfpJGSbo+PueeRQ7
-         LZ49qx4C1Nt84+vb7fYCsZlYV5iZljBXew3um/v1fyVIuyyqqH1HI7cyFzeDfliubcbe
-         OqJ9LXSBA0pU40BJXgCInebM2lLlEu4ChQPGrn++tB7XtmQ1oaQJp2VlGKczxbaXS3js
-         Pp5XDcRKQNWslUm5HgJs15yj8D3Ad6cCMQuhSr0FHdcFEWApVZx8YmREpKQb3XUJvkh0
-         /d8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793025858; x=1793630658; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PmLN4KMI9/ckNOzHWJ+qP7gBBd55w1zodrkYmeyXAOM=;
-        b=I/xgKncw7HV+TXyHup1s1Yw9AdSQRFiuKXpuTkCcgMvGeODn1vciZ1RY4PNDZxMlaC
-         a7jzFx+vF2U7Dts0T/DNIM8Jp7UN5FIeqcSnZmY6MHYhAfUkcN+3sH8hRFIwZ943c6Ec
-         jf7ZguBPUZkNeCJIwVhsn1f92FLYLMc22WomtJaXAelOoJG5i2L1zOmXc6Jh31qLmd37
-         vwJDBZ1YaDxK+4JDu4Q/vY5P9vOOPzivy0pYCF8r6AOCDxSlBJ2EbRBqUR7FFFhO+Tbu
-         q3ReC9DZPEkqD/k4c10F8Gj9867irKBeNjMPoRb2r/0RmJO4sQqEb1Fy4U8B2qix4ea8
-         nxDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025858; x=1793630658;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PmLN4KMI9/ckNOzHWJ+qP7gBBd55w1zodrkYmeyXAOM=;
-        b=rjNcD3aKTzZ9EIbqikX4SyWpazE1XOb2YwdQyzbHKAWHlEl4vyHWT1jM+zldaV+ceg
-         S5TuoVgCjLNh1UBBGfJDHS69FhzLvuuEWkg2hj5JcKS0wDl3uAdGFfJmKRmq9NCBeOi1
-         R7ZrMjWJ2qOQ5cPGF+xUVjXKkrAkexm7t6CLGjAtbAv3/r5EfMV1Pdub0l9KkS3ySuUx
-         fmreYmVgZPT7Kxavax9eswAmpeMZ1kgKylL4t/5jRPzcuspip3h/8t33paJ77qsmgZ/P
-         SQDpt0FZqkrBprVcsm7QxL5xqYxgvEnE3wiECWlXo1Wyy51Q1QuMZ4mZ2ruCfvLCy3dX
-         EFnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwV4q6Ytn4zoKJGNRC1dnfdU3KU5d7vEqtDOkm8OHPtg52NIA2+h7a3GJaamgK7NYZnG3rIRfjj1CITOA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL07fiRpVHFAZ/DZ4A/89umTlKp+YjXTAnEgQwuArnhJ60/smr6
-	vIyjXt4WoCJyjPY7du0E4XJHgxarSOt/jK9rEV76670RBhxaOKHEWL/6AkjJiSfqeuOYV8wfykz
-	jFFmYZSuF3ROle7Xpia68p0YP75a+qyE=
-X-Gm-Gg: AYBFou3EtnigDrNBao9NCooY8gM0lYI+sJaRf4sSxCmTbuJt5KUQZttxzhhgwVeTpdl
-	/Z6BBgSrX6w6f6+CCw2uh7C+7An0bqzrwARy1oGu0deb4L5GfaUk8CXARok663suQlgnsLyrhBi
-	TVe7RTIL5U6sQGH2tB3jxZf1BJsSuQTziKv5RXRuw5ZLvefwgmk54mx8iFFMfIPEr9Fp6NjxvUT
-	4RUIeNq00U54aOgPCLIhlU54JQayFnaJKMCmgnfTL3H96FnJtIQ3w7Z7/hvLonYm5EHMRpJiapT
-	kLISgZ1uzNlT/c7/+mivSQVasdUov5Muy5+ZuqhYRhIxw+tK9ef34NqwY4nY00aMbgvI2LZ4Wd9
-	kNjjYRKiHfOZSTtr9ye8pRnVYztSXRA07buDxjUw=
-X-Received: by 2002:a05:690c:e3ce:b0:8a8:8945:c423 with SMTP id
- 00721157ae682-8b166c5d5ebmr46729927b3.56.1793025857715; Mon, 26 Oct 2026
- 07:44:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cc641w2U
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D1F415A1;
+	Mon, 26 Oct 2026 07:44:38 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 932E83F7B4;
+	Mon, 26 Oct 2026 07:44:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793025881; bh=cXwGQ1sgxxKZyhdDrXpdQtNttNvD0RVFexoJ9R9VXl8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cc641w2UwlCKZjaZ6pVm4urYV48alptH2J9aWv5cKo5Wo1XqBvDykrSj2aRAF1H9i
+	 5sGR5B/F9mKusRhXjgKIwz+SfGLvQJp9Dzctg82Pwl7Yp9JDNQ3UD0zpTgP0sbOIKI
+	 y/kJZBx0ZBNZF5QpiXnZvHAD6GEi0iCyS14f6D4k=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 0/3] Set DBM bit on writable pages
+Date: Mon, 26 Oct 2026 14:44:06 +0000
+Message-ID: <20261026144413.441566-1-leo.bras@arm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +72,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e@gmail.com>
- <CAL4WiiqEHwZRhSRXqFOtF3OYsX_v3519Ey8AEknbaZKFNogeJA@mail.gmail.com>
-In-Reply-To: <CAL4WiiqEHwZRhSRXqFOtF3OYsX_v3519Ey8AEknbaZKFNogeJA@mail.gmail.com>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Mon, 26 Oct 2026 22:44:06 +0800
-X-Gm-Features: AclHuK963cbP9FFGoa6Gs50d3hUXJxO6-lmlfnE174He_utWipWjNu9DcJLD_EM
-Message-ID: <CAFRLqsU2QHD2Ta2aL_qSVr9nVFrn6mXV_nZ987+oqHUbCa7ZSw@mail.gmail.com>
-Subject: Re: [PATCH net] mptcp: protect listener backlog reads in diagnostics
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: matttbe@kernel.org, martineau@kernel.org, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, geliang@kernel.org, horms@kernel.org, 
-	netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2136; i=leo.bras@arm.com; h=from:subject; bh=cXwGQ1sgxxKZyhdDrXpdQtNttNvD0RVFexoJ9R9VXl8=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLLupxsaJqiuV//2b+8U5p99kl2hzS61uzMNn29+8EIr9 PfZwLlhHaUsDGJcDLJiiiyyj+av4vk+JePIlR8LYOawMoEMYeDiFICJ/F7IyDDpjlbE/mvLLW3a F9sVzTFn1cmZdlVw/gepVAshs0UTFu5jZFjdof9mzTn9Loub/25bWaR+uPTkvOrnlX+bt+6J8NG de4MLAA==
+X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
+Content-Transfer-Encoding: 8bit
 
-Hi Eric,
+When HAFDBS is enabled (VTCR_EL2.{HA,HD}={1,1}), having a DBM bit allows 
+hardware to promote a non-writable page to writable by setting (S2AP[1]=1),
+without having to take a fault.
 
-Eric Dumazet <edumazet@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8826=E6=
-=97=A5=E5=91=A8=E4=B8=80 20:38=E5=86=99=E9=81=93=EF=BC=9A
->
-> Adding these stack traces without symbols is not really nice.
->
-> Time to use scripts/decode_stacktrace.sh
+The reason for this patchset is to add the DBM bit when setting-up writable 
+pages, so the code is prepared for future patches that make use of 
+HDBSS/HACDBS to accelerate dirty-tracking. Write-bit detection still 
+happens based only in S2AP[1], so no change in that aspect.
 
-Sorry about that, v2 carries the report decoded with
-scripts/decode_stacktrace.sh and trimmed to the relevant frames.
+Having DBM set on block entries is undesired, as we benefit from the first 
+fault for splitting it in PAGE_SIZE entries, which is the granularity used 
+to track the dirty pages in KVM. So introduce a new walker that, on top of 
+clearing S2AP[1] for every entry, also clear DBM for block entries.
 
-> msk->first is a TCP socket: TCP listeners have SOCK_RCU_FREE, and
-> tcp_prot / tcpv6_prot use SLAB_TYPESAFE_BY_RCU. Reading two integers
-> under rcu_read_lock() is safe, and stale values are fine for diag.
+Also introduce a new VCPU request to reload Stage2, as it will be needed on 
+future HDBSS/HAFDBS patchsets. 
 
-Thanks for the suggestions.
+Please let me know of what do you think!
 
-Best regards,
-Cen Zhang
+Changes since RFCv1:
+- Dropped patch #5 on enabling HAFDBS on non-dirty-tracking guests, as it 
+  proved to be counter-productive on wrprotect, contrary to expectations
+- No more moving writable-bit to DBM. That does not seem to be the intended 
+  use. It makes sense and it's easier to convert code to new DBM approach.
+- No new PROT_DIRTY, so drop patch #2
+- Tried adding a PROT_DBM, but does not seem necessary to fault a page as 
+  writable-clean. 
+- KVM_REQ_RELOAD_STAGE2 now depends on VHE, as it already reloads Stage2 on 
+  guest entry otherwise. 
+Link: https://lore.kernel.org/all/20260901171558.2674031-1-leo.bras@arm.com/
+
+Thanks!
+Leo
+
+Leonardo Bras (3):
+  KVM: arm64: pgtables: Set DBM attribute on writable Stage-2 PTEs
+  KVM: arm64: Introduce a dedicated walker for stage2 write-protect
+  KVM: arm64: Add KVM_REQ_RELOAD_STAGE2
+
+ arch/arm64/include/asm/kvm_host.h    |  2 ++
+ arch/arm64/include/asm/kvm_pgtable.h |  3 +++
+ arch/arm64/kvm/arm.c                 | 10 ++++++++++
+ arch/arm64/kvm/hyp/pgtable.c         | 30 ++++++++++++++++++++++------
+ 4 files changed, 39 insertions(+), 6 deletions(-)
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.56.0
+
