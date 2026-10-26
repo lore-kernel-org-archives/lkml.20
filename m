@@ -1,109 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793045601;
-	b=QtI6crz0znMtUqPlGuFvZkbIxacPhcPpqkBAqyjp4mie39fKT1qePOnMt6ZSa8GKpVkm
-	 coWRBND82BY0ugyFBeh+ZeHV+mDjPOBlMvp6Mte/93ice5aIQ1DLKDyleNDW8b5EQUwiU
-	 bbSnTHs5t+8cxwjTCXyWr1+Mtx4cxmqPpIWAewjiw3G3pgnGphgAM4Rwh43YHqmrhfjy4
-	 NDN/wB6dSzKBXQYB6SegbXjIjEPk2MCBc8Q8gr8FrZAuMIixT7lTYXP0USiBQA7eVDWqn
-	 Nl0pcGUqEBD5oxvk+ElPZfQ7e6cjgaVWPVFbhvoQJUmvVh/8F7pE0Xt0tu/36bJ7YVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045601;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
-	b=EHWUCbJemqWlOuwKy/Mgi9Ukmqev4E2WJpdV2935AfDUjNB5rfkXuphR4XvQqUfjjZ53
-	 +oQNbbMfq4Jn2x7xIQVBI/s16kdQ+TcMCfK+hr35bLQZgdoDP+QWeSQ0h8WQaMlsfliNm
-	 3YgXHwSjSp10fRGz6yIFddHT48unkfAtR0fDNWNBd4BGz4Jx5LQSHTT/6Bx4JSuOisk1y
-	 SKktshP6z27ZlMupNgfZx9M+MuYqRjO5g2fDbqo9CG2yAw9VOAIcLF470zduECbT3P1cs
-	 maUHK6w5rl4U+RMZQXsCfJtIGPyLHgXAaKh0aXxAY0Y9Vrxiko5ND/9eGg6fyhdLmVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZOQHymp5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.44
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013044.outbound.protection.outlook.com [52.101.83.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793045616;
+	b=H/CnFS+BwZy3vqk5sY8EvolrMwbLdzpcz6XbrgGp/FQwFS4EROZEf950uoMBDO0L4i6s
+	 AhXu1TPdfskN+28FS+6OUJqF4J3pocLdXQRtkIavjHnU0VspTqylEAHXYhxZAFqJQzO8S
+	 kAlGr8wnRUeWWorJKXRFs0LRpztJ6DoyW6mWGZIKK4dp+HwD3aomgCqDox1fLi1yPvr9M
+	 aQWkT3jcoq39kvtSMo+geyoqGlRi6Vwzq9E9ALABmCRx/jJWzShEHA8SlZjNoZMkjIslk
+	 tkfn8u/JH736oIPSMNIAcstUoXRa7A2EdCUl0vo/cVBORfBnKf8tRad3Px5b7In/W+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045616;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
+	b=vhbcDA303NfXoOzoiekwzCtafB0i94PwTPm++ygAX45FN0SMv6pPKZKHYw/rQIE1wscY
+	 p6LOy2pYpqfsZVtcgWYj4TdNZuME3xoFbGlMZE96VhUqlMgqWTzA36BKglBwGxmjaP2Cw
+	 Di0s+miLhbbFo9pk7d8okjMcm4CPRWa7WV2sea6OlH5nTshX93P9xKcWQELrPYEynYFzU
+	 CepSRF4lopEMiifSLTez+CHdqPO4vK+pHqyjhQahtaIBk/DVFLNQ3r4DiGxB0rp5Vf1aW
+	 HgqcOddFiLmeoAtntKr9AUXTGdif2Tw2q1hmgyvLnqIJLClKRWdUT/KQX3k1MiCJhoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lgqiTZBv;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46F606A31B;
-	Mon, 26 Oct 2026 20:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D46F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D31606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:13:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D31606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZOQHymp5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iyk8UTLdl+tKpYTxhyAbc3/x0tmxOBhr8n1wZVvt+zJKkY+aIpUUEohL4deILncG5YoU7duM2v3PkZYGMiiN/0ALOCIqzPgieRAwjAa3HXOoLoN+bRB4VUXkydemqxa9sB5ioq6KAT30ME1+BEFFXF/BOYgW7gsnwpRRIhTBv+rBTfYFo6jbM0ms2qDRaacs5lnoYGfhkSmALvNiXK+rgvkFKEhJF9XDSAkMPM+fID7fdRDvyQXzQK/8CpFAG5TRwEi3YEbhovkZdJeuTFVZj2hvhcFCiVXZUkDgROiTkar/VX3EpTLWOnExWWbgTZ9YX62CQGCgzMgD6ef42Lr4Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
- b=r1U+1ue1cyTw5zsalKhrKHdqnieJ7c9coxng1b+XYLPR5jGUbZOnumQzO/sv2c04jEqZi8LnuY1avScc0wZaOWChJ4qANB6EgZBDtsm5HDFsh31LeeQzLf8DpPuGvDaK+yjrswuIUntEPM/EzKinO+oV0pLaayaOtt9qyNhuOuzNBVHbrAicUx92JAIoWSXBYEJRPmll0o077FE3vCAUfqn0JuJ2/1o3Q3dq11wZEj70OevOly0d+S/xBCmD2CtBPr3foxlrYoUryeFap4UiATKsAmJMcpfNNwJhZRI7i9sQKoJPvH1CdFzhbtF7BeJwkWxBCc2kLUTMNYy2q6acSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
- b=ZOQHymp5fErBdYBK2WUGc8/qBBatKi5HIFDLF59Qt1YChYK/kup838SIbEA29thVh+zT9slnwmfVsYB4oYA7xBXu17orfWQOLM5hxxhuU/dN+vTGMO7X7nETWGzVV66oYDvmNK3Vjs/Lz6BjHbhHBHBjsj3SfH/PLgnQas2ZxurX2DbX7sY5DHSoKQoiD0az9b1qZgQEoWM96MxJU7L/KXVz1+iX87Tx+P/wPmtPRu4qSs3P6y0xq8ThuHdlvzsb1X4Fdl7tr+1S4R744HgWofOrcleZOZe24IisNyZOTRzvCIbPQFNZ4ZpTwFZH3Jc27jA4YxkQYvDllhNKIMgigg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB8PR04MB7049.eurprd04.prod.outlook.com (2603:10a6:10:fc::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 20:13:18 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 20:13:17 +0000
-Date: Mon, 26 Oct 2026 15:13:08 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	linux-arm-kernel@lists.infradead.org,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-Message-ID: <at-0VK3LQ5c7rVmF@SMW015318>
-References: <20260928204741.175754-1-marex@nabladev.com>
- <20260928204741.175754-3-marex@nabladev.com>
- <arvPDq8sjjv7na01@SMW015318>
- <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
- <20260930174413.GA2463938@francesco-nb>
- <ar1bhpji35CbArtY@SMW015318>
- <17f240e5-9c65-4562-ba51-535b0c69c5fd@nabladev.com>
- <ar19W4wX07p8u3_5@lizhi-Precision-Tower-5810>
- <4efdcea6-a099-46a6-8d07-dd5c583b962a@nabladev.com>
- <eca44457-d3d3-4732-977d-d30a408b7b66@nabladev.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eca44457-d3d3-4732-977d-d30a408b7b66@nabladev.com>
-X-ClientProxiedBy: PH8P223CA0006.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:2db::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lgqiTZBv
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15ea896ddc8so5921059c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 13:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793045616; x=1793650416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
+        b=lgqiTZBvuwBsm/QD6Q04dpuwb3hT5D0KF0Iidza14BSZtsryM3FuxPGAxoRcl1+aHU
+         Wum0veb4k29fmNZUzA6I5nsDRMm8/ROiICgggJyWWxqY8841k3ihr20RjfaXuPNcjyK3
+         +pvcvDJcn6hdr93DZn6xuLytaLaJ1JpcjEIdCHOgVqhv3tOKwmxl0d2zhxgX7aXhP/9s
+         9DP8cQO6iot5Sfrln4aAaFfi/qTJFVGtDlokuQxrSr/TzgMEOo+yqiGUlU5c4xWdpSr+
+         ZdSX/HFPTLJD+C0FjK6rfj+Gib3kmVSlDvHdlQ/zrLNSeHC4L9bCWAfn5ltoKwImxREK
+         7O9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793045616; x=1793650416;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=29PYuZcMuk+6BqVhsEf3/8y855sPSJj2J3ONQETVxCk=;
+        b=w1Jle4C2qLky6Ig4vW+6niKZHGHCAF84HDCGzguukZQNXWbD8Zbn4M5szy16vser7t
+         lNWOj/Qg+c7Oxj5ai3VdzmToN8nriw3dOousK9ma7JLZwT6nko+JQWXUuLkc+2m97O6b
+         uCKKEhMRbVsQlkyrJNov9i/x/wKTBrn8XI9WTEhcMoaINguLv6SoGcXh0Joez2X3pA4E
+         f+K86+DkpLbJDp89fi503ZTzWSiuXNvtBBlTd4X8wpJ9xob6RnUaq0mA+TaU9Xm7z+ij
+         XuvxIOehqNX9f1SgNaS1AlCC3CMaIrl30K7/iIjxsaKaJ4s74i2NdiVywN5AeDW2ExL/
+         rXYA==
+X-Forwarded-Encrypted: i=1; AKwUvBy0ERWMfAPP68uSdqng7MNdobL1GguLIEH+8pbWlhGlo9FOjw+ekG7dp+jURB6Ab46AjFevUF+Zro04nC8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjfV3OBUW/7HzZB02CJrfvQ3JepQdm+C/7WbMe9pxbr1Tc9ha9
+	bhJCXFR6rOUKJs2uQk9b1gi6DjxOCIcaDecB/ciH6DoSBkubojtelF99
+X-Gm-Gg: AYBFou3UQurp+0opd+8wutylM2AYNRjSCsnPJIh/0g/u8GUQE0o2qsg/+/y5qMUsYj3
+	X+BkBs9Pe7adQ1n4Hor9AI0qf73sWJpzbojd16i3BIdpncvOi/frK5mQbUMXNiEYSF5WYrPHWaw
+	Ed8mX25qaYwKjbvO20U2aAlVc8j8Ab4JZGYc79cBM7A25mA4wTJvij3S5IwmOR0lzeR7VXH5Ncp
+	BFBsGMpUsUc+w6S4Ca/e+9pFpipLpkJ1I6gAtOatNqdZ8pqIg7p13r98Hj1aENr4BvCL43tAkvn
+	ssofp29JP61gikJWHyzzRRY7Jn1NQ/LoHXGg6lV1VjnL9OxTKDwyB874pZLIXJHc0aFW+rCrjUm
+	1US7MWlfK1HjEQ3AfWiHfs9Nk9Vwa96oUPuFY3pzHwamf3OFBE+BaBqq7XOmsKeUkzygR+79yqw
+	Xfm0VvJH3X88W9pDXR3SPUIJ6y+IkN3Nbq8GXU57OcAzEIVpa1TOitGK0TYI2LuCQa3CphwF3ZB
+	rjlRYSH8T9Xc/gtg4Ob0NlEadIJ3d7xD5hcoObGNhcdQ4UVa6fXdOHv/Y9GZjWJMsVb4yAbWah5
+	/AJ2DOr7aKPD8YZU2Zi42DE+w41lh+ESPXbm
+X-Received: by 2002:a05:7023:885:b0:136:b50c:c0e9 with SMTP id a92af1059eb24-19934a96fffmr13762865c88.21.1793045615364;
+        Mon, 26 Oct 2026 13:13:35 -0700 (PDT)
+Received: from valdaarhun.localdomain ([2401:4900:1c44:61b8:f26f:bd5b:b550:7a07])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm31730486c88.6.2026.10.26.13.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:13:34 -0700 (PDT)
+From: Sahil Siddiq <sahilcdq0@gmail.com>
+To: jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	naveen@kernel.org,
+	davem@davemloft.net,
+	mhiramat@kernel.org
+Cc: pjw@kernel.org,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	kees@kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sahil Siddiq <sahilcdq0@gmail.com>
+Subject: [PATCH v3 3/4] openrisc: Add unit tests for KProbes on branch instructions
+Date: Tue, 27 Oct 2026 01:42:39 +0530
+Message-ID: <20261026201240.107462-4-sahilcdq0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930202744.50489-1-sahilcdq0@gmail.com>
+References: <20260930202744.50489-1-sahilcdq0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,86 +108,352 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB8PR04MB7049:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22ff2255-0842-47ea-2a90-08df339d92e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|7416014|376014|10067099003|56012099006|261026121527099003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	iEtwddky9eZsMUmYMuolhKHOt5q9RH5u17bwcdWBNj0CNz6QQTq13ezVhe1HAAkRzYP0j+UKK6borgpEtQMRKkzmYa8TicezQV9WPCWRAVZ93NXzFGkKDlmIMEFv1xqd+eiRVzr7YqMUapF1VyoW2oU4H4ab2eQnbiaOkqIAAL3ZmaWJSdi41+v1ShxvOUBEHha30ytT0s2I3htpmeDGBfNQO1GmdUWNEZq/T2o4IyYgsVkxvh5Wq5MzYAjK6F0iUBJL1GvZrozzbXBY/tU8j9BR1m6/pErmqdIQfe/vVvupH+EHXEIt6CIPJRTnOGg7hLCVm+gHb+mBcytRI35BfKjE/Yiwqp3EtdpzZJ9jDR2urQ90Ke8D5Rsw/uxYJyKB4cfFtREblHKpsIwxxyl3AqNj8gSkb8PKviHAFWLtdHYJ2g2YieHQJBO8NlYd43SuUu3Ivdh5PgFLkZ4G7YyWJL9Px7d9wepEqdH2gc2p0xQucU/v8QxPwf0YJDX9j35+yfnSfey1sjg8Gkce8cY7hJJK/5i8JXLs2DciloW1z9kUmsdOlxf3bjCrQ91UHMu/fainIUCsC6pVGttszxlCyxrmW7oUHoBEyvCWTKlnyahVMo94btjY9NJ7a1OsTdrf
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?a7dVEAll+q9MyUvxdWtgLr/kWtG02ULA2GQHoN1umPG43yQbiJsWAIqrHZog?=
- =?us-ascii?Q?76//nZkE+0Pu+Q9ZDhBqlRwLvg9FrPOgiIOiWLAiv0nei/e+j1ux2pmpO9Jv?=
- =?us-ascii?Q?GqSFLt9kGgrVu3lNRLrfzcvpnpSYU3l1V0R3X8Ut543gT97ghoB+E/LC6mxy?=
- =?us-ascii?Q?exSD1kHK5m18MX0V4yHmfvsLQcI5dMeaEu+jx7sM73xAEeHGxi6sJrCiv7wd?=
- =?us-ascii?Q?5M+zjz4SVuyPiGNimwZimmETLXunU7fyUkM+WVtTEmHlBS478oGVy5bEWQmn?=
- =?us-ascii?Q?7LCwnC9ztlhkuAITsDCHzvzNiID78uaVU2lQ7Rpcr5M5iuiNqziv1936dYaf?=
- =?us-ascii?Q?kXO2QvcFZHOIv3Gtv4widWo/+/HJj0qp1PJK3YBLZR40joi7FK44yrHp7IsI?=
- =?us-ascii?Q?GgI4E4Zmg3OBdF0tPppBg5S3i6PVxPf33trtoQL1bGUwRRnvTtUcZybGL+AB?=
- =?us-ascii?Q?gR2ANzfTXbqAHQFEY2xU9/IRi+cD3M5BCcM/xZiTf9rhiOpG1zmL5DUrdDBF?=
- =?us-ascii?Q?ChCfnK+TOP73hhwmW+cjJUKvZWC6coYloYzsBT8MIeXArspKH6OM5kLddTuT?=
- =?us-ascii?Q?FY/BN4it7BJKv6PaYu/zOL6gybvzgTYuY7rPhzQyv+MvsXfd/4CeEOlondbw?=
- =?us-ascii?Q?nVUyzZ/mzP3Nu40cMSqWP/5PbAextD0vKSGX4VKskx4zbl+nhggl2V7mZzS4?=
- =?us-ascii?Q?TzsWOmaNCNSE4Sz5fMb/DEcrtlHF0WVn3w6B88CjTCwaD3RgVjQ68WiLObn2?=
- =?us-ascii?Q?7a/m+8AuRT1PMAiuRnVptHz0ua2Gu2ILp2Ky9YgkbSdFLpeau4sbqHNO7z8s?=
- =?us-ascii?Q?YzEo6et+cQM8fWOA/tLNl4J2ClfUxYOvZT958CwAKCiRFPwcaeNnJWd0ROBo?=
- =?us-ascii?Q?YbhGgqGSaD66UUQnjc280MPfshJUl6EcjqkLDUwPBkvLlnKD9k1WUneNvZAA?=
- =?us-ascii?Q?ikHlOCXHSoie7LIG2235Sm1cdvVru0gwN7C4i7cOcDR6zMFILec4JfHu7EeC?=
- =?us-ascii?Q?pIY9UnwZcQS25EW7swaBo6PBwMb0AmsCuAK8kQEQhLYgl/IAss3GaTGzRXQe?=
- =?us-ascii?Q?TNwqLkoWG7e+00U05C9dxp4kRfdlM2YzCxGuOmEFk12ujLQona4vTdvK9Ih5?=
- =?us-ascii?Q?zZBlSq/+kGJ7UrUfXIK+pO1ulq/oTBJkFCxrXIZQQI5vlKzYqPFoyCO1HkEa?=
- =?us-ascii?Q?BBBLHN7C0KGkxcdJPXc/ItSQHf9RdeyF/UZMq1Szo28G0fJrJ72hiEvBe6yB?=
- =?us-ascii?Q?XSlVJdjJS7QLNTuI4gd2z4SiqgVYUFI7z2qxZUSVqiawOPVmfEiU3Ok75u1o?=
- =?us-ascii?Q?K63wK6a6qnl6C94tONxTBqUAwmfd2FHwnUuagdG+IGKO6cBH8PPxUTyD73Qi?=
- =?us-ascii?Q?cXxy8RDv8Bant0mLHpsY3T2XTLpAWrGcibQqlfczerlgts6RnCGKkancVOZy?=
- =?us-ascii?Q?mkG/8HcrwPtpP+RtN96wp3VzagcgPx1u0eq9aSTm9AHkMD0AnIy0L7OZmtQT?=
- =?us-ascii?Q?eQDhrYS0B2Alj73lm7GCwCAOKzdm9Ujn1yX75hspzAwlyGpW2GjBdGANvNh3?=
- =?us-ascii?Q?XXAqxtCUUvItUpke9pA7t4+GZKblkbtG91+o6w4pryd4raT4zSh+nmEpO2c8?=
- =?us-ascii?Q?aqPD9MgOcv7DTn+SIW+4MG1sEu78x5ciodGdEy2PlsWGpY2NDU1+964ehEzN?=
- =?us-ascii?Q?nK73Er8d0S4YYW86oUzYnvJNxZgwTX16RejddLZ/oWSisyWcG8G8LCeZ4EOj?=
- =?us-ascii?Q?PjCP3gYLtIS5lCdEd2zhRj8kUPpweDySHJb1AxDdOZOsmhwOl18i?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22ff2255-0842-47ea-2a90-08df339d92e5
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 20:13:17.9315
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S/WI3S9Sdm1B1eC5/r/yaTTChNBTUxmhJ/5AsdMM5sQ2QmYD5rw9/kb4lrLI3ACB0p9v0bbcKVM0wehZkUHV4EhQwiWdItweUSPe2EtzUQ+pmbHSvzA8y3/te2TohSOk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7049
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 04:04:02PM +0100, Marek Vasut wrote:
-> On 9/30/26 11:49 PM, Marek Vasut wrote:
->
-> Hello Frank,
->
-> > > > > So I suggest remove it now and add it when need.
-> > > > Can we please go with consistency between these boards from one vendor ?
-> > >
-> > > Yes, I am keeping consistency, then ask remove it. I applied alex's v2
-> > > version. I put v1 link to show krzy's concern.
-> > >
-> > > https://lore.kernel.org/imx/20260319125013.2421621-3-
-> > > alexander.stein@ew.tq-group.com/
-> > >
-> > > Changes in v2:
-> > > * Changed commit message to imperative form
-> > > * Remove (currently unused) display and backlight nodes
-> > I sent you a V6 with those nodes removed.
->
-> Have you had a chance to handle the V6 ?
+Tests already exist lib/tests to verify the generic functionality of
+KProbes. Add unit tests to verify that KProbes work on instructions
+that require simulation in the OpenRISC ISA, and that the corresponding
+delay slots are handled correctly.
 
-Does first patch picked by vnod?
- dt-bindings: phy: ti,tcan104x-can: Document Microchip ATA6563
+Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
+---
+Changes v2 -> v3:
+- arch/openrisc/kernel/tests/test_kprobes_asm.S:
+  - (test_kprobes_*): Set value in r11 register to 0 prior to running tests
+  - (test_kprobes_adrp):
+    Place function at page-aligned address
+    Use PAGE_SIZE macro instead of magic number
+    Move value in r13 to r11 before exiting
 
-Frank
+Changes v1 -> v2: New commit
 
->
-> Thank you !
+ arch/openrisc/Kconfig.debug                   |  30 +++-
+ arch/openrisc/kernel/Makefile                 |   1 +
+ arch/openrisc/kernel/tests/Makefile           |   3 +
+ arch/openrisc/kernel/tests/test_kprobes.c     |  59 +++++++
+ arch/openrisc/kernel/tests/test_kprobes.h     |  24 +++
+ arch/openrisc/kernel/tests/test_kprobes_asm.S | 157 ++++++++++++++++++
+ 6 files changed, 273 insertions(+), 1 deletion(-)
+ create mode 100644 arch/openrisc/kernel/tests/Makefile
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes.c
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes.h
+ create mode 100644 arch/openrisc/kernel/tests/test_kprobes_asm.S
+
+diff --git a/arch/openrisc/Kconfig.debug b/arch/openrisc/Kconfig.debug
+index 295942fe3fd5..54110f3a111f 100644
+--- a/arch/openrisc/Kconfig.debug
++++ b/arch/openrisc/Kconfig.debug
+@@ -1,2 +1,30 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-# dummy file, do not delete
++menu "openrisc Testing"
++
++menuconfig RUNTIME_KERNEL_TESTING_MENU
++    bool "openrisc kernel runtime testing"
++    default y
++    help
++      Enable openrisc kernel runtime testing. With this option, one can
++      build and run tests to verify the correctness of relevant components
++      in the kernel at runtime.
++
++if RUNTIME_KERNEL_TESTING_MENU
++
++config OR_KPROBES_KUNIT
++    tristate "KUnit test for kprobes on openrisc"
++    depends on KUNIT
++    depends on KPROBES
++    default KUNIT_ALL_TESTS
++    help
++      Enable testing of KProbes in OpenRISC for instructions that
++      require simulation. When further changes related to probes or
++      tracing are added to OpenRISC's port, these tests can help
++      verify that instruction simulation and processing of delay slots
++      continue to work as expected.
++
++      If unsure, say N
++
++endif # RUNTIME_KERNEL_TESTING_MENU
++
++endmenu # "openrisc Testing"
+diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
+index 2ac824867963..0c1cade09e0c 100644
+--- a/arch/openrisc/kernel/Makefile
++++ b/arch/openrisc/kernel/Makefile
+@@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
+ obj-$(CONFIG_MODULES)		+= module.o
+ obj-$(CONFIG_OF)		+= prom.o
+ obj-$(CONFIG_KPROBES)		+= kprobes.o
++obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
+ obj-y	+= patching.o
+ 
+ clean:
+diff --git a/arch/openrisc/kernel/tests/Makefile b/arch/openrisc/kernel/tests/Makefile
+new file mode 100644
+index 000000000000..9e9693fd3550
+--- /dev/null
++++ b/arch/openrisc/kernel/tests/Makefile
+@@ -0,0 +1,3 @@
++obj-$(CONFIG_OR_KPROBES_KUNIT)	+= openrisc_test_kprobes.o
++
++openrisc_test_kprobes-objs := test_kprobes.o test_kprobes_asm.o
+diff --git a/arch/openrisc/kernel/tests/test_kprobes.c b/arch/openrisc/kernel/tests/test_kprobes.c
+new file mode 100644
+index 000000000000..a41bdec662e1
+--- /dev/null
++++ b/arch/openrisc/kernel/tests/test_kprobes.c
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * KProbe unit tests for OpenRISC
++ *
++ * Unit tests borrowed liberally from similar work of RISC-V. All
++ * original copyrights apply as per the original source declaration.
++ */
++
++// #include <linux/kernel.h>
++#include <linux/kprobes.h>
++#include <kunit/test.h>
++#include "test_kprobes.h"
++
++static void test_kprobe_openrisc(struct kunit *test)
++{
++	unsigned int num_kprobe = 0;
++	unsigned long (*func)(void);
++	struct kprobe *kp;
++	int i;
++
++	while (test_kprobes_addresses[num_kprobe])
++		num_kprobe++;
++
++	kp = kcalloc(num_kprobe, sizeof(struct kprobe), GFP_KERNEL);
++	KUNIT_EXPECT_TRUE(test, kp);
++	if (!kp)
++		return;
++
++	for (i = 0; i < num_kprobe; ++i) {
++		kp[i].addr = test_kprobes_addresses[i];
++		KUNIT_EXPECT_EQ(test, 0, register_kprobe(&kp[i]));
++	}
++
++	for (i = 0;; ++i) {
++		func = test_kprobes_functions[i];
++		if (!func)
++			break;
++		KUNIT_EXPECT_EQ_MSG(test, KPROBE_TEST_MAGIC, func(), "function %d broken", i);
++	}
++
++	for (i = 0; i < num_kprobe; ++i)
++		unregister_kprobe(&kp[i]);
++	kfree(kp);
++}
++
++static struct kunit_case kprobes_testcases[] = {
++	KUNIT_CASE(test_kprobe_openrisc),
++	{}
++};
++
++static struct kunit_suite kprobes_test_suite = {
++	.name = "kprobes_openrisc",
++	.test_cases = kprobes_testcases,
++};
++
++kunit_test_suites(&kprobes_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit test for OpenRISC KProbes");
+diff --git a/arch/openrisc/kernel/tests/test_kprobes.h b/arch/openrisc/kernel/tests/test_kprobes.h
+new file mode 100644
+index 000000000000..26c26920d430
+--- /dev/null
++++ b/arch/openrisc/kernel/tests/test_kprobes.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Unit tests borrowed liberally from similar work of RISC-V. All
++ * original copyrights apply as per the original source declaration.
++ */
++
++#ifndef TEST_KPROBES_H
++#define TEST_KPROBES_H
++
++#define KPROBE_TEST_MAGIC          0xDEADC0DE
++#define KPROBE_TEST_MAGIC_LOWER    0x0000C0DE
++#define KPROBE_TEST_MAGIC_UPPER    0x0000DEAD
++
++#ifndef __ASSEMBLER__
++
++/* array of addresses to install kprobes */
++extern void *test_kprobes_addresses[];
++
++/* array of functions that return KPROBE_TEST_MAGIC */
++extern unsigned long (*test_kprobes_functions[])(void);
++
++#endif /* __ASSEMBLER__ */
++
++#endif /* TEST_KPROBES_H */
+diff --git a/arch/openrisc/kernel/tests/test_kprobes_asm.S b/arch/openrisc/kernel/tests/test_kprobes_asm.S
+new file mode 100644
+index 000000000000..bc87a5fb00d5
+--- /dev/null
++++ b/arch/openrisc/kernel/tests/test_kprobes_asm.S
+@@ -0,0 +1,157 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * KProbes unit tests for OpenRISC
++ *
++ * Unit tests borrowed liberally from similar work of RISC-V. All
++ * original copyrights apply as per the original source declaration.
++ */
++
++#include <linux/linkage.h>
++#include <asm/asm.h>
++#include <asm/page.h>
++
++#include "test_kprobes.h"
++
++SYM_FUNC_START(test_kprobes_j)
++test_kprobes_j_addr1:
++	l.addi	r11,r0,0
++	l.j	2f
++	l.nop
++1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++	l.jr	r9
++	l.nop
++2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++test_kprobes_j_addr2:
++	l.j	1b
++	l.nop
++SYM_FUNC_END(test_kprobes_j)
++
++SYM_FUNC_START(test_kprobes_jal)
++	l.addi	r11,r0,0
++	l.addi	r15,r9,0
++test_kprobes_jal_addr1:
++	l.jal	2f
++	l.nop
++1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++	l.jr	r9
++	l.nop
++test_kprobes_jal_addr2:
++2:	l.jal	1b
++	l.nop
++	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++	l.addi	r9,r15,0
++	l.jr	r9
++	l.nop
++SYM_FUNC_END(test_kprobes_jal)
++
++SYM_FUNC_START(test_kprobes_jr)
++	l.addi	r11,r0,0
++	l.movhi	r15,hi(2f)
++	l.ori	r15,r15,lo(2f)
++test_kprobes_jr_addr1:
++	l.jr	r15
++	l.nop
++1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++	l.jr	r9
++	l.nop
++2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++	l.movhi	r15,hi(1b)
++	l.ori	r15,r15,lo(1b)
++test_kprobes_jr_addr2:
++	l.jr	r15
++	l.nop
++SYM_FUNC_END(test_kprobes_jr)
++
++SYM_FUNC_START(test_kprobes_jalr)
++	l.addi	r11,r0,0
++	l.addi	r15,r9,0
++	l.movhi	r17,hi(2f)
++	l.ori	r17,r17,lo(2f)
++test_kprobes_jalr_addr1:
++	l.jalr	r17
++	l.nop
++1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++	l.jr	r9
++	l.nop
++2:	l.movhi	r17,hi(1b)
++	l.ori	r17,r17,lo(1b)
++test_kprobes_jalr_addr2:
++	l.jalr	r17
++	l.nop
++	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++	l.addi	r9,r15,0
++	l.jr	r9
++	l.nop
++SYM_FUNC_END(test_kprobes_jalr)
++
++SYM_FUNC_START(test_kprobes_branch)
++	l.addi	r11,r0,0
++	l.addi	r15,r0,1
++	l.addi	r17,r0,0
++	l.sfgts	r15,r17
++test_kprobes_branch_addr1:
++	l.bf	2f
++	l.nop
++1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++	l.jr	r9
++	l.nop
++2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++	l.sfeq	r15,r17
++test_kprobes_branch_addr2:
++	l.bnf	1b
++	l.nop
++SYM_FUNC_END(test_kprobes_branch)
++
++	.align	PAGE_SIZE
++SYM_FUNC_START(test_kprobes_adrp)
++	l.addi	r11,r0,0
++	l.addi	r13,r0,0
++	l.addi	r15,r9,0
++	l.addi	r17,r0,-PAGE_SIZE
++	l.jal	1f
++	l.nop
++1:	l.and	r19,r9,r17
++test_kprobes_adrp_addr:
++	l.adrp	r21,0
++	l.sfeq	r21,r19
++	l.bnf	2f
++	l.nop
++	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
++	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
++	l.addi	r11,r13,0
++2:	l.addi	r9,r15,0
++	l.jr	r9
++	l.nop
++SYM_FUNC_END(test_kprobes_adrp)
++
++    .section .rodata
++SYM_DATA_START(test_kprobes_addresses)
++	.word test_kprobes_j_addr1
++	.word test_kprobes_j_addr2
++	.word test_kprobes_jal_addr1
++	.word test_kprobes_jal_addr2
++	.word test_kprobes_jr_addr1
++	.word test_kprobes_jr_addr2
++	.word test_kprobes_jalr_addr1
++	.word test_kprobes_jalr_addr2
++	.word test_kprobes_branch_addr1
++	.word test_kprobes_branch_addr2
++	.word test_kprobes_adrp_addr
++	.word 0
++SYM_DATA_END(test_kprobes_addresses)
++
++    .section .rodata
++SYM_DATA_START(test_kprobes_functions)
++	.word test_kprobes_j
++	.word test_kprobes_jal
++	.word test_kprobes_jr
++	.word test_kprobes_jalr
++	.word test_kprobes_branch
++	.word test_kprobes_adrp
++	.word 0
++SYM_DATA_END(test_kprobes_functions)
+-- 
+2.55.0
+
