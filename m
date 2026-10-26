@@ -1,76 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015412;
-	b=1f0doBavAE2RGHE+2D75L0Z/5OeSfm+aURaHQAYPA8Ar6365cic54h9WO08m12TrkXmS
-	 Dq0vJsIqmesTTNyJfHbbtQjKCYzykmBC9ySigaf/EEgkpGMDxeRuEMBHiC/gz3hfH43q7
-	 0fPIJoGhzUmLRehLU1hM4fUsJqnX6gTlkiz4kIjMvoED7gw72UM/OMLffSs7Qqtnz9RL/
-	 EdNEctxQEWL62E8YsWHHOxs6NLeT+Z4OcMXlj1eu8qpwD9idu4GuD2ePfdYTRRWoYnFji
-	 4XJmBbTu/TP7IsWKFb10GntvABwmBE9/4Ahf//sBCZs2tn5e7K8GwRiVWk42m6U3k1A==
+	t=1793015403;
+	b=mwNkVlp9Zt6GNGoRsGd239YZ/kOheB4/JqQMkpLcrlNxouOyVXm1dRAg0vv4G/qoBn9w
+	 1apsvaPeit2aLL3hGXu3p/T/x1kSgsW0+xIgFbQnc6QCEerBjdsypvqidY1EmsKZxJoKd
+	 3688ABbQQiUsbWWKejfRIf9LOV9LElTeEZu0snW3zokmwXHSUv6YxT8jZBEseGN0oGcZB
+	 KOaOF+6l3ribmnKiEdgC1a0IW7wB/VGFkiGFxMN2NG+OWWsdU7Fod8anuZthwEhaZpQcq
+	 YGmqVv5heHVcwrJm9EvOmxc1Ao/9ZjCCrOV5XI9UCaSbf3YCTRF74kAzjfoMN4WRHPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015412;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
-	b=a3JtkI8v8vimWqymi6ivyGDzRk87w1HMmS5le3aLyLcg/Qr9A5+fMkbNJvmZzjgOXggn
-	 gegRNCqCUwhvVlpFvLSUkwUpffZ1ViLl114+Jh0oCBL9Szih56y0RCRN1Xjx4J0BRG4BS
-	 TXlko0gfbK7JNblgFYRWVgHzG+qAtATk59R9kpSgaAwGWHJSVV4CrmdvDFb8mxuEQocRk
-	 gXR/idm70nsgy8Rq0QdEeZpkxcvKAYc9K1YQLTnbXQJNMksptqMRIgoVxqThtFjOkZ27i
-	 jEBSwrvX1OAp5LbXqAa0xcpmTZ/rpMGPb74oZUPOrK41yDTT1g+FWk2kzvrykR9a+7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015403;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=BtV2IthiJQs4qJs1IE3KxiEa4l7s2YssIydBTyg2DwQ=;
+	b=YqT+YhDg8dkCuvd8J3MLAqk8/I4GKcIfGxZm5FJr6usBA23Bwo3iTBr54MOxK9ahr37Y
+	 rzvht3d99Ox7yYyRFt8C3QvpK+yCHEcvmfaJCDb2rO/zu8jSZsE6FfIPUl9t3LOwRQCMC
+	 207XNgY3n2wkLWi7VcUU2CYHCVwBS/uJkW8hX4l4LebPLtIiY0D4Nr85fqsukpdM8SDbX
+	 CpEg8X6KCWnFENyhVjnSQQGVE30YHgqMJoJJMfFZA4JOSa7NbH2VwuH9EpztUbL43LBD8
+	 yxrR9LyO50v+7HPI+plkQ4L0nZ725iaUkUrD9MmUOGHKwzTB2hEbbvOP8pbdxStkuJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XAsGlQ44;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA9E606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:50:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DA9E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XAsGlQ44
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so3599354a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:50:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793015411; x=1793620211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
-        b=XAsGlQ44QhxLbX3s/vWrWR1fEjhFGkT5IlmfbZ+lkLP9Oe85SXpiAn1GeRLEL1H2XO
-         yQc+jA06Xl9daZwtD/YhVCQBe4QhPG4Wx6MdjOZ4iJEgGnKFU/FYUV7xzaqZQKLsA0aN
-         R/0o43MCYXNrmiuXKNSZMqL9QRoabLxkTEN4RZcoISWY2W4N5MHoElGvLxv39SyWGeoh
-         S2qHKVenxm/vznKTPaQvnAwIq1AJacG92itDoKu8OCiHjWi2HDS+a0fN0ni6jgV3kLpO
-         SlxEHMWkwZPDCPxARUPnqJ5+CJrAkhzChQ6p6s68BDHOT5BDv1rKIoQIexS1xnBLr1l6
-         sTEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793015411; x=1793620211;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E6ehAr+5O7aPeLIKo6+S6CS8cvliVvtVKcymE8BrUws=;
-        b=F2xmhix2ROVP8bt94p+j4c53aSAQ14G9yuDWDrXz6xZ4/wuifn203dHa2kkBRsi8bz
-         H3eM61/pQw8H7dIvC2UBe2hVdHPfjxETHT5P7yNcnDxhxiWeV29MVPOC3aq6tBFpwt1a
-         aWRhzSgyBBXqucqFcnummkWVvt0YAqhekIlRSnO9DB1SL7Wu9oJ6wGra06wilo5/zMmp
-         80OfjRgYQUHhK8E4Vd0CWap/V/iNAF9tX78Nt+69c3M8+N9JL7WO3Qr81E3SK3pciWeW
-         0+45KQ49oXlu9LxE92FoqO/oAAPqha6xvtsYcrPopi1egioN2ieYQP/U799nEOobFJ+w
-         D06w==
-X-Forwarded-Encrypted: i=1; AKwUvByZULf6Okw+fW2HtIwUCXUZa4wA/LYFvub301DpU7e0o5E3H8VSiRIkJtFupE3OvXnfWWfWmaKOcn6YST8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHKfjoeiFkXs1WnIJx4NKOn6RaSbBMO1ewcOJqIVal1JRrc95T
-	RHvCD7rSHzxtg351w8sTbE0VAvYaxBWW/JU83vdcMSLnikfAsneuzZ9JMY052ndyZi3sqfSuvmE
-	QvmCXu9bBLmFGLwSQ8A==
-X-Received: from edrd16.prod.google.com ([2002:aa7:d690:0:b0:6b3:8448:41c6])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:249e:b0:6b1:c7d9:b622 with SMTP id 4fb4d7f45d1cf-6b442fffef3mr7891637a12.26.1793015410774;
- Mon, 26 Oct 2026 04:50:10 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:50:10 +0000
-In-Reply-To: <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A6606A33B;
+	Mon, 26 Oct 2026 11:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A71A6606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jCsPJ55L8z59yrx;
+	Mon, 26 Oct 2026 19:49:56 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 69QBnq5h010156;
+	Mon, 26 Oct 2026 19:49:53 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 26 Oct 2026 19:49:55 +0800 (CST)
+X-Zmail-TransId: 2afc6adf3e63067-a884d
+X-Mailer: Zmail v1.0
+Message-ID: <20261026194955694FnXGoQ352dstLk5HPBqCG@zte.com.cn>
+Date: Mon, 26 Oct 2026 19:49:55 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,164 +57,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
- <atlQ_Er0Ig7CCSxv@google.com> <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
-Message-ID: <9huzzew0el59.fsf@tarunix.c.googlers.com>
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-From: tarunsahu@google.com
-To: David Matlack <dmatlack@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
-	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
-	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+From: <shao.mingyin@zte.com.cn>
+To: <mkp@kernel.org>, <target-devel@vger.kernel.org>,
+        <linux-scsi@vger.kernel.org>
+Cc: <michael.christie@oracle.com>, <bvanassche@acm.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBzY3NpOiB0YXJnZXQ6IEZpeCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgaW4gdGFyZ2V0X2Rldl9hbHVhX2x1X2dwX3N0b3JlKCk=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69QBnq5h010156
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 26 Oct 2026 19:49:56 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ADF3E64.000/4jCsPJ55L8z59yrx
 
-David Matlack <dmatlack@google.com> writes:
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-> On Wed, Oct 21, 2026 at 4:55=E2=80=AFPM David Matlack <dmatlack@google.co=
-m> wrote:
->>
->> On 2026-10-21 03:25 PM, Tarun Sahu wrote:
->> > LUO and its file handlers validate handed-over state with monolithic
->> > compatibility strings ("luo-v5", "memfd-v2"). Any change to a serializ=
-ed
->> > structure, even an optional additive one, must bump the string, which
->> > breaks live update between adjacent kernels. Replace the string in
->> > struct luo_ser with a feature header, so that the target kernel can
->> > accept or reject the source kernel state per feature.
->> >
->> > struct luo_feature_hdr is a fixed 128-byte header: the serialized
->> > structure size from the source kernel followed by 15 chained u64 featu=
-re
->> > flags entries. The fixed size keeps payload field offsets identical in
->> > every kernel, regardless of how many flags entries a source kernel use=
-s.
->> >
->> > Each feature has a 2-bit pair (req, active) state (enum luo_feat_state=
-:
->> > LUO_FEAT_DISABLED, LUO_FEAT_OPTIONAL, LUO_FEAT_REQUIRED). A flags entr=
-y
->> > holds 31 features, and bits [63:62] =3D 0b11 chain to the next entry (=
-465
->> > features in total). Each subsystem defines its feature states as a
->> > static const u8 array indexed by its feature enum, which
->> > luo_feature_hdr_init() packs into 64-bit flags entries with
->> > LUO_FEAT_EXT_MASK chain bits. The target kernel validates the header f=
-rom
->> > the source kernel against its own feature array via
->> > luo_feature_hdr_validate() according to the per-feature (req, active)
->> > truth table:
->> >
->> >   Source Target Action
->> >   (1,0)  (x,x)  Reject -EINVAL: invalid source kernel (req without act=
-ive)
->> >   (x,x)  (1,0)  Reject -EINVAL + WARN_ON_ONCE: invalid target kernel
->> >   (0,0)  (0,0)  Accept: feature absent
->> >   (0,0)  (0,1)  Accept: feature absent
->> >   (0,0)  (1,1)  Reject -EOPNOTSUPP: target kernel requires the feature
->> >   (0,1)  (0,0)  Accept: ignore payload data
->> >   (1,1)  (0,0)  Reject -EOPNOTSUPP: source kernel requires the feature
->> >   (x,1)  (x,1)  Accept: use payload data
->>
->> I think we have different definitions of "required".
->>
->> In the PCI series [1], required and optional flags describe the _data_
->> the previous kernel handed over, not the kernel itself. A required bit
->> means "this preserved state depends on feature X; a kernel that does
->> not understand X must not take it over". An optional bit means "the
->> data for X is here, but you can safely ignore it". The source kernel
->> only sets a bit when the preserved state actually uses the feature.
->>
->> It's up to the FLB/FH retrieve how to handle the scenario where a
->> required bit is set that the target kernel does not understand. For the
->> PCI FLB we panic since failing to adopt the PCI state could lead to
->> memory corruption as preserved devices can be doing DMA.
->>
->> The target kernel never requires anything from the source. If a
->> feature is absent, the target kernel must handle that, e.g. by
->> falling back to default behavior. If it can't, that is a compatibility
->> break and should be handled by the compatible string.
->>
->> In this patch each kernel has a single static feature array that is used
->> both to generate the header and to validate the incoming header.  So if
->> kernel N marks a new feature X as required (so that older kernels reject
->> data they cannot understand), then kernel N will also reject every
->> kernel that does not have X, because of the (0,0) -> (1,1) row in the
->> truth table. That breaks forward updates from N-1 to N, and rollbacks
->> from N to N-1 even when **nothing being preserved uses X**. Therefore,
->> every new required feature becomes a compatible string bump.
->>
+Writing "NULL" to the alua_lu_gp attribute clears the ALUA LU group
+association of a device. The attribute can be written again after the
+association has already been cleared. In that case lu_gp_mem->lu_gp and
+lu_gp_new are both NULL, but the code still calls
+__core_alua_attach_lu_gp_mem(), which dereferences the NULL lu_gp
+pointer:
 
-Right, Required bit should be source kernel payload property to tell
-target kernel that the payload must be handled to correctly deserialize
-the data. It should be source kernel (userspace) responsiblity to make
-sure it understand the target kernel before doing liveupdate.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  ...
+  __core_alua_attach_lu_gp_mem
+  target_dev_alua_lu_gp_store
 
-Saying this, During deserialization, target kernel's required bit is not
-necessary. So I propose the following truth table.
+Clearing an already cleared association is a no-op, so return early when
+there is no association left to clear.
 
-Source hdr  Target supported[i]  Action
-----------  -------------------  ----------------------------------
-00          0 or 1               Accept: feature absent in payload
-01          0                    Accept: ignore the feature data
-01          1                    Accept: use the feature data
-11          0                    Reject: -EOPNOTSUPP
-11          1                    Accept: use the feature data
-10          0 or 1               Reject: -EINVAL (invalid encoding)
+Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Cc: stable@vger.kernel.org
+---
+diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
+index 2b19a956007b..430fc1eaeca5 100644
+--- a/drivers/target/target_core_configfs.c
++++ b/drivers/target/target_core_configfs.c
+@@ -2547,6 +2547,14 @@ static ssize_t target_dev_alua_lu_gp_store(struct config_item *item,
 
-Where Supported bit is extra bit information used by target kernel to
-deserialize the data. Which is static information of target kernel and
-will never be used in serialization payload.
-
-Like,
-
-static bool memfd_feat_supported[MEMFD_NR_FEATUERS]{
-       [MEMFD_CORE_FEATURE] =3D true
-}
-
-This makes every kernel 3 bit information.
-
-required+active: used by source kernel and embedded in serialized hdr
-supported: used by target kernel to deserialize the data if it supports.
-
-~Tarun
-
-
-
->> I would drop the target-side required state entirely and let the source
->> kernel decide which flags to set for each Live Update based on what is
->> _actually_ preserved. Accessing a field added after the original struct
->> then always requires checking its flag.
->>
->> At the end of the day it is up to userspace to never start using a
->> required feature while they can still rollback to a kernel that does not
->> support it. Cloud Providers know how to do this since Live Migration has
->> the same problem. This also means we must be very careful when adding
->> new required features, as they need some way for userspace to explicitly
->> opt-into them. I do _not_ think we should try to have some generic LUO
->> opt-in for required features. That is up to the File Handlers and FLBs,
->> as they have their own uAPI.
->>
->> [1] https://lore.kernel.org/linux-pci/20261013162529.1928093-1-dmatlack@=
-google.com/
->
-> Oh and please see the follow-up PCI series to preserve BARs and bridge
-> windows for some examples of using optional_flags to extend struct
-> pci_ser with additional data without breaking backwards compatibility.
-> e.g. https://lore.kernel.org/linux-pci/20261019213054.3157159-5-dmatlack@=
-google.com/
->
-> I don't yet have a use-case for a required_flag.
-
-
-
-
+ 	spin_lock(&lu_gp_mem->lu_gp_mem_lock);
+ 	lu_gp = lu_gp_mem->lu_gp;
++	if (!lu_gp && !lu_gp_new) {
++		/*
++		 * The LU group association has already been cleared, so
++		 * there is nothing left to do.
++		 */
++		spin_unlock(&lu_gp_mem->lu_gp_mem_lock);
++		return count;
++	}
+ 	if (lu_gp) {
+ 		/*
+ 		 * Clearing an existing lu_gp association, and replacing
