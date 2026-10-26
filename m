@@ -1,96 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792996320;
-	b=TtXtn4YJuzRHmhE4e9ribsc9bBmKOgLIx7uYzfzuadY7d0fr/VkjvtLmBbQqRboCtfoX
-	 8LQ4X98HB0cOmexUJR4kUTpgsqWZjedFClJwwobS8MHoc7kn37L0iPUQyBDOPEL0yDK8i
-	 aW9n09rA3aSIcvE0BOZA3fy5SHSRjJrx3o8oV60+F74VwN4132albYjHTA8H+t9LAINsw
-	 PCDt7te3/cT1qWTdb6XEMa9RPwFxNK14hupyHNp8T0GQnFEANJUWFEFFC+XoAV6pKNbdS
-	 ZbX/b0vWqUyzkjoDWdPJrEgR7q+mIZbupDDM2fd8sB0mHtJ9I+BnsgNuWLe/0NCY4Xw==
+	t=1792996364;
+	b=U+OtPmAx617FW/kr81C6Qq98jCjtmrxaPdyENlNwcBfZLIxmwNamWY34+gPhWdowZZuB
+	 2HOY/ly5XJDHickwB9v5mJzKQNXXB8U8uaHCVUxY6iWwvL5Wzti2bfGwOHbForbFO++q6
+	 nZLNE7Mhx9pD7dPGclhZEXbxOww3geiNRaMdhjN1uPGGVNZWCx20K/eth55hzzQikDGoN
+	 b6f2aN2JmVIoY3/NEO5b/Lc0E+NPtnw5dSCT+TLa7RM8Ge+toms/nyQowmLEzMxZnek4e
+	 zfRA/uLGliWfrRHd17wZBtp/q5q3a/FTYzt3ncPPbCmTvpq9A7viol1EA0K/veDYosA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792996320;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GqcxNtiAZfNQOpaRDoKT3/3Dst2nVYU7A0CmkDZXaHQ=;
-	b=VwAA4/0Vb1XWxE7rcQVFgFWoYV8Z5Ph2U8pLCD4GRVLbedDvhmA+c/XpGv2Ijw1crZwC
-	 InGVGwyIg7b0y0JgCtvwkBBryX/9ZYsk9S58nsZA41ybG11H6RLPxzwe3jAXRb1x6G9qw
-	 4QwXkvetSUNNphUkDtzue9Dy5DJf0k9Q9Li6KIqR4TpKzWLoMunXObV93wTjeYAob5Rvt
-	 H3d5ZXHXJlT+I02eQNE8KOk1CrcazLCrdnjUjOBAEjgYjGELYABNYjpoRjIbrYbzIOUkO
-	 WZywBkQxJwL3memR97PLJuMKWFkAKXvJtGQ0A64WqxRDejjiK2SQ3F7XK+YtSh/J+yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792996364;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CC59iY1aw6OyV8aTURcQLbLL17pBSNRBVzyiXs5pORM=;
+	b=o66TTuFUkxKFDLSi/yd2jIIjtewsjPfpy3MXfGNR0NNezi26JpnMpiroZQ2pSjFQAKV6
+	 Ry7F7vHpy5YyU+91Bmug18YBhDXopni9vInvWYILCJkB4iQbXbw7nGu+CSMOqn4d/10eB
+	 8GBrF0hRAQ1CGM8mY/eHa1phyzL3XgGeTVHmkUR2tA353ndUofehPDvND0LJRt6vVotoM
+	 HUmHsCnDlR40QBa8FwpEKMYXig1HP0XKiA+O3zT9zr5sxHlf5m98iUUOqIXhkocThVwNA
+	 6sPNWHfxg+VvWjCPtl4dDNrBPi7Na5WwFy7d8gXM3KO98oriK+eEcPEg8F2XhbWW/Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M6hSArX6;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.73
+Received: from mta0.migadu.com (out-73.mta0.migadu.com [91.218.175.73])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E925606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E925606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M6hSArX6
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so7662125e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 23:32:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792996319; x=1793601119; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GqcxNtiAZfNQOpaRDoKT3/3Dst2nVYU7A0CmkDZXaHQ=;
-        b=M6hSArX6JTjMluSmjYq/GJ9BD/s2nFPth0bRk6RiRLDEulLnGhekr3ymAjJj4S4Eg+
-         1fIChaBCXkBKX/HIsDnMjJVeWIJouPP8kZqF/WtRHZ+aDk/Iu6rsAqKs9w1T7EPmf48e
-         q22bq9/rbFr6UIR67MtYv2oad5mmlv8NF2kyrgEoLMFLJfCcImAhrkRLPStxXsjCoqv2
-         aA8RDdpB+qkRR9rQcPT6cE39SamMygPkRCA0oS5bapvyXwgK0Hl5WH3M1brU4wCiIhyj
-         sUdWThdie/Cwm80dTJQn1jh9ESiKc8DVyAImvnTmDCjFUW8ICV4KS8KPK/FxIGRxW+KQ
-         PsUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792996319; x=1793601119;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GqcxNtiAZfNQOpaRDoKT3/3Dst2nVYU7A0CmkDZXaHQ=;
-        b=0XAlUW/WwOtQHlBevZvV8GZFkT6SEVNud72wMFkUpSmvk7Rlu2fQqb0GsBWoDMGWOo
-         BdCINqw04zV9F8Cp531/14Im1b5JLQ9gjMWT8iW6bWeSYRsep8AkcBLZF0cvMYRJ3tyf
-         STMgBAwCTxJ8A0kCKfXoR5yvLyHEuwBwI6J08gMjmsTUbkW8lZ1CsbQSR3tBJg6zvVLa
-         o+9uVI43MYt8Lc/PT767GSn1cqzd7Ya9n6fpOv5kNbdZCLN3ciuAj7P3a9VucBTMyA1J
-         jpSCzQU8WJ5yRAWvOCqsHy9N3Y2Hz/Z1xZYfO2ByM3hyraXxkZr3Wol9LQQWaqVKiLy3
-         jSUg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6h5be6pDrNnoCaO6IDUSTBToggKTNE11koUZJ9C8GUSreXVoxdIkVppnJIZMklagbcJRHml4WlemCMe0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmUTyRpOXWMEy1oq4C0vmf+6xUehSry+eVkxyN0lTVLzEqqxia
-	j5S0KFiSFdsMGOWZMljhhhbaM6Agw/woXDKEO5HqkLFjmdYKy47YrjNE
-X-Gm-Gg: AYBFou2vCg2VSwuYUO21sUn/TKT4+5agp4dPD5KI8CKMG2n/bPGZrLEfyspBMz3iZnI
-	nlQIijjnUS3t5D2dOUpnlNrUW54QKorbjX0/4R25vmgZNncZrdCFLztuwjcj3anzb9qdVZd2AmF
-	O30VtgvdTkcso3UuhOkpvYvVS2b987cDbbR5weBxwwI+EzN6IwUqyULd8fV5IIRvZG17vSlE7cF
-	1vOfziDwaytQgrscX/HIgi/oXriJ3Qw94pxND1ch7R5SUxS0tYx9NkSXjiFwasa6VAuVdbXIcTZ
-	RiQrVK0zuW2qLN5raq+Epxo76xRIbvEc8UJ3ecGsWFnb8AmMonJH7Pp2C2AuRFabF2CYQMVNt4U
-	RL5YL7Dcmp8ZM6VpmRml8fSpQWFVXZeYOfxlTzGzGAQgLHO06QxdWi+kV6Cjg0NdVBI1makEmjA
-	UiFtn/Sq7ICMcs2T8PNmmr4RaEB8hXsI1znbY1x4pvi46z0XUXAZwHeBSVMFqqpq5kEGx4qSiPe
-	2rUyA9KrJXN3DQ5+eWOZdHTzoR2nJXsvLFbKJTbKsPCke+ArWvzJw==
-X-Received: by 2002:a05:600c:474a:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a35acb9afamr106677375e9.33.1792996318690;
-        Sun, 25 Oct 2026 23:31:58 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a293sm170484255e9.12.2026.10.25.23.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 23:31:58 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:31:54 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: fbtft: Fix line length warning
-Message-ID: <at7z2oubp02WQb1h@stanley.mountain>
-References: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
- <at7pu4hldDTgZtXy@stanley.mountain>
- <CAGLmz9JaXM8s4BHQ2Cn5QQdBZpzDXmHyb-GQ_jXtj4Rz6SJOJQ@mail.gmail.com>
- <at7s7We7bxdmmmSM@stanley.mountain>
- <CAGLmz9+R5Wsd3i+7kLZXL-KP2bqdEmNUJTSKtZph_NSP92Jung@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A876E606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 06:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A876E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CC59iY1aw6OyV8aTURcQLbLL17pBSNRBVzyiXs5pORM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792996358; v=1; x=1793601158;
+ b=i+8Ult+S6zvD9Bg7VMNe5iRbHrfBhZVRsULgmUnxm37S/8jDYdapDB+FvUaGp2zrcK/aaEFE
+ D8uzEsO15Z75t2TuY3WKWU/zKZGkAG0ewvT/UeMW/bCmF9V8zzU8BjTtMkycyGJ2BJD8jbI40oI
+ AMmWhlsG/2P/E2gnd59fe7fw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b6a4888feb48e90f;
+	Mon, 26 Oct 2026 06:32:38 +0000
+X-Mizu-Trace-ID: b6a4888feb48e90f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <50b12d32-891c-46d4-bd5f-8924cb8db60f@linux.dev>
+Date: Mon, 26 Oct 2026 14:32:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,22 +55,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGLmz9+R5Wsd3i+7kLZXL-KP2bqdEmNUJTSKtZph_NSP92Jung@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf 1/2] bpf, sockmap: Stop reporting EPIPE on zero-length
+ skb redirect
+To: Eli Skeggs <kernel@eliskeggs.com>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: John Fastabend <john.fastabend@gmail.com>,
+ Jakub Sitnicki <jakub@cloudflare.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261025-sockmap-bare-fin-v1-0-bb8feae7c4a7@eliskeggs.com>
+ <20261025-sockmap-bare-fin-v1-1-bb8feae7c4a7@eliskeggs.com>
+ <23181ba7-e4ef-4475-92ee-366e0ca2dcf0@linux.dev>
+ <010101a176362646-06b53e65-6c20-4ac2-9e05-b74eb5376abf-000000@us-west-2.amazonses.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <010101a176362646-06b53e65-6c20-4ac2-9e05-b74eb5376abf-000000@us-west-2.amazonses.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 11:46:48AM +0530, Himanshu Bakshi wrote:
-> Hi Dan and Andy,
-> 
-> I have not found any call site for fbtft_init_dbg and just assumed
-> that it might be useful later on as the driver develops. If you are
-> considering removal of the macro, please let me know, I can send
-> over a separate removal patch of the same.
 
-Yes.  Please do.
+On 10/26/26 11:17 AM, Eli Skeggs wrote:
+> On Mon, Oct 26, 2026 at 09:59:00AM +0800, Jiayuan Chen wrote:
+>> On 10/26/26 7:41 AM, Eli Skeggs via B4 Relay wrote:
+>>> From: Eli Skeggs <kernel@eliskeggs.com>
+>>>
+>>> Treat a return of 0 as success when there is no data to send, while
+>>> continuing to fail on a 0 return with residual bytes. The loop exits
+>>> without incident on an empty skb, and the skb gets cleaned up as usual.
+>>> On an ingress redirect, the empty message is still queued as before, but
+>>> the target socket no longer reports EPIPE.
+>> The target can't receive anything after that though. The empty msg sits
+>> at the head of psock->ingress_msg and nothing ever dequeues it:
+>>
+>> [...]
+>>
+>> So the user gets EOF on a socket whose peer never closed, and everything
+>> redirected to it after the FIN is lost. Without a verdict prog on the
+>> target it is worse, tcp_bpf_recvmsg() returns -EFAULT forever.
+>>
+>> Since this patch is already about the zero-length skb, can you handle
+>> the ingress side too? E.g. in sk_psock_skb_ingress(), don't queue an
+>> empty msg when len is 0 and the skb was redirected (skb->sk != sk). The
+>> self PASS case must keep its empty msg since is_next_msg_fin() depends
+>> on it.
+> Yep, thanks for pointing that out.
+>
+> Alexei suggested skipping empty skbs in sk_psock_backlog():
+> https://lore.kernel.org/all/DMEE6SW3UE97.2DF11HBEBKYYI@gmail.com/
+>
+> To your point, I think the critical difference between these approaches
+> happens when the sk's backlog queue is not empty and the socket's own
+> FIN (the self PASS FIN) gets queued. In that case, we rely on the empty
+> msg to correctly update copied_seq, and skipping it means the copied
+> sequence number ends up 1 behind rcv_nxt.
+>
+> This path is already broken: when a socket's FIN gets queued behind
+> other skbs, the backlog reports the erroneous EPIPE just as in the
+> redirect case.
+>
+> I do like the simplicity of skipping the empty skbs entirely. I don't
+> immediately see what the consequence is for copied_seq being behind in
+> this terminal state, but the approach that updates copied_seq does seem
+> strictly more correct.
+>
+> Is that the right interpretation? Let me know what direction I should
+> take for v2.
 
-(also no top posting)
 
-regards,
-dan carpenter
+Yes, go with Alexei's suggestion. Skipping zero-length skbs in
+sk_psock_backlog() also covers the ingress redirect case I raised,
+since the empty msg is never queued. copied_seq being 1 behind
+rcv_nxt is fine now, plain TCP sits in that state until the user reads
+EOF, and nothing on the psock side depends on it.
 
