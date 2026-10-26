@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100311;
-	b=OKm4vHEbreWKQZ3Lyyo1jc1+ye8/yfYrT51QAImzKUc1ASpNwacOmAqB0SW49mDf63mh
-	 ixUbim3zWfjRK1zcWVduXXjT1CgRpL0YfmxuQsuMb6Qj0/wWYM4acDT32uKtiGzX+RacB
-	 Lf19s9Qq0L97pRqQBhCaaHRppyOGLPDdVDKtmxATUOshvZEA2fHiNY4lDDzn9+HwBrqOk
-	 nXPXcsrVFKxNmI0bMgP0Xvu7eUGe+aPbauJc8zD4U310Aa/ul3dRNJK0m9yz4CM8gzs5z
-	 Lr378eutXZmbFydcHRj5aCVBto+ErjHcQwlNqUvjhKIjJA17B4TOMK6Op99daBWFJGA==
+	t=1793100310;
+	b=P/LRHE7ELlFyc3KkvYzXlLIOBnBiBfV8Av2b0jPXtYsvvwk/tkPeqDiL/w7ttotwjbeP
+	 ppXSUeFASdh62sbFJUV/0F8C6UqH/TT7JokJlq2mp8+FAcgzNueVQaQaCW5A/zAj6ye+/
+	 hvRP74ZnYLiRaxImeNRUL34lJjGHZAi4+HgvYZAl5LExsbDmmsh0eol2xsRK0ooaoupIa
+	 jZANMNvX1ANvarS1EXsB2oUUp0FX9NvIwGBxaUZ9YUrz6lZ+uudnX53iwjehxhAw5FYuy
+	 iNWKPMsvbj745hmHCx/Q6Fr+dqZ0jORM4x+ayHaWcONCIVqm6A+45hJiAwrWoBy+o8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100310;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=T/WpRqfuHu2gv3vu+doh/Uuv45D1PWs+wpgNwj4r9Ko=;
-	b=LATJL54Rva4mXimpmT6uVyejaLgDU8R3Mu2AtkG9ncXTN2r2DEPgV6IzcxW9e2iDwkIE
-	 J3ZwTgZQsUpg/iMa3mMCGtennK18vWJeh3rSnj1FX3X4cOXJ4QIKJzCmKiVqTvnAsnZJO
-	 a4CwAYGOwIhwd2BKnpEX6E1US0D7OaeFbmF5z9Zaxh1CdhgZ+7oXyt6YcXPddoQxnQVoi
-	 AhdXiB2oKsTbGRyqrLr5fIvTPFLGZAUdulNmIOcxMptKxOZGiMzPQm3U6FqGne+7/Tkgt
-	 CzyWLOErGBWqYLVgboztM3bwT0F1qnuNueIgGAsKdZsSw2enJ3aFkUjmFLDtiS3hEKQ==
+	bh=9keTrtKyF5RR4M38htqgVqFwFmjs0uSmEyS7wkdi9J4=;
+	b=VJ6d5alzAuYsekny+Hg8YmRhvh4YkHXDgZwTasZiujFKXH88q79rEY2a8y+LUdqATYQD
+	 emXGOqlc8sr7hhSVcdWM32D+7Jnq3gG02aEF3F44LcfOtAwW22nVEloOeULZjfSqbK7pn
+	 KxMKiy2f+VjpYIOOTX9mUM2YEHz9PpyCRJwGFaOws/jXXO6eKLMngwpMAzxdmrNmAP9N2
+	 uzwugX/kKw2qy6cTVgm60CAYx00l1lOun8MO2rURGdLwAwYr5uClEm4lKWQcDF5MhK0uE
+	 mf4kTvLkD5H4aNNXhhFXWUlw8rZTCrD+AyVX2PDnynz1eWvEjRCO0jskj1eNjJkEQuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2NBjHGK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8bGNgsc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DED606A31E;
-	Tue, 27 Oct 2026 11:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2NBjHGK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D221F01828;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82745606A31B;
 	Tue, 27 Oct 2026 11:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8bGNgsc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45A91F01829;
+	Tue, 27 Oct 2026 11:25:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793100311;
-	bh=T/WpRqfuHu2gv3vu+doh/Uuv45D1PWs+wpgNwj4r9Ko=;
+	s=k20260515; t=1793100310;
+	bh=9keTrtKyF5RR4M38htqgVqFwFmjs0uSmEyS7wkdi9J4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=X2NBjHGK9KeJP0QtGq2dHlO3OwNQnNUcS/qaLaS2fzQI7R1u8kBjGmPN5LsNML4nl
-	 OhvkLjMeTfm2nE19BHfd3oOEukEm4R5qFrEnpQPD/gE93jQ9xAhf9gRb9REWT97sqV
-	 9MhjUZVh46CIHyKxthIztZACvY6nPOq/xp07eYGVoobCm3QLpCMpVWJ3NfHt/iZ4en
-	 zd17R56JhPenw2YMDVhTZcDtxDYig75WXG0b6VZem6ZDHN3sL0uCJh5ywn3MNOmqzX
-	 pPAPEEOlNpazPyVYT6gE18Ibd0cPX8k+jfqxjeNYBX+syaHRu+mD8U4f/Zut8UyjIn
-	 I6+gu953lhtQg==
+	b=b8bGNgscueWF8BRR5NgXaZukANOyHN0qFUaoUgNDuv4avvDPYERd6g59QzxDvB7c8
+	 8my+fiAzWlF70D+Src1HXWbW+chC4N//G5vqGmtez+dhoJ4pZCCL0Ys2cAZ6cYxVW5
+	 01BFhEtvDXLCHLxYXEUt0qaiZ+YhXWnP/cMcNl30Ypr8vJeXBeQiWPIo1TJHEUe7FU
+	 gk378VuIMHXoio92dfHmEGI0Zt1ibKjn0Hj1pTqKzOe6hYypZrt+L90izeorjFg4Fw
+	 vHBaby7ELvD2fmYFBzjbtB9CvZuvkCgBxdf6MFALvLEe1rmXqZSvdDIf56OzfBeGb4
+	 9xM3zk3cCcqkg==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 782841F4ABA8;
-	Tue, 27 Oct 2026 11:25:08 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 664961F4AB98;
+	Tue, 27 Oct 2026 11:25:07 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-In-Reply-To: <20261022090923.769464-1-m.szyprowski@samsung.com>
-References: <20261022090923.769464-1-m.szyprowski@samsung.com>
-Subject: Re: [PATCH] ASoC: codecs: wsa881x: Fix shared powerdown GPIO
- handling
-Message-Id: <179304588839.199157.4465723406365442315.b4-ty@b4>
-Date: Mon, 26 Oct 2026 20:18:08 +0000
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Vinod Koul <vkoul@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Maciej Strozek <mstrozek@opensource.cirrus.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Sanyog Kale <sanyog.r.kale@intel.com>, Takashi Iwai <tiwai@suse.com>, 
+ patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261020073856.1177749-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261020073856.1177749-1-srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/6] ASoC: SDCA: class-driver fixes and PDM
+ data-port support
+Message-Id: <179304904651.199157.13348743822206053413.b4-ty@b4>
+Date: Mon, 26 Oct 2026 21:10:46 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,17 +73,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
- h=from:subject:message-id; bh=BVwolA7B42yKEIHFUITAoKlWaO6Wjiu7PRPTyW7hYtM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIedIk8/+EkkMDl06mRGWSclLlj/+Mmw+N3r5TvzXK89
- 6C6Pzeyo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABNRE2FkmJ5WdLPbPWkDz6LZ
- t9K7Kwr1vP9OSDg0vWed869aV8/6Mob/NSGdm5qXyzVwTV7muuQfv+uf08Yze2enLeqRm+8TFxT
- KCAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1769; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Tp8VxEs4UPOsUWZihV9k1VVSCYfyQT9/1G8V4gRGud0=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIedAl7WjT9qrhUwcrD8WCGnea67axXdJXZV5j6zWN8V
+ 3r3tixTRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACbCvYnhr1h53qW9Tz6/ERBb
+ uES9UWSpq8rCxClzK+fpSdsqnW3r62P4n3/O7sva3kl5Dx2KC04k7xcUnPHqZoeTwcMzGZOE5La
+ qcgIA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 22 Oct 2026 11:09:22 +0200, Marek Szyprowski wrote:
-> ASoC: codecs: wsa881x: Fix shared powerdown GPIO handling
+On Tue, 20 Oct 2026 08:38:50 +0100, Srinivas Kandagatla wrote:
+> ASoC: SDCA: class-driver fixes and PDM data-port support
+> 
+> Three small fixes in the SDCA class driver (propagating a read_prop
+> failure, dropping an extra pm_runtime reference on probe failure, and
+> re-enabling the IRQ on a failed system suspend), plus three patches
+> that teach the SDCA class_function path to tag PDM data-port terminals
+> and the SoundWire core to treat PDM streams correctly.
+> 
+> [...]
 
 Applied to
 
@@ -86,8 +99,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wsa881x: Fix shared powerdown GPIO handling
-      https://git.kernel.org/broonie/sound/c/c80f86ed857e
+[1/6] ASoC: SDCA: propagate sdw_slave_read_prop() failure in class_read_prop
+      https://git.kernel.org/broonie/sound/c/79cfb5aebbf0
+[2/6] ASoC: SDCA: drop pm_runtime reference on probe failure path
+      https://git.kernel.org/broonie/sound/c/86331b76b32d
+[3/6] ASoC: SDCA: re-enable IRQ on pm_runtime_force_suspend failure
+      https://git.kernel.org/broonie/sound/c/d34a818a331f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
