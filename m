@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.79
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007878;
-	b=3aLXSUI62Ic3r5HC7bQJD2JUZi9T2rvH7JTqpNvMycPsq0lbZvHMEBYsJ31KKonIWeeg
-	 1L7UowCjVr3hsJE0l5uilTXkC/F9TL2ZdVEuf7c5k74WwryxYrtSAj/egTXfumLTwkWYe
-	 wzCzpKV9UM/kFBfW86c8pOZ+CmxzmeRRdaz2CVFSicTXeWClCqzpjGUcgLZ0likpP888G
-	 UydYR7351LWwhDczZgiWVAusHLmKE/650VBLwGNiNUWBVg7c3ggnpKRoezv149WdWOhpP
-	 Ulopjf874jJwuZCcnTi100DW71/5psCft1RmwWo2r7B5gW1kpTyyxCdMp0Tv9ZB4Jvg==
+	t=1793007880;
+	b=5kYTFvbfKJw50AaQKTBxeEQE24Fj7MDP4Nwfbi2JbuhtS189wFAgi2jubM4WXOLvfImH
+	 MUE1WXzJtmO13XK3vEfdcFSsLialD3J9Qtz5sehuITCvgalt6hQ4OKWqhSGVuVpGMCrV1
+	 oGHM8ApFMGxF0wg3CpCRYgluPyeSR6sBjkPdu3ewWNoV8vOl7jVLPevJp2AzF0QWTXNW9
+	 Gb845PfIKjlRl3QO4bz9+1qHR0ohIxsW+/PiqE3HU7N2tki+AclBKCcLMpG+898o2PMtv
+	 bBZ31DKp6MCSb+TAj4dnJSUn6zPG0MU0t24h7mjA55QqIzB0R6JVfkgIQxuZx9sovYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007878;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=D0vHwRSblGt0gwstuQ1Buqrn2lVuEmdLN4fWQhtatD4=;
-	b=0Vbnw9/9WS7dQTfdzuxGc4fUpFGOHxryfucaBXhma+dC9BuCiEyra5vjdv688ihVGxWE
-	 UirsNpVGQpq2k9UZqSFQvmrQAcdA/qnRoUT7u+DjeUsJEiZPTIB1cN6MdBP2c/N+2Z8g0
-	 n/qeBSVf0c5INa3gKKkIadjjiUltEfi9ROLCnRRbOtK6pDwMdjdYvQnzaYfzOScFHF3sq
-	 Ar7X+9ChW/4A0edTE6vYz4ny/4sRV2ffsRXajDEzaUgD9mkMmjJ7/5G06tOfkUbCVqZUs
-	 9fsetRfIE9cx9YtSMj2VYeAXANJBi9GdSPcJwlP59Vc8pbCLwjvqvOBGn0CTLpfpl6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007880;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ouH7elD+tXB8LAqogI+xevrlgTvhoMe5/2JANL6xi8Q=;
+	b=MCVDwv2jJK0YvwlO19psaVXwpxY2oHByYAWGAbqiuvrLsLdfX46oBMUew+hPn/vNkPDv
+	 qw9esUHa91kIBiWmunaEvS/iriy/lFWlH4jSOoyQmkZDcs3QmLxwruAKhTDB7pvdBMOnv
+	 RZDql9juPDhKNKihrKtwHXeW06jljggMipi3U744TWc2IqgWJ/JBQWgNvK8GWPfp05IWd
+	 Sj3Sq66z76eF+/KbsWM5YAHAkmpgY/oxjksUG/q4Uchrc8r4zeLnWyimVRPQoWiwypmNR
+	 Oa/jRUK8JfyOIJvbJaMt7DiSyyMynz46Z5jIZYEnexQjcQ6WzJqkHEZmQRelb0Jbb6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bSjOMoUN;
-	arc=none smtp.remote-ip=91.218.175.79
-Received: from mta0.migadu.com (out-79.mta0.migadu.com [91.218.175.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NdGgZToe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EDC60A2602
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 09:44:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6EDC60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2FA60A2606;
+	Mon, 26 Oct 2026 09:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bSjOMoUN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d8PN0Ac6T7SMrev3Gfq3IX7vzOzJ8svErGB9LxGMOXM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793007870; v=1; x=1793612670;
- b=bSjOMoUNEgjxgQcV62RXZf3YTyPEmXoHexHrXMNdzGiMAt3iLoqg15ueXMw2EibtgBgXmJK/
- aeDp93kTVohHInkYYH+KBhQGEoHf7F5ABirernhh5+Jp68lghJoQMFpGzFOks9JkQvMyKvrnDb/
- 0MQHANAbFYw6NojfQuuiCuHY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a986f198c5218d38;
-	Mon, 26 Oct 2026 09:44:30 +0000
-X-Mizu-Trace-ID: a986f198c5218d38
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dac64e77-60b8-47ec-935e-6aea1b38acf0@linux.dev>
-Date: Mon, 26 Oct 2026 17:44:22 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NdGgZToe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67F81F031E6;
+	Mon, 26 Oct 2026 09:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793007879;
+	bh=ouH7elD+tXB8LAqogI+xevrlgTvhoMe5/2JANL6xi8Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NdGgZToeK6jIg8FTtLUHtsV1/8m7bIMzE2XnbrvtFgiJ08Or5XCLYkeNci5Bv4ztU
+	 pzK1APGZT+TXXwJ9Qlgn820ROna4M2tCOxQW4L9JIdCkPv8zCY6cdO/UQ4wwyx5JvK
+	 j7I56hTR5+0aSmdk9UpcVcs2rrhYlZaqj5B5LNuNwFsskTv10UNzSinbZqMNTZeNzu
+	 kkvWE9Bx09gWbP96QB+GbeeFWYAdORVkDqzqhHty6yJO4BEa/PABU9ks10UiuZSVVy
+	 W+Z6kjLOndlMzZTVjvgB9o20yKW1BFbWTgIK3DLCgUDT2/4lSiGSMqmnwqGO7MWbF7
+	 mKsjfFKeLQtOQ==
+Message-ID: <sashiko-outbox-184830@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] clocksource/drivers/nxp-stm: Fix missed comparator
+ match in set_next_event
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enric Balletbo i Serra" <eballetb@redhat.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261026-nxp-stm-fixes-v1-2-20a64a4ea454@redhat.com>
+References: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
+ <20261026-nxp-stm-fixes-v1-2-20a64a4ea454@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 09:44:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,133 +60,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 11/11] cgroup/cpuset: Integrate
- compute_partition_effective_cpumask() into compute_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261025214449.310715-1-longman@redhat.com>
- <20261025214449.310715-12-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261025214449.310715-12-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] clocksource: nxp-stm: overshoot race in nxp_stm_clockevent_set_nex=
+t_event()
+--
 
+commit 45f273b782a28cec6ef30880d738a9cb690edce9
+Author: Enric Balletbo i Serra <eballetb@redhat.com>
 
-在 2026/10/26 05:44, Waiman Long 写道:
-> Update compute_effective_cpumask() to call
-> compute_partition_effective_cpumask() directly if the given cpuset is
-> a valid remote or local partition root. This simplifies the call sites
-> where they are being involved. No functional change is expected.
-> 
-> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 37 ++++++++++---------------------------
->  1 file changed, 10 insertions(+), 27 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index f37d929616a6..2598a0e2d667 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1606,8 +1606,6 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->  	struct cpuset *child;
->  	bool populated = partition_is_populated(cs, NULL);
->  
-> -	WARN_ON_ONCE(!is_partition_valid(cs));
-> -
->  	/*
->  	 * Check child partition roots to see if they should be invalidated
->  	 * when all the effective_cpus will be used up and cs is populated.
-> @@ -1668,6 +1666,10 @@ static void compute_effective_cpumask(struct cpumask *new_cpus,
+clocksource/drivers/nxp-stm: Fix missed comparator match in set_next_event
+
+This patch fixes the overshoot check in nxp_stm_clockevent_set_next_event()
+by using a signed comparison between the target comparator value and the
+current counter value to avoid missed matches and 32-bit wraparound stalls.
+
+> diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/ti=
+mer-nxp-stm.c
+> index ee249fed1b918..ed7662a4e2bc4 100644
+> --- a/drivers/clocksource/timer-nxp-stm.c
+> +++ b/drivers/clocksource/timer-nxp-stm.c
+> @@ -247,7 +247,7 @@ static int nxp_stm_clockevent_shutdown(struct clock_e=
+vent_device *ced)
+>  static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct=
+ clock_event_device *ced)
 >  {
->  	bool has_cpus;
->  
-> +	if (is_remote_partition(cs) ||
-> +	    (is_partition_valid(cs) && is_partition_valid(parent)))
-> +		return compute_partition_effective_cpumask(cs, new_cpus);
-> +
->  	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
->  	if (!has_cpus && is_in_v2_mode())
->  		cpumask_copy(new_cpus, parent->effective_cpus);
-> @@ -2268,10 +2270,7 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->  			remote = (new_prs == old_prs);
->  		}
->  
-> -		if (remote || (is_partition_valid(parent) && is_partition_valid(cp)))
-> -			compute_partition_effective_cpumask(cp, tmp->new_cpus);
-> -		else
-> -			compute_effective_cpumask(tmp->new_cpus, cp, parent);
-> +		compute_effective_cpumask(tmp->new_cpus, cp, parent);
->  
->  		if (remote)
->  			goto get_css;	/* Ready to update cpuset data */
-> @@ -2352,10 +2351,7 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->  			 */
->  			new_prs = cp->partition_root_state;
->  			if (new_prs != old_prs) {
-> -				if (new_prs > 0)
-> -					compute_partition_effective_cpumask(cp, tmp->new_cpus);
-> -				else
-> -					compute_effective_cpumask(tmp->new_cpus, cp, parent);
-> +				compute_effective_cpumask(tmp->new_cpus, cp, parent);
->  			}
->  		}
->  
-> @@ -3987,7 +3983,6 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->  	static nodemask_t new_mems;
->  	bool cpus_updated;
->  	bool mems_updated;
-> -	bool remote;
->  	int partcmd = -1;
->  	struct cpuset *parent;
->  
-> @@ -3999,21 +3994,12 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->  	if (!tmp || !cs->partition_root_state)
->  		goto update_tasks;
->  
-> -	/*
-> -	 * Compute effective_cpus for valid partition root, may invalidate
-> -	 * child partition roots if necessary.
-> -	 */
-> -	remote = is_remote_partition(cs);
-> -	if (remote || (is_partition_valid(cs) && is_partition_valid(parent)))
-> -		compute_partition_effective_cpumask(cs, &new_cpus);
-> -
-> -	if (remote && (cpumask_empty(subpartitions_cpus) ||
-> -			(cpumask_empty(&new_cpus) &&
-> -			 partition_is_populated(cs, NULL)))) {
-> +	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
-> +				       (cpumask_empty(&new_cpus) &&
-> +					partition_is_populated(cs, NULL)))) {
->  		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
->  		remote_partition_disable(cs, tmp);
->  		compute_effective_cpumask(&new_cpus, cs, parent);
-> -		remote = false;
->  	}
->  
+>  	struct stm_timer *stm_timer =3D ced_to_stm(ced);
+> -	u32 val;
+> +	u32 val, now;
+> =20
+>  	nxp_stm_clockevent_disable(stm_timer);
+> =20
+> @@ -258,16 +258,12 @@ static int nxp_stm_clockevent_set_next_event(unsign=
+ed long delta, struct clock_e
+>  	writel(val, STM_CMP0(stm_timer->base));
+> =20
 >  	/*
-> @@ -4039,10 +4025,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->  
->  	if (partcmd >= 0) {
->  		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
-> -		if (is_partition_valid(cs)) {
-> -			compute_partition_effective_cpumask(cs, &new_cpus);
-> -			cpuset_force_rebuild();
-> -		} else if (partcmd == partcmd_invalidate) {
-> +		if (is_partition_valid(cs) || (partcmd == partcmd_invalidate)) {
->  			compute_effective_cpumask(&new_cpus, cs, parent);
->  			cpuset_force_rebuild();
->  		}
+> -	 * The counter is shared across the channels and can not be
+> -	 * stopped while we are setting the next event. If the delta
+> -	 * is very small it is possible the counter increases above
+> -	 * the computed 'val'. The min_delta value specified when
+> -	 * registering the clockevent will prevent that. The second
+> -	 * case is if the counter wraps while we compute the 'val' and
+> -	 * before writing the comparator register. We read the counter,
+> -	 * check if we are back in time and abort the timer with -ETIME.
+> +	 * If the counter reached or passed 'val' during or before the
+> +	 * write to the comparator, the hardware match will be missed,
+> +	 * resulting in a full 32-bit (32.2s) wraparound lockup.
+>  	 */
+> -	if (val > nxp_stm_clockevent_read_counter(stm_timer) + delta)
+> +	now =3D nxp_stm_clockevent_read_counter(stm_timer);
+> +	if ((int)(val - now) <=3D 0)
+>  		return -ETIME;
+> =20
+>  	nxp_stm_clockevent_enable(stm_timer);
 
-Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+[Severity: High]
+Can the counter still advance past val before nxp_stm_clockevent_enable()
+arms the channel comparator in drivers/clocksource/timer-nxp-stm.c?
 
-Thanks,
-Guopeng
+At the beginning of nxp_stm_clockevent_set_next_event(), channel 0 is
+disabled before programming STM_CMP0:
+
+	nxp_stm_clockevent_disable(stm_timer);
+	...
+	val =3D nxp_stm_clockevent_read_counter(stm_timer) + delta;
+	writel(val, STM_CMP0(stm_timer->base));
+
+Unlike timer-imx-gpt where the compare interrupt remains enabled while
+writing TCMP, writing STM_CMP0 in the NXP STM does not arm the comparator
+until nxp_stm_clockevent_enable() writes STM_CCR_CEN to STM_CCR0.
+
+Because now is read from STM_CNT before nxp_stm_clockevent_enable() is
+called, if now is sampled just below val (so (int)(val - now) <=3D 0 is fal=
+se)
+and STM_CNT reaches or passes val before the subsequent write to STM_CCR0
+takes effect in hardware, the match occurs while channel 0 is still disabled
+and is missed.
+
+Should nxp_stm_clockevent_enable(stm_timer) be called before reading now for
+the overshoot check, with nxp_stm_clockevent_disable(stm_timer) called on
+the -ETIME path?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-nxp-stm-fi=
+xes-v1-0-20a64a4ea454@redhat.com?part=3D2
