@@ -1,104 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028625;
-	b=E0njnhh+WhSvVEYFgZ32W7mqYpPf3EurCMnIGlY24PJYJPiNyiLR8Z1TzN/zVj4MgBrq
-	 pkqYqT7TPjgP3aVwUUBpKlORAlkGHzMm6EAMLAlRPkr5knkV83iGcoYFAvwNCGuvSQ6Lq
-	 NJU2aF6Ol6HOlpZtmkbtAE3Ge44DGEzSRVgTN76uZTb++TWoNXIEtxtAiKSk0PHCZWSoi
-	 WtWjx4Ffim0sx6dedNLiQsiWjV2UiP3ifhCmjvtmgTRw3jxNQl68ShwCBBRgMjhHIZuil
-	 tpfy/yTcDSgucrPVD/Lf8NM2FTmqyfetCsrIDBQu9cvtypeIj+QWSj6tgieKd4psT9g==
+	t=1793028644;
+	b=mquBKy//IaroTmZTrDLBQoG3B9Hz6ZaF9O55x4ABQB5vspNkAa7SzK9vpe/yOIOkADg4
+	 gCAoXu4G5DddwHZ3kxJF92mieFVdEkeQ3scUhVVFFC3w6aaSaTpj+qGwlVJMQdCojToxK
+	 EDO2W+hkVy244BTUdRbRMMlZQ7Z9LLtqQJQJzdmGw34k/vQr22ZgebtagzgUUG7z9uGsN
+	 Fts6ye4kU515GUz9UFThIcEHNU+sxCw2l/xnrcWBLm5HL26XdaCi0B3G8c1gIyBfNh9A9
+	 BHMbbTodTswhSeRzzXOxQtVfu+kFFxV0SegyQ5/9FhbVBJJ+iccO3U3Ze6IC3u5Ni7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028625;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HmO/VpEv2fHoPCxCmGbSbedwbN0KwgfnJNJbKtenalY=;
-	b=i3e1qCqoBpRH6Olf3m8vgk82lq3HrtZcCUtxoVZJ8JaEiwleFY75cI6GDgNGd00BvX5k
-	 2SNmq6dVrtRmDKbWeLi+uOCCLiHEz8SaWLsoZx6g41qxFjz0GVZBBtRfW2kXlYdEhBq0t
-	 a2zREiluu+YN0pRI08xwDd9kC2rS/DPdwijFUKOL3TsLATe6l0TdYLJZR+1IspO41Wzc6
-	 75Npg+WYPC9X8G9uKMPLQUJe1OqJSSTOccl6iQRrK08yOmHi/gQgp9//LHb0NyRn/2I0s
-	 wGDOtTpSArXK8Cb3T2ABSwZRyLAde2gYmTfA2V5xm/LcgH5Vt7eBz+fi93jsDGVWv/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028644;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=aNEN/0vWce/15eUz14WckhE2l2ohDRpHNcQP7Q+mdfo=;
+	b=fRGaE3j++fUsqw//wS+uQQM5M6TIVlCET0L9LM2+xTW8tTLEmHa2r2oPAZ7IIDJV/J2G
+	 idfmWV0yHOByjCVzjs8WV9fbAjkMWWE/KftfxDwY2bTwf6JqfikugRfDkjvoeUaKIlFWI
+	 IFVNP8F2N/iRsIRTfYEbdjawlImaoEYmm74bUR9ggmNa75kDqFVI4LJEo+2Pr/GOwl71N
+	 BmQY3owPdJY4ioEDvgs/Z+y4rzYXZ00boHPCIt5gheMiDH9XpWerF5nYzOZDCYC6GlVws
+	 h/CfboCvX48OVR6ZdRisl8zcBJV+Bmt8TBIFZ3SAux3BSaZfHjelZ8EYXuhV12BwwpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dXFCAUGn;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eSpW+L2W;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="YSQSmC1/";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3FA606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3FA606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851AA606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:30:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851AA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dXFCAUGn
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso1860924b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:30:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eSpW+L2W;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YSQSmC1/
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvxwS2707794
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:30:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aNEN/0vWce/15eUz14WckhE2l2ohDRpHNcQP7Q+mdfo=; b=eSpW+L2W+Csp5WUY
+	GvxBySkIFVAQMZDJu9L5LzxKEJW4zA6tUbyUJ30PNCJh7eFycvg5q4yjUoI/K74O
+	s4bnSEYpe809dALsn3T5v/PlZsUrCJOZI+O5/CsnItZZOQvcOims7eMpT6O780dA
+	oEWEFAxUo1ftvTTDWDHldVpRFns1GAIp0xuChWsQRFPVuHSZtqegzef0LKDxlFFM
+	uwWWjUr7Ar0+hnxUJCQQmCTC/bbaBBqIcZyp/7HnJM4qYnKAF2Bo7bDiyjbSW9HC
+	lMNG/NVva6MDU83MQbjG8IJpZmu2Za7iKWE8WTOC072qK2y4eF2x1rlhkHkVdSni
+	kkm0Qg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u61fap-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:30:42 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5caeeb345c7so57707e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 08:30:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028624; x=1793633424; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793028642; x=1793633442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HmO/VpEv2fHoPCxCmGbSbedwbN0KwgfnJNJbKtenalY=;
-        b=dXFCAUGnU1RR72VqY0GcstFtLimgSRgTuI6HnJnxoPcEwba6MDxQRwYBDQQuJJpb+/
-         4KKZCe9ps9idhry6cxFNbhXH87BDPZOnQP1ZHHOeG9caQCBcjJxhCTSh3IaL8yNIFiP6
-         bKdSGBY86l9rC3Cg9amQ1SC8BkuNg81cMQ0nzrDp0hFn1/rUYnirFC/fSK8XEay4fxSX
-         FjxtSVyIFu9O/OwUHwoiuUJAicae3qLjH1Sp4sgVVvzfDQtaGuVirHUpTEak0i4Tm4A5
-         45N01eColYyMULdEo1GqwsgXlnM/TdkdMM8GbBaaDRMhfVxkXnRdFkvBQrMr21rmi2ku
-         rcLQ==
+        bh=aNEN/0vWce/15eUz14WckhE2l2ohDRpHNcQP7Q+mdfo=;
+        b=YSQSmC1/aVZEr0mLJLTjKEGRXHvlRpLLlLDUzycoVCnchazAiHIYLdJvIjKX+D5PXh
+         Tk+bFGdE5eNm3XbfmKLeE79hIPkPCKeSjhlG7Ikg1J4qI6k2fhCDYfNI/RDZV3WteawM
+         hltETlPiaUmbQJvf0B6LT+y5p7XBzr5k3wckh4i8NduNfQqkLPGo46mrRbC6GuBD0YBG
+         8Y4bOAa/nnb73w6CTSXM+s2hWlS71V2lM1l5q26lTqnMmzLGYR+6cd5+TPtlkhlLZcnI
+         ErLAFpa+ine96EwdxNRRrQY3HEeT/68R29o54kDHuJ+t/iwng8YpIIFU/w+qEP4Ithie
+         ITuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028624; x=1793633424;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HmO/VpEv2fHoPCxCmGbSbedwbN0KwgfnJNJbKtenalY=;
-        b=wBmqotkhbdvc1283hcbMM2NOfTJIhkoIMdvrCIBiIpKE55QAARaXbYjg2tUuUKc/e1
-         cIIkyZoquiOlf4gdRLcCtiO/cLLIPEft1No0jFwngrQIA1KBkGmgPBMMojB1hY75PwTN
-         zAFIcvdLcZaZ4O1lSjAcJWFeQA/hdMz2po9Gop6WpivIzNuSiU66FdRy0HEydWeTkVao
-         dMh9BkYjoZg1q1wJHzMcCsHiQYgN5sYvEurckZKscqijulJR+h22rNqkpm3EZ5jTVqlV
-         dLjztfz3PV/s48QPTsoqnwazvKfheIhBXYdTB1FpLqKOxCpzn5L/PRzmOEAqyuHyOzf2
-         zSuA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVBNgiKypdwcz0jN0ZYfr8Yms//atIu8PtsgXb95gxBlhphVemiZbZsBX73rVDHBZQ6fCeqxT/JNHkXIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6lWvR+eInCaiBBFt4/z1tSqNrlyRwlVCxnNdqL/EyBP6lADOW
-	zbhBMvcBNW6nw75sCx6lvO/lAYD32fNO4M19vkWZHNbvOyMH89ScQa6k
-X-Gm-Gg: AYBFou0dZSk9hw0wPIEokZMkvau0yxwdXrEsCtCP9BrslEWh7AaCbXIxq/j+v065x0f
-	DJSxnF4KCINFFWwJA48U8Rw5QzwuR8bcrAcCKMl9yfkGob75ezAV2LgGR52k7D1mzhjJgV3Vr6V
-	cnO6q4QVM3rDmEaa0K3cYZc9+t78Hz5pgkmuUI+m2+g0gkLE6ZZbncwRyOOXyCLuIWKOdTQlQJy
-	WrW8CgmHxw8jj3IeGCrxbpNtIk+gqEDcs5aaRRAn9wFGETseYpGuwgYrd9mgZgSQQS5TiV4zOF0
-	5lEtLfDuZvXcih1Y6RN4MJA9c3ff/LcBu0U/sJqoaip3bEzJG+8a9tU+K9g19qRZKCGsR18dZFL
-	zQbGOE+LUocAzCQCN3ZoSqAWo21fZILiahr7XGn+zLfbP8bqdFTndftGRDdWLndYSY3sHrtZ3vS
-	7TSBkBQEHnXF8rx/ciLlN0f0g3FPF1TcLKWr1zxnpZzSiu5QE1D3hssiGJnInzgHufPTFeDga8p
-	qLXnkWqEQp9K7k5v9LfzMO9ft64PP1fFxoDvLE40pzC9yT5snroos1Ue/AFwfZalMp830AosDwQ
-	J0iITA9Z+ovZDk5falHKPQGP1Uy32K7kdgOB+qf0xe46JT+jqygpi/m9xsgsgFvOLgYaeYE7AVg
-	qT720Y55gphjr6w+LpZwu15ML4mxyLfjg8A==
-X-Received: by 2002:a05:6a20:548d:b0:3e6:ea1c:fd2b with SMTP id adf61e73a8af0-3e7cd52c08fmr6897195637.35.1793028623902;
-        Mon, 26 Oct 2026 08:30:23 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc67961sm1784346a12.17.2026.10.26.08.30.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:30:23 -0700 (PDT)
-From: Peng Yu <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Keith Busch <kbusch@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Maurizio Lombardi <mlombard@arkamax.eu>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v10] nvmet: add cgroup_id to charge namespace I/O to a cgroup
-Date: Mon, 26 Oct 2026 08:30:20 -0700
-Message-ID: <20261026153020.47791-1-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793028642; x=1793633442;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aNEN/0vWce/15eUz14WckhE2l2ohDRpHNcQP7Q+mdfo=;
+        b=Cjb9u2EOfwpBxbPl+216yPmHf6s66jXzwxxKVNID6dxxYB38ZAa1iX61aJXB3MsgCT
+         PsKpcVpMYtGYXnuEZFPKOVkwRf4s0q8mNTqWJDn8YeDdTka3DtmNaAiVeVOFUlgyiSHd
+         AwoOIjvTZKA/zuZNIZx3nWHjJrafgS2+kFPN83VqiPL+ZChuQihJTNRDQNHu6O/CwO9p
+         1s4uBCOpd3cWFNntl0YXuBK7ce+s4QymG2hMEnRbn4A6FsrANlZZbBQ1pCrnGXuGm6/F
+         toEu+VUodjNMbO3+G77kvpGYX1z7iDyCtoW8JpkoFCVigL2A7TMlI77onpDyb52X5TW5
+         9uRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxX46Z/STgt83U/D6UTI/9BgCGhB1Or9uLrkU6b7mR/tNQOx8YA9kaIRbJdNhugvZBlg5Dzh60LTFg1e+Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM7DKYNexaPIeTkyGvh2p5pwW55R0JT7EXOOzWVL98Wvesy9Om
+	7k8X0kzGdvJCJ3qQp1vSgapM3vFRT8ihB1WyeVKmWatMjesIKsOEoDUAcL/8hWep/4smhdjOcpi
+	bi2XpeGGgub1MfXUBlykdCFkoFrL6pijTkSDKYiVJwrvf10JUD27CUOeIzdLHOw7QBXs=
+X-Gm-Gg: AYBFou1+PV1EEKdBFJ7Nb682nFPZ7SHNLrzwPzbCHvAdeVu9Tdt+1o/oGTDwT5cabPi
+	V9+VPQ4EJVGM/H33Wqv+2Bbzz2q3RRZ8FJ4IoTneAfcZgTakpeeu+acY6mjvl3FwkWzW1j9DEsS
+	kLdpbT2guxtAeH1YoJjZGyjYD+HhFMpN3AVv9sR3ZOc7k5VCPkOUUt+gKzYwzohKP22PnJbfeTB
+	AfVx2GjKocSS8VoAoq9gP9WoB9Go2qxo7l5WoV4ZxLUTAbqoezSx+NvgntYQTdHjWsFd9JMOefA
+	7f/AMsH2DqepgGlha94YHGVC9Q92ZPFJ+ZJ8sBkWIgadVRhUeatzz7YRTY+7VnRVRGwaKUhS0WS
+	61ynQZIQ=
+X-Received: by 2002:a05:6122:6b8c:20b0:5e6:589b:eeec with SMTP id 71dfb90a1353d-5ec2331473amr2249016e0c.5.1793028641676;
+        Mon, 26 Oct 2026 08:30:41 -0700 (PDT)
+X-Received: by 2002:a05:6122:6b8c:20b0:5e6:589b:eeec with SMTP id 71dfb90a1353d-5ec2331473amr2248969e0c.5.1793028641198;
+        Mon, 26 Oct 2026 08:30:41 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd79eb05sm333500666b.79.2026.10.26.08.30.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:30:40 -0700 (PDT)
+Message-ID: <a5667943-3c3a-4bcd-99f4-fe5e487cb6c5@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 16:30:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,539 +115,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
+To: rob.clark@oss.qualcomm.com, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+        Gary Guo <gary@garyguo.net>,
+        =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Daniel Almeida <daniel.almeida@collabora.com>,
+        Tamir Duberstein <tamird@kernel.org>,
+        Alexandre Courbot
+ <acourbot@nvidia.com>,
+        =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        rust-for-linux@vger.kernel.org
+References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
+ <CACSVV03M_MzamPN5X=+bmbqOkET2QOJk8O_vQyhnjDGbSTvN2g@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CACSVV03M_MzamPN5X=+bmbqOkET2QOJk8O_vQyhnjDGbSTvN2g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 4hg4QXFUJxc79GyqZMeR2I41r6OhGv69
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX2k2a+AAKS7NU
+ 3N0HGwxPZ0cGLR5cAJx91Gobq+eKuPwTMaBc7YWWTLIRYcf1VmuIf5UOEDQ96yKoLnjn+ij9nz4
+ L894RMMjIoVKBaUcK2p4GKEFp4L/rsIEC9fwN3OB1m5BpGWDMxS/EUqiBsqUe10ynNb8Pg/Ru/5
+ pI9aSU/o6dYSOMVYfs9GmyyURX/44baNDkKC4WCvXrGSN+f9x2UmNf5B8YIDzi2o3+aJRf+HJbb
+ Aro2sm9iRUtmQ6lWk65jVgmoRY7avhqOYPYb22Um0BxeC1g1PyjpShUIMydWdl1M6/RmSHratAU
+ gRGdQ7mqRdaI4DsQfpcSCwnHhwvO6obTh6l+SWox5l58OlofGrNuoD+5CbjrWnhbfFvSOESTPJJ
+ z0ngqpejLJ57TpWqXwCWYB/DeJc4KR17DXJVjtjVp8Hg/qTbJK/DSsj8T+lq+0kpVikoLZ1o4NS
+ tH10a6n8CV432VjMEzg==
+X-Proofpoint-ORIG-GUID: 4hg4QXFUJxc79GyqZMeR2I41r6OhGv69
+X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf7222 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=obMtVcPMbQgr-G-mzi0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX+XRiL3K02mlp
+ te6jycK6izrGHkXpi7V1x04QupDB+W3qD/cd8ka+7B641+0WwVI0TrVlvJL05LlYJJCHCqUiPSb
+ xMhx/sAUtUfK6uaOi5JuY/oUBNwI1xs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260061
 
-The nvmet issues namespace IOs from kernel threads. So the io.max and
-other cgroup controllers can't apply limits to the namespaces.
-Considering this scenario: The LVM creates multiple logical volumes on
-the same physical disk, the logical volumes are assigned to different
-nvmet subsystems/namespaces. We want to stop a remote noisy user from
-using all the disk iops via nvmet. So add a per namespace css. Each
-namespace could be throttled separately.
+On 10/26/26 4:26 PM, Rob Clark wrote:
+> On Mon, Oct 26, 2026 at 4:40 AM Konrad Dybcio <konradybcio@kernel.org> wrote:
+>>
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Much of the VM handling code is a headache to read and maintain.
+>> There's a soup of mixed-signedness/size types which need to be compared
+>> and added and getting that wrong in C is very easy.
+>>
+>> The "(range + obj_offset) > obj->size" check could wrap for a large
+>> obj_offset, which let an out-of-range map be accepted and then mapped
+>> as nothing. Oxidize it and use checked_add() to fix that.
+>>
+>> This commit is a "get the foot in the door" type change to make sure
+>> that folks building kernels for Qualcomm SoCs have their Rust setup
+>> ready. It may/should be extended to the wider mm code once the
+>> appropriate abstractions are finalized.
+>>
+>> Worth noting, the C UERR() macro expands to dev_dbg() and the Rust
+>> implementation for that currently doesn't support dynamic_debug.
+>>
+>> The DRM_BRIDGE dependency is dropped because including RUST exposed
+>> some spaghetti dependencies ending at DEBUGFS and it's enabled anyway.
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> ---
+>> (if this is rejected we may just patch the C code).
+>>
+>> Notably, this will regress some ancient configurations:
+>> -- arch/arm/Kconfig
+>>     select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+> 
+> Side note, I'm ok w/ drm/msm (or at least the gpu part) depending on
+> CPU_LITTLE_ENDIAN.  The combination of BE CPU and LE GPU would be a
+> mess.  I'll actively ignore bug reports, patches, etc related to BE.
+> So please, no BE!
 
-The per namespace css is good enough for the io.max, but is not good
-enough for the io.cost and io.latency. The io.cost and io.latency may
-put a thread to sleep. If the thread is shared by different namespaces,
-all of them will be impacted together. Submit the IOs via a workqueue to
-avoid this impact.
+arm64 is free of it now!
 
-Performance test:
-On a 4 core VM and 4G ramdisk, export tcp-nvmeof targets to 127.0.0.1,
-run fio with below parameters:
-fio --bs=4k --rw=randwrite --iodepth=32 --numjobs=4 --ioengine=libaio --direct=1
+134b0fbc5c24 ("arm64: Kbuild: Remove vestigial big-endian support")
 
-file backend result:
-|                           | IOPS   | Mean Latency | p99 latency |
-|without v10 patch          | 424.4k | 301.4 µs     | 330 µs      |
-|v10 patch, cgroup_id unset | 425.1k | 300.9 µs     | 330 µs      |
-|v10 patch, cgroup_id set   | 363.4k | 352.0 µs     | 1171 µs     |
-
-block device backend result:
-|                           | IOPS   | Mean Latency | p99 latency |
-|without v10 patch          | 446.4k | 286.5 µs     | 313 µs      |
-|v10 patch, cgroup_id unset | 446.4k | 286.5 µs     | 313 µs      |
-|v10 patch, cgroup_id set   | 356.7k | 358.6 µs     | 864 µs      |
-
-With this patch and no cgroup_id set, the peformance is almost the same.
-When we set the cgroup_id, we can see a performance decrease but it
-is still very fast.
-
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5-5 [Claude Code]
----
-Changes since v9:
-* Queue one work item per command on the namespace's workqueue, with
-  max_active set to the number of online CPUs, instead of running all
-  commands of a namespace from a single work item (Tejun).
-* Rebased on nvme-7.4 (aaedcff90148).
-
-Tejun's v9 comment: https://lore.kernel.org/all/aee729fd53ef9c7c084a443216cfeb39@kernel.org/
-v9: https://lore.kernel.org/all/20261023043423.176002-1-yupeng0921@gmail.com/
-v8: https://lore.kernel.org/all/20261002152821.410591-1-yupeng0921@gmail.com/
-v7 (with test steps): https://lore.kernel.org/all/20260929232411.101087-1-yupeng0921@gmail.com/
-
- Documentation/ABI/stable/configfs-nvmet |  16 +++
- drivers/nvme/target/configfs.c          |  47 ++++++++
- drivers/nvme/target/core.c              | 145 ++++++++++++++++++++++++
- drivers/nvme/target/io-cmd-file.c       |  19 +++-
- drivers/nvme/target/nvmet.h             |  51 +++++++++
- drivers/nvme/target/zns.c               |   6 +-
- 6 files changed, 279 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/ABI/stable/configfs-nvmet b/Documentation/ABI/stable/configfs-nvmet
-index 36b587404ee7..ea9c4083c6a0 100644
---- a/Documentation/ABI/stable/configfs-nvmet
-+++ b/Documentation/ABI/stable/configfs-nvmet
-@@ -314,6 +314,22 @@ Description:
- 		attr_subsys_vendor_id: Shows or sets the PCI subsystem
- 		vendor ID. Displayed in "0x%x" format.
- 
-+What:		/config/nvmet/subsystems/NAME/namespaces/NSID/cgroup_id
-+Date:		October 2026
-+KernelVersion:	7.5
-+Contact:	Peng Yu <yupeng0921@gmail.com>
-+Description:
-+		Shows or sets the cgroup2 ID of the cgroup to charge this
-+		namespace's I/O to. Writing 0 clears it. The I/O is
-+		charged to the cgroup's effective io css: the cgroup
-+		itself or its nearest ancestor with the io controller
-+		enabled. The namespace must be disabled before
-+		modification. Enabling the namespace fails if the cgroup
-+		can't be found or if buffered_io is set. A cgroup that is
-+		removed and created again gets a new ID.
-+
-+		Only available when CONFIG_BLK_CGROUP is enabled.
-+
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_key
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_ctrl_key
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_hash
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 7cd88d6bfd61..f3c665d1558d 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -561,6 +561,50 @@ static ssize_t nvmet_ns_device_path_store(struct config_item *item,
- 
- CONFIGFS_ATTR(nvmet_ns_, device_path);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static ssize_t nvmet_ns_cgroup_id_show(struct config_item *item, char *page)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	ssize_t ret;
-+
-+	mutex_lock(&subsys->lock);
-+	ret = snprintf(page, PAGE_SIZE, "%llu\n", ns->cgroup_id);
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+static ssize_t nvmet_ns_cgroup_id_store(struct config_item *item,
-+		const char *page, size_t count)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	u64 cgroup_id;
-+	int ret;
-+
-+	ret = kstrtou64(page, 0, &cgroup_id);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&subsys->lock);
-+
-+	if (ns->enabled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	/* Writing 0 clears the association. */
-+	ns->cgroup_id = cgroup_id;
-+	ret = count;
-+
-+out_unlock:
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+CONFIGFS_ATTR(nvmet_ns_, cgroup_id);
-+#endif /* CONFIG_BLK_CGROUP */
-+
- #ifdef CONFIG_PCI_P2PDMA
- static ssize_t nvmet_ns_p2pmem_show(struct config_item *item, char *page)
- {
-@@ -833,6 +877,9 @@ static struct configfs_attribute *nvmet_ns_attrs[] = {
- 	&nvmet_ns_attr_buffered_io,
- 	&nvmet_ns_attr_revalidate_size,
- 	&nvmet_ns_attr_resv_enable,
-+#ifdef CONFIG_BLK_CGROUP
-+	&nvmet_ns_attr_cgroup_id,
-+#endif
- #ifdef CONFIG_PCI_P2PDMA
- 	&nvmet_ns_attr_p2pmem,
- #endif
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 4955872dc1fc..624955cc7fb5 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -4,12 +4,15 @@
-  * Copyright (c) 2015-2016 HGST, a Western Digital Company.
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/cgroup.h>
- #include <linux/hex.h>
-+#include <linux/kthread.h>
- #include <linux/module.h>
- #include <linux/random.h>
- #include <linux/rculist.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/scatterlist.h>
-+#include <linux/sched/mm.h>
- 
- #include <generated/utsrelease.h>
- 
-@@ -474,8 +477,144 @@ void nvmet_put_namespace(struct nvmet_ns *ns)
- 	percpu_ref_put(&ns->ref);
- }
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	struct cgroup *cgrp;
-+
-+	if (!ns->cgroup_id)
-+		return 0;
-+
-+	/*
-+	 * Buffered writes will be handled by a separate thread,
-+	 * these IOs have no namespace/cgroup information at that time,
-+	 * so we don't support buffered io.
-+	 */
-+	if (ns->buffered_io) {
-+		pr_err("cgroup_id is not supported with buffered_io: %s\n",
-+		       ns->device_path);
-+		return -EINVAL;
-+	}
-+
-+	cgrp = cgroup_get_from_id(ns->cgroup_id);
-+	if (IS_ERR(cgrp)) {
-+		pr_err("failed to resolve cgroup id %llu: %ld\n",
-+		       ns->cgroup_id, PTR_ERR(cgrp));
-+		return PTR_ERR(cgrp);
-+	}
-+
-+	ns->blkcg_wq = alloc_workqueue("nvmet-blkcg-%u",
-+			WQ_MEM_RECLAIM | WQ_UNBOUND, num_online_cpus(),
-+			ns->nsid);
-+	if (!ns->blkcg_wq) {
-+		cgroup_put(cgrp);
-+		return -ENOMEM;
-+	}
-+
-+	ns->cgrp = cgrp;
-+	return 0;
-+}
-+
-+static void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+	if (ns->cgrp) {
-+		/*
-+		 * No command is left, but the work item of a command that
-+		 * completed from inside ->blkcg_execute() may still be
-+		 * returning: destroy_workqueue() waits for it.
-+		 */
-+		destroy_workqueue(ns->blkcg_wq);
-+		ns->blkcg_wq = NULL;
-+		cgroup_put(ns->cgrp);
-+		ns->cgrp = NULL;
-+	}
-+}
-+
-+/*
-+ * Charge the I/O that the current work item submits for @req to the
-+ * effective io css of the namespace's cgroup, looked up for each command.
-+ */
-+bool nvmet_blkcg_begin(struct nvmet_req *req)
-+{
-+	struct nvmet_ns *ns = req->ns;
-+	struct cgroup_subsys_state *css;
-+
-+	/* a disable waits for the command: don't throttle it any more */
-+	if (!ns->cgrp || !READ_ONCE(ns->enabled))
-+		return false;
-+
-+	css = cgroup_get_e_css(ns->cgrp, &io_cgrp_subsys);
-+	kthread_associate_blkcg(css);
-+	css_put(css);
-+	return true;
-+}
-+
-+void nvmet_blkcg_end(bool associated)
-+{
-+	if (associated)
-+		kthread_associate_blkcg(NULL);
-+}
-+
-+/*
-+ * The io.cost and io.latency enforce their limits by putting the thread to
-+ * sleep. A transport thread may be shared by multiple namespaces. In the
-+ * tcp-nvmeof case, all namespaces in the same subsystem may share a
-+ * thread. So we submit the IOs via the workqueue, thus the current thread
-+ * won't be blocked.
-+ */
-+static void nvmet_blkcg_work(struct work_struct *work)
-+{
-+	struct nvmet_req *req =
-+		container_of(work, struct nvmet_req, blkcg_work);
-+	unsigned int noio_flag;
-+	bool associated;
-+
-+	/* its queue is being deleted: abort it rather than throttle it */
-+	if (unlikely(percpu_ref_is_dying(&req->sq->ref))) {
-+		nvmet_req_complete(req, NVME_SC_ABORT_QUEUE);
-+		return;
-+	}
-+
-+	/* reclaim must not wait for I/O queued on this workqueue */
-+	noio_flag = memalloc_noio_save();
-+	associated = nvmet_blkcg_begin(req);
-+	req->blkcg_execute(req);
-+	nvmet_blkcg_end(associated);
-+	memalloc_noio_restore(noio_flag);
-+}
-+
-+static void nvmet_blkcg_queue_req(struct nvmet_req *req)
-+{
-+	INIT_WORK(&req->blkcg_work, nvmet_blkcg_work);
-+	queue_work(req->ns->blkcg_wq, &req->blkcg_work);
-+}
-+
-+static void nvmet_blkcg_init_req(struct nvmet_req *req)
-+{
-+	if (!req->ns->cgrp)
-+		return;
-+
-+	req->blkcg_execute = req->execute;
-+	req->execute = nvmet_blkcg_queue_req;
-+}
-+#else
-+static inline int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	return 0;
-+}
-+
-+static inline void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+}
-+
-+static inline void nvmet_blkcg_init_req(struct nvmet_req *req)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static void nvmet_ns_dev_disable(struct nvmet_ns *ns)
- {
-+	nvmet_blkcg_ns_disable(ns);
- 	nvmet_bdev_ns_disable(ns);
- 	nvmet_file_ns_disable(ns);
- }
-@@ -602,6 +741,10 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ret)
- 		goto out_unlock;
- 
-+	ret = nvmet_blkcg_ns_enable(ns);
-+	if (ret)
-+		goto out_dev_disable;
-+
- 	ret = nvmet_p2pmem_ns_enable(ns);
- 	if (ret)
- 		goto out_dev_disable;
-@@ -1160,6 +1303,8 @@ static u16 nvmet_parse_io_cmd(struct nvmet_req *req)
- 	if (ret)
- 		return ret;
- 
-+	nvmet_blkcg_init_req(req);
-+
- 	if (req->ns->pr.enable) {
- 		ret = nvmet_pr_check_cmd_access(req);
- 		if (ret)
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932e..673df713c954 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -257,8 +257,13 @@ u16 nvmet_file_flush(struct nvmet_req *req)
- static void nvmet_file_flush_work(struct work_struct *w)
- {
- 	struct nvmet_req *req = container_of(w, struct nvmet_req, f.work);
-+	bool associated;
-+	u16 status;
- 
--	nvmet_req_complete(req, nvmet_file_flush(req));
-+	associated = nvmet_blkcg_begin(req);
-+	status = nvmet_file_flush(req);
-+	nvmet_blkcg_end(associated);
-+	nvmet_req_complete(req, status);
- }
- 
- static void nvmet_file_execute_flush(struct nvmet_req *req)
-@@ -266,7 +271,7 @@ static void nvmet_file_execute_flush(struct nvmet_req *req)
- 	if (!nvmet_check_transfer_len(req, 0))
- 		return;
- 	INIT_WORK(&req->f.work, nvmet_file_flush_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_queue_work(req, nvmet_wq, &req->f.work);
- }
- 
- static void nvmet_file_execute_discard(struct nvmet_req *req)
-@@ -274,10 +279,12 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 	int mode = FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE;
- 	struct nvme_dsm_range range;
- 	loff_t offset, len;
-+	bool associated;
- 	u16 status = 0;
- 	int ret;
- 	int i;
- 
-+	associated = nvmet_blkcg_begin(req);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 					sizeof(range));
-@@ -300,6 +307,7 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 			break;
- 		}
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	nvmet_req_complete(req, status);
- }
-@@ -326,7 +334,7 @@ static void nvmet_file_execute_dsm(struct nvmet_req *req)
- 	if (!nvmet_check_data_len_lte(req, nvmet_dsm_len(req)))
- 		return;
- 	INIT_WORK(&req->f.work, nvmet_file_dsm_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_queue_work(req, nvmet_wq, &req->f.work);
- }
- 
- static void nvmet_file_write_zeroes_work(struct work_struct *w)
-@@ -336,6 +344,7 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 	int mode = FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE;
- 	loff_t offset;
- 	loff_t len;
-+	bool associated;
- 	int ret;
- 
- 	offset = le64_to_cpu(write_zeroes->slba) << req->ns->blksize_shift;
-@@ -347,7 +356,9 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 		return;
- 	}
- 
-+	associated = nvmet_blkcg_begin(req);
- 	ret = vfs_fallocate(req->ns->file, mode, offset, len);
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, ret < 0 ? errno_to_nvme_status(req, ret) : 0);
- }
- 
-@@ -356,7 +367,7 @@ static void nvmet_file_execute_write_zeroes(struct nvmet_req *req)
- 	if (!nvmet_check_transfer_len(req, 0))
- 		return;
- 	INIT_WORK(&req->f.work, nvmet_file_write_zeroes_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_queue_work(req, nvmet_wq, &req->f.work);
- }
- 
- u16 nvmet_file_parse_io_cmd(struct nvmet_req *req)
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index e315f1c24e73..9a9fba051248 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -115,6 +115,22 @@ struct nvmet_ns {
- 	struct nvmet_subsys	*subsys;
- 	const char		*device_path;
- 
-+#ifdef CONFIG_BLK_CGROUP
-+	u64			cgroup_id;
-+	/*
-+	 * Resolved from ->cgroup_id when the namespace is enabled and
-+	 * released when it is disabled, so it has the same lifetime and
-+	 * visibility rules as ->bdev and ->file.
-+	 */
-+	struct cgroup		*cgrp;
-+	/*
-+	 * The I/O commands of a namespace with a cgroup, except Reservation
-+	 * commands, are executed from their own work items on ->blkcg_wq, so
-+	 * the cgroup's throttling doesn't put a transport context to sleep.
-+	 */
-+	struct workqueue_struct	*blkcg_wq;
-+#endif
-+
- 	struct config_group	device_group;
- 	struct config_group	group;
- 
-@@ -507,6 +523,11 @@ struct nvmet_req {
- 
- 	void (*execute)(struct nvmet_req *req);
- 	const struct nvmet_fabrics_ops *ops;
-+#ifdef CONFIG_BLK_CGROUP
-+	/* the backend's ->execute, called from ->blkcg_work */
-+	void (*blkcg_execute)(struct nvmet_req *req);
-+	struct work_struct	blkcg_work;
-+#endif
- 
- 	struct pci_dev		*p2p_dev;
- 	struct device		*p2p_client;
-@@ -746,6 +767,36 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_append(struct nvmet_req *req);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+bool nvmet_blkcg_begin(struct nvmet_req *req);
-+void nvmet_blkcg_end(bool associated);
-+#else
-+static inline bool nvmet_blkcg_begin(struct nvmet_req *req)
-+{
-+	return false;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
-+/*
-+ * The backends' work items of a namespace with a cgroup may sleep in the
-+ * cgroup's throttling, so queue them on the namespace's own workqueue,
-+ * where they can't use up the max_active or the rescuer of a workqueue
-+ * that other namespaces share.
-+ */
-+static inline void nvmet_req_queue_work(struct nvmet_req *req,
-+		struct workqueue_struct *wq, struct work_struct *work)
-+{
-+#ifdef CONFIG_BLK_CGROUP
-+	if (req->ns->blkcg_wq)
-+		wq = req->ns->blkcg_wq;
-+#endif
-+	queue_work(wq, work);
-+}
-+
- static inline u32 nvmet_rw_data_len(struct nvmet_req *req)
- {
- 	return ((u32)le16_to_cpu(req->cmd->rw.length) + 1) <<
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 92f5c1435582..06d9a1224571 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -498,8 +498,11 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 	struct block_device *bdev = req->ns->bdev;
- 	sector_t zone_sectors = bdev_zone_sectors(bdev);
- 	u16 status = NVME_SC_SUCCESS;
-+	bool associated;
- 	int ret;
- 
-+	associated = nvmet_blkcg_begin(req);
-+
- 	if (op == REQ_OP_LAST) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
- 		status = NVME_SC_ZONE_INVALID_TRANSITION | NVME_STATUS_DNR;
-@@ -529,13 +532,14 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 		status = blkdev_zone_mgmt_errno_to_nvme_status(ret);
- 
- out:
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, status);
- }
- 
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req)
- {
- 	INIT_WORK(&req->z.zmgmt_work, nvmet_bdev_zmgmt_send_work);
--	queue_work(zbd_wq, &req->z.zmgmt_work);
-+	nvmet_req_queue_work(req, zbd_wq, &req->z.zmgmt_work);
- }
- 
- static void nvmet_bdev_zone_append_bio_done(struct bio *bio)
-
-base-commit: aaedcff9014876387504a8b92d227766cb95015c
--- 
-2.53.0
-
+Konrad
