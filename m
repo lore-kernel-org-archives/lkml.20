@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792979623;
-	b=nxLz6W1M8o0cM4dNZcIDHJvg7qFxnzYt6n8vz1XMMEXt3osfEh08LGIBZVt/m0nfOt6c
-	 N8NUcxgUzjkoRHIenOE1rsctdzIiXiw+q94oXX6N+Lq+617AvwO2M8jNNjwJezhnawWbD
-	 KkLCBfvCIRbEMxHufNZXBWlLSOLJys3N7QETzI3EGuLl3HMVIj++hhMJVxtIUlcdLAzno
-	 fNhVppbEOe73HavZHoROg1Jaz/zsceEzneABHvLp6EQat4lVrvf9TCraJ/co9VkewBgp1
-	 3J7M4eIQlI2Pms/uPOwTcYw+1rcRqaVec81/EnHSMP6OXEm4TLprNt6iRWrCPLwDnPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792979623;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=n0TA3FzCIGpnxlwr6L+aCV/S8fQL4bPUb1PUN1c74K0=;
-	b=CtVvXmWqxpxfjXbHq8eGmYCfVq0RLX8+zqLZ7g3Q95RsrDPmurVTdVt4q9cCW0zxPcsf
-	 VD1E1c8tCQunZsDFEbMEApJoasNR9D8m5DF4IauaLd2dX5S1t4F2VeqnGBYRN9GRvHc3X
-	 xLeogZL/rNMlsJuyU8hpp6EV/jxHcSRLq+NFQ/dvqzRuFGLQpjorcy3Cd7QAqpOs3j8h2
-	 cFdP04WF0MyuycXjLV0ygrN6tmTYEWno57fgHQEk4D66vEAz+hyOMMRoGidKd7UbtfC8k
-	 Myaxp1VpwvbXUlSsg0ZqPOen2qdLNumrxt+4Y36IGz4Qc4yptzw1d137RMmy3+UclDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTFkJb0E;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792979647;
+	b=SilpCVJ4mQ8egUuHVdB0tzjHlsMB5NKvLsnULBVknLsIP/NSOIeqYzNeCZuw8WE2pm+L
+	 XHCwzhv2v6Pz40bR8NB2xZ+5ErnOvwa5SPqZ0AqBEjmYmakpMhixMDVll97s6p4mfVlbK
+	 wEz26WXlRkWE9Fu+5OVfWcpdvUDPNEeMWn5V/S+i2NurzBB5bh6DTnRwQb/dvfU/od0NJ
+	 wZQxpBJRs7aI77GdvIOWqf9R+3TTe5bwiplDBWQikirzhv6dIC4qnq6ttuwfICih37QZH
+	 NNZ47zGk7XhgS2FmAyZq7wQeYe3CWXp7GkuHYskgh5/kkf0tv836GkfBTx7+l23HZcA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792979647;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	b=OeIlPFoc8AQkMCwO1WcoSTVSEg8bH2/DIaiVQ8K9TEjmAfbvukUGFWE+ioGNvMBBq12l
+	 Ca5uEa7+0c/EpEPvcGoulX1PZY0nPVRTcISPJvK2ie/VNGbeJjYO+qPbreok7X4lfgmRJ
+	 IGNAdgMHNRXY1RhoOrtgOGofonuFaFCM0sABGwZqipbpgNe3hNnyqCg/potOwbztuRXem
+	 83IrUPE0zb591zBuuEz5D0PqdH5ZqMDn91DbOlEz3/9X1D2M/czJKmNtzSq5MrOM5v884
+	 sEmbNznPvbYXuCRG87So84m2VvOd9/9hv4OG38W+TSnhx8L1E/I5BU+LyFx1hGJa/Vw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RQ1o6/Zb";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45979606A31B;
-	Mon, 26 Oct 2026 01:53:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D1F606A31D;
+	Mon, 26 Oct 2026 01:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTFkJb0E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60301F01825;
-	Mon, 26 Oct 2026 01:53:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ1o6/Zb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792979646;
+	b=LdZ3JR0B6ch/VQ4PBUTGQsVJbDJm0e0jQBBPqA9kdsZjz4jbymkursbN07kM75r/lVV+
+	 5n38QJzymNf/z+7pBHWPj8anaEPE0O4QTG5AumpZv/f+EGf9H94y/+5BgrFU3/73kayfL
+	 fFAf59LxQgl3m7E81H0s5wxMxrVawpP1MkN30K8sHVpnvU27wywz9reTP1U+8utviP0pY
+	 +0qZHw0uSrxJIPI+h9DL5Z4nbBifwEeWtThapKo+SbN/jK7vyHzBFXJvi50rOpf5LVnRK
+	 iEzFYmbJm6cg6OqBhIqxsCjhNJ6g/uyQfN71oGnVDWHSuTnmh028dTBrMbhGMQWBnlA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792979646;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	b=Ss2ScRqoA+3GPGZoOazIHsx2ujiSMbSri50unprzQatC19qeUs7SUstwLEhgyCol9rHo
+	 hNEloDZpVj0coFGlWB8y2O8ZX70T1N0MoQSs/s51lIqIznG1aJVwaRXijoOdFjt+GOgT9
+	 Ux00FZV57SidgPCdR4Q0RvNYZLFAmbWudUZnm4mB32St0/+9s4xMkKwbMlP4NY+wFwJw7
+	 2LA1mGpEtPX4wrnZ3jD0yui6DrxYiTuqZvB/H1hezgamahY/DfXRw/fd+GFzfO1LcLDgX
+	 C/Fuug1h/wm9RFOsvYmEMjqg3VfQJ1owZSYYaRF/jdMuXqvoQGFnXigVotgkksFSiUA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6909C1F01825;
+	Mon, 26 Oct 2026 01:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792979622;
-	bh=n0TA3FzCIGpnxlwr6L+aCV/S8fQL4bPUb1PUN1c74K0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iTFkJb0EdDmwPa2Ge0eGs87BpHYCrLXuXJpgbueCOHU8mLWftT72ptm4wWphRcke2
-	 ahRAtG43pmGVI9XHJ7OoJFLCJekPLit6X8euC/RDZxZRO+2dIdz0RvPkQORgKpX2Y9
-	 iQsSRsxSseO4qYM6/wnb7LPEQl0k1Bd4KEtEKOiQ1Dx1hSxg8GfiepiQ8AzVcy4taP
-	 wxs/Uwsxh6xQCyeXR98FsQii7cOLtVb30BA7XmL6xaRV+TDpkMcBolO227SgeVZ+i0
-	 0+b8dczquB3QMddVaMqYiqsXp00ORUxnTqb3ZJS7SjcAMSs+WSNovubRw+BHCFDGBu
-	 dVYdaEIDmIzQw==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing: Free tracer resources on instance creation failure
-Date: Mon, 26 Oct 2026 10:53:40 +0900
-Message-ID: <undine-1792979620229535425-240da28948f7e6f5@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261025165250.65363-1-pocj8ur4in@gmail.com>
-References: <20261025165250.65363-1-pocj8ur4in@gmail.com>
+	s=k20260515; t=1792979646;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RQ1o6/ZbtTUpRGXCepNdotbBYJ3iLW/FABOCdKPEB1/UsQzjuvVSWuEXf++Wtwfge
+	 QM/IMNd6ZZicjfw6A2rDNXw5C/pJS4/cNSrR+ecieDDBmMp2mm2xJrcx7pA4dWU1W/
+	 KhxmHOghHIdS45SsjcBfhwNoggzfQvRpVmZPUPfkD5cOJctV4cHVCiUrczirXp8O3E
+	 g02C+wA9uvg6DnlP51RD7X9TFUYEqYLlzIclwoeCLgQ+EXzcZnWZnFcMHBTpa3QtUY
+	 XViDANjhe0q3+XMWNrKS1oEax5UpTyvztDlQEm9IsmZfiDvyaFVPXrNLGEq0Z1QxFo
+	 3yKcE26XE7rAQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D61C044BB1;
+	Mon, 26 Oct 2026 01:54:04 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Mon, 26 Oct 2026 10:54:06 +0900
+Subject: [PATCH 2/2] xfs: don't skip free extents of the longest length in
+ a whole-AG FITRIM
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,70 +83,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-xfs-fitrim-skip-v1-2-cddd8414f99c@samsung.com>
+References: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
+In-Reply-To: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
+ Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792979644; l=2296;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=aB3YdzosB9+MLmbMgvq8EWq31a8TDk+3lXux5xdb1mU=;
+ b=+Jv3c76RNB6Z7iHbgFJyUMxriwOSH/IwqigFKgIczG2+rmLqffC9/t8PhDA8iJqiS0g4JS3gl
+ QKXWszn3tLwAhoTWz+l49zyKYhU0gS8CtPX+CJyR+MHTYwmSdG/bvoW
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Daejun Park <daejun7.park@samsung.com>
 
-On Mon, 26 Oct 2026 01:52:50 +0900, Baek Kyu, Kim <pocj8ur4in@gmail.com> wrote:
-> Creating a tracefs instance can allocate private tracer nodes, copied
-> flags and option arrays before trace_array_create_dir() returns. If a
-> later allocation fails, trace_array_create_systems() jumps to
-> out_free_tr and frees the trace_array without releasing those private
-> allocations. The failed instance is never registered, so normal removal
-> cannot reclaim them.
-> 
-> Free the tracer nodes and option arrays when trace_array_create_dir()
-> fails, then continue through the existing trace_array cleanup. Earlier
-> failures still use out_free_tr because the tracer list is not yet
-> initialized there.
-> 
-> Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
+by-length walk of an AG in FITRIM starts with
+xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
+lands on the longest free extent with the lowest block number. The
+other free extents of that length sort after it and are never
+discarded.
 
-Please add the appropriate Fixes tag before the Signed-off-by:
+Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
 
-Fixes: 428add559b69 ("tracing: Have tracer option be instance specific")
+Suggested-by: Dave Chinner <dgc@kernel.org>
+Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
+Cc: stable@vger.kernel.org
+Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+In xfs/842, 6 of 15 free extents that held data were not discarded
+without this patch, and none with it.
 
-Commit 428add559b69 introduced per-instance private tracer nodes (tr->tracers),
-flags, and option arrays, and called __update_tracer() from
-trace_array_create_dir(). When trace_array_create_dir() fails, these allocated
-resources were leaked because out_free_tr did not release them.
+On v6.10 and later this needs the previous patch. Older stable trees
+need a small backport, which I can send:
+- 6.6.y: always use xfs_alloc_lookup_le(cur, tcur->ar_startblock,
+  tcur->ar_blockcount, &i), and backport 23be716b1c4f ("xfs: don't
+  assume perags are initialised when trimming AGs") with it.
+- 5.10.y to 6.1.y: replace xfs_alloc_lookup_ge(cur, 0, agf_longest)
+  with xfs_alloc_lookup_le(cur, NULLAGBLOCK, agf_longest).
+---
+ fs/xfs/xfs_discard.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-> ---
-> Tested under ARM64 QEMU/KVM through tracefs instance mkdir with
-> failslab targeting tracer flags, a later tracer node and option-array
-> growth. The baseline retained one or four private allocations after
-> the failed mkdir; the patched kernel retained none. Normal instance
-> option read/write and removal also passed.
-> 
->  kernel/trace/trace.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-[...]
-> @@ -8761,6 +8761,11 @@ trace_array_create_systems(const char *name, const char *systems,
->  	return tr;
->  
-> + out_free_tracers:
-> +	free_tracers(tr);
-> +	for (int i = 0; i < tr->nr_topts; i++)
-> +		kfree(tr->topts[i].topts);
-> +	kfree(tr->topts);
-
-Two minor nits:
-
-- Please declare `int i;` at the beginning of trace_array_create_systems()
-  rather than inlining it inside `for (int i = 0; ...)`, matching the
-  prevailing style in trace.c (e.g. in __remove_instance()).
-
-- The cleanup loop freeing tr->topts[i].topts and tr->topts exactly mirrors
-  the logic in __remove_instance(). Consider refactoring this into a small
-  helper function, e.g. `free_tracer_options(struct trace_array *tr)`,
-  shared by both trace_array_create_systems() and __remove_instance().
-
-Thanks,
+diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
+index 8120f136af..cdf660344c 100644
+--- a/fs/xfs/xfs_discard.c
++++ b/fs/xfs/xfs_discard.c
+@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
+ 		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
+ 		if (!error && !i)
+ 			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
+-	} else if (tcur->restart_bno == NULLAGBLOCK) {
+-		/* first time through a by-len starts with max length */
+-		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+-		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+ 	} else {
+-		/* nth time through a by-len starts where we left off */
++		/*
++		 * A by-len walk starts at the last record of the longest
++		 * length (restart_bno is NULLAGBLOCK until the first batch
++		 * ends) and then where the previous batch stopped.
++		 */
+ 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+ 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
+ 					    tcur->count, &i);
 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.43.0
+
+
