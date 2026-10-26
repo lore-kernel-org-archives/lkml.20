@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793041847;
-	b=xV3/ooK53My1KiUojGRxc2CrJhLtjryPId/M8xhcK5XsHc5Fv7HIDh/GtSXun91Xt7Rv
-	 EqZ6VNYvH8N2Y9nADXU+wyOAGrSgRG9Pla9fPF0A+TZndTrtP3ULKWbjw0ODgYRx027qw
-	 D3/D1k4dYZP+e/lRocSv3HE4Y3N9KPXBakHPrtIuJeLyt+CC+R+6w5Cc6UExnKY766KeG
-	 u8o+g7fcGGpXj+gaXHnstxMlJMtGRgBgskn8DW1atVi40I2OB75UVC9BGThsodnCqlxRn
-	 rv+nVz56lmEHtHtFjkdBHR/2nmNsmZKowkW/DRyzsEnd+jtZRT7F8obrsGxYERztSsA==
+	t=1793041893;
+	b=YCPKHxxe7h3UvJSbGgukChGtoh4Fdm0cI2ELlmSl01BxKMB8FAgsQAtG8ahmnxGlmwU7
+	 BeZl1Fqjehyi2bUBsdJkQz3pdkQUj85hO9QID7LsKo1m5Z6yVJjlQRPCvibKksfoz56UG
+	 qXQJvP+56EK109dh7Am9yEnDPOF+8IQwSljunCwqyoql9m9GgLUlsOC4oMErRz1k1hrSs
+	 gCVkUxgu69vEeRtXwsWrGgpSITKYULCo8WICmx1XRNGde+4abMhMebxJKQs6ykl4k2Ckj
+	 CdlXZNRK/BRE8zv6fX8KdiU9+ylksJ/ok2WhXVYvyrbH/WE/C+LeJ3SfP4LsQs5+8yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041847;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=DMuTtuJ1h4xjmqX6Q6LPbxG38lJtzTTle+6VtZKNkrY=;
-	b=rEtcQGpF8VceXrBYyIe93ukMD7T5WvZma2B/rBAWQDAweVsLXpXlqc6Dt1yMFLeUDyOt
-	 VAffagfhg9nSPVisHoVBse/8gNL2qAyzetBkL7eGXYGEA5YjKIc3wr6Y44+iRNMAw5hsG
-	 5pEk3a4SvRYfxgHhH5cRJ1dqcs3RW2tsQpmJBmN/QQXM6JETEV3i2SW+m2CJXFsE5wqP6
-	 weBy6UoaMpZxAzXRDvUd6WJ/zwbjTw74i5ia2uXmMLNUwCB8CKAnkXYtdPifFBqPZfXeh
-	 uq7DF6VubyHfc5GdyDqpUdUzoDFUJo2KQvVTAQwzQvprIm9sd4E7TqqLRQKm+k6pxBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793041893;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=s/blq41Vx47KQQHMBVWDCS4GUGvH4dkNTdKaeGxRU44=;
+	b=IBDXaNHhiS3ikjpUJsKkW4AweKnz0Vu8VdVk95wxkNuOGaUbbkjWdYZilvrP+bH7I1Kl
+	 TfgJA0s4Ut8Jo85o0z4qufk9ru5rndfk13EW0tm1yMBuKqNGxnuDxKBho6sxXNvb3hEJp
+	 3VOxIfMaxH2W523iy7fFX0KyHT0Au8tu3gAhrksrwYJdacBTIR5rGyyPFM5xWXjVgqgZJ
+	 aiGUuSM3UTy20r/XigsTcPoonuKWFIktWxDqIhEyiMA9Gj85yvnE+y/v33FCmmsvUogri
+	 6HEHhaY5P9JxgbKoYuy7oUqPlHAFu0pFXax9Jk4esCgK5qZijvWARl8KMSKaj/rTJAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TN4ytapC;
-	arc=none smtp.remote-ip=74.125.231.138
-Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=hthgjYyB;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2E3606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB2E3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FC8606A31D;
+	Mon, 26 Oct 2026 19:11:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FC8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TN4ytapC
-Received: by mail-oo2-f10.google.com with SMTP id 46e09a7af769-820ff812cd8so612971a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 12:10:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793041846; x=1793646646; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DMuTtuJ1h4xjmqX6Q6LPbxG38lJtzTTle+6VtZKNkrY=;
-        b=TN4ytapCI4BrQ3ZcXC8tKkhy7BXjIBziqzswKTCOUIfrvA35hhHia2p3KheIpZjwrf
-         SxOT0QbjpA2ZKqVlh393VYXOpgIeM7vTyDbBktRHrX4ygwbU9MxAyF76VFS5z/BPpeJg
-         I2Up2uSxn1h0EcNtFjGbUkz1+vtRSMGtbAgmhBxtrc+scShGOOgLtdk2AR2lCGdOaDLT
-         Tx4DyOwqqsWFAlLIXplEPEaU/zr0q0Q1gTQWs4Vykn52/h7uEHW9WQUU7OsgjXgFNyrH
-         3/LJaxmKsOi02epciAyHVg4kiJ5sq/VS9485eIVngpjmlxC876tjA4LPVyvrQyKhcvmc
-         khPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793041846; x=1793646646;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DMuTtuJ1h4xjmqX6Q6LPbxG38lJtzTTle+6VtZKNkrY=;
-        b=eva4iRxTsy2v0uGF6/zMSXJVhXU/9RY5u1Zv3xMkP6qofz0VKNnEEj81/uej5uZBpF
-         FRAdZzWL7cs/BTqBAym1dAzweMBrONQ0Jk+UFY2aVTAZb0o19DrbmqtP90xf0banPdlt
-         SJE68nlsJr+sGm+SMzMs8xP+2FWEqslMecz6163OC7TUJd45JrhqYXKt4twEfBU7TVwz
-         wIaeayqD+Ahw5rx/x9ecyxgCpJ1woBSKGqoCF0nI6YA2ks01h/ijkLRP72UR1YrPMJO8
-         +biDJX2nMUT8ltJM/jI1wYAYAAsB6ok37/i5EHT3QzFcEQuBTFqDltP+ssdfXP+zopVH
-         HkHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz7TX23/kSsy0pmhqI4WTnCc70v4nm58NuJUIxxZsLsnjbNyD9EV5lp2f67j+/qgzW6AC/2T3M0p+dt+q8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmdroyPQSZN80nd14tpdnT5E7vlsXM0jkw/W3RDgN+R0XvH/W/
-	HtOlw4hnuULWVKsyaKZ1Hpi3a+XIrFFZYIMrBZ86s/8MM0VYFjHJx5ra
-X-Gm-Gg: AYBFou34RwQEUUFZj7Qt41O274yuZaz59Hq4xMYGO1qNdtI9I4XeSTAVGFxk8fHr8ur
-	WQ9ncJ0bo8mFX+/xSPnRal5HJMh6pXV3mE68OqM5SpE4WDbXCRp/jqapqOyrhIq7ricq7DvuK3Z
-	4PI2xqSLz41SZg95vV4AZZOVe7+0xHK1PCEs4Y7X99lb1jy8edw2hbo4TtYiFGrgHLyPuKClcRW
-	P7DB6KJ5EqK9NeNWp+GzmvVqGjVM6BIlywJUjJGvnHK/Tbi9I548/5zNWkQT/GQKMDAI6bhKswi
-	04mSoyT+0PKy9sncHkmvm4h5327GQZj6RW/s1N28hb1TGYZGMcAlF5MryWpHpC4MgUAryCkFyvt
-	GCj6eHh2birqUqclC1WygMdkS+wLfm9LWtKbs1h7L8W9/PWLZTqa2q/iQLDWLV6df+3Xz/NlA36
-	tEDV+faNOHFqKj1tTcGLFRuH1ejEEeMrU+08r4HqG4w2pZzrA30PqCNTwZGOSOpvw7Nd1PNKKhM
-	YRoSdprWlmjnH5jD19doBhUsoUy0nzvEKC2mtRYHGRep+fNGUnMufKd2x5QuzmTk0RNrJ4J4Zic
-	7oZJkia0jz11wnKRWQ6NKDzqvG3lBPXFo8xOmEp/ORR4LSgL9oAdbXQ02DVlnmcEzek=
-X-Received: by 2002:a05:6808:1919:b0:4d6:90d4:6bc with SMTP id 5614622812f47-55c002d9eb8mr6575517b6e.46.1793041845770;
-        Mon, 26 Oct 2026 12:10:45 -0700 (PDT)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c03dc3524sm5740834b6e.0.2026.10.26.12.10.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 12:10:45 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 26 Oct 2026 14:10:37 -0500
-Subject: [PATCH 2/4] wifi: mt76: mt7615: wait while Bluetooth downloads the
- MT7663 patch
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=hthgjYyB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=s/blq41Vx47KQQHMBVWDCS4GUGvH4dkNTdKaeGxRU44=; b=ht
+	hgjYyBpMtM4Eaj7r0AUQ016jUppx6Z/sQlm/35QxGvTp2NXnjarDYPtZF55UpRlsdW8xCZJXwDrWb
+	AZCqKVR4vrALyWNJHiHW/Ygkd9PyC+3EIxPcKtTmGJrcNDSsh0mBsCCc26JSVM0Fr34W3jMSETBvL
+	dMUTi/8ocGdgEfg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xLQ6H-00CphE-Jc; Mon, 26 Oct 2026 20:11:17 +0100
+Date: Mon, 26 Oct 2026 20:11:17 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Jonas Gorski <jonas.gorski@gmail.com>, netdev@vger.kernel.org,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2 2/2] net: dsa: b53: restore the NSP IMP port 2
+ Gbps mode
+Message-ID: <bab723f0-742a-429b-a22d-bd086ef35389@lunn.ch>
+References: <20261022211104.2091128-1-florian.fainelli@broadcom.com>
+ <20261022211104.2091128-3-florian.fainelli@broadcom.com>
+ <CAOiHx=nXKnzqB+-BvYg7rgxpLq9p2JP2xk8JchK-3+fqzpG7nw@mail.gmail.com>
+ <47511aa5-3032-4bd1-bf8d-bcb1a2280367@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,80 +73,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-rbrue-sheldon-upstreaming-mt7663s-v1-2-944b1f7e63a8@gmail.com>
-References: <20261026-rbrue-sheldon-upstreaming-mt7663s-v1-0-944b1f7e63a8@gmail.com>
-In-Reply-To: <20261026-rbrue-sheldon-upstreaming-mt7663s-v1-0-944b1f7e63a8@gmail.com>
-To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
- Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
- Sean Wang <sean.wang@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793041838; l=2027;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=HkEhUCJzkwct3RuygSMeROndtW02Wv2ZhGyJ5rVshHo=;
- b=Xp3Ukesylfb4khPHpZ11/Jn435KT1nrvFR8ZhqyM/mUHsf6//IDNqy25niqgUN/TogKP5/5MO
- H4QgjZPCBcVCwSr69a0/W6h771CNP1sQjSp1Qa2GvYgSEJiwTO2+/Pa
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <47511aa5-3032-4bd1-bf8d-bcb1a2280367@broadcom.com>
 
-On MT7663 the Bluetooth SDIO function (btmtksdio) shares the ROM patch
-with Wi-Fi, guarded by a semaphore in the firmware. When Bluetooth wins
-the race at boot and is downloading the patch, the semaphore request
-returns PATCH_NOT_DL_SEM_FAIL and mt7663s gave up:
+On Mon, Oct 26, 2026 at 11:34:36AM -0700, Florian Fainelli wrote:
+> On 10/26/26 11:31, Jonas Gorski wrote:
+> > Hi,
+> > 
+> > On Thu, Oct 22, 2026 at 11:11 PM Florian Fainelli
+> > <florian.fainelli@broadcom.com> wrote:
+> > > 
+> > > The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
+> > > its internal link to the AMAC.  Its fixed-link description reports 1 Gbps,
+> > > so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the two
+> > > ends of the internal link configured at different speeds.
+> > 
+> > Sounds like the devicetrees are wrong. Shouldn't that fixed-link
+> > description be updated to be 2 Gbps then? ;p
+> 
+> That's a fair ask, however that would require introducing 2Gbits/sec all
+> over the place, and it's not like we really have a good way to report that
+> even through emulated PHY registers. This would not be a bug fix however,
+> which this patch set is targeting.
 
-  mt7663s mmc2:0001:1: Failed to get patch semaphore
-  mt7663s mmc2:0001:1: failed to load mediatek/mt7663pr2h_rebb.bin
+Hi Florian
 
-Retry every 100 ms, for up to 5 s, while the semaphore is held, then
-find the patch downloaded. Tested on an MT7663 SDIO module with
-btmtksdio built in: across repeated boots, whichever function downloads
-the patch, both come up.
+As far as i know phylink fixed-link does not care what the speed is,
+and it does not try to emulate it in the PHY. So it probably just
+works. Assuming the DSA driver is using phylink.
 
-Fixes: a66cbdd6573d ("mt76: mt7615: introduce mt7663s support")
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/net/wireless/mediatek/mt76/mt7615/mcu.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
-index 152b75178b27..e5c2ad5fb458 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
-@@ -1241,7 +1241,7 @@ static int mt7615_load_patch(struct mt7615_dev *dev, u32 addr, const char *name)
- {
- 	const struct mt7615_patch_hdr *hdr;
- 	const struct firmware *fw = NULL;
--	int len, ret, sem;
-+	int i, len, ret, sem;
- 
- 	ret = firmware_request_nowarn(&fw, name, dev->mt76.dev);
- 	if (ret)
-@@ -1253,7 +1253,17 @@ static int mt7615_load_patch(struct mt7615_dev *dev, u32 addr, const char *name)
- 		goto release_fw;
- 	}
- 
--	sem = mt76_connac_mcu_patch_sem_ctrl(&dev->mt76, true);
-+	/*
-+	 * On MT7663 the Bluetooth function shares the ROM patch, and the
-+	 * semaphore is refused while it downloads the patch: wait for it.
-+	 */
-+	for (i = 0; i < 50; i++) {
-+		sem = mt76_connac_mcu_patch_sem_ctrl(&dev->mt76, true);
-+		if (sem != PATCH_NOT_DL_SEM_FAIL)
-+			break;
-+		msleep(100);
-+	}
-+
- 	switch (sem) {
- 	case PATCH_IS_DL:
- 		goto release_fw;
-
--- 
-2.55.0
-
+       Andrew
