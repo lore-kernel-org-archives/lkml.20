@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793043618;
-	b=ID0MmWXY5XHK5H5wKktKa+0aPOY07umW5DvBNi3UkAKvzbjOGZ7AJrK2Kp9PakIKqzuT
-	 AmgjigE6DjsSapzSPkWXnz1ADvESLtX0qnXc0UjIOermF2zuK832WQE+owsfoZyYaiJsz
-	 uHzKkCf4S0+KJVcp5DuHEJHDfajjGpDlbNAtNbpVjRT0iSxsUho7xTRqi8Bk4oXwQDWQa
-	 zUZekGqyr43oW0yBWH7VhYvSV5CN4oryfWsyBnBSHcNW0z1BO+BrztQWhIMoUMn/QrQUO
-	 yqQeJDepFcYy6/x1Rlu21CkWFNpfNvWVoFWxvmeESNYmO0Mqxdsgg1EA8piM+X+B7hw==
+	t=1793043677;
+	b=tPPmRefRTKnxXbJBRqi4jyhFRyhySzsX97TJmP5mvx5EGfKl4GOIa2/dQc5i41ZsCfS+
+	 cgE4tTgfqLTIHwDfu36/uPqP3xkh4GNBGWeBa7Tyg3K8R89Ls+PKIxTd8QzcWFEjlyfxk
+	 V75G3OZQQy+SLo3IAMW38RUBHs2bG4cg/s04gdvIgHl+IvMOJ8Yn/ZO72sbTZD9dCtod/
+	 PWGrBRY3l8k+yq6snlmrZ87D4a3NpVSXxmGv4bQMcWoPV4DfnBADbU2xu+1vMYuGNvymf
+	 JpCMCpKXwcelNJQ9VTFTG66Su626Q5wN7w7OrRg8OA+s1XAkfWSMExw7Jr50+FWbR7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793043618;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=PDSSmLHMXxPmsr020cNYPfn2DiyVMYpKQJWU5sCcgVI=;
-	b=sfhbTKkwjA81eyvmvteuLMSTd2UOizaoWpoRnIPiPokXvh8+hwAuvSSkoiwEjZBstDe1
-	 u0yc4LOUMFAMlADIhMULhemwQXQqZPPIOIDlenuOYDdebh7EPYyEzznxZN2YfNE1j7u+v
-	 fRKgXNOhmgqy+umUC5DPzb2ty0J1ca/gyFrMkN4j3/KCFbgSXghcWCCq0DMQ9r4Qcqemq
-	 UtneGAcNeLXBwFte7acD7wYJ0dFNtj3H9Rnj3SLAE+TSwTIDcYNq1pqKXtv2biV1mEfGB
-	 V0i5TB0SPH0N/N5Rws3DszkO66aJbti1i+/v6QhAGj3kL8onSYFF/gwSJD8jy+X+Bxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793043677;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=O1jHvVDknA/tLu8/L5dDx1mH+Ao/ACcwB5MVHq3OiQA=;
+	b=Nxo0EJXTTvH0vZo8evqwul9hS7jA3MFJoR/zGkHzK5f6FTTjVXytYpdREE3uDoMMq4tv
+	 oHD6ACCBLNoOPVamxhX1n6Usbc7aIlO32RZw/ACR5du5Brw+sP4UfVcgJzam1648BmOcX
+	 rhcZa65pZ5BtxJH+Tcifu1evKwRQpSvjDVKVSx/34cPJ8tZRD0jpcGdTtEQ2Qr9dMrUY1
+	 ISp+Q16TApyooBBKyLNjW3FSLC9qVXBzGJf0rjKRNQO9jCatYlOo1TC3I8MV5Yjk74hE4
+	 dsomljq9GHAjoGM3NWccbdyFgJcBkEbdsHOMPQYSg2GmucrnZAUkQMklQPgVi4JwUcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=WPAztoNj;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=bLnUytpN;
+	arc=none smtp.remote-ip=95.215.58.115
+Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238DD606A323;
-	Mon, 26 Oct 2026 19:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 238DD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57F9606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E57F9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=WPAztoNj
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 92A2F12086C;
-	Mon, 26 Oct 2026 19:40:16 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id C819530;
-	Mon, 26 Oct 2026 19:40:14 +0000 (UTC)
-Date: Mon, 26 Oct 2026 15:40:13 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 05/10] tracing/filters: Report parse error on all
- -EINVAL paths in filter parsing
-Message-ID: <20261026154013.70598e93@gandalf.local.home>
-In-Reply-To: <179285917054.466249.6580828464905931113.stgit@devnote2>
-References: <179285912318.466249.7425922682086130057.stgit@devnote2>
-	<179285917054.466249.6580828464905931113.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=bLnUytpN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rCKcQvSjfqvqlSYee/K00QDuSFn4KmH4U1/bkKGe2jc=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793043674; v=1; x=1793648474;
+ b=bLnUytpNCxpa/8qVBbDCOS1U+zK7koPJVz/vXsrPny66PG40vcDU+qb+ZtZEhrmdcNAEtV9G
+ ul459QvM9KPzqoQecaVUUR2ej5i06nDc1S7svftmeuUaHtICVG1jHmzEAnouOrIqeQymzMspSmM
+ US0yNC/q85el9NVHuzoSAD3s0QFnn7/rEbBUqqUKgADko1jo+x7AKBb15MU5VFphiW/wZ7hQMnR
+ OHdV46eQ+azQlX5ECSOkzlrT/cfoogHTbD/GtqOwLzGrjQ0tsmCENtCJh0H/5wJWTAhwBhz+RFb
+ DqwLlAAcS5tbFCrzknYgEYbwzFd4vf9wK7jG/rgFDmpfg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fb68a8c92d4f5fc8;
+	Mon, 26 Oct 2026 19:41:14 +0000
+X-Mizu-Trace-ID: fb68a8c92d4f5fc8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1ea484c0-e451-4753-af1a-ad931f41be58@packett.cool>
+Date: Mon, 26 Oct 2026 16:41:07 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,47 +60,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] drm/msm/dpu: reset unassigned resource slots to NULL
+ on topology update
+To: Xi Zhang <xz.ca.cn@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Xilin Wu <sophon@radxa.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
+ <20261026-msm-dpu-res-clean-v1-1-f46130a8a717@gmail.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261026-msm-dpu-res-clean-v1-1-f46130a8a717@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: C819530
-X-Stat-Signature: t535pa9wd76h3n86eyxcn4rzkkey1t7a
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19YiGV4EBQ5XP13rbOy1E7Ps+GBvY4AkRc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=PDSSmLHMXxPmsr020cNYPfn2DiyVMYpKQJWU5sCcgVI=; b=WPAztoNjx8vMNtls979Kw0suFaB2zq6UH8tvWDM0CAvcO5Krl77xi8/mWbY3wLCDMJ1/N7g6UOI8Cn+IcrHNR9zXyiefTSywRIARI9oo+8OCkbsY3MJmbtox8WcG/TSMdrUeJoxw8oTpTOFgknlbsHJT8OyOdf74L0RcqzPN4dw=
-X-HE-Tag: 1793043614-289953
-X-HE-Meta: U2FsdGVkX1+3ZfLJviU9nB/ZePQ1z0a6jeiLj7EamLjwX/KNZrOsaSsWrAQsuLA1S7wS8v397/XtftFLzIVz6WcL+R9WOhkhfLoTW1QmN/RTTFKiUcLnA1vO0N5gJ+oMrwsC5Z1Pff0Hx6QBdOG5frr4UPhv9TLF+fiairIEmfVuLWDT7aGSV+be1dEgprsXY5bSttXKE4ipmKZ+xH9rpm5VXGT1UR6Zkzw/oSWmmQEPMtpo/lth0IFV2pxONTl+bDslLaEvUhYVwwQO5Se8UVM0vHbO2Ubzx+dwYUM8hMh03ABX00HkbUMteh0xcvQJDt7lqD0QHmKiuEWESh3k3lS5mbqcL5T8
 
-On Sun, 25 Oct 2026 01:26:10 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> Several error paths in filter parsing return -EINVAL (or -1) without
-> calling parse_error() to set pe->lasterr:
-> 
-> 1. In parse_pred(), when an invalid token is encountered where a field name
->    is expected (e.g., "common_pid == 1 || (common_pid == 2 && )"), len is 0
->    and it returns -1 without calling parse_error().
-> 2. In process_preds(), when !nr_preds (e.g., empty or whitespace-only
->    filter), it returns -EINVAL before predicate_parse() can set
->    FILT_ERR_NO_FILTER.
-> 3. In predicate_parse(), when op_stack overflows or the jump target check
->    fails, it returns -EINVAL without calling parse_error().
-> 
-> Because pe->lasterr remains 0 on these paths, append_filter_err() falls
-> back to printing an uninformative "Error: (0)" instead of reporting the
-> diagnostic and error position.
-> 
-> Call parse_error() with the appropriate error code on all of these paths.
-> 
-> Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On 10/26/26 4:16 PM, Xi Zhang wrote:
+> While this is not currently the case, it may be possible that topology
+> for cwb and dsc resource requirements change between mode set in the
+> future.
+>
+> e.g. when dsc support is added to DisplayPort, dsc may be optionally
+> enabled and disabled between different modes due to
+> bandwidth requirements.
+>
+> Set unassigned resource slots to NULL on topology update to avoid
+> issues in the future. It's good practice to do so anyway.
+>
+> Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++++-------
+>   1 file changed, 15 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 0a6be69a3e83..8d2b4d2726f2 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1205,9 +1205,13 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   						       ARRAY_SIZE(hw_pp));
+>   	}
+>   
+> -	for (i = 0; i < num_cwb; i++) {
+> -		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
+> -		cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
+> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
+> +		if (i < num_cwb) {
+> +			dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
+> +			cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
+> +		} else {
+> +			dpu_enc->hw_cwb[i] = NULL;
+> +		}
+>   	}
+>   
+>   	dpu_enc->cwb_mask = cwb_mask;
+> @@ -1215,16 +1219,20 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+>   		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+>   
+> -	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++)
+>   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+>   						: NULL;
+>   
+>   	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+>   						drm_enc->crtc, DPU_HW_BLK_DSC,
+>   						hw_dsc, ARRAY_SIZE(hw_dsc));
+> -	for (i = 0; i < num_dsc; i++) {
+> -		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
+> -		dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
+> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_dsc); i++) {
+> +		if (i < num_dsc) {
+> +			dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
+> +			dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
+> +		} else {
+> +			dpu_enc->hw_dsc[i] = NULL;
+> +		}
+>   	}
+>   
+>   	dpu_enc->dsc_mask = dsc_mask;
 
-This is more of a cleanup than fixes. You can keep the "fixes" tag but
-remove the stable. It's not that important to backport. Sure, the stable
-folks may backport it anyway, but I use the stable tag for what I feel is
-important to backport.
+The radxa 7.0.11 tree which has some DP DSC patches indeed touches this 
+code with "drm/msm/dpu: Clear stale DSC resources during modesets":
 
--- Steve
+https://github.com/radxa/kernel/commit/d0a8968dca16965395f4089a28d48ab6acde565e
+
+(but it only clears hw_dsc, but in the hw_pp loop, for the assigned 
+resources..)
+
+[+cc sophon]
+
+~val
+
