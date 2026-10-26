@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053948;
-	b=ZkjIzRKgkiKKR8RwkuZo+l762DrfKYvNX6KQxdGGiON1NfaPZC4O4etELjl4Cx5N4A0A
-	 q1ym3CbhGBTYkmeITPILGCT46ZRJF7qPXkJLp6pXNRIAsjjxrcPjd15m66mahBJ69m2Hb
-	 RbsxPFsMRW4pSDSgH0zwkRidFHotIcciOnEH7rrrkR+yboJYcn1AOZLWy5Pt9YupYcSUK
-	 1Ydql5K0Stx9LCdtwTbRQGheBKd9EoAGPrhAysZHrwQHXZp7aIWpZPtrMYui/PTSnYZZd
-	 ajd0Dg/sdUtAnsD8aaAj7hWWXOGsA13Zy7nAun5buHiQFYFx2h/w9Fk72ibq6SoKuTQ==
+	t=1793054088;
+	b=noGMTTqSLc7jzm72OsxagNUb+qy/5bGhjtDRl1YR7LjuUUDNsgahBqyazdtQvlJ1myTa
+	 c4R0ueVxRoMPV4S5mbZ6YEbub8ULde7kpLfz0mjcUxYsI73dekM8s6N4yxcAwVGMt499S
+	 DJ0ophj4AfgfuCWEZCsk7ccwSdiA0hZOF3/+J3dGFts6vGLmQuIBVs5tKOfio4y9/wqf5
+	 HPH6F9zpgFqc3C49YfV6gN78GkK202EtzEMMn6pSz/AxHqv1fOHdYsDtD2vEgRkem4OLC
+	 LXbOxOP9/xdROCHS8QmujjU4mN37FHe8s3oqC7Zfnk8yrzPpAliv7YloafiWNnCXwaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-	b=ym7TmIoDa3twuI1Wiow5Tqk/iABjDQFBgXLw6JNauX3yjwZWIgUQrcwCa7gwi+efUIv9
-	 NTproH7CuPxA0dDjswwq6v1qaCaVnqlQQYo2ricYcMnC8N1gzX2lGYfu/zZ8LcPHb7J8Z
-	 jOeTf3VbuSwoUivc2PkcXAXGTth+tYbyYUyRU0yfsRt4aAkg4h62hRLajD7GKHSm+WEHL
-	 Gyd1TZaiIG6oLhBYiSi5m12atXt7247daAZMvj6P3Nnnt3ROf6scItKscfc/odf8nCsUb
-	 gPXAPo3W6i85bD+Wffm1R5Ca+iu7J2TuzbdwNDl9ZF2FJNHUBthA5ToTRROdyd66W1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054088;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HcaAjZorHHb3l5RdR8AVzhqeikVAxrwM1RaByGmw9Yc=;
+	b=iBFuBNsbz9XsKdFZaNAtYSmzBKFZAAIWmEkXDpgJWq5MQlSEZHvfofu9/RLSz/Qvz0Vo
+	 kvNrhbsnSkfnqazmzI/owN+FJejuheiVeEONKp7p6lvOnEOaWMUi9c1u95dYFF3C+biw+
+	 Kd0l0nZFLwpOl6AuP51hU8iNIe75wtbA4ps7Jx00Bw8buk+ResZtHs7nsvUme94UhodX8
+	 QmSGcOD5Eo5I71tJRV0TzzQKbyvKmOIKAIwzeRS1FByRoPGN27Ksy/Grvx/8AbMsvT8La
+	 minth+hmNw9iPyE2sgvSnFMtEZsfBFBppU+59Bc4rUM/iCMiZ79V+oFoeXmbgHOP8OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HwRuhF6M;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KfLvEhKr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0EB606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0EB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75A1606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:34:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HwRuhF6M
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso2581788f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793053946; x=1793658746; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-        b=HwRuhF6M+Y66D48I35HkC/WvYHV4sTTX1rD0qaNjeay0lN5WIzYdDyQA8rX1ak4GqR
-         mgrkEzMgbdiStyVxLOvv3vIyiDX4YQQ3iBVjE794ZRVYi6HGB0gQECYxdTYMPPpvkyvp
-         29w/hfSBgvSW5zfhJDiDIzUgbnHD0QLoZXaEEoRjenbetrJki4n7RS1+x94YO+NnsV3Z
-         Xjix2v1h7SVPMcxEAexgee+afdRv4mDBCtHoncnXIrNPwdSq4gR+gG2hFON12d6uJL5d
-         GVYZxep4DLSsCALe7+D3ZyFm/jW/LPNOeKxqTAK5pPc3rFtyQTqyPSFbOfnvTixmNhEi
-         BU0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793053946; x=1793658746;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-        b=K3H/5U2fwQ2IH7WvugYlMZvCaWFeofEragfQKdjYeON1OA1YNoMEOdzCLthN76e9uj
-         2/XssBaq9Ywkw4vDe+e4ygE9L8ys+kNcMKiLyWW/aJKKYVmLVfgk/ToB9Pdml87yyxqy
-         CB6LIDLxY1YR3vWDBKFq1ZCBfx9/i2FrTndsFV2ZIXAuzqpj7SKQ3FyUtc9/MSiRSzbs
-         tl0eIb2GgPO1OHMKBU/J3fa8tRBkuGfuLvngtxCydsjo9uRrz8kjdYXrLb8SKbl1fZZE
-         FZjiDnvZfZpgrdzePawm56kDAQ14ibOD1o/qnXnDUF0m1vprCqjlK+CRYHgVHI8A/D6Y
-         jf1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxsZBPlJl0Dl289VokJu4t+XcOq7fj5vKcXxvm6W83/gaF40zeRqKw5J4czgtHtdwjT3f7WHGwPNt5ybg0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJt4E3tQNzgYGDMXzjDx5Gd0jT7r7ag27T9zwMfL0JnBqAK1Fq
-	8zIHlRLjCVfHTaE4ucNJ+LWuMA4lOZhARvT92NpjphEkKdmVmupiG4U=
-X-Gm-Gg: AYBFou0gX23EJ5gLvdyD5EyvkVoowkRPFuezYPHzWndZh3Ry57fmz0By8LI+BFt2xio
-	mB5h6fCvSx6ICNkt79gTVrDsH5L4azB0yRfGwa2617ugr/MjOfh4SppjNpGCRlX0672L2zuPbQh
-	j8E/7hpK8F4fn82qTZ4ABBdLW568jbpcbvk8nDf3YaQ5g7w2KfnV/LFS22s6N3OULs0KRPp2DoR
-	K0VieqjX5ux/pwh7eqVP4Cex9eyz45KzVScHbd6cNRZ+7HuZOPpl9iySBNjssKQl/hInPcn3I6S
-	8PJ3qkhA3LUA3F69A83gSIcAAaaFKod92A2JfCejujsgAbzPUkEF6nSdmTIzjHo9gP6S+zqt1K/
-	VswLI2YpQbXprCtUfuG4cYtNJKewooQCKKCteV/GUf3twzX8IhbSYavn4J80YUAsM355c63nHJa
-	EIJeCvY3cYmvHdKZRx5FlxRFo6qX4FanTjjt94J+DozPNGcP59s+UeNKkfI8leVfqPP/JGTDejw
-	fNJ0BZ/2jO6ugZAONIJUSrceyyYdkFlWH8Jug==
-X-Received: by 2002:a05:6000:2a87:b0:48e:2c2f:59eb with SMTP id ffacd0b85a97d-48e3eb9a023mr11905332f8f.12.1793053945957;
-        Mon, 26 Oct 2026 15:32:25 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb851sm16239300f8f.26.2026.10.26.15.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:32:24 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Ivo van Doorn <ivdoorn@gmail.com>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	tristan@talencesecurity.com
-Subject: [PATCH v2 wireless 3/3] wifi: p54: replace open-coded IE search with cfg80211_find_ie()
-Date: Mon, 26 Oct 2026 22:32:21 +0000
-Message-ID: <20261026223222.2093813-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KfLvEhKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534001F01828
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793054087;
+	bh=HcaAjZorHHb3l5RdR8AVzhqeikVAxrwM1RaByGmw9Yc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KfLvEhKrpsUZBapgqE5X/dvFFawe+GgBShTllDYK5Nuxza4aJmeBOJdIU8fGMmsXY
+	 8j8V52lQmocE2dAaMTMtp+cKKsl8A5BYSFmgMti+NQVy2xgIlot+tWbMhC513xK/kh
+	 +M9rnAnkvwoJqwV1IatYGbWc1WEN54y7cpTiMoOnYZzR0lQ/V157ZXE1Xs7ok5Bf1v
+	 y0BcDXox42uh8UmzJqm82GFUXlOT/U0d19cFQTttxohoMGOARrgnqpZVIE8V7o9SiU
+	 Ub5Pn502TYq1ILl2N9RjBQ7CkH/+m3P/9vOhb9tqn72163Ow0GxEcIRo1r3O7irelv
+	 I4o6+TFxdwDtg==
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5365d26ccbdso40825121cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 15:34:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwG5YzvQFccFHFA7931H0GKE8nWV+raq23kyyptUEFGrS5e476EfUVBADlplGU8v1m8+RB1zLcEQzURuos=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNsXJng6yBmTVJUVhIdEVcCLeRdgJB4/5S0VyVFP//9jlazMJf
+	rgevBXA5b1JJRta9xS+zv42UQXMdy2kkwa/g/vatOF6uNh8faVDanuIV0DgZs18OEYxzczs672D
+	qfHLwav9SnRxTJgYdSKX3hk5ID32WpC0=
+X-Received: by 2002:a05:620a:4487:b0:93f:22ae:f8ff with SMTP id
+ af79cd13be357-940ef8ea2a0mr1252625785a.46.1793054086667; Mon, 26 Oct 2026
+ 15:34:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,126 +59,431 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
+ <20261016-mglru-fg-v4-4-2106750c0bfa@tencent.com> <CAGsJ_4z3q_q-qyWdj85ZkMZvKOsXu7eO6qkiuQcppnd2oE3dTQ@mail.gmail.com>
+ <CAMgjq7Dqa5Thm+tXUMrg5D1oSJxwyuJR5UOU+w33OgiebGvcJw@mail.gmail.com>
+In-Reply-To: <CAMgjq7Dqa5Thm+tXUMrg5D1oSJxwyuJR5UOU+w33OgiebGvcJw@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 27 Oct 2026 06:34:35 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yOtb+qaDtLAEC9-JEGp=1nSE7EVAExusKpuLX=Jy9t0g@mail.gmail.com>
+X-Gm-Features: AclHuK_EgWblfKLU5vwI51ApCslBvbMrsiLYxVpzxVXvBo33Mt1M-XVAW31COos
+Message-ID: <CAGsJ_4yOtb+qaDtLAEC9-JEGp=1nSE7EVAExusKpuLX=Jy9t0g@mail.gmail.com>
+Subject: Re: [PATCH v4 04/17] mm/mglru: frequency guided workingset promotion (MGLRU-FG)
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, SJ Park <sj@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Nico Pache <nico.pache@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
+	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
+	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
+	Xiang Liu <liuxiang.277@bytedance.com>, Ehab Ababneh <ehab.ababneh@intel.com>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, Lian Wang <lianux.mm@gmail.com>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org, damon@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Replace the hand-rolled p54_find_ie() with cfg80211_find_ie() at both
-call sites.  The old function had a buggy short-frame guard
-(sizeof(mgmt) compares against pointer size, not struct size) and
-open-coded the IE iteration that cfg80211_find_ie() already provides
-correctly.
+On Mon, Oct 19, 2026 at 8:09=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+>
+> On Mon, Oct 19, 2026 at 6:10=E2=80=AFPM Barry Song <baohua@kernel.org> wr=
+ote:
+> >
+[...]
+> >
+> > So this is the main course, with the earlier ones as appetizers and
+> > the later ones as desserts?
+> > Overall, this dish looks very delicious to me.
+> >
+> > I ran kernel build on my machine, the result is quite similar with[1].
+> >
+> > W/o patch:
+> >
+> > eal    1m49.094s
+> > user    25m31.484s
+> > sys     3m40.959s
+> > pswpin: 662112
+> > pswpout: 2504415
+> > pgpgin: 4424336
+> > pgpgout: 10355273
+> > refault_file: 359626
+> > refault_anon: 670724
+> >
+> > W/ patch:
+> >
+> > real 1m48.944s
+> > user 25m30.987s
+> > sys 3m34.605s
+> > pswpin: 467952
+> > pswpout: 2319080
+> > pgpgin: 3481187
+> > pgpgout: 9603332
+> > swpout_zero: 602042
+> > swpin_zero: 6250
+> > refault_file: 310538
+> > refault_anon: 474154
+> >
+> > But it behaves in a much more sensible way.
+>
+> Hi Barry,
+>
+> Thanks for the review and testing. Glad to see it worked for you.
+>
+> >
+> > I've had a preliminary look, but haven't reviewed it in detail yet.
+> > I have a few comments.
+> >
+> > [1] https://lore.kernel.org/linux-mm/20261016213115.70515-1-baohua@kern=
+el.org/
+>
+> Right there could be some similarities, and some differences, e.g. no
+> more lru_gen_in_fault hanlding here, or difference between anon /
+> file. BTW did you test the whole series or just this patch? This patch
 
-Add a pre-subtraction length guard at both call sites to prevent an
-unsigned underflow when computing the IE area length from a truncated
-beacon frame.
+I tested the whole series rather than this patch in isolation.
 
-In p54_beacon_format_ie_tim() the returned pointer is cast to non-const
-u8 * because the caller modifies the buffer via memmove(); this matches
-existing in-tree precedent (ath10k, wlcore, cw1200, nxpwifi).
+[...]
 
-Fixes: e5ea92a7528d ("p54: AP & Ad-hoc testing")
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/net/wireless/intersil/p54/lmac.h |  3 ---
- drivers/net/wireless/intersil/p54/main.c | 30 ++++++------------------
- drivers/net/wireless/intersil/p54/txrx.c | 12 +++++++---
- 3 files changed, 16 insertions(+), 29 deletions(-)
+> > Could we use the following instead? Coming from a hardware register bac=
+kground,
+> > this looks more like register encoding to me:
+> >
+> > static inline int lru_get_refs_flags(unsigned long flags)
+> > {
+> >     int refs;
+> >
+> >     refs  =3D !!(flags & BIT(PG_referenced));
+> >     refs |=3D !!(flags & BIT(PG_workingset)) << 1;
+> >     refs |=3D ((flags & LRU_REFS_MASK) >> LRU_REFS_PGOFF) << 2;
+> >     return refs;
+> > }
+>
+> No problem; it means the same thing and looks better indeed. I think I
+> better change the return type to unsigned too, refs can never be
+> negative (gen could be though, as a reserved value).
 
-diff --git a/drivers/net/wireless/intersil/p54/lmac.h b/drivers/net/wireless/intersil/p54/lmac.h
-index 8adde6ba35ab8..d9cbffb74a265 100644
---- a/drivers/net/wireless/intersil/p54/lmac.h
-+++ b/drivers/net/wireless/intersil/p54/lmac.h
-@@ -553,7 +553,4 @@ int p54_download_eeprom(struct p54_common *priv, void *buf,
- 			u16 offset, u16 len);
- struct p54_rssi_db_entry *p54_rssi_find(struct p54_common *p, const u16 freq);
- 
--/* utility */
--u8 *p54_find_ie(struct sk_buff *skb, u8 ie);
--
- #endif /* LMAC_H */
-diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
-index 57a62108cbc35..30f235d470bb4 100644
---- a/drivers/net/wireless/intersil/p54/main.c
-+++ b/drivers/net/wireless/intersil/p54/main.c
-@@ -71,28 +71,6 @@ static int p54_set_tim(struct ieee80211_hw *dev, struct ieee80211_sta *sta,
- 	return p54_update_beacon_tim(priv, sta->aid, set);
- }
- 
--u8 *p54_find_ie(struct sk_buff *skb, u8 ie)
--{
--	struct ieee80211_mgmt *mgmt = (void *)skb->data;
--	u8 *pos, *end;
--
--	if (skb->len <= sizeof(mgmt))
--		return NULL;
--
--	pos = (u8 *)mgmt->u.beacon.variable;
--	end = skb->data + skb->len;
--	while (pos < end) {
--		if (pos + 2 + pos[1] > end)
--			return NULL;
--
--		if (pos[0] == ie)
--			return pos;
--
--		pos += 2 + pos[1];
--	}
--	return NULL;
--}
--
- static int p54_beacon_format_ie_tim(struct sk_buff *skb)
- {
- 	/*
-@@ -100,12 +78,18 @@ static int p54_beacon_format_ie_tim(struct sk_buff *skb)
- 	 * The dummy TIM MUST be at the end of the beacon frame,
- 	 * because it'll be overwritten!
- 	 */
-+	struct ieee80211_mgmt *mgmt = (void *)skb->data;
-+	size_t ie_start = offsetof(struct ieee80211_mgmt, u.beacon.variable);
- 	u8 *tim;
- 	u8 dtim_len;
- 	u8 dtim_period;
- 	u8 *next;
- 
--	tim = p54_find_ie(skb, WLAN_EID_TIM);
-+	if (skb->len < ie_start)
-+		return 0;
-+
-+	tim = (u8 *)cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-+				    skb->len - ie_start);
- 	if (!tim)
- 		return 0;
- 
-diff --git a/drivers/net/wireless/intersil/p54/txrx.c b/drivers/net/wireless/intersil/p54/txrx.c
-index 9f491334c8d04..7f952fcf16da7 100644
---- a/drivers/net/wireless/intersil/p54/txrx.c
-+++ b/drivers/net/wireless/intersil/p54/txrx.c
-@@ -293,9 +293,11 @@ static int p54_rssi_to_dbm(struct p54_common *priv, int rssi)
-  */
- static void p54_pspoll_workaround(struct p54_common *priv, struct sk_buff *skb)
- {
--	struct ieee80211_hdr *hdr = (void *) skb->data;
-+	struct ieee80211_hdr *hdr = (void *)skb->data;
-+	struct ieee80211_mgmt *mgmt = (void *)skb->data;
-+	size_t ie_start = offsetof(struct ieee80211_mgmt, u.beacon.variable);
- 	struct ieee80211_tim_ie *tim_ie;
--	u8 *tim;
-+	const u8 *tim;
- 	u8 tim_len;
- 	bool new_psm;
- 
-@@ -310,7 +312,11 @@ static void p54_pspoll_workaround(struct p54_common *priv, struct sk_buff *skb)
- 	if (!ether_addr_equal_64bits(hdr->addr3, priv->bssid))
- 		return;
- 
--	tim = p54_find_ie(skb, WLAN_EID_TIM);
-+	if (skb->len < ie_start)
-+		return;
-+
-+	tim = cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-+			       skb->len - ie_start);
- 	if (!tim)
- 		return;
- 
--- 
-2.47.3
+make sense to me. lru_get_refs_flags() is impossible to be negative.
 
+>
+> >
+> > >
+> > >  static inline int folio_lru_refs(const struct folio *folio)
+> > > @@ -236,14 +240,29 @@ static inline void folio_set_lru_refs(struct fo=
+lio *folio, unsigned int refs)
+> > >         } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_=
+flags));
+> > >  }
+> > >
+> > > +void folio_inc_lru_refs(struct folio *folio, unsigned int flags);
+> > > +
+> > >  static inline int folio_lru_gen(const struct folio *folio)
+> > >  {
+> > >         return lru_get_gen_flags(READ_ONCE(*const_folio_flags(folio, =
+0)));
+> > >  }
+> > >
+> > > +static inline bool lru_gen_at_tail(struct lruvec *lruvec, int type, =
+int gen)
+> > > +{
+> > > +       unsigned long min_seq =3D READ_ONCE(lruvec->lrugen.min_seq[ty=
+pe]);
+> > > +
+> > > +       /*
+> > > +        * Consider a folio is at the tail of its LRU when it is with=
+in
+> > > +        * MIN_NR_GENS of the oldest generation of its own type
+> > > +        */
+> > > +       BUILD_BUG_ON(MIN_NR_GENS !=3D 2);
+> > > +       return gen =3D=3D lru_gen_from_seq(min_seq) ||
+> > > +              gen =3D=3D lru_gen_from_seq(min_seq + 1);
+> > > +}
+> >
+> > If only two generations remain, should both be considered hot?
+> > If three generations remain, is only the oldest generation old?
+> >
+> > Also, the name is a bit confusing, as "tail" usually refers
+> > to a list. Could we rename it to one of the following?
+> >
+> > lru_gen_is_old()
+> > or
+> > lru_gen_is_near_oldest()
+>
+> Right, I wanted to introduce an idea of something called tailing gens
+> (e.g. 8 tailing gens when there are 64 gens in total, folios in
+> tailing gens are promoted on each access instead of multiple access,
+> this works really well for fine grained hotness detection, and avoids
+> over protection too). But for now this helper is just meant to tell
+> the caller if the folio is close to be evicted or not, checking
+> min_seq only could easily fall into a pitfall where the oldest gen is
+> very short.
+>
+> Maybe lru_gen_at_expiry? Or lru_gen_at_salvage?
+>
+
+at_expiry gives the impression that a timer is involved in
+triggering a timeout, while at_salvage is not very intuitive
+for non-native English speakers.
+
+I'd still prefer lru_gen_is_old(); it's simpler and easier to understand.
+
+> BTW the whole picture involves three kinds of gens:
+> {tailing/expiry/salvage} gens (promote by one gen on each one FD
+> access), frequency gens (promote by one gen on multiple FD access),
+> times gens (promote to latest gen on PTE access); We now only have
+> expiry gens and frequency gens, timed gens are extensions for the
+> workingset report or pghot design. e.g we have 64 gens, then 8 tailing
+> gens are expiry gens, 16 frequency gens, and 48 newest gens are timed
+> gens.
+> https://lwn.net/Articles/976985/
+>
+> I mentioned this in the cover letter that the "climbing of the file
+> cache" will stop at 8 gens or 16 gens, this is the whole story, there
+> is a lot of context and plan so I trimed them off to focus on the FG
+> improvement first..
+>
+[...]
+> > >         if (folio_test_active(folio))
+> > > -               gen =3D MIN_NR_GENS - folio_test_workingset(folio);
+> > > +               gen =3D MIN_NR_GENS - (refs >=3D LRU_REFS_WORKINGSET)=
+;
+> >
+> > Could we define the "workingset" variant earlier so we can reuse it her=
+e?
+> >
+> > workingset =3D refs >=3D LRU_REFS_WORKINGSET;
+>
+> Looks good, will do.
+
+thanks!
+
+
+>
+> > > +/*
+> > > + * Update the folio's lru refs indicator. The caller doesn't need to=
+ hold
+> > > + * the folio lock, isolate the folio, or hold the lruvec lock. Used =
+by both
+> > > + * cache access (flags =3D=3D 0) and page table access (LRU_REF_MAPP=
+ED,
+> > > + * optionally with LRU_REF_EXEC).
+> > > + */
+> > > +void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
+> > > +{
+> > > +       int max_gen;
+> > > +       int type, refs, old_gen, gen;
+> > > +       unsigned long new_flags, old_flags, max_seq;
+> > > +       struct lru_gen_folio *lrugen;
+> > > +       struct lruvec *lruvec =3D NULL;
+> > > +
+> > > +       type =3D folio_is_file_lru(folio);
+> > > +       old_flags =3D READ_ONCE(*folio_flags(folio, 0));
+> > > +       do {
+> > > +               new_flags =3D old_flags;
+> > > +               old_gen =3D lru_get_gen_flags(old_flags);
+> > > +               refs =3D lru_get_refs_flags(old_flags) + 1;
+> > > +               gen =3D old_gen;
+> > > +               if (old_gen < 0)
+> > > +                       goto out;
+> > > +               /*
+> > > +                * Lock the lruvec if the folio is on-list. We are al=
+ready
+> > > +                * doing lazy promotion so in theory we don't need th=
+is,
+> > > +                * but for now, concurrent aging would still corrupt =
+the
+> > > +                * size counters.  This is a temporary limitation and
+> > > +                * will be lifted very soon, so the lock here is not =
+a
+> > > +                * performance concern.
+> > > +                */
+> > > +               if (!lruvec) {
+> > > +                       lruvec =3D lruvec_live_lock_irq(folio_lruvec(=
+folio));
+> > > +                       lrugen =3D &lruvec->lrugen;
+> > >                 }
+> > > +               max_seq =3D READ_ONCE(lrugen->max_seq);
+> > > +               max_gen =3D lru_gen_from_seq(max_seq);
+> > > +               if (old_gen =3D=3D max_gen)
+> > > +                       goto out;
+> > >
+> > > -               folio_set_lru_refs(folio, 1);
+> > > -               return false;
+> > > -       }
+> > > +               if (flags & (LRU_REF_MAPPED | LRU_REF_EXEC)) {
+> > > +                       /* Promote second page table access or execut=
+able */
+> > > +                       if (refs > LRU_REFS_REFERENCED || flags & LRU=
+_REF_EXEC)
+> > > +                               gen =3D max_gen;
+> >
+> > This looks a bit odd to me. Could we handle LRU_REF_EXEC in a
+> > separate branch instead of mixing it with refs > LRU_REFS_REFERENCED?
+>
+> Not sure how? They seem to want the same thing: promote the folio.
+
+I mean we could have a separate branch for LRU_REF_EXEC | LRU_REF_FORCE:
+
+                if (flags & (LRU_REF_EXEC | LRU_REF_FORCE)) {
+                        gen =3D max_gen;
+                        refs =3D min(refs, LRU_REFS_PROTECTED);
+                } else if (flags & LRU_REF_MAPPED) {
+                        if (refs > LRU_REFS_REFERENCED)
+                                gen =3D max_gen;
+                        /* First access only defers eviction of a tail gen =
+*/
+                        else if (lru_gen_at_tail(lruvec, file, old_gen))
+                                gen =3D (old_gen + 1) % MAX_NR_GENS;
+                        refs =3D min(refs, LRU_REFS_PROTECTED);
+                } else if (refs > LRU_REFS_MAX) {
+
+
+right now, it is:
+
+                if (flags & (LRU_REF_MAPPED | LRU_REF_EXEC | LRU_REF_FORCE)=
+) {
+                        if (refs > LRU_REFS_REFERENCED ||
+                            flags & (LRU_REF_EXEC | LRU_REF_FORCE))
+                                gen =3D max_gen;
+                        /* First access only defers eviction of a tail gen =
+*/
+                        else if (lru_gen_at_tail(lruvec, file, old_gen))
+                                gen =3D (old_gen + 1) % MAX_NR_GENS;
+                        refs =3D min(refs, LRU_REFS_PROTECTED);
+                } else if (refs > LRU_REFS_MAX) {
+
+a bit hard to follow.
+
+>
+> > > +                       /* First access only defers eviction of a tai=
+l gen */
+> > > +                       else if (lru_gen_at_tail(lruvec, type, old_ge=
+n))
+> > > +                               gen =3D (old_gen + 1) % MAX_NR_GENS;
+> >
+> > The logic makes a lot of sense to me. It should be able to
+> > differentiate readahead folios from those that are actually mapped
+> > and likely to be accessed more than once.
+> >
+> > If we allow two generations to remain, this could be a problem
+> > because old_gen + 1 would overflow. Maybe add a
+> > VM_WARN_ON() to guard against this case?
+>
+> We just checked if (old_gen =3D=3D max_gen), so this should be fine? I
+> mean overflow and the mod MAX_NR_GENS is also part of the sliding
+> window logic.
+
+Yep, I missed your check:
+
+                if (old_gen =3D=3D max_gen)
+                        goto out;
+
+[...]
+> > Sometimes you use >=3D LRU_REFS_WORKINGSET, while elsewhere
+> > you use refs > LRU_REFS_REFERENCED. Can we unify these
+> > checks or define a workingset variant?
+>
+> No problem; I can use a macro for that, as they mean the same thing.
+
+right, thanks!
+
+>
+> > > +/*
+> > > + * Update the lru refs indicator of an isolated folio, only used on
+> > > + * mapped folios upon the final eviction.
+> > > + *
+> > > + * Increments the refs count (capped at LRU_REFS_PROTECTED, evict_fo=
+lios()
+> > > + * then caps it at LRU_REFS_WORKINGSET).  Returns true if the caller=
+ should
+> > > + * activate the folio (second access or executable), false to put it=
+ back
+> > > + * for a second chance.
+> > > + */
+> > > +static bool folio_inc_lru_refs_isolated(struct folio *folio, const v=
+ma_flags_t *vma_flags)
+> > > +{
+> > > +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags=
+(folio, 0));
+> > > +       int refs;
+> > > +
+> > > +       do {
+> > > +               new_flags =3D old_flags;
+> > > +               refs =3D lru_get_refs_flags(old_flags) + 1;
+> > > +               lru_set_refs_flags(&new_flags, min(refs, LRU_REFS_PRO=
+TECTED));
+> >
+> > I'm having a hard time understanding why an activated folio
+> > still keeps LRU_REFS_PROTECTED, since it will be promoted
+> > to the active list anyway :-)
+>
+> Right the FG idea is to always retain the frequency counts, instead of
+> resetting them to 0, so folio_inc_lru_refs can promote FD accessed
+> folios much more proactively, when a folio reaches LRU_REFS_MAX it
+> will be promoted by one gen.
+>
+
+folio_inc_lru_refs_isolated() is only called when
+referenced_ptes is true, so these should always be mapped
+folios:
+
+if (lru_gen_enabled() && !lru_gen_switching()) {
+      if (!referenced_ptes)
+             return FOLIOREF_RECLAIM;
+
+      return folio_inc_lru_refs_isolated(folio, &vma_flags) ?
+        FOLIOREF_ACTIVATE : FOLIOREF_KEEP;
+}
+
+When you say "FD-accessed folios" here, do you mean that
+these mapped folios can also be accessed through syscalls,
+and that you keep the refs to detect further FD accesses?
+
+> I did a in depth analyze of runtime distribution, with this, we can
+> see very hot folio being promoted from max_seq - 1 to max_seq, and
+> after aging, the hotness info is still kept and workingset stay stable
+> and accurate (it's like the global aging of traditional LFU, which is
+> obsoluted in upstream due to overhead despite having better accuracy,
+> but now it comes with almost zero cost).
+>
+> >
+> > Later, I see that you set it to LRU_REFS_WORKINGSET in
+> > evict_folios():
+> >
+> > folio_set_lru_refs(folio, min(folio_lru_refs(folio), LRU_REFS_WORKINGSE=
+T));
+>
+> Right that part is meant for aging the older folios and PID controller
+> though. LRU_REFS_WORKINGSET could means historical workingset, and
+> LRU_REFS_PROTECTED means folios being currently actively protected.
+>
+
+folio_inc_lru_refs_isolated() is called from the eviction path.
+Folios that are not reclaimed will go through:
+
+__folio_set_lru_refs(folio, min(folio_lru_refs(folio), LRU_REFS_WORKINGSET)=
+);
+
+in evict_folios().
+
+So LRU_REFS_PROTECTED eventually becomes
+LRU_REFS_WORKINGSET(or 0, 1).
+
+I'm still struggling to understand why we need a transition
+from LRU_REFS_PROTECTED to LRU_REFS_WORKINGSET (or 0/1 if
+folio_lru_refs() < LRU_REFS_WORKINGSET), since those folios
+will always end up in LRU_REFS_WORKINGSET (or 0/1) anyway.
+
+Thanks
+Barry
