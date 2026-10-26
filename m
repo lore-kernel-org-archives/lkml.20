@@ -1,100 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793025757;
-	b=MtIT5PJKBjxyh8PluAws52ZYSX54+J25dJ7dg2FBip6tKmUttTFztQBoq1/YO77oNXEG
-	 aNgnSf7elbk1cwGpitBV/Kz5M+jzVv/BlunlxrMmxfCPQZmcmtCyIgTnAqPZwkwh6maum
-	 sAIASHjLykbzn6QlxVfD5LnhGOFfea4UCtk80rBb271OrfgJIqt8Hp576rZZP2mmgh7N8
-	 owAAZwW+/HhFvlQHu0t4VaMRd+CgHRFvyJPgtcvNE+gS/87qsepes2jep950pf21tFJwy
-	 esDFaBFl0JdrncM3aXXsFdUHLjGT0Awn1jP7aXVal8T1zl1Jl/7qXwCPQqJRrp2qACQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025757;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793025779;
+	b=UXl64qPaWRA0QnsbzGcdqR4zOLvoC77Jip4Xk7NveKE879PO/27A6uPFOsMMOE4pjUUA
+	 /yeaA8V5TWrRVfITwFiso7AAqrt9FcDcBekb1LEp7+3gMfhDF2qT9ZqMgu319E8qtqaBT
+	 2MtRFUKFnN8pzQeyYsX8mU8Z5m6uGzSFq7OokslUlxGkqjSZw/9wBH1l0JS2n3FXnZHRJ
+	 PNiSHXhWGV7CipJVYCnr4o5i+Rad0BvE+nb9atrGA/5CICe8gM3EhzWk7SdjHHAPqioNX
+	 +C5kkfBwkA1SY2SHwituJ4S+snzn9j7e9Lgm34RwDP/qjVBQ7FxgJjGXplolaIiixwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025779;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FiyIo88XtSCmKUOLGbnBLJ62ZVS25doiOE2fXhFGrhU=;
-	b=A2qPw9q03LzogZxDK5YUenKvyVzLveEXs3Ium0oTDykLwgPoXWLYXit4hYenFOc2uf6j
-	 OJOupg9YJVysq1UTyR9xp1YDaswlOr6ynRCD4oZTPfy0CkX7YT7UxKihx8FflX7brgbGM
-	 DPxSoVv7jGMORWOTiwnGmQsMCVmek1cRfFqTfqxC8xi9wO9GNUqFHwPrWfHlPnZigvXe/
-	 tBDRzBXl0R8xybzKCOkY3zXBJ9ih31vsOL4VuocL6SlLr3oxuvGBbmoSmwDRacwMR2GOb
-	 Km4p2VZbZw3QqcicMYJMjJhIegeAx32sfXKRXJMwbBgumzecBJRe/tK5+WwoJ208xNA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GKfIPL5Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.53
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:
+	 In-Reply-To:References:Message-ID:Date:Subject:From:To:Cc:
+	 Content-Type;
+	bh=py3eSCH/kMMZStYTruOia2CNu7tRlswpZyoC5eSohtQ=;
+	b=FfhilwYShzUGRCHa9CFPPvAznUM8mQklMPBHP2PBskRmm+i/DeP5BdGXq3gZuxUIpPjd
+	 P4T5osX56koPB30F2ROMi0yQ2iTePx9PaHbteMpYPD929jLaFhjwbOxMWWJYwXARPSSWT
+	 oI+puexaloYU20F/+Mt4f3m/Y0H9JkdD509WgNfzgLaczkbl2tBcQ7ClXR2457z7BOUlO
+	 L1hUHSumzSr3xcG6erRGkF1a+y2Ja7qoYeVabl9NMQtBcZsJ9gvA3+0iT48lqlQTgfGKb
+	 WTXmCbh0dtCWDZczd2lpFV/MoudkdtiY9c2p2HO7iKsnUqgFrnlCHJp28utX7c6uouA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Sjo2ss5a;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8B4606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A8B4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2160606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 14:42:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2160606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GKfIPL5Z
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8451a619da7so1782134a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:42:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793025755; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O4WHZiRgAM8BOITUuz4j4MLom2ra93/rE8J5Ic8yn/Kv/s1fhCoVcxHHLXJSmKReL1
-         PBhcH8enL46dHAlX7V8xWqCEeSm61oUo2U7YrxiAXt9+WRrJgoNUOxHCF4GR7EjBgZv6
-         WQQf7tCxsIzk39+50T8Z5F6WZDveiXjypgAHuIbzs3kKogtxRkDpUPmV5zvtlYMkcOhx
-         I8Rx8iDf+KdWu6LP2XD6vNkckCvfGEXXIybQIQ8BL1pfgEjbHX/KnzzN9FYzpf8czgEH
-         VhEkLh0aNpS9z9Tt/SMhnxOuBbi4Sv4G69FBA2xGpI05zYTmHeNcLQmFe/V1S7D80PFa
-         IiQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FiyIo88XtSCmKUOLGbnBLJ62ZVS25doiOE2fXhFGrhU=;
-        fh=9BXRKtabha+lPqfbjdw/j8WCvvhKyu68Za5EbIzU6aI=;
-        b=jHtskdMxVK+8Ygna8riYIU2Pvn+Iy02yeNTiNFTRpMqT6IfQ83EsfThdZXpCMA25ct
-         bcnez/DaP/bQYPxPQ1E5HN8lM7QQlvSrciRjacpTTDkS7mxLvYoPFt26KgeMkoKoxCbG
-         Cg3lZCcvrTbQKxsjsvb1NMvnifGdjPyqJ9Fa62nL9VTlaTP3KCcxIxvfxmlXFiak1HDZ
-         wz5KFp+1RP8xua7ycoqMyxk0X0PP1rVFcZo/cpxuWrD22F2biq96cUf6Afz/OaHG4RZF
-         bQ0QOTZ3Mw3aqj+4sOyP5mPpt+DhdpnZGr2scPUHU3uEDtdyhzyXHXzD9U7DKi9AcVjp
-         b1MA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Sjo2ss5a
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so4302948b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 07:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793025755; x=1793630555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FiyIo88XtSCmKUOLGbnBLJ62ZVS25doiOE2fXhFGrhU=;
-        b=GKfIPL5ZKa6e9p2e9kBDTVAckDJTe/+XOPYoEiJxEQfZFvGSFjg1XEuIryHOB8e27W
-         L7FfIWwQSWZSxteWjHhD8wAL6WkiqxJgMkaNVNjvGC4963SIIR7t66OaU2YNyxK+VJxR
-         xH4vmsTmM1IJ8mXg6wjf/YYh1sMIkF+4iiYtxYswLUvogttdUY5CTfzBY/2Bpfbg/M5L
-         4Jg4RqvkpcFddiL2TZLaekEEUVBbC3KBy0eoQZobK7Heag1Twk19EWRR6vUDN2LuOVai
-         rP3DteeycAvBG4eA3MgJeEv/8JlXbnwsaZYgE/tPBK0PcQmTpiHBu52Q63LEZU7Svr1e
-         D20w==
+        d=google.com; s=20251104; t=1793025778; x=1793630578; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=py3eSCH/kMMZStYTruOia2CNu7tRlswpZyoC5eSohtQ=;
+        b=Sjo2ss5aQ2dVEHWf45qnSnSEFkoJnTfbuEVwIGHPPhnFs84dZacKMID4PZAHBEpgMI
+         kzrCjPH4AezauNyEYGpRisAl1HIXVwO50z0jysSU/GCliCrOWIQA0FY0T9aTAyp7mGNP
+         yyOD0lYJD/cAWBtWjUEmenbXwzeas4gaSL/HbyD9z4T++HPXM2viZRpbAK8+FfQFr5Jo
+         i9XT1MBX6QcDwtLolxAsu8e40QK5aXBsmQMhqUdxswjiwXi9dN0gWBbRq7lMReo6kc/y
+         X5YGILHUFtd7aj1DOJwKmOMgJWk64QTlJ39q1S9A0UUlhGREjNxqU/I7Mnhy30eNb00q
+         TfAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025755; x=1793630555;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FiyIo88XtSCmKUOLGbnBLJ62ZVS25doiOE2fXhFGrhU=;
-        b=HGwrTzC/3N/2oTNiwgCEqoXfCWJHOst36gUaN3mo9oEyMQrutz4L0S76u8zdCGt6ID
-         x0FFwk2TXeT1+rBe4csx7nkvdjVPdYgne7+bgw06xicIxY5UWkIHIJ+Iag3Rk1rR7nzd
-         Ucafxo88lR0R5R8BlKQyCmZZVSK5bVcQr7wQ3++/Ggd2ZtXyEDqK+0DpW+6+IHfiUxkN
-         L2hsuW8JcSR+Zr4EGvh+Q4c6j5MprdIUeP6LdZCe9SauFYtmtx6kMqIvWrjMnEu60uWx
-         z06okMi12PKuFIWNFQ1OpW+ZaDWBBQHwk6goA+TJIpXqg0UVngiFJ2AB1aE3yBFXg9lb
-         ZzbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNgutMtNSEuZzpxz6xhX8HE6AbTLwEtXMF/e2ZsghvsiXpxxfkcvkmipuyAoZo8m/O9kPFgGirOfMtSa4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzfMJizvrB5Vhkc5j6ifE1FRwQqjF4oZsagtihjRrwFc7UbAbv
-	6vxhSYxkG7FIX+EtmjbHfXDhXjj0fdZe2yR2uk3WOzrALRTXAiy33ZRjvDnWtf4GzOTDWGqKbYC
-	Y5+nXFMk17SiJl0piJPPLfVdyee3vvNs=
-X-Gm-Gg: AYBFou3wnaDbf8yJ4GkLz+2zCcdVMqWMLKK2Vz07vmVA5eQyz30iQ2I55otDWbu027i
-	yKjlRYtDStgqGalNtTkivK5KUN8uhMZtvaAS17FKfsKkeB+nGkjquN14Fouzt6ix5kRx85KN/Yu
-	3+ZOc6qqgOARfvN7wTIkoO8kQ8fOWDMf38tNlIcbq9WB91M13+GsRj2+hJl+j4zLpcgqBKmDiky
-	n0qpB0DTd9g4bUCrqinWlCoIY961eRJRLyy+EcHGHU0uEan2sql9fmt3LmxaKgmkoIJLy8YzEs0
-	gVkfjTEIkX5Bb9fOVGfx1E5liEzsLsWcFOt6piZuHLbQUiUWpn18+YKT0zEMg506HuWnX4/ZYI6
-	d48qycELkpkBP+QEWD/zw5NbrrBsFeGgG3XXrsw==
-X-Received: by 2002:a05:6871:73a2:b0:491:4a20:8ab8 with SMTP id
- 586e51a60fabf-4a83f53b47amr3712608fac.28.1793025755162; Mon, 26 Oct 2026
- 07:42:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793025778; x=1793630578;
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=py3eSCH/kMMZStYTruOia2CNu7tRlswpZyoC5eSohtQ=;
+        b=KGn1prKNvVernCSO32a5k7zL71UfJZ1q74pUo0ymKB//Gq/R/5E/tU1B9vtUhqcqfu
+         RbH3OFNSV1mD15/IUy7TwXiDLaBxAtl4psIspTGsQkhZpHJMLx21AFOn3qIt1m494Brg
+         HumB0q3P3YhhY8RqQRoY0EMfFTB/Ktc4FaghFXUvBbc3r4T244aPcR09Hcq93DD8uES7
+         Lu1lk8EjTb1LZwBWLBK1M9R7MpmNEV1/8Mm+TV4U4FFXntA8MxBeqgkhrMwJp2afVcQq
+         D9XqMyo0546MHL60X+Q/cCDWEtT6158qPpSoDo1lT/tHGekBFOX7+f242ROiw7Xn2WtT
+         O/PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiAiRjGahij0n5+GxzG54hzZYpWKPUEOomCxbLIfT5e4x6uYiyeOBxlU8kCpbOcEJvNIRsoE4XqZdiuL0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQ+PlkyZzKIQRC0cHM6YVYAxf+GBn+z0+BsrbHITKR1FOAEdBk
+	lqBH0E2pb1uyAiwYu00DOXn0ZkGC43UwHRiS2ZyisdotB5f5gcW2sDVrkvpOpdL/D2/ey10p2sa
+	rF514HEwkcxS1DQ9bajt3Pw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +73,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019013335.13512-1-yangtiezhu@loongson.cn>
-In-Reply-To: <20261019013335.13512-1-yangtiezhu@loongson.cn>
-From: Hengqi Chen <hengqi.chen@gmail.com>
-Date: Mon, 26 Oct 2026 22:42:24 +0800
-X-Gm-Features: AclHuK9VfDqy3TFsNraLnkzPJtLGJTrw97NH5dTf1M621wbyFJ758LDBDfZcRk0
-Message-ID: <CAEyhmHQhi6rgxXEvg6aCA=5XUVBSUpBUbFrjSyJDoD_bz5dDLw@mail.gmail.com>
-Subject: Re: [PATCH v3] LoongArch: BPF: Fix stack arguments for indirect trampolines
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, loongarch@lists.linux.dev, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Received: from pfbho14.prod.google.com ([2002:a05:6a00:880e:b0:8a0:6a08:e927])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2316:b0:882:359f:ef17 with SMTP id d2e1a72fcca58-8a36715c0ecmr5483904b3a.12.1793025778027;
+ Mon, 26 Oct 2026 07:42:58 -0700 (PDT)
+In-Reply-To: <20261026052632.1848929-1-hy50.seo@samsung.com>
+References: <CGME20261026053046epcas2p31ae8a493f40c0f12523feec6e036072f@epcas2p3.samsung.com>
+ <20261026052632.1848929-1-hy50.seo@samsung.com>
+Message-ID: <18e21b71f8996bcc.3137322e31362e3131332e313435.1c875f.0000sendgmr@google.com>
+Date: Mon, 26 Oct 2026 14:42:58 +0000
+Subject: Re: [PATCH v4] scsi: ufs: Change the error check sequence for auto hibern8
+From: Stanley Jhu <stanleyjhu@google.com>
+To: HOYOUNG SEO <hy50.seo@samsung.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, bvanassche@acm.org, 
+	kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com, 
+	h10.kim@samsung.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-On Mon, Oct 19, 2026 at 9:33=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongson.cn=
-> wrote:
->
-> From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
->
-> LoongArch passes arguments beyond a0-a7 at the caller stack pointer. The
-> trampoline store_args() helper always reads those arguments at FP + 16,
-> which is correct for a regular fentry trampoline: its prologue leaves FP
-> 16 bytes below the stack pointer at trampoline entry to hold the saved
-> RA/FP frame record of the parent function.
->
-> A struct_ops indirect trampoline is entered through a function pointer an=
-d
-> only saves its own RA and FP before setting FP to the entry stack pointer=
-.
-> Its stack arguments therefore start at FP, not FP + 16. As a result, ever=
-y
-> stack-passed struct_ops argument is currently read two slots late.
->
-> Select the source offset based on whether the trampoline is indirect. Thi=
-s
-> also prepares the stack-passed arena argument path to consume the actual
-> pointer slot.
->
-> With this patch, the BPF selftest "./test_progs -t struct_ops_multi_args"
-> passed on LoongArch.
->
-> Fixes: c9ebe2016de9 ("LoongArch: BPF: Support up to 12 function arguments=
- for trampoline")
-> Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+On Mon, Oct 26, 2026 at 02:26:32PM +0900, HOYOUNG SEO wrote:
+> v2:  
+> https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-hy50.seo@samsung.com/
+
+> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
 > ---
 
-Acked-by: Hengqi Chen <hengqi.chen@gmail.com>
+Please move it above "---".
 
-> v3:
->   - Reword the log and comment to clarify that the 16-byte frame record
->     is saved for the parent function, not the traced function. (bot+bpf-c=
-i)
->   - Remove a stray blank line after the opening brace of store_args(). (b=
-ot+bpf-ci)
->   - Reorder the comment sentences to match the true/false branches of
->     is_struct_ops for better readability.
->
-> Here is the original link:
-> https://lore.kernel.org/bpf/20260821233516.3426127-8-memxor@gmail.com/
->
-> This version is based on the series:
-> https://lore.kernel.org/loongarch/20261016081006.26069-1-yangtiezhu@loong=
-son.cn/
->
->  arch/loongarch/net/bpf_jit.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-> index 1a7c8effc37b..c6784602f029 100644
-> --- a/arch/loongarch/net/bpf_jit.c
-> +++ b/arch/loongarch/net/bpf_jit.c
-> @@ -1725,17 +1725,22 @@ int bpf_arch_text_invalidate(void *dst, size_t le=
-n)
->         return ret;
->  }
->
-> -static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_o=
-ff)
-> +static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_o=
-ff, bool is_struct_ops)
->  {
-> +       /*
-> +        * Indirect struct_ops trampolines place incoming stack arguments=
- directly at FP.
-> +        * Regular fentry trampolines need to skip the 16-byte RA/FP fram=
-e record saved
-> +        * for the parent function.
-> +        */
-> +       int stack_args_off =3D is_struct_ops ? 0 : 16;
->         int i;
->
->         for (i =3D 0; i < nr_arg_slots; i++) {
->                 if (i < LOONGARCH_MAX_REG_ARGS)
->                         emit_insn(ctx, std, LOONGARCH_GPR_A0 + i, LOONGAR=
-CH_GPR_FP, -args_off);
->                 else {
-> -                       /* Skip slots for T0 and FP of traced function */
->                         emit_insn(ctx, ldd, LOONGARCH_GPR_T1, LOONGARCH_G=
-PR_FP,
-> -                                 16 + (i - LOONGARCH_MAX_REG_ARGS) * 8);
-> +                                 stack_args_off + (i - LOONGARCH_MAX_REG=
-_ARGS) * 8);
->                         emit_insn(ctx, std, LOONGARCH_GPR_T1, LOONGARCH_G=
-PR_FP, -args_off);
->                 }
->                 args_off -=3D 8;
-> @@ -2068,7 +2073,7 @@ static int __arch_prepare_bpf_trampoline(struct jit=
-_ctx *ctx, struct bpf_tramp_i
->         func_meta =3D nr_arg_slots;
->         emit_store_stack_imm64(ctx, LOONGARCH_GPR_T1, -func_meta_off, fun=
-c_meta);
->
-> -       store_args(ctx, nr_arg_slots, args_off);
-> +       store_args(ctx, nr_arg_slots, args_off, is_struct_ops);
->
->         if (bpf_fsession_cnt(tnodes)) {
->                 /* clear all session cookies' value */
-> --
-> 2.42.0
->
+> +	if (ufshcd_is_auto_hibern8_error(hba, intr_status)) {
+> +		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
+> +
+>   	cmd = hba->active_uic_cmd;
+
+This brace is never closed, so ufshcd.c does not build.
