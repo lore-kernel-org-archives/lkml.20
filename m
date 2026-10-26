@@ -1,109 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792988364;
-	b=R3xEqFpp18RmXhTUM1+UBKJ594/kNTb/Xjb6tv3ZjQFlZg+Q05jaAmrmmxwvs54ApLyP
-	 lK3ISqsu7mG1Xdj8R9AzniH99zs6pbS8pS/VxMKmb2BOYYKfz0CfM20YMVyLnDULnUl7t
-	 UTb9i9H384CGUq782FGPZg/IkLD98di1hPkyl9Pe5DhcNN1LX1WfUKzzey05LKzQ+ayDX
-	 MWHBm+DfQ35R2vH0esQ2cBrmHFzQyUlHHckau/3NrEZp1z31LPa6wIbC+xCHqSUNrwYyf
-	 P84BrXakz1wI+2vqLZweRfiRpw1/uBzO96RS4T1+P1VxMpCJkGx2jy7fqyT1J1W+fiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792988364;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eJmcRaPk3Eo9u2RhlJVCk8z9rcYG1xEXI0N+u/SwCbU=;
-	b=j6qQQHMn1olozKceg2yYUiS/OUZ7ZpJw8kil1cxtxTTr7muSZfb2JeHGfSABAOziKWUI
-	 i9tzzWmAS+fQNpp/b+8g2Uup2JxorcthA0nNZ4KpxY5fedeMrbJMdiAsNRmZMKaIybzCK
-	 51Cy//YnWjv6kRJtz/8G/gYgdJ+MdXkKDUS8GIGs83FVFK7VpjKqzXVZhFrvD8xGn7O82
-	 i7DUGr0dMHbJvXV8NEKG+azfYEPR6A9NeMaID/E05WNClMcpViP6xxMI5J8liasJqqo16
-	 q9AN2jJgybn4656LaJkJ9ZtGwP8cGrJ0nqXl58JVRApmmPhANzHvkoYBibiJUFXvqiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NijQRk6l;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.8
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792988405;
+	b=lDTno7tXX2cPC3/watWY8cpwmC+hFAC1lRFWDiNJ6zscvEb6jkGlxuMsBccqnD4V/Jit
+	 ERka45leEWBctc9FTP3MbbnKu8FuX8xv07fACsuy3Y5VsHRvXUCvy2J8YWbnIizrTz7Dw
+	 wACKO8643hwlq6nBTDkDcEC4C2EmPlZvthQ4NAmf0NDxB603ipzmLIT4XUZuBiKZGFS9o
+	 7PVD4a19l5bTeMwSJUxy1xd02FhUv55PQ6+DtOSJQlXfF7OLex8UdGde1ATqttC0Fode0
+	 zPnysMSuN9Tut/vpOmzdpC+FDX94oMOzvLYNbfIzVn8YMMKH0IQ0YotAK03XFWC5+QA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792988405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BafRKiy+z7eJw961nwDzH1YBslR1OL/QLIkk9c2cuPI=;
+	b=n55QKu22SD9WoiWvkfK83pBqrYLWMSXkblzuaT7ealSmdksTbfKg2KAvsPatWH3ostHz
+	 rHhBtqQlFxK+QVQkVBWqMCfNKwVwYQzW9itZKIPNKR8PsAWP/ziXTHRgY0mG/XDS7dv8I
+	 bCQ/NkYi3sclIfBc002BkwFu9/q4QQgxnYos/MI0OZ5w304Ei3JhlRgFfT1Qie6vGsTv/
+	 lhzBI0dPl9IB8KZW5EVgZ5A6WgDFrFWiWuWqmV8tFBQz5phxGEoRQhTnOD3/2TIW7n05l
+	 LIQFlLQuy2zLH6ymE9C9QT8G8eCE9OAieKGBOtbVzwoMzpOEmNOyteShOtIRRiVUgMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hfFWDX+v;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1DA606A31A;
-	Mon, 26 Oct 2026 04:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F1DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF243606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:20:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF243606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NijQRk6l
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZYMrUXitunZmbXgyd4YQUUDTca3OPalaCUPGDXjJ49MzqulgYMhGkY3Ssp0YkRKuHXBKwzj9BWhRE40819fAnTLWqV5LojRfliuiMA2w41glZYYxbsy6kgKX5M9QGVtN74Rk+y8WDG9g9R3R8/bLHL1De1omV4coUeUddQCbFUg8p0x2lMyyX+GNTsuaS647ao8qbjQjaoYA6kFWDCOvlNSSPYzXyOVqz+Fu0mGNXfF4gUkMOENwcJ6qm3dY08YQdG1jNW8Xz1IwKjlQpxN024btjOzLrB7NpKX+BAM9FNWVdb0k52fm2p3MMEQUvL39vK34J8f4Pfoa4N3EaKFJvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eJmcRaPk3Eo9u2RhlJVCk8z9rcYG1xEXI0N+u/SwCbU=;
- b=pZP+tuSi17Ucl2q/RBdspYeqNOBZRiHUtD9Adpbm7ex3u4NeKO11XRSBwtT8kFiAV4fxAyFQhjaqzecqG/X98+pyTOmo+LOHlHJa94IVD9NZC3Q6x78AORxJkw3VkQtClPQgIjDi9uaJJy58ZGyGib6cJleA39GTOJY/y9/GVgiVqSLcy9gw1Fd+VGXj0NBPoN0UPJ6z7bjt0BxUVsJByLB1nyu6194TY3b06QqIXa6RK93M4Q42ERXRk2evO1o0bZmHqsvH6y4/qPLfhalZEqpOR4/new78bIhRjZcpMVyC+YLk6IiPfs9IMkXybm5AhJfr0OKpsmMVyzhjkF7uMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eJmcRaPk3Eo9u2RhlJVCk8z9rcYG1xEXI0N+u/SwCbU=;
- b=NijQRk6lsqJNKstgGoaoNjwIfCbHczrnSmSkI7YA3Y4220KDC26nd5RuN26PGO6WqXEQoKSHZfr/q86Nssc82eI5+qcntSHTO8n6RTl+FWIqdEBTDjOXo4fbSUJ3bkIIEf7wRg9WXvVOw277vq5mGCou3RGTScBDhCqiRZrQPC4=
-Received: from SJ0PR03CA0047.namprd03.prod.outlook.com (2603:10b6:a03:33e::22)
- by PH9PR12MB497784.namprd12.prod.outlook.com (2603:10b6:510:411::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 04:19:17 +0000
-Received: from SJ1PEPF000037B4.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::32) by SJ0PR03CA0047.outlook.office365.com
- (2603:10b6:a03:33e::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 04:19:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037B4.mail.protection.outlook.com (10.167.244.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 04:19:17 +0000
-Received: from BLR-L-RBANGORI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 25 Oct
- 2026 23:19:12 -0500
-From: Ravi Bangoria <ravi.bangoria@amd.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	"Jim Mattson" <jmattson@google.com>
-CC: Ravi Bangoria <ravi.bangoria@amd.com>, Jayapal Ashwin Nair
-	<janair@amd.com>, Gennady Kupava <gennady.kupava@gmail.com>, Dapeng Mi
-	<dapeng1.mi@linux.intel.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	<x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Santosh Shukla <santosh.shukla@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>, Sandipan Das <sandipan.das@amd.com>,
-	Manali Shukla <manali.shukla@amd.com>
-Subject: [PATCH v3 3/3] perf/amd/ibs: Simplify event state handling with IBS_CAPS_DIS
-Date: Mon, 26 Oct 2026 04:18:37 +0000
-Message-ID: <20261026041838.941-4-ravi.bangoria@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hfFWDX+v
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso803455a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 25 Oct 2026 21:20:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792988402; x=1793593202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BafRKiy+z7eJw961nwDzH1YBslR1OL/QLIkk9c2cuPI=;
+        b=hfFWDX+v4Fs7KzbWApW4ntKpBvYLk1Ntym2MRSsx0Eiu9ptn6BlOh3JUkuTFv1Eo5g
+         j8RCQBh3YtnD0a6iN9gCw+HJHe3Nob4r5Bk5ynEjbOFRSh4hDFRwbNBSV63QpD9cveKH
+         9TgCsQAtV4xuF1obcOs3rDE5rlbxGBTaUI2q5OB2jFxMNX97ci7nGn1mkzVDtL8RGnoL
+         +Uj7PGWMOJtL18XPIYVgcAQJGfN+fcHy/+VXTRBzAiO0pxmKU87Vmb/f5MewftTkuI+s
+         0FHLzhMA2VWnAL2+urmvydEASfcpTBM0rfUTeTR0XyxkdniBZC5VfFKBJfsnrvZra0BX
+         M6xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792988402; x=1793593202;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BafRKiy+z7eJw961nwDzH1YBslR1OL/QLIkk9c2cuPI=;
+        b=JosmjYGp1yv1Bxxyc76qgv3JCLx2Tmt2+dfYvHzjEsVoSXdzbLtRXv3tRxKu4d3sQq
+         ZrLAL80ul8RtJ8g0C0G46byvcpdsL2xyh8lMX6deOkp0uzyL3MvQKIz1BKNeallY2o0J
+         q2NrIhzlFyLpeHtVtB+CNAQCVbixsDmWq4r6/IyJpZxv53CTcVxN/E28cBTHdvLDYrzd
+         KrR2/c0gI1KGORfN4EprYCj7wIYnV1moY/J6WGzKWMqqxhAiR8eTAIvqM0iy3Ja26FnZ
+         VOq7tgWDzwt5cCmMsevvt97T7yMAL5yZkF6ESlLZAZOWCOn4o7HuYMMtFPB+9Su6omG3
+         78gg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5jyVq0mvvB1AfD8vsaOXFgCHR+0tuFph6DuLxGHf6+KOzO0i4qg6XycdFnvB8FeyMaLrl9t1QaiRCXOY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQ+RxToXVVzwTRlBFKeG9M3/Ub1gYpKCuyWx9VEBm8E3YkubiP
+	F7MfiMpSMVxDDCa0qOjxjkiaRCQsvo94BWAQmyk4TseMR4FkOnBiMsr/esgYmyfIMsI=
+X-Gm-Gg: AYBFou0Pc9g50iCB9+YBX4vNnt2H/zmb/oMyaxAxZh74xe5d7Sna2Xvo3DYyI3Go+m7
+	c2TFNrPz/sckwI7GbOPHAMqbZsT8SrrBv8E7PEaUSSUrafomS3nnPO/1+9FcPuCVjDmAxrhy3hH
+	T1hyekPknykdaKs0jkzLdrxqJkcn/Oa7etoHnHiEhojGqyX0JxaaQi0HYxDb1NZaNinZVh1KlDa
+	lVEnFWdcuNKxeWUtxWNcJb76VpiIjp5bD7pM9wLgTJEd2Sk5R74rIMrrPop2X+xZOf4WnItouQN
+	fVTFp+88qZEgAhWZUiFW9zwWA2ZWPELeag/vFmxs2t7Kl5yHsICqgdpFJGKFXoP11ulHa3pzgoN
+	mHP5vqsMElg+lB6StchRvJY75Hy/00Qx64nyVuCkySxqkpgAXyOzVQdSmVMSuJ6coHxCJIxBx++
+	tEIOktFc3DTDFtCqp3xj8GnyryoTnghwe7f65WTnaP+6/k/VFhLuyMWYlWKXd/fdgt6xnvfj9Up
+	DRl++Rld25p12cfB2iyn9oB8TapJ21MuRMzA2gIBigP2T8qNjN2kbHddk/SFcLj+JXiIkt8Dfko
+	sHrHtHzMjqtkApRLaEwFpcvqFcJGZFIrMzF2vgg0+3H8mzmr
+X-Received: by 2002:a17:90b:4a86:b0:3a7:e126:4980 with SMTP id 98e67ed59e1d1-3adeae6d5cdmr4716362a91.43.1792988401686;
+        Sun, 25 Oct 2026 21:20:01 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb82761esm4862118a91.0.2026.10.25.21.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 21:20:01 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] IB/isert: tear connections down from an ib_client on device removal
+Date: Mon, 26 Oct 2026 13:19:49 +0900
+Message-ID: <20261026041949.225619-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026041838.941-1-ravi.bangoria@amd.com>
-References: <20261026041838.941-1-ravi.bangoria@amd.com>
+In-Reply-To: <20261026000733.4178856-1-yhlee@isslab.korea.ac.kr>
+References: <20261026000733.4178856-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,256 +106,396 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B4:EE_|PH9PR12MB497784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d1c8c31-7337-4f33-3b8b-08df33184d27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|1800799024|376014|18002099003|22082099003|56012099006|11063799006|261021123027099003|261021121427099003|10067099003|261009223027099003|261022075727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	IGH05gKIKM8/JSTomuwzPKlX11ptWVsSFrGbIeaPD5JwhO8JBzTxIhCpB3lMuYY5H/+gkfNV4XiY8Sw9ME8VsknsPaDOagoUZ0Wa/sVKQ+kQbzhFx279y4yCC/hF0+ZFpiF5Jf9gi1Y7VuzrPLJd8oHNcfcjzYNDKpa0gOtjQvj1vyCZs/pCo9QcbdHQtt9G2LWa/ZIwbqKxFf2AK92ZuWaIrOMs4CzSvqsPN7tNWvUQr+uMsJXNOJla6wpZ1QkKk7lk/Ka71gGmLNBt3HseRPffve0SnC+4Zrh4AeUEDgiWW/pLqyBvZ2ov/aWzXCsyCebonm+Qbujq/lpQsjvGxyHkGriL2OhEdIfew010qBduRYX4az6Kyyl2EcwelzQIU+CX15+BnpA0uXDZ2N4UAEv0XoBOKX+t0PbOKw0oCDdiAGbgYV9DP0R6zIPEGWN/eXdDaJdwplDvL93S2VIv6xk1ggtxg+gvXyZQl/e1Ao9OqmisknEVDpVOid22dXyRLUPBFMNKUjC6NuLEYJzmuQ1w5+ZFY8iumidf7SY7ZFq54ZRnJkqu/OAmiMxceScLOiikjFVT1owNmDa/rmZ/arkGjCQ+j8s28BwklPyqXKaT+nAXscezX608a6QtvOw3EeQ6VDDTuYw1oC66+gIPXcbB7mWRPFxDjyEOebRXi0w=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(10067099003)(261009223027099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	J3Uho4JFvuXgK7Z+RPMjlo9Ma3lJ5U0nvBVYkOXOC9fxzo4CP+ID0LeJJFw9+h/XAj8Yru7zpHTb2ExFkTCsbGgleuGUFyP4Uc9pWctQcz/FLB7GMaqdcTTqBXvNKctNoeziZB0st02/b3t47rT6iHDDQvcVz6GlD7dsX60ETQ9HjctPKuHoTnSll7fv9NxFpB9Shaf8wR0tci5/08tF9jyCjtozb0GbRbJVLsKIUwkI4gwZzSU4txgZ0SSftFzClehKZRgubO0/lIiwnQ7g4oj4jnLtTCgEGfB3E3HdpgxVNjTgjwQ9g3xTLZVWb2+6j34cZGkI1ZNX41HJFUTu1XvzWVDfLaFezoX6fdJuy17uY6AfB/BwOLChcNlenBW7/sMSH/3BwLgYrYpjb6giAlzT1Y3avn4P9Fj/5WgDexgkjTFbONdTstGXVXmNNrLM
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 04:19:17.5263
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d1c8c31-7337-4f33-3b8b-08df33184d27
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR12MB497784
 
-The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped without
-a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
-require the IBS_STARTED and IBS_STOPPED states used to coordinate control
-MSR updates with late NMIs.
+The RDMA_CM_EVENT_DEVICE_REMOVAL callback waits for the connection to
+reach ISER_CONN_DOWN and then frees it:
 
-Add a separate stop path for these systems. Preserve Val while disabling
-the event so that a delayed NMI can be identified and consumed, and wait
-briefly for such an NMI before restarting the event.
+	wait_event_interruptible(isert_conn->rem_wait,
+				 isert_conn->state == ISER_CONN_DOWN);
+	kfree(isert_conn);
 
-Leave the existing handling unchanged on systems without IBS_CAPS_DIS.
+That is a use-after-free.  isert_release_work() publishes ISER_CONN_DOWN
+before the last reference is dropped, so the condition is already true
+when isert_connect_release() starts and the callback frees isert_conn
+while isert_connect_release() is still dereferencing it.  Publishing the
+state next to the wake-up instead does not close it either, because the
+condition is evaluated without any lock, so the waiter can leave the wait
+and free isert_conn while the releasing thread is still inside
+wake_up_interruptible() taking isert_conn->rem_wait.lock.
 
-Reported-by: Jim Mattson <jmattson@google.com>
-Closes: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
-Fixes: efa5700ec0da ("perf/amd/ibs: Support IBS_{FETCH|OP}_CTL2[Dis] to eliminate RMW race")
-Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+The wait also deadlocks.  cma_send_device_removal_put() runs the callback
+with the cm_id's handler_mutex held and rdma_destroy_id() takes that same
+mutex, so a teardown that has already passed the isert_conn->dev_removed
+test in isert_connect_release() blocks there while the callback waits for
+that teardown to publish ISER_CONN_DOWN.  Nothing in the callback can
+test whether the teardown has reached that point.
+
+Tear the connections down from an ib_client removal callback instead,
+where no cm_id lock is held, and wait there for the last isert_device
+reference, which isert_connect_release() drops once it is done with the
+device.  nvmet-rdma fixed the same two problems the same way, see
+commit f1d4ef7d8883 ("nvmet-rdma: register ib_client to not deadlock in
+device removal").
+
+The cm callback now returns zero for RDMA_CM_EVENT_DEVICE_REMOVAL and
+keeps the cm_id, which leaves isert_connect_release() as the only place
+that destroys it, so isert_conn->dev_removed and isert_conn->rem_wait are
+gone.  A connection that never reached RDMA_CM_EVENT_ESTABLISHED now
+delays the removal until the CM reports RDMA_CM_EVENT_UNREACHABLE and
+isert_connect_error() drops the last reference.  Before this patch that
+case blocked for good, because that CM event needs the handler_mutex the
+waiting callback holds.
+
+Measured with soft-RoCE under KASAN on a local device removal racing 32
+connections: 11 of 20 unpatched runs hit the splat below and 0 of 20
+patched runs did, and the removal itself finished in all 20 patched runs
+and in none of the unpatched ones.  With the wait kept and its window
+widened, 3 of 3 runs deadlocked and 0 of 3 did with this patch.  Normal
+login and I/O passed 24 of 30 runs on either side of the patch.
+
+  BUG: KASAN: slab-use-after-free in isert_connect_release+0x5cb/0x620
+  Read of size 4 at addr ffff88810acbd158 by task kworker/u16:5/70
+
+  CPU: 1 UID: 0 PID: 70 Comm: kworker/u16:5 Not tainted 7.3.0-CTL2-13247-g330517c63aa9 #1 PREEMPT(full)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: isert_release_wq isert_release_work
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xd0/0x630
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? kfree+0x121/0x390
+   ? isert_connect_release+0x5cb/0x620
+   kasan_report+0xce/0x100
+   ? isert_connect_release+0x5cb/0x620
+   isert_connect_release+0x5cb/0x620
+   process_one_work+0x697/0x1060
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0xcb/0xe0
+   ? __pfx_isert_release_work+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+  Allocated by task 81:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_cache_noprof+0x148/0x360
+   isert_cma_handler+0x1e3/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_ib_req_handler+0x17d9/0x4480
+   cm_process_work+0x41/0x330
+   cm_work_handler+0x5727/0xc160
+   process_one_work+0x697/0x1060
+   worker_thread+0x45b/0xd10
+   kthread+0x2c8/0x3b0
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+
+  Freed by task 218:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x121/0x390
+   isert_cma_handler+0x10ff/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_process_remove+0xff/0x5a0
+   cma_remove_one+0xcc/0x250
+   remove_client_context+0xa4/0xf0
+   disable_device+0x128/0x240
+   __ib_unregister_device+0x226/0x3f0
+   ib_unregister_device_and_put+0x50/0x70
+   nldev_dellink+0x28e/0x3d0
+   rdma_nl_rcv_msg+0x29c/0x4e0
+   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
+   netlink_unicast+0x68f/0x940
+   netlink_sendmsg+0x810/0xf20
+   __sys_sendto+0x337/0x390
+   __x64_sys_sendto+0xdb/0x1b0
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fixes: 63b268d232b8 ("IB/isert: Properly release resources on DEVICE_REMOVAL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- arch/x86/events/amd/ibs.c | 145 ++++++++++++++++++++++++++++++++------
- 1 file changed, 122 insertions(+), 23 deletions(-)
+v1 introduced a handler_mutex deadlock and did not close the rem_wait
+use-after-free (review); redesigned to tear down from an ib_client
+(nvmet-rdma pattern).
 
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index 78a36ebf2d23..714589570c21 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -28,6 +28,7 @@ static u32 ibs_caps;
- #include <linux/hardirq.h>
+ drivers/infiniband/ulp/isert/ib_isert.c | 129 +++++++++++++++++++-----
+ drivers/infiniband/ulp/isert/ib_isert.h |   4 +-
+ 2 files changed, 103 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index efa8d7b7844c9..35e4b9c917bd6 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -43,6 +43,8 @@ MODULE_PARM_DESC(sg_tablesize,
  
- #include <asm/nmi.h>
-+#include <asm/delay.h>
- #include <asm/amd/ibs.h>
- 
- /* attr.config2 */
-@@ -73,7 +74,12 @@ static u32 ibs_caps;
-  *
-  * XXX: we could probably be using !atomic bitops for all this.
-  */
--
-+/*
-+ * NOTE: IBS_CAPS_DIS eliminates the RMW race on the IBS_{FETCH|OP}_CTL, making
-+ * IBS_STARTED and IBS_STOPPED states unnecessary. We use only IBS_ENABLED and
-+ * IBS_STOPPING states when IBS_CAPS_DIS is present. Semantics of IBS_STOPPING
-+ * changes a bit as well.
-+ */
- enum ibs_states {
- 	IBS_ENABLED	= 0,
- 	IBS_STARTED	= 1,
-@@ -557,7 +563,9 @@ static void perf_ibs_start(struct perf_event *event, int flags)
- 	struct hw_perf_event *hwc = &event->hw;
- 	struct perf_ibs *perf_ibs = container_of(event->pmu, struct perf_ibs, pmu);
- 	struct cpu_perf_ibs *pcpu = this_cpu_ptr(perf_ibs->pcpu);
-+	unsigned int delay = 50;
- 	u64 period, config = 0;
-+	u64 ctl;
- 
- 	if (WARN_ON_ONCE(!(hwc->state & PERF_HES_STOPPED)))
- 		return;
-@@ -575,23 +583,87 @@ static void perf_ibs_start(struct perf_event *event, int flags)
+ static DEFINE_MUTEX(device_list_mutex);
+ static LIST_HEAD(device_list);
++static DEFINE_MUTEX(isert_conn_mutex);
++static LIST_HEAD(isert_conn_list);
+ static struct workqueue_struct *isert_login_wq;
+ static struct workqueue_struct *isert_comp_wq;
+ static struct workqueue_struct *isert_release_wq;
+@@ -255,6 +257,8 @@ isert_device_put(struct isert_device *device)
+ 	if (!device->refcount) {
+ 		isert_free_device_ib_res(device);
+ 		list_del(&device->dev_node);
++		if (device->removal_comp)
++			complete(device->removal_comp);
+ 		kfree(device);
  	}
- 	config |= period >> 4;
+ 	mutex_unlock(&device_list_mutex);
+@@ -309,7 +313,7 @@ isert_init_conn(struct isert_conn *isert_conn)
+ 	INIT_LIST_HEAD(&isert_conn->node);
+ 	init_completion(&isert_conn->login_comp);
+ 	init_completion(&isert_conn->login_req_comp);
+-	init_waitqueue_head(&isert_conn->rem_wait);
++	INIT_LIST_HEAD(&isert_conn->conn_list);
+ 	kref_init(&isert_conn->kref);
+ 	atomic_set(&isert_conn->ctrl_comp_cnt, 0);
+ 	mutex_init(&isert_conn->mutex);
+@@ -468,6 +472,10 @@ isert_connect_request(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ 	list_add_tail(&isert_conn->node, &isert_np->accepted);
+ 	mutex_unlock(&isert_np->mutex);
  
--	/*
--	 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
--	 * Doing so prevents a race condition in which an NMI due to other
--	 * source might accidentally activate the event before we enable
--	 * it ourselves.
--	 */
--	perf_ibs_disable_event(perf_ibs, hwc, 0);
-+	if (ibs_caps & IBS_CAPS_DIS) {
-+		/*
-+		 *      IBS HW                     SW
-+		 *
-+		 *  o Capture sample       o ->stop()
-+		 *  o Set VAL bit            CTL2[Dis] = 1
-+		 *  o Raise NMI --.        o ...
-+		 *                 \       o ->start()
-+		 *                  \        wrmsr(IBS_{FETCH|OP}_CTL, new value);
-+		 *                   \       (wrmsr clears the VAL bit)
-+		 *                    `--> o Receives delayed NMI
-+		 *                           (Unknown NMI since VAL bit is cleared)
-+		 *
-+		 * Handle this with induced delay.
-+		 */
-+		rdmsrq(hwc->config_base, ctl);
-+		while ((ctl & perf_ibs->valid_mask) && delay--) {
-+			udelay(1);
-+			rdmsrq(hwc->config_base, ctl);
-+		}
-+	} else {
-+		/*
-+		 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
-+		 * Doing so prevents a race condition in which an NMI due to
-+		 * other source might accidentally activate the event before we
-+		 * enable it ourselves.
-+		 */
-+		perf_ibs_disable_event(perf_ibs, hwc, 0);
-+		/*
-+		 * Set STARTED before enabling the hardware, such that a
-+		 * subsequent NMI must observe it.
-+		 */
-+		set_bit(IBS_STARTED,    pcpu->state);
-+		clear_bit(IBS_STOPPING, pcpu->state);
-+	}
-+	perf_ibs_enable_event(perf_ibs, hwc, config);
++	mutex_lock(&isert_conn_mutex);
++	list_add_tail(&isert_conn->conn_list, &isert_conn_list);
++	mutex_unlock(&isert_conn_mutex);
 +
-+	perf_event_update_userpage(event);
-+}
-+
-+/* ->stop() for platforms with additional CTL2[Dis] bit. */
-+static void perf_ibs_stop_dis(struct perf_event *event, int flags)
-+{
-+	struct hw_perf_event *hwc = &event->hw;
-+	struct perf_ibs *perf_ibs = container_of(event->pmu, struct perf_ibs, pmu);
-+	struct cpu_perf_ibs *pcpu = this_cpu_ptr(perf_ibs->pcpu);
-+	u64 config;
-+	u64 ctl2;
-+
-+	WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
-+
-+	set_bit(IBS_STOPPING, pcpu->state);
-+
-+	rdmsrq(hwc->extra_reg.reg, ctl2);
-+	if (ctl2 & perf_ibs->disable_mask)
-+		goto reset_state;
-+
-+	wrmsrq(hwc->extra_reg.reg, perf_ibs->disable_mask);
-+
-+	WARN_ON_ONCE(hwc->state & PERF_HES_STOPPED);
-+	hwc->state |= PERF_HES_STOPPED;
-+
-+	if (hwc->state & PERF_HES_UPTODATE)
-+		goto reset_state;
-+
-+	rdmsrq(hwc->config_base, config);
-+
-+	config &= ~perf_ibs->valid_mask;
+ 	return 0;
  
- 	/*
--	 * Set STARTED before enabling the hardware, such that a subsequent NMI
--	 * must observe it.
-+	 * Clear the Val bit otherwise ->start() will unnecessarily
-+	 * wait for 50us.
- 	 */
--	set_bit(IBS_STARTED,    pcpu->state);
--	clear_bit(IBS_STOPPING, pcpu->state);
--	perf_ibs_enable_event(perf_ibs, hwc, config);
-+	if (in_nmi())
-+		wrmsrq(hwc->config_base, config);
+ out_destroy_qp:
+@@ -491,9 +499,12 @@ isert_connect_release(struct isert_conn *isert_conn)
  
--	perf_event_update_userpage(event);
-+	perf_ibs_event_update(perf_ibs, event, &config);
-+	hwc->state |= PERF_HES_UPTODATE;
+ 	BUG_ON(!device);
+ 
++	mutex_lock(&isert_conn_mutex);
++	list_del_init(&isert_conn->conn_list);
++	mutex_unlock(&isert_conn_mutex);
 +
-+reset_state:
-+	clear_bit(IBS_STOPPING, pcpu->state);
+ 	isert_free_rx_descriptors(isert_conn);
+-	if (isert_conn->cm_id &&
+-	    !isert_conn->dev_removed)
++	if (isert_conn->cm_id)
+ 		rdma_destroy_id(isert_conn->cm_id);
+ 
+ 	if (isert_conn->qp)
+@@ -504,12 +515,13 @@ isert_connect_release(struct isert_conn *isert_conn)
+ 	if (isert_conn->login_desc)
+ 		isert_free_login_buf(isert_conn);
+ 
+-	isert_device_put(device);
++	kfree(isert_conn);
+ 
+-	if (isert_conn->dev_removed)
+-		wake_up_interruptible(&isert_conn->rem_wait);
+-	else
+-		kfree(isert_conn);
++	/*
++	 * Releases isert_remove_one() once the last connection running on
++	 * this device is gone.
++	 */
++	isert_device_put(device);
  }
  
- static void perf_ibs_stop(struct perf_event *event, int flags)
-@@ -602,6 +674,9 @@ static void perf_ibs_stop(struct perf_event *event, int flags)
- 	u64 config;
- 	int stopping;
+ static void
+@@ -625,13 +637,10 @@ isert_np_cma_handler(struct isert_np *isert_np,
+ 	return -1;
+ }
  
-+	if (ibs_caps & IBS_CAPS_DIS)
-+		return perf_ibs_stop_dis(event, flags);
+-static int
+-isert_disconnected_handler(struct rdma_cm_id *cma_id,
+-			   enum rdma_cm_event_type event)
++/* Must be called with isert_conn->mutex held. */
++static void
++isert_teardown_conn(struct isert_conn *isert_conn)
+ {
+-	struct isert_conn *isert_conn = cma_id->qp->qp_context;
+-
+-	mutex_lock(&isert_conn->mutex);
+ 	switch (isert_conn->state) {
+ 	case ISER_CONN_TERMINATING:
+ 		break;
+@@ -648,6 +657,16 @@ isert_disconnected_handler(struct rdma_cm_id *cma_id,
+ 		isert_warn("conn %p terminating in state %d\n",
+ 			   isert_conn, isert_conn->state);
+ 	}
++}
 +
- 	if (test_and_set_bit(IBS_STOPPING, pcpu->state))
- 		return;
++static int
++isert_disconnected_handler(struct rdma_cm_id *cma_id,
++			   enum rdma_cm_event_type event)
++{
++	struct isert_conn *isert_conn = cma_id->qp->qp_context;
++
++	mutex_lock(&isert_conn->mutex);
++	isert_teardown_conn(isert_conn);
+ 	mutex_unlock(&isert_conn->mutex);
  
-@@ -1416,19 +1491,43 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_ibs, struct pt_regs *iregs)
- 	unsigned int msr;
- 	u64 *buf, *config, period, new_config = 0;
- 	int br_target_idx = -1;
-+	u64 ctl2, ctl;
+ 	return 0;
+@@ -674,7 +693,6 @@ static int
+ isert_cma_handler(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ {
+ 	struct isert_np *isert_np = cma_id->context;
+-	struct isert_conn *isert_conn;
+ 	int ret = 0;
  
--	if (!test_bit(IBS_STARTED, pcpu->state)) {
--fail:
-+	if (ibs_caps & IBS_CAPS_DIS) {
+ 	isert_info("%s (%d): status %d id %p np %p\n",
+@@ -695,21 +713,15 @@ isert_cma_handler(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ 		break;
+ 	case RDMA_CM_EVENT_ADDR_CHANGE:
+ 	case RDMA_CM_EVENT_DISCONNECTED:
+-	case RDMA_CM_EVENT_TIMEWAIT_EXIT:  /* FALLTHRU */
+-		ret = isert_disconnected_handler(cma_id, event->event);
+-		break;
++	case RDMA_CM_EVENT_TIMEWAIT_EXIT:
+ 	case RDMA_CM_EVENT_DEVICE_REMOVAL:
+-		isert_conn = cma_id->qp->qp_context;
+-		isert_conn->dev_removed = true;
+-		isert_disconnected_handler(cma_id, event->event);
+-		wait_event_interruptible(isert_conn->rem_wait,
+-					 isert_conn->state == ISER_CONN_DOWN);
+-		kfree(isert_conn);
  		/*
--		 * Catch spurious interrupts after stopping IBS: After
--		 * disabling IBS there could be still incoming NMIs
--		 * with samples that even have the valid bit cleared.
--		 * Mark all this NMIs as handled.
-+		 * ->stop() {
-+		 *     set_bit(IBS_STOPPING);
-+		 *                               <-- NMI (race 1)
-+		 *     CTL2[Dis]=1;
-+		 *     ...                       <-- NMI (race 2)
-+		 * }
+-		 * return non-zero from the callback to destroy
+-		 * the rdma cm id
++		 * Device removal is driven by isert_remove_one().  Returning
++		 * zero here keeps the cm_id; isert_connect_release() destroys
++		 * it once the connection has been released.
  		 */
--		if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
--			return 1;
-+		rdmsrq(perf_ibs->msr2, ctl2);
-+		if (test_bit(IBS_STOPPING, pcpu->state) /* race 1 */ ||
-+		    (ctl2 & perf_ibs->disable_mask) /* race 2 */) {
-+			rdmsrq(perf_ibs->msr, ctl);
-+			if (ctl & perf_ibs->valid_mask) {
-+				ctl &= ~(perf_ibs->enable_mask |
-+					 perf_ibs->valid_mask);
-+				wrmsrq(perf_ibs->msr, ctl);
-+				return 1;
-+			}
-+			return 0;
-+		}
-+	} else {
-+		if (!test_bit(IBS_STARTED, pcpu->state)) {
-+fail:
-+			/*
-+			 * Catch spurious interrupts after stopping IBS: After
-+			 * disabling IBS there could be still incoming NMIs
-+			 * with samples that even have the valid bit cleared.
-+			 * Mark all this NMIs as handled.
-+			 */
-+			if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
-+				return 1;
+-		return 1;
++		ret = isert_disconnected_handler(cma_id, event->event);
++		break;
+ 	case RDMA_CM_EVENT_REJECTED:
+ 		isert_info("Connection rejected: %s\n",
+ 			   rdma_reject_msg(cma_id, event->status));
+@@ -2689,8 +2701,60 @@ static struct iscsit_transport iser_target_transport = {
+ 	.iscsit_get_sup_prot_ops = isert_get_sup_prot_ops,
+ };
  
--		return 0;
-+			return 0;
-+		}
++static void
++isert_remove_one(struct ib_device *ib_device, void *client_data)
++{
++	DECLARE_COMPLETION_ONSTACK(removal_comp);
++	struct isert_device *device, *found = NULL;
++	struct isert_conn *isert_conn;
++
++	/*
++	 * Not from the RDMA_CM_EVENT_DEVICE_REMOVAL callback: that one runs
++	 * with the cm_id's handler mutex held, which a teardown already
++	 * destroying that cm_id needs.  Same reason as
++	 * commit f1d4ef7d8883 ("nvmet-rdma: register ib_client to not
++	 * deadlock in device removal").
++	 */
++	mutex_lock(&device_list_mutex);
++	list_for_each_entry(device, &device_list, dev_node) {
++		if (device->ib_device != ib_device)
++			continue;
++		device->refcount++;
++		device->removal_comp = &removal_comp;
++		found = device;
++		break;
++	}
++	mutex_unlock(&device_list_mutex);
++
++	if (!found)
++		return;
++
++	mutex_lock(&isert_conn_mutex);
++	list_for_each_entry(isert_conn, &isert_conn_list, conn_list) {
++		if (isert_conn->device != found)
++			continue;
++
++		isert_info("removing conn %p state %d\n",
++			   isert_conn, isert_conn->state);
++		mutex_lock(&isert_conn->mutex);
++		isert_teardown_conn(isert_conn);
++		mutex_unlock(&isert_conn->mutex);
++	}
++	mutex_unlock(&isert_conn_mutex);
++
++	isert_device_put(found);
++	wait_for_completion(&removal_comp);
++}
++
++static struct ib_client isert_ib_client = {
++	.name   = "isert",
++	.remove = isert_remove_one,
++};
++
+ static int __init isert_init(void)
+ {
++	int ret = -ENOMEM;
++
+ 	isert_login_wq = alloc_workqueue("isert_login_wq", WQ_PERCPU, 0);
+ 	if (!isert_login_wq) {
+ 		isert_err("Unable to allocate isert_login_wq\n");
+@@ -2711,21 +2775,30 @@ static int __init isert_init(void)
+ 		goto destroy_comp_wq;
  	}
  
- 	if (WARN_ON_ONCE(!event))
--- 
-2.55.0
-
++	ret = ib_register_client(&isert_ib_client);
++	if (ret) {
++		isert_err("Unable to register isert ib client\n");
++		goto destroy_release_wq;
++	}
++
+ 	iscsit_register_transport(&iser_target_transport);
+ 	isert_info("iSER_TARGET[0] - Loaded iser_target_transport\n");
+ 
+ 	return 0;
+ 
++destroy_release_wq:
++	destroy_workqueue(isert_release_wq);
+ destroy_comp_wq:
+ 	destroy_workqueue(isert_comp_wq);
+ destroy_login_wq:
+ 	destroy_workqueue(isert_login_wq);
+ 
+-	return -ENOMEM;
++	return ret;
+ }
+ 
+ static void __exit isert_exit(void)
+ {
++	ib_unregister_client(&isert_ib_client);
+ 	flush_workqueue(isert_login_wq);
+ 	destroy_workqueue(isert_release_wq);
+ 	destroy_workqueue(isert_comp_wq);
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.h b/drivers/infiniband/ulp/isert/ib_isert.h
+index 519b17e54bd34..41023300be21b 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.h
++++ b/drivers/infiniband/ulp/isert/ib_isert.h
+@@ -191,8 +191,7 @@ struct isert_conn {
+ 	atomic_t		ctrl_comp_cnt;
+ 	bool                    logout_posted;
+ 	bool                    snd_w_inv;
+-	wait_queue_head_t	rem_wait;
+-	bool			dev_removed;
++	struct list_head	conn_list;
+ };
+ 
+ struct isert_device {
+@@ -203,6 +202,7 @@ struct isert_device {
+ 	struct isert_comp	*comps;
+ 	int                     comps_used;
+ 	struct list_head	dev_node;
++	struct completion	*removal_comp;
+ };
+ 
+ struct isert_np {
