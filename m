@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793000992;
-	b=X/TmmaBaMsj+BmXRH9GrmSe1757q1lVv8CqhpZT7akbqGMK/0+RAuyNSdd+ykGmotHc8
-	 PNK70a4B6TZiFdAp68+N5UPWcJOhCZkYRP+rO2mkE1Z6qq17W9FL5H94NZUjmwGMbmuKh
-	 bJnNZS6mKZWyKKPaT9KQVMDL7bpuc6ybuAUjYaEXQu+5C2J/WH5OTNpZWxf3fo49K4NSP
-	 BHf83Ja/htpIHpOg/I8+EJv1v2vOzS/KBlv4W5BYN+DX33KqgGkCelVjc0JxG6R+LQ+cV
-	 39nudAa01GfOhixeSIeTxCeHmuskSjc5kQs6xBL76K8xqq8P/M9EYDmqEx7SQHyloHQ==
+	t=1793001003;
+	b=ioV/mJrsx7MY4EQrRQhilKT3XFg+jliSw5v8oGmjS1V4wEUQY7VFCvOmTScIvZtPocvy
+	 o0oIt+IFyRTZ32kkcs0+VcdnjpS29i8lQr7QGOSa/r3gkrsSPbQEXjs5s/fVnxKrCn83I
+	 rtWQRaoPLQ+/MmeFoxpa/ezoIP3ZzXX9qUxu6inCnJkLv6s4xxf9oMfIrRTAiTvRZAkWB
+	 hOs9sC9KlPnlYbonhdXHHXo679PwZWNFIAa1FvEQQiYrSjoVg+QgHMLVzVPScOHlSC4Wt
+	 ebIFkcSk9DCn/E7gNgyxvxpD55ZgteV3+3nvr7SKwWFtc6xxJLeOFkx4b05rricB8vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793000992;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pbFUFm0BdUiP0R9n4hf+O3iMd+cAPYJ5M/p70xw3ss4=;
-	b=qlofHjmtSCuHXT4qW6zUKxR/jKE/nD6vFsM8VaQryrUIArWeJEkPxdfzlkSIwQWhK699
-	 KrCsHR9S3xP0VcSrtKITvZ8XOZAoprw6diE4v1SKdPasaJCkG9XLG9riX7n3uzgZKKL/0
-	 6xLeqEbtodXyIqG/sFV9FA022hqwt1dozZ3PiuHz94Qsank2EmBELjyWC5qWs0N0zGAAb
-	 w3LMsbR+WjyLPvGDpyiFuv/Unl5JkKTINtfU9tNlkS/pWQY2ygC+9Ug1bPkaWmcPe3M68
-	 uFAT+VJutZ8nQBrgi/u+C3qpDzs8t2QbCtrINaJnxe+a5xZW6QXeb22WKiXYC1KJJZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001003;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=cC8d3l53v5l/BIJ4xOgSZEiDzx24DTRPibd1xKzhImY=;
+	b=Oey+jAxsAhMYula/sIScv8/DKocgmGPswbfg+wEBeFBMjwSI4CixIIxHZPFBckkOHhIc
+	 zu5GL9ri7rfjUNm2TvgaWg8w8x0Z/ExEQ1CaqHJnAl2OpqP7paTFXEKbQ1r5YAnQEsjDa
+	 3P7bL3F5+0l1Bv9IPHm/dfX7Q6xbn5MO+KLspv9NPPH84/C0Hxb50EhuHmZbDh1EU0CgM
+	 AQErz5lktgVYyOh7SfAsrYuSjwxebCPYEoQ/E59UYakcgzVENCthCD1EhAC/XP+buCZ01
+	 4H+xVEan9aHiEmNqeZG7K+pCjwFwBCIXaSKBTR5sTRVHZkwefR9k4eQxZfgx9+Pj3/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZI10sNI4;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hBmLkvSM;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C50606A327;
-	Mon, 26 Oct 2026 07:49:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91C50606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECC3606A326;
+	Mon, 26 Oct 2026 07:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AECC3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZI10sNI4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793000991; x=1824536991;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xdoP/3wkFtbyhTDEtPGlM0pOcxylHkC82Pv0VGU/oew=;
-  b=ZI10sNI4NKKdYbEVpuT0g+AejFApikAmpA9QG/HVgQf89niO42WboB0v
-   b05PgCsnRENXax1Olr7QwH/MA8AEN+brULg3gYnhHsIh0iNN85jvdjJZH
-   JLkSJlcLvuFNKlXTItvNJqPYGgUNOydgiBhlyTlLNACbOT2U+NzXq3Xne
-   q1aJWN99RXMHybgndEQ3sE7Nh4k9DIKdDOIGEV3BPEZW1enMunkaDm0sL
-   K1fvRcxG/aXkKLSw8LsLRT+86G595XyVg6iWRdfm503ZYCQJVFBFdRCMi
-   pX1lAOIw/iHCkpmNY5eunFKsix38o6RetC0eg3TSg3QXM3g7PnKA30ir+
-   g==;
-X-CSE-ConnectionGUID: rYwRuoFrQpC0ljb+s40+PQ==
-X-CSE-MsgGUID: suP2cvezTUauVvBoqC+beA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1648376"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1648376"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 00:49:51 -0700
-X-CSE-ConnectionGUID: 7xMj5IMvRaezQaBy2FqKZA==
-X-CSE-MsgGUID: MCjZAatsQZqL/d//rG0mHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4582440"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 26 Oct 2026 00:49:48 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xLFSi-00000000VZi-1l2H;
-	Mon, 26 Oct 2026 07:49:44 +0000
-Date: Mon, 26 Oct 2026 15:48:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Philipp Stanner <phasta@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
- properly
-Message-ID: <202610261518.t3m9Kwds-lkp@intel.com>
-References: <20261021095512.1345191-4-phasta@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hBmLkvSM
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793000992; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=cC8d3l53v5l/BIJ4xOgSZEiDzx24DTRPibd1xKzhImY=;
+	b=hBmLkvSMNRUZGloJv1yxQN4VHeLdayAyFsqTg3g2u8p9MINl3Tb69zVt+zo/dkbSCEQdPb0aU9GYq7Xt0K7E5UH/awCgz7KywGHeuHe6cJbVvzzvCwulIrDzliIiR8/AiNUaKFZ9WDrfXGVeizRoxBcb2laIgOHLGTS05HnFKPc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDU8Vi6_1793000991;
+Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDU8Vi6_1793000991 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 15:49:51 +0800
+Message-ID: <9f777a27-8e65-48e8-b5fb-9e7decdaaee2@linux.alibaba.com>
+Date: Mon, 26 Oct 2026 15:49:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,100 +53,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021095512.1345191-4-phasta@kernel.org>
-
-Hi Philipp,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 1ecab8b0bad393750c60cc3819ce9c256595463c]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Philipp-Stanner/asm-generic-bitops-Add-set_bit_release/20261021-115512
-base:   1ecab8b0bad393750c60cc3819ce9c256595463c
-patch link:    https://lore.kernel.org/r/20261021095512.1345191-4-phasta%40kernel.org
-patch subject: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit properly
-config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261026/202610261518.t3m9Kwds-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610261518.t3m9Kwds-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610261518.t3m9Kwds-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/dma-buf/dma-fence.c:393:2: error: call to undeclared function 'set_bit_release'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     393 |         set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-         |         ^
-   1 error generated.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: wait for filecheck kobject release after a
+ failed add
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0087-v6-78f3c3d6d70887d6e0cc@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-vim +/set_bit_release +393 drivers/dma-buf/dma-fence.c
 
-   337	
-   338	/**
-   339	 * dma_fence_signal_timestamp_locked - signal completion of a fence
-   340	 * @fence: the fence to signal
-   341	 * @timestamp: fence signal timestamp in kernel's CLOCK_MONOTONIC time domain
-   342	 *
-   343	 * Signal completion for software callbacks on a fence, this will unblock
-   344	 * dma_fence_wait() calls and run all the callbacks added with
-   345	 * dma_fence_add_callback(). Can be called multiple times, but since a fence
-   346	 * can only go from the unsignaled to the signaled state and not back, it will
-   347	 * only be effective the first time. Set the timestamp provided as the fence
-   348	 * signal timestamp.
-   349	 *
-   350	 * Unlike dma_fence_signal_timestamp(), this function must be called with
-   351	 * &dma_fence.lock held.
-   352	 */
-   353	void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
-   354					      ktime_t timestamp)
-   355	{
-   356		const struct dma_fence_ops *ops;
-   357		struct dma_fence_cb *cur, *tmp;
-   358		struct list_head cb_list;
-   359	
-   360		dma_fence_assert_held(fence);
-   361	
-   362		if (unlikely(dma_fence_test_signaled_flag(fence)))
-   363			return;
-   364	
-   365		trace_dma_fence_signaled(fence);
-   366	
-   367		/*
-   368		 * When neither a release nor a wait operation is specified set the ops
-   369		 * pointer to NULL to allow the fence structure to become independent
-   370		 * from who originally issued it.
-   371		 */
-   372		ops = rcu_dereference_protected(fence->ops, true);
-   373		if (!ops->release && !ops->wait)
-   374			RCU_INIT_POINTER(fence->ops, NULL);
-   375	
-   376		/* Stash the cb_list before replacing it with the timestamp */
-   377		list_replace(&fence->cb_list, &cb_list);
-   378	
-   379		fence->timestamp = timestamp;
-   380		set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
-   381	
-   382		list_for_each_entry_safe(cur, tmp, &cb_list, node) {
-   383			INIT_LIST_HEAD(&cur->node);
-   384			cur->func(fence, cur);
-   385		}
-   386	
-   387		/*
-   388		 * This orders the signaled-state with the test_bit_acquire() in
-   389		 * dma_fence_test_signaled_flag(). This ensures that functions like
-   390		 * dma_fence_is_signaled() can only ever return true once signaling is
-   391		 * completed (i.e., after the callbacks above ran).
-   392		 */
- > 393		set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-   394	}
-   395	EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
-   396	
+On 10/25/26 12:18 AM, Cen Zhang wrote:
+> The filecheck kobject and its release completion are embedded in
+> ocfs2_super, so the osb must outlive the kobject. On a failed
+> kobject_init_and_add(), creation clears fs_fcheck and calls
+> kobject_put(), but returns without waiting for the release callback.
+> 
+> With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
+> Mount failure can then free the containing osb before the embedded
+> release timer expires:
+> 
+>   Mount failure                     Delayed cleanup
+>   -------------                     ---------------
+>   ocfs2_filecheck_create_sysfs()
+>     kobject_init_and_add() fails
+>     fs_fcheck = NULL
+>     kobject_put()
+>       queue delayed release
+>   return to mount error cleanup
+>   ocfs2_dismount_volume()
+>     remove_sysfs() skips the wait
+>     kfree(osb)
+>                                     expire embedded release timer
+>                                       access freed osb
+> 
+> The normal removal path waits for fs_kobj_unregister, but it returns
+> early when fs_fcheck is NULL. The failed-add path therefore leaves the
+> delayed work and its completion in freed storage.
+> 
+> Wait for the existing release completion after the failed-add
+> kobject_put(), before returning to mount error cleanup. This keeps the
+> enclosing osb alive until the kobject has finished releasing, matching
+> the normal teardown path.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
+>     Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
+>     
+>     CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <IRQ>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? __run_timers+0xa6d/0xa90
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? __run_timers+0xa6d/0xa90
+>      kasan_report+0xe0/0x110
+>      ? __run_timers+0xa6d/0xa90
+>      __run_timers+0xa6d/0xa90
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx___run_timers+0x10/0x10
+>      ? __lock_acquire+0x5a3/0x2140
+>      ? __pfx_do_raw_spin_lock+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      timer_expire_remote+0xfa/0x160
+>      ? __pfx_timer_expire_remote+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on+0x18/0x160
+>      tmigr_handle_remote_up+0x4ba/0x9d0
+>      ? __pfx_tmigr_handle_remote_up+0x10/0x10
+>      ? tmigr_handle_remote+0x21a/0x340
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? __pfx_tmigr_handle_remote_up+0x10/0x10
+>      __walk_groups_from+0x5a/0x160
+>      tmigr_handle_remote+0x24f/0x340
+>      ? __pfx_tmigr_handle_remote+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      run_timer_softirq+0x222/0x270
+>      ? __pfx_run_timer_softirq+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      handle_softirqs+0x1fa/0x8d0
+>      ? __pfx_handle_softirqs+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? _raw_spin_unlock+0x23/0x40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      </IRQ>
+>      <TASK>
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+>     RIP: 0010:pv_native_safe_halt+0xf/0x20
+>     Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+>     RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
+>     RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
+>     RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
+>     RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
+>     R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
+>     R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
+>      ? ct_kernel_exit.constprop.0+0xc5/0xf0
+>      ? do_idle+0x3ae/0x650
+>      default_idle+0x9/0x10
+>      default_idle_call+0x6c/0xb0
+>      do_idle+0x3ae/0x650
+>      ? __pfx___schedule+0x10/0x10
+>      ? __pfx_do_idle+0x10/0x10
+>      ? rest_init+0x1cd/0x330
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      cpu_startup_entry+0x54/0x60
+>      rest_init+0x1e1/0x330
+>      ? __pfx_acpi_read_bit_register+0x10/0x10
+>      ? __pfx_rest_init+0x10/0x10
+>      ? acpi_os_write_port+0x23/0xb0
+>      ? __pfx_kernel_init+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? acpi_ut_status_exit+0xd6/0x180
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? acpi_ut_status_exit+0xd6/0x180
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? acpi_enable_subsystem+0x2b0/0x4e0
+>      ? __pfx_x86_late_time_init+0x10/0x10
+>      start_kernel+0x417/0x4b0
+>      x86_64_start_reservations+0x18/0x30
+>      x86_64_start_kernel+0x111/0x120
+>      common_startup_64+0x13e/0x158
+>      </TASK>
+>     
+>     Allocated by task 494:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      ocfs2_initialize_super.isra.0+0xab/0x3070
+>      ocfs2_fill_super+0x801/0x3920
+>      get_tree_bdev_flags+0x35d/0x5f0
+>      vfs_get_tree+0x93/0x320
+>      fc_mount+0x1d/0x200
+>      path_mount+0x592/0x1e00
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     
+>     Freed by task 494:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      ocfs2_dismount_volume+0x43c/0x9b0
+>      ocfs2_fill_super+0x258f/0x3920
+>      get_tree_bdev_flags+0x35d/0x5f0
+>      vfs_get_tree+0x93/0x320
+>      fc_mount+0x1d/0x200
+>      path_mount+0x592/0x1e00
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     
+>     The buggy address belongs to the object at ffff8881178a4000
+>      which belongs to the cache kmalloc-8k of size 8192
+>     The buggy address is located 5720 bytes inside of
+>      freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
+>     
+>     The buggy address belongs to the physical page:
+>     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
+>     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+>     flags: 0x200000000000040(head|node=0|zone=2)
+>     page_type: f5(slab)
+>     raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+>     raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+>     head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+>     head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+>     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+>     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+>     page dumped because: kasan: bad access detected
+>     
+>     Memory state around the buggy address:
+>      ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>      ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>     >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>                                                         ^
+>      ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>      ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>     ==================================================================
+> 
+> Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+> 
+> 
+> ---
+> Changes in v2:
+> - Name ocfs2_super explicitly in the lifetime comment and describe kobject
+>   release without assuming CONFIG_DEBUG_KOBJECT_RELEASE.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com
+> 
+>  fs/ocfs2/filecheck.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
+> index 75334e4bd082..e3b79bc749f5 100644
+> --- a/fs/ocfs2/filecheck.c
+> +++ b/fs/ocfs2/filecheck.c
+> @@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+>  		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
+>  		entry->fs_fcheck = NULL;
+>  		kobject_put(&entry->fs_kobj);
+> +		/* Keep ocfs2_super alive until the kobject is released. */
+> +		wait_for_completion(&entry->fs_kobj_unregister);
+>  		kfree(fcheck);
+>  		return ret;
+>  	}
+
