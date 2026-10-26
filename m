@@ -1,112 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013044;
-	b=jdGj5ftCiqc7vKLYLPgfYwwoy8DYuQC9UMkmAsXu6iIzHfi9690T5DxtExRxtvZekOO5
-	 f58GueDf/qVKrLL6kM8H+4xOk4sZY5BLUH2u265jOE2o5TUEWf648PvHL7L270p3S41OJ
-	 W5oEf9agKup7p5dDuLiThjCfataWDs8IQB9csW7Nx7YW6wo6ujeQGGSHoW8/lXQspu20o
-	 zpnU8jdlbDC2RDonOZwuwwCQOYfpm9WHYq9aOdE80YNBNgtlf6mYZpiW2gP9gZWxhBSxu
-	 XaqgAXNR0UXEMEdowcvodY2JxxgRcmiCAubT9iGciwgH7vPYA8yiPJfDVxguiTkCyig==
+	t=1793013039;
+	b=vbvXh9/Kp/AuhPZepzJIpd+H8nfjblQ94eHueDutu8cM0ZqVv8a4kAB5VrYrilyM32SH
+	 Fe5FDtZeNzoFZUD6ES2SsmNgo9Q79R8XPBfT1bSxnyTnLnPzy2nvld6pMHrHhw6BAoRWA
+	 3cJB4GNSK8ed3MXfhIDI1pT4uRjP8tuaJFc105XF1vrvo+aLl/XY1LJqFKS17m90/yyf9
+	 FMSdXJn5cXZcbhDfvCvfs4JuThasrEP1VbKYFhCK+gjpz9dL504p/3cgLZ6eJn3C5QarW
+	 0WypICB/g0aiol9bK+5Uh9h2bEJaSSblbwbcJvIughAk6IQpFMzudbVHcCo14JAaSvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013044;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=k2CxYTJXMNJu8w6PVYOlO+zhm/teDp2OHpxctIuY7Sg=;
-	b=meQaLAQmUPQz0y9LJ9bxOPj/N8/P9EEaXd0B7VEYcqSjH9ig+yoqNn8bdH6Pq0rw4068
-	 BGYYekC2X1pRRGEER6cbaOlkfeJElFma7S3SNnXCS/Mm4c/pfW/ywSJhd0YM/V4wAXIbU
-	 Mm1PwYVGJgwwjdSMl/qQZks2Y7r5OqrOnEBnWRDeE0+zamvnUzWvV7S7SnnAHlWumDEvR
-	 QZr8zGcDp1UZpRFDtedd2oH6QyXSFd95/Y4TpnE5L/lvyPC9p0BRBk1iEC2edHKmuR+dy
-	 fet9U2EsNE4ns/jWxOEp2I0r2PVZnPGqf8Tnb+8o08EbPPNLUcpz+OgUFZeYwAU79Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013039;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=k9sMhNFN8pOnQFMDY6q9oFH8xW41MAWGt8ZsO6lOl84=;
+	b=aL8HwSOp4W9qbdltGAcb/o7An8MddPKnuSY/J+5ru5BcYdDYFcovDBb7rgScVu7rCJav
+	 AnKtdrDtBSAjW853KLv6GS0/KqZ0XqayOcL8CD7+5tkEmXekQPN5oCrOStLUNqmotuByD
+	 Fc1heOGOABpCsQObqi23RXiGWyxsGopE7IjRc14M7h0KpZsQ3F8s7amJ3aLtLf3wjYgnO
+	 UNePyoBNRGlgi2ywmOSllViLE7WgDZXLXh09Il2bIKzp0eTxpERr1bBmrpzDEDxTX78J9
+	 J4279Qp9XVuin2g6PWhOJYKWCkYKoe1Nusc3cec4WlqC/WjIn0IGjTtHAyeT26sdISw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j6Wl2ZKT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QqfKWCoq;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMi+t1Ff;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C082260A6F7F
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C082260A6F7F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249D260A5BE1;
+	Mon, 26 Oct 2026 11:10:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j6Wl2ZKT;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QqfKWCoq
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt2sS3632933
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k2CxYTJXMNJu8w6PVYOlO+zhm/teDp2OHpxctIuY7Sg=; b=j6Wl2ZKT98xHbKEx
-	/nU1pTxuHGauwXtw97DwI2vSbvSkNprXjQhSmRWrIFQp1V4LjR4fvRC56w2wjh8V
-	GRlHhqRThB+X4gBAvEQ5tqBnh4OR09YzmcJ9I23KNbAQz/wfYptN534uiKGOvnTN
-	BfFyH27eQEUbzKXUnPEpzKqtodNGDgqCKXSqsVxd2nK9C1MufKc4MCnzYCfJc3h/
-	QaoFUr1TY/sZ8idYP2giGyfsHLqTVD9mgkMfxnVZ/T4DE2tIfvs72stR4rioyGCj
-	3Rj+Mc5PfS7zgfKojRpyH6YViZxjvPqeYx9R0/1AAXvXygbbSyv9BnE4ZfByhzxz
-	LQ2URQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf07ht-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:10:42 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c61cdfb0aso14548286d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 04:10:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793013042; x=1793617842; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k2CxYTJXMNJu8w6PVYOlO+zhm/teDp2OHpxctIuY7Sg=;
-        b=QqfKWCoqkAvwoeUgCcgJlTl2k5GerAorxAviNUz6f0DM0G48NLvt3QdK64xNoNPyJe
-         CnwvcaKhob8SaDtoWOn/h3/mwyWIpdqdjtq1gqr+o2LlyefzZF/jDe/FGboZI3Q4sSBa
-         8AOsIj7N0leqAyV2l23oUbsdtzwgZMksAZNJRZHl9I5RR3G35HtarueUXwP+SEolINz4
-         8tdOK5AIcZz/WjBRdVHEkJnZiAjPyjRTx52ulpbfI+g2TrgiaSYYhwrChk+7Av5aS7J7
-         4A7FOiQKs0VMTR0EiKDCx+CLgpv+vEE9ZRcKv/lOo/Ap7GXwvMnZsqnuUQkK1yfWoICJ
-         q0sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013042; x=1793617842;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k2CxYTJXMNJu8w6PVYOlO+zhm/teDp2OHpxctIuY7Sg=;
-        b=ww+/p4IYUiHRbm5vmzTj7whj8jiMEKDSLF0IsoSX+UCcimEyqnZGXJr13jI/2xf94M
-         CEppVdE20YBPVFwfMbKvv5iYwXA8RdS2r3iM8IJDEuNn5CatPuL9UvKu1jmbD6PKZZsA
-         KKopyHJYsldTjVxbZYCYInjPpLSPLpBSCJohOMmv9TWGwMxIp7QNZmOqGrF4Z5fASSSV
-         Tk4jayVf3kGhEQ/myu8JTkRutbDeOtaaPNmkFU/zXbE+Tx5KBTvXwCPZi6bzAZd19134
-         P+UTJm3ZRppD3QfJ1Hba8wZ+Sq5eZc68isvxi5QDmptg0wtedSgZdANfxDcvuxUt5FXP
-         CXOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYzIoc3Zmf4Wd8nIm3uN0nomEcVph4EieYyX6Le1sVOFIm1q0r8oUQ5B2n/SlaPJxFgXR4Ie1EzJSfG9c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJa0WNt1hVQaiaSwlweDlt/va1RdeEZiz5cHQw9OIIW60sF+P9e
-	4YYEK3j1ZXWOIPDiD2+GNvtluNLoeKZJFQ8NUQNVZaOr4n4QSmcCeO/IQoXCAfqpy/X6eTK51w8
-	/tysMD6Q2VZcXOrd3kCTzdaFL6b9a0glPNrfdAZTF3EMFrzbHs1HTVrKiTs7/4r8skVk=
-X-Gm-Gg: AYBFou11C9Ta3fJ9Qde/EK0f51UHxa8W6fZ9YRnM9aQXI8lzR6+rGeNw5YdtHMGo53X
-	4Ir4f2jP7IBqbz80Owavyj3MbX/Z9qkIq5SVmh422cNew774VYVrBQPpUnAWeaLoe3w9NfUNIF5
-	cmz6eWjA6c2NPmK2Rkb5hU9fQXw54mttetwazAO7UatXmLZKwG7cGwTkV8gP9TCyH2FlWKFIkwh
-	OLFvGzMbDP+n7FVhcv4d5w1luXqnR609nD01TpCwGjLasBSN5bvBXhG9ATHhu9evLxdX6iE41gI
-	KuCiUz5fpuj1qzKTtarqFuSaIzxPXklhTf6C+YGkqsw1NmN5MAol6EHOM09PcmNod+J14aIcRgC
-	nfumdY70WwTSjrSKyUsjINFQsPN1pRztBFNKcrQdOqbToYFtphKIRBqFs0sMt4uHPBWqi28gjwZ
-	S4iL2XvQkql9gp
-X-Received: by 2002:a05:620a:25c7:b0:93e:e531:b78d with SMTP id af79cd13be357-940ef7ca684mr861756485a.7.1793013041833;
-        Mon, 26 Oct 2026 04:10:41 -0700 (PDT)
-X-Received: by 2002:a05:620a:25c7:b0:93e:e531:b78d with SMTP id af79cd13be357-940ef7ca684mr861744385a.7.1793013041149;
-        Mon, 26 Oct 2026 04:10:41 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.10.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:10:39 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 13:09:59 +0200
-Subject: [PATCH 10/35] drm/pl111: use drm_panel_bridge_add()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMi+t1Ff
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3BCE1F01346;
+	Mon, 26 Oct 2026 11:10:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793013038;
+	bh=k9sMhNFN8pOnQFMDY6q9oFH8xW41MAWGt8ZsO6lOl84=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iMi+t1FfCEegigLJ9CuoGz3CSAN+cfgqvwzs7L/SqFHfrcFlgcwdNWxScd1sKwkPU
+	 l5kOoCpcHPtSEvJTFXADtdsNcBefGldeTCd9CIxFt1ZHR1WKMbd217EhkZ8wQZrvhj
+	 mqENI6fMi38hrFLC6ZEfRxq5IRqXgXLlFA2DWovxVc0ZUcX4Dz9BpLbMZiL3DVJm3v
+	 rG23D4MT5ar93ux9Z23URNnPvVZHZnjFVulOfy5L3mLg/3bAY/G4+C2I1FerFem5nQ
+	 W48X2hjHFIq0JNHi9cn1pYo3ri6yucJEel9dzMadss/grFM05ToPrbHGSL4QtFAy8m
+	 AJxvRDz1VAycw==
+Subject: Re: [PATCH net v5 2/2] net: stmmac: restore RX descriptor buffer
+ addresses on resume
+From: netdev-bot+sashiko@kernel.org
+To: dinghui1111@163.com
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
+ liuxuanjun@lixiang.com, zhoujing3@lixiang.com, fujiahui@lixiang.com
+Date: Mon, 26 Oct 2026 11:10:37 +0000
+Message-ID: <179301303716.3134.2346618514026272618@kernel.org>
+In-Reply-To: <20261025100636.613670-3-dinghui1111@163.com>
+References: <20261025100636.613670-3-dinghui1111@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,158 +67,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-drm-panel-funcs-v1-10-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
-In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
-To: Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jyri Sarha <jyri.sarha@iki.fi>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
-        Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-        Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Biju Das <biju.das.jz@bp.renesas.com>,
-        Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
-        =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
-        Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>,
-        Seung-Woo Kim <sw0312.kim@samsung.com>,
-        Kyungmin Park <kyungmin.park@samsung.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Alison Wang <alison.wang@nxp.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Yannick Fertre <yannick.fertre@foss.st.com>,
-        Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-        Philippe Cornu <philippe.cornu@foss.st.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Mikko Perttunen <mperttunen@nvidia.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Igor Reznichenko <igor@reznichenko.net>,
-        Michael Walle <mwalle@kernel.org>,
-        Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-        Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
-        =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
-        Purism Kernel Team <kernel@puri.sm>,
-        Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
-        Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
-        Michael Trimarchi <michael@amarulasolutions.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Casey Connolly <casey.connolly@linaro.org>,
-        Michael Tretter <m.tretter@pengutronix.de>,
-        Cristian Cozzolino <cristian_ci@protonmail.com>,
-        Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>,
-        Nickolay Goppen <setotau@mainlining.org>,
-        Stefan Mavrodiev <stefan@olimex.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Robert Chiras <robert.chiras@nxp.com>,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Markuss Broks <markuss.broks@gmail.com>,
-        Artur Weber <aweber.kernel@gmail.com>,
-        David Heidelberg <david@ixit.cz>,
-        Dzmitry Sankouski <dsankouski@gmail.com>,
-        Yedaya Katsman <yedaya.ka@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-mips@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
-        linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
-        linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=946;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=CmM8Wphvynv0lIRI1+4+EqPH050ei17LGuNpAlAxYlU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zUKQ7TIU2XRP7HZmWCiTiNqZj11gfIKhJErO
- DHDY9rbRdyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81CgAKCRCLPIo+Aiko
- 1YPGB/9rhW1ooU6FBzQ1pckqwHPnHHWFmRJFIB1Fpi/hiCtnjoh9PtNUR4MQKjC/rH3//hU3uFC
- nozE52P+NNx700phAyOXXZC7YRZJaCErlJn5BFFr1JiexNs20CTS6K7tejSh8TK2Y76rZUxhrrV
- Y2loDvttO806mSD/DRpUdu9ahHaiE+NhyJI0EW7G4jjWOQyvpEpueI9gklyFlhdEPlnarBK/s3f
- K5h9NwlLkyegQ9nvNlccObPXL5xrzNK+KqqmPhcUyPmVR3mJ1zA9ApXMADNC6Vdjq2EOaPrBcBs
- 8rGmFy+GqfVfwsz798jK6AMPQ1yrjM6732SGR4Ykn3ZWK5IA
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX+0xruwX0XxdK
- NaZM3KPXeECfbXqr6u1XYXsPwQ/2pmDgzq8dDR9PyIpLXIQtVWQO/PG/AYMaQ2t02ACEkUxXyBx
- Jx0tNYmYTZIw3I/17X7fy/aX7b+1KOU=
-X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6adf3532 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=6PQUdDDLQLJ_jpbVOC0A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: 7ermvJBA7p36TsVmIpHnKx08QTSUoYpW
-X-Proofpoint-ORIG-GUID: 7ermvJBA7p36TsVmIpHnKx08QTSUoYpW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX00iHc7O0LgPi
- mfZIZ7ky+QG0X1FmlMKMuN1HWRtkE32KiQevtlTvYsLWjptYqn7jEJ6HDb5nY2SictohtaBTyXL
- KxUVG5isOy7LmJCMPzNuprpbYIiHVd3okir7lkc5KR3w5+mrqqOefDxBlNrRXV0GiuT4x6KgLRw
- TF1of+cvBqVsEGQL+86xMtDYPLcgRtWdQ6twXivd2N9bKa5K0a/zuLwTz/6ba2XG6SRmcJfU5BZ
- A3yIWjC+6+bW6sSp3opmwjBU3+jZxp1HXXBhXex0AhzCQRnu7PdrmrDqf7HcFXMqnfRo1fbIoW8
- zlrAZiFOodXTI9xseGjk1zgpIzaW07sECffui3qg2aUmC35ArvOQNhmMFIhYrmeRRP74kqSswkG
- p/PbJPKg2O37Eax5y8AahvPc0osXJnb+ZDnaEF/2tzI6wjHhKl4aTOG3AgDhQpSRKNDYu1o5rHW
- tneZKuhWEtfu6h+SOPQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260044
 
-The connector type passed to drm_panel_bridge_add_typed() has been
-ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
-every drm_panel"), the bridge always has the type of the panel.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/pl111/pl111_drv.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Critical: 0 · High: 2 · Medium: 1 · Low: 1 (1)
 
-diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-index 89d44e970510..d172cbb95d02 100644
---- a/drivers/gpu/drm/pl111/pl111_drv.c
-+++ b/drivers/gpu/drm/pl111/pl111_drv.c
-@@ -143,8 +143,7 @@ static int pl111_modeset_init(struct drm_device *dev)
- 		return -EPROBE_DEFER;
- 
- 	if (panel) {
--		bridge = drm_panel_bridge_add_typed(panel,
--						    DRM_MODE_CONNECTOR_Unknown);
-+		bridge = drm_panel_bridge_add(panel);
- 		drm_panel_put(panel);
- 		if (IS_ERR(bridge)) {
- 			ret = PTR_ERR(bridge);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] On cores with legacy enhanced/normal descriptors (DWMAC100,
+  DWMAC1000, DWMAC 3.x: enh_desc_ops and ndesc_ops), an XSK RX slot with…
+- [High] On GMAC4/XGMAC, the XSK 'leave CPU-owned holes' approach puts
+  unfilled slots in the middle of the ring, inside the region the RX…
+- [Medium] The patch adds an allocation-dependent way for stmmac_resume()
+  to fail, and that failure leaves the netdev unrecoverable.
+- [Low] stmmac_reinit_rx_descriptors() publishes every restored
+  descriptor with stmmac_set_rx_owner(priv, p, false), so…
+
+Pre-existing issues:
+- [Low] stmmac_reinit_rx_descriptors() can attach XSK buffers to slots
+  that had none at open or pool-enable time, but it never updates…
+
+--
+
+net: stmmac: restore RX descriptor buffer addresses on resume
+
+This patch restores RX descriptor buffer addresses in stmmac_resume() after
+stmmac_clear_descriptors(). On GMAC4/XGMAC, hardware writeback can overwrite
+those addresses for descriptors that completed but were not refilled before
+suspend. It moves buffer setup into stmmac_prepare_rx_buffer() and
+stmmac_prepare_rx_buffer_zc(), which the refill paths also use, allocates
+missing pages with GFP_KERNEL, and leaves XSK slots that have no buffer
+CPU-owned.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f5ae12208e85b..e56f5d044fc8a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+
+[ ... ]
+
+> @@ -1688,32 +1722,98 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv,
+
+[ ... ]
+
+> +static int stmmac_reinit_rx_descriptors(struct stmmac_priv *priv,
+> +					struct stmmac_dma_conf *dma_conf,
+> +					u32 queue)
+> +{
+> +	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
+> +	struct stmmac_rx_buffer *buf;
+> +	struct dma_desc *p;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < dma_conf->dma_rx_size; i++) {
+> +		buf = &rx_q->buf_pool[i];
+> +		p = stmmac_get_rx_desc(priv, rx_q, i);
+> +
+> +		if (rx_q->xsk_pool) {
+> +			ret = stmmac_prepare_rx_buffer_zc(priv, rx_q, buf, p);
+
+[Severity: Low]
+This is a pre-existing issue, not one introduced by this patch, but
+rx_q->buf_alloc_num is not updated when this loop attaches XSK buffers to
+slots that had none at open time.
+
+stmmac_hw_setup()->stmmac_init_dma_engine() programs the RX tail from it:
+
+	stmmac_set_queue_rx_tail_ptr(priv, rx_q, chan,
+				     rx_q->buf_alloc_num);
+
+Also, stmmac_set_queue_rx_buf_size() uses the XSK frame size only when
+buf_alloc_num is non-zero.
+
+If the fill ring was short at open, slots filled here at index
+buf_alloc_num or above may lie beyond the programmed tail. If
+buf_alloc_num is 0, the buffer size falls back to dma_buf_sz.
+
+The open path uses the same stale value, and so did the code before this
+patch, so this is only a bookkeeping mismatch.
+
+> +			if (ret) {
+> +				/* An empty fill ring must not prevent TX-only use. */
+> +				stmmac_clear_desc(priv, p);
+> +				continue;
+> +			}
+
+[Severity: High]
+On cores with the legacy enh_desc_ops or ndesc_ops, does this leave the
+slot DMA-owned with a buffer address of 0?
+
+stmmac_clear_descriptors() has just run init_rx_desc on every RX
+descriptor, and that sets OWN in des0:
+
+enh_desc_init_rx_desc() {
+    ...
+	p->des0 |= cpu_to_le32(RDES0_OWN);
+    ...
+}
+
+On these cores, the ->clear op only clears des2:
+
+static void enh_desc_clear(struct dma_desc *p)
+{
+	p->des2 = 0;
+}
+
+static void ndesc_clear(struct dma_desc *p)
+{
+	p->des2 = 0;
+}
+
+The final loop below skips this slot when !buf->xdp, but nothing clears
+OWN. These DMA engines have no RX tail pointer, so the DMA keeps walking
+the ring while OWN is set. The next frame that lands in this slot would be
+written to bus address 0.
+
+XSK zero-copy is advertised on every core (NETDEV_XDP_ACT_XSK_ZEROCOPY in
+xdp_features), and stmmac_xdp_enable_pool() has no descriptor-format
+check, so these cores can reach this path.
+
+Before this patch, des2 here still held the previous, still-mapped UMEM
+chunk address. The commit message says such a slot "must not receive an
+invalid buffer address".
+
+Could OWN be cleared explicitly here, for example RDES0_OWN in des0 on
+enh/ndesc? Only dwmac4 and xgmac zero the whole descriptor in ->clear.
+
+[Severity: High]
+On GMAC4/XGMAC, can a CPU-owned hole in the middle of the ring stall RX on
+this queue permanently?
+
+stmmac_reset_queues_param() has set cur_rx = dirty_rx = 0, so a hole at
+slot D sits in the region the RX path treats as hardware-owned. The DMA
+fills slots 0 to D-1 and stops at D with an RBU event.
+
+In stmmac_rx_zc(), dwmac4_wrback_get_rx_status() does not report a fully
+zeroed descriptor as dma_own. So cur_rx moves to D+1 before the missing
+buffer is noticed:
+
+stmmac_rx_zc() {
+    ...
+	rx_q->cur_rx = next_entry;
+    ...
+	if (!buf->xdp)
+		break;
+    ...
+}
+
+stmmac_rx_zc() is the only caller of the refill, and only once the dirty
+count reaches STMMAC_RX_FILL_BATCH:
+
+	if (dirty >= STMMAC_RX_FILL_BATCH) {
+		failure = failure ||
+			  !stmmac_rx_refill_zc(priv, queue, dirty);
+
+If D < 15, dirty stays at D+1, the hole is never refilled, and the DMA
+stays stopped at D. stmmac_xsk_wakeup() only schedules NAPI, so refilling
+the fill ring from userspace does not recover the queue.
+
+If D >= 15, a later refill fills D and moves the tail. Software has already
+moved past D, though, so that frame would be consumed a full ring later
+and out of order.
+
+Could the holes be placed in the dirty region instead, for example by
+setting dirty_rx and the tail to the first unfilled slot?
+
+> +		} else {
+> +			ret = stmmac_init_rx_buffers(priv, dma_conf, p, i,
+> +						     GFP_KERNEL, queue);
+> +			if (ret)
+> +				return ret;
+> +		}
+>  	}
+
+[ ... ]
+
+> +	/* GMAC4/XGMAC secondary address writes overwrite the OWN bit. */
+> +	dma_wmb();
+> +	for (i = 0; i < dma_conf->dma_rx_size; i++) {
+> +		buf = &rx_q->buf_pool[i];
+> +		if (rx_q->xsk_pool && !buf->xdp)
+> +			continue;
+> +
+> +		p = stmmac_get_rx_desc(priv, rx_q, i);
+> +		stmmac_set_rx_owner(priv, p, false);
+
+[Severity: Low]
+Should the disable_rx_ic argument here follow priv->use_riwt instead of
+always being false?
+
+stmmac_clear_rx_descriptors() passes priv->use_riwt as disable_rx_ic. On
+GMAC4/XGMAC that choice is lost, because dwmac4_set_sec_addr() assigns
+des3 outright:
+
+	p->des2 = cpu_to_le32(lower_32_bits(addr));
+	p->des3 = cpu_to_le32(upper_32_bits(addr));
+
+This loop then always sets IOC through dwmac4_set_rx_owner():
+
+	if (!disable_rx_ic)
+		flags |= RDES3_INT_ON_COMPLETION_EN;
+
+With RIWT coalescing enabled, every descriptor in the first ring pass
+after resume would raise a completion interrupt. That continues until
+stmmac_rx_refill() or stmmac_rx_refill_zc() re-arm the descriptors using
+stmmac_rx_need_ic().
+
+> +	}
+>  
+>  	return 0;
+>  }
+
+[ ... ]
+
+> @@ -8503,6 +8577,18 @@ int stmmac_resume(struct device *dev)
+>  	stmmac_free_tx_skbufs(priv);
+>  	stmmac_clear_descriptors(priv, &priv->dma_conf);
+>  
+> +	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++) {
+> +		ret = stmmac_reinit_rx_descriptors(priv, &priv->dma_conf, queue);
+> +		if (ret) {
+> +			netdev_err(ndev, "Failed to restore RX queue %u: %d\n",
+> +				   queue, ret);
+> +			stmmac_legacy_serdes_power_down(priv);
+> +			mutex_unlock(&priv->lock);
+> +			rtnl_unlock();
+> +			return ret;
+> +		}
+> +	}
+
+[Severity: Medium]
+If stmmac_reinit_rx_descriptors() returns -ENOMEM here, what state is the
+netdev left in?
+
+This early return skips stmmac_enable_all_queues(), phylink_resume() and
+netif_device_attach(). NAPI stays disabled from stmmac_suspend(), the
+device stays detached, and phylink_prepare_resume() is never matched by
+phylink_resume(). netif_running() is still true.
+
+A later close then runs:
+
+dev_close()
+  stmmac_release()
+    __stmmac_release()
+      stmmac_disable_all_queues()
+        napi_disable()
+
+on NAPI instances that are already disabled. napi_disable_locked() waits
+for NAPIF_STATE_SCHED to clear, but that bit is still set from the first
+disable, so the close would hang with RTNL held.
+
+The existing stmmac_hw_setup() failure path has the same problem. This
+patch adds a new trigger that depends on a GFP_KERNEL allocation
+succeeding during system resume.
+
+The XSK branch already tolerates missing buffers. Could the page_pool
+branch do the same, for example by leaving the slot CPU-owned for the
+refill path to retry, instead of failing the whole resume?
+
+>  	ret = stmmac_hw_setup(ndev);
+>  	if (ret < 0) {
+>  		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
 
 -- 
-2.47.3
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025100636.613670-1-dinghui1111%40163.com
