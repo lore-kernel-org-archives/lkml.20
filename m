@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793037810;
-	b=b7ypT4Xz5MBb1ErcExz+iViblH/s+dw3gBaORZpPXKVTrc3x80MWGAwjelh1MMqOmYK3
-	 jAyeUBfQCNRn0HFlacgE+4PJh4QcXpN4/Sx7Fh+81ZZAuA3nizzGOrARygpqKaPovI/xm
-	 EUgZWjaVqp6G0nPwd+T9KEHHk70bd5p/ZPs+BkX5GY47CCh0Y2EkR6/xCLyaui3BYljaT
-	 8J8HqlHtBqD1uy5FEzPc24Lopa6VfWQhafdGDkqD5uuuqMxlhOatrCLGdiFZwWKd6kzUJ
-	 OtUqNibl01kcqssR/cRWoid//vEKd/L2ZFholurPiAotnddjjgBD9ZCeROah1M4tAqw==
+	t=1793037863;
+	b=VL5EdYdPft+d5nQd6MANu7R8KXZwfQeIkNjSgBGqhS/a2a3aRjj8eOjbQRjzYPyei0cT
+	 EWAPC+g94R4ZNqxn0tqx0p3ZC3l2biDW3F/309XPHXOXsNJMunm/oFlRJjb4ur+yBQwRj
+	 QEQjvdIu6LnGcuN9TiGzLEqV7ApAssWcvmLGwOwuSsQ8yljo/AaLo1t+dQyU4j29HllPP
+	 p3VvJL8L+5+/92616kP0WPG7/68E/bmihgnYvgGwFWOFMufA6zktDKxCihh84rv0pFy9u
+	 q7QM7v0CwsfZOy/zdI/X2JY9hK93p0IA7cZdsMdPak4VeVd8uNqLHzdMMvZxT3IZfMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793037810;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZGfhbMJ/Bq8RW33Qn3L2N5puzXq/jauQ20IbTGUD3gA=;
-	b=5C/1voUeJzAbGPRq9Cdg7Pd/EFNs3RZCsS7pazMjO/KzfQ1rl99YRC9CT8jRQ2BGT+UY
-	 J/yHb/4E6inG3iGcgA6wM1EVvHE1pxuqXDWufEi2C4t32Da1/wuzxD3UldMJUYoCZVmWz
-	 CVX/whEbkTJIzKtkAgRMxsUMK/jxwlH/Bv/uwt5tLnChY0JQkOEjuUaanOv0VYalLYe4r
-	 UTgioVOK6th9+viviJHgk80WCeqQKgjU3PZJMa/P1ZwJqDLTLi7qTxqJimBnEovzM4dqE
-	 LjO+/5i45seGqhcaMf6C45hwtk24ylrEjSBJYelAb/LCphGMZJNlFjx964iqimfQr1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793037863;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9uxlLJEsA1bXTEHp1c6LcwARsGRwFYTcu3KTbRjTHlA=;
+	b=gF2B0zhvpLli0TP5aKc6TXmHMO1l7dShYXqclEZAdDR0NjkM2B+lEAw8JutTjuvjOofh
+	 aYakf3JD9Qgbb2OLKGs8SVLE/s5o4dDemcX+Ae//CX2+DeFqlKAlqMqa5xcn4bjVyrJSk
+	 1HwhyZTKt1XvvpjEkjvqvXTDW4TmCkG6nFuehwNMyjbWYkNkWZLQ8ut8hY0gvbEqPeZKQ
+	 n1Kv/f6INswONMCSHxfr9VJyERCTqm7sWxSxZcCDXtbdGMTBe+q65vuBPX4n1ukSg1eLK
+	 S3Y4D59hXmwUVMzAotOH9uwWBPMc52fJXHUMYjg3hNNd1r5e4WVCxQlKP2nuFH1dt6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qsFyJabm;
-	arc=none smtp.remote-ip=91.218.175.210
-Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nbNDw0R/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E586606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E586606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF2C606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qsFyJabm
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jd+kz/aI9oXvAG5N4SqNBIQGQx9IapU9wZjha2/PjJo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793037806; v=1; x=1793642606;
- b=qsFyJabmrGlBuDBOT4UPhZL1iSFFGSRd0kc6d43qICy47BsbTHg3/YYIBU1rvLTMgUsY9bMU
- 0lzFGx4jgW31XKO3H/jVgZuWMr4sIoFQ+V72EFtTf1Q05I28jbvkPPE0lFAxBXgzLowQxHrKSTB
- zjbJWa3CV3SKaP97nU6TE898=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fee45a2cfa3ddcd5;
-	Mon, 26 Oct 2026 18:03:25 +0000
-X-Mizu-Trace-ID: fee45a2cfa3ddcd5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5337419b-9421-462e-9e99-30006b4c2b25@linux.dev>
-Date: Mon, 26 Oct 2026 19:03:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nbNDw0R/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B4D1F031E0
+	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793037857;
+	bh=9uxlLJEsA1bXTEHp1c6LcwARsGRwFYTcu3KTbRjTHlA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nbNDw0R/EpYHYoifQ3AZeula7uMg6lFVErZjDVExn+hx8a2bL4/rSPvN0FJYwK7ln
+	 DCqyTsBm431pvy/lhvvKteMb9mGXbuUBTT37epr7Ka/AHMMxplEnenbqSdPpey5d0p
+	 p/CqYUnu3MRiOQ2M5BN7wRGtKMi0rfFqQPmoPEQ/97KjyXKbrKK7W1KP6T5DNBKmzX
+	 jC6iFfanNZbxiUEUuJqS4ql8ITCmHnXvqbgeF/MLzxZ4f9ZK3rHSdcE02bhTgh8QCc
+	 NQ6QMG+BB/yl4lY4JPgZVDHrQrRu2GDFEYCM03HSxzsca5raoht9A/2rpxjPyyFXon
+	 CryRac76Xjoqw==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4682977f9aso385476466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 11:04:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzJvXQJLpQEw5pn2WTrWsX4jQeeeaxTa5L8H8IU2LSid/7w55a9cd//AqqQiJXzcUS4yUJYC0gJ5EW0xP0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJm1povYAlntlbyiaeQj4OCb1Q1ia0ZdqrkrvKYT9bqJrrIQUiD
+	qpdrRIMMf5+29GvnxjhpgSDb23PoU4EMnMMvhNMChIiW1I+BijHiGZ/Z56OajW6HQYZqnwMEKIZ
+	1Tl8moogb4GO64cunNzwHgcqVZMLULNw=
+X-Received: by 2002:a17:907:7fa5:b0:c40:dead:7466 with SMTP id
+ a640c23a62f3a-c46bdc0ea2bmr844359966b.20.1793037856284; Mon, 26 Oct 2026
+ 11:04:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,467 +59,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 00/18] HID: asus: add support for ROG Ally handhelds
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
- linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org,
- Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- "Luke D . Jones" <luke@ljones.dev>,
- Mateusz Schwartz <matthew.schwartz@linux.dev>,
- Denis Benato <benato.denis96@gmail.com>, Jonathan LoBue
- <jlobue10@gmail.com>, Khamunetri Clark <khamunetriclark@gmail.com>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- Nathan Chancellor <nathan@kernel.org>,
- =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
- Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>,
- Hans de Goede <hansg@kernel.org>
-References: <20261025235232.129945-1-denis.benato@linux.dev>
- <731baed2-60c3-c7ba-5777-68c49f8ee4db@linux.intel.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <731baed2-60c3-c7ba-5777-68c49f8ee4db@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261022215541.631694-1-seanjc@google.com> <CAO9r8zPFEwUVYSTePWN-FurHLzGN6cY8bd-BOj3sjRmjj4xQbA@mail.gmail.com>
+ <at-Pfgjt__PJl55M@google.com>
+In-Reply-To: <at-Pfgjt__PJl55M@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 26 Oct 2026 11:04:04 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPAvi0vCENtj+7+gVrojB2nOHEoYfyhgdgxpmiUA2kWgQ@mail.gmail.com>
+X-Gm-Features: AclHuK-_mV-_o8oyTvjNfVPUxDkJ4-4h_LvJxqYkxEhvrUiyoB5NiBgnQwLbofA
+Message-ID: <CAO9r8zPAvi0vCENtj+7+gVrojB2nOHEoYfyhgdgxpmiUA2kWgQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] KVM: x86: Convert all runtime WARNs to ONCE
+To: Sean Christopherson <seanjc@google.com>
+Cc: Vitaly Kuznetsov <vkuznets@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 10/26/26 15:24, Ilpo Järvinen wrote:
-> On Sun, 25 Oct 2026, Denis Benato wrote:
+On Mon, Oct 26, 2026 at 10:36=E2=80=AFAM Sean Christopherson <seanjc@google=
+.com> wrote:
 >
->> Hi all,
->>
->> This patch series adds support for ROG Ally handhelds in the HID driver 
->> for ASUS devices. 
->>
->> The changes include reinitialization of the device after exiting a sleep state,
->> gamepad configuration, vibration strength configuration, joysticks and triggers
->> range configuration, anti-deadzone configuration, response curve support,
->> force feedback support, gamepad mode support, turbo buttons support,
->> and button remapping support.
->>
->> This driver is based on the original Luke's work, which was a great starting point
->> and I have reworked it to be upstreamable, while keeping the original functionality
->> intact and extending hid-asus to avoid regressions in functionality such as the
->> backlight control.
->>
->> The ally support has been a surprisingly long task, spanning multiple years and
->> being used in Steam OS and well as other distributions for quite a while,
->> and I am happy to finally be submitting it.
->>
->> At this time LEDs are not part of the patch series as I have work in progress to
->> unify LEDs handling across all ASUS devices, and I will submit that in a separate
->> patch series when the userspace interface will be ready to express capabilities
->> of these devices, but that will take some more time.
->>
->> This driver is the culmination of a lot of work, from many different people,
->> and I want to thank Luke for his original work, as well as the many people that have
->> helped me test and provide feedback on the driver: Khamunetri, Jonathan, Derek,
->> Matthew and others that have helped during these years.
-> I've not read it mostly through.
+> On Fri, Oct 23, 2026, Yosry Ahmed wrote:
+> > On Thu, Oct 22, 2026 at 2:55=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > Convert all bare WARN() and WARN_ON() runtime usage, i.e. WARNs that =
+aren't
+> > > strictly scoped to module init/exit, or similar, to ONCE() variants f=
+or what
+> > > should be fairly obvious reasons at this point.
+> >
+> > Do you wanna CC stable?
 >
-> I'm far from convinced when it comes to the locking. I always find it very 
-> suspicious when a lock is taken just to read/write a variabl, as 
-> immediately after releasing the lock, the protection is lost so the locks 
-> look either overkill (just a barrier would suffice for racing with init) 
-> or unsafe (racing with uninit/remove). My head hurts enough from all the 
-> readong so I don't want go figure out which one it is.
-
-Ilpo and Sakari,
-
-Thank you very much! It's very good to see an actual review after all this time!
-Well it has been 3-4 months but feels a very long time.
-
-The first version of this was posted in the lkml in 2024 and after that only sashiko-bot
-provided more inputs so I followed that, perhaps too much.
-
-It's very good to see humans!
-
-> Code quality varies a lot, there are some fragments that seem almost 
-> braindead but then some other parts use modern things like cleanup.h 
-> helpers, so it's a mixed bag. My suggestion is would be for you to do a 
-> full self-review of the series so you could catch the bits I missed (I 
-> know it's a lot of lines, but hey, I've read it myself now so I know what 
-> it means to review it through(!)). I know you generally seem able to 
-> provide good review feedback for others and write clean looking patches so 
-> it's probably just some of the code originates from other people and 
-> you've not just looked enough lines to clean it up properly.
-
-Yeah... When I picked up Luke's work I took a lot of time (months) to modernize
-the source as much as possible, then sashiko-bot found problem and either me or glm
-fixed something, both of us reflecting how we woke up that morning, plus back and forth
-with issues and things changed one way and back when I realized the approach was
-going nowhere... And code that worked that was later changed leaving it suboptimal...
-Loads of changes from both humans and LLMs (albeit the main culprit is me hahahah).
-
-The xgm code was put together in two days from captures I ran in windows while
-also fixing the MSI claw...
-
-I'm not surprised this is a mixed bag. Oh well, I'm going to clean it up and make it very cool...
-And I am already having ideas on how to replace the complex probe machinery that prevents
-rogue devices with something more readable (and hopefully less long, because more than
-5k lines of dense hid code is by far the longest modification I have ever attempted to linux).
-
-I will take some days to properly review this and address comments over time!
-Thank you very much again!
-
-Best regards,
-Denis Benato
-
+> Not really?  Maybe?  I worry that this will generate an absurd number of =
+conflicts
+> and also have "misses" in older kernels, to the point where it oculd do m=
+ore harm
+> than good.
 >
-> --
->  i.
->
->
->> Best regards,
->> Denis Benato
->>
->> Link v1: https://lore.kernel.org/all/20260813144736.2477941-1-denis.benato@linux.dev/
->> Link v2: https://lore.kernel.org/all/20260819195835.1649657-1-denis.benato@linux.dev/
->> Link v3: https://lore.kernel.org/all/20260823185849.2478673-2-denis.benato@linux.dev/
->> Link v4: https://lore.kernel.org/all/20260830234320.114356-1-denis.benato@linux.dev/
->> Link v5: https://lore.kernel.org/all/20260904145845.184887-1-denis.benato@linux.dev/
->> Link v6: https://lore.kernel.org/all/20260908174433.74260-1-denis.benato@linux.dev/
->> Link v7: https://lore.kernel.org/all/20260915201314.28279-1-denis.benato@linux.dev/
->> Link v8: https://lore.kernel.org/all/20260922230205.6847-1-denis.benato@linux.dev/
->> Link v9: https://lore.kernel.org/all/20261009122820.7603-1-denis.benato@linux.dev/
->> Link v10: https://lore.kernel.org/all/20261017181520.70206-1-denis.benato@linux.dev/
->>
->> Version v11 has been more involved and I focused on two main things: extending the
->> xg mobile (which the ROG ally is one of the few models that supports it) and
->> properly handling hid packet sizes because it has been a constant source of issues
->> and fight in the past and I want to put an end to both of those.
->>
->> I kindly ask Rebecca and Paolo to try using the new asus_report_len() to see if its
->> also suitable for theirs Zenbook Duo devices and if so to adopt it in theirs patches
->> as well.
->>
->> Link of a relevant patchset: https://lore.kernel.org/all/20261020092423.36380-1-p.pisati@gmail.com/
->>
->> Version v10 drops a patch already merged as part of XG mobile and applies the
->> patchset on top of for-next/7.4.
->>
->> With v8 the driver does sysfs_notify after successfully changing configuration
->> attributes so that userspace can be notified of the changes immediately.
->>
->> With v7 the series is rebased on top of the asus tree: the first patch of v6
->> has been applied upstream as 8099f9da59f1 ("HID: asus: do not send keyboard
->> init reports to touchpads"), so this series is now 12 patches.
->>
->> The probe paths of the ally interfaces now reserve the interface role while
->> their initialization is running, the configuration attributes work from the
->> moment their files exist and a failed initialization rolls the configuration
->> back instead of leaving the created sysfs groups behind. The response curve
->> is no longer configured entry by entry: a single attribute per joystick now
->> takes the whole curve in one validated write, and a companion index file
->> documents what each value is.
->>
->> With v5 I returned to the original manual management of memory and sysfs groups
->> as going devm did not play well with the general "plugin" architecture of the
->> ally portion of the driver and has caused more bugs than it solved: sashiko-bot
->> will have to come to terms with hand-managed memory this time.
->>
->> Changelog:
->>
->> -v2
->>   - HID: asus: add support for ROG Ally handhelds
->>    - release all vendor buttons on resume
->>    - align arguments of hid_asus_ally_raw_event()
->>   - HID: asus: add gamepad configuration
->>    - clean up comments and kernel-doc
->>   - HID: asus: add vibration strength configuration
->>    - clean up comments and kernel-doc
->>   - HID: asus: add joysticks inner and outer range configuration
->>    - clean up comments and kernel-doc
->>   - HID: asus: add triggers inner and outer range configuration
->>    - clean up comments and kernel-doc
->>   - HID: asus: add joysticks anti-deadzone configuration
->>    - clean up comments and kernel-doc
->>   - HID: asus: add support for response curve
->>    - normalize kernel-doc comment
->>   - HID: asus: add support to force feedback
->>    - remove a stale comment
->>   - HID: asus: add support for gamepad mode
->>    - remove a stale comment, normalize kernel-doc
->>   - HID: asus: add support for turbo buttons
->>    - remove stale comments, normalize kernel-doc
->>   - HID: asus: add support for btn remapping
->>    - convert function comments to kernel-doc
->>
->> -v3
->>   - HID: asus: add support for ROG Ally handhelds
->>    - take references on input devices to avoid use-after-free on unbind
->>    - reject probes from USB devices other than the recorded controller
->>    - add open/close callbacks to the gamepad input device
->>    - keyboard_input is populated after hid_hw_start(): issue does not apply
->>   - HID: asus: add gamepad configuration
->>    - restore cached Xbox controller mode after an MCU reset
->>    - convert remaining scoped_guard() users to guard()
->>    - avoid printing "(null)" for unnamed sysfs groups
->>   - HID: asus: add vibration strength configuration
->>    - send MCU commands through ally_gamepad_send_packet()
->>   - HID: asus: add joysticks inner and outer range configuration
->>    - send MCU commands through ally_gamepad_send_packet()
->>    - gate sysfs groups and callbacks on capabilities
->>   - HID: asus: add triggers inner and outer range configuration
->>    - send MCU commands through ally_gamepad_send_packet()
->>    - gate sysfs groups and callbacks on capabilities
->>   - HID: asus: add joysticks anti-deadzone configuration
->>    - send MCU commands through ally_gamepad_send_packet()
->>    - gate sysfs groups and callbacks on capabilities
->>   - HID: asus: add support for response curve
->>    - send MCU commands through ally_gamepad_send_packet()
->>    - check resp_curve_support in show callbacks too
->>   - HID: asus: add support to force feedback
->>    - read ally_x_hdev under ally_data_lock and take a reference on it
->>    - publish ally_x_hdev before registering the input device
->>   - HID: asus: add support for gamepad mode
->>    - convert remaining scoped_guard() users to guard()
->>   - HID: asus: add support for turbo buttons
->>    - pass the config pointer directly to ally_config_remove()
->>    - run ally_config_remove() outside ally_data_lock
->>    - restore cached values when the hardware rejects an update
->>    - check turbo_support in show callbacks too
->>    - reported scoped_guard warning verified as false positive
->>   - HID: asus: add support for btn remapping
->>    - look up default mappings by name instead of array index
->>    - resend the old mapping when a sequential update fails midway
->>    - allow macros regardless of the gamepad mode
->>    - rename PAD_* codes to proper input event names
->>    - convert remaining scoped_guard() users to guard()
->>
->> - v4
->>   - HID: asus: do not send keyboard init reports to touchpads
->>     - Added to avoid regressting touchpads and as guidance for maintainers
->>   - HID: asus: reinitialize the device after exiting a sleep state
->>     - Follow the modified logic of the previous patch
->>   - Addressed issues of sashiko-bot albeit one was a false positive
->>   - Rework patches: I made some disasters rebasing in v3
->>
->> - v5
->>   - HID: asus: add support for ROG Ally handhelds
->>     - Fix UAF due to inverted input device ownership in hid_asus_ally_remove()
->>     - Reject probes claiming an interface role that is already owned
->>   - HID: asus: add gamepad configuration
->>     - Keep the configuration allocated until module removal instead of
->>       devm-managing it: the sysfs callbacks must be able to outlive probe
->>     - Undo sysfs group creation manually on the error path and in
->>       ally_config_remove(): creation and removal are now symmetric
->>     - Add payloads size check in ally_alloc_cmd()
->>   - HID: asus: add vibration strength configuration
->>     - Restore the cached vibration intensity after an MCU reset
->>   - HID: asus: add joysticks inner and outer range configuration
->>     - Restore the cached joystick thresholds after an MCU reset
->>     - Remove the calibration sysfs groups manually like the other ones
->>   - HID: asus: add triggers inner and outer range configuration
->>     - Restore the cached trigger ranges after an MCU reset
->>   - HID: asus: add joysticks anti-deadzone configuration
->>     - Restore the cached anti-deadzone values after an MCU reset
->>   - HID: asus: add support for response curve
->>     - Restore the cached response curves after an MCU reset
->>     - Keep holding config_mutex until the curve packet has been sent
->>   - HID: asus: add support to force feedback
->>     - Serialize the cross-interface force-feedback sends with the gamepad
->>       interface removal by holding intf_mutex in the callers
->>   - HID: asus: add support for gamepad mode
->>     - Restore the recorded gamepad mode after an MCU reset
->>   - HID: asus: add support for turbo buttons
->>     - Fix UAF allocating the turbo button entries with kcalloc
->>     - Restore the cached turbo parameters after an MCU reset
->>   - HID: asus: add support for btn remapping
->>     - Keep the button mappings outside of the controller lifetime, so
->>       that the recorded configuration survives a re-probe
->>     - Re-apply the recorded mappings after an MCU reset
->>     - Fetch the configuration through ally_get_config()
->>
->> - v6
->>   - HID: asus: add support for ROG Ally handhelds
->>     - Add a maximum size check in ally_alloc_cmd()
->>     - Drop the dead x_hdev snapshot taken in hid_asus_ally_raw_event()
->>     - Drop the unused hdev parameter of handle_ctrl_alt_del()
->>     - Drop the unused hdev/report parameters of ally_x_raw_event()
->>     - Turn the "// F20;" comment into a proper "/* F20 */"
->>   - HID: asus: add gamepad configuration
->>     - Publish the configuration (ally->config under ally_data_lock)
->>       before the sysfs groups are created and withdraw it on the error
->>       path: attributes could become visible while ally_get_config()
->>       still returned NULL and the restore path silently did nothing
->>     - Record the Xbox controller mode in the first-setup defaults and
->>       apply the recorded value from hid_asus_ally_init()
->>     - properly rebase ally_alloc_cmd(): make it no change from previous patch
->>   - HID: asus: add joysticks inner and outer range configuration
->>     - Drop the unused cfg parameter of ally_set_joystick_thresholds()
->>   - HID: asus: add triggers inner and outer range configuration
->>     - Drop the unused cfg parameter of ally_set_trigger_ranges()
->>     - Fix a commit message typo: "sensitivity"
->>   - HID: asus: add support for response curve
->>     - Add ally_resp_curve_is_valid() and use it in the init/resume
->>       restore path exactly like the apply path does
->>     - Drop the unused struct device * parameter of the four
->>       response-curve helpers
->>   - HID: asus: add support to force feedback
->>     - Drop the unused pointers from ally_x_send_ff_report() and ally_x_send_ff_off()
->>   - HID: asus: add support for gamepad mode
->>     - Apply the mode exactly once from hid_asus_ally_init()
->>   - HID: asus: add support for turbo buttons
->>     - Remove the calibration groups created before a sysfs failure
->>   - HID: asus: add support for btn remapping
->>     - Do not gate remapping by turbo
->>     - Reject NULL remap/macro pointers in ally_set_button_mapping()
->>     - Carry the ally pointer in struct button_remap_attr
->>     - Fix the "hypen" comment typo
->>
->> - v7
->>   - The "HID: asus: do not send keyboard init reports to touchpads" patch
->>     is not part of this series anymore: it has been applied upstream as
->>     8099f9da59f1 and the series is rebased on top of it
->>   - HID: asus: add support for ROG Ally handhelds
->>     - Reserve the probed interface role for the whole duration of its
->>       sleeping initialization: a concurrent probe of the same role could
->>       pass the singleton checks before the first one published its pointer
->>   - HID: asus: add gamepad configuration
->>     - Publish drvdata->rog_ally before the configuration attributes are
->>       created: the callbacks fetched it before asus_probe() published it
->>       and returned -ENODEV in the meantime
->>     - Roll the configuration back with ally_config_remove() when
->>       hid_asus_ally_init() fails, instead of leaking the created sysfs
->>       groups and the button entries
->>   - HID: asus: add support for response curve
->>     - Replace response_curve_pct_1..4, response_curve_move_1..4 and the
->>       apply attributes with one response_curve attribute per joystick that
->>       takes the whole curve in a single validated all-or-nothing write:
->>       staged partial edits reaching the MCU on resume cannot happen anymore
->>     - Add a read-only response_curve_index attribute documenting the
->>       meaning of each value
->>     - Restore both curves unconditionally on init/resume: only validated
->>       curves are recorded now
->>   - HID: asus: add support for btn remapping
->>     - Drop the stale cfg->turbo_support gate in ally_config_create():
->>       remapping attributes are created for every device with button
->>       directories, not only turbo-capable ones
->>
->> - v8
->>   - HID: asus: add support for ROG Ally handhelds
->>     - Release the probe reservation when the interface pointer is
->>       published: the flags were only cleared on failure, leaving them
->>       stuck set after the first bind and rejecting every later probe
->>       of that role
->>     - Reserve the keyboard interface role too: its check and its
->>       publication were two separate locked sections, so concurrent
->>       probes of the same role could both publish
->>     - Keep the recorded USB device while any probe is still in flight
->>   - HID: asus: add gamepad configuration
->>     - Report the missing Xbox controller capability with -EOPNOTSUPP
->>   - HID: asus: add vibration strength configuration
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add joysticks inner and outer range configuration
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add triggers inner and outer range configuration
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add joysticks anti-deadzone configuration
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add support for response curve
->>     - Wake pollers with sysfs_notify() after a successful curve write
->>   - HID: asus: add support to force feedback
->>     - Clear the rumble update latch on setup so a fresh interface
->>       cannot inherit one left over from a teardown race
->>   - HID: asus: add support for gamepad mode
->>     - Return -EIO for invalid gamepad modes stored in the device
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add support for turbo buttons
->>     - Wake pollers with sysfs_notify() after a successful write
->>   - HID: asus: add support for btn remapping
->>     - Return -EIO if a mapping is ever found unset instead of
->>       dereferencing it
->>     - Wake pollers with sysfs_notify() after remap and macro writes,
->>       and after a mode switch re-defaults the mappings
->>
->> - v9
->>   - HID: asus: add support to force feedback
->>     - Hold intf_mutex while unpublishing the gamepad interface in the
->>       setup error path, like hid_asus_ally_remove() does
->>     - Improve gamepad interface device lock around the initialization
->>       force-feedback send
->>   - HID: asus: add support for btn remapping
->>     - Unpublish button_entries under config_mutex before removing the
->>       attributes and freeing the array
->>
->> - v10
->>   - HID: asus: reinitialize the device after exiting a sleep state
->>     - Dropped as already merged in XG Mobile patchset
->>
->> - v11
->>   - HID: asus: add support for ROG Ally handhelds
->>     - Split the chained data[1] = data[3] = 0x00 assignment into two
->>       statements
->>     - Align the hid_asus_ally_raw_event() continuation line with the
->>       opening parenthesis
->>   - HID: asus: add gamepad configuration
->>     - Add the missing blank line between struct hid_driver and
->>       asus_init()
->>   - HID: asus: add joysticks inner and outer range configuration
->>     - Align the sysfs_remove_group() and hid_warn() continuation lines
->>       with the opening parenthesis
->>   - HID: asus: add triggers inner and outer range configuration
->>     - Align the hid_warn() continuation lines with the opening
->>       parenthesis
->>   - HID: asus: add joysticks anti-deadzone configuration
->>     - Align the hid_warn() continuation lines with the opening
->>       parenthesis
->>   - HID: asus: add support for response curve
->>     - Drop the duplicate blank line before ally_config_attrs[]
->>   - HID: asus: add support to force feedback
->>     - Add the missing blank line before the static_assert
->>     - Align the hid_warn() continuation line with the opening
->>       parenthesis
->>   - HID: asus: add support for btn remapping
->>     - Align the hid_warn() and ally_set_button_mapping() continuation
->>       lines with the opening parenthesis
->>   - HID: asus: size feature reports from the HID report descriptor
->>     - New patch
->>   - HID: asus: identify XG Mobile stations and bind the LED to the
->>     reported model
->>     - New patch
->>   - HID: asus: expose XG Mobile identity and firmware information
->>     - New patch
->>   - HID: asus: size ally gamepad commands from the HID report descriptor
->>     - New patch
->>   - platform/x86: asus-armoury: pick the eGPU activation from the
->>     reported GPU
->>     - New patch
->>   - HID: asus: report the XG Mobile GPU vendor to asus-wmi
->>     - New patch
->>   - MAINTAINERS: add maintainer for the ASUS HID driver
->>     - New patch
->>
->> Denis Benato (18):
->>   HID: asus: add support for ROG Ally handhelds
->>   HID: asus: add gamepad configuration
->>   HID: asus: add vibration strength configuration
->>   HID: asus: add joysticks inner and outer range configuration
->>   HID: asus: add triggers inner and outer range configuration
->>   HID: asus: add joysticks anti-deadzone configuration
->>   HID: asus: add support for response curve
->>   HID: asus: add support to force feedback
->>   HID: asus: add support for gamepad mode
->>   HID: asus: add support for turbo buttons
->>   HID: asus: add support for btn remapping
->>   HID: asus: size feature reports from the HID report descriptor
->>   HID: asus: identify XG Mobile stations and bind the LED to the
->>     reported model
->>   HID: asus: expose XG Mobile identity and firmware information
->>   HID: asus: size ally gamepad commands from the HID report descriptor
->>   platform/x86: asus-armoury: pick the eGPU activation from the reported
->>     GPU
->>   HID: asus: report the XG Mobile GPU vendor to asus-wmi
->>   MAINTAINERS: add maintainer for the ASUS HID driver
->>
->>  MAINTAINERS                                |    6 +
->>  drivers/hid/Kconfig                        |    1 +
->>  drivers/hid/hid-asus.c                     | 5457 +++++++++++++++++++-
->>  drivers/platform/x86/asus-armoury.c        |   53 +-
->>  drivers/platform/x86/asus-wmi.c            |   29 +
->>  include/linux/platform_data/x86/asus-wmi.h |   11 +
->>  6 files changed, 5474 insertions(+), 83 deletions(-)
->>
->>
+> I could be convinced this should be tagged for stable@, though honestly i=
+t might
+> be better to omit the automatic backport trigger and just rely on someone=
+ to
+> "manually" provide equivalent patches.
+
+I can just see this ultimately preventing a DoS and if it lands on any
+stable kernel it should be a win, but yeah probably manual backports
+are needed :/
