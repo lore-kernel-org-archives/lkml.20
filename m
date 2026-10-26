@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036022;
-	b=H1ml44vi8ZhgFd2T6jBMoB1xwN3iuAVgZPb/Esvxd0L0ev1oXeiAS4+JQxkaET5zdJgf
-	 4BFAyYvgsGww2n+zYOQFf7AsBUmi7zz+hhg17oJbfMt12NzHP/40qD5toLCvPu08mBhuc
-	 iGg4fxAHt5aMPJsKcW5D1sdxte/5cXnkul6EJ+k7pgOGfSomXDUI27n1iEpqigvvKDhL1
-	 ppHPr/vxlplu9EzP353p+GHAbgbyZH4WU5CVv3ITT6Pj8qy+VuaxLUpONXGPe1PPp4gOJ
-	 +O9lVvvM04TSD1E74KZMos/giEpxLh09Xb7Bal6GEbJqI23rtWV2B8fbY76oaqyXNGA==
+	t=1793036054;
+	b=w1gWTyucyVKbT2fY21VwVYi3v0BVbjC6SdsJq4+JmS0ZL+2xLvedKW9QeFgEFqDGHEmK
+	 cFndqtz/ZPr8r2Pulw+TkYmt401SQXy4scd3Hv+KWXnWf3b+2XIG8yjR+GjHxC2k59uur
+	 7ZDopYQaFKvlw98Kkiw6A6Y7v1Ogor4RmZJL3tdD+9aMv+N5oC8ZX4V6fdUWPczLcMHj6
+	 7Tzz20KxK+Ieh9cyu8H4McedFtWFeNqjWPyg7uF9cd05Fm0xboCbYfiTxMZgwbMDpbG7r
+	 HoxxuwHId0Pet6Kk/M4hWqUFC5w2J7K3MN9Ew27UXdAbjEAaqcRBM4A/5QqRoT761VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036022;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=I9NQOc1mhS4mDXnmba+nVe9LmZzsc22eBiEIS2qzy0o=;
-	b=IAd66uh6nmFKPQmscRvfNyy5j59rOy0TSjqHcMJiL//719fJBs8hXtH+KGoe1EKeqQGQ
-	 QpxK3TaBYzoBoZcO9o9S2/+8fwajXwQc+Iw8B9nsg/tGcqhnWVysnZfNACoei49EOOU9s
-	 BG4myUgfG9TPyHgvub2EOi8lSaHQaTlTA8zftizUwki9UA/OT1YQxosqzbQbXMjIkFYFs
-	 yRVHz0MnNyIiHFAWCLfp4X9IQZriPIpQ+zDCYKvX2TGIWScrouxZ3bHNTbkPsTGHSGV4F
-	 R7anvLXnBiM4bY5uXSePVJkgvmZvLGqOIvPv+EYftrLBcgKzPU3RKaR3pDzNTRLZUdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036054;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q1ej1nI921zqZTetq4Op+sq0CAILM6bRn6dONLYm9t8=;
+	b=hQ+Kn2DjVc0UhPoDmBup/ledOEtP8tCpAHZ0erd8O5qHPqk3MdF2PEHIot0vy5RQugTJ
+	 v4XKRF/0E2GEdQLnDVdmDZYu5rQcAFMmevK9a0WuvFTSI5Ir+adr2MmwzRcI0JS4k4zAP
+	 yffATd3ULbOJcseQ64ouxQhq3f5Mm+/kJUWB/4/SO3LAuzx51gW6O/Mm0fpgpfMTsWBIy
+	 n1HVZO8UXwuTns3qlbeXb51NxOsheCoPilbh3pdpeBQ1lC7Z2oIYai5Y/7KXFfhNGaH+n
+	 w5kWOXXFktUBC3G8DBKfsLMHqW/dHu49MTKcYKxVc0dLmBdkWJs2XUlajRIdipplcmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ3CXZBI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEmSR2UH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E6E606A335;
-	Mon, 26 Oct 2026 17:33:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E200606A31A;
+	Mon, 26 Oct 2026 17:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ3CXZBI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980321F031E1;
-	Mon, 26 Oct 2026 17:33:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEmSR2UH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9863A1F01825;
+	Mon, 26 Oct 2026 17:34:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036021;
-	bh=I9NQOc1mhS4mDXnmba+nVe9LmZzsc22eBiEIS2qzy0o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hJ3CXZBIgZi1oG1gzbUDj5tZf7kavMQ1fWbhfRAIF6j6VKb+tEzZjBsLoR7CEFCZj
-	 pNOFEHskBxfapmMPpYU4C1DZMfaA3miSk68lYryEBsJjQQ8ugUDmEWof2nmNA/5PEX
-	 Cnx6CSw7caD/pQBZkoE3o7H9y+LlfOpjXva7teNpHuWnqjaMUEp6uhhqyW0JF3NR7/
-	 I93oFnDosRM6aIy50zIWhRFArdhZvyP7mIIL+cNlZ31y0LVk7I5pD8r1Q5oFZ1Yl0A
-	 Fj6w9qH2hP20tm8zjX/pFY6Iae+WTOS2y7WNcuXz+VRgZ/7LJRv5HzzChsUPMmZzqp
-	 zcsGjRJaqdxQQ==
-Date: Mon, 26 Oct 2026 07:33:41 -1000
-Message-ID: <a87912f2dea62af99230f1b32149b083@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET sched_ext/for-7.5] sched_ext: Sync tools headers with scx and fix unsigned enum reads
-In-Reply-To: <20261023232102.1124938-1-tj@kernel.org>
-References: <20261023232102.1124938-1-tj@kernel.org>
+	s=k20260515; t=1793036053;
+	bh=Q1ej1nI921zqZTetq4Op+sq0CAILM6bRn6dONLYm9t8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kEmSR2UHhYustbnAJvsaPyqu6tDSR1d4mUrs9X7HWio2O0Y4pZROm6WSmEhbdpto9
+	 TtxWw1JhuQ3x5iuM/rWNPSxH5JNwT2zdQRevQgFtrg8Ky1CbzZ5etC5h1jogvlHgTj
+	 CdySO2jlhgMNgGkdjSNq6V6LH7ibs6aUPghWDJzdy5n1chIqnEXK8RpRXI9a3lz8vb
+	 C4ZTPzpDzFn6RHdNzIebh4veTGfw/eSCxvoIk2Xgad6XjDn7mW6w+dK6KRqBwZDkCi
+	 5SrliKY/wzhXdvePY9cjwRbtU8D4d1nFCA3aWFgAMI+qtebsyVc/u0vsck0BvctO2i
+	 TEbngqPKmAlKA==
+Date: Mon, 26 Oct 2026 17:34:09 +0000
+From: Simon Horman <horms@kernel.org>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Woudstra <ericwouds@gmail.com>, Felix Fietkau <nbd@nbd.name>,
+	Asim Viladi Oglu Manizada <manizada@pm.me>,
+	Guillaume Nault <gnault@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] pppoe: drop discovery frames with no MAC header
+Message-ID: <20261026173409.GL257209@horms.kernel.org>
+References: <20261023080002.221332-1-qingfang.deng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,20 +61,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023080002.221332-1-qingfang.deng@linux.dev>
 
->  0001 sched_ext: Don't sign-extend unsigned enums in __COMPAT_read_enum()
->  0002 sched_ext: Sync tools autogen enum lookup tables from the scx repo
->  0003 sched_ext: Sync common and compat headers from the scx repo
->  0004 sched_ext: Drop stale entries from the enum lookup tables
+On Fri, Oct 23, 2026 at 04:00:00PM +0800, Qingfang Deng wrote:
+> Commit 8540827ebac6 ("pppoe: fix reception of frames with no mac
+> header") drops PPPoE session frames with no MAC header to avoid reading
+> uninitialized memory.
+> 
+> Apply the same to PPPoE discovery frames, as both functions read
+> eth_hdr(skb)->h_source.
+> 
+> Found by LLM static analysis, and reproduced using the same TUN
+> injection as described in the mentioned commit.
+> 
+> Fixes: 8540827ebac6 ("pppoe: fix reception of frames with no mac header")
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 
-Applied 1-4 to sched_ext/for-7.5 with the following changes:
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-- 1 is the v2 posted as a reply to the original.
-- Added to all:
-
-  Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
-Thanks.
-
---
-tejun
